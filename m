@@ -1,110 +1,109 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002530;
-	b=F9j7tb0zsK7nz6O5PARxHVbBXnsVEAb7xXzakh6lT0ScbuiW4VlKnX2U8aSwlvUXo9l3
-	 iY2MxFxAUPeVKKfAbITNjW5xpop1fRvesS1j/pFsWC9fCAaNB8ILD0m1mHXgibso91bgn
-	 dy25Q0RraR+nJIy2IW3kphBkyjdOiBOCF/KZv//Zv44XcBlzMmCRj9PFK5/3Ue07q/tnh
-	 wyuffepB5h/xHmOtsAndRlFUoPxf/b1ljnHihxpFtN8BPuxfkCXoU52PnezRTjj4wqaAc
-	 5KELxVkRFbZ9FnHUz2tGRcYzr4phFw7JWYdOBvufJT048JfaFgh8yDNTsy1gV0WSO/A==
+	t=1794002525;
+	b=EbFg6+ZXj+NuNcxDUfCqj+PgWm8Ii29F/OjuL5JNQcdWeRXGOAnndZEOdIR7fVy6W2J8
+	 qLGMUroBoCO9VQjf84BoOQcjOXCOCFV+m2HguTNokjJSGKfW+OK/7a5XcQE5EwOZCpW4q
+	 0ST9VXx2REDHwK9q8ulX1jul0mypKAv3k2yutTo9VQ9oM8W1i2AqkxkfP47ZXE303Inc2
+	 rthO1aTqDfFmO6ZPDMF86sS7xXUPyY3Shp6VS7oVyPEiYz412KN4pOTjNOwcYzkn/Mqkw
+	 61mZvW/DZFfrfvteZV5lvqfNxfYgXJfwzAH7feoR1CBdqXtT/MoUTf58vi5jqm5ETjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002525;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=os4cEGwPPt1N08Ne8yald4bSa5w/m28OgTrW3y2BZsI=;
-	b=f8T7qlOw8//30Zbf2E8Ivu+0ttmE+lxM0ryvM1D8QLoCk/q/HdAQqI+Gw37Zj9womrUA
-	 xJX8J++0lwAyr+Y9fPDGtI2Z3sGZOW+hGUOpinnExOsBzPcTXyP7CU6wMThcCiINc9xCG
-	 Bn/TcCAlHFjpC4zlCZbCypnd+u20/c7m9QlcsIic5eFYekE+MfK/Kcws3/dxoBhCzSx31
-	 DILfl+cM3DybpqN5eTZ8Vd/1NradotbFhr6AZL/RGyEsg90kbSfuK/HoCBRB43gzdQ3lW
-	 BjcYzfUQ648kXO/oDCgT3LQYVTjhOIbVkgfUKfEYQSwJijUBgysJbwyZN9E35Q8hpjQ==
+	bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+	b=uu0ABR9s0CccNXlfWu4NVxZXqJJINRlJvxzPRXZ2TPQ0Nu++ABi0l+Tq95aab9O8ANBx
+	 8dLp7zGIkvLyOsp7HZKvtQPIWM1nFvvEeoMH+aLPyOi5Ix73HngOlpXfkgvePFD8Q2J8T
+	 BEUBEyB9Hb8R98cmb4tuSxbfXLUezD1EUBH5jDDSgRQM3+K6gpgoOm77PLwYrqmzIMsQn
+	 Jq6HnTFePZ3C3p1RUuW6ZYhblhKu+Z6zNEkYVQkxn1ktEFgDtIe9IvACe3MIlx9bPWqWv
+	 cN83g6LZiDYhR7p6yTD0BSEvS272XuXP4PfK/3XPSlEdwxpPdQqHnw57xhhj6f9phFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QQSPvdWh;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XuCfREKd;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i0L4edZR;
+	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cb9Ev+QF;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A640606D805
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 22:02:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A640606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87FC606A32D
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 22:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A87FC606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QQSPvdWh;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XuCfREKd
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i0L4edZR;
+	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cb9Ev+QF
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6JLW1G1263191
-	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 22:02:08 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6JLTYY1263149
+	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 22:02:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	os4cEGwPPt1N08Ne8yald4bSa5w/m28OgTrW3y2BZsI=; b=QQSPvdWhrmDnutuU
-	BGyf3hNq2jgxllGfhw42Gb95fN3Z5ylNbD5kFhI9imW6gWdeRw1+Rgujw5mjc2uG
-	SJAGDFByXOHFHaUsFBoEzASKwSKwmF5zml21eWl0RC8/X7WFv7DELHJbXHTQ1N7f
-	YwaLr+a+P79dlFnEmtpPBm5Znu+N9iIXbp79mT71AxBgNn2hDyUn7SC46ACEnWhq
-	wM+lundcQ0aNuOow6xvDHvDk40Kf4ee99+AKQcraHsoLrfqu9S+IccdJHy4MEApa
-	YapDUQ7+vw66uABCZAh2+brAUuHz/EdA50q0YW/vb4afOfpdGQhjtoU+CYlxH996
-	PwfpOg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsmywrgmh-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=7yEuGiHrl8v2KO1Qgqcvsz
+	xhl27VpOHCTIq8+dICIGk=; b=i0L4edZR3i/ni09UBm5ll8dGWzoybXYNQLNY5V
+	vvjWK1712HYivGRWMj2Cr0tQQOVbdsYWGpi9Ro8Sdx9Q+FzOA2IjcGre3pVEBvTN
+	yKxbUZv/autEtk4P/XkFKPl7FkisApPEC8XEpZrsTOt8wKXrO3w4owjazw5HnVbU
+	qbIhobFg3jsbQNh+rZmmCm+y5+jU0SFsOvy6+0UAtJYIz1lvMWNWtwLCeyBOJdbc
+	B56m5Ok1h2o6OM73xtAi9rK+Nfr1nZh+627PEGtr+WKjYbqUp5WYGNFVC0TnUtjW
+	5L7Qgr0ZTEr58tCvpNvXtTcvtM9Fcvz+bRvSTkj8mgqCHo5Q==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsmywrgm6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 22:02:08 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ecb636b587so307114e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 14:02:08 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 22:02:03 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7bf45382794so1024679137.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 14:02:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794002528; x=1794607328; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=os4cEGwPPt1N08Ne8yald4bSa5w/m28OgTrW3y2BZsI=;
-        b=XuCfREKdv+9PRJZRMBCHov5XdYddZDEUAKscrBIfAG5EEAlBmrC3kQOPf4SYCOOHqE
-         fpk76b1GW2xs9Davr7V0K5nwLXBzmNAwvVKSZvwom7fLZuIiMhIOKYrJQO1gKVdChV3c
-         I/r7ormNedacp8xJqcLaVlcrLQYS6tWdx1YuvPHWd4/GqpgHgdGRdsmD43L3ASGxgiR+
-         U73eW6tyPPxNt1vkqhIeByam12S+qd/5z+g8Jr21YIl0DfBBX3wBO4rfZ8txd83b6U7S
-         eA9sLHZ1FzM1nZedDu7LnS/jdyUBx5p1LDvvGdXF4+x3TufpmSKwkltdcjzmSDnI9l4T
-         bMfA==
+        d=oss.qualcomm.com; s=google; t=1794002523; x=1794607323; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+        b=cb9Ev+QF3A3U18mKZ9b8pMXoOzWDMSDM7qKajSNWixIqxQEvVigNNqodq1IgEGPFjF
+         ou0zLWFZyG1lZh8YadUaNgorBNdceTCEVO9/bAiFn5vb740e76kqOS8rUz1cLxtOOPIv
+         /H7YhGlt0JNHJkfaS3xLnWc/ejbmiptitqbytPa4r3dt/EsLyHUt8qdQSNypIK0d8voI
+         B2kXcOl3xIKEEt7WsN8r2ROHQBa17LenG1OJGnzm9ged61p4O+eTkc72tZubEN3oWIl8
+         zgIdAiLlRq0arosfmqiRO/7P7VIiQaPVqs++d/fxm7sqmcRevNGxV9zDkoh4vWOyluk+
+         v+9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794002528; x=1794607328;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=os4cEGwPPt1N08Ne8yald4bSa5w/m28OgTrW3y2BZsI=;
-        b=K9rBbtJrIQBnI9T5vMr+/na0Z933Lvygrp7fKmKAnbbQ3SJbICuXIkSalK1xNsScnJ
-         mkgsBgHDVCXnhxzs2+Vp1GnT2VJoYbpeYsQe9JG4HmEVjCTGIGVZJCYNYJI27VkZa/cP
-         srrjLksqnZg6HUuDoNb8AcfRrQ3WMi07zqZygskRH/gZn0KnlW2yiqcn0wcOveGsb3po
-         D/eKGRwS9Q5wnW3Zz+1K1apV8Wrm6dKnPJFdIY8Nt2GbtocGIlt2LcrZdls0CYkpZlhz
-         P/nikPlK/iw54oB18PjNKrldQY4uBqf/fLWVWGzwcCXfVviLZKYqyLQTkmdPuH+PI6Tg
-         uW9w==
-X-Gm-Message-State: APuU4Z+aKEJnjfGCtkiAr26+MTK+6H5ztUpt7I7OSZsJ4DVaTrqbcaqk
-	X4fXA/ofvR22cMem41qiI63gx3/HfD+jY6QC9n+aHayxJpqp5bT5QGWCKJrmSv8/pmIH3EV97mi
-	TO11ipbg3bqx2C+4FCRao44/n1CurMTnbt81AYwJQ6fPa8kkz37Hw3ymLHrNF/tu0
-X-Gm-Gg: AYBFou3aUcO/hBlrSBQoON05z9YPOFWDiau/2GrG+Riw4KBtMi6T505rLm4RTwa5K/X
-	8NcqPCg1I13uVc+gi1BbMV+ogkQ1lE/7vXXQVTD5vWamsmH8n6wAYlPGoJ6uL6mOfpTHFcBwDw8
-	as/uve2S592kY++vzC1Zw/5o42mss0pQh40it0M2S93gkE0+5HxsCXzHAX1R50P/NGr6Yu08hlR
-	3ZBdcKCx14Tao7sg8wKYXOSGe1k8mf8NEd8QCLP2z78Gux2kXvYeOuNR7ZA1o/s58SD8wsBHPEo
-	cFdgZEB7gxYUO5h1KA6Lo/PiEJbemd9Ey4lnW7w0c51vUcw8cW61kcmMuLdh9E1l3JWMtX3g3Q1
-	a/YbIG9n+5doe3AhUJ6G9qXQh985A5fqDIA5UAwAcc0rbitfb57LgMf0CoA==
-X-Received: by 2002:a05:6122:3b85:b0:5ea:7126:38a7 with SMTP id 71dfb90a1353d-5ecc43fc0a3mr1848601e0c.13.1794002527385;
-        Fri, 06 Nov 2026 14:02:07 -0800 (PST)
-X-Received: by 2002:a05:6122:3b85:b0:5ea:7126:38a7 with SMTP id 71dfb90a1353d-5ecc43fc0a3mr1848574e0c.13.1794002526668;
-        Fri, 06 Nov 2026 14:02:06 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794002523; x=1794607323;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+        b=tw6JIoBBRdZ3M4/KCLXwjddXJQiq7Aofu5hdziaVlMEhKGAj5lYjjr9PhjpEJOF9DN
+         5aZCtGsB84CN8v39RhjVXjhOqejurKDw4UC9jG+lwbDMCSZ3Vv1t7OMjXTYfAuCDaW+s
+         phoE9GXeY+T8yXyboRxrH7GupRt3AHhpE2h+MnWIOqGvXdrIgudaHWm7/qNBElqEnU9c
+         YHQzIBlEkfbx4hm0PRHTivtYtJz7LetAzuba3Hoy/vNplT+hJRJh7C58Dv/S2jQ+H8NA
+         u8OEZdO2WksziZoITr5/6LDl7akC5pmUUUirjcE3LoyZF/4jcPmfl/3evs9fyqBc1De7
+         MPiw==
+X-Gm-Message-State: APuU4Z8SkL6Id7IHpNQoe73zSj5w2VxSCa/zLua86tGutmaN/jzpUZXI
+	fm+SKkMVtMp41Hlgvfpd1tKgX/ua8CU8fpQWNN2hyD/8ETcjfPxmuD0jTCGwE94iEpLZbLJx7SE
+	+gSmzI0gdAGBB/f5R4Vk95pE/LaSZf0WcppXrdBOt+ynTaBpA7/QYBFjciKW72mvj
+X-Gm-Gg: AYBFou3kvdvDN7ZDj4NMhRT/XguU+do2e5GqdgInJ9RI5vAUHCmFThsoCJ3gCMJ3VNj
+	BMEfoGipYpMcFkvReomrfxWs5lW8cyJSRT32KVDHyt9kgRZkEKs1OqLA0YuNxFoQ31FidOgDboD
+	efbaG+2MSUZ1S36hBtxs6ATNNEIsU+2P+8DprSIj+6BpC+sLPV4w65wagok0sWwufPlylnl90IY
+	nJgn3jE0vecevy4x0u5d/Ef318YE4yizmZjCi1R9PsmbmdoZ2Ad0GZE+VA9Am+VCl5azrHFjVBG
+	VAGDxKEXzCyz96zisCxtKh7pYCrIIjyNCqbHWbB7/9ia+aGCcDrDjyeS38A2Jxhclm7eiIgxH8v
+	WZiIxtS0fYRq/D/o1bSVlf/Gm6ZCUpY4dGuA7wIxJ0j5zJf9KP1d9MECBAg==
+X-Received: by 2002:a05:6102:32d1:b0:7cc:174b:f7d8 with SMTP id ada2fe7eead31-7d2a12f2ea3mr2331142137.1.1794002522605;
+        Fri, 06 Nov 2026 14:02:02 -0800 (PST)
+X-Received: by 2002:a05:6102:32d1:b0:7cc:174b:f7d8 with SMTP id ada2fe7eead31-7d2a12f2ea3mr2331120137.1.1794002521849;
+        Fri, 06 Nov 2026 14:02:01 -0800 (PST)
 Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc6162sm5812437f8f.47.2026.11.06.14.02.05
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc6162sm5812437f8f.47.2026.11.06.14.02.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 14:02:06 -0800 (PST)
+        Fri, 06 Nov 2026 14:02:00 -0800 (PST)
 From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Sat, 07 Nov 2026 00:01:53 +0200
-Subject: [PATCH 2/3] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC
- support
+Subject: [PATCH 0/3] platform: arm64: lenovo-thinkpad-t14s: Add support for
+ the Gen 7 EC
+Date: Sat, 07 Nov 2026 00:01:51 +0200
+Message-Id: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,9 +115,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-t14s-gen7-ec-v1-2-f4a8edaac447@oss.qualcomm.com>
-References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
-In-Reply-To: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAE9O7moC/yXMTQ5AMBBA4avIrE3S1l+4ilhQg7Eo6SAScXfF8
+ lu8d4GQZxKoogs8HSy8uAAdR2Cn1o2E3AeDUSbXWuW46VRwJFcgWTRlkZVJ17dqsBCS1dPA57e
+ rm9+ydzPZ7X3AfT9++Z90cAAAAA==
+X-Change-ID: 20261106-t14s-gen7-ec-297593bda0fc
 To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
@@ -131,42 +131,41 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10522;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1680;
  i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=5dKibAZ6ZU3lOFr8AXr6g4jUHc5T82QMjNnpp1/dj9E=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq7k5W9iy/CyUEQqguIS7cUzSqqipMdRFJo54VM
- jOUvUgsCBWJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCau5OVgAKCRAbX0TJAJUV
- VpU4D/wKUXGRs8sNtSf8r7xrnms9dRnWoV7fWoIYR0LN1Gx7N8Vz3uMVgeYeWLRXM/fSgVdEwBh
- TjTFopTpzXE6XTGiHZLVPhpJhPRFlNCxgOwQ6nqOBC4ciL7qemjLS+HeUdXEpenf1in06G58ePi
- G7n5+57HegABB9wsGQFizyCqPXU8GABN9NVzblO8HaMx/JCtPj6AGWe/OBovEWYO+JrvHy+++LP
- b95ZydkB6ALcbXAqqqm5DA59dEV9TahUXpgZlYKPs1rYTv2KQe1I0blEWgLGiLcdS2D4ERoLdrK
- vTAmqBXprkq0597zJ2qq316K4kVYuxxXmb+bej7W302rUu5rC/8cbMtHbWBnIV5xI8+uwEq2e3t
- GxiNkAjjqz+TyP/+VEld4iqDBCvCwnurY1Xw7R54Pk9G79EZBnV+QkmAFE1MPA6YyOWObaWQ2/6
- KJc4EqgxKMcj+1Np2dkQy2cfbvA16ATq6bSUvULVIvK6RU5SSA9m0svGa29jrfjTh6VkWx/HEvR
- HJfIIFhvLB89SFetKxSa90V0lADm1uRZJPES0SkJENfuqkRquLuJ7GyoyxRbjj5q9j0sdmqHqXv
- FgrdwGNvgkmK/pVqxV1Vew4d+6JkF7linrAEYdmipz+JBDafTaDdHdMWubMZAB8msFWPTy8S3QB
- aMCo1PmrODiRpyw==
+ bh=X8BfmvpE8W7+B2t4IJID/uS+mnVleh2clOpF9Xw2obo=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq7k5UdDjlMhFo+w5WSKkPrkrk+l7CpPlWADNeq
+ I1iEjXex7+JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCau5OVAAKCRAbX0TJAJUV
+ VhWdEACS/USlBGnUt5PP9IL9TAcO6sJr1IknBqkK0SmE1IfcRgn8wxVxGGncBrEUKS4ITqqP3Db
+ 5lvEwB9dLa5Z8Ww1rTDriz/D7YdFoftjvKfJwFtHzZieZkgKahhUAIcm617g1AdHU9kILP3PzVL
+ JgnEAi6Cs/G19V8njZ9oNJX1agC7gfijJqGkg8GQDVRpc0RfmBG33ZOlEd7jmcRQegM2dhTdaJ4
+ 5/qt/9bNQ1Cr06rMGwnVGsha0JUpNeAD2YKejDR9ZIUAk0lZgIMNysCqU8K3/WgwUOD1QPm3f7M
+ AODyrwLhcpCIzN9mGWyIFJEP2/PJyALm0xz1TNr5R1/hsVlcrKW1UoxSpWFCXrD+IMkQdozcpbL
+ 1wMGHZUvKrRTW/A0L4HhkdGj96UIrUWd0BACPZiSOrFnxfZAvMh5Ub6OuZaczAHiGXpC55HWiT5
+ rOIflvDFpXWVuqMwEoJDTEv5noN1VviR7pO3KapCuyR2J9gPpRl1RReuFs3tFIPWgLlWEr+JIZx
+ joX+wrHb3Uc9FPTtHHvIV+a26zJF02NPSjo9b/qWvzU/zHA6GDPZ5MYCusVYmW585pHUl2OE7ff
+ 6alck/OwziocUisB479c5SwqeCFlKgcXC658z9DhGRIkBmk+0K+n2CsgO159oANrnXLx9nWLMY6
+ GB8xlh5XYYFBUEg==
 X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=A6j5rKWG c=1 sm=1 tr=0 ts=6aee4e60 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+X-Authority-Analysis: v=2.4 cv=A6j5rKWG c=1 sm=1 tr=0 ts=6aee4e5b cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=sthCoXyZjc845R8Nhh4A:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfX2wZAX0/1eTSS
- HycWPyG4i8my3FIggRxY/66ie8k6vL6jUNo4DVFgaKp48M9Pxh54ipp/HmujCw/rtcy8bMMdpKc
- HX4An/e2TeKhfDY9CJfMjmv7YmHKJ4aA0M2hEW5XmtdbZBEZlluGp+wHutiKU+dzvQveLr2/QTe
- aIX7216J+9U8yQ6NDGxDPWywiqwq8AzEKsMQAZmrFo273QsmKLbMmxPY+4WyHTotYA3UN3E86Gv
- GczQPVSDKlsjdWqXTxZxO5KUdxJtkCm80C3u383WxTmBe/bgxW4WOBNrB9YLebs44ciVZcGa/B1
- DqRuBCIb+xrmaqjG7US6dMkcQW3e90UBqx9FgnSvt0SruelgbV43vl5F+j0ImwNkgurESBDFi7Q
- fQUhP1YybPvbH+zevFedFdwB2oqBZwJoay1sB/tjr8Ywt2P4g4Cwxo90QIlBtoIJrGNpSzWi618
- g51V/+iOUWUVilWnVbQ==
-X-Proofpoint-GUID: 6DrY3VOEUxbdsOHgk1VZuB6PHDKyh8uT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfX8cDZQRHxciGd
- yI3PbdSUFFzu+KYMnR1zEEKZ9UlU5Pti3RUFi/d3NZgUGveWh9cTgVDznpi33h6XR3qeSCWc7F/
- bfGVEDKrTcFPXSk4Ib9WnxiPEYb1GP4=
-X-Proofpoint-ORIG-GUID: 6DrY3VOEUxbdsOHgk1VZuB6PHDKyh8uT
+ a=7rjXLmKk895soiuU5V0A:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfXxlPlEh7VND6q
+ 1Au8zoLR7flea/4GJ2eERfGx+ES75JNwLxAN5B1yYnvMjWinEWxqVCPLI+pNarqPNghtesZnrVf
+ kSld3ZbPp0U7o3e22YmgDRIsQR8LMqpjzkP5X5VV30+Uv6hd+aTHDFgKJ5LoBdbyuHIHZNENbhZ
+ O4V6zjtDxhwRbjy9bsqpqtFOq7wrin/GtmNy0pf3Ph/xg5DmStCVBE72Vx9LNrbNQa5m1KmUzv2
+ oIfhFsypDvHheMyseJydjwcuzWb/arhxJLLr/rvXNVZs0GvG6FjAVuYFP5NG1rn40TLiEiVzNnF
+ Bckjozb2ymNJmy7Tozsv0LY6AW3PwhiiVBZWGc1AGXDD82wcKyyFOKXp3MQCN1+ezmgxL66FYkG
+ lkj/KKJSUArUnNdVdJGAV8mr5WFmHEGGxOZZIqflDnpAzMNzwWkh9QeywJw7DhQvRgrERKbGb51
+ Bx/y+QkmIhLKA7kfWaQ==
+X-Proofpoint-GUID: Ruo8eVWYz0XuSBqQmfo_h1voCciwyU6h
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfX78172AhhmrfJ
+ K/g53QGaN5WkwUhtzXRXToGNRUTV/ifEslSKJkke+a1blCJjsVu1tEZeBroMvVuxHF3GocSfnpl
+ 7Tt2DNcVEdpk5lHh8e5Zp4sI8qIyUUY=
+X-Proofpoint-ORIG-GUID: Ruo8eVWYz0XuSBqQmfo_h1voCciwyU6h
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
@@ -176,328 +175,43 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060087
 
-The embedded controller of the ThinkPad T14s Gen 7 uses the same
-register layout and event codes as the Gen 6 one, but a different set
-of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
+The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2, Mahua) has an embedded
+controller at the same I2C address as the Gen 6 one, with the same
+register layout and event codes, but it speaks a different command
+protocol over I2C. With the existing driver the EC never reports any
+event and the LED and keyboard backlight writes have no effect.
 
-  - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
-  - register write: write {0x81, reg, val}
-  - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
+The Gen 7 protocol is taken from the ACPI EC accessors in the Gen 7
+firmware (RDEC, WREC and QEVT): reads, writes and event reads use the
+0x80, 0x81 and 0x84 commands. The firmware also describes the EC
+interrupt as edge triggered, active low.
 
-With the Gen 6 commands the EC never reports any event and the LED
-and keyboard backlight accesses have no effect.
+Patch 1 adds a Gen 7 compatible to the binding, patch 2 adds the Gen 7
+variant to the driver and patch 3 describes the EC on the T14s Gen 7.
 
-Describe the bus accessors and event read per variant and add one for
-the Gen 7. The Gen 7 firmware does not use the second keyboard backlight
-register or the modern standby register, it drives the mic mute LED as a
-generic LED (id 0x0e) instead of a bit in the audio register and, when
-the keyboard backlight is cycled with Fn+Space, it also reports 3 for
-the high level, so handle those differences too. Also handle the Gen 7
-only events as known ones.
+Tested on a ThinkPad T14s Gen 7 (LCD): Fn+F4 reports KEY_MICMUTE, the
+mic mute and lid logo LEDs (including the hardware blinking) and the
+keyboard backlight work, and Fn+Space changes are reported through the
+LED class.
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Prepared with help from an LLM-based assistant.
+
 ---
- drivers/platform/arm64/lenovo-thinkpad-t14s.c | 176 ++++++++++++++++++++++++--
- 1 file changed, 166 insertions(+), 10 deletions(-)
+Abel Vesa (3):
+      dt-bindings: embedded-controller: lenovo,thinkpad-t14s-ec: Add Gen 7 support
+      platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC support
+      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Describe the Embedded Controller
 
-diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-index 7a875877c8f3..b488b85bf7c0 100644
---- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-+++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-@@ -17,7 +17,9 @@
- #include <linux/interrupt.h>
- #include <linux/leds.h>
- #include <linux/lockdep.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- #include <linux/pm.h>
-@@ -26,6 +28,15 @@
- #define T14S_EC_CMD_ECWR	0x03
- #define T14S_EC_CMD_EVT		0xf0
- 
-+/*
-+ * The Gen 7 (Snapdragon X2) EC uses a different command set over I2C, as
-+ * described by the ACPI EC accessors in its firmware (RDEC, WREC, QEVT).
-+ */
-+#define T14S_GEN7_EC_CMD_RD	0x80
-+#define T14S_GEN7_EC_CMD_WR	0x81
-+#define T14S_GEN7_EC_CMD_EVT	0x84
-+#define T14S_GEN7_EC_LED_MIC_MUTE	0x0e
-+
- #define T14S_EC_REG_LED				0x0c
- #define T14S_EC_REG_KBD_BL1			0x0d
- #define T14S_EC_REG_MODERN_STANDBY		0xe0
-@@ -67,6 +78,15 @@
- #define T14S_EC_EVT_KEY_FN_F11			0x7a
- #define T14S_EC_EVT_KEY_FN_G			0x7e
- 
-+/* Gen 7 only */
-+#define T14S_GEN7_EC_EVT_HKEY_1017		0x1c
-+#define T14S_GEN7_EC_EVT_STATUS_35		0x35
-+#define T14S_GEN7_EC_EVT_DYTC			0x3c
-+#define T14S_GEN7_EC_EVT_STATUS_40		0x40
-+#define T14S_GEN7_EC_EVT_STATUS_4B		0x4b
-+#define T14S_GEN7_EC_EVT_STATUS_4E		0x4e
-+#define T14S_GEN7_EC_EVT_HKEY_1016		0x76
-+
- /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
- #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
- 
-@@ -93,9 +113,24 @@ struct t14s_ec_led_classdev {
- 	struct t14s_ec *ec;
- };
- 
-+struct t14s_ec;
-+
-+struct t14s_ec_variant {
-+	const struct regmap_bus *regmap_bus;
-+	int (*read_evt)(struct t14s_ec *ec, u8 *val);
-+	/* EC has the second keyboard backlight and the modern standby registers */
-+	bool has_kbd_bl2_and_standby;
-+	/* mic mute LED is a generic LED (in T14S_EC_REG_LED) and not a bit in T14S_EC_REG_AUD */
-+	bool mic_mute_led_generic;
-+};
-+
- struct t14s_ec {
- 	struct regmap *regmap;
- 	struct device *dev;
-+	const struct t14s_ec_variant *variant;
-+	/* serializes the multi-message Gen 7 EC transactions */
-+	struct mutex xfer_lock;
-+	enum led_brightness mic_mute_cache;
- 	struct t14s_ec_led_classdev led_pwr_btn;
- 	struct t14s_ec_led_classdev led_chrg_orange;
- 	struct t14s_ec_led_classdev led_chrg_white;
-@@ -206,6 +241,85 @@ static int t14s_ec_read_evt(struct t14s_ec *ec, u8 *val)
- 	return ret;
- }
- 
-+static int t14s_gen7_ec_cmd_read(struct t14s_ec *ec, u8 cmd, u8 arg, u8 *val)
-+{
-+	struct i2c_client *client = to_i2c_client(ec->dev);
-+	u8 req[2] = { cmd, arg };
-+	struct i2c_msg msgs[2] = {
-+		{ .addr = client->addr, .flags = 0, .len = 1, .buf = &req[0] },
-+		{ .addr = client->addr, .flags = I2C_M_RD, .len = 1, .buf = val },
-+	};
-+	int ret;
-+
-+	guard(mutex)(&ec->xfer_lock);
-+
-+	ret = i2c_master_send(client, req, sizeof(req));
-+	if (ret < 0)
-+		return ret;
-+
-+	fsleep(5000);
-+
-+	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (ret < 0)
-+		return ret;
-+
-+	return ret == ARRAY_SIZE(msgs) ? 0 : -EIO;
-+}
-+
-+static int t14s_gen7_ec_write(void *context, unsigned int reg,
-+			      unsigned int val)
-+{
-+	struct t14s_ec *ec = context;
-+	struct i2c_client *client = to_i2c_client(ec->dev);
-+	u8 buf[3] = { T14S_GEN7_EC_CMD_WR, reg, val };
-+	int ret;
-+
-+	guard(mutex)(&ec->xfer_lock);
-+
-+	ret = i2c_master_send(client, buf, sizeof(buf));
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int t14s_gen7_ec_read(void *context, unsigned int reg,
-+			     unsigned int *val)
-+{
-+	struct t14s_ec *ec = context;
-+	u8 result;
-+	int ret;
-+
-+	ret = t14s_gen7_ec_cmd_read(ec, T14S_GEN7_EC_CMD_RD, reg, &result);
-+	if (ret)
-+		return ret;
-+
-+	*val = result;
-+	return 0;
-+}
-+
-+static const struct regmap_bus t14s_gen7_ec_regmap_bus = {
-+	.reg_write = t14s_gen7_ec_write,
-+	.reg_read = t14s_gen7_ec_read,
-+};
-+
-+static int t14s_gen7_ec_read_evt(struct t14s_ec *ec, u8 *val)
-+{
-+	return t14s_gen7_ec_cmd_read(ec, T14S_GEN7_EC_CMD_EVT, 0x00, val);
-+}
-+
-+static const struct t14s_ec_variant t14s_ec_variant = {
-+	.regmap_bus = &t14s_ec_regmap_bus,
-+	.read_evt = t14s_ec_read_evt,
-+	.has_kbd_bl2_and_standby = true,
-+};
-+
-+static const struct t14s_ec_variant t14s_gen7_ec_variant = {
-+	.regmap_bus = &t14s_gen7_ec_regmap_bus,
-+	.read_evt = t14s_gen7_ec_read_evt,
-+	.mic_mute_led_generic = true,
-+};
-+
- static void t14s_ec_write_sequence(struct t14s_ec *ec, u8 reg, u8 val, u8 cnt)
- {
- 	int i;
-@@ -318,6 +432,9 @@ static int t14s_kbd_bl_set(struct led_classdev *led_cdev,
- 	if (ret < 0)
- 		return ret;
- 
-+	if (!ec->variant->has_kbd_bl2_and_standby)
-+		return 0;
-+
- 	val = FIELD_PREP(T14S_EC_KBD_BL2_MASK, brightness);
- 	ret = regmap_update_bits(ec->regmap, T14S_EC_REG_KBD_BL2,
- 				 T14S_EC_KBD_BL2_MASK, val);
-@@ -338,7 +455,11 @@ static enum led_brightness t14s_kbd_bl_get(struct led_classdev *led_cdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return FIELD_GET(T14S_EC_KBD_BL1_MASK, val);
-+	/*
-+	 * When cycled with Fn+Space, the Gen 7 EC also uses 3 for the high
-+	 * level, which looks the same as 2.
-+	 */
-+	return min(FIELD_GET(T14S_EC_KBD_BL1_MASK, val), 2);
- }
- 
- static void t14s_kbd_bl_update(struct t14s_ec *ec)
-@@ -383,6 +504,9 @@ static enum led_brightness t14s_mic_mute_led_get(struct led_classdev *led_cdev)
- 	struct t14s_ec *ec = container_of(led_cdev, struct t14s_ec,
- 					  led_mic_mute);
- 
-+	if (ec->variant->mic_mute_led_generic)
-+		return ec->mic_mute_cache;
-+
- 	return t14s_audio_led_get(ec, T14S_EC_MIC_MUTE_LED);
- }
- 
-@@ -391,8 +515,19 @@ static int t14s_mic_mute_led_set(struct led_classdev *led_cdev,
- {
- 	struct t14s_ec *ec = container_of(led_cdev, struct t14s_ec,
- 					  led_mic_mute);
-+	int ret;
- 
--	return t14s_audio_led_set(ec, T14S_EC_MIC_MUTE_LED, brightness);
-+	if (!ec->variant->mic_mute_led_generic)
-+		return t14s_audio_led_set(ec, T14S_EC_MIC_MUTE_LED, brightness);
-+
-+	ret = regmap_write(ec->regmap, T14S_EC_REG_LED,
-+			   T14S_GEN7_EC_LED_MIC_MUTE |
-+			   (brightness ? T14S_EC_LED_ON : T14S_EC_LED_OFF));
-+	if (ret < 0)
-+		return ret;
-+
-+	ec->mic_mute_cache = brightness ? LED_ON : LED_OFF;
-+	return 0;
- }
- 
- static enum led_brightness t14s_spk_mute_led_get(struct led_classdev *led_cdev)
-@@ -478,7 +613,7 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
- 	int ret;
- 	u8 val;
- 
--	ret = t14s_ec_read_evt(ec, &val);
-+	ret = ec->variant->read_evt(ec, &val);
- 	if (ret < 0) {
- 		dev_err(ec->dev, "Failed to read event\n");
- 		return IRQ_HANDLED;
-@@ -553,6 +688,16 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
- 	case T14S_EC_EVT_KEY_FN_D:
- 		dev_dbg(ec->dev, "FN + D - toggle privacy guard mode\n");
- 		break;
-+	case T14S_GEN7_EC_EVT_HKEY_1017:
-+	case T14S_GEN7_EC_EVT_HKEY_1016:
-+	case T14S_GEN7_EC_EVT_DYTC:
-+	/* Status events the Gen 7 firmware does not act upon either */
-+	case T14S_GEN7_EC_EVT_STATUS_35:
-+	case T14S_GEN7_EC_EVT_STATUS_40:
-+	case T14S_GEN7_EC_EVT_STATUS_4B:
-+	case T14S_GEN7_EC_EVT_STATUS_4E:
-+		dev_dbg(ec->dev, "EC event 0x%02x\n", val);
-+		break;
- 	default:
- 		dev_info(ec->dev, "Unknown EC event: 0x%02x\n", val);
- 		break;
-@@ -572,9 +717,17 @@ static int t14s_ec_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	ec->dev = dev;
-+	ec->variant = i2c_get_match_data(client);
-+	if (!ec->variant)
-+		ec->variant = &t14s_ec_variant;
-+
-+	ret = devm_mutex_init(dev, &ec->xfer_lock);
-+	if (ret)
-+		return ret;
-+
- 	i2c_set_clientdata(client, ec);
- 
--	ec->regmap = devm_regmap_init(dev, &t14s_ec_regmap_bus,
-+	ec->regmap = devm_regmap_init(dev, ec->variant->regmap_bus,
- 				      ec, &t14s_ec_regmap_config);
- 	if (IS_ERR(ec->regmap))
- 		return dev_err_probe(dev, PTR_ERR(ec->regmap),
-@@ -618,8 +771,9 @@ static int t14s_ec_suspend(struct device *dev)
- 
- 	led_classdev_suspend(&ec->kbd_backlight);
- 
--	t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
--			       T14S_EC_MODERN_STANDBY_ENTRY, 3);
-+	if (ec->variant->has_kbd_bl2_and_standby)
-+		t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
-+				       T14S_EC_MODERN_STANDBY_ENTRY, 3);
- 
- 	return 0;
- }
-@@ -628,8 +782,9 @@ static int t14s_ec_resume(struct device *dev)
- {
- 	struct t14s_ec *ec = dev_get_drvdata(dev);
- 
--	t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
--			       T14S_EC_MODERN_STANDBY_EXIT, 3);
-+	if (ec->variant->has_kbd_bl2_and_standby)
-+		t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
-+				       T14S_EC_MODERN_STANDBY_EXIT, 3);
- 
- 	led_classdev_resume(&ec->kbd_backlight);
- 
-@@ -637,13 +792,14 @@ static int t14s_ec_resume(struct device *dev)
- }
- 
- static const struct of_device_id t14s_ec_of_match[] = {
--	{ .compatible = "lenovo,thinkpad-t14s-ec" },
-+	{ .compatible = "lenovo,thinkpad-t14s-ec", .data = &t14s_ec_variant },
-+	{ .compatible = "lenovo,thinkpad-t14s-gen7-ec", .data = &t14s_gen7_ec_variant },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, t14s_ec_of_match);
- 
- static const struct i2c_device_id t14s_ec_i2c_id_table[] = {
--	{ .name = "thinkpad-t14s-ec" },
-+	{ .name = "thinkpad-t14s-ec", .driver_data = (kernel_ulong_t)&t14s_ec_variant },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, t14s_ec_i2c_id_table);
+ .../lenovo,thinkpad-t14s-ec.yaml                   |   4 +-
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   |  24 +++
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c      | 176 +++++++++++++++++++--
+ 3 files changed, 193 insertions(+), 11 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-t14s-gen7-ec-297593bda0fc
 
--- 
-2.54.0
+Best regards,
+--  
+
+Abel
 
