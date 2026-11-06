@@ -1,67 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998088;
-	b=Qy6EktVQyg8+6JhKNs7M+hh39FqiQX4RLLrha6B3hvPrMjfVNPj+r61fydy7nPZePAFy
-	 edHwMxEpDEHfQ61RIQLq0/Ij5SRGUVqKzZBq4+Z92un53hu517lQFWHBLmTs3bhWkdzad
-	 oat5ehMvMVywGjZROsl49T7SZmHIsdhbgIvfDpfyilHlhWHqF+FFnO6bYU+fRqLJYtkDI
-	 bg0gUqj3xUemivOMh/tdQkavTT7zV9NbTkZP6npsTaIDDVH4U3mF0nn0MbL+hVrvxJUME
-	 kldtLp4Md0pD0fSFKpIVHeKzO3YF9tLOJmB+w9Za15V3KVK+2pnB90fPxkkB7craz+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998088;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HZho2msgoJMdouDBhI/tZS+qfCR+U++y56XOVqrTM1M=;
-	b=uOvAZh9S8c/5ZCWh7sXRWz83HylT0FkGYiORoyPIFXZO3ZjEcgIpouRFOfpzBmfgKd+9
-	 whIaJnbZ0cNbWojYJlRGe5mwcJ2KW8wx9A/HuZqrqjeKpJUIJs6/5vqcEA51Qkrvw2EdB
-	 7a5Y2+RVy6WGjKH1L0LggH9T1M/XEAt4YNb4C4l7AsK5dSgP/SogLKIDyaGcXhus6/13f
-	 4GiFS4kHYNYk6Tajqxcvb5/vo8dRiCectjfDK0AoJbz0yH3JZf/TpXodX3xIUopuDjy0w
-	 fsUW/mn8CiRrt5Wc6ZqVwvaPEmKC24OKzEQO9A7e2gtIjQNeXnRxeseueMDi3z9Uy7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIr5sIzw;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793998612;
+	b=MKfCQ05JkTjfa2bspT4QaOCDI+kyCWQRQ5zCH+sqjVGrILS6qGnoNtzY5RBCdO+7YSyd
+	 GLnPUCj+M05C5WgwD14qG2yireq/uSqWGOBEJyg8k6LYEPlqQs3xfmuAD6aKUN/rFMKew
+	 9KJkgoLBindRPY9Y48OSQFIkBhtIP6205AlMGf+EA+v/rwq5t1iNwJrZ6Sf53rdCMGr0t
+	 k2g1Eo1iStHsq7sYbRwFu3qfqeWsKWaFyQQ3AI0aFgA0bCytEud0a/8J7KciZ/exg1i9G
+	 W+kjB6iaOOYEsMqUQVryjMoAK3EOBaII5DOALOF976MwsI4Mb2GRuhhEJlvvCdKwRIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998612;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hF/8cHol6oifLy6xHxGiLUqBkdJhttiK2PlLUMXUHto=;
+	b=4NN9ABib09U4Do6FAVm9ksPuxqWCwBMQG+Thm/H5341RNYh0dIexXc+cRbQrz2zdbbHy
+	 OxTIGBK1bY3WbaaLk3LixCLnvtq4OE7svfFOg6AmkUZK8GKL+Y7i+chwR1jZdnRORFCCw
+	 8ZCdXLgnMKH6PgJFiB983D+29vfrLHlSNykgNfqJaCsoHuD3wwQMZbFWw2JUCjGH4yUDv
+	 Ua/5ASlWCya/mZ0YKMs4IqYRXfiv5CRKbOqAW8AenAjS7v4fPBIKoYE7q4YSr4dktjkXl
+	 ZhOYkLR/BeXS9+jdmLoCkwSBLRu8D2Mm/fSQ/S+Y/7fZo7tlGhg4Wexr5ZMnpZGj/5g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W/CTDNne";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7779606A326;
-	Fri,  6 Nov 2026 20:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E09606A338;
+	Fri,  6 Nov 2026 20:56:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIr5sIzw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF5AE1F0089F;
-	Fri,  6 Nov 2026 20:48:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W/CTDNne
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793998611;
+	b=Lcv0ja4HlZSJ3ByCo0P1DckYxgGvtXEEwHMXjfr+cjt009D5z1wKTPBjtk9S1OHCpppO
+	 qCzdfS5K5NXcYcvu5Z/3TGkmM6i7VBxQ29ehb9aALg4VHQLR4j3kbMJtdHfJdv+3XjLDc
+	 4svz6kjt+pPTAnJPo9oP9y8i+iM7/+Pk0ZbWgTI2tmOzrj78YStn2+A3wyAOSIFDykBOU
+	 NsIKl8c93z3nNWj2502oGVmQ6CDMEChD0bVhV4AHoesfEStgmI1A+Xus9hxF15x99C7aV
+	 YijnZyVarfh1NGMm6Bx7z6iC9s/nQFsVAZWZrCA9g/YoTjVS3mYaBewh06exUWQs0vA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793998611;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hF/8cHol6oifLy6xHxGiLUqBkdJhttiK2PlLUMXUHto=;
+	b=DI8Gq7a4cK56t7wjpThIp/RV4kcdxuluxcLeb7ljZylgwRnq7yoe82wWljt6Kj/fEiVw
+	 1cK4mKVtEHM33Euvx0/TO8911hXchayfG2pWZ44g2GO5YeyHx9tjIUB6y0Z9QBED/XwkF
+	 8nW5t2SBK0xiCX4jk/RLY7eIpVt0Pk4M3ed+aQ0xxDedAU9NKRwpJSpBNBnMr32p/AvNJ
+	 MnlDKlxCi+VRMp7V9S1dU+0PCH38wbyVkGch/JeK5yGdBaGpoFLkXPqReiKt8DRx1852S
+	 BFoUn0x7R/Qyr7C0NkqHj08getFkVLis6Dg+3SZvV+68jR4K/dG+TfkIwbhWK2bMU0Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 48AC11F0089F;
+	Fri,  6 Nov 2026 20:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793998087;
-	bh=HZho2msgoJMdouDBhI/tZS+qfCR+U++y56XOVqrTM1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NIr5sIzwS2dfqHfuqwatw7sGo8fIj91w5JB/t+CRq5heewdF7e/Q3g9bqdzswAUC8
-	 ET4qWklG9GUx7R3W5HvZhRODQ8BUm1AKEmPInIYd2NShU8i9wYG0S6+QYe98JGhPsa
-	 kpqZ1t7cTo/DvoKmvUw17MZIdH1y14qz3UwgEPkqUEF0i6P0QAu3fB5PPvGZS+DQ0L
-	 jzwVAZfVrbgC1lkdxKJVUtnJLIteGLFtJBR+wj4AiJy5IHvE80+PLYOw/ls9lUEkxZ
-	 o859DxAU+qbao+Wug7AGJHeEHsLUT0CfpjCXJvLxgPWApUV4KH2BDriljqQYdBPUZS
-	 j+uT8HHNuTyzA==
-Date: Fri, 6 Nov 2026 20:48:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <20261106-headband-buckwheat-fecbd459ee85@spud>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
- <20261106-unwilling-preoccupy-156dbb310448@spud>
- <au4p0xYEFkgEU6T4@macbook>
+	s=k20260515; t=1793998611;
+	bh=hF/8cHol6oifLy6xHxGiLUqBkdJhttiK2PlLUMXUHto=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=W/CTDNnenmcWp/VUovWshCWYE5fr7zps3g/LtbjD4hsLwuYiaWGqdroKal4xBCGin
+	 FKAaqm6YBoeyxCmP7x7rUoCqMNTWezLRbGgzouVpq6nvwn7dtNaw288ZLIx0sw5cNI
+	 wuDFNKrDF9CL5qaq1BbelJJc0qzpeWsrEz8rZaOAckDOcy7FHil3kgjmK66ykwhZRC
+	 sZvDIzHDd2KXO5HxUqsjI3hJi18DfwTVsE8Sd2CH/3SQoUiiwO3+evhbvdNqn+jv/z
+	 KnI+RM0b4QOIGJMdwOsfqiUqyvwkuDDVDjfY1HCsOQhshLdOrNTTrO8HicznOJW7or
+	 QhbHjR7de13fQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C8D7E4787B;
+	Fri,  6 Nov 2026 20:56:50 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Fri, 06 Nov 2026 21:56:29 +0100
+Subject: [PATCH v2 1/2] dt-bindings: iio: light: Add Capella CM3217
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,69 +82,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LmB6H6jGQB3RSrN8"
-Content-Disposition: inline
-In-Reply-To: <au4p0xYEFkgEU6T4@macbook>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-upstream-iio-cm3217-v2-1-d97adde9171c@tsv-stahl-riesa.de>
+References: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
+In-Reply-To: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
+To: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793998608; l=2155;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=RVztLRvLE2XHZl0smZ+iXBmMb3aWuOAd6PH4N53y5GY=;
+ b=C4AieDI9YGOFjRxPrCLPVknDSODMUmQygjomFWzyROfdpHyk1AkmT5fVQJ62JM3+b9ZfuXIGx
+ eSMzXKx1f7mAZTW8s3c5uML/kKZ6zXiQgBNfc1UOh8KgnlpzJOe+7y5
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
+Content-Transfer-Encoding: 7bit
 
---LmB6H6jGQB3RSrN8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-On Fri, Nov 06, 2026 at 08:34:37PM +0100, Carlo Caione wrote:
-> On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
->=20
-> > > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> > > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> > > +
-> > > +    soc {
-> > > +        #address-cells =3D <2>;
-> > > +        #size-cells =3D <2>;
-> > > +
-> > > +        clock-controller@0 {
-> > > +            compatible =3D "amlogic,s7-peripherals-clkc";
-> > > +            reg =3D <0x0 0x0 0x0 0x49c>;
-> >=20
-> > What's with the weird numbers in this example?
-> >=20
-> > Examples don't have to be real, but when it looks like this the
-> > immediate thought is that the modelling of the device might be
-> > incorrec.t
->=20
-> The numbers are actually real, but the example simply lost their context
-> because I copied the node from the S7 dtsi (not yet submitted), where
-> the controller sits under the APB bus node (bus@fe000000) and the bus
-> ranges make the addresses relative to it.
->=20
-> 		apb: bus@fe000000 {
-> 			compatible =3D "simple-bus";
-> 			reg =3D <0x0 0xfe000000 0x0 0x480000>;
-> 			#address-cells =3D <2>;
-> 			#size-cells =3D <2>;
-> 			ranges =3D <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
->=20
-> 			clkc_periphs: clock-controller@0 {
-> 				compatible =3D "amlogic,s7-peripherals-clkc";
-> 				reg =3D <0x0 0x0 0x0 0x49c>;
-> 				#clock-cells =3D <1>;
-> 				...
->=20
-> In V2 I'll use an absolute address for the sake of clarity (PLL has the
-> same issue).
+The Capella CM3217 is an ambient light sensor with an I2C interface but
+without registers and without an interrupt line. It always answers on
+the two addresses 0x10 and 0x11. The node describes the first address;
+the second one is fixed.
 
-Before you do that, can you please share with me the s7 dtsi? Cos surely
-you've got it in some git repo online somewhere.
+The sensor is used in the NVIDIA Tegra Note 7 and the NVIDIA Shield
+Tablet.
 
---LmB6H6jGQB3RSrN8
-Content-Type: application/pgp-signature; name=signature.asc
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+ .../bindings/iio/light/capella,cm3217.yaml         | 51 ++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/Documentation/devicetree/bindings/iio/light/capella,cm3217.yaml b/Documentation/devicetree/bindings/iio/light/capella,cm3217.yaml
+new file mode 100644
+index 000000000000..7f2a0d5d0243
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/light/capella,cm3217.yaml
+@@ -0,0 +1,51 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/light/capella,cm3217.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Capella CM3217 ambient light sensor
++
++maintainers:
++  - Patrick Fischer <admin@tsv-stahl-riesa.de>
++
++description:
++  The CM3217 is an I2C ambient light sensor without registers or interrupt
++  line.
++
++properties:
++  compatible:
++    const: capella,cm3217
++
++  reg:
++    description:
++      The sensor always occupies the two fixed I2C addresses 0x10 and 0x11.
++      Writing a byte to 0x10 sets command byte 1 (shutdown and IT_T), reading
++      a byte from it returns the high byte of the light count. Writing a byte
++      to 0x11 sets command byte 2 (FD_IT), reading a byte from it returns the
++      low byte. Only the first address is given here, the second one is
++      implied.
++    const: 0x10
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        light-sensor@10 {
++            compatible = "capella,cm3217";
++            reg = <0x10>;
++            vdd-supply = <&vdd_2v85_sen>;
++        };
++    };
++...
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau49AQAKCRB4tDGHoIJi
-0s31AQDovk3BCRNZkzAP0JDIfM+oVR7DeKQ2kE3TEp2hr8RKvAEAi5/KPKD3qcua
-lDaZqwmPOKSB/JV+k2gT9cYzHgcbmAQ=
-=tBnu
------END PGP SIGNATURE-----
+-- 
+2.56.0
 
---LmB6H6jGQB3RSrN8--
+
