@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793985584;
-	b=eCoE7S4wjftol26YHeUv783hGg3nvTpgx31vVFi51/dYLt2LrHE4u0fR55Q0ubo0BzBh
-	 2XOCR+nKIy9vWduL2H4Y/ai2eONtoAvIPChv1XbmRmdENvCHEch2dgbxHtqs46mvy83aX
-	 oisy4foqbTDoFkZurNmjlzILDUC7VMCw7f3jUcg7pBFvcri8/e+RnWQF5hRqQSNLuVJrE
-	 6ugIiT8ocuIG5FGV42iRrZ8Doa7Ex1GcaSZlB7lEfuqq4XSNd7LhJ8AnXR0qtFOO1MMN+
-	 B0CrL7YcV9doo0kkt8tGGzi+4uKFFGwHB9rhqqM7Vy6LtjLinLtS9ednsDzy+GKA1fA==
+	b=D6l/Pueucys7tg8RyvkoSFrO1AWYYTC6iOUaBU3CzrUxOAGFIEyL0MvFJEfL6Zc6DTHC
+	 +DDzZV+6QTc4PxunQFFC5z6PgoBo7Kds7dz6ulyzX4cFBkF/eGcazh3h/fTjWYwb7asON
+	 /YLg1tHGuQ52X0MYP8CoWk1OBn7cqbS5IuCOswohrjW/+xiRbSIgwP1UokHfDHfynh82L
+	 g03ZgetDElKqb04GJDi1ZhUSg8+KceG4Oc/5J7I4Itm5eQjKws8zkDns2GNpwSFkenMhS
+	 ffSdlnYvD/vk1CfoGetElpUb2S2Cro8Z82WLe+VPMAuc13Lv3F8HUAbVbr5cyvi6I6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793985584;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2Ki9WbXI9WdqAjVBEc/hHwmzCYkFZHUJDhuGONhIyeE=;
-	b=ZeVLTuWJTgFF/2dc3x7oHO3gTvu/hEsOF8+D6T11sxi7q8idVc8yNs0ilbwodwNkm9/0
-	 m/Au7KQ7k5s5etP6Ud0AAV/MIK1YbSdkgJGl76ccLl7rYflMvocmtHsjYBxwM+ERveOHM
-	 wmVJBVsj6rkmXR2NFQFEvhjmfrQV+E0Tksq/tM+2K0I6lRU5pyjH0mhF1uD99Y15wCQcM
-	 WAvQO21hqL03tvBVIG3Of+WxObGqVDjtqA70Z0RE1ftWqwY8e7jjqVFUWDzQyMzh5JKod
-	 YgCqfWrl/1z5zSI4eJ2f/c/qB92ISPTjroTaYIL03jUqL2qHJYAQuZ3FslGwKMLX1Cg==
+	bh=+wwws9e1hdeNSE5v3XYCF7ze382+pNXAMb+VOr1nizs=;
+	b=joiWc7bgvZ7+Y6IDTsiEAbKCz7pmuZDp3bCtE1ONoB8LNKZFjJYzc8Z7bOQqfbhSx/zh
+	 /8cgatnwQt6cuuczdrOczheCIQuj5A0WhMHm0XSPWSqhhVOivbbKqQc5TkptxhMuCjact
+	 KWPaO+r1UX/0fbC09siXTTTywZO7GE4pPmA45laMMe5pkx4qtlcC0lyFC4V9JcEj4CEuF
+	 UOvk3kiPc6en77QRs33eS6nxIotYHT8bjHYhig1rlCGakXCcCtiWUGjgk5jPv2cRJTw+Z
+	 sVy09t3Fqj/tYevE0ClQGpIC4OWvq3lCvJjbuVZosQmo7UIDE/0fCk68p1GPFv9pJQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpGWkcjE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ25ENK6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E482B606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 17:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896A9606EEA5;
+	Fri,  6 Nov 2026 17:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpGWkcjE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A201F008A1;
-	Fri,  6 Nov 2026 17:19:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ25ENK6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B3D1F008A2;
+	Fri,  6 Nov 2026 17:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985583;
-	bh=2Ki9WbXI9WdqAjVBEc/hHwmzCYkFZHUJDhuGONhIyeE=;
+	s=k20260515; t=1793985584;
+	bh=+wwws9e1hdeNSE5v3XYCF7ze382+pNXAMb+VOr1nizs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HpGWkcjE1Vi2fwVu4fIZZTOJd9eSiaR0YIwXMNDl3axmtonT/TqWGtR6ddQwlAYRb
-	 YF1CG4jPILViRurk7Gmm3vSrUoQoAQxI9/EeFJ/EHRGagpV9WRAnv+uImrJi4wbkEb
-	 fnTXbzEsuNUfJT9lm2m0Org4ZqKJwYEvmNV+XUp2X9jvQFjOaDY4QMiq+yEjQ5lvmo
-	 to4y1DN2g6JD4As3LUNocnHTq8GLhbl1M1zg4Ls3TNyO2sxt5TdPKmujw+rVzOH99D
-	 bKOagYGVsGxezzqssOvHsaPsVgfkdO4wnxPd6osnQihcAF9tHxbLe7tLtvE55TYU3f
-	 VDQb0ktRxF56g==
-Message-ID: <sashiko-outbox-201909@kernel.org>
+	b=nJ25ENK60zr3aUbiilpTZ4CMW3lHO3jmwUoYRNEbh6lpKfvydTrM91PfpHh4SDcj0
+	 37fi4gRdSsUJhyGCPekoKE3skGTCuUY2ISqznWl2ljbMf8XhXLs1ZmFpNQAeNIR1LJ
+	 M/K/mL7s250eOBXuGrTk6gq/cUGuMiyPlQiBjgjKJX6MuIQpnU44FmyXsE6UmpJRFW
+	 ssFpyzxIud1kE8g7W+mrtlPGghx/8nlT6ss1bzYsIyMpIGAr9PMMxHGW0/PoRVlR9j
+	 ZdTlBx5RhhaEyTv3zjcn9pGeVedkN/wzQ3PFh4vgR949vTTgB8Wf89bRa/28uEPv8T
+	 gkI9pC7CkyGvQ==
+Message-ID: <sashiko-outbox-201910@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] fbdev: xilinxfb: remove the driver
+Subject: Re: [PATCH v3 04/13] ARM: stm32: enable arm smc watchdog on
+ stm32mp1xx
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106170902.3656809-2-radhey.shyam.pandey@amd.com>
-References: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
- <20261106170902.3656809-2-radhey.shyam.pandey@amd.com>
+To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106163429.618392-5-antonio.borneo@foss.st.com>
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-5-antonio.borneo@foss.st.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 17:19:42 +0000
+Date: Fri, 06 Nov 2026 17:19:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,44 +63,43 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] fbdev: xilinxfb: stale CONFIG_FB_XILINX in microblaze
-  mmu_defconfig
+- [Low] ARM: stm32: selecting WATCHDOG and ARM_SMC_WATCHDOG forces
+  built-in config
 --
 
-commit dc9c5a7ca88a79ff63fa682655927a4c3e97e183
-Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+commit 4450302b23f46b760d6b23f33c853eaddb3d821b
+Author: Antonio Borneo <antonio.borneo@foss.st.com>
 
-fbdev: xilinxfb: remove the driver
+ARM: stm32: enable arm smc watchdog on stm32mp1xx
 
-This commit removes the obsolete xilinxfb framebuffer driver along with its
-Kconfig option and Makefile entry.
+This commit selects WATCHDOG and ARM_SMC_WATCHDOG from ARCH_STM32 when
+ARCH_MULTI_V7 is enabled.
 
-> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-> index e8cd8cb76874b..50673b83cb857 100644
-> --- a/drivers/video/fbdev/Kconfig
-> +++ b/drivers/video/fbdev/Kconfig
-> @@ -1620,15 +1620,6 @@ config FB_PS3_DEFAULT_SIZE_M
->  	  The default value can be overridden on the kernel command line
->  	  using the "ps3fb" option (e.g. "ps3fb=3D9M");
-> =20
-> -config FB_XILINX
-> -	tristate "Xilinx frame buffer support"
-> -	depends on FB && (MICROBLAZE || ARCH_ZYNQ || ARCH_ZYNQMP)
-> -	select FB_IOMEM_HELPERS
-> -	help
-> -	  Include support for the Xilinx ML300/ML403 reference design
-> -	  framebuffer. ML300 carries a 640*480 LCD display on the board,
-> -	  ML403 uses a standard DB15 VGA connector.
-> -
->  config FB_GOLDFISH
->  	tristate "Goldfish Framebuffer"
->  	depends on FB
+> diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+> index 4ac3384e397aa..de09b2afa0f2e 100644
+> --- a/arch/arm/mach-stm32/Kconfig
+> +++ b/arch/arm/mach-stm32/Kconfig
+> @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
+>  	select RESET_CONTROLLER
+>  	select STM32_EXTI if ARM_SINGLE_ARMV7M
+>  	select STM32_FIREWALL
+> +	select WATCHDOG if ARCH_MULTI_V7
+> +	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
+>  	help
+>  	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
+>  	  cores. Note that support for the earlier Cortex-M based variants
 
 [Severity: Low]
-Should CONFIG_FB_XILINX=3Dy also be removed from
-arch/microblaze/configs/mmu_defconfig?  Leaving it there triggers an
-unknown symbol warning when configuring mmu_defconfig with W=3Dc.
+Does selecting WATCHDOG and the tristate ARM_SMC_WATCHDOG from the boolean
+ARCH_STM32 force both symbols to y whenever ARCH_MULTI_V7 is enabled?  That
+prevents building arm_smc_wdt as a loadable module or disabling the driver
+and watchdog subsystem on multi-platform ARMv7 kernels with ARCH_STM32
+enabled.
+
+Could ARM_SMC_WATCHDOG instead use a default in drivers/watchdog/Kconfig
+(the way STM32_WATCHDOG uses default ARCH_STM32) or be enabled in the
+relevant defconfig?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106170902.3656=
-809-1-radhey.shyam.pandey@amd.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
+92-1-antonio.borneo@foss.st.com?part=3D4
