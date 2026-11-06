@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970262;
-	b=OMJ8/MKtEkyvhh+r577xSAupL3z1qYxnqYbc/h+9JiZPKnaU+ayVUcxsKYWfqjiqiEuU
-	 lZZy10TYPm2x5f1tLdVT4sAzOC/za9+ju+yw33FYIPDSuem8G49cCrAXyfPS1N5wdcfB6
-	 pEfWyLaQY9O8OHi7gj31MG7t67gZ/H8Uw8Z1HC+GdyTcZ3IFm5L8S+3lFFYS4JK5ZWcVR
-	 pTUoi3xF85R1F5BcoX3F5blNKtrcV3ZkwYFIiZSrrpTkdSSLsnLZjdn3Ac9wV79Lc+fD/
-	 U6xkJgjvXciaindWNBJB+jRPSqexPwLjgwWCO8fmXOt1vD7C72PyM1B3FqoIPRnftVg==
+	t=1793970493;
+	b=Z//p1w5+2c+8dSOmlAiSvYjou9nYooM6WOBFIcXyqMupGKK0n/JTg6xI0qz0iVzi8ID1
+	 iPb6H8NK4XFS4QkS7VSMSD+wAqMbTzcYjlMJv/rMFnR/USltKoUwBLXQkn6mt+kXBBrjM
+	 0fktWSk27HR109XIOySQ7XmxgBd+7dAzFnVqiuZS67pDfCBQK4qf9tSO+mM+VrYkOUkG6
+	 mM5caX47pwQioFd1LEHH/kUkX00zL6R4CzLsjB9N7nzSMO5Xg7kby1YNxfVZMqk1ADKTN
+	 hDnOr915oPNmdyC0wv1sEHED2gvDX7NR+dNIXH0AEWDFwng0ejPWmdBCJtrK9MvgaSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970262;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ME2X2oedXhydVPPNVsakRcZ2pjykO1SLtyex8ETN3D8=;
-	b=LjzGTQdonzm4HFEIfc4ujS/44qYEAA/dmMMrahgUbBo1XQkP5GTLjBKZ9Xj8EIVpucE9
-	 U4mSouirBoGHmHOS7NhxSXa4XNEu+kaJd+51AC8kaSbLBBmmcJGip5eDdxR3nbcQLZvQB
-	 nk7Tayfv1okZSJcZGTtyqEXysCx7JyLpf+u28TlM6bzeudfM0Ts85PcQ2mcICfH01VV9T
-	 FMpsTLhCr7Z9irN56SVFZK6QVw4IRs4CmTiKxWn/kssq5KjIZHJc/aGvTBNRKFHOPN/ZX
-	 zSxsLyZ7uqHw+H/P5116je7GH1KPASRpGZ17dxyR3HPA7+GvHr3yu8GujlRML7Ehjmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970493;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tKk5aEZXnafMyBNTOoPm9dVXgFLC2FqyYYQz5rKBIig=;
+	b=XuU9xgE9oHgrj1yLejOyn4V195AIdTV+leUPHc0NQyMD6OPzvelKoYImiQtJAPz0ibZZ
+	 BxZQvGymH9p6FPmmfRdygYug5E3EyaWjGN071qow4zm1Z6ldonuRWtNtt1SBMsoiX/uWz
+	 0xZPeGxpo0yzom6UPAVI3NXbeQhmOicZxPzRR1ThCOr8lHoGHKmXv+053cMJ6vT7KIctQ
+	 PmWLz4dOBDnMMLFUL3L8lgch20wfBAkbBQjUxP5w8H+JKvYkzRSWMDI4N1J30yegHdCs0
+	 6GxEn47RJOEhB9/ik1RZH2Itt7gexT6JPeSJ6SujTKVSmITo3szU3S1jtFwE5EHQEmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmILPruh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gN1rPbZ0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F854606A326;
-	Fri,  6 Nov 2026 13:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63598606A32C;
+	Fri,  6 Nov 2026 13:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmILPruh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1841F008A1;
-	Fri,  6 Nov 2026 13:04:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gN1rPbZ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C3D1F008A1;
+	Fri,  6 Nov 2026 13:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793970261;
-	bh=ME2X2oedXhydVPPNVsakRcZ2pjykO1SLtyex8ETN3D8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FmILPruhutiEAkEf0NHC1dlpTsUc4vh1kIRd9lKcwU5jkS0UzH/tW/VP9dbDjN4xR
-	 PoDrYUP2Y4w97+Zdd6F3svicIiJxsCdGvmzmluDJLARsbo084G8MSXf75PdEOTc31C
-	 Qsr8SFnSW81CVBJm4SuiObvfH1vcN+O53jA81FOk71YggHooXNllHK5XJkcQuPqufY
-	 yI7bcZZ4ANQOf3YSUMySxCrCKRW3yL4xI69YPVI/HwIDEDwNv0k5d1+/fUWWNLGUT+
-	 uDrvSVwFG00ezFoaHG7h5R/bYybTaprgeNUbRTJS8vJAfyC4bSfoccbO2R5RkKH8dK
-	 zaRrmL7z9gFAQ==
-Date: Fri, 6 Nov 2026 14:04:17 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: serial: 8250: Allow unconnected interrupts
-Message-ID: <20261106-lumpy-just-mosquito-8ef62e@quoll>
-References: <20261103224409.865130-1-robh@kernel.org>
+	s=k20260515; t=1793970492;
+	bh=tKk5aEZXnafMyBNTOoPm9dVXgFLC2FqyYYQz5rKBIig=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gN1rPbZ0oLGmpW8QUXAvm1AZiOiwUpm/YjnVNclutatvDcVeAYAdeK+WQNjObbGtj
+	 Xun4/WHtjd5XLIKOYH5YTX7sQH6WHCjn2Le521VKn39s7G3gOu7ftDx+eZrlqbR6Cw
+	 lMvUskFsobFOei8tuPHn3FqHH7+LG3RUBU7nbQczhwbiE6laXuZqKbjVpYTZWifGHe
+	 mJI+7iXBbegLbTwENmNI9O2Bmi3yIZsz8r++ZAW+j+xZxqtm1Gd1Cx3KsEPY7pVzgw
+	 Kdb/3pPmz9iGZY5Lu+GqUUsy4HcNHVOAc72CVkuq/jl6bgItygxY4K/gAYQHg6wGMz
+	 9FJ+iQddFgS+w==
+Message-ID: <sashiko-outbox-201438@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] clk: qcom: Add NSS clock controller driver for
+ IPQ5210 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Jie" <jie.luo@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-qcom_ipq5210_nsscc-v1-2-d4fcb5c32b51@oss.qualcomm.com>
+References: <20261105-qcom_ipq5210_nsscc-v1-0-d4fcb5c32b51@oss.qualcomm.com>
+ <20261105-qcom_ipq5210_nsscc-v1-2-d4fcb5c32b51@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 13:08:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,23 +60,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103224409.865130-1-robh@kernel.org>
 
-On Tue, Nov 03, 2026 at 04:44:09PM -0600, Rob Herring (Arm) wrote:
-> 8250-compatible UARTs can operate without a connected interrupt, using
-> polling. Requiring interrupts rejects valid descriptions such as the
-> HIP06 LPC UART.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  Documentation/devicetree/bindings/serial/8250.yaml | 1 -
->  1 file changed, 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] clk: qcom: nsscc-ipq5210: wrap .driver.pm with pm_ptr()
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 32b660ef44d1803c715de35bfad45d1be9b88559
+Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+clk: qcom: Add NSS clock controller driver for IPQ5210 SoC
 
+This commit adds the NSS clock controller driver for the IPQ5210 SoC to
+provide clocks, resets, and interconnect clock paths for networking blocks
+such as PPE, UNIPHY, and the integrated Ethernet PHY.
+
+> diff --git a/drivers/clk/qcom/nsscc-ipq5210.c b/drivers/clk/qcom/nsscc-ip=
+q5210.c
+> new file mode 100644
+> index 0000000000000..ca749e0af3231
+> --- /dev/null
+> +++ b/drivers/clk/qcom/nsscc-ipq5210.c
+[ ... ]
+> +static const struct dev_pm_ops nss_cc_ipq5210_pm_ops =3D {
+> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
+> +};
+> +
+> +static const struct of_device_id nss_cc_ipq5210_match_table[] =3D {
+> +	{ .compatible =3D "qcom,ipq5210-nsscc" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, nss_cc_ipq5210_match_table);
+> +
+> +static int nss_cc_ipq5210_probe(struct platform_device *pdev)
+> +{
+> +	int ret;
+> +
+> +	ret =3D devm_pm_runtime_enable(&pdev->dev);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Fail to enable runtime PM\n");
+> +
+> +	ret =3D devm_pm_clk_create(&pdev->dev);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Fail to create PM clock\n");
+> +
+> +	ret =3D pm_clk_add(&pdev->dev, "bus");
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Fail to add bus clock\n");
+> +
+> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Fail to resume\n");
+> +
+> +	ret =3D qcom_cc_probe(pdev, &nss_cc_ipq5210_desc);
+> +	pm_runtime_put(&pdev->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static struct platform_driver nss_cc_ipq5210_driver =3D {
+> +	.probe =3D nss_cc_ipq5210_probe,
+> +	.driver =3D {
+> +		.name =3D "qcom,ipq5210-nsscc",
+> +		.of_match_table =3D nss_cc_ipq5210_match_table,
+> +		.pm =3D &nss_cc_ipq5210_pm_ops,
+
+[Severity: Low]
+This isn't a bug, but in nss_cc_ipq5210_driver, .driver.pm is assigned
+&nss_cc_ipq5210_pm_ops unconditionally while nss_cc_ipq5210_pm_ops uses
+SET_RUNTIME_PM_OPS().
+
+Should nss_cc_ipq5210_pm_ops use RUNTIME_PM_OPS() and .driver.pm be wrapped
+with pm_ptr(&nss_cc_ipq5210_pm_ops) so the structure and callbacks can be
+dropped when CONFIG_PM is disabled?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-qcom_ipq52=
+10_nsscc-v1-0-d4fcb5c32b51@oss.qualcomm.com?part=3D2
