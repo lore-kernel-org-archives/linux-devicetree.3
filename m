@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989498;
-	b=baUD9PIRQ9Ig60+l9DNokc3gILAt51zo+d6wckTny8itnBcvrPicQAeuuzFrFU+2inx0
-	 pzarY/dFDY+qfQjP0TTto4NpE0SEIe9vBzDUhbSjhWuUPjy1OgKklWDMkzjltw5h7xgqI
-	 ty+kzVTM+4bdoaT7zwdPy7Hld8rLVPIHUebNa8SYTEBprCUPgKNUpkWG/8KTxP1xSSyxA
-	 8ldsQPk0i6b05I3mEI+EnNrtlueEAvkqoPfaNIeG7+4UurwNtPZvLHtei5QGNxp/fpBBn
-	 tScFJGPG8LvT+Iny8Rm3tZDPtJ3sYKZBuVOGwzjoWSszjhXgJQPDjOoqdny++1B6UzA==
+	t=1793989660;
+	b=vhoOweXDCN0ouxkn+l20GKkE+POIsZ46hYWKB8+qbddxLFx0nRzSbP6EE/VylLCgCQql
+	 Xa3EZKuoELgNHUDBUtgC69dpzYSpHraHrNtEd20INq9MTy7tbMHffY9F5bbpNfW+gt2AJ
+	 edVqL2W3tY4ouerV+e6R6s+zL4/GOnNUgqsCm7GqQvpbzVUDoSuqrjQDE4WSXBKpSVTrh
+	 Ix5h+fYRs3d6dC+URytshJjV0xRdMtZvjhTbdlT1EcIgOxB5vj0IhmLj3lH8xCcx9NXFm
+	 afvbaqx6KlfYFA/C3Pi9voFugDOoBeosH6RZHYMwQ5WKXqA9haQXsPd+3mr1OjeZKHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989498;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/YUawSo1A9/TsR4bHyYTtKTT0r+C7FLDSJpMmO+HqIk=;
-	b=r2vX2+B810j54Ov8b8sAVZ8v/5PShSuFFoX7ywmWK2vYR7p8cWOv73YB84eJsLQrZGod
-	 1caL2h0tv3B50NHH7IfkdEbZS0ma2l/xLtrKsbGX4j8ITIyEGIZsAxD6MWb2+r//eZGIX
-	 XRW+ITh6YEuUvQoMw3vBjQdJHhv/ACCM8MsiMv/mvvesNH8GZps55Kki4PcIFYiPJ3DBH
-	 5y4cGycbxlcZU4jAdi2JRsxBmSGSrowlGBCjKWqonCC+A78nbUlpOu/yMzSywJ3zLys7G
-	 HDeSZ97Sf/Dy2H6WlExGm7Qs90SXqm6DML5QJW33BlNMFRJR/XWkV2D3fnLXfcs3Wfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989660;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WlCEZESfOmb1UfVHdqxtpBorzwyZKIs/pd0KVUd31AM=;
+	b=4ppbzjMydeNrlq4KANIW6p2JCIyIUT7/kj/748ZLPvMe2XJLwpNwMVtqCLx/2wXjy4pW
+	 weJ975kh2ilk9n9Kud0xXxJC3k9o5cStw1WRbtQOhSXhHyX3u7L4gWzoACVi8uPsNLlq2
+	 dI/lyvFI4vPs0tSB7sN1uF43YnAzbSqL3QOnqfVP4X0t3BJAfeJZFT//HRi2Ub4P9juX6
+	 vJRwfMhs/tD7/qpvtH8/XYd261XKk/BcHHXFARfn/aNFAfaWQZr6CbXsQkqMxlL+XDpt3
+	 ffcKwbSWHq73HqcZIMCIKtr8jA2nyU9QR1Oqfe30/83VU2XiZeOeV0nMWvqYza8nhXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hexLl1vU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E9qNzqww;
+	arc=none smtp.remote-ip=79.135.106.30
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA46606A330;
-	Fri,  6 Nov 2026 18:24:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6787606A329
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6787606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hexLl1vU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B59C1F008A4;
-	Fri,  6 Nov 2026 18:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793989497;
-	bh=/YUawSo1A9/TsR4bHyYTtKTT0r+C7FLDSJpMmO+HqIk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hexLl1vUD5l8wSXLH/f/cWAEzfWdtILKHGXBJfI2ls7w+hXT8BZkezwG6xa5eyWhJ
-	 pDFNiO6mpAA1KszWt3FUzCbCsOqZ0eqfXjndeNF90TmArq3NFWS/jCOlwYmwdJdmYk
-	 JOklpT+5cnpAklOp2wAX2I7XyCuPMQn39UdbvwbMselHjbfyLPCuEQvDGWJkHWQQGP
-	 rSHX0GUw6KK5za6J+76IwmX4VMpTHTxfqgxjU+Y0yZvHqReYQNTU10wYAdvKdZXhyz
-	 sirVfYV0rZRbI5JAtNVME0q3bpcojUYscbh0+puBz4C7QX2Qloq2S/q/h1IbWzi6EV
-	 wPVLENCU3ggLQ==
-Message-ID: <sashiko-outbox-202022@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 13/13] arm64: dts: st: enable iwdg2 on stm32mp2xx ST
- boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106163429.618392-14-antonio.borneo@foss.st.com>
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
- <20261106163429.618392-14-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 18:24:56 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E9qNzqww
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793989657; x=1794248857;
+	bh=WlCEZESfOmb1UfVHdqxtpBorzwyZKIs/pd0KVUd31AM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=E9qNzqwwcOgulpKnm8UeZTapr25+17D4M0OrhVFDD9j3tHAReSmVCqXse2fl+FYRZ
+	 J/cFTZ5BYxkZ5bFAWhlLzWzoM3QDuIG6ChC45tsSbYgngi0EzV46icCs1zCzLOnsOX
+	 sfnBhu4xEROtX7Kd4SMG/LuHhsi4TFZ7hchLQTdWK7LJ3c7tjoeWBadGVvyfglSvUA
+	 AexL7vsYkFkAQHFHNS4hnwqXm2pylPMdhbAxA3tp6CHRKLDMWi4fCjuaRDwVrV4WEA
+	 HO4xk2I6aU4Y0UacfLTrlm122o87rAmLlViiiAv/SEdKSquC0QVMlQsnP/3DPifauq
+	 LzHaaP9kBEnYg==
+Date: Fri, 06 Nov 2026 18:27:32 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: pinctrl: qcom,tlmm-common: Add wakeup-enable
+Message-ID: <0orir54c0rbF6-ZvpZq9hVVwLOMN02Et6AtRxRh3DU_DbJ_dwkDo3PFVFftKlaDI2IGdFsZdH-olYFZHn_5AA4U03M0-uV_e5UUtnXQIHg4=@pm.me>
+In-Reply-To: <20261020-delicate-serval-of-fruition-fe0cb8@quoll>
+References: <20261015-tlmm_wakeup_gpio_support-v1-0-c6d6f37a7e51@oss.qualcomm.com> <20261015-tlmm_wakeup_gpio_support-v1-1-c6d6f37a7e51@oss.qualcomm.com> <20261020-delicate-serval-of-fruition-fe0cb8@quoll>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: a845e39c3a4ac81e44bf1ebf3626e10ae16b1ca9
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,52 +63,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: st: unresolved rcc phandle and clock macros in
-  stm32mp215f-dk iwdg2
---
+On Tuesday, October 20th, 2026 at 2:19 AM, Krzysztof Kozlowski <krzk@kernel=
+.org> wrote:
 
-commit 7a43e1911df9f04894384d16f6721b48e26c2793
-Author: Antonio Borneo <antonio.borneo@foss.st.com>
+> On Thu, Oct 15, 2026 at 07:52:59PM +0530, Mohammad Rafi Shaik wrote:
+> > The TLMM can gate whether a toggle of a pad is transferred to the wake =
+up
+> > controller (PDC/MPM) while the system is in a low power mode. The pinct=
+rl
+> > driver arms this for pins it requests as GPIO interrupts, but that path
+> > takes over the pin mux, so it cannot be used for a pin that has to stay
+> > muxed to a peripheral function.
+> >
+> > Such a pin exists on boards with a SoundWire codec: while the bus is cl=
+ock
+> > stopped the codec requests a wake up by toggling the SoundWire data lin=
+e,
+> > which is muxed to the SoundWire function and not to GPIO. Unless the pa=
+d is
+> > armed, the toggle never reaches the wake up controller, the controller =
+is
+> > never resumed and the event - a headset insertion, for instance - is lo=
+st
+> > until something else happens to wake the bus.
+> >
+> > Add a pin configuration property so such a pin can be armed from its ow=
+n
+> > pin configuration, without being turned into a GPIO.
+> >
+> > Assisted-by: Claude Opus 5
+> > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.co=
+m>
+> > ---
+> >  .../devicetree/bindings/pinctrl/qcom,tlmm-common.yaml        | 12 ++++=
+++++++++
+> >  1 file changed, 12 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common=
+.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > index aec72e8c0..95f539611 100644
+> > --- a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > +++ b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > @@ -87,6 +87,18 @@ $defs:
+> >        output-high: true
+> >        output-low: true
+> >
+> > +      wakeup-enable:
+>=20
+> As Sashiko points, there is no such generic property.
+>=20
+> Anyway, the wekeup is per device rather. Arming a pin would be different
+> sleep function, no?
 
-arm64: dts: st: enable iwdg2 on stm32mp2xx ST boards
+Heads up this also appears to be needed outside of sleep, was looking at NF=
+C
+enablement on the Nothing Phone (3a) and left out clock from DT since MGPI
+is meant to handle CLK_REQ and enable relevant clock, but MGPI does not
+work unless the wakeup_enable bit is set on the pin.
 
-This commit enables the iwdg2 watchdog node and assigns the watchdog0
-alias to arm_wdt on STM32MP2xx ST board device trees.
-
-> diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/=
-dts/st/stm32mp215f-dk.dts
-> index a1285abc80ca5..c7ab340a7e4dc 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-> +++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-
-[ ... ]
-
-> @@ -48,6 +49,11 @@ &bsec {
->  	bootph-all;
->  };
-> =20
-> +&iwdg2 {
-> +	timeout-sec =3D <32>;
-> +	status =3D "okay";
-> +};
-> +
->  &usart2 {
->  	status =3D "okay";
->  };
-
-[Severity: High]
-Does building stm32mp215f-dk.dtb fail with syntax and unresolved phandle
-errors here?
-
-The iwdg1 and iwdg2 nodes added in commit "arm64: dts: st: add iwdg1 and
-iwdg2 support to stm32mp211" reference clocks =3D <&rcc CK_BUS_IWDG2>,
-<&scmi_clk CK_SCMI_LSI>, but arch/arm64/boot/dts/st/stm32mp211.dtsi
-neither includes dt-bindings/clock/st,stm32mp21-rcc.h nor defines an rcc
-label.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
-92-1-antonio.borneo@foss.st.com?part=3D13
+>=20
+> Best regards,
+> Krzysztof
+>=20
+>=20
+> 
