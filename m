@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984724;
-	b=FehOakbu44b+SCJHjrR1Ns3qnzLM5ikCQa/PSbFERKL5t72tWnGI8lRR8JVSRCPB0V7k
-	 ZchpKMYPTZGVhgoy5tsrGHCvXUWiYghZxT7oH/E5XrZJaI0In2lCz22grQCvGWfasCFIK
-	 XCHoiQRlZ2E6fDjNFLsrEmnR4kMbW6jYQviUbjGMxXDT2veomGq+LorQK49PCdRZQxzhT
-	 8M1bq3JUM3VHgtgdgAwEmP4q4hiywMUa/8b2HuaZ4wEj2+LYEVK+WizdixzIdmYpWnjQG
-	 PSq0Kr1ckJhfcjfdgdeE3puP3WYsv8fgUUBF/swQyNoo3/oyywJ/Q0oSyus0hO0OlCQ==
+	t=1793984736;
+	b=36xyZ4HO96e3XdAucxe+gcq5LeAgsWb4zB7Jx7ecKr4/En9w9ZFxP01RaIqYkvW/n9JU
+	 1tnaFYqstnLW4qkNVTlgKGIo5q38VHV0yIhtNmTLxGu4bbzKq42s85MEx/v541dzEtHiv
+	 ry6yCRsvHIn52ed6woGxCqrfvdTuq0tjkyFCqx8mACapPArJPN0O1uOjEGDuKwUcMo5p4
+	 GuqGVZzBQeCRpOKArlPtcUe9t6c4EfsA3N/+EY7B6TJroYFl5DZ9Wk4r0PTvTnl/kkzOg
+	 BjagG/Hglx9kAa+YOl70Fak2evaOxN/EpwTIgm9fhaY9DSYaCfTAkMyJJEno6DCmR+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984724;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4SttwiFqfOTk7qV+tK3jlNM8wt6TvO67mLzSeHcU888=;
-	b=VJgnu7gRs4Y/EksUUw8CdSjkLxqvalqzNmtethqJEoC9USRKkfx0/6koATndmgpmiMyE
-	 JsvXQlbHWvS+lqRhD6MQjuWRQgA/k0Fj47TH13ECkPIyuuW+GLn5p09JPuRdbWVkNJsyW
-	 Z+WDzwuRtD299IariQVCRRVLdI+l8w5D7TMJCy26m2/c6eaSqizc/op6uQkRyCYFHszVC
-	 GPE8FW2wOJPW7SW02Y1ieI+LiTl2Cd9I0nzmcuATti0JapQ9UmE1Yqm1mZ4IxDxg0M9ft
-	 1nT6rtIprQ3jWyAYVp7JnKahjsPEEfelS9Rx/0wgr7Pp0vrI4ykuI31cPuXL6Otxb1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984736;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9ixBFuEHmkHOoQ6uutrazXK9Kghyu2179JvKWtPj4fQ=;
+	b=DVH4QqUrl7bTsmSu7DgqXHo8xz3R4IBkKCpcUP1IEcpEIxSWD257S1yy2VkYptGGFuqW
+	 cZSX0g9ouHNZhmXHNQ1dDct/Kloc+OKwqm7CNA4tRMWQprpZL46NFJDYM6kdl8QraOBB6
+	 zOTxbiQRh8i5WH33Wv0fCfPxk0rd2lwQCArgExIlcXC3gUqP1ok1oADGQoiHyGe87jltt
+	 EEpDLbB1iyzokPkAev94TeJ6w7XU3N3Q54edbvzX7qFMh6va9agbphYHLqmCehv4NK3eS
+	 /OdPncTI822/Rr8QCGO39cKT00KkGzt3JmCIlxUjXv0jPgHHX4pWq/0XOz/7UwEhXBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8+aU8o5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iskjez2R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742A9606A326;
-	Fri,  6 Nov 2026 17:05:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D67606A329;
+	Fri,  6 Nov 2026 17:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8+aU8o5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C81B1F0089F;
-	Fri,  6 Nov 2026 17:05:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iskjez2R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275F81F008A7;
+	Fri,  6 Nov 2026 17:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793984724;
-	bh=4SttwiFqfOTk7qV+tK3jlNM8wt6TvO67mLzSeHcU888=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M8+aU8o556AFTD3MJUxxA97mQJ1vB35pWBmKebMRIUWmib/clE1TLaTXv9g1nEAt2
-	 IONg1v4uVCR4vTpJ6JT6QFZlQtFNSmRkVL/wurw3iyb+wl0g1luEdRwMCOcipecDuo
-	 MKX39mxdfPczUdt2+RcfrJBZmw8XV7ep6dmhP6FwkGBF21alxAWWSj3fBqETBSmgHz
-	 Bs2L8RPYfTkr/vIRlRhNUkwIngK3nVNi+5+Yg3R/XGpulOKRiInAON7QH+6OHfh/uL
-	 1I5TKl07J+iqPlNO+CUH6P2HX2aW2OtlHKpzkyTySogeBNrAGhaobSWqAHn0iP2vqd
-	 A8WVKh99lcXWg==
-Date: Fri, 6 Nov 2026 17:05:20 +0000
-From: Conor Dooley <conor@kernel.org>
-To: bengris32@protonmail.ch
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] regulator: dt-bindings: fan53555: Add Silergy SYM827
-Message-ID: <20261106-flagstick-sublevel-aeddc552bbc2@spud>
-References: <20261106-fan53555-silergy-sym827-support-v1-0-4e871c7f475c@protonmail.ch>
- <20261106-fan53555-silergy-sym827-support-v1-1-4e871c7f475c@protonmail.ch>
+	s=k20260515; t=1793984735;
+	bh=9ixBFuEHmkHOoQ6uutrazXK9Kghyu2179JvKWtPj4fQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Iskjez2RIUfuGPmcNAlg+1LcCsRwacGrZQn961/SVoYB1qf3yTpUT6qAkxKSLHLoo
+	 t8XkonZo0ROtXFmm5xNxYIbVg1ZL+TxS0+06qHxJrpaexNUjp4aMaM6sv5PQBSQZ5p
+	 G/b8UkmKSPwFz9GY9FkNToh9+48ZnjovrnY5WX/A7oX1sKJD3Q3hbgwLG4aSvraBNO
+	 Iek1uxH3S3wrbiflMDUY7L79gYPKhP0Dxwa5Unfb/yxQPRZm5WdRKe0o/cCWmfq7KE
+	 BJdB2setxxHITmLzxyib6QUGirJ+2IGP9vySUT5SB2BuHb4iHx/dpIxOhJnGVmtFgN
+	 ZFNGYXRm9l67Q==
+Message-ID: <sashiko-outbox-201895@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 02/13] watchdog: stm32_iwdg: detect whether the
+ watchdog is running
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106163429.618392-3-antonio.borneo@foss.st.com>
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-3-antonio.borneo@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 17:05:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,28 +60,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fayYFU1ql3xyLLhY"
-Content-Disposition: inline
-In-Reply-To: <20261106-fan53555-silergy-sym827-support-v1-1-4e871c7f475c@protonmail.ch>
 
---fayYFU1ql3xyLLhY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] watchdog: stm32_iwdg: unconfigured timeout in
+  stm32_iwdg_probe()
+- [Medium] watchdog: stm32_iwdg: WDOG_HW_RUNNING gated on Kconfig in
+  stm32_iwdg_probe()
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+commit 7c2acc17f93336becc29a7a139de848c3db25624
+Author: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
 
---fayYFU1ql3xyLLhY
-Content-Type: application/pgp-signature; name=signature.asc
+watchdog: stm32_iwdg: detect whether the watchdog is running
 
------BEGIN PGP SIGNATURE-----
+This commit adds stm32_iwdg_is_running() to detect whether the watchdog
+was already started by an earlier boot stage and sets WDOG_HW_RUNNING in
+stm32_iwdg_probe() only when it is running.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4I0AAKCRB4tDGHoIJi
-0titAP4gNj//i8T8/ls7UnQVYa+pQzCAP8sMIaukefApvX9TxAD+KLAaZFKxkhRq
-dC5ydWq8P0HqhQUYAd6fYougpcrRnA8=
-=Ll4g
------END PGP SIGNATURE-----
+[Severity: High]
+In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(), does
+removing the call to stm32_iwdg_start(wdd) leave the hardware prescaler
+(IWDG_PR), reload value (IWDG_RLR), and early-wakeup interrupt
+(IWDG_EWCR) registers out of sync with wdd->timeout and wdd->pretimeout?
 
---fayYFU1ql3xyLLhY--
+When stm32_iwdg_is_running(wdt) returns true, stm32_iwdg_probe() now sets
+WDOG_HW_RUNNING without programming wdd->timeout into the hardware or
+reading the bootloader's configured timeout back into wdd->timeout.
+Because stm32_iwdg_ops provides stm32_iwdg_ping() (line 162), which only
+writes KR_KEY_RELOAD to IWDG_KR, the watchdog core's keepalive worker
+schedules pings at half of wdd->timeout while reloading the bootloader's
+counter value. If the bootloader configured a hardware timeout shorter
+than wdd->timeout / 2, the watchdog expires and resets the system before
+the next keepalive ping. Even after userspace opens /dev/watchdog,
+watchdog_start() in drivers/watchdog/watchdog_dev.c (line 261) sees both
+WDOG_HW_RUNNING and wdd->ops->ping set and calls __watchdog_ping(wdd)
+instead of wdd->ops->start(wdd), leaving IWDG_PR, IWDG_RLR, and IWDG_EWCR
+unconfigured.
+
+[Severity: Medium]
+In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(),
+should setting WDOG_HW_RUNNING be unconditional when
+stm32_iwdg_is_running(wdt) is true, rather than gated on
+IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)?
+
+In drivers/watchdog/watchdog_dev.c at line 1099 in
+watchdog_cdev_register(), the watchdog core checks watchdog_hw_running()
+to pin the module and device references and to evaluate the runtime
+watchdog.handle_boot_enabled parameter. Gating the check on
+IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED) in the driver prevents
+the core from knowing the hardware is active when
+CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED=3Dn, breaking the
+watchdog.handle_boot_enabled=3D1 kernel command-line override and skipping
+the module/device reference pinning.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
+92-1-antonio.borneo@foss.st.com?part=3D2
