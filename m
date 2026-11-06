@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952588;
-	b=EP9ATAYWY25hLObJQFkhAEc5oCBH/jVfyKDXUGnk2w3OtS/Bd0xH2v1euukxJQnjDQyg
-	 8opUNL1BRfLwZgHNkR28Rj5/aQpACC1wvkqTIn40UZ3yMMSwWaQH3gHD5b1JZqFX6mBJT
-	 tfrYdCrr5mNtwlWzNiqIjbyNrrCYi9Sy9TCEDMbOH5rmYqzhe34JimaxQhyZh/QZy0gwL
-	 zZWTfX/BhRX8EtWH0wrs83N6d2k+S/UIeO3Di4oA6a/6XJ2vJNyXorxWVRnPVfRgJF6dw
-	 zoCO5W98LCnyF3NYYuFTtx6hYwx9VmqSrnT042b0A1L34tz29k/oZo5RNXBiQO7Famw==
+	t=1793952646;
+	b=LGk2VTliG1cc6W2jCKaGfkqqrZn5b3Z1Asu4ARcGvMPlLqImm2LHHJiHgT54OvcFPleu
+	 6Grl59M6NoDbRiyl8t5e0Cd/Afjvto/72jbebSHHxOsQ6qVmrZw3YYQi+39hpddVo08yQ
+	 vNzN4CexcIyXYde1BC7IzyqomWiivpE3EODZxkhlShBVt4k0z/elMjzZQZ2Jvh8HmgQVB
+	 MA2r6Tfsj3KjbEbj08P5pLetjhEKj9h7QHbBThFbduxxbAJEvl1QsbsE2VP6ZCsIERu+9
+	 mUJqXL8g+vsfbCbq5AoFL5LbTYYaQkPhmHpL5VO85mv+hWdfOUeiYn21Npejyb9sfIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952588;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=CHrI1kjHp/5iGoHZkZHTx8sVaxFMZq6Cnqe7sXoFPl4=;
-	b=f841Z1QRwr5JVLWIhZZ7g/EPAFXftyuxm3kB7e8n+//UzsmkNXzO1bg8RAZg3A+nteoF
-	 T9DZkpjbEYKNmzk8J5xv8G3rGmvqKjJu+ZfUUTcUuGVYOYzea5JbnQO1XMZNlVwovw4VH
-	 qG1nXKbc4loep3oRTdgGqGU+XtMmEixq+9BghLtK4CUgfrY6epsjvZfnVT6PZ6LW/eKyQ
-	 2+wGFCDj3U+ZGD5u+2yGY2bcVWPl5h22QLG1exLu1FwliXo6Nzbrpb+r1mXf9bO7i3ECI
-	 u3s4awJas3tskDmMqRIztST5gCQJQj1KhAuCBYj0g020pIT6swVhbkXy0f0KezXDQ5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952646;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HACeClcT7h9LorXCovTw1HzucA+TfNbDbeRqmPZg37U=;
+	b=knBDdiLlCpIfnNHlaoU5nabA2SozfmPYfz5RDaTTrYeEX2Xp9OHIRD2bwcP1F3eH5qxo
+	 URydl4tUlWUYBoInIIQauSYitf9plfoGe8jjSHXbvPgCzXR43xpZz+SPSpt+B1NpSXuaJ
+	 nJ9mqDbmmhJliPVhvJhk0tF5a+2+HBbQrxUM+eQJyAL0PCQmG/Hu+Fd+cE6tGSjkPObL9
+	 ZHrdLFVcoz/Z98sjmixE76cY7pOaaHnQpP7+q9M6ikRpt7wmNzw3SV2gaS1mVVVWb8W8G
+	 HCHuo+h2hGGpzpZI1TiKNVBBThVylBlYnnGf+bmvtXNISPdOWblKJJjww74B+VSwL1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nyKGNyB1;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Emnr0l/5";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69275606A332;
-	Fri,  6 Nov 2026 08:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69275606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D558606A328;
+	Fri,  6 Nov 2026 08:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nyKGNyB1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=CHrI1kjHp/5iGoHZkZHTx8sVaxFMZq6Cnqe7sXoFPl4=; b=nyKGNyB1GN6bxn4Vmwjn3rF3UC
-	+S8e/L/utkMkZDWQB31Si0I9y2MoS9aqjmU0uqp4avOKj855x9tM96oti7qTMCttyqW2YCf3oNTTQ
-	XtOiVdPRnJUSuPtzt3+81bNXLLSfJYw2oM69FTSKx1A1Mu2MK/Qud1sdG97DC7e+8dzaB7hKYSHQA
-	ZtK85bgLt0fQ46ldrAbI4dWVGfomHEYciJPMfriFCLE2SkMkuEZ3PJh+712CrwsWCKQsbnSH7Q2uz
-	IWQHV8KK4ncTo3QbYNe2guilYO+4veWMqUbly7fXO5B3W+rLAu7PvrBYp4xwqc4P5BbI4PMH8G63s
-	FFUKU4Qg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Yaozhong Li <yaozhonguwl@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
- Jonas Karlman <jonas@kwiboo.se>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Yaozhong Li <yaozhonguwl@gmail.com>
-Subject:
- Re: [PATCH v3] arm64: dts: rockchip: enable SD UHS-I on Firefly-RK3399
-Date: Fri, 06 Nov 2026 09:09:30 +0100
-Message-ID: <6900453.LvFx2qVVIh@diego>
-In-Reply-To: <20261106061835.1316-1-yaozhonguwl@gmail.com>
-References: <20261106061835.1316-1-yaozhonguwl@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Emnr0l/5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF7C1F0089F;
+	Fri,  6 Nov 2026 08:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793952646;
+	bh=HACeClcT7h9LorXCovTw1HzucA+TfNbDbeRqmPZg37U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Emnr0l/5rFrDWJ0l1k17SdeetzIXxlkU9IL8tMaAGjxOQ3WbLjGP1OmbHVO9Vx9HJ
+	 uF3eYnv79At3jDGOJRsPlFnrGNF2aIkZ9OnuOYQP/lCWrGO/VJ+Ak6VnoQdB4vj1BP
+	 1W8TFXKy845M6kolr5lCRzdV1HrUjb9fHDfCgL7Xwn/7HcsJK9CNAiiu4dE9kUT61J
+	 IqmSCmsBqKPbwQJo3aF9oPQOpCR8+k7FYN/rMcF7iJhAX6wfy+G5BgJCoKM3Cn2tai
+	 2m8MtVpOESvqSB0hLrYFpTGRE/l4c7B3WLG0dl1wWi1k/D1evWirldctjS6DlRZf8A
+	 ryIw4ZFPsaLyw==
+Message-ID: <sashiko-outbox-201028@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] pinctrl: qcom: Add qcom,remote-owned pin
+ configuration support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pankaj Patil" <pankaj.patil@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-egpio_fix-v1-2-569d220a4748@oss.qualcomm.com>
+References: <20261106-egpio_fix-v1-0-569d220a4748@oss.qualcomm.com>
+ <20261106-egpio_fix-v1-2-569d220a4748@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 08:10:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,116 +60,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi,
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Medium] pinctrl: qcom: incorrect pull-up bias reporting in
+  msm_config_group_get() [1]
+--
 
-Am Freitag, 6. November 2026, 07:18:35 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Yaozhong Li:
-[...]
-> - Describe the slot's own supply, vcc_sd, and use it as the sdmmc
->   vmmc-supply (Heiko). It is fed from vcc3v3_sys, and GPIO4_D6 controls
->   the slot power switch: holding the pin low leaves the card unpowered.
->   This is the same arrangement as vcc3v0_sd on the ROC-PC. The existing,
->   unreferenced lcd_panel_reset pinctrl entry also names GPIO4_D6; the
->   vendor tree uses the pin only for vcc_sd.
+commit d1d6e2282f19bdb42f5fdbf3729ed8109d4061fb
+Author: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 
-I you're reading the schematics, this is wrong.
+pinctrl: qcom: Add qcom,remote-owned pin configuration support
 
-In the schematics file Shawn linked to earlier (and also the one I have),
-GPIO4_D6 is connected to the reset-pin of an AT18.
+This commit adds support for the "qcom,remote-owned" pinconf property to
+hand pin ownership over to a remote subsystem without changing the
+selected mux function, and updates debugfs output to report remote
+ownership alongside the regular pin state.
 
-While the vcc3v0_sd is an always on regulator coming from vcc3v3_sys.
-As stated in v2, see page 20 of your schematics.
+> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pi=
+nctrl-msm.c
+> index 32aa7b919e24a..4d96260f99090 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
 
-So you essentially just set vmmc-supply to vcc3v3_sys. As I said that is
-merely descriptive.
+[ ... ]
 
-
-Heiko
-
-> - Link to v2: https://lore.kernel.org/all/20261105102556.1365-1-yaozhongu=
-wl@gmail.com/
->=20
-> Changes in v2:
-> - Point the sdio0 vmmc-supply at vcc3v3_sys, the WiFi module's VBAT input,
->   instead of dropping it (Heiko)
-> - Rewrite the commit message (Heiko)
-> - Link to v1: https://lore.kernel.org/all/20260922055011.14972-1-yaozhong=
-uwl@gmail.com/
->=20
-> On the boot-time issue described in v2: with the vmmc-supply in place
-> the sdmmc controller now probes after the GRF io-domain here, and a card
-> present at boot came up in SDR104 in 5 of 5 warm boots, against 0 of 8
-> before. That is a change in probe order rather than a fix for the
-> ordering problem itself.
->=20
->  .../boot/dts/rockchip/rk3399-firefly.dts      | 24 ++++++++++++++++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64=
-/boot/dts/rockchip/rk3399-firefly.dts
-> index 0568dfa..03858a4 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-> @@ -233,6 +233,19 @@ vcc5v0_typec: regulator-vcc5v0-typec {
->  		vin-supply =3D <&vcc_sys>;
->  	};
-> =20
-> +	vcc_sd: regulator-vcc-sd {
-> +		compatible =3D "regulator-fixed";
-> +		enable-active-high;
-> +		gpio =3D <&gpio4 RK_PD6 GPIO_ACTIVE_HIGH>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&vcc_sd_en>;
-> +		regulator-name =3D "vcc_sd";
-> +		regulator-boot-on;
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		vin-supply =3D <&vcc3v3_sys>;
-> +	};
+> @@ -424,6 +453,17 @@ static int msm_config_group_get(struct pinctrl_dev *=
+pctldev,
+>  		if (!arg)
+>  			return -EINVAL;
+>  		break;
+> +	case PIN_CONFIG_REMOTE_OWNED:
+> +		/* Pin is not eGPIO capable */
+> +		if (!pctrl->soc->egpio_func || !(val & BIT(g->egpio_present)))
+> +			return -ENOTSUPP;
 > +
->  	vcc_sys: regulator-vcc-sys {
->  		compatible =3D "regulator-fixed";
->  		regulator-name =3D "vcc_sys";
-> @@ -731,6 +744,12 @@ wifi_enable_h: wifi-enable-h {
->  		};
->  	};
-> =20
-> +	sdmmc {
-> +		vcc_sd_en: vcc-sd-en {
-> +			rockchip,pins =3D <4 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
+> +		/* The enable bit is cleared when the remote owns the pin */
+> +		if (arg)
+> +			return -EINVAL;
 > +
->  	usb-typec {
->  		vcc5v0_typec_en: vcc5v0_typec_en {
->  			rockchip,pins =3D <1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
-> @@ -777,7 +796,7 @@ &sdio0 {
-> =20
->  	/* Power supply */
->  	vqmmc-supply =3D <&vcc1v8_s3>;	/* IO line */
-> -	vmmc-supply =3D <&vcc_sdio>;	/* card's power */
-> +	vmmc-supply =3D <&vcc3v3_sys>;	/* card's power */
-> =20
->  	#address-cells =3D <1>;
->  	#size-cells =3D <0>;
-> @@ -804,6 +823,9 @@ &sdmmc {
->  	max-frequency =3D <150000000>;
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&sdmmc_clk &sdmmc_cmd &sdmmc_bus4>;
-> +	sd-uhs-sdr104;
-> +	vmmc-supply =3D <&vcc_sd>;
-> +	vqmmc-supply =3D <&vcc_sdio>;
->  	status =3D "okay";
->  };
-> =20
->=20
-> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
->=20
+> +		arg =3D 1;
+> +		break;
+>  	default:
+>  		return -ENOTSUPP;
+>  	}
 
+[Severity: Medium]
+This problem wasn't introduced by this patch, but in msm_config_group_get(),
+does the PIN_CONFIG_BIAS_PULL_UP case [1] need to check that
+g->i2c_pull_bit is non-zero before testing BIT(g->i2c_pull_bit), just as
+msm_config_reg() and msm_config_group_set() do?
 
+drivers/pinctrl/qcom/pinctrl-msm.c:msm_config_group_get() {
+    ...
+	case PIN_CONFIG_BIAS_PULL_UP:
+		if (pctrl->soc->pull_no_keeper)
+			arg =3D arg =3D=3D MSM_PULL_UP_NO_KEEPER;
+		else if (arg & BIT(g->i2c_pull_bit))
+			arg =3D MSM_I2C_STRONG_PULL_UP;
+		else
+			arg =3D arg =3D=3D MSM_PULL_UP;
+    ...
+}
 
+For pins without an I2C strong pull-up bit, g->i2c_pull_bit is 0, so
+arg & BIT(g->i2c_pull_bit) tests bit 0 of the bias field.  Since both
+MSM_PULL_DOWN (1) and MSM_PULL_UP (3) have bit 0 set, querying
+PIN_CONFIG_BIAS_PULL_UP (for example via debugfs) on such a pin when
+pull-down or standard pull-up is configured falsely reports
+MSM_I2C_STRONG_PULL_UP (2200 ohms).
 
+[1] https://sashiko.dev/#/bug/linux-42fe82f8-2ab3-4bdf-9d87-6f46c976e49a
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-egpio_fix-=
+v1-0-569d220a4748@oss.qualcomm.com?part=3D2
