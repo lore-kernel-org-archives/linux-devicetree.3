@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973894;
-	b=E0ql6NKAwvZyYwpQCWc7f3U2M8hl0MW+ekTJZNyvt20aG5EACKqsg4OeCeLzLluZhoQK
-	 V6aGQu21fF7+GJoZ1fGD3P4EBP3z1h+kteQ9d7GuEKR7jKF8vJp+1ev4qRGRv872IaS6F
-	 h7JLFEuUyJ4zg+gbaISy3WfONgz+V586DSsQbXRN7AKTEW5jw4JP8fH6Mu9e7JGKHjuPz
-	 4qxTIrWxfjtTO/eT6+fdCq+qrLK/1H+WaFxcHRTpJsVCmWY/uWLBwc+bdsmW/H5BPe4Wj
-	 iisjNIi22/0iUsaRq0JvxqBc6t5g6ZMf57Kny810mRiMQT9eEU8QKuiTtAnVSScxzjw==
+	t=1793973907;
+	b=f1F87RN9pMiYpMsodeO/DvRPm2bvA25YHDl3t8NWIq7sWWDjtAI97LUG1uJ0DvnTjrsb
+	 vG5QxeDyjqmT1COtaT7NPCriZMu+PFBut3qYshb8Sd95bp2hnHzZorUbwLia4OmKCpJ8q
+	 s/MY/TJIXkwMFu59QNOZZa86RO5I98noPDkOBi61BJ7hPuqkD43I5D+d21Y5aj2ejrivq
+	 +YpQoDh4KdJTMZusJgolf3+oQYkIc8gyXATAbXJtWdst0sf/w1WrMG6gB2cR5O9k90QwC
+	 ld2/3xmXruVNCPr3tc+i4DFIVOBAj3oOHtVTmQzBIeKhik5gxRyJCpQPYc1m2fFjHdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973894;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:
-	 X-MS-Exchange-MessageSentRepresentingType:Date:Message-ID:References:
-	 In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
-	 X-MS-Exchange-Organization-SCL:X-MS-TNEF-Correlator:
-	 X-MS-Exchange-Organization-RecordReviewCfmType:msip_labels:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Ua1mODhM/8D5RojvHEx0p5Wrn1skZyRKhmF6dD7wVNw=;
-	b=Kldu1WqK2UJvNOtwUXkeVd8N3G0OjMjJdpVYFvY6eutdzofBvxPnS9t+mWN3nF5F+iKk
-	 RZG1oSD7px/s9YCA3cDg4eUmrpz4/wp0WrKIBRXG/nCOVI8LSD2Fb5MpoF5DicuQrh1+K
-	 kMR/G5XLkzFrAgoXaej1A5rslRnkYqVHKjWA3up17g3ClE3tPSHE9n9Nj/Bw6tNZwZz3t
-	 zel/Rn5+2OPgZLJN+y0t9+v2g+4e1SrABciu53DE/P47+MQCeudg74aTfK3tmqPY1D63+
-	 3pfmJAKFRaJ6XGaU1VgO0kahFigfjLpXz1bojmqD+5qNkuw4/nw6GAmBWjF8GqmP2QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973907;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JLfwMbD8ieMoKHUumYpmrrpv16KRq8OjWRwIwoqLIhM=;
+	b=pJXyHcaDf97mCFvYI++LCfiLGELygEpLSdSxKA0GJarQQ0Cku8DB1rf3E3YsLskdTrn5
+	 oq4tXol5nT182YF3bIMM9bjn5O5s8md8IJmErAippEYQlYWIK+ntCR3LVoWOdUCdw1nNc
+	 Nxq++nmxQcq3DFGIkxZaNI8mski0/4zR4ufcC2sp+fNBDQrHdo/bQKL3SIZDgmeICuaGs
+	 12bdvEa4lYEvYQiDErC5bDQdUGnV4O3VPhg0HiFd6HzTQjfFxM45h/+xCZsSrPGUZGdUH
+	 2ncpTzUuCUvSDq8rP9a9tTK6LIX/y256Pwey+/LG0NjZfpGQqZT+PdXrgsYRCf+PvIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stu.hqu.edu.cn;
-	spf=pass smtp.mailfrom=stu.hqu.edu.cn;
-	arc=none smtp.remote-ip=210.34.240.11
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8BEA606A32C;
-	Fri,  6 Nov 2026 14:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BEA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from TYZPR04MB7491.apcprd04.prod.outlook.com (unknown [40.99.89.157])
-	by cmweb (Coremail) with SMTP id C_Ai0gBHmIVm3u1qfguSAA--.16551S2;
-	Fri, 06 Nov 2026 22:04:26 +0800 (CST)
-From: "raspberrykan@stu.hqu.edu.cn" <raspberrykan@stu.hqu.edu.cn>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Neil Armstrong
-	<neil.armstrong@linaro.org>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-amlogic@lists.infradead.org"
-	<linux-amlogic@lists.infradead.org>
-Subject: RE: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
-Thread-Topic: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
-Thread-Index: AQHdO5BowOR8ZCfYp0qZMi0lItJW0ba9+JkAgGN+mlc=
-X-MS-Exchange-MessageSentRepresentingType: 1
-Date: Fri, 6 Nov 2026 14:04:16 +0000
-Message-ID:
-	<TYZPR04MB7491E5F7FDBD54FEA44C3735FF762@TYZPR04MB7491.apcprd04.prod.outlook.com>
-References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
- <20260903-mibox4-dt-v3-2-1a8e395d923c@stu.hqu.edu.cn>
- <94fc2be2-01a0-4d3b-8d27-a4c42d8449d4@linaro.org>
-In-Reply-To: <94fc2be2-01a0-4d3b-8d27-a4c42d8449d4@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-Exchange-Organization-SCL: -1
-X-MS-TNEF-Correlator:
-X-MS-Exchange-Organization-RecordReviewCfmType: 0
-msip_labels:
-Content-Type: text/plain; charset="iso-8859-1"
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bzH26ZJR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABF0606A333
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 14:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bzH26ZJR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1081F008A1;
+	Fri,  6 Nov 2026 14:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973906;
+	bh=JLfwMbD8ieMoKHUumYpmrrpv16KRq8OjWRwIwoqLIhM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bzH26ZJRh9EE+PUgkvxHRxbHNZH9JxHwpCx9HLF/J4A7WRGUHCjHyAYOa5SVGTy8b
+	 /oiohiqQwXTVHR70Pw26NFtVtdos/V97tLgIyVgms64HJT3EScRY7eB1NRPvg+u0k4
+	 1MUcfFOadvU3nvv8d7d6FdJWu1UmvHAb8+uQPZyPtVWf2LL6BGjwGktBrprfIiCwlp
+	 l2AP1wf1WD4VfeX1tqLNrOGO2BQjY+lwlK9KRoHIg5wbO5fleHNCYC4HfNTKzh+Mdf
+	 Madtg/qTYqV+ITNUadM7j9xYwrdkd+iw3cRJlnaqxQXSWQkI/iNJtJToMYszkufGQJ
+	 rgwRAE68/yN+g==
+Message-ID: <sashiko-outbox-201536@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/5] phy: Add common Innosilicon HDMI PHY helpers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261106-jh7110-inno-hdmi-phy-v7-2-d49368303800@samsung.com>
+References: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
+ <CGME20261106135506eucas1p228bf1f8e1cacdc716e6bf22b847f49d9@eucas1p2.samsung.com>
+ <20261106-jh7110-inno-hdmi-phy-v7-2-d49368303800@samsung.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 14:05:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,30 +60,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-CM-TRANSID:C_Ai0gBHmIVm3u1qfguSAA--.16551S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYl7k0a2IF6FyUM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
-	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr
-	0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAa
-	Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4
-	A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY
-	1x02628vn2kIc2xKxwCY02Avz4vEIxC_Xryl42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxV
-	Aaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxdbbDUUUU
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQATBGrO4rEAywAHst
 
-Hi,=0A=
-Just a gentle ping on this patch.=0A=
-I was wondering if there are any comments or suggestions.=0A=
-Thanks for your time!=0A=
-=0A=
-Best regards,=0A=
-Raspberry Kan=0A=
-2026/11/6=
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] phy: inno-hdmi: 32-bit overflow in
+  inno_hdmi_phy_pre_pll_recalc_rate()
+- [Low] phy: inno-hdmi: unscaled vco_rate logged in
+  inno_hdmi_phy_pre_pll_recalc_rate()
+--
 
+commit 24c4317981476fc596167091376edec998895a08
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
+
+phy: Add common Innosilicon HDMI PHY helpers
+
+This commit adds a helper library for the Innosilicon HDMI PHY pre-PLL,
+providing pixel clock lookup, clock rate calculation, and register
+programming functions to be shared across SoC drivers.
+
+> diff --git a/drivers/phy/phy-inno-hdmi.c b/drivers/phy/phy-inno-hdmi.c
+> new file mode 100644
+> index 0000000000000..6900d4d83e464
+> --- /dev/null
+> +++ b/drivers/phy/phy-inno-hdmi.c
+
+[ ... ]
+
+> +unsigned long
+> +inno_hdmi_phy_pre_pll_recalc_rate(const struct inno_hdmi_phy_pre_pll *pl=
+l,
+> +				  unsigned long parent_rate)
+> +{
+> +	unsigned int control, div_1, div_2, div_3, pclk_div_ab, pclk_div_cd;
+> +	unsigned int frac_div_7_0, frac_div_15_8, frac_div_23_16, div;
+> +	u8 nd, no_a, no_b, no_d;
+> +	unsigned long frac, rate;
+> +	u64 vco, vco_rate;
+> +	u16 nf;
+> +	int ret;
+
+[ ... ]
+
+> +	nd =3D div_1 & INNO_PRE_PLL_PRE_DIV_MASK;
+> +	nf =3D (div_2 & INNO_PRE_PLL_FB_DIV_11_8_MASK) << 8;
+> +	nf |=3D div_3;
+> +	vco =3D parent_rate * nf;
+> +
+> +	if (!(div_2 & INNO_PRE_PLL_FRAC_DIV_DISABLE)) {
+> +		ret =3D inno_read(pll, INNO_PRE_PLL_FRAC_DIV_7_0, &frac_div_7_0);
+> +		if (ret)
+> +			goto err;
+> +		ret =3D inno_read(pll, INNO_PRE_PLL_FRAC_DIV_15_8, &frac_div_15_8);
+> +		if (ret)
+> +			goto err;
+> +		ret =3D inno_read(pll, INNO_PRE_PLL_FRAC_DIV_23_16,
+> +				&frac_div_23_16);
+> +		if (ret)
+> +			goto err;
+> +
+> +		frac =3D frac_div_7_0 | (frac_div_15_8 << 8) |
+> +		       (frac_div_23_16 << 16);
+> +		vco +=3D DIV_ROUND_CLOSEST(parent_rate * frac,
+> +					 BIT(INNO_FRAC_DIV_WIDTH));
+> +	}
+
+[Severity: Medium]
+Can parent_rate * nf and parent_rate * frac overflow on 32-bit
+architectures?
+
+Both parent_rate and frac are unsigned long, and nf is u16, so both
+multiplications are evaluated in 32-bit arithmetic on 32-bit systems
+before widening to u64 vco.  With a 24 MHz reference clock, parent_rate *
+nf overflows 32 bits when nf >=3D 179, and parent_rate * frac overflows for
+any 24-bit fractional divider entry, causing
+inno_hdmi_phy_pre_pll_recalc_rate() to return a corrupted pixel clock
+rate.  Casting parent_rate to u64 and using DIV_ROUND_CLOSEST_ULL() would
+avoid the truncation.
+
+> +
+> +	vco_rate =3D vco;
+> +
+> +	if (control & INNO_PCLK_VCO_DIV_5_MASK) {
+> +		div =3D nd * 5;
+> +	} else {
+> +		no_a =3D pclk_div_ab & INNO_PCLK_DIV_A_MASK;
+> +		no_b =3D FIELD_GET(INNO_PCLK_DIV_B_MASK, pclk_div_ab) + 2;
+> +		no_d =3D pclk_div_cd & INNO_PCLK_DIV_D_MASK;
+> +
+> +		div =3D nd * (no_a =3D=3D 1 ? no_b : no_a) * no_d * 2;
+> +	}
+> +
+> +	/*
+> +	 * An unprogrammed pre-PLL reads its dividers back as zero, which would
+> +	 * leave do_div() dividing by it.
+> +	 */
+> +	if (!div) {
+> +		dev_dbg(pll->dev, "pre-PLL dividers read back as zero\n");
+> +		return 0;
+> +	}
+> +
+> +	do_div(vco, div);
+> +
+> +	rate =3D DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
+> +
+> +	/* The VCO is only in spec between 1.4 and 3.2 GHz, so log it. */
+> +	dev_dbg(pll->dev, "%s rate %lu vco %llu\n", __func__, rate, vco_rate);
+
+[Severity: Low]
+Does vco_rate miss the division by the reference pre-divider nd?
+
+Because nd is folded into div rather than applied to vco before vco_rate =3D
+vco, dev_dbg() logs nd times the actual VCO frequency whenever prediv > 1.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-inn=
+o-hdmi-phy-v7-0-d49368303800@samsung.com?part=3D2
