@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929802;
-	b=29c6LHb98NgWA7cIU1K9+/wqoKmbvcb94uRr98KsVectytS1cWneUzC0ca9T7UBN2eIw
-	 bR7/OB2n754zHYU19r7lvil+Yxvd/FS+7nP9g/jxYc3n2KCu5UnCBLheK6xEvxQDjZhdn
-	 oaswxKklBIRR5ZxCeE0fmE4cvO7tg2F2eVNgYsS311RmD5Q5OxbEJWeiyekusoNKAoM2n
-	 KWhymuE3jQiYWCSD39ARRTBGQEHNuU8YX4faNX0X/b7yg9cGpIFp6qjdgTc63zRcW6MPs
-	 KEN6CtyLhH+GW6qOOZPhOS3MRCOYThwPBrpYYDPtf0i7orRmb43YnCwCdgGLMAVXhQw==
+	t=1793929844;
+	b=PQN7a+o0spOK3kONlv5CbC8MHwroFuanl0ZzUlnwQcy2aR9tEa0JBHSHvUk9uk5kOenS
+	 aj4lTJk7x51W6QxKBDStKonJkWIcdF0t0K1eIjSg4gBjRmggsn/w/xQT3IPzpl672/FAh
+	 V/ZDUH6sUeH0t/dbyUyJburNkHiZ0LBXebsvZb2PEqjC7+n0RzxkcDJ6QUJpNblfY8UhX
+	 Fa9rvNJWXMLlcbzpFiFASTEgkzxXeJsGiVO4vHj77UKqKW6rTLeTgMl36YwiCjcyJsOS6
+	 alau+rKA0s/v8D+cm5F3TvE7CohvOyJJgYY1M/nzqS8ZyFOmIp9ZmTTvb6/60xaRA9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929802;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vIuAthLRsh9V8gTeDHDwXX7UHZGZzrbSuPuqV6YOL4A=;
-	b=qg1FsvRDHubW/YOGGA654nrAL/DaOH/Iiw8qJay+851qXRz9QVhpZNxIa0JH0BPTVmJB
-	 Y45/BDitsh/4KXZFq9/YqHdCfXtY7O3hxGbJITKSCUjecUTaRIqlRfaFQmsyE4pMobiBc
-	 VWGJmrIoqIrZFxhpc9R3B6v0KUOnytsyf0me87Nb58W+DBHNtI5aFt05Q3noPj+ll1hTa
-	 tvTwE9yuYdgM5puJmli/h7vHHl+kCC4GI/RPkgXQ05+SAjIdtz/W7ba/RhnWOTPsESt7x
-	 rMv+K9i5/BVaJcFNZVcy0yorqnbylvs9ZSr//I4wPT2T/jyIbCOgOpjmXAILyhNG4tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
+	b=bhI3UAXagJayr0wfcpF5gB/jEeSPLCNnyHhGuIvuh4qYp+DDrFkrC2w8CICPUiF7SLcr
+	 J4lBzW8p1iGk6JZ7jZOBncBw/69lEBvmHhl07pN+fIBfvNwAh3cOS0R5NzZ7z3AaXdxxk
+	 M9451MCuNDZXMvNNkhTntbqNd/R58GCRy92PwtyWabQMuDBqWFaEAumztXqzcR533LGI8
+	 fZSFlR6cc31OOFDPurw+3lf0KpzYWxw3m1zWKpGMJaW8OFX83hZCsZ/o0D/gFP3rLRG48
+	 hkdgmp4MxE1+mwajQHZ5+TW4nRlEHQQyFfX4tLHGaB/imqVsFWobGXHSB6Tp1HacCmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IZ26Ph+E;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=iFiGgm81;
+	arc=none smtp.remote-ip=209.85.160.50
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B28606D80B
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 01:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73B28606D80B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554F5606EE89
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 01:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 554F5606EE89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IZ26Ph+E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793929798; x=1794188998;
-	bh=vIuAthLRsh9V8gTeDHDwXX7UHZGZzrbSuPuqV6YOL4A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IZ26Ph+Eo4FftkkvmSLBMRYWjoL+scwJ7rBLfpmP7E2jjUDT+h3XMMEXZ/axQ/5Wc
-	 9pnnlsCs2lMfm17EJ/22v4lUOawLk7Z9jZS7ZsXOw959WUL5tMXBhnu9DE7Ts1gYXw
-	 7FptFjIh8CgTL+L0zT5Z3mfQE3XKAV0EwFThbdMWM/Qz7+OonqVfi3ZmrxJf93tctK
-	 vVQD2S1tNcGfIStHMuXGIxf57/Z0RhIhMXiYShT8Vcn3q1vdLuZXgjIbJ7It1wIaSS
-	 /h4/bbHnLEI54HgilCf5BRDDV9s0IvTn/6kTbtaZ+2Ii8/DBpFvleYHmNbW6rlDVr7
-	 tur5pFL1g0RXg==
-Date: Fri, 06 Nov 2026 01:49:55 +0000
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Input: add FocalTech FT3683G touchscreen driver
-Message-ID: <Lbhn9qT1jCJXASc7tr1mwU9G6_y4_hDlUU8szqyg9cv21pGC_6Pq62qzjty6yrFkL8ML2e5LMrGFEO6YKpid1DMQ5WB04X4Nzs8Ivl35tXc=@pm.me>
-In-Reply-To: <auo7GvY0Ufq_7DTn@google.com>
-References: <20261030-focaltech-ft3683g-v1-0-38b2f941b039@pm.me> <20261030-focaltech-ft3683g-v1-2-38b2f941b039@pm.me> <auo7GvY0Ufq_7DTn@google.com>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f0dcd921516e46b4a168f58b8e2fb4015b657f59
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=iFiGgm81
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-475920b9ca2so21994fac.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 17:50:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar.com; s=google; t=1793929842; x=1794534642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
+        b=iFiGgm81vaMCUIvQp0P8W9hQsBzQpyVVeiayZlgE/yRrYx/diZVQpRy1S9MtZcstGs
+         8f8rbNhbmL3dxI4BO/m7AJJWAWPOZM/zw3cEaKG15fv6idU0I2+vL1Z+ABuuGVyupR29
+         gISnEyCTgBHbx8tTUlHBk5hoPStY8wxRfpRDjCEM2DYtE/GMWby7rrDhGMPx+5KAHwTq
+         Uzp3v+Xi6/NyKJAnomo7Bn4clGD/ic8gu7k8WLodKyfOZVPZJMfr3AzauPlot/tjoby2
+         X3Vb1fN+YLnRKHduGJSyimAcYJ7VWXa80+rsqkNbO4n1awfE3zoS6tndR0kUg4V5LplX
+         Yz6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793929842; x=1794534642;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
+        b=i28kCmNNluPqqEtKejsMTbqouP+2/KJYL5ofanPE5wR1X3JUrPTuHYdIcTyf+H2quC
+         KNFi68kws3iN0+r72uwzBCcxyTDFqZX57HZbx0dm/DfMIIluRonK3yYHGJ5+ouki0KuF
+         B1j2Ctkv9Lt4gOysTPO8WauPeRQWxk1pbxNE5ZnJoSdcFw/leJOjcsmbfAixaZDeFCiA
+         fqM+h6dU7gMqhAQZu7wTdMWmYHa5pgt4/bRakp+QLMqj/UfTl95EQiE9oHszQ9slYlZQ
+         TNrBsIGB26J4f/XYb4NeVs85axFfq7gQ477V/DUs66q2Xg+qalX5Fh5eTI34vaHWb8cU
+         xKxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwfKoqGhsf9VWBu7+AFFTQLkk90ozzu4OpN4Yah0L0RhhjRdmQbztIeu61rUCpl/l/W10EfHaBXBBmp@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XaXpaAklWT+fCjwaCJMBJfr2CmbhYin9UxjnkXZdAn15x1aN+
+	jGhnaeuy94IQBIww/0n+EBHAyydb9XKNqPaRNVJSsEOWfpeY9LXyd6gTtqGgAOSxlbA=
+X-Gm-Gg: AYBFou12UjNiCnx6hzWKAnxrM4xXcbZP3h0Iztq24+rk15kQS29RItHiJOvrnxvW+/1
+	E6jPUJKrwuPRkbbgwSlTqgHC8l7K9wovwz6r8ir9qFnL3ODqTKh3nzNS2hPszwnazJlbtSnxIOp
+	kPB5TifpbhthBSObVrSkJKylqTpD9M1La+KnY04Ll87lDUDybtczTnJB+obg6mtTl8vIy/nbKZ6
+	lQFhVw5Kyf6d/Z+CaHlZikJR8deprOmfkDhuOW493p6ViUY8rDTDrZderIZ6zJzu7LsJunJF2wd
+	YcXcbzE8gd9dQwu4zoC8YeIT8LVDE9DlM4i6hYJxa4oduJ/Rqu2OfT3IGzvM0K8RElTOMq/SQSz
+	0yxEPtv9hvWJ3J/7GLtzgvHOQG2BPk4IfljmqTb8CqJHtPv8c4Th72n4tAazQ6Z7yiuv4YumcMb
+	wp7Pd9zYRbY+e5okvEOHlP5Wt5MXR0dpo9eEi4YKkdXTqMPrl1GLnHV41cl5mKOo1TyFX1xZJdX
+	eSMbHygTXf2TjN+pzINKb8DfV6JSHLhL92k6PAA/2Dk15yRkq4rxAFvxEK7wN/O5ZbWyggkRfU9
+	UOzcovLKPQUMxYUl68P4RSl0+vec
+X-Received: by 2002:a05:6870:a0ab:b0:4ad:8800:b277 with SMTP id 586e51a60fabf-4ad98b4feb2mr759024fac.24.1793929842253;
+        Thu, 05 Nov 2026 17:50:42 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad97887090sm817691fac.6.2026.11.05.17.50.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 17:50:41 -0800 (PST)
+Message-ID: <bbeb0df0-10ce-4f8c-8b2b-07437d959b3b@riscstar.com>
+Date: Thu, 5 Nov 2026 19:50:40 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,357 +92,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] soc: toshiba: tc9564: config system controller
+To: Krzysztof Kozlowski <krzk@kernel.org>, sboyd@kernel.org,
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
+ alexandre.torgue@foss.st.com, marex@nabladev.com,
+ changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104004332.2141282-1-elder@riscstar.com>
+ <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tuesday, November 3rd, 2026 at 3:02 PM, Dmitry Torokhov <dmitry.torokhov=
-@gmail.com> wrote:
+On 11/5/26 2:26 PM, Krzysztof Kozlowski wrote:
+> On 04/11/2026 01:43, Alex Elder wrote:
+>> This series is comprised of some code that was previously sent
+>> separately.  It now incorporates a new system controller driver
+>> that advertises clock and reset functionality, as well as regmap
+>> access to its address range.  This combination is being treated
+>> as a new series.  (Details of previous versions are below.)
+>>
+>> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
+>> It includes a PCIe switch with three downstream ports.  To one of
+>> these ports an embedded PCIe endpoint is attached, and that implements
+>> two PCI functions.  BAR 4 for both PCI functions provides access to
+>> registers controlling blocks within the SoC.
+>>
+>> The system controller driver adds the clock and reset devices
+>> using the mfd_add_devices() interface.  The clocks and resets
+>> are implemented by drivers included in this series.
+> 
+> Toshiba TC9564 bindings and DTS should be posted completely. We spent
+> great amount of time on discussing already and I pointed more than once
+> that big picture is missing.
+> 
+> You are not describing here parts of a SoC.
+> 
+> You are describing one, single device how the host sees it and DT
+> maintainers (and writing bindings) ask for complete picture in such cases.
+> 
+> Best regards,
+> Krzysztof
 
-> Hi Alexander,
->
-> On Fri, Oct 30, 2026 at 05:27:15AM +0000, Alexander Koskovich wrote:
-> > +
-> > +struct ft3683g_data {
-> > +=09struct spi_device *spi;
-> > +=09struct input_dev *input;
-> > +=09struct touchscreen_properties props;
-> > +=09struct regulator_bulk_data supplies[2];
-> > +=09struct gpio_desc *reset_gpio;
-> > +=09struct device *dev;
-> > +=09struct mutex spi_lock; /* protects tx_buf/rx_buf */
->
-> In what cases will there be concurrent accss?
+https://github.com/riscstar/linux/blob/tc9564-dts/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
 
-None (yet), carried over from downstream for firmware updates, etc. Will dr=
-op for v2.
-
->
-> > +=09u8 tx_buf[256] ____cacheline_aligned;
-> > +=09u8 rx_buf[256] ____cacheline_aligned;
-> > +};
-> > +
-> > +static int ft3683g_spi_read(struct ft3683g_data *ts, u8 addr,
-> > +=09=09=09    u8 *data, u32 len)
-> > +{
-> > +=09struct spi_transfer xfer =3D { };
-> > +=09u32 dp =3D 4 + FT3683G_SPI_DUMMY;
-> > +=09u32 txlen =3D dp + len + 2;
-> > +=09u16 crc_calc, crc_read;
-> > +=09int error, i;
-> > +
-> > +=09guard(mutex)(&ts->spi_lock);
-> > +
-> > +=09memset(ts->tx_buf, 0, txlen);
-> > +=09ts->tx_buf[0] =3D addr;
-> > +=09ts->tx_buf[1] =3D FT3683G_SPI_CMD_READ;
-> > +=09ts->tx_buf[2] =3D (len >> 8) & 0xff;
-> > +=09ts->tx_buf[3] =3D len & 0xff;
->
-> cpu_to_be16p()? or put_unaligned_be16()?
->
-> > +
-> > +=09xfer.tx_buf =3D ts->tx_buf;
-> > +=09xfer.rx_buf =3D ts->rx_buf;
-> > +=09xfer.len =3D txlen;
-> > +
-> > +=09for (i =3D 0; i < FT3683G_SPI_RETRIES; i++) {
-> > +=09=09error =3D spi_sync_transfer(ts->spi, &xfer, 1);
-> > +=09=09if (error)
-> > +=09=09=09continue;
-> > +
-> > +=09=09if (ts->rx_buf[3] & 0xa0) {
->
-> What is 0xa0? GENMASK()? Something els?
-
-Not sure, downstream doesn't say. I tried to find a version of the driver t=
-hat
-had this named but they all just check these magic bits. Since I can't say =
-for
-sure what it is, didn't define it.
-
-I guess I could put that in a comment but "idk" as a comment might be ehhhh=
-.
-I added some logging to see if it ever even happens, did some reloads,
-suspend/resume cycles, various touches and only fired once, and the CRC als=
-o
-failed too so can probably rely on the CRC? Right now it seems redundant
-and I can't explain what its checking.
-
-Can just drop in v2 unless you'd rather keep it.
-
->
-> > +=09=09=09fsleep(FT3683G_SPI_CS_DELAY_US);
-> > +=09=09=09continue;
-> > +=09=09}
-> > +
-> > +=09=09crc_calc =3D crc_ccitt(0xffff, &ts->rx_buf[dp], len);
-> > +=09=09crc_read =3D ts->rx_buf[dp + len] |
-> > +=09=09=09   (ts->rx_buf[dp + len + 1] << 8);
->
-> get_unaligned_le16()?
->
-> > +=09=09if (crc_calc !=3D crc_read) {
-> > +=09=09=09fsleep(FT3683G_SPI_CS_DELAY_US);
-> > +=09=09=09continue;
-> > +=09=09}
-> > +
-> > +=09=09memcpy(data, &ts->rx_buf[dp], len);
-> > +=09=09return 0;
-> > +=09}
-> > +
-> > +=09return error ? error : -EIO;
-> > +}
-> > +
-> > +static int ft3683g_read_reg(struct ft3683g_data *ts, u8 addr, u8 *val)
-> > +{
-> > +=09return ft3683g_spi_read(ts, addr, val, 1);
-> > +}
-> > +
-> > +static int ft3683g_check_chip_id(struct ft3683g_data *ts)
-> > +{
-> > +=09u8 idh, idl;
-> > +=09int error;
-> > +
-> > +=09error =3D ft3683g_read_reg(ts, FT3683G_REG_CHIP_ID, &idh);
-> > +=09if (error)
-> > +=09=09return error;
-> > +
-> > +=09error =3D ft3683g_read_reg(ts, FT3683G_REG_CHIP_ID2, &idl);
-> > +=09if (error)
-> > +=09=09return error;
-> > +
-> > +=09if (idh !=3D FT3683G_CHIP_IDH || idl !=3D FT3683G_CHIP_IDL) {
-> > +=09=09dev_err(ts->dev,
-> > +=09=09=09"chip ID mismatch: expected %02x%02x, got %02x%02x\n",
-> > +=09=09=09FT3683G_CHIP_IDH, FT3683G_CHIP_IDL, idh, idl);
-> > +=09=09return -ENODEV;
-> > +=09}
-> > +
-> > +=09dev_dbg(ts->dev, "chip ID: %02x%02x\n", idh, idl);
-> > +=09return 0;
-> > +}
-> > +
-> > +static irqreturn_t ft3683g_irq(int irq, void *dev_id)
-> > +{
-> > +=09struct ft3683g_data *ts =3D dev_id;
-> > +=09u8 buf[FT3683G_TOUCH_BUF_SIZE];
-> > +=09unsigned int x, y, id, event;
-> > +=09int event_num, i, base;
-> > +=09u8 protocol;
-> > +=09int error;
-> > +
-> > +=09error =3D ft3683g_spi_read(ts, FT3683G_REG_TOUCH_DATA,
-> > +=09=09=09=09 buf, sizeof(buf));
-> > +=09if (error) {
-> > +=09=09dev_err_ratelimited(ts->dev, "failed to read touch data: %d\n",
-> > +=09=09=09=09    error);
-> > +=09=09return IRQ_HANDLED;
->
-> Why not IRQ_NONE?
-
-No particular reason, downstream does IRQ_HANDLED so copied it. Will
-switch to IRQ_NONE in v2.
-
->
-> > +=09}
-> > +
-> > +=09if (!memchr_inv(&buf[1], FT3683G_FW_INIT, 4)) {
-> > +=09=09input_mt_sync_frame(ts->input);
-> > +=09=09input_sync(ts->input);
-> > +=09=09return IRQ_HANDLED;
->
-> I'd do "goto out".
->
-> > +=09}
-> > +
-> > +=09protocol =3D (buf[1] >> 4) & 0x0f;
-> > +=09if (protocol !=3D FT3683G_PROTOCOL_V2)
-> > +=09=09return IRQ_HANDLED;
-> > +
-> > +=09event_num =3D buf[1] & 0x0f;
-> > +=09if (!event_num || event_num > FT3683G_MAX_POINTS)
-> > +=09=09return IRQ_HANDLED;
-> > +
-> > +=09for (i =3D 0; i < event_num; i++) {
-> > +=09=09base =3D FT3683G_TOUCH_LEN * i + FT3683G_TOUCH_HEADER;
-> > +
-> > +=09=09event =3D buf[base + FT3683G_TOUCH_OFF_XH] >> 6;
-> > +=09=09id =3D buf[base + FT3683G_TOUCH_OFF_YH] >> 4;
-> > +=09=09if (id >=3D FT3683G_MAX_POINTS)
-> > +=09=09=09continue;
-> > +
-> > +=09=09input_mt_slot(ts->input, id);
-> > +
-> > +=09=09if (event =3D=3D FT3683G_EVENT_DOWN ||
-> > +=09=09    event =3D=3D FT3683G_EVENT_CONTACT) {
->
-> Could be written as:
->
-> =09=09if (input_mt_report_slot_state(ts->input, MT_TOOL_FINGER,
-> =09=09=09=09=09       event =3D=3D FT3683G_EVENT_DOWN ||
-> =09=09=09=09=09=09=09event =3D=3D FT3683G_EVENT_CONTACT) {
-> =09=09=09...
->
-> >
-> > +=09=09=09x =3D ((buf[base + FT3683G_TOUCH_OFF_XH] & 0x0f) << 8) |
-> > +=09=09=09    buf[base + FT3683G_TOUCH_OFF_XL];
->
-> get_unaligned_xx16()?
->
-> > +=09=09=09y =3D ((buf[base + FT3683G_TOUCH_OFF_YH] & 0x0f) << 8) |
-> > +=09=09=09    buf[base + FT3683G_TOUCH_OFF_YL];
-> > +
-> > +=09=09=09input_mt_report_slot_state(ts->input,
-> > +=09=09=09=09=09=09   MT_TOOL_FINGER, true);
-> > +=09=09=09touchscreen_report_pos(ts->input, &ts->props,
-> > +=09=09=09=09=09       x, y, true);
-> > +=09=09} else {
-> > +=09=09=09input_mt_report_slot_state(ts->input,
-> > +=09=09=09=09=09=09   MT_TOOL_FINGER, false);
-> > +=09=09}
-> > +=09}
-> > +
-> > +=09input_mt_sync_frame(ts->input);
-> > +=09input_sync(ts->input);
-> > +=09return IRQ_HANDLED;
-> > +}
-> > +
-> > +static int ft3683g_power_on(struct ft3683g_data *ts)
-> > +{
-> > +=09int error;
-> > +
-> > +=09gpiod_set_value_cansleep(ts->reset_gpio, 1);
-> > +=09usleep_range(2000, 3000);
-> > +
-> > +=09error =3D regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->suppl=
-ies);
-> > +=09if (error) {
-> > +=09=09dev_err(ts->dev, "failed to enable regulators: %d\n", error);
-> > +=09=09return error;
-> > +=09}
-> > +
-> > +=09usleep_range(2000, 3000);
-> > +=09gpiod_set_value_cansleep(ts->reset_gpio, 0);
-> > +=09msleep(50);
-> > +
-> > +=09return 0;
-> > +}
-> > +
-> > +static void ft3683g_power_off(struct ft3683g_data *ts)
-> > +{
-> > +=09gpiod_set_value_cansleep(ts->reset_gpio, 1);
-> > +=09regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-> > +}
-> > +
-> > +static void ft3683g_power_off_act(void *data)
-> > +{
-> > +=09struct ft3683g_data *ts =3D data;
-> > +
-> > +=09ft3683g_power_off(ts);
-> > +}
-> > +
-> > +static int ft3683g_probe(struct spi_device *spi)
-> > +{
-> > +=09struct device *dev =3D &spi->dev;
-> > +=09struct ft3683g_data *ts;
-> > +=09int error;
-> > +
-> > +=09ts =3D devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-> > +=09if (!ts)
-> > +=09=09return -ENOMEM;
-> > +
-> > +=09ts->dev =3D dev;
-> > +=09ts->spi =3D spi;
-> > +=09spi_set_drvdata(spi, ts);
-> > +=09mutex_init(&ts->spi_lock);
-> > +
-> > +=09ts->supplies[0].supply =3D "vddio";
-> > +=09ts->supplies[1].supply =3D "vci";
-> > +=09error =3D devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies),
-> > +=09=09=09=09=09ts->supplies);
-> > +=09if (error)
-> > +=09=09return dev_err_probe(dev, error, "failed to get regulators\n");
-> > +
-> > +=09ts->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> > +=09if (IS_ERR(ts->reset_gpio))
-> > +=09=09return dev_err_probe(dev, PTR_ERR(ts->reset_gpio),
-> > +=09=09=09=09     "failed to request reset gpio\n");
-> > +
-> > +=09error =3D ft3683g_power_on(ts);
-> > +=09if (error)
-> > +=09=09return error;
-> > +
-> > +=09error =3D devm_add_action_or_reset(dev, ft3683g_power_off_act, ts);
-> > +=09if (error)
-> > +=09=09return error;
-> > +
-> > +=09error =3D ft3683g_check_chip_id(ts);
-> > +=09if (error)
-> > +=09=09return error;
-> > +
-> > +=09ts->input =3D devm_input_allocate_device(dev);
-> > +=09if (!ts->input)
-> > +=09=09return -ENOMEM;
-> > +
-> > +=09ts->input->name =3D "FocalTech FT3683G Touchscreen";
-> > +=09ts->input->id.bustype =3D BUS_SPI;
-> > +=09input_set_drvdata(ts->input, ts);
-> > +
-> > +=09input_set_capability(ts->input, EV_ABS, ABS_MT_POSITION_X);
-> > +=09input_set_capability(ts->input, EV_ABS, ABS_MT_POSITION_Y);
-> > +=09touchscreen_parse_properties(ts->input, true, &ts->props);
-> > +
-> > +=09error =3D input_mt_init_slots(ts->input, FT3683G_MAX_POINTS,
-> > +=09=09=09=09    INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-> > +=09if (error)
-> > +=09=09return dev_err_probe(dev, error, "failed to init MT slots\n");
-> > +
-> > +=09error =3D devm_request_threaded_irq(dev, spi->irq, NULL, ft3683g_ir=
-q,
-> > +=09=09=09=09=09  IRQF_ONESHOT, "ft3683g", ts);
-> > +=09if (error)
-> > +=09=09return dev_err_probe(dev, error, "failed to request IRQ\n");
-> > +
-> > +=09error =3D input_register_device(ts->input);
-> > +=09if (error)
-> > +=09=09return dev_err_probe(dev, error,
-> > +=09=09=09=09     "failed to register input device\n");
-> > +
-> > +=09return 0;
-> > +}
-> > +
-> > +static int ft3683g_suspend(struct device *dev)
-> > +{
-> > +=09struct ft3683g_data *ts =3D dev_get_drvdata(dev);
-> > +
-> > +=09disable_irq(ts->spi->irq);
-> > +
-> > +=09input_mt_sync_frame(ts->input);
-> > +=09input_sync(ts->input);
->
-> Why is this needed? We do not do that in any other drivers.
-
-Otherwise if a touch is held when it enters suspend, it'll stay active
-afterwards. On suspend core only releases BTN_TOUCH, not MT slot.
-Though, I guess this should probably be a core fix and not here?
-
-Also looking at mms114, they do something similar for their suspend:
-
-static int mms114_suspend(struct device *dev)
-{
-...
-        /* Release all touch */
-        for (id =3D 0; id < MMS114_MAX_TOUCH; id++) {
-                input_mt_slot(input_dev, id);
-                input_mt_report_slot_inactive(input_dev);
-        }
-
-        input_mt_report_pointer_emulation(input_dev, true);
-        input_sync(input_dev);
-...
-}
-
-Will also address the other reviews in v2.
-
-Thanks,
-Alex
