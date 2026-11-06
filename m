@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953837;
-	b=4L9fwsxgPO6UtpoYVIJ6nr0pxjEOgevlxhU2bGIx+XeQxUJxOx+exreIIJUx15ADLO1t
-	 nYIdweuwJw+Iqo0ABu3obUJGPUpHcYKzpkmjk0fke8QRrB2Ohx/gmUcUXfW8oEqFikipc
-	 z7tF4AyD9kiPulL1zD4Tp4z4ssvvTGck0JFg9YdiiWUbFzv4S+5EHAVcIZBrJJn8lLe8d
-	 uxDqu96HaOsfkVdYMxLjQoXueuMDUiereLS/YdAB+el274JGk1lJVRaTm7ZKxTiL3gWO3
-	 SXx8752AcxLjNMW/w/ps5v9S9zBq5/qNXzfxyT5TCcenl/7bP4D9JvOCcnRQmf/LH3g==
+	t=1793953839;
+	b=t8R3xldmWERMxZ7z3EJxNzuHmuFT8vQUqAPSBeXFw+BhjAMM/9JekXgU4hMAzukVvWCy
+	 LB9j69c2koZMJlr+o3ESaC8D9OxN6qkFF2nkzpntQaFrzrhTDih9smj1KpBXjJd1FoeMT
+	 Ho3vkj4BDMuRPaItLcADA7ZSys9nNnQ/Vbhxi96olGWSMqvPSNkxrfK92GErnkpRUuMqa
+	 L/GoyondtIC+pe3+djJbO1tvGGPMpiE1oV45fUXs6pSlXGx4ZSqaVE9krvO7z2X+DLVSc
+	 PFTuJqZqd4TRgZU1Rt6JwxSP5KIUGPaUpTWNmGbxnLHj0Gc0yn7vM9mSsCTOjP3h8qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953839;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=VLpvOWiOg/0agPCz0eeaXl9nhZwnrqFnecxOWRAu+hE=;
-	b=KAkgZU6y5vfpS0SIF0tOcbybgEe0jq2+dg1GrgwoKWn4MXOXJol6Rzb+ZZq6vlcjbdMS
-	 t5e7SIoYnGp3r5Bkh7o7r3mcZAtRfIQ0Pz/FgNZO7W3jGJbdHjFSA6igwyUnJOKY1L84a
-	 NTvtQjsmmxnHsr87YRdvvExRj4+wmwS6ujAA1oni9bAIJoLIShOKrsSudTSTCu1uB5rWk
-	 ogpQyrzZqtNSqlZ+5D5BEHbfEOQk3S8CQUi5/HP+Hn9bYHotQwntqKhR+Q9REONC7Aw9b
-	 HfVRUF0nYZbERurOWrjqwjjdrYku8N5QJ/ehX6E2YHQgx2uMuhQ4WkIIOgSnJnQdAiQ==
+	bh=b25tkkPNAeRRnpE+CMTponpLZXifzTvvMAoqNcMPDG8=;
+	b=hKziAFKbzYgsLE6rh1XGPv5aWMZmbz28CF27Q2VyaOVa5I1fbM68OpsS7x9p1DTgxfNM
+	 Vd53mrSo/KOetf5LN18jpxgrcG2GF75i37KiKUgqH0YVOTa35GyM7cdwMeMCQ0qGJSNgu
+	 iyMe46+QM72IpB58KU2IKGt34XE4XEyDW5PXuDUacWC46M2Wcv+LF4jvJC9z/sqPrkBSS
+	 geiMzlACNra8YZxUbTRijz9xnNms6aQSjb5KAYQGpRhMTt/mQWtHa3vEqWNs+cbtsGn3z
+	 Xh4fckeDQ3y1R76CVtd+sCbVXVsiKZQ9/4PxbQ0V3md//HirYUUugZHgURScnOPvbVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Y1eY3KP3;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MQzhgVuq;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBE606D806
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 08:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CBBE606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929E2606D82A
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 08:30:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 929E2606D82A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Y1eY3KP3
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49134c8509fso309670f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 00:30:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MQzhgVuq
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490f38e9688so268597f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 00:30:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793953835; x=1794558635; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793953837; x=1794558637; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VLpvOWiOg/0agPCz0eeaXl9nhZwnrqFnecxOWRAu+hE=;
-        b=Y1eY3KP3gUC2WREteGQ5tKEYe5s3n0BGTbCtGv1+dyHdwaZ0qcXwHLBXys/2W8YHU8
-         mMvi7yD9IXYTcxzl7tbSF8l1dcHpigt/dVkgwwENE+ZOlOi4YGsesxOuYcTqT3z5N7qj
-         IZZEIYMeLTiaa+PUjI6Bd3QrS/8Ss26PVTAc6TKY8TibOS/HEP7TABU3kI+4ZjU84I39
-         7YTLxMctNVlZsWII+ulLTV9dhdGBauvzZSdBbSt/rZ9QfMsmhHDVCFNnWO1iUQ4WFDYJ
-         450Hxqyu7Yne3NPJ+Z8hr4+EnNiZyDYYr+L3Z9K1zv8rhjlWpXi3VPsTBoQPwq7bcqU0
-         ooQw==
+        bh=b25tkkPNAeRRnpE+CMTponpLZXifzTvvMAoqNcMPDG8=;
+        b=MQzhgVuqv9aCoMgN5m/GJk5548Kc+RKc3fi+W1wagAe0Jvf4cRo7RkdDQib4+4IKBr
+         awlrWOpV9qRQdVq5pRLW5xRzUoFA7vOIF/DIkZakAK/LKtujLWcVvKXZA4A4wa5feadX
+         00ljeVAGLZdLpRD+VkAq/tlkiWGeDT38+0/M0/S6/kKdNzOI0jsabLZl2Uxby1KIU8xF
+         WthxojxM/+wmhbew4q5QmTKtnxCcsy404B8zIeIJ4KsHBaiZ/9W4ZPX0x9+nmR8jkluR
+         cGJ+h0EN8WW0jgnFmaiPjtN0tvHdNk/f3TGoKXf9qSTHRgZ0/vulm3kYQSlIYdTI6bmJ
+         3R6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793953835; x=1794558635;
+        d=1e100.net; s=20260707; t=1793953837; x=1794558637;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VLpvOWiOg/0agPCz0eeaXl9nhZwnrqFnecxOWRAu+hE=;
-        b=vjBYhBuRvXgh0Bzs3Cdx5ywkPEn01aXISqQcyTYQd11vTIaj8FE2nXi7YqKiWabtWT
-         dIYu4owLHUKp2ZD2H9HlpBoGm63A+/qc37tjV0T1c6KE3ZcroOLaMjSxYu4Cq/0hCCNu
-         420fL55i63nvrQTSh+fW4unUtpU4wVV8lLSOlsKbf379Ffo7VwV+bCqzVkQFJ8v7tXPK
-         C6oQstQZudjhaqln9hZojSQ3v7Bu5+oe72AIJt+4ZyzgIMYf0jSePsyg1rmtb8bMczsp
-         xNTEvYjoZlqOJGCgPzRoG9YllUjtYIotolqljIhwzbKSxwGYnAAIQBpDRRtiGuUX+ZNC
-         lMiA==
-X-Forwarded-Encrypted: i=1; AL+hErHxV17rLkqvFdKhTFhqPLTtDTv+Leh6ldMTaG1BpY3jwlZUwIkBhDEY1+bYMLPCIpFANBF1gibkrb+F@vger.kernel.org
-X-Gm-Message-State: APuU4Z9N0CnPAWtz2LMClw/LiussxmzSDy5hPyKEmDO0GRfXHZDEDiFI
-	llHpZ6R5tOSmG5Ak63rk4i63c37brrJSb+tgfDiqei2salvZ1zw4pGe/mqKz/B+iDy0=
-X-Gm-Gg: AYBFou0qxKkjrkStem+kGRblE5T9i5b9iAD8ugUceVeGWIaNi63hSjuWtHO6U9835oV
-	tdNMfvnwO3x5q2OiX+EFkaqCVfzQTw+364TIVnRZIIy7pcFd40cMrpPn4HAYtnIMisGppskzjip
-	twZaXpGmNSiCbhLGGJvDpUMDrrtF34/UUF3bfCh+fCphARMdVQvy6IS/SqDBnhRnXNNWv4VVH3A
-	4E/bRJbqqu8eKXWbsfMoqfEzGp7zW0cD/7GMUmzkNwYa54VlALQd6vhu1yfIApNkVTk8cKBaFQ6
-	L2xsRqpmV9ssXecXUy2FLQ/8VYwulNff2xgsrMXNwDYO3eYg+FhrW16hT5MtbbzqOfGvCGxckf1
-	VmGZtS19R947KBiyFHsa+Q8ehFU3D509C3kycS/8iMKUkWFPY3+VmMxDl3yZU4a3loctKW8noHR
-	R+nQUWgcf3kaahfZKxyH+EgPuYNzOMNUCtM9MWfO6G1ZZE3gONwTIpzAwer/3LURnP911KsP/mV
-	wj0/3sCuFtt3wHo1W12UrMynqJpmdz2gGzMmIMOOW6FaY0i5dO9NB636qqn6uDofhg2Ji3NdUfc
-	Al1PZq2P3Y7PCIS9+G4/LEMv/nsFH3x5ObhOlZotx0DPBifq2qcSapdO8TkXOdzbp7rmd7nicOl
-	vC9lvtgpsDgpNXS7RCkj/UAWud7j8vfkbKKmlFLr5tswnjA==
-X-Received: by 2002:a05:6000:2384:b0:492:b880:53a7 with SMTP id ffacd0b85a97d-492b8805664mr3030579f8f.5.1793953834697;
-        Fri, 06 Nov 2026 00:30:34 -0800 (PST)
+        bh=b25tkkPNAeRRnpE+CMTponpLZXifzTvvMAoqNcMPDG8=;
+        b=Y887Obs85m/BvHeDHbBrCook6XK3L3itBouJ/NZy+rFJlIQyNplKW2a9boJBJ2stsB
+         TBzH2nr1DTRaoHnV7gp7aFym2/efAb8qVrJ8C7iGVxUPYJMtDD8McxPzm4lk1H2U6avR
+         +UlKgIeBmSDG/KrruTVGjrXsCnYX+Fb9USi3Kncjdfg7IhuLHU+qyOGB62MqqH9qbHnn
+         kBtqKm04OshBAzbdbo55LXStFBAQxs7T02WnmCWw9UufqkJF334doY47POqacXlim3Ek
+         ZhQvAGH2aiWAcIccHT61fHidNkLJTr+rkn/cfUmpco/btSp6LtzXWBcKNgyWQXMY7LAL
+         CLpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGGuTL7fnnPVqFmDd5l4WsYzjRSxWL49HuH/oJQqUOfMuVH2Op/8T5gzgzKPj2A87qyx8v880+/SbCU@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GsOPxKc33Co5X0BWW33nVRJU4KvN9pbronFeVW9vkqcYXAUGY
+	2hfaK/7XZI+6yUrGPCm2DBUig1XQcy73SAuQlRwKrEPWtytcdXLeNuSEG7ArSZosCTM=
+X-Gm-Gg: AYBFou2kwf99TcWLknKXYRTc04F8M8/NEFjZZrZCO2Q5vn1M80bZn8JAs0//o2/AynT
+	RPwg/BrQ5FIvRZClWzCVLd9cvW496BsF+rqsfp4eBEBGUQHIkeJVUWIkCXMfsBVBJVJjLULl2SQ
+	PLQiypNPaxhIl7D7xAiYJgxkVJantop7j2TH3z3bl6b+qcPDYQD6eHvz4IxeCbiwpaHs4bthrFt
+	99YklPj40BmY0lxc4h8yPLSDINGPim6QseeDmp7Z89lWTS6wiiX8XXmL8bqpJpgPl+8wjSxPeoS
+	qD+a1CozaPChX4XWc006r1sozY7+2OToUultgZo3ptHCiwS6NOwtZtIQWSbdmSnlDuKaWN4wxOZ
+	1LtCS0EoffjLHKws51+d0mVoh9+ORNr+TBQwcCfXDlmIaxvjjuJXMRzFrlz63L1dGvgselX+5K3
+	TK+gREt2t7EwBSmIbOW5QPbHWKhZ1JAIeLTzzQgYkjR55w0wXKoK1t/0RffpeAK2Jtt8MLuxPeo
+	T16/+O4JwrHs9X451jkr2FxsxNPFgT5TYfh6NnUNP7EOOHUp8nEkJ1trV7uuaW4zlS9IV56dU9w
+	fDuoVxodZDk2DDCazKuCLE5jmJ8ZknkjJUlbdpzilK/dnr6ve4mbB5FN+i5Em6AIkWLBR8ruZG6
+	zjIJ9nplxScES0zFCiKxFB6gS79uMfXH/7Tw7C7zsH3+CXQ==
+X-Received: by 2002:a05:6000:469b:b0:48e:4ad2:32e0 with SMTP id ffacd0b85a97d-4911ab4c665mr5700123f8f.29.1793953836751;
+        Fri, 06 Nov 2026 00:30:36 -0800 (PST)
 Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d8472969sm2366839f8f.58.2026.11.06.00.30.33
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d8472969sm2366839f8f.58.2026.11.06.00.30.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:30:34 -0800 (PST)
+        Fri, 06 Nov 2026 00:30:36 -0800 (PST)
 From: Carlo Caione <ccaione@baylibre.com>
-Date: Fri, 06 Nov 2026 09:30:25 +0100
-Subject: [PATCH 2/7] clk: meson: pll: Support PLLs without a pre-divider
+Date: Fri, 06 Nov 2026 09:30:27 +0100
+Subject: [PATCH 4/7] dt-bindings: clock: Add Amlogic S7 PLL clock
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-upstream-s7-clk-v1-2-7d501d62621f@baylibre.com>
+Message-Id: <20261106-upstream-s7-clk-v1-4-7d501d62621f@baylibre.com>
 References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
 In-Reply-To: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
@@ -111,52 +112,146 @@ Cc: Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.16.0
 
-The common PLL code assumes that every PLL has a pre-divider. This
-does not hold for the S7 HDMI PLL, and the S7 GP0 and HIFI PLLs are
-meant to run with theirs set to 1.
+The S7 PLL controller supplies clock sources for the peripheral clock
+tree and receives its reference clocks through firmware-controlled
+oscillator gates.
 
-Make the pre-divider optional so these PLLs can use the common
-implementation.
+Add the binding and clock identifiers needed to describe this
+controller and its connections.
 
 Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 ---
- drivers/clk/meson/clk-pll.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../bindings/clock/amlogic,s7-pll-clkc.yaml        | 73 ++++++++++++++++++++++
+ include/dt-bindings/clock/amlogic,s7-pll-clkc.h    | 42 +++++++++++++
+ 2 files changed, 115 insertions(+)
 
-diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
-index 1ea6579a760f..44b33051405f 100644
---- a/drivers/clk/meson/clk-pll.c
-+++ b/drivers/clk/meson/clk-pll.c
-@@ -76,7 +76,9 @@ static unsigned long meson_clk_pll_recalc_rate(struct clk_hw *hw,
- 	struct meson_clk_pll_data *pll = meson_clk_pll_data(clk);
- 	unsigned int m, n, frac;
- 
--	n = meson_parm_read(clk->map, &pll->n);
-+	n = MESON_PARM_APPLICABLE(&pll->n) ?
-+		meson_parm_read(clk->map, &pll->n) :
-+		1;
- 
- 	/*
- 	 * On some HW, N is set to zero on init. This value is invalid as
-@@ -174,7 +176,7 @@ static int meson_clk_get_pll_range_index(unsigned long rate,
- 	*n = index + 1;
- 
- 	/* Check the predivider range */
--	if (*n >= (1 << pll->n.width))
-+	if (*n >= (MESON_PARM_APPLICABLE(&pll->n) ? 1 << pll->n.width : 2))
- 		return -EINVAL;
- 
- 	if (*n == 1) {
-@@ -437,7 +439,8 @@ static int meson_clk_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 	if (enabled)
- 		meson_clk_pll_disable(hw);
- 
--	meson_parm_write(clk->map, &pll->n, n);
-+	if (MESON_PARM_APPLICABLE(&pll->n))
-+		meson_parm_write(clk->map, &pll->n, n);
- 	meson_parm_write(clk->map, &pll->m, m);
- 
- 	if (MESON_PARM_APPLICABLE(&pll->frac)) {
+diff --git a/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.yaml
+new file mode 100644
+index 000000000000..e2b5ba5524a7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.yaml
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (c) 2026 BayLibre, SAS.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/amlogic,s7-pll-clkc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic S7 Series PLL Clock Controller
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++  - Jerome Brunet <jbrunet@baylibre.com>
++  - Carlo Caione <ccaione@baylibre.com>
++
++properties:
++  compatible:
++    const: amlogic,s7-pll-clkc
++
++  reg:
++    maxItems: 1
++
++  '#clock-cells':
++    const: 1
++
++  clocks:
++    items:
++      - description: input fixed pll
++      - description: input gp0 pll
++      - description: input hifi pll
++      - description: input hifi1 pll
++      - description: input hdmi pll
++
++  clock-names:
++    items:
++      - const: fix
++      - const: gp0
++      - const: hifi
++      - const: hifi1
++      - const: hdmi
++
++required:
++  - compatible
++  - reg
++  - '#clock-cells'
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        clock-controller@8000 {
++            compatible = "amlogic,s7-pll-clkc";
++            reg = <0x0 0x8000 0x0 0x1e8>;
++            #clock-cells = <1>;
++            clocks = <&scmi_clk CLKID_TOP_PLL_OSC>,
++                     <&scmi_clk CLKID_TOP_PLL_OSC>,
++                     <&scmi_clk CLKID_TOP_PLL_OSC>,
++                     <&scmi_clk CLKID_TOP_PLL_OSC>,
++                     <&scmi_clk CLKID_HDMI_PLL_OSC>;
++            clock-names = "fix",
++                          "gp0",
++                          "hifi",
++                          "hifi1",
++                          "hdmi";
++        };
++    };
+diff --git a/include/dt-bindings/clock/amlogic,s7-pll-clkc.h b/include/dt-bindings/clock/amlogic,s7-pll-clkc.h
+new file mode 100644
+index 000000000000..4014314a3eb0
+--- /dev/null
++++ b/include/dt-bindings/clock/amlogic,s7-pll-clkc.h
+@@ -0,0 +1,42 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 BayLibre, SAS.
++ */
++
++#ifndef _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H
++#define _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H
++
++#define CLKID_FIXED_PLL_VCO			0
++#define CLKID_FIXED_PLL				1
++#define CLKID_FCLK_DIV2_DIV			2
++#define CLKID_FCLK_DIV2				3
++#define CLKID_FCLK_DIV3_DIV			4
++#define CLKID_FCLK_DIV3				5
++#define CLKID_FCLK_DIV4_DIV			6
++#define CLKID_FCLK_DIV4				7
++#define CLKID_FCLK_DIV5_DIV			8
++#define CLKID_FCLK_DIV5				9
++#define CLKID_FCLK_DIV7_DIV			10
++#define CLKID_FCLK_DIV7				11
++#define CLKID_FCLK_DIV2P5_DIV			12
++#define CLKID_FCLK_DIV2P5			13
++#define CLKID_GP0_PLL_DIV0P5			14
++#define CLKID_GP0_PLL_VCO			15
++#define CLKID_GP0_PLL				16
++#define CLKID_HIFI_PLL_DIV0P5			17
++#define CLKID_HIFI_PLL_VCO			18
++#define CLKID_HIFI_PLL				19
++#define CLKID_HIFI1_PLL_DIV0P5			20
++#define CLKID_HIFI1_PLL_VCO			21
++#define CLKID_HIFI1_PLL				22
++#define CLKID_HDMI_PLL_DIV0P5			23
++#define CLKID_HDMI_PLL_VCO			24
++#define CLKID_HDMI_PLL_OD0			25
++#define CLKID_HDMI_PLL_OD1			26
++#define CLKID_HDMI_PLL				27
++#define CLKID_HDMI_PLL_PIX_DIV5			28
++#define CLKID_HDMI_PLL_PIX_DIV6P25		29
++#define CLKID_HDMI_PLL_PIX_DIV7P5		30
++#define CLKID_HDMI_PLL_PIX			31
++
++#endif /* _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H */
 
 -- 
 2.56.0
