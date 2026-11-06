@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957377;
-	b=kWs8vH5efFDBv4pRFtUIyYjXOLaysJYH0RtvVjgkt8831D0/ARo7haNXBx88ddp8pBMY
-	 ZPsh5CwIFqWNLue3ZjfqNj1bcSA56yw3mVxH3dqb4cyzFy8AQSHh9HMpvQRw2ipTf8mie
-	 4iO3CEP+8PC/cLKAetx9yY0nkS31KEf66chHxBdVJOVoTik6RiADjLjzgIYMjdFT9s1Q5
-	 W/CzVeth9VfiQ33MWaoamnWWhOArJvi9P/5vo9av0Tc5vOxDdOqN8rVyTiPw3TWA1WnOw
-	 dhCVqxJmWMD1P4JkVc7W+yeaP/qeKP4DkdZ9J3WjJkpaVPAvt9VXZQyX28cEg7wM5Nw==
+	t=1793957372;
+	b=RNIDtcl5E7T69rd8C5RTfPfO4SHEt0Fd3mDK+15YI/V3cnOwIKHxavpUXB/8IVcLLiLS
+	 H0kqNtzasvJF7oDZPx2t0933DE5Qu7IYlwvIumFgJzD1wYm12ZjVnS/DJLPgJOnDXT3uY
+	 WriOKgcYJSBQWF4LzwhbAnu38GLrbUdybu1rsMPA9nHXPuHnfSK3eyInFDl6FVooN0wdp
+	 J/gpzYKNBwtfQePNzl2D/j/eMtHipAGKXJiegjU97q3r61W7E01vR3ppa8s8mmYkklMf2
+	 7am1BPhvoLjH198nfnZad8Yi6C69uYYmzgAHEjlPdlaWLgan4aosAhDKv+5kElbDorQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957372;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Z/K15dxirSI+QSh23nqxE7Vi19mIq7MmVTmrvXlPOvQ=;
-	b=eCZHd2Ua7bM/J3REzuX5l4ZBgFpYtIiMKxITEIaxWdkPmIwYx3WBDf2PkfAcHcMkwrLu
-	 VFgMH17PChFmaS5Rnp5iDhwo4r34R9+ZtQDkdyl45n6jLXdNY8Fi2gcXcRbOW3U+oLu/X
-	 DGTLI8k8opykVGHl482R9EiQebhxvfKdX32fYo2ulRSb/6a7J0Yk8pHelEm3AVc23odWy
-	 sinH5orsP6ztzpyrGoVEliGeN93ma6dLodZRpPbA8/yc/Gtza1R9v3PixYBUoYyG1vm6J
-	 P/S4hxlFHf4AOnql3XanuZWrA8Wmj6yWF+tnc4aK5qfIn0T3xkVOtq/mz3AA8URtAPQ==
+	bh=3Dq07FV1HroS5WYRMt1qdpgUt3SgR7XzFnAxpat9KS4=;
+	b=kE3GlYJzbWT55WNxcJgt0Xt2IZyMAYTPa61tsQRCMmD7pTqzpMimhc0g/A47bORnyW0O
+	 HwceDGdz9a/kjz/GOOh2Qiye7ae+nfKQRYWZBpDzlvuvUVgIcjLkAb1daECi3AgWIl4ZQ
+	 LCnqlaGzKX4kXRpxyskZCPD3R1mmHHS09tz3YzjFyDfr/IJw0fvB90UOdJ4CDCnF98+tV
+	 rJVu0cV/eeEjVHoXO9gS/YofUEJdIJgkqnj5ai4IVrju5HtuOlyGs+YGP3S5lDp32SUtH
+	 2cLLvSJFgBfoO8TBjl944BlHOfu1P0nzeVNXEZWEj5QRz35VQqf0VLQAfQJ/noOe3kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijZNdrYA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYpFytz2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CAD606A331;
-	Fri,  6 Nov 2026 09:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijZNdrYA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351801F008A1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFF9606A326;
 	Fri,  6 Nov 2026 09:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYpFytz2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C531F008A6;
+	Fri,  6 Nov 2026 09:29:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957377;
-	bh=Z/K15dxirSI+QSh23nqxE7Vi19mIq7MmVTmrvXlPOvQ=;
+	s=k20260515; t=1793957371;
+	bh=3Dq07FV1HroS5WYRMt1qdpgUt3SgR7XzFnAxpat9KS4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ijZNdrYAKTARTgh27GXxOE7gVus3vyqE5Qno8d4/jfF9WWLGYaXPl8kMb5ijorabs
-	 YjKQG/MDfnUmKCi13IJ04wSOX49VrTvXP8EJBvcr/XoYn/8ypQqbIEYVmn0Idhs9GZ
-	 ZrZgrRKHDb+6RbmN0a/mjvSZaqQWCiLXpBC5w1lTdlrpzpIKjAhg+VOYm6GGFuNnvs
-	 6Bq4H+r91xP4vIcWtyd0WhpP641LlwIxVCNOvg9BHpkU2ANhqfg1IoMF+YjQUoA3Fe
-	 1p97atIDP9tSOLldIcu3hXU8Z9WYR+U5gS7K5rTfwB/JvlGrrR5ChNyarLr73zF4ob
-	 uZv5zy3fsaMVA==
+	b=FYpFytz29pik9b2J/CUkpH4Q/z+15r+hvp0lwhEJbxTQKKauf5WOY/7OUW2i2ztPJ
+	 DWUcY5rDtbdaK57VZV+zVLJjSVgvgxBfXVPF8HStFPq1JOgLBnzWeyJmoFyT4JZnqI
+	 YMvA1JIesWQh7YoxJvTeK0Uv7M1jD6IqMF3jmMtkviyd+f/kc3rD45fm7mifUfwe6c
+	 fSg4BXOAOKnioQ82lUXgYN+/UQSo/GXeknZ8bSSm4W67VbqKv9yxYFvCePeBZZgrRh
+	 RQS3JuD1C7QhAdehT4YjHY/qKeTfkCOtP8xbtQSAFfOR9OJiHCQlsdRQO/Z6KgS/AX
+	 KvHpygeQMR4+Q==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 06 Nov 2026 10:29:06 +0100
-Subject: [PATCH v3 5/8] dt-bindings: arm: qcom: Add Glymur SIP CRD
+Date: Fri, 06 Nov 2026 10:29:05 +0100
+Subject: [PATCH v3 4/8] arm64: dts: qcom: glymur-crd: Fix L8B0 voltage
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-topic-sip_cob-v3-5-52cd3826ab49@oss.qualcomm.com>
+Message-Id: <20261106-topic-sip_cob-v3-4-52cd3826ab49@oss.qualcomm.com>
 References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
 In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -73,37 +73,40 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
  Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957347; l=861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957347; l=953;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=+sVTvh+aAbocnmo9shqG34Hljg4c2OnrCE/KMhmPXTs=;
- b=WM+9p1L313k0iHOuJhcyeG3jsPDaaA8APEvytg3sxRMI6MMBRICBPkN5BFW9jXoWzjMX9F0+U
- wWOkq2560aRCooxEwEchDZC/um0RTrHUhcS2p95xoEARyAPM+IQYj2P
+ bh=a2yGY4MCZaNvpG4ozdVVht6m9kAX8f3yOA9kV9DFAMk=;
+ b=7HgjuGyl8+zxoWvp0Pn+tOwkRf8IOmjUMeKOx9KYlfX79L8DRW7lZpwzhOfaUzDeO1bYP+cNS
+ 8UROImQB2Q+DeGpcp904fg2+Aej86J6JvHi5l0XJyWxrA8HTuCYzYlg
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Document the compatible for the Glymur CRD variant which uses the
-System-in-Package variant of the chip (different package and power
-grid). The rest of the board is seemingly identical.
+L8B0 supplies the 3.3 V rail of the PTN3222 eUSB2 repeaters, but is
+configured to 1.504 V. Set it to the right range.
 
+Fixes: 9314c6ecace1 ("arm64: dts: qcom: glymur: Enable Glymur CRD board support")
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 933a2361b5d7..b5ebee87e668 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -92,6 +92,7 @@ properties:
-               - lenovo,yoga-slim7x-gen11
-               - qcom,glymur-crd
-               - qcom,glymur-qcb
-+              - qcom,glymur-sip-crd
-           - const: qcom,glymur
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+index 422b3778c22a..aa63ae968bae 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+@@ -362,8 +362,8 @@ vreg_l2b0: ldo2 {
  
-       - items:
+ 	vreg_l8b0: ldo8 {
+ 		regulator-name = "vreg_l8b0";
+-		regulator-min-microvolt = <1504000>;
+-		regulator-max-microvolt = <1504000>;
++		regulator-min-microvolt = <3304000>;
++		regulator-max-microvolt = <3304000>;
+ 		regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 	};
+ 
 
 -- 
 2.56.0
