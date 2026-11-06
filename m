@@ -1,55 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972494;
-	b=y7O9Gl7rUHnVjig2U8E3ntzXy8HgFwt2Y/RMWVYBO8Rsk7nBrTTeyiflqoiaw7cSqqlg
-	 uRdfbn8iWHLltLNjHyA4Sk+FBm6aTCah7hkBK99SHQmH61PYUfXrBmmRrdXgMJcMgeJIH
-	 riWRU7E/gtaAlnQEMBseZXOwbc/YMN/DLHmZrtZbFAY7Q2PyAfg3d3yLBkzo3QCl4nKLX
-	 XgCl7fWldWd59PM+OLG3C4dBhg/VDB8Ye9mtieN6g0DRBjRzOTkhNRL7+PFCJg5KLjf3J
-	 xgygWo4O5vDvJqtw1Gjp9G0S1APLJQ21nH4jWAbsYxu9qnQsfPCrcpvsnf3IyAFG9JQ==
+	t=1793973290;
+	b=t9GJXbU2Xx+hekgFFaEh/9tU5pctyG/dqatWRY04hsauYHq5EIlX3tAVKshTTNkNG6mU
+	 6wgJqL4Afdn/x0TmvfoN+4QEYpFPNGE8UzYNTiWkMil3tBvjVOF+rsaymKsL27m66Thwb
+	 U9IogDDR2dcznWvZC8zKp/ieRBDmatA+9wu+jgCDvtfPf2NEdu5nReuKJ7DhDtKiPS1qo
+	 4Scn+4e2W+6FHF6aWwM23asjUAduj+V9n8tRbSEDevG7ZQKRcha+lHhyerOjm1sE0hyL0
+	 xC2jcsbX/DGDt8z9dFke7OimbheF0P92kpJcVHfSIIPRtisvE5pw5xc6yy9kaBC+VpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972494;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9q9/GucRs2rxMyyvIvEv5mBk2kzwKt0fGX5jZwrdxao=;
-	b=Iy5kXGkMBUMm1TbZ8APu/SBS7qnGFtEf1qKe/pDUoAKwmKj2Kftd8QQKXiHBPauQPbhy
-	 QWeSPPN/hrGVN9pFzJutTAD8jb1NwYgHw4piZbTQgJCt0VpTVhkOIjmliB3KUJwqjulWJ
-	 uv8L37elpJGBpFuRbpvUTvrgWRG1j/+aY3TQwztEiLwDQK57W/9IIyK0RRmJthzK0zY0q
-	 +tSHJmDKCm5jpQxOCN2PGJ4j916nVMBkTTFnqFBdqPqJaHKaSyFEoVQLZ1DiLMd1LxvUH
-	 PO7b1zvprlVy4H13MPTnBSw9+Ctz6znO+xP5L/S+xMEmsedxzkugM/sm9WOqLwGnDkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973290;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
+	b=Hu0k1o80WRNBNxgLdyoBSwHfKP8ppGemdFjHQX70DMBnQnobM0LV0RgU1+MoLEQTvryv
+	 pDtiALPMGbVGdHZZvCf7CqVctS1l0/Ze1x2lUK6kHiw4G0vlYWQbvyr4KuMuChsoXC7Qh
+	 moarRGjyFCrfmDu9e9ATQ2qs5IqFsrTjyetedR+tMQS+Fv3vZuZU5r/E+63Z5ZeScKYLR
+	 j34XFNcHt2yCU2emlppEYFgLhB1DQBm3v7wGpxQkF+b5jeChAK2Xijb6IS1bvJ5PgSVpr
+	 +I7/FqCrL61Xf5gCkGHp+XKJE9mSrZNXemNQ/8BxZUN1JQ8DzcNr3V9jkxba7TJ9F+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8+0WSWq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsreXca5;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D53B606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20894606A329
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20894606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8+0WSWq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 084A81F008A3
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972494;
-	bh=9q9/GucRs2rxMyyvIvEv5mBk2kzwKt0fGX5jZwrdxao=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N8+0WSWqUENHDaYxOsVVcA7LZmsfPVQI92VWEWfyZMBKB+rkuQzJDXgMaNXULrRAq
-	 Wxg8GJjgx3A238dchLEhz6CvyfGxyA1sQGufprE/Y6zwjo6iV/ez3TTBhxmhBqDS/l
-	 yyIjwUfhoPmGj7c/cpT91cowP0wSgHsZn3YjDQOdiMiujyCOIsZXGpCeiuC8G7LAYF
-	 B0eHHGZ0VmF7WYY2Ih4WiEiCIGtPueyVdZaa/bL58U4SpjVHBRLPLwiBedTz4yBZcG
-	 8RqyJ6Ue/U5PmsTJdGxY9xJzEgP4jLXilJSTEQXuyYAAJ7nVqxdNrb98St+7MjLoa5
-	 iTjUNiQ6Zxb2A==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso497803e87.0
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:41:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzHWErJt3WMPGNWpMKRBNzNIFvSml+cUkfIByVttILpWqvwNhyP7rFhtsNTQHSpyKnklKL0/vUwkaXP@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DOwguhxf92NbYVTgNJFKsy4Lqgnj4VPBC9QYCvX/OkcYL17pZ
-	w66Ln+KW6HPyRGgSUBNrzlamo4KUw+u875ktUELhm53AASu7rYA50iac5Uj8dJkX6dxxE3SGtoZ
-	sOwsFMN2lHTpB/tO3K3SVcmY5H23Wzsk=
-X-Received: by 2002:a05:6512:3c8e:b0:5be:50c0:9d1a with SMTP id
- 2adb3069b0e04-5c003c1697amr924889e87.64.1793972492809; Fri, 06 Nov 2026
- 05:41:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsreXca5
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492f563d1c6so201441f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:54:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793973288; x=1794578088; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
+        b=CsreXca5E1pMin31kHwPFSa+zHh0j4vm2eSTeZP4n4qoY2Nk1tQGNo7TH21ev508JH
+         +4h+HGmiNKVAQuTC+w4RPqkmarRK23BfNTVJcFWVyeOXf1QlBPNwWDvZc+Bpo0199vf/
+         MPmzv1CCIhaLnS0zkFdbhnExzCD7PYqRsu2tq6hgYGLm6mTJC3pMyhRhOO93HL9QX9PB
+         yYqQXrIgd+IINpUK2azxMfVC1X7HJeSzOe3Ly7ghTAXg3lhI281usQhIq61cKMysoJM/
+         0JjqCZdiinl5DOmM3fX04n8U51eA+hpSkBe6h99Y7zM+/+OzGs9Z3Q88EvnGFDgbttKY
+         Gfxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973288; x=1794578088;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
+        b=cSUVS2UtSDwTBnU176MMVvYZVUDwGi07Mj4bAQDZSJC54KmAfdpNzdVK2vYS2kOYGZ
+         RYebVprLJkRK4yTUN1lIk61viXdXaprKn4NXDXHqnqSgtAFhX5vogkYz19Z8hQe0CN19
+         Q8fVD2Qep7nPkdalTH26GALISlWUB0x71eOQb+hauwk9SIBSfzDh8eVwJzIdWgp3gBg0
+         P4IAhpAGtrsSYRA5QXdsuiPuN8YHvt5BX/N5dw3sKb8ISuEIYa/YeTr09SYua0C5ogeo
+         jjaPFtg2jLXykXH7WYc5+eSqOQjZ5+NR1d5iaciSYi4FrEzydfXnx2bAeIn2AuFNxmzU
+         fVtw==
+X-Forwarded-Encrypted: i=1; AL+hErEM4g7W/JNTfTEo55vF5Vo6FTlJv6GMl03lJoRabuc+nhlpiRqQ5siS278nk4cZ57RoepoIK7DVTVcB@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8FH/bdk0u9c6YIjLwE9HmmDk1KMUw7kcxDnEjUDhZ46szEWXz
+	OznJj+rMdX4tzRT078+e08w9SCnex5VHpj4ZUbEKfPqgzbQ9WC6ECEfo
+X-Gm-Gg: AYBFou3BMDk4ebpaZfO+woH17drq2BL1z7a/rR1Yb9ey1HHfjj70fgVK3RU4F2VcAJS
+	FikQN3Icyvuw8799f2pOxoRGU1lJGyAY7haxJSvErRYncKWkjRtLjkth52liQ+4pomQANAgG7ad
+	4d08uDVFSEkTEF7KWXeouNWeKGqq3nFFpcX4ivS8+v1rlGNWEGMwAb7hvTOZ2/VNEYNJyQ9MunM
+	k9nSEGoLiGklCa+U5mE3k4rXzjesaOXnsfpfb49qENTIhgugz4lDb0EUnDcNioXDOLsf/euf1OD
+	4dW452AzFCroOL6550bpZqqv3euVvEVyv8j0m6pKqo7iVeYNwKXyHkKvCzkN1OtaPWvvA85tA0x
+	0J2iNg27jrfADjUZD7GIAWeGvNj72Ld/eQ89GUhRu6mloZTSqjz+sCX7/xxllielsfv+leFh0YE
+	y6jT2GY4NX2iyWCy2KNJtZPTgGPXFlpiOE8w+9Twpf++DLlghXtcAKt5yI7OwvLqdjVkvtRhZhz
+	v6WAKPuriW5vc8HuvvQOgwtQUscl1V9GTEiDtIngXiwlX47XGIxSSSFXtmXbjNgwS7oVPgcM9Xn
+	45hEMrKdIQwP2o30NZ7sPnH9qUuTXN/DxFd8RsIHo5n5yOelhfdGLAE9C7hIbzg8w5w9Tc44VZG
+	Ow/0op9SqsUK5m7TdadQUHE4+w84=
+X-Received: by 2002:a5d:6f0a:0:b0:48d:dfff:fe6b with SMTP id ffacd0b85a97d-492760da71cmr5896957f8f.34.1793973288307;
+        Fri, 06 Nov 2026 05:54:48 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.lan ([2001:861:39c2:e340:6118:66fe:a6e9:e648])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d087a3c5sm3393124f8f.0.2026.11.06.05.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 05:54:47 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: airlied@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	igor@reznichenko.net,
+	jesszhan0024@gmail.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH 1/4] dt-bindings: vendor-prefixes: add PocketGo
+Date: Fri,  6 Nov 2026 14:54:46 +0100
+Message-ID: <20261106135446.1334980-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
+References: <20261103110524.2812831-2-romain.tisserand@gmail.com> <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,46 +111,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org> <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
-In-Reply-To: <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:41:20 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
-X-Gm-Features: AclHuK9GhwQg2qUaY__IEUdcL3E9GYz9QB1x_ggUFxrkTttNeFsX88YL1h6CfOw
-Message-ID: <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
-Subject: Re: [PATCH 0/7] ARM: dts: arm: Another batch of warning fixes
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 12:03=E2=80=AFPM Sudeep Holla <sudeep.holla@kernel.o=
-rg> wrote:
-
-> We can remove vexpress-v2f-1xv7-ca53x2.dts because it is highly outdated =
-and
-> relies on an FPGA tile setup. Replicating this environment is likely
-> impossible since the original bitmap files may no longer be available
-> easily.
-(...)
-> > Rob Herring (Arm) (7):
-> >       dt-bindings: arm: vexpress-sysreg: Add "mcc" child node
+On Fri, Nov 06, 2026 at 01:58:02PM +0100, Krzysztof Kozlowski wrote:
+> On Tue, Nov 03, 2026 at 12:05:21PM +0100, Romain TISSERAND wrote:
+> > PocketGo is the brand of handheld game consoles such as the PocketGo S30
 >
-> I assume you will take the DT bindings via your tree.
+> Vendor prefixes are for companies and I cannot find anything about
+> PocketGo, except it is a brand. What's the website?
 
-Me too.
+You are right, PocketGo is not a company, it is a product line. The
+S30 is made by Bittboy, which is Miyoo, see e.g.:
 
-> Linus,
->
-> Do you want to take this series via your tree or prefer me to take it ?
+https://www.retroshelf.org/devices/bittboy-miyoo-wolsen-pocket-go-s30
 
-I think it's better if you do it because it seems you got thinking
-you want to delete some files, so then it's better if you
-queue all that in one go when you got track of it.
+I will drop this patch in v2 and use the existing "miyoo" prefix
+instead ("miyoo,pocketgo-s30").
 
-Yours,
-Linus Walleij
+Thanks,
+Romain
