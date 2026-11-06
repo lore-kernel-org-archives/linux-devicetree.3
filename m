@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985089;
-	b=AStBkP7CSGMoZITHWmRAZXZjsp+OLMpm+qPvNDL4bS7XNqQgjeoxQMRnfo6XY2foat38
-	 99kNui+vcC3bW7PDWB1PluWzHtDtuK2JRn2n3cgTlhEaD5NRWmQ5EZk5otXvYt75kPVDo
-	 IcO3cf87c0uxpa+/jVizMXpQn/blzpa/WZdpyvT2fV9jgnGudRz50wqC58KS0xcbRyggI
-	 CL/gsHMd/PNyAmpqofhjqNExN4iEXq4YzmnFR8LXPjIDYnt0YHuMK6C63bIK88bfQfASx
-	 8JeiQt0UAQzTub7mD8TvWB01bQI6koomkT7XLNKz+27AqiokDA8BMgjWLWB1fcecQjA==
+	t=1793985133;
+	b=Z6H0q5RjZjleWsrFtLraUKNu5bOES50neFNbOoyHEiGSLnsYinYp3cOcIzIGBWxlAgWH
+	 NjVx9ZohfeTCoT9IrO0Z5tXptkWLqQ6UziOFgkmNcPbQ9b7aUBrfj/0wXMSCTdgQuc3Mr
+	 4Nkqnk25Xh0oCSQMmz3krp0VWbTBgoo7ytmObkupA/jlsaN81EtPZNn5lovz/6wDM4ZWn
+	 Giwq/a3VAAUNr2dRQo+4WIKBmNO6LBYHBRODIgvcjIfZu5kwog4Paapy9olm7nV74fpzP
+	 A8bbpYvDfZKakmUVjBudwQMVRrK8+qqaagJr4+bQ0hBt8MH8THTbypXbEjpVvhIF7ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985089;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GL67RXdQa36K78wuxyhKhUCWCZT+FTnpPKTTkNMtBsY=;
-	b=umOvAtsNc9lDUxj3LQ6/U5/muZDTuGHEkYQAusjyGm+E0DDXWHpoTUNquZsTtgfD/gjL
-	 AP2gxi5JjjKg8cVBH8YkdIsd6ymZUU/X2BEIsCRGpT3dxhBlKG7ARaASxjU7h5D1YJWM/
-	 BGCbmSNN/FGzxuCD7IeBmYw4UJbLqtzDgtDnjWj+NlOHJpan3LZ9r0KG0QdsxZoimAYdK
-	 f1R2jYsnOIl+0boQbJLTaMivmc2YzD5lIM96BwRc1a3942XadsV9rTrTgXoEfjMEEZRui
-	 bVDhXaX01Q8dDZrFhhjsrUHsd83PI2D8lQeeAs+JpNIWYx99/uUBxddp+jnaPZh9WLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985133;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
+	b=1Hy9wrb3pcmQGxjAmvcPE5ulJr56rg33Am2M76miNP56M/b6HqKzWHVDFlaNb7Lj71cd
+	 8CBF1KbT2s7pdOyS8it9Kh0XiqBxwdi5goEw4Zo1viJj1/YrmjZrfxl1lu6dI/MNiy57Q
+	 cniywFIpOHgEfNgOzu6/4TCFH2BrRB+8DVIBSYJczvsUyQkD1tqnh7+vTMj28lO8bwle2
+	 u0UM3MC0b40N4MKud5a9eY6N6TgRmymSg0eMQibslbfM7N8QW6bxOeMKZiTh1iamOviol
+	 RYt3xJJLqzE8LkNvHwRyR1JRunm6d77SnqY2KiOodfAp5Re+A7HS02+qWZBpWnT0lVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlcD7lM8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76303606A326;
-	Fri,  6 Nov 2026 17:11:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F495606A326;
+	Fri,  6 Nov 2026 17:12:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlcD7lM8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0811E1F0089F;
-	Fri,  6 Nov 2026 17:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EDD1F0089F;
+	Fri,  6 Nov 2026 17:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985089;
-	bh=GL67RXdQa36K78wuxyhKhUCWCZT+FTnpPKTTkNMtBsY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LlcD7lM8L0/3og4uqb/+Tm+XaRxte9vj/PeY7kN9QDFB4kFVCRyv9wibnMt7l/+dj
-	 F0758ub4k7wQdG+eETa0dDmrcIHS/9C/rViHoBjlOv1Xipx6QiaX9vd58wGqZVW7Ih
-	 pi1U0zsYOJyeinMpyBuGl5fqpSrWBvYVUKET+Os2PCCDYi9V+pnsx7pYImevGeUTqX
-	 stfWzcoTjnerwvPUlYvwu16aAQsMXLSpcGDgv6jcIe++yKczRidsgFtkFwE66fscYT
-	 eozr1orG+Xc7KyXKRbGLZcqVkOwmZ3qZ0SyJtuHiaerhT+mMpgRuxcQSHniY9B9SnV
-	 ovy6/7ZoiOQuw==
-Message-ID: <sashiko-outbox-201901@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/13] watchdog: stm32_iwdg: add pretimeout support
- for iwdg v4.0
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106163429.618392-4-antonio.borneo@foss.st.com>
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
- <20261106163429.618392-4-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 17:11:28 +0000
+	s=k20260515; t=1793985132;
+	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXZYGJ+9hZDzjTHk5gS409UcyjiXbtdAcctcAVsuxMbKKud7ZX74SVCglsnmLnC3+
+	 d9FWwycn9H4X1JX5q03xBf/WL4xEy9Bp+3E3VHRrPD4aNj6e2Jni7BD89MOBNO+AWZ
+	 ACiGWawy/gW1dTl3y5KQ5fQRjeNKhMVmvZODcBoiO5WB1gk1np4zqQJkmlk/HMWmm0
+	 3iyT6P5mcoOuK7Hpz+EJ7E2BZ+V5+brqLJVHV0JTgbIEbe6QflMFdMLwg7UJWZWs3j
+	 FfU8i6UShk63PKhDydd8dGKpMT8hGLGG3n06/pPFyJ91X8vgPB6cwrwVrOckKw4L+e
+	 8U4tSZLUFduQA==
+Date: Fri, 6 Nov 2026 17:12:08 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v8 1/2] regulator: dt-bindings: willsemi,wl2868c: add the
+ WL2868C camera PMIC
+Message-ID: <20261106-lucrative-sadden-741ffe6c43e9@spud>
+References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,72 +59,195 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K6bwFbsNcc6jfS5d"
+Content-Disposition: inline
+In-Reply-To: <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] watchdog: stm32_iwdg: IRQ enabled before state init in
-  stm32_iwdg_probe()
---
+--K6bwFbsNcc6jfS5d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit f781715ad1087a5b9a86d2dd54ce3b998243a348
-Author: Antonio Borneo <antonio.borneo@foss.st.com>
+On Fri, Nov 06, 2026 at 07:42:51PM +0800, Qianhui Xu wrote:
+> The WL2868C is an I2C-controlled camera power management IC from Will
+> Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
+> from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 sha=
+re
+> VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
+> 3.544 V. All outputs are programmable in 8 mV steps and are gated by
+> per-output enable bits with a chip-wide SYS_EN master. The chip also
+> exposes an optional active-low RST_N input.
+>=20
+> VIN7 and VSYS are both inputs of the internal control logic, which is
+> powered from the higher of the two voltages, so a device tree has to
+> describe at least one of them. The remaining inputs only feed LDOs, so
+> they stay optional: an input can be left unconnected when the outputs it
+> feeds are unused on a given board.
+>=20
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-watchdog: stm32_iwdg: add pretimeout support for iwdg v4.0
+Rob#s feedback on v6 was ignored:
+https://lore.kernel.org/all/20261106141036.GA2921668-robh@kernel.org/
 
-This commit updates stm32_iwdg_isr() to clear pretimeout interrupts via
-IWDG_ICR on IWDG hardware version 4.0 and later, and adds a reg_set()
-helper.
+pw-bot: changes-requested
 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index ce3e1f96ef50a..6121c23889655 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-[ ... ]
-> @@ -194,11 +207,11 @@ static irqreturn_t stm32_iwdg_isr(int irq, void *wd=
-og_arg)
->  {
->  	struct watchdog_device *wdd =3D wdog_arg;
->  	struct stm32_iwdg *wdt =3D watchdog_get_drvdata(wdd);
-> -	u32 reg;
+Thanks,
+Conor.
+
+> ---
+>  .../bindings/regulator/willsemi,wl2868c.yaml  | 104 ++++++++++++++++++
+>  MAINTAINERS                                   |   7 ++
+>  2 files changed, 111 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,=
+wl2868c.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c=
+=2Eyaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> new file mode 100644
+> index 0000000000..df7990d0d8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> @@ -0,0 +1,104 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Will Semiconductor WL2868C camera power management IC
+> +
+> +maintainers:
+> +  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> +
+> +description:
+> +  The WL2868C is a camera power management IC with seven programmable LD=
+Os.
+> +  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3=
+ and
+> +  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504=
+ V to
+> +  3.544 V. All outputs are programmable in 8 mV steps.
+> +
+> +  VIN7 and VSYS feed the internal control logic, which is powered from t=
+he
+> +  higher of the two, so at least one of them has to be connected. The ot=
+her
+> +  inputs only feed LDOs, so an input may be left unconnected on a board
+> +  that does not use the outputs it feeds, which is why they are not
+> +  mandatory.
+> +
+> +properties:
+> +  compatible:
+> +    const: willsemi,wl2868c
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Active-low RST_N input.
+> +
+> +  vin12-supply:
+> +    description: Input supply for LDO1 and LDO2.
+> +
+> +  vin34-supply:
+> +    description: Input supply for LDO3 and LDO4.
+> +
+> +  vin5-supply:
+> +    description: Input supply for LDO5.
+> +
+> +  vin6-supply:
+> +    description: Input supply for LDO6.
+> +
+> +  vin7-supply:
+> +    description:
+> +      Input supply for LDO7 and one of the two supplies of the internal
+> +      control logic.
+> +
+> +  vsys-supply:
+> +    description:
+> +      System supply, the other supply of the internal control logic. The
+> +      control logic is powered from the higher of VIN7 and VSYS.
+> +
+> +  regulators:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    patternProperties:
+> +      "^ldo[1-7]$":
+> +        type: object
+> +        $ref: regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - regulators
+> +
+> +anyOf:
+> +  - required:
+> +      - vin7-supply
+> +  - required:
+> +      - vsys-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        pmic@2f {
+> +            compatible =3D "willsemi,wl2868c";
+> +            reg =3D <0x2f>;
+> +            vsys-supply =3D <&vsys_reg>;
+> +
+> +            regulators {
+> +                ldo1 {
+> +                    regulator-max-microvolt =3D <1128000>;
+> +                    regulator-min-microvolt =3D <1128000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +    vsys_reg: regulator-vsys {
+> +        compatible =3D "regulator-fixed";
+> +        regulator-name =3D "vsys";
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fe23913b1e..08cfa3db0e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -30180,6 +30180,13 @@ L:	linux-input@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/hid/hid-wiimote*
 > =20
-> -	reg =3D reg_read(wdt->regs, IWDG_EWCR);
-> -	reg |=3D EWCR_EWIC;
-> -	reg_write(wdt->regs, IWDG_EWCR, reg);
-> +	if (wdt->hw_version >=3D ICR_MIN_VER)
-> +		reg_write(wdt->regs, IWDG_ICR, ICR_EWIC);
-> +	else
-> +		reg_set(wdt->regs, IWDG_EWCR, EWCR_EWIC);
-> =20
->  	watchdog_notify_pretimeout(wdd);
+> +WILLSEMI WL2868C CAMERA PMIC
+> +M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> +L:	linux-kernel@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> +F:	drivers/regulator/wl2868c-regulator.c
+> +
+>  WILOCITY WIL6210 WIRELESS DRIVER
+>  L:	linux-wireless@vger.kernel.org
+>  S:	Orphan
+>=20
 
-[Severity: Medium]
-Can stm32_iwdg_isr() run before wdt->hw_version and wdd's driver data are
-initialized in stm32_iwdg_probe()?
+--K6bwFbsNcc6jfS5d
+Content-Type: application/pgp-signature; name=signature.asc
 
-drivers/watchdog/stm32_iwdg.c:stm32_iwdg_probe() {
-    ...
-	ret =3D stm32_iwdg_irq_init(pdev, wdt);
-	if (ret)
-		return ret;
+-----BEGIN PGP SIGNATURE-----
 
-	wdt->hw_version =3D reg_read(wdt->regs, IWDG_VERR) & VERR_MASK;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4KaAAKCRB4tDGHoIJi
+0kbNAP47h6RwmupUnRM9xwGx1Lucs3meQvJTVY0/eCU7Vg0W9gEAwy3QyeC+rxAB
+Zy/7INF+1GiqpqZAlT+DoTNEmRpyBQg=
+=g8S0
+-----END PGP SIGNATURE-----
 
-	watchdog_set_drvdata(wdd, wdt);
-    ...
-}
-
-stm32_iwdg_irq_init() calls devm_request_irq() before wdt->hw_version is
-read from IWDG_VERR and before watchdog_set_drvdata() sets wdd's driver
-data.  If the watchdog was already started by the bootloader and a
-pretimeout interrupt is pending when the IRQ is requested, stm32_iwdg_isr()
-gets NULL from watchdog_get_drvdata(wdd) and dereferences a NULL pointer,
-and even with driver data set, wdt->hw_version would still be 0 so v4.0+
-hardware would write to IWDG_EWCR instead of IWDG_ICR and fail to clear
-the interrupt.
-
-Initializing wdt->hw_version and calling watchdog_set_drvdata(wdd, wdt)
-before stm32_iwdg_irq_init() would avoid this window.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
-92-1-antonio.borneo@foss.st.com?part=3D3
+--K6bwFbsNcc6jfS5d--
