@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956816;
-	b=kGg4Mb31bZAmQvgWLJsEFEAKIwuNgT2bWkucrWGPG+pF6hSLNEvIROR/iaFqNjiscFWW
-	 xwlAETpA67CspzTQ1FmJxOyiYAE3BXt84GxR89TNKsk1KZ8GNv4O4DkkeSN5kFHPTb4Tz
-	 gk2mVV1TNCWb3ZFzM3uqUEwEsnpQTTYbT9noaJVVAz98tqj59AnWZu3oJqLiVYjsZvH9k
-	 CgURE+sJnEd247NQTUdVSsXpRQS7g494k27eDFkwNkoVbxTD41L3cP7JwTGEWM8UMFTiV
-	 xwxjM+qenkd3E4M4Wk53+jY7RrgsY5DUgG0dh0Oat8MCVxxPkApMJJYnuCbfq7AROsQ==
+	t=1793956812;
+	b=ua0d2T7y3fduwfsycKNfB3CEe0HGox6Fu7vlGWXKk+hzLCLy/rhkNxExuVBK4/1ijYiB
+	 rac2fijUgFMJ6IJ++1cVs+ZV5yUs9Vv2tdtcpTz7QZcjF95UuUjZEd+Ofi25dgxS8cKrQ
+	 k9Km4eC5SJBFLqDhFvdfzA82iOZ+htQaukr6nV6NzftPjtQ516k2IMV64EsR+cY/FVCgt
+	 4i2visVo4tEkBPVQ+vOxY5OmxGdaPRPaAJ/s9rbssRdlajshrtaQlSmQAU5hy3SPVZQoA
+	 g8LIj4/okV5ZffYVgHoVXt7YBmFurrW3IccOEdEagh9T6H+GjcBWdS+/e/uWNL8Nh6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956812;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dZugLSOdu0FLGpp/MgQnmUnwUibKQyTiyxJla4Bqexo=;
-	b=PYAi2oghj2muUBlj4/Ans4suzLjY03HRXxnuiHpn0Zf4C2RCsXuuvcNsXVuwmQQ6lmHq
-	 OYPot6ipDuOgXBU1RkqDm3qZoxCIFA16+O365+TFjpj883Pm82p366D0juJlY5udC5oRR
-	 nop5Xor3dQYrIRiTc8aoMVbSxw2W/Otx8eCkLOGV0II/qRGfSk0YelE6xNonRr6haZ8Mv
-	 x0I/Ml9ZOVANcUi+QsQZIpwxZ+DXiRZ2RFxb4VuQP4enqGPgmmA9eR2rJOSyCSZLttrG0
-	 9ny9CC9w/eSMhwT/VqunhfGVAUY+DjXIw2H3oMyNxYpv9wwwaKl0L8HKC8TDlj1PaRw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
+	b=jsPoQQRRdX0TPXd/0gyLQD21zmonupSllb8QQjp2C50evVm951j+02cPwZe+h2xlcJCA
+	 HW+x05uxIZJUz6TsPFa58AwHhU5ufwa7muAArxWHjwtHu233MwPqdsKOGGRHHPB9yKDar
+	 OvyEyLGVSSJ213eQH9zZy+JDkb+1eQ768idd36iz7vHJKoW2+ImlsjxIjfn1RWDePJNg6
+	 3bsG0N35HtyFwAQ0TUUaEZuFfdw9A83R7sb4KxEUaWeBk4frdP90N/cgRxmWmMw8h2Nn8
+	 DN09DU/075cTth0EuTjdi2NSvHOK+EL/Ep+qsDU7omAG6X8F7zDsbOKrpds0jWghk0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjn4V8kt;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB9MA4lw;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02129606EEB8
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:20:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02129606EEB8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B922606EE8A
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:20:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B922606EE8A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjn4V8kt
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4922dbcee23so202830f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:20:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB9MA4lw
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso3092885e9.2
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:20:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956814; x=1794561614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dZugLSOdu0FLGpp/MgQnmUnwUibKQyTiyxJla4Bqexo=;
-        b=sjn4V8kty+ukrgxiKO05KJH0jk88LQaMbKl7/81iWghp9XfU8iZCmjAYrCWuGWms03
-         k8PGWNlR3m9CYE/rcvfYZUAEiGP9GGfdq7t1xSlgZLXfoGzIiPOFmduFXNVjmVYQupKN
-         ULTS6hJsS/el4aR+SPyu+7mVxu6PUkLO+8Ga5opDDEJYtUz78cKWEXe0yGOSk1YZnpaw
-         EqDj4qRDO979FF6l/y8v4Lu09aza7mFEHrVn+QDOlQvn4JRDa8BcnQwrK7WXa1JlI1ne
-         OJzUO6fYgCCW3mXs7tfEQ7FXTjJXRJ0pqBvpTAKgKlTd97PuVDSyf3502wUnjSch0l3i
-         ZUVQ==
+        d=gmail.com; s=20260707; t=1793956811; x=1794561611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
+        b=YB9MA4lwBxStiouVrtcdnPQGCzOVF1UehqAaZuv7DxdSERaz23YPJ6PkrQ6A7eVaP5
+         IwnwJxuVEDeupExS+TobQjHDN5w2HoGk3KMn3TLst1/zC81sx4oLVPclabeaX6OH8Mxy
+         X1a1QPiF1UXmmF9etMn+YLF3ZhhqCcYg8q3lCORpQy/uiZW950/aWuxPkGRPh2nGPo64
+         XGyU1NcfwR475BTyWg/SogOWWJ3jJamrMLz43TuzM0u4hLCPz/Knt4ok0UKT+ez/8VWB
+         5E4czxvdNEdggWuCLaeolQT1Kq6NvGaAL9OdKEdY0bMcgCoJmmlZseDtkgQeduWYjBIH
+         /ReA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956814; x=1794561614;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dZugLSOdu0FLGpp/MgQnmUnwUibKQyTiyxJla4Bqexo=;
-        b=DN0czcRAtdSxWvgpXF9nBR1JMHDGNz3m6bjXrcnA83hLvBbA62Q/zKUgrLMo3lMhp7
-         GuJziY79snUI+wK/rLdjLhJNxG6anKKGe1dyMRODbIm20hdVLJKj9LPD2igEKR7N0Omu
-         KWA/mZmxhB7vh+g2TINpYyjkBd7x5rvDZRwNGD7Cm2jQFpRjfIt3AIumibItcgJx65a9
-         wQ1zEsGAs8+rtmJ5vhXXhG/FfQqykp4qHx99dWTvjJPHq59VbMzRG9ePgyEMKwMrF78y
-         OhmVc0LTJ3vMeb2qQXOdI9f22cPOTyaD14cpniOLklPzgP92abAb8WysJnSOhh+rGKjQ
-         Lz2w==
-X-Forwarded-Encrypted: i=1; AKwUvByngqJRresWDCdGSwL9xdpEoCyUfulorDt/gGqo68gUXD1C8YwQNSPPu0OP6phUbsxKTdG8jnY3lwyK@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HefnMIi72jpgTQwae47Svwle+xm0ZmmWiVTLAbD0cL9DI8vOb
-	/+Ax9fvVj8LvPjpt8RpS7L//yMcF2nZCbvDKgZWn1kdcm5B5jZplwWbJ
-X-Gm-Gg: AYBFou29QSmAVmwKT4GtmXUtswzE0uXAZOEKK7BKWWWldZ5qCjcefoDEU4cd6PB4dU4
-	t0Km0qgKxYSMjC3bJAD6fsIkmZXpcvKx8YaXnks3crc10W/gvpiFyY6K5isI9cD9KvDghDm8s1n
-	YwqGHuIZuy7q1dD5vMWVKbtaiiRf5bGCYk647dpouExcjuRLb8w3AmYpCppjzUxFcHqBwkIb/HS
-	vIcYuW/dvfnfaM6W3eQaE/nGoNNlyYCZMiFI6dCPaQryUpKCBYu5FZ31hUdGryFhHW++W3+rd1J
-	eTEKcdP2B3je6m5aO/blRJYUEudVzuBYZXFQryE3L9hEHTkLlWU+mD9Cma9qI+xsPKkusJWHQfo
-	AVeEOnaJkyMedRtyVm9ADggnGRGdiX1mfK8qqZJt7zP/HHzAYqxe1hjBoR/EdgHmJq34YUtleCV
-	4fqUTn+k8UvLpwBEKb9VPQFvJhK8puuBR/jeVkpscAorKooF3TmliESBIfnYCax9RY7d4pd38QL
-	KvbwT+9J/fwKVSGjUREhOHZZOYx8Xdw4l5N6J7duH5mVtJHy7TcAc9GTc/ul27YLbyyFJEeJGDK
-	/yG1gTIjZ3EjrazGvp9/su0twViaeRZuyR6pegxae1hU+nqeCpEjoWK392cf0M2EJBUl35Djhrh
-	lx4bRmOSVSw==
-X-Received: by 2002:a05:600c:3d05:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4b6dfba86fbmr30238265e9.22.1793956814129;
-        Fri, 06 Nov 2026 01:20:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793956811; x=1794561611;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
+        b=Xvc8aLauozmr1ryZBS07R6NW0ug8HTZi3iUUG4YgxODRerFtazzhjiUMnLAQuIfnjv
+         nuQyO4jjL2kcCZPk38NqpGwN8iJLR9Dj+VYPps/zNSAI99D2JUiEHdCZbFFiogaty0eq
+         XNTHLXxSOPTQe9dcVA0B4vcUJmI3zgr/k2b2+QD8Lpl2Uz7xTgRIMtJP0JeR8YDC7IAz
+         J6EJliHFFaVQS6Ljtynn2mw6NYLe5wmA24LdKrSxHV6E5DFaRSrS+FlDmd9ptQa4b5nW
+         f0Qofy3DZkQaaF5MzJb6Rl37yldFxdFZpf3WoC4G3dgDBnYEV5kZsP+l63VRYOJLuAct
+         3r5A==
+X-Forwarded-Encrypted: i=1; AKwUvBy3xB1GubVgaAsSGm1tGPPMn57nQ8+1cOnY7ngv1yCIsta2/YbyuD8mctOIo08i4yFQixnncQIl8eCp@vger.kernel.org
+X-Gm-Message-State: APuU4Z/09aoeCSSjAuovQdYmYMJiiEJNQRcOVtMXwnVfUTbOJcKVY1yL
+	O2os3U0i2nH42aGKfbzi9/UuNnwYlNmxL+rQEN/NRAC81AWB5zwP9VP4
+X-Gm-Gg: AYBFou1X603oXB5nCX1nvN4haXXCyVAe+dN/uLZ/G8MN1iDJHaql9YEF1H5ytbGH0Q9
+	+ToA9nwdpsg+x98b6KGeUZyl3rWkZibxyrIyEfqBEnZezD+ONVkMxFMtaReRjpxqmO38LISyilH
+	xaAhjXf9bAcujTaqvQGD/GfwXFy0ch1d1N7jDmakT61s+G8U1sVU1z2+bW2mbjMOgjmw6PSETH1
+	/j+Ys9T5BU/OvCEpICQo+KfYJIpmur1ZNxcNiatfYTeZWsFCcfWZR8Xz2P6Ny3RDqcdb7jpORRq
+	VWBAbi3+Yy52/T8JjmpFBwlN2JrMdCuf5Ew+O7xx5LEsJ4Q0poNtaXl/1Emv2qK2CZAstv1J7lH
+	3KVYdOC9ABb9HAXYzXjS1TKi5YELCyhqOgGDt5fjrkDWW1Yw0cuDpC0mR/jlJF+5AYdamXcjYmK
+	6n0oszM9oBBrKEtxdi3pKn5YeMrewFdvY6qMB368GYaWRRUjmi6Mzuy1SBenNpVILV3ilpnuvEx
+	TAIlI16BoZCyKFdvsI7sWhMXHbErA2TJRP9T6D34ariT3pUaL+eLSwSsSuI8lYC2u6bbQ8GQ/+U
+	4xw1KQ2Fdgx5ECzi6CF4FppmcXEmrBGVzLHEMzrxai9+jJcreLM1ob5vcG0hxN0jLdlglV9tgB/
+	HM1BUl7lY+w==
+X-Received: by 2002:a05:600c:4e8f:b0:4b6:540d:6317 with SMTP id 5b1f17b1804b1-4b6df3fd1cfmr29585725e9.12.1793956810406;
+        Fri, 06 Nov 2026 01:20:10 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:20:13 -0800 (PST)
+        Fri, 06 Nov 2026 01:20:09 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -98,12 +97,10 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] iio: light: ltr501: Switch to modern match mechanism
-Date: Fri,  6 Nov 2026 11:19:41 +0200
-Message-ID: <20261106091943.35783-3-clamor95@gmail.com>
+Subject: [PATCH v2 0/4] iio: light: ltr501: Add LTR-659PS-01 prox sensor support
+Date: Fri,  6 Nov 2026 11:19:39 +0200
+Message-ID: <20261106091943.35783-1-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106091943.35783-1-clamor95@gmail.com>
-References: <20261106091943.35783-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,242 +112,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the chip enum, break the chip list structure into individual
-elements, and pass each element using i2c_get_match_data().
+Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+nearly identical to the LTR-559ALS-01, but omits all elements related to
+ambient light sensing.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/iio/light/ltr501.c | 165 +++++++++++++++++--------------------
- 1 file changed, 74 insertions(+), 91 deletions(-)
+Changes in v2:
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index cc5d7af44d77c..d5ce6468a229b 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -90,14 +90,6 @@ struct ltr501_samp_table {
- 
- #define LTR501_RESERVED_GAIN -1
- 
--enum {
--	ltr301,
--	ltr303,
--	ltr329,
--	ltr501,
--	ltr559,
--};
--
- struct ltr501_gain {
- 	int scale;
- 	int uscale;
-@@ -1178,62 +1170,64 @@ static const struct iio_info ltr501_info = {
- 	.write_event_config = &ltr501_write_event_config,
- };
- 
--static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
--	[ltr301] = {
--		.partid = 0x08,
--		.als_gain = ltr501_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
--		.als_mode_active = BIT(0) | BIT(1),
--		.als_gain_mask = BIT(3),
--		.als_gain_shift = 3,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr303] = {
--		.partid = 0x0A,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr329] = {
--		.partid = 0x0A,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.no_irq_support = true,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr501] = {
--		.partid = 0x08,
--		.als_gain = ltr501_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
--		.ps_gain = ltr501_ps_gain_tbl,
--		.ps_gain_tbl_size = ARRAY_SIZE(ltr501_ps_gain_tbl),
--		.als_mode_active = BIT(0) | BIT(1),
--		.als_gain_mask = BIT(3),
--		.als_gain_shift = 3,
--		.channels = ltr501_channels,
--		.no_channels = ARRAY_SIZE(ltr501_channels),
--	},
--	[ltr559] = {
--		.partid = 0x09,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.ps_gain = ltr559_ps_gain_tbl,
--		.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.channels = ltr501_channels,
--		.no_channels = ARRAY_SIZE(ltr501_channels),
--	},
-+static const struct ltr501_chip_info ltr301_chip_info_tbl = {
-+	.partid = 0x08,
-+	.als_gain = ltr501_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
-+	.als_mode_active = BIT(0) | BIT(1),
-+	.als_gain_mask = BIT(3),
-+	.als_gain_shift = 3,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr303_chip_info_tbl = {
-+	.partid = 0x0A,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr329_chip_info_tbl = {
-+	.partid = 0x0A,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.no_irq_support = true,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr501_chip_info_tbl = {
-+	.partid = 0x08,
-+	.als_gain = ltr501_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
-+	.ps_gain = ltr501_ps_gain_tbl,
-+	.ps_gain_tbl_size = ARRAY_SIZE(ltr501_ps_gain_tbl),
-+	.als_mode_active = BIT(0) | BIT(1),
-+	.als_gain_mask = BIT(3),
-+	.als_gain_shift = 3,
-+	.channels = ltr501_channels,
-+	.no_channels = ARRAY_SIZE(ltr501_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr559_chip_info_tbl = {
-+	.partid = 0x09,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.ps_gain = ltr559_ps_gain_tbl,
-+	.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.channels = ltr501_channels,
-+	.no_channels = ARRAY_SIZE(ltr501_channels),
- };
- 
- static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-@@ -1393,14 +1387,11 @@ static int ltr501_powerdown(struct ltr501_data *data)
- 
- static int ltr501_probe(struct i2c_client *client)
- {
--	const struct i2c_device_id *id = i2c_client_get_device_id(client);
- 	static const char * const regulator_names[] = { "vdd", "vddio" };
- 	struct ltr501_data *data;
- 	struct iio_dev *indio_dev;
- 	struct regmap *regmap;
--	const void *ddata = NULL;
--	int partid, chip_idx;
--	const char *name;
-+	int partid;
- 	int ret;
- 
- 	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
-@@ -1480,18 +1471,10 @@ static int ltr501_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
--	if (id) {
--		name = id->name;
--		chip_idx = id->driver_data;
--	} else {
--		name = iio_get_acpi_device_name_and_data(&client->dev, &ddata);
--		chip_idx = (intptr_t)ddata;
--	}
--	if (!name)
-+	data->chip_info = i2c_get_match_data(client);
-+	if (!data->chip_info)
- 		return -ENODEV;
- 
--	data->chip_info = &ltr501_chip_info_tbl[chip_idx];
--
- 	if ((partid >> 4) != data->chip_info->partid)
- 		return -ENODEV;
- 
-@@ -1502,7 +1485,7 @@ static int ltr501_probe(struct i2c_client *client)
- 	indio_dev->info = &ltr501_info;
- 	indio_dev->channels = data->chip_info->channels;
- 	indio_dev->num_channels = data->chip_info->no_channels;
--	indio_dev->name = name;
-+	indio_dev->name = client->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 
- 	ret = ltr501_init(data);
-@@ -1573,29 +1556,29 @@ static int ltr501_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(ltr501_pm_ops, ltr501_suspend, ltr501_resume);
- 
- static const struct acpi_device_id ltr_acpi_match[] = {
--	{ "LTER0301", ltr301 },
-+	{ "LTER0301", .driver_data = (kernel_ulong_t)&ltr301_chip_info_tbl },
- 	/* https://www.catalog.update.microsoft.com/Search.aspx?q=lter0303 */
--	{ "LTER0303", ltr303 },
-+	{ "LTER0303", .driver_data = (kernel_ulong_t)&ltr303_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, ltr_acpi_match);
- 
- static const struct i2c_device_id ltr501_id[] = {
--	{ .name = "ltr301", .driver_data = ltr301 },
--	{ .name = "ltr303", .driver_data = ltr303 },
--	{ .name = "ltr329", .driver_data = ltr329 },
--	{ .name = "ltr501", .driver_data = ltr501 },
--	{ .name = "ltr559", .driver_data = ltr559 },
-+	{ .name = "ltr301", .driver_data = (kernel_ulong_t)&ltr301_chip_info_tbl },
-+	{ .name = "ltr303", .driver_data = (kernel_ulong_t)&ltr303_chip_info_tbl },
-+	{ .name = "ltr329", .driver_data = (kernel_ulong_t)&ltr329_chip_info_tbl },
-+	{ .name = "ltr501", .driver_data = (kernel_ulong_t)&ltr501_chip_info_tbl },
-+	{ .name = "ltr559", .driver_data = (kernel_ulong_t)&ltr559_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ltr501_id);
- 
- static const struct of_device_id ltr501_of_match[] = {
--	{ .compatible = "liteon,ltr301", },
--	{ .compatible = "liteon,ltr303", },
--	{ .compatible = "liteon,ltr329", },
--	{ .compatible = "liteon,ltr501", },
--	{ .compatible = "liteon,ltr559", },
-+	{ .compatible = "liteon,ltr301", .data = &ltr301_chip_info_tbl },
-+	{ .compatible = "liteon,ltr303", .data = &ltr303_chip_info_tbl },
-+	{ .compatible = "liteon,ltr329", .data = &ltr329_chip_info_tbl },
-+	{ .compatible = "liteon,ltr501", .data = &ltr501_chip_info_tbl },
-+	{ .compatible = "liteon,ltr559", .data = &ltr559_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltr501_of_match);
+- set IIO_PROXIMITY channel to scan_index 2 since driver will not handle other
+  id properly
+- add IIO_CHAN_INFO_SAMP_FREQ for IIO_PROXIMITY channel
+- isolate missed ALS register calls
+- add commit to use read_avail operation
+- convert to use modern chip info match
+---
+
+Svyatoslav Ryhel (4):
+  iio: light: ltr501: Switch to read_avail() op from manual attribute
+    registration
+  iio: light: ltr501: Switch to modern match mechanism
+  dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+  iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
+
+ .../bindings/iio/light/liteon,ltr501.yaml     |   1 +
+ drivers/iio/light/ltr501.c                    | 383 +++++++++---------
+ 2 files changed, 184 insertions(+), 200 deletions(-)
+
 -- 
 2.53.0
 
