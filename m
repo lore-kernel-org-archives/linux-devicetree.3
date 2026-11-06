@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945928;
-	b=Eevmxfxsqzp33i/aR46R3Hn9Cf/YXz9VdPuBERXIwYklqFwecqPMW5ZM+cnHUjil8778
-	 dojkyuF8gQ5VOMNRL8MYPXi/SDDeYaxiYSWH1/Z05wrE3E9MFHhMXZMxGcxavNCAl8HI7
-	 3J5yDNogU6lt5WGINLCEPk8S2KekykSUsjFnXNW1hCf+3Sfil9Ygss3V2+CiqGhwjektY
-	 0mq9VuCCJ4/L8sj158qQFGaliV/1PN+Vc3RSeW8a6TvVRvjKnrbQCN2zisCzakCTRtCMh
-	 Sl9k+ioGm+3XBl1x2xLAosXxzA+hsKTUruztTx2VRi0fzDhYoVHRtgDABvAy0LEhv9w==
+	t=1793946152;
+	b=1VWkHrIbgXY4PaUWG4vYr1j93/PWO1c1zs4MUrjigBDUV06ZmdGyFgma+2HsilFaehUI
+	 yKqsmZYdqogNI6k7ku1iIYANh2tumEUnNUo2+czjatxhxvuNz55bWTn5UBcSpW7afwddW
+	 o2QqRc4YShe7LE8kKPUyh9peuHgDzruyEfMyK7FzkW/hGb5E5WdVUvY5ILd2GDufCCptz
+	 Rf2nt4Kb9+DRcwCGtsWRQEAXQyI+j3z9jfbwIwZtWPbgM6ANAvbwWc9Ue5JPAgUAXX8l3
+	 yiyhr/Gk2tLdOavBxbXMs1KJQ3NRTfFQyKqxwZPwW3V/IUHHaVGhduqCdJp524fPEVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945928;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NMTw4oTDCJyIKE8BV8ip+57Dn/aXQGYoxWAp8K3eAUM=;
-	b=D8gogW4k57UIEwqB4IamnEpMjwjow9NgD57sTQuekppsjnfcSTK7eyJjkDMPULDIEdYa
-	 5uSJorCUcUdMCSKnp25mRtGC+nuLvWZJ+ZhXF+YAVf4yX08yuE/orpkr5F/lUo6nu+eeB
-	 2taRArOLHMwS1jgu20AJqjOD4+lB+7sEUZLAhBdWBdwR5qe9bJnprR3xEjDx1JzeW7Q3V
-	 XN6BmEvmjAMMK3wfNQTuMHN90a8ufvCPXOSYxGUNTtgS5/cNEs04UbAyfmBTA97ecSUeU
-	 qc9MtTORx0YYsS8cJLXIug1EiyrI1fIygwwreeZqw9GHB7HV6W3xGtAetMjP/Suz6hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946152;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=rrWDj3qKNUOdY2qWqoPCz8O6YDDuEwTD6EHNmup6yhE=;
+	b=d+xVYRtXoO54cGgVzd2q2eE2HKGG4fnmmUTJyBgYcR3V42Gw5Fs6Fqpwm8uIAmhNmTMy
+	 zzkGJat4EgRNb5J70YfHc7C6hzAxPhFNq9MI8BP6asjyWk7VPaZzjPMGenjBhwHlzWaWs
+	 FqagFicmMqdIqK7b35fh7/+390R0DtUOmyQ4NM3uK0JbwrZyoNqJMgcJiyu0jBlAO9uDf
+	 2udCUtbCLxmbYUcpdkwKCV5/RjAvX1lOgg51dEeogWMqzEyUeDJq6tlatEmQyOpZrzkK9
+	 rkz2Me9gRllsEl63kRmrSy9+F2LV7cqixJeECmuXaW1CiodA1oqNCesS48BNSNvHAQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJbaE24h;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lP8tg1iz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2107E606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2107E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C58C606D801
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJbaE24h
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-14394530ec6so482096c88.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 22:18:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793945927; x=1794550727; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NMTw4oTDCJyIKE8BV8ip+57Dn/aXQGYoxWAp8K3eAUM=;
-        b=JJbaE24hBsZwoWmpxYjc1NKCuE0s1QoZpr3oO5u3C4vNxiyYDTZLDabWZKPZnxo7ML
-         oIiWoqP9kyy4LqdefDbnpCPgidwOskBKtenZ0BBDCmkRf/iaUuBR2vLO4eaNlEjibAVV
-         wqu8Wf2IOU6rxpG9FiklVU94pMa+IGTqcCp/b/8IqmRiFumw3cecquH3BBTXReVoxp6Z
-         Gjq9d4CdAttE4jA7IA9tOCyx1rizDkN+/dqnP/WnUI0Eu00A8wfLf0doXRdy2rQLHDT6
-         UHxDfOMoMiI+pS09XIuIt6ps5nyrhbJ9vmhs609Ib86Yw4ny2wtEIIdUR3mvgubU+oGk
-         y1Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793945927; x=1794550727;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NMTw4oTDCJyIKE8BV8ip+57Dn/aXQGYoxWAp8K3eAUM=;
-        b=drza/phr4xvdJubFAUG9+bvAqhuyF/u2rfDmKQ7OedbYc9+lvND2jlshbG0jgt0SjQ
-         dPiOgWafy0T+IQ4AgckspBZS9VkXXnvgVOKXdn4b2hbopf8b0jzXE0e5M4+yyuglf/n9
-         AQ0Lj6OUUNlfUO4RZUCq33hFULMLba0eMXAogTA4SM67I3trjsR5QylShin0EzdibQGN
-         qE/AXV3hzeJjU+DLLz0pz9TsUvhWW9+FAQX5DGdchAtJiOARLvyX1LShksrJ/SOQnRtx
-         QuHnrphhVQgJcfPj42In9xXqmbVI/SpMhUr0CBX9eD9NrqE5kC/aerf3BZt1oWWXtlzQ
-         DXcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqaNL1g8u1MpPstE0+FqFhkyH2D99jwpgUrtrILzpwT4onloVjbQ4rrs1dCW/E1zvmighsb2cF0wKr@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UiOG8OxyKPWFDxvcoQrVZkJuloAR2UeVMVcPHsDRGtx4I8637
-	ad2n7jD1NpM8OtztZZNvKpdh4smjGHjeRcbKjAx7TxgXmdlZU3l2alZl
-X-Gm-Gg: AYBFou2sKJRmJ1fM7aN6oAvNYks39SwyCXVT/Ty+cGqGR4Xc1NmcBkBpAjYdRO6Sqev
-	4spe8zGPT5kHGUYY1wt+ATkE1Haq2kc5m4Eru0sMW9iyBPQRZPgVKJNlLbk9Euy4kCDyNdUK4UP
-	EwhKCMn7xKZ9ZGr35bxqVmE/fbRuFuClCCiVvssSgpfx77H2bketTaopzwzR65JI1kajsLkkauT
-	rZhzcN3fhvovKkExbfjNjZhbt89bC7Q3ybI2AjpRYUAIo+NiZ7/w25b9L1Z5iYBaou+8bozIh+P
-	DFnmIx2Tr+P0lSQneJyue1xLbVmAhpSAsJYfVyfpqtAbG+M+3Pys139rl22R2iEGDbqEWx6tdan
-	N48TkxjUc+USt/JlqCY2jF2b5Q7N8hpXcfyUaMZpwgwLIToOZ6iWGj7mCQI3b59CXRYc6nsJT5v
-	FX4M/1u7R3kLtvJQJSdAhn3ttzh+fnjW/kiZ7t4Y/7RcXj+2FY9h6VfsOqZvyDZBM2j9QWjQuSp
-	mkPHJNaj7ipEw57P2YP2suRyiXZfWWQPYAFLaOQE1NPoTPbaxYdoA2iSekA8QTZipmEsgwA5cDE
-	spiEe/UVFH7sMbNxZqPwB53pwVzMoYeYGhT87kfbtb46
-X-Received: by 2002:a05:701b:2318:b0:15b:afce:62c2 with SMTP id a92af1059eb24-1b25d359e6cmr2423409c88.41.1793945927182;
-        Thu, 05 Nov 2026 22:18:47 -0800 (PST)
-Received: from aaron-m75q ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4b4aa7sm2675521c88.13.2026.11.05.22.18.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:18:46 -0800 (PST)
-From: Yaozhong Li <yaozhonguwl@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [PATCH v3] arm64: dts: rockchip: enable SD UHS-I on Firefly-RK3399
-Date: Fri,  6 Nov 2026 14:18:35 +0800
-Message-ID: <20261106061835.1316-1-yaozhonguwl@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lP8tg1iz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8ACA1F0089F;
+	Fri,  6 Nov 2026 06:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793946152;
+	bh=rrWDj3qKNUOdY2qWqoPCz8O6YDDuEwTD6EHNmup6yhE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lP8tg1izAzmIUsVN1V0HLckaNd2mFWzK1gGv9i9kHYH7+ge8C3RwhSdFI1S0LOg6e
+	 4ZSPmTL8irFZzjIbmCApFrTZ+dfeGppMh10eUyLFS1CUrVqBgFKqjH36LX3+zZMr9Q
+	 UN6oFXzIwkxi+YVMNfOc2QEvtTph/O6JPviM52B57BIENR/l+OYxBlubIFIQ62I5r2
+	 hopXl9Rep/vkoYp56nhACtES21JsFdWIM6zS/FEi1vlb7UFwrDFMTJ1BgbPRCsWyRX
+	 qCFpl73tu4TozSgsDiKDcymK11VxTpbwwddNdrlrUYoSFum7Tu/oAYvGLliF/wSOD4
+	 CyQhhouDhIz0w==
+Message-ID: <sashiko-outbox-200888@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: mediatek: mt8390-genio-common: Fix
+ type C port mode and connection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106060621.2706658-2-wenst@chromium.org>
+References: <20261106060621.2706658-1-wenst@chromium.org>
+ <20261106060621.2706658-2-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 06:22:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,111 +60,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Contrary to its name, vcc_sdio is the IO supply of the SD card slot: the
-schematics route it to SDMMC0_VDD. It is listed as the vmmc-supply
-of the WiFi SDIO node instead, and that consumer keeps the rail from
-switching to 1.8V.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] arm64: dts: mediatek: missing PDO_FIXED_USB_COMM in mt8390
+  source-pdos
+- [Low] arm64: dts: mediatek: mt8390-genio: hub ports nodes violate
+  ti,usb8020b schema
+--
 
-The WiFi module's main VBAT input comes from vcc3v3_sys, and its IO
-supply stays vcc1v8_s3. The card slot itself is fed from vcc3v3_sys
-through a switch enabled by GPIO4_D6, which the vendor device tree calls
-vcc_sd.
+commit b958daa221ebf8e15b905e203df3fc6aa4fbfaae
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Fix the supplies of sdio0 and sdmmc accordingly, describe vcc_sd, and
-enable SDR104, which now becomes possible.
+arm64: dts: mediatek: mt8390-genio-common: Fix type C port mode and connect=
+ion
 
-With UHS enabled, sequential read from a 64GB SDXC card goes from
-22 MB/s to 60 MB/s. WiFi remained associated at 5 GHz, with no WiFi
-errors.
+This commit updates the USB controller and Type-C connector on MT8390
+Genio boards to host-only and source-only mode, routing the connector's
+High-Speed and SuperSpeed endpoints through the onboard TI TUSB8020B hub.
 
-Assisted-by: LLM
-Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
----
-Changes in v3:
-- Describe the slot's own supply, vcc_sd, and use it as the sdmmc
-  vmmc-supply (Heiko). It is fed from vcc3v3_sys, and GPIO4_D6 controls
-  the slot power switch: holding the pin low leaves the card unpowered.
-  This is the same arrangement as vcc3v0_sd on the ROC-PC. The existing,
-  unreferenced lcd_panel_reset pinctrl entry also names GPIO4_D6; the
-  vendor tree uses the pin only for vcc_sd.
-- Link to v2: https://lore.kernel.org/all/20261105102556.1365-1-yaozhonguwl@gmail.com/
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch=
+/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> index 669eaec662f33..d10ee1603103f 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> @@ -512,18 +512,11 @@ rt1715@4e {
+>  		connector {
+>  			compatible =3D "usb-c-connector";
+>  			label =3D "USB-C";
+> -			data-role =3D "dual";
+> -			op-sink-microwatt =3D <10000000>;
+> -			power-role =3D "dual";
+> -			try-power-role  =3D "sink";
+> +			data-role =3D "host";
+> +			power-role =3D "source";
+>  			pd-revision =3D /bits/ 8 <0x03 0x00 0x01 0x08>;
+> =20
+> -			sink-pdos =3D <PDO_FIXED(5000, 2000,
+> -					       PDO_FIXED_DUAL_ROLE |
+> -					       PDO_FIXED_DATA_SWAP)>;
+> -			source-pdos =3D <PDO_FIXED(5000, 2000,
+> -						 PDO_FIXED_DUAL_ROLE |
+> -						 PDO_FIXED_DATA_SWAP)>;
+> +			source-pdos =3D <PDO_FIXED(5000, 1000, 0)>;
 
-Changes in v2:
-- Point the sdio0 vmmc-supply at vcc3v3_sys, the WiFi module's VBAT input,
-  instead of dropping it (Heiko)
-- Rewrite the commit message (Heiko)
-- Link to v1: https://lore.kernel.org/all/20260922055011.14972-1-yaozhonguwl@gmail.com/
+[Severity: Low]
+Should source-pdos pass PDO_FIXED_USB_COMM instead of 0?  This connector
+routes High-Speed and SuperSpeed data lines to the onboard USB hub, so
+passing 0 causes tcpm_pd_send_source_caps() and
+usb_communication_capable_show() to advertise the port as incapable of
+USB data communication.
 
-On the boot-time issue described in v2: with the vmmc-supply in place
-the sdmmc controller now probes after the GRF io-domain here, and a card
-present at boot came up in SDR104 in 5 of 5 warm boots, against 0 of 8
-before. That is a change in probe order rather than a fix for the
-ordering problem itself.
+[ ... ]
 
- .../boot/dts/rockchip/rk3399-firefly.dts      | 24 ++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+> @@ -1555,6 +1541,19 @@ hub_2_0: hub@1 {
+>  		peer-hub =3D <&hub_3_0>;
+>  		reset-gpios =3D <&pio 7 GPIO_ACTIVE_HIGH>;
+>  		vdd-supply =3D <&usb_hub_fixed_3v3>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				usb_3_0_p2: endpoint {
+> +					remote-endpoint =3D <&typec_con_ss>;
+> +				};
+> +			};
+> +		};
+>  	};
+> =20
+>  	hub_3_0: hub@2 {
+> @@ -1563,11 +1562,18 @@ hub_3_0: hub@2 {
+>  		peer-hub =3D <&hub_2_0>;
+>  		reset-gpios =3D <&pio 7 GPIO_ACTIVE_HIGH>;
+>  		vdd-supply =3D <&usb_hub_fixed_3v3>;
+> -	};
+> =20
+> -	port {
+> -		xhci_ss_ep: endpoint {
+> -			remote-endpoint =3D <&typec_con_ss>;
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				usb_2_0_p2: endpoint {
+> +					remote-endpoint =3D <&typec_con_hs>;
+> +				};
+> +			};
+>  		};
+>  	};
+>  };
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-index 0568dfa..03858a4 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-@@ -233,6 +233,19 @@ vcc5v0_typec: regulator-vcc5v0-typec {
- 		vin-supply = <&vcc_sys>;
- 	};
- 
-+	vcc_sd: regulator-vcc-sd {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio4 RK_PD6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&vcc_sd_en>;
-+		regulator-name = "vcc_sd";
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc3v3_sys>;
-+	};
-+
- 	vcc_sys: regulator-vcc-sys {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc_sys";
-@@ -731,6 +744,12 @@ wifi_enable_h: wifi-enable-h {
- 		};
- 	};
- 
-+	sdmmc {
-+		vcc_sd_en: vcc-sd-en {
-+			rockchip,pins = <4 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	usb-typec {
- 		vcc5v0_typec_en: vcc5v0_typec_en {
- 			rockchip,pins = <1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -777,7 +796,7 @@ &sdio0 {
- 
- 	/* Power supply */
- 	vqmmc-supply = <&vcc1v8_s3>;	/* IO line */
--	vmmc-supply = <&vcc_sdio>;	/* card's power */
-+	vmmc-supply = <&vcc3v3_sys>;	/* card's power */
- 
- 	#address-cells = <1>;
- 	#size-cells = <0>;
-@@ -804,6 +823,9 @@ &sdmmc {
- 	max-frequency = <150000000>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&sdmmc_clk &sdmmc_cmd &sdmmc_bus4>;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_sd>;
-+	vqmmc-supply = <&vcc_sdio>;
- 	status = "okay";
- };
- 
+[Severity: Low]
+Do the new ports child nodes under hub@1 (usb451,8025) and hub@2
+(usb451,8027) cause dtbs_check to fail against
+Documentation/devicetree/bindings/usb/ti,usb8020b.yaml?  That schema only
+references usb-device.yaml# with additionalProperties: false, and the
+prerequisite commit "dt-bindings: usb: ti,usb8041: Fold in TI USB8020B"
+noted in the patch commentary is not present in the tree yet.
 
-base-commit: 940de590b839f71d6dc846160534bf202401b8b7
--- 
-2.55.0.windows.3
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106060621.2706=
+658-1-wenst@chromium.org?part=3D1
