@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962040;
-	b=Jq4PKhmh44iuEK+djKfqSCqtLkJ8U4O5GqYjiUGZwP+8ucukstbX3307xpbpn1GjLKR0
-	 J+wFYJal8a+NIP9Qfp+S0gTMV7HRVrAcgIbtLdhlMj6pdxWATOsAVai1mFzwvIlWKY8SE
-	 YXo9D0e2WSAu/Ow8A1VkZMREctX4DKMMPg3PLbelLGukMGNz8BkXVEPLiSb6JCJU+bnsx
-	 0jkVPEYqS0uI3MtP0w2wCkCLkvF5wGZOKWqOPi3spI5iDXFKeKlmyC7O0X/KkomDpl7Q4
-	 18QdbJ9NsWMi/396XQxz+bbaKmM/HxNo3RkSlwSATn8OZRN4MTKxO64Ra6WEeqC/Pyw==
+	t=1793962042;
+	b=B58BoKO8cgCI1q6p/5zf32GBFr9zFrYvza7yHUV2EuJjN3y8ZrvugSpmbvONy9cC9wWs
+	 vmJLTAg2TB3kJfPcXNb1cG5zSYcDXWw6XJSr0wmyli0V1cDDepBfhAid/i3Q4X9OJty1w
+	 nwjoLxxrDcPTcN9CzY/oPv1kF4pdtU8LIOROlN56k/gOjsxR1QwgIz7QSSxKPXDcT6CC9
+	 H/mqiEE9Dv+7c099KNBHWvRpYbevUSmLzmbUP3ZeTd2XADc+evd00W0ZAjjyIjEXhykTH
+	 k2jl9FgYFeoF4TBuD4Lk1dqv7edbuV73b4YO9SS9lzarL7flwn1idRzAQ0/hu+y4hTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962042;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=TlLop1f5KLIoXxFGbo5pP4WCmCI9XMrzolGtBjxYqxo=;
-	b=Ea72+9wi4iT5CLivrNlbrpUaFvK9iierNtHucTKwP82KEMCKOKfm0MCxpilIZHX8toKu
-	 99XqSSy42+j+kY5b/IzfEpK7Wc0IIKjQOrk99psE30qtcsc0XakXf6NqnsyU4pvm72PIN
-	 rI1Jy9wDG5PX66k5Vywp+5mz8Nodo3bl2CnI7+1zPH6YBz6elH5aSf+iej7cj4a0MDU2s
-	 9cKmFX4kUIuOx30ZYRyM6PXcXSYySOnaXbIlegUcAM9LRHjFY1nnl0ctPNQZzMSAH6KJe
-	 PnFwagBkoEyr3hVZUCwJ1bHIu7bUCmqFiIt7NDgT2qDl8FP7jUQPWVKcz2+ol7MR9xw==
+	bh=tcFiQk9INcP1NyiO/VB8I2WdTS9SqK6ZO3Kat/I+crQ=;
+	b=vZaUEN0xK7ARSLFgAgX4IEtfz9J2wTdP9HszQwrXquojvnyn659q0NZS9/teG4c1K6Ln
+	 HaXUFdyeZ6AWzf1ruzYShpmqkyU88VXkOv3KCgKe4KzEvsNr8C7nYuic3TnIAywIHUJ6H
+	 GbrK+LY1wnpRAbkLSRc2ZT4bXSS4WM9TatnlmVp9nZjFMDVTydm/JfZI8LUCFnt7NxUoo
+	 VrhCJ4Uqz6d+XLtaw44efRWLmFrdGZuu0uaj0FsyP8NRFqWF1G1GamiU9HfZcykXf39V6
+	 e2qFlZUDZpDd+YEMQH1Ti96ncQekdh4hnX7DaAMUffpRS+Wq26lU15NakHgH51FD1yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=dCSUZjxD;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UmF8bcF1;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C119606A33F;
-	Fri,  6 Nov 2026 10:47:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C119606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBD8606D820;
+	Fri,  6 Nov 2026 10:47:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBBD8606D820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=dCSUZjxD
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UmF8bcF1
 Received: from surface-pro-5.uibk.ac.at (ydWLT-U1-3-167.uibk.ac.at [172.25.3.167])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6Al07K1953426
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6Al07L1953426
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Fri, 6 Nov 2026 11:47:09 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6Al07K1953426
+	Fri, 6 Nov 2026 11:47:10 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6Al07L1953426
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793962029;
-	bh=TlLop1f5KLIoXxFGbo5pP4WCmCI9XMrzolGtBjxYqxo=;
+	s=prod24a; t=1793962030;
+	bh=tcFiQk9INcP1NyiO/VB8I2WdTS9SqK6ZO3Kat/I+crQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dCSUZjxD1QrtEmx1pU2Gc2RTo4R42OPJhTa97VP7hTZnmS6Swf7aBXFQJu8qPa70B
-	 dwatHvO2BfEleR7En2RKeVPqmvqxxKUujbeaHWaorhx2y2VrEnGMyOQeV1oYMZxSG5
-	 mxNBPws9phn6tbSsb3QXYhZpBF19L+RKVH3LOV0w=
+	b=UmF8bcF1e1gKyJgQXP8empdFqOyOuLai7XBv+uhWBnnSA6fBJJ4q/L/CQDcT8P1JS
+	 T9EaiOHxI3Q28di/59Fo14aWXU2MLypxBq48S9khE8HlAR2/GvRDCPGljeNFEgwgn7
+	 FHT1lB0anQLHGRYlWJ7QEG4D2jrFuivTkTbAzl/E=
 From: christian.koever-draxl@student.uibk.ac.at
 To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
         neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
@@ -54,9 +54,9 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org,
         linux-amlogic@lists.infradead.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 05/10] arm64: dts: amlogic: meson-s4: add the Mali GPU
-Date: Fri,  6 Nov 2026 11:46:54 +0100
-Message-ID: <20261106104659.54656-6-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 06/10] arm64: dts: amlogic: meson-s4: add the CPU thermal sensor and zone
+Date: Fri,  6 Nov 2026 11:46:55 +0100
+Message-ID: <20261106104659.54656-7-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
 References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
@@ -76,88 +76,88 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Add the Mali-G31 GPU with its operating points. The GPU rail is not
-switchable, so it scales by frequency only, over the fixed fclk derived
-rates the vendor DVFS table uses as well.
+Add the CPU temperature sensor with its bus and functional clocks; it
+reads its calibration through the secure monitor. Add a CPU thermal
+zone with a passive trip that throttles the GPU, which shares the die,
+and a hot and a critical trip. The CPUs can join the passive trip once
+CPU frequency scaling is in place.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 55 +++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 48 +++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 793c7bb9512e..69105c8abf12 100644
+index 69105c8abf12..1e8b845b80c3 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
 +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -126,6 +126,40 @@ vrtc: rtc@fe010288 {
- 		reg = <0x0 0xfe010288 0x0 0x4>;
- 	};
+@@ -11,6 +11,7 @@
+ #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
+ #include <dt-bindings/power/meson-s4-power.h>
+ #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
++#include <dt-bindings/thermal/thermal.h>
  
-+	/*
-+	 * The Mali rail is not switchable on this SoC, so the GPU scales by
-+	 * frequency alone. Every rate here is one of the fixed fclk dividers,
-+	 * optionally halved or quartered by the mali divider, which is what
-+	 * the vendor DVFS table uses as well. Its 850 MHz point is left out
-+	 * because it needs GP0 PLL, and the mali mux is not allowed to
-+	 * reprogram its parents.
-+	 */
-+	gpu_opp_table: opp-table-gpu {
-+		compatible = "operating-points-v2";
+ / {
+ 	cpus {
+@@ -748,6 +749,17 @@ gpio_intc: interrupt-controller@4080 {
+ 					<10 11 12 13 14 15 16 17 18 19 20 21>;
+ 			};
+ 
++			cpu_temp: temperature-sensor@20000 {
++				compatible = "amlogic,s4-thermal";
++				reg = <0x0 0x20000 0x0 0x50>;
++				interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_TS_PLL>,
++					 <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 1>;
++			};
 +
-+		opp-124999998 {
-+			opp-hz = /bits/ 64 <124999998>;
-+		};
-+		opp-249999996 {
-+			opp-hz = /bits/ 64 <249999996>;
-+		};
-+		opp-285714281 {
-+			opp-hz = /bits/ 64 <285714281>;
-+		};
-+		opp-399999994 {
-+			opp-hz = /bits/ 64 <399999994>;
-+		};
-+		opp-499999992 {
-+			opp-hz = /bits/ 64 <499999992>;
-+		};
-+		opp-666666656 {
-+			opp-hz = /bits/ 64 <666666656>;
-+		};
-+		opp-799999988 {
-+			opp-hz = /bits/ 64 <799999988>;
+ 			eth_phy: mdio-multiplexer@28000 {
+ 				compatible = "amlogic,g12a-mdio-mux";
+ 				reg = <0x0 0x28000 0x0 0xa4>;
+@@ -1025,4 +1037,40 @@ emmc: mmc@fe08c000 {
+ 			assigned-clock-rates = <24000000>;
+ 		};
+ 	};
++
++	thermal-zones {
++		cpu-thermal {
++			polling-delay = <1000>;
++			polling-delay-passive = <100>;
++			thermal-sensors = <&cpu_temp>;
++
++			trips {
++				cpu_passive: cpu-passive {
++					temperature = <85000>;
++					hysteresis = <5000>;
++					type = "passive";
++				};
++
++				cpu_hot: cpu-hot {
++					temperature = <95000>;
++					hysteresis = <5000>;
++					type = "hot";
++				};
++
++				cpu_critical: cpu-critical {
++					temperature = <105000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++			cooling-maps {
++				/* the GPU shares the die and the sensor */
++				map0 {
++					trip = <&cpu_passive>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT
++							  THERMAL_NO_LIMIT>;
++				};
++			};
 +		};
 +	};
-+
- 	xtal: xtal-clk {
- 		compatible = "fixed-clock";
- 		clock-frequency = <24000000>;
-@@ -164,6 +198,27 @@ soc {
- 		#size-cells = <2>;
- 		ranges;
- 
-+		gpu: gpu@fe400000 {
-+			compatible = "amlogic,meson-g12a-mali", "arm,mali-bifrost";
-+			reg = <0x0 0xfe400000 0x0 0x40000>;
-+			interrupt-names = "job", "mmu", "gpu";
-+			interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-+			/*
-+			 * CLKID_MALI is only the system bus gate. The core is
-+			 * fed by the glitch-free mali mux, which is the clock
-+			 * the OPP table scales.
-+			 */
-+			clocks = <&clkc_periphs CLKID_MALI_SEL>,
-+				 <&clkc_periphs CLKID_MALI>;
-+			clock-names = "core", "bus";
-+			resets = <&reset RESET_MALI_APB>, <&reset RESET_MALI>;
-+			operating-points-v2 = <&gpu_opp_table>;
-+			#cooling-cells = <2>;
-+			status = "disabled";
-+		};
-+
- 		gic: interrupt-controller@fff01000 {
- 			compatible = "arm,gic-400";
- 			#interrupt-cells = <3>;
+ };
 -- 
 2.56.0
 
