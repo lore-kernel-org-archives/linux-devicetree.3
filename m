@@ -1,60 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056758;
-	b=R0oq/1KCpB+ZRb3fvEs+4SnoCKV2bx6q7nXqYl1f0RALNqLG28m02B5wcetMoGLYIoND
-	 JfXnWcb3U8dNb0AV5hLtyX3K25UwPAFh/QaSFJ1bnZLJp0U0MiMh8CmDtEkvPMkKTY5pg
-	 qsYnZk5BgOntS2SZbGJWdB0calz3QzlaM1H4ye7GhHza7Jl6588CFgZhGZQyTdhkQpUqG
-	 Vq+cpaL0fTO94JC81eBE/UXgNEvUwXfASHXcNHRxwg/wwc9+gXNi1x3SXRyvjDURpyMG2
-	 Q7zCMOw5XxbZvgOQPk3CvAQ435Pip+gbv5gpzcZ+G4pNKtrlpSdG/sKdbLOxSs986iw==
+	t=1794057163;
+	b=a03Z5e+x3IuXg4ejqTYYtUZ1RhfeBHyXGZLzQ4BOXfqs0x9bcujorbTHA9Q+XXzWSs3b
+	 yga5Iy+SiHGfXS2VPllyVnjitsHPSmj2GBhalkNmL01s/99vjMux9mF+HGmnKRY7ZgdLA
+	 YjYVl/xvuov19SwO0e17+p2w8VSRq1LOe7XdkP9zO1EIMSrcsX2oKyozBr4ZogPR6ZViG
+	 ERj02S1wAiV9BCpfPkOS9GehiyAinA7EXk6eMFCSyfIRXrxbVSeJHdOAf7dsuQ8sj9som
+	 BX6R+MPZ/chePDAPbwykueJyl8tBkP/2tGxSIhOHWXeg2KOXw2V7b3aMWi0BZE2ZZeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056758;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/3sAFHtPYKh4hfh5oHSjJm2FliB8mRvDUUYSRjLsl2w=;
-	b=FBjI5lF8r65Lnp1CFyo/KARK+haLwubzhzG7dJUKdah/EhZ1O6r0CAW+PUpxKIUMt6qT
-	 gXURTweMIAPuLNcO4C9hOSkQh6LQYSar9G158GV0aSlG3oHNHw74jLtnkF9wMGYQ/nyox
-	 c1gY++fRFAqvssmfjy1mBqjLf0O9u41TQlDBn7weBvy2hZG0C5yExQq11VOw4swe15QCS
-	 9ksnkfTnqcPchhJe8YJ0+Rg1xBMcTz6/fldSBqloMswfswZql4QevsQdFjY8YyhrMwEfU
-	 2qsarSoOJCuWK7Qlo4RoZTO/gEJb1nbvAsJrtBDb1DXRU4kLCbFXn11NOQO2d8CYIRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057163;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=h2Eny9FxiErINLKHHB+LsOS3lNpf4KzhrBwDKF7vmi0=;
+	b=viwvKh7vGilwXMvY+YTmo/poNouh+UblasWCJXtunq+eSEhG197uTs1sGNoLDPesK5Je
+	 V6pzc5MGu4Ve/kOTe/hUUDI3KsQhVDy/RGCtIhRhzwRXk76bBBunFuGtNHIjav2T53ThM
+	 vSOc2s0dQWLYDVvR1wLbOfv349TeXzpIQoKXBo66wlAjM6sKAYpkFYN6r9M1UjFn60/wo
+	 HKI/YFL7JxbUCRl5uWmq9jofqOmXGztqJeyVUYcIOgOjZEWRGmmSOzCDvgEwI+jzwCda6
+	 9HEtPbwuczTa86EtChqvsNFdWvtayLZUIc4wkJSZkQk1x8f7gWhymASTC3f5iSBTvdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=EOjxcNSL;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQf0Qkxd;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFF3606A331;
-	Sat,  7 Nov 2026 13:05:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AFF3606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3ED606A32C;
+	Sat,  7 Nov 2026 13:12:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3ED606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=EOjxcNSL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794056754; x=1794315954;
-	bh=/3sAFHtPYKh4hfh5oHSjJm2FliB8mRvDUUYSRjLsl2w=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=EOjxcNSL5Bum7bEk2C0Vd49WKS7rrBFS6p11yhtRpfi2ClHAQh3If5jMEiWF5MD3R
-	 tXqq67EqzYI/aIZadN8AOLn4pTIoRN04HKqVVeYlMgW4sk2YFmEiwoicCJS1Gs/eK6
-	 4kq2HEt5fmyoka4M4vcvnX1nEhXRSI78DVHmij4HSbYCvfce+hYD9J0hB69+Fn1nn7
-	 Dqpdt0vGmNRgvJsrazIqqScVqHglXH6fqZN4WlZ6dvREP26oZK9qIlGzmcIjd+UfWv
-	 OSWnfPLrZAcQ7dfY22sGl1gkknl0xR/F9ex2evxNoW3yvgxlZtnWTXO48H8TaBenf1
-	 r44//TQ5n2eVA==
-Date: Sat, 07 Nov 2026 13:05:50 +0000
-To: i@udp0.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: watchdog: mediatek,mtk-wdt: Add MT6833
-Message-ID: <NHTtBa55FlZroePPfTapZ39Pvy1b4wyqCCdSD04TWCQXFLmLQy2sA6FNcAybpbZP5XAT42Ze_JPK1F8mA3c49Wk7dm8_Uir4anxYntb_CNI=@protonmail.com>
-In-Reply-To: <20261107-mt6833-base-v1-2-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-2-bda21083e9f3@udp0.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 457835996074fe34483b037e7f2162c30162acfc
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQf0Qkxd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794057161; x=1825593161;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vu7IQNdMRbB0dIkqRFXuGnUsBbyW4fu+qslSq5Yf8QY=;
+  b=MQf0QkxdW+ABXm1z2K0WtwC9i00QODqxQ4VjZNfVjrZ+XmeWUkqEkj5v
+   3Is726UbRSTbR/y1g2HAL2NIdxAqMTe6v4lr/RHS+9x3+ASEnW7hpUuFf
+   7bOaZzxeheYtbZ4JtkKdEAe6EkNPVplg47y5Jm5k1lTUh6sNspNBGO/u8
+   IN+Fp/uk+PkXB3yEl4N2VBYw62pdDp8pcotX/KZDrC8TPvzwtsjkVmMnA
+   rjuxYr0gkRKUUyiYbhjU9XjWzEoOFpys2m9/lJVJP+w7hpJ+3hRt6OVkj
+   iJ8yIx9F/uVcUlpNqQWJkG4zDzSBp/n4KMhQ9pubib1yFBxg294oCWdM3
+   g==;
+X-CSE-ConnectionGUID: 4GZY+uy0Qoq16tkiPgTDvg==
+X-CSE-MsgGUID: 9z2WZ6GIR/SeLXQmiK4qQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2878067"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2878067"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 05:12:40 -0800
+X-CSE-ConnectionGUID: 9HcWSSIqScq7cK/DZEKUIw==
+X-CSE-MsgGUID: gMLGUiA3T3KMQeZSdW6Kdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7382053"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 07 Nov 2026 05:12:37 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPgDi-00000000qrv-2xXd;
+	Sat, 07 Nov 2026 13:12:34 +0000
+Date: Sat, 7 Nov 2026 21:11:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gary Yang <gary.yang@cixtech.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com, gary.yang@cixtech.com
+Subject: Re: [PATCH 2/4] usb: typec: add CIX Type-C PD controller driver
+Message-ID: <202611072135.EulyUBtA-lkp@intel.com>
+References: <20261107011012.3655873-3-gary.yang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,50 +90,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107011012.3655873-3-gary.yang@cixtech.com>
 
-Hi,
+Hi Gary,
 
-On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
-.udp0.com@kernel.org> wrote:
+kernel test robot noticed the following build errors:
 
-> From: Rui Cao <i@udp0.com>
->=20
-> Add MediaTek's MT6833 (Dimensity 700). Its watchdog works as MT6589's,
-> which it falls back to.
->=20
-> Signed-off-by: Rui Cao <i@udp0.com>
+[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-Does mt6833 watchdog have the same resets as mt6589? Please take a look
-at mt6895 series [1].
+url:    https://github.com/intel-lab-lkp/linux/commits/Gary-Yang/dt-bindings-usb-add-Realtek-RTS5453H-Type-C-port-controller/20261107-091009
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261107011012.3655873-3-gary.yang%40cixtech.com
+patch subject: [PATCH 2/4] usb: typec: add CIX Type-C PD controller driver
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261107/202611072135.EulyUBtA-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611072135.EulyUBtA-lkp@intel.com/reproduce)
 
-[1]: https://lore.kernel.org/linux-mediatek/au7UMdlP9O6oo41i@buffalo-ssd/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611072135.EulyUBtA-lkp@intel.com/
 
-Best regards,
-Roman
+All errors (new ones prefixed by >>):
 
-> ---
->  Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index f9b725592c2..dfdc06c758d 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -38,6 +38,7 @@ properties:
->                - mediatek,mt6572-wdt
->                - mediatek,mt6582-wdt
->                - mediatek,mt6797-wdt
-> +              - mediatek,mt6833-wdt
->                - mediatek,mt7622-wdt
->                - mediatek,mt7623-wdt
->                - mediatek,mt7629-wdt
->=20
-> --
-> Git-157)
->=20
->=20
->=20
-> 
+>> drivers/usb/typec/cix_pd.c:628:3: error: call to undeclared function 'irq_set_status_flags'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     628 |                 irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
+         |                 ^
+>> drivers/usb/typec/cix_pd.c:628:37: error: use of undeclared identifier 'IRQ_DISABLE_UNLAZY'
+     628 |                 irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
+         |                                                   ^
+   2 errors generated.
+
+
+vim +/irq_set_status_flags +628 drivers/usb/typec/cix_pd.c
+
+   587	
+   588	static int cix_pd_probe(struct i2c_client *client)
+   589	{
+   590		struct cix_pd *rts;
+   591		int ret;
+   592	
+   593		dev_dbg(&client->dev, "IRQ %d supplied\n", client->irq);
+   594		rts = devm_kzalloc(&client->dev, sizeof(*rts), GFP_KERNEL);
+   595		if (!rts)
+   596			return -ENOMEM;
+   597	
+   598		rts->dev = &client->dev;
+   599		rts->irq = client->irq;
+   600		mutex_init(&rts->lock);
+   601		mutex_init(&rts->irq_lock);
+   602		cix_pd_typec_init_state(rts);
+   603	
+   604		if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+   605			return dev_err_probe(&client->dev, -ENODEV,
+   606					     "i2c check functionality failed\n");
+   607	
+   608		rts->regmap = devm_regmap_init_i2c(client, &cix_pd_regmap_config);
+   609		if (IS_ERR(rts->regmap))
+   610			return dev_err_probe(&client->dev, PTR_ERR(rts->regmap),
+   611					     "failed to init regmap\n");
+   612	
+   613		i2c_set_clientdata(client, rts);
+   614	
+   615		ret = cix_pd_init_ports(rts);
+   616		if (ret)
+   617			return ret;
+   618	
+   619		ret = cix_pd_event_handler(rts, 0);
+   620		if (ret) {
+   621			dev_err(&client->dev, "failed to read initial status: %d\n", ret);
+   622			if (ret == -ESHUTDOWN)
+   623				ret = -EIO;
+   624			goto err_unregister_ports;
+   625		}
+   626	
+   627		if (client->irq > 0) {
+ > 628			irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
+   629			ret = request_threaded_irq(client->irq, NULL, cix_pd_irq_handle,
+   630						   IRQF_SHARED | IRQF_ONESHOT,
+   631						   dev_name(&client->dev), rts);
+   632			if (ret) {
+   633				dev_err(&client->dev, "failed to request irq: %d\n", ret);
+   634				goto err_unregister_ports;
+   635			}
+   636			rts->irq_requested = true;
+   637		}
+   638	
+   639		ret = device_create_file(&client->dev, &dev_attr_disable_pd_interrupt);
+   640		if (ret)
+   641			dev_warn(&client->dev,
+   642				 "Failed to create sysfs attribute, ret = %d\n", ret);
+   643	
+   644		device_set_wakeup_capable(&client->dev, true);
+   645	
+   646		return 0;
+   647	
+   648	err_unregister_ports:
+   649		cix_pd_unregister_ports(rts);
+   650		return ret;
+   651	}
+   652	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
