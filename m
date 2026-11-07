@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049062;
-	b=YPrR19oFmKTrdkiTa9OmZDYUxdcuKzVsAXDo7x1Up7kSR6aPT6RUgzncb1pZVeKM69xk
-	 tC458sRSWJgUhqrhwArcuAnaften9/JFwvp6p9/38Sm9ddDkFrPB4wczR8AA9zDfL9lgl
-	 IiQejYDCBjsrxV2n92zSCHPbr0mVX6mI0404O4WOQLfwAGS4v+2M/t63NiFhdQAECAzK/
-	 cKv4vDGwBXMSjDqK0r7+c9tLuzXUlEVPm/Zrby8c15amSXUk3BKdC3dKX4IrKos8W6rHT
-	 tHaRoQOAfGK9s0e7ilH/8Mev1bBjOIOzLXXDDBHUemRsTW3xnE98HdYs+USbI5Njvow==
+	t=1794049206;
+	b=rV0YxoLvMZB3PcgPRH98hWqfIKu9HFUktKOXdZPBxI9UQRKpxlcp+0d3s0tCoC2jmSI0
+	 AKRjDD33DCdYfXw/OH1K2rSWzd6lGzofLylGt9uYjqhBH7m1HgAT5Bsc1tpQbVsbWlwYC
+	 QXONZGndJhGdw2FJDOxuFYCFpZyIlEpn7wIf4jdZ9yKFs4V2heUTjU8/yY0KgmYiPyO+K
+	 eBLviZkuH8EvwPft7GuWeya3q/Hb/JFyx5Ed8nnU8TwKaNzP/vSdHUr370brql42h33sx
+	 g0XDJl3eNYm7NitmGkatFamkxp9kRfjqqW3VttZPkF4OWQh0T2s1Ke5nzm05rsyVpPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049062;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=d+NgMx40JnIwsr5HMCsxgsiIdBJO3W4zu6/UauQ0yMI=;
-	b=NUbw54q0632/lAXhfsPQV1uaEBJr67kVW1Re3fIcVExRhqOA6k3kMq5/t3EZYiYvIVSC
-	 bw8L5Ki3EQHFJWD9QoJhORP8HuVUbpTpXyWAHc3nkAa9Bsj25R2RLl7xkTgdGMzRet+uS
-	 n1y85H3GaLWMM1ZEHIcslQVrXGr33lRWf66g/R0vomb1CZy/SpHkgnJEFFJ6bNzn6fS4C
-	 ZH3GHJt0XkH+3BrQeIVLUWHK8cMrLQ1T4OVrIMJinisywiZJJsrrM+subWmIa/moK4t5m
-	 LoASSaACE74rKy6UOWCROjYGtAojNvgIJnCY92zKlgGNm8t4sTmqz5ANP/dA2hbI1vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049206;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=v+mfU3i9Xx3x4HW9OUQJogS5t2b8fZA7ceUvljhNg/I=;
+	b=Kr9XhUN85TAbj+WafNOa1KDiMcGTi/f3EV4zWOE8aqFF3Ca2Yxq1r9wHdZjMPz9zirMh
+	 nhkMXYQKQ7Lkvx3mx5hzofIv2pRsP+vXC53EnR+4NMraufbJP6z2YRGylI9af5YjgBiHJ
+	 lmalz8sr0hrNTYdkb+CxGObflX5pzSrqXDlVUo6imss1YWWwOUrJjd73lLp0p8pOIHJyF
+	 /PztBf7/+JdA+bTPq+f0RzXpHmaa71ux2sczG4a+pLgCAp80gh3xStgA9NmT+xxfsPEJF
+	 8JZFpg5wJyP4H/ABVZIh+p1PURMgGyd+wk8MyM5ETvuyLi3Cq22n7hVyd/jWLV2fbvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DM2nQ/dw";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtG5KUwk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0740606A326;
-	Sat,  7 Nov 2026 10:57:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD2C606D80A;
+	Sat,  7 Nov 2026 11:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM2nQ/dw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54A581F0089F;
-	Sat,  7 Nov 2026 10:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtG5KUwk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D50B1F008A5;
+	Sat,  7 Nov 2026 11:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049061;
-	bh=d+NgMx40JnIwsr5HMCsxgsiIdBJO3W4zu6/UauQ0yMI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DM2nQ/dwwINFCe+vYEqYf8wFLA006p+GDVENWAX/ZLD8peTX0DE5HMFnT5qp1n0q7
-	 vG/a78zK2LqMriP3SiOgdmFvHBi8qDuabCQoZenvk1VBUb2HRBSBeUX6/jy8KfAWOe
-	 6VxbdzxZm2grh73+S6SYsdwYIedhKmEHouOlccazq16+NE/5k/jvk0qqCtSzd+A03F
-	 tXzEegIo0OmhtYEvn60sMgPinzZvtt3gvJ3d3lQ8jjoNmolQANtIrmlABt7rTmN0BB
-	 a2dYfgD/bVKvw/QfcKmMNcA/x3L/eoWpg/tFskVwX+OdDinW79/Mb9JDeuSbqkuiAq
-	 yGx3n8xIYJvSw==
-Message-ID: <sashiko-outbox-202838@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/15] arm64: dts: apple: t8140: Add core interrupt
- affinities
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Myria Sarvay" <myrialsarvay@gmail.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261107-m3-plus-pmu-events-v2-10-acf1e78da039@gmail.com>
-References: <20261107-m3-plus-pmu-events-v2-0-acf1e78da039@gmail.com>
- <20261107-m3-plus-pmu-events-v2-10-acf1e78da039@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 10:57:40 +0000
+	s=k20260515; t=1794049205;
+	bh=v+mfU3i9Xx3x4HW9OUQJogS5t2b8fZA7ceUvljhNg/I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NtG5KUwkvyadC9D8M4RJbbiAlm2ZxztgfJ8Blzozor6sde1E7FlDPuGB/JgP3aDCI
+	 cxiPQstqp0iNe3xiArbRYJ6c7iUdVVFAGeXFsjJvWBlP0exNws27AA4KKq3Kcgsvcz
+	 7wy7ltcWU6Bp2UnneS9pGfK5z2JmHDqu9Wk7jbc3jqSunpXaMpLPOAp+2q1097HnmO
+	 niA4i1jgtosznQO3hubAxJbTrGr7ac9LMmTaJjnHqKxLCl9N5pJeXy7apKqtBCTxh+
+	 3fWL5DpV5Gvw6r4nFOCSgKODx6r99t5ODHbzChPQhCGKMgLR0UUrkH+zFCFCjREXJ8
+	 S/V72xWIZZU/A==
+Date: Sat, 7 Nov 2026 11:59:55 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Esben
+ Haabendal <esben@geanix.com>, Kuppuswamy Sathyanarayanan
+ <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe =?UTF-8?B?S2xlaW5lLUs=?=
+ =?UTF-8?B?w7ZuaWc=?= (The Capable Hub)" <u.kleine-koenig@baylibre.com>, Pan
+ Chuang <panchuang@vivo.com>, Hemanth Selam <hemanth.selam@gmail.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Nikita Travkin
+ <nikita@trvn.ru>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] iio: light: ltr501: Switch to read_avail() op
+ from manual attribute registration
+Message-ID: <20261107115955.4d99259a@systembl0wer>
+In-Reply-To: <CAPVz0n33sktTgdWge64c+XVSDiijXgyY-uRfcpywhJ6LHjPPEA@mail.gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
+	<20261106091943.35783-2-clamor95@gmail.com>
+	<20261107032042.0dd311fe@jic23-hlaptop>
+	<CAPVz0n33sktTgdWge64c+XVSDiijXgyY-uRfcpywhJ6LHjPPEA@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,55 +71,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: apple: t8140: apple,fiq-index ordered before cpus in
-  affinities
---
+On Sat, 7 Nov 2026 12:10:06 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+...
 
-commit f8b309addc78ccc75edc4dfad6c0a8f6e8b87b71
-Author: Myria Sarvay <myrialsarvay@gmail.com>
+> IIO_CHAN_INFO_SCALE is by type and IIO_CHAN_INFO_INT_TIME and
+> IIO_CHAN_INFO_SAMP_FREQ by all
+> 
+> > The current way the two Intensity channels is done is very odd.
+> > The .info_mask_shared_by_type should be the same for both of them
+> > (only one set of attrs will be created).
+> > Ideally fix that as a precursor patch (don't label it as a fix
+> > though as it's just a code consistency thing rather than actually
+> > resulting in a change.)
+> >  
+> 
+> No more precursor patches! I am just a random contributor, not a
+> driver author, not a subsystem maintainer, not even a random code
+> janitor. Stop using me for random unrelated fixes!
 
-arm64: dts: apple: t8140: Add core interrupt affinities
+It's not an attempt to use you as a janitor; reviewers often suggest
+cleanups in the adjacent code so that no new patches are built on
+inconsistent code patterns.
 
-This commit adds the CPU PMU interrupt affinity nodes under the AIC
-interrupt controller for the Apple T8140 (A18 Pro) SoC.
+Nevertheless, it's only a suggestion, so it's no problem if you don't
+have the time or just want to focus on adding new functionality.
 
-> diff --git a/arch/arm64/boot/dts/apple/t8140.dtsi b/arch/arm64/boot/dts/a=
-pple/t8140.dtsi
-> index 3b4f7695552b5..89a26a1b23649 100644
-> --- a/arch/arm64/boot/dts/apple/t8140.dtsi
-> +++ b/arch/arm64/boot/dts/apple/t8140.dtsi
-> @@ -167,6 +167,19 @@ aic: interrupt-controller@301000000 {
->  			#interrupt-cells =3D <3>;
->  			interrupt-controller;
->  			power-domains =3D <&ps_aic>;
-> +
-> +			affinities {
-> +				e-core-pmu-affinity {
-> +					apple,fiq-index =3D <AIC_CPU_PMU_E>;
-> +					cpus =3D <&cpu_e0 &cpu_e1
-> +						&cpu_e2 &cpu_e3>;
-> +				};
-> +
-> +				p-core-pmu-affinity {
-> +					apple,fiq-index =3D <AIC_CPU_PMU_P>;
-> +					cpus =3D <&cpu_p0 &cpu_p1>;
-> +				};
-> +			};
->  		};
-
-[Severity: Low]
-Should cpus be ordered before apple,fiq-index in e-core-pmu-affinity and
-p-core-pmu-affinity?  Per the Devicetree coding style, common properties
-without a vendor prefix come before vendor-specific properties, and
-placing apple,fiq-index first triggers warnings from
-scripts/dtc/dt-check-style --mode=3Dstrict (unlike 84a1163b0a3e ("arm64:
-dts: apple: t8132: Fix ordering-related dt-check-style issues") and
-commit "arm64: dts: apple: t603*: Add core interrupt affinities" earlier
-in this series).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107-m3-plus-pm=
-u-events-v2-0-acf1e78da039@gmail.com?part=3D10
+-- 
+Kind regards,
+Joshua Crofts
