@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794091380;
-	b=gsKnzkQ00CkDnyMjUBSsAcdpv2xG1G371axL4auTcRwf22o8oTIdqNUc/pZfxheLcSKT
-	 fZyi2MOCdBwXh04q8wem0QGB3BhtCesHlR0tn+OBjlZGcRA4+u8KkOaswM0pXMMSvqoaL
-	 xw89YvooCTu8vGTcBHAT1rHZ6iVeQuDe113iUm68U49Iig4ZOL1ZEwMyD5onk5SnmafK6
-	 oORG/wa8LsG3ocZyKzDvo+aDhgaocBPhcJzi+NhyoMLgx59JhqtvEVMPJsELR3gCqlmKc
-	 /UFEJC0BNHHnTrP7uzYAPKJ9g31IBBXKR1hIzAGpx1FvU/nwGewbruiS+a1zQZjEPrg==
+	t=1794091554;
+	b=u9tnFd/8D8BEwwwKeOcq2IxUOVoLLSXU40kfOme9vbU/jpKYHZoliq55NTFl1bQUZOvS
+	 cu6MZQ1Kn60dtQr9SJvwalcuPiTVYKWt3RcLncTuHXtQJO/hmMbl3skGpfFmxFnarYfLs
+	 2y4p+BPlhRkhD8rmR/FIqXQb+CCOE2TlP5dWKwuP84h19tIgB+Ih4rj7PpKYNBXLabYS7
+	 xhKCwldHUnCH2yEwOWH9YZlMiBUImGpkyz0GCfruaz61XjFx9RIe9W+HAtIbezN9NloIB
+	 u3IMdLud1w9f+YtlT1jTuwsOzExwvPl9ce7cclrYP3f5YGDIEgXR/Y59/NqSH/PnzpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794091380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794091554;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=tiQfKsFyOHw8u3O47YSkIKnn3TyNxLXR1SdumyCP9wU=;
-	b=TchkBcc5VSLA7x+213lB9pM/gS6UEvg5JX9Rf1Tf1ODI/ygwkLMcolDDrqyC0aJc0St0
-	 5e2E3n1lgZtrUYeP7AbFQad2XVY9MQ9ZOCKgdqez7Z2DwkzvjXQNaccxthOzy8D8cE19i
-	 kFWWHwqjDbzhpMVUqO5uQsoIqDyK1NQpQeq+Gv7bOA3SfnmryZzO5RE2WTPNdxinmAVYW
-	 PFLbgywhxJADT1NVxSlrbcpVNS2EHwpMKzd+l6/nAS94tDpnKgcxbpBejWZUB2lXuqkHX
-	 qOG5BWPnMFMWsE0H/ph6pjtq2DhOAwReChyrsIqYJNuBLT3EYJwNfadZarOawUZeG9w==
+	bh=nbpoxfxD/YxKAQmHcLsH5klOFWtwN75CT6T2h0Yqdqs=;
+	b=2VQzrX5Xw1aFAVEREFqm0MfYjc4gLOtwUaHTmoez+JCqxwLl2mKI7gDHOtqEheiJzuZG
+	 rZA6Han2gRJdhk41Z+Wlu/lPKJ/9DwzwG81/kWmGQ6IxKyI8JNygTdBS5cEGaCEIyxonB
+	 OC0ScC5lPorXLKdIuuX71WOS5tZpFgttMqBMcjY6FJCIyHJcw8vMLvqX/HU8RqcePLSX1
+	 z4DuvgBMqCZ0eiwQlNTvC0W0JaBbzjBoItgOKM7aYk5cEnvVihD7k6+KFHScOtGJhKiRP
+	 50UxMdOyqSjeUKKs8M4ss30gG22n3VVt951T00T1pZExX6av1rY8VRWOQevs954z65w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RtvRe9qE;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=U67rNd9T;
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3891606A32C
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 22:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3891606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D762F606A326;
+	Sat,  7 Nov 2026 22:45:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D762F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RtvRe9qE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794091376; x=1794350576;
-	bh=tiQfKsFyOHw8u3O47YSkIKnn3TyNxLXR1SdumyCP9wU=;
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=U67rNd9T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1794091550; x=1794350750;
+	bh=nbpoxfxD/YxKAQmHcLsH5klOFWtwN75CT6T2h0Yqdqs=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=RtvRe9qE5i/jPoic9u5cS8N3Ix+J2IvjMuQzd9FvgK2R3Uc5f4aDBPle/2tyEtbVg
-	 C9KW9NBX2yRs6jmNv37tgUVgzByy1mMZkVOiDQEvCiUUF1CBMP8SK088Bf/nuovbZ/
-	 rCTEgUVNNlKYwymDFoVQsMaxAWgB2eQaiUINJ/GXnqanhV6azcA0EGjGH7TnBCORCu
-	 ZDFoPuBh1RYY2XOn1oegXPOXa/ZQ7Euyle39ZjbynpaXvJt+ezAWxltMmhJFZryX2V
-	 YYM72C/lYyCz0wx0kXrAF9OQQ8iZCe7nJqSP2YbVfVmbiioij9k64FCWUVGf5sgv5D
-	 s1w7HOoni+2Ng==
-Date: Sat, 07 Nov 2026 22:42:49 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Johan Hovold <johan@kernel.org>, Steev Klimaszewski <steev@kali.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-efi@vger.kernel.org
-Subject: Re: [PATCH v4 0/8] firmware: qcom: enable UEFI variables on Lenovo Yoga C630
-Message-ID: <179409136720.63533.3499513835986215877@pm.me>
-In-Reply-To: <20250625-more-qseecom-v4-0-aacca9306cee@oss.qualcomm.com>
-References: <20250625-more-qseecom-v4-0-aacca9306cee@oss.qualcomm.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: a8236e0245e5166aee49a2ef1233446eed5ea918
+	b=U67rNd9TJxEIZwcB0EBj6XrEVzE3JPqwvLksmTXDYW/IuCAyd8lAHFB1VSbyh7vB9
+	 ROtOgggq1SLZEROiRrIivsbqLpN6kGVeGF6WTeAehMDrB0cxqD8Z/MKGMLUYtAnCsU
+	 ldxyjB0nTJak+5BPa1grO6VV35z6mLd6iN39tHEiOvDFIdk4uQmnO+8nTDCr75f+zO
+	 SDP8zOXEId/MsqFf1MKmlkdNFAKO1eCnFNxcxYclyh94YfpH8gVZfYXrFjan5TA0L9
+	 A6lwv7X7wQTvnWHUgFBufDGQa7Td5Ps4tfq1astOJ48IY/T52eO+XPVu3H+cPRRYzJ
+	 wa6z9jAe72s1g==
+Date: Sat, 07 Nov 2026 22:45:45 +0000
+To: Jonathan Cameron <jic23@kernel.org>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply support
+Message-ID: <geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
+In-Reply-To: <20261107223601.0ba9ffc6@jic23-hlaptop>
+References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com> <20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com> <20261107223601.0ba9ffc6@jic23-hlaptop>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: ad140286fd2962c5d12143b1a1cc16b7d7e26120
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,29 +67,35 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
+Hi Jonathan,
 
-I've been carrying patches 1-7 of this series in Omarchy's arm64 kernel,
-rebased onto 7.3, for the reason Tobias gave. Every laptop we add needed
-a qcom_scm patch on top of its device tree. On top of the series, our
-table also lists qcom,glymur and qcom,mahua.
+On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.o=
+rg> wrote:
 
-Tested on a Lenovo Yoga Slim 7x (X1E80100). The series takes
-lenovo,yoga-slim7x off the table, so QSEECOM comes up only through the
-qcom,x1e80100 entry:
+> On Sun, 08 Nov 2026 00:15:03 +0200
+> Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wro=
+te:
+>=20
+> > From: Roman Vivchar <rva333@protonmail.com>
+> >
+> > On some boards, the chip shares a power rail with other components. If
+> > that rail is turned off, the chip can't function.
+> Not sure how the sharing is relevant.  Even if shared with nothing
+> else we need to turn it on.  So just mention that on some boards it
+> isn't always on.
+>=20
+> The only reason this would be optional in the binding is if there
+> was internal routing in some packaging or similar that meant there
+> was no pin to connect.
+>
+> Upshot, make this required in the binding. Note that doesn't mean
+> the driver must require it - we are simply documenting that the
+> device needs power.
+>=20
 
-- By default, uefisecapp comes up with the same 118 variables as
-  before, efibootmgr reads the boot order, the RTC gets its offset, and
-  a test variable can be written, read back and deleted.
-- With qcom_scm.qseecom=3Doff, QSEECOM stays off and the laptop boots
-  without UEFI variables.
-- With qcom_scm.qseecom=3Droefivars, the variables are readable, efivarfs
-  is mounted read-only, writes are refused, and hwclock --systohc
-  returns without an oops.
+I agree this should be required, but that would break dt_binding_check
+for existing boards. I don't have their schematic nor boards themselves
+to verify the regulator for the power supply.
 
-Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x
-
-Is a v5 planned? I'd be glad to test it.
-
-Birk
-
+Best regards,
+Roman
