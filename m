@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060859;
-	b=ashH0lB2yrBzqesn8NabdDT+syU1hA/4GWtgWKfL13aT3kjkW+XWpLIVvrNBV1zNxPO8
-	 oGulXPFC3TOf8AmDHZYQskNzTVyVud5NnmaXTimKFxnguAle68fR50AISY5VWVB1iUyTy
-	 WwytzQ1qW88UUR9GNypOrhwt+lLbrZxlfj6gANH5hHl/EHKjR/VZ69XAuZea7btE+lW96
-	 6y0RvfOvQEFGhK8hZiFwno3bRSPs4xXlMKXpx1zWyYtM16TVVRVXWaotQW/FCEgsNBJmV
-	 QjptPtdeqFvs8vrxxlJSyuDtvdWhmpbTuG3A1VPtILJuS9ptEpOR+EB496COeFdf9sQ==
+	t=1794060968;
+	b=Bke/NE0dBqumtq/LPrH8KIiO2MClixfjMLeJ01gRYY0aQdnV9oK5IWXUOUWdA4MhIevG
+	 f6MlznStDNZMchowIg9FaAEu6eEf4HoO7eN/6705gA028U6s2pfPXf4V1/43PSAiP9WWU
+	 WkV7cm4Ji7fTh/eYdN2xHmWD/tEwWOF5oNdrkqCIL+KunWppzXxOq1ONtYirJ/ieSXau7
+	 yVr6qYinFW38tjmZIpmD3m/7qPUq6XnHkx1zxY0xNGazwa65m8xFdPhhQweEERE4T5sEN
+	 MEf0r4HMCRbuQulNS+P2hGPs4w1JvKqJ1J4mKtIptnI8D19hRbug/cuIrRouDJlHiSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060859;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060968;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-	b=rJWIAk907in1MG7jrSSyBsfDv3WNHCR0TpbgfXVUeGRE7GntuAtWI+099+lHu92BS22V
-	 T7eqDpo0YmPHfzUEbO27HNjnftWxlD0R3aRrcjnOkCF3UaG2FZp9HanaSphy6MfGi90ck
-	 T3wAamtQ2oHInUpFmSwiM4iKkQoyJIrvnRVw1pL/gwR9INsgADpnhuSKk3waAYaSnvR8s
-	 4jlRFgA2A8G2REO8dGeRmxRaxdFP+XAwGQ6YQBLyfm5rbqrARi9mHz4JRhe+tGngbkmDE
-	 3tOhAfRCacnF4Wlcua4liTBvuzLuxlm+loQ/t/rC5jpjsOabFWlOs/Lk59Tk210cvgg==
+	bh=Oj4hys2FBjnmV+wzZLqdGQJybNqQMsqYbvklsOJc02g=;
+	b=pJrm0w3FSliwNKjGyLMn3WPXXZ4T2gTcKyJuTjCyLAKVdgZ7y+wmEaK5X3T3ECHdyyjw
+	 sRrxOrSC8igP9AqE3h1UsChQ4PDgJJH7nv0e0otxIl1917j7wIFJ7EfrZuHG/T3sPY+SK
+	 ri3mZAc4TWIQlaGUvrSVloRnXozz77/5x2QkmaMEU8afNrZv1Wb02LvNhhzhR4A33y0yK
+	 Vg6+tF3Nez0stri86ALPrtLMjnQPu8CkAEwNEAnKStRNXktk6jCgU6W5O0iUrAdjc4pty
+	 DaLg176RGKhD5KHzheQ0HQ+Dr7gSupMGWC9Cdlg8XbD2ydNBRA1onllt9X9YoqQCSSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQHSi2JL;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD75C606D80C
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:14:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD75C606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B655B606D82E
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B655B606D82E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so16934575e9.2
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 06:14:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQHSi2JL
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso1091482a91.1
+        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 06:16:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1794060857; x=1794665657; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794060967; x=1794665767; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-        b=MAWJYyL0rpMUeh50MqLVtyVAh4JKfnKvk2lMaNL2hXmBXl2PGzhPKq8W654wuqAvDz
-         /XqP4Jq0OedV/xAHm3U8YbNIc/WSxem2c3Aq1xT8LspWNvjrAz79bo/PddfOqfDf1/cc
-         FUH0evqobXt/P2jy1R1Gv/lrPnFJOr/7eZRkM=
+        bh=Oj4hys2FBjnmV+wzZLqdGQJybNqQMsqYbvklsOJc02g=;
+        b=aQHSi2JLbXZzRvHKmUV8NRbTN6TUdr2zNg+ceW1CK/ZlNcyZTXPvHYbYlqW2Ox/qJB
+         ezcuSkzsniZZMwo63oZPOtqYWWfwZWecbejOrZSI6cq144s8w1aj7HExsylQIAzrl67J
+         Wmh96XtIM5gPeusbRaeD6jFajJrVCs0xlT9Mzgd4KXmZv1JByFH3g80Dwkfl9FDbJNSO
+         VRPaRJ9/ys5e0DGP04Wf5LL+aHOzlmYvxOwDnYc9cUPtkUQZuJCnRxP7X/q+BdgL5J4V
+         s7ey9EDBpWJgczLcJqV/HVXZ4ZYBlGaC/8a0u2XpRLd//UuFjwG4MdiPzmhyG9fki47Q
+         1kvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794060857; x=1794665657;
+        d=1e100.net; s=20260707; t=1794060967; x=1794665767;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-        b=SBQeVIYDaM3vn+aePm1/L+EH2qa0yafwYwtNBGDE6BhzSLRMwZ9OrJjA4dcJs6lhOm
-         Fyh9Q8R5awmVvbgZsWzTOSW4sDNyLkQ/YrbkZVUqPA5a0WqEW0LyuiDvNo9BtWT/tCII
-         1ry7e4yCaO/D4uFzhrrNRnkr6FJUb30wd0OW3rGhecmNPVBvKAtHkZhtUgIAS9tkEvo5
-         PZe1fkib8am86u3YqeRrXaRJmhjT8U/tDpOHRx+6jeWlRZmO+4AOr6iJJo/SMRLVqJl+
-         Ri40gGbI8IKc5yS+JbwFB4eZh8XhA3Op4vipTMsVbgoPCVBo84MInVTOskRdWt2mBA39
-         Hm4A==
-X-Forwarded-Encrypted: i=1; AL+hErFansfsw52BbITNDkB0A2khogH1F1v8cFupjymy9DfK/82nTTX3JEXYmygAnz+PrlcONlydvfex5zc+@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iSa7CR/B6dUnNlE+GQ0WjVIHq6hMdeKUAtnFqyno0OwUGq/Rs
-	Sb2lITTl618QtB6Bp8cBUcAvq/+5FiC2b2psS2dgTanR4UbnlwF78K9qIHmPiwAGGx/DB407Jev
-	ga4rh
-X-Gm-Gg: AYBFou0Nzc/jzmCWOfWj5snCjrK74ugcUGWoMWgItSnXkI1v6coxU/r2kPjcZVVfNaY
-	48vm4NHS9VX+JNUXkZfFLtuzoIWNu9eVRcu5DAS8BRPXSrIGRvfTDS4spgShs8ehC2OqOczKjrV
-	tefUPu2qMPwhKyaOE9nAx5owZ0pp/ebCtry2q2VBPYajnj29M/kPKGbKyaj0PdEC32SCKFVyGrp
-	AgCH1pR/+9dsF0mcJ/ECw8eWzBreLsumxVlHqTp9UsCxvrtUQvUOledSwpDPr5oQlrvFKi43BBO
-	9v3qZdnjYzVu3YE1gfeIPdso1OFzEptzpzumE2st4fDTxuwFcNFeCP7HVkQzdKtfpPI4PueZ0a5
-	+KPqY97Z7npa7ZtW9LG4LeWadbO5uABOlqYeFa2Ubk6Ab1e1Od7uH8WWdczuzUJGe0dKBacA5p8
-	TrUR+9jBpSFFgxisjfkTxNmYJZGWUFRH+unKHfTt1dkDmOmQn6KpcGmKuaSsoGrKHFSCQDrZgRO
-	oSomrMywFQMGQTHqLRbNztW3HuHpMz2VLDrWneBr6cMIMSSBVP63r7ARxWZcF1O7xO/X0WN9aKr
-	7B0EtSur+aGGwgmvBbL2FoN3xkDyhAomYsbwlXaKE4fvR7qmSICCHB36Lebt8g3EuVCLG+Qp5c6
-	UKvcqO5JzAiknLeRsvwzxONIcE8IZSq9Db2wjRS2+OqcvopWtAgaPRRqArqTnfjW4P82R+oc7M6
-	5k77jcWz3Ztj0WYDNeEQCUl0IEQw==
-X-Received: by 2002:a05:6000:178d:b0:48e:5550:c64c with SMTP id ffacd0b85a97d-492753739f8mr11843574f8f.14.1794060856956;
-        Sat, 07 Nov 2026 06:14:16 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df21sm9757531f8f.54.2026.11.07.06.14.14
+        bh=Oj4hys2FBjnmV+wzZLqdGQJybNqQMsqYbvklsOJc02g=;
+        b=rChEf08ZqJLee9Zv3FsGkgEPwFsDZjDDzjcoeVmdTMxp7hU4Kh3szKQLdhJahhf6F9
+         AAPGjaW7hfkBjbZp6VvmujpK4Ne/NNVr3YBJ8WfT5lu2K2pHlmnVXy8jmr+qrmEt+iwJ
+         /uP+RwZTeW7bA1vRCPIRdaxBJnQDyRrojK/TdZ9fbLzbsUIcmznUSTZ0jiEY+qzsBhmb
+         8h+nGFlbjy3ea76ufA2dDIIR+zCiOmfu2ZACIMfJm9MsHMqARIoY4IUKk78jy97/2OCE
+         1pMlYZ/8uyqCsIib2TrI/vrtgYhKHKC2yZEsxRMLznepBQOLuNwRQZCu/fX+P4yy31SP
+         tptQ==
+X-Forwarded-Encrypted: i=1; AL+hErFGf3yZPxDHif07kt2kuyLi1ca5vfypla8VQC0GX5dry5GZdMSPHkZCsdiU9r605WbWcZV3or1XlCUk@vger.kernel.org
+X-Gm-Message-State: APuU4Z+h94sH09CafXzWvfDiKJFf+4e0X9ijUJdWiyq7GdEZsSVOY2L/
+	/VGCbNEmUun/qQHdvsRAmVQNh3dUYV9hQGnPB0rGtakOWZYFML5HYNbT
+X-Gm-Gg: AYBFou0Df8gYXqt2gv0Y3B5/VmFf/N6Z1V6bSpYs5Q3eDj9CggVLRzJAWSJNMTgzh/B
+	DN5adf9peuMhCykxcq5/jkPQz7W8wpeOv6mMF8G/Aa5lkZqfEUoaOh8rQ6hOWwCQHNbBi+JH9k1
+	ra4jY/rUb9j+3/9Dlfl4s7BgPSIozvg2LDZYPtUr9/9ltIEz4lzEEyQc49Ggm1xaHg9KCvF3TkB
+	CBI7PwXKl63k250QIGS8FrJCeKsLucHhjaThqi9AlmjEXF8LyLw9HoFay0XjgYb6WxYxVK+XfsU
+	joSdoPHeLk4b0e/26ZJQWx8A0Qm5x3dTWFTXCaZ0EwkIH5rUgw7LhScD0ScmVn1pzwmOnfDXqbI
+	t42a2nV8m3igEyeLVOfUE8aPqIMg88eUnUZfDQxITu6A7iKHhMqhTcE+hA8pw4bMqfSPsD7nJXc
+	nU1q4VtS3HAwgWMYQshC5WEHp70YiAH2uRl+CNJCfhQ0stA3O8wxOVqj22uHDWMXwQy303ndW/L
+	UTGKHFEa0rAB6UVuswyNufMwEFX5q2cKV+j/uyCmUPVgUKpzpjzOGDDFZtaXBNkBktdU9za9erO
+	qplWIYy6mhiFM0ENuFEp9o+ImDTmM6Q=
+X-Received: by 2002:a17:90b:33cc:b0:3b0:9deb:d991 with SMTP id 98e67ed59e1d1-3b0db6d37famr5526170a91.35.1794060966901;
+        Sat, 07 Nov 2026 06:16:06 -0800 (PST)
+Received: from debian.lan ([103.189.116.206])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105864390sm3503778a91.6.2026.11.07.06.15.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 06:14:15 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
+        Sat, 07 Nov 2026 06:16:05 -0800 (PST)
+From: Amir Hanip <killdeath104@gmail.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	linux-arm-msm@vger.kernel.org
+Cc: abelvesa@kernel.org,
+	conor+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH] arm64: dts: st: add boot phase tags for Engicam MicroGEA-STM32MP257D-RMM
-Date: Sat,  7 Nov 2026 15:13:48 +0100
-Message-ID: <20261107141353.2228391-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+	killdeath104@gmail.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	barnabas.czeman@mainlining.org,
+	a39skl@gmail.com,
+	konrad.dybcio@oss.qualcomm.com
+Subject: [PATCH v3 0/3] arm64: dts: qcom: Add Xiaomi Poco M3 (citrus)
+Date: Sat,  7 Nov 2026 21:14:29 +0700
+Message-ID: <20261107141432.39099-1-killdeath104@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,59 +106,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the bootph-all tag to the nodes used by the bootloader during the
-early stages of bootup.
+This series adds initial support for the Xiaomi Poco M3 (codename
+citrus), a smartphone based on the Qualcomm Snapdragon 662 (SM6115).
+As suggested by Barnabas, the shared parts of lemon are moved into a
+common dtsi, and citrus is added on top of it. The series is based on
+v7.4-rc1.
 
-This includes the console UART with its pins and the display controller,
-used for the splash screen.
+Currently working on citrus:
+- UFS and microSD
+- USB host (OTG), limited to high-speed (SuperSpeed is untested)
+- WiFi
+- Bluetooth
+- Remoteprocs (ADSP, CDSP and modem)
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Not included yet: the display panel, touchscreen and the display
+pipeline, which depend on drivers that are not upstream. The GPU and
+its zap shader are enabled, but no DRM device is registered without
+the display subsystem, so the GPU is not usable with this series
+alone. Audio is not included either.
 
----
+Firmware and userspace: WiFi, Bluetooth, the remoteprocs and the GPU
+zap shader need device-specific firmware which is not part of this
+series. WiFi additionally needs qrtr, tqftpserv and rmtfs running in
+userspace, and the Bluetooth controller needs its BD address set from
+userspace.
 
- .../dts/st/stm32mp257d-engicam-microgea-rmm.dts | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Testing: citrus was tested on a Poco M3 booted from microSD with a
+v7.2-based kernel. I do not own a Redmi 9T, so lemon is untested on
+hardware. Instead, I compared the lemon DTS before and after the
+split, normalized with dtc (dtc -I dts -O dts -s). The only
+difference is the numbering of auto-generated phandles.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-index 96b7cb6b5bc1..4495b168fdaf 100644
---- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-@@ -163,6 +163,10 @@ sgtl5000_rx_endpoint: endpoint@1 {
- 	};
- };
- 
-+&ltdc {
-+	bootph-all;
-+};
-+
- &m_can1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&m_can1_pins_a>;
-@@ -269,7 +273,20 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/ dmas;
- 	/delete-property/ dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+
-+	pins1 {
-+		bootph-all;
-+	};
-+
-+	pins2 {
-+		bootph-all;
-+	};
-+};
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-branch: stm32mp257d-rmm-bootph
+Changes in v3:
+- Split lemon into sm6115-xiaomi-lime-common.dtsi and add citrus on
+  top of it (Barnabas). The IPA carve-outs are in the common dtsi.
+- Fixed the unit addresses of the IPA and GPU reserved-memory nodes
+  (Sashiko).
+- Split the card detect pinctrl of the microSD slot into separate
+  states, as lemon does. The pin configuration is unchanged.
+- Kept the ADSP carve-out per variant. A larger range common to both
+  works on citrus (tested), as Barnabas suggested, but wastes 4 MiB
+  of RAM, as Konrad pointed out. I did not touch lemon's value
+  because I cannot test it.
+- Kept the deletion of cdsp_sec_mem and of the orientation-switch
+  property of usb_qmpphy in citrus, as in v2, since that is the
+  tested configuration. Barnabas suggested they may be leftovers from
+  the reference design. I will test dropping them and follow up.
+- Dropped Konrad's Reviewed-by on patch 3 because of the rework.
+  Krzysztof's Acked-by on patch 1 is kept.
+- Clarified in the commit message that the GPU is enabled but not
+  usable without the display pipeline.
 
+Open questions, mainly for Adam:
+- lemon's GPU carve-out is 0xfa400000, citrus uses 0x55a15000 (right
+  after pil_ipa_gsi_mem). Is the lemon value intentional?
+- lemon's ADSP carve-out is 0x53400000/0x2600000. Barnabas reported
+  that lemon's stock layout (from MIUI sysfs) starts at 0x53800000.
+  If lemon also works with 0x53800000/0x2200000, the node could move
+  to the common dtsi in a follow-up.
+- lemon marks l5, l7 and l22 as always-on, citrus does not need it.
+  Is it needed on lemon?
+
+Link to v1:
+https://lore.kernel.org/linux-arm-msm/20261027075116.41673-1-killdeath104@gmail.com/
+Link to v2:
+https://lore.kernel.org/linux-arm-msm/20261027205146.16384-1-killdeath104@gmail.com/
+
+Amir Hanip (3):
+  dt-bindings: arm: qcom: Document Xiaomi Poco M3
+  arm64: dts: qcom: sm6115-xiaomi-lemon: Split out a common dtsi
+  arm64: dts: qcom: Add Xiaomi Poco M3
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm6115-xiaomi-citrus.dts    | 237 +++++++++++++
+ .../boot/dts/qcom/sm6115-xiaomi-lemon.dts     | 317 +----------------
+ .../dts/qcom/sm6115-xiaomi-lime-common.dtsi   | 335 ++++++++++++++++++
+ 5 files changed, 575 insertions(+), 316 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-xiaomi-lime-common.dtsi
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.47.3
 
