@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794022018;
-	b=HWePobAUtsHlzHySjNyy4Cusedl4RSTv6+g7XaAE000HJUYtinEKkbu4Y11CJZBEst0o
-	 /7m8alXowmqDTaWPUwOGrichImprnEtXRZGdADzGBO+JMr7dkDbzc8q/zhH2seyKr5ho5
-	 trVeTkGX5wfemnTnrwzDQq67/jyUKknHxozYFatbbHxDdBQRxKwlzCKDTAYptzHajL8R9
-	 9vIEwQKR4zq5JVGwKTJkqC3c7VtPRDnlLEQYhUF5Ky4abHTM6pgPR+f6LLP5BfWt+0Bo0
-	 teOi8qfoqb6Sot/Hkc+BEh3UKj6X28/4hk/yke2riLtISOTPaHgg3Z13nuieFSnwXtg==
+	t=1794022238;
+	b=EIE+dMTJCMxcNpJnm1vM3uCK/Tu85iDYahoFYBQRutOeMDjvh4f8CGuDzgglsJZm9nqd
+	 TaFJj4LSzQQbzLKRJecenFN2oyW1nyPVi3VHDNvse5M0nTQbq4ksxLH7IS56wf70TrAPD
+	 /fAw3ihlDlYf/8seeVP3Lg0VmE6K+v33LfCJ17txEDLJk5qAY2Bvjt2UG+nlkYEhsH3uG
+	 PyuFkrcgMG/6inbeEGZzFudgUYkNb3xUV2x1MHtYAIhfdsCCg8o51oAL17/AKxv3k+++Y
+	 KSvS2oF/La0SskOGiUrCllhvoInvCrK7aXjVBXJSEMPyXchhKtV92bXb3NGsL4Ph1vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794022018;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:X-Mailer:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=evRcGhEYiQnu+7s7f4X6oEhlfeS8eaZWbC+2vs7X5p8=;
-	b=F653goiV2V8IQ8l48JQt9vAIYth6D2nqqIMldez5LQVIVfspjxIjf3hYNPk9Se4G6e/U
-	 mIWS3GJFv8HzfTcFQPiHhHIGjEbqx3NHUA0ShohbouaLJ9M5SLz9Gi4tgF64/wz1e6Hhw
-	 hJ30s1BWLyaWZaForLkwLpadHO4E43M+DNWIObZ6W9crbbi8CcyYcTlqTIUOhK9IFFmTv
-	 Uvg/7MAnG2NYArs7mgWqWkcWqli3fGkkNNmX+QQVsFhRnZoy0edyUHT/M0v9t4rIS1/wK
-	 DrlORRvhd3+00gskEOPG+ujL00wOw6DuArI0EoXaeKPejzNVNY2o26/8/jkjIbYdfqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022238;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1bU+23Ts9k7fqwmVRnmBAtDOJpgOkQlk4RYG0pmWGro=;
+	b=BtPsEO4Rqgi9Sm7K3qtZVRpn9/7DtPGKEsfK9IroHzWCkltj+DPwyxli+S0Tv7O4ujDF
+	 z8DV84IrQlyeYQu6NJNjfp0QFO5yOa4sVMzaHfEYuncaoBLgeJqop/YSCbQO9/2m6Qs55
+	 QLF982LUGKQkCYkSRzZBcXKHdr/BfF8g9Rs4lRIAoKDBbDng+hpWB2tkQbFY4KNzW1vli
+	 K3lMf6cEum/CjbDxXX/w/vmQ3AnftfY2/jNma78lc4R5lrYrD5zoSUFVBZMnnPDCLLNHp
+	 0Ty0+Rj6IQWGji0Dnjs6FvozwZcZkNooWaodtprP7Ns8HJ6KXpOf6rrWX54ZSA/bsnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=SJVVrF9P;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E094606A326;
-	Sat,  7 Nov 2026 03:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E094606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF6JEZge;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0AD606A326;
+	Sat,  7 Nov 2026 03:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=SJVVrF9P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=evRcGhEYiQ
-	nu+7s7f4X6oEhlfeS8eaZWbC+2vs7X5p8=; b=SJVVrF9PSfV+wNcuB7G3asCcme
-	jrLH0Lu0OnqdiRF8ymbCb8ATbQnBweR313vTKGu0tBY6gcbA0bGw58Swkl21OlPA
-	fYFLAbWot05eNc6KYuFicJZjpV7HzLSe7H3IjUlkb5ltweMMvar7nd+46WLQVVI7
-	13DezoxHaPtSqqY3U=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.185.236])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHrSF2mu5qAI6SAA--.1778S2;
-	Sat, 07 Nov 2026 11:26:46 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: qcom: sm8750: mark the ADSP fastrpc node as non-secure domain
-Date: Sat,  7 Nov 2026 11:26:46 +0800
-Message-ID: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF6JEZge
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CC61F0089F;
+	Sat,  7 Nov 2026 03:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794022237;
+	bh=1bU+23Ts9k7fqwmVRnmBAtDOJpgOkQlk4RYG0pmWGro=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LF6JEZge394EUIaXdslskBxA6XnNuVGG0FH/X9Ocw+eniBhyZhgAOYCTxs9pnJYHE
+	 66rXQuuUdx0W0pqgCUt/AKbEO5KQRewAO+TVNbBrIIrAghPmwt4Zb+kG2B+QNWRNo1
+	 3Hbb45qmdrr9DLaCWSKInfNBDc+EtbJd4RNVwYm74CmmBNr+5VBP4KLCo2ACuHSQsY
+	 4x3OUBN9PcZNBAOiyK2KhBej8mG8rGkG7YTMjS3jMH2/PC/2KCugPFKR1DIabTNREj
+	 x/ik8QxpHu5y1l/bigYc0lKL8R+tGUNhQMRSSvrByFelEKxLdOJWglhoLqrQgOk3w9
+	 8dVt+vNakrHUg==
+Date: Sat, 7 Nov 2026 03:30:29 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
+ Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
+ Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] iio: light: ltr501: Switch to modern match
+ mechanism
+Message-ID: <20261107033029.0b2d3ee1@jic23-hlaptop>
+In-Reply-To: <20261106091943.35783-3-clamor95@gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
+	<20261106091943.35783-3-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,69 +70,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Mailer: git-send-email
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBHrSF2mu5qAI6SAA--.1778S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cry3Ww15Jry5Ww4DGFWktFb_yoW8ury8pF
-	4rCws7WF4kKF1rX3yjqFy0gw4Yvan8JFWUGrn8J34ay3Z09F9xJr1ftrs3KrWUJFZ5ua1S
-	vw4aqrWxZF1UZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
-	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
-	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
-	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
-	0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeT5dUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2ruKtgCVABfsr
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On SM8750 the ADSP fastrpc instance used by the sensor core (and by the
-other non-secure ADSP users) is the one the firmware exposes as
-non-secure; the CDSP fastrpc node already carries
-"qcom,non-secure-domain", the ADSP one does not.  With the fastrpc driver
-keying the secure/non-secure split off that property, the ADSP only
-instantiates /dev/fastrpc-adsp-secure and userspace never gets
-/dev/fastrpc-adsp, so libssc/hexagonrpcd cannot attach to the sensor PD
-(qrtr service 400) and iio-sensor-proxy reports no sensors at all.
+On Fri,  6 Nov 2026 11:19:41 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-Observed on the Lenovo Legion Tab Y700 Gen4 (TB322FC), which is SM8750
-based: without this property /dev/fastrpc-adsp never appears and
-iio-sensor-proxy exposes neither accelerometer, ambient light nor
-proximity; with it, qrtr shows the "Snapdragon Sensor Core service"
-(id 400) and all three sensor types report as available.  The change is
-one property on one node, matching what the CDSP node already does.
+> Remove the chip enum, break the chip list structure into individual
+> elements, and pass each element using i2c_get_match_data().
 
-Tested with `make CHECK_DTBS=y qcom/sm8750-mtp.dtb` (no new warnings; the
-single avoid_unnecessary_addr_size warning on dsi@ae96000 is present
-before and after).
+Sashiko calls out that for ACPI this results in an ABI change.
+The original code did the ABI wrong but that unfortunately doesn't
+mean we can change this one as it is an artefact of a time when
+we weren't so careful about those names.
 
-*** AI-assistance disclosure ***
-This patch and its commit message were prepared with the help of an LLM
-coding assistant.  The author reviewed the change line by line, ran the
-checks quoted above on his own hardware and takes full responsibility
-for the content.
+So you'll need to put special handling back in for the ACPI parts
+and that name. Some other things in the existing code noted inline
+that would be nice to clean up whilst you are here.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/iio/light/ltr501.c | 165 +++++++++++++++++--------------------
+>  1 file changed, 74 insertions(+), 91 deletions(-)
+> 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index cc5d7af44d77c..d5ce6468a229b 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index cf947acc57..9302481b11 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -2571,6 +2571,7 @@ fastrpc {
- 					compatible = "qcom,fastrpc";
- 					qcom,glink-channels = "fastrpcglink-apps-dsp";
- 					label = "adsp";
-+					qcom,non-secure-domain;
- 					memory-region = <&adsp_rpc_remote_heap_mem>;
- 					qcom,vmids = <QCOM_SCM_VMID_LPASS
- 						      QCOM_SCM_VMID_ADSP_HEAP>;
--- 
-2.53.0
+> +static const struct ltr501_chip_info ltr301_chip_info_tbl = {
+> +	.partid = 0x08,
+> +	.als_gain = ltr501_als_gain_tbl,
+> +	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
+> +	.als_mode_active = BIT(0) | BIT(1),
+> +	.als_gain_mask = BIT(3),
+> +	.als_gain_shift = 3,
+> +	.channels = ltr301_channels,
+> +	.no_channels = ARRAY_SIZE(ltr301_channels),
+> +};
+> +
+> +static const struct ltr501_chip_info ltr303_chip_info_tbl = {
+> +	.partid = 0x0A,
+> +	.als_gain = ltr559_als_gain_tbl,
+> +	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
+> +	.als_mode_active = BIT(0),
+> +	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+> +	.als_gain_shift = 2,
+> +	.channels = ltr301_channels,
+> +	.no_channels = ARRAY_SIZE(ltr301_channels),
+> +};
+> +
+> +static const struct ltr501_chip_info ltr329_chip_info_tbl = {
+> +	.partid = 0x0A,
+> +	.als_gain = ltr559_als_gain_tbl,
+> +	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
+> +	.als_mode_active = BIT(0),
+> +	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
 
+As below.  Same for all the others.  That would be a separate
+cleanup patch though -> perhaps do it with getting rid of
+the als_gain_shift.
+
+> +	.als_gain_shift = 2,
+> +	.no_irq_support = true,
+> +	.channels = ltr301_channels,
+> +	.no_channels = ARRAY_SIZE(ltr301_channels),
+> +};
+> +
+> +static const struct ltr501_chip_info ltr501_chip_info_tbl = {
+> +	.partid = 0x08,
+> +	.als_gain = ltr501_als_gain_tbl,
+> +	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
+> +	.ps_gain = ltr501_ps_gain_tbl,
+> +	.ps_gain_tbl_size = ARRAY_SIZE(ltr501_ps_gain_tbl),
+> +	.als_mode_active = BIT(0) | BIT(1),
+As below
+> +	.als_gain_mask = BIT(3),
+> +	.als_gain_shift = 3,
+> +	.channels = ltr501_channels,
+> +	.no_channels = ARRAY_SIZE(ltr501_channels),
+> +};
+> +
+> +static const struct ltr501_chip_info ltr559_chip_info_tbl = {
+> +	.partid = 0x09,
+> +	.als_gain = ltr559_als_gain_tbl,
+> +	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
+> +	.ps_gain = ltr559_ps_gain_tbl,
+> +	.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
+> +	.als_mode_active = BIT(0),
+> +	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+Is it really 3 separate bits, or GENMASK(4, 2) to
+represent a 3 bit shift?  
+
+Whilst you are touching the driver can we get rid of the
+separate shift by using field_prep() field_get() using
+just the mask?
+
+> +	.als_gain_shift = 2,
+> +	.channels = ltr501_channels,
+> +	.no_channels = ARRAY_SIZE(ltr501_channels),
+>  };
+>  
+>  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
+> @@ -1393,14 +1387,11 @@ static int ltr501_powerdown(struct ltr501_data *data)
+>  
+>  static int ltr501_probe(struct i2c_client *client)
+>  {
+> -	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+>  	static const char * const regulator_names[] = { "vdd", "vddio" };
+>  	struct ltr501_data *data;
+>  	struct iio_dev *indio_dev;
+>  	struct regmap *regmap;
+> -	const void *ddata = NULL;
+> -	int partid, chip_idx;
+> -	const char *name;
+> +	int partid;
+>  	int ret;
+>  
+>  	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
+> @@ -1480,18 +1471,10 @@ static int ltr501_probe(struct i2c_client *client)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	if (id) {
+> -		name = id->name;
+> -		chip_idx = id->driver_data;
+> -	} else {
+> -		name = iio_get_acpi_device_name_and_data(&client->dev, &ddata);
+> -		chip_idx = (intptr_t)ddata;
+> -	}
+> -	if (!name)
+> +	data->chip_info = i2c_get_match_data(client);
+> +	if (!data->chip_info)
+>  		return -ENODEV;
+
+As above. Unfortunately at this point we'll still need to
+do some special handling to match the existing indio_dev->name.
+
+>  
+> -	data->chip_info = &ltr501_chip_info_tbl[chip_idx];
+> -
+>  	if ((partid >> 4) != data->chip_info->partid)
+>  		return -ENODEV;
+>  
+> @@ -1502,7 +1485,7 @@ static int ltr501_probe(struct i2c_client *client)
+>  	indio_dev->info = &ltr501_info;
+>  	indio_dev->channels = data->chip_info->channels;
+>  	indio_dev->num_channels = data->chip_info->no_channels;
+> -	indio_dev->name = name;
+> +	indio_dev->name = client->name;
+>  	indio_dev->modes = INDIO_DIRECT_MODE;
+>  
