@@ -1,98 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794039503;
-	b=mfT8770QuwOEUfzhZgDIhbgjU04fXtBQlZp/957UwOJOJG6+xGLTlXoLA1Rek4aaeOrn
-	 bQioYVB61sJGaADf3ooNPVoxZdROJV4TFaMuMxQtpfxL9Rxabc2/Yt8GGdN6wztuverhq
-	 NLv2NVlQyvcLl3R2NJEBRxC2jcdZykchCvKZu0/eHSGic69ewQDD7ciZNBhkf0CG8D99S
-	 mwbBK7y2y6hLot1ZIraDByNjPRV58fLpBx6oUTVnkC09NfK3Iel0YUmFq2qxqde9Vx92P
-	 sSTyWnwQTHE4z6TRLRYNMK3hd3u+Gr/IX/T1Ir52y3+nuG0t4g0k7L5viYQL7NodGjg==
+	t=1794040159;
+	b=Fmk6gLfquPxyzRUCPhR3U/44mDJPtXia+JhqHH5SaauXGhQ1JM4SIKhZImeR0EbMzjzO
+	 GvksCWjxRulizzt/JzousldJW4lGT2opgwRIXCTB9PZ+P5MLXDTDeNCMubMeCa7Jj8frT
+	 Rnh3R12Xc2ERTkY8vARrk0/dwl6ALjDNcl0DdtmHSBEC8kirFn7d9oLHytdPa/Rpn9fRR
+	 Kh//zqTNQmgOD259HampGMgRlm4BV+vNfgHDNZAtrQR4/+yLBN7KXV3eo2Zqkh7B4rk2q
+	 RH5HiWc/3XTcDLlkEbtiFOrUR0gPwBVW2bbgUiDGT7WkTRR3nrCHiLhX0EPJHrvBsFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039503;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=An1bRoE/6CxmwaSRosrMArcH/TfHD3aBe6vo4ktdg0I=;
-	b=Vz5PSpl4TsMbO2U1ZS5Dyu6d0fNldluTmG13Dx6zML8sCxUJ6qqATJ5Nk84gm1QD2Bd0
-	 66+Ih5NJNnOSMjTPGLY9411OAqqhMSoOmX8in7oEYheUQOFDnWMKWeRhND5unqobK1ww1
-	 TViICb0oYf6nEOak+yBYSMiOJ/0b8RY56v/E9oRzzrzNxrzFC4ftzs6YL1oMH1pJ7hdrq
-	 W7hr9SweIVgg0jUgaA/4+oP2gD3XBuWs25QFDRLvQOAYS0XA3ZBghe+wtMDM2V9ha9Rk2
-	 aImwynyrvFJZf0S902bBPmKeflkxbB4IfDuUnY17piENszQYrHoTuVI2St3LI3S+I+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794040159;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6gQ9Zr0DaEb8gGwtpBB/z6Myn8JoIsTKf7WojtqAvnM=;
+	b=ToIdCT+6N8tDeV3J4XqwBGRwWYyhqykuoKdLj8kC8GpVz89Lx9yoVGu7dRed3+sTVkOA
+	 oo5hRIbIS0k8+NcHRjA8Ev7glIQ49c3G+Ubqjo/vgHoIqQ2iSyCsrsbqKlAytoq5ZSqnc
+	 tTNyAapnezXc4NfCkdt8JpjDK/Infno7dqNyux29Ad24TXGiFI20ztHGn/Pwr1717ebkF
+	 CxHgYYUS6Nb7hvM3ewlRMfiZHv07tCsdIpcVooTlZuODcMSrcw0XSVEgToa8wx4BV8MKl
+	 9Nlv5RgMv2F62QtVvz0FaEnHq9oJ9N1YSuq98zYZcZ4joIVW4pz9YoZ8VL90wLNE+4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uUdLLuxy;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBWT4FV0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6628606A32C
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 08:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6628606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BDF606A32C
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 08:29:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uUdLLuxy
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9eb579c0eso7646525ad.3
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 00:18:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794039502; x=1794644302; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=An1bRoE/6CxmwaSRosrMArcH/TfHD3aBe6vo4ktdg0I=;
-        b=uUdLLuxyl3UJP4spFk3NxgQpmrV3TmK9yeFUh1vl5evvBlg6C5YftzRlsdtpVUqUAL
-         VPwKMdFyu4VK1c5tKq8BWJQ/IrK34OvioJHOCG0eqvMUASiYSn985yNhimije8kbYFC1
-         3ATGnIJnKzT/V0igv4JRmNc3IjiAOUyD64Q2ruQVvdcyYFLRgNIl3o+soZ9NhK7zf0tg
-         NQ67e3pwL4aZszws6XccLeLQAyYDC9EdfD2oxlJ7uZRR13Vd3SipU6b6R9En4o+yQwrG
-         78Z3yJtteRvnYajuzqPZnJFQdEEjaqRfEZ5WAdcYmDpNkukpza7aul36o6VZBbUDh2Sz
-         Sv+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794039502; x=1794644302;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=An1bRoE/6CxmwaSRosrMArcH/TfHD3aBe6vo4ktdg0I=;
-        b=iywkVY//vEpBR+If2QI9arYHJfHSknO7ViXEbKTcOBWkweSgLu95kU8eEUPYq1x1e2
-         CuMdCcJYUIqqBG5S6B5OYS4lFH4bIssmV7USApgYKtylpPLrZhjHT9rXyR67uWypw6WV
-         1po7TYc7D3Oj6jwcNeM6VvhC7f0o1Fnp4vTzet/opLfiizoikuhd2VMJ9CbzRz7ArMX/
-         E4Vw7jDK+L+Jp2K3DPOuul3+QsdkiRsg3GbcG9/5wZQZ94+e6bFiHE9xjxTrUZKorM/F
-         +4jbowyVWvVL0xiJ7ajJPyT1sadTIR3kF4uCQXV7kElKIeDkYVivwGERanzFmmEfLqPX
-         QxvQ==
-X-Forwarded-Encrypted: i=1; AL+hErGyAfvVWz47L9coB54uxFpM9GIMTrPdIXATf1JIElW+7DgswS7NTN8Gr2yheylb51wpD626GoOKxcU4@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xHufvV8VkSPkvEur8slm0iPJ2g8NTY2sJh6nkFYuOO65hPLqE
-	jWSPos3NcKmrNwIgVm83nBTfz3su+8My9QLFLdQJ+F8X7ETq9dK0eu5S
-X-Gm-Gg: AYBFou0zgymoDhbclynu7YFsVINJ3hsstW2n3EvFlASN2ItER8X/WD6Dgn0kWoEwS23
-	gpUPd9Ovf8F0CMt8uvXlL2/sXBJ0c3DmzKwAq61GQTgY2LhcOe9ccN9mVIy5iOLipH0hb1WLcpZ
-	QLZyMoTwdG2mjUZ4LXfmcPAg/i0od4ErM1J0hMNhyDFJHQCuGYr5V3U6gR81Ks2J4MUgTYcz/UV
-	BlToLv/hhDsO8JH5dxZsKrI1xP1Q5nTKM7m5uBC13AVr6OhCgGvnWd5RyMbbAN37nk8SdbzCIwn
-	146nwsCK/GglAxUaWoXBk1HginnRCflDv/8jn7RGq5xWS/9tNSaECvzp04hhI9UBzVzo00QZgho
-	0CK1+mQErgieLckz7LxFVIqrSF1AYJ+oHhuJWFN9Hzmcno0xZR93NELpB/xf1rKrU38JSLueihG
-	X8LF6Spk3/bMWCSDmgsUbLVNZwv9srKyBwZ5EDtCNoOUzg5NDE4iMcFPVsE9f6TwlkdDZOtxXu/
-	HczqyUYTYOrIyWSO1xed5v0B/Fef9MT2qkRwmFhEbkAvIY9P+s1oXzugCHJzkRb+M95ThJ+tFuP
-	ACFv6JM5KNk7LNl0iw==
-X-Received: by 2002:a17:902:d48d:b0:2e8:1c7b:3b6e with SMTP id d9443c01a7336-2ed40aca726mr55809015ad.26.1794039501791;
-        Sat, 07 Nov 2026 00:18:21 -0800 (PST)
-Received: from buffalo-ssd ([2a09:bac5:45bc:1e1e::300:1a])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47528e5dsm11943395ad.4.2026.11.07.00.18.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 00:18:21 -0800 (PST)
-Date: Sat, 7 Nov 2026 17:18:17 +0900
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-Cc: Roman Vivchar <rva333@protonmail.com>, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: watchdog: mediatek,mtk-wdt: Add
- compatible for MT6895
-Message-ID: <au7UMdlP9O6oo41i@buffalo-ssd>
-References: <xUMh3NwVp4cBhFsWWFE2Xng4h8YH95iJM37_I158WAyVmsRCPbirWT1iU8eMFeiSFw8xco0X45o-2NOeB6Jc4_nWAg25pFPgDMwK3mKzm34=@protonmail.com>
- <20261105222435.571449-1-asalde.le1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBWT4FV0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E511F0089F;
+	Sat,  7 Nov 2026 08:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794040158;
+	bh=6gQ9Zr0DaEb8gGwtpBB/z6Myn8JoIsTKf7WojtqAvnM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OBWT4FV0cna9OTfY4uPWMg+hBHJ3dBMucpcBWyV+uY8YXVFELWv8JXY/ug/MQNDHB
+	 RSI5zZx5dsLU6k3HVnEebrxAQOgeU7+gDGGci4SMlY09tok3gD5p53pRlPOv8y3JTB
+	 ZxRtuDuwN1NU2ULt4zeCubgPa8M2UnC3UCJ/Z0U4rQvqDiZ9KJTcIeLF9gZU7cIlSo
+	 BkwxOpSLIF88pnhPknqcbNQZO32LawtV5ex/9EYa1OatCbHBPLtJ6+UDyDTic01FdQ
+	 2jxA8VO1WQGKniMZ8Ctb6iSILzbTdYws+YhFO2EYLjZNAAagvbvaWaeoZvlkjKeQNa
+	 DMiOFh2yWqUDA==
+Message-ID: <sashiko-outbox-202742@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] virt: bao: add I/O dispatcher driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Sm/Do28gUGVpeG90bw==?= <jpeixoto@osyx.tech>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <c900781e2f68a7dc4e262cbb856dd3eee354974f.1794038390.git.jpeixoto@osyx.tech>
+References: <cover.1794038390.git.jpeixoto@osyx.tech>
+ <c900781e2f68a7dc4e262cbb856dd3eee354974f.1794038390.git.jpeixoto@osyx.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 08:29:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,56 +59,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105222435.571449-1-asalde.le1@gmail.com>
 
-Hi Alexander,
-(Resending with the Cc recipients I missed; sorry for the duplicate.)
+Thank you for your contribution! Sashiko AI review found 7 potential
+issues to consider:
+- [Medium] virt: bao: race between attach error path and complete in
+  bao_dm_ioctl()
+- [Medium] virt: bao: missing 32-bit size_t truncation check in
+  bao_dm_info_valid()
+- [Medium] virt: bao: 32-bit unsigned long truncation on RV32 in
+  bao_remio_hypercall()
+- [Medium] virt: bao: broken client teardown order in
+  bao_io_client_destroy()
+- [Medium] virt: bao: missing eventfd read and -ENOENT in
+  bao_irqfd_wakeup()/deassign()
+- [Medium] virt: bao: broken conflict and datamatch handling in
+  bao_ioeventfd_handler()
+- [Low] virt: bao: range overflow and width truncation in
+  bao_ioeventfd_match()
+--
 
-On Fri, Nov 06, 2026 at 01:24:34AM +0300, Alexander Letuchiy wrote:
-> On Thu, Nov 5, 2026 at 11:50 PM, Roman Vivchar wrote:
-> > Does mt6895 actually share the same reset layout as mt6589? Given the
-> > generation leap between these, the former is very unlikely to use
-> > the same resets.
-> 
-> The vendor kernel for this SoC binds the watchdog with the same
-> compatible list ("mediatek,mt6895-wdt", "mediatek,mt6589-wdt") at the
-> same address, and its register definitions are identical to mtk_wdt.c.
-> 
-> The TOPRGU reset layout is the one thing I can't confirm, as I found no
-> reset table for MT6895 there. This series does not use it: the DT has
-> no #reset-cells and no consumers. If reset lines are needed later, I
-> will add a dedicated mt6895_data to the driver.
+commit c7f53fde4f821f921b87ccd26ae05833f79dbbe0
+Author: Jo=C3=A3o Peixoto <jpeixoto@osyx.tech>
 
-The MT6589 wdt driver now also registers a TOPRGU reset controller:
-f12d5facded7 ("watchdog: mediatek: Add wdt/toprgu resets for mt6589")
+virt: bao: add I/O dispatcher driver
 
-The driver now registers a reset controller with 12 reset lines
-for the "mediatek,mt6589-wdt" compatible, regardless of whether the DT
-specifies #reset-cells or has any reset consumers.
-"mediatek,mt6589-wdt" used to be a watchdog-only fallback,
-since it did not register a TOPRGU reset controller.
-That is no longer true.
+This commit adds the Bao hypervisor I/O dispatcher driver, exposing a
+/dev/bao control device and per-device-model file descriptors to bridge
+Bao Remote I/O requests, ioeventfds, and irqfds to userspace VirtIO
+backends.
 
-Since the MT6895 reset layout is unconfirmed, it must not claim
-compatibility with the MT6589 TOPRGU reset controller by using
-"mediatek,mt6589-wdt" as a fallback.
-The compatible list is part of the Device Tree ABI and cannot be
-changed later.
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/Kconfig (line 4), BAO_IO_DISPATCHER
+depends on ARM64 || RISCV_SBI, which allows building the driver on 32-bit
+RISC-V (CONFIG_32BIT=3Dy && CONFIG_RISCV_SBI=3Dy). Can bao_remio_hypercall()
+in drivers/virt/bao/bao_hypercall.h (line 174) and the dm->inflight XArray
+operations in drivers/virt/bao/io-dispatcher/dm.c (lines 53, 144, and 166)
+silently truncate 64-bit values on RV32?
 
-As I noted in [1], "mediatek,mt6589-wdt" is only a safe fallback where
-the reset layout is known to match. Many SoCs do not share MT6589's
-reset layout, and MT6895 gives no reason to be treated as an exception.
-We should not add yet another MT6589 fallback whose reset layout is not
-known to be correct.
+In bao_remio_hypercall(), the u64 fields of struct bao_remio_hypercall_ctx
+(dm_id, addr, op, value, request_id) are loaded into unsigned long
+registers a0-a4, truncating 64-bit MMIO addresses, 8-byte I/O values, and
+request IDs to 32 bits. Similarly, xa_insert() and xa_erase() on
+dm->inflight take an unsigned long index, truncating the upper 32 bits of
+req->request_id. Should BAO_IO_DISPATCHER depend on ARM64 || (RISCV_SBI &&
+64BIT)?
 
-Please give MT6895 its own "mediatek,mt6895-wdt" compatible without
-"mediatek,mt6589-wdt" fallback. Its TOPRGU reset support can be added
-once the actual reset layout has been confirmed.
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/dm.c, within bao_dm_ioctl() at lines
+132-184, can the BAO_IOCTL_IO_CLIENT_ATTACH error path race with a
+concurrent BAO_IOCTL_IO_REQUEST_COMPLETE on the same file descriptor and
+complete the same request twice?
 
-[1] https://lore.kernel.org/linux-mediatek/xqnpukvhtezpqhwjnxbqeddiaqlro4m5yjukpplv5mjfxodlfp@ijaf2trst7p4/
+CPU0                                  CPU1
+bao_dm_ioctl(IO_CLIENT_ATTACH)
+  bao_dm_inflight_add(dm, &req)
+                                      bao_dm_ioctl(IO_REQUEST_COMPLETE)
+                                        xa_erase(&dm->inflight, id)
+                                        bao_remio_hypercall(&ctx)
+  copy_to_user(...) -> -EFAULT
+  kfree(xa_erase(&dm->inflight, id))
+  bao_io_request_complete_error(...)  <-- duplicate completion
 
-Best regards,
-Akari
+bao_dm_inflight_add() publishes req.request_id into dm->inflight before
+copy_to_user(). If another thread completes that request_id while
+copy_to_user() faults, xa_erase() on the error path returns NULL (or
+erases a newly attached request if the hypervisor reused request_id), and
+bao_io_request_complete_error() issues a second completion hypercall to
+the hypervisor. Copy req to userspace before inserting it into
+dm->inflight, or only call bao_io_request_complete_error() when xa_erase()
+returns the entry.
+
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/dm.c, within bao_dm_info_valid() at
+line 348, can a 64-bit info->shmem_size with zero lower 32 bits bypass
+validation on 32-bit builds by truncating to 0 in size_t and unsigned
+long?
+
+When sizeof(size_t) < sizeof(u64), passing info->shmem_addr =3D 0 and
+info->shmem_size =3D 0x100000000ULL passes !info->shmem_size,
+PAGE_ALIGNED(info->shmem_size), and upper_32_bits(end) =3D=3D 0, but trunca=
+tes
+to size 0 in region_intersects() and request_mem_region() while leaving
+dm->info.shmem_size set to 4 GiB. Adding a check for sizeof(size_t) <
+sizeof(u64) && upper_32_bits(info->shmem_size) (matching
+bao_ipcshmem_region_valid()) would prevent this.
+
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/io_client.c, within
+bao_io_client_destroy() at lines 140-161, does the teardown sequence
+destroy dm->ioeventfds before stopping the kernel thread and then
+prematurely resume the I/O dispatcher during DM teardown?
+
+First, at line 140, bao_io_client_destroy() calls
+bao_ioeventfd_client_destroy(dm) before kthread_stop(client->thread),
+emptying and freeing dm->ioeventfds while bao_io_client_kernel_thread() is
+still draining queued requests via bao_ioeventfd_handler(), which silently
+drops those eventfd notifications.
+
+Second, at line 161, bao_io_client_destroy() calls
+bao_io_dispatcher_resume(dm), which re-installs dm->intc_handler and
+queues dm->io_work on dm->io_wq. Because bao_io_client_destroy() is only
+called from bao_io_clients_destroy() during full DM teardown (in
+bao_dm_destroy() or the error unwind of bao_dm_create()), resuming the
+dispatcher mid-teardown causes io_dispatcher() to run BAO_IO_ASK
+hypercalls when a BAO_IOCTL_CREATE_DM call fails after creating
+control_client (for example, when bao_intc_init() fails), and during
+bao_dm_release() it re-queues dm->io_work between destroying
+ioeventfd_client and control_client, misrouting or error-completing
+requests before bao_io_dispatcher_destroy() finally drains the workqueue.
+Pausing or destroying the dispatcher at the start of bao_dm_destroy()
+(before completing inflight requests and destroying clients) and removing
+bao_io_dispatcher_resume() from bao_io_client_destroy() would avoid this.
+
+[Severity: Low]
+In drivers/virt/bao/io-dispatcher/io_client.c, within
+bao_io_request_in_range() at line 398, and
+drivers/virt/bao/io-dispatcher/ioeventfd.c, within bao_ioeventfd_match()
+at line 124 and bao_ioeventfd_handler() at line 294, can a malformed or
+top-of-address-space request wrap around in the range check or truncate
+req->access_width?
+
+In bao_io_request_in_range(), evaluating (req->addr + req->access_width -
+1) <=3D range->end without checking that req->access_width > 0 and does not
+overflow u64 allows a zero access_width or an address near U64_MAX to wrap
+around and falsely match the range. In addition, passing u64
+req->access_width into the signed int len parameter of
+bao_ioeventfd_match() and testing p->length >=3D len without requiring len >
+0 allows a zero or negative-truncated length to match any registered
+ioeventfd.
+
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/ioeventfd.c, within
+bao_ioeventfd_is_conflict() at line 103 and bao_ioeventfd_handler() at
+line 292, are conflicting eventfds at the same address allowed, and are
+non-matching writes to a datamatch range silently dropped?
+
+First, bao_ioeventfd_is_conflict() checks p->eventfd =3D=3D
+ioeventfd->eventfd, which allows registering two different eventfds for
+the exact same address and data match even though bao_ioeventfd_match()
+only ever signals the first matching entry on dm->ioeventfds.
+
+Second, bao_ioeventfd_assign() adds [addr, addr + length - 1] to
+dm->ioeventfd_client, and bao_io_client_find() in
+drivers/virt/bao/io-dispatcher/io_client.c (line 415) routes every request
+in that address range to dm->ioeventfd_client without checking whether any
+ioeventfd matches the request's data value, exact address, or access
+width. When a guest writes a virtqueue index with no registered ioeventfd
+to a shared QueueNotify register that has a BAO_IOEVENTFD_FLAG_DATAMATCH
+entry, bao_ioeventfd_handler() finds no match in bao_ioeventfd_match() and
+returns 0, completing the hypercall and dropping the write instead of
+forwarding it to dm->control_client.
+
+[Severity: Medium]
+In drivers/virt/bao/io-dispatcher/irqfd.c, within bao_irqfd_wakeup() at
+line 86 and bao_irqfd_deassign() at line 237, does irqfd signaling leave
+the eventfd counter unconsumed, and does deassigning an unknown irqfd
+succeed?
+
+In bao_irqfd_wakeup(), EPOLLIN triggers bao_irqfd_inject() without calling
+eventfd_ctx_do_read() to consume the eventfd counter, leaving the eventfd
+permanently readable (and eventually saturating its counter at ULLONG_MAX
+- 1). Also, in bao_irqfd_deassign(), if no matching entry is found in
+dm->irqfds, the function still flushes dm->irqfd_server and returns 0
+instead of -ENOENT.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794038390.gi=
+t.jpeixoto@osyx.tech?part=3D2
