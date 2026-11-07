@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794057163;
-	b=a03Z5e+x3IuXg4ejqTYYtUZ1RhfeBHyXGZLzQ4BOXfqs0x9bcujorbTHA9Q+XXzWSs3b
-	 yga5Iy+SiHGfXS2VPllyVnjitsHPSmj2GBhalkNmL01s/99vjMux9mF+HGmnKRY7ZgdLA
-	 YjYVl/xvuov19SwO0e17+p2w8VSRq1LOe7XdkP9zO1EIMSrcsX2oKyozBr4ZogPR6ZViG
-	 ERj02S1wAiV9BCpfPkOS9GehiyAinA7EXk6eMFCSyfIRXrxbVSeJHdOAf7dsuQ8sj9som
-	 BX6R+MPZ/chePDAPbwykueJyl8tBkP/2tGxSIhOHWXeg2KOXw2V7b3aMWi0BZE2ZZeA==
+	t=1794057601;
+	b=BEwI2ofEWk6x1YWKuwwBm4mRYNnJqhKaOL/SEQjXiG9Je6WYA+m+c0QNe2vyz1Ifn2td
+	 0jOuGLH/2jmjK4XDPcUI6eh3LLsurhwySNZXlVDaUpLwvd0Wi5RB+JPDWLYtvttnJEr8H
+	 ze6tfr4Ri0j3fJWo35Yi3cF/v0+WZ198QyzjYgZMOq7xy3ex/Cco0aCDNJMa6Dqiiqjnf
+	 9iFZUtsv9pS3hucB1gVsrhInzrjDtX+fiBoKhSS6PyLnxsyqq1dEJAmhC8kFFSXFhYsuS
+	 /XRywTyQNFePBOLbkLzDNpTG/3L84JC5jSRy87VIkHsEx4rUa9krSCRjvVvbcW9h2eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794057163;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=h2Eny9FxiErINLKHHB+LsOS3lNpf4KzhrBwDKF7vmi0=;
-	b=viwvKh7vGilwXMvY+YTmo/poNouh+UblasWCJXtunq+eSEhG197uTs1sGNoLDPesK5Je
-	 V6pzc5MGu4Ve/kOTe/hUUDI3KsQhVDy/RGCtIhRhzwRXk76bBBunFuGtNHIjav2T53ThM
-	 vSOc2s0dQWLYDVvR1wLbOfv349TeXzpIQoKXBo66wlAjM6sKAYpkFYN6r9M1UjFn60/wo
-	 HKI/YFL7JxbUCRl5uWmq9jofqOmXGztqJeyVUYcIOgOjZEWRGmmSOzCDvgEwI+jzwCda6
-	 9HEtPbwuczTa86EtChqvsNFdWvtayLZUIc4wkJSZkQk1x8f7gWhymASTC3f5iSBTvdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057601;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=Vv1qxZPlk0vkh8L3xJUWyUVlD4vXJ4Gcl2ZuiOio4dw=;
+	b=sGPv8zJ75RdqFLGdel587umugGWnnutf6tLL/3qzKd6nLBA15njJcyrE2oKO4XHFZ6mK
+	 rtewIfFz0KrdEG/qkI4XrGvM32Mq7XJGASaIT2ljpUFDSeknrB5+YVGaFyPKjju58UtwX
+	 SQAwZkGj3n7hAN/y4P5SrpQUr1LXxQyc6wWMUbyQTMQeygLFxbtYtgxLvlgETHIB7t2OH
+	 /rF+bzISFpr0xrb57xVDXndyDbj1qlEw+KMhqfAt9oYykpaYsBAOJNY/DomxoGwMqQQXZ
+	 KRYuRrvCFR+YFpKj/MWIflgEv+Nxe6r4XiYbN0+aDWVf8iljzlpraeTUhF93AFEtO5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQf0Qkxd;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CYldCipq;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3ED606A32C;
-	Sat,  7 Nov 2026 13:12:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3ED606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7319606A335;
+	Sat,  7 Nov 2026 13:19:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7319606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQf0Qkxd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794057161; x=1825593161;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vu7IQNdMRbB0dIkqRFXuGnUsBbyW4fu+qslSq5Yf8QY=;
-  b=MQf0QkxdW+ABXm1z2K0WtwC9i00QODqxQ4VjZNfVjrZ+XmeWUkqEkj5v
-   3Is726UbRSTbR/y1g2HAL2NIdxAqMTe6v4lr/RHS+9x3+ASEnW7hpUuFf
-   7bOaZzxeheYtbZ4JtkKdEAe6EkNPVplg47y5Jm5k1lTUh6sNspNBGO/u8
-   IN+Fp/uk+PkXB3yEl4N2VBYw62pdDp8pcotX/KZDrC8TPvzwtsjkVmMnA
-   rjuxYr0gkRKUUyiYbhjU9XjWzEoOFpys2m9/lJVJP+w7hpJ+3hRt6OVkj
-   iJ8yIx9F/uVcUlpNqQWJkG4zDzSBp/n4KMhQ9pubib1yFBxg294oCWdM3
-   g==;
-X-CSE-ConnectionGUID: 4GZY+uy0Qoq16tkiPgTDvg==
-X-CSE-MsgGUID: 9z2WZ6GIR/SeLXQmiK4qQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2878067"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2878067"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 05:12:40 -0800
-X-CSE-ConnectionGUID: 9HcWSSIqScq7cK/DZEKUIw==
-X-CSE-MsgGUID: gMLGUiA3T3KMQeZSdW6Kdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7382053"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 07 Nov 2026 05:12:37 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPgDi-00000000qrv-2xXd;
-	Sat, 07 Nov 2026 13:12:34 +0000
-Date: Sat, 7 Nov 2026 21:11:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gary Yang <gary.yang@cixtech.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com, gary.yang@cixtech.com
-Subject: Re: [PATCH 2/4] usb: typec: add CIX Type-C PD controller driver
-Message-ID: <202611072135.EulyUBtA-lkp@intel.com>
-References: <20261107011012.3655873-3-gary.yang@cixtech.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CYldCipq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794057586;
+	bh=Vv1qxZPlk0vkh8L3xJUWyUVlD4vXJ4Gcl2ZuiOio4dw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=CYldCipq5BagZLXme6wuPePkCbHZaFQx6CDcKEdW3CR4GoNL/AHcndA1sl2gxuRe5
+	 NJ1VEzr7H45Me1JjNlboBfvsFVZoD2cZB+MHP7MXQlBIfzmyTaqVhQ1sPOA91VOdbO
+	 wj59PrxeUrFQcEH9SIbPo759rX5u7NxVELeGaA9E=
+X-QQ-mid: zesmtpsz2t1794057585t8b0d7424
+X-QQ-Originating-IP: MnVFJSGk3Q8VFD+XQqbWfmBpJkYvSe1EFIeqkTdJt6o=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 07 Nov 2026 21:19:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9492300081805224949
+EX-QQ-RecipientCnt: 14
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,110 +58,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107011012.3655873-3-gary.yang@cixtech.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=cd90495969691536a859394151b1932e9ba645d5efb1309eed502dd53e7b;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Sat, 07 Nov 2026 13:19:39 +0000
+Message-Id: <DMP0C29S8OJL.3SBBFOOCLLE1K@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/5] riscv: dts: spacemit: k3-com260: Add SPI NOR flash
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sarah Emery" <sarah.emery@canonical.com>
+In-Reply-To: <DMOZO92UHE9L.2PC9QE72225NX@linux.spacemit.com>
+References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
+ <20261105-k3-com260-module-sd-nor-mac-v1-3-138b39d74602@linux.spacemit.com>
+ <79211469-cf77-414c-9a10-2b684833ad64@canonical.com>
+ <DMOZO92UHE9L.2PC9QE72225NX@linux.spacemit.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M4rL4XrBLbwKcgXYdAzZ7Fj6FVw1625bw40kZxg7X4sx8Glm5iKgFLbu
+	JRv02fxx+nleACDZUEeAsmaIbfB5o0fJzIUJ8MqBoPk65EYJ7ErruHTZYR3rt1I+uKhLLyg
+	NmLKva/uKBCJQ4IeyxhaGzPqopPfs+65b3mutcVidU5/Zk3NhKk+U5iMvAf599HR+ySpPtW
+	q8lluW8WAhpSN0S0W521eyH01fsuBeQSQIGkb4VN5Mvv5j+BTlJEgzZUXs/Mx+BCYzQJHek
+	T5B7NjAWfg9SmpV76YFHk5l3bv3zKyFcBLc3VJ8GqKH6fLrEk1rk2CzthS+62ZrWkLI3k2f
+	OSfIwNIzaqdrtAx+J6BVp2P1YL/xTh1I8Wry00tN0bxFJormasLMnFV3ZWK3bEUe2iTpNxM
+	eLiI/5Zt1x352uEydV24id6CieljO4T61HaVGcZ2tGMhXHtOXaM3eQCEbm4xAnBUKJDH9q3
+	vbVtpjdkZWtkZWKEDAqCr00KFyrySyEDXgkNKPd1r8fAzFXy7BED7jQTpy4rU46tmn3o+ST
+	MxlJRBI5vUD8d5WK3D52Q+rnwCjMPUqrFvCyYra3JCNYBd2T6bbLHup/ZVjg+Sacg3dLZV+
+	OgpEyn/n5NSfwtz/S7Rvf88LRMncaSF1h9SuUPUpLBg9DrqTXflXkeiEk4JLbh5nJ8L191d
+	N5utkRoVK6xJyHGYcdG8IwPKr4338sEpFeCKbEgZ0GsKrn2NVF+VHdXriFcBDc76up/i35F
+	kXz/yK+ae0x8yG9dvdrhHXbS3QfWZEi0ueOq6QNyXWfz6e66fyeMtNB2tuX/olM6+fcEUXV
+	SgXoza3IOdSKbyMd7J+aTx6qmGvUMvkKhD++GffcI5edcGmhIKKBGhaxyntRIk6B1KeWsEc
+	zeLQKd4ich+tM43zBbvMR0NzFuseQH7ZzmJlSOMtzfVh7e28ZJRFkBfsZDFjb5hu3R6ioJr
+	wcv4E/cUq+ATOPb7x0KZXfOkVG+so55BNDwOF3R3/rcurVeGo8XpbCxeefLyuAQL2drHYpT
+	RaKLzpU98JXxf7Qm5Atwros0YfXsCWlYGel/V8NQ6OWEjCcYxAAyxPckHGJUzQCvr6cu7MO
+	/ig7WIwhGlVWBmqMV/AqLc=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Hi Gary,
+--cd90495969691536a859394151b1932e9ba645d5efb1309eed502dd53e7b
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-kernel test robot noticed the following build errors:
+On Sat, 07 Nov 2026 12:48:33 +0000, Troy Mitchell wrote:
+> On Fri, 6 Nov 2026 17:25:48 +0100, Sarah Emery wrote:
+> > > +			uboot@210000 {
+> > > +				reg =3D <0x210000 0x5f0000>;
+> > > +			};
+> >
+> > This partition ends at 0x800000. On the CoM260 with EDK2,
+> > 0x700000 to 0x7c0000 holds the variable store (NVRAM and FTW), so
+> > reflashing this partition from Linux would erase it.
+> >
+> > I think we could split it like this:
+> >
+> >     uboot@210000 {
+> >        reg =3D <0x210000 0x4f0000>;
+> >     };
+> >
+> >     var@700000 {
+> >        reg =3D <0x700000 0xc0000>;
+> >        read-only;
+> >     };
+> >
+> > What do you think?
+>
+> The layout here is the one used by the SpacemiT boot firmware for K3,
+> where U-Boot owns everything from 0x210000 to the end of the flash.
+> The EDK2 that SpacemiT ships for K3 (including the CoM260
+> configurations) keeps its variables in memory and does not use the
+> flash for them, so it has nothing at 0x700000.
+>
+> Which EDK2 build places the variable store at 0x700000?
+Sorry, I checked an outdated EDK2 tree. The current SpacemiT EDK2 for
+K3 does store the variables in flash, in a separate region pinned at
+0x700000 with size 0xc0000, and the firmware image itself goes at
+0x210000. So you are right, and I'll split the partition the way you
+suggested in v2.
 
-[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
+> > The Pico-ITX node also uses 0x5f0000, but I think it should be
+> > modified to split out the var part too if it makes sense here.
+>
+> Same answer as above.
+For Pico-ITX, the same layout applies, so its DTS should get the same
+split in a separate patch.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Gary-Yang/dt-bindings-usb-add-Realtek-RTS5453H-Type-C-port-controller/20261107-091009
-base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261107011012.3655873-3-gary.yang%40cixtech.com
-patch subject: [PATCH 2/4] usb: typec: add CIX Type-C PD controller driver
-config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261107/202611072135.EulyUBtA-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611072135.EulyUBtA-lkp@intel.com/reproduce)
+--=20
+Troy Mitchell
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611072135.EulyUBtA-lkp@intel.com/
+--cd90495969691536a859394151b1932e9ba645d5efb1309eed502dd53e7b
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All errors (new ones prefixed by >>):
+-----BEGIN PGP SIGNATURE-----
 
->> drivers/usb/typec/cix_pd.c:628:3: error: call to undeclared function 'irq_set_status_flags'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     628 |                 irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
-         |                 ^
->> drivers/usb/typec/cix_pd.c:628:37: error: use of undeclared identifier 'IRQ_DISABLE_UNLAZY'
-     628 |                 irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
-         |                                                   ^
-   2 errors generated.
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau8layEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8mjAEAgs2JcthFsP1D
+X0CRVNci79azmcIjmw43lI/q3Mp1We4BAJiF7dDYWSszpFNzPWE068epMe+unJfn
+VBoMajSNo8cN
+=FnAV
+-----END PGP SIGNATURE-----
 
-
-vim +/irq_set_status_flags +628 drivers/usb/typec/cix_pd.c
-
-   587	
-   588	static int cix_pd_probe(struct i2c_client *client)
-   589	{
-   590		struct cix_pd *rts;
-   591		int ret;
-   592	
-   593		dev_dbg(&client->dev, "IRQ %d supplied\n", client->irq);
-   594		rts = devm_kzalloc(&client->dev, sizeof(*rts), GFP_KERNEL);
-   595		if (!rts)
-   596			return -ENOMEM;
-   597	
-   598		rts->dev = &client->dev;
-   599		rts->irq = client->irq;
-   600		mutex_init(&rts->lock);
-   601		mutex_init(&rts->irq_lock);
-   602		cix_pd_typec_init_state(rts);
-   603	
-   604		if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-   605			return dev_err_probe(&client->dev, -ENODEV,
-   606					     "i2c check functionality failed\n");
-   607	
-   608		rts->regmap = devm_regmap_init_i2c(client, &cix_pd_regmap_config);
-   609		if (IS_ERR(rts->regmap))
-   610			return dev_err_probe(&client->dev, PTR_ERR(rts->regmap),
-   611					     "failed to init regmap\n");
-   612	
-   613		i2c_set_clientdata(client, rts);
-   614	
-   615		ret = cix_pd_init_ports(rts);
-   616		if (ret)
-   617			return ret;
-   618	
-   619		ret = cix_pd_event_handler(rts, 0);
-   620		if (ret) {
-   621			dev_err(&client->dev, "failed to read initial status: %d\n", ret);
-   622			if (ret == -ESHUTDOWN)
-   623				ret = -EIO;
-   624			goto err_unregister_ports;
-   625		}
-   626	
-   627		if (client->irq > 0) {
- > 628			irq_set_status_flags(client->irq, IRQ_DISABLE_UNLAZY);
-   629			ret = request_threaded_irq(client->irq, NULL, cix_pd_irq_handle,
-   630						   IRQF_SHARED | IRQF_ONESHOT,
-   631						   dev_name(&client->dev), rts);
-   632			if (ret) {
-   633				dev_err(&client->dev, "failed to request irq: %d\n", ret);
-   634				goto err_unregister_ports;
-   635			}
-   636			rts->irq_requested = true;
-   637		}
-   638	
-   639		ret = device_create_file(&client->dev, &dev_attr_disable_pd_interrupt);
-   640		if (ret)
-   641			dev_warn(&client->dev,
-   642				 "Failed to create sysfs attribute, ret = %d\n", ret);
-   643	
-   644		device_set_wakeup_capable(&client->dev, true);
-   645	
-   646		return 0;
-   647	
-   648	err_unregister_ports:
-   649		cix_pd_unregister_ports(rts);
-   650		return ret;
-   651	}
-   652	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--cd90495969691536a859394151b1932e9ba645d5efb1309eed502dd53e7b--
