@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093551;
-	b=LeTY4BagcbUwlM4DBfkGeyoQkvkk8/UYB/bklYuv22lTT3nPp3Qf3hHVcgQXOV7SvaXS
-	 KvYFU2jAbp1kHe0FcWgdjLQ5bjahe3qthNrKcUeT2QKTFjCSbOiE6pDIaOPTJxXS44spF
-	 4B7ljvRzLVVLtKBKSUytcZlKNgJKjQOz2BaeaZOJs7X7GdFhQlcXeQ5gJjjitMEk79zgc
-	 3GHO3WfopJUssoit+zLi8gsXD6nZkdTAtfm1VB2fSRKY67TK6cbM+SDVDv3EmI53FXX3F
-	 Nz45jJA6B+cmcRmINNRxwy+dW9EBPMzDnZTRheLetCk2aUfG6Tu74Iq1fsjoFo3Z+AA==
+	t=1794093552;
+	b=5G898xlKGRpgDCIPiWZSFD9IW+WXqyZeWxxEBF/YX9yG2LPpC5FpTId2e/dH2WwSqKDk
+	 RBmTZGAmP1sbSsbn3OLoVgAOouVGLILt+wOUSb/tBt8IxdviSYIOBkPsrgQcB6yW3kJOI
+	 d3OmQb1YIgtsTuddaZOra+8EDQEUcf9s487wghY6o4OJlrNuuaOvvYjFk68J8knSQdICG
+	 WpjJXRh0Vf48h0bRuAo9HlgUOIIynYnS2jQ6+7vM1i+9S3pMCC3ltVHnKxw/CpDJRb3Dy
+	 6phL2bjCjoGDhfWtYtQ0rwm4/7a6+SeDZMqYhPZME6w4o8iH9fQTJTqPYgbgElb2T7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794093552;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YkEpocakllS99vaJb61JHIkGN3+Yy0/OnexaTUL1QMM=;
-	b=g5W0xH9cgullo9aylalOisXx5Zr89mTtI1nmh11L2M9t3kZIYjO0oqBWckrbslqLwC2B
-	 996pqPnoxKSoH4oj3S+hCaOL+drhDw+XmfdPMFkc4pOA7+on8rU6PdO3xOk0okQf0occp
-	 axRAhNIB5+umLUZhgaGG7O+LEF5gl7Qa6zRotLBkrEYnVVMdgDqqJSoTT78mgL6QlPx56
-	 U2/O3sJIM8hgEZ5ItlorEfgpWqVqLmcSG/kK4wXdm4lHTA3e0fFIOFuNDBBLj+HIn+Zaa
-	 1MRsZbbkbbP9IJTHHnGsIb8Pdj77RlewAOBOxaK9eCKCodbV9zV2Yrydr/GsoxDv7OQ==
+	bh=6Faxq69zmj7KieOStTwutIA6SovgKaTE2M+ZprmIjUU=;
+	b=MmvrPYUV/lbii0wuoY1KbY1B5B/7MjKM5Yi/chRBxEDq2FvN9nKoUk2dXHI+3NJRoxAx
+	 GYoE6YxBBoYg57g6i/6qTrI7IbesOLK1uZM9q8m8ohF6wT5D8E74sbpZd6DHi/gij/MMg
+	 fqK07+zJX51vto0COd5PyJVTYRWHrJm14ozngHiviKcPQCQ/EyEkHfcCFJ6XsLnBzq7Qt
+	 v8yCnsCcP+rAGz38G5dgSu0GCmSRY6OfRUyHcCp+46a2ndEPpNdxCb6Fzxsau39QXVmcX
+	 6bNYVOpgh+Gqu5AWrNFhyeCBaipUkFvmycsSszorIPtN0n1rwio5cZUfr+guMZ6dKsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glKT3NQ0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqkwdsNd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8858A606A326
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 23:19:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11321606A326
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 23:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glKT3NQ0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83C51F0089F;
-	Sat,  7 Nov 2026 23:19:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqkwdsNd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F67D1F008A5;
+	Sat,  7 Nov 2026 23:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794093550;
-	bh=YkEpocakllS99vaJb61JHIkGN3+Yy0/OnexaTUL1QMM=;
+	s=k20260515; t=1794093551;
+	bh=6Faxq69zmj7KieOStTwutIA6SovgKaTE2M+ZprmIjUU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=glKT3NQ0ed1fnA6gM+9GCVU1BZ1O4nro8a6r5HdtYqckLUyjk1gbK4bqLTFn9fjFL
-	 MQw8dc4DnZHJ/9d/JlPiA0dxyafTX2iJjjMza+Y6Gb2c77bt1pnZfrQo90Xn6IH9AY
-	 UMEUN4uE5gYIhYEz640rfvgeg+stN3t/XzwFtNpCXCillSnOjRHwkr53mlNWvLT/5L
-	 ytFI4UGUiWEZsBXFL2PKE9tGCaJoEhHHvhtIbOWqYklAb9oRwQ4GGRrNqSrGmA27UQ
-	 H/3Ju1YlX9Ij6O3FcgfDTRqWj/cE0m/5xRJl6XB8giiLUSQuxfQjEbpveYkReN/EJ1
-	 znpTPvTG4Te6g==
-Message-ID: <sashiko-outbox-203381@kernel.org>
+	b=iqkwdsNdcMueT3ILbxwNMyMoTYJSZ8eUO7OEoqGPoRf8X8qQTHHBH2B7RRGt2xBni
+	 ieCdYqTMWc8pAbkc9NDOkQH5MxlFI/JYjgmYou4tXeCrTgF6xZKtc3syoVdfKD5qPA
+	 Rm9h0y6PKPJhReIyee2KBUpFWH4JR75UavarG6TKuYEVJ0EZlGoWadKjDryBz6cqWK
+	 KCQ+ce9eJsI/qSxXI+6TsiSJOlS8yh71ANNDnIn7FAEJ46p0QIAsiEsIMcdEtahsRM
+	 68rwaX8+DXjQgXDLVjv2JPmDwhU+pn2s9j3G+RXvXayBPpk6G2LKJ+rK6+Gl1aoWKn
+	 Eua59Yh7T/KBg==
+Message-ID: <sashiko-outbox-203382@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 05/11] net: ethernet: oa_tc6: Support for
- hardware timestamp
+Subject: Re: [PATCH net-next v10 06/11] net: ethernet: oa_tc6: Support for
+ vendor specific MMS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106-s2500-mac-phy-support-v10-5-31b5a69b85b7@onsemi.com>
+In-Reply-To: <20261106-s2500-mac-phy-support-v10-6-31b5a69b85b7@onsemi.com>
 References: <20261106-s2500-mac-phy-support-v10-0-31b5a69b85b7@onsemi.com>
- <20261106-s2500-mac-phy-support-v10-5-31b5a69b85b7@onsemi.com>
+ <20261106-s2500-mac-phy-support-v10-6-31b5a69b85b7@onsemi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 23:19:09 +0000
+Date: Sat, 07 Nov 2026 23:19:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,159 +63,117 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] net: oa_tc6: NULL deref in oa_tc6_phy_exit() on oa_tc6_init()
-  error path
-- [Medium] net: oa_tc6: race and partial update in
-  oa_tc6_set_hwtstamp_settings()
+- [Medium] net: oa_tc6: oa_tc6_set_vend1_mms() called after PHY init in
+  oa_tc6_init()
+- [Medium] net: oa_tc6: NULL deref in oa_tc6_phy_exit() on capability
+  read failure
 --
 
-commit 7845a5d180b9f247dce7a81aeca4e94a68402ceb
+commit e3d2308dcadfed4c734bdcf29ba226ef0116d5e7
 Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-net: ethernet: oa_tc6: Support for hardware timestamp
+net: ethernet: oa_tc6: Support for vendor specific MMS
 
-This commit adds hardware timestamping and PTP clock registration support
-to the OPEN Alliance TC6 10BASE-T1x MAC-PHY framework.
+This commit adds oa_tc6_set_vend1_mms() to allow MAC-PHY drivers to map
+MDIO_MMD_VEND1 Clause 45 accesses to a vendor-specific Memory Map Select
+(MMS) value.
 
 > diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethe=
 rnet/oa_tc6/oa_tc6_main.c
-> index 45eb896cd986c..e793d7fb0635f 100644
+> index e793d7fb0635f..5b2454b759740 100644
 > --- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
 > +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-
-[ ... ]
-
-> @@ -1435,6 +1725,12 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi,=
- struct net_device *netdev,
->  		return ERR_PTR(ret);
->  	}
+> @@ -266,6 +266,18 @@ static int oa_tc6_update_standard_capability(struct =
+oa_tc6 *tc6)
+>  	return 0;
+>  }
 > =20
-> +	ret =3D oa_tc6_update_standard_capability(tc6);
-> +	if (ret) {
-> +		dev_err(&tc6->spi->dev, "Failed to read capability\n");
-> +		goto phy_exit;
-> +	}
-> +
->  	ret =3D oa_tc6_unmask_macphy_error_interrupts(tc6);
->  	if (ret) {
->  		dev_err(&tc6->spi->dev,
-
-[Severity: Medium]
-Does jumping to phy_exit here cause a NULL pointer dereference in
-oa_tc6_phy_exit()?  oa_tc6_phy_init() has not run yet at this point, so
-tc6->phydev and tc6->mdiobus are still NULL when oa_tc6_phy_exit() calls
-phy_disconnect(tc6->phydev) and oa_tc6_mdiobus_unregister(tc6).  This error
-path should return ERR_PTR(ret) directly, like the surrounding pre-PHY
-checks.
-
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c b/drivers/net/et=
-hernet/oa_tc6/oa_tc6_tstamp.c
-> new file mode 100644
-> index 0000000000000..539cbd36a1d04
-> --- /dev/null
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c
-> @@ -0,0 +1,224 @@
-
-[ ... ]
-
-> +static int oa_tc6_set_hwtstamp_settings(struct oa_tc6 *tc6,
-> +					const struct hwtstamp_config *ts_cfg)
+> +/**
+> + * oa_tc6_set_vend1_mms - Add vendor specific MDIO_MMD to OA TC6 MMS
+> + * mapper value.
+> + * @tc6: oa_tc6 struct.
+> + * @mms: vendor defined MMS value for VEND1 mdio device.
+> + */
+> +void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms)
 > +{
-> +	u32 regs[CFG0_TO_IMASK0_REG_COUNT];
-> +	u32 cfg0, irqm, status0;
-> +	bool disabled;
-> +	int ret;
+> +	tc6->vend1_mms =3D mms;
+> +}
+> +EXPORT_SYMBOL_GPL(oa_tc6_set_vend1_mms);
+
+[Severity: Medium]
+Can oa_tc6_set_vend1_mms() be called before the internal PHY is probed
+and initialized?
+
+struct oa_tc6 is allocated inside oa_tc6_init(), which initializes
+tc6->vend1_mms to -EOPNOTSUPP and then calls oa_tc6_phy_init(tc6) before
+returning the tc6 pointer to the caller:
+
+drivers/net/ethernet/oa_tc6/oa_tc6_main.c:oa_tc6_phy_init() {
+	...
+	ret =3D oa_tc6_mdiobus_register(tc6);
+	if (ret)
+		return ret;
+
+	tc6->phydev =3D phy_find_first(tc6->mdiobus);
+	...
+	ret =3D phy_connect_direct(tc6->netdev, tc6->phydev,
+				 &oa_tc6_handle_link_change,
+				 PHY_INTERFACE_MODE_INTERNAL);
+}
+
+Because oa_tc6_mdiobus_register() and phy_connect_direct() synchronously
+run the PHY driver's .probe(), .get_features(), .soft_reset(), and
+.config_init() callbacks inside oa_tc6_init(), any Clause 45 access to
+MDIO_MMD_VEND1 during PHY initialization sees tc6->vend1_mms =3D=3D
+-EOPNOTSUPP and fails.  Calling oa_tc6_set_vend1_mms() after
+oa_tc6_init() returns also modifies tc6->vend1_mms without
+synchronization while the MDIO bus is already registered and live.
+
+Passing vend1_mms into oa_tc6_init() (for example via struct
+oa_tc6_quirks or an init config struct) would set it before
+oa_tc6_phy_init() runs.
 
 [ ... ]
 
-> +	/* STATUS0 is write-one-to-clear, so this acknowledges a capture
-> +	 * without delivering its timestamp. Skip it while TX timestamping
-> +	 * stays enabled, where a capture may still be outstanding.
-> +	 */
-> +	status0 &=3D OA_TC6_STATUS0_TTSCA_MASK;
-> +	if (status0 && (tc6->ts_config.tx_type !=3D HWTSTAMP_TX_ON ||
-> +			ts_cfg->tx_type !=3D HWTSTAMP_TX_ON)) {
-> +		ret =3D oa_tc6_write_register(tc6, OA_TC6_REG_STATUS0,
-> +					    status0);
-> +		if (ret) {
-> +			dev_err(&tc6->spi->dev,
-> +				"failed to write STATUS0 register\n");
-> +			goto out;
-> +		}
-> +	}
-> +
-> +	ret =3D oa_tc6_write_register(tc6, OA_TC6_REG_INT_MASK0, irqm);
-> +	if (ret) {
-> +		dev_err(&tc6->spi->dev, "failed to write IRQM register\n");
-> +		goto out;
-> +	}
-> +
-> +	ret =3D oa_tc6_write_register(tc6, OA_TC6_REG_CONFIG0, cfg0);
-> +	if (ret) {
-> +		dev_err(&tc6->spi->dev, "failed to write CFG0 register\n");
-> +		goto out;
-> +	}
-> +	spin_lock_bh(&tc6->tx_skb_lock);
-> +	tc6->ts_config =3D *ts_cfg;
-> +	if (cfg0 & OA_TC6_CONFIG0_FTSE_ENABLE)
-> +		tc6->hw_tstamp_enabled =3D true;
-> +	else
-> +		tc6->hw_tstamp_enabled =3D false;
-> +	spin_unlock_bh(&tc6->tx_skb_lock);
-> +
-> +	/* The TX timestamp completion interrupt is masked now. Time
-> +	 * to release the queued skbs.
-> +	 */
-> +	if (ts_cfg->tx_type !=3D HWTSTAMP_TX_ON)
-> +		oa_tc6_cleanup_tx_tstamp_skbs(tc6);
-> +out:
-> +	return ret;
-> +}
+> @@ -1658,6 +1672,7 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, =
+struct net_device *netdev,
+>  	SET_NETDEV_DEV(netdev, &spi->dev);
+>  	mutex_init(&tc6->spi_ctrl_lock);
+>  	spin_lock_init(&tc6->tx_skb_lock);
+> +	tc6->vend1_mms =3D -EOPNOTSUPP;
+>  	tc6->ttsc_current_id =3D OA_TC6_TTSCA_REG_ID;
+>  	INIT_LIST_HEAD(&tc6->tx_ts_skb_q);
 
 [Severity: Medium]
-When disabling TX hardware timestamping while packets are in flight, can
-clearing OA_TC6_REG_STATUS0 before updating tc6->ts_config and before
-purging tc6->tx_ts_skb_q leave stale capture bits latched in STATUS0?
+In oa_tc6_init(), does a failure in oa_tc6_update_standard_capability()
+cause a NULL pointer dereference in oa_tc6_phy_exit()?
 
-CPU0                                    CPU1 (irq thread)
-oa_tc6_set_hwtstamp_settings()
-  oa_tc6_read_registers(CONFIG0..IMASK0)
-  oa_tc6_write_register(STATUS0, ...)
-                                        oa_tc6_prepare_spi_tx_buf_for_tx_sk=
-bs()
-                                          oa_tc6_req_tx_hwtstamp()
-                                            /* assigns tsc slot */
-                                        /* frame transmitted, hardware
-                                         * latches TTSCA bit in STATUS0 */
-  oa_tc6_write_register(INT_MASK0, ...)
-  oa_tc6_write_register(CONFIG0, ...)
-  spin_lock_bh(&tc6->tx_skb_lock)
-  tc6->ts_config =3D *ts_cfg
-  spin_unlock_bh(&tc6->tx_skb_lock)
-  oa_tc6_cleanup_tx_tstamp_skbs()
-    /* purges tx_ts_skb_q */
-                                        oa_tc6_process_extended_status()
-                                          oa_tc6_events_handle()
-                                            /* no matching skb for TTSCA bi=
-t:
-                                             * "Unexpected event",
-                                             * tx_hwtstamp_err++ */
+Commit "net: ethernet: oa_tc6: Support for hardware timestamp" earlier in
+this series added oa_tc6_update_standard_capability() before
+oa_tc6_phy_init(), jumping to phy_exit on failure:
 
-Because tc6->ts_config and tc6->hw_tstamp_enabled are only updated after
-the blocking SPI register writes, oa_tc6_req_tx_hwtstamp() can continue
-allocating timestamp slots (and frames already in flight can finish
-transmission) after STATUS0 has been read and cleared.  Once
-oa_tc6_cleanup_tx_tstamp_skbs() frees the queued skbs, the newly latched
-STATUS0 bit has no matching skb in tc6->tx_ts_skb_q, causing
-oa_tc6_events_handle() to report an unexpected event and increment
-tc6->tx_hwtstamp_err.
+drivers/net/ethernet/oa_tc6/oa_tc6_main.c:oa_tc6_init() {
+	...
+	ret =3D oa_tc6_update_standard_capability(tc6);
+	if (ret) {
+		dev_err(&tc6->spi->dev, "Failed to read capability\n");
+		goto phy_exit;
+	}
+	...
+	ret =3D oa_tc6_phy_init(tc6);
+	...
+phy_exit:
+	oa_tc6_phy_exit(tc6);
+	return ERR_PTR(ret);
+}
 
-In addition, if writing OA_TC6_REG_INT_MASK0 or OA_TC6_REG_CONFIG0 fails
-after OA_TC6_REG_STATUS0 was already cleared, the function returns early
-without calling oa_tc6_cleanup_tx_tstamp_skbs(), leaving the corresponding
-skbs stuck on tc6->tx_ts_skb_q with their tc6->ts_ttsc_pending bits
-permanently set.
+Because oa_tc6_phy_init() has not run yet at that point, tc6->phydev and
+tc6->mdiobus are still NULL, so oa_tc6_phy_exit() passes NULL to
+phy_disconnect() and mdiobus_unregister() whenever OA_TC6_BROKEN_PHY is
+not set.  Returning ERR_PTR(ret) directly, as the adjacent error paths
+before oa_tc6_phy_init() do, avoids calling oa_tc6_phy_exit() before PHY
+initialization.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-s2500-mac-=
-phy-support-v10-0-31b5a69b85b7@onsemi.com?part=3D5
+phy-support-v10-0-31b5a69b85b7@onsemi.com?part=3D6
