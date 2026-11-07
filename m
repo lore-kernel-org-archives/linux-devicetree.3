@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794046219;
-	b=jlTKlI/DprZ/vMhRLiFg5qK+TbRb1c+pQ0uzPw7NBtADhNeAa9KPGaXnrl8rwWg7Jbm2
-	 WZMmpJSVd8TrQQVGW4yhd4KtdgvwcTwZirvFVnxKhKdD6Sc1Sqxc1673pLQKY6tvI7/fu
-	 bt7cpqTh3+W5f9nse8UuTeTf96jULSnOFjO1ruo7mwbMPBvBe+hhuwxBXGBmZFbTnI4X+
-	 3ls6RuFs3z2g0snyXQo4mXgkMkhYRa5TftADekXww+mwUsvR77H5SeDlvnZ3zY07jqlxz
-	 2f79Chzr11x/cpyMOuliHXj9vRbbXf+Xf2Ok8WCjMwV5bcsxfsK7CfhRYHFIuNot5GQ==
+	t=1794046437;
+	b=dLp6VZzT9bbxSrW8UsU4NS1kKN8S+ELYqQE5JSOsS75wb93fChYIzKUolEY07ppjoj66
+	 ETDBFTIBIGqJvghte8DYqWdadxZEMkbpAP/QwY00YPaxfPD9jQ2hKz495UDwIzUtxinD4
+	 cNyyxw7A+XTzF0qZlFY+m0/g8aavjyyN8fbcWxCSyVBd4m8HbrJBKr7zqRLdgEjxoISLf
+	 3jYKRSuj4XqERFKiuT9tXfQy6TQnjd+NxaAj7k5MkM4hREp5jhxZqT/9zAMKq/4S8qC2i
+	 LkO2peodiphen/Y9U+vo0+OVllhaLD7Rn0+EjLLeKh4qbL5M/sBiXYBVkPJPg5HTDUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046437;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hCl9zuACLpk26Br6YG5VYwrXg2uXCdyvVsty0gFOsYM=;
-	b=lwwVXb9xS/V6GOwHA89TKGUKgJ2TMSIK29ah0o3oSsM2KUr9cbqLW8m+1vAXurqo0BA5
-	 Jctm6vRHJBFXfbcbpSBHxg1IzQLr96Eqe+YvTfnBiqd/3rRuM3idxzRRk+AzFMj5X7b3T
-	 sfka2+Y/DW235O/BtRPJQacgoM8uttP7PlTMQddEzI788PU7s/UrNCqTbHi26Rvfs5fas
-	 oRYN25s9ZJfAgIWHy3JQVJPVwt7EXrU71XFdoiQFz/chDRpGbj4ItGN4sV1pvFbJugBx5
-	 FctdgGpU2bVeAfAOK39bMKDYTjDeyr8tlgJx/U/2xiOgWvTkHt8LL/EMgeYbF8Hl1Ew==
+	bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+	b=EjaIrV5R+hfQV+NLmghhfLt1uGG6xkhukk4AXhDEEwbCpUqAuwwr4+HXVCjbo9kXAXaz
+	 TclTrMQA7PZpVfOctx7hvnicvfB4t+mw+5h/AN6ntmBj7879oUt0OmS9BPrKKx4KzACeJ
+	 /yGxu+Fz9bmz/lO+Sada7SgYrFAp3rUICVCE5ALJGzn2wnol8QKgwreRwyMZ4m01FGFI+
+	 D1CUOTwsO7ab5X7okZlqfIo5JH3couxsQxavmd/PnnGCjfG38UwZvDWNzT7H9d+jsvhA8
+	 sSa1GsMPomv4rcHWrAbVAigLXVykT9yoyzL4TUW/NU7ipZPHy84gB8ObxIezoOlQd1Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mqF2/7px";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STv38oHW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EE1606A330
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 10:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30EE1606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D2F606A338
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 10:13:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4D2F606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mqF2/7px
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37071c0f42aso1926635eec.0
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 02:10:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794046218; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STv38oHW
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-37198ed3727so125479eec.0
+        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 02:13:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794046436; cv=none;
         d=google.com; s=arc-20260327;
-        b=F4ZtV+Q/RYU5cWJMZHQHRZQVUE1ka5kyYaNULS5AAbuPrwt/Y4USUHeLY+ThrZM+Sf
-         IAr+Q1yTm9cjiXLVIpKl9/Ml5/8HVFiiXaxXjZarIqD1871jw3CqmrbuFZ9P7t2xCog7
-         9/WSBF8XW6l/rqqmIZQp0u3cT/NyOfvtDuSS0rSgs/DxKRXy6bcMaFhttksXjT7xcyzm
-         fEXUh7+CfQkBOVWdhvqMGblaxOMnBt7X206mxYtoASTOXmaTE9iEf6gom1bXA3bx4y4z
-         4x6VwwWVuvjzEBCBeXh7vPyBE7qoRLVL8yPYdaUmVra6/Nu+vXpw0tsUHq9CBMhHsx2T
-         IZpQ==
+        b=ec0jcsy81bEYwhiNa+EE09ZOZLxLlgtfZaZ/xwc02JJc9xeNeWR/JB2rVZ3SqvTk9N
+         nWdgdZL5+pFog2TJ/278NfgUbHsk8z3oJtQAF1FpL2rG9M1WHzAnvfuf2+PfULBT8HdO
+         w+slvhJSIrpzqiIxbx2jnmBww5xKEOrmZLBnLzt+yYoS1FeAhlIgETZECfK584TiyBlz
+         tXFfbVTjJpqRd9yqbuTyspIUpTfAtLqZ6f0s1W9xSBO/3kPt5Zd7QKKJbzjfsAe6kND+
+         tALpmqTrOIH4cQqJYLVN7Hbvmulc2hJRAVnB2WBg7Fj3xhzQnkSPwo1pX8XwNofGM/P3
+         loZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=hCl9zuACLpk26Br6YG5VYwrXg2uXCdyvVsty0gFOsYM=;
-        fh=L4zs8w85Sfdwx1Rv7SAkPAhGtNLzMdX1mgTFwSUkpIc=;
-        b=OYU13b2/tVMT2Gp5Gwvim+MZfyowKDalfZ34QnoIBqaoiG+aMfH4E1Wm46G6vm+bLT
-         KEzNBRJpiX2W2FRIZVmc9k27PszITKPwYdKsJHZUK5MV5fAmDKVkRDu0pFNszyOx/spB
-         Eb+h1nOR6yjNQEIWliyCe+PAOWm2pmHzmkGoW8ySOVdOPUZF9Vimebbl2DdyWubN9XLi
-         RsqUvsDDvaxdP+W0vpJULvwwAouH1Ka0nkSQAdTxeLyqS1/0pRpJle1IPqXEhGwwu7HO
-         FdsBbV3Srqw3qwPH6XHWX99+YwB72EOqT57+ywc3CWR4xuPGd3yNWjDq5f4zanH8qgbU
-         wBxA==;
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        fh=yJRcDFYvw6hJ3+FGJ3Zy6TXH46evcyc5qjsvSAxCpNI=;
+        b=d7QGW8/rvibN4M/CVtqREijp40Ut3eJmMFSoD4Fu/s7IEsE6yOBr6Sk42XWcgfdnQw
+         Cfob123eo3Cg6MrgZiI2A2uH0xgq3jUwNJlN8eJQrP/AB2DGGQ4d/sTwTr6zLj1WjyZV
+         kbwlvnNI8xKmFNZg3h+e6DfyQNhewXsdIB2YxawqVBMUnW716be/AWJ8rA4uAhDiBR/+
+         0z+xbxaXjEfpWlVMJuB3kk8MjUSvWL0VG98zenBJZiqLGUL9Itq/BCcPfDWENSjmKvTv
+         YqoA6PPZMspXwm/Czcw+IZkkhKGTnMX6OkPs2jBtuQ7gNAg+k0/6wjpCcRvltLrQYeKW
+         2xnQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794046218; x=1794651018; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794046436; x=1794651236; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hCl9zuACLpk26Br6YG5VYwrXg2uXCdyvVsty0gFOsYM=;
-        b=mqF2/7pxuXrGosqT4DSNgVNPbzJ1NtX5iQs53NhZwR8xxSI+D/6MVM5o9f3tM6ezCj
-         HFepsPHsxY5rx7ezV1SRLR0YGB+WJbLgrd7zYAwnJkQNV60XYEX8qaVUMIw+JNYBWSX5
-         htJ8T56C5i/RPYPGMmqpVY3yLilgi5V0zbGaDu9QSJ1F+Xv9kwZhW8TMj0Eg+jXr8G2B
-         8MB0Jj3py6gnDGYajJ9nwG4vk1rQMTLbMYIFRY7b3p38oXFyHz3uhdh/xRw3TKXc7ke9
-         0JT1LcdgMqyFUTgxmTQov5ZeZp86W90n0xUqnqFr+sTiC6RcdYUVMf9MiVyOjvmopNDX
-         r6Vg==
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        b=STv38oHWBm3TrNxUeMnYg5aD1OrKml1+khBJ8SmsZRR+6m3AurmhzGOXu2DAird0k6
+         HPwKCvLnRUFUHb3iLp84oDifqjWUfY/0SAnSzzt+0YoN8mI7FqBmgFMsKigLSoZXfOM9
+         mzNXbW6tcg+tShKsWPinsMJYrHppnfM5TT7yXjS/Qe0rhZu2YHFK6RTlkX6Jd/cUXiy4
+         GrZyIA+tRCF2Nd36U3mG2vNzAstnGIMlELXHcbRqi2NcbJhv6EqoB11eXhU8KsExbJ+V
+         5UQPiGoLs5OBS4CcVvhnn1bX2eZ/J45pKw+c/LPIavX+bND7vVM98QM88NsHCSezlQf0
+         lIXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794046218; x=1794651018;
+        d=1e100.net; s=20260707; t=1794046436; x=1794651236;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hCl9zuACLpk26Br6YG5VYwrXg2uXCdyvVsty0gFOsYM=;
-        b=BAJtykHoyQxs5SML+chsjhiZODKqIH3J/glydH52rKXp5IhU7u5T24gPXzBRyBuQlo
-         E5iQyIFuGHHN2JbadAGG6ET8GDyL9sGBITKFA2smt0z8yTraYGFeWUdrCRqAYXctr4Bp
-         cvhKzMQNDB+IqvZAroKunHqoEOFhwNWhsNC1ihXiPdAEJt20iQl1ZaypOr12tqTBDP/o
-         otkavWvYTHV1eMYTKDiMNqGygOH5QQnKhIT76MNkNbbdfZ4VEdaEOQbIwYp0qTyEZmJY
-         PBQNpYnYNKGOnEdNIqMe1hxxVMzl5QklV+T66bIBsmXqCkzYSlXVgtqErF8hKx4vUu4T
-         g5YA==
-X-Forwarded-Encrypted: i=1; AL+hErEc2tnkY7O0OLAdfh+DUjYYXEKr3roVAy7lQS9pOonRmoLiBkYSAo3/D6YW/FpWeAFI+ttH3fptRptK@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vqbBI0FfKZNL0Q3iSgtqmF9H3qBlFLjp2J95HYXkZmV/sN3Ll
-	cPx89I7Gv5HkKki+70wfDQ5JgKnIEeiNkhNzBL2eSNSdl9sCboz2ufHWUKGVxq2sPCp60N32+Mo
-	qBB8LwD5lACAFJKLx/1uuNJB05NIytRk=
-X-Gm-Gg: AYBFou29tbydwE0uG0I00dZsL6scmDvyPLNXRw9+il5uyI89BVWgtezQgibks5FwFnh
-	wZn8pkWTtilvOYll/gePaYQRCdzVjgh6pgIwLOicaIfBk0JMDOdU1rpYKov/ZkLiSrL55LrfXkT
-	eF11AdPwmqw2l1Ad5CS/FYknAPGJHAjvo8asQ6/vEV7Vd+vLfri57Hg1bghpnp3XYMkuXjJ7cSj
-	srp/aBSbs1CxnGYgdncxp7MICGj8UBCXmsBf6TKsH04C3/YZHuEq0sZo05z27naCzEcFRN06TqD
-	R8B7y4IB4GSPRbq3LYkYBBsns5zxtyUJSpiwJ21B0NXLBLlQsYwGsITsWh2p6hPpictKKR0lign
-	vWzev+uGSKXbFKHsSeSF/BU8btPH2I8gvXEPYr2EvyMOpt8FG488pFK9b28AQD5d/3Cvxn+JvGS
-	dGrTX7u+S+fP+X92uYeI3GohurhvzjCQ==
-X-Received: by 2002:a05:7301:da8c:b0:36a:6106:4f63 with SMTP id
- 5a478bee46e88-36f74e581c7mr6838802eec.16.1794046217888; Sat, 07 Nov 2026
- 02:10:17 -0800 (PST)
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        b=XHYFi7njP1Z3r3oNbpA6HuGfaA+ZuPBGQOCMKeHOirbUoRo/wmKCmuDHjDjniBYNj3
+         26Mr3hNY5OLC/szYWKRSvOO91M+1RLr2f1j0LK+V/MUVSQtW0tzSupWbeK5SsqXim+Xm
+         IMkEInzfQk2QPVdPI7M77GUKszLcOlJmSvv1JMyXp5nlPjOYATyoXguFaAFEm+Nm0jPz
+         ZfRHhAjL0pVsXUgEhIk7iJZkyrDO26njEDEkvuiCl2ubn4R8mIt1QCK0cSjFEeF0UcNC
+         Hp0EgG2DJigjJYuhMCouX94mbezVFmzRhzoPJlWgkf1MWA8Xd/2KfJZcQPlvcq1c8ebd
+         a+zg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeLclxeGglJI9NDvm+vViWPyWvAd4zWjbdBRak4BnykZ0YvioTVNtGB8h6tt2UYvRu62Q99dnEg2Q7@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ees61obh/3Dtd/9L7lGPyfj7DEQ83pZrHWZLskF2b70N2gd+7
+	A7mSuhrn1uT3btPrXSWCfeqEoCq/5Xe+oXfsPOGLjBcTkb13c4eZIYl+d+fZznfAjuLgdxP8rmA
+	cqUOhSUH6NpD/Jxr0BxDhYHCt8aTxxAM=
+X-Gm-Gg: AYBFou1LA1GxKHrK56XXeDi1JHn7Wvz0e9P6qfFuMS/Ecx2kRIe8qiLnu2CMn+h4372
+	CIanscpLQhQghA0bmYjaXH/lxJB1dB5FeH/wHaqpsCTdseXcOl1tMIPtb6xFkUmV+ZY019aPU4W
+	1qqjmoatzRo99deowtqCYlyLoOVWNL+xXHt7XwyU4BvDPwKTx5ClcMvsuY/5ISqXym3QKhyU11V
+	NnAUc/TUHGzQLGz/5E7w9i8DxdqD52BMntJk/MEuc4JCofbodLWFYsVOs1cYwR0/3i9LImKA6AR
+	4j0U3L9d4UWyASZhF0KIDvPQ3eDFBijeyrHWo3x4+AgJj78rLQfDnb/TlcyS6RWj+mkkKCyNv9c
+	Cric0HmVi7yxIjAZXZc4fqS2JFMLRSjaEmwwBh0W71WIR9GyEQG841c4iDIFlV4y+vBoyhZVe/Y
+	fpOTi+jRPKOtTNX3bJQqrkjwTeXnaxHA==
+X-Received: by 2002:a05:7301:d810:b0:36a:37:1404 with SMTP id
+ 5a478bee46e88-370f6018313mr2820026eec.13.1794046435857; Sat, 07 Nov 2026
+ 02:13:55 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,15 +105,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106091943.35783-1-clamor95@gmail.com> <20261106091943.35783-2-clamor95@gmail.com>
- <20261107032042.0dd311fe@jic23-hlaptop>
-In-Reply-To: <20261107032042.0dd311fe@jic23-hlaptop>
+References: <20261106091943.35783-1-clamor95@gmail.com> <20261106091943.35783-3-clamor95@gmail.com>
+ <20261107033029.0b2d3ee1@jic23-hlaptop>
+In-Reply-To: <20261107033029.0b2d3ee1@jic23-hlaptop>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 7 Nov 2026 12:10:06 +0200
-X-Gm-Features: AclHuK9Ans9GsBXt-Xcq71SJaLUNKPLtu1bbEbUNSMYW5pmtGCOH2bEC3JfY9dQ
-Message-ID: <CAPVz0n33sktTgdWge64c+XVSDiijXgyY-uRfcpywhJ6LHjPPEA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] iio: light: ltr501: Switch to read_avail() op from
- manual attribute registration
+Date: Sat, 7 Nov 2026 12:13:44 +0200
+X-Gm-Features: AclHuK-9FSK6jNcHRsjMbOe31zQJwCb0DbuTYhYwvEmeWJ2hyCpsHkhiOXfzBM4
+Message-ID: <CAPVz0n250nXs5A4BDY-sXW=eBLAzSn2x9CA-Zf692x6La3rFBg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] iio: light: ltr501: Switch to modern match mechanism
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
 	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -127,121 +126,175 @@ Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@ana
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D0=B1, 7 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 05:20=
+=D1=81=D0=B1, 7 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 05:30=
  Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Fri,  6 Nov 2026 11:19:40 +0200
+> On Fri,  6 Nov 2026 11:19:41 +0200
 > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 >
-> > Switch to the read_avail() operation from manual attribute group
-> > registration. This eliminates the need for per-chip attribute_group
-> > structures and related ltr501_chip_info iio_info entries.
+> > Remove the chip enum, break the chip list structure into individual
+> > elements, and pass each element using i2c_get_match_data().
+>
+> Sashiko calls out that for ACPI this results in an ABI change.
+> The original code did the ABI wrong but that unfortunately doesn't
+> mean we can change this one as it is an artefact of a time when
+> we weren't so careful about those names.
+>
+> So you'll need to put special handling back in for the ACPI parts
+> and that name. Some other things in the existing code noted inline
+> that would be nice to clean up whilst you are here.
+>
 > >
 > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Given you were quick off the mark on sashiko on v1, I guess
-> you already saw:
-> https://sashiko.dev/#/patchset/20261106091943.35783-1-clamor95%40gmail.co=
-m
+> > ---
+> >  drivers/iio/light/ltr501.c | 165 +++++++++++++++++--------------------
+> >  1 file changed, 74 insertions(+), 91 deletions(-)
+> >
+> > diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> > index cc5d7af44d77c..d5ce6468a229b 100644
+> > --- a/drivers/iio/light/ltr501.c
+> > +++ b/drivers/iio/light/ltr501.c
 >
-> It seems correct that you'll only get one attribute where there were two
-> before.  I suspect it's as simple as the mask should be set of
-> shared_by_type_available not shared_by_all for scale and shared_by_all
-> for only sampling frequency and integration time.
+> > +static const struct ltr501_chip_info ltr301_chip_info_tbl =3D {
+> > +     .partid =3D 0x08,
+> > +     .als_gain =3D ltr501_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr501_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0) | BIT(1),
+> > +     .als_gain_mask =3D BIT(3),
+> > +     .als_gain_shift =3D 3,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr303_chip_info_tbl =3D {
+> > +     .partid =3D 0x0A,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
+> > +     .als_gain_shift =3D 2,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr329_chip_info_tbl =3D {
+> > +     .partid =3D 0x0A,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
 >
-> The current code is odd in having per type sampling_freq and integration
-> time as both apply to the light channel as well I think.  Not vital
-> to fix that though so I'd just split the mask to make it work for both
-> as it does today.
+> As below.  Same for all the others.  That would be a separate
+> cleanup patch though -> perhaps do it with getting rid of
+> the als_gain_shift.
 >
 
--       .info_mask_shared_by_all_available =3D (_shared), \
-+       .info_mask_shared_by_type_available =3D (_avail_type), \
-+       .info_mask_shared_by_all_available =3D (_avail_all), \
+This is all out of scope of my series. I am not a code janitor!
+
+> > +     .als_gain_shift =3D 2,
+> > +     .no_irq_support =3D true,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr501_chip_info_tbl =3D {
+> > +     .partid =3D 0x08,
+> > +     .als_gain =3D ltr501_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr501_als_gain_tbl),
+> > +     .ps_gain =3D ltr501_ps_gain_tbl,
+> > +     .ps_gain_tbl_size =3D ARRAY_SIZE(ltr501_ps_gain_tbl),
+> > +     .als_mode_active =3D BIT(0) | BIT(1),
+> As below
+> > +     .als_gain_mask =3D BIT(3),
+> > +     .als_gain_shift =3D 3,
+> > +     .channels =3D ltr501_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr501_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr559_chip_info_tbl =3D {
+> > +     .partid =3D 0x09,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .ps_gain =3D ltr559_ps_gain_tbl,
+> > +     .ps_gain_tbl_size =3D ARRAY_SIZE(ltr559_ps_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
+> Is it really 3 separate bits, or GENMASK(4, 2) to
+> represent a 3 bit shift?
+>
+> Whilst you are touching the driver can we get rid of the
+> separate shift by using field_prep() field_get() using
+> just the mask?
+>
+> > +     .als_gain_shift =3D 2,
+> > +     .channels =3D ltr501_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr501_channels),
+> >  };
+> >
+> >  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8=
+ ps_val)
+> > @@ -1393,14 +1387,11 @@ static int ltr501_powerdown(struct ltr501_data =
+*data)
+> >
+> >  static int ltr501_probe(struct i2c_client *client)
+> >  {
+> > -     const struct i2c_device_id *id =3D i2c_client_get_device_id(clien=
+t);
+> >       static const char * const regulator_names[] =3D { "vdd", "vddio" =
+};
+> >       struct ltr501_data *data;
+> >       struct iio_dev *indio_dev;
+> >       struct regmap *regmap;
+> > -     const void *ddata =3D NULL;
+> > -     int partid, chip_idx;
+> > -     const char *name;
+> > +     int partid;
+> >       int ret;
+> >
+> >       indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
+> > @@ -1480,18 +1471,10 @@ static int ltr501_probe(struct i2c_client *clie=
+nt)
+> >       if (ret < 0)
+> >               return ret;
+> >
+> > -     if (id) {
+> > -             name =3D id->name;
+> > -             chip_idx =3D id->driver_data;
+> > -     } else {
+> > -             name =3D iio_get_acpi_device_name_and_data(&client->dev, =
+&ddata);
+> > -             chip_idx =3D (intptr_t)ddata;
+> > -     }
+> > -     if (!name)
+> > +     data->chip_info =3D i2c_get_match_data(client);
+> > +     if (!data->chip_info)
+> >               return -ENODEV;
+>
+> As above. Unfortunately at this point we'll still need to
+> do some special handling to match the existing indio_dev->name.
+>
+
+const struct i2c_device_id *id =3D i2c_client_get_device_id(client);
+
 ...
 
- static const struct iio_chan_spec ltr501_channels[] =3D {
-        LTR501_LIGHT_CHANNEL(),
--       LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH, 0=
-,
-+       LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0,
-IIO_MOD_LIGHT_BOTH, 0, 0, 0,
-                                 ltr501_als_event_spec,
-                                 ARRAY_SIZE(ltr501_als_event_spec)),
-        LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR,
-                                 BIT(IIO_CHAN_INFO_SCALE) |
-                                 BIT(IIO_CHAN_INFO_INT_TIME) |
-                                 BIT(IIO_CHAN_INFO_SAMP_FREQ),
--                                NULL, 0),
-+                                BIT(IIO_CHAN_INFO_SCALE),
-+                                BIT(IIO_CHAN_INFO_INT_TIME) |
-+                                BIT(IIO_CHAN_INFO_SAMP_FREQ), NULL, 0),
-        {
-                .type =3D IIO_PROXIMITY,
-                .address =3D LTR501_PS_DATA,
-                .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
-                        BIT(IIO_CHAN_INFO_SCALE),
-+               .info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
-                .scan_index =3D 2,
-                .scan_type =3D {
+indio_dev->name =3D id ? id->name :
+iio_get_acpi_device_name_and_data(&client->dev, NULL);
 
-IIO_CHAN_INFO_SCALE is by type and IIO_CHAN_INFO_INT_TIME and
-IIO_CHAN_INFO_SAMP_FREQ by all
+Will this be acceptible?
 
-> The current way the two Intensity channels is done is very odd.
-> The .info_mask_shared_by_type should be the same for both of them
-> (only one set of attrs will be created).
-> Ideally fix that as a precursor patch (don't label it as a fix
-> though as it's just a code consistency thing rather than actually
-> resulting in a change.)
->
-
-No more precursor patches! I am just a random contributor, not a
-driver author, not a subsystem maintainer, not even a random code
-janitor. Stop using me for random unrelated fixes!
-
->
-> > ---
-> >  drivers/iio/light/ltr501.c | 153 +++++++++++++------------------------
-> >  1 file changed, 52 insertions(+), 101 deletions(-)
 > >
->
-> >  static const struct iio_info ltr501_info =3D {
-> >       .read_raw =3D ltr501_read_raw,
-> >       .write_raw =3D ltr501_write_raw,
-> > -     .attrs =3D &ltr501_attribute_group,
-> > -     .read_event_value       =3D &ltr501_read_event,
-> > -     .write_event_value      =3D &ltr501_write_event,
-> > -     .read_event_config      =3D &ltr501_read_event_config,
-> > -     .write_event_config     =3D &ltr501_write_event_config,
-> > -};
+> > -     data->chip_info =3D &ltr501_chip_info_tbl[chip_idx];
 > > -
-> > -static const struct iio_info ltr301_info_no_irq =3D {
-> > -     .read_raw =3D ltr501_read_raw,
-> > -     .write_raw =3D ltr501_write_raw,
-> > -     .attrs =3D &ltr301_attribute_group,
-> > -};
-> > -
-> > -static const struct iio_info ltr301_info =3D {
-> > -     .read_raw =3D ltr501_read_raw,
-> > -     .write_raw =3D ltr501_write_raw,
-> > -     .attrs =3D &ltr301_attribute_group,
-> > -     .read_event_value       =3D &ltr501_read_event,
-> > -     .write_event_value      =3D &ltr501_write_event,
-> > -     .read_event_config      =3D &ltr501_read_event_config,
-> > -     .write_event_config     =3D &ltr501_write_event_config,
-> > +     .read_avail =3D ltr501_read_avail,
-> > +     .read_event_value =3D &ltr501_read_event,
-> > +     .write_event_value =3D &ltr501_write_event,
-> > +     .read_event_config =3D &ltr501_read_event_config,
-> > +     .write_event_config =3D &ltr501_write_event_config,
->
-> I'd prefer a precursor patch tidying up the indent as that should make
-> the diff on this patch easier to read.
->
-
-NO, either this, or I can drop alignment adjustment and you can fix it
-on your own whenever you like.
-
->
-> >  };
->
+> >       if ((partid >> 4) !=3D data->chip_info->partid)
+> >               return -ENODEV;
+> >
+> > @@ -1502,7 +1485,7 @@ static int ltr501_probe(struct i2c_client *client=
+)
+> >       indio_dev->info =3D &ltr501_info;
+> >       indio_dev->channels =3D data->chip_info->channels;
+> >       indio_dev->num_channels =3D data->chip_info->no_channels;
+> > -     indio_dev->name =3D name;
+> > +     indio_dev->name =3D client->name;
+> >       indio_dev->modes =3D INDIO_DIRECT_MODE;
+> >
