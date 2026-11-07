@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794022558;
-	b=nhGzcdBEPNb6DwPvzPh5wkOknRlQy1ARcBn7PLQJljmUPHBzvavLOmxVkbBe5eH4vBd3
-	 Mg1EGzxYb5ArFvqGQ6FY6pydzge6A11x2z8SrqVIE14nA94oBEUkMXv6y+w0gevJlKKLl
-	 N/TXB70uLQDJMWrLmC284orAgMlfscgs3Oq10acpzgegkYva5F0jCUXZsISesqmUGH1uQ
-	 /c3vcODxBl6+3jb5JraK1JmujMrg/nKQO6T/XqHWt1oZ5eYosTY3EsDuEgTKjmd14yENi
-	 AhcJcNETv0R3g3nwuNr121FXYPuQQhCfv+g28Q57KUiHQME3Rmn8kI4FYHkTqdefmiw==
+	t=1794022565;
+	b=Zf5UIqUNeCeIAw1VrvjYkAHH0Sl6Ii7yyAyoui3DJJGAGTIfRufkVVQ6EJv6pJax/wQt
+	 Tgdto6m/QYMiKBzuGrxizVel7YpwXserrF3qIvl+g9IKy0ZqByBA8mE2HD1PGdan8xsEA
+	 cC3yq8TOhjp+vg8H211SHb49sCC1BG2XJ0SQZyEgv5r5pil2mrxuXwDzVtbbtQmC1LKOy
+	 L/7qWFLiHZ+lJ+SPBY5TkHGjgniUb1HHJnIBPIiOm9gYk21iHnvdKXyeELX+NUQ7XJCzP
+	 yDRioYKnb1OfFgyCncKW9Uz/EeIg/XiiLCreaOvy2REr+jF2BWmzZ5IWzyET/RA8UwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794022558;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KgaZ62oSa00oA9mQS/DfUIyhLFgBJL1fbVfHwuLm/0U=;
-	b=yOoPaeVj1rB8bJ6Sri9g89ixCAK83+xWbZVnQt40oFKEJE7T6Ym8uOEorpmyRbvKu5+c
-	 q/PXFOUbY6bRkqrYG0ZxcdUx5L14vmADobl09V2eLnDnvPWcbnqxCGDwwJim5jH7iTlHX
-	 us3C1y9/+p8Qjw6MlxcsV/rF3AuHlopIBnD8Jx7ywjlc49b0/t1x/T5bCaLJx9/7C/77j
-	 RvjDCGwOMAGDT4dtvgLufa2nZ53VCUDh3Q8V1Dx6lXATVvw1cRLOwSAq7aCur4DpzUeCR
-	 8Z0VdSqgUIg0Kxv4Nh7zCJTNn0OHklcNkAfszYfrB+StCA8wGTXL3Kt2+TjP5mpDUSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022565;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+BQSzNcah1bnmw5EAAbW7rpsJAxZwyuu1UY9Vsy3Ah0=;
+	b=IuWg0pRTnKvltqy0qPa3CAQy0rkBl8IHOqaXBHxv38ezU43LqfSVe+vdQ/CXAqYuT/my
+	 qFuvU+GyXekf8JlMJAKCQubdqnaPT0K2xTMoZdT6+foPL0BI0WIcfNrIlJ0Be0tcpzlg1
+	 xpMhsSFXTkQmQMsYgmlcDRiF/v7X0KqL4TlzxH3ccmfFEJl/Ku/pLV+JNWzhgWY56e3e9
+	 enU7T1XD68+T8k+GDOnjx0l2/+xPHt/lsD4n0YSL6jKSf39ajkSr0xExq2ipC71oC33n5
+	 zE2CDQB1WNSnqcSCFfEaI8WltoQwSeMg4156gx9MuKdTO+3g5LVQ+Sn84qEkXeglIKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrEbFcbX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuruANSO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0146F606A326;
-	Sat,  7 Nov 2026 03:35:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19078606A32F
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 03:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrEbFcbX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B131F0089F;
-	Sat,  7 Nov 2026 03:35:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuruANSO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AABE1F0089F;
+	Sat,  7 Nov 2026 03:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794022557;
-	bh=KgaZ62oSa00oA9mQS/DfUIyhLFgBJL1fbVfHwuLm/0U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QrEbFcbXL8YtqePGg360aL/IUtwgqELEWhHqDqb3YTK+qyfITfNzQSBKAWGFl9VQ+
-	 iyRYocFCvXWN43ih35bEYsaY/ht89KYf2QlFWRCl1fDVsATK/2ldrh+NbW/ed6xQUW
-	 YJ6NKsYcV8sca1El91XQsOZuaBmq2aenkvrnEINUtVpj658c3jDNbqJ93O7getmZIO
-	 XBu23OMpIuxeEYsGkYqXav5cYqbUWxsQR6SNxxUD/U0IbG5Jz5FE2xvg2FAMcaeepn
-	 9EOlXZPjZt+trt8RiULb+jzYplZtao+3R2FKSgtxpTesA1ydAEWkpEyTDXN+0OqAHp
-	 IMRVP43KsRlzQ==
-Date: Sat, 7 Nov 2026 03:35:53 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>,
- "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Dragos Bogdan" <dragos.bogdan@analog.com>,
- <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 0/2] iio: adc: ad7405: Add ADuM7801/7802/7811/7812
- support
-Message-ID: <20261107033553.362bb0e5@jic23-hlaptop>
-In-Reply-To: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
-References: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794022564;
+	bh=+BQSzNcah1bnmw5EAAbW7rpsJAxZwyuu1UY9Vsy3Ah0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XuruANSO8NLYlcXzJOKFwdwlPeJK8x42JvOpwLUB2opCKjKyq/sPgh48VjEPEH1ey
+	 g9J0Bg3ELZ1wm3b4kGdq1IaKUFBBDKXzXi4cVZNa53VBlXQ4y/FPVx5Wku5bjJvMAx
+	 4X8Ij5ISwXmogRofHsouTFd3mdITVzdprYkAtxBbyuWVZoQnp6476KsAfbLuS5bej+
+	 Nx4PYQPnbOyx9l4+7OXh5DnvTVg4hyA0L2wXfXdZaOomEcpit9w9t9SF0ibf8Jiz8J
+	 MxQtHjKvrB2uV1njSU/OxhkABwB5tO6275HDYr9wBPY/53pxXp3Ub1tU7HadDdCnlS
+	 zqoGUjCyop8rg==
+Message-ID: <sashiko-outbox-202533@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v24 2/2] pwm: Add OpenCores PTC PWM driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hal Feng" <hal.feng@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107031251.98972-3-hal.feng@starfivetech.com>
+References: <20261107031251.98972-1-hal.feng@starfivetech.com>
+ <20261107031251.98972-3-hal.feng@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 03:36:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,39 +59,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 6 Nov 2026 09:39:35 +0200
-Pop Ioan Daniel <pop.ioan-daniel@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] pwm: ocores: clk_get_rate() called before enabling clock in
+  ocores_pwm_probe()
+- [Low] pwm: ocores: unlocked and pre-enable clk_get_rate() in
+  ocores_pwm_probe()
+--
 
-> This series adds support for the ADuM7801, ADuM7802, ADuM7811 and
-> ADuM7812 isolated second-order sigma-delta modulators to the ad7405
-> driver.
-> 
-> The parts are compatible with the existing ADuM7701/7702 handling and
-> differ in input full scale and maximum master clock frequency:
->   - ADuM7801/7811: +/-320 mV full scale
->   - ADuM7802/7812: +/-64 mV full scale
->   - ADuM7801/7802: master clock up to 25 MHz
->   - ADuM7811/7812: master clock up to 50 MHz
-Applied.
+commit 33c73933621c3feed0e1d70460454bd0821561cc
+Author: Hal Feng <hal.feng@starfivetech.com>
 
-Thanks
+pwm: Add OpenCores PTC PWM driver
 
-Jonathan
+This commit adds a PWM driver for the OpenCores PTC IP core.
 
-> 
-> Pop Ioan Daniel (2):
->   dt-bindings: iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
->   iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
-> 
->  .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++----
->  drivers/iio/adc/Kconfig                       | 14 ++++++++--
->  drivers/iio/adc/ad7405.c                      | 28 +++++++++++++++++--
->  3 files changed, 57 insertions(+), 10 deletions(-)
-> 
-> 
-> base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+> diff --git a/drivers/pwm/pwm-ocores.c b/drivers/pwm/pwm-ocores.c
+> new file mode 100644
+> index 0000000000000..4c7e87cb009f6
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-ocores.c
+[ ... ]
+> +static int ocores_pwm_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct ocores_pwm_device *ddata;
+> +	struct pwm_chip *chip;
+> +	int ret;
+> +
+> +	chip =3D devm_pwmchip_alloc(dev, 1, sizeof(*ddata));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +
+> +	chip->ops =3D &ocores_pwm_ops;
+> +	ddata =3D pwmchip_get_drvdata(chip);
+> +
+> +	ddata->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(ddata->base))
+> +		return dev_err_probe(dev, PTR_ERR(ddata->base),
+> +				     "Failed to map IO resources\n");
+> +
+> +	ddata->clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(ddata->clk))
+> +		return dev_err_probe(dev, PTR_ERR(ddata->clk),
+> +				     "Failed to get clock\n");
+> +
+> +	ddata->clk_rate =3D clk_get_rate(ddata->clk);
+> +	if (!ddata->clk_rate || ddata->clk_rate > NSEC_PER_SEC)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid clock rate: %lu\n", ddata->clk_rate);
 
+[Severity: Low]
+Does caching ddata->clk_rate here without locking the clock rate via
+devm_clk_rate_exclusive_get() and after enabling the clock leave the
+driver vulnerable to an invalid initial rate or runtime clock rate
+changes?  If the parent clock rate changes after probe, ocores_pwm_apply()
+and ocores_pwm_get_state() will compute inaccurate periods and duty cycles
+from the stale rate, or violate the NSEC_PER_SEC bound.
+
+> +
+> +	ddata->rst =3D devm_reset_control_get_optional_shared(dev, NULL);
+> +	if (IS_ERR(ddata->rst))
+> +		return dev_err_probe(dev, PTR_ERR(ddata->rst),
+> +				     "Failed to get reset\n");
+> +
+> +	platform_set_drvdata(pdev, ddata);
+> +
+> +	ret =3D ocores_pwm_runtime_resume(dev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Low]
+Should clk_get_rate(ddata->clk) be called after
+ocores_pwm_runtime_resume() enables the clock?  The clk API only
+guarantees a valid rate once the clock is enabled, so querying it before
+clk_prepare_enable() can return 0 (failing probe with -EINVAL) or a stale
+rate on clock providers that compute their rate on enable.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107031251.9897=
+2-1-hal.feng@starfivetech.com?part=3D2
