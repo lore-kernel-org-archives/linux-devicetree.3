@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794037897;
-	b=njCw7umwS13VQxdaHYDrgfju+yygHUEXqlEHgU55bkK4nstKuRXp/Z2639rfb8iAuWN/
-	 KS/cNmvxQo5H1/ErSDM6tnByGibkQyH5X7TINN3d3Fgc19uXjheheC0aQ454sgUK2JRju
-	 Y997++7V8pD1DgYiZC8E70nNkeODsg1EZB3eN6mPMY2bzzWh4SbsY2s3P/NDMR5Ijz4v/
-	 12n5NkfPGIGEviSOsZcN/AZ1atIsAgJrJOZSiHul4BsgLHyml+A1WquphGe/s17A6vKlT
-	 Ic2xCOgOl318WzjDr0HOd+NWRj9ubsh8wEKAYBnjmK74GA7tGoc77yAk0HeUR13yQ3Q==
+	t=1794038478;
+	b=0Jiw68mEp1JjMF/eQeD1MoBtj+yEy3cjTnNVHTLww1jixyBWdqk48iyhfJgrpWBrTa8f
+	 CIqC2IIwML/FoZKEY8yokgaqkj6tPEvfz0Uuemjc3XxCpOkJZ3RNuEHe9Ru20PkR7kAmz
+	 21iqKnYfdPOlJJeF+l9NLORPQw6eDtyX+ipnkjXz++F32Inn/Mc7FOFPo/TRirrihPpMs
+	 1u+PNos8VtULr1i3q58xesavKms7LzmKZsZjYo5tfS70noJKcyaMcRaFjlbSUGeYSmRD6
+	 LXnvGL3jV7AJDIMdNN0tsVC9CdsO4xKl+QGEHI1OlqnwS5Yu4yutZ8EFz1ye++3OaHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794037897;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Sj6CMLfZRSZwceu+TpKvMT5HIhJI2K1ZZoMBycU64eE=;
-	b=JgRbmCTNO23S6i1+zBnbTWGWwGWKSw5NsT4zh1EH/9LNDxdOJunYYYRTJX+QlKYDaXbO
-	 hsyMn7/LK9fysY+0hk98iBpgw4HtdERtQWIK+P4HjHQdIA9ZnbNOD0KFDSUlwNPD5qvsv
-	 qJf9x25zxXMwFIwcma0/VAtKm3tFVX54EnMdgEXpqLTTiAMOMjsTM+Ap4OlIRbBfOYgGJ
-	 FZ6SZ6SJxpERAkigScNznBmyf/HM9P3WbofqRFpICQR5bKF4oAUrryVMKZ0pdNZ7aIBpd
-	 evghwgSGj04ws3fsBCia4oQGK0Wpdbfr3W3be3bOHhUj6xs7qWYACiIJAaBTcXoCp0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038478;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fl5wkpTUBLeUi9bcbFclRYjm8YxHwT66isDZ4a7J77g=;
+	b=h4k3Gszz6HRL+WRbgNmtikJDIKnXh4k2FCXBcOtVPIvyzAkUxnyYu9jM1YSOfMaf3Hos
+	 KTZDlBi1U56ihVmp4Ezp8ri9yh7caFC8yVqhQJIP3WE9AVKJwMQDZ7lJqHsEt3o2XLsiy
+	 dM4Q9J9Ohe1AsKC5MJTlnDS0EwpDSIenfaH7yW2dbPDPizg8HkRRlb/8SP4gXarfSWUB/
+	 XbxZDMU7AeWlfyY+GvueCD2rrfNxNaiU/x+yhMcKWtxp25mt3kYBzVN2lqwpuKAFF2zbn
+	 vxFZ5+lTh49vYCXm0LhhRKqVvtSyM7sYBP07xI4xkJdeN8f3v9Zy3rvVbuduYSQAcbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXA3bRr0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFT7GdB3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5BC606A326;
-	Sat,  7 Nov 2026 07:51:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE09606A32C
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 08:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXA3bRr0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6DB1F008A1;
-	Sat,  7 Nov 2026 07:51:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFT7GdB3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589B71F0089F;
+	Sat,  7 Nov 2026 08:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794037897;
-	bh=Sj6CMLfZRSZwceu+TpKvMT5HIhJI2K1ZZoMBycU64eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZXA3bRr0TZJBuY6JZQouhPq5YfxmnIoPqDJHTWvZAJmpG/HutZO1aopf68prUMUnx
-	 dUv3edTI+TKDiCZByiPbCe4criNqB/UTswMShTsYQj8jzIRZr8t4U01Oat0Bx6UIJX
-	 7E1Zbi+uMC5amGftAuJJaxJqy5wxLTfk+JWZBxpZxURkKMsoZ6w8mVCA5nn4W93XVV
-	 yxDEYYlDZIt3jQ0IhO35R514O4koZpd+aPKsM/K/HOg8DYG/K/q8fjoH4Xwkaur9XQ
-	 M5/rDzf+kdOSVdIq5apOGwKyQSpyGE9JuAhyWq881xju/kGNb8UQwLhzsnfOvc9MNR
-	 M5EQL1MCRt0Tw==
-Date: Sat, 7 Nov 2026 15:31:27 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Parshuram Thombare <pthombar@cadence.com>,
-	devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Fei Xie <fei.xie@horizon.auto>
-Subject: Re: [PATCH 0/3] spi: cadence-xspi: add ACMD mode support
-Message-ID: <au7Tz7Xp_fropQVZ@xhacker>
-References: <20261029-xspi-cadence-add-acmd-v1-0-f4f15bc807fa@analog.com>
+	s=k20260515; t=1794038477;
+	bh=fl5wkpTUBLeUi9bcbFclRYjm8YxHwT66isDZ4a7J77g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OFT7GdB31EWmFcRzht943UArfkzXS64ztyaxXwkljCyn3fU/535uHfzttUoyPr3uu
+	 ODyZoXfbI1vaFqPGJpigHJrndRkvU1+Lq5TIv5q5x9h5Zf/tV/Jdc8jSVLJtBgLPJQ
+	 Nz2calRF+CE0ZMi3OrjHLSM0UVqTL55qvM/N4+Hb/CZOABRl3OjkTXvpXCBUtbiMlO
+	 fugeor4FfV/FDr2ixTgZty75zHka1NtoHSK2sAkRzufV+/T+6lXjB67WYZe0MZllUk
+	 ZFzvPI7gc8JtJWxK4Ft5ykm3R05t7n1AdYyRWD9aTFzMo3X0czZVA8XhPiKb57muo4
+	 cpT0AM2GUxyZA==
+Message-ID: <sashiko-outbox-202730@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] spi: dt-bindings: cdns,xspi: Add DMA properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107072044.17574-2-jszhang@kernel.org>
+References: <20261107072044.17574-1-jszhang@kernel.org>
+ <20261107072044.17574-2-jszhang@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 08:01:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,145 +59,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261029-xspi-cadence-add-acmd-v1-0-f4f15bc807fa@analog.com>
 
-On Thu, Oct 29, 2026 at 03:53:07PM +0000, Nuno Sá wrote:
-> The Cadence xSPI driver currently drives every operation through STIG
-> mode, where the CPU builds each command and drains the data. The
-> controller also has an auto command (ACMD) mode where it runs whole
-> sequences on its own and can move data with its internal DMA, which
-> pays off for bulk reads.
-> 
-> Whether ACMD and the internal DMA can be used depends on the SoC
-> integration (external SRAM, the DMA bus requester interface being
-> wired), which the controller registers do not expose. Hence two new
-> devicetree properties: cdns,has-acmd and cdns,has-internal-dma.
-> 
-> For now, ACMD is only used for reads of at least 2048 bytes with an
-> address phase, using the internal DMA, and only when both properties
-> are set. Smaller reads and all other operations stay on STIG.
-> 
-> NOR and NAND are handled the same way: NAND operations are still issued
-> one by one, not combined into a single ACMD sequence, so no NAND
-> geometry is needed. The real gain is on large reads which, for NAND,
-> means chips supporting buffer/sequential read mode.
-> 
-> Another attempt for ACMD was sent in [1] but that relies on knowing the
-> NAND geometry which brings much more complexity given that it needs a
-> proper interface implemented in the spi-nand core. So we agreed on
-> starting with this simpler approach and then build on top of it if we
-> agree it pays off (mostly on cpu load).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] spi: dt-bindings: cdns,xspi: misuse of dmas property for
+  memcpy channel
+--
 
-Hi Nuno,
+commit bdaf74eae564e5ab96700c90ad51b7fb6c7c0da6
+Author: Jisheng Zhang <jszhang@kernel.org>
 
-Thanks for this series though I can't test it because my platforms
-disables the ACMD during integration.
+spi: dt-bindings: cdns,xspi: Add DMA properties
 
-I just sent out a series to reduce the cpu load and improve performance
-(possibly with powerful system memcpy dma engine), if your platforms
-have the suitable memcpy dma engine, can you please try it?
+This commit adds dmas and dma-names properties to the Cadence XSPI
+device tree binding to describe a DMA memcpy channel.
 
-Hi Fei,
+> diff --git a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml b/Docum=
+entation/devicetree/bindings/spi/cdns,xspi.yaml
+> index 38a5795589de2..b19c2e051e189 100644
+> --- a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+> @@ -40,6 +40,19 @@ properties:
+>    interrupts:
+>      maxItems: 1
+> =20
+> +  dmas:
+> +    maxItems: 1
+> +    description: |
+> +      Optional DMA memcpy channel for transfers between memory and the S=
+lave
+> +      DMA data port. The channel is shared by reads and writes.
+> +
+> +  dma-names:
+> +    const: memcpy
+> +
+> +dependencies:
+> +  dmas: [dma-names]
+> +  dma-names: [dmas]
 
-can you plz try it too if your platform has suitable memcpy dma engine too?
+[Severity: Medium]
+Should a software-triggered DMA_MEMCPY channel be described with dmas and
+dma-names in the device tree binding?
 
-Thanks
-> 
-> Some stats:
-> 
-> ACMD
-> -----
-> 
-> SPI-NOR - is25wx01g (only reads > 2k are done in ACMD )
-> -------
-> 
-> flash_speed -c 5 -d /dev/mtd4
-> not NAND flash, assume page size is 512 bytes.
-> scanning for bad eraseblocks
-> scanned 5 eraseblocks, 0 are bad
-> testing eraseblock write speed
-> eraseblock write speed is 1054 KiB/s
-> testing eraseblock read speed
-> eraseblock read speed is 106666 KiB/s
-> testing page write speed
-> page write speed is 1035 KiB/s
-> testing page read speed
-> page read speed is 15238 KiB/s
-> 
-> SPI-NAND - w25n08lw (all reads are ACMD given that page size is 4k)
-> --------
-> 
-> flash_speed -c 5 -d /dev/mtd5
-> scanning for bad eraseblocks
-> scanned 5 eraseblocks, 0 are bad
-> testing eraseblock write speed
-> eraseblock write speed is 6497 KiB/s
-> testing eraseblock read speed
-> eraseblock read speed is 44137 KiB/s
-> testing page write speed
-> page write speed is 6336 KiB/s
-> testing page read speed
-> page read speed is 16842 KiB/s
-> 
-> STIG
-> ----
-> 
-> SPI-NOR
-> -------
-> 
-> flash_speed -c 5 -d /dev/mtd4
-> not NAND flash, assume page size is 512 bytes.
-> scanning for bad eraseblocks
-> scanned 5 eraseblocks, 0 are bad
-> testing eraseblock write speed
-> eraseblock write speed is 1054 KiB/s
-> testing eraseblock read speed
-> eraseblock read speed is 64000 KiB/s
-> testing page write speed
-> page write speed is 1042 KiB/s
-> testing page read speed
-> page read speed is 14883 KiB/s
-> 
-> SPI-NAND (Cont mode)
-> --------
-> 
-> flash_speed -c 5 -d /dev/mtd5
-> scanning for bad eraseblocks
-> scanned 5 eraseblocks, 0 are bad
-> testing eraseblock write speed
-> eraseblock write speed is 6564 KiB/s
-> testing eraseblock read speed
-> eraseblock read speed is 18823 KiB/s
-> testing page write speed
-> page write speed is 6400 KiB/s
-> testing page read speed
-> page read speed is 18028 KiB/s
-> 
-> For now, we have a static threshold to decide to use ACMD or not. I do
-> understand that's not ideal. It might depend on sclk and number of lanes
-> so not sure if that value will be accurate for everybody. So, open to
-> suggestions if someone has something in mind regarding this.
-> 
-> [1]: https://lore.kernel.org/linux-spi/20260921093701.1341766-1-fei.xie@horizon.auto/
-> 
-> ---
-> Nuno Sá (3):
->       spi: cadence-xspi: rename sdma_error to xfer_error
->       spi: dt-bindings: cdns,xspi: add ACMD and internal DMA properties
->       spi: cadence-xspi: add ACMD mode support
-> 
->  .../devicetree/bindings/spi/cdns,xspi.yaml         |  18 ++
->  drivers/spi/spi-cadence-xspi.c                     | 269 +++++++++++++++++++--
->  2 files changed, 273 insertions(+), 14 deletions(-)
-> ---
-> base-commit: 7da2aca123754c0e06092bbe179d58078b58d8d4
-> change-id: 20261027-xspi-cadence-add-acmd-3c0e342cb4f4
-> --
-> 
-> Thanks!
-> - Nuno Sá
-> 
+The dmas property in dma-common.yaml describes hardware DMA request lines
+routed between a peripheral and a DMA controller. The Cadence XSPI Slave
+DMA data port is a memory-mapped aperture driven by the controller's SDMA
+trigger interrupt and memory-to-memory DMA_MEMCPY transfers, with no
+hardware DMA request signal.
+
+Requesting this channel through devm_dma_request_chan(dev, "memcpy") goes
+through of_dma_request_slave_channel() and the DMA controller's
+of_dma_xlate() callback, which expects hardware slave request specifiers
+in #dma-cells and fails or requires fabricated specifiers on controllers
+that validate slave request IDs or only expose DMA_MEMCPY channels.
+
+Other drivers with memory-mapped ports and DMA_MEMCPY transfers, including
+the sibling Cadence HPNFC driver in
+drivers/mtd/nand/raw/cadence-nand-controller.c and
+drivers/spi/spi-cadence-quadspi.c, allocate the channel in the driver via
+dma_request_chan_by_mask() with DMA_MEMCPY instead of adding dmas =3D
+"memcpy" to the binding. If a platform does wire a hardware DMA request
+line to the SPI controller, spi-controller.yaml names a shared channel
+"rx-tx" rather than "memcpy".
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107072044.1757=
+4-1-jszhang@kernel.org?part=3D1
