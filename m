@@ -1,47 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065412;
-	b=cPvtJTFLEmxBHH4BcgZuuAumCL5sWra90gm6x90h2Wbqli3cGnTSgdBAYM79EGL97e8v
-	 DmU4EnLBOZLkdal62xIgBByX+f4iV9BFTXE1wZu0EJDZ9yMo08kKMZigiKAaPA/3pUsvH
-	 O7PlxKyYknGKmLDLnIBSQIfzG8CTLIUqPJphZTg4eiMsfSCTZLr7AyfPRIOxuOWBKzUnZ
-	 2shNR0bi1bP165EogZ0DcAiGB0MDtgKoj5ssIS0zYHspOa9V3lIPklWd0yOGzPerhL0sP
-	 Ke+u5v0BAGffGQAXBM4cxjVKKpE96mQ3m6FbuVpSOu53oP73HbT3MCaAL+ONc25pHIQ==
+	t=1794066027;
+	b=YcBVJTMQQgf0WaDGzb7KMjo3mXRDloaY/whBeGkwhuw/nKHdRoYVb211EDJNcJ5CxopQ
+	 0/KkhR6nkryJmc2Y5AQcw0S8Rzqxx5b+DFdZrLiucBy+27w9YCbYJpblGmsmcGN1bmq56
+	 JULkAwH3UNu/1fiSmcWsx0OHCovFg5wLFcai/3wYTw7NBbab0cShM+03iQ7e+vpF4Tjhc
+	 3v39AGweh9Hp2HrnUoPWL3KCzYnOR73Wza9qfVwAgHjqmwvstbA7ruiwH5p3zSHHgsXpA
+	 whAl7Vk+1SY+/CxbafNTfA8wSD0Nf4sYGjQvPT+t98zfymjSgkEpJ3XJZsYVFIqlUuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065412;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vaEs7wb0G7SPDcuD/cuH33DllgSpImjlQDOyO4ctNjc=;
-	b=TplagyQvho51Z7JzrgHDxH2BfWWbzO5fC9v5EFkL3xQLgI58aSty77XK1kvHpYMLhpn3
-	 kql5OCQVn5hGZ573PJmnqpZHgy6w3RTqRkLRHn5P2+LxZISw7o8sKu6UTuSMAer0dC6oz
-	 Ma3mhG3JdwiAKNnSwOTGxkmg1ALeLf/eeSq4kGC5T3t5K21CChdHrvt0B49oKG5PWrYfq
-	 l4N0fVvSKzBd5seMHcAYygv87OU8WEaE8/11WYYnMQsdBDuYUcmYKTJUpF81w9hIokHJe
-	 JkJJ/Ua8QRLHzJNU+Tu44syLTdmsJ39ocGsTgS8exEM/GSBnYSJE0zZlJF3sDMesE9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794066027;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=0855Lhy/dON8JVTqKZXNVM88rgbhtEry4bgMTQuUuV0=;
+	b=uRON332w14PwyJzGGSzwXWlUy3a226X0rOxW/CORj9qhc9JmgAKr3wBg3SvHTp18M//m
+	 +6WR4UxJ2LmmRpwbGCG0gHPgUdLCcX5T7u8WmfyXtFkRAtPiZ6XL4aKgQ8D7xe6bnFJa4
+	 fjix/tbvb++F3A+8zt9pahw/uOoblibvd/zMrgwTunC8Z/hmQe6qLX/uwWqlnJOQHnPDU
+	 ZsKO9/yv+XEbOf3YKRgENQaP3onHUcNQhsQDeHCY5DBD3PCE4SzHUAZG1roZIcei/Eky1
+	 QIGmjq4YFG3kLrxyR46zCq+/JLeY7O3vPTvnCxLFKMtZj331dP6AHSFs90ZTHO1Ii7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKUrCAxH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8TI1Sgc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C85606D80C;
-	Sat,  7 Nov 2026 15:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A351B606A326;
+	Sat,  7 Nov 2026 15:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKUrCAxH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30BD41F008A3;
-	Sat,  7 Nov 2026 15:30:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8TI1Sgc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7221F008A2;
+	Sat,  7 Nov 2026 15:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794065411;
-	bh=vaEs7wb0G7SPDcuD/cuH33DllgSpImjlQDOyO4ctNjc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VKUrCAxH8lbyUb6TJunrAzttSZjk+VI2dNHjkyIyGNU4B726AAilH+Fa3JFi5C90h
-	 PuZrt4ZSri7SSjDCBHAyQbIWJziG+5cSV5MsH/Blyn7mcoQUZxUiDS8JA4bnbsZtgo
-	 i5rpAaN4U+1aW7cgx1zWA4y4o4zBByHEm8Oii4eQFvTyxrp4TOe2rWl5VIKvuyaHdy
-	 RMXCkSmK/Gcb0MTtt1gnRp5qRzkRRshO6UzjyNGVzp3EVZq1bCQrIcEfMck60yytK9
-	 kbV77vLzpttWfvANiiKBmRHgXeGjEbr6MxcbsjCxQGc1sqMd/3Lg0CeN6sBnfo2r6q
-	 iz51vMojvDfDw==
-Message-ID: <ad7b886c-d3fc-419e-b155-3fd39fec900b@kernel.org>
-Date: Sat, 7 Nov 2026 17:29:37 +0200
+	s=k20260515; t=1794066027;
+	bh=0855Lhy/dON8JVTqKZXNVM88rgbhtEry4bgMTQuUuV0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=c8TI1SgcR2UQaFEN+sXtm92nv3SKKB/Ab3Sw0w0Y2S/n5I01TTrS4jPLmIFgTPvfD
+	 2tF3BVTYeSP3uNddy8u1hWpVQZPaenQ+gLf8hgZ424VGuzkp9huPArXCEhHbtcF5rr
+	 vKMvKeJmvCre6ffh8fm8E0ZSIR1T433Se6NQ3m52Zsnxswh4l9USGIrRtPXIr/BxL+
+	 s3iiY6EMD4vsisXDuXeLlxcMEj1g9fPCLatw1hcyY5kSIpvOfD3BbCUwmg6tTItGfa
+	 vibEzB0nAn02i8d8zo5Cs/i1bQN+DnjMfuQ89cVDJA6500JZDyO9RT+IevtOz4J/wX
+	 pdK1kZzmUftIg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 7D3DE2AB366B;
+	Sat, 07 Nov 2026 15:40:24 +0000 (GMT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,30 +52,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] clk: qcom: Add SM8350 camera clock controller driver
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, MSM <linux-arm-msm@vger.kernel.org>
-References: <20261104001704.2744766-1-vz@kernel.org>
- <20261104001704.2744766-3-vz@kernel.org> <sashiko-outbox-199410@kernel.org>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <sashiko-outbox-199410@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 4/9] spi: restrict CS logical values to a contiguous
+ sequence
+From: Mark Brown <broonie@kernel.org>
+To: Jonathan Santos <Jonathan.Santos@analog.com>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, linux@analog.com, 
+ broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, Michael.Hennerich@analog.com, nuno.sa@analog.com, 
+ jic23@kernel.org, dlechner@baylibre.com, andriy.shevchenko@intel.com
+In-Reply-To: <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
+References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+ <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
+Date: Sat, 07 Nov 2026 15:40:17 +0000
+Message-Id: <179406601716.3424803.6294014265604547763.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=535; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ZAf43SC5Wwsv9BlH9bz+p7xqTH/dS8B+Bfqtk7gFLeA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeuyUeeZjrqiUyK/LlS0OVF0un/opf/UHAJP8dW5ax+
+ WxTzmW1HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIqD7D/5CJi76LTHQ6v2I3
+ x+0pZ+czpa27ce5kSt7c7+8lbkvHKT9g+Cv08ZyxsPjDa1e2bitOj7/FoK74T3J7ZOXBmU3fpPi
+ uzGMFAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 11/5/26 18:06, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] clk: qcom: Lucid 5LPE PLLs in camcc-sm8350 use clk_trion_pll_configure()
+> When a device uses more than one chip select, require the logical CS
+> numbers to be consecutive (for example 2, 3, 4). If they aren't,
+> __spi_add_device() now fails with -EINVAL and logs which CS breaks
+> the sequence.
 
-That's a valid issue, and it requires to make a formal introduction of Lucid 5LPE PLLs.
+> Changes in v4:
+> * New patch, suggested by Andy. I assume this might have impacts on
+>   existing users. Should we make something else to complement this?
 
-> - [Medium] clk: qcom: camcc-sm8350: duplicate cam_cc_pll2 parent in cam_cc_parent_data_1
+Indeed, see ge,achc for imx53-ppd.
 
-This is also a valid review comment, fortunately this one is easy to fix.
+> +			dev_err(dev, "cs%d is not consecutive with cs%d\n",
 
-Will prepare v2.
+%u.
 
 -- 
-Best wishes,
-Vladimir
+Mark Brown <broonie@kernel.org>
