@@ -1,74 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070853;
-	b=AsdGaF5dSUs7GrG7lcvnTWzOMxkSBa2NQSVGJM+O0ycD6kBQHGVPWBWsPYanLE9he5mA
-	 o/S2iXu3QgLExcypHGzMrCvIAm+Bgys8rSml02LJ+wDVF99c1iPiii+7K6ffhGbOcZWA0
-	 GWzov0EGuxwq0m1RUmibDU101Vrr+NNO7gyZ1Higj5+9iUL6s4VtfO402KFQhYUO+Kp+h
-	 ZwSaDA5usf4DLcvPpMjSZwXA9Ka1bWZD1kaTWImH39yZRA0ObsDghRA8OW3x0+ipfNayk
-	 5noF+dwoV4q0YgNsJwEbn7dgc52wqmmna+S4RO8qnX+6H39vpX3TDzZyrqisBpRNRhw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070853;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=69YlIhpcdRp84o4ABpJJqYwv378wcIs9fm+ouT0CtWw=;
-	b=ZZNzadTRYOfQwzCaEqit9nrn5iRyYFs5imDcy8C9etO+gnAnV9ZfQhh5apcx2vBH0rgu
-	 78VQ1a7QWTs2bDGzDvF9GQTdy57xxesv3vgWzch4wKwW8ArE+6MnRKQrKy7q1Geim8YcK
-	 W5GzikfnropOKOfgqTHB6++tbVYv8fmb3bNRf4IXwXYBr5xH5fU4BQRxdzXzqnwhZG/oy
-	 NWLKHHz5IqJL5UYwEwqZ8Ef0JWHtOzTeWVWTlqImbFY8Ci3in0pM9JXG+DI8dCBAJJKC5
-	 B87AGHDdcNQrLCJW1VlnmoyY+27fsA2TlWzNDt0ol05PJxknUk0ygPrNkGNeSubo5Sg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=udgMF85L;
-	arc=none smtp.remote-ip=212.27.42.4
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794070888;
+	b=zsfla3JtwvKAdMd8h5HfVamP5zH5X9SLNuSLs/bAxjHW1onay5UbtGOOG6ZimjqjcJSn
+	 6qfxTwISKFRk1i+/16ioDPwc9wx4cYXmWSd/Dv6O3kTD2kZtOaur+92DZKFepKcrOgCy3
+	 FaKAM77T4dqWfzW/Diq3IBpBdYE160rwCUWG/Lnn/VEf+GQBu5iArPqu4Fp8UnXjyJxBN
+	 vxG956fxNOwIDtiGMUVP94D3cFiZQuZHCxPN4+3/9xBO38IEHFRg/mAQN5g6G/W0Gxp34
+	 5zoC66LCrl1CYBaXL0GA2/9NjysaBwAjzC/tfbumGjYmy2QBgMMVOIPqnkyK+g9vOxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070888;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	b=GFMaBCxdGBrNxzK/Ch6W3Kzy7iF6hBsN1pTvvAYOKsz+zdqHR4KWHrBuh/xPMgdmTIKl
+	 TFi1C0JHuU6JtydM01eh10DI+IK+5qKlaV0hkR6Z0Xjb8hlUg+TjsBtRTGyzOh0BivPNi
+	 fRcNAKe9qJkZ4+/VA7GgxKnuYSgBpe9odunziF8YdbUtNyqv4isUgvhkoMu7OTef1A3Mn
+	 fTWXSNC6aAJDQcWSZ2n8o4LH1f4Gna06UsyH0ugzToC/yHkmhuOV3JEd9OStKY/+hV2Ce
+	 4KkfZbmKxBq9RDu7y3clVTJodg6KegJWD8BDpPNMHF5HFbH1NwBLYSnl+AKmQGacEPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2l7CDF8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA19D606A32C;
+	Sat,  7 Nov 2026 17:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2l7CDF8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794070887;
+	b=EjMXZ0LfU5rUq3UZkwI68toAwavZuY5sRMYfagR8Fylc7Gzt6q4pJEWbWMtEFzYpMaxV
+	 rgroHwiRF5eXMHBCKed0Xe8Jf9YsqEEQJL88gnvIFRjriy2sfMuYWNC3bo+ZjTTMNbY5Y
+	 37Tr75dt38Eugi9hubmxDnuuPecsZraHlZl2fPlbmSPAZrtwVSqgC94RRcudeuNibxVhz
+	 LfWzorANUWGIc/Us5nnIYdDMRA/fMoosRFLisokkBeClFkepqgeLvQg/nut0MJIfIL4fh
+	 waCHB4380tBW7RTigrRhdLdago1mxF3n5/oJWFU+G9woVkv308lx7/yFaK+ESYpxDMg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794070887;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	b=b9xzuLJ6aWiuNhlZYJkKkhNB0SrtxscyqbvazdXx4lDswMRxI06bgt4hA5Wu9d6eWgHv
+	 jdFk/npCDvne17YDJz2uMoQAvr/WF36MqXnFC+YkMEpuM6Igj/uptFoI8KZHieUl2oTMN
+	 q9YgaaZ+KSFam89Icp1v6tMSdDlWmtpD15iEqcHegqZmAmX2g2+0sJ/fdQKhooDcbpo5x
+	 GgYqGf39yf+fD/PbSNRbQO5HMoQCdrb3u2xwWrJukpM1ARwXIZ2N+lPLgOrOCqxrYVWPd
+	 CAKTp4+BK6O7mI/+K43ynn2yT+LNLgyFUu1oaD9LgzYfdUkgp+XJt9DkEcOYbzfQvqQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADAE606A32C;
-	Sat,  7 Nov 2026 17:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ADAE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=udgMF85L
-Received: from l3017727.home (unknown [IPv6:2a01:e0a:ac2:22b0:71d9:bc2b:4a47:20c2])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 763DE19F59C;
-	Sat,  7 Nov 2026 18:00:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794070850;
-	bh=syJyVGNndyaT76xcg3TviaWZJbrAimIaATWckjraIYA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=udgMF85LazaNU0ZXoRcnJhuQA21gmX/PlbKegAK+KxJJ1+kt3COSyM4r3yyBlo2SB
-	 joV2E0iybcwLRKiZcjGbvmlrcGxsmWSkcK2v5/e3MIhT5YCjV5e7ZldqYPSaac9n9a
-	 xDGJv45X/pXl86eCC/AxwhHdynJkl5q/tN3nuuWtCWd89D7XzGQadqvNz1rQU4IIzx
-	 7oFSepoRUUNROi/gKYXlhpl+FV/iEPGc2KDIJuBNR1uwt3vJ3451smaTQYDYSEU2NN
-	 ji35jqiD+doB8aTdWL2ARgfPqfFI/dNsp/9F49p4yxGEP/N5dm5LIH/1zxtb/bT6kR
-	 4lz15iEri2+Yg==
-Date: Sat, 7 Nov 2026 18:00:28 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
-Subject: Re: [PATCH v2 2/5] dt-bindings: soc: fsl: layerscape-dcfg: add the
- LX2160A pad-mux child
-Message-ID: <au9ZLBSJ_nTuMaVc@l3017727.home>
-References: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr>
- <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-2-3aad0860b984@free.fr>
- <20261106-smiling-infrared-dugong-48ee5c@quoll>
+	by smtp.kernel.org (Postfix) with ESMTPS id 1ECD31F008A2;
+	Sat,  7 Nov 2026 17:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794070887;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Y2l7CDF8sqvjZqJbkW8fFFY2MaBZik0TEOYcFkkohU2QkQXgWvfCP/Srz1qW4ETbC
+	 vwSTGLFUMOxXRdu5eRBy93n3nFYeyHN2BgbP04PTgjLqW1nwgMBIatu0c/dDkghka4
+	 Mdko8mTVkcq/xwEJHspNGGuxgBeGUkFA5qbDG1dRUIfhn31ROjAnIj8fJ38agOPAle
+	 1Y8j2ZeRVZDyjb+P0cIlHQqcKdImKtUy+48dqFZgOo7YNcUDWYcM+h8ckFfe1vqbgL
+	 yxyB37cYPsVszAA20YAy3bU2QepqTTtgnqNvwCvuugSVPn5487P2na0N6uSKPnH9DI
+	 S2tLhiuAdeJOg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6FAD447C89;
+	Sat,  7 Nov 2026 17:01:26 +0000 (UTC)
+From: Hleb Shauchenka via B4 Relay <devnull+me.marleb.org@kernel.org>
+Subject: [PATCH net-next v2 0/3] net: phy: realtek: register hwmon thermal
+ zones
+Date: Sat, 07 Nov 2026 18:00:44 +0100
+Message-Id: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,32 +84,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106-smiling-infrared-dugong-48ee5c@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOTQ6CMBCFr2Jm7agtUcSV9zAs2jrCqLRmWhEl3
+ F3Atcv39+X1EEmYIhwWPQi1HDn4UejlAlxtfEXI51GD3uidUpsMhcw90Q3rVxM8pg8WW53lptD
+ KXgoYZw+hC3cz8gSeEnrqEpS/JD7tlVyaiFPXmkhoxXhXT1YQrtivG8N+SmuOKch7/taqmff/R
+ qtQIe1ynevMbffOHhsjd7KrIBWUwzB8AWPgrAnrAAAA
+X-Change-ID: 20261103-realtek-hwmon-tz-95237a921bf9
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hleb Shauchenka <me@marleb.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=me@marleb.org;
+ h=from:subject:message-id;
+ bh=jAz7L+bhgd/IVWN5dn7Smhib0FoZG3Ky40jagdvleSc=;
+ b=owJ4nJvAy8zAJTZJnM368y8lXsbTakkMWe8jU3kmRdpLp007m2Ck1bXiqMS8m4L/ThcZqO2pn
+ qXpdG3NVcuOUhYGMS4GWTFFlk3NRaJPV0a/da3ekwUzh5UJZAgDF6cATORrC8M/zeSla5JvOp/d
+ ovrp5t0Psl9uTAi5u/Xj6/Ld/Mln/+k5fmdkmOM5heWJuyPjJY6V39Xmy6UtC3Oek3fqYJPO7Ow
+ 7K3mtuQCvbEpo
+X-Developer-Key: i=me@marleb.org; a=openpgp;
+ fpr=B2837215E5A95BED457BBC6A9217063BF3FA220D
+X-Endpoint-Received: by B4 Relay for me@marleb.org/default with
+ auth_id=1394
+X-Original-From: Hleb Shauchenka <me@marleb.org>
+Reply-To: me@marleb.org
 
-Hi,
+Let device-tree thermal zones use the temperature sensor of Realtek
+PHYs. Patch 1 allows #thermal-sensor-cells in PHY nodes, patch 2 stops
+failed MDIO reads from being reported as temperatures, and patch 3
+registers the sensor with the thermal framework.
 
-> > @@ -32,6 +32,7 @@ properties:
-> >        - items:
-> >            - enum:
-> >                - fsl,ls1028a-dcfg
-> > +              - fsl,lx2160a-dcfg
-> >            - const: syscon
-> >            - const: simple-mfd
-> >  
-> > @@ -62,6 +63,12 @@ properties:
-> >  
-> >    ranges: true
-> >  
-> > +  pinctrl:
-> > +    $ref: /schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
-> 
-> Why other children are bus-addressed and this one not? Such mixing is
-> messy. Either this is a subdevice with its own addressing or not. Keep
-> bindings consistent.
+This series was prepared with AI assistance; each patch says how.
 
-ok, I'll provide a v3 accordingly.
+---
+Changes in v2:
+- Add #thermal-sensor-cells to the ethernet-phy binding (patch 1).
+- Return MDIO read errors from the hwmon read (patch 2).
+- Patch 3: name the mainline PHYs it affects and say that the RTL8261N
+  test relied on OpenWrt's out-of-tree support. Code unchanged, so I
+  kept Andrew's Reviewed-by.
+- Link to v1: https://patch.msgid.link/20261103-realtek-hwmon-tz-v1-1-e672723c58cb@marleb.org
 
-thanks for this comment,
-  Vincent
+---
+Hleb Shauchenka (3):
+      dt-bindings: net: ethernet-phy: add property #thermal-sensor-cells
+      net: phy: realtek: return MDIO read errors from hwmon
+      net: phy: realtek: register hwmon thermal zones
+
+ Documentation/devicetree/bindings/net/ethernet-phy.yaml |  6 ++++++
+ drivers/net/phy/realtek/realtek_hwmon.c                 | 13 +++++++++----
+ 2 files changed, 15 insertions(+), 4 deletions(-)
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+change-id: 20261103-realtek-hwmon-tz-95237a921bf9
+
+Best regards,
+--  
+Hleb Shauchenka <me@marleb.org>
+
+
