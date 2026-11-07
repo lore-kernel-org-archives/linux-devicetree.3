@@ -1,51 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794076015;
-	b=MTO+oh0BAAJAcIYc4gtNaTJML0V8X1YePjz0JCZujKLIe8uLPyWPfJHeUQw2dwMPMiJN
-	 DKQDGwR1BLUFkFcFF7CJHXQOrHits4Wi/Qivr3F4PGxx3K9hF0IecvnwXWlp98Gqr4Wva
-	 Bo5iuUJTmkh4W0yeBJqnXN8aysjR5A4mJYWy30vtdfupuT49/JF3FXabRIIBphZZaQk6/
-	 mBvPJ1QC1W+004RLFJ4KFtjjGHAS+PypiyVhE1UBexPMljtHCsYIZjfnPDh/y0P8Zjz7I
-	 Md70SY57c+MTxJOK8NUdFUkVGCETsi2NKLh3jT2RoI3bxiF44T+VEspX4ERiK38z7LQ==
+	t=1794079586;
+	b=1ZWsKjv7EsQ4yKlDJ1T+am3x+amml3cGdd4yvEN22N/Pyt/KxEci0LI/CSmRG9gHgTGI
+	 hYWaHt0e1Y4m9nir15invz1UJilvNVYR6K7JrGZlioVdaKnmVsLOyF5iqLQ+R7ZvyoXi0
+	 uYT4jUAFoo+uc0DAnvXOjZ/ucmTanhqfpMrBRqPbJQ+Laa6w1iqfTAmfMYQHCB+tTpBnH
+	 aLVK933w9BpYNC6fq3M+/O4E1zd1z8sekG+nfe5QtJF2rybiWyn91vYZ/xd6s0atI8sn+
+	 0yIbyTHaucNUeCuK79sUHNLAvWJgLxn4UgHc5uJPbxTWSDfd4yIrNUUfD8J412/8pvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794076015;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:MIME-Version:Date:From:To:
-	 Cc:Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079586;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2OlRM02ztzV8yXMDP77XNgprV2JIB+WYt2A0aFSyZMc=;
-	b=vztioxiy5Ilaslk1ShOL69jVYsDHyxMy5B9gi1BQAfFYxP9j51MxMClWcdrHZBVcT4yH
-	 bNmrtBRNo+Am2VRtRdsyfgL7ZyRemMmbMXza9nVPAcbhdLn7WzsBzkobmzBeKRltB+rhK
-	 xQcbk3AklD/4Gj8NE/CA5m/XZLKh49M6SENe9syhcoSQoC5VsRIznm+KvazqpIyXFxKTW
-	 NwyX7K30QgNZP8PPNcyeSZvNzE6waTm5L6fUjdzijrfpYh4vO7xrp7IZFxRrU+EnvoF8r
-	 gCWaz5C51S75iAqkxPXPco2Qbu+dWKOqpSe4DqcIeItL0yMQ1RNUboiYc+iZ+WG9Orw==
+	bh=3HNu1KANaG+U8kTSPLyfgpYzK/AYsfGQ9PW6Idr9ttQ=;
+	b=3J5u+jACJV/kAn0M+Cd4HuPbEezyiRa76hZzc3B+fJ9ZEyROGKiQinHe+epleIUidksK
+	 zIreXzKs19pv5C5uJJodyK7O7A/Tv6bydb4SidMhnF8syuF63zYccPsY7hJc+G9SxSzNO
+	 b1e87mRIvKWYJpDd3xxgAvoBL67DPj6PKQSSUGbqjvs1DdJs/JIBzyUuX4Vkiqd9LZc6O
+	 6oG8XQit7pFd57R9r4eFeSunXQruR2HzXeIcdi6yKIYgRlXg7YfWxu63v84AIeoca2LN3
+	 VXGuL5TKtGrV+OVteEZ1obpDVWcP02unr/dDES3a5wv0SMs2oVKrWDD3WEUAC+kLisw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=hSEEV9P5;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="/Vwv3R33";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgXkTM7u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B45606A326;
-	Sat,  7 Nov 2026 18:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41B45606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB391606A326;
+	Sat,  7 Nov 2026 19:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=hSEEV9P5;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=/Vwv3R33
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794076007; bh=2OlRM02ztzV8yXMDP77XNgp
-	rV2JIB+WYt2A0aFSyZMc=; b=hSEEV9P5sqF3ukXJhiL2b1F9dvHrOwgXybl1NfFAH3Lgyc2rO+
-	Bg2YEhdQSfBRo76c5FdKiUwKjlvoU+gIyXeaTMumqOWua1D6a442gs92NIYRR2hCOzzNqQADnuH
-	EVzcCz79u36abnM3YgAN53zFrivzs2nqg+uyYWxB/rNDajO47kCoy74XaS4mCyD+DLiSaHC6jtW
-	zl07HGVK7qeQdEHdYOCWUEa5BmH2rip8+DyrRRprtqhksdTU2cevsFLXtQoWqw0tLN4cMu5ewhr
-	g4mhZdxcaOGFRD484URtRO43K5kdTn20je8KBV5hRLibXFfPjfxllgdg9DMhThtqQSg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794076007; bh=2OlRM02ztzV8yXMDP77XNgp
-	rV2JIB+WYt2A0aFSyZMc=; b=/Vwv3R33hPs6BXwzRj4FjBlZG5PUj2kx+biifQHVdDRrXXPcHN
-	cVtMPxzLf7iJZnaMBMpwmpHfHIICfQ97KsDw==;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgXkTM7u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E341F0089F;
+	Sat,  7 Nov 2026 19:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794079585;
+	bh=3HNu1KANaG+U8kTSPLyfgpYzK/AYsfGQ9PW6Idr9ttQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WgXkTM7u6dTBcGz/vnQ4v/VhNxTWi7yJ9hWG0RAm0INiQZwNTFNany0uZXGs0Kndu
+	 6DPX2ffdGvnfXLDp7mymglHw+BrHwmvUMDF3XX74iQbkwc+0UdsrbfDkQ3zuRfw32J
+	 wB1/pQGCieiqQ2aLuxW65W2vKHKuYyWH1j1CTbjOOnuQt8adaT69dQSfjr8fCVE8J6
+	 Sejzo7rt5p1U+XwsDl/l93oh+SHpSyEDvSmJMpb3jfGLfVDCH/TwOAcTnW58rhCR/l
+	 CnPrrJ00PV3G7U1n00/e/4bIb3xzq7REIMl+aA9eayN0KWmtjm8yDHZu1UPOoumlGl
+	 eY6v3z6VDSzNQ==
+Date: Sat, 7 Nov 2026 19:26:18 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: <lars@metafoo.de>, <sai.krishna.potthuri@amd.com>,
+ <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <michal.simek@amd.com>, <pramod.nexgen@gmail.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <git@amd.com>
+Subject: Re: [PATCH v5] dt-bindings: iio: adc: Convert xilinx-xadc bindings
+ to YAML schema
+Message-ID: <20261107192618.6814da6a@jic23-hlaptop>
+In-Reply-To: <20261107134955.1423727-1-dileepkumar.nagavarapu@amd.com>
+References: <20261107134955.1423727-1-dileepkumar.nagavarapu@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,823 +64,272 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 07 Nov 2026 19:26:47 +0100
-From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-To: Amir Hanip <killdeath104@gmail.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, abelvesa@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, a39skl@gmail.com,
- konrad.dybcio@oss.qualcomm.com
-Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: sm6115-xiaomi-lemon: Split out a
- common dtsi
-In-Reply-To: <20261107141432.39099-3-killdeath104@gmail.com>
-References: <20261107141432.39099-1-killdeath104@gmail.com>
- <20261107141432.39099-3-killdeath104@gmail.com>
-Message-ID: <daea291c5b5d3b1ff87bbeaac4b08083@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 2026-11-07 15:14, Amir Hanip wrote:
-> Move the nodes shared with the other Xiaomi SM6115 variants (Redmi 9T
-> and Poco M3) into sm6115-xiaomi-lime-common.dtsi, so that the other
-> variants can reuse them. No functional change intended: the
-> decompiled lemon DTS is identical before and after, except for the
-> numbering of auto-generated phandles.
-> 
-> Signed-off-by: Amir Hanip <killdeath104@gmail.com>
-> ---
->  .../boot/dts/qcom/sm6115-xiaomi-lemon.dts     | 317 +----------------
->  .../dts/qcom/sm6115-xiaomi-lime-common.dtsi   | 335 ++++++++++++++++++
->  2 files changed, 336 insertions(+), 316 deletions(-)
->  create mode 100644 
-> arch/arm64/boot/dts/qcom/sm6115-xiaomi-lime-common.dtsi
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts 
-> b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts
-> index 881e05b701..2caaca3033 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts
-> @@ -5,41 +5,17 @@
-> 
->  /dts-v1/;
-> 
-> -#include "sm6115.dtsi"
-> -#include "pm6125.dtsi"
-> -#include "pmi632.dtsi"
->  #include <dt-bindings/leds/common.h>
-> -
-> -/delete-node/ &pil_adsp_mem;
-> -/delete-node/ &pil_gpu_mem;
-> -/delete-node/ &pil_ipa_fw_mem;
-> -/delete-node/ &pil_ipa_gsi_mem;
-> +#include "sm6115-xiaomi-lime-common.dtsi"
-> 
->  / {
->  	model = "Xiaomi Redmi 9T";
->  	compatible = "xiaomi,lemon", "qcom,sm6115";
-> -	chassis-type = "handset";
-> 
->  	aliases {
->  		mmc0 = &sdhc_2;
->  	};
-> 
-> -	chosen {
-> -		#address-cells = <2>;
-> -		#size-cells = <2>;
-> -		ranges;
-> -
-> -		framebuffer0: framebuffer@5c000000 {
-> -			compatible = "simple-framebuffer";
-> -			reg = <0 0x5c000000 0 (2340 * 1080 * 4)>;
-> -			width = <1080>;
-> -			height = <2340>;
-> -			stride = <(1080 * 4)>;
-> -			format = "a8r8g8b8";
-> -			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
-> -		};
-> -	};
-> -
->  	backlight_dsi: backlight-dsi {
->  		compatible = "led-backlight";
->  		leds = <&led_backlight>;
-> @@ -49,38 +25,12 @@ backlight_dsi: backlight-dsi {
->  		status = "disabled";
->  	};
-> 
-> -	gpio-keys {
-> -		compatible = "gpio-keys";
-> -
-> -		pinctrl-0 = <&vol_up_n>;
-> -		pinctrl-names = "default";
-> -
-> -		key-volume-up {
-> -			label = "Volume Up";
-> -			linux,code = <KEY_VOLUMEUP>;
-> -			gpios = <&pm6125_gpios 5 GPIO_ACTIVE_LOW>;
-> -			debounce-interval = <15>;
-> -			linux,can-disable;
-> -			wakeup-source;
-> -		};
-> -	};
-> -
->  	reserved-memory {
->  		pil_adsp_mem: memory@53400000 {
->  			reg = <0x0 0x53400000 0x0 0x2600000>;
->  			no-map;
->  		};
-> 
-> -		pil_ipa_fw_mem: memory@55a00000 {
-> -			reg = <0x0 0x55a00000 0x0 0x10000>;
-> -			no-map;
-> -		};
-> -
-> -		pil_ipa_gsi_mem: memory@55a10000 {
-> -			reg = <0x0 0x55a10000 0x0 0x5000>;
-> -			no-map;
-> -		};
-> -
->  		pil_gpu_mem: memory@fa400000 {
->  			reg = <0x0 0xfa400000 0x0 0x2000>;
->  			no-map;
-> @@ -108,19 +58,6 @@ vph_pwr: vph-pwr-regulator {
->  	};
->  };
-> 
-> -&dispcc {
-> -	/* Prevent simplefb from dying until we wire panel driver */
-> -	status = "disabled";
-> -};
-> -
-> -&gpi_dma0 {
-> -	status = "okay";
-> -};
-> -
-> -&gpu {
-> -	status = "okay";
-> -};
-> -
->  &i2c1 {
->  	status = "okay";
-> 
-> @@ -158,118 +95,13 @@ &mdss_dsi0_out {
->  	data-lanes = <0 1 2 3>;
->  };
-> 
-> -&pil_cdsp_mem {
-> -	reg = <0x0 0x51a00000 0x0 0xa00000>;
-> -};
-> -
-> -&pm6125_gpios {
-> -	vol_up_n: vol-up-n-state {
-> -		pins = "gpio5";
-> -		function = "normal";
-> -		power-source = <0>;
-> -		bias-pull-up;
-> -		input-enable;
-> -	};
-> -};
-> -
-> -&pmi632_typec {
-> -	status = "okay";
-> -
-> -	connector {
-> -		compatible = "usb-c-connector";
-> -
-> -		power-role = "dual";
-> -		data-role = "dual";
-> -		self-powered;
-> -
-> -		typec-power-opmode = "default";
-> -		pd-disable;
-> -
-> -		vbus-supply = <&pmi632_vbus>;
-> -
-> -		ports {
-> -			#address-cells = <1>;
-> -			#size-cells = <0>;
-> -
-> -			port@0 {
-> -				reg = <0>;
-> -				pmi632_hs_in: endpoint {
-> -					remote-endpoint = <&usb_dwc3_hs>;
-> -				};
-> -			};
-> -
-> -			port@1 {
-> -				reg = <1>;
-> -				pmi632_ss_in: endpoint {
-> -					remote-endpoint = <&usb_qmpphy_out>;
-> -				};
-> -			};
-> -		};
-> -	};
-> -};
-> -
-> -&pmi632_vbus {
-> -	regulator-min-microamp = <500000>;
-> -	regulator-max-microamp = <1000000>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&pon_pwrkey {
-> -	status = "okay";
-> -};
-> -
-> -&pon_resin {
-> -	linux,code = <KEY_VOLUMEDOWN>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&qupv3_id_0 {
-> -	status = "okay";
-> -};
-> -
-> -&remoteproc_adsp {
-> -	status = "okay";
-> -};
-> -
-> -&remoteproc_cdsp {
-> -	status = "okay";
-> -};
-> -
-> -&remoteproc_mpss {
-> -	status = "okay";
-> -};
-> -
+On Sat, 7 Nov 2026 19:19:55 +0530
+Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
 
-You should not override rpm_request node here, you can use the labels
-from the common to change the ranges like:
-&pm6125_s7 {
-    regulator-min-microvolt = <1280000>;
-    regulator-max-microvolt = <2080000>;
-};
->  &rpm_requests {
->  	regulators-0 {
-> -		compatible = "qcom,rpm-pm6125-regulators";
-> -
-> -		pm6125_s6: s6 {
-> -			regulator-min-microvolt = <304000>;
-> -			regulator-max-microvolt = <1456000>;
-> -		};
-> -
->  		pm6125_s7: s7 {
->  			regulator-min-microvolt = <1280000>;
->  			regulator-max-microvolt = <2080000>;
->  		};
+> From: Pramod Maurya <pramod.nexgen@gmail.com>
 > 
-> -		pm6125_s8: s8 {
-> -			regulator-min-microvolt = <1064000>;
-> -			regulator-max-microvolt = <1304000>;
-> -		};
-> -
-> -		pm6125_l1: l1 {
-> -			regulator-min-microvolt = <952000>;
-> -			regulator-max-microvolt = <1152000>;
-> -		};
-> -
-> -		pm6125_l4: l4 {
-> -			regulator-min-microvolt = <488000>;
-> -			regulator-max-microvolt = <1000000>;
-> -		};
-> -
->  		pm6125_l5: l5 {
->  			regulator-min-microvolt = <1648000>;
->  			regulator-max-microvolt = <2960000>;
-> @@ -278,11 +110,6 @@ pm6125_l5: l5 {
->  			regulator-always-on;
->  		};
+> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
+> from the legacy plain-text format to a YAML.
 > 
-> -		pm6125_l6: l6 {
-> -			regulator-min-microvolt = <576000>;
-> -			regulator-max-microvolt = <656000>;
-> -		};
-> -
->  		pm6125_l7: l7 {
->  			/* sdhci2 vdd-io-bias supply */
->  			regulator-min-microvolt = <1256000>;
-> @@ -291,51 +118,11 @@ pm6125_l7: l7 {
->  			regulator-always-on;
->  		};
+> The new binding covers the same hardware and compatible strings:
+>   - xlnx,zynq-xadc-1.00.a (ZYNQ hardblock)
+>   - xlnx,axi-xadc-1.00.a  (AXI softblock)
+>   - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
 > 
-> -		pm6125_l8: l8 {
-> -			regulator-min-microvolt = <400000>;
-> -			regulator-max-microvolt = <728000>;
-> -		};
-> -
-> -		pm6125_l9: l9 {
-> -			regulator-min-microvolt = <1800000>;
-> -			regulator-max-microvolt = <2000000>;
-> -		};
-> -
-> -		pm6125_l10: l10 {
-> -			regulator-min-microvolt = <1704000>;
-> -			regulator-max-microvolt = <1904000>;
-> -		};
-> -
->  		pm6125_l11: l11 {
->  			regulator-min-microvolt = <1768000>;
->  			regulator-max-microvolt = <1952000>;
->  		};
+> The xlnx,channels subnode retains its legacy name (including the comma)
+> for backwards compatibility with existing device trees.
 > 
-> -		pm6125_l12: l12 {
-> -			regulator-min-microvolt = <1624000>;
-> -			regulator-max-microvolt = <1984000>;
-> -		};
-> -
-> -		pm6125_l13: l13 {
-> -			regulator-min-microvolt = <1504000>;
-> -			regulator-max-microvolt = <1952000>;
-> -		};
-> -
-> -		pm6125_l14: l14 {
-> -			regulator-min-microvolt = <1704000>;
-> -			regulator-max-microvolt = <1904000>;
-> -		};
-> -
-> -		pm6125_l15: l15 {
-> -			regulator-min-microvolt = <2920000>;
-> -			regulator-max-microvolt = <3232000>;
-> -		};
-> -
-> -		pm6125_l16: l16 {
-> -			regulator-min-microvolt = <1704000>;
-> -			regulator-max-microvolt = <1904000>;
-> -		};
-> -
->  		pm6125_l17: l17 {
->  			regulator-min-microvolt = <1152000>;
->  			regulator-max-microvolt = <1384000>;
-> @@ -346,21 +133,6 @@ pm6125_l18: l18 {
->  			regulator-max-microvolt = <1232000>;
->  		};
+> Move xlnx,channels under properties, as dt-schema now allows node names
+> containing a comma for long-established bindings.Constrain the reg
+
+Space after .
+
+> property of the channel subnodes to the valid channel range of 0 to
+> 16 with minimum and maximum.
 > 
-> -		pm6125_l19: l19 {
-> -			regulator-min-microvolt = <1624000>;
-> -			regulator-max-microvolt = <3304000>;
-> -		};
-> -
-> -		pm6125_l20: l20 {
-> -			regulator-min-microvolt = <1624000>;
-> -			regulator-max-microvolt = <3304000>;
-> -		};
-> -
-> -		pm6125_l21: l21 {
-> -			regulator-min-microvolt = <2400000>;
-> -			regulator-max-microvolt = <3600000>;
-> -		};
-> -
->  		pm6125_l22: l22 {
->  			regulator-min-microvolt = <2952000>;
->  			regulator-max-microvolt = <2960000>;
-> @@ -369,11 +141,6 @@ pm6125_l22: l22 {
->  			regulator-always-on;
->  		};
+> Drop the redundant "type: boolean" from xlnx,bipolar, since its $ref to
+> the flag type already implies it.
 > 
-> -		pm6125_l23: l23 {
-> -			regulator-min-microvolt = <3200000>;
-> -			regulator-max-microvolt = <3400000>;
-> -		};
-> -
->  		pm6125_l24: l24 {
->  			regulator-min-microvolt = <2704000>;
->  			regulator-max-microvolt = <3600000>;
-> @@ -382,23 +149,9 @@ pm6125_l24: l24 {
->  };
+> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+> Co-developed-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+
+Hi Dileep,
+
+Given the legacy nature of the binding this looks fine to me.
+I noted a few things on how I think it would look today, but not
+expecting any changes to this doc based on those.
+
+I do want an Ack from Lars-Peter Clausen though if we are going
+to more formally list him as maintainer.  No idea if he has time
+to keep an eye on this one!
+
+Jonathan
+
+> ---
+>  .../bindings/iio/adc/xilinx-xadc.txt          | 141 ---------------
+>  .../bindings/iio/adc/xlnx,xadc.yaml           | 165 ++++++++++++++++++
+>  MAINTAINERS                                   |   9 +
+>  3 files changed, 174 insertions(+), 141 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 > 
->  &sdhc_2 {
-> -	cd-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> -
-> -	pinctrl-0 = <&sdc2_state_on>, <&sdc2_cd_on>;
-> -	pinctrl-1 = <&sdc2_state_off>, <&sdc2_cd_off>;
-> -	pinctrl-names = "default", "sleep";
-> -
-> -	vmmc-supply = <&pm6125_l22>;
-> -	vqmmc-supply = <&pm6125_l5>;
->  	/* No binding for vdd-io-bias on L7*/
->  	no-sdio;
->  	no-mmc;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&sleep_clk {
-> -	clock-frequency = <32764>;
->  };
-> 
->  &spi2 {
-> @@ -406,8 +159,6 @@ &spi2 {
->  };
-> 
->  &tlmm {
-> -	gpio-reserved-ranges = <14 4>; /* Fingerprint SPI */
-> -
->  	lm3692x_bl_active: lm3692x-active-state {
->  		pins = "gpio99";
->  		function = "gpio";
-> @@ -422,20 +173,6 @@ mdss_dsi_active: mdss-dsi-active-state {
->  		bias-disable;
->  	};
-> 
-> -	sdc2_cd_on: sdc2-cd-on-state {
-> -		pins = "gpio88";
-> -		function = "gpio";
-> -		drive-strength = <2>;
-> -		bias-pull-up;
-> -	};
-> -
-> -	sdc2_cd_off: sdc2-cd-off-state {
-> -		pins = "gpio88";
-> -		function = "gpio";
-> -		drive-strength = <2>;
-> -		bias-disable;
-> -	};
-> -
->  	te_active: te-active-state {
->  		pins = "gpio81";
->  		function = "mdp_vsync";
-> @@ -443,55 +180,3 @@ te_active: te-active-state {
->  		bias-pull-down;
->  	};
->  };
-> -
-> -&ufs_mem_hc {
-> -	vcc-max-microamp = <600000>;
-> -	vcc-supply = <&pm6125_l24>;
-> -	vccq2-max-microamp = <600000>;
-> -	vccq2-supply = <&pm6125_l11>;
-> -	vdd-hba-supply = <&pm6125_l18>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&ufs_mem_phy {
-> -	vdda-phy-supply = <&pm6125_l4>;
-> -	vdda-pll-supply = <&pm6125_l12>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&usb {
-> -	status = "okay";
-> -};
-> -
-> -&usb_dwc3 {
-> -	maximum-speed = "high-speed";
-> -};
-> -
-> -&usb_dwc3_hs {
-> -	remote-endpoint = <&pmi632_hs_in>;
-> -};
-> -
-> -&usb_hsphy {
-> -	vdd-supply = <&pm6125_l4>;
-> -	vdda-pll-supply = <&pm6125_l12>;
-> -	vdda-phy-dpdm-supply = <&pm6125_l15>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&usb_qmpphy {
-> -	vdda-phy-supply = <&pm6125_l4>;
-> -	vdda-pll-supply = <&pm6125_l12>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&usb_qmpphy_out {
-> -	remote-endpoint = <&pmi632_ss_in>;
-> -};
-> -
-> -&xo_board {
-> -	clock-frequency = <19200000>;
-> -};
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lime-common.dtsi 
-> b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lime-common.dtsi
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+> deleted file mode 100644
+> index f42e18078376..000000000000
+> --- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+> +++ /dev/null
+
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 > new file mode 100644
-> index 0000000000..16883e35b5
+> index 000000000000..2cbc3b82a26f
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lime-common.dtsi
-> @@ -0,0 +1,335 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (c) 2026 Adam Skladowski <a39skl@gmail.com>
-> + */
-> +
-> +#include "sm6115.dtsi"
-> +#include "pm6125.dtsi"
-> +#include "pmi632.dtsi"
-> +
-> +/delete-node/ &pil_adsp_mem;
-> +/delete-node/ &pil_gpu_mem;
-> +/delete-node/ &pil_ipa_fw_mem;
-> +/delete-node/ &pil_ipa_gsi_mem;
-> +
-> +/ {
-> +	chassis-type = "handset";
-> +
-> +	chosen {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@5c000000 {
-> +			compatible = "simple-framebuffer";
-> +			reg = <0 0x5c000000 0 (2340 * 1080 * 4)>;
-> +			width = <1080>;
-> +			height = <2340>;
-> +			stride = <(1080 * 4)>;
-> +			format = "a8r8g8b8";
-> +			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
-> +		};
-> +	};
-> +
-> +	gpio-keys {
-> +		compatible = "gpio-keys";
-> +
-> +		pinctrl-0 = <&vol_up_n>;
-> +		pinctrl-names = "default";
-> +
-> +		key-volume-up {
-> +			label = "Volume Up";
-> +			linux,code = <KEY_VOLUMEUP>;
-> +			gpios = <&pm6125_gpios 5 GPIO_ACTIVE_LOW>;
-> +			debounce-interval = <15>;
-> +			linux,can-disable;
-> +			wakeup-source;
-> +		};
-> +	};
-> +
-> +	reserved-memory {
-> +		pil_ipa_fw_mem: memory@55a00000 {
-> +			reg = <0x0 0x55a00000 0x0 0x10000>;
-> +			no-map;
-> +		};
-> +
-> +		pil_ipa_gsi_mem: memory@55a10000 {
-> +			reg = <0x0 0x55a10000 0x0 0x5000>;
-> +			no-map;
-> +		};
-> +	};
-> +};
-> +
-> +&dispcc {
-> +	/* Prevent simplefb from dying until we wire panel driver */
-> +	status = "disabled";
-> +};
-> +
-> +&gpi_dma0 {
-> +	status = "okay";
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&pil_cdsp_mem {
-> +	reg = <0x0 0x51a00000 0x0 0xa00000>;
-> +};
-> +
-> +&pm6125_gpios {
-> +	vol_up_n: vol-up-n-state {
-> +		pins = "gpio5";
-> +		function = "normal";
-> +		power-source = <0>;
-> +		bias-pull-up;
-> +		input-enable;
-> +	};
-> +};
-> +
-> +&pmi632_typec {
-> +	status = "okay";
-> +
-> +	connector {
-> +		compatible = "usb-c-connector";
-> +
-> +		power-role = "dual";
-> +		data-role = "dual";
-> +		self-powered;
-> +
-> +		typec-power-opmode = "default";
-> +		pd-disable;
-> +
-> +		vbus-supply = <&pmi632_vbus>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +				pmi632_hs_in: endpoint {
-> +					remote-endpoint = <&usb_dwc3_hs>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +				pmi632_ss_in: endpoint {
-> +					remote-endpoint = <&usb_qmpphy_out>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&pmi632_vbus {
-> +	regulator-min-microamp = <500000>;
-> +	regulator-max-microamp = <1000000>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&pon_pwrkey {
-> +	status = "okay";
-> +};
-> +
-> +&pon_resin {
-> +	linux,code = <KEY_VOLUMEDOWN>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&qupv3_id_0 {
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_adsp {
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_mpss {
-> +	status = "okay";
-> +};
-> +
-Please add the missing regulators.
-> +&rpm_requests {
-> +	regulators-0 {
-> +		compatible = "qcom,rpm-pm6125-regulators";
-> +
-> +		pm6125_s6: s6 {
-> +			regulator-min-microvolt = <304000>;
-> +			regulator-max-microvolt = <1456000>;
-> +		};
-> +
-> +		pm6125_s8: s8 {
-> +			regulator-min-microvolt = <1064000>;
-> +			regulator-max-microvolt = <1304000>;
-> +		};
-> +
-> +		pm6125_l1: l1 {
-> +			regulator-min-microvolt = <952000>;
-> +			regulator-max-microvolt = <1152000>;
-> +		};
-> +
-> +		pm6125_l4: l4 {
-> +			regulator-min-microvolt = <488000>;
-> +			regulator-max-microvolt = <1000000>;
-> +		};
-> +
-> +		pm6125_l6: l6 {
-> +			regulator-min-microvolt = <576000>;
-> +			regulator-max-microvolt = <656000>;
-> +		};
-> +
-> +		pm6125_l8: l8 {
-> +			regulator-min-microvolt = <400000>;
-> +			regulator-max-microvolt = <728000>;
-> +		};
-> +
-> +		pm6125_l9: l9 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <2000000>;
-> +		};
-> +
-> +		pm6125_l10: l10 {
-> +			regulator-min-microvolt = <1704000>;
-> +			regulator-max-microvolt = <1904000>;
-> +		};
-> +
-> +		pm6125_l12: l12 {
-> +			regulator-min-microvolt = <1624000>;
-> +			regulator-max-microvolt = <1984000>;
-> +		};
-> +
-> +		pm6125_l13: l13 {
-> +			regulator-min-microvolt = <1504000>;
-> +			regulator-max-microvolt = <1952000>;
-> +		};
-> +
-> +		pm6125_l14: l14 {
-> +			regulator-min-microvolt = <1704000>;
-> +			regulator-max-microvolt = <1904000>;
-> +		};
-> +
-> +		pm6125_l15: l15 {
-> +			regulator-min-microvolt = <2920000>;
-> +			regulator-max-microvolt = <3232000>;
-> +		};
-> +
-> +		pm6125_l16: l16 {
-> +			regulator-min-microvolt = <1704000>;
-> +			regulator-max-microvolt = <1904000>;
-> +		};
-> +
-> +		pm6125_l19: l19 {
-> +			regulator-min-microvolt = <1624000>;
-> +			regulator-max-microvolt = <3304000>;
-> +		};
-> +
-> +		pm6125_l20: l20 {
-> +			regulator-min-microvolt = <1624000>;
-> +			regulator-max-microvolt = <3304000>;
-> +		};
-> +
-> +		pm6125_l21: l21 {
-> +			regulator-min-microvolt = <2400000>;
-> +			regulator-max-microvolt = <3600000>;
-> +		};
-> +
-> +		pm6125_l23: l23 {
-> +			regulator-min-microvolt = <3200000>;
-> +			regulator-max-microvolt = <3400000>;
-> +		};
-> +	};
-> +};
-> +
-> +&sdhc_2 {
-> +	cd-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> +
-> +	pinctrl-0 = <&sdc2_state_on>, <&sdc2_cd_on>;
-> +	pinctrl-1 = <&sdc2_state_off>, <&sdc2_cd_off>;
-> +	pinctrl-names = "default", "sleep";
-> +
-> +	vmmc-supply = <&pm6125_l22>;
-> +	vqmmc-supply = <&pm6125_l5>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&sleep_clk {
-> +	clock-frequency = <32764>;
-> +};
-> +
-> +&tlmm {
-> +	gpio-reserved-ranges = <14 4>; /* SE5 SPI (fingerprint), not usable 
-> from Linux */
-> +
-> +	sdc2_cd_on: sdc2-cd-on-state {
-> +		pins = "gpio88";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-up;
-> +	};
-> +
-> +	sdc2_cd_off: sdc2-cd-off-state {
-> +		pins = "gpio88";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +};
-> +
-> +&ufs_mem_hc {
-> +	vcc-max-microamp = <600000>;
-> +	vcc-supply = <&pm6125_l24>;
-> +	vccq2-max-microamp = <600000>;
-> +	vccq2-supply = <&pm6125_l11>;
-> +	vdd-hba-supply = <&pm6125_l18>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&ufs_mem_phy {
-> +	vdda-phy-supply = <&pm6125_l4>;
-> +	vdda-pll-supply = <&pm6125_l12>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb {
-> +	status = "okay";
-> +};
-> +
-> +&usb_dwc3 {
-> +	maximum-speed = "high-speed";
-> +};
-> +
-> +&usb_dwc3_hs {
-> +	remote-endpoint = <&pmi632_hs_in>;
-> +};
-> +
-> +&usb_hsphy {
-> +	vdd-supply = <&pm6125_l4>;
-> +	vdda-pll-supply = <&pm6125_l12>;
-> +	vdda-phy-dpdm-supply = <&pm6125_l15>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy {
-> +	vdda-phy-supply = <&pm6125_l4>;
-> +	vdda-pll-supply = <&pm6125_l12>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy_out {
-> +	remote-endpoint = <&pmi632_ss_in>;
-> +};
-> +
-> +&xo_board {
-> +	clock-frequency = <19200000>;
-> +};
+> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> @@ -0,0 +1,165 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Xilinx XADC and UltraScale System Monitor
+> +
+> +maintainers:
+> +  - Lars-Peter Clausen <lars@metafoo.de>
+
+As below. Need an Ack from Lars-Peter.
+
+> +  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> +  - Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+> +
+> +description: |
+> +  The Xilinx XADC is an ADC found in the Series 7 FPGAs. It has a DRP
+> +  (Dynamic Reconfiguration Port) interface for communication. Two different
+> +  frontends for the DRP interface are supported:
+> +
+> +    - ZYNQ hardblock: available only on the ZYNQ family as a hardblock in
+> +      the SoC portion of the ZYNQ device.
+> +    - AXI softblock: available on all Series 7 platforms as a softblock
+> +      with an AXI interface (PG019).
+> +
+> +  The Xilinx System Monitor is an ADC found in UltraScale and UltraScale+
+> +  FPGAs. It is accessed through the Xilinx System Management Wizard IP core
+> +  via an AXI interface in the FPGA fabric.
+> +
+> +  The xlnx,channels subnode name contains a comma as part of the legacy
+> +  device tree binding that has been in use for over a decade. This name is
+> +  retained for backwards compatibility with existing device trees.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - xlnx,zynq-xadc-1.00.a
+> +      - xlnx,axi-xadc-1.00.a
+> +      - xlnx,system-management-wiz-1.3
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  xlnx,external-mux:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Selects the external multiplexer mode. 
+> +    enum:
+> +      - none
+> +      - single
+> +      - dual
+> +    default: none
+> +
+> +  xlnx,external-mux-channel:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Configures which pair of pins is used to sample data in external
+> +      multiplexer mode. Required when xlnx,external-mux is "single" or
+> +      "dual".
+
+I guess this is a legacy binding, but if we were doing this today we'd
+put an explicit mux consumer in front of it that makes use of the
+channel via the io-channels consumer mapping stuff.
+My guess is that stuff all came in well after this driver!
+
+This is also rather inflexible as why can't we have a 4 
+channel mux that is therefore in front of 4 ADC channels?
+
+> +
+> +      Valid values for single external multiplexer mode:
+> +        0: VP/VN
+> +        1: VAUXP[0]/VAUXN[0]
+> +        2: VAUXP[1]/VAUXN[1]
+> +        ...
+> +        16: VAUXP[15]/VAUXN[15]
+> +
+> +      Valid values for dual external multiplexer mode:
+> +        1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+> +        2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+> +        ...
+> +        8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+> +    minimum: 0
+> +    maximum: 16
+> +
+> +  xlnx,channels:
+> +    type: object
+> +    description:
+> +      List of external channels connected to the ADC. If this node is
+> +      absent, no external channels are assumed to be connected.
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      "^channel@([0-9a-f]|10)$":
+> +        type: object
+> +        description:
+> +          Represents an external channel connected to the ADC.
+> +
+> +        properties:
+> +          reg:
+> +            description: |
+> +              Pair of pins the channel is connected to.
+> +                0: VP/VN
+> +                1: VAUXP[0]/VAUXN[0]
+> +                2: VAUXP[1]/VAUXN[1]
+> +                ...
+> +                16: VAUXP[15]/VAUXN[15]
+
+Another legacy one which is fine.  If we were doing this today
+we'd use diff-channels rather than reg to specify this I think.
+
+> +            minimum: 0
+> +            maximum: 16
+> +
+> +          xlnx,bipolar:
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +            description:
+> +              If set, the channel is used in bipolar mode.
+> +
+> +        required:
+> +          - reg
+> +
+> +        additionalProperties: false
+> +
+> +    required:
+> +      - '#address-cells'
+> +      - '#size-cells'
+> +
+> +    additionalProperties: false
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        xlnx,external-mux:
+> +          enum:
+> +            - single
+> +            - dual
+> +      required:
+> +        - xlnx,external-mux
+> +    then:
+> +      required:
+> +        - xlnx,external-mux-channel
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    xadc@43200000 {
+> +        compatible = "xlnx,axi-xadc-1.00.a";
+> +        reg = <0x43200000 0x1000>;
+> +        interrupts = <0 53 4>;
+> +        interrupt-parent = <&gic>;
+> +        clocks = <&fpga1_clk>;
+> +
+> +        xlnx,channels {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            channel@0 {
+> +                reg = <0>;
+> +                xlnx,bipolar;
+> +            };
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 745d8d0169b2..2d7e9c9ca659 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -29996,6 +29996,15 @@ F:	Documentation/devicetree/bindings/watchdog/xlnx,xps-timebase-wdt.yaml
+>  F:	drivers/watchdog/of_xilinx_wdt.c
+>  F:	drivers/watchdog/xilinx_wwdt.c
+>  
+> +XILINX XADC DRIVER
+> +M:	Lars-Peter Clausen <lars@metafoo.de>
+
+I'll need an Ack from Lars-Peter for that.   Whilst sometimes about
+Lars isn't anywhere near as active as he once was.
+
+> +M:	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> +M:	Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> +F:	drivers/iio/adc/xilinx-xadc*
+
+
