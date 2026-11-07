@@ -1,56 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794022424;
-	b=mXcCDO000HlA5IskwHvUgLSDMO56EJztjW50eAlfwy9xqazHVZcIS40APeK3r7PtujA7
-	 YwGX1qEblxy7hv4CLYk5XSXgp4q9hV0qcqDlkAdw0oMq6SGnQ9obPYZuj9p6RXC9+kuy1
-	 up/eWC5zXQpsEXFU/O0M1zvoHS5okthRoh3+/Vh0gquN4nU2CrmFnFgazt4hhffqRcHyz
-	 cKANca3AYsJsCgNu5MLWFtP0XMuZ5zaUmONLZPQuXdMiYFreDULYNGdesUXQRYOJscJ9q
-	 90YDag6WNWclNXUlWNzZ3nSxPC38q8HOzmNdWqiYcsoeY3pAeCSGt58QOBueM2y07Wg==
+	t=1794022429;
+	b=JJre7a6w5/LCXsSyXyhJp+4z3fD4UW4l4GtLpV0HQVbXc75Zni4cuekO/w9ZR4OzKEkb
+	 phPMHqQKauqJIljrtDr3MVBpfm6U/LdFzGN7TJOlgqruA+0BnNFw6jlS3uGKqsT73561X
+	 OjwqxSWEHdjA+gOsXi17jQfwv5s1rTP2xRDBzarv7+HIYW5OJRDI6/Ov2R7TO6Z5BPm3D
+	 rup+Zb5GOQTkfG2XtKQbBq/4nE49UPzH93jXtnwO5bhet3Qn0u8DCm4KhXvgnHbiHUINy
+	 Pk1+q5dxeCvKN2c3UtUcoxUdNq/dS4zOl2Rdkh5N4ZRRBsrVMcfKXeHRIzb9X5DnC/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794022424;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jpPaZgsbPsVNhGFeGiooWUiBnb+be2W/kYoOJLpsaYg=;
-	b=GhSLqf+FWSxPhEI7iifgHX5u/0JVwF3Ir+BvmXD+9nI+oZhOVxxyrG8mkKETZPmFEkzM
-	 CXqj0hbnPjK6k4vu4FhHBQWxwbYB8yBxL4j+fhKtuOqq+PoXGLkSe3J7U5Nvc98jygsov
-	 yIJdAlMXO3WoOPaLz+C48buoDrVRQEcNVShTlkXWT7wOUoKg/ItKgQJTKiGRpC6h/AEjy
-	 gYewKFXSuJjFHiODRNPSOTIlZFFEEipNyuPtnjIP++YLFNYY6LkJVT/y0JWKfsVUxTmlA
-	 eeebXL+YwoiOIYXhcA4/l0sTghN5obb3nbseA5UcHVmMsGwXOUqb174AeMQvDkygUOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022429;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qDSVjPseL3QAEULLVfJL/AdxXAU5ASZY412c98qtMFA=;
+	b=2kQ8oc4kdXBgO+9HOad5v7SEBUczC2s181/Ea20WwN1ojcokA53+vehAwrNVBiSAgYBP
+	 ZyyADQuRnUcKMCVGIJedfxfZOZoiohIkVWTLwWnqBj7nsRoajr6IdJIEoiIwhKEbtqYiq
+	 H4yjmXRPWeVVrrIuxO/FTAOhB1I5XBvIU3LNzJXozOuKQLStDmkIXNYdsRRucR1MS5tM5
+	 CRqQG433MZQytvkvNOGrSMRqe8hY866vawSx6WQo/hifjO3uP/Er6/WMTjz+2Rjcvi0mf
+	 R+b2QftDEzV2DdbU+8zV/gWRt0ajx5VGkM5eMk1TWxe6xnrrRQ01nIHyIKBOFGLtcEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giIqJTue;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C50r/fU/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF3D606A326
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 03:33:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB8F606A326;
+	Sat,  7 Nov 2026 03:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giIqJTue
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768F61F0089F;
-	Sat,  7 Nov 2026 03:33:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C50r/fU/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB701F0089F;
+	Sat,  7 Nov 2026 03:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794022423;
-	bh=jpPaZgsbPsVNhGFeGiooWUiBnb+be2W/kYoOJLpsaYg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=giIqJTueor8C0iYRgJfEJmK/ZkxogSKsnX0B921hjbZ6Kkfh0B/aihs9DX+vSpmdg
-	 DuEBZCq1+0W2qlayUnDGYUgHmMF9rkabzbschrLOh4owlTq0C4y0Ya3WmFVKrq5GKA
-	 jJqij/67LChZtkBr/nv87oyfV7KGOVPK0u5U1sNTAfNK5XvTEu0yK0uhP1jklKUqxU
-	 IDaurhPvbo8Fq+h2UDLoRYX8KMHkWaxefhUdBWiKs4cSvmucQMQO8x9jPD9bTyUJDL
-	 JN8gf/Gxjjg4BIyn7k3bTS4rbH3NlmKIBLhopPMW+7JyuuH87YPlnKpS4UAi55RQAU
-	 ZIkQQiVX4Otiw==
-Message-ID: <sashiko-outbox-202531@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: mark the ADSP fastrpc node as
- non-secure domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 03:33:43 +0000
+	s=k20260515; t=1794022429;
+	bh=qDSVjPseL3QAEULLVfJL/AdxXAU5ASZY412c98qtMFA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=C50r/fU/gYCO/scuZDU1ZoiTeRX2i4HNsWCLeerlwwkz8MHbM49wIYZ2TY9oTOnKM
+	 Bv1L3xvm0JXpAuSS84jpjAOAFNTGMoMfswCcmY/V8sHvE4kMwiTkuRNa4zV/cQ6qwn
+	 BSAlbcEG6jGCYCp6tvW22417kFS3XezoMcfL7iX0kIsLyarptD0EekpW6MAuFthCPK
+	 5ZX0ZS4aBp0Bo3ETeEiu2V3JWXpwBL05apP/dl6nAb0EEzJxEt0XbKIKzM+I9fRbQd
+	 Z0VoXRr+rc/yW+jR69hQAuAo5FqMJh5qoLnIZr2JC3X4iEU8x4t4t6GLOWz6qN7T1W
+	 F9OoCzF8EwMaw==
+Date: Sat, 7 Nov 2026 03:33:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
+ Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
+ Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Add support for the
+ LTR-659PS-01 proximity sensor
+Message-ID: <20261107033340.64062192@jic23-hlaptop>
+In-Reply-To: <20261106091943.35783-5-clamor95@gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
+	<20261106091943.35783-5-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,54 +69,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: sm8750: missing Fixes trailer for commit
-  be9d54c35312
---
+On Fri,  6 Nov 2026 11:19:43 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-commit 3e2d2cedc67ebfc939a205a1181e0f73888ada0d
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+> nearly identical to the LTR-559ALS-01, but omits all elements related to
+> ambient light sensing.
+> 
+> Add a no_als_support flag, similar to how no_irq_support is used, to
+> isolate ALS register access for the LTR-659PS-01, since ALS registers are
+> marked as reserved and interactions with them are discouraged.
+> 
+> The ltr501_trigger_handler relied on the scan index to identify channels.
+> This approach is fragile regarding channel status flags and can break if
+> the index is not strictly set. Switch to checking the channel type
+> instead.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/iio/light/ltr501.c | 73 +++++++++++++++++++++++++++++++-------
+>  1 file changed, 61 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index d5ce6468a229b..e7762115df913 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -151,6 +151,7 @@ struct ltr501_chip_info {
+>  	u8 als_gain_mask;
+>  	u8 als_gain_shift;
+>  	bool no_irq_support;
+> +	bool no_als_support;
+>  	struct iio_chan_spec const *channels;
+>  	const int no_channels;
+>  };
+> @@ -192,6 +193,11 @@ static bool ltr501_has_irq_support(const struct ltr501_chip_info *info)
+>  	return !info->no_irq_support;
+>  }
+>  
+> +static bool ltr501_has_als_support(const struct ltr501_chip_info *info)
 
-> arm64: dts: qcom: sm8750: mark the ADSP fastrpc node as non-secure domain
->
-> On SM8750 the ADSP fastrpc instance used by the sensor core (and by the
-> other non-secure ADSP users) is the one the firmware exposes as
-> non-secure; the CDSP fastrpc node already carries
-> "qcom,non-secure-domain", the ADSP one does not.  With the fastrpc driver
-> keying the secure/non-secure split off that property, the ADSP only
-> instantiates /dev/fastrpc-adsp-secure and userspace never gets
-> /dev/fastrpc-adsp, so libssc/hexagonrpcd cannot attach to the sensor PD
-> (qrtr service 400) and iio-sensor-proxy reports no sensors at all.
->
-> Observed on the Lenovo Legion Tab Y700 Gen4 (TB322FC), which is SM8750
-> based: without this property /dev/fastrpc-adsp never appears and
-> iio-sensor-proxy exposes neither accelerometer, ambient light nor
-> proximity; with it, qrtr shows the "Snapdragon Sensor Core service"
-> (id 400) and all three sensor types report as available.  The change is
-> one property on one node, matching what the CDSP node already does.
->
-> Tested with `make CHECK_DTBS=3Dy qcom/sm8750-mtp.dtb` (no new warnings; t=
-he
-> single avoid_unnecessary_addr_size warning on dsi@ae96000 is present
-> before and after).
->
-> *** AI-assistance disclosure ***
-> This patch and its commit message were prepared with the help of an LLM
-> coding assistant.  The author reviewed the change line by line, ran the
-> checks quoted above on his own hardware and takes full responsibility
-> for the content.
->
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Is the helper bring enough value?  The !info->no_als_support
+where this is used seems clear enough to me.
 
-[Severity: Low]
-Since this fixes the ADSP fastrpc node added in be9d54c35312 ("arm64: dts:
-qcom: sm8750: add ADSP fastrpc-compute-cb nodes"), should this include:
+> +{
+> +	return !info->no_als_support;
+> +}
+> +
+>  static int ltr501_match_samp_freq(const struct ltr501_samp_table *tab,
+>  					   int len, int val, int val2)
+>  {
+> @@ -656,6 +662,29 @@ static const struct iio_chan_spec ltr301_channels[] = {
+>  	IIO_CHAN_SOFT_TIMESTAMP(2),
+>  };
+>  
+> +static const struct iio_chan_spec ltr659_channels[] = {
+> +	{
+> +		.type = IIO_PROXIMITY,
+> +		.address = LTR501_PS_DATA,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE) |
+> +				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
+> +						BIT(IIO_CHAN_INFO_SAMP_FREQ),
 
-  Fixes: be9d54c35312 ("arm64: dts: qcom: sm8750: add ADSP fastrpc-compute-=
-cb nodes")
+The sampling frequency applies to both channels here. I'd just make that
+info_mask_shared_by_all
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107032646.3236=
-3-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
+> +		.scan_index = 0,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 11,
+> +			.storagebits = 16,
+> +			.endianness = IIO_CPU,
+> +		},
+> +		.event_spec = ltr501_pxs_event_spec,
+> +		.num_event_specs = ARRAY_SIZE(ltr501_pxs_event_spec),
+> +		.ext_info = ltr501_ext_info,
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+
