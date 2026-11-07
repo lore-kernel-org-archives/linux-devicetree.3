@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794095013;
-	b=ErXKGy3HW7g/nyUa3UsLXBa+mlfSGMBo1gJugSZeLZdvgOglpCGpHa1eaBUyySS3K0ij
-	 /s4Gd9SXOdzV2bbhN1T9D6YRQYkAEXJqbijqCh8cJ8qgu4WO1vUB7vGVuXUeQxax0RRO6
-	 zq/YUGeBhYNj8+veAz/6IWkSwsdBhN9bKQ99/qAQRNpu4CIW3H0uHeQ33ZuNITfOnFFro
-	 oYNsxs3ynJ7wadDSd8l6X8LyKJwfnx7Qkj5MMb1zt21kr9wPN/uiHgLLsK+0SxSefR6BW
-	 b6ppvvBGuwywinEPdn0GCSXaEIETUONVCz7cERTAcxW07q5bYKxrrVUV5719Wxprb2g==
+	t=1794095632;
+	b=jLrl5ncFk4qng/SRXWqiGj2dACHXQdCkz47keR7SxOSclEBNxeeSJVz1oPBMytrcF5f1
+	 57F6ZwVS4UX5q2qLL2ksLWOqdRKKshis/dHseE5yLiAS/EfCgODZEeJvHMNZdcAbAdX63
+	 FlNIPRkRP7iTcirbNyx//qULRuAQ9fdUTOL9dz8jJwaGEI7gKLCnFkIsag5hHPNzr9g8R
+	 MZU4IUNFh6kzYiDxmzv/1ko8nVebumVukB4DoAGSO36f7vLCxzwjpIl1WMeipRPLzdAff
+	 6NYyIW5GFetiroSBODCPMsI97QbWQi4DS/2MUub5H9yUvFZVXhofWJfBliXVnXMEtag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794095013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794095632;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9JVhoZv/kApjV5ecEB9wAeg1QHl094+ex1qsxNehnhc=;
-	b=LQ5fTY2lakWV6L0qnpUnrhFBoAOPBJV9qAyHBziDyvifY6CUz8Pd3lwh6veDvWsrYZ5F
-	 ED0CABDFWzGYw3sLg5a1hGgJn6gFlWnt6o1lEjPMxR/d9I2Cy0PMAqIfd4Kwgn1SIafQd
-	 DoyQdvWnWPxQs5xVO0dGzMMmWKFiISPWXUEcm45dKZ7eAC+re5ubjtRnLxiTELErftmB+
-	 K2YRlnwIsW3nEcv8vLgcV9BMxSDmnLGYOu18v2l9KU3ObvvsKTCmAR+Cz0/KWB/P27fKJ
-	 1zC9FfBziBfE+Z2RxK0PSnLnSkcq4OYl8II2Cn3JPoSJ9ugza4KiANgIOfCJngRw1XA==
+	bh=WFbhXnonUMB4MsMDpFD9tXyRvsBkUMaSQV0XLq68nDk=;
+	b=pDFA+IPdcXpkMFhVkB8an2NNOShicmFxu5I3+5QfbJYf2/VFfAFZ3BYSBN9W0AFp52N7
+	 qdDB9J3Hae1cINJFFtj7Jg0xZUw5M7pI9XIhw3C4qubaacJ7YjD9aPGqmH0WsygzNS41w
+	 BaA2fHZlxeZELv1kx0w4T9ZP9KCybDlksQd2nwLsDYK2fVxpwo1ZDuGhG5au9OMBzmjHW
+	 Sg1BuA0BISxkaO9+yJ77xgdjHq/6wG37Z5WccGbu7FiQfRBfV3VGg2gCkxjNdEaiokRMj
+	 VB1j29UeOXme90V1Cs4pqROkYvrCTskc23InRU95uqNsonFWssqMPOEoGt2HYOg4oqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhhiDMTO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BRyzq2S/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A19606A326;
-	Sat,  7 Nov 2026 23:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F7C606A326;
+	Sat,  7 Nov 2026 23:53:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhhiDMTO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EAD61F0089F;
-	Sat,  7 Nov 2026 23:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRyzq2S/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A9B1F0089F;
+	Sat,  7 Nov 2026 23:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794095012;
-	bh=9JVhoZv/kApjV5ecEB9wAeg1QHl094+ex1qsxNehnhc=;
+	s=k20260515; t=1794095631;
+	bh=WFbhXnonUMB4MsMDpFD9tXyRvsBkUMaSQV0XLq68nDk=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UhhiDMTOXiySnfYDmTQByecsNuzvdkkUYa2f2XsT9gcuhd1owatVF5gjkOY95l2pQ
-	 qN7llj/K7lYPqktGk2IgIr0luMD7W21SVInSqvvKvMfuZx7GGgzDu/38wXrHchKlBI
-	 mW4RhKSpgi0IBfsbiak0KnlDzajD7qO4+wYIX8wtRdTEasE/rZNtcqdkgxTdc/udfU
-	 RD/1ss1OCeK4xjdco3O06oEA8eecxNZHkM5D/n28NcgNPB5Rmhe/XlHh+mRv3ZRu88
-	 vvcSuYb6SEodgyl6CDvK41XJTy8moTRsIG5MYuv2nZzety/bsx17nejZhY+puwwShA
-	 EHO8KKUg5MHBg==
-Date: Sat, 7 Nov 2026 23:43:23 +0000
+	b=BRyzq2S/hsWT2dkTqFE5719cT1bq8K33GBpU2V0HVWwvIxANuQbkqbP+YFjLQsqfP
+	 KoJedX7+NjHe4l4wKmb3OveSu1wZ1jbpZxUrPaEq9jLWNN7JVFRnlqP7YSvcvjkcZP
+	 372vgkoLo1yTYAsxL8L+ax4oH0iAea6n/yjzN90tMcDw06+OIKMZ769IPqIpzHsfy9
+	 gdMhTHRtmWbNGnOLM0q82nCh6xEJyUfEnvQRNPIRZcEE1tj9RypWd0KDwnY51UA9OY
+	 ozageyHUfHuwgb0GH5YYAGHgAyY3Q2bJrx0Rg6OzOJqaKGUCdRk8OzFlOaXoC5uSx7
+	 RFl9Fc4VkDgVw==
+Date: Sat, 7 Nov 2026 23:53:42 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: Michal Simek <michal.simek@amd.com>, Sai Krishna Potthuri
- <sai.krishna.potthuri@amd.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <amitrkcian2002@gmail.com>
-Subject: Re: [PATCH 4/6] iio: adc: versal-sysmon: add over-temperature alarm
- events
-Message-ID: <20261107234323.0aef5ae0@jic23-hlaptop>
-In-Reply-To: <20261102122112.1723130-5-amit.kumar-mahapatra@amd.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-	<20261102122112.1723130-5-amit.kumar-mahapatra@amd.com>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply
+ support
+Message-ID: <20261107235342.40f2e45a@jic23-hlaptop>
+In-Reply-To: <geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
+References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
+	<20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
+	<20261107223601.0ba9ffc6@jic23-hlaptop>
+	<geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,99 +70,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2 Nov 2026 17:51:10 +0530
-Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com> wrote:
+On Sat, 07 Nov 2026 22:45:45 +0000
+Roman Vivchar <rva333@protonmail.com> wrote:
 
-> The SysMon has two independent temperature comparators. The driver
-> exposes only DEVICE_TEMP on interrupt bit 9; the over-temperature alarm
-> on bit 8, with its own threshold pair at OT_TEMP_TH_LOWER and
-> OT_TEMP_TH_UPPER, is not reported to userspace at all.
+> Hi Jonathan,
 > 
-> The two are structurally identical: an upper threshold, a lower
-> threshold acting as the hysteresis floor, and a hysteresis mode bit in
-> ALARM_CONFIG, bit 0 for OT and bit 1 for DEVICE_TEMP. Per AM006 the
-> over-temperature shutdown response is a PMC function configured at
-> design time, so the kernel's role here is threshold configuration and
-> notification rather than acting on the alarm.
+> On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> IIO identifies an event by channel, type and direction, and both
-> comparators are rising thresholds on the same aggregate temperature, so
-> they cannot share a channel. Add an event-only channel labelled "ot"
-> carrying the OT thresholds.
+> > On Sun, 08 Nov 2026 00:15:03 +0200
+> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
+> >   
+> > > From: Roman Vivchar <rva333@protonmail.com>
+> > >
+> > > On some boards, the chip shares a power rail with other components. If
+> > > that rail is turned off, the chip can't function.  
+> > Not sure how the sharing is relevant.  Even if shared with nothing
+> > else we need to turn it on.  So just mention that on some boards it
+> > isn't always on.
+> > 
+> > The only reason this would be optional in the binding is if there
+> > was internal routing in some packaging or similar that meant there
+> > was no pin to connect.
+> >
+> > Upshot, make this required in the binding. Note that doesn't mean
+> > the driver must require it - we are simply documenting that the
+> > device needs power.
+> >   
+> 
+> I agree this should be required, but that would break dt_binding_check
+> for existing boards. I don't have their schematic nor boards themselves
+> to verify the regulator for the power supply.
 
-So the reason we don't normally do multiple threshold levels is they
-have minimal use for an IIO interface - as you've discovered they've
-reported the same on the events interface.
-
-If this wasn't an existing driver, the support of this is something that
-would strongly push in favour of an hwmon driver where the concept of
-warn and critical thresholds exists.  That's there precisely because
-the critical is often wired to a pmic or similar.
-
-However, that isn't normally a problem even in an IIO driver
-because that threshold should be a design time concern with the
-limits coming from firmware.   So why is this even settable by
-userspace? Feels like an interface to create the bad type of smoke.
-
-We have a few times discussed how we would perhaps add another
-layer of indexing to events, but it is hard given the the compact
-event codes and I'm not sure I'm seeing a usecase that justifies
-that complexity here.
-
-I also can't work out where your new channel turns up. What does
-the userspace ABI look like for this and the existing event controls?
-
-Thanks,
+There aren't any upstream (from a quick grep) and so not your problem
+unless you have some in a downstream tree that need fixing.
+If you do then there is the option of a fixed regulator to close
+the gap.  I consider a missing supply a bug that we should fix but maybe
+others disagree.
 
 Jonathan
 
 
 > 
-> The channel is appended after the device tree derived channels because
-> io-channels phandle arguments are raw array positions, and placing it
-> earlier would silently repoint existing consumers. It is created only
-> when the device has an interrupt, as without one it would carry no
-> events.
-> 
-> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
->
-W
-> @@ -880,6 +932,9 @@ static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev, int ir
->  
->  	num_static = ARRAY_SIZE(temp_channels);
->  	num_chan = size_add(num_temp, size_add(num_static, num_supply));
-> +	/* The over-temperature channel exists only when events do */
-> +	if (irq > 0)
-> +		num_chan = size_add(num_chan, 1);
->  	sysmon_channels = devm_kcalloc(dev, num_chan, sizeof(*sysmon_channels), GFP_KERNEL);
->  	if (!sysmon_channels)
->  		return -ENOMEM;
-> @@ -960,6 +1015,25 @@ static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev, int ir
->  		};
->  	}
->  
-> +	/*
-> +	 * Over-temperature alarm. The OT comparator watches the same
-> +	 * aggregate temperature as channel 0 but against its own threshold
-> +	 * pair, and IIO cannot express two rising thresholds on one channel.
-> +	 * It has no reading of its own, so only event attributes and a label
-> +	 * are exposed. Appended last, because io-channels phandle arguments
-> +	 * are raw array positions and inserting it earlier would silently
-> +	 * repoint every existing consumer.
-> +	 */
-> +	if (irq > 0)
-> +		sysmon_channels[idx++] = (struct iio_chan_spec) {
-> +			.type = IIO_TEMP,
-> +			.indexed = 1,
-
-indexed without an index? I'm not even sure what this
-turns up as. There are already 4 indexed temperature channels
-so why isn't this just landing on the index 0 one?
-
-> +			.address = SYSMON_OT_TH_UP,
-> +			.event_spec = sysmon_temp_events,
-> +			.num_event_specs = ARRAY_SIZE(sysmon_temp_events),
-> +			.datasheet_name = "ot",
-> +		};
-> +
+> Best regards,
+> Roman
 
