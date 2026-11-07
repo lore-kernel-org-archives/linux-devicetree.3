@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794025385;
-	b=eUoRfZ2I2MMlom+Qtm7p4oA7svhe2IclzC/1TYNikVK6/zmX3FiHjPNVzePg3joRkqkc
-	 0oAeuFsiLJaSP5pj4hlksuU/wghgTNIbpg+OyQT14eQdXaH4292BbnENrtr1mWisiPcja
-	 DmzWcqcK5TleguKrHIGITcsaPMHmyG+gRrJlZWtvXlGa6+1jcZi7Zo3pETKMj1ldqcgB3
-	 BjMCjrcf7wrnHJ+k706fPHABnFwEgHn2ywKY9MaF8cFkdTvsY6JUqbbxc4VB7dnQD07XF
-	 fiOpGTBhE2if5rEaeTwjWBiBJKpFg5PJBb2BsbLqkHuVtqyj5+2K8xY0rBOcuuuY+7g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025385;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
-	bh=5IRK5++d8vkxxLfiNyIoLEIgRBhFubpsN36OkQPt33Y=;
-	b=LMnZ7hy4VhNAGsM6iU7fBvM1HQ1u6VtnfVxK24UC9Tvcrhb5hWzQBUN4rrQxGzR0E5G0
-	 H0b0g9UyIo3UGtaiM376R9CdcTKpuDw2dI3o7ZVUVP33FzlUMd9A/fVhXk3I9cyf2kFdm
-	 V2E3jcIroEPNxyqZZCzX7WeDxmWgbWY0jqcdmye3Rmzm8mcC/q6tnuUi+b+KpLAYxraWf
-	 BiN9LliyAFvkuRDPYUMrLu4z5qfBa+k8LAv5jYLy5vbzREMUzNXPTTnf/gkYRhy2eJC2I
-	 Oab3cdgx8xIl2Vih2ZmjCdz4HF3VQkIFNfiweO86Xd/LiJhccO4bdhFhZzE1e9mFW5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ziyao.cc;
-	spf=pass smtp.mailfrom=ziyao.cc;
-	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=HTybT7DT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794026680;
+	b=0aq6liZcrKV6/kLSMEsIWe383dtfcFLX7g8cr6/TlXi0eIPAPqgxfEx4TeA3sgtwc9XP
+	 AviupaOPEj2Ot7qL8ayzf7Nipap/LFSLWCVTTW+vsNJmj9KrDpq0oOPvgUdtlysZ3mHKx
+	 ONyKYPLYwTPMYEsBrTgP3UjYnt6pqjSB30GEJo3uFtyOEpFPHGe+YLDEh4sb8irmiWLKA
+	 Q2l/IIxiSeXVXB/ybmSNHw4cVv/BiafwZPPOTV3YUrLzxd5VGXLn08Dr7h2KOdsMMhiH3
+	 GtlzE/dhdBH3UMIFkqlXlbJBgtjlvZ+mfUSR9zhWfPx8rorx7pvEwuM0uxuklDtk6kA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794026680;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yfvnxWu5AHjW62R+/dGRj91kyeH6mBdcMvXmFCDm6EQ=;
+	b=XKwa5WeEEPk4GQpQhUpRY0dkqKbyjxj3WQXSeQnpBnVheHjGQcUcN6c2bFTZ1tmn9DFf
+	 vvFan3diLZWK3RYzqbAs8npePqq6u1HxnZpiRZWhNsUCSvVJh9sOsnMdUtHFRpnzlUKfs
+	 e/5pjyUZaeDI/7nFvi0+Wvj+5fF8jWe5fy9AVBKXj7kfYJl+LUikd1gVq9joTFg5Hcat/
+	 2x4oOIMBgqZRIJd81x2Vu1bg4+//idz2z+ZByttng1/kx7Yle9QHEfiSfIdIIIJmCNmtK
+	 9ICY/ZEQpG5KaActht65y9oBBLKnY/Jv1faAXqp5E3qAKr+9DU7B8FQ/CW8lPcgz9rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0DSvcns;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4283B606A326;
-	Sat,  7 Nov 2026 04:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4283B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5F7606A32C;
+	Sat,  7 Nov 2026 04:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=HTybT7DT
-ARC-Seal: i=1; a=rsa-sha256; t=1794025362; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Wlygg3ErILvMjlgvg/tjexSb8yjv/A4ciW54erY9Jg5Rf0wnqcHfSK/239ZrL9kgPyVwD/hh4l0B11Rl8jBWPRPpMMWw9Opqnv909KuxvOy46XqIZoAJbQdKzngzOGn0KBFkrc7+QUdHAvtsqvZEBl/8XjIARBSqXe5Jk0RAdjc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794025362; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5IRK5++d8vkxxLfiNyIoLEIgRBhFubpsN36OkQPt33Y=; 
-	b=BhI25Fl2KcB3GoVotOc4vGDSt/xOKVchTH6uz/3ijSFMM35qsNsuzZL6giuTLy1hYsN6ayzIhiHW7aojk+mJ1no9a/EdS9qkn+oLiQlGrS5fWQmx6k18FfNo9sVLrjqp6+cJlnide7PLGzczgUdYsWc0vbKnWoVU3WRzoX2AZM8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: a=rsa-sha256; b=HTybT7DTZcTX86rpyM57RsTGumP26evQIPCA8S8YB17PqJR2itRoiIaUYikzL4gmqZITm7ZokpkGewxLnP6TCo1zzmjo+f8VSamnm8ymJtCZWGVsE+SiohEHqw7hB4NILaTadqg8Cu3Nk7i6W1/ScdubgUOR6KNseSgSsicwK+I=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=5IRK5++d8vkxxLfiNyIoLEIgRBhFubpsN36OkQPt33Y=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794025360505186.3136085299359;
-	Fri, 6 Nov 2026 20:22:40 -0800 (PST)
-Date: Sat, 7 Nov 2026 04:22:32 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Jiayu Du <duge1256@gmail.com>, srini@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlan@kernel.org, troy.mitchell@linux.spacemit.com, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-Message-ID: <au6niF5xiqj7cqJ4@pie>
-References: <20261106060525.346873-1-duge1256@gmail.com>
- <20261106060525.346873-3-duge1256@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0DSvcns
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EFCD1F0089F;
+	Sat,  7 Nov 2026 04:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794026679;
+	bh=yfvnxWu5AHjW62R+/dGRj91kyeH6mBdcMvXmFCDm6EQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B0DSvcns83Yu6RacsZ+iplmCURWZseVhWTDnXgXupu2+clFYQ6Oc5o0HSLs9gNESx
+	 hMnma4kd4uulwUDS0MIqUQUYJdhLuedO8U3spkwO3Lxu0mrfZUBsrwnKg1rELBFtlu
+	 amZMaP6dKW0JYlLrFCafZ/ehjrkyXr/uM5ne7Er9nFARUf1l/+7nA9AxF3Y/xjVXa7
+	 ohfT+Jn3NZu9z/C18dBi50qbTwzMK7hingILZYmm1WJhdF9hR9QZflVlQO/mypI+IL
+	 shDAyxTnVmUoF+ZQc11FiOjIHksSDmEqgbAT3BSF14wrTr7NV2uwpeTct5dxXJORUj
+	 lYCtk7ljRDrHw==
+Message-ID: <sashiko-outbox-202592@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v18 2/3] perf: Add Raspberry Pi BCM2835 AXI PMU driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ian Rogers" <irogers@google.com>
+Cc: devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107040913.1384033-3-irogers@google.com>
+References: <20261107040913.1384033-1-irogers@google.com>
+ <20261107040913.1384033-3-irogers@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 04:44:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,91 +59,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106060525.346873-3-duge1256@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.18.53
-X-ZohoMailClient: External
 
-On Fri, Nov 06, 2026 at 02:05:24PM +0800, Jiayu Du wrote:
-> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
-> controller. These banks contain temperature calibration parameters and
-> other configuration data.
-> 
-> Snapshot the shadow registers with aligned 32-bit reads and expose the
-> data in little-endian order at controller-relative offsets. Serve reads
-> from the snapshot and use keepouts for the remaining register ranges.
-> Keep the AES_WTM clock enabled and its shared reset deasserted while the
-> provider is registered.
-> 
-> Signed-off-by: Jiayu Du <duge1256@gmail.com>
-> ---
->  MAINTAINERS                       |   1 +
->  drivers/nvmem/Kconfig             |  14 +++
->  drivers/nvmem/Makefile            |   1 +
->  drivers/nvmem/spacemit-k3-efuse.c | 151 ++++++++++++++++++++++++++++++
->  4 files changed, 167 insertions(+)
->  create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] perf: rpi_axi_pmu: hrtimer_start() in rpi_axi_pmu_add() races
+  and resets timer
+--
 
-...
+commit 175632998831f232c8904487c2fedb162699a7b8
+Author: Ian Rogers <irogers@google.com>
 
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index d2f5bb236663..28d6c59fbd74 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-> @@ -476,6 +476,20 @@ config NVMEM_SNVS_LPGPR
->  	  This driver can also be built as a module. If so, the module
->  	  will be called nvmem-snvs-lpgpr.
->  
-> +config NVMEM_SPACEMIT_K3_EFUSE
-> +	tristate "SpacemiT K3 eFuse support"
-> +	depends on ARCH_SPACEMIT || COMPILE_TEST
-> +	depends on OF && HAS_IOMEM
-> +	depends on COMMON_CLK && RESET_CONTROLLER
-> +	help
-> +	  Say Y here to read configuration and calibration data from the
-> +	  SpacemiT K3 eFuse shadow banks. The boot firmware must have loaded
-> +	  the shadow registers before Linux starts. Programming and reloading
-> +	  the fuses are not supported.
+perf: Add Raspberry Pi BCM2835 AXI PMU driver
 
-I didn't read K3's TRM, but is there a reason to depend on the
-bootloader to do so? We should depend on the state set up by bootloaders
-as less as possible, I think.
+This commit adds a perf PMU driver for the Raspberry Pi System and VideoCore
+AXI performance monitors on Broadcom BCM2835 and BCM2711 platforms.
 
-> +	  This driver can also be built as a module. If so, the module will
-> +	  be called spacemit-k3-efuse.
-> +
-
-...
-
-> diff --git a/drivers/nvmem/spacemit-k3-efuse.c b/drivers/nvmem/spacemit-k3-efuse.c
+> diff --git a/drivers/perf/rpi_axi_pmu.c b/drivers/perf/rpi_axi_pmu.c
 > new file mode 100644
-> index 000000000000..d106053beae8
+> index 0000000000000..c75118c7c902b
 > --- /dev/null
-> +++ b/drivers/nvmem/spacemit-k3-efuse.c
+> +++ b/drivers/perf/rpi_axi_pmu.c
 
-...
+[ ... ]
 
-> +static int k3_efuse_probe(struct platform_device *pdev)
+> +static enum hrtimer_restart rpi_axi_pmu_timer_handler(struct hrtimer *ti=
+mer)
+> +{
+> +	struct rpi_axi_pmu *pmu =3D container_of(timer, struct rpi_axi_pmu, hrt=
+imer);
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&pmu->lock, flags);
+> +	if (pmu->active_events =3D=3D 0) {
+> +		raw_spin_unlock_irqrestore(&pmu->lock, flags);
+> +		return HRTIMER_NORESTART;
+> +	}
+> +	for (int i =3D 0; i < RPI_AXI_MAX_EVENTS; i++) {
+> +		struct perf_event *event =3D pmu->events[i];
+> +		enum counter counter;
+> +		enum monitor mon;
+> +		u32 new_count;
+> +
+> +		if (!event || (event->hw.state & PERF_HES_STOPPED))
+> +			continue;
+> +		mon =3D config_to_monitor(event->attr.config);
+> +		if (pmu->monitor[mon].use_mailbox_interface)
+> +			continue;
+> +		counter =3D config_to_counter(event->attr.config);
+> +		new_count =3D rpi_axi_pmu_read_counter(pmu, mon,
+> +						    event->hw.idx, counter);
+> +		rpi_axi_pmu_event_update(event, new_count);
+> +	}
+> +
+> +	if (pmu->active_vpu_events > 0 && pmu->monitor[MON_VPU].use_mailbox_int=
+erface)
+> +		schedule_work(&pmu->vpu_work);
+> +	hrtimer_forward_now(timer, RPI_AXI_PMU_TIMER_INTERVAL);
+> +	raw_spin_unlock_irqrestore(&pmu->lock, flags);
+> +	return HRTIMER_RESTART;
+> +}
+
+[ ... ]
+
+> +static int rpi_axi_pmu_add(struct perf_event *event, int flags)
 > +{
 
-...
+[ ... ]
 
-> +	for (bank = 0; bank < ARRAY_SIZE(k3_efuse_bank_offsets); bank++) {
-> +		for (i = 0; i < K3_EFUSE_BANK_SIZE; i += sizeof(u32)) {
-> +			u32 val = readl(base + k3_efuse_bank_offsets[bank] + i);
-> +
-> +			put_unaligned_le32(val, efuse->data[bank] + i);
+> +	pmu->active_events++;
+> +	if (mon =3D=3D MON_VPU)
+> +		pmu->active_vpu_events++;
+> +	if (pmu->active_events =3D=3D 1)
+> +		hrtimer_start(&pmu->hrtimer, RPI_AXI_PMU_TIMER_INTERVAL,
+> +			      HRTIMER_MODE_REL_SOFT);
 
-Does memcpy_fromio() works for the device? Otherwise, you could define
-efuse->data as an array of u32 instead of u8, so it keeps aligned and
-you could do a simple assignment here. Reading from efuse->data is
-always ok since memcpy() is used.
+[Severity: Medium]
+Can calling hrtimer_start() on every 0-to-1 transition of pmu->active_events
+race with rpi_axi_pmu_timer_handler() and starve polling during event
+multiplexing?
 
-> +		}
-> +	}
+rpi_axi_pmu_del() decrements pmu->active_events to 0 without canceling
+pmu->hrtimer.  If pmu->active_events drops to 0 and rises back to 1 (for
+example during perf_rotate_context()) after __run_hrtimer() has dequeued
+pmu->hrtimer and before rpi_axi_pmu_timer_handler() acquires pmu->lock,
+hrtimer_start() re-enqueues the timer while the callback is about to run
+hrtimer_forward_now():
 
-Regards,
-Yao Zi
+<softirq>                             <hardirq> / CPU1
+__run_hrtimer()
+  timer->is_queued =3D 0
+  rpi_axi_pmu_timer_handler()
+                                      perf_mux_hrtimer_handler()
+                                        ...
+                                        rpi_axi_pmu_del()
+                                          pmu->active_events-- (0)
+                                        rpi_axi_pmu_add()
+                                          pmu->active_events++ (1)
+                                          hrtimer_start(&pmu->hrtimer, ...)
+                                            timer->is_queued =3D 1
+    raw_spin_lock_irqsave(&pmu->lock)
+    hrtimer_forward_now(timer, ...)
+      WARN_ON(timer->is_queued)       <-- triggers warning
+
+In addition, because perf_rotate_context() deletes all active events
+(pmu->active_events -> 0) and immediately adds the next events
+(pmu->active_events -> 1), hrtimer_start() pushes the relative 100ms expiry
+forward on every rotation.  Whenever the multiplexing interval is shorter
+than 100ms, rpi_axi_pmu_timer_handler() never fires, starving 32-bit MMIO
+overflow polling and vpu_work.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107040913.1384=
+033-1-irogers@google.com?part=3D2
