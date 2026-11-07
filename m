@@ -1,127 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794013694;
-	b=rBTU7YH5OHoSJBcxVPIFTZrj8KsGxDo98gVmolmJWKD6Q6Btf11dxqujEKukL0LTQ+Zo
-	 l1BqnG+4B1di8ZLP+xvJDhPmjBZXO97TGb/ZbIyqGgN4NT9GpJ4w73AkqtBRG3nCAALEY
-	 SGReeUCw+DaS9WTl0lZQK0KCeVJ0AuKETuIKvHm0kqWwOLupvVyaLZut77SXQcGuyzKKE
-	 mpsK2rN3lZuP5/1L2eAvz7PlnrEg2eu2ccOIlZ9guADer0aixc0DCZAYD3U2o7BhGQcvD
-	 hZJlK9X16/VwZy1eqguTz1QJMDiFyosdu6XIlEgvgNaUpIxkk7y+gyLZ9xkUE7ApVgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013694;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-	b=skKx9YaSfgn+qyfD+1Q/5ImKe0TP6EfuujzWUErmaOPB0wgvuJCVVGiZiGKdv96IMbGf
-	 qy3EdCJyFSaflUkhREAgZhqEmomyr1pA5PSnrlVazsnjSEMavNDtBPY65+8Kk2MIW0IxS
-	 Fx87UT6onaYsK3mIS9VnF4UhnCQNeeVyLbXYH+G/DUhYh/QcHaWmTRcs0kuJ0p4LAK574
-	 40e1Ey6zv0OKSkH/j0FyJh3s24warzyBcVw2rRbm1tonyVXAE3lvO64zUrzfWzwp2u6J+
-	 8/6BqF61vtDBOG+BVlqtFSPbZfs/dD2fe8pZ6GrZ7pVjPTID49DoGkeIhOivQxamTyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jbim5pNr;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IO4KcZ2k;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794013820;
+	b=Na97VdWPyIwZgx5EQ86se+GnKesowTTXc4wkz/KZsemIh4sTkmn0V0SSGcuu9gqFg+E5
+	 xZOXBYyfihxNnLrGs7Fr7+6LI2Su8gLYSXDCI+vSy1Qllb/XoXfTGux5Gz99oCAfzUSZx
+	 bhlwLFfZTn24XOcuh1DBd6S8CSM9ith0hHLB8HmZUiTMHYTROWl6kpCNpVPyFX1caQ9tz
+	 EALve3vxDfqYhsCXCJ9QpTYoKAyGQi0HQ6veyuIKdmAlT9vEbd/Of9Yniq1+hfXLFM97F
+	 JYxy8Q/EFXMt80LG/riEDAN4KiaQU/hqmpx1Dn2/6qheBX91Zgz2U8G915aIQf/PJhg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013820;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sdXFT9W9Wyc62fL8WwLK3bZAHiberLn+3ZtXwWxtjc4=;
+	b=yKiWv8COc0stkhcWuwYWEwXCntp4s2prONsLfB2nbONFJjLRnfUQjHg0gKpfQszk+Rqr
+	 c7G4f3oVtiNpZvEUZ4vAw0s8wELTMQWcYLB+n/z/jkVtPSZpXz8Wd+6icLa2L8nSqY+c5
+	 gl0BOCPz0j7fxFJNTXb08xx1grYe1KnOqEKtkYNaCXTs5pJg45FaelmgHdoeOPRbTeZu4
+	 FaAxKdehwHRmTRcjr9FqIoYsx94ZDx1zXBtz5GoroyhJ+i6mtacyqtuHHspbVx1hkNelb
+	 c5jidOUxo6TihDsOUo9aJIYzcH/mp8Oo5VZ8yjNNJlYPGTxikPUdlR01Vc3Fk2wrjFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.112
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022112.outbound.protection.outlook.com [52.101.126.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658A5606A332
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 01:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 658A5606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jbim5pNr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IO4KcZ2k
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6Mo5YC3696090
-	for <devicetree@vger.kernel.org>; Sat, 7 Nov 2026 01:08:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=XqszqiOkBMd
-	k1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=; b=Jbim5pNrPgMo+g46DRYZjAFuvhE
-	Vr6G6u9Xl5bnz6g9WcIHzXufPefgfrpxGPN6+vQM5xK68i+VNDmTKdw9HS/3HT7E
-	sLN064N8UnOJczaLEC9w8LKnUZH7XnNcPLBssD6EHqSoMAdVsR2TxiI4MSg+JkjY
-	mE1v9RWM3WcNptQ7Uy7bBp7qLwVyekdd4qyZABfxq0rLy/iUKhM5MmsPVUGYg0um
-	WTs1NCVnhnZX5QmM8/Mlq/Asxv7XhAr1SRQXkGoIvsvFcm7B5KNBOSVViIWaGRiV
-	hyYdf57huav//qkoyn6x0MitT+TbwufIsIdrYAHV0GNppL8ldGIUf3SQ94g==
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsmyqryj1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 01:08:13 +0000 (GMT)
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-67906c453b8so332327d50.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 17:08:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794013693; x=1794618493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-        b=IO4KcZ2kcUkQLr+wGtUcH7RcYMVk7RcG5c4JBi98/ZUS1w1aGT0uM1CtiE3kqht4uL
-         QsOEccoSC8Xk1zR1bw7ZidpTUufOAWaiQW0YKS2d10VMbzGXwtxVhbzPHGxI20p2STZB
-         TbAffWYgWNntwfzvI4inq8P8hhT/R1UcBYF8IqNA7vq31PuAar/rLxI5MMZV9+ThLAcT
-         HDFzduuqPQjAmzRVrV52JPsnY/PhE9bEu5ci3ikn71b1YbWT4/dusTPyDkYgvF+S4DU6
-         rfEmxwcpCoOF+AdmWHnFLzP+akAd10zs1QQnQ6wGumbYnqqB7VLsm6khbBJyF9XJxT9y
-         jAjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794013693; x=1794618493;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-        b=2FE7T9vPOAbQQ000LvyfmT50NO7cgU2iqnb6+81Y6N5OaM0Bs3vevdc6XYGnyPTV8I
-         E4MJyknZoUT0MxWxB4ZYOpnEnLy7wLn3M1PsEHin8GQF0Bwa9urb//ycOR5RJ1Dt+HVT
-         7iE5O2XOAaUoX0xmzmgVqMp3KeqPnGILWHMTVGKr0y6FyCuZjttdD3DgbU67K0voVLbF
-         9kb463wCYuvZ3R1u4ij6xjwxFDGY1U8qVX2mx2YJ2xgt3FOThM1ogwUpfSV+V1W2NSIN
-         wWJtL9l280x2tjZNWe6+QvfleHc9PuiQi3uiYjx7Tny6kVjb80OvHhlFGcXSS5uWlJDv
-         VUHw==
-X-Forwarded-Encrypted: i=1; AL+hErHXqqNFqm5Ko0INyHchqyCzUbcvWS3KVy3WKWuz5HMRZCC7iRXJ7auH7498iNA4b87klaOxL+GeR7m8@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oT9RzpujiKaXJCJdCi1Ge7T9HgdoKnJ2gyXjixF3zlBGBsLdS
-	fK6f5d3UFQRq/R9xsA7dzSC+gGddP0dST/vM5rFdnq119PK7/RjN9zstRGCiu37gxi9P+4rH3rq
-	aMuDhrnRY3rWg+8bkPKpNVfwhWVpx7APmrROjdfTQuvBSplMSbAjhntLb8FvCjGie
-X-Gm-Gg: AYBFou1zMsdKnGd+G4EiTAITL/j4Mj8CsvhE8Pxceq5zUurBbf74L4ksEgZIf5uaFvx
-	2dcKeJ9rT3ztIGxpR3ESxH3+AYsp84hMdNTewx0I0ixrG/fjVXtRHbGbT/ZABjW8KTja16oUAp/
-	gJXJjuykjVHAdJdid5bxhiEUqXFnbS29iclrdq+CfkD8dPmN2vm+0+0AZxn7bQlqDxJPe4pXw7A
-	jryIFCDTgBPcMi0T0si+s4p8rf0uz+D+F6eGgXvihmQABv6m56SI+9djRytE/yjsm6jmYSRpq1f
-	NaIdZ37rq7vh34TcVJ4LNFdJ9Zma/VMonrnococ71S3e4nWEV1jsh38XcdLywMex2dHfK8Av9K2
-	vrli70AVEZN7Ld1tX2Cua0UvKhDffsOv3MvjMK3HvQ6NNMGBUfExfXwh0Ij6F7fX2dmVE6RXI2D
-	cw3i103GQgC3yqwqVk4hSknYBdO0P7Sh6OFg==
-X-Received: by 2002:a05:690e:438c:b0:67c:f8c:22ff with SMTP id 956f58d0204a3-67c29d038a2mr256552d50.29.1794013692329;
-        Fri, 06 Nov 2026 17:08:12 -0800 (PST)
-X-Received: by 2002:a05:690e:438c:b0:67c:f8c:22ff with SMTP id 956f58d0204a3-67c29d038a2mr256547d50.29.1794013691939;
-        Fri, 06 Nov 2026 17:08:11 -0800 (PST)
-Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c134f0b5csm3091934d50.7.2026.11.06.17.08.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 17:08:11 -0800 (PST)
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Amol Maheshwari <amahesh@qti.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        devicetree@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/3] misc: fastrpc: fix ADSP duplicate session creation
-Date: Fri,  6 Nov 2026 20:08:01 -0500
-Message-ID: <20261107010801.3451213-3-tyler.baker@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
-References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FDC606A326;
+	Sat,  7 Nov 2026 01:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FDC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D3DZ6AicCSXgjEjULNMel3dl3RiwQR+TeVNttBPyMWpWfiGOGCO1UqhBl/8auKg4My7qT/fQAHAnxJieo/dMKtuCc/egjs0HCZ8QTKPjXSfPB8Qex+o7IW3LTjZxMzDGoYdbON9GY20vhfbXWRWLVg8JdFVMArq4QepSJGj42f4hTM7439gPBQsHUD4teMSJflYF0AA5V5CZuKLh6uzjHi5+LljTh0PBfnBYL7I3SB1OJ5uRInpQTmxhD2leFdIv+fk7Sb9VRTe+UHvw7eEptjIeJ/f0GpnIDhsK8emuHIHkOLC9GERAnfhhaN0Pauo3PKKfSz0wKUM2+amB88kAdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sdXFT9W9Wyc62fL8WwLK3bZAHiberLn+3ZtXwWxtjc4=;
+ b=mpZBZVzp2So6mN/f71puE6sL517/OVU0z0Oxe7hCk+XvoEiFkhAr8zVnnyn10neZoN5PYmC504EdtiDEJg8Mtayumja524VoYiTMjhNxgY5z7Iaq6WHCVV1nKSbM8scLa2YsX3dWDACfnMDLC2RQThhEImrCXEZ2iv+PEUqnuZNe7PzIbzdlCRicUiiXicvDPkQaSAVPies+TOILe8fttul9UpD5Ta/QKKXMC9mG6bfkSfcayf4lrNzlH4jDF3UBkbc2JEh7PqWcHScJthstXKyqK2/tGL7PnKQgq5mQs8Z36Q2aAxjI1JlOid2wjmdI2Y6A47+ndJ9SZHu796Bv+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR01CA0047.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::10) by SE3PR06MB8642.apcprd06.prod.outlook.com
+ (2603:1096:101:334::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Sat, 7 Nov 2026
+ 01:10:14 +0000
+Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
+ (2603:1096:4:193:cafe::72) by SI2PR01CA0047.outlook.office365.com
+ (2603:1096:4:193::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
+ Nov 2026 01:10:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 01:10:13 +0000
+Received: from gary-System-Product-Name (unknown [172.16.64.55])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E40814102E61;
+	Sat,  7 Nov 2026 09:10:12 +0800 (CST)
+From: Gary Yang <gary.yang@cixtech.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	gary.yang@cixtech.com
+Subject: [PATCH 0/4] usb: typec: add CIX Type-C PD controller driver
+Date: Sat,  7 Nov 2026 09:10:08 +0800
+Message-ID: <20261107011012.3655873-1-gary.yang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -132,31 +105,82 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: A7ySvp_0-cR9HS4Lwz2IRMyyrB9kYreU
-X-Authority-Analysis: v=2.4 cv=aNZlOr9m c=1 sm=1 tr=0 ts=6aee79fd cx=c_pps
- a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=fP8dIGKjERIvVM-sKqAA:9 a=nd2WpGr1bMy9NW-iytEl:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfX74MAtTs5p+Ie
- VmotwIkitt6nlLLzEFvimYQyjtMGQAhpz0vqa518V+pAglhwEZKxNzl4fP5pa1ppJo31rcxmvjW
- LuU8Q+gY8gLK+vNpwld67+Rgf/pvmV8=
-X-Proofpoint-GUID: A7ySvp_0-cR9HS4Lwz2IRMyyrB9kYreU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfXwyisJYndpBV5
- ywPLR1RNRhqcoV4zwClt9gE6FffWK4wTwZHjfLhuIqmKedRlLqxTtj6sfan0mZcLkKcGSiVOcXp
- 7oXtTLF4Z+akj3ex3usRz4JvSbWmm2RIP/j1mDRIY7mQoiDkw95fxhWPi7yDk+jByZdJS9lrUan
- lo9+27QqBWa3hw+K88NPnlDTum0OW3rrEc8K2OXypbF8WNtmo4c359Mr82qjxfUkQTpycv9Eu62
- r59ZlIVoov7ThF252ASxD5KpztRk28kEwZZOZAfjMY3PqmF9NBqlnZ1fBcRtXztRQPf9M7TXiWw
- MjUuhmUuCSqKR5RTw7AWFBB8AcNiDTrsKW8avfBKLr7mok9YoYnnGVCUlKuPE4MFB6AvQYsUOsv
- Tzc/bgRfxqr8UBJfEm4z6CA6fVXsU5Tuu6a3vSTR0sfv2CLSJm/0+V1t5EwH1s3NFvSYPRTgmkp
- RVeZNSgO+1cKtHtYGFA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_07,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611070004
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|SE3PR06MB8642:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 56f66ecf-3ca6-4d50-07fd-08df3c6be0cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|10067099003|18002099003|56012099006|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003|261026140227099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	G6EeKiXGxW8ggpaMZeCPdeLBP548wH+/j8aNIPx6eExsuSqgp0H10luVqhQfRDzEYTAGPilFmqnCtCjPLKtXKirj+hNfFr94Nklhoafzode8c/oqqLcT2ojYHwsKDnIym4eHOPz+sCxO55rUW54XPJsZUmFwuPHda7iLcu73QIKwGa1Mv5V2AK1R2oVYAMrBVl1SP20tJY1kKiU44pNJzzZjHvUhrVet6khjnvxJMzVvUXMjsXhfVOXLB8xz8DdPq6VfmrcTlPDETRCgD/vqbEvQJtga1G5JQIURVGCuipSu9CASIeI/QVrVRkjxbAjGvpf97Im20ppp5iftP0uwetHVxQPgZxkBH5OCh1JjwToeV3gp0iwLLiq9ZV6s32siXalfFLn6y5y6Tq8x7bGfsAFHsH5LqevkjBJdKdCCPn7J2wQnKei/4BVtFG7DjHIxbc6CBuCJaiQ2eKlZC0zIlgZ9Yl8RFZeiMdoBb3WypVnzfpcSIGojcXRDtqWM5r92YcDvaqUaf6rpf+41M1FvqgYEsrHkoyOWDZs1PU8CKyuE7diGyylawxlmOhe1cKEQuWtGqgtX7u2KoLdh4ZrCvgqDEqQjDZc8hRmukRev1BB9kyGFSHgrHHC4/NKQ1c2DG44rxnNkGmbRB0PivGQCseAYlOjKAHgcM+xbnurcUJwYqm+Veb95GogeO5Z1dBafjQ9UWqe/Y29HI92ozghJdg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(10067099003)(18002099003)(56012099006)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026140227099003)(261022075727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gXjgvXYVqh9frnAy350uhioGpHfHMyqI7afi/HqU47Tnu41sCyZCUbgI5ygKBlEqCcJE1d9/sbRq3UKTvu8aGz4BJZ4G7uJGNbsVe8QTPk2Y2++L2OOGue7L9qb6Hw8SSsWv4JOQdvRiyc9drgtUFZpW5/3DMK8kIgTELexjqVobClOLCf/IkYaMlMa2JgbPvUQqOO3Mz/TsaT9S8zJ7wGluTepyzVbrL9V4YPUhEmtxwGjPUYmIgEp+tBhAz1j7GPvhIpG9mRZ/oaz35YOyIkMp/HuuPRamnyFvIYEhx4HVsLvMQ+5w2vPaDr5rW9R6IILtnS2aQUFSOkgxADIbEuV3MOo8ZF5Se0cQB67ZFrvAztZGfktkzJ3mHr6KYSwGfsbUyRGhaxdrVx02kx94FtofZGmBoTswKfG7RvpKiqclDB5IVRXZl2M9FoiBMuBZ
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 01:10:13.8171
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56f66ecf-3ca6-4d50-07fd-08df3c6be0cc
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C8.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8642
 
-Tested-by: Tyler Baker <tyler.baker@oss.qualcomm.com> # Eliza EVK, EL2
+This series adds a Type-C PD controller driver for CIX platforms and
+enables it on the Radxa Orion O6.
+
+The first supported controller is the Realtek RTS5453H, a stand-alone
+port controller: the CC and USB Power Delivery state machines run in
+its firmware and are configured through vendor registers rather than
+the TCPC register interface, so it cannot be driven by the tcpm
+framework. The driver translates the controller status registers into
+Type-C class notifications and drives the platform PHY's orientation
+switch and mode mux.
+
+The driver is named after the CIX platform integration rather than the
+RTS5453H so that further register-compatible PD controllers can be
+supported without renaming it.
+
+Patch 1 adds the devicetree binding, patch 2 adds the driver and its
+MAINTAINERS entry, patch 3 fixes the I2C bus #address-cells/#size-cells
+on Sky1 so that child devices can be described on the buses, and patch 4
+adds the two controllers and the I2C1 pinmux to the Orion O6 board.
+
+Orientation switching and USB/DisplayPort lane muxing are performed
+by the platform combo PHY. That PHY driver is not upstream yet, so
+the DTS does not link the connector to it in this series; the ports
+are still registered and their state is reported through the Type-C
+class.
+
+Tested on a Radxa Orion O6 (Sky1): attach/detach, USB-only and DP-only
+alt modes, cable orientation detection and HPD reporting all work.
+
+Gary Yang (4):
+  dt-bindings: usb: add Realtek RTS5453H Type-C port controller
+  usb: typec: add CIX Type-C PD controller driver
+  arm64: dts: cix: fix I2C bus address and size cells on Sky1
+  arm64: dts: cix: add RTS5453 PD controllers to Orion O6
+
+ .../bindings/usb/realtek,rts5453h.yaml        | 126 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  51 ++
+ arch/arm64/boot/dts/cix/sky1.dtsi             |  16 +
+ drivers/usb/typec/Kconfig                     |  11 +
+ drivers/usb/typec/Makefile                    |   1 +
+ drivers/usb/typec/cix_pd.c                    | 777 ++++++++++++++++++
+ 7 files changed, 989 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/realtek,rts5453h.yaml
+ create mode 100644 drivers/usb/typec/cix_pd.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.50.1
+
