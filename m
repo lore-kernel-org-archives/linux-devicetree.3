@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060850;
-	b=jAcfr3kEyEGed5IHGYtfKwVVP2xmytYH21UM/3V3KCuvjwr0pGI1oe49bthXywC+YxDf
-	 9n5Cc5TtVSX7TzDv3i0x+buPqPRT2hdmaFKqoh7hJ2RH+0uO+K5Hfr3YsAkWuqPaX9mmA
-	 vZVVT3CNL8T/ODVTzqjCP9Pv0fwk6PWe4RJIsJY5CT5kHLf36XdKAVFcnPBcyj+/9mXSJ
-	 Px69TvEkKQXuxvi9KrxEAr9rSmfsKJENxzIHtbyPze1Eq5d3gpA6CaP76euge0wv6oDqG
-	 OppAfBLRs9TZaRmZoyrvq42fcZZCmO0qQIIkw+lShU1tFi1KQG5fdB4zuAGyyVFeuZw==
+	t=1794060859;
+	b=ashH0lB2yrBzqesn8NabdDT+syU1hA/4GWtgWKfL13aT3kjkW+XWpLIVvrNBV1zNxPO8
+	 oGulXPFC3TOf8AmDHZYQskNzTVyVud5NnmaXTimKFxnguAle68fR50AISY5VWVB1iUyTy
+	 WwytzQ1qW88UUR9GNypOrhwt+lLbrZxlfj6gANH5hHl/EHKjR/VZ69XAuZea7btE+lW96
+	 6y0RvfOvQEFGhK8hZiFwno3bRSPs4xXlMKXpx1zWyYtM16TVVRVXWaotQW/FCEgsNBJmV
+	 QjptPtdeqFvs8vrxxlJSyuDtvdWhmpbTuG3A1VPtILJuS9ptEpOR+EB496COeFdf9sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060850;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=DBMcm3MQt3rFtazZpSgZ4Roq5LuM5LuAD32o736vMeU=;
-	b=lOYldzEPAM/ZThHnxvhtvIuu9/IitnkGCYMTknY1x75vcpZhXvrGiDf8Jf4iqwzIx9Wt
-	 N8hb7aZu8i9s5GBM8cEWV4j91W5P1ofxW6MR90oV1dhpxBA2drRAI3HsjWQnBJZ5oMIxI
-	 UhyUwZHA4PPbiizl0nLDlMV9TuE4lwCEI5MzcWC0n0rZgx9BtUPTNMyeXym3B4qceMVUQ
-	 /LgwGu8hHKUouhLYw5NxF2MXtndCGAcWeFJlkPBlVqHTKNsvnzuyBuh0XrRosImEUiioe
-	 sAPGdqHpigZ3ZzXZBxamV2j9hRwzGFEtxDUOnGGDJMwa/PCsBsktuyFVduiQM+5jGTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
+	b=rJWIAk907in1MG7jrSSyBsfDv3WNHCR0TpbgfXVUeGRE7GntuAtWI+099+lHu92BS22V
+	 T7eqDpo0YmPHfzUEbO27HNjnftWxlD0R3aRrcjnOkCF3UaG2FZp9HanaSphy6MfGi90ck
+	 T3wAamtQ2oHInUpFmSwiM4iKkQoyJIrvnRVw1pL/gwR9INsgADpnhuSKk3waAYaSnvR8s
+	 4jlRFgA2A8G2REO8dGeRmxRaxdFP+XAwGQ6YQBLyfm5rbqrARi9mHz4JRhe+tGngbkmDE
+	 3tOhAfRCacnF4Wlcua4liTBvuzLuxlm+loQ/t/rC5jpjsOabFWlOs/Lk59Tk210cvgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=LP1Sjd95;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E05606A33F
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E05606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD75C606D80C
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD75C606D80C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=LP1Sjd95
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=DBMc
-	m3MQt3rFtazZpSgZ4Roq5LuM5LuAD32o736vMeU=; b=LP1Sjd957bnsCYYNwmid
-	tnXPzkXLU9WjO7PrxKfLGp2Memt2xtgldHuJjte2xxhlmzIakSm1tR2544isJ0aS
-	gENrQYPI6UGMOZeeal3xYPXpFTXXxHnyCK7Cu6oHTU6iz3vyZaPO0XQzZbrI2En5
-	UcGUCs7bwsBtEcK3I24kv9prD1h6UnjwUc7z5fYj7hXPvUFNc42Sw9KltLhy5xUv
-	1FQICatg9yuwyiSWhaTE7rZqrjzp2e9BYBZshwNCmXdi/yUcTCL1rnY4oqTfpBND
-	RXk/ciSddnF+0ee2y1B0TmH+Cqxx/Lheair+MwvZzycx10FoCgXXF3gc7buBbmot
-	Og==
-Received: (qmail 2528043 invoked from network); 7 Nov 2026 15:14:06 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Nov 2026 15:14:06 +0100
-X-UD-Smtp-Session: l3s3148p1@/U5RV7BfEO0FFu4j
-Date: Sat, 7 Nov 2026 16:14:03 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: mail@andrewgigena.dev
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so16934575e9.2
+        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 06:14:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1794060857; x=1794665657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
+        b=MAWJYyL0rpMUeh50MqLVtyVAh4JKfnKvk2lMaNL2hXmBXl2PGzhPKq8W654wuqAvDz
+         /XqP4Jq0OedV/xAHm3U8YbNIc/WSxem2c3Aq1xT8LspWNvjrAz79bo/PddfOqfDf1/cc
+         FUH0evqobXt/P2jy1R1Gv/lrPnFJOr/7eZRkM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794060857; x=1794665657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
+        b=SBQeVIYDaM3vn+aePm1/L+EH2qa0yafwYwtNBGDE6BhzSLRMwZ9OrJjA4dcJs6lhOm
+         Fyh9Q8R5awmVvbgZsWzTOSW4sDNyLkQ/YrbkZVUqPA5a0WqEW0LyuiDvNo9BtWT/tCII
+         1ry7e4yCaO/D4uFzhrrNRnkr6FJUb30wd0OW3rGhecmNPVBvKAtHkZhtUgIAS9tkEvo5
+         PZe1fkib8am86u3YqeRrXaRJmhjT8U/tDpOHRx+6jeWlRZmO+4AOr6iJJo/SMRLVqJl+
+         Ri40gGbI8IKc5yS+JbwFB4eZh8XhA3Op4vipTMsVbgoPCVBo84MInVTOskRdWt2mBA39
+         Hm4A==
+X-Forwarded-Encrypted: i=1; AL+hErFansfsw52BbITNDkB0A2khogH1F1v8cFupjymy9DfK/82nTTX3JEXYmygAnz+PrlcONlydvfex5zc+@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iSa7CR/B6dUnNlE+GQ0WjVIHq6hMdeKUAtnFqyno0OwUGq/Rs
+	Sb2lITTl618QtB6Bp8cBUcAvq/+5FiC2b2psS2dgTanR4UbnlwF78K9qIHmPiwAGGx/DB407Jev
+	ga4rh
+X-Gm-Gg: AYBFou0Nzc/jzmCWOfWj5snCjrK74ugcUGWoMWgItSnXkI1v6coxU/r2kPjcZVVfNaY
+	48vm4NHS9VX+JNUXkZfFLtuzoIWNu9eVRcu5DAS8BRPXSrIGRvfTDS4spgShs8ehC2OqOczKjrV
+	tefUPu2qMPwhKyaOE9nAx5owZ0pp/ebCtry2q2VBPYajnj29M/kPKGbKyaj0PdEC32SCKFVyGrp
+	AgCH1pR/+9dsF0mcJ/ECw8eWzBreLsumxVlHqTp9UsCxvrtUQvUOledSwpDPr5oQlrvFKi43BBO
+	9v3qZdnjYzVu3YE1gfeIPdso1OFzEptzpzumE2st4fDTxuwFcNFeCP7HVkQzdKtfpPI4PueZ0a5
+	+KPqY97Z7npa7ZtW9LG4LeWadbO5uABOlqYeFa2Ubk6Ab1e1Od7uH8WWdczuzUJGe0dKBacA5p8
+	TrUR+9jBpSFFgxisjfkTxNmYJZGWUFRH+unKHfTt1dkDmOmQn6KpcGmKuaSsoGrKHFSCQDrZgRO
+	oSomrMywFQMGQTHqLRbNztW3HuHpMz2VLDrWneBr6cMIMSSBVP63r7ARxWZcF1O7xO/X0WN9aKr
+	7B0EtSur+aGGwgmvBbL2FoN3xkDyhAomYsbwlXaKE4fvR7qmSICCHB36Lebt8g3EuVCLG+Qp5c6
+	UKvcqO5JzAiknLeRsvwzxONIcE8IZSq9Db2wjRS2+OqcvopWtAgaPRRqArqTnfjW4P82R+oc7M6
+	5k77jcWz3Ztj0WYDNeEQCUl0IEQw==
+X-Received: by 2002:a05:6000:178d:b0:48e:5550:c64c with SMTP id ffacd0b85a97d-492753739f8mr11843574f8f.14.1794060856956;
+        Sat, 07 Nov 2026 06:14:16 -0800 (PST)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df21sm9757531f8f.54.2026.11.07.06.14.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 06:14:15 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/7] dt-bindings: i2c: qcom-cci: Document SM8150
- compatible
-Message-ID: <au8yK11wC6Tyvcuo@shikoro>
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-1-0103e8a0bbcd@andrewgigena.dev>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] arm64: dts: st: add boot phase tags for Engicam MicroGEA-STM32MP257D-RMM
+Date: Sat,  7 Nov 2026 15:13:48 +0100
+Message-ID: <20261107141353.2228391-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,21 +103,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-1-0103e8a0bbcd@andrewgigena.dev>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 06:35:33PM +0000, Andrew Gigena via B4 Relay wrote:
-> From: Andrew Gigena <mail@andrewgigena.dev>
-> 
-> Add qcom,sm8150-cci as a CCI v2 compatible, with qcom,msm8996-cci as
-> the fallback.
-> 
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Add the bootph-all tag to the nodes used by the bootloader during the
+early stages of bootup.
 
-Andi, also no driver changes, qcom tree?
+This includes the console UART with its pins and the display controller,
+used for the splash screen.
 
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
+---
+
+ .../dts/st/stm32mp257d-engicam-microgea-rmm.dts | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
+index 96b7cb6b5bc1..4495b168fdaf 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
+@@ -163,6 +163,10 @@ sgtl5000_rx_endpoint: endpoint@1 {
+ 	};
+ };
+ 
++&ltdc {
++	bootph-all;
++};
++
+ &m_can1 {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&m_can1_pins_a>;
+@@ -269,7 +273,20 @@ &usart2 {
+ 	pinctrl-0 = <&usart2_pins_a>;
+ 	pinctrl-1 = <&usart2_idle_pins_a>;
+ 	pinctrl-2 = <&usart2_sleep_pins_a>;
++	bootph-all;
+ 	/delete-property/ dmas;
+ 	/delete-property/ dma-names;
+ 	status = "okay";
+ };
++
++&usart2_pins_a {
++	bootph-all;
++
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
++};
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+branch: stm32mp257d-rmm-bootph
+
+-- 
+2.43.0
 
