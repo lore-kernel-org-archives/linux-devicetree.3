@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794053662;
-	b=s1RUo9l6/pNB6tTtC0MTH6no0c3mKEiRr2h1yFX77Bku0EZGmcXVtk+B2UXVVRxSOn5V
-	 7c3150M5f4edsmnamQpMF69Ko3PRCJgL6hGAwGwezFRtSNxw6C/Mbh+EuO58pbFBLDMDs
-	 /MmzOq0smewGQrvHujau/vGjdzAlbIzXBQBEKfMW8ad7QJKLL2GXacV57WZOo6mzznz4s
-	 a7fmkLJKXYrZH1BODvgNfW3yXQdwnSTc/foIC3r+d5d6HTQ4I4jM9YlKlZk6e4N1PiMVS
-	 FHh4t0rMPdvjto/XKmuejvP7piFZwfFo7C6B/Jcp5qUE5s6JJW2vlZYYEV+JqD2nezA==
+	t=1794054125;
+	b=21b2/D1vqT0tcj+1es7HxJfdoSEghmMjv9OPdVptF9JSDtPoMFfIVjKoDk7uIs2RLpX3
+	 XcFmhoRX4GalVBaWZF/6zLtEzYmzvqqPV5kFkOwrDff5/ZKtlhPR0d4btb4Fj578PpGGG
+	 Vnjh8jH/jX0Pjg9BkhWIcAl8D1HtqSnqGubgJyu8A80wVv78+Q1+hTu0HPrGDYtHQx7TQ
+	 h07h2ZXZRIR5tNC9Ltjyd8x0Nw7Pb3OgcyiVJb4sh6mWr8g0gEYDNNoC6hxo2O4djBfgW
+	 Ns6VbLfVkNePHfSV9j3LsnT2koDQhM6owhYSTvbH4POXHR+aB6AECWMpGqqgfoyWJDg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794053662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794054125;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
-	b=lgwAPZ+pdK8RWS4K9cLxSH74NJs5403faPYVI3rCpQSwpFRUOOvck7TlrIxO0T4H1VOJ
-	 0PAWRhz4XTUDTUlKg7JG9ZfKg6RwlB6OQFnWo+ecpZwCqrCS3IJmUuOK51T9AXls8wONV
-	 umPeCUZYzR3CHTzHhh3dMIYp26y7xzkRimBb1WDGllHi8JLTclmU4JNW9e9qCicc6Jxiw
-	 xwObfZ+7T6atQQkTMdqAoHJhEFC1uC3fMqhmtgzf4g2RhkuqFh/U5gpnJuMg7SmUikMU3
-	 5KDSYPAh/xQDyrGsOG3f7whxrt7Qg6LaLVo8O5Uo9ia4fKvp1+LzfeD4Dv69uLy+uyw==
+	bh=1BB887jnb+FrCzBx+ezSDjiB4c49hh/Dyf8iZngGSKQ=;
+	b=JnVzFQ0yNRS+gv+6z1PWH9860/v7CAWkTFeCRovfc9HhJRbVGYHjbH5IfG1nVCyYKfcS
+	 1MJn4WuGb5Nwf1JZWndzPVf4Y/apU8e/C34p2yrGIATRZ6vE+iLkhmiA2MUY5NzviGX9y
+	 feEImHeTqEdL1KIwzA04lJmuFuP1D2V8lCnEEvB8ksYxsI5/K36yOV5HCQWT2OP/D5qBc
+	 laGYD00DCgY7yUi7KuVFBwTBONidgDl7Uoh3aLw0HVCpXbVuYiGDf+FsmATlrtu+9Vskh
+	 /KhhFjn+ZQuN7/TTf4E55zzujzXIdy6f68kVdX68vp97z3s5NAND6fxJG8sIWu0nIZQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iEsVy//j";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eecchrpN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C67606A32E;
-	Sat,  7 Nov 2026 12:14:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7B3606A33F;
+	Sat,  7 Nov 2026 12:22:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEsVy//j
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eecchrpN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794053662;
-	b=kTHmCC7MksAoIiL/5om88CTyztVFMxA9P4TuaTuJArVIbxOp+nYI/OMR6ZjPGXcTWWMf
-	 JdDxZ6ATXPN/pTg9kdHPFegPa4DCuuO+E6M3wRtn70VbMQ6l1fs3aMAPTgip+rjYoXtLM
-	 4Ds1obQ/yrmQWEMd+mk1camcynv4oFaWCnacVgIShdCvVRO2GVXe7rym6F34GzmRToT2d
-	 YEHYi+B/ctHgY3hP3GgvmN+48xqSoMc/8T6BkgUXKGeTAmvn1oC+tDo2wb2H3T3Kjx1kQ
-	 kaqZMWm3IAutRQq4KQmlhXCAMSNQYPs6F/pEbHKZXzpcESOeIFKJrXbl3y/V5/iI9nw==
+	t=1794054124;
+	b=t2sy/W1hIJTUcOwdCERLW+Q6EnjmZkeNAigBP0rqtHBee+ZV/UwTWv2n4A+zzHrc1z9d
+	 Cd1m5a9H1P1DGBibCTpWC4jB9mLnuaOsIW+B7KTYQgUcDRlvOxDdkGAeC11MURqfKlmx+
+	 u6/CJmtVn3zljPSKH35HAIXUCkg9Nxyan56WfE8/C4k906v/axwNhq8loaRGgzkMuORsJ
+	 qgYgpJXUIH8nQJwQ9fSs7iBqI7Hqjscz93UywtsILQmt4s1HrysNClFmcfZzq9BrTtFO7
+	 aVpH9d0Mxl8zRULU38k5jcTYeQdNFnogbDubap8dGMkwRhBsQxJBjXif07HTBAEJh8Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794053662;
+	c=relaxed/relaxed; t=1794054124;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
-	b=QySIw+JLLNds5gYhhEYt6CudzzBfmx9i7+bwA6tBzRBFOEa7OVjNrMB06fAk8Rxu4T9r
-	 X3EOSIeoG3FUyrhdOlsZsyNH4QscDjz/umCqypfg/LrZ/Ymvpm5GPvjoazYUZ/S+BteSv
-	 37VdrlL3IGblX3JsT+xW11lOxBxnrJrMsYKSnd+OI0sgh0ErwiqAE5vCdrAN5R4m6AAzc
-	 IsW8NclzdiPDyLRz9HvH2N68cryND3VI1++aV4b1OuZYhp96gLMwNzcLd7NaWxDBgDgWR
-	 pBtIywzjSotdhYzrPVuq/MK1UklClNTGEu1I+G0w/io6aY4kCieHp+h6IhBade65VFA==
+	bh=1BB887jnb+FrCzBx+ezSDjiB4c49hh/Dyf8iZngGSKQ=;
+	b=fzkKmzF0Ju6jHIM6bFfExhaX/hJEu88EHnC3NMneuBKWoGPvOCCRM3SP74jH6vDtBAyj
+	 J2y3rdizKQHG/KlCcbGRuTBcsN4RP63uGFWT4Wx2sQ5uvl6FUgOs0bwpMtic6hN1lMXYL
+	 cAMqxboxhwF69UMnRhUOBRzxgsSn+irfFuHvuzVSJPfD7E+aPJty3TZaQG/VzL+LB/TVW
+	 DZ7+p01Fqcx0+OOD1EMrn/kP4p1GOG5E7s61bPLYicuRxDnXEA1zlZiUBFb35YANmcJgK
+	 Xff4L11+yqtBv+/S8pkQqQOxR1+ZBOfKKBkWNZM1a5SzSrJf5uPrGwjNEgqV163syLw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 11EE71F008A2;
-	Sat,  7 Nov 2026 12:14:21 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 789D71F008A4;
+	Sat,  7 Nov 2026 12:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794053662;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
+	s=k20260515; t=1794054124;
+	bh=1BB887jnb+FrCzBx+ezSDjiB4c49hh/Dyf8iZngGSKQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iEsVy//jb9cQw2hi0wk/weWIm5r0hg/HaI8iHXLrKzlyXMtGkOdUGluodcDaKqV1y
-	 5tW07BVByMc6P//JMvOBtUS6MdRkrcuwKOchty5EQ9ZfbyBal+nlwQkRLxcy5tQNNG
-	 p9enJn2n1Q0tA/VuDPrNXlAG2R/qlR0aGK8FKRnKF4WkxGoAgBB2Fm9lDDGMsjjyGq
-	 RGlxN6Ci5sMOsRAz3Mf7Gu8J3VN0SwBQY6iaDp+nFdUXr+GWaPuoizK6p+pBQx4CYF
-	 FeEw8bhgFb3TnFQiGRU8pMkMdQqbMeY8a1cNo2jx/etCnPIIemhM8w+Txd1rPSPhce
-	 DA6fcPQMkAIXQ==
+	b=eecchrpNQ71/46VfezLM40lDaAgPBSaf5xsTfXgUHwecAaJ9GrWNOX2rRfecnCjla
+	 yV4BMdFEe06esIu6uRRC3xQVrwi1lulYToWc+A70g2TvLVuR9pUf7ET2b9J9zu/95B
+	 5fWfo1bxFqGk2zyY+xlH13BaWziaYpPQeC3G2G6C+Y+z8lpt0DApi2lcFInrpeZY6n
+	 0nTaiwhQXn9A+uKQrGTEYgJS2pPT6PthAlic5KMk1XQ2IGNUuznEAjQoBdgiQAmGr5
+	 Jb2FV4WX76lbGt654Dg88JDEGOHlz2BzTnhfludkufqnIatW/m3gtkBRU5xo8KpJLJ
+	 BdAvyWmDPMowg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 87D9B47BD3;
-	Sat,  7 Nov 2026 12:14:20 +0000 (UTC)
-From: Michiel van Beers via B4 Relay <devnull+michielvanbeers.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 13:13:55 +0100
-Subject: [PATCH 2/2] backlight: lm3630a: Allow setting the full-scale
- current per bank
+	by lkml.kernel.org (Postfix) with ESMTP id 027C147BE8;
+	Sat,  7 Nov 2026 12:22:03 +0000 (UTC)
+From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
+Date: Sat, 07 Nov 2026 20:22:01 +0800
+Subject: [PATCH 4/4] arm64: dts: mediatek: Add MT6833 and the Xiaomi Redmi
+ Note 13 5G
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,154 +84,629 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-lm3630a-led-max-microamp-v1-2-ec9e441d9b2c@gmail.com>
-References: <20261107-lm3630a-led-max-microamp-v1-0-ec9e441d9b2c@gmail.com>
-In-Reply-To: <20261107-lm3630a-led-max-microamp-v1-0-ec9e441d9b2c@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Michiel van Beers <michielvanbeers@gmail.com>
+Message-Id: <20261107-mt6833-base-v1-4-bda21083e9f3@udp0.com>
+References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
+In-Reply-To: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sean Wang <sean.wang@mediatek.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Rui Cao <i@udp0.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794053659; l=4765;
- i=michielvanbeers@gmail.com; s=20261107; h=from:subject:message-id;
- bh=YrzYv6G6kHsv+ddU+T8TW/TH8CUbRepEUJYvTRcaRMI=;
- b=AxjxhDxW4d8uyHa/Ajw798sulzFMQpjt0l1f26RDUoln07lDkm9ImfdqGOj44LNdOD02Rgqwy
- aYrLfl8hcI3D36FNfD9EoBboShr3XxNwv9FOXh0Ou6PqF5TiUSMfZNo
-X-Developer-Key: i=michielvanbeers@gmail.com; a=ed25519;
- pk=C+lOje7u3+2x3o2NLMXrwz2veP2++eXfIi9MtYsUo4k=
-X-Endpoint-Received: by B4 Relay for michielvanbeers@gmail.com/20261107
- with auth_id=1444
-X-Original-From: Michiel van Beers <michielvanbeers@gmail.com>
-Reply-To: michielvanbeers@gmail.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794054121; l=13819;
+ i=i@udp0.com; s=20261107; h=from:subject:message-id;
+ bh=uIxIEzzU1mADLPxOnxknw3D8VLYCkXpkopxWcfOUpto=;
+ b=gK6glUzBS/rKm+NGBRwfuGIyl93RHBHKQmdY9pVK0HuVYjQgpqJD4Zs+liBHzWMxTIpUdJGHM
+ NdCBRhPSL6sDkwH08WDsGJs5LLXpvjLIp5xZ8l/shcB28FF/DiYiHwZ
+X-Developer-Key: i=i@udp0.com; a=ed25519;
+ pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
+X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
+X-Original-From: Rui Cao <i@udp0.com>
+Reply-To: i@udp0.com
 Content-Transfer-Encoding: 7bit
 
-From: Michiel van Beers <michielvanbeers@gmail.com>
+From: Rui Cao <i@udp0.com>
 
-The driver always programs the full-scale current of both control banks
-to the maximum of 28.25 mA (code 0x1F). Boards whose LED strings are
-rated for less have no way to lower it.
+Add a device tree for MediaTek's MT6833 (Dimensity 700): its eight
+cores, six Cortex-A55 and two Cortex-A76 in one DynamIQ cluster, with
+their caches and PMUs, PSCI, the architected timer, the GICv3, the
+watchdog and the first UART.
 
-Read the optional led-max-microamp property of each led@ node and
-program the full-scale current register of that bank with the matching
-code, I_FS = 5 mA + code * 0.75 mA (datasheet SNVS974B, 7.3.1.11). The
-code is rounded down, so the current never exceeds the requested value.
-Values outside 5000 to 28250 uA are rejected with -EINVAL.
+Add the Xiaomi Redmi Note 13 5G (gold) on it, with its memory, the
+regions its bootloader reserves for the firmware it starts, and the
+framebuffer the bootloader leaves the panel scanning out.
 
-Without the property the driver still programs 0x1F, so existing boards
-are unaffected.
+The cache sizes are the ones the cores report in CCSIDR_EL1. The
+bootloader programs CNTFRQ_EL0 (13 MHz), so the timer has no
+clock-frequency.
 
-Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
+Signed-off-by: Rui Cao <i@udp0.com>
 ---
-checkpatch --strict reports errors on the two new kernel-doc lines in
-lm3630a_bl.h; the hunk does not include the comment delimiters. With
--U15 it is clean.
----
- drivers/video/backlight/lm3630a_bl.c     | 40 ++++++++++++++++++++++++++++----
- include/linux/platform_data/lm3630a_bl.h |  4 ++++
- 2 files changed, 40 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/mediatek/Makefile              |   1 +
+ .../arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts | 205 +++++++++++++
+ arch/arm64/boot/dts/mediatek/mt6833.dtsi           | 341 +++++++++++++++++++++
+ 3 files changed, 547 insertions(+)
 
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 8ef8163c7fef..1189011bb89d 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -80,6 +80,25 @@ static int lm3630a_update(struct lm3630a_chip *pchip,
- 	return regmap_update_bits(pchip->regmap, reg, mask, data);
- }
- 
+diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/mediatek/Makefile
+index a86fb313b1a..b8466d4a3d6 100644
+--- a/arch/arm64/boot/dts/mediatek/Makefile
++++ b/arch/arm64/boot/dts/mediatek/Makefile
+@@ -6,6 +6,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += mt6795-evb.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt6795-sony-xperia-m5.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt6797-evb.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt6797-x20-dev.dtb
++dtb-$(CONFIG_ARCH_MEDIATEK) += mt6833-xiaomi-gold.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt7622-rfb1.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt7622-bananapi-bpi-r64.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt7981b-cudy-wr3000-v1.dtb
+diff --git a/arch/arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts b/arch/arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts
+new file mode 100644
+index 00000000000..6bdcf407fb6
+--- /dev/null
++++ b/arch/arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts
+@@ -0,0 +1,205 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
 +/*
-+ * Full-scale current register code: I = 5 mA + code * 0.75 mA, code 0..31
-+ * (datasheet SNVS974B, 7.3.1.11). Rounds down, so the result never exceeds
-+ * the requested current. 0 means "not set" and keeps the chip default 0x1F.
++ * Xiaomi Redmi Note 13 5G (gold)
++ *
++ * Copyright (C) 2026 Rui Cao <i@udp0.com>
 + */
-+#define LM3630A_FS_CURRENT_MIN_UA	5000
-+#define LM3630A_FS_CURRENT_STEP_UA	750
-+#define LM3630A_FS_CURRENT_MAX_UA	28250
-+#define LM3630A_FS_CURRENT_MAX_CODE	0x1F
 +
-+static unsigned int lm3630a_fs_current_code(unsigned int microamp)
-+{
-+	if (!microamp)
-+		return LM3630A_FS_CURRENT_MAX_CODE;
++/dts-v1/;
++#include "mt6833.dtsi"
 +
-+	return (microamp - LM3630A_FS_CURRENT_MIN_UA) /
-+	       LM3630A_FS_CURRENT_STEP_UA;
-+}
++/ {
++	model = "Xiaomi Redmi Note 13 5G";
++	compatible = "xiaomi,gold", "mediatek,mt6833";
++	chassis-type = "handset";
 +
- /* initialize chip */
- static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- {
-@@ -93,10 +112,12 @@ static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- 	rval |= lm3630a_update(pchip, REG_CONFIG, 0x07, pdata->pwm_ctrl);
- 	/* set boost control */
- 	rval |= lm3630a_write(pchip, REG_BOOST, 0x38);
--	/* set current A */
--	rval |= lm3630a_update(pchip, REG_I_A, 0x1F, 0x1F);
--	/* set current B */
--	rval |= lm3630a_write(pchip, REG_I_B, 0x1F);
-+	/* set full-scale current A */
-+	rval |= lm3630a_update(pchip, REG_I_A, 0x1F,
-+			lm3630a_fs_current_code(pdata->leda_max_microamp));
-+	/* set full-scale current B */
-+	rval |= lm3630a_write(pchip, REG_I_B,
-+			lm3630a_fs_current_code(pdata->ledb_max_microamp));
- 	/* set control */
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x14, pdata->leda_ctrl);
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x0B, pdata->ledb_ctrl);
-@@ -472,6 +493,17 @@ static int lm3630a_parse_bank(struct lm3630a_platform_data *pdata,
- 			pdata->leda_max_brt = val;
- 	}
- 
-+	ret = fwnode_property_read_u32(node, "led-max-microamp", &val);
-+	if (!ret) {
-+		if (val < LM3630A_FS_CURRENT_MIN_UA ||
-+		    val > LM3630A_FS_CURRENT_MAX_UA)
-+			return -EINVAL;
-+		if (bank)
-+			pdata->ledb_max_microamp = val;
-+		else
-+			pdata->leda_max_microamp = val;
-+	}
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
 +
- 	return 0;
- }
- 
-diff --git a/include/linux/platform_data/lm3630a_bl.h b/include/linux/platform_data/lm3630a_bl.h
-index 530be9318711..43383c476c09 100644
---- a/include/linux/platform_data/lm3630a_bl.h
-+++ b/include/linux/platform_data/lm3630a_bl.h
-@@ -37,10 +37,12 @@ enum lm3630a_ledb_ctrl {
-  *@leda_label    : optional led a label.
-  *@leda_init_brt : led a init brightness. 4~255
-  *@leda_max_brt  : led a max brightness.  4~255
-+ *@leda_max_microamp : led a full-scale current, 5000~28250 uA (0: default)
-  *@leda_ctrl     : led a disable, enable linear, enable exponential
-  *@ledb_label    : optional led b label.
-  *@ledb_init_brt : led b init brightness. 4~255
-  *@ledb_max_brt  : led b max brightness.  4~255
-+ *@ledb_max_microamp : led b full-scale current, 5000~28250 uA (0: default)
-  *@ledb_ctrl     : led b disable, enable linear, enable exponential
-  *@pwm_period    : pwm period
-  *@pwm_ctrl      : pwm disable, bank a or b, active high or low
-@@ -51,11 +53,13 @@ struct lm3630a_platform_data {
- 	const char *leda_label;
- 	int leda_init_brt;
- 	int leda_max_brt;
-+	unsigned int leda_max_microamp;
- 	enum lm3630a_leda_ctrl leda_ctrl;
- 	/* led b config. */
- 	const char *ledb_label;
- 	int ledb_init_brt;
- 	int ledb_max_brt;
-+	unsigned int ledb_max_microamp;
- 	enum lm3630a_ledb_ctrl ledb_ctrl;
- 	/* pwm config. */
- 	unsigned int pwm_period;
++		/* The bootloader leaves the panel lit, scanning out this buffer */
++		framebuffer@73c10000 {
++			compatible = "simple-framebuffer";
++			reg = <0 0x73c10000 0 (4352 * 2400)>;
++			width = <1080>;
++			height = <2400>;
++			stride = <4352>;
++			format = "a8r8g8b8";
++		};
++	};
++
++	memory@40000000 {
++		device_type = "memory";
++		reg = <0 0x40000000 1 0x80000000>;
++	};
++
++	/*
++	 * The regions the bootloader reserves for the firmware it starts (ATF,
++	 * TEE, GenieZone, the SSPM, MCUPM and SCP coprocessors, the modem) and
++	 * for itself, as it reports them.
++	 */
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		aee-debug-kinfo@48080000 {
++			reg = <0 0x48080000 0 0x10000>;
++			no-map;
++		};
++
++		ramoops@48090000 {
++			compatible = "ramoops";
++			reg = <0 0x48090000 0 0xe0000>;
++			console-size = <0x40000>;
++			pmsg-size = <0x80000>;
++			no-map;
++		};
++
++		minirdump@48170000 {
++			reg = <0 0x48170000 0 0x10000>;
++			no-map;
++		};
++
++		atf-reserved@48c00000 {
++			reg = <0 0x48c00000 0 0x200000>;
++			no-map;
++		};
++
++		spm-reserved@72c00000 {
++			reg = <0 0x72c00000 0 0x10000>;
++			no-map;
++		};
++
++		framebuffer@73c10000 {
++			reg = <0 0x73c10000 0 0x1df0000>;
++			no-map;
++		};
++
++		tee-shm@75a00000 {
++			reg = <0 0x75a00000 0 0x400000>;
++			no-map;
++		};
++
++		tee-reserved@75e00000 {
++			reg = <0 0x75e00000 0 0x8a00000>;
++			no-map;
++		};
++
++		tee-secmem@7e800000 {
++			reg = <0 0x7e800000 0 0x400000>;
++			no-map;
++		};
++
++		gz-log@7ec00000 {
++			reg = <0 0x7ec00000 0 0x41000>;
++			no-map;
++		};
++
++		mcupm-reserved@7ed00000 {
++			reg = <0 0x7ed00000 0 0x100000>;
++			no-map;
++		};
++
++		gz@7ee00000 {
++			reg = <0 0x7ee00000 0 0x1000000>;
++			no-map;
++		};
++
++		sspm-reserved@7feb0000 {
++			reg = <0 0x7feb0000 0 0x100000>;
++			no-map;
++		};
++
++		log-store@7ffb0000 {
++			reg = <0 0x7ffb0000 0 0x40000>;
++			no-map;
++		};
++
++		emi-mbist-buf@7ffff000 {
++			reg = <0 0x7ffff000 0 0x1000>;
++			no-map;
++		};
++
++		ap-md-c-smem@86000000 {
++			reg = <0 0x86000000 0 0x2960000>;
++			no-map;
++		};
++
++		ap-md-nc-smem@8a000000 {
++			reg = <0 0x8a000000 0 0x1b0000>;
++			no-map;
++		};
++
++		md-mem-usage@8c000000 {
++			reg = <0 0x8c000000 0 0x20c0000>;
++			no-map;
++		};
++
++		drdi-memory@8e0c0000 {
++			reg = <0 0x8e0c0000 0 0x270000>;
++			no-map;
++		};
++
++		md-mem-usage@8e330000 {
++			reg = <0 0x8e330000 0 0x10000>;
++			no-map;
++		};
++
++		md-mem-usage@8f000000 {
++			reg = <0 0x8f000000 0 0xf0000>;
++			no-map;
++		};
++
++		md-mem-usage@90000000 {
++			reg = <0 0x90000000 0 0x7210000>;
++			no-map;
++		};
++
++		md-mem-usage@a7bd0000 {
++			reg = <0 0xa7bd0000 0 0x1730000>;
++			no-map;
++		};
++
++		scp-reserved@b9500000 {
++			reg = <0 0xb9500000 0 0x400000>;
++			no-map;
++		};
++
++		picachu@bfd00000 {
++			reg = <0 0xbfd00000 0 0x80000>;
++			no-map;
++		};
++
++		atf-log-reserved@bfe00000 {
++			reg = <0 0xbfe00000 0 0x40000>;
++			no-map;
++		};
++
++		ccci-tag-mem@bff60000 {
++			reg = <0 0xbff60000 0 0x10000>;
++			no-map;
++		};
++
++		atf-ramdump-reserved@bff70000 {
++			reg = <0 0xbff70000 0 0x80000>;
++			no-map;
++		};
++
++		dramc-rk0@bffff000 {
++			reg = <0 0xbffff000 0 0x1000>;
++			no-map;
++		};
++
++		dpm-reserved@ffe60000 {
++			reg = <0 0xffe60000 0 0x190000>;
++			no-map;
++		};
++
++		dramc-rk1@1bffff000 {
++			reg = <1 0xbffff000 0 0x1000>;
++			no-map;
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/mediatek/mt6833.dtsi b/arch/arm64/boot/dts/mediatek/mt6833.dtsi
+new file mode 100644
+index 00000000000..4c5f1381ca6
+--- /dev/null
++++ b/arch/arm64/boot/dts/mediatek/mt6833.dtsi
+@@ -0,0 +1,341 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++/*
++ * MediaTek MT6833 (Dimensity 700)
++ *
++ * Copyright (C) 2026 Rui Cao <i@udp0.com>
++ */
++
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++	compatible = "mediatek,mt6833";
++	interrupt-parent = <&gic>;
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	clk26m: oscillator-26m {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <26000000>;
++		clock-output-names = "clk26m";
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x000>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_0>;
++
++			l2_0: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu1: cpu@100 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x100>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_1>;
++
++			l2_1: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu2: cpu@200 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x200>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_2>;
++
++			l2_2: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu3: cpu@300 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x300>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_3>;
++
++			l2_3: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu4: cpu@400 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x400>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_4>;
++
++			l2_4: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu5: cpu@500 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55";
++			reg = <0x500>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <405>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&l2_5>;
++
++			l2_5: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <131072>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu6: cpu@600 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a76";
++			reg = <0x600>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			i-cache-size = <65536>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <256>;
++			d-cache-size = <65536>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <256>;
++			next-level-cache = <&l2_6>;
++
++			l2_6: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <262144>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu7: cpu@700 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a76";
++			reg = <0x700>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			i-cache-size = <65536>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <256>;
++			d-cache-size = <65536>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <256>;
++			next-level-cache = <&l2_7>;
++
++			l2_7: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-unified;
++				cache-size = <262144>;
++				cache-line-size = <64>;
++				cache-sets = <512>;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu-map {
++			cluster0 {
++				core0 {
++					cpu = <&cpu0>;
++				};
++
++				core1 {
++					cpu = <&cpu1>;
++				};
++
++				core2 {
++					cpu = <&cpu2>;
++				};
++
++				core3 {
++					cpu = <&cpu3>;
++				};
++
++				core4 {
++					cpu = <&cpu4>;
++				};
++
++				core5 {
++					cpu = <&cpu5>;
++				};
++
++				core6 {
++					cpu = <&cpu6>;
++				};
++
++				core7 {
++					cpu = <&cpu7>;
++				};
++			};
++		};
++
++		l3_0: l3-cache {
++			compatible = "cache";
++			cache-level = <3>;
++			cache-unified;
++			cache-size = <1048576>;
++			cache-line-size = <64>;
++			cache-sets = <1024>;
++		};
++	};
++
++	pmu-a55 {
++		compatible = "arm,cortex-a55-pmu";
++		interrupt-parent = <&gic>;
++		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH &ppi_cluster0>;
++	};
++
++	pmu-a76 {
++		compatible = "arm,cortex-a76-pmu";
++		interrupt-parent = <&gic>;
++		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH &ppi_cluster1>;
++	};
++
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++	};
++
++	timer: timer {
++		compatible = "arm,armv8-timer";
++		interrupt-parent = <&gic>;
++		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_PPI 14 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_PPI 11 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH 0>;
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		gic: interrupt-controller@c000000 {
++			compatible = "arm,gic-v3";
++			reg = <0 0x0c000000 0 0x40000>,
++			      <0 0x0c040000 0 0x200000>;
++			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH 0>;
++			interrupt-parent = <&gic>;
++			interrupt-controller;
++			#interrupt-cells = <4>;
++			#redistributor-regions = <1>;
++
++			ppi-partitions {
++				ppi_cluster0: interrupt-partition-0 {
++					affinity = <&cpu0 &cpu1 &cpu2 &cpu3 &cpu4 &cpu5>;
++				};
++
++				ppi_cluster1: interrupt-partition-1 {
++					affinity = <&cpu6 &cpu7>;
++				};
++			};
++		};
++
++		watchdog: watchdog@10007000 {
++			compatible = "mediatek,mt6833-wdt", "mediatek,mt6589-wdt";
++			reg = <0 0x10007000 0 0x100>;
++		};
++
++		uart0: serial@11002000 {
++			compatible = "mediatek,mt6833-uart", "mediatek,mt6577-uart";
++			reg = <0 0x11002000 0 0x1000>;
++			interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH 0>;
++			clocks = <&clk26m>, <&clk26m>;
++			clock-names = "baud", "bus";
++			status = "disabled";
++		};
++	};
++};
 
 -- 
-2.43.0
+Git-157)
 
 
