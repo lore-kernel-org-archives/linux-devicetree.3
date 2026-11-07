@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794091554;
-	b=u9tnFd/8D8BEwwwKeOcq2IxUOVoLLSXU40kfOme9vbU/jpKYHZoliq55NTFl1bQUZOvS
-	 cu6MZQ1Kn60dtQr9SJvwalcuPiTVYKWt3RcLncTuHXtQJO/hmMbl3skGpfFmxFnarYfLs
-	 2y4p+BPlhRkhD8rmR/FIqXQb+CCOE2TlP5dWKwuP84h19tIgB+Ih4rj7PpKYNBXLabYS7
-	 xhKCwldHUnCH2yEwOWH9YZlMiBUImGpkyz0GCfruaz61XjFx9RIe9W+HAtIbezN9NloIB
-	 u3IMdLud1w9f+YtlT1jTuwsOzExwvPl9ce7cclrYP3f5YGDIEgXR/Y59/NqSH/PnzpQ==
+	t=1794092115;
+	b=EZKACD3jtsg8R8oec2yPDgOj3xXkmBkVHpm+bfqsNJlGCKNLj0zwNqcotSTLclaI/1c3
+	 x28vC8W42MTJitAPnIQQXzdbqsnJkRA4Mzj3QDdw2321ngjnw54Jxf4N7bj063VhvGcQu
+	 KHG8GgsX2KP5uQRZdoUe272EnA4Oi8vsdQzhgmUjN5OuAz07WNMLcFvO60xjIxH8Wfunp
+	 KbGmNtwBzSMIA4Y+7L5Q/GNjQ9NdbY0PIFYkqWrHE1Lw6Ys9soNSA/JUGEwzS8LGB9zPC
+	 WHyeMhee5U9vMAW4Hascejd1exBs+8G/jfr7AacI08xi1YTBPdZ9LXSWbGtmR4MptsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794091554;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nbpoxfxD/YxKAQmHcLsH5klOFWtwN75CT6T2h0Yqdqs=;
-	b=2VQzrX5Xw1aFAVEREFqm0MfYjc4gLOtwUaHTmoez+JCqxwLl2mKI7gDHOtqEheiJzuZG
-	 rZA6Han2gRJdhk41Z+Wlu/lPKJ/9DwzwG81/kWmGQ6IxKyI8JNygTdBS5cEGaCEIyxonB
-	 OC0ScC5lPorXLKdIuuX71WOS5tZpFgttMqBMcjY6FJCIyHJcw8vMLvqX/HU8RqcePLSX1
-	 z4DuvgBMqCZ0eiwQlNTvC0W0JaBbzjBoItgOKM7aYk5cEnvVihD7k6+KFHScOtGJhKiRP
-	 50UxMdOyqSjeUKKs8M4ss30gG22n3VVt951T00T1pZExX6av1rY8VRWOQevs954z65w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794092115;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FVM6vTB/7eDdSwBHkkyGuCuKCEXrOdJ0onmA66YPA80=;
+	b=gRZaF5wixdhFu/xHOJ/G24IwB7mIr7ntb9oQX3XiZQrreZ2prR9aQYZxYyU3X7yz128f
+	 MrAaECrzmmi3mAY8XJ1MhfdAR5nOmRqSI7lpbOP4JezjV5mK6APn4BJ0XXJ1l6chDGktL
+	 OQ2L8mXmgijHLD7mY20gNSpaLEXoRF1o2siL5iNWmUPNycbyHg3kkJ0+06Ghrgc4b6/TJ
+	 fS96+ILwKYMTMHtlp+89dFebfEXaK7qlr+7wka5xIaambhGFRTgXusV1OmRcKYT1wcSYl
+	 RYOsEjjoNSkfMWddn+kpckN1xCIjvArAlZWcJJPNKC4pmosb9G0RWZxAdmR8qH6yVBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=U67rNd9T;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUbTT+3Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D762F606A326;
-	Sat,  7 Nov 2026 22:45:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D762F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB825606A334;
+	Sat,  7 Nov 2026 22:55:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=U67rNd9T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794091550; x=1794350750;
-	bh=nbpoxfxD/YxKAQmHcLsH5klOFWtwN75CT6T2h0Yqdqs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=U67rNd9TJxEIZwcB0EBj6XrEVzE3JPqwvLksmTXDYW/IuCAyd8lAHFB1VSbyh7vB9
-	 ROtOgggq1SLZEROiRrIivsbqLpN6kGVeGF6WTeAehMDrB0cxqD8Z/MKGMLUYtAnCsU
-	 ldxyjB0nTJak+5BPa1grO6VV35z6mLd6iN39tHEiOvDFIdk4uQmnO+8nTDCr75f+zO
-	 SDP8zOXEId/MsqFf1MKmlkdNFAKO1eCnFNxcxYclyh94YfpH8gVZfYXrFjan5TA0L9
-	 A6lwv7X7wQTvnWHUgFBufDGQa7Td5Ps4tfq1astOJ48IY/T52eO+XPVu3H+cPRRYzJ
-	 wa6z9jAe72s1g==
-Date: Sat, 07 Nov 2026 22:45:45 +0000
-To: Jonathan Cameron <jic23@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply support
-Message-ID: <geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
-In-Reply-To: <20261107223601.0ba9ffc6@jic23-hlaptop>
-References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com> <20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com> <20261107223601.0ba9ffc6@jic23-hlaptop>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: ad140286fd2962c5d12143b1a1cc16b7d7e26120
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUbTT+3Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C6E1F0089F;
+	Sat,  7 Nov 2026 22:55:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794092114;
+	bh=FVM6vTB/7eDdSwBHkkyGuCuKCEXrOdJ0onmA66YPA80=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZUbTT+3Ywk0rFTlfiIED0M9qdScuZG/gleAeiG9j5JfiMNtJXXTR6nr+C7F3pOlWO
+	 BZr+71O2Jeg0hGeFIn6xRv1u+3zuqr7n/6bjH9viNKpcqVYvhiwObltNvz7mrIpv/8
+	 scLIdeamIWpD5NXv5bZIyfgSuXoKJGTuuM2cmylwXP6n/wrbPgZuAXJShOAetV19ZQ
+	 PwVU0dYt8zE0Kp+5CBIOUGW5DmPh9e6583jHTiETNf0etfHBUGP73eHwlWjqvMAr5m
+	 cAB25H4lLUpBrwEwx1886DLyfApkGvPxzGchFc9/TQUepg7weYa/i2QjwQykvHKIxJ
+	 AxC2ulv+zWbLQ==
+Date: Sat, 7 Nov 2026 16:55:09 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
+Message-ID: <au-r4tTc2DPirKL3@zenbook>
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com>
+ <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
+ <d4349c3b-f6c7-41c1-963c-ca0e21e2f436@oss.qualcomm.com>
+ <auMOSm_roh5S-DTY@QCOM-aGQu4IUr3Y>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,38 +63,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMOSm_roh5S-DTY@QCOM-aGQu4IUr3Y>
 
-Hi Jonathan,
+On Thu, Oct 29, 2026 at 05:13:46PM +0800, Shawn Guo wrote:
+> On Wed, Oct 21, 2026 at 11:56:55AM +0200, Konrad Dybcio wrote:
+> > On 10/21/26 9:36 AM, Shawn Guo wrote:
+> > > From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > > 
+> > > Add support for the Qualcomm Nord SoC to the protection domain mapper.
+> > > 
+> > > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > > ---
+> > 
+> > [...]
+> > 
+> > > +static const struct qcom_pdm_domain_data *nord_domains[] = {
+> > > +	&adsp_audio_pd,
+> > > +	&adsp_root_pd,
+> > > +	&adsp1_root_pd,
+> > > +	&cdsp_root_pd,
+> > 
+> > I see 3 more CDSPs:
+> > 
+> > https://lore.kernel.org/linux-arm-msm/20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com/
+> 
+> Yes, we have 4 CDSPs on Nord, and they share the same instance ID and root
+> domain. I will add the info to commit message.
 
-On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.o=
-rg> wrote:
+Please make that the default way of writing commit messages.
 
-> On Sun, 08 Nov 2026 00:15:03 +0200
-> Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wro=
-te:
->=20
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > On some boards, the chip shares a power rail with other components. If
-> > that rail is turned off, the chip can't function.
-> Not sure how the sharing is relevant.  Even if shared with nothing
-> else we need to turn it on.  So just mention that on some boards it
-> isn't always on.
->=20
-> The only reason this would be optional in the binding is if there
-> was internal routing in some packaging or similar that meant there
-> was no pin to connect.
->
-> Upshot, make this required in the binding. Note that doesn't mean
-> the driver must require it - we are simply documenting that the
-> device needs power.
->=20
+Regards,
+Bjorn
 
-I agree this should be required, but that would break dt_binding_check
-for existing boards. I don't have their schematic nor boards themselves
-to verify the regulator for the power supply.
-
-Best regards,
-Roman
+> 
+> Shawn
