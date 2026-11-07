@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794018307;
-	b=4n5HIeOpEDHKKAwGVPTK8rZOGD7KNyW7em1eGH2Vvtb36+A2i+8Inu+bv/BluGXcq5fI
-	 enFw2I9wHpMpVZC9PYu21q0DcyCDWl3VZlSdN+ofAeU42uzPfQBb4Y20I8sRGym7wiSQ1
-	 jnzZOdHU4/jIV5+n4yErJlzCE7gcZVj7oJROiKQUIgvp/m3jzeAwyYtc4MDLW/Q+mcPJU
-	 Gv8W3f07Ac+rkyxVEjkpOsaHVSh26AmzUi5XcRbc9wHiCbAQ1JDxVsAIuYdfQdjT7+sU6
-	 X/BtnY1i26TOwUte9Mn2MlZl5qEXj/POPh1r6VYFvbAaj7dQk2BX/QmK1VWCW8CPXbA==
+	t=1794018319;
+	b=jVQeGSmklpKEN83ltn8uSoftKo/QBwP/UCTI9hTxw96YvTrP9bjXLm68eIhg/iC70B1j
+	 NM9INlg+5Er4pCxuF7fAAL1VTaVcakiGfSAMmgo562dFaO5uVqJcxkkk7blR/Wl3ttER3
+	 vzZfNGIG9788wzyJoXE4gdn4riNtrFzeT72KuDEmLqliigmxyVun1mefPG+oD6VbtmHxG
+	 lYZVxe86UWSEs6Qy6PH9QUf7Xh4AgU7tlonpC2JZrOZZTYBEEffnRwdg7xODKi1+w//J/
+	 nWs5AxlIdYGqRtoSYsl1rRJdy+eWCI2jwa0eb/1TSM8fFtboGtZGJHmvgyhwaB4PnIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794018307;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018319;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=di1VRLm1UqWBNtntlKfBC2I8DVMPkZ+84nIHrlZ9/j4=;
-	b=gZrd1E7CJoTYugTwTgBf5FKvWcN+bSdwmqCxJVW9nZhaxDX2EV6QyHXROSCJseFXHXrM
-	 JhKo6ciu0V8dWvOIqq4XZh1RWQu2H72zrdiZ2uTuwYXUiLVvTrByp4tBfP02NKkdYrsO0
-	 JTlL+CDKwvCyDpiNRhToNKmUoBhpEZ3qatXWn0v+0Qi9aInMjsKb4zBPC1m90NsPfmCQp
-	 mUNLO0h9xbmtWKFtX06I4XrrFH5DPTf3moDhTFo8kKEhIFSvxcPkYDVM9/pC4bvb4q0A6
-	 aEBqO9axU6A7n3xvMEMeLXhDbQfCIkcYvz1fJn2dxMeSM7jjBGfgQvsMVUyzN5zOqDw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6go1USvOBSIXKpmuAnNG1AZzXz6zYvVdjETf+wNZy/I=;
+	b=s6Sc/jaku6QvChoyMAqbwjJpxqQIS7i2JcSSafcMdD4+NyMtFZmrM3VR7zl9x7FsYYOC
+	 22P2KKKlg0WH5Lk6XXivlBARGv/i46MeawVhYHwzWq4oyWlEahGsja1C5yJZcDY1Si1ng
+	 CYAn46TTuOENjMeLSA2j+g8xzyx2Huhf7jGioB1sl/rX9EWeu8PI/moKPe7MR1CuNs1lF
+	 7dQ+MBE/uqOv6UUB4xEVrXqPm/LbsYSKb5yMktDkWNhIUtiRd8Uqw0MWLWxh9i1PVRZxI
+	 WXER7vVi9E5KI3DzltOoLbTivekx7M8xuSn8ndn6xaI1NtIrdTlMNCL3ZtlwyoAY9+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GBM5NYlb;
-	arc=none smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KwycBg3c;
+	arc=none smtp.remote-ip=209.85.221.172
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1A1606A32D
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 02:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C1A1606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE34D606A32E
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 02:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE34D606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GBM5NYlb
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-980c4258105so656606241.2
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:25:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KwycBg3c
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so247595e0c.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:25:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794018306; x=1794623106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=di1VRLm1UqWBNtntlKfBC2I8DVMPkZ+84nIHrlZ9/j4=;
-        b=GBM5NYlb/2KYIN4+6oMVOLhLKYe1LYH8PoQfIrk8eZ6FQAl7UVf+/C81j/j7XppFWG
-         z/T8GEY3WGp8Vwq0ODHSkuO69L+H4C7HtJSSmeI/KAuWS7TTiWEyAww+ReZbMh8CFCig
-         moUIluGJDFdTlUnZA5r5NwsxOJ0n5zVtuL/1AaRv3KtSxvKKEndg/SWSVhBkrWmljX5R
-         eY30JI4smany7tVNErBkmoacVJ1goZyGnHKqBH8k+bP7GHHsI7Av5XSBG73zILOL2Ytu
-         r7+tAt2NrDpSJXsMr+w6ZBiJtwAFkrbTQ5If9mCUy0VKqh2DreVuukW2Cy//e9bb3INR
-         Az5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794018306; x=1794623106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794018318; x=1794623118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=di1VRLm1UqWBNtntlKfBC2I8DVMPkZ+84nIHrlZ9/j4=;
-        b=aDOO0c75hWRBAAxW+gYLN4N5KYLFKvTNvWjoPKxhk+7AT520fib2d+CjXyfGvIVQDa
-         fFskyfRMZUFZavmgwx7yhO2nO0MjJvMM/2MQIA9Z84KR7fBohSE+qcHfFzudn8vMr9pi
-         +n0WnLxcX9gSbc2GgoHtZFMETeol2eV4RdkGK9xUkXXMUvfoUJvPe8A1RWTfQ8TniICX
-         U+BCuolK1lKp4i8IZjcNum0d3E3MX4/Pt53QFOE4VEAT92frAv+hlGKQ8+3CxKsOBRmt
-         9nqtaSJ6MK4x8ggYOtGovnSCyjvGz6k3X1Pk46iX773DbOokdDAC9LIThr4r+Q3JE2L6
-         vgtQ==
-X-Forwarded-Encrypted: i=1; AL+hErG2TXi8ReYK08r2xUGnXgm0Q23BJ0PNEGsbbuw3iGuxz45InKCy+DXtQkJQM9G9CPv4iTF1eL+wKHfx@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CFC5ka+S1N9+Yw+ElrGQJjH47+T53ci5xs6HfqwvvIVZlURek
-	AwNkjCa50EqKrTdrwlDRvia/jsRqjDfa78LLro3oGQ8Sk1RCG+tFsLzA
-X-Gm-Gg: AYBFou3ocyZrn+CY7cFEMioP+6/FMoWPZRF3cAN6ll19Dz9RzX0fUiB1jzP8OA6j8s6
-	8+0TZN8Cr+y3gCCLRNHegwrpTG0/62ktb644SwERr6pCJioRFbat8wOOsBLnqHnMPzRB44EX6qs
-	Pecm7sfP0B4D8/OsnqdXkwjaIjzZjbFQOLmm95f/TOw8YkzoVfQwoDd/ccn0pYXBLFGxFKUyoJv
-	m1f1EJpCQ8DnadlSJuQOZNYVus6KcTfkGd/5Qz42hjRrJuUflMFFNXMNXP+0JAMG3eja7ukJVIW
-	he1OOGM9j2dpnPjIjZ1Yh0Qg6lU0/PQzJUCFsKoxcWdNRObHG5BQlOQQPaMX7R95HXYIUKz2i4R
-	2lRcdmoSmkW/smyTckhpJnnJh8aOFmCxDWzuf0ffQ0Q5i77FYjjVwR4QkQ7os/87AgGlaae1Gb6
-	ZcntqE5jfVRlI6uDhgzXCiuvBljnTU/98gKiXfVWj1rc3JDrr503Z5Q0DxkBbgP5CEYKUG+eNbY
-	CN9CAnVJNPSqorU3t8P+nri1nRUiosQzJF5PIxDrBE6h1D049eDG955L99+vWBCTkhpyIGU0iB4
-	ufRo4yFfTpU2ynkMJVS6Oj+KxByk
-X-Received: by 2002:a05:6102:32d4:b0:7cc:3eb0:6ece with SMTP id ada2fe7eead31-7d2a166319amr2396569137.33.1794018306156;
-        Fri, 06 Nov 2026 18:25:06 -0800 (PST)
+        bh=6go1USvOBSIXKpmuAnNG1AZzXz6zYvVdjETf+wNZy/I=;
+        b=KwycBg3cH1HqVRW6kJ7+USn537IV3Da5g66Atl2Gquu0xboormo2pgUjXPRdJlb04C
+         4YKWvr3kM08HShpURq3K4VuvPSVt0YCavDKlYhTYWcOB4DH6I/uJ1h9cKa1W3i9HVR7P
+         AGSVhlFcXjBI4+sHhECBNAmCTpY9Uwg0gJrQhNVBUQBL4WjAl6X7tlU8Evl2Jc+zT2UP
+         3bHl5WlJX8OAweqjEVhLsfN8dNjZ6xcLCdFWe/AqdeqF9bfTbVurtxzve8zV9ZuY6Cm3
+         3CELI7dLRTJCuv+u1+F7KdpZh8PEuitufe9gAVbFk+YUSVlU6dFoEpMKPkByf142hStz
+         rdvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794018318; x=1794623118;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6go1USvOBSIXKpmuAnNG1AZzXz6zYvVdjETf+wNZy/I=;
+        b=VSZR/r4PdK8H5v7hHxdNDE+jB3Iu+jEtlE5vR1bYaq79ei6Kr3YYt8HJuoMSZ0WCy8
+         Gv2EPNIijgyXOvlJnu0BSMZrcKLVfVlCJRbXSt/Dsh97eemabS/0vQYDKoK7a+zpU8CN
+         gwmruyUO3DKJ9GAS+BhFh97AxhVTdbaAAOTi6GQi1MfTrOuXfp8djspbNXwwHSGEmKlR
+         vXfa9qrucsbbeCiGmzOdyREkWMBC9xV6L4cePPxifkTLexraNJXHvGS3P7v/snmtMmhb
+         Cm7ACofxkGOaeHt2f28EEmmVqY0i9iRzn3JkFrLnRXodS0kDBCQjCz/hE7y3gmp8+XFX
+         dz9w==
+X-Forwarded-Encrypted: i=1; AL+hErH7enoHIaZKuRMNqY9Xcn5HlTf8KjbjX+LSLrBR+HMfZ6vL6hEiaiBTMv5uZwIb/SgEIGZeJ1OYmmTT@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yrE5FT5DXVZbB+qmTLo+BBwXvce7VfPvhPm/fG71G4W+C8IWW
+	9vVmba45CHBNwoCFCiacgtIOGIRE580l0pibLJI/rrb80D7t+BpzfSQF8IJTZw==
+X-Gm-Gg: AYBFou0rjDhP+H+rWMPhr2iMLY8iLe0u3gpk5HYBnw7tEBssDbOro7t5FhyqXR4Zh4W
+	lQZBQo9kQrnKG5OXoSsYyFasRt8A05TKc9yUQsVlNLDOAWSm+fn8qoin8qFvqjOUTefPRmKgRIm
+	w+bVYyBgF2w/yxaOd4s+z8VuABM+k9ENwAqDkJ3LzlfdRU9z7jju5Zly1Gq/kLsEQAXsZtMjEHz
+	ZWrQy5tpVpDRyqDQ+6fqfqOLkMrAnjYaJTtJ8wRgyhDFkJAcy8DAbgvZqzZl0LC5IdS4Wutr34g
+	94uJ9/SIWvSJzrCneU/JtmKQya0BNU6FnzJc8Pfqp0A6mFuhZumM96GxMnjfYw2ynTEEd567USZ
+	+OaOaWk5pEQ8sQG42iFPaaSU+r5RtrPKf6lp+8AvQOXWatrzjmW5YGI0hYGPj3fxvVj3VcptVCV
+	mNgsA+IspSZ81e+luYbDZaC5skOuSTdFGXM2qAyOWrB4IBJ8ld9+VQxF4HL/umR2c5ZOTDy5NJU
+	w6tOwpCUXK6nSf8hMcopkcBigCafThPQQm6wFeePI8AO2tDZLANvBMRwNsGp8Ny1hEAHowFN5/Y
+	eSD382+dM1vGQ8/SyYwx8aUta8eU
+X-Received: by 2002:a05:6122:1dac:b0:5ea:aedd:6077 with SMTP id 71dfb90a1353d-5ecd1b5db23mr209349e0c.5.1794018317800;
+        Fri, 06 Nov 2026 18:25:17 -0800 (PST)
 Received: from localhost ([174.93.36.89])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2a89412besm2641941137.3.2026.11.06.18.25.04
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64ce125sm2548910e0c.8.2026.11.06.18.25.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 18:25:05 -0800 (PST)
+        Fri, 06 Nov 2026 18:25:17 -0800 (PST)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
@@ -91,10 +92,12 @@ To: Bjorn Andersson <andersson@kernel.org>,
 	linux-remoteproc@vger.kernel.org,
 	devicetree@vger.kernel.org
 Cc: Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v3 0/9] ADSP for SDM670 and sound on Google Pixel 3a
-Date: Fri,  6 Nov 2026 21:24:44 -0500
-Message-ID: <20261107022453.159341-1-mailingradian@gmail.com>
+Subject: [PATCH v3 1/9] dt-bindings: soc: qcom,smp2p: add sleepstate support
+Date: Fri,  6 Nov 2026 21:24:45 -0500
+Message-ID: <20261107022453.159341-2-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107022453.159341-1-mailingradian@gmail.com>
+References: <20261107022453.159341-1-mailingradian@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,48 +109,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a user for the SDM660 sound support code [1]. It also
-adds the ADSP remoteproc for SDM670.
+The sleepstate entry is used by Qualcomm sensor DSPs to control
+suspend/resume operations. Even though there is no full support for
+sleep states, initialization of the entry is still necessary for some
+DSPs, notably the sensors-bearing ADSP on the Pixel 3a (SDM670 SoC).
+Allow sleepstates to be declared in the device tree so they can be
+initialized.
 
-[1] https://lore.kernel.org/r/20260730174353.108023-1-mailingradian@gmail.com
+Link: https://android.googlesource.com/kernel/msm/+/91edfe5385f2640a338e2ad230d0fc03c73b77f8/drivers/soc/qcom/smp2p_sleepstate.c
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes since v2 (https://lore.kernel.org/r/20261003175659.23536-1-mailingradian@gmail.com):
-- stop using fallback compatible and add lcx power domain (3-5/9)
-- move lpass codec bclk from sdm670-google-common.dtsi to sdm670.dtsi
-  (5/9, 9/9)
-- reformat q6dsp dts (5/9)
-- set flags for codec interrupts (7/9)
-- move "qcom,..." properties to board dtsi (7/9, 9/9)
-- add review tags (6/9)
-
-Changes since v1 (https://lore.kernel.org/r/20260922015801.32373-1-mailingradian@gmail.com):
-- squashed sound card and device-specific codec config (11/11)
-- converted to fallback compatible (4/11)
-- added compatible for WCD digital codec (5/11, 10/11)
-- removed sleepstate comment (7/11)
-- sorted subnodes of dai link (11/11)
-- add review tags (1-3/11)
-
-Richard Acayan (9):
-  dt-bindings: soc: qcom,smp2p: add sleepstate support
-  dt-bindings: soc: qcom: aoss: Add compatible for SDM670
-  dt-bindings: remoteproc: qcom: adsp: Add SDM670 ADSP compatible
-  remoteproc: qcom: pas: Add SDM670 ADSP support
-  arm64: dts: qcom: sdm670: add adsp
-  arm64: dts: qcom: sdm670-google: enable adsp
-  arm64: dts: qcom: pm660l: add analog audio codec
-  arm64: dts: qcom: sdm670: add digital audio codec
-  arm64: dts: qcom: sdm670-google: add sound card
-
- .../bindings/remoteproc/qcom,adsp.yaml        |  15 ++
- .../bindings/soc/qcom/qcom,aoss-qmp.yaml      |   1 +
- .../bindings/soc/qcom/qcom,smp2p.yaml         |   2 +-
- arch/arm64/boot/dts/qcom/pm660l.dtsi          |  37 ++++
- .../boot/dts/qcom/sdm670-google-common.dtsi   | 142 +++++++++++++
- arch/arm64/boot/dts/qcom/sdm670.dtsi          | 199 ++++++++++++++++++
- drivers/remoteproc/qcom_q6v5_pas.c            |  16 ++
- 7 files changed, 411 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml
+index f91276822858..7862d68c9678 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml
+@@ -60,7 +60,7 @@ properties:
+       Two identifiers of the inbound and outbound smem items used for this edge.
+ 
+ patternProperties:
+-  "^master-kernel|slave-kernel|ipa-ap-to-modem|ipa-modem-to-ap|wlan-ap-to-wpss|wlan-wpss-to-ap$":
++  "^master-kernel|slave-kernel|ipa-ap-to-modem|ipa-modem-to-ap|sleepstate|wlan-ap-to-wpss|wlan-wpss-to-ap$":
+     type: object
+     description:
+       Each SMP2P pair contain a set of inbound and outbound entries, these are
 -- 
 2.56.0
 
