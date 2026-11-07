@@ -1,102 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794060394;
-	b=zgAzz+aKqqw6Psq6jCmJD1qAIvbbiv7Ej9oPHiXDJD2QY9C1Q0TR7u1JXGfKiyh3pUNA
-	 Ojm22a0lO3tGqoEnwdEL2b3gonDuPk4FDhFypZp3HjnwL0akYk2abVBImP9Yg5Vu/Lotw
-	 1ZPeO93dhkkGXINC/0ShhdBU7e96vh6piS3seZWZ3mXXbHFrWhh/gVKr8Va/XS6bGHpiT
-	 td2NvgpsxH/mpfOOOLpiBSGB32PmhEo8dnoc7vWq0tVhmOMX6Iskdahx5aEmSaf4zSKcr
-	 aC5TJv1jFwfF/00vUkL3brtf04O0mM1P4LaawTnfMKPHTQ0GPmNPmQ43QpeG9kGDYPg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060394;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
-	b=gmamhlD4Apa+G1rHdEpS7tr8TSbsbj9blNhs6r+itQKvXsH0daot8e/iJAJxXl3FAxBP
-	 Cm2gJ93Vw76rU+4Ocn5zu4SD9aH4QcL1A/Fe+BVMpQGbdmPp6AogZ6VxeU042VAsCzqyE
-	 fViGaGCtthaEQ6WanHuo8d2MPTSMjHdidS8Bqa2yQ8SDvnrafgQFm0/Zf5wrU8j+T5B1x
-	 vVxaPSYNZieUCV0P796ooTWlj62UX9/bkvKkngAWumv8yIHm45tqofLH8yor4P1P5OHqX
-	 3ITMghN+DCh8tOZ6WP61zaCIFua8SFYSQtWv7b+JKmpGyEOEtNY+Hy8Q+EEaIDnfveQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDBlyIAS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794060401;
+	b=3c2kAe+Kz6w71zvBiETFP2AkZzoVrnBAm3R8iFe/7EwFNso7tiB6bh0TiAobKmvPNbe9
+	 yU5ySYkJ3DBwQzgln+oVK9InFV2FmpqDy769cplZ6q23zHet0FMpfOwcc94BKvasnGCIf
+	 ppj4WKFNuglbvZD+RkTOY/a1LyJ2nZbuNr94g5czvsVftfaFlVWYJMwttCwgebZSD+ANO
+	 yQNTURJIwCrvWkLn/5gOKhVlbVfKszf23WEaXwBEAGSRWPI8AcUvPpotRMUtwPZFUEqaV
+	 zyip8NtkxKEsdUbc38K1s8KjMsvOR0FOyfV6k2wsVxDrQnXJPrSAYVZb+Iw6Ngb05rg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060401;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dRnWoULI3173Yqo58sHLTgXHS+AEuN9ho2xS9PVuhns=;
+	b=jYUUUnTSQNCAqcIUt55J8cTfwNmtKGi9pFh/ZusyO5IRBN8HIWFmXpq3as5JOy7Hd9K5
+	 mjIJE9bpRryEWnLyU63pASKHWNIXXEPgGnqJ+563ozoP0QdypTdO9Nj5yK7Intce9+sBw
+	 bQAXytZ7ZQr+wbeYTx6k6JV+LMTxHOFjkIaN8yvi1Gl3ObcKzk3PHnDtgRnq/HJhsMTm4
+	 VpWA4UOPTgHWCckS4ONNEE/6XQZH/4uWqfZxkJdmU2rbP9AEvKb+Yfmb/3Tc8natpyY27
+	 7EHK4pcvLwwNUDu5CKIoHTPFqn0c+t67X1BTXRS8d6HtAX163nzqI8n///3O2t7pgUg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0khYycu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA497606A33F
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA497606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3EC606D81A;
+	Sat,  7 Nov 2026 14:06:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDBlyIAS
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b1a705b88aso1023397b3a.2
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 06:06:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794060393; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b4ocKwSU382zwXSix9xr5q7M3DX9stfOGKiD+hxFAf8v6qZ/g63JNNvP9u0W/VfgFg
-         lIrqeLKK5/bqVYYZ44DjMEMb7a2vCCTNTrbf2KaZSpV+w5tglKMRsqT4VpVJnbAjmny9
-         RKQ3ZfA4MK1BXVAq94JQUy7FNYYcdy3oetCWu3YHLzOeDqBlItHGj8RiR1QbDI4OcF0p
-         xU3MPZP4ttJYQtJeU8APvNr7+8yjVurXm+kJVxGkk5lTJ/iGjwoNMDq0AdZnKVIfQtiJ
-         hH7i0+M2IZMPcUU1pARfI2JlfYVhzlMnW3eFCEQYrrE+zSDfDjpg/M43wdTJeTKDrJNR
-         4VjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
-        fh=SBtWW0SrN+pLf0vGXouQz6rNAo5FZfAV2T46t1i8kY0=;
-        b=s0r0ec60BR6bvWsKZlyvhlKaaE6mEoCIoYu7DiDxbPghiE8/P9OVo6KX0EQrn14mXR
-         VeocBlFIGd+KiI3XytWSmqFH2n4a2PGad68mN6IhEYfSih3aWu/N1taGPikTfDX8sS4Q
-         BtMBvPkVGVWYvITVVERbT8klGiyTsVxTiNWX/zsmbd9Z3krxnepe97lmDwEulRwyChV8
-         os4wA6BsXp2sKd7yseVsBISRISmg7hRcATwS9yDmuLROXjAF//Bz3BxmEjcH+vum8CdF
-         seSe2Oo2su6RnSUaGqoknhgdBFN0F080C+ro0rL9AJe8ohzmsTWTgt8F+a/zbxNMhtwp
-         XK9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794060393; x=1794665193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
-        b=dDBlyIASGe87airtRsC6OYAtSLt8d6JrbobgkmqzvHZG4f9MUAgKofmlBTqz06bmf7
-         X6/cLnOfY0szRdLNS3X2edK4IKxHbjdDSXYPSt31ow1YyWXi1Kqjjm0QF8nHW2t4qXvA
-         0NYnlBfL3p280jC12DBHa5hRcP3rn5qi3RG7leKLPOtEEwGOwBz4i3puzoxLu0A/ERDn
-         tEb/Fe4tigaNJLz1eYJOyd+QMI2kRSEuRujtP7juCjFLv+Kx9QXavedEeGOPrXGBfMZd
-         CXpWZX3fCI3edsCjV2z66r0g7h11SLsxjerD+lVx8K9D+fefPaf9swx/sLCRgFYnFBR9
-         wFQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794060393; x=1794665193;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
-        b=tTLoOmuAvfxRXiaMa/mSvmVPz7WF7TgKPKIPbHn/8yc0X+oOetlB4nFKZJXtvj+zux
-         U+/qC5VUwZP/P/Hzi73SEVOrsTzIZwpJaiQXWa94tHA7lIxbwyffM/DmRdZdIZANoJAw
-         cuDIxzGEyfL70yVvW2J85hUjfLo8lm4qcYdWb1h/9UL1sjy2yBklRHjyHuy1oWT9rQlW
-         +ZHAwOnvXj1eRouZg/y/G48+Ao5diTlEQFmXe7h+p8rGddaxQ65PrFgWM0AeESuQfTWy
-         HJjtwkHk0jcuTYdwDdkZPC3if9cZ+tXShU9ZS1KV+bh5uboMhxkaXMhYaIouhwZPAGF+
-         L+0A==
-X-Forwarded-Encrypted: i=1; AL+hErEnfdN0Ystxbu6K7H5fKFCOvopmUdsAJkjZepH3NT5fZezKM/kcHyNQI1+bK/Kswx49QEflphcE/dgI@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Q8J6wvU5/yWuQyBmVJQi1RXXTSQXsG0p/939NG0IDVDs5N4GU
-	nMNo40iAE6+VFFL0oeaPIM+o8PTTd2+4etZ/cp/IUZFNUuZedDJW+gcBL5vT3xcG70RseH3DZkD
-	lewOZSf2DWBApvaFFPVTdD+j3k3IfyMw=
-X-Gm-Gg: AYBFou0Rv5FjnW9bfFbYMmm5eG9ktBhcSaKkUMUhdEb1zIYCtEQzeMJMdGtKKyQw7uB
-	4hXk0uXV8cr6A7hOuE0QpCgdrSSk2dU6AmLsSh4KjuRqmvGID6Dg6OZ5BnvP1oQzEQVa/c3WD0Z
-	UgSCdtuddHOi2LN9KoK6bZqg750oITmPjiS7jpl9I4P6yEeCJOvb7DKIYZrSOFgfwQlpvg0IISJ
-	boL9Cu6OnO4L/Ymrkl4HOz1RV7CWYRVzrBQyjT0+D0KNJb4DC7Z7aRpFlmO4UI3+uly4o+NfE95
-	Qnn91dfhd88xsCP5fTodFEJI80qt8kY2MAV2XZYz5ujB1smn8K2dW6wB2kgA+uN9NuIdBTmj5hy
-	mh2ChQ/G18zrTvwL8h3coZ8xNz71i7eEiH9qWhJ4h1leKuwp65VXGVivJnLybMTU+CfpxCVVrZ5
-	48ToosYdN+RLXByyB3fONykjkJagjV2qsk3CjaJLJWMW5IAx0QYyRf7x4IdddPjwWYGGUOM+XU3
-	v1EUhP8a/eCQd3HIJ92Tp+Ju3T/SVxu/nhmxMpRqT/1nO0Ld0jC+P4H3OVOHw==
-X-Received: by 2002:a05:6a00:13a4:b0:8a0:21b2:7c7d with SMTP id
- d2e1a72fcca58-8b37525709bmr5141902b3a.0.1794060392907; Sat, 07 Nov 2026
- 06:06:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0khYycu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D691F008A2;
+	Sat,  7 Nov 2026 14:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794060401;
+	bh=dRnWoULI3173Yqo58sHLTgXHS+AEuN9ho2xS9PVuhns=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=P0khYycugzxtI0Lt9BtiBnM8SaNf4JAMZ8ziljyH2ARuzvwx/eHbaNVoo3zDV59mB
+	 1q7IIfXEk1V0UyzsicknUI5WrHjZQhZRef8hGC23238SwLLggWcOdxWzY3ftgX4h7i
+	 xPRR1mS4t32Fa+v3w1zsJdXbefofFeMWTwzfJaMNYQ2iQhWILgA/wBwGkNZoStpmqB
+	 RPxZB7fUnIVPsM6UvG7WPAfyjTWy7jsZVq3nly9BYlS24yW2/chfnCyLC1GNXppMxs
+	 Lk/8GFjnxqBmrWuvb1AGiMBVU+9uMmLMxsmcwcSbFjy0newQejWaK7VnYDaz2qjh9b
+	 SF3NvEZcnlXtw==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,51 +49,285 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793876837.git.alx@kernel.org> <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan> <auyV47xUCr1EJ7A3@ashevche-desk.local> <alpine.DEB.2.21.2611070239050.17804@angie.orcam.me.uk>
-In-Reply-To: <alpine.DEB.2.21.2611070239050.17804@angie.orcam.me.uk>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 7 Nov 2026 16:05:54 +0200
-X-Gm-Features: AclHuK-WBq_EIF1I_SsYN7csCkMj3s3jbsrjUQ08xBHpkztbklIxJpPZrjAee2s
-Message-ID: <CAHp75VcVT2kQO+URZbrH_3-A=4DMZU1KfcQsjDf6bNdtjf=t+w@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Alejandro Colomar <alx+linux-hardening@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v24 09/15] media: qcom: camss: csid: Add support for
+ CSID 1080
+From: bod@kernel.org
+To: sashiko-reviews@lists.linux.dev
+Cc: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, 
+ conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, 
+ neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <sashiko-outbox-193308@kernel.org>
+References: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
+ <20261102-kaanapali-camss-v24-9-d6b8f3f6f66f@oss.qualcomm.com>
+ <sashiko-outbox-193308@kernel.org>
+Date: Sat, 07 Nov 2026 14:06:36 +0000
+Message-Id: <179406039659.650304.183461297349639175.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9352; i=bod@kernel.org;
+ h=from:subject:message-id; bh=fWXNSKxBlQ8AhlCFWFSjAP9CzDVqSO9hadN9LWOv0v4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7zBu8ihuhOEt+7vTL8KFSjeCNLDqxtTQFtbEE
+ 4O0G6XApW6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau8wbgAKCRAicTuzoY3I
+ Ou5fEACQUWQe9sN6OIK6/ZEBFckX7hxFDwmI6hS9rOZK9WGHVgVnvmhLkKjuZySLSVf1ItUg0qf
+ ul7Jhs3c8iwzRj0E0fLBRamsAUFGzCe0QXfyamfUydd6MN0u/p2sdhgAqQLZwXaz50dWVKWaCj5
+ GeKHTWAthT8+qj8dXZwQdbFo4suK4xpp4knYZRpXeGm7tTDO1vanmbtWhjl7tis1Wclw+9eT68E
+ byBBVflPBY/Z77vPuOp09yQT40EyW2SRpaxDvZoJpz+L1vkyWQBdLaU54L0SjzEA/Zsxdvj+bfI
+ jAqeEuQd8uiTdxRmtVKyoi7Qgnfs7KWc/Y5FjCefb1lQgY3a+kmZdapXibHGAwd/bzSt6WbYe/4
+ 6a2DrgXwI4jsNoPTIWjW8CmeyvKPyuTFOtv4tdrQ4KH+NKeAQ4TnqRKXAZG7NKPBOVopcF7NAPu
+ w9A6Mw/weDtsugjyEmvT0MroX3xM6LCdsZW8t4c4eyv5uFAgX/7Csvckj+WT2XDSdtfI4Z+U0HM
+ DUgyysosBINauTtKNPadI+7FwAyzfgN0ODYOO2kOTEoS9ErlhjHHwYkSe4YzTKHF4ctck+xP2Gd
+ K23jFNpUK2zE1QjH2FyUaMklEg32Gj44QHqJBKsPKPddleqATgBzYhGWMpPjDhsbA9g/Pj+mqEO
+ sZ9hV25Rc8MFXDQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Sat, Nov 7, 2026 at 4:42=E2=80=AFAM Maciej W. Rozycki <macro@orcam.me.uk=
-> wrote:
-> On Thu, 5 Nov 2026, Andy Shevchenko wrote:
->
-> > > But yeah, I can send them as separate threads, if that's the preferen=
-ce
-> > > here.
-> >
-> > Yes, in Linux kernel majority of the maintainers (a bit of speculation,
-> > I haven't counted, but it feels like this to me) do want separate threa=
-ds.
->
->  Cf. Documentation/process/submitting-patches.rst, section "Explicit
-> In-Reply-To headers".
+On 2026-11-02 11:02 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] media: qcom: camss: unconditional AUP triggers in csid_configure_stream()
+> - [Medium] media: qcom: camss: out-of-bounds csid->fmt access in __csid_configure_rdi_stream()
+> - [Medium] media: qcom: camss: race on addr_update and reg_update in csid_isr()
+> - [Low] media: qcom: camss: unused variable lane_cnt in __csid_configure_rdi_stream()
+> - [Low] media: qcom: camss: malformed kernel-doc Return sections in camss-csid-1080.c
+> --
+> 
+> commit b46b9d6d26210a3faaa024307adfd55c2501ce00
+> Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> 
+> media: qcom: camss: csid: Add support for CSID 1080
+> 
+> This commit adds hardware resource descriptions, register programming,
+> reset handling, and interrupt support for the CSID 1080 module found on
+> the Kaanapali SoC.
+> 
+> > diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> > new file mode 100644
+> > index 0000000000000..3d90d31201fa5
+> > --- /dev/null
+> > +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> > @@ -0,0 +1,402 @@
+> 
+> [ ... ]
+> 
+> > +#define MSM_CSID_MAX_SRC_STREAMS_1080		(csid_is_lite(csid) ? 4 : 5)
+> 
+> [ ... ]
+> 
+> > +static void __csid_aup_rup_trigger(struct csid_device *csid)
+> > +{
+> > +	/* trigger SET in combined register */
+> > +	writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
+> > +}
+> > +
+> > +static void __csid_addr_update(struct csid_device *csid, int port_id)
+> > +{
+> > +	csid->addr_update |= CSID_RUP_AUP_RDI(port_id);
+> > +	writel(csid->addr_update, csid->base + CSID_AUP_CMD);
+> > +
+> > +	__csid_aup_rup_trigger(csid);
+> > +}
+> > +
+> > +static void __csid_addr_update_clear(struct csid_device *csid, int port_id)
+> > +{
+> > +	csid->addr_update &= ~CSID_RUP_AUP_RDI(port_id);
+> > +}
+> > +
+> > +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> > +{
+> > +	csid->reg_update |= CSID_RUP_AUP_RDI(port_id);
+> > +	writel(csid->reg_update, csid->base + CSID_RUP_CMD);
+> > +
+> > +	__csid_aup_rup_trigger(csid);
+> > +}
+> > +
+> > +static void __csid_reg_update_clear(struct csid_device *csid, int port_id)
+> > +{
+> > +	csid->reg_update &= ~CSID_RUP_AUP_RDI(port_id);
+> > +}
+> 
+> [Severity: Medium]
+> As reported by Sashiko on v14 [1], can concurrent updates to
+> csid->addr_update and csid->reg_update race between process context and
+> interrupt context?
 
-Even better! Thanks, Maciej, for the pointer!
+I agree here. I think the spinlock for reg-update, needs to be held.
 
---=20
-With Best Regards,
-Andy Shevchenko
+Since the reg-update spinlock guards the entire slew of shadow bank
+registers - or rather it should it looks like this lock is warranted and
+missing.
+ 
+> In __csid_addr_update(), __csid_addr_update_clear(), __csid_reg_update(),
+> and __csid_reg_update_clear(), the bitmasks in csid->addr_update and
+> csid->reg_update are modified with non-atomic |= and &= ~ operations, and
+> the full multi-port mask is written to CSID_AUP_CMD and CSID_RUP_CMD.
+> 
+> While vfe_queue_buffer_v2() and vfe_enable_output_v2() invoke
+> csid_subdev_addr_update() and csid_subdev_reg_update() under
+> vfe->output_lock, csid_configure_stream() calls __csid_addr_update() and
+> __csid_reg_update() without a lock, and csid_isr() clears those fields via
+> __csid_addr_update_clear() and __csid_reg_update_clear() before
+> camss_buf_done() acquires vfe->output_lock.
+> 
+> In addition, within csid_isr(), camss_buf_done() is called for port i
+> before higher-numbered RDI ports have had their INFO_RUP_DONE status
+> checked and cleared in the loop, so a buffer update triggered from
+> camss_buf_done() on port i can re-write CSID_AUP_CMD and CSID_RUP_CMD
+> with stale bits still set for those higher-numbered ports.
+> 
+> [ ... ]
+> 
+> > +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
+> > +{
+> > +	u8 lane_cnt = csid->phy.lane_cnt;
+> > +	u32 val;
+> > +
+> > +	/* Source pads matching RDI channels on hardware.
+> > +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
+> > +	 */
+> > +	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+> > +	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
+> > +								   csid->res->formats->nformats,
+> > +								   input_format->code);
+> > +
+> > +	if (!lane_cnt)
+> > +		lane_cnt = 4;
+> 
+> [Severity: Low]
+> As reported by Sashiko on v23 [2], lane_cnt is initialized and updated in
+> __csid_configure_rdi_stream(), but it is never read anywhere in the
+> function. Will this trigger an unused-but-set-variable compiler warning?
+> 
+> > +
+> > +	val = RDI_CFG0_TIMESTAMP_EN;
+> > +	val |= RDI_CFG0_TIMESTAMP_STB_SEL;
+> > +	val |= RDI_CFG0_RETIME_BS;
+> > +
+> > +	/* note: for non-RDI path, this should be format->decode_format */
+> > +	val |= DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+> > +	val |= vc << RDI_CFG0_VC;
+> > +	val |= format->data_type << RDI_CFG0_DT;
+> > +	writel(val, csid->base + CSID_RDI_CFG0(port));
+> > +
+> > +	val = RDI_CFG1_PACKING_FORMAT_MIPI;
+> > +	writel(val, csid->base + CSID_RDI_CFG1(port));
+> > +
+> > +	/* Configure pixel store using dedicated register in 1080 */
+> > +	if (!csid_is_lite(csid))
+> > +		__csid_configure_rdi_pix_store(csid, port);
+> > +
+> > +	val = 0;
+> > +	writel(val, csid->base + CSID_RDI_CTRL(port));
+> > +
+> > +	val = readl(csid->base + CSID_RDI_CFG0(port));
+> > +
+> > +	if (enable)
+> > +		val |= RDI_CFG0_EN;
+> > +
+> > +	writel(val, csid->base + CSID_RDI_CFG0(port));
+> > +}
+> > +
+> > +static void csid_configure_stream(struct csid_device *csid, u8 enable)
+> > +{
+> > +	u8 i, k;
+> > +
+> > +	__csid_configure_rx(csid, &csid->phy);
+> > +
+> > +	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> > +		if (csid->phy.en_vc & BIT(i)) {
+> > +			__csid_configure_rdi_stream(csid, enable, i, 0);
+> > +			__csid_configure_rx_vc(csid, 0);
+> 
+> [Severity: Medium]
+> As reported by Sashiko on v14 [1], can __csid_configure_rdi_stream() index
+> past the end of csid->fmt[] when i reaches 4?
+> 
+> For non-lite CSID 1080 instances, MSM_CSID_MAX_SRC_STREAMS_1080 evaluates
+> to 5, so csid_configure_stream() iterates i from 0 to 4 and passes i as
+> port to __csid_configure_rdi_stream():
+> 
+>     struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+> 
+> However, in drivers/media/platform/qcom/camss/camss-csid.h,
+> MSM_CSID_PAD_FIRST_SRC is 1 and MSM_CSID_PADS_NUM is 5 (1 sink pad and 4
+> source pads), sizing both csid->pads[MSM_CSID_PADS_NUM] and
+> csid->fmt[MSM_CSID_PADS_NUM] to 5 elements (indices 0..4). When port is 4,
+> MSM_CSID_PAD_FIRST_SRC + port evaluates to 5, which is one element past
+> the end of csid->fmt[].
+> 
+> > +
+> > +			for (k = 0; k < CAMSS_INIT_BUF_COUNT; k++)
+> > +				__csid_addr_update(csid, i);
+> > +
+> > +			__csid_reg_update(csid, i);
+> 
+> [Severity: High]
+> Does unconditionally calling __csid_addr_update() CAMSS_INIT_BUF_COUNT (2)
+> times here match the buffers actually programmed in vfe_enable_output_v2()?
+> 
+> During stream startup, vfe_enable_output_v2() in
+> drivers/media/platform/qcom/camss/camss-vfe.c only calls
+> ops->vfe_wm_update() for buffers actually present in the pending queue:
+> 
+>     for (i = 0; i < CAMSS_INIT_BUF_COUNT; i++) {
+>         output->buf[i] = vfe_buf_get_pending(output);
+>         if (!output->buf[i])
+>             break;
+>         output->gen2.active_num++;
+>         ops->vfe_wm_update(vfe, output->wm_idx[0],
+>                    output->buf[i]->addr[0], line);
+>         if (!ops->addr_update)
+>             ops->reg_update(vfe, line->id);
+>     }
+> 
+> If userspace starts streaming with 0 or 1 buffer queued (or when
+> csid_configure_stream() is called with enable == 0),
+> csid_configure_stream() still triggers two AUPs and one RUP, which can
+> latch uninitialized or duplicate WM buffer addresses into the hardware
+> FIFO. Even when 2 buffers are queued prior to stream-on,
+> vfe_enable_output_v2() writes both buffer addresses to the WM register
+> before any AUP is issued.
+> 
+> > +
+> > +			__csid_ctrl_rdi(csid, enable, i);
+> > +		}
+> > +	}
+> > +}
+> 
+> [ ... ]
+> 
+> > +/**
+> > + * csid_isr - CSID module interrupt service routine
+> > + * @irq: Interrupt line
+> > + * @dev: CSID device
+> > + *
+> > + * Return IRQ_HANDLED on success
+> > + */
+> > +static irqreturn_t csid_isr(int irq, void *dev)
+> > +{
+> 
+> [ ... ]
+> 
+> > +}
+> > +
+> > +/**
+> > + * csid_reset - Trigger reset on CSID module and wait to complete
+> > + * @csid: CSID device
+> > + *
+> > + * Return 0 on success or a negative error code otherwise
+> > + */
+> 
+> [Severity: Low]
+> This isn't a bug, but the kernel-doc comments for csid_isr() and
+> csid_reset() use "Return" instead of "Return:", which causes
+> scripts/kernel-doc to warn about a missing return value description under
+> W=1 builds.
+> 
+> [1] https://lore.kernel.org/r/20260601162737.8D2531F00893@smtp.kernel.org
+> [2] https://lore.kernel.org/r/20261028-kaanapali-camss-v23-9-95f250b18612@oss.qualcomm.com
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com?part=9
+> 
+
+
