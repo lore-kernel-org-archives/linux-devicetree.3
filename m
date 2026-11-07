@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794019407;
-	b=hSDBrlh/lVqVq96O2RMPRXtpQeB1XpDRXPIN+j9s6S58IjRUFsXmvxIlL7ZMNqHdZlMw
-	 mLMbhOfvy1T/Aq9S2sZoOMTNmNwRDBEYKnbonCg0k1NRp592yzdkOKFeRiA3pBRbE0/O3
-	 79kJSed+70ZiULwY89g5IT2wmaWlaxG7L1yZWs3kmvAmXU45Sp2xCT9wYV6iPkwSb/dP5
-	 yWYUeUJXXoi/kjy03AzQQkHFUoA8ZDxhBYSNraBTt6o3WH3wgnZYDLqOIWfgL9RfGD38n
-	 eAmhZvm0HnZ6MFuTlUcQ5ggnlZvU8tUioJly2777ZZSqqshbuJVo3FJh3ebfbes/nKg==
+	t=1794019420;
+	b=xPmdHH0z4Xr/fVJSer1ixGdg0/h6mbNJf0gDtZmkwHAoffm6qOivsfZWY7PVF3ZOj7mA
+	 G9967NluYWRQyZ8YIrLpaAFVBN14R+er8vWl6Qbpx1RjUORXCi1O8yARTRO6j2X1mA/f1
+	 zT8jHYpOvNTvTa65EaacFxrgjJJB+gJDwPekbFYIZEIxwL7n/+TbCFtT+1XOLSr16k/yx
+	 l14Tk8b0Y6HpEeAYGVKcBlTB92pj0YGW22KQ4Djq6za71AI1l0a2SqIlIzzI/OUHjLQmQ
+	 jBBcEiz3wxO8+076ImQG/ywJTz+uB/vzxZVn4Uu2exLNewRRzL6AHzTvcL7ygvDTNDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794019407;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794019420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=L3XFDNttzzNecv3QGeXd1n4niM2PaEt5ZDW6EFwUi3E=;
-	b=paDrYuo2lHbqwXohCa+xGnqrmw8Ry7Q2299GyM1+tf+0Bz2xL+k36VLSdXi7i5W1K4Vz
-	 y29sFq1M1PTJE9/Syh2S6FPao0ARPb/obrRce710SrevheRhpTJbeHL2mITvRhD6duFpH
-	 5X/n49xTzw3O3Qt9a3IHOApOdcGj3REmHNEU4fq+s0IvqhgrJJqRB8tDWqBdnGcDz6yPP
-	 5dckUuJYYP3WAPpRNJQR36gZANVEVcqfrhBqdLurXp3jlrsJjQjLK4GBNvIaezD2Xij/y
-	 So36TN1tfWOHimv2KmXBuMKJL8JO3LMKkT6ObejehooG+Vh6Hkvmch8ppyreHiiPIJg==
+	bh=4PVdxrjj92YH7Ioge0Z5YUxeZALza2C/7gTr5CnJ08U=;
+	b=x4sYTaAWt6Fs2dANTIgt7zcXsFK7no0JmnmqAnMA3bjMchggLPcnqqzg5CsHJJcO6XLO
+	 7MJVKQhZg61HVrBDWUef3Nd1m5yHjuCNxk2lYwbxKScSfUYUyLRpcQekl0xtfSL/Xq4tn
+	 dlJGQkKjWuJZCiuiQu33QSrvLAiblhsI1xeNb2b5teUZlCy8mHDSkhkvZMSREBRT3vsTe
+	 +MCv24hTh2hyBcU3lRI7tTJVqklEStewIWblraCcI3IxFuuo1zWDpZgjpoQfWFtHGu78j
+	 yw8ULDjJRuzGs7y6KBYwa7LuovGmRUXhekJOaazNuPihr8cioi2aVJLc9y+ZXhEAw7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BHJJTil7;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OXuqniKR;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA41606A331
-	for <Devicetree@vger.kernel.org>; Sat,  7 Nov 2026 02:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AA41606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E2A606D803
+	for <Devicetree@vger.kernel.org>; Sat,  7 Nov 2026 02:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E2A606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BHJJTil7
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so1359449a12.2
-        for <Devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:43:27 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OXuqniKR
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1535315a12.3
+        for <Devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:43:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794019406; x=1794624206; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794019414; x=1794624214; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L3XFDNttzzNecv3QGeXd1n4niM2PaEt5ZDW6EFwUi3E=;
-        b=BHJJTil7BkphO9ZpdURTCMJFnvPMfJ9BUXh8HCw4DyHtItieJbzx2IKUsGD04hpUkD
-         wOEAww5vlkQD1b41jJy3giWAXlc0f0S9pAPHk/NlFb5LfEfj3Nk0HoLHNqFFecriGWjp
-         2QVdBY9LQAuyiwn9WQH8klBWGsGb2Kmtl4GJE=
+        bh=4PVdxrjj92YH7Ioge0Z5YUxeZALza2C/7gTr5CnJ08U=;
+        b=OXuqniKRZwwSA74dlHIiLI6LhrNT0mmVHKLySuKI9faP+Zea3YwaFDcYw/4a2XrAVP
+         vCezO5pfbX6LRwivQlUz40XUmd7VfRVQpEVGHolZe7UnXn+95PRNi9BmVGijO6O4nMjW
+         QdyIt+vOq9EA6jlQu3tUd4X9azUv/sOqU/wNA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794019406; x=1794624206;
+        d=1e100.net; s=20260707; t=1794019414; x=1794624214;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=L3XFDNttzzNecv3QGeXd1n4niM2PaEt5ZDW6EFwUi3E=;
-        b=WdnPMhRZrl8eqh+celQr5vcFyAeTWREowZnKLRuJ1VApNbW1jt7CPUqfcCFVI4CSUf
-         4Ty+YrPL/qcg4o+Jxe+84WjrteyFZkTa0YY+3xPYWb+yHZLW7tDTiG+JMp8xHMydYfyu
-         5Z0CElQ59YSDT1enn3/9JRBNZD2pPTLByJc3Pyz2JGaSKrOnAdr+Ud7KzVFGsPhZCSxe
-         oMxRPqqBvFdbr84iSeAOu1lCOwqal3LnQD6e6T3YMrBxlx6n1bSnYktiDk6tzqBIuDqw
-         jkSD9lzNX/V0K9wMX1etULe7IBkKoinj1h53l9/zMNqWx6dDHyC9DYCyWk3dl/WCF/Yg
-         Kd1w==
-X-Forwarded-Encrypted: i=1; AL+hErF2k+BN9Z8qyGO/adFeFhCm3By8slo5uaJ+3uyZWWPgec0i42xH+VEVbVuHALpj7FCYXgok2zKqYTW+@vger.kernel.org
-X-Gm-Message-State: APuU4Z+y+YPWF8Up62QXAu1w0FXM/oxapttuo007+BuAXaiqlfbd5bTj
-	PxqSjhOuRqp5m6lQwrVaabmmM6Irgio+TTE8J0rw284P8NjZaOKeMli7ptFPHx9LFa+PRzdvZin
-	BeRBrD3p2
-X-Gm-Gg: AYBFou3/44nxfUKuBIYwWogKJ1ZSgZihAaUo4mhUJParTOK4rbhTxessxFVo1IWPMyl
-	r4uHLxBbt0MFkXX2aYCYd29poFHKnWY7gNzmJ7i/WBPAhVCAp+eztTWxuVkfOquuyFfb/lPM0ug
-	FRnn0geohCPaFwmBwMS7BOrxYMQbZksaex9EjGA0gtKXEvqK1N52Qgq5+n5FKCc5vr6N7HhwIQv
-	c8IWeMZwaYsdqoT4/iJQ+Ld3+L4wPhDuInI7MeqkPTZIU5PKPGN52mCJS2lsPAwX2axKs5gcPP6
-	Mx9FXhyDmny6Fv1yqoER+lhU1fRjwTn1X7tKNBX4xiLbltUZWaXiUy0diWJMJn7Zu27QrYxU+Qp
-	xcnC+3jhNOXmeuLCV7QLAy8JVWuyohXp6YvF5U1RkkXlAAZHb9gftfySeqYzT49VAegXnTGAOJr
-	doP4moGNoJPN8BnxLtmCi4egRYwq8ZqQRYR2SuJmUHFsDQu9feU4gWfpn4fhyzCTT/DVwqMMv+N
-	2aJQlk9SksaeGVFKV6qM5XCnnQAEOfKsiI7iIuIK0Z6E1v1O8eZXBwjkW6et4F8d++GGRJZr26W
-	668dpw8WQNMpOTZV03iC738Ej4T5S/cmYK7Di3f8XDZAcDLt4eh+vW69tFOtq2vAvRU=
-X-Received: by 2002:a05:6402:27cb:b0:6ac:87bc:8b16 with SMTP id 4fb4d7f45d1cf-6b597835d4cmr3037688a12.44.1794019405921;
-        Fri, 06 Nov 2026 18:43:25 -0800 (PST)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com. [209.85.221.41])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ae569dsm1283524a12.16.2026.11.06.18.43.24
+        bh=4PVdxrjj92YH7Ioge0Z5YUxeZALza2C/7gTr5CnJ08U=;
+        b=xj6GbiCvi1TjGqMtamL9pG5x0snVS3Cl6lmb0p4z936EeUP87pdLiTUlm5yF54k55J
+         awx3WHsHdC/3rPD6FquHm0QvZa66gNUTlan3ugPKSw0LjiBqOa02BtTwF2oHfpyGJmAM
+         auCkJ5fT3eiO2tpUpxwDFH8myPJacPSGKwXWH/mSkyWn8rwW4wBnz1VFzRjz5EhZyZbk
+         ycX6XoD3PW7RsVeLJzhUIXB799Zgm4L6fhD5T1yrqNE+f9NV5Y/1HOjiYZ4Is2nd+vqb
+         750qTeYifoFOKVUM52WOLlfrR2zIrL0dv8YjwOmfkBeDMQFAvByBNGuXuupaSX7Bnl2/
+         jYfg==
+X-Forwarded-Encrypted: i=1; AL+hErHegGnpc7J8xZxWDZWMr44pYxpzGttFaT1sS4vllihjxBUjKdVOFEmuKEskJwzF4FqO5TVnWlWsIE79@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Tbiwnk8zh/MlFKRFUL3aDE4aRIIoA2D/VT6pv653LsXoXgGnV
+	cUXKylLZaJiS1dWLM/KYEtMApGHL2z5x1XGn5BADyCvazfmmERE3T2WwDu6yv/IDARqIY9iFnmm
+	0VicvDcpM
+X-Gm-Gg: AYBFou1svh1QksfCp47xUweRqFL/z9v8M81xJwn/VXpXnlc76mst/+pVFZqfrZV7Btb
+	M7WYjX2jO4bumslAOB9dTlouQM5lhCrOClzF681KfYRaAhWj2cKVgeAAI0P5N4KjlcM/6PaQOFY
+	EWZBh5H9s2VV6yyjwIGbcUL1TunJQU5bRj17hsgWsgLPdOxALRvp3c6B7TwbgXqkY+1GABBHnfL
+	qYhO22/aPSyz15miVKvXXq7U9fY80q95Zd8U4zDxTd9r+y3jh52rOe6TB6UxplCq2PhIzWOaZKi
+	wGnPDtStC6aSa74c36QDSELLEyYuooo8fqIhS+alDhYLLZzHz14jiX1pmN/70A8o/QhIxUavRxT
+	4Lcdi/gdTVJK5xnWIMWyjz1mABZp6Lb0S7kOwyZhJwOb7GGERfBRU56VkTQkhpVp/nNCGpN9ZlZ
+	3JN+umsMpTdnCrEHLuYpMCwRSunRt/1Vcbz4Ryd6mKPFzqh3/1ddionpqjNyX5SzBNt+1eB5HLE
+	fB24SFCmVy9pkn2cGq0Q/1jY98Rv7EXo3O8IgJGp6vprN/bBvS7Qw5xr+HhbP8c+Aykrlzk1H/y
+	3BwVi49jNe9mHJ7zOQe3i22Vb/58LENDIWFDnIgu7qkFbADqIM68dwBRElgwZItm9VU=
+X-Received: by 2002:a05:6402:1ecf:b0:6b5:6478:a9a5 with SMTP id 4fb4d7f45d1cf-6b5977d8c85mr3019099a12.10.1794019413888;
+        Fri, 06 Nov 2026 18:43:33 -0800 (PST)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com. [209.85.128.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ae5680sm1316506a12.20.2026.11.06.18.43.31
         for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 18:43:25 -0800 (PST)
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49134c8509fso1040352f8f.1
-        for <Devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:43:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHCJkW2al4msh28JbrsDh4BAjXF1P5zO/QdvYU/7Z+whe3owS6OcpKHNYgxulB2+ntP1pKmpdKbVq/0@vger.kernel.org
-X-Received: by 2002:a05:6000:1866:b0:48e:7b12:aca5 with SMTP id
- ffacd0b85a97d-492c3cd30demr8053898f8f.46.1794019403842; Fri, 06 Nov 2026
- 18:43:23 -0800 (PST)
+        Fri, 06 Nov 2026 18:43:31 -0800 (PST)
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a215e64962so13909075e9.1
+        for <Devicetree@vger.kernel.org>; Fri, 06 Nov 2026 18:43:31 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHaM1EsUrVVcwsPPP32whIE0hV+sbk1j1+4UjxwEQiPoxp9CkaRDmXRTuM+QFzPFsOk7w2K4xIvFULQ@vger.kernel.org
+X-Received: by 2002:a05:6000:41fb:b0:48c:49bd:62df with SMTP id
+ ffacd0b85a97d-49272a39cd8mr7633241f8f.1.1794019410521; Fri, 06 Nov 2026
+ 18:43:30 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,70 +94,108 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-8-dianders@chromium.org> <auhYb6FV2dPrbVxB@gractus.seuss>
- <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com> <aurMrnE3vD5eCEAV@gractus.seuss>
-In-Reply-To: <aurMrnE3vD5eCEAV@gractus.seuss>
+ <20261101220224.1436242-8-dianders@chromium.org> <CAFLszTgY5oOMYQjsk2sg-8w88uKq2hOqEiF4o5iAi5pMC8TZGw@mail.gmail.com>
+In-Reply-To: <CAFLszTgY5oOMYQjsk2sg-8w88uKq2hOqEiF4o5iAi5pMC8TZGw@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 6 Nov 2026 18:43:12 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
-X-Gm-Features: AclHuK_3CEM0gWgFJJsOTWsUfr9-4lxY43ohtI8iBZ2YI6Uk7KHCVe6SB4RhC7I
-Message-ID: <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
+Date: Fri, 6 Nov 2026 18:43:18 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=V3CMALQsKUc-jDzvsH45y_h4hNxtjYXxaHOwyCsZ3s7Q@mail.gmail.com>
+X-Gm-Features: AclHuK8Xumyik2VqnkjFm63bJgkuewGEq01Nnd9YLjze9SUsNf5q53Jz9OESWbY
+Message-ID: <CAD=FV=V3CMALQsKUc-jDzvsH45y_h4hNxtjYXxaHOwyCsZ3s7Q@mail.gmail.com>
 Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree representation
-To: David Gibson <david@gibson.dropbear.id.au>
+To: Simon Glass <sjg@chromium.org>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
 	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org, 
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Julius Werner <jwerner@chromium.org>, Brian Norris <briannorris@chromium.org>, 
-	linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+	Chen-Yu Tsai <wenst@chromium.org>, Julius Werner <jwerner@chromium.org>, 
+	Brian Norris <briannorris@chromium.org>, linux-kernel@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	David Gibson <david@gibson.dropbear.id.au>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi David,
+Hi Simon,
 
-On Wed, Nov 4, 2026 at 4:44 AM David Gibson <david@gibson.dropbear.id.au> wrote:
+On Wed, Nov 4, 2026 at 6:08 AM Simon Glass <sjg@chromium.org> wrote:
 >
-> > +class Property(bytes):
-> > +    """Holds a device tree property name and value.
-> ...
-> > +    """
-> > +    def __new__(cls, name, value=b''):
-> > +        if not isinstance(value, (bytes, bytearray)):
-> > +            raise TypeError(f"Expected bytes or bytearray, got {type(value).__name__}")
-> > +        obj = super().__new__(cls, value)
-> > +        obj.name = name
-> > +        return obj
+> Hi Doug,
 >
-> Thanks!  I do wonder if we're doing this if we should update __eq_ and
-> __hash__ methods to take into account the property name.
+> On Sun, Nov 1, 2026 at 4:02 PM Douglas Anderson <dianders@chromium.org> wrote:
+> >
+> > Add `devicetree.py` providing `DeviceTree`, a non-flattened in-memory
+> > representation of a devicetree node and its subtree:
+>
+> Please can you start with the motivation, i.e. why a live tree is
+> needed and what will use it? The list below mostly repeats the
+> docstrings.
 
-I don't think we can include `self.name` in `Property.__eq__` and
-`Property.__hash__` without breaking `Property` comparisons against
-plain `bytes`:
+Makes sense. In my draft v4 I've updated the commit message to lead
+with the motivation and condensed the summary so it doesn't repeat the
+docstrings:
 
-1. `fdt.getprop(node, name)` returns a `Property`, and existing callers
-   (including 10 assertions in `tests/pylibfdt_tests.py`, such as
-   `self.assertEqual(prop, b'test_tree1\0')`) compare `Property`
-   directly with `bytes`. If `Property.__eq__` required `other` to be a
-   `Property` with the same `.name`, `prop == b'...'` would evaluate to
-   `False`.
+    `pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flattened
+    device tree blobs, where inserting or deleting nodes and properties
+    shifts subsequent node offsets. That works well for in-place queries and
+    localized edits, but makes multi-tree comparison, structural diffing,
+    and bottom-up tree construction (as needed by the upcoming `fdtfactor`
+    tool) awkward and error-prone.
 
-2. If `Property.__eq__` only compared `self.name == other.name` when
-   `isinstance(other, Property)` and still allowed `prop == b'...'` for
-   plain `bytes`, then:
-   - `==` would no longer be transitive (`Property('a', b'x') == b'x'`
-     and `Property('b', b'x') == b'x'`, yet
-     `Property('a', b'x') != Property('b', b'x')`).
-   - Python's data model requires `a == b` to imply `hash(a) == hash(b)`,
-     so `hash(Property('a', b'x'))` must equal `hash(b'x')` if
-     `Property('a', b'x') == b'x'` is `True`.
+    Add `pylibfdt/devicetree.py` providing `DeviceTree`, an in-memory live
+    tree representation where each node holds `props` (a dict mapping
+    property name to `libfdt.Property`) and `children` (a dict mapping child
+    node name to child `DeviceTree`), along with `unflatten()` and
+    `flatten()` to convert between `FdtRo`/`Fdt` blobs and live trees, and
+    helpers for path lookup, node creation, and pre-order traversal.
 
-In `DeviceTree`, properties are stored in `node.props` keyed by
-`prop.name`, so `node1.props == node2.props` already compares both the
-property names and the byte values.
+    Add unit tests in `tests/devicetree_tests.py` covering `DeviceTree`
+    round-tripping, subtree unflattening, duplicate-name and corrupt-tree
+    rejection, and navigation helpers.
 
-What do you think?
+> > diff --git a/devicetree.py b/devicetree.py
+> > new file mode 100644
+> > index 0000000..f81b8fc
+> > --- /dev/null
+> > +++ b/devicetree.py
+> > @@ -0,0 +1,226 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
+> > +"""devicetree - Non-flattened in-memory device tree representation in Python."""
+>
+> I'd forgotten about this but PyPI has Zephyr's python-devicetree
+> [1][2], which installs a top-level 'devicetree' package.
+>
+> I'm not sure what to suggest. Would libfdt_devicetree be too awful?
+
+Right. I'm OK with libfdt_devicetree. David: do you have any objections?
+
+
+> > +    @classmethod
+> > +    def unflatten(cls, fdt, offset=0):
+> > +        """Unflatten an FdtRo subtree starting at `offset` into a DeviceTree.
+> > +
+> > +        Args:
+> > +            fdt: An `FdtRo` (or `Fdt`) instance.
+> > +            offset: Starting node offset (default 0 for the root node).
+> > +
+> > +        Returns:
+> > +            A `DeviceTree` representing the node at `offset` and its
+> > +            descendants.
+> > +
+> > +        Raises:
+> > +            ValueError: If a node contains duplicate property names or
+> > +                duplicate sibling subnode names.
+> > +        """
+> > +        node = cls()
+> > +        for prop in fdt.properties(offset):
+> > +            if prop.name in node.props:
+> > +                raise ValueError(f'Duplicate property {prop.name!r}')
+> > +            node.props[prop.name] = prop
+> > +        for suboff in fdt.subnodes(offset):
+> > +            subname = fdt.get_name(suboff)
+>
+> We should try to stop on a corrupt tree - so I think this needs error-checking.
+
+In my draft v4, I've rewritten `unflatten()` to a single pass and the new
+implementation should catch this. I've also added a `testCorruptTree()` unit
+test in `tests/devicetree_tests.py` to verify this.
 
 
 -Doug
