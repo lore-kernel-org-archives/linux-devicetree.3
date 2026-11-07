@@ -1,97 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794031554;
-	b=MpXBcPhSmgxZH/lgtrAvKYU47MHafTPv1rpok/VfAkZbuNX7ljUV5BuNVdZEahuLqnBF
-	 bX42rwxk0QOiLETMKIY9ICtgKxNUYGGItM9SAblgo9YfHcbWTrJOZ4paI0ovznHd7KclO
-	 AN3Zz3pJ14wCo9GgzHmFL4efZUyxzZ8pgzu3EFdw8TFAgjR7P7yfTBo30fbW1Qe7sMI5n
-	 AVy7yatMdft2ymzJH6k8ck31jeRG6GDdFDaFQNedoP+K7UDrru0jRlICHR+KTGJ9BBoRg
-	 AtwqJrkPCBPuxxdnOUr9XgO6dlRnpb7aMnxCAF85CEmTXK7s9zlnEWty44kfWH9FMFg==
+	t=1794036805;
+	b=jDPqb3Y2LuB4XOnCtpoG5ahaJy33YbE0iimu1bdW+69Iy593PzGrzMiqWdb2xvY8NmDE
+	 PT1IlSGFFQUF1I9D5siuw+NxBPOkMiFAIvT452xsy4+lgU9Jty8Yoxo7VzuYo50FbLEHu
+	 Mw8V52S1jfYKaxfn7WqMSkeemtBXKMBXNiAW0nbax83+6S+25lgVa7bMoCigZbFB33GDt
+	 U5NYo0NJTnLgWYmPmhB9bJTXzWuDdK0s+v/MRtelNZeDztrvs+fn/jIMPL3jfpYbjYDtm
+	 ksAxQLf7WQhmssndl7ScO8fsJjVzYINlzRHIpsTFuVRFKd0lcwtxH06gaGZuodNPt5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794031554;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KkFDcS6ihm3QPilltMV71tLbM4fsnU6mSyPVCXhKIRs=;
-	b=C2/vOyftyxw6yhLFltBei/Oppy/lSpO3FQJHeibcrpNR3pLeLA5UZxNQDNmSf7/IP1ML
-	 0yaO10jmFzGFvafa/1IAJgq6/5ztIUMHTqbB2HDpVZt7bAV6ariQaW/d5RFWaBcZ6Qy3g
-	 DI8niRJO850pw82Qf5BkendpS8ahaiqzFDHg2HllsWxFJyWP47g8XgTFeaNC46pGJd1hy
-	 T4Wj7I/lB6aFRoCMl1a9nGj2H0ldUyAFo/FrsQzhDNr7ewxa24wlTUD3MqALqmVhopLfi
-	 /7SaIG/yTiSRwp7Oxykwnjv2cc6+g1nRdk5rWmSrWPpeaa3WKVxQ646C7DJgrVsJEYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036805;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RqcMsUowjiasOdRKT6/n1tz64a/KAgMWOjxLOv2ccbk=;
+	b=vR0K1tJ1sn+egcFsudbNalcMzqWt/R5q9o6RCg+X3QisWCFf7s/LqfYL2CIY1HSFWg+N
+	 SrkvIcHoTFm/MS1iYfxV4d4sZ9e79W4Grj7VLuXLdlsPTQ1Ara+1CDzCHeiIOxG/lcAmt
+	 S8DTK6fdmlc0t8n81pfLmiKj9ShBTsZY6vDqxqxIyC/T8GfYEcHkhNl09pFXQsEeSIk/c
+	 DC5EOw72ye3aMKLjRDkaUx/Aia+bqm9QLgEw50IPQH+W6Y1taHuJ6mRXNUEjC2cqx8DRU
+	 PP6PEREplYCMFOoUI/80DsZDnT68kuQukAkPgmDyPRUbKTDCLcGmQVvj1YvyYCDAf7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q+jcvQ5D;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7BMVbPW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC58C606A326
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 06:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC58C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A862606A326;
+	Sat,  7 Nov 2026 07:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q+jcvQ5D
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b2382bf051so628824b3a.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 22:05:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794031553; x=1794636353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KkFDcS6ihm3QPilltMV71tLbM4fsnU6mSyPVCXhKIRs=;
-        b=q+jcvQ5DkMT8aE78L34gxuy8aXCHC7uUuvUXxH04Cfy55sJ/qK9Apb+lwuW+cu2cSQ
-         Vrjtv1DOhTHg2dvx1bM6MqvE/VZ+L85bxdc9f03AtqyQlB8oTJpASFABx/fMasluVL+L
-         1A4R5pYoE488cGTinYVmsA3KfM4S+ZLAxHi+/uysykpzyatKjh4TmwaABCGd5hKMBv5b
-         n7J4+tIEOvOVg9yxGfafzq9wLoYr4wxf4IevZhnKot858WOXRt3+fYB8QpCygEbagqNv
-         GL9cmrIOHzttso8mIpT9wXY3U9fw+xGn5FIrf0UA4rn1Zr924S00b13HB+IJszww6OHf
-         rTvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794031553; x=1794636353;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KkFDcS6ihm3QPilltMV71tLbM4fsnU6mSyPVCXhKIRs=;
-        b=PHOlwz21tRQqlDMP0EWacC6/EErKANCU84/rxi3ipJG+0F3ZzpJlB9CwP+kfX9YSzO
-         LOqbup8oOZbtRhKSTO7R2mMwH+D9mdf55siD5rXjdkxZzesZOMWn0iSvtqMee9/x6hKw
-         +sWBOkpcsb/XtY1q20An/ItnyisETtUBK3ewNdx4T6alTfYleEH9aUaWIZNQqLEhOtCb
-         mUdHGIwn4Tvcy1iC/bcx6lpb4EkfA+SCnyNBp20xRsLruWCaaccOTdV8wXVY/GpfTbjd
-         3eUYAInOlbizxcfMgxPG4Y1tbVXTys/iK4BGLGSPObcx/dlopHyzHcafmijHctz32pgY
-         f76g==
-X-Forwarded-Encrypted: i=1; AKwUvBz/PQWdG2ju4/0m5Dr0zme6kW9fRBZrJE/jbrEZMBxTP1b6tdWnFvRhb898d946RA7zyAdeKv6px66Q@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qdv5P+XIF2FMg0GT9mvWHsHwseOcX8y11KFHT5It5ck0luLtN
-	Au4uiIA85/hEOflByoZ0i0bM0qEnb9IrbH8VZ0m8LFNEFs8lGXoOBQjh
-X-Gm-Gg: AYBFou1U4NOITGaAK/1Fu81qnPw/UkZ5/mW4m5QVB5qnuurV+pXtB23yi3E+FeHFaoJ
-	w3xCF5tgj6K3mp3achl5igRRJrNvCyWouM6L/DOYyxFx0XbiM8x4tHnCD/B20wwmsn0tkfWLh/t
-	z4ze/wiJyueRs2DwU6a3QU4oYQa3Cq/cm0JglkNqfgMLH+ZMX2udU8LaI9x1zMDOYxTS8D79MjC
-	KOLuZNqCFGU+F+E3iTWwo930Fcory0LmS2npTxx5i7bCs4n0I/mCDbiYNRT6xEWov0vWpSzGZEZ
-	yu33QqerLMwWbT06SCgXhSan4iIH+A1k4jU+cvAUO5RsJIk+4n3+DnIxI0PButjG1WKivhDa5bW
-	/QEQvlbRj1wy+zJNyRJyAgJAtXz1n71DZ650dHYnoD7cQiVG0Qs3gtAtOxUREJ+6kxe5hlNWYuD
-	Km5Kh82xIsOJtJiHMEHbyWMDhwyVXOmKoyPBk0aELzpwqPcxXBlDF1k5Jt2LD38CKicXX93NqYn
-	P+SqHBvkB61V6J4U57jUu6BA1sfyEzJun1B8dsxGsjsAXg10snHs0y6oxzWsqhXH5xnvLY0oHOp
-	SfatHh4JmqE3jdEHcn11WY5s8sDI4423zX5g2qLjEsGEO8Iw5E+qlz0aY2F0RcH1
-X-Received: by 2002:a05:6a00:4605:b0:8a0:6414:a54c with SMTP id d2e1a72fcca58-8b37b4781dfmr4725632b3a.32.1794031553173;
-        Fri, 06 Nov 2026 22:05:53 -0800 (PST)
-Received: from fedora.lan (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0539sm1176326b3a.31.2026.11.06.22.05.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 22:05:52 -0800 (PST)
-From: Artem Novak <artem122novak@gmail.com>
-To: andrew@lunn.ch,
-	gregory.clement@bootlin.com,
-	sebastian.hesselbarth@gmail.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [PATCH v2] ARM: dts: kirkwood: Remove duplicate DS212 compatible
-Date: Sat,  7 Nov 2026 00:05:49 -0600
-Message-ID: <20261107060549.598466-1-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7BMVbPW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3E61F0089F;
+	Sat,  7 Nov 2026 07:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794036804;
+	bh=RqcMsUowjiasOdRKT6/n1tz64a/KAgMWOjxLOv2ccbk=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=M7BMVbPW6X5rsGfsZmA9wkvAxPkJ5ypVXRYiBkJWHdWmkli06NP3bw2Zt+tSzIKSl
+	 /m357etyPyHcmOOTB8rak7PiWr+yzbxx+nJH+eJ2zckRSl92wDXxSiNVuSsTTr9/6d
+	 9i5pyNR/97/pebPXbVIVmDeFacFlroNjc0B2ipUelgGEBYJ1xu14hFo8CswvcRXaDf
+	 TFtcE2cfRziRWhlNDXqctpvRV4b1NcOlOFlrkZJLQAxS9BzWx50R5ExIrUvdq1rAfv
+	 bU7lICdRpvm5BAvVeOppiXjSLwNxqFxlpzVdTfuA3SwiNMhH25cmCLywdcT9CjxHgu
+	 MPGP+4aKDsOFQ==
+Date: Sat, 7 Nov 2026 08:33:02 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <au7TvMP0YhW2e_oM@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,49 +69,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dul5zpskzyut57vy"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
 
-The Synology DS212 Device Tree lists "synology,ds212pv10" twice
-in its compatible property. The corresponding Kirkwood binding
-also repeats this entry.
 
-Remove the duplicate from both the Device Tree and its binding
-so that the documented compatible sequence contains only unique
-identifiers.
+--dul5zpskzyut57vy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+List-Id: <linux-hardening.lore.kernel.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <au7TvMP0YhW2e_oM@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
 
-The compatible ordering is otherwise unchanged.
+Hi Maciej,
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
----
- .../devicetree/bindings/arm/marvell/marvell,kirkwood.yaml       | 1 -
- arch/arm/boot/dts/marvell/kirkwood-ds212.dts                    | 2 +-
- 2 files changed, 1 insertion(+), 2 deletions(-)
+> Date: 2026-11-07 02:44:23+0000
+> From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+>
+> On Thu, 5 Nov 2026, Alejandro Colomar wrote:
+>=20
+> > Do you think strafterprefix() would be better?  Do you have any other
+> > suggestions?
+>=20
+>  FWIW strsuffix() seems an obvious choice to me.  After all what the API=
+=20
+> does is request the string's suffix beyond the specified leading part.
 
-diff --git a/Documentation/devicetree/bindings/arm/marvell/marvell,kirkwood.yaml b/Documentation/devicetree/bindings/arm/marvell/marvell,kirkwood.yaml
-index 120784066..bca7f98df 100644
---- a/Documentation/devicetree/bindings/arm/marvell/marvell,kirkwood.yaml
-+++ b/Documentation/devicetree/bindings/arm/marvell/marvell,kirkwood.yaml
-@@ -55,7 +55,6 @@ properties:
-       - items:
-           - const: synology,ds212
-           - const: synology,ds212pv10
--          - const: synology,ds212pv10
-           - const: synology,ds212pv20
-           - const: synology,ds213airv10
-           - const: synology,ds213v10
-diff --git a/arch/arm/boot/dts/marvell/kirkwood-ds212.dts b/arch/arm/boot/dts/marvell/kirkwood-ds212.dts
-index 416bab50d..8b5af5122 100644
---- a/arch/arm/boot/dts/marvell/kirkwood-ds212.dts
-+++ b/arch/arm/boot/dts/marvell/kirkwood-ds212.dts
-@@ -14,7 +14,7 @@
- / {
- 	model = "Synology DS212, DS212p v10, v20, DS213air v10, DS213 v10";
- 	compatible = "synology,ds212", "synology,ds212pv10",
--		     "synology,ds212pv10", "synology,ds212pv20",
-+		     "synology,ds212pv20",
- 		     "synology,ds213airv10", "synology,ds213v10",
- 		     "marvell,kirkwood";
- 
--- 
-2.56.0
+Actually, strsuffix() is something else:
 
+	char *
+	strsuffix_(const char *str, const char *suffix)
+	{
+		ptrdiff_t  off;
+
+		off =3D strlen(str) - strlen(suffix);
+		if (off < 0)
+			return NULL;
+
+		if (!streq(str + off, suffix))
+			return NULL;
+
+		return str + off;
+	}
+
+It finds the start of a suffix in a string.  That is:
+
+	strcmp(strsuffix("foobar", "bar"), "bar") =3D=3D 0;
+
+
+Have a lovely day!
+Alex
+
+>=20
+>   Maciej
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--dul5zpskzyut57vy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmru1C4ACgkQ64mZXMKQ
+wqm7rA//SurddKJhcpcYSVF08Ab2FAhfNpH0ioW7Yb/l+oX0VEpkWj3qqra1tx55
+Z1UFA8Zc2S23a2zgGIVgckruLAScw3TgH56+01s0K2rHCab1CAG6jhPnj2SrdRDd
+3r1e/bTSwdBBaL3YjGLE8QJ6Ovr4k4QIfx4hrJDEoc1Bd8d/kX4hP5ck/UvUQRps
+uxgukH/uuh069/6RuDrbqyZNTYaII3QF5In16FORibSjdYhJ3zk6jSHglRU2c2RK
+rdB3UhGgvmRwioMK6O8uvjAvh+8Uh25hUkodhUwK5zrL/R7KD6hcJ4Qzgs5f3UC/
+eFCzJpR+vV4VgOfmxBzJ5B6iZiXbMgXPuYmIw6MtXddrQMKZYV6pmSy8EEUODC/G
+PGynmMkcNOcSxnAy4LX7my5c1ilQ6eVlnQ5mdPR6QUIzKIhC7QL0V9B8UUFGgJ+C
+CX19+pefdS4MdHB5A0NTMPdp/kzdw8LbHsPz5EcumrjxvhFl+m6xfo9wYmkRD+2m
+VJF6uwqVpJ9rP8zJNT2qonLoTk6sbT5Kc8SRSOCsfOOXVkci1C7Y6ZC8ynE4Xyrf
+/G3gpTejPyd+cYuZkOBrRv9NGBaDx/Ioh6ZExvc2hoVh+LaIctAwYoLhxLaU7neV
+ElYN26nlmyCnrZ82m7JphVIFX5IQerK6gzXdIOg4PEXNRNs8l5o=
+=gJHo
+-----END PGP SIGNATURE-----
+
+--dul5zpskzyut57vy--
