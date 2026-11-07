@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794048548;
-	b=dJrPrWfcaP8/uVRaabroeAeekUa5oJOZ8fEQBQGfVEQXvUJj2rRRGNcKPCvGzB4V57LE
-	 CJ3mcyPoLC4UROPys1BG92NuU+Cl9GeDVafetUXsZKPggmilItx0Xwg4pYFtG0pKgQBBV
-	 NvVN/YrteNc0ZKdI7axm39V3phZSHqiwb91+GW+ai1tP6inyXCUj+mwtzKuZ8ZmIK3Dq3
-	 JsrA2oinmIHStpCIJPEycx4HU3AYNAgiYrKkt9MXVIpB/N7IdT3DkVt/ykZZQt1VmsYcA
-	 wWnBM9mJ1TWVpprpy118RtauOZ959RiGJHiMFiKsFhSzWV4km58DLSrqRDRpp2DWL5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048548;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VHTLybPzMLGIsfTFpFBqEVoyacMyVYOjjlRuTV7oaXk=;
-	b=pxSLV8kxXGL/OCHI+TQb95oT4K0h0mTmSUfN40Vi7uZdeu+n+NVgUulur+ZP5zZa3I/r
-	 ih934M0SOWPoiPC2TFibveS+kVdAgHAshKNXgNYZSJhlZrjO1Z3InjZ2dhOyTcx/0YB+b
-	 A3eZftkqZKrOTIm+notmxfZSCZUIeLpGwvLLNah7eVAtDvKjwE91HRfCxpd/HzKvRpunG
-	 N9GS+WHiKnouaOWspl/fOAaQU1xc0rKVu3rEuaAvNfiSFQG/IQZOai+BJeyucTR5XvXf0
-	 QEPe8NSvxWr5v7J+n65xyBto2a3HvidLjOMf7ByiWuzm56/bfbGkNrxSBfOwcvSq1iQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DTVJ+wuX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794048787;
+	b=yNV/VOBayJcii2Xbozvjz4+A/dn0MsoxQiUWZpAGFTNvc6bseDp89z+voKt5jo5PvsY8
+	 0ctl6b8kacz/GjUGaBdzy8xiDWWoSUWPmeR7NS0d5Lv/g/4InDhL+v5M10knDESwprcRx
+	 zWgPuYtxTb8hx1FlQXfw8d4e+ZxDpyNTVjFL5xLIRteD8X220uEI8U0zIqPpJ0qAuHsP/
+	 XH63M6aT8x5kJWC76p//qRfO0BxDwaUKrevG5AuKEevtM/t2xbZDTzJ4zGJA9BTotxGyI
+	 GUWI6RgHiN5jMa2g4L1p77MrzZ4kHHt7OyBEZncclzGSxJ8jtf+8CN7Ivm07lUEtGgA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048787;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eZM++BX8xZsQxJCDpXHirlsgqErEbRg0Tg12fOOlkHk=;
+	b=L5Uk2kIjSYIqgI/VuHMrDjEyT3irdjCeNlIiT3K7XccDc5zgySZGoZH3vL5CFl/Tpl0/
+	 lezlQq2ERneULmsHVy76ijyXJh6X0LJAudm03JFmUWiAS0qBjZ5ZJijaiJTpLSQGz0hL/
+	 8zG0CmbaZyadRXEnzJ32NgYTyvhHTD60acASL9qTU6xH1D1pvVzkEUWzcEG3nvZo35FWH
+	 Du7cpCS7wATOSlEh3pAHTsBupvbNB6WYiNujhJSg8pwcLeagXY0avA3hYzi2nUKYxW+bU
+	 hDSgbqzj1oCCNjAaYkv9K+Iks2+aJm1RX2cIK5DZMd8/1mwpVSTzFQRsihZ8SMks3ug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ353Bxl;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612ED606D825;
-	Sat,  7 Nov 2026 10:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D52D606A32C;
+	Sat,  7 Nov 2026 10:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DTVJ+wuX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794048548;
-	b=JNr/nFJ9fYzF9uBhD4gRWhHgCGYBzt3WhgwjzvkL/imXRXwP/wPguBsfkztZiTmGf1MP
-	 WpjMrQPYS3ta8LVpkXByD0KtWNRuHLuzM/NIZICmXapEXlzjIvecNpN77ANZalX1IzxOT
-	 ztVbOnl6rx5bgtl1TIzkLZKPvNiHO5KhKrsBmcym7IHqtgiOCuX6UcM2t5ZWdntb0yern
-	 e9tLwmMNb8W//ztAvN5hEOQa4ESu+833mi92HDFxZZqBqXZwd03dJtryZP7ekgGNM5iPQ
-	 NoTlWa4dP36l1wvcIUQoOWj9yJtMeHIH1QbvJNfqJBoSsM7WchRX+NGyOBZ8Q4RXdog==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794048548;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VHTLybPzMLGIsfTFpFBqEVoyacMyVYOjjlRuTV7oaXk=;
-	b=rsAD+s4JUawhuzLGvKm1y4/AXNyMWnMjfmOdgBp+bpeP7lLKfIAmypApB/H+W1xKs2AU
-	 ldaCsYrEYb1teSve9UiMJ1A9fSzF0460mzRp+wFV183uGkpX7LR9Xyajys582tw4wtLs+
-	 1Vj4lP6d8gc9wIhyE2nEmEXyTodMXeDwNIdcZIEeoeMH56MfTnSUWjCENZM2i7MoQNz3T
-	 0HCNrt3AKdRjKPWeUsB77VC4RVpuvm7CBkF+XKhhUv58VUSPlOwRcexuSw1+grXAAM0OJ
-	 dvx0KB548oqGIb41Hvg6Xv52AbbDuKxj8JFIPTbs3LsiOO19M73Xd4t90wukZi4G3pg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 391F91F00923;
-	Sat,  7 Nov 2026 10:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ353Bxl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2EC1F008A1;
+	Sat,  7 Nov 2026 10:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048548;
-	bh=VHTLybPzMLGIsfTFpFBqEVoyacMyVYOjjlRuTV7oaXk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=DTVJ+wuXfxTPd5WBdWvAfpYQFQTHMYc8j/VhwLdodallkPLf245+tfvkDj+ImOlGx
-	 TbwcoWGJymoKvplZ0isE+le80CLlmAWlYSxbLZqy/2vkVOJ3DgNRe4qoHJg6n5dvYy
-	 ud8FRCy9tpl8BvuNqopGpeSC30T+qx0KZDsu10c3lfIb8xOauhlpkNydtFrOdBSxoL
-	 0fff8Sn0Ky+ue2t+3T0qs8mDIGsaT17DaHh1cDRFGjIAvj0oAMnGPuRyFfkKHG2DYW
-	 H9XC+J8rjfQdi1k8EMWraHPC6jHO+ILw5kBS8ZRITTZIq+ffLRjD61+9c+2xqW1ppe
-	 vShttRG9ZVjwQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 20CB847B9A;
-	Sat,  7 Nov 2026 10:49:05 +0000 (UTC)
-From: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 21:48:58 +1100
-Subject: [PATCH v2 11/15] arm64: dts: apple: t603x: Add PMU Device Nodes
+	s=k20260515; t=1794048787;
+	bh=eZM++BX8xZsQxJCDpXHirlsgqErEbRg0Tg12fOOlkHk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cJ353BxlPZRJTNd6rvdHQc8v05Ocp2yXR7njFSjrKT1hsN5XJ69HQGcpfV9AZkwgr
+	 5T33vlNY56aYvWv0RHbo0RYQW35bleti2pfCo/Q3tjqXJARzm5lYi6IDB9Xp7o66ZA
+	 ANPFw2brmHTMOBLy2uoUxHQ2/qWuluJomhw/YFbiKfCBhtLZyNGpZCkQsqbY8Gqan9
+	 l47TMr/BynWhWAeS2YvhettkwdKv8VKfm+5q5YqsLcT5VNHZmQdVTTfEw6tX8Xoj19
+	 A7AlAa9Vii4Zs78wsKmE1TCsQa9eid5r/myWUmuhY4CaciNK3/gfEUm/xHvF0pDevw
+	 OSgSbxfqfYoJA==
+Message-ID: <4a0a327e-10b3-491e-8eee-12e72e71629b@kernel.org>
+Date: Sat, 7 Nov 2026 11:53:01 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,93 +51,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-m3-plus-pmu-events-v2-11-acf1e78da039@gmail.com>
-References: <20261107-m3-plus-pmu-events-v2-0-acf1e78da039@gmail.com>
-In-Reply-To: <20261107-m3-plus-pmu-events-v2-0-acf1e78da039@gmail.com>
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>, 
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
- Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, Yuvan Shen <yuvanshen09@gmail.com>, 
- Myria Sarvay <myrialsarvay@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1592;
- i=myrialsarvay@gmail.com; h=from:subject:message-id;
- bh=Wg6EmXC9czH93hJw3fvp5wMAuJEXQ1vql4D/hklHhyg=;
- b=owJ4nJvAy8zAJRbk4iixYu2/l4yn1ZIYst4zyVpue2KyvvjAVgWtrOLqoKk2i+4+q/Jn3m0jt
- XRnqv/kn24dpSwMYlwMsmKKLPqmadqT2RoulS5z3QIzh5UJZAgDF6cATOS2NCPDgyPzn/1+Yr1q
- gvbDdV97WjKeZYqrHretl7e8J3FKr3xuLSPDrzN8yX8edLyPeOL3dmXRFucn958lHNZ0ckxqF6x
- 96yDEBwAYoEt2
-X-Developer-Key: i=myrialsarvay@gmail.com; a=openpgp;
- fpr=2F35662B930680D275A645B452444118A8ADFEE9
-X-Endpoint-Received: by B4 Relay for myrialsarvay@gmail.com/default with
- auth_id=1027
-X-Original-From: Myria Sarvay <myrialsarvay@gmail.com>
-Reply-To: myrialsarvay@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: cix: fix I2C bus address and size cells
+ on Sky1
+To: Gary Yang <gary.yang@cixtech.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com, stable@vger.kernel.org
+References: <20261107011012.3655873-1-gary.yang@cixtech.com>
+ <20261107011012.3655873-4-gary.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261107011012.3655873-4-gary.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Myria Sarvay <myrialsarvay@gmail.com>
+On 07/11/2026 02:10, Gary Yang wrote:
+> The I2C controller nodes inherit #address-cells = <2> and #size-cells
+> = <2> from the soc@0 bus, but I2C child devices always use a
+> single-cell address and no size. With the inherited values every
+> child node triggers a reg_format warning, and a device described on
+> the bus would be decoded with the wrong address layout.
+> 
+> Set #address-cells = <1> and #size-cells = <0> on all eight I2C
+> controllers, matching the I3C nodes that already do so.
+> 
+> Fixes: fad32e8ac460 ("arm64: dts: cix: add DT nodes for all I2C and I3C ports for sky1")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gary Yang <gary.yang@cixtech.com>
 
-Adds the PMU nodes to all t603x devices.
+1. Fixes cannot depend on the driver.
 
-Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
----
- arch/arm64/boot/dts/apple/t6030.dtsi      | 12 ++++++++++++
- arch/arm64/boot/dts/apple/t6031-base.dtsi | 12 ++++++++++++
- 2 files changed, 24 insertions(+)
+2. Also, explain what is the bug here. Your commit msg has absolutely no
+indication of the bug.
 
-diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/apple/t6030.dtsi
-index d49210572e19..4525d50fe647 100644
---- a/arch/arm64/boot/dts/apple/t6030.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6030.dtsi
-@@ -239,6 +239,18 @@ l2_cache_1: l2-cache-1 {
- 		};
- 	};
- 
-+	pmu-e {
-+		compatible = "apple,sawtooth-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ AIC_CPU_PMU_E IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	pmu-p {
-+		compatible = "apple,everest-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ AIC_CPU_PMU_P IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
- 	reserved-memory {
- 		ranges;
- 		#address-cells = <2>;
-diff --git a/arch/arm64/boot/dts/apple/t6031-base.dtsi b/arch/arm64/boot/dts/apple/t6031-base.dtsi
-index f62ce0690182..3b97c1240934 100644
---- a/arch/arm64/boot/dts/apple/t6031-base.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6031-base.dtsi
-@@ -308,6 +308,18 @@ l2_cache_2: l2-cache-2 {
- 		};
- 	};
- 
-+	pmu-e {
-+		compatible = "apple,sawtooth-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ 0 AIC_CPU_PMU_E IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	pmu-p {
-+		compatible = "apple,everest-pmu";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_FIQ 0 AIC_CPU_PMU_P IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
- 	reserved-memory {
- 		ranges;
- 		#address-cells = <2>;
-
--- 
-2.55.0
+3. DTS cannot be combined in this patchset and must be split. Don't mix
+patches from independent subsystems when you send something explicitly
+targeting only one subsystem.
+See also: Documentation/devicetree/bindings/submitting-patches.rst
 
 
+> ---
+>  arch/arm64/boot/dts/cix/sky1.dtsi | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+> index 0a820f45feb9..a18e8fd43fcf 100644
+> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
+> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+> @@ -290,6 +290,8 @@ soc@0 {
+>  		i2c0: i2c@4010000 {
+>  			compatible = "cdns,i2c-r1p14";
+>  			reg = <0x0 0x04010000 0x0 0x10000>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+
+How is this a fix? Really.
+
+
+
+Best regards,
+Krzysztof
