@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080606;
-	b=M89dLkUmQSfdrG7jEbKPXaYLlj/FKRxnROvWj2oHVi/7dq6OFj1EWfCWSK9YXX3d7TE0
-	 YvRVqOj3iFjLR2rAFIqgT3M3skui2cydZoy3a/nmeIGi0M6quU2LoOd+lCWevd9UNJltX
-	 7+LKJ80Rwi5YlxkAj9pCqXMdzVE93bM4AZz/UqM4aPHxoCg1NPL1ZkWtn2xu9pUtxYGEN
-	 HsJa13ZWDb+MPvAdwcBrO781UxLVfXkDcfVaoPhePErpPrrvhXEF9co7n9USu2kmog78Q
-	 iVCvf/5AcP04ieg2wDMbX6Pd2s0fFrIrNhZjfveKTcLm5csfIG8R1JCRVJSM6EZ/V0g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080606;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=70SryVxENfXeYEbliXkZ/e1GSRjmFQ0gwBkP1nJXNKA=;
-	b=WNi6wF38SfrZmb9oX1CL+TWayPIWuOha42A/KjG7KdVoKRnGMareX6sQ4grP9lGlKRNR
-	 44HYTjMaSAcYFg6EOGp/26mWZfloJRN8ubbJtf4zKMAP1kIN39lE0ipNz0Cm9XsNJBR5a
-	 SidnDAyPRPUIt4rsgmlyHJELa2EfmoGKx47/ckrnloKmiYGrFvkSE38w0RsjdTOcPEtOI
-	 9hCLpsy1uhjk/rKgBSGzkExU83zsWhuRZzlqMmWUpF3u2htyeO+AlHsnC1J/m25cjBt4t
-	 6e7Ssq+xk7/6EjtHTfDfNA3LVSnovv+oaQ6XkNl/BavATTdG991ATZWCZUbrXhoalPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K8cwM5JJ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794080850;
+	b=1dEHX7JlvP7UPjeoU/OIdeWKa05uVOeih4xecuwROOVR8tEq44o3+qE9Y7aIFHkIpGYZ
+	 Fix+9Bxn3gcm+Z2yJRJaEHZSLSn3of97S6ySX4nFNoN5BWYQrqN0GG/mJCPjcNAePJTKi
+	 1F0cbKp4jgbQmPS+WYCL3nIJbz+BmG7mackwgaBz/aMVF74HC7pAirGL15c6c44S0r64K
+	 W9QycO5eJUJd4Tpf2KCM9inIRnEOJRtBqLFjZx8eNaKm2UOAP6hovjUz8e3YVLuGgO2/o
+	 wAr5bWA3iczUw6C1HgRLFMqAs9cveRLt4eTeGihhlBBkV5QCrMNS2k4437WzXALiwjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080850;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=bEPkd/NSpRuaRi/OEaFNuOHic9TakWzDDBa0Ce16DH0=;
+	b=rJJPrqAmoXzb9+PXY1YIB5vVuzsKYJO2WFpZKXyLb73Ev6DLCsOiSNospWR5r9MY8l7b
+	 mHhGqD8qt7SCHrpW/SAR9r+A9LUsvgfZGEOWt6VnxvwUYS68jalzAF2JwLNS3VxfuQg0S
+	 mCuYpL6D9/ugRpQ15NYNF/xoFL8AauJEt+NjyQ8CmXgqfqkXL0zsZHHl6RPpQwMbWP6OX
+	 K2sHGpN5FpmwhV2cjYgOx+kplro4Xr3CJVz1xA7jexms4tL/gtO6avD8Yv47xoERblPOH
+	 tmVTkjGxhOtJE9BoVH5HRqZIDmGo5UlzF+r3Jmp/eWjpLwsIgI2cABq/9nLR08J/5CA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5zwHv3D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616FE606A32C;
-	Sat,  7 Nov 2026 19:43:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BEB606A332;
+	Sat,  7 Nov 2026 19:47:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K8cwM5JJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2ECE1F0089F;
-	Sat,  7 Nov 2026 19:43:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5zwHv3D
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794080849;
+	b=pjbBnA9Vt/Af1MZeQlTDwLpVaxZ5G57JRaEjd297RR3TWohEPe5yvABMv0auuV87U41D
+	 NFMUmhEBQIEtn6eeJRG82lrylc/s2RR2g+JXWmT/9kcBH1kExfUtl7Fq2PCjX+koc9mPY
+	 wibb/xMEhueKYmF3F2hbkvgGGw+KWdSA0CGK+0TnbRLHYvvR0CB4mwkFBVg0EljIGrGMy
+	 SmTSkaarwAmOJwu/4GAWDRCj1Ve4aWjX5Qvl3OHY+KzsgX7P46UlngmNB1ps9VqXG2iCB
+	 YSsz4TTZYiKUwPw3zhael+sEGkCtxCKVCJ3fD34HVHaEbOuPZ2kMw0plNf7SPQzmo3A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794080849;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=bEPkd/NSpRuaRi/OEaFNuOHic9TakWzDDBa0Ce16DH0=;
+	b=PVXuSwzfZnnK3CAdMrPtebU3Re8fy2aQg+o5hFzoIveP98/qjAdqVZWrYzcqmn7Osz07
+	 U1puxqYlLx8VBXIUBfqPx99tuLQrlk6k7CSKYv8HVBRwEr1jcZ/jLLML4mo9JlfdlEMb8
+	 0hGz4sGjkh2Njcnv8+oA84v3+T26iL9Eh/Rbep/Wvs07/JH1z5sYorDMwDkd6HWehij6b
+	 sqSJVv9rmJ9vEMzGF9d1gqaPTV7iZ4Io9vqtLkyS9te87ikcIpDMqIBh1gUSf2SMv8Jd7
+	 hopn9rN//s6bC3S3ORMwW8Pc32u7DPaU7/cauEhENHGXlPqKyATPx/TpGNkZpyOiivQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6FF251F0089F;
+	Sat,  7 Nov 2026 19:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080606;
-	bh=70SryVxENfXeYEbliXkZ/e1GSRjmFQ0gwBkP1nJXNKA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K8cwM5JJhmQ0fbW1aJzdE8ksuLOQ/GOS9GDwLBcJDTesMhlxatf6HbutgM/IGrXYl
-	 Q/rihEeyk4HOUeCEj/zIMna5zeID8vFcL1JWHNkaXAEKjC0ZtDLBfNjEeybtPHNsKF
-	 KQL7ovXpDgjQuTk4mE6vzPZGzkpWGGyGiQ2GF/JrhGx/v2t0/UALOOimwVELS8GY5o
-	 Xj5ZJ7mQ+fUIr4BoF6/IucvQQfhQPhPBEj+cEWuDpfYULqz/JdJKz02PpK30xt/xP3
-	 69WOolOrE3tY8+XJezdgAmX5WyBNtWqI0JzBY55NiDl/CzHEKWa1ZjbkKYcI+xl08g
-	 cSBe1a+mkEuMw==
-Date: Sat, 7 Nov 2026 19:43:19 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
- Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
- Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-Message-ID: <20261107194319.0645b31f@jic23-hlaptop>
-In-Reply-To: <CAPVz0n10N6PvBC5AL=nT+fUGsONtuzTZvzSYqAXP_eWWb86nuQ@mail.gmail.com>
-References: <20261106091943.35783-1-clamor95@gmail.com>
-	<20261106091943.35783-5-clamor95@gmail.com>
-	<20261107033340.64062192@jic23-hlaptop>
-	<CAPVz0n10N6PvBC5AL=nT+fUGsONtuzTZvzSYqAXP_eWWb86nuQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794080849;
+	bh=bEPkd/NSpRuaRi/OEaFNuOHic9TakWzDDBa0Ce16DH0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=U5zwHv3D+E/M5H8XFTdnunNxxrqFYWZrY9YnQ9jdzSdDbxT8wlZQYFc0XVrv5/gjF
+	 jKIhNcprJi95SUJTyMrkImQeCdRbJQYiV7MdFAK9SUbDX7VuXoMYCviWM8NoaORhRR
+	 ZVrSH1xVU6/kGTsZ4s9RLdH1h0Z7EmSMHCfiONw0RZh+N0rT61Fh7c4pKPC8+0dY0M
+	 /+pTLh2UCgQABUkNKIwWfs3lYfAaRmlznQtg9U54PC7zmt9wIFCejzLSZZczr8N7LS
+	 w8gIUrZEG7iSZr9d2nCCA6xny7m/u7TlNZG9wK9IxFlBODwK89AYiMBvxyLWMDc9rX
+	 evPnMH7NLizTg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C6BFB47CD0;
+	Sat,  7 Nov 2026 19:47:27 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Subject: [PATCH 0/3] drm/panel: Add Anapass ANA38407 DDIC
+Date: Sat, 07 Nov 2026 20:47:23 +0100
+Message-Id: <20261107-b4-ana38407-v1-0-c8b33147110a@dxdmail.cc>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,146 +83,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNz3SQT3cS8RGMLEyDb2NDS1DQxOcnCJNFcCaijoCg1LbMCbFp0bG0
+ tAHtflIJdAAAA
+X-Change-ID: 20261107-b4-ana38407-31955acb84a7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794080847; l=1483;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=5iANZuthwhrnKNfy6tUcJAQYLWP1DzL0/22RNTTPIDI=;
+ b=ot3qalUVbAQfEck7pHOOwZs4nwbYCpivVlB68oj5ZnOnsJjfRqBpHwVmdi2i1sqTTmfALx5GK
+ G8sZFJ7dKqVC6vDLFX2lnQ0qB5NV8hWgJjNJBUXVSJ6r+xuSCaJS4qu
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
 
-On Sat, 7 Nov 2026 12:15:07 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+This series adds a driver for the Samsung AMSA10FA01, the 2560x1600
+AMOLED panel of the Samsung Galaxy Tab S9 Wi-Fi (SM8550). It is a
+command mode DSI panel with DSC, driven by an Anapass ANA38407 DDIC.
+The binding and driver are named after the DDIC.
 
-> =D1=81=D0=B1, 7 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 05:=
-33 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Fri,  6 Nov 2026 11:19:43 +0200
-> > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > =20
-> > > Add support for the Lite-On LTR-659PS-01 proximity sensor. This devic=
-e is
-> > > nearly identical to the LTR-559ALS-01, but omits all elements related=
- to
-> > > ambient light sensing.
-> > >
-> > > Add a no_als_support flag, similar to how no_irq_support is used, to
-> > > isolate ALS register access for the LTR-659PS-01, since ALS registers=
- are
-> > > marked as reserved and interactions with them are discouraged.
-> > >
-> > > The ltr501_trigger_handler relied on the scan index to identify chann=
-els.
-> > > This approach is fragile regarding channel status flags and can break=
- if
-> > > the index is not strictly set. Switch to checking the channel type
-> > > instead.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/iio/light/ltr501.c | 73 +++++++++++++++++++++++++++++++-----=
---
-> > >  1 file changed, 61 insertions(+), 12 deletions(-)
-> > >
-> > > diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> > > index d5ce6468a229b..e7762115df913 100644
-> > > --- a/drivers/iio/light/ltr501.c
-> > > +++ b/drivers/iio/light/ltr501.c
-> > > @@ -151,6 +151,7 @@ struct ltr501_chip_info {
-> > >       u8 als_gain_mask;
-> > >       u8 als_gain_shift;
-> > >       bool no_irq_support;
-> > > +     bool no_als_support;
-> > >       struct iio_chan_spec const *channels;
-> > >       const int no_channels;
-> > >  };
-> > > @@ -192,6 +193,11 @@ static bool ltr501_has_irq_support(const struct =
-ltr501_chip_info *info)
-> > >       return !info->no_irq_support;
-> > >  }
-> > >
-> > > +static bool ltr501_has_als_support(const struct ltr501_chip_info *in=
-fo) =20
-> >
-> > Is the helper bring enough value?  The !info->no_als_support
-> > where this is used seems clear enough to me.
-> > =20
->=20
-> Noted, if you are fine with !info->no_als_support I have no objections.
->=20
-> > > +{
-> > > +     return !info->no_als_support;
-> > > +}
-> > > +
-> > >  static int ltr501_match_samp_freq(const struct ltr501_samp_table *ta=
-b,
-> > >                                          int len, int val, int val2)
-> > >  {
-> > > @@ -656,6 +662,29 @@ static const struct iio_chan_spec ltr301_channel=
-s[] =3D {
-> > >       IIO_CHAN_SOFT_TIMESTAMP(2),
-> > >  };
-> > >
-> > > +static const struct iio_chan_spec ltr659_channels[] =3D {
-> > > +     {
-> > > +             .type =3D IIO_PROXIMITY,
-> > > +             .address =3D LTR501_PS_DATA,
-> > > +             .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
-> > > +                                   BIT(IIO_CHAN_INFO_SCALE) |
-> > > +                                   BIT(IIO_CHAN_INFO_SAMP_FREQ),
-> > > +             .info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCA=
-LE) |
-> > > +                                             BIT(IIO_CHAN_INFO_SAMP_=
-FREQ), =20
-> >
-> > The sampling frequency applies to both channels here. I'd just make that
-> > info_mask_shared_by_all
-> > =20
->=20
-> so IIO_CHAN_INFO_SCALE is separate
-> and IIO_CHAN_INFO_SAMP_FREQ is shared_by_all
->=20
-> Noted.
->=20
-Roughly speaking look at what is being described and consider what it appli=
-es to.
+Only the 120 Hz mode of panel revision D is supported. The init
+sequence comes from the vendor panel data, without the
+brightness-dependent gamma, HBM and ELVSS writes. A fixed delay
+replaces the vendor's wait on the TCON_RDY pin.
 
-Here the timestamp is grabbed for each single channel read, so sampling_fre=
-quency
-it applies to the timestamp as well as the channel.  There are messier corn=
-ers
-with sampling for devices with more channels where it would be per channel =
-in
-the case that they are sampled one by one.
-That usually indicates the sampling frequency of a scan is 1/(1/sampA + 1/s=
-ampB ...)
-If the sampling of a scan is independent of channels enabled (because we re=
-ad
-them all anyway, parallel read out in the hardware or the sampling is clock=
-ed at
-a rate such that they all get sampled in less time than the inter sample fr=
-equency
-then sampling_frequency may still be shared_by_all.
+Tested on the tablet: cold and warm boot, hand-off from the bootloader
+splash, brightness and blank/unblank. The board DT follows separately.
 
-The scale doesn't apply to the timestamp.  Now you only have one channel
-so you could use shared_by_type, but for this I'd just go with most common
-pattern for related drivers and separate is also a valid ABI choice.
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
+---
+Nizat Mikayilli (3):
+      dt-bindings: vendor-prefixes: Add Anapass
+      dt-bindings: display: panel: Document Anapass ANA38407 DDIC
+      drm/panel: Add driver for Anapass ANA38407 DDIC
 
-Userspace should always cope with figuring out whether the broader scoped
-parameters apply to a specific channel - so separate and shared_by_type
-are equivalent when there is only one channel of the type.
+ .../bindings/display/panel/anapass,ana38407.yaml   |  69 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |   6 +
+ drivers/gpu/drm/panel/Kconfig                      |  15 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-anapass-ana38407.c     | 320 +++++++++++++++++++++
+ 6 files changed, 413 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-b4-ana38407-31955acb84a7
 
-Jonathan
+Best regards,
+-- 
+Nizat Mikayilli <nacht@dxdmail.cc>
 
-
->=20
-> > > +             .scan_index =3D 0,
-> > > +             .scan_type =3D {
-> > > +                     .sign =3D 'u',
-> > > +                     .realbits =3D 11,
-> > > +                     .storagebits =3D 16,
-> > > +                     .endianness =3D IIO_CPU,
-> > > +             },
-> > > +             .event_spec =3D ltr501_pxs_event_spec,
-> > > +             .num_event_specs =3D ARRAY_SIZE(ltr501_pxs_event_spec),
-> > > +             .ext_info =3D ltr501_ext_info,
-> > > +     },
-> > > +     IIO_CHAN_SOFT_TIMESTAMP(1),
-> > > +}; =20
-> > =20
 
