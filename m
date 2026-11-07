@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061627;
-	b=4wqN76jwtMEK0UdcAviZt6Qs2E2VY9Qxvy1zF1dWQDTV0oxhFYaoIWDq0POUdwGBlv7o
-	 ADmRHslizZmrUUO3KDZA8B/gxFfOQ3YgTFNj0A6Z0ohH2jR2XDU6IbXzSJfkNBsVjZ2vq
-	 pa1tPCVIBYIa9Vv+HZsbVWd2OyKJQ6R0z4GCHdYdQ8elOso/il/K9Nj8XEFUi26xipLkp
-	 LVZnES4B0jrCJwKRsGQKC7+j/MIhOu9vVXx3rOSRVZdhSrxK+spIhpEDPuLwzfhU7KiUh
-	 Sfg3Xm/AydgzQ/yDgRU0ao1lHawdsE63O0FRSalpl6wVQ6oLEu1ObS5uqY3UVtco91w==
+	t=1794062051;
+	b=jYvVlicyGd8bII9LIG0XIGtwbqLnEWuiz6U8zrOPo/kQBvAeQ1sNyckrz+PI45z4oKu5
+	 1ySOCBi3nTfzLgLVapuTPCz0ctrJ5tyHJ8r5XF/UJ2rHkKUHDn9Jjx0EQ/ZvBWVDkVkjc
+	 5U0o7RrhvJbNnoSE6Qr1wT+TPCkEAEMevedCsq1UZA323e9pmEe2HmuOfW7Jd7H2OYPFi
+	 lO34tZ/MT38eTAGyhtHMw/BP6NbBAUsH/JxRWbATQ00nVRLkTFl61bdlePtgvZLhY/706
+	 7nPFh61sFQy7gpxNKPXxS0gJaQT7x8Oe+DbnkmoFKy3qNIkvAdKhJAzZ0W5BxEit7Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061627;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=g966SAJBPKMN469l/0SQTa9Ear5vOZxRTo3iz58T7Fw=;
-	b=JerDjIC6BBMtdT3ySLelHGYSqd1SUrbPmwodOnh7X/yMFtIC7XiW4aSteAa33QQI0uSs
-	 Yqd/2T89NNYmXNhBuWtEn3IDupiiwFoU1rwi+Ip+XhQlRbwi7byj3kZhKmQaANApEzpFI
-	 jeE4Kdohvdjgk1dtbMktrQxNkUXVpJvB1vuWshE2lIlNOOzOZjK6EnPscV0dl4pirW+98
-	 Rg0jJAgk4HM0SzND+Ss0VXSOF1N+ivhfqZ5wvUcKiUG7/TVJyI5F89vpUtJZpLlBEAQ1W
-	 uSsmkSE0qzumt/0fk4QaNM+gFG+Uzfm9mSlY4xbWF+dwN+GM9woMQ8ATBQpDNGNj3gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062051;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qMi0+jLy3VndeUj6/7otj2iqsprG6n4RwFcjX3CN5jI=;
+	b=U2bwWoWofQra3vYp3kfXAOTYMfDGMZ2VzyCh/7k1xeFLsFgka0WNxF3RfFfPMCXaa0vX
+	 WtbEmj9Or+BGj5F/DzAx64k3bnwkkkAhXurGhqtFIyvJqIBdw4/vNT2ai9oMFeXVG5Q9/
+	 XhqRWhOHMyWttCR0NOrxJWt+zyRG/2msrzfNP7btd7hNEb2YH67PppRJgHZ++DhSXSZyE
+	 kaIivOZtCDd7yJtddf9HjQK/7TaazHOZwVZfJVOwzEN+Un8t1LJAcl8qmex3Sb5VKREYl
+	 pn9y4BX5vzNQvL1vI/BYNOWQE2scFNxIDO9RNVCHCRwnVV1dDNKrh+V2R2ttEmtbIEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=axNhXy4q;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWi6QolK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646C0606A332
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 646C0606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2515606A332
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=axNhXy4q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=g966
-	SAJBPKMN469l/0SQTa9Ear5vOZxRTo3iz58T7Fw=; b=axNhXy4qgVj4GKKTL6co
-	hxWv2oY7Q0EKHhOlArEYibtS03p8c8SXRTitM4/qgBXN5ogLgtKFMYMha3IC2lgO
-	ccfwA+ioQm1XCzuEBpzP9kaYHx2rQLy+qOtzYUbUwQrdCuwKHpjIe1J3Od20fDwN
-	6nOoS89IeSdM+zOL0bZ5OhtYzEDbr7gtyYoDW0EVTXFUGBqInDW0Zf1jPHln5mCi
-	Q3U7ojVL6H6gbYSPs0x6s57GzZb5wGPQDO92csj3Z8BrMBHR/B2MtHAGQqhT5Kzp
-	yHVgJTUsDb5q15Gfk+ys6Smq92ZMj8jndAz6eFX2QxuQYjqteY8qv0ICSA3Aepty
-	/g==
-Received: (qmail 2532307 invoked from network); 7 Nov 2026 15:27:04 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Nov 2026 15:27:04 +0100
-X-UD-Smtp-Session: l3s3148p1@9c3ChbBfSvIFFu4l
-Date: Sat, 7 Nov 2026 16:27:03 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: qcom-cci: Document SM8350
- compatible
-Message-ID: <au81MnlqSXPnrttt@shikoro>
-References: <20261104230529.3040285-1-vz@kernel.org>
- <20261104230529.3040285-2-vz@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWi6QolK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260561F0089F;
+	Sat,  7 Nov 2026 14:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794062051;
+	bh=qMi0+jLy3VndeUj6/7otj2iqsprG6n4RwFcjX3CN5jI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aWi6QolK47ZW/tlWMnDfilxNyJLORxIMGGl3gb19yl5FZFFXHFSMN6xlvI7/Mkbj9
+	 VNsh9QuvI43bP6gdSTjZiRxjK/c8UekWkT3cjZruMdOIt6zs9/joO7Y6eQnSx7vIdn
+	 KAAfVj/TpCF8p0D0j5ZxIW+erCCCusY/Ujg2Hm/Wk3fcWylPx9jbk7YkyrmNDHR1zI
+	 fQHK0tVnZvg2QbaIoABACW810iGNM/ACgxm9INeOz1hUBWyglkBByV4RKKAKSfBNgH
+	 nRNOiXQ2guP+2Z7C6Nf6U64PIr6FcJPkekiTSlqj49vf4/UVqN/nYOAjN4wdwH+kkZ
+	 w0OWrWT+o033w==
+Message-ID: <sashiko-outbox-202958@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: Add Xiaomi Poco M3
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amir Hanip" <killdeath104@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107141432.39099-4-killdeath104@gmail.com>
+References: <20261107141432.39099-1-killdeath104@gmail.com>
+ <20261107141432.39099-4-killdeath104@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 14:34:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,47 +59,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Fj6HSmBKQx57QWtJ"
-Content-Disposition: inline
-In-Reply-To: <20261104230529.3040285-2-vz@kernel.org>
 
---Fj6HSmBKQx57QWtJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: citrus: wifi node bypasses wcn3950-pmu
+  regulators
+--
 
-On Thu, Nov 05, 2026 at 01:05:27AM +0200, Vladimir Zapolskiy wrote:
-> Add Qualcomm SM8350 SoC compatible to the CCI device tree bindings,
-> SM8350 CCI is compatible with CCI v2 found on MSM8996.
->=20
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+commit 143f785de163a225c81347bf706860097515c0a4
+Author: Amir Hanip <killdeath104@gmail.com>
 
-Probably qcom tree here as well...
+arm64: dts: qcom: Add Xiaomi Poco M3
 
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+This commit adds the initial device tree for the SM6115-based Xiaomi Poco
+M3 (citrus).
 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts b/arch/arm=
+64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
+> new file mode 100644
+> index 0000000000000..03544f28f06cd
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
+> @@ -0,0 +1,237 @@
+[ ... ]
+> +	wcn3950-pmu {
+> +		compatible =3D "qcom,wcn3950-pmu";
+> +
+> +		pinctrl-0 =3D <&sw_ctrl_default>;
+> +		pinctrl-names =3D "default";
+> +
+> +		vddio-supply =3D <&pm6125_l9>;
+> +		vddxo-supply =3D <&pm6125_l16>;
+> +		vddrf-supply =3D <&pm6125_l17>;
+> +		vddch0-supply =3D <&pm6125_l23>;
+> +
+> +		swctrl-gpios =3D <&tlmm 87 GPIO_ACTIVE_HIGH>;
+> +
+> +		regulators {
+> +			vreg_pmu_io: ldo0 {
+> +				regulator-name =3D "vreg_pmu_io";
+> +			};
+> +
+> +			vreg_pmu_xo: ldo1 {
+> +				regulator-name =3D "vreg_pmu_xo";
+> +			};
+> +
+> +			vreg_pmu_rf: ldo2 {
+> +				regulator-name =3D "vreg_pmu_rf";
+> +			};
+> +
+> +			vreg_pmu_ch0: ldo3 {
+> +				regulator-name =3D "vreg_pmu_ch0";
+> +			};
+> +
+> +			vreg_pmu_ch1: ldo4 {
+> +				regulator-name =3D "vreg_pmu_ch1";
+> +			};
+> +		};
+> +	};
+> +};
+[ ... ]
+> +&wifi {
+> +	vdd-0.8-cx-mx-supply =3D <&pm6125_l4>;
+> +	vdd-1.8-xo-supply =3D <&pm6125_l16>;
+> +	vdd-1.3-rfa-supply =3D <&pm6125_l17>;
+> +	vdd-3.3-ch0-supply =3D <&pm6125_l23>;
+> +	vdd-3.3-ch1-supply =3D <&pm6125_l24>;
+> +
+> +	status =3D "okay";
+> +};
 
---Fj6HSmBKQx57QWtJ
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Should the wifi node consume the wcn3950-pmu regulator outputs
+(vreg_pmu_xo, vreg_pmu_rf, vreg_pmu_ch0) instead of referencing the
+pm6125_l* regulators directly?
 
------BEGIN PGP SIGNATURE-----
+pwrseq_qcom_wcn3990_match() matches the WiFi device by checking whether
+vdd-1.8-xo-supply is a child regulator of wcn3950-pmu.  Because
+vdd-1.8-xo-supply points to pm6125_l16 under rpm-requests,
+devm_pwrseq_get(&pdev->dev, "wlan") in ath10k_snoc_probe() fails to match
+and falls back to ar_snoc->pwrseq =3D NULL.  This bypasses the WCN3950
+power sequence and never votes for wcn3950-pmu's vddio-supply
+(pm6125_l9), leaving vddio unpowered when Bluetooth is off or disabling
+it when Bluetooth powers down while WiFi is active.
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrvNTIACgkQFA3kzBSg
-KbaUAg//YgAO/T128Lm3n6VmRqJT3XChIwGo8G/v8nsBFxTxRcSrll5XQS2+yRz1
-x6KjdLRoc6bQ6WErbQf0Rp7/io7zA2jN0mkXH1q9rOQNQSYVXtePfyDwh8MBFfQT
-ypCcQSvC4YESPKqR6xkhsmMrjUgc1YWNzeJ1nnG0FDwqMXFzP549g2UL2edTUlJc
-wo7m/9M1/Y20xdnh/a6ud3zRTBTXBITfcyjZIHeIV04jNzfJGxGQRgP3n+35a1w9
-nGkwN+0GC7qGHaBaVhWIrROzlrK48Yp5xVLJMzvnKLTHN2VPBhpyM4KeEezAmo95
-173Kaif0YArgwxw26W92EKJI83LbZ9XwzTQLzSwMUQl2nrm0ofZgb3lgaQ4LmFKQ
-vquclSgXkB6kHiXyA1cP/7emTC0J/uT5Hyw0x75h8deBx25uUNQlxEBomC7ZGAyo
-GSzs+np9+gMeUpK97aIh66biHskiMxyH7voFNHtz2idDwlPkVMLVyz69pmiAmTKa
-s/r9c4jxLzrieBi8IkU/1mK8cZmc+UtnLRJvARjIgm5F/b5phWBO1TXtNmYuZgMy
-HTlUMs4RgP3DIvRXYWjECEfXb7e1qYZ46XrGSl53eJiPtk2Qr/+7pv+r/thzHaCU
-CYC5bScxWolnIHXGjRV5ZqJepxFnoidzXf/fTIngo9q1VGlkwZk=
-=d9VW
------END PGP SIGNATURE-----
+In addition, vdd-3.3-ch1-supply is wired to pm6125_l24 (the UFS vcc
+supply in sm6115-xiaomi-lime-common.dtsi) while wcn3950-pmu defines
+vreg_pmu_ch1 without a vddch1-supply input, and vdd-0.8-cx-mx-supply
+points to pm6125_l4 (the 0.9V USB/UFS PHY supply) rather than pm6125_l8.
 
---Fj6HSmBKQx57QWtJ--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107141432.3909=
+9-1-killdeath104@gmail.com?part=3D3
