@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049949;
-	b=3QI4MqldfGk9tmWnEKhJLSxzLD1xDAwZeUG5oguZpscc96XYQjtPgPhZZXnImqh+il/D
-	 iKHfEsQ0HxTjZWFRX5Ngd+pw/3mZhaLLaqt9bDGgROc3ztHOslHv5jnC6+gFUwxThgYiV
-	 RIjM4sKpls7T0qRs67sm5Dg8hUQWubyaB86HqL1V2P6la4dlWMqH2ZEAFp4K4fQK/t4DL
-	 +bAXuO6uqTGGPZ2oNByAjoDw6ckHmby6ewxMI6IEquDk8vu1rOcfWfWY2piHbdXT8SdQB
-	 XP4iYwVSskDqVeYOwbYii5AKaNqxtY/CiS415dnAczeZK0bvtpRnNLjAL36NlYrnMWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049949;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794051665;
+	b=LyGwnYClnY+uZ3xzuuHqUtze8HizIqPmdxUUb4sywOhQpsZNPEZADfJnTVsAwCIr7/lF
+	 9pD9JCRlS1bIl5qnBW3BLNJGmDy1EEWRjjF5BMdpMTc3Qr5ouRc74TLBEBgyKclonpEz6
+	 B1J0lO9QXrZBxwkjewVJNQ3rZDBIB8Eeto7C1beYPLU+KGZj8J2brdb31RkaK0SSf5y9y
+	 weguAY8KuquS7EEoRIJp0avH2DMSxJC2BPVpGaP9NvgKP6fhpcyPqjqOTh6TAqaYcb/ym
+	 wcv30qQS4GHjkn5IunGcLeIYGyiuHTbbwX6n0Dk2GEh+ZDj7KmdZcwIeDb25dHlAz5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051665;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kpcgrgeS4YJixEjOpFKN1PyswVGYEcCcMxkh0K6m0Ok=;
-	b=vPFHqwaQ4D5BZr5J4IjeczbhdAXc9fmrepjzQHls9On+J8x1jmRQdNyGqf6mcrDTArg9
-	 JRFuaFh73xrbsUircvb9uI9q/qSngsolRzbcoMRZhdHPjmRlY7xmwsHD7OSgCCmOFbtSu
-	 /4tXZ22SzTN0GWkRTpzSJLcUjNC78YBIhc4cyHKoa3sCvaeINz3V7x1uS9SILjEnEcnM9
-	 EHdcu2G1tFYfSOPzcZDz9g2CR1SronqsW77uNZK2gFai9Z44zKeeu3JAuo0bsGltd+nRv
-	 T/6o0RDxgSLIEUaodOj+NIa+v+f75zV4V59oUfPwMTzCMR/URrWv/16JrgGv69ImXcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+	b=lawFdWjG1xANBF2vmKIy+NjgmH7tMXP0YY57aiaYygoPCXBq5nsW4lNFf5vnP5caL9E0
+	 yIiZWVOCH0W6C9k7KRJsAFF2Wk7gGjmh/4fGh5vC+yoLH9xfkbkGCqTHvciGKCdgi+N8+
+	 8bUS8qKpULj+kZd1wrsjac9Z5Ntzkmja5qIFYV37Aj4dhDOSBqwm2d30S0E04F0D9dUDy
+	 r7zRqGBE6eW/l1RfwCBvJScEUi0ZWeVQPAhH/QZrcXEmfEQDtmiFedEGJ+lxHs/zAa1bM
+	 Mj6hcYk3vj2ENsCRNw8/w+7BS3v+8NdeMt8Q+pflcuSSnlHP+3073eOEuSXCNAVTNpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toynIiF4;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Uv/MnhPY";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDC0606A32F
-	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 11:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FDC0606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFB4606A32D
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 11:41:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFB4606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toynIiF4
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb14c60a7cso1231445ad.3
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 03:12:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv/MnhPY
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67c11318ad1so837955d50.1
+        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 03:41:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794051664; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jgiitN4t9jIXciEcdHziMM/h8Gkf7nr6VcO9ITTltaS7bep5eQvd6kOiJwJZun+Mkz
+         HglO+0LlrGN0PYWceVRpyqVmEY1u3InCaaZiCkK8Iz+UELpkZykLzsBO+5/OjeLAtfbc
+         VGFh2kKKMoW1C+znhhSIsuZgktl3ntpxjjcGkrJ/X4s5EtD62KzEVudONd4TaXQ9tk98
+         QysLgnNcalMP/HE7JbiuHuNjRXtanMbufZWHo4RIS8gC7SGHdkHRqsTSRXnGjUI6aGG3
+         eu0XiXOYmgNfVnYID+vPhOvaN4lNulZ4GHNWeqoXvWOKtN8A3wbPXs8gkPbn197RXpVg
+         c46Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        fh=t65RD887SBmBXoQA6Wb1/NCy8f4xOIhx4A7LZhgATGg=;
+        b=sz2iUF61w1IkQ7mR+swtxH7ZgmkVL2mDSR/w3puUtv3HhzkTFuiOahZfEOikp4IX+F
+         3iWW3yxRdrLcPuZqoNQc9Xhwt96/Wq4gp0ZbM6cxGPiVIDRunW+1g+0/hMsPeo7Xm8sm
+         KPq91F85A3R3MA9O4Qka/LFvkA9EUMFibFw9csUw/mmdGHEWqgFw6Jh+dpfWjHBETgku
+         mSGgfm855JHRdzephb4vbZhzroMWqlhr2gjZY2LYSVlbutK4e80qE4byFYenGA92hqyp
+         koTNwtmH7AYqd2ROt27r1dslnYc6zA+uTcjekKe+BSDpfOQim5phcofxUyerfhy8+vji
+         hnuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794049949; x=1794654749; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794051664; x=1794656464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kpcgrgeS4YJixEjOpFKN1PyswVGYEcCcMxkh0K6m0Ok=;
-        b=toynIiF4lQi2EG0ep/9UvK4SLQn83ci/V6WzBDqELM7fNOt2FIY+K2yUFZidtbGxlq
-         V6cm+c1ij5DybJpfplIgNgullFXQaNsuTS1XccraiuYGSGLmzTBIP7MV/VTZrgj7Kma8
-         SerWFdyxZZxDxbMH/bTfH1fN/fXXvq4drBlKns7HzEKBIy/N6+JZsjvdfhcnv0uGBsCi
-         g92rpQ8aWOGnn33TNVh7NOXGxAV/HLll8fuNQAHvUp+BS9UMJ6rBVbReHRLX2SD5AOcA
-         mhe11yAUDePbJ608xoT9i/m/i7NU9UUJX5Zzhv3bxtwQ04t7D5nr6GLxbLzVfwwVplKg
-         e9jA==
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        b=Uv/MnhPYUlJ/ZX3RqlHb/a6i0gp4cIGYXj+kYDIio6V/YvCxjxJA1aNGJgeNRUxdZK
+         B/NFrxW9NBs500iOBSmcRTVBEasxYtHEFcd1egHm20Ej7uyJJ0Rp80nGbvp1/+e7tMUh
+         wC4e8gHwYM8o8Vt+rPhlrdBEvOkGrJMCV7IXeSzzC3VlhId/fBBldvUud2QPRdiinNFg
+         3BXu0ujHM/Sv5SgFKJsM0tDit0cL0SbhnobaRGmwzHbAhwWAWD0tA+ZwfGoHuknR0K4D
+         CUIcEppiZGj832l0z4Crge1NX60zE+2QUS9g+zF6snRUzL0NiCH5VfG62J/ktBwChjUT
+         cD+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794049949; x=1794654749;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794051664; x=1794656464;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kpcgrgeS4YJixEjOpFKN1PyswVGYEcCcMxkh0K6m0Ok=;
-        b=NJkgLiiDvp/XMJxNHZK5O+yWn11lBuf/ng5MSDoa/5ntUQ84nGKEEecljRv0nRbMRz
-         kX6zAVcM9yqKeryzo/xJGiQqJ8Jx9B54mNj0nj6f+ep98wONu/LWlvPsVMxwH0iaJaxr
-         sE73lpAQCW0KsPpNxszlfJdkonVKm9HjiUMD2sBAt/1IKBYWN9bkRJ2jzdDZW1cBI8rZ
-         4CH0EOVWLTEqmzNN8o7JsWhQvjZ4l3oyNzSQoIhCnebQebRBX7O9m+gUKquEzrwheStJ
-         keNp5qiTtJCGBE6WYGrnYUeTCtCjNYFcCzAK98axI2enhd7uwc4+qz10Lp1aGJoRG5jL
-         9Y2Q==
-X-Forwarded-Encrypted: i=1; AL+hErEY2FgQJUg4p7npvo2nFoqqEhztUI2i7ZIIdsCx60WUjZJCPDgOIz7PdInefxmvxrlYywiNec3Vw/IW@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/Ba93PA2/k20hndr9UkPvy6JYC07y8UHDrJRDVDxJW6HXX0fQ
-	z41V4JC2c0a1oBn8wZA4STIIy39QriNWYgB9NHCd/uFmczQuF/PJ7Pz+h3TzZkCh
-X-Gm-Gg: AYBFou0PlYX/YfBRSZP18oAC8fE+RsLgIr8G9R5dn+hakZNF4dA/o2onyIujM+v6FJG
-	nAbdV3j/tr95fRDGWct32ZOGzssrF5Ekn7CG+5UUbnM+U/bbM4kZqfLZ8LfoE1r/vd2HdKF1v8G
-	T7iCAkCGrn1gqDEucitRY3wQiFWYnItQczftl/HJtvGaQeaBs3mt7GdFEiBoteafLHLSuMVDYq9
-	0N8XuaWluge4uuxWT0R7FkvRlwIeYccUHzieWVKwuGfbiHRCPJsaIoespbYa+yuSeNd9FyPqnNE
-	bpZtQx98PHhqWZX19SXiO8npDQSDvbsyjHmRcYaJBleIPG5Z1989vy+VXF8e4uJuNrwOjA7Pag7
-	+777z0PKZP8FTNacEQJxHJ82U/Cy6hdT8gc5Xdq4be+srrB3Jev1pMBVkHB6g4jGuD1D0XVIJyB
-	KVReXKeRtjAkvVShSD0u4g9Jaio7FzvFpA7bjItCGyFsyQPfIRUXWemMGO6uRpwVzaA5IF1PFm3
-	Yu5CmpHdbNVpwKQDT7sIYCDOA5SK5BdAe5vS3LBJ5YeiuLMn4PHyw7Qt6iyTeBG66W0ACvI4AkY
-	kpcZ7AnaJ8AMfwBj+j0zCNpT
-X-Received: by 2002:a17:903:1a24:b0:2e9:5714:607a with SMTP id d9443c01a7336-2ed416ae161mr87708345ad.2.1794049948724;
-        Sat, 07 Nov 2026 03:12:28 -0800 (PST)
-Received: from marchy ([2001:e68:544d:4b2a:ee8e:77ff:fed4:d18b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d89f59sm12431085ad.68.2026.11.07.03.12.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:12:28 -0800 (PST)
-Date: Sat, 7 Nov 2026 19:12:25 +0800
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
-	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-Message-ID: <au8HmdyRnuFmSmKh@marchy>
-References: <20261030083737.47188-1-azuddinadam@gmail.com>
- <20261030083737.47188-2-azuddinadam@gmail.com>
- <20261103-zippy-quantum-bat-98b5ed@quoll>
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        b=esX4PxoLHHYaLIq0Om1JRhPRtEKN2+XwA1nygrftIApj9XCa3q140qoxPCu6ecNhbJ
+         3zriCaQsYD9JGTvSxmJP0hRDkzUyiTAp79kBCkDYOaubC6rPJKk39DFOwxlwEehxHePd
+         U3Pg9A7qBD8B1RIZY5fblG+f7L3Z1OvgSvW3gFzXwLlSnsfk/X59Ji+YO4aeWZ6IZn1+
+         IoWS4IJGpzqDGcz10QXaK4k3KXQnZVBUNQkRfFjMQiNBdfsnAy8GSei2oXNgE2YQXmNy
+         JhLMjJqVzvlWseEQJXBjn/0nEqdxJ38HXCBNhhIyZn/3HJ69aZJP642gp3NVaEMIZ5di
+         oS1w==
+X-Forwarded-Encrypted: i=1; AL+hErFOdQO5d2HufmkIe+wlZ4MmhqNoVKu+/N2Q6ipVonusPMm9AydzlQ4Kq8cKAcSeVrP3ZDv0GUF/ZFj1@vger.kernel.org
+X-Gm-Message-State: APuU4Z80SSOeXMeEX4oPfTqNybpqXrn+Q1guTR7GINNYZbZpZW6qGTL4
+	/w0e06+3btCrKZD9k2IRzpnbqa70dTcM5pr5Em7MK8CVQ00VXZB/BRWjrqPdpbUUrJVD4ivRV2T
+	h+XFdjkrBDdkJ814ARisJpWRuz/FvbjY=
+X-Gm-Gg: AYBFou3pMnMknch1sR5SJ5hMJylg7JyO+Q4qRXqLGcJ8BKdncWStpbOL4zMrpl8rV4z
+	hiShwiZV5kguCE3OUV7+PrzJSf1BXEnwuyQWxrbpi2XryOT2GDkGNq4M6GY8tkwAPOEswkbDNXg
+	Z2sBNsZoXyiGMdjYUeomCYqTpCThzirbOblKC3vHNDRvjRxto1tNEPKRvFCYM4LeGVyLNYPF/Gy
+	jw539Nr0YXJ3IjunuSu5iX/7pXE2XgxBvCKnm1Mny6W8NMZpZUFRf4qCcbcQ66jBtB8+u+6IYdR
+	IjUc4D9OET+WXcs75ZiKuRznCI6FkP3cbiura6W12+z/gbnMunXSpztYP4Dl1sgIhEoxWpIrMTZ
+	TSYxJR1IoKSiszdStJWyjeiyjvZtL4Zo2Tg21rBlsgcsr7oKtt+mI5JllPSM/izJTey4o3l5PJn
+	su5FQNFClF7DPA7aJKwbfYG2PQjF0Nkl5kLDqEq+BUx9nVqES49WDre0BhNr+gj8UcxYfQA51bu
+	xaR0GiZXHaONlhY0WFTVnicFWALm+3wNZ39r4c2F6dUHeU2aD7CxupvOpYSjg==
+X-Received: by 2002:a53:c056:0:20b0:677:c18f:7257 with SMTP id
+ 956f58d0204a3-67c141e4301mr2310364d50.23.1794051664343; Sat, 07 Nov 2026
+ 03:41:04 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,36 +106,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-zippy-quantum-bat-98b5ed@quoll>
+References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+ <874idv2bol.fsf@yellow.woof> <au4J-0GOUuueHLZe@rabbit>
+In-Reply-To: <au4J-0GOUuueHLZe@rabbit>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 7 Nov 2026 13:40:28 +0200
+X-Gm-Features: AclHuK9O7PUmgPlP4zevfIOy9d0EnpN6X7geLvTsMFUAaD8AWKettmZPb3yRw48
+Message-ID: <CAHp75VedGBBd8qk5fO9-DkGwmuLQk77_igefAwTbrfcPCMW8Fg@mail.gmail.com>
+Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
+To: Daniel Matyas <matyasdaniel006@gmail.com>
+Cc: Nam Cao <namcao@linutronix.de>, dri-devel@lists.freedesktop.org, 
+	linux-staging@lists.linux.dev, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Lanzano <lanzano.alex@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 11:49:07AM +0100, Krzysztof Kozlowski wrote:
-> On Fri, Oct 30, 2026 at 04:37:35PM +0800, Adam Azuddin wrote:
-> > The RA8875 is an SPI-connected TFT display controller by RAiO
-> > Technology Inc. It supports display resolutions of up to 800x480.
-> > 
-> > Assisted-by: LLM
-> 
-> You can drop this.
-> 
+On Fri, Nov 6, 2026 at 7:10=E2=80=AFPM Daniel Matyas <matyasdaniel006@gmail=
+.com> wrote:
+>
+> On Thu, Nov 05, 2026 at 10:47:06PM +0100, Nam Cao wrote:
+> > Daniel Matyas <matyasdaniel006@gmail.com> writes:
+> > > Questions:
+> > >  a) Is removing fb_ili9341 acceptable, pointing users of other ILI934=
+1
+> > >     modules to panel-mipi-dbi? The KD233 node would then have no driv=
+er.
+> > >  b) Or should KD233 panel support go into a DRM driver first? I don't=
+ have
+> > >     its init sequence or physical size, or the board...
+> > >  c) Is removal of all of fbtft already planned?
+> > >  d) Several other fbtft drivers have drm counterparts. Should I inspe=
+ct those
+> > >  to see if removal is needed?
+> >
+> > IIRC the main reason fbtft needs to stay is because it supports paralle=
+l
+> > interface which is missing in the DRM drivers.
+> >
+> > Nam
+>
+> Thank you for clarifying. However, the fb_ili9341 driver uses only the
+> SPI interface.
 
-Will drop.
+Only two drivers use that macro, indeed:
+drivers/staging/fbtft/fb_ili9341.c, line 136
+drivers/staging/fbtft/fb_sh1106.c, line 173
 
-> > +  interrupts:
-> > +    description:
-> > +      INT# pin, active low. Signals RA8875 interrupt events such as touch
-> > +      panel, key scan, DMA, BTE and font access completion. Optional, since
-> > +      the host can poll the interrupt status register instead.
-> 
-> Last sentence is not correct. What driver can do is here less relevant.
-> Question is whether hardware datasheet allows interrupt being not
-> connected.
-> 
+> Is it alright then to move (or remove) those drivers that only use
+> SPI interface and have DRM counterparts?
 
-Understood. I will drop the sentence referencing driver polling.
+You can suggest removing it, but it might break some users (yes, I
+understand that FBTFT is a staging driver), but doing such only for
+two out of dozens drivers seems to me a bit inconsistent approach.
 
-Thanks for the review.
+> Furthermore, would there be a need to enable parallel interface support
+> in the DRM subsystem?
 
-Regards,
-Adam
+If you can do it, I will agree on retiring the FBTFT drivers that will
+gain such a support. I can test 8347d (IIRC I have that panel at
+hand).
+
+--=20
+With Best Regards,
+Andy Shevchenko
