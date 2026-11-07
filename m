@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060376;
-	b=Uty6q8QpFYBtifcxjPmVW99kwizCum4rMVojQI3EJlABOPshtv6l1x8xd8kqNosA7ri1
-	 2oj6RgQkHiKtW18T9o4aPDGYba6uTQzOV5SwDYrKLnvhAWIRjKqMk8usSbrMMsEnIfDin
-	 L+mP4ILRjKP8dyRnHcO2tztrAw4QW+l7IABdmCMbCk+QgSNVmvRwC5eCW9oCQ7gbsd1kD
-	 yG3I+By6OKdVRp680M9PXRaOga8Z6bbx3xTS37bnOTn4dH0bWq0vLv/jsrHbBgbl9JioW
-	 x8RyrcKkzcDBDvKEAM+il6y0XAUernW1ZwZlQyjuv45v3MU7fprParWWsFudMMCxEqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060376;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=37JzzP5fNzIUh/YU3t2M86Gp4vaqjCgfVRMIoUNIwJI=;
-	b=BmGc/EDU4vmKLmXQCMy9nK8AJ+GMwATQKFkQJoA9r/6xYamahRO1UsFKjIaMMxsRxNGL
-	 pwuCLs0R9xw+oDiukgqMT1mSJjKQUiljxXzYk/khQcPHsCr1p+VEXOHmD0Zuxl2K71YuJ
-	 6Jrl2RLWyNIWqkXOSHAUTlyaGzEDG22BoaUqUC7Qn+Bj1cckiVnlnTx35Rm84NI0Ng/ID
-	 mcOabb83euy5CIJOkwlfEF4fctDXeRIczFcACdD5tc3WVserh58q/qBxEW8h3GigBdEoz
-	 4yOX0QMEVvOeophyVSzRo7iF5G4b1J98vJ9Ye3YUZ4jiMVbMEi1VNJGVLI97b7fmCyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=eoFXYN0Y;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794060394;
+	b=zgAzz+aKqqw6Psq6jCmJD1qAIvbbiv7Ej9oPHiXDJD2QY9C1Q0TR7u1JXGfKiyh3pUNA
+	 Ojm22a0lO3tGqoEnwdEL2b3gonDuPk4FDhFypZp3HjnwL0akYk2abVBImP9Yg5Vu/Lotw
+	 1ZPeO93dhkkGXINC/0ShhdBU7e96vh6piS3seZWZ3mXXbHFrWhh/gVKr8Va/XS6bGHpiT
+	 td2NvgpsxH/mpfOOOLpiBSGB32PmhEo8dnoc7vWq0tVhmOMX6Iskdahx5aEmSaf4zSKcr
+	 aC5TJv1jFwfF/00vUkL3brtf04O0mM1P4LaawTnfMKPHTQ0GPmNPmQ43QpeG9kGDYPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060394;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
+	b=gmamhlD4Apa+G1rHdEpS7tr8TSbsbj9blNhs6r+itQKvXsH0daot8e/iJAJxXl3FAxBP
+	 Cm2gJ93Vw76rU+4Ocn5zu4SD9aH4QcL1A/Fe+BVMpQGbdmPp6AogZ6VxeU042VAsCzqyE
+	 fViGaGCtthaEQ6WanHuo8d2MPTSMjHdidS8Bqa2yQ8SDvnrafgQFm0/Zf5wrU8j+T5B1x
+	 vVxaPSYNZieUCV0P796ooTWlj62UX9/bkvKkngAWumv8yIHm45tqofLH8yor4P1P5OHqX
+	 3ITMghN+DCh8tOZ6WP61zaCIFua8SFYSQtWv7b+JKmpGyEOEtNY+Hy8Q+EEaIDnfveQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDBlyIAS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781FD606A326;
-	Sat,  7 Nov 2026 14:06:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 781FD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA497606A33F
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA497606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=eoFXYN0Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794060344;
-	bh=37JzzP5fNzIUh/YU3t2M86Gp4vaqjCgfVRMIoUNIwJI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eoFXYN0Y++/qdFYJkfB53JqRJcdyYNIw4017Vx3FuuYGYC7geVZtZq/wPNdLRLPde
-	 RBcZVgGBgHoX/bDTEpCciovjbWadXCMQo1SusxvKDO4BM2FuRABIxBpxX6cs6UnZSb
-	 GDVLS7XbxBqssjB61mKay3bFcixK7YB8HM2XFMI6mWVw/rhqxEIMsxe0H2Gsb6KYsn
-	 zBhA6L8O8uvZ+wQ6Ijss/DqhqXObGwRjL5NMxYSR3w8LSKXY1vknfui0QdGVfS5d+0
-	 V0ukUev+0HTyy/I+9u7G7xQku0cmnkoeqTRHzeJphzrQS2dCVatKNWT3GO9rBDBWJV
-	 kiLHNge1jD5nw==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 922C3B2218C0;
-	Sat,  7 Nov 2026 15:05:41 +0100 (CET)
-Message-ID: <7f285558-2301-46aa-a4bc-c6ddb25cf20c@freeshell.de>
-Date: Sat, 7 Nov 2026 06:05:40 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDBlyIAS
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b1a705b88aso1023397b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 06:06:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794060393; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b4ocKwSU382zwXSix9xr5q7M3DX9stfOGKiD+hxFAf8v6qZ/g63JNNvP9u0W/VfgFg
+         lIrqeLKK5/bqVYYZ44DjMEMb7a2vCCTNTrbf2KaZSpV+w5tglKMRsqT4VpVJnbAjmny9
+         RKQ3ZfA4MK1BXVAq94JQUy7FNYYcdy3oetCWu3YHLzOeDqBlItHGj8RiR1QbDI4OcF0p
+         xU3MPZP4ttJYQtJeU8APvNr7+8yjVurXm+kJVxGkk5lTJ/iGjwoNMDq0AdZnKVIfQtiJ
+         hH7i0+M2IZMPcUU1pARfI2JlfYVhzlMnW3eFCEQYrrE+zSDfDjpg/M43wdTJeTKDrJNR
+         4VjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
+        fh=SBtWW0SrN+pLf0vGXouQz6rNAo5FZfAV2T46t1i8kY0=;
+        b=s0r0ec60BR6bvWsKZlyvhlKaaE6mEoCIoYu7DiDxbPghiE8/P9OVo6KX0EQrn14mXR
+         VeocBlFIGd+KiI3XytWSmqFH2n4a2PGad68mN6IhEYfSih3aWu/N1taGPikTfDX8sS4Q
+         BtMBvPkVGVWYvITVVERbT8klGiyTsVxTiNWX/zsmbd9Z3krxnepe97lmDwEulRwyChV8
+         os4wA6BsXp2sKd7yseVsBISRISmg7hRcATwS9yDmuLROXjAF//Bz3BxmEjcH+vum8CdF
+         seSe2Oo2su6RnSUaGqoknhgdBFN0F080C+ro0rL9AJe8ohzmsTWTgt8F+a/zbxNMhtwp
+         XK9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794060393; x=1794665193; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
+        b=dDBlyIASGe87airtRsC6OYAtSLt8d6JrbobgkmqzvHZG4f9MUAgKofmlBTqz06bmf7
+         X6/cLnOfY0szRdLNS3X2edK4IKxHbjdDSXYPSt31ow1YyWXi1Kqjjm0QF8nHW2t4qXvA
+         0NYnlBfL3p280jC12DBHa5hRcP3rn5qi3RG7leKLPOtEEwGOwBz4i3puzoxLu0A/ERDn
+         tEb/Fe4tigaNJLz1eYJOyd+QMI2kRSEuRujtP7juCjFLv+Kx9QXavedEeGOPrXGBfMZd
+         CXpWZX3fCI3edsCjV2z66r0g7h11SLsxjerD+lVx8K9D+fefPaf9swx/sLCRgFYnFBR9
+         wFQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794060393; x=1794665193;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ypt0cQgotkEVzYhfQB+Vym5gYPVJrJp3QalT+ngA/vE=;
+        b=tTLoOmuAvfxRXiaMa/mSvmVPz7WF7TgKPKIPbHn/8yc0X+oOetlB4nFKZJXtvj+zux
+         U+/qC5VUwZP/P/Hzi73SEVOrsTzIZwpJaiQXWa94tHA7lIxbwyffM/DmRdZdIZANoJAw
+         cuDIxzGEyfL70yVvW2J85hUjfLo8lm4qcYdWb1h/9UL1sjy2yBklRHjyHuy1oWT9rQlW
+         +ZHAwOnvXj1eRouZg/y/G48+Ao5diTlEQFmXe7h+p8rGddaxQ65PrFgWM0AeESuQfTWy
+         HJjtwkHk0jcuTYdwDdkZPC3if9cZ+tXShU9ZS1KV+bh5uboMhxkaXMhYaIouhwZPAGF+
+         L+0A==
+X-Forwarded-Encrypted: i=1; AL+hErEnfdN0Ystxbu6K7H5fKFCOvopmUdsAJkjZepH3NT5fZezKM/kcHyNQI1+bK/Kswx49QEflphcE/dgI@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Q8J6wvU5/yWuQyBmVJQi1RXXTSQXsG0p/939NG0IDVDs5N4GU
+	nMNo40iAE6+VFFL0oeaPIM+o8PTTd2+4etZ/cp/IUZFNUuZedDJW+gcBL5vT3xcG70RseH3DZkD
+	lewOZSf2DWBApvaFFPVTdD+j3k3IfyMw=
+X-Gm-Gg: AYBFou0Rv5FjnW9bfFbYMmm5eG9ktBhcSaKkUMUhdEb1zIYCtEQzeMJMdGtKKyQw7uB
+	4hXk0uXV8cr6A7hOuE0QpCgdrSSk2dU6AmLsSh4KjuRqmvGID6Dg6OZ5BnvP1oQzEQVa/c3WD0Z
+	UgSCdtuddHOi2LN9KoK6bZqg750oITmPjiS7jpl9I4P6yEeCJOvb7DKIYZrSOFgfwQlpvg0IISJ
+	boL9Cu6OnO4L/Ymrkl4HOz1RV7CWYRVzrBQyjT0+D0KNJb4DC7Z7aRpFlmO4UI3+uly4o+NfE95
+	Qnn91dfhd88xsCP5fTodFEJI80qt8kY2MAV2XZYz5ujB1smn8K2dW6wB2kgA+uN9NuIdBTmj5hy
+	mh2ChQ/G18zrTvwL8h3coZ8xNz71i7eEiH9qWhJ4h1leKuwp65VXGVivJnLybMTU+CfpxCVVrZ5
+	48ToosYdN+RLXByyB3fONykjkJagjV2qsk3CjaJLJWMW5IAx0QYyRf7x4IdddPjwWYGGUOM+XU3
+	v1EUhP8a/eCQd3HIJ92Tp+Ju3T/SVxu/nhmxMpRqT/1nO0Ld0jC+P4H3OVOHw==
+X-Received: by 2002:a05:6a00:13a4:b0:8a0:21b2:7c7d with SMTP id
+ d2e1a72fcca58-8b37525709bmr5141902b3a.0.1794060392907; Sat, 07 Nov 2026
+ 06:06:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,100 +106,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
- power LED on
-To: Conor Dooley <conor@kernel.org>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Owen O'Hehir
- <oo.hehir@gmail.com>, Conor Dooley <conor.dooley@microchip.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261106184055.3891621-1-oo.hehir@gmail.com>
- <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
- <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
- <20261106-tumble-hurt-d1a0be3fddae@spud>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261106-tumble-hurt-d1a0be3fddae@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1793876837.git.alx@kernel.org> <cover.1793882260.git.alx@kernel.org>
+ <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
+ <auyOkL1Vb1iKicS9@devuan> <auyV47xUCr1EJ7A3@ashevche-desk.local> <alpine.DEB.2.21.2611070239050.17804@angie.orcam.me.uk>
+In-Reply-To: <alpine.DEB.2.21.2611070239050.17804@angie.orcam.me.uk>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 7 Nov 2026 16:05:54 +0200
+X-Gm-Features: AclHuK-WBq_EIF1I_SsYN7csCkMj3s3jbsrjUQ08xBHpkztbklIxJpPZrjAee2s
+Message-ID: <CAHp75VcVT2kQO+URZbrH_3-A=4DMZU1KfcQsjDf6bNdtjf=t+w@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Alejandro Colomar <alx+linux-hardening@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, 
+	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Conor,
+On Sat, Nov 7, 2026 at 4:42=E2=80=AFAM Maciej W. Rozycki <macro@orcam.me.uk=
+> wrote:
+> On Thu, 5 Nov 2026, Andy Shevchenko wrote:
+>
+> > > But yeah, I can send them as separate threads, if that's the preferen=
+ce
+> > > here.
+> >
+> > Yes, in Linux kernel majority of the maintainers (a bit of speculation,
+> > I haven't counted, but it feels like this to me) do want separate threa=
+ds.
+>
+>  Cf. Documentation/process/submitting-patches.rst, section "Explicit
+> In-Reply-To headers".
 
-On 11/6/26 13:15, Conor Dooley wrote:
-> On Fri, Nov 06, 2026 at 11:06:22AM -0800, E Shattow wrote:
->> Hi Conor,
->>
->> On 11/6/26 10:54, Conor Dooley wrote:
->>> From: Conor Dooley <conor.dooley@microchip.com>
->>>
->>> On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
->>>> The firmware turns the status power LED on, but the node has no
->>>> default-state, so the LED switches off when leds-gpio probes and the
->>>> board looks powered down.
->>>>
->>>> Default the LED to on.
->>>>
->>>> Tested on a VisionFive 2 v1.3B.
->>>>
->>>> [...]
->>>
->>> Applied to riscv-dt-fixes, thanks!
->>>
->>> [1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
->>>       https://git.kernel.org/conor/c/68dbe2550bd4
->>>
->>> Thanks,
->>> Conor.
->>
->> I replied this a moment earlier:
->> https://lore.kernel.org/lkml/179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de/
->>
->> This disagrees with VisionFive 2 Lite schematic; if when this node is
->> consumed by a bootloader it will be evident we are not describing the
->> hardware correctly, no?
-> 
-> I am not sure if that's actually relevant though? If the visionfive2lite
-> needs this gpio then it shouldn't be listed in a leds node. Changing the
-> default status of it doesn't affect the fact that it is wrong to begin
-> with, wrong before the patch and wrong afterwards. If there are some
-> boards that include this common.dtsi but don't have these leds, they're
-> not common and should be moved to the relevant dts files. If you know
-> what those are, please send a patch doing the move.
+Even better! Thanks, Maciej, for the pointer!
 
-All JH-7110 boards with published schematics have this configurable LED.
-Some board(s) have this same RGPIO also connected to an input jumper for
-fastboot selection. Some board(s) have an additional power LED that is
-not configurable and so not represented in device tree.
-
-> 
->> If you want the light on and it wasn't on at reset or due to boot ROM,
->> then that is userland stuff and not hardware description... but that is
->> your decision to make as maintainer.
-> 
-> It's a power status led, I think it's pretty reasonable for it to
-> actually represent power status without intervention in userspace, the
-> alternative I guess could be something like setting the function
-> property to "power" - but I'm not sure if that does anything for
-> gpio-leds.
-
-Sure, if this is updated as a per-board user-LED function property by
-reference to published hardware description (silkscreen or published
-schematics) then that's at least verifiable; Vendor firmware that
-showcases as heartbeat or whatever less convincingly-so.
-
-Debian users should be reminded that these LED functions are compiled as
-modules for Debian kernel config and so the setting of property to
-"power" or "heartbeat" e.g. is further dependent on whether the initrd
-was generated with including those modules. The LED function mode (or
-lack thereof) from passed fdt structure can be set with an override on
-the corresponding kernel command line argument.
-
-> 
-> Cheers,
-> Conor.
-
--E
+--=20
+With Best Regards,
+Andy Shevchenko
