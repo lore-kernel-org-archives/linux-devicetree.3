@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794059936;
-	b=y+fy+vF8dvUxNO0ULDezQHRo9m8OfW0XIAZeXX4Fsi9m/OkMkRR7D50iwuoD3YGep4Ah
-	 baocrpxFs7CNokEquGf/NYuAU/rm/KJG3pyhKZ8ENvK3BUoX/GjUqw80sJwIPsfBr+fEl
-	 K11JQtIJWDWB/8wBBwEuX3vlijNUMt9fAuU2nDRq4bSn/vspPmvdSLkG3Y2wj5ZuCvkmo
-	 1qfwceRjI362r85eiYQyS6AL151CSTL2rXSjvypdLyMxrm09oFPHDxD/vGqUOCD312y74
-	 usLorSSRIPDMXSCzHgb9pyTVTI0xAqDhCW9v6x3j550hv2akacCbf8jvfZPsiKC8TMw==
+	t=1794060009;
+	b=p4vLHlaL6SSf3QrcNJmhIo6AqI7LawQ0X06JdiZS1RSUJC7JPDcIJYU8Ahesg6rqWIYs
+	 wqZj8cNE1+fN3kJzLNZ68LPqw17qYCD98L9bQKabLlztojGr6ky+2yabj8U9TvuYZXql1
+	 RYLP3/TFg4u6GLRG05nUnji/F9+ztb75hHNYRwCOYT3enYilnVHgLjJuCuazCxqda3/v5
+	 Rog7r9kS22hudYy2UPrqGRbqy4dRIghtac3fjz8m6g27Httv2e6dC6hdJmeWBhmiY790Q
+	 gaEevdNkcljs3yYUBt83ZbNemUUt8YWbprM2jTb9iHM0EvYmWfkoWaHrPaPJq4vJuXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059936;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ggxRUmnt8EfrK5EcxblzoupqkjNgWhTE5turDSMEfKI=;
-	b=E+DqnP6uxawzLjAYlZ/wMl4zLINqm+rxmybe6AmzSJ31jSV45UkAXy0FaXH/zAWbGU+z
-	 CdASafnhh3+pxsKoWLVdersOCFuy9jTlJI7dgEArvOrA/rHKlO33i4KDhkds13Jp2F5Vx
-	 J6+9cCc/7U92dfwpJYLTE2fPS6W+0ey1ttxvn2oZ05dTEdnSXGygArf4iJu/koKu+t4ev
-	 5EUHlsdvg9BCzHQ6H9FQ2XdkY9WEeTu0BrnEGdw9QYo3UJk5Q05QqqVytHjL3TF7z199A
-	 eKY3OrDQ80Gh95LUFaC6jsvxTOBfTLmuCxpi/9nYnGdJebJndtVt1RfJCdhilqx0B4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060009;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WXcTlxWH4qnX8oi9ZX69BAlVnoTYRMBFIYfdkKu3cX4=;
+	b=Py73lologJkZPBcnIYgqzRzMK9KKd8oN7790sFTjxEpQcnuX+SA5SEe3jJlDmoIBkqhJ
+	 4/NoT11+47336C9A6X3aqHHIHAy5Mtb4hlaXcswedgRJx/5ET+l2j0Zko4cmSfPkOFCln
+	 IREOayucgQktzSXz2sEaqqGl3L2Hyn6sm/H0QVPfe8ZHRcbshwhJt1Y9N/EPVEoFStNwU
+	 oocAhmWxq+YQLLKU62OWZKU5x5g6iLVGQF5IPdnZvUPO4LHzF5VEIY8SgJZTE1sV71eWL
+	 FfENadnI3jHNPzruuZOmPTkOmnwKF3SOKl8wHqTrTv2lzwSYUjvWKf8w04J3UxOQQPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=bFrtAkQ6;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Gg2YvsR3;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA648606A32C;
-	Sat,  7 Nov 2026 13:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA648606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F70C606A332
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 14:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F70C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=bFrtAkQ6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794059933; x=1794319133;
-	bh=ggxRUmnt8EfrK5EcxblzoupqkjNgWhTE5turDSMEfKI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=bFrtAkQ6tOUYKqXxdmzhmLZTs+vVerVwCQS2wqUgfoqUBHCTqSAGYyW2sk7sa+ytU
-	 5bqqUyliFofSzrM4Lx+tbRQmezdKwc9CBTNXMVvo/gjzu+H92XgQGHHpZHhlIgowrg
-	 W5oxsYadM07IKkJ3+4KHWsfvsh/BJxcweK7aPfFrAk/+cY9dr5EMufjySKmWRb1r4+
-	 Vq/JGbxI7/5IQ/6Q5P3fohRgNtj3YshpOPRWgsKz2/eNyZSuoERSSl9puPZa7BU/9D
-	 Z8Lva58ocSKiVfQjOmYnOw1tZFrK5f5d6czowWDv1c1kRricbK0n3AGcSeB+CsUX4X
-	 UcAL4QekVkb8g==
-Date: Sat, 07 Nov 2026 13:58:45 +0000
-To: i@udp0.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: arm: mediatek: Add MT6833 and the Xiaomi Redmi Note 13 5G
-Message-ID: <ZZQvVFkEtu09SueBM4cpOyT8Lvc5AE5kjAhCYj_i90Yy_HGK05NgwpMXjnrG-yoPdoUOdMZU78ixaR67bHKg6oto5txtZci-CevsM21bJqA=@protonmail.com>
-In-Reply-To: <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 91a443bb6ab5850971b9019c18190fcdd348bbc6
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Gg2YvsR3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=WXcT
+	lxWH4qnX8oi9ZX69BAlVnoTYRMBFIYfdkKu3cX4=; b=Gg2YvsR33DGzJN72X8qy
+	CNy30T0OsdlC2V3QdKzLrxWCZxrgLQ3WXmpjul/Jp/9UjYgiupHoOxGuSFh2q+y4
+	r85SE3TLVp4BroH+vipZ4z4ZYYyrnaAm5nW6uFGjt72OpMhIrdhcg5xAO+kqafxd
+	KIr5rHlZ7l0w4PPpDvC/2IJZaB+k8ihGX5iNmSWu42B+PHin7lPFkr7R5cR+20dY
+	JuhBuw9Q7xSbk8YYUgT0JqTQlMf0rJxD8UGoGomUxj4gk0wHphw+OvoEFWwmbRrp
+	QP8b0tHkfIvV/y85LV7TQ8JfJbIOnWKKYqZGKMnnJLcT5S6ffYUb+o+I8v9lOEO2
+	6g==
+Received: (qmail 2523875 invoked from network); 7 Nov 2026 15:00:01 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Nov 2026 15:00:01 +0100
+X-UD-Smtp-Session: l3s3148p1@i+zUJLBfUdQFFu4k
+Date: Sat, 7 Nov 2026 15:59:56 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH 3/5] dt-bindings: i2c: apple,i2c: Add t8140-i2c compatible
+Message-ID: <au8u3Ndnx3v6RV6p@shikoro>
+References: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
+ <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-3-6c757966a99e@cyberchaos.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,48 +69,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-3-6c757966a99e@cyberchaos.dev>
 
-On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
-.udp0.com@kernel.org> wrote:
+On Mon, Oct 12, 2026 at 01:52:34PM +0200, Yureka Lilian wrote:
+> The i2c block on the Apple Silicon T8140 (A18 Pro) SoC is compatible
+> with t8103. Add "apple,t8140-i2c" as SoC specific compatible under
+> "apple,t8103-i2c".
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-> From: Rui Cao <i@udp0.com>
->=20
-> Add MediaTek's MT6833 (Dimensity 700) and the Xiaomi Redmi Note 13 5G,
-> codenamed gold, which is built on it.
->=20
-> Signed-off-by: Rui Cao <i@udp0.com>
+Andi, since there is no driver change associated, I guess it is easier
+if this goes via the apple tree?
 
-Reviewed-by: Roman Vivchar <rva333@protonmail.com>
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Best regards,
-Roman
-
-> ---
->  Documentation/devicetree/bindings/arm/mediatek.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Docume=
-ntation/devicetree/bindings/arm/mediatek.yaml
-> index 180e6e4948e..900f16b57dc 100644
-> --- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-> +++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-> @@ -72,6 +72,10 @@ properties:
->                - archermind,mt6797-x20-dev
->                - mediatek,mt6797-evb
->            - const: mediatek,mt6797
-> +      - items:
-> +          - enum:
-> +              - xiaomi,gold
-> +          - const: mediatek,mt6833
->        - items:
->            - enum:
->                - bananapi,bpi-r64
->=20
-> --
-> Git-157)
->=20
->=20
->=20
->
