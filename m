@@ -1,63 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794012631;
-	b=sOayPfp5gU5hDLNwZQBi+7Oz+7O1dz57IwSORbUZLjz3l9q5QQhTMwMlPkmGpRwdx6su
-	 vosOnTmV2lO8Lsuwc0QlJeyWLiuQHwvlbFHWchxeN7E5UmRR9mBfgJj1O8rWKliQ8KPHT
-	 A6SLx0ioOhXMB/ujPuzrPHYXNtUF2DyliYp6u/1XvW22m9xk16LgUS5H4p7Cqm8qL8W9B
-	 ztO36IRXRwNdg3KpwQdCoi+8V8U3MCnmZbXmfSGm/xWejNqJChc0jcF9s5OaqtlxYCLGt
-	 ck/IwS2wS6fVHz1/wCAd7sQxHUR67gC+oFhNeTmr4be5APNcOhRLzW7UWKbjycLzkOw==
+	t=1794013694;
+	b=rBTU7YH5OHoSJBcxVPIFTZrj8KsGxDo98gVmolmJWKD6Q6Btf11dxqujEKukL0LTQ+Zo
+	 l1BqnG+4B1di8ZLP+xvJDhPmjBZXO97TGb/ZbIyqGgN4NT9GpJ4w73AkqtBRG3nCAALEY
+	 SGReeUCw+DaS9WTl0lZQK0KCeVJ0AuKETuIKvHm0kqWwOLupvVyaLZut77SXQcGuyzKKE
+	 mpsK2rN3lZuP5/1L2eAvz7PlnrEg2eu2ccOIlZ9guADer0aixc0DCZAYD3U2o7BhGQcvD
+	 hZJlK9X16/VwZy1eqguTz1QJMDiFyosdu6XIlEgvgNaUpIxkk7y+gyLZ9xkUE7ApVgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794012631;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YvuNwDxYdIJYtjv3UiiK3uOyQ+zAAh9DIMTs36nyuiU=;
-	b=PAy0sDOD6PODsVR9IPE4IZTZjd+kVFYUC2b5/VEnlG0qWetCqFm2uFkK4CScfuLES+A5
-	 Z7qT8HQSTMybNTwlxdLzjssTfOM4WG1sCYCDGsRTL4oISTaFFOVCxPM7sjNhRat++x8+l
-	 FjGGI4vSdsjDaD7CwnTz+2WHZuqv03EdmS+7oyw2k3zBvUdD6v8JBpQFKZNhQsJav/JrE
-	 o95myv/Dl8H+A74vfDAk1O/jG54w04bDIRKLz2XTgq9rOdT0+e1sP/ky+KEL2angxvp2G
-	 Oci2mVFD3+Bzawz7cq2igR5G2I5kRBYHZrucyynbtjKU2Jyik2oeqzlgmaUqqBhFQ2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013694;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
+	b=skKx9YaSfgn+qyfD+1Q/5ImKe0TP6EfuujzWUErmaOPB0wgvuJCVVGiZiGKdv96IMbGf
+	 qy3EdCJyFSaflUkhREAgZhqEmomyr1pA5PSnrlVazsnjSEMavNDtBPY65+8Kk2MIW0IxS
+	 Fx87UT6onaYsK3mIS9VnF4UhnCQNeeVyLbXYH+G/DUhYh/QcHaWmTRcs0kuJ0p4LAK574
+	 40e1Ey6zv0OKSkH/j0FyJh3s24warzyBcVw2rRbm1tonyVXAE3lvO64zUrzfWzwp2u6J+
+	 8/6BqF61vtDBOG+BVlqtFSPbZfs/dD2fe8pZ6GrZ7pVjPTID49DoGkeIhOivQxamTyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htAyK+qg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jbim5pNr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IO4KcZ2k;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24FA606D81A;
-	Sat,  7 Nov 2026 00:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658A5606A332
+	for <devicetree@vger.kernel.org>; Sat,  7 Nov 2026 01:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 658A5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htAyK+qg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45FC1F0089F;
-	Sat,  7 Nov 2026 00:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794012630;
-	bh=YvuNwDxYdIJYtjv3UiiK3uOyQ+zAAh9DIMTs36nyuiU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=htAyK+qg6c2lfK0GT5TnMv48XiWiuqvfkjaRI6aIz648REC5Twl5lgxRUHfUF7AZr
-	 JYKZfs4IlF7SkjxB2hREB9PjsIFdHtqjL7dA2Hz4whq34XjGSg7kue/SFOC8uYVJIK
-	 KtJmD8MjKZFcogCkEhEgDerpCqSgttfHva2lc0xaKuhoakzejPR95Mybyq0RoZHHD0
-	 I5kaCRI52JrcRg8ofWtDW0ufLZxiHQVnEz4uOpYFsgzVeC1AJbzIJgDOtNR2GITacX
-	 yiLsdK2lrRYmg8ZEph44mZbs9lqBSevPnIuaJdA99h8LSFfw2/IGs4eTEWYDEHbIQH
-	 U5MuwxO1WqerQ==
-Date: Sat, 7 Nov 2026 00:50:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Patrick Fischer via B4 Relay
- <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Cc: admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Kevin Tsai
- <ktsai@capellamicro.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: light: Add Capella CM3217 ambient light
- sensor driver
-Message-ID: <20261107005021.11405483@jic23-hlaptop>
-In-Reply-To: <20261106-upstream-iio-cm3217-v2-2-d97adde9171c@tsv-stahl-riesa.de>
-References: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
-	<20261106-upstream-iio-cm3217-v2-2-d97adde9171c@tsv-stahl-riesa.de>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jbim5pNr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IO4KcZ2k
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6Mo5YC3696090
+	for <devicetree@vger.kernel.org>; Sat, 7 Nov 2026 01:08:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=XqszqiOkBMd
+	k1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=; b=Jbim5pNrPgMo+g46DRYZjAFuvhE
+	Vr6G6u9Xl5bnz6g9WcIHzXufPefgfrpxGPN6+vQM5xK68i+VNDmTKdw9HS/3HT7E
+	sLN064N8UnOJczaLEC9w8LKnUZH7XnNcPLBssD6EHqSoMAdVsR2TxiI4MSg+JkjY
+	mE1v9RWM3WcNptQ7Uy7bBp7qLwVyekdd4qyZABfxq0rLy/iUKhM5MmsPVUGYg0um
+	WTs1NCVnhnZX5QmM8/Mlq/Asxv7XhAr1SRQXkGoIvsvFcm7B5KNBOSVViIWaGRiV
+	hyYdf57huav//qkoyn6x0MitT+TbwufIsIdrYAHV0GNppL8ldGIUf3SQ94g==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsmyqryj1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 01:08:13 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-67906c453b8so332327d50.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 17:08:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794013693; x=1794618493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
+        b=IO4KcZ2kcUkQLr+wGtUcH7RcYMVk7RcG5c4JBi98/ZUS1w1aGT0uM1CtiE3kqht4uL
+         QsOEccoSC8Xk1zR1bw7ZidpTUufOAWaiQW0YKS2d10VMbzGXwtxVhbzPHGxI20p2STZB
+         TbAffWYgWNntwfzvI4inq8P8hhT/R1UcBYF8IqNA7vq31PuAar/rLxI5MMZV9+ThLAcT
+         HDFzduuqPQjAmzRVrV52JPsnY/PhE9bEu5ci3ikn71b1YbWT4/dusTPyDkYgvF+S4DU6
+         rfEmxwcpCoOF+AdmWHnFLzP+akAd10zs1QQnQ6wGumbYnqqB7VLsm6khbBJyF9XJxT9y
+         jAjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794013693; x=1794618493;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
+        b=2FE7T9vPOAbQQ000LvyfmT50NO7cgU2iqnb6+81Y6N5OaM0Bs3vevdc6XYGnyPTV8I
+         E4MJyknZoUT0MxWxB4ZYOpnEnLy7wLn3M1PsEHin8GQF0Bwa9urb//ycOR5RJ1Dt+HVT
+         7iE5O2XOAaUoX0xmzmgVqMp3KeqPnGILWHMTVGKr0y6FyCuZjttdD3DgbU67K0voVLbF
+         9kb463wCYuvZ3R1u4ij6xjwxFDGY1U8qVX2mx2YJ2xgt3FOThM1ogwUpfSV+V1W2NSIN
+         wWJtL9l280x2tjZNWe6+QvfleHc9PuiQi3uiYjx7Tny6kVjb80OvHhlFGcXSS5uWlJDv
+         VUHw==
+X-Forwarded-Encrypted: i=1; AL+hErHXqqNFqm5Ko0INyHchqyCzUbcvWS3KVy3WKWuz5HMRZCC7iRXJ7auH7498iNA4b87klaOxL+GeR7m8@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oT9RzpujiKaXJCJdCi1Ge7T9HgdoKnJ2gyXjixF3zlBGBsLdS
+	fK6f5d3UFQRq/R9xsA7dzSC+gGddP0dST/vM5rFdnq119PK7/RjN9zstRGCiu37gxi9P+4rH3rq
+	aMuDhrnRY3rWg+8bkPKpNVfwhWVpx7APmrROjdfTQuvBSplMSbAjhntLb8FvCjGie
+X-Gm-Gg: AYBFou1zMsdKnGd+G4EiTAITL/j4Mj8CsvhE8Pxceq5zUurBbf74L4ksEgZIf5uaFvx
+	2dcKeJ9rT3ztIGxpR3ESxH3+AYsp84hMdNTewx0I0ixrG/fjVXtRHbGbT/ZABjW8KTja16oUAp/
+	gJXJjuykjVHAdJdid5bxhiEUqXFnbS29iclrdq+CfkD8dPmN2vm+0+0AZxn7bQlqDxJPe4pXw7A
+	jryIFCDTgBPcMi0T0si+s4p8rf0uz+D+F6eGgXvihmQABv6m56SI+9djRytE/yjsm6jmYSRpq1f
+	NaIdZ37rq7vh34TcVJ4LNFdJ9Zma/VMonrnococ71S3e4nWEV1jsh38XcdLywMex2dHfK8Av9K2
+	vrli70AVEZN7Ld1tX2Cua0UvKhDffsOv3MvjMK3HvQ6NNMGBUfExfXwh0Ij6F7fX2dmVE6RXI2D
+	cw3i103GQgC3yqwqVk4hSknYBdO0P7Sh6OFg==
+X-Received: by 2002:a05:690e:438c:b0:67c:f8c:22ff with SMTP id 956f58d0204a3-67c29d038a2mr256552d50.29.1794013692329;
+        Fri, 06 Nov 2026 17:08:12 -0800 (PST)
+X-Received: by 2002:a05:690e:438c:b0:67c:f8c:22ff with SMTP id 956f58d0204a3-67c29d038a2mr256547d50.29.1794013691939;
+        Fri, 06 Nov 2026 17:08:11 -0800 (PST)
+Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c134f0b5csm3091934d50.7.2026.11.06.17.08.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 17:08:11 -0800 (PST)
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        devicetree@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/3] misc: fastrpc: fix ADSP duplicate session creation
+Date: Fri,  6 Nov 2026 20:08:01 -0500
+Message-ID: <20261107010801.3451213-3-tyler.baker@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,57 +131,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: A7ySvp_0-cR9HS4Lwz2IRMyyrB9kYreU
+X-Authority-Analysis: v=2.4 cv=aNZlOr9m c=1 sm=1 tr=0 ts=6aee79fd cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=fP8dIGKjERIvVM-sKqAA:9 a=nd2WpGr1bMy9NW-iytEl:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfX74MAtTs5p+Ie
+ VmotwIkitt6nlLLzEFvimYQyjtMGQAhpz0vqa518V+pAglhwEZKxNzl4fP5pa1ppJo31rcxmvjW
+ LuU8Q+gY8gLK+vNpwld67+Rgf/pvmV8=
+X-Proofpoint-GUID: A7ySvp_0-cR9HS4Lwz2IRMyyrB9kYreU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfXwyisJYndpBV5
+ ywPLR1RNRhqcoV4zwClt9gE6FffWK4wTwZHjfLhuIqmKedRlLqxTtj6sfan0mZcLkKcGSiVOcXp
+ 7oXtTLF4Z+akj3ex3usRz4JvSbWmm2RIP/j1mDRIY7mQoiDkw95fxhWPi7yDk+jByZdJS9lrUan
+ lo9+27QqBWa3hw+K88NPnlDTum0OW3rrEc8K2OXypbF8WNtmo4c359Mr82qjxfUkQTpycv9Eu62
+ r59ZlIVoov7ThF252ASxD5KpztRk28kEwZZOZAfjMY3PqmF9NBqlnZ1fBcRtXztRQPf9M7TXiWw
+ MjUuhmUuCSqKR5RTw7AWFBB8AcNiDTrsKW8avfBKLr7mok9YoYnnGVCUlKuPE4MFB6AvQYsUOsv
+ Tzc/bgRfxqr8UBJfEm4z6CA6fVXsU5Tuu6a3vSTR0sfv2CLSJm/0+V1t5EwH1s3NFvSYPRTgmkp
+ RVeZNSgO+1cKtHtYGFA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611070004
 
-On Fri, 06 Nov 2026 21:56:30 +0100
-Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
-
-> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-> 
-> The CM3217 has no registers and no ID. Writing a byte to address 0x10
-> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
-> returns the high or low byte of the 16-bit light count.
-> 
-> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
-> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
-> count scales linearly with both. The driver exposes FD_IT as the
-> integration time and IT_T through the scale, so the scale list offers
-> four ranges for each integration time.
-> 
-> The datasheet is not public. The bit fields, the reserved bits that are
-> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
-> downstream drivers (drivers/staging/iio/light/cm3217.c in the 3.4 kernel
-> rel-tegranote-r8 and the 3.10 kernel
-> android-tegra-flounder-3.10-nougat-mr1.1). One value differs: the vendor
-> header defines 4 T as 4 << 2, which is outside the two-bit field. On a
-> Tegra Note 7 field value 3 gave four times the 1 T count, so the driver
-> uses that. For the resolution, Capella
-> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
-> per count at 4 T and 800 ms. This matches both the upper end (65535
-> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
-> 3.4 driver uses at 2 T and 100 ms.
-> 
-> The sensor has no data-ready flag, and a new setting only takes effect
-> when the conversion in progress ends. A conversion takes IT_T times
-> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
-> driver passes through shutdown on every change and waits one conversion
-> period plus a margin before it reads the count. The timing was measured
-> on a Tegra Note 7.
-> 
-> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # Tegratab P1988
-> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Hi Patrick,
-
-This looks good to me.
-
-I won't pick it up just yet though as need to allow time for
-dt-binding review and for anyone else who is interested to take
-a look.
-
-Thanks,
-
-Jonathan
-
-
-
+Tested-by: Tyler Baker <tyler.baker@oss.qualcomm.com> # Eliza EVK, EL2
