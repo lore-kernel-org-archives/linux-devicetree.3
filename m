@@ -1,95 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794173512;
-	b=jMupEX8T14FrwsQozjfTmYVLmNfeTPdNYt70BrtS1MAQF0xXiBTkhKUkzHYkBY9BzDkm
-	 K98OlavMLpUoTzERPq1V6OGRqBMma71xA4UCq7KzZFNZyQ2okNaIMeYJ9R6mpP/mqeISL
-	 wvxmsLKnH9L/qzPw1nHkniBdnUQIZYfgsSZ22AnlLuJoJn/kWBiFT9w57vqw/hplqj/V7
-	 JER02YNXrxNQF3Cb70LYHbre3/c1Gl4W9PMBnO6PoP6YL+zzdwGXsr5mQAXAZQ5a3yvTx
-	 BIdsRgi5ND5YpijhMbJX/qtoRcK4LHn3eJRKP2sHvQsmELoCrGOB98KdiR90y54WFbw==
+	t=1794173575;
+	b=cEeBybHyvLwdjTVtcHFgCHn+xhKYTV/X+TSyXx3iHh7Q/YuY80RI2saw0nSfan0jx6Iz
+	 ixBdlNSdne0zRDggG1nUyTpQC74ZoxPYu5UA0MsgKII/PlUq/uX4qwcuHGNtkgIfw6oN5
+	 PFLxUvVlGqMiQgSpXAZiD7z+kYF6euUaxryDFOQiT5//HiaQg+VQRgJUa86W4MrlpbaBS
+	 NiS7DrLUfzYBQNxH8gaL3CA88MMF3m6Oby+ZPoAvv2yjDQjxTjsBwjwwyCmqCaEre+SxV
+	 0YBe7NVyR6kde08M1dgVpLv2F/ezi0Rs02FhtESjMf22d3tSPGrb2PAJ/ZTLgjPb3Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794173512;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
-	b=tnGtZiycTmmfh4lTi1mvoCDA0zllmv0DizsK9ekdLqR5pjRL6GBxyJRNbJAZA9RknPM1
-	 dEPDU1B84TXPRI65DCDUBgPzfXHz3jZttXa/0z8xLScnjNGlZwNb99LVd6SB2p8HnQxYL
-	 nrh0neQ09+lZvVmNeucVFodmN2X1Rth3ekdIa23jdwWvwaamaFE+8GUx5sabpQ/UizoW9
-	 ehGeMf6qcnxQqOD/hqKTN5MK/q5b7oB346Pob/rgEM/0hSoRF3ZNhRCShkztIafzhVg96
-	 OMvW7qBpj2msDBEv+RbgKiiNBqoVgSi6DKVRc3UOv1dT8vhGbL0C+J3s4BpqD6MGZMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173575;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=MRkypWmWeFdhoKxX3KizCibMFSYPrzKizkCyjnSzBEg=;
+	b=q88Wuy7Mm4cUOv0l8zonJZpvTRntxf0i1ELPa76VL/hEdHQNrdGa5PqzDzJL8TSBeZRO
+	 TviGOy/+Q9rVmr4fHg8s7a2eCjf96ZH/o2OzOJRh2gFMvD9pM+FmMSpjL1Gl4fXtebl94
+	 uxIDOR/Nls8cuyGAcS354mOxl4GDXRp3IOuyOrIdaLw0kG/EtcCa4Q9m+eLZJZ8JSxeQK
+	 ttUU9uT5U0kR57kds5UoMQeCmSHiBu2M2QNN90Z3Oq8/zW9ioNuTAIqrpNl3xrJCB7y2W
+	 HtdDDG6y0lTaeWjNrVfA2apuCvBHySXKdUmchkpNIyKyJvHxioR7xVAhL9hBgwP3QoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MCMpf8kV;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYqGHKxA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FCB606A31C
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:31:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0FCB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B056B606A31C
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MCMpf8kV
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1ae18eb9b69so254626c88.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:31:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794173511; x=1794778311; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
-        b=MCMpf8kVOPjbb/SHSHLMyb3YAsSrk5Ygen+7axWUq9EERpWUWmh1pKPThjwRKn33RB
-         e3pld9f2GzDScf75GDhERsYay2xXa/g63NHXlJvP+8I2WSQQ8juMRU7Udf8P3iFb75BB
-         ucpaoTMO/lXhzEF00DMmocN+mPMwYawtEIHlxzvf5b7cB0bp9qSgqK0qoHBl8bEpC1dH
-         fln7ngajmHHuw5cKXqRWof/6tU8OYAHgxvQ2Fr4KGlAsnfXZnthr9u/Fah5iG7NsWi5v
-         dU8goz797H541pLrKkvITXyYb1OMS6PgC+32/iDLC0Nqw4DGHBHisW58MSmpyZkOCKIS
-         v/PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794173511; x=1794778311;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
-        b=mVtUP+Uer1dqzlEomcyQjbvwtGIvHDOi+2zZMb1OMvumt5OV2BiS8LJ0mtspeb4Ibl
-         vPDSnRnM8DlSkj5Y2iS78zZZkRx4IAefCHFK3NXyESeFDTvL/Ly2QDc0T01UlOO/rh8p
-         a/2x33a1nin3V3si7VJixEcy345HIOGZM1OWD6xyesDqeuungxjCMkJeZSVo5CjTC1jo
-         ZLsRnr6hGm6zsVJST7F8KQ1TmFKo36IMXB3+23zoSRgaYE3C5a+R94ogBGONghk4Vaj2
-         7/9f6upeTcerymBQDMqhnMgKIAgUkSfoAJhz4ODYbt2WkNvGfp1c+WYiQB5yedNf0B5Y
-         ulcw==
-X-Forwarded-Encrypted: i=1; AL+hErHsSw1aPE6kZyDAFbryV+20gp5yXE24j484fa977uhictOi6YRMD8pCA4ZRvPvbqtd5JCEb1CLy3o/1@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vd6N89ytqJSZtGOQwZzZ1h1d/ydX318Ngs2NUA83IdZ5foCHA
-	xCOkbi4q2UnpAc8qIzieWPPr7scN52vwbB12I19BwWwqGNElXPGcJI8x
-X-Gm-Gg: AYBFou39ijIWd1cryx1gAi/4DiASYhlOAzr64Z3MN2sPWJkK+TISn4ayuz0T+YFPGbr
-	RKGv/EzDMOrxMqVNjAd/uKcacxPBbvg3EB1rWDQ5hWbqBxKSQQnKvI6VPemgcnk+z3BMw/4y2hI
-	apvV1TOCt6WXooOF2YNyIZSycGflCfQwV7lvkYeKS55vG6N32mkj7LsfVPU53qZu77SGwXsJZ3M
-	JORQGysbS//4qFI+fFooeAiYTns7NEYmjQhlhiecSXbYaqUrQCIAUk9AlWjPdZ45ccSS87gR0C7
-	pyzrDMzGVlTfjFC/TMrYedV1DFBh1hMaZFX1GXxnS9Aqs8fU/urDRRE8lZ5tge8QPvgAnvHDJMf
-	yP4NA8YzK2zy7JTWj69RzfJskykPUQMMzPV0OrUkYe12R4JQYqbnizUtDRc6sw9zd1sus4cBlmC
-	BD1Y+pCH+4uT34uL2YLndu+t/ruvapT9srnqxKgJIf+0W8U42Caa7qlfbSOfPKm7GuEKUNgfFAQ
-	FtV290GJnoEcMdj7CWS5Dhnn7iwq9Zneds7j0HCqo7SM5U9T4TiJcnPDiVhnNOjS1dqDofQegZS
-	kugR5noqmSPVUvzI8wmuD9ZkufUl6l59jUBohZZhcQ/qjb+n8yDgQ889+SOZFFlHBHkS
-X-Received: by 2002:a05:7022:3a8a:b0:1b2:4da6:bccd with SMTP id a92af1059eb24-1b39fef46eamr3757834c88.34.1794173510833;
-        Sun, 08 Nov 2026 13:31:50 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37560d95dsm7077840c88.11.2026.11.08.13.31.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:31:50 -0800 (PST)
-Date: Sun, 8 Nov 2026 13:31:46 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Nizat Mikayilli <nacht@dxdmail.cc>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 1/5] Input: s6sy761 - apply the touchscreen inversion and
- swap properties
-Message-ID: <avDoui7Foj0eVcaF@google.com>
-References: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
- <20261108-b4-s6sy761-fts1ba90a-v1-1-999b3cfaf82d@dxdmail.cc>
- <sashiko-outbox-203649@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYqGHKxA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149FD1F0089F;
+	Sun,  8 Nov 2026 21:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794173574;
+	bh=MRkypWmWeFdhoKxX3KizCibMFSYPrzKizkCyjnSzBEg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZYqGHKxA5RayEHGHZP1myUa+rWJbLvW9/qv97iIZnxmghOjHQYrqcHPUOAqpHo0l4
+	 hV7g6Q8gqhg/dVXBzl8FSewftgBd0tYUMDsVx5IGRN2P5kilr8ag1r6K39ODA07jym
+	 digHg3kOQxwb46IPP3+FKceluYcid0o1NEFMRlkMyHkbWlqyfRfqOs1eMcQy8Z1QmM
+	 gWJ8t2+CYW6W1ZBiVKH2vEq8lH1/jknfsloYrbPYfshpO1M+AnhscnqWrzZppNwciP
+	 5lL0eTsJSthSeMHhJqoo9jB1zyVz2wRhn0egoPhl0yElTYk4e80Yh1Okx20nABMgAO
+	 yRFj4TStUAjOg==
+Message-ID: <sashiko-outbox-204082@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: Add Tegra20 I2C target controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marc Dietrich" <marvin24@gmx.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108212458.275980-2-marvin24@gmx.de>
+References: <20261108212458.275980-1-marvin24@gmx.de>
+ <20261108212458.275980-2-marvin24@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 21:32:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,65 +59,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-203649@kernel.org>
 
-On Sun, Nov 08, 2026 at 08:38:24AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found no new issues
-> in this patch, but noticed 1 related pre-existing issue it does not
-> introduce:
-> - [High] Input: s6sy761 - premature input_sync() in
->   s6sy761_report_coordinates() [1]
-> --
-> 
-> commit a5e7ac4e0cb3d02e12af7f249f64b3074df9f280
-> Author: Nizat Mikayilli <nacht@dxdmail.cc>
-> 
-> Input: s6sy761 - apply the touchscreen inversion and swap properties
-> 
-> This commit replaces raw X and Y coordinate reporting with
-> touchscreen_report_pos() so touchscreen inversion and axis swap properties
-> take effect.
-> 
-> > diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-> > index 1afa38850f12f..967fd222f0d62 100644
-> > --- a/drivers/input/touchscreen/s6sy761.c
-> > +++ b/drivers/input/touchscreen/s6sy761.c
-> > @@ -153,8 +153,7 @@ static void s6sy761_report_coordinates(struct s6sy761_data *sdata,
-> >  	input_mt_slot(sdata->input, tid);
-> >  
-> >  	input_mt_report_slot_state(sdata->input, MT_TOOL_FINGER, true);
-> > -	input_report_abs(sdata->input, ABS_MT_POSITION_X, x);
-> > -	input_report_abs(sdata->input, ABS_MT_POSITION_Y, y);
-> > +	touchscreen_report_pos(sdata->input, &sdata->prop, x, y, true);
-> >  	input_report_abs(sdata->input, ABS_MT_TOUCH_MAJOR, major);
-> >  	input_report_abs(sdata->input, ABS_MT_TOUCH_MINOR, minor);
-> >  	input_report_abs(sdata->input, ABS_MT_PRESSURE, z);
-> 
-> [Severity: High]
-> This problem wasn't introduced by this patch, but does calling
-> input_sync() at the end of s6sy761_report_coordinates() and
-> s6sy761_report_release() fragment multi-finger updates [1]?
-> 
-> drivers/input/touchscreen/s6sy761.c:s6sy761_report_coordinates() {
-> 	...
-> 	input_report_abs(sdata->input, ABS_MT_PRESSURE, z);
-> 
-> 	input_sync(sdata->input);
-> }
-> 
-> When s6sy761_irq_handler() loops over batched events, emitting SYN_REPORT
-> inside each per-slot helper splits a single multi-finger hardware update
-> into multiple torn frames for userspace.
-> 
-> [1] https://sashiko.dev/#/bug/linux-c1c813ff-e5e5-43df-a3c3-af15e2a7dad5
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dt-bindings: i2c: tegra20: driver-specific compatible for
+  target mode
+- [Low] dt-bindings: i2c: tegra20: missing clock constraints for target
+  compatible
+--
 
-The driver does not use INPUT_MT_DROP_UNUSED so it is OK to emit
-SYN_REPORT per contact. 
+commit 1d779eb91a256c3147a2ce9798c783f5f76b1f50
+Author: Marc Dietrich <marvin24@gmx.de>
 
-Thanks.
+dt-bindings: i2c: Add Tegra20 I2C target controller
 
--- 
-Dmitry
+This commit adds the "nvidia,tegra20-i2c-target" compatible string and an
+example for the Tegra20 I2C target controller to the Tegra20 I2C binding
+schema.
+
+> diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yam=
+l b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+> index 51241c1293e3e..2d7ee8e8750d4 100644
+> --- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+> @@ -13,11 +13,15 @@ title: NVIDIA Tegra I2C controller driver
+>  properties:
+>    compatible:
+>      oneOf:
+> -      - description: Tegra20 has 4 generic I2C controller. This can supp=
+ort
+> -          master and slave mode of I2C communication. The i2c-tegra driv=
+er
+> -          only support master mode of I2C communication. Driver of I2C
+> -          controller is only compatible with "nvidia,tegra20-i2c".
+> +      - description: Tegra20 has 3 instances of a generic I2C controller.
+> +          It supports controller and target mode of I2C communication.
+> +          The i2c-tegra driver only supports master mode of I2C communic=
+ation.
+> +          Driver of I2C controller is only compatible with "nvidia,tegra=
+20-i2c".
+>          const: nvidia,tegra20-i2c
+> +      - description: The i2c-tegra-target driver supports the target mod=
+e of
+> +          the generic Tegra20 I2C controller. Driver of the I2C target
+> +          controller is only compatible with "nvidia,tegra20-i2c-target".
+> +        const: nvidia,tegra20-i2c-target
+
+[Severity: Medium]
+Should target mode be represented by a separate "nvidia,tegra20-i2c-target"
+compatible string?
+
+The three generic Tegra20 I2C controllers (such as i2c@7000c500 in
+arch/arm/boot/dts/nvidia/tegra20.dtsi) are the same hardware blocks already
+described by "nvidia,tegra20-i2c", with controller and target registers in
+the same register aperture.  Defining a second compatible string to bind a
+separate i2c-tegra-target driver encodes Linux driver structure and runtime
+mode into the Devicetree ABI.  In standard I2C bindings
+(i2c-controller.yaml), dual-role controllers keep their hardware compatible
+string and select target mode via child nodes marked with
+I2C_OWN_SLAVE_ADDRESS in reg.
+
+> @@ -222,3 +226,18 @@ examples:
+>          #address-cells =3D <1>;
+>          #size-cells =3D <0>;
+>      };
+> +
+> +  - |
+> +    i2c@7000c500 {
+> +        compatible =3D "nvidia,tegra20-i2c-target";
+> +        reg =3D <0x7000c500 0x100>;
+> +        interrupts =3D <0 92 0x04>;
+> +        clocks =3D <&tegra_car 67>, <&tegra_car 124>;
+> +        clock-names =3D "div-clk", "fast-clk";
+
+[Severity: Low]
+If "nvidia,tegra20-i2c-target" is kept, should it also be added to the
+allOf conditional that constrains clocks and clock-names for Tegra20 and
+Tegra30?
+
+Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml {
+  ...
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - nvidia,tegra20-i2c
+              - nvidia,tegra30-i2c
+    then:
+      properties:
+        clocks:
+          minItems: 2
+        clock-names:
+          items:
+            - const: div-clk
+            - const: fast-clk
+}
+
+Without "nvidia,tegra20-i2c-target" in that enum, nodes using the new
+compatible fall back to the top-level clocks definition (minItems: 1) and
+do not validate the required "div-clk" and "fast-clk" entries.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108212458.2759=
+80-1-marvin24@gmx.de?part=3D1
