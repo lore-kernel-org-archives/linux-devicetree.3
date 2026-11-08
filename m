@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169436;
-	b=U779h1BURc2aZY8mFZdWVMyZuBCMO84sNVuAH5TWVfTAGf9pcq5N33GU/u4ZBiWrX51Z
-	 jBRug5+VQz3ECFuzZ9xe4Xm0l/TJjM2kknfy/AKXrOZcA6iUIbzV+IfC2IlpbcW6keWje
-	 QMyDpnbrXTqyZBeYteVmX9F5mCilT37K00X1Kq7jAASW7TYj+5peDrnno9s/TfHP00lVX
-	 wy5jjWgxzjghnAGWw5OzQmw+9kho/BKablD7VMt0akNPVqrfOXDiIgqc56lIM3Om7Vz8H
-	 bHLHjNYWN+NsJOWJIk/KFDUL2dZpWrHfKd9e9sd6QoxZcTf9BodCNPd8UdNdQWMGajA==
+	t=1794169437;
+	b=alURRHXFotSpLS4XQO49efJtiUHDbjwTtsgRIeASbiksE8oVyAYnYtDgipTn1ltDVVDJ
+	 aIL8epBfQYNq8eaofzu3W+hq2yDAGkzgrOQb7TmG/7Q8OQNMV0lvnk/ul7NuFFEeqD7eH
+	 CLdawOH8A8Rr9xz+e+/NqF20uKn+WrHd75NWGAI7ZTLqaKuC591lEvHdAiDCnxt6iSytn
+	 wmJ9u0A0KaUIEKx7tXb5k7aenEsIdRpG8t0+PMx/O6/CTz+YB0LgeKKM0vN3BF1hs52Qz
+	 smOLG4EEHeQeK3A3Kggr2HqZTk9ze8Mgz5nFEyxXmQRVMX7qzk9nYWNE3QXqeDkDktA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169436;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169437;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=yM062hjqe/L/kjeMXCI3lCF7NxsgX6Rg9G4er0qrnSc=;
-	b=Qvf+IhbXGwj9AeX17G4JsUoqP8oo1Mpj+aYh83rVUZOaPvr5eyZovep/RTbXxrf72v6l
-	 4s8BdEZpka8HjVaPypuAXF/N34YBR1286BDtluhFGFM4I7tkduMi2PsahxJMBSRB8kT6N
-	 fQ/WUbiy10TqgWUHDxNWBIFIlhjEDFHZMyUl4SeUn61Hbi4s0I+A233SjQBL7IXiVqP30
-	 Ld73LbBb12JaguZTf4n2nBqkQUYuoW2S95cekPDjbyPba2+nJB4WtRV8ipxTk0iiLnqea
-	 RoWLZ1XRd/wPclRdrRXf7XKYrbdf3dw8wTfZGIFxqPQxyzlB+m/0ZKKMvYwjaG6M/bQ==
+	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
+	b=Foq7kKeHFmSwd4F/Fm3oRBDi8WtSWDYzGSeslz3+TQHsAd1QU3O0TwzwwLIlUcJddHyu
+	 jYXaVPQsJp/Ifst0Bzq+8sGSbwxSLzqoctic/f4JeQvRDlCnFB2BCh7i8K4DcGfK4beOI
+	 dhuS9ZRadnPeqYOZb515qQ4ri/0xFQ2O4HYQQ52SGIL7801Jj8xGsEolqxa/D76i2olpG
+	 aloz0IOoxxejvdZY95THre6RJmlUgazSIw7WCGCLLT0kR2kZD3bHWWUtj5MwaUjVpRxoE
+	 OPAF2IxdNGuOdlsP9YwoTHKJ+uVVj+iNha3npZ3P3PMRXXnGnatEurVS3HJpQhxrB3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chqM24d8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ABE6075993;
-	Sun,  8 Nov 2026 20:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE660759A1;
+	Sun,  8 Nov 2026 20:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chqM24d8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF431F00900;
-	Sun,  8 Nov 2026 20:23:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403C51F008A3;
+	Sun,  8 Nov 2026 20:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169436;
-	bh=yM062hjqe/L/kjeMXCI3lCF7NxsgX6Rg9G4er0qrnSc=;
+	s=k20260515; t=1794169437;
+	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=chqM24d8IvCNEM0ribOi1Avyo5REYzY2sUgfR9W5a5rLN8w6RzL3+fwrxmDJq38Xi
-	 lSl6rzk2CGeDn27ietQujTPwAQYbhKF2SVBkOY1sjr/ZDSXp+EPikPg48/lxdPlXex
-	 cGG3xUbAiVeLvi3eRafTIiiTBrWuBjTsRStRmi8Y+9BDB2Q/6bN2Ft1PK/rl56cT+b
-	 NzMYwKG3mb8bIj8Iga8klFLx2QX8vDpyjeP5phD+Y1t61xRMLR4t4ZPBCzQ5hr6uBM
-	 9C4j/8VDPBiW2Ya0sRzlM+lg10lQX8eFdObjMH/IJj41I+EOG4idfMzLoAL+5hua19
-	 6aG4vv396AAHw==
+	b=kdYGZXkytXaYNYIpYTNsRR585ps0M6wyXQshAGBRQdNqL6/gZO6zZGoUEnO3SAzzj
+	 +/Intdv6QDH2l8SofaLWkZlfGwkk/5k+cBRpdo+134EZ2cNOCfZtHUcoDXU3DCJm0M
+	 VZ+VsPh1t16tGABQvA/z7uMwoiaVXnkTVkET/JyYQ24i8ED9yJ2vStHq8kCcTOibvB
+	 tn6kL2P6RWSJiX16yn02N323e5RzVI/3Z/8FrhL3eouAbQ1Pf+WEl/Jd94WUfn1Wa8
+	 47ycgCkOdBvlvkdI5F5Zt/uubyV6u0xFTNosc58FxEbLZfo9i6/rs43snKOpc/s0Us
+	 UAKf+6iYckNiQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: konradybcio@kernel.org,
-	=?UTF-8?q?Lukas=20M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>
+	Luke Macken <luke@phorex.org>
 Cc: abelvesa@kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	srinivas.kandagatla@oss.qualcomm.com,
-	akhilpo@oss.qualcomm.com,
-	jie.zhang@oss.qualcomm.com,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-t14s: Enable GPU and GMU
-Date: Sun,  8 Nov 2026 14:20:35 -0600
-Message-ID: <179416929545.628393.4745607631367828558.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
+Date: Sun,  8 Nov 2026 14:20:36 -0600
+Message-ID: <179416929384.628393.4815391569642209330.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
-References: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
+In-Reply-To: <20261014234949.1730808-1-luke@phorex.org>
+References: <20261014234949.1730808-1-luke@phorex.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,25 +70,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 02 Nov 2026 15:28:12 +0100, Lukas Märdian wrote:
-> The GPU and GMU were disabled when the ThinkPad T14s Gen 7 device tree
-> was introduced, as the Adreno X2-85 found in the Mahua SoC was not
-> supported yet. Until then, mahua.dtsi inherited the GPU and GMU nodes
-> from glymur.dtsi unchanged, describing them as Glymur's larger Adreno
-> X2-90, which is not what the Mahua hardware is.
+On Wed, 14 Oct 2026 17:49:49 -0600, Luke Macken wrote:
+> Like the T14s Gen 6, the Gen 7 ships with either a Synaptics touchpad at
+> I2C address 0x2c or an Elan one at 0x15. The dts only describes the
+> Synaptics part, so on Elan units (e.g. 22A7000VUS) the touchpad@2c probe
+> fails silently (nothing answers at that address) and there is no
+> touchpad, while an I2C scan finds the device at 0x15.
 > 
-> Mahua's own GPU is now described: mahua.dtsi overrides the compatibles
-> with "qcom,adreno-44060000" and "qcom,adreno-gmu-x285.0", and the msm
-> driver carries a matching Adreno X2-85 entry. With that, the nodes
-> work as-is on this laptop, so drop the board-level overrides and let
-> them inherit the default enabled status.
+> Describe both, as x1e78100-lenovo-thinkpad-t14s.dtsi does; the absent one
+> fails probe harmlessly. Both share the interrupt GPIO, so move the
+> tpad_default pinctrl state from the Synaptics node to the i2c0 bus node
+> rather than have two nodes claim the same pin.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: mahua-t14s: Enable GPU and GMU
-      commit: 6927620c6c9d10b4e9a5ffa3f1d08be34051807e
+[1/1] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
+      commit: 06b7a31608876dca5a99a9ea528281f2c8dc18e1
 
 Best regards,
 -- 
