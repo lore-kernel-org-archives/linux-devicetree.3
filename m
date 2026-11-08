@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794139009;
-	b=KJlAxH8oVEJdyxsIJCsex+GIYu7AS4HGQaz29WsdjPRGISyW1loUiZq/Q+utVdf59jdX
-	 tgCGPFFKbcOlEKdMaKWGvHntG9FdvyLMAbAA8X1UZie0CNA2mitTn3L6hr0PRnAKJuO77
-	 h27PeOtOCIxS0+oDYCe4U95lUaDm1XSYoUYoBxp2ctHcfKw2x9eDh6W4LB45IKyMPPme1
-	 1abAQY7h17tPMBfXPwuWEeCKlzmYAx5BMO22vWnrW4PDjofccA/4D2hlXI3i1+YMWvXB9
-	 hwxRfjVLlJ3g9FK9SmhEyzNp61ukl+Oa9xKFrSL8ACIDhLJ27ro/KpVqmFMCgbUoURw==
+	t=1794139897;
+	b=dilR7BXl6jFCkNNrts0HTd95MpbnGnK+2Ew3+8jvEHrazFICp3mKWcqilCex4FK6i2cD
+	 n+8+N+v1IQYS218RjW35PwVFxcHBeh7029qp9akJkbfYoi5+96xsx/4Mex9MRSegx1+Sr
+	 hb2eG+rFYlPrWKZJmVz+Os2IbtIaeC3HuCeZLRfUWXEJdEyPQ0/Z2fd9OemZal6MLJQ1G
+	 aHxR/0VpnCsbeiFvFKuUWPO86XPn9MxWA7pRjkIyBxQdPnCB8bk6mlIbb1xVyid38juYK
+	 dybpdB9VRRErpNaWmf0wbYmeZCrY66CQI8+4n/0uX8XOTCtQw+nYuYvxSscx2ot48FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794139009;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Uje4eQfbq0+a+9io0VxnfKDubgT0wO2KafFCwU/e8gk=;
-	b=GEvcdAjYB7Ued0j/15dIv9l2hYL3Lfck27V/JCTMtZN6NThh6maChECu96IXT4yyj3gq
-	 +XfvnOgOIqek6LGJh/mEdJz9jgpkOwakcQpJLWWWbSNEI4IEC3RKTGY8nlTQclejiWgw2
-	 ZyMWx2bPnLgk+EpoaJle/rKVYnRqpHjhn/0T6ffsnS0k2bHLtHpDx4AwaNkBEZKyUC9WN
-	 tbNZ5BROttjnucgrrtgOx3VA9bXuZf03fQru5KimsmV2FOtXhOjah4eKX4v6nkuY2cAMd
-	 w1zOPXo/jflRSqKqyzAjoLC9v3qkoZKpoM6IPpGmUuk3nbBHln5xSwdb9I01WgW8o5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794139897;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=S53t+YVv3ElnijbCvjTcj9y1Ev0v2nk/Dmj5oB/Gyio=;
+	b=AniSZKZ+5FdolvprXdKCZcnT70wFlYULuWO4BFNwnA1KztDdtZ1llJGkmYmfvsp3IXZu
+	 SWcvrgQuETVu8ct3HxjBJG9iTY4BY/ASqwG2KbZ4UJZFaeYRYmT9/bFh3fMfIJG5WdYOk
+	 SZLYFWXvn9ZfhgseLkXtT57YccX4oBwd8IR5RicO2c/OuoOrViHYUErXNNuLP6Rvre35H
+	 29Nhwt6aA+eaHLDZ14LtpkZnBQYUAwyWOG6kUMlffz12x22txDBstHIfq07IV0nyOouzi
+	 lFuzUdwh1aJy0bd0h/aDmV0piIF7y/n675qmcYXr0Ys93Jh/J6qlscNjdDDYfFGDgeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nR5kpjUT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3382D606A321;
-	Sun,  8 Nov 2026 11:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3382D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn_rN9Y_Bq9tGaAA--.19222S4;
-	Sun, 08 Nov 2026 19:56:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] of: unittest: fix node leak in phandle remapping test
-Date: Sun, 08 Nov 2026 11:56:44 +0000
-Message-ID: <20261108121500.3132-1-vulab@iscas.ac.cn>
-In-Reply-To: <20261103104235.1373591-1-vulab@iscas.ac.cn>
-References: <20261103104235.1373591-1-vulab@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0E6606A31C;
+	Sun,  8 Nov 2026 12:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nR5kpjUT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB93E1F0089F;
+	Sun,  8 Nov 2026 12:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794139897;
+	bh=S53t+YVv3ElnijbCvjTcj9y1Ev0v2nk/Dmj5oB/Gyio=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nR5kpjUT4Wz2G43xQ1mhvZSmnOy/blyN/ZgcgtUTv0fvfpnkeB9l1bihpYRrBnqIN
+	 USRotrf/P2EZ3gn3upJextTqLcr4Wgen45hlWDHi9gqqQfRX6TqZUwR68EofUTEupk
+	 X1+mJMyXXU3+sB5szdefkIEjWMK8Fsxa3AA+3oA6lPAdo0/iEfedMfoBQgPiTZdN+o
+	 RNnVsvYw24rZWP0Rh59U2g/LuiT7umvllk0MVqLqC5JIGwPS9Qedi30L4hhTYdXT5U
+	 9AA/kiYT3LrD7CYre4bv9aB/M0WsYYWnWY8wvUzS9k+uxXRmHTktzYpKQiRyp4yjhH
+	 8wl9nRbpc1WiQ==
+Subject: Re: [PATCH 5/5] ARM: mxs: add EVAchargeSE board support
+From: netdev-bot+sashiko@kernel.org
+To: wahrenst@gmx.net
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linusw@kernel.org, brgl@kernel.org, Frank.Li@nxp.com, vkoul@kernel.org,
+ mkl@pengutronix.de, neil.armstrong@linaro.org, mailhol@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+ mani@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-phy@lists.infradead.org, kuba@kernel.org
+Date: Sun, 08 Nov 2026 12:11:35 +0000
+Message-ID: <179413989528.488853.11075194967877927671@kernel.org>
+In-Reply-To: <20261106230746.21954-6-wahrenst@gmx.net>
+References: <20261106230746.21954-6-wahrenst@gmx.net>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,31 +66,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:zQCowABn_rN9Y_Bq9tGaAA--.19222S4
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYS7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCF
-	04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
-	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjUgAwUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcFA2rv4zLHwQADsW
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This post is a duplicate of the September one:
-  https://lore.kernel.org/all/20260917125936.2152450-1-vulab@iscas.ac.cn/
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Please ignore it, no action is needed. Sorry for the noise.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Wentao
+- [Medium] The ethernet-phy@0 node in
+  arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts (an SMSC LAN87xx-class…
+- [Low] The patch only adds
+  arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts and a dtb entry in…
 
+--
+
+ARM: mxs: add EVAchargeSE board support
+
+This adds a devicetree for the chargebyte EVAcharge SE. It is an i.MX28
+based ISO 15118 controller for EV charging stations. The DTS enables eMMC,
+the debug UART, Ethernet, USB host, QCA7000 powerline over SPI, CAN and the
+board LEDs.
+
+Link: https://chargebyte.com/products/controllers-modules/evse-controllers/evacharge-se
+
+> ARM: mxs: add EVAchargeSE board support
+
+[Severity: Low]
+This isn't a bug, but the patch only touches arch/arm/boot/dts/nxp/mxs/.
+Should the subject use the dts prefix, for example "ARM: dts: mxs: Add
+chargebyte EVAcharge SE board"? The previous patch in this series, "ARM:
+dts: imx28: add alternative pinmux for CAN1", already uses that form.
+
+The product name is also spelled three different ways:
+
+  subject:    "EVAchargeSE"
+  body:       "EVACharge SE is a ISO 15118 compliant controller ..."
+  DTS model:  model = "chargebyte EVAcharge SE";
+
+The dt-bindings patch "dt-bindings: arm: fsl: support chargebyte EVAcharge
+SE" uses "EVAcharge SE". Could the spelling be the same everywhere?
+
+> diff --git a/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts b/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
+> new file mode 100644
+> index 0000000000000..75ddde2264936
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
+> @@ -0,0 +1,294 @@
+
+[ ... ]
+
+> +&mac0 {
+> +	phy-handle = <&ethphy>;
+> +	phy-mode = "rmii";
+> +	phy-supply = <&reg_3p3v>;
+> +	pinctrl-0 = <&mac0_pins_a &mac0_phy_reset_pin>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +
+> +	mdio {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		ethphy: ethernet-phy@0 {
+> +			compatible = "ethernet-phy-ieee802.3-c22";
+> +			reg = <0>;
+> +			clocks = <&clks 64>; /* enet_out */
+> +			interrupt-parent = <&gpio4>;
+> +			interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
+> +			max-speed = <100>;
+> +			pinctrl-0 = <&mac0_phy_int_pin>;
+> +			pinctrl-names = "default";
+> +			reset-assert-us = <500>;
+> +			reset-deassert-us = <500>;
+> +			reset-gpios = <&gpio4 13 GPIO_ACTIVE_LOW>;
+> +			smsc,disable-energy-detect;
+
+[Severity: Medium]
+Can the PHY ID be read here while the PHY is still held in reset?
+
+This node only has the generic c22 compatible, with no
+ethernet-phy-idXXXX.XXXX entry. So fwnode_mdiobus_register_phy() reads the
+ID over MDIO before phylib has requested the reset GPIO:
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
+    ...
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy = get_phy_device(bus, addr, is_c45);
+	else
+		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
+    ...
+}
+
+The reset-gpios line is requested only after that, through this path:
+
+phy_device_register()
+  mdiobus_register_device()
+    mdio_device_register_reset()
+
+The reset is deasserted later still, in phy_probe().
+
+If nRST is low during the scan, the ID reads as all ones and
+get_phy_device() returns -ENODEV. __of_mdiobus_parse_phys() then just
+prints "MDIO device at address 0 is missing". The phy-handle in mac0 points
+at a PHY that was never registered, so Ethernet doesn't come up.
+
+One way to hit this is to unbind and rebind the FEC driver, or to reload a
+modular fec. On removal, phy_remove() and phy_device_remove() assert the
+reset before the GPIO is released:
+
+drivers/net/phy/phy_device.c:phy_device_remove() {
+    ...
+	/* Assert the reset signal */
+	phy_device_reset(phydev, 1);
+
+	mdiobus_unregister_device(&phydev->mdio);
+    ...
+}
+
+mdio_device_unregister_reset() then calls gpiod_put(), but the pin keeps
+driving low. The next scan finds the PHY still in reset.
+
+The same failure could happen at first boot if the bootloader leaves
+GPIO4_13 low. This DTS muxes that pad as GPIO with MXS_PULL_DISABLE.
+
+Documentation/devicetree/bindings/net/ethernet-phy.yaml covers this case.
+It says that if a PHY needs a particular reset sequence before its ID
+registers can be read, the compatible list "must contain an entry with the
+correct PHY ID".
+
+imx28-btt3.dtsi also has a LAN8720 with reset-gpios, and it does this:
+
+	/* LAN8720Ai - PHY ID */
+	compatible = "ethernet-phy-id0007.c0f0","ethernet-phy-ieee802.3-c22";
+
+Could this node get an explicit ethernet-phy-id compatible too? The
+smsc,disable-energy-detect property suggests an SMSC PHY, and the ID would
+need to match the part fitted on this board.
+
+> +		};
+> +	};
+> +};
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106230746.21954-1-wahrenst%40gmx.net
