@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169431;
-	b=WIa8xjPixUiyO2VphPaW4+c9T1qQh6f855TM+FwJW6LLDIP+5LgKS8EN5tpfxqkLIVmo
-	 uNUfigiFxsx9ZfoLu72UattjgfU4jQK+FFhZIHulM9o6RNllcikPi16BrZZ6FJB3iYwfb
-	 mgWdEBAiS+r0Cpk9NRpjfakH4zto+OfiqojYrROQtKD9GulzhJLVp2GERvZpVeJfuMoBZ
-	 r6EEEp/FJyi/k4/xe6Wf2vuCV7eLKeoBtGVZAC9KSeHLPYIE1ZVrGGKUOwFd4Ty8CWMBN
-	 LANHEbIawXrF8al3kBitNALbiSwcPI8oD9Y5Q85iruDy/jmY4rohlC/II4lHTBeV+cA==
+	t=1794169438;
+	b=1XMjg8lqeanQtXDRsx/VSMhPABwz8apMEqqn3it/LZ0zMEdnMU0zLvCcfPeqvlIHZEEh
+	 FcjgxnFE24I83T+fV6pRFL+iVcSKQBzNCfO1mj3G4oZZcI+hVjAk4+e6qXFZfRo/Nqdth
+	 VclvqCMyYrUp5c83W/ztCqtldLryjHqs+2r3xKc609/5T7hQzY7z5cxUiYyvXiGPcC28x
+	 +XNb5uxRg59AkvTojFK4j/H5qE1CiZIE09mTLPWczUzfAAN1SOY0m7EArxYAVVdVN0o75
+	 z8ZrhUWaopdQWZ6gelXPaq9xCqAImcOvH3brLD9LxUdlpe6dJD7OgFh+VWQRsT84Ttg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169438;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=DoQ6nAPtJ8l/8dNBg0bwYAbqA1pn7f0aXlCBcs+0TMs=;
-	b=yC/zjsP6hGvcjY50XunKyilMq4cVJVNPuJR4ZrGdY5bkZ6GW50P+gNGgmUaOuGCO0gyy
-	 agDUcWsOYBREEA2TueFWW9C2MHxD/gf4zd0XP+PnaPJUKl43jTRaTLAWx7dbnmR1JsC1r
-	 2FHt5XybFBs2NCtNqwziy8le/bYI1YzQMHHCsBtll6vXcQttkhJW4ZDjytWgG5oHAnf2H
-	 HHMM/P8g0YVvJKwqDdyig7o+Ihc3mgV0YBtUX79ofB4rxgP8si9XdUwDuYXGCJehWC/gN
-	 GKWZNRVL8sDcWhYfwxUaCKQYWwJp3YZ0C3LM9TRVtNYPJSwyOkGkkf8090ok5i6IpeA==
+	bh=dTdrK8MuQRjPFiY73PZo3257dz4/IrE7dUKf2OP1v1g=;
+	b=o+CzBPdz9/9hBzQ91Tgk+xarnSkBnBLAoo1n5AP1l1dbdZx4UqLu+xLWdXuRiDV48HSY
+	 fAjmMF5ulJM4Upst80lkWfUHovdl1SYP8kpWMQDb8XAvwL/N32dfYML8BvQKpOqFMnm+p
+	 1tqx10tbZsc+JAYeCI15Dh0iWixYjqPGxhipX927wMjos2shTM/ZaH5E1pqWtDiz4OVBF
+	 hennRtaZshqof+Mehrw/89bO3lahBfGzzJs39ytwZxbKrFE9JO8Oej22tbxEwAiDW+MqP
+	 u1FjMApVd/meeTLxPOP60FLbAC0IK29sN3+89mHeslG3oW9l6f3kEtN8ujgtwVr2VeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORSUEUOq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ernIW5tK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C9560746BD;
-	Sun,  8 Nov 2026 20:23:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DC160759B7;
+	Sun,  8 Nov 2026 20:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORSUEUOq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6931F008A2;
-	Sun,  8 Nov 2026 20:23:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ernIW5tK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD8D1F0089F;
+	Sun,  8 Nov 2026 20:23:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169431;
-	bh=DoQ6nAPtJ8l/8dNBg0bwYAbqA1pn7f0aXlCBcs+0TMs=;
+	s=k20260515; t=1794169438;
+	bh=dTdrK8MuQRjPFiY73PZo3257dz4/IrE7dUKf2OP1v1g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ORSUEUOqP1JmNawdSzUAW0BCzzDtaWCX5/s4ex5zC2/XU12+58gCEdlFonizypBXY
-	 +AlX98CQeP+4zGgb4bUJWA0D3OgW5pvHVXz+vsttafDwTZNu5Q9eoLQVHbNcTJ82nq
-	 IM62FtmS5m+JJixvxWchFJP3NZnWg0GFRcNrbS2UEgFOjbJE+f+D9UpAqk53JC4ecz
-	 2Ul/9Kr++tVXQF6Bt9p3xlWzNu8WNVLMBlGYE7uij+RFY01szT4a/NlOXqurWaeZmC
-	 r4We3vpKYTUQTBzsw4DhYzVyLf1DKenIcT8Tn8AYbYU5uK0Tw+oYm73AdaM6yTjFbd
-	 VMeg3hgJXKe/Q==
+	b=ernIW5tKT4u+uSest0gkGySuwkQNDbO1DgV2KEj9dQsonC4ONPRi/6rt/AKxXAqke
+	 zI9kFmiQfttjTHEYh/+C69r63sT7k5Fi8B/nk3TxnoiKNgvfMNxBCSSKr+OXOMmESJ
+	 4QxNhLZHS8tOunRWWoCYNb/QaoLKAK/5aR4Xacx9HBmQyPx3aBvZqyzd9L4h+T0WDW
+	 PXKeIpJv8eAjs94Hh0ccfAffSXNfvgqnKl3YO6gNqbbqY/HK+e2GrUNQRlapmx/LN2
+	 crrj6xvp0q7s0Q6m2od5KxDuNCReC4u4xYOEMdHuDmfYrD7T7FKtiE6bjpW8QI0Iv4
+	 aIj6G5QRBWRrA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: monaco-monza-som: Add ADC thermal channels
-Date: Sun,  8 Nov 2026 14:20:32 -0600
-Message-ID: <179416929503.628393.1735702945485310830.b4-ty@b4>
+	Roger Shimizu <rosh@debian.org>,
+	Hongyang Zhao <hongyang.zhao@thundersoft.com>,
+	Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Keep WLAN firmware memory reserved
+Date: Sun,  8 Nov 2026 14:20:37 -0600
+Message-ID: <179416929461.628393.11232917376914155525.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
-References: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
+In-Reply-To: <20261022085844.768508-1-m.szyprowski@samsung.com>
+References: <20261022085844.768508-1-m.szyprowski@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,21 +72,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 28 Oct 2026 15:17:18 +0100, Loic Poulain wrote:
-> Add ADC5 GEN3 thermistor channels to pmm8620au_0 and pmm8650au_1 ADC
-> nodes for thermal monitoring on the Monaco Monza SoM:
+On Thu, 22 Oct 2026 10:58:43 +0200, Marek Szyprowski wrote:
+> The board dts deletes the wlan_fw_mem reserved-memory node inherited from
+> kodiak.dtsi, because RUBIK Pi 3 has no WPSS and uses an external WLAN
+> chip. However the firmware still keeps the 0x80c00000-0x817fffff carve-out
+> protected. Linux treats that range as ordinary System RAM and the first
+> access to any page from it triggers a synchronous external abort.
 > 
-> - pmm8620au_0: XO, UFS/eMMC, and SoC thermistors (AMUX1, AMUX5, AMUX6)
-> - pmm8650au_1: SDRAM thermistor (AMUX6)
-> 
-> All channels use 100K pull-up.
+> This has been observed when the dynamically placed adsp-rpc-remote-heap
+> CMA pool ended up at 0x80c00000 and the remaining 4 MiB of the carve-out
+> was given to the page allocator. The first allocation from that part
+> (a qcom_tzmem pool page at 0x81400000, allocated during fastrpc probe)
+> faulted on the initial memset:
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: monaco-monza-som: Add ADC thermal channels
-      commit: 99b384802d2895172f0306c4e6d846b9fff23580
+[1/1] arm64: dts: qcom: qcs6490-rubikpi3: Keep WLAN firmware memory reserved
+      commit: 8a98dfc758b1a3b0e768e9e0926cd44cb43540ad
 
 Best regards,
 -- 
