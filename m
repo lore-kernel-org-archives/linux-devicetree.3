@@ -1,64 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794134412;
-	b=IaJ1l7yCohR8vTAuQWb46DqmrXxFOPWQIOEMgwf+R/Za5ZswBQGGNqyOt1khHhgqhaYJ
-	 OuWlcLsz23PKyp+F+pNdnqKDpWzPuRUUgqCwyMfF3YRPsCG+RxVafurNKJk43MXsheMtj
-	 FUJ/xvyvLNOGuE0wM+wRdmUrXAXZuLjwH1yqyJudBRD/cReSHq5oRNHljdD/Z6QYaAVMC
-	 4sZMm5Vlb8WqmKh5SqDBIOTY0kuN0BHPlKKCzo4LOACApn93Mfe+5HBksFcXY4zsfvwQ4
-	 12VMPsyNJ+mLxFDV6mkhSqhmj+bxGrXodFbF/7H4/VC0tc/1PFzOfTKv2uOOu1gbP9w==
+	t=1794135922;
+	b=oiGsEuWmikLwzIlL+kIAhIWm2RM6JVFV6oK3IJxdD6eXaeG4nGsKWYjbX/QZ65WvMD/Y
+	 TBklVhl26ggVgwutS9efBWFLm9ujpIMl/dBqxE8wLqhUXAu+6SXeM5THdX7SDeY3KwQhR
+	 Zv6nqC4XmxFoBW9ASKzndTF7xflzkDnbnMCrrleZpmnALPPUH8YrazLszLqeemGDMy7Zv
+	 nx9hmveaJs0Z8USgy4MmS4ImnpJ3819apY+pLJxF3BfNDm4FWfIKezjRdY0bIYBU7EAk2
+	 Ton12I0Jw0Vl+ilJR7eg8IoEmIJYgGzYWS+uRP5rSpLW/Jt1da9uEPLUwSqN6SYlpIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794134412;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=/oqQc0dJoFlJLMVIlgCYb1M6N8vaTLrVMjw9+CYuwJk=;
-	b=OSCjfgOZc7dRpum7CZIYUF4/7acnn9y79Q+oe7tT3juKzgAetZ6sM7K3d/KC3RrHWNFB
-	 noDcyZolKPwAxJtg6uIBAKGqzRdvBL1HaJ5NO61muGwm7ZgNaSzLArFv+OvjbPj1Mv7lH
-	 vQGtm+BfGXT3Bk3a7SpFM7UQ4z4VUY+U7F+lsbvoA0p0rAesAHKqRHPNOk2Hjb6s9tj70
-	 u4CSceL6OAj3MekK+6XFhBhhEM3NPzkubdhFaBqf/0Q8Pp3LWIokcGV89pTmA8LK+IeE2
-	 2I+kucquMS6v4j5E0u8O26pS3Nc5Gsze2fAiHqtorauWajtTAt5kZUC5EqwZ6m0w3cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135922;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5GTPSw8yoiId+WhJTx6l9BtpcfJ94gwfuNXWiBrjWA4=;
+	b=sy/lUi3SGPPMALkxfv7BqPhiCpJtyorMLONevZFsy7iQenvQ0iDGx501796B1WDrnjh/
+	 zTs/jZ40ThIQk/ryBOLQvopOeEe9PfINhfJX8OpWlMokEbJHZMGKO/v5y+dZvtaubaoEh
+	 r6lNCw4DcNhM7RxB40xPgrui8R8L/AQFblZOglK49++21ctP97JnyehdPwnwCobJRglR9
+	 tMWg3dqZmtGL0Ywx9KN1fJbj+d6AsdK7nQ9qzyyZWcG02CCxiK/o7vO5mb3jwD5HuIkyl
+	 W1ovkmXO6RkoK/zdPI0DCz+V73W+//syJ4Way8oOZj7akgRdx1DcwZQINfx6MnOW3uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGCMu8Dq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th5tIDew;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F147606A31C;
-	Sun,  8 Nov 2026 10:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C44A606A337;
+	Sun,  8 Nov 2026 11:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGCMu8Dq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74B51F0089F;
-	Sun,  8 Nov 2026 10:40:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th5tIDew
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7741F1F0089F;
+	Sun,  8 Nov 2026 11:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794134411;
-	bh=/oqQc0dJoFlJLMVIlgCYb1M6N8vaTLrVMjw9+CYuwJk=;
+	s=k20260515; t=1794135921;
+	bh=5GTPSw8yoiId+WhJTx6l9BtpcfJ94gwfuNXWiBrjWA4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XGCMu8DqufpBi3PStdQBCNIgVQ2xyFTlhyBmB0ti9p27HRzsOSK5Zv8k9HX/INt7j
-	 uA+pvrSRdsbBZxTYhmcFuj7lowRA95QqIPMm66kom6FinBiPqZ68n8wTMDdoAt9G4V
-	 nuOzxgvjQFFnVl3n5HrRpmFL56EePO0nOe5YyHtWUiB6bC3wmhr3nLbPIHbSHYVGdf
-	 qplHvNIZUSk/A9Clp3BDov/eEOgzbWTtsh4wkYmzGM69HeXBwYvz3HKukD+Fnpw3Nn
-	 /O/B9oT9YxNOLGfwD3KnhYOD/wBAzqCyjeJij/btn9haPYDq4FGtf9b/+mhU6NyzN8
-	 36bHbBeY/XMKw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id B6AD82BDF3F3; Sun, 08 Nov 2026 10:40:09 +0000 (GMT)
-Date: Sun, 8 Nov 2026 10:40:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v1 1/4] regulator: dt-bindings: maxim,max8907: Document
- io-channel-cells property
-Message-ID: <8a10a4f6-55ac-43d6-84c4-7c362c2d8373@sirena.org.uk>
-References: <20261108095634.100517-1-clamor95@gmail.com>
- <20261108095634.100517-2-clamor95@gmail.com>
+	b=Th5tIDewprZendX4fGigw2vL+8B1sr/APy/gtFAfVfQbS6Lk2IhTZpZA5WLxIvgtJ
+	 j/L5UqaKKe48k3fkMYGmV6bII35mRZZbn6CwZnuzuiCAzemSUUXvNoELHQ2ONuX4iL
+	 UTro6N5WVRrvVYbuoHwHPeoK3huWHGz9+LEO25VRTXpW3BkKMf5L0mJDWuZFvZCaLp
+	 rQIs2ITzWhuEBZJtF9A+ErJoBM+350SBMkJ6vpoNJHIa18H8plUq/3CaNZWmHMywZd
+	 VKrluIioL8pbB880mGbp917rCZDAWn59BtwIBa7rEcyQJRC3/MQeiSi2IX/BKMHJSb
+	 gTOT1W1JropBQ==
+Date: Sun, 8 Nov 2026 13:05:11 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
+	david@kernel.org, ljs@kernel.org, liam@infradead.org,
+	vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
+	m.szyprowski@samsung.com, robin.murphy@arm.com,
+	baoquan.he@linux.dev, pasha.tatashin@soleen.com,
+	pratyush@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, kexec@lists.infradead.org
+Subject: Re: [PATCH 3/4] mm/cma: reject CMA areas that overlap the kernel
+ image
+Message-ID: <avBXZ8iW2XPyVbmF@kernel.org>
+References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+ <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,33 +64,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9YJuTka5+MAlnv5C"
-Content-Disposition: inline
-In-Reply-To: <20261108095634.100517-2-clamor95@gmail.com>
-X-Cookie: Whoever dies with the most toys wins.
-
-
---9YJuTka5+MAlnv5C
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
 
-On Sun, Nov 08, 2026 at 11:56:31AM +0200, Svyatoslav Ryhel wrote:
-> The Maxim MAX8907 has a built-in 8-channel ADC. It does not require any
-> Device Tree (DT) based configuration and is folded into the main PMIC
-> node. Document this behavior.
+Hi,
 
-Acked-by: Mark Brown <broonie@kernel.org>
+On Tue, Nov 03, 2026 at 09:54:28PM +0530, Radhey Shyam Pandey wrote:
+> cma_init_reserved_mem() takes a base chosen by its caller and only requires
+> that the range already be reserved, so an overlap with the kernel image is
+> indistinguishable from the normal case. cma_activate_area() then clears
+> PageReserved on those pages and frees them into MIGRATE_CMA, overriding the
+> memblock_reserve() of [_text, _end), so live kernel text reaches userspace.
+> kexec reached this until the fix this series builds on; a device tree
+> placing a shared-dma-pool over where the bootloader loaded the kernel still
+> can. Reject the overlap rather than let such a caller corrupt the kernel.
+> 
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+> ---
+> Changes since RFC:
+> - Drop Pratyush reviewed-by tag as there were few changes.
+> - Trim the commit description.
+> - Drop the redundant comment as suggested by Mike.
+> - cma_overlaps_kernel_image() is kept as helpers in asm-generic/sections.h
+>   are virtual-address helpers.
+> ---
+>  mm/cma.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/mm/cma.c b/mm/cma.c
+> index 9c53b2b70dc8..3231a53161cd 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -31,6 +31,8 @@
+>  #include <linux/kmemleak.h>
+>  #include <trace/events/cma.h>
+>  
+> +#include <asm/sections.h>
 
---9YJuTka5+MAlnv5C
-Content-Type: application/pgp-signature; name="signature.asc"
+You probably don't need this.
 
------BEGIN PGP SIGNATURE-----
+> +
+>  #include "internal.h"
+>  #include "cma.h"
+>  #include "mm_init.h"
+> @@ -68,6 +70,16 @@ bool cma_has_dynamic_base(const struct cma *cma)
+>  	return test_bit(CMA_DYNAMIC_BASE, &cma->flags);
+>  }
+>  
+> +static bool cma_overlaps_kernel_image(phys_addr_t base, phys_addr_t size)
+> +{
+> +	phys_addr_t end;
+> +
+> +	if (check_add_overflow(base, size, &end))
+> +		return true;
+> +
+> +	return base < __pa_symbol(_end) && __pa_symbol(_text) < end;
+> +}
+> +
+>  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+>  					     unsigned int align_order)
+>  {
+> @@ -295,6 +307,15 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+>  	if (!size || !memblock_is_region_reserved(base, size))
+>  		return -EINVAL;
+>  
+> +	if (cma_overlaps_kernel_image(base, size)) {
+> +		phys_addr_t text = __pa_symbol(_text);
+> +		phys_addr_t end = __pa_symbol(_end);
+> +
+> +		pr_err("area %s (%pa, size %pa) overlaps kernel image [%pa-%pa]\n",
+> +		       name ?: "(unnamed)", &base, &size, &text, &end);
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavBRiQAKCRAv73Ows9A4
-iU1yAQCZ8UjvKNX0t+kI0niKdZhnkKDz0wQaMx0a/UXnkq/1lAEA6BgdpS5JuJ+F
-MfhVlHX2nVHLcEY0wVgohG9KDejOJws=
-=sYYo
------END PGP SIGNATURE-----
+We don't want to expose addresses of the kernel image.
+I'd drop text, end, and probably even base from the printout.
 
---9YJuTka5+MAlnv5C--
+> +		return -EBUSY;
+> +	}
+> +
+>  	/*
+>  	 * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
+>  	 * needs pageblock_order to be initialized. Let's enforce it.
+> -- 
+> 2.44.4
+> 
+
+-- 
+Sincerely yours,
+Mike.
