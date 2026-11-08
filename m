@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169520;
-	b=CFoIIfRL2v/OSjdImfIbOCygLcOjPGUSV2XUd//4vqFgdSQsV3dDn7bXUMeJeqD+vQDP
-	 LPdQLOyUihZ6tDpSCNpqZTvMgpgk8dO8F8ph62Bi/aX6NTxjf/aS/K1p10PpSJffES0gf
-	 M59TI2M/7bh8vVEM/q33BO9aBEU1JOJZHpzkpGp6Il0PcnrmcgRLPYKFXS1hTP6GBLeoN
-	 C5m/M1umGZiasVeSeFYbvgoTFwOuPTFRQHcuQY0haRrgZMDb+S4CNjYwBxSM2ZzFxlttY
-	 qfAyHhcuhKngFW2X8bFt7Fcz1dcfoHo2qNM7wx90QkX9lqHxl3yQb2kC3SiWU0Jp/EA==
+	t=1794169521;
+	b=4ETmProz1Sqk0kJFqJM1fAzyqUWivy1K64yU0PTDAWlw4J+mugAh7xSu9BO2wXIGRyvx
+	 pEoj8CuuebibDlrh/qgLrDwo8WVJXsVGPP0LL5P3j+qJgpiOJZyJgVjmPUlqkq9EQAmVm
+	 lKmvxfkzOz00li3bpH8ffmzrSwlHZ1FLaJVNHv1AEPGqAKJ6lKngOLr6pTfE11q7RveoX
+	 VCcvyJeuawffiGjv9edcVbFm6/IwH/cWBkREoj4ZQ9DYLL8tWEENwDB5B6P8mCuPkHKgb
+	 UyynJ9kBdxyr7M3z3qTAwOu+g7fndNuI8ZkGv0zZ9l/ldNCADIw6RQ6vdopvBRRGCbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=aLvmnC851A7XbGCzsRFhco3Qk9QcHGmyD6fbbBrT1HU=;
-	b=0K0HPSwYRboCdNpSqJ9ILXWNtATcSzy7Fs1pZVePo0SXkp6l2aCLlwIFgnuOR4deuueV
-	 UGEMgQT6GLEgYtWokMqza+Yqci1RGcfwaedbNgm3beiJrUaMOe7IRv56+Jx/EVx9SJy7+
-	 4uiCgyMniJ1cbUCM8gA28qsY3riDmq0IAtpDKyf0Bg1siSAscIq6KhUbxQ0ZnVN2dh/9H
-	 RUTHX0y2ffBdJnkPZbG/3DNHg+HGSIxx6HF3ykk9eUDpO7ZmNmDgKBQtDfXChSAPORGng
-	 Y1HWKjy5uFi+TKDMALIK/IZzGQ+CCPJbO9R33kvfucjPQJsN60ltlKRB84yqh1DuZfQ==
+	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
+	b=MXl25QY8naUEx9neWFw+yLFBIlfkxMOBH3LEW1NBMITt2d8M5QBJko61s/f4SUsCkzm+
+	 C4X4+ULamx6lTmxepfSXmbL4MQWym2K9iMSGByRRQDv/ji78opaM3gpk+HcxtmBtdW+Yx
+	 IIjqj4mRYbUCCvYylNMOjH24Nghl0bZuvCwbj6OxwXBN0KfpdzGyfhpt2mK2weyyAvxYJ
+	 wxkXzkq7tW9jVcFioyWPuEPy/yXrRyisSnULR4NTA6B+ZW0UVv4sUEWRe74Fgx5PWNn1x
+	 ZfkvoC/VkVwJbk2SbzUxzuzuQ6QlNhIArQT7Q+mkGXDDpEoBGF2kXRDSHncq/USR9Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsHvYw4b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B8D606B108;
-	Sun,  8 Nov 2026 20:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2257F6084EC3;
+	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsHvYw4b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B611F008BD;
-	Sun,  8 Nov 2026 20:25:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF71F008A1;
+	Sun,  8 Nov 2026 20:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169519;
-	bh=aLvmnC851A7XbGCzsRFhco3Qk9QcHGmyD6fbbBrT1HU=;
+	s=k20260515; t=1794169521;
+	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lsHvYw4bLHBeSz1CnFlVfpfhlvQ+2J00fZtveL+hAacoDNcp2G0l3r1BPUPndoSOr
-	 hdPTVZk3buQtWAggOgDdRXd+2ZaPm3HGo8CnVclSqvqp9iOWJLgQC66nQA8sZ5RRLU
-	 Ejz6QUV/+fXaqoVAuBK25F14k1d8zRnJtt1L1ch9DSFEnHVxWyetPsw1/ojWJo9hWn
-	 G5e1zMTX3nJMXq9fOU1OQo2MHx4FkqSj0e2XTj2MzJcoEDc4/gSoh0AMEDnRfA0Z/S
-	 T6QSSBYRX9Bt5fQbhKASEyu+F3SZJ21qBNXUkSKhI1J6GlN5DiHaPe5h75WgexkBwb
-	 qYekn4JwwERww==
+	b=MRTLVRXqnEB4tqbuH3Rsb518y+8jeXhsYVumYW6MsHoaTw6gTdRIUatM8z+FJHMjr
+	 0yY5GeJniQgDIE2wUywKNwuInao8PgfQ58p69iPpuhCL/Ex2epvWgd0l9ZASEo82mQ
+	 sPgSfgwvpiUFkSSBVhASmW7HcHql2ril6hzjGNDoKjHsTi3YnMoTHjfiLAGCshouOJ
+	 8I+rHSWoAbW48l5EA9wpYB//6Cag0kDIb03/u8SDjoPn7uUn5ODMeypSBUC7PtzsLV
+	 MihM8FjdcFO4xofwfei0c39UGo/vRV99rxi2axCv4jvw3DsppV9lvTwsF1R7ciijpX
+	 aQW1R+/oNNSsw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: konradybcio@kernel.org,
 	abelvesa@kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
-	Xin Liu <xin.liu@oss.qualcomm.com>
+	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tingwei.zhang@oss.qualcomm.com,
-	jie.gan@oss.qualcomm.com
-Subject: Re: [PATCH v1] arm64: dts: qcom: kaanapali: Split cluster power domains
-Date: Sun,  8 Nov 2026 14:21:38 -0600
-Message-ID: <179416929438.628393.13491263092245796078.b4-ty@b4>
+	tingwei.zhang@oss.qualcomm.com
+Subject: Re: [PATCH] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
+Date: Sun,  8 Nov 2026 14:21:39 -0600
+Message-ID: <179416929512.628393.7892490884985269075.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020063721.2306679-1-xin.liu@oss.qualcomm.com>
-References: <20261020063721.2306679-1-xin.liu@oss.qualcomm.com>
+In-Reply-To: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
+References: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,22 +70,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 23:37:18 -0700, Xin Liu wrote:
-> KNP has two CPU clusters (cluster0: cpu0-cpu5, cluster1: cpu6-cpu7),
-> but both share a single cluster_pd. Even though their domain-idle-state
-> configurations are identical, sharing one power-domain node means the
-> kernel's PSCI domain idle refcounting merges both clusters together,
-> preventing either cluster from entering idle independently.
+On Thu, 29 Oct 2026 15:55:43 +0800, Yuanjie Yang wrote:
+> Add support for building an EL2 combined DTB for the
+> hamoa-advantech-som-db5830 in the Qualcomm DTS Makefile.
 > 
-> Split cluster_pd into cluster0_pd and cluster1_pd so each cluster is
-> tracked separately by the PSCI domain idle logic.
+> The new hamoa-advantech-som-db5830-el2.dtb is generated by combining
+> the base hamoa-advantech-som-db5830.dtb with the x1-el2.dtbo overlay,
+> enabling EL2-specific configurations required by the platform.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: kaanapali: Split cluster power domains
-      commit: 2f8809488d2a563ffe6783269a8cd6fe5cc4e114
+[1/1] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
+      commit: 0040fe9aca53ffdd9e71f39462d8e40517f7bd3b
 
 Best regards,
 -- 
