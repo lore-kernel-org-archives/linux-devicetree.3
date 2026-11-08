@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169483;
-	b=3AyeHYOKr+n3jlJmxlGsm0p+JLb0VVgCDv2bTEEe7Lhu71CUYugcxIGEhEuI+nWRrzUX
-	 fyYs+aeZn15ZPneDa4CMLu/QiVpows0/rVFDxSs1sYoHV8bnqcDvYQq+dLxzPeKhPX9A4
-	 7r4gvdA8d9u7HlnJ86UGdBuRUOOP8pOAHliPgqCCs7NzYnNz1pDYcUDK77ktZnKAFOCtu
-	 sby4wnjg4XcorOIm1/Nnz5fNp/PurWEqpsO40WRo5hzcn4mFcfQ82+nq+loEcMVs6Z7/W
-	 /vxJ+npgL0LUepybKUn42C/NwPO78VZCmMyUBTLJhdsVSG5nniDXYYRCfoK8UPNliew==
+	t=1794169491;
+	b=xwqXpEQYIfyVCtwrrpEKZZ0bBoISkRvTTAGPaRE3sYfvpk3h2aGrlTqvgJTf6Cy8/7iu
+	 kZHYCTuDygeEB3PNk6CDBVLYnG8La7a7HMQ0QcmK8Bu1SkwOV7Olu1zZSoJs/Y/NrIiIR
+	 NwFlAO8oidbvHyTLBi75pzIgoIyaX0vpWbWrrvHv0fV5fxc1jWofH+w//qYnSH5spkxWm
+	 ZKwSFEPG78sU9f+iU8f8qxa+xl9OvHN2s8sv3E7H04TByNMnAc+UBB9oiBnsdTTU/hPBy
+	 Hn5C0/JWgdzW0nfpGawJ7f3Ui4XJi0NkZd0TRGDSKsZrMttaGlEHHptzUnQCH9kIpNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169491;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+DxLqfIwOo7VRlUwx6jolu+5Jmc67RJLG7kDcqyLb04=;
-	b=aSpQ6dAl+FnFm1OtRaEzAQTdKLLCTD+8eXEig+p9ELP/qh2M0f9bmURJk9qWH4khxoe6
-	 /y1XWoAHeC1Jgrm/HJxe23wpU9jdmRVYuVejIojLzWOiyRSw9TQlXiadxsrRHqRpK66CT
-	 1WSz1S7Qgs+q1ac961ZF1/18IY8B3shz90lEbSAUh8tOO+MUcf/ELoVoPom5bLir2kRaj
-	 REHzjC4MVBX03E09Xtlrthyv4JCwXtYbmpPUOYARGIluCxtqWO/pNKqtBH0+IMn2c7jcr
-	 K3whkBbT95paEZgYGTA9ushahaEJxIGq6IVfFsbRmaLRZVKbHkzyVM/mue1ZFnOKx5A==
+	bh=EkXXX5fq7vutAl1QGldgEPxD4Ya+/h+78+WTSiWEBck=;
+	b=xkj2VcXXxYoj/yyHKhSm0pO5UE/8UuW7tvfushUv4YpIGm+XStfATGNEmPt1f6PhwtZS
+	 X8t8vTToWWrqw9f+69isoDYCzg9ryjKFgfuFFry8eKW5abFwXO12+mVDHa7DL17pguuuP
+	 6NQ5oy42rmHW2Ijstn4dQrkxF0aAZoK15GR/K1c+z5nB6UFcQpC6mai/UyhP837EpTMTw
+	 CYAoQ8BLk9cRPX5EtrL+zWVbM8MH5T8qJ0toTj2VDgEK+372vzca7Mm3xLVw6ZunIZ40d
+	 z0zf+GvX+h45BOL2D4NUQzQAb8o3o0h9Nfe0YYNBQbWXbGfvolRCpHxrR/u3Tex0N2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDki3D5+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWC8av7P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF0F607E4B6;
-	Sun,  8 Nov 2026 20:24:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA3C607F916;
+	Sun,  8 Nov 2026 20:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDki3D5+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08BF1F008A2;
-	Sun,  8 Nov 2026 20:24:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWC8av7P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD6E1F008A1;
+	Sun,  8 Nov 2026 20:24:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169482;
-	bh=+DxLqfIwOo7VRlUwx6jolu+5Jmc67RJLG7kDcqyLb04=;
+	s=k20260515; t=1794169490;
+	bh=EkXXX5fq7vutAl1QGldgEPxD4Ya+/h+78+WTSiWEBck=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eDki3D5+q6G1OZevm7cto9dCalFzPxfeUIZa6LfzTnm/mjweblbBv9lV4kGuPIKsj
-	 vAipsOW+97rXvQJadIkMh9FP1tMj9uvpNlP5jh4GCKTNjQRXHidflnL919XtEg5c57
-	 5ocN3ImyV1UFEtz0tnPGqI7V79amcVy+vLYqhlxLKjTsQ/cg0KkM6O1DhsEFkrlC6L
-	 3ouoz1ZbDli+c4zjLCY467kqdgzIOtESwtVSpCO1YRdHvEJmvNBnqnS3ElZrthYc2Z
-	 /6b/rU3C8tdoAW+FPNOoMS2w5afmEn0Kkg+Y6ghcbKw/rmj/Eh+c1nnrXYx+kQSLj7
-	 psjT6nr5X3G7A==
+	b=fWC8av7PgUz9UReiWcf8qpvpkJM6NG+OmMrPqbKBd4FNQIk4BjaKBwFbCSLAS5tLk
+	 z1excnoZTwwzUlKC82uDP5+B5krL9hU6cfUILmvwc3PwHB5rzCMg0r1iqXmgTZ2s86
+	 xcQViRo6UyJAKCAKRgyU+XNZcNdXqdrbMiyHmk/Ec0dwvb/evdVwJ95WzWNPcENNLy
+	 2UJ8LihNkelHBeBe9MV2fQbrVYJEnaY+U1mEL5bGBiiHsSCfuX1WdhrB6MwTQfkd/P
+	 28v7fjnckLZPHE4M0Bh28Jw2b6RfFFx4pmiQgktklsSLmuIUALnZKewRfUikAn0mSu
+	 3krfjGabaMvWQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
-	Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Xilin Wu <sophon@radxa.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: nord: Add remoteproc and PMIC support
-Date: Sun,  8 Nov 2026 14:21:12 -0600
-Message-ID: <179416929206.628393.2926818723732467339.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	dragon@radxa.com
+Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault interrupts
+Date: Sun,  8 Nov 2026 14:21:18 -0600
+Message-ID: <179416929381.628393.15500834185988130981.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
-References: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261014-sc8280xp-gpu-smmu-fix-v2-1-eaba3afecba5@radxa.com>
+References: <20261014-sc8280xp-gpu-smmu-fix-v2-1-eaba3afecba5@radxa.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,26 +70,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 20 Sep 2026 16:49:14 +0800, Shawn Guo wrote:
-> This series adds ADSP and CDSP remoteproc support, the SPMI PMIC arbiter
-> and the PMIC descriptions for the Qualcomm Nord platform, and adds the
-> initial device tree for the Nord Ride Embedded board.
+On Wed, 14 Oct 2026 17:27:48 +0800, Xilin Wu wrote:
+> The GPU SMMU interrupt list includes PMU interrupts as the first two
+> context fault interrupts. This makes the driver register context fault
+> handlers on the wrong IRQs, leaving translation faults unhandled and
+> potentially stalling the GPU and preventing recovery.
 > 
-> Tested on next-20260916
-> 
-> Dependencies:
-> - NMXC define: commit e484a765f543 ("dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index")
->   from git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/linux-pm.git dt
-> - Base DTS: https://lore.kernel.org/all/20260903140617.441111-1-shengchao.guo@oss.qualcomm.com/
-> - PMAU0102 thermal: https://lore.kernel.org/all/20260830101025.191697-1-shengchao.guo@oss.qualcomm.com/
-> - PMM8654AU RTC: https://lore.kernel.org/all/20260904074541.590485-1-shengchao.guo@oss.qualcomm.com/
+> Replace the context interrupt list with SPIs 680 through 688 and 703 in
+> context bank order to describe all ten hardware context interrupts.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/6] arm64: dts: qcom: nord: Add support for ADSP and CDSPs
-      commit: dca3e74978c47d69688df0d6b852719db09d05ce
+[1/1] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault interrupts
+      commit: 89083b1e9e315805a93ca6a6e4c3515c7855b0a4
 
 Best regards,
 -- 
