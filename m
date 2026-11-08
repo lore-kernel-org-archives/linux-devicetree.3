@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174249;
-	b=kCKw/yED7m9xtb4heX3mvg24tGUZNfP45/8bha0yAf3v6TOli5qdQvWTzmwlMtRZFU75
-	 a9vJ5Sq7vwX+K1Rqau/L8A+KBb0CWjJgKl5BBQWC+eB79EgqsFjlYbZ4jZwSzH37KhVHI
-	 lcRj3vrtuE2EeLzcGIuj9RxcupSMQhQ74YxnBWnyeG7QDzFosInBCyYpiyPi4S4jbCLp9
-	 1r3oVb72R6+DImGh67k9HzXXcALBxDET4tQL10hhGD0ZSZH+MTwmA+6XguuMNz3dn3lK7
-	 3w4ITT5BvelcBG7HbjgOlUJyhqWHn/W+Ji96gFsWuqVEGRMx2QfTYC6rfvvxr6KALMw==
+	t=1794174254;
+	b=bp1aN2vN6zgsohQxXNkPpOxarbuB/47f4Xq/G+6xQzt9fVtI3jwnacK3lq5agT9qcYqn
+	 l+opBiTZnC30CzlsNfk9JyzviLqy4ZCp/twVL6XUHdJ/fXdjH01gAUc5jIackF7cQorBi
+	 73TJISCcUzLLt7rbPOhbvdrBLKt9k063PgxqSF4gZZwWI3//wPwdIf8oSp2zfn0cnzQYw
+	 ohjYPpQ+qeCbmr/3FfIg+a7fPay1Eqe3VyLS+49Gt+XIzTv/zihyFGANdUBvLhsXfZ7Im
+	 g3asV4YxKpXyF4+usWmmwIM15W+bfTp7yj+fOFVkxTL/2plfAX60nm8y3sB/h1x0UxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174249;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174254;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=GiQf8J1mxKPhKnR2sI/CKk3x2cIlkp42oHh9MXFfHIY=;
-	b=3MkphdGpg08C+y7wcafsDbrs7zB1uiXNasbuKPgz0TW1ip9HdOxkhJP4E2wgA8gdHoMH
-	 Hghu/3hi1sm3xjwj6KwryrairNu0wQU8H6C9c4bhohRp3JN7R/fpfeFMDdIMfI+BeDsMG
-	 93ky/EgPszgcmoBGCidWs2+HRpQAHX8mNWjQfGtqauZQKt68bYufWFR+/fxektWpRSc0J
-	 Px3dxcT2KykcddGU7rI5/QbbZ+34xb5fyfExLqHwdHedShnoIftXJICNu+3CCQHpbwKy1
-	 QkilDJLyRCawi8Fcohgu7CwH81PHjMkTTYfuta7N3AmVKxwF5c95O7GOrLReClSGhBQ==
+	bh=d+jQ2dHrLpC84kMshJM1dXjLTtypFksgRBBoVBLKGFI=;
+	b=drTCYs6jttDftdkGiV7T++6H4xoLxWoiXWAMQRJ6Rh3mtUWPJfLAdUqgUE2zisw+M8KA
+	 S+0d5C2Lf5WxgitZOLqTR5KL2tXyyKcOCXb75PVzRZsk2NYakrnFjmsi3eiTNxMU6uCLk
+	 ImqjxoXXDmHMrqYx8DGXXTm0/6mYaUNLKqmV4APHWAaC6qRrxeelMDdjkJW8c8I0oeUOf
+	 0kzhXZpz70TThECWPSqyVDawfwTclk4PVZ3JxBYWSS7rBGN9B4hEqD7J2R3trP6LX4csr
+	 QBQHG+hlZoJFHAnMw1zB/qYxUQXI6SxDXzGdooP1ZeHnDxAVdgTBM1bkNaNsfcXHcuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOATcZW6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ma8za0/7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B75606A321;
-	Sun,  8 Nov 2026 21:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1788606A326;
+	Sun,  8 Nov 2026 21:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOATcZW6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AE71F008A3;
-	Sun,  8 Nov 2026 21:44:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma8za0/7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FF01F008A2;
+	Sun,  8 Nov 2026 21:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794174248;
-	bh=GiQf8J1mxKPhKnR2sI/CKk3x2cIlkp42oHh9MXFfHIY=;
+	s=k20260515; t=1794174253;
+	bh=d+jQ2dHrLpC84kMshJM1dXjLTtypFksgRBBoVBLKGFI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VOATcZW6dRywSad3fFxjxD7EkTI8WQrAD8yGGF6GKtx3HNLPOR8eFuF2Ofb3rONNr
-	 9VGIKVu3EWcC2vuTsX5/IQk2bgOHe/E6MZqSCTsU2qbigBTdjOjVszKfUb4FW+W5aD
-	 MuYWDK3U1KQs3F2sGuqhKBLSFE6H1s2H6RW4+GO3ND3z9fnoG0fwS/59LGaHSh/KFD
-	 lDjXbJPHBTy7SFdOeRzPRkDqoQ+cAvIn8xKz7TwUc+x6wDOXYBHn58kEXKeK7fjxRf
-	 6SjaWt72m74i2U7yYAfb7YbMi4A3fw+OwRu8h9rZ3Xa8aZcd1U4mRUFqOp+8wmjvmb
-	 FybDWm/nKK/qQ==
+	b=Ma8za0/7WogNukv1yHeLogG5sTbjL4wZ1v1MXcu8o0BUPCXHhAkq+o91u2LTUZ+xQ
+	 DYl5zb+iFWIN3XfDEHoQaYfPVu5QAdZmVaJyzJZuyk4Bg+N2u02xz9iuHDNLkhg9ga
+	 6dSESYVt6P5eVT6HQq0zx7mI2uTYU2oKvFcjtgCyXU3QBLvr8Hlj8Ww6shWbnsyaLr
+	 40+wZlYVq3Tzb27onMMidifkueyfIRu8LXSAN86dMBeanngx7Kk9A6r7KeB5Bcdj8d
+	 7OopGC71QO0MN1u4Udc0U1F9pUCsA6tLN82cW/+3KenuHQbnziABFJBhJTN0nrg4Fr
+	 9EcVMMotu3k0A==
 From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 08 Nov 2026 22:44:00 +0100
-Subject: [PATCH v2 2/5] dt-bindings: iio: light: sharp,gp2ap020a00f: Add
- GP2AP030A00F
+Date: Sun, 08 Nov 2026 22:44:02 +0100
+Subject: [PATCH v2 4/5] iio: light: gp2ap020a00f: Prepare for chip variants
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-gp2ap030-v2-2-24eaa1b9fe59@kernel.org>
+Message-Id: <20261108-gp2ap030-v2-4-24eaa1b9fe59@kernel.org>
 References: <20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org>
 In-Reply-To: <20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org>
 To: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
@@ -68,48 +67,111 @@ To: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
 Cc: devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
 
-The GP2AP030A00F uses the same register address layout and interrupt
-interface as the GP2AP020A00F, but returns raw clear and infrared counts
-instead of providing automatic illuminance calculation. Describe it in
-the existing binding with its own compatible.
+Introduce chip data for the device name, initialization table and channel
+layout, including the channel count. Use I2C/OF match data to select it
+during probe, preparing for sensors with shared register layouts and
+different initialization settings.
 
-Datasheet: https://global.sharp/products/device/lineup/data/pdf/datasheet/gp2ap030a00f_e.pdf
-Datasheet: https://jp.sharp/products/device/doc/opto/gp2ap030a00f_appl_e.pdf
+Populate only the GP2AP020A00F data, keeping its register values,
+channels and operating behavior unchanged.
+
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- .../devicetree/bindings/iio/light/sharp,gp2ap020a00f.yaml     | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/iio/light/gp2ap020a00f.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap020a00f.yaml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap020a00f.yaml
-index afba0b005b34..f4a262dbc956 100644
---- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap020a00f.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap020a00f.yaml
-@@ -4,17 +4,22 @@
- $id: http://devicetree.org/schemas/iio/light/sharp,gp2ap020a00f.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/light/gp2ap020a00f.c b/drivers/iio/light/gp2ap020a00f.c
+index dc07d137f084..5464311515c7 100644
+--- a/drivers/iio/light/gp2ap020a00f.c
++++ b/drivers/iio/light/gp2ap020a00f.c
+@@ -234,7 +234,15 @@ enum gp2ap020a00f_thresh_val_id {
+ 	GP2AP020A00F_THRESH_PH,
+ };
  
--title: Sharp GP2AP020A00F I2C Proximity/ALS sensor
-+title: Sharp GP2AP020A00F and similar proximity and ambient light sensors
++struct gp2ap020a00f_chip_info {
++	const char *name;
++	const u8 *reg_init_tab;
++	const struct iio_chan_spec *channels;
++	unsigned int num_channels;
++};
++
+ struct gp2ap020a00f_data {
++	const struct gp2ap020a00f_chip_info *chip_info;
+ 	struct i2c_client *client;
+ 	struct mutex lock;
+ 	char *buffer;
+@@ -1309,6 +1317,13 @@ static const struct iio_chan_spec gp2ap020a00f_channels[] = {
+ 	IIO_CHAN_SOFT_TIMESTAMP(GP2AP020A00F_CHAN_TIMESTAMP),
+ };
  
- maintainers:
-   - Kyungmin Park <kyungmin.park@samsung.com>
++static const struct gp2ap020a00f_chip_info gp2ap020a00f_chip_info = {
++	.name = "gp2ap020a00f",
++	.reg_init_tab = gp2ap020a00f_reg_init_tab,
++	.channels = gp2ap020a00f_channels,
++	.num_channels = ARRAY_SIZE(gp2ap020a00f_channels),
++};
++
+ static const struct iio_info gp2ap020a00f_info = {
+ 	.read_raw = &gp2ap020a00f_read_raw,
+ 	.read_event_value = &gp2ap020a00f_read_event_val,
+@@ -1401,7 +1416,6 @@ static const struct iio_buffer_setup_ops gp2ap020a00f_buffer_setup_ops = {
  
- description: |
--  The proximity detector sensor requires power supply for its built-in led.
-+  The sensors provide digital clear, infrared and proximity measurements.
-+  The GP2AP020A00F can also calculate illuminance internally, while the
-+  GP2AP030A00F exposes raw clear and infrared photodiode counts.
-+  The proximity detector requires a power supply for its built-in LED.
+ static int gp2ap020a00f_probe(struct i2c_client *client)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+ 	struct device *dev = &client->dev;
+ 	struct gp2ap020a00f_data *data;
+ 	struct iio_dev *indio_dev;
+@@ -1413,6 +1427,9 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
+ 		return -ENOMEM;
  
- properties:
-   compatible:
--    const: sharp,gp2ap020a00f
-+    enum:
-+      - sharp,gp2ap020a00f
-+      - sharp,gp2ap030a00f
+ 	data = iio_priv(indio_dev);
++	data->chip_info = i2c_get_match_data(client);
++	if (!data->chip_info)
++		return -EINVAL;
  
-   reg:
-     maxItems: 1
+ 	err = devm_regulator_get_enable(dev, "vcc");
+ 	if (err)
+@@ -1435,7 +1452,7 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
+ 
+ 	/* Initialize device registers */
+ 	err = regmap_bulk_write(regmap, GP2AP020A00F_OP_REG,
+-			gp2ap020a00f_reg_init_tab,
++			data->chip_info->reg_init_tab,
+ 			ARRAY_SIZE(gp2ap020a00f_reg_init_tab));
+ 
+ 	if (err < 0) {
+@@ -1451,10 +1468,10 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
+ 	init_waitqueue_head(&data->data_ready_queue);
+ 
+ 	mutex_init(&data->lock);
+-	indio_dev->channels = gp2ap020a00f_channels;
+-	indio_dev->num_channels = ARRAY_SIZE(gp2ap020a00f_channels);
++	indio_dev->channels = data->chip_info->channels;
++	indio_dev->num_channels = data->chip_info->num_channels;
+ 	indio_dev->info = &gp2ap020a00f_info;
+-	indio_dev->name = id->name;
++	indio_dev->name = data->chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
+ 	/* Allocate buffer */
+@@ -1530,13 +1547,14 @@ static void gp2ap020a00f_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id gp2ap020a00f_id[] = {
+-	{ .name = "gp2ap020a00f" },
++	{ .name = "gp2ap020a00f",
++	  .driver_data = (kernel_ulong_t)&gp2ap020a00f_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, gp2ap020a00f_id);
+ 
+ static const struct of_device_id gp2ap020a00f_of_match[] = {
+-	{ .compatible = "sharp,gp2ap020a00f" },
++	{ .compatible = "sharp,gp2ap020a00f", .data = &gp2ap020a00f_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, gp2ap020a00f_of_match);
 
 -- 
 2.56.0
