@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175272;
-	b=RI26FIBDneVGYgdPH73Q2syJgmaBhjkgx0xzavpBVSdg/IsjBXDeJ6nhXmSkbRrnNags
-	 /Yo4u1aKnEwQU5ZFV3H72Jr5hgoocuE7ct+OKenD2Dxmu4EkByAes4M6vgNC9a47Rd+US
-	 1ArsvY+mfIguka2G7/RxTX6zfjCRCHgqLAYUulvUTs2Tt5BJX51g1yjJHWqyWI+5QiZEh
-	 dVE6hQBodcUGhkZUk2rlc51kEsvXmHvTZRH5MB/Pwfii/mUJeweoIwFQag3neRqzhUXii
-	 93qGkkgoQijETHKH9aNYvQEY3B7Sitjp2VoDZgGtznzBCigFUxerhi8zvrfxMSMfIVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175272;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=IUgNlICcmGVDAsSgi5OFkuFWUOgyZmzNI4YvGdkZPNI=;
-	b=JBnw2Hujl6ei5b1idaovUJixMTSoKZHdvIizgQaRxR92iuHzpGP9jXcNGrC5fP1UQ8MB
-	 mV+IZY4J5Vn0tWDk2Por+Z/1gTeJzf4HXuviP91oUgF1r7WKjXAwCWd3VcIKjbtBxej8K
-	 b3W2DlOy1PVI+K3cht2M+ygCkX/EuDZ6Dk3pI8Fw7Mubtz/YG83tAbZsudtjtxuntAem5
-	 Wfz/bo6ZYd80zRnkKlhjUNwcVg30QErPMEfpfLwpnh54OwK3zA7jzD6fa4HQFthu5s6Rr
-	 Irpu5LI8HDhk+iHIEH4633sWWhv8KG1wh8ury+KeUAbpcgyrqRX/alsffx/OIVYTtFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7R+CF9;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794175374;
+	b=FTnlFsVyf1vj9Gs9Km7jQ4rx5/f15OPTrXJ1XfltMuW3QFEnZ1rY84DEJZZlwEToN12Q
+	 0WjIYq0Ec8g0u0ScJ0U2UtBNf1Ai1o5Fsc1v2qykCE0ckR7jUqFTLCbOoJQu1lzhicXcY
+	 Bbhg0RB1ju6C+896ELk9fESPtbBESrtUrhnOQXPsVeEVzKzXGQjzU3utkv1UHE/9fYSsO
+	 z4zGLcn0q7uFNPRcSKaadnp9N/OmYssvTYGq8Q05U6wYBKEdD5ijDFRxObXS86V7qQAdS
+	 5hvywCZdFoYYd43frE0voP64n3i6JyHR9N7GCSL/74mc/4MMmPhJfJeB5ADeEMpLf6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175374;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	b=J+tEjgBp9SNyG92jDucGaJPqbFmYIHNNFid0b9cP40uiW22+qkYWnlMsVwXN9/hDms3x
+	 /tZH7Pdx2qULTPRgMgsEeHKEkD0ejaRHvnefdFZ7rCgL6xq2zDChMCO2Axb2oiNkZBl02
+	 05o9h/MswIeYxbaOTdfExhJhJRwp9961NcpKkQ9okq8RDmc7WePq5K9h0D0GNO3OM/RWl
+	 t5KP+l/HH16MhZDhC47Do9skDixc1oRMz+vftTnvbMmS02mFh+JeopmSeB+kuy3qAtBYZ
+	 f+uDj1ShhW9fLdRLeOw3+ziNtubYDeyrkpmR0PdggPAaz80+CyBJ0lFqW4pnPz3VfxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBDA606A31C
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 22:01:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F90E606A320;
+	Sun,  8 Nov 2026 22:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7R+CF9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F431F0089F;
-	Sun,  8 Nov 2026 22:01:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794175374;
+	b=JttGF4kCf7/WOWCO1HBkZ9uEkoRnspOXug9VRSkqYNfzp01LUhGNsy8t///7k9A+Awe7
+	 YO/5ETHkoZRTp4HrqHUo3SLtWOdXmO9uWFyT3R7r8JQXYtIrbOJmNfhBSnDivR+3XLhgt
+	 xr3wTG0AUhij4f9vmRla6fs47ok8UDsHPbgVltEQYYjCGVEGRIuF/dxm9Sm73jILF8RXa
+	 spaNoUkLSvu8ZG3kbC7MPYuZVzxPI9Wz5bJ8aSNiWEaH3bm8BnKX5b+RIheviGZBdKEqK
+	 GAZNv00GCinkPnfWS7C3e3dUKdw48e+AyCIinPfjeuUjwHHz20tiPvYMaSYD9PVCL9w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794175374;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	b=fRErTDQxK6nhZMCXx4PAu9q2pJa+2o3+FUmLvWxQ0sNWq1VRXpS19ZevgLD4qh0v9X4O
+	 bik+Qwng+bUv33qOC5b236VQ/50xyOniAn0GFbUnd7Rp1+W59OkluPxB8KFM0cXkF0wdk
+	 iZA+um+SAZ9g7yN5Afbd/rDf3nL8DSXf37F/JPqYRxHeLvJ4eFmCraAMGmnoybAzGx6k0
+	 ahX0dTEhj5bok655xmh5l9Wp9cALUHworfxA655z7QkXscJ+zUrbDn6HhmAWltQCgJXcF
+	 g3JBi8FsF0absxvd67CffGA0hu/RAkDZd4+15MCkiN8KZgPbo1p23ZrKaVNaVt4H3Pw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 899801F0089F;
+	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794175272;
-	bh=IUgNlICcmGVDAsSgi5OFkuFWUOgyZmzNI4YvGdkZPNI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ah7R+CF9GGXNmqyvr/XtP3x5mRIpHm4rQPbkJcG9OoGg8IMrjAAfwvo2XiwrXMZYJ
-	 0+xf13NlSUoCD5E3Hisv87+/NnQ2pynakJtX85f180XUEEpNqI3DBNNDxRQZOtqyqH
-	 9gLfNPbZS241g6b4YVyVS/FSIm9fb6VzQLHF+9wScNfhxQgy+8SxjW5CQxGUGSvJTD
-	 chXGkYvHr/c0Mh2qYJXP/Z5bjYKBCpaJATdmGsu39idCPGitENE9VYwK6LWKdtdZlg
-	 1WcVWjMjTfSEqFAy45UriuiA6bL4WE19R6NDVHtxkcRoS3xoUTCjYaasl3TrRioI7I
-	 wAArlgfRqt29A==
-Message-ID: <sashiko-outbox-204103@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pufan Jin" <cyan2254650260@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261108215010.351256-3-cyan2254650260@gmail.com>
-References: <20261108215010.351256-1-cyan2254650260@gmail.com>
- <20261108215010.351256-3-cyan2254650260@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 22:01:11 +0000
+	s=k20260515; t=1794175374;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Pi7Vrb+1SmxCIbk2rv2+FLdua3Nu5/LTFXW7ezqn+iijXO31sccfK3LMugf0pDarO
+	 H0H0UnciBbL/v0iWs2X94XO+mr86V0pbTUxHBP6wAX1ZRMnzbzHbPj/FUN5kMLnNJ1
+	 I2Y3A1Xjiojxngd1LH+5K1clw7GkGyjMVX1UmwljyPYcc5iDpG3rOnmrmAYMPWZCNr
+	 fiEdoZGe+i2iJ/bnYd03NASi9NvO0JL4r7ZsmfWFwUf+CkkxyuObPaTuMzUYjW3KpG
+	 rmKRIHzY1a9YCg6DQsPoM23Q4GAwpqKpUVngewBpezwNb3hE6FFPb8vIdWs4lLU6+d
+	 9upV1/plj0Csg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1539948120;
+	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sun, 08 Nov 2026 22:02:51 +0000
+Subject: [PATCH] arm64: dts: rockchip: Enable all CPU OPPs on Kobol
+ Helios64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,116 +82,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-helios64-cpu-opps-v1-1-31aa4afb7eb8@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAIrx8GoC/x3MMQqAMAxA0atIZgONSBGvIg5aUxsQWxoUQXp3i
+ +Mb/n9BOQsrjM0LmW9RiWcFtQ24sJw7o2zV0JnOEpkBAx8S1fbo0oUxJcVhWTfr2ZI3BLVLmb0
+ 8/3OaS/kA9iWdAWMAAAA=
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2693; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=edWxjml98aK3nfS7bKrBTOBhCYbn9/aBY4i4ZQTEi+w=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfPvbcO3oyY5n4PY38eIPUy4H8X5MyS+d79cz2eHWCP
+ 17kCeOMjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCR4ixGhsaSmH//uleGmGUJ
+ yaTNFvHkY1ad/Orxue5HHBKbHlU/TGT4X7nt5sT5M9OYOcROTH2ybdsZu3uB3Pb/jjlpVM2ZczD
+ wKRsA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Low] ARM: dts: zynq: undocumented vendor prefix alinx in root
-  compatible strings
-- [Low] ARM: dts: zynq: decimal unit-addresses in XADC channel@10 and
-  channel@13 nodes
-- [Low] ARM: dts: zynq: split root node blocks in
-  zynq-alinx-ac7z020.dtsi
---
+From: Igor Velkov <iav@iav.lv>
 
-commit ad140ae8401a6613bfd0e62dbc79a92d188f222b
-Author: Pufan Jin <cyan2254650260@gmail.com>
+The Helios64 device tree deletes the lower OPPs of both CPU clusters
+because the board was not stable with cpufreq.
 
-ARM: dts: zynq: Add ALINX AX7Z020B development board
+With all OPPs and regulator-ramp-delay = <1000> on vdd_cpu_b, the board
+hung about 9.5 s into boot both times we tried. With 40000 it ran 40
+boots and three one-hour DVFS runs under load without errors. We did not
+find out why the slower ramp hangs.
 
-This commit adds devicetree support for the ALINX AC7Z020 system on module
-and the ALINX AX7Z020B development board.
+40000 selects the slew rate we read from the regulator in U-Boot after a
+cold start, 64 mV/us; 1000 slows it down.
 
-Link: https://www.alinx.com/
+Restore the OPPs and raise the ramp delay.
 
-> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi b/arch/arm/=
-boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
-> new file mode 100644
-> index 0000000000000..2da08424f1a2a
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
-> @@ -0,0 +1,72 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * DTS for ALINX AC7Z020 System on Module
-> + *
-> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
-> + */
-> +
-> +#include "zynq-7000.dtsi"
-> +
-> +/ {
-> +	compatible =3D "alinx,ac7z020", "xlnx,zynq-7000";
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on Linux 7.3 and its device tree, with the U-Boot and the .config
+of Armbian. The PCIe host driver was not loaded: on this board it takes
+an external abort at probe on some boots, with or without this change
+(about 5% of boots with it, 1 of 4 without). One boot with it loaded
+brought the link up, without DVFS load.
 
-[Severity: Low]
-Should the "alinx" vendor prefix used here and in zynq-alinx-ax7z020b.dts
-be documented in Documentation/devicetree/bindings/vendor-prefixes.yaml?
-Without an "^alinx,.*" entry there, checkpatch.pl and dtbs_check report an
-undocumented vendor prefix.
+Besides the boots and runs above: one hour each of schedutil under
+bursty load and of switching only one cluster.
 
-> +
-> +	memory@0 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x40000000>;
-> +	};
-> +};
-> +
-> +&clkc {
-> +	ps-clk-frequency =3D <33333333>;
-> +};
-> +
-> +&devcfg {
-> +	status =3D "okay";
-> +};
-> +
-> +/ {
-> +	pmu@f8891000 {
-> +		interrupt-affinity =3D <&cpu0>, <&cpu1>;
-> +	};
-> +};
+Ramp delay scan with all OPPs: 2000 hung twice in 5 boots (once at boot,
+once on reboot after an hour under load), 8000 passed 13 of 13 boots,
+32000 passed 3 of 3.
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 +---------------------
+ 1 file changed, 1 insertion(+), 23 deletions(-)
 
-[Severity: Low]
-This isn't a bug, but why reopen a second root node block after &clkc and
-&devcfg instead of placing pmu@f8891000 inside the initial / { ... }; block
-above per Documentation/devicetree/bindings/dts-coding-style.rst?
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index f13ea2df7a30..f2f900f576a0 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -354,28 +354,6 @@ vdd_log: regulator-vdd-log {
+ 	};
+ };
+ 
+-/*
+- * The system doesn't run stable with cpu freq enabled, so disallow the lower
+- * frequencies until this problem is properly understood and resolved.
+- */
+-&cluster0_opp {
+-	/delete-node/ opp00;
+-	/delete-node/ opp01;
+-	/delete-node/ opp02;
+-	/delete-node/ opp03;
+-	/delete-node/ opp04;
+-};
+-
+-&cluster1_opp {
+-	/delete-node/ opp00;
+-	/delete-node/ opp01;
+-	/delete-node/ opp02;
+-	/delete-node/ opp03;
+-	/delete-node/ opp04;
+-	/delete-node/ opp05;
+-	/delete-node/ opp06;
+-};
+-
+ &cpu_b0 {
+ 	cpu-supply = <&vdd_cpu_b>;
+ };
+@@ -542,7 +520,7 @@ vdd_cpu_b: regulator@40 {
+ 		regulator-boot-on;
+ 		regulator-min-microvolt = <712500>;
+ 		regulator-max-microvolt = <1500000>;
+-		regulator-ramp-delay = <1000>;
++		regulator-ramp-delay = <40000>;
+ 		vin-supply = <&vcc5v0_sys>;
+ 
+ 		regulator-state-mem {
 
-[ ... ]
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261108-helios64-cpu-opps-8abd6fe61f01
 
-> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/=
-boot/dts/xilinx/zynq-alinx-ax7z020b.dts
-> new file mode 100644
-> index 0000000000000..4dfef96ad376a
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
-[ ... ]
 
-> +&adc {
-> +	xlnx,channels {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		/* AD1: XADC_AD1P/N, E17/D18 */
-> +		channel@2 {
-> +			reg =3D <2>;
-> +		};
-> +
-> +		/* AD9: XADC_AD9P/N, E18/E19 */
-> +		channel@10 {
-> +			reg =3D <10>;
-> +		};
-> +
-> +		/* Spare pair: XADC_AD12P/N, F19/F20 */
-> +		channel@13 {
-> +			reg =3D <13>;
-> +		};
-> +	};
-> +};
-
-[Severity: Low]
-Should channel@10 and channel@13 be named channel@a and channel@d?
-Unit-addresses after @ are lowercase hexadecimal without a 0x prefix, while
-reg =3D <10> and reg =3D <13> are decimal (0xa and 0xd).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108215010.3512=
-56-1-cyan2254650260@gmail.com?part=3D2
