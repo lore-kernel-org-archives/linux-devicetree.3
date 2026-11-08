@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.208
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166876;
-	b=X/onN2gftsaw1MgPKODAtKmBOJoLbs3W0hH4EsL7Bb7Tb8YzUQHr+4oHmgcP5JTfrKMJ
-	 miOgPZvVYO91wBNiZAKY+52+9DYzDTfmNjlpVhqf48xhaYzyAEs+YgRNI+sD122+3XvDm
-	 u4XbIs1UV0RmQGEWZ8hekDsq69Sn68dho7IJIahMRuJW36Yhbp22UEvZjovoIrdA+BrUM
-	 LxUptOew01VyIaFKvwMKH+05+/92OsCifGJRYbt4IVKEXE0msZDI3+0ePU+kbV6OjmmbK
-	 6DAjTzxuAOETCciofPxwPlb1Pgf/hgiaq7WatzdHleLouWSVKhei4axLtbYfJF0badw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166876;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=804cY5dj+EYM+fofEMnwIGoD9r1pDnjArHDnR2JIvus=;
-	b=ePFr09kgZtuPZ1ieTbxy2i8zAL6qWrbyXKapRIddrpAgPorLTkyQeS8qE8jj6z6hvTM0
-	 bIxR6HVrCa1H8cRJrKTYSmYWlLI2Nauz4cl/MMbGVGp5ot6vcuIVgVfHAiNW3zIfxM9SK
-	 R1JFuCj6M7ltoZgn3Cyj9jNMpORqb9FVGmJlnh9lIGVl77WTBamkIIoRwRdkOMFW4F4qe
-	 BdRDoZyD9nCKYeNJVTYZXXfifoWoM2/GoRHo3Yu9oORH9mjzFbYHulkSqVpqkROGtDc8M
-	 cwKmLR9gEpeEbo1v/Ao6wcTAr4VDaXIMAlD3f4S1Pm62CwZ3FJvlW9twkGUnNHd2Vog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b="PL/7JyOs";
-	arc=none smtp.remote-ip=95.215.58.208
-Received: from mta1.migadu.com (out-208.mta1.migadu.com [95.215.58.208])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794166978;
+	b=2UKJZb2CWAR+dnjPQGA8mAbDJ2fqH2Av3Oc89mF66kxxD9eyh5KWm9b8m+qiYFQmgeZh
+	 vDIMm7vlPYWjjBVqbk31dX5nydDiE/C30NSAUeQl5aJ8VLbOGuGfhPZY4gnqj8Grrrv4o
+	 RiGDgTeu2PfIbc7ZhhAr0g7aYDEjXkDSEYdIKUFQvU48bzImr/bmSXoYHNgOvY0VQCLlN
+	 6l1v5dOrJbUE056bWNHUCydpX4imTwW78x1PDykqLvQ621E3FbYgs46BxlRVpSGVVfSsI
+	 BA6+2IFbsrb2efKDyel57BBl+TYhZpvw5dAnt8ifcdTiwH28/OkxJNvqYt3McQ426gw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166978;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=;
+	b=KnpphIXhu2nYqsMOtHqUZp+ZLP6gwT6iPuEb+ffCWUX+p1jdzu6TtiuaHfKBubBjtX4n
+	 Gq0Of/IZgGgI1kVYDazUJY1zIQuqmT55G8QX5sVLzVn/ljDskqsKKk5Q/Nv3SVdvtWaC2
+	 PYEM6NKjU/69YPz7pc9AuTqpqNWBYNwkzISO6fMtjLzVMz73Z0nEohxPAdy1vKXweVmrH
+	 Ax7w9kISy3jQ2nAupgWQOEWPiqX1QLI+7oqo7vf3FfvEEVk/EL09Rs+rfPh46m619/ufq
+	 vgYa6Vh2J3+Ab1qsbD/S2vRjMOyHCBf8GBFuiKxAe/HVPoRrC3vyBS92ZQH2NIAFeUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="bwv66n/7";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7299606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7299606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EFA606A31C;
+	Sun,  8 Nov 2026 19:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4EFA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=PL/7JyOs
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ibChZZZc2dZaS9VYrz9L6vfKqhjux9y1wuYa7AtP0NE=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794166872; v=1; x=1794771672;
- b=PL/7JyOsezqgVF3IwQ+pitRowrrjp7bIiXxmfbo3ggV0lk1tDprpELaC4nvK6MbCZCCisEPX
- M1oB4JScqze2diY9VMCkczfYiaCjqFP+5L77MUNFid+TBGph5nALekK66WwMOC8XL+uE7yInklf
- C6FChInWBUvoxlBm0g2wN2YomUCfwVgjYdVKorTgpfPrERrozzH17fdQ9U+lqcUubg20xKu36mn
- SL7VGvwebvoc541BdaCcy7qg3MblaQ3iEl0z8CO0dLeXamoSzAN8WfSq4P0CngjEPjVlPKrlk7I
- nr9GbV4x0WNpt+z0KumjjM0t7Z5Gj0aZDO3LgSIRp/+8w==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 565880af2e2fdaa3;
-	Sun, 08 Nov 2026 19:41:12 +0000
-X-Mizu-Trace-ID: 565880af2e2fdaa3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5b965360-7121-41ab-94f6-d23b3eace32f@postmarketos.org>
-Date: Sun, 8 Nov 2026 12:41:09 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bwv66n/7
+ARC-Seal: i=1; a=rsa-sha256; t=1794166957; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=fx5EKhiNGZaS7H2N8S2+3VKx92L6x5drUiI97HpS6yXAeBgCN27tQPTKXs+dFvlhezU0wIJoJYx2edd++Ttf2og9syoviXBhsua2tMzmrXxIflRK5xTIuH4HY5QriPimnaQ2v7K9PC1pGkeKgUZmp5oBUCGzA0avGeHsr7solwE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794166957; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=; 
+	b=km0YDTE7uN5XojBHeBmnIL2YCPCQolMgy0VVNjqz95yAxAdha0HfXOPj0rDtoz8FiuhbkLoxANdKsBLllsVblMVEJae0KPw67h/E8XsjK7fZzZHrRJYB/UijnFswQvyEQXSOveHucwAfapiEK56YPUZJVU3VTCOzqX3/5siEszg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=bwv66n/7pRGXrruhl4okDCFOj/507ds029t/lqWrcIstUiYj0w9F/M0K1k/WmOfuZ2fLTe3rFmlV1oYksPyfuoYS8Y3J2DktbGqYx7Bvanv2vanz5qykTydNTtBqxoVFkUu0NCpQilIzpV1POaU1Zzi43AaIA9H4oA/2nYEHfTE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794166957139744.1075829700292;
+	Sun, 8 Nov 2026 11:42:37 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 646E1180269; Sun, 08 Nov 2026 20:42:32 +0100 (CET)
+Date: Sun, 8 Nov 2026 20:42:32 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+Message-ID: <avDN3pPY5Qwt9B1p@venus>
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+ <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
+ <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,45 +71,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
- <179198402838.839288.17911568760182808689@kernel.org>
-Content-Language: en-US
-From: Paul Sajna <sajattack@postmarketos.org>
-Autocrypt: addr=sajattack@postmarketos.org; keydata=
- xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
- J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
- AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
- HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
- /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
- QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
- 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
- H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
-In-Reply-To: <179198402838.839288.17911568760182808689@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rqyodbh2oilyf22x"
+Content-Disposition: inline
+In-Reply-To: <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.158.93
+X-ZohoMailClient: External
 
-On 2026-10-20 3:16 a.m., Lee Jones wrote:
-> This is hard to read, I think we can do better.
-> 
-> Also, does it need to be a separate helper function when it only has a
-> single call site?
 
-The function is marked inline, so there shouldn't be any performance 
-penalty, and I gave it it's own helper function specifically because 
-it's hard to read, and giving it a name helps make clearer what it's 
-doing. Do you have any suggestions to make it better?
+--rqyodbh2oilyf22x
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+MIME-Version: 1.0
 
--- 
-Hal: They're going for the kernel!
-Margo: Colonel Who?
+Hello Chaoyi,
+
+On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
+> Hi Sebastian,
+>=20
+> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
+> > The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
+> > combination. It contains a Wanchanglong W552793BAA panel and a
+> > Goodix GT1158 touchscreen. This adds the DT description of it.
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> >  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++=
+++++++++
+> >  1 file changed, 90 insertions(+)
+> >=20
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/ar=
+m64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > index 6a95a8bb6fb8..327ca13b60f0 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
+> >  		regulator-max-microvolt =3D <12000000>;
+> >  	};
+> > =20
+>=20
+> I seem unable to apply the patch to the latest linux-next tree.
+>=20
+> So I tried to resolve the conflict manually, but the actual
+> test screen did not display. I will look into this further.
+
+Strange. The base of this series was Heiko's for-next tree from
+Friday. No RK3588 EVB1 patches landed since then:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/co=
+mmit/?h=3Dfor-next&id=3Dcabb6811c38a46337d5f4252b4dc390f9296856c
+
+If your board uses the original Rockchip bootloader, which shows a
+Rockchip logo on the panel, you also need Cristian's latest YUV420
+patches that reset VOP2 at probe time avoiding some issues with the
+pre-initialized panel as a side effect. Those were recently applied
+by Heiko to the DRM tree, so testing on linux-next is indeed
+sensible.
+
+Greetings,
+
+-- Sebastian
+
+--rqyodbh2oilyf22x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrw0JwACgkQ2O7X88g7
++pq8ixAAjKLCZw6Zhl2DngJdt6ctyhcz0S7zsA5EDQfjmBK5L6dudrpvkubLCVNN
+cRR9rNITo97cByiq8PYW0zOtEjcNIflt2C2WbxW5NZKML4FZx5TeA9sgDdW7yOIv
+F+bxwRSh3Genjcnp5rGB+bfj2Iqud83MdVOnbNgytkTcX62QxMzRko4hr35Wu1xb
+K6Xi5HDztSj6O4cLR8wOoIy0XDsTtQ1Cd33ekzjgbJ0fIebq0KVPQ/7fUB6Gozzx
+ga9AQlmt20NxA0DlUrzKK8iArbhFZ4vJUtrXyXufVd07xSI/e+7TBNRW46xnRuHy
+vlr8zJZ/JMpvsim5h0Vp9OrWpb7kcH5vZuslqGZp7zrkdZ0hK8gZTgYSTY/SC2VQ
+ka7mjChnNFqXw6meZl/bcE32ejAlhtiFRtKg+W12VhjsqahlGg+R6ywIxYEPTuki
+1Ux5z8XG2uWak8Z36OkjHnWfAKhlP2pfV6p8OkJeYabXW4pYEMgehIBy1JzlTmGG
+Qrvj4+0AFN1iDUm31zMY5z8B62DsZlI8sRkFgQLPnR91BpxCU/zs2xxPvF8m6MkW
+xIK2NkjwqVqEC5qi+eQwU+2A7yMxgz9zfrFAtJ7HA564P1z1GNUt8OSgbRHVNfwZ
+zPa+Onj5dUwtFqtv7L6Rap/CK4EuVIzfPUThV12ry1qfe4dgVVQ=
+=5c4C
+-----END PGP SIGNATURE-----
+
+--rqyodbh2oilyf22x--
