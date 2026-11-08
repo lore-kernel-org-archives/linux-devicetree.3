@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794162498;
-	b=Gid5bmEhlsgFisPFvnItGvGgqleqkwIDOObTkAveI/zqjQfF70RZSTQqrvbmJ2Pfp5N5
-	 IBlXSzyF15q2NgA0O/mIE2HfCzqK99Ynml3XHYdnbDPal0aQYErIYfBJ3yk8GE5EDKNOE
-	 wUayJQXILKAGh2gK28xCVX/U1cfquhCnoWDQUmZrUxfkW3zu5UiKVMZA30zOmQppzxB2d
-	 VyLSZ1sjqKENppIPFUO6q+OqsUQ20jOl6XAUTDZZAwvd0DKHVQmZLe6NHUmXbr7bydlfH
-	 JltVUjzD18DzJ3prmxi1CqSTLcxZT71eeC9PWB4FQN0Ibp0Fw99l4eA9dpRJH7ghe5w==
+	t=1794162500;
+	b=K57n59fMttI/umPriTYoxG80BxV9HvraoH+vyG6ob/GrqFiM2S26D8urUyGyrchDkCIf
+	 pLWV3EnL+R8JLIlHMcXibEMqufPMTLT+6r3fJLv1NoHbKfQxjn3PUK9nJytvYLQOnEKkt
+	 qjHGFuc4rgCerqJzWktFrswRL5R1PSzLLfQRF7qtF4QM8iv54B7r0cVFx0yEVZ+vSuOM/
+	 aYfoUxEoL/eykZd+d9jImYmEKVq6qn2L/e6UT+Z4XP8/SqKgK1Kwqk7ML6XqnVabA2L79
+	 mqmeIcb6mNXcEcuee9UAJFqseCyM6HbXqep765zPzWTqw80imDGvIcC1+7IQrMSuLdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794162498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794162500;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=7LOc5o/iR4ccdtew0ZugkEGQ7ajVcmy8+3GKA8lPx8c=;
-	b=MqA6sXBAdE56NX3zmx6pNne0QZwj8CGI1RRo53VnlOLf4yy+VxoOskGPhm5gXTfXTtnH
-	 uNxmYSqKjwX1v9zx5qDwYSuKh64vVJFmACGRmu7IYj9232zia/qGcLR67VqwWWc5HHbKM
-	 v+kUJNCtXoOKTRfC3NTLV0nqXlAnH8EG4JSVGi/xgupXiLhAdxtf5m2RetpsEFnenWLru
-	 C/8y35SyIbLfYYE3QSPL1k3nCWihkOB4tNoQzKq5hT9elwaOp4gP1XqTbMi5kvGdO5mMV
-	 lKuzk4CtSECO8eEuba+ZdAIueV2JQas7rsqDblnOUWHl9MWO7v1Cjo2nze0UWbnuEmw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=xD6Dy3y4d1wnxROTLCHN7ijMhBMBe0bu6u+PB8rbtjg=;
+	b=FPi+Jt8Fi3J0cd6tOUTHpELKrET10vYySD9A9FhwG4G1ihug4Es5zNlT9AZhApqKDCJt
+	 niHYaGkI0Yonp8f9F6Gj7ItpvZX1S4rqAHAI0mHN26dPkSF8KP6oj/VghbrSFDijR2IWh
+	 SZk4pI5vGDGywFVaPZzi5vJuiZy9VrtyfKV+aNRV1MBaAiqt+5SYJyE224gbGSvvbMFHS
+	 EzxaEBUAjEzwhi/5z1cAqPNI+SYFL/EhkR48oZzMj1D+MlNvD8jnsz68kcbLwEszDooVP
+	 hEr0GUtvME9++3LO9s9EgH0eknEXP1OV7r8w6NjCvTJA7S3dmjo3dEb/0KcS6AhAttQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggr9Rhlc;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttDKNk0J;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EC8606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 18:28:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54EC8606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D637A606A336
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 18:28:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D637A606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggr9Rhlc
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso28728066b.3
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 10:28:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttDKNk0J
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4322d310e7so27042266b.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 10:28:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794162497; x=1794767297; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7LOc5o/iR4ccdtew0ZugkEGQ7ajVcmy8+3GKA8lPx8c=;
-        b=ggr9RhlcaiP+4+478edoxac3okADJCWVpY1iF+8Xi5P9iILzqZDSOzhI4/j1dUXf7A
-         Jctj2AVSxth9HClE/DggW0jSecx7Yz8ZmTM7KUpMMUDDpmC0275rfQIaLJ5lRuofLCLF
-         H4UhKM4GoX5hCSpZCF6jUg4XEgOaVUC3y5Psfxhq2WC7RYcqp/Q5kNi0JjfJOGxKxdjC
-         MtGrkJexY+vEo91JqlQFNy2gr2eaUSS0c8dBb6rCSPXlvSXzMyH2Zk3+Ww5oZQaocrok
-         zRSGfzgSJr0F4bHYIf+leTAumLKRgGr9JkI7dRARp3w5ATvZKwSx179h+Mtn8q7+d07K
-         seyQ==
+        d=gmail.com; s=20260707; t=1794162498; x=1794767298; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xD6Dy3y4d1wnxROTLCHN7ijMhBMBe0bu6u+PB8rbtjg=;
+        b=ttDKNk0JIjz40p5eAC2BNCurW3OhYdjX2lUfcR5EYH+/JW7CeOFl3REBKkIdtk9zKr
+         RqOEXHqBxse/3VVVI/EdR3uRRLcgmcnyJXzMWquPJJ4qc7U/VhX9fTgCL1SbITMe242Q
+         dV1qKGqiIVwYaUi4fqKPTtmnhkPXKgnFwi+cl2dnOqfY1DT2+IPW9mpm4XHpTAUdTRdr
+         RGxMzSHZCz/CW0zC+2pQNVOqqNzjlZVreZyrxS9cJhTYkuirzQ80Nh/j9DS2LKYt7EG7
+         3BKh342u1SmEXIxidbd3ptBP8mQvsGAo0uLn4AG5ap1/iXZELVbEnTTzABUGSLIRfFVi
+         RWrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794162497; x=1794767297;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7LOc5o/iR4ccdtew0ZugkEGQ7ajVcmy8+3GKA8lPx8c=;
-        b=TrvEszKjuIlazX0x2adE704F2gBkjUb8wUkpdk/IY3pg4GKMxzrDzVZE91IyxK3qMq
-         xll3wbm0nBWdGUYOQVe9J2pSY4JfGV44lCV2K+uREZwXTnDW/GQsIlbs3l59rZ+yEChN
-         JxvL9d4GI+Ehihmonq1yYCK1unG+I4S5mBdOOhr4l0Q/iGzq1tkSCKa5ZIQ5hsq2fYer
-         7QOAjgxJ/IX/IOf0MeQJ3QQbauI3BNlMgBkmcZx4cA441YNIf/gilcpp/f6S2220Gyq7
-         v9AeYU+O/AGwFc/TBGBL3gqLfnmE4N+yYR6sz/08x37o5CRw2MW73jio91VfvT+y+OIG
-         0U9w==
-X-Forwarded-Encrypted: i=1; AL+hErEWwjNTIxkvw95MomsLtdr2dUC98FKoCaCXwchYCwFkuB+At6MQGo0vld/gstN3T3+wzOK8ty9p4wWi@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d0hfiBhVqyhiL9W0DTCECRYPM8UAHU2ak2REKuWO3tltQiJTG
-	IpG4S8W7QfpeI1gthVi0S4PurNXP/70sWmWGm6X0MDMnMkRSKLUoik++
-X-Gm-Gg: AYBFou3eozbupPx915MX+Mn+8UrDsHMwOmmK1ziT91sxSzBIcqQQkIhu2F2I2wwS0MC
-	O1MY0y+fBl1vvCY0bbeSrVB4krPLzXtP/2tuQDqiuBQx4r1rkrT9FnbZHh9zlsdv+9Ylc5aGalM
-	Ey+rXHuPtOajZctmpa8SLVG1TrGLF2l2lnmVuvRyQZfnhF+c4iMjvuSlLziXn7kx8s1FlvdnZ2g
-	atNRYpTexQI1o4Xek1uVpyzWFdXyGEdkmFw+4anfXDmsBMy0lndocdwjqpd8Aj2z0i03T/R61mf
-	tGOYwYkwXCIaCM2atg2ZJ0q4BRKoDGm3X13vtrqAIrRR4FCGszGvfesVT3v4/HIL1bkPMHbKoO8
-	ekCicHekQryqCBsV2mimyIGeRX0qRPhpmaawie5s8qMHyot1dQtlJZkQPKCSS99L7tyG49ySknS
-	8evajARGtIe4+0UYTqQSKToMKTV1js45gfuDh6/Jocu8cRH55zqYAkDpn+YjivjnyjzC9sR+XnR
-	HlLKA/PxHk2dayIXNScpmvS9cYA9282qJiM9w96YeCjEdw7rrSm8YfCv3jYANn62N4NZ3WFepE7
-	tmmGXHFcAVcZmMy0kILKXxqFLsqZJIGQ1oEaMkLK+IqvDx5k0dyMX9S1Pm0QYly3
-X-Received: by 2002:a17:906:9f90:b0:c3e:e726:9548 with SMTP id a640c23a62f3a-c4d6d35bdb4mr141902266b.14.1794162496378;
-        Sun, 08 Nov 2026 10:28:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794162498; x=1794767298;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xD6Dy3y4d1wnxROTLCHN7ijMhBMBe0bu6u+PB8rbtjg=;
+        b=2Xjugl+sCqsSvfJgg2lBF4budby0SOBWp266Dm29LtTR/VBj208eTENapMwLZ62QBu
+         iNrJO+Ly0fxNQbkUz2To8cVjsADHp/mjpdMjprVfn1VXEGDS4LruB0OeW7oGI1Rh3jnW
+         eL21S82PPLTBuPLLSxW/7wJdwNz1FqBESHvROueHdy9641VJI2EiJACsDou/aaXLxiMC
+         ZNndt2LE1czRPYUEmidJZ//p7Lrtz4DX8lUtsTKsfC0sZT4IZi2y1G/6aBKQVloj8N8Z
+         TY356znR5feCez9afyakNyDM7tW2ZQCrYAlItl354ZoNw8DRN0feFslj5AIWQoGNzsFV
+         k56w==
+X-Forwarded-Encrypted: i=1; AL+hErGW3/FmgOwk0dLh1+KZTyudP3wFogaD/KaA08QhWi1RFuakbUWnI2BDH3Eogn/vNBa80KCXioA2/Wdb@vger.kernel.org
+X-Gm-Message-State: APuU4Z8V80LyAQQLve25VXwOdqYnKfJi38KQ/6hXtrRDmVF7KTtWX2aW
+	eQzvJJPh0HInkly+WqKf37IzXWrnnKNGRQYH37s0YW78Q/DZJGb+ZFyF
+X-Gm-Gg: AYBFou2OoFLg+ysVi4G2U9oj11Sz3I2uIDEwVZDG8cYJA3yUwBCPxXVivnk567WhenH
+	k3K4gm5YZTRp+byC+tzRVxgEXNYOK7u7wOekGTTntYnhZuuF5dkNuXgOWWiQd+jVJhIDkklk2Iv
+	/t3fFTXt7LAYYLHLLn9Whq6MNyUpwbzMYA/kMavjZ8vQnVQAY9JkU2VGk+77te1ZNkqorKSfEoe
+	AawoXyEsxXSenKs0p+mbY3YQhPX79lU8LEqQnbHXq3Ns8BsNa8uXG1RKcjvxXkPxeWcZEZrb9ns
+	j27/soOyBNJ4aYVbe6IqrcfJOvawzD/1wLI3+grOF5+mAPqu5w48UjWuUQQtgMKTxcCjs6sgc7U
+	l34ftQQL/qQdtQxTcddhaIajlZchFvQY/wSl4m5YVD3o/7eC6//4DziVOesHSxUOlvehYZC/gnK
+	p80yqHPmQ2gG47ZDgpq580QwbpK0Yi0ih1/QolO34MrxUTCbXMl/t0270a29mi5tBTwNn+Fq579
+	tsOKTaxK0c64bQjG539/4jYZpCaJYsjqNgH9fpi5ztbKe44ZcAsycPdvTKxCTKMAt281iKM5zOx
+	FH4jze2mcIoFKKmYAG7Q5G7q6pcFAcUlAKoSpjEVf0KpEVPpjrT11zzj5zm0vXyJ
+X-Received: by 2002:a17:907:1b18:b0:c3f:c856:fb7a with SMTP id a640c23a62f3a-c4d6d166840mr141985166b.3.1794162497894;
+        Sun, 08 Nov 2026 10:28:17 -0800 (PST)
 Received: from [192.168.1.100] ([163.245.50.16])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a47515dsm75254366b.44.2026.11.08.10.28.14
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a47515dsm75254366b.44.2026.11.08.10.28.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 10:28:15 -0800 (PST)
+        Sun, 08 Nov 2026 10:28:17 -0800 (PST)
 From: Alexander Letuchiy <asalde.le1@gmail.com>
-Subject: [PATCH 0/2] pinctrl: mediatek: Add MT6895 support
-Date: Sun, 08 Nov 2026 21:27:09 +0300
-Message-Id: <20261108-pinctrl-mt6895-v1-0-f704c443b31a@gmail.com>
+Date: Sun, 08 Nov 2026 21:27:10 +0300
+Subject: [PATCH 1/2] dt-bindings: pinctrl: mediatek: Document MT6895 pin
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,10 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6DIBBA0auYWUsCE6XoVYwLpUM7RtEANk2Md
- y/V5Vv8f0CkwBShLQ4I9OHIq89QZQH2PfgXCX5mA0rUSkkjNvY2hVksSZumFqYyiCgfrhos5Gg
- L5Ph7Dbv+dtzHiWz6X+A8fw6MQLJyAAAA
-X-Change-ID: 20261108-pinctrl-mt6895-84822207f4ac
+Message-Id: <20261108-pinctrl-mt6895-v1-1-f704c443b31a@gmail.com>
+References: <20261108-pinctrl-mt6895-v1-0-f704c443b31a@gmail.com>
+In-Reply-To: <20261108-pinctrl-mt6895-v1-0-f704c443b31a@gmail.com>
 To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -108,39 +108,257 @@ Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-mediatek@lists.infradead.org
 X-Mailer: b4 0.15.2
 
-This series adds the pin controller of the MediaTek Dimensity 8000/8100
-(MT6895) SoC: the binding and a driver on top of the common Paris code.
+Add device tree bindings for the pin controller found in the MediaTek
+Dimensity 8000/8100 (MT6895) SoC.
 
-The pinmux macro header and the pio node will be sent with the next
-version of the MT6895 / Xiaomi Poco X4 GT initial support series.
+The controller has 227 GPIOs spread over a GPIO base and 13 IOCFG
+blocks, and an EINT controller made of five blocks (W, E, S, N, C).
 
-The tables come from the MediaTek driver in the Xiaomi kernel source
-release [1]. They were checked field by field against that driver and
-against register dumps from the device running the vendor kernel.
+Pins with PUPD/R1/R0 or RSEL pull-ups take the raw MTK_PUPD_SET_R1R0_*
+and MTK_PULL_SET_RSEL_* values in bias-pull-up and bias-pull-down.
+There is no public table of the RSEL resistances for this SoC, so the
+binding does not offer the ohm-based values used on MT8188 and MT8195.
 
-Tested on a Xiaomi Poco X4 GT (xaga) on top of next-20261102: pinmux,
-pin configuration, GPIO and EINT.
-
-[1] https://github.com/MiCode/Xiaomi_Kernel_OpenSource/tree/56ec519f6
-    (branch xaga-s-oss)
-
-Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
 ---
-Alexander Letuchiy (2):
-      dt-bindings: pinctrl: mediatek: Document MT6895 pin controller
-      pinctrl: mediatek: Add support for MT6895 pinctrl
+ .../bindings/pinctrl/mediatek,mt6895-pinctrl.yaml  | 228 +++++++++++++++++++++
+ 1 file changed, 228 insertions(+)
 
- .../bindings/pinctrl/mediatek,mt6895-pinctrl.yaml  |  228 ++
- drivers/pinctrl/mediatek/Kconfig                   |   10 +
- drivers/pinctrl/mediatek/Makefile                  |    1 +
- drivers/pinctrl/mediatek/pinctrl-mt6895.c          | 1617 ++++++++++++
- drivers/pinctrl/mediatek/pinctrl-mtk-mt6895.h      | 2717 ++++++++++++++++++++
- 5 files changed, 4573 insertions(+)
----
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-change-id: 20261108-pinctrl-mt6895-84822207f4ac
+diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6895-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6895-pinctrl.yaml
+new file mode 100644
+index 000000000000..e3ecfffc084e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6895-pinctrl.yaml
+@@ -0,0 +1,228 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/mediatek,mt6895-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek MT6895 Pin Controller
++
++maintainers:
++  - Alexander Letuchiy <asalde.le1@gmail.com>
++
++description:
++  The MediaTek MT6895 Pin controller is used to control SoC pins.
++
++properties:
++  compatible:
++    const: mediatek,mt6895-pinctrl
++
++  reg:
++    items:
++      - description: pin controller base
++      - description: rm group IO
++      - description: rt group IO
++      - description: rmm group IO
++      - description: bl group IO
++      - description: bm group IO
++      - description: br group IO
++      - description: brr group IO
++      - description: lb group IO
++      - description: lm group IO
++      - description: rtt group IO
++      - description: tr group IO
++      - description: tl group IO
++      - description: lt group IO
++      - description: EINT controller W block
++      - description: EINT controller E block
++      - description: EINT controller S block
++      - description: EINT controller N block
++      - description: EINT controller C block
++
++  reg-names:
++    items:
++      - const: base
++      - const: rm
++      - const: rt
++      - const: rmm
++      - const: bl
++      - const: bm
++      - const: br
++      - const: brr
++      - const: lb
++      - const: lm
++      - const: rtt
++      - const: tr
++      - const: tl
++      - const: lt
++      - const: eint-w
++      - const: eint-e
++      - const: eint-s
++      - const: eint-n
++      - const: eint-c
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    description:
++      Number of cells in GPIO specifier. Since the generic GPIO binding is used,
++      the amount of cells must be specified as 2. See the below mentioned gpio
++      binding representation for description of particular cells.
++    const: 2
++
++  gpio-ranges:
++    maxItems: 1
++
++  gpio-line-names:
++    maxItems: 247
++
++  interrupts:
++    description: EINT controller interrupt
++    maxItems: 1
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 2
++
++# PIN CONFIGURATION NODES
++patternProperties:
++  '-pins$':
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      '^pins':
++        type: object
++        allOf:
++          - $ref: /schemas/pinctrl/pincfg-node.yaml
++          - $ref: /schemas/pinctrl/pinmux-node.yaml
++        description:
++          A pinctrl node should contain at least one subnodes representing the
++          pinctrl groups available on the machine. Each subnode will list the
++          pins it needs, and how they should be configured, with regard to muxer
++          configuration, pullups, drive strength, input enable/disable and input
++          schmitt.
++
++        properties:
++          pinmux:
++            description:
++              Integer array, represents gpio pin number and mux setting.
++              Supported pin number and mux are defined as macros in
++              arch/arm64/boot/dts/mediatek/mt6895-pinfunc.h for this SoC.
++
++          drive-strength:
++            enum: [2, 4, 6, 8, 10, 12, 14, 16]
++
++          drive-strength-microamp:
++            enum: [125, 250, 500, 1000]
++
++          bias-pull-down:
++            oneOf:
++              - type: boolean
++                description: normal pull down.
++              - enum: [100, 101, 102, 103]
++                description: PUPD/R1/R0 pull down type. See MTK_PUPD_SET_R1R0_
++                  defines in dt-bindings/pinctrl/mt65xx.h.
++              - enum: [200, 201, 202, 203, 204, 205, 206, 207]
++                description: RSEL pull down type. See MTK_PULL_SET_RSEL_ defines
++                  in dt-bindings/pinctrl/mt65xx.h.
++
++          bias-pull-up:
++            oneOf:
++              - type: boolean
++                description: normal pull up.
++              - enum: [100, 101, 102, 103]
++                description: PUPD/R1/R0 pull up type. See MTK_PUPD_SET_R1R0_
++                  defines in dt-bindings/pinctrl/mt65xx.h.
++              - enum: [200, 201, 202, 203, 204, 205, 206, 207]
++                description: RSEL pull up type. See MTK_PULL_SET_RSEL_ defines
++                  in dt-bindings/pinctrl/mt65xx.h.
++
++          bias-disable: true
++
++          output-high: true
++
++          output-low: true
++
++          input-enable: true
++
++          input-disable: true
++
++          input-schmitt-enable: true
++
++          input-schmitt-disable: true
++
++        required:
++          - pinmux
++
++        additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-controller
++  - '#interrupt-cells'
++  - gpio-controller
++  - '#gpio-cells'
++  - gpio-ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/pinctrl/mt65xx.h>
++    #define PINMUX_GPIO0__FUNC_GPIO0 (MTK_PIN_NO(0) | 0)
++    #define PINMUX_GPIO6__FUNC_SCL0 (MTK_PIN_NO(6) | 1)
++    #define PINMUX_GPIO7__FUNC_SDA0 (MTK_PIN_NO(7) | 1)
++
++    pio: pinctrl@10005000 {
++        compatible = "mediatek,mt6895-pinctrl";
++        reg = <0x10005000 0x1000>,
++              <0x11c20000 0x1000>,
++              <0x11c30000 0x1000>,
++              <0x11c40000 0x1000>,
++              <0x11d10000 0x1000>,
++              <0x11d30000 0x1000>,
++              <0x11d40000 0x1000>,
++              <0x11d50000 0x1000>,
++              <0x11d60000 0x1000>,
++              <0x11e10000 0x1000>,
++              <0x11ea0000 0x1000>,
++              <0x11eb0000 0x1000>,
++              <0x11f20000 0x1000>,
++              <0x11f30000 0x1000>,
++              <0x11e50000 0x1000>,
++              <0x11ce0000 0x1000>,
++              <0x11de0000 0x1000>,
++              <0x11fe0000 0x1000>,
++              <0x1c01e000 0x1000>;
++        reg-names = "base", "rm", "rt", "rmm", "bl", "bm", "br",
++                    "brr", "lb", "lm", "rtt", "tr", "tl", "lt",
++                    "eint-w", "eint-e", "eint-s", "eint-n", "eint-c";
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&pio 0 0 227>;
++        interrupt-controller;
++        interrupts = <GIC_SPI 259 IRQ_TYPE_LEVEL_HIGH 0>;
++        #interrupt-cells = <2>;
++
++        gpio-pins {
++            pins {
++                pinmux = <PINMUX_GPIO0__FUNC_GPIO0>;
++                bias-pull-up;
++                drive-strength = <6>;
++            };
++        };
++
++        i2c0-pins {
++            pins-bus {
++                pinmux = <PINMUX_GPIO6__FUNC_SCL0>,
++                         <PINMUX_GPIO7__FUNC_SDA0>;
++                bias-pull-up = <MTK_PULL_SET_RSEL_111>;
++                drive-strength-microamp = <1000>;
++            };
++        };
++    };
 
-Best regards,
---  
-Alexander Letuchiy <asalde.le1@gmail.com>
+-- 
+2.56.0
 
