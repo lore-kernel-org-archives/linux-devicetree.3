@@ -1,44 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103402;
-	b=WP3EC3T3+sxMFm3T0/RSYaGFmUUX4z4jdKBJS3gRE2kQQw9dQvVeWbjPgG1l0uDAfgkv
-	 5BgBQ26l3Trzw9vFrmE72ZLR1/2B6kD5IcWab5J8H5sj+LKCstCdWivSJgB1jQYLJt0Iw
-	 91dg+rN1jIyrz2pZ1Xy6fnUION3Xy1a7X9GZnEyctTnTCAzMuzHyqAJlKEtFL0JDtiFYG
-	 WlJWM4AS/7vA/SaGrD8ti7QZ23zIoOnUbkVSs/hriHqBhrAgWftBnuoDiiOLBQWyZXz7U
-	 OZweNe+IK0eD72ew1/7n+CAWiZP2+JFOl2zBwBOmJRaF/1zIfUGyHL4BdB5RJl3mKcQ==
+	t=1794103460;
+	b=pp9Y617d09xWEJiked8fra+gTjmcJHw7OD8gutEzLa34g5NDiSdNnbgkgcORCqKROrdc
+	 MmPzRsJEz5Nyb5AjRdx2FwoRYHRI2ZQ2cBpV6p06qpEBHcJ2K88UvYQ/h+nWuCJgCj3tM
+	 Ji1om6yjLcWpEvCe+DQw+fPzuoqArozm+qnVBPNLZSIbmXrUuTIdiEGrr7jy+x+75/QPo
+	 c5Vh6jA4xMYvCdgTBaPcgmd90v/SHaMP/NBe4TmgnEUM5dAIosw8qAWv0mGCZ7lO9rS5j
+	 nzl6M4egihtta4iirTl0YSE7swjzOR+HdxJXSIgrXS1gxNOaKzd4qeOFCu39gr5maRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103402;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=PuGzHsk/LIqXvaJ1IohwPD9m5fePFH4W4L4+Otr9oFg=;
-	b=Q7xZDdsB3aQzxXwz6p9AQ/6pz31xny2bHiwBlnttv25o9+i6wPNHyy8E3DCR6A19G0hS
-	 JJCAGT5kBDHtzNp7CND4iw/uPaWEEv22Z0FtzmSD/MVfEIxtwjc+uhcaSeaSM05JhOwwV
-	 mX7VBef3aPHX2kYUFZE2PEBLUrQmKZOqJtIw2bSrjUG1hFRS9PMmqZnEbypFIuitA9dkJ
-	 rc8wbb69r70/KEQ5JybdIezYk9TH1Q65rRacPQmdE8CI+REznygkXUO0aMWG4xWqxD9Ta
-	 jOAx/YqNCKn7HZgO/nQdGJ0izGBBh+3gOcvgeePvOA0naXEW3VrapgB7P74JQ4yz7ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103460;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KdK+2Y31YGq/pziwmjaFOQoKLGl1Ioy8FCZaLYsW4Yc=;
+	b=czNCvWtYnpWoYAkrxL1EM9YGl6z12vLp52RxlLr0YAvknYF4EZykjTlfFNW+UfvZmX5S
+	 3ANsRZEDLEDLbyyf8Jd5kHUGt0PFQuBnM0GKieRJku0k7dQ5pLjDIPUCzyKQfgL+pU+mb
+	 Z7v+yAqSmxPCRTXnQNMLOCReDNd9BD/Aqh5WzfYu7aDvphepVq+Xd+gokgxqY0ChM+lN4
+	 dRcdZJ9UfRKVQk5sBEJdSDRRHSg0afMCzQG6+5Vsaap/5I7WL55w3Ny5V2MRG5c3c68nZ
+	 h+NmGRS26LmqK8m0U37pmYxhN6gKG+Bcr75KBqb7AJcDYOssC692RVyulPEzhBXtiSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=kkvwdeSA;
-	arc=none smtp.remote-ip=160.236.53.83
-Received: from mail-m1602365383.xmail.ntesmail.com (mail-m1602365383.xmail.ntesmail.com [160.236.53.83])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ9+cVLx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA79606A31A;
-	Sun,  8 Nov 2026 02:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA79606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BFA606A330;
+	Sun,  8 Nov 2026 02:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=kkvwdeSA
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53dfa8dee;
-	Sun, 8 Nov 2026 10:03:07 +0800 (GMT+08:00)
-Message-ID: <f5edf258-4b6d-416a-9b27-efa47be8d91a@rock-chips.com>
-Date: Sun, 8 Nov 2026 10:03:05 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ9+cVLx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9A81F0089F;
+	Sun,  8 Nov 2026 02:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794103459;
+	bh=KdK+2Y31YGq/pziwmjaFOQoKLGl1Ioy8FCZaLYsW4Yc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RQ9+cVLxeaJ1CXYlsWl5pI4Rkuo7vgXMMeFTaDljZ6av1cazPPfEihL617klilpxS
+	 DIocx9fFBjUR2+LUvy5qHtcA1KoM5f4pd38yGaDijUKrQ7tcguQ260DtVm19nM8V4m
+	 V4UGKNuEOYohuwHj4gFnNFzFT3fe2rKpr5t5Vg0qljkYRqtIs6Q6pTaH/5kVIcSTFW
+	 WPda/KFke8e3tLSsyxn90zXkVjgKi0jewqY3TyJijGul3mDEVptFUU/UKz6RXyl6EP
+	 CjA3mnZS9EiSfU6dAns8+dq7dcC2vaxE9WTJYcbraGKodfYgANEKRCMTpFqITVLF9h
+	 O9sjqc2V78zsA==
+Date: Sun, 8 Nov 2026 02:04:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply
+ support
+Message-ID: <20261108020410.171489e5@jic23-hlaptop>
+In-Reply-To: <YGYT8qy3NVYYjUfYP3NfqDnjoQ7gdqYMw8opOaTfChdSx2z6jkaYxxJjj1Y4x6E4DMVykIDZzFjWGh_ywapgRTWmRuuCnBajjm89ZsN2JSA=@protonmail.com>
+References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
+	<20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
+	<20261107223601.0ba9ffc6@jic23-hlaptop>
+	<geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
+	<20261107235342.40f2e45a@jic23-hlaptop>
+	<YGYT8qy3NVYYjUfYP3NfqDnjoQ7gdqYMw8opOaTfChdSx2z6jkaYxxJjj1Y4x6E4DMVykIDZzFjWGh_ywapgRTWmRuuCnBajjm89ZsN2JSA=@protonmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,102 +69,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: rockchip: Enable NPU on RK3588 EVB1
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
- <20261106-rk3588-evb1-dt-updates-v1-2-bdbe16223589@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-2-bdbe16223589@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1b8e5269b03a7kunm53324d9a39fbb5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSR4eVk8ZQk4YTR8aGUtMGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=kkvwdeSA0JXJh94IWdoOSWnmeXYZ9RyQRqQBfDWgsti8LomJ+ryPfekPup1YK2zqCp32ezrhpwkXNcPo9NMfBs2c+x/+MOjst8p/1yt7jZEP8715nyJ1Tq02av39HeA2waphNRPwmGnFstec7rZdZfNzWes+86n1+K6ZFHurI3I=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=PuGzHsk/LIqXvaJ1IohwPD9m5fePFH4W4L4+Otr9oFg=;
-	h=date:mime-version:subject:message-id:from;
 
-On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
-> Also enable the NPU on the RK3588 EVB1, which is very similar to
-> the QuartzPro64.
+On Sun, 08 Nov 2026 00:06:57 +0000
+Roman Vivchar <rva333@protonmail.com> wrote:
+
+> On Sunday, November 8th, 2026 at 1:53 AM, Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-
-I remember there was already a similar patch before?
-Maybe I got something wrong.
-
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
->  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 34 ++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
+> > On Sat, 07 Nov 2026 22:45:45 +0000
+> > Roman Vivchar <rva333@protonmail.com> wrote:
+> >   
+> > > Hi Jonathan,
+> > >
+> > > On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.org> wrote:
+> > >  
+> > > > On Sun, 08 Nov 2026 00:15:03 +0200
+> > > > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
+> > > >  
+> > > > > From: Roman Vivchar <rva333@protonmail.com>
+> > > > >
+> > > > > On some boards, the chip shares a power rail with other components. If
+> > > > > that rail is turned off, the chip can't function.  
+> > > > Not sure how the sharing is relevant.  Even if shared with nothing
+> > > > else we need to turn it on.  So just mention that on some boards it
+> > > > isn't always on.
+> > > >
+> > > > The only reason this would be optional in the binding is if there
+> > > > was internal routing in some packaging or similar that meant there
+> > > > was no pin to connect.
+> > > >
+> > > > Upshot, make this required in the binding. Note that doesn't mean
+> > > > the driver must require it - we are simply documenting that the
+> > > > device needs power.
+> > > >  
+> > >
+> > > I agree this should be required, but that would break dt_binding_check
+> > > for existing boards. I don't have their schematic nor boards themselves
+> > > to verify the regulator for the power supply.  
+> > 
+> > There aren't any upstream (from a quick grep) and so not your problem
+> > unless you have some in a downstream tree that need fixing.  
 > 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> index 87e624d1e094..6476d9e3be6f 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> @@ -578,6 +578,10 @@ &pd_gpu {
->  	domain-supply = <&vdd_gpu_s0>;
->  };
->  
-> +&pd_npu {
-> +	domain-supply = <&vdd_npu_s0>;
-> +};
-> +
->  &pd_rkvdec0 {
->  	domain-supply = <&vdd_vdenc_s0>;
->  };
-> @@ -703,6 +707,36 @@ &pwm2 {
->  	status = "okay";
->  };
->  
-> +&rknn_core_0 {
-> +	npu-supply = <&vdd_npu_s0>;
-> +	sram-supply = <&vdd_npu_mem_s0>;
-> +	status = "okay";
-> +};
-> +
-> +&rknn_core_1 {
-> +	npu-supply = <&vdd_npu_s0>;
-> +	sram-supply = <&vdd_npu_mem_s0>;
-> +	status = "okay";
-> +};
-> +
-> +&rknn_core_2 {
-> +	npu-supply = <&vdd_npu_s0>;
-> +	sram-supply = <&vdd_npu_mem_s0>;
-> +	status = "okay";
-> +};
-> +
-> +&rknn_mmu_0 {
-> +	status = "okay";
-> +};
-> +
-> +&rknn_mmu_1 {
-> +	status = "okay";
-> +};
-> +
-> +&rknn_mmu_2 {
-> +	status = "okay";
-> +};
-> +
->  &saradc {
->  	vref-supply = <&vcc_1v8_s0>;
->  	status = "okay";
+> I found these (next-20261015, 7.3-rc7):
+> $ rg "sensortek,stk" arch/
+> arch/arm64/boot/dts/exynos/exynos7870-on7xelte.dts
+> 467:		compatible = "sensortek,stk3013", "sensortek,stk3310";
 > 
+> arch/arm64/boot/dts/exynos/exynos7870-a2corelte.dts
+> 412:		compatible = "sensortek,stk3013", "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> 526:		compatible = "sensortek,stk3311";
+> 
+> arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+> 219:		compatible = "sensortek,stk3311";
+> 
+> arch/arm64/boot/dts/mediatek/mt6768-xiaomi-merlin.dts
+> 348:		compatible = "sensortek,stk3337", "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
+> 206:		compatible = "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/qcom/msm8916-wiko-chuppito.dts
+> 91:		compatible = "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts
+> 173:		compatible = "sensortek,stk3310";
+> 
+> arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> 169:		compatible = "sensortek,stk3310";
 
--- 
-Best, 
-Chaoyi
+huh.  I wonder how I failed to grep for those!
+
+Oops - must have fat fingered the string.
+
+Ok, I guess that's a big enough set we can maybe just skip
+the required.
+
+> 
+> > If you do then there is the option of a fixed regulator to close
+> > the gap.  I consider a missing supply a bug that we should fix but maybe
+> > others disagree.  
+> 
+> Yeah in my tree I have added vdd-supply for my board :D
+> 
+> Best regards,
+> Roman
 
