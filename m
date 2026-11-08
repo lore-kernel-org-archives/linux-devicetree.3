@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169372;
-	b=xWMjqdGK3IKLz8TEmUabh15hjBiFMBtgJAT8C1Zwy9itFOfdEQza9T191HKXwHklr/Eo
-	 cVBVtc/UaEWLC4hfz7FYu+RjrDfBEA+Eon1F5hVe3cVGf1o0O/dxdSe+vTxcdDsxiJjwZ
-	 0D2REm3ZTKq6ILDKMULX3qt5qWJO+a90xUiw64ms8Ik1m5pnoP+lNdQE2smr/GcTMlzjB
-	 OOE1WbcqGsr3pS895GhPiWNBFoVhoaa/sPfWMG4VQ/k+bmJ6BdDlTX20AkEVTxOv/ozJV
-	 mecHVwYenfLUUaLVktPUlhW87PLHsA3SwZ0ODTapIeCGANf0gMOT3TkO+Ez+2kEajZw==
+	t=1794169377;
+	b=gtG55469hd+roQlQNgmXhOZmeA6A2TI4/eDa4osyWCsqGtFOU6r3arVte0JSADmdjDNM
+	 l0JchZv3zKLs38tkku4KUdiBtiyriPdWY5gB/g90/riBtqGZxM0Wdr7/PRMbc3cP4t6VE
+	 r2AyCJNQaW6JqWKsqHJ32Mp8CwRMlphcZy6wml2V0yMVMI/W2Rauhxks4gQyg8GUX30B6
+	 R1ZO17tpFrqG0zyhjoHaYB/+ut0Z1hxWT3TzFnJjXYtagn8PtUdZERNAgwrRHaB4axRuH
+	 X/wbLV2cCV0wuDWcydpLBAJOkTAXMGJNXNTT34ErZRJMD2w7VrlobUEszyFn7YGMW4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169377;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EbzYZKw4Z4Se0P5JJESGy35Jk+CQhKCQTQ2rrP07VGM=;
-	b=0paHMS+hufaj5jo8WGR2cjEcAHubW6d5gcv71OluX1GoYIcQJFI5sGClPqkwwIkAMpQU
-	 lQpEQ/6ufqXuUCl0Kufkog1Py91mRxDxDQcvy2eOcCXOV+rszb0+ndlc5S4+0/mGmSE2k
-	 nusc5pJAnx8lVk3UL/ysyDE3ZwrX7wQhlq7LS/1M6UTgFmmnvjDmkGT2aj9UtHxg6DGGI
-	 zF+ngEw0lXyGnnOOJfrLaiW5O4nT0AsiowjDL2GnSMoJGN1O7HEho3BEtkOhXxapRZ1jR
-	 F0mphFLPNvySQoaTmgG3VccPEYh7FMmzHMNo+VVpSX8OVsqbWSQeVWMl5XawmZYJ5tQ==
+	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
+	b=19N2DMqiljrhatFA5jeiMKIeKd1zbsrv1p3uS6sssBoXpndZ3hypu5ZHyXCAsLZxxS8e
+	 3lIf120LzvGjZYq9bvHXdpffI/udfYsCE4R0bMc98D5wXRFz1xSfehDAe/Hw91fy+K3oU
+	 aZAyD3XPZwqblmV2IAixGqahyYCEFgFQV4ndbsz3dpBSSfbA/gDCRH+pFaC1mUG2wdHhR
+	 CMpTGbqwKuL5KjvhqHmaiunVgLOOufXyRk8OYU9FD85yX6ZVGXbURvuvr37Kiiu2QSfZL
+	 HzzEWXi94FVvPLJdKzGJXia6AGlKHGSoqxGt0E1WorAkB3IGvMWNTTZYCAW9r+O+n0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Of2ZblCq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F087E606BA56;
-	Sun,  8 Nov 2026 20:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74067606BA7C;
+	Sun,  8 Nov 2026 20:22:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Of2ZblCq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08F51F0089F;
-	Sun,  8 Nov 2026 20:22:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841471F008A4;
+	Sun,  8 Nov 2026 20:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169371;
-	bh=EbzYZKw4Z4Se0P5JJESGy35Jk+CQhKCQTQ2rrP07VGM=;
+	s=k20260515; t=1794169377;
+	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Of2ZblCqksLyI3601ikVvMQVdDnmrdQgSjCNRnJlLx4ajHed5Pfy0p3YMUxrvSc4y
-	 x0d19HLapmrTJwUusGHJEPuTSe1XGddpG9Wms6iF+MS4XhUgKc6Nw38r8OEr1Vl5+X
-	 +kGEUd6kKkGvLDd9pxCiq1kZCLdzf1H3mJ2Nmd6hOfRdghmYBWaT6ojxDKmW79Ciff
-	 ApVqGo3fNy2oPqQSSVGHfh9bDb8nghYcQZIvMLNpvFGkoN0bAnAP5/AqVcb21zoDGv
-	 lzh3SmMaAgHe32GREVHCieNFiGtqQO6sn90B6WLH5I034sDeAiFk61E1UYhu3J3CkK
-	 w5Ve1QzveaI7Q==
+	b=KnAjCatM6jtU5Iv559+8anP65FzZlX7oYCx74Fw01CPC5a3xdNRotIhg1ODU06D0Z
+	 3O1AJitHI8qNpJZ2TdesIlen+KA2pweXMoaeeHhllEvRpgnrKYuf0ca+5X+X+T9PFM
+	 e/mBp6YgR/gVUPKPhiNoIDdM14QFYZOpRJ09ag0pzjshIOv8+Y81RqT/WW64I0qwoX
+	 DtDmRmZCQeEWg//12huru/SDg4iR2BmknRNu5YUL8sWqyRS8GFsfjJplxY7V1MeZFX
+	 qw5EMIto1jlAmgezvxoMpI6F4YHfNBQi/76v2ANljD9tyY7j7gIxQfpF2huzvsHkkP
+	 4Ur940OSHY4ig==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/3] arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
-Date: Sun,  8 Nov 2026 14:19:48 -0600
-Message-ID: <179416929485.628393.4784056878909364367.b4-ty@b4>
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
+Date: Sun,  8 Nov 2026 14:19:51 -0600
+Message-ID: <179416929284.628393.3018595425203478493.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
-References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
+In-Reply-To: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
+References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,21 +73,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 27 Oct 2026 00:33:32 -0700, Gopikrishna Garmidi wrote:
-> This series adds initial support for the Microsoft Surface Laptop 13.8"
-> 8th Edition. It's built on Mahua, the 12-core variant of Glymur with
-> cluster2 fused off.
+On Tue, 29 Sep 2026 15:18:05 +0530, Hardeep Sharma wrote:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
 > 
-> As on the Surface Laptop 7, the keyboard, fan and platform profile are
-> handled by the Surface Aggregator Module over UART. The rest of the
-> board is close to the Qualcomm reference design.
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. The rest of the
+> series (bindings, GCC, RPMh clocks and power domains, interconnect,
+> pinctrl, geni-se) has been applied and is in linux-next, so v7 carries
+> only the SoC and IDP board devicetree, plus a small geni-se binding
+> update that lets the QUP wrapper use one address/size cell on 32-bit
+> SoCs.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/3] firmware: qcom: scm: Allow QSEECOM on Surface Laptop 8th Edition
-      commit: d3daf22e99cdec6e684d6d062adde7b081402902
+[2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
+      commit: 7f6a63bc5fc9bed3fac66ac57000882926d25f84
 
 Best regards,
 -- 
