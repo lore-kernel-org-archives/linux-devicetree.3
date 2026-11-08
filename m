@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169421;
-	b=Dhchowxd7SmHYvvOoPOWF8FapZxAwQfRAYInOpjRP4UyMoOQXltd/HDlccVIfBfsdEKZ
-	 Y3iCc85DJEtlxqJgA3FWYjjyGWECt1RSOIQXm9TBaAZPQYWOt73osZq1e5n2bdpr0gwst
-	 WSpAJ6otUlJXiN5vKRS7V72zdZRqaowBD7fX4DVL/zKerLWI5ds+4u/f6C3mfOg2ckd9G
-	 890EWThaYmiwH403Z9wHR5fnrsqycI2D0BMl1lELEUsjmvQmxK0Ou8eI+0+hZY+a7gagq
-	 uP/hgO8FtiJjQVWhVkeTXoBSQEeDMRCI3ve8nO6kbJjXyhA16mvVUx+8RslVYeq/AYw==
+	t=1794169435;
+	b=uCMJQ40OLS+EaGNRlEdhsOVGph1FS+Q9BSWIUnWqSzJSrAwHQOrl+GWaltbskYapBld8
+	 YmJQ3Pq2/2/ufYKeJN0zlARZMxsjExCQ8fvQoqSYQygZvJk8F0DNReCZ33x4U7VboGZkb
+	 l2gw2IiaLT+0uCdFEfyLG0bAyLBxu5g6wkW52roVNazXAsdiZ/jC63Clt12nnc0mbykML
+	 vEvqnONlrK7AL47sjdyn8evW9QXUPOc4sAZQpi7BGfuRNhIrzX/jQTT8uTZfGuc+1uQ9D
+	 nYmTUAmp6G0ebuC3weutUmX9nBCPovTD7qablQjKEnPfbQrcLzisjm6FDRSwo7yy5Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169421;
-	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169435;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=sXkPcwxU6YZ8OKvvHZqjFOu5SNL2+1NUSdeOdljECB4=;
-	b=2k/OMBAqEaTWAQayCBTCF5K9ZAUS1cwizz2lgOCvqwX4GMJ16FwIE3O/IAKekXdRXAlS
-	 b95ptu/Cn0RTsiRz9BQf2JDODrxQFLQUrktcga/lBpvMkrYJb/CbX+C53tScWP+1Kqcg3
-	 WS2qyQQLkCPtNDbC8v2czTVl7MhYwFsxow0bJAQGDGZ4QzWxVrH3pvwq/TONiNvC6cMSU
-	 Hd/drBHlbmPkvC1Hib9e0W8Q3Rdkwa06GLLvFAwge+NWPkaAHNc9aQ5a3vF/Rjhs0YIKG
-	 uHfkTEHTp+dvLt5mLJ2UGvHBLE0pwp2pb3qIU8FSbRF7z86ZtkeYb9ME+mwjUgc5zhQ==
+	bh=T1K+95ZwJDatkbP5ZFT8Z0TT0QVdJveWTGK1BJzI4uE=;
+	b=cq9Nt8OuTdkExULpqfkwWLFShsdjx/Qt2j10kpl2W3ijvZfl4XFnq+pYDLSIOKCgzbHH
+	 Pcw3zJY2+Gywgl85Cpt9Frj10AARyBOdnxcICE2/VyjuMjk1m7fVO5D4jPCnTLe/bDi5j
+	 aCVw16oJ2RFvD4kycbTHlDrZXjjFmUNnABfAC2PCzWzJN67Qeod05Ms1XO+/r4jexju3K
+	 GlFIyZEI5749+hUOY0WbapFr3bi6+FIbZY5WqWE04S1I1i4tJDxlkLInWB5019b8F+ONI
+	 R+KK9ceDa3yEf6rwCvH93X5T2WrRXNdpHCWQhY1TN3kqSsvXg6OiPYp215KE9BONimA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0D0lgz6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckz3L2Xa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F992607343E;
-	Sun,  8 Nov 2026 20:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11DF606EEB1;
+	Sun,  8 Nov 2026 20:23:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0D0lgz6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84BF51F0089F;
-	Sun,  8 Nov 2026 20:23:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckz3L2Xa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929A01F008A6;
+	Sun,  8 Nov 2026 20:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169421;
-	bh=sXkPcwxU6YZ8OKvvHZqjFOu5SNL2+1NUSdeOdljECB4=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=P0D0lgz6LD/AT8dr4lJDlAZiGNUkSGZ5bh6kiQoFlVu8nk5aQ0EpPm1FNN7/nRjr1
-	 dtnmjGoEVCWr4TJwGI7i7eZ04lASqUEZQos2pn4lmKcSwWibwe1tBEgPLCjeRJKrho
-	 5UylMRRVdqgXG+moD9ebZ6IawQkg63CyDUraaiWTNG4XzXDsveuvjxNxd7UsIwcB48
-	 YSla7useK6UoJPbcvlH2VKrpZediEryXhFNbRalIvBFlm7itQn9iyGsf3cJPrweSWw
-	 BCwEY29RlCoJkO4xAiIMRwfusZ2tmHQORmTMyIdq+ChpW29ZSyu0nIC5TU/7Ag+2md
-	 RixboYvIa9fNg==
+	s=k20260515; t=1794169434;
+	bh=T1K+95ZwJDatkbP5ZFT8Z0TT0QVdJveWTGK1BJzI4uE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ckz3L2Xa4mgqPIPGve9szzBKdoEr2k+yawkE6y6WKwwS8ollvLBS8Cq4ozekf30lG
+	 V7Kt2wsdAdsZSq1tYRQkQg0/mRtmPWiNY4QMw7nPn9qAzvuKeZ1EVnLiELaFzvukFJ
+	 UwGkWVG4d4TlpHdd3/XVfBKjegIICLwUL3QpFyExfOh7cQr4sXKBDLLKTi6Nd7jgrQ
+	 H32tP3KWyOGmT2q4n9t/RT0zOc3qr3oiBW9teOiYkUFdF+jyOAGS9p7f0ddZoFRdi1
+	 25XOSYK32foz0gFGpdjdKu3VMtKfsB3ak+V6FaVvd4l3byMFVB8vAg06CbVTqTjhQ9
+	 vfpQg2pfRpXhw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: eliza: Use GIC_SPI macro for interrupt-map
-Date: Sun,  8 Nov 2026 14:20:24 -0600
-Message-ID: <179416929211.628393.13752107264449337583.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sm6350: Add memory-region for audio PD
+Date: Sun,  8 Nov 2026 14:20:34 -0600
+Message-ID: <179416929420.628393.3530533303129530569.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261106073742.99552-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261106073742.99552-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261019-sm6350-fastrpc-memory-v1-1-1d4edb11238d@fairphone.com>
+References: <20261019-sm6350-fastrpc-memory-v1-1-1d4edb11238d@fairphone.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,14 +71,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 06 Nov 2026 08:37:43 +0100, Krzysztof Kozlowski wrote:
-> Make the complicated interrupt-map property (with multiple '0' entries)
-> a bit more readable by using known define for GIC_SPI.
+On Mon, 19 Oct 2026 11:59:20 +0530, Luca Weiss wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza: Use GIC_SPI macro for interrupt-map
-      commit: 23f9f8447af8399f55da0d9f878050faf9e78294
+[1/1] arm64: dts: qcom: sm6350: Add memory-region for audio PD
+      commit: 25bac6a9c03ecde2b317a72ba4aa1e023e6c45e3
 
 Best regards,
 -- 
