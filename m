@@ -1,88 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794098622;
-	b=25VHUQOv2neOo6pi93tRyINRaguSO5ZGTh52lzx9y1qFmr9iq8N6JzBGO80anKeJHAWE
-	 edKhqcTiN9/AFIsBgNGymwltpZNVl+Nq8TNKrY96Q16+X4WVbhrjfzXJO1C1tz/gDkqwS
-	 3qo9zTp/cWXbXG2wMruZGh1RlfcqUBsbKL7U5R/lX8x4H6ZX1e/u99nxA6QXKXm+wGgRy
-	 Km/2D8iwZyEb3fAQHXWP/UgPvlCBQ9/PUYVV205wqp+WS6oiwIGp7wTMlQPsaox+fvKEj
-	 9t5IRX+DyrOolR1i6q5VaGIGsPaDvzVmUgB63DMttUkmn4KxjKd8JUGVrkEZX9KjGzg==
+	t=1794099151;
+	b=zz8QgSiro6FXdx3rlFFOXG0Ir6yBo4E9h1325JrA+BHN9lQk01++pz2T5MtZU8KF0Onv
+	 sQHBtVO3Tsr7N+8nw4kfnFMwKWDcIUruhM4Aljv/ZyO+lVVXo0EVsmi2fhfCNxZgAU9eJ
+	 gjUew3JWXdT/7+gDS2YDTpQJaUs+8pkhVhzkk75RDdzeKRA/TlRbButhKQSE/Jz7iSwKv
+	 zFoirSYU+e2LEhRC69QBazeHGtnz+9v4uXksKQrGyDQ7EoZGsFT4UmNwuHMscGjW0M7oG
+	 CktFgfQM+1BOWl4nyi8oMwHwg3b3O+ijfvZF71tgtQEh3fgutQ95tBuqYXq9FpEpqYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794098622;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=rG3sxFXQs2YwfYo04qJv9bFe1Lf+g5QXDbyEwDUCygI=;
-	b=AriZiu/IjSpeee2wXFO+0aHUHfc4tjE8EwYBIVkVsPIM+Nv8Bx4jlc9N2y7LGnzNI0vH
-	 PRgNCOwRtwYPj1mBcBc1KTCAJictsYRhVu4iHKEhNrZey6khBxZZELMJO9sN2QspoZ+Bw
-	 R47b9xBLfbNwgo/Bj6AIcEG1oZTMXPKvl7uVDok+LrH3Ex+mZxcPNxSN2RnPSgbciAfQ8
-	 99wKEfepnE9Ij+kGKCZv4B2GhmNWoyJ1pqa6uDnWi3Iyb+joet2Lz+z0iczzrvrGqdgbH
-	 zTvNdnStfkzVR/A+/gptE6N0uHlAr+PLnWJLx3/h4xqkWjpbSJEUnK/sqT2xXK4fx4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794099151;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=maLB02cvNBbVMYlAfoB1uYt8bE13NZpelqMOahax1vM=;
+	b=jxY3mb46qA6CYALZX8SApPphhdpO7uUBiOM4XeT/8loLC3k+Hyq6H+wyGjc0Op+h3PqC
+	 uWzX10CfEMGqK1oVqKvvEOXgGarcdMDGoaZXQu3SUf00V2D9DsBk5cWfN1lVTnj+Ybool
+	 nrarXmBiEmn5Q8wm2TkNUcHdKxAgZlfYPMcyvIhrGUAqM71LRlw9V+fKVIS1R0d3TJEXj
+	 83bLmUS30WPeKO2suTR4kish7DFVRqSIisujGDXs4TgNLS9OcBUFYm8KTMMG9RRAZwLpr
+	 jZ7SfSoJUkPkR6Su4EjpQXewIq5QavqotdlaCxkFnC60tIz9tKHV2a5ngdlxjpbRe8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MuzKtUZL;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjUf9tif;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFDD606A326;
-	Sun,  8 Nov 2026 00:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DFDD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A335C606A326;
+	Sun,  8 Nov 2026 00:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MuzKtUZL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794098621; x=1825634621;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ck1edxgvk3BDD0VbuIuludWk8bM0SgopvTgDhybmkbE=;
-  b=MuzKtUZLwzSl6Bry9hNCpHIQBa6cu93a3yRuhYe0x+vS8J6Jqvk3x4tw
-   UyWxOzDdq8OZ60vo8c3Y+mORWljCVS1Pj+3mzABUktJy37EHMDQI/r6zF
-   UXxmWQ46hbTpCAQAXOt3EwyQd3gFX+vHgPCHiK6dGz2I+DqSKNxcWLLCk
-   LG027cVduu0EPdeAKE80iV/QmYQw27D1d7/QA5UGPrv7BmEzwlg3Q0BRq
-   iLytVtt2d2lD9d0IluNQ6NjItqfx/dUK6S8H7el4Q0ccy4voQYN4gcbTh
-   ZMdI7gE3/fvutqMIDkShUoila5rnOeGYOCFf+mWLWKJndmMzyBi+r3U9G
-   A==;
-X-CSE-ConnectionGUID: LstQH8tlR8y74zLHwc65tw==
-X-CSE-MsgGUID: rmh/Co06Q4S23pe/2j1GRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2873233"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2873233"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 16:43:40 -0800
-X-CSE-ConnectionGUID: cJ2oaVP4Rjm6gYOnPiOqgQ==
-X-CSE-MsgGUID: hal4leBYT4ysdlFNdJJdIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7702949"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 07 Nov 2026 16:43:37 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPr0P-00000000rqx-2znG;
-	Sun, 08 Nov 2026 00:43:33 +0000
-Date: Sun, 8 Nov 2026 08:42:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	Marc Zyngier <maz@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
-	Yuvan Shen <yuvanshen09@gmail.com>,
-	Myria Sarvay <myrialsarvay@gmail.com>
-Subject: Re: [PATCH v2 06/15] drivers/perf: apple_m1: Add Apple M3 Series
- Support
-Message-ID: <202611080830.Uv6E9OCL-lkp@intel.com>
-References: <20261107-m3-plus-pmu-events-v2-6-acf1e78da039@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjUf9tif
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A6E1F0089F;
+	Sun,  8 Nov 2026 00:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794099150;
+	bh=maLB02cvNBbVMYlAfoB1uYt8bE13NZpelqMOahax1vM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CjUf9tifq0mqK9YdTPRQ4tY0/DMvibcf8Aoym94yLei9H4M2C2eXxQICHbm+4k45d
+	 RHtxhBQ6AJMh35qd6/RD1fHqmBjCLKm2U52F68eEclymLP+gS3KRGELm+JVlT0/IgX
+	 8KUadiS2hgWYkCX/zeHxlPYyQayYXGd7pooh7sxC+1x46S5wULi2T58QU0/+Sa2ybH
+	 etNnHtLkudqXulSTx+xf7xjQTUorrYEfDcNOVWYSaxyJT3N/4JuwTZwr08ptQM5cJ1
+	 FeAAaCMsMSTOGMB6aV4vRJjQuXHV85lgeJ9Y1Ccm14Y0iwJZA8Gp1ApZ6WDTsqL/xD
+	 KKqrtDWWiv38A==
+Date: Sun, 8 Nov 2026 00:52:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v5 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261108005227.2dcd4697@jic23-hlaptop>
+In-Reply-To: <20261102-adis16607-v5-6-4f98b0d271ac@analog.com>
+References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
+	<20261102-adis16607-v5-6-4f98b0d271ac@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,164 +66,135 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-m3-plus-pmu-events-v2-6-acf1e78da039@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Myria,
+On Mon, 02 Nov 2026 11:25:42 +0200
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-kernel test robot noticed the following build warnings:
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add buffered capture via the device's hardware FIFO - the only
+> capture mode this driver supports. Popping the FIFO uses a dedicated
+> command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum),
+> handled directly rather than through adislib's generic burst-read
+> helpers, which assume one fixed-shape read per trigger rather than a
+> variable-count drain loop.
+> 
+> The watermark-met condition is signaled via DEV_NOK on the device's
+> one interrupt pin, which stays asserted (level-triggered) until
+> DIAG_STAT is read and cleared - matching adislib's has_fifo contract.
+> DEV_NOK fires on any DIAG_STAT flag, not just FIFO_THRESH_MET, so the
+> trigger handler checks that specific bit before popping anything.
+> DR_GPIO_MASK stays enabled unconditionally: DR pulses drive the FIFO
+> controller's internal sample enqueue, independent of pin routing.
+> 
+> Watermark is configurable via the standard hwfifo_set_watermark
+> callback and the usual hwfifo_* sysfs attributes.
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+https://sashiko.dev/#/patchset/20261102-adis16607-v5-0-4f98b0d271ac%40analog.com
+Has some feedback on this and later patches.
 
-[auto build test WARNING on 84a1163b0a3ec0acdda113d4c920ed72955dd6e8]
+If you want to increase chance of me pickup up a patch I'd
+suggest watching for any feedback from sashiko and
+commenting on whether and why it is wrong before I get
+to catching up on reviews.  If it is repeatedly saying stuff
+you disagree with add a comment under the --- for the relevant patch.
+If you have looked at it and plan to make changes but haven't
+yet, please save reviewers time by replying to the thread to say
+that.  If you've just had a busy week and not gotten back to this
+then fair enough!
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Myria-Sarvay-via-B4-Relay/dt-bindings-arm-pmu-Add-Apple-M3-M4-A18-Pro-SoC-CPU-PMU-compatibles/20261107-214848
-base:   84a1163b0a3ec0acdda113d4c920ed72955dd6e8
-patch link:    https://lore.kernel.org/r/20261107-m3-plus-pmu-events-v2-6-acf1e78da039%40gmail.com
-patch subject: [PATCH v2 06/15] drivers/perf: apple_m1: Add Apple M3 Series Support
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261108/202611080830.Uv6E9OCL-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080830.Uv6E9OCL-lkp@intel.com/reproduce)
+Following what sashiko came up with, I'm not sure how the adis
+fifo handling works today.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611080830.Uv6E9OCL-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-         |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:285:51: note: (near initialization for 'm1_pmu_perf_map[5]')
-   drivers/perf/apple_m1_cpu_pmu.c:290:51: warning: initialized field overwritten [-Woverride-init]
-     290 |         [PERF_COUNT_HW_CPU_CYCLES]              = M3_PMU_PERFCTR_CORE_ACTIVE_CYCLE,
-         |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:290:51: note: (near initialization for 'm3_pmu_perf_map[0]')
-   drivers/perf/apple_m1_cpu_pmu.c:291:51: warning: initialized field overwritten [-Woverride-init]
-     291 |         [PERF_COUNT_HW_INSTRUCTIONS]            = M3_PMU_PERFCTR_INST_ALL,
-         |                                                   ^~~~~~~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:291:51: note: (near initialization for 'm3_pmu_perf_map[1]')
-   drivers/perf/apple_m1_cpu_pmu.c:292:51: warning: initialized field overwritten [-Woverride-init]
-     292 |         [PERF_COUNT_HW_BRANCH_INSTRUCTIONS]     = M3_PMU_PERFCTR_INST_BRANCH,
-         |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:292:51: note: (near initialization for 'm3_pmu_perf_map[4]')
-   drivers/perf/apple_m1_cpu_pmu.c:293:51: warning: initialized field overwritten [-Woverride-init]
-     293 |         [PERF_COUNT_HW_BRANCH_MISSES]           = M3_PMU_PERFCTR_BRANCH_MISPRED_NONSPEC,
-         |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:293:51: note: (near initialization for 'm3_pmu_perf_map[5]')
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: warning: initialized field overwritten [-Woverride-init]
-     297 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M1_PMU_PERFCTR_##m1_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:304:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     304 |         M1_PMUV3_EVENT_MAP(INST_RETIRED,        INST_ALL),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: note: (near initialization for 'm1_pmu_pmceid_map[8]')
-   drivers/perf/apple_m1_cpu_pmu.c:304:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     304 |         M1_PMUV3_EVENT_MAP(INST_RETIRED,        INST_ALL),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: warning: initialized field overwritten [-Woverride-init]
-     297 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M1_PMU_PERFCTR_##m1_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:305:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     305 |         M1_PMUV3_EVENT_MAP(CPU_CYCLES,          CORE_ACTIVE_CYCLE),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: note: (near initialization for 'm1_pmu_pmceid_map[17]')
-   drivers/perf/apple_m1_cpu_pmu.c:305:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     305 |         M1_PMUV3_EVENT_MAP(CPU_CYCLES,          CORE_ACTIVE_CYCLE),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: warning: initialized field overwritten [-Woverride-init]
-     297 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M1_PMU_PERFCTR_##m1_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:306:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     306 |         M1_PMUV3_EVENT_MAP(BR_RETIRED,          INST_BRANCH),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: note: (near initialization for 'm1_pmu_pmceid_map[33]')
-   drivers/perf/apple_m1_cpu_pmu.c:306:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     306 |         M1_PMUV3_EVENT_MAP(BR_RETIRED,          INST_BRANCH),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: warning: initialized field overwritten [-Woverride-init]
-     297 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M1_PMU_PERFCTR_##m1_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:307:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     307 |         M1_PMUV3_EVENT_MAP(BR_MIS_PRED_RETIRED, BRANCH_MISPRED_NONSPEC),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:297:51: note: (near initialization for 'm1_pmu_pmceid_map[34]')
-   drivers/perf/apple_m1_cpu_pmu.c:307:9: note: in expansion of macro 'M1_PMUV3_EVENT_MAP'
-     307 |         M1_PMUV3_EVENT_MAP(BR_MIS_PRED_RETIRED, BRANCH_MISPRED_NONSPEC),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: warning: initialized field overwritten [-Woverride-init]
-     300 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M3_PMU_PERFCTR_##m3_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:312:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     312 |         M3_PMUV3_EVENT_MAP(INST_RETIRED,        INST_ALL),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: note: (near initialization for 'm3_pmu_pmceid_map[8]')
-   drivers/perf/apple_m1_cpu_pmu.c:312:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     312 |         M3_PMUV3_EVENT_MAP(INST_RETIRED,        INST_ALL),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: warning: initialized field overwritten [-Woverride-init]
-     300 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M3_PMU_PERFCTR_##m3_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:313:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     313 |         M3_PMUV3_EVENT_MAP(CPU_CYCLES,          CORE_ACTIVE_CYCLE),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: note: (near initialization for 'm3_pmu_pmceid_map[17]')
-   drivers/perf/apple_m1_cpu_pmu.c:313:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     313 |         M3_PMUV3_EVENT_MAP(CPU_CYCLES,          CORE_ACTIVE_CYCLE),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: warning: initialized field overwritten [-Woverride-init]
-     300 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M3_PMU_PERFCTR_##m3_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:314:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     314 |         M3_PMUV3_EVENT_MAP(BR_RETIRED,          INST_BRANCH),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: note: (near initialization for 'm3_pmu_pmceid_map[33]')
-   drivers/perf/apple_m1_cpu_pmu.c:314:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     314 |         M3_PMUV3_EVENT_MAP(BR_RETIRED,          INST_BRANCH),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: warning: initialized field overwritten [-Woverride-init]
-     300 |         [ARMV8_PMUV3_PERFCTR_##pmuv3_event]     = M3_PMU_PERFCTR_##m3_event
-         |                                                   ^~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:315:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     315 |         M3_PMUV3_EVENT_MAP(BR_MIS_PRED_RETIRED, BRANCH_MISPRED_NONSPEC),
-         |         ^~~~~~~~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:300:51: note: (near initialization for 'm3_pmu_pmceid_map[34]')
-   drivers/perf/apple_m1_cpu_pmu.c:315:9: note: in expansion of macro 'M3_PMUV3_EVENT_MAP'
-     315 |         M3_PMUV3_EVENT_MAP(BR_MIS_PRED_RETIRED, BRANCH_MISPRED_NONSPEC),
-         |         ^~~~~~~~~~~~~~~~~~
-   In file included from include/linux/build_bug.h:5,
-                    from include/linux/bits.h:30:
->> include/linux/compiler.h:200:59: warning: anonymous struct declared inside parameter list will not be visible outside of this definition or declaration
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                           ^~~~~~
-   include/linux/build_bug.h:17:9: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
-      17 |         __BUILD_BUG_ON_ZERO_MSG(e, ##__VA_ARGS__, #e " is true")
-         |         ^~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/bits.h:34:35: note: in expansion of macro 'BUILD_BUG_ON_ZERO'
-      34 | #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
-         |                                   ^~~~~~~~~~~~~~~~~
-   include/linux/bits.h:47:14: note: in expansion of macro 'GENMASK_INPUT_CHECK'
-      47 |         ((t)(GENMASK_INPUT_CHECK(h, l) +                        \
-         |              ^~~~~~~~~~~~~~~~~~~
-   include/linux/bits.h:51:33: note: in expansion of macro 'GENMASK_TYPE'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^~~~~~~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:24:41: note: in expansion of macro 'GENMASK'
-      24 | #define M1_PMU_CFG_EVENT                GENMASK(7, 0)
-         |                                         ^~~~~~~
-   drivers/perf/apple_m1_cpu_pmu.c:705:65: note: in expansion of macro 'M1_PMU_CFG_EVENT'
-     705 |                                      const u16 event_affinities[M1_PMU_CFG_EVENT + 1])
-         |                                                                 ^~~~~~~~~~~~~~~~
+https://elixir.bootlin.com/linux/v7.3.1/source/drivers/iio/imu/adis_trigger.c#L90
 
 
-vim +200 include/linux/compiler.h
+	if (adis->data->has_fifo)
+		ret = devm_request_threaded_irq(&adis->spi->dev, adis->spi->irq,
+						NULL,
+						&iio_trigger_generic_data_rdy_poll,
+						adis->irq_flag | IRQF_ONESHOT,
+						indio_dev->name,
+						adis->trig);
 
-230fa253df6352a Christian Borntraeger 2014-11-25  196  
-cb7380de9e4cbc9 Kees Cook             2025-02-05  197  #ifdef __CHECKER__
-243c90e917f5cfc Vincent Mailhol       2025-03-29  198  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) (0)
-cb7380de9e4cbc9 Kees Cook             2025-02-05  199  #else /* __CHECKER__ */
-243c90e917f5cfc Vincent Mailhol       2025-03-29 @200  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-cb7380de9e4cbc9 Kees Cook             2025-02-05  201  #endif /* __CHECKER__ */
-cb7380de9e4cbc9 Kees Cook             2025-02-05  202  
+uses a thread of:
+irqreturn_t iio_trigger_generic_data_rdy_poll(int irq, void *private)
+{
+	iio_trigger_poll(private);
+	return IRQ_HANDLED;
+}
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Which is calling iio_trigger_poll() not valid from a thread which
+should be using iio_trigger_poll_nested()
+
+If it were using nested form then the sashiko thing about interrupt
+storm would be fine as handle_nested_irq() calls in the same thread
+so it would wait for the fifo code to run before returning and IRQF_ONESHOT
+would be sufficient.
+
+Sashiko's final point about ideal being no trigger for a device that only
+does fifo based buffer capture is correct as well.
+
+
+
+Jonathan
+
+
+
+> ---
+>  drivers/iio/imu/adis16607.c | 392 +++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 388 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> index 5e2c999e68ac..bd7752f7a1ec 100644
+> --- a/drivers/iio/imu/adis16607.c
+> +++ b/drivers/iio/imu/adis16607.c
+
+
+
+
+
+> @@ -817,6 +1180,8 @@ static int adis16607_probe(struct spi_device *spi)
+>  	indio_dev->info = &adis16607_info;
+>  	indio_dev->modes = INDIO_DIRECT_MODE;
+>  
+> +	st->fifo_watermark = ADIS16607_MAX_FIFO_WM;
+> +
+>  	st->adis.ops = &adis16607_ops;
+>  
+>  	ret = devm_regulator_get_enable(dev, "vdd");
+> @@ -855,6 +1220,25 @@ static int adis16607_probe(struct spi_device *spi)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/*
+> +	 * DEV_NOK stays asserted until DIAG_STAT is read, so the interrupt
+> +	 * must be level-triggered, active high.
+
+I'm missing something in this comment.  Why does DEV_NOK staying asserted
+have anything to do with level triggered?
+
+> +	 */
+> +	irq_type = irq_get_trigger_type(spi->irq);
+> +	if (irq_type != IRQ_TYPE_LEVEL_HIGH)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid interrupt type 0x%x specified\n",
+> +				     irq_type);
+> +
+> +	st->adis.irq_flag = IRQF_TRIGGER_HIGH;
+> +
+> +	ret = devm_adis_setup_buffer_and_trigger_with_attrs(&st->adis, indio_dev,
+> +							    adis16607_trigger_handler,
+> +							    &adis16607_buffer_ops,
+> +							    adis16607_fifo_attributes);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = devm_iio_device_register(dev, indio_dev);
+>  	if (ret)
+>  		return ret;
+> 
+
