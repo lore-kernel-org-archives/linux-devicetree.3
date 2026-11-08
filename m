@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169487;
-	b=PcY8fkbXa3tiAPww/w1UyZyHvdA2+4tDBKj9k6I4jqgJmBgopQMa8ikS6LECMU6shKJE
-	 ykNefz8dQzIYEgwJtouBpapRG/HwiJSsvOeLrnQJbc+23DfPqQKSCh/AOnUmEKKxR4zkJ
-	 3XLk80l3Ntb/z0Hj4K5wFXwlX3i14HUYZdBN/ColCmKaqAA+M6PxG7CrqmViktZuT9hjo
-	 3fUXdUOr0Tcw6KLak1uzW3EoDSxRwrEv9HEpGtNzxQNrzzZ8Wvnfg8UVJ0DTDFLfN5Nx0
-	 Y012VPKheXO5Nnn9wWAtZzYYr4PsRBufP+eU7KESxXFicCe9dRorDvZ/Q7+3zhtonsQ==
+	t=1794169489;
+	b=dJW6PPwtF2Ntwdy0vRYaRLPfC7SgVrnb4GqQPlm/nLAqFFiVHygt3kjUkU8hD0KUh9kC
+	 L5STrPmNJsWx6RGiqDNITnpxbNiIT7FMymNW4/s3DcyXRXEyB5alNerxlTEOqCus8ZR9m
+	 qF9RnvLMDBBcWj+lWBJ34sMO+ZkK2CXZGEDdwBmr3sktqgZaz2b/Mtb8lKBhbVRxtaE8F
+	 eFUxhIyhnGYWW/u3KO8OiUsB6i/z6SpIzyI5d6UmDgPihcALDYAdYVNbEX6YKhY9dRbIU
+	 87+PtH9QeWVRZgYol7gTdVo99mWhob3LRApKwbbPafB60fKJMhwCg97ZyjujuvG1lAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169489;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VtNdIhmL272RDcJm5riI8cPLLEdSVlWAJRPHhTfsZWg=;
-	b=n1nqVDZCM4zDQaqnpu8k5YDCYWfl8UH1uO1XB7y+CpVNXDoe8ATNrutJM9wjwm0J/GPs
-	 sSI02L+FTgz78ZST7jjbMCBkyLvz+Az6EGTrHRjvjAVFVUGcvrM7KalMC59GEZZ173oUP
-	 OyYOf7CmL8rwL+LE8iEFqyowTPgM3KK5CST/sUlzYBo8ThTwQLrpS9lkifgjw9Iv/W2ax
-	 VjFsBPiLv7/8gglL9OhST55nrDmuqsJCLuokxV6icDQJobHija6ycuML5DsGYdxhmuNj6
-	 j0tRB8QEbW3UfU6IZ7TRTdcVpNTZu+Ar2PM94KymZtvOY3o4xUsc3i2ANUKxxOwncQA==
+	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
+	b=Pm+Zmbpad1TRZUWJhub1JOqSvmqgrP6US5gLh2iHwfjBRnsfJDXpL3vttHHLruOkOfub
+	 NlHk5M+DXvJqLXhnqgRn1TPnMAkZi4kvcrpI8/LF0q9uDpLh1R7CWuutbc4bol5a+psg8
+	 QY0BSxaO2UZnS52QDOyY8rji13y8MiNHV0jLkXnHHmcSkv7Lz+yG5Q//UrQT0XlQT36Nl
+	 pXDSIfTMooqAzvZEPdYakgA0mPt8kgon2bErN632OLzUMbDiyHioOrwx50ANGNK2Bz3ow
+	 1YX7eMGgKNMiGViAAR/GtfO913tnmfFVfn/aC+ZXDNSABEtltRW6H+NpEZ4qJ6wQoTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylSCJRa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5568360A6F74;
-	Sun,  8 Nov 2026 20:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DA3607F90E;
+	Sun,  8 Nov 2026 20:24:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylSCJRa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B561F008A3;
-	Sun,  8 Nov 2026 20:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B221F008A3;
+	Sun,  8 Nov 2026 20:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169486;
-	bh=VtNdIhmL272RDcJm5riI8cPLLEdSVlWAJRPHhTfsZWg=;
+	s=k20260515; t=1794169489;
+	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SylSCJRakI3orl0IHUeHJQnyLHdLEl+r5NeOJY49Jyg0EaM5FH3WinQfinHrf5Yk2
-	 /4iGvX5kU0ZBF3PVB6qMWXoVhhaH2eTnKLYNsLUgs0BK7PU8Mq+OaOqfcbsQT2ZHpx
-	 HzJLituPYQb8nwm3+9UNVEXQd50Zz0A6ykC5dp0ANzZLutv2PreR21bgGZgQUr9E/o
-	 It/kLXhoCF/lvXrQTI/z48lgngTdh/8rSRsm0E5QhaSIe2MQ4zVcnA4GoF3fjsDkyu
-	 qeRIDAFzJz7a42aGUfC6SoiW758sJmawbEztCxGy4rt8X8R14x+tDbdb7nQbmBva8Q
-	 I99jN89iO1BYw==
+	b=lD8Bvp4HeheZMCP413Pe9fuF9EGPm7XGR6yMIO97W0wdUIbtBEvloNBUTpPmqQskE
+	 GSx6IlzJX4eQFxKyzwHBvaWWYrQs1xVIY1au0V/sQjTBnjjeT7kn4Cmctk7s37Lhnj
+	 828flgL2ifSzdrQ0GbhskoYKqYUgAIxq2KIhFnZ6M4zermnF9J69vlgO8lXIKhklMS
+	 nkeqqaWF+XhMyfPN+gMmyLlva0NYbmwnXigoqToFgAenXi+ZuVEU5rbdfG3+hW8Wwe
+	 MeSR2gidg/P4uty7aLxhSGETwMg5IsxmcwEB+8HfrKpsnv/4zOFD7wuVc8Vot9ibaZ
+	 2e7BqntL1gehA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Shujath Mohd <shujath@outlook.in>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-sony-tama: enable modem, SLPI and IPA
-Date: Sun,  8 Nov 2026 14:21:15 -0600
-Message-ID: <179416929237.628393.6934614690624200929.b4-ty@b4>
+To: linux-arm-msm@vger.kernel.org,
+	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Add support for Mahua QCB
+Date: Sun,  8 Nov 2026 14:21:17 -0600
+Message-ID: <179416929487.628393.4140437529266261587.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <PUZPR01MB51413DEFDD09B4661D9AED22C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <PUZPR01MB51413DEFDD09B4661D9AED22C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,20 +69,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 10 Sep 2026 09:35:08 +0530, Shujath Mohd wrote:
-> Enable the modem, SLPI and IPA subsystems on Sony Xperia TAMA
-> devices and provide the corresponding firmware paths.
+On Tue, 27 Oct 2026 17:19:51 +0530, Sivansh Gupta wrote:
+> Add initial device tree support for the Mahua QCB. The QCB (Qualcomm
+> Compute Board) is a board built on the Qualcomm Mahua SoC. Mahua is a
+> 12 core derivative of the Glymur SoC.
 > 
-> The modem requires ta-service for initialization:
-> https://github.com/andersson/ta-service
-> 
+> Unlike the CRD, the QCB is suitable for compute workloads,
+> power measurements and oscilloscope-based hardware validation.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-sony-tama: enable modem, SLPI and IPA
-      commit: 21158e4e168c02eee659de9fae4c490892060869
+[2/4] firmware: qcom: scm: Allow QSEECOM on the Mahua QCB
+      commit: 82868a465851cc47ccf483efca2f54f0257e6328
 
 Best regards,
 -- 
