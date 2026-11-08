@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794172224;
-	b=vc/WzAt8e8Fcemu9QZkQHVO+RpYfvlxrZcXKtylC13sLDY4TqnT9qO2ic47zgjQi2+Bu
-	 7o2ztaPcxPvlATIEmfeGprlEA5MQRn1Vq0ErqWqteJmqSxFJ5J/q78JICFfgJa4cp5Mfn
-	 z7UoTueTIrmiEYY5tB/NES0uUeEYpJ/PW8UDOkC8iGTUusLjUgFTSnKHOgMwzassaOQEP
-	 2j3Vx5mjke/uMReUEsgwuJIQ+KouEwkxr19mUmtffjSO/gqPoV6Hp714YWLhuawfdlGwl
-	 DKiO+uuSBnB4GNuQmhgLzQJQDbRWR33gp4z46OhfxpfrbcTU4kM56MMBwmHIOyRNySA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172224;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EjsqBLuF1sXdrDz3JLLwnQ4GN2c9mE8wj2r3EBY/VX0=;
-	b=GqryPuEPfZ+QyVz8EoFZON9rZnSpSepCmpG/x7ZlZhhTXG0cPX3I0z7KeJoTC7qc7A05
-	 U35eCx70WqyrUyeAsAcq8rFbMNDYm0q41V5ue4cAJZ/9mstOMvcP4jCXCPBd/I5zTmhnw
-	 2h/0/1I4J9EaQ8/Qgnh8BTkQcocnRjsEQGMx5EjHJFeZvTZ1hJwJHb6Qqat4EDp1UNDID
-	 4NqYu7zjWHqud8010jMTVixlr66LyZ0Xjr/okLMseRCimHCBXlnC9FZ+le/ErzZEgvYGJ
-	 qKJVbWoVDJFZmJxH95NRPgEJfZk2CL6PPunA4nRP1SC1OWtTlvYQQ9XZh+6seuOcqWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=h1IFtuvS;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794172383;
+	b=ersTCK3gzE0JN4/hwsM6CKp053nZ6+CvyHa4QIebe/rUE/pXFjrL1ITPyH8U/dSLmA0S
+	 0c18A6/jfpqFaptATO0rIYsfeq2x4RXxm5NK6hpAHIV31/nHABu8Br8/DZBdvUG1FUHDc
+	 Br/Irjy4xp2jJAAoriLe7e6J6QBC5wAA8jKlm/xjcl7hYps8LvSp2ZQcBVFpbSTxFBLE0
+	 Huv524iKE4XvZVyubYTTFDQQVba5iWEaO32XXCJkI+wFHTcoxOcZ053o0ow6mygRU5OwY
+	 asxMom9m60GW8ZqeN4PUy+i5xy+tfEQqaTfzGvBQrU+6zYMu6n3rsz8Td9nCsBj5SMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yiUBaJeEoNZmSx4wusGC1LfIu6NLX9ueZ6F9sYiAny8=;
+	b=y3oRYnhYDjq+roohMBYed1F1Q7RnEz/m/QB9qSNf3oB8tE32KeVKDHEH5WTWc7e89k4Y
+	 JXWS406axzNRqk1w/2r919LatC1JV5gf/tF2o4Cxu+3N0lXz8pBbpQ3vh89Yc+N1mwWQC
+	 yk76it1Hi66Y2IYfO/BU9kPDX6MTlfTJgB2VUNM51Qi7kmVjo1OvRX8YWmlNCWrhJQ5CP
+	 uRUhGI0fVoJ5tW8+eiPKpgmtBxdh+zhd8uN3JzZRci1i2j8+37iv739KZkr0Vvwk+uqU9
+	 aM5J9nUvWYPVT6c9llnJH5fBTzM4+zhrVlyot0P7/lVrw74tmfKFEIgCluB0rjGpkuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pqffzjLB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8710E606A322;
-	Sun,  8 Nov 2026 21:10:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8710E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59799606A31C
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59799606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=h1IFtuvS
-Received: from [IPV6:2a00:23c8:f560:e601:e685:a756:6ef6:d03b] (unknown [IPv6:2a00:23c8:f560:e601:e685:a756:6ef6:d03b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C08AF5340178;
-	Sun, 08 Nov 2026 22:10:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1794172221;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=EjsqBLuF1sXdrDz3JLLwnQ4GN2c9mE8wj2r3EBY/VX0=;
-	b=h1IFtuvS1Hi4U5TjeWLUr2r7evJITovvIAaRS4lZen/12UOJ0o6UxfwKQxZ3EySkx6dUQO
-	PJlbCjlJvr2NJIYOOOfSiN0y9mXitdKOJGaYvC1gCF6epMIg0FZSF/s2bj2xa4fNWxe7v/
-	jw1RpDBNVfswX6cR2AoWbj7BFBYAEUM=
-Message-ID: <7a0fba29-8577-4d0f-8f23-85745c196b5f@ixit.cz>
-Date: Sun, 8 Nov 2026 21:10:20 +0000
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pqffzjLB
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67c05273c38so256504d50.1
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:13:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794172382; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fl4SFqCc6pVuXPqtxuvl16p39iKPoE+YchXtD3euipK33T39kQmasWUJj7U2EDBt4k
+         bIcIBguPPSWwm7RjBFqtY6dPabwXwkdREXOquOk8sWh8LpN8tm6SyVYf4DUhPlcYOWzf
+         /KUXtvNHg7zhK94zrFGIMIrzOiSMuWGfbWAXleXgEp0UnQr01rXn0xYPzKV6yKYTK4nq
+         q5I5NuMEAcDPhuGDt3OUdUPC+ApImNT5FJRRUKyOud/cnhArvQGgCoSY7B5C6T5ABZXE
+         qcQdhCfHH9I3b8TpjdERF1fhPuvW7UT3Fpb8OIlryYJFogivAo9g+h15K77aPikz+Vs2
+         91dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yiUBaJeEoNZmSx4wusGC1LfIu6NLX9ueZ6F9sYiAny8=;
+        fh=+Cc+8rDJrIbXwiU9LfAA3FaSUrJpxsYbrqQoi+2/rSA=;
+        b=fHjl7SQwmPwYMxIwqDwdWI/bk9LRuaTwC0t9cfapJHj68zxOUv8aejo+tdZc2k65Fh
+         HsA7vXXhwRXqL8/pRtB2HCb7aX+2r0SCVmVmOgXfo9niA768xUY0NLlCdiBTkOod7Ymh
+         RoHnOhaVe8UAxwv+7DufVX7epMb0kA+fduyAgc/OG37/uSmvLFTyUnM65MQhbUJuB0kw
+         R3ztfJsczWf96DnPsKr2aprlJ8EyGH2h+oB3BUaNWYb0GgjHZyN/jC2QFTt4Bpl3zQOy
+         MJQC1VhMOlv5TGMvFssrlasz3HFqvvL58py8eO6YYVxv5UfMEGGDiMVTg0zzCsyM7wQL
+         svrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794172382; x=1794777182; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yiUBaJeEoNZmSx4wusGC1LfIu6NLX9ueZ6F9sYiAny8=;
+        b=pqffzjLBdDGNrfHUi5kCes/ULy62J13uQQkGThThgnMDZNzJ+gUxu3e6roaR6ck31d
+         fRwLxWlkBfGNWm8/uEAQ1UvjSv/rAdjTp4+wvHgX4gI3KiQ9sFcvCgZzvbZEEbRbhaFr
+         sCv9kiRelvwO1+1flT1owAsmcTE2VBWbukd1mqQ9Uo9QGFL1BKp02PQW4pqpvTj2no/D
+         KcaQWbRImQ9GgQoU4eMui2hmBkrglw4Ee2vhVn92O2B2goN5LHxGGtiKK0j2x+vdlKeV
+         +FCgbnYAeETXlghQHSrdGe+rfYP3XVvTV321FcbgTbC3gcyTAtqsvkMIale7nrytTOzv
+         0vyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794172382; x=1794777182;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yiUBaJeEoNZmSx4wusGC1LfIu6NLX9ueZ6F9sYiAny8=;
+        b=zPQzMJPkhG4Rp8/iTCv8GZitqC0BzCA67iy1xuy3rIYWAWkbebJHGHmb2YZ5srmU6j
+         /XgnogesyvINDMiLpFtvKFeqFFkrXN960HA3VexhVT36YOKiTj5y1wWnt/P1n72zIe7n
+         ZRu7HmaPKNNIdwTdmtz9xUfC27Y0JfX2ELz3PZsGFx/aAsBtp29LC+bf1qdOfe72bsIJ
+         LJcn6ILVTLKfGsFcPQzNmKdXgPZM8YZYRp2EPxsjM9cv7kZq6zGDhyvC4jAPSLf+yHjq
+         lsefd7DOA4VDpKenz3vUR47VFFdIljHUATCxlXgd2z4gyQnp5Mk+qKBHWGI4J2rOz6Nw
+         RWQA==
+X-Forwarded-Encrypted: i=1; AL+hErFoQ7qYDlf2FZZB1sI2w1cbYr09YI6EVtlIv8hhU5jQ3sy3JXQkEqe5FYkgjUXZRnYID5+bdMK+5kUT@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yEDuzOE4MaYyZ+Rt+t9HcN7WU6iLLSEWrQ7uOmZlsSe5ZTfrH
+	7/hollI6RAoNBU0GeFB4EYTykHRhbxsDBpVQAvsx8qzdY7tofZrmoSuKiwY0Jc6UhX9ivs6Dbcc
+	EPpkfR/9Hy+LtShezSi8mkK+j1fO7Lk4=
+X-Gm-Gg: AYBFou3XSNIb45ynW4U+Jn35Qqs0QGCLKl+Dcig7O5BKn+1Vuy00c+SM1yoAKN6clRp
+	onyJLNcvjJ6HCaoxiYwhBcrbot3JZ3jkZOINVt347G9iEOe0ZYMGZcT0z+8hI0q+vX/dhepjmkV
+	d3z8KkZLUqcIeaclp4/JuZFlYSMJTGjGUHp8BjIKrm/nDs/uiBuLN9Fo089cHKqTeW5hzujSfxk
+	aeMXTLwP4E69oAztwUie4VeHvzMqg4eadxOPdNGuyrfHLIvSKREqwrKMVyX1MuGtcJp46EeaG8H
+	SAOZsEv1cJ4AkFv7839gGQfDuUTUmZ/Q4gIe9QLqD1dRLxc5583rAZEnrIkKUyplKQXPK5C40s/
+	d4mkF4S8GnjzH4YfuYiXuTlZPKgO15k7x1WKupvb1qKJnZXvOc2K9b2q/UJx6D0ns5WCokyuyHj
+	DsOKxNMuYY/YY+0KM=
+X-Received: by 2002:a05:690e:1917:b0:677:ceec:5eb6 with SMTP id
+ 956f58d0204a3-67c3da75649mr1372951d50.91.1794172382380; Sun, 08 Nov 2026
+ 13:13:02 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,97 +105,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Fix dark corner in backlight
-To: Paul Sajna <sajattack@postmarketos.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Amir Dahan <system64fumo@tuta.io>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, stable@vger.kernel.org
-References: <20261108-fix-judyln-backlight-v1-1-af4b946f559f@postmarketos.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261108-fix-judyln-backlight-v1-1-af4b946f559f@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at> <CAFBinCDS_toG+4BySkUoXx73a2JWtp+tD6NHwYHk4mU+p+GF=Q@mail.gmail.com>
+In-Reply-To: <CAFBinCDS_toG+4BySkUoXx73a2JWtp+tD6NHwYHk4mU+p+GF=Q@mail.gmail.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 8 Nov 2026 22:12:51 +0100
+X-Gm-Features: AclHuK-s_rDsDj1PWZlIOcV5ImuQxceuPlDPh6uQEE-d_X3ekVMWkJWbJHC7kWk
+Message-ID: <CAFBinCADS55=UYVXRFkavSXQFtpCGG-wiXG9r2PSRWPFnppcww@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] thermal/drivers/amlogic: add S4 support
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org, 
+	rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-pm@vger.kernel.org, 
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/11/2026 21:03, Paul Sajna wrote:
-> From: Amir Dahan <system64fumo@tuta.io>
-> 
-> Restore qcom,num-strings to the default of 4.
-> 
-> Downstream had qcom,led-strings-list = [00 01 02] set, so for upstream
-> we assumed qcom,num-strings was 3. [1]
-> 
-> However downstream also overrides qcom,num-strings to 4 in the driver [2].
-> 
-> Therefore, the correct value is 4, and that value is already the
-> default, so we don't need to set it in sdm845-lg-common at all.
-> 
-> [1]: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-panel.dtsi#L29
-> [2]: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/drivers/leds/leds-qpnp-wled.c#L691
-
-I would likely keep the links under --- as the links are going to live forever, 
-but not a showstopper for me :)
-
-> 
-> Fixes: c6c66aa3ef33 ("arm64: dts: qcom: sdm845-lg-judyln: Add display panel")
-> 
-> Signed-off-by: Amir Dahan <system64fumo@tuta.io>
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 1 -
->   1 file changed, 1 deletion(-)
-> 
-...hard-to-read downstream code, good finding:
-
-Reviewed-by: David Heidelberg <david@ixit.cz>
+On Sun, Nov 8, 2026 at 10:07=E2=80=AFPM Martin Blumenstingl
+<martin.blumenstingl@googlemail.com> wrote:
+>
+> On Fri, Nov 6, 2026 at 11:19=E2=80=AFAM
+> <christian.koever-draxl@student.uibk.ac.at> wrote:
+> >
+> > From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+> >
+> > The S4 CPU sensor reads its calibration through the secure monitor and
+> > otherwise matches the T7 setup, including the separate bus and
+> > functional clocks, so reuse the T7 data for it.
+Sorry for following up so quickly. I think I mis-understood this.
+From what I see in the dt-bindings patch the thermal sensor(s) on S4
+and T7 are fully identical. If that's the case then sashiko is right
+and this patch needs to be dropped (and replaced by using t7 as a
+fallback compatible string) in dt-bindings and .dtsi
