@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175067;
-	b=xMEYkJOIc7VIemMJXKDd8utiXHJiPSA3bKgSemxhxzyxzw4lcdtI2bEUL05YJvKD1uiV
-	 8rAcxsQeHqxUbmN+1LnNf6MkucoT/KBbbGFkWzo/rGqnOxPMlcCm7L5OYCFdWTaCPq3v2
-	 3n6d77++Asachrhz5VV8d+V6SmAwH8XFygiqUMEo/mJrPundvP2qYRxUt86zNhNvKoq5P
-	 mraxxnQABzMTGbpCZ/SMCnc4GQiQNmzFrxDPdmD/2y7zxhhXo7ax1z74LcqOFE/FoFK8u
-	 ldJyh6WbKVk1RjFzqasNVBpDjjsoPBbix8eK0qsOzyVGXpESk+Y5aB5bMCGU7sKii6w==
+	t=1794175074;
+	b=tjTwuHD5osbkCoi+aq+rX0bl8gc/inzot4NXjKDYsswmGSlscnT52vCd4HoGWa2pF/Lu
+	 v5aVMU8V2ejuYJEbs7MU48yiEKUVllZslGQGnlRNHlUDofvypIvzA8OwJ72/3/4QdMwS8
+	 vzaZ2v7MPaOgMFDX48dI+S1Wc4zal7gMBnKlKi7xU7E6m4qYd4mMKO2qF/OzekXZVYH+0
+	 JX3SPOMyuOPQdwQ+Rnh7nt8JQ1JZx1QkiNkn4KlH68K5Un8RfxMCyWea1FHKLjMpqC6qU
+	 Uog2EMwEss7KZ/OTMtBfhVj89AZnuxGa1YMNtlTgRb0aqB2sDnKfB+HAdsyv6u5ufUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175074;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NEt1lF7lxMBZfEDAydvjStbcmv5IqrrXjrjqRLLY++8=;
-	b=D5hd6Po1dOLfXxYnJuUIGgAIlsyN36JoCoupFipmLMlSex3Ci3WgjvLTsBC7Jvkv6l9g
-	 6oLvhCS8CTNN7/Mwq9L2q3Vzq81dVFOor2MMun9KDP9YWcCe/J7ZlXD/aKjAFujmab2jk
-	 V5q1rZW94HLf62syqT+xSVKkqYFVLfNnFGuGsAX4v71ZpqbRrJeVYlP3LTlHMQZBLydjn
-	 l66YesrYcSdBguqEUgVeWlC3eSn5ynPNI7HP5QzzG/rmS5HUiR98rxVp6lsTEZULaXd7z
-	 2ORPPlYMn0PqE1TkDaFxLgJFDPdpMdrSWyRz8Z9TjgWJrzn7eGAZJPS+EKxEBZ53oTA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=c3MqZWVsTnMJn23OLpBicaKYPzlOBkBVg7IXSGl2h+8=;
+	b=P40pXdjf3RvJHA7T8LPMfYhLt5eomx34jdL8+axazg7kWbRgGuGIawRfN3LI+SUbKS9k
+	 IijC5WPqNhsM7g3kgZi15Iit/YhH5puglgMn58pQ1zR2v7mf7i+XWQMAJ14XlLYWPEy4o
+	 1sHGW61R2Ybnxc+kFNH+LhXJxFrFGy7dysJ2qI2QH6kvupzR2zyQ1n1NEAZsd3fKenj4m
+	 PInbQk27yAiXtywNAOBLZobBXx576u9OXu1fS9KGk+aqXyX9fdH+k1lciLCZeFtI4dryj
+	 btOVnv9Cd/666m/f3bmXcrk9QdNSmdf8pPF8kIpEXae7b4g9wMCGAtS+2ZgW824EaOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zIWUbUKR;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xQcgXUzv;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B55606A332
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B55606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75D8606A339
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:57:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B75D8606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zIWUbUKR
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso163180a91.2
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:57:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xQcgXUzv
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso117187a91.2
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:57:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794175066; x=1794779866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NEt1lF7lxMBZfEDAydvjStbcmv5IqrrXjrjqRLLY++8=;
-        b=zIWUbUKR/SgteTooNkhndFRULR3qfUVIFJB39sHl4Bcp9kMrSa328FUtlTAFTWESfw
-         vn7qL0obvVnpGHrGSnHYn9EwVVvu4sX/QD2favCLrxh3+ZzqzDYsuewcd2e7yimDk+IH
-         2YT+Vir3pSmfGuMuxZVDN8/ueMYGuAiflE1AyY5saPVBplx2nzrRSNjEIuANTw20KNf0
-         D7uQ4KkPEWd34Xu2PSyqHVQX1PB1MV8r2orhgsNjsGabSE9FG9tQLhW6EWw9CvSiJyNV
-         t2PiIGrOgExvCyfjEAcqcxDol9pO/3ItFOuuCb27KyKNxx8dmd5XTPS7QSy22oqahk0d
-         zvmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794175066; x=1794779866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794175073; x=1794779873; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NEt1lF7lxMBZfEDAydvjStbcmv5IqrrXjrjqRLLY++8=;
-        b=YTAKpiE8+saTclFEBLJS2Vlt/HFQmIFDLSAoYIvB0C686S/9lqGp+tRWB28eGSVzrq
-         djVFYyG1zfq6wm+PWikp7MU3DMFElIDOPh8bPR7Koj1UCnJW0Dz5XQxg5Kr0B0hCva89
-         ClXVM/vvDxJ7i3Yn7QKbQ8Yrt2v7DkRfcKR99cLYQ3GfQgGpCnJR9DB+k8ekMDDRckx3
-         bfEvRKT3U6+Qjo/htN/y2Ie4CChW9rrmDhzyhDc7y/y6dH/uCYkXMlEdCn3SFASd984g
-         mEkaM9cKAagI/f+RLt1Tz82/do+FF1ibr+JqqUm2fbR6UOvA5/Ht+ZPH+7VGdLDDm86A
-         inpg==
-X-Forwarded-Encrypted: i=1; AL+hErEQBFgn9Oulbh4a1sX/VNXkFgYEA5GrpYYq/2heY8CXg4XZTqJgoAWrS28BpprGFSZNBhCcUsrozb5V@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KY/fepw8zZPD4YHV4nsVlFJlOMIMPUwbahH0X15oVrweNoV01
-	25FOJKHNqFyfchAl1jCI+Ds+NFacLuoxjA6vuDuVh7v+WyvJJ2uhb0dO
-X-Gm-Gg: AYBFou1aF+tna/Zp8ix5J/oEtp9Ar8PCgolA/TL5oRJxWtZSs0mIGjBslktXN7B25VR
-	rr8WpDjHpdTjFYewWO1qdZMC4k377nn0iKTZ2AdXiwzSGzj0LBojlNAgUdIWnaKecIrrSl3ih/X
-	dOxXFT5Kf8Y+llVQoXZvYCywIxGsK8F9ACj+4fPtZs51NBgGpHB0qAKPmkE4OKBp/LNn78oKmj7
-	gLjZ6I6Eeewqwjfr6Pa3Q9Wto83C08TOpNdHiAaY5feB3oAxPM8IWqYzepQydcPxPDNW2ecIhn/
-	vH++XcSB7wy3b9uPuVXtBC4JW0qC8v6VQWhHhifWBW0zKF5YSqeMYRUsUERYOqqEn7fKy1lantS
-	GCsynGME929nIUPRj4C7zeXVeG/2O0E3zCcgndEliNUofIoj1mI5QyiPRhiz5F/ScFvU+WWEb+q
-	b7ZIBWl87fELnwP2IU6o0FY6WtRCUqQNxkId+bKL3Zn30Fyxu0cVwdYYYv2C5Qd5+I3s/IJ1fjg
-	pMXYzykjgrjhZWiQ+jokfHgF2YZWyOGcyPL2GA7UR3nKTA9XsZUgA4ksOMt13Dm1R0SDH8tg41v
-	WYUWYa5TB4vUrecJhAKkrb7L29wpB4qes5wGkIHbhFicLDsDG/oi+V5cctKmHkPJFHTC1XegNjc
-	IJb21/9m2IV77vzGitNnjoBsXKvArdiwGwtfCq9AMbUqsz9pdnOGapcN8JArnZhK9IrmFTgV5OS
-	6UKQ==
-X-Received: by 2002:a17:90b:1a82:b0:3ac:9176:e83c with SMTP id 98e67ed59e1d1-3b12d31a3f0mr2278470a91.12.1794175066527;
-        Sun, 08 Nov 2026 13:57:46 -0800 (PST)
+        bh=c3MqZWVsTnMJn23OLpBicaKYPzlOBkBVg7IXSGl2h+8=;
+        b=xQcgXUzvkRsMSCLSNAa5J27caRShtGeC/mdLiBxrOft71Oi6uyY4jBxeu8ZgpagdMY
+         CEdL924bOHI6HMQtjFLvLbkFUe3k5R1MgSeQu5/8/lTkA7ueyvMqBpcINUAwm4f9JWQj
+         DzS/+UfADWW0t/36eFaTDv0fQ803XteYOBtTGpEjokRFGn0H5BC+xnjCxsX2irZUgXc8
+         S+aQBQTRdonKK3CgE9izPM4tYWRNbLmRd4WxWjQAF2k9Lj34c2Dwjn6JpWtfxMVH0bl6
+         MKSr9idkUMdj+p06lnVljjwudhctp/QZRzukIAA3hQbezQwg2k+U/hyRKpbtPbKNDmJe
+         HefA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794175073; x=1794779873;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c3MqZWVsTnMJn23OLpBicaKYPzlOBkBVg7IXSGl2h+8=;
+        b=WAAYGfSj3V1Al6M0JV6Cirqfk/Gwj9Hayf3ZUuWgKZfyF1Spq/++z5IeC2NuRmDxyl
+         wTkqlwmbqg713ohlUfBK2AdRQWmOXu1fzpdN6V6ja79p0XKLL0yyXpVKqaf/vPZlT9n5
+         h+vXZ1HUqkio+qqGpd3Ejpr0/w45eC2PB3EEUr1kqWtZRD8YrS2yvs8b2JYHcbkIhJ4q
+         lMLKJ28/mA37ZNBc4ar7egXp4dpSs7cIC88kC7t6ZE1PzXGkYZvgA4kDRPd1xmJXRGDr
+         +d9uFsUD6grILkt/sGlzWU55h/NmxLbpMLFtBiteIxQu7mjC4U5s0H766nqlvn2uQL+4
+         c6Ig==
+X-Forwarded-Encrypted: i=1; AL+hErG5qTi6s/MLGX3yTSsAXkxAu8OOV5Uj29Gmz4SoaKUbDg5zh913HcbqufM9ZoDLhAnFEmOaDZJSwVt1@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qojbnFE3s0zyNHBOCp9dLfuix4WaLh4Namn7w/MTOcI2y+ou+
+	Qh5OVIxXZ1BwvnCzRa8loquAoSXcjCnDyxgc7QrL4ca9qEEAOqWdlYOn
+X-Gm-Gg: AYBFou3YZinRf6Mh97LdWH/MDD1IqeGUmMnUTzn7lYbalnRGx65x/3FFZ0M+tHo1Om/
+	aqnhj8n8PZWmHWwCJi71dibKL2Hw5Zh3seB+54/q5HFSA8G3yMnrtBuhSKm7BF9C+aj4cgkq4KC
+	2lVb9KwTxejgZHCurJp2kwQiKeqiSD7Z79oj9YyihdfE3IL4jgeHju5SUJo7xUbQ8l1X056QNM/
+	jIeI8bBnCqmh45575CLr3Vykvy3G3p99SI/Fll/zWEGqan331Wbu5zElQJ7qPH+WLlI4DBpSsIU
+	RWFEHHLRA7JVuJ/7Q0ywFo92zL8qdluhCQLEAB92a31wnaQ0AD1I4QCjJeyXBf543wu2QYXlxqw
+	XboCA1S0GmCq78puFMZWLRP+KbjMeKI7uxb1NMak1bMPk3jM2ywvBD+Bv0MGtqavGiaJAtxNbS+
+	tn1YulOhYZLZE7CacyKS5sVLKXOY7vxXajnY72zPMBEJQYSIThhtHJ3l8VNt6O7W6mtFrJLH5hO
+	vxs3vi2RJvvxBo9PHJyMtIahK+73IRuXZsuze2FA+yw5WztVKnRyel4j/j4z6TWiF0nRyw0Gis2
+	4W4yJ15gDjcc5p8pQkQEugTD+VNXT589Y2MqMyR62awNROcAkP55EAnzGwaa+NYxYmxfouTeKsa
+	jH9x6FEPtzRKuEVZ1TCxIHG+G8Jc+bvqn3Hwk+YCBU/p1rmGqznZZucLE08FXtRmOepWbe4H94x
+	NaEw==
+X-Received: by 2002:a17:90b:39c4:b0:3b0:d070:3c46 with SMTP id 98e67ed59e1d1-3b12d2de5b4mr2232435a91.12.1794175072968;
+        Sun, 08 Nov 2026 13:57:52 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm5692976a91.9.2026.11.08.13.57.44
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm5692976a91.9.2026.11.08.13.57.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:57:45 -0800 (PST)
+        Sun, 08 Nov 2026 13:57:52 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -90,10 +91,12 @@ Cc: Radu Rendec <radu@rendec.net>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-mips@vger.kernel.org
-Subject: [PATCH v2 0/3] ath79: flush every write buffer of a shared CPU interrupt
-Date: Sun,  8 Nov 2026 13:57:35 -0800
-Message-ID: <20261108215738.113582-1-rosenp@gmail.com>
+Subject: [PATCH v2 3/3] MIPS: ath79: flush the DDR write buffers of an interrupt in parallel
+Date: Sun,  8 Nov 2026 13:57:38 -0800
+Message-ID: <20261108215738.113582-4-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261108215738.113582-1-rosenp@gmail.com>
+References: <20261108215738.113582-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,51 +108,149 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
-interrupt 2, but each writes to DDR through its own write buffer in the
-DDR controller. The ath79 CPU interrupt controller flushes one write
-buffer per interrupt before running its handlers, so only the buffer
-listed last in the device tree gets flushed, and the other device can
-read stale descriptors.
+When several devices share a CPU interrupt, plat_irq_dispatch() flushes
+their DDR write buffers one after the other, waiting for each to drain
+before starting the next.
 
-Patch 1 documents in the binding that a CPU interrupt may be listed
-once per write buffer. Patch 2 keeps a mask of write buffers per CPU
-interrupt and flushes all of them, and documents how the interrupt
-lines, the write buffers and the flush fit together. Patch 3, suggested
-by Thomas, starts the flushes of all the buffers of an interrupt before
-waiting for any of them, so they drain in parallel, and replaces the
-"It must be run twice" comment with what the AR7100 datasheet says
-about it.
+Make ath79_ddr_wb_flush() take a mask of channels, and start the flush
+of every channel before waiting for any of them, so that the write
+buffers drain in parallel. For a single channel the sequence is
+unchanged. Its only user is the built-in irqchip, so drop the export.
 
-Patch 3 changes the signature of ath79_ddr_wb_flush() and its call site
-in the irqchip driver, so patches 2 and 3 should go through the same
-tree.
+Keep flushing twice, as the AR7100 datasheet asks, and quote it instead
+of the comment that it must be run twice.
 
-Changes since v1:
-- Add dt-binding change.
-- Add a comment describing the interrupt wiring and the write buffers
-  (Thomas)
-- New patch 3: flush the write buffers of an interrupt in parallel, and
-  document the double flush from the AR7100 datasheet (Thomas)
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/mips/ath79/common.c                 | 51 ++++++++++++++++++------
+ arch/mips/include/asm/mach-ath79/ath79.h |  2 +-
+ drivers/irqchip/irq-ath79-cpu.c          | 13 +++---
+ 3 files changed, 45 insertions(+), 21 deletions(-)
 
-Build tested with ath79_defconfig (LLVM, W=1).
-
-Claude Code (Claude Opus 5.5) helped write the comments, patch 3 and
-the commit messages, and searched the Atheros datasheets for the
-double-flush requirement. I reviewed all the changes.
-
-Rosen Penev (3):
-  dt-bindings: interrupt-controller: qca,ar7100-cpu-intc: allow shared
-    write buffer interrupts
-  irqchip/ath79-cpu: flush every write buffer of a shared interrupt
-  MIPS: ath79: flush the DDR write buffers of an interrupt in parallel
-
- .../qca,ar7100-cpu-intc.yaml                  |  5 +-
- arch/mips/ath79/common.c                      | 51 ++++++++++++++-----
- arch/mips/include/asm/mach-ath79/ath79.h      |  2 +-
- drivers/irqchip/irq-ath79-cpu.c               | 44 ++++++++++------
- 4 files changed, 73 insertions(+), 29 deletions(-)
-
+diff --git a/arch/mips/ath79/common.c b/arch/mips/ath79/common.c
+index 137abbc65c60..9c5e9cd6931a 100644
+--- a/arch/mips/ath79/common.c
++++ b/arch/mips/ath79/common.c
+@@ -9,6 +9,7 @@
+  *  Parts of this file are based on Atheros' 2.6.15/2.6.31 BSP
+  */
+ 
++#include <linux/bitops.h>
+ #include <linux/kernel.h>
+ #include <linux/export.h>
+ #include <linux/types.h>
+@@ -53,21 +54,47 @@ void ath79_ddr_ctrl_init(void)
+ }
+ EXPORT_SYMBOL_GPL(ath79_ddr_ctrl_init);
+ 
+-void ath79_ddr_wb_flush(u32 reg)
++static void __ath79_ddr_wb_flush(unsigned long chans)
+ {
+-	void __iomem *flush_reg = ath79_ddr_wb_flush_base + (reg * 4);
+-
+-	/* Flush the DDR write buffer. */
+-	__raw_writel(0x1, flush_reg);
+-	while (__raw_readl(flush_reg) & 0x1)
+-		;
++	u32 __iomem *base = ath79_ddr_wb_flush_base;
++	unsigned int chan;
++
++	/*
++	 * Start every flush before waiting for any of them, so that the
++	 * write buffers drain in parallel instead of one after the other.
++	 */
++	for_each_set_bit(chan, &chans, 32)
++		__raw_writel(0x1, base + chan);
++
++	for_each_set_bit(chan, &chans, 32)
++		while (__raw_readl(base + chan) & 0x1)
++			;
++}
+ 
+-	/* It must be run twice. */
+-	__raw_writel(0x1, flush_reg);
+-	while (__raw_readl(flush_reg) & 0x1)
+-		;
++/**
++ * ath79_ddr_wb_flush - flush DDR write buffers
++ * @chans: mask of the write buffer channels to flush
++ *
++ * Every DMA master of the SoC (the Ethernet MACs, USB, PCIe, WMAC) writes
++ * to DDR through its own write buffer in the DDR controller. The buffer
++ * may still hold data when the device raises its interrupt, so it has to
++ * be flushed before the interrupt handler looks at the DMA'd memory.
++ * Setting bit 0 of the channel's flush register starts the flush, and the
++ * controller clears it once the buffer is empty.
++ */
++void ath79_ddr_wb_flush(unsigned long chans)
++{
++	/*
++	 * The AR7100 datasheet says to flush twice, after reading the
++	 * interrupt status of the device, to ensure that its descriptor
++	 * updates have reached memory before software reads them. It does
++	 * not say why a single flush is not enough. The datasheets of the
++	 * later SoCs drop the note, but nothing says the need went away, so
++	 * flush twice on all of them.
++	 */
++	__ath79_ddr_wb_flush(chans);
++	__ath79_ddr_wb_flush(chans);
+ }
+-EXPORT_SYMBOL_GPL(ath79_ddr_wb_flush);
+ 
+ void ath79_ddr_set_pci_windows(void)
+ {
+diff --git a/arch/mips/include/asm/mach-ath79/ath79.h b/arch/mips/include/asm/mach-ath79/ath79.h
+index 70cda74494a4..15897d0f570d 100644
+--- a/arch/mips/include/asm/mach-ath79/ath79.h
++++ b/arch/mips/include/asm/mach-ath79/ath79.h
+@@ -145,7 +145,7 @@ static inline int soc_is_qca956x(void)
+ 	return soc_is_qca9561() || soc_is_qca9563();
+ }
+ 
+-void ath79_ddr_wb_flush(unsigned int reg);
++void ath79_ddr_wb_flush(unsigned long chans);
+ void ath79_ddr_set_pci_windows(void);
+ 
+ extern void __iomem *ath79_pll_base;
+diff --git a/drivers/irqchip/irq-ath79-cpu.c b/drivers/irqchip/irq-ath79-cpu.c
+index ec39c37895c0..64272b15f4ed 100644
+--- a/drivers/irqchip/irq-ath79-cpu.c
++++ b/drivers/irqchip/irq-ath79-cpu.c
+@@ -10,7 +10,7 @@
+  *  Parts of this file are based on Atheros' 2.6.15/2.6.31 BSP
+  */
+ 
+-#include <linux/bitops.h>
++#include <linux/bits.h>
+ #include <linux/interrupt.h>
+ #include <linux/irqchip.h>
+ #include <linux/of.h>
+@@ -44,8 +44,8 @@ static u32 irq_wb_chans[8];
+ 
+ asmlinkage void plat_irq_dispatch(void)
+ {
+-	unsigned long pending, chans;
+-	int irq, chan;
++	unsigned long pending;
++	int irq;
+ 
+ 	pending = read_c0_status() & read_c0_cause() & ST0_IM;
+ 
+@@ -57,11 +57,8 @@ asmlinkage void plat_irq_dispatch(void)
+ 	pending >>= CAUSEB_IP;
+ 	while (pending) {
+ 		irq = fls(pending) - 1;
+-		if (irq < ARRAY_SIZE(irq_wb_chans)) {
+-			chans = irq_wb_chans[irq];
+-			for_each_set_bit(chan, &chans, 32)
+-				ath79_ddr_wb_flush(chan);
+-		}
++		if (irq < ARRAY_SIZE(irq_wb_chans) && irq_wb_chans[irq])
++			ath79_ddr_wb_flush(irq_wb_chans[irq]);
+ 		do_IRQ(MIPS_CPU_IRQ_BASE + irq);
+ 		pending &= ~BIT(irq);
+ 	}
 -- 
 2.56.0
 
