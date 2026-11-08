@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794122714;
-	b=VjKGR1uKfuahnjKHCzqkowi/pbmOBp2PIvdBICGhl0x1bIV/1VCgeHop/4l2ASvh8+IW
-	 nqlwZtpjqQM5RvGbaG99n62qalfUMEBtVHbIJ2zOKD/lPeuEvzyIH0o7LmkFFYMm+mJD8
-	 S4esAhmZM2pZOBghLIvPmvwlsCZxEn0aFHhHKIuclIzRCO4twO7LdjlfenrjZd5DNNtRU
-	 vXw8SyEDpC8aHoS+H3ywbp1yd3wWhTNmXyh3dr/IMy7wlvBlYih1hxSiXVV1YAVPXMf1e
-	 /ZMlJWu3Ld6NZxNt1E27KsO1CKSZKCQ9stmq0qSWTwt5hj9LikQhZaIRv78uddFan5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122714;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CMJPYHCR3UWFcu4EK4LpYSERF3fcb1Y5+7uAUBqJvYc=;
-	b=Bpg9gQzDoWF+Nb6G2oaf4qLKKewrW7eljLRyAWdeTIxgY6muUISxbzlRh2rCVP9YnPBZ
-	 z4O3EMJANBCYE/d5Pm7gqI6efyQ4pynLIo6V7OWrm9BaSqM6I0b6a0axCkivjIM06Ym4R
-	 jvc2I41gGAiFZDGw6KauCpAHZXcI+e22gHuowsarSR89mv97H9xBml9kJ2McnbRN3Tb32
-	 6GaIZeSm8hpvTYkooD6JZmuN/l1XEWB7ns2a0IvPVh3sF8oAOvj+dTbr9PrJhL2pMkmhv
-	 Krmj7Nop47Rb2G5WSzCbGLGkWibOg9NsYgZc18DofAzXgYEMMB+/Udp+YcaUyiC05hA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8i9txHT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794122735;
+	b=j8u2gW14s8musytTLcUmFIkxBKmuxd5KiCrzwqFAojjiTql85Av9jJAhFnoxmmpbstDm
+	 7kyExTyD1fM7XtX70wYayNo06kaVMJF4zlT6t15CIuucDDiwYgCh/RXszsEnzBuMukZNT
+	 BMkS4ViYXzUxESx/YufGLQ1ykmTLsrtfMC9PKhIzA/Er1Iyw3MKJ82t7k4zeEj8WjUXqY
+	 FZW7yRcECZk9aAYF2IyAA7yR347ydgjR0wPPMdzwM3aLCOI+bdQC63FiYSBEwJupo78ce
+	 PkGQRkYjFlvZLbzW3m5bu64sXu2gUfq3ywrcimwfEY3u3ISmZGX7+wpHzBuXSmUaDPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122735;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=s7vhFzJuQ5qbhbwXX4L+1KOL59IGheTCnw1BBgbgEOc=;
+	b=kWCr+RpTMmkhHbEeZEPDXauSsvsvdz3Ftoj+zdAcXTSg9IUzVG4aWJMK0BAdZnT5Jv4i
+	 lGYG26GdfK7fPcdv/pchggsXpj/ZDoZ1eRyi7sBj8qCXE8wKlZpn/6vKUC0MLoHSyiYiL
+	 XOfY1irWCzPJYqUxABo64g1Ckuq9DGP/4jGJfoR9/h87R1LvJD4YE1yKGzEBlPc+UrbbY
+	 7Xg8zrIRJ3X4IFzzFAVP9DyPiswlef74M44e1UbJ839zU7CT6JrtOdhMgKKQHbJ1vns+A
+	 /uz1gDM9xaAY2V92iLgn+sIV2/bxu49cQsWaPv5SSXlVqRIxVXfThI5rZQJr7BFLF/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMWyq2y4;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D782E606A336;
-	Sun,  8 Nov 2026 07:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976EB606D811
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 07:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8i9txHT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794122713;
-	b=TllsEtyi6wTlyO2xU/Rg+T8p5Frk330uUX6AV1YpiAEZW8zNln9ObcFkb76VgjR20e80
-	 3ern6ACToGW05aGg5uIGxpeTlVA9T8EcHhOPATkYqIN1HkTtGVPs1CscuDV0yS+Z0TgsH
-	 PqF+sMTDAicFaw/cxQ2ZceQPgBsu5AmOO6511e/Ij/WE0yO62Zm8/JoYYkGSpZRxxMhJf
-	 PqhFXu1i3VfpuchMS+hxo4H4O3KVM20rqOwLb7uW0xaIcOLINZgAwsbuL/5mAEuYqppXl
-	 r1cun1Wk4xvIAMIBle3oTDfFXmlkzbOmY0UBGlnDJB9vIEQqFDkNgJxOr99XNvTO8TQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794122713;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CMJPYHCR3UWFcu4EK4LpYSERF3fcb1Y5+7uAUBqJvYc=;
-	b=HpBrenB3GcPfBPGQaYFg30g1zfHGv9G4pyRH2sfwk9HdvYHF7HLJ2YiniyWqJ34kKigg
-	 H2mn6kuZifLHjXlGuv0f2klZdnMEpzbw4jNgwfIm6JMErPLzkB6Zva+SNzh41O5DGEtYp
-	 vgIasgG6qYb65K7h5mttNFuEUugcp2Qk54GYoWvFg47/Il/uNbdQ304KfJfCC572InytQ
-	 +3xvpCFQBZPg5pXJOvuV3kPmJUhGqImQiApKSf9sYR0a300Bl9EnAjvYhJGG+H/eJu5ZB
-	 hVUR4OMsxcAhfmTR1egNwskFI7hqmCSZT+akDQpoFoexN3PcrOcq2BWJRjWZuxmhwfw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A72DC1F0089F;
-	Sun,  8 Nov 2026 07:25:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMWyq2y4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F055D1F008A1;
+	Sun,  8 Nov 2026 07:25:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794122713;
-	bh=CMJPYHCR3UWFcu4EK4LpYSERF3fcb1Y5+7uAUBqJvYc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=k8i9txHT0H7aeOvmB33vcR6VTjnDep0IXOm9BretlbSHqoEsw4pCloo5vRyK5UcA3
-	 BmVFnLvdJ+NKmQIhT5b6QwoJ6dkaJ74YJWjnv59S4geS0EYAbdMibXVmiWx4jYfCg0
-	 m48aTV3sDYXfU3tGLXmhfzpkuPh69zg+8QbVnbCMLq+1cCJN2m+COWDB76YyHs29Lh
-	 efHQ4Lj4ZAx3IuvWUJ5vUzvYw1rZi+4Q4TMakjB35Edmemv5pJsUh0b3hAwukTcfh+
-	 QvBEZ+oZmIv+t6GWwd36o0futTbvqia3zD0eoNmSNHxMFOgcCD/j1Ea6TCn1U92+tp
-	 oXT28l43rkMog==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2098647E25;
-	Sun,  8 Nov 2026 07:25:12 +0000 (UTC)
-From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 07:25:06 +0000
-Subject: [PATCH v5 1/8] dt-bindings: mailbox: apple: Add DockChannel
- mailbox
+	s=k20260515; t=1794122735;
+	bh=s7vhFzJuQ5qbhbwXX4L+1KOL59IGheTCnw1BBgbgEOc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MMWyq2y4X20CJr0iu/k9ikh/UaqhJcp+1lZIQlEz77mac1oubkyNAK//7R26fKbJ4
+	 rjUk8OCr5Tj0DHSs9rVf4iXvXI1oCLSamgj+vHlU6UyZ0ExYUPEbOjV1STNU1dboKY
+	 QzAtjLc8uVwXbftvHFRxkucTQ7gAEkCWJz2eLzVTZT4kBoxGw4YojIZbrpSOhzFlWE
+	 9MtpPrj+soIeKL18qIiWlpQjKM6tBUj7fjYqFalbPE+fED3bpk/JWzrHWQ/nvmP6ca
+	 1rEgsSsa2cV+dF/zYp5lFaVFF1XJyKTFJedoebuUtaUpFkop25iuM7lK59DmPecZT9
+	 oBeTaLphQ97PQ==
+Message-ID: <sashiko-outbox-203617@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 03/16] accel/rocket: wait for a running IRQ handler
+ before resetting a core
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108065917.135194-4-gahing@gahingwoo.com>
+References: <20261108065917.135194-1-gahing@gahingwoo.com>
+ <20261108065917.135194-4-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 07:25:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,160 +60,137 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-b4-apple-mtp-keyboard-v5-1-e2c97b82669a@gmail.com>
-References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-In-Reply-To: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>, 
- Michael Reeves <michael.reeves077@gmail.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-input@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794122710; l=4117;
- i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
- bh=q8ZQCkixKuefi/vxbk7igJsaOCC31V/LgDgV4zCFnzo=;
- b=G/y6CarAnTtn4Yzb866F46SzwZVdrqfl5xBLJ2vYkbpRTmqPgF9IlhFYb330CUU31rNQgWyIZ
- rKtFg11n9TCBOWGJyUm5ZzzGc+XNe+y/LU7X3HFVJDv0UhKLCMAZyYu
-X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
- pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
-X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
- with auth_id=1442
-X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
-Reply-To: michael.reeves077@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Michael Reeves <michael.reeves077@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] accel/rocket: raw IRQ status can re-latch before reset in
+  rocket_reset()
+- [High] accel/rocket: race with pm_runtime_force_suspend() in
+  rocket_reset()
+- [Low] accel/rocket: missing Fixes trailer for IRQ race fix in
+  rocket_reset()
+--
 
-DockChannel is a FIFO and interrupt block used by Apple coprocessors
-to exchange byte-stream traffic with the AP.
+commit 5d8718b3fc39bea11cdb502012dd2c8cf6f0e560
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-Describe it as a mailbox provider for HID and serial clients. The FIFO
-interrupt pair is configurable because MTP and DebugUSB use different
-pairs.
+> accel/rocket: wait for a running IRQ handler before resetting a core
+>
+> drm_sched_stop() does not wait for a threaded IRQ handler that is already
+> running, so call synchronize_irq() after it to make sure the handler has
+> finished before the reset.
+>
+> Before synchronize_irq(), mask the interrupt and clear the raw status, so
+> that the NPU core cannot report a completion afterwards.
+>
+> Do this under job_lock, because the submit path sets the interrupt mask
+> under the same lock.
+>
+> Only touch these registers when the device is powered: check with
+> pm_runtime_get_if_active(), so that a register access with the power
+> domain off cannot raise an SError.
+>
+> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
+nduced reset, JOB_TIMEOUT_MS=3D2
 
-Suggested-by: Yureka Lilian <yureka@cyberchaos.dev>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
----
- .../bindings/mailbox/apple,t8112-dockchannel.yaml  | 88 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 89 insertions(+)
+[Severity: Low]
+This fixes a race in rocket_reset() introduced with job submission.
+Should this include:
 
-diff --git a/Documentation/devicetree/bindings/mailbox/apple,t8112-dockchannel.yaml b/Documentation/devicetree/bindings/mailbox/apple,t8112-dockchannel.yaml
-new file mode 100644
-index 000000000000..9afd58613074
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mailbox/apple,t8112-dockchannel.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mailbox/apple,t8112-dockchannel.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Apple DockChannel FIFO Mailbox
-+
-+maintainers:
-+  - Michael Reeves <michael.reeves077@gmail.com>
-+
-+description:
-+  DockChannel is a hardware FIFO and interrupt block used on Apple SoCs for
-+  low-latency byte stream communication with co-processors.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: apple,t8112-dockchannel
-+      - items:
-+          - enum:
-+              - apple,t6020-dockchannel
-+              - apple,t6030-dockchannel
-+              - apple,t6031-dockchannel
-+              - apple,t8122-dockchannel
-+          - const: apple,t8112-dockchannel
-+
-+  reg:
-+    items:
-+      - description: Interrupt control registers
-+      - description: FIFO configuration registers
-+      - description: FIFO data registers
-+
-+  reg-names:
-+    items:
-+      - const: irq
-+      - const: config
-+      - const: data
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  "#mbox-cells":
-+    const: 0
-+
-+  apple,irq-index:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 15
-+    default: 1
-+    description: |
-+      Index of the FIFO interrupt pair in the interrupt control registers.
-+      TX uses bit (2 * index) and RX uses bit (2 * index + 1). The configuration
-+      and data register resources must describe the corresponding FIFO.
-+      If absent, pair 1 is used for compatibility with older keyboard nodes.
-+
-+  nonposted-mmio: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - "#mbox-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/apple-aic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        mailbox@24eb14000 {
-+            compatible = "apple,t8112-dockchannel";
-+            reg = <0x2 0x4eb14000 0x0 0x4000>,
-+                  <0x2 0x4eb30000 0x0 0x4000>,
-+                  <0x2 0x4eb34000 0x0 0x4000>;
-+            reg-names = "irq", "config", "data";
-+            interrupt-parent = <&aic>;
-+            interrupts = <AIC_IRQ 850 IRQ_TYPE_LEVEL_HIGH>;
-+            #mbox-cells = <0>;
-+            apple,irq-index = <1>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b2eaee98852f..0c1963150f04 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2720,6 +2720,7 @@ F:	Documentation/devicetree/bindings/iommu/apple,dart.yaml
- F:	Documentation/devicetree/bindings/iommu/apple,sart.yaml
- F:	Documentation/devicetree/bindings/leds/backlight/apple,dwi-bl.yaml
- F:	Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
-+F:	Documentation/devicetree/bindings/mailbox/apple,t8112-dockchannel.yaml
- F:	Documentation/devicetree/bindings/mfd/apple,smc.yaml
- F:	Documentation/devicetree/bindings/net/bluetooth/brcm,bcm4377-bluetooth.yaml
- F:	Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+  Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 
--- 
-2.56.0
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 03e5f094f60bf..abef12b86d481 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -400,6 +400,16 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
+hed_job *bad)
+> =20
+>  	drm_sched_stop(&core->sched, bad);
+> =20
+> +	scoped_guard(mutex, &core->job_lock) {
+> +		if (pm_runtime_get_if_active(core->dev) > 0) {
+> +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+> +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> +			pm_runtime_put_autosuspend(core->dev);
+> +		}
+> +	}
 
+[Severity: High]
+Can pm_runtime_force_suspend() disable the core clocks while
+rocket_reset() is writing INTERRUPT_MASK and INTERRUPT_CLEAR?
 
+core->reset.wq is created without WQ_FREEZABLE, so rocket_reset() can run
+concurrently with system suspend.  drm_sched_stop() subtracts pending job
+credits from core->sched.credit_count, which makes rocket_job_is_idle()
+return true while rocket_reset() is still running:
+
+CPU0 (core->reset.wq)             CPU1 (system suspend)
+rocket_reset()
+  drm_sched_stop(&core->sched, bad)
+    // credit_count drops to 0
+  mutex_lock(&core->job_lock)
+  pm_runtime_get_if_active(core->dev)
+                                  pm_runtime_force_suspend(core->dev)
+                                    rocket_device_runtime_suspend()
+                                      rocket_job_is_idle() -> true
+                                      clk_bulk_disable_unprepare(...)
+  rocket_pc_writel(core, ...)  <-- SError / bus hang with clocks off
+
+pm_runtime_force_suspend() ignores dev->power.usage_count and
+rocket_device_runtime_suspend() does not take core->job_lock.
+
+In addition, in rocket_core_fini(), an in-flight job holds a runtime PM
+reference so pm_runtime_dont_use_autosuspend() does not suspend the core,
+and pm_runtime_disable() sets disable_depth > 0 before rocket_job_fini()
+cancels the timeout work.  pm_runtime_get_if_active() then returns
+-EINVAL and skips masking and clearing interrupts on the still-active
+core before synchronize_irq().
+
+> +
+> +	synchronize_irq(core->irq);
+
+[Severity: High]
+Can an in-flight NPU task finish after INTERRUPT_CLEAR is written and
+re-latch INTERRUPT_RAW_STATUS before rocket_core_reset() stops the core?
+
+Unlike rocket_job_handle_irq(), rocket_reset() does not clear
+OPERATION_ENABLE before writing INTERRUPT_CLEAR, and rocket_core_reset()
+is only called after synchronize_irq() and iommu_detach_group().  Because
+rocket_job_irq_handler() checks the unmasked INTERRUPT_RAW_STATUS
+register on a shared IRQ line (shared with the IOMMU), a task completion
+together with a shared IRQ can wake the IRQ thread after
+synchronize_irq() has already returned:
+
+CPU0                              CPU1
+rocket_reset()
+  rocket_pc_writel(..., INTERRUPT_MASK, 0x0)
+  rocket_pc_writel(..., INTERRUPT_CLEAR, 0x1ffff)
+  synchronize_irq(core->irq)
+  // DPU task finishes, hardware sets
+  // PC_INTERRUPT_RAW_STATUS_DPU_0
+                                  <shared IOMMU hardirq>
+                                  rocket_job_irq_handler()
+                                    rocket_pc_readl(...,
+                                      INTERRUPT_RAW_STATUS)
+                                    return IRQ_WAKE_THREAD
+  iommu_detach_group(...)
+  rocket_core_reset(core)
+                                  rocket_job_irq_handler_thread()
+                                    rocket_job_handle_irq(core)
+                                      <-- runs during/after reset
+
+rocket_job_handle_irq() can then access registers while the reset lines
+are asserted or after runtime suspend, or race with a new job started by
+drm_sched_start().  Also, iommu_detach_group() detaches the IOMMU domain
+before rocket_core_reset() has stopped the still-running NPU core.
+Clearing OPERATION_ENABLE under core->job_lock before clearing
+INTERRUPT_CLEAR, as rocket_job_handle_irq() does, would stop the core
+before synchronize_irq() and iommu_detach_group().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108065917.1351=
+94-1-gahing@gahingwoo.com?part=3D3
