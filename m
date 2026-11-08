@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794139009;
-	b=oGNavpVAkZcrXQeU++B+CDov7xQG0hmiprplsaVIewT2qtJ4dAFuza6ABM/uyOfXnxDs
-	 V9NsK/PznDFcOt/1cnu4OVrNIFwZ+TLwexeM57vljfU3+qs1cWblVJ1rZ2CMby5O9j222
-	 LgzCpB7oBynFBKTemsJEv4XUHxVO1CnTVXrvqbDsQFVDKFPdX4uH2L/qPh4WC8fbWE/u9
-	 JYbJESobTjDr8FwXca8FZmUwKRl3JK9ZuhirkFc26bf6PUKpMe7ECh6oYxCHtH3LujUjn
-	 DOo8mJGFdI8hsoyJYSnBvdM774X9dw5dzAui7MQ30t3Fd8dT6U2fkWcVAm2MicSOn6w==
+	b=KJlAxH8oVEJdyxsIJCsex+GIYu7AS4HGQaz29WsdjPRGISyW1loUiZq/Q+utVdf59jdX
+	 tgCGPFFKbcOlEKdMaKWGvHntG9FdvyLMAbAA8X1UZie0CNA2mitTn3L6hr0PRnAKJuO77
+	 h27PeOtOCIxS0+oDYCe4U95lUaDm1XSYoUYoBxp2ctHcfKw2x9eDh6W4LB45IKyMPPme1
+	 1abAQY7h17tPMBfXPwuWEeCKlzmYAx5BMO22vWnrW4PDjofccA/4D2hlXI3i1+YMWvXB9
+	 hwxRfjVLlJ3g9FK9SmhEyzNp61ukl+Oa9xKFrSL8ACIDhLJ27ro/KpVqmFMCgbUoURw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794139009;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
 	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=3cmoXQF01aX1/UUUxEpCBGV7fTpnjfR0AK9Mx6nzSMg=;
-	b=2LYE28OQ2fsX350El/Z8HF9vgYP6SMIT/zWBKkbwgmTK4AKg8jfnkexSurpjQ+luNd4g
-	 POrMJWhtPKx2yJOV9tdO2YocxrJqvWQfRypcqpJJtzSOm3L80yftyXkDa6EbMj0l5Hrtu
-	 DsE98kglwpAKuS8FCbf6gRoc/qHUZguZw06SGuJeXtsqRKbvLyBbWy+aSTagEZD5vm2AP
-	 +ZzKBnPu1A7FC6sU0FutK+8IqXViqY0asnmTADS/BdkF4N5aCsA5QqNuIo8i+JNfNAD1m
-	 bd60SdG+CTndl2cgTUiE07PLCMtlT/OIfZ/X6GsrXNT3Fmc0z7Qn6uDIz4Ajj5dgQiA==
+	bh=Uje4eQfbq0+a+9io0VxnfKDubgT0wO2KafFCwU/e8gk=;
+	b=GEvcdAjYB7Ued0j/15dIv9l2hYL3Lfck27V/JCTMtZN6NThh6maChECu96IXT4yyj3gq
+	 +XfvnOgOIqek6LGJh/mEdJz9jgpkOwakcQpJLWWWbSNEI4IEC3RKTGY8nlTQclejiWgw2
+	 ZyMWx2bPnLgk+EpoaJle/rKVYnRqpHjhn/0T6ffsnS0k2bHLtHpDx4AwaNkBEZKyUC9WN
+	 tbNZ5BROttjnucgrrtgOx3VA9bXuZf03fQru5KimsmV2FOtXhOjah4eKX4v6nkuY2cAMd
+	 w1zOPXo/jflRSqKqyzAjoLC9v3qkoZKpoM6IPpGmUuk3nbBHln5xSwdb9I01WgW8o5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,26 +25,25 @@ Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3390D606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3382D606A321;
 	Sun,  8 Nov 2026 11:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3390D606A323
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3382D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn_rN9Y_Bq9tGaAA--.19222S2;
+	by APP-05 (Coremail) with SMTP id zQCowABn_rN9Y_Bq9tGaAA--.19222S4;
 	Sun, 08 Nov 2026 19:56:45 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>
 Cc: devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org,
- Saravana Kannan <saravanak@kernel.org>,
  Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v2] of: unittest: Fix np reference leak in of_unittest_bus_3cell_ranges()
+Subject: Re: [PATCH] of: unittest: fix node leak in phandle remapping test
 Date: Sun, 08 Nov 2026 11:56:44 +0000
-Message-ID: <20261108121000.3772-1-vulab@iscas.ac.cn>
-In-Reply-To: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
-References: <20260917124653.2151894-1-vulab@iscas.ac.cn>
- <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
+Message-ID: <20261108121500.3132-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104235.1373591-1-vulab@iscas.ac.cn>
+References: <20261103104235.1373591-1-vulab@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,82 +55,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:zQCowABn_rN9Y_Bq9tGaAA--.19222S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFWxZF1DtrW8Xw4xCF45Jrb_yoW8tF4xpr
-	yagFZIkr4kGF4xGrWkZry8ZFySy3Z3A3yrKry8Gan5Zan8Za47ZFyjk3yY9rn8Xrs7Wa4a
-	yF4Dta13G3WjyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
-	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VU1pnQUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEFA2rv4qjIWAAAsU
+X-CM-TRANSID:zQCowABn_rN9Y_Bq9tGaAA--.19222S4
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYS7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCF
+	04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjUgAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcFA2rv4zLHwQADsW
 
-of_range_parser_init() can fail when the node lacks a ranges property.
-That error path returns without dropping the reference taken by
-of_find_node_by_path(). Make the reference cleanup-managed so that it is
-released on every return path, rather than adding an of_node_put() to
-this one path only.
+Hi,
 
-The candidate was found with static analysis tools; DeepSeek and GPT-6.1
-Sol were used to audit it and to help prepare this fix.
+This post is a duplicate of the September one:
+  https://lore.kernel.org/all/20260917125936.2152450-1-vulab@iscas.ac.cn/
 
-Fixes: 3d5089c4263d ("of/address: Add support for 3 address cell bus")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Sorry for the very late reply to your review.
-- Use __free(device_node) instead of an extra of_node_put() on the error
-  path, as you suggested, so that every return path releases the node.
-- Drop Cc: stable@vger.kernel.org.
-- The other unittest fixes from that batch need the same rework. I am
-  not resending them as a series of individual patches.
-- Rebased on current mainline (fa4ad798f6f6). Built with arm64 defconfig
-  plus CONFIG_OF_UNITTEST=y and W=1: drivers/of/unittest.o compiles
-  without warnings and checkpatch.pl --strict is clean. I could not run
-  the unittest at boot, so the error path itself was not exercised.
-- Link to v1: https://lore.kernel.org/all/20260917124653.2151894-1-vulab@iscas.ac.cn/
+Please ignore it, no action is needed. Sorry for the noise.
 
- drivers/of/unittest.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..b6f0ae3e9710 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1366,12 +1366,12 @@ static void __init of_unittest_bus_ranges(void)
- 
- static void __init of_unittest_bus_3cell_ranges(void)
- {
--	struct device_node *np;
-+	struct device_node *np __free(device_node) =
-+		of_find_node_by_path("/testcase-data/address-tests/bus@a0000000");
- 	struct of_range range;
- 	struct of_range_parser parser;
- 	int i = 0;
- 
--	np = of_find_node_by_path("/testcase-data/address-tests/bus@a0000000");
- 	if (!np) {
- 		pr_err("missing testcase data\n");
- 		return;
-@@ -1415,8 +1415,6 @@ static void __init of_unittest_bus_3cell_ranges(void)
- 		}
- 		i++;
- 	}
--
--	of_node_put(np);
- }
- 
- static void __init of_unittest_reg(void)
--- 
-2.34.1
-
+Wentao
 
