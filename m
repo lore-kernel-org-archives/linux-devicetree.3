@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169453;
-	b=teLDdRu2GQ05rScmBqXyUbwzTbRKSVtaHa4pqVmTnNbqMfs5iguspjxbe1qhKzmIWDz5
-	 myXOSTiHgnKRrHTGK+XBG1/qXptEb73XfyaTc4tSAIKdPgvlkrFJXRF10ra3/R5lPDWtU
-	 HXWC1YQl3aIXJGGYu5J1pUo7WxUcQVKMjURXXxFBjKV56zolF6tg4RKvKhflptAxnkVU5
-	 4dr66N2NOM0Wz5ZAI6AK3Qf5kEdP2mYYYg8uMzkD43Ji9ltT0AZy8inF/b3KPjd7tHJ6W
-	 DXm5lWq3JT2BFv1/LeNukgheZ4xncboIlGOWcoZtCA56jLUHhHs3MQs1dj3gusdc6wQ==
+	t=1794169449;
+	b=kZ+MIFCgS1dzDx59qdNyU2PAO1W+hiiuWRlnZd7j/ecSP9EU4u6KSvQPSow2Va2xG7Kk
+	 s5Q6c4KZv+75rX6Z+NTGM8M577JSjK2G2KxVRcPkhWVO/2ElzekEHxgQXFZLG58TycPRJ
+	 TopEP4fsogoLrz+la8gwotnYVlS6EYV9/WepjqN/raMSyLkB+W43FuDwsoAFkz+X30MIn
+	 4D71q3+81Bll4cqFwMopkxG+8lI5leVuhuyLFjqjNVMCxib07UyVqBwtNluFrpyw+shnt
+	 x2SC52sAvIkfuKunbIx8aa1DOU29ZAnU7eJQ3nUjRS6SOGJh2nvhntKTZJntU058IKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169449;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=H5NdynXi3McZhqJDXg8g3XbykgDJEPZ7u1rzM6f+Mc4=;
-	b=VNQhmWRg3zusWE123b6bzvBqH4ibjCljknnEXL3B6F9ldDnXKBwPtEpuCBmtU037cPmp
-	 W9SOP8Xan+6AnMU5vC/T2A0u8ayFVtAnFPmMpnfBbqDKs95Q7pH7nfusgGoL10trHtQBL
-	 tvFco/DGblhfzgc1+0ZvIJ2NqEfgMgZYth8+WV1xlzH38lGXHrCKv3mp4HzJjKjRDiQH/
-	 lo/nsVbiIFrH5ajxGdm5AQApbJoPfrcLyWMOqK3ibJxncB8ILBiu7QIugopndpD26I10X
-	 R4cZkuAgCc6sz2teVINb9X49ZpR5luvJc9qEzF3IvEaneHr3+MpE+3RJlsD+vp8IkKg==
+	bh=rzuFI9ZdLDgI4z9t0+x/DtUhqUUBxnWjD+Bwo4BsZr0=;
+	b=A+pj1UEdqEH7HfPx3KaUz3WESOuSyRpT2n4/YLy7pdfsIeJlXAD6HBLpl+w21E0BoBMD
+	 Xi7bCI+QEnr/mx+tSGXsuGmpzzYNGB0TEP0EZv6FfCZ+PNfyBQwD+xkuX4hjTpMMgWXLK
+	 1NH6oKCs7hQBCjv8Rrz4hwyByBdoLEOa8uB/QGU9qMVsKWFu22RUaku3FYUY4fs4OsT4p
+	 OlLE4807hR7l6SJ8KT7QMyGo13T68e+Yfrb64LbDqs4BxDO4iuJ1tm11y/l1KHfARdcoX
+	 vd52ukThhv4f349QFTKMuwqsyHlV4B9HivJl/9FGafO3dRHLlArcrSlKRweMgcukkWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFGSVFA0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kt5wSc2f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9146078039;
-	Sun,  8 Nov 2026 20:24:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355586077635;
+	Sun,  8 Nov 2026 20:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFGSVFA0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77D41F00904;
-	Sun,  8 Nov 2026 20:24:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kt5wSc2f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB941F008A6;
+	Sun,  8 Nov 2026 20:24:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169453;
-	bh=H5NdynXi3McZhqJDXg8g3XbykgDJEPZ7u1rzM6f+Mc4=;
+	s=k20260515; t=1794169449;
+	bh=rzuFI9ZdLDgI4z9t0+x/DtUhqUUBxnWjD+Bwo4BsZr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MFGSVFA0WdxsGtaejOUClh5m+MfIpLoetAynmgoAypAIlBSuYNNAoHcXRGlvcyPVd
-	 roa/RmWnSvsrBsCT494b1Kc9we8Sdr59fxWqsG5r4735fy/W8szbmoqkh4SKTNm47C
-	 yUsdnQpwoMP/M7xOJU/p/BcFjaoBNCe/iPy1595V1bs5Uen2tF4w58k9LUHeimXzlC
-	 LtSTY2xiIW9Qon3l1ghbJONiiUWoSJyzGpmdQAWbhTkn0IUMljlgDVu36h4jTG7bUa
-	 jd375b42zaoC6ymtBUXeDb06BcxjCqnrvcOwO810ATKTZR6Z2tTxOWp1oA7l0LYWX5
-	 7LSsxk7J9RzoA==
+	b=Kt5wSc2frjkhZQAjr66eQGW4FdKlCVSS6SWmJSxIlS18RQkyX6Mcx5OPA1UUDV3es
+	 mQCxUZhT7AkqnDj/m/lpd6ctDiJkzdXJgfPQaTEvaWgU/h4pYrbY1desm7sVr+3/M1
+	 lR1NhyLqaNpb+gwJrI6/Ng8Uuw3YRellDw86KiNVzW5c+ZDFMdaCgwgWxsOGEmVEp7
+	 vi6yRxqhezNYZVlGqA906XSDMX7p5TMI4IjqrBuXdlMRPJ8OK8oXOiByXD76+IF8qY
+	 pQlaUIV0qdNT7U2xyqSvopH/H+tBYeyQBO39mqDjTDNs+RL6gomj3BtBkDc0cJfGme
+	 wjvbkAChZSscA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Monish Chunara <monish.chunara@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pradeep.pragallapati@oss.qualcomm.com,
-	nitin.rawat@oss.qualcomm.com,
-	mani@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Add pull-up for SD card detect
-Date: Sun,  8 Nov 2026 14:20:49 -0600
-Message-ID: <179416929501.628393.16114732471311269419.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] arm64: dts: qcom: glymur-crd: Enable DMIC4 and DMIC5 on CRD
+Date: Sun,  8 Nov 2026 14:20:46 -0600
+Message-ID: <179416929251.628393.10408853128618095543.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
-References: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
+In-Reply-To: <20260922101550.2216689-1-mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260922101550.2216689-1-mohammad.rafi.shaik@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,22 +69,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 28 Oct 2026 18:44:20 +0530, Monish Chunara wrote:
-> The SD card detect signal is active low and requires a defined high
-> level when no card is inserted. With the GPIO bias disabled, the
-> card-detect input can be left floating and result in spurious
-> interrupts.
+On Tue, 22 Sep 2026 15:45:50 +0530, Mohammad Rafi Shaik wrote:
+> Add the LPASS LPI pinctrl state for the third DMIC clock line, which
+> drives DMIC4 and DMIC5.
 > 
-> Enable the internal pull-up on the SD card detect GPIO to keep the
-> signal at a defined level when the card is absent and avoid spurious
-> card-detect interrupts.
+> CRD has additional digital microphones connected to this clock line, so
+> reference the new pinctrl state from the VA macro and route the
+> microphone bias supply to DMIC4 and DMIC5 to make them usable.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-crd: Add pull-up for SD card detect
-      commit: 25c209e099120cb312b2c725fb7149d78ac3c581
+[1/1] arm64: dts: qcom: glymur-crd: Enable DMIC4 and DMIC5 on CRD
+      commit: 4f59797abb3b56175da67f62a4fc4655e11a7f5b
 
 Best regards,
 -- 
