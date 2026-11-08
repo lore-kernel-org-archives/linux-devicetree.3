@@ -1,67 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169509;
-	b=CK6f+g7WBKl7aoDfNzDB8FK7gb1y506FK7bPGzIzCqk7uKXz85tf84ww7iSRi8i/SD04
-	 T8Sy8biviJQXiUadKowvI3wxEZ+4xSpr/EUCEtWPBLbf5ZVSi9WX3WHbvGJ50wOK6HOo4
-	 lcdt8lPTi8ZjO3+grgVJGxsM2O6YQ6WtQ5EciJXJzOoqJCF2RraL10ZufJEAkwbGlHJwz
-	 Uv+yPoo2rIQI5tRb62DFo8XxJGa/Q6+IwWoDdQhbC2eXzlxHcNqpUwVLxgCbFRhCX0YnO
-	 jqRiviRud6ePhfUzfhvVEGOoOCIkRdvnNoXLUx7pK98hu7GSBRLe78385yfCUUFvF3Q==
+	t=1794169506;
+	b=tj+2j+fqHCWSYFS7PfWQ2XM/4YbHZHhYLYJDZTOIWZq4vkj4Cqp0CPAQP8nVPFjx2TAx
+	 oshHKIGJRyjHIptHEXKOtzKFG7g9vRLTRGmyeNWoeep6/zaj7noof9jXq4m5gZLI3pwKX
+	 5d/cvLWNYyWf6uc4zgv/8wbcv20QWlBzBtiWJyrzkXNPGekx3YK0WOBb8a/kDg57kp58h
+	 JHKr1KDo8AcPJ9/WLbutJ1G91WDGYMnq8GqFEoinEk66p5CtzYaNVqGEzLf5PCo5cxLuf
+	 A6tOJA3VrnJPxpNNh0CrxO1R7FzUQPR36ZSST1xRYmUjowgz2TP4eJU6qzQGzPuUr3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169506;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
-	b=Eiv4p3ts63qZrHkhSKiomrS073ckbTII25giAOAiQbf+84FMpW6UvAQPrn72Vc0UaBHp
-	 NkWu1BmoBquFqtNhcQtxidOxtEFuwrjjXfe6EGuaPkpVAAYgaWDcURZUjv+9pvjbdA+V8
-	 IJjRK+lR2o5NnHojoxtLHyynrmKpr5c/3c5QqtTXjsj9PPl/EG3kAo/WTYYSBxfI18pEX
-	 jL8rQNFE2W3hXqdZPhgxvOozloWwVbLcyLb/aXzRMC91oJsObYdPwXtRsX19mlFCRGPE9
-	 bFpkSMEmBHH+D0A7aDYvEe51polUVh6Y0P7xCEAC4nwt2AN0J2tZwmYMUXwigZ0lfgQ==
+	bh=iQ9ARUoUTIbvEIUpxfeikfyS2HAGENasCHzlEuGZ6QQ=;
+	b=MoKlfvKtrZroi/gqrEi6tvSFDQ6S5yX9vMDwGlvFR+n1njVcTuAEU40qQ0wDzPOg2bdV
+	 jYmspXBXHaf68RcdsBik4/1iDDQldSOZa3er9fncFdBzyrjEzqNPszDg8wiClJC5nq36p
+	 J5k1DJq8FAUHY/zRDXLboTf0dOZpEJIhcVKeCy0ZsT1USfB5HasoZ0I/aOlFNvQA8MW5n
+	 4TKpix8gNQnJPCWPhdQy/+SX9HzuT5AcjOZj/KqltXpoQ9j7kYRwWCgtGKwB4pInWdAPf
+	 I7eqE07v33dq3aqMU3JfZokH5EZzm5hzEoXzNFfOHs5OHaT4HgBsWnzBKxg3YD5xryw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yke1aVcE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8346081EF3;
-	Sun,  8 Nov 2026 20:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81521606D821;
+	Sun,  8 Nov 2026 20:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C81F008A6;
-	Sun,  8 Nov 2026 20:25:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yke1aVcE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB781F008A3;
+	Sun,  8 Nov 2026 20:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169508;
-	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
+	s=k20260515; t=1794169506;
+	bh=iQ9ARUoUTIbvEIUpxfeikfyS2HAGENasCHzlEuGZ6QQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A5aA0lB0Bdob9zl3oOrj0L8396begvPJt5v5xgVo3eXP7qTx6WjxbTLojgSRvlQ3A
-	 d4NiUArFyBK1GvSnKOT6THd2bMA3smp1sXqFHTeS08hp2jgzLb/5zievsDfpRSikeE
-	 CsxAy0CYHJlGnxEG+Xf6qWt1WAow/9B9abCnRkcnqSlOJaY8y9SN7okQpMi+1y9eht
-	 MKyvjgELioNquEFEdHJ7uLIyGydDrZFVmd0gDoXOnPKtAMBSGo4+n3C/jdF1X46t57
-	 G3vR5pUAZj7HqWc7kdmGYUnS66pgeEPz2sykzi+33Q1sAiaGGzJFlgYeWCtV84iUns
-	 9KhXXmqI143mg==
+	b=Yke1aVcENI1SW2kEifMV6BRaW/NqItTpFOvClv7Fj/zr36MwSkKHr+mtUVr+pijPA
+	 QNG9zORcIlPFtJfpT8k3yEcnoggXQUmcPMRbn69umFdoGpfOOd/n9Y05oOLzuA2h9z
+	 brCrPKI1VjdRgIh/xu4CCgOZSqWQC2MQxYrwxRnFyJuirTLhqlqGO6L1CA+hqr/xl8
+	 /8BtWTFyd2FhxqMjnNXGVKFZZPdaB8n3QkXeGpZtnJ3Dkxm1BpyzvrAKTk1D9NPkG6
+	 v0yEl82gtiQsmGDqFIGmX7v+FYcPRBIAFBlRTUfhf3lDCRHm/lTBvCISDIQEvpIpNf
+	 oC03VULomUo+w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-	Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
-Date: Sun,  8 Nov 2026 14:21:30 -0600
-Message-ID: <179416929514.628393.4064137862863987691.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/2] media: qcom: Add support for the iris codec on shikra
+Date: Sun,  8 Nov 2026 14:21:28 -0600
+Message-ID: <179416929307.628393.5080812119939735078.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
-References: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+In-Reply-To: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
+References: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,20 +78,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 29 Oct 2026 20:11:45 +0530, Vinayak Katoch wrote:
-> The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
-> these two context banks fail to probe.
+On Thu, 01 Oct 2026 19:11:55 +0530, Vikash Garodia wrote:
+> The shikra platform uses AR50_LITE IP core as video en/decoder codec
+> block (the same as agatti platform). Extend iris driver to support this
+> platform. This has been tested on the Qualcomm shikra boards, shikra-cqm-evk,
+> shikra-cqs-evk and shikra-iqs-evk boards with HFI Gen2 firmware.
 > 
-> Fix the masks:
->  - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
->  - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
+> v4l2-compliance results:
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
-      commit: afe52f52d645c31c201e1e575e781ccb50aa2848
+[1/2] arm64: dts: qcom: shikra: Add Iris video codec node
+      commit: aebb53e7149abcd724a8788366716645c0f5c849
+[2/2] arm64: dts: qcom: shikra-evk: Enable Iris core
+      (no commit info)
 
 Best regards,
 -- 
