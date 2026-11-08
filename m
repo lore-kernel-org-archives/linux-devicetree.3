@@ -1,63 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169320;
-	b=pXldAYE+j84H2wqO3rFAvHIY0jGdGpe0Kb57k/bMDTsUA/tqvNwloeznoRigauMYAzQX
-	 0NuT9APSvvBgrCBBegsdXePUeh1AD6XHzw+FzP661nvz4kEaCds4Ont5d8sC83GLNPtG6
-	 W5SUOaJLvsdHKxbLSsu7N6iU7B36f4WBj5MaKzJuCsogt4g+7Q2FcA/QyRK7iLl0wJa8w
-	 33FPz/areY1955Ol+clnm5c8ENT1XzZiex4WbF0V3Wwjm4YHn5MO3f7nxUxlmaOqADjvX
-	 /065zPO8fd6aXy41umW3D/coTMlvWs1kl6CIHVDqF2Vhm7o8CmKvLA+z48dYXAQnowg==
+	t=1794169331;
+	b=cbwJ0eM3GwJTfAvd9it4jUc0/F6dGHje0/N3RdHqFKkNrU56sfVqeSaRRYd1t4w42ham
+	 hcN28QGoAXeMFrSGKQpnnBp3pvhRjZCmzt9R8CqU3eP0d0KU5DwcdSUbcm5wR1skEOUxV
+	 nx3jwktynC+mN5ZUd2AYPu1TLlDl9gPg75sfOedVuoWkYxFLbXrQEULhVz7jpm9gxAw/h
+	 SP8X1AKl8XwArV5VhcbvAF7Psxo9uTVvx6vlfpFkBJ3JBgPoYIa0C08XZAv3FWuK00Yrs
+	 +dLVwn6xPT6YN+FFtbr1iNANW+3cdXm10XBz+qCJ18YbqCRUqLNU1wq9ZZzIU5qJbNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169320;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169331;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=l7neh/9HoHMNz8EuywMxQzyUFGOTrut+abX2bqgYmu4=;
-	b=OUozGhktobRsOWsIJlZXolvkYFBcyX2a4H5WQzj3YZ0QErIUYvl+d3LwCJ+rCJy2H4VE
-	 u5tiM/Yc9bGbs/eDf1JdyzTlDzd12eWLxEMK+uOivIRihyGe0oTGMtk7HuBWYOfeSn2+I
-	 GKs/PyqZAdosAN2u1eHwMC7kvIoj3hd+9eslr+dvs2NPZX81KemGVJBoe9aqCCbkv0jvb
-	 ZC8IqFri19o1JRZcAbVTQhN37mDoLCMNRi09Xz2KmZo1i3dMNniFTnOZfsfodj0heHNgX
-	 HjZ8ij3R5TFefPl82RkVngFqFaX19s0+REY38QSCiMZ4qDWaJMWHQOWma8PRU/XNIwg==
+	bh=wDiC9ZXsWsyooRxcwFqZRT/gZitI9XGp1Et9o5s7hI0=;
+	b=evKBwUdbGhTujjcfXMq7XeVM3ogDy602RhnRthayrOn8a8IpP2r1G915poQfibBLLk/R
+	 YSh0gvh2Nu9RF0h6d+ndWXhEOTFTydc7bezfBnL7U8rP/CWpZIXs3/is3V24AXIuh4BxO
+	 sOotZIgi/sJT9Pti9S0Vn5JOTTWZT3ximxv4xwRboP2eS4/tDe4++DOw1hy4n6hr1ugpS
+	 1E4Vh2TwRWk3Zi+GGUDUbRMMD9mq8w77nwt9bMsqewCC9zdmLc4isisAymlZjNr4dOu6F
+	 kpU1JyMcHMKpxQagkj84gHPNbJTPwjmVyJTLw18KZN5cp46L7YoQXFgS+/jFqQJygrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0d9BiVh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFxuPUXK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBDB606D801;
-	Sun,  8 Nov 2026 20:21:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AB4606D81B;
+	Sun,  8 Nov 2026 20:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0d9BiVh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949351F0092A;
-	Sun,  8 Nov 2026 20:21:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFxuPUXK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C58B1F008A2;
+	Sun,  8 Nov 2026 20:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169319;
-	bh=l7neh/9HoHMNz8EuywMxQzyUFGOTrut+abX2bqgYmu4=;
+	s=k20260515; t=1794169330;
+	bh=wDiC9ZXsWsyooRxcwFqZRT/gZitI9XGp1Et9o5s7hI0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z0d9BiVhPaZAG6HNsNfZPcqX5TOcm2xasfSht7LWcT7g8QrybzH4Zr+fxq1fnaA6B
-	 9FDbXMapXzkNBR3k9fid2Bk1/J3Uu4zfOI1oP8SO1QzywW0/yEVkqiSO4VcDYD7oRS
-	 /4n7mAuN2yKQfBLEHLzbde43xDjs7SUAUELrfNGEl8GOJoceqXYpWW8ohU6HsB532G
-	 zFZqIW4iQYK6Fhrx4ENzWtewn6h0H6mqE9JVAuwqcO9Ea5HXMkt04ENAv3TGgW4hzp
-	 o9j0KTW0V6lRF3rBsM3N0VonIgL/Kb9ZdkfP6S3sSww1eEcMuH7ZMzlY1wkaP65jnX
-	 E2luvafwaEuBA==
+	b=CFxuPUXKUSrbFiv2Cz+4brn9HOlt/FrsJDZMKePzIdIfLQX79Wtj6/3pSYyU9D42D
+	 Ph6OJP0grnGLdRegCQrGtP7Ng6y+ZLjBpxRN7qCRixIqOJ7rzvCjET0abHd6FxjUc8
+	 b7LQpNHODlO/rLUNQahKjuJiUmkd81htT9BtFvXR/GNDYB3t71uTL1nMtzk4rmqiSd
+	 8wysfwUa3e7XxKSTUxWQiMU0Tq9tpJ2owtjF+b+uovmUG0DrYDDPz/LaSSy8+fjQ7G
+	 1JNVMA54tINjto9Wx5H2/qyGCeVMUEMOICNxV+hT5kjT6TV1DdosPSnhfGNRKShlVG
+	 rRYZO4xAch/mA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Benjamin Kelenyi <benjamin@wendy.sh>
+Cc: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-sa8775p: Use retention for USB power domains
-Date: Sun,  8 Nov 2026 14:19:17 -0600
-Message-ID: <179416929209.628393.10279991163222834451.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: agatti: Make the ADSP remote heap no-map
+Date: Sun,  8 Nov 2026 14:19:25 -0600
+Message-ID: <179416929302.628393.11418005802278751117.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261106093722.3261172-1-akash.kumar@oss.qualcomm.com>
-References: <20261106093722.3261172-1-akash.kumar@oss.qualcomm.com>
+In-Reply-To: <20261001085247.1897991-1-benjamin@wendy.sh>
+References: <20261001085247.1897991-1-benjamin@wendy.sh>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,22 +73,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 06 Nov 2026 15:07:06 +0530, Akash Kumar wrote:
-> The USB subsystem does not expect to lose its state on suspend:
+On Thu, 01 Oct 2026 11:52:47 +0300, Benjamin Kelenyi wrote:
+> The ADSP remote heap is declared as a reusable CMA pool. The ADSP has no
+> IOMMU, so fastrpc hands the whole region to the DSP with
+> qcom_scm_assign_mem() when it probes, while CMA keeps lending the pool's
+> pages to movable allocations. Once memory runs low the kernel touches a
+> page the DSP now owns, and the board resets without an oops.
 > 
->   xhci-hcd xhci-hcd.1.auto: xHC error in resume, USBSTS 0x401, Reinit
->   usb usb1: root hub lost power or was reset
-> 
-> To maintain state during suspend, the relevant GDSCs need to stay in
-> retention mode, like they do on other similar SoCs. Change the mode to
-> PWRSTS_RET_ON to fix.
+> On an Arduino UNO Q (QRB2210, 4 GB), writing and reading back 3.5 GB
+> through the page cache resets the board within seconds. With fastrpc
+> blacklisted, or with the heap declared no-map, the same test passes
+> repeatedly.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] clk: qcom: gcc-sa8775p: Use retention for USB power domains
-      commit: 3c985f4d691286f083c08f90e2b6834eef007607
+[1/1] arm64: dts: qcom: agatti: Make the ADSP remote heap no-map
+      commit: 689dfffc33af9f74cd42a69f948fb5ca7b5a44a5
 
 Best regards,
 -- 
