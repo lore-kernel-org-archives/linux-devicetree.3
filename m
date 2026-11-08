@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794139897;
-	b=dilR7BXl6jFCkNNrts0HTd95MpbnGnK+2Ew3+8jvEHrazFICp3mKWcqilCex4FK6i2cD
-	 n+8+N+v1IQYS218RjW35PwVFxcHBeh7029qp9akJkbfYoi5+96xsx/4Mex9MRSegx1+Sr
-	 hb2eG+rFYlPrWKZJmVz+Os2IbtIaeC3HuCeZLRfUWXEJdEyPQ0/Z2fd9OemZal6MLJQ1G
-	 aHxR/0VpnCsbeiFvFKuUWPO86XPn9MxWA7pRjkIyBxQdPnCB8bk6mlIbb1xVyid38juYK
-	 dybpdB9VRRErpNaWmf0wbYmeZCrY66CQI8+4n/0uX8XOTCtQw+nYuYvxSscx2ot48FA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794139897;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=S53t+YVv3ElnijbCvjTcj9y1Ev0v2nk/Dmj5oB/Gyio=;
-	b=AniSZKZ+5FdolvprXdKCZcnT70wFlYULuWO4BFNwnA1KztDdtZ1llJGkmYmfvsp3IXZu
-	 SWcvrgQuETVu8ct3HxjBJG9iTY4BY/ASqwG2KbZ4UJZFaeYRYmT9/bFh3fMfIJG5WdYOk
-	 SZLYFWXvn9ZfhgseLkXtT57YccX4oBwd8IR5RicO2c/OuoOrViHYUErXNNuLP6Rvre35H
-	 29Nhwt6aA+eaHLDZ14LtpkZnBQYUAwyWOG6kUMlffz12x22txDBstHIfq07IV0nyOouzi
-	 lFuzUdwh1aJy0bd0h/aDmV0piIF7y/n675qmcYXr0Ys93Jh/J6qlscNjdDDYfFGDgeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nR5kpjUT;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794141154;
+	b=MQrlUhr0TR3QmaPlzrKpF10CEinxQ9rHngIXZkhpj1ZOylQt1utqesjdLfQdehpT0y4P
+	 0JVe3uvCef0q0BCPAxCKLIpGBRfr4hwEN6FFfrS3grUQdAyvlkHAuhyf0OQAf1b0L4WIM
+	 HrtbRSn4vX2SPk5oNHNcpJMhmOLaTrlTNxjoP6SsiTTw8U7DlBuUIdCWH638PYQ9/LJf8
+	 ctkOtLemUBhbvy/Cpbwbr+f1wkoU5fkmk+mNUopirVj9OX/akp4R414hwKqFh7ONPRmBj
+	 +RCVIed6AYlnr5LMi5XqB9/E6GDSxl3sgSyvKQMKlJHoXxRM1a5s8BOypXs99kvUq3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141154;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=xOoQpZg3X2a+CkR5aV/9WieWfrkjfNlxLxvKZGfWUyI=;
+	b=Czc458LyH7BqgEO06MHcucbLrD69uhdd7yJK2GD6tSgVRCh1oQo96aHFtQER0SCIKf8P
+	 HkRiHgXHKEop4pBEHjoefoMoQxKmQQM9heIKMC4pox6awsZgy5436EKqFzRk4LXztRBAX
+	 2XBAc4p1ceQDPWkZbSWu8Ym8o2NThgeaKQljySOCvbrit4A4ikIDJWpmazWxfj00wj2Zr
+	 xC22hzNAP6sz+TTZsLmuhtfK9KLCinqk43P/WqNzSzbZIVcQC9SmrjhEJz1K0S+yMo9hz
+	 ldj/ZUp2oa0DEoK5sBmvycCVSQCVJw5lnkmsuMk6hsKIaHnWEVNcGUmIDDuE1Mk05tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN3cCjZM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0E6606A31C;
-	Sun,  8 Nov 2026 12:11:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BC6606A326;
+	Sun,  8 Nov 2026 12:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nR5kpjUT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB93E1F0089F;
-	Sun,  8 Nov 2026 12:11:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN3cCjZM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794141153;
+	b=TFkj5b/nGo6xNY1e7zxyQ4VEtSWUZzHNVm4pjVETAwOPRH8tghOehi+/SLu6LjOOUdBn
+	 nCUcyiMlZfuhx6Fuzj1AtndVd+As0uSYSsZSkVnbW9L3sfwYRSlFCYgZByDGKqRA0Xi77
+	 BDsj/kgPjbVA+lK2OYpwISnghuogD64Ew8jlh45ZjLJjMl7Jpns/im+tSByuVt8WwhN9k
+	 kFxcABofVXLKiIZkhe7jed1Q1rqx8KS2iCuewg4qWdKuMTYVqwHH5Bpsjj6B3HBNPd1Pj
+	 x3uXq86IN5YDy2/yDiAbzW4YqmSPxmBp1f5i8VM1IhpTiTDugHakQONndtNo6lren/w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794141153;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=xOoQpZg3X2a+CkR5aV/9WieWfrkjfNlxLxvKZGfWUyI=;
+	b=S0LHlYXBemvIqvtXhhDSO6h8JXyb+PCm2bL922Gt0mrljIURzELFOkoZDcihcCSDlEIh
+	 ZTw57El5TFwiRvoMLKSpktl0szlENL5ZWlF4uBZqx86PamQN042xrakSQ225o83k6KAnx
+	 nna0CAbX6uzyd+CBt/EanW0Zhk/mUjg7gKFD2LRwOF4Vf8WOgykaaueF3ogEueMYyxq5q
+	 /HQw+0AdmhwE/6FQG819r3DsLn3aF/BdvZET/oKe+WFqG4R2Qo6dfV0hYcQJmr7bSlcrC
+	 M+ig4osCVBuiGmpCexlugJ5Ye2WzqQKJIMj6fVRJjuSpSUcGS4mMTZWORnrfmXntQsw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BFC041F0089F;
+	Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794139897;
-	bh=S53t+YVv3ElnijbCvjTcj9y1Ev0v2nk/Dmj5oB/Gyio=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nR5kpjUT4Wz2G43xQ1mhvZSmnOy/blyN/ZgcgtUTv0fvfpnkeB9l1bihpYRrBnqIN
-	 USRotrf/P2EZ3gn3upJextTqLcr4Wgen45hlWDHi9gqqQfRX6TqZUwR68EofUTEupk
-	 X1+mJMyXXU3+sB5szdefkIEjWMK8Fsxa3AA+3oA6lPAdo0/iEfedMfoBQgPiTZdN+o
-	 RNnVsvYw24rZWP0Rh59U2g/LuiT7umvllk0MVqLqC5JIGwPS9Qedi30L4hhTYdXT5U
-	 9AA/kiYT3LrD7CYre4bv9aB/M0WsYYWnWY8wvUzS9k+uxXRmHTktzYpKQiRyp4yjhH
-	 8wl9nRbpc1WiQ==
-Subject: Re: [PATCH 5/5] ARM: mxs: add EVAchargeSE board support
-From: netdev-bot+sashiko@kernel.org
-To: wahrenst@gmx.net
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linusw@kernel.org, brgl@kernel.org, Frank.Li@nxp.com, vkoul@kernel.org,
- mkl@pengutronix.de, neil.armstrong@linaro.org, mailhol@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
- mani@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-can@vger.kernel.org, linux-phy@lists.infradead.org, kuba@kernel.org
-Date: Sun, 08 Nov 2026 12:11:35 +0000
-Message-ID: <179413989528.488853.11075194967877927671@kernel.org>
-In-Reply-To: <20261106230746.21954-6-wahrenst@gmx.net>
-References: <20261106230746.21954-6-wahrenst@gmx.net>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794141153;
+	bh=xOoQpZg3X2a+CkR5aV/9WieWfrkjfNlxLxvKZGfWUyI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=nN3cCjZMSPRw6cvAn4OxC4s7acBIJNb9ZBbxaH8zJB78NR2yAtVRLIS+HshcwhT2/
+	 mz8+s2Hp1WGYUvEZBfKoG4xd+VCWHt43peGxjI82Fo5GQnBl8HSXi7W3Tpj8oWT7tM
+	 u4m2xAvN4BPPD7V/xodRBzNq4Kj5/50kJSThqtxhfgnPlMNusZTrPw6nvZKANyoD8l
+	 8XRGIVLTKd1oWWkQ42JhRr4GmhwFwlHwKCD6K2lbgLMN1cP3LBo7leLs582aNkWHy8
+	 j6ryyXqpGMEsXNSSif6ZepPjAj0ktqa8+gAHBNvZexssAUVWaf+sp48xf4KKAEoJ2M
+	 knEwyiL+8xM0A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2087847F65;
+	Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v3 00/10] Pixel 3 XL display panel support
+Date: Sun, 08 Nov 2026 12:32:21 +0000
+Message-Id: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,154 +83,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBQFr2JYiwG0tLjyHsYFhY9gTNsAkmrTu
+ wvtQhNdTvJm3oQCeAcBHTcT8pBccH2XYb/dIGVldwXsdGbECOOkIRQr34dgZVQWD7KDOyZcQSO
+ 5MG1tUNYGD8aNS/J8WTk82huoWDplYV2IvX8un4mW3ZoXjPzmE8UEa+AgKsq0FPzkRhd36oVKP
+ LFv/fBHZ1knja5U3ZqaGfXR53l+Az9P2bP/AAAA
+X-Change-ID: 20260801-crosshatch-panel-06ce8a69fb7f
+To: Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2412; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=tSNDj9ymd4uYRUtBQHQkxmD4lJDASY/5ynNPCLRIiEc=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvdnBVMxF6dVYBg04KasocW7b688c6Q1Z7Ac
+ SqHVoGejyeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3QAKCRBgAj/E00kg
+ cuw+D/0Sbmtnsb/VzdAqegSnnaK53qakB/RaFB0UcpvX6DlP3yFMUkNM8iEQUkgjFhIjE7ZMYXs
+ URqQI2C5vxRsQS3AvXLigIZF2txNuLrwA1w97NN5JQTg6gznbkg6irKg9vmQjd+Hjo52wOLjpeo
+ lkosvMUEqAEJUe2csK5QrucpYLMx0kTzD96ECNEG6IvBXZ2luzKxqR2Hjdb5zuS9PfxXeN6QvFp
+ 0ff66Djt0FjwasesIIaqeM9zC6Dn5moZQI5ivzEVSEcWwo30+J+ss0rLdOilx94bfyOonHiIcMs
+ 782nx0mQ0Kfbe74rdeGTPsngs8HsDRg9w1HjCW6WPkge7JZLcxRLxvsTKoWRqMGKg/etWzKME0c
+ KiCm8Ju2kPdTp+EFHKjHxNiFXL/CZOvQYyro66xznR0+geztQf4W3A9Vlj5pHYIEAYcKSurjg6t
+ wLNs7Y+haJh7GkQtycjZ+O8RVu+xoiRwOKimf0zcE6h7NidCGReyDOoVMAZqYob5XmYQGpk+caD
+ XUOVqlYfvhkWXjNjzwX8T1Lf1adnOUabQMh51uIwM6h7PSzWHqMU0btSjgLP9ZVJV7Lab84DdeJ
+ wlhch6eSb0R6Lk7Jd54goxFaLmnfbxEKUljY0H6ijhERGJPGIApsQnDfDNKBgvX3Tea78RoudoB
+ irE/8n65evHOMgg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Introduce Samsung AMB630QY01 (Google Pixel 3 XL) panel.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Includes refactoring and improvements to the S6E3HA8 DDIC which is also
+used by Samsung S9 (Korea version).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Patches 9 and 11 switch to the new compatibles, so they must not reach
+the qcom tree before the driver patches land.
 
-- [Medium] The ethernet-phy@0 node in
-  arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts (an SMSC LAN87xx-class…
-- [Low] The patch only adds
-  arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts and a dtb entry in…
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v3:
+- Entire allOf goes after required: block. (Krzysztof)
+- Expalin dt-bindings changes more explicitly. (Krzysztof)
+- Dropped "Really assert reset on the failure" as requested by (Krzysztof)
+- Not addressed: "No, this is wrong. You just broke all the users of
+  this DTS.", due to non-existent usage outside of Linux and DTB for
+  this device being shipped always together with the kernel.
+- Link to v2: https://patch.msgid.link/20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz
 
---
+Changes in v2:
+- Rebase on top of next-20260923.
+- Cosmetic fix s/Cosmtetic/Cosmetic/ fix in the commit msg. (Neil)
+- Link to v1: https://patch.msgid.link/20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz
 
-ARM: mxs: add EVAchargeSE board support
+---
+David Heidelberg (10):
+      dt-bindings: display: panel: s6e3ha8: Adjust to reflect the DDIC and panel used
+      dt-bindings: display: panel: samsung,s6e3ha8: Add AMB630QY01 panel
+      drm/panel: s6e3ha8: Introduce AMB577PX01 panel compatible
+      drm/panel: s6e3ha8: Prepare for supporting multiple panels
+      drm/panel: s6e3ha8: Correct the polarity logic within
+      drm/panel: s6e3ha8: Assert reset GPIO in unprepare
+      drm/panel: s6e3ha8: add Samsung AMB630QY01 (Google Pixel 3 XL) panel
+      arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
+      arm64: dts: qcom: sdm845-google: Move panel pins into common
+      arm64: dts: qcom: sdm845-google-crosshatch: Add display panel
 
-This adds a devicetree for the chargebyte EVAcharge SE. It is an i.MX28
-based ISO 15118 controller for EV charging stations. The DTS enables eMMC,
-the debug UART, Ethernet, USB host, QCA7000 powerline over SPI, CAN and the
-board LEDs.
+ .../bindings/display/panel/samsung,s6e3ha8.yaml    |  56 +++-
+ .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  18 --
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |  16 ++
+ .../boot/dts/qcom/sdm845-google-crosshatch.dts     |  60 +++-
+ .../boot/dts/qcom/sdm845-samsung-starqltechn.dts   |   4 +-
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 304 +++++++++++++++++----
+ 6 files changed, 372 insertions(+), 86 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20260801-crosshatch-panel-06ce8a69fb7f
 
-Link: https://chargebyte.com/products/controllers-modules/evse-controllers/evacharge-se
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-> ARM: mxs: add EVAchargeSE board support
 
-[Severity: Low]
-This isn't a bug, but the patch only touches arch/arm/boot/dts/nxp/mxs/.
-Should the subject use the dts prefix, for example "ARM: dts: mxs: Add
-chargebyte EVAcharge SE board"? The previous patch in this series, "ARM:
-dts: imx28: add alternative pinmux for CAN1", already uses that form.
-
-The product name is also spelled three different ways:
-
-  subject:    "EVAchargeSE"
-  body:       "EVACharge SE is a ISO 15118 compliant controller ..."
-  DTS model:  model = "chargebyte EVAcharge SE";
-
-The dt-bindings patch "dt-bindings: arm: fsl: support chargebyte EVAcharge
-SE" uses "EVAcharge SE". Could the spelling be the same everywhere?
-
-> diff --git a/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts b/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
-> new file mode 100644
-> index 0000000000000..75ddde2264936
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
-> @@ -0,0 +1,294 @@
-
-[ ... ]
-
-> +&mac0 {
-> +	phy-handle = <&ethphy>;
-> +	phy-mode = "rmii";
-> +	phy-supply = <&reg_3p3v>;
-> +	pinctrl-0 = <&mac0_pins_a &mac0_phy_reset_pin>;
-> +	pinctrl-names = "default";
-> +
-> +	status = "okay";
-> +
-> +	mdio {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		ethphy: ethernet-phy@0 {
-> +			compatible = "ethernet-phy-ieee802.3-c22";
-> +			reg = <0>;
-> +			clocks = <&clks 64>; /* enet_out */
-> +			interrupt-parent = <&gpio4>;
-> +			interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
-> +			max-speed = <100>;
-> +			pinctrl-0 = <&mac0_phy_int_pin>;
-> +			pinctrl-names = "default";
-> +			reset-assert-us = <500>;
-> +			reset-deassert-us = <500>;
-> +			reset-gpios = <&gpio4 13 GPIO_ACTIVE_LOW>;
-> +			smsc,disable-energy-detect;
-
-[Severity: Medium]
-Can the PHY ID be read here while the PHY is still held in reset?
-
-This node only has the generic c22 compatible, with no
-ethernet-phy-idXXXX.XXXX entry. So fwnode_mdiobus_register_phy() reads the
-ID over MDIO before phylib has requested the reset GPIO:
-
-drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
-    ...
-	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
-		phy = get_phy_device(bus, addr, is_c45);
-	else
-		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
-    ...
-}
-
-The reset-gpios line is requested only after that, through this path:
-
-phy_device_register()
-  mdiobus_register_device()
-    mdio_device_register_reset()
-
-The reset is deasserted later still, in phy_probe().
-
-If nRST is low during the scan, the ID reads as all ones and
-get_phy_device() returns -ENODEV. __of_mdiobus_parse_phys() then just
-prints "MDIO device at address 0 is missing". The phy-handle in mac0 points
-at a PHY that was never registered, so Ethernet doesn't come up.
-
-One way to hit this is to unbind and rebind the FEC driver, or to reload a
-modular fec. On removal, phy_remove() and phy_device_remove() assert the
-reset before the GPIO is released:
-
-drivers/net/phy/phy_device.c:phy_device_remove() {
-    ...
-	/* Assert the reset signal */
-	phy_device_reset(phydev, 1);
-
-	mdiobus_unregister_device(&phydev->mdio);
-    ...
-}
-
-mdio_device_unregister_reset() then calls gpiod_put(), but the pin keeps
-driving low. The next scan finds the PHY still in reset.
-
-The same failure could happen at first boot if the bootloader leaves
-GPIO4_13 low. This DTS muxes that pad as GPIO with MXS_PULL_DISABLE.
-
-Documentation/devicetree/bindings/net/ethernet-phy.yaml covers this case.
-It says that if a PHY needs a particular reset sequence before its ID
-registers can be read, the compatible list "must contain an entry with the
-correct PHY ID".
-
-imx28-btt3.dtsi also has a LAN8720 with reset-gpios, and it does this:
-
-	/* LAN8720Ai - PHY ID */
-	compatible = "ethernet-phy-id0007.c0f0","ethernet-phy-ieee802.3-c22";
-
-Could this node get an explicit ethernet-phy-id compatible too? The
-smsc,disable-energy-detect property suggests an SMSC PHY, and the ID would
-need to match the part fitted on this board.
-
-> +		};
-> +	};
-> +};
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106230746.21954-1-wahrenst%40gmx.net
