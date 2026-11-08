@@ -1,116 +1,116 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147773;
-	b=WKyiSG/Tk5Nu1LbTt7FIPLF6hsJxLt5bv5FlbDJbYhs29XsKv6metyiv/5qYz7hrzlah
-	 S2+Pdl1d60sHPZfFwUiBdfnQ7XaOC3nwuogzNqnqsXf3LgpXhGvFaV873SJd2QsHg+sBN
-	 jTsbBeunMSNUX7MJ5gJV0LO33uXV2BsfGm1TWEByuA/CtdBw35yRrSyNVaugG/WAHjRIP
-	 6DD0DiegL9M8PJ4bZmxlK/0ZmjOAzjp0h+Bhu9JRmrkKbxFZv0sdzdlT6L/85CquNFUJu
-	 JhU41ON2l6egUP1d+Vx8BegZEdxyE4GOqIBr2M7MMhB6x4jt7+UA9QCtaNJbaEuUthA==
+	t=1794147775;
+	b=bnrcOsVcWnlNArc21zU/Bwmm7NM8rI7RLXuVFceLTcdXSGZ/Cbji7PvWR7L1FrqgOANm
+	 Mp7qRghh9NECfulrnP/TO1u8r+ysVJGn8iLp/kdS/W73VyznkeL8FIdET6SBZMeLXGf7I
+	 uC4nQzaOJD2A42A51xEukgRsNF32o0aXMkuXb8g7DXs//56DgbX23NNoZF91bTYJ4JPcL
+	 btMjF3k1ha/c5M6mG1Bq3nHMO19Tjb4PQ7n4iG/QIoBv506NQxOk3vlfDI0KLtOiFsQMh
+	 esPL8RFwbbSOEk0RpCifWbSKPiCDbUGoejHkJ10rchZbit3G3MjlKc4dg9juXCV6HOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147775;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=woCjHpIzbFmhHn2FzYvCeJCH86EIjicWwYTiJAIuiP0=;
-	b=l4SssHTXX0G8iJSOoWqda1H15SRdJ7/pvB4WFV8dugDR4R/DvvgLYFQCq1jAe+cg7+6k
-	 jnTlJbkAQYokEcliyc+NP1QbgUHciNghbyMPqPICD4j0qGM+J0waTUa9ZOalLm47S9nnz
-	 CqmwHqIvgkWzLpkRU8hTxx2n43/RkM4qaODrO5kjkxcAlnqRvWpB/3K7NZ8xZpj2qFxcl
-	 wFcprcTbz+nuLcY6dVboraf29mLAaJZ5LYf2p8ukGxCKS4trAE9cdn8DUbrvlUCqIsawO
-	 PsddZuTysx9XywJokHD5DPFFFI0MKnEJo4pbREm9v/6J2M9Hrdupe5QH1BYbve0sqVA==
+	bh=SxBhdvt3/eeerEg5f6ojJgesCn4pQWjwm05oda2BD8o=;
+	b=hSja2z2rSwhM9tjkuxKcIEsCCdnknf7WDJ0O42SzCKiKEO3uH/PC016FAvSXAx01mBhn
+	 sb847a8tAWBET0paPVxbWWIFaEK/81AlI4eyufW2261uul4YixXpd83/xOvCpoBoDrFmW
+	 qu3O76WRJzNMZSru/f8vR5PtzO8EwPp62e6trxPI/j/CRXNVZt/qPB8giGUDXnZ26eeUC
+	 8ICDx79lcFOWUXxaLu0oQpMF5Lt/TYmPiIDZxs0WNCFoPWc9NeybU0VIp8yfQGMOABj/W
+	 Z8y91WxvXR/8TUlRqbKQrGfeM1mQAisuywB5IPYQGH3OwOTPq2JaX33FkjCPSMpcG6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jannau.net;
 	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=g77xhHKi;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=S1JiRCX5;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=mV0Ciyg8;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qpOTgGmx;
 	arc=none smtp.remote-ip=103.168.172.153
 Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33453606A332
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 14:22:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33453606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B5D606D803
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 14:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62B5D606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=g77xhHKi;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=S1JiRCX5
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 7AF01140009A
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:22:52 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=mV0Ciyg8;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qpOTgGmx
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id A83001400098
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:22:54 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 09:22:52 -0500
+  by phl-compute-01.internal (MEProxy); Sun, 08 Nov 2026 09:22:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147772;
-	 x=1794234172; bh=woCjHpIzbFmhHn2FzYvCeJCH86EIjicWwYTiJAIuiP0=; b=
-	g77xhHKiwGUpPp1bAq1Bt83pcZ/Jis0P5OCRhrdwiIgXa5PX7UgyxVFlvy2p7oG3
-	TNA6XxQlX809+unZUcLVQucJJXM2v6CPA5LX4rEvE4fA6kaar7XCUlSa+G4DNsJK
-	g7lGoPqJbf6Fgk+kCwSKkN+Ye1R+c9agfzxRuG9bkuws2OVmuyMuycg0QvrDAWuQ
-	pICkgYMdeBBV1BdsGurhMBS6LLsBIcwd3eUlH+IWC7nU+XkQP2sVRM8GyECJabpl
-	C7gs6gYT3SxtYYILNXLnF0YdjxHC7450QJZMqQAn8KisHAaX2SyDJcso/IBhPrxL
-	awczdOyRop8uWNOV+X7zag==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147774;
+	 x=1794234174; bh=SxBhdvt3/eeerEg5f6ojJgesCn4pQWjwm05oda2BD8o=; b=
+	mV0Ciyg8eg/KgJroi+v+WBtZYDdX8DiurvCsKyQdvA/d+KxJfxTlgXlvytcLnZe7
+	AJXaTHSI1XRyMon2iKP4J25fW3y0w2dpbX1wrLg/IUXwgjwBtdZwnonP0pAU6dxs
+	cupLEyEinHW+8DH2DlTHxfitTlFpKFzUt6xGls3KPCPUfbOEobdpLJaPzLN/9zol
+	jfTUZ4UbZuusaNRPe0ljCGVkAzpX9RpyXEn71+MRWGkSxzHAuY9VY99aGDVNyR7p
+	1rmH95/s4+mRCtn8gVbfhH+FrAV5+ICdfIvD3u8RpAktkscauNDuV7tUeglcO2TO
+	YGJSHF5qv6DSARXC0GAcfQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147772; x=
-	1794234172; bh=woCjHpIzbFmhHn2FzYvCeJCH86EIjicWwYTiJAIuiP0=; b=S
-	1JiRCX5tY492f+3KvqZTvRcUjN0u8uSL9qTEO/eYdxQUDhVacHwACGFDRg1q9WpD
-	CtpuBYDNN8dDl+07cN4seVcojM/t2Me1DtHnPGdAuCKWacNyr7NspoapzNblZMuq
-	c61i2280C/pLQp2h+kDHFAIvqxa79DSywxKzrrd5Oi8rWlulz4mjhycg9Xw+5s2c
-	XkC2cjEdDvzO3BWrYBWLK6awX4nI0fE7pWjMjkbIGl/droSkWBpGmImlE75vcT8y
-	HyE4fOM+H9X/qrz+/c4SkxN49L3O0tRBs1SMcXKYu6T9f9VQinxhK4/P1y/zXynO
-	yx1EGq52g6dlB4n/GDMFA==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147774; x=
+	1794234174; bh=SxBhdvt3/eeerEg5f6ojJgesCn4pQWjwm05oda2BD8o=; b=q
+	pOTgGmxSGldvn2y0/sQV+07FYJz8B2qxVbmZJ3wYQZ/bG1WWn4DKqGnjGfxxhPgC
+	0ov91W+NRXAvrKZaF0wWJmDp9Bzg+c41ms4bwJR3KuJne/lDb2O2rfUrjV1IjLBT
+	VpWNpZXQunucGWGcngpzPbRl4D5aCwKzNwyrS8DmBIQdHSLcUe8qBWYS8l4xqKCj
+	IEuxIJvavyk2/cFEWmkgxzwS7YwuOyZ+GP3oeB2JJbpwEW4Ssrgye+AYdkl7oc8G
+	oHOXHoV7s2jTFNH3/Hin6OcovaSBfOCmCLpraAUVod2OLbBpqX5MJnDyCzaMoV2C
+	+ldKSxt1V+RtsCIlQlgyw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794147772; d=jannau.net;
+DKIM2-Signature: i=1; m=1; t=1794147774; d=jannau.net;
 	mf=PGpAamFubmF1Lm5ldD4=;
 	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:PFh9amI9+9v7HTJVTGb7BIFkOZUhXiVCnEdF8NX7V1D9mJc
-	EvWcjRjgGoXn5v4ZhR8SKZfMwS9aOa0GjOdU05wO2/Az01YQ3fiifegpMPp2+VCM
-	0iaQ1RWbAL7yMEw/s4C8NapLqvmbpb23bR90n7akz1qnNmlcZb2uiyUw07eocmSe
-	W3Nwf9LUQko32iLIblKDZuMgHrSh7imG6GWgX6sh85OPpPeqUD9BQUkVaJGLe31r
-	m4LKyNH1m7z3NoaQuL2LOdUQbBEt5/ceIWywnYEIvB0aYACNcKfJlaaS9p2H0N/6
-	64fjUyx2wegsLPGVovB4NmnyS3GhdTdIqFIaYvg==;
+	s=fm1:rsa-sha256:a3RUSkAh/b4D0M2Ec2X9Ysq7duehK+UlbJWngfLf8T9FajI
+	y9Z8iGppBZFshZAcEz4eUW/soc7+gIQ1q46jZdq16RD0piO93bDipKAEPJ7DU+jl
+	gam4FoNl60866LZVvqRqQpJLVqe60w8YWRRd4nsGQ2LWJURLysNb6GpKDF3UA9Rq
+	infeH6StolvYmdYKk5J9mY+6zt1pHFQ/88ba7OERpm7A9wXEpyiY9+75N3hot4jk
+	BwPax7upxs7d0MbQ3/EdpyJWZXiltEJHXNzE1GqwlDw4ITdQI7lLXMmvD2CnCkQH
+	pDGWTcnr5ZQRX4VswFF4EPCOHt0pM8/xTIu+WxQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ONM+wdC2mc2GHio0FXqthaw8hL3ScbvB1IVRgFrqR4U=:4YuJB7yJn3hvOe+uv0QUJ7U19Zk9FgiQxUYecbj5q5o=;
-X-ME-Sender: <xms:vIXwan_1KhIzNOuJKcz2qUmMWo0Iotl_maUZ0B8WJnjkCMe9btZCiQ>
-    <xme:vIXwalE4CSo6V4bHtD897kjqIyJxNMMQTh8sq4BQoCX6YKIjFPRM2Fwlf9qyUcwKJ
-    fVPDgIYEO9G8LkYqTqEN2oCXI_jKIYZSItw9RUtOOPxfZNTNpWKuQxv>
-X-ME-Received: <xmr:vIXwauR_6PKSOhYnD6mgXm4dpNbVmxSlaYufiVqO_8fdRZ3exY8XNfOSo-pFE2LWIcD7BB5tbCEayk_sJFqnVFrRHTDUdH2VU58>
-X-ME-Proxy-Cause: dmFkZTGAYn/JwI0NEHfb7CIV0+JF4g1gQSai3gkcHhm/2QbriRgW/y5c2skXuQufRnEs4B
-    Zliq3AjZY4mmGjBkelBsYyJVBEkqVwHh5ON65q1orasDnTAQVYfc8yCFL3HjBq9Cjw2vet
-    DuKRRPH+34k7V7hOnH2lkf+HFY6hXu/s4B2JQov+1sPyV3JDoiBigbmQ9m9rCMyZgrJc1j
-    0952wIsVkerVEgKSSz0oxOnpfKFk+0tXBqCoLojENDwRF143YOTStk4ujykJBNzByTM+1x
-    d/u6jgutlWOuyk5bFqmopUjAfGRljp7tv8RdgJJOkBWLlx8FcpR+ErFd+ogIPl7x8SPTgY
-    idH6qRdNkfNKC6KWuFjtq7Lp6kBuBAsUw45kl/jSWoW6yOms1wkRzHH6UIL1I3ZT5CEeAS
-    YSJnGrP+B1cgHkEUZADi4kX20wHML59eTSElfkNfmQykZivFT3WI6UInUROn2vHrDRtpac
-    m0YiSy4PRDvHzZBC2DmOE2DN3jhu1ESNNdTOU5+Qbo7XOzTHb4IGBk2m1tpkBYy2Csm8kZ
-    J8V0X95zOKwa2UxFdKN7MT2cBt6KtHgLgTpuejk8L/3kFpstvF+U+F+absRFADeA2b5JSk
-    fuYduKCHjU8lI08OvR6g1UfNjpmizzYkswBd3yZELuL6hdPDh8ruL2x2U5QA
-X-ME-Proxy: <xmx:vIXwarsCDPK1J6OGyi3DiYf_d_Mioe0_-DBSdgHeIZAvOitlr51HGA>
-    <xmx:vIXwajA1m52ioj7VLugpb-TzlM652I1iQ1ZQB6fEfG4N_-CBbFEDvA>
-    <xmx:vIXwagcjAkpMGyaUAND5swdA65Nj_gM_5aSE4o1o6CfqKSK6EERl5w>
-    <xmx:vIXwajqGxHwxvW-NFWe0Qv62tSnfuv7jfgoJ3Idw5_wY7UrZu4UllQ>
-    <xmx:vIXwah84xXQv-VFC14xVYKNgzP0GpHu6Akwg5yoYBv2pj9ok6u5ACY1n>
+Message-Instance: m=1; h=sha256:LqiGbhzvV/5wHY++2IHN2VcOrs5T3DYfqW2xXfxsbxI=:ysfuKteBBK3BrJYrQIb9r0AKuLdd060EUuL2t+e9shQ=;
+X-ME-Sender: <xms:voXwakUbeaEDuGHwcZw7ZhFp1mMMWsZ0J31FfYoQs9p2raIS1U5dAA>
+    <xme:voXwap8xx-pJ3SdPIhCHvSqMqVDOJ1oJmEzpsrSk6t5RhAYnnvyk-PmIuRvyd4eGT
+    Np3U_6vgtZEi6lb1Cr0YVw5OW7QpkVVWD79vW9rIHfIpO2eYhdVpHc>
+X-ME-Received: <xmr:voXwahq6rynjK1-zJ3w-ncuecVxQhCOzUSC6PQNoe0XrgJCXLlsqLzeYRn667KjsF_nqMCicBAAvBM7cBBr2ZYzKN53tN9Wtst4>
+X-ME-Proxy-Cause: dmFkZTGo3CfmNkGVcoCqQm+2xF5BgQTQHLEob89QGgMg/fmpPsx9Ba22YEWDsCMCAsJVht
+    iPMwYglQfWngG0EQiTCIk1j//mHbmcbWVDR0k5U/uGGvuPWIdI5VF0QmVDi2K9omMvQXse
+    1SsImkgs2/+NnGnQwBHgKzDKk3rdaZCpy9lOm/CBgsoPRaB2SL90jN/DpplvLkjqri7DRF
+    34GZFZT6mx2KG6dtb3J1oKeeuxv77VarACJ5K9flwFuG4XW+zRuJ4up6S+R6m6RCgUFeXK
+    suuZS7ohMrlLQBXad0P686p3sxTyrb8JLChbCEM521ZgNKvK+lIcmDaAFt7tO6sNGMYckN
+    rvrJsI9LRFl515cpEds7Ss+uhqdKn2okNVzRDH0E1zSLFLuVyGYZXerw+/5cQOzHgVuY1g
+    uVcRHL5a34vXKahVXYAqlh/+JKJil5Me/JVezsQrgh+mGNmqzwUMEcE6ZqBmWNapPw9NOQ
+    4xRZu0026ChhypY2dSNV1JN2hYS2u8x1JzwhZtWiu3BxIYkXgDgcldkrmR8zg8YK1Wml0r
+    eNdk5cHz7noWTS3dwMfDzAY6MtbKFBpNy2hRXdReTDF96dcfL4SG0qJCKKD38ncXPirnNi
+    RFzpusk0VqGZ5mreOhhlbyD7Y8acFGCcpFz5EIepmEb+Gjsss5XEIHgN7nxg
+X-ME-Proxy: <xmx:voXwarlP9MAvdmLHF70XscswxpNb-xCh7UWYSVjd3ciUJ1xqumu_NQ>
+    <xmx:voXwalYx2KkA8f3n7yACTimpGmkcWMPC7V5Lyp__HUW6j-b8fezhzw>
+    <xmx:voXwajWji7EnxAPsDV7GkNM6guXnsOiv6YrHa77pGaTW1yqLg0wp5g>
+    <xmx:voXwatBt4SmDtepLr65PG24pp5HsNgka7ztdmwCI1VX-kY8jn7UOLA>
+    <xmx:voXwasWAlz73OB2LcAKYJg5li_C5wlzHy_bWMciLaZ2psQViqVST0bYE>
 Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 09:22:51 -0500 (EST)
+ 8 Nov 2026 09:22:53 -0500 (EST)
 From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 15:22:35 +0100
-Subject: [PATCH v2 1/7] arm64: dts: apple: t8122: Keep ps_apcie_phy_sw
- always-on
+Date: Sun, 08 Nov 2026 15:22:36 +0100
+Subject: [PATCH v2 2/7] dt-bindings: PCI: apple,pcie: Add M3 generation
+ compatibles
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,7 +122,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-apple-m3-pcie-v2-1-0e5ffec71da4@jannau.net>
+Message-Id: <20261108-apple-m3-pcie-v2-2-0e5ffec71da4@jannau.net>
 References: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
 In-Reply-To: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
 To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
@@ -138,39 +138,46 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1044; i=j@jannau.net;
- h=from:subject:message-id; bh=4YuJB7yJn3hvOe+uv0QUJ7U19Zk9FgiQxUYecbj5q5o=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrVumWWs/zn+Tfz0yLkUh4cLu5dwRdy+Fu800f3ZZz
- THzWIBux0QWBjEuBksxRZYk7ZcdDKtrFGNqH4TBzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
- RjrGOkYMXJwCMNUszxgZtghvkHDIOvROQOL1veqUc4e3NvgW7VzVbSm16pGm+OXzLxgZdjxbV/b
- PVkL5n4b6Ed6IW7NMRGwmCNfyTTb6V7XcIMacBwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1113; i=j@jannau.net;
+ h=from:subject:message-id; bh=ysfuKteBBK3BrJYrQIb9r0AKuLdd060EUuL2t+e9shQ=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrVvObfxnF7zLc5rK546ZIfYd8cJyGeITcmYETz597
+ vTSt33rOiayMIhxMViKKbIkab/sYFhdoxhT+yAMZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ NNIx1jFi4OIUgKneps3wTzmn/a3TBtHf/zROH320L4u5Y+rCtYbysj8r4rqOZujo/mX4p8PGIHT
+ o32MxlZVOVU9Sa+RTlq/SnRxYLDBn2qzbkUcv8wIA
 X-Developer-Key: i=j@jannau.net; a=openpgp;
  fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-The APCIE_PHY_SW power state is in Apple's device tree a child of the
-virtual storage and general purpose PCIe power-states. MacOS however
-keeps it always powered on. Mirror this behaviour like the M2 Pro/Max
-device trees already do in t602x-pgmr.dtsi.
+The PCIe controller on Apple M3, M3 Pro, Max and Ultra SoCs are
+compatible with the one on M2 Pro and Max. Add their per SoC compatibles
+"apple,t8122-pcie" (M3), "apple,t6030-pcie" (M3 Pro) and
+"apple,t6031-pcie" (M3 Max/Ultra) to the bindings.
 
-Fixes: c65ab4905e58 ("arm64: dts: apple: Initial t8122 (M3) device trees")
 Signed-off-by: Janne Grunau <j@jannau.net>
----
- arch/arm64/boot/dts/apple/t8122-pmgr.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/apple/t8122-pmgr.dtsi b/arch/arm64/boot/dts/apple/t8122-pmgr.dtsi
-index 3f8be74b5ea8..3206787dd208 100644
---- a/arch/arm64/boot/dts/apple/t8122-pmgr.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8122-pmgr.dtsi
-@@ -899,7 +899,7 @@ ps_apcie_phy_sw: power-controller@4a0 {
- 		#power-domain-cells = <0>;
- 		#reset-cells = <0>;
- 		label = "apcie_phy_sw";
--		power-domains = <&ps_apcie_st>, <&ps_apcie_gp>;
-+		apple,always-on; /* macOS does not turn this off */
- 	};
+---
+Changes in v2:
+- modified subject line
+---
+ Documentation/devicetree/bindings/pci/apple,pcie.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pci/apple,pcie.yaml b/Documentation/devicetree/bindings/pci/apple,pcie.yaml
+index c0852be04f6d..a40b5d5b9a5b 100644
+--- a/Documentation/devicetree/bindings/pci/apple,pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/apple,pcie.yaml
+@@ -41,6 +41,12 @@ properties:
+               - apple,t8112-pcie
+               - apple,t6000-pcie
+           - const: apple,pcie
++      - items:
++          - enum:
++              - apple,t6030-pcie
++              - apple,t6031-pcie
++              - apple,t8122-pcie
++          - const: apple,t6020-pcie
+       - const: apple,t6020-pcie
  
- 	ps_atc0_cio_pcie: power-controller@4a8 {
+   reg:
 
 -- 
 2.56.0
