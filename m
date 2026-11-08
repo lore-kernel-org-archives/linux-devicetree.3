@@ -1,123 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794104879;
-	b=zVr007j53Ydo/QqJri5iJI51ivIS7iOLDlHwGV/Ktn0aFtkQrnfiyrzloWZB6pHbXK1E
-	 HaRDFH5PH8W1kyuXYV3l3AWVVKAX8b+sxA/eChROwtA5yIRkDBSYdqfppvFAUUgwp12y9
-	 /ZNdAF8u43SZfbbGdbwvAadg3zMecNfoveVVGyab/6xMZHTaJLEKbYSZVeVQvyPOjX2W+
-	 Dzr5CQSpresT2Wq3fwSqSKUwwZuMUwy7fOOddbEFa/rG//9QKD8ETJcwXIg5WjlQciVEz
-	 FtJap/+ArxHnFqv8nbRY7Kv/9xQyt3LIUcqGdEvAFa1hDvd2eOPC67SPunNiCmHrsTw==
+	t=1794107724;
+	b=X60KVirWz/FUDR4DV462JTHBT6gylY1khz3IM08R5odtx3dqu0Dj6/mPnNZk0JMJneQL
+	 uGaL9G2Wxl5LNeH6IrW/a6VmgpJwBXqxYmE6dYhENYCEAzSv3c7cNQk+c4WflE+0GszDZ
+	 0NB/ENHlP9tZov95gRHyXsadlMsxRidWItDp5aCTdiSDx8hHuPoMvPFKUTVxo3irK7kvx
+	 wI/AkEnig2Xdjvm8plRRYYYyatEughap8qQ5K6/YaWE+oMVUSYCqDxLbBq98Ern2RArtx
+	 dsZupPZHXA2xyuAZtznTNLaZnk/jTDR+qewk+LzilThjJkqZU65y8Jized3KyGDR1oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794104879;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-	b=bO9M7rkLsr58P4UYlKP+eubnEAESY7WFDsCV6SXFkycfuw9hTTt+NHVHqpOZd6ZWKZBN
-	 55y5fJwE/hLduyG/gCn03zTOAKkoJQ09NNvsmGhr8OvLyhh3hhkV6G3MYAlHfDHpmwzmD
-	 edhqMrTbMH0uP0nP7DF35zLFVJFc0wvuky9PncS7S2eByv/dYqIkVBXrmk0ewTTygDFaV
-	 wGuIqSJnbZMEy9MXxT751edZJ6BMiV8Rp2rxtFEchuw6ndfxkNfhLZMAZgSdPtSzHqFWR
-	 2szzqV5HMmKzH0hY9O2mnxMpKSv6g26CixXbQTjnNybcsiWbcubfeISpkrqW08z/auQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794107724;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=lM3R06lN5RqvDRl/k2tH4ahMeiHYdM12iCHEJrgC6wk=;
+	b=UDbzZer9dx4KUvDckxL0I0+KA71tW758VW8JF47fxAMObRBjJPdNEa7rdqcvJoaznQ+N
+	 spLK/RhfRVgCCbGqO5rHO81YqzTnfxYGEhAk2XFM5Pc4apSxXvLwOSYlfjCJJFRxfwKkB
+	 PrgWLFtjndLt7PaBMDyPXQW2PGuODJJ8tCEVxMDizxtdhdCuEmOQrU1U2wRNt89sVTFk6
+	 IK+f157KuV00xmJbWRqnJ65qXlXDJ037euKM7fHOMpZKgi0FniL3GAeyplxa+gnpCHf8C
+	 26U7t2PthEDn1TwD/JW12GQaFs0CZKdMV5H7ITxJybMv+pZu6qBLFgA8FHC39vpUiTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Crtt9KFl;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=P8WiBGr9;
+	arc=none smtp.remote-ip=103.209.128.242
+Received: from mail-m128242.netease.com (mail-m128242.netease.com [103.209.128.242])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D894B606A31A
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 02:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D894B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7177E606A31A;
+	Sun,  8 Nov 2026 03:15:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7177E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Crtt9KFl
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso665745eec.0
-        for <devicetree@vger.kernel.org>; Sat, 07 Nov 2026 18:27:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794104878; x=1794709678; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-        b=Crtt9KFlMLRjcguZk1VYPvhTgDNZMElzf0tf141OxRDD0nRpz/y1O2me5bx5zPEHRw
-         DOcFer5e04/3lH3hXFl06ApuJDKLG77CFSixsb0t6MlRt5PwYzLnVHXQt/lmhfJSUCov
-         8/IoZwOneMKYGudlQKvHL0tGwwIWFHD5bmHdaSx2Aca7D6KfUw3p0kAAsMbidPHSH9K6
-         Vtd7DUJBiDizA1z7P9/HbJj4YxUHaR6Y20nKVwijj6Y8lmutdnjW1IMT8sE8avgxaW3d
-         2oCXfkkFNdLeVsQOzUyKG8TFQRCGvgtR9ixvehQM1zvDECpHHm1ePN1spXa/oKXtzuE9
-         +A7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794104878; x=1794709678;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-        b=QFoZNlMO1mk8vukdaaEf2twU524jgrD5XxURY/4TXVg5Icfth3IjjKub0e4fGfayTr
-         B7w4t4CLo2GklEwb8qjGoacPCXb01sWjLPjN8vde+UcWzQ+vCKw4Ifikb3ELL2t3RQsz
-         9ZTzRdeoxVUblEPSA1VnYl8f6HGX/yxrwLMR/5+D04j6MsRDXJUQNNia9afuEAPpAfuf
-         jmO4PF5aNoI0GaxixHBwe8IHSJkbH496h0kuP4nqPQJ2a7zsaHt9U29OPLvosxv6wBMn
-         hC3MqccFrMCL6fcdcaawV04p85Poe9aCOTCFNze4iuNUv4i3cB0rSZmOMaYU1RcpZBQs
-         a4ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzBT9K7NoPd2zxx2Bk9kvFSsUin5D6AcUd67xv4mIpcUfrwTxLibWwUuv9NnzyaY0z2ilNeUdRKvZh2@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uoHyg1RnvpCCrn3XLDehf+Fu1jmoOMEvNUttMLjPN3tvqWr/8
-	AHcmBboKTz/xoAD1n1jtgIsJkghfkB1QfQEyCNoUUne5FqtK1ZAXbPEH
-X-Gm-Gg: AYBFou2wUSApgoHNm0KE95AvWouJn4S+XZynhzby0UVVXLEpWadA3jhivSieVgqhc3v
-	IyI2selq4vHf/vmjZOXCnWVAOGmcHqhZUYqTX6HPYjo1kytG4myHTn6xQOA0n1dYKl2Gw/GgjN/
-	pNItloFvWxSdrfYJR7K0qBioyphHNirJEaRiMcFrFROkMhPisUOQPAcnHatyNscNVwk7i7rlg2D
-	MWrtZ5hrbOtrYC6YB8AnqJDFymzNsr9Ob06pfz+HwF9YHv8wBUAe8teVmuciah1ygGyZYdPJZO3
-	93HptrnUVe3/OAYCjzvvLez3/yberg4dO1ZA+POrJfhE/FSIlU3hVXXr8M/D3L4DjH6ARVp0Zm3
-	dX2dlVpwyX0WZMlFquahCSHAn/x1/XsH9QqkOYP5flAWryoD2nbf/0m1RGMh+KBDazuk2/EXxiC
-	FL+nRgu3PAgmApAZRenkvME2UqZZsmmG20X8MMGiONHzbJlPKCGnB40hVqQOMgpXy04YWWc/Fgc
-	YXn0s18KgF/qrhmdEESyA+Cd+fYH/KC9VNHrvnzpVpzF78fghGQcXNqo9Yn9JBKwPQNfFjd5LSo
-	juZIopdQ94JrfZ15KbzC
-X-Received: by 2002:a05:7022:b0c6:b0:190:d0d9:3110 with SMTP id a92af1059eb24-1b39ff2dademr463410c88.45.1794104877934;
-        Sat, 07 Nov 2026 18:27:57 -0800 (PST)
-Received: from debian ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm2390172c88.18.2026.11.07.18.27.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:27:57 -0800 (PST)
-Date: Sat, 7 Nov 2026 21:27:32 -0500
-From: Kwanghoon Son <asdfkwang@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
-Message-ID: <au_eFNCt54nlCafy@debian>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
- <20261029-spyglass-evasion-772697094cb9@spud>
- <20261029-amuser-savior-6a6ab062f471@spud>
- <auSDJH9V31wmbrYv@debian>
- <20261030-slider-finished-360b10521e0b@spud>
- <auXQaY25XfYzxEb1@debian>
- <20261102-throng-botanical-b244058ecc37@spud>
- <auqC9jOIQTyieQUJ@debian>
- <20261106-dislike-despise-91106ac848dd@spud>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=P8WiBGr9
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 53e05798d;
+	Sun, 8 Nov 2026 11:15:11 +0800 (GMT+08:00)
+Message-ID: <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
+Date: Sun, 8 Nov 2026 11:15:09 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,39 +48,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-dislike-despise-91106ac848dd@spud>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+ <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1b9271f9d03a7kunm71851a523ae3dc
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0kYVh9OTxlIH0sYQh9PQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=P8WiBGr9wnTcvHB2H8l9sl8SKmN0k54UNOfHgSTjHwSZ13FvJWN3ot57OepT4gft0OATr3R288gLEOJE989yutl2wuvTLvA/8KHdc8pKGoQAx1kCBPrutFigfI0NXpdxjVjHQ9W/6CAj1AxtbWZIuYDnRia5x6m/+/Ghp15zQxk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=lM3R06lN5RqvDRl/k2tH4ahMeiHYdM12iCHEJrgC6wk=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Nov 06, 2026 at 06:00:13PM +0000, Conor Dooley wrote:
+Hi Sebastian,
+
+On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
+> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
+> combination. It contains a Wanchanglong W552793BAA panel and a
+> Goodix GT1158 touchscreen. This adds the DT description of it.
 > 
-> Cool. One thing that I noticed, and felt it was a bit odd actually is
-> that the uarts are fed directly from the crystal oscillator. Jisheng had
-> that in his original series though so I assume that's actually how the
-> hardware works?
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++++++++++
+>  1 file changed, 90 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> index 6a95a8bb6fb8..327ca13b60f0 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
+>  		regulator-max-microvolt = <12000000>;
+>  	};
+>  
 
-I carried over the direct crystal reference from Jisheng's series.
-But will change in v2.
+I seem unable to apply the patch to the latest linux-next tree.
 
-UART3's baud clock passes through a mux and divider. The current M1s
-firmware selects the 40 MHz crystal via MM_XCLK, while the APB register
-interface runs at 160 MHz.
+So I tried to resolve the conflict manually, but the actual
+test screen did not display. I will look into this further.
 
-Following your feedback, the UART node in my v2 work now describes
-complete form of clock itself.
-two clock inputs:
 
-clocks = <&uart_apb>, <&uart_baud>;
-clock-names = "apb", "baud";
+> +	vcc3v3_lcd_mipi: regulator-vcc3v3-lcd-mipi {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc3v3_lcd_mipi";
+> +		regulator-boot-on;
+> +		enable-active-high;
+> +		gpio = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +		vin-supply = <&vcc_3v3_s0>;
+> +	};
+> +
+>  	vcc3v3_pcie30: regulator-vcc3v3-pcie30 {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "vcc3v3_pcie30";
+> @@ -338,6 +347,43 @@ &cpu_l3 {
+>  	cpu-supply = <&vdd_cpu_lit_s0>;
+>  };
+>  
+> +&dsi0 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+> +
+> +	panel@0 {
+> +		compatible = "wanchanglong,w552793baa", "raydium,rm67200";
+> +		reg = <0>;
+> +		backlight = <&backlight>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&lcd_rst_gpio>;
+> +		vdd-supply = <&vcc3v3_lcd_mipi>;
+> +		iovcc-supply = <&vcc3v3_lcd_mipi>;
+> +		vsp-supply = <&vcc5v0_sys>;
+> +		vsn-supply = <&vcc5v0_sys>;
+> +		reset-gpios = <&gpio2 RK_PB4 GPIO_ACTIVE_LOW>;
+> +
+> +		port {
+> +			mipi_panel_in: endpoint {
+> +				remote-endpoint = <&dsi0_out_panel>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&dsi0_in {
+> +	dsi0_in_vp3: endpoint {
+> +		remote-endpoint = <&vp3_out_dsi0>;
+> +	};
+> +};
+> +
+> +&dsi0_out {
+> +	dsi0_out_panel: endpoint {
+> +		remote-endpoint = <&mipi_panel_in>;
+> +	};
+> +};
+> +
+>  &gmac0 {
+>  	clock_in_out = "output";
+>  	phy-handle = <&rgmii_phy>;
+> @@ -495,6 +541,22 @@ hym8563: rtc@51 {
+>  	};
+>  };
+>  
+> +&i2c6 {
+> +	status = "okay";
+> +
+> +	gt1x: touchscreen@14 {
+> +		compatible = "goodix,gt1158";
+> +		reg = <0x14>;
+> +		interrupt-parent = <&gpio0>;
+> +		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&touchscreen_pins>;
+> +		reset-gpios = <&gpio0 RK_PD2 GPIO_ACTIVE_HIGH>;
+> +		AVDD28-supply = <&vcc3v3_lcd_mipi>;
+> +		VDDIO-supply = <&vcc3v3_lcd_mipi>;
+> +	};
+> +};
+> +
+>  &i2c7 {
+>  	status = "okay";
+>  
+> @@ -543,6 +605,10 @@ rgmii_phy: ethernet-phy@1 {
+>  	};
+>  };
+>  
+> +&mipidcphy0 {
+> +	status = "okay";
+> +};
+> +
+>  &pcie2x1l0 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pcie2_0_rst>, <&pcie2_0_wake>, <&pcie2_0_clkreq>, <&wifi_host_wake_irq>;
+> @@ -664,6 +730,12 @@ hym8563_int: hym8563-int {
+>  		};
+>  	};
+>  
+> +	mipi_dsi {
+> +		lcd_rst_gpio: lcd-rst {
+> +			rockchip,pins = <2 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +
+>  	pcie2 {
+>  		pcie2_0_rst: pcie2-0-rst {
+>  			rockchip,pins = <4 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+> @@ -692,6 +764,14 @@ vcc3v3_pcie30_en: vcc3v3-pcie30-en {
+>  		};
+>  	};
+>  
+> +	touchscreen {
+> +		touchscreen_pins: touchscreen-pins {
+> +			rockchip,pins =
+> +				<0 RK_PD2 RK_FUNC_GPIO &pcfg_pull_up>,
+> +				<0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +
+>  	usb {
+>  		vcc5v0_host_en: vcc5v0-host-en {
+>  			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+> @@ -1534,3 +1614,13 @@ vp1_out_hdmi1: endpoint@ROCKCHIP_VOP2_EP_HDMI1 {
+>  		remote-endpoint = <&hdmi1_in_vp1>;
+>  	};
+>  };
+> +
+> +&vp3 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	vp3_out_dsi0: endpoint@ROCKCHIP_VOP2_EP_MIPI0 {
+> +		reg = <ROCKCHIP_VOP2_EP_MIPI0>;
+> +		remote-endpoint = <&dsi0_in_vp3>;
+> +	};
+> +};
+> 
 
-uart_apb: clock-uart-apb {
-    compatible = "fixed-clock";
-    #clock-cells = <0>;
-    clock-frequency = <160000000>;
-};
+-- 
+Best, 
+Chaoyi
 
-The fixed-clock providers currently reflect the firmware settings.
-I'll add proper clock-controller support before submitting the DTS.
-
-Best regards,
-kwang.
