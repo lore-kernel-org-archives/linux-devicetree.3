@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794135922;
-	b=oiGsEuWmikLwzIlL+kIAhIWm2RM6JVFV6oK3IJxdD6eXaeG4nGsKWYjbX/QZ65WvMD/Y
-	 TBklVhl26ggVgwutS9efBWFLm9ujpIMl/dBqxE8wLqhUXAu+6SXeM5THdX7SDeY3KwQhR
-	 Zv6nqC4XmxFoBW9ASKzndTF7xflzkDnbnMCrrleZpmnALPPUH8YrazLszLqeemGDMy7Zv
-	 nx9hmveaJs0Z8USgy4MmS4ImnpJ3819apY+pLJxF3BfNDm4FWfIKezjRdY0bIYBU7EAk2
-	 Ton12I0Jw0Vl+ilJR7eg8IoEmIJYgGzYWS+uRP5rSpLW/Jt1da9uEPLUwSqN6SYlpIw==
+	t=1794135955;
+	b=FNLKzjtJfU0OwB+y3P6zSGH8CkKHAPRUYlUxsW7Fku9tgZ1EK8QRO4bNb7VrvBRbr1MO
+	 SR7xJjxfObFEa+cGcXGkudA3bxS7xFEfw/fJzuI7lEzD6v8hfOp7uB3FCy0bqoabhuQeN
+	 8yzpHsK14+6w433UOzFrZ8XcM2USvQJWSekS2TMJGJlSL+WRxUm+R2ukzdvQu6byuWOfX
+	 6D/lZFm4UuDPrAF1j7C/QK4S9Zlsf4v0qWF/4QDKBWKg4FzAmW1tNl8MI1VgOxqkQORm0
+	 EUbDxXVevd0/yS1OmtUPNhA+ef+J7U3d9JUQaSE2tKuwZ0xTyrHseAuW+Mk5xUUNyVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794135922;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5GTPSw8yoiId+WhJTx6l9BtpcfJ94gwfuNXWiBrjWA4=;
-	b=sy/lUi3SGPPMALkxfv7BqPhiCpJtyorMLONevZFsy7iQenvQ0iDGx501796B1WDrnjh/
-	 zTs/jZ40ThIQk/ryBOLQvopOeEe9PfINhfJX8OpWlMokEbJHZMGKO/v5y+dZvtaubaoEh
-	 r6lNCw4DcNhM7RxB40xPgrui8R8L/AQFblZOglK49++21ctP97JnyehdPwnwCobJRglR9
-	 tMWg3dqZmtGL0Ywx9KN1fJbj+d6AsdK7nQ9qzyyZWcG02CCxiK/o7vO5mb3jwD5HuIkyl
-	 W1ovkmXO6RkoK/zdPI0DCz+V73W+//syJ4Way8oOZj7akgRdx1DcwZQINfx6MnOW3uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135955;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=3DMCEU9uJLN9UYqXvXMsQsanZjfeIlMfMgFvG1PBcwc=;
+	b=aUVv7ptWxPLo/R2ZOzvHydb/WHfQ7HDdnp2hBsuuMTJMGq6Y7Upo2KNzZ8htHpcVBfpd
+	 lYmIfEUpWTGO/U+ops3Y9ALHVeQAwZCXM8avMFSHrt6+u5gK4gBEGYUOZ9Wmju78Q8kp/
+	 jGI0OovpnHswk1CN0Yy27Ybru473BH13x74nDNOi76mCZrJ04Alxq6B+Ev33uD8hCGKmK
+	 UtOQ8fKtLEYtLmhfewSNdiW4VxU5UDrHV3RGnmzPVDfpWDbGlWnqKOXHdo9jPKhBH1t5n
+	 wUer8dGhWxISq5d8Ep0e9dyhZ+ehbi0/8pIr8hTFTZSjnjfgRjc8yPZ0+EvYeFNAqmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th5tIDew;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C44A606A337;
-	Sun,  8 Nov 2026 11:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th5tIDew
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7741F1F0089F;
-	Sun,  8 Nov 2026 11:05:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794135921;
-	bh=5GTPSw8yoiId+WhJTx6l9BtpcfJ94gwfuNXWiBrjWA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Th5tIDewprZendX4fGigw2vL+8B1sr/APy/gtFAfVfQbS6Lk2IhTZpZA5WLxIvgtJ
-	 j/L5UqaKKe48k3fkMYGmV6bII35mRZZbn6CwZnuzuiCAzemSUUXvNoELHQ2ONuX4iL
-	 UTro6N5WVRrvVYbuoHwHPeoK3huWHGz9+LEO25VRTXpW3BkKMf5L0mJDWuZFvZCaLp
-	 rQIs2ITzWhuEBZJtF9A+ErJoBM+350SBMkJ6vpoNJHIa18H8plUq/3CaNZWmHMywZd
-	 VKrluIioL8pbB880mGbp917rCZDAWn59BtwIBa7rEcyQJRC3/MQeiSi2IX/BKMHJSb
-	 gTOT1W1JropBQ==
-Date: Sun, 8 Nov 2026 13:05:11 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
-	david@kernel.org, ljs@kernel.org, liam@infradead.org,
-	vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
-	m.szyprowski@samsung.com, robin.murphy@arm.com,
-	baoquan.he@linux.dev, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, kexec@lists.infradead.org
-Subject: Re: [PATCH 3/4] mm/cma: reject CMA areas that overlap the kernel
- image
-Message-ID: <avBXZ8iW2XPyVbmF@kernel.org>
-References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
- <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FB21606A31C;
+	Sun,  8 Nov 2026 11:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FB21606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 7A12C92009E; Sun,  8 Nov 2026 12:05:51 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 73FC692009C;
+	Sun,  8 Nov 2026 11:05:51 +0000 (GMT)
+Date: Sun, 8 Nov 2026 11:05:51 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Alejandro Colomar <alx@kernel.org>
+cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+    Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, 
+    bartosz.golaszewski@oss.qualcomm.com, brgl@kernel.org, dakr@kernel.org, 
+    devicetree@vger.kernel.org, djrscally@gmail.com, 
+    driver-core@lists.linux.dev, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, 
+    johan@kernel.org, kees@kernel.org, laurent.pinchart@ideasonboard.com, 
+    lenb@kernel.org, linusw@kernel.org, linux-acpi@vger.kernel.org, 
+    linux-gpio@vger.kernel.org, linux-hardening@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, namhyung@kernel.org, rafael@kernel.org, 
+    robh@kernel.org, rostedt@goodmis.org, sakari.ailus@linux.intel.com, 
+    saravanak@kernel.org, schwab@linux-m68k.org, 
+    Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+In-Reply-To: <au7TvMP0YhW2e_oM@debian>
+Message-ID: <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org> <20261105125154.83478-1-geert@linux-m68k.org> <aux8LYQkGSNjCGHv@devuan> <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk> <au7TvMP0YhW2e_oM@debian>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,91 +63,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
+On Sat, 7 Nov 2026, Alejandro Colomar wrote:
 
-On Tue, Nov 03, 2026 at 09:54:28PM +0530, Radhey Shyam Pandey wrote:
-> cma_init_reserved_mem() takes a base chosen by its caller and only requires
-> that the range already be reserved, so an overlap with the kernel image is
-> indistinguishable from the normal case. cma_activate_area() then clears
-> PageReserved on those pages and frees them into MIGRATE_CMA, overriding the
-> memblock_reserve() of [_text, _end), so live kernel text reaches userspace.
-> kexec reached this until the fix this series builds on; a device tree
-> placing a shared-dma-pool over where the bootloader loaded the kernel still
-> can. Reject the overlap rather than let such a caller corrupt the kernel.
+> Hi Maciej,
 > 
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> ---
-> Changes since RFC:
-> - Drop Pratyush reviewed-by tag as there were few changes.
-> - Trim the commit description.
-> - Drop the redundant comment as suggested by Mike.
-> - cma_overlaps_kernel_image() is kept as helpers in asm-generic/sections.h
->   are virtual-address helpers.
-> ---
->  mm/cma.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
+> > Date: 2026-11-07 02:44:23+0000
+> > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> >
+> > On Thu, 5 Nov 2026, Alejandro Colomar wrote:
+> > 
+> > > Do you think strafterprefix() would be better?  Do you have any other
+> > > suggestions?
+> > 
+> >  FWIW strsuffix() seems an obvious choice to me.  After all what the API 
+> > does is request the string's suffix beyond the specified leading part.
 > 
-> diff --git a/mm/cma.c b/mm/cma.c
-> index 9c53b2b70dc8..3231a53161cd 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -31,6 +31,8 @@
->  #include <linux/kmemleak.h>
->  #include <trace/events/cma.h>
->  
-> +#include <asm/sections.h>
-
-You probably don't need this.
-
-> +
->  #include "internal.h"
->  #include "cma.h"
->  #include "mm_init.h"
-> @@ -68,6 +70,16 @@ bool cma_has_dynamic_base(const struct cma *cma)
->  	return test_bit(CMA_DYNAMIC_BASE, &cma->flags);
->  }
->  
-> +static bool cma_overlaps_kernel_image(phys_addr_t base, phys_addr_t size)
-> +{
-> +	phys_addr_t end;
-> +
-> +	if (check_add_overflow(base, size, &end))
-> +		return true;
-> +
-> +	return base < __pa_symbol(_end) && __pa_symbol(_text) < end;
-> +}
-> +
->  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
->  					     unsigned int align_order)
->  {
-> @@ -295,6 +307,15 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
->  	if (!size || !memblock_is_region_reserved(base, size))
->  		return -EINVAL;
->  
-> +	if (cma_overlaps_kernel_image(base, size)) {
-> +		phys_addr_t text = __pa_symbol(_text);
-> +		phys_addr_t end = __pa_symbol(_end);
-> +
-> +		pr_err("area %s (%pa, size %pa) overlaps kernel image [%pa-%pa]\n",
-> +		       name ?: "(unnamed)", &base, &size, &text, &end);
-
-We don't want to expose addresses of the kernel image.
-I'd drop text, end, and probably even base from the printout.
-
-> +		return -EBUSY;
-> +	}
-> +
->  	/*
->  	 * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
->  	 * needs pageblock_order to be initialized. Let's enforce it.
-> -- 
-> 2.44.4
+> Actually, strsuffix() is something else:
 > 
+> 	char *
+> 	strsuffix_(const char *str, const char *suffix)
+> 	{
+> 		ptrdiff_t  off;
+> 
+> 		off = strlen(str) - strlen(suffix);
+> 		if (off < 0)
+> 			return NULL;
+> 
+> 		if (!streq(str + off, suffix))
+> 			return NULL;
+> 
+> 		return str + off;
+> 	}
+> 
+> It finds the start of a suffix in a string.  That is:
+> 
+> 	strcmp(strsuffix("foobar", "bar"), "bar") == 0;
 
--- 
-Sincerely yours,
-Mike.
+ Hmm, I'd have called that strskipto().  If that's not possible for some 
+reason (I can't see it used in Linux), then strskip() or strskipover() 
+could be used for this API.
+
+ FWIW,
+
+  Maciej
