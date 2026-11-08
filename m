@@ -1,60 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169454;
-	b=GgiiLbrHMHspUB1vHm9KHs2R61QA+fptexRXBJ+qez1xqsVCSZl0Z791uYV6lzTTrxoM
-	 43hopz2mgTX3XNeyWTvK1EcvPdri+S53PPhrY9z9lVjOR5ky4puRIKLYJ4PTSf5rb9ULE
-	 aShH9YH2/hdVSQ8fnO1RsZ1rVNatu/6glUOC1FcPSKwyXW7/c5rJ2MtafziGxwsSsGfWP
-	 HgteCulUIT5Re+JDOkLndEomS+xk0NRkbPGO3v/lYmTLIwgHHgVt/4qhI9EFqcSQShpPc
-	 2qjqHOeBjTKFEDoUyN41cZZ0WcpgH6geuFleFGObjtartSqi9lqiZqkiCSr1u9ONyvg==
+	t=1794169450;
+	b=vE5Tq9SS4PoONlLkuD21h+c6An64fzjoFxH6Nlxd9NfDH9ylfcnRE4Fwsy5KBjZrw7xm
+	 jMqkFPCTcdcOwlSFzKcOSjQ1+tvVtHSeQnQdE11WgDPAAbMRhk4yDgCixkA1IavBCH3kE
+	 i9sB2Qcc9Rgs1uGDhO1IebdQB+N9dX1q35xc7x0IMtbGQVVVPw9DZWUyqe4TJe46RjFfm
+	 gkYeMiAeZgS+bUdVcra4ui6MH3silj+bi+ukunK8wFPDk2INCBc02hac1kfgYs1yCOFEb
+	 bOG/fjVqtVIY0uc5g7exQ1tNsvi6l9145GXEQdVfJqDaNAm5nBidyzM7CNvwNS+ldcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169450;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=kcntJoPzHXmeg/Zv97SX9M5nZW3uwGreJaLFrPpkosk=;
-	b=lepAuIUCVfvWpL6ybn005UMf4QKCJ3uv4nigwIaFqJAeO+FBLjFGBjzJk9IfcCQpgoCa
-	 Jk1SHFMTq6pB4LIWSjVaoH/OphKA7Ze5nsK3dW3MAElcnspKwyBLc58YBhm28VWO83ZNw
-	 lQH9hCjEKDGN8NHBVVWeFjH2KiU55Mw7uIUGe+QJh8LSWpCCHxTp9o76f+LUFQoRuKMyE
-	 xjCKzo8Roz/Ibvu3sGZ2iGVjYqyzDqrRouIe/pcRC0FU5Jx2EKSapZ0C21ADjeYPreAmo
-	 uvZBc/JxgDZMNHbd+qJZaRtOKLC0L2mxI5mwpqHqE4BM8mdMNgJIv8PODyCixqvHO8w==
+	bh=DOkuGSYX7az1iSHCoVCPOdIABXdrfT561STZnCj2quw=;
+	b=WTixgLhR4KhzoOo1/yo2MfAKZfHDsa7Hxo5M1d8q/yQXSZXssAbLEbu/xap7we/JEPqy
+	 2RQ4UBvmtTHJDAtbrnYfe6oeqJ7fulOkhSMCibP9+dsLyk/h4ZjbnxFLm4AaOe/xIxtaO
+	 Su+bkshgl83Ql2CazEXu6S4A+tXCqIlpkWgE6px+zSJvIuV0Abd/hye1PsgI3KEP3K71t
+	 9xdvzk4sCc7zcLyp2Ps3zGL1NAjthZFWIaJOEk8Q3wjM6aLM0s0wAfHr7OW6d/X6pJduv
+	 rqmlHO2uZiZos//lgiV9w37ddfPzuLdSqL74dNmVTWnfNNN94P/DToj8XHrEyik/JKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERtkcu4t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYCQnkiY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC0360A3838;
-	Sun,  8 Nov 2026 20:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879636078010;
+	Sun,  8 Nov 2026 20:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERtkcu4t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373491F008A1;
-	Sun,  8 Nov 2026 20:24:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYCQnkiY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FA01F00923;
+	Sun,  8 Nov 2026 20:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169454;
-	bh=kcntJoPzHXmeg/Zv97SX9M5nZW3uwGreJaLFrPpkosk=;
+	s=k20260515; t=1794169450;
+	bh=DOkuGSYX7az1iSHCoVCPOdIABXdrfT561STZnCj2quw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ERtkcu4tU/l65OIk+h94j8lXGwUEbXQUWdGRch5MBeREVpmEVLDAVRDisectAU43c
-	 +u/Eleho6jh3Fnvhj2dNLZ353stCSRJ+lpB0ZHophHyTz/zpN33Pr83AZYBZLrFWjJ
-	 GTxIL4fA+KTBrdSnvUNvsM7gR7N53MXbett9NG0fm6750bq/imi1DCdf8IFavnbAiH
-	 +SERIiZATkHZBdBkXTxPoHn3tdrPQQ0wMdfNBkrHZXeE5y+85fjxol7lQtRbb7KQVV
-	 McK9u4kAIEhwyKKhRuBnJK6ujtyeyNNrxpsVIDnU7rTn3dg3WCVhDAnmOX1uqUI6OJ
-	 59mAtFV6bAVqQ==
+	b=EYCQnkiYL+M1rraqWfE+/hMFJToKFBDYHIGc7l5FzVs5XlWt2Poc2dBanDjC1m0Fl
+	 KnsW4rGkBI2OmK9TTF3CAC/hfQ7S5vEEsEJntXgvV7bhY8esuUAAzCCpJSCuKiJuvh
+	 ELnvqZS6TUT3SlUoGvw/REKh5xprb4EeK4gaRLvWMXMOHIb7vPxrP7A25w4y/KtaB2
+	 +OPSenq6EqFCThN5n+QjvNW15GQF21pwiXaZP9cm9v90nH0EfmZchJH/BCe+b7LsnS
+	 2qJuDYOjCbBz/94XNDUwAlnXomZ0dK83rP2df+cSZQeaokQJc5PV8vtdi3GzsAYwKn
+	 PZBxXIOVF90NA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 0/2] arm64: dts: qcom: kodiak: EL2 overlay for qcm6490-idp / qcs6490-rb3gen2
-Date: Sun,  8 Nov 2026 14:20:50 -0600
-Message-ID: <179416929217.628393.5520790051729545300.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/7] arm64: dts: qcom: shikra: Enable audio on EVK boards
+Date: Sun,  8 Nov 2026 14:20:47 -0600
+Message-ID: <179416929477.628393.5736814085032983289.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
+References: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,27 +72,36 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 03 Aug 2026 17:40:40 +0530, Mukesh Ojha wrote:
-> All existing Kodiak board variants run the Gunyah hypervisor, which
-> means Linux can only boot at EL1 on those devices. It is possible to
-> boot Linux at EL2 on the qcm6490-idp and qcs6490-rb3gen2 variants;
-> this series adds the DT overlay that describes the IOMMU streams and
-> other kernel-owned resources needed in that mode.
+On Mon, 26 Oct 2026 17:14:28 +0530, Mohammad Rafi Shaik wrote:
+> This series enables the Shikra audio path on EVK targets by adding the QAIF
+> CPU endpoint, GPR/APM/PRM services, SoundWire and LPASS macro nodes, and
+> board-level sound card wiring for CQM, CQS and IQS variants.
 > 
-> Patch 1 is a small independent cleanup of the two board .dts files:
-> keep the wlan_ce_mem reserved region (its /delete-node/ was erroneous)
-> and drop the redundant wifi memory-region override that duplicates
-> kodiak.dtsi. Patch 2 adds the kodiak-el2.dtso overlay and wires up
-> the -el2.dtb variants in the Makefile.
+> Shikra EVK variants use different audio components and processing
+> architectures:
+> - CQM/CQS use an I2S-based path with WSA885x amplifiers and
+>   PM4125 + Rouleur codec components.
+> - CQS uses modem-DSP based audio processing.
+> - IQS uses a third-party MAX98091 codec with modem-DSP support.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: qcm6490-idp/qcs6490-rb3gen2: Keep wlan_ce_mem and drop redundant wifi memory-region
-      commit: 4856fb5502546e8a3aae8f492e125f70f37e6ad8
-[2/2] arm64: dts: qcom: kodiak: Add EL2 overlay
-      commit: 40d8618f7109a00cfb2f44009e768f49296c4ae5
+[1/7] arm64: dts: qcom: shikra: Add QAIF CPU node for audio
+      commit: 65039c993039ba7903b01a1b08ae78889da0d719
+[2/7] arm64: dts: qcom: shikra: Add gpr node
+      commit: 388834e31ed2170756c26321620f38b61a9d657d
+[3/7] arm64: dts: qcom: shikra: Add soundwire and macro nodes
+      (no commit info)
+[4/7] arm64: dts: qcom: shikra-cqm-evk: Enable sound card support
+      (no commit info)
+[5/7] arm64: dts: qcom: shikra-cqs-evk: Enable sound card support
+      (no commit info)
+[6/7] arm64: dts: qcom: shikra-iqs-evk: Enable sound card support
+      (no commit info)
+[7/7] arm64: defconfig: Enable Qualcomm PM4125 and WSA885X drivers
+      commit: 6f769d4e24a6b8280edbd0da410183e39f33c25c
 
 Best regards,
 -- 
