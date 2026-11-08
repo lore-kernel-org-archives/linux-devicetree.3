@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175212;
-	b=cs3xxukQhrJ8zy/d8DoTez09m1mzb9OEeBPlHtBqaZErs5ian/1oKeo207B32d/fukr+
-	 g/MkZCVlqmTIt2UM6SLjWDILrn5Eyg0X646VH1A5ppmauXTyVRFekE93LsUwcDvEZ/I0B
-	 IZ7JwVBeYOQ/k3Q2lFL+OBIhinlcDlv/URpCzECbBaRdkZ8FUbX5tDaqj51aqbkPummVR
-	 XrNNe74pvmYl6EtZmbLNvkVRbhz+IhW9eZ93Rlk4h0jrhFP4sjjiRywvqsHGSdRvCUPPE
-	 Azkh3uQaT3ZKTWMKIkVRo0263kl88ZmehNjovbuyVt573mEnuWVv+sNt9dI43tZ9dCA==
+	t=1794175272;
+	b=RI26FIBDneVGYgdPH73Q2syJgmaBhjkgx0xzavpBVSdg/IsjBXDeJ6nhXmSkbRrnNags
+	 /Yo4u1aKnEwQU5ZFV3H72Jr5hgoocuE7ct+OKenD2Dxmu4EkByAes4M6vgNC9a47Rd+US
+	 1ArsvY+mfIguka2G7/RxTX6zfjCRCHgqLAYUulvUTs2Tt5BJX51g1yjJHWqyWI+5QiZEh
+	 dVE6hQBodcUGhkZUk2rlc51kEsvXmHvTZRH5MB/Pwfii/mUJeweoIwFQag3neRqzhUXii
+	 93qGkkgoQijETHKH9aNYvQEY3B7Sitjp2VoDZgGtznzBCigFUxerhi8zvrfxMSMfIVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175272;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4vbH3Yk9icP6Ev4kqICoptnLr7WLybn+OoOluX5jTQU=;
-	b=utRM5fvt7Q9axnYpen+wpzRthAapZcNYhAxe3mcw+2b3GPjL93ODxEQQcpvYuvuZMqcL
-	 M6tmi6LPp8O0ZxH4Ym8fT+Hm3vVvkjz+cIDihTdiHYq+Gm3RvKzoL+dCMBCSP22QHbmAR
-	 Rr3xm3QXzO7vsKG2TIypv+7eJncP/AgmwnbAPc8qmvoJa8q1SDLavkYeIYku7CZxiYJ64
-	 RNnvSsT+tuJRvwbP8IvXyYFPpFYDCqwzhxBOO6Zm8ibXhtwflwSby7eLEuumR6J3bM+GH
-	 FJhqSQYGjigFJRpx+TrkTZgbJbEPa+BQ+QBaP2ghsMOkI11NdXgMQeur93hixVOBmng==
+	bh=IUgNlICcmGVDAsSgi5OFkuFWUOgyZmzNI4YvGdkZPNI=;
+	b=JBnw2Hujl6ei5b1idaovUJixMTSoKZHdvIizgQaRxR92iuHzpGP9jXcNGrC5fP1UQ8MB
+	 mV+IZY4J5Vn0tWDk2Por+Z/1gTeJzf4HXuviP91oUgF1r7WKjXAwCWd3VcIKjbtBxej8K
+	 b3W2DlOy1PVI+K3cht2M+ygCkX/EuDZ6Dk3pI8Fw7Mubtz/YG83tAbZsudtjtxuntAem5
+	 Wfz/bo6ZYd80zRnkKlhjUNwcVg30QErPMEfpfLwpnh54OwK3zA7jzD6fa4HQFthu5s6Rr
+	 Irpu5LI8HDhk+iHIEH4633sWWhv8KG1wh8ury+KeUAbpcgyrqRX/alsffx/OIVYTtFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIgmkp6I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7R+CF9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57EFA606A322;
-	Sun,  8 Nov 2026 22:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBDA606A31C
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 22:01:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIgmkp6I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EF71F0089F;
-	Sun,  8 Nov 2026 22:00:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7R+CF9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F431F0089F;
+	Sun,  8 Nov 2026 22:01:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794175211;
-	bh=4vbH3Yk9icP6Ev4kqICoptnLr7WLybn+OoOluX5jTQU=;
+	s=k20260515; t=1794175272;
+	bh=IUgNlICcmGVDAsSgi5OFkuFWUOgyZmzNI4YvGdkZPNI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mIgmkp6IaWcFqCdO1BsCj1lAfhQ5AxAT8kEZ7iLuFgpqv7Jy5xBv/xKRGEzJN6cA4
-	 g98jqIqdDOazsJG5d4livI8Qvy5+/RQlZ3d454zK/iLSifmmD7YE66jJKSe8Ouvue0
-	 07WrkSNRc3U2yyDtgL7uO9rGzrTGFmrIL+DxnM3NAv3h/R11/Zr3VwOP5HfTK1T/O3
-	 uiCeh3PyyxiqwB1r1WqVVCM/hK4Xu9Oi9z5fwL9bEhOiIy7uDGfaY24R5LGuGr0Zj7
-	 N+mO4CRvS/O1PPCNYOdO/FQ8s53pAVspBz5bQ3FYFzpvmr+1hFyII0dOaAOpEsE/nI
-	 ALPowuApmJ8SQ==
-Message-ID: <sashiko-outbox-204102@kernel.org>
+	b=Ah7R+CF9GGXNmqyvr/XtP3x5mRIpHm4rQPbkJcG9OoGg8IMrjAAfwvo2XiwrXMZYJ
+	 0+xf13NlSUoCD5E3Hisv87+/NnQ2pynakJtX85f180XUEEpNqI3DBNNDxRQZOtqyqH
+	 9gLfNPbZS241g6b4YVyVS/FSIm9fb6VzQLHF+9wScNfhxQgy+8SxjW5CQxGUGSvJTD
+	 chXGkYvHr/c0Mh2qYJXP/Z5bjYKBCpaJATdmGsu39idCPGitENE9VYwK6LWKdtdZlg
+	 1WcVWjMjTfSEqFAy45UriuiA6bL4WE19R6NDVHtxkcRoS3xoUTCjYaasl3TrRioI7I
+	 wAArlgfRqt29A==
+Message-ID: <sashiko-outbox-204103@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] leds: aw2013: Move assignment of chip->num_leds
+Subject: Re: [PATCH 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
+ board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Sajna" <sajattack@postmarketos.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-4-826529beeb52@postmarketos.org>
-References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
- <20261108-aw2013-aw20xx-rename-v4-4-826529beeb52@postmarketos.org>
+To: "Pufan Jin" <cyan2254650260@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108215010.351256-3-cyan2254650260@gmail.com>
+References: <20261108215010.351256-1-cyan2254650260@gmail.com>
+ <20261108215010.351256-3-cyan2254650260@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 22:00:10 +0000
+Date: Sun, 08 Nov 2026 22:01:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,46 +61,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] leds: aw2013: commit message rationale does not match driver
-  locking or code
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Low] ARM: dts: zynq: undocumented vendor prefix alinx in root
+  compatible strings
+- [Low] ARM: dts: zynq: decimal unit-addresses in XADC channel@10 and
+  channel@13 nodes
+- [Low] ARM: dts: zynq: split root node blocks in
+  zynq-alinx-ac7z020.dtsi
 --
 
-commit 1ce6b90ecf6b0a7b5d8097b414e8e137a3fe0609
-Author: Paul Sajna <sajattack@postmarketos.org>
+commit ad140ae8401a6613bfd0e62dbc79a92d188f222b
+Author: Pufan Jin <cyan2254650260@gmail.com>
 
-> leds: aw2013: Move assignment of chip->num_leds
->
-> devm_led_classdev_register_ext() executes default triggers
-> synchronously, which call aw20xx_brightness_set().
-> aw20xx_chip_in_use() silently returns false, skipping chip enablement and
-> causing unbalanced regulator disables while probe is still running.
->
-> Increment chip->num_leds inside the loop, so that each call gets the
-> correct value for it's default trigger.
->
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+ARM: dts: zynq: Add ALINX AX7Z020B development board
 
-[Severity: Medium]
-Does this commit message match the locking and execution flow in
-leds-aw2013?
+This commit adds devicetree support for the ALINX AC7Z020 system on module
+and the ALINX AX7Z020B development board.
 
-aw2013_probe_dt() sets brightness_set_blocking to aw2013_brightness_set()
-and leaves brightness_set NULL, so default triggers activated during
-devm_led_classdev_register_ext() queue set_brightness_work instead of
-calling aw2013_brightness_set() synchronously.
+Link: https://www.alinx.com/
 
-Furthermore, aw2013_probe() holds chip->mutex across aw2013_probe_dt(), and
-aw2013_brightness_set() locks chip->mutex before calling
-aw2013_chip_in_use().  Any queued work therefore waits until
-aw2013_probe_dt() has finished and chip->num_leds is already set.
+> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi b/arch/arm/=
+boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+> new file mode 100644
+> index 0000000000000..2da08424f1a2a
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+> @@ -0,0 +1,72 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DTS for ALINX AC7Z020 System on Module
+> + *
+> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
+> + */
+> +
+> +#include "zynq-7000.dtsi"
+> +
+> +/ {
+> +	compatible =3D "alinx,ac7z020", "xlnx,zynq-7000";
 
-Also, aw2013_chip_disable() returns early when !chip->enabled, preventing
-an unbalanced regulator_bulk_disable() if aw2013_chip_enable() was skipped,
-and the driver functions are named aw2013_brightness_set() and
-aw2013_chip_in_use() rather than aw20xx_*.
+[Severity: Low]
+Should the "alinx" vendor prefix used here and in zynq-alinx-ax7z020b.dts
+be documented in Documentation/devicetree/bindings/vendor-prefixes.yaml?
+Without an "^alinx,.*" entry there, checkpatch.pl and dtbs_check report an
+undocumented vendor prefix.
+
+> +
+> +	memory@0 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x40000000>;
+> +	};
+> +};
+> +
+> +&clkc {
+> +	ps-clk-frequency =3D <33333333>;
+> +};
+> +
+> +&devcfg {
+> +	status =3D "okay";
+> +};
+> +
+> +/ {
+> +	pmu@f8891000 {
+> +		interrupt-affinity =3D <&cpu0>, <&cpu1>;
+> +	};
+> +};
+
+[Severity: Low]
+This isn't a bug, but why reopen a second root node block after &clkc and
+&devcfg instead of placing pmu@f8891000 inside the initial / { ... }; block
+above per Documentation/devicetree/bindings/dts-coding-style.rst?
+
+[ ... ]
+
+> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/=
+boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+> new file mode 100644
+> index 0000000000000..4dfef96ad376a
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+
+[ ... ]
+
+> +&adc {
+> +	xlnx,channels {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		/* AD1: XADC_AD1P/N, E17/D18 */
+> +		channel@2 {
+> +			reg =3D <2>;
+> +		};
+> +
+> +		/* AD9: XADC_AD9P/N, E18/E19 */
+> +		channel@10 {
+> +			reg =3D <10>;
+> +		};
+> +
+> +		/* Spare pair: XADC_AD12P/N, F19/F20 */
+> +		channel@13 {
+> +			reg =3D <13>;
+> +		};
+> +	};
+> +};
+
+[Severity: Low]
+Should channel@10 and channel@13 be named channel@a and channel@d?
+Unit-addresses after @ are lowercase hexadecimal without a 0x prefix, while
+reg =3D <10> and reg =3D <13> are decimal (0xa and 0xd).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108-aw2013-aw2=
-0xx-rename-v4-0-826529beeb52@postmarketos.org?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108215010.3512=
+56-1-cyan2254650260@gmail.com?part=3D2
