@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169468;
-	b=JHYgHzOPbaVbBLxreNYku+rPY4QbjngG8RQ/w80rEGQaYevedZ+AoIvvlAaiGWwO4c4c
-	 C5NlYR0pSAeDrZAgcO9eRDSFkg4JBoeFzM3TmM86RYwLPzSz9mDTuBFM0B4eB2mGY/e2W
-	 E8PwRNrcU4Rm1T4/AxNPTNFJtKT+ai4+G9ZsMdd2NOkFZ7q5lb6LS+V3c/dY2Zo7qqxwD
-	 MneFsg4BA0+tbBC4Uj7cSSgIKV8cj7VHM5KV1uWLCTjYeECa5tzK9my0f+OBHExpoo0v9
-	 j9fY8VHO0ITUXW5ekuNUzinsaQ3m7lKecyJGB+6SA8Sru5O8UYqBdEknbWrOu0dUoLQ==
+	t=1794169463;
+	b=U7X9Ku1zkgRil1W4ZNY9Lq8HbAhXJWNX1hrshvdeMFYL3u7mIAU5rKzCeE+ZCAOhvgPS
+	 Fpofhjm5YllSRKYPnevMB02MQpSC9fk7zu3NzNajo92stXja4kq1pRtYT5sTnhmpASd1P
+	 3qEEiV++9x6UM1JxItm6xJZjROeY1xF+xmCHhFavHdr39bovECtZ4qTbN6nSga+jKSYRc
+	 OBzMAA7tu0BClVJcn5KCHOVYyflQTyD4aSuxZ43bTHAOIcB/Me/EED1qMshj7aFif/ECt
+	 zaqkMXXofu3AvRFJ9wuAmGOYxcK0m9gLK5QhRWE948PNral/sXjhuh+LeWp2iHanevQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169468;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169463;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=M02SiQqr6L1QN3inZJdBPTD7subEIlSZCr76hhFAvS4=;
-	b=hEP5r99pRigda77XnF3S9/VH+FHua7XI7kE1PNhGiMzkD3AIi2ZQX2K1lsSCPQiZYL21
-	 K1UkQ7poGHq0yw4KSIg2p/DMdl6jJOSsJVD1uWgJkfkBWvFtVDz4fWuj+fMNbLvRqBQjs
-	 pA54sNPTbNeb/A8qr6fmJoq8WHb8MOGevgTX45BGmQQ5mTgl5ie5B2NzW8iRDkEWZBzq1
-	 vNoiHhd0wpcAJWYiD0dZLrje1xwSvzUqu1biz3kwmCqcPqMwNaP1uKr7H5ihIU3QKprxM
-	 /h4IEAgt3WQX1VMuDl4RHwQJeyNMWg1fimfFltAH9D440hDq/LjYws7WbSQKoXDerPw==
+	bh=QR9uJVDOQoJGV8Ovz9OfoTgfyZI97RdSj3kd/OCY9aM=;
+	b=B1rIZll9OaYZen4ClchHCFK6DtreDHo/cPk9FlDw96foEu/s1fRACQ/sqet6S9NAtGra
+	 KrpEnc+y9lfSj5UuBi5+3tAKX9uoCxgsK5hV5KXghiV07xs/K0WSw4VnLJffRmnQTMuGj
+	 avKgCDcGqLqo1RgwX6ojIwuCCrAnOJuCwRez9aAPL03AOh01nsO5Hf0Noua9QiVgauLGG
+	 Dy5I15xBqWs6UJ8P7dDso7AWNo22Gpfg36zfosgWpWE3+EVmH5gp9D7EftNc5EaGDXihQ
+	 E5e6eoAR+SGP7n+3ne5SMc8XiihXMo7CDVLjBqZckdH82EunOkBkeBKekqgdN5Gjyvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iw/memjQ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRoqPRYT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B521606E017;
-	Sun,  8 Nov 2026 20:24:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4421260A5BDC;
+	Sun,  8 Nov 2026 20:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iw/memjQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7F01F0089F;
-	Sun,  8 Nov 2026 20:24:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRoqPRYT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F661F0089F;
+	Sun,  8 Nov 2026 20:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169467;
-	bh=M02SiQqr6L1QN3inZJdBPTD7subEIlSZCr76hhFAvS4=;
+	s=k20260515; t=1794169463;
+	bh=QR9uJVDOQoJGV8Ovz9OfoTgfyZI97RdSj3kd/OCY9aM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iw/memjQMiAT020EfWBxLxheTgPWmniNul6Ftg3ruwtRpdwj2hWJCa1W8KXqK90Ro
-	 +B8hHo/t94hQTioG46vMR4+GQhYbfjcZaYqTOqWe2P/bRgazqKZchOSNbx+Dtj15AS
-	 NjyDXaQ6FjY8rrAeKHpoM2XbZr8Kjq3Ri/xxj04GtX9w0VFNwEz5+h/nUEtAWl9SAn
-	 cb0Ppl2gnfHDagaUHySmZKdOkIXe5TSY6UyjbGrWQr1MGH1eDrp8ENvzKiEJRaRaJd
-	 /R+rClm2yDiCsMecjVv3aD4tZaQx2rNybEvjgnyJ6OSmZZQTpsICu1+mIA93f5HhWa
-	 hPttayDQ6VXzw==
+	b=nRoqPRYT1PvughfnxnZ2jcUyxUshHlKePS5dz9eWxnSlABRBiLKSnmYirtCkpfrNe
+	 pvVHGt0jpKqAYOuxaY6LpkVVehfGcqWnn+ANUaer5Bwxw1UefUQ7yG8fq9GdnluufP
+	 KEs/XZQrGvhhjlNfpktHFsNvDy5uI7iNI4ffGWRUK2/8MmlUThPRUe1a8oTQX0sphm
+	 k/yIx7tqLghUZG6V409riHwySyBCC3G2GMbqUoDfO0pzUgQ4HeT+aPz7xhN/pjXGGA
+	 ZgXBg5EG118k1EUH5dv5PKDcKm6L+0NWj543PfJy4U/kNaSGqXTvTE1VwU/kvP3Cew
+	 1vAaQ/WhcH3VQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Pablo del Arco <pablodelarco1@gmail.com>
-Cc: abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: monaco: Add EL2 overlay for monaco-arduino-monza
-Date: Sun,  8 Nov 2026 14:21:01 -0600
-Message-ID: <179416929324.628393.3949635695718160748.b4-ty@b4>
+Subject: Re: (subset) [PATCH 0/3] arm64: dts: qcom: sm8650-valve-deckard: Add watchdog support
+Date: Sun,  8 Nov 2026 14:20:57 -0600
+Message-ID: <179416929313.628393.4067545467661915449.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261004101849.34191-1-pablodelarco1@gmail.com>
-References: <20261004101849.34191-1-pablodelarco1@gmail.com>
+In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,20 +73,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 04 Oct 2026 12:18:49 +0200, Pablo del Arco wrote:
-> Build an EL2 combined DTB for the Arduino VENTUNO Q (monaco-arduino-monza)
-> from the base DTB and monaco-el2.dtbo, as monaco-evk-el2.dtb already does
-> for the Monaco EVK.
+On Fri, 02 Oct 2026 11:45:27 +0200, Neil Armstrong wrote:
+> This series adds Qualcomm SM8650 watchdog support for the Deckard
+> platform by updating both the binding and the SM8650 devicetree.
 > 
-> The board boots under Gunyah by default. This DTB lets it run Linux at EL2
-> with KVM when the boot firmware is set up for that.
+> The watchdog is marked as reserved by default since most boards
+> uses the Gunhyah Hypervisor which owns the watchdog.
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: monaco: Add EL2 overlay for monaco-arduino-monza
-      commit: 288c04d58f3cb8178540661d10ef95798170f545
+[3/3] arm64: dts: qcom: sm8650-valve-deckard: enable the watchdog
+      commit: dfb2628e364700ef81926623e468b0cd1e2a6f34
 
 Best regards,
 -- 
