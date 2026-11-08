@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794174945;
-	b=tXp0JMHuONqvGxiTjtaMMNx4gaHYX1n/Fl67G5VU4vLRqUDOMchhpESL6szUD7htYERw
-	 dL8jIKkM+28ikWYqBImGqmqmU+kLgUmk111s40ayMsZhtOvD8PXBDeUyWYTFk8toAfoZM
-	 V8JX9kVv1Jo9MBTdraSo8GZwFPuwa+P/NsfqbWZV+Cvlgm1ksz8E0zpXeDotMkTAQjkEM
-	 DWodwss1yOqPouaQmBIk4Di8bCwiYZRLq72IAxrayuiTKDU27yMXrHTM6VcbcwmHs85Is
-	 ZbMbk/LOmUomaofWcoEa0NqxCKU0Hy1jYK67OkJzFUnlGZKKh35JSVYE4khHl2OxEUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174945;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794175072;
+	b=PZG/V/7uILCLmtkl7q8qWGbVrqsMkYtsSIBS4XWbjg9164EoKq5F3pvApJlShdTYvnbK
+	 TuySYY/MD8RrhfTwRwpnu9EdTdS01gGFn8aiwNw2lnZK/7AHBXcvF1e2vcRrNPfdEd72L
+	 KSnUQYLywCv/FQa/vmbLf1ycceXYFOru36A/4e1brKIHUMIihTrwvgsCfJPd3uS81VKLM
+	 2IlOfqs7VDwnl06Tc8wtbEkKwE3a3RqhL5ONUA0Q/HLUmGiAJFY3Nn3kjSiJP0dP+80IE
+	 YRqWyYsks016Mqjc0r1o2lkfb0cxnyVtFejDuoLf75HTy3NqoShpMPaw+U0RmsXtzcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175072;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=8ALWYb7mKLT0vzfVw1EoQilMmnTZv8rVfaKixsBK8VA=;
-	b=E0BCIwqUgQq0c3QGcHZQtm/DVEn+DbYvr4VbXJ3fmNeo+hfY6nSn8EpwlZQODAaXbkst
-	 tXzQTQ7/ZXhal7ipJsYffYlI0Mhkxvr1EcSgYm4o8R/8lKiqyaO37e6FZIK05ZGnqu8A8
-	 Lwg2D9gJid25UL30ZyYHtXkICsc/RjagAJ1jCBZKnyD52RuQVJaZJVvD1KM3Gu3zYw/V3
-	 fcXkdorjzZLgmIWtATpZRZkTwZXsI/Fk5ZVeSgqFhgH8HUOvkP0KwNE7ZWTZ9Gv9y20qy
-	 FBL0I4uoooSizwmUYIG3tmE+lMpON78oQJMyMajpe3D9+ugO4Ser4yy/iJiSiM9WyPw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mS/3ui3U/tGmUVdMDE9L/0+hrd8sTEoFW9MAEra65NE=;
+	b=seyCfZ80yHElaqdN+pvrhsvVCzhV9u0otfqFmjoW/juo0oeE++lZDEcKoegdITv9LIim
+	 bLGhvQ49+FkBFkwYiD0m69Qabt53o852/HnyswZUGJxzdl99FEVuJQ1On5+nstiW/ZWhj
+	 ouC8uebz+1wKoePPK6bAT6SJh1bHFQAoVbRAeNebnP57hRjH3YtOeJtZTiZymRgU5zj48
+	 dDQKnWyEJPhSnTcGk8do36jf+z66kYCpBiLlBlmEfRzRszcbZ1HjvKDVkyZPgdCEc8Csn
+	 QroYDYFp1sIOmw+3y0azqffQ+gB45Oui8hogESSNGaR5IV6kE0P/spYrSvbZz02o2vQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAaaw93y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bygJju3r;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D4A606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:55:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D4A606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C29B606D801
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C29B606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAaaw93y
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1109565eec.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:55:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794174944; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R2f3nv40FwTKCLPk1LiVfNthGA5nxUeRNh2UOHVwj0jlNwK/+UyosMFps63uvjsqNu
-         0CYp1BFhCmyDlNYVJSBgZrv5T1OoXb1NARE+DI7UaSgvfSl/VXHNmPvY9XzuhML7+MK2
-         +vulGUdQaX2yEyQ6vmps/hGrTofY+eF4Nh4lO0FQF2sZ9m2CIGyJSunLuAjx18LjHQII
-         PLUReZX8Pvcu7ZKGqK5thKexF0KjogZx4QPwhIApeRQXr/pGmaGQBQ7YAFDzjTJIcI9x
-         KrExy8u18X4Fd52EHptPMc5zqkwVxrq0TUkF5y+TMFF7c6OaCnRyr/U06ugNW8mmwppR
-         /Gmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8ALWYb7mKLT0vzfVw1EoQilMmnTZv8rVfaKixsBK8VA=;
-        fh=OouK/nL5xf/K/iojbOV5gV0XnVQwKRfsS0L5vkunbIU=;
-        b=AtESIy1S/YUf/Sj+BNJY3GD6rhVerizYSgb1QffrPC8LxLvVPcywd2zi4i4vXDAc2K
-         pXmoms3y52XX2H6gZSdGclklE7gfCrgIkxVq5Z8Rs1bCvoH6HfRwmNp6fGF66//BfwYy
-         VV09+K3Gbt4er1hK4QhmowUxrZ2v37+drU4hQdCs2zGqg5mUCg91aLGaKxx2EaPibB+Z
-         BIP9lalbhJ6/YmgTkvqs6kzOYXdtSoQxriJMb7hpXuCiuQSkYhEtyWQhNLZmlyN1hZlT
-         eaGqNH7kgxsdAN6vjWjsOejNSyKyNHjmeNpWNkAFkX3Nm5O3+yfMisFc0R4KffsB2X3g
-         K8GQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bygJju3r
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b147e06befso69805a91.2
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:57:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794174944; x=1794779744; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ALWYb7mKLT0vzfVw1EoQilMmnTZv8rVfaKixsBK8VA=;
-        b=aAaaw93ynIf3qzV6bFMeVV8YBCH8vLZqLwefUSTXJYbag8UMqZtLhtu3dkeqhn4y/G
-         PC/jDS10kd9v9WjXbRDG+BsZs9wc6IlxveYW0FeXJNr57B/U/yXdtUv3X0tqASTQaDFs
-         LW61Th2YoBHzSRvmRoqGd7prkZusyj08+EMqanHKAyv4Mt4zY63DsY+RCBQmC6QeyTDs
-         3vTSj3lBfNI30vKbbA+uURfzme6p8cevux/4fK2Sg0uPriFBuGN9ok2FSZe5Lk5lFtHu
-         15F78AIvoW0suXCCQtXw8q0F1S61Od6yMT8dzY4hJYmp0Msw8YOjVsCNDuxJVQMlejfb
-         D9zg==
+        d=gmail.com; s=20260707; t=1794175071; x=1794779871; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mS/3ui3U/tGmUVdMDE9L/0+hrd8sTEoFW9MAEra65NE=;
+        b=bygJju3rhH16O/9kouZAhHixWlGelgLUlqnJ3c2EjKxjtWU4M0l8fnBBmoenPyIpRw
+         0/QkmVx6JjZjjzyKhAly2yDpB+asS2DgcO9XBecS8KwJHA62arR5DNg22SFyBNXmun47
+         AWKmZNDi8k2L4aGq4MGZzK5rtnXQ5X7fv+gBWUX73OPSa3KRxel+zBU6T3AUZMXyTGa1
+         l5pDsuWcj33afL2JNg52RyVoP07XPTmCgKPNGwhe5tIJ+9qstJDKuBxRsDFqEBIkiwBm
+         0Kchi/PeuZPNb4AEL2vUtHoDegZRcezQCxQWOXwKRq9mG1WQHNBErtoodvRSTAv4B5mo
+         aNYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794174944; x=1794779744;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8ALWYb7mKLT0vzfVw1EoQilMmnTZv8rVfaKixsBK8VA=;
-        b=rq68IG53QX36E2eeyuU1sJxOP0c+veNXwqjNnWZKNd0+LYQ6TiGqzVWD7Z8dE0wZJW
-         QFW5ByJiJk6xtBUptLB5srpse1HBMLd5APQMvL0RoXgVv+dNI0tNtQdi37VvbDovb4+j
-         /aIMsEN8kN0F90x7kii6nLCpmN3Dkecfd31n2lDitR+kulZf5YJiEPDwJZEHS1jeMuJn
-         GMenNoNf5/MbviezxlLdKlDtt05SMTBR4D8BPofHzwLmbIeEnbwsl40XRBCn2U8n2G29
-         2Aul2GTrGMVpZ16NMY5V0lDOFCnwmRx9vkuQaBLegBZdoG/N92szObu8dCiOOhwU8sja
-         vQIw==
-X-Forwarded-Encrypted: i=1; AL+hErEsUCs2u2nyRxH2jTpWAjmyIQyfEILc0F/g8zIKMRAzD/B8Hg+Pqs7fDsoxLTURgCfx0hBITu9xaK5P@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OFPwrwUlcBLexck56dlu3jYzX3D7FtS5tfiucyYwVNCbeJron
-	18cRLy6RI50wezAYnufPSCQc2LZ6MsuKNtbMzsdhnG6JleVsLpWWTRk6Zi7IlikDiY9ggKccTkh
-	RJ1lyH6nuNf9ANKWjM+0TLllvzhJKFS0=
-X-Gm-Gg: AYBFou2oVoRkIvcwyeFueGzFWrH+Bp1aSbh0e/2Kwb/aQ4lkA7UOWeIRMLRxLtzTPz1
-	qrmr92wjwLG9n/3PcCO8hLc51qPTLmPAPD/uRxS6UFlnEDv6cj7OuNFegDt8qlL6+8wRIItJLTp
-	uy9KJowao1qFwAexdhglGLu1z30/6c9/+mrZPIHvTAmEWECJSkETdHimsBp3ILuZfepnxWmpmyy
-	yF/SXsU1aG0Dfxt1q+wQvCgmOqek751y+gamO7ar4AKwPuonyMGFTb6H6l82FRPESvqXJAt3hIZ
-	WEPJJI6ql6AC0vD8sPqiVT/RKf4kNbqYBsCRa1H7vo17152u6yr/elZBhHHIhI2IbKPtTYcNUW7
-	sulLNAB5kbZseaVO886QLugb9+9HeFoSPCA8u
-X-Received: by 2002:a05:7300:ea87:b0:36b:d3dd:2e9d with SMTP id
- 5a478bee46e88-37255b4c438mr4848268eec.19.1794174943698; Sun, 08 Nov 2026
- 13:55:43 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794175071; x=1794779871;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mS/3ui3U/tGmUVdMDE9L/0+hrd8sTEoFW9MAEra65NE=;
+        b=PE5q9A1MoSeOftJ24QcFgFcJZCaubWgEW85Xy7UEHFpB8B+qGLeJ5KyBGnGZochB8G
+         HqetUP6o7VlI7Qa27kzPOujlgCwtdTyRn7n4uk4HygXHtrDvTZqMFhwy5S+O+TWQRDgZ
+         H3ipyJoEpEVZB30Svm3eSn4NGjmZIbQRXuhbMYZVDcyCIEm8CqTuK8YLFfaoE2PnJ4+v
+         wBgXrQ7DKOZR6y5iiVrh6p/YsUZ10N1SCIUxfDD7A+0sc/58AypUENjKCwQ2hoHjJq5l
+         /TpwLi7Z2d8Y3OsuweFJ+WgU00pPilGhYqBcRzQtkyarhmXg3O7+3b2WcqicJjvtM/ER
+         lqiA==
+X-Forwarded-Encrypted: i=1; AL+hErElIHtPuP4kgv7GzDOf/L4RRD2T0Yd+y16NKuRjPR3grboaeChDvxjT8AWRWcU2rdN1gxCnRxrRuBn0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qU92sFz4oQV1M95vPyxh6uRheZqgjIxS+AHaxWSDtK6ZpY0Od
+	yd7ZDrOHNuC2e/9UICcH7fCN51XjZ+tFWaLPrWMelqiRZwVLWSyq3Ves
+X-Gm-Gg: AYBFou1aoOnyTnD5MEuSMOgrAIKvAO5jnFM/5aOJpi6fjT+UEmPrQ3ZuaR+dMGqCB5D
+	g0OWggCY/54huAfbhkGglYPY7K2U2JRuMEz+LikPJEQQPTTJX6OAhcuntp/Af9CIm+j+HY5YomG
+	8RT/wInR9xrffo4eK3IUv07e2IQwSeQssNrsGja7KAAjJBcrjT68dK3d2+J5pIAjKYjpW3w2LLk
+	imfg0lOWgM3UN/4eRH8FhyTyT+8ppclEL5wwZtvqYolgnF+3yVX+aG1eIB77f5/w7w7aIqWMDzL
+	YLsdKE/lTjidTdom/6J/AOpBQm03CZJhjoq5DSOd88QfXkoqFYO1PagbkdgdAz3GW++Q2rCZBqs
+	HV9o+RhOm6enz9OW1SwCcbphh5L6tkRRcI9JgCM5DAZ0eV2Pio/B8WNElIiMQHUYLNOz+3ktYwb
+	iM7W0l1JQ/PH00cBqXrzLdvjcD77MYFlIvPkiDQ4A8Itb6mDMAgXr/IWmyWMRY+pCCv6i7NQO5R
+	qk0z5ZdEHA3OMIhxOQlKMunaY1iLmObVNKvvPAR7kk3BbnklJPgPZLTHMhaeeJsmZ4d4p/TmuEX
+	xv5FcxbDfjI6OUN9I/7y1NbTuhf9q8aWj/wcGALn+8S0MqN12PQiH8CZ6WVT5lkOKjMs3c1ErXL
+	+AgX8bnmjxJzczQpRB8ZZlVPY5QDq+gecTOHJ3fa77X/IOAXrOb35eqn37cGM9DAv6+a4qKjdXO
+	d7vQ==
+X-Received: by 2002:a17:90b:1b01:b0:3ad:a232:4044 with SMTP id 98e67ed59e1d1-3b12d3e3821mr1721811a91.38.1794175070564;
+        Sun, 08 Nov 2026 13:57:50 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm5692976a91.9.2026.11.08.13.57.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 13:57:49 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Alban Bedel <albeu@free.fr>
+Cc: Radu Rendec <radu@rendec.net>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org
+Subject: [PATCH v2 2/3] irqchip/ath79-cpu: flush every write buffer of a shared interrupt
+Date: Sun,  8 Nov 2026 13:57:37 -0800
+Message-ID: <20261108215738.113582-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261108215738.113582-1-rosenp@gmail.com>
+References: <20261108215738.113582-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,31 +106,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
- <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de> <20261106-tumble-hurt-d1a0be3fddae@spud>
-In-Reply-To: <20261106-tumble-hurt-d1a0be3fddae@spud>
-From: "Owen O'Hehir" <oo.hehir@gmail.com>
-Date: Sun, 8 Nov 2026 21:55:07 +0000
-X-Gm-Features: AclHuK8qDOv8Crg02YP_zjFhxJU_hbwgG5TwapP7lp6MYqanAg0FpXCbz5Gu6Qk
-Message-ID: <CALp3LZ5Vwhx-CqKz7Jr+VE+e0S1EyNO_-OA-uC0h_dz0VF0r_g@mail.gmail.com>
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
- power LED on
-To: conor@kernel.org
-Cc: e@freeshell.de, kernel@esmil.dk, conor.dooley@microchip.com, 
-	robh@kernel.org, krzk+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Conor,
+On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
+interrupt 2, but each writes to DDR through its own write buffer, and
+both have to be flushed before their handlers can see the data. The
+driver keeps one write buffer per interrupt, so the last one listed in
+the device tree wins.
 
-You may have missed my email on Friday at 21:12.
+Keep a mask of write buffers per interrupt instead, and flush all of
+them. A flush is a few accesses to the DDR controller, which costs much
+less than splitting the interrupt by source, as OpenWrt does with a
+cascaded interrupt controller.
 
-I think E has a point. There is a separate red LED on the board that
-shows power. My confusion came from the net that drives this green LED,
-which is labelled STS_PWR. This green LED has no silkscreen label and the
-schematic is ambiguous on this particular LED.
+Document the interrupt wiring, the write buffers and why a shared line
+flushes all of them.
 
-It is probably better to drop this patch. Apologies again.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/irqchip/irq-ath79-cpu.c | 51 ++++++++++++++++++++++-----------
+ 1 file changed, 34 insertions(+), 17 deletions(-)
 
-Owen
+diff --git a/drivers/irqchip/irq-ath79-cpu.c b/drivers/irqchip/irq-ath79-cpu.c
+index 9b7273a7f8ce..ec39c37895c0 100644
+--- a/drivers/irqchip/irq-ath79-cpu.c
++++ b/drivers/irqchip/irq-ath79-cpu.c
+@@ -10,6 +10,7 @@
+  *  Parts of this file are based on Atheros' 2.6.15/2.6.31 BSP
+  */
+ 
++#include <linux/bitops.h>
+ #include <linux/interrupt.h>
+ #include <linux/irqchip.h>
+ #include <linux/of.h>
+@@ -18,23 +19,33 @@
+ #include <asm/mach-ath79/ath79.h>
+ 
+ /*
+- * The IP2/IP3 lines are tied to a PCI/WMAC/USB device. Drivers for
+- * these devices typically allocate coherent DMA memory, however the
+- * DMA controller may still have some unsynchronized data in the FIFO.
+- * Issue a flush in the handlers to ensure that the driver sees
+- * the update.
++ * The MIPS core has 8 interrupt lines: IP0/IP1 are software interrupts,
++ * IP7 is the CP0 timer, and IP2-IP6 are wired by the SoC to its devices.
++ * The wiring is fixed in hardware. Several devices can share a line, like
++ * the WMAC and the PCIe root complex on IP2 of AR934x, and their drivers
++ * then request the interrupt with IRQF_SHARED.
+  *
+- * This array map the interrupt lines to the DDR write buffer channels.
++ * Each DMA master writes to DDR through its own write buffer in the DDR
++ * controller, and each write buffer has its own flush register. When a
++ * device raises its interrupt, its last DMA writes may still sit in its
++ * write buffer, so the handler could read stale descriptors or data.
++ *
++ * The CPU interrupt says nothing about which device on a shared line
++ * raised it. So before running the handlers of a line, flush the write
++ * buffers of every device wired to it. Each handler then sees its
++ * device's data, checks its own status, and returns IRQ_NONE if it was
++ * not the source.
++ *
++ * irq_wb_chans maps each CPU interrupt line to the mask of the write
++ * buffer channels to flush, from the qca,ddr-wb-channel-interrupts and
++ * qca,ddr-wb-channels properties.
+  */
+-
+-static unsigned irq_wb_chan[8] = {
+-	-1, -1, -1, -1, -1, -1, -1, -1,
+-};
++static u32 irq_wb_chans[8];
+ 
+ asmlinkage void plat_irq_dispatch(void)
+ {
+-	unsigned long pending;
+-	int irq;
++	unsigned long pending, chans;
++	int irq, chan;
+ 
+ 	pending = read_c0_status() & read_c0_cause() & ST0_IM;
+ 
+@@ -46,8 +57,11 @@ asmlinkage void plat_irq_dispatch(void)
+ 	pending >>= CAUSEB_IP;
+ 	while (pending) {
+ 		irq = fls(pending) - 1;
+-		if (irq < ARRAY_SIZE(irq_wb_chan) && irq_wb_chan[irq] != -1)
+-			ath79_ddr_wb_flush(irq_wb_chan[irq]);
++		if (irq < ARRAY_SIZE(irq_wb_chans)) {
++			chans = irq_wb_chans[irq];
++			for_each_set_bit(chan, &chans, 32)
++				ath79_ddr_wb_flush(chan);
++		}
+ 		do_IRQ(MIPS_CPU_IRQ_BASE + irq);
+ 		pending &= ~BIT(irq);
+ 	}
+@@ -58,7 +72,7 @@ static int __init ar79_cpu_intc_of_init(
+ {
+ 	int err, i, count;
+ 
+-	/* Fill the irq_wb_chan table */
++	/* Fill the irq_wb_chans table */
+ 	count = of_count_phandle_with_args(
+ 		node, "qca,ddr-wb-channels", "#qca,ddr-wb-channel-cells");
+ 
+@@ -68,7 +82,7 @@ static int __init ar79_cpu_intc_of_init(
+ 
+ 		of_property_read_u32_index(
+ 			node, "qca,ddr-wb-channel-interrupts", i, &irq);
+-		if (irq >= ARRAY_SIZE(irq_wb_chan))
++		if (irq >= ARRAY_SIZE(irq_wb_chans))
+ 			continue;
+ 
+ 		err = of_parse_phandle_with_args(
+@@ -78,7 +92,10 @@ static int __init ar79_cpu_intc_of_init(
+ 		if (err)
+ 			return err;
+ 
+-		irq_wb_chan[irq] = args.args[0];
++		if (args.args[0] >= 32)
++			return -EINVAL;
++
++		irq_wb_chans[irq] |= BIT(args.args[0]);
+ 	}
+ 
+ 	return mips_cpu_irq_of_init(node, parent);
+-- 
+2.56.0
+
