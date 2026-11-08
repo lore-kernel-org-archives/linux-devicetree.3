@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794097323;
-	b=KskZeec2/6JKqjn1UPORUf33XUHLmPPJE87ieaivdZVslg4qdvClDjH/x7ch3QjCSH2j
-	 8aQ8tmQ0aAWd9nzr7TMtBJ5RUpsE+C8XmRm7jbPx0GgzMy/8NDGUVyxQ+3wpYVgHNA9Xm
-	 3j/Mvk782amjvjSUkntN6+PfKF2b7rl/aQRBsHX9wvx3uGnzXtRjEkNpeXS9bSjz/qw6B
-	 Fyg+INK4kJSneIqBmIYZDPTrmEV8rXY6YTJ0vCqwr0BKTsU7dEWjUDSPZMsNVaZn0lCeG
-	 ypv0ZzGf3YK7JddKdlHPJLutFIOzcg+j0TtiVTvuw1Jh9XNLojtL9730JebBIEMpMUQ==
+	t=1794097787;
+	b=4yI7IU5Zz7NBOITOnl+Ip4NhTns/dAGSsKLTqmcRF2LlZvzQGwmqywDft4kJDP+Iqkw2
+	 6dYr/JS1qWID26EN59LWgK5oiNtSB1JEUI2apfFsoq/aOGPlUrc+Jrgh3iVxWbinBSuWS
+	 ohGqCvPHwCNsaphzqcOeD/g9lpssMwSvZORJ4MVlhSFx6jcoovYaFBAXVuCm6+jp/9Q4t
+	 A06t5BOyBeTeUKwaWNqyzWf2gjKuME+yfjeYbjilmIopboBUJt7qQ2NSQx29ihgKoZgXu
+	 0M+UyCIMNp6NV1s3SuNp9iVI/szDSOYR+dqjVyZv0z2DoP0nCorYCA/6uE9LkLrTgIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794097323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794097787;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WGL9U5fhngMQywj8uyLoBWTBxovirxmHXPosFTCLpbE=;
-	b=B50iTL+vaLJAq/fOWPlyGC/mzalDUnZOzKTg05itUd9F/5BGKcvWFFyufvFXtBfYyw9M
-	 988uQSNYUS0GHD69FscME+okd/HrGe4OBDpe7wdxXnl3ZxCrq5hF0lOMiGjsiukESq6vj
-	 byPsw5oi7C2u0GYszNdC3J6jIKUlPTB6CuqzRyg/LPH2jTZaJsQ2G333kzzIUfUVQp8B+
-	 ljLrjZ6GXukyG5N3dkQeSfyVCRwUnbeU4XTSQedQWP8GN2w8A9N7zMKQ+8pvM0jMo/atd
-	 WzkDtLf5cMg2DN/rWZz2T5yNMuSX+lNDPrqLzXrEIi7u2jeBkbbzLmfH3lzTAhXK5Kw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
+	b=lwIZzcZY+whw8gjcqYPqGgQ4IcERZTx5IMtvemavjPPnNRGuBoIJBt3Q2Ggnz5MM3hX2
+	 u+HOOrI+CnLHXR0YYxOEuRD4sOEjwv367K5wGazhF8KYQuBrTilYbnu8Cpg3hqRadPyFQ
+	 r/gBPyPxGXnw8VEV8rorFYhKexxpdyTG89zpaMNi4/PFMfJLb8QkVMAYVhnTWIRQR+16A
+	 fMmJD2DN+ll7p38VRr5wzHShdeoZyCPGgcqUAtDZ45ggraDeD20cGj2aBTs+2lvhGaNbA
+	 pQ7dFKd9/2u4dxFct9i8paYZfVBYVMK+vhMD/eR2zxwikhWbrvDo4cIegXtJLUu3umQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PyTCHfef;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A8E606A326;
-	Sun,  8 Nov 2026 00:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D68606A326;
+	Sun,  8 Nov 2026 00:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PyTCHfef
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596AA1F0089F;
-	Sun,  8 Nov 2026 00:22:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD63E1F0089F;
+	Sun,  8 Nov 2026 00:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794097323;
-	bh=WGL9U5fhngMQywj8uyLoBWTBxovirxmHXPosFTCLpbE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PyTCHfef+Iin6bylJzKwCB7xFTWlQhFtv9EjC7R6I9VnAiAHU5xhJIALh4arGd19p
-	 Rr03I8ublWRAm75MFlUqX2bUReyVSILG/DNXX1tuXauhBfxJByfxwUBiRDpVGFxA9s
-	 0FOeQjpLUfJ7d2pk13yEvIJMo9yqmVT2iCD6Ek4xpzKovTVQIHW7K0A5Il0L4WW/Os
-	 n1wpkEusSfk3B61F1l7a1xegpQ56BNLXu2cu9EY95bYmKOxyA2ucjkEVY8idRA2gb/
-	 kf7GQWVDrAbpMPBoLPrWacrWIuKQlsCLZpbbc0PKUIQ27QOWoQGgmt0Cm/a/RQJkWV
-	 KAKKmdFI1+uLg==
-Date: Sun, 8 Nov 2026 00:21:55 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kyungmin Park
- <kyungmin.park@samsung.com>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/4] iio: light: gp2ap020a00f: Add GP2AP030A00F support
-Message-ID: <20261108002155.29740ae6@jic23-hlaptop>
-In-Reply-To: <20261108-gp2ap030-v1-4-55314eb7055b@kernel.org>
-References: <20261108-gp2ap030-v1-0-55314eb7055b@kernel.org>
-	<20261108-gp2ap030-v1-4-55314eb7055b@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794097786;
+	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ka2RJu3agEgLzYDFBBm5fkd6IBPdTv2jnKlGseVM3JbLRXZC23mWUbrrLY+LB9lZ2
+	 hBo6vFFZfT205VG19kFXihinVH9T3vxwZqufUJ98zGe8Y1Bb9LCGbymXStjE6pq7Ne
+	 jDCGhlxn19gM3ldE9tPzrovVLeQZ5BSrb8f2fTL45dqKyb/4MsX0H19fPMLmlUWKUy
+	 fdu8ULFdfpDM2ND87xRJavB/yoO/UqUSSqnIEX3l84RmUr8AN2HNy9CvMrhHFSS6tc
+	 fgIMel9Ef5YWeWKwq1aqhGNgWvkJLj/bXmIgAqtYj8bWNP50Z75vfa3qlgXaZufXoU
+	 o2VEIvkPg+bHw==
+Date: Sat, 7 Nov 2026 18:29:41 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: anand.tiwari@oss.qualcomm.com
+Cc: Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Shashank Maurya <shashank.maurya@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
+ overlays for EVK board
+Message-ID: <au_BvH0rEKpgTpc3@zenbook>
+References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,193 +64,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
 
-On Sun, 08 Nov 2026 00:31:36 +0100
-Linus Walleij <linusw@kernel.org> wrote:
-
-> The GP2AP030A00F has the same register addresses and interrupt modes
-> as the GP2AP020A00F, but does not implement its automatic
-> illuminance calculation or selectable ambient-light cancellation.
-
-Hmm. Raw clear and IR signals are normally intensity channels, not
-light ones (because there is no standard match to illuminance).
-Seems the original driver is not doing this right and we are stuck
-with that though.
-
+On Mon, Nov 02, 2026 at 01:01:30PM +0530, anand.tiwari@oss.qualcomm.com wrote:
+> Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
+> The DSI0 interface from SoC card is routed to either the 22-pin DSI
+> connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
+> connector, through a MUX which can be selected by a hardware DIP
+> switch. There are multiple daughter cards designed that can be
+> connected to this B2B connector.
 > 
-> Datasheet: https://jp.sharp/products/device/doc/opto/gp2ap030a00f_appl_e.pdf
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> The below B2B display interfaces are enabled by default in base DTB:
+>   - DSI-to-HDMI using the LT9611UXD daughter card
+> 
+> Below overlay DTs are added for additional display configurations:
+>   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
+>     daughter card
+>   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
+>     panel with touch via the 22-pin DSI connector for Lyra
+>   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
+>     with touch via the 22-pin DSI connector for Lyra
+>   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
+>     Lyra with LVDS daughter card
+> 
+> These overlays are applied on top of the corresponding base board
+> DTBs.
+> Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
+> 
+> Dependencies:
+> https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
+
+This was rejected 3 weeks ago, so sending this series wasted both your
+and my time.
+
+Regards,
+Bjorn
+
+> https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
+> https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
+> 
+> DT bindings:
+> https://lore.kernel.org/all/20261021-lt9611c-v7-v18-1-4978b94896f1@oss.qualcomm.com/
+> 
+> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 > ---
->  drivers/iio/light/Kconfig        |  6 +--
->  drivers/iio/light/gp2ap020a00f.c | 80 ++++++++++++++++++++++++++++++++++++----
-
-Hmm. Fairly small.  Normally I'd ask for this in two patches
-1) Introduce the infrastructure to support chip variants, but no
-   functional changes.
-2) Introduce the stuff for the part being added.
-
-If it is simple enough I'll sometimes be more relaxed about that.
-This is slightly too complex for me to be completely happy.
-
->  2 files changed, 76 insertions(+), 10 deletions(-)
+> Changes in v3:
+> - Added GP CLK Frequency Dependencies
+> - Reorder the &tlmm pinctrl nodes in the LT9611UXD HDMI bridge patch
+> to ascending GPIO number.
+> - Link to v2: https://patch.msgid.link/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com
 > 
-> diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-> index 462fff1ddef2..549f644994df 100644
-> --- a/drivers/iio/light/Kconfig
-> +++ b/drivers/iio/light/Kconfig
-> @@ -259,15 +259,15 @@ config GP2AP002
->  	  module will be called gp2ap002.
->  
->  config GP2AP020A00F
-> -	tristate "Sharp GP2AP020A00F Proximity/ALS sensor"
-> +	tristate "Sharp GP2AP020A00F/GP2AP030A00F Proximity/ALS sensors"
-
-As for the description below, I'd just use 'and similar' as this will
-become too long on the next part addition. So might as well avoid the
-problem now.
-
->  	depends on I2C
->  	select REGMAP_I2C
->  	select IIO_BUFFER
->  	select IIO_TRIGGERED_BUFFER
->  	select IRQ_WORK
->  	help
-> -	  Say Y here if you have a Sharp GP2AP020A00F proximity/ALS combo-chip
-> -	  hooked to an I2C bus.
-> +	  Say Y here if you have a Sharp GP2AP020A00F or GP2AP030A00F
-> +	  proximity/ALS combo-chip hooked to an I2C bus.
-
-Similar on making extension to more parts easy.
-Change to a bulleted list of parts now as it will avoid churn when
-the next one turns up. Lots of recent examples of this in tree.
-
->  
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called gp2ap020a00f.
-
-> +
->  static bool gp2ap020a00f_is_volatile_reg(struct device *dev, unsigned int reg)
->  {
->  	switch (reg) {
-> @@ -364,6 +400,7 @@ static int gp2ap020a00f_set_operation_mode(struct gp2ap020a00f_data *data,
->  					enum gp2ap020a00f_opmode op)
->  {
->  	unsigned int op_reg_val;
-> +	u8 op_reg = opmode_regs_settings[op].op_reg;
-
-If nothing else effects things, prefer reverse xmas tree. So I'd move
-this up one line.
-
->  	int err;
->  
->  	if (op != GP2AP020A00F_OPMODE_SHUTDOWN) {
-> @@ -401,12 +438,16 @@ static int gp2ap020a00f_set_operation_mode(struct gp2ap020a00f_data *data,
->  			return err;
->  	}
->  
-> +	/* Bit 0 is reserved on the GP2AP030A00F. */
-> +	if (!data->chip_info->has_als_auto)
-> +		op_reg &= ~GP2AP020A00F_TYPE_MASK;
-
-Perhaps set it explicitly to MANUAL_CALC given I guess that is
-direct equivalent of this?  Effectively chip doesn't support AUTO_CALC.
-That should be self explanatory given the has_als_auto check so you
-can probably drop the comment after doing that.
-
-> +
->  	/* Set OP_REG and apply operation mode (power on / off) */
->  	err = regmap_update_bits(data->regmap,
->  				 GP2AP020A00F_OP_REG,
->  				 GP2AP020A00F_OP_MASK | GP2AP020A00F_OP2_MASK |
->  				 GP2AP020A00F_OP3_MASK | GP2AP020A00F_TYPE_MASK,
-> -				 opmode_regs_settings[op].op_reg);
-> +				 op_reg);
->  	if (err < 0)
->  		return err;
-
-...
-
-> @@ -1401,7 +1448,7 @@ static const struct iio_buffer_setup_ops gp2ap020a00f_buffer_setup_ops = {
->  
->  static int gp2ap020a00f_probe(struct i2c_client *client)
->  {
-> -	const struct i2c_device_id *id = i2c_client_get_device_id(client);
-> +	struct iio_chan_spec *channels;
->  	struct device *dev = &client->dev;
->  	struct gp2ap020a00f_data *data;
->  	struct iio_dev *indio_dev;
-> @@ -1413,6 +1460,7 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
->  		return -ENOMEM;
->  
->  	data = iio_priv(indio_dev);
-> +	data->chip_info = i2c_get_match_data(client);
-
-Check for NULL.  Sadly can happen via various weird probe paths.
-
->  
->  	err = devm_regulator_get_enable_optional(dev, "vdd");
->  	if (err && err != -ENODEV)
-> @@ -1437,9 +1485,12 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
->  		goto error_regulator_disable;
->  	}
->  
-> +	if (!data->chip_info->has_als_auto)
-> +		usleep_range(1000, 2000);
-
-fsleep() so no need to think if allow that slack makes sense or not.
-
-> +
->  	/* Initialize device registers */
->  	err = regmap_bulk_write(regmap, GP2AP020A00F_OP_REG,
-> -			gp2ap020a00f_reg_init_tab,
-> +			data->chip_info->reg_init_tab,
->  			ARRAY_SIZE(gp2ap020a00f_reg_init_tab));
->  
->  	if (err < 0) {
-> @@ -1456,9 +1507,20 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
->  
->  	mutex_init(&data->lock);
->  	indio_dev->channels = gp2ap020a00f_channels;
-> +	if (!data->chip_info->has_als_auto) {
-> +		channels = devm_kmemdup(dev, gp2ap020a00f_channels,
-> +					sizeof(gp2ap020a00f_channels), GFP_KERNEL);
-> +		if (!channels) {
-> +			err = -ENOMEM;
-> +			goto error_regulator_disable;
-> +		}
-> +		channels[GP2AP020A00F_SCAN_MODE_LIGHT_CLEAR].scan_type.realbits = 16;
-> +		channels[GP2AP020A00F_SCAN_MODE_LIGHT_IR].scan_type.realbits = 16;
-> +		indio_dev->channels = channels;
-
-For this just pick between two static arrays.
-Whilst that may make things a bit bigger module size wise, it is
-easier to read ad puts all this in one place.  Put a pointer
-to the channel array + count of it's size in the chip_info structure.
-
-
-> +	}
->  	indio_dev->num_channels = ARRAY_SIZE(gp2ap020a00f_channels);
->  	indio_dev->info = &gp2ap020a00f_info;
-> -	indio_dev->name = id->name;
-> +	indio_dev->name = data->chip_info->name;
->  	indio_dev->modes = INDIO_DIRECT_MODE;
->  
->  	/* Allocate buffer */
-> @@ -1534,13 +1596,17 @@ static void gp2ap020a00f_remove(struct i2c_client *client)
->  }
-
-> @@ -1557,5 +1623,5 @@ static struct i2c_driver gp2ap020a00f_driver = {
->  module_i2c_driver(gp2ap020a00f_driver);
->  
->  MODULE_AUTHOR("Jacek Anaszewski <j.anaszewski@samsung.com>");
-> -MODULE_DESCRIPTION("Sharp GP2AP020A00F Proximity/ALS sensor driver");
-> +MODULE_DESCRIPTION("Sharp GP2AP020A00F/GP2AP030A00F proximity/ALS sensor driver");
-
-These get long fast.  Maybe just jump directly to where we end up
-which is the weasel words option of adding 'and similar' 
-
->  MODULE_LICENSE("GPL v2");
+> Changes in v2:
+> - Fold in the hdmi_connector port remote-endpoint indentation fix.
+> - Drop the per-patch Depends-on trailer on the LT9611UXD HDMI bridge
+>   patch; the dt-bindings dependency is now declared as a series
+>   prerequisite (see base-commit/prerequisite info below).
+> - Drop default-on from the DLC0697 backlight node.
+> - Add the ilitek,ili9881c fallback compatible to the RPi 7-inch
+>   panel overlay to fix a dtbs_check "too short" binding failure.
+> - Reword the PWM_CLK defconfig commit message to name Qualcomm as
+>   the SoC vendor.
+> - Remove a stray blank line and non-ASCII characters from the AUO
+>   LVDS panel overlay.
+> - Link to v1: https://patch.msgid.link/20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com
 > 
-
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> To: Abel Vesa <abelvesa@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Florian Fainelli <florian.fainelli@broadcom.com>
+> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-rpi-kernel@lists.infradead.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> 
+> ---
+> Anand Tiwari (2):
+>       arm64: defconfig: Enable PWM_CLK for backlight PWM support
+>       arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
+> 
+> Mohit Dsor (1):
+>       arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
+> 
+> Shashank Maurya (3):
+>       arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
+>       arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
+>       arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
+> 
+>  arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
+>  .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  77 ++++++++++++
+>  .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 133 +++++++++++++++++++++
+>  .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
+>  .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
+>  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 101 ++++++++++++++++
+>  arch/arm64/configs/defconfig                       |   1 +
+>  7 files changed, 493 insertions(+)
+> ---
+> base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+> change-id: 20261019-lyra-display-upstream-post-24656268a902
+> prerequisite-message-id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
+> prerequisite-patch-id: 0dfae1e9d0c620866489eecacb4b7201b9333621
+> prerequisite-patch-id: 94923ba8f57911649364a7e0e5494c7cfd478367
+> prerequisite-patch-id: 660755293839baa7364b4baf3a2dd6b4018de48a
+> prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
+> prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
+> prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
+> prerequisite-message-id: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
+> prerequisite-patch-id: 37995c88387ff54737dc82eb7c3b4600901ce061
+> 
+> Best regards,
+> --  
+> Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+> 
