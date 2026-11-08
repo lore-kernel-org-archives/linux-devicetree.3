@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169464;
-	b=pRU68Ev1wCdEnmI3WkvkCT78keP7UphIOELivLbDKN7pRZalwbXpsTrutCkJwaV5Qj/D
-	 AFX6mkN8Lzwi+gjyeXWH+/BDp1mzDLzDsVbUZxY4a8is8+GTEWWXQb+cw3MVhYz2QGoPI
-	 10cvHSm+8HQ/xUenBVpCIYVrLbQHMbJYVww7Tm5IUj5O2klkrzp99alfHJN01t5pzy8ci
-	 1DsElLxPAuWrO03xZERnrGNC+sUsf+cLyLSL9Q2be9GXaF7KFRm70B+FGwBLBL9NBbnn/
-	 iXL3CevlPALwmUFhFEGa7Rb4eDxyPyZizmJGN1lQMOvNBBX5pG4Ci+xotxcxymX8uPw==
+	t=1794169468;
+	b=JHYgHzOPbaVbBLxreNYku+rPY4QbjngG8RQ/w80rEGQaYevedZ+AoIvvlAaiGWwO4c4c
+	 C5NlYR0pSAeDrZAgcO9eRDSFkg4JBoeFzM3TmM86RYwLPzSz9mDTuBFM0B4eB2mGY/e2W
+	 E8PwRNrcU4Rm1T4/AxNPTNFJtKT+ai4+G9ZsMdd2NOkFZ7q5lb6LS+V3c/dY2Zo7qqxwD
+	 MneFsg4BA0+tbBC4Uj7cSSgIKV8cj7VHM5KV1uWLCTjYeECa5tzK9my0f+OBHExpoo0v9
+	 j9fY8VHO0ITUXW5ekuNUzinsaQ3m7lKecyJGB+6SA8Sru5O8UYqBdEknbWrOu0dUoLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169468;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
-	b=Ob64NmHiTa2uAP+711+sst5kP7ZWcqMArZZmtuvUPe2P7uR0fHim9lJQBti3nxgwTLNU
-	 +X5IsYujcMmawk7oFPw1XamU4s6JYC6pnEzwe7bGS+LcKv/Ekvx5L/dT5XtBAgNtYW2fh
-	 FqgdEF28EUjMj1UKTIYuV8/aNTpdGf+u2uAGh4+jRTY0eBrllSy1Riz8JXEY2YTyTeVdq
-	 7QdrgtLDWmVhDXYojYbSSOO/SSv9ZR3SpkQQKLR98KrP6/IqETMOh2RcNal+k4rX0vNZG
-	 H2ANV/UZVJgETwIKL483l6DgW2z8ioIzSq34QpcQSmiPyCLwtjNTHgX4HuJVb/eSxew==
+	bh=M02SiQqr6L1QN3inZJdBPTD7subEIlSZCr76hhFAvS4=;
+	b=hEP5r99pRigda77XnF3S9/VH+FHua7XI7kE1PNhGiMzkD3AIi2ZQX2K1lsSCPQiZYL21
+	 K1UkQ7poGHq0yw4KSIg2p/DMdl6jJOSsJVD1uWgJkfkBWvFtVDz4fWuj+fMNbLvRqBQjs
+	 pA54sNPTbNeb/A8qr6fmJoq8WHb8MOGevgTX45BGmQQ5mTgl5ie5B2NzW8iRDkEWZBzq1
+	 vNoiHhd0wpcAJWYiD0dZLrje1xwSvzUqu1biz3kwmCqcPqMwNaP1uKr7H5ihIU3QKprxM
+	 /h4IEAgt3WQX1VMuDl4RHwQJeyNMWg1fimfFltAH9D440hDq/LjYws7WbSQKoXDerPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iw/memjQ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7320B6076C34;
-	Sun,  8 Nov 2026 20:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B521606E017;
+	Sun,  8 Nov 2026 20:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3712E1F008A1;
-	Sun,  8 Nov 2026 20:24:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iw/memjQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7F01F0089F;
+	Sun,  8 Nov 2026 20:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169464;
-	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
+	s=k20260515; t=1794169467;
+	bh=M02SiQqr6L1QN3inZJdBPTD7subEIlSZCr76hhFAvS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SOw8TnSE7gMjpA/OOeoynrrYJ/WTlzKS34O1Zi22hMieXyBfHTnvI77kj43KoQWln
-	 71E11+PjjdXhTTNCbDVxLejPz2Q/m0ZimzCBUWSz+dP1YfDSUE3W4vBCyBRzjboQ/k
-	 P0jiMWdGdJ4y/G4zHpN0CgkjIrzaY5fShElnXUsjXOG8UMPlypvq+GUGdV0DQu1pdk
-	 HkG+CKDAbSv3oyWWRSU8DC86p4INUQsKLt9SMFlxIxMzbSceHNIw3EBM744XcTRUF8
-	 MBnArBLCGsH4mEqtoJl0suS0UgiIMijcH7tVRKBGNAc3yTdrJmCU4uGdjH2Mh4ct7W
-	 pYfnAfEMwOtqg==
+	b=iw/memjQMiAT020EfWBxLxheTgPWmniNul6Ftg3ruwtRpdwj2hWJCa1W8KXqK90Ro
+	 +B8hHo/t94hQTioG46vMR4+GQhYbfjcZaYqTOqWe2P/bRgazqKZchOSNbx+Dtj15AS
+	 NjyDXaQ6FjY8rrAeKHpoM2XbZr8Kjq3Ri/xxj04GtX9w0VFNwEz5+h/nUEtAWl9SAn
+	 cb0Ppl2gnfHDagaUHySmZKdOkIXe5TSY6UyjbGrWQr1MGH1eDrp8ENvzKiEJRaRaJd
+	 /R+rClm2yDiCsMecjVv3aD4tZaQx2rNybEvjgnyJ6OSmZZQTpsICu1+mIA93f5HhWa
+	 hPttayDQ6VXzw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org,
+To: konradybcio@kernel.org,
+	Pablo del Arco <pablodelarco1@gmail.com>
+Cc: abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to play audio via DisplayPort
-Date: Sun,  8 Nov 2026 14:20:58 -0600
-Message-ID: <179416929463.628393.16769183462772113988.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: monaco: Add EL2 overlay for monaco-arduino-monza
+Date: Sun,  8 Nov 2026 14:21:01 -0600
+Message-ID: <179416929324.628393.3949635695718160748.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
-References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+In-Reply-To: <20261004101849.34191-1-pablodelarco1@gmail.com>
+References: <20261004101849.34191-1-pablodelarco1@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,22 +69,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 22 Oct 2026 11:36:20 +0200, Neil Armstrong wrote:
-> Add the DAI link needed to enable audio playback over the DisplayPort altmode
-> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
+On Sun, 04 Oct 2026 12:18:49 +0200, Pablo del Arco wrote:
+> Build an EL2 combined DTB for the Arduino VENTUNO Q (monaco-arduino-monza)
+> from the base DTB and monaco-el2.dtbo, as monaco-evk-el2.dtb already does
+> for the Monaco EVK.
+> 
+> The board boots under Gunyah by default. This DTB lets it run Linux at EL2
+> with KVM when the boot firmware is set up for that.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/5] arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
-      commit: a583bb91f527bcc727941f1d4c18d719998da61d
-[2/5] arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
-      commit: 654a6fa2a9a0e10a7bfb9ad4c516b8098f00e0ca
-[3/5] arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
-      commit: c658034a92f87057d9a43c87507935ca10851ed8
-[4/5] arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
-      commit: 679981b6aeb777384b69258e4ec960600407e350
-[5/5] arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
-      commit: 9622685d68d671f01f04021e32e8b25fa505ad50
+[1/1] arm64: dts: qcom: monaco: Add EL2 overlay for monaco-arduino-monza
+      commit: 288c04d58f3cb8178540661d10ef95798170f545
 
 Best regards,
 -- 
