@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794152639;
-	b=xKrR+zF7NvO8d7QTMxetsv1+vzf7ONuTFQUgrIl5OKT3f3RmrJUP72L4kRuW0JRThLHc
-	 7wLxwiSEZ+Eu4FKSgW83gcWtlR+F+ZN4TI7+Py0x3lQv3EJW1crRPKytHjAbwCfb708Jd
-	 +N4+tvsRSABICW7D5LQrqYzi0PSTCpRRyWHfVYvtMKuNM1c0NAJCpqzo0/Bxgfbi3sxtD
-	 k2o112XuKDAZ0iW7VfFyerNpE64aQK75OL6sIAblPGyLuWB1lzVudKs12ZoyFvviiTnAZ
-	 72gm6UUlJ/wl6biQnQ5NaUDT0YV6G8p8ZmR3w4/owMDbpT1KImOFuZCHq6FGPTh8lpA==
+	t=1794152940;
+	b=JAvznYpsnWeOMCqjlhO99CFbCBkKu28VnslCR2NkCBSmaVqYTbXQCrP3Zre1PHxA5rqS
+	 1ARU0s66G3SYonD8rp75ZrfHNs/f359CT1etMKbOThcegaTLFivg9nRwWQEKahgZBz9su
+	 F9Xk2nHkjcLzouauGZe38fCFUZ43MMUYgflSJczPSJ5wQj7xDaE/X0PSRDUvm11znSyF1
+	 vaMEVxxcfxRu+T3mYJh1iE8PDGe5R6fhMHx3VDM+I6uFGuqsC00K32n3tqj5F+qaTCfwu
+	 3n+LRgTKI9vUhP3SG4pn61hRMNwaQc4LpQeuwDnb+1al0j7i1ipABjFemj8bfa1jSWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794152639;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=BbD1zRVt830j/6FEa37AOCaw0v+voPN0QhLYn1eKXlw=;
-	b=ggnpd7wh2g5ISWgo13pEewLdfj8aQdquHvMAOcEHu5XB71IV/jYhP3Cl0zC+gJanYulL
-	 EQHGN/TuHBNEwQCg1uR49zwL2eyxmvfRdn3CeujIG9MimvS9+f4NFR0pIZ3OJrFkhq4zq
-	 EFcdmAtrP99WRB3c79SpF3fbY60O0PBuyCaZJvLOV36izpMYdSBlW3qfRh1XoKC8Am/SF
-	 mrJwclKumZ60Td/z+LeGe0jvZ/jWQKBTKBI8XnUNhdtx44vd/gw/4bfGPGGhwe3JhQIDt
-	 c+9pSsJnHaXga1xDfhrPobg0WBa7JCemNYZ5GO7DVlAgGu7VkjDkNm8WpEHCS401WeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794152940;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JUZpTPwtsTYUFSEsrpQwXWgZoO/NXGbcSwH3xZK0OKA=;
+	b=5Cn8HXzSq0oCnnOuc4vonM77pR/0gyLlJRASok9gjqjQ/3+aSMMk0PdaY145IL9A+DAN
+	 yfk5oHFefObmo3T2gVJKFk2RvtEg1ddbOdTFo2Ifm67UNxytb06DBwwNpmFadV/80cxH5
+	 f6x+I4wWK5sew46wgwtRsclt7+jhmJnfQpA1qEOF5kvT0Lwit1LLDrsQdbTTEe+zZfx9G
+	 slfvhNg62agfT1rlo6lDdo59OD8n9401x9WQjQcZgBAxouckadfcqMhaJvDijs0rvjTIw
+	 emRYrNyZ0+mxDqDbP01osAPFL1LJBO5DFxoVqkM9mRryIpwuRjRNrKZByuxpRGbLPUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chaosmail.tech;
-	spf=pass smtp.mailfrom=chaosmail.tech;
-	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=huDZ8nUu;
-	arc=none smtp.remote-ip=77.81.229.115
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egToMPt2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C695606A321;
-	Sun,  8 Nov 2026 15:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C695606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30000606A31C;
+	Sun,  8 Nov 2026 15:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=huDZ8nUu
-Received: by chaosmail.tech (Postfix) id C78E41C9690;
-	Sun, 08 Nov 2026 15:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1794152636;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BbD1zRVt830j/6FEa37AOCaw0v+voPN0QhLYn1eKXlw=;
-	b=huDZ8nUuPuZlPb6rGLkG1O4TRZLhCNdhU3ucOKG6n0lWUUx2S5JsWS5CJngKz9jYDsQKNI
-	RTBqGyiSCAm/z+ocJdazN8jIFEQ5VF/sql5oCbWyBWbCPU+zTq8EHnRJOQbzVTF8LPG+sg
-	ajjFyLbumfQ+fc622LVdi19Pj2amQks=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sun, 08 Nov 2026 16:43:41 +0100
-Subject: [PATCH 2/4] soc: apple: tunable: Allow passing NULL to
- tunable_apply
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egToMPt2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFE2F1F0089F;
+	Sun,  8 Nov 2026 15:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794152939;
+	bh=JUZpTPwtsTYUFSEsrpQwXWgZoO/NXGbcSwH3xZK0OKA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=egToMPt24Uz5/naUoZfRKcpUuLOurSV+z1+3iG3h7F0m8X1hscyvJ8Wck1bzEsSnY
+	 Lfwbsc5MyUfvkc00ETTFQu1ha9oMbHNoVUuP1kyfQSAAumAXuq80iZdshwoXlFz4LO
+	 6ulCDFy0TF+S1AU6ROpf5ao+hHVO3AHeTVkZ4cCDQ3tAZOfWhd9ychk61vB8wWPLPj
+	 r9dFbHDuHDbV/cheftc3t1fEH2NXewYJcHmvy5K0OyIrvTn8etDVSwLy8/keTlGgHh
+	 egZU9/3kYqkfSVyX19qPFmK48adpW7JYWceccnSU9MeA2WtpFfPEvrWHscamBDqJMz
+	 Albq9q7qlkeyw==
+Message-ID: <2648d9de-9bb6-4c36-995d-b671ce5477cc@kernel.org>
+Date: Sun, 8 Nov 2026 16:48:55 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,50 +51,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-t8122-phy-v1-2-c2783b2a53a8@chaosmail.tech>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] soc: apple: tunable: Allow passing NULL to
+ tunable_apply
+To: Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 References: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
-In-Reply-To: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794152633; l=646;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=tJNNb61/4tJlpWC0322q+2yhiEktKqEr06Kk4Nb8njs=;
- b=Q8GuumKxSRJxH3/hIEU8kY4tFaiOjpFlNYj/mZ2ub8pRKuOc3ltoadcpa/bQmxdShKxgw3ZBX
- /LrSZ2tyatlDpIPr0JELHxr0HnoY+DCdWyp7P+Phi1JlHndc2XMp4nG
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+ <20261108-t8122-phy-v1-2-c2783b2a53a8@chaosmail.tech>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20261108-t8122-phy-v1-2-c2783b2a53a8@chaosmail.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Make it easier to have optional tunables by tolerating NULL entries and
-doing nothing when one is passed
 
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- drivers/soc/apple/tunable.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 11/8/26 16:43, Sasha Finkelstein wrote:
+> Make it easier to have optional tunables by tolerating NULL entries and
+> doing nothing when one is passed
+>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
 
-diff --git a/drivers/soc/apple/tunable.c b/drivers/soc/apple/tunable.c
-index 659323839171..e89e8f9bb455 100644
---- a/drivers/soc/apple/tunable.c
-+++ b/drivers/soc/apple/tunable.c
-@@ -63,6 +63,8 @@ void apple_tunable_apply(void __iomem *regs, struct apple_tunable *tunable)
- {
- 	size_t i;
- 
-+	if (!tunable)
-+		return;
- 	for (i = 0; i < tunable->sz; ++i) {
- 		u32 val, old_val;
- 
+Acked-by: Sven Peter <sven@kernel.org>
 
--- 
-2.56.0
+Feel free to take this with the rest of the series through the PHY tree 
+once everything's ready.
 
+
+
+Sven
