@@ -1,67 +1,166 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794166978;
-	b=2UKJZb2CWAR+dnjPQGA8mAbDJ2fqH2Av3Oc89mF66kxxD9eyh5KWm9b8m+qiYFQmgeZh
-	 vDIMm7vlPYWjjBVqbk31dX5nydDiE/C30NSAUeQl5aJ8VLbOGuGfhPZY4gnqj8Grrrv4o
-	 RiGDgTeu2PfIbc7ZhhAr0g7aYDEjXkDSEYdIKUFQvU48bzImr/bmSXoYHNgOvY0VQCLlN
-	 6l1v5dOrJbUE056bWNHUCydpX4imTwW78x1PDykqLvQ621E3FbYgs46BxlRVpSGVVfSsI
-	 BA6+2IFbsrb2efKDyel57BBl+TYhZpvw5dAnt8ifcdTiwH28/OkxJNvqYt3McQ426gw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166978;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=;
-	b=KnpphIXhu2nYqsMOtHqUZp+ZLP6gwT6iPuEb+ffCWUX+p1jdzu6TtiuaHfKBubBjtX4n
-	 Gq0Of/IZgGgI1kVYDazUJY1zIQuqmT55G8QX5sVLzVn/ljDskqsKKk5Q/Nv3SVdvtWaC2
-	 PYEM6NKjU/69YPz7pc9AuTqpqNWBYNwkzISO6fMtjLzVMz73Z0nEohxPAdy1vKXweVmrH
-	 Ax7w9kISy3jQ2nAupgWQOEWPiqX1QLI+7oqo7vf3FfvEEVk/EL09Rs+rfPh46m619/ufq
-	 vgYa6Vh2J3+Ab1qsbD/S2vRjMOyHCBf8GBFuiKxAe/HVPoRrC3vyBS92ZQH2NIAFeUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="bwv66n/7";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.153.120
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794167002;
+	b=k+YbLb/EWvj6DGePvtXKkYmpT/eqBXY/NjVbuiIVbmzoztKj4xVOWA2CeNBMrRJ9TaYA
+	 R+9daVaeTaJKdX5aUREe/9PWQ+S/ihAzWOEDFxW2nsl70Gw+QraeOj2rikbq9SXej4WdV
+	 ED0hIheFf/ZqKUC5V7We4OvZ0apJbXuPn/qFCO5hHH+TUKvM5V+KBkYWghmA3L76+jQO1
+	 IyCas355hNbufPjvLMvJh/fKvV24flMuPRH4y9fNrBRmNT5zofbr9wl1WvMmaTTHSXBb1
+	 KwAWW3ujAd/AsK7qkUjyUomUBhLDIuerEWqk/lQeL24GsivG35l/uHBXB5OC6eTmxBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167002;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=LMUIQd9BKqDIp0iT+IOnxSEGBNI8CopxVff36z6SJAQ=;
+	b=3rgugiDGoyq87oKK+l/ZBwuIZKpy+qrZIdPaprByeDwrz7qIS1BClwi6tVmdeQ9JVsk4
+	 3wBTJ17iySMRuQPohtz1+7oWvfZWt9slSTJ/sx2tFuc+KCtHECBw2KOc6sPRgwPcrKB8j
+	 F9I9an7Zj7le+Yw467sHJyb0EG0O/B1joS+LaM0LmntUOzQuDccK2+26vAJDeD3ADzU1Y
+	 YLTet0SmivoJiLQp6CwyvhZneVsBXhgXkSaa9BebpQ+vT2xgm93J82jUjJSz7EEjKVcLJ
+	 6v1luc2qWjivFxUqJ6bmmMzFQTPbii86aDmrynRRrISSa4d1I+cB1zjz8nkwyCQe16g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=onsemi.com;
+	spf=pass smtp.mailfrom=onsemi.com;
+	dkim=pass header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=TUNVqlXv;
+	arc=none smtp.remote-ip=170.10.153.120
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EFA606A31C;
-	Sun,  8 Nov 2026 19:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4EFA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E7606A33B
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A1E7606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=bwv66n/7
-ARC-Seal: i=1; a=rsa-sha256; t=1794166957; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=fx5EKhiNGZaS7H2N8S2+3VKx92L6x5drUiI97HpS6yXAeBgCN27tQPTKXs+dFvlhezU0wIJoJYx2edd++Ttf2og9syoviXBhsua2tMzmrXxIflRK5xTIuH4HY5QriPimnaQ2v7K9PC1pGkeKgUZmp5oBUCGzA0avGeHsr7solwE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794166957; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=; 
-	b=km0YDTE7uN5XojBHeBmnIL2YCPCQolMgy0VVNjqz95yAxAdha0HfXOPj0rDtoz8FiuhbkLoxANdKsBLllsVblMVEJae0KPw67h/E8XsjK7fZzZHrRJYB/UijnFswQvyEQXSOveHucwAfapiEK56YPUZJVU3VTCOzqX3/5siEszg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=bwv66n/7pRGXrruhl4okDCFOj/507ds029t/lqWrcIstUiYj0w9F/M0K1k/WmOfuZ2fLTe3rFmlV1oYksPyfuoYS8Y3J2DktbGqYx7Bvanv2vanz5qykTydNTtBqxoVFkUu0NCpQilIzpV1POaU1Zzi43AaIA9H4oA/2nYEHfTE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=2vAuMlSfZ3La77VPM2CEp66r7POvKHZi3ESVttoiAPc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794166957139744.1075829700292;
-	Sun, 8 Nov 2026 11:42:37 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 646E1180269; Sun, 08 Nov 2026 20:42:32 +0100 (CET)
-Date: Sun, 8 Nov 2026 20:42:32 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-Message-ID: <avDN3pPY5Qwt9B1p@venus>
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
- <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
- <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=TUNVqlXv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1794166995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LMUIQd9BKqDIp0iT+IOnxSEGBNI8CopxVff36z6SJAQ=;
+	b=TUNVqlXvkcDEu3mHKoKyHw1B/hVFXTKG6gRw1pvFv/1aqoG7b/m5ovBokdcrP4Y3A60wuj
+	fX3UbE5Ob2VM0PYacbz0/jAA1qpLuLcANjJYmyB2fzC0xgwJB3yXEl01OGrGNhrueH7QJI
+	4nBhFUcMEe5EN3vsUbB1xyij2zkcTLpLd8hOm/6+IHkT1oCOSqKMS5sL0xXBKbLRamM94D
+	De/HP/qfIilB83jXEUsjv73BSRZ70LbLf5rRiQAWHBl1y/hyR0zm6O4j7VDlGQlm+qPvi3
+	46d3qUdaWJ2keK0nptj5HtS25hrdy8PrNC67mGMUXMIr0A0WJUEUAsgmB4HyVg==
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012067.outbound.protection.outlook.com [52.101.48.67])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-16-y3634tYwMkugPc9Hy0f5MQ-1; Sun,
+ 08 Nov 2026 11:43:00 -0800
+X-MC-Unique: y3634tYwMkugPc9Hy0f5MQ-1
+X-Mimecast-MFC-AGG-ID: y3634tYwMkugPc9Hy0f5MQ_1794166974
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
+ by SJ2PR02MB9771.namprd02.prod.outlook.com (2603:10b6:a03:549::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sun, 8 Nov
+ 2026 19:42:50 +0000
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
+ 19:42:49 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "parthiban.veerasooran@microchip.com"
+	<parthiban.veerasooran@microchip.com>, "horms@kernel.org" <horms@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>, "andrew@lunn.ch"
+	<andrew@lunn.ch>, "hkallweit1@gmail.com" <hkallweit1@gmail.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "edumazet@kernel.org"
+	<edumazet@kernel.org>, "piergiorgio.beruto@gmail.com"
+	<piergiorgio.beruto@gmail.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "jerry.ray@microchip.com"
+	<jerry.ray@microchip.com>, "ciprian.regus@analog.com"
+	<ciprian.regus@analog.com>
+Subject: RE: [PATCH net-next v10 06/11] net: ethernet: oa_tc6: Support for
+ vendor specific MMS
+Thread-Topic: [PATCH net-next v10 06/11] net: ethernet: oa_tc6: Support for
+ vendor specific MMS
+Thread-Index: AQHdbkU4auV6WFPvRk+qUBEQ7Pmjs7cjUAaAgAFDaoA=
+Date: Sun, 8 Nov 2026 19:42:49 +0000
+Message-ID: <CH0PR02MB786763ADB1947B02865A7CC983742@CH0PR02MB7867.namprd02.prod.outlook.com>
+References: <20261106-s2500-mac-phy-support-v10-6-31b5a69b85b7@onsemi.com>
+ <179409693924.994134.1633626847542095748@kernel.org>
+In-Reply-To: <179409693924.994134.1633626847542095748@kernel.org>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|SJ2PR02MB9771:EE_
+x-ms-office365-filtering-correlation-id: 0dbc39df-cebc-45ee-9043-08df3dd078bf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|22082099003|18002099003|10067099003|6133799003|38070700021|4143699003|261026121527099003|11063799006|261102123227099003|261028144727099003|261026140227099003|261022075727099003|261021121427099003|56012099006|261009223027099003|261022105027099003
+x-microsoft-antispam-message-info: e0ExOGCpCJk8jWEIcc31aX371aMVUcsvBTHDD9w5E8OwKJQ/IOC+yBheA7ewNOUSsPpjcFNWBZvQnYcU2Xp+dZYSMhEP0N84QyyXpXiCEfbGFybWE9cgowS9imHWvPR/alm/aCqZvakSK9XI66LMH3eS+yKEywWYO/TOP6sSF7ePfdWY6CM81R6Toyzhpg1S6yo4PoHGPXEWG2DpooE1yrGrzJVpMzYzchhoMVHN+ux3inRyxs0TGIrJbZo70GbT8o+6G90fvL7vpNKbaUqhOnfeQSroXeJgxIIhZ0EKy/wgd1l6EO3svTfV06gvqH1GDQI11a5E/tJv/hPLbimIN+CKB2hoDdpFDm7l0LoNp5fdJTgdODcdQAiTBK7dMW+DPjIdhi1wye3gEPWIIaMF95+8/mbBsj/P/2vIDDcEw5cAEH456plp7qAfKkLwRTMiOf4G3186ZasEK7OsMjlzkKT92gBa0O2bt50MUwIOTU3ZtyPymEvQ+x9wH+rrnoyR35kHt8N2YreDnk+eu1hwW/qe3JQl1KR378tVHuVkiQ6b57B+yyuXt2Q64h1iVNPNoxcJuOaxO+9E243oXkmeGCQIFuNf7aqVaLGNQCYnma1BwVhFiGZyp0Ll+/bFF+iEjmCRJd1OH4FO4u7R9ztwYEhjeWf6I6tQnyUAZz30Yg0=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(10067099003)(6133799003)(38070700021)(4143699003)(261026121527099003)(11063799006)(261102123227099003)(261028144727099003)(261026140227099003)(261022075727099003)(261021121427099003)(56012099006)(261009223027099003)(261022105027099003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cC9VeG9Qc1lZU1NobVY4aU41VjFEQjdzOVNFaGtXUzJmMlpETVhpcnZCd0dL?=
+ =?utf-8?B?dEQ0aVNYc1pzTGhWc2NoSCtubm4zcFZwejU3aitXd25Ec1ZLV2JtWm1IRWgv?=
+ =?utf-8?B?R0RONS9PbThoaGgyTk9UUjBKTTZHN3RROGcvSVJReHJ0Q1RxaGVESi9UOUJu?=
+ =?utf-8?B?eWFrUDVZaU4xZlhtZDNJbmxTWHJRK1owV3hicW81RjVCb2V1eVJYSU5aMDBM?=
+ =?utf-8?B?RUNkYlcxUjYrR0taRFI0KytqUTVTVlhqUVFZc0RxSnR0S0JUM3l5R2k5b2xP?=
+ =?utf-8?B?Zm8xR25VQXVnb1p2bjlNRjVJb1ZqVXZGMWNQTm55bkUvTEI4cWNNWXZGUTNK?=
+ =?utf-8?B?NGViU2JoMHpkTmtUbHVuRFdENzhXS2ZoenIzWUtRTndoM042MCtNd3dsUWtC?=
+ =?utf-8?B?RkZqUGxjZXhydk5ZZVlKL1RpYlBTbWtqM0M2YWdlSGkvWnVPQ09CbkJ4Rzly?=
+ =?utf-8?B?REN0YWdKWFp4V2QrOE0vdGJmSThKVkcvV0NmRTdvR0d0cFk3N1lFWnJEellR?=
+ =?utf-8?B?ejlHR09RMGROenJQWDN5aS9rbWpYVisxc2JKdENpdlRuSmxlUEZsZWRnM2o4?=
+ =?utf-8?B?OWJRay9icEI3ZGxRMUF0SFNMY1dLYVhUUW5XcHpxV01MT0tuT25hcVpwbWR5?=
+ =?utf-8?B?aWpSbGtDeTFOcHRqWGxjbVFpK250bVowSVRnUmZLRHI4M1ZHdGh6Z1A3NXZI?=
+ =?utf-8?B?Zm1jOEhHQjVwSEJDazdtZUpuZFovenVhOEhTWENGd1F3M3F0MWUrbkJjU0VW?=
+ =?utf-8?B?SjRseGw1aEU5dDYrWGxCOGtmN1A4QjR3b3RJZlRKRUFxd0ozdGFpd1FYUk11?=
+ =?utf-8?B?ZHp0RVo0YjdCTXZkeEVra01VcFNuazNCV0J5RXc2aWZnQ0pJK09rVGFuQVJx?=
+ =?utf-8?B?UGNTTTRIS2h1bk5aQVp4TG92b3pybS9jZGN6cUxrMTN6MFlrb3YvU3FzNW9l?=
+ =?utf-8?B?Z1hjVGlibUg1UlNDVENOcWhjZU5OUC9jakFtVEM5engvaENEM243cGR1cEM2?=
+ =?utf-8?B?QWpxcTNJL2FyREs2N1hiY1phTEs2NjRQTmFQOFlubjNJM0J4eTBNRmVjR2dX?=
+ =?utf-8?B?eWhEWkx5c2l2NFM0Sm9lcFdYMXlyb2hUTnVKTTZ2VFVwOFpTRmtDWUtITlJn?=
+ =?utf-8?B?S0phMmRyTUk3ZnhYdy9RQ3JTZnBtRWhldG9zUWtERVQzdFRKM21qZk9md0k2?=
+ =?utf-8?B?ak5LRWhrL0VTWFk4cTRmOEZhRC9rcWFDeVRuTHFaUjJRSFJ4VktCWVJpQWl6?=
+ =?utf-8?B?QjJIak5pVmp2V1VLd1pYVjhkREhmRHV5TGc2YTRYNFdZdGRjakI4czVHc1pC?=
+ =?utf-8?B?WVNlY2lNcmlUcUMxMXE2Ym0wOGx6N1Raa0Q4dDd1MVlxYW5UMGRSVVBLZ0VC?=
+ =?utf-8?B?Skgzd0RHeDgxZ2YrbWdZZ0YxenV1ekNUdXFvTkYzN3hBZ1pBTEh5cnRZZncw?=
+ =?utf-8?B?KzU1TXJMcnEvblpSaE9QWWhkaTd2MHlVbmNQVFl1b3hCaXpicGlzT1VKdTFq?=
+ =?utf-8?B?UUdyMkVOK2FtQ0ZZSWFZNWZ4WU4zRFdXTVhCcjh2L0ZNQnl2NUtvdmlWZzlY?=
+ =?utf-8?B?ZXRSamtzMStNNE04cFlRMG93cXVHdjd6U0VPM1BYWHQvMnc2a1E5M2ZvNWNC?=
+ =?utf-8?B?eDNBdUhCWnpuZkpXaHdYblpqamxwNHFHdWRpUndjOWk0Rkh5dUdXd1o0SDFM?=
+ =?utf-8?B?R1lTTk5zZEduVjhscnNjTHZSYmYxUWxsZWs2QVVlNTY3TGN4NkF1dmc0cUFt?=
+ =?utf-8?B?c0RnN2hpYmdObXdnL0Zma1lVRzIyOXFJczNhS1ovWmFrY2dqWnpnMUdpOVlq?=
+ =?utf-8?B?SGI1NjFxNWJ2UTVtRlVwd083THJiWVdZNnNhOGVQdFA0R1ZhQlhKWEhjMjgv?=
+ =?utf-8?B?Qm55ell6YUhwRjFWUXRXWXVtMHdNSHBjaWtFcXdZMmphNGJxNGNCMGFBNG9I?=
+ =?utf-8?B?TXRDaC9KSmFwWmVPU01SdXprSFUrN2VLdGNBbGQ3bjIzYTVCRW9uWUtITlZK?=
+ =?utf-8?B?U3pVY0Jqd1hXQjlBOTZEZ0V5M2x3Z0U3SW91N3VXWHNrQVY2UCtFYVJqQXhI?=
+ =?utf-8?B?T2FsN2ZraDc5TmtsOUVHM2dOYnJkbm9LSlJUbkV5d2U3eXRiSHd4SlZITXB3?=
+ =?utf-8?B?NTNoaUdHVEU2aEpWcWxXU3ZlazVIRVNiU1N6aEFQN1FGMGRUTXlxWDlLT1Va?=
+ =?utf-8?B?OTZwZ3F2UkFyWlp1ejRRM0V5MTBKNkd2TWM3NVJPdUFuT0xEQm8rR0FHOEd4?=
+ =?utf-8?B?eHF1UDNJNHlkZVI1OVRqVW41K0VPN1EyNFg3WVZsN3FTNytNcXdCaVBNMFpn?=
+ =?utf-8?B?K2VxaFE0a1NENlhycXcyQ05uenpqWVFEd1QreFRFSUNRb1BFK3dDekx5czhj?=
+ =?utf-8?Q?wOMHJN08zI2VtkMY=3D?=
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,87 +170,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rqyodbh2oilyf22x"
-Content-Disposition: inline
-In-Reply-To: <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.158.93
-X-ZohoMailClient: External
+X-Exchange-RoutingPolicyChecked: xe694w2QmHpfKvmOx+uYACorCHf0H/e/dROW7buLP8hGJ8pksSCVPyDw1Di+0OjTTdgdtJRF8NvBK5xI8Iuxc5IvXd1e4IMAaWwNLHbzRlM4l8gzv0BXwPFCMWDDJZtXEC5YR4jil4Ry2kQy0DI45stZ1zotLRVAAbjJQaU/CNzP+KjF6YgXw4U/aoQfWx4YnJUDtKHSrsPozTp0Cc8Y+V6RQqXqCf25Xl14rHVW44S/b+HPAxBhHcqe4xYmlVhofUTfjujQb3U9M07wycDLOztH3RAyd8m9jYRdRS6U7h5M0mLSDYqApSH+JB0UnEYXJ53s6ZjR6pY64CuSyIuEew==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dbc39df-cebc-45ee-9043-08df3dd078bf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2026 19:42:49.8102
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: c/hYIm/ztTesnsp4Gd8/mtjmYPrAzwWjrqYhqtADB8+5/Sb8nedsPIaQBLNq+dIVxKNbrM+TrDDuv74rTcTuMXLHL+zMiKmwoN06cGNedTU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR02MB9771
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: aZs-lmP6zIsjU-DXQn3TNoMFgsLPexd4WwQ9RN_PQrA_1794166974
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBuZXRkZXYtYm90K3Nhc2hpa29A
+a2VybmVsLm9yZyA8bmV0ZGV2LWJvdCtzYXNoaWtvQGtlcm5lbC5vcmc+DQo+IFRvOiBTZWx2YW1h
+bmkgUmFqYWdvcGFsIDxTZWx2YW1hbmkuUmFqYWdvcGFsQG9uc2VtaS5jb20+DQo+IFN1YmplY3Q6
+IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjEwIDA2LzExXSBuZXQ6IGV0aGVybmV0OiBvYV90YzY6IFN1
+cHBvcnQgZm9yIHZlbmRvcg0KPiBzcGVjaWZpYyBNTVMNCj4gDQo+IG5ldDogZXRoZXJuZXQ6IG9h
+X3RjNjogU3VwcG9ydCBmb3IgdmVuZG9yIHNwZWNpZmljIE1NUw0KPiANCj4gVGhpcyBhZGRzIG9h
+X3RjNl9zZXRfdmVuZDFfbW1zKCksIHdoaWNoIGxldHMgYSB2ZW5kb3IgZHJpdmVyIG1hcA0KPiBN
+RElPX01NRF9WRU5EMSB0byBvbmUgb2YgdGhlIHZlbmRvciBzcGVjaWZpYyBNTVMgdmFsdWVzICgx
+MCB0byAxNSkNCj4gYWxsb3dlZCBieSB0aGUgT1BFTiBBbGxpYW5jZSBUQzYgc3BlY2lmaWNhdGlv
+bi4gVGhlIEM0NSBNTVMgbG9va3VwIG5vdw0KPiB0YWtlcyB0aGUgdGM2IGNvbnRleHQuIFRoZSBu
+ZXcgdmVuZDFfbW1zIGZpZWxkIGRlZmF1bHRzIHRvIC1FT1BOT1RTVVBQDQo+IGluIG9hX3RjNl9p
+bml0KCkuDQogDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiANCj4gQ2FuIGEgZmFpbGVkIGNhcGFi
+aWxpdHkgcmVhZCBvb3BzIG9uIGEgTlVMTCBwaHlkZXY/IEluIG9hX3RjNl9pbml0KCksDQo+IG9h
+X3RjNl91cGRhdGVfc3RhbmRhcmRfY2FwYWJpbGl0eSgpIGlzIGNhbGxlZCBiZWZvcmUgb2FfdGM2
+X3BoeV9pbml0KCksDQo+IGFuZCBvbiBmYWlsdXJlIGl0IGRvZXMgZ290byBwaHlfZXhpdC4NCg0K
+DQpZZXMuIEl0IGNhbi4gV2lsbCBmaXggaXQuDQoNCj4gDQo+IA0KPiBbU2V2ZXJpdHk6IE1lZGl1
+bV0NCj4gRG9lcyB0aGlzIHNldHRlciBydW4gdG9vIGxhdGUgdG8gYWZmZWN0IFBIWSBwcm9iaW5n
+IGFuZA0KPiBpbml0aWFsaXphdGlvbj8NCj4gDQo+IHN0cnVjdCBvYV90YzYgaXMgYWxsb2NhdGVk
+IGluc2lkZSBvYV90YzZfaW5pdCgpLCBhbmQgdGhlIGNhbGxlciBvbmx5DQo+IGdldHMgdGhlIHBv
+aW50ZXIgYmFjayBvbmNlIG9hX3RjNl9pbml0KCkgcmV0dXJucy4gQnkgdGhlbg0KPiBvYV90YzZf
+aW5pdCgpIGhhcyBhbHJlYWR5IHJ1biBvYV90YzZfcGh5X2luaXQoKSwgDQoNClRydWUuIEF0IHBy
+ZXNlbnQsIHRoZSBwbGFjZSB3aGVyZSB2ZW5kMV9tbXMgc2V0IGlzIG5vdCB0aGUgcmlnaHQgcGxh
+Y2UuDQpNTVMgdmFsdWUgY291bGQgYmUgc2VudCB0aHJvdWdoIHF1aXJrcyBzdHJ1Y3R1cmUgdGhh
+dCB3ZSBoYXZlIG5vdy4NCg0KQ29uc2lkZXJpbmcgdGhlIGZhY3QgdGhhdCB0aGlzIEFQSSBpc24n
+dCB1c2VkIGJ5IHRoZSBQSFkgZHJpdmVyIG5vdyBhbmQgDQpNQUMgZHJpdmVyIGNhbiBhY2Nlc3Mg
+TU1TMTIgZGlyZWN0bHkgdGhyb3VnaCByZWFkL3dyaXRlIEFQSSwgSSBhbQ0KZ29pbmcgdG8gcmVt
+b3ZlIHRoaXMgQVBJLiBXaGVuIFBIWSBkcml2ZXIgbmVlZHMgaXQsIHByb2JhYmx5IHdoZW4gUEhZ
+IA0KZHJpdmVyIGlzIGNoYW5nZWQgdG8gd29yayBpbiBpbnRlcnJ1cHQgbW9kZSwgd2UgY2FuIHJl
+LWludHJvZHVjZSB0aGlzIA0KQVBJIHRoZSByaWdodCB3YXkuDQoNCj4gDQo+IFtTZXZlcml0eTog
+SGlnaF0NCj4gVGhpcyBwYXRjaCBkb2Vzbid0IHRvdWNoIGl0LCBidXQgdGhlcmUgaXMgYSBwcm9i
+bGVtIGZ1cnRoZXIgZG93biBpbg0KPiBvYV90YzZfaW5pdCgpLiBUaGUgZWFybGllciBwYXRjaCBp
+biB0aGlzIHNlcmllcywgIm5ldDogZXRoZXJuZXQ6IG9hX3RjNjoNCj4gU3VwcG9ydCBmb3IgaGFy
+ZHdhcmUgdGltZXN0YW1wIiwgYWRkZWQgaXQsIGFuZCBpdCBpcyBzdGlsbCB0aGVyZSBhdCB0aGUN
+Cj4gdGlwIG9mIHRoZSBzZXJpZXMuDQo+IA0KPiBDYW4gdGhlIGNhcGFiaWxpdHkgcmVhZCBmYWls
+dXJlIHBhdGggb29wcyB3aXRoIGEgTlVMTCBwaHlkZXY/IEluDQo+IG9hX3RjNl9pbml0KCk6DQoN
+Cg0KWWVzLiBUaGlzIGlzc3VlIHdhcyBvdmVybG9va2VkIHdoZW4gd2UgbW92ZWQgdGhlIEFQSSB1
+cC4gV2lsbCBmaXggaXQuDQoNCj4gDQo+IA0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtyBo
+dHRwczovL25ldGRldi1haS5ib3RzLmxpbnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEx
+MDYtczI1MDAtDQo+IG1hYy1waHktc3VwcG9ydC12MTAtMC0zMWI1YTY5Yjg1YjclNDBvbnNlbWku
+Y29tDQo+IDxodHRwczovL25ldGRldi1haS5ib3RzLmxpbnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hz
+ZXQvMjAyNjExMDYtczI1MDAtbWFjLXBoeS1zdXBwb3J0LXYxMC0wLTMxYjVhNjliODViNyU0MG9u
+c2VtaS5jb20NCj4gbmV0ZGV2LWFpLmJvdHMubGludXguZGV2Pg0KDQpwdy1ib3Q6IGNyDQo=
 
---rqyodbh2oilyf22x
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-MIME-Version: 1.0
-
-Hello Chaoyi,
-
-On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
-> Hi Sebastian,
->=20
-> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
-> > The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
-> > combination. It contains a Wanchanglong W552793BAA panel and a
-> > Goodix GT1158 touchscreen. This adds the DT description of it.
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++=
-++++++++
-> >  1 file changed, 90 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/ar=
-m64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > index 6a95a8bb6fb8..327ca13b60f0 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
-> >  		regulator-max-microvolt =3D <12000000>;
-> >  	};
-> > =20
->=20
-> I seem unable to apply the patch to the latest linux-next tree.
->=20
-> So I tried to resolve the conflict manually, but the actual
-> test screen did not display. I will look into this further.
-
-Strange. The base of this series was Heiko's for-next tree from
-Friday. No RK3588 EVB1 patches landed since then:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/co=
-mmit/?h=3Dfor-next&id=3Dcabb6811c38a46337d5f4252b4dc390f9296856c
-
-If your board uses the original Rockchip bootloader, which shows a
-Rockchip logo on the panel, you also need Cristian's latest YUV420
-patches that reset VOP2 at probe time avoiding some issues with the
-pre-initialized panel as a side effect. Those were recently applied
-by Heiko to the DRM tree, so testing on linux-next is indeed
-sensible.
-
-Greetings,
-
--- Sebastian
-
---rqyodbh2oilyf22x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrw0JwACgkQ2O7X88g7
-+pq8ixAAjKLCZw6Zhl2DngJdt6ctyhcz0S7zsA5EDQfjmBK5L6dudrpvkubLCVNN
-cRR9rNITo97cByiq8PYW0zOtEjcNIflt2C2WbxW5NZKML4FZx5TeA9sgDdW7yOIv
-F+bxwRSh3Genjcnp5rGB+bfj2Iqud83MdVOnbNgytkTcX62QxMzRko4hr35Wu1xb
-K6Xi5HDztSj6O4cLR8wOoIy0XDsTtQ1Cd33ekzjgbJ0fIebq0KVPQ/7fUB6Gozzx
-ga9AQlmt20NxA0DlUrzKK8iArbhFZ4vJUtrXyXufVd07xSI/e+7TBNRW46xnRuHy
-vlr8zJZ/JMpvsim5h0Vp9OrWpb7kcH5vZuslqGZp7zrkdZ0hK8gZTgYSTY/SC2VQ
-ka7mjChnNFqXw6meZl/bcE32ejAlhtiFRtKg+W12VhjsqahlGg+R6ywIxYEPTuki
-1Ux5z8XG2uWak8Z36OkjHnWfAKhlP2pfV6p8OkJeYabXW4pYEMgehIBy1JzlTmGG
-Qrvj4+0AFN1iDUm31zMY5z8B62DsZlI8sRkFgQLPnR91BpxCU/zs2xxPvF8m6MkW
-xIK2NkjwqVqEC5qi+eQwU+2A7yMxgz9zfrFAtJ7HA564P1z1GNUt8OSgbRHVNfwZ
-zPa+Onj5dUwtFqtv7L6Rap/CK4EuVIzfPUThV12ry1qfe4dgVVQ=
-=5c4C
------END PGP SIGNATURE-----
-
---rqyodbh2oilyf22x--
