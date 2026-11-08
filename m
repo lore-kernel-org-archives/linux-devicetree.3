@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174628;
-	b=Q3wnLUSG3nIMHCi2OT55F+fVIlK4fG/FqUBsRNYf5bSIRYTRourebLOq+W3759tf+FyK
-	 JK5xSQN2BS0Yr+OhuX0SeDOgy3784zyCS2GYl/cRV4CbPomng1Umehsk5f0evHWgE9q8P
-	 52iTFwUhO0HplOgpQWPcKCZocVOQZ/cn5r2yBKkml7VW2sSsq7f0qsc+Hn8DRvHCJOXXX
-	 hh/53BOALyNihl2sJCssQ//ygb0MAQO8A0mWA9gJ9lGS55UcQZMqwlvOfpfBzR/g7rDPh
-	 N0pkfUKHFGUs6lnuQU717hdMJoMLlPRTWgr+Pa5M4qB26yYVoeSQ4dkL3oqwP8m0ESQ==
+	t=1794174633;
+	b=onZU6aoR/KRysdP6y8ysSPQybxsi5aAiZkhVicJwugVAlb7rz/+7dAX357ClxJ5mYZmn
+	 qbKzNp0uJvH63KejbPxdduuNPrnNkiISQbft09ANH3iSDFmvMJUsCmH9cX/bQUKAryuUZ
+	 sehghpo0rwlK9pREVGark8+3JwSxEb7y06LYqBgA15N5AKk0fl0woO8ZHsnOVwZOBC6d4
+	 vMizRRjr8vzZp2qezmXlDyNMH8mq1Nl8O1fKdySiUGB4YAYAVfYQe9/4KcXvhXE68z69q
+	 FhWTnj1yZGkYkBkr5pweuxmNozwTnNZAiuNesU9374UbA0PgI8SAOZzUvw/uF1folaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174633;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1uKmhZ2eC+qczkvgumkqf4irKvpY1pztTchTW2mAuZQ=;
-	b=JK4lUKRC/5rrdlCF7hBs6oErdHD0L670pun6kERwQ5RH47HMZA/ZwAOZXA98CUvxusO4
-	 HpiiepScvABS/b/Y4KEV5i3mNo/JpJYJWDh8q5g1MdGWJpojXV1mdaDmHTYhF+Td3lUS8
-	 WUdRpgcfHTGA7WGo6NysgTqTczb8HNliK/+JpGjhzqMHopXjtFCWvwSFkYPq9SHMYX4oq
-	 QbRDz+5B8TEp+GkglgnpWzlUdpchWuQs/FiZdFfBOOqCvrZoOr+UlQPhtr7rZcok2YGpW
-	 kJOaGVCCb0D+k+EF2XDhqAdVC+Vna8RBkip0R6Va4vFbEWFWHFYCZNAF0rzjoZYs5jA==
+	bh=nwKFqp+H5YggATRuxpPQ2JLO3+LdBN2PnTSM+VuGKKc=;
+	b=OiP1BwBlh48m6MhH1zEzSXl7wbdoSq16w/XBkCau78YLRLEKVTlDhTInBBN3B4Outw1N
+	 OwR7wCsP9jyMDmLEE9n6xgK8pWh5LO2LYMonIyx7mExBY6kKBCOJR6tMgQF+IsDbaNJ1I
+	 Mt/WE2bUEUTHcrwNoX6XfSGj0HkQTGULoxc82fCohaCSwSgPeq8vrF7dQFycNrBAkDBhf
+	 NTNj1xVfIeXTa+ubP9k/V0KmbcKt7UU3AfJrjjpvopY13Bqk7kM8T3XCPb8w/lwqtSykc
+	 krj8FN2I81viL2W+MPG8A0lFHKNrzmKHj/iLFhcrLX08NDge266bVsZxCNji48qvJGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v68hfK21;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alhWQP4H;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F06A606A32A
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:50:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F06A606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4BC606A338
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A4BC606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v68hfK21
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36e06480786so194190eec.1
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:50:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alhWQP4H
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso221512c88.1
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:50:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794174626; x=1794779426; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794174632; x=1794779432; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1uKmhZ2eC+qczkvgumkqf4irKvpY1pztTchTW2mAuZQ=;
-        b=v68hfK21lQ5Hpp6H94BkhyIKicXp1oMnounZcROjkcX21Ge+SN2YqDk+BUSXNjCv8C
-         9ekErNOYK0UfM0HdmxgwZ/eJZ7vgFN5fa/MITp3I3OzkMILCpY9nNN8LS79256xGt8Zz
-         sA6qsQs/H9/OA71UJltSK7zSXeMiWsHSbwYJ44AjgBglLq6uhW+uSoGWDo7d9zd2Dthr
-         j6oQunmI/GnIQSGII67cEGpdupg3RmgjMjgE59A9xAAa9mxaO4ehBWxu601Zsmr19ui3
-         5QQxcugtos4Xulm/UiYO8bvi++fGZ7lUWEE0rCoyo+aqcYEHr/hoLe3+Ng7hZsYzsQaZ
-         +16w==
+        bh=nwKFqp+H5YggATRuxpPQ2JLO3+LdBN2PnTSM+VuGKKc=;
+        b=alhWQP4HwCjG/iNXhjcZUJdA812nM0k3xZYU4BysNd8W/C7oasnfvCmLldAT4ldYWk
+         NiUdxU4KNl3e+Sk7BPTJT01etwMHMPBcfIayWnZrAC/pBMxalV8XL7FsirMmIIKAyy/+
+         P8L1Jtrn5HOOkJqk0Sggrmu4O//z0jjU/x0ZQq2lwW0Pvt8qSL6X/O6mdNj464C+26X6
+         p8JpQ/qFWRJCS9wRvviHPy35EBmLaD9CKEcHKX/B0OS0ze34wcQfyS54sdbytTSvOZ22
+         /9RKBcfRcxIsMvd6rch7bdbO9VOLzAjmn3XfZmyuc+0BlDHr41FpP8N0zm5w8PoPTK1V
+         A0vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794174626; x=1794779426;
+        d=1e100.net; s=20260707; t=1794174632; x=1794779432;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1uKmhZ2eC+qczkvgumkqf4irKvpY1pztTchTW2mAuZQ=;
-        b=iNbWW0PMuiPgGASwVW3QH+c8ShJi6NB/rw6t+NwN9h2u162Ur5AmCJQe8svekyu5r+
-         GwB5ddIrDeWbxwPOVwtKMZ6Sl693pfnZ/ATyiADyshraP9HVyPxNp4oZWzaTDioZCBkf
-         VPsCIOC8Agm8zaXVgoiO7EAYDRXQfvDJpoDs6jCFvyB4ucL9ISpmpu2OvQeu5BbI+7X/
-         BeGdrHMlaPRdv0gTwNjIawlzLSNJXYX390yQcKY/pAOtQqrmePzcIOuW7eefNi2lwtNH
-         HHUo3jLhgof4QtajU+8wF/4YyVHqUSrafYvOWIfysYMLRZl62WljbwU6k9q+NUaftvfj
-         z3Xg==
-X-Gm-Message-State: APuU4Z8Pug3EPRgf6Xa2VDz1FwxF419t7O2nJ0Kpn+qkIXCjvnm4Cd6s
-	PnXD6GT3A0iS3xnGXO4c+H+c3iiEPfEUT98STwsCtPbOp90HZxY2zObM
-X-Gm-Gg: AYBFou1AmBckH0qEBFWS6tjOExLiif6p2fqTIjE157ImjqI3ldCtEPOGKqMD7iwXGqs
-	55gI4azos/CVYrID2chCEIBNZB/Pf0jG7WkeirJVN+qoA3aBFvj21uVILDxSvf3Z0VuyCCaGWRS
-	p+OVb9zsQ0GhxMXvTY670+TBSFj5zv2W8yzt2NQ1OxElUNg8G8JGo03sC5jVCd02ggoMRdo31X/
-	RP9HN151Q65ft5Rk8J1l/wwoU04FcCX/Gc0CQ3HLpuTAfIsHKhI+GYq1xNZQrmoA5RekBSjhrRJ
-	3znXED5t8Tc3CPYCVehFe6iyNXk+d+I8Mj7XBKIaYh7askCW5ASQCvPObEj/jXc9HV9ky4ncwmH
-	OmBGCGdEtzyZaCOGSa36acObNF3b+z/yR0T0Y0amvZWilmzHzHFa21RRCnDNBoO6XKOItZY/Gjc
-	wmuH40ioYLamtBmT4XBP5IVQqR0xNzAjYYASbbtFt8GGhdhGN5VDPT0QsRdDXcWcGNC+OidK2f6
-	8yjQRAoVQKgl3gljbvxncFtq1R4bGw3LrLTykmPyZvmQ8kSi7Ruut6rJDf55/ICf/XF8X99Lvnc
-	eDb9Ka5Krb2G04NMyBIXtyWguv0w8i+NgWOov5i0kK0KXJe9cA==
-X-Received: by 2002:a05:693c:62cd:b0:370:ff2:f78d with SMTP id 5a478bee46e88-37256614c62mr4822924eec.8.1794174626129;
-        Sun, 08 Nov 2026 13:50:26 -0800 (PST)
+        bh=nwKFqp+H5YggATRuxpPQ2JLO3+LdBN2PnTSM+VuGKKc=;
+        b=J8MLCbwu7+YrgieM33n7g0jL4bdM5i2aD2vKd/tcJ7SKzaRS9RlfOH8IHoarkQNZ55
+         cLZbTslTIeEwkfzTwxop+gtH0H0ADLFdK4v4WSaZKm4ooJQ4P7HloPe3u0QQG/sRBRnn
+         2cEowGrX/8nzuzVAGmfBhLu8SlprnC+6Mzs5WTrlQ/dcN2cd/LdenyrdV8y6cKSZNsq2
+         ycerFUgWkMAptQp7EK1ltZSeXQSpD1HtBOez7yWqG96PGMKtmB2+xGCl0CbwStTHPbds
+         MyMgk5TmtKZzrEwTTQuMffF/1uoTHuFO99xA5kHCZTiA1EM+7h8oZjPFoIfTzrUCOnsS
+         4KCA==
+X-Gm-Message-State: APuU4Z+LrDfFmUkPcZXsv7zwVGVYqbKRTgO7KHvfB7WwwOEoYQFOeaxM
+	hHoJX7633EgSMLNINkb744mYYJRxtik15yMAVk/h91uKt/HaBPq2ikhd
+X-Gm-Gg: AYBFou3PWR7bObFCWAeit3q4meta2UyJdFRDlCvQIP0apu1n/tp8Jt21ekcfVRaDlNq
+	xoKpA/z1tF3yoAHK9+olyawHQpT3VlHJbdZjPcq7GmAfP0fhi5hlpsgLxz6AgUUB2serObPqTcx
+	3ekq9VGyHDQrhoyIGVecmq15YCsU+RFjIKoFMFFXU8mqpAl+upWvcrSUrIoQ+wk6HIWD1F1ZFGk
+	MFBgxi5hNrGZcobgUQX9yfAc8ORpwiERwb7W2TD8OF7MsCcnTfaB8lTaEr59E+f1FPOYvSJ1Aa6
+	qhv5QVxF6Ipm0fRdV/95HVXw0r0em8XiEj4Xa3u3VTLTlEka24bQSqES+qt2NHwqChkSLPZgkLs
+	tfgr9YhKApfm6AZyYo59DUYaofunpvGumvxLqrSM1ghWVicmAEN+WXfIV46wmd36RpUpwVnCUks
+	yewVUdC2MnRhBJHGmz2/2SDTBcp91riTyV0/wqvgFPhCTwwG+kL4aKtJsqwsVzQBnetGPUop527
+	FiuV/QiBQZPIZhyggZkwGQrhXa00DKjKuRGLn/wA1zE05vO3VZj/wh1I4uoOrtSe3yj+4fb5f7d
+	QHozIxCp5qj7Iaf1mWD40sxNameU+WKzjS6tmCVhQC3/NIhySA==
+X-Received: by 2002:a05:7301:da07:b0:369:fdae:c9fd with SMTP id 5a478bee46e88-37256038e90mr5078656eec.13.1794174631525;
+        Sun, 08 Nov 2026 13:50:31 -0800 (PST)
 Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm7587575eec.17.2026.11.08.13.50.21
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm7587575eec.17.2026.11.08.13.50.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:50:25 -0800 (PST)
+        Sun, 08 Nov 2026 13:50:31 -0800 (PST)
 From: Pufan Jin <cyan2254650260@gmail.com>
 To: Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -85,9 +85,9 @@ To: Conor Dooley <conor+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
-Date: Mon,  9 Nov 2026 05:50:09 +0800
-Message-ID: <20261108215010.351256-2-cyan2254650260@gmail.com>
+Subject: [PATCH 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development board
+Date: Mon,  9 Nov 2026 05:50:10 +0800
+Message-ID: <20261108215010.351256-3-cyan2254650260@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261108215010.351256-1-cyan2254650260@gmail.com>
 References: <20261108215010.351256-1-cyan2254650260@gmail.com>
@@ -102,39 +102,261 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the ALINX AX7Z020B development board, built around the ALINX
-AC7Z020 system on module.
+Add devicetree support for the ALINX AX7Z020B development board.
+The board is built around the ALINX AC7Z020 system on module with a
+Zynq-7000 (XC7Z020-2CLG400I) SoC, 1 GB DDR3 SDRAM and 32 MB QSPI
+flash, and provides Gigabit Ethernet (JLSemi JL2121 PHY), USB 2.0
+host, MicroSD slot, dual CAN buses (SN65HVD232 transceivers on
+MIO 10-13), I2C RTC/EEPROM/LM75 and the serial console on UART1.
+DevCFG FPGA manager is also enabled.
+
+The two SMA AD inputs and the spare differential pair are wired to
+XADC aux channels VAUX1, VAUX9 and VAUX12. The XADC hard macro is
+always accessible from the PS, so expose these channels via the
+driver's xlnx,channels property.
 
 Link: https://www.alinx.com/
 Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
 ---
- Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm/boot/dts/xilinx/Makefile             |   1 +
+ .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  72 +++++++++
+ .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 137 ++++++++++++++++++
+ 3 files changed, 210 insertions(+)
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
 
-diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-index c9f99e0df2..87b331f296 100644
---- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-+++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-@@ -20,6 +20,7 @@ properties:
-       - items:
-           - enum:
-               - adapteva,parallella
-+              - alinx,ac7z020
-               - digilent,zynq-zybo
-               - digilent,zynq-zybo-z7
-               - ebang,ebaz4205
-@@ -34,6 +35,11 @@ properties:
-               - xlnx,zynq-zc770-xm013
-           - const: xlnx,zynq-7000
- 
-+      - items:
-+          - const: alinx,ax7z020b
-+          - const: alinx,ac7z020
-+          - const: xlnx,zynq-7000
+diff --git a/arch/arm/boot/dts/xilinx/Makefile b/arch/arm/boot/dts/xilinx/Makefile
+index 9233e539b1..5c4bcd9492 100644
+--- a/arch/arm/boot/dts/xilinx/Makefile
++++ b/arch/arm/boot/dts/xilinx/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_ZYNQ) += \
++	zynq-alinx-ax7z020b.dtb \
+ 	zynq-cc108.dtb \
+ 	zynq-ebaz4205.dtb \
+ 	zynq-microzed.dtb \
+diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi b/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+new file mode 100644
+index 0000000000..2da08424f1
+--- /dev/null
++++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * DTS for ALINX AC7Z020 System on Module
++ *
++ * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
++ */
 +
-       - items:
-           - const: avnet,zynq-microzed
-           - const: xlnx,zynq-microzed
++#include "zynq-7000.dtsi"
++
++/ {
++	compatible = "alinx,ac7z020", "xlnx,zynq-7000";
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x40000000>;
++	};
++};
++
++&clkc {
++	ps-clk-frequency = <33333333>;
++};
++
++&devcfg {
++	status = "okay";
++};
++
++/ {
++	pmu@f8891000 {
++		interrupt-affinity = <&cpu0>, <&cpu1>;
++	};
++};
++
++&qspi {
++	bootph-all;
++	status = "okay";
++	num-cs = <1>;
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <4>;
++		spi-max-frequency = <50000000>;
++		m25p,fast-read;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "boot";
++				reg = <0x00000000 0x00500000>;
++			};
++
++			partition@500000 {
++				label = "bootenv";
++				reg = <0x00500000 0x00020000>;
++			};
++
++			partition@520000 {
++				label = "image";
++				reg = <0x00520000 0x00a80000>;
++			};
++
++			partition@fa0000 {
++				label = "spare";
++				reg = <0x00fa0000 0x01060000>;
++			};
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+new file mode 100644
+index 0000000000..4dfef96ad3
+--- /dev/null
++++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+@@ -0,0 +1,137 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * DTS for ALINX AX7Z020B Development Board
++ *
++ * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
++ */
++
++/dts-v1/;
++#include "zynq-alinx-ac7z020.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/leds/common.h>
++
++/ {
++	model = "ALINX AX7Z020B Development Board";
++	compatible = "alinx,ax7z020b", "alinx,ac7z020", "xlnx,zynq-7000";
++
++	aliases {
++		ethernet0 = &gem0;
++		serial0 = &uart1;
++		serial1 = &uart0;
++		mmc0 = &sdhci0;
++		spi0 = &qspi;
++		i2c0 = &i2c0;
++	};
++
++	chosen {
++		bootargs = "";
++		stdout-path = "serial0:115200n8";
++	};
++
++	usb_phy0: phy0 {
++		compatible = "usb-nop-xceiv";
++		#phy-cells = <0>;
++		reset-gpios = <&gpio0 46 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&adc {
++	xlnx,channels {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* AD1: XADC_AD1P/N, E17/D18 */
++		channel@2 {
++			reg = <2>;
++		};
++
++		/* AD9: XADC_AD9P/N, E18/E19 */
++		channel@10 {
++			reg = <10>;
++		};
++
++		/* Spare pair: XADC_AD12P/N, F19/F20 */
++		channel@13 {
++			reg = <13>;
++		};
++	};
++};
++
++&can0 {
++	status = "okay";
++};
++
++&can1 {
++	status = "okay";
++};
++
++&gem0 {
++	status = "okay";
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethernet_phy>;
++
++	ethernet_phy: ethernet-phy@1 {
++		reg = <1>;
++
++		leds {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			led@0 {
++				reg = <0>;
++				color = <LED_COLOR_ID_GREEN>;
++				function = LED_FUNCTION_LAN;
++				default-state = "keep";
++			};
++
++			led@1 {
++				reg = <1>;
++				color = <LED_COLOR_ID_YELLOW>;
++				function = LED_FUNCTION_ACTIVITY;
++				default-state = "keep";
++			};
++		};
++	};
++};
++
++&i2c0 {
++	status = "okay";
++	clock-frequency = <100000>;
++
++	eeprom@50 {
++		compatible = "atmel,24c04";
++		reg = <0x50>;
++		pagesize = <16>;
++	};
++
++	rtc@68 {
++		compatible = "dallas,ds1338";
++		reg = <0x68>;
++	};
++
++	temperature-sensor@48 {
++		compatible = "national,lm75";
++		reg = <0x48>;
++	};
++};
++
++&sdhci0 {
++	bootph-all;
++	status = "okay";
++	disable-wp;
++};
++
++&uart0 {
++	status = "okay";
++};
++
++&uart1 {
++	bootph-all;
++	status = "okay";
++};
++
++&usb0 {
++	status = "okay";
++	dr_mode = "host";
++	usb-phy = <&usb_phy0>;
++};
 -- 
 2.56.0
 
