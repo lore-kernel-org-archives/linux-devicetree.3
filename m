@@ -1,60 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169405;
-	b=tSXLlGSVQ4jAZ4DiP1OEjS7RDaw3vep45SyTdK77VvEshaRbDPDglo2tnpArJ9QgtWan
-	 TpJUclwVjY2G9mGqb9uW7L7Ka8dm6COiGRq3o2M5OERXa0t4AGR36DZOG8bonEmPmBJh+
-	 F+K/HBvy7hAOMNS/36I4rrQW3D2wQOf9fQT8tK41cv70b4NbPyHFUO+cmqvXywLWWTOV/
-	 C7riqTxFnW4+YNdzrqDqkgmdXLp26JBtGWHSrqrUYlq1rERqX8EMHQgVQpCS08qH48Uz0
-	 MwfXY0GN8D3n7e9Agy/Ia/zElCZKJXFQVh7Cj46BlsSOLb0gHadGRycFFdoOfACrm0A==
+	t=1794169406;
+	b=UD5nWTnsUCtuYdN+b27mjked0x6y7dDgPUoyq0GeEZ67taGUNMJBJfT3Jo+eY0XftAtP
+	 HGXsIcKtOUxL6GpZjFxqCWRAms6EyBW/5oBEu9DI3oVClXwMdGHEnTaU1OoXLbAEBxEc/
+	 XrRARPBZJc3ccTb95sqBsJqOvwaLl37WxtNN0LEAovu2k9vPkuWrNvyyBbbG5gXEHY68n
+	 xXnsKA5+O/bt8/gKnryeTGM9NSSwiVF+xU2sJFmI+A3mQ7S96lqnQQsBIhQCJ8oB0l9iP
+	 JIld4nUiKd9J4Lrfpc8xFwkU2WQiA/YNOTVwaGbuWq3a6C74YmCLL8PmF83pdG/aB0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169406;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=kU06O4DKa9Y8SwOkpvFM1DLhsryWtBjVd1EgIkUN+GY=;
-	b=aAGsCUcDB537zsA2JZn3kG/repRMuDrwLGohOZnYEtTt4zi4pQ0GU+5EmgSKwN9x+Wf3
-	 Ga3XXuB+I+htVvqE0TUi9qn+Qwv1v1r/ff0W+CI5uAad8fo9B8Not5eVZcjjUQaELx2BH
-	 hPFoH44nkPgYGCs3+Xb4DRj2Uj5dqhcVWgH+er+t6Q7Xuwfg4haanOi0cn1+rHeHDW5po
-	 cOC6V+eNwS0LyCOQSjkjHTnUqlaNFpL0MYXqg+/f2SFxxJULHNMgUyj0Qq1f+opTT9zBA
-	 1VC85JNLyJ4GZoRK1HEZH5EHFc7j6/nzGgEh6OiDkGZi0fLW9/uPqnr8D8JicCeWvSg==
+	bh=YwiO6kC7xgkKgsJ+rcPZuZEngA6rKjGO8VVd1QP813I=;
+	b=sAROm6wT4RaxLlqen/b5GxKjl75zuEIq6PBISiUiwgy/PDTSRE6SAQl4HnUI5+YQ3asl
+	 R73arPH2KR35g97u+1MjTnyW8OwC3zwBOCzBQCsBSTd4XUv/HOq9pIVYTeH61f3gLm5Fc
+	 P3SiXErc8eUncCFSeeKwKaRafIoTZ1IEatwKeQRra7cSZkSSU9PQin1gE+vaPI1vcC+GA
+	 yVEiPepUl/tbc5XG4FP49dl0zV8tc/iF4Wa8OF0uOurrl5ZSCFc9Br/X5uZWlUeMrL7G9
+	 a9ONRz7ft5Gi0gtE5BRG2+XtY3huZlJzJFAlr763e31CVLFYxUnZ0fzScEPMiRiNcNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHceo0TB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBvfnMPl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78066070CDB;
-	Sun,  8 Nov 2026 20:23:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0506070CF3;
+	Sun,  8 Nov 2026 20:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHceo0TB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E9B1F0089F;
-	Sun,  8 Nov 2026 20:23:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBvfnMPl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66331F008A2;
+	Sun,  8 Nov 2026 20:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169404;
-	bh=kU06O4DKa9Y8SwOkpvFM1DLhsryWtBjVd1EgIkUN+GY=;
+	s=k20260515; t=1794169406;
+	bh=YwiO6kC7xgkKgsJ+rcPZuZEngA6rKjGO8VVd1QP813I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FHceo0TBWk2NueP+54BXVbc31M0sKpdDxeMZEF4Pa4pz7bWK16m2rchm5Z3jzbRHb
-	 MeTdYKYWEVRcWfm0myNZUu5yJNnafo+FgTY59KaWYXWSJtU/OGVGM67acCqVqBjeqN
-	 2L8D1Ft3h+povNOZ86TUrR7qOWTvHREQxP4evMlfbHn3oLbchGefCOESxpStRJwUYf
-	 kyfMMYIWk0KrTA+tB3bNAjlPkJ9fwddaFsypDJ4DQbplpIrsTtLHN6bOi2PeNAPx2i
-	 7ZYdvblVE8v7ILHEqTUGhZ+nTzD+ySI6y/dZtM4R1HffI3lyijpT8cds6b3RHcCuwc
-	 gsI9vEemmDeGw==
+	b=UBvfnMPledfIodrZgmMlVyyIVC1z7F/sd4ewvolyfY7NxsKNUl25T6xS/1Nw7wGQS
+	 iaPtfnl7m3vujAHeR8nUaWulcPoE/mdyEJoJBaEjUJ6ZxeVj9OdAUo3viJcHc4cwV+
+	 7ijl5tB02imn8k3qTLUaAnL7BGtlg77fH8MnygnM6LuyQDOWLfw/2VXnmlq6Vgt0ib
+	 1zon1Ym7PKTjHBI3rWvxdPo5QX/XbvlwQDZHn8n2X42qI+FbfBG6YN7uCEGZ/AYFbq
+	 g2qdIICndF4WYFoC2qeo420QDSm3BC9c0al1g7d+DKqy/eV5I57dX3OvbPUSOphzqY
+	 +5KBoojikEhyw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: devicetree@vger.kernel.org,
-	Kaipeng Zeng <kaipeng94@gmail.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	abelvesa@kernel.org,
-	konradybcio@kernel.org
-Subject: Re: (subset) [PATCH v6 0/3] Add device tree for Acer Swift Go Pro AI (SFA14-11)
-Date: Sun,  8 Nov 2026 14:20:10 -0600
-Message-ID: <179416929522.628393.2913043282200216817.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Mark L4C regulator as boot-on to save power
+Date: Sun,  8 Nov 2026 14:20:11 -0600
+Message-ID: <179416929351.628393.11241637858419849510.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030064149.14736-1-kaipeng94@gmail.com>
-References: <20261030064149.14736-1-kaipeng94@gmail.com>
+In-Reply-To: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
+References: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,20 +72,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 30 Oct 2026 14:41:46 +0800, Kaipeng Zeng wrote:
-> The work started with x1-crd.dtsi as initial template.
-> HDMI refers to ThinkPad T14s.
-> Bluetooth refers to x1-crd.dtsi from the ubuntu-concept kernel [1].
-> PWM brightness control refers to Ratizux's GitHub repository [2].
+On Fri, 09 Oct 2026 17:36:05 +0530, Kamal Wadhwa wrote:
+> On current Glymur Rev-1 boards, the third USB controller and PHY are
+> not enabled, so the L4C regulator has no active consumers. The
+> regulator node cannot be removed, however, since Rev-2 boards will
+> enable the corresponding USB hardware.
 > 
-> Tested on linux-next (next-20261027: 151a134a) / Ubuntu 26.04 LTS.
+> This rail may have been left enabled by the bootloader. The RPMH
+> regulator driver cannot query real hardware state, so without
+> regulator-boot-on the core assumes the rail is already off and never
+> issues an explicit disable during late cleanup, leaving it enabled
+> indefinitely while unused.
 > 
 > [...]
 
 Applied, thanks!
 
-[3/3] firmware: qcom: scm: Allow QSEECOM on Acer Swift Go Pro AI
-      commit: dd851d601d63bd157562e7fc054eafdcc2ffd936
+[1/1] arm64: dts: qcom: glymur-crd: Mark L4C regulator as boot-on to save power
+      commit: 09096b4ea1bd00730b1a10584b6405119fd28fc4
 
 Best regards,
 -- 
