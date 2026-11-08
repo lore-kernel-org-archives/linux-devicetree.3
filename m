@@ -1,88 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794166181;
-	b=4O36BzhbQDm8s/7g0mtkxdn3kGhp3M7gIsvjH6CgUbC/LYDUle8weK8jXUnn8ubWhwey
-	 2A2rkmeKDdWM2RS0x2rL4v4bc6TaxdybU3SgJ2MMvIgBnqIUXSepuV19jKR5OIgM5Kc1f
-	 vkxpRLvHXOYpHUzx8nCA3fgSOogND/cVNamXGKXfHJ+3B0GVjj6gO29YT6jQrXfT55VpR
-	 eJtNWh/qyzYm8aVBlpPBXWyLTq8Gv9e9J3/R34juEkzW8Wph0xAGCYnuN35Lvesg+8BQh
-	 RUTIZ+VRcAIu/m2gf7Wmfl5SfnSGvwd1MiYhju/M/JGpJU+35pE8hNBjNYR0e/Iujkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=K6/R37q6szI+rmss9c+KCZ835IEAv8yVQkR7JNHS0R/cRzkd9E5ppzn5h+/1UFi0PU/y
+	 BhqH7OA/KicVkZArg25iWXXS50pJbwCtlY/HLVbo879Ji9IWGkwKFvoPLnFQIGVSn3NuP
+	 cOkgD7UTBp3ayg81fjuzjL9stBl3DwY9WMCD/vxnskg0d+dmdq/98EmpnItHipAODuUp0
+	 EI/hUi6/b9uQzj898Q+2oizGwxJ4rJi3DoBALjaJzTmHPCfTbF6qZf5LEiQjal/6QuIKz
+	 tJIyqLsmMwR59G5cWWaFGjmIsnJPc0/U8OxFYAHaFi4ICnSRsr43vi6/ob1WzJSl0nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794166181;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
-	b=yOEV6CaAQimLFkboQBWNS2jJOaIaE7KuiK3iiIcNwRdJQijCHUBxqB3yf6gV0YYIDZZf
-	 KI2FeGKEBvkmRTXrL+M8AZjJEGqyKnA5aa/SF6Nzsts3ZyRJB0L+x7sWpwG7upG2oVnfE
-	 PM12RA2PyI4W9EuC41v7T0bVeM0gfrELg2vbdjj//HEeec05sxK82icialXNNdxAwZmgO
-	 Z12UUo/T1LNR5lJfSBTUnC+cRl81a9JlAQuGkNGX3nceXL+EDjN+RFDyumgxYfE/9oSmS
-	 nVUUfmfZkYl0OWOtYvx3InH/5HLgQUy58kJmmHwtWA5Si9DdoKqi3bHiw08P10CDKfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=diMutTdP;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=lCDxPZTEu1aBLcrMc+NyYSEE+fukHLmARoE4t3v2YSU=;
+	b=uy03uk/uYfK967Jpi+ViF4n6kiIYUmoCxzbH0O2R/1rBMMwQBmzfq9yxkGQ0y63MWGVV
+	 JPKHu1Rwxo40f+oaFmJDf6/6jzUHmimN726XbESJHZzyw/OO18TliduH2JwzjzG8/lEUr
+	 QdGn/PUkBHTZoFXLA3tB7WTeRfrn5B7nnxrt82cSQ+Lce8EPpcQR26bg8h6Y2vvKREFIZ
+	 +Z3T1FaNkp7rErgC/Bc0JnE6+bFCMT7HKl2/5XG+xfwjY+Z8MLlwb0mQHhejoNJ4dbY20
+	 +RFe7wDxO0Kh9pqUVNyZCZC2X31v2B24jmiKuYWStM2ngQBmREDj4KToR8rvNKWFkcA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hvROlOR1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E06C606A332
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E06C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35493606A33A;
+	Sun,  8 Nov 2026 19:29:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35493606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=diMutTdP
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-372cba0ecf9so17632eec.2
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 11:29:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794166180; x=1794770980; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
-        b=diMutTdPzaIdRwJ1lWztRLVLO88l0kujylEJez32p0TfnqNlWN7/HJxPLwLGXHRYbT
-         srqdJWx53HEudaAU7kQrTSzCfV/mHA7UeHoLuXaNSAtlsKC7sit3owrJxb77c4bJAXvA
-         6dRwXOOWMkh0Z2h702h9labUVhgtf+b/gG1Tr7FSxJf81hFOSWRE7E4xTTYkgkFPpIOi
-         48z0jVxL8KIw6ofH+s+l0FxocWKkczvwjpgPmI/IVj3M6zOkUmZXavmyADvkKyPBYH+p
-         A7OtHCIhSaN+USc1Fp+mcACnw5SZ9azFn9z5JfYqv+J6yEUi6lngPJBuyYT3z79xIRzA
-         Tfdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794166180; x=1794770980;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
-        b=Ad4UmpgHeDmdLLS+j86yalj/kRB5G0jGbgMlW/SoLpTUW+oQH39au0kNoh4dm7o++j
-         o6hZmvJCut6pUpjJloTGFcT1qSGVQ3xeA9519yvwelP/EK4kRg7tK6BMfNIazXD+7SPi
-         Kg9rZmi1RIM8p+asYpuKgyt8lLnC+psLvz90jWtdC7ckiIrDztwGeVcQ9JxYjGqVanET
-         CHBy4yBUPVFO7XOiydUSEu99y68IFY31dxHMVtjKl9BeI1eYLkpvRGYk7jmnKA1d6/3T
-         u0gNu01FDzBE7M0wwwb5VgF6v+O7SHIuzFVcGIcUM67Zvz3HMcBSAK2szv8Nj8UjWbLw
-         rmRg==
-X-Gm-Message-State: APuU4Z9/W3BBDtLg9MD1knUEG8yfkSOg9AV/0NK4+edDiYytGncQ9geR
-	EAOpOucfvbxUbwbtohdqXhBbxxQ1PmNN5vga639nYbIXA7dy92f0YKVh
-X-Gm-Gg: AYBFou2vPXQY8C3tOaUo3F01NkP1NsfIVcRIYtiBtwyPlnT8+ITQcYIglNtbYGP3L+2
-	oJmKI1foTUooBGoQCL2141tF983KknI/dRoW6zCM7kS9JS6CFoOE/m6pahEw/L6ODNUyzRRwQhD
-	wex54EjMwJIETGf+Qozu0Pelo+v6o4+0vOfEGLdUiN6A49DHRmU4ypb+EFv8DGe0d3hIdDtS3x2
-	7jcf+og2q5lvjA0hmeNEaxocFRiE9rEZxljX4HErEzADTrN/U8Tl6OD/rsJ/BbOQERE71aRvgl1
-	1FQlPtZgsOpkK/OouACcMNTIC2aHx1qJDlrQ0C/xrIfLj5XxPRqs4D4e02kAEljosNH+g3yrf/n
-	QrHjz3tl9I0y4Yu1w7bKSjfGMEEkCvi0NK7Qt7Nl6gJcbcCiUbqHGOntqyd0N70mpwl/1REwJlc
-	lWZxPsO6GLJk1+PPC2tmQsDZKwJnE4VvE+tm8x7nkZKy01kNT7m8kPalC1aCKp3e/GJ7v9HlYRU
-	+fezJJNWrtfhyYOkXlfFDf3+d4IMUDJ0cQro5cYYdzytDgLC+gbyuWQ6hHIfAm5UCFOGerkjOLR
-	hFlJxvu4r2zE+iac1adEzKNdAREL1dupVaqCUtZcdh/4xl3EVspMg7x/NITk
-X-Received: by 2002:a05:7022:7f0b:b0:147:d430:7322 with SMTP id a92af1059eb24-1b39fe73395mr4649246c88.1.1794166179643;
-        Sun, 08 Nov 2026 11:29:39 -0800 (PST)
-Received: from [192.168.1.11] ([2401:4900:881e:93af:b6d8:a723:b13b:3c1b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755eb6efsm8800387c88.4.2026.11.08.11.29.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 11:29:38 -0800 (PST)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Mon, 09 Nov 2026 00:59:17 +0530
-Subject: [PATCH v2 1/2] ARM: dts: omap36xx: Add unit address to ABB
- regulator node
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hvROlOR1
+ARC-Seal: i=1; a=rsa-sha256; t=1794166162; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=V8FGTqUAcI/+f+ZmpjgeoHQv9yS5Gd4q/pSD/sOyZ99hZ4wNBW2y8FI5nqqCo7Y8f6QXFdga58O+nkYF78A+s97QN2PTeVsLsG/HBDke0EWkitmHsn6nQYJVzVGK2FbsB+lBgu4p8kRkAbbz1WZ8f8u71vxfAypGtLnmfRIYZnw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794166162; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=lCDxPZTEu1aBLcrMc+NyYSEE+fukHLmARoE4t3v2YSU=; 
+	b=jWa89DpvHtLWuGTJcczwDrGgyYga51fkr/pHFnhh+SDRlXPGAQ6mwiLl6MD48+9GDclCN6lu1lkMDrEGgFVWWCrJJggrtzo4IAyVYIn+X1mfkCPqv29cACZTDLqyN9hNBBrGTxmRjY9jnr2hijkX8zJPziFJdXmqbLRR9996+B0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=hvROlOR13AqEOLRkERFPuGYm0ivXmPtRN4WyJmYNo49Suz3E44kyeuaYKoIMFPeUdHmoiM+6qmdGCzA1fKPYNrCCsL+mE49jCnUfEWRn6tj4JMHxpAf6qU/UGs2gc2n0TTCEYrrON+ASiLp39ikdGbqpmC1QNakZl7pgYdyT7/A=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=lCDxPZTEu1aBLcrMc+NyYSEE+fukHLmARoE4t3v2YSU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794166160289388.0259815442704;
+	Sun, 8 Nov 2026 11:29:20 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 87D37180269; Sun, 08 Nov 2026 20:29:15 +0100 (CET)
+Date: Sun, 8 Nov 2026 20:29:15 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH 2/5] arm64: dts: rockchip: Enable NPU on RK3588 EVB1
+Message-ID: <avDLdgR6gXOrEmNN@venus>
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+ <20261106-rk3588-evb1-dt-updates-v1-2-bdbe16223589@collabora.com>
+ <f5edf258-4b6d-416a-9b27-efa47be8d91a@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,54 +71,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-ti-l3-noc-v2-1-509e8485a1f3@gmail.com>
-References: <20261109-ti-l3-noc-v2-0-509e8485a1f3@gmail.com>
-In-Reply-To: <20261109-ti-l3-noc-v2-0-509e8485a1f3@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Santosh Shilimkar <santosh.shilimkar@ti.com>, 
- Sricharan R <r.sricharan@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, linux-omap@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794166167; l=884;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=mRJd2FscObSZq+5xKtM7LxfhPVQc620l8Gz6i2pWC0w=;
- b=TFOH4hkxM3D01wuR6L6Kuij4EhR1doZYnCWknkMwEvOXQXqR2Xw4A/iEi0VoxsMIDTuZfEQK0
- B89GT6/5jwlA6EA6BspnldEkt9laFNj8tzSyfMhmgkj5HCm6tLrKqeG
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ltpqvdvrdd3b7xzx"
+Content-Disposition: inline
+In-Reply-To: <f5edf258-4b6d-416a-9b27-efa47be8d91a@rock-chips.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.158.93
+X-ZohoMailClient: External
 
-The ti,abb-v1 node abb_mpu_iva has a reg property but no unit address,
-which violates the devicetree rule that the unit address must match
-the first reg entry.
 
-Add unit address to the ABB node in omap3.
+--ltpqvdvrdd3b7xzx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/5] arm64: dts: rockchip: Enable NPU on RK3588 EVB1
+MIME-Version: 1.0
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- arch/arm/boot/dts/ti/omap/omap36xx.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi,
 
-diff --git a/arch/arm/boot/dts/ti/omap/omap36xx.dtsi b/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
-index c217094b50abc..6df66eb7e7eeb 100644
---- a/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
-@@ -92,7 +92,7 @@ uart4: serial@49042000 {
- 			clock-frequency = <48000000>;
- 		};
- 
--		abb_mpu_iva: regulator-abb-mpu {
-+		abb_mpu_iva: regulator-abb-mpu@483072f0 {
- 			compatible = "ti,abb-v1";
- 			regulator-name = "abb_mpu_iva";
- 			#address-cells = <0>;
+On Sun, Nov 08, 2026 at 10:03:05AM +0800, Chaoyi Chen wrote:
+> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
+> > Also enable the NPU on the RK3588 EVB1, which is very similar to
+> > the QuartzPro64.
+> >=20
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+>=20
+> I remember there was already a similar patch before?
+> Maybe I got something wrong.
 
--- 
-2.56.0
+TBH I haven't checked before sending this, but did now and there
+doesn't seem to be anything:
 
+https://lore.kernel.org/all/?q=3Dfile=3Darch%2Farm64%2Fboot%2Fdts%2Frockchi=
+p%2Frk3588-evb1-v10.dts
+
+Greetings,
+
+-- Sebastian
+
+>=20
+> Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>=20
+> >  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 34 ++++++++++++++++=
+++++++++
+> >  1 file changed, 34 insertions(+)
+> >=20
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/ar=
+m64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > index 87e624d1e094..6476d9e3be6f 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> > @@ -578,6 +578,10 @@ &pd_gpu {
+> >  	domain-supply =3D <&vdd_gpu_s0>;
+> >  };
+> > =20
+> > +&pd_npu {
+> > +	domain-supply =3D <&vdd_npu_s0>;
+> > +};
+> > +
+> >  &pd_rkvdec0 {
+> >  	domain-supply =3D <&vdd_vdenc_s0>;
+> >  };
+> > @@ -703,6 +707,36 @@ &pwm2 {
+> >  	status =3D "okay";
+> >  };
+> > =20
+> > +&rknn_core_0 {
+> > +	npu-supply =3D <&vdd_npu_s0>;
+> > +	sram-supply =3D <&vdd_npu_mem_s0>;
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&rknn_core_1 {
+> > +	npu-supply =3D <&vdd_npu_s0>;
+> > +	sram-supply =3D <&vdd_npu_mem_s0>;
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&rknn_core_2 {
+> > +	npu-supply =3D <&vdd_npu_s0>;
+> > +	sram-supply =3D <&vdd_npu_mem_s0>;
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&rknn_mmu_0 {
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&rknn_mmu_1 {
+> > +	status =3D "okay";
+> > +};
+> > +
+> > +&rknn_mmu_2 {
+> > +	status =3D "okay";
+> > +};
+> > +
+> >  &saradc {
+> >  	vref-supply =3D <&vcc_1v8_s0>;
+> >  	status =3D "okay";
+> >=20
+>=20
+> --=20
+> Best,=20
+> Chaoyi
+>=20
+>=20
+
+--ltpqvdvrdd3b7xzx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrwzYUACgkQ2O7X88g7
++pp04g//fKTIvlVT+DlDCI7Qr2N7lNt+yTY4h8ufwxQQBKfUj1u0tZ29xqVnqf3C
+iFACZfowhn3mTHk7TtdLAqMRsWfBcVP+8mJ9qzPhMlhF346DlJXRoWaZ6HBytAj/
+7g8iSfjOU/4ZmOLS8Zvp7ynHWQcHz8znZo5kPJ+kjE+iy0cgVzmMNtIH4RotqElZ
+D4GN7E64WWgcFDNHaUvJOoh6nvdSSQ7Y9izzkt/BgmpLRyKjZw2evdbZAUcEhHjP
+0Jyf5kx4m5Ao4JuyOpP+qut1xMenr9HU2lv4Ghvk7XcBJzmTTWJTpdb0NR0RjyaN
+nfLiww+5tXTH0vBq7yrXm4uHtUaEm0BkrWPTPmjx00sXGenFXQot/oNZy6UtsjLa
+7w4rg92AFQeZaP5Ucv0Ky2wAAN3DOI4fVZbvLs1DNA9DDrBTy5OEEIPMRC9nXN6d
+nVEbdWILwRgOkpneagUH5bxd81Kcanur6Uj4Y12DlQvmty1XV1KZ9yfEMi4VSDYh
+f+KqVISO8PzkLtewOnaynu0O00zHN2qlWSCq37r7apJWGKmvYiKz609jpVdF/eGU
+CAesKz42tx6MNUUE6EDyY63e/8PUTQa+MIf/0Gb3xUIgTljdviyQhr9XUWRV2j60
+Zn6pKaZAMFMtBdUgx5ffPstxyCuuucs4qgQ5t5nnttTQHEcNzFM=
+=EWuj
+-----END PGP SIGNATURE-----
+
+--ltpqvdvrdd3b7xzx--
