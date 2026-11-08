@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169481;
-	b=2D6XL8UG0fAk8gb71cCjXxb0hYpm6BOsqHHC/o04PJjbKovTiRZqdIbIXG2Lz7X5XMSB
-	 tVxqiIIDvmhZ0cSml4PyWzj9+sBuBCur5N5nc6nCYn2AC4yfeBg0ztOF/YfkoSbZlSVGe
-	 zgWSandHhgWWm5Xe97QBrtw3vcYK0/Yl7y9mXL9SBytFexGqeJE4YTihcBYHhHwFzU3qK
-	 fTtr8e2q59DDsMZ/wwGRBdUTJbKkhDeAxD9V/MwJ/QMG+XhokixWaFuVwXYjAntAfI1DL
-	 doIQEHt00EtpUaDxXINzLqIvbIjUm0xBhIqziXPAKSOxX5+Y77nX8SRwc18VHiYBjdw==
+	t=1794169493;
+	b=TX1Ag0z3wUm0SH4aKY13MhhQeBBYorBiVC7frd5XqI6TXhU+bJQDu7Etsw2kPYBAcPxl
+	 wCsZhyt0gl4xbeVxO1UAFnTNqvKYCspAF1sgC9o1gmPjW8BR4GDKx6rdoT2YRv+gLRb73
+	 9EJ2ORl6qclDf4tgww5fbMD078HEieWcHNaqQu9nBH2CZplc8aJG3Fn54Wb7/sZMo+kV/
+	 y3VQ2vBufaH8zZ2sfgExfv9ra9PGCJS0z/SwC8T5/1hMw25zkkgGgR7jaFhl4MJiQ8P9q
+	 KBqEKroH61MrYSvKFFsqNybYgkrks8VbrHRRFQ/kh5ZHeg9olOAhER0xj6UW/7ltSng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169481;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169493;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
-	b=3nsUaOqLt6SHpQBDxI0RrtwUIyN3AXNmmFFgmpRPxlvLvLvuj7248onMfD1Cxt0g/hR2
-	 LIhOQ07rufG5BzTp873MasNURbfDAIS/tivtjUnSdTqRy5NE1VhkhaSFSzKa3KzRDO8Z1
-	 hSc4Ps9Vx3GcGm5AN0Yc4rJt6rBxDlJ1V6jhPlJS/LogqEZ3RbsQb5+2BJGxWxja1OkP8
-	 vLESLHL6eCE3Vp4qr6cU5bSg7nj7urMN6rc3pPHTuvKu89gY6dLNXWvAsEe1LaSjISHfF
-	 DeA0O5i4R762ZAuEn8RYFh/bZtXI8+lO+zNuGi9iY9cVIXtB0bc5xbKoXIU4nU8uuWw==
+	bh=jHkSu/I6sjJZj+dKlK5gxac5YS6LoMiyJZobd62YxK8=;
+	b=bJeLcLKoe0MFDtz9YP4kzm7CodWLEblqjPTpWCixYipGAQo0i6fDh1t/kFtlUpUtbnae
+	 FAAgZ+NyWOM/y7mN8AlLvkV2JpdHO0BnehSZMsgPmHZsBpQtoodc/Zwyf4N5JP4y9kCyp
+	 IECmagzxAs+fiZcPQlIjvbIxDL05Gd6B5mZFbfrWut8C6Ko7EvTCrkRHr/QEjU8Umo/5Q
+	 Y78bsqpRoJMJp0I2yKw1GcyUVmwZtKkMrIxTZZ9KBVRoSTa0ySDpwFvIxjifjSYshmB1Q
+	 bE9wYt+LTDsxRmVcu3ytxTNXRfLkdaXgGg4TTd+gJuyNkg3ZGHDsmlRi+S2C7X2HD8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6CoFTtW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53E8607E49C;
-	Sun,  8 Nov 2026 20:24:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E786080305;
+	Sun,  8 Nov 2026 20:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EE11F008A1;
-	Sun,  8 Nov 2026 20:24:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6CoFTtW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7B01F008A5;
+	Sun,  8 Nov 2026 20:24:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169481;
-	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
+	s=k20260515; t=1794169492;
+	bh=jHkSu/I6sjJZj+dKlK5gxac5YS6LoMiyJZobd62YxK8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=elHQVnEmPD/DaaExD+FliiO6OyYW7cBbS0UGyDBxy997EYWb9R+B43QEslsxIKTiP
-	 OLzgB9qXNLE45eU4Q/nAhYj6qpaYbbVImcoxljoJcfY8VuMnmdIzcdkXJYuvDoE5ZM
-	 iSKr/9RO1K71gW4SM65KnePjbt6gqc5WVM1zbtLSok8SIsdk/2AiUrlbGYSA8NeqFs
-	 rRmGtqqktk8AUh0OpB677+6WyxV1VZjjHiTH4OLLqIZMQifcJFMk539YYZCoTPlHVQ
-	 8SMwpOXL2l8UPTe9Q5bce6UtZamChWRdLJuwZuqwGJ/MzRgh138NJxTjmgIXEh3LYH
-	 7P9+Oi+cuPYRA==
+	b=P6CoFTtWVHOFhItaFGlw0J2ZZ3yon28AoVfd9unMHwl5BWeK09crAtu/bD6ekFhXB
+	 y64i3yYgPd7H35inBanSXoycGjsQtHeo6k8FthmKhbv1tpJ54adOTfL3VT2PPhgXjU
+	 ifcDFRjS/vX/TjMaBF9iDAuWDijZ8QSl6dK/mOIXXOsVzjHng7AkHnaXstti4Ny/3M
+	 2Re7j0C4iXjy1RRekSrP/WrX+EY9mDQu9Jmo0Wsj8bzqnnFc+ZKKTHwOUwkxH15uXL
+	 cJKiWxI+hGoKIe522Ewo/7DA38x1WwjbdtHXlkCclDh6Io6NcCei8zUwogxq7rYUmd
+	 wbO8XMK2ZSXog==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-	Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	devicetree@vger.kernel.org,
+To: konradybcio@kernel.org,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: Introduce SA8255P as Lemans family SoC
-Date: Sun,  8 Nov 2026 14:21:11 -0600
-Message-ID: <179416929532.628393.8073843162038778455.b4-ty@b4>
+Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: monaco-arduino-monza: Prepare JHAT 40-pin connector for HAT overlays
+Date: Sun,  8 Nov 2026 14:21:20 -0600
+Message-ID: <179416929506.628393.8425349389039809053.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
-References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261028214551.108424-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261028214551.108424-1-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,22 +70,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 31 Oct 2026 21:10:36 +0800, Shawn Guo wrote:
-> While the patchset [1] supports SA8255P as a standalone SoC, this series
-> offers an alternative by introducing SA8255P as a Lemans family SoC.
+On Wed, 28 Oct 2026 21:45:49 +0000, Srinivas Kandagatla wrote:
+> The Arduino VENTUNO Q board exposes a 40-pin JHAT connector that is
+> pin-compatible with the Raspberry Pi HAT specification. These two
+> patches lay the DT groundwork so that HAT accessories can be wired
+> up via overlays:
 > 
-> Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
-> platform resources like clocks, regulators, interconnects etc. are
-> managed by HLOS, and GearVM variant (SA8255P) where they are managed by
-> a VM acting as SCMI server.  All Lemans family SoCs actually share the
-> same hardware configurations like memory maps, interrupts, DMAs, etc.
+>  - enable I2C0 and SPI3 on the JHAT connector and add the i2c0/spi0
+>    aliases, covering accessories such as the Pimoroni Automation HAT
+>    [1] which uses I2C for its on-board ADS1015 ADC and SN3218 LED
+>    driver;
+>  - add a label to the sound node so audio HAT overlays can extend it.
 > 
 > [...]
 
 Applied, thanks!
 
-[5/6] dt-bindings: arm: qcom: add SA8255p Ride board
-      commit: 8f1791c25b66388a2ddd2dc0b84aae08fe77dce6
+[1/2] arm64: dts: qcom: monaco-arduino-monza: Enable I2C0 and SPI3 for 40-pin JHAT connector
+      commit: 7a6161e50fbd5d16cb53614ac92d0050b57bfefb
+[2/2] arm64: dts: qcom: monaco-arduino-monza: Add label to sound node
+      commit: fa29e3ea0785796fa450d8f91ffe83c637a2e1a1
 
 Best regards,
 -- 
