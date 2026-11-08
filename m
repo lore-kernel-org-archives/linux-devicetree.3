@@ -1,115 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147778;
-	b=Ha7vAHpJaNtIbo+2trHZxvxTNinu2eDCjrVgWZDjZArk6QN5epFbU/RuSNv2FRfEQPIK
-	 SSyejBOH/+HWCnqGSWRoYoU2+2AUGWXoU4J8Hs02r7ca+kT9xljhE9z66FT4qgUD8j1Z9
-	 fRlKN1h88R+ieTZho332yU/sPecAKgMzDV/KYhPwoBym0+4REnXkLDm8KUUX+LvGKOMFP
-	 dZVwbv777DFmmLj4Y+aQEXcEu8n11yAYpIa82p83W5DcVLSPpfqda+y8iw20X7gB0Lgxa
-	 4oKKTr+q4nYuk+p+RCpReF3qK7zUDqnkjDihH2IVf7TeCGuXLaprElCmf44RO/YmKKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147778;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=;
-	b=jlMPfTqzjtFAC05398VEyZr6tNPQvDNUsa9JCKpQ2pHMb2EV4jRUuz2tvKfBZFcjXoS0
-	 b9ZXJTXy86Qd3Uo7PINJCn1H2BX2oMupnhWTjaRID1mS8/5TjMBC6cyOiwBwodpP8zEes
-	 qXIJMcjfucR08k4SCOHP4gBfaYCTsODKmVSUEnPnl697NQUfau+ZeTSdGZyghxGy9hUig
-	 +0daj83J1uOF4ap/beFRy8463GqICaK8o2o3kW2vfcMj4W0xbH5xziLXmGDE7DjoxaBol
-	 8R+1y4EVEqktExcU/nbkEqKyAJKJc5jpJCXV8B4pfRNbvN6aWrYiOVpJLW2QoLSbOXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P1qyvvqa;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=VqasOx12;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794149306;
+	b=wB838Stpt1GQAX8j10O+3RupJJt3D3gYUA8nCXx5aFPdQaW38Cen7zzaOLbCiYDjjMF+
+	 r6Aod8xyP9uR+4OsAuk58i+qQcSURfcR6APgfqD1oS9xwg7WDA3kyOMdC37qyPS6vAOkJ
+	 JmR6GLLN15JAiAoSk2cZz0pgGiBisil4kDUIya0/RML6fdfpL+zf9mF7V3Q3EYLJz1tiu
+	 R5N2i0TMqT39nNdBNQ+kkokFMTH+fAG9kyE+iwpGQ6hxEfIFHS/7Bfw2jpQLYr5xPaseF
+	 PreHTMCQ1XP/sHmV8x3t3yTm7luYl5eD7Gh3+3yHkVfNaMLF6KIz37oMO1TdoPpHcHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149306;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+	b=BsUUyxr5AHPOqX85tKTf7QkdkGlY0cZT85mWTZfhQ9j9ZO2LpukqAVPt3wcr/ngVMjM6
+	 zY/IfwY/jtdYcsIT02Wdf5CIkWpH4+bOc7y4ZH4eN8018/xUvZXFD2nCaXoFKPxrWlojP
+	 Vvnr6eGPCgh5p4XT2nYG5Sm2JteUc6L8f1TQzeaDd3G7Qg33xpNL6ZX6INvOgFKduKjpD
+	 X/VylhkhliQQfAXmLsIoH4GyVK+v6lMdL2QT0FWfHKVlca0IUZBygO+DtvxWFRdLttyWn
+	 Rjx9ExT9bUgUdm0wpb7aj5Y5+Co46lPFMpLT6zXr4fMn5rKwtZurjz8dlud3i9Fu0og==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M89O7Eav;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC41606A333
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 14:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABC41606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1880B606A321
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 14:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1880B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P1qyvvqa;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=VqasOx12
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 08FAA1400094
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:22:57 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Sun, 08 Nov 2026 09:22:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147777;
-	 x=1794234177; bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=; b=
-	P1qyvvqaxvQuU2Zqb16/NRPVib9d89UgSfgHMASgYY/skgYVEZva8YUQdgcM0E0G
-	4PrLV1fQleZcVnoa+kJvic0y+ISl2wQ8R4oidlj0xeh9Be3JTdzMTw7Jh7DUqERS
-	YRYa35sX5DppZv6nuOoWvN5E8Dbg2lGBrkBKGDOSdJfcUg2+4Ipg8d+DewDccMT8
-	aVSTfuE46aofjRYo+Ydx2TFyaWiiuj14HrDZ3BiQgfh1obkfUQL8onKNsBH3bBMj
-	uCRWVuqZLmN7IfFtCP/y0FdMdjtIrBb5WYPjMYW42iKs57gT7rQayuZmPkXZP4o3
-	ksSPxm1YkipMtcVh+mF2Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147777; x=
-	1794234177; bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=; b=V
-	qasOx12qUdPznG4L1H+OUr58fmAy051kNtsrr758TxdhuxtEwxYYdcHOeUC9KMKM
-	oVeDpcX3WmLIk/QY25AKox9OwSlygQ/J4OK6OJ3WjQenihRJfCSxOw6R8RUs5P0x
-	xcKkSmi8Qu+3tyfph/Tw4B2C4VnzXqdjSFSyDrMIajcd6AmdiC6Q9p/tKoKj26lV
-	oyc3RdemFH5rp+TXemMRONu4CMvOutp2F1msUKHrSW3ozKdIc4V+rys3D8GQfyBi
-	q3oWH+GUayXKghXCw6VVDzvrdUf9uDDz+wZ1kRcVXhp1KbwbNVSavwzxuc/HaY34
-	2p6b9S/S5iNEfd7k4wHWQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794147777; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:Qz0Ysi+z3S2az7+boznNjcJtjjSpP8m01JtaBse08ajZk9V
-	ki8kNT+ERHzu0a8Lcr0K7812yMDiYfLw9eqh6jjEm1OSh+bCvRnhDURQWaLU2pnv
-	PC/eM0zGicAe3HkgE3ZS+WaaYynubb7w1/tb/AnUBVFfpIV9yZ4LsJR2vr+kj3KY
-	3pU72Dorvn66qVFdWmjVeCw5EqNMB4o//WwOTO2Cq+gJoxWeDa2rSj1zzWYbuPjc
-	9NJsuTHpWXRuwSuqyNE1kH8Ezh40oA7NEyRfZK+dsUIPF8PuZUC8+LXhD46lzqr0
-	4uZ7P+E0YXUJzFmqYCMLW32YiUtJE02i+EzxrrQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0kLRbMVsEm5LotXwHYnzJehhpAoO6fySlBkC1Y53QFQ=:38WaFZSMlnnR6BRrfybqqIYKvxpuFmMHf44pTN+EAS4=;
-X-ME-Sender: <xms:wIXwaiAiQ9wX3T1RX9jNCSppwH-3M0FSl15SQuNJlv-iS92N_7TnSA>
-    <xme:wIXwat7e2LB_b48ScEQRdU5dE2ArxPGQrC9FN0oqmG8tpDSL0JUZ3n__C-i6sRLxk
-    zbX2no9ugu7oNm3xuUvjhhf-YzJRdXNbul8NFTCuwxLmk2R4kmX_Q>
-X-ME-Received: <xmr:wIXwau0X8bgTcFURfiWS6MI5nwKjSh-dKgTv3JuXGC71hH_97hr49y1I5nB81N29DX-IpakrZCc2KJs1sab6ar3wppYu7tTqGX4>
-X-ME-Proxy-Cause: dmFkZTGo3CfmNkGVcoCqQm+2xF5BgQTQHLEob89QGgMg/fmpPsx9Ba22YEWDsCMCAsJVht
-    iPMwYglQfWngG0EQiTCIk1j//mHbmcbWVDR0k5U/uGGvuPWIdI5VF0QmVDi2K9omMvQXse
-    1SsImkgs2/+NnGnQwBHgKzDKk3rdaZCpy9lOm/CBgsoPRaB2SL90jN/DpplvLkjqri7DRF
-    34GZFZT6mx2KG6dtb3J1oKeeuxv77VarACJ5K9flwFuG4XW+zRuJ4up6S+R6m6RCgUFeXK
-    suuZS7ohMrlLQBXad0P686p3sxTyrb8JLChbCEM521ZgNKvK+lIcmDaAFt7tO6sNGMYcXc
-    ERWeo+bc0+cJk00Nc1WuHBj4r2aWD0sY5QgTsRBu11aBmc2RbF0NVzOMWi/ky0pLGb5jG5
-    xgpLLBw69wEh56SbLbjxtuaNMIER9vRNau2PW3CPQL/xjo8klgzL7DAaz4BmHd/8yQrtPy
-    8swXaLzCNR5u3LXhviVURghCNt0sRL3L42uaPEvbipWbXQYNzhcdOTwPzLuv64z0X7QsLk
-    Y3NCH6ASQ/raumVNH1dVG+7ISJtSwu1FyVlVCKg5/Zbqps5Hhhq4OcwLlyKPR86tGOoKoI
-    C2d7OuGoTfnsap6BU3lLGgcBxnL4l1JTRlR/rWTaCbH89dXB0QuHUizxFWlg
-X-ME-Proxy: <xmx:wIXwapDUmPLK8OCsTVgICrT60ZXVfvOr9X9lXC-41lcbgm5vYsyLpQ>
-    <xmx:wIXwauHqcYRwb8RNHdROFOHo7M8gMtAeOlUto46gIubJxYAjS8KSEw>
-    <xmx:wIXwamSF1nc2A4uBmvIE6Ae27Fxe2nZ6N1knli7xnXeH6R3I5tybcA>
-    <xmx:wIXwatP1TSQI06zPg_SmbCZPM5V4JcxASevN2qD3R6NGQEX4PtODKA>
-    <xmx:wYXwapA60ATdUerfQmZyTFE2mWCZdwJ7rMnl_58_2FEyjOlM1rd6BdSD>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 09:22:56 -0500 (EST)
-From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 15:22:37 +0100
-Subject: [PATCH v2 3/7] arm64: dts: apple: t6030: Add PCIe nodes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M89O7Eav
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so544995e9.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 06:48:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794149304; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eDQiHmGUexzbdCb1B/e6hgsPH9DXlAA9ApH33qh03XH6kaGowWliuShBqblZ5HEfkG
+         Yp6ZGmNknH/6Rt0fVKiCdAHb03o6iHkfEZvFVAAg5+gnoS8npt2ds7MqTMh9VwV3cXJy
+         EaZ5xvXdCYmcLk0qtycbvU180B/Zbz8YgY8PXUo77DA0yIDxe3i4IL8q2DK/yXeMWkQY
+         ifQBxNi3grEpCuI6etV4SdQNO96SyHSfSWWU9JuDlnaEExJJGgSIFCZ0YwxXSnlm8IVr
+         1AAKOV55psn7X8dro1A4GmGgWhaak7xz5iD5p+HNituv1mODO8Pjkb8yNXOKTdT+fR5o
+         rkBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        fh=AH17WySX/yext3Jtf0uuXwk7wKIZCPoq/IrpdJs8f6Y=;
+        b=tCmXzddrVynV/EYgQ3QXFpF6fopWnrsL6UiWmp1aOUj89vuX14MCGz0A2Z28zWhr/N
+         Mju69YLEWaY6xhQ8KtqpJh+QuxMlbR/xxh13VZU75PSSzoC/Y+aO0Chj5qnvhW2996qG
+         E5OFux1SxLI3PMRVozd54wThvpk7e+0VsA+hvjOF+5UV/YnPf549ofCNgCxMeuFzwKxs
+         qHqExdX+fdBHWC3Iwkr/Afn5HMY7Hch2D7UCpwaZq7oGJe6Gl/XSLWEUhWyPMfg5MdRL
+         bBs4qrzqgsX4g7ETZWFSqZMZsLNTXOUSJgwfBYxHC0FF1j/U4y4mDwJr8USq0GN0ecna
+         dO6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794149304; x=1794754104; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        b=M89O7Eav+NpL1KqjMFVjw5iimIbpfy/0FQfp5RsxTeLQo/jL4ljSEZt+csLG0XgNQG
+         7gmTLcUa3Ox1lX+Cq+ptOazATthaTntkflV6T0LnwYHpmzkv7JBIROJfcp3grtuzuZ5o
+         +xvuRc6fZ43kmkCyGHMLQcDhcZXphFCeGHi4i2+tXEOFB7lyTIu/ICjylpIPF08BEQDF
+         bZFmY5k2cqcKVdQg3gdw3mcXTaS4Z0bCA2KTwChkyMQ/8XERMIcV4hXcQ3r76D7Ods36
+         6KArQhsNgtsOLOEtt4ZnfwUIPNNjnjKq+Q4EgDoGy/hUCfjf+/dDa0GWJYMrgpRjXT7r
+         Wt8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794149304; x=1794754104;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        b=H/oYK2Z8V/9KOl6neHcUSrpukFo5g+adqoflh7w0EGKMyhq1eMHVvUIYNTJvHhZKL4
+         rFCDziIq+pjNHAHUN/mYxtrVpZw4Jd15YSDLnPd7jQ2WBrqk96DG5bs+nRlUqgpqSxt/
+         NS8ljKWztPLXkZJd0qX9fcPNqLDqyggY1cVslyxHPp+GpHPLsJ1KrjQe2EW2jCP+7HA9
+         KVrEckQhVWx25+BnLthrlaDR3w1ZpfcdaoYkqFeCfKZ+Q+QzXvHZpRsqz5FfK2PuTCOV
+         lKJrr1SgpTSJwAn15mmx5wBd1DFQDPDjTsNwM6rkhNYYW546HPET+skJYv+9SKhe7y//
+         Qtkg==
+X-Forwarded-Encrypted: i=1; AL+hErHtgvrgBMMTdf/5plABBcLKgf+kELsBTQfZP9Fydrcsej5X5DAqryS/7RY2tffiOUKCE2p5KdxOxZx1@vger.kernel.org
+X-Gm-Message-State: APuU4Z9icbwmuu0hYCcv2MP02b05+4sbftBZWGK6Z/tpIKHuns/mNlkl
+	vjHVG4gdzH0yoXMF7ELZVuW6+9UOPjFdEWhtywUkTUP1xGl9UZzQYz5ZSuO1J/gnZ9uk3pojxYl
+	Ymg1CQAkpvyPqlxvjWaI/QkCTdczzqb4=
+X-Gm-Gg: AYBFou1IW/6tocEL5AB7gI+TElDO7TNWK9vThM3PjjE89vuljM1OLlHKMo6STBcrKzv
+	PdTSFz6Akz8VMURBGBMi9PJv7idXFmJTCGh+T1ugfxIUBVfmFOyT/jVclWiz0nyFE2JMopTUep1
+	cP3R9euVq71qNfx6UVPl2Qc8yiW/R5cWQdjYb/aBlgDxu9DeFUkT2/a1j0iNo0jUJUWoEIlrP+l
+	RuzuTiu4a4h6GOHiYCjJLLtOdWxfwu/gQT86tE6oKLIRYaZWYAn4j1nmMURm0tPj1R77V7A9Hbb
+	tMM81wW/x8zsyrxOKKzMA+3/5HXv/358hlYntDTgG9NH4UypbymnIY/CP4G8iVIWaYVQHdMbZR6
+	a1NXQz5mnXxjAHxeZh8vmtBQw9ZBaXcx1bMJKYw3Roxoip6HC/4KvokNqjkUq0EAPBmRfQvY=
+X-Received: by 2002:a05:600c:800c:b0:4b6:267a:dd6e with SMTP id
+ 5b1f17b1804b1-4b963c9b704mr33733845e9.28.1794149304259; Sun, 08 Nov 2026
+ 06:48:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,234 +103,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-apple-m3-pcie-v2-3-0e5ffec71da4@jannau.net>
-References: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
-In-Reply-To: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
-To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
- Joshua Peisach <jpeisach@ubuntu.com>, 
- Michael Reeves <michael.reeves077@gmail.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6143; i=j@jannau.net;
- h=from:subject:message-id; bh=38WaFZSMlnnR6BRrfybqqIYKvxpuFmMHf44pTN+EAS4=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrVt31Z6tMtf8Nv+fH6/cos0TdKtK10gc+nYke9liu
- R6TZNU3HRNZGMS4GCzFFFmStF92MKyuUYypfRAGM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFRn+jMynFl/3c/I892aQ9z7lSbNXZkeGhvhd+3l9rTT03Lvz87Zu46RYUFj3VT
- jGe5r9mQ8kE7YW9Au5/lP//bv11U77A4HivbI8QMA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+References: <20261105-tle493d-v1-2-3246e91e6394@gmail.com> <SN1PR12MB25289B6D8FD76DE3160299B5A5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+In-Reply-To: <SN1PR12MB25289B6D8FD76DE3160299B5A5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+From: Viral Patel <viral8854@gmail.com>
+Date: Sun, 8 Nov 2026 20:18:12 +0530
+X-Gm-Features: AclHuK8k8SGGyofgHCdVBkLXPFoEz1YfhP16T0j4rlTWnfJa_LPLI57xmzGezk0
+Message-ID: <CAFkCdFzQBHMc1CvOJFQY+mtepU12UrEQfWyNdY+rWUYW5CG7tQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: magnetometer: add Infineon TLE493D-W2B6 driver
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	dlechner@baylibre.com, jic23@kernel.org, krzk+dt@kernel.org, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com, 
+	robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add the PCIe controller, its ports, IOMMUs and clock request pins to the
-base M3 Pro .dtsi file.
-M3 Pro is only used in 14 and 16-inch Macbook Pro which connect PCIe
-devices to the port 0 and 1.
+On Fri, 6 Nov 2026 at 19:13, Victor Chernyakin wrote:
+> > Based on the TLE493D-W2B6 User Manual v1.11 and Datasheet v1.2.
+> >
+> > Datasheet: https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle493d-w2b6-datasheet-en.pdf
+>
+> You should link to the user manual too, since that's where most of
+> the information relevant to programming the driver is.
+> I see that it's not available from the Infineon website without a login,
+> but it's easy to find elsewhere:
+>
+> https://assets.sourcengine.com/datasheets/c9ebe749-34ab-4924-ab2b-aa7d4dd15e25.pdf
 
-Signed-off-by: Janne Grunau <j@jannau.net>
----
- arch/arm64/boot/dts/apple/t6030.dtsi | 165 +++++++++++++++++++++++++++++++++++
- 1 file changed, 165 insertions(+)
+Agreed, thanks. In v2 I'll link Infineon's own copy:
 
-diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/apple/t6030.dtsi
-index 85a16d03e22f..4bac0fbcea8c 100644
---- a/arch/arm64/boot/dts/apple/t6030.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6030.dtsi
-@@ -7,6 +7,7 @@
-  * Copyright The Asahi Linux Contributors
-  */
- 
-+#include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/apple-aic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/pinctrl/apple.h>
-@@ -431,6 +432,14 @@ i2c8_pins: i2c8-pins {
- 				pinmux = <APPLE_PINMUX(51, 1)>,
- 					 <APPLE_PINMUX(50, 1)>;
- 			};
-+
-+			pcie_pins: pcie-pins {
-+				// clkreq pins
-+				pinmux = <APPLE_PINMUX(163, 1)>,
-+					 <APPLE_PINMUX(164, 1)>,
-+					 <APPLE_PINMUX(165, 1)>,
-+					 <APPLE_PINMUX(166, 1)>;
-+			};
- 		};
- 
- 		pmgr: power-management@350700000 {
-@@ -579,6 +588,162 @@ nvme: nvme@38dcc0000 {
- 
- 			apple,sart = <&sart>;
- 		};
-+
-+		pcie0: pcie@580000000 {
-+			device_type = "pci";
-+			compatible = "apple,t6030-pcie", "apple,t6020-pcie";
-+
-+			reg = <0x5 0x80000000 0x0 0x1000000>,	/* config */
-+			      <0x5 0x91000000 0x0 0x4000>,	/* rc */
-+			      <0x5 0x94008000 0x0 0x4000>,	/* port0 */
-+			      <0x5 0x95008000 0x0 0x4000>,	/* port1 */
-+			      <0x5 0x96008000 0x0 0x4000>,	/* port2 */
-+			      <0x5 0x97008000 0x0 0x4000>,	/* port3 */
-+			      <0x5 0x9e020000 0x0 0x4000>,	/* phy0 */
-+			      <0x5 0x9e024000 0x0 0x4000>,	/* phy1 */
-+			      <0x5 0x9e028000 0x0 0x4000>,	/* phy2 */
-+			      <0x5 0x9e02c000 0x0 0x4000>;	/* phy3 */
-+			reg-names = "config", "rc",
-+				    "port0", "port1", "port2", "port3",
-+				    "phy0", "phy1", "phy2", "phy3";
-+			ranges = <0x43000000 0x5 0xa0000000 0x5 0xa0000000 0x0 0x20000000>,
-+				 <0x02000000 0x0 0xc0000000 0x5 0xc0000000 0x0 0x40000000>;
-+			#address-cells = <3>;
-+			bus-range = <0 4>;
-+
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1038 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1047 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1056 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1065 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			iommu-map = <0x100 &pcie0_dart_0 1 1>,
-+				    <0x200 &pcie0_dart_1 1 1>,
-+				    <0x300 &pcie0_dart_2 1 1>,
-+				    <0x400 &pcie0_dart_3 1 1>;
-+			iommu-map-mask = <0xff00>;
-+
-+			msi-controller;
-+			msi-parent = <&pcie0>;
-+			msi-ranges = <&aic AIC_IRQ 1342 IRQ_TYPE_EDGE_RISING 32>;
-+
-+			pinctrl-0 = <&pcie_pins>;
-+			pinctrl-names = "default";
-+			power-domains = <&ps_apcie_sys_gp>;
-+			#size-cells = <2>;
-+
-+			port00: pci@0,0 {
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port00 0 0 0 0>,
-+						<0 0 0 2 &port00 0 0 0 1>,
-+						<0 0 0 3 &port00 0 0 0 2>,
-+						<0 0 0 4 &port00 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 167 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+			};
-+
-+			port01: pci@1,0 {
-+				device_type = "pci";
-+				reg = <0x800 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port01 0 0 0 0>,
-+						<0 0 0 2 &port01 0 0 0 1>,
-+						<0 0 0 3 &port01 0 0 0 2>,
-+						<0 0 0 4 &port01 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 168 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+			};
-+
-+			port02: pci@2,0 {
-+				device_type = "pci";
-+				reg = <0x1000 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port02 0 0 0 0>,
-+						<0 0 0 2 &port02 0 0 0 1>,
-+						<0 0 0 3 &port02 0 0 0 2>,
-+						<0 0 0 4 &port02 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 169 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+
-+				status = "disabled";
-+			};
-+
-+			port03: pci@3,0 {
-+				device_type = "pci";
-+				reg = <0x1800 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port03 0 0 0 0>,
-+						<0 0 0 2 &port03 0 0 0 1>,
-+						<0 0 0 3 &port03 0 0 0 2>,
-+						<0 0 0 4 &port03 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 170 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		pcie0_dart_0: iommu@594000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x94000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1039 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+		};
-+
-+		pcie0_dart_1: iommu@595000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x95000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1048 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+		};
-+
-+		pcie0_dart_2: iommu@596000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x96000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1057 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie0_dart_3: iommu@597000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x97000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1066 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+
-+			status = "disabled";
-+		};
- 	};
- 
- 	timer {
+  Register details are from the TLE493D-W2B6 User Manual v1.11, which
+  Infineon provides after a free registration:
+  https://www.infineon.com/gated/infineon-tle493d-w2b6-usermanual-en_dc6d4e62-cde1-4d4b-87bb-c3368e25e35c
 
--- 
-2.56.0
+I'd rather use the vendor URL than a third-party mirror, which might
+not stay up.
 
+> > +/* I2C addresses selected by IICadr, i.e. the default of variants A0 to A3 */
+> > +static const u8 tle493d_i2c_addrs[] = { 0x35, 0x22, 0x78, 0x44 };
+>
+> The manual seems to list these addresses as 0x6A, 0x44, 0xF0, 0x88 (Table 4,
+> p. 14). Can you explain how you go from those values to the ones in
+> the code?
+
+Table 4 gives the addresses in 8-bit form, that is, the 7-bit address
+shifted left by one with the R/W bit in bit 0. Linux uses 7-bit
+addresses, so 0x6A >> 1 = 0x35, 0x44 >> 1 = 0x22, 0xF0 >> 1 = 0x78
+and 0x88 >> 1 = 0x44. The hardware agrees: the driver probes my A0
+part at 0x35 on a Pi 5.
+
+I'll add that to the comment in v2.
+
+Thanks,
+Viral
