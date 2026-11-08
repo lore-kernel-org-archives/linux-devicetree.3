@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794160587;
-	b=0F8qF9EWf3+Oads+tnYxkrhWnclfAgJZ7F9DN2vtd4XJzetQ+DE27xe+NXvyTkx9kHRK
-	 FDLhJ/F9P1N3edcGLfpz6O/oQ+3LtlFb1n476Rjbz4TTKtGU++hwzkeF5n30AyF2h++6l
-	 feiKYgtOHuzJuYDWG8EtlHutzTIiZTpUae3SQ60iwqFwHMeHpZEAsB6M+Wrny0Kdqrnsy
-	 xi0VPDn7U+DobvVO07X9OuXRnZmIhUms3DfKgGB14jPS/ikvAkixcIx5G5XTTdW4FlHpf
-	 sA5+J/Fj0aNDLGS8ZY+9p2jxnaGI+OLj5Xn/ytzCokunLG0K4581Gqu3fN99ZTSyjrg==
+	t=1794161239;
+	b=KelDo54zT25bGxsmLpkDGt2tdKSVMhBJxDN8myGSodNTJ1GBpswGVgRXaicbcCOnd2X9
+	 OQhqfG0Wm0RMiQOR97TvLoau9EM2yEPX4lCVZf5yk8RwJXeeygUphwK/lgy5po/5r/hRh
+	 6YgRLG9W1Pf3twRD4+zIKWwNjEHN9HXB3lAssdzUZbkzvXc/5vjXuNmUVDMMUVJw+YSCh
+	 PLa0O0jknEFOvg9TGqY87kiuHpdKLsCBBfrW0U83aKOFafWR2198+MeIQOobKi3tXEQNv
+	 7Tr+OHgu3T9cb7JEPT9lMTdkWAEfe6pWYjdh3/y8Mco9s4JGriexUe5ogkM4vBKCTZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794160587;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=E4ws0ipHUP39KmaqfV+8bszyUiNRG8BNvzIQTxXOAwA=;
-	b=nJPiCcnmrEUEDubisoOEyon3S55QNyuw7kvbKeZgK7uYQM6SwmtjEDzV5FDoJrMdkd5b
-	 7BIH7hpeZOWaNYpx76sdOrm6cMSY9rdAUeGQo4PU4AagtU517cUAD0hd7oKgpoRse78gE
-	 9UpCYMU4xDtPhqzwjYT8PomaHFk5OF8IJqIeUASno6Gf/ge3jkJjjxQKyINjTg4e24pnN
-	 Hvmt4p5m1r1oGQLBIxCgzgadIa7JzGiCLTn1CPyjBfY/Ok/a05MXNFaI4xpBXcyRrLwhJ
-	 HYlDzt72NNUZGhonLSYO2vyw34MP83ODREBE5dzA219qShZkqcaGB7i+0K9UsZ5igJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161239;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HxfvaLA8cIY3Y2v91Caf1CvLUDTO2eAy8BOKMcGFWJA=;
+	b=eZYx4OrN6zRYwQAO2GRiZucOIYJTMgu39PuN8qxNJ9Qd5/MDEDnztP4s0XnLKTlNhIS+
+	 yXcs2XfefXX6JIPhRYKg+mEBztektNJdNduwiPZRH+0qg2wilZQhc/yFQ1yiI7Mi0fg+0
+	 C2u6Pqdru0DjAPxXmKmY1F0qLZnUQOf/BLM4C2a1QG3vU4Jrj6k2Uf5pEIkL8w3pTfG/3
+	 tFRPzl3/uNzKCUvI1S3TreUX9CZk/uk76BEmyCfMu0flfcu8V7hb2MuEOEiKbqtsFgGzL
+	 /RjR48lnMEhba1n5OIjfLDJzX43OLT9Ir2GsfSy5pmiRcyto+e0Px7tgO9xXRL2Gsuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=kyG8tr04;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lr52LkXB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3811D606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 17:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3811D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00782606A31C;
+	Sun,  8 Nov 2026 18:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=kyG8tr04
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id Q10axl7oh4vCDQ77yx1l6s; Sun, 08 Nov 2026 17:56:26 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Q77xxxjOqb2qJQ77xxJUu5; Sun, 08 Nov 2026 17:56:26 +0000
-X-Authority-Analysis: v=2.4 cv=A7tsP7WG c=1 sm=1 tr=0 ts=6af0b7ca
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=8b9GpE9nAAAA:8 a=ZdWTtX0RdJLCUevRbrYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=T3LWEMljR5ZiDmsYVIUa:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=E4ws0ipHUP39KmaqfV+8bszyUiNRG8BNvzIQTxXOAwA=; b=kyG8tr04BsGk
-	9hIkCP5sZ5ifCDsJQeTdkRoVhaOyiQFY3GYePKlgAOWBDYVlqTtIqFydpU8e0xglfQLaCuUSxyCau
-	EVpFtU4hvji4ygWVximV7fEw1zorkO0rrmVui49F9BzbfemD86cjVVW5v7CDwwL1ZOxZZzgSihaw8
-	g1IR/ZbIRxrlXNyBVvwET9rS2VJw1XPMkUktsKY6Q0Jrj+9bd3R+N3NiZ7kcoPXeLp43ReV5xJMKW
-	SwB9vArOspLR5rPs1DW9QPpReeZqpxN7RivdldeJcBFKuN9jZhmiahCC6oBdHHdcwHNn78FLKbFD7
-	P6FlyJpzvP78wRKoyBT7Uw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52810)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQ77x-00000002C9A-1fbi;
-	Sun, 08 Nov 2026 23:26:25 +0530
-Message-ID: <a6460db0-8df6-4427-9ecc-277f2f575d39@roeck-us.net>
-Date: Sun, 8 Nov 2026 09:56:24 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lr52LkXB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967221F0089F;
+	Sun,  8 Nov 2026 18:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794161238;
+	bh=HxfvaLA8cIY3Y2v91Caf1CvLUDTO2eAy8BOKMcGFWJA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lr52LkXBQjd07p503ZMWIY6H63zFhwEnu2bTkmiIfJwPBX8MT+OQaiUDmeIia6byD
+	 +L9iPPpJjVjrACTumZY3Gh8Lvi+pF+b6RHjnP30Uk1k6CtnafNXlOn7oTqyDXCy9SV
+	 V70I00zOtDpA8sljfpJvczt5M+O6WELX3aZ6Z40G8Y32NQF7Kvz2z+QbVgiWxYFhry
+	 9nrtziiDkeOE7tn++lFmaaMhiLNTDcoATlEzphIKuOE2v6sXgvWFhC2ME0UxSq3bjz
+	 Kaj6XrZJyPsVRXpYh6cjWtzkHiaj8OW9Qbb1aBLBVLOyZ602OXj8ovWtyuI+XwJGQw
+	 +8PBhrhIhVmxg==
+Message-ID: <sashiko-outbox-203896@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] clk: qcom: segcc-nord: Add I2C and TSC clock
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107-gcc_i2c_tsc_support-v1-2-433d02972d7e@oss.qualcomm.com>
+References: <20261107-gcc_i2c_tsc_support-v1-0-433d02972d7e@oss.qualcomm.com>
+ <20261107-gcc_i2c_tsc_support-v1-2-433d02972d7e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 18:07:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,147 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] watchdog: stm32_iwdg: detect whether the
- watchdog is running
-To: sashiko-reviews@lists.linux.dev,
- Antonio Borneo <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
- <20261106163429.618392-3-antonio.borneo@foss.st.com>
- <sashiko-outbox-201895@kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <sashiko-outbox-201895@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQ77x-00000002C9A-1fbi
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:52810
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMHQnWDRXyoT+Q/aIR9nLFqleCaMHNXe+9LzzrTIPAfxa1Mv7koYIXX4XADHEZkKwtvCmTs/0gJD9JaBusO6LOf51xCZeADrMIfS53Xxx5hZryt+6oSC
- APiAY3jQSnACyCTPUT0LAQT3YPkkEdbWzcN5oBuBbY8ZDgwqcwaJKHCQwNT4pdx3Kf7zXJq45XHW3oLD22LwVwR5mGPXCuNfbg04PfbXpchLtyF+3BnyvQVh
 
-On 11/6/26 09:05, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [High] watchdog: stm32_iwdg: unconfigured timeout in
->    stm32_iwdg_probe()
-> - [Medium] watchdog: stm32_iwdg: WDOG_HW_RUNNING gated on Kconfig in
->    stm32_iwdg_probe()
-> --
-> 
-> commit 7c2acc17f93336becc29a7a139de848c3db25624
-> Author: Clément Le Goffic <clement.legoffic@foss.st.com>
-> 
-> watchdog: stm32_iwdg: detect whether the watchdog is running
-> 
-> This commit adds stm32_iwdg_is_running() to detect whether the watchdog
-> was already started by an earlier boot stage and sets WDOG_HW_RUNNING in
-> stm32_iwdg_probe() only when it is running.
-> 
-> [Severity: High]
-> In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(), does
-> removing the call to stm32_iwdg_start(wdd) leave the hardware prescaler
-> (IWDG_PR), reload value (IWDG_RLR), and early-wakeup interrupt
-> (IWDG_EWCR) registers out of sync with wdd->timeout and wdd->pretimeout?
-> 
-> When stm32_iwdg_is_running(wdt) returns true, stm32_iwdg_probe() now sets
-> WDOG_HW_RUNNING without programming wdd->timeout into the hardware or
-> reading the bootloader's configured timeout back into wdd->timeout.
-> Because stm32_iwdg_ops provides stm32_iwdg_ping() (line 162), which only
-> writes KR_KEY_RELOAD to IWDG_KR, the watchdog core's keepalive worker
-> schedules pings at half of wdd->timeout while reloading the bootloader's
-> counter value. If the bootloader configured a hardware timeout shorter
-> than wdd->timeout / 2, the watchdog expires and resets the system before
-> the next keepalive ping. Even after userspace opens /dev/watchdog,
-> watchdog_start() in drivers/watchdog/watchdog_dev.c (line 261) sees both
-> WDOG_HW_RUNNING and wdd->ops->ping set and calls __watchdog_ping(wdd)
-> instead of wdd->ops->start(wdd), leaving IWDG_PR, IWDG_RLR, and IWDG_EWCR
-> unconfigured.
-> 
-> [Severity: Medium]
-> In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(),
-> should setting WDOG_HW_RUNNING be unconditional when
-> stm32_iwdg_is_running(wdt) is true, rather than gated on
-> IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)?
-> 
-> In drivers/watchdog/watchdog_dev.c at line 1099 in
-> watchdog_cdev_register(), the watchdog core checks watchdog_hw_running()
-> to pin the module and device references and to evaluate the runtime
-> watchdog.handle_boot_enabled parameter. Gating the check on
-> IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED) in the driver prevents
-> the core from knowing the hardware is active when
-> CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED=n, breaking the
-> watchdog.handle_boot_enabled=1 kernel command-line override and skipping
-> the module/device reference pinning.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] clk: qcom: segcc-nord: erroneous DFS registration of
+  se_gcc_cnoc_i2c_slave_clk_src
+- [Low] clk: qcom: segcc-nord: duplicate 19.2 MHz freq_tbl and misplaced
+  RCG definition
+--
 
-Sashiko has a point. CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is supposed to be
-handled in the watchdog core, not in watchdog drivers, and it is supposed
-to be a default value that can be overwritten with a boot parameter.
+commit 5e0b8aed90909a3578c24b44cabdb5fafa31fe1c
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-Having said that, please let me know if this is intentional. If so,
-I'll apply the patch anyway.
+clk: qcom: segcc-nord: Add I2C and TSC clock support
 
-Thanks,
-Guenter
+This commit adds the I2C slave and TSC subsystem clocks, reset lines, and
+GPLL1 parent PLL definitions to the Nord SE GCC driver.
 
+> diff --git a/drivers/clk/qcom/segcc-nord.c b/drivers/clk/qcom/segcc-nord.c
+> index ef97da3852e35..7fdfa44fb1036 100644
+> --- a/drivers/clk/qcom/segcc-nord.c
+> +++ b/drivers/clk/qcom/segcc-nord.c
+[ ... ]
+> @@ -189,6 +207,43 @@ static const struct clk_parent_data se_gcc_parent_da=
+ta_4[] =3D {
+>  	{ .index =3D DT_SLEEP_CLK },
+>  };
+> =20
+> +static const struct freq_tbl ftbl_se_gcc_cnoc_i2c_slave_clk_src[] =3D {
+> +	F(19200000, P_BI_TCXO, 1, 0, 0),
+> +	{ }
+> +};
+> +
+> +static struct clk_init_data se_gcc_cnoc_i2c_slave_clk_src_init =3D {
+> +	.name =3D "se_gcc_cnoc_i2c_slave_clk_src",
+> +	.parent_data =3D se_gcc_parent_data_2,
+> +	.num_parents =3D ARRAY_SIZE(se_gcc_parent_data_2),
+> +	.flags =3D CLK_SET_RATE_PARENT,
+> +	.ops =3D &clk_rcg2_shared_no_init_park_ops,
+> +};
+> +
+> +static struct clk_rcg2 se_gcc_cnoc_i2c_slave_clk_src =3D {
+> +	.cmd_rcgr =3D 0x13034,
+> +	.mnd_width =3D 0,
+> +	.hid_width =3D 5,
+> +	.parent_map =3D se_gcc_parent_map_2,
+> +	.freq_tbl =3D ftbl_se_gcc_cnoc_i2c_slave_clk_src,
+> +	.hw_clk_ctrl =3D true,
+> +	.clkr.hw.init =3D &se_gcc_cnoc_i2c_slave_clk_src_init,
+> +};
+> +
+> +static const struct parent_map se_gcc_parent_map_5[] =3D {
+> +	{ P_BI_TCXO, 0 },
+> +	{ P_SE_GCC_GPLL0_OUT_MAIN, 1 },
+> +	{ P_SE_GCC_GPLL5_OUT_MAIN, 3 },
+> +	{ P_SE_GCC_GPLL1_OUT_MAIN, 4 },
+> +};
+> +
+> +static const struct clk_parent_data se_gcc_parent_data_5[] =3D {
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .hw =3D &se_gcc_gpll0.clkr.hw },
+> +	{ .hw =3D &se_gcc_gpll5.clkr.hw },
+> +	{ .hw =3D &se_gcc_gpll1.clkr.hw },
+> +};
+
+[Severity: Low]
+This isn't a bug, but ftbl_se_gcc_cnoc_i2c_slave_clk_src is identical to
+ftbl_se_gcc_emac0_phy_aux_clk_src, which se_gcc_emac1_phy_aux_clk_src and
+se_gcc_i2c_slave_xo_clk_src already reuse.  Could
+se_gcc_cnoc_i2c_slave_clk_src reuse ftbl_se_gcc_emac0_phy_aux_clk_src and
+be placed with the other RCG definitions after the parent map tables?
+
+[ ... ]
+
+> @@ -1570,11 +1754,14 @@ static const struct qcom_reset_map se_gcc_nord_re=
+sets[] =3D {
+>  	[SE_GCC_EMAC0_BCR] =3D { 0x24000 },
+>  	[SE_GCC_EMAC1_BCR] =3D { 0x25000 },
+> +	[SE_GCC_I2C_BCR] =3D { 0x2c000 },
+>  	[SE_GCC_QUPV3_WRAPPER_0_BCR] =3D { 0x26000 },
+>  	[SE_GCC_QUPV3_WRAPPER_1_BCR] =3D { 0x27000 },
+> +	[SE_GCC_TSCSS_BCR] =3D { 0x2a000 },
+>  };
+> =20
+>  static const struct clk_rcg_dfs_data se_gcc_nord_dfs_clocks[] =3D {
+> +	DEFINE_RCG_DFS(se_gcc_cnoc_i2c_slave_clk_src),
+>  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s0_clk_src),
+>  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s1_clk_src),
+>  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s2_clk_src),
+
+[Severity: Medium]
+Should se_gcc_cnoc_i2c_slave_clk_src be registered in
+se_gcc_nord_dfs_clocks?
+
+se_gcc_cnoc_i2c_slave_clk_src is a fixed-19.2 MHz CNOC RCG with
+mnd_width =3D 0, not a QUPv3 GENI Serial Engine RCG.  Passing it to
+qcom_cc_register_rcg_dfs() -> clk_rcg2_enable_dfs() reads cmd_rcgr +
+SE_CMD_DFSR_OFFSET (0x13048), which is outside its 8-byte RCG register
+block.
+
+If bit 0 at 0x13048 happens to be set, clk_rcg2_enable_dfs() replaces the
+clock's ops with clk_rcg2_dfs_ops (dropping the enable, disable, and
+set_rate callbacks needed by se_gcc_i2c_slave_ahb_clk) and clears
+freq_tbl.  Any subsequent rate calculation when CFG_MODE_MASK is non-zero
+in the registers read as DFS performance levels will compute mask =3D
+BIT(rcg->mnd_width) - 1 =3D 0, leaving m =3D 0 and n =3D 0 and triggering a
+divide-by-zero in calc_rate().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107-gcc_i2c_ts=
+c_support-v1-0-433d02972d7e@oss.qualcomm.com?part=3D2
