@@ -1,62 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169410;
-	b=ZAjC//pXKcZ6i9VL8ADFAFPAlfvDPqrmple62CZe7i1pI/qNGbpYM6CnpjzYG4/2hKY5
-	 yWl4AC1piel9KZmhZYZB0SGehGsntN3Y8BY6XnYJ/nRLcUQpa+F1rfhBh2Mvx2z9ld3FU
-	 zvBAkHXNKbEbxPC4f7T3Ccjb9aV9hON39kFl0Lji537nP/krh5Q48gp9aTROKyWT8S71c
-	 oJ9h85T5hedLapvZpez0aHpouaPyydykRd1BUA4tRzYd8eLgOfcpsB0hCnu5BR/PyPNtA
-	 8CD2dqA71xDMcr7sOWVtobVGHP9KFpR7zqdMcqEUy0RL8lUxu56W4CfJWnqPDNiEduQ==
+	t=1794169412;
+	b=naabSJPr/pkiCtKboDSuhG5PcmSKGPtwUrUNJBkCEapTvYeacUSP1FKIspEh2q3fvn06
+	 jgxx259pUza+/FBdBMHMM0kYGyXvh7YxrJ17/+GmbeZi4oupNxzvV1dEdsxUYBtatnF2n
+	 CyimytwAPbiGJy06JJx8IqE9Om93VklmmcG9zm4lt5uhibeolY5rAzGXNc4oSEdU86XUV
+	 ndD9FxqKP/wQfEeC2xVIGfvuNWKfHjcgF13br2HDEhBkIQpg4A1OpWITzGEHBwfvrQcuE
+	 BpHKHq4YgRKIsKgdp1vg0IoUGNODG4BtJHVkPIIcrlDNn+c+ay4kysDRqnpOoB+IbXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169412;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
-	b=tdo9P2NPj0FpW+3LqfiYCbJP3WgYH2SC5wE/QJeJjDJoGnAbfiChZWq4Jpthbe621cdF
-	 KHQYYWBb4fGb6i+OkIwjyBcotRKfCSchaSN0AZg4eiW3JmrBSU+4jH7P4tm2IxTOd8ltV
-	 FRiiNoQX15GRORcxg8ru6i+wML2Apqk71thPvAssE0lcwf6tpS5IGP8D5fbBr7Yi8Z9gq
-	 /xc9krm4YYHgcnoLiqTSwNRIBq+wHOHokJvUlwxfdYAShqsAif8NkteTIIwsrPiJxPiZY
-	 P6nAA4DOBhiLTyujvqAVKARLnpguZ4qB3czqlKDTod0EtRtC+U808efrl/bg7uKQAuw==
+	bh=omPiQOZaJI0c60/o2S1s3kpUWM+uAh/TY1E5F9dNSRQ=;
+	b=3M+4hFQkWF2puGE2zxEftWlhueEv73ubI0gAJlJvPdbCQhhyHJF7nl1mx+sEkKOpufs5
+	 aLAWe9w37XZ8csdnqOm6yCDyWhn8wJwIc9fuHpPikH++BEKfLh7+tJrXY1JOZWcf4BIJr
+	 j6RDoHL7/htQ+SYVaW0qesMuqSwHgGTIy2hdObjoapHwM23Ibuanjd2FHqyfrggpBQ3Nr
+	 2WIK689zY0zL/bs7i5P4yd9qLy3Fwfuv8g7CutxM/cJVeiMJCZPZ8jQB1WAf0+2ot3q5l
+	 mfupj3ra/8piWsfhixYaLg9RDd8KaLFKOj7VPekc7os0NqS1grYSQwbnH3R1s/6PJFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqrneJPo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ABE6071630;
-	Sun,  8 Nov 2026 20:23:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9496071FC6;
+	Sun,  8 Nov 2026 20:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B21C1F008BE;
-	Sun,  8 Nov 2026 20:23:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqrneJPo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF6B1F008BF;
+	Sun,  8 Nov 2026 20:23:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169409;
-	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
+	s=k20260515; t=1794169411;
+	bh=omPiQOZaJI0c60/o2S1s3kpUWM+uAh/TY1E5F9dNSRQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hup9f5vzJANYZxWKk2z1XOYjN/I6tNFz4AtFtfySO4N7Ino1xcI4DIiHYzGCZVXgF
-	 QETxiJHpuvvvpCASBLQiepdQY5GxY8+WLHXkNxsbvDbEOcbLY9DxRiP2el0Z6FuhoI
-	 sVE0ISYFveLTXAKN5iVmO9ETql44rtBER8OJJEz1PtW+yUwa5NKp+W92y44OId5jmW
-	 ArZr0ggFG1KhFJOHZy6fl3z/AI8LJUvu3Yq2I3V9KdrR57zE1RfXHqeZ00hCafxj+g
-	 3In948WocHpQ4C8RtDURWNbqCFfWAGecHEtH1HyDQxy6fWMmBhrrA/4OuxM8FgBNdE
-	 M9XflQaM+lxeQ==
+	b=UqrneJPoAeZVau3TQpkyr7BRtoooxiJk+PtfMIGHTD1UiPAzbI8O+0p3zCBn3EF1Q
+	 jIelwHLk2UnGzSQxERSe0MlPVl+NgDabYdX7JzZ3NIQdueReYHl6KyXYVoanYAGi0/
+	 /rL/0/D8Mocnfw9afURwRIBgUrRLETUWRqxKQDpoRsVbb+y5azr8Q4gPHRSxngVIp7
+	 bxscSOm2OQhy54D08fc/Km7rFcHLfc62AdjuiNBArCjjmg6qvl5YYNcdIP6PlNkRcL
+	 l0ubBgiBv8zkTGoErkthuLykbL7s9S1hlF86R8YRLaj4LUBMbTfcnL25c1w97eFANQ
+	 gBQDgoT8wYw5g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
 	Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 0/3] Add support for reporting boot status on Qualcomm IPQ9574 and IPQ5332
-Date: Sun,  8 Nov 2026 14:20:14 -0600
-Message-ID: <179416929436.628393.11004902662518300994.b4-ty@b4>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/2] arm64: dts: qcom: sm8750: Add watchdog support
+Date: Sun,  8 Nov 2026 14:20:16 -0600
+Message-ID: <179416929293.628393.12758360714321388374.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
-References: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
+In-Reply-To: <20260930-sm8750-watchdog-v2-0-b16fcda275d2@oss.qualcomm.com>
+References: <20260930-sm8750-watchdog-v2-0-b16fcda275d2@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,14 +75,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 22:16:15 +0530, Kathiravan Thirumoorthy wrote:
-> Similar to IPQ5424, add the IMEM node and the restart-reason child node
-> on IPQ9574 and IPQ5332 to enable reporting of watchdog boot status.
+On Wed, 30 Sep 2026 18:32:04 +0530, Komal Bajaj wrote:
+> This series adds Qualcomm SM8750 watchdog support by updating both the
+> binding and the SM8750 devicetree.
 
 Applied, thanks!
 
-[1/3] dt-bindings: sram: Document IMEM found in Qualcomm's IPQ9574 and IPQ5332
-      commit: dbec23d260c9db8bad6537ecf6aea40c475f5352
+[2/2] arm64: dts: qcom: sm8750: Add watchdog node
+      commit: 6554c11efd6dc54583af80808db445be43f55a23
 
 Best regards,
 -- 
