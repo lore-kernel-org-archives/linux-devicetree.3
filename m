@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169357;
-	b=wAYmGpmBS90j9uoLz0YWE+vR6dsTaYDCsJpGMk8qGeAMSpriQcFKH5SAnKS2wxv3TmMS
-	 k53N+Y7pbfvzV6gfN7234kkBrIeREkYCXXF3s3l/+3nO+E7WYmjwCQSGP4ChvheU7v45q
-	 oN0HG0FKNMkSfxDg+MCsd4jZdACG9YIURhqy+D3QT2G8fYokO9q+yPLCQA/AxZY74bgFh
-	 Bc1lJqEyK3tnnzsz8Xm3CYCZgDO2cDwE5pfh8ARTskTqNHO/vGGEQsM73NMkXpkcZvdU8
-	 lp4FSjHudrf0GmxD52uyIgxvrNRxPjT+dCZiMvMAFFl5SzutAeUCqkA5zDl70w8KcNQ==
+	t=1794169352;
+	b=giFz1LqBg8QcKBXzxAFDGHXzEeZyHgNwiSHBKPVW8/3q9PCcbODmM0wiHFEZWmjPbSQZ
+	 +zlCNnUVGaF5D3xTHZnOUbqUQ8fkBGnyMzwtcE4B5ah6LKvw1TJ3zWupeLcavfZUT+1CB
+	 yUHWhvhZGgHasGNdTGBovp42VYfFgZmDQvCobmyCnM0n4qA5snNrw4fnpvHwCgnF0+ZZy
+	 1ChdsfMTGlN5rQAYGYs2rsPo50q+cZKpFubfMPC6n/VH1xI0tS/PvW5lLSOBB06zJscp1
+	 bfddhRpiGgFSaB+b58WLV5g+hn9DyInuDAm5v6G2BoMFf6QQ3YF6uavFTde5dlmwsRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169352;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
-	b=cqJYiu1ZNvFh0PDvFhG77X3O1pwoMh5Ux1rJii+m5HJOq0oBZYP+7Z86kM2AYLAr/qHC
-	 VuYyMsi9jMgO4BK1pJs0otwWg4n1ibDgVBzr6OROAaRK36vrrgvJaYapfhKiFWETeHq+f
-	 aj7XpeJ0tKV+M2GbIYFsjQ88wwyWo/6HKuT7STiST3G11yUlijTjL4zTRVIAKLhN5MfG6
-	 SpVjv2sZeEw7/YIdY042WjBWvz9yon/8BxFyy5U/N0sr7y9MUu3y8pdo9jCTmtKRlAB2b
-	 8Mf0QLO1USj7maFXpGsQYYetYj4J3jo/zRK447uUBK/Iu+loChVPjT9cQc7XrJ39tLg==
+	bh=jNa1knLxWWdwh04CkLtdtpSFy39K4lJyzCf52/ThYmw=;
+	b=Fs7l6SseXF85Hv9sBcw1zs3FQ0kYQ1t/dfyy39qIAD98Z6+bIrtT3SyHGtw43nSGBl2Q
+	 6A4yzyAWRl3gIgPQhqeasbxkBxpGqRjb9cmV0lqjfO6AOPwKaAJlVAz5+wE1RGQngwdLh
+	 KW94S80nxy20ZTU+v/Y8RBAAQwjHvBUZ0Gt6QQ+0ggIUeg5uwLIntztHo4ToKxQuIi35J
+	 2O37Yms5gS3zs1TX19MhrJ7lgA+ADyA9SRs4D6rPsRXN+JZb3F2R7uzAe6Tf35h+zfGi1
+	 idE+poGPFDUcjHmjedYypUcbpsDTRvGizusYuo/V0R/3RavsP0xAjZvOZTOkE8r48HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eAcXbwwb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870CD60A6F75;
-	Sun,  8 Nov 2026 20:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C3A608361D;
+	Sun,  8 Nov 2026 20:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0977F1F0089F;
-	Sun,  8 Nov 2026 20:22:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eAcXbwwb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F201F00901;
+	Sun,  8 Nov 2026 20:22:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169357;
-	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
+	s=k20260515; t=1794169352;
+	bh=jNa1knLxWWdwh04CkLtdtpSFy39K4lJyzCf52/ThYmw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lOAqKlGsnjXSV21/T5smoYtdNla1zkSW4WkU9OHO4A37KX5l4/hbtlzCwBptD9rkQ
-	 jKFROwdGpMXgJXqyadRPWe1e+bWfOvg7+MYptBva3X5SrUeqx/I5tgYK2A6LefGAQY
-	 kgJbNbuHv7rvKBto+yH5+irTMC28bAUyUQDu5BGY7+mhbngOffzQ98emsnfLrvDQ7M
-	 VeY9bZ10ZgddwXPEqTiPXbbnoyqr21RaPdEBzGSS0zqmkj9h/7pjAw5GywN/9Rt1Wi
-	 IgoDkM+cOMt5izIC57HlGg5NnrRG29aYjj5G40Q5eJhuOH+TqqwOopu2io8FW1b5CJ
-	 PHs+dTmnslJeA==
+	b=eAcXbwwblvFo9FOwFSLv6j7Xe/sN6tThbj0qfFrhzAsYD5h/06bPj3ExAZmaaTAym
+	 00i5iCOLDTE0lVwveaLBRdu7zt99kxgCRoGBL3HnDvaIDf+6RFCQ3xaHeclJco/T/7
+	 nZ592bH6KtIvKOLG1v/G2gIhv3KT4/4qJ1VI/ShdtkTkB14addamfs/wlDwtt8Nxs3
+	 Bi6YN69eaMrBti07DlWvq1lKcbPGr2OIq+2RRiap/4HS3dVdxIlMunxpPftDm0pWC1
+	 Yr7Ftp7FsqTPc2quql3OEJp+j24DII19GMwWUU4kBkv2Lh9A+1Z33dypp3f1On0qN3
+	 0BXwRbn7S8xgA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Fabricio Akio <fabricioakio@gmail.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	Alexey Minnekhanov <alexeymin@postmarketos.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Martin Botka <martin.botka@somainline.org>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
-Date: Sun,  8 Nov 2026 14:19:42 -0600
-Message-ID: <179416929353.628393.10028590160844820723.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: kaanapali: Add memory-region for audio PD
+Date: Sun,  8 Nov 2026 14:19:39 -0600
+Message-ID: <179416929452.628393.5603846744093943794.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
-References: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
+In-Reply-To: <20261021-knp-rh-v2-1-4e2f8e16b607@oss.qualcomm.com>
+References: <20261021-knp-rh-v2-1-4e2f8e16b607@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,25 +72,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 09 Oct 2026 17:49:30 -0300, Fabricio Akio wrote:
-> The QUP I2C and SPI controllers move their data through the BLSP BAM
-> DMA engines, which reach DDR as the aggregation NoC masters BLSP_1 and
-> BLSP_2. No path is described for them, so nothing requests bandwidth for
-> those masters while a transfer runs.
-> 
-> Describe the path from each controller's BLSP master to DDR, as the
-> vendor kernel votes it. On a Motorola Moto X4 (SDM630), with the
-> boot-time interconnect votes released and system-level sleep enabled,
-> an I2C transfer running as the SoC entered that sleep hung the SoC
-> without these paths; with them, 5,000 transfers ran through about 3,000
-> sleep entries.
-> 
-> [...]
+On Wed, 21 Oct 2026 10:26:41 +0530, Ekansh Gupta wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
-      commit: 0e8c6ca9ac42a99a9cbd760f59ce47b6c61162ab
+[1/1] arm64: dts: qcom: kaanapali: Add memory-region for audio PD
+      commit: a573d5c23caf77f0c95ab2fa2e4b0e8307cd92e1
 
 Best regards,
 -- 
