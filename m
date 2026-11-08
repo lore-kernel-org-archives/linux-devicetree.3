@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794098190;
-	b=U+5d2SH/izLi8Y/D6azUc+xZdU4GqCBug3RlvuIXiDRUeu/N6eVkEIJ64Z80AeRF2j6v
-	 /BDQz9au2vfroUPwNxDOaf6ZfdMd657jtDNiMnvCFU1Qn3GPcM32/h4OlpmWcu9cRI0ci
-	 MhMXUa+z1eblSg9zkMSCVZSOYE5otYBVEyQHyk442czELqhNexXLeZllWslpgpEvuA5xb
-	 7omSDfdYryqITLn6kd4rAG9V9HLQwPky9E8FsYB44EVcLhRJpsi+rF5VkH/PPpHFkfpRH
-	 8TY+lBdokQvrdbszvruvjhh2sZepqeIiOoEZXHj9zwO7jDg1qkPUCnkaYBbBgIH+0+g==
+	t=1794098466;
+	b=lrhQ37OJc4pcE+9CoxLH3VZ1nHXn1wQMu71DsQ6g3sFXLkmjCWnViIMcqBD/DVos6RY+
+	 /0mTNbmgTYF1eQ4K/0pEngX1wII0LHMRKVcP0Ef3MG8Zea90is47vh0BT2QNFzefL1Fdu
+	 Dc+dkHbeImeTIpejZJv3hJlXMuJRCsYP90DqUfp/EJsdZRAKeNizySEvP94rSwezmGZnI
+	 3UFwGExmZsFqTGhPb22ZyjE3Il1QpQnhmvSbmCdwxi3ntfFGpjxTNFI+dmcMtEFyAxHqw
+	 XX1INpKCaHwl4ZUlBj8BAEs0VLgj294bBy2qv6HOg2sBS3qYS7FcrnaQxL+vgtNkWag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794098190;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8Aw1hKcMo2UwPIo6N+A44TKGRiDCU4zKWVbhcVjBxj8=;
-	b=GsT/4rUDlwUI21tnHY24Q9PYuBgO/EguIZIV6Zbn3x3HpUqKoXzVeeyhoAbXKPpa9U7F
-	 Y2YmdfJuCG6sdaisYX8AdLdPQTb59MMd4IlFoW1b+EkvDPzX57mdPGkQ/vePs68yN4KbE
-	 CED4SAPMpkB6hvre1SQW9sgoUAu+oOx0fOrjROBjpRhYOEq18PNlEvM30lAgHGjEzyN3n
-	 jnfFgmc7DE+imM0RqksALTXviDFXGnYk9zpKZwghyU1Yg7+xh2m6ZHQgpYR5ihK2IMhX8
-	 mMw88/SIXqbuRzpzF7KVChw9pz9P3Hs7/1BtN7in1F0k1pRzFXPC6uz+Un6doouvQ9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794098466;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=tBRLz95eawhJOPMbjG6CzTX7WFIK+5RQXzqUwDpEyqU=;
+	b=HQSF6bO3+Go8dVHzGOFeQ2oTkRped5wy9ibD5sNFf6HuWkqxxJ4C9oqkxMPUPBSNmpE1
+	 EncJoVZq4I9WTDteY7FC0CB9TGOsE0Yw94b/+y1GgISHv8NutRZjiq5M1D2lY/r6HXWMQ
+	 3KWgekEkWvm5LwDJDmJhaBPR40feKttP2a1682AXFLYtKcIVTmeLOCa9dGrUhuOjEJaaJ
+	 h629iZ3CXec8RVGvjiA0NoT330ygzsvd4QWyyYgKYSBRWrnpXiPgTvdg2rFASOF2UG1JR
+	 tFnhtl6AKpgH14u8SnJlm8YW4lk6vuP18HlatGpeDHRLI0wOVOYXCLgP7J/BqghO0Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=a4xwZt9G;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wxz9XgKZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F2A606A326
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 00:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54F2A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03582606A326
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 00:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=a4xwZt9G
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=8Aw1hKcMo2UwPIo6N+A44TKGRiDCU4zKWVbhcVjBxj8=; b=a4xwZt9G3lGEKgscRRUMeAzU+y
-	B9z3VAlYitCLsr5CFHarADdE4jGjOekTu5k/EJ/txsvyOGhytNOKeb2Kd4MlyiXSb5GeeCfBvVomJ
-	C0yvJFOo1jaUUow/hYbt8htgqNklZkY6Ox8GEq30N9FwoWRVN1ny0/Wtpu3CDlvdvf8iWWQdHEF36
-	cT/Attoc9dgVr0eQPTbMYcTpoG9tI8LFIPOKIeOTnXm4I8urG94bYQ67Hb8IwqdxQwmgPgi3Nq8BQ
-	4CDGeOd+jyInB8RwpoO+hzlO2mSx5XlDpi646L7gpKk4jK6SnZyVkJQuTREJHAaFIS5Qoqp/6yNHj
-	UvZt6Gdg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joachim Eastwood <joachim.eastwood@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <Shawn.lin@rock-chips.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] arm64: dts: rockchip: Add NanoPi M6V2 board
-Date: Sun,  8 Nov 2026 01:36:16 +0100
-Message-ID: <179409813362.1454120.2066114184347271123.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104-nanopi-m6v2-v2-0-dfcd8714f48a@gmail.com>
-References: <20261104-nanopi-m6v2-v2-0-dfcd8714f48a@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wxz9XgKZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E601A1F0089F;
+	Sun,  8 Nov 2026 00:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794098465;
+	bh=tBRLz95eawhJOPMbjG6CzTX7WFIK+5RQXzqUwDpEyqU=;
+	h=From:Date:Subject:To:Cc;
+	b=Wxz9XgKZk8LoDhKuvCCQF0VnV4R5OU3gp+LEdKI/YdCrWJUIaoB+iiXBY/qVsAsbg
+	 QQRc0FGxWoOEGpyZSKowbAM4yHQ7OBgaOGL3AqMJOdpQLHO+2t1/PYKw07E5u7dSm/
+	 iZWWVFBmPsSSSkv3vi91a9Fjn6fPIayg8kBqXEHWFwNbE7sZ4cB60mjBvaJWLfMkqk
+	 L4nZmXaWAynKg1IzSrLfsLVpwl2UDzJO79gVwUzSoOtS7/vX1mJb82d+vZ2XTP6qLe
+	 +/Anv8TWzIGufMHwUqT5JRy5YVDLbk7IkkKEmLKXIYpsXt95ttt+5ZozoevV6TwjgB
+	 SBATxFj3gW4Iw==
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 08 Nov 2026 01:41:00 +0100
+Subject: [PATCH] dt-bindings: display: panel: samsung,s6e63m0: Describe ESD
+ interrupt
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,33 +54,63 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-b4-samsung-s6e63m0-esd-v1-1-ab5c252c9646@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MUQqDMAwA0KuEfBtIrS3Sq8g+qs1cPuxGw0QQ7
+ y74DvBONGkqhglObLKr6bdiAtcBLp9cVyEtmAB77qNzPNI8kOXN/nUlixL9xiRWiH0ZcyjBzxy
+ wA/w1eevxxNPrum7S05BUaAAAAA==
+X-Change-ID: 20261108-b4-samsung-s6e63m0-esd-03d8a5d53b05
+To: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Bakker <xc-racer2@live.ca>
+Cc: dri-devel@lists.freedesktop.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
+The Samsung Golden device tree wires the panel electrostatic discharge
+(ESD) indication to GPIO82 and names the interrupt "esd". The binding
+does not describe these properties, so CHECK_DTBS=1 reports them as
+unexpected.
 
-On Wed, 04 Nov 2026 21:59:20 +0100, Joachim Eastwood wrote:
-> This short patch series add support for the NanoPi M6V2. The board is
-> very similar to the original M6 with only a few differences.
-> 
-> Differences:
-> * New audio CODEC (Everest ES8389)
-> * New Ethernet PHY (MotorComm YT8531C)
-> * 1 extra user button
-> * Misc connector changes on the board
-> 
-> [...]
+Describe the optional interrupt and its existing name, and expand ESD
+in the property description.
 
-Applied, thanks!
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Describe the optional electrostatic discharge (ESD) detection interrupt
+already used by the Samsung Golden device tree.
+---
+ .../devicetree/bindings/display/panel/samsung,s6e63m0.yaml        | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-[1/3] dt-bindings: arm: rockchip: add FriendlyElec NanoPi M6V2
-      commit: cfa6ea6d25f73595165482b2326805ecfb375533
-[2/3] arm64: dts: rockchip: rename rtl8211f node on rk3588s-nanopi
-      commit: b42a3f77ad0b9d672fa6228517442c9675d3caca
-[3/3] arm64: dts: rockchip: add support for NanoPi M6V2 board
-      commit: 37145821846cb01e1da93753d928e77c42b6bb59
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e63m0.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e63m0.yaml
+index b65f0688bdf0..48305d2eecf1 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e63m0.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e63m0.yaml
+@@ -21,6 +21,14 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  interrupts:
++    description: Electrostatic discharge (ESD) detection interrupt.
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: esd
++
+   default-brightness: true
+   max-brightness: true
+ 
 
-I've reordered some properties in the m6v2 board dts
-
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-b4-samsung-s6e63m0-esd-03d8a5d53b05
 
 Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+--  
+Linus Walleij <linusw@kernel.org>
+
