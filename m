@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794097787;
-	b=4yI7IU5Zz7NBOITOnl+Ip4NhTns/dAGSsKLTqmcRF2LlZvzQGwmqywDft4kJDP+Iqkw2
-	 6dYr/JS1qWID26EN59LWgK5oiNtSB1JEUI2apfFsoq/aOGPlUrc+Jrgh3iVxWbinBSuWS
-	 ohGqCvPHwCNsaphzqcOeD/g9lpssMwSvZORJ4MVlhSFx6jcoovYaFBAXVuCm6+jp/9Q4t
-	 A06t5BOyBeTeUKwaWNqyzWf2gjKuME+yfjeYbjilmIopboBUJt7qQ2NSQx29ihgKoZgXu
-	 0M+UyCIMNp6NV1s3SuNp9iVI/szDSOYR+dqjVyZv0z2DoP0nCorYCA/6uE9LkLrTgIA==
+	t=1794098117;
+	b=b9Kvu9M92i2iYx7tdt0jOKwklGE0S3D54bb3dXymgXhbYMzsc1azvAvBdcMn1pkgQOWZ
+	 Ij8n0H3wXW4//+pZ7TWcAMi29pVmmJHybPoamRLCkJs4VHmaK4pC2rNfUUMjVXOABqFXL
+	 cb5s7KxJ6EXzIJeInii7Tci86FOsREBuPc7OwV/ULw2G5vuNCn7sf+hAfyabTb4NwBB6p
+	 kX6DDh2stcNHChdO0gWJZZv7+LC9jAqB3AO0/QBQif/vgzayWFwbjl3ETXJNDamY2v2KL
+	 HE6L3lO5CmCBLZCoF+KHFDa7OZxBk2DEuTgqzdAi3Mh/DUckxAxmdPm4OWq8Y5mY/TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794097787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794098117;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
-	b=lwIZzcZY+whw8gjcqYPqGgQ4IcERZTx5IMtvemavjPPnNRGuBoIJBt3Q2Ggnz5MM3hX2
-	 u+HOOrI+CnLHXR0YYxOEuRD4sOEjwv367K5wGazhF8KYQuBrTilYbnu8Cpg3hqRadPyFQ
-	 r/gBPyPxGXnw8VEV8rorFYhKexxpdyTG89zpaMNi4/PFMfJLb8QkVMAYVhnTWIRQR+16A
-	 fMmJD2DN+ll7p38VRr5wzHShdeoZyCPGgcqUAtDZ45ggraDeD20cGj2aBTs+2lvhGaNbA
-	 pQ7dFKd9/2u4dxFct9i8paYZfVBYVMK+vhMD/eR2zxwikhWbrvDo4cIegXtJLUu3umQ==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VBkJrsvrksWgv31mI5SC2s8D6+fR7B83FPJCXwL1VlA=;
+	b=MCISI4Dn+3TxIYq9I/yehelfBzdQan2+louv3Xl4A2uS6GFJx2J2J0uo4EsFZcyhtlDF
+	 +AGuYP/4f9btoJ9uEWW1DxTVjxz2duskNw7fJxXAEVgp8OVBvnaInxay6MPe980z07X/Q
+	 4ACw3L6kp1SqC46dDPC0yleE8wc8z0HNhH34L5D05mr8YT7xXdGJg/N88PsoFVtT5D0q5
+	 dByRWZ3SzsSbK409i6US0WCcB+AYLSKUavHKra+upiammen8kE/8xjbPTPUGHesjE/CAi
+	 P2q93/YuQSOnmEeUxCwUcz74UhZBI81LHT8AIXiM0h8NjTrTJaf4dizwcaDX1WH/gOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keL71BYF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D68606A326;
-	Sun,  8 Nov 2026 00:29:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF0B606A326;
+	Sun,  8 Nov 2026 00:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD63E1F0089F;
-	Sun,  8 Nov 2026 00:29:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keL71BYF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292831F0089F;
+	Sun,  8 Nov 2026 00:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794097786;
-	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ka2RJu3agEgLzYDFBBm5fkd6IBPdTv2jnKlGseVM3JbLRXZC23mWUbrrLY+LB9lZ2
-	 hBo6vFFZfT205VG19kFXihinVH9T3vxwZqufUJ98zGe8Y1Bb9LCGbymXStjE6pq7Ne
-	 jDCGhlxn19gM3ldE9tPzrovVLeQZ5BSrb8f2fTL45dqKyb/4MsX0H19fPMLmlUWKUy
-	 fdu8ULFdfpDM2ND87xRJavB/yoO/UqUSSqnIEX3l84RmUr8AN2HNy9CvMrhHFSS6tc
-	 fgIMel9Ef5YWeWKwq1aqhGNgWvkJLj/bXmIgAqtYj8bWNP50Z75vfa3qlgXaZufXoU
-	 o2VEIvkPg+bHw==
-Date: Sat, 7 Nov 2026 18:29:41 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: anand.tiwari@oss.qualcomm.com
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Shashank Maurya <shashank.maurya@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
- overlays for EVK board
-Message-ID: <au_BvH0rEKpgTpc3@zenbook>
-References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
+	s=k20260515; t=1794098116;
+	bh=VBkJrsvrksWgv31mI5SC2s8D6+fR7B83FPJCXwL1VlA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=keL71BYFSqN8hd5dUXZsdQN80/2FmoonW141qffJ/boEaxIaigJPj4uWnZEvapQSD
+	 thQ5RCNot5ePz0nnjpLoGxUCbp3XVXJG9gsEREvFg5lMttgh91rZBV+fy7oSeweZyO
+	 b0k2aG5hWh99zVNwl/HPPNMydjYuVoeAUQZ9geD+yFNLJak5MhnZ+ZhcU9Kj2N06ba
+	 V4e1noYz1j2zTympos6G42OZ4fzRGTqUWnw6l9l9b5I8G9l23FG4Hve8KUXKLF0dwx
+	 HVl+n1D4C4kKqCp2JptOOhBT5APMae8W50tYwLQbBgaEvfE4qWgJbUdZmqwPJGFcCW
+	 PsGGSmgSeVYTA==
+Date: Sun, 8 Nov 2026 00:35:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v5 5/8] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <20261108003510.5b48a969@jic23-hlaptop>
+In-Reply-To: <20261102-adis16607-v5-5-4f98b0d271ac@analog.com>
+References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
+	<20261102-adis16607-v5-5-4f98b0d271ac@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,121 +65,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 01:01:30PM +0530, anand.tiwari@oss.qualcomm.com wrote:
-> Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
-> The DSI0 interface from SoC card is routed to either the 22-pin DSI
-> connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
-> connector, through a MUX which can be selected by a hardware DIP
-> switch. There are multiple daughter cards designed that can be
-> connected to this B2B connector.
-> 
-> The below B2B display interfaces are enabled by default in base DTB:
->   - DSI-to-HDMI using the LT9611UXD daughter card
-> 
-> Below overlay DTs are added for additional display configurations:
->   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
->     daughter card
->   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
->     panel with touch via the 22-pin DSI connector for Lyra
->   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
->     with touch via the 22-pin DSI connector for Lyra
->   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
->     Lyra with LVDS daughter card
-> 
-> These overlays are applied on top of the corresponding base board
-> DTBs.
-> Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
-> 
-> Dependencies:
-> https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
+On Mon, 02 Nov 2026 11:25:41 +0200
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-This was rejected 3 weeks ago, so sending this series wasted both your
-and my time.
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> The ADIS16607 is a Precision MEMS IMU from Analog Devices with
+> triaxial gyroscope and accelerometer, delta angle/velocity, and
+> temperature channels, communicating over a custom SPI Half-Duplex
+> protocol. ADIS16607-2 has a =C2=B1450=C2=B0/s gyroscope range, ADIS16607-3
+> =C2=B12000=C2=B0/s; both share a =C2=B140g accelerometer range and an 8 k=
+Hz internal
+> clock.
+>=20
+> This is the base driver: probe, raw channel reads, sampling-frequency
+> control, startup/self-test via adislib, and debugfs identity entries.
+> No buffered capture, external clock sync, or calibration bias yet -
+> those follow in later patches.
+>=20
+> Self-test leaves the device's SELF_TEST register cleared on every exit
+> path, not just on success, so a read failure or a failed delta check
+> doesn't leave the sensor stuck in its self-test/force state until the
+> next reset.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 
-Regards,
-Bjorn
+Trivial stuff if doing a v6 for other reasons.
 
-> https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
-> https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
-> 
-> DT bindings:
-> https://lore.kernel.org/all/20261021-lt9611c-v7-v18-1-4978b94896f1@oss.qualcomm.com/
-> 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Added GP CLK Frequency Dependencies
-> - Reorder the &tlmm pinctrl nodes in the LT9611UXD HDMI bridge patch
-> to ascending GPIO number.
-> - Link to v2: https://patch.msgid.link/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Fold in the hdmi_connector port remote-endpoint indentation fix.
-> - Drop the per-patch Depends-on trailer on the LT9611UXD HDMI bridge
->   patch; the dt-bindings dependency is now declared as a series
->   prerequisite (see base-commit/prerequisite info below).
-> - Drop default-on from the DLC0697 backlight node.
-> - Add the ilitek,ili9881c fallback compatible to the RPi 7-inch
->   panel overlay to fix a dtbs_check "too short" binding failure.
-> - Reword the PWM_CLK defconfig commit message to name Qualcomm as
->   the SoC vendor.
-> - Remove a stray blank line and non-ASCII characters from the AUO
->   LVDS panel overlay.
-> - Link to v1: https://patch.msgid.link/20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com
-> 
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> To: Abel Vesa <abelvesa@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Florian Fainelli <florian.fainelli@broadcom.com>
-> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rpi-kernel@lists.infradead.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> 
-> ---
-> Anand Tiwari (2):
->       arm64: defconfig: Enable PWM_CLK for backlight PWM support
->       arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
-> 
-> Mohit Dsor (1):
->       arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
-> 
-> Shashank Maurya (3):
->       arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
->       arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
->       arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
-> 
->  arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
->  .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  77 ++++++++++++
->  .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 133 +++++++++++++++++++++
->  .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
->  .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
->  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 101 ++++++++++++++++
->  arch/arm64/configs/defconfig                       |   1 +
->  7 files changed, 493 insertions(+)
-> ---
-> base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-> change-id: 20261019-lyra-display-upstream-post-24656268a902
-> prerequisite-message-id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
-> prerequisite-patch-id: 0dfae1e9d0c620866489eecacb4b7201b9333621
-> prerequisite-patch-id: 94923ba8f57911649364a7e0e5494c7cfd478367
-> prerequisite-patch-id: 660755293839baa7364b4baf3a2dd6b4018de48a
-> prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
-> prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
-> prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
-> prerequisite-message-id: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
-> prerequisite-patch-id: 37995c88387ff54737dc82eb7c3b4600901ce061
-> 
-> Best regards,
-> --  
-> Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> 
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> new file mode 100644
+> index 000000000000..5e2c999e68ac
+> --- /dev/null
+> +++ b/drivers/iio/imu/adis16607.c
+
+> +
+> +enum {
+> +	ADIS16607_SCAN_ACCEL_X,
+> +	ADIS16607_SCAN_ACCEL_Y,
+> +	ADIS16607_SCAN_ACCEL_Z,
+> +	ADIS16607_SCAN_GYRO_X,
+> +	ADIS16607_SCAN_GYRO_Y,
+> +	ADIS16607_SCAN_GYRO_Z,
+> +	ADIS16607_SCAN_DELTVEL_X,
+> +	ADIS16607_SCAN_DELTVEL_Y,
+> +	ADIS16607_SCAN_DELTVEL_Z,
+> +	ADIS16607_SCAN_DELTANG_X,
+> +	ADIS16607_SCAN_DELTANG_Y,
+> +	ADIS16607_SCAN_DELTANG_Z,
+> +	ADIS16607_SCAN_TEMP,
+> +	ADIS16607_SCAN_MAX,
+
+That looks like a terminating entry so no comma to make it
+clear nothing should ever go after it.
+
+> +};
+
+
+
+> +/*
+> + * No external clock sync support yet: always run on the internal clock.
+> + * Default dec=3D0 after reset, so period =3D 1 / clk_freq_mHz.
+> + */
+> +static int adis16607_config_clk(struct adis16607 *st)
+> +{
+> +	u64 period_ns =3D NSEC_PER_SEC;
+> +
+> +	st->clk_freq_mHz =3D st->info->int_clk_Hz * MILLIHZ_PER_HZ;
+> +
+> +	/* clk_freq_mHz is in millihertz: scale to get the period in ns */
+> +	period_ns *=3D MILLIHZ_PER_HZ;
+> +	st->sample_period_ns =3D DIV_ROUND_CLOSEST_ULL(period_ns,
+> +						     st->clk_freq_mHz);
+
+If respinning for other reasons, just make the above one line.
+
+> +	return 0;
+> +}
+
+
+
