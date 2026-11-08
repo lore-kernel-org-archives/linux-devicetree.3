@@ -1,57 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174586;
-	b=uT+dr/x4rfDmNflxnqv2D8/Vw893Zz/IWVKhB+XXIRhh/Sz+3oDragmicBlRkzNO0P9O
-	 5p0BLim1DwdhDFhuqbDrZy5guCOKL8JsIYvBU5UKjuhQWNXuycOfemOMKjALT79aPdhwa
-	 UECxUBFEkKoWhp0RETf1EFrWqWi+mD2mX6Sc+ssxhRtr1GbAjwuK28sUbwKBcC4tdHpVS
-	 n+7M+mvIleZkQNcCu0ZC7z4lhk3p9g9ZCdZDBieB3hj1vIvqwAnQ+TuijhLFSRZfDwgLn
-	 cQIN/PrOWfjln9Jl/C9pryZTOrw9D5wtRPWLPvkeIzZX1GQoZ3xVwX5aOT5qNG4ArdQ==
+	t=1794174622;
+	b=pXJI9IW3Be5ae9GHDM29IkjkeDHjtDPSs7x3hbasSNqh1G0bxIfPbtFbsHmaCZsHRHjh
+	 sgveIa/qKqhXydbS8durEOCsUmVrmDmlv47IkvRldb7wTYtjwbBvwx8RCXWsxHT66798v
+	 CCWq5NDNlT3s6EMVyxULK1NAk9ctKWm8U0bg4ZEuB0YGlK3fxYVmXQSWlTvlG5lY2QudF
+	 pzI9plxG+d1RK6nlJIYw/a2pO9GzVQCr5IysyhbrCPIh34o4imXY/tr53wo9JE9Xr2KDc
+	 IYq+XLt++pU39xcv6vXDVGF5ol6hvdHKPojJ/lH/KekwUSg7qLV6jOikNDzg84IyeVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174586;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=S8Pm/n09QeJ9mrcsdqqS5p/lHipZEoXnNYS0XuM2wRA=;
-	b=VrDxChqRe9zUUaRFcvuVkOJhPN3aVnmdaIhy0QXxYtlOue9H/ALT4zMzztndAsZUL49/
-	 fdd0jQIRhbYjxjeQBLcVlMGAk6PLpZSUHj7Lf4IlYlZO5oJ9gTfUHHHq/npQhxcInm6+q
-	 KlNuRmyCIHCC3+lwTTD9m3zUQfrI2v0KvlaqpQdyqg4hFyXmCwilrBr24vPMVUi9dszoU
-	 U7vICkidwGZ4fY1z4lvJjD1xYJTfPHRf9UIbhZsp9LQHMGAT5a0ZlT4BWI6rqLZrNM7qf
-	 YI26EP5I8ECMxpKSaMmPLqiExjy6OKLnJ8AMUEdy9igJB0AM7S4CyQ8vKPL3eHpvQcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174622;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=YTSxjFXKckoe7BQVg2xBxOJM8UYR0Yr3mMiLFLwfLDM=;
+	b=lC2qdheWa/7rK1/+iiGMCtxyz3HeiyDUbQiyPpi17IALJrvtvWteTbed/20oCgtqWGpf
+	 dY0uzRpoL2DLrYFpwN911cZstLi9hXDevCZys2W9UOj3Zsld57rOIv7cnQVz0xqdEjATS
+	 ziROR0Kc24mAkyyhD21e1cOzg8c5rZl3fVshEITDVQGXd7IwjIEjyHfoxFICheg2rT9VG
+	 ucf8xDlGDkWeEKqJzyXyJwaLIeBUDzWngDrfgBH4CSa5ffSDu5YbluwcJvpBDNm2PGPcX
+	 5tA6VR5yfLcW39i+BxvgENdZ4tdeqiq3lQjLh6RB8e9bxMju+retNJMlsFKA9DezYCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=FPs0blpt;
-	arc=none smtp.remote-ip=91.218.175.132
-Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n2UGqasD;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46B0606D81D
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D46B0606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CE1606A326
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06CE1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=FPs0blpt
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/o6wOm30wKWAccJPIaNGqqcoA4cZTpqG6mOHk1GcwkM=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794174583; v=1; x=1794779383;
- b=FPs0blptEv3bvijcVZdfYCccqY8j6+Aq07YuFmnDUGsWKdUJ+1R/557uJw611zy+OEaBXk04
- QxS82HyOLLamm8EBwDgL/p3Th4B1odWprhKstSYoVpLz0oDOQN4s1qdlpkIwyngzn2hPdYLYW4I
- WAm6cnSje2bzy6xvLRoxwkjtY9k+mmRiCw78BAy/zdpJ2egzeWTXOZXQSBlW8nfSrNzAFlECq73
- pT9BDs5qUulHaJ24d/LrVDMrh7T3gJ+7zUgXEgQDtczxFnI/iKKbgpkFBcQUAhyVq2FyPyRsOgU
- J40lQiJ+t498TR68OjLzNFHlwJqLmBpVcc2lbQLsPzAXg==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6b83b700a7331a96;
-	Sun, 08 Nov 2026 21:49:43 +0000
-X-Mizu-Trace-ID: 6b83b700a7331a96
-X-Migadu-Flow: FLOW_OUT
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Sun, 08 Nov 2026 14:49:14 -0700
-Subject: [PATCH v4 3/4] leds: aw2013: Use dev_err_probe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n2UGqasD
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso315695eec.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:50:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794174621; x=1794779421; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YTSxjFXKckoe7BQVg2xBxOJM8UYR0Yr3mMiLFLwfLDM=;
+        b=n2UGqasDhZ+vV1pQ63v1KOT1+82ALSTQe1W42WhQ0kCjIbXGT2mx7tr/xDZLOpjI7C
+         y03gBoZN+e0Ib0Dkj1XcBrwObXQlPjlIfqbbxmFvgPAmVTurOfsTToOac0omjDwAfPVY
+         fARs3AMp2qm+0/kgVBFhbtCWwR4A9nHDgojGvTuOQ3OCs68l7pakpqGVa8CDrn4mJBLI
+         Q7giub/BRl/R8464YF877d/sTXRfsISarHqoya43uIJXCoPXrVHwA2Xfwp2Y9iG4qMk7
+         YMSTxc5ym/fz0MYhS+sdRVqVgOQ3ycsLWshXKZbE5W57Ck8RniIqdD+qTQ+P2OCeZADy
+         w+1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794174621; x=1794779421;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YTSxjFXKckoe7BQVg2xBxOJM8UYR0Yr3mMiLFLwfLDM=;
+        b=PvGFXmzc0PTHuESYw0EkZ12QoiekgMOlyJPVlgDwX4GnbqrDs/FjFVWML5oJC3VuAP
+         nVTzwJHqpZytgLvJP/2x6DYzLRulH/q5HUhd8AWtEan5g9wkJ2d5J0hhX5G23a1FChzf
+         eMBYsjp35xAf8jm2VQY7Em/2c60eJW/nRawc51Qe/gUyFHEjeoUKixPiLbwgC7DyEYmz
+         ebVSj7/iL52yedS2XBEN0FfuwdqlZySHXwjmjy07tTItHhvbPj2shsGSQt1AEaUOGUJj
+         VRGojW1s9N5P4GdMdnZmsV7b5UATf16kJo7af+r0v3usx6NCy4E7O9diWgXNz7hrJcLU
+         bp2A==
+X-Gm-Message-State: APuU4Z8tGjmemP97ROj604x5Ftdfa4jQTiJ7GfuEkg4DnCEEf8HousB3
+	fm95nr1Fv5kV7R3KShOmWKA5eRzdIE+Pe4rJLs1ZKqyEMUnEgU1xnNFa
+X-Gm-Gg: AYBFou0ymKw4LHkD4zAkhhwtl/yTVaElqBDKAPCw2jSpyWj0d7sJb4S3+DrQyqaV9Yw
+	vG4zm6wLV2U1k5HUEphwXGN1WUPS+iW5m7mERtnUi2Md7uPTXTl1Ri4B+4TxiZX8AkimdV7GwbG
+	eiwU+iWN6jEpi7BMaZRc34libLAJq6aa1ehAHJeEilR5EsgAMd8Dx7bcZvvQ9iCXn+VASmU5S+v
+	I8McgDJ2mPRhX3CMRYuTWycgSAYUYuMcrixdLyQNQorZSVEPbqtEP+qNDum2JuKhCvrnht278cW
+	PbDzLec/a5z5siLH8Yl1pJ4/s35pNFJOFmyTo6L/egBXXaSJ6pmgCqS54pqE8SHStxEieo3KHjy
+	zXVTLtzqVOqPKUYfCKdvaiyg/eamstBYbqxvOy8l9JUzRxAufbm+c27v+FeV7dJdJ5Cdpzlqrnf
+	f67HGWl1LCuuAFDTvJDvllLGqY/Y9Z5S2exN5rHFshVabXYvJOU6ZthiE5+jHqtfSk2FTBWp7db
+	eSVB5QXQgqEzZS0jMR/vbRZ2xYurYH9MnoqXb1K3pnihlGjEDgF6jIncdFzIZIbkJpY8Ml8XsnO
+	rEwNxu4+eNdDvKLv+6PyEmaBNtkIwwcKUxW+BvDji4xlwqxMtFX5XSeobl/WjaNwuPSMM/E=
+X-Received: by 2002:a05:7300:2215:b0:36d:48e:82de with SMTP id 5a478bee46e88-37256615312mr6819539eec.12.1794174620977;
+        Sun, 08 Nov 2026 13:50:20 -0800 (PST)
+Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm7587575eec.17.2026.11.08.13.50.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 13:50:20 -0800 (PST)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] ARM: dts: zynq: Add ALINX AX7Z020B development board
+Date: Mon,  9 Nov 2026 05:50:08 +0800
+Message-ID: <20261108215010.351256-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,113 +96,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-aw2013-aw20xx-rename-v4-3-826529beeb52@postmarketos.org>
-References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
- Griffin Kroah-Hartman <griffin@kroah.com>
-Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=2778;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=/o6wOm30wKWAccJPIaNGqqcoA4cZTpqG6mOHk1GcwkM=;
- b=JqdK4qC1RkNkP5oe5jg8GR5Z0CTl7id0IxtRdasoGJiUERpFRDytia+GYhOoN+GIdCGolyZuo
- afLayZ16xpMB5v9gczUT359Ki9XXum3pVJJ+fzE7P9FTbB29XNbtDbC
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+Content-Transfer-Encoding: 8bit
 
-Failure to use dev_err_probe() for regulator requests violates
-LED subsystem guidelines. (At least according to sashiko [1])
+This series adds device tree support for the ALINX AX7Z020B development
+board, based on the Xilinx Zynq-7000 SoC (XC7Z020-2CLG400I).
 
-The original driver didn't use it, but it's worth cleaning up
-while I'm here.
+Note: the "alinx" vendor prefix is not part of this series, it is already
+present as commit 1f06cd374a60 ("dt-bindings: vendor-prefixes: Add ALINX
+vendor prefix") in the Xilinx for-next branch.
 
-[1]: https://github.com/sashiko-dev/sashiko/blob/main/third_party/prompts/kernel/subsystem/leds.md?plain=1#L71
+The platform consists of two physical layers:
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
-Reviewed-by: David Heidelberg <david@ixit.cz>
+1. ALINX AC7Z020 system on module (SoM), in zynq-alinx-ac7z020.dtsi:
+   - Xilinx XC7Z020-2CLG400I SoC (dual ARM Cortex-A9, 33.333333MHz PS_CLK)
+   - 1024 MiB DDR3 SDRAM (2x MT41K256M16RE-125, 32-bit bus)
+   - 32 MiB QSPI Flash (Winbond W25Q256FVEI) with 4 MTD partitions
+   - DevCFG FPGA manager
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- drivers/leds/leds-aw2013.c | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+2. The AX7Z020B board (AC7Z020 SoM plus carrier board), described in
+   zynq-alinx-ax7z020b.dts:
+   - Serial console via USB-UART bridge (CP2102, MIO 48-49)
+   - MicroSD slot on SDHCI0 (MIO 40-45)
+   - Gigabit Ethernet via GEM0 (MIO 16-27 RGMII, MIO 52-53 MDIO)
+     with JLSemi JL2121 PHY at MDIO address 1 and RJ45 link/activity LEDs
+   - USB 2.0 host via USB3320C ULPI PHY (MIO 28-39), reset on MIO 46
+   - Dual CAN buses (CAN0 on MIO 10-11, CAN1 on MIO 12-13) with
+     SN65HVD232 transceivers
+   - I2C bus on MIO 50-51 with 24LC04 EEPROM, DS1338 RTC and LM75 sensor
+   - 2x SMA AD inputs and a spare differential pair wired to XADC aux
+     channels VAUX1/VAUX9/VAUX12. XADC is a hard macro accessible from the
+     PS without PL configuration, the channels are enabled via the
+     xlnx,channels property.
 
-diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
-index a51b72de21ac..cf8e4b0a4572 100644
---- a/drivers/leds/leds-aw2013.c
-+++ b/drivers/leds/leds-aw2013.c
-@@ -459,9 +459,8 @@ static int aw2013_probe(struct i2c_client *client)
- 
- 	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
- 	if (IS_ERR(chip->regmap)) {
--		ret = PTR_ERR(chip->regmap);
--		dev_err(&client->dev, "Failed to allocate register map: %d\n",
--			ret);
-+		ret = dev_err_probe(&client->dev, PTR_ERR(chip->regmap),
-+				    "Failed to allocate register map\n");
- 		goto error;
- 	}
- 
-@@ -471,30 +470,29 @@ static int aw2013_probe(struct i2c_client *client)
- 				      ARRAY_SIZE(chip->regulators),
- 				      chip->regulators);
- 	if (ret < 0) {
--		if (ret != -EPROBE_DEFER)
--			dev_err(&client->dev,
--				"Failed to request regulators: %d\n", ret);
-+		ret = dev_err_probe(&client->dev, ret,
-+				    "Failed to request regulators\n");
- 		goto error;
- 	}
- 
- 	ret = regulator_bulk_enable(ARRAY_SIZE(chip->regulators),
- 				    chip->regulators);
- 	if (ret) {
--		dev_err(&client->dev,
--			"Failed to enable regulators: %d\n", ret);
-+		ret = dev_err_probe(&client->dev, ret,
-+				    "Failed to enable regulators\n");
- 		goto error;
- 	}
- 
- 	ret = regmap_read(chip->regmap, AW2013_RSTR, &chipid);
- 	if (ret) {
--		dev_err(&client->dev, "Failed to read chip ID: %d\n",
--			ret);
-+		ret = dev_err_probe(&client->dev, ret,
-+				    "Failed to read chip ID\n");
- 		goto error_reg;
- 	}
- 	if (chipid != chip->cdef->chip_id) {
--		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
--			chipid);
--		ret = -ENODEV;
-+		ret = dev_err_probe(&client->dev, -ENODEV,
-+				    "Chip reported wrong ID: %x\n",
-+				     chipid);
- 		goto error_reg;
- 	}
- 
-@@ -509,8 +507,8 @@ static int aw2013_probe(struct i2c_client *client)
- 	ret = regulator_bulk_disable(ARRAY_SIZE(chip->regulators),
- 				     chip->regulators);
- 	if (ret) {
--		dev_err(&client->dev,
--			"Failed to disable regulators: %d\n", ret);
-+		ret = dev_err_probe(&client->dev, ret,
-+				    "Failed to disable regulators\n");
- 		goto error;
- 	}
- 
+Tested on hardware: boot from SD card, UART console, SD card, GbE with
+iperf3 (940+ Mbps) and netdev LED trigger hardware offload, USB host,
+dual CAN (SocketCAN at 500 kbps), I2C sensors, QSPI flash MTD partitions,
+and XADC temperature/voltage plus the external AD aux channels via IIO.
+
+The DTB passes CHECK_DTBS=y and the bindings pass dt_binding_check.
+
+Pufan Jin (2):
+  dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+  ARM: dts: zynq: Add ALINX AX7Z020B development board
+
+ .../bindings/soc/xilinx/xilinx.yaml           |   6 +
+ arch/arm/boot/dts/xilinx/Makefile             |   1 +
+ .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  72 +++++++++
+ .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 137 ++++++++++++++++++
+ 4 files changed, 216 insertions(+)
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
 
 -- 
 2.56.0
-
