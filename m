@@ -1,68 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169351;
-	b=y++ixHUpXk0EAG6Gbo2H9UdCPvmIDuipfE+z4FdFpG2FU0uI/8VHUfPnX1zNowWLE+nG
-	 rWsCgGws5f12KvCxtOw2zKTdmczXi07JBOsazediruWBpa89MLqlIdZw6T6XSEqbGW/5b
-	 5gYET2xIrQieG1ZhPCvCMCkIIoH6uYrJjVkv8kqOwh45lKImA8xlsyHGY1psSpYTJIVG7
-	 oyfX4Y3glebNS425013G4NDenzy7MVQ7pkQYf/w2czi7649hhYVqaoJtAo+CbpDQa0DMq
-	 h29BrpubnkeOAMGUjwR1CnPWOR1MboyvvRPU5wccs1jIBI2O5hUaI4DC/p21X3SzCgA==
+	t=1794169357;
+	b=wAYmGpmBS90j9uoLz0YWE+vR6dsTaYDCsJpGMk8qGeAMSpriQcFKH5SAnKS2wxv3TmMS
+	 k53N+Y7pbfvzV6gfN7234kkBrIeREkYCXXF3s3l/+3nO+E7WYmjwCQSGP4ChvheU7v45q
+	 oN0HG0FKNMkSfxDg+MCsd4jZdACG9YIURhqy+D3QT2G8fYokO9q+yPLCQA/AxZY74bgFh
+	 Bc1lJqEyK3tnnzsz8Xm3CYCZgDO2cDwE5pfh8ARTskTqNHO/vGGEQsM73NMkXpkcZvdU8
+	 lp4FSjHudrf0GmxD52uyIgxvrNRxPjT+dCZiMvMAFFl5SzutAeUCqkA5zDl70w8KcNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169357;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=SsvAPFW7IU/8Can7RL0UQqVDVWEur/qiJ/Sna8vvZcQ=;
-	b=F0hI2G97xTHXV4sTNtl3YRBNYurQwDvHqFifMCjNJBG40OjCSve4j7pcyUXoe9yDfkyi
-	 lriKG/Jrw+32TLhqRcD39znjBwWbS1wRJe24Qc/JfXcsh/vd0InbZ4i5ODlEhi9ZdEbri
-	 3sD8adVu3TLzGmrcT9vyIi5A+MuxLw9RxITK7jiNmgHyG9BHTfvHpfHT/jDMqPlqzNxro
-	 kuvwHHupasmMyt5eJVKIOu/2rVrq23xbt1hFFL4QB7qfiuF46kwwh+K9mBCc4A9xmI5MJ
-	 DiVut5fDxyMv6dYJ3rfPoNLAZ9P/lhaLKfa9EYW10msqqvGc8bSSo162M2BdaooOXZw==
+	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
+	b=cqJYiu1ZNvFh0PDvFhG77X3O1pwoMh5Ux1rJii+m5HJOq0oBZYP+7Z86kM2AYLAr/qHC
+	 VuYyMsi9jMgO4BK1pJs0otwWg4n1ibDgVBzr6OROAaRK36vrrgvJaYapfhKiFWETeHq+f
+	 aj7XpeJ0tKV+M2GbIYFsjQ88wwyWo/6HKuT7STiST3G11yUlijTjL4zTRVIAKLhN5MfG6
+	 SpVjv2sZeEw7/YIdY042WjBWvz9yon/8BxFyy5U/N0sr7y9MUu3y8pdo9jCTmtKRlAB2b
+	 8Mf0QLO1USj7maFXpGsQYYetYj4J3jo/zRK447uUBK/Iu+loChVPjT9cQc7XrJ39tLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1NHbKl5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C7560A3832;
-	Sun,  8 Nov 2026 20:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870CD60A6F75;
+	Sun,  8 Nov 2026 20:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1NHbKl5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999491F008A1;
-	Sun,  8 Nov 2026 20:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0977F1F0089F;
+	Sun,  8 Nov 2026 20:22:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169351;
-	bh=SsvAPFW7IU/8Can7RL0UQqVDVWEur/qiJ/Sna8vvZcQ=;
+	s=k20260515; t=1794169357;
+	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y1NHbKl5s9AAZzshbEd9qhjR6QkHqt2B+t4TCg2sob4/1b+06pl3WJ+o1KA/hU9Pu
-	 d/seU2fxFrDFzZOyRYH3VUJyELxrwddSxoiX9sPAqYL9N4MfLkm1cS5FKNPvj0AwY5
-	 oteG6xyYgIyO11+UoSV+W6gEADZQ+VU8oCE+CQwj45tim1MohXWgyHrgC7Q7pyN/Xu
-	 I8NEdVz0bElTJSlI930m/7+hHrqg38J+v1HI4u2ePznjM2SQWFOSIm7K6Z7NN5v4q4
-	 aN4q/d1JT6VQfxArspABVN/jAL9AqjhJFYrEll5Q+DRk5S9FgQ4wiB8wplGqAlOiUV
-	 L7RcPNj/kSytQ==
+	b=lOAqKlGsnjXSV21/T5smoYtdNla1zkSW4WkU9OHO4A37KX5l4/hbtlzCwBptD9rkQ
+	 jKFROwdGpMXgJXqyadRPWe1e+bWfOvg7+MYptBva3X5SrUeqx/I5tgYK2A6LefGAQY
+	 kgJbNbuHv7rvKBto+yH5+irTMC28bAUyUQDu5BGY7+mhbngOffzQ98emsnfLrvDQ7M
+	 VeY9bZ10ZgddwXPEqTiPXbbnoyqr21RaPdEBzGSS0zqmkj9h/7pjAw5GywN/9Rt1Wi
+	 IgoDkM+cOMt5izIC57HlGg5NnrRG29aYjj5G40Q5eJhuOH+TqqwOopu2io8FW1b5CJ
+	 PHs+dTmnslJeA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
-	Chenna Kesava Raju <quic_chennak@quicinc.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Fabricio Akio <fabricioakio@gmail.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	Alexey Minnekhanov <alexeymin@postmarketos.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Martin Botka <martin.botka@somainline.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mahima Bhattaram <mbhattar@qti.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
-Date: Sun,  8 Nov 2026 14:19:38 -0600
-Message-ID: <179416929203.628393.12432179393225108336.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
+Date: Sun,  8 Nov 2026 14:19:42 -0600
+Message-ID: <179416929353.628393.10028590160844820723.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
-References: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
+In-Reply-To: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
+References: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,20 +72,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 23 Sep 2026 09:29:39 +0530, Ekansh Gupta wrote:
-> The reg value of a compute-cb node must match the SID (the lower
-> nibble of its IOMMU stream ID) it is associated with. In the cdsp
-> fastrpc node, compute-cb@10, compute-cb@11 and compute-cb@12 were
-> mistakenly given reg values of 10, 11 and 12 instead of 12, 13 and
-> 14, which don't match their SIDs and leads to SMMU translation errors.
-> Fix the reg values, and rename the nodes accordingly.
+On Fri, 09 Oct 2026 17:49:30 -0300, Fabricio Akio wrote:
+> The QUP I2C and SPI controllers move their data through the BLSP BAM
+> DMA engines, which reach DDR as the aggregation NoC masters BLSP_1 and
+> BLSP_2. No path is described for them, so nothing requests bandwidth for
+> those masters while a transfer runs.
+> 
+> Describe the path from each controller's BLSP master to DDR, as the
+> vendor kernel votes it. On a Motorola Moto X4 (SDM630), with the
+> boot-time interconnect votes released and system-level sleep enabled,
+> an I2C transfer running as the SoC entered that sleep hung the SoC
+> without these paths; with them, 5,000 transfers ran through about 3,000
+> sleep entries.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
-      commit: 59cfafdd42611fe446c400e692814f8acaed8021
+[1/1] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
+      commit: 0e8c6ca9ac42a99a9cbd760f59ce47b6c61162ab
 
 Best regards,
 -- 
