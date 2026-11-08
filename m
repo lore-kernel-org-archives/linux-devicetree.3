@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169315;
-	b=j7+lt4du9D588ZLFn5fCKZA/orJIMxmuVz85CzKx8bB/PLu5CNKM7baQmzy8WmD4Fvnn
-	 KKpTOYC+dANGzd5Fgm0JfJF5yJg7Kp/x4cT/TvovvJ72JfL8dBpIwMtl56EwLyQISfmHD
-	 YOkSn452NV7MWUPGdUEH07qfFWWh2uZDJaKktCcHkxVwKhNgKT9ccVVJiVM+U838XG/xx
-	 VNiKweicLksfs/rBDePKWnlIOgiV7Xa9pCky+srxYK1XUipl5F4CCmZGdJxeEmn87lGy4
-	 utAfDceAB9sPJvA/OvwExRsBCsiqCzjWJWoBVHmkociq+R4MJZM7SoWJ6ezPPoE0YeQ==
+	t=1794169316;
+	b=EI6p5j1QrOYv2y14l1Roby2P4ydKYBf7sNwNt0cOzC1JpidKa1Z+gJKS6NabVasVkwEk
+	 3BuCGorwP7XTlfwWBAHV5lWgdeVNCkbM+PkeNXFvSoDhxkUk9ybCOiw8z8WLzBqvu5CuP
+	 wbWJroXeFeo/+Ida3l2HgUjAqU8mcXD6cAiThmbt0u9IA4GjUMIigeApcdq0dHAQIL4C4
+	 nPGqnjGIwNivTscbU8PYO0b++b+kL9dTvela77jCClS5qlKdqnd8YQWsySRJe5FSs/0L6
+	 oYG1DThF2894LEsrJnshS4Itj4LLmWM21nuEF6ey2SEqW9M2pnD8Vp8Hw5dV38uCYaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169316;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hixGYmWJte+kotD/NGQtsvYwM+0zWtz/LPkWrKPrQQA=;
-	b=JMVlvbw00nXi9iFhvS6dPX9B6mjqpcrdr3oJvQAAQGZSN3+8qs3RZECANaaWAKXTHWqB
-	 9Qg2KKBB/8nlzc816lo/HYoKLBB15RfhLPWxXdeOd0G0lDSOj+dkSpCchmHN8tL9Oqm4R
-	 rfsmv8oguzlGX49b6IbcK2ZSl8cXROQfjPO6CO65TaKBvBwIN0rOgnYyAH0q9zVqYwe33
-	 Hw8BBwwQkcgle21jQN52VNFx39FPKa0tgId+FJTMhFOO1xxQyd0etNt4LD7NQotE9j/kt
-	 bzMGuMk2vsXOf9IFfupbX1cEfgv92pzwNSX9gDCy0ulCDMyUpsP8rd3267AEJQqZhRA==
+	bh=jXKu8YLNoUh7b6qEbxLCOALRv7kBph05CrvzjeplkL8=;
+	b=yQaW3U2XRQwQ9DGBnr51OeG8nIEzqKimAte2UVmQhkW1NK9Ss+bf3RDDSo3fa7SaS22U
+	 wKT0P2m3Wnvt6IwmCffcIwBlPhSgeMPP6ZH3+3G27W39oewkhzxwQnMZQ6V8hZjM29hKC
+	 Y6r9R7cz3Dtmt8CB2VLUkUGnaUY/UNgZwwqVxzbMTHvFvNf4QdMBygnU6ysL10QdOEggW
+	 P03W2v+gQjbVoINm6hNU57ZTkGM4/8MMT4yHfLP2W5cpHyMSfpy/+j+Z4iWU0+EuXo3rq
+	 zD29T2Qx1+umwrk9N+x81Uv4WjtdpARJ6ys93gTMID+MaRt5fjoByTh3UggPj/15UvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccwadqvv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K9RYl3gW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8F3606D811;
-	Sun,  8 Nov 2026 20:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDD5606D821;
+	Sun,  8 Nov 2026 20:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccwadqvv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789441F008BC;
-	Sun,  8 Nov 2026 20:21:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K9RYl3gW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35761F008A4;
+	Sun,  8 Nov 2026 20:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169314;
-	bh=hixGYmWJte+kotD/NGQtsvYwM+0zWtz/LPkWrKPrQQA=;
+	s=k20260515; t=1794169315;
+	bh=jXKu8YLNoUh7b6qEbxLCOALRv7kBph05CrvzjeplkL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ccwadqvvCdCcc7l4lCBCju2BPr3rPe9aVWBGCMIYThwuSmiqpuz697TOZDeckTtSr
-	 +bD2RpML1RJsSLRTbmZns+aJd7HKkj3cTWbj51hUOseZ00Pb0viBRI6BVs5bx9GWvd
-	 pZJoXhNQDIqhBTL5DfJsIO8uuYLIj7AnKpMirVyoCtfCb8MDAb6WSff9WR8OmzHkxf
-	 Sb3JQ+zJwtOaEhDyUZ3vUWAcXam65ILs1XxRZc/A/BsNC3bsb760KqVjTOTC9fcvtF
-	 LajxEzdB9r+URCtxBoc6Xz3DVsQL0YuzRdWIVISg/jdfLiNQDcZKOMy8FXR7Mgaq8D
-	 mtYwz3YL2GlZA==
+	b=K9RYl3gWMbEurk5+clEdPJL2eIP0c+lEDIEUrVmegTpUJa6vRXOJ9S1mDdWBi9VG7
+	 YTb0TIiyemrBsklzjr5mOdM6vCJVK0kCpWWNjuPzplRcoizNYEFVqIh+e8Zwvs3c2B
+	 j3I8HxFMs3Q3j25uar7ZJeUfsgZUZKg6ALZgt98eVm2delTB+WFaYS9eXAS/bx1fBf
+	 yQ4QzW9/jshCwYALpYhNt38RwZcPAcjm6DmSfqFWxZc5sgOxGCMuQ/pPQUT9eQaRSa
+	 4Y08ZFyJxHh6yM/k7phzQ5Ux1dkBrKuUDV3jRj5k6vsLeuKqU/dWRTgCYQ7DR7d8cd
+	 8gxmRuxHAZ0Gw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Roman Linev <admin@mswin.me>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+	barnabas.czeman@mainlining.org,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5] arm64: dts: qcom: eliza: Add FastRPC support
-Date: Sun,  8 Nov 2026 14:19:13 -0600
-Message-ID: <179416929540.628393.14393857343572906521.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] arm64: dts: qcom: sm6125: enlarge reserved_mem1
+Date: Sun,  8 Nov 2026 14:19:14 -0600
+Message-ID: <179416929229.628393.16390580991068177022.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102-dts-qcom-eliza-add-fastrpc-v5-1-27ad8db4a47d@oss.qualcomm.com>
-References: <20261102-dts-qcom-eliza-add-fastrpc-v5-1-27ad8db4a47d@oss.qualcomm.com>
+In-Reply-To: <20261026174436.305327-1-admin@mswin.me>
+References: <20261026174436.305327-1-admin@mswin.me>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,14 +70,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 02 Nov 2026 14:17:52 +0200, Abel Vesa wrote:
-> Describe the FastRPC nodes for both ADSP and CDSP remoteprocs, along with
-> the ADSP remote heap memory region needed by the Audio PD.
+On Mon, 26 Oct 2026 20:44:36 +0300, Roman Linev wrote:
+> reserved_mem1@46200000 is sized 0x2d00000 (45 MiB) in the SoC dtsi, so it
+> ends at 0x48f00000, while camera_mem begins at 0x4ab00000. The reference
+> firmware memory map for sm6125 reserves 0x4900000 (73 MiB) at this base,
+> ending exactly where camera_mem starts, so the 28 MiB in between belongs to
+> firmware and not to the kernel. The dtsi nevertheless leaves that span as
+> normal System RAM and hands it to the page allocator.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza: Add FastRPC support
-      commit: 12d7f2067e9bbaa685daaa07f69c200e54aa14d1
+[1/1] arm64: dts: qcom: sm6125: enlarge reserved_mem1
+      commit: 0733c22353a775b2b48e13a396ae8434cb17dc7a
 
 Best regards,
 -- 
