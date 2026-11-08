@@ -1,63 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794161451;
-	b=emkK6oaTyHaG48UT+lrg0ZMuDs/jZT1RYowWnwuuC9yo2tFbKuveMRit5nU4/1OnaKRd
-	 LZ+Io9baWskdrQ1k74BmipLl5luD/yTjO5MTHPfpBawF6E8/YdWdim6Y8wWyuQRqyHNRc
-	 O6QnhQ6syzC3v+8Rg/xsl/L6Paj7U6M5Qw1dRN8ziXmOdMf7kR3UcMbwKZMmUDTAnmofw
-	 eXtWaU6hltifUmyOFky0WBfS3eyo8hoscrxEfma6L7FJP7zhH28D2rE5onp4Pf4ih0dLc
-	 SwmwakBE4jtjyrkXEEEgPXzJLgDqxc0iFA00MgMT/kcsOIhb5f4sRKhdZbbGwuqVqCg==
+	t=1794161750;
+	b=JizUtIcR2m1o7Yd3soNLH3y+5HLXDT+Gjra5Qdq53ALt7nuKCbaroCDj4YnwJP23Ftea
+	 DQmBwamgCbS/ymeD1QB3Dj7NPPgQwm3V5t1kSZjBHHP0Xq7GF/2+tay9qLupG8+CpogaB
+	 Q759BWxaDVVqlC7Qo0hxW9rcb/UeKU+MrlGNSOw2RE7nvd8ln6jSARQouQGh1h5XvvTAB
+	 CS9VU/D70p+qlF3GPZ1WZeELrzcq5fH/PSW43hbqTR1GJN5BmFc9XSc1hBAY3wS8FYLIF
+	 D/e09Rxrz4Af+x4lO2div//OWhyYkGjvb8PcHdcXIfvCP0/fTbc+3YizpR/tdSehU+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161451;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=9kpeqjW6Rq5T6EuMnyBvBxaIaXXg4raX5/17KI7MqmE=;
-	b=KNa/PV5ye2rUxcby2OGES0E7XD2/0vxlI1txj4aJI23KtAApXe//z0ldoPgckyUBKKMl
-	 tHXNMD4nYBRJmpakc92fBzRhZ8x34o72mgHAgmOre1JhfUTtkXQWcK02KPrl5FsgrMDLb
-	 1I5JnrkOcFOoHnyYB7pqM3O3XNDne4rTEHdxYVuj6G2wG0ff42wuoTtMNlotBqz0tRboD
-	 p5MOlrRrS9sUEP5+bHUW8UNWws+P+A3gS5XfN834sUrYb8d3nz45kRl4ZqRMQZ//qxg4/
-	 aX35H6USgqS1+sRAMNIbc+7Ver7sPsU4qDPHtm0ZAyJAyyqE7ZM6Dbqt0WiYE90HMcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161750;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9XXKh7vT6Q9jU2uqPmQkXruUZ4A17pBIXI6HbC2dxI8=;
+	b=lbgdy9u3RMpl8x0321XYjD+3zmm3inyO98QqI8nRUX6l0jBH1g1rtzy/d5QzoTZhLcJU
+	 K461VJFR76o1Et/mLAtXhtGE3u3ltHuoUyLLbmNkvzhbYpEnJVCl7d/XackDlXUwB28Gy
+	 EHm2Kp3MDCmewr4/mmmJ3oPXNqhXEMI1p7EpnOoTMtLtmoOqIWYQOoPn9yZnBJsXRgfOr
+	 tuHNx2tTZd19TKDgFdj831lc20iI+uDyXJdPkv9yncjePuxreDOQNDIg/wi1hkFhrGeeH
+	 62S5523GiraJ7IGu+po96DO6TUlgZlpOroJ2bDavog8Jrn2Rp2rLVEW/v9JQhpNjHHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=VUrGsfpx;
-	arc=none smtp.remote-ip=212.27.42.1
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpOJe8fu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81596606A31C;
-	Sun,  8 Nov 2026 18:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81596606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27003606A31C;
+	Sun,  8 Nov 2026 18:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=VUrGsfpx
-Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:41ba:50da:6236:7eea])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 64BFDB0053D;
-	Sun,  8 Nov 2026 19:10:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794161441;
-	bh=K2BtXWkziekFSvI6P/+ngyBc85GfadAb6SoVxmYMKR0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VUrGsfpxubS68UUI94ZjHtq6oxoURSYR2WEbuBDjXXS8selYUAOAAnFDreFv//djV
-	 TexaJ9Af2Bx+w6732lgKV0Vk7rfs4HLXdsEe9J3NN0a8BxuPgYrmuSbx4ocFtJKxW1
-	 sEH7xboATxifc6o4010ZHj6Xqrt0+ZcHpqY7gCx+uFk+8qecBEXuwGJqpy9rqiRbAx
-	 3g9XCltJrgSBCPhth1Dtt4iYV9w1SRAoAvPbTJeeYlgGvS5cRVCgW93zPpDR4ej9QQ
-	 /arTIReb2WgSzKrcEFg/Z8dLsvFOBOiEZe+tj0U2+l96IkfpANyX6gA13vCR6UgNoW
-	 QpeRRKAkAeGlw==
-Date: Sun, 8 Nov 2026 19:10:31 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	Frank.Li@kernel.org
-Subject: Re: [PATCH v3 5/5] arm64: dts: lx2160a: describe the pad muxes as
- the DCFG RCW override
-Message-ID: <avC7Fz2UstYb5r24@L30177.local>
-References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-5-5a0063f1da9e@free.fr>
- <sashiko-outbox-203680@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpOJe8fu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A13D1F0089F;
+	Sun,  8 Nov 2026 18:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794161750;
+	bh=9XXKh7vT6Q9jU2uqPmQkXruUZ4A17pBIXI6HbC2dxI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EpOJe8fuD462bWokak//lTzCAvxRzr/1+rYPgEcxh6qM0WkQFziwQfD7EZRrWOK0B
+	 KQusSYWyp/GOrFqo8nIalkTpyDoj4vbHw/t+dpp90XILSplXDo8kHwU0671KBULaAr
+	 RQAXYwtaqkspNvWVcNsFoSWiTDQfzCVwnQfnHb+Tpu5hcxwiVuRo+g5nAD43diZrVT
+	 zUMCtRghKc+aqiSWk/UctFlsGMsyj76lXzCEksXdekiLvuMEh60+7ign+ztb4ct3ec
+	 bX1XgDkmlpXC4YFTaoR7x8oHAu7000cSocwSegkNVGzEJBs646yD1p7RdTTIZhWZ5s
+	 gHKAWwG9+egig==
+Message-ID: <2ec53558-07d8-4824-821b-03e39da672aa@kernel.org>
+Date: Sun, 8 Nov 2026 19:15:43 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,22 +51,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-203680@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] phy: apple: atc: Add initial M3 series support
+To: Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+ <20261108-t8122-phy-v1-3-c2783b2a53a8@chaosmail.tech>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20261108-t8122-phy-v1-3-c2783b2a53a8@chaosmail.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi M. Bot,
+Hi,
 
-> [Severity: Low]
-> Since this fixes the pad mux clearing issue introduced by the
-> pinctrl-single description, should this include a Fixes: trailer?
+
+On 11/8/26 16:43, Sasha Finkelstein wrote:
+> Adds initial support for the new t8122 phy. USB/TB only for now, DP
+> will fail to negotiate
 >
->   Fixes: 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c gpio to support bus recovery")
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
 
-No, it is on purpose.
+So I wonder if it's time to split this into multiple files now.
+Maybe something like atc.c that does the core stuff (probing, 
+phy/reset/etc. interfacing, mode transitions, tunables, etc.) and then 
+atc-t8103.c and atc-t8112.c for the hardware specific parts since 
+especially DP seems to be quite different between the two generations now.
 
-This patch is not standalone: it needs the binding, the fsl-guts
-override and the pad-mux driver of 1 to 4. 
 
-Thanks,
-  Vincent
+>   drivers/phy/apple/atc.c | 382 +++++++++++++++++++++++++++++++++++++-----------
+>   1 file changed, 297 insertions(+), 85 deletions(-)
+
+[...]
+
+> diff --git a/drivers/phy/apple/atc.c b/drivers/phy/apple/atc.c
+> index 45f1280a6faa..256a08499646 100644
+> --- a/drivers/phy/apple/atc.c
+> +++ b/drivers/phy/apple/atc.c
+> @@ -100,9 +100,15 @@
+>   #define AUSPLL_FREQ_CFG 0x2224
+>   #define AUSPLL_FREQ_REFCLK GENMASK(1, 0)
+>   
+> +#define AUS_COMMON_SHIM_BLK_BIAS_REG 0x0a00
+> +#define AUS_COMMON_SHIM_BLK_BIAS_REG_BGBIAS_OV BIT(1)
+> +
+>   #define AUS_COMMON_SHIM_BLK_VREG 0x0a04
+>   #define AUS_VREG_TRIM GENMASK(6, 2)
+>   
+[...]
+>   	atcphy->mode = mode;
+>   
+> @@ -2201,6 +2387,7 @@ static int atcphy_probe_mux(struct apple_atcphy *atcphy)
+>   
+>   static int atcphy_load_tunables(struct apple_atcphy *atcphy)
+>   {
+> +	size_t tunable_count;
+>   	struct {
+>   		const char *dt_name;
+>   		struct apple_tunable **tunable;
+> @@ -2216,8 +2403,14 @@ static int atcphy_load_tunables(struct apple_atcphy *atcphy)
+>   		{ "apple,tunable-lane0-dp", &atcphy->tunables.lane_dp[0], atcphy->res.core },
+>   		{ "apple,tunable-lane1-dp", &atcphy->tunables.lane_dp[1], atcphy->res.core },
+>   	};
+> -
+> -	for (int i = 0; i < ARRAY_SIZE(tunables); i++) {
+> +	if (atcphy->hw->gen == ATCPHY_GENERATION_T8122) {
+> +		tunable_count = ARRAY_SIZE(tunables) - 2;
+> +		atcphy->tunables.lane_dp[0] = NULL;
+> +		atcphy->tunables.lane_dp[1] = NULL;
+> +	} else
+> +		tunable_count = ARRAY_SIZE(tunables);
+
+nit: I think else { .. } looks nicer when the if already has braces even 
+though it's just a single line.
+
+
+
+Sven
+
