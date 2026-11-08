@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794159186;
-	b=tui+prkpJKIrdH9nrbMn0gFveEKzd0pDLnFDG+LqEVBw+0KkCaOneHVLZeh5rEVhDzhP
-	 fsBhptB/5YCQoRwoeFRXKMM3/DVwwnsjWcMMKHF0xXjk04k7xbh6Janw60oJ0vpEYd0TB
-	 BxJvz2c7m/LNKdPl+tkV7+f9eca/PLaamfuYh9rMCKjGobq9kPf31R7hgALZe6OlVGT2w
-	 Db3wwa6hgLNPcxs5tdAEXl/XCuevigs8YOeNSiVRgjemIS6slBww5xR8TdqsTCoFWTyOY
-	 dXRyeDdBRGzfUt1Gdzd88mSzWUjEgvFWcWYsDA+Wn+wYDZ266VuMLrdDARPpQmMwNkA==
+	t=1794160587;
+	b=0F8qF9EWf3+Oads+tnYxkrhWnclfAgJZ7F9DN2vtd4XJzetQ+DE27xe+NXvyTkx9kHRK
+	 FDLhJ/F9P1N3edcGLfpz6O/oQ+3LtlFb1n476Rjbz4TTKtGU++hwzkeF5n30AyF2h++6l
+	 feiKYgtOHuzJuYDWG8EtlHutzTIiZTpUae3SQ60iwqFwHMeHpZEAsB6M+Wrny0Kdqrnsy
+	 xi0VPDn7U+DobvVO07X9OuXRnZmIhUms3DfKgGB14jPS/ikvAkixcIx5G5XTTdW4FlHpf
+	 sA5+J/Fj0aNDLGS8ZY+9p2jxnaGI+OLj5Xn/ytzCokunLG0K4581Gqu3fN99ZTSyjrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794159186;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
-	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
-	b=ruc6w97wR4HDUMCuk3lGZe9UnquHw9uWHKs2GRUrIRh6h3h6B1n4/9o9XzzJlz8NnaO/
-	 0B4kuJe2kulN2fQfFVGze6/UnTLyE3r+QvBSX/MFUwli36AVnojUm1SnxhEk6EO3JCCsJ
-	 ShD847HEJ4KTno3Tgd6Wqb1o5j+bHaiSq8YcNydyBtASrFSNMloi+5F3sbPd1JKRUgps1
-	 SdcmSBTBY/YmrYZwiqJFixO/STUriWkTQRuIqdN3nEehcwxWDTsRFlBdOxA1j1UmKHHpd
-	 fawCDfWheKQ1iJ56/wJAVW8opp69E0g57rTod+lLwMl7coGXUBdsVIFaNUhkbTpV95A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794160587;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=E4ws0ipHUP39KmaqfV+8bszyUiNRG8BNvzIQTxXOAwA=;
+	b=nJPiCcnmrEUEDubisoOEyon3S55QNyuw7kvbKeZgK7uYQM6SwmtjEDzV5FDoJrMdkd5b
+	 7BIH7hpeZOWaNYpx76sdOrm6cMSY9rdAUeGQo4PU4AagtU517cUAD0hd7oKgpoRse78gE
+	 9UpCYMU4xDtPhqzwjYT8PomaHFk5OF8IJqIeUASno6Gf/ge3jkJjjxQKyINjTg4e24pnN
+	 Hvmt4p5m1r1oGQLBIxCgzgadIa7JzGiCLTn1CPyjBfY/Ok/a05MXNFaI4xpBXcyRrLwhJ
+	 HYlDzt72NNUZGhonLSYO2vyw34MP83ODREBE5dzA219qShZkqcaGB7i+0K9UsZ5igJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ubuntu.com;
-	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
-	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w;
-	arc=none smtp.remote-ip=149.28.215.223
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=kyG8tr04;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08512606A32A
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 17:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08512606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3811D606A320
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 17:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3811D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1794159179;
- bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
- b=hUH62b6wWLBQaAHtKJmhGM8hS/IgZWJAg9FAPlzX6nxk7E1AFgrue1+f2e0Wxu+S1eIKEgK+6
- sEvU543Nw/HnzaLYnOWE73w1luC6CZZH+AgblbWKUrMz0eg7DfE1xQLk6l1DcEEzCv6D0MIVMmA
- PzlENqckvChaKYAt3ZnvXm1bS9UtX4zLYUl90GRVF/6Zxg2vJBUS7IgE7bFB08PY40xSYvW2F3Y
- lrA+XJ+KfVLXoTgT4zj8GKpF9gALE3U/i3RtK7YQyC0UVmpq2rf401FxvR16R1/xznypzK1y9fN
- YitKq34puxj+dX1lGM9uuf/PwoDW4WmjavVVk62kgSIA==
-X-Forward-Email-ID: 6af0b240935e4de7801c9067
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.19.13
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=kyG8tr04
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id Q10axl7oh4vCDQ77yx1l6s; Sun, 08 Nov 2026 17:56:26 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Q77xxxjOqb2qJQ77xxJUu5; Sun, 08 Nov 2026 17:56:26 +0000
+X-Authority-Analysis: v=2.4 cv=A7tsP7WG c=1 sm=1 tr=0 ts=6af0b7ca
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=8b9GpE9nAAAA:8 a=ZdWTtX0RdJLCUevRbrYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=E4ws0ipHUP39KmaqfV+8bszyUiNRG8BNvzIQTxXOAwA=; b=kyG8tr04BsGk
+	9hIkCP5sZ5ifCDsJQeTdkRoVhaOyiQFY3GYePKlgAOWBDYVlqTtIqFydpU8e0xglfQLaCuUSxyCau
+	EVpFtU4hvji4ygWVximV7fEw1zorkO0rrmVui49F9BzbfemD86cjVVW5v7CDwwL1ZOxZZzgSihaw8
+	g1IR/ZbIRxrlXNyBVvwET9rS2VJw1XPMkUktsKY6Q0Jrj+9bd3R+N3NiZ7kcoPXeLp43ReV5xJMKW
+	SwB9vArOspLR5rPs1DW9QPpReeZqpxN7RivdldeJcBFKuN9jZhmiahCC6oBdHHdcwHNn78FLKbFD7
+	P6FlyJpzvP78wRKoyBT7Uw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52810)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQ77x-00000002C9A-1fbi;
+	Sun, 08 Nov 2026 23:26:25 +0530
+Message-ID: <a6460db0-8df6-4427-9ecc-277f2f575d39@roeck-us.net>
+Date: Sun, 8 Nov 2026 09:56:24 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,82 +75,147 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Sun, 08 Nov 2026 12:32:46 -0500
-Message-Id: <DMQ0CENBZQGW.L35BD1BXYE9Z@ubuntu.com>
-Cc: <linux-arm-kernel@lists.infradead.org>,
- <linux-perf-users@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>, "Yuvan Shen"
- <yuvanshen09@gmail.com>, "Nick Chan" <towinchenmi@gmail.com>
-Subject: Re: [PATCH 00/13] drivers/perf: apple_m1: Add M3/M4/A18 Pro Support
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: <myrialsarvay@gmail.com>, "Will Deacon" <will@kernel.org>, "Mark
- Rutland" <mark.rutland@arm.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Sven Peter" <sven@kernel.org>, "Janne Grunau"
- <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Marc Zyngier"
- <maz@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
-In-Reply-To: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/13] watchdog: stm32_iwdg: detect whether the
+ watchdog is running
+To: sashiko-reviews@lists.linux.dev,
+ Antonio Borneo <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-3-antonio.borneo@foss.st.com>
+ <sashiko-outbox-201895@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <sashiko-outbox-201895@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQ77x-00000002C9A-1fbi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:52810
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 9
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMHQnWDRXyoT+Q/aIR9nLFqleCaMHNXe+9LzzrTIPAfxa1Mv7koYIXX4XADHEZkKwtvCmTs/0gJD9JaBusO6LOf51xCZeADrMIfS53Xxx5hZryt+6oSC
+ APiAY3jQSnACyCTPUT0LAQT3YPkkEdbWzcN5oBuBbY8ZDgwqcwaJKHCQwNT4pdx3Kf7zXJq45XHW3oLD22LwVwR5mGPXCuNfbg04PfbXpchLtyF+3BnyvQVh
 
-On Tue Nov 3, 2026 at 5:14 AM EST, Myria Sarvay via B4 Relay wrote:
-> This series adds support for the CPU PMU in the new M3, M4 and A18 SoCs
-> presed in apple devices. These PMUs have new encodings for events, along
-> with larger codes for these events. All of these events are as Apple
-> describes them in the various kpep files found under /usr/share/kpep on
-> macOS 27. More events may exist, but we have no idea of their affinity,
-> or what they actually count, so we don't include them here.
->
-> These patches have been tested on my own M2 (t8133-j413) and M3
-> (t6031-j514c) devices, as well as by Yuvan on their M4 (t8132-j713)
-> device.
->
-> If possible, the device tree changes should probably go through
-> apple-soc, as this is where the recently picked up M4 Pro/Max dts are.
->
-> Tested-by: Yuvan Shen <yuvanshen09@gmail.com> # on t8132-j713
-> Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
-> ---
-> Myria Sarvay (12):
->       dt-bindings: arm: pmu: Add Apple M3/M4/A18 Pro SoC CPU PMU compatib=
-les
->       drivers/perf: apple_m1: Remove unused variables
->       drivers/perf: apple_m1: Support per-implementation event size
->       drivers/perf: apple_m1: Use macros for per-implementation init func=
-tions
->       drivers/perf: apple_m1: Add Apple M3 Series Support
->       drivers/perf: apple_m1: Add Apple M4 Series Support
->       drivers/perf: apple_m1: Add Apple A18 Support
->       arm64: dts: apple: t603x: Add PMU Device Nodes
->       arm64: dts: apple: t8122: Add PMU Device Nodes
->       arm64: dts: apple: t604x: Add PMU Device Nodes
->       arm64: dts: apple: t8132: Add PMU Device Nodes
->       arm64: dts: apple: t8140: Add PMU Device Nodes
->
-Maybe the folder should be renamed to 'apple_arm' or something like
-that?
+On 11/6/26 09:05, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issues to consider:
+> - [High] watchdog: stm32_iwdg: unconfigured timeout in
+>    stm32_iwdg_probe()
+> - [Medium] watchdog: stm32_iwdg: WDOG_HW_RUNNING gated on Kconfig in
+>    stm32_iwdg_probe()
+> --
+> 
+> commit 7c2acc17f93336becc29a7a139de848c3db25624
+> Author: Clément Le Goffic <clement.legoffic@foss.st.com>
+> 
+> watchdog: stm32_iwdg: detect whether the watchdog is running
+> 
+> This commit adds stm32_iwdg_is_running() to detect whether the watchdog
+> was already started by an earlier boot stage and sets WDOG_HW_RUNNING in
+> stm32_iwdg_probe() only when it is running.
+> 
+> [Severity: High]
+> In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(), does
+> removing the call to stm32_iwdg_start(wdd) leave the hardware prescaler
+> (IWDG_PR), reload value (IWDG_RLR), and early-wakeup interrupt
+> (IWDG_EWCR) registers out of sync with wdd->timeout and wdd->pretimeout?
+> 
+> When stm32_iwdg_is_running(wdt) returns true, stm32_iwdg_probe() now sets
+> WDOG_HW_RUNNING without programming wdd->timeout into the hardware or
+> reading the bootloader's configured timeout back into wdd->timeout.
+> Because stm32_iwdg_ops provides stm32_iwdg_ping() (line 162), which only
+> writes KR_KEY_RELOAD to IWDG_KR, the watchdog core's keepalive worker
+> schedules pings at half of wdd->timeout while reloading the bootloader's
+> counter value. If the bootloader configured a hardware timeout shorter
+> than wdd->timeout / 2, the watchdog expires and resets the system before
+> the next keepalive ping. Even after userspace opens /dev/watchdog,
+> watchdog_start() in drivers/watchdog/watchdog_dev.c (line 261) sees both
+> WDOG_HW_RUNNING and wdd->ops->ping set and calls __watchdog_ping(wdd)
+> instead of wdd->ops->start(wdd), leaving IWDG_PR, IWDG_RLR, and IWDG_EWCR
+> unconfigured.
+> 
+> [Severity: Medium]
+> In drivers/watchdog/stm32_iwdg.c at line 394 in stm32_iwdg_probe(),
+> should setting WDOG_HW_RUNNING be unconditional when
+> stm32_iwdg_is_running(wdt) is true, rather than gated on
+> IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)?
+> 
+> In drivers/watchdog/watchdog_dev.c at line 1099 in
+> watchdog_cdev_register(), the watchdog core checks watchdog_hw_running()
+> to pin the module and device references and to evaluate the runtime
+> watchdog.handle_boot_enabled parameter. Gating the check on
+> IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED) in the driver prevents
+> the core from knowing the hardware is active when
+> CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED=n, breaking the
+> watchdog.handle_boot_enabled=1 kernel command-line override and skipping
+> the module/device reference pinning.
+> 
 
-> Nick Chan (1):
->       drivers/perf: apple_m1: Support per-implementation event tables
->
->  Documentation/devicetree/bindings/arm/pmu.yaml |   8 +
->  arch/arm64/boot/dts/apple/t6030.dtsi           |  12 +
->  arch/arm64/boot/dts/apple/t6031-base.dtsi      |  12 +
->  arch/arm64/boot/dts/apple/t6041.dtsi           |  12 +
->  arch/arm64/boot/dts/apple/t8122.dtsi           |  12 +
->  arch/arm64/boot/dts/apple/t8132.dtsi           |  12 +
->  arch/arm64/boot/dts/apple/t8140.dtsi           |  12 +
->  drivers/perf/apple_m1_cpu_pmu.c                | 664 +++++++++++++++++++=
-+++---
->  8 files changed, 662 insertions(+), 82 deletions(-)
-> ---
-> base-commit: acb925da49876e74b806ccd48a7518d2d3368e5d
-> change-id: 20260929-m3-plus-pmu-events-e4010ab44135
->
-> Best regards,
-> -- =20
-> Myria Sarvay <myrialsarvay@gmail.com>
+Sashiko has a point. CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is supposed to be
+handled in the watchdog core, not in watchdog drivers, and it is supposed
+to be a default value that can be overwritten with a boot parameter.
+
+Having said that, please let me know if this is intentional. If so,
+I'll apply the patch anyway.
+
+Thanks,
+Guenter
 
