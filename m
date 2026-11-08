@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794131806;
-	b=RhYi0tzXXxlpyTWgkPML64AVkAbYhPUzEYfFsb742b/fH7K90irRpEv2fnKycz7HAv3a
-	 T0k0Hcg6R7oawPCukutm3C+wgwybh1g09pdTEKr7sbtCT+kR5NCpqjOoy0e6gy3BMCOx1
-	 butMhT0TnDMKQ9Mki/DwvmVOp3N5/mNgxtBt5Pv1j6doPEM0CwoAylVtBP1QjEaNX3qDS
-	 oOhS0a1btrHfWei1bc5LofYyyDKyZOpeg1jBSOq+rwWPGa/pL996MfLx4cD6AfrIgy06r
-	 0+2BEhrG4Z6Y/8Qr5nZoMTFBv+vG5sYKDx6cV8RZKDfLOUVUtkCq80LGX1AMQIWjeRA==
+	t=1794131808;
+	b=gOJdZhc989ENiLmEvkZVdKZqFDiyD+jZuANGJWgPw9bYYxDejLQ1JtVkEiVkc3OzsIrK
+	 mP+fB5eXlVs2xYT56RMnZVDk9o8bcJACrnu2pc/Ug1OfU2m62z77MbeWskpY3LkMIswcc
+	 kRLc9anbPiYXjb+R+1/kqZwH9j23yXFC5yUtOvGJuf5GcQy8cTzfiTNpUhxUQWmTvFcea
+	 QHkI1+gtV5++ihN0tucckq5g4vlfIQR8YmHRACtIy1G6z5vIRbBBEg24vJ0XXEPBiIXIB
+	 Db8I3YXAzSluu+MScpWbes6Eu3Y7FWIJrsj1yTANMb7eC+pns1brYmCJczSpIm+9jCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794131806;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794131808;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
-	b=hxpJzdfyjQZXxTn3No3+01bTj68nYkirQoiHHQDdGBfKyUCP2YEXmf+Uq27MQDgzZday
-	 YwIe23Q/2nfRtPuBLtNJ4u1kwQ/ySqNSGYOocwe6llckZHRNWutZDS/1N50Uo7mgvYVDL
-	 RusRSixbwWqJcAOkMxHXvZLNKiU1xbrqxofVOX4CtuZzfIktDdXSkJFcbiqjiFaGnhXbt
-	 RVeROkdTyKVfrqKTKVsqAcTtlnsvAPo7jdFdwpu2h50XfAOoEnc6paewwiMlpYI8UPfqG
-	 7LzMU3JABV6Cv+fwMpPpKiLKx4oHXua9UzAMxByhVBXwMTubYsls9+LSaCUQSNaBJRw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uqi3gyiVeJ5V4q5i7p+1+tL7Q+jROIpeI4BmduF5Zrs=;
+	b=PjsuCpjf8wyIjCbBzRRCDqHFrkTF3Zn1Jx3y7dlxSp4k8bAmL8YLkSBwcKQ6sUKyrw1p
+	 hWPH3tI1ohMVueLVoYje0EbhPPnAN2tTjdJePGAr/vdB3e94nCRiChyucMUvjS2qIe5cp
+	 e2x6z10eL000mQMS18EZJg16XeLW8FlGZbinPmzKUGD/a4JHCAsOq6qcjmf3b7qqRrqxA
+	 VDqyN1P6JqTYbeF5ra+adabowzPfKJz5+nB361LEGsEbrfjJ9Pjvdoh0CsFzNLHUObMv+
+	 4bsZJNmxGF806FoCzDlAs2gikW2vIiRqPpkF8R6ufV76WXlNPLNcDJwA8LQCxYhyFpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUjqusQa;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d6k18Nsc;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C4A606A321
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C4A606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3E5606A32A
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D3E5606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUjqusQa
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4322d310e7so2683766b.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 01:56:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d6k18Nsc
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b571979178so20406a12.2
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 01:56:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794131805; x=1794736605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
-        b=lUjqusQaj8Wf2o/nv1+PV+497UA5OYJz0uJeVO9W8iBalJ5xK9HWhRAoNlI0QQtB/k
-         QK9prBkdbacVPTr6Pfgz1JI+U6arVkz/DAN8ba4s2/SXkd0vDiL48v3TDsN0gOycR7r2
-         JO+uXyWzoHeoa4xuEetHbpHmLOy2KsrRldJWXilK0SNfuTktCahmNG0FjiCPm9IfsQOo
-         YrB0wiFGYaiaGWW4V3ypnNmR5A9ZF2k/24ghOGMWplFv9V7+wtS+MSpfKxajNWLACVq8
-         2JF8TK0vVGpIiWZ1jnPoeKUfFQi9nNguJgY2Gd27VYBRH4S8rCkpEuNUYfNWn1TxxsEL
-         tAJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794131805; x=1794736605;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794131806; x=1794736606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
-        b=zmVKvUpZCmg/CBcY0yggYSsCQVpvRRUXn94hmkz2fJTWorh+Fw3wI6r8KgBZ5BBM9c
-         avrpRB9TcPQqgeslLPDat1HrjgcjFSzTVv5m3hGd/a80ZcIsKJT9qbQvR6L1hRQnCsyV
-         uEMcIT+GAPOxAxO+JYHVPRgrHtY/CJ6uRst5zIo3BvUVWA0a+u8/4guG7WnaEI7EDGo1
-         peK6sxB6o0X6mBVSOWrPunWO7/BU/i+b/IndalgeJxsanZ0nNddozTmDvBViB1re8E78
-         8eiQnht73JNcFZ0hIYq0tsdA5ksEPulSIq3YdKXz05/SYPn4Lbzc9UtRixzTcRQ1IN+v
-         tzjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymu6mrtIxEjHl3tcepLjZxpHgwEuYEKeQDxGvjEBeHxVrUAuT6jPcNU4FSH7CUmyO+Z2Zm0pKfx4Qt@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PFZGjzPZKZQj9QPWylvhltyaCWpB0gj0q5Ph3QBj8DaJ1+BHb
-	sO2JGcY8TWLxFkK9MyE6GrQFTcyheEQ8Bev5qIM7nk46av/nSVOWx6tf
-X-Gm-Gg: AYBFou15tzvarTLtQhYMkvhrdePLbs+FrNsDkz9UF39+VeFKd02g0JdH5VU9HffOchr
-	w0rLAbLt/IXag/qPvMMklJKps191jULiCEmVq8hX+UOahOXGV+c5IYKDocV4uqNnKduBNIp7HWy
-	OYfz2IpGTMCkNQyXHL0B50FdZ+++IOXFrZBioVodk/gnAYIbz+lO/Z9oW5joUOK4e1ZbOKlhInC
-	rIcVEgC/dpwLRd/ILSg+jIOXVtYCSCOwKp78BmdHV+2sK0X20KfTqBy8v/MtnJ2ugBZOY/g8mew
-	F+mA5Znn7tmDYCQmmSYbFJrYKMETkNL10ZMkJy7slxONL0Tao3tVbEqNpbYHcbVHmJ6eUVHeIha
-	tE9D/IHQ8Wzq1o2Thh5RiPIBdG1+Tccns9i/BMA5COv87/7QMRxJIvvYubuATp1ndzj0eWdpfhO
-	5GRne2MOLvXB6HNdDQmodudhjIb/JXkV7zW6eK6C77v4L+UcluFAvhkSuPMKOl82IbSez5ZWz9B
-	CSDbZvSPLmW0Ur/26aS/Fb4HLHE1Mj4RT7DdWTLGJ+3SletnTM4ak3i2P49axpfcWAb0vGsDl11
-	3Ek8/ZvX0bctDo1m2Y1TSxXQSWjrqxQ/lJMbicWYrV29E8CNMCGl3lh+WFqxgn+MigyGH2Z2fCD
-	SS53MXX3C806KAPSqVbUFZmv6DiCxEpE=
-X-Received: by 2002:a17:907:94c5:b0:c4c:eb16:b567 with SMTP id a640c23a62f3a-c4d6d4e45b8mr82837666b.19.1794131804580;
-        Sun, 08 Nov 2026 01:56:44 -0800 (PST)
+        bh=uqi3gyiVeJ5V4q5i7p+1+tL7Q+jROIpeI4BmduF5Zrs=;
+        b=d6k18NsckswXQJHgdv7ZJdN5lnDDlUwL1IC9wGogAAcQnYo3m/Svt3Moax+Rcfwg10
+         NnyvNM/9ItpHXc1Z2AS652d13hEAzr+N6eP5UKAYrEK+zJvLq8i3BzEdR8MXFRMVF385
+         awNQfBN8ngK5jSTbTZRarUrRM2kxH3IAuOw1srSgxGfPCqkXw93cmdw1gmzj9bbTKXNR
+         8MCECcBRKFdPq4kuu6XZQypB4OYiXym+TiU3FVahUScgUPoGj0xtFfVO46q9DCIh3D3O
+         BEITlOGb67SAAh1uk0sKos8qGzbbewGKY/9dHdhDuYtY0AYM2XTTvjgE+AZcO7km0tDd
+         9S1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794131806; x=1794736606;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uqi3gyiVeJ5V4q5i7p+1+tL7Q+jROIpeI4BmduF5Zrs=;
+        b=jdRYNJ5sU92lYtxNaC05RdojTyyUbV/VL5z9a0VbINpePcqxHX/BpymihQwlPJ2pE5
+         IphWWRg5jFgAX+ABhiHys9i4Jq940jGAYH3rsaczneTxLMrgfF8G/9FSgjnbdGT+FEBM
+         +gTzbDzVyWQG7vH/qYYr1JzToSVGGVsVjD0AWwPinUNMc7SQKTandQyZ1PmlAl9xLeQz
+         erkKmAEP+PZuHKJKP6gIe0cgq+YP1x/2Q4rCKsN5glIJyNpY4bCwoDX2dEHOhSphTTxN
+         tyE9MMcGHbMj7ffPhXneM1a8St2bm/CDyR1RV2ajY0naJrycTLv6aw9Y9PjiKLRt0/S8
+         AiCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIh3+O64FZfuxhxGxEFYhI2NAZ2fcqif6KMOOGcFb/LJQzttwS4d1+5Lbx+yJsHq8kesCCQzvfkrFS@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ZL5e7Lz2XS3uvBESrgIgOtgZ8YwTpsgRuagGgUNiCwoUKDWYB
+	zxOjY9Qs8NPHV6Y1v96drtiSpsl4vFuCv5uZF5iQLL2pQZlhQMvaL6hK
+X-Gm-Gg: AYBFou2ua+7iv9FpafD0xV5fFt62F/1OZFfkYI5OSBtN/bZk1w80u0+omBn1jHp6nyE
+	zBDQapsGprKGmFamWC6UJi0FZp8Mgs/UCn0pglP49AcOoV1B7FHpnYVCQBnpnSnhLydRz3yIri2
+	cB21TLX3BCfsc78B5jfG3IHqLyOtnxrplmAMMkXtC923YOeUKN/CDxC6Zlq94sCQ6oLkGdxhON7
+	ls6+hDrOaBCjTmQ+iFqAmBhbClSadQihz9OL32zlMqgNtnInRIipEPpLXbdJ/aiKVDUyiBC/0cN
+	6sGEfzDK5a5xtuP7qR70kDwUqbvAwOhb2OmNBHF62trjOOlyZkqW7wetB4QRy+4TXHTHXhhwbiI
+	i01pd2NK/DVLdd5CmZTCd5PcNlxmiKDyHmSCW1zbcf2NE9IjBgp2ubpyEZfcy3JttnZUANJSdpE
+	YCyKw08q7GeQh2GgajXx6IZGFPXyFgWeO8hFYhZjq0tnznS4eMdNU54J5pjl/cCUZ2WJMSNBKAo
+	8bw2VzGDBCiVAeaU+CFqwvqv8k16xnkFDl3oBfLC0khs6DUAqcDZiyenkkYDuJTyxS8yrm5VrxN
+	n6ditV6o21ah5gEEJgFDTF6YvhYSBvPX5NdjC3Ft5XRdOEYo3eRnXpv4BRSn8VGWffka8bqmg76
+	8mNeTQnfIcA==
+X-Received: by 2002:a17:907:da1:b0:c3e:d0ca:d2fd with SMTP id a640c23a62f3a-c4d6d35bda4mr86080366b.12.1794131806225;
+        Sun, 08 Nov 2026 01:56:46 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a9bc2e2sm48920866b.83.2026.11.08.01.56.42
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a9bc2e2sm48920866b.83.2026.11.08.01.56.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 01:56:43 -0800 (PST)
+        Sun, 08 Nov 2026 01:56:45 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -94,10 +95,12 @@ Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	mfd@lists.linux.dev
-Subject: [PATCH v1 0/4] iio: adc: Add support for MAX8907 ADC cell
-Date: Sun,  8 Nov 2026 11:56:30 +0200
-Message-ID: <20261108095634.100517-1-clamor95@gmail.com>
+Subject: [PATCH v1 1/4] regulator: dt-bindings: maxim,max8907: Document io-channel-cells property
+Date: Sun,  8 Nov 2026 11:56:31 +0200
+Message-ID: <20261108095634.100517-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261108095634.100517-1-clamor95@gmail.com>
+References: <20261108095634.100517-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,37 +112,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MAX8907 PMIC has a dedicated ADC cell, which provides 8 ADC channels
-with information about different parts of the power system, including the
-battery, charger/plug, jack and thermal readings.
+The Maxim MAX8907 has a built-in 8-channel ADC. It does not require any
+Device Tree (DT) based configuration and is folded into the main PMIC
+node. Document this behavior.
 
-This patchset has 2 dependencies:
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ Documentation/devicetree/bindings/regulator/maxim,max8907.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-- patch 1 of the series requires this patch
-  ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
-  https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
-
-- patch 4 of the series requires this patch
-  ("leds: Add driver for MAX8907 LED cell")
-  https://lore.kernel.org/lkml/20261027115006.86032-1-clamor95@gmail.com/
-  Or to be sspecific, part that adds max8907-leds to max8907_cells
-
-Svyatoslav Ryhel (4):
-  regulator: dt-bindings: maxim,max8907: Document io-channel-cells
-    property
-  mfd: max8907: Add ADC client support
-  iio: adc: Add support for MAX8907 ADC cell
-  mfd: max8907: Add ADC cell
-
- .../bindings/regulator/maxim,max8907.yaml     |   3 +
- drivers/iio/adc/Kconfig                       |  10 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/max8907-adc.c                 | 195 ++++++++++++++++++
- drivers/mfd/max8907.c                         |  75 +++++++
- include/linux/mfd/max8907.h                   |  53 +++++
- 6 files changed, 337 insertions(+)
- create mode 100644 drivers/iio/adc/max8907-adc.c
-
+diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+index ee1a305d1c210..ccdeb9ba21e26 100644
+--- a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
++++ b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+@@ -27,6 +27,9 @@ properties:
+ 
+   system-power-controller: true
+ 
++  "#io-channel-cells":
++    const: 1
++
+   mbatt-supply:
+     description:
+       The input supply for MBATT, BBAT, SDBY, VRTC.
 -- 
 2.53.0
 
