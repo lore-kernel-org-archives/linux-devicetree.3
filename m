@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169310;
-	b=mCJfBEkGLpQIwooA2daqcHTkrWHftGeagoIsVPTy73wbSgpYwga0c/1xTqZOSL8v9Wdm
-	 CvHW+SN1olmrfngPHcIh38B4daMbpB8C/0nF5wkEnxOt1oeFkZl66kAG7AsvXEDxOyBCi
-	 moXiyDpvl1F92KbicqoOwTDhMl/snIRaTK+AGMZAnRuJFUSSx0WY1azp6xO87cu1gAD72
-	 iFCVdqoGFses+U4p6YzRKvVhwOwvId38M74SXqLVvc5nH+K8JMyLUROQcQ6qG9jonw/n+
-	 oYMcQ16IuUFUWJCrFTq7pCRb4abvKUy4ZomJ0/QHD5y7e87cS3vfBkqJx3DvL5+57Nw==
+	t=1794169313;
+	b=FoZAkFqaDJ4h7Aq6jFd+kut1mYcCaHR3YJT4CLpsDpaz2cjKEG8s17g4meHAAYQbGpYF
+	 bKa69Ih6eM/X90dP+CX2Owqy3MTYhyZWd0sqFd7nCvpNNCOB3MXChyt6VERiQ+mH0/4QW
+	 edJulSIDVqJXDkgK9KB7bKa5sGZjD3ckcCL82X+xExKZww1fdGcamYIlRdA8pndvKvtqz
+	 ZXQvFZ3HBbjgUPSk+quxvfaMJNJZ4Z1VkK3BTea+ulpNdYizP9aQ/b7grdf+REXx4/Bkv
+	 OeHk+evozgXsp1O7EvEr0YRLJ5tlQ93vON5VP5K8DlONRgQz0kvpfXoT7mdUykoo3yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169313;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iqvym+57jpgX8gbfSEMbuRp3x0B5iZpgj522H80AASo=;
-	b=DXxpXlO5wsK9mMhzSJ6S6fsvWNrZwHiUg1I0GZKSXxyqzLmDIVnn4ubfEpum0dwSp97j
-	 6W1SpxxQLc/lCmBT4+bryAh1rEX7sU2+DTcE70SHVGY0fAxG8EoI8gDRCcmC78S/93vu0
-	 Omc4R4J/pow2fGJ5hwTKEE0dQlF6dXJfqU3/6BDOAWdXSk4avbU4rH7SsZpt2KXg7qt3x
-	 h1d3ha3o80N34PWIvRX424AtCVLzXyA8yb9BiCBwdycZccan2rak+Ta+O1oaiVrKHeEMc
-	 cmD92PAw294Vwo/DYx5RmxRSzmu4HoEIsgD/4JeL5aIZTQLcShYQa3kdltwPz+s7CJw==
+	bh=VVyykXlSyrTgP+EcH4x8XMkElcSDwtfYCMLDjda6kVM=;
+	b=o9i4IOdKAivzgFJYB53ncAHlH7vJ+MniKWahOHyQ5LNj1J/BaQIjBcI4vwk5qbfTEDpA
+	 lPgL74o6M1IvFJ1HwyW6Ew/Qhu1+dTXB4FOGXlLKIZhPICMksAaBe0QmErzAwPm8e8d5S
+	 pGkT/A67Sr3XKoi+VgXtuBGev0uXOHxjMIf1bvd57+Yv2rAEju03FORCdxDWzaxOT2/zf
+	 pcjwU4ly7zw3HQWhVM2HaDwkY+vJFQ48YOQ5kPTTzFKF8DKcfaNvpH8Xz59HXNKJhyYnk
+	 uqMaH671qZtNQaYC3wY6HS6I5cS2o1vj28yoAPsdvDUYx+HiyHqKt8ivqkjUTkkxZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJIMZ2Lo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CD1l+INm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EC0606A326;
-	Sun,  8 Nov 2026 20:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9864A606D805;
+	Sun,  8 Nov 2026 20:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJIMZ2Lo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52D61F008A1;
-	Sun,  8 Nov 2026 20:21:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CD1l+INm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED361F008A4;
+	Sun,  8 Nov 2026 20:21:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169309;
-	bh=iqvym+57jpgX8gbfSEMbuRp3x0B5iZpgj522H80AASo=;
+	s=k20260515; t=1794169313;
+	bh=VVyykXlSyrTgP+EcH4x8XMkElcSDwtfYCMLDjda6kVM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lJIMZ2LokefPEoYK94EltTwGXOarSs5K0DQUuPTI/apkYCzy/zwMe4YlBdg0zIfq+
-	 gqiZjJYCjVsC3YrcPHTVM2X0oezi8Zr1Ic0aDtcXXeu5V5xUa8LMxQGiK9Usihk0uL
-	 88QDTHWAGBijjv/ug5jqOh+pZD+qP/SdfImsGVRL5SNaNa2NpRxD0GNKZfVrDTQiT4
-	 hXsnoslQeTKLB2VJ1FbOWN3FbH4ebOh3ZAO2OOPz5l2T9m58C2OOZYxINuBRasES3I
-	 Cv5lxY9rJModE3WVBw9sGIJtUUT0YNBouj2VR/hyiONrJkSMmPhLUXqRWy5ow+1a6J
-	 s5sy+QpHfR2eA==
+	b=CD1l+INmMBxcj12WDTy/1+mSS0uVd5+j0qYhdDiXA92ICS8BeK83zRXPa1XB90iO0
+	 rSnAjm311aiVY9UNKzK09P+IHx4BVwTeBI7gdOcO5ovJxv2PMYpQVkgWwBPbU/nFdj
+	 9CMukkhqnf3OshE05rwAveT2jKXiTJE65HX9X85sIOkxXDLD9Lv8ilH8jz/tertVC3
+	 E8KOLCLIlg0P4N3u39K2I0hk9CAMYeg96TLbP2q1vndMkvgqTkE/J9Q71tKcfhF860
+	 GjZg02DRr2EopRhhyqYKT0v1vp5DNv60l/wGVOJVtp50NhHYZXLEchuBbM1KRfYfsd
+	 rIxfCmC7QUHZw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-asus-zenbook: Drop the CMA region
-Date: Sun,  8 Nov 2026 14:19:09 -0600
-Message-ID: <179416929382.628393.14612035309086757082.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/4] arm64: dts: qcom: eliza-cqs-evk: Support eMMC and UFS SoMs
+Date: Sun,  8 Nov 2026 14:19:12 -0600
+Message-ID: <179416929538.628393.16489021292278996381.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014-dts-qcom-glymur-asus-drop-cma-v1-1-46f745d5b2d9@oss.qualcomm.com>
-References: <20261014-dts-qcom-glymur-asus-drop-cma-v1-1-46f745d5b2d9@oss.qualcomm.com>
+In-Reply-To: <20261102-dts-qcom-eliza-add-ufs-variant-v4-0-c92512c7c759@oss.qualcomm.com>
+References: <20261102-dts-qcom-eliza-add-ufs-variant-v4-0-c92512c7c759@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,24 +72,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 14 Oct 2026 16:55:44 +0300, Abel Vesa wrote:
-> The linux,cma reserved-memory region was carried over from the X1E80100
-> boards, where it is needed because the PCIe SMMU is reserved (owned by
-> the hypervisor) and PCIe devices such as the WCN7850 WLAN end up doing
-> DMA to physically contiguous memory.
+On Mon, 02 Nov 2026 14:10:46 +0200, Abel Vesa wrote:
+> The Eliza CQS SoM is available with either eMMC or UFS storage. Both
+> variants connect to the same Eliza EVK carrier board, but the existing
+> device tree describes only the eMMC-equipped SoM and uses storage-neutral
+> names for the SoM and the assembled EVK.
 > 
-> On Glymur the PCIe SMMU is owned by Linux and the devices behind it are
-> attached to translated IOMMU domains, so there is no need for a large
-> contiguous DMA pool. Describing a CMA size in the DT is also more of a
-> use-case policy than a hardware description. None of the other Glymur
-> boards reserve one, so drop it from the two ASUS Zenbooks as well.
+> Give each SoM variant and its EVK assembly storage-specific compatibles
+> and filenames. Keep the shared SoM hardware in eliza-cqs-som.dtsi and
+> describe only the storage controller and its variant-specific supply
+> voltage in the eMMC and UFS includes. Neither variant is derived from
+> the other; the carrier-board description is shared by both assemblies.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-asus-zenbook: Drop the CMA region
-      commit: b7306b1cea3861163dab35fe16b1dca73f745a78
+[1/4] dt-bindings: arm: qcom: Describe Eliza CQS eMMC and UFS variants
+      commit: 14120bce2899a8736934018f9817c23b95b8a073
 
 Best regards,
 -- 
