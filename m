@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794161239;
-	b=KelDo54zT25bGxsmLpkDGt2tdKSVMhBJxDN8myGSodNTJ1GBpswGVgRXaicbcCOnd2X9
-	 OQhqfG0Wm0RMiQOR97TvLoau9EM2yEPX4lCVZf5yk8RwJXeeygUphwK/lgy5po/5r/hRh
-	 6YgRLG9W1Pf3twRD4+zIKWwNjEHN9HXB3lAssdzUZbkzvXc/5vjXuNmUVDMMUVJw+YSCh
-	 PLa0O0jknEFOvg9TGqY87kiuHpdKLsCBBfrW0U83aKOFafWR2198+MeIQOobKi3tXEQNv
-	 7Tr+OHgu3T9cb7JEPT9lMTdkWAEfe6pWYjdh3/y8Mco9s4JGriexUe5ogkM4vBKCTZQ==
+	t=1794161451;
+	b=emkK6oaTyHaG48UT+lrg0ZMuDs/jZT1RYowWnwuuC9yo2tFbKuveMRit5nU4/1OnaKRd
+	 LZ+Io9baWskdrQ1k74BmipLl5luD/yTjO5MTHPfpBawF6E8/YdWdim6Y8wWyuQRqyHNRc
+	 O6QnhQ6syzC3v+8Rg/xsl/L6Paj7U6M5Qw1dRN8ziXmOdMf7kR3UcMbwKZMmUDTAnmofw
+	 eXtWaU6hltifUmyOFky0WBfS3eyo8hoscrxEfma6L7FJP7zhH28D2rE5onp4Pf4ih0dLc
+	 SwmwakBE4jtjyrkXEEEgPXzJLgDqxc0iFA00MgMT/kcsOIhb5f4sRKhdZbbGwuqVqCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161239;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HxfvaLA8cIY3Y2v91Caf1CvLUDTO2eAy8BOKMcGFWJA=;
-	b=eZYx4OrN6zRYwQAO2GRiZucOIYJTMgu39PuN8qxNJ9Qd5/MDEDnztP4s0XnLKTlNhIS+
-	 yXcs2XfefXX6JIPhRYKg+mEBztektNJdNduwiPZRH+0qg2wilZQhc/yFQ1yiI7Mi0fg+0
-	 C2u6Pqdru0DjAPxXmKmY1F0qLZnUQOf/BLM4C2a1QG3vU4Jrj6k2Uf5pEIkL8w3pTfG/3
-	 tFRPzl3/uNzKCUvI1S3TreUX9CZk/uk76BEmyCfMu0flfcu8V7hb2MuEOEiKbqtsFgGzL
-	 /RjR48lnMEhba1n5OIjfLDJzX43OLT9Ir2GsfSy5pmiRcyto+e0Px7tgO9xXRL2Gsuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161451;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=9kpeqjW6Rq5T6EuMnyBvBxaIaXXg4raX5/17KI7MqmE=;
+	b=KNa/PV5ye2rUxcby2OGES0E7XD2/0vxlI1txj4aJI23KtAApXe//z0ldoPgckyUBKKMl
+	 tHXNMD4nYBRJmpakc92fBzRhZ8x34o72mgHAgmOre1JhfUTtkXQWcK02KPrl5FsgrMDLb
+	 1I5JnrkOcFOoHnyYB7pqM3O3XNDne4rTEHdxYVuj6G2wG0ff42wuoTtMNlotBqz0tRboD
+	 p5MOlrRrS9sUEP5+bHUW8UNWws+P+A3gS5XfN834sUrYb8d3nz45kRl4ZqRMQZ//qxg4/
+	 aX35H6USgqS1+sRAMNIbc+7Ver7sPsU4qDPHtm0ZAyJAyyqE7ZM6Dbqt0WiYE90HMcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lr52LkXB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=VUrGsfpx;
+	arc=none smtp.remote-ip=212.27.42.1
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00782606A31C;
-	Sun,  8 Nov 2026 18:07:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81596606A31C;
+	Sun,  8 Nov 2026 18:10:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81596606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lr52LkXB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967221F0089F;
-	Sun,  8 Nov 2026 18:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794161238;
-	bh=HxfvaLA8cIY3Y2v91Caf1CvLUDTO2eAy8BOKMcGFWJA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lr52LkXBQjd07p503ZMWIY6H63zFhwEnu2bTkmiIfJwPBX8MT+OQaiUDmeIia6byD
-	 +L9iPPpJjVjrACTumZY3Gh8Lvi+pF+b6RHjnP30Uk1k6CtnafNXlOn7oTqyDXCy9SV
-	 V70I00zOtDpA8sljfpJvczt5M+O6WELX3aZ6Z40G8Y32NQF7Kvz2z+QbVgiWxYFhry
-	 9nrtziiDkeOE7tn++lFmaaMhiLNTDcoATlEzphIKuOE2v6sXgvWFhC2ME0UxSq3bjz
-	 Kaj6XrZJyPsVRXpYh6cjWtzkHiaj8OW9Qbb1aBLBVLOyZ602OXj8ovWtyuI+XwJGQw
-	 +8PBhrhIhVmxg==
-Message-ID: <sashiko-outbox-203896@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] clk: qcom: segcc-nord: Add I2C and TSC clock
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261107-gcc_i2c_tsc_support-v1-2-433d02972d7e@oss.qualcomm.com>
-References: <20261107-gcc_i2c_tsc_support-v1-0-433d02972d7e@oss.qualcomm.com>
- <20261107-gcc_i2c_tsc_support-v1-2-433d02972d7e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 18:07:18 +0000
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=VUrGsfpx
+Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:41ba:50da:6236:7eea])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 64BFDB0053D;
+	Sun,  8 Nov 2026 19:10:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794161441;
+	bh=K2BtXWkziekFSvI6P/+ngyBc85GfadAb6SoVxmYMKR0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VUrGsfpxubS68UUI94ZjHtq6oxoURSYR2WEbuBDjXXS8selYUAOAAnFDreFv//djV
+	 TexaJ9Af2Bx+w6732lgKV0Vk7rfs4HLXdsEe9J3NN0a8BxuPgYrmuSbx4ocFtJKxW1
+	 sEH7xboATxifc6o4010ZHj6Xqrt0+ZcHpqY7gCx+uFk+8qecBEXuwGJqpy9rqiRbAx
+	 3g9XCltJrgSBCPhth1Dtt4iYV9w1SRAoAvPbTJeeYlgGvS5cRVCgW93zPpDR4ej9QQ
+	 /arTIReb2WgSzKrcEFg/Z8dLsvFOBOiEZe+tj0U2+l96IkfpANyX6gA13vCR6UgNoW
+	 QpeRRKAkAeGlw==
+Date: Sun, 8 Nov 2026 19:10:31 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+	Frank.Li@kernel.org
+Subject: Re: [PATCH v3 5/5] arm64: dts: lx2160a: describe the pad muxes as
+ the DCFG RCW override
+Message-ID: <avC7Fz2UstYb5r24@L30177.local>
+References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-5-5a0063f1da9e@free.fr>
+ <sashiko-outbox-203680@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,113 +66,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-203680@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] clk: qcom: segcc-nord: erroneous DFS registration of
-  se_gcc_cnoc_i2c_slave_clk_src
-- [Low] clk: qcom: segcc-nord: duplicate 19.2 MHz freq_tbl and misplaced
-  RCG definition
---
+Hi M. Bot,
 
-commit 5e0b8aed90909a3578c24b44cabdb5fafa31fe1c
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+> [Severity: Low]
+> Since this fixes the pad mux clearing issue introduced by the
+> pinctrl-single description, should this include a Fixes: trailer?
+>
+>   Fixes: 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c gpio to support bus recovery")
 
-clk: qcom: segcc-nord: Add I2C and TSC clock support
+No, it is on purpose.
 
-This commit adds the I2C slave and TSC subsystem clocks, reset lines, and
-GPLL1 parent PLL definitions to the Nord SE GCC driver.
+This patch is not standalone: it needs the binding, the fsl-guts
+override and the pad-mux driver of 1 to 4. 
 
-> diff --git a/drivers/clk/qcom/segcc-nord.c b/drivers/clk/qcom/segcc-nord.c
-> index ef97da3852e35..7fdfa44fb1036 100644
-> --- a/drivers/clk/qcom/segcc-nord.c
-> +++ b/drivers/clk/qcom/segcc-nord.c
-[ ... ]
-> @@ -189,6 +207,43 @@ static const struct clk_parent_data se_gcc_parent_da=
-ta_4[] =3D {
->  	{ .index =3D DT_SLEEP_CLK },
->  };
-> =20
-> +static const struct freq_tbl ftbl_se_gcc_cnoc_i2c_slave_clk_src[] =3D {
-> +	F(19200000, P_BI_TCXO, 1, 0, 0),
-> +	{ }
-> +};
-> +
-> +static struct clk_init_data se_gcc_cnoc_i2c_slave_clk_src_init =3D {
-> +	.name =3D "se_gcc_cnoc_i2c_slave_clk_src",
-> +	.parent_data =3D se_gcc_parent_data_2,
-> +	.num_parents =3D ARRAY_SIZE(se_gcc_parent_data_2),
-> +	.flags =3D CLK_SET_RATE_PARENT,
-> +	.ops =3D &clk_rcg2_shared_no_init_park_ops,
-> +};
-> +
-> +static struct clk_rcg2 se_gcc_cnoc_i2c_slave_clk_src =3D {
-> +	.cmd_rcgr =3D 0x13034,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D se_gcc_parent_map_2,
-> +	.freq_tbl =3D ftbl_se_gcc_cnoc_i2c_slave_clk_src,
-> +	.hw_clk_ctrl =3D true,
-> +	.clkr.hw.init =3D &se_gcc_cnoc_i2c_slave_clk_src_init,
-> +};
-> +
-> +static const struct parent_map se_gcc_parent_map_5[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_SE_GCC_GPLL0_OUT_MAIN, 1 },
-> +	{ P_SE_GCC_GPLL5_OUT_MAIN, 3 },
-> +	{ P_SE_GCC_GPLL1_OUT_MAIN, 4 },
-> +};
-> +
-> +static const struct clk_parent_data se_gcc_parent_data_5[] =3D {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &se_gcc_gpll0.clkr.hw },
-> +	{ .hw =3D &se_gcc_gpll5.clkr.hw },
-> +	{ .hw =3D &se_gcc_gpll1.clkr.hw },
-> +};
-
-[Severity: Low]
-This isn't a bug, but ftbl_se_gcc_cnoc_i2c_slave_clk_src is identical to
-ftbl_se_gcc_emac0_phy_aux_clk_src, which se_gcc_emac1_phy_aux_clk_src and
-se_gcc_i2c_slave_xo_clk_src already reuse.  Could
-se_gcc_cnoc_i2c_slave_clk_src reuse ftbl_se_gcc_emac0_phy_aux_clk_src and
-be placed with the other RCG definitions after the parent map tables?
-
-[ ... ]
-
-> @@ -1570,11 +1754,14 @@ static const struct qcom_reset_map se_gcc_nord_re=
-sets[] =3D {
->  	[SE_GCC_EMAC0_BCR] =3D { 0x24000 },
->  	[SE_GCC_EMAC1_BCR] =3D { 0x25000 },
-> +	[SE_GCC_I2C_BCR] =3D { 0x2c000 },
->  	[SE_GCC_QUPV3_WRAPPER_0_BCR] =3D { 0x26000 },
->  	[SE_GCC_QUPV3_WRAPPER_1_BCR] =3D { 0x27000 },
-> +	[SE_GCC_TSCSS_BCR] =3D { 0x2a000 },
->  };
-> =20
->  static const struct clk_rcg_dfs_data se_gcc_nord_dfs_clocks[] =3D {
-> +	DEFINE_RCG_DFS(se_gcc_cnoc_i2c_slave_clk_src),
->  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s0_clk_src),
->  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s1_clk_src),
->  	DEFINE_RCG_DFS(se_gcc_qupv3_wrap0_s2_clk_src),
-
-[Severity: Medium]
-Should se_gcc_cnoc_i2c_slave_clk_src be registered in
-se_gcc_nord_dfs_clocks?
-
-se_gcc_cnoc_i2c_slave_clk_src is a fixed-19.2 MHz CNOC RCG with
-mnd_width =3D 0, not a QUPv3 GENI Serial Engine RCG.  Passing it to
-qcom_cc_register_rcg_dfs() -> clk_rcg2_enable_dfs() reads cmd_rcgr +
-SE_CMD_DFSR_OFFSET (0x13048), which is outside its 8-byte RCG register
-block.
-
-If bit 0 at 0x13048 happens to be set, clk_rcg2_enable_dfs() replaces the
-clock's ops with clk_rcg2_dfs_ops (dropping the enable, disable, and
-set_rate callbacks needed by se_gcc_i2c_slave_ahb_clk) and clears
-freq_tbl.  Any subsequent rate calculation when CFG_MODE_MASK is non-zero
-in the registers read as DFS performance levels will compute mask =3D
-BIT(rcg->mnd_width) - 1 =3D 0, leaving m =3D 0 and n =3D 0 and triggering a
-divide-by-zero in calc_rate().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107-gcc_i2c_ts=
-c_support-v1-0-433d02972d7e@oss.qualcomm.com?part=3D2
+Thanks,
+  Vincent
