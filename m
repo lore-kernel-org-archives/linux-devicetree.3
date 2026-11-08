@@ -1,62 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169336;
-	b=kbnxEqzVwkgYjuPHibNl5CHiT2u5nW0Rf1ic4I9lMXmwjixwRZhxg94PztgAraefF+dZ
-	 YQa/XLmvWF2fG3YSalzDkAAFDnmom9k2/SS1+m2aKs2+AcUZbZX7rDalIobaIk4pS+zh2
-	 Fl7gYsfPJJ5tNZlRigS2TUS1mrxG4uSkJ4ZR9sSnW5sLx5Ve7Y/1iDTok3PjLE9A1q6QB
-	 Lo7NWkkJl01umQLqeabb+T5aiwovtSw9Reku8eRCmpWWKrQl80td4aaYrdmsGrdmpzjhv
-	 9wcLGMVF28OtRup7dggTOWuxOdwSsA1iKPom6yoHmnihgGRGkCm4PFGU0pYdiBwmqBg==
+	t=1794169346;
+	b=2Uy74ukmTc5OB65UgDaCEZkPOBySLLsNOEa6KxdI58NJmEn3i1F90Y7Xs/Hqpq7nlbI5
+	 HT0LgIjM4J3LMaaTzb0J3XGoBJhbyywaRSo6iJHGWqxhuSZMOej0VkkiAzsw77jahneNG
+	 0SE/5JhSAcWm5F2JHhTu3/gu5/NyD6TxnwU5dUvK3QPbcHIKiKNWa+wCuWW7k8xCRmaSL
+	 EOBYrg8BZ/GPeeDltZBoObjm04bkR1J0SseqbMtX7IPUSHdXiY3nDvJaDGncRrjWWidqd
+	 APsLQjh5DM5xsXmKpbGBuI6stHKR8H5OMmG+wL0ckUCTrierb+mv7czGzE85QMgBjZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169346;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EKBrfLOvz3MXTyqngwRKL2A0PiYWXU35H99I8H+ItMM=;
-	b=efpqRIiHc1v7m+z8OYFWNgIUTjPyUbmUqZm+/VMenVScd/dwUfpLAuqoM6eQySOegPkv
-	 0Ix6jtmg28fvUfxHFyk2M8gPDVOmRPbgqvuFOHs7Fl/w6M8qPilKVky1CqXPvDJefrLSq
-	 +fbbN6aeG8KWued3i1evPhGyckCiJmmq+GgMFUqvk5sChl1ATg25bizOhTf5JyhOHjLp+
-	 Zf9D3JkrrrsbQyQPaUwbHGfV7hKI4/JUtLqfO3uhHKCjQmgvOU+c5TkRwA9i4FG8vFo76
-	 gxK4v4FdbptrJtWiWJqaH3lZqw74LQPXoMjaTh/sZ03BjUyvs2Z4vCMJYyNJViq8NHw==
+	bh=oKswcvR5YtIvBDM/sKvspeXY/a7O44L2kGWjWOUqnjc=;
+	b=CP7q338DXNuwNW08E3/T+gGuhZk73SwhUIBRWvxxC0ufeYWM3bkKQfGk1w/Tbj2lYB6M
+	 /5c2ufuj8l3KWpOiCkoRRq2afz2hC/yvCPu0wesnQgg3ekEMUxJvTTsCCZfR+cTDfoZiH
+	 KJT58uqH5l0fmmDcwy9pEUJuCgOX9lkRevHUa8b+sDsk9zulB4RhFKmo2D1wXWhV45R/2
+	 i2lwgmR8rJYnYK48zWlDkOaf4txW0CivXfqG4VcVuEBD7c2LuXJTKZk33JSJzovJ0MEaR
+	 3ZBPeSj2uSi1Fb4MwM1AZfwe012omtDECbHZQCq11aTk1eGdY9EoTutqZ6k7yyGs0vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG8iRepc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+MltNep;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF439606D806;
-	Sun,  8 Nov 2026 20:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DEB60A380A;
+	Sun,  8 Nov 2026 20:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG8iRepc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997B41F008A3;
-	Sun,  8 Nov 2026 20:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+MltNep
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7D41F008A1;
+	Sun,  8 Nov 2026 20:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169335;
-	bh=EKBrfLOvz3MXTyqngwRKL2A0PiYWXU35H99I8H+ItMM=;
+	s=k20260515; t=1794169345;
+	bh=oKswcvR5YtIvBDM/sKvspeXY/a7O44L2kGWjWOUqnjc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CG8iRepcchBpKeQy04ZVb9O8jY1kgi/zQe4B58G6k9/Hz0Zi5yYcb6ShW90gnC5Ge
-	 DYH6wdKeZc95B05uW9iZZwYI6hWWIsWfJBlCdJPIk8jAot+dOPeD+Hn5l7h7I1VGVa
-	 PjPnRjw1fcTMEwr36TWHy4XG1xoy++P/vrhMxoc2HnZ/ZyFDLqysbP/mOhCHGsg61S
-	 s9brLqFEVnzO06s0q7/WddBKohLKsb0fG5ev8FeZ6x4YzNioNSsLFDZRiRbZt20Hi2
-	 WZgdW8yRSd5xsccx7ahl4H74sZb5F8M/l4EIMmZFrgabEhfmjuX74UC4wmYqmNHvhQ
-	 v48c7npJPKdEQ==
+	b=f+MltNepKhHDEbdA9YbTlNqZLoL0cmwVz7ayY04EiTR47opV364FsZ2Y4su3vg9xG
+	 u3oHt4UvsmafAy4rugWYexHPpr6vGpTS2Oc30VLpMR/9BJc1pgs2i4EhbO6QbTbnfQ
+	 B/sMFdVUWsmqDVS0cB+YNMSKnuPYpxu2bp28R+SMrIL+GJG3IUjo1voPZoj8kzKTbk
+	 wxMbB4ZYHaEz+V0xMW8aWMQpDfxtt1dBARYgqabIFa3uM4u52phyJOrLGVTFxL02g6
+	 7T6npEa5lYKnfCQttbJarDCYRCGLRU219UVlDdNQ7V3vYARz+OeJEzmu7BtCD7dWUJ
+	 iaKi3YGkzkIbQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	johannes.goede@oss.qualcomm.com,
-	stephan.gerhold@linaro.org,
-	conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal zones for PMICs
-Date: Sun,  8 Nov 2026 14:19:29 -0600
-Message-ID: <179416929467.628393.8362598893010731460.b4-ty@b4>
+Subject: Re: [PATCH v3 0/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix the ADV7535 interrupt
+Date: Sun,  8 Nov 2026 14:19:35 -0600
+Message-ID: <179416929440.628393.2150156225768231577.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023123914.8641-1-daniel.lezcano@oss.qualcomm.com>
-References: <20261023123914.8641-1-daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
+References: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,24 +71,19 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 23 Oct 2026 14:39:14 +0200, Daniel Lezcano wrote:
-> The ThinkPad T14s needs thermal mitigation under sustained workloads to
-> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
-> monitoring is not yet supported, so use the board temperature sensors
-> exposed through the PMK8550 VADC to provide mitigation now.
-> 
-> Describe the sensors near DRAM, the fan/heatpipe, the GPU and CPU PMICs,
-> the charger, the WWAN area and the USB-C ports. The DRAM-area sensor faces
-> the keyboard, while the fan/heatpipe-area sensor faces the back cover.
-> These are internal board measurements rather than direct measurements of
-> the user-contact surfaces.
-> 
-> [...]
+On Tue, 20 Oct 2026 11:44:51 +0300, Dmitry Baryshkov wrote:
+> The ADV7535 HDMI bridge on the IFC6560 fails to probe because its
+> interrupt points at the wrong PMIC: the ADV7535 is wired to PM660
+> GPIO11, while the DT uses PM660L GPIO11, a power control output driven
+> by the bootloader. Point the interrupt at the PM660 and configure the
+> pad as an input instead of relying on its bootloader state.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal zones for PMICs
-      commit: 54c0271b5780c62097428067ff44834f8f2a59c1
+[1/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535 interrupt parent
+      commit: ce13924a93f22d2dc5ccee4fad910da57755d16b
+[2/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535 interrupt pin
+      commit: 05329d94fcd490f68e3d9b7670d385080d3e9a1a
 
 Best regards,
 -- 
