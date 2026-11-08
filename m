@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169493;
-	b=TX1Ag0z3wUm0SH4aKY13MhhQeBBYorBiVC7frd5XqI6TXhU+bJQDu7Etsw2kPYBAcPxl
-	 wCsZhyt0gl4xbeVxO1UAFnTNqvKYCspAF1sgC9o1gmPjW8BR4GDKx6rdoT2YRv+gLRb73
-	 9EJ2ORl6qclDf4tgww5fbMD078HEieWcHNaqQu9nBH2CZplc8aJG3Fn54Wb7/sZMo+kV/
-	 y3VQ2vBufaH8zZ2sfgExfv9ra9PGCJS0z/SwC8T5/1hMw25zkkgGgR7jaFhl4MJiQ8P9q
-	 KBqEKroH61MrYSvKFFsqNybYgkrks8VbrHRRFQ/kh5ZHeg9olOAhER0xj6UW/7ltSng==
+	t=1794169488;
+	b=wqRxkcgFCeH6j9918UrXM93Nke4l2DDuhYG+Onmwb1BXE1OmKrM2bdexaCND/Vp+awED
+	 Qd5U8ypUMImV2XElO3/kSzKQpWD0XkLVixn32C5xfdTMDyqxINj8703pkBuaAJ7GhbyN1
+	 gWF+JuqdYJGsVQCS5kN6ym96KSVGkJBgYaqOahMcqvsHGRSG5166CJ7Iub28QXwao1749
+	 i7MwujuvaqkxgMGm4fhnAeMoOQPcIs0E6EaFbC+397th+xn4D2fpvGTlqZa0bLaL7NQY9
+	 H0mKVmPz1SplyUOqRID4IVePwv6E4vuHvBbLvmMmFw8nvThxaHHts+MP8p/QNHp/qnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169493;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169488;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=jHkSu/I6sjJZj+dKlK5gxac5YS6LoMiyJZobd62YxK8=;
-	b=bJeLcLKoe0MFDtz9YP4kzm7CodWLEblqjPTpWCixYipGAQo0i6fDh1t/kFtlUpUtbnae
-	 FAAgZ+NyWOM/y7mN8AlLvkV2JpdHO0BnehSZMsgPmHZsBpQtoodc/Zwyf4N5JP4y9kCyp
-	 IECmagzxAs+fiZcPQlIjvbIxDL05Gd6B5mZFbfrWut8C6Ko7EvTCrkRHr/QEjU8Umo/5Q
-	 Y78bsqpRoJMJp0I2yKw1GcyUVmwZtKkMrIxTZZ9KBVRoSTa0ySDpwFvIxjifjSYshmB1Q
-	 bE9wYt+LTDsxRmVcu3ytxTNXRfLkdaXgGg4TTd+gJuyNkg3ZGHDsmlRi+S2C7X2HD8w==
+	bh=pO1W7c1SbD1BkmlKzh/q+I6rey0+/Fg38A1vWIqg6hc=;
+	b=suK1Mfovr/ReDkY1Nz6OqFwaHyIYb7TTXJ8A4YqfYkKFpS+7gksZWmk30nfUc3/JDJi2
+	 QidcuVVNH09Ojij5CY17okLFYIHzhHSgBFFhuYLcgOPYRRcYAeyJkQTzA9tt+jFOQF2rU
+	 Jndx6dSFGmyrDc1XGZ7WTEl1CoE25TGh6+fCEpLvDOcg/qZ9aVUbZg3zUZu++pXdLORqj
+	 dYDU4xcBeCPMLwZKChLx6DUPCWijgGpPy4eqLjop6Y9e2mxGN+ghKiccguCvU/+zqMOxS
+	 6O97AfP7Me/uf83tnLZ84B6wKErG63EcnQepZU0uPodNRzwhGSNqD83UOXPDQbVxTPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6CoFTtW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuwqGCir;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E786080305;
-	Sun,  8 Nov 2026 20:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22679607F901;
+	Sun,  8 Nov 2026 20:24:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6CoFTtW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7B01F008A5;
-	Sun,  8 Nov 2026 20:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuwqGCir
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284721F008A4;
+	Sun,  8 Nov 2026 20:24:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169492;
-	bh=jHkSu/I6sjJZj+dKlK5gxac5YS6LoMiyJZobd62YxK8=;
+	s=k20260515; t=1794169488;
+	bh=pO1W7c1SbD1BkmlKzh/q+I6rey0+/Fg38A1vWIqg6hc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P6CoFTtWVHOFhItaFGlw0J2ZZ3yon28AoVfd9unMHwl5BWeK09crAtu/bD6ekFhXB
-	 y64i3yYgPd7H35inBanSXoycGjsQtHeo6k8FthmKhbv1tpJ54adOTfL3VT2PPhgXjU
-	 ifcDFRjS/vX/TjMaBF9iDAuWDijZ8QSl6dK/mOIXXOsVzjHng7AkHnaXstti4Ny/3M
-	 2Re7j0C4iXjy1RRekSrP/WrX+EY9mDQu9Jmo0Wsj8bzqnnFc+ZKKTHwOUwkxH15uXL
-	 cJKiWxI+hGoKIe522Ewo/7DA38x1WwjbdtHXlkCclDh6Io6NcCei8zUwogxq7rYUmd
-	 wbO8XMK2ZSXog==
+	b=VuwqGCirVu4fKJ3fg6cf5J847o9vs/JOh2JFo0eTthlE56ZX/kCYAiFQGJr10WwlE
+	 DxDTOPQEVdrUS18uMP96d8s+HANK476IJ7USJe5ZpjZvvIkEwRaDkH5WUU/EzbKQFi
+	 EME85sQuusSAVxx4zCK9A/nlzPT9Lm0JbyNK1NGGSHRj8pnw7N4fa5Wfidr30TbY/8
+	 rm7UoDArlQ8Zuhk4nPRQvyOA7Mh7XomWPdE9LAeWUW1eFFTrngRmSpdGgannICWMWq
+	 NftpVA5nXsl9XP1189NtZHbHnc3CbphsQhdndsG/Raoy+imOuy8eZdGosvgTCUmRXm
+	 La9dCNJ/2saqw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Shujath Mohd <shujath@outlook.in>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: monaco-arduino-monza: Prepare JHAT 40-pin connector for HAT overlays
-Date: Sun,  8 Nov 2026 14:21:20 -0600
-Message-ID: <179416929506.628393.8425349389039809053.b4-ty@b4>
+Subject: Re: [PATCH v3] arm64: dts: qcom: sdm845-sony-tama: Add battery properties
+Date: Sun,  8 Nov 2026 14:21:16 -0600
+Message-ID: <179416929235.628393.6398163987269781142.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028214551.108424-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261028214551.108424-1-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <PUZPR01MB51414E1C0843688784B069C4C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+References: <PUZPR01MB51414E1C0843688784B069C4C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,26 +68,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 28 Oct 2026 21:45:49 +0000, Srinivas Kandagatla wrote:
-> The Arduino VENTUNO Q board exposes a 40-pin JHAT connector that is
-> pin-compatible with the Raspberry Pi HAT specification. These two
-> patches lay the DT groundwork so that HAT accessories can be wired
-> up via overlays:
+On Thu, 10 Sep 2026 10:06:48 +0530, Shujath Mohd wrote:
+> Add simple-battery nodes describing the design capacity and voltage
+> limits of the Xperia TAMA batteries.
 > 
->  - enable I2C0 and SPI3 on the JHAT connector and add the i2c0/spi0
->    aliases, covering accessories such as the Pimoroni Automation HAT
->    [1] which uses I2C for its on-board ADS1015 ADC and SN3218 LED
->    driver;
->  - add a label to the sound node so audio HAT overlays can extend it.
+> Use the TMM fuel-gauge profile values from the downstream kernel
+> (`somc,initial-capacity-uah` and `qcom,max-voltage-uv` on the 4250 mV
+> bins). Akari also shipped a BYD cell (3056000 uAh); a single
+> simple-battery node cannot express both, so prefer TMM as on the other
+> TAMA devices.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: monaco-arduino-monza: Enable I2C0 and SPI3 for 40-pin JHAT connector
-      commit: 7a6161e50fbd5d16cb53614ac92d0050b57bfefb
-[2/2] arm64: dts: qcom: monaco-arduino-monza: Add label to sound node
-      commit: fa29e3ea0785796fa450d8f91ffe83c637a2e1a1
+[1/1] arm64: dts: qcom: sdm845-sony-tama: Add battery properties
+      commit: 30c200691b175037067e599ed0d1f31418f4edb3
 
 Best regards,
 -- 
