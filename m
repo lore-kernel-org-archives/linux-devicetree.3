@@ -1,108 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794173323;
-	b=J6Hff3CrW/bh4ed6P6+evY97/Y3ptbBBRksCP4+Z5C1zssm1jyVubLXQZ2ZCVms9X8K/
-	 nEbdoQsRLafwSuwgRuVO8U0C/VasFuLL9n+A5ARrZMX5EFFD/gUCjR4aAPrUkyIrsiJNo
-	 aDbK2clWq+2iLZmcyPCXwa8B3LV0EkRdDWQq67PabQHvzooJS8oOdWc0dANvTNVrSHmCp
-	 ioW+lkjfnpRr8Mqa079GgGWZDJbiXMtdDwzcuDMMHb98q6v7JE6eg4C7BHzPcCGwrIMW5
-	 VSkMfFMgx7Ppqed2JaaIaztflpmTGYdk30w7y3/9i+o9nktI3Zl3nvnNH5h2tjCbCVA==
+	t=1794173512;
+	b=jMupEX8T14FrwsQozjfTmYVLmNfeTPdNYt70BrtS1MAQF0xXiBTkhKUkzHYkBY9BzDkm
+	 K98OlavMLpUoTzERPq1V6OGRqBMma71xA4UCq7KzZFNZyQ2okNaIMeYJ9R6mpP/mqeISL
+	 wvxmsLKnH9L/qzPw1nHkniBdnUQIZYfgsSZ22AnlLuJoJn/kWBiFT9w57vqw/hplqj/V7
+	 JER02YNXrxNQF3Cb70LYHbre3/c1Gl4W9PMBnO6PoP6YL+zzdwGXsr5mQAXAZQ5a3yvTx
+	 BIdsRgi5ND5YpijhMbJX/qtoRcK4LHn3eJRKP2sHvQsmELoCrGOB98KdiR90y54WFbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794173323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173512;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3eWGx2zpAT4OXgx07lg3AYpdKyWukUrsNNsX1hEEVzo=;
-	b=rL2bb5FGh291fEDsoHxcd7M95rWTlgh05f+jQ49CC45fnDprmQWnZ3GE6PyPoyUwLMei
-	 zXabrgaLkOVAIR0PEQ0cj1UzZ2YNp0FY+y59Yvwbjf9Wd/6MjiZFDvMI+8cJxTlYIBvvp
-	 Er+I7NirZqYivpiQum954DxjfT8v9dCQQ4JtufR14E5RlGAiZSuEakoGn3iZjGA2y2odk
-	 YcUEOLQmhdEgvBiiudmLyErF+B4FN4lBFNhn7BtgdUM/wGACmRXEqt77N0EIDzEeZ4fuY
-	 4XHWstqk3/rmgW3ZDFv6iuk+ZtSkGHwjIJvDdWe9TP1YoGymW1UFIcpl6LFwZ2/9lmw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
+	b=tnGtZiycTmmfh4lTi1mvoCDA0zllmv0DizsK9ekdLqR5pjRL6GBxyJRNbJAZA9RknPM1
+	 dEPDU1B84TXPRI65DCDUBgPzfXHz3jZttXa/0z8xLScnjNGlZwNb99LVd6SB2p8HnQxYL
+	 nrh0neQ09+lZvVmNeucVFodmN2X1Rth3ekdIa23jdwWvwaamaFE+8GUx5sabpQ/UizoW9
+	 ehGeMf6qcnxQqOD/hqKTN5MK/q5b7oB346Pob/rgEM/0hSoRF3ZNhRCShkztIafzhVg96
+	 OMvW7qBpj2msDBEv+RbgKiiNBqoVgSi6DKVRc3UOv1dT8vhGbL0C+J3s4BpqD6MGZMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b2sdlhZW;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MCMpf8kV;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F10606A326
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F10606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FCB606A31C
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:31:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0FCB606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b2sdlhZW
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490d59c3edaso180964f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:28:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MCMpf8kV
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1ae18eb9b69so254626c88.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:31:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794173321; x=1794778121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3eWGx2zpAT4OXgx07lg3AYpdKyWukUrsNNsX1hEEVzo=;
-        b=b2sdlhZW8w85oBCsA3i2XSm11Bp7EQX90FfsBM2fFcwD/1m/F3LOE4zVmSG76SJZ39
-         BmtZEkdbfgCWZsHGnHUxMGdY9/CY5sluFkQ0lhvas64nB+a5v6+ynPgQFgTdD5MDylUF
-         UhMK0m60tdLxo/3eUlYr73b7B8XQnZBPN+9//fnvSVVD+TbMCw1NsG1jyRp1WK4lclKN
-         eLQnssbdjUDdKSP5TNp9ZMmlfCdpqDlzYfEfWA6wZqDqs66fZ5jLSqHO8OXynN1t4WLJ
-         MQdsYfZka0ayuKbjOLMj6//jra0iW42njmxppjWDFlVQlXjqG4BIfOcW3vjzf7zIpopB
-         SdiQ==
+        d=gmail.com; s=20260707; t=1794173511; x=1794778311; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
+        b=MCMpf8kVOPjbb/SHSHLMyb3YAsSrk5Ygen+7axWUq9EERpWUWmh1pKPThjwRKn33RB
+         e3pld9f2GzDScf75GDhERsYay2xXa/g63NHXlJvP+8I2WSQQ8juMRU7Udf8P3iFb75BB
+         ucpaoTMO/lXhzEF00DMmocN+mPMwYawtEIHlxzvf5b7cB0bp9qSgqK0qoHBl8bEpC1dH
+         fln7ngajmHHuw5cKXqRWof/6tU8OYAHgxvQ2Fr4KGlAsnfXZnthr9u/Fah5iG7NsWi5v
+         dU8goz797H541pLrKkvITXyYb1OMS6PgC+32/iDLC0Nqw4DGHBHisW58MSmpyZkOCKIS
+         v/PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794173321; x=1794778121;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3eWGx2zpAT4OXgx07lg3AYpdKyWukUrsNNsX1hEEVzo=;
-        b=bQlgw8pKx1T9ecwUIiNpOC5V+VRgmC38OcRGKw4wISy15nKZ9kcR45y8R+lmmvcHai
-         pORpMFKYCI+dK8RRebuUahyhvRiPqL6CIEIkV0Aij8dtaLDUuFf3FYUztKjB/nenK+VC
-         9kliV6Vd5v8PafHUAE2z8XNzwUfRdntPCwsVVhvY1gTmF/z5al6pxH0AzwkTbe+d3Gah
-         2tn1SHbahykNNu4W0HOSXDtjOnYeWUecUgBQuZGCgNspHvlvcmOcI4SSI0yvUzfvcICk
-         hEZqJfUlGUpGewK6PRnZiCx72WHpHNFpaiqexDWXCWAKt+3cc473SAnU26DVgYISuMUq
-         QbCw==
-X-Forwarded-Encrypted: i=1; AL+hErEiC9yX0oCwsTA+a90crQVFOqWU8H8Fyw/iCwYcK9liMFZ+uI4M+FOEM6V63b5axKze2vaGY3AvgL7h@vger.kernel.org
-X-Gm-Message-State: APuU4Z+p9684ESWXHwuMRAl9Nr4I0VPJluOsiMrJoJhThz4C7b6PW1el
-	UIonyKDA4D2z+tybgOsE5lMuS7qrSpfOZu40jRPpauh7u09ck2KkdrXE
-X-Gm-Gg: AYBFou2wWf+Z0GbAW1MZLVfqK+2Sb3MGIlFnJS67pC3Hr4EKFTICBNWpzzQH5LJbjSX
-	fMJ8O9c/iG7rtJNAQ+JEbhK6k6bPxfpKJu3RdUd5Gm36K66AIHCK9DIpnYOr5leNNEBCjoHKYjR
-	czSMflNj/RC51x7stHX3ltrIu7tyCcsblAZ3Auv0WYWmXhROf/sxhdhFaMQB9+oRgrH74w+rYCd
-	hT/bYgPnA5m6cbKNVIlFQoCMUN2o0neIs0iLMnCclYjNRz00drYAawHEqB9go+5RhpK4qDiKWyg
-	sTcSJuvJ8cxBWs9vEQhQv1ZygW00/wS2TMVfgXejFsdiWDYhgKSyAvEjDzr89Vz4hVXqtWsdZ+6
-	KGtv/Dl471g12AtgfQvcaX9TdUnFxnVEQqFc79LnFQafdJPxJ+0vimWL0G5OXTN/NqYSWGx7Y/n
-	nu1OXspLOH8qszOquu/Kdz6CKBLsOtUEYEvE+O8GEf+XIEfIjYN6/YONFg07LxvDO/FyBEl+S4n
-	nGYD3LnRBLz/LWHhg3ItsuwWTNokICLmke+cCTeiBW7TlMEb0gWIsSYY6BkNtBGSoJwIBY6x+y8
-	k5/8q3fW3n0XH6H4kMSqbWuMceHcRDowsA==
-X-Received: by 2002:a05:6000:4808:b0:491:eb12:e133 with SMTP id ffacd0b85a97d-49589c3e6damr4580107f8f.11.1794173320934;
-        Sun, 08 Nov 2026 13:28:40 -0800 (PST)
-Received: from hp-z640.fritz.box ([109.76.148.69])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597091400sm5692050f8f.32.2026.11.08.13.28.37
+        d=1e100.net; s=20260707; t=1794173511; x=1794778311;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rBMGVypFbtv6OA3tQuoT/CFxuNnCbyC8FkABPLfi7Vw=;
+        b=mVtUP+Uer1dqzlEomcyQjbvwtGIvHDOi+2zZMb1OMvumt5OV2BiS8LJ0mtspeb4Ibl
+         vPDSnRnM8DlSkj5Y2iS78zZZkRx4IAefCHFK3NXyESeFDTvL/Ly2QDc0T01UlOO/rh8p
+         a/2x33a1nin3V3si7VJixEcy345HIOGZM1OWD6xyesDqeuungxjCMkJeZSVo5CjTC1jo
+         ZLsRnr6hGm6zsVJST7F8KQ1TmFKo36IMXB3+23zoSRgaYE3C5a+R94ogBGONghk4Vaj2
+         7/9f6upeTcerymBQDMqhnMgKIAgUkSfoAJhz4ODYbt2WkNvGfp1c+WYiQB5yedNf0B5Y
+         ulcw==
+X-Forwarded-Encrypted: i=1; AL+hErHsSw1aPE6kZyDAFbryV+20gp5yXE24j484fa977uhictOi6YRMD8pCA4ZRvPvbqtd5JCEb1CLy3o/1@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vd6N89ytqJSZtGOQwZzZ1h1d/ydX318Ngs2NUA83IdZ5foCHA
+	xCOkbi4q2UnpAc8qIzieWPPr7scN52vwbB12I19BwWwqGNElXPGcJI8x
+X-Gm-Gg: AYBFou39ijIWd1cryx1gAi/4DiASYhlOAzr64Z3MN2sPWJkK+TISn4ayuz0T+YFPGbr
+	RKGv/EzDMOrxMqVNjAd/uKcacxPBbvg3EB1rWDQ5hWbqBxKSQQnKvI6VPemgcnk+z3BMw/4y2hI
+	apvV1TOCt6WXooOF2YNyIZSycGflCfQwV7lvkYeKS55vG6N32mkj7LsfVPU53qZu77SGwXsJZ3M
+	JORQGysbS//4qFI+fFooeAiYTns7NEYmjQhlhiecSXbYaqUrQCIAUk9AlWjPdZ45ccSS87gR0C7
+	pyzrDMzGVlTfjFC/TMrYedV1DFBh1hMaZFX1GXxnS9Aqs8fU/urDRRE8lZ5tge8QPvgAnvHDJMf
+	yP4NA8YzK2zy7JTWj69RzfJskykPUQMMzPV0OrUkYe12R4JQYqbnizUtDRc6sw9zd1sus4cBlmC
+	BD1Y+pCH+4uT34uL2YLndu+t/ruvapT9srnqxKgJIf+0W8U42Caa7qlfbSOfPKm7GuEKUNgfFAQ
+	FtV290GJnoEcMdj7CWS5Dhnn7iwq9Zneds7j0HCqo7SM5U9T4TiJcnPDiVhnNOjS1dqDofQegZS
+	kugR5noqmSPVUvzI8wmuD9ZkufUl6l59jUBohZZhcQ/qjb+n8yDgQ889+SOZFFlHBHkS
+X-Received: by 2002:a05:7022:3a8a:b0:1b2:4da6:bccd with SMTP id a92af1059eb24-1b39fef46eamr3757834c88.34.1794173510833;
+        Sun, 08 Nov 2026 13:31:50 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37560d95dsm7077840c88.11.2026.11.08.13.31.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:28:39 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-rtc@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	"ziv.xu" <ziv.xu@starfivetech.com>,
-	Conor Dooley <conor@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: [PATCH v2 4/4] riscv: dts: starfive: jh7110: Add the RTC node
-Date: Sun,  8 Nov 2026 21:28:26 +0000
-Message-ID: <20261108212826.15890-5-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261108212826.15890-1-oo.hehir@gmail.com>
-References: <20261108212826.15890-1-oo.hehir@gmail.com>
+        Sun, 08 Nov 2026 13:31:50 -0800 (PST)
+Date: Sun, 8 Nov 2026 13:31:46 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Nizat Mikayilli <nacht@dxdmail.cc>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 1/5] Input: s6sy761 - apply the touchscreen inversion and
+ swap properties
+Message-ID: <avDoui7Foj0eVcaF@google.com>
+References: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
+ <20261108-b4-s6sy761-fts1ba90a-v1-1-999b3cfaf82d@dxdmail.cc>
+ <sashiko-outbox-203649@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,40 +99,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-203649@kernel.org>
 
-Tested on a VisionFive 2 v1.3B.
+On Sun, Nov 08, 2026 at 08:38:24AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found no new issues
+> in this patch, but noticed 1 related pre-existing issue it does not
+> introduce:
+> - [High] Input: s6sy761 - premature input_sync() in
+>   s6sy761_report_coordinates() [1]
+> --
+> 
+> commit a5e7ac4e0cb3d02e12af7f249f64b3074df9f280
+> Author: Nizat Mikayilli <nacht@dxdmail.cc>
+> 
+> Input: s6sy761 - apply the touchscreen inversion and swap properties
+> 
+> This commit replaces raw X and Y coordinate reporting with
+> touchscreen_report_pos() so touchscreen inversion and axis swap properties
+> take effect.
+> 
+> > diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
+> > index 1afa38850f12f..967fd222f0d62 100644
+> > --- a/drivers/input/touchscreen/s6sy761.c
+> > +++ b/drivers/input/touchscreen/s6sy761.c
+> > @@ -153,8 +153,7 @@ static void s6sy761_report_coordinates(struct s6sy761_data *sdata,
+> >  	input_mt_slot(sdata->input, tid);
+> >  
+> >  	input_mt_report_slot_state(sdata->input, MT_TOOL_FINGER, true);
+> > -	input_report_abs(sdata->input, ABS_MT_POSITION_X, x);
+> > -	input_report_abs(sdata->input, ABS_MT_POSITION_Y, y);
+> > +	touchscreen_report_pos(sdata->input, &sdata->prop, x, y, true);
+> >  	input_report_abs(sdata->input, ABS_MT_TOUCH_MAJOR, major);
+> >  	input_report_abs(sdata->input, ABS_MT_TOUCH_MINOR, minor);
+> >  	input_report_abs(sdata->input, ABS_MT_PRESSURE, z);
+> 
+> [Severity: High]
+> This problem wasn't introduced by this patch, but does calling
+> input_sync() at the end of s6sy761_report_coordinates() and
+> s6sy761_report_release() fragment multi-finger updates [1]?
+> 
+> drivers/input/touchscreen/s6sy761.c:s6sy761_report_coordinates() {
+> 	...
+> 	input_report_abs(sdata->input, ABS_MT_PRESSURE, z);
+> 
+> 	input_sync(sdata->input);
+> }
+> 
+> When s6sy761_irq_handler() loops over batched events, emitting SYN_REPORT
+> inside each per-slot helper splits a single multi-finger hardware update
+> into multiple torn frames for userspace.
+> 
+> [1] https://sashiko.dev/#/bug/linux-c1c813ff-e5e5-43df-a3c3-af15e2a7dad5
 
-Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
----
- arch/riscv/boot/dts/starfive/jh7110.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+The driver does not use INPUT_MT_DROP_UNUSED so it is OK to emit
+SYN_REPORT per contact. 
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-index 82ea63f71..14f92b942 100644
---- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-@@ -1206,6 +1206,20 @@ pwrc: power-controller@17030000 {
- 			#power-domain-cells = <1>;
- 		};
- 
-+		rtc: rtc@17040000 {
-+			compatible = "starfive,jh7110-rtc";
-+			reg = <0x0 0x17040000 0x0 0x10000>;
-+			interrupts = <10>, <11>, <12>;
-+			interrupt-names = "ms-pulse", "sec-pulse", "rtc";
-+			clocks = <&aoncrg JH7110_AONCLK_RTC_APB>,
-+				 <&aoncrg JH7110_AONCLK_RTC_CAL>,
-+				 <&aoncrg JH7110_AONCLK_RTC_32K>;
-+			clock-names = "apb", "cal", "32k";
-+			resets = <&aoncrg JH7110_AONRST_RTC_32K>,
-+				 <&aoncrg JH7110_AONRST_RTC_APB>,
-+				 <&aoncrg JH7110_AONRST_RTC_CAL>;
-+		};
-+
- 		csi2rx: csi@19800000 {
- 			compatible = "starfive,jh7110-csi2rx", "cdns,csi2rx";
- 			reg = <0x0 0x19800000 0x0 0x10000>;
+Thanks.
+
 -- 
-2.43.0
-
+Dmitry
