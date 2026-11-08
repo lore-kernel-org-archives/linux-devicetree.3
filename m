@@ -1,54 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137811;
-	b=nloFh+Pc/cx09/MAlUvn+ihhzkF/JFE7XRwsMkf7atsaZO21RVkRK69KodLkiZvfdf3h
-	 Y1prL8tmO+sxTO2V6hHsatFCppkHc9eq5M92g6sEb9SMSdHyNG5DV2veIS5HrUWp6EmYx
-	 7pvb8T1DvF8pihJUGfNtSngbI8SOJrF1cxO7unAVK9KchpQavX9WZiRp8Cby0wSWZBznY
-	 QSCMxrdkZjQiAEjL39yWhavrgUmsorqmK/mHJ/vAXUYDG+bhnkycT6wJUp9OmTzEgnwU7
-	 mZCzid8H/McwYjscLEnG4wkJKsmVVsQ1o+NAZtipMuv2Pb7F6ImTL5OKbYBFjm9sRUQ==
+	t=1794138461;
+	b=rY+3PT7OkPyk0DPmTNU+baHpe3MjnPwSlNkd3Y0HWX1M68aba5GgCh3WRYOc69jy85he
+	 d8tmAx/LIuQtIrCGjVNN7QNSLcS4W5VfYUrJ0FX67Ks7CXW7sRQo4Ze6T2OxinARjfWsU
+	 +9E5BIKm6GgUe8PBhbndmhKjahhI6345OO3fqrEgCuL6p7p6UcWF74NFSJqzMhUq3vu+5
+	 tRhSTG/QB1SuaCAwO1N2eP2yqBSsaTq7aEZ9dS7ERT6nPgMDWv1qpcyZo+X1mFIEeU/S2
+	 c2OJeISi9U6sEyusOS0u+5s2RXOa+JlbSL4p2WJESWa2AQ7hnd8aicIfpexevba1IJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137811;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lmjN69Vv8biZ5SGMcgF5cRLTFcd7u9RIX4XoIvN+/6Q=;
-	b=unNxDGO4+TnnIHx2NnYI1jVzS4YqMEO8kiCJZxfBmTVbCRAc4TUNmveofIkILcaDkTjx
-	 1xGf2y8CBkTATo5+9kBC7JTrFighPB/6TZxC/T86w2+ecn1C1Qod93erehLGXQGlQemqe
-	 D99W0tuzCiJzVE8W1TJsctqZgq2bSRJdxOF4FAxcOc/6qzpiUxG6XG6D1kLYrCyhG3dMS
-	 1EIrKwlZ2+7IG8lEzjYeitYmhScxiokYBC6ZFOA2aKQzwi+7JuFMpHsOyXb07IEUbBy8f
-	 J8b8pq9BLsoQHLFJn4oOdsTR+JEvTxC3oHprSD7zACpomUvK+eSnC85Icw7RGA+Akow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138461;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=N8zDFvi1hwLlYUjQ4trPMNS9MFLc9+fuiBPttzeF26M=;
+	b=NVlNDl6PVNZOP05yY1cPCviscbtEZqMSX/sFn/hSOR4NXvsE55Arl1vjOTVxeXdj0AWd
+	 bVaxnfqCUP9Q8DHPVkEeFU3S+3LYjBOc/JbgkMLn8XDtT7yvHjhOzx1wqbdjnctVxCNA4
+	 zPiZq6McGoslX+gKenBdhd4kkQjvOr2qj9SFuX11iswoFa2dGu5NCgxhJRodLBv981rAS
+	 ruBmodKUaENch+mrX1Fp0myLxXkyp++Y4Lr+WSRp935b/h269bKfIdQ6BwDcXlH6oFsO1
+	 WlLlhUWJeLdmEJpeEy3CnnuYt3q/Z4Whf/1vzHz4s16Np1ky7E4hWpxwvkPxIwyoCQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDWRHRj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bairaktaris.de;
+	spf=pass smtp.mailfrom=bairaktaris.de;
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=kYDIvc8H;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39A14606A31C;
-	Sun,  8 Nov 2026 11:36:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BA606A323
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 11:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 527BA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDWRHRj
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 259E91F0089F;
-	Sun,  8 Nov 2026 11:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794137811;
-	bh=lmjN69Vv8biZ5SGMcgF5cRLTFcd7u9RIX4XoIvN+/6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GuDWRHRjYWZADZIG9/LWzJDKUxs/mek7Nsu97BwOm03sEFivJo5U3UQ0xIH7GpRG7
-	 rGbbx4T87DX9YEn8l53BX4Ugkj7lRUxyvSqy7aM/nmXFOSAxmYe5ydVmSaJyi3MmQc
-	 JJTr7N4/tgcWfte8qJuaRBXrDAn9MUg5O3bIplSwIDMlbiMpBD2gDjdg9DJfzEUd8n
-	 vWeqDbUkO3TV6iu8cKevoxcNmdHsWzGaPf6iu17AwRGPYe+slM6RdYEeDYGbmeSagF
-	 P/+DPJJN4bW73+wdv7lEMI3LBskqyxaKDnYMJg2c01HtDlu2N6YDUJ243+o43Agpwm
-	 gHMBL+t5P6o+Q==
-Date: Sun, 8 Nov 2026 12:36:48 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: ben717@andestech.com
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] pwm: add Andes PWM driver support
-Message-ID: <avBbSsojNV9UIZGT@monoceros>
-References: <20260812-andes-pwm-v7-0-a806da8185d1@andestech.com>
- <20260812-andes-pwm-v7-2-a806da8185d1@andestech.com>
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=kYDIvc8H
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso7027966b.3
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 03:47:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1794138460; x=1794743260; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N8zDFvi1hwLlYUjQ4trPMNS9MFLc9+fuiBPttzeF26M=;
+        b=kYDIvc8HNmoGxfswBqPc/bn3mblGxFo6X+NJ3L6oqsxEZkkr+m4t0mn2WCfFkisaZO
+         +KFV1GKZrUODGH1jwVzp2dNnj5AQFg8tobqawkkepyMCV76jlsH26F4xcbj5rx8O3AwI
+         9y9XDB7H4Mj24QgP7ASo8k+gnbTy8bB844IB0ftN+jI98Z6wP7IalktLXytAnly4TLSb
+         tnegld6MS9agPwfzU16YT5rqdpiykyv6RmW0AXz+25fiT4fvHfhrKl7YCilvolQ7pby7
+         KCM2rNosTVSg6+YYd+rjunPAhjVoIVGBUQnx6yoLGsIubCuL3LXN2LPTQd2tbfdK180W
+         7Oew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794138460; x=1794743260;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N8zDFvi1hwLlYUjQ4trPMNS9MFLc9+fuiBPttzeF26M=;
+        b=wFLBWmOpnWwFbNERaLQbcA5wMPj8vMDhZq1hHLO3a++FEQWySnqS8z6NEZ7O4RgNRl
+         1ZayIR/epXPSnLx+h2gTt4aH+idc5QRcl158eBWTqCuLBN+1GdsW3TLEvwEw+CVtZbR/
+         uVq0Z6G7049nkGQlPkezijlW8q3z3tJXz7O7PczAbEOSEwlwTVMSi39Ozh1+2RsE27oH
+         iTTcykB64OE0Kw+Qh0x/MdRZK/yKL42qiA+8jYHUplhidYjKRm6qCAx0aqk7bscJLFLP
+         HbiBSUN3asuW74UiK17DyJov0GiQMBuaXKukl3N9se1JVDIbsQopkTU/Lph/4lpbX3xz
+         ulkQ==
+X-Forwarded-Encrypted: i=1; AL+hErEGLoU8TKE8DmA5V3rzyyaQ5j7jqQdW7wim6h3gEmUTy05XpUkKFQxRgtSaoSA77GTKXaFlcpZXD+mM@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CzBpX0iwg8/aBItPzR1IYmKrhi07gJTnJXdojj3kYygZyG2fS
+	5Obg/vsPXpeCSZxJSMZuR9NhDoyolHeLVtYGm19BaPsKx3vDMx/PQ+m3q/YgPSBMDg==
+X-Gm-Gg: AYBFou2XwMV+o4DGr620HsGsSUQThX4AO2S8BGnsEA0XbskW4fFYY0A6+f+1n27vtw7
+	DAr/4yw+UL+cWIRVcKLywP6wWbrxWxmLRWvd8b96Ou6HRiwez/0A2kPIw6Q4sZOa4LT4ciJ1WDO
+	fa+Hxq4YWwrLdlPTw9BYvG+ck8vDMwOWCO2kGcyIfJsQF43NkKDlVRQ0pYk5xBHifSYMfVQML1O
+	GmG1fBh4ubZVCM/tajx4E3H5nzTMFAWKIKVgL52IaPqCSYI2hTf7wcF2qKxDT5VamW8WqDPL+G9
+	RcsQXgewzTfx6sWk3jdqPwNiiHHBmyYCE2GoMfXkhm6e8aAfrFlXeG7z/Hj5mvmlg2WNxISYFln
+	9yLJsNTuhUGIDq56H32gKN39Idc/P9Iky4pYpFiQqT5c9X5Qs/hnI1Uf7Ln6xh/ryyPiw/KAq4o
+	7/0W4QtczTq3movU/8CNVEubYMWVzWrfSC/GZyT0IfPleHcaUseqYeQAqOCLp1fYgzY1bCsIMZk
+	gyb5cGPDWkbhsqyoRq9oYd4uIrA+yJBvzzKbarK3radKs6X2xSpFoowamM4FHXuggJpQHrTlMTB
+	evqRCGy7zSi+sRl50g6QL/mE5p1wrG28cWyiArLOML63J9Pc2NZAwZenF56SNINi3RE2Vg0mhMe
+	CVFPm+IAaStkDDJI0QiBzfREo+S+KQROlUmBbHqnHRa0rkDZDZcnopN70Mn5VyHu7u+d3vHlbVe
+	fCgMj2PRLeZmHde9aSV/a97wYdbG1iIqyGlywshKHSoJIjCKtkVyEURAGIPvpRvCh19sOLgSTGy
+	y3eKT8G/fQPcvNchi17d9Uwk3UCOIxxMlBsjViTOb+fj+MYLgeN9RrbLYILMSETrEYKIGXbUsQK
+	oaEDR+mQix99ZOEeYNTnnqCw+v/E/7R0hMVeZFA=
+X-Received: by 2002:a17:906:c104:b0:c4d:28c7:eb21 with SMTP id a640c23a62f3a-c4d6d4f9deemr95174066b.29.1794138459778;
+        Sun, 08 Nov 2026 03:47:39 -0800 (PST)
+Received: from Desktop (p54afff19.dip0.t-ipconnect.de. [84.175.255.25])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f948c8sm56005766b.17.2026.11.08.03.47.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 03:47:39 -0800 (PST)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: robimarko@gmail.com
+Cc: andersson@kernel.org,
+	abelvesa@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	konradybcio@kernel.org,
+	taniya.das@oss.qualcomm.com,
+	ansuelsmth@gmail.com,
+	john@phrozen.org,
+	konrad.dybcio@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com,
+	krzk@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] clk: qcom: ipq-cmn-pll: Correct IPQ8074 NSS NoC rate
+Date: Sun,  8 Nov 2026 12:47:39 +0100
+Message-ID: <20261108114739.124995-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026120920.1667982-1-robimarko@gmail.com>
+References: <20261026120920.1667982-1-robimarko@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,158 +118,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fsrqznbb3afk5cgn"
-Content-Disposition: inline
-In-Reply-To: <20260812-andes-pwm-v7-2-a806da8185d1@andestech.com>
+Content-Transfer-Encoding: 8bit
 
+(Resent with the lists on Cc; the first copy went to the To:
+address only.)
 
---fsrqznbb3afk5cgn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 2/3] pwm: add Andes PWM driver support
-MIME-Version: 1.0
+On Mon, Oct 26, 2026 at 13:08:12 +0100, Robert Marko wrote:
+> Report the 461.5 MHz output rate so consumers see the correct rate.
+>
+> Fixes: 4e36f8ab45c4 ("clk: qcom: ipq-cmn-pll: Add IPQ8074 SoC support")
+> Signed-off-by: Robert Marko <robimarko@gmail.com>
 
-Hello,
+Tested-by: Julius Bairaktaris <julius@bairaktaris.de> # Xiaomi AX3600 (IPQ8074)
 
-On Wed, Aug 12, 2026 at 11:24:05AM +0800, Ben Zong-You Xie via B4 Relay wrote:
-> +static int andes_pwm_config(struct pwm_chip *chip, unsigned int channel,
-> +			    const struct pwm_state *state)
-> +{
-> +	struct andes_pwm *ap = andes_pwm_from_chip(chip);
-> +	unsigned int clk_rate = ap->extclk_rate;
-> +	unsigned int ctrl = ANDES_PWM_CH_CTRL_MODE_PWM;
-> +	bool use_pclk = false;
-> +	u64 high_cycles;
-> +	u64 low_cycles;
-> +	u64 period_cycles;
-> +	u64 duty_cycles;
-> +	u32 reload;
-> +
-> +	/*
-> +	 * Reload register for PWM mode:
-> +	 *
-> +	 *		31 : 16    15 : 0
-> +	 *		PWM16_Hi | PWM16_Lo
-> +	 *
-> +	 * The high duration is (PWM16_Hi + 1) cycles and the low duration is
-> +	 * (PWM16_Lo + 1) cycles, so each phase spans ANDES_PWM_CYCLE_MIN to
-> +	 * ANDES_PWM_CYCLE_MAX cycles. The hardware period (their sum) can reach
-> +	 * 2 * ANDES_PWM_CYCLE_MAX cycles, but the PWM core requires the period
-> +	 * to be chosen from the requested period alone, independent of the duty
-> +	 * cycle. That holds only while both phases stay within
-> +	 * ANDES_PWM_CYCLE_MAX for every duty split, so the usable period is
-> +	 * capped at ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
-> +	 *
-> +	 * The controller has two clock sources, the APB clock and an external
-> +	 * clock. Since the external clock frequency must be slower than the APB
-> +	 * clock, it is tried first for its wider period range; the APB clock is
-> +	 * used only when the external clock resolves fewer than two cycles (or
-> +	 * is absent) and is itself usable.
-> +	 */
-> +	period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
-> +					    NSEC_PER_SEC);
-> +	if (period_cycles < 2 * ANDES_PWM_CYCLE_MIN && ap->pclk_rate) {
-> +		use_pclk = true;
-> +		clk_rate = ap->pclk_rate;
-> +		period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
-> +						    NSEC_PER_SEC);
-
-This only helps if ap->pclk_rate > clk_rate. So maybe check that instead
-of ap->pclk_rate != 0?
-
-There is still room for improvement: Consider
-
-	ap->extclk_rate = 10000
-	ap->pclk_rate = 20000
-
-	state->period = 3100000
-	state->duty_cycle = 1550000
-
-Then your algo picks extclk as period_cycles = 31 with it and then
-result in duty_cyles = 1500000 while with pclk you could achieve an
-exact match. But I think the way the parameters are picked is consistent
-and so it's fine to keep it as is.
-
-> +	}
-> +
-> +	/*
-> +	 * A single cycle is still usable: the duty cycle can then only be zero
-> +	 * or one cycle, and both are emitted by parking the channel below.
-> +	 */
-> +	if (!period_cycles)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Round the period down to the largest value representable for every
-> +	 * duty cycle, so the chosen period depends on the requested period
-> +	 * alone. With both phases capped at ANDES_PWM_CYCLE_MAX, that bound is
-> +	 * ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
-> +	 */
-> +	period_cycles = min_t(u64, period_cycles,
-> +			      ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN);
-> +
-> +	/* The duty cycle cannot exceed the (possibly clamped) period. */
-> +	duty_cycles = mul_u64_u64_div_u64(clk_rate, state->duty_cycle,
-> +					  NSEC_PER_SEC);
-> +	duty_cycles = min_t(u64, duty_cycles, period_cycles);
-> +
-> +	if (state->polarity == PWM_POLARITY_INVERSED) {
-> +		low_cycles = duty_cycles;
-> +		high_cycles = period_cycles - low_cycles;
-> +	} else {
-> +		high_cycles = duty_cycles;
-> +		low_cycles = period_cycles - high_cycles;
-> +	}
-> +
-> +	/*
-> +	 * A zero-length phase means a 0% or 100% relative duty cycle, which the
-> +	 * hardware cannot run. Emit the matching constant level by parking the
-> +	 * channel: high_cycles == 0 stays low, low_cycles == 0 stays high.
-> +	 */
-> +	if (!high_cycles)
-> +		return andes_pwm_park(chip, channel, false);
-> +	if (!low_cycles)
-> +		return andes_pwm_park(chip, channel, true);
-> +
-> +	/*
-> +	 * A change of clock source takes effect immediately, modifying the
-> +	 * current output. Otherwise there is no glitch as the currently running
-> +	 * period is completed before the new settings take effect.
-> +	 */
-> +	ctrl |= use_pclk ? ANDES_PWM_CH_CTRL_CLK : 0;
-> +	ctrl |= (state->polarity == PWM_POLARITY_INVERSED) ?
-> +		ANDES_PWM_CH_CTRL_PARK : 0;
-
-So with the PARK bit set the ANDES_PWM_CH_RELOAD_HIGH bitmap actually
-configures the time (in ticks) the signal is low? If that isn't the
-case, don't claim to support inversed polarity.
-
-> +	regmap_update_bits(ap->regmap, ANDES_PWM_CH_CTRL(channel),
-> +			   ANDES_PWM_CH_CTRL_MASK, ctrl);
-> +	reload = FIELD_PREP(ANDES_PWM_CH_RELOAD_HIGH, high_cycles - 1) |
-> +		 FIELD_PREP(ANDES_PWM_CH_RELOAD_LOW, low_cycles - 1);
-> +	regmap_write(ap->regmap, ANDES_PWM_CH_RELOAD(channel), reload);
-> +
-> +	return andes_pwm_enable(chip, channel, true);
-> +}
-
-Best regards
-Uwe
-
---fsrqznbb3afk5cgn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwXs0ACgkQj4D7WH0S
-/k58mAgAnabuczjQcPJoWXObCa6DD2mxMkp7HgfCo7KGQffXrm4DSK7pHDB5tT4q
-rYqbxDgr2ckjBjSzZ65tDsZt0SjxQvy87j1lYoDxt/ojKdhIAMnK/GXep9w1wcL4
-xAHD62JiE5Kl9FUud4pHD9lN1lutYwhg8bKVRQQqz3JD0aQmIAhUOXjhGlzk2oGD
-nKj0ya0ZFDI1GNkTf9gTPgyBEnJU2dYRkE++ApnsDztwKptl8F3wKheo+WW1/Nmf
-i1Ao2/dfLYqdmWqXgNlwGoR5ROODfiYLn69wdtJZOXndUOvwyxN1xb4AW7057XGu
-oId5Uya57I6D+uuGCHRNQp7yeaWeYg==
-=D5fF
------END PGP SIGNATURE-----
-
---fsrqznbb3afk5cgn--
+On OpenWrt with Linux 6.18: the NSS NoC clocks run at 461.5 MHz from
+bias_pll_nss_noc_clk and the PPE and EDMA clocks at 300 MHz from
+bias_pll_cc_clk, with no orphan clocks or probe deferrals, and the
+EDMA has been forwarding WAN and LAN traffic for 20 hours.
