@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169319;
-	b=du6e+jzoXGYMoP2TbQAWt+AXrda+Vcu7oHkXifbWbPZsiDZHyKbGC5Mc3dTd13fDRl6W
-	 rrDq9kRo8/V9zzieqH0adoZmcAZPjQlBqWoA3/9VYpzmijubyxQ46CmdtsDo1O6Oi0nEO
-	 uWeP4+40J8GBm3J+PUBSor+CnVgb17+ENGeUYfkyUxIJ2bKMtJVgQ4Y148zQt6yvzzEbD
-	 N6U2Onwoxz7h/gc+OdC2JgzGJBBe6QFyRHWn5EkH5Z7EaqhIGKmv79uANz27LZ6cZOVnZ
-	 7Wgs9AxlRDrHWT4p6WihcnukrS3tDO7Df0GoGrIaoXbcORToAQzDcv85f85HbHCpw4A==
+	t=1794169315;
+	b=j7+lt4du9D588ZLFn5fCKZA/orJIMxmuVz85CzKx8bB/PLu5CNKM7baQmzy8WmD4Fvnn
+	 KKpTOYC+dANGzd5Fgm0JfJF5yJg7Kp/x4cT/TvovvJ72JfL8dBpIwMtl56EwLyQISfmHD
+	 YOkSn452NV7MWUPGdUEH07qfFWWh2uZDJaKktCcHkxVwKhNgKT9ccVVJiVM+U838XG/xx
+	 VNiKweicLksfs/rBDePKWnlIOgiV7Xa9pCky+srxYK1XUipl5F4CCmZGdJxeEmn87lGy4
+	 utAfDceAB9sPJvA/OvwExRsBCsiqCzjWJWoBVHmkociq+R4MJZM7SoWJ6ezPPoE0YeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169315;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
-	b=YKIN9jagrXPFV11m7XfarMUgtwnL8qb5Y0JW84Vjhjj4O8jzVT+VTwqPA3g1PoblnIg9
-	 lSl8+/sF29JDFwhlMPwnGl14e/1ie7s4O7XzDInA2L8CMxnhzVlDUn/lxy9mmVE7w3qXu
-	 XaR1tWDZhQN43Bw4Mn4PfFRCuNvdKpxhw5mMDPabHFAD8sGPgSBNskZWUKeXf2jZneWTQ
-	 rBUCLibAmzr8e2ydHl+zECg2IzayoOhuocDzU43K+zdn5LNnhNRVerXPz2R8UKhktjTHN
-	 +Ce8mVf5dhpeTaLfPHOym2TNg6dwiVoDDVpjvKGC4k/zkeesyngxH9l4hydNUNpLrpQ==
+	bh=hixGYmWJte+kotD/NGQtsvYwM+0zWtz/LPkWrKPrQQA=;
+	b=JMVlvbw00nXi9iFhvS6dPX9B6mjqpcrdr3oJvQAAQGZSN3+8qs3RZECANaaWAKXTHWqB
+	 9Qg2KKBB/8nlzc816lo/HYoKLBB15RfhLPWxXdeOd0G0lDSOj+dkSpCchmHN8tL9Oqm4R
+	 rfsmv8oguzlGX49b6IbcK2ZSl8cXROQfjPO6CO65TaKBvBwIN0rOgnYyAH0q9zVqYwe33
+	 Hw8BBwwQkcgle21jQN52VNFx39FPKa0tgId+FJTMhFOO1xxQyd0etNt4LD7NQotE9j/kt
+	 bzMGuMk2vsXOf9IFfupbX1cEfgv92pzwNSX9gDCy0ulCDMyUpsP8rd3267AEJQqZhRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccwadqvv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC215606A320;
-	Sun,  8 Nov 2026 20:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8F3606D811;
+	Sun,  8 Nov 2026 20:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252EC1F008A4;
-	Sun,  8 Nov 2026 20:21:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccwadqvv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789441F008BC;
+	Sun,  8 Nov 2026 20:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169318;
-	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
+	s=k20260515; t=1794169314;
+	bh=hixGYmWJte+kotD/NGQtsvYwM+0zWtz/LPkWrKPrQQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=REpq5aiuHy2YQdvlIjNp9HxLW3w++Y1dKgWlpztrCx47nlSSGMbn9rN5GGU0XvF0u
-	 No37nFFbwHETtwIq7djiJgScuTkcWeoZPpt0T41dNhLc3kBzH4Jj65QUqjX7dlwQ+g
-	 UqwwUqPZTK8eTaNIb/Brtqd4ccgq0nlYqd5SeRXHzC9tQrtoFU8oAa8/yqvXWox9gJ
-	 P4b1IbumKpqPbPDI/hgcOOF9Ku0w7kIcj426FoIuGu6E6uHljM52Akujl/wdsAf38T
-	 nGlwaiaVOI/4coFw4wq+HIfDPMyX1Yn4SaJvuwmMt+zup2gO1VOrkZup0OIQ4DG34q
-	 hbTORHUrZ1BMQ==
+	b=ccwadqvvCdCcc7l4lCBCju2BPr3rPe9aVWBGCMIYThwuSmiqpuz697TOZDeckTtSr
+	 +bD2RpML1RJsSLRTbmZns+aJd7HKkj3cTWbj51hUOseZ00Pb0viBRI6BVs5bx9GWvd
+	 pZJoXhNQDIqhBTL5DfJsIO8uuYLIj7AnKpMirVyoCtfCb8MDAb6WSff9WR8OmzHkxf
+	 Sb3JQ+zJwtOaEhDyUZ3vUWAcXam65ILs1XxRZc/A/BsNC3bsb760KqVjTOTC9fcvtF
+	 LajxEzdB9r+URCtxBoc6Xz3DVsQL0YuzRdWIVISg/jdfLiNQDcZKOMy8FXR7Mgaq8D
+	 mtYwz3YL2GlZA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	Abel Vesa <abelvesa@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Arnaud Ferraris <aferraris@debian.org>,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type property
-Date: Sun,  8 Nov 2026 14:19:16 -0600
-Message-ID: <179416929528.628393.737482504530891704.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5] arm64: dts: qcom: eliza: Add FastRPC support
+Date: Sun,  8 Nov 2026 14:19:13 -0600
+Message-ID: <179416929540.628393.14393857343572906521.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
-References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+In-Reply-To: <20261102-dts-qcom-eliza-add-fastrpc-v5-1-27ad8db4a47d@oss.qualcomm.com>
+References: <20261102-dts-qcom-eliza-add-fastrpc-v5-1-27ad8db4a47d@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,14 +71,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 30 Oct 2026 22:27:38 +0100, Guido Günther wrote:
-> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
-> aware of that by setting the `chassis-type` property.
+On Mon, 02 Nov 2026 14:17:52 +0200, Abel Vesa wrote:
+> Describe the FastRPC nodes for both ADSP and CDSP remoteprocs, along with
+> the ADSP remote heap memory region needed by the Audio PD.
 
 Applied, thanks!
 
-[1/1] arm64: dts: sdm670-google-common: set chassis-type property
-      commit: 7018a35af1e64a346e91f928e3e1bda1729bdbe0
+[1/1] arm64: dts: qcom: eliza: Add FastRPC support
+      commit: 12d7f2067e9bbaa685daaa07f69c200e54aa14d1
 
 Best regards,
 -- 
