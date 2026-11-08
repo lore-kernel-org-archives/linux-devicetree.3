@@ -1,102 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175069;
-	b=ChBnlIPyTnTGPiNQPoth5vYY6M7g1T9RxDH7RDIlSMTWnF6IFcmxKldaminEaP8qC4gy
-	 CUqSqT3BXw7xfNjnVIXRqPfXF8IVMWrqGnxu6cZydlBgkSyA0QugNULIYupee4n3X7t5s
-	 Tnjnv33beDu4fAE4GxnvXAZRsB+AAkHsND5UQnhIJgiC7eaNT1HihRbGtvLFIzTlkbSIq
-	 Stf+RJaPrYwAgrDHijerYl3sRw4JN8TAOlp8Eg2QUVJ4E9iX3gv51W0UJfNVNwVQQY8UB
-	 WizqWA1apocG8QlEM1qMhqFaqvjasugYLvsgPqx+/bx2yFyfUiZZbKzMpvInJM3dB2g==
+	t=1794175176;
+	b=kJ0tIY36xS/LrGpdVBJRaQ5Sud7UHgr8qZi4jotydE3k/F/I8qwFyNP/yoiG/oFVFItp
+	 1YTfyFs3frYrepfoxoU76h5cTX8KOQucEYey0SwQj2wUGv18BiBUPun8p+qSFn44OVDN8
+	 ypLHsWHBs+D7e1fVbPoMecEUqB7lLhhlfk+vJNmZYsIE3SjUUaMyT6KXmdq0Q1x3QyReR
+	 i1bPGXv/fhomJJnDR+du1G+slQrN/HyjayP5dFp/GACNkp9JkktxR92x8Mdo2UcZoFk40
+	 slhnLMLl/5rq+69ex55LSm06QIIM4QeXECeLHRcOPTr/TGHku9BTayhzdtCgDAcWhaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175069;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-	b=eRlj7XC2DUaWjPNboNhpiodYryNJQJWTAtH7n6iDfUXXUuSFOvCPQt1qGNHqIDbOSbKy
-	 2gHyeAEMnUGhfc17f2dpxDO0qLKCiRW3QmRjkIffoeDNttU0ZsBIS4tcAU/8g3kwpCAzv
-	 Tvzoc48IdfX6I8EHfCwlHDiGQIyQyfl5x2SkpQvkNDghZmzULApAaQVrKse4M8DJp2YxQ
-	 L8PP4rTrBbBJEda4hRq0un8yuRI8j6cTU9zkETLnHrYfTgio32shrvCg0uNexkMzrtksB
-	 Tn1g5f3k+SJojLeu7Ee6JR7VcAJSrOuAgjCmElT/D1v7XHX/ugveTEeDdoGgaiebkIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175176;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5bh1TJoOcpKgh/VaRq1SPg66g7PNWyzRye9RVdcbuBM=;
+	b=TjY542VHCk/v4fku+EIELABawi3v2U+Jzyf0pNIxTN4AMsl4fE6c+VOKMHGATtmmwwzc
+	 /2nv1+4ulI9+RAeg8USMW6ACHKNJkrtVVF2ty577Ta3qZ+lXWEsG1K1Ji5aFVPLWE7w+B
+	 dAqRz/WNFxWplDewUEWRLffOhiUYv2R5rGqdOA9y8QfgW38mo6F80pMUqiUwj9yQIE6Yw
+	 yNhyhSZBB7xKWBepOTwCRUc7rP2AM8X1O59JGw0zLrXvG+dRSoP7Atp5e7NRgHl3X8Pgk
+	 M9DTWxhJNm6tIyDMIyLj2+mEMPKLzRPQzum+1m0B7S2ya4dhQ8k86bh72wgSYQpc/pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l+4hqDev;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTUVJoFm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F43606A33A
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F43606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64EB606A31C
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l+4hqDev
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so206982a91.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:57:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794175068; x=1794779868; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-        b=l+4hqDevVqPDmyPVmJXMFgwoBBedr+Pp7izQJcKTkuT39n4zCq6+mRX1ImEs2AOP2T
-         oWTKx86o3IAS07Ip4U5tc6jYEwAHWPG/EO8wzpg+PNxh/mDPZCZRRqNcntxJ/xr9ZwsG
-         p0b4MumJjGCyEpcb/xTNEeaseSPMyP/DhwlrYxdMijLAKrLFYtAnj9qMuWvOTsTBq/dG
-         bkyJmPjGVHFNW4dPMZDlRKGwdakOCx3GfmsFVIr8LyyDzsFJKXbhhbDi9DDq1scsV9ZM
-         aFmvnp0xAFEkBuuE33Ad5TJCbu/1Calqgp3gvCaXOVmZEAbOraQzmTkuORshr2wxPYmC
-         wSCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794175068; x=1794779868;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-        b=FugoN0PcWqwv0HRj+NvvVlAFWmiXTlbF77pSuxfK61MqI9Fr6tl/CmuNnSbXMBunjD
-         usvxoF6jNptiM3QbbDDvgx9Mx1Gn7oihGxaLSQ+Mc7kjugUqTC46WMiDVmkZt2dfKe7U
-         JzC919abEQx1uLf3PFX5G/U3J8kXj9JZucbwgG2uy9jaQ7jeqHRLQ0upLcRgXmkc7qP3
-         P9Zvquba7tob6f8lKAB1EYlHjJF97jovkRBf3H+rOue80qVZ/Lgw+4s0Lw81lw+poPh9
-         9vs5yOMGXyhsR+FfEPheMAgxe5q1j0swiYAbCAEkmYfTawn39yibhNQosowIoIEDU5JX
-         FRug==
-X-Forwarded-Encrypted: i=1; AL+hErEJe/NNnonO0LmMVesUb0r9XLBcuffoEEZO54fQ3ClpXVPk9vaIc1cKTu5x6V8uLohGGlWnFhDBfWuE@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Lc5RMEG9qFHQMbf1CMma5KS1U88McbCRQL2Xqk2reQOWCdgmX
-	J+NOfi9T9zlVT7IeIiKn5ihKaRCOSpBtYOftYbCAHG9iRJukfrJEvVV/
-X-Gm-Gg: AYBFou2iVJZUv1vyKytESV+aJcaCCeTPmuBDT3uVzbqprbWcOR0UxL6zZ3wylbscwPU
-	QTuWoMz46oOtn73DVsjN2AGjN7LW+sj1GQDswg2rnDHPN2dzzqc50KFHQV/1I+XzKkDWirqaOqY
-	vISINf6+149HpVvSM1JqQLqYuoDykvuTRHJX626ykCqZzlY9QuwMUr6ZQHARcdDAOBdHcJyLI5v
-	0lciE6gVUTXvmAD/f2hgon5UFccg+wWFfeRc/E6uDF7OrHw14XCFUw8T4un9ATXy6sxjeTSxY2O
-	abPc1d2gCMn2rsL87xOlRgqreZ5w8dvcJTYjYRCYjRebPgvT1ocUnKwzio8q9OEuHOnKQcW4dRL
-	C1NC3WKF2xghvPk70v63B7AzyKetHShJ2lfqnt0q4ml0aZrb0r0Vsdq+7XDW7Z4zMXLhiYgPQdn
-	iyj6cpuF6XJAz364s5YA43/DdUgU/KugZ9KPiXUwkHkrIj+dPoo8t0xmModLwkTdgf8U8r56eyF
-	JMCNlEiLjaHVvENA1md44+D0Pdd/0vnake7gm87Ei5NQKqUM8GBVFCJaek9+Y5skOLKj3uZvDqC
-	m1cmfTA8G1NBXyreaSQIXi8BvqP0L+y9TivJpcuTPE0CoMkkCYV6smVAzI6kHJr0eD17A8vmccd
-	35tKjPw+xdj6W8X72TaExWNqg/ThqZZwz3uD+vxKPqYbHK+U9GAfPs9pCk1UcDbNDBzMnMvxxOt
-	BfbA==
-X-Received: by 2002:a17:90a:ae0e:b0:3b1:3598:f881 with SMTP id 98e67ed59e1d1-3b13598f942mr1243857a91.53.1794175068525;
-        Sun, 08 Nov 2026 13:57:48 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm5692976a91.9.2026.11.08.13.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:57:47 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Alban Bedel <albeu@free.fr>
-Cc: Radu Rendec <radu@rendec.net>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org
-Subject: [PATCH v2 1/3] dt-bindings: interrupt-controller: qca,ar7100-cpu-intc: allow shared write buffer interrupts
-Date: Sun,  8 Nov 2026 13:57:36 -0800
-Message-ID: <20261108215738.113582-2-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261108215738.113582-1-rosenp@gmail.com>
-References: <20261108215738.113582-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTUVJoFm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258041F0089F;
+	Sun,  8 Nov 2026 21:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794175175;
+	bh=5bh1TJoOcpKgh/VaRq1SPg66g7PNWyzRye9RVdcbuBM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RTUVJoFmT9FgHG5aD3yOvxDzYD0Fc30Qi1yiXWU1VtARj93SQh1uP/sQPRjxzrs6h
+	 Oz/SscqZLC15tb51PxvyNSV17IWoap2j/tGqaJDrpkFZLVmBxWNupYTwVOM4OOdjh+
+	 gVnQCvvIpBGmZi0Mk3+rfZwhCumZ+Fea6IBBPNDrjqtsQPZDP41qPEI9Yu3C0BXqWL
+	 QQ0otFtYdjAQs44oamssLbpbjbO2OS5PFUnhoB0LFmeVjmX3czeMt85y8DHnOcEAOm
+	 hTMo+TyYvzZAkMMMQW8P15KxDQU6Id/mHzOWizLczkDKscSeR/DK2RdlAIMoFC54fq
+	 asVmRDbNp6Vdg==
+Message-ID: <sashiko-outbox-204101@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pufan Jin" <cyan2254650260@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108215010.351256-2-cyan2254650260@gmail.com>
+References: <20261108215010.351256-1-cyan2254650260@gmail.com>
+ <20261108215010.351256-2-cyan2254650260@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 21:59:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,35 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
-interrupt 2, but write to DDR through different write buffers. Document
-that such an interrupt is listed once for each write buffer, and that
-all of them are flushed.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] dt-bindings: soc: xilinx: undocumented alinx vendor prefix
+- [Low] dt-bindings: soc: xilinx: standalone board entry for
+  alinx,ac7z020 SoM
+--
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- .../bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml   | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+commit 1e47b64f622951246602cf5bda819bb5e711a84e
+Author: Pufan Jin <cyan2254650260@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-index ab32a91af4c4..becec88061d7 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-@@ -29,7 +29,10 @@ properties:
-     const: 1
- 
-   qca,ddr-wb-channel-interrupts:
--    description: List of interrupts needing a write buffer flush
-+    description:
-+      List of interrupts needing a write buffer flush. An interrupt shared by
-+      several devices that use different write buffers is listed once for
-+      each of them, and all of their write buffers are flushed.
-     $ref: /schemas/types.yaml#/definitions/uint32-array
- 
-   qca,ddr-wb-channels:
--- 
-2.56.0
+dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
 
+This commit documents the compatible strings for the ALINX AX7Z020B
+development board and the ALINX AC7Z020 system on module in the Xilinx SoC
+binding schema.
+
+Link: https://www.alinx.com/
+
+> diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/D=
+ocumentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+> index 5f33f7def6a32..349987962e33f 100644
+> --- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+> +++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+> @@ -20,6 +20,7 @@ properties:
+>        - items:
+>            - enum:
+>                - adapteva,parallella
+> +              - alinx,ac7z020
+
+[Severity: Low]
+Should alinx,ac7z020 be listed in this two-item standalone board enum?
+AC7Z020 is a System on Module (.dtsi) that cannot boot without a carrier
+board, and the three-item entry below already covers the AX7Z020B carrier
+board paired with the AC7Z020 SoM.
+
+>                - digilent,zynq-zybo
+>                - digilent,zynq-zybo-z7
+>                - ebang,ebaz4205
+> @@ -34,6 +35,11 @@ properties:
+>                - xlnx,zynq-zc770-xm013
+>            - const: xlnx,zynq-7000
+> =20
+> +      - items:
+> +          - const: alinx,ax7z020b
+> +          - const: alinx,ac7z020
+> +          - const: xlnx,zynq-7000
+
+[Severity: Low]
+Does the "alinx" vendor prefix need to be added to
+Documentation/devicetree/bindings/vendor-prefixes.yaml?  Without an entry
+there, running make dt_binding_check or scripts/checkpatch.pl reports an
+undocumented vendor prefix for alinx,ax7z020b and alinx,ac7z020.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108215010.3512=
+56-1-cyan2254650260@gmail.com?part=3D1
