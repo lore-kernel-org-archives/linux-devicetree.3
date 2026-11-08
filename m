@@ -1,98 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165948;
-	b=t1gA2Lq6R7GhCPeWL56u87SOsv+NMyrOy+hZKZXslrRUhSPD5sPMwdSgtLblWhWFOgZ4
-	 y/Rzy5u9kWx3/gcdW+ElWkJGH4lET/tSj6XzPDfgClUGGgQvROG0XeR0S0bK3KYpclfQn
-	 BRAYle5ierirjXC0oewc6Gg+M+eax+cqIjX+GLmfNSo2b7fEpGrGisAykQE8PMHlDQ/ja
-	 5f3qYwJnnTatxoC1KcX6FrPnNLbeXM25kVWFZd3grkoE7q5UhYsa/wSn04UX1gAKrjyAA
-	 aC7BqwYFbx5OBj1oWwbcBGISTrn8k8C+qUVYheXP1yWIfajtew/IrpR9mptqFBWxa4A==
+	t=1794165996;
+	b=VJIe6IE8Jogmi85vZ46dOBFIHXMjDFzm7n38EkzksUkM8g+snJAyvVyBP0Q8hw+t4hIa
+	 ksUcjkgeRMyDK95vz4da0etcr7Bh//OTpXNm829e5cozXIAfPhb0/oxEOuVxq2t+G3WI7
+	 IHiGfr0/jgrho8vGLS67+VlYaFNzO1joM6hZ23Ew/B3d8Fvv8i9UDKhrX47UlNfwGxt8I
+	 +5cIAqwUtRlYZBVNH3E+6H62ohoBkHxmxYYHlv4wIs1uRbClb9761zzTXX6A2thkyuWO0
+	 jq2H0XE/bjyvBefJxcgcskLrEDhXpH+DETMtrzhi9PS5F6SuqOys3bCmxLPlhyN2+zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:Mime-Version:
-	 Content-Transfer-Encoding:X-Mailer:References:In-Reply-To;
-	bh=9TFlHze0xZHVHECFNAToGkMpUA7NwrSzUebXukclDxc=;
-	b=EQ6lfne9pjmToZuyuK9RQv1w+CosMDVvQiRO52wYF0JeGFnkGycMOjFicyXluZ7Lj4Fa
-	 ipCzoGqK53jhiH2To694UkBNvOf8B/ku5UiO0qO9ACnlG1ddqTpk0LT53gLAiS2KJRrDz
-	 gvdio4L67Vh7mX+8tA0EtEP16wtjiVI8lth2/47fiU6TYiOlyYEQRCucWHgBR1IKipx/K
-	 jlYZboeqgVFgzvSbU9s1BOeDGj2ONxpImzHL062CFCkXVDjgRn1nkaXda1EAQcBwsoCTl
-	 eDEyp181qWTadsN9/NwTSa0wt0AV0b3f0uMRbh9YrliMAL+r07i1spfSxzKvtS+H0bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165996;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Cu6NYTdTGHtcGgJtGpge03oQx7Nvg9C+ExbKWCGng/E=;
+	b=470mmCOyXNaa6te/vk+VuxF/l7guBrMETuFqJk+FR0TyCXi8tJtdGOrExWagiFA2ix22
+	 i+hZZRhq8C7Iit4xpye1OJiLHlY6Q8K74r/4HE7XSjCE3YBfjBu2DWGQRNax+PhxLLk68
+	 PeCVF0W6aHBlXWf4B5E4zqhGyz4RIVZEPMWlh9AVP0PUMxI+3YXdAya2kw9rPmmXyDn70
+	 bakH/s/QqF1QvRuQvgBgezn/T8297FPd6xrnP+A7WZVh37MZAaxbRq29PCZYXISB9O6cY
+	 BdI7n1KxYXYaM2oxjYt0lPfEue/+HXU1aZerE7frAViMMg57wNDai22uLUq9EJm3nCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSiv4TuA;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=agOdep3Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B314D606A323
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B314D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53CD606A31C;
+	Sun,  8 Nov 2026 19:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSiv4TuA
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c49b431f022so38721566b.1
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 11:25:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794165946; x=1794770746; darn=vger.kernel.org;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9TFlHze0xZHVHECFNAToGkMpUA7NwrSzUebXukclDxc=;
-        b=WSiv4TuApj5w4HZ50fhfgNst1yV6yzNn/XhgbsQuSgTm0D/HVCH4udeCvKUww6E+U0
-         D3N6gs7Usyy2COHjh1RqeQGWpr2skW+hn7epsen7I7xrqYqFTEdbosd+1UWyeCKmRshx
-         8JPu6ci7480u9eMj2XPPDmzzJcdd5rsQR33Z5a8L0no+54MDf6arQnvG6cwRzKOyQ/wf
-         8VnQG0sN7CnI5yvoG67OJ7bwbiRqH/j7Kqt3StBXm6UkhPd7HulEHPLx40qWowz+IA7y
-         Yj9eB5wyBSFmMzhXc2iYzgYS4Qh0XzHhq7n9ToLj7gD0BpKOWW80IVuoX8DQebPToFGZ
-         mPNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794165946; x=1794770746;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9TFlHze0xZHVHECFNAToGkMpUA7NwrSzUebXukclDxc=;
-        b=RSGSEktPJ/+YRfVIifCtZnBymvbOXHm+NCrz8KCM96DPVxcJyBiXawF0satHtSFfb8
-         KIO7GVKAuQRCgj8Iv1/VeimPmEBAFxMME7RDTaiZMG29+yPKh4g/2vFKEmjccqeKk3xI
-         JmW+9J4bCJFu4+kZFla7YEqWNM3/vzAVB7kt+gbohDDTL58cqYZq96wH+aklkbZzF70U
-         74bQ25hSi0i1C3ru9XJTQZxD34EJdZ+IanczFJBqjgD1G43Qh7BbWDpoCa3pl8B3kJDd
-         rI/WW/G3Os9aK739aqjZnca7nv8hg9l2lLAqyiKhL2t77MIB6mtWlUz+dJPF7AhItj6y
-         nVfw==
-X-Forwarded-Encrypted: i=1; AL+hErFPV95C1KqKoi5iFEX7GKLgK4pLXhed8q8OglwJ9I5wihjAxem+eh4REU+zJv9r7i7Ycy6GB0O4lTbR@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YuPRywcGbm2dBSu/7NTht5jxdup1a0oVUo+uxytGodfTct6q+
-	Uzk90DIsHZol/cGlPhLkHKiNBw29hqwAplZhPwID1nFjXh18VLrjOiC6
-X-Gm-Gg: AYBFou1UV0jyyeLvvu/n1s50y0Cbga/pBtzKwouipi1+arhTKURFa+YXCOqaXZw0GjY
-	QuLDDZPZJzZslhikUwprZ42qyULT1wPZmnM2d+FUwMtkgzaApymTi2UwGSzP36BIATvh6MGgSkv
-	7AE4WLjE8R+BBFMU6cCsms4ak5axF8xn9cIn8EVnHK7uTY44k1zpvFokrRqvVlx+02Z0Rxz0ELS
-	xAbOe4F0XYtqVsOflv8E5q8/9kXbZWCVl+rNJYYoczuuiL+GD1ahe+jG2j8+8ikkgVwDKeEfLVF
-	qFCadZOndcDWJAVKDcjt2RmSMt4GkVjN6bXHHatb12gAKt1sRlbcGE5roSdvd7+y4HViXhBMXz8
-	HQAxbM4Owlrg6cXFMz/Zl6ZUW94M/NGopoOQM/fw6n7lEgUxLtj1w+ojVMhBNM0W6cvnJ9Jy3rF
-	csh8dI8inui/r8LwiHtLFtsCT/M1A4lnJHZo/4kz9d9s5bOm4yvnlsdmphRaXP54w3jRV/urSOr
-	0S4XYjYt1gTRxzaLrFaX9OoumRN4Jpo4N3ro3KzrbBXiG9uv5q6FN4fgw+D2Krmrphs6cpP/rZc
-	WY2EoVmTtBvqFm/py+pKB4mkUjhspc8AkmEagtKbhQIdnpZs8TQjBXiF
-X-Received: by 2002:a17:906:794f:b0:c34:83c0:b92b with SMTP id a640c23a62f3a-c4d6d522af9mr142299866b.23.1794165946088;
-        Sun, 08 Nov 2026 11:25:46 -0800 (PST)
-Received: from localhost ([163.245.50.16])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a998a5asm81036666b.72.2026.11.08.11.25.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 11:25:45 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 08 Nov 2026 22:25:41 +0300
-Message-Id: <DMQ2QUT58NN6.10MAQ6P7FML2K@gmail.com>
-To: <sashiko-reviews@lists.linux.dev>
-Cc: "Linus Walleij" <linusw@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Sean Wang" <sean.wang@kernel.org>, <linux-gpio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>
-Subject: Re: [PATCH 2/2] pinctrl: mediatek: Add support for MT6895 pinctrl
-From: "Alexander Letuchiy" <asalde.le1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=agOdep3Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A341F0089F;
+	Sun,  8 Nov 2026 19:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794165996;
+	bh=Cu6NYTdTGHtcGgJtGpge03oQx7Nvg9C+ExbKWCGng/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=agOdep3Q4PHF7MxCvd59ypZPVJKkvSqohtqQqShZ9V/aefeaRmEemWiPHe2iwHI84
+	 s0k7da+CK5AW2+DQ6lTWwG2SMsH7DoAQtntSF+ow0dCjF7Ww4thZtNVT/Rsv4kK52P
+	 WTCt3E4c6cbEu+v9cb6gGRYTD4fD5D39MFoq8JEiEsXmAUi1KQYZdLFsEYaprI2RZC
+	 d4ENul5w2KhryIoUlBfKz4H951GTcU2MgE2xKQuwgUSJhiLAKBXBFVnrkLMbqCCJFA
+	 O70nvWTygatEEqcD7Sd5A5BKrIpeJmFY2V4QWwbhZt25zXDUxSIJqBMqOT0AT23J9z
+	 2Qa6fz+5dKj5Q==
+Date: Sun, 8 Nov 2026 13:26:30 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v5 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+Message-ID: <avDMt-Kr89RGnmGq@zenbook>
+References: <20261015-shikra-work-v5-0-5e075222b60a@oss.qualcomm.com>
+ <20261015-shikra-work-v5-1-5e075222b60a@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,19 +59,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261108-pinctrl-mt6895-v1-0-f704c443b31a@gmail.com>
- <20261108-pinctrl-mt6895-v1-2-f704c443b31a@gmail.com>
- <sashiko-outbox-203909@kernel.org>
-In-Reply-To: <sashiko-outbox-203909@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-shikra-work-v5-1-5e075222b60a@oss.qualcomm.com>
 
-On Sun Nov 8, 2026 at 9:39 PM MSK, sashiko-bot wrote:
-> [Severity: Medium]
-> Can mtk_pinconf_bias_get_combo() and mtk_pinconf_bias_set_combo() read
-> past the end of mt6895_pull_type[]?
+On Thu, Oct 15, 2026 at 02:45:28PM +0530, Mohit Dsor wrote:
+[..]
+> +&i2c4 {
+> +	status = "okay";
+> +
+> +	hdmi_bridge: hdmi-bridge@41 {
+> +		compatible = "lontium,lt9611uxd";
 
-Right, mtk_pinconf_get() reaches pull_type[] for the virtual EINT pins
-227-246 via debugfs pinconf-pins. I will pad mt6895_pull_type[] with
-zero entries in v2.
+This dependency still isn't met, dropping these patches. Resubmit once
+there are no dependencies.
+
+Thanks,
+Bjorn
