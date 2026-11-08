@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169398;
-	b=eAOxobsVg9ulA9fX1bHRKSPf4mSjTLN563TedWuWVAdYF525SSZnmkTYLee8tLgXCIhB
-	 L9/KfUDWSXwr5y4Bxukco5SBl3AxwYQ8ikAOHtMkEHhxcg0vEO3Ps/zTq2cf4RnBa735b
-	 jxoUp4PqyijFqAEcijO/3eWo9c1622JAeva9jB9xStUk2DaQXwmvow1V3ntJNPr3mqdM1
-	 mD23ssSVplDV8fC+dI1K+XtoBOJAiAiU2YlKulq3fs5dKll4hH73N7UgDjqPXMoQ0TmO5
-	 xzRpmPnEZogz9oJuO8moCl6Bm//mXnUNErC4EpDKeCy9nNzIq6o4zT/CEf5t9T8YmGg==
+	t=1794169400;
+	b=uK2mt7g/DLCSLK6WNRf3170C/Xph1BT/5Nz84x1st7IhyHHMZgPUzuFqEr2UxMRZfY4t
+	 NrR/FKbq2TXqrMQwhryw5DPDB7tLNU5c7dlI4SXueof8E7xts6K8gxH8x171XLg5sMLvu
+	 C0b8FuLdZSpiu9nGPUz6aKyuRI1qmaSfScwe7jIEmp6AIEobrJTvUNbDVzDsK3cnbd1TU
+	 B8si0k1u1e+h2L7QRwZ99R8K2+vYzTg43VXygNMSSgbppLYcteLo1vhuzWaXQtBWBb9xb
+	 H7dFGjf0ISwsIPm3OqX590HKdsWtpBtPqt+rUkThPpW5V3AFo9y9KONcZZFJ90LKvpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169400;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=trLoVpa1IJp6gbRN3PMqct+Cbkr/MlbXtMdCic/eb94=;
-	b=h/5GDzbSVX7VO1JzXoDQ0qHZhId5KFmnP0oVEQyo2CxP2CDTYhoQkvn0be5HnqxDw1Fn
-	 snH7nh9A+ZYIDAStx5ctsok7lJPmgcrACjiBI4Pq1nc31A2ZMDsEbIVmnpWCxhxFdgkH7
-	 C1RUUCIS9xJmK53HVBjw+qoYJ2uUfUBHbU2dzgtUpA6kPW0PybP5nP6GHIPDLR5o4D5nS
-	 APTjtlIOigahswD7Asq9KCFk76UA4uwDBcQQkenODGYJHneD0baNptX8PguiYSkhK+d9W
-	 tAKCmt2RJ85HpiVsW1/pRIXq+Ewv8dLqb5cNNM/5PRQLjnMZuCIdzu7kPtdnHQHkQ0A==
+	bh=UUCrpHhjrlYYj7VLfA9hzonxMBrh4PQG7azlK603Yok=;
+	b=IzdOCvv0l3H8DGWrQgMUYqXjaZph3LQZ9FJD06K9tNPZvo86LfuWpJd/WFKTlPV72E6s
+	 HXaU22p85TFAmsjTEafzVuZ8nyaelXhs8fn+qhC1u1Z7Q6q/6T4w6iiTtn+vE0nwOafID
+	 ypa7U4Q4bc7CMN6iAzm1Ze/mQg2o2VgFU5SIn26Y/uO6nAcXj/zg5zTK3g7yRg5oZAvkM
+	 ISKwdzbceG5CkBQ62hpZvSGiXv5Z23SvxDObmnWxYqNaBX0JVMrXEBoCYAjwrRaO91CI8
+	 qUQLAauXikhYmKQIy/6o23Fep1/rSmPwtJL7+hE+XEqEiOEimWZtaTZ4Hu1yGAbKJeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mj1B++OS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yvzn23wn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2076070285;
-	Sun,  8 Nov 2026 20:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CEF6070298;
+	Sun,  8 Nov 2026 20:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mj1B++OS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2C81F008BF;
-	Sun,  8 Nov 2026 20:23:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yvzn23wn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C251F00903;
+	Sun,  8 Nov 2026 20:23:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169398;
-	bh=trLoVpa1IJp6gbRN3PMqct+Cbkr/MlbXtMdCic/eb94=;
+	s=k20260515; t=1794169399;
+	bh=UUCrpHhjrlYYj7VLfA9hzonxMBrh4PQG7azlK603Yok=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mj1B++OSuOLyV6qcz91uo5LR8HDrWCZUl3ob+GZvLLA/3bcn3+u28vMoOpPR/7qg+
-	 KLfUymu6N5VI9KXBpWsy+xSVHjDRa6F1WoK9YH4jAFOkvP/971y+gGFJIHrNLQQ2JH
-	 3GZ7VXlGIR60JDMsh2167lzpB5P0VAtwzfnU/wnqvFPXjjldPQNJVUqBb/4xS3c4QZ
-	 DEYcrjToZQlNERlb8sZHokkWRlPK12zmrZ3opd9dNwa9UAn3wFMBT2+8OIoqYCh0sG
-	 TL1QLgA4S0Ks1D3oOs3xO0LzYbCJ/aYbHNnqiln7BIAydP3H0CxzQh63bTrEEYyxW9
-	 0L2Z5ZQFNiH/A==
+	b=Yvzn23wnpCpGWF8fT2v5N2GeNfVlM1kAXdIiHD9aa+B4IR64L9Y91AWw+V2uLxWCI
+	 624eKtILmbOX5Na90g0bq7Hj1EPHyxPO69Z00wIXczs9CJ7aoIAWxOn7Ddy9UOjAJJ
+	 zXJjd4iRx4Q7gk7WkzgOzhJ6/lMHuuunzoFsLKxLF4VDLshWEu5mH7Bm1s2Em+DryT
+	 xu94X3CeYg3yfZFoGYWqShlH8zbYcdJu/uts+RF9FWR33EmFbJ9Sy2yZs4SDvLwHQ0
+	 bPiiIquKzeCNzNsWAPW8p2in4cXeiQr4vCje2Dot2hyELaTiQ11RX7y5p/rqRVLaP7
+	 2JXBmY0fNZutA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
 	Jie Gan <jie.gan@oss.qualcomm.com>
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Mark tpdm_dcc device as failed
-Date: Sun,  8 Nov 2026 14:20:05 -0600
-Message-ID: <179416929334.628393.15121064053629630718.b4-ty@b4>
+Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based probing
+Date: Sun,  8 Nov 2026 14:20:06 -0600
+Message-ID: <179416929421.628393.13790074133955645755.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008-remove_tpdm_dcc_device-v1-1-48574c6ae6c2@oss.qualcomm.com>
-References: <20261008-remove_tpdm_dcc_device-v1-1-48574c6ae6c2@oss.qualcomm.com>
+In-Reply-To: <20261019-fix-etm-probe-issue-on-shikra-v2-1-b2eaed0fffaf@oss.qualcomm.com>
+References: <20261019-fix-etm-probe-issue-on-shikra-v2-1-b2eaed0fffaf@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,15 +70,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 08 Oct 2026 14:08:05 +0800, Jie Gan wrote:
-> The tpdm_dcc device cannot work properly on secure devices because its
-> required clock cannot be enabled due to a hardware issue. Mark the
-> node with status = "fail" to reflect this.
+On Mon, 19 Oct 2026 14:58:34 +0800, Jie Gan wrote:
+> The etm0-etm3 nodes are declared with "arm,coresight-etm4x-sysreg"
+> but do not implement self-hosted system-register trace access on
+> this SoC: ID_AA64DFR0_EL1.TraceVer reads as 0 on the affected CPUs,
+> so etm4_init_sysreg_access() correctly reports the access mechanism
+> as unavailable and the ETMv4 driver fails to probe with -EINVAL.
+> 
+> The CPU ETMs have a memory-mapped aperture, so switch each node to
+> the standard "arm,coresight-etm4x", "arm,primecell" compatible with
+> its MMIO reg range.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: shikra: Mark tpdm_dcc device as failed
-      commit: 7ec63c6b88a88076a2faf59713d0126b542a9f0d
+[1/1] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based probing
+      commit: c23d8ce90e1d27d88b9e4fc15721a3f3d6827b51
 
 Best regards,
 -- 
