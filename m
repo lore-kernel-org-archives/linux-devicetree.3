@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.208
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166843;
-	b=GgCfr8v5GhZkzfIY8IVw3m4Uwp5mjKXK0jVqkMrrF5eqIueOudcRab/VChiUqcIwZ5VA
-	 /XkSP97BaGKUaxb3ky4T6zNNzPVcMJGYd72wHqCg2uqN83bJmaYHrU4rdcLPhOYQupl8G
-	 EsjCodvaZ0w5ZGQmrpGdh+CIPfLdqm1FMHmAnKiHJj19HTFxs755BFOXPbrj2yDobU67v
-	 /LnYmLtG112DTknIs4NI2GR36qZ7y5Aiwyk59kv7EIKz0Tv1HuLE4+vAvUyz2IZOgEpZZ
-	 khMbhcPG8Lnx5SvXzLqRSNRRH1K0ezrCLdsl99fNAyekQhK2ScoZnT8IB+ZdtjMAjMQ==
+	t=1794166876;
+	b=X/onN2gftsaw1MgPKODAtKmBOJoLbs3W0hH4EsL7Bb7Tb8YzUQHr+4oHmgcP5JTfrKMJ
+	 miOgPZvVYO91wBNiZAKY+52+9DYzDTfmNjlpVhqf48xhaYzyAEs+YgRNI+sD122+3XvDm
+	 u4XbIs1UV0RmQGEWZ8hekDsq69Sn68dho7IJIahMRuJW36Yhbp22UEvZjovoIrdA+BrUM
+	 LxUptOew01VyIaFKvwMKH+05+/92OsCifGJRYbt4IVKEXE0msZDI3+0ePU+kbV6OjmmbK
+	 6DAjTzxuAOETCciofPxwPlb1Pgf/hgiaq7WatzdHleLouWSVKhei4axLtbYfJF0badw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166843;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aIh1Z1lavvEJmqjJ1YbPbeWLzAgydDDZDJQrrhxt1MI=;
-	b=Vgm3DkzUkmmQotYNMYMzXn58GVsFBAoC44ezF1nfVKCw3LwxaFo/PX0mqm/pFyWQY39Y
-	 5XRuReBlib8IwTexVidDgSK7gf/4pG7T4D8rYI2fYepqPzuUPESAJxfRZSVSZBT0T3tai
-	 vPGlIs1UWr8WdkpxtlVazdZ2NY8KJd+ugEQtVO4Blq/zb+PyGr/lqI7v4+tiO0oFAau/m
-	 opEUav0YlmZyW3qXB24JJ/8WgMeinBoKxqAkVVfGEMlwSIT0dUWiUEiZhMCcC1/aJ5Lcy
-	 UDeWuPrYHBK8wmlXINZE0dtbA9zCqLTyXn80gLlv6BkjpudW4huknw6+0JVGxCo88ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166876;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=804cY5dj+EYM+fofEMnwIGoD9r1pDnjArHDnR2JIvus=;
+	b=ePFr09kgZtuPZ1ieTbxy2i8zAL6qWrbyXKapRIddrpAgPorLTkyQeS8qE8jj6z6hvTM0
+	 bIxR6HVrCa1H8cRJrKTYSmYWlLI2Nauz4cl/MMbGVGp5ot6vcuIVgVfHAiNW3zIfxM9SK
+	 R1JFuCj6M7ltoZgn3Cyj9jNMpORqb9FVGmJlnh9lIGVl77WTBamkIIoRwRdkOMFW4F4qe
+	 BdRDoZyD9nCKYeNJVTYZXXfifoWoM2/GoRHo3Yu9oORH9mjzFbYHulkSqVpqkROGtDc8M
+	 cwKmLR9gEpeEbo1v/Ao6wcTAr4VDaXIMAlD3f4S1Pm62CwZ3FJvlW9twkGUnNHd2Vog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAgnKi2o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b="PL/7JyOs";
+	arc=none smtp.remote-ip=95.215.58.208
+Received: from mta1.migadu.com (out-208.mta1.migadu.com [95.215.58.208])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AD4606A31C
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7299606A320
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:41:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7299606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAgnKi2o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0368C1F0089F;
-	Sun,  8 Nov 2026 19:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794166842;
-	bh=aIh1Z1lavvEJmqjJ1YbPbeWLzAgydDDZDJQrrhxt1MI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KAgnKi2oBw9vFSIF8EsFl+q7cvNFo9xuw/4J9+yPELJe6tVDe8afAR7svBAY80zN/
-	 7OVTXTJgJHqcZpw+YwVcuSqD7rfSdDIVGdSPx8pOsp9sZytHJ08DZjt09gvb8tMXZV
-	 va+o48LQ+HaxGzw9D5qn7tn3QH04mBIL9iKkLJQY+AGHtI5V07VFnUlJvE7AfFU9gi
-	 uzkxeW+jROrhxp8+Fw5MTlf6YZ8q055i3FCHXDFRrDvPierAZlg+dkpIwXEgeEv8tL
-	 5y0txQNsMJ5aDSp1r8ILxuWT+2SpcdqAg8d2uMEDW8i/Z05FY5ucdxDaffyY5jYb1/
-	 mQbfK0jARhjzw==
-Message-ID: <sashiko-outbox-203987@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: arm: omap-l3-noc: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109-ti-l3-noc-v2-2-509e8485a1f3@gmail.com>
-References: <20261109-ti-l3-noc-v2-0-509e8485a1f3@gmail.com>
- <20261109-ti-l3-noc-v2-2-509e8485a1f3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 19:40:41 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=PL/7JyOs
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ibChZZZc2dZaS9VYrz9L6vfKqhjux9y1wuYa7AtP0NE=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794166872; v=1; x=1794771672;
+ b=PL/7JyOsezqgVF3IwQ+pitRowrrjp7bIiXxmfbo3ggV0lk1tDprpELaC4nvK6MbCZCCisEPX
+ M1oB4JScqze2diY9VMCkczfYiaCjqFP+5L77MUNFid+TBGph5nALekK66WwMOC8XL+uE7yInklf
+ C6FChInWBUvoxlBm0g2wN2YomUCfwVgjYdVKorTgpfPrERrozzH17fdQ9U+lqcUubg20xKu36mn
+ SL7VGvwebvoc541BdaCcy7qg3MblaQ3iEl0z8CO0dLeXamoSzAN8WfSq4P0CngjEPjVlPKrlk7I
+ nr9GbV4x0WNpt+z0KumjjM0t7Z5Gj0aZDO3LgSIRp/+8w==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 565880af2e2fdaa3;
+	Sun, 08 Nov 2026 19:41:12 +0000
+X-Mizu-Trace-ID: 565880af2e2fdaa3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5b965360-7121-41ab-94f6-d23b3eace32f@postmarketos.org>
+Date: Sun, 8 Nov 2026 12:41:09 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,169 +59,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
+ Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+ <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
+ <179198402838.839288.17911568760182808689@kernel.org>
+Content-Language: en-US
+From: Paul Sajna <sajattack@postmarketos.org>
+Autocrypt: addr=sajattack@postmarketos.org; keydata=
+ xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
+ J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
+ AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
+ HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
+ /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
+ QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
+ 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
+ H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
+In-Reply-To: <179198402838.839288.17911568760182808689@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Low] dt-bindings: bus: ti,omap-l3-noc: split omap3-l3-smx into
-  separate schema
-- [Low] dt-bindings: bus: ti,omap-l3-noc: restrict ti,dra7-l3-noc reg to
-  2 items
-- [Low] dt-bindings: bus: ti,omap-l3-noc: fix property ordering in
-  schema and example
---
+On 2026-10-20 3:16 a.m., Lee Jones wrote:
+> This is hard to read, I think we can do better.
+> 
+> Also, does it need to be a separate helper function when it only has a
+> single call site?
 
-commit 4bcc6989fce18ef0d819b57aac84df28a2100f89
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+The function is marked inline, so there shouldn't be any performance 
+penalty, and I gave it it's own helper function specifically because 
+it's hard to read, and giving it a name helps make clearer what it's 
+doing. Do you have any suggestions to make it better?
 
-dt-bindings: arm: omap-l3-noc: Convert to DT schema
-
-This commit converts the TI OMAP L3 Network On Chip (NoC) binding from text
-to YAML DT schema format and moves it to Documentation/devicetree/bindings/=
-bus/.
-
-> diff --git a/Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml b/=
-Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml
-> new file mode 100644
-> index 0000000000000..7dab336347b2c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml
-
-[ ... ]
-
-> +  ti,hwmods:
-> +    description: hwmod names for each NoC domain.
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    deprecated: true
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^.*@[0-9a-f]+$":
-> +    type: object
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,omap3-l3-smx
-> +    then:
-> +      properties:
-> +        reg:
-> +          maxItems: 1
-> +        ti,hwmods:
-> +          maxItems: 1
-> +      required:
-> +        - "#address-cells"
-> +        - "#size-cells"
-> +        - ranges
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - ti,omap4-l3-noc
-> +              - ti,omap5-l3-noc
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 3
-> +        "#address-cells": false
-> +        "#size-cells": false
-> +        ranges: false
-> +      patternProperties:
-> +        "^.*@[0-9a-f]+$": false
-
-[Severity: Low]
-Should ti,omap3-l3-smx be split into a separate binding schema rather than
-combined with the Arteris NoC variants?
-
-On OMAP3, the SonicsMX interconnect (handled by drivers/bus/omap_l3_smx.c) =
-is
-modeled as a simple-bus parent node requiring #address-cells, #size-cells,
-ranges, child device nodes, a single reg entry, and the legacy ti,hwmods
-property.  The OMAP4/5, DRA7, and AM4372 NoC nodes (handled by
-drivers/bus/omap_l3_noc.c) are leaf device nodes with multiple reg entries
-and no child nodes.  Combining both into one schema requires declaring the
-bus properties and patternProperties at the top level and repeating the same
-exclusions across three separate allOf blocks, while still leaving ti,hwmods
-allowed on the NoC compatibles.
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,dra7-l3-noc
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 2
-> +          maxItems: 3
-
-[Severity: Low]
-Does ti,dra7-l3-noc support 3 reg entries, or should this be fixed at 2 ite=
-ms
-like ti,am4372-l3-noc?
-
-In drivers/bus/omap_l3_noc.h, dra_l3_data defines module 1 as
-L3_BASE_IS_SUBMODULE sharing module 0's base address:
-
-drivers/bus/omap_l3_noc.h:
-static const struct omap_l3 dra_l3_data =3D {
-	.l3_base =3D { [1] =3D L3_BASE_IS_SUBMODULE },
-	.l3_flagmux =3D dra_l3_flagmux,
-	.num_modules =3D ARRAY_SIZE(dra_l3_flagmux),
-
-drivers/bus/omap_l3_noc.c:omap_l3_probe() {
-	...
-		if (l3->l3_base[i] =3D=3D L3_BASE_IS_SUBMODULE) {
-			/* First entry cannot be submodule */
-			BUG_ON(i =3D=3D 0);
-			l3->l3_base[i] =3D l3->l3_base[i - 1];
-			continue;
-		}
-		res =3D platform_get_resource(pdev, IORESOURCE_MEM, res_idx);
-	...
-}
-
-Because omap_l3_probe() skips platform_get_resource() and does not advance
-res_idx for L3_BASE_IS_SUBMODULE, the driver only ever consumes 2 memory
-resources on DRA7, and a 3rd reg entry would be ignored.
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    l3-noc@68000000 {
-> +        compatible =3D "ti,omap3-l3-smx", "simple-bus";
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-> +        ranges;
-> +        reg =3D <0x68000000 0x10000>;
-> +        interrupts =3D <9>, <10>;
-> +        ti,hwmods =3D "l3_main";
-> +    };
-
-[Severity: Low]
-This isn't a bug, but per Documentation/devicetree/bindings/dts-coding-styl=
-e.rst,
-reg should come right after compatible, followed by ranges, standard
-properties (#address-cells, #size-cells, interrupts), and vendor-specific
-properties (ti,hwmods) last.  In the top-level properties block above,
-ti,hwmods is also placed before #address-cells, #size-cells, and ranges.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-ti-l3-noc-=
-v2-0-509e8485a1f3@gmail.com?part=3D2
+-- 
+Hal: They're going for the kernel!
+Margo: Colonel Who?
