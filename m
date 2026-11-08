@@ -1,57 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794172658;
-	b=AusuVpkEZOw2PQzREacUBb3s99q8rdtOpKP80KF9pMbtwMwGokzWErMtvV7gVu4FIA0f
-	 CfymH8DCR0vQ7KypKiMHv2ysLBkvI2OMq/eqXyz/mc3JEWWbrtYMBfRlFlAy+xxia7Czn
-	 9WVEl5E6PGa5ndoKx9g38OYKeNWQIc3Y/m82EHFOPl6s9g6fabpur1cr/Bu8uveoW7r7m
-	 WTRiSiTkGiP+oOGe8mxPkbaUq32YiXz9G9mXJvoU5m47VvL2wEDFLegNw5yY1YuCFp5qI
-	 2u6Rt5ueu4nr/hxmxaoeiH7vVc0hBdQXy2/nUk4NYfiMBLNnvFd0kERdncMYJBmNkXg==
+	t=1794173116;
+	b=S8c5vQlhwOwphNDDrffqu2OFtnNC/J7XpD9uH+Wy1aY57mpx+ecScTBGSo/1ZWtNlRrw
+	 BVejVFEDU+i4IUiLGmmIwp+mdINbVL0N5FfUzxVIKoQwMZRieIbBDOSKOYFbDk8rwRHQ2
+	 nYTi/tfelq2o28lrzWorawM8LRSy0ryYp2ykopOYO/zbMuemKb7sf8QFgivLEcDP9BffN
+	 LUmseMIoFtwbJmx3ebxPI1GmeP4dyYhSJS2yWUXYrdB5nP1ZV0THh2WsriE1l3YQRefIt
+	 eOoAn7CwK8aHvr5wcpN2vz/a/173k/Kw3uLMqZC/6TqDfebjpTzEyd5JmsT320Mxc5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172658;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=6gO1pl1wSi/CmrOfFJOtMtdYZqyh6rJDv4/cfMzxrdY=;
-	b=lrXiNlyP7NdGkLmwmtpBttynRjDX/XCh4MGA/wLP5AEwrK+UJFojr+5NEzL14655mNjT
-	 CmwumUJtMbB824Jms5w8D8ZSckeYCRxxoFckOQK1n2wWfhO6faj6UKZsOJVXrts866bJQ
-	 YWFGUymJ2UOUwxjXmS53D7TfvOmM8FQBmRzOlLd5hVqpPx8fnvRrMIqYxE/+SWh/zXd8t
-	 nxg2gJl0vKk6LxYXlmefmmMuCRh0bteXjD7vCo9N0/HxicpOJSV4/gS+ObIkSwjx53XD1
-	 trVIyzEsxk9B9MWLt00SX1yybuaWXBYgzPb0j82TZq5D00SPupLqlgTz8yJhymFmu7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173116;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=r5HTsltN3qKXHfYcwhZ0ejh/zJWetlORYjdsSgckopE=;
+	b=lYNnUz5e8FmkuNN+5MHbceqqc4nEkh7AvDD+KcNtbNHfBC3XzTD/s9dfdzscctoMBqDf
+	 lP6ZRFCIP1IId5BmhEBtI3Xm3O0F0ILoc6shrdmqyzMTZZPPB5bYQtqdLuXIbxsiuciUk
+	 BuZfRiD46dlk06J26LjqP2EU/7PvzJzlx0mJqaWC0izKm/zquSo7hdMYYMP2ZMLBHJ5fl
+	 AABL5/OsGZMn1cNAV/Wc23ppjl7R0XFYX5WqVnOPQeYrKO5TsVtJYv9PD45e8UByNGUih
+	 yV5gVOlKoTbQZhZMAaG4W6ID9kHqkt5UJK8Y52CzF5k+fOIKdD5VbMHs1VmEr+bW4BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/WtAD6Y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=ayQVsBq+;
+	arc=none smtp.remote-ip=212.227.15.15
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F75606A31C;
-	Sun,  8 Nov 2026 21:17:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266BA606A334;
+	Sun,  8 Nov 2026 21:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266BA606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/WtAD6Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9028E1F0089F;
-	Sun,  8 Nov 2026 21:17:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794172658;
-	bh=6gO1pl1wSi/CmrOfFJOtMtdYZqyh6rJDv4/cfMzxrdY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=H/WtAD6YbkJSr0XVa93K4LpCGXTJvumUwvgS9yCnzCnEoQL3+lwsEKrFPADTUrYnO
-	 sup33dtntMNvEsTKbU/lanvKZdex9a3bScPa+hHpVXRK2gmI/R9nU1nreAgeebXnvc
-	 hVF1Hv/fXjN9KmHVpC7kSzXFtPO0eFlBI/0B9//mnWeJe8rk6Dax6K2KjH6HdUnCce
-	 nVvcb7yE4N8YRN9z5DoWlWriJzT2QqIX00sn8rA2uEFHTCzK3Nhtv606oiC6IjBDc/
-	 J/wnQH7dT7l3pLMdnZ1zZdcCd2ZKRXW4GW62h/ub0ycImIgN+J3fruVsfCKZW6mdIq
-	 FE7DjgVKbMJ6Q==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Alex Elder <elder@riscstar.com>, radu@rendec.net, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: Daniel Thompson <daniel@riscstar.com>, p.zabel@pengutronix.de,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- danielt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] irqchip: introduce TC9564 SoC MSIGEN support
-In-Reply-To: <20261012190245.3988619-3-elder@riscstar.com>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-3-elder@riscstar.com>
-Date: Sun, 08 Nov 2026 22:17:34 +0100
-Message-ID: <871p8vvx8x.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=ayQVsBq+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1794173109; x=1794777909; i=marvin24@gmx.de;
+	bh=r5HTsltN3qKXHfYcwhZ0ejh/zJWetlORYjdsSgckopE=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ayQVsBq+g9doSWewW+bAJskXTAVGXKTYaWsFkLiXm3bkjgM61CBMk0PB9nUrpVrl
+	 GILJXUyFN/HdviHnEftzAb6NRZHYjeOzfNJFGm3VwKFWpkt6VJD2PlA94pQnKHLIS
+	 DqgWO2LiK4vj+niVn41uhI45k0LOrGfDBHGXYWOtCqQ7yA8diMgAJFq+tr99TXB4A
+	 JBOeoNWuXZ7DV6kl2yAwq7bpz/4ivu789B82wiy6jrdlRGVcxQ3wzITNtnUBaBRwV
+	 E86aTRkFthhfcVf8tAKdjg3Sk5QzNVpYiEkxPTMlTzNMZAhx3lOW+cIDGU7nEWFoL
+	 VZDSC1C3Cr16X6yxoQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N1wq3-1wSnSn34f3-00xAlz; Sun, 08
+ Nov 2026 22:25:08 +0100
+From: Marc Dietrich <marvin24@gmx.de>
+To: linux-tegra@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Marc Dietrich <marvin24@gmx.de>
+Subject: [PATCH 1/2] dt-bindings: i2c: Add Tegra20 I2C target controller
+Date: Sun,  8 Nov 2026 22:24:57 +0100
+Message-ID: <20261108212458.275980-2-marvin24@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261108212458.275980-1-marvin24@gmx.de>
+References: <20261108212458.275980-1-marvin24@gmx.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,135 +76,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:8O2NLmi8FJkFg2RMWrEdtl1BRKEV7raosafPqfdoo3J/VAJPpaR
+ RaSM+tzu/UTqoxAvQOEdLvIv4DTESLJll04pvXixLEPMnNqSz3ugKFxSw8XyPWCG/ma/BxA
+ B0nbIwMTUt//kcw2qvUPPARcETa54aajYV1eDOt7yaLVyG1zcaxXdH9EYVsaABnqfhStnkA
+ +e+dlEruG5KCf09/AITVg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:lo4xIUxlsNI=;DGJ/DUdpORPHQX1Y+XgZP0D/hOG
+ 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
+ NlcNbz6DHg==
 
-On Mon, Oct 12 2026 at 14:02, Alex Elder wrote:
-> +config TC9564_MSIGEN
-> +	tristate "Toshiba TC9564 MSI distributor"
-> +	depends on TC9564_PCI
-> +	depends on GENERIC_IRQ_CHIP
+Tegra20 SoCs supports 3 instances of an I2C target controller. They share
+ressouces with the I2C controller instances and are introduced here via an
+additional compatible.
 
-  s/depends/select/
+Signed-off-by: Marc Dietrich <marvin24@gmx.de>
+=2D--
+ .../bindings/i2c/nvidia,tegra20-i2c.yaml      | 27 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-Otherwise this relies on some other driver to select GENERIC_IRQ_CHIP...
+diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml=
+ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+index 51241c1293e3..2d7ee8e8750d 100644
+=2D-- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+@@ -13,11 +13,15 @@ title: NVIDIA Tegra I2C controller driver
+ properties:
+   compatible:
+     oneOf:
+-      - description: Tegra20 has 4 generic I2C controller. This can suppo=
+rt
+-          master and slave mode of I2C communication. The i2c-tegra drive=
+r
+-          only support master mode of I2C communication. Driver of I2C
+-          controller is only compatible with "nvidia,tegra20-i2c".
++      - description: Tegra20 has 3 instances of a generic I2C controller.
++          It supports controller and target mode of I2C communication.
++          The i2c-tegra driver only supports master mode of I2C communica=
+tion.
++          Driver of I2C controller is only compatible with "nvidia,tegra2=
+0-i2c".
+         const: nvidia,tegra20-i2c
++      - description: The i2c-tegra-target driver supports the target mode=
+ of
++          the generic Tegra20 I2C controller. Driver of the I2C target
++          controller is only compatible with "nvidia,tegra20-i2c-target".
++        const: nvidia,tegra20-i2c-target
+       - description: Tegra20 has specific I2C controller called as DVC I2=
+C
+           controller. This only support master mode of I2C communication.
+           Register interface/offset and interrupts handling are different=
+ than
+@@ -222,3 +226,18 @@ examples:
+         #address-cells =3D <1>;
+         #size-cells =3D <0>;
+     };
++
++  - |
++    i2c@7000c500 {
++        compatible =3D "nvidia,tegra20-i2c-target";
++        reg =3D <0x7000c500 0x100>;
++        interrupts =3D <0 92 0x04>;
++        clocks =3D <&tegra_car 67>, <&tegra_car 124>;
++        clock-names =3D "div-clk", "fast-clk";
++        clock-frequency =3D <80000>;
++        resets =3D <&tegra_car 67>;
++        reset-names =3D "i2c";
++
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++    };
+=2D-=20
+2.55.0
 
-> +/**
-> + * struct tc9564_msigen - Context for MSIGEN IRQ domain
-> + * @ioaddr:	Pointer to mapped MSIGEN memory
-> + * @irq:	IRQ number for MSIGEN
-> + */
-> +struct tc9564_msigen {
-> +	void __iomem *ioaddr;
-> +	unsigned int irq;
-
-https://docs.kernel.org/process/maintainer-tip.html#struct-declarations-and-initializers
-
-> +};
-> +
-> +#define HWIRQ_COUNT			25
-> +
-> +#define MSI_OUT_EN_OFFSET		0x0000
-> +#define MSI_MASK_CLR_OFFSET		0x000c
-> +#define MSI_MASK_VALUE			BIT(0)
-> +#define MSI_INT_STS_OFFSET		0x0010
-> +
-> +static void tc9564_msigen_irq_handler(struct irq_desc *desc)
-> +{
-> +	struct irq_domain *irq_domain = irq_desc_get_handler_data(desc);
-> +	struct irq_chip *chip = irq_desc_get_chip(desc);
-> +	struct irq_chip_generic *gc;
-> +	unsigned long status;
-> +	unsigned long hwirq;
-> +
-> +	gc = irq_get_domain_generic_chip(irq_domain, 0);
-> +
-> +	chained_irq_enter(chip, desc);
-> +
-> +	status = irq_reg_readl(gc, MSI_INT_STS_OFFSET);
-> +	for_each_set_bit(hwirq, &status, HWIRQ_COUNT)
-> +		generic_handle_domain_irq(irq_domain, hwirq);
-
-You want to use generic_handle_demux_domain_irq(), which allows you to
-actually implement affinity settings for individual interrupts. 
-
-> +	/*
-> +	 * Clear the MSI flag. Most interrupts within TC9564 are level-high
-> +	 * type. If any interrupts are still asserted then clearing this flag
-> +	 * will cause the (edge-triggered) MSI to be regenerated.
-> +	 */
-> +	irq_reg_writel(gc, MSI_MASK_VALUE, MSI_MASK_CLR_OFFSET);
-> +
-> +	chained_irq_exit(chip, desc);
-> +}
-> +static int tc9564_msigen_irq_domain_init(struct irq_domain *irq_domain)
-> +{
-> +	struct tc9564_msigen *msigen = irq_domain->host_data;
-> +
-> +	irq_set_chained_handler_and_data(msigen->irq, tc9564_msigen_irq_handler,
-> +					 irq_domain);
-
-No line break required. You have 100 characters. All over the place.
-
-> +/* Find the PCI device we're associated with (not necessarily the parent) */
-
-What does that mean and why is this platform device driver dealing with
-a PCI device in the first place?
-
-This really wants proper comments explaining this in the source _and_
-the change log of this patch. And no, your sloppy cover letter
-explanation does not cut it at all.
-
-> +static struct pci_dev *tc9564_msigen_find_pci_dev(struct device *dev)
-
-> +static int tc9564_msigen_probe(struct platform_device *pdev)
-> +{
-> +	struct irq_domain_chip_generic_info dgc_info;
-
-Struct is uninitialized. 
-
-> +	struct device *dev = &pdev->dev;
-> +	struct irq_domain *irq_domain;
-> +	struct tc9564_msigen *msigen;
-> +	struct irq_domain_info info;
-
-Ditto. Look at other drivers how this is done correctly.
-
-> +	struct reset_control *reset;
-> +	struct pci_dev *pci_dev;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	pci_dev = tc9564_msigen_find_pci_dev(dev);
-> +	if (IS_ERR(pci_dev))
-> +		return dev_err_probe(dev, PTR_ERR(pci_dev),
-> +				     "failed to find PCI device\n");
-
-See bracket rules in the documentation I linked to or simply get rid of
-that line break. Same all over the place.
-
-> +	dgc_info.name = "tc9564-msigen";
-> +	dgc_info.handler = handle_level_irq;
-> +	dgc_info.irqs_per_chip = HWIRQ_COUNT;
-> +	dgc_info.num_ct = 1;
-> +	dgc_info.init = tc9564_msigen_irq_chip_init;
-> +	dgc_info.exit = tc9564_msigen_irq_chip_exit;
-> +
-> +	info.fwnode = of_fwnode_handle(dev->of_node);
-> +	info.domain_flags = IRQ_DOMAIN_FLAG_DESTROY_GC;
-> +	info.size = HWIRQ_COUNT;
-> +	info.hwirq_max = HWIRQ_COUNT;
-> +	info.ops = &irq_generic_chip_ops;
-> +	info.host_data = msigen;
-> +	info.dgc_info = &dgc_info;
-> +	info.init = tc9564_msigen_irq_domain_init;
-> +	info.exit = tc9564_msigen_irq_domain_exit;
-
-Both initializations (except for info.host_data) can be done at the
-declaration with a static initialization, which avoids that parts of the
-structs contain random stack content. No?
-
-Please look through the sashiko comments as well.
-
-Thanks,
-
-        tglx
