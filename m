@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169352;
-	b=giFz1LqBg8QcKBXzxAFDGHXzEeZyHgNwiSHBKPVW8/3q9PCcbODmM0wiHFEZWmjPbSQZ
-	 +zlCNnUVGaF5D3xTHZnOUbqUQ8fkBGnyMzwtcE4B5ah6LKvw1TJ3zWupeLcavfZUT+1CB
-	 yUHWhvhZGgHasGNdTGBovp42VYfFgZmDQvCobmyCnM0n4qA5snNrw4fnpvHwCgnF0+ZZy
-	 1ChdsfMTGlN5rQAYGYs2rsPo50q+cZKpFubfMPC6n/VH1xI0tS/PvW5lLSOBB06zJscp1
-	 bfddhRpiGgFSaB+b58WLV5g+hn9DyInuDAm5v6G2BoMFf6QQ3YF6uavFTde5dlmwsRA==
+	t=1794169375;
+	b=s3I58i3ZFNs6sIrpudEiKOiBy5NH7/3jnh7vhxocDOJNC34x3Wkqzhj7wi1vKE5znEpB
+	 Oi4nyOdoUda4iLa/NoEuv0BDw+2B+4G+UDxgFO1BX8PibxWX332sJ0sBYnzJpjHd0HflZ
+	 MtefcY7BXe7+n6FPY7XWgaVDPwIYe+E55i5i39PkOplzCRfQ/N6aafMXAits7hYtLjnGr
+	 7Tv6crARSoch8eBRIlhQVoJFywDiAB3NkwTEoniBkZWA+Eju3Dip5yvBBhVfRh9R4UH9D
+	 XZBCuZZN5H4QQdgkiAAguT/WP6vgzu5NhrRrfcs+gYyx6eY/knO/seTzw4MvPqV0BAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169375;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=jNa1knLxWWdwh04CkLtdtpSFy39K4lJyzCf52/ThYmw=;
-	b=Fs7l6SseXF85Hv9sBcw1zs3FQ0kYQ1t/dfyy39qIAD98Z6+bIrtT3SyHGtw43nSGBl2Q
-	 6A4yzyAWRl3gIgPQhqeasbxkBxpGqRjb9cmV0lqjfO6AOPwKaAJlVAz5+wE1RGQngwdLh
-	 KW94S80nxy20ZTU+v/Y8RBAAQwjHvBUZ0Gt6QQ+0ggIUeg5uwLIntztHo4ToKxQuIi35J
-	 2O37Yms5gS3zs1TX19MhrJ7lgA+ADyA9SRs4D6rPsRXN+JZb3F2R7uzAe6Tf35h+zfGi1
-	 idE+poGPFDUcjHmjedYypUcbpsDTRvGizusYuo/V0R/3RavsP0xAjZvOZTOkE8r48HA==
+	bh=3WTLkjmkqK0giO2WWgQJb4HKr6ag/Th+VJz9Z7LhzkE=;
+	b=46rzp2utSwQMYL+JeoAVke+o/Uvq1+4w0Ovn6bkb7FjKuv7bnOsjwiV0/tkqhwy7KXHJ
+	 lt0unHtbxBuXnO2LEyvMpjVEwZiqm3xSftA7Kf3r36iF3yyXgaQV0Fm/V5UceZusS0QZA
+	 wxgf4DVNuo+y/xYDFUlYPzS5e1iQjX/ijoDlxRJcUf6r2VWp6xqqBGgXZIJPI6vK6LIKy
+	 ueCgtiBV/VrZ1jyYBYDnfi7WeBgD4elb55xff+4hTEfDTRZRKr8+tkHh+7iIxJA2Z0z9T
+	 MkJif4UH50mt5HgUUbgNJ3oASISbdyJN3kFLYw/j0qvMlScwQqpWobzqf5ftrWxrEyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eAcXbwwb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1uFGa+u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C3A608361D;
-	Sun,  8 Nov 2026 20:22:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C30606BA64;
+	Sun,  8 Nov 2026 20:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eAcXbwwb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F201F00901;
-	Sun,  8 Nov 2026 20:22:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1uFGa+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A993F1F008BE;
+	Sun,  8 Nov 2026 20:22:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169352;
-	bh=jNa1knLxWWdwh04CkLtdtpSFy39K4lJyzCf52/ThYmw=;
+	s=k20260515; t=1794169375;
+	bh=3WTLkjmkqK0giO2WWgQJb4HKr6ag/Th+VJz9Z7LhzkE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eAcXbwwblvFo9FOwFSLv6j7Xe/sN6tThbj0qfFrhzAsYD5h/06bPj3ExAZmaaTAym
-	 00i5iCOLDTE0lVwveaLBRdu7zt99kxgCRoGBL3HnDvaIDf+6RFCQ3xaHeclJco/T/7
-	 nZ592bH6KtIvKOLG1v/G2gIhv3KT4/4qJ1VI/ShdtkTkB14addamfs/wlDwtt8Nxs3
-	 Bi6YN69eaMrBti07DlWvq1lKcbPGr2OIq+2RRiap/4HS3dVdxIlMunxpPftDm0pWC1
-	 Yr7Ftp7FsqTPc2quql3OEJp+j24DII19GMwWUU4kBkv2Lh9A+1Z33dypp3f1On0qN3
-	 0BXwRbn7S8xgA==
+	b=Y1uFGa+uB1K692o6xRi9dxiAJhV5TDEsLvOXOqvjoU6tlHWZe9YSnQ6kul+FIDh9u
+	 YFnISYlyR7Mthg0YUhbjp+KKIgIZMsU0xO3FyKrz8s074qoxIpkkQfWghdP923nJgV
+	 VZehZVFQsnWvsIgLEddQJOHhhLr3Z85++3OsjPRD75s7sf6hEZaU7FPTGvGKcnXa7O
+	 9K3+lZa6hBogb43nHvNjtDWZ7lLFrnf1X8fStApXMkovVxLTjwXHgXAiXzacmVoSiS
+	 Ho3Sv6LjsFl/XI76WDB6mXxE1ciCTAIWIk2+WCKRf5Y0FJ6KkkH4aM9BfQHcgLmirb
+	 Sjj8z2ylxk0yg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
-	Chenna Kesava Raju <quic_chennak@quicinc.com>,
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: kaanapali: Add memory-region for audio PD
-Date: Sun,  8 Nov 2026 14:19:39 -0600
-Message-ID: <179416929452.628393.5603846744093943794.b4-ty@b4>
+Subject: Re: [PATCH v6] ARM: dts: qcom: Add initial device tree for Kuno SoC
+Date: Sun,  8 Nov 2026 14:19:50 -0600
+Message-ID: <179416929279.628393.568857102058027472.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261021-knp-rh-v2-1-4e2f8e16b607@oss.qualcomm.com>
-References: <20261021-knp-rh-v2-1-4e2f8e16b607@oss.qualcomm.com>
+In-Reply-To: <20260929-kuno-soc-support-v6-1-a16afafbcbc7@oss.qualcomm.com>
+References: <20260929-kuno-soc-support-v6-1-a16afafbcbc7@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,15 +73,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 21 Oct 2026 10:26:41 +0530, Ekansh Gupta wrote:
-> Reserve memory region for audio PD dynamic loading and remote heap
-> requirements. Add the required VMID list for memory ownership
-> transfers.
+On Tue, 29 Sep 2026 12:16:46 +0530, Hardeep Sharma wrote:
+> Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
+> (qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
+> 
+> Peripherals included in this initial set:
+>   - Single Cortex-A7 CPU with PSCI idle states
+>   - RPMh RSC with clock controller, power domains, and BCM voter
+>   - GCC (Global Clock Controller)
+>   - TLMM pin controller (110 GPIOs)
+>   - Interconnect (aggre-noc, cnoc-main)
+>   - GENI UART console (QUP SE3)
+>   - SMEM, hardware spinlocks (TCSR mutex)
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: kaanapali: Add memory-region for audio PD
-      commit: a573d5c23caf77f0c95ab2fa2e4b0e8307cd92e1
+[1/1] ARM: dts: qcom: Add initial device tree for Kuno SoC
+      commit: 7f6a63bc5fc9bed3fac66ac57000882926d25f84
 
 Best regards,
 -- 
