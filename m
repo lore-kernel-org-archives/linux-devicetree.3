@@ -1,48 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794151096;
-	b=O/985EevcqfUDif2wf+cn811S9/N2mQ6ERdlK4BVpEQehfN1dwjrFeklZ0hDJ14WP6DH
-	 VSOFqcvOo2Rf01g8D/mNSKk6accCEXzL6uvd+1M+2GPbX/q6wh3AhASCzTNOJw7BwuPeU
-	 qn/7iAm/qFjyjpC923qY4Z1i88cxbbLK4Ftb8+aDrXmWa7VXkc0GU8vDaz4TjPPAmUheM
-	 1THPCVpBeUPoApJPI5OSgyvqEgUV/3QiQ5fmtJhdHR7aJE8E4PGqduF90ewYApZKI5cUP
-	 90LjJVjTY+x/LvdZnoqhfqZ2a0NOL5Cj18CIwVrf7weY70Qrz24TDPw5tZIsKFZPokQ==
+	t=1794152640;
+	b=JDDDQCJULxOxBoHkfiIv+kX1dgGi6pN2ASzGq+qYu0mnuVIwKMtyypqM3TJhRDmKg11e
+	 O9KK53OQmfubRe7zO0Qb8NsYnimu92JBWggu4WfuihXJnUOblJ2FaKvGv470lvEKyOZsN
+	 Hqqg7nfHgdGftAuuwN13Vw4h/m53jQo6s0Zg+YvQSSGSik+Iqon6jOLuD1ZYX89DSnlmY
+	 7dM8Gw80Lm/F8XY9LbgCXYWaKW7ctpa/oRAgjH3YjRwEPKWdf1y3qH5GHJYflzlYZf7Tj
+	 nNA+4P5O3d6vFyx5+rtgiIJC+PDbMXGu8sxYyXUzdbG4Ielq2r6n3pUkPfpPqaaySyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794151096;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=p8GDyyVt+Sq4mGVsXFtFYfgdYn2hgnSQOtYzD9assbs=;
-	b=ViuuUsIFvA9a/Z+hqWUDzQiXecjPD/oe7KUhtKdg6PueijDDqLe3SJE93mW7bh1Tw/A9
-	 oqPAtoTKSSABIpXNyt39OIxMy+V9IUc14R8qgsioz3p8i106tsUDlqQ6ipLjMRLJaliez
-	 RuqutdS/EDVVYgeWWQzuIhMAL55riRZl9uHdAk+s+YflZt4UnXWNlrpOZ8dopfPhroNpC
-	 WcvkVuBusiJ6zDwEaIzdJX9qDXEDGrXPURjV5MCdP/eQQL1L1erK4ZZaqq/x6g/kBo0CF
-	 TxEOuufwTFTv/LZJmZK3+15wsF/u9q6dDImAWFgwSRDzEa4Gw5gY2YWO/cv/5n+uoIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794152640;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=ycEyutGcaWfcePGSp4ZtX4tMaGwRNsUIujtKh0Ebzro=;
+	b=0zUifis5JJaZAt7FUIpuGePVw6tWzdj6ygqMPweTGkyS71zYesksUqRIjpvtZ2YZ6DcG
+	 c2GM/Y4I7Jjj7nE6RwojXcccMaSSFtjxuAA+4NrL3S+2b2jYimEtYG5W7HX7CLpf9T91+
+	 c8cacGLDtR1wjf5M23D8uO3qa6MNk82OMuy9qmN31sj5M9cht9L+CkY7LfyFHLGAAZbzF
+	 1DChV+L4umll9WGYB6qp8PWiSpE1FTth1bgdwzMPHP0gAUmclnD5936++e8Pc7GsgUVxe
+	 P8WvMMk0kHuPKtsJIh8yrpw9EPZb6bGwP2qhsOPMA/fkbbRireATryPa1jmWnDcAijA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFXVr5vV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b="esKxWh/R";
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7466606A31C;
-	Sun,  8 Nov 2026 15:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE4B606A320;
+	Sun,  8 Nov 2026 15:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBE4B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFXVr5vV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4296A1F0089F;
-	Sun,  8 Nov 2026 15:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794151095;
-	bh=p8GDyyVt+Sq4mGVsXFtFYfgdYn2hgnSQOtYzD9assbs=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=MFXVr5vVHnzbN5472BnBdKg/D/bN9BKzknypQXcMueX3Rhdkv82YvxUt/vIJym8ZL
-	 TTAtaZIplb/uW6f1Uuex78g0TCKYa2mb+bduTJ7BMtA7WEkKl9KqcKH4SQXItaWT4g
-	 R78VB5AE3x8GAIwhYebk6l6FWyRpOF7GcbNRUa8CqE8I9QEu2OcAH8pqAGEJE0XAUy
-	 zgFvuzrW2J4cebqLoj6py87Xdf3YnF8SnCr0hNvZ6e98C898tfKFv25L64CUPj//jb
-	 EChO/UUPL4RJ3rxLHZANxfNNCH9jozO9iWhz5ChqgZCcUXvOarkLXvS0/N3zAc34WY
-	 3w+h/Rv1ZV3qw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id EECD82CEE620;
-	Sun, 08 Nov 2026 15:18:12 +0000 (GMT)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=esKxWh/R
+Received: by chaosmail.tech (Postfix) id EB8F21C9627;
+	Sun, 08 Nov 2026 15:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1794152635;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ycEyutGcaWfcePGSp4ZtX4tMaGwRNsUIujtKh0Ebzro=;
+	b=esKxWh/RjDnLdnybeQnG/Rv/Qm5Xp5goh7EdtUxM2acV6zOmUMB4cP7X6MCij6lRHb2JoF
+	3U/v7p7pepWPrDo/0Vh7jDpDqmVDmn7XjEwswBV1mC8ksNYOQSJ25ZmXt2KWjfarKe+Guc
+	ajVX2vjBGWRpk6L11ijEXy3RmZV0uwU=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sun, 08 Nov 2026 16:43:40 +0100
+Subject: [PATCH 1/4] dt-bindings: phy: atcphy: Add M3 series
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,43 +59,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/6] spi: qcom-geni: Add QSPI support over GPI DMA
-From: Mark Brown <broonie@kernel.org>
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20261108-t8122-phy-v1-1-c2783b2a53a8@chaosmail.tech>
+References: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+In-Reply-To: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-Date: Sun, 08 Nov 2026 15:18:10 +0000
-Message-Id: <179415109036.3711751.6859082995940422062.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=421; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LaAlc+ErhOxT3MacrK1VduFBzN3l5WzRUYavGhSGNbQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+TNoSWxXFeOn3pVlM6cEhtkutux78Xpf7zpb/rb3vc
- UuneR9nd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAib2cxMvwrnjPBW9J+pbi0
- bX3WjaMV7Q5NEz5N9bD+PU3E29T0NTsjw2UndTOvxesfpeRn3twbn7KhdWUZS2b1vBMxV58pvp0
- exg4A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794152633; l=914;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=xy+67myrKs8eDZ3F6qs76EUq8jlUQ6nObH44AZwgygU=;
+ b=iX7l+i4N3FEm9UwNLLNKh9eSen0Cp8IOOR93mjic1Kw1F46PRlK54oC0q6IWqlcfTFIHnv7DQ
+ ffwyi5Yn7+JBq1Wa2fzsyy9YmzFoXAr+sTio9iva+y+gTZQxIWQf+EA
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-> This series adds QSPI support to the Qualcomm GENI SPI driver using
-> GPI DMA. It supports single, dual and quad SDR transfers in controller
-> mode.
+M3 series SoCs have new phys that are different enough to need
+a new compatible
 
-This doesn't apply against current code, please check and resend.
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ Documentation/devicetree/bindings/phy/apple,atcphy.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> ---
-> base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-> change-id: 20261021-qspi_upstream_series-850249e432f5
-
-That's a random -next commit...
+diff --git a/Documentation/devicetree/bindings/phy/apple,atcphy.yaml b/Documentation/devicetree/bindings/phy/apple,atcphy.yaml
+index 0acac7e3ee67..39461c5dcf20 100644
+--- a/Documentation/devicetree/bindings/phy/apple,atcphy.yaml
++++ b/Documentation/devicetree/bindings/phy/apple,atcphy.yaml
+@@ -55,6 +55,12 @@ properties:
+               - apple,t8112-atcphy
+           - const: apple,t8103-atcphy
+       - const: apple,t8103-atcphy
++      - const: apple,t8122-atcphy
++      - items:
++          - enum:
++              - apple,t6030-atcphy
++              - apple,t6031-atcphy
++          - const: apple,t8122-atcphy
+ 
+   reg:
+     items:
 
 -- 
-Mark Brown <broonie@kernel.org>
+2.56.0
+
