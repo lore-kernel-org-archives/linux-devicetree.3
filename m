@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169521;
-	b=4ETmProz1Sqk0kJFqJM1fAzyqUWivy1K64yU0PTDAWlw4J+mugAh7xSu9BO2wXIGRyvx
-	 pEoj8CuuebibDlrh/qgLrDwo8WVJXsVGPP0LL5P3j+qJgpiOJZyJgVjmPUlqkq9EQAmVm
-	 lKmvxfkzOz00li3bpH8ffmzrSwlHZ1FLaJVNHv1AEPGqAKJ6lKngOLr6pTfE11q7RveoX
-	 VCcvyJeuawffiGjv9edcVbFm6/IwH/cWBkREoj4ZQ9DYLL8tWEENwDB5B6P8mCuPkHKgb
-	 UyynJ9kBdxyr7M3z3qTAwOu+g7fndNuI8ZkGv0zZ9l/ldNCADIw6RQ6vdopvBRRGCbQ==
+	t=1794169522;
+	b=e8vfr6uNa2aMqACHLmh0iojWY1ADfAEQROY4PQFCv6POjBBrXV8TgK2VEc1zRaScuowd
+	 YT4DR1FCTE8IhEeb40/sJ1VX5VCzfZF9KGfxaM4PDUIV+erDq/lDzg0x4N8STjMXyrIMg
+	 235/Rspou8X6EelH5PkVV3zfwl9WaIEEb18n6mPcB0YmxQhh4VI153fX94IEkxCpG0xeL
+	 /vgv/2D4JwYbidCMCqWM2yQ9YaaQQwlvl5EG7TO0zQWMX76+pu0/abDD2I5xkUn2yqDoO
+	 iYsFfr9CgDuT1iTXpMD6c02V2Qk5Vig9qhU2FIxJKpRgQ3XrZTXrqzhzrOHeE92nyOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169522;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
-	b=MXl25QY8naUEx9neWFw+yLFBIlfkxMOBH3LEW1NBMITt2d8M5QBJko61s/f4SUsCkzm+
-	 C4X4+ULamx6lTmxepfSXmbL4MQWym2K9iMSGByRRQDv/ji78opaM3gpk+HcxtmBtdW+Yx
-	 IIjqj4mRYbUCCvYylNMOjH24Nghl0bZuvCwbj6OxwXBN0KfpdzGyfhpt2mK2weyyAvxYJ
-	 wxkXzkq7tW9jVcFioyWPuEPy/yXrRyisSnULR4NTA6B+ZW0UVv4sUEWRe74Fgx5PWNn1x
-	 ZfkvoC/VkVwJbk2SbzUxzuzuQ6QlNhIArQT7Q+mkGXDDpEoBGF2kXRDSHncq/USR9Ug==
+	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
+	b=wzOLCXXGPEz+p2BTz+r8sYhvLqtXlaezIR8+WCQ7hfki8ceXmrVRQFn/DBgOYzW4ZzL9
+	 p6EE7SROjsyTLx6Xbksen7GoNa4IylEOZ0oD6PYa/4FhT1mEwExnPGf9futh1ulEE+JCN
+	 YYrF8ITHnCESQamcyEHJdxWkxLoQNAE6JNPlo2K4Q3jL3jl6hV6LFxnPoKluznVsdJU9d
+	 0MLW1uEhX/yhyat/+oWMDwOBy12etzYkI1vekoZxOgapi7h6v+HDUgKs+v4gV+lESXa3a
+	 9qRy8s7ESVJCMhGttN935GwrZlER5+er89Wrfb8pOAln3vLWmt1bzPApLW6/Ea4Wbwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2257F6084EC3;
-	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BA76084EDB;
+	Sun,  8 Nov 2026 20:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF71F008A1;
-	Sun,  8 Nov 2026 20:25:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF8A1F008A7;
+	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169521;
-	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
+	s=k20260515; t=1794169522;
+	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MRTLVRXqnEB4tqbuH3Rsb518y+8jeXhsYVumYW6MsHoaTw6gTdRIUatM8z+FJHMjr
-	 0yY5GeJniQgDIE2wUywKNwuInao8PgfQ58p69iPpuhCL/Ex2epvWgd0l9ZASEo82mQ
-	 sPgSfgwvpiUFkSSBVhASmW7HcHql2ril6hzjGNDoKjHsTi3YnMoTHjfiLAGCshouOJ
-	 8I+rHSWoAbW48l5EA9wpYB//6Cag0kDIb03/u8SDjoPn7uUn5ODMeypSBUC7PtzsLV
-	 MihM8FjdcFO4xofwfei0c39UGo/vRV99rxi2axCv4jvw3DsppV9lvTwsF1R7ciijpX
-	 aQW1R+/oNNSsw==
+	b=Wccb2cTanQU5RcxsSs67G/KCxeoLHJ0+fvEDoloNNHWCPEqJVK9ONMQxf5LOd7XkJ
+	 1zvsZrzrFkc9TBVtHI2ylaKfgRe+/hrR5ufIIf/Jhfig44jqjkJdOLYdy6lyvXfv+c
+	 VeXCxRa7rjAgPhj/ZNkJ0sMnAJmB5PH6ueaVu8RCrvFxkC4K5ILc1gKf19PW69Hjtw
+	 qZci3QAoVNQinY6JuJm5y2o+1H7eZ5vrs717AchvU5fdXEPihYb9G/QFM55lCd6eV9
+	 CbDZJBcfX5q2lXwC9FEtpDyaJEU9IRJX6ChSgvIwFKGiXAWrh/QRg/StxEbrj7C9d9
+	 v3pFgtcOqTevw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: konradybcio@kernel.org,
 	abelvesa@kernel.org,
@@ -50,13 +50,15 @@ To: konradybcio@kernel.org,
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tingwei.zhang@oss.qualcomm.com
-Subject: Re: [PATCH] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
-Date: Sun,  8 Nov 2026 14:21:39 -0600
-Message-ID: <179416929512.628393.7892490884985269075.b4-ty@b4>
+	tingwei.zhang@oss.qualcomm.com,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/2] Initial support for Advantech SOM-DB5830 board
+Date: Sun,  8 Nov 2026 14:21:40 -0600
+Message-ID: <179416929274.628393.12037192351352245383.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
-References: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
+In-Reply-To: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
+References: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,20 +72,34 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 29 Oct 2026 15:55:43 +0800, Yuanjie Yang wrote:
-> Add support for building an EL2 combined DTB for the
-> hamoa-advantech-som-db5830 in the Qualcomm DTS Makefile.
-> 
-> The new hamoa-advantech-som-db5830-el2.dtb is generated by combining
-> the base hamoa-advantech-som-db5830.dtb with the x1-el2.dtbo overlay,
-> enabling EL2-specific configurations required by the platform.
+On Mon, 28 Sep 2026 11:18:47 +0800, Yuanjie Yang wrote:
+> Board layout:
+> +--------------------------------------------------+
+> |               SoM (Advantech SOM-6820)           |
+> |                                                  |
+> |   +------------------------------------------+   |
+> |   |     SiP (IQ X7181 EVK SiP)               |   |
+> |   |                                          |   |
+> |   |   +----------------------------------+   |   |
+> |   |   |   SoC (X1E80100)                 |   |   |
+> |   |   +----------------------------------+   |   |
+> |   |                                          |   |
+> |   +------------------------------------------+   |
+> |                                                  |
+> +------------------------+-------------------------+
+>                          |
+>                          |  Plugs into
+>                          v
+> +--------------------------------------------------+
+> |         Carrier Board (Advantech SOM-DB5830)     |
+> +--------------------------------------------------+
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
-      commit: 0040fe9aca53ffdd9e71f39462d8e40517f7bd3b
+[2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
+      commit: 5fb1997399eb2e27086f1cdd160a120314358f1d
 
 Best regards,
 -- 
