@@ -1,62 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169400;
-	b=uK2mt7g/DLCSLK6WNRf3170C/Xph1BT/5Nz84x1st7IhyHHMZgPUzuFqEr2UxMRZfY4t
-	 NrR/FKbq2TXqrMQwhryw5DPDB7tLNU5c7dlI4SXueof8E7xts6K8gxH8x171XLg5sMLvu
-	 C0b8FuLdZSpiu9nGPUz6aKyuRI1qmaSfScwe7jIEmp6AIEobrJTvUNbDVzDsK3cnbd1TU
-	 B8si0k1u1e+h2L7QRwZ99R8K2+vYzTg43VXygNMSSgbppLYcteLo1vhuzWaXQtBWBb9xb
-	 H7dFGjf0ISwsIPm3OqX590HKdsWtpBtPqt+rUkThPpW5V3AFo9y9KONcZZFJ90LKvpg==
+	t=1794169395;
+	b=QfogC9AwiwHhCkWQv0eLXqsQNkW7blhZG0UobeyLo3poun2iEbmV42jRBBoqA+Q6MoGl
+	 yn+f49yyX4zvXpqyTDjxaWV/EZIY1iA0bgBa5WsXFaghJFE3/mzCEhWWDTjeoyLxOP0ri
+	 9lHijt8W4yQxFgx4eK6T8XQCFW1QhDe+Dq6g8a9cwOCdRPZJpx4N2dWrrCvsD+BwEPtvP
+	 /Fg+pwf/rN8F0nl9xPbM1KkeF9Z3w1VezzRNhWpL11uvz7qfxu0gyHmTv/MGAcvLujhmG
+	 Wf+hq/xDmOQZc/uY4/ZU3oqrIXJkNCONOLyMOte8lu+fiuTVDsQwG/ySxgJNN1ZSZkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169395;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=UUCrpHhjrlYYj7VLfA9hzonxMBrh4PQG7azlK603Yok=;
-	b=IzdOCvv0l3H8DGWrQgMUYqXjaZph3LQZ9FJD06K9tNPZvo86LfuWpJd/WFKTlPV72E6s
-	 HXaU22p85TFAmsjTEafzVuZ8nyaelXhs8fn+qhC1u1Z7Q6q/6T4w6iiTtn+vE0nwOafID
-	 ypa7U4Q4bc7CMN6iAzm1Ze/mQg2o2VgFU5SIn26Y/uO6nAcXj/zg5zTK3g7yRg5oZAvkM
-	 ISKwdzbceG5CkBQ62hpZvSGiXv5Z23SvxDObmnWxYqNaBX0JVMrXEBoCYAjwrRaO91CI8
-	 qUQLAauXikhYmKQIy/6o23Fep1/rSmPwtJL7+hE+XEqEiOEimWZtaTZ4Hu1yGAbKJeQ==
+	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
+	b=f+BX4n70QYfxIgfkArN+0SJHT3C1RNWTKlq1vKuolXZB+aoX7om7hJy0f0kaiuSy/5Nt
+	 emMBIsPwT/ZmoBu56vBNfgkXRHX987COeO+hM4fYniMoQzPXO3OekKvqpWGParKH6DWN9
+	 FN7/Tnvv9NH39PrW3d31HFwn3sjMtK0KWNLEtMWjynTMtfopmkfipuhB+MGdfXF8p+wIk
+	 Jh8xM9HrlyhfDdXD5Jd2Lzl7SA1QRZ7aD2PnI403E7JWDJYQ+HQstHoe/C+hiJzKa+8Y9
+	 wuabZiAKoAbGE8M5/DPrZJVXAcexPXj77VFjafEEQGIAfYmZ4qDGo5Ww8u8ZA39Sthg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yvzn23wn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CEF6070298;
-	Sun,  8 Nov 2026 20:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC920606F8DE;
+	Sun,  8 Nov 2026 20:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yvzn23wn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C251F00903;
-	Sun,  8 Nov 2026 20:23:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397521F00904;
+	Sun,  8 Nov 2026 20:23:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169399;
-	bh=UUCrpHhjrlYYj7VLfA9hzonxMBrh4PQG7azlK603Yok=;
+	s=k20260515; t=1794169394;
+	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yvzn23wnpCpGWF8fT2v5N2GeNfVlM1kAXdIiHD9aa+B4IR64L9Y91AWw+V2uLxWCI
-	 624eKtILmbOX5Na90g0bq7Hj1EPHyxPO69Z00wIXczs9CJ7aoIAWxOn7Ddy9UOjAJJ
-	 zXJjd4iRx4Q7gk7WkzgOzhJ6/lMHuuunzoFsLKxLF4VDLshWEu5mH7Bm1s2Em+DryT
-	 xu94X3CeYg3yfZFoGYWqShlH8zbYcdJu/uts+RF9FWR33EmFbJ9Sy2yZs4SDvLwHQ0
-	 bPiiIquKzeCNzNsWAPW8p2in4cXeiQr4vCje2Dot2hyELaTiQ11RX7y5p/rqRVLaP7
-	 2JXBmY0fNZutA==
+	b=lYO5zkuvXYn5P2oqqOZjynaBhZ1q8b9Vnv+4u4Y8CUjrR1aoe4Pk8l37mhHJmGmEX
+	 jfL6ZHGkNRgO3AP/uac/ptTlFbrZ1eCdgPfvry6wK/t03hdm3tqfKayqQ/RzPxPWKM
+	 C0ikSLe9iZYz8YQco2OkY4Azesy4zfpfQ15MbeMRagkwrsl7CDoxyi7eOJSZftI3gi
+	 9RfGgwuN+UmtgN2Oly3n90baB9h0zzJpUmkc4NPIyP4OLucoWZpbLMTwZ1ffBr7kpY
+	 3onxMypbw5mKwnKcf+WbKg5f0lLYVHDaXdv0fJlbiPL42EpScQbnSK2dbmMS2V/Ow/
+	 mBq3OcGhA2CPw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jie Gan <jie.gan@oss.qualcomm.com>
+	Xin Liu <xin.liu@oss.qualcomm.com>,
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Nikita Travkin <nikita@trvn.ru>,
+	Birk Skyum <birk.skyum@pm.me>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based probing
-Date: Sun,  8 Nov 2026 14:20:06 -0600
-Message-ID: <179416929421.628393.13790074133955645755.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
+Date: Sun,  8 Nov 2026 14:20:02 -0600
+Message-ID: <179416929249.628393.6579898779701344795.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-fix-etm-probe-issue-on-shikra-v2-1-b2eaed0fffaf@oss.qualcomm.com>
-References: <20261019-fix-etm-probe-issue-on-shikra-v2-1-b2eaed0fffaf@oss.qualcomm.com>
+In-Reply-To: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+References: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,23 +74,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 14:58:34 +0800, Jie Gan wrote:
-> The etm0-etm3 nodes are declared with "arm,coresight-etm4x-sysreg"
-> but do not implement self-hosted system-register trace access on
-> this SoC: ID_AA64DFR0_EL1.TraceVer reads as 0 on the affected CPUs,
-> so etm4_init_sysreg_access() correctly reports the access mechanism
-> as unavailable and the ETMv4 driver fails to probe with -EINVAL.
+On Mon, 14 Sep 2026 21:42:21 +0200, Jens Glathe wrote:
+> The shared x1-el2 overlay currently attaches apps_smmu streams to
+> remoteproc_adsp/cdsp so Linux can program those SIDs when PAS is
+> used to authenticate and reset the DSPs.
 > 
-> The CPU ETMs have a memory-mapped aperture, so switch each node to
-> the standard "arm,coresight-etm4x", "arm,primecell" compatible with
-> its MMIO reg range.
+> That is wrong for the common WoA EL2 path (slbounce + shipping
+> UEFI). There the DSPs are already running from the bootloader and
+> the SMMU probe path leaves their SIDs in bypass. Describing iommus
+> on the remoteproc nodes replaces that bypass with a translated
+> context that is never set up, and boot dies in an SMMU fault storm
+> on SID 0x1000 before userspace.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based probing
-      commit: c23d8ce90e1d27d88b9e4fc15721a3f3d6827b51
+[1/1] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
+      commit: 8ba94ea5c00168124ba0c96523ecdabcde652e0f
 
 Best regards,
 -- 
