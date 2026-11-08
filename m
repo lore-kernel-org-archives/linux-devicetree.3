@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794154148;
-	b=y8vFOvBkh0oplj+gAIn9p5w0l9n1/6UHSqirwd6RgLHufrRf/NN/C6ShTBCOCuD1UGRi
-	 nLyEXazLv1PhYMnvsVueHzrwnsa35sQdHztb9m3IaMHRp0MNj3UTHWAvVJlK2ZvGI5UnA
-	 LXZLCHRR84Twc8091aLbY9FeqKewy6g/IC6dBu9LeJhmwp4Gb9JB4V0QKGU3vvw4lothQ
-	 kM4B+sYZQcYYbUrGpytCNEgQcUitTFg5fwFOGuGvtb/iBu5IpIeDzenE8nPk33122LDvM
-	 ZtOqjrEx7/EaL47Fdwb4N7PVHCmNr9Xq55aYKcAXHH+XJE1IQrMGWZruFjrDF7+B5Qw==
+	t=1794154305;
+	b=k983IY7kiNI4q03pJ6TXdqQX1OHk7PeE3wn4aY+Wev5V6d+wDdT2rgdeQkVEIonuFKw6
+	 TPq9O3ie7G1zotNiE2GcjTPWlPURTjlvgRODm7ENO2KsoXyH1QTLQK7UxKPPDFmxxY38F
+	 XgMlmvnNYjwdcHiVV0DdooXxQ227+2eQ1xcDkKRxBTiSnUYakXlPfVeONgb4RZYRKynpA
+	 qZXzIa/FmftveNnFoVE/zq/88OkCOt1ejUSsWmI41VvAj2z47dRVtpeXJPSZlMHqmgLN9
+	 /A/wlF5pXTrYDM4psEH0eu7Cv1M+VwP6D972n6nvDJkMPRqemLVixmt1rtQiK05azuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154148;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SQe5jbD/zyzZ+9qfy+XHKm+jJlq4rsLg14mHaCfHlQE=;
-	b=mnx3YTReiAvABejmK/E3eQwYa+ERnWAgdICRSjcb2PuIxorqpi3GmpITg/rNSUrbXCfO
-	 0MiqTywFYFXWDQsivfRqdgXnGzbci+EM6TdNUcdX0qX3MHnWtq1dehkCBJn//8S+05d0V
-	 pF1BYP2YU/ALmRyEHReZeki118RqTYUcq8KuShYCcqS4BsD8mkNZy4v9i1UfU4ohU4dDR
-	 JMb5SMnFNVVwUjSFaEAn1+GZvfWBeYLa8b8m3SThruD9QUEGF5vN1aC8UiUOmqT/2969q
-	 jfzPsrbwRiLxDKA7bhHgQinwFd1Oq82AozzY7HmAZyE/BisAKsugQThQ0BCpz70cG9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794154305;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=BVw/azks66niKUWspfBTLSYSvTbsAlgD2VDvPx+Yq1Q=;
+	b=P6+rReuJf/nAwlr3grTFFnvRLWKyyz2d6EZNle2qbjPJ0miRfgBVEYiPemBWUSZ43F/C
+	 r7HXEtpZ1kz8O6fj7rMNyVciXr5AX9BQm510BAsJI4QUbpaXsXHSpqoNacV2qfZ4EfPPk
+	 W2LBtxTk0oXxmFt8r6glZ2IauOagSowtQbwiaELGqVOaSqBzdlx7hc7M5qqWBvXLOmXDs
+	 ePAeDCq293Y932EQdbc3qyxm6DQ9S/lpLrwd2+WuE2GRR+DzjW1mC6bHAL0vJH/yeRKmB
+	 Ap7rHASc9LQYyYxbQPmAvQzxRvwHzfQA6Ax2cM/yukYwERyftnJzM+57dOMKWIqHTdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYqbHS4R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9b8DFRB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E6F606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 16:09:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F350606A31C;
+	Sun,  8 Nov 2026 16:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYqbHS4R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B4A1F008AB
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 16:09:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9b8DFRB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5467C1F0089F;
+	Sun,  8 Nov 2026 16:11:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794154147;
-	bh=SQe5jbD/zyzZ+9qfy+XHKm+jJlq4rsLg14mHaCfHlQE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LYqbHS4RfWZiPOL1YPi2Wh1HB7z3oQkhtZskD838VdFop50hFqbF77o3as05gkllm
-	 hQ7cwH1A2thyBJvEsGuu3E34m2SjFPQVDPdi/KPe7juKtrRXpwRw4yjOwZJJJXxBoO
-	 gKg23K/iOEWZmtjIXNTKa5wGcRYlJXfWz2qnxSXO/llxyVUrCRPCDubq7WaDsXbhvV
-	 BoDaSQi7wCXY9qiiKuC4XrqrHUAol+F53aKvTfSCrOds6MzJk9SuKcxIPCfzRblFWS
-	 SgZEoFTecFHqGLhWTnW59nSZRxpdWm+crzWpQJ8R7ROXWlObnPEvAvbOiOrgyyF2nr
-	 QC28vsg283oww==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c00ba84568so64607e87.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 08:09:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF7yDwKg8FXJyQJEYJuFdsOuviUGvalvvE6YzeFReXgXrD5aYSXrJEoXXFqBBC/QaSXQr6WXwz5OC5H@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UL+clyc0UrLNNrSjAQKjsXmZA+mI84eGIe97q9Zgb3jXAQ7xI
-	PeMSc35a2Sd7YXOrSjMi4iVHMqGOUUSWabur62gQGlysoV1Q2Apbw6JW68O4CPMDPRMMcCdeLNi
-	LozqplTgEWPPGIrpJIupK0xwYTEQTmrI=
-X-Received: by 2002:a05:6512:4018:b0:5bf:f8fc:7b5e with SMTP id
- 2adb3069b0e04-5c14c021361mr438569e87.55.1794154146533; Sun, 08 Nov 2026
- 08:09:06 -0800 (PST)
+	s=k20260515; t=1794154304;
+	bh=BVw/azks66niKUWspfBTLSYSvTbsAlgD2VDvPx+Yq1Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n9b8DFRBEFncMA3Aln6VKljF6B7ig77iJqhdF28rKv3rWeCFudnwjKV0ubE/HEOH+
+	 0Sa1FGNBIlpziLhA3MFNrOcy0d2zaKoNeWRcxBRbqO6ywP6dNWU7+KaW16w24CarHJ
+	 MU3zrsrrbEJIHMkrM5QtUfHFni3zHRZ6uaCjvJ75k68hhtTeVqv7jydjGWYWYV/5pT
+	 rZkEzopEYK8cRFCZGsp9NEdtBcz22g+FUJOLEsoMCOos40+BuNeT0XS1zCqjquvesA
+	 J40bsOx7/BJF5f25dLdt1WDp7jS4+LnNXhXwhPtOs6sLkfa2ALW+JZeRP0ossxco0P
+	 dPsqY5BXbTXQQ==
+Message-ID: <sashiko-outbox-203873@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: sun4i-a10-ccu: add Allwinner
+ B288
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pablo Mazzini" <pmazzini@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108155702.361022-2-pmazzini@gmail.com>
+References: <20261108155702.361022-1-pmazzini@gmail.com>
+ <20261108155702.361022-2-pmazzini@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 16:11:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,78 +60,119 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261108-gp2ap030-v1-0-55314eb7055b@kernel.org>
- <20261108-gp2ap030-v1-1-55314eb7055b@kernel.org> <20261107235827.02951362@jic23-hlaptop>
-In-Reply-To: <20261107235827.02951362@jic23-hlaptop>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 8 Nov 2026 17:08:54 +0100
-X-Gmail-Original-Message-ID: <CAD++jLm6Ch0kLCxf-rd7R8UFnGjd_ij-cxVOM=vhAguNSye-sQ@mail.gmail.com>
-X-Gm-Features: AclHuK8iI-CaRdJHPlnZpNc5__iuWVfECSfYTdAhoz7ptvyeATcnPbJbCcZe3K8
-Message-ID: <CAD++jLm6Ch0kLCxf-rd7R8UFnGjd_ij-cxVOM=vhAguNSye-sQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: iio: light: sharp,gp2ap020a00f: Add supplies
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 8, 2026 at 12:58=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
- wrote:
-> On Sun, 08 Nov 2026 00:31:33 +0100
-> Linus Walleij <linusw@kernel.org> wrote:
->
-> > The GP2AP020A00F needs a core supply as well as power for its infrared
-> > LED. Its I2C and interrupt pull-up resistors may also be supplied from
-> > a separately controlled rail.
->
-> Hi Linus,
->
-> The infrared led mention made me think there was a separate supply for th=
-at.
-> If not, does it warrant mentioning?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: clock: sun8i-b288-ccu: inconsistent clock and reset
+  macro names
+--
 
-It is already in the binding, incorrectly named vled-supply.
+commit fb1a7b2f6dc03665d0714b13f4a0587e1bb34467
+Author: Pablo Mazzini <pmazzini@gmail.com>
 
-A later patch clarifies that this is the leda-supply.
+dt-bindings: clock: sun4i-a10-ccu: add Allwinner B288
 
-(I saw that you saw this too ;)
+This commit adds the Allwinner B288 CCU compatible string to the
+sun4i-a10-ccu binding schema and introduces the clock and reset DT binding
+headers for the SoC.
 
-> > Describe the core supply as vdd-supply and the pull-up supply as
-> > vio-supply. Keep both properties optional to preserve compatibility
-> > with existing device trees that only describe vled-supply.
->
-> Is vio supply wired to the device?  It would be unusual to describe
-> a supply that is a pull up only one given that would often be a character=
-istic
-> of the interrupt chip at the other end of the wire.
+> diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bind=
+ings/clock/sun8i-b288-ccu.h
+> new file mode 100644
+> index 0000000000000..c9b9eaf979ad0
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
+> @@ -0,0 +1,82 @@
 
-I guess I managed to look at the datasheet for the
-suspiciously similarly named GP2AP002* which as separate
-VDD and VIO...
+[ ... ]
 
-I think both of these should have VCC only.
+> +#define CLK_NAND	18
+> +#define CLK_MMC0	19
+> +#define CLK_MMC1	20
+> +#define CLK_MMC2	21
+> +#define CLK_MMC3	22
+> +#define CLK_SPI0	23
+> +#define CLK_SPI1	24
+> +#define CLK_SPI2	25
+> +#define CLK_DRAM	26
 
-I'll fix!
+[ ... ]
 
-> Definitely after input from one of the DT binding reviewers on that aspec=
-t.
-> If there is precedence for this good to call that out.
->
->
-> >
-> > Link: https://global.sharp/corporate/news/110721.html
->
-> What is the link for? It is not referenced from rest of patch description
-> so seems a bit odd.
+> +#define CLK_BUS_THS	32
+> +#define CLK_BUS_NAND	33
+> +#define CLK_BUS_SDMMC0_BUS	34
+> +#define CLK_BUS_SDMMC1_BUS	35
+> +#define CLK_BUS_SDMMC2_BUS	36
+> +#define CLK_BUS_SDMMC3_BUS	37
 
-It's the only thing even close to a datasheet that Sharp
-has published for GP2AP020*.
+[ ... ]
 
-It doesn't deserve the title of Datasheet: tags.
+> +#define CLK_BUS_USBOHCI0	46
+> +#define CLK_BUS_USBEHCI0	47
+> +#define CLK_BUS_USBOTG	48
+> +#define CLK_BUS_DE	49
+> +#define CLK_BUS_EE	50
+> +#define CLK_BUS_TCON0	51
+> +#define CLK_BUS_CSI	52
+> +#define CLK_BUS_ADDA	53
+> +#define CLK_BUS_SDRAM	54
 
-Yours,
-Linus Walleij
+[ ... ]
+
+> +#define CLK_BUS_TWI0	63
+> +#define CLK_BUS_TWI1	64
+> +#define CLK_BUS_TWI2	65
+
+[ ... ]
+
+> diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bind=
+ings/reset/sun8i-b288-ccu.h
+> new file mode 100644
+> index 0000000000000..6751456545487
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
+> @@ -0,0 +1,45 @@
+
+[ ... ]
+
+> +#define RST_BUS_MMC0	2
+> +#define RST_BUS_MMC1	3
+> +#define RST_BUS_MMC2	4
+> +#define RST_BUS_MMC3	5
+
+[ ... ]
+
+> +#define RST_USBPHY0	14
+> +#define RST_BUS_OHCI0	15
+> +#define RST_BUS_EHCI0	16
+> +#define RST_BUS_OTG	17
+
+[ ... ]
+
+> +#define RST_BUS_DRAM	25
+
+[ ... ]
+
+> +#define RST_BUS_I2C0	34
+> +#define RST_BUS_I2C1	35
+> +#define RST_BUS_I2C2	36
+
+[Severity: Low]
+Could these macro names be aligned between the clock and reset headers and
+with existing sunxi-ng CCU bindings before they become ABI?
+
+Specifically:
+- CLK_BUS_SDMMC0_BUS..CLK_BUS_SDMMC3_BUS vs. CLK_BUS_MMC0..CLK_BUS_MMC3
+  (matching CLK_MMC0..3 and RST_BUS_MMC0..3, without the redundant _BUS
+  suffix)
+- CLK_BUS_USBOHCI0, CLK_BUS_USBEHCI0, and CLK_BUS_USBOTG vs.
+  CLK_BUS_OHCI0, CLK_BUS_EHCI0, and CLK_BUS_OTG (matching RST_BUS_OHCI0,
+  RST_BUS_EHCI0, and RST_BUS_OTG)
+- CLK_BUS_SDRAM vs. CLK_BUS_DRAM (matching CLK_DRAM and RST_BUS_DRAM)
+- CLK_BUS_TWI0..CLK_BUS_TWI2 vs. CLK_BUS_I2C0..CLK_BUS_I2C2 (matching
+  RST_BUS_I2C0..2)
+- RST_USBPHY0 vs. RST_USB_PHY0 (matching other Allwinner CCU reset headers)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108155702.3610=
+22-1-pmazzini@gmail.com?part=3D1
