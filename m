@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794099379;
-	b=KbO+gL8iICCDYTcDlTkqS3cNAH66XiTYn+z6O8E5OirF7fm6STIj6RF9ehdo9cvgDQXE
-	 Wygl2LQ+p9+sl46RHGbFo72Nayjfq67pmnVcfgTVUZ67SxfstBHixN3K5nT+XAJJI24NU
-	 cV4/zPcjeLF0qu4USo0FksmOsxw5WnhMq/WIJgVbkSWIGBulNvbGS0iGRWCAjrYpUi4ac
-	 UNJGrkIIdzOtiIlCn22lHEmt5qqb/b2o+36T7P6kX4meEu1xZg6+pgMLQuXEehET9uRVY
-	 jltCZAbusZ0p1DKeHsEJQdatWXMPdTNCQgs0LRBoHH0rj9Ixm8vC+Ov9AiqRK9XT7Aw==
+	t=1794101436;
+	b=5lGW93u8NhIuM1TGeVx7tdPhCKqRnx+f+Czq2hQ+Ge2GU8BjUNxOywBz3LBWMzmuuoCu
+	 BY1gR56e1UUXvNt8PajwL/5TwxafhGWqOGL0ZZrdv8b2X5z/nJ91mL7EQOdMCyVT/gKb3
+	 ODZY7V+guJ40BN5fvtH/Wp2RL1Wh8MUiscMO/vMMwATbv9b/HbKyQFP8tDaulUnd/pwyo
+	 BLpV8AHYtoFx80DxhhlzRe7+mVSkcWlOuWZc58zIFyIbZeZZg9IsTc3oIc/Dp6bGovvXH
+	 3r6LFbDh3KVszmMPk3tPewLYLCkV0FIuwHC+oTO6kN9NLoPLGyb9xQIOP1e1XtZsZcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794099379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101436;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=SI3q7E7jEhFxFVdYMt07AMqwaHWirFgexnffniyxwmY=;
-	b=o9tS6s/GUJ1hBVK3nx+g+NGj+NYWiXhDkOhIoAy5haWy0X0lyBN7AC7RdTA6kzTaA8MX
-	 HYhLIbFlPcHSttY4S+JVervDxdbBL1RJoLGIPn2OH5x1RCYmzXc2WOic23u/1nQUNyIIH
-	 zwEmb+MturhqiYBePiIe9vXOwBm3kTEBE81JwLITEh1hnl9i4AalSasnlKOlLwbnEwwct
-	 q8ghirUOmkwbApOeCSsaDvcRd5JWJXdKt9mjFFWrgbxRakGSJpT22nB1zqfwmDtoQ2Nm+
-	 cmsUUFHwRnjV+RSMlJqPWAE7/Ugc3AvBWmAU7aRIwoXWEn6mVMUPrcZC08rYKNK/QGw==
+	bh=cxolDekYi/UpNdRDGBoRVJhDPItFeUatyKLS8M2gJd8=;
+	b=0NAtXSZTbLfx4OKruoTCmHY6A54AvhygV0XMl9DcnBEl9RKQPm8L0zESboF/G6CjmJdk
+	 6XXDmlE/HRLtazSHxwptjz2TUlfTPxw09hKFDqw2CfsLTX+6DbdiWzTyIUBBc3PHzizJt
+	 oigpknTPFHc4dfFFLfz7IcAOERLhY9uCandczWCl8FMFdFCjSUsgrOV0WVHqccAUA6iHh
+	 48MHUBnUeYKe8m3KDAuClGdp8sZtgqeYnhqathD9i+UZUFlYu8RGl+ErZqWn7qMVJUByh
+	 n4CrSq/Xw71B/pOybGG4RUOE/j6WZd4oUpxs1wELm8hAVkLhcKbI097MZQrtkJnPa0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPd+u5qx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Tw9X5/QG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923A4606A326;
-	Sun,  8 Nov 2026 00:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD87606A326;
+	Sun,  8 Nov 2026 01:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPd+u5qx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87501F0089F;
-	Sun,  8 Nov 2026 00:56:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tw9X5/QG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3461F0089F;
+	Sun,  8 Nov 2026 01:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794099379;
-	bh=SI3q7E7jEhFxFVdYMt07AMqwaHWirFgexnffniyxwmY=;
+	s=k20260515; t=1794101435;
+	bh=cxolDekYi/UpNdRDGBoRVJhDPItFeUatyKLS8M2gJd8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lPd+u5qx+8E92fTTLeeKEH4arVT5m7zeLeSvu8ww8+oHMO2yVJOn2lrVHHLjQMonE
-	 dyXAuoUyacT9Z2U+WPfg/UgZOvmrDKFtJOq4IwzKbNe5blvfz6SayumyBrVs4DrD8+
-	 CNQuahZJk/50xaFrwmxJECXxR6eLcD8L8vk7o3XJDLnUgEtzPjJYHclKGo9VYmDRvx
-	 RVvenCVGDTHBLnAGroo3qXrkyupw7i+7xjDNvFJYWV5z49IQGYSplo6mZ7cwK82eMd
-	 xGcrx3W1ldxnzDGUMZUy4pdwq83JWy7wHEffEwi8XG60q1oDKP313uTMNelnv2NurL
-	 iEp1jKoQ2YSig==
-Date: Sun, 8 Nov 2026 00:56:09 +0000
+	b=Tw9X5/QG378HL3UXqjnxQX0TMDoKQRQ/FFnl55QeNxaImlwSCIgnzVX7WUvDIEymB
+	 P7WGd+KS774yQdxm4BQ+5jJylK4wOFeGjiBqFLBeEyMOa6unRaddZNs5L93sr5cd+F
+	 5yrVlKF5zo+sKkNYTUtnsDIpP3qDiV1BVnFlvQFYHFPTRVr9WAE75iPGo5PwlQCyJi
+	 3YhLGsPAREjTUNjJqsHqVh/RtLgk0+BKYP6NuBQ4P7Ly5Pr98XnFgds+w607MkQ/Z3
+	 DniI9hGXwcp5/aLaAU0ub04c5HvchRnJxKjpnOznyEtb21Z16tqpNW7B2i9Qv4B7/p
+	 4p+ok4OGD8hqA==
+Date: Sun, 8 Nov 2026 01:30:28 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v5 7/8] iio: imu: adis16607: Add external clock sync
- support
-Message-ID: <20261108005609.7e8823f1@jic23-hlaptop>
-In-Reply-To: <20261102-adis16607-v5-7-4f98b0d271ac@analog.com>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
-	<20261102-adis16607-v5-7-4f98b0d271ac@analog.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Vidhu Sarwal <vidhu.linux@gmail.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Shuah Khan
+ <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR
+ driver
+Message-ID: <20261108013028.5d68c966@jic23-hlaptop>
+In-Reply-To: <20261102222056.30f23d75@jic23-hlaptop>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+	<20261102-massive-busy-woodlouse-8d0bbb@quoll>
+	<CAFqz8LJZQ+tw6wmLS-1FXvt6OxBESPEyz2-uK4D7B8X8epoKhg@mail.gmail.com>
+	<21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
+	<20261102222056.30f23d75@jic23-hlaptop>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,97 +72,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 02 Nov 2026 11:25:43 +0200
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+On Mon, 2 Nov 2026 22:20:56 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-> From: Radu Sabau <radu.sabau@analog.com>
+> On Mon, 2 Nov 2026 13:23:56 +0100
+> Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
 > 
-> Add support for an optional external clock (clocks property),
-> selecting between SYNC_DIRECT (1 kHz to 8 kHz) and SYNC_SCALED (1 Hz
-> to 400 Hz) depending on the supplied frequency, with the internal
-> 8 kHz clock used as the default when no clock is provided.
-> 
-> The clock rate is requested as exclusive since the sample period and
-> the sync scale are derived from it. In scaled mode the sync scale is
-> chosen when the sampling frequency is set, so that the requested rate
-> is matched as closely as possible while keeping the clock multiplied
-> at or below the internal rate. Loss of sync or of the PLL lock is
-> reported from the trigger handler, as the device keeps sampling
-> without it.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-Hi,
+> > On 02/11/2026 12:48, Vidhu Sarwal wrote:  
+> > > On Mon, Nov 02, 2026 at 11:47:56AM +0100, Krzysztof Kozlowski wrote:    
+> > >> What changed exactly? b4 diff fails, the patchset cannot be applied on
+> > >> any known upstream revision I tried.    
+> > > 
+> > > I am really sorry for that, I didn't realise it was based on Jonathan's
+> > > iio.git (testing branch) instead of linux-next. Patch 3 conflicts in the    
+> > 
+> > That is fine in general, I'll wait for next linux-next.  
+> Might be a little longer. I've pushed out now. Was just waiting for
+> anything nasty from the bots on after rebasing on rc1 before pushing
+> out.
 
-Mostly a few stray changes that belong in earlier patches.
+Applied to the testing branch of iio.git.
 
-Make sure to check series for this stuff. It is easy to clean up
-and patch tidiness issues like this can just slow down getting
-your code merged.
+thanks
 
 Jonathan
 
->  
->  struct adis16607 {
-> @@ -115,6 +138,9 @@ struct adis16607 {
->  	const struct adis16607_chip_info *info;
->  	unsigned long clk_freq_mHz;
->  	u64 sample_period_ns;
-> +	unsigned long ext_clk_Hz;
-> +	u32 sync_mode;
-> +	u16 sync_scale;
->  	u16 fifo_watermark;
->  	/* IIO buffer for reordered data - sized for max channels */
->  	IIO_DECLARE_BUFFER_WITH_TS(u8, data, ADIS16607_SCAN_DATA_SIZE);
-> @@ -407,11 +433,18 @@ static void adis16607_fifo_drain(struct iio_dev *indio_dev, s64 irq_timestamp)
->  
->  	adis_dev_auto_lock(&st->adis);
->  
-> -	/* Check if FIFO threshold is met */
-
-Move the comment in the earlier patch, not here. It is perfect
-valid in its new location back in that patch, so why add to
-the code churn here?
-
->  	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
->  	if (ret)
->  		return;
->  
-> +	/* The device keeps sampling without sync, so only warn about it */
-> +	if (diag_stat & ADIS16607_DIAG_SYNC_LOST)
-> +		dev_warn_ratelimited(&st->adis.spi->dev, "external sync lost\n");
-> +
-> +	if (diag_stat & ADIS16607_DIAG_DPLL_UNLOCKED)
-> +		dev_warn_ratelimited(&st->adis.spi->dev, "sync PLL unlocked\n");
-> +
-> +	/* Check if FIFO threshold is met */
->  	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
->  		return;
-
->  static int adis16607_config_clk(struct adis16607 *st)
->  {
-
-> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Sample period is (dec + 1) / clk_freq, with clk_freq_mHz in
-> +	 * millihertz. Same u64-first scheme as adis16607_set_freq().
-> +	 */
-> +	period_ns = NSEC_PER_SEC;
-
-Move this in earlier patch to avoid churn here.
-
->  	period_ns *= MILLIHZ_PER_HZ;
-> +	period_ns *= dec + 1;
->  	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL(period_ns,
->  						     st->clk_freq_mHz);
-> +
-
-Unrelated change. Check for these and move to the correct patch.
-
->  	return 0;
->  }
->  
+> 
+> J
+> > 
+> > Best regards,
+> > Krzysztof  
+> 
 > 
 
