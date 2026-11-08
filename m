@@ -1,80 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169344;
-	b=CgDrlqq7bP4egXmXmitmLsi7IUl8G1pEq+OSEJbmJGHz1mEbKzX8ktiOhlsg3OjSGbpI
-	 cwVCVcY8LGlyCiyxbFnkU0BLm+lfhv83WxhalRqK783XGnJNdWVaCbHVJ+KtBHNYUJwKG
-	 gUJx3O+v35zZumMS0vNYrgwzYOqe0FaGpnnZW2M0BHmHH+YVZvL+RiHdKBsqB0xSxtc0D
-	 N3lRp+6Su48CI8qeJcZA3BQEP84UF/GZX/IB7PVpZcK7Cr4QEuhrMrQOspeS+zJ6+jRkG
-	 G7u6j7H/HMDdNSYV34wsPwr/EKSTqRRdJFtDPuFfUGCqamVlUK0jMHCFkwTnyaMJaYA==
+	t=1794169354;
+	b=3LO5Un8xjkcvQuK1XGz0VWwcqr2r/aPma9WHkvTh7bgsk0xWff5kty46uaxa3DixNVZw
+	 nsXa2dLr02d1VI1JIx7F0le/XSPG3W9ZM4PDgWH3CGNJTfdcg4j4OB7sVZ5qPPCawPR6Z
+	 46SE5gY4l2Z5OIKN3/RSTXeu7KAAFZK46QB7Npo+sS+6HAGP70rMhlt8Za6kQk/V8soBe
+	 A+NmisRD1T9LIStEFJfyndsfGhh3/t4TrwTRCwB1aRugwm1EyqD+SQEzNxLTvQA6e22Lp
+	 CgVuva51cGYaupDSgtLyYXkETqYixLwNgFe27sYjuT2AWT2uOh+N450ZEE7XJCz693w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169354;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3MmlJbhMgYnjv2Z5ss4zi51X86Ma9IpJAikJUbBssGo=;
-	b=sm6N8xCSKuyXIy3VoQxWMrCTVY8jd/+HggTDjHBPdwezsLjq/+aRUYzcVESBEkRidb4i
-	 ixmqFGurfb0nP/NPtPgEivstH/eyo7vqe4IWBezrCuwKQr7kAZXHpSz0V6hdtm0nCEeRh
-	 fP0L27SP3wJDyXkPXdISB1/qSEIT9pU0qA8ULCSkyzkl1/O/6RG19xQUNEhz1fCHuPRQs
-	 83GIIU2JgoK5DSz4S9R00geeO418EY+Kz/MpFS7gofa185Yuarp+tgHYsB3LuerJwTMyY
-	 N2jPAdCwCl1J/HhSQnGuNzXreQM7ZFtaZklqViBaAMbsWl7WdT3sV7sZBqRBbLeMAYw==
+	bh=TQmicMAwCZ+veK2Wt9ragwSxHzWQriH/AV22oia2TQE=;
+	b=szH4tOXQXhHlalU2Eml7SsSyqKApSL5p8feVyEUo4RbJQ35J53iGc+UTakpUdk1SUgOH
+	 154gEVivS6TZSNR2RpqU0+C20C6GhgWGvgL4qPOgVj4Ib/cQALfPJWkWl0buuloesJV/h
+	 z++QxDWkwG09/y7qbgOi7aIpln9GiOT1posLxGHBDed0zHABSJqggHEH2Zi6f2dyhOGdY
+	 R+dKxIxuPEbW9vKg0lyN1ZT5XNXyfKdkEPjbFymEoEbK223hTwLHRo2dtkccWn50yqSo0
+	 tMHuOacMZfupAju/tA2d6j42Th8iG5fPHCqYFE9ph/zBcGF7mfetYFIGMQ0MoiLU19Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuzTxB8v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6z1qQH2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0D660A262B;
-	Sun,  8 Nov 2026 20:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950A360A5BE0;
+	Sun,  8 Nov 2026 20:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuzTxB8v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE171F008A2;
-	Sun,  8 Nov 2026 20:22:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6z1qQH2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B431F0089F;
+	Sun,  8 Nov 2026 20:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169342;
-	bh=3MmlJbhMgYnjv2Z5ss4zi51X86Ma9IpJAikJUbBssGo=;
+	s=k20260515; t=1794169354;
+	bh=TQmicMAwCZ+veK2Wt9ragwSxHzWQriH/AV22oia2TQE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TuzTxB8vfwJGfG8ZQdBqwljbWQ2hIfXfz7iVFR6voCf87fnRYT1yXk0kTOLSS47UY
-	 RfC9r1RPoTXungPBjhJaokK4lbmQtIbGas3T+sv9bOkOWmXfGCcx05gvUZ1p369dTm
-	 cHzFRYHGiA2w6ljNY3Oxcn8THl/rV8A6KHE3/vb2uNaF6CWnJmpLR1X08Uf8xIPG8n
-	 fm+OZYP/hq8TQj2npvX+/Y9UXEzc1UezcS74U8LvS46xLtBU69s8ke6uzq3uEPD/Ai
-	 A2C72ocMwTFso8rxCK9e2B3ICh+2Qd90trTcQiWZhmkhakCltBChaJ0I9nuudRpRGq
-	 3nGnQhZFZjLLw==
+	b=V6z1qQH23g2pnP8xOJSVocQNl4S7OnwjBUZ1W+jFtv1jCKr5rXrNDgYoPl1HzCtM+
+	 BZIRHbwo5/Y/oFtJcr8z9MlhCNvAIWIx16AFbSpYzBXCSyRVH0kDsGaey/YNelyeqH
+	 ATe4+PilfTH9NLCEUypFe19QGujsqnTitKWR9MckcF6kWMRZLL2r3boc2jNJ/MuHbj
+	 Gwk4mIUE12pOLza5hTLpH/7VFoKO7O9NYsi7JfJT6FUa1jN73fycvudJy1n15JCVwa
+	 N6UOz0iYlISoDOPmo9kqMZkHzJV5nw8yydgm5MQ9jUcC7oYQx2yzanJjPvKFXg/FwN
+	 kOZDb7FKyNr+g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Joonwoo Park <joonwoop@codeaurora.org>,
-	Imran Khan <kimran@codeaurora.org>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ilia Lin <ilialin@codeaurora.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Yassine Oudjana <y.oudjana@protonmail.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Christopher Obbard <chris.obbard@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 00/10] clk: qcom: several fixes for stability on MSM8996/98 platforms
-Date: Sun,  8 Nov 2026 14:19:33 -0600
-Message-ID: <179416929428.628393.4750344447812745307.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Mahima Bhattaram <mbhattar@qti.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
+Date: Sun,  8 Nov 2026 14:19:40 -0600
+Message-ID: <179416929393.628393.13698830723595892104.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
-References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+In-Reply-To: <20261016-glymur-dtfix-v5-0-f56a8b94b4a9@oss.qualcomm.com>
+References: <20261016-glymur-dtfix-v5-0-f56a8b94b4a9@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,38 +79,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 16:40:59 +0300, Dmitry Baryshkov wrote:
-> The MSM8996/MSM8998/SDM630/SDM660 platforms face several issues with
-> stability (e.g. setting running at the halved frequency after certain
-> frequency switches, resetting if run without clk_ignore_unused, failing
-> to scale GPU clock, etc.). In preparation for scaling core, cluster, CBF
-> and GPU voltages, fix these issues affecting platform stability.
+On Fri, 16 Oct 2026 12:06:45 +0530, Ekansh Gupta wrote:
+> The reg value of a compute-cb node must match the SID (the lower nibble
+> of its IOMMU stream ID) it is associated with. In the cdsp fastrpc node
+> of the Glymur SoC, three compute-cb nodes had incorrect reg values that
+> did not match their SIDs, leading to SMMU translation errors.
 > 
-> Compared to other patches in the series the patches for MSM8996-Pro were
-> lightly tested, as a part of the larger series and only remotely.
+> The fix renames the nodes to use correct lowercase hex unit addresses
+> (per DTS convention) and corrects the reg values. Since the fastrpc
+> binding's patternProperties only allowed decimal digits in node names,
+> a binding update is included first to allow hex digits.
 > 
 > [...]
 
 Applied, thanks!
 
-[01/10] clk: qcom: gcc-msm8998: leave the GPU BIMC source and SNOC DVM clocks on
-        commit: f9915d2288cf906340491247b88e56ab9892c97d
-[02/10] clk: qcom: gcc-msm8998: leave the MMSS QM clocks on
-        commit: 0522f2e9c8c46e1f826886ee95858384fb54aaca
-[03/10] clk: qcom: gpucc-msm8998: set the droop detector bit in the right register
-        commit: 0b744ddeef0eff0c5e83275035317bf0e06c04c6
-[04/10] clk: qcom: clk-rcg2: forward the gfx3d rate request to the parent
-        commit: 1681fb3aef162a7396405528dd058e2d57face2e
-[05/10] clk: qcom: cpu-8996: move off the ACD leg while the PLL speeds up
-        commit: 69ead47d97b2b9347772d9000f33fc2b39d4601c
-[06/10] clk: qcom: mmcc-msm8996: keep mmss_mmagic_maxi_clk always enabled
-        commit: ebd18af72a5cbb2073829eae07618fc8d6e460dd
-[07/10] clk: qcom: cbf-msm8996: program the MSM8996 Pro post-divider
-        commit: 9be0b69872794cf50575ca7e35787a876372d15a
-[08/10] dt-bindings: clock: qcom,msm8996-apcc: add the MSM8996 Pro compatible
-        commit: 3426d15c47dc7278796041ad6d443259f48a8dbf
-[09/10] clk: qcom: cpu-8996: program the MSM8996 Pro droop code register
-        commit: b044374a1e38cae42d322e856167e3447505b304
+[2/2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
+      commit: 59cfafdd42611fe446c400e692814f8acaed8021
 
 Best regards,
 -- 
