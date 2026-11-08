@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794131429;
-	b=1p+tOhK44tWCvO434l5LNOdSc2W5mUFFy3BOgIh7qv+Wcn6H3J0o3spltqGCS3r7yQ/q
-	 Fq/2brdHmU4T8kTI1xNjb7RuY3PnvSx0PkLB5E9lm6QG9e4ZuQvBjpHaKfGunOCTy1Pj9
-	 I8t8th96eUBQywPi9Ao0Ypa0jpyxyoDMA/x0siiHeTlOXrEvcyEx0ZUtVxwr0OuqziWxF
-	 g9BpOQqH7hbX2G3hzwJNhd5a6fi2FcuEvYKslEqxVIc3q4OSx++7KzKMAG8JDUrtibovX
-	 QRnhk0tKdNnW22Jmal+HMJzbJdEtRGPoz/I7wLli+HJEMZprhOryDdvmXWe29pXecuw==
+	t=1794131806;
+	b=RhYi0tzXXxlpyTWgkPML64AVkAbYhPUzEYfFsb742b/fH7K90irRpEv2fnKycz7HAv3a
+	 T0k0Hcg6R7oawPCukutm3C+wgwybh1g09pdTEKr7sbtCT+kR5NCpqjOoy0e6gy3BMCOx1
+	 butMhT0TnDMKQ9Mki/DwvmVOp3N5/mNgxtBt5Pv1j6doPEM0CwoAylVtBP1QjEaNX3qDS
+	 oOhS0a1btrHfWei1bc5LofYyyDKyZOpeg1jBSOq+rwWPGa/pL996MfLx4cD6AfrIgy06r
+	 0+2BEhrG4Z6Y/8Qr5nZoMTFBv+vG5sYKDx6cV8RZKDfLOUVUtkCq80LGX1AMQIWjeRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794131429;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GuS+i74VaCbk/eFYFvugEDTjcOPPWu9nkqtUta44M00=;
-	b=TaY8iKeJsH0OE+KsdVFKlhlysaoZdMMtPnnz/ts+Ce5+usVCYuVO6sahkqD/V2n3ctF9
-	 TIp2jNUP106A8ymS6Rxf+wEO4+RN/7fq2gb0hAzhouIFeN/NuLKrWqND/CnvPZQvKaXgl
-	 ApUcZpEGHdJW3IR0TYRlMZdg7BZ4VE/3huzGJeQ1hZpMkY/7SNHjX+loJoQ7I+ezIQ2Zw
-	 aaD6REPWZ1VNn1mR/dR4X3wMn6PcP9dEgN7qUiJ8w6ecIuLaQ6uQpe0st/ZRxrPSNpUGV
-	 g2Rjb480Cb8yxYPMMQrOZ5rQnkYNzjkk/1ReDalL56yqqF4E0a5nMggKxV7V8ZL9wUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794131806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
+	b=hxpJzdfyjQZXxTn3No3+01bTj68nYkirQoiHHQDdGBfKyUCP2YEXmf+Uq27MQDgzZday
+	 YwIe23Q/2nfRtPuBLtNJ4u1kwQ/ySqNSGYOocwe6llckZHRNWutZDS/1N50Uo7mgvYVDL
+	 RusRSixbwWqJcAOkMxHXvZLNKiU1xbrqxofVOX4CtuZzfIktDdXSkJFcbiqjiFaGnhXbt
+	 RVeROkdTyKVfrqKTKVsqAcTtlnsvAPo7jdFdwpu2h50XfAOoEnc6paewwiMlpYI8UPfqG
+	 7LzMU3JABV6Cv+fwMpPpKiLKx4oHXua9UzAMxByhVBXwMTubYsls9+LSaCUQSNaBJRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVQQx3fS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUjqusQa;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F9F606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C4A606A321
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 09:56:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C4A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVQQx3fS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5611F0089F;
-	Sun,  8 Nov 2026 09:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794131428;
-	bh=GuS+i74VaCbk/eFYFvugEDTjcOPPWu9nkqtUta44M00=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jVQQx3fSO/R0QllRMHu95qGXJm8/ScdkoLSfv0wI2W+FicfcjYJ0BS6XhECrJEdaO
-	 Rad8cslELskD6XH4r7/B2tk0m/Bir+j/8kc8jKW/+8sJbWVFmN3VtDlA7YYZgZispE
-	 C1C8NtYD+3B3dWmcW62rVw98imDtrGr1DYZub9A8y4O4YKIozbdDGIgqVyqamWve8+
-	 W/6YSI/LUh4oTh3LY/iAMq7SG6U/TkdLpxjaIv7j3qnmCymKUPjeJf4+JmK5fEL26i
-	 5wdH7XGttin29ngefWm61h9+movawbKDZrmEDoJi9sNxZ6rI03ZGXWuJNWpRWtMyvr
-	 RQf9qv36c7saQ==
-Message-ID: <sashiko-outbox-203672@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] iio: light: ltr501: Switch to read_avail() op
- from manual attribute registration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261108094253.83899-2-clamor95@gmail.com>
-References: <20261108094253.83899-1-clamor95@gmail.com>
- <20261108094253.83899-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 09:50:27 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUjqusQa
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4322d310e7so2683766b.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 01:56:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794131805; x=1794736605; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
+        b=lUjqusQaj8Wf2o/nv1+PV+497UA5OYJz0uJeVO9W8iBalJ5xK9HWhRAoNlI0QQtB/k
+         QK9prBkdbacVPTr6Pfgz1JI+U6arVkz/DAN8ba4s2/SXkd0vDiL48v3TDsN0gOycR7r2
+         JO+uXyWzoHeoa4xuEetHbpHmLOy2KsrRldJWXilK0SNfuTktCahmNG0FjiCPm9IfsQOo
+         YrB0wiFGYaiaGWW4V3ypnNmR5A9ZF2k/24ghOGMWplFv9V7+wtS+MSpfKxajNWLACVq8
+         2JF8TK0vVGpIiWZ1jnPoeKUfFQi9nNguJgY2Gd27VYBRH4S8rCkpEuNUYfNWn1TxxsEL
+         tAJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794131805; x=1794736605;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uKFGtUNuaI75fKMjBlQigCXuvmnu+j2Ar9uMYNWhR2Q=;
+        b=zmVKvUpZCmg/CBcY0yggYSsCQVpvRRUXn94hmkz2fJTWorh+Fw3wI6r8KgBZ5BBM9c
+         avrpRB9TcPQqgeslLPDat1HrjgcjFSzTVv5m3hGd/a80ZcIsKJT9qbQvR6L1hRQnCsyV
+         uEMcIT+GAPOxAxO+JYHVPRgrHtY/CJ6uRst5zIo3BvUVWA0a+u8/4guG7WnaEI7EDGo1
+         peK6sxB6o0X6mBVSOWrPunWO7/BU/i+b/IndalgeJxsanZ0nNddozTmDvBViB1re8E78
+         8eiQnht73JNcFZ0hIYq0tsdA5ksEPulSIq3YdKXz05/SYPn4Lbzc9UtRixzTcRQ1IN+v
+         tzjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymu6mrtIxEjHl3tcepLjZxpHgwEuYEKeQDxGvjEBeHxVrUAuT6jPcNU4FSH7CUmyO+Z2Zm0pKfx4Qt@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PFZGjzPZKZQj9QPWylvhltyaCWpB0gj0q5Ph3QBj8DaJ1+BHb
+	sO2JGcY8TWLxFkK9MyE6GrQFTcyheEQ8Bev5qIM7nk46av/nSVOWx6tf
+X-Gm-Gg: AYBFou15tzvarTLtQhYMkvhrdePLbs+FrNsDkz9UF39+VeFKd02g0JdH5VU9HffOchr
+	w0rLAbLt/IXag/qPvMMklJKps191jULiCEmVq8hX+UOahOXGV+c5IYKDocV4uqNnKduBNIp7HWy
+	OYfz2IpGTMCkNQyXHL0B50FdZ+++IOXFrZBioVodk/gnAYIbz+lO/Z9oW5joUOK4e1ZbOKlhInC
+	rIcVEgC/dpwLRd/ILSg+jIOXVtYCSCOwKp78BmdHV+2sK0X20KfTqBy8v/MtnJ2ugBZOY/g8mew
+	F+mA5Znn7tmDYCQmmSYbFJrYKMETkNL10ZMkJy7slxONL0Tao3tVbEqNpbYHcbVHmJ6eUVHeIha
+	tE9D/IHQ8Wzq1o2Thh5RiPIBdG1+Tccns9i/BMA5COv87/7QMRxJIvvYubuATp1ndzj0eWdpfhO
+	5GRne2MOLvXB6HNdDQmodudhjIb/JXkV7zW6eK6C77v4L+UcluFAvhkSuPMKOl82IbSez5ZWz9B
+	CSDbZvSPLmW0Ur/26aS/Fb4HLHE1Mj4RT7DdWTLGJ+3SletnTM4ak3i2P49axpfcWAb0vGsDl11
+	3Ek8/ZvX0bctDo1m2Y1TSxXQSWjrqxQ/lJMbicWYrV29E8CNMCGl3lh+WFqxgn+MigyGH2Z2fCD
+	SS53MXX3C806KAPSqVbUFZmv6DiCxEpE=
+X-Received: by 2002:a17:907:94c5:b0:c4c:eb16:b567 with SMTP id a640c23a62f3a-c4d6d4e45b8mr82837666b.19.1794131804580;
+        Sun, 08 Nov 2026 01:56:44 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a9bc2e2sm48920866b.83.2026.11.08.01.56.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 01:56:43 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v1 0/4] iio: adc: Add support for MAX8907 ADC cell
+Date: Sun,  8 Nov 2026 11:56:30 +0200
+Message-ID: <20261108095634.100517-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,82 +106,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] iio: light: ltr501: stack use-after-return in
-  ltr501_read_avail()
---
+The MAX8907 PMIC has a dedicated ADC cell, which provides 8 ADC channels
+with information about different parts of the power system, including the
+battery, charger/plug, jack and thermal readings.
 
-commit 865563656e5e5188134453546f2c2ea7f31369cb
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+This patchset has 2 dependencies:
 
-iio: light: ltr501: Switch to read_avail() op from manual attribute registr=
-ation
+- patch 1 of the series requires this patch
+  ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+  https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
 
-This commit replaces manual *_available sysfs attribute registration in
-the ltr501 driver with the IIO read_avail() callback and channel
-info_mask_*_available masks.
+- patch 4 of the series requires this patch
+  ("leds: Add driver for MAX8907 LED cell")
+  https://lore.kernel.org/lkml/20261027115006.86032-1-clamor95@gmail.com/
+  Or to be sspecific, part that adds max8907-leds to max8907_cells
 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index 302be2fc314c5..1ddd0dfd55ea2 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
+Svyatoslav Ryhel (4):
+  regulator: dt-bindings: maxim,max8907: Document io-channel-cells
+    property
+  mfd: max8907: Add ADC client support
+  iio: adc: Add support for MAX8907 ADC cell
+  mfd: max8907: Add ADC cell
 
-[ ... ]
+ .../bindings/regulator/maxim,max8907.yaml     |   3 +
+ drivers/iio/adc/Kconfig                       |  10 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/max8907-adc.c                 | 195 ++++++++++++++++++
+ drivers/mfd/max8907.c                         |  75 +++++++
+ include/linux/mfd/max8907.h                   |  53 +++++
+ 6 files changed, 337 insertions(+)
+ create mode 100644 drivers/iio/adc/max8907-adc.c
 
-> @@ -1111,111 +1124,67 @@ static int ltr501_write_event_config(struct iio_=
-dev *indio_dev,
->  	return -EINVAL;
->  }
-> =20
-> -static ssize_t ltr501_show_proximity_scale_avail(struct device *dev,
-> -						 struct device_attribute *attr,
-> -						 char *buf)
-> +static int ltr501_read_avail(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     const int **vals, int *type, int *length, long mask)
->  {
-> -	struct ltr501_data *data =3D iio_priv(dev_to_iio_dev(dev));
-> +	struct ltr501_data *data =3D iio_priv(indio_dev);
->  	const struct ltr501_chip_info *info =3D data->chip_info;
-> -	ssize_t len =3D 0;
-> -	int i;
-> -
-> -	for (i =3D 0; i < info->ps_gain_tbl_size; i++) {
-> -		if (info->ps_gain[i].scale =3D=3D LTR501_RESERVED_GAIN)
-> -			continue;
-> -		len +=3D scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
-> -				 info->ps_gain[i].scale,
-> -				 info->ps_gain[i].uscale);
-> -	}
-> =20
-> -	buf[len - 1] =3D '\n';
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type =3D=3D IIO_INTENSITY) {
-> +			int valid_als_gains[ARRAY_SIZE(ltr559_als_gain_tbl) * 2];
-> +			int j =3D 0;
-> +
-> +			for (int i =3D 0; i < info->als_gain_tbl_size; i++) {
-> +				if (info->als_gain[i].scale =3D=3D LTR501_RESERVED_GAIN)
-> +					continue;
-> +
-> +				valid_als_gains[j++] =3D info->als_gain[i].scale;
-> +				valid_als_gains[j++] =3D info->als_gain[i].uscale;
-> +			}
-> +
-> +			*length =3D j;
-> +			*vals =3D (const int *)valid_als_gains;
+-- 
+2.53.0
 
-[Severity: High]
-Does assigning valid_als_gains to *vals return a dangling stack pointer?
-valid_als_gains has automatic storage duration inside the if block, so
-when iio_read_channel_info_avail() calls iio_format_avail_list() after
-ltr501_read_avail() returns, reading in_intensity_scale_available
-triggers a stack use-after-return and exposes kernel stack contents to
-userspace.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108094253.8389=
-9-1-clamor95@gmail.com?part=3D1
