@@ -1,65 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169377;
-	b=gtG55469hd+roQlQNgmXhOZmeA6A2TI4/eDa4osyWCsqGtFOU6r3arVte0JSADmdjDNM
-	 l0JchZv3zKLs38tkku4KUdiBtiyriPdWY5gB/g90/riBtqGZxM0Wdr7/PRMbc3cP4t6VE
-	 r2AyCJNQaW6JqWKsqHJ32Mp8CwRMlphcZy6wml2V0yMVMI/W2Rauhxks4gQyg8GUX30B6
-	 R1ZO17tpFrqG0zyhjoHaYB/+ut0Z1hxWT3TzFnJjXYtagn8PtUdZERNAgwrRHaB4axRuH
-	 X/wbLV2cCV0wuDWcydpLBAJOkTAXMGJNXNTT34ErZRJMD2w7VrlobUEszyFn7YGMW4g==
+	t=1794169373;
+	b=JCLdSagF8HxeG3ilthzhBuQZ2X9Xxjuzg2E2GAtm55MJoeV+nE2JrSvRJNkAMyXA3h7Q
+	 lcJuMysyqo4+NVr7hvgUR384/iQIhwCZx0J3250VGks+w7U5Yk8H/rPQ+uV6H7qXUa+Wm
+	 xupMM0fSx3RB0hLHGRpGwxi+mIzFoNrFsiWd7PC4ow2LbrQwR2T3BP6yfvz+lsvb/RvgE
+	 u6LuveCh/5eH6FoEhbwjEMgM5tAUGrrsM99fFTwDqqUQaVxA2+2MThK0PCBygyOqX79mO
+	 MY/DnKGAVueUnXT4MDCKA9VS6SgWHHrszLWvqBneO1f7Hv1TTEHdoFNp81Sq9pQQ/1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169373;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
-	b=19N2DMqiljrhatFA5jeiMKIeKd1zbsrv1p3uS6sssBoXpndZ3hypu5ZHyXCAsLZxxS8e
-	 3lIf120LzvGjZYq9bvHXdpffI/udfYsCE4R0bMc98D5wXRFz1xSfehDAe/Hw91fy+K3oU
-	 aZAyD3XPZwqblmV2IAixGqahyYCEFgFQV4ndbsz3dpBSSfbA/gDCRH+pFaC1mUG2wdHhR
-	 CMpTGbqwKuL5KjvhqHmaiunVgLOOufXyRk8OYU9FD85yX6ZVGXbURvuvr37Kiiu2QSfZL
-	 HzzEWXi94FVvPLJdKzGJXia6AGlKHGSoqxGt0E1WorAkB3IGvMWNTTZYCAW9r+O+n0A==
+	bh=p7WDi4J3BaaoDlmRYlpEKF1Z7u9lZhsCUSzEymvpXW0=;
+	b=3gL08p497OGsjtuRT97fXcHLl8SKLBQbq9Ayy1TY96ZBGMZL24xCWGO99cnN4dxaWZmF
+	 2iGDnF15WMRPzoHQSydBlMq6sHcLfEGD8jnPwkLqwAViZVapOi8Q2muFw+37pSL79LHk5
+	 8c3bMCCNZG5w8rq60p0MeGEYNnhMVD66qYnb7zObl9iYb0ITD3+feIEP0g6rhAnGwu+ey
+	 /wOxabTXNOKrmmNE/ilmsQnWZj5UTf4iO1/DuQlDakyPpgJ4rtYtmwm1yBO7eA3PZwzDc
+	 BMq/mXacc9I6cwRppOVpVOkvuViMYCHxT3nGaUOX9INqsw9LxPv+nI5NcoAxfd3fAoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPV0j0iH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74067606BA7C;
-	Sun,  8 Nov 2026 20:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2F7606A33D;
+	Sun,  8 Nov 2026 20:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841471F008A4;
-	Sun,  8 Nov 2026 20:22:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPV0j0iH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C2B1F008A3;
+	Sun,  8 Nov 2026 20:22:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169377;
-	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
+	s=k20260515; t=1794169373;
+	bh=p7WDi4J3BaaoDlmRYlpEKF1Z7u9lZhsCUSzEymvpXW0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KnAjCatM6jtU5Iv559+8anP65FzZlX7oYCx74Fw01CPC5a3xdNRotIhg1ODU06D0Z
-	 3O1AJitHI8qNpJZ2TdesIlen+KA2pweXMoaeeHhllEvRpgnrKYuf0ca+5X+X+T9PFM
-	 e/mBp6YgR/gVUPKPhiNoIDdM14QFYZOpRJ09ag0pzjshIOv8+Y81RqT/WW64I0qwoX
-	 DtDmRmZCQeEWg//12huru/SDg4iR2BmknRNu5YUL8sWqyRS8GFsfjJplxY7V1MeZFX
-	 qw5EMIto1jlAmgezvxoMpI6F4YHfNBQi/76v2ANljD9tyY7j7gIxQfpF2huzvsHkkP
-	 4Ur940OSHY4ig==
+	b=hPV0j0iHWCaO/hPw6eNhThoLb+wiwUp5pszcWTRfUH0dx9Mf1aRGnKy2g7ONGlyk/
+	 dY7cRrDr97OzyWSVD/xa/NOdJvWVoLSLsAjVplsKwvfRty+LytOzc/7nbj8+d+RqBq
+	 pcJVPBAkfsn/y4s0CiKyy6/Ettrz+3O1Z6ifvAf8YVjt6ZzsaFmRFMuMUlQIhtWJzt
+	 3ymgm5GjKVZSh7sk0cvB9S+qF7oFig4tc/Z9cYTAdF/VMk9L+HRR3T+LWhVHEil+Gg
+	 530eyzOKvaN/i4thu3WYGvSSEK7ZSza+6H7DkeY36ZTRHE0leJO64PVm9FuLRH8Gc0
+	 xUrMCSFCtDUmw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
-Date: Sun,  8 Nov 2026 14:19:51 -0600
-Message-ID: <179416929284.628393.3018595425203478493.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v9 0/2] arm64: dts: qcom: Add Kalambo SoC and CRD
+Date: Sun,  8 Nov 2026 14:19:49 -0600
+Message-ID: <179416929409.628393.10887631985173736936.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
-References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
+In-Reply-To: <20261016-b4-kalambo-crd-v9-0-11e6a40b68e2@oss.qualcomm.com>
+References: <20261016-b4-kalambo-crd-v9-0-11e6a40b68e2@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,23 +75,19 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 29 Sep 2026 15:18:05 +0530, Hardeep Sharma wrote:
-> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
-> IDP reference board.
+On Fri, 16 Oct 2026 03:30:21 -0700, Gopikrishna Garmidi wrote:
+> Qualcomm Kalambo SoC is derived from Mahua SoC with CPU cluster 0
+> removed, leaving only cluster 1 present.
 > 
-> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. The rest of the
-> series (bindings, GCC, RPMh clocks and power domains, interconnect,
-> pinctrl, geni-se) has been applied and is in linux-next, so v7 carries
-> only the SoC and IDP board devicetree, plus a small geni-se binding
-> update that lets the QUP wrapper use one address/size cell on 32-bit
-> SoCs.
-> 
-> [...]
+> This series documents the board compatibles and adds the SoC and
+> Compute Reference Device (CRD) device trees.
 
 Applied, thanks!
 
-[2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
-      commit: 7f6a63bc5fc9bed3fac66ac57000882926d25f84
+[1/2] arm64: dts: qcom: Add Kalambo SoC
+      commit: 5200756cf5af4aa463b5d9537947ba195e43c112
+[2/2] arm64: dts: qcom: Add Kalambo CRD
+      commit: b3474dad57457dd3bfbf9035fd61faf421b73523
 
 Best regards,
 -- 
