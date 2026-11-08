@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794156688;
-	b=N4lRveJUuNc/xhegeS5KfU8d9BqL0gCNewxDEM7MAvE/YBani4uZQmzuu30Y9t1PGkeu
-	 Sky+IWCplT1LeOXeoWNluMhFXaBdL/am7n044AiwtPng2e4cXTCg4rvWLF4lwWPwYJKKQ
-	 Zl4EvuVwBY/IuMllDBXT1IyyfRJLZS6U0uLp0jaD972vZouwxPzQIVIPLn/8xbJTPUW9u
-	 zXvLgjgn0FGwNKYPW7bcnDE947HglJfDQb8RyG68+s6VVQof++k3u5f0Ibuz8ZJW1JHEA
-	 1XIXDmVWmREsDuHlAGRlz4lXWgkkdTBaNwARzFVChEAONmhCIye/2RcDBDrMOnKxx3Q==
+	t=1794159186;
+	b=tui+prkpJKIrdH9nrbMn0gFveEKzd0pDLnFDG+LqEVBw+0KkCaOneHVLZeh5rEVhDzhP
+	 fsBhptB/5YCQoRwoeFRXKMM3/DVwwnsjWcMMKHF0xXjk04k7xbh6Janw60oJ0vpEYd0TB
+	 BxJvz2c7m/LNKdPl+tkV7+f9eca/PLaamfuYh9rMCKjGobq9kPf31R7hgALZe6OlVGT2w
+	 Db3wwa6hgLNPcxs5tdAEXl/XCuevigs8YOeNSiVRgjemIS6slBww5xR8TdqsTCoFWTyOY
+	 dXRyeDdBRGzfUt1Gdzd88mSzWUjEgvFWcWYsDA+Wn+wYDZ266VuMLrdDARPpQmMwNkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794156688;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HYdezMpMDTFxzK1FZSXPnbV9koPM+33TOfuH3HebiDY=;
-	b=yp+QioSVmt91zaCb0Gs0thLoiR4vI1gfv6NIEh2R4qOe7jlx+iZ3dN/WTSt/4j2fdeoo
-	 FAyi13qT4YNdr2FtLqFmzlK67tEoZBuDv+nb0pf6FseV/XuUUd+ltPKHNHwo7qBLDIhcP
-	 huI3bS61CWhJEAJBKnopzz/3f4J72NooqoAFRE13m61qV1UwvX4ArYs5Vy/ale/uqH6oH
-	 JN1tAfTsrJaZFbAO8lhliX9awYOEBj3qMkNxjlboTSoQm2xpOFeFXlmU5ldRyPzHD5QaT
-	 /tumhcy2yiuWZYicWX1CKMVKU9eRNGEeBcQ9+zgQX5Lg8scB0gMYG+PiTFbE0eVvk8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794159186;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
+	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
+	b=ruc6w97wR4HDUMCuk3lGZe9UnquHw9uWHKs2GRUrIRh6h3h6B1n4/9o9XzzJlz8NnaO/
+	 0B4kuJe2kulN2fQfFVGze6/UnTLyE3r+QvBSX/MFUwli36AVnojUm1SnxhEk6EO3JCCsJ
+	 ShD847HEJ4KTno3Tgd6Wqb1o5j+bHaiSq8YcNydyBtASrFSNMloi+5F3sbPd1JKRUgps1
+	 SdcmSBTBY/YmrYZwiqJFixO/STUriWkTQRuIqdN3nEehcwxWDTsRFlBdOxA1j1UmKHHpd
+	 fawCDfWheKQ1iJ56/wJAVW8opp69E0g57rTod+lLwMl7coGXUBdsVIFaNUhkbTpV95A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKY5HchF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ubuntu.com;
+	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
+	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w;
+	arc=none smtp.remote-ip=149.28.215.223
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C30E606A31C
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 16:51:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08512606A32A
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 17:33:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08512606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKY5HchF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001D71F008A1
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 16:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794156688;
-	bh=HYdezMpMDTFxzK1FZSXPnbV9koPM+33TOfuH3HebiDY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=cKY5HchFPJJy/ssHlxCtcZgd7QCYCOxatgwRkpX8JEKqBjsmbhNM79r0PcpXYzo8e
-	 gh7Y2w7rK14qmB88u1U2WdH19UQJmkgX0nGJjCY0/BZASK+6NhUyBeJ2krTxzVwkEi
-	 qrex2+0GSGngAboBwHrknrxGb+Y1g3sCrGM4K/xO0YR9u4BGY5Wq3k+cAx01xlSBp8
-	 mNEPWbK7bWeEzyKZPC3AJcfCPQA76p3bw5DIIm5lTWXAfeC4md0egZbaoaSbUGG2hS
-	 14E0rScpkZw/1vIFFRgzRVOTmDRLtrtMFh4bR+wrnILPdVk6Is3NTlfO9W+8f6z+y9
-	 +32eJN5G9PJpQ==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adf9b1f5aeso1804671fa.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 08:51:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHW+OXqinHibs7CUcdX51YBKSTW0X9aFyaohaurJ7a7WwJ6NqNrUStgcd8XczP3SLbT9DyHY5zDN1aL@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UwyQQI8HaSdVaaex/QK8OXYXcq7rtJJNppu691IJ/Zzvw3d7r
-	3gDfISBJxfzp+shB+OZ76/7+DlO+pWTPGnZa3WO7N3R+NCBC4TUwRp7GRzh+JbEzZuTKpv0iyMm
-	5UUlOki738siNuCkVfSe4+7PjHolSAaE=
-X-Received: by 2002:a2e:bcc2:0:b0:3ac:43b3:d926 with SMTP id
- 38308e7fff4ca-3adfa427714mr2794851fa.8.1794156686440; Sun, 08 Nov 2026
- 08:51:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1794159179;
+ bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
+ b=hUH62b6wWLBQaAHtKJmhGM8hS/IgZWJAg9FAPlzX6nxk7E1AFgrue1+f2e0Wxu+S1eIKEgK+6
+ sEvU543Nw/HnzaLYnOWE73w1luC6CZZH+AgblbWKUrMz0eg7DfE1xQLk6l1DcEEzCv6D0MIVMmA
+ PzlENqckvChaKYAt3ZnvXm1bS9UtX4zLYUl90GRVF/6Zxg2vJBUS7IgE7bFB08PY40xSYvW2F3Y
+ lrA+XJ+KfVLXoTgT4zj8GKpF9gALE3U/i3RtK7YQyC0UVmpq2rf401FxvR16R1/xznypzK1y9fN
+ YitKq34puxj+dX1lGM9uuf/PwoDW4WmjavVVk62kgSIA==
+X-Forward-Email-ID: 6af0b240935e4de7801c9067
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.19.13
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,75 +61,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261108155702.361022-1-pmazzini@gmail.com>
-In-Reply-To: <20261108155702.361022-1-pmazzini@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 9 Nov 2026 01:51:13 +0900
-X-Gmail-Original-Message-ID: <CAGb2v659Km1rsvEbnwtFZwX8O+rztBXc1xuSoS9_=siz0EDxRw@mail.gmail.com>
-X-Gm-Features: AclHuK-CJjXMYHavmXJ4Bjl3HAAm8K3xT0QbfHYHd9dVDpGfItJLvFreCyFJ8Tw
-Message-ID: <CAGb2v659Km1rsvEbnwtFZwX8O+rztBXc1xuSoS9_=siz0EDxRw@mail.gmail.com>
-Subject: Re: [PATCH 0/3] clk: sunxi-ng: describe CCUs as tables, add the
- Allwinner B288
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Sun, 08 Nov 2026 12:32:46 -0500
+Message-Id: <DMQ0CENBZQGW.L35BD1BXYE9Z@ubuntu.com>
+Cc: <linux-arm-kernel@lists.infradead.org>,
+ <linux-perf-users@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>, "Yuvan Shen"
+ <yuvanshen09@gmail.com>, "Nick Chan" <towinchenmi@gmail.com>
+Subject: Re: [PATCH 00/13] drivers/perf: apple_m1: Add M3/M4/A18 Pro Support
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: <myrialsarvay@gmail.com>, "Will Deacon" <will@kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Sven Peter" <sven@kernel.org>, "Janne Grunau"
+ <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Marc Zyngier"
+ <maz@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
+In-Reply-To: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
 
-On Mon, Nov 9, 2026 at 12:58=E2=80=AFAM Pablo Mazzini <pmazzini@gmail.com> =
-wrote:
+On Tue Nov 3, 2026 at 5:14 AM EST, Myria Sarvay via B4 Relay wrote:
+> This series adds support for the CPU PMU in the new M3, M4 and A18 SoCs
+> presed in apple devices. These PMUs have new encodings for events, along
+> with larger codes for these events. All of these events are as Apple
+> describes them in the various kpep files found under /usr/share/kpep on
+> macOS 27. More events may exist, but we have no idea of their affinity,
+> or what they actually count, so we don't include them here.
 >
-> sunxi-ng drivers describe each clock as a static structure, list it
-> twice (ccu_clks and hw_clks) and keep a separate reset table. This adds
-> a table front end: a SoC lists its clocks once, indexed by their binding
-> clock ID, and the core builds the usual ccu_* clocks from that table.
-> Bus resets come from the gate entries, and clocks that a SoC generation
-> shares come from templates. Existing drivers and bindings are not
-> affected.
+> These patches have been tested on my own M2 (t8133-j413) and M3
+> (t6031-j514c) devices, as well as by Yuvan on their M4 (t8132-j713)
+> device.
+>
+> If possible, the device tree changes should probably go through
+> apple-soc, as this is where the recently picked up M4 Pro/Max dts are.
+>
+> Tested-by: Yuvan Shen <yuvanshen09@gmail.com> # on t8132-j713
+> Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
+> ---
+> Myria Sarvay (12):
+>       dt-bindings: arm: pmu: Add Apple M3/M4/A18 Pro SoC CPU PMU compatib=
+les
+>       drivers/perf: apple_m1: Remove unused variables
+>       drivers/perf: apple_m1: Support per-implementation event size
+>       drivers/perf: apple_m1: Use macros for per-implementation init func=
+tions
+>       drivers/perf: apple_m1: Add Apple M3 Series Support
+>       drivers/perf: apple_m1: Add Apple M4 Series Support
+>       drivers/perf: apple_m1: Add Apple A18 Support
+>       arm64: dts: apple: t603x: Add PMU Device Nodes
+>       arm64: dts: apple: t8122: Add PMU Device Nodes
+>       arm64: dts: apple: t604x: Add PMU Device Nodes
+>       arm64: dts: apple: t8132: Add PMU Device Nodes
+>       arm64: dts: apple: t8140: Add PMU Device Nodes
+>
+Maybe the folder should be renamed to 'apple_arm' or something like
+that?
 
-I think you're going to have to give more justification. What do we gain?
-What are the trade-offs? Building all the data at run-time means we end
-up consuming even more memory. The tables from init time typically aren't
-dropped when a driver is built as a module.
+> Nick Chan (1):
+>       drivers/perf: apple_m1: Support per-implementation event tables
+>
+>  Documentation/devicetree/bindings/arm/pmu.yaml |   8 +
+>  arch/arm64/boot/dts/apple/t6030.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t6031-base.dtsi      |  12 +
+>  arch/arm64/boot/dts/apple/t6041.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8122.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8132.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8140.dtsi           |  12 +
+>  drivers/perf/apple_m1_cpu_pmu.c                | 664 +++++++++++++++++++=
++++---
+>  8 files changed, 662 insertions(+), 82 deletions(-)
+> ---
+> base-commit: acb925da49876e74b806ccd48a7518d2d3368e5d
+> change-id: 20260929-m3-plus-pmu-events-e4010ab44135
+>
+> Best regards,
+> -- =20
+> Myria Sarvay <myrialsarvay@gmail.com>
 
-
-ChenYu
-
-> The first user is the B288. Its driver is 212 lines here, against 749
-> in the current style.
->
-> This replaces patches 01 and 02 of the B288 series v4:
-> https://lore.kernel.org/r/20261012100816.331033-1-pmazzini@gmail.com
->
-> Pablo Mazzini (3):
->   dt-bindings: clock: sun4i-a10-ccu: add Allwinner B288
->   clk: sunxi-ng: add a table front end
->   clk: sunxi-ng: add Allwinner B288 CCU driver
->
->  .../clock/allwinner,sun4i-a10-ccu.yaml        |   1 +
->  drivers/clk/sunxi-ng/Kconfig                  |   5 +
->  drivers/clk/sunxi-ng/Makefile                 |   2 +
->  drivers/clk/sunxi-ng/ccu-sun8i-b288.c         | 212 ++++++++
->  drivers/clk/sunxi-ng/ccu-sun8i-b288.h         |  11 +
->  drivers/clk/sunxi-ng/ccu_table.c              | 510 ++++++++++++++++++
->  drivers/clk/sunxi-ng/ccu_table.h              | 233 ++++++++
->  include/dt-bindings/clock/sun8i-b288-ccu.h    |  82 +++
->  include/dt-bindings/reset/sun8i-b288-ccu.h    |  45 ++
->  9 files changed, 1101 insertions(+)
->  create mode 100644 drivers/clk/sunxi-ng/ccu-sun8i-b288.c
->  create mode 100644 drivers/clk/sunxi-ng/ccu-sun8i-b288.h
->  create mode 100644 drivers/clk/sunxi-ng/ccu_table.c
->  create mode 100644 drivers/clk/sunxi-ng/ccu_table.h
->  create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
->  create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
->
->
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> --
-> 2.52.0
->
->
