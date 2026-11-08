@@ -1,63 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169479;
-	b=VE44U3qYytujpwibidf3qFesOsp3p8BT182DUgNBR5Cgi8Ql805uOCp/gw/VbwI3RWs6
-	 pLqUgr23E2ixGvTDHB1jKWiYcU62lUcN6NYUJCRBZvmVwfnB+4urswGDeiJkGdwG4Qc+N
-	 oY8O/Qo/LsuvcimdTZ8+eZbYuDKFGsZY7VZf1frHRmAVAehbkvhgbtBbdQ1qai9TwOFUu
-	 xscH9rvJmFuZcTeEMJQfoQCPzQiRWZ7MDLJFS8hCbaf+tTWTnhu8HwTOb1YgyUJGjhrBV
-	 5wkPwflbafatq1vWkEr0E1KqCYxvTH9cFIW89pwdZZnpIJIXrQUUR7e7awE7+vdN2Eg==
+	t=1794169476;
+	b=VUQcExvUb569rC4nvdzTAty4DOIhXdC7bNkKpwk1Mjdm0gAUpJY9lV3BGtlXySoXl/me
+	 5koxxuJVRY3TJGYpIAY7w+FwxyG54Z5rBuNH/27GCQJ6zJbuAIzCS57mJJYa9bhHKXEZw
+	 XKMXEeUYIaFqMYRSoD5WEqcOvXtceFccoLT7nESpJDdo0lPOodjcFjVcMZGOoIaP586YY
+	 +T0v4gJU9hseYh4sPdadrwmB/QmJUeNuCVh6Y151JR8tqPRGWxdWwHmwizb2rs9yiaTa4
+	 +LnaLaIObMUj17S6bUhInpLyOYI9Oupxow/amVL6mUm9hR/A5h+08UUNbFWrN02r6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MVeGMPWx4KrHUe7VZJoLGYceJAylbbP6L0AbPcFC8wI=;
-	b=mq6ePV7SGr3BEGdR4zpPz8rrM95IadM0F/alAPyzkHWHkO0MH0HFZYHtq8alqF1xUPrS
-	 Pl6+YDd1rkFOggJKDILs/D1HmB38gMm4xfvjDqmxJrjgGqiRJYS66X7qntYsLe/jEdmTh
-	 PuaipzZomE/nUkf5TaKQIZuqK09K40yb+ybIx+t9gVTN4sQysW++E1tCB+w3+O5kUOp7u
-	 qzRQGvH532BrrWIeXraAidwpGHa/v0n0dgxZe3atdrEZhQpEvHku3p75I6v3RT8M+8gVe
-	 76U+iWahXTjuk/mAt0Cb/TFyEZJ+v0DfFeDWXG1Lym21HMMRjz0WCVPnnfdtlfpkjZA==
+	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
+	b=JMIBZtUnkNR2LTdGx6iFZapq0NywQt9unpPluY2A7x0UffI/MLxroUmDXP1QKVndwmwx
+	 k4/Y4sL2a5iosH9sQ2YjwOrRHk2hx4R5ydYQN2CtEMcAKNi03+Pu2ALiMLMavVl72dcPe
+	 lPo146vknn7qacUh+P2rvW8hEt6EqJqwQ+4DpTNDLp3GijnVvbSV2/Rr88ECk3jyTh2n+
+	 syZnvpu6fpszTzvJjPHbQ377bXeFy+fuAt4l1M1ffPI0DqFMuF70XOlzHMfw+WQ0bgGbU
+	 i554uLXn/epMExeUw3lmBW60v8fF2779BANM+peCeyapJq1SyDmbp2uj1w2Ei/oVw4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/4AsMyz";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05438607D973;
-	Sun,  8 Nov 2026 20:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABD607CECC;
+	Sun,  8 Nov 2026 20:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/4AsMyz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDC81F008A2;
-	Sun,  8 Nov 2026 20:24:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25451F008BC;
+	Sun,  8 Nov 2026 20:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169478;
-	bh=MVeGMPWx4KrHUe7VZJoLGYceJAylbbP6L0AbPcFC8wI=;
+	s=k20260515; t=1794169475;
+	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a/4AsMyz1VBQuudFLFcZUZmjUW3bg43fuw/JvupHL9xJV0VMyxxX1ng+ZNiV1/FwN
-	 wLVxo9XqKgoKu+jz8tl1VPwQdOM7befsvfBQRwiqWqB6SF1jWFSUUaFSF/caztjXm0
-	 CYo2qjBBlhQE1Dn/B8lct+WB0adQxEnKTtRDMAnNKjsTi90xHu3OwJZKfeSb0KlCgn
-	 +2kvd1bwiJojawGIzHfD6RSP+qDVJl9oOWSxfa2XhwqL956LuPxBN3k00YC8h3jSnJ
-	 4EUYstP3PdldnEuvFF7Rt7z0dPjqisqUudkgddyN+JqmdNfSNOMib8xGMX9es/Kq1L
-	 q/dkS+5SejV3A==
+	b=g6iU+ZOK1wknp7xZDrf6hGTPCHcs2M4SnZr443rrFu+1LzdL2SQt7EbGXe7DwIbnk
+	 o8qomeBS6PNHZLWewHFY/3FCGfVTjFbg5zYHi5kaH2rjokMlwFrHPTrIqCh+kMYSXh
+	 scXqbKM9JwVLlAO3PcPMEsNA2CvBoAz1zTOjPQJBIYrPIJcfDZ8PKwrO7ySJxM9HcP
+	 VMpsEqTJ9of5EIWUAh/n2DbysGeROOZua2/MWL8lvk73Q+hFcntNJzJb9c0hp7u1vH
+	 GLQMIFfpU/HlCHvgl+AI7zunhJhyMTe6Pp0x4c5m14XD6r5XVgcIIeCFT6X2MKcEV0
+	 P62PjPg9n65OQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	"Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: nord: Wire UFS PHY symbol clocks to NEGCC
-Date: Sun,  8 Nov 2026 14:21:09 -0600
-Message-ID: <179416929335.628393.9119755051249298133.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
+Date: Sun,  8 Nov 2026 14:21:07 -0600
+Message-ID: <179416929556.628393.15466602761506698116.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
-References: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261103225845.984564-1-robh@kernel.org>
+References: <20261103225845.984564-1-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,14 +68,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 08 Oct 2026 16:56:40 +0800, Shawn Guo wrote:
-> Pass UFS PHY symbol clocks to NEGCC rather than leaving the NEGCC UFS
-> symbol muxes orphaned.
+On Tue, 03 Nov 2026 16:58:44 -0600, Rob Herring (Arm) wrote:
+> The 'qcom,ipq6018-wcss-pil' is not documented nor used by any driver in
+> the kernel, so remove it.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: nord: Wire UFS PHY symbol clocks to NEGCC
-      commit: 61478a88b0ffcecf0351a75bd7b880b0bbcfee6e
+[1/1] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
+      commit: 67b58fac77db8d2653e53266f62964cba96397fb
 
 Best regards,
 -- 
