@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794172016;
-	b=hy+26SiKIyX8FIcFFi9/a4mTQbEgjKPConNKJhbJjhxnM723xeFUIUQohMHP74T6Urj+
-	 ShwpN2HSZLSAmsPfoLRi2vT6lB9hFfNaDoCfGBx+fZzPW/Zg8jSnuaTRlj7SsAXhlKX0N
-	 m6LADYtYM41RkMWP/SVMIdCewNQqtcWLrPl6vT3xO09mCQMkg32ygkKiEl/sc2Dx3DGKJ
-	 ssYA+3YtaYH4bvZ3gWIefEmcPt+mDnpltJkn+AV0LqO96PZ/njBc53Ak3XRx9WZ+Kiv10
-	 FTJXsDgLdS1X3PUE8mSzyR75XJsnYHUyBFaRxxTajivkkZ5LaNBaSdG8UhG7DAiBCDA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794172089;
+	b=qe5QjKapepa/kUmOUJOdTiKiBzW/MxRC8zC4OxECDBiaO7Wz6CjuKlm+AGS0uLEbCLD7
+	 BILvIgZEZ5I9m+12Q6H7kVM1DurVQbJoq6UAe0BhTcgTYvAWvfomlVk3TYQUGlfLRZEeL
+	 AWgCfG3q9k4AGVeZJQXxTE2n7oVERm8ahTQw5ZenlgUky+Y2ePaMO5EpXWKA7IhMISx7d
+	 Z+v9Qa0pjv3IpvfEOLp08YBM1JYGmlPoICDfQiac9Z7kTlLo2/yU7/OULPj5Z/oSSSebo
+	 +q1tHSLOtavvImljYkI0gs3zEmwoWiBMwtK/nsS3SERuZk6ZlMDTtsibW0UDFA5N6kA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172089;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Lri/WTSWkrPmnkfmb8OPckDNaNfPxlDZN6oZYmR6lYc=;
-	b=c9Vb+gY1OWTj1tSpIvJUahGhuHBXY0FuuvuEakHEO9aZJhPx2fEUfEVzYvV8Zp9gTq6Y
-	 nAl9vlW2rUf/cch3TVWTa+od7gtlXUYByIGFGQYtoWGR2B9t/0vgLGbvwg0TRUKKyT/Xd
-	 O3tDiqcSW9RMIqJFpC8shDHMYtrm9jJ3/dSbWT2klXo+E44+R8JVFM2ZiNAfs5CUC+I2g
-	 ivtG4tfxF5xj7QHNadulU2/Ey921J+0z2Kdjv6gf/qiltDv/mSQBv+P9bOfcu2oE6IZfz
-	 B8zyMqVn0MfTZkkoVEu6T37reQEuB1E3GP0AeTofs9nFBR1K9oOjweBgLZLj9L8MbJg==
+	bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
+	b=Kw6QSJ0iiHouT4O1oAK709pRs1bZE/2snQ2aaMhe+D6A/85HDsw9kSMIeTPGI5umu2tF
+	 E8ygNFzJNjZEuvnHbyOXjHBwBmwbIIiFYj9ahll8izO9Ismzq/md+Ip5wglJC6rSWqhOs
+	 NmrlUctfet62C/oEH9Ikj1GHtscEagWsPz5iuO/m7kVP9LQLN49FY3wu+R3dGGk+OOdJA
+	 7LwXhAZoHvCz0U+Hka1vwHTbrPfc5iXjilVurYk7bZ5H1zRBVOMfHTvu+5wiq9VW1cazL
+	 xSGffR5jR1Ooe3Zrm8ulbvYDXDHxIvjOpc+v02Le9NEMQzroHVv5M/GsHe4rCLThhyg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=googlemail.com;
 	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b="V85/hf9u";
-	arc=fail smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=sHCr7ys8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEEF606A326
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:06:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FEEF606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3469E606A332
+	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 21:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3469E606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=V85/hf9u
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67be4686827so152210d50.2
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:06:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794172015; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=sHCr7ys8
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67c246c0c60so310521d50.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 13:08:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794172088; cv=none;
         d=google.com; s=arc-20260327;
-        b=LjSi2GJ36yNG5iC1/JM/XJLnOfJy8FRdorkfrVHo4/JdUSv/XoBoL5m6Z/Vhg1bOUY
-         LUEaSd8+pjzXxx19vJpyyc/1niSWg6DJ5fp7rx73tWez2TFggcrXP9z0QeitrXGZK0Rz
-         BChhiUkHBTvUqu8U/OjBrWcawKUCV9fAcb1intRJsua24pDOUHDmdZA+OORuTZTzR9+V
-         G7gH9VWwqWjgvM7VHYOtPCvOM6DFUsNqKW7yOOed6gPbHFEso9aHpK1jpIpoDtEgdj5B
-         GN8Z9uqsBOxrrd+qWZC5RR6cEGm7jA7XEpDWJ7sDAOkMCS51ykwWgT4H90GtHdxSwaZB
-         jADw==
+        b=nk4l8q82BSmKDQ3t+Ouf9OfYlx0B5LJ4Uihjvd3gcUIH3An8vQP6zyBD0gfFg4BiGS
+         nqMK9jotX27TFyAYqaII9Ol7+3jgk3cxD3zENH10HcHYItEhBxDAopzaYMrfmLeToo3x
+         MUmP3KbgjNTvWZX5BcrQmBIyOEW9zU0Dl/TD2oEtYKG0QRcYiEFbLrITD038qI0Ey2yu
+         APGdC4uJ47hVOpt8xDmCiBe7/nO3KCl8zf2ySdm5OYp5Pdvbt8GmeI3KW6jHDXFF95YY
+         5zA8ytU+eerw1aOSJOZwigbo8D9JnoR9lMKa6s9CDhKGVJW4gBH4J/mmR5YWDLPuHjrq
+         N6lQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Lri/WTSWkrPmnkfmb8OPckDNaNfPxlDZN6oZYmR6lYc=;
-        fh=nEnfvPypF25xrafdvv8ZjoVP/1/lvPmStZmZU4V/da8=;
-        b=M+YmabQ9Uo4sEqhNwiuQf5Yo7UdAAChIT2RBho6PqqziCCdSIIe8zHTdbii3YRm29w
-         lc+1JbOdVqZg5TnbuB05RDs2KQYo0vpjRsz5bFWvFYxXrWoK2xKF7d3L02cLpolhcIT/
-         sWZoT0lPOmuUqMu9GXg/VJm95agdK6lSQniw072of4KGecm9dzvEm5eK9/icqKy5QLlA
-         nas9QwBbiknR1Du0F8xcWev+w+0dgtqZK0FzBAmi+cSGQI8cXZ/aqFBsHL0isD9S1cWe
-         LPhgZ7ag3tWcZtXch92ZpuSEgYpGEFDoYygt4mZ/tHa+PLLTruqLRkmdoQjeIYjd8B2N
-         vPjA==;
+        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
+        fh=JISqhSo6w56SU9gaxHZRK8OdlupWl38cfbSjc0sk8+Q=;
+        b=jkwi03fmp8fpeWJCE0KWcmd6yYB9WzsdE3MxbUHHzGl57ztoJqU4lvNr9izHFtMri/
+         9fhYHUn/kgSPnGDTU2hE4q8lfWao/8vORWFsUS3AR/UtAHCyjZHw25ch6LApPUSOTjPn
+         NLZxkRDQqMK6ed44QO9VPCC2RGiLDlQjpCOwxb8cPbpc60spsfgTrww1b5Qg+GQjMjqh
+         E5A7Y8V2mc9zDFuBQJSUyF7GhFYQQg8pH6DYQr9wPwZ9APcaFf8kKogrClmflO4WuKCC
+         SwaXkSu0jK56TSqH5mQPRmWWZCaNEPSIQQKUTgSKiSOXirN0gxu3UmaYXWkcQJWEMhIU
+         Pplg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794172015; x=1794776815; darn=vger.kernel.org;
+        d=googlemail.com; s=20260707; t=1794172088; x=1794776888; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Lri/WTSWkrPmnkfmb8OPckDNaNfPxlDZN6oZYmR6lYc=;
-        b=V85/hf9u90ghx3A7sxECxUZhOaH7CbQg4qo/SSPFUlDdIJmrmpQt/ivx824AWCa2m7
-         WefO5cXfAq7GVNpV/oYsMnkWobgtB1pH3jf8nJZECc5zkP2wsCB/shZ5JXAXF96tVDL8
-         YPA26M3Y3aGoDk1DplbJb7fRi+wdme+tC1Zk+t0Og3Y6AAlS8NX4P5S+ktkwAv4Yx56F
-         5yVmYZ3GAuFS/41zMprN9oP1IhPKAOgHhkbXpLVFKPf1XJGGLNFf9kf+q4TZea+xuzqj
-         1fpihBNTIFn4MXblf82TptOvEugj8jT1q1hT4vxIV7Q8vvIrbmEFxotXc9tDIXOeP1Hx
-         wnNw==
+        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
+        b=sHCr7ys8bNxUaNsy+bUcoVeFML1dbnDW2w+esIPjXGCAWDbekntbuCZmOXJdfZDpOE
+         j/6JTt8w/B7tGmi0lCs2djCp2qXoxDaRRmam//5cOdpqkHTeIDr2h6qKGDGhT3JMXge6
+         seVklIruMWETKxT1xvP+o52n1+TZm/WHjI9Cb0uZZYBUAag61hqA1gbT6Xs1BZbBV9KJ
+         Fazm//EF8BTNNaSnIm47n6vXZFxTa1i3vf+uFY8qVgTkN1LzNs53nKiFOv0vj1AEttZC
+         VwI8vzuDA1+Qo4Fc3Ynw2gV2cC96Uk3LCFIyZeSodsXc/Mf8y/1x9PvB/mINIzic79Z4
+         sLiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794172015; x=1794776815;
+        d=1e100.net; s=20260707; t=1794172088; x=1794776888;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Lri/WTSWkrPmnkfmb8OPckDNaNfPxlDZN6oZYmR6lYc=;
-        b=WWAK9FH+QM7YGCz65DIMQX1CwlLb+36nQHTpIb9nELMcuYGBi+F+B5CqfJGZUWYVq5
-         vEar3MwCQP2YJ1Tx7yDgwAW8R37pa+KfODIbmJL7nA6fzsjZ35m/DBQqqm0cz/rNJpgl
-         K4YZBLqJOnSB3Av4H2YdUJL0rhkKpDWMXpZbBYY/dPdpBHBrMpC53NrqhMO1X0v9oF3N
-         O20MfLCTiZxt5DugX1TZbwiOH67VAK8YPMJjeHIPkbBYnLo/0ysSjLFH6tVEnYUo3Au+
-         2DHCDsO9WXevyu8YjojyF0MLtjEQSgORgodx46ZqEmuRinn0ugkTLuym4+Y5P0y9+x8M
-         YwIA==
-X-Forwarded-Encrypted: i=1; AL+hErGaYSrif8m8Ki6bud2p8f0MqXo1Omh1TuECOunbA7Dr16wZ5ymz6Ko1L/rTCmfls4DyosfCygbcMLEq@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/I8hti2o0fLbkANb2NLP1LpOvbkiBwaPavtg4256PYSBGW96T
-	ri5wlFZ4hY1g9Mecy66Tojg6oRy9La4eu8v20IMfHzJqXw4l4RLsLExTxmUTkNCjpCxoO7FJj52
-	Vo2MtWN6jvRLE5CjHk3o7TnxM6bcLRJM=
-X-Gm-Gg: AYBFou04I1tkyhMUnFAalEDIaTMX0G8V7qPwq06rzQuMuyowi+ytvm/VWWSj4VsD6lN
-	x1fRoG0FSDP8pKxr/IYe9GEuPBm5TjUlJ+ZqgSDmd4MQ4WgjsFoi9473lGoBNzFyDqdXckiOcSU
-	lKPxPmjkH7lHdzvA7u8P2hXiVluHUlwY4F+wfohvB3KKtRPsat+L/My10a9btGUDSYUP6NC9wuY
-	BJ/EqUM5CmxfLpomzwn9fw2nJ7DYZRcPCe7V66PK1gZpWHTkXemiyBlZfLSwBsKaPx9FHQ3rvOe
-	FcNbKq8mMqV1xQ9gg7n/4geeOdTD1uOftX/X61M9vfDcYAfRppUPssZzkVLpeOwBuGguacqRqq5
-	atuLASUyLXXZjGhSlvIj/pM1eLFn7YMLOHW5OivqbrtJc2i6Y2EYvzqdJoA8gx33q01BUtg==
-X-Received: by 2002:a05:690e:4084:b0:67c:307:205f with SMTP id
- 956f58d0204a3-67c3d9bdaffmr1517575d50.50.1794172015392; Sun, 08 Nov 2026
- 13:06:55 -0800 (PST)
+        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
+        b=dZLwCXg9RzLpiyQOBu1FIPf4Y6bQyfwE5FYFwy3CYl3W0Y5f/niOF3tks3By0mc18F
+         fmGmnnAwGZWkX8hiDfZHbUykAOvOZamI1Z68+zr8TAXvrZ1nNSWGdmYYURHC7mAeCuTJ
+         cBR9aL9o+XmQ8Ls2RxkVhXTlXR6mK3w4HVY7qrjdi2C63t5Fi5zsSZE4FiSMPD513BsN
+         TOEumDZ2z1AsFTemzLz8tuynV2rDKewQKYvBMGZ8FUTWjKoWdwkd3ayDa0L9u1hpo2mZ
+         oTM40B6p16sO1/3wN05pSA+wphKu7EGOGLHSFhiDzZKjDqnuGf043eOG2SdSFEiusx5L
+         W4jw==
+X-Forwarded-Encrypted: i=1; AL+hErHEL1o9E0xmMK4ue9l6PqjMxz9DvAY111URRfbAuINCh6iYEW577mQADkuezXYeU8PZCetBFrvwahap@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XghppWsLjX2c4O57jqKpGO1CPIPbkd18JgPA/7h8l3B2Y0ewo
+	dLFYMVGBzEa6m/TJcxxQnBH40fqZCDj8DniNvojL4JOEaf100WdKjfOaRy+db705RvusUM4F4lP
+	f9uADSPyiJKsFk2nojS1hEW6MeldP62g=
+X-Gm-Gg: AYBFou0uy4HjvT6e7U7hE91eXBPOhWchCBKBQsLHEn0ARZVZiWriAUWzhYCe0lc7vma
+	eVcP081jClSZfCh/BPwsxvwJ0ZYmDGPztn1H2NYcYM1xw0WOWqP9wRROJ7Df3vXWKcPUX/yKJop
+	9yqcLiahgSNf7HgCIbJXxMCaaYtmL4meKNoI0kG3d98/2IcRbC2gAY6i04yWUSXMzY2xVDKD3VS
+	bOLCc6+t16dKqu07JlQIfDMXglg/xDE9mBL5ZijNY0Yd+2ARgpSjxfX5JlhPYqShpwfnTRXbFFK
+	CoDnvVDN5q4maHorbNUtlrkbtX0cBc0t+AfdJB323OYC18uRRooiLxF+EvSmdphkx3jUHskd3/9
+	q3oY0a7ZFSBAaRwNY+5W/RALMnGZAG2e8tceCMUnXQq4HnwFpj74/lvotrgMAJ8mWJl+aDYUHUz
+	d7LNOq7jbfnK2q+Wo=
+X-Received: by 2002:a05:690e:bc7:b0:677:df02:fce with SMTP id
+ 956f58d0204a3-67c3d7cc43cmr1612153d50.5.1794172088171; Sun, 08 Nov 2026
+ 13:08:08 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,22 +105,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at> <20261106101913.46664-4-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20261106101913.46664-4-christian.koever-draxl@student.uibk.ac.at>
+References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at> <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 8 Nov 2026 22:06:44 +0100
-X-Gm-Features: AclHuK-74c2fIbgObwWVEcBBZUrlkOFXR6g67QOovSh9WdTOcreJmeRwgf3g9rg
-Message-ID: <CAFBinCDKUmA8UPL86znCo1XwvDrwcvDsO9ZWgs1KkWSA9kZxcQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] thermal/drivers/amlogic: do not log the secure
- monitor deferral as an error
+Date: Sun, 8 Nov 2026 22:07:57 +0100
+X-Gm-Features: AclHuK_oGazsWw9BXqhuCXk0AQ3FrnvIBj2gHr_VP-7Spxdsvm38LfrWlZ3lq_0
+Message-ID: <CAFBinCDS_toG+4BySkUoXx73a2JWtp+tD6NHwYHk4mU+p+GF=Q@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] thermal/drivers/amlogic: add S4 support
 To: christian.koever-draxl@student.uibk.ac.at
 Cc: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org, 
 	rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org, linux-pm@vger.kernel.org, 
 	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>, 
-	Neil Armstrong <neil.armstrong@linaro.org>
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -128,13 +127,15 @@ On Fri, Nov 6, 2026 at 11:19=E2=80=AFAM
 >
 > From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 >
-> The thermal sensor usually probes before the secure monitor, so the
-> first attempt always defers and logs "Failed to get secure monitor
-> firmware" as an error on every boot, although the second attempt
-> succeeds. Use dev_err_probe(), which records the reason for the
-> deferral instead of logging it.
+> The S4 CPU sensor reads its calibration through the secure monitor and
+> otherwise matches the T7 setup, including the separate bus and
+> functional clocks, so reuse the T7 data for it. The driver already
+> enables every clock the device tree lists.
 >
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Without the calibration the driver reported about -144 degrees Celsius
+> on an S905W2 board; with it the readings are plausible and CPU
+> throttling engages.
+>
 > Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
 >
 Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
