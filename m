@@ -1,71 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169503;
-	b=J3d/bC+RTkCkKSYl7CIA/uTK6kpl+V3Oayh73kOouU8BdQ2RY2iYgxJhkNGR+ilmtbG+
-	 IbMQzcXo/fwp6Bg22xjWa/4vHOu7NcbKGPVzln0WEMfjy1fEkNywYnzJqdDgSgEwh7iL8
-	 HxfFr4dpRoDK4a2lSYLm8TkxxiLfuneyhasadwqF7bPJjMOzT4sXTHd3DsRBe959L/Pc4
-	 BR26foU3L7AxlxxINRxnqwRzAXPKpMQFXhEftxzpQknUCHQYYFzATrLlU07mlfUNWw3L0
-	 kiYT2NC3p3VgnsbxDh6u6ULBdndxSVfJ2o0bYL+hqNA/Q35p6X68Bn42PiumiFH5O1A==
+	t=1794169509;
+	b=CK6f+g7WBKl7aoDfNzDB8FK7gb1y506FK7bPGzIzCqk7uKXz85tf84ww7iSRi8i/SD04
+	 T8Sy8biviJQXiUadKowvI3wxEZ+4xSpr/EUCEtWPBLbf5ZVSi9WX3WHbvGJ50wOK6HOo4
+	 lcdt8lPTi8ZjO3+grgVJGxsM2O6YQ6WtQ5EciJXJzOoqJCF2RraL10ZufJEAkwbGlHJwz
+	 Uv+yPoo2rIQI5tRb62DFo8XxJGa/Q6+IwWoDdQhbC2eXzlxHcNqpUwVLxgCbFRhCX0YnO
+	 jqRiviRud6ePhfUzfhvVEGOoOCIkRdvnNoXLUx7pK98hu7GSBRLe78385yfCUUFvF3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169509;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MbJLpQfsM3uPqy/QOJlRmCPPzENBOlXzXD7urqoXuv0=;
-	b=V+v0mhO13tRy+crIIpRrdDd6BkQZI5LjqblqtkDcFVlROrLweH5ErKMtXOM4TvsNIXdw
-	 1rA1DRFPSpTKn3CIiQLsR84BgCSBVSAlVaCpsVYC69aH7tiP0bjgH8swo1oGekFCKq5G+
-	 vAaCy86RRnsPSPnHebkAMnw7fg1ecBE5GmaKNL5dc/f9DzlYOXnFsOM9i+srYSdoNT1Ps
-	 wv+XhKE+FwjKBzI5k0yCP1faKdxPU3TZw8L+5M/DZQyiIEhEvLQlCOBfVxVLqgcBYEY2Z
-	 iY1CGObeCjGFe01Y2HYMAxfwcvA304esaPyr2v7OI6/OsR61DNrECN7J7Y7p3Vq4BXA==
+	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
+	b=Eiv4p3ts63qZrHkhSKiomrS073ckbTII25giAOAiQbf+84FMpW6UvAQPrn72Vc0UaBHp
+	 NkWu1BmoBquFqtNhcQtxidOxtEFuwrjjXfe6EGuaPkpVAAYgaWDcURZUjv+9pvjbdA+V8
+	 IJjRK+lR2o5NnHojoxtLHyynrmKpr5c/3c5QqtTXjsj9PPl/EG3kAo/WTYYSBxfI18pEX
+	 jL8rQNFE2W3hXqdZPhgxvOozloWwVbLcyLb/aXzRMC91oJsObYdPwXtRsX19mlFCRGPE9
+	 bFpkSMEmBHH+D0A7aDYvEe51polUVh6Y0P7xCEAC4nwt2AN0J2tZwmYMUXwigZ0lfgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqqseCRj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178776081EC8;
-	Sun,  8 Nov 2026 20:25:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8346081EF3;
+	Sun,  8 Nov 2026 20:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqqseCRj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359681F008A4;
-	Sun,  8 Nov 2026 20:25:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C81F008A6;
+	Sun,  8 Nov 2026 20:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169502;
-	bh=MbJLpQfsM3uPqy/QOJlRmCPPzENBOlXzXD7urqoXuv0=;
+	s=k20260515; t=1794169508;
+	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CqqseCRjFMYOqmQnS+D7WXqCkI40GG0rOZrsrerjv/1A7kmoa6uz2Yn/we/UCaN5V
-	 dLE8vA4Y35Ob/wm0LIIhAASYLRJakCZ/LHnBLcbnPwjNOqJ96C9N6SmvlcGEwwV3v+
-	 48y62p/dyKMxnAFdWxzATYLHlf+v+EBI90cQR83CHaMo4rkfthal7meiyeM7rjjIt/
-	 Vj+zBtXRoUeJCGC60Z8/nkUf4YNEwr3VV6j6OyeXH9+BMyQEO6zwn590GTi4M/CgUJ
-	 bhMqUpLU2OdTIbQs7gVv1vm1GOuBfCTQIO1xBt5YHlfdXI3quY6G5wP/arzPvZqdEy
-	 wDlsys0EiUBAw==
+	b=A5aA0lB0Bdob9zl3oOrj0L8396begvPJt5v5xgVo3eXP7qTx6WjxbTLojgSRvlQ3A
+	 d4NiUArFyBK1GvSnKOT6THd2bMA3smp1sXqFHTeS08hp2jgzLb/5zievsDfpRSikeE
+	 CsxAy0CYHJlGnxEG+Xf6qWt1WAow/9B9abCnRkcnqSlOJaY8y9SN7okQpMi+1y9eht
+	 MKyvjgELioNquEFEdHJ7uLIyGydDrZFVmd0gDoXOnPKtAMBSGo4+n3C/jdF1X46t57
+	 G3vR5pUAZj7HqWc7kdmGYUnS66pgeEPz2sykzi+33Q1sAiaGGzJFlgYeWCtV84iUns
+	 9KhXXmqI143mg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Satya Priya Kakitapalli <quic_skakitap@quicinc.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+	Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 3/4] dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
-Date: Sun,  8 Nov 2026 14:21:26 -0600
-Message-ID: <179416929491.628393.16913187836121296834.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
+Date: Sun,  8 Nov 2026 14:21:30 -0600
+Message-ID: <179416929514.628393.4064137862863987691.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027-nords_dprx-v3-3-5d98b2c6c263@oss.qualcomm.com>
-References: <20261027-nords_dprx-v3-3-5d98b2c6c263@oss.qualcomm.com>
+In-Reply-To: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+References: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,14 +75,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 27 Oct 2026 23:38:28 +0530, Taniya Das wrote:
-> Add bindings documentation for the Nord DisplayPort Receiver (DPRX)
-> Clock Controller.
+On Thu, 29 Oct 2026 20:11:45 +0530, Vinayak Katoch wrote:
+> The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
+> these two context banks fail to probe.
+> 
+> Fix the masks:
+>  - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
+>  - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
+> 
+> [...]
 
 Applied, thanks!
 
-[3/4] dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
-      commit: e5182cab547786bec8d21c336f542abdf76a7968
+[1/1] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
+      commit: afe52f52d645c31c201e1e575e781ccb50aa2848
 
 Best regards,
 -- 
