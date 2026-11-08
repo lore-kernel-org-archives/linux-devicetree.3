@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167084;
-	b=Eyasik/laVScWRlkzjbYeIHpPZ1WrrRTQyoEiN+qw134C7B0wZZ3RJsx7KBcXkArlNcH
-	 7Ey0Q4XLHQXJcBIltemg5bC3rgAQCjvAdRIUMlOwcVttpDGtK4VG+zLWhpiveneStqrU+
-	 +v3iaogwrUtn/H+5S4+As5SkYA1jEE5/1Jl+y0yauaACE2i3SbGoqDfmsiVUQuKx+1XxP
-	 sCt/cIVfrWIH/JtVA/fuFHfXxz390opJgnhIMPSyqfQ33lVxI8i5jhcvcpvC6uoH/ikEk
-	 BAGHpDaX6hi42UmAxdn0KBcxUGBZQl4ZjL7GzIcmW/1mbNRLMdSS7oGcVI/uBtBy4og==
+	t=1794168536;
+	b=oVwoGuCeX2p0+QYWAMgX4uX/Jfivx7Jy5EnmviI4fiS6ttRQ3rwhVlRnH6DZdKUHoUyD
+	 6vpoYMyA/YNYADC8X0hRpnbn6RPLerCZO3rz70r9y29Gn7LVIisigYTuxouDf73D+jmIq
+	 fltDgov7+lKr07axXGCoT1co8etxYhvDMBoO0comaiLt5sRmyS8m0QCSHqJWfRlb0vFOW
+	 tqPu6SQ2WtDIZI4nXC+fMUfE+hhy0AD6TAR0NlMRTlu2htnfhWSAv6s1EEe4bJ7RSMJrn
+	 Q76thzak+36eAfiNqw3qP9f58v7kLlQhmTJjVi+vw+tED/JFK0yrEo+ilKqLWC5zytg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167084;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bK/w0JY0qsvel/2C3Ak4Hi+ciU/jEBjPjTp1td+7pv0=;
-	b=PnONbvonhKP95W+f2AJG1e8rj/h3gx98TeICx26OoaT6C1oDpyBlRw9DaHH+Br7XRVnk
-	 UOXswsnuQ6tewTI3nU2f8XWwKV78YoiXFgQMYDfrbNo3jT1aUiEwMO7twl0ZdXETzCClQ
-	 UqJ7jOs77YR4H9wI+mHzJ7bV7prNr3bKnTlB68DqhbnuWJ8+zaXMmzXYDEXCr9LHppYly
-	 yb792YaYSN2zHsuyRO/jpP1aqZ66yqS0VH8Wm539yEcGkdzoVTMiQE/jio7askQlJVkUZ
-	 o3U0LecYai4u6mezHbNaIuC3wMDBnAKD7IKSabinbYeaUj7U34Yj1Fr7givndJOADSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168536;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LzYrNTyVysj4No8EOA4CxkFmJ7j+XdvH4uDhJMwjKg8=;
+	b=mysWIjxFPUpqcIC2p3AAwprNdTeVoo2r5rtll5diOnUy+ZoLnbGHAzNewrrNv6uqr2DO
+	 FcJas5lzkkPtKM2mGBK50hPVdOM0VNMwucWt8eWUbOatEHlCq0BZf8XGctSiYDsnWSgvI
+	 8uoUpdjPLzL7n60Cmh43hFAJjX689TRXG+SPc6rn35ll421SysDZs0p3IMhPD6pCUovkr
+	 IEJ5YmwDnpjsz1F3uZIkIZ42vQ4WDQCxWR2dvjlDpc1mkWcV8CDA2p/ql7efuIOYd+1kC
+	 cNhrzogBFtdQj/y3b8FH6n6pLhtkt4ZBkgwZjAZ7/jLD2Obyt+k4EO3OSbklTg74QSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=YOLYPyDJ;
-	arc=none smtp.remote-ip=95.215.58.252
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOHDFY1o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9B6606A320
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 19:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C9B6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8CF606D833;
+	Sun,  8 Nov 2026 20:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=YOLYPyDJ
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+ceEzAMQMvwUP9EY3u46PKK9C3QjKCi+ClAiSsq36c4=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794167081; v=1; x=1794771881;
- b=YOLYPyDJ5TrEuBjbkSQ95fn1ZYo2KwuU1lq7GFgen8TTH6u60yMKaSozr3ldYPZuVk7EOdWI
- TQ98p4/oOSC9ajxW2pIWwgYLw3f/9Ye7fRxFUUpD2v1JKZB7fMhSb44EhsgBz6a36v/EVOCVfK4
- HgxI3aC+1/CFcJTcHjUulwTq6C8MVFoolvSmWjxk7U6PB+EUDC4+z0uKe77372CyKJ2W1zJeLum
- KW03KFc06t8oz17lYqx7InY6CFj35e5HKYumTo9cbUHJYnznwW62kFX6Vqw2TF+9CsX6bvoHzLP
- lJBITxDilGJflgy4jUct6WbL7hZZfnTDOu667KLyDV9ZQ==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d627279e59766dfb;
-	Sun, 08 Nov 2026 19:44:41 +0000
-X-Mizu-Trace-ID: d627279e59766dfb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <73c1c139-e0ec-4179-b911-174e4f01a0c7@postmarketos.org>
-Date: Sun, 8 Nov 2026 12:44:38 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOHDFY1o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2407F1F00921;
+	Sun,  8 Nov 2026 20:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794168536;
+	bh=LzYrNTyVysj4No8EOA4CxkFmJ7j+XdvH4uDhJMwjKg8=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=kOHDFY1o8ZNZlLBjx0INTl2/Y74Cm3seHWujoBIZSm86XhNQ/9YMIxb0VjmQYomB8
+	 n43cQNbccJrSRxOtS35keiq3mVLRD58SGCX7u5YIOCYMjIORr4/Bx6DCWdsgasc9Xp
+	 CFiNXHUGzldbImQ5w2kABspn9BR04SDWpeuQ3ENhj7/jyBHSDjmgIDd+zMqc5Ki5zS
+	 sHSH2vrBhTOr6PpdDkSh8cH503ft53NQUz7eEB5wpUp6aRJpBAHFc4AFaZG4bp9H6W
+	 mSU7MtqBGPnxyK/Au4FoVcxWAMVGBj7hhnzcLFZKRe69wBhifrnQeO+Hr3qOJ6aOkd
+	 Vx8VOG0V8PCXw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Andy Gross <agross@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: Re: (subset) [PATCH v3 0/9] ADSP for SDM670 and sound on Google Pixel 3a
+Date: Sun,  8 Nov 2026 14:08:42 -0600
+Message-ID: <179416851781.24425.10775520009932499914.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107022453.159341-1-mailingradian@gmail.com>
+References: <20261107022453.159341-1-mailingradian@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,42 +68,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
- <179198402838.839288.17911568760182808689@kernel.org>
-Content-Language: en-US
-From: Paul Sajna <sajattack@postmarketos.org>
-Autocrypt: addr=sajattack@postmarketos.org; keydata=
- xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
- J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
- AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
- HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
- /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
- QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
- 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
- H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
-In-Reply-To: <179198402838.839288.17911568760182808689@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-20 3:16 a.m., Lee Jones wrote:
-> Also, the for() loops are identical and are the last pieces of both
-> branches, so why are they duplicated?
 
-The for loops were not meant to be identical, that was a separate 
-mistake that sashiko caught, the one it mentioned about writing a 4-bit 
-value to a 2-bit mask. I'll address that before resend.
+On Fri, 06 Nov 2026 21:24:44 -0500, Richard Acayan wrote:
+> This series adds a user for the SDM660 sound support code [1]. It also
+> adds the ADSP remoteproc for SDM670.
+> 
+> [1] https://lore.kernel.org/r/20260730174353.108023-1-mailingradian@gmail.com
+> 
+> Changes since v2 (https://lore.kernel.org/r/20261003175659.23536-1-mailingradian@gmail.com):
+> - stop using fallback compatible and add lcx power domain (3-5/9)
+> - move lpass codec bclk from sdm670-google-common.dtsi to sdm670.dtsi
+>   (5/9, 9/9)
+> - reformat q6dsp dts (5/9)
+> - set flags for codec interrupts (7/9)
+> - move "qcom,..." properties to board dtsi (7/9, 9/9)
+> - add review tags (6/9)
+> 
+> [...]
 
+Applied, thanks!
+
+[3/9] dt-bindings: remoteproc: qcom: adsp: Add SDM670 ADSP compatible
+      commit: cf7fc0d6b1f3bc6564b1c75a3e22047b94234635
+[4/9] remoteproc: qcom: pas: Add SDM670 ADSP support
+      commit: 772724ad88a2ebd3826a0dd33dbfbbb11f0d4ca0
+
+Best regards,
 -- 
-Hal: They're going for the kernel!
-Margo: Colonel Who?
+Bjorn Andersson <andersson@kernel.org>
