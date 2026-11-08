@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175703;
-	b=5CkH8mgubhKch6/PG4mUvI+fJQ0ZA9i8w6bNYRpb2vWUZ4Q7wXJPBa16+yA8ZV/gd4km
-	 5AzeGmaItc2uek6Qd0lrgYjQa/avIdGuYHE1Rzlt4//mtiWSsIGwn6LEiWnnTHaK4Lx3q
-	 mh7FKy6EvMYmC7//tqLBhkDWAKbFZU90lQTRMzC0vKje2KEHCkL2EyUWEzV8LgDOZcOrT
-	 bemAd+zmJaGkBpUEuow+Cat1R+5riKA4sDOMJLUFgjmj9NCR5fNaSs8340KOKbbaZ5UkI
-	 4IBbqlZg430aBrFgTw56lLbn4RYN1QvcqgKSQ/bwa2Ev9QtPOXqLUs9VhXpA3oUX5yw==
+	t=1794178621;
+	b=ugFR8y5iAfb3XS6BxfvmwE2clki2aQavlc0tjEn+hnGaI9jNGCsXjvoHhaW3xZRxAjfW
+	 F/K7f09bKk+bbfxf+62Pi7uofWJhatS6z+pI0KD6RpTXbJcNrjB1bZOYtt+sLcseCc116
+	 QVs7/QDkwBlzlghIBQQZOsRrAUWabOsBMc53zn5FkmbwuFlaLX3vr7Saj3ExGREp/imKX
+	 UEmly1kFMbbh+mhSYWzP9wNrW8ZSH1un/1tmZoo/paihj7cOSAQCSpchjU3p11jameXks
+	 qYM/ZRGp7kC1rRDw0KrHXqz7F57B20W6aZNgZMFl6q8pgAIMU+1LtifPCbwmulifFpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175703;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mP+RLv7YA3xoEcSdhiubfekWgYbf7a4Mqt1EnFS2l2E=;
-	b=wV7CZq/Yo/td0j4/6Uu76DA3IyuzaUiUT0v39uZCI63G00cq6ndt0AZtUgr0OFckKH7q
-	 Wbn2LshoSvBG5SAuup5txU7rEI1gwkgYHKHsg+46tBHtquF0cQrWeh4dxhOeoCjLWVfCV
-	 vU7fjpnRvJUs7eUj/Wen7At5k/4wjQthgH375uPvnPnjK3xNAftyUVsydwdbyp+yFHmrO
-	 rg250WctPAz5VVtqCMK3O2yFuq19X67s8xIb7QScEvdseI1mPoQymXR1iInkxhqA+9Snq
-	 eEhMhBjuHEcdN+7oyUhnqsT7PcCxazN6hE7siTJwuAVG7VU+gut0Hh73l2POzm+O90Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178621;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=20LGVkr7OyVCpXpA7vzhMSUIjmcZLUme60763s7WuI4=;
+	b=z67D43467yWffQja7I7Nz5AABV9untfleozi6LEL0Vx6uuCXtiPXGDtyy7Jspzs6hnbS
+	 sKPBIv8WsiAj7jVb4Jjl9eCInJHcN/4elkWS2Am4cXFNXZspYPWEuL0vbLmcmwf8G078t
+	 YE8orxzpoXhgv2sW3pK8pPyeTCBwbewyZufkH4HwQEBqBsDnCj34TtuqNwN1qjDz3aB/E
+	 vxM25qGzX6cz6EMoqk92zMaCgl5kJCcvURvusCgU1wrQj7XSvXrMt78NiS/+U2QdFbZr8
+	 kEQAnNR+dnEzCJigzm3wQ17O9FZsHUoHsGp4ZHYBUEKiVp9eS85/P9nYSWf1Mpa2qnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=I59MaAEe;
-	arc=none smtp.remote-ip=91.218.175.230
-Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXRE6x6S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AFB606A326
-	for <devicetree@vger.kernel.org>; Sun,  8 Nov 2026 22:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43AFB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC6D606A31C;
+	Sun,  8 Nov 2026 22:57:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=I59MaAEe
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E9GlFD/nkAV+QrkBwclW4eEowvk8rBIRknJho/hf9L8=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794175700; v=1; x=1794780500;
- b=I59MaAEeCdaKCfMuUTHPbIyVzbfz3Pm73y6uowmDLnatoZBgMnAoNKXERlrLKeNuoF6PAiaa
- gOWLTe5to8441RYieziKGyelF0YQZom3ZvDGCv+pkIdn8Nb15XvmMENYaWnWYTyesATF97ejHwH
- iXXLkBh/ErBvRteDdtryUUWVITO3GowgFIKGpEN7DtgdW10I5ZeY8+HwDFt3cV5vX4ol2kZ8iZ/
- /4gCPoSX3mKUghd2jKKcwZgViMqDFf37cg3amH63iwaTbP0/XL9EElS6bbVqrFuJTvhHkxDhzQW
- WSCvT1EVtMvY1Mm7Ur/iqO2PvZQ10BO741gMI0kbQTgXA==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7b8502a391023e8f;
-	Sun, 08 Nov 2026 22:08:20 +0000
-X-Mizu-Trace-ID: 7b8502a391023e8f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ea9edcdb-cecb-4fe8-97d5-1dead1ea8fd1@postmarketos.org>
-Date: Sun, 8 Nov 2026 15:08:16 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXRE6x6S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D71C1F0089F;
+	Sun,  8 Nov 2026 22:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794178620;
+	bh=20LGVkr7OyVCpXpA7vzhMSUIjmcZLUme60763s7WuI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LXRE6x6SdG7IyarknMia1YiU8msG0Ve5ktruCyF0lCx+UVcgvavx8E+O78sPKTsGG
+	 x5+n5UPog+1EzaoORkKrMCILjgKfrifmQUiZVggZUBou2tqsshQs2fe5PG51J+trjH
+	 dKpNJY0KX5zLqfrgGZEfZDmflcz024+wfgXVOl4nnvuWXLPsZcydJrzH6WkbsZrlN4
+	 HBO2PGhub/47bFEdy+0XlTr2OPB5YVKtkl+Q8WIDCWSPgdljaHJI6b4F3wfI4qsbqg
+	 1VoEn+HG0mveOemARyuRmlDOMjnHg7wBGxZyuMlJXXd9evDRmRKRh/Yp3xS5Pe18nV
+	 ue8KI0YIlRAbQ==
+Date: Sun, 8 Nov 2026 22:56:55 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	"ziv.xu" <ziv.xu@starfivetech.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: rtc: Add StarFive JH7110 RTC
+Message-ID: <20261108-arrogant-comfy-702e4005ffb9@spud>
+References: <20261108212826.15890-1-oo.hehir@gmail.com>
+ <20261108212826.15890-2-oo.hehir@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,41 +67,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] leds: aw2013: Add AW2027 support
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>,
- Griffin Kroah-Hartman <griffin@kroah.com>
-Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-Content-Language: en-US
-From: Paul Sajna <sajattack@postmarketos.org>
-Autocrypt: addr=sajattack@postmarketos.org; keydata=
- xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
- J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
- AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
- HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
- /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
- QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
- 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
- H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
-In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SjCXAX+7+0ikTLlp"
+Content-Disposition: inline
+In-Reply-To: <20261108212826.15890-2-oo.hehir@gmail.com>
 
-On 2026-11-08 2:49 p.m., Paul Sajna wrote:
-> I'll do my best to address all of Sashiko's comments, but it might take
-> me some time to circle back, don't bother reviewing until I've done
-> this.
+--SjCXAX+7+0ikTLlp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hello Lee, I believe I have addressed all the robot's comments, and this 
-is now ready for a proper review.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
--- 
-Hal: They're going for the kernel!
-Margo: Colonel Who?
+--SjCXAX+7+0ikTLlp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavD+MQAKCRB4tDGHoIJi
+0pnsAP0eKWJ6w6W1snNjKukK8Fjs/2I49K2VUTuJDFtynSBZkgD+PikODNItjDsS
+5JRL6HhB3lWBTwpaxHIxtWpOFzjT7wM=
+=iVtu
+-----END PGP SIGNATURE-----
+
+--SjCXAX+7+0ikTLlp--
