@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794178814;
-	b=oflLno98X03TKO3NBIxFxLrcz0R7G1v6/fB1Ccu9OGZ94VmfOFkFFs7ZzjL655maVu74
-	 FU2cOQnOIUqjsYV4SFOQ/Q34D3XKnD/r03TDqE1kq6S9qBqbYSc0Jt6E6AYy/7KSi1az8
-	 n0LKukTmYdLa018ddEnXhuSSOt/5bgybS2AEvfZjyC4m28PlUulLIHGFeuCkuhPm37XCm
-	 Z46MZ5nwe9uDxtM2Uf+4dNqluTKJrvg3fjryjzrRIJFyhBFSiuM7dxsYODzyIgM4+rGze
-	 H2l0Qwike2V2yHDbeA2lG1tdIyzFZ7unesIE2KDgyezfpywGeLmZTZRNK6Jgd9pADGQ==
+	t=1794178813;
+	b=COV8uRpPqt8YQ40nRJi+JP6fV/PBpDvpO/bEx+xRU4yvZR4LoXrL8tOouEJl2V/ZRyKg
+	 x5M7foUnp2j45Ij8ABq4KkLfvL3qwGZOT8+TFi0kO8LvVuHgHxUSQlxvk28FSxqvCe8+i
+	 /k1FR6k1IRQDQ7FH4+QE9Cu2K6gaCtF6tSkFkFkFUxgb6PyVYAbsVei2QEKFpQPr5BTXI
+	 uRKG7ThLQaNwdTeD0ItCbaH46cfqsIlGrmsepPT2REKXSrZbG8DXjR0qlrKqu7eRRffjc
+	 Y8zP9uTLV4X9u8fpejs6pKg8F+nFLGL/gjTb0J1aSILNUKme4lbyP8eIvQw/6aUiA4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794178814;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bMP7j68x3PMM1IBkF2dBr6dlucgKTFleWZgyG10h8LI=;
-	b=RAYC6njrLDFs6gsybZDRjZbnXt+6OPvic5nDxBo64XGUsTT1orCsTz4dMnCcgZFULp4L
-	 bbtVgjIRwtFF3FiaABdgfvEifmhpG/NBb1MbYqo6gYWDhr+KfnDebI7mjqM5QHbISbUez
-	 JM31Rqedj+rnzPyKY6c5bW20ct3v0F7BGNDBMA/zjWqynJZoAm3DiZQeQt5GvWZoBVXY1
-	 5TOrwnvPxNnal+EXmObopeP3GOq5L9ABEBAhaQ9zvd1nMWeX09Pb9W7vivZeAoaqQ2+Ab
-	 QwmFgLAoMeyLxkNi6xYx4j/eXtYSwfb42wmpWRE26eKZRRWuJQsqN0yNTWrd2mgp4Ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178813;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DsnqgFdLLmzTka5Qh8hdUhtHXTfN+LBLWiqJUvCE/Ko=;
+	b=G5hp+CU0oODGx8sQIW6TuZeBAoQhsnfS3VdaQYq9c0CCv6g5evgC9mjH1Gun3VFKfzpi
+	 z/GPnSFYp0LtbbxB4FgDzrnRhQlHShBJ5YFHaj9Z1D1YzjPeiiB03EBD37FpolCVJXudt
+	 iCEP1TOP6kH61psKRyyTRZdRTxxOUAhbS9ZILGsqjNYS+fCRgoKwUITLx2qPoVOaowgn9
+	 ENhDxYgN2tBNIiHJLX0bgmhwtzMy/+jnrKE3gUZlUehtD1+y4Km7TMhdN+e0+CKOzq/tv
+	 oBzY3NMny6tdwIhW94P9usV3ZSkmW58/VMJ9A0L00umMGn9lfrp6D5Qm+CjYMtDNCLw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH1hjCrg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUauj4SR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091C5606A326;
-	Sun,  8 Nov 2026 23:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4FD606A31C;
+	Sun,  8 Nov 2026 23:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH1hjCrg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUauj4SR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794178813;
-	b=jcxRdo5/3YqRBFVs113EhetbiVv6qLgvEcl9fT7Ab2RTq0DNGQVmVmfgk9/cIxnqogY2
-	 OwNKg9ESUNcAsjeIhJrEXeb42dEhT2KJNjYXraMDRgPvMvqaC7liHXnRbnzf2sR6zkcVN
-	 YX0yFt5FSnlzsQuzuMASW2yhQhmiVahvRINyw5+4qsGuh9mfgfT+J0oF0jCz0Iy9Jv4MY
-	 CWsD+C61X6Yo2e+V32EwcpuRiyZ3gM/HJCrhiczmPNiW5TZXFLHO/Xsj0AUpouJmOYOFb
-	 kpEgELCSUZ0GQU0uh3vYSRixMZaSI+x9aVUic8fh/p1KWaQcn1at8Wat+0QTQPt4o9g==
+	t=1794178812;
+	b=RxLZTXemPoG1kVl4DdAOK4RdFycaHS+PeFsk01rI2WH9p2HMtdAgX7vlkRV1B+YiP48P
+	 GXa+E9ku8HvRc4hh7Q6t3OuTUAdt9bXASWGWWS+HKOlPEqmAqhDB7nOP+5ZU7q9edfpaL
+	 /6+VH+9200gUT/wjjqy+gbNkizTOG5AA7hEXLNB8ow4x4IW/k+5SDj9+UxRdVOYtY4W2c
+	 G/3EXK8iV6wIB8LPCOWLk3EqgSeVsSJyuHwyK8EyEzWm1rjd3eDqHrTRfP/5hy2+D0aAP
+	 J6f8pyz5/AgPnVGiAi6s3j6hgupFnN3ieUrGQDOo3Ct2l1nfjY10wMwnBAtgYCqQwcg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794178813;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bMP7j68x3PMM1IBkF2dBr6dlucgKTFleWZgyG10h8LI=;
-	b=DM1Vl19v7fQmWhCSK8m3AwPowX9GFR1UaCO2lBO4D5IdxRv4GNgBJUeawZ068oV7wqvX
-	 vX7qKPS1L453blxAzE6oNb1etUph4biwIWGNIyZGOto2zB6AKxvktNIiJ2tjCU2rZBbNv
-	 soOhaOMwPfaVrKFcDV2VsnRbc4j8pGGUdCrlrffueYfR1e3fLN+7oQtrMU5TyrxvyeVgS
-	 KLVsL0plyY8EdLEpqV5yPj6KUebeWIc91VzYSjQYb1p2TPdVE1zX57ATdilRFI1o88CRC
-	 f0Y39OtOQAQr5zYQBABFdb2ZoFsnsJ/H2VG57w8B5/TjQzpKuDqr4v9R+RzqYbH+Ixw==
+	c=relaxed/relaxed; t=1794178812;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DsnqgFdLLmzTka5Qh8hdUhtHXTfN+LBLWiqJUvCE/Ko=;
+	b=RugMHCM9REcd5jc/kaKK51Tttqo/DDBz8lNXJF25n7KbAT+zVuIApXGaiWPiTrN6R2X1
+	 8LGKIT3yJtpB50Qghw5nsIfgEJLNU38YiVVYmRG004arjmiAF3aZjGoYRiU7jXYwEh2Sv
+	 bueLbpvREKWRPYbvb1zYvbIVAKkVE3D5npkfKZ3cN+yOi3iOBN+qRp8s2FCF9goB9qSmu
+	 xxoECuj8capBC2R25syv20fBZmdGJvrjIuA0ZZUPUfziuPcujnvykgOxggzECnB9sMURI
+	 MVDYVyAAaYDM912+tZQ9BjJp7dn5pPjoeZVkU6+vJIqkBKOXoAdQFh2QPKC4jokMeSg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2419B1F008A2;
+	by smtp.kernel.org (Postfix) with ESMTPS id 3F4DE1F008A3;
 	Sun,  8 Nov 2026 23:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794178813;
-	bh=bMP7j68x3PMM1IBkF2dBr6dlucgKTFleWZgyG10h8LI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BH1hjCrgwrba9ntU2mT9kLaq9X2l4h+X4+ROtjo9YTisWDjcNuWIRAEEdSAC2+xYb
-	 wXfMdg7cHshSQSoNM5eY68b1BKnOqJXykph4bBt9hazOO+wZXM7/BhA77GFiWeaYMy
-	 cocoKNbcWmSlIcC1elCaglvBIlbecM0ILiFRr15SqktAuQzRNIEEUDNfyFdQnLVoGG
-	 QX5qannepa//8Mirj8dOw2uNbJJio5gp4zrexbcX/VOKeEHpAfo1gAUMZ3se4fHn7z
-	 0Mxt/Utj+9QGcWo5vRbqP80QYmiNNjHZe3jbPQB1N6rWNyptkbGtX4l5IofbvujsSN
-	 jShJdTUtGMKcg==
+	s=k20260515; t=1794178812;
+	bh=DsnqgFdLLmzTka5Qh8hdUhtHXTfN+LBLWiqJUvCE/Ko=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=oUauj4SRE3mCodwA98IiQS8CP1XIi9KgeeLEJV8AaDIcD3tdzdZEO3WYvSE2xK/GL
+	 W8NOGPvfIFVs6gVPDpUhmR5u2AMhz0ESp1kYsQl2dlfcm/VA41D3xq+EPo6CnGaXeq
+	 gNxgqUWJkL+LklvBDHBv4N351dzV+EjY/YaEXv0vFh/orDMiMUtIFdXuOuYN2qoEVT
+	 UUN9L6gKJ2Dz1ss8+Jfg3kkVflpSwC1JYSp2R6IV8dSiXw0O88Uh4xsp7qEY+kM+cF
+	 d7g0tA7dZclnSyB3YNjImGpEKj9TF5/jg0ti3zOp+wYyxbXSp+x+jc8YsLbOr42AhZ
+	 VfCSYt97fARNg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A1D9D48153;
+	by lkml.kernel.org (Postfix) with ESMTP id BD6E448151;
 	Sun,  8 Nov 2026 23:00:11 +0000 (UTC)
 From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH net-next v2 0/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-Date: Sun, 08 Nov 2026 17:59:49 -0500
-Message-Id: <20261108-mxl-gsw1xx-reset-v2-0-46c1da093893@telaak.dev>
+Date: Sun, 08 Nov 2026 17:59:50 -0500
+Subject: [PATCH net-next v2 1/2] dt-bindings: net: dsa: lantiq,gswip: add
+ reset-gpios
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOb+8GoC/2WNwRKCIBRFf8V562gE0qhV/9G4QHwqpdgAEY3jv
- 4fWruWde889Mzi0Gh2csxksBu30ZFJguwxUL02HRDcpA8tZSWnOyBgH0rkXjZFYdOgJP0oleFl
- z2iIk7GGx1XG7vIJJA4PRQ/Vt3LO+ofLr47rttfOTfW/2QDfiJzr8iwIlOSm44Ke6LZQQePE4S
- HnfNxigWpblA9vgvMPNAAAA
-X-Change-ID: 20261102-mxl-gsw1xx-reset-37ac836b31fe
+Message-Id: <20261108-mxl-gsw1xx-reset-v2-1-46c1da093893@telaak.dev>
+References: <20261108-mxl-gsw1xx-reset-v2-0-46c1da093893@telaak.dev>
+In-Reply-To: <20261108-mxl-gsw1xx-reset-v2-0-46c1da093893@telaak.dev>
 To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
  Vladimir Oltean <olteanv@gmail.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -101,68 +97,57 @@ Cc: Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794178811; l=2239;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794178811; l=1167;
  i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=f7rumqhBXVUbXmTQZIshRAFnkK32CNzOSjjgSSKpiR8=;
- b=QPAUW8a6ugRpkrJXJB0dpgxYkTIc00FbTxffLAyGFvXNzMo0+oOzQN6D7pmH7oGNVdOW5byIQ
- 9vzvn8KKZvODJte0VI1bitiTyaXrXpToT4D8bLxZliyOTdg7afkj0KT
+ bh=MOeFTVQJmsY5ws6zpmzjMuMLHXSYlILvnKcfHNWsxQY=;
+ b=osGDcodit8YnTIe+0oCSL5ZBtLGrWLIaOrFzSIWFxkG7qnv2ShbSz72NP0596qN6ZkCXGbzLL
+ TVqSLDl7euRDqyBhIKae7YPOdJbw+Mvm9HCkIMWsMSywrge1UVVTZLp
 X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
  pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
 X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
  auth_id=1404
 X-Original-From: Joseph Telaak <joseph@telaak.dev>
 Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-The GSW1xx driver never resets the switch, and the MDIO core does not
-handle reset-gpios for non-PHY devices, so the driver works with whatever
-the bootloader configured. On the GL.iNet GL-SFT1200 (Siflower SF19A2890 +
-GSW150) the bootloader leaves the internal PHYs one MDIO address too high,
-and the WAN port has no PHY.
+From: Joseph Telaak <joseph@telaak.dev>
 
-Patch 1 allows reset-gpios in the binding for the standalone switches.
-Patch 2 pulses it at probe.
+The standalone GSW1xx switches have a hardware reset input, and boards
+wire it to a SoC GPIO. Allow describing it. The SoC-integrated GSWIP
+variants have no such pin.
 
-This is separate from commit 82e2c7db0830 ("net: dsa: mxl-gsw1xx: force
-internal PHYs into a known reset state"), which only programs the PHY
-bits of RST_REQ. On this board that commit is applied, and the PHYs still
-sit at the shifted addresses; only a hardware reset of the switch moves
-them back.
-
-Tested on a GL.iNet GL-SFT1200 (Intel GSW150 / PEB7084 at SMI address
-0x1f, reset on an active-low SoC GPIO), on v7.4-rc1 with
-CONFIG_RESET_GPIO=y: after a warm reboot and after a cold power-on, all
-three ports find their PHYs at addresses 0 to 2 and link at 1 Gbit/s.
-Without the patch, port 0 fails with -ENODEV after every boot.
-
-There is no in-tree user yet: the GL-SFT1200's device tree is under
-review on linux-mips without the switch, which follows once the SoC's
-GMAC is supported.
-
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
-Changes in v2:
-- Use the reset controller API, so reset-gpios goes through reset-gpio,
-  instead of driving the GPIO from the driver (Daniel).
-- Use the vendor driver's reset timing, 250 ms asserted and 1 s before
-  the first access. v1 gave 2 ms and 100 ms as the vendor's, which they
-  are not.
-- Patch 1: add Rob's Ack.
-- Link to v1: https://patch.msgid.link/20261104-mxl-gsw1xx-reset-v1-0-53839bf5c88e@telaak.dev
+ Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
----
-Joseph Telaak (2):
-      dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
-      net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
+diff --git a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+index 49af5573e4..9a74ea2a6d 100644
+--- a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+@@ -40,6 +40,11 @@ properties:
+       - const: mdio
+       - const: mii
+ 
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the hardware reset input of a standalone switch.
++
+   mdio:
+     $ref: /schemas/net/mdio.yaml#
+     unevaluatedProperties: false
+@@ -173,6 +178,7 @@ allOf:
+         mdio:
+           required:
+             - compatible
++        reset-gpios: false
+     else:
+       properties:
+         reg:
 
- .../devicetree/bindings/net/dsa/lantiq,gswip.yaml  |  6 ++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.c                | 25 ++++++++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h                |  4 ++++
- 3 files changed, 35 insertions(+)
----
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
-change-id: 20261102-mxl-gsw1xx-reset-37ac836b31fe
-
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
+-- 
+Git-155)
 
 
