@@ -1,136 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243864;
-	b=UFmLwhVSH7WuA7JRKpZekzUnJLDkMlffAefhyxukDA6FbQ7wY9vC99i4QiAHIIXxVjeN
-	 v3nUBQ1wyfIyogbQvjzDu+pDgHAqbm2Q7Eb8nBRXoFethfvgyfOsTfdSfuPxz0OBaIr5Y
-	 mo03XYrn+KnmCpaSXORcY96D33qI5kJWd7zOfCrLtldrm0Ku/BliAph8hTpO84yjfX0pJ
-	 uDHoIwy2ypbYlcU9VKNk3wl8SqzernswgzN5YzUZgMJI6CmcGMWtOYUB77bf2JZqxR+Bf
-	 GX08fO8LeIWJxPMrriH76JZu/mwdprUDfEsBcd4cqAHe1BWYNE8gRzt4py9OJFaD61A==
+	t=1794243903;
+	b=moQ7qtrdy7Dbfy3IkI29OrV6XbYBN4mkXp6vQOKTS2cyxwDRUC2jCbkGy7OvhBlRabWr
+	 AkvpZy6AS97wPoVoT4GozUe1uxrfINNlbcS1bJ0egeZJdyk3dMOD6F9FHB6MAR0csisOK
+	 8W77eVa8NWpJGViQ+04RhJlCbjAkIUy2/xp16h3ohdSfUNUhoJZzOxNqOi5NXF3/XrhGn
+	 cHqdFTpzukZaih+Yh/BPduB8T3PuPt5Y+7V/zxBAz/B+BsLufm8gL6A59vDMvcqr1yiE/
+	 3KeMVmu2kfffLMg7PcF6WVPqAFM04wCDi2RKKTSvIQfEA3bYQ0N7EPA1lZCWrZJJJRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VmhgsZdfI41q6bSk6Ws0aoyQukpnInOpVRPvZF0DgoY=;
-	b=4fNd90DbDpqIavTINccEzWhhRYBeLRn5exRR7PeYybDFZWpWGP7Qi1425tlrUIdLxrLv
-	 7vWfaKOKVdDtQkuzMKOl1KdERWHyRjI0l18b1XbSlRGpRFM4DgEwaEaIqWis1iee1ze7j
-	 Wfpb83PhlRLmpESE2ZxTzqR73LeE1I4SED2D6SUgdQuFdrq9gwl2PVtVK0HZRHr4lxuET
-	 /vVlMYcbWVFu7GHM9ziH3LCgu4IzwEiVnEwOEXsNa35BlfudVv62+TG7NugarEw4ivT6/
-	 FMpj4DPCHhXT+njMywcCXZ3wZ6rjKImHR7aKvb1LhOi0j94mfsHlyyuswB+7me0UaKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243903;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=FyuaGXAAU/xaY+Az36aBHl3tKemlUj6VHeWOnpQAG98=;
+	b=oTrmLTSXE/qquJqzwN3MLO2FMfe/7fT9GtEKtlmqlKAb7KjtyCOOsCchrGzMRpllOwHf
+	 +JSYHqV/u8w8GmCJDZ0gkKY31rXZGUQ9aqA472HGvbqmWuIrfpYmS7JWzYkimPpMGa0E5
+	 l1VvPG12z2PNg1GTzHQ3QdZCdHoEMP8x1hJ1wx9x3psunj9o3+ITQ4gdq4nyI1AFPgQv4
+	 xKtntdu3ZmFd2IY2hed9CbxaNDEaf4bjTmSxdyS2Yw3fUzvG2Vcop0NXrPpCB5Qg2EvI7
+	 p+/1+/XDC5rkVighnj7+qs345ylIFDjC5+O8mmTovyD+4aY1aud8ziV6Gi3guxb2swg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=INMhwymN;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NxRdpyVs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A02606A32A
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:04:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A02606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA50606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=INMhwymN
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b5669a5100so1497975a12.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:04:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794243863; x=1794848663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VmhgsZdfI41q6bSk6Ws0aoyQukpnInOpVRPvZF0DgoY=;
-        b=INMhwymNUoXRa1HYjajYs2VDNOXoDzVIp/an3nVGMwTgqTKKIXcrYlToz3KguYeb2w
-         0JSHPrAS4tp1u64diFxx98ot8r0Zd994Q5w09w9Wo7hRC/DtQLXBMMh5MnMbGm5sg/9+
-         bfSbd1NNz976A12xlmIC5rBcyt2zgrNxYngASmeZZcCyhLh9b9uOIuPyOYnguxqTaeNR
-         9hUslwRJlODcmrjO84K/MqZr6AW6G7obz3aQhSgpfQbvfDlBiGQqmaSqVNfiSLuoobIb
-         SEhjw+R7G4bUMif5HGg+3AGlsX3R7zQQDPntqdP45khUAZLh8+Utt3l4+Gfo8W0GMqsn
-         XheA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794243863; x=1794848663;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VmhgsZdfI41q6bSk6Ws0aoyQukpnInOpVRPvZF0DgoY=;
-        b=dKvTyKKvJOdf8DTPWtwHdxS7CbmJ7YYaftOQ0L5FSs7/AAz8DQ8V7fX06oWMoqbejB
-         HFsqg9LkPD3JKRaJhCKCIwtJoWT/wChqx3N2aWOi7Lc2qZQT9XBkXsSxnuFRpklehSxF
-         y56SmymGICcHRMCqAYqbLvQPolBfJwhQp+X1tJKPkcHdtFvpyyaPW/ksVmcptkYCCQ9a
-         DL0UForveVCA/6C3o0l/dWj5a6b0b8tIz/VJK4WZ/HcCyi1xD5Auid3V45QzdUKz+hk7
-         P5jIN1aY9bk8lmxSFFqrvu4RnyAAo/bkMJodHGceSXRS37bvkl19TkROnsCzsr18LufJ
-         Cp0g==
-X-Forwarded-Encrypted: i=1; AL+hErGVVHrB6L75ltMMrCAERvPYF9GLMg8Gljtj5j8pWS8tsEvR0AdG6DtsFf+1VllOsz4o+etHELl+mZPe@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Ck22/ExFsz+2NYQezbf1hjTICuzD9gQ7p3rPFi4jS7vOUK4uR
-	dXp6PStfx8PFL/cbfx6orAQCaw+Xeo54huOEToQTAiQgvJhuYij7/C9d
-X-Gm-Gg: AYBFou0RlSqiBr7brWj1WJxz4w7IywHC71Lk57+C+mwtp0qVW9I+AvWGp/vUoYpVqeZ
-	5khW6JoK3jTRmKxkuzTg6x6tHRVOiLiceesE9jY1GaE61eTSe9xVnLzV+nQfaSnDZ4hG7dZ5kDr
-	0aBREEvDC8P8XTM+6TNu2rCp3eQ4UYmEUtQ7m1h8SiNCJ0md/oCV4dcYoDVSWek2yhCOWP4lMXs
-	gXl3GmjR15PQFGXvrlJX8W1kzMYCmvDR1ZyDn2KbwfsKpNu8TyOYsH+LoSZ4igrojx3Ealnr50o
-	8Za4XNaB4KHeEUMMAA8UvKeChK90uCW1uQH6eqqmJluB0ps6IU0cU6cW/ta8eOh1+XeZhmzTCMj
-	WelsUFZ8y0vwGsLVCBBIZutl/bD80qwFCb0wNVIKTIk0tS1yBz2ocC+1giAIyF1t7vaciuc+t1R
-	dRQYrKU2N8WU7Pn6fifVrAxVl81AbfevYv8Uh0elxVBzeHQhaO63W4qXy4JfOlyYd/WWGlsTbmJ
-	VojpfjJ16knMWeH55KijuxpCO7P5Tpzr2rKyqx4+bBKADQx5COFlsNIh9ZyeT+/axg09ZyNu1RW
-	anKn1T+9ilwngNecadc5JOF9rLc=
-X-Received: by 2002:a05:6402:2356:b0:6b5:7792:d82c with SMTP id 4fb4d7f45d1cf-6b756ad7482mr185305a12.16.1794243862514;
-        Mon, 09 Nov 2026 09:04:22 -0800 (PST)
-Received: from flare5 ([212.58.121.92])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebe31csm1878937a12.16.2026.11.09.09.04.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:04:21 -0800 (PST)
-From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Robert Marko <robimarko@gmail.com>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Lee Jones <lee@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Stanley Jhu <stanleyjhu@google.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Amit Kucheria <amitk@kernel.org>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Georgi Djakov <djakov@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 17/17] arm64: dts: qcom: Add Samsung Galaxy XR
-Date: Mon,  9 Nov 2026 17:04:07 +0000
-Message-ID: <20261109170407.2073295-1-lightofmysoul@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <3ddaacfd-59c0-4d87-9b8c-2caa85143393@oss.qualcomm.com>
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com> <20261109-halliday-dts-v1-17-289114ab8197@gmail.com> <3ddaacfd-59c0-4d87-9b8c-2caa85143393@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NxRdpyVs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC261F008A2;
+	Mon,  9 Nov 2026 17:05:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794243903;
+	bh=FyuaGXAAU/xaY+Az36aBHl3tKemlUj6VHeWOnpQAG98=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NxRdpyVsCHb8lCbQS59WALcDu9X3MYYAStJ99a9+I+czBYLxVUqls7xHHxMVaaeva
+	 vU2Bofs16d0DJ9bUmn9cOBusuNtvn4aXlMPifQip8EVQgoAj2VS5emfCn3cGYQfTKn
+	 n1R3CvGBT/tXcjY/1xdG7KP0ZHChtgcYBDMT1tZSBFaH9MbJyqBzfwT2ivTqrJR5HN
+	 eV9b8Q2S8qglFF9+SBAzkZi0bXKtiDU7WmAC+VRx0RNR1cgCGtWuG7Zuk2wP5TnEiv
+	 Rb+x85cSItI/kkc8preVlhoxxSYAXj1YE4ydux1FBQMK31sZyU6njc1oUu11TgEh//
+	 so7e/k4GGtrNg==
+Message-ID: <sashiko-outbox-205268@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dawid Glazik" <dawid.glazik@linux.intel.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
+References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
+ <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 17:05:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -139,20 +59,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On 09/11/2026 16:12, Konrad Dybcio wrote:
-> On 11/9/26 1:33 AM, Stanislav Aleksandrov wrote:
->> +&usb_1 {
->> +	dr_mode = "peripheral";
->> +	maximum-speed = "high-speed";
->> +	qcom,select-utmi-as-pipe-clk;
->
-> Is there no superspeed / dp altmode in hardware?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] ARM: dts: aspeed: avcrp: uart3/4 pinmux conflicts and pinctrl
+  GPIO names
+- [Low] ARM: dts: aspeed: avcrp: unnecessary RMII RCLK clock specified
+  on RGMII mac1
+--
 
-The headset supports USB SuperSpeed and DisplayPort via its USB Type-C
-port, I just haven't brought them up yet. It seems we need a new driver
-for the Type-C controller.
+commit 60b4388d543f21749b3a54e80fb2aad89bf0d6d7
+Author: Dawid Glazik <dawid.glazik@linux.intel.com>
 
-Stanislav
+ARM: dts: aspeed: Add Intel AVCRP BMC
+
+This commit adds the device tree for the Intel AVCRP BMC platform based on
+the ASPEED AST2600 SoC.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/a=
+rm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+> new file mode 100644
+> index 0000000000000..eb73d64412228
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+[ ... ]
+> +&gpio0 {
+> +	gpio-line-names =3D
+> +		/*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", "SMB_CPU_PIROM_SDA",
+> +				"SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
+> +		/*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N", "", "",
+> +				"FM_BMC_BMCINIT_R", "FP_ID_LED_N",
+[ ... ]
+> +		/*L0-L7*/ "", "", "", "", "PREQ_N", "TCK_MUX_SEL", "", "",
+> +		/*M0-M7*/ "", "", "", "", "", "", "SPA_SOUT", "SPA_SIN",
+[ ... ]
+> +&mac1 {
+> +	clocks =3D <&syscon ASPEED_CLK_GATE_MAC2CLK>,
+> +		 <&syscon ASPEED_CLK_MAC2RCLK>;
+> +	clock-names =3D "MACCLK", "RCLK";
+> +	phy-handle =3D <&ethphy1>;
+> +	phy-mode =3D "rgmii-id";
+> +	pinctrl-0 =3D <&pinctrl_rgmii2_default>;
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Does &mac1 need the second clock entry here?  In aspeed-g6.dtsi, &mac1
+already sets clocks to ASPEED_CLK_GATE_MAC2CLK, and the optional second
+clock (ASPEED_CLK_MAC2RCLK) gates the 50MHz reference clock output for
+rmii mode, which is unused when phy-mode is "rgmii-id".
+
+[ ... ]
+
+> +&uart1 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart3 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart4 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart5 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart_routing {
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+Should &uart3 and &uart4 override pinctrl-0 =3D <>; when used with
+&uart_routing on this board?
+
+In aspeed-g6.dtsi, &uart3 defaults to pinctrl_txd3_default and
+pinctrl_rxd3_default (pins L4 and L5), and &uart4 defaults to
+pinctrl_txd4_default and pinctrl_rxd4_default (pins B6 and B7).  Without
+clearing pinctrl-0, probing &uart3 and &uart4 muxes those balls away from
+&gpio0, driving serial tx onto the board lines named in gpio-line-names on
+B6 and L4 and causing gpio requests on B6, B7, L4 and L5 to fail with
+-EINVAL under strict pinmux.
+
+In addition, &gpio0 still sets gpio-line-names on pins A4-A7 and M6-M7,
+which are claimed by the default pinctrl of &i2c12, &i2c13 and &uart1.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794242015.gi=
+t.dawid.glazik@linux.intel.com?part=3D2
