@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255497;
-	b=E1OmtoZW8/XD+REDRlmPu5ekPRjT18QHZugRqvkgN7gxQ3vZKnG8HYfm+kPWSVjcKwu+
-	 IyPZ+hmCHknRYMj2E8LYz4sUkvxyNczS8gLeYdAhag+bU/OlChFVa7HcmG0UJ7+7uKdZe
-	 dYV+yTjXtqCzjFZHMX2cU3iWQfBhdepR+8p1QTeviRUnUV5U0SP2OMih3sdQE3l7NivGZ
-	 X01O1hbLZ2Ct1ravDngywZvJVPAyXSTfXKbBY0jS+b0OOohLJInU1+GT9++TYhdGohowQ
-	 ysYVut+hJWbaGwwBnxuaI1OTrZscCi4aj+8/SN0l39W6bQRdErUylHCgGDcblZWVFpw==
+	t=1794255631;
+	b=4rGdz04Hzpg6bwfMa5ZMVS5njMe4smmu5GZ3MV6E+oZ8+A1Z+pIyaMNRgLa6pw5Zeetg
+	 ycNGCF8bwM5/f+Dn4yEpl2Rmac9FwVyr6IfL5z66AOg36WpNz3hkp0jf3SYMz9+scFAD7
+	 1YIj2Bqh8i8M05A2Uyx8+7iD8OH1Eui0ukvdLH7yguleLf4lPHeqFLAzdfstddup3lTs/
+	 cbKDZ6+bOqtljoGYll+jyN+oVXLMLlTwnCkFZ8KtOtfA2rVAX3LUn3OtLpsqSo9GJJAsm
+	 +JUzoVCuUt2lDV9lJmU3ueqm38kZQ47+YueX1m4lbbdwgHl0KV5pJS2BQMOYwy2Cp4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255631;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GXwPbXbh+Z+F5oVduadipq3ln8+a5XhFIMq1bORoax4=;
-	b=JmHVs0gc/vOazj7Vp8d6jeL7fyW7+QbWClGpGxRydbhw6Q03CozJn6nBlIV/XzfzU370
-	 P84urFOBrWdLREQTTH+DBG5GBccSPU2MJTN2g3wnM2usfM1QH2Qho4Y/vAK+mhhlXhJql
-	 W8xoN0a7CzyB8fPpmbl69p3PrKVVQTdX7GChCl4p5kEGMPkLsR/sQ+P+PUWQurwjcY6qd
-	 khkYGySR2v6ppUKsPDzizFLEG2BvZ1lyIk+jN9bVtnYlQc3Uve4dgwB6mYl3sNVsxXE87
-	 SzcLpX0yBIt7ry70I4GeL0h9UBqteXhjcOzR8J/w1R34bKbgSQ2fgvfvmKo90cNYiZQ==
+	bh=FAiNAUy6lGZ1UiTjy77G6Yso/QTFRvI5QQmO7y+TLJ8=;
+	b=WVr/tr9sclf82/dOqJ+0QgKXRep2YOqsT/XlK3C6bmPE4A2UTbl6YdLIteyBsL+cB22N
+	 w8LL4N5wK3ATrqz1fazNAM8wil8hfkLVEuK/3rv6Y04Yy6ikXL8SXXwwVnIVm50w34Zm/
+	 BYuYqDKHJ9x+pp/lDaC/mXJs95YR5AGapMjBXnRg+5eKh5ftY9uMyq51hSi2bl3UJBKQ9
+	 e0LWJ3jKWqEW/YkjgAwCGRrl0dJuoL1/gHX8MaDcZHe6KvRpK+COAdR3dO70GhWEbpjdx
+	 D58rInAQma8CubICPSzcvsJwkWG+k3/kzIOguauAg3rqdDEXdrQfjuLop9YUP/u4NuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X1ZTL/OR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H4kIM6xI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0818C606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 20:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19127606A321;
+	Mon,  9 Nov 2026 20:20:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1ZTL/OR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412461F0089F;
-	Mon,  9 Nov 2026 20:18:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H4kIM6xI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C351F0089F;
+	Mon,  9 Nov 2026 20:20:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794255496;
-	bh=GXwPbXbh+Z+F5oVduadipq3ln8+a5XhFIMq1bORoax4=;
+	s=k20260515; t=1794255630;
+	bh=FAiNAUy6lGZ1UiTjy77G6Yso/QTFRvI5QQmO7y+TLJ8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X1ZTL/ORXbC55TrDhUTzdLVFl9ie1IN8ZBcNavkkJ32tpHSloh442nLztZvdJpYx9
-	 r2yXk3KZvy+/JTNeEOZ2R2sc9Bbo3/mDTc9NwiL2qnMfnrF/D2Xx2q9mGmGNiXbzZR
-	 kqtOlOICPTA6LGf4aI41lpGjezssgMItGZnOby9vFF06lzuVA6jEVROUqOvdf2UuLA
-	 uA1IjwgUi2a2Eu+67tYPFRKhi9g41xSoXZKMuhv1Ju7GCu3yYMHkUnREJCCV5GDZ5L
-	 oeJZSXLoH0sf1ZcVSdAjoIxlxtG9DfiXL4jRl7sgZ+JjmWiqOrzisJWQz2XHtRzKIb
-	 YwL0ZcdfMyCCw==
-Message-ID: <sashiko-outbox-205565@kernel.org>
+	b=H4kIM6xInwlHLiovnSJ09riixJ0JXuu4duduvyWIr3yXIryCxMapKA08Qgep6X9JV
+	 m1PnD+mQ5wjFCqx8cI7BAyweY7a5DlkApxngXBMPhQTiWnx8D2XJEqx38MlF67QiJ3
+	 iE53l6GkgSfB5Ab0mmX1+83OwB9gXxxIAH1MbknPMO8Ca4Y2KfGi5aeDz+/5H6na6r
+	 /jWIAGaTEjdMJwKwyyU991xboFJ5y7ktiWM4TW0bfSJ8oQ71UbHgxu3cEWHhlqv3Cl
+	 MSOZyYNVQgX3TwH+JRZfJ3u31FDknRRp+DHrIBxBw6nIum8RZ9maRYoqFeL2Zjwf2I
+	 PhgWXX7x3Gh9Q==
+Message-ID: <sashiko-outbox-205571@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: exynos: Add initial support for Samsung
- Galaxy Tab A 10.1 (2019, 4G)
+Subject: Re: [PATCH v2 2/2] usb: typec: add CIX Type-C PD controller driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Umer Uddin" <umer.uddin@mentallysanemainliners.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109-gta3xllte-support-v1-2-dc0c4bfa8b44@mentallysanemainliners.org>
-References: <20261109-gta3xllte-support-v1-0-dc0c4bfa8b44@mentallysanemainliners.org>
- <20261109-gta3xllte-support-v1-2-dc0c4bfa8b44@mentallysanemainliners.org>
+To: "Gary Yang" <gary.yang@cixtech.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109092400.202219-3-gary.yang@cixtech.com>
+References: <20261109092400.202219-1-gary.yang@cixtech.com>
+ <20261109092400.202219-3-gary.yang@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 20:18:15 +0000
+Date: Mon, 09 Nov 2026 20:20:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,158 +60,289 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [Low] arm64: dts: exynos: chassis-type set to handset instead of
-  tablet on gta3xllte
-- [Low] arm64: dts: exynos: unused irq.h include and DTS coding style
-  ordering
+- [Medium] usb: typec: cix_pd: double fwnode put in cix_pd_init_ports()
+  on parse error
+- [Medium] usb: typec: cix_pd: broken role reset and race in
+  cix_pd_resume()
+- [Medium] usb: typec: cix_pd: missing data role update on DP-only
+  connections
+- [Medium] usb: typec: cix_pd: check enable_irq_wake() return in
+  cix_pd_suspend()
+- [Medium] usb: typec: cix_pd: unconditional IRQ_HANDLED in
+  cix_pd_irq_handle()
 --
 
-commit f760d421e0674fc017d8f648d9b5b6eeebf73f43
-Author: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+commit 03dd05a69907e7c85cf26147fe9e902253dd9e55
+Author: Gary Yang <gary.yang@cixtech.com>
 
-arm64: exynos: Add initial support for Samsung Galaxy Tab A 10.1 (2019, 4G)
+usb: typec: add CIX Type-C PD controller driver
 
-This commit adds initial device tree support for the LTE variant of the
-Exynos7885-based Samsung Galaxy Tab A 10.1 (2019) tablet.
+This commit adds an I2C driver for the CIX Type-C PD controller (Realtek
+RTS5453H), reporting port status, DisplayPort alternate mode, orientation,
+and USB role changes to the Type-C framework.
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts b/arch/a=
-rm64/boot/dts/exynos/exynos7885-gta3xllte.dts
+> diff --git a/drivers/usb/typec/cix_pd.c b/drivers/usb/typec/cix_pd.c
 > new file mode 100644
-> index 0000000000000..0e4e6c0b20e15
+> index 0000000000000..30c879f976c25
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Samsung Galaxy Tab A 10.1 (2019, 4G) (gta3xllte/SM-T515) device tree =
-source
-> + *
-> + * Copyright (c) 2026, Umer Uddin <umer.uddin@mentallysanemainliners.org>
-> + */
-> +
-> +/dts-v1/;
-> +#include "exynos7885.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +/ {
-> +	model =3D "Samsung Galaxy Tab A 10.1 (2019, 4G)";
-> +	compatible =3D "samsung,gta3xllte", "samsung,exynos7885";
-> +	chassis-type =3D "handset";
+> +++ b/drivers/usb/typec/cix_pd.c
+> @@ -0,0 +1,687 @@
 
-[Severity: Low]
-Should chassis-type be "tablet" instead of "handset"?  The kernel exposes
-this property at /sys/firmware/devicetree/base/chassis-type, so "handset"
-causes userspace services such as systemd-hostnamed to misidentify this
-tablet as a phone.
+[ ... ]
+
+> +static int cix_pd_typec_port_update(struct cix_pd *typec)
+> +{
+> +	struct typec_displayport_data *dp_data =3D &typec->dp_data;
+> +	enum typec_orientation orientation;
+> +	enum usb_role role;
+> +	bool usb2, usb3, dp, connected;
+> +	int ret, err;
+> +
+> +	usb2 =3D typec->data_status[1] & USB2_CONNECTION;
+> +	usb3 =3D typec->data_status[1] & USB3_2_CONNECTION;
+> +	dp =3D typec->data_status[1] & DP_CONNECTION;
+
+[ ... ]
+
+> +	if (!connected || !(usb2 || usb3))
+> +		role =3D USB_ROLE_NONE;
+> +	else if (typec->data_status[1] & USB_DATA_ROLE)
+> +		role =3D USB_ROLE_DEVICE;
+> +	else
+> +		role =3D USB_ROLE_HOST;
+> +
+> +	if (typec->role !=3D role) {
+> +		err =3D 0;
+> +		if (typec->role_sw) {
+> +			err =3D usb_role_switch_set_role(typec->role_sw, role);
+> +			if (err)
+> +				dev_err(typec->dev,
+> +					"typec port(%d): failed to set USB role: %d\n",
+> +					typec->id, err);
+> +		}
+> +
+> +		/* Only cache the role once the switch accepted it. */
+> +		if (!err) {
+> +			typec->role =3D role;
+> +			if (role =3D=3D USB_ROLE_DEVICE)
+> +				typec_set_data_role(typec->port, TYPEC_DEVICE);
+> +			else if (role =3D=3D USB_ROLE_HOST)
+> +				typec_set_data_role(typec->port, TYPEC_HOST);
+> +		}
+> +	}
+
+[Severity: Medium]
+Does skipping typec_set_data_role() when role is USB_ROLE_NONE leave
+typec->port in TYPEC_DEVICE on 4-lane DisplayPort-only connections?
+
+When a 4-lane DisplayPort partner connects (dp is true while usb2 and usb3
+are false), role is set to USB_ROLE_NONE and typec_set_data_role() is not
+called.  If the port was initialized to TYPEC_DEVICE (such as a dual-role
+port without try-power-role set to source) or was previously in device
+mode, registering cix_pd_dp_partner_altmode below fails in
+dp_altmode_probe() with -EPROTO because it requires the port data role to
+be TYPEC_HOST:
+
+drivers/usb/typec/altmodes/displayport.c:dp_altmode_probe() {
+	...
+	/* Port can only be DFP_U. */
+	if (typec_altmode_get_data_role(alt) !=3D TYPEC_HOST)
+		return -EPROTO;
+	...
+}
+
+Updating typec->port's data role from USB_DATA_ROLE whenever connected is
+true, independently of the USB controller's role switch state, would avoid
+this.
+
+[ ... ]
+
+> +static int cix_pd_typec_parse_port_props(struct typec_capability *cap,
+> +					 struct fwnode_handle *fwnode,
+> +					 struct device *dev)
+> +{
+> +	int ret;
+> +
+> +	memset(cap, 0, sizeof(*cap));
+> +	ret =3D typec_get_fw_cap(cap, fwnode);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to parse connector properties\n");
+> +
+> +	cap->fwnode =3D fwnode_handle_get(fwnode);
+> +	cap->orientation_aware =3D true;
+> +	/* Alternate modes are entered and exited by the controller firmware. */
+> +	cap->no_mode_control =3D true;
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static void cix_pd_unregister_ports(struct cix_pd *typec)
+> +{
+
+[ ... ]
+
+> +	usb_role_switch_put(typec->role_sw);
+> +	typec->role_sw =3D NULL;
+> +	typec_mux_put(typec->mux);
+> +	typec->mux =3D NULL;
+> +	fwnode_handle_put(typec->caps.fwnode);
+> +	typec->caps.fwnode =3D NULL;
+> +}
+> +
+> +static irqreturn_t cix_pd_irq_handle(int irq, void *data)
+> +{
+> +	struct cix_pd *rts =3D data;
+> +
+> +	if (cix_pd_event_handler(rts, 1) =3D=3D -ESHUTDOWN)
+> +		return IRQ_NONE;
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: Medium]
+Can returning IRQ_HANDLED unconditionally on a shared level-triggered
+interrupt line cause an unthrottled interrupt storm?
+
+cix_pd_event_handler() returns 0 whenever I2C transfers to this controller
+succeed, even if this instance did not assert the interrupt.  If another
+controller sharing the IRQ line holds it active while not yet probed,
+probe-deferred, unbound, or unresponsive over I2C, this handler still
+returns IRQ_HANDLED on every pass, preventing the IRQ core from detecting
+and disabling the stuck interrupt line.  Additionally, cix_pd_probe() calls
+cix_pd_event_handler(rts, 0) without acknowledging a pending interrupt
+before requesting the IRQ.
 
 > +
-> +	aliases {
-> +		mmc0 =3D &mmc_0;
-> +		serial0 =3D &serial_0;
-> +		serial1 =3D &serial_1;
-> +		serial2 =3D &serial_2;
-> +	};
+> +static int cix_pd_init_ports(struct cix_pd *typec)
+> +{
+> +	struct device *dev =3D typec->dev;
+> +	struct typec_altmode_desc desc =3D cix_pd_dp_port_altmode;
+> +	struct fwnode_handle *fwnode;
+> +	int ret;
 > +
-> +	chosen {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <1>;
-> +		ranges;
+> +	fwnode =3D device_get_named_child_node(dev, "connector");
+> +	if (!fwnode)
+> +		return dev_err_probe(dev, -ENODEV, "no connector node found\n");
 > +
-> +		framebuffer0: framebuffer@ec000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			reg =3D <0 0xec000000 0x01400000>;
-> +			width =3D <1200>;
-> +			height =3D <1920>;
-> +			stride =3D <(1200 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +		};
-> +	};
+> +	ret =3D cix_pd_typec_get_handles(typec, fwnode, dev);
+> +	if (ret)
+> +		goto out_put_fwnode;
 > +
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <1>;
-> +		ranges;
-> +
-> +		cont_splash_mem: framebuffer@ec000000 {
-> +			reg =3D <0 0xec000000 0x01400000>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x80000000 0x3dd00000>,
-> +		      <0x0 0xc0000000 0x40000000>;
-> +	};
-> +
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&key_volup &key_voldown &key_power>;
-> +
-> +		volup-key {
-> +			label =3D "Volume Up";
-> +			linux,code =3D <KEY_VOLUMEUP>;
-> +			gpios =3D <&gpa1 5 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		voldown-key {
-> +			label =3D "Volume Down";
-> +			linux,code =3D <KEY_VOLUMEDOWN>;
-> +			gpios =3D <&gpa1 6 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		power-key {
-> +			label =3D "Power";
-> +			linux,code =3D <KEY_POWER>;
-> +			gpios =3D <&gpa1 7 GPIO_ACTIVE_LOW>;
-> +			wakeup-source;
-> +		};
-> +	};
-> +};
-> +
-> +&mmc_0 {
-> +	mmc-hs200-1_8v;
-> +	mmc-hs400-1_8v;
-> +	cap-mmc-highspeed;
-> +	non-removable;
-> +	mmc-hs400-enhanced-strobe;
-> +	card-detect-delay =3D <200>;
-> +	clock-frequency =3D <800000000>;
-> +	bus-width =3D <8>;
-> +	samsung,dw-mshc-ciu-div =3D <3>;
-> +	samsung,dw-mshc-sdr-timing =3D <0 4>;
-> +	samsung,dw-mshc-ddr-timing =3D <2 4>;
-> +	samsung,dw-mshc-hs400-timing =3D <0 2>;
-> +
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&sd0_clk_fast_slew_rate_3x &sd0_cmd &sd0_rdqs
-> +		     &sd0_bus1 &sd0_bus4 &sd0_bus8>;
-> +
-> +	status =3D "okay";
-> +};
+> +	ret =3D cix_pd_typec_parse_port_props(&typec->caps, fwnode, dev);
+> +	if (ret)
+> +		goto out_unregister_ports;
 
-[Severity: Low]
-This isn't a bug, but a few places here deviate from the DTS coding style:
+[ ... ]
 
-dt-bindings/interrupt-controller/irq.h is included at the top of the file
-but never used.
+> +out_unregister_ports:
+> +	cix_pd_unregister_ports(typec);
+> +out_put_fwnode:
+> +	fwnode_handle_put(fwnode);
+> +	return ret;
+> +}
 
-Under the root node, gpio-keys is placed after reserved-memory and
-memory@80000000 instead of in alphabetical order, and its child nodes
-(volup-key, voldown-key, power-key) are not ordered alphabetically either.
+[Severity: Medium]
+Does cix_pd_init_ports() put fwnode twice when
+cix_pd_typec_parse_port_props() fails?
 
-In chosen and reserved-memory, ranges is placed after #address-cells and
-#size-cells rather than before standard properties.
+typec_get_fw_cap() assigns cap->fwnode =3D fwnode before validating the
+connector properties:
 
-In &mmc_0, the standard pinctrl-0 and pinctrl-names properties are placed
-after the vendor-specific samsung,dw-mshc-* properties, and pinctrl-names
-is placed before pinctrl-0 in both gpio-keys and &mmc_0.
+drivers/usb/typec/class.c:typec_get_fw_cap() {
+	cap->fwnode =3D fwnode;
+
+	ret =3D fwnode_property_read_string(fwnode, "power-role", &cap_str);
+	if (ret < 0)
+		return ret;
+	...
+}
+
+When typec_get_fw_cap() returns an error, cix_pd_typec_parse_port_props()
+returns before calling fwnode_handle_get(fwnode), leaving
+typec->caps.fwnode pointing to fwnode without an extra reference.  Jumping
+to out_unregister_ports then calls fwnode_handle_put(typec->caps.fwnode) in
+cix_pd_unregister_ports() and fwnode_handle_put(fwnode) at out_put_fwnode,
+underflowing the fwnode reference count.
+
+[ ... ]
+
+> +static int __maybe_unused cix_pd_suspend(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
+> +
+> +	if (client->irq > 0 && device_may_wakeup(dev)) {
+> +		mutex_lock(&rts->irq_lock);
+> +		if (!rts->wake_enabled) {
+> +			enable_irq_wake(client->irq);
+> +			rts->wake_enabled =3D true;
+> +		}
+> +		mutex_unlock(&rts->irq_lock);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+What happens if enable_irq_wake() fails in cix_pd_suspend()?
+
+cix_pd_probe() marks the device wakeup-capable unconditionally, so
+enable_irq_wake() can fail if the interrupt controller does not support
+wakeup.  Setting rts->wake_enabled =3D true without checking the return val=
+ue
+causes cix_pd_resume() or cix_pd_remove() to call disable_irq_wake(),
+triggering an "Unbalanced IRQ wake disable" warning in irq_set_irq_wake().
+
+> +
+> +static int __maybe_unused cix_pd_resume(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
+> +	int ret;
+> +
+> +	mutex_lock(&rts->irq_lock);
+> +	if (rts->wake_enabled) {
+> +		disable_irq_wake(client->irq);
+> +		rts->wake_enabled =3D false;
+> +	}
+> +	mutex_unlock(&rts->irq_lock);
+> +
+> +	/* Force the USB role to be reprogrammed after system resume. */
+> +	rts->role =3D USB_ROLE_NONE;
+> +
+> +	ret =3D cix_pd_event_handler(rts, 0);
+
+[Severity: Medium]
+Does setting rts->role =3D USB_ROLE_NONE before cix_pd_event_handler() prev=
+ent
+clearing the USB role when a partner was unplugged during suspend?
+
+If the port was in host or device mode before suspend and the cable was
+unplugged while suspended, cix_pd_typec_port_update() computes
+role =3D USB_ROLE_NONE, sees typec->role =3D=3D role, and skips
+usb_role_switch_set_role(typec->role_sw, USB_ROLE_NONE), leaving the USB
+controller stuck in its pre-suspend role.
+
+Also, device interrupts are re-enabled before cix_pd_resume() runs, so
+writing rts->role without holding rts->lock races with
+cix_pd_irq_handle() -> cix_pd_event_handler():
+
+CPU0                              CPU1
+cix_pd_irq_handle()
+  cix_pd_event_handler()
+    mutex_lock(&rts->lock)
+    cix_pd_typec_port_update()
+      rts->role =3D USB_ROLE_HOST;
+                                  cix_pd_resume()
+                                    rts->role =3D USB_ROLE_NONE;  <-- data =
+race
+    mutex_unlock(&rts->lock)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-gta3xllte-=
-support-v1-0-dc0c4bfa8b44@mentallysanemainliners.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109092400.2022=
+19-1-gary.yang@cixtech.com?part=3D2
