@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794246709;
-	b=OyNFcXYFfw0h7+H9C1aC+EImYkbdYItT8IJyJJeI0f9wkDb3Hc+CIxZADn1Uo7Ynz9mq
-	 v4qEwj6SCNiLukWcSEY42vvH2sltUXTYPjA9mQwHQVPwRRRPN/kDfjjIjTFbJR4I6s/iP
-	 qna1nu6oiiALei6A1C5X4uMjGfLmGyYp4LjAzbAGez856YZZlUgcH1ujBYLByUx4j/2y9
-	 a7e91ilgWJz03XcvlyM/pLTJclI1Ri/hFQU0UBAsVKHVWqQoQ9d+GwA5y4WR0GNgggBNz
-	 wtoNCwu6mvyIk5PPfqObvxixUSCUBGo03xQpdoWFK3fFLFs9Xyeg657jstT4BGpwdQQ==
+	t=1794247026;
+	b=GmlkmsM8Gu8Ipev1gyeRFrpry1/kuf+XwhBNzH6dr/id7QHaXzfaQpIBMVl9wxA6LSf3
+	 F/gJ300tfkNP8TnIotLXah6OSh0YZSkXmp0hTT5CY4eexEedvAbP7qOJHJ+glWy115VTU
+	 1e15gty1BH2JO0oCl1HKePg9pnj6LPrMUUmYV66JVTB2CvfacLZsfmhNVmB0CmoZq9n6O
+	 VanD0+q+dHuk1NesmAcW9s85VUdP9gnnd+FtWBI1p2nN+rnDeptPkt77NeatwtcFI+V8c
+	 DIZLXFesz+U/rEI1dF/Vj4Ttquyd2gJkv4KCqk19khsQHtfHqlQqVvIt3C39L/7Qz8w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246709;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=8wat53Psvud3JS3sFezrDUXTpsr4pX7AT/AN9ixBrd4=;
-	b=O7JQW3mHGT1B+MtOAiaLl8uZXtJD9GSFHYBUqm8OraEUE4gOjKLP6JLrhv4x0YiZrx6l
-	 +ENKvH7iDlhhaLhc4SiMkbqwaDjHMrsMhUPVgwJwzxORy8RhU/zPTm59i97CjKNR+Tlql
-	 gP/pQWvtX+0lHop7h06zRN42dFpj/43Z3pajzi5kBioz4YahVe3keGp795dlFulgvLsUk
-	 HPFoFbSVBzqnt+tt2Qsw+bl829Az+WKmMztB8Tf+LPbgc7ckAdrB4Lm6NMnT/D3mDOUnb
-	 D7xyE54hLNl9sq2eNvsUHqO5knr+2ztwpUWKCRWOBMHvuSc1glC1wVKsERyKGTGPerw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247026;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2JSos64t2y+8eVUperubHqwsQe5zAN1CYXXEcxe+JOw=;
+	b=sfaD2ci6sZdEW5xXnd/m0lVHt15z3ic4KTX0OGHoA6JEiruA7/kspiYpJHAQLcEdbYHu
+	 rDm+3FtwyO2uneNgAxoiADr/PAXhX4EODbwcX4TSTPLepAWAJrTK9KMDmobvWbdHvbwRr
+	 roA4Ta2Qr8leewWMhco1zmNvE7lhkvvP/XkVNkKgBxuX4R5BfF/401Bi6UqemSX2o83q2
+	 AxTc54PygGZrmLsDMUpCSAiTg5pLRRkC2ZS6pwRElVwkVkunlQdGMFj2E0ufP6hPa1osP
+	 W2/+cuYJKJCD1c5LGC7F/HCFMzEp++TO94ML6XWoV3PP7AxMP60ANp94Dn+/QtHlkEQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=D8F6Efrj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ALTDXv+/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8EC606A31C;
+	Mon,  9 Nov 2026 17:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALTDXv+/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794247025;
+	b=Yaee4j6FRCLxay/gct9ShWgj1uFGWptxgfeCuRfbsaTbZoIz6ejdC5USGZvM3eJ+f8rq
+	 U6JqB5feFpPwprHv7IbVb42c4EZ/JBrkycSNuV5ztv8jp9nuAvhBzG2lrHqFuwctwvtdC
+	 2BMkv3HvSEJMNwNeBngy6nhU2xWNm+3TCDakxbD102AVNPSLAApQYwGtx6KZbwrupjlQ+
+	 cFN2AZkqDa61gX+/ip8HPeZNO1kMR5wibKgbZkdnD5HOTtxbPOdTRGyZ36kdNARh6Qweg
+	 lSBp6cdn0Z5tMwAVaOEltsqXKq0lYLharU+nkA3eQBnOyT3v1P1GNNdrekcl4ycyA1A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794247025;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2JSos64t2y+8eVUperubHqwsQe5zAN1CYXXEcxe+JOw=;
+	b=mJtOnw7DKr/igdOXLqeawIbODtoevJI6TfUoqN4qtsiRcjbfJIcs99n3lzu9XYFMigDW
+	 ph+8hnVBTNtJh2ekmawJbF/0jenzN0MEsvcM0tvtIx79Dyi65Wx59ASwzzutv6qf6GYah
+	 DEd8MixveDGmIVdw6sAuuV81QcMyNDE8ctQEIukABtfhMdntnsIc/y7cdjklVlyn30pBN
+	 +ZM8msxt/vEA5Ox8xXy/5qRFrdd+WuQ0x2o+sHTNZJWhyXToM0vGqkK/8+OgSVROZxTko
+	 be5cWsp9Ni1hM5OSqLNCX4oLJG9LmcmaEGuw28ghq5AksqusOtjvlD1Kqhb4R08YyTg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA31606A325;
-	Mon,  9 Nov 2026 17:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBA31606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=D8F6Efrj
-ARC-Seal: i=1; a=rsa-sha256; t=1794246681; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h7kpuxT8pWirPQ54VgpQtE9xL1PwEjNh19a0fQgoOmrEw+y5epd2g0IqZLkAYS3imi+RdSNW3ShNJpQJVvqpnVT0demBs89VLn44yLXUYQiZcbsXwsDveyxuoQ1hEIaMqDhy3XL3wdMzDxE26/GMlLPHsDQpiOAB1ZKNUf+X2mA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794246681; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=8wat53Psvud3JS3sFezrDUXTpsr4pX7AT/AN9ixBrd4=; 
-	b=Caa/WXxF1mB84C+AdYTUbscN/OshEYs/cpfRgpaQsqszd27WN0eKrWx1AUj02Oq4njov9oCGy0WB8h+hZNUK7jp5QXwug326f6TFdup8UyPbhwuApNfNDkUYjSyUJX17E3YofTZlEpb6Y63paRYI56WPp/vq9F6t19Sk3TKGe88=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=D8F6EfrjZCeUbWQJ9nYIIWJD7EzO9OQvAvbISMLaODm5ONzFKux3VuB5vr6aPTuXjFpL7hqsjus7GWxIMxfpm+8IFQPsyKm3mLSRL/t16qfdki/31bVSBjXZ2Z7JHKi+zoaNQNtZaP/yVPK0dLMjGFRVca2e8APfmqk1Elhbtmw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=8wat53Psvud3JS3sFezrDUXTpsr4pX7AT/AN9ixBrd4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794246680680202.33766214015657;
-	Mon, 9 Nov 2026 09:51:20 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id EC6BC180317; Mon, 09 Nov 2026 18:51:15 +0100 (CET)
-Date: Mon, 9 Nov 2026 18:51:15 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>
-Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-Message-ID: <avIEPncVnojQBqpX@venus>
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
- <avDN3pPY5Qwt9B1p@venus>
- <b60b7079-b7b6-4d83-8167-2e4fc6021aae@rock-chips.com>
- <5573124.44csPzL39Z@diego>
+	by smtp.kernel.org (Postfix) with ESMTPS id 0BF461F008A1;
+	Mon,  9 Nov 2026 17:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794247025;
+	bh=2JSos64t2y+8eVUperubHqwsQe5zAN1CYXXEcxe+JOw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ALTDXv+/WGIDvpeglzx45zXB2dM8icnK/fuZMgYlos+Ab3Oka7k73aJUoRyGXLJP4
+	 5y+Uxp/2Mo0jd/biBVvntOBJk27p4W+YERBsTTwoocYKtTWn131qHU3e3p7DG+QXDe
+	 ACHPFbtrYR0rNsnWZ0TdzbHHKry+/VNJCMyTFQ/FymLMdyqBpF7jXEANY9zZx/q0wE
+	 N3FcZ0gVvrPkEUY6QVSFVa/eup7GJFOP14z4EuoUTGtVh6e3WvCtzmgGTppT+u68Q4
+	 l1QYpfIKmKFsNnR9Gss6v0JZZ41GZFqR5vvHvxiRNW3I7tJpbaaoMCTJwm8/rSl9Ze
+	 iGYvSRp83mo1A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5EB254859C;
+	Mon,  9 Nov 2026 17:57:04 +0000 (UTC)
+From: Ricardo Rivera-Matos via B4 Relay <devnull+rriveram.opensource.cirrus.com@kernel.org>
+Subject: [PATCH 0/4] ASoC: cs35l45: Adds support for brownout prevention
+ engines
+Date: Mon, 09 Nov 2026 11:57:02 -0600
+Message-Id: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,121 +84,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e6zrp2dlq4xzmy2v"
-Content-Disposition: inline
-In-Reply-To: <5573124.44csPzL39Z@diego>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.236.36
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG4J8moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3eRiY9McE1PdpIJUXWMTA3MLg1RLM7OUNCWgjoKi1LTMCrBp0bG
+ 1tQCfyX8bXQAAAA==
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794247023; l=2099;
+ i=rriveram@opensource.cirrus.com; s=20261106; h=from:subject:message-id;
+ bh=PtyzFMLYZ2W+DMpbpRtm8ckdAT7wzVIuyr4J6iCsXHc=;
+ b=JKz/iV5I1OQGOI3J+aP4R6qwPniwE64mXmsM4v8opWLqKNVyCJD8k1xxR+sNjKfbZZjhT4oSY
+ xkkuc2437obDbq+Zti+z3//bHQFryjkO7dLVHD0WEGykZY0LN6u7i6Y
+X-Developer-Key: i=rriveram@opensource.cirrus.com; a=ed25519;
+ pk=k/iAEAtSPXvaWRDFupudzm6His7B7iJP1uiZ578a7Y8=
+X-Endpoint-Received: by B4 Relay for
+ rriveram@opensource.cirrus.com/20261106 with auth_id=1437
+X-Original-From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Reply-To: rriveram@opensource.cirrus.com
+
+The CS35L45 amplifier has two independent brownout prevention engines
+used to prevent system brownout events induced by transient audio peaks.
+
+The amplifier brownount prevention engine (ABPE) monitors the battery
+voltage and applies attenuation to audio output in terms of either
+decibles, voltage, or wattage. The ABPE response is configured across
+four thresholds with four corresponding attenuation values. The attack,
+hold, and release parameters of the associated limiter are also
+configurable.
+
+The boost converter brownout prevention engine (BBPE) monitors the
+battery voltage and the current passing through the inductor in the
+boost converter circuit and applies current limit to the boost
+converter. The BBPE can be configured to monitor either both the battery
+voltage and inductor current or only the battery voltage. When operating
+in the combined response mode, the more conservative limitis applied.
+The thresholds for the voltage response are configurable across four
+levels and the thresholds for the inductor current response are
+configurable across three levels. The BBPE's attack, hold, and release
+parameters are configurable for both of the response limiters. 
+
+Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+---
+Ricardo Rivera-Matos (4):
+      ASoC: dt-bindings: cs35l45: Adds ABPE properties
+      ASoC: cs35l45: Adds support for ABPE feature
+      ASoC: dt-bindings: cs35l45: Adds Boost BPE properties
+      ASoC: cs35l45: Adds Boost BPE configuration
+
+ .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 415 ++++++++++++++
+ include/dt-bindings/sound/cs35l45.h                |  45 ++
+ sound/soc/codecs/cs35l45-tables.c                  |  95 ++++
+ sound/soc/codecs/cs35l45.c                         | 601 +++++++++++++++++++++
+ sound/soc/codecs/cs35l45.h                         | 193 +++++++
+ 5 files changed, 1349 insertions(+)
+---
+base-commit: cde5523c75f1320a55ac1d55a717ccbb566557f0
+change-id: 20261102-cs35l45-bpe-340780e966df
+
+Best regards,
+-- 
+Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
 
 
---e6zrp2dlq4xzmy2v
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-MIME-Version: 1.0
-
-Hi,
-
-On Mon, Nov 09, 2026 at 02:26:44PM +0100, Heiko St=FCbner wrote:
-> Am Montag, 9. November 2026, 02:31:35 Mitteleurop=E4ische Normalzeit schr=
-ieb Chaoyi Chen:
-> > Hi Sebastian,
-> > On 11/9/2026 3:42 AM, Sebastian Reichel wrote:
-> > > Hello Chaoyi,
-> > >=20
-> > > On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
-> > >> Hi Sebastian,
-> > >>
-> > >> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
-> > >>> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
-> > >>> combination. It contains a Wanchanglong W552793BAA panel and a
-> > >>> Goodix GT1158 touchscreen. This adds the DT description of it.
-> > >>> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > >>> ---
-> > >>>  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++=
-++++++++++++
-> > >>>  1 file changed, 90 insertions(+)
-> > >>>
-> > >>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arc=
-h/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > >>> index 6a95a8bb6fb8..327ca13b60f0 100644
-> > >>> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > >>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> > >>> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
-> > >>>  		regulator-max-microvolt =3D <12000000>;
-> > >>>  	};
-> > >>> =20
-> > >>
-> > >> I seem unable to apply the patch to the latest linux-next tree.
-> > >>
-> > >> So I tried to resolve the conflict manually, but the actual
-> > >> test screen did not display. I will look into this further.
-> > >=20
-> > > Strange. The base of this series was Heiko's for-next tree from
-> > > Friday. No RK3588 EVB1 patches landed since then:
-> > >=20
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.=
-git/commit/?h=3Dfor-next&id=3Dcabb6811c38a46337d5f4252b4dc390f9296856c
-> > >=20
-> > > If your board uses the original Rockchip bootloader, which shows a
-> > > Rockchip logo on the panel, you also need Cristian's latest YUV420
-> > > patches that reset VOP2 at probe time avoiding some issues with the
-> > > pre-initialized panel as a side effect. Those were recently applied
-> > > by Heiko to the DRM tree, so testing on linux-next is indeed
-> > > sensible.
-> > >=20
-> >=20
-> > Hmm, the newest linux-next tag which I used is next-20261105, and Heiko=
-'s=20
-> > tree last updated date is1106. I'll give it a try on Heiko's tree.
-> >=20
-> > And I'm using mainline U-Boot, which obtained from the latest nightly b=
-uild:
-> > https://gitlab.collabora.com/hardware-enablement/rockchip-3588/debian-i=
-mage-recipes.
-> >=20
-> > The backlight working correctly, and the DCS command has been sent, but=
- nothing display.
-> > Perhaps I should look elsewhere.
->=20
-> I would assume it could be the SPLL (again).
->=20
-> I.e. a recent u-boot change broke the SPL-based forced clock init and Jon=
-as
-> fixed that in [0]. Had the black display again recently too.
->=20
-> And it seems it hasn't been merged yet.
-
-Sounds reasonable. FWIW I only tested with the pre-flashed Rockchip
-U-Boot (as described above). I intentionally keep that on my RK3588
-EVB1, so that I can test RK3588 with vendor TF-A/U-Boot and upstream
-or downstream kernel. All my other boards run upstream TF-A/U-Boot.
-
-Greetings,
-
--- Sebastian
-
---e6zrp2dlq4xzmy2v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmryCAwACgkQ2O7X88g7
-+prfaRAAmlmXmWHu8bIULwz9sG0Yd8KbbbbewcRNaoeu3IOYhrlR5wn84GcoPcoO
-cpdl+tlqxaQi3DMZf78qbZd1pn5Wf3rht7HJN8X6cYn2W17MKiTA1NDKZTM7Y10H
-88ArpSU4xEFeXFKNabi8S6KQoatb1W3oPvswck4M6sIkq9JyR3bUXmwuf+9gOguA
-pRQrsosvpKorzFJoxNiSvesfG27I3HlexIB532Xh8Rau1LZbor1d0qhBqbkLh7EJ
-ivYC74fvrEtSXB3LX6ngAoWvaH4wvf2Ety9iJR2zZntB//NfpHNQR5E5ZWsD9Isf
-pkmcSKFQwH8jPxZ0iECGdt2/HzccTz9/gCqGjxoxxMTqEqzZ667rlP6Du0yCJvjN
-36UGVlxF36N017d/PZYhEqw1MivtkNZtCK3WrOibY8rQs8x7ddHkPq6H5lhcTHci
-8jjlrKodpza3OjIXbiQmAhepZK4PMz5wX+bxpi9NUFvMgFo64zyGGr7cBUgtss9i
-DPEt76MM4zOcwzjIMBA6Zl1lltrxpclppy6nD5v3FbKnfFUBlMUlT9jqz88By/al
-NQJxK0RB2mCwyMUsZraj0sK1x/qaf1aHBuUtobIG0wwxIQp3Yx7M9jsiOjMt+QUZ
-US31lSvdzuTP6GX3euj7gMUNihfoUt/P9H0+z9hkCNJS2ubvRoQ=
-=gnl0
------END PGP SIGNATURE-----
-
---e6zrp2dlq4xzmy2v--
