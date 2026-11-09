@@ -1,48 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253714;
-	b=KAfC7dkD3mp3zLHsOkUti5yfSusPPA+P2cnGPCgnO6+cq3uppHNHdobucWF6l7BTXiyM
-	 oLj1ZwQt3RBcVrh01RYGQiaFRfYU5mBVSmIyW1FS/zoPHhExxua3Na217ohvi8/lScGpp
-	 aWmZ+a5u9aXRHty0vBVdqVdj7wkJfvvoeOF3QMVVp9AjXvOicJSVXEFYfEpEhFg8wHEK8
-	 fE//X/iTd6H+3Jazv0HGFl007ixK5tEJZI1r+Julzk5hKVppXUIRnqUyO9waWLJG45Stt
-	 z1WvUZS+obaSnH86uaAmpnaXf2Cc8X8P+VCW2jRTaMh9P03qwHt4quO1IxoQrvP42xA==
+	t=1794253945;
+	b=IlwEuhxUJ7D1HTluVw79A/tC3gLDXTRq91RESpkhbLxDykvVhX4Bg9u8wX4udf0vzmnc
+	 HLN11nLnHis0KJjNFxLGqIvExgxWr0EyeM3E27UIEJsmZ4JR05BfxQXKD+C6y8Kl6XU5o
+	 kv5qDDpxF9OaRe8C0sZ8aU6NqL6ymtE8ZIVPU8HEb+iGQz6CCcTP60WGCS2+GHHHoKAFa
+	 BcfaLHAXf6ITXEf7J+PcEJ2TtifS4VIaUFl65ucwECwAaZm21G6chPn/kanji5qY+776t
+	 7DvUpKycW02TW1Zru//B6YXX8+bUQ8VEZ4pi/jmfUMAXNun2ZY83piNubYDTGCoYPAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253714;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=A8LWwHch8iz5/b23akV80ol5/MMcIgwIVUMrnGv0GxY=;
-	b=zdK4mUhmD7SkWl95WEWRM0umAuOd2pf2BeHzUusKLwbL+4T4+vr+NDOY++/LfEQUnBkI
-	 +bJjOZ49dVratAWwmi9Mo/4f628N4EO923CZA3hnisTMcYLr/InopB7FxA19Tb5dm371q
-	 IlCFKblLNYB1VDU4DlLtJVOpeTuRVFOb9CzrMXKZprINBQv40abBzuRPVotN6qGcmHp06
-	 0M28NhdAsEqhVc31nUknf48YxIWrRDD4q0mLjmRhUGp82hHhm6IH4dkFQKYU1T1EH8uw5
-	 0CBbYxFepqiFPJyNGzFv0nV4dzmz9JPXYWqJAHDSfpb9EdZVfGNW9Ae7XHjo+Od8+DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253945;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xAR4bJbPFAL33PdnxCfNAyOGKD/5t7vvaBd2IGsyPOM=;
+	b=y4MFA01YydVKqF80VA8iXuz+9jnO0LlLQqq1yGwueMDcvlOKztZrzgQyHEYj3GbSnba3
+	 DMH0v2A1HTsdsZq4XqiqAinYaxeUIdH4N0sVPtYQw6f+qPa23/QfDH5+UUC1cE9BWg8Hr
+	 ZxQlt5p2/P9lgeoFOpSY6P/5BJav1FqRBjAkGtrMrbikFG7bS+UXs4+dANIWBWtJoJ2t5
+	 sAlTzrdxys0NHMiJ03Rsbb9qC51pqarvahdDCe+TT4RImEWXXI5JJVGaDwgrdsJ4ZNgNT
+	 rB9l6i+W7808WTzSQVmzcIIunZ7EToy42DbYtdsQL33W/qWeaamX+Woggwq2Doqzxag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fR1wh0z6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJvcvfKu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14264606A321;
-	Mon,  9 Nov 2026 19:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D7E606A332;
+	Mon,  9 Nov 2026 19:52:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fR1wh0z6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D91B1F008A1;
-	Mon,  9 Nov 2026 19:48:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJvcvfKu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD6A1F0089F;
+	Mon,  9 Nov 2026 19:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794253713;
-	bh=A8LWwHch8iz5/b23akV80ol5/MMcIgwIVUMrnGv0GxY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=fR1wh0z6oiy/Ntnm9M7hG50ecB143XgeGf/Na/f8N0PyYpFB0al9UwvfSezSP2TEk
-	 KPE9fmMvumfvBTdjDsAkLpH6EbYJXFDg8pcbBNEPyITno6RN2YRLxgSu74ZqZpw+7u
-	 GNRooOuWuZggkLDubkwXOldRt4kWJrxD4aDhMCYwDkzZkzNrPRLqKIeKe/G6k+ygnG
-	 DqMs5DkJQ13wnqLPhOCmk/mRxSkIwQxH/priITQRL1dSAvZXz9GHe23bAyh5gf5Eun
-	 yvhe81A4XQjbYismOTwKaR38kiiZAUi1KiknkdTrrChDwRfG7aqs4hWM+udD5A0CCz
-	 5gcbjoxKXIhsA==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 626432FC6C89;
-	Mon, 09 Nov 2026 19:48:20 +0000 (GMT)
+	s=k20260515; t=1794253945;
+	bh=xAR4bJbPFAL33PdnxCfNAyOGKD/5t7vvaBd2IGsyPOM=;
+	h=From:To:Cc:Subject:Date;
+	b=VJvcvfKugP15lszCOdqoQ16lCfq5cRHbzWz7HM21AgbCJ7qb7nog76sJZWnbyGdul
+	 URe5Wp1XHMan0HzbiCeYEXqcllm+eKjJorLzSE/hrWM6RLtsz6yTfmjBC8Mkf6Ylyz
+	 MJip5REVoFfQYbsEAuAUCg3vvHmWw8lJ/dOEU7G0SAmOiqmzLFb0b0St/j5hF1sYkq
+	 7gFI8YL1OdHIs/C70Lczm/PkOskmXoThKv9IwbeukGmss0gn2kUtoXj6ko2ngDfK2s
+	 esifQdXMkw1OHBIRCpw8TZH93RD/K7iqg6KHIiO4rx/FRJZMEzASveSu5WeAc9/Tic
+	 NkbXj5O6AYewA==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Shawn Guo <shawnguo@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: PCI: Convert HiSilicon STB PCI host to DT schema
+Date: Mon,  9 Nov 2026 13:52:03 -0600
+Message-ID: <20261109195206.913231-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,102 +65,324 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
- amplifier
-From: Mark Brown <broonie@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
- robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org, 
- neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com, 
- lkp@intel.com
-In-Reply-To: <20261109051251.471879-3-YLCHANG2@nuvoton.com>
-References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
- <20261109051251.471879-3-YLCHANG2@nuvoton.com>
-Date: Mon, 09 Nov 2026 19:48:19 +0000
-Message-Id: <179425369963.3711751.8538085283431158098.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2580; i=broonie@kernel.org;
- h=from:subject:message-id; bh=uz0EEhKFqb2Rh6VAYejYUKzktncm0H9HpNXhrqxvcSA=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+Kbfs7VjTVXgy6tOdgrJNTtdrphdO8NIPnn60+PH8X
- 4auij+sO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRVZ8Y/kfEO3N4Oz5pX2yt
- EHrXcsH7V0HSxSq3Jmyf//pZdywH50mGf0aPBX93brz0f66CW9whhtPGfzg2L/JZsupI0PYVtQ8
- SyvgA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> Add support for the Nuvoton NAU83G10 audio amplifier.
-> The NAU83G10 is a mono boost Class-D audio amplifier with
-> integrated DSP and I/V-sense support.
+Convert the HiSilicon STB PCI host to DT schema format.
 
-> +config SND_SOC_NAU8310
-> +	tristate "Nuvoton Technology Corporation NAU83G10 Mono Boosted Amplifier"
+As this binding uses additional vendor specific resource names, the
+common dw-pcie schema has to be updated with the additions. It's not
+exactly clear what the clock and reset names match up to, so it's a best
+guess.
 
-This handles NAU83G20 as well.
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../pci/hisilicon,hi3798cv200-pcie.yaml       | 134 ++++++++++++++++++
+ .../bindings/pci/hisilicon-histb-pcie.txt     |  69 ---------
+ .../bindings/pci/snps,dw-pcie-common.yaml     |  10 +-
+ .../devicetree/bindings/pci/snps,dw-pcie.yaml |   6 +-
+ MAINTAINERS                                   |   2 +-
+ 5 files changed, 145 insertions(+), 76 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pci/hisilicon,hi3798cv200-pcie.yaml
+ delete mode 100644 Documentation/devicetree/bindings/pci/hisilicon-histb-pcie.txt
 
-> +static int nau8310_dsp_idle(struct snd_soc_component *cp)
-> +{
-> +	struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
-> +	struct regmap *regmap = nau8310->regmap;
-> +	unsigned int idle_pattern, timeout = NAU8310_DSP_IDLE_RETRY * USEC_PER_MSEC;
-> +	int ret = 0;
-> +
-> +	ret = regmap_read_poll_timeout(regmap,
-> +		NAU8310_RF000_DSP_COMM, idle_pattern,
-> +		idle_pattern == NAU8310_DSP_COMM_IDLE_WORD, USEC_PER_MSEC, timeout);
-> +	if (ret) {
-> +		dev_err(nau8310->dev, "Timeout waiting for DSP idle state: %d", ret);
-> +		nau8310_sw_reset_chip(regmap);
-
-If you need to reset the chip you should probably also resync the cache,
-and there's some redundancy here with nau8310_software_reset().
-
-> +int nau8310_dsp_init(struct snd_soc_component *cp)
-> +{
-> +	struct regmap *regmap = cp->regmap;
-> +
-> +	nau8310_sw_reset_chip(regmap);
-> +
-> +	/* wait for the power ready */
-> +	msleep(120);
-> +
-> +	regmap_update_bits(regmap, NAU8310_R1A_DSP_CORE_CTRL2,
-> +		NAU8310_DSP_RUNSTALL | NAU8310_DAC_SEL_DSP_OUT, NAU8310_DAC_SEL_DSP_OUT);
-
-NAU8310_DAC_SEL_DSP_OUT is used by DAPM, you might want to solve this
-the way nau8360 does.
-
-> +static int nau8310_biq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
-> +	struct snd_soc_component *cp = snd_soc_dapm_to_component(dapm);
-
-This is the same issue as was fixed in nau8310_clkdet_put() in this
-version.
-
-> +	/* Boost Control Target Value Limit. 0.16 V per step. */
-> +	SOC_SINGLE("Boost Target Limit", NAU8310_R17_BOOST_CTRL1,
-> +		NAU8310_BSTLIMIT_SFT, NAU8310_BSTLIMIT_MAX, 0),
-
-The binding describes nuvoton,boost-target-limit/-margin as having
-0.19V steps - either that or the comment here is wrong.
-
-> +	ret = nau8310_clock_config(nau8310, fs, nau8310->mclk);
-> +	if (ret)
-> +		return -EINVAL;
-
-Just return ret in case it's more descriptive.
-
-> +static struct i2c_driver nau8310_i2c_driver = {
-> +	.driver = {
-> +		.name = "nau8310",
-> +		.of_match_table = of_match_ptr(nau8310_of_ids),
-> +		.acpi_match_table = ACPI_PTR(nau8310_acpi_match),
-
-We don't need the wrappers for these pointers these days.
-
+diff --git a/Documentation/devicetree/bindings/pci/hisilicon,hi3798cv200-pcie.yaml b/Documentation/devicetree/bindings/pci/hisilicon,hi3798cv200-pcie.yaml
+new file mode 100644
+index 000000000000..33ecaf6c3aac
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pci/hisilicon,hi3798cv200-pcie.yaml
+@@ -0,0 +1,134 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pci/hisilicon,hi3798cv200-pcie.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HiSilicon STB PCIe host bridge
++
++maintainers:
++  - Shawn Guo <shawnguo@kernel.org>
++
++description:
++  The HiSilicon STB PCIe host controller is based on the DesignWare PCIe core.
++
++properties:
++  compatible:
++    items:
++      - const: hisilicon,hi3798cv200-pcie
++
++  reg:
++    items:
++      - description: sysctl registers
++      - description: rc_dbi registers
++      - description: configuration transaction registers
++
++  reg-names:
++    items:
++      - const: control
++      - const: rc-dbi
++      - const: config
++
++  clocks:
++    items:
++      - description: auxiliary gate clock
++      - description: pipe gate clock
++      - description: system gate clock
++      - description: bus gate clock
++
++  clock-names:
++    items:
++      - const: aux
++      - const: pipe
++      - const: sys
++      - const: bus
++
++  interrupts:
++    items:
++      - description: MSI interrupt specifier
++
++  interrupt-names:
++    items:
++      - const: msi
++
++  phys:
++    maxItems: 1
++
++  phy-names:
++    items:
++      - const: phy
++
++  reset-gpios:
++    description: GPIOs to generate PCIe PERST# assert and deassert signal
++    maxItems: 1
++
++  resets:
++    items:
++      - description: soft reset
++      - description: system reset
++      - description: bus reset
++
++  reset-names:
++    items:
++      - const: soft
++      - const: sys
++      - const: bus
++
++  vpcie-supply:
++    description: Regulator for PCIe port power
++
++required:
++  - bus-range
++  - clock-names
++  - clocks
++  - compatible
++  - interrupt-names
++  - interrupts
++  - phys
++  - phy-names
++  - reg
++  - reg-names
++  - resets
++  - reset-names
++
++allOf:
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/histb-clock.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/phy/phy.h>
++
++    pcie@f9860000 {
++      compatible = "hisilicon,hi3798cv200-pcie";
++      reg = <0xf9860000 0x1000>,
++            <0xf0000000 0x2000>,
++            <0xf2000000 0x01000000>;
++      reg-names = "control", "rc-dbi", "config";
++      #address-cells = <3>;
++      #size-cells = <2>;
++      device_type = "pci";
++      bus-range = <0 15>;
++      num-lanes = <1>;
++      ranges = <0x81000000 0 0 0xf4000000 0 0x00010000>,
++               <0x82000000 0 0xf3000000 0xf3000000 0 0x01000000>;
++      interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>;
++      interrupt-names = "msi";
++      #interrupt-cells = <1>;
++      interrupt-map-mask = <0 0 0 0>;
++      interrupt-map = <0 0 0 0 &gic GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&crg 0>,
++               <&crg 1>,
++               <&crg 2>,
++               <&crg 3>;
++      clock-names = "aux", "pipe", "sys", "bus";
++      resets = <&crg 0x18c 6>, <&crg 0x18c 5>, <&crg 0x18c 4>;
++      reset-names = "soft", "sys", "bus";
++      phys = <&combphy1 PHY_TYPE_PCIE>;
++      phy-names = "phy";
++      reset-gpios = <&gpio 5 0>;
++    };
+diff --git a/Documentation/devicetree/bindings/pci/hisilicon-histb-pcie.txt b/Documentation/devicetree/bindings/pci/hisilicon-histb-pcie.txt
+deleted file mode 100644
+index 5f0cf6c2fef3..000000000000
+--- a/Documentation/devicetree/bindings/pci/hisilicon-histb-pcie.txt
++++ /dev/null
+@@ -1,69 +0,0 @@
+-HiSilicon STB PCIe host bridge DT description
+-
+-The HiSilicon STB PCIe host controller is based on the DesignWare PCIe core.
+-It shares common functions with the DesignWare PCIe core driver and inherits
+-common properties defined in
+-Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml.
+-
+-Additional properties are described here:
+-
+-Required properties
+-- compatible: Should be one of the following strings:
+-		"hisilicon,hi3798cv200-pcie"
+-- reg: Should contain sysctl, rc_dbi, config registers location and length.
+-- reg-names: Must include the following entries:
+-  "control": control registers of PCIe controller;
+-  "rc-dbi": configuration space of PCIe controller;
+-  "config": configuration transaction space of PCIe controller.
+-- bus-range: PCI bus numbers covered.
+-- interrupts: MSI interrupt.
+-- interrupt-names: Must include "msi" entries.
+-- clocks: List of phandle and clock specifier pairs as listed in clock-names
+-  property.
+-- clock-name: Must include the following entries:
+-  "aux": auxiliary gate clock;
+-  "pipe": pipe gate clock;
+-  "sys": sys gate clock;
+-  "bus": bus gate clock.
+-- resets: List of phandle and reset specifier pairs as listed in reset-names
+-  property.
+-- reset-names: Must include the following entries:
+-  "soft": soft reset;
+-  "sys": sys reset;
+-  "bus": bus reset.
+-
+-Optional properties:
+-- reset-gpios: The gpio to generate PCIe PERST# assert and deassert signal.
+-- vpcie-supply: The regulator in charge of PCIe port power.
+-- phys: List of phandle and phy mode specifier, should be 0.
+-- phy-names: Must be "phy".
+-
+-Example:
+-	pcie@f9860000 {
+-		compatible = "hisilicon,hi3798cv200-pcie";
+-		reg = <0xf9860000 0x1000>,
+-		      <0xf0000000 0x2000>,
+-		      <0xf2000000 0x01000000>;
+-		reg-names = "control", "rc-dbi", "config";
+-		#address-cells = <3>;
+-		#size-cells = <2>;
+-		device_type = "pci";
+-		bus-range = <0 15>;
+-		num-lanes = <1>;
+-		ranges=<0x81000000 0 0 0xf4000000 0 0x00010000
+-			0x82000000 0 0xf3000000 0xf3000000 0 0x01000000>;
+-		interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>;
+-		interrupt-names = "msi";
+-		#interrupt-cells = <1>;
+-		interrupt-map-mask = <0 0 0 0>;
+-		interrupt-map = <0 0 0 0 &gic GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
+-		clocks = <&crg PCIE_AUX_CLK>,
+-			 <&crg PCIE_PIPE_CLK>,
+-			 <&crg PCIE_SYS_CLK>,
+-			 <&crg PCIE_BUS_CLK>;
+-		clock-names = "aux", "pipe", "sys", "bus";
+-		resets = <&crg 0x18c 6>, <&crg 0x18c 5>, <&crg 0x18c 4>;
+-		reset-names = "soft", "sys", "bus";
+-		phys = <&combphy1 PHY_TYPE_PCIE>;
+-		phy-names = "phy";
+-	};
+diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie-common.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie-common.yaml
+index 2c4dc04f9984..729e2c9606d3 100644
+--- a/Documentation/devicetree/bindings/pci/snps,dw-pcie-common.yaml
++++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie-common.yaml
+@@ -123,15 +123,17 @@ properties:
+             - description: See native 'dbi' clock for details
+               enum: [ pcie, pcie_apb_sys, aclk_dbi, reg, port ]
+             - description: See native 'mstr/slv' clock for details
+-              enum: [ pcie_bus, pcie_inbound_axi, pcie_aclk, aclk_mst, aclk_slv ]
++              enum: [ bus, pcie_bus, pcie_inbound_axi, pcie_aclk, aclk_mst, aclk_slv ]
+             - description: See native 'pipe' clock for details
+               enum: [ pcie_phy, pcie_phy_ref, link, general ]
+             - description: See native 'aux' clock for details
+               enum: [ pcie_aux ]
+             - description: See native 'ref' clock for details.
+               enum: [ gio ]
+-            - description: See nativs 'phy_reg' clock for details
++            - description: See native 'phy_reg' clock for details
+               enum: [ pcie_apb_phy, pclk ]
++            - description: See native 'core' clock for details
++              enum: [ sys ]
+ 
+   resets:
+     description:
+@@ -178,7 +180,7 @@ properties:
+             above for new bindings.
+           oneOf:
+             - description: See native 'app' reset for details
+-              enum: [ apps, gio, apb ]
++              enum: [ apps, gio, apb, soft, sys, bus ]
+             - description: See native 'phy' reset for details
+               enum: [ pciephy, link ]
+             - description: See native 'pwr' reset for details
+@@ -208,6 +210,8 @@ properties:
+             - pattern: '^pcie(-?phy[0-9]*)?$'
+             - pattern: '^p2u-[0-7]$'
+             - pattern: '^cp[01]-pcie[0-2]-x[124](-lane[0-3])?-phy$'  # marvell,armada8k-pcie
++            - const: phy
++              deprecated: true
+ 
+   reset-gpio:
+     deprecated: true
+diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+index b3216141881c..9fa43d8e265e 100644
+--- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+@@ -106,20 +106,20 @@ properties:
+             for new bindings.
+           oneOf:
+             - description: See native 'dbi' CSR region for details.
+-              enum: [ ctrl ]
++              enum: [ ctrl, rc-dbi ]
+             - description: See native 'elbi/app' CSR region for details.
+               enum: [ apb, mgmt, link, ulreg, appl, controller ]
+             - description: See native 'atu' CSR region for details.
+               enum: [ atu_dma ]
+             - description: Syscon-related CSR regions.
+-              enum: [ smu, mpu ]
++              enum: [ smu, mpu, control ]
+             - description: Tegra234 aperture
+               enum: [ ecam ]
+             - description: AMD MDB PCIe SLCR region
+               const: slcr
+     allOf:
+       - contains:
+-          enum: [ dbi, ctrl ]
++          enum: [ dbi, ctrl, rc-dbi ]
+       - contains:
+           const: config
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c57be10c8729..f574f0e853cc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21846,7 +21846,7 @@ PCIE DRIVER FOR HISILICON STB
+ M:	Shawn Guo <shawnguo@kernel.org>
+ L:	linux-pci@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/pci/hisilicon-histb-pcie.txt
++F:	Documentation/devicetree/bindings/pci/hisilicon,hi3798cv200-pcie.yaml
+ F:	drivers/pci/controller/dwc/pcie-histb.c
+ 
+ PCIE DRIVER FOR INTEL KEEM BAY
 -- 
-Mark Brown <broonie@kernel.org>
+2.53.0
+
