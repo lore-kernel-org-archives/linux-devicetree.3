@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216901;
-	b=rBZTLnhogc9AEHQwFumIuyaxt96nRXXBUz4ntKacPJb2B4WPIwzk5AUCab4v/eWY1bwj
-	 woS5OsYynS+XKwuJpZmCLkxHlnOJ5yRH6QIJcRVZ/OJ7B9QtDjYL/GBGNpj5YVQDRCwRG
-	 BY0uEVRIorj8EMTvixeK+f5oawGXdYPnFal7bgCLJ8lbViQBIxTHIH+HsU5Pj1f61HXwE
-	 gMhppra9f/PJqxCiYGJP4+nXa+blhPJ60rf25MrAm+erkjoH16bko02yNbAFcwn2HoaxS
-	 VEo1kTwH4FkLHYcP+7wmTKonB/W0yAPkwsz0Ys8ULJEGd//HcQ7kQ48vZ70RLGSAcPw==
+	t=1794217315;
+	b=3OXaRKhDAuC8kqURBr1o2LN4h+7EoEFcu/rSHbI2jYcCiARY/jKHbb75Ftrf9GUV46J7
+	 UasRr2gZP8FlkAhO5q4MekO2XYq4xJbvOSt+pU+SNyxe3zGr6I6ToQICuUi/cNEq+xUyU
+	 EQmHvFG5p1aFTR/tUQk371Qy8jVQd8G58qMZp8P299Z22lYU++7Ngr0euAYlnLLTpHnRM
+	 am/UQr9xb29WmE8E32pTgCOQw2EYUK9uHNVFkRJ5GTU+/MBWkRh2RB1LZld8FmgdhVr/3
+	 6LUDz+IBpyiZi37iltKr9ORPkexkGhVfkNdBuP+euORu/VZ4iyM9yQiQifYw5Me1RyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216901;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8QDOiIrFq9d9zPkD3MbgEKaxPlnCuUeJKOCRgNAL7wc=;
-	b=GO1PFG6GquLfDL9KVDfvbuQhkRVPUZKRkWkH9+6vT5rXOIpYkJpHTxwFsEuz9phkbjRM
-	 DQF8I/fx40aXSRN4zQtgJ0Xyu+s+sabz8ZuIUs1CON1kNnnsKo446UZr6/5eWQetGZ2Y3
-	 pLaEfVemwoB1EPSOkr7Za3b2jjXjvRgsTCuF9Zz5T3FyXqfw3G77rtXiNRucML+Hj8dya
-	 Gfny6yrzP/AF87Isc+0OBGIRbgCu5UKfN5aBHdR7a4BrGR6VeGQNaDU163mIlxHIo2KdK
-	 K8lT4ccJo4WrZxr13MGmBhg4H26AE0LMmriIwdtxPd8I7sY+7JFm/CoUs9v7USxj0eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217315;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=OxNDojNk4xU4HyXcTA0bs35MHLi3QbYkHxDUvC4/Ink=;
+	b=XvZO0ICpr2rFYIQCKPiGz4j5od6NC/9EaqsqgPeegDR/y0WlZGLJE4rtbyPGO4D65P+3
+	 DTixtzKOXzNgU1NGW+pRBOaI4IEpLWtfRQc9mPBUV5iuKgXvtmjwlqDgcGy4dqCZX5SeZ
+	 /XvQGASYxKeVTMuLZjrSi27cOY1oOXp7HA55wWLdtz3x0JANJfThuRQrqb83qo/+jxlAT
+	 hMTBHWM8nk23fSZR5HQU00WrdhsAm9R9uluy2DJ+84ObZKWb285N3RbV5TN6zqGwvo0hv
+	 X3MlMgrsOlM4bt/GX/hgMxxeK3rgowOdzr1BTdk2pZAhiiLeqVAyyNZxdAEZ3R8qhmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=O9A74aSl;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=23oAPPjV;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264CC606D80E;
-	Mon,  9 Nov 2026 09:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 264CC606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6413A606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:41:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6413A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=O9A74aSl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794216898; x=1794476098;
-	bh=8QDOiIrFq9d9zPkD3MbgEKaxPlnCuUeJKOCRgNAL7wc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=O9A74aSlekAcTauohTZd8SlsjrcV/vHHVJZXIkDam3DIWiTmDFjDoPOeK/C7S6HQ3
-	 Z01IPsH13iKNm9Y9WMlgjLW7MoVPN8cMfdh6ne966vTo09kujHil1vvasmlPh6T81P
-	 9UOyQRr/uO3+QGQzvb+hpqniTXK2xwXRpH2r9MAlKD6FRYi1ORoemiQn+kQEhjbIRP
-	 5lTOSmoZ/lM0fSB3V56F8/jlYIeD8F+bUphmZ3n7CrVnAG4eNfjFh5mezxDiOq0lBI
-	 fSbwMUX/mXFwDhykEuAGCTe07gbNomQuB1ps3D4bdUEyPrxMA3tBNcKF83ajDihaJY
-	 jWOd2w6xodz4g==
-Date: Mon, 09 Nov 2026 09:34:50 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
-Message-ID: <20261109093353.3757-5-lsa.uz@pm.me>
-In-Reply-To: <20261109093353.3757-1-lsa.uz@pm.me>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 17716d4d0b38517f4ff4c07889187a5375b7ca17
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=23oAPPjV
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490f38e9688so502066f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:41:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794217314; x=1794822114; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OxNDojNk4xU4HyXcTA0bs35MHLi3QbYkHxDUvC4/Ink=;
+        b=23oAPPjVuoyJSsO6zIw9EtgP7YPqi78BBG2FKZBW5WVw95R8MCQ7Vo9HrJkkKGz91+
+         4ZpDawTEpE8LE8RhIffrlBr3LRTai/ndQ3YU489ImxInXWjIaitfD60i+qb2iT6fFwt5
+         egEi6IemEF8Gr2WxG5z499SZ1s3dkeDWYtU+/qW6FibUwYZc+dRDRH1v1FU5Q5e03LgB
+         rm/ycVY+em2qzVbRZB8fk1QkcBOBCbzoxif0PS/uh1BnrEQFZg5izhTgAlVulpSrfhol
+         n0qpy6YNCPbHZYmAU29OUWLup1cwBCnZHXjEqUNeToQbY1azt2883uopiTv/qMX1OaTQ
+         hxdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794217314; x=1794822114;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OxNDojNk4xU4HyXcTA0bs35MHLi3QbYkHxDUvC4/Ink=;
+        b=QK/szxuEXO+a4a7z+Y7ub7XA4EHuj8C3hGUZQurDJLO5v5L/ZPmnN6e1KnrJzr6er4
+         V7RjKGUqw35AzZKiqCWOm3tof/7sYiD4VeVgGP6kW6Tc3YgVQUGOi2+o1Dr9d2//26ib
+         vRS8YOIBH4MtY3ScY7lHwsLvy1LjO5w3E+jXBU2Ryk8ZoDj8YlT/PlL22yGEjPkGs2EX
+         Fal/EPDz62w2yvL1YqP0UhuVbmA7WrUgJvUz8sA4EkNxAMycQjy8XtbkK8i6rnFT3vXb
+         /SbwjlONRdV2jzMBajD8kiFsHMlYTL+3BisGhRzmTiCZkJDogSkfETs28LB/2n1L1quz
+         GRfQ==
+X-Forwarded-Encrypted: i=1; AL+hErGG0C9q5l0hkqOA+i5iqNGxJMG5LQwvLyj4ARBRUr+4HgEhzadCkX6VPdWkWrbYYHZ6bvuF8Me5yOA4@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IHYhCQb+DqSMrAvyonKTgB0iSV99t44fNKWxwKUg5ywJMV+rD
+	prMKkSr18vl29KhI/8ozooS7kiXMs3gVkTK42ShA6wnUOO6Pd7FBL5+PvPC8kE8MKEU=
+X-Gm-Gg: AYBFou0iZhOrjivZIdcDPpcP0UFOhB2u2s4O67y41bo0J7eIuEVbBZfPqoWY3PTjR7e
+	8uExgyfkUdTs6A7cTG8YKricf8AqLSJh7G0pKKrdVPZZ71A74KBys0wbN4r0Y+ovyk7ZqT7onoS
+	4TgZp0Lk32bCrRYaqfhmKvLvqgC8FRK2XTbVR7Q9PHwAChvjjXj5JByqEustRBL1CfI33lueD0U
+	JrCPNW3Rax1csS9PsFctCcxiQ+joVLFeKI8E/ieChi2WP7FQ7L4EK3jihzHit4LlTGnSBqrLS+c
+	rnwnYDC6vcMMxlw4fpJ+yAOz+E6ZTBvDiMEWD36+k7wM3plgxedcpyvD2GWtzTnMYskEFsC6zMY
+	GtZ4Kv8Sfgu8oFF9zB5r1HlEYqGKY4DFFnIUbIjC6Z2bvxUnXxQ/9vzHavYb2MVVOBjOyxjVZ+W
+	zTRakXCEeXqeasrkFto+6tSAMWYL3AjvdzsevsIikYvyWfMCIkKCF5xYzDk/v+7KSfwty3owixK
+	06DP9RZLSf42gyebYjpVFViYdd7gD4egnwmL2LEAEiWd8bm2Hthp3zmJxzmzeIBvKzUi96/2bE8
+	RFSIXDiMKWzbwc6DRuEPFzVlJa0sRL6Dn7WrTtMBrz468+WX2bKaDElqTIhkSjok48T+Hxj8rGU
+	WVzOjyR04
+X-Received: by 2002:a05:6000:26c8:b0:48f:bbb5:61c2 with SMTP id ffacd0b85a97d-4958852d3b8mr7998933f8f.4.1794217313738;
+        Mon, 09 Nov 2026 01:41:53 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-496150c6e90sm7278409f8f.2.2026.11.09.01.41.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 01:41:53 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH 0/3] power: supply: battery: Allow separate charging limits
+ vs. discharging
+Date: Mon, 09 Nov 2026 13:41:47 +0400
+Message-Id: <20261109-battery-charge-temp-range-v1-0-a967abd8b80c@flipper.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,185 +94,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4XcM00oRYn+CvGhlEWPRCTXSiCEf
+ +fEx8nszkYRwoh0zzYSzBz5MyrYPKPw8uMThjtlKovyam1xM61PCbIataI24T0ZOYeu7sOl6io
+ 470j/k6Dn5Ww3jz/HbzsgpF+Q9v0AQllllH0AAAA=
+X-Change-ID: 20261109-battery-charge-temp-range-37fc54d4e3a3
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1478; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=+odnf1TlzZclfLwdtnwN+ooYti1FGicx+mmm5eDR3iI=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9nBrfpsZzxLjaVyC47kzHj5OLZBo+2d8zemZWUB3zb
+ PkB24nbOyayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZhqdTNGhusuU2+Zfn3Z/YS3ZtH139My3ltUZgZfv7fmxO+8Hclt9QaMDBM+TWn
+ P3Vl4xv5whvveTU+yfH4GTlHLeFH+caH8/+f9b3kA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On the Surface Pro 9 and on the Surface Pro 11 with Intel, the infrared
-illuminator is driven by the VD55G0's GPIO 1, which strobes it during
-the exposure. The ACPI tables do not describe it, so the sensor driver
-finds no st,leds and offers no V4L2_CID_FLASH_LED_MODE.
+Some batteries specify different operating temperature ranges when
+charging vs. when discharging, e.g. charge at 0C to 45C, but discharge
+at up to -20C to 60C. Current DT bindings and power supply core don't
+allow that, so extend them with additional properties so that a separate
+limit could be programmed for when a charger should cut voltage going into
+the battery vs. when the system itself should shut down.
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference. The software nodes
-outlive the module, so the property name goes into struct
-ipu_property_names and the GPIO numbers into struct ipu_sensor, where
-nothing points into the module image.
+Additionally, allow the DT to specify voltage/current limits to be applied
+when the battery is being charged in the "alert" band (either high or low
+temperature, which often requires derating especially at the low end).
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
-U6
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-v3: no change.
-v2: the st,leds name and GPIO numbers live in the bridge's own
-structs, as the software nodes outlive the module (Fernando); the
-Surface Pro 9 is added (Fernando).
+Alexey Charkov (3):
+      dt-bindings: power: supply: battery: Add a charging temperature range
+      power: supply: core: Read the charging temperature range and alert settings
+      power: supply: samsung-sdi-battery: Set the charging temperature range
 
-D. Manresa's ipu-bridge series changes the same lens-focus line;
-whichever of the two lands second needs a trivial rebase:
-https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
+ .../devicetree/bindings/power/supply/battery.yaml  | 45 +++++++++++++++++++++-
+ drivers/power/supply/power_supply_core.c           | 16 ++++++++
+ drivers/power/supply/samsung-sdi-battery.c         | 12 ++++++
+ include/linux/power_supply.h                       | 16 ++++++--
+ 4 files changed, 83 insertions(+), 6 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261109-battery-charge-temp-range-37fc54d4e3a3
 
- drivers/media/pci/intel/ipu-bridge.c | 68 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  6 ++-
- 2 files changed, 71 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index c99c85b7e6f..8d2025acf7a 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,42 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09u32 gpios[IPU_MAX_LED_GPIOS];
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const struct ipu_sensor_leds surface_pro_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.gpios =3D { 1 },
-+=09.nr_gpios =3D 1,
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -292,6 +328,7 @@ static const struct ipu_property_names prop_names =3D {
- =09.remote_endpoint =3D "remote-endpoint",
- =09.link_frequencies =3D "link-frequencies",
- =09.clock_noncontinuous =3D "clock-noncontinuous",
-+=09.st_leds =3D "st,leds",
- };
-=20
- static const char * const ipu_vcm_types[] =3D {
-@@ -563,6 +600,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +678,20 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds) {
-+=09=09memcpy(sensor->led_gpios, leds->gpios,
-+=09=09       sizeof(sensor->led_gpios));
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(names->st_leds,
-+=09=09=09=09=09=09     sensor->led_gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+=09}
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..7383bdf5a45 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -12,6 +12,7 @@
- #define IPU_MAX_LANES=09=09=09=094
- #define IPU_MAX_PORTS=09=09=09=094
- #define MAX_NUM_LINK_FREQS=09=09=093
-+#define IPU_MAX_LED_GPIOS=09=09=094
-=20
- /* Values are educated guesses as we don't have a spec */
- #define IPU_SENSOR_ROTATION_NORMAL=09=090
-@@ -136,6 +137,7 @@ struct ipu_property_names {
- =09char remote_endpoint[16];
- =09char link_frequencies[17];
- =09char clock_noncontinuous[20];
-+=09char st_leds[8];
- };
-=20
- struct ipu_node_names {
-@@ -178,8 +180,10 @@ struct ipu_sensor {
- =09const char *vcm_type;
-=20
- =09struct ipu_property_names prop_names;
-+=09/* The software nodes outlive the module, so these values live here */
-+=09u32 led_gpios[IPU_MAX_LED_GPIOS];
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
-
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
