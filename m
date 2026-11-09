@@ -1,112 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794211900;
-	b=IkIdnAut2f6ly/apVZbFUvRhz8ZZDuE560oPARg74unSXwiAneScwL7EP63ZtIVgaWUL
-	 wiJLxzq54tarJmeeLz7zRXl5dDE9jj8NQF4uMfM+f+CageA9NkRNhyP3XCAbko17+iclA
-	 DdtcUJZMHinZmI9/kcCBrLXoa+UTatIRzpin3y2DeqjIYLOFlUaIkhWSqsgHj8DWXmpfx
-	 bO+6pjfoWcrozJ2tUPEtJgDVeiTNtkTRQVqzWZe5m28hp8bKoHod96Sa1MMY0EQ43e3YR
-	 1AngxW+cED9OxoNGZGZan+LbZmxBF4SASbMLUpFQAs87IaqXa4OqoI9HEKQvv2b9kow==
+	t=1794212117;
+	b=flokLPQhMGzEymPQRmyDdrB7/jXIIJ+M2kQwhRafRc6NAGNhh2nvvPPv+uPh5bx1yYDp
+	 8iJbe2fiPjCNi6JvVDsRAVsaFKZR9TRWdEOGvqLYmhUrYtSX2m1PlzzW0SK0KtPsECuBo
+	 BTM4QgEYPcUEK1x4oHLd1nbom+HvfoUDnN0UeP8RtVOwf6T9S+3y7/ErP87qa3sCPgrfe
+	 TOGn0++JvzfoBvi6zs2TTptqofpf2/Mwo7tC8NWbEzHmqK6enNnKyqY1ectRylgXgeNpI
+	 M5u5lLlHVD55tKebo47CP1vF5risy5wijXKzcQRek5+bIgVkEg9+ZPGCxdGkDnqUx4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794211900;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3Hyx0HfDdI+qJ8O/EhEf8YHmYreBy/xtMHLhJ3AsflE=;
-	b=WulbZvFqHrKDI8jL2bv8pLYcqgfzflZBtZazX1fwvSd/GPliiEPOE2J4bd7lvbbcOmaI
-	 zzP8tZnJ500wghMf7IJVRL2pxmvIbrboUeFDzPa6ZpNUs0+NuxCsUQfZscOMc/rX24NbL
-	 SC4WrrulG65SQECE5g+b7PDW+kPA1qbw/ab2y/4covjsWR1Ww+RNiZvuFz7dDKlu3Lfoe
-	 DfjWW78IIYRWS0crNOe9gwuj8AtbhhoOddJXz1arPF2+hJRTO58wqvn23/Q9y46OvB3+k
-	 1ejQn2KNn5//wPq+GyGh6WJAb6Hw3NgfI2JFAtMjU0+viCNGrtEAkEeMTLLxiOKBKQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212117;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=07uI4iH0Yz4xA6oZfIs4D+JgaqpTLUd1F5xZol8yyfM=;
+	b=xAuZddVRaH8edR6XFp51XahitF0TqoKlpx/lIw49PS5437V1JOs4kwc3PALccw88gaYP
+	 UYU86lQdvZ3m5xfGStQruL+Zvr9E+3ezgWSo2oKS70xKlpfHcaG+gA69e4McLzRkpQsB1
+	 lw2vbRzaDT9QI9rNC2jjHQK2tQnfvWgyCGu4hbuwcvQe42X8tfGX4or0G7lsEVBObUutP
+	 GjRhwBNwHGesLimhNibvee6zu9IY8P/74qnPZpTMkZ54oB/uqeX+5l2NP6xQbPrFAZyMw
+	 qobq53zFOhXBa31QfMovGfiP6eebaPNwv8htv+DvjemfJRo9h+6+3mnkpLMVzXexfbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dxgKwV42;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DzzhtEh5;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6Y6AlEf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87F4606A323
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 08:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E87F4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A09606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 08:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dxgKwV42;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DzzhtEh5
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96ARa42007732
-	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 08:11:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3Hyx0HfDdI+qJ8O/EhEf8YHmYreBy/xtMHLhJ3AsflE=; b=dxgKwV42aWRHUOy3
-	1V+oiGNIp/buFOgQQ0I1HYx04BYakOqtTyDbdkCnoCMjGj9Fd5intuTN9XvNzSu9
-	Naczydkg1LfAeRK4oIUwLAZD1sDUIb++pwkOBDj6h5gPUkodWAccWsmAOIFbotyC
-	x6TCpRi2uds9+/QIPijt3LxtH8UWQtsBl/9YG5tlhULPn8eyQ4W01E8AIm4SCUoj
-	XBwphtvoU9u+KSKK49Y2rg6ZPt7xwZOHOm8V/Stf/+3WGpEfoe55w2BNYayvl5T9
-	yAU2IXw3xOnKcci0lsBE+Kmn3OcVa+7MKZ6T+QsnAP1/xxLTiD1sDwdC2Dl/6kFe
-	cxpckw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw5k5748-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:11:39 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so1705274eec.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 00:11:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794211898; x=1794816698; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3Hyx0HfDdI+qJ8O/EhEf8YHmYreBy/xtMHLhJ3AsflE=;
-        b=DzzhtEh5hRPqiPsYcwAZV67IGLnt5mMIPLRkI+kKiLny6jhjq5cY09HOTLWUIixlXC
-         MVPew4eIMRjXbkm/XztbjFJCTmq9A/l+K/FvX2YU6BnS4NyWJP92lczn0TOFFi6gBfYw
-         C7g46EfCNgfBfcFZCrNdX8cX1zpDdr5kSL2T5fR/Ne2eMpdohYgSLTfCeVgLvFF9bp3R
-         n8NfgrcryJhMhB8g8+3AycW9pBKlCqHnyKGJ3V+AuPdB4fje0G5nAf/5DSWE4WOTVuUY
-         HHuwzyIn0kW8cKEfFu3q1oHM388M5I9deOnTGxvvQw2Xor9RhXZ0xtyREym0HVa4pp3Z
-         /dQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794211898; x=1794816698;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3Hyx0HfDdI+qJ8O/EhEf8YHmYreBy/xtMHLhJ3AsflE=;
-        b=oH+IwkBcWRN4rjY7R+QGozTgGYPHfdLq+JVlQKRPOeg7m8HhWFhehuTxIgXmwWMoY9
-         sFZj1+4STZOcnro/F0niSzBnLXbxnBVqD9zAlhio8DgrKONNRm0r9hspI3nBFZnFddBO
-         jNPTIC0eijd4qrnwBgWD0SjLjhZFIDEe8aXQJFS92EDf9v2KXztkugKEyfZ8kEC4h0E5
-         Hws/1ebIuM1WoLzkBb2h/QmhkOFlmvX7RX14L5wwdWMmRHLdnKaonMYvbSeVCNnQIJDL
-         bhnHyaO+iyMIwGxLhaIfOfw0k+OZArS7YnL2ltG5bxAwnkWQt1d/C1hBRotqmFPIAaCJ
-         XhLg==
-X-Forwarded-Encrypted: i=1; AL+hErF+uAKGJUhTfgsDFbbksr1kWgQOaObymMbBuglOnTFVqGm0CFKQOE8T46uvJE+w5ofVijs9Ff8K8mMG@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yc1C9oyq8IXCCC5ZmOSEKrIycFrZSEoxfRm0ZrPMEk+tHGAiA
-	KMSMhfxP6STbK4WbE3ni3PFgK7+GuMe4l2c9bE9IbBlqX4ttFrYJJ0bHePqI9vcJBb0qe1GloSr
-	LbOCSTD9b/9r+Aujif/Wf7xuJitq8a2nNAFCc0axIunVoWdbeLjEEgsav0jn7Ax6m
-X-Gm-Gg: AYBFou0JNdGAMxzIiwTiHkNDukp7af5jGeY9kiPrcznyeckV5594QfH+MezuJOizEyR
-	A2bhSJHa3hVcZrznw19DX2oVGCZuj6wPUOXEr8ypf0im6y9douZv0xbkvkeXKB2WWdsV99KCg2Q
-	R/bXqvvwu14oZfd8A085ZpSnMD2t0A4vHOW1yJf+MqRKf1Ssw2csG7+hOT1I4tHEodVbH9GSqoC
-	fQSc2wmNm1GhD7i7TDFASmbUdHdD0SW7UFr8IO7FTnBtymUPKkLa8cx1/pLTy4gcdWmF+04TYPX
-	iSXOK1UIOQkSfO0X/dQKEBYsN1tzLDZwzlw59snVjmP9LPH+QhrGlSso74RAskKavDl8fh4Zyei
-	DHdnGDWy4EPrRzZDqM8maa/8Fyw+NsflN8Tq07xYLPaTpv7H19SFAzItTok8tMjqkGrlrVPZv9S
-	nuvEBT
-X-Received: by 2002:a05:7300:b196:b0:36a:75aa:33bc with SMTP id 5a478bee46e88-372570dac20mr6107315eec.24.1794211898111;
-        Mon, 09 Nov 2026 00:11:38 -0800 (PST)
-X-Received: by 2002:a05:7300:b196:b0:36a:75aa:33bc with SMTP id 5a478bee46e88-372570dac20mr6107272eec.24.1794211897272;
-        Mon, 09 Nov 2026 00:11:37 -0800 (PST)
-Received: from [10.218.31.237] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265c0701csm11464358eec.13.2026.11.09.00.11.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 00:11:36 -0800 (PST)
-Message-ID: <294563dc-1db3-43d0-8173-7941633bc659@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 13:41:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6Y6AlEf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC57A1F0089F;
+	Mon,  9 Nov 2026 08:15:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794212117;
+	bh=07uI4iH0Yz4xA6oZfIs4D+JgaqpTLUd1F5xZol8yyfM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W6Y6AlEfkQZFy7nEPUcqlCL9qj/Vi9SJ1s6RIuPmFGM768zSjhwk0XOLmcMpjQ4nA
+	 YAUMUr8Fwq32x1PMJGBUWrjuNt1YRFS0/UI6bM6qJZQg8uWBtSn/nj326/uMeGwZPe
+	 UsX0fKHhHQ1ySz51tYKEXxokaOxqqw6aFNvYgDOVFTSTZFz089cwbwBLbQmzMDkw5z
+	 r19q+VqaDTIhDOSycVcBT/h7u1B0DG7+zAiq4PaRg53QY2m5uY9SWl2B6j98BObEFw
+	 RwsNgy/Nizk8oofRHMq918meUk1GWidFsMBKkNtl3Uq6/WF9rRWBMSmmwOpXPEeUam
+	 2RUM7iOJ1hHQw==
+Message-ID: <sashiko-outbox-204576@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/7] thermal/drivers/loongson2: Fix clamp() usage for
+ thermal trip points
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <7ae230bbff1143978c90f1566bfca6d17101929c.1794211535.git.zhoubinbin@loongson.cn>
+References: <cover.1794211535.git.zhoubinbin@loongson.cn>
+ <7ae230bbff1143978c90f1566bfca6d17101929c.1794211535.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 08:15:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,333 +60,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 2/2] net: wwan: qcom_bam_dmux: Assign
- restricted DMA pool to remote processor
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn
- <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sergey Ryazanov
- <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Eric Dumazet <edumazet@kernel.org>, linux-arm-msm@vger.kernel.org,
-        netdev@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20261105-qcom-bam-dmux-vmid-ext-v5-0-5c7903385b4b@oss.qualcomm.com>
- <20261105-qcom-bam-dmux-vmid-ext-v5-2-5c7903385b4b@oss.qualcomm.com>
- <CAFEp6-3rt8yvTd-mMA6y5SqmzmF0zvrvO_Dc_w7G3QSv7oZWng@mail.gmail.com>
- <187f3c63-5550-4a42-892e-ea660247edc9@oss.qualcomm.com>
- <CAFEp6-2nSM6zgyrgxwP=qrE3K7aXk9cSZmhdY2F9N4Zq8SV4Kw@mail.gmail.com>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <CAFEp6-2nSM6zgyrgxwP=qrE3K7aXk9cSZmhdY2F9N4Zq8SV4Kw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzMiBTYWx0ZWRfXyD3RsIbU8/Ci
- NbX5y7vYF8f7JIWRAqb+XWwDOp/0508/Hd3dYSWFG6PSp9kHR4lRStUJRE37GNsrAV3msqcX4bs
- K32/1RIoqdzDTuCwWZ22wHO2506o4bMWSQckEFmKtWaGYVni+N5QFzTJvuAlYmlv9QSBV8GDiUm
- 8Xwv4Z0OXgO8hN6CMa1P/5YfiNCcBtHqEUpcMGkQENEJhHC942HbI4exy57teyfLyIDTwy7geST
- mHBbI8w1vpbuUdhUpY3FJS4uQeRCSZDhGAVH5Pe8GKI8QZyHvBzxv8dXLf5I/AZ72QZRYmuNDfm
- MXaV6Vm4aUjbv4pnOZZbblr8YspBTDRWBIdsj1GSve4ZQqAfWe3XRLxRIZH5Tbb1C2E36d00IaI
- s0J5uws8g0QRo94jVJAg2fUvU+kQtJRV0wrObFnfdPnvxuJszv6aRnMcG7Vw1xx2CIY1lDAS968
- 2OrcniqQQmrUbOUFM1A==
-X-Proofpoint-ORIG-GUID: cHcIWvbT_Nckxu2ffMrAIryKJHxJs1PQ
-X-Proofpoint-GUID: cHcIWvbT_Nckxu2ffMrAIryKJHxJs1PQ
-X-Authority-Analysis: v=2.4 cv=G/aJgNk5 c=1 sm=1 tr=0 ts=6af1803b cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=DTeBQKu6t0G8_pDimUUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzMiBTYWx0ZWRfX6ZVXeE8Uuo6e
- 8PR+RIu1LNWGb0XJy94jNJQNniMU8oCyc8x+43r4gg8/iPt9EDG9yAvDSbCZ5Avk3vqJN6xW5Np
- babAsuKrnpl+tIoakzD70F3mwpznONg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 clxscore=1015
- bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090032
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] thermal/drivers/loongson2: incorrect Fixes tag in
+  loongson2_thermal_set()
+--
 
-On 06-11-2026 01:59 pm, Loic Poulain wrote:
-> On Fri, Nov 6, 2026 at 5:36 AM Vishnu Santhosh
-> <vishnu.santhosh@oss.qualcomm.com> wrote:
->>
->> On 05-11-2026 07:51 pm, Loic Poulain wrote:
->>> On Thu, Nov 5, 2026 at 11:42 AM Vishnu Santhosh
->>> <vishnu.santhosh@oss.qualcomm.com> wrote:
->>>> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
->>>> domain with restricted access to system memory. BAM-DMUX DMA mappings
->>>> and BAM descriptor FIFOs must therefore be constrained to a designated
->>>> memory region that can be shared with the modem. Accesses outside that
->>>> region can trigger an XPU violation.
->>>>
->>>> When qcom,vmid is present, require a restricted DMA pool and assign the
->>>> entire pool to both the local and remote execution environments before
->>>> requesting the DMA channels.
->>>>
->>>> This ensures that BAM-DMUX mappings are within the assigned region. When
->>>> the BAM DMA controller references the same pool, its descriptor FIFOs
->>>> are covered by the assignment as well.
->>>>
->>>> Track the assigned execution environments explicitly and reclaim the
->>>> pool for the local environment after DMA channels and mappings are
->>>> released during remove or probe error cleanup. Skip the reclaim and
->>>> leave the pool assigned if the remote side still holds its power vote,
->>>> since it may still access the pool.
->>>>
->>>> Fail probing when restricted DMA pool support is unavailable, when the
->>>> VMID property is malformed, when memory-region is missing, or when the
->>>> restricted DMA pool is not attached to the device.
->>>>
->>>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->>>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->>>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
->>>> ---
->>>>    drivers/net/wwan/Kconfig         |   1 +
->>>>    drivers/net/wwan/qcom_bam_dmux.c | 108 ++++++++++++++++++++++++++++++++++++++-
->>>>    2 files changed, 107 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/net/wwan/Kconfig b/drivers/net/wwan/Kconfig
->>>> index 958dbc7347fa84ee869439bf8b503037faab8bef..1b133c56231615269698140187ca3141dfe48dbf 100644
->>>> --- a/drivers/net/wwan/Kconfig
->>>> +++ b/drivers/net/wwan/Kconfig
->>>> @@ -65,6 +65,7 @@ config MHI_WWAN_MBIM
->>>>    config QCOM_BAM_DMUX
->>>>           tristate "Qualcomm BAM-DMUX WWAN network driver"
->>>>           depends on (DMA_ENGINE && PM && QCOM_SMEM_STATE) || COMPILE_TEST
->>>> +       select QCOM_SCM
->>>>           help
->>>>             The BAM Data Multiplexer provides access to the network data channels
->>>>             of modems integrated into many older Qualcomm SoCs, e.g. Qualcomm
->>>> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
->>>> index cc6ace8d64371eb8d00c638a39b234ee540b83c9..0e7ad62f8b4e059264e89837f296ee13c0c31c9b 100644
->>>> --- a/drivers/net/wwan/qcom_bam_dmux.c
->>>> +++ b/drivers/net/wwan/qcom_bam_dmux.c
->>>> @@ -9,14 +9,17 @@
->>>>    #include <linux/completion.h>
->>>>    #include <linux/dma-mapping.h>
->>>>    #include <linux/dmaengine.h>
->>>> +#include <linux/firmware/qcom/qcom_scm.h>
->>>>    #include <linux/if_arp.h>
->>>>    #include <linux/interrupt.h>
->>>>    #include <linux/module.h>
->>>>    #include <linux/netdevice.h>
->>>> +#include <linux/of_reserved_mem.h>
->>>>    #include <linux/platform_device.h>
->>>>    #include <linux/pm_runtime.h>
->>>>    #include <linux/soc/qcom/smem_state.h>
->>>>    #include <linux/spinlock.h>
->>>> +#include <linux/swiotlb.h>
->>>>    #include <linux/wait.h>
->>>>    #include <linux/workqueue.h>
->>>>    #include <net/pkt_sched.h>
->>>> @@ -75,6 +78,9 @@ struct bam_dmux {
->>>>           struct completion pc_ack_completion;
->>>>
->>>>           struct dma_chan *rx, *tx;
->>>> +       phys_addr_t dma_pool_base;
->>>> +       size_t dma_pool_size;
->>>> +       u64 dma_pool_perms;
->>>>           struct bam_dmux_skb_dma rx_skbs[BAM_DMUX_NUM_SKB];
->>>>           struct bam_dmux_skb_dma tx_skbs[BAM_DMUX_NUM_SKB];
->>>>           spinlock_t tx_lock; /* Protect tx_skbs, tx_next_skb */
->>>> @@ -762,6 +768,90 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
->>>>           return 0;
->>>>    }
->>>>
->>>> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
->>>> +{
->>>> +       struct device *dev = dmux->dev;
->>>> +       struct device_node *rmem_np;
->>>> +       struct reserved_mem *rmem;
->>>> +       struct qcom_scm_vmperm dst[2];
->>>> +       u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
->>>> +       u32 vmid;
->>>> +       int ret;
->>>> +
->>>> +       if (!of_property_present(dev->of_node, "qcom,vmid"))
->>>> +               return 0;
->>>> +
->>>> +       ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
->>>> +       if (ret)
->>>> +               return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
->>>> +       if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
->>>> +               return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
->>>> +
->>>> +       if (!IS_ENABLED(CONFIG_DMA_RESTRICTED_POOL))
->>>> +               return dev_err_probe(dev, -EOPNOTSUPP,
->>>> +                                    "qcom,vmid requires DMA_RESTRICTED_POOL\n");
->>>> +
->>>> +       rmem_np = of_parse_phandle(dev->of_node, "memory-region", 0);
->>>> +       if (!rmem_np)
->>>> +               return dev_err_probe(dev, -EINVAL,
->>>> +                                            "qcom,vmid requires memory-region\n");
->>>> +
->>>> +       rmem = of_reserved_mem_lookup(rmem_np);
->>>> +       of_node_put(rmem_np);
->>>> +       if (!rmem)
->>>> +               return dev_err_probe(dev, -EINVAL,
->>>> +                                            "Failed to look up restricted DMA pool\n");
->>>> +
->>>> +       if (!is_swiotlb_for_alloc(dev))
->>>> +               return dev_err_probe(dev, -EINVAL,
->>>> +                                    "Restricted DMA pool not attached\n");
->>>> +
->>>> +       if (!qcom_scm_is_available())
->>>> +               return -EPROBE_DEFER;
->>>> +
->>>> +       dst[0].vmid = QCOM_SCM_VMID_HLOS;
->>>> +       dst[0].perm = QCOM_SCM_PERM_RW;
->>>> +       dst[1].vmid = vmid;
->>>> +       dst[1].perm = QCOM_SCM_PERM_RW;
->>>> +
->>>> +       ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
->>>> +                                 ARRAY_SIZE(dst));
->>>> +       if (ret)
->>>> +               return dev_err_probe(dev, ret,
->>>> +                                    "SCM assign restricted DMA pool failed\n");
->>>> +
->>>> +       dmux->dma_pool_base = rmem->base;
->>>> +       dmux->dma_pool_size = rmem->size;
->>>> +       /* Track the destination VMIDs explicitly for the reclaim operation. */
->>>> +       dmux->dma_pool_perms = BIT_ULL(QCOM_SCM_VMID_HLOS) | BIT_ULL(vmid);
->>>> +
->>>> +       return 0;
->>>> +}
->>>> +
->>>> +static void bam_dmux_reclaim_dma_pool(struct bam_dmux *dmux)
->>>> +{
->>>> +       struct qcom_scm_vmperm hlos = {
->>>> +               .vmid = QCOM_SCM_VMID_HLOS,
->>>> +               .perm = QCOM_SCM_PERM_RW,
->>>> +       };
->>>> +       u64 src = dmux->dma_pool_perms;
->>>> +       int ret;
->>>> +
->>>> +       if (!dmux->dma_pool_perms)
->>>> +               return;
->>>> +
->>>> +       ret = qcom_scm_assign_mem(dmux->dma_pool_base, dmux->dma_pool_size, &src,
->>>> +                                 &hlos, 1);
->>>> +       if (ret) {
->>>> +               dev_err(dmux->dev, "SCM reclaim restricted DMA pool failed: %d\n", ret);
->>>> +               return;
->>>> +       }
->>>> +
->>>> +       dmux->dma_pool_perms = 0;
->>>> +}
->>>> +
->>>> +static void bam_dmux_remove(struct platform_device *pdev);
->>>> +
->>>>    static int bam_dmux_probe(struct platform_device *pdev)
->>>>    {
->>>>           struct device *dev = &pdev->dev;
->>>> @@ -796,6 +886,10 @@ static int bam_dmux_probe(struct platform_device *pdev)
->>>>                                        "Failed to get pc-ack state\n");
->>>>           dmux->pc_ack_mask = BIT(bit);
->>>>
->>>> +       ret = bam_dmux_assign_dma_pool(dmux);
->>>> +       if (ret)
->>>> +               return ret;
->>>> +
->>>>           init_waitqueue_head(&dmux->pc_wait);
->>>>           init_completion(&dmux->pc_ack_completion);
->>>>           complete_all(&dmux->pc_ack_completion);
->>>> @@ -829,8 +923,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
->>>>
->>>>           ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
->>>>                                       &dmux->pc_state);
->>>> -       if (ret)
->>>> -               goto err_disable_pm;
->>>> +       if (ret) {
->>>> +               /* The PC IRQ may already have powered up the RX path */
->>>> +               bam_dmux_remove(pdev);
->>> it's still unclear in the comment and commit message why we can't go
->>> with err_disable_pm?
->> Agreed. I plan to update the comment in the next revision to:
->>
->> /*
->>    * The PC IRQ is already enabled and may have powered up the RX
->>    * path. Use the full remove() teardown so that RX DMA is stopped
->>    * before the pool is reclaimed.
->>    */
->>
->> and add to the commit message:
->>
->> If probe fails after the PC IRQ has been requested, clean up through
->> bam_dmux_remove(), since the IRQ may already have powered up the RX
->> path, which must be torn down before the pool is reclaimed.
->>
->> Does this look fine to you?
-> That looks good, yes. Also, could this be avoided by requesting the
-> IRQ with IRQF_NO_AUTOEN and only enabling it at the end of the probe
-> sequence?
+commit 7c662ff635bdb14cac997976404a99f9d5a1e734
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
 
-Yes, that is simpler. The PC IRQ then cannot run before probe enables
-it, so an irq_get_irqchip_state() failure can use err_disable_pm and
-the remove() call and its forward declaration go away.
+> thermal/drivers/loongson2: Fix clamp() usage for thermal trip points
+>
+> clamp() takes the value to clamp as its first argument, followed by the
+> minimum and maximum bounds. The current code passes the -40 and 125
+> limits as the value instead, so the trip thresholds are not clamped to the
+> supported sensor range.
+>
+> Correct the arguments so that low and high are clamped to [-40, 125].
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 734b5def91b5 ("thermal/drivers/loongson2: Add Loongson-2K2000 supp=
+ort")
+> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 
-For v6:
+[Severity: Low]
+Should the Fixes tag reference e7e3a7c35791 ("thermal/drivers/loongson-2: A=
+dd
+thermal management support") instead?  Commit 734b5def91b5 ("thermal/driver=
+s/loongson2:
+Add Loongson-2K2000 support") did not modify loongson2_thermal_set(), where=
+as
+the inverted clamp() arguments were introduced in e7e3a7c35791 ("thermal/dr=
+ivers/loongson-2:
+Add thermal management support") and later moved into loongson2_set_ctrl_re=
+gs()
+calls in 6ef6d5ff5edd ("thermal/drivers/loongson2: Trivial code style
+adjustment").
 
-ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL,
-            bam_dmux_pc_irq,
-            IRQF_ONESHOT | IRQF_NO_AUTOEN,
-            NULL, dmux);
-
-if (ret)
-     goto err_disable_pm;
-
-[...]
-
-enable_irq(dmux->pc_irq);
-
-return 0;
-
-Does this look fine?
-
-
-Thanks,
-Vishnu
-
->>>> +               return ret;
->>>> +       }
->>>>
->>>>           /* Check if remote finished initialization before us */
->>>>           if (dmux->pc_state) {
->>>> @@ -845,6 +942,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
->>>>    err_disable_pm:
->>>>           pm_runtime_disable(dev);
->>>>           pm_runtime_dont_use_autosuspend(dev);
->>>> +       bam_dmux_reclaim_dma_pool(dmux);
->>>>           return ret;
->>>>    }
->>>>
->>>> @@ -879,6 +977,12 @@ static void bam_dmux_remove(struct platform_device *pdev)
->>>>           disable_irq(dmux->pc_irq);
->>>>           bam_dmux_power_off(dmux);
->>>>           bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
->>>> +
->>>> +       /* The remote side may still access the pool if it holds its power vote */
->>>> +       if (!dmux->pc_state)
->>>> +               bam_dmux_reclaim_dma_pool(dmux);
->>>> +       else if (dmux->dma_pool_perms)
->>>> +               dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
->>>>    }
->>>>
->>>>    static const struct dev_pm_ops bam_dmux_pm_ops = {
->>>>
->>>> --
->>>> 2.34.1
->>>>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794211535.gi=
+t.zhoubinbin@loongson.cn?part=3D2
