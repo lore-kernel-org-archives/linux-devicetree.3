@@ -1,52 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794194236;
-	b=FzUMp4WtR5AIGVLN3X7lxDwEJk3kqhzBOVBjy7Cv2UQyTsHeHmhd6sglk2k58kjaSWew
-	 XB7tAI//8qr69b2ZZYxm+7sGonjZQNIYbeXLzlSGWG+P/Vi7mvV74lIzMxbV7qGmFZtkO
-	 xfV5HW74lMm2SG2FE8QFWu/6HfrQcipaLVOgIvb62z57cjVgs7GNv/KAExT7bsYMQz1Ef
-	 lbZqQTQtW88Jlc/jMZVl+CDqoAh3UvMK313u7BZAUm1aWbo3RBRy+jD4pFalsERYASPHj
-	 R8K3uS6wqutxZSkrwApx/HUpewp97ob3YHMDhk8KPNDPc9oSq8w7Yhkwvs7UgtH5Auw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194236;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
-	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=;
-	b=BcqcSN+Fkcvr+NEMj+7GboLqQNOIRCuF9Nr/KiSFB+BbQAxWcGnySVuEOPln5RcUGzrX
-	 XDORbj4Vd2a7N1QfJVZVLW7e/rupge1EC17MIuoAchfhPCKaZPk+Sl4fjy6jUuUkvEz5p
-	 2acPlZAamU6d4kPYELkptkiTxZYC56q+UUWDgU/8h/sx5ly6AjZHI1O2zt/HmeuVwGkRW
-	 nMC3AJUBiEASpwfr+9dmGzaXhG3qDV2d/fkXE6udeeeQ+54SzQWrD2gKr9sGkQ783QG6/
-	 +HSSVBj9vjUCJIEndnzpnNx1jzAlW8MSCo7DldQgEoz+wWuUkzd/OTYoihvYdQSyv+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pigmoral.tech;
-	spf=pass smtp.mailfrom=pigmoral.tech;
-	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794194741;
+	b=SOOFlai9F/0iHXMgNcWWS8z7AFCCbOJEmxHv7U4vnjHG9b/7NNpDpwRPVxUPzkdVx6zr
+	 r/22ciz8yjA6ezGlPP349/89NBeGBBZZp7GqvEnBQFA0PxvWeRRU8ep8ZV/2AH3kQwM0l
+	 4N2+mtyVL14r6Uacf2XU4ECt92OW+su1+dJ00s6bv+vDX2QcPuJA3yYVbcWpszoLU635/
+	 J+xprUBEBVFmpFDPtBFPuCsJFqfpXjhWvH/b+Gzlxm5kIXTKNooHs5aGC/JZS1GFO530u
+	 vCtB01wGEAgCVcPjHMI+3zaV4r5T8D1HblxlOqsWVfFTw3LNeAI2x33jTDSfwTKDDBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194741;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=z8n7JaPkB/Y4IA6cU4L2s+2dB40viJ/GtgSnJTcko/M=;
+	b=HTZE62HeDBoD7vf/C3iAJDtm4VNelNWMlxRZ13XDKmcddjVxim1Wxnt/cDh2CPBAyRcp
+	 4ixZKkRWB1LnaZs6RfBmBcvb21wyfhm2RxSXfs2yFlDY1G9G5SgFoqbWufmes6oTRhp6k
+	 ifu5UO/8fF11ibgyN1pBLVCPsvS1lkEL+UCqA3N+oV+kUP+bqNjClNO/NkVb7D4pejvg5
+	 e6YQ0SRVXtgfd0zaex5WEL354vJuCuXjtfGC5s75LUZ8qsnNsad68NcK6swjqyZ6L3mTg
+	 xI7vxdXN/IH7y1Z3nivrJ1ZJONEX74xldvL8FRXz8ASKINRjVPWRa/amVaIadN9Rwwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p3dQeUpY;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B401606A320;
-	Mon,  9 Nov 2026 03:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B401606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA635606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 03:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA635606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4
-ARC-Seal: i=1; a=rsa-sha256; t=1794194189; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=L0MjgcqXPJitlOVyDqAKTd5p+9n9JBhQ+dGSFjhfNlVdklM9BiPhXCsr0Nc4SJrK76EzvVfdE9QeJrPXYS6Z/EV9n+YyRJVAskDgnwcVs0knngMBwCriIn4bt5ojg5RiwyVa8qcwj2PfzPI3ocxId48jDBcRXW900Z951pdo2qc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794194189; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; 
-	b=n5RjKUI4/T8o/eLGpOfchAZ9Xusey+v+/5oWqXYbsV1HXGH34vH//WqWreXqa+lrIxXEfZfAxxSNHohcvJo3pkW42s0Jjvcd/19wdDIPlpI/+Sdn8JFV/Ahr8KzSaNKDk8Oh++yLyVwcFKJOkVfr+uOLDlhLYpe8jVHLN56mrwg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: a=rsa-sha256; b=E4aXrlQ4V6gCj/NHcpw5zGo8qbS90mcj/GoM4hGCu8r8HhWeiKaagUo7Rth+K1/nQVg0UWV1ak3XKCiW8w8JPCnqxJptgCQ0vFWhEoP9bDXguXxDyCOTuc3Afk0puDsGvj8yBS0QMYi2evneze7XziX+9qqNc+AM+48Ow3x317U=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794194187174866.5006536015394;
-	Sun, 8 Nov 2026 19:16:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p3dQeUpY
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed06b725fdso2950595ad.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 19:25:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794194740; x=1794799540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z8n7JaPkB/Y4IA6cU4L2s+2dB40viJ/GtgSnJTcko/M=;
+        b=p3dQeUpYWGXYjai8+S51vDPneG1hMOt1zxN341r+Q4M4d+radHyqNndaIrMJz7wURc
+         wM2vfx2JRtlfs4HEvcV5AVRHbxkSK04N97f3fOeR622N32R94JQW/ck0wj5dy/y1cHJp
+         8eOSbmLFXzN02rRYfXW0HbArRcPk76lpOXukWrJnOoomeVw0G4TI+PMSr4jyETXPrFbv
+         38KifUz0WL8RCg/wvooacOi9xFtq5qUHRrsh6ttcjUuAZbBlcTdd0khVwv0LBfNpWmqx
+         KSSPDExNLqAen4afXuZFlXb/NUIP9r485y4TGqFxRcFKFHwTXWLC6D+d1Iy2mnsftbPN
+         QH4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794194740; x=1794799540;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z8n7JaPkB/Y4IA6cU4L2s+2dB40viJ/GtgSnJTcko/M=;
+        b=bmWAhgZLnHbj1siVJ/s+Mn1piU5LOfW3K51NDx7sSD0DH7vo155KW8McHJvTJjeQus
+         uFJslQ2kaYr5ihubZsun80d9SIaoM/V461ZfuZj2ij5sDFW46DFuXzQ15h2rbrtvnNeM
+         u6Ihq67Eo/tdjkH4oQzMV+bz6krCZAe6UcLzn8+uxPKsRwGF2+uISzOfAKdn4/BcQ6Y2
+         e50TtAbcLeE1Uq6Y0f0ERHYiwu1DRAE5WiKAme2IpKp18uBLV+5XMhMTm6S8JFeO/Ue7
+         rFxX/pHn+9sty6fDOtdvo6FOq1gVUh1G/8SbkRYsUJZyUohKG/aPnHaEZHz1viuCWxmq
+         TXpg==
+X-Gm-Message-State: APuU4Z/OAZmYkMv68xVtZT+S1whnE4nJEGzV3l2Zn0BVPugIY9ezPIEZ
+	5xj4sHpP1sjVbRat9y2sxZR2qCt3jZdvv4/Cxlap/JsYk0GzCDk4RPfh
+X-Gm-Gg: AYBFou1X2E6ajQLPunGWceLi63oDAmEZgGkQdWI8vAl+LCmP0epsJ63apY4L93cK4Ik
+	ti7b1eQLkhxOYQKQJf23f5BNlSt/sQsy1gWTtzj6S23baOhXA2BTd+La+8nOUokKAh+ggKE1OJ/
+	mUXKgE+tcqAINaC5jgEICoRPcN6Nqy0G5CvXGvYgLu1bxkv9C3miSwyfrXrsUWduNgqhdnp2FpM
+	IH4gBS4wR6oJRplngK1Q+nnGOuGOwA+WAYu5B9gHNrjyIycY7jh79QCFYosR6EJEBlViaWuIlDo
+	y6NTRzFzO4Kg/1XRDRIeEKoTCd/WmkVc3HG25vW+SEFpniLpir5rqad+IzIGWzwc7mwmvR8bHST
+	0HNBmYZ+gPBLHVlDTAdpO/7mSlWSh8aUBnMMQodZzaOhHVRDv9emRCMSkPNUH0kxuh0k4HZ1j9t
+	HiIsDThh9rggNh0pLuw5vmg2pC4KwyQq0DoROm9/5Wg3dhq/jRsfaOP9ZshrIFiu/qjsPxbr3H1
+	m9+y5eP+d1xZUAYQ9s6rxzOmbmtgK15gpYgxCBPvOvIy9NeZDbh1tW72zDzG7DAqY5vnqqxfsgF
+	TP8A+05gHcTH1LPFrqqZReUqe5Sfl9in3B36yX0G/F27/9ePXAf3V2lE9W+V6oifkRpdCfXfHB/
+	Wlq+js5vY
+X-Received: by 2002:a17:90b:3b50:b0:3b0:e388:d9c9 with SMTP id 98e67ed59e1d1-3b12d3fc0aemr1747792a91.12.1794194739886;
+        Sun, 08 Nov 2026 19:25:39 -0800 (PST)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1164f16b3sm3657744a91.0.2026.11.08.19.25.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 19:25:39 -0800 (PST)
+Message-ID: <4e271e16-c3a6-462d-ac55-abd9129e03e1@gmail.com>
+Date: Mon, 9 Nov 2026 11:25:36 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,562 +90,215 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 11:16:17 +0800
-Message-Id: <DMQCR64N88M9.GCX83LKYT3IE@pigmoral.tech>
-Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
- Adriano" <enzo.adriano.code@gmail.com>, "Norman Herms"
- <dockseed@proton.me>, "Vinicius Pedrosa"
- <vinicius.eduardo.pedrosa@gmail.com>
-Subject: Re: [PATCH v6 6/8] clk: sunxi-ng: a733: Add mod clocks support
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Andre Przywara" <andre.przywara@arm.com>, "Junhui Liu"
- <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
- Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>
-X-Mailer: aerc 0.22.0
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
- <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech>
- <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
-In-Reply-To: <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/4] phy: nuvoton: phy-ma35d1-usb2: extend to dual-port
+ with OTG support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261008060629.2736806-1-a0987203069@gmail.com>
+ <20261008060629.2736806-5-a0987203069@gmail.com>
+ <sashiko-outbox-163689@kernel.org>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <sashiko-outbox-163689@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Andre,
 
-Thanks for your patient review.
-
-Besides the issues you pointed out, I also found a few other places that
-don't match the manual. I'll fix those in the next version as well.
-
-On Mon Nov 2, 2026 at 11:32 PM CST, Andre Przywara wrote:
-> Hi,
+On 10/8/2026 2:26 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] phy: Kconfig missing USB_ROLE_SWITCH dependency causes built-in link failure
+> - [High] phy: DT backward compatibility regression for over-current polarity
+> - [Medium] phy: ignored regmap_read return values cause uninitialized variable usage and info leak
+> - [Medium] phy: regression in PHY reset fallback when clock polling fails
+> - [Medium] PM/clock: PHY permanently holds HUSBH0_GATE preventing USB suspend
+> --
 >
-> judging from the "fun" this is to review, I very much appreciate your=20
-> efforts in putting this together ;-)
+> commit dce53df5cfe4dcfac8af16f8b29743a3f4e147e0
+> Author: Joey Lu <a0987203069@gmail.com>
 >
-> On 10/9/26 17:52, Junhui Liu wrote:
->> Add the module clocks found in the Allwinner A733 SoC, including video,
->> storage, interfaces and others. While most of these clocks are similar
->> to those in the A523 SoC, this implementation accounts for changes in
->> register offsets and introduces support for new modules.
->>=20
->> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
->> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->> ---
->>   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 1103 ++++++++++++++++++++++++=
-++++++++
->>   1 file changed, 1103 insertions(+)
->>=20
-
-[...]
-
->> +
->> +/* Undocumented, taken from the vendor kernel. */
->> +static const struct clk_parent_data avs_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->> +};
+>      phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
+>      
+>      PHY0 and PHY1 use the same power-on/reset sequence in USBPMISCR, with
+>      PHY1 control bits shifted 16 positions relative to PHY0.  A separate
+>      driver for PHY1 would duplicate this logic, so the existing driver is
+>      extended to manage both ports.
 >
-> Those two parents appear two more times below (usb01_ref_parents and=20
-> hdmi_sfr_parents). Please rename this array to something more generic=20
-> and reuse it below.
-
-Okay, I'll rename it to sys_24M_hosc_parents and reuse it for those
-clocks.
-
+>> diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+>> index 0b9976fb15c17..25bd0a7a1314b 100644
+>> --- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+>> +++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+> [ ... ]
+>> -static int ma35_usb_phy_power_on(struct phy *phy)
+>> +static int ma35_usb_phy_init(struct phy *phy)
+>>   {
+>> -	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
+>> +	struct ma35_phy_port *port = phy_get_drvdata(phy);
+>> +	struct ma35_usb_phy *p = container_of(port - port->idx,
+>> +					      struct ma35_usb_phy, port[0]);
+>> +	unsigned int n = port->idx;
+>>   	unsigned int val;
+>>   	int ret;
+>>   
+>> -	ret = clk_prepare_enable(p_phy->clk);
+>> -	if (ret < 0) {
+>> -		dev_err(p_phy->dev, "Failed to enable PHY clock: %d\n", ret);
+>> -		return ret;
+>> +	regmap_read(p->sysreg, MA35_SYS_USBPMISCR, &val);
+>> +
+>> +	if (!(val & USBPMISCR_PHY_SUSPEND(n))) {
+> [Severity: Medium]
+> Is this code branching on uninitialized stack memory?
 >
->> +static SUNXI_CCU_MUX_DATA_WITH_GATE(avs_clk, "avs-clk", avs_parents, 0x=
-880,
->> +				    24, 3,		/* mux */
->> +				    BIT(31),		/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *de_parents[] =3D {
->> +	&pll_de_3x_clk.common.hw,
->> +	&pll_de_4x_clk.common.hw,
->> +	&pll_periph0_480M_clk.common.hw,
->> +	&pll_periph0_400M_clk.hw,
->> +	&pll_periph0_300M_clk.hw,
->> +	&pll_video0_4x_clk.common.hw,
->> +	&pll_video2_4x_clk.common.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(de0_clk, "de0", de_parents, 0xa00,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    CLK_SET_RATE_PARENT);
->> +
->> +static const struct clk_hw *di_parents[] =3D {
->> +	&pll_periph0_600M_clk.hw,
->> +	&pll_periph0_480M_clk.common.hw,
->> +	&pll_periph0_400M_clk.hw,
->> +	&pll_video0_4x_clk.common.hw,
->> +	&pll_video2_4x_clk.common.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(di_clk, "di", di_parents, 0xa20,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    CLK_SET_RATE_PARENT);
->> +
->> +static const struct clk_hw *g2d_parents[] =3D {
->> +	&pll_periph0_400M_clk.hw,
->> +	&pll_periph0_300M_clk.hw,
+> If regmap_read() fails, the return value is ignored and val is left
+> uninitialized, leading to non-deterministic PHY state handling.
+Leaving this as is.
 >
-> My copy of the manual puts the 300MHz clock first, then the 400 MHz one.=
-=20
-> Can you please check this?
-
-Yes, I checked the manual, and the first parent is indeed 300MHz.
-
-The last parent should also be pll_video2_4x rather than pll_video1_4x.
-I'll fix both.
-
-[...]
-
->> +
->> +/*
->> + * GPU_CLK =3D ClockSource * ((16 - M) / 16)
->> + * Here we use a div_table to select M values that result in integer di=
-visors.
->> + */
->> +static struct clk_div_table gpu_div_table[] =3D {
->> +	{ .val =3D 0, .div =3D 1 },
->> +	{ .val =3D 8, .div =3D 2 },
->> +	{ .val =3D 12, .div =3D 4 },
->> +	{ .val =3D 14, .div =3D 8 },
->> +	{ .val =3D 15, .div =3D 16 },
->> +	{ /* sentinel */ },
->> +};
->> +static const struct clk_parent_data gpu_parents[] =3D {
->> +	{ .hw =3D &pll_gpu0_clk.common.hw, },
->> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
->> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
->> +	{ .hw =3D &pll_periph0_400M_clk.hw, },
->> +	{ .hw =3D &pll_periph0_300M_clk.hw, },
->> +	{ .hw =3D &pll_periph0_200M_clk.hw, },
->> +};
->> +static struct ccu_div gpu0_clk =3D {
->> +	.enable		=3D BIT(31),
->> +	.div		=3D _SUNXI_CCU_DIV_TABLE(0, 4, gpu_div_table),
->> +	.mux		=3D _SUNXI_CCU_MUX(24, 3),
->> +	.common		=3D {
->> +		.reg		=3D 0xb20,
->> +		.features	=3D CCU_FEATURE_UPDATE_BIT,
+> [Severity: Medium]
+> Could this strict condition remove the fallback reset sequence?
 >
-> Just a heads up: in my A523 CPU clocks series, I reworked the update bit=
-=20
-> handling, so depending on the order of merging this might need some rewor=
-k.
-
-I've seen that. I'd prefer to keep this series independent of your A523
-CPU clocks series for now. Once your series has settled, I'll send a
-separate patch to adapt the A733 update bit handling, or update this
-series if yours lands first.
-
+> The original driver would reset the PHY if the clock failed to stabilize during
+> polling. By encapsulating the reset strictly inside this block, it skips the
+> reset entirely if the PHY is already running.
 >
->> +		.hw.init	=3D CLK_HW_INIT_PARENTS_DATA("gpu0", gpu_parents,
->> +							   &ccu_div_ops, 0),
->> +	}
->> +};
+> If the subsequent clock polling times out, the driver immediately returns an
+> error. Can this cause a regression where the PHY fails initialization permanently
+> if it was left running but unstable by the bootloader or a prior kexec?
+PHY reset fallback: valid, v7 dropped the old reset-on-unstable-clock
+behaviour. In v8 I'll restore it: if SUSPEND is already set, poll the ready
+bits first and return on success; on timeout (or if SUSPEND was clear) 
+run the
+POR assert / udelay(20) / POR deassert sequence, then poll again and 
+fail only
+if the second poll times out. This covers a PHY left running but unstable by
+the bootloader or a prior kexec.
+>> +		regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
+>> +				   USBPMISCR_PHY_CTL_MASK(n),
+>> +				   USBPMISCR_PHY_POR(n) | USBPMISCR_PHY_SUSPEND(n));
+>> +		udelay(20);
 >> +
->> +static const struct clk_parent_data dram_parents[] =3D {
->> +	{ .hw =3D &pll_ddr_clk.common.hw, },
->> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
->> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
->> +	{ .hw =3D &pll_de_clk.common.hw, },
+>> +		regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
+>> +				   USBPMISCR_PHY_CTL_MASK(n),
+>> +				   USBPMISCR_PHY_SUSPEND(n));
+>>   	}
+> [ ... ]
+>> -static int ma35_usb_phy_power_off(struct phy *phy)
+>> -{
+>> -	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
+>> +static const struct phy_ops ma35_usb_phy_ops = {
+>> +	.init		= ma35_usb_phy_init,
+>> +	.owner		= THIS_MODULE,
+>> +};
+> [Severity: Medium]
+> Will the removal of dynamic clock toggling in .power_on and .power_off cause
+> a power regression?
 >
-> Should this be pll_de_3x instead?
-
-You're right. The second and third parents should also be periph1 rather
-than periph0. I'll fix them together.
-
-[...]
-
+> Since the clock is now acquired permanently via devm_clk_get_enabled() during
+> probe, the USB host clock gate (HUSBH0_GATE) remains open permanently,
+> preventing it from closing and consuming unnecessary power when the USB host
+> controller (EHCI0/OHCI0) suspends.
+HUSBH0_GATE: valid. devm_clk_get_enabled() keeps the gate open for the
+driver's lifetime. In v8 I'll use devm_clk_get() in probe and restore
+.power_on/.power_off doing clk_prepare_enable()/clk_disable_unprepare(). 
+Both
+ports share the one clock; the PHY core calls these per port and the clk
+framework refcounts, so the gate closes once neither port is powered. init
+will also enable the clock around its register accesses and polling.
 >> +
->> +static const struct clk_parent_data irtx_parents[] =3D {
->> +	{ .fw_name =3D "losc"},
+>> +static int ma35_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
+>> +{
+>> +	return -EOPNOTSUPP;
+>> +}
+>> +
+>> +static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
+>> +{
+>> +	struct ma35_usb_phy *p = usb_role_switch_get_drvdata(sw);
+>> +	u32 val;
+>> +
+>> +	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
+>> +
+>> +	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
+>> +}
+> [Severity: Medium]
+> Can this leak uninitialized stack memory to userspace?
 >
-> I think this clock should be sys_24M_clk.
-
-You're right. I'll fix it.
-
+> If regmap_read() fails, the return value is ignored and val remains
+> uninitialized. This uninitialized data determines the returned USB role,
+> inadvertently leaking 1 bit of kernel stack state to userspace via the sysfs
+> role attribute.
+Leaving this as is.
+>> +
+>> +static int ma35_role_switch_init(struct platform_device *pdev,
+>> +				 struct ma35_usb_phy *p)
+>> +{
+>> +	struct usb_role_switch_desc sw_desc = {0};
+>> +
+>> +	sw_desc.set = ma35_role_sw_set;
+>> +	sw_desc.get = ma35_role_sw_get;
+>> +	sw_desc.allow_userspace_control = true;
+>> +	sw_desc.driver_data = p;
+>> +	sw_desc.fwnode = dev_fwnode(&pdev->dev);
+>> +
+>> +	p->role_sw = usb_role_switch_register(&pdev->dev, &sw_desc);
+> [Severity: High]
+> Would this introduce a built-in link failure if the driver is built-in
+> (CONFIG_PHY_MA35_USB=y) and the role switch framework is modular
+> (CONFIG_USB_ROLE_SWITCH=m)?
 >
->> +	{ .hw =3D &pll_periph1_600M_clk.hw },
->> +	{ .fw_name =3D "hosc"},
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(irtx_clk, "irtx", irtx_parents, 0=
-x1008,
->> +				      0, 5,	/* M */
->> +				      24, 3,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +/* Undocumented, taken from the vendor kernel. */
->> +static const struct clk_parent_data sgpio_parents[] =3D {
->> +	{ .fw_name =3D "losc"},
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(sgpio_clk, "sgpio", sgpio_parents=
-, 0x1060,
->> +				      0, 5,	/* M */
->> +				      24, 3,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +/* Undocumented, taken from the vendor kernel. */
->> +static const struct clk_hw *lpc_parents[] =3D {
->> +	&pll_video0_3x_clk.common.hw,
->> +	&pll_video1_3x_clk.common.hw,
->> +	&pll_video2_3x_clk.common.hw,
->> +	&pll_periph0_300M_clk.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(lpc_clk, "lpc", lpc_parents, 0x1080=
-,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *i2spcm_parents[] =3D {
->> +	&pll_audio0_4x_clk.common.hw,
->> +	&pll_audio1_div2_clk.hw,
->> +	&pll_audio1_div5_clk.hw,
->> +	&pll_periph0_200M_clk.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm0_clk, "i2spcm0", i2spcm_pare=
-nts, 0x1200,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm1_clk, "i2spcm1", i2spcm_pare=
-nts, 0x1210,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_clk, "i2spcm2", i2spcm_pare=
-nts, 0x1220,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *i2spcm2_asrc_parents[] =3D {
->> +	&pll_audio0_4x_clk.common.hw,
->> +	&pll_audio1_div2_clk.hw,
->> +	&pll_audio1_div5_clk.hw,
->> +	&pll_periph0_300M_clk.hw,
->> +	&pll_periph1_300M_clk.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_asrc_clk, "i2spcm2_asrc", i=
-2spcm2_asrc_parents, 0x1224,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm3_clk, "i2spcm3", i2spcm_pare=
-nts, 0x1230,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm4_clk, "i2spcm4", i2spcm_pare=
-nts, 0x1240,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *spdif_tx_parents[] =3D {
->> +	&pll_audio0_4x_clk.common.hw,
->> +	&pll_audio1_div2_clk.hw,
->> +	&pll_audio1_div5_clk.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(spdif_tx_clk, "spdif-tx", spdif_tx_=
-parents, 0x1280,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *spdif_rx_parents[] =3D {
->> +	&pll_periph0_200M_clk.hw,
->> +	&pll_periph0_300M_clk.hw,
+> In this configuration, IS_ENABLED(CONFIG_USB_ROLE_SWITCH) evaluates to true,
+> so include/linux/usb/role.h declares the external functions instead of providing
+> inline stubs, causing an undefined reference to usb_role_switch_register.
 >
-> The manual I am looking at says those two muxes are "Reserved". So are=20
-> those parents from the BSP? Can you please add a comment about it then?
-
-Yes, I took them from the vendor BSP. I'll add a comment explaining that.
-
-[...]
-
->> +
->> +static const struct clk_parent_data usb01_ref_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->> +};
->> +static SUNXI_CCU_MUX_DATA(usb01_ref_clk, "usb01-ref", usb01_ref_parents=
-, 0x1340, 24, 3, 0);
->> +
->> +static SUNXI_CCU_MUX_DATA(usb2_u2_ref_clk, "usb2-u2-ref", usb01_ref_par=
-ents, 0x1348, 24, 3, 0);
+> Should drivers/phy/nuvoton/Kconfig be updated to include
+> depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH for PHY_MA35_USB to prevent
+> this invalid Kconfig combination?
+Kconfig: valid, thanks. In v8 I'll add
+"depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH" to PHY_MA35_USB in
+drivers/phy/nuvoton/Kconfig. With the role switch disabled, the existing
+-ENODEV handling in ma35_role_switch_init() still lets probe succeed.
+>> +	if (IS_ERR(p->role_sw)) {
+> [ ... ]
+>>   static int ma35_usb_phy_probe(struct platform_device *pdev)
+>>   {
+>>   	struct phy_provider *provider;
+>> -	struct ma35_usb_phy *p_phy;
+>> -	struct phy *phy;
+>> +	struct ma35_usb_phy *p;
+>> +	struct clk *clk;
+>> +	int n, ret;
+>> +	u32 code;
+> [ ... ]
+>> +	regmap_update_bits(p->sysreg, MA35_SYS_MISCFCR0, MISCFCR0_UHOVRCURH,
+>> +			   of_property_read_bool(pdev->dev.of_node,
+>> +						 "nuvoton,oc-active-high") ?
+>> +			   MISCFCR0_UHOVRCURH : 0);
+> [Severity: High]
+> Does this unconditional write break device tree backward compatibility?
 >
-> Don't these two clocks miss the gate at bit 31? So it should be=20
-> SUNXI_CCU_MUX_DATA_WITH_GATE instead?
-
-Oops, I missed them. I'll add them.
-
+> If the optional property nuvoton,oc-active-high is absent, this explicitly
+> writes 0 to the bit, forcing the over-current polarity to active-low. The
+> original driver relied on the bootloader's configuration.
 >
->  > +
->> +static const struct clk_parent_data usb2_suspend_parents[] =3D {
->> +	{ .fw_name =3D "losc" },
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_suspend_clk, "usb2-suspend",=
- usb2_suspend_parents,
->> +				      0x1350,
->> +				      0, 5,	/* M */
->> +				      24, 1,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +static const struct clk_parent_data usb2_mf_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .hw =3D &pll_periph0_300M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_mf_clk, "usb2-mf", usb2_mf_p=
-arents,
->> +				      0x1354,
->> +				      0, 5,	/* M */
->> +				      24, 3,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +static const struct clk_parent_data usb2_u3_utmi_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .hw =3D &pll_periph0_300M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->
-> Aren't those parents exactly the same as the usb2_mf_parents[] above?
+> Will this cause a regression in over-current detection on existing boards that
+> use active-high hardware configured by the bootloader but lack this new
+> property in their older device tree?
+OC polarity: the unconditional write is intentional. The binding in
+patch 1 defines "property absent" as active-low, and writing the bit in both
+cases makes the result independent of what the bootloader left in MISCFCR0.
+This bit only affects the EHCI/OHCI host ports' VBUS switch and is 
+irrelevant
+to the gadget (DWC2) use the old driver supported, so existing gadget-only
+users are not affected. The old driver never touched MISCFCR0, and no 
+mainline
+DT uses this PHY with host ports, so no mainline board depends on a
+bootloader-programmed polarity; nuvoton,oc-active-high is new in this 
+series.
+Out-of-tree boards with an active-high switch need to add the property. I'll
+state this explicitly in the commit message and binding description.
 
-Yes, I'll reuse the array.
-
-[...]
-
+Joey
 >> +
->> +static const struct clk_hw *edp_tv_parents[] =3D {
->> +	&pll_video0_4x_clk.common.hw,
->> +	&pll_video1_4x_clk.common.hw,
->> +	&pll_video2_4x_clk.common.hw,
->> +	&pll_periph0_2x_clk.common.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(edp_tv_clk, "edp-tv", edp_tv_parent=
-s, 0x1640,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->
-> There is a second divider range from bits [12:8].
-
-Okay, I'll switch this to SUNXI_CCU_DUALDIV_MUX_GATE.
-
->
->> +
->> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(hdmi_cec_32k_clk, "hdmi-cec-32k",=
- pll_periph0_2x_hws, 0x1680,
->> +				      BIT(30),	/* gate */
->> +				      36621,	/* pre div */
->> +				      0);
->> +
->> +static const struct clk_parent_data hdmi_cec_parents[] =3D {
->> +	{ .fw_name =3D "losc" },
->> +	{ .hw =3D &hdmi_cec_32k_clk.common.hw },
->> +};
->> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_cec_clk, "hdmi-cec", hdmi_cec_=
-parents, 0x1680,
->> +				    24, 1,	/* mux */
->
-> Even though there are indeed only two choices, the manual still=20
-> specifies the mux bits as ranging from [26:24] (as for many other clocks)=
-.
-
-Okay, I'll update the mux width.
-
->
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_parent_data hdmi_tv_parents[] =3D {
->> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
->> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
->> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
->> +	{ .hw =3D &pll_periph0_2x_clk.common.hw },
->> +};
->> +static SUNXI_CCU_DUALDIV_MUX_GATE(hdmi_tv_clk, "hdmi-tv", hdmi_tv_paren=
-ts, 0x1684,
->> +				  0, 5,		/* M */
->> +				  8, 5,		/* N */
->> +				  24, 3,	/* mux */
->> +				  BIT(31),	/* gate */
->> +				  0);
->> +
->> +static const struct clk_parent_data hdmi_sfr_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->> +};
->> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_sfr_clk, "hdmi-sfr", hdmi_sfr_=
-parents, 0x1690,
->> +				    24, 1,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static SUNXI_CCU_GATE_HWS(hdcp_esm_clk, "hdcp-esm", pll_periph0_300M_hw=
-s, 0x1694, BIT(31), 0);
->> +
->> +static const struct clk_parent_data ledc_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .hw =3D &pll_periph0_600M_clk.hw },
->> +	{ .fw_name =3D "hosc" },
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(ledc_clk, "ledc", ledc_parents, 0=
-x1700,
->> +				      0, 5,	/* M */
->> +				      24, 3,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +static const struct clk_parent_data csi_master_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
->> +	{ .hw =3D &pll_video0_3x_clk.common.hw },
->> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
->> +	{ .hw =3D &pll_video1_3x_clk.common.hw },
->> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
->> +	{ .hw =3D &pll_video2_3x_clk.common.hw },
->> +};
->> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master0_clk, "csi_master0", csi_m=
-aster_parents, 0x1800,
->> +				  0, 5,		/* M */
->> +				  8, 5,		/* N */
->> +				  24, 3,	/* mux */
->> +				  BIT(31),	/* gate */
->> +				  0);
->> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master1_clk, "csi_master1", csi_m=
-aster_parents, 0x1804,
->> +				  0, 5,		/* M */
->> +				  8, 5,		/* N */
->> +				  24, 3,	/* mux */
->> +				  BIT(31),	/* gate */
->> +				  0);
->> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master2_clk, "csi_master2", csi_m=
-aster_parents, 0x1808,
->> +				  0, 5,		/* M */
->> +				  8, 5,		/* N */
->> +				  24, 3,	/* mux */
->> +				  BIT(31),	/* gate */
->> +				  0);
->> +
->> +static const struct clk_hw *csi_parents[] =3D {
->> +	&pll_video2_4x_clk.common.hw,
->> +	&pll_de_4x_clk.common.hw,
->> +	&pll_periph0_480M_clk.common.hw,
->> +	&pll_periph0_400M_clk.hw,
->> +	&pll_periph0_600M_clk.hw,
->
-> My manual lists two more parents: video0_4x and video1_4x.
-
-I missed them. I'll add them.
-
->
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(csi_clk, "csi", csi_parents, 0x1840=
-,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static const struct clk_hw *isp_parents[] =3D {
->> +	&pll_video2_4x_clk.common.hw,
->> +	&pll_periph0_480M_clk.common.hw,
->> +	&pll_periph0_400M_clk.hw,
->> +	&pll_periph0_600M_clk.hw,
->> +	&pll_video0_4x_clk.common.hw,
->> +	&pll_video1_4x_clk.common.hw,
->> +};
->> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(isp_clk, "isp", isp_parents, 0x1860=
-,
->> +				    0, 5,	/* M */
->> +				    24, 3,	/* mux */
->> +				    BIT(31),	/* gate */
->> +				    0);
->> +
->> +static SUNXI_CCU_GATE_DATA(res_dcap_24m_clk, "res-dcap-24m", hosc, 0x1a=
-00, BIT(3), 0);
->> +
->> +static const struct clk_parent_data apb2jtag_parents[] =3D {
->> +	{ .hw =3D &sys_24M_clk.hw },
->> +	{ .fw_name =3D "losc" },
->> +	{ .fw_name =3D "iosc" },
->> +	{ .hw =3D &pll_periph0_480M_clk.common.hw },
->> +	{ .hw =3D &pll_periph1_480M_clk.common.hw },
->> +	{ .hw =3D &pll_periph0_200M_clk.hw },
->> +	{ .hw =3D &pll_periph1_200M_clk.hw },
->> +};
->> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(apb2jtag_clk, "apb2jtag", apb2jta=
-g_parents, 0x1c00,
->> +				      0, 5,	/* M */
->> +				      24, 3,	/* mux */
->> +				      BIT(31),	/* gate */
->> +				      0);
->> +
->> +static SUNXI_CCU_GATE_HWS(fanout_24M_clk, "fanout-24M", sys_24M_hws, 0x=
-1f30, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_12M_clk, "fanout-12M", sys=
-_24M_hws, 0x1f30,
->> +				      BIT(1), 2, 0);
->> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_16M_clk, "fanout-16M", pll=
-_periph0_480M_hws, 0x1f30,
->> +				      BIT(2), 30, 0);
->> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_25M_clk, "fanout-25M", pll=
-_periph0_2x_hws, 0x1f30,
->> +				      BIT(3), 48, 0);
->
-> Where do those parents come from? My manual just lists the frequencies.
-> Is that matching the 0x1f3c register sources?
-
-Yes, these match the sources listed in CCMU_FAN_REG (0x1f3c).
-
-The current definitions fold the intermediate fixed dividers:
-PERI0_160M / 10 becomes PERI0_480M / 30, and PERI0_150M / 6 becomes
-PERI0PLL2X / 48.
-
-I'll use PERI0_160M / 10 and PERI0_150M / 6 in the next revision to match
-the documented clock tree more directly.
-
->
-> The rest seems to be correct, as far as my mostly manual comparison goes.
->
-> Cheers,
-> Andre
->
-
---=20
-Best regards,
-Junhui Liu
+>> +	for (n = 0; n < MA35_PHY_NUM; n++) {
