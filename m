@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212992;
-	b=qVHUvIt1ryeCw+4TLo3CCQ4HVqyXxeO8jWiGPZJP/MEHNqF/D5mIztFPfGlIfovzUe3t
-	 C6Fk2i1MVnvToGI7pZ3LMPjNRMxhqQ1+fov6ojpwdnwQUHAri3OmqwxVL65rApki3z2Js
-	 RSPG81EZboLpS4c3nPVHvbWk979CzcByaoV0s2XhKXkkpWwr+nsQV0zyFjHGGRXKNwL6S
-	 4kuPxSXZihyPunL2K+CThImB9QdH71r+SRFQfjhmN/fAOz2f6op9mH+CLscyXFfU8bzMj
-	 IZbt2sFdYUxZPInwDMmre4EneTzgAECMevRiBLf3As7G6YbmscT4DW5/EVeP1VuruEA==
+	t=1794213137;
+	b=if//WzU0qd+GwrrNA3NG6N/a9uCmDAUfnhAEhWRnG1iUGRYE+sx5BaRisxsjbYn85nnG
+	 P9FH5yqLOgstN9dHqt1+RKtzysIQ/yWbkwO/G09bDGouqrtj/UIC2pqnX5olZbSrG8Hu8
+	 dL8Xgub/fhd7tW/6c87UvMUr4q16kU9SlJvwjrm+S8ARzHSu9/95etsDlRNJWiXekEgZ8
+	 AlTaXTG/Hg+UWuUsGG4jph1ehrQOHq/wlvGfPA3NjLg5EnI76Y+wDHAoNWubYdAOMJiHd
+	 Ur8rZD0yTYeggmaJTKU2GR3InVLpT16RV4SbMsokqGpI/bc6og4DwT+4e6MpUnA2rvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212992;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ySwcpEO/v0qQJdUqN0WTogHzx91HMoo5Nvn5a1Zm8QY=;
-	b=glW44CA2ZA0Gwb/r7YUoz6WgNukHiCo+Nw3nxNJor3qke1V27+ZXsr+T9Reij6vpd3+P
-	 IVOHvQcM633SlsNYJ0Lx7kHlAX39U3atSh5bFQlSt2eQhi5gLEBtOIeXfB4fMDNhjMBOK
-	 rGahWpq4i7ukn0JZ+vq9/3MwkURWgO5jMR2hbm2QUitzwOxswHGevAG5Y4Ii8n1MluY0O
-	 9qKQg42Nk5Dni1A8GkSc4E7eYL634UGK4qxmLRzJ9T37Tgj06BjITijJMAJy5e5XzuxhX
-	 Xuv24vdqOh/V8tLFVsv40bBrkYinS+arDateVGfN4e+wFFPSYJvLgQlJVX9q+t+GEwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213137;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=pC9L0ygXYZS7C23y/4zCtr72mdv0XIeuEcsbFFHGDy8=;
+	b=zt7whAIZaygJ+JtBmB8PULM7LDrv3V31Hp2anxymZ99U2S/t1wSV/7R6fcwkoUWgg59D
+	 YQs2MY9uwDdB3xYCVgR7ef//ArxNSBDsi1Cjq4MoLzRz7H31wSH37KEOABHIuApyZ4Mi5
+	 /FuhWaoEhnwgI2fP2HtWi5xRdxX2/LAMZUJoB+oo+vkcC0xoaULpHkqXnySAKovYoIHhT
+	 tTJKi8uMKAvVFql4mTdjXbXb9BdF7RCoMkPxhE7epGaw6nZDFHSIKE8qj8VX6fDCXfSs+
+	 pfxS8g2IBLvkFInM8fOKLS6gMcvB6DGqIgRXaJEqx3LP+uVCu7KwagVrEcO9/3Jkuig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkWfwYQv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFp0urI+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740C4606A31C;
-	Mon,  9 Nov 2026 08:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A84606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 08:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkWfwYQv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C0A1F0089F;
-	Mon,  9 Nov 2026 08:29:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFp0urI+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1BC1F008A1;
+	Mon,  9 Nov 2026 08:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212992;
-	bh=ySwcpEO/v0qQJdUqN0WTogHzx91HMoo5Nvn5a1Zm8QY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BkWfwYQvEfkQobIuzw0xP0ZaLAcRnBRVr8KzoheGOqbZEz8snt70rmqcKKXp3M+SJ
-	 wpy49Q08GLpHiTWcOx3QE0Dzi6xyQvhGtqan+5P+xOAdVGNYQmuffByOu2rn68b5Py
-	 vmBSUqtbc8y168j/q2vmI2HrPOTUalT1w3j2alERGDL2bWcf2r/c3K1MBcyKVx5u++
-	 o3/KD4FQ8ZsLhs7vbmfK9vWjCkom/lV0arnFCp053gge0oXnfveKYvt6YbJcdlPcEB
-	 UvTRpPsl+6+pMM/ZwYQP9/YHscgqgiDmCFT71GdiSTZLohRM+bEsF9pQN7NPMcCIsi
-	 KjoTSssf6zc3g==
-Message-ID: <9dbfc665-089c-45f7-bca2-74caee322885@kernel.org>
-Date: Mon, 9 Nov 2026 09:29:37 +0100
+	s=k20260515; t=1794213137;
+	bh=pC9L0ygXYZS7C23y/4zCtr72mdv0XIeuEcsbFFHGDy8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TFp0urI+1rThA2Odwq2Vzq0JbMotlzUotzY8Uxi1decQUasRs+ZKgwZhtHokbZYlE
+	 OB+ZnLHftuEU+KUsi4oX3qDgHZH8s2RxV1t2xo5+5XRaHxkbPdSbX5Gjgq0NCVWPAU
+	 JMW2uhI6sSL6gXhVAjd6fsC0zbbIt2409U601mMDgDZRm/5C8Z7AxhRH08Jb12Nrvg
+	 Ovw9bx/mcx7WKMpwB26DHf2iZzHoBETYWpgh7IB1ngnwFHAHhBAduk/hXIkl8+zm7s
+	 bnb55yhXBWSurk2yChodr4/9xGmJ/1uhHui0EFmX8I0IWy6L6bsGTVrBkn5c394tdp
+	 fuE2SOjttMw0Q==
+Message-ID: <sashiko-outbox-204590@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 7/7] thermal/drivers/loongson2: Add Loongson-2K0300
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <038de1cc102684e0abad6c25cac0138f065a0311.1794211535.git.zhoubinbin@loongson.cn>
+References: <cover.1794211535.git.zhoubinbin@loongson.cn>
+ <038de1cc102684e0abad6c25cac0138f065a0311.1794211535.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 08:32:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,177 +60,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/17] arm64: dts: qcom: Add initial Halliday dtsi
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
- Guru Das Srinagesh <linux@gurudas.dev>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
- <20261109-halliday-dts-v1-16-289114ab8197@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261109-halliday-dts-v1-16-289114ab8197@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 09/11/2026 01:33, Stanislav Aleksandrov wrote:
-> Add the device tree for the Qualcomm Halliday SoC
-> (SXR2250P / Snapdragon XR2+ Gen 2).
-> 
-> It describes the CPUs with their idle states, cpufreq and OPP tables,
-> the GIC and the PDC, the timers, SCM, SMEM, RPMh with its clocks, power
-> domains and interconnects, TLMM, GCC, SPMI, the apps SMMU, USB, UFS
-> with ICE, TSENS with the thermal zones and the PMU.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/halliday.dtsi | 1859 ++++++++++++++++++++++++++++++++
->  1 file changed, 1859 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/halliday.dtsi b/arch/arm64/boot/dts/qcom/halliday.dtsi
-> new file mode 100644
-> index 000000000000..c891913e3cc1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/halliday.dtsi
-> @@ -0,0 +1,1859 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] thermal/drivers/loongson2: unmasked trip IRQ in
+  ls2k0300_thermal_hw_init()
+--
 
-Odd license, suggests you copied it.
+commit 024ebeb46fbe6ba2893fe68297ad030cb9ce5fe2
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
 
-> +/*
-> + * Copyright (c) 2026, Stanislav Aleksandrov <lightofmysoul@gmail.com>
+thermal/drivers/loongson2: Add Loongson-2K0300 support
 
-You should retain original copyrights as well.
+This commit adds thermal sensor support for the Loongson-2K0300 SoC,
+reading calibration data from the CHIP ID syscon registers and falling
+back to an uncalibrated slope if the initial reading is out of range.
 
-> + */
+> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
+on2_thermal.c
+> index 4ce162dfb1229..68e6105051c60 100644
+> --- a/drivers/thermal/loongson2_thermal.c
+> +++ b/drivers/thermal/loongson2_thermal.c
+[ ... ]
+> @@ -87,6 +122,107 @@ static int loongson2_thermal_set_trips(struct therma=
+l_zone_device *tz, int low,
+[ ... ]
+> +static int ls2k0300_thermal_hw_init(struct platform_device *pdev,
+> +				    struct loongson2_thermal_data *data)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	int ret;
 > +
-> +#include <dt-bindings/clock/qcom,halliday-gcc.h>
-> +#include <dt-bindings/clock/qcom,rpmh.h>
-> +#include <dt-bindings/interconnect/qcom,halliday-rpmh.h>
-> +#include <dt-bindings/interconnect/qcom,icc.h>
-> +#include <dt-bindings/interconnect/qcom,osm-l3.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/power/qcom,rpmhpd.h>
-> +#include <dt-bindings/soc/qcom,rpmh-rsc.h>
+> +	data->regmap_cfg =3D syscon_regmap_lookup_by_phandle(dev->of_node, "loo=
+ngson,chipid");
+> +	if (IS_ERR(data->regmap_cfg))
+> +		return PTR_ERR(data->regmap_cfg);
 > +
-> +/ {
-> +	interrupt-parent = <&intc>;
+> +	ret =3D ls2k0300_thermal_read_calib(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read calibration data");
 > +
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
+> +	writel(LS2K0300_THSENS_INIT_MASK, data->ctrl_reg + LS2K0300_THSENS_CFG_=
+REG);
 > +
-> +	chosen {
-> +	};
+> +	/*
+> +	 * Wait for the ADC to produce the first valid conversion before
+> +	 * using OUT_REG for the old-fuse sanity check.
+> +	 */
+> +	usleep_range(1000, 2000);
+> +
+> +	ls2k0300_thermal_detect_old_fuse(dev, data);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> @@ -178,6 +314,10 @@ static int ls2k2000_thermal_hw_init(struct platform_=
+device *pdev,
+>  	return 0;
+>  }
+> =20
+> +static const struct thermal_zone_device_ops ls2k0300_thermal_zone_ops =
+=3D {
+> +	.get_temp =3D ls2k0300_thermal_get_temp,
+> +};
 
-Drop node.
+[Severity: Medium]
+Can this cause a thermal interrupt storm on Loongson-2K0300 if trip
+interrupts were left enabled by firmware or a previous kernel across
+kexec?
 
+Unlike ls2k1000_thermal_hw_init() and ls2k2000_thermal_hw_init(),
+ls2k0300_thermal_hw_init() does not clear LOONGSON2_THSENS_STATUS_REG or
+disable trip-point interrupts, while loongson2_thermal_probe() still
+unconditionally registers loongson2_thermal_irq_thread().  Because
+ls2k0300_thermal_zone_ops omits .set_trips, thermal_zone_device_update()
+in the IRQ handler cannot update the hardware trip window or mask the
+interrupt enable bit, so the comparator will keep re-asserting the
+level-triggered interrupt on subsequent ADC conversions.
 
-> +
-> +	clocks {
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		xo_board: xo-board {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +	};
-> +
-
-...
-
-> +
-> +	thermal-zones {
-> +		aoss0-thermal {
-> +			thermal-sensors = <&tsens0 0>;
-> +
-> +			trips {
-> +				aoss0-critical {
-> +					temperature = <115000>;
-> +					hysteresis = <0>;
-> +					type = "critical";
-> +				};
-> +
-> +				aoss0-hot {
-> +					temperature = <110000>;
-> +					hysteresis = <1000>;
-> +					type = "hot";
-
-Oddly ordered. These are sorted by temperature, even if dt-check-style
-disagrees.
-
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794211535.gi=
+t.zhoubinbin@loongson.cn?part=3D7
