@@ -1,115 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214939;
-	b=o/5j3lgRtbSYnVx3fOjGL1YOTHzj9dWYlkZz0k3VNzo81JoWH9nOShY4kUQ4p02G1dyh
-	 WZ9V+BV5CIETuURJDbYQFpXgo865D1XOPx4hdGrv74tzFMmQnCvlZH2fhzmWG1CSgdOcb
-	 rk5BjevvIXJDAv6CUDE922D7i8Voc/zNvXq909NUW/ZNi+0PIV4V+I5PuNP2zlahJ8yOH
-	 QcMGrgwRkeslyFubL7D5iSNL4kSlbIQHqH0I+gPwUkA6jGo2KxgkKkGHf66kbFdTe/A93
-	 KfQfWmvPmRM8WIYB9dC1KAmc4BzdqmNH4eDW6mwIbW+vZ6hqzA5TFIYYbaZSEdcQ0KA==
+	t=1794215208;
+	b=OB3T+JsfpeEZIymiwXZINiO4Vf7BCreRHy87CuRyIlwjk3bXGf64uBkAlgHug5Zt81PJ
+	 RNhztRommYLQHdVl/UzsngQUPsb9HgzjvPoUhY64swZNjO3Bgdo8XA9w129LcNmsDF0Hm
+	 zHNy8OiaUFBI5D7FtHOHC2/72RZUdkuo8iP2WFEkuq9z6i48UWvfAa8oZ0bhdc66pvjUf
+	 sCvhuESDTjPn9z5rGv2/wRDEsLplaFkqkPcVP3ucXC8sPML48uhlTLAPBTkPKZui/ax5S
+	 gfp0a+fzdmXhY0FpGJ7V8HdcGPJThnwVmpeqGcl5QCHf5Ib1uC6hWrJUiDGYS5AS7qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214939;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215208;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=OiIrkS/FrAToZga2pBkKoTHUFOwCRHo9qPdA54f6cRM=;
-	b=LzClvdd9qPwXhdnN7AcPuAxq/glBcBgt9URQtqHOpGCQ8tn+XdKncMEBJIsm+062lbKk
-	 neSESEqz8fgB8TA9SABitEw1VQMuuT0qIVb31q61/2H5Tmaf88gcRwxAiFTGtyAawdUhO
-	 1PsRnO5otx1RJUpd7E92KILqe8r6aRLYLjivsJw7DB1wl/A/APB06ZFJYwAOIK5sLKkLG
-	 AswgQQredfqjN3gaBDEGRTxVKW84erQz4QNYlfab6ijo/T3y3qjvy+ldGgo/GxSQHyRI/
-	 iyXl3fCXl20y9FqvRQam7JE0RgYv3h1cyUiTaKETxVPi0GzaXysuqViySIFbAujDtnw==
+	bh=dqiVtPs0Q2ghJGFEHuydmBelmea99GR2RR7CgW2HfWI=;
+	b=b3WpVkbFu86JaSTwVUPoZfnBMN+8e09ZHOMifAaOV+jtXfb73kw9sW0E4hfs9W99R/2z
+	 XoXXL+HaOK2sDZ7xoe5rZql0l3iAnt7B+xBikWS6fqGuQ6fIPAEaL4FLnSMdGB6t28liI
+	 qd5iWKbDEhdK5qIbGigbZRCED0zB3XT0ACYtQ4HIRfGYk6PLxvO/lUVm23s7Ad4jXrv85
+	 0E0sfItrWralUw0PO8RGnbZNVN6TKzRqT024CEMzDovziPjKzwJuvwHyAumXqDcPmHfJI
+	 yzlph/DOPIn80ITjzPtcENuOpAsNZMmHhWdX5KD+BscXCy3rf/iz68W/yLuXcw+CB8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=DHeaPKvm;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=BDlmyxmm;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bXP4S+z6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="eaG/LPy1";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E971606A322;
-	Mon,  9 Nov 2026 09:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E971606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A99606A323
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A99606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=DHeaPKvm;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=BDlmyxmm
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96Bt8A3169891;
-	Mon, 9 Nov 2026 04:02:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=OiIrkS/FrAToZga2pBkKoTHUFOwCRHo9qPdA54f6cRM=; b=DHeaPKv
-	mYD47HlwksfZuJOPtIjYruhhojIp/nmwMI2nkskXarPYPZqO+ALHl8EVsNvCYkDY
-	bTL/a7hKfD52KlQmejSTxXUekhWiB3D3CB344LrcQdII0YQOBhA4X4rtOrgK+bPo
-	3P3JATB4noDjZ5s5EqwOwZhzMIP3SORr8uEs3qPQCOMOCwVUsL+vOsXe312JHdGZ
-	wrJi1d+7lrM6kYEzXb3GVKPHagM4MKEI49lL8v01LPsbveGR1W01bhtBtrqP5kfn
-	5K4OwFeUKruha6Zz4egtT+1680PLCtX18ynxbUOmxOZ/hLN4VQBOIasl61yjAshx
-	RGcb4WULJvIjMzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=OiIrk
-	S/FrAToZga2pBkKoTHUFOwCRHo9qPdA54f6cRM=; b=BDlmyxmm3wDkFla7rc5Gh
-	uejHM/k/w2hTY+jRB8cnjNV9YIucG/jxINS1eVus1sZ7QIBNgR0uGg8oIMls8nFz
-	hS0NkeBADlyj7LyCDlK8dKPBbtGpuFGC3FYCupfqiWy3afj+OVQDrUtShHav46ey
-	nDOa34sw1/Rrce20OuMxnn5sFESSrHFLG2t9N8Xn9TVtbhtRuDkYrx6tK7Iq7zKb
-	/j/xw4LdNeCwmqfbEmaEUttIn8qhHWc1iVAfboJGm6tD9Kmxq+Qnmj/U9N017vsM
-	CfUcYicMvVAA23HEZ7t77nqMR2KTgpA1JqEGDZqu5ZEO5wm72Zc10mBvD+LIOUad
-	w==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ht1s7a94s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 04:02:03 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A9921Cw045802
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 04:02:01 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 9 Nov
- 2026 04:02:01 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 9 Nov 2026 04:02:01 -0500
-Received: from HYB-6AVb5If9qTU.ad.analog.com (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.41])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A98xreM024796;
-	Mon, 9 Nov 2026 04:01:54 -0500
-From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Marcelo Schmitt
-	<marcelo.schmitt@analog.com>
-CC: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-        Ciprian Regus
-	<ciprian.regus@analog.com>, <netdev@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Iustin
- Stolniceanu <iustin.stolniceanu@analog.com>
-Subject: [PATCH net-next v2 7/7] net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
-Date: Mon, 9 Nov 2026 10:59:52 +0200
-Message-ID: <20261109085952.105331-8-iustin.stolniceanu@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
-References: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bXP4S+z6;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaG/LPy1
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A0cU480922
+	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 09:06:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=dqiVtPs0Q2ghJGFEHuydmB
+	elmea99GR2RR7CgW2HfWI=; b=bXP4S+z6ftSH0JGGUOX/+zT0Lu0H6DfvnGbmfl
+	wd3Dx6RoPhrjfZdv4ltUsqoWnvUMc4nA4tqUF1w+5wQI17bgneCVM1DT9UgxXrDP
+	YyCtfIG98nbFgtNFI5AHgKvyuxhDRGUg8WNkpAU6sx5cm7S9wiUh30LDxhYjpcOz
+	WIml6qdaUg+6mfCrIdnXs7N1OucJgDA5InmXelHsEXYfAx+ySbLJucWlIvbirRUd
+	eGWnTE/cRrK272440cuSOiVsQb9dGm27Rd+4TSrJzH0quCNjAUw14nqhaAXZtVjv
+	FmXqy3mhJoQfpCcdSiv4jSgf/LTqXwlDZvMTdniJIf/oa8cA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hstxsdphf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:06:46 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9806e283b0eso561227241.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:06:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794215206; x=1794820006; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dqiVtPs0Q2ghJGFEHuydmBelmea99GR2RR7CgW2HfWI=;
+        b=eaG/LPy11sDW1EHzO5ItbIIo0T/G7PK0mGPLR/BV9o3Wii4LdvndpZkVCKOcfoG/Il
+         zQZYWz8OeO8jBjGd5xnoJc/wh239qQ6HH6pmARO6IX14LM2ZkeopY6hG7VfDRt8RsHtC
+         lOM32jGywUp55r68UOp/K16fSsZXYfibqeCcAl09Rtch20dEXnr6uBCJ4ym06WGlTp9t
+         wiBGWJw7hg4QHbP0R4T7BiVnl6dgNqgfT1MbyqmpMoizB9q+SylJNxQcacQiXHHfCgVZ
+         D18p8Q+c+LCqe1S8Xjz05HKSWyecExJzILIvoKrmvOya3bBHlz5KstBFl7mTDX6b+r3C
+         1mEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794215206; x=1794820006;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=dqiVtPs0Q2ghJGFEHuydmBelmea99GR2RR7CgW2HfWI=;
+        b=jHMg7wddDL2JTsr2UtMQRXoV9IY4go4JBmlOvv1cpvNXyowZGrOceM/cA0o6n4byKP
+         b0m8tTRRQqOLPsWjtnj8KKU8wzVuKFAUopOfWI2KICupBwvddrwLqnk5dLsfd0ffLIOS
+         W49lmG8xUKtYHxheztV+VxvgrUjpTDCGo/E+AG222sRep4kcDI673VB4fpLeD9mHoE2M
+         kTsb2zbAl3uULliNx9tYNd+1PZPpQmhM3OQJeAvi3UVsXz8Hc3srNHs11ybkEkadIJpZ
+         DrZkalkRObfL1uPJ+ps5ugvQeUI0Nkl9ibbCB7iNuZQ4rKiFLIfIB0gru11iVJiORCgS
+         5pzA==
+X-Forwarded-Encrypted: i=1; AL+hErG3ZdpRitfZAA2Xt/2CSRSxCtC13MGwEUK0CUhMujazjLfFYsMT+VYIBvdmP5zAsCDMOXFthBIc2mPt@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HHqHA7g7JMFnbraZQELSFaDCblOEu1GZWj1zj1X2+q+voqLZz
+	ooLDwbheksigkyfXp1ClJjWyM4oHuT/qNdHG7Uf4fzSn7u4VRHczDp2s/t7mVubg1QNX7uoV8oZ
+	l4pTAkA0s776xnDplopz403Lqnfkxty+UMx0PG6a53h9GIT3m39Ey9TjX9KrdGiUX
+X-Gm-Gg: AYBFou1bwSs7GP2V2XIBe/V/SxLH8peKZhPWxfFfoFV4qcHqXaTgEaDZPEYP6bGz0z2
+	tcQb9pkZNgSOYYsbiknGj7dbQrdzh1vmCwVBX5AD3yoIUqNMOh+3bJVOPAFA3RSRftkIMZJtUCN
+	sUc3D/3aWN5wFMHERMsqkAOUo/6UCGt5P+ZznpEs8/C7PXMT5+Y31Hpz07STnpxVg9mtNcKtyiM
+	lwu8nr0f29o0cnsF4a8R6a7ywgpKmvirJLTe50zuqImQNBQAew7FJurSuG6FycLVWCmug/gJIWN
+	R1/lIVgPU+3kRWZP3jurfDLwYCpcKCJw5IDEAQwumu/ncEl9Iu4m0geVqeOrTKcae41lJg4N0Kz
+	7sA9qbDYHedHzYRuUOgyDkFRWt/qtA86otK4bRUVfOeT7p15qlWkTXfvaYQ==
+X-Received: by 2002:a05:6102:54a5:b0:7bc:dd88:add with SMTP id ada2fe7eead31-7d2db0d23f3mr975212137.14.1794215205601;
+        Mon, 09 Nov 2026 01:06:45 -0800 (PST)
+X-Received: by 2002:a05:6102:54a5:b0:7bc:dd88:add with SMTP id ada2fe7eead31-7d2db0d23f3mr975205137.14.1794215204956;
+        Mon, 09 Nov 2026 01:06:44 -0800 (PST)
+Received: from [127.0.1.1] ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495966f36besm8031854f8f.14.2026.11.09.01.06.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 01:06:44 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Mon, 09 Nov 2026 11:06:39 +0200
+Subject: [PATCH RFC] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7:
+ Describe the HDMI port
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,416 +114,208 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=c4A+0h9l c=1 sm=1 tr=0 ts=6af18c0b cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=vS59efpLlZnIYc5Nq3wA:9
-X-Proofpoint-GUID: 0W2QT0cRuShxmTQWx0CyCPH0aZ2Wu8No
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfXwdoNYjvHApom
- qtnuEW6UOdMpEerdeDpzgnkHl7UUJB4DdjIZGuaZ4UxYRohkUIIV7W8IO4/bY3tG5AoePI1AMpQ
- zYO1mwWRFbLrSXNrU3IwFk3hmwC1l43zYBrfqD58WVvjrUCOoQg0/PzAyYmzQ4Fc5PAVDxp7F2g
- 6eCKddvbvqbaSWL08bxMohzmrvQlYyNp105RFgloBP0Ho3xBkmOreMhme7f/bAPLc5Dj5YWBnzn
- Ic/yU4TO488W1ouKj+yuCVvBRT+b0HLfPJkrq0/tJE9hNzE91yqMT0ogibBvYoO0ieNSg7jy3Zh
- FENiOR2PsqfA0fD87ydntVzofU7eN5KxX4HhV9cayRwJmIRDAQ1jWExYR/4ZflnMOnm/0VfPodv
- mVP0t4yOwmuRNwF4HA0bvns+9oS1ZCPo0SiH3BXtAqF42VsxBs4kiL2UiI7e6CI4YifnKD5phty
- f507wOYXkN2OrdY6ibg==
-X-Proofpoint-ORIG-GUID: 0W2QT0cRuShxmTQWx0CyCPH0aZ2Wu8No
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX1ndomixwQllS
- 2pl3Eo6vCJ1wy3TayKj4zEGwmAemUzMTopy8SJ07LMzjwq/t9XDsJb4Mv9AdooZ3TaMvjHnED42
- P1oSGU9BIBihayj1bMB3aLD9c7Wb+O1K/zyQJ88UE9OK5fbC0ylZ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-t14s-gen7-hdmi-port-v1-1-1a691e6c180e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAB6N8WoC/02OwQ6CMBBEf4Xs2SUUrSgnExM/wKvxUNpVa4Bit
+ xASw79blIOXTWbydmbewOQtMZTJGzwNlq1roxCrBPRDtXdCa6KGPMu3QmR7DGLDeKe2wIdpLHb
+ OB1xLEtrI/VpIDfGz83Sz4zf1AufTEa4/k/vqSTrMeQvm6dXHzrCwlWJC7ZrGhjJpaQy49MqZb
+ 4hZfReVyeLv/vbUxuHg6hARxkGgQMqUyYzMd8W2ODjm9NWreo5P44HrNH0A5XO3b/8AAAA=
+X-Change-ID: 20261109-t14s-gen7-hdmi-port-35e1cd59315c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3584;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=1AwIH7e09zv56K7V5T5MB4lw3ukvd7f4T5KE8CtPpds=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq8Y0itaRJtEnquliG2OcaSEyGCvmSQsnIDHXLJ
+ J6o0HjdcWeJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCavGNIgAKCRAbX0TJAJUV
+ Vu6zEADIDDGZlSJrjpCiilllVh2t8k13hyLDLcjGTWvQgCTzlAE18uuDNmiHO2Z1k8JzA7toheb
+ dQpdZhotZ2+QaDjYUD0Vjf9Hivb+FxwszKGbOChnZLt9LEQt51IoOYjLWrGnQc1e2ACeRy+dPfC
+ qDqTSHiR39UIcxyunHjY1ZtEnyGx03CLBCPl/r01lbBfMMp++YjqXsfT32akXBx6G8N6H8SB+xZ
+ QjTA+wPT7/AG2PTPQfcxEt1qTvyrUXCdS/xVVk/S1lotNbEA8IdDuWtUU2seuynLCq7ilIxfbE/
+ aygF9njhxfMqzL4aru2bZDa2yIcjbntWee1F1VtXbG/bvfIwwQePG/xumNBGB69neDNF2YmLoVF
+ kUF8U9ZU/GamZ/lxZO1lgfjsQlnWuEg2xZYnORK1r6PPTnwhpDrH2KMrzpS3hmvlIEZP2UW+Ycr
+ +rIt84seXEgaqOjh0ITmyPXA6i699FshY3v7+MpwgAego/bltrZKYvqyhJ4YV4RDtTp5ps0VOx9
+ BX974HK2WLDqzHeIpFdgdwFubtzRPg5QlG/Hj2liK3rXc7tyTXnuoWA+FmLBtFOl9XQo3XOvVQQ
+ MLHnRsUhDVVPRj0mENu/rXxRl0yem7VAuCgK2q8IMRYIYNHE/usST9HYYwyZLKi3sm74NTKrse+
+ ODdJAwUXuw8EOFQ==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-ORIG-GUID: tEPrvtrlnlBWXnJnqB37ZHwkCXiSegi9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNiBTYWx0ZWRfX/1isGD6EJIcZ
+ /qS0RIlLnGZHtxuAfY6YvDMO2PiqnY4RBhvoo44HOMLFZ/WXCLJgV0O9SlMSmJqho0O3Ez0jZyy
+ anzq2fA4kr4xt965JPVXdSfTbMlxGE4=
+X-Authority-Analysis: v=2.4 cv=dZMVTnXe c=1 sm=1 tr=0 ts=6af18d26 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=KnVzsQ4Nl2pkZoQV7Y8A:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNiBTYWx0ZWRfX3s0T5lO1Ux0R
+ 1iYiyNrFcxBfLQqYCDe61PKK6EhtSoYed9EU42jThz3+mjazrpqpT+ARlGevzCutU8u1Ua7vgjZ
+ BtcIbOK/CpjgnSupERGyirHJFy68lGzbiL3yVAa8MTF9mVW6rNUIwHpqgiA+5WLhYbmOMPtcbld
+ tS+3hRZwKLUUXLiokqURFwHvc1xl25NPJDZvOMlDSzw08ap6qLFSkgTf9/6WaVsnNvpu6wYX0fP
+ BjKBBEty+vBxzmjS3E2H2T7p4FtDasdqJr8uPBYo2+tzik6nG4zHnHvUXMt7JGcPtWEU6rZDNpF
+ poiPIMZ1xuVBOKnZoChC4HGG/HFljIKFLjWGTVW/unXWZJEjBytvqcnrR2deJWA/sftY7V8NdaV
+ WzDtjhfBvnkIDoyztS3YTaEemfgKjCZufcxbI/py6Vvo1EMaRc/bu/nuxDhuN0XY/V9cGVt/DQA
+ bnsE9rgvhcvEQbPhy3w==
+X-Proofpoint-GUID: tEPrvtrlnlBWXnJnqB37ZHwkCXiSegi9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 suspectscore=0
- spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ phishscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090036
 
-From: Ciprian Regus <ciprian.regus@analog.com>
+The HDMI port is driven by the third DisplayPort controller through the
+DP lanes of the third USB/DP combo PHY and a Realtek RTD2171A DP to HDMI
+bridge, with the HPD signal on GPIO 126. The USB3 lanes of this PHY are
+not connected, the third USB controller only serves the eUSB2 port of
+the fingerprint reader.
 
-The ADIN1110 and ADIN2111 support two SPI host interface protocols,
-the generic SPI protocol and the OPEN Alliance TC6 protocol. The
-protocol is selected by the state of the SPI_CFG1 pin, which the device
-latches when it comes out of reset. The driver currently supports only
-the generic SPI protocol.
+Describe all of this so the HDMI port works.
 
-Add support for the OPEN Alliance TC6 protocol on the ADIN1110, using
-the oa_tc6 framework, when the adi,spi-oa-tc6 property is set. The
-framework handles the data transfers and the MDIO bus. Register
-accesses go through read_reg/write_reg callbacks, so the existing MAC
-configuration code is shared by both protocols. The ADIN1110 specific
-MAC registers are in MMS 1.
-
-The framework does not append the FCS to transmitted frames, so set
-CRC_APPEND in CONFIG2 to let the MAC append it. Also set the port state
-to forwarding on open, as the generic SPI path does, otherwise the
-broadcast and multicast filters drop all received frames.
-
-The MAC filter is not programmed with the unicast and multicast address
-lists, so accept all multicast frames when the multicast list is not
-empty, and do not set IFF_UNICAST_FLT. The core then enables promiscuous
-mode for secondary unicast addresses.
-
-The ADIN2111 is not supported in OPEN Alliance TC6 mode yet, and probe
-fails with -ENODEV.
-
-No register reports the selected protocol, so the driver relies on
-adi,spi-oa-tc6 matching the board strapping. If the first OA TC6 control
-transfer gets no valid reply, or the PHY ID does not match, probe fails
-with -ENODEV and a message pointing at the strap and the property. The
-generic SPI path now does the same on a PHY ID mismatch, instead of
-returning -EIO.
-
-Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
-Co-developed-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- drivers/net/ethernet/adi/Kconfig    |   1 +
- drivers/net/ethernet/adi/adin1110.c | 206 +++++++++++++++++++++++++++-
- 2 files changed, 203 insertions(+), 4 deletions(-)
+This depends on the LDO voltage fix sent separately, as the combo PHY is
+powered from one of the rails it fixes:
 
-diff --git a/drivers/net/ethernet/adi/Kconfig b/drivers/net/ethernet/adi/Kconfig
-index bdb8ff7d15da..c35f68814c21 100644
---- a/drivers/net/ethernet/adi/Kconfig
-+++ b/drivers/net/ethernet/adi/Kconfig
-@@ -22,6 +22,7 @@ config ADIN1110
- 	depends on SPI && NET_SWITCHDEV
- 	select CRC8
- 	select PHYLIB
-+	select OA_TC6
- 	help
- 	  Say yes here to build support for Analog Devices ADIN1110
- 	  Low Power 10BASE-T1L Ethernet MAC-PHY.
-diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-index 53fac3dc8be6..3f054565acb0 100644
---- a/drivers/net/ethernet/adi/adin1110.c
-+++ b/drivers/net/ethernet/adi/adin1110.c
-@@ -19,6 +19,7 @@
- #include <linux/mii.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
-+#include <linux/oa_tc6.h>
- #include <linux/regulator/consumer.h>
- #include <linux/phy.h>
- #include <linux/property.h>
-@@ -114,6 +115,8 @@
- #define ADIN_MAC_P2_ADDR_SLOT			3
- #define ADIN_MAC_FDB_ADDR_SLOT			4
+https://patch.msgid.link/20261108-t14s-gen7-ldo-voltages-v1-1-e0ad0d528767@oss.qualcomm.com
+
+Tested on a ThinkPad T14s Gen 7 (LCD) with a 1920x1080 monitor: the DP
+link to the bridge trains at HBR2 x4 and the monitor shows the desktop.
+---
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 82 ++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+index a9204e99b0fb..da5f603bb4e3 100644
+--- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
++++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+@@ -73,6 +73,45 @@ switch-lid {
+ 		};
+ 	};
  
-+#define ADIN1110_MMS0_LIMIT			0x30
++	hdmi-bridge {
++		compatible = "realtek,rtd2171";
 +
- DECLARE_CRC8_TABLE(adin1110_crc_table);
- 
- enum adin1110_chips_id {
-@@ -145,6 +148,7 @@ struct adin1110_port_priv {
- 	u32				nr;
- 	u32				state;
- 	struct adin1110_cfg		*cfg;
-+	struct oa_tc6			*tc6;
++		pinctrl-0 = <&hdmi_hpd_default>;
++		pinctrl-names = "default";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				hdmi_bridge_dp_in: endpoint {
++					remote-endpoint = <&usb_2_qmpphy_out_dp>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				hdmi_bridge_tmds_out: endpoint {
++					remote-endpoint = <&hdmi_con>;
++				};
++			};
++		};
++	};
++
++	hdmi-connector {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++			hdmi_con: endpoint {
++				remote-endpoint = <&hdmi_bridge_tmds_out>;
++			};
++		};
++	};
++
+ 	pmic-glink {
+ 		compatible = "qcom,glymur-pmic-glink",
+ 			     "qcom,pmic-glink";
+@@ -762,6 +801,14 @@ &mdss_dp1_out {
+ 	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
  };
  
- struct adin1110_priv {
-@@ -161,6 +165,9 @@ struct adin1110_priv {
- 	struct adin1110_port_priv	*ports[ADIN_MAC_MAX_PORTS];
- 	char				mii_bus_name[MII_BUS_ID_SIZE];
- 	u8				data[ADIN1110_MAX_BUFF] ____cacheline_aligned;
-+
-+	int (*read_reg)(struct adin1110_priv *priv, u16 reg, u32 *val);
-+	int (*write_reg)(struct adin1110_priv *priv, u16 reg, u32 val);
- };
- 
- struct adin1110_switchdev_event_work {
-@@ -192,7 +199,18 @@ static u8 adin1110_crc_data(u8 *data, u32 len)
- 	return crc8(adin1110_crc_table, data, len, 0);
- }
- 
--static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
-+static int adin1110_read_reg_tc6(struct adin1110_priv *priv, u16 reg, u32 *val)
-+{
-+	struct adin1110_port_priv *port_priv = priv->ports[0];
-+
-+	if (reg >= ADIN1110_MMS0_LIMIT)
-+		return oa_tc6_read_register_mms(port_priv->tc6, OA_TC6_MAC_MMS1,
-+						 reg, val);
-+
-+	return oa_tc6_read_register(port_priv->tc6, reg, val);
-+}
-+
-+static int adin1110_read_reg_generic_spi(struct adin1110_priv *priv, u16 reg, u32 *val)
- {
- 	u32 header_len = ADIN1110_RD_HEADER_LEN;
- 	u32 read_len = ADIN1110_REG_LEN;
-@@ -240,7 +258,23 @@ static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
- 	return ret;
- }
- 
--static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
-+static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
-+{
-+	return priv->read_reg(priv, reg, val);
-+}
-+
-+static int adin1110_write_reg_tc6(struct adin1110_priv *priv, u16 reg, u32 val)
-+{
-+	struct adin1110_port_priv *port_priv = priv->ports[0];
-+
-+	if (reg >= ADIN1110_MMS0_LIMIT)
-+		return oa_tc6_write_register_mms(port_priv->tc6, OA_TC6_MAC_MMS1,
-+						  reg, val);
-+
-+	return oa_tc6_write_register(port_priv->tc6, reg, val);
-+}
-+
-+static int adin1110_write_reg_generic_spi(struct adin1110_priv *priv, u16 reg, u32 val)
- {
- 	u32 header_len = ADIN1110_WR_HEADER_LEN;
- 	u32 write_len = ADIN1110_REG_LEN;
-@@ -263,6 +297,11 @@ static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
- 	return spi_write(priv->spidev, &priv->data[0], header_len + write_len);
- }
- 
-+static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
-+{
-+	return priv->write_reg(priv, reg, val);
-+}
-+
- static int adin1110_set_bits(struct adin1110_priv *priv, u16 reg,
- 			     unsigned long mask, unsigned long val)
- {
-@@ -881,6 +920,27 @@ static void adin1110_set_rx_mode(struct net_device *dev)
- 	spin_unlock(&priv->state_lock);
- }
- 
-+static int adin1110_set_rx_mode_tc6(struct net_device *dev,
-+				    struct netdev_hw_addr_list *uc,
-+				    struct netdev_hw_addr_list *mc)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(dev);
-+	struct adin1110_priv *priv = port_priv->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->lock);
-+	port_priv->flags = dev->flags;
-+	/* The multicast list isn't programmed into the MAC filter, so accept
-+	 * all multicast when it is not empty.
-+	 */
-+	if (!netdev_hw_addr_list_empty(mc))
-+		port_priv->flags |= IFF_ALLMULTI;
-+	ret = adin1110_setup_rx_mode(port_priv);
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
- static int adin1110_net_open(struct net_device *net_dev)
- {
- 	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-@@ -938,6 +998,31 @@ static int adin1110_net_open(struct net_device *net_dev)
- 	return 0;
- }
- 
-+static int adin1110_net_open_tc6(struct net_device *net_dev)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-+	struct adin1110_priv *priv = port_priv->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->lock);
-+
-+	/* Needed for the broadcast/multicast filters to forward to the host */
-+	port_priv->state = BR_STATE_FORWARDING;
-+
-+	ret = adin1110_set_mac_address(net_dev, net_dev->dev_addr);
-+	mutex_unlock(&priv->lock);
-+	if (ret < 0) {
-+		netdev_err(net_dev, "Could not set MAC address: %pM, %d\n",
-+			   net_dev->dev_addr, ret);
-+		return ret;
-+	}
-+
-+	phy_start(net_dev->phydev);
-+	netif_start_queue(net_dev);
-+
-+	return 0;
-+}
-+
- static int adin1110_net_stop(struct net_device *net_dev)
- {
- 	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-@@ -961,6 +1046,14 @@ static int adin1110_net_stop(struct net_device *net_dev)
- 	return 0;
- }
- 
-+static int adin1110_net_stop_tc6(struct net_device *net_dev)
-+{
-+	netif_stop_queue(net_dev);
-+	phy_stop(net_dev->phydev);
-+
-+	return 0;
-+}
-+
- static void adin1110_tx_work(struct work_struct *work)
- {
- 	struct adin1110_port_priv *port_priv;
-@@ -1006,6 +1099,18 @@ static netdev_tx_t adin1110_start_xmit(struct sk_buff *skb, struct net_device *d
- 	return netdev_ret;
- }
- 
-+static netdev_tx_t adin1110_start_xmit_tc6(struct sk_buff *skb, struct net_device *dev)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(dev);
-+
-+	if (skb_put_padto(skb, ETH_ZLEN)) {
-+		DEV_STATS_INC(dev, tx_dropped);
-+		return NETDEV_TX_OK;
-+	}
-+
-+	return oa_tc6_start_xmit(port_priv->tc6, skb);
-+}
-+
- static void adin1110_ndo_get_stats64(struct net_device *dev,
- 				     struct rtnl_link_stats64 *storage)
- {
-@@ -1056,6 +1161,16 @@ static const struct net_device_ops adin1110_netdev_ops = {
- 	.ndo_get_phys_port_name	= adin1110_ndo_get_phys_port_name,
- };
- 
-+static const struct net_device_ops adin1110_tc6_netdev_ops = {
-+	.ndo_open		= adin1110_net_open_tc6,
-+	.ndo_stop		= adin1110_net_stop_tc6,
-+	.ndo_eth_ioctl		= adin1110_ioctl,
-+	.ndo_start_xmit		= adin1110_start_xmit_tc6,
-+	.ndo_set_mac_address	= adin1110_ndo_set_mac_address,
-+	.ndo_set_rx_mode_async	= adin1110_set_rx_mode_tc6,
-+	.ndo_validate_addr	= eth_validate_addr,
++&mdss_dp2 {
++	status = "okay";
 +};
 +
- static void adin1110_get_drvinfo(struct net_device *dev,
- 				 struct ethtool_drvinfo *di)
- {
-@@ -1115,14 +1230,89 @@ static int adin1110_check_spi(struct adin1110_priv *priv)
- 		return ret;
++&mdss_dp2_out {
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++};
++
+ &mdss_dp3 {
+ 	/delete-property/ #sound-dai-cells;
  
- 	if (val != priv->cfg->phy_id_val) {
--		dev_err(&priv->spidev->dev, "PHY ID expected: %x, read: %x\n",
-+		dev_err(&priv->spidev->dev,
-+			"PHY ID expected: %x, read: %x, check the SPI_CFG1 strap and adi,spi-oa-tc6\n",
- 			priv->cfg->phy_id_val, val);
--		return -EIO;
-+		return -ENODEV;
- 	}
+@@ -1020,6 +1067,12 @@ hall_int_n_default: hall-int-n-state {
+ 		bias-disable;
+ 	};
  
- 	return 0;
- }
++	hdmi_hpd_default: hdmi-hpd-default-state {
++		pins = "gpio126";
++		function = "usb2_dp";
++		bias-disable;
++	};
++
+ 	kybd_default: kybd-default-state {
+ 		pins = "gpio67";
+ 		function = "gpio";
+@@ -1270,3 +1323,32 @@ &usb_2_hsphy {
  
-+static void adin1110_oa_tc6_remove(void *data)
-+{
-+	oa_tc6_exit(data);
-+}
+ 	status = "okay";
+ };
 +
-+static int adin1110_oa_tc6_probe(struct adin1110_priv *priv)
-+{
-+	struct adin1110_port_priv *port_priv;
-+	struct oa_tc6_quirks quirks = {0};
-+	struct net_device *netdev;
-+	struct device *dev;
-+	u32 val;
-+	int ret;
++&usb_2_qmpphy {
++	vdda-phy-supply = <&vreg_l4c_e1_0p91>;
++	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
++	refgen-supply = <&vreg_l1c_e1_0p91>;
 +
-+	dev = &priv->spidev->dev;
++	/delete-property/ mode-switch;
++	/delete-property/ orientation-switch;
 +
-+	if (priv->cfg->id == ADIN2111_MAC)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "OA TC6 isn't supported for ADIN2111\n");
++	status = "okay";
 +
-+	netdev = devm_alloc_etherdev(dev, sizeof(*port_priv));
-+	if (!netdev)
-+		return -ENOMEM;
++	ports {
++		port@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+	port_priv = netdev_priv(netdev);
-+	port_priv->netdev = netdev;
-+	port_priv->priv = priv;
-+	port_priv->cfg = priv->cfg;
-+	port_priv->nr = 0;
-+	priv->ports[0] = port_priv;
-+	SET_NETDEV_DEV(netdev, dev);
++			/delete-node/ endpoint;
 +
-+	quirks.hwreset_settle_us = 50000;
-+	quirks.softreset_settle_us = 10000;
++			usb_2_qmpphy_out_dp: endpoint@0 {
++				reg = <0>;
 +
-+	port_priv->tc6 = oa_tc6_init(priv->spidev, netdev, &quirks);
-+	if (PTR_ERR_OR_ZERO(port_priv->tc6) == -EPROTO)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "no OA TC6 reply, check the SPI_CFG1 strap and adi,spi-oa-tc6\n");
-+	if (IS_ERR(port_priv->tc6))
-+		return PTR_ERR(port_priv->tc6);
++				data-lanes = <3 2 1 0>;
++				remote-endpoint = <&hdmi_bridge_dp_in>;
++			};
 +
-+	priv->read_reg = adin1110_read_reg_tc6;
-+	priv->write_reg = adin1110_write_reg_tc6;
-+
-+	ret = devm_add_action_or_reset(dev, adin1110_oa_tc6_remove, port_priv->tc6);
-+	if (ret)
-+		return ret;
-+
-+	ret = adin1110_read_reg(priv, ADIN1110_PHY_ID, &val);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (val != priv->cfg->phy_id_val)
-+		return dev_err_probe(dev, -ENODEV, "PHY ID expected: %x, read: %x\n",
-+				     priv->cfg->phy_id_val, val);
-+
-+	/* The OA TC6 framework doesn't append the FCS, let the MAC do it. */
-+	ret = adin1110_set_bits(priv, ADIN1110_CONFIG2, ADIN1110_CRC_APPEND,
-+				ADIN1110_CRC_APPEND);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (device_get_ethdev_address(dev, netdev))
-+		eth_hw_addr_random(netdev);
-+
-+	netdev->if_port = IF_PORT_10BASET;
-+	netdev->netdev_ops = &adin1110_tc6_netdev_ops;
-+	netdev->ethtool_ops = &adin1110_ethtool_ops;
-+	netdev->netns_immutable = true;
-+
-+	return devm_register_netdev(dev, netdev);
-+}
-+
- static int adin1110_hw_forwarding(struct adin1110_priv *priv, bool enable)
- {
- 	int ret;
-@@ -1649,6 +1839,7 @@ static int adin1110_probe(struct spi_device *spi)
- 	const struct spi_device_id *dev_id = spi_get_device_id(spi);
- 	struct device *dev = &spi->dev;
- 	struct adin1110_priv *priv;
-+	bool oa_tc6_protocol;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(struct adin1110_priv), GFP_KERNEL);
-@@ -1663,11 +1854,18 @@ static int adin1110_probe(struct spi_device *spi)
- 	mutex_init(&priv->lock);
- 	spin_lock_init(&priv->state_lock);
- 
-+	oa_tc6_protocol = device_property_read_bool(dev, "adi,spi-oa-tc6");
-+	if (oa_tc6_protocol)
-+		return adin1110_oa_tc6_probe(priv);
-+
- 	/* use of CRC on control and data transactions is pin dependent */
- 	priv->append_crc = device_property_read_bool(dev, "adi,spi-crc");
- 	if (priv->append_crc)
- 		crc8_populate_msb(adin1110_crc_table, 0x7);
- 
-+	priv->read_reg = adin1110_read_reg_generic_spi;
-+	priv->write_reg = adin1110_write_reg_generic_spi;
-+
- 	ret = adin1110_check_spi(priv);
- 	if (ret < 0) {
- 		dev_err(dev, "Probe SPI Read check failed: %d\n", ret);
--- 
-2.43.0
++			/* No USB3 lanes connected */
++		};
++	};
++};
+
+---
+base-commit: cae1456a7b596c7d21d86fc17216e6996f26da3d
+change-id: 20261109-t14s-gen7-hdmi-port-35e1cd59315c
+prerequisite-message-id: 20261108-t14s-gen7-ldo-voltages-v1-1-e0ad0d528767@oss.qualcomm.com
+prerequisite-patch-id: 15e089c6ecf7cd782ff552a16cab0913dbb6197d
+
+Best regards,
+--  
+
+Abel
 
