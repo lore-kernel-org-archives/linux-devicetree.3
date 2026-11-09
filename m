@@ -1,49 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221211;
-	b=3pz+6GAqHJ8E+0k+PdXB3xp36Gfzyk9wMVXdjR1MwVCf8by4Cl011CAC8Ergkn8gHHg2
-	 nDxOOZvSBs9uvgxjjZXcgV/e6TTebiBFTURx/FfOT0X+05HwqenQjOiSFFbyCLo9eEBFm
-	 QnqcIU+CDqaTNkSFQvZoJ1VrBl9C73Gg6ZIJBDob+fxN1ISxK2go4ymT9b+Xl0OC3NUvx
-	 SgK2w1T3SVZViqWun+UO5+XmjnMEXDYx3P0MfkqMW8l2vBwsQgf+5ysJDX/Fa8sfnJcW4
-	 LQ16UmjDILZAzra8vy+fDh/5Og7UzNg+1dePc2i/+8shco+1qt5/WdHlc2hhZnW42Rg==
+	t=1794221284;
+	b=L4gWiC7ExYPHF/r5tSSxxZvUWb9I/A0XZmN1VMdaXwk9bDjfVh2tQao+0bifkXVI6LW8
+	 cXDvu86qHX3ZU8QeYZe2bk7nZJxVfhq2rwQCoqjPGdV40R8eU5T1wA4Yv/j5F2l/jvvSD
+	 dsptER049QBSSQGSTf9edhN2z2fNW7dWez8Y6RiLSVw97I/jDEIVBDsLMX0BdBb6H0RY/
+	 tcNS9E1Sqej5k6YAVCiwknLfTjF5q4I0ZMqpGmvXteciv0RhTRpKduEM1o79c8Ct5cFvX
+	 4efifTOT1TEehIdFFvu0imM2fEgzxVCyoPeCo1tL5kRUrsc0JRPJ0v43/36xP9bkbOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221211;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wgmYZSso3S5s7ntmVXft5Hjp1pkxoHbFdmgMj87YoCY=;
-	b=cHCsMAN2MFkqqD/N2me+2DyhZSwpPv25IPXNEnpaF8QOhaPkaC4B1IxzmTaitWX1euVY
-	 nOnXIMhaCyqTRc/6EbN7bC3GFjr1Czb0XAMgxcgMZPS5QwaKEwf0uTS/xoaNgmuVGU/6u
-	 C827J8pNQcQoprkB83r6NvlzkJPFCR25uys9F/xppScv4d1RYOS6UqDRr1duUkM0vyFeu
-	 YmgXU7BXIcBYjz8XbyGaODWCqZNeiU0/hUuF7TeWZbeqLpmB3dzplPAmhAqof3KtuLQrt
-	 uFl5e7FktQT9Ao+pD40D5vxGkaIMi11K+/pSc2ciASZ7tfdbHHgNVeradwZqab93/Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221284;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=K2w9NpOHLiSYxRP1FPDHEsiXuUfQmZWzg6xMGSp86SU=;
+	b=sJinyqvJ/bEcYlxnjVzV6d3XRQ1pHClXgaplY9rM8eeJqv5a6mk7ofRZmVlGYV8/3tsV
+	 TJayR9y8HCY4jaJhjyb00jVrd47wHWk2z1/k5Jdwe+2mpWCa5Qec8Rpm2fDoiD8UhPbUw
+	 PlL3hqJWPFqh+Fp7ofHtKhBdpJh060XuYreJOepXCyM80pTh7TsNiXioVApfbsab8eV71
+	 +wM0N84Cok+r1nTQG/0om3FQORQInFLKW1odoLqaWoAbRXPweMCZBAKnZ+sh4i7X5asNY
+	 ILtOpy9jIYSb9cFQQqmplB00QSAJFvsE3bAKC0KIY4n8+4GwXgNOcWH3YkqQEGZMOLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46B81606A334;
-	Mon,  9 Nov 2026 10:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B81606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1jamDor;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFEF606A321;
+	Mon,  9 Nov 2026 10:48:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 760C11576;
-	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D9183FA1F;
-	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794221209; bh=zGW4Vk+oTTcAeYvgmOhuujaSbESC2vD11QIhzUqWk7w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h79isfwlJj5NA/YUWS8Ik8ho4Z0G1xk/NdkZHTI+7kY++cbuf7734EwR9LCt+Ww0O
-	 EJouX7BeyT+m5P4fhTwO4x8UvN4uCSp1Up19Def4Ui50nAl5N0tzsPl2WATHSB74O7
-	 BPCwwkSdpPWko5ab4dSUwtIoV7q7/DoVqO+iIaHY=
-Message-ID: <dc798bed-85b4-4d47-87c3-f0e0f156ed0a@arm.com>
-Date: Mon, 9 Nov 2026 10:46:44 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1jamDor
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0501F0089F;
+	Mon,  9 Nov 2026 10:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794221284;
+	bh=K2w9NpOHLiSYxRP1FPDHEsiXuUfQmZWzg6xMGSp86SU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E1jamDor127KQXxUbxl3NV49w6cSCIpcrdOb5JXfo5NK8AE6/e6NV98KXenZrcNl1
+	 qhPfNJVaqqKMDzS8b9hZw7noe/CzI0DybVsXd3cXBegglnHi/RU1ZobIDQI1+roPJx
+	 QAqLCAO/fPVgcgbtxXWr6rk2TSp6pManiIrAS75a1gE9Jsd22TlTeAj96R2yw0Q0fW
+	 +6Ej4Tz6UQNoBNdSGXRk5n7LtIr4HT7R34ub5FtxCCy+UztPJ+rfmGjwod8XE05ZCE
+	 aoLE6KW68+Vco00xEHvtcw5zpsYy6asMarVcctZOkDscEyEd9rzqFHEuYqElZdm7lC
+	 iLPGmH4UDX6Xw==
+Message-ID: <sashiko-outbox-204850@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akhilesh Patil" <akhilesh.patil@linux.dev>
+Cc: devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
+References: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 10:48:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,83 +59,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/5] Fix traceNoC probe issue on multiple QCOM
- platforms
-To: Jie Gan <jie.gan@oss.qualcomm.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>, Mike Leach <mike.leach@arm.com>,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- Abel Vesa <abelvesa@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
- <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 09/11/2026 01:25, Jie Gan wrote:
-> 
-> 
-> On 7/10/2026 10:38 AM, Jie Gan wrote:
->> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed 
->> the
->> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
->> forces the device onto the AMBA bus, where the driver must read the
->> peripheral ID from the device registers during probe. On several QCOM
->> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
->> never probes and its trace path is unavailable.
->>
->> This series drops the "arm,primecell" entry and turns "qcom,coresight- 
->> tnoc"
->> into a standalone platform compatible. Without "arm,primecell" the device
->> is created on the platform bus and probes through the platform driver by
->> compatible string, bypassing the AMBA peripheral-ID read while 
->> remaining a
->> fully functional Aggregator TNOC that allocates a system trace ID (ATID).
->>
->> The series is organized as: binding first, then the driver support for 
->> the
->> platform-bus compatible, followed by the per-platform DT fixes that 
->> switch
->> the affected nodes over to it.
->>
->> - Patch 1 (dt-bindings) drops "arm,primecell" and makes
->> "qcom,coresight-tnoc" a single standalone compatible, and updates the
->> example node accordingly.
->> - Patch 2 (driver) adds "qcom,coresight-tnoc" to the platform driver's
->> match table and renames the itnoc-specific names to generic tnoc names,
->> since the platform driver now serves both the Interconnect and Aggregator
->> TNOC. It also restricts the ATID-unsupported handling to
->> "qcom,coresight-itnoc" only, so the Aggregator TNOC on the platform 
->> bus is
->> no longer wrongly covered and correctly allocates a trace ID.
->> - Patches 3-4 (kaanapali, sm8750) drop the "arm,primecell" entry on the
->> traceNoC nodes and use the standalone "qcom,coresight-tnoc" compatible,
->> fixing the probe failure on those platforms.
->> - Patch 5 (glymur) switches the node from "qcom,coresight-itnoc" to
->> "qcom,coresight-tnoc". This node is actually an Aggregator TNOC (its
->> tn_ag_* endpoints show aggregation), so it should expose a system trace
->> ID rather than being treated as an Interconnect TNOC.
->>
-> 
-> Gentle ping.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] mailmap: new entry for Akhilesh Patil is not dictionary sorted
+--
 
-Apologies for missing this. Please could you resend it based on v7.4-rc,
-as this doesn't apply cleanly on coresight/next
+commit 764f73a610f916591aa8eda10671882c375e0355
+Author: Akhilesh Patil <akhilesh.patil@linux.dev>
 
-Cheers
-Suzuki
+MAINTAINERS: Update Akhilesh Patil Email address
 
+This commit updates Akhilesh Patil's email address to akhilesh.patil@linux.=
+dev
+in .mailmap, MAINTAINERS, device tree bindings, and the adp810 driver.
+
+> diff --git a/.mailmap b/.mailmap
+> index 0d05be949eff9..6b93a15c9419d 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -1024,3 +1024,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.c=
+om>
+>  Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
+>  Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
+>  Zijun Hu <zijun_hu@htc.com>
+> +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+
+[Severity: Low]
+Should this .mailmap entry be placed in dictionary order between Akhil P
+Oommen and Alan Cox instead of at the end of the file?  The header comment
+notes that .mailmap is kept dictionary sorted.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109104443.GA53=
+1570@u5ce4748bae3b54.ant.amazon.com?part=3D1
