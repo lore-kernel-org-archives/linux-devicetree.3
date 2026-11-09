@@ -1,52 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794200159;
-	b=U9jDEZqFw6PQ7MonLI2RBPvMC3ckEWSbISf5aTqWa8EXDxygG7G/j6xseVlGDoFSTNjh
-	 2XeW22mLVfqyIWkluPCWmSJrcJyAWgRnJlydWlHLmeax5LtpVRQsjCxrVNT5eEkQvuImh
-	 cCxYYb+RKJW2eycU3UEu6ruUzk5tEsn8UuwdHUzRFj9bJWA09/OG+UWvX3M1nehxv/Qb1
-	 Yl4ZGR8xl20jX6e3CV3HMocofuqBNwwRgqyloySoXNRuEAlImXI6XOfZDyu3Hx4NuZJC6
-	 RaSbF0LP+hyPvTEldcKawqJ6G5NzZz5A2t+RWdKUjxn8YBtsQniuWRd2+SRSN0ECsIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200159;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
-	bh=TVjYb4BBcraXHmLMuxAJ4VYWO2AEgU5Dcu295blPONo=;
-	b=OKr3grgO6rtK6BtnQXTCX5qbJ0pcMAr8rdWmouCyGE689svuEVA0m3eCRvtEUa4JQ1WY
-	 0WECJIucFKY4Qv9h6ODeVYcQZWoKDIRty5/AOabCOa/oroCnKtDthUnXPfWPzUVYomd7r
-	 wKeA6NvIHIrfW/f3z4DYvHPwr/8pq043FGs2p6rMVmjdTt9CJAQIRtS5vpkqz3QFJGp6O
-	 KVze9l7DVRh/mgFeImwRviRWG3d84DsdDqBMJcKLbC/Js3R2agytSa8o1EgSmyfX45jM/
-	 ZOrQJrpU7AXotxexe0oJirVBkjsecHtfcdAjUlh6TYvyBSNuhDYlGeoJ7hwAegybRjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pigmoral.tech;
-	spf=pass smtp.mailfrom=pigmoral.tech;
-	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=JhM5iZI3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794201066;
+	b=KlpvheWuMa/qDI/SeKGgCYUU8QCN1+yKls8aFGcFITRbBsDs+KsKqIAZmGLuN3lfImPn
+	 sQoaQj9zRaQu0ynnWq9rRI94FxjxNtGCFOb7wiWFVrfYPs0BTOqIQM+ret2/5lHp20Nec
+	 1NQ1Sy4JiSqvt8JRiUZFB1S9W84TMia3Fw8Z0NShg4ed83aneFq+16dXQ/8aCgyX3J5a7
+	 SesZMw8FAfDaVtdXyYCrJTYJupj9blxPEQIqZobnn1mHcwpbkT/JoCiAgPh8h+L4rjwkn
+	 g4jiwpds0BEtvRkcW5dT6RbIVkisPPdgVD95cPsreUilTnX91vdiXqtMtGczIsx0zYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794201066;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=D449LhD7l/M4eoG2H1IqG5sJ2LKkyD1oeJVEusqP6Ps=;
+	b=WsZIyvTX8hn2qHZU6pGARB6liuqujR78fwqcgDPGjCQPNIL+e6EBJMDCLQxjYYuWHONK
+	 YLab94lFYYly9LFYGb/n92lW2y5D6Z07KGpXVMjasYUkuOt2LXEGoZcsF0AjGXFRzxRpj
+	 EaGWlrcNZuioCvbQO9AGrStviog5hfF0bxxKDxQxX3VlgBiJ752PARbI1eq096nc+WDgY
+	 ofBaeExiPJHfnJDJxus882RDwgilgtw5orWT+VC01t8muCqyfauIpp+WlLIGC8mpPq8X2
+	 Nvb5HnXRYW5ZGRATV9AJSVWFxjxGf+NXTMKHYf6M/jVZshnfQOiOVyKElY7Pf8pKBOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=jms.id.au;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YyJa5hpE;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9660606A31C;
-	Mon,  9 Nov 2026 04:55:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9660606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26AC606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26AC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=JhM5iZI3
-ARC-Seal: i=1; a=rsa-sha256; t=1794200117; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kgJ06YONRy5PtT6LHHPXY7TeZ2USZKKkLv8VZandB6V0/jYTAD5MvY/abxIpfJJFHvhFWImCLYhTZydSTic0Z01jk7gYNT43rJGqer251Q++Ix2yk2HeUdVCujgY7ckjqQ1u9FFJderC3M8BUeYFhHh3B+5fVMXYF8u/gYTxadM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794200117; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TVjYb4BBcraXHmLMuxAJ4VYWO2AEgU5Dcu295blPONo=; 
-	b=JpBUlC2mqu54blu6aDoBbT/qtR6O1cOs4yA9O0dwWCfAC5hfHKXxxVVVWJfoB4yqdA2NQxjl8Ug8RYyhZSgVnQeCJ2gRoi37EChlObs7aDKGX1YWKFBK/Fce/Am4weGpuQV0GXb4GjoDItAkXP4RWME0kT2mpmbgsvCFVtJjpfU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: a=rsa-sha256; b=JhM5iZI38onPijDbb/bTo6SBqko9SM8euQYqdXR7Rge9qDB6vu8o53ARCnp9UqaIVhzgBI0Xhj1icaq7Bd+WrCPBNMtUwAjy0+Oc6xUN9gl8IIcATPbCKWj0FOz2sI69wwQoMKuXHh1KUF6gB0U8eHn9aU+LJ5zu0+HSNvQZHu4=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=TVjYb4BBcraXHmLMuxAJ4VYWO2AEgU5Dcu295blPONo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 17942001166001004.3701295111581;
-	Sun, 8 Nov 2026 20:55:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YyJa5hpE
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso265031a91.2
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 21:11:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794201065; x=1794805865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D449LhD7l/M4eoG2H1IqG5sJ2LKkyD1oeJVEusqP6Ps=;
+        b=YyJa5hpEIXdMgbpeV1xxQVdCC8CtrlC1WbyDBJ4MfUUhWTn8i8HSvLxwyg5k93wo4F
+         y3eiPEE6HX4tPuK6STjamWxUjGGQdimhloZ2mAS18tAbxQ7sKrIm8gnvdYK8y15ejRHz
+         YCmiBCi49lDadfQYkR5jL23NPUy6bUIDXpzmYZ6hZxUK7UIszz6uHeIO758XIPUDARbF
+         Nt/7ux8wkFV6iw7+ORYuzoe77tii9QoVmEIXW2sGWeiTnZfojEzMki6nYs/1px3Dkjiw
+         0464N5GKPVn3iMWr6BsDSTBdHiNgbLySzHHULv0RoqBzQoj2w/cI5+kBzS05OF2zPAhL
+         n/Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794201065; x=1794805865;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D449LhD7l/M4eoG2H1IqG5sJ2LKkyD1oeJVEusqP6Ps=;
+        b=xa9m6GzKU6ecYjzEOxpA5BIHLflS8hfAhTPKavcAj8oJB3bD8XwYHEtAaJFKpG3ogQ
+         +/VuwWo5kV+YI9n31ndlv8ZCG2uGCMiM3NpBJZcdYR7Jt5e/c+DfL7nhQusmmBYAZ7xP
+         XzuqGOnG8OufNLP4dizmuVQpI09Iad8yXTOKDWCFROHDWcfFNKaGDQNvWvBFZnGbWY7K
+         xvQsfhEP0/KLDh88uskfjpbO8EaamAU5bgFg4HReTZKCC6dQXGcKFMuzy/ZOU5WxDR+o
+         HiQVyMe+VNF/xUlGVOTGvr5cLRghjDIyZsVfev6pAIQIqCuiJeiGd8wl1WKnPbx7eUjS
+         QF/g==
+X-Forwarded-Encrypted: i=1; AL+hErGAv5ftoPTxef/HwNq6ah1KvG8xEiPBYJZBGg7SeIHU7ruQtve3RHA4+b+UPcZ0hgbtbWDKO3nazbSG@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2uHnDFST0BHxB6ET+UsaJJ/i/XKHDmuD0VOYwmCDh8iDDIIjc
+	atyyZwlQcyqbDJ6GmM8irpXtbWbbwfailEL3Oi/3PaXw0OEGK0QizGj6
+X-Gm-Gg: AYBFou3Q9CjyBRqNyRMvtKYc9/hz+RNovAxWm1IXNWF/PJOPLr+J27O6U0/anda+BnB
+	nOE7q60CrBkqYT0BdDVn9trC5yKn6rOmsabXLUgmiyX64Kivm68BKQZCGTK/7SHOxbzV0O/N/mL
+	XLRce3/4n+R21ZUcjIZi3V/PGGkfPY5qGRj285uI3CLWD4XCL6CrgA4bztyrP/ibCpjp/ROVIu9
+	/x+YWWT7wPgc2qd+AjSn1tQ1Plt91j+LLthijfxriiyVEnYOayjWcQBZ11jbYTXOR6TaIzFpBsv
+	G75xzVmb0PLVxb8OIwtvBoZ5IC0A+5YsTrB26lZ6IYBUmRTRxHHF6WtiMIFRZkaEpbeC1nkbh0i
+	Yhj0m4uggLmehiZbhEzMxGYigJr6fNrQzgul4NC5k3AJIcW9DLp4Yq9tOPAqPIfWTuqLLLYFfXy
+	99fdilb2a9e5o83tdf6xmRvddYG8mrI2JbUlP7B4mBHzfrsdrUJd/Sm5KRwl9nCEYN8ihVd0HNc
+	7SDUkFQ3ZgOvQZUEFGy5MU/50VqqTKNA6IrjhSy4fiSZcBYwcUarbCCUIBnOa0yuPT8F8D3mSz0
+	LFDGiSYMUgwPPnMOt1mpOYUnCLS67mEcSS8k3fI5OIb9yIsEQBux6793IKMWhl2QKqe3nIUAygo
+	AmCufbthIWw23GXVFaj7R2LXQcxhGW7SRdNf3ZalE93K8fG1Z13awhZaISA==
+X-Received: by 2002:a17:90b:4a52:b0:3b0:9691:a240 with SMTP id 98e67ed59e1d1-3b12d43ef09mr3289122a91.47.1794201065020;
+        Sun, 08 Nov 2026 21:11:05 -0800 (PST)
+Received: from donnager-debian.. ([180.150.112.169])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm5247652a91.13.2026.11.08.21.11.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 21:11:04 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Anup Patel <anup@brainfault.org>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@kernel.org>,
+	Drew Fustini <fustini@kernel.org>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 0/7] riscv: dts: tenstorrent: Add Atlantis platform
+Date: Mon,  9 Nov 2026 15:40:40 +1030
+Message-ID: <20261109051050.105623-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,82 +107,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 12:55:07 +0800
-Message-Id: <DMQEUUHANG74.30N8VT6UGHO0M@pigmoral.tech>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Chen-Yu Tsai" <wens@kernel.org>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
- <samuel@sholland.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Richard
- Cochran" <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
- Brunet" <jbrunet@baylibre.com>, "Andre Przywara" <andre.przywara@arm.com>,
- "Norman Herms" <dockseed@proton.me>, "Vinicius Pedrosa"
- <vinicius.eduardo.pedrosa@gmail.com>
-Subject: Re: [PATCH v6 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Enzo Adriano" <enzo.adriano.code@gmail.com>, <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.22.0
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
- <20261009-a733-clk-v6-3-ae8178fce7e8@pigmoral.tech>
- <20261103-a733-ccu-v6-fw-clocks@gmail.com>
-In-Reply-To: <20261103-a733-ccu-v6-fw-clocks@gmail.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Enzo,
+Add initial support for the Tenstorrent Atlantis platform, based on the
+Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
 
-On Tue Nov 3, 2026 at 9:33 AM CST, Enzo Adriano wrote:
-> Hi Junhui,
->
-> On Fri, Oct 09, 2026 at 11:52:08PM +0800, Junhui Liu wrote:
->> +static SUNXI_CCU_P_DATA_WITH_MUX_GATE(r_cpu_timer0, "r-timer0", r_apb_p=
-arents, 0x100,
->> +				      1, 3,	/* P */
->> +				      4, 3,	/* mux */
->> +				      BIT(0),	/* gate */
->> +				      0);
->
-> On a Cubie A7S with vendor boot firmware, v6 reaches a Linux shell but
-> stalls at warm reboot. The system-controller firmware uses the R-domain
-> timer and mailboxes without Linux clock consumers, so disabling these
-> clocks as unused can leave its services unavailable.
->
-> Could you consider marking r-timer0, bus-r-timer, bus-r-riscv and
-> bus-r-msgbox here, and bus-msgbox0 in 7/8, CLK_IS_CRITICAL in the next
-> revision? My standalone patch has the diff, firmware references and
-> board results:
-> https://lore.kernel.org/r/20261031020640-263f7b05-a7s-clock@gmail.com
+The series adds a bare bones device tree with the CPU, interrupt
+controllers and a UART.
 
-I'd prefer not to mark these clocks as critical just for the vendor
-firmware. You can see my reply in v5:
+Patches 1, 2, 3, 5, and 6 add compatibles or extensions to existing
+bindings.
 
-https://lore.kernel.org/linux-sunxi/DLYAHDTH3129.3AYF0OSHL8RJ8@pigmoral.tec=
-h/
+Patch 4 adds a binding for the aclint timer device, with a new rationale
+for including it following discussion with Conor at Plumbers.
 
-Since you've already submitted a separate patch adding these critical
-flags, I'll leave that to you. If the maintainers agree that these
-clocks should be marked critical, your patch can be picked up.
+The series has been boot tested on QEMU and internal development
+platforms.
 
->
-> With those five flags, two RAM boots of my A7S integration completed
-> warm reboots without clk_ignore_unused, and all five clocks reported
-> enabled. That is one board on vendor firmware. Vinicius reported native
-> PSCI reboot working on an A7Z without local critical flags on
-> bus-r-riscv and bus-r-msgbox, with TF-A and U-Boot built from source, so
-> the boot chain may matter. I haven't tested suspend, or shown that each
-> of the five flags is needed on its own.
->
-> Thanks,
-> Enzo
+v2:
+https://lore.kernel.org/linux-riscv/20260604143957.668047-1-joel@jms.id.au/
 
---=20
-Best regards,
-Junhui Liu
+Changes since v2:
+ - Fixes to prcm_rcpu and aplic dt nodes
+ - Drop uart1 clock override. UART now depends on a working PRCM driver
+ - Drop bootargs console=ttyS0 in favour of stdout-path
+ - Justify aclint mtimer bindings
+
+Changes since v1:
+ - Rework mtimer bindings, fix reg property, update compatible and use
+   priv spec as reference
+ - Drop Drew's sob from bindings patches I wrote
+ - Add Drew's co-developed-by to dts patch
+ - Correct aplic num-sources
+
+Drew Fustini (1):
+  dt-bindings: riscv: add Smrnmi extension description
+
+Joel Stanley (6):
+  dt-bindings: aplic: Add Tenstorrent Atlantis compatible
+  dt-bindings: imsics: Add Tenstorrent Atlantis compatible
+  dt-bindings: riscv: cpus: Add Tenstorrent Ascalon
+  dt-bindings: timer: Add RISC-V ACLINT mtimer bindings
+  dt-bindings: riscv: Add Tenstorrent Atlantis platform
+  riscv: dts: tenstorrent: Add Atlantis platform
+
+ MAINTAINERS                                   |   1 +
+ .../interrupt-controller/riscv,aplic.yaml     |   1 +
+ .../interrupt-controller/riscv,imsics.yaml    |   1 +
+ .../devicetree/bindings/riscv/cpus.yaml       |   5 +
+ .../devicetree/bindings/riscv/extensions.yaml |   6 +
+ .../bindings/riscv/tenstorrent.yaml           |   4 +
+ .../bindings/timer/riscv,aclint-mtimer.yaml   |  56 +++
+ arch/riscv/boot/dts/tenstorrent/Makefile      |   1 +
+ .../boot/dts/tenstorrent/atlantis-evb.dts     |  29 ++
+ .../boot/dts/tenstorrent/atlantis-soc.dtsi    | 473 ++++++++++++++++++
+ 10 files changed, 577 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
+
+-- 
+2.47.3
+
