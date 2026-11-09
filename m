@@ -1,79 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794232541;
-	b=kC5ASAFxTV9+sVDxeZKfUGkI/0oukd8SxvxP7Wrabd+A71TPRpTBKNQMhgg1gEeCng4X
-	 wURoauK/ayKsGjQLkiC6sCJlGDG4K4EncFW4AQi9io+j/K2d3ib1jqM95D4BOx7QGXNPu
-	 cdsYR/haGXLqfLzcLSx0RSwCw1SbVEyh6ZTpnE+jQ/lMlbVFsYlj1RqrLjS8qmiZiVQYy
-	 I74Elvc3eaiPQGeSWfpi8R/Pe1mCOzYpzJ5teh8RKA2C1B5Z8AJM1DZq+tKPWYKDGhgnf
-	 LOiHx/0ADMqdYGiXZqW7Jvlo+CJAoJlFzudrlxGZdFCOE4VEfu8xHyCuDsOuTFrlmTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232541;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NvgTRAV4d2CeDrS7buIyn4aEgRFl+F7ycAx9h36HrTA=;
-	b=SMtc3S1aU45VSB0/OZkiNi3o1EHpedzCL8jbbyZ4e5gUW59SpnprORn2tko7ODvNJY45
-	 AuHVTfNohEZOyBpMOfqgfsO4f0Od8jflTCwpXwSXKBN991dk8XuW6vvINBCJSy2MISRif
-	 JG7CGE+j922BTrfmpzVP30I4AFHJJiSdQHtM/YGGXrdcEBhGrccEKhTEWVZwc/FU6Fhaj
-	 eY++scygRM0xHQSJKwaqPgLUxfCqBr1oV65QqVwL51fms2/AL/mH4L4KiHZMhZmffWMxt
-	 Ofq2m2Wb/1BQwH/akbcUMeYwrWi4nFewNTBsiVH7RuZ1BfTUUHF/OYt6p1lraq9vZBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNQ1R5Iq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A249606A322;
-	Mon,  9 Nov 2026 13:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNQ1R5Iq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794232540;
-	b=RxTaDsiB6aap/tKqEhJnNXLb2bqt3r1NnKTmW/fJG7Ib6Nn3p7g6l95i1yN1h6Y6Yf2f
-	 C6ZOn4lUWqjZRVX6YdI4bdfABrlNV1ysPtu5VXc6Osd1JK2yBnnY7w/N3jM/zNd0UdF+r
-	 mA8ElAAi1ZFj0Ga6Ur9OUJD8UcazOSMft9DrN0XENuhz4MhtCTUI0qx+nVFAF/+rqEVcL
-	 OZsqJ8YEFCMO2jXFgWNYu5Ghs3ezBBiKThotKFl0ZDul3uCoiJY+JG/2K0M9+QgUUEOQF
-	 yKxSDRFMWNgk2n9A/IcCY5DOLBoPRi4gUWMSSz8toILBlKF43oY+qQMspzOpgt8hTfQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794232540;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NvgTRAV4d2CeDrS7buIyn4aEgRFl+F7ycAx9h36HrTA=;
-	b=fmLbUK0MI1f1+WhDBG8xPvpfr6/p9QfNobAxGKQ8+Xv+mUI8hXDncvZ6Bc1MKyJxMK42
-	 oeTU9+JNHOIcvQneC0kX4hlSLwDKAxZ15bP0kZj1ZvXBfS45+yCt+am+rTkxuDbjKOVKN
-	 S9Su8zJOySAjZn7JVujTOTvZ16+48IU5S+oUP3Iff4hJLtFY8tf2Ts+J8g/6PvrHjj3k0
-	 CuBOB3jivjhyO+pBpl+S0SBqLD3FST0ucvYeybMH+64uwnVvvar71Lq75Sk5iJZqwlGF3
-	 WcpGzjYRiW4Xq6gbQw9lBcDDjQsfuWsHiAtzvnsH5aehhXJ644Q7PLwcJRVAOXfJDwQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794232697;
+	b=1qwUnDqb8bPqBmrDYFGVknrs4lTAkLDnOGHbwZiZDV3JOJg1EHTC0N14DygM8WwmexDK
+	 ZIAkR+qM0REhVNz1y9JkTLVC+4EqD/7nb6BAWZwziW3jAwIUB1arA9ImKIx0QJNwjnw1+
+	 DkgOcwEyb0jEu1RutyU2OE0ADl1pJVpdR+2pqUzNzZtaheLADvyqx3sGIefsXyjsiUUxV
+	 5m07YUju4J3YtgJMExabrKX+ePmH1rU27eBzJcCA7qlsQn6pstObfEff1hSzjvoUL7e2q
+	 nuTLysJePXr5z3weCQ/ReUKmlCjPxgz7O5yT8UjqYZJqolvQUhtbroaH7vglO6VYJYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232697;
+	h=DMARC-Filter:Mime-Version:DKIM-Signature:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:From:To:References:
+	 In-Reply-To;
+	bh=U5ti8OSYeIjt1Uuf3l/kM87zGucl8LSPS7ufqkvvcMw=;
+	b=VJvd/VVek6I648Z+uXzPY4OPZywRHomJU12IC0qRNJlOFLry7aDmmXSo611cZ/XIHhNM
+	 X0YLANv8ZT+4UGpSyft8oIpFyOGbUBd0UEamgxU/zehRhCZ7Fd4CbxXoZQiXTC7ikM1hj
+	 +ZKQMVxNUa8P1nxh6WHBHNhV19l0Y1WsTIuTvyg5Knff8SxtXUJaBGRCu6nrQDIOzpdUz
+	 ku8cxtZ2ysVkbBH+4bGPwK1El2HojyV5eUSqWu7xV2/xHBGLG2TtiG93Ek9uBl08Qjigt
+	 heHzNQxzX+X7mOzm76IpUz3HMp2vkojWlOr2GXLxnNE7ddXrz3hMHjZ48KQ1TRRTYKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fhannenheim.net;
+	spf=pass smtp.mailfrom=fhannenheim.net;
+	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=3xoju7gf;
+	arc=none smtp.remote-ip=188.245.251.181
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 762211F008A1;
-	Mon,  9 Nov 2026 13:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794232540;
-	bh=NvgTRAV4d2CeDrS7buIyn4aEgRFl+F7ycAx9h36HrTA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VNQ1R5IqlBNzaRkb2nMToEqi87ykFCkEyVuGgPiP+yIUaIdaU8K8chYR/icQp07Vr
-	 jXtAB/5dV6/pymW9AHOZm8jW+1/6N6NDIcd1wF4bmIOXsqDwIZ+11c19SNMpjVo8s5
-	 lAuvFmGqrVBDuCXDow262cHwKrBee3HCSYUH6k0p4NAnc+azOCk50c8ecg8EGVM0bJ
-	 6GlAjMdB9m9vtDaM7BgU5zBr2cTKbBh/eULocWISrt9TgS2s0WZtDZG9SvdGz/AHo1
-	 1SjgPcNJYRTWLxqgQBTPwMt0Cq01nnrxKFzWfj+3ukFGnodserirUmHng/ks/2wulc
-	 QJ6giRrcnWUww==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E4C25484CD;
-	Mon,  9 Nov 2026 13:55:38 +0000 (UTC)
-From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Mon, 09 Nov 2026 13:55:29 +0000
-Subject: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
- SM8350
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABA5606A322;
+	Mon,  9 Nov 2026 13:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ABA5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=3xoju7gf
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,61 +41,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
-References: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
-In-Reply-To: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
-To: Abel Vesa <abelvesa@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Demeter Barna <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794232535; l=1222;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=O8H9CShAkj9Ovw7qSKhxVxcXLgvKHLomuYV1vK0dxiU=;
- b=XV+ZqkfTPsOnsrBbgAxWb88AQs2Y8b6HpCata6VLx6NmLxeWanvpCdCQLW5hpbxbYDLiiFm4Q
- FsaaT4Em3M8Awf0aoi/gPY6gpCjMrpyvclMtURYmlt02wAi2vdnUOLV
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: Demeter Barna <me@fromdisposition.org>
-Reply-To: me@fromdisposition.org
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1794232690;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U5ti8OSYeIjt1Uuf3l/kM87zGucl8LSPS7ufqkvvcMw=;
+	b=3xoju7gflLEhLR18i4AuoA4Vm1b6p+o3t8Kzz74HK6Kwknnuwr3YUoKWXu3OgO1ZnFtWjU
+	t+1K7bSO47LP4bZizVmXPl1uNR5JJNwpLPyzITCFvvZP0QXxNgz40X3vGA/S8hXZr7L0/d
+	j2M3fV6WnFRXMTPypk30HE3n95xGg8U=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 14:58:09 +0100
+Message-Id: <DMQQEMNZAC9R.2QNFULU5X2PAT@fhannenheim.net>
+Subject: Re: [PATCH RESEND v4 1/3] dt-bindings: arm: qcom: Document OnePlus
+ 8T
+Cc: "Robert Oscilowski" <drgitx@gmail.com>,
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+From: "Frieder Hannenheim" <mail@fhannenheim.net>
+To: "David Heidelberg" <david@ixit.cz>, "Frieder Hannenheim"
+ <mail@fhannenheim.net>, "Frieder Hannenheim" <git@fhannenheim.net>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-1-c6bbe6ded92e@fhannenheim.net>
+ <70454ca2-3540-4cff-a051-758625be3278@ixit.cz>
+ <040883dd-47a2-4401-9eeb-45478cbd05a0@fhannenheim.net>
+ <67c44ce0-8dcf-48f1-abf3-f1dd81175a2f@ixit.cz>
+In-Reply-To: <67c44ce0-8dcf-48f1-abf3-f1dd81175a2f@ixit.cz>
 
-From: Demeter Barna <me@fromdisposition.org>
+On Sun Nov 8, 2026 at 10:03 PM CET, David Heidelberg wrote:
+> On 08/11/2026 20:58, Frieder Hannenheim wrote:
+>> On 08.11.26 21:52, David Heidelberg wrote:
+>>> On 05/11/2026 20:20, Frieder Hannenheim wrote:
+>>>> Add compatible for OnePlus 8T
+>>>>
+>>>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>>>> ---
+>>>> =C2=A0 Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>>>> =C2=A0 1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/=20
+>>>> Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> index 50cc18a6ec5e..c21ef16e9ac8 100644
+>>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> @@ -1067,6 +1067,7 @@ properties:
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - e=
+num:
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 - oneplus,kebab
+>>>
+>>> How about oneplus,8t? We can use the non-so-much-confusing product name=
+.
+>>> Looking at existing device-trees it seems customary to use the code nam=
+e=20
+>> of the product for phones. Examples include:
+>> - xiaomi,lavender
+>> - google,sargo
+>> - oneplus,cheeseburger
+>
+> Yup, we had discussion with Krzysztof [1], that it could make more sense =
+made=20
+> actual production name as a codename. My guess is Android codenames are u=
+sed=20
+> before the product is released and the marketing name isn't known. Since =
+we know=20
+> marketing names, which people use to identify the phones, we can use them=
+ to=20
+> make more clear which device is which.
+>
+> David
+>
+> [1] https://lore.kernel.org/all/0fd3e0a5-33f7-4bc6-9146-dcaf035c3ef5@kern=
+el.org/
 
-SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
-hardware key manager behind it, clocked by the UFS ICE core and AHB
-clocks and powered by the UFS PHY GDSC. Document the compatible. Being a
-new SoC, it stays off the legacy single-clock list, so both clocks and
-the power domain are required.
+I think in the linked discussion it made sense to use the marketing name si=
+nce
+there where multiple devices with the same codename. This is not the case h=
+ere
+so I wouldn't stray from the precedent.
 
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
----
- Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-index 23bf98c2b..2423fd846 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-@@ -24,6 +24,7 @@ properties:
-           - qcom,sc7180-inline-crypto-engine
-           - qcom,sc7280-inline-crypto-engine
-           - qcom,shikra-inline-crypto-engine
-+          - qcom,sm8350-inline-crypto-engine
-           - qcom,sm8450-inline-crypto-engine
-           - qcom,sm8550-inline-crypto-engine
-           - qcom,sm8650-inline-crypto-engine
-
--- 
-2.53.0
-
-
+Frieder
