@@ -1,82 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266084;
-	b=vguqtqfFJ7Eqfe/SQA5o0fnP7Cs0nvkTuVY6aYDugXl10JcZr5Z/2qxRGXeciEEpH7Sn
-	 OKPpry7Dg3P4s95TD2om9eJLTS+NeBeVX/HDNJ3vt37gFlFQ/KVSzkoPVDSUbfEMLB92Q
-	 zuqQb6FNnUc1HM2ChtXBwI7qmZixa/jMuczW2F04eJixPcB8KFQYdViUmJ7fkkE6dXOk/
-	 LsSMAu0+jocuRzR7KuzXCVZmbPXbe/mJQ7KdKjsctuBSGSzCwigG59DdizSgMxsPLEnz8
-	 4oPxIWa9e48lLQJSo0lpP6Z58Ha9+s8SC5/2+3iRuNqOREYbFcGKQ3dzLUE3wJy6KDg==
+	t=1794266216;
+	b=PcXV99kuGjryjy6O0utjVF84gRvn/qg44ca0AT7wEwVUy8wCq0isNQdbq3239Y5ngCs8
+	 Ex0Y6M6v1LQzhMCoW/W7bM5JuW5X8pfsDRKNDra6bZI1xdryYpG1j+2azPAqnpgYUI4+j
+	 ol/ev/WgJd87cfdZcIoD/oYz8iVtIWVr5+wuQBl9dkdtgF8PWWXaiVIa3oO8qAVbwd9Kv
+	 YEXvNCqNO1ijsgs7/4VMTlsX+7lpnoxkzqwoqLU6lJGV/VOejzwVv2Zez/FC3s5hgl2ri
+	 q1ItgCv3cNj/E6inOqmCSipsIANHSdtvzxuf4CI5nr69WQJwTJqW8cR+Zm4OgJiwHsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266084;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=CA8oxOfNWkyRfRkpN5+GCFsKEO1plCpY8w9DA3leZ2E=;
-	b=5fJPS7sbDYwNcYupjqy9RN5iiqZFgGpMVSpjciyj8mkWhWbM1D2BRNpSsetd40nLjGXx
-	 Yd9EfZE7/9GRvxHrXO+NJvP3LtRgHSrUF3AB9f2+p1OWq764H8s9aH9dFzxN9uiZ8AGFk
-	 31N8qeT7J9VznOZZZorse9exVZxDxkLGSP/xrPPV13qL1iAOXadBZlsGZKfpMZXopRNY3
-	 USelQdXr62AlVa/O8tAWyfUend5aOLxaGQNGUsJTEP6DrENmPsq2qtHkdaUrU8jmekGbE
-	 UQcApcZ99DzTlc88/b0mU9GBRg/suqRydiOp5RHushQu5nGOFy0Z7f0PzDpPZnWQMfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266216;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=;
+	b=rALhKezQrY11PJppncYEitjDyxWUBQgTpN3fMCJ8b85x0V8bJ7OSZMFAvE2/r+CRuqy3
+	 XXdwbjLkUIASongWs45TrBLjyD/NTcZx87X3X12Y3fm55OZywB8liLgDxua4xJukRU9Ki
+	 hpRbfsP27fpRgmydf6Bhamxz58BnI5BiJ723IZLXbZqmn2rLrjqcOYH+R+05otiY43xYH
+	 VPGHoP9Fxr8eXgcmJlRykYH2C31r36P93NkQVqNhryxOYHTPFzpGTOcVei97uahXDi1MU
+	 oep+PiUewr27LhPV0/YHeKM1cEeqi6jafSlDCgiZNMRg2JeqkY7LzjFRsCQLewKBGHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EWhTxoa8;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88D7606A31C;
-	Mon,  9 Nov 2026 23:14:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E88D7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425EB606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 23:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 425EB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EWhTxoa8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794266084; x=1825802084;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MehuQL4U6cstjaP13aY7pSpZfHsKcxcvjlN0DFYPXRQ=;
-  b=EWhTxoa8xPdJN0D4/OOKZofVfUPzfzh9yUbb3cH7AOONJJHx1JQr/U22
-   IEtNaTd4ViUDpZOFiinRgp4UHCqXsAFrPANd3q7DTc2gD6iSGNu87Omi3
-   VLe1cZuvAkMlnZLcQlLbIipDjuvvMrPcUscJc3KL+thCt+8tAcgdZXkbB
-   SwK8hviH1mSAXXB/fA9PmmY7K5jr9YhH4ge53v81dsnR00rBkLTzkWdHS
-   ZkHEV+9r9Y92p88NSbxUNfBKN2WPSjGl175OhA0K0N72vY/WIYc4umZcK
-   lCHnTIQGWWCzhDx5r1XokmwGN3ZCKL7kqxtk07X+d7IrPsqRvAdYvF6IA
-   w==;
-X-CSE-ConnectionGUID: K8Kbsd63TfWg2ADVyvS5xQ==
-X-CSE-MsgGUID: aLL516JtSFeiYtKd8sWumA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3014367"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3014367"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:14:43 -0800
-X-CSE-ConnectionGUID: AYiUQYxFSZO3OZO6G1QzKg==
-X-CSE-MsgGUID: O+evBWJaQi+fg6aOhDuoRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8321051"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:14:41 -0800
-Date: Tue, 10 Nov 2026 01:14:38 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id QVXAxqF6KRiNxQYbfxOEKz; Mon, 09 Nov 2026 23:16:56 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QYbfxzaBdxqjjQYbfxGPdt; Mon, 09 Nov 2026 23:16:55 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6af25467
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
+ a=GU2OR-2u3yUetoAu5r4A:9 a=CjuIK1q_8ugA:10 a=p49Upr6YYhNo69yxWKUU:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=; b=g8OM+qIh4P8JuAXOofLquteH9V
+	GA8GU+WHHy5ORMPSZWQXI2f2OHpxFOrmM6ExzkPpZDlo/xKgsF+FSDcJttYpKH6NowrZpbtzzGyzT
+	D99Mj8eK3o8LtpxJHBQzwEKYH7KBe8tYLPJQ/7yQ22xZfiIRmrqJzNAIckR50HsbtEZfVR7puSGZu
+	M3Pq6DIFGUP/dou1iJq4r4TPSNeRgBe32TRDERfdkm+KaAGOWtmjKLSxghGkwKkH8v2Mv4QSDT8zc
+	1PY3Z99s2mFe0WYa9TvLqjk+UoN3SvAvVYe3ALxd0NIof43zNhrR0jircdZTB5idKxqkRG0rtyNe9
+	UR1ibrIA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47824 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQYbd-00000000tOY-3UMs;
+	Tue, 10 Nov 2026 04:46:53 +0530
+Date: Mon, 9 Nov 2026 15:16:52 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] iio: light: gp2ap020a00f: Prepare for chip
- variants
-Message-ID: <avJT3lRSjhl0EPmD@ashevche-desk.local>
-References: <20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org>
- <20261108-gp2ap030-v2-4-24eaa1b9fe59@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v8 2/7] watchdog: rzv2h: Use pm_runtime_put_sync()
+Message-ID: <36f3db86-774e-4e38-9216-a5af7ccbf6a5@roeck-us.net>
+References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,42 +97,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261108-gp2ap030-v2-4-24eaa1b9fe59@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQYbd-00000000tOY-3UMs
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:47824
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 27
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEePX5DxzMDWzfepKN7I30po9l6rZnMgr7xTIyrycFNx4ruKyIpswlDNXZXKH7rD4x5jQiJwqOQ4D0MRHOIBWyzkoAs9ZZEjsbTNU05XyY10ag5iWg7x
+ sRzlHHHRUeoQYRhZ/MKsc+R5xexCSNo0OED5Q9j9fRCi45wQDzC9HdQZLm9rEHjXnEczfNAOkFEz2FZRJhDP3IkgQhdX6zIDrHYOk3+PqeReTeSPIyeXpexn
 
-On Sun, Nov 08, 2026 at 10:44:02PM +0100, Linus Walleij wrote:
-> Introduce chip data for the device name, initialization table and channel
-> layout, including the channel count. Use I2C/OF match data to select it
-> during probe, preparing for sensors with shared register layouts and
-> different initialization settings.
+On Thu, Oct 01, 2026 at 05:51:56PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Populate only the GP2AP020A00F data, keeping its register values,
-> channels and operating behavior unchanged.
+> pm_runtime_put() may trigger the idle check after pm_runtime_disable()
+> is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
+> runtime PM active.
+> 
+> Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-...
+Applied.
 
->  	data = iio_priv(indio_dev);
-> +	data->chip_info = i2c_get_match_data(client);
-> +	if (!data->chip_info)
-> +		return -EINVAL;
-
--ENODATA
-
-...
-
->  static const struct i2c_device_id gp2ap020a00f_id[] = {
-> -	{ .name = "gp2ap020a00f" },
-> +	{ .name = "gp2ap020a00f",
-> +	  .driver_data = (kernel_ulong_t)&gp2ap020a00f_chip_info },
-
-It's unusual style, either make it 4 lines or 1 line per entry.
-
->  	{ }
->  };
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Guenter
