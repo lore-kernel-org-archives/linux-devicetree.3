@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220630;
-	b=NjVMSbyv6m5Mz3lupFLrzK+Zn2M98KUXDMfajVU1v7r2+f/C1Aala4IbVneNMbrmsbi1
-	 oxcjWgyk1AjVtM7BNPX0Z1L0i+d1u3SgGN9qfI4SHE9rryPn4xD6ydX54anFW5l17zwXz
-	 EDpz4KUlR4cP4CcUCdAMrRmY4U/9f7R3zeFNh1UL27ep4GA0X486b9aTvCWAbI8ceZer0
-	 WQk0sN8nqZ6BwHG0OZQP6pXLa/vx6pRttnuvopx/s0Bxii95Qf5Z60+iweF7QWZ54PSgF
-	 wm1Bmez7T1UJA/NxakAft+kmJZkpBpB0BdM2m1z2z7UVGRqW0zcx/koBfgFNMHPtDlQ==
+	t=1794220740;
+	b=rPNTwE1PyZBirbHAD8Me3gz5OoBKA8M3KkJ2yoIVgTSNFxB7jSkDrxPN1+YDVHM2XPkX
+	 uyxFwmCoaHmSQDE6gO+RjmUbqsVhXVEYyEDyT09Opw61j8eedWdCe4bv9LSqcoQi9z9sa
+	 tx6qlOFWXVNXDnO1Rpb/uUWClBenqy1JNRbRNYmLgsY44tTEP8Mr5a3+qsfASk1VeC6MA
+	 BWWMNzKYzpzO0FdOjrJ9mCx4sZAxSPdhuVNZtx4Qs4eKjaWb7ymEx1VaqOjQL3n9G0yWp
+	 c6vDV3n4rV6qEubElF6ovW2x8GzPW0eWAf57YYvkz+X8nxvc0jxIXhMQZe8+Byx+Byw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220630;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
-	b=KxB1a7K+PvPvX29f0B2jxS0wd5u2GgqqrY8k1nWs1mBcBBTPApbxBI0b6LJc9ReyG7Fw
-	 L3d6rRmsHZTQ6jRrhEd6I/yeO5DQdjVFGGr5fgM14Do0jBA4m5ocvct7QFTLZCy/1SKPx
-	 yfZEE/Jf3OTufdJi9ry7IoTOOB2k6PWFlxNlYgkE1gqMBKGXdR1Qxp/yTqCBs73uEfrvV
-	 VAHsD1cm/sJuJvQfLMvw1dfPNpnMjtVnyeholAd6K+kQk+IHLU7uwby/WV5+ZsYUoq526
-	 ZyqxVIiZ4fZVLf5YXI524V28zq81cFKkfj+4LtM1JN1mt7qaNoAu14d0EJWcY5COevQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220740;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=r6HyEaKbh/RK85nvkSElGazqX4zzLX6KG+xeFiqoXwE=;
+	b=T1zBkkxmGBIez3q+XBJZAvS0AhV/Koq098S1Y7N5DLAqqclHOCeOfspLCqxUqlDlx8wp
+	 JKS4ZS5EAZtE8JuMx8gIBd8WyWGhUUxCk1ruRs1vqZtrjbvVCnrRzddymsFtdKE/EnxYk
+	 RYTc2fGIswvVZ8O5Tqm8vRPtaakq8jrJN53F0CWvfavHCPmnaCwpr4WyzGwKvE5ftUZYv
+	 XE/tSSJyjqOt4sIGH+b1Ux0lerqv1uwHEcpm/4srch6fTsjAFsZcZK7lm+qY8bJiT0Xdx
+	 7GaUYMsoaT1QTlh+XCpmVpsQlFf12cY+IPK2oi8srf6EhVjix01AmHsKBq2OzlEPVGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGqm0wwO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEB7606A322;
-	Mon,  9 Nov 2026 10:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AEB7606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B8D606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794220623; x=1794479823;
-	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=S7Y1lMouhSsXanUL2M88fpxKKj/V7JtNNiWE2kkXW4PMPlAsxwxXMGp+2EgvSimiX
-	 gBjGNl0BWTz9lr2rruucIByBkB9npPaJfR5+lfwZHKoo9sh7D/Ks2V/afRQuqvKS4F
-	 jqthYrW3V/dctInVG5X67ZjYit0E+h5vYnhGiSoRIMt2yRkURI2ProyCTP/ou+B958
-	 maIADTiGv0o5YjDAYHx4DtdsS3c6mDYPulrEbk6Nc0Ngf4ryeR0seRoDp05yLunwYy
-	 8CwB9luL3vn21xlVo/zSEm+ME2WtpvZjEjzIb1MtgTJl5g/iUwVsmZmmJEJlr+h9wr
-	 7jW5aM/znH/Kg==
-Date: Mon, 09 Nov 2026 10:36:54 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-Message-ID: <20261109103645.32173-1-lsa.uz@pm.me>
-In-Reply-To: <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
-References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-2-lsa.uz@pm.me> <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 7f23696f074205ce908f5e43290b2a74f03e6da2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGqm0wwO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DC81F0089F;
+	Mon,  9 Nov 2026 10:38:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794220739;
+	bh=r6HyEaKbh/RK85nvkSElGazqX4zzLX6KG+xeFiqoXwE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gGqm0wwONOQuPBP/SnGqLDn8JfESmsIz0h/32G8vaRZtcZyLgZVbGSbhmmbijwv5e
+	 JUetkHCTmdhAUJ03zaY2mtYk568J8JnAFCJn4K0he12TW7bZc9Yrzg9rHvKkZU2bzn
+	 iQ1g2BNqtCtC+4zhJJ5RIon1iTzVZwa6ELM1/RpQbg4ifOxuhqR/BOgaDBxBF23YrO
+	 xO3pkozkGkii0BKMVOK4vocO0iShw2btizvvp0j3Orhre6aemM8E8nfSPrr5vtqUwE
+	 BZAkk6oSxD5zXNzt2tKtk+Jn75I0tMglrH7y2JNDLd2tnp/qBFDEskrJYTSXVJWJyv
+	 kvBS1tjTzGedw==
+Message-ID: <sashiko-outbox-204830@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/7] dt-bindings: arm: Add MPAM MSC binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yin Li" <yin.li@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-3-150335a79381@oss.qualcomm.com>
+References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
+ <20261109-mpam-resctrl-dt-knp-support-v5-3-150335a79381@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 10:38:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,25 +59,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Benjamin,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Low] dt-bindings: arm: arm,mpam-msc: 4-cell reg on 1-cell bus in
+  example
+- [Low] dt-bindings: arm: arm,mpam-msc: missing top-level required
+  property list
+- [Low] dt-bindings: arm: arm,mpam-msc: property order and unused labels
+  in example
+--
 
-Yes. The single file came from Krzysztof's answer on v1. I offered to
-fold the compatible into st,vd55g1.yaml with an if/then for the
-link-frequency minimum, and he replied with a link to Peter's 2/7, which
-adds the VD55G0 to that binding. His review of that patch asked only to
-keep the file name and to move allOf to the bottom, so I read it as one
-file for both:
-https://lore.kernel.org/all/20261020-cute-peccary-of-attack-2376af@quoll/
-https://lore.kernel.org/all/20260903-utopian-vagabond-mamba-44caea@quoll/
+commit fcdcd9b567c42204dbc32cc6d1155a3dddba1926
+Author: Rob Herring <robh@kernel.org>
 
-I am happy to do either. Once you and the DT maintainers agree, I will
-send v4 promptly. For a separate file, it brings back v1's
-st,vd55g0.yaml with your Co-developed-by, and its MAINTAINERS line in
-2/4.
+dt-bindings: arm: Add MPAM MSC binding
 
-Sergey
+This commit adds the Devicetree binding schema for Arm Memory System
+Resource Partitioning and Monitoring (MPAM) Memory System Component (MSC)
+nodes.
 
+> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Do=
+cumentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> new file mode 100644
+> index 0000000000000..b52599b47a1cd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> @@ -0,0 +1,62 @@
+[ ... ]
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: arm,mpam-msc                   # Further details are disc=
+overable
+> +      - items:
+> +          - const: arm,mpam-memory-controller-msc
+> +          - const: arm,mpam-msc
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: A memory region containing registers as defined in the =
+MPAM
+> +      specification.
+> +
+> +  arm,not-ready-us:
+> +    description: The maximum time in microseconds for monitoring data to=
+ be
+> +      accurate after a settings change. For more information, see the
+> +      Not-Ready (NRDY) bit description in the MPAM specification.
+> +
+> +additionalProperties: false
+
+[Severity: Low]
+Should this schema include a required section listing compatible and reg?
+do_mpam_msc_drv_probe() unconditionally maps MMIO resource 0 when probing
+DT MSC nodes, so nodes omitting reg will pass dtbs_check and then fail to
+probe at runtime.
+
+> +
+> +examples:
+> +  - |
+> +    L3: cache-controller@30000000 {
+> +        compatible =3D "foo,a-l3-cache", "cache";
+> +        cache-level =3D <3>;
+> +        cache-unified;
+> +        reg =3D <0x0 0x30000000 0x0 0x2000>;
+> +        ranges =3D <0x0 0x30000000 0x2000>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+
+[Severity: Low]
+Should reg in cache-controller@30000000 be <0x30000000 0x2000>?  The
+default example bus uses #address-cells =3D <1> and #size-cells =3D <1> (as
+used by ranges here and by msc@40000000 below), so a 4-cell reg is parsed
+as two regions starting at 0x0 and triggers a dtc simple_bus_reg unit
+address mismatch warning during dt_binding_check.
+
+> +
+> +        msc@0 {
+> +            compatible =3D "arm,mpam-msc";
+> +            reg =3D <0x0 0x2000>;
+> +            arm,not-ready-us =3D <1>;
+> +            /* CPU affinity implied by parent cache node  */
+> +        };
+> +    };
+> +
+> +    ddr_msc: msc@40000000 {
+> +        compatible =3D "arm,mpam-memory-controller-msc", "arm,mpam-msc";
+> +        reg =3D <0x40000000 0x1000>;
+> +        arm,not-ready-us =3D <10>;
+> +    };
+
+[Severity: Low]
+This isn't a bug, but scripts/dtc/dt-check-style reports two style issues
+in this example: in cache-controller@30000000, reg and ranges should come
+immediately after compatible before cache-level and cache-unified, and the
+unused labels L3 and ddr_msc should be dropped.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-mpam-resct=
+rl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com?part=3D3
