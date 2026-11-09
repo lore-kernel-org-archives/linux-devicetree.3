@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263635;
-	b=jRou40hCz1Sa5xVVvQOc7rJaPTuH7T8G6QxkvV/KsoHvxgCuPsnD6U10d+j/jXzMzO78
-	 yfaqsWUMWMwzE1490ye344LTh/ZvkrgtAZFUZhszboJV4kBLLMrGligGzMAr7Sn8Yh3MF
-	 u3rVY/FkuuX9xhag98cRt6F8qaNpnnkqKfz5rvVKSKVtOQfqmry6OKnVcCJ8nMxbxm8Nd
-	 A0nz75mMRWv3c+wjh1ZulG4F+ZPe7tMrJe2DAE1sk3/Q9sn07RW4utulnXTYGfbaLh5xm
-	 GBvwiCMIIFhwn83u9BTAFOliutTuQLAo02ocoXk4Qb2UgrShgC/UqixoSDQabt9UUnA==
+	t=1794263751;
+	b=VwD/2vSu3GKMrSJh0aNyVzE7ZFznaEHfHTfBgvMg/ODpBTKyhPEAOBhzCSgf52cLrLW2
+	 diPjQL/00PHJ/TnyXQFFafVy3i/5BcxsDkV/kuhni0q/zAsr2O8PLCWeKTuhS2lB+QdcQ
+	 yXPGOrtFL9yrZPkWb6PMA6KXi84JXf4CxqTHg7+9sx5R4UHm3kxk4ZuvABptBOoQYUpbE
+	 6mJKWqZSVSt4CDCvUNy3VgKoU0ENdHWCKmkZXCd2c6hmp3yCtdy8yrDzHTlnRndytKoY/
+	 8RYUvTbAIWJOuKz5r5wQ8x2BaiHwlsdbPThPheJyJuSRv+xuVsGTquBt78GhxXBHDOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263635;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=juGSgCG90hPdE9/iBCfeU0O/czp1PvRM5jFo+xGilAI=;
-	b=F5ilSa2TDTxM0cgtCIaUh7ga9z6J53qyzqOZ1uHWxn/OaiyWBAzhGEB/8h+UT8P11MQp
-	 MUycvxoEu9dTdhg0FqU1QSey2EHR2Qor4nk2930scUjKn4FYgPPTg50Yk8hdKSf3NXxUQ
-	 mAEmJ+SU9lcCc/UvtRZLzDISVb5DvgXnWELpaFv0FcNNhFCdFiuItEOi5DRD0D9a4PBMu
-	 01SJW/t9TirDfDChLAgPDTZqwVLderFL/uFRCLYdprcpMJxTVafmqZNN/1MiCsVjCEFay
-	 AUiZ5GkjPhC+mZ/2FxkTzlJc3nSy6HroqiDx5Vq3SFo1KqVG5JLjSWOPWFSzt63LtDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263751;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=u9kY5SU/V/y7galyyn1jjwxh0h0xXVYrEr8lS2/uzh8=;
+	b=cEh7X/fJS6niFn5T0lc5vJlspNr1v5fFwMNA1zDUSMd9KBxCH5BiWuJESRZmOZrUy3cQ
+	 a/C4/RJo26foate9zvsdGLGIR0phFBl/FD8U5AZAJuVOEH4MdnFHn17YfYd0d+vNAZA2f
+	 whhiyJ13FCpMqk4yF3uqAmXRPY/Jx3uICFGqTsogWqtEnngLMK2DfANLzbtpgvqu0rWI7
+	 ZSeLq4r7hd42VwkhXLsSpaaAIi6a1B0t3UcxR37xj2vmBtfmyYWT9OBzPw/v8z3kB68gm
+	 lKTuKMqiLglnkuP1DlRhBAevNjuOd03M2VxwD58xIVutI6KuA3sm93o8Uc0BR5l9Ajg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=kIq8CGMJ;
-	arc=none smtp.remote-ip=91.218.175.31
-Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ1jEuJv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A696606A339
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A696606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716C2606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:35:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=kIq8CGMJ
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Pk+laV3dhTJwk3ZH99anCvnpBHgw0DllGaWgkIfgUSI=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794263632; v=1; x=1794868432;
- b=kIq8CGMJ8Ryzbro5ihd1ky31LpWN/HDF9mkeE+J42nWU1mRr7yZ1wCtY0MNfVeNVDagJQX27
- pTwAgmGpmClcYXXAIJfd0dT1YNIyRlxbIKG+PA/R2Bcfx7TZWF22Hb4TFl1KHx4xcWWJcFEmoqW
- KnCC9NzmlUaV6GEGRQ48GBv3YKycARKTQMTTUT8W0OWfUkvVpEDhYF9rqbyMO+BdV+nISXWS1ZO
- ejjMcp+Q6eyFdQrsVDzXfawNHRoTKfn4TsVAuyzx9MoIFpJuCZGcD3eSWuSebtp+5gIyUdJbxCE
- o5lOe5UqxcqB3n1CmuHYeW5j+Mw94Dk3gF6QC21/dig1A==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a5961c1509ba55d7;
-	Mon, 09 Nov 2026 22:33:52 +0000
-X-Mizu-Trace-ID: a5961c1509ba55d7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1aca2519-878c-4aa2-b869-7416e7c3e981@packett.cool>
-Date: Mon, 9 Nov 2026 19:33:46 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ1jEuJv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74E71F008A5;
+	Mon,  9 Nov 2026 22:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794263751;
+	bh=u9kY5SU/V/y7galyyn1jjwxh0h0xXVYrEr8lS2/uzh8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GQ1jEuJvci+3jUfu8amgSSKHNY8gZ0Fz3RUzFO8+OD/Ea8mOLSpxv5JLlLgj+Zlok
+	 a3QFVoUDY2vw9MV53saGgRK0vTwP2eTHWoE6pW8GbwWib21hyl1Dd5p8tKfP6KS9/z
+	 NyUufNmMjIHDw3F4a+3cMrfAfrst0UlWYoRlxXK4YOXvtps2xp8ve5Q+cCdYOFc6Cs
+	 vOPTJYVwXiDdEyIfCbwgRcOG0D+wYVOX/wz8NErAgcxeOFQvI4wDhlUUsjXBL7y1hp
+	 O1iUX1i/TdT8h4HHulOZMG/wrif8VzvY7B3AeRsFMtoybJb14kECzBMT9Ina1x0Yjp
+	 zJ1MgyEhUwzJQ==
+Message-ID: <sashiko-outbox-205755@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: sm6115: Add Motorola Moto G9
+ Power (cebu)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109221453.658316-7-val@packett.cool>
+References: <20261109221453.658316-1-val@packett.cool>
+ <20261109221453.658316-7-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 22:35:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,97 +60,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] arm64: dts: qcom: Add sm6115-motorola-common
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- Michael McAllister <me@michaelmcallister.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- linux-kernel@vger.kernel.org
-References: <20261109221453.658316-1-val@packett.cool>
- <20261109221453.658316-5-val@packett.cool>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261109221453.658316-5-val@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] arm64: dts: qcom: undefined vreg_l9a phandle breaks
+  cebu-tianma.dtb build
+- [Medium] arm64: dts: qcom: sm6115-motorola-cebu-tianma leaves mdss
+  enabled
+- [Medium] arm64: dts: qcom: missing pinctrl-0 on uart3 breaks
+  pinctrl_dt_to_map()
+- [Medium] arm64: dts: qcom: unbound pmi632_lcdb regulator causes panel
+  EPROBE_DEFER
+- [Low] arm64: dts: qcom: unit_address_vs_reg warning on
+  framebuffer@5c000000
+--
 
-On 11/9/26 7:14 PM, Val Packett wrote:
-> Add the shared dtsi for sm6115/sm4250-based Motorola smartphones,
-> with support for:
->
-> * Simple framebuffer from bootloader
-> * Power, volume, and assistant buttons (PMI632)
-> * Charging LED, haptics/vibrator (PMI632)
-> * USB Type-C with dual-role USB 2.0 (PMI632)
-> * eMMC onboard storage and microSD card slot
-> * Wi-Fi, Bluetooth (WCN3990)
->
-> Signed-off-by: Val Packett <val@packett.cool>
-> ---
->
-> yes on both phones I've tested, only msm-id is required, not board-id.
->
-> ---
->   .../boot/dts/qcom/sm6115-motorola-common.dtsi | 541 ++++++++++++++++++
->   1 file changed, 541 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi b/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
+commit 0fc3db560c7afce7509df398d557194333dec028
+Author: Val Packett <val@packett.cool>
+
+arm64: dts: qcom: sm6115: Add Motorola Moto G9 Power (cebu)
+
+This commit adds the shared cebu devicetree include and a board devicetree =
+for
+the Motorola Moto G9 Power with the Tianma display panel.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts b/a=
+rch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
 > new file mode 100644
-> index 000000000000..6a5110319bc3
+> index 0000000000000..31ca51570ea20
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
-> @@ -0,0 +1,541 @@
+> +++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
+> @@ -0,0 +1,18 @@
+[ ... ]
+> +&dispcc {
+> +	/* Preserve the bootloader display until the native panel is supported =
+*/
+> +	status =3D "disabled";
+> +};
+
+[Severity: Medium]
+Should &mdss, &mdss_dsi0 and &mdss_dsi0_phy also be disabled here?
+
+sm6115-motorola-common.dtsi enables those nodes, and &mdss requires
+power-domains =3D <&dispcc MDSS_GDSC> as well as clocks and resets from
+&dispcc.  Leaving &mdss enabled while &dispcc is disabled keeps &mdss in
+deferred probe and blocks sync_state on its active suppliers (gcc,
+apps_smmu, mmrt_virt, bimc and config_noc) until deferred_probe_timeout
+expires.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi b/arch/ar=
+m64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
+> new file mode 100644
+> index 0000000000000..6f5263a67319f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
+> @@ -0,0 +1,43 @@
 > +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
 > +/*
 > + * Copyright (c) 2026, Val Packett <val@packett.cool>
 > + */
 > +
-> +#include <dt-bindings/arm/qcom,ids.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include <dt-bindings/usb/pd.h>
-> +#include "pm6125.dtsi"
-> +#include "pmi632.dtsi"
+> +#include "sm6115.dtsi"
+> +#include "sm6115-motorola-common.dtsi"
+
+[Severity: Medium]
+Does &uart3 in sm6115-motorola-common.dtsi need a pinctrl-0 property?
+
+&uart3 sets pinctrl-names =3D "default", "sleep" and pinctrl-1 =3D
+<&qup_uart3_sleep>, and the base uart3 node in sm6115.dtsi defines no
+pinctrl-0.  When uart3 probes, pinctrl_dt_to_map() fails with -ENODEV on
+state 0 when pinctrl-0 is missing, so neither the default pin state nor
+qup_uart3_sleep is applied and dtbs_check fails.
+
+[Severity: Medium]
+Can panel@0 in sm6115-motorola-common.dtsi ever resolve avdd-supply =3D
+<&pmi632_lcdb_ldo> and avee-supply =3D <&pmi632_lcdb_ncp>?
+
+Commit "arm64: dts: qcom: pmi632: Add LCDB regulator node" adds
+pmi632_lcdb: regulator@ec00 with compatible =3D "qcom,pmi632-lcdb",
+"qcom,pm8150l-lcdb", which has no in-tree driver or binding schema.
+This fails dtbs_check against qcom,spmi-pmic.yaml on sm6115-motorola-cebu-t=
+ianma.dtb,
+and once the panel is enabled (as on sm6115-motorola-guamp-holitech.dtb),
+of_regulator_dev_lookup() finds the DT node with no registered regulator
+device and returns -EPROBE_DEFER permanently.
+
 > +
-> +/ {
-> +	chassis-type = "handset";
-> +
-> +	/* required for bootloader to select correct board */
-> +	qcom,msm-id = <QCOM_ID_SM6115 0x10000>;
-> +
-> +	aliases {
-> +		bluetooth0 = &bluetooth;
-> +		hsuart0 = &uart3;
-> +		mmc0 = &sdhc_1;
-> +		mmc1 = &sdhc_2;
-> +		serial0 = &uart4;
-> +		wifi0 = &wifi;
-> +	};
-> +
-> +	chosen {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@5c000000 {
-> +			compatible = "simple-framebuffer";
-> +			memory-region = <&cont_splash_memory>;
-> +			width = <720>;
-> +			height = <1600>;
-> +			stride = <(720 * 4)>;
-> +			format = "a8r8g8b8";
-> +
-> +			clocks = <&gcc GCC_DISP_AHB_CLK>,
-> +				 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +			vddio-supply = <&vreg_l9a>;
-s/vreg_l9a/pm6125_l9a/ of course, last-second copy-paste fail, sorry
-> [..]
+> +&framebuffer0 {
+> +	height =3D <1640>;
+> +};
+
+[Severity: High]
+Does building sm6115-motorola-cebu-tianma.dtb fail with an undefined
+phandle reference on framebuffer0?
+
+In sm6115-motorola-common.dtsi, framebuffer0 sets vddio-supply =3D
+<&vreg_l9a>, whereas the PM6125 LDO9 node in that file is labeled
+pm6125_l9a:
+
+arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi:
+		framebuffer0: framebuffer@5c000000 {
+    ...
+			vddio-supply =3D <&vreg_l9a>;
+		};
+
+dtc aborts compilation with:
+ERROR (phandle_references): /chosen/framebuffer@5c000000: Reference to non-=
+existent node or label "vreg_l9a"
+
+[Severity: Low]
+In addition, framebuffer0 in sm6115-motorola-common.dtsi is named
+framebuffer@5c000000 but uses memory-region =3D <&cont_splash_memory>
+without a reg property, which triggers dtc unit_address_vs_reg and
+avoid_unnecessary_addr_size warnings under W=3D1 / dtbs_check.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109221453.6583=
+16-1-val@packett.cool?part=3D6
