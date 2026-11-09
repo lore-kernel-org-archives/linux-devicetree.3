@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221377;
-	b=ZOqEcffPzA26RM/eADFzaLiEpivxE48CLeG60weYZqVxqbQowtprjwg7rP+RSPXaJ+Af
-	 895Ht7wH1MMWm/ppj+O9+p9c6ww8qJ507MRbe3xF33DOtGO1FJY58PrADctUGTcJDLTo6
-	 DPVYuRTfn6QX3qwz/ZihV6nETAOpCWA0/NHxmvMDt77Fs5YwVBI79YRxTv3Vhtaoce93S
-	 vVpgnVzL3I4vAJWMMSIloZkz6SyTQPrbR5TUF36LqfgR5ubxo+2YbEe/30Qzi6bVjLUys
-	 G3pkdeIenzBFYJ9IXlZhNqDQTQ6V5bnZTCsPCTh3kI9GGUJnaEkMizdn4mTjh1Jm88A==
+	t=1794221388;
+	b=DsssbxLBRuBFfrjj44rsYIzp30tTEGyrDyxMevTUd+RvkcXgqDqPqhfj8zDOGKUVelhx
+	 UATKxfMupxZ7Ki8Q6/Ww7tEJnU/icELWUNZGhLiX31KoIhaHYu43FCqtyfqmBrRcUaSFC
+	 UWGqe5mImEtX5nFKaHcM/iSP6NaCE5VGjXf06npy5+3tDOk7TU0FJO3AyPDorsps/Niq0
+	 gMSXpVKwilupoDskbBdBAawa413fRZP7B6VZu3OTF8VutAzhzTbsa3i/jXB1/iWaMXsp6
+	 n209wgHnpy4ZtAKc7+BJn4Sv50M/PdeRS1wCojG+1cxtxZxpq2WErnSZIbP6FH1hjbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221388;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m084VB4ECQKsSrTuTIsCHm0bP3+UWh/KjmgdqEEXWKo=;
-	b=Bk+ieiQQW0WP5HGy2/Qo1eEkqZejX2M8bzELEnVSP/915twd6vwInjK0SK0/kaZfEB/v
-	 QXOVIf/BbOxKPYZoZrORehR/XFwsH4YTbeNhqjdhiYbIRqwywuCqygPLeJky4fB3Z5ku+
-	 yUxJc590re0KfgmPd7iHJNGD5XNPfXQWYf65CRGttTJQjyImdBA5MGk62zMCbfhT4AD8R
-	 X1igMiDw4XbycNkjf82ENph0byQqcZ1rFcMDUVsidUpw0ehF1aknnfVWMdknWCk+N2h+W
-	 Ev3NbQoW3fvh1PQEsl3tzLc8BtNqhqRcjyh7MCZOdmnVklYa4YYp+xVdIjJPNi3oxFg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zNKMNT5jDjx45/qe7hJ3H8U6Y1OTdrZmQFqKaBSTnKk=;
+	b=Gm+ejFEP36SeHjQkTt8lFYxcGk4RFfG8yiJnt/kipHJATQeisCOzO6EBp3kHJRU3b0fM
+	 XQyg6ZnSajPl2BuTb7+Lf8Pi1Urub4M5WQtX90xWL+4Ta8wNANj4m2fx8kITEcG+PgB9r
+	 6L68icZAiByuUtIaF+Zu2bvbCkDKanAuJ86LJFhHzsEDxblcVH82bSUTW8aJiUGrvTiHg
+	 yV1i9unkl+sRbMi5LZCpcqVZC8v3n7fxKqV8VlPJldySHl2TC9+fI2CAVW1DtbekXdxL4
+	 1N8Du83G89OYYSaWnZs1za7puN/6s/iEh5XntNZWHDOHok/8QO9b603ZS4MNwyOP5YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mhuvuvXX;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d3TITIqY;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CF4606A325
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3CF4606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A75606A331
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:49:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A75606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mhuvuvXX
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso3240445ad.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 02:49:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d3TITIqY
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9ae391a05so3714895ad.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 02:49:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794221376; x=1794826176; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m084VB4ECQKsSrTuTIsCHm0bP3+UWh/KjmgdqEEXWKo=;
-        b=mhuvuvXX0rIaEIqZ3DzR1FBgAu21NuHPq7Q31T7dFQOqeblaWlH9D1o+q9ykUC+Z6D
-         sfTUBtHFNuNKu/0W97XuHP23fA2bJkNE9yggNCNrR1M/vXLFuLRK/l+/fLLmYYPLiXSA
-         d0xl8e8ZMlhvge/faXWUC8mqUhtRzeYCOJCc2xWMPAB5WHlH3Q9NzA6xDRWOgNpKRjds
-         FZQXe5ciiNXD5CJBbKjeX9XJoKsKHtdSV3RKYWgG5adtQEhRNTl276P2PJ99JamMM5d8
-         iHn8Z+3fmQOdLTzBDWrPh62ezoPUQumOtOcgdtc9VgPTxHf/U+cbZhNGnkiuuSsrDckI
-         VysQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794221376; x=1794826176;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794221387; x=1794826187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m084VB4ECQKsSrTuTIsCHm0bP3+UWh/KjmgdqEEXWKo=;
-        b=zdavYjwoPBHBwS35tVRAiYIed5piMK0i4loCKkOxmI9XeISHpceMYPVrOFngbts1R8
-         Ev4r3qHaQTM0yAE0QTyjiboHFYNeBE507AdboSlCCKamrlcjrNM6CUW0sbL4lL7nfrMH
-         r8LOD2QutaGnZJ96/OmQ46ZbXHtyffX1IECvl3pGKdbf/G0diYZC50ouconowmmF9W8J
-         nQwloSVudk/U3Q++B/bzRzN897Z3r01xHI9HVSdZHCIQYxs/XYg6j/AJY8ueVDwLS6DR
-         49mKO38W+dLhoOJovx0gN9TsQwHrhGhdKSX0VGNpZZnzx5F7atbC3DMciUtUM8FPHVkG
-         oq5A==
-X-Forwarded-Encrypted: i=1; AL+hErGIpkEm1pBmfsrlav0avjr+weKM8H+zf1RjFK77MmNKy5hE9vV6y1ZG03TSblzu8W5oZC5dQ9WlXnFz@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZyK8hJyDNxmK+TrdVK2TM01X1rsGrosNWQQAflqnDZrF3b2eN
-	l6/ykCrG7WgEOtHYt9VWtJbNaQlruhf4f8vmwFW7uo0uQKH5I1P0fwme
-X-Gm-Gg: AYBFou1ksA9sLW7nGwypS8mTE9NJmZrL75QhgTpqCFgXMYCQkAgiE8rJ4QPrisNikzF
-	3T7vx5v/cnY+qYs3M72XLVUjK6MjJbBoIjiUT3NHtUPA+9IfYll//DvfoX6syOpdaBujRVU3K+Z
-	hksOZqohkJXblkBJKJE057CBZmMTa1CoD3rC1MCxK3+aDgu9AUnnk8RDBT5p5lOdUsyf6OoBeaP
-	/aZiyOYUxkzPtH8q4VzJwJQMrpEyCso2Jf7CDSP3x2Qt9w0WNavHI0onwDhUKPEjmn0tfbRMM7e
-	WL2zjr6ulOsnJ+UI8EzW2FpBrc9jDwf/b8hRs8ciqPB6e4p8PN0moyPvi9ti3orYg3LtjQ0nekv
-	H0rK1WfwIcDc4uaMszZ4IEetZsi1rst3qS4XekO4Y+5h6rnmLZLmet3gDaRfTDBiHeFouRZUYfr
-	4CZ2KsGjcJSSF+4YMea+IlYplTkb5gWLwwN82GEtYJiM7cUE+OfPwkFHVd0RowTa+/SOo2fcUYM
-	TS/lp/XqQV2rPggHXTq3dRSo201A6O9qDCM2/hh4osvt8UWdn8DutxjfGfWop4J+ki0c2RLASbZ
-	fFOQpdzemO9lN9FfB93ZYHfK4OnxPbuaEi2cu3e/HtOkOmVzFpc+IQ36fpcNiRwBnzE/MIiXf6i
-	ja98x4McXpUE5vSXw28aSupTa3k1G99B5raaLWNrGeUBTZV6wnG9ukH1HPJI85edIu1Q=
-X-Received: by 2002:a17:902:d588:b0:2e9:6352:6c61 with SMTP id d9443c01a7336-2ed8375ffaamr41615415ad.19.1794221375807;
-        Mon, 09 Nov 2026 02:49:35 -0800 (PST)
+        bh=zNKMNT5jDjx45/qe7hJ3H8U6Y1OTdrZmQFqKaBSTnKk=;
+        b=d3TITIqYEQy2nVPw2nwc3LQqZM4/kzPbuGM44hHPAGvIZFeNP1PUYtBhrYtiGZk2aD
+         KAvRce1tF3JXHWqC9dHn7JRr6A4nfBgVAcIEZmrrEtB8JwfNzjNWCETv+AGtA2kJnlS+
+         BV+1CPLQwcBl8vg7XDgD3/3aFJlaX892W9xWCtK8oDnivRGcOhOW8yvROkjqjdMITkgH
+         BKqq5rDsiEuMwhq8/1EzAjSco3LUB2Nbf+dPtpxSTojqXN2BDmSQRyD8KXML4eOo62lM
+         rHGW5+ZO5c3XG37HoOIIHZVD4kpUO8Bfjl9x8UEHpP+lXnTyKnggpXRmmshuqoa/54Cp
+         rGwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794221387; x=1794826187;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zNKMNT5jDjx45/qe7hJ3H8U6Y1OTdrZmQFqKaBSTnKk=;
+        b=i09T1FmuWgrIG2MiRHpfHuLGgc9/e5HIZAlvC3FGS7dCAyWrRsKSzqXahiyRYpcgqp
+         chiT1CXVFGS0wdO6WQdL8OxjesjpNKi46ie0PSX697g3lyRYV0xmUwJS8rVf0aKG8V/s
+         RTbuuHwYALWTmsCB/CMzBJ8384PSrvVvvG9p+k9i/l84s/6HThsOUGqgfCO10DLQAdGu
+         XLF5bXUkGmIIDfPTNRwidXCKiHiZR4xj5aMm3RQ18Vio2ewOLJqoFxB3ehLRomlM2yj1
+         TVaY56QwrbDR5F8vxjsXKzCm1BTcU1TNdzuxv8yFTj5ux54lmWAF/GEx/JtGlERIxVVN
+         jK0w==
+X-Forwarded-Encrypted: i=1; AL+hErFdjw6QDgk0XqB4VcVxvRXCjuDEIfQgr/8rKXRuc21WKxzn667IzLR+hTivqVme73BkA55y+jr9y7Ho@vger.kernel.org
+X-Gm-Message-State: APuU4Z+y07Jkmi7ko+mxKZeF+58I923333hKhz8EctfW0DcIZWpOUa8c
+	TY1SKITPsjBetYkAJwXtClKGurIk4x221uUGelcZui7buyttTyvW6RFK
+X-Gm-Gg: AYBFou37V4A9Yheuhthdr03Ygh47Bf2GLRa34Of6MkQBQr+TgfSc9QLO6g0wNP8Yeax
+	Gw2QT2RXvL/9dpvUdEWgnI7WUFg9QqX1Xs7K1Wq4rPOJoH7p6tuN6w9hqrA0CX0Sb6G75VI1N/A
+	KWOBF+wcx5Dq60ncrMJzhhWfBJgP5Ufmh/ou9EjOiKYLArBWjcCd7wryc0evvyzHLvOMcgCBSn3
+	Xi1OhzpYAMApD6OhguYcfYNJH4aNYfPLF5JW1OiiMZcew1aGpFZSRDw148bQfx4fc655dfXgUEw
+	s1TFv4XRYwhiGrU4BSSp8S74lwIrdM0OqwQh9OHIQpkynEreR8sZQBK1RqwqfGuq+M3QyBsExpe
+	gph+chJ6Cf/UnZlCOjaSu1OastjnvlX+OI3R7iXeq1OQ7z5Hdxlg5frR/7SAQhnT6TAP5TEj3Df
+	/qcaa7SLyYo8CUGGGyhyC2N/QDjeUQ8s1aVj2zunm1o+fVgxFRVUP33OzH8XXZ6xo89kwCo/GiK
+	PpVzlG6mySlORK3cwSPaOlPPLVqUgoL1R+GJoOMS28WDK5S9U9dKtd0smLppvj6Jn7hC2uIY+4G
+	GGV6DwIDor8yG36KXS9mDeF3Hzef/g88828W48rPFvYckXVr6GvMPfptDO1PEJDvdBebu5jMft5
+	Tc1VeyQFFttwhXDP1eKofkigOQvVh8A8a2U8go35JjWucGHU37ePR1wHIOiwibVUMoh4=
+X-Received: by 2002:a17:903:2304:b0:2e4:cc75:2728 with SMTP id d9443c01a7336-2ed837a7559mr29304325ad.36.1794221386941;
+        Mon, 09 Nov 2026 02:49:46 -0800 (PST)
 Received: from rahuls-x2elite ([152.57.87.39])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81739d6dsm8602685ad.66.2026.11.09.02.49.25
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81739d6dsm8602685ad.66.2026.11.09.02.49.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:49:35 -0800 (PST)
+        Mon, 09 Nov 2026 02:49:46 -0800 (PST)
 From: Rahul Pon <theflyingrahul@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
@@ -91,10 +92,12 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-hwmon@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] platform: arm64: HP OmniBook 5 16 embedded controller
-Date: Mon,  9 Nov 2026 16:19:12 +0530
-Message-ID: <20261109104914.1534-1-theflyingrahul@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: embedded-controller: Add HP OmniBook 5 16 EC
+Date: Mon,  9 Nov 2026 16:19:13 +0530
+Message-ID: <20261109104914.1534-2-theflyingrahul@gmail.com>
 X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <20261109104914.1534-1-theflyingrahul@gmail.com>
+References: <20261109104914.1534-1-theflyingrahul@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,42 +109,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a binding and a driver for the embedded controller of
-the HP OmniBook 5 Laptop 16-bf1xxx, a laptop with the Snapdragon X2
-Plus/Elite SoC.
+The HP OmniBook 5 16 (Snapdragon X2) has an embedded controller on I2C
+at address 0x76. It runs the fan and the keyboard backlight and reports
+the fan speed and its thermistor temperatures.
 
-The EC sits on I2C at 0x76 and takes commands through a mailbox. Its
-protocol and its command and event codes follow HP's ACPI methods on
-this laptop. The driver exposes the fan speed and four thermistors
-through hwmon (the thermistors can also serve as thermal sensors for
-skin temperature zones), the mute and mic mute LEDs, the keyboard
-backlight timeout and level, and the F9 and F11 hotkeys, which only the
-EC reports.
-
-The board device tree that uses this binding will follow in a separate
-series to the Qualcomm maintainers.
-
-Testing: the driver has run on the laptop since late September, on
-Qualcomm's qcom-next (7.3, latest qcom-next-7.3-20261031). On
-next-20261105 the series builds with W=1 and passes dt_binding_check.
-
-Rahul Pon (2):
-  dt-bindings: embedded-controller: Add HP OmniBook 5 16 EC
-  platform: arm64: Add HP OmniBook 5 16 embedded controller driver
-
- .../ABI/testing/sysfs-driver-hp-omnibook-5-ec |  19 +
- .../hp,omnibook-5-16-bf1xxx-ec.yaml           |  49 ++
- MAINTAINERS                                   |   8 +
- drivers/platform/arm64/Kconfig                |  17 +
- drivers/platform/arm64/Makefile               |   1 +
- drivers/platform/arm64/hp-omnibook-5-ec.c     | 417 ++++++++++++++++++
- 6 files changed, 511 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec
+Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
+---
+ .../hp,omnibook-5-16-bf1xxx-ec.yaml           | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
- create mode 100644 drivers/platform/arm64/hp-omnibook-5-ec.c
 
-
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+diff --git a/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
+new file mode 100644
+index 0000000000..be4c845067
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HP OmniBook 5 16 Embedded Controller
++
++maintainers:
++  - Rahul Pon <theflyingrahul@gmail.com>
++
++description:
++  The embedded controller of the HP OmniBook 5 16 (Snapdragon X2), on an
++  I2C bus. It runs the fan and the keyboard backlight and reports the fan
++  speed and its thermistor temperatures. Its four thermistors can serve
++  as thermal sensors, indexed 0 to 3.
++
++properties:
++  compatible:
++    const: hp,omnibook-5-16-bf1xxx-ec
++
++  reg:
++    const: 0x76
++
++  interrupts:
++    maxItems: 1
++
++  "#thermal-sensor-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@76 {
++            compatible = "hp,omnibook-5-16-bf1xxx-ec";
++            reg = <0x76>;
++            #thermal-sensor-cells = <1>;
++        };
++    };
++...
 -- 
 2.53.0
 
