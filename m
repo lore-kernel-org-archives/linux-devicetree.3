@@ -1,109 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230727;
-	b=35SLSG0irGf3lipQAlSKbEjmp6wDYyptsYesa6Wt5SvpNH/faMsT221bR1Tng+x0Z1Ks
-	 tTF1YKPrlK0+kI4FOGlhB9U5qRt5+CxV5PViLc9BlIb+TGub8cDvxiJSbYYcxqrnCjzRE
-	 CarwCAuDHUDrKOEgs/CbEwOcNVEUThkcBc2wdSOfKHVZNefaXG1IBB1qq7RWNNJOgzyDr
-	 EayYV30MiPAGT4lAatguQScX7GBUbiumXcIug6T3DG0pIWYl8W8C04ESf4maJvJOl8eAx
-	 XTPvKqMiG5+mhduaaHlwmn0D98oHyA5KjJxfKtGg/vaRQxynaX2bR+JMDh4nkfqJk4g==
+	t=1794230832;
+	b=ESBY9nxnT2gTADL1j6hudGcwt7HaugFHdi6MyAnssg0SCA2PtzDweBj6/rupoob2bOvG
+	 cdY33Y731KEdOpa8hqXw7c+VhpCvBtUHLcUXveg9eQYpkGq6VXt3JJjGPOo/ZbJh4Te52
+	 C/W55lF+sDloT/6HJodB8ltpjDoeZCBedW88bICIkPLe6Ok5UoNdJS2RhM/gt1XKSFCKO
+	 pDV77qojIfIbHXCzU5slv1uCWMMGmVPnGeFzRRABSNvVWsdqAyhFx9WpfyzH3KYRH7lJq
+	 eH9h7KCzoliywbLMaJ9OAyfXXDva/pBg2TJumsv/YEaxx7hB9kDN8SZr9IWYzNGAIcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230727;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=NdZ8WAHKIgu5R+aDU/V3gQzILOqggd2CA8XxwJMUnaQ=;
-	b=HkZuNxuPO8fpLQ25GE4crFR8ZcgrRqO3eXnWWMkuQPJuB9bzHIeGrdsZ5hJK5jBHapnf
-	 MkpWJtbGm8aFuTeAzgqKCqqwnDRlPsMhcHCdEtkhgSaKHrKiii88uWu1r4oJgm0BP3/TQ
-	 4NU3CaPrB385r0+2tJXxDwnKAqsjE7jmLQWXYSW5aWK4lU+iFADmGmQMfH6dWlqbxBgrW
-	 2p9Ni8hXx4yRDXHlrEwSMcxFoNyt8jl+r9sNGNkHp7J3y4G4VDOzWJMhp0RaUoS+6lI5W
-	 fL0k6JSgbcSMcJ8sbtJ/42L3tzENChfy2i5Z79lLXB6+++rrHGok08teD2xV2sblGdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230832;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=//2W4dF8dRqMAfkwRAhImATI6D+c4FVFBxbhqBn9xzk=;
+	b=oQlrS9pauF6KI5QT7feVFgJ8VnmFIDCCA/zV8fSaAWa1nIE27REqWOsxlT2yId0O6Xs6
+	 tLpUxUstkE6yEWg7FbgvHssi/EPuGXAP9MEXx3c9UFf547UuzOQos1F8SHKXTl8c+AZyA
+	 +349PeFcbvIwEuG1LRuc7iKFVDQJ51BWCjmczcr/b3uloYbpZOeNV9k9N4LH1rnPiQxu0
+	 l7vdYoliVlBT1ubtkS3TLT8DJWxP2jmRHtp3zLM9xniayx/EGZmCtICReZ9YQIJGs3zgb
+	 Kfu57JHURvN6bE2lB0cwUcZgloU8vhP1Hg6gSEfMHpwdZveVBYPx+aTqjbwrN2+VAMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A2N2BIXo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BgRV4ATi;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vW+rWMbC;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83296606A332
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83296606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEAF606D827;
+	Mon,  9 Nov 2026 13:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEAF606D827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A2N2BIXo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BgRV4ATi
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFHNo3461228
-	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 13:25:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NdZ8WAHKIgu5R+aDU/V3gQzILOqggd2CA8XxwJMUnaQ=; b=A2N2BIXoUnriedoY
-	nvImvyBq6MLBI3geSgtYxH5RZKhfcMaG0vsTBKMAy16jprOQcUPaRFVHv9Q+Bc7c
-	9RVbhiugOesjDfoOk0DKijIzl27O6d3sQEDo0YagaYLj2IXdsZfiSgCqeK9hd3x6
-	SH4yPrjvn+7epiaqm74ZYyu55J5vxnFaxw2Q8HEEefIMmq7kR1Igs45s2cuzhOjJ
-	jTB2z9R15BPpausQeZXVq2FvIrAcer8xjs6hPVDzGlmkmXW+g9MKSM2MTCKHQi2z
-	8PU5bi4SwFeQeb0J1wmrK5f2JUO5PvM2Rv3XdxZJE4n9aRk5AsITXIdJ+Zk9TNb6
-	dijq3w==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hue0rr83k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 13:25:25 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eaab6f56c7so31016e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 05:25:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794230725; x=1794835525; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NdZ8WAHKIgu5R+aDU/V3gQzILOqggd2CA8XxwJMUnaQ=;
-        b=BgRV4ATiSKwfrl7cGC+bmNesECcZh+iXYgoqzkzyhDQ4xZa6ViwF1ZfFzDZEhkWjzw
-         kbn82FFDEMFtMoNt9PWwNi0Th+IQ4y4oHVBhjOiVrcIrKPibVmOWycl/724LibchJUM4
-         9bDKXwlcXNgfz/bL98Fh+KnUC/1EUYJB01ZzyDVsTZkgdYS10AqOFUtDqYmiLpTqkoqu
-         nYAmcAK5AHG7D5RjNvzETOwFHKo5hp7T7pnl4b2l4ViWX9X/V4hCSvyDiMlo/FYSj7/Q
-         3YwLcXO4h2P1kXsjHbvX4XV4T3qij0doz9jpUvVVpU+k8uSvPgwBFU9tJBMHjS8RO8hf
-         BJ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794230725; x=1794835525;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NdZ8WAHKIgu5R+aDU/V3gQzILOqggd2CA8XxwJMUnaQ=;
-        b=1jVNdhRN8nCf6rtHL0Ec9KwEDVJHFdRy9PjBdklcvnIY9RJihQxIojrD7pWh0GW3Ww
-         KF53ZrgwYYNLYkSS6FETcNoNQ/u7JIbLvJrsdjchoyQUh5H9T8CHC4yPiaUQoJ5PspEu
-         OAHPpzsT9U87hOgifEgI2pf5EJPJ8Zsnw6Z2GLFKo5WfhqQBXnQ9mm2nX4Qo5vQcgZkk
-         Od61Y+t77dpCac5rqvtWEl1EpSRZBZuVG2NTrP3VgXZEzuvTW4mkLZ8HGt50wgSTKUHZ
-         aH/xfI63UDIVMsyCDR5wNAEKyL09L1yOb2fzsxOMEE7OS/nzW97qfeZUMvZudC7qwz18
-         3jFQ==
-X-Forwarded-Encrypted: i=1; AL+hErGIZpSJHMegNxuWZNo903y0diM99OuZj5iNlZU4kxC76PboW/ReUZKLxxAAk4GQtDUMa3FUkJVDfhFa@vger.kernel.org
-X-Gm-Message-State: APuU4Z+p0pUc09NTJEQn0C433mOJGZz41EnNvARQk8KgLCqLTYoL1lDz
-	qUxfugTYLdf4sYDR5mIfmCtM9ElCYw5qxHTY9xLJaUgPXYcHK06BQLOTXMZXtWS3LbzkLoz45/h
-	LCCzKK/A3hALDsrxMvGIKZ4Nl3RCtKHFCS5eHHkgZypoRjUB7NskypjlwtIbpZclV
-X-Gm-Gg: AYBFou0kKT6Ns+R4wIPSG8L5tKnVJg0zNg+Akj0ZkiJRgFe7RtqmeRzBlqUDAJ1J4G/
-	u9jQ0XHU8yAHjXvzlzvctNH20zCZtAMN3thw4cHCBbvqaDi0rPvVHljPTTJDYkNoxGX/pSx0gty
-	LvHxs8mCEOxU5HSM1PcYqOEc4MVtOpWPXr7JLD9R4LWRit12n1Fhd4iXExm0un4oun49U4HgGau
-	LSiGMvz5qW4ClBjpFutNB+NreqdIqU0rCbA4yCKC+4PkqBG6oICa4Y01LjK3OixtZRZUqvouJfB
-	DsB+vGTctaJt/CSTQkWJMA4H+n8jgJwSaUpeHZyHark9DQlo5as+EA0KlO+7LUm51SymLfW/ETf
-	FcXqpABB35fCImOh0yIbbgVlhZzhDgf9gJrfWNxKXNlBBDzoNtjkWgplJFECQCkuh39K7QQ==
-X-Received: by 2002:a05:6122:25c3:b0:5ec:afc2:c0f6 with SMTP id 71dfb90a1353d-5ece71d4b67mr1035251e0c.2.1794230724689;
-        Mon, 09 Nov 2026 05:25:24 -0800 (PST)
-X-Received: by 2002:a05:6122:25c3:b0:5ec:afc2:c0f6 with SMTP id 71dfb90a1353d-5ece71d4b67mr1035243e0c.2.1794230724265;
-        Mon, 09 Nov 2026 05:25:24 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4af502sm172676066b.55.2026.11.09.05.25.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 05:25:22 -0800 (PST)
-Message-ID: <f9f06d7c-2484-4349-aff1-239cbe1a99c9@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 14:25:20 +0100
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vW+rWMbC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=//2W4dF8dRqMAfkwRAhImATI6D+c4FVFBxbhqBn9xzk=; b=vW+rWMbC+7d9RHvWCrWsBbFsUk
+	5idnG3Sd13NpxvsuTmz0VMYqvaK+w9Jjq3+bj8U2rNF+hdX5K9P1M7WmFg5SvIMIRaMxtc2ZFhr9w
+	ytwlggqCzUCrzwzrHd87GqnRYc0aE9k6zGwt7pjlOw44xerDF61PYznkQ5P6Z0HJlM54CB8yQ9lKR
+	zyzcQ2JdveVONjsLdyQ5toBWNi0wI4+SQ8sUKexxsMl9XN97ubqW1RZj83jTsAahKc1cl2yD/h3Qj
+	cFgsJWGF63ZWqoFHc5JZka+d4erYO0TJ+tOnU62kwgDdkG2h4/Qiuzie5IHW4EPRIOY3hCwkBKTVm
+	l08L/sdA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+Date: Mon, 09 Nov 2026 14:26:44 +0100
+Message-ID: <5573124.44csPzL39Z@diego>
+In-Reply-To: <b60b7079-b7b6-4d83-8167-2e4fc6021aae@rock-chips.com>
+References:
+ <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+ <avDN3pPY5Qwt9B1p@venus>
+ <b60b7079-b7b6-4d83-8167-2e4fc6021aae@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,72 +66,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/9] arm64: dts: qcom: pm660l: add analog audio codec
-To: Richard Acayan <mailingradian@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261107022453.159341-1-mailingradian@gmail.com>
- <20261107022453.159341-8-mailingradian@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261107022453.159341-8-mailingradian@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: -1n4tbrK_uBIuZQzn0amhkG9NOEqu2CL
-X-Authority-Analysis: v=2.4 cv=MpfHeGae c=1 sm=1 tr=0 ts=6af1c9c5 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=eTyHnkIEs6k_cr9LAPsA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1MyBTYWx0ZWRfX27YvZNe8IvNy
- /Y7U/KlXkNjMYA8m9zS1u8cTszKYC2IEgy3mVvwfOh0FM2kejJJToIdJd/Go/tRAid1jDT2yGFg
- e+OEcx1+dwVUyM0yLGCt/iAMaw/wdwMEKlEPYKhRBE11JLqxdGUrT9eTMXygCySXrXi697F3et3
- Ccv1uW224qS8sYQN82DEVDe5/LeOqftF0ytMSqHM+FqceV/0Fr53PN+4EKWVuOQKn3ylhs0wI7Z
- NARnYkPzAsMrOHOXvocefKm6ifxWboVEp/R8nw4v7WEyMHbVJ0ViRnwGOHQW7tOzbtbvzk3NZaS
- q8jWGEQOkzccDz3/J0ddTCMozC3w8RzDbseyUaBUJQJv5juopa31EhrRoZQ2mNgUHmdFJm5T0B2
- ml6X+c8EWiuJTzRW6Qo9uELloyVDuozbJf7KChmBck2xfPcDuWs6wUwvo1egn4dcoEmIQS+KGQd
- Z7V6tadTF2j4YhabkpQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1MyBTYWx0ZWRfX+EaRaK26uvIG
- NSY4pyZUJkRCxhurYYPz09Ox7WV3NlaTXH9lhtA2TWkwa7x9l6m6ueb81Ve/niL4hLOuiPkXHf1
- 5XkHF88u1AyY3Mn60oMNz3C0dog+aHk=
-X-Proofpoint-ORIG-GUID: -1n4tbrK_uBIuZQzn0amhkG9NOEqu2CL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090053
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On 11/7/26 3:24 AM, Richard Acayan wrote:
-> The PM660L analog audio codec (PMIC revision 4) controls the headphone
-> jack, and optionally the earpiece and speaker, at the vendor's decision.
-> Add the analog audio codec.
-> 
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> ---
+Am Montag, 9. November 2026, 02:31:35 Mitteleurop=C3=A4ische Normalzeit sch=
+rieb Chaoyi Chen:
+> Hi Sebastian,
+> On 11/9/2026 3:42 AM, Sebastian Reichel wrote:
+> > Hello Chaoyi,
+> >=20
+> > On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
+> >> Hi Sebastian,
+> >>
+> >> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
+> >>> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
+> >>> combination. It contains a Wanchanglong W552793BAA panel and a
+> >>> Goodix GT1158 touchscreen. This adds the DT description of it.
+> >>> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> >>> ---
+> >>>  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++=
+++++++++++
+> >>>  1 file changed, 90 insertions(+)
+> >>>
+> >>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> >>> index 6a95a8bb6fb8..327ca13b60f0 100644
+> >>> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> >>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+> >>> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
+> >>>  		regulator-max-microvolt =3D <12000000>;
+> >>>  	};
+> >>> =20
+> >>
+> >> I seem unable to apply the patch to the latest linux-next tree.
+> >>
+> >> So I tried to resolve the conflict manually, but the actual
+> >> test screen did not display. I will look into this further.
+> >=20
+> > Strange. The base of this series was Heiko's for-next tree from
+> > Friday. No RK3588 EVB1 patches landed since then:
+> >=20
+> > https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.gi=
+t/commit/?h=3Dfor-next&id=3Dcabb6811c38a46337d5f4252b4dc390f9296856c
+> >=20
+> > If your board uses the original Rockchip bootloader, which shows a
+> > Rockchip logo on the panel, you also need Cristian's latest YUV420
+> > patches that reset VOP2 at probe time avoiding some issues with the
+> > pre-initialized panel as a side effect. Those were recently applied
+> > by Heiko to the DRM tree, so testing on linux-next is indeed
+> > sensible.
+> >=20
+>=20
+> Hmm, the newest linux-next tag which I used is next-20261105, and Heiko's=
+=20
+> tree last updated date is1106. I'll give it a try on Heiko's tree.
+>=20
+> And I'm using mainline U-Boot, which obtained from the latest nightly bui=
+ld:
+> https://gitlab.collabora.com/hardware-enablement/rockchip-3588/debian-ima=
+ge-recipes.
+>=20
+> The backlight working correctly, and the DCS command has been sent, but n=
+othing display.
+> Perhaps I should look elsewhere.
 
-[...]
+I would assume it could be the SPLL (again).
 
-> +			sound-name-prefix = "Analog";
-> +			#sound-dai-cells = <1>;
-> +			status = "disabled";
+I.e. a recent u-boot change broke the SPL-based forced clock init and Jonas
+fixed that in [0]. Had the black display again recently too.
 
-Nit: only in case you resend for something else, please add a \n
-before 'status'
+And it seems it hasn't been merged yet.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Konrad
+Heiko
+
+
+[0] https://lore.kernel.org/u-boot/20260804002643.2308515-3-jonas@kwiboo.se=
+/
+
+
