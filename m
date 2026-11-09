@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240435;
-	b=dIiHNaT/VFZQLI2PpOJCWDGp31oE2B6U/wandZgeep4S1k3NABocEW7FFSy2RifniF4D
-	 4NOqpxXYDyoeNgTj2tesjQiFmpBmMqVG5uajLfh3fn6XXkFb9Q03MNKo8OD0j8rRJjN0i
-	 nCzjJKnd3TIEAjI682qHl3QXatS3/aO0VshxVTXkquu3Ok7LgubvudlRLLRRwGPGjebCr
-	 7rCPwa4sMRiIfYrZtQM/AnUxbrNz7HgndUHJjZ8ZBhIFXHjWZFj3I20nkI0vws07gPMiy
-	 w6H10VyAjhp074H+2k+tj7CEde9HV+3n+9gHPZmmqQwrVGJPsfriGLrZQ6qszHwIpPw==
+	t=1794240438;
+	b=uyj0yl6YyqUX7sIwdly8SPqHWy61NHKaOcTAag034cbkpMg4P250tXDVaCy2Q+gF0zgx
+	 OR1HNbukmeEuKM5y18me9Aale0dkKQ8V2Z67AVzgUE68QeuTHLKF5beBZ05en8Q3LOYfz
+	 fRTGAljACPDLAZMvoBWaRjEOmbUxtmhIgrS3AjMRqlHXGYTGvhnGqyuoCoODN33lB4HqP
+	 B/M4zZpx1vtBYpNL5V9EWMDSlc8tV2Yo3OpIGVAI3fv8I+78lIxYWQZ7ktRvUmteeaPjL
+	 7KHmFNoK7VgsHIXx4UnJbN3on5B2nYxh+Cq9cNS2NJkBK9aq4YpPRreTlIVpa1YZwpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240435;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+NgIZ94zuDgUp+uszh12oHM+e3kglPF/onpqBOfOj5g=;
-	b=1+dJgYgJrbixQj9tPxb70EBUv87RvX6BpHUUxb7w35fdRuEtKODNPHkkvH0RbZdXnQOH
-	 VulaMn+Ts3uG4Gr71aRexCrs6j33v/gYiQCdL+YkRJUlrZsnO7fySAi9Ej7ELgxi5JH3T
-	 gfo8t43ZOEJN/O5i45cr/4+Lhz9QKDbBzhTJw1uBbYwun+d2TeNiwHRRidfGrITrvxLOr
-	 d6Dsr9fpJYVZnLDSWukHYGv4wqztNZQOHDljF7/aBCruTQIt95CtDstN/Ke+hd8NLw5k+
-	 sXiz5PVelZ+yTEhepNBt/80liKfs8KiFUMfaFcoKBcvfWYHkgJ47Z16pkoaRJ+Z8amQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240438;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GFQPb65NT7RMSCppnWXFsuqs6MvLmEnYZdDh5XC4mjA=;
+	b=GtSaDjGYhsUYD2xoaTg1BPOP92cOByGF2+Xv518LZwVhWClfi6o7DQM/HCILTntYV8pc
+	 u0vbIobgf9y9omo6Hl3w0rYZWmJelDwf+F5e3smMPZTbgCORRbteyJvpmShxsN9Yi2pgS
+	 w42+vOE4caggJsIH5Y8Vkf5/kH5bVEG/+EcUly/ZnNNfe6mQhqVTvO6h8MDXULNcLqce3
+	 SskLKVfDDeMGfeKq6LFCY8Cp3OKYzqnTLs2hKKBRSXuDAXHSBfZvrRInxri4GSLx1SDek
+	 huOnEvOwfK9vLIumUkyQbPX8/2DOA+dB31dmf4WBYrcyqRpp6wcGU0NZ71ySwDUkULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFrFFRUK;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPpFuF29;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0714B606EE96
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:07:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0714B606EE96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BFC606EEB6
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFrFFRUK
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso10317185e9.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:07:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794240433; x=1794845233; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+NgIZ94zuDgUp+uszh12oHM+e3kglPF/onpqBOfOj5g=;
-        b=IFrFFRUKmrl0G5M6KzrrHVX/yiDKWpxTOMMw6wixzTS499UzgQttumJQ43svtgmzYL
-         7//QeLJqEBP14PoPakszYxjFaT6qzzgJKRYp7jLfekVg8+zoQSJ00JsXbyEu/uscZVAL
-         OADcjiNLJbGwMUUSEOl4nWXS9d5p8HmPdCt62zWq7nDU/57JoQcD6T4Qd8MZYIN3j0wj
-         Bhnjz128jjJTYZ+Wil8+c2M81SdWYJCPcPZr9K9aB0VjqOdqjaNZmHfYyP/HCFzhXwJ9
-         wVu2NU4borqXng+ThFuQkT0TmArYRkjSJA3y6Qad7ptP0tZWXMN/PJq1vAvUKS3r4FYc
-         +vqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240433; x=1794845233;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+NgIZ94zuDgUp+uszh12oHM+e3kglPF/onpqBOfOj5g=;
-        b=N3CzKAjs4zTmojwtBVyQzhs4Aqdyo7xUIZ227387XjrOcXjQcfP+ozcN2YSNr+GQq9
-         PpBKdnNMmiuMLzph9hXRwzuoa+Oms4+tu+75AYhEE3g40XMyCq13pjJrc/EjhiCiFEAK
-         y585PSKBOYXqq+/ncg9+uQyCAbs5ymSpCG9xcvjaXB8yFCUcUpQ2KKncwt6hy9G0T5BG
-         Owm+VNoS5o9vLeooU+wCD9zcaIoEq6mbYb1t3s8XPyVGx0A7q5ooVRfu0h18hesiK0rB
-         2Zxl0Qd+600t4FZ8pYgiDCPjJkfPHV5gHTLWRx+xhE7o72BEYdI2CzR7m95KROA6tHal
-         NpTg==
-X-Forwarded-Encrypted: i=1; AL+hErHqVUpdlMA/6l3eAWY4JPTvBTyNfpbiWVpKSGIcjdpCGSfPcKhV5HJw9am1JbirKUR39WwvvboIHpLd@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Qf/Z/Zwuouv5XGEg0lATvsVMSjTM/7fQfniioa8fpAVwzN+Fi
-	AsNEE//tZqIOlNag6ojBNtIEhwNcPaZhU+MtZEuuQbUJkLA52DdUddG9
-X-Gm-Gg: AYBFou3Iq4VNboAuRF4sV2K35NVFWF7sOmEavfzv35QwnBNkZRpBg1PUB9FPrOLsMgL
-	cXwidVzlZr97iFzAmk/fc1fpoWdopPV10bWykGXXgM3gwCO6u/BSM4gBlJ3AHlcfxrM685YVBNr
-	VGVMcPuOQCqa5/cqmH6GmrDJCcuflCqX3GpC1iAJTkEJeXbmDWcXVtEc6hrPgnHAsgW73SXlMmm
-	ULw5P1hFQkhz1jj1qa1eeOj6RX01G2wbM7IjyGFO8MxN8Mx7VE/juyToLnBXGo5XZAx6HHxKS7U
-	kT0cy/XApJV2GWssYJLiklS2B34ChWqjBVETnhoD0koZ6taFC9XUbf1M/KvyjiLNRR4B4n6ozH3
-	W2ncH6xZvAKkYdSeZOJ+xBKhyTFJepMaFqW1xfUnnuvNqDGRtDZZ5DFNOCtTkz7u9cHa4fFZIGt
-	rPYy4mNTo2jjIdP2dLQbbN0J73dziW6UuPGfdkI45X0oVtmKUhE5atgfpH4R5GazqwVIYgexCw6
-	pAH8OaMe4MrlQaHVEk/cDtu0PIapWnefADwYxGVSARMdHCY1t+uP1viXX5eQHC/J0mOqFFtuSA7
-	YJJt/uUmKBehFESTK7xalunMOQORJVUwJOlLK9SB3QxLuqsWr5YCODeaxG7FNW/xxu74X8c0MNI
-	uTkngcoUie448ufj6X1iwqov+zexB785Sr47LXP5P3Ucf7+akX/djjCEk/ftn890=
-X-Received: by 2002:a05:600c:1d0a:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b963c741f8mr77671625e9.20.1794240433343;
-        Mon, 09 Nov 2026 08:07:13 -0800 (PST)
-Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:863:742:6109:ac9d:152:38c3:6463])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f119b96sm159174245e9.15.2026.11.09.08.07.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:07:13 -0800 (PST)
-From: Romain TISSERAND <romain.tisserand@gmail.com>
-To: Igor Reznichenko <igor@reznichenko.net>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: [PATCH v2 3/3] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
-Date: Mon,  9 Nov 2026 17:07:06 +0100
-Message-ID: <20261109160706.2272332-4-romain.tisserand@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109160706.2272332-1-romain.tisserand@gmail.com>
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPpFuF29
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63E21F008A5
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794240437;
+	bh=GFQPb65NT7RMSCppnWXFsuqs6MvLmEnYZdDh5XC4mjA=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=UPpFuF292enNAk33j0lC+1PqdbjJadzioJZ9ju8EwW47zs88GH4LOgNx6EXsBeAVS
+	 naQyLa5OJnp5SwqUX8i35edRwP+9AafAV+Zz8HdaTatC78INOzQLTZGY6xqBbAdv/w
+	 IiBpDWoJ7kQqe+JNkrpVw+hcxH4K73HSm0ZwcQcAPxQTgH7kNV3MNpL2gTH1DzNyal
+	 c2ohYafFn+0LycaXUe345gUZ3bkAugp/UYZE1nBzEES9VDKgulLZ94SrK0/f9E6ILx
+	 D/nEratmZRTSCwdOkvM1jJUmOWwhPHp9t6xXNpRh+E/zY0IW2d3tLcFSer/hskkYgY
+	 vTE3vP+uIGl7Q==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab4891fc73so7936251fa.0
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:07:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE3m2/FU5S6zrCLb59WwP7etZkYYAf+YsgjqT94MDMhUUdY/0uiMT2Onbr35Bth6VtY6bt0Yxq7euDK@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YPggIgK0qLQoJDituw0wSmNH85aG6WS8x2S83URxaMyppkpbq
+	Ub2KDEIrocwSgP7+9YJ06TEvCFbuHKUbh8wxFIGPLezIVkWUOvVbMzxPrPpOqSZEtXE81NH+Kr/
+	/7PNK6q3LNShENclkRkt8AFepCm+wkUE=
+X-Received: by 2002:a05:6512:1396:b0:5c1:4974:c15e with SMTP id
+ 2adb3069b0e04-5c14c0347cbmr1335285e87.52.1794240436213; Mon, 09 Nov 2026
+ 08:07:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,102 +59,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech>
+In-Reply-To: <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 10 Nov 2026 01:07:03 +0900
+X-Gmail-Original-Message-ID: <CAGb2v67M2bN6a4AsNL_Lv70QmHTvdSWUCbPQat6Po_7KbbqA-w@mail.gmail.com>
+X-Gm-Features: AclHuK9agX6QEN1ILAcd18vE_t6MGmoL64ggMRVBKmQGQ0cwuc_S8X4_YIrWVls
+Message-ID: <CAGb2v67M2bN6a4AsNL_Lv70QmHTvdSWUCbPQat6Po_7KbbqA-w@mail.gmail.com>
+Subject: Re: [PATCH v6 6/8] clk: sunxi-ng: a733: Add mod clocks support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
+	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Miyoo PocketGo S30 handheld (Allwinner A33) has a 320x480 1-lane
-MIPI-DSI panel built around an Ilitek ILI9488.
+On Sat, Oct 10, 2026 at 12:54=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.te=
+ch> wrote:
+>
+> Add the module clocks found in the Allwinner A733 SoC, including video,
+> storage, interfaces and others. While most of these clocks are similar
+> to those in the A523 SoC, this implementation accounts for changes in
+> register offsets and introduces support for new modules.
+>
+> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 1103 ++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 1103 insertions(+)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
+g/ccu-sun60i-a733.c
+> index 371c4297c3ab..7847eec84313 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
 
-The init sequence is the stock kernel's, read back from the running
-stock system. It differs from the E35GH-I-MW800CB sequence only in VCOM
-(0x26 instead of 0x25), the display function control (2 parameters
-instead of 3) and the position of the inversion command. The interface
-pixel format (COLMOD) is kept at the stock value.
+[...]
 
-Timings and video mode are from the stock configuration: 12 MHz pixel
-clock, htotal 382, vtotal 524, active low sync (lcd_hv_sync_polarity 0),
-non-burst video mode with sync pulses and without EoT packets.
+> +static const struct clk_parent_data dram_parents[] =3D {
+> +       { .hw =3D &pll_ddr_clk.common.hw, },
+> +       { .hw =3D &pll_periph0_800M_clk.common.hw, },
+> +       { .hw =3D &pll_periph0_600M_clk.hw, },
+> +       { .hw =3D &pll_de_clk.common.hw, },
+> +       { .hw =3D &pll_npu_clk.common.hw, },
+> +};
+> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE_FEAT(dram0_clk, "dram0", dram_pare=
+nts, 0xc00,
+> +                                          0, 4,        /* M */
 
-Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
-Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 55 ++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+My LLM agent flagged this: the divider is 5 bits wide, not 4.
+Both the user manual (page 149 from start or 128 as numbered on the page)
+and the BSP agree.
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-index 6ab8ae72abbf..29b869a6e909 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-@@ -86,6 +86,50 @@ static const struct drm_display_mode e35gh_i_mw800cb_display_mode = {
- 	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
- };
- 
-+static void pocketgo_s30_init(struct mipi_dsi_multi_context *ctx)
-+{
-+	/* Gamma control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE0, 0x00, 0x10, 0x14, 0x01, 0x0E, 0x04, 0x33,
-+				     0x56, 0x48, 0x03, 0x0C, 0x0B, 0x2B, 0x34, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE1, 0x00, 0x12, 0x18, 0x05, 0x12, 0x06, 0x40,
-+				     0x34, 0x57, 0x06, 0x10, 0x0C, 0x3B, 0x3F, 0x0F);
-+	/* Power control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC0, 0x0F, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC1, 0x41);
-+	/* VCOM Control */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC5, 0x00, 0x26, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0x48);
-+	/* Interface pixel format 18bpp */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x3A, 0x66);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0xA0);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x02, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x21);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
-+}
-+
-+static const struct drm_display_mode pocketgo_s30_display_mode = {
-+	.clock = 12000,
-+
-+	.hdisplay = 320,
-+	.hsync_start = 320 + 22,
-+	.hsync_end = 320 + 22 + 12,
-+	.htotal = 320 + 22 + 12 + 28,
-+
-+	.vdisplay = 480,
-+	.vsync_start = 480 + 22,
-+	.vsync_end = 480 + 22 + 4,
-+	.vtotal = 480 + 22 + 4 + 18,
-+
-+	.width_mm = 49,
-+	.height_mm = 74,
-+
-+	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
- static inline struct ili9488 *panel_to_ili9488(struct drm_panel *panel)
- {
- 	return container_of(panel, struct ili9488, panel);
-@@ -269,8 +313,19 @@ static const struct ili9488_desc e35gh_i_mw800cb_desc = {
- 	.bpc = 6,
- };
- 
-+static const struct ili9488_desc pocketgo_s30_desc = {
-+	.init_sequence = pocketgo_s30_init,
-+	.display_mode = &pocketgo_s30_display_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.lanes = 1,
-+	.bpc = 6,
-+};
-+
- static const struct of_device_id ili9488_of_match[] = {
- 	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
-+	{ .compatible = "miyoo,pocketgo-s30-panel", .data = &pocketgo_s30_desc },
- 	{ }
- };
- 
--- 
-2.43.0
 
+ChenYu
