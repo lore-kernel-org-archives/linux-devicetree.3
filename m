@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264458;
-	b=bLRiiQls9Fji7qKQpDXXaUk0iI+rqLxF3N76crfa5wdCdzq3geQpwWORPQGmUEQ+Nx8U
-	 MiobDcQyGwvuRfbZ6xYT9cBsKPXZt7YsDZJTjzQdDD/hPHo623Uwj467B8NvknnMzuRvR
-	 EjyV8j0FB4KsUSrxQBY+nraVN8LXqQzOarkQ1w3OqjcFuBrf7KvzwiZ/CdPz6GqwOTulH
-	 UG7xOgCIsLlIVkfOAeny/PVa7ZM5TKouFOyKw28K33yZRr2HPxKD+dSJz+WmbmdCaaO/t
-	 bR2Pn0C61lUHREFSbRX6zXiZJaODauHaNKz6wbz3MMozJowS+gcpdm0rEf2YoTdusSw==
+	t=1794264552;
+	b=XETwt8I07N8DtuoCBo5/nUJeql8wLmpXg5Dqkjg8IP1YbmZiZHKUPxi7o12gaU05CZVS
+	 YLftjMAE+2RMiJ/fQ1pSRQsxW5NmNlYJ3O1jSpwyEy5l3/gA4RaCjq5oBkKH8+UJtJBK4
+	 6iI6JodjkN3EJE/9pYN0jzCmWsuwni880lacnsuWNAV5zIxaH27SSci5OPWjO0ex24KZj
+	 /VruSSlsbzXJfkklXcQdJ6iY3yUyHMUWKywP3ZZgcC5lGUGZwpUAN5UYIUBfzJMnNqLu8
+	 uM9Alj8aKJcGr90gtR++Kvzgom12DHkn64MLfcNFgrapR1S/8vx0m3/EeCArRqUvorQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264552;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ePwDUiHHMzH+Db44X/dlidd3kv0dT8TmIM1sIlQUe+M=;
-	b=y/+vadiATq0wYna+9yVzlRg36z6lxKsfIaOZtYrC3Kc3Qu+KF5OeEBvgo8eSsjRxgLVz
-	 40bvMdAqqpJvJyIK0C1/qwKvYOOPekwj3hzYJhQcomLQw0w1eSiOi3lbCcA3JJRPcX69W
-	 99Km8jiIv0rfzXXTUYE5opKWRiP9vlWZfbkreF1w39AXmJh1EdCgxgPCO8wW/8q4/pxDn
-	 oHkemhNmoKLUqTxdFqBMZTnU5o6N6q2tZDcyPbmWvHuPCW7UwLGFNjcSeyGYmNVyAahO1
-	 Y45QYOPT1IIeBZiLZsIoJtapkMzoIU0p+WalaNT1+ye9h1PiaZt5K3Bs5XVzYq1C0xw==
+	bh=1srK4Sa4wuMYCeJzv1YGlREBvmRIup7vSZqR6NjRDH0=;
+	b=KWrScV69w951Ytwdi2KqIN2Fs1NbbIiAf6iOK2hs+VQTAQfTuK442N9+sFveA38pfiUf
+	 YhzXiwZtbNSO6faMF2CFcs+KKlQeUwMcsNmDzELNh+i7NM5Uhwz1UKnJEIHAPVm2rtRi8
+	 8ylDsi3PfpIhU89N2XVS7fumohIeqPSi2a89WdzN9A3RylQNEUuyGuEHzEYiEZDyFgX8c
+	 4tPQI+F0+7HaItWyr+91mAtNeshO9NRFPwkkM5QhBh9UKkQ5G0cBxFxbMMUcB6TW1oytr
+	 Ro/JjUAEbmaMc7EcbS9znLHALfTrdeY8FUkHEZI1+s9iou+qKTYYr7y9e8e8jdVb4Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGooPSxD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fv7j1HKL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4B2606A321
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C808606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGooPSxD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFDF1F008A1;
-	Mon,  9 Nov 2026 22:47:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fv7j1HKL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FE41F0089F;
+	Mon,  9 Nov 2026 22:49:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264457;
-	bh=ePwDUiHHMzH+Db44X/dlidd3kv0dT8TmIM1sIlQUe+M=;
+	s=k20260515; t=1794264551;
+	bh=1srK4Sa4wuMYCeJzv1YGlREBvmRIup7vSZqR6NjRDH0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DGooPSxDjsWT5j7XXAp/iIB7+yujmltg6LOBJIHymr8511fk+wpnDZ5rBOaTZ1v5T
-	 XnLj3plC1Tg3K9V3mD0MnV2zrBzahgh46wObz8xFUHANDI2+Ai/SqHjS3JIssWR2Bd
-	 G2CoXkAJAJB81COqZy4UJfZ+awfx3CUr745C2e2oeSVAWeAA1K5Fkp4yGnACsIsZNG
-	 t0Zjq15batTNuPBT02cSmRD9Er7bzGtCfOsV768XvSrhYptxXfflVPjBaG9lvIQ4ay
-	 5YSAwlc1QIzcD1LIGzLH0qQ8YUF+F0eco5ibnhJEqwTT4NG2U0j+7iiA8DZ3iHEIWQ
-	 gcxlosA9xcjrw==
-Message-ID: <sashiko-outbox-205769@kernel.org>
+	b=Fv7j1HKLjxIarKk0G/J7ktQ+nKt4om52Y1hix5/8jLAqZfCI/dibwYZJXVVf34mQB
+	 6wMlg8e5bsT/aPWTubUMCVqIuqO8cgbxqgzafBJbXD3MAycYVGWG3WufsxCxAXArn9
+	 n1rQ7gscP4ImAcebIJmjUQyGfa5v7rgYM1Hx1uB1uCmoaTGBVRLxzhWmXk4yvy7BPn
+	 hkQ3cDt2pxwiIYZJRnQYZ4M8xKIRVYyvAx6siM9uncypKXL7Xa9JEEfX1YTkDxsEb5
+	 5xJwMM0A7XEH/zCTe4925pRp5e0JsISf+cml26BZbv8egviXuP0iJEA7lMTahVKcny
+	 cxngk1k7wBHNA==
+Message-ID: <sashiko-outbox-205770@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/6] arm64: dts: qcom: Add sm6115-motorola-common
+Subject: Re: [PATCH 8/8] media: i2c: Add ON Semiconductor LC898123F40 lens
+ autofocus driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Val Packett" <val@packett.cool>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109221453.658316-5-val@packett.cool>
-References: <20261109221453.658316-1-val@packett.cool>
- <20261109221453.658316-5-val@packett.cool>
+To: "Gaurav Suman" <gauravsuman007@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261109-sm8150-camera-v1-8-3d2e7b407516@gmail.com>
+References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+ <20261109-sm8150-camera-v1-8-3d2e7b407516@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 22:47:37 +0000
+Date: Mon, 09 Nov 2026 22:49:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,132 +61,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] arm64: dts: qcom: undefined vreg_l9a phandle in framebuffer0
-  vddio-supply
-- [High] arm64: dts: qcom: sm6115-motorola-common: unbound pmi632_lcdb
-  panel supplies
-- [Medium] arm64: dts: qcom: missing pinctrl-0 on uart3 breaks
-  pinctrl_dt_to_map()
-- [Low] arm64: dts: qcom: framebuffer@5c000000 has unit address without
-  reg property
+- [Medium] media: i2c: lc898123: unlocked __v4l2_ctrl_handler_setup() in
+  lc898123_open()
+- [Medium] media: i2c: lc898123: missing runtime PM and unconditional
+  init on every open()
+- [Low] media: i2c: unsorted CONFIG_VIDEO_LC898123 entry in
+  drivers/media/i2c/Makefile
 --
 
-commit 2b899e84d3b2843d96896aa9d295e59ce527c5e2
-Author: Val Packett <val@packett.cool>
+commit 90488b1ee2e93be2704532224dc3a72b0184545b
+Author: Gaurav Suman <gauravsuman007@gmail.com>
 
-arm64: dts: qcom: Add sm6115-motorola-common
+media: i2c: Add ON Semiconductor LC898123F40 lens autofocus driver
 
-This commit adds the shared devicetree include for SM6115/SM4250-based
-Motorola smartphones, configuring common regulators, storage, connectivity,
-buttons, USB Type-C, and display nodes.
+This commit adds a V4L2 lens sub-device driver for the autofocus function
+of the ON Semiconductor LC898123F40 OIS/AF controller.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi b/arch/=
-arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
-> new file mode 100644
-> index 0000000000000..6a5110319bc3d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
-> @@ -0,0 +1,541 @@
-
-[ ... ]
-
-> +	chosen {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@5c000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&cont_splash_memory>;
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index 7e714dbcbf69d..836bf5b8a44e2 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -36,6 +36,7 @@ obj-$(CONFIG_VIDEO_DW9714) +=3D dw9714.o
+>  obj-$(CONFIG_VIDEO_DW9719) +=3D dw9719.o
+>  obj-$(CONFIG_VIDEO_DW9768) +=3D dw9768.o
+>  obj-$(CONFIG_VIDEO_DW9807_VCM) +=3D dw9807-vcm.o
+> +obj-$(CONFIG_VIDEO_LC898123) +=3D lc898123.o
+>  obj-$(CONFIG_VIDEO_ET8EK8) +=3D et8ek8/
+>  obj-$(CONFIG_VIDEO_GC0308) +=3D gc0308.o
+>  obj-$(CONFIG_VIDEO_GC0310) +=3D gc0310.o
 
 [Severity: Low]
-Does framebuffer@5c000000 trigger a dtc unit_address_vs_reg warning?  The
-node has a unit address in its name, but uses memory-region without a reg
-property.  Dropping @5c000000 (along with #address-cells, #size-cells, and
-ranges in /chosen) or providing a reg property avoids the warning.
+This isn't a bug, but entries in this Makefile are sorted alphabetically by
+CONFIG symbol, so CONFIG_VIDEO_LC898123 belongs between CONFIG_VIDEO_KS0127
+and CONFIG_VIDEO_LM3560.
 
-> +			width =3D <720>;
-> +			height =3D <1600>;
-> +			stride =3D <(720 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +
-> +			clocks =3D <&gcc GCC_DISP_AHB_CLK>,
-> +				 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +			vddio-supply =3D <&vreg_l9a>;
-> +		};
-> +	};
-
-[Severity: High]
-Should vddio-supply reference &pm6125_l9a instead of &vreg_l9a?  No
-vreg_l9a label exists in this file or the included dtsi files (LDO9 is
-defined below as pm6125_l9a: l9), so dtc fails to build any board DTB that
-includes sm6115-motorola-common.dtsi.
+> diff --git a/drivers/media/i2c/lc898123.c b/drivers/media/i2c/lc898123.c
+> new file mode 100644
+> index 0000000000000..69516ad964d60
+> --- /dev/null
+> +++ b/drivers/media/i2c/lc898123.c
 
 [ ... ]
 
-> +&mdss {
-> +	status =3D "okay";
-> +};
+> +static int lc898123_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *=
+fh)
+> +{
+> +	struct lc898123 *lc =3D container_of(sd, struct lc898123, sd);
+> +	int ret =3D 0;
 > +
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&pm6125_l18a>;
-> +
-> +	pinctrl-0 =3D <&mdss_dsi_active &mdss_te_active_sleep>;
-> +	pinctrl-1 =3D <&mdss_dsi_sleep &mdss_te_active_sleep>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	status =3D "okay";
-> +
-> +	panel: panel@0 {
-> +		reg =3D <0>;
-> +
-> +		avdd-supply =3D <&pmi632_lcdb_ldo>;
-> +		avee-supply =3D <&pmi632_lcdb_ncp>;
-> +
-> +		status =3D "disabled";
-
-[Severity: High]
-Will wiring avdd-supply and avee-supply to &pmi632_lcdb_ldo and
-&pmi632_lcdb_ncp cause panel@0 to defer probe forever?
-
-pmi632_lcdb (added in commit "arm64: dts: qcom: pmi632: Add LCDB regulator
-node" with compatible "qcom,pmi632-lcdb", "qcom,pm8150l-lcdb") has no
-driver in the kernel tree.  When a board enables &panel and &pmi632_lcdb
-(as in commit "arm64: dts: qcom: sm6115: Add Motorola Moto G9 Play
-(guamp)"), both fw_devlink and devm_regulator_get() return -EPROBE_DEFER
-permanently because the supplier node exists but never registers a
-regulator_dev.  Meanwhile, mdss_probe() -> msm_mdss_init() ->
-msm_mdss_reset() tears down the bootloader simple-framebuffer splash, and
-because the DSI panel never attaches, the msm_drm component master never
-binds either the display or the Adreno GPU component.
-
-Additionally, enabling &mdss, &mdss_dsi0, and &mdss_dsi0_phy unconditionally
-in this common dtsi breaks boards that disable &dispcc to keep
-simple-framebuffer working (such as commit "arm64: dts: qcom: sm6115: Add
-Motorola Moto G9 Power (cebu)"), since &mdss cannot attach its disabled
-&dispcc MDSS_GDSC power domain and prevents the Adreno GPU from binding.
-
-[ ... ]
-
-> +&uart3 {
-> +	status =3D "okay";
-> +
-> +	interrupts-extended =3D <&intc GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&tlmm 11 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +	pinctrl-names =3D "default", "sleep";
-> +	pinctrl-1 =3D <&qup_uart3_sleep>;
+> +	cci_write(lc->regmap, LC898123_REG_OIS_CTRL, 0, &ret);
+> +	cci_write(lc->regmap, LC898123_REG_SERVO, 1, &ret);
+> +	if (!ret)
+> +		ret =3D __v4l2_ctrl_handler_setup(&lc->ctrls);
+> +	return ret;
+> +}
 
 [Severity: Medium]
-Does &uart3 fail to bind its pin states because pinctrl-0 is missing?
+Should lc898123_open() call v4l2_ctrl_handler_setup(&lc->ctrls) instead of
+__v4l2_ctrl_handler_setup(&lc->ctrls)?
 
-Neither this node nor the base uart3 node in sm6115.dtsi defines pinctrl-0.
-When uart3 probes, pinctrl_dt_to_map() checks state 0 first and aborts with
--ENODEV when pinctrl-0 is absent, so neither the active qup3 pinmux nor
-qup_uart3_sleep is applied.
+subdev_open() invokes sd->internal_ops->open() without holding
+lc->ctrls.lock, so calling the unlocked helper triggers
+lockdep_assert_held(hdl->lock) on every open of the subdev node and races
+with concurrent V4L2 control ioctls or open() calls when updating control
+state and writing LC898123_REG_AF_POS.
+
+> +
+> +static const struct v4l2_subdev_internal_ops lc898123_internal_ops =3D {
+> +	.open =3D lc898123_open,
+> +};
+> +
+> +static const struct v4l2_subdev_ops lc898123_ops =3D { };
+> +
+> +static int lc898123_probe(struct i2c_client *client)
+> +{
+> +	struct lc898123 *lc;
+> +	u64 val;
+> +	int ret;
+> +
+> +	lc =3D devm_kzalloc(&client->dev, sizeof(*lc), GFP_KERNEL);
+> +	if (!lc)
+> +		return -ENOMEM;
+> +	ret =3D devm_regulator_get_enable_optional(&client->dev, "vdd");
+> +	if (ret && ret !=3D -ENODEV)
+> +		return dev_err_probe(&client->dev, ret, "vdd supply\n");
+> +	if (!ret)
+> +		usleep_range(10000, 12000);	/* controller boot from flash */
+> +
+> +	lc->regmap =3D devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(lc->regmap))
+> +		return PTR_ERR(lc->regmap);
+> +	ret =3D cci_read(lc->regmap, LC898123_REG_AF_POS, &val, NULL);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "no response\n");
+> +	cci_write(lc->regmap, LC898123_REG_SERVO, 1, NULL);
+
+[Severity: Medium]
+Does enabling the vdd supply and LC898123_REG_SERVO here without runtime PM
+or a .close callback leave the regulator and VCM servo energized permanently
+from boot?
+
+Although linux/pm_runtime.h is included, runtime PM is never set up, so the
+actuator draws current continuously even when the camera is idle or the
+system is suspended.  In addition, the return value of cci_write() here is
+ignored, and lc898123_open() unconditionally rewrites LC898123_REG_OIS_CTRL,
+LC898123_REG_SERVO and LC898123_REG_AF_POS on every open() of the subdev
+node, which can disturb an active camera session if another process opens
+the device node.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109221453.6583=
-16-1-val@packett.cool?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-sm8150-cam=
+era-v1-0-3d2e7b407516@gmail.com?part=3D8
