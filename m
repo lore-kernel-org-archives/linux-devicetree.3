@@ -1,93 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229193;
-	b=H0ltAJRb7dJ0lhT2AKc+W1XGKLqJRxun9P3bgAzIUq4CUzV/FYAgdAoa97v4/iCuis+E
-	 G4ca0xR+u80ASoGNzyScRu1yRsVdrleeVrdMx+f+FQJj4Z87/4vZFnevOEHcHHy3bfuoP
-	 567aROSKDE/qVGWPdmiJUbHmXEE5s9i8A5NTsZU2yq7FSYYRC710XQLJbYx6BggpQRn2w
-	 p4QBGt7ialkL/hs9b8s4ymSEQkeuziikUJ3ruQfxO5n6pdGnjeQK+pfuBZR3yr2MTUJIJ
-	 y5UJpTaOIItHOxaOUgCcrEs++7e63lLFFuS7TZmYguOR1lkppd3F26fWu0gVDmWSRug==
+	t=1794229591;
+	b=FyL+AM4fTre6yrlFeP9M1lXCPWZrJl1I5KRQ1wit1l4r6vwl6uYC4dz64oD4rLvcfcty
+	 /gr0ivSN/Vpc/PP8OS659j3+9f8BJfnQ02JDlpBjv7CClcC5zmrzqaBIehzJLPFEqx2SW
+	 VaW4CjQdvEO8SHajQrB/88hrLIvruhuXeaFqhsnSgq84pFLvxVHkDUKfERvDQ52PQnlB0
+	 k/Sky5j3rD082e0faafijHnkjMSik9rhVxmy6aSfkDixUi2Y1GNPQA+tPPzmoJ9bnmbUH
+	 kRmYTrc0Lb6yTG3u2bppi0mJOoPO77grBcbPKv2YKpAa1QjwxtlXBbwXy3JekO9V34A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229193;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dHJxQX6qrdjoJ9xxCpDciOGfZ1moJmuMFI7elkZmNW0=;
-	b=L6TsJObbw+Fga3lBc4UzpLzsuRW0z/iVzC/58ib1NE4YZtcXeX3cnP+G91Z2dmtnOPe9
-	 Mh+7oKZeun49KjOGzmJNGAK59vvXxH64/9z7QlL0VyTAm+Pa0hHAu81grTTKKTKxSdj+P
-	 tTHuQj22YojpGDKWCz4+NebLOCDfacNpgoIkblLPPG0d44lLXysHia2tKIT+K/NlUK1Ng
-	 22BJkOPHKpUus93HMa1YHPWeAnIJtYzH9+LjMYsAbxQgTZmfdaN+K+hcXvxXn90VajjpU
-	 WbDro4DrAW3/NQqeabCJUzNuDlrLkp6Lowl9nZqhM6JbybJX4uxHcCzX9SlwgaV0xnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229591;
+	h=DMARC-Filter:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 X-Lms-Return-Path:Cc:From:Date:In-Reply-To:References:X-Original-From:
+	 To:Subject:Message-Id:Received:Content-Type:User-Agent;
+	bh=eH2m2Zew8oyu1f0utHA4YTbxzS4hIWuowjmaOpnZyec=;
+	b=DhLtYcunTsLYMeG77rKTSMN4bK1HIOybamo3xmVpi7ZdylrpguQJRponsDUv72wOIdc5
+	 UmPq6/lNmij1gNQ3FOTvcaTDv46QaBN0FbKgGn07ar8meNtxBtB4PGhWotS/DD+g3uGxY
+	 gZyyKQVB5oaGMbyHyhZMnKnLdHeZsidVAu8QJh27URzsACFwA3U3dzpf1kSrZUWUn55SK
+	 3W7aNRlkzympihAFnc2WTfRrz3FP6NlUofMFtp/l68JLvUR77UBS4W5FNepA00O8GOzza
+	 Bgoc5LLGTkO/Cq7Q15Zc5YvVkvLG1sJrJ9kzz5oKx6xS9TrymcYTyfJpoPmytFsbvqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=picoheart.com;
+	spf=pass smtp.mailfrom=picoheart.com;
+	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=FPncPHrn;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA56A606A334;
-	Mon,  9 Nov 2026 12:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA56A606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4E2606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:06:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4E2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794229192; x=1825765192;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6dmvxcz7lqwbDDHNjfP4aPXb8rd73wq3lQfjHzl0tcs=;
-  b=b0ZQJEl2AoWe/JLecb5OUbKNfavJW/zFw943YmNgcwiOuvpRXOpd/W6D
-   eVI4rLJwDKH4pPK/Sun8xzvDfCSw1KP2dOn809+DlcnNLotJHFjESIdrz
-   lORG5t7U+P5GkyTXD98pXn5jb3J4qDLaBx6DF0U9KWhtnwGsiEVOHjl2i
-   eSIEXeVW+iHScPax5A3RtZmpcxm87xVmaugfxvw9K01Udaz6vEOT6rclk
-   03B6p+Et0axtqMMiS8xYD5iCQLz8tMj+nzxfgYMDZdqa8OmZ6c0HA3aP0
-   szpC8nGsX6Ngn0CgZNIdiFW8OhXYcv0jEjoYn8NYvBlZ55fzPTw+5ie7x
-   Q==;
-X-CSE-ConnectionGUID: U/3AekPXTJKd2vZ+zBS8Ow==
-X-CSE-MsgGUID: 1BjrRjniT26F4FgyrzLSVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2849198"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2849198"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:51 -0800
-X-CSE-ConnectionGUID: ljgYPguSQQ+aqfsa0muZ2A==
-X-CSE-MsgGUID: JqzhGJqXRE6iA6j8DG6Qdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7869393"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:47 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5E107121B96;
-	Mon, 09 Nov 2026 14:59:44 +0200 (EET)
-Date: Mon, 9 Nov 2026 14:59:44 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	"D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor
- driver
-Message-ID: <avHDwGAe99WYaty9@kekkonen.localdomain>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
- <20261109093353.3757-3-lsa.uz@pm.me>
- <avGwRaKSqXdtXkII@kekkonen.localdomain>
- <20261109124610.85065-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=FPncPHrn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1794229584; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=eH2m2Zew8oyu1f0utHA4YTbxzS4hIWuowjmaOpnZyec=;
+ b=FPncPHrnGO+ZqH6h4jZezfHOh68vzD6GFyBL9l21fKlsjKOgOM96kH5+woKABP9ihuvKnV
+ SM91Ohyn7Bv1fjK5h4mEroQOsJzvKy1hMCAC/TndzXs/ZH0I328yxCFJEiHinh4ctVayui
+ ZRf+KPrEPgHEa0bnSVJbqzpRI9Bq9b1XN0y6bn4sER4SIs2QpxfbR6VBjo9JeUlAOzp5G5
+ HRukT3+mfocpS4Rwh6Td4H0wMihXt3SmDhn/2ySCE8SVvd1dn+vnyLc+h8kra6b5p5lpzN
+ 7PKvLa6jyzNvaE0+SeBciYWWyotFeo3gZrWUvevi7uuIi64Lb5LMyk+8hHDSag==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,50 +51,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109124610.85065-1-lsa.uz@pm.me>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26af1c545+7976d1+vger.kernel.org+zengheng@picoheart.com>
+Cc: "Catalin Marinas" <catalin.marinas@arm.com>, 
+	"Jonathan Cameron" <jic23@kernel.org>, 
+	"Shaopeng Tan" <tan.shaopeng@jp.fujitsu.com>, 
+	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<x86@kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>
+From: "Zeng Heng" <zengheng@picoheart.com>
+Date: Mon, 9 Nov 2026 21:06:09 +0800
+In-Reply-To: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
+References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
+X-Original-From: Zeng Heng <zengheng@picoheart.com>
+To: "Drew Fustini" <fustini@kernel.org>, 
+	"Adrien Ricciardi" <aricciardi@baylibre.com>, 
+	"Alexandre Ghiti" <alex@ghiti.fr>, "Albert Ou" <aou@eecs.berkeley.edu>, 
+	"Atish Patra" <atish.patra@linux.dev>, "Babu Moger" <babu.moger@amd.com>, 
+	"Ben Horgan" <ben.horgan@arm.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Chen Pei" <cp0613@linux.alibaba.com>, 
+	"Conor Dooley" <conor.dooley@microchip.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"Dave Martin" <Dave.Martin@arm.com>, "Fenghua Yu" <fenghuay@nvidia.com>, 
+	"Gong Shuai" <gong.shuai@sanechips.com.cn>, 
+	"Gong Shuai" <gsh517@gmail.com>, <guo.wenjia23@zte.com.cn>, 
+	"James Morse" <james.morse@arm.com>, 
+	=?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, 
+	"Liu Zhiwei" <zhiwei_liu@linux.alibaba.com>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, "Paul Walmsley" <pjw@kernel.org>, 
+	"Peter Newman" <peternewman@google.com>, 
+	=?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>, 
+	"Reinette Chatre" <reinette.chatre@intel.com>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Samuel Holland" <samuel.holland@sifive.com>, 
+	"Sunil V L" <sunilvl@oss.qualcomm.com>, 
+	"Tony Luck" <tony.luck@intel.com>, "Weiwei Li" <liwei1518@gmail.com>, 
+	"yunhui cui" <cuiyunhui@bytedance.com>, 
+	"Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>
+Subject: Re: [PATCH v11 0/5] riscv: Add initial CBQRI resctrl support
+Message-Id: <bb2f816c-9c8d-4a27-8353-a946ba58870c@picoheart.com>
+Received: from [172.16.137.224] ([124.160.26.250]) by smtp.feishu.cn with ESMTPS; Mon, 09 Nov 2026 21:06:12 +0800
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
 
-Hi Sergey,
+Hi Drew,
 
-On Mon, Nov 09, 2026 at 12:46:16PM +0000, Sergey Lebedev wrote:
-> Hi Sakari,
-> 
-> Thank you for the quick and thorough review. I am working on v4 with
-> the rest of your comments, which will take a few days. Two points
-> first, as your answers may change the code.
-> 
-> On Mon, Nov 09, 2026 at 01:36:37PM +0200, Sakari Ailus wrote:
-> >> +static const s64 vd55g0_ev_bias_menu[] = {
-> >> +	-3000, -2500, -2000, -1500, -1000, -500,
-> >> +	    0,
-> >> +	  500,  1000,  1500,  2000,  2500, 3000,
-> >
-> > Is this
-> 
-> The sentence seems to have been cut off here. What did you mean? The
-> table is vd55g1's, in the control's 0.001 EV units.
+=E5=9C=A8 11/9/26 =E4=B8=8A=E5=8D=887:20, Drew Fustini =E5=86=99=E9=81=93:
+> This series adds initial RISC-V QoS support through the CBQRI
+> controller interface [1] integrated with resctrl [2], plus a DT-based
+> platform driver for cache controllers. It builds on the Ssqosid
+> extension [3] (srmcfg CSR) support that landed in the v7.3 merge
+> window. It has been tested on both the Tenstorrent Ascalon Shared Cache
+> controller and a QEMU implementation [4].
+>=20
+>    qemu-system-riscv64 -M virt,aia=3Daplic-imsic -nographic -m 1G -smp 8 =
+\
+>        -kernel arch/riscv/boot/Image \
+>        -append "root=3D/dev/vda ro console=3DttyS0 rootwait" \
+>        -drive if=3Dnone,file=3Drootfs.ext2,format=3Draw,id=3Dhd0 \
+>        -device virtio-blk-device,drive=3Dhd0 \
+>        -device riscv.cbqri.capacity,max_mcids=3D256,max_rcids=3D64,ncblks=
+=3D16,mmio_base=3D0x04820000
+>=20
+> Cache allocation can be exercised on the booted system. Mount resctrl
+> and read the default schemata. The L2 controller has 16 capacity
+> blocks, so the default capacity bitmask (CBM) is 0xffff:
+>=20
+>    # mount -t resctrl resctrl /sys/fs/resctrl
+>    # cat /sys/fs/resctrl/schemata
+>    L2:0=3Dffff
+>=20
+> Write a narrower CBM to a new control group and read it back to confirm
+> the L2 controller applied it:
+>=20
+>    # mkdir /sys/fs/resctrl/group0
+>    # echo "L2:0=3Dff" > /sys/fs/resctrl/group0/schemata
+>    # cat /sys/fs/resctrl/group0/schemata
+>    L2:0=3Dff
+>=20
+> Note that this series only implements support for resctrl L2 and L3
+> cache resources using CBQRI capacity allocation control. cc_block_mask
+> maps onto resctrl's existing cbm schema. However, cc_cunits is not
+> supported as there is no existing equivalent for capacity units in the
+> resctrl schemata.
+>=20
+> I previously iterated on an RFC series [5] that implemented all of
+> CBQRI, including capacity monitoring, bandwidth allocation and
+> monitoring. The bandwidth controls for CBQRI do not fit well into
+> resctrl's existing throttle-based MB schemata. I believe that the path
+> forward is Reinette's generic schema description proof of concept [6].
+> My plan is to rebase the full support of CBQRI onto the generic schema
+> once it is ready.
+>=20
+> Tony Luck's AET series [7] replaces resctrl_arch_alloc_capable() and
+> resctrl_arch_mon_capable() with generic helpers that walk the resources.
+> This series keeps the two hooks because resctrl on v7.4-rc1 still
+> calls them, and answers the alloc hook from rdt_resource::alloc_capable
+> so whichever series lands second only has to delete them. If the AET
+> series lands first, the CBQRI glue will also need the three arch hooks
+> it adds, resctrl_arch_system_max_rmid_idx(),
+> resctrl_arch_get_num_rmid_idx() and resctrl_arch_unmount().
+>=20
+> [1] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
+> [2] https://docs.kernel.org/filesystems/resctrl.html
+> [3] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+> [4] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
+> [5] https://lore.kernel.org/linux-riscv/20260601-ssqosid-cbqri-rqsc-v7-0-=
+v6-0-baf00f50028a@kernel.org/
+> [6] https://lore.kernel.org/all/d258a32f-12d5-464d-abe9-4720fb3e44b3@inte=
+l.com/
+> [7] https://lore.kernel.org/lkml/20261019205031.16977-1-tony.luck@intel.c=
+om/
+>=20
 
-Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
+I have tested the CBQRI patch series, covering the following:
 
-> 
-> >> +	if (!ret) {
-> >> +		sensor->expo_ctrl->val = expo;
-> >> +		sensor->again_ctrl->val = again;
-> >> +		sensor->dgain_ctrl->val = dgain;
-> >
-> > Can you use __v4l2_ctrl_s_ctrl()? That way events get handled correctly.
-> 
-> These three are volatile while auto exposure is on, which is the only
-> time g_volatile_ctrl() is called. v4l2-controls.rst says to set
-> ctrl->val there, and that a volatile control does not generate
-> V4L2_EVENT_CTRL_CH_VALUE; cluster_changed() skips volatile controls, so
-> __v4l2_ctrl_s_ctrl() would not send one either. Did I miss a case?
+   * Boot-time initialization
+   * Mounting and remounting the resctrl filesystem
+   * Creating resctrl control groups
+   * Configuring schemata for L3 block_mask resource allocation
 
-Ack.
+All of the above worked as expected.
 
--- 
-Regards,
+Tested-by: Zeng Heng <zengheng@picoheart.com>
+Reviewed-by: Zeng Heng <zengheng@picoheart.com>
 
-Sakari Ailus
+
+Best regards,
+Zeng Heng
