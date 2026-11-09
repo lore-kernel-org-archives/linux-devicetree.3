@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240967;
-	b=Vd+WSbpEnsHLdQzt7yvTGvUCkVKNCn6Tpz1jpKI0/S0FPJQJtBwohjoepuPBloHbRs62
-	 OHhhW0xexuaTcFnaHCSR0L0s37ZWtRJc9ssqtH6WUCcLnZRYNKCs3lCXSauUxV0+J8oGe
-	 aM8d9UjADizUegDzWzmAuZ1omgLb5zQHcxNuA0nUHRdLonqLu7UyGnE30duIthKTS33u9
-	 Bv1NiE7oxYyEXpxHLqWoU5HvcoYUMahhx0/5GCS6bkdzdj1nI/To6JwMJ7TVjD0qJvUDG
-	 Pt4xu+D/2z9xqcHMWGbkHI3zh8DczOPFENFkaGLQyfZi8cx4PkTdHc464Aia4/+oo0A==
+	t=1794241053;
+	b=s6AOixDvewVLkPCiU0gHZsIPCGrMsp2wnYbmwCd31t54EdxSnX661Qlbu161NrH4eyBZ
+	 MixgWSjIvZWWxdLewCxa5ge/fVLkSppnNFIgF/vfhXIUDti2fZyymjaaCpP+IIMUj923N
+	 xlsvdDFVmwxmmVBCDM7tYpOZGl1LlfXvUCK3BnV/uqJMzaHUJP3wjkXoyh6IEFNA4LV9S
+	 0qiqTNgl1P2gAe+GYky8jfmfWNfJV6MYW+EzZcHK6S+Jnu+es7zi5gy4D3oNtzwtKCyXD
+	 3oNxH1hiUCtJHjwZcjOSgPSEuOhrGOwLowKw1UyGNOoWH8Ol3sxmfXL0QrjnefLA8Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240967;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=a+uAUjhXKEApJwrL+oxv5vaGLoNsPevTJGtjjvevzRI=;
-	b=BHxEMErA6+lWjiCN2cB4tCjJhW9wN1w/dI5tnFgU1eAaA4eenf+ryv43xZw/RHuWQvIW
-	 moOUgsZkdPooD6C/+uzHB4D0MfOHmDsn5Fm6U0dTYDqxkefaW0g1osWmd08crALL9eJo1
-	 VxyV4WanZ0aLYPH+7iimb8ChrXW7fPvk7AeVgCx9uUikQ9J/98uXVKtDvHYJ4EVKMqKec
-	 jHgj5Nzsuh8E51jCCzQ126Rrt8RpHfQCYx+88iTrWRD0nP815NWtxXci8m41pi+fBiugX
-	 8fuiql1TcT50+XgkG9Iba331nHBb8xTlVR0C6K6jcQ1TzCnu4M6RogYKWJ8rIqB7gSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241053;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=v5L08Jod6ZO59LdGm3Xb4YC2Fa48wRZlTTU52Vj5qtQ=;
+	b=Uua/as9usIm+QscH/ENjmW8+CvCRx+w7dXfYsDvhxEfJyBTmmkKg/DRi/Vix1SvpDIG3
+	 WR3lg/pLHvkxk/NW+vFZV9xopb+T8djy8Jd6iSTxfiJsSFDCInhfp28NSfsB3D28zAoqG
+	 GodUmM7xesd8tuXJ4vMr65hq5jVPRZVhJJCsqS4jbWeE6QxD9WtH/jwO5Q5k6aAydW0m6
+	 z88EuRGeKLIK1MyPwIKyQKpnxVHOKNZGjzeg7iboJFBB3PcGxJ6oYVuaVZ9v10dhCRZ+a
+	 YQC4eM9ETaZvvBf705OMaP88UcZTdQe1odOG3x3NmaV3vflTrC7yZ4g5kkj1kDNOgPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i6au/myG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dY67sa80;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AE7606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28905606A321;
+	Mon,  9 Nov 2026 16:17:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6au/myG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B961F00903
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dY67sa80
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225B61F008A1;
+	Mon,  9 Nov 2026 16:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794240966;
-	bh=a+uAUjhXKEApJwrL+oxv5vaGLoNsPevTJGtjjvevzRI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=i6au/myG9p4GsOKM3Vi2VV8GPL0M54b1Q0aP+nLEVBGLWzFiIIQL51O1MPCO+TJ4P
-	 dOOlbWjxw1rDvIUfDn3HiHecyjD8xeH7auCSya7gDynZpsG6ifrwDgv2bj7GEdYFIS
-	 6koTwc3GNJ3y4HxS5QqxvXa+YXh6iYr6A8T2PwO6HCn5shYGBESjwyGMR34m80I3S6
-	 RwOdZ0texE0E8hg2AoMGmeS8P3ZBs66cKKylaV0qlfR4zBPdrX44gquG1jpaLHZqWu
-	 iVi83j2JSgA+Ktlq/6aFAKZQLOSxJXn2dcRSQ5YbGFPhVhc6rBxkKvUFpemhYanYHR
-	 PRqMUgFKiJXFQ==
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-8439fe796ebso642790a34.3
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:16:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErExlAO3S014HOSwKWLHjtmcKuJ2eTuyH0Sxn8pF65MX5cGf70kWuaXHZmVitm+KbuFQT0IOG+UCp4r1@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IaUBB0kd9lBhM9O0+At3taO3ZYVFOIhJFPrPhC9npD6jw9ofJ
-	P9yasCLLR+YMr2eYHGeqAKhNvroD0bdn2/Mm3qU6EW03oixJtEBfzXWKFWj2Eq3RNnqHaW/H4Vx
-	nUnCx8Mcdc4EPWlBAiIjZHD0qy/xfiwY=
-X-Received: by 2002:a05:6808:1209:b0:532:4867:8916 with SMTP id
- 5614622812f47-5683c9e2ac2mr94540b6e.4.1794240965556; Mon, 09 Nov 2026
- 08:16:05 -0800 (PST)
+	s=k20260515; t=1794241052;
+	bh=v5L08Jod6ZO59LdGm3Xb4YC2Fa48wRZlTTU52Vj5qtQ=;
+	h=From:To:Cc:Subject:Date;
+	b=dY67sa80Cm3J6+iuhMA+b5YW0Gj5WLhiCYUvoPc06cssx30tP/K5YwSY1lF1MIztM
+	 QWjHvDaC+LJA1u7RCgDfLJZQ8oGXb8YaJSmNjju5mbbqbGiSYNCfa97Ajvrn2fOw8j
+	 xj+wuYWwwRAXhGOrYopgWdVkjIf1C2iMG9CoOCFw0tG4b+a8foERSuoU+Gn8MWjJD1
+	 tiuRgWktEeEOIqgl64J6bnjXEoqw7nUOwZygJKwv/Bepmhg0c1Jo2BuNQRZs4mxSUk
+	 DOfWy55aCD2Nlv1Gd3X8i59xU13KFWq4QspfnmUszR9+4mjbQfc0H5vegGh5duWDEk
+	 GYpc0bEm6Cr1Q==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Marco Felsch <m.felsch@pengutronix.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ARM: dts: nxp/imx6: Drop unused kontron-samx6i .dtsi
+Date: Mon,  9 Nov 2026 10:17:12 -0600
+Message-ID: <20261109161713.3618477-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,45 +64,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
-In-Reply-To: <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 10 Nov 2026 01:15:47 +0900
-X-Gmail-Original-Message-ID: <CAGb2v66J=FaqimwrqrbVuBVb5GMuhizp2Hnt6vN7CRMNhiuCFA@mail.gmail.com>
-X-Gm-Features: AclHuK8oi8fLMntRJV56LqbfIWbbWAJenIS4kljcKk7VrVTWKVxckSNOSzGxgTs
-Message-ID: <CAGb2v66J=FaqimwrqrbVuBVb5GMuhizp2Hnt6vN7CRMNhiuCFA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
-	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
-	Andre Przywara <andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 2:27=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
->
-> Add support for the Power Reset Clock Management (PRCM) module found in
-> the Allwinner A733 SoC. This clock controller manages the clock control
-> and reset functions for device modules within the CPUS domain.
->
-> The PRCM module includes the management of three primary buses: r-ahb,
-> r-apb0, and r-apb1. It also provides clocking for several key
-> peripherals, such as R-UART, R-I2C, R-SPI, and the R-RISCV subsystem.
-> Additionally, the reset lines for these modules are integrated.
->
-> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-> Reviewed-by: Enzo Adriano <enzo.adriano.code@gmail.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+These 2 kontron-samx6i .dtsi files are not included anywhere in the tree
+and can't be tested. The kontron-samx6i support is already in place in
+the imx6(q|dl)-kontron-samx6i-ads2.dts files which just include all the
+necessary .dtsi files directly.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v3:
+ - Drop pico boards and reword commit msg
+---
+ arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi | 12 ------------
+ arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi  | 12 ------------
+ 2 files changed, 24 deletions(-)
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
+deleted file mode 100644
+index 5a9b819d7ee8..000000000000
+--- a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0 OR X11
+-/*
+- * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
+- */
+-
+-#include "imx6dl.dtsi"
+-#include "imx6qdl-kontron-samx6i.dtsi"
+-
+-/ {
+-	model = "Kontron SMARC-sAMX6i Dual-Lite/Solo";
+-	compatible = "kontron,imx6dl-samx6i", "fsl,imx6dl";
+-};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
+deleted file mode 100644
+index e76963436079..000000000000
+--- a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0 OR X11
+-/*
+- * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
+- */
+-
+-#include "imx6q.dtsi"
+-#include "imx6qdl-kontron-samx6i.dtsi"
+-
+-/ {
+-	model = "Kontron SMARC-sAMX6i Quad/Dual";
+-	compatible = "kontron,imx6q-samx6i", "fsl,imx6q";
+-};
+-- 
+2.53.0
+
