@@ -1,71 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.222.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794238128;
-	b=oKYu73/PbfwlnvkMu4k2kyFpaYwuHYklp9fyMoaCXkk5NEUo/xDnScejR56u9M5/tcva
-	 9AifvoLyzT3wNrKsKy0AjX7Cgm8UQbj+5OIw7rtOxVUuwnx3LTY0H0V64H1MbdEuf1a8/
-	 +yJhidp2AkoQ7/VHQl8V5cuIWv+5qbcU/V4ixfAPCHlzXwDEW3LvOqxn9Jf9kVxo0r2SA
-	 giiKCgrQp1e0Rouh5QcoSW/lGRryWTWob0yZY9ShE05rpn337UgNJMNNdZxKo9ZCCDFex
-	 gaGSB9N8YwSbh+gQF6b+GLGXcV45sxigQSvDDSRGkRAFQTBaFdhM6NmpXgoUwH4eQBw==
+	t=1794238476;
+	b=HT5yYKdk/TT+gFNYO+7lDh8bIwAEXtWas4Me03J3Zu9n3ibG2ElqCaRJcaxrvZrBc7Vu
+	 42n6F3XrsSLfZoEnCX9PlbA8Z45E68sgEM+GdU/uXxneaSny0hHF3oWh45cwffNbdcehI
+	 rIFucmaFIKcocfurgVGWmoOnytFZZ6a4unlGy6uEzAAFDPkQhK+lthJKsoMyRTfVD1tRG
+	 n9O3TsTfZldBzN5qC56bEfn2hpJmCDB5SXAGakGjjY6f3mM8zaeS6mgE2IqqIVrJtw0yW
+	 QIHhIkROsiUs4KTI+X6iT1T626W/PEpr2RJDRbtMTYvCsmjE7ahYGpB1TLY7M80RDnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238128;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=mCRGrIzDRdJ3fj5LcFpJR8WKCIeELn3A3rZQ9kvKhd0=;
-	b=EnkfCT3u6r5FJ+uWddEsKcloVHUl1Y2M4HZPpzPCqSHKXoNEn9DrCpeV1Cidzx9PQY/O
-	 sL8gKws1bVHt+uAkx0rskItxsbt9eNIajlK0K+arTuMTkOplKGcRBwGb6prPC3DmjZ0Za
-	 rk6JtNRPZz4ysgfifk3r0HTkyanZmqEVaO5frTEMxobJFvHTSLNfvooUL6928ln75mRBs
-	 WTNLkQz31APRafZlw1u7u3HdB5uGobez22bqdvicGiDLmkzB1sckVNv+4XcEkYrcDmPOI
-	 TT4hy/dcCDY9p3g/WoQ7FVFSGzGfKwCWBQnJc53Bw+jR08AlVCDK+qwwYdZX28tYlXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238476;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Harmony-Descriptive:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:DKIM-Signature:
+	 X-AuthUser:Received:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Date:X-CM-Envelope:
+	 X-CM-Analysis;
+	bh=yQwoPBeCHUKMfvtv8rItuG884TPpZYwKs9O31MI9oyo=;
+	b=nhOwGIRPye+W0IOT8vscw9V3wrUCZ+So3PBGKVp3e/CiWarl3GBrondYhwCm8PWUGOMM
+	 MQfaepl61hjrPwCeaZes3uCaqnKIjC3PtoDQ/rALAePdH5jgPoROBQs0W+EBlUvOTFk9H
+	 CwXd9hU8c0Is5Xi/4mUYeGIqndrDC69nYWOnTqh23UZT5Xz0TfEheC8MHP/HXiEiEEsFr
+	 W6MaWXbOVRPO4iO+Z7H31wwxpGMQNBHjcSPXbFvATg+P1h+nM14mn1L2FZywxUqoYTmUV
+	 5Ky4/r83TJB1U2OZiuPnamH2XxxCjxp//MFowoF7C6DFx+ZLbbqnB2Y4Az2b3BNnXtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mt+BvO99;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=marsrover.mx;
+	spf=pass smtp.mailfrom=marsrover.mx;
+	dkim=pass header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=flv0Q25g;
+	arc=none smtp.remote-ip=23.83.222.45
+Received: from crocodile.ash.relay.mailchannels.net (crocodile.ash.relay.mailchannels.net [23.83.222.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7A9606A321;
-	Mon,  9 Nov 2026 15:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8BD606A31C;
+	Mon,  9 Nov 2026 15:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C8BD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marsrover.mx
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marsrover.mx
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mt+BvO99
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412481F0089F;
-	Mon,  9 Nov 2026 15:28:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794238127;
-	bh=mCRGrIzDRdJ3fj5LcFpJR8WKCIeELn3A3rZQ9kvKhd0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mt+BvO99SAb4PB7qhXL0QzsqKiFAgnV29mtcED/SiQZtMrENK8xK+1dS8lTaZvifa
-	 o4UOQ+ZgJw9dpcRbDjABLR0oiNJ4wz/Q3n0r16ne0irTox6ilYYFZ257xe5/tqFdht
-	 u4mmr/NkRvEDymrd8c0F1y/EtoMatF5tNhvKkwGhZdCK/5UmesFdUX5D46e8f9oxJs
-	 3np7sBELOph7fdAwU43PDmuKJWjzf7kU0qxnclfBUAmXLVP0MLuFLTL2kNQXxbtZX8
-	 CCCEbL+9kgtzYVpKUL/99P0VF1p2dN6oxSA5uICLriH/+W9GaDxH3eqv40hqdFtmc6
-	 Jv4dnSTzbsFtQ==
-Date: Mon, 9 Nov 2026 15:28:43 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
-Message-ID: <20261109-swinging-inventive-wrasse-e82ec8@sudeepholla>
-References: <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
- <CAPx+jO-T_0KT3GytYu8w6QvrhXFQNZQzR496RL=McU6rnMtnPA@mail.gmail.com>
- <20261009-frisky-rottweiler-from-avalon-6c409e@sudeepholla>
- <CAPx+jO-_aY5pMnWyy1hAs1WRmfW33vc317jdtBsEXYBoHsPfxA@mail.gmail.com>
- <20261009-skilled-mature-bittern-2206fc@sudeepholla>
- <CAPx+jO87gkTumF=Tg=UPWpJO6O-CRF4njT2KxQ3f=4nF5m7GiQ@mail.gmail.com>
- <20261014-prudent-mini-duck-377cb6@sudeepholla>
- <CAPx+jO_BOwbKeRytBezm+piLhb8Z5N2eQO=LRwBQoSZ3kXOpwQ@mail.gmail.com>
- <20261028-imported-pistachio-unicorn-2ecfec@sudeepholla>
- <CAPx+jO-0Vmah=2mewp-kspV7Nqr+Ay_nnO9fTFB_TMbOoHJp5Q@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=flv0Q25g
+X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 0B27943E3A;
+	Mon, 09 Nov 2026 15:24:15 +0000 (UTC)
+Received: from fr-int-smtpout20.hostinger.io (trex-green-0.trex.outbound.svc.cluster.local [100.99.188.114])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 8AC3D43DEC;
+	Mon, 09 Nov 2026 15:24:07 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
+X-MailChannels-Auth-Id: hostingeremail
+X-Harmony-Descriptive: 23e1a62c7dc25c91_1794237853495_4285909119
+X-MC-Loop-Signature: 1794237853495:3014837285
+X-MC-Ingress-Time: 1794237853494
+Received: from fr-int-smtpout20.hostinger.io (fr-int-smtpout20.hostinger.io
+ [148.222.54.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.99.188.114 (trex/8.0.2);
+	Mon, 09 Nov 2026 15:24:13 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marsrover.mx;
+	s=hostingermail-a; t=1794237846;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQwoPBeCHUKMfvtv8rItuG884TPpZYwKs9O31MI9oyo=;
+	b=flv0Q25g/jwZUtHGTPEVITQCZ/njqOTmvNDgjnx49kgdiUQOrCKIgbWi6dtV2xgwQH+N11
+	mswmtN04NOCqfTH2iTO+KF5EsL3DgfkVWg8cuhhsVZwFmEInESzSkUR3QHiRJgMTvrD7Ci
+	FqyR9/uVgopa2GJxIfRYQfu/2GgEsEP4R2Uj9F07vF3yieNs0N/BRuvOe3Foi7PJOGa4zZ
+	riDN4imvRPmIeEFSNR3Enu5AmWH+v1PW/aPAhCThfz+eVFJ0BbuWN6Z6nmPTiF8hgSb+aL
+	CKtdLQ1Kv2qVLcvOmzBjyT5E35/EIOq4zhD/xduEopS8PfGUQTlvVDqDDB9fLA==
+X-AuthUser: rodrigo.rea@marsrover.mx
+Received: from 0-0.nxp.com (static-148-244-115-92.alestra.net.mx [148.244.115.92])
+	(Authenticated sender: rodrigo.rea@marsrover.mx)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jNYTt582Bz1xs1;
+	Mon,  9 Nov 2026 15:24:02 +0000 (UTC)
+From: Rodrigo Rea <rodrigo.rea@marsrover.mx>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: alexander.stein@ew.tq-group.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rodrigo.rea@nxp.com,
+	daniel.aguirre@nxp.com
+Subject: [PATCH v2] dt-bindings: rtc: pcf85063: Add NXP PCA85074A
+Message-ID: <20261109152352.6335-1-rodrigo.rea@marsrover.mx>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,49 +95,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO-0Vmah=2mewp-kspV7Nqr+Ay_nnO9fTFB_TMbOoHJp5Q@mail.gmail.com>
+Date: Mon,  9 Nov 2026 15:24:02 +0000 (UTC)
+X-CM-Envelope: MS4xfMeZN/7QRoKChcDFlOCSxgT7J+iXITc72Hl9xVaDtYF63zK13hFUuSYftq4Pluc4adMW6rZpFiESSANvjVJ1cD/Y8D/dE2N0mKpgYe6Gt1pxOVFaCq5B rfytiRdglHCPfRQVkQ8aAtElKOGku9HOpIB5uOGEuYZ0xY/wac30+jV8B9VXWAhxUZnnH8ye1d/nc6KCxEmt1QzeMOKZzghr5ub1cHI2WXghSXfHfV7auHx1 fjl82Myxnsgbmzc1ilCfJUd5MCY4L6/JL4MJtjAlEEJPoF/RWjyNoiZFtCcUeRfCBlGRcTEy0YHpDwyg5F9hy2r/MIr6Mxi4+0OjIIItyOtce+WsaSV72deH aDAHu4hEsYfrFvZ4BbBzCmYKUl6PciRRPjVWl/rzxxIJcR78PwSaiXmWsQkjty8pD2dbN5tNpC4bMbGLdLKFyJk2zRszw86LOjC6v4knf2GRIEck8ctRjOQV jQ5tYjQS5v3NKJ5wlAIL4fD718DIbbBxmLLlhu10hnEjuT7cOInCnQwWWko=
+X-CM-Analysis: v=2.4 cv=UdEDS7SN c=1 sm=1 tr=0 ts=6af1e595 a=VnbrY5TOLAh+WZUOsuTEUw==:117 a=VnbrY5TOLAh+WZUOsuTEUw==:17 a=8AirrxEcAAAA:8 a=VwQbUJbxAAAA:8 a=1jgfiXo00Dv-OZUlPjkA:9 a=ST-jHhOKWsTCqRlWije3:22
 
-On Mon, Nov 09, 2026 at 04:05:56PM +0100, Ulf Hansson wrote:
-> On Wed, Oct 28, 2026 at 12:48 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> >
+From: Rodrigo Rea <rodrigo.rea@nxp.com>
 
-[...]
+Document the NXP PCA85074A real-time clock with nxp,pca85073a as a
+fallback compatible. Both devices have the same register layout for
+clock, calendar, alarm, offset, RAM and timer functions, allowing the
+existing PCA85073A driver support to be used without a new match entry.
 
-> > Now I understood the requirement much better. The core issue with OSI is
-> > that it fails unless the platform downgrades special system states to
-> > non-system states during routine CPUIdle paths.
-> >
-> > This leaves us with two directions for OSI:
-> > 1. Firmware Resolution: Handle state transitions entirely in firmware.
-> > 2. OS Intervention: Enforce the handling via the OS.
-> >
-> > Though I personally prefer (1), I don't have strong arguments against (2)
-> > now that you made me understand the requirement. Sorry for taking time,
-> > but mentally I was assuming (1) even for OSI until your above response.
-> >
-> > Since PC mode relies on the firmware to manage these states natively, this
-> > binding isn't required for it. Therefore, Could we restrict this specific
-> > binding exclusively to OSI implementations ?
-> 
-> I guess we could, but that seems rather messy. According to earlier
-> discussions, if I recall correctly, we deliberately avoided OSI
-> specific DT bindings/properties, since support for OSI mode should be
-> detected through the FW.
->
+Link: https://www.nxp.com/docs/en/data-sheet/PCA85074A.pdf
+Signed-off-by: Rodrigo Rea <rodrigo.rea@nxp.com>
+---
+Changes in v2:
+- Require nxp,pca85073a as the fallback compatible, as requested by
+  Conor Dooley.
+- Drop the driver patch: the existing fallback match provides DT support.
+- No runtime test of the new fallback DT has been performed.
 
-Fair enough, we should at the least warn if used on the systems in
-PC CPU suspend mode.
+Link to v1:
+https://lore.kernel.org/20261105215204.2446733-1-rodrigo.rea@marsrover.mx/
 
-> Also note that the domain-idle-state DT bindings
-> (Documentation/devicetree/bindings/power/domain-idle-state.yaml) are
-> generic and used by RISC-V SBI as well.
-> 
+ .../devicetree/bindings/rtc/nxp,pcf85063.yaml  | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-Agreed.
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
+index f7013cd8f..8ce965caf 100644
+--- a/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
+@@ -11,13 +11,17 @@ maintainers:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - microcrystal,rv8063
+-      - microcrystal,rv8263
+-      - nxp,pcf85063
+-      - nxp,pcf85063a
+-      - nxp,pcf85063tp
+-      - nxp,pca85073a
++    oneOf:
++      - enum:
++          - microcrystal,rv8063
++          - microcrystal,rv8263
++          - nxp,pcf85063
++          - nxp,pcf85063a
++          - nxp,pcf85063tp
++          - nxp,pca85073a
++      - items:
++          - const: nxp,pca85074a
++          - const: nxp,pca85073a
+ 
+   reg:
+     maxItems: 1
 
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
-Regards,
-Sudeep
+2.56.0
+
