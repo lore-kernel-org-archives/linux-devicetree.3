@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227040;
-	b=ylTdckv0Ad1w1tp5k3w1B+os08uxibSY0EDbKlAq+Uw5n4BwjMa4bqLZYkB3kI3sAX+x
-	 v7x4nP2D410B+l7eVmkkO2yebzGcDVvMU3hZ5JQmoIJNZnX9ytamP0/MYZ9nMIoGv6tbG
-	 xW9Lh3GAF7Z6Q9hQrbDj4YfResjJIQr14rZkS9ENyqZTpvhxw6/GdWZ3NLSBXXA+0iEz7
-	 7de6cBRZ9QMpkSqDyeO/N0JSwz0PzWx7XOae3FOAfUdInBpCryPLFp3unRnVT59CSFXFj
-	 YYFUA2/RctHr4nOj45mtBjUw2rz+lWTlKsI4fiTick2Up5L4sm9r+eqfAoVjX/4K5dA==
+	t=1794227045;
+	b=LRpoE3XM0PTThQJlIRPGvc5ZRr2JFFCkVbV+1WNmoD5nPOLy1ktw/WGt7F6I5LNSlT6p
+	 D3iu0CPfFcT6trwzm1fl7Xxp4f6XnJoTnuofBZ0ZYLnAKoZ5cV0Eeh4qRnjQDJTbv2APH
+	 wTb38OQL6+sVq8Caz+4t55y6w7n9v3GndI8PYDoTA2U7GsK8fitpujJe2tMeXDObg0l7d
+	 MYGSXRxpTzxyaDOV9WUWxuF1O79+uXPYLCBbvTasEizTACfnZAsBMzYzqGRaEEQd4zAMK
+	 oXlZFSFbWja1UeaplqgC43ipWBMtUGFZhJDUXQfgerlQ95uMy1ahl3YUTIc1Uc+X+jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227045;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ypL2grVntT+7ecU5ZYny6pR+6RbN0Ef9pRnQMEBx9Ng=;
-	b=AUHNuykTsPNMLEitS3gznLwUBI8NWfaPW6Fa+AEEQ1Bxjdz0/xg29hGrdFGeTrBUWiXw
-	 rVmx9rgwUQUNkM6A8fM0VPOeiS86L6B4FsDqCWH+LzmincbgYJQyIUyv95+0uHBN6t2E8
-	 L1Y4Ud4kyQcPs0F9oKRuGxkFALZHYgPp7KIIGJJbtxly2jxghM9IsbkZSCq3qlxY9Jbj2
-	 nvdvkUQPpTVouICzVZNHLl9iBkwDHOuDM9sI1HoSoSQaTpsdB6a9OkPsP0yEGJ9/JUlLZ
-	 FAm7hNSc1m5gKVPpFpwyv+5e0Nw4mo8Hb6zIvUF/gyntcx3WE8lt2fZUPk+ek/t2nHg==
+	bh=unq0WKDEle+Wus4ofayVOUX93q/BO/0hZHr5A2W0Qck=;
+	b=LWTQSK94WMMKKeoIzEJAWMSkeCThM/sIjpSuO+0D3KpK9Q0nQlt5mzfT3Q3UYFN4Ttbn
+	 T26ILzouTpSdTwwnrXvQEEPzmHCsUUlE8yWMO53Am6svhW1R4Rd8gyPaWqGJT7e8W6w4D
+	 trM+44h2vp2DwDhsb/LjctNbd/Ym0wmcmSsWeorMavwXKLBhQ7V8cWInZ3xaCJMUGzyEF
+	 uiz6NDK6ToZ3LPHWtUeE8wzv3xQThcqlB6ylyHjcQnNO89X5tE/GUBPumYDHA4aXS0t//
+	 DiJqMlyUphJ4DO5HHoisXizdm+8bXTSXyrJrqLLNgGHU9JCmWHGMHkBHyC+UdDpaC1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=bytesatwork.ch;
 	spf=pass smtp.mailfrom=bytesatwork.ch;
-	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Llh3Zhni;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K54wcqgU;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C501D606D83B
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 12:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C501D606D83B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4026082BF7
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 12:24:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C4026082BF7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Llh3Zhni
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so9585135e9.2
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 04:23:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K54wcqgU
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4922dbcee23so402034f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 04:24:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794227037; x=1794831837; darn=vger.kernel.org;
+        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794227042; x=1794831842; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ypL2grVntT+7ecU5ZYny6pR+6RbN0Ef9pRnQMEBx9Ng=;
-        b=Llh3ZhninOo5lJzJxM6gigKSI5ZEtS1u/dVU2HlUp8JckOS8+NFZQj4GJzxgzcbyP8
-         GbhVb1tYWKiWLmQUqVj959tf19bXwmp/LsVYqtmCobexCP5/X8h0oi0pQznDmhE+bwB0
-         m4dsO38EOR3DL/EKKi1mTFdRmRNqm7NlgXAF7+D3gb0IZVkrPq5pOHTslK0QbcwE969u
-         kuHwvGVyHH/Goc/ncXSLhEtajn7U5qveIrF2mBIAm0b9zFCldRbza7yNtX+FGKFE4uXF
-         XgVFsosovIY5GFiXWhHoIkW98o6G6GULF0+mFDM/vuC5LJtIq+1/ntDD6h6Nt7zNXyZ5
-         ATwQ==
+        bh=unq0WKDEle+Wus4ofayVOUX93q/BO/0hZHr5A2W0Qck=;
+        b=K54wcqgUM5TLIPGTJk7U0iDKMeq4tXJuEXac25j3xtaraOi7feGN2Hv9Y4Q5u+eCJZ
+         gOgtS6gNcH2PdQH932yDSsFs+6dAnY/xQcPFFPnzXpd3Qt/vs9cNmRkiR1guPhXFPjZw
+         wyrdE2A+PoBXGBP5Qa/59Zg8J9Nd4mA0NGSHGQHfIICQgjSjtV5167/M7n5SL/zfy1gE
+         kSwZn1NIKkvY4FHR5iNB3wjkfa0pU8SlMhiMeJz+alPz4sDJqweigqKR2I1XAen3nmzF
+         w14rGibQVuIkaNtIqgw/+eXwix5w2tK9bSsYYoNsY+kavjRY/THmB16f5fcOMYt1N5Jx
+         rRlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794227037; x=1794831837;
+        d=1e100.net; s=20260707; t=1794227042; x=1794831842;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ypL2grVntT+7ecU5ZYny6pR+6RbN0Ef9pRnQMEBx9Ng=;
-        b=ocaLJJW9IYBRg5BJL8B2UMGgwGaEcvxB/4UMYsbvvB7n6SITKf4vloe2HpkwVkotXa
-         +KtgwMs8deUEJcwodRbQ950Nh0PF6/Qu4R0Nv7pX1z4p8C70aVsHeJYeqbGqGEUjFDFu
-         7BX2vq0ZN7NFZG1DAu3p3aSUjBnoml/vpSHWv6+hizOf4WSr0m8yypOynemGkltNGkP2
-         65ZareEhC8azIR+WuA3fEaZCd2V+HMlNhQVpBQeLe0PnwLhkW3CqVArFPELABGAZtlGn
-         ng3zzwuaULSQqaL6slO8nnHzM+jEAe9xQunv+UBvKhSu8lFtpEyAly/rCeo2e3RCqFXv
-         FDUQ==
-X-Forwarded-Encrypted: i=1; AL+hErH+I6z7NB4rmZA8XpRZHZJpNREkPAK176Lsjc8fDQxRPsPj2Ls8k4RFe7oxCqd/24xzYlCDHH5N/igl@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QkTS+8Dyly5wLBR771w/iUavU+O6uzBf/vEK3Sg+luX658R29
-	MJQmVKVBa8Cok6taetWU+okiYYeSYomMChA36fCQcL4ELapAFhCq+/D18CZcGc5zhz8=
-X-Gm-Gg: AYBFou2NvUVDTtiNqIxiytNYDciv8oVt1l457yqBQdk4eQwixyb/klXGX90j+FK8ZbM
-	wTwmGLkG//bpG1R6q02iTccUyZ9Vd4Uc49pKcJiGHUyIT4BVORyBQn3jQ4XZ+F9kWgCu1PQiNQe
-	hIoGk6gw/DOxPcsBwUa8GpmNFQfa386zTpiQkuDV08M6HxoLwi+QZ7LDEIbirxDl1F2yxbzn/Xd
-	5utKtIdeLGb4KxumLN1vI3tOUCsD5MYde89LeLPIv6/FZ9tdNDskvOSdNPfaZL2lZAE6MFV1VpR
-	EFu3GuY277AWeMINJu7F80EfkKcndFE7hsZy7thMgU4XZMDOHSmMh96Nxgv+WlJLdO1FJ2hV2kv
-	n6MP1LviGBIvG0MOU57vJVY+0EyILIMKB4T2v4qbI+mogI5BM8FEFWzKayxrOgORVgEJUzWd2WQ
-	Svr0wlTXhoopHWvBPtymxRS8QsJr8S+Qa5kEwV0ygKmiDMUd+1L8bK42KnTgOP9pSK5G2Ryb0xf
-	uZyLR0iHJ9PIVTKRzNZUYw5ZqNIhidma/TBkNr1w1DdU46Bdj0gEWvhBMz39wc45HdQ8XJAzaFu
-	5E6vz9cWTcAZF7fRlypdyCf3rY7t4xfph1qCFKUF7Wz2XQB7uKQ/bRGwPhYj5NtGCQUxj+VgLfr
-	O/ODezGbGXw==
-X-Received: by 2002:a05:600c:3e0e:b0:4a1:cfa7:e968 with SMTP id 5b1f17b1804b1-4b963c75b42mr68468965e9.21.1794227037216;
-        Mon, 09 Nov 2026 04:23:57 -0800 (PST)
+        bh=unq0WKDEle+Wus4ofayVOUX93q/BO/0hZHr5A2W0Qck=;
+        b=2UWOOIVe0lYQ+1amR06WzrjmdAd8xFAOjrgkNiHRU0/ZdGmS1wxJwiIzCUbXsthcOU
+         eyQsJZigmGnNV5ZGYD8/RVIg6c7ly5kihqiCsJT49+EC2bqBStZVNlk+oQ2ETiCrOiUB
+         jP7VAEi1MlRuaAvYsit7ZSJY95oDXMvAVfkRexr6VypKAgm18TOWZWeQwClZToFeBMsV
+         k4E3OuuT8YrQRggK31f43Vg6slWbO6kCmvGNx3HwLG2xObQxQiqr9YVmFGqVBnBwmucX
+         jQbFVwIi7RZmKsjNQrFxwD3W9HCrXSSLVuGSDjtDDxsj+SNrHNvd9aiK9IfqB6p1zvJq
+         /Yrg==
+X-Forwarded-Encrypted: i=1; AL+hErHXmQuinN1+WJ0aDeSKBVUBMwX8ER3Dqt0kI0TtAa5ikObEfIoHJtOwZRIOqKS5r01vFwYve42YDB6I@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DqPe3uuXtwjeCxTOwAJX+dVsSlTaSLIEK4RNGqRMgj4+xNDDm
+	MH+8XSLdwuygtIb8hzdFpuh5tlDSfay61B6UqRj1b8TeUCdugzusdqaonplL/bNHJ7ggw47SVJR
+	JPkZBrVg=
+X-Gm-Gg: AYBFou21RxPoEYOzy2NCQPE5g/GyCy6QZPoaJApCfVYEwcMM19Yhj/EKrmlAihMdwND
+	heAX8ciqHNDgkukjd0+imK8v17BRL+wD86+Sp+K40VKOdg+OBVsn457zjJyHnzwNH0Ppu5S/QM7
+	OBWIu302BLHQFkKcVnLs1ZDv7J0FEfjIoWs+nSGGGLpE3wrnVYssgC+/ipt5HfAf7Jtuwk33Eyf
+	EJJHJya/4/SdyvsxAAWFnN16hSFD7cDeHIh8qqpJzT/4GoPOzCcoc2LVGq26NIXLy+7PGorK/C1
+	BuZD6I4WV3EIkNgbJntIzk7zWgucFFZL42cPJ4WZ16/EN5nnMaFlPIeDe46RPnD19mDEdCDdltd
+	0tZ3cuJR9C/FWXSx0FANU5cr8cpmiFUZxzAxhVS5dV48NOTJOwXXycaFXNWc9I0FsGfGWr69+Yp
+	eCP3akveR4tcpXbdjCBVLTrTRN9p8335M72u9czaKTdUhaguVzAv4hbGNek0HegoOgLJF/IqvD1
+	TMTWAgBvTRIJGY0ZRbP4tH8uwVESXEoFU7B0/AG7CVC48qI3GYO5Q1WBVAAgazS+3X+JzRVjskO
+	pPjN88ND/VEboHgjNn4dcYj4lO2B4x1EDuYWY44/zGNVyENcFnCDgpiKmq55Fl3Bokj/wWAXzVW
+	Ay16SN3KLOQ==
+X-Received: by 2002:a05:600c:c174:b0:4a3:5a42:b2a4 with SMTP id 5b1f17b1804b1-4b963c675c1mr76221585e9.12.1794227042108;
+        Mon, 09 Nov 2026 04:24:02 -0800 (PST)
 Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net. [83.150.40.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597652ca7sm10500318f8f.39.2026.11.09.04.23.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597652ca7sm10500318f8f.39.2026.11.09.04.24.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:23:56 -0800 (PST)
+        Mon, 09 Nov 2026 04:24:01 -0800 (PST)
 From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -99,9 +100,9 @@ Cc: Jessica Zhang <jesszhan0024@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH 1/5] dt-bindings: display: panel: ilitek,ili9806e: Add Youritech ILI9806E
-Date: Mon,  9 Nov 2026 13:22:46 +0100
-Message-ID: <20261109122250.720757-2-frank.obergfell@bytesatwork.ch>
+Subject: [PATCH 2/5] drm/panel: ilitek-ili9806e: Add support for Youritech ILI9806E panel
+Date: Mon,  9 Nov 2026 13:22:47 +0100
+Message-ID: <20261109122250.720757-3-frank.obergfell@bytesatwork.ch>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109122250.720757-1-frank.obergfell@bytesatwork.ch>
 References: <20261109122250.720757-1-frank.obergfell@bytesatwork.ch>
@@ -116,39 +117,202 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add youritech panel as a compatible
+Add the MIPI-DSI driver for the Youritech panel with the ILI9806E
+controller.
 
 Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 ---
- .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml      | 1 +
- Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
- 2 files changed, 3 insertions(+)
+ .../drm/panel/panel-ilitek-ili9806e-core.c    |   4 +-
+ .../gpu/drm/panel/panel-ilitek-ili9806e-dsi.c | 158 ++++++++++++++++++
+ 2 files changed, 161 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-index 2080d9e0ffac..6f29ddc1fd09 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-@@ -19,6 +19,7 @@ properties:
-           - densitron,dmt028vghmcmi-1d
-           - ortustech,com35h3p70ulc
-           - rocktech,rk050hr345-ct106a
-+          - youritech,ili9806e
-       - const: ilitek,ili9806e
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
+index 81d48c402aec..4447a65c9007 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
+@@ -91,7 +91,9 @@ int ili9806e_probe(struct device *dev, void *transport,
+ 	if (of_device_is_compatible(dev->of_node,
+ 				    "densitron,dmt028vghmcmi-1d") ||
+ 	    of_device_is_compatible(dev->of_node,
+-				    "ortustech,com35h3p70ulc")) {
++				    "ortustech,com35h3p70ulc") ||
++	    of_device_is_compatible(dev->of_node,
++				    "youritech,ili9806e")) {
+ 		ctx->supplies[ctx->num_supplies++].supply = "vccio";
+ 		set_prepare_prev_first = true;
+ 	}
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
+index 89915d58f69d..e83d643363b3 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
+@@ -464,9 +464,167 @@ static const struct ili9806e_dsi_panel_desc dmt028vghmcmi_1d_desc = {
+ 	.lanes = 2,
+ };
  
-   reg:
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..ac2f54adde73 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1979,6 +1979,8 @@ patternProperties:
-     description: YSH & ATIL
-   "^yones-toptech,.*":
-     description: Yones Toptech Co., Ltd.
-+  "^youritech,.*":
-+    description: Shenzhen Youritech Co., Ltd.
-   "^youyeetoo,.*":
-     description: Hong Kong Cybodev Tech Limited (youyeetoo)
-   "^ys,.*":
++static void youritech_ili9806e_init(struct mipi_dsi_multi_context *ctx)
++{
++	/* Switch to page 1 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xff, 0xff, 0x98, 0x06, 0x04, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x08, 0x10); /* Output SDA */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x20, 0x00); /* set DE/VSYNC mode */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x21, 0x01); /* DE = 1 Active */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x30, 0x01); /* Resolution 480 X 854 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x31, 0x00); /* Inversion setting 2-dot */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x40, 0x16); /* BT AVDD, AVDD */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x41, 0x33);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x42, 0x03);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x43, 0x09); /* SET VGH clamp level */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x44, 0x06); /* SET VGL clamp level */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x50, 0x88); /* VREG1 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x51, 0x88); /* VREG2 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x52, 0x00); /* Flicker MSB */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x49); /* Flicker LSB */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x49);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x60, 0x07);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x61, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x62, 0x07);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x63, 0x00);
++
++	/* Positive Gamma */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa0, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa1, 0x09);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa2, 0x11);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa3, 0x0b);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa4, 0x05);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa5, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa6, 0x06);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa7, 0x04);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa8, 0x09);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xa9, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xaa, 0x15);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xab, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xac, 0x0f);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xad, 0x12);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xae, 0x09);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xaf, 0x00);
++
++	/* Negative Gamma */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc0, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1, 0x09);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2, 0x10);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc3, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc4, 0x05);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc5, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc6, 0x06);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7, 0x04);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc8, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc9, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xca, 0x14);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcb, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcc, 0x0f);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd, 0x11);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xce, 0x09);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcf, 0x00);
++
++	/* Switch to page 6 (GIP settings) */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xff, 0xff, 0x98, 0x06, 0x04, 0x06);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x00, 0x20);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x01, 0x0a);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x02, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x03, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x04, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x05, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x06, 0x98);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x07, 0x06);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x08, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x09, 0x80);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0a, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0b, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0c, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0d, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0e, 0x05);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x0f, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x10, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x11, 0xf4);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x12, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x13, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x15, 0xc0);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x16, 0x08);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x17, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x18, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x19, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x1a, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x1b, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x1c, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x1d, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x20, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x21, 0x23);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x22, 0x45);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x23, 0x67);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x24, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x25, 0x23);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x26, 0x45);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x27, 0x67);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x30, 0x11);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x31, 0x11);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x32, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x33, 0xee);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x34, 0xff);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x35, 0xbb);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0xaa);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x37, 0xdd);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x38, 0xcc);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x39, 0x66);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3a, 0x77);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3b, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3c, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3d, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3e, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3f, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x40, 0x22);
++
++	/* Switch to page 7 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xff, 0xff, 0x98, 0x06, 0x04, 0x07);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x17, 0x22);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x02, 0x77);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x26, 0xb2);
++
++	/* Switch to page 0 & set Pixel Format (RGB888 = 0x77) */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xff, 0xff, 0x98, 0x06, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3a, 0x77);
++}
++
++static const struct drm_display_mode youritech_ili9806e_default_mode = {
++	.clock		= 30000,
++
++	.hdisplay	= 480,
++	.hsync_start	= 480 + 25,
++	.hsync_end	= 480 + 25 + 10,
++	.htotal		= 480 + 25 + 10 + 125,
++
++	.vdisplay	= 854,
++	.vsync_start	= 854 + 20,
++	.vsync_end	= 854 + 20 + 4,
++	.vtotal		= 854 + 20 + 4 + 16,
++
++	.width_mm	= 68,
++	.height_mm	= 121,
++
++	.type		= DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static const struct ili9806e_dsi_panel_desc youritech_ili9806e_desc = {
++	.init_sequence = youritech_ili9806e_init,
++	.display_mode = &youritech_ili9806e_default_mode,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++		      MIPI_DSI_MODE_LPM,
++	.format = MIPI_DSI_FMT_RGB888,
++	.lanes = 2,
++};
++
+ static const struct of_device_id ili9806e_dsi_of_match[] = {
+ 	{ .compatible = "densitron,dmt028vghmcmi-1d", .data = &dmt028vghmcmi_1d_desc },
+ 	{ .compatible = "ortustech,com35h3p70ulc", .data = &com35h3p70ulc_desc },
++	{ .compatible = "youritech,ili9806e", .data = &youritech_ili9806e_desc },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ili9806e_dsi_of_match);
 -- 
 2.47.3
 
