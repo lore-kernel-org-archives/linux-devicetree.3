@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231394;
-	b=QooI5ckI0bFOSOP47HhT+lmwdQjGhFhLGBYs4R6uJp2MfkXlMy1WTb1wtWjDX0pT+irn
-	 stlYJ5P8OIOKX8TTSKusyqBZHOfVeomHcgGV1ctKsR7/v3RfyCDzD9N+CNQSqpaMW9LvL
-	 1BhaeP29wFY9q4S2mXo015P8ISnouubtSVrDyd6vli+6mSvzQJvH+9spOsuk5u33CLbvH
-	 MzWbUzFgTiRmmU+kpHDR7IOcN3fuaWXhR/cTrMHscw7DMMWGKhxkSE5KYg+7fj1BU1eax
-	 wknOHgll/Qbvmebt/RdFwH9QC2STh90azKByCH6wjowWSq5NewjkYBUBPSkQUCbPCjw==
+	t=1794231395;
+	b=G7e5dA0RHhoRc8b644Uj9Tt4D0PklUlusJgJxTuvgSkqUk+ei8xRtWw7DMOn5io2WQ+S
+	 NibD6s0ZzHM2BB5VdskWNtgFBxgFTlIcJwqnq+j7q/YkkFIsSWjM543E6QS3P4D2ZmuwZ
+	 GMu8fbpdwwWvmUlGYaiPb3XGWjs974t/9gV3cqLu9NBgEgx/pQoFmP2pJDEtg0DB/DCOu
+	 q1lnoq2QNovHbCyabWPq9rH0Uz7m5joAHD15rgFU3hPyJfjM6I0tFMgtRjcOagZB0+Gqa
+	 UqH8DNcOfGK67+6yPCMx/27QgiVrAqj3UlffW6eH2Lv22/2BGOELARyvalaq5oFLwmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4NRkATOS7zVqPGKPDehqJ5moLmosYe5MEheGQEZKtl4=;
-	b=I3/qol9y3JolYETBEtFnRaZclJYDgo/OLbVeY7mC6j0uq85yTKqEhiWD72OfZHQQBfkb
-	 flRAez6b8wEgwSf+ABnFNIekvrGBlS7qoH5po0WMx7aKFo8Z0t3zIBV9fVh6LVz+ZUOr3
-	 d1R3ph+GYiEUUsaHGPyuNvuV5BF9KwMpNzabTylqufkD8d+1Wlm8C3d2eEbhgm2NN2WIT
-	 hyTVN+/CC5xtaO2h5pB03gS6wRLnzxV+xoHww0iERlbBGm9BA7ACIKe4xGbiMaZx7gBpf
-	 B0KSUM8zBfS34OQRpqMnbQ4pL46dCl6UdY0ReNidY+KP/WicMVNXTmFhhdCtPRUPRag==
+	bh=LKWAw/AZxDTQtn5ObFqcUuzM3ObhugKfW3Vkn+etxwQ=;
+	b=kf7EQBe7BZtqkZrWL6/o9VvPoRa7h0qKx4A78FJjj+NNhi9VMoqGcTYy5ZqGrQtNnOiW
+	 6oTo1AKJjE0lGWoEsrMkFFSBLL0zv+tqnr22fdDQDA1UZaKzgNiS8ct10uaZtqOxw/Nfw
+	 y+U1Z2a+p+glYlFmwfj+HHI7YKctd8F0wzWplOJLoHCt8t8S4RPwQWjxChtrJmUe6zc4Z
+	 D3K+YspOfOwR5zfCtt8bo1QNqKPiBIgXnkUd2JWaqzEPRSS5GCqXGHbvA+bXIKPfT07UE
+	 AaYdLMiAhJxbP5ebJa6xWHWLcfTozdRL1zuwCOrzEqFMQ0H7seLAFot/YwGud4+YYYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sartura.hr;
 	spf=pass smtp.mailfrom=sartura.hr;
-	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=m7f2MQj8;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=InJTp9wv;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0140608362E
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:36:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0140608362E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD84608363A
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD84608363A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=m7f2MQj8
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so4932935e9.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 05:36:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=InJTp9wv
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso5891825e9.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 05:36:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1794231392; x=1794836192; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1794231393; x=1794836193; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4NRkATOS7zVqPGKPDehqJ5moLmosYe5MEheGQEZKtl4=;
-        b=m7f2MQj8DOelwTy+9dXazumTVrOOGmC/Hxj1SBjvuuLwf1GqEH0SANYiJXd72HejXe
-         JwMnSANn3PKdzoQUwJZp/449jI9qQUXnr0t8ISIGcyA8oAnZTbqNwPw86If+Ly47GOng
-         Z1gJJIQ5x0re5fWBfBF93NkExn5zwsQwImg57BIw/5AoplX+VnCARRUeYByS+4shbfZE
-         o7BNCRuUnTjXTqymVGcflaVk2fdY36KKeeWu++Eu8jP9TI1z9FhHzTjdDe4q645Upu4s
-         FIv/1t/KWnlB6a2ee+qWCugRS+6scBUBgr/wC/iKUHPBlpvvKbLde3U6EUFHuQWgLwPa
-         dYVw==
+        bh=LKWAw/AZxDTQtn5ObFqcUuzM3ObhugKfW3Vkn+etxwQ=;
+        b=InJTp9wvTygr8V9hYoTr/NhW8KHKk5RlASOuXlrQJRy8N0Bk+kk2ajjODwLpYWwgxh
+         TYQuPErpVPfO+JdrqsH6xMDh0cejwZYWD8OD0nSvifgwVbS2gJX2Wxube9ViIY9pKva+
+         fR4YSqHXpP2lQOG35vONoJZU4huNzw791xdfVVhq9DLvYzXZZno070PbN3hAdhSzk9c7
+         ge/FngigunniTaKQkFaxrj7KU0N03BlIryAAfyRMAXSufAyF8kc4tP8R9GZdTORuuYq2
+         ygBtGyg4XdKB7qXCwiX88LIF+0/8MAGFVx0tV2jZ83g3CAiaUUlj6Y4JDJQkTTdkkty7
+         swzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231392; x=1794836192;
+        d=1e100.net; s=20260707; t=1794231393; x=1794836193;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4NRkATOS7zVqPGKPDehqJ5moLmosYe5MEheGQEZKtl4=;
-        b=QGvjzJXCeMHK1jrdz/YYOqhvP9WkinVr6OdTJDANeasDZqyBgDl7DjonQusQFl06DI
-         BJgH0SGSNIOI1MfZ2K0f86aliWNUWDohNhm2fDhCT3vDP4x17XDbytjSht5oB5Mws9iW
-         3X5QqYB8Q+YzwakB/AkseHYRvlkOt6oq6sbVBfiyLXSXFmug036JZg85m3fPr535YyWA
-         hhW7g6IJfS0YuN2gcvy6XLjRQFyvRnRH3iA/7KZJHtfoBl04C7cgitMPdYqrI7btNS4X
-         O1rY/nMaSHl7rd6pBFbrmOlqUjFFwubSNafLe0zsqjEGnMRxnnrc5KgGTiDRHlD9ZfNO
-         FRVQ==
-X-Forwarded-Encrypted: i=1; AL+hErGQvKIxFVap7b3knvO7oLFDD+x+xlIv0fyoqeYRNSitcIWX0jBrLxCSEs2rgsqEb1/naa9jtQL8CbbQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bypHBvFeyZZ/Vph+wLsnfBdywBJJwX1bPEWabww+UjYRyjMiN
-	8X2Lc9KUPz0Lf0n8aKV52rhOKIwONkYT9w5ycJ2N+qv3/sOdRRImY3lvISjEJRYQyFQ=
-X-Gm-Gg: AYBFou08Q+N4qtiQuWNAQB3igOqAsHxF4tfKLvyVByNC4THw8rTS7v+DGocAO5RmW09
-	wzi52Ab2nhIfDRxUumVC1LoQ3bQVk3F4RjiV1QLeb3VQNO8dLTCLVAG0tU/cuRtNCZEHtp7k67H
-	Se8uLPeu/gPno9lXKJw/BEgt1VHhRy00Ylx6PkuVIoahTBM6Ku8Y98z+847dpyEGqNxRVgSN8PM
-	v86wh905/LykdfmN3hLy22nUxgORrnvrE082N9bwo0CUreH9JstRIArrn4eyRTDHVuwkzTgAJkC
-	vfekwjiJ4Oa0pvJM6kIpqcGiZ1EW1jSh/P9ZFpNFgmOqzs81xQDFU2clxqa6lBW4KA5vW7zF1Ec
-	d7YTtcVFwieLoBchIAGeVl8W3Q+nWYdW6pD8wQw5SNkbtfuhhf6Si8DqNDK1nA4/wFWcnypjS4O
-	5Z8h9qgE93wHFqwPFrTHsZZV802/frb/WkmDoqnY67kI7FBOcehaJ1YiKFqfqrHEeiaoMfXhTbO
-	Rl8UJzOSTsE3yjbrfjx0BzBT3zJIUi9ey+BQjMXGR53A7GU//YCmcoBn6y2ZJcCC6PA377ereii
-	zszNzGXlM5lOam4ovQZJ9JYix/dzrzAuTOPV7zloiC5XBkCy5OBOmZEyfGj2I2ooOmQQwG5thkn
-	T+JCzIW1MgwFJN+APs2dfezLXe3+0AXi3bbobIaOc6pjKGHrAUTXGfJse0HDPlxzLZyPlU7iQ1q
-	5hJWE=
-X-Received: by 2002:a05:600c:3e0a:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4b94d7634e9mr71704465e9.2.1794231391656;
-        Mon, 09 Nov 2026 05:36:31 -0800 (PST)
+        bh=LKWAw/AZxDTQtn5ObFqcUuzM3ObhugKfW3Vkn+etxwQ=;
+        b=xKC0/Fc/15fhskHxmSGMXjhx8PryFpyNxnULNDlKOmY6dxXJC2K1e2MHL3wsoI5C9l
+         PUCs/zWG5/KJBmFbvKIGmkIytCxnhiFoDFfkEc1Rq6IiCbv5LnV4O0EIknRAxonz3WIX
+         3PVszO+UHSy/szMBzYXv4dPjM/TSKrjC1Led0903I9WjhibeQK8xz3kTIML4tUS57ATR
+         98AF5AGDrKcxpAqfUK/3e9SC65MflFJaiP4Ya2vcUO+N0xn0is6Rle+1S9SZx6popc3r
+         zyEIzG9rN8b753JEx6OiFEaK5hhXeTdpnX9M2NDWg4nlF1ejwDrPV8sYvkYLlJWwLnei
+         Qx0w==
+X-Forwarded-Encrypted: i=1; AL+hErH6hohGVOsGv2Iz0mnm2fos10Z0kyQ+4sYWo5NUFySTX+J3rGiCYfvQokBswPXRmNYCHgCQRrtMXL+m@vger.kernel.org
+X-Gm-Message-State: APuU4Z+g/0N0Mmtqq6IECf1IP/JNmJOyqPKFs88sAkfJitXLgDMpcSH1
+	oVpqbgjv2lT1aeIHROVxe415dRpU9pR7FV1ttC5v3kVL0lnhKjxU9JKkKYPoIe5tEEc=
+X-Gm-Gg: AYBFou1lNBg2/h4KIItjDi844fPStLNkomc0sj5nLRoook5jENAgioSWvSE3dtvY+6d
+	6Za0/AbW4eqIzoBHWcSJI5wCF8oR7menz76KVF7o3wfgth8Mcym0FOMI/QQcI7Bwl66iqbA1y2s
+	YUqgwA44XN+YWiLFIXAW+tReSHOlYoLUZmcZ3zcppT7XMX3+HmnsJEuyi8Tpa5cTvMelsHQCP1l
+	7+muPUznN7C2EoIIIFjQjDvPHEDepU1YUbauK1rxrJi++kv1EzHzebk2SRjUO0NAZFcPom+vews
+	BRA7cDl947dRqygKe1oWm+asYHV8YRHmXdD4GxdOT3sEPJoNY1dZLulZja/GWbwRQpBGtjuZb+P
+	d97FGbT45reM2fML/FZwXzq4tMv/wBcd4X/M8DhzhYZaaYr/jO0Z25iSYTL3DhKAGQSxSXW99H2
+	lpqof2Asszfz926scB3bUPS7fYDPSzFcl4S30FAuYpYjnwliJlt0ujJgWOBa2Lh9aTELU9AMTzi
+	YmTm2I8y6zZiIpoJyfGZDTWffzLJxnXb5G32gSOo8ei+LZCMAV/j1NiuzzirX3gtFc8Q0qXZR3o
+	tVe+ZHZPnnGqwJ/mJwS2B02CPre0Wa9mEOWtzzB/3yiG2+us2gknUd+Jg8J5ByY5JD5FhqREJre
+	6HPvQ9pwwKDm12gJI0zORv4PRC0kedjCV3Vbst5sFrZi1pdF44/q7ZdOjeBUT7Mmb6xpkMteymz
+	Kljc4=
+X-Received: by 2002:a05:600c:3f1a:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4b963c6e08amr75104175e9.22.1794231393335;
+        Mon, 09 Nov 2026 05:36:33 -0800 (PST)
 Received: from threadripper-fedora-workstation (cpe-109-60-83-229.zg3.cable.xnet.hr. [109.60.83.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1b64esm245418915e9.13.2026.11.09.05.36.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1b64esm245418915e9.13.2026.11.09.05.36.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:36:30 -0800 (PST)
+        Mon, 09 Nov 2026 05:36:32 -0800 (PST)
 From: Robert Marko <robert.marko@sartura.hr>
 To: linux@roeck-us.net,
 	robh@kernel.org,
@@ -100,9 +100,9 @@ To: linux@roeck-us.net,
 	linux-arm-kernel@lists.infradead.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v2 5/6] hwmon: sparx5: register LAN969x fan as a cooling device
-Date: Mon,  9 Nov 2026 14:35:09 +0100
-Message-ID: <20261109133609.810876-5-robert.marko@sartura.hr>
+Subject: [PATCH v2 6/6] arm64: dts: microchip: lan969x: add fan controller
+Date: Mon,  9 Nov 2026 14:35:10 +0100
+Message-ID: <20261109133609.810876-6-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109133609.810876-1-robert.marko@sartura.hr>
 References: <20261109133609.810876-1-robert.marko@sartura.hr>
@@ -117,270 +117,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow the LAN969x hardware fan controller to be used by thermal-zone
-cooling maps when cooling-levels are provided on the fan child node.
+LAN969x provides a PWM fan output and tachometer input in a register
+block separate from the temperature sensor. Describe it as its own
+fan-controller node and keep the temperature sensor compatible.
 
-Translate cooling states to PWM duty-cycle values and keep the cooling
-state synchronized with direct pwm1 writes. Register the cooling device
-against the fan child so thermal references resolve to the correct node.
+Connect the EV23X71A fan to the controller and route its pins. Use a
+25 kHz normal-polarity PWM for the board low-side FET. Set cooling
+levels so the fan starts at full speed.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v2:
-- Use hwmon_lock() for cooling callbacks instead of a private mutex.
+- Split the fan controller from the temperature node.
+- Add the EV23X71A fan child with board-specific PWM and cooling levels.
 
- Documentation/hwmon/sparx5-temp.rst |  14 +++
- drivers/hwmon/sparx5-temp.c         | 145 ++++++++++++++++++++++++++--
- 2 files changed, 150 insertions(+), 9 deletions(-)
+ arch/arm64/boot/dts/microchip/lan9691.dtsi         | 7 +++++++
+ arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 8 +++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/hwmon/sparx5-temp.rst b/Documentation/hwmon/sparx5-temp.rst
-index edb12f890172c..522707ed5a5f5 100644
---- a/Documentation/hwmon/sparx5-temp.rst
-+++ b/Documentation/hwmon/sparx5-temp.rst
-@@ -49,3 +49,17 @@ PWM consumers. The pwm1 value describes the logical duty cycle independently
- of the output polarity. Frequency requests are rounded to the nearest
- hardware divider value; requests outside the divider range are rejected.
- pwm1_freq reports the resulting frequency.
-+
-+Thermal cooling
-+---------------
-+
-+With device-tree thermal support enabled, the LAN969x fan can also act as a
-+thermal cooling device. The fan child's cooling-levels property maps cooling
-+states to PWM values from 0 to 255, in ascending order. When cooling levels
-+are provided, the driver initially selects the highest level.
-+
-+Manual pwm1 writes remain available and update the reported cooling state
-+to the highest state whose PWM value does not exceed the requested value,
-+or state zero if the value is below the first level. Subsequent thermal
-+cooling requests can override manual PWM settings. Each cooling request
-+programs the exact PWM value associated with the requested state.
-diff --git a/drivers/hwmon/sparx5-temp.c b/drivers/hwmon/sparx5-temp.c
-index bdf08931f5b93..caa3fad367684 100644
---- a/drivers/hwmon/sparx5-temp.c
-+++ b/drivers/hwmon/sparx5-temp.c
-@@ -14,6 +14,7 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-+#include <linux/thermal.h>
+diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+index 52c22dd1a15d5..039c2014aa341 100644
+--- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
++++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+@@ -522,6 +522,13 @@ sgpio_out: gpio@1 {
+ 			};
+ 		};
  
- #include <dt-bindings/pwm/pwm.h>
- 
-@@ -47,10 +48,14 @@ struct s5_hwmon {
- 	void __iomem *base;
- 	void __iomem *fan;
- 	struct clk *clk;
-+	struct device *hwmon_dev;
- 	unsigned long clk_rate;
- 	u32 pulses_per_revolution;
- 	u32 pwm_period;
- 	bool pwm_inverted;
-+	u32 *cooling_levels;
-+	unsigned long cooling_state;
-+	unsigned long max_cooling_state;
++		fanctrl: fan-controller@e2010348 {
++			compatible = "microchip,lan9691-fan";
++			reg = <0xe2010348 0xc>;
++			clocks = <&fx100_clk>;
++			#pwm-cells = <2>;
++		};
++
+ 		tmon: hwmon@e2020100 {
+ 			compatible = "microchip,lan9691-temp", "microchip,sparx5-temp";
+ 			reg = <0xe2020100 0xc>;
+diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+index abb21a8bace9e..3cbe5beebce1d 100644
+--- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
++++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+@@ -775,9 +775,15 @@ port29: port@29 {
+ 	};
  };
  
- static void s5_temp_enable(struct s5_hwmon *hwmon)
-@@ -124,6 +129,20 @@ static int s5_read_fan(struct s5_hwmon *hwmon, long *val)
- 	return 0;
- }
- 
-+static void s5_update_cooling_state(struct s5_hwmon *hwmon, u32 pwm)
-+{
-+	unsigned long state;
+-&tmon {
++&fanctrl {
+ 	pinctrl-0 = <&fan_pins>;
+ 	pinctrl-names = "default";
 +
-+	if (!hwmon->cooling_levels)
-+		return;
-+
-+	for (state = 0; state < hwmon->max_cooling_state; state++)
-+		if (pwm < hwmon->cooling_levels[state + 1])
-+			break;
-+
-+	hwmon->cooling_state = state;
-+}
-+
- static int s5_read_pwm(struct s5_hwmon *hwmon, long *val)
- {
- 	u32 data;
-@@ -183,17 +202,23 @@ static int s5_read(struct device *dev, enum hwmon_sensor_types type,
- 	return -EOPNOTSUPP;
- }
- 
--static int s5_write_pwm(struct s5_hwmon *hwmon, long val)
-+static void s5_set_pwm(struct s5_hwmon *hwmon, u32 pwm)
- {
- 	u32 data;
- 
--	if (val < 0 || val > 255)
--		return -EINVAL;
--
- 	data = readl_relaxed(hwmon->fan + FAN_CFG);
- 	data &= ~FAN_CFG_DUTY_CYCLE;
--	data |= FIELD_PREP(FAN_CFG_DUTY_CYCLE, val);
-+	data |= FIELD_PREP(FAN_CFG_DUTY_CYCLE, pwm);
- 	writel_relaxed(data, hwmon->fan + FAN_CFG);
-+}
-+
-+static int s5_write_pwm(struct s5_hwmon *hwmon, long val)
-+{
-+	if (val < 0 || val > 255)
-+		return -EINVAL;
-+
-+	s5_set_pwm(hwmon, val);
-+	s5_update_cooling_state(hwmon, val);
- 
- 	return 0;
- }
-@@ -313,6 +338,89 @@ static const struct hwmon_chip_info s5_fan_chip_info = {
- 	.info = s5_fan_info,
++	fan {
++		pwms = <&fanctrl 40000 0>;
++		cooling-levels = <0 128 192 255>;
++		#cooling-cells = <2>;
++	};
  };
  
-+static int s5_cooling_get_max_state(struct thermal_cooling_device *cdev,
-+				    unsigned long *state)
-+{
-+	struct s5_hwmon *hwmon = cdev->devdata;
-+
-+	*state = hwmon->max_cooling_state;
-+
-+	return 0;
-+}
-+
-+static int s5_cooling_get_cur_state(struct thermal_cooling_device *cdev,
-+				    unsigned long *state)
-+{
-+	struct s5_hwmon *hwmon = cdev->devdata;
-+
-+	hwmon_lock(hwmon->hwmon_dev);
-+	*state = hwmon->cooling_state;
-+	hwmon_unlock(hwmon->hwmon_dev);
-+
-+	return 0;
-+}
-+
-+static int s5_cooling_set_cur_state(struct thermal_cooling_device *cdev,
-+				    unsigned long state)
-+{
-+	struct s5_hwmon *hwmon = cdev->devdata;
-+
-+	if (state > hwmon->max_cooling_state)
-+		return -EINVAL;
-+
-+	hwmon_lock(hwmon->hwmon_dev);
-+	s5_set_pwm(hwmon, hwmon->cooling_levels[state]);
-+	hwmon->cooling_state = state;
-+	hwmon_unlock(hwmon->hwmon_dev);
-+
-+	return 0;
-+}
-+
-+static const struct thermal_cooling_device_ops s5_cooling_ops = {
-+	.get_max_state = s5_cooling_get_max_state,
-+	.get_cur_state = s5_cooling_get_cur_state,
-+	.set_cur_state = s5_cooling_set_cur_state,
-+};
-+
-+static int s5_get_cooling_data(struct device *dev, struct device_node *fan_np,
-+			       struct s5_hwmon *hwmon)
-+{
-+	u32 *levels;
-+	int count, i, ret;
-+
-+	if (!of_property_present(fan_np, "cooling-levels"))
-+		return 0;
-+
-+	count = of_property_count_u32_elems(fan_np, "cooling-levels");
-+	if (count <= 0)
-+		return dev_err_probe(dev, count ? : -EINVAL,
-+				     "invalid cooling-levels property\n");
-+
-+	levels = devm_kcalloc(dev, count, sizeof(*levels), GFP_KERNEL);
-+	if (!levels)
-+		return -ENOMEM;
-+	hwmon->cooling_levels = levels;
-+
-+	ret = of_property_read_u32_array(fan_np, "cooling-levels",
-+					 hwmon->cooling_levels, count);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to read cooling-levels\n");
-+
-+	for (i = 0; i < count; i++) {
-+		if (hwmon->cooling_levels[i] > 255)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "cooling level %d exceeds 255\n", i);
-+		if (i && hwmon->cooling_levels[i] < hwmon->cooling_levels[i - 1])
-+			return dev_err_probe(dev, -EINVAL,
-+					     "cooling levels must be ascending\n");
-+	}
-+
-+	hwmon->max_cooling_state = count - 1;
-+
-+	return 0;
-+}
-+
- static int s5_get_fan_data(struct device *dev, struct device_node *fan_np,
- 			   struct s5_hwmon *hwmon)
- {
-@@ -346,18 +454,19 @@ static int s5_get_fan_data(struct device *dev, struct device_node *fan_np,
- 		return dev_err_probe(dev, -EINVAL,
- 				     "invalid pulses-per-revolution\n");
- 
--	return 0;
-+	return s5_get_cooling_data(dev, fan_np, hwmon);
- }
- 
- static int s5_temp_probe(struct platform_device *pdev)
- {
- 	const struct s5_match_data *match_data;
-+	struct thermal_cooling_device *cdev;
- 	struct device *dev = &pdev->dev;
--	struct device *hwmon_dev;
- 	struct s5_hwmon *hwmon;
- 	struct device_node *fan_np __free(device_node) = NULL;
- 	void __iomem *base;
- 	bool is_fan;
-+	u32 initial_pwm;
- 	int ret;
- 
- 	match_data = device_get_match_data(dev);
-@@ -397,16 +506,34 @@ static int s5_temp_probe(struct platform_device *pdev)
- 						     "invalid fan PWM period\n");
- 		}
- 		s5_fan_enable(hwmon);
-+
-+		if (hwmon->cooling_levels) {
-+			initial_pwm = hwmon->cooling_levels[hwmon->max_cooling_state];
-+			ret = s5_write_pwm(hwmon, initial_pwm);
-+			if (ret)
-+				return ret;
-+		}
- 	} else {
- 		s5_temp_enable(hwmon);
- 	}
- 
--	hwmon_dev = devm_hwmon_device_register_with_info(dev,
-+	hwmon->hwmon_dev = devm_hwmon_device_register_with_info(dev,
- 					is_fan ? "lan969x_fan" : "s5_temp", hwmon,
- 					is_fan ? &s5_fan_chip_info :
- 						 &s5_temp_chip_info, NULL);
-+	if (IS_ERR(hwmon->hwmon_dev))
-+		return PTR_ERR(hwmon->hwmon_dev);
-+
-+	if (IS_ENABLED(CONFIG_THERMAL_OF) && hwmon->cooling_levels) {
-+		cdev = devm_thermal_of_child_cooling_device_register(dev, fan_np,
-+								     "lan969x-fan", hwmon,
-+								     &s5_cooling_ops);
-+		if (IS_ERR(cdev))
-+			return dev_err_probe(dev, PTR_ERR(cdev),
-+					     "failed to register cooling device\n");
-+	}
- 
--	return PTR_ERR_OR_ZERO(hwmon_dev);
-+	return 0;
- }
- 
- static const struct s5_match_data lan969x_fan_match_data = {
+ &usart0 {
 -- 
 2.56.0
 
