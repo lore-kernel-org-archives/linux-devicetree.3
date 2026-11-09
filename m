@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794262072;
-	b=dzCB4F4l24YkEes0p/Q0E+7Tn763p61KPKHcMujRnBggV8E4Mlf3lqf2oACB8ddhi85l
-	 kvjxL3fE6hVUkj6Eye726jpRCoJwuSktMt4ZkPT8pYOChGmR8G9n+wiH70+WEg1MWjUT2
-	 2lOtXqZ14bChaTbQtk01858xlVObBaHTxcloPIpmuv4Sxfh7UU5qftthxz15JMrLcdH6q
-	 UC3ckmoUOq0wy/cADCMqpjq7tG4oJDc6Hmu08HBg8SRN3sif5SCmx6Wox1fLfR+X7XugD
-	 FM0/d/QSPv+GsfK+7dxlnNRWhIn5ErhPwjfJaXfgAchDrR3eSQnSeF+3wjtKWVQkdQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QcUpnpKg20NxvBr0a5ywGW50/2qOjmULZA7gI4yvXH0=;
-	b=myxF0mvZgQsu00yGDaDEydyLID/Y++vUpzEbNRR3z4hgWPsM9C9tRdvDvKTBKuJncYKc
-	 i4+r8R5UC7/6WiqY6SsnQflrpbFcfmVL4FGkdrGcfP7ljFezS90V/bmrHL+Tf1NaWLqH3
-	 v6Yut/X+YLUkdvq+mV6js1LOxeDAeQxQWhbJ7El1lxi1AfjV7vJulj5xPoe63OhgqwNkV
-	 TW4tAOrSh3sDadqfsCtkrsCouL8ZMgm2LYboaZu+Vp7UE9lfWkckRJEyh8IFPkOmbruqs
-	 mKF0VW197HlAj9hefnEtFFLTB/OCAt0jb+BgWsRbR9W/NhCfWcC2qyVXj10ZJQ/vQ5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=spacemachines.com;
-	spf=pass smtp.mailfrom=spacemachines.com;
-	dkim=pass header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BaWCv17P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794262527;
+	b=S6MX/JyLBy6+z/gqsVAb3Z+kxn5WEdOwib7biJmpzmkUdV7WAoDXnuscPBMnWFX2NSSB
+	 mpP42QY50LDT+HcINjU+VFAHknVPIEKm2VLaqbIN4QVJfepJd9AqiKztF1GWF/6Uh5dS5
+	 iNv1pnMr0GptlRgnHfRsY6PotAZxMcRGynOo1aDWbl52aCnnJoYqaB7TPTiciIy7pPa5E
+	 WWkQk2djZMe9GyvX9OjBL67hOMUavCT/YrqX0fjJ0U9VWorh7a3NijoXRsLOHAt4P2/z+
+	 mzErt0q1WwLRhpufVVjQ2XWkmOaT0GEa0LHxrPuB9vGrKHzwIOywrDpVBhTgeOvS/gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262527;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=r4ARuiayoGmnb3gobGgT6ycbMUSvczq2GaGID26XOPc=;
+	b=Ws9Q4r/Bxxvz2xu+gTZG95dlwibW9iP7UyWd3M+wYQ24W1oXfw+SaQqTgUczCLubvro8
+	 pDkoqiZtoD4fN6+vGkZe0x2FylHG9enfEnHckJwsTKZDQi7LwT26uGb80C7y69smMsy1X
+	 OYe4bxGNsSk/3M5VCB3oScgjYyGlmNn8zUkohjOEdeTe1aOAg3m8u2bw8GkiwuVKm/Bzi
+	 3rGRVRsG5p/nDTPa+SIM7h0q98Jv5wr8tzNwfIMWws7PDT+WZ3XkkvgF8O9aTbQohjynB
+	 Ew6k/uhx24aCQT+4b1USonzeQ9E3JuWHskr1M+cSWc7gq1aRH5htlM23X0e/GtB6psA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=ZSljuwdH;
+	arc=none smtp.remote-ip=95.215.58.4
+Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45077606A326
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45077606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=spacemachines.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=spacemachines.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447B0606A337
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:15:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 447B0606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BaWCv17P
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3704d30b84fso1754250eec.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 14:07:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794262066; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cGO/0ASXTILGA62Q6bKC6VxD6iXlS8MMH7ZkLwudyCFgZgnF/dS3BwvhDm0xZhT28N
-         DLyX3Tss1E52Iua3W/0Lw7o4Eiyn47BEGROPHxgy4Dc4uVTYjXVL7i2rmO8QFePlhtky
-         gl5yO/3yvWhw2KceR/zYkpYZaUrZBBHk+bFzXsl5FIMwByjq3Wfeu7kgIJJiLs0U2Js7
-         M9RHfOrS7x6bzJbORLWNhcBnPIztqNC55/Zm02j+QY2OmuxteMqoE/K2VrVRlj/oGWvS
-         8ikXD+K+4JvD+fXWNKeOIfVs2l4b9Q+gWD5ekU4Pan6YdJtxmCdjMWWsxGAgXfZRuAht
-         TSFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QcUpnpKg20NxvBr0a5ywGW50/2qOjmULZA7gI4yvXH0=;
-        fh=m6iZP56//Kt4A2XSRV5q11o2sQnBORPkaS71xEuF0LY=;
-        b=f5+2fCZl3HFwLMWEhC3eO/5jsBiaJe4ZT7inCX7BNTevn6/GZK+wnEXZw9NN5fQoLB
-         cUQVOqO0Qm81h/TvzRUig5+ERRIapLQ6IwK4af5CdAOE4i8gr+qpQKT7nKAiDXHP3r9g
-         jO4gHqc36AX/4uwm2DN4t6t6bQ3P8Hlo59X/CXPtd/WSzLMILQOMH+j19PGWCaQAI26H
-         vyL+7dbPeFyhlBD5sPXIVwzsqBn2QG8XoYQjn1mX22LeK5U6BQ4C69osGrlUh5mRgVRi
-         skkxKKp3+vLMY0tiqzznBEj0Vy8HIUz+4z/XYgB6ObpX9oQd0lVrbXrqTXi3LO5pEzD+
-         k2Qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=spacemachines-com.20260707.gappssmtp.com; s=20260707; t=1794262066; x=1794866866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QcUpnpKg20NxvBr0a5ywGW50/2qOjmULZA7gI4yvXH0=;
-        b=BaWCv17PHSiTRyTlxQPASAWMJeZnaXjziuwGrHaCRLqUplR+O3Kjd9torHVzPfp+UI
-         F27fPXDPMT0ZfDiQCfyyHaVBZnhJTOL+f5UKoRfCgLiketMQBubOzUgCYheQLm0DiEIZ
-         0ooQfMaKuOnrI2kf0B/s6oebZTPCSw6EbpBrXQl3JUIQW1NBiVAvQoOOXtaJiAx0c3gi
-         i3f7TFDaLQpscHuXusjrHwiDy1UVtthdK+fyJtyE+IcaCdO/oDUvwe0C6pNMWU0vXnay
-         UUppCSBDgt1ALp3dSdpGiyRG2mf8fti5QitibXUlFb04c7/nD3OVDTMjyorP8BWCfO2u
-         ot0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794262066; x=1794866866;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QcUpnpKg20NxvBr0a5ywGW50/2qOjmULZA7gI4yvXH0=;
-        b=zkrJopyMGwxiEcg3XtHFS4c5lsd9F7v1EgETvgVmAqQWlrSTBzxblY0Yk90SYTNyVK
-         MyOqpdKdc1DJkuIxnPiiyVBdJ1XOIt7Iw+SUMPWn2Y5y9FyYgqZ5ZrrhqQfSDiTfHlXL
-         41odZLxSefHjtSGi9HW065oOcK+Ead9/b/3GmDSW2hoapuSb6JNwY3LV/HJoEFKACMPw
-         Bur/kG7MpMU907CKaSL7fX37uP7RlMv+aGQwJsqlf6zpK2IDyc97Dsai7vsfUKNULWBM
-         qNs9WxWMqQisPyDzATpm7sRO0O0Rerze0sKPZFZuXBLI4hVnlM05rqUbMDVZ1rALtl0a
-         VStw==
-X-Forwarded-Encrypted: i=1; AL+hErEId8f9fJPLrOoBWVnk3uUOtwovdfsBK0KiznGD6y4bA2OBVvGeFVaZCdxjFV5QEVWREDlFPVL6OjMA@vger.kernel.org
-X-Gm-Message-State: APuU4Z8f9F/BMUoHi6srXOZXfMLVuA4le2k+MpHGbxYIMhuETLrni4Fd
-	olLwsfrLhJldF+DxisTANie9hHpfX+PsjX1+2sXKow+oG03Xp1tX9OgA7iGLh+rnAcjkQetCqVf
-	2zl/HyNw4QNjD4nuw7ahygFIjuYy2xVUVfUBpRWaQwA==
-X-Gm-Gg: AYBFou2k/n3X+eVVoDw37QDTpCHXsyq+us9nEjmtJ9Z3IevPLvsYaw0oYN9WUc+G6IT
-	uyTzgQFlK7igTFQlReVrNPKbv+bmJfgbftkjQAg8TXhtKtBWBP/U7iONyXN1coqBbMg7gI5ZK8x
-	POlrE7lq6YBvjOW67itP0kboEzTCfZpPsMSFKVot9OvW0aaAeA47KAt/qe8vPZOQ4FUeLgvOIXk
-	D31pmEYDqroQT/sbbNG3E8wPDSSh4uEzc5w7iZs/UgP6xN6iLaXpDlXpHB3ql37wdT2vPQshaOZ
-	tQP+tscr0B2HG7p3HWn65w2ri8slybgC2jL3Rmcbv/nUWNQ58kxmvYelXrwsvyGOgqOh05/6EVQ
-	vOwe4yPHmqfWk4vEU90AbF0JcBdCtnG1PRg3/93biiu6Yc+m3EVEBAoSLTEw=
-X-Received: by 2002:a05:693c:834e:b0:35d:2633:ff79 with SMTP id
- 5a478bee46e88-37520510ae6mr909969eec.40.1794262066318; Mon, 09 Nov 2026
- 14:07:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=ZSljuwdH
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Q8GRugxCN0NxT2mKf+lhcXEmhEoypzxpW7nD5nFeee8=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794262519; v=1; x=1794867319;
+ b=ZSljuwdHdZ2QQkNrbGO019qqxfRoUdP22jVio1D3C+4gNbKVyH5DRZfSNtxEMVEgAG10rZEi
+ vMNd/ypwN7k46sOWQbUU4vd6eXAGhRfVTzdf6b5oskiqu29UzwLNdpvwu2jNfDta5iFNfeykhj5
+ sppleSrDUvh5S8RKy0Zn0ofZyQRoupHCEnfeytU988SeHm+G81aAIxvSXsr3Wc2+aI2i6ASpE3O
+ TKPdeZHRHngWoVkfrrfPsoLJXOm6Ezet/q3VeMGa1ZRKdwlBVP0SLjY2fOQZh9fDDTlm0zBVtdn
+ mDbhRqR+/tqPQLypfSsb+bmSbdUDJB5af+fwivlYzae2A==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ae3d32ff97ae3f5;
+	Mon, 09 Nov 2026 22:15:17 +0000
+X-Mizu-Trace-ID: 5ae3d32ff97ae3f5
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Michael McAllister <me@michaelmcallister.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/6] arm64: dts: qcom: Add Moto G9 Play (guamp) / Power (cebu)
+Date: Mon,  9 Nov 2026 19:14:29 -0300
+Message-ID: <20261109221453.658316-1-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,67 +80,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
- <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
- <20261104-zen-aloha-35da49a7e72c@spud> <CADMKYUAc3QPCdpH8JL9VHk4d0iETsUL2ao2i4OhoHYoZGoAnnQ@mail.gmail.com>
- <20261109-sheath-companion-d7063fcbdbfa@spud>
-In-Reply-To: <20261109-sheath-companion-d7063fcbdbfa@spud>
-From: Kohei Otsuka <kohei@spacemachines.com>
-Date: Tue, 10 Nov 2026 09:07:35 +1100
-X-Gm-Features: AclHuK9l1GWI0bIlcJDD2h4RqXtEuzFkTr5VEGPfn7sQUhXhTFIqGkVSKW4Z4lQ
-Message-ID: <CADMKYUBqti5CNTyR=ADwTUpKTbZLCgmDf4D3cNFrwaShsQO1fA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
-To: Conor Dooley <conor@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, conor.dooley@microchip.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 6:35=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
-te:
->
-> On Mon, Nov 09, 2026 at 01:54:17PM +1100, Kohei Otsuka wrote:
-> > On Thu, Nov 5, 2026 at 3:20=E2=80=AFAM Conor Dooley <conor@kernel.org> =
-wrote:
-> > >
-> > > On Tue, Nov 03, 2026 at 11:11:31AM +1100, Kohei Otsuka wrote:
-> > > > Core16550 is a 16550-compatible UART soft IP core for Microchip FPG=
-As,
-> > > > including the fabric of PolarFire SoC. Its registers follow the 165=
-50A,
-> > > > so ns16550a stays the fallback, but
-> > >
-> > > > it raises no interrupt on TEMT,
-> > > > which the driver has to know about to support RS-485 on it.
-> > >
-> > > Doesn't this exclude using the fallback to ns16550a, since it require=
-s
-> > > specific interrupt handling?
-> > >
-> > Everything a plain ns16550a driver does works on
-> > Core16550 including transmit, receive, FIFOs, modem control and the bau=
-d rate
-> > divisor. The only thing that needs the specific compatible string is
-> > software RS-485
-> > (em485), which waits for a TEMT interrupt the core doesn=E2=80=99t rais=
-e.
-> > Without the patch, RS-485 direction control is missing, but the UART
-> > otherwise works. If you=E2=80=99d rather
-> > not have the fallback, I can match the compatible in 8250_of directly.
->
-> In my opinion, this is enough to invalidate the ns16550a fallback.
+Hi,
 
+this series introduces a common dtsi for the Qualcomm SM6115/SM4250
+("bengal/kamorta" platform) Motorola devices, basically the ones
+listed at: https://github.com/moto-sm6115/kernel_devicetree
 
-Thanks, v3 drops the fallback and matches the compatible in 8250_of.
+and two concrete .dts files for the two phones I've tested,
+the G9 Play (guamp) with the Holitech/Himax display panel (which I've
+previously upstreamed support for [1]) and the G9 Power (cebu) with
+the Tianma/Novatek panel (will send the driver once this lands,
+also waiting for the AW99703 series [2] for backlight adjustment).
 
---=20
++cc Michael wrt the G10 (capri) series [3], sorry to bother you
+about a series that already has R-b and all :) but your device
+is very much one of the "clones" on the same platform so please
+consider rebasing it on top of the common dtsi. I've deliberately
+left the SoC dtsi include out of the common one to allow for
+sm4250 as well as sm6115.
 
+[1]: https://lore.kernel.org/all/177451576040.103892.16399746050578598756.b4-ty@linaro.org/
+[2]: https://lore.kernel.org/all/20261016162912.64581-1-lukapanio@gmail.com/
+[3]: https://lore.kernel.org/all/cover.1792840208.git.me@michaelmcallister.org/
 
-Kohei Otsuka
-Satellite Flight Software Team Lead
+Thanks,
+~val
 
-  koheio@spacemachines.com   spacemachines.com
+Val Packett (6):
+  dt-bindings: arm: qcom: Add Motorola Moto G9 Play
+  dt-bindings: arm: qcom: Add Motorola Moto G9 Power
+  arm64: dts: qcom: pmi632: Add LCDB regulator node
+  arm64: dts: qcom: Add sm6115-motorola-common
+  arm64: dts: qcom: sm6115: Add Motorola Moto G9 Play (guamp)
+  arm64: dts: qcom: sm6115: Add Motorola Moto G9 Power (cebu)
 
- UTS Tech Lab, 36-38 Lord Street, Botany NSW 2019
+ .../devicetree/bindings/arm/qcom.yaml         |  12 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ arch/arm64/boot/dts/qcom/pmi632.dtsi          |  14 +
+ .../dts/qcom/sm6115-motorola-cebu-tianma.dts  |  18 +
+ .../boot/dts/qcom/sm6115-motorola-cebu.dtsi   |  43 ++
+ .../boot/dts/qcom/sm6115-motorola-common.dtsi | 541 ++++++++++++++++++
+ .../qcom/sm6115-motorola-guamp-holitech.dts   |  36 ++
+ .../boot/dts/qcom/sm6115-motorola-guamp.dtsi  | 127 ++++
+ 8 files changed, 793 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-guamp-holitech.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-guamp.dtsi
+
+-- 
+2.56.0
+
