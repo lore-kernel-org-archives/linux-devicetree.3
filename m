@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230208;
-	b=zrFZNlXTFdJghXCT07O5gixiM3Kdu2zvA1LBADlfZN9KqSdUuVyEoppnqDMStGJON1e8
-	 TWySd74q1oam0fGbKCmZTTKultiwRhe4upPvgTzBRucFyITm5p0Dz0+71a3s3YNe6GlEa
-	 aV06DfZNUA/Kt8y96J+zoRCOEAi4kxdCRM5VZ4eWhkM9q9ZAfuwT+5kXMFOrRcanytfDH
-	 7H6hUmUoovaVIhiEATEeVC9DtWFb1Dhp0hDSHfo5XuskZrw2OajGgpgq4KlHitdciA3p4
-	 GUVee+1rFY+/UfvOyZ1rGlEXQY9sp/E5kQL7eP3sif1KIgdTWCmdMB8CibJnXfwpulA==
+	t=1794230311;
+	b=L4Tno4TYfVdH+4DdnlPJcM8l+XU4L4tueSdRU+RgfVEaFsQHzmToGa2pbF4EYTrG3+Y3
+	 Gv5iC/8MaTSg/9Ul76AHzHlk5CwyjRHrEaaaoGglVuywKkE0SACMK8D1asZusHQQAql4l
+	 uDZ3VhLShk0SKOgTO68uF3telweg1sxV9zwEsa5/jN0xJ6ZUDB6CBOMnpY841aMGYC36Q
+	 WAJgkNVUk4fQc/s/TGfsAsA1hMsogU+BIvkHtTy4Ip/1ysD+QWoqxtRc3TFijpdvy823z
+	 a1JhS5rc5KvU8A0LFjt75sVkHtv0nlhDadBDZdBUd6tmKMPpwrqvrCXsouQDh0RN3vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230208;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DJZPcRbincN2Flmn0XzWIYGVCGZ+6GUHIJvSkNagofM=;
-	b=RY8rGAhTTvoENTMHqMkm5dB6Y72opD5zn9WO1omb+Z2oj3E1XMSO1F1A8Uqbo98/6aRI
-	 NhjIZgL7YPuCJl9A7QEN/mYp2fTkR3TkYvj8sYy0eMLXPk83tktdZe4u6Zy8TvyMjTDrP
-	 YWtdy1FnZltY/gK+7CeuI4amrJf8xTkAI0tO1lTnotvvbMD7cz94n/bYPL7Kme7t75m3Y
-	 +ckxm02wLP/et0JLjY3n8fbl52bUKlRMJsphbB1pnkuXDML6aRJOqNppCVeLO/z3+ra1s
-	 HSAXhZKr/LwF1ipMhdKuwApVlMfV0G/SAmf1g+fCQYJi0z83gTl7p0jUfayQAjZNTBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230311;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=t+FOpGKFuGRdLifz21Z4tvQHXWGe8LZVoeHlQNW8ceQ=;
+	b=OKsIomBCPB5RUmELUq3KyMTS6Eh8SQyC/KHd3+2iSJWn5TaRcv5On67XCTVuOYYq9sVi
+	 kPtw+/3G6no9pSRCXxo/5unTaXb/CVBOfNmVya3+io6BV7PZRha8fW0QdklWyrBMo/yFH
+	 HyzTL+9a8rfRFTLXs1cmBuXZu9FXjdgAq148HIXIHL2oTTNXfpgM7/sijFhefK0BYiTcb
+	 yewnElR6wT8Mt6rJpl4JCzp28pjrc+8RKbHGrvpDrm/30yqFoaMa9QyDhNxXo2v11Fs2B
+	 OQ2fJnINAnWbfXNgdep7u41XrOyMkb519+uo0oiQHmZhDXYP26C+DeRWGOMMDcjZ5Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFxeMox;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nKYc/EVm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A312B606A325;
-	Mon,  9 Nov 2026 13:16:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED8D606A31C;
+	Mon,  9 Nov 2026 13:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFxeMox
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422911F0089F;
-	Mon,  9 Nov 2026 13:16:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nKYc/EVm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E821F008A1;
+	Mon,  9 Nov 2026 13:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230208;
-	bh=DJZPcRbincN2Flmn0XzWIYGVCGZ+6GUHIJvSkNagofM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QzFxeMox9FdkZ2u7XwmZNmFg/6SH/4OkYDiOeM/es4Zkigp73LJCh9RFxWqhkbBwd
-	 bOhikqceoK5Teh87RaeaA2h9iKGEUyOIRL4HEtXcUN9yfCIMYn9QlSRdNKMwQQcNMj
-	 vtjH9LanRUvxBgWMEKhhmUHnOzo+37FEZF0LDvjN9edS8vTjKnkk8mLNFKpzY9gFKo
-	 75rMKNCiMK9plFuUXXycbajy4nHzqPBArHWrb+6CPqqaaOj9bCW+ja3C3r1+v9GwNZ
-	 wl1ITNQZGJy8Q509MrXDq0ddk8RCvElmhA7NP69HGoNIloXGOThV+snSyuO4pqgkLd
-	 nAvhA9b5Irv7A==
-Date: Mon, 9 Nov 2026 14:16:44 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shan-Chun Hung <shanchun1218@gmail.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
-	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
- MA35D1 PDMA controller
-Message-ID: <20261109-petite-imposing-ermine-fbbbcd@quoll>
-References: <20261109052900.2960473-1-shanchun1218@gmail.com>
- <20261109052900.2960473-2-shanchun1218@gmail.com>
+	s=k20260515; t=1794230310;
+	bh=t+FOpGKFuGRdLifz21Z4tvQHXWGe8LZVoeHlQNW8ceQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nKYc/EVmAZDUs79sIs1nw9kCaqsB5YwRy5Qnq2isqAWVDEl4/50b+uVVBXluj0LNo
+	 RuXEB3UdyK+y8Zx6KVGLWonEppUcZZ6t8hKEYgA5DxawthERePLp8te00W0hBntTNx
+	 OxVYb+bLb+5R3FZT6wZdMYJ//BBrF2zgUTh2wfQmz1gC2DYK0XdtHMhZO8R4aSdAaI
+	 WLFWHnTyINu4WIJXBt1gGNve1uJFn7PmuEF+jEcYh7NcsSFgsUC7mHb70GD+ZmO3xf
+	 TkbFihs4mtK3bS7GEbofGLESOTnyOZBCYwE2DBfgGY4Vh82snA5K8+28IswVKJs5ED
+	 uq/j/d/qHl8sQ==
+Message-ID: <9b05fd08-7bfc-462b-81b8-a560350f4235@kernel.org>
+Date: Mon, 9 Nov 2026 14:18:23 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,21 +51,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109052900.2960473-2-shanchun1218@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT37802
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Jayant Shekhar <jshekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109-jshekhar-nt37802-v2-0-a8e9efdcabd7@oss.qualcomm.com>
+ <20261109-jshekhar-nt37802-v2-1-a8e9efdcabd7@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261109-jshekhar-nt37802-v2-1-a8e9efdcabd7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 01:28:59PM +0800, Shan-Chun Hung wrote:
-> Add binding for Nuvoton MA35D1 PDMA controller.
+On 09/11/2026 07:27, Jayant Shekhar wrote:
+> Document the Novatek NT37802 AMOLED DSI command-mode panel.
 > 
-> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > ---
->  .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
->  1 file changed, 71 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+>  .../bindings/display/panel/novatek,nt37801.yaml    | 49 ++++++++++++++++++++--
+>  1 file changed, 45 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+> index 1b38c1d0af68..be318cc84d52 100644
+> --- a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+> @@ -4,26 +4,30 @@
+>  $id: http://devicetree.org/schemas/display/panel/novatek,nt37801.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Novatek NT37801 AMOLED DSI Panel
+> +title: Novatek NT37801 and NT37802 AMOLED DSI Panels
+>  
+>  maintainers:
+>    - Krzysztof Kozlowski <krzk@kernel.org>
+>  
+>  description:
+> -  Naming is inconclusive and different sources claim this is either Novatek
+> -  NT37801 or NT37810 AMOLED DSI Panel.
+> +  Naming is inconclusive and different sources claim the NT37801 panel is
+> +  either Novatek NT37801 or NT37810. The NT37802 panel uses the same common
+> +  DSI interface and regulator supplies, and additionally requires EXVDD.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+What is EXVDD supply? The example DTS suggests it is something fake.
 
 Best regards,
 Krzysztof
-
