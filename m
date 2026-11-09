@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246124;
-	b=p3tusRomZxju7t81ZlPQ8j+K4nrX0dFp+xKsehGqgE+allQ/z3D0wKBOQ8dLMX78Cn/X
-	 PwjjI019D6oHx4zF9nOHJuJsDuibE730iZHfhNXhnsZ+LCJOciwRb0ocHZmgmSoXL/skO
-	 UR+Pk1JtcYtCiACGcZaT7PS0zSqnLq6i3JRxYZ6T83xwMHpWNX7TuK+k2ZrEAV5UAisPZ
-	 5bGMzCgzYg1VHPCUyPhUPxYkXePWAtlCT1sVMWkkSh6VwHBpHw6YlHB7I5O23+k4Rbj8Y
-	 cxVAzocX0TnevfxX4rNSrOVAGu1c3UtFPYWzy1dsjdp1S4AY88YZ8L12H7ab5BGwstw==
+	t=1794246184;
+	b=ZWYRiadOnvRbIuiurDF/Mzt+MlDWcftVWwynz6lNs0z0oBalq3XYKOAdH+MtDWQDR6rx
+	 3AT9y7fl7JF4SHGUnlFvP4D4fHC34Zj90kDaLBAmdjnHfi78EpEusTuh7hZcvZ+CVk0Ic
+	 Of+6/LgVjn/ziPNIwM8ocXQYNvkexOWV2kIwsfbMFNdjfxXUi3KyTTGTHP+4Pqc4azkZ3
+	 BvM7Z6JQQEM4w31ARzwgEeJ2wbhN7+ya+tIC7duvAFIibcDLyvohSUmQ6e5IPkorvy2aT
+	 PyOuim1s5QE1ipN+TGJ0nP3VgVDzdDZ3R6oX9AZ7Ov1FxUWe4YYd877vHsylYmQNXAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246184;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QS0dWLS+azYRQTl9Sa/YjO/KWEZCijM0rOuiAHbxcbI=;
-	b=4EAY08B5djY+F6d5iFjUIrhq0YlFfFOV0KrUdtrR/1i7r3GJfK2EV6HTLk5mSkmS/UVE
-	 RPlFP68IPYOZ25Gr5MK1ut15xiNh/3zppJmk7EEHbKMWPSAu4MZmQLzKq+XjMQZCyoBZh
-	 cRbAcXbA1BkaL3MyqvfYaZP/B+0rAiXka/2xT8jRevzLkGY7hONjE++o8eGbIMXVeZufX
-	 Pnc90rC+hvY0ByyUfr33bXL2x5wf0xC+Q0qAcpwK9/roAtE3pANg2Gkw2FBEZNfQHRvDH
-	 IfE5zulAVJRrtOPddzRzASPIxPBHB3iVx1Q/rN/4yYIj8MvtXHEErQ/MQWJ7VdgQO2A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=khVylZJu9szyxK0HpLJ36WiAKpNmjqrATEh+FOlyBps=;
+	b=gSViwV3+g2iU2WbdfleReQq6EA2s13WO2z2xRtb/43bsz93IB08G9yREWVu4SONI9eli
+	 UzKLi14zTQTphrrjg7101EyMnwA1pZFS2t7LsrZ7Grw0h6YVq5kjqQf2Dagenc+uulPnW
+	 osbJZIR0M7/pzBSV7obRWO4L8f+MNmnN9zecJadODyUzdfoVka1YJwRN9Df8fiOiPLO/F
+	 KYigzIYJE9msuWBlRVtJrMQVStdtwzQPKeAvmVrDWZ2OgIrRfZpk6hTLGC+tXlayAwKjb
+	 oT0FLtTc82SbYO7iKJ458SLQY0A0N9DQgCLsouEHiDQp9vmDTOMZR3HSu5tjEkF9b7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=OZkRbYh4;
-	arc=none smtp.remote-ip=74.125.231.200
-Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ckZoDddc;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8350D606A33A
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8350D606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECA5606A326
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:43:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CECA5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=OZkRbYh4
-Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-53c4858eb76so517370b6e.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:42:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ckZoDddc
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4918c2d727fso605420f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:43:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1794246123; x=1794850923; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QS0dWLS+azYRQTl9Sa/YjO/KWEZCijM0rOuiAHbxcbI=;
-        b=OZkRbYh4CWcXVHA2akEUUDtFSNGE/aZiYNbv2Bul2R9gNuDFItTnYAKlIGsPlAzM6s
-         QNdmuizRCtkhUl7IUSW00qvJBA5vET5cTGJqf7Pm+UZ3JZ7KKx5PGCuqHv1PJ/Tx2jWg
-         HqC3Nfdx515yQ9oBTaqo//MnyysIHSZ6cY5v9AexUFG1F33LLFs1ARZhgE9isp8JejQU
-         9nyf1gCWpPQXJ7beV5m4llurZJYGDpN9ErqTxe4DI8jC8cP+/3d6+vzm8QwzF9xnahXi
-         i4b/J0BFghA3Nz/iHUZfvZLQqSho/5EAM94a8ThG0LdjQSizwr42rni5AwXqyrjrLd6j
-         ADhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246123; x=1794850923;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794246182; x=1794850982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QS0dWLS+azYRQTl9Sa/YjO/KWEZCijM0rOuiAHbxcbI=;
-        b=SsorRT35QBD8kYvJk7LMii2R+ZLdK9Hj/AxjmbsARFZP4pHx1ub13nisHxI4torqgJ
-         R3h8ERAoLbK70gUw3cZ/+ZbEbzXSgjXOrFsk351yrxjOGkkOl1656ZthUcuQTu/i9NAF
-         ECOym/XBvrQiNgsmsPn2zZQiXvstQvfM+JCcCkoeEEhb16MmANow/PjwZYnhuMutG+2x
-         Mdz2yWgNId32tvRQSdp6UFBiXuuRNG7pG0fFVGeedZbGw1XERTB9lPGm8DMVwXwa7t5/
-         rAyXECraxdcu9tOCiuh2DzGP18chnjd4Cp7ArJRD1tCv/LdhUnGrSzyIs6CzMB4RMoJo
-         /EZQ==
-X-Forwarded-Encrypted: i=1; AL+hErE52CaRKorDy5SWZhhQelHpasyb6HXEEVOXLil7JmmlDQ0VF9po4jLp5q6ygLHqacLpgJbIc3FbDj/8@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tQpGAxXbO9TWMpIZENMHWD4homDFx+nHReRjqTG+kCAJeDy/y
-	iLXpkLWkj7wrzkl3ZbJJeQFYJJnnCYHMdH6pub9UVg+iktGIX+fsuJTfv/uNXqnm6O0=
-X-Gm-Gg: AYBFou1XbOQ3Uj7bIFtpX9WDN0CVlOka8O06Ix+2f3sEcFABP0AbnmAJR63xTJp0d4d
-	zr7uks6Ez5mNy/SycRCl8OW9/SlaAgqiICk5OwdsYnbp95kVl0+ANsRaXDbig7Q05sMqDeOCszH
-	HC+ADUk80UBOYDfB8E2QFTX0SIbQSBNTiZX8EXIdqWULrlk8kkDBQycFaG6V+k0mc94m7aHTRCv
-	Vx3hfVf8LKgLkIOI8CwL4dDIJRqy9+Y8QfXnU1E/QdlQeI+Qyu8sXchAJ1AV2EUzd6vDE5yREEl
-	X7EIOnr5u1USix9dimJvfGgMLr221oGFILTdmZYZ/axEFMaOrEZECG3XIuMLrlsKI8926rqpOwx
-	AU7jadtCtG/96sLifpx9KwZgZwYb8i1bjcQRN/cKQKFIRxECSXL/D/+LI5CkyxEf6iPREEhBCVe
-	TtGJ+8RAgJGwRbSZ9elVlsaZ5e/xuL81/XLZa8qE4x5oOO6+NPf+A+33HlQouNH2u0jvN5k9RqN
-	hAauBFV4AK6GXb9XabdpZ7NCKgmjn2RNJqthQ+AaWPBZam7BhnTuuyzOoW53ncyUuOVG7axDUDM
-	0GnvfTXUQ3Jr1eGcanzUeefqYmKN
-X-Received: by 2002:a05:6808:2388:b0:4f5:e4ea:9ef2 with SMTP id 5614622812f47-5683c9e459emr272790b6e.3.1794246123438;
-        Mon, 09 Nov 2026 09:42:03 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813c71bd0sm4925229b6e.4.2026.11.09.09.42.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 09:42:03 -0800 (PST)
-Message-ID: <675dec20-1cd7-4d37-89b4-23237b760f33@riscstar.com>
-Date: Mon, 9 Nov 2026 11:42:02 -0600
+        bh=khVylZJu9szyxK0HpLJ36WiAKpNmjqrATEh+FOlyBps=;
+        b=ckZoDddcTDuBB8D2f6vOtjEQlPoWOfaWhUmDEC61PQ0X0I+yEL4gEl5NEH/GGcwKWJ
+         m0SWLad/8xv8sXKhB2ex0GoEl/vKHwM4LWi7D4bbNIyr5KUfSAdRJY+CM/A2eRweKoar
+         7i0/2AzyZy97qJxXeaOO+fhMRwAPMikx2EC3jEzJADjIUKU5xqX9L+MtbWhs1NWclFTr
+         NLmkJ+KaN4LMAT3AIypj3QwrDkVE1vYGvramUDwAix4DzDNmmuiAdd8KkGVC5ROtdDVq
+         IPuncVm7K0fdgckXudrURlG7B60nVfPuG4fDg/J4bz7uc0lyfzFoJyKEUW4BvlWXnLTL
+         p9iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794246182; x=1794850982;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=khVylZJu9szyxK0HpLJ36WiAKpNmjqrATEh+FOlyBps=;
+        b=o8cWyeCAZTgEFbtqk6B1CkTRYwLJOwVoh3Nj7CaJkaiUxcNg2jdmph040MrdS1T+9P
+         j1/wMuZdv6IllcLqIdpqdOGymFT053Zq2RNYHgrF5uEb0RzkyqHknP3jadZTozwu5Stz
+         8Y3qX5hYqbSQT1uLdoeQiLtx1HOb8Tv26RyIQ3y5EAM1BZ7TSqbemIOic3qG+8ZqK6cR
+         9Dhht+wf8QUBUWJxJVTrW//Xfdpes3D1AJzOqXvnS4oJ/ivhSI0PRpx6iVafkVxEs9IC
+         iMw83xUR4e8pI9aXf8UDJNPJbdBdKtvRtLIjsaQXyVNeCG42LmEyHt/q/Zvp2RtjkgKN
+         VEcA==
+X-Forwarded-Encrypted: i=1; AL+hErEUmzgmbnn1QL0P4WfkQGPzuscFSd95WP+CGzyinr6yo5YZP+tB1sMMB5m5cdiGJ/9y6stlsAiJIx4i@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2JixBkX/4iGexHcN4lJTe63Ur3wivkQ12vNJBHvnTEgXxD6lg
+	5qw9USiylArdWKy5iASEMMB9B2x5efvdSVZPC48L60BbVvW4K9Ccx62y
+X-Gm-Gg: AYBFou0IGulR8RaZZy8dYfXzowY2j5baYLqHQcxrUyzUXJuaRjZZFNLFtfczjemrHsp
+	MltoXX2X7pQri+kNWngDmgcMlnticNNANhWYa9nlF+A+KSrYm0Zp9RefAEpO+LtBIcR6ylir4JU
+	Vbr3Z9owa6IgZu5RsVjB7Lf0cUK6q2K1CX/mE3aTbN4OgDMKbVk/ZNcdPjhBvC4UufAbBfO6NdO
+	BMoxnfDLaKqnHXkLriagG5hUvzzspkuSutPxiMleOraVD5vVsPu6/uynSi3jnsYputEvTVbco53
+	9xdKasShkeRCleZMVbEA8CeCsaIzVxkxDqR7glpL+r6DU9Lf5WzJbSPw2QmHuZk2eYDnZvvwSIq
+	YKdwXYertv32IdxCFv4phvxvRzOYDyaklZ6792zz9vskj1un+kl41fNhkpByxuHNS0j84ShOuk0
+	MbtWp1tpqyZHnHtgYIi52+ZwHn466LsmtB6ooJC7O2PFmNFCsVNNRDHoLVFQPc0hW1hXkS4TlY5
+	/Bq1AvJbQSczsbmeFR1j7RCQ4B4Oe0ryC9Jw+eW6krjX/6RqG+yAUGGxyH9tyY1GkQOVnqVSF+l
+	Gu2W9Zr2EViMryk3pIdEyhylHeo=
+X-Received: by 2002:a05:6000:38a:b0:48c:72fc:363e with SMTP id ffacd0b85a97d-498309aed15mr286975f8f.44.1794246182227;
+        Mon, 09 Nov 2026 09:43:02 -0800 (PST)
+Received: from flare5 ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835f175c9sm157557f8f.32.2026.11.09.09.43.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:43:01 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: document the Halliday Top Level Mode Multiplexer
+Date: Mon,  9 Nov 2026 17:42:48 +0000
+Message-ID: <20261109174248.2086482-1-lightofmysoul@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cdfwfoubvs6dvwojrjhryjejeqcpmtllu2ko7vhjcgxshgvsga@65rliahvcppf>
+References: <20261109-halliday-tlmm-v1-0-a181d54214cd@gmail.com> <20261109-halliday-tlmm-v1-1-a181d54214cd@gmail.com> <cdfwfoubvs6dvwojrjhryjejeqcpmtllu2ko7vhjcgxshgvsga@65rliahvcppf>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,77 +105,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] soc: toshiba: tc9564: config system controller
-To: Krzysztof Kozlowski <krzk@kernel.org>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
- alexandre.torgue@foss.st.com, marex@nabladev.com,
- changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 2:26 PM, Krzysztof Kozlowski wrote:
-> On 04/11/2026 01:43, Alex Elder wrote:
->> This series is comprised of some code that was previously sent
->> separately.  It now incorporates a new system controller driver
->> that advertises clock and reset functionality, as well as regmap
->> access to its address range.  This combination is being treated
->> as a new series.  (Details of previous versions are below.)
->>
->> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
->> It includes a PCIe switch with three downstream ports.  To one of
->> these ports an embedded PCIe endpoint is attached, and that implements
->> two PCI functions.  BAR 4 for both PCI functions provides access to
->> registers controlling blocks within the SoC.
->>
->> The system controller driver adds the clock and reset devices
->> using the mfd_add_devices() interface.  The clocks and resets
->> are implemented by drivers included in this series.
-> 
-> Toshiba TC9564 bindings and DTS should be posted completely. We spent
-> great amount of time on discussing already and I pointed more than once
-> that big picture is missing.
+On 09/11/2026 16:43, Bartosz Golaszewski wrote:
+> On Mon, Nov 09, 2026 at 12:28:37AM +0000, Stanislav Aleksandrov wrote:
+>> +    pinctrl@f100000 {
+>> +        compatible = "qcom,halliday-tlmm";
+>> +        reg = <0x0f100000 0x300000>;
+>> +        gpio-controller;
+>> +        #gpio-cells = <2>;
+>> +        gpio-ranges = <&tlmm 0 0 225>;
+>
+> make dt_binding_check will not raise an error because it ignores
+> non-existent phandles but please make the example correct and add the
+> tlmm label to the pinctrl node.
 
-https://github.com/riscstar/linux/blob/tc9564-dts/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+Thanks, I'll add it in v2.
 
-Node pcie@3,0 is the third switch port (within the TC9564), which
-has an embedded PCIe endpoint with two functions.  (You can ignore
-pci-ep-bus@0 for now.)
-
-> You are not describing here parts of a SoC.
-> 
-> You are describing one, single device how the host sees it and DT
-> maintainers (and writing bindings) ask for complete picture in such cases.
-
-I'm glad to provide whatever information you need.  There is more
-than one way to provide the "complete picture" however, and I don't
-want to send something that isn't helpful.
-
-If you want something different from just the DTS file linked above,
-please say so and I'll put something together.
-
-For example:
-- Would you prefer something that includes only the PCI hierarchy
-   starting at the TC9564 embedded PCI endpoint and its two functions?
-- Is a DTS file sufficient, or do you want the TC9564 bindings instead?
-- Do you want any other high-level description of the chip?
-- Do you want more information about the system that contains the
-   chip?
-
-Thank you.
-
-					-Alex
-
-
-> Best regards,
-> Krzysztof
-
+Stanislav
