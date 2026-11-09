@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201806;
-	b=nj/AfRf3DF7kxB970PBCTxJjXTABfPnD0+3jkUsBgyT/RdUqoQlNuCk8DGhIKYvZV0p5
-	 XXANsWHE4dy6I+Lq8q7TnD5lDBaLnsWFRuRchutugIrBkpHni97JE/ZEGi417SX1MkEYa
-	 F6xILYFsgAuJSuusnsOQeNintk4yjlmV8GxBMyX40tej+EHDpVfjOww7MhvOjYUiMkdlK
-	 Cj8g3J7f1Bn0WDx3+NLo60KRtbkQlX5xgQ29oUixloaHT0nUP7JoZHFsK0kbh1IucI/T8
-	 giSkDsE7n3/hCfVpvEdKVt/26gMpjQ97JA4f3p7j+TEBZY+V5x3+I46HRv9mjSIwWfQ==
+	t=1794202105;
+	b=VvvlXl9avlTSXMAU+Iv9yn6aM8pleMz6YuV+ALQhqwbvDVyHyGNdDJ8JgqhRKx/HPW5p
+	 9XbPf9OR0UKUoM9yougRkiew+NaWaLikYUdc54mGWJ3fZCLPhcad5U0LdMAY40YAN5Qj2
+	 ve9tNgTjbT+WOOHAmVwQuFJ9HGOwqAHeNZXYb5yVI1SI5QXBNnt0JQO0tPIqAALgvjE+9
+	 vXqMiXoqiiF5c2P9gsfhlTrI9feRicT8iM1xDO/orVLjTlgFoL+EvYwziW9a8ufFrLkd1
+	 LzOHIF21Lf/VpTASvQZ0obLa0OTTPhyDDVnUbSXPbg9IWDexnCDUUZiFjiuLSPqxUOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201806;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NJ7KxDbRPbylmFAPMsRT6r3JxS7V/VdYk7aTcCfsnjk=;
-	b=aRDRTjenk4Ur8bYtsH3PJ5cVv06Oby5J4MOxdTYMZSeiAdj+8k3s8P1RV62+Nge97ExE
-	 z5lZbKjfV16M3Fb0MGl9SSWp9/7oob/5dEiNlCLMjE1lvNj6gZ75OByW35VzSAzGhbbub
-	 +pwinOHLbzaVoOD7gmJ820SshNxO4SNdRbF3pMg/ri66oCtpRz4ou64iqOHAEp883bFTD
-	 eBH00ncS/Ks9bPdPVEb9H9uBOU37T9rpZOKqzd9vQi4bC7peWTngZtdKVQl/MZj7tVKFX
-	 rpmYYClnbQTM5VFszulbRn2uHD65mQaaTNM8Fr4hx/OtGLnI2dWSiZg4Sqe60lyKWvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202105;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-SEG-SpamProfiler-Analysis:
+	 X-SEG-SpamProfiler-Score:x-atlnz-ls;
+	bh=J2bEtrWBfDfYL33QiosqJnqpELJTBa1jvKEfuVNlrC4=;
+	b=rNQpSWtEOHjayruDXSRoU6miHs7t1rkk2YMMDIneHDQzrobJxioPkk2DVqcfFFaFBQ/M
+	 TUuyE60nN200wHJhtdGybR/LLvUT4/l+Fazr4r9IZeKIEL+DdIRUCdtvXXDL0tQW+775b
+	 +A67DecT2+WfC3t3+o58qPL0s+0vDYzYsO5wsIjKmDg8U1uwQFUl3vPpA4tMszo5yuS96
+	 XFxAAzOg9NbmC3WvNYV3Cj+vJRNlEOEW4WWwrOd9FQ3Z7nZYjJVBM4rBznAPeHUpWVIqS
+	 3eE3hM4h/wbJi+AjoxeusTYXFkslNEmI9gXzCMvrNZ5tW2S+dMmJNMDaP7bvKk+tQkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk+v121V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alliedtelesis.co.nz;
+	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
+	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=k3Wnav6y;
+	arc=none smtp.remote-ip=202.36.163.20
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22CE606A31C;
-	Mon,  9 Nov 2026 05:23:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C31606A325
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C31606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk+v121V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2817E1F0089F;
-	Mon,  9 Nov 2026 05:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794201805;
-	bh=NJ7KxDbRPbylmFAPMsRT6r3JxS7V/VdYk7aTcCfsnjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Mk+v121VJElULRRsBaYvdeeoAikowRdOr7G1ubaTrlZXMDDudoGOVEd8O+S0KwZuF
-	 ceLBmaOvsGKSDX0/V+IR/8OK8k5hqJ8VOSzT27PY3FYwEPm3G2KV7lSkSsWhBd7ELI
-	 jmQ478BneBjnm7zWz1k9hitOpjXTUerhDa5kGpszXyy1NmPSVSVSnBKUn+toLllFbf
-	 craU9h6jbbieeR1SEMzQSUqQ1KACUarweqoNjSxm7o87oQ+a+topNe18wcQ5pqiWCt
-	 2ifmfJzWaqlCLpDQSD4tLSiZs+EdFG9rAD96uGa0KcAvNz+aKCB5b6rPggxv3sjIAu
-	 DVrpTLCxx2s+A==
-Message-ID: <sashiko-outbox-204432@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109051251.471879-2-YLCHANG2@nuvoton.com>
-References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
- <20261109051251.471879-2-YLCHANG2@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 05:23:24 +0000
+	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=k3Wnav6y
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 0B0022C0715;
+	Mon,  9 Nov 2026 18:28:16 +1300 (NZDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1794202096;
+	bh=J2bEtrWBfDfYL33QiosqJnqpELJTBa1jvKEfuVNlrC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=k3Wnav6yN53XiNxMRvdymPEaGEp3hU7EtWD2vjRrMHAtPiSLkb/0yRlEBJnRAbx+e
+	 6WZiNWvQZGsGnh3DNhTM7OWrV6v7waIBnZbsxHE8F9j7CdC3Iy88NmHT6wHw/R0Rxe
+	 QgBW8GOWdhTRULZxHvQxUSvtbi9M9KjXOheqLT+D97rlfbt1EWkFonrCzyr6Ln6GeJ
+	 Tzje59LKc3Sw34Gj8kA+cn473IcOH3VWvJ3rC7iwyDJn+OhPO9DqwAIhrOD5XA+o6A
+	 e91y/ZEUQanpEp5xJ4KFspn+KOA4dG1JZ7/zuB1YC39AUdHdMoAgzmYkvVnLqHuVlM
+	 Hclp2OlHAyPiw==
+Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6af159ef0001>; Mon, 09 Nov 2026 18:28:15 +1300
+Received: from joshuas-dl.ws.atlnz.lc (joshuas-dl.ws.atlnz.lc [10.33.25.13])
+	by pat.atlnz.lc (Postfix) with ESMTP id 624C513EE6D;
+	Mon,  9 Nov 2026 18:28:15 +1300 (NZDT)
+Received: by joshuas-dl.ws.atlnz.lc (Postfix, from userid 1634)
+	id 60AF35B002D; Mon,  9 Nov 2026 18:28:15 +1300 (NZDT)
+From: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-gpio@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Sander Vanheule <sander@svanheule.net>,
+	Bert Vermeulen <bert@biot.com>,
+	linux-kernel@vger.kernel.org,
+	Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+Subject: [PATCH v2 1/2] dt-bindings: gpio: realtek-otto: Add RTL9311B
+Date: Mon,  9 Nov 2026 18:28:07 +1300
+Message-ID: <20261109052808.3035449-2-joshua.scott@alliedtelesis.co.nz>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109052808.3035449-1-joshua.scott@alliedtelesis.co.nz>
+References: <20261109052808.3035449-1-joshua.scott@alliedtelesis.co.nz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,220 +83,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=S4h6w5sP c=1 sm=1 tr=0 ts=6af159ef a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=zJRp6_cAMcgA:10 a=e4oTj6BZHg8653bzOkkA:9 a=3ZKOabzyN94A:10
+X-SEG-SpamProfiler-Score: 0
+x-atlnz-ls: pat
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] ASoC: dt-bindings: nuvoton,nau8310: inverted
-  clock-det-disable description
-- [Medium] ASoC: dt-bindings: nuvoton,nau8310: raw register values
-  instead of units
-- [Medium] ASoC: dt-bindings: nuvoton,nau8310: unconstrained nau8320
-  variant properties
---
+The Realtek RTL9311B is a network switch with integrated ARMv8 CPU. It
+has the same GPIO controller as the RTL9310, with one bank of 20 GPIOs.
+Add a compatible for it, with the RTL9310 compatible as a fallback.
 
-commit e187fb8f9c949cae2d11b255f2782d69bf853e02
-Author: Neo Chang <YLCHANG2@nuvoton.com>
+Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+---
+Changes in v2:
+- Add the RTL9311B as its own compatible list, with "realtek,rtl9310-gpio=
+"
+  as a fallback, instead of adding it to the enum used with
+  "realtek,otto-gpio" alone
 
-ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+ .../bindings/gpio/realtek,otto-gpio.yaml      | 22 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-This commit adds Device Tree binding documentation for the Nuvoton
-NAU83G10 and NAU83G20 mono Class-D audio amplifiers.
-
-> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml=
- b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
-> new file mode 100644
-> index 0000000000000..5a5142a583ed1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
-> @@ -0,0 +1,200 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/nuvoton,nau8310.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton NAU83G10/20 Mono Class-D Amplifier with DSP
-> +
-> +description:
-> +  Mono Class-D Amplifier with DSP and I/V-sense.
-> +  This device supports I2C.
-> +
-> +maintainers:
-> +  - Neo Chang <YLCHANG2@nuvoton.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nuvoton,nau8310
-> +      - nuvoton,nau8320
-
-[Severity: Medium]
-Should the boost converter properties (nuvoton,boost-delay,
-nuvoton,boost-convert-enable, nuvoton,boost-target-limit, and
-nuvoton,boost-target-margin) be disallowed for nuvoton,nau8320 via an
-allOf if/then constraint?
-
-In the driver, nau8310_read_device_properties() only parses those four
-properties when silicon_id is NAU8310_REG_SI_REV_G10, so a nuvoton,nau8320
-node with boost properties will pass schema validation while the driver
-ignores them.  The commit message also only mentions NAU83G10 and omits
-NAU83G20.
-
-[ ... ]
-
-> +  nuvoton,vref-impedance:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      VREF Impedance Selection.
-> +    enum:
-> +      - 0 # Open
-> +      - 1 # 25 kOhm
-> +      - 2 # 125 kOhm
-> +      - 3 # 2.5 kOhm
-> +    default: 0
-> +
-> +  nuvoton,dac-vref:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      DAC Reference Voltage Setting.
-> +    enum:
-> +      - 0 # Voltage source directly from VDDA pin
-> +      - 1 # VDDA * 1.5/1.8V
-> +      - 2 # VDDA * 1.6/1.8V
-> +      - 3 # VDDA * 1.7/1.8V
-> +    default: 1
-> +
-> +  nuvoton,sar-voltage:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      SAR Gain Tracking Selection.
-> +    enum:
-> +      - 0 # VDDA
-> +      - 1 # VDDA * 1.0
-> +      - 2 # VDDA * 1.1
-> +      - 3 # VDDA * 1.2
-> +      - 4 # VDDA * 1.3
-> +      - 5 # VDDA * 1.4
-> +      - 6 # VDDA * 1.54
-> +      - 7 # VDDA * 3.12
-> +    default: 0
-> +
-> +  nuvoton,sar-compare-time:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      SAR compare time.
-> +    enum:
-> +      - 0 # 500 ns
-> +      - 1 # 1 us
-> +      - 2 # 2 us
-> +      - 3 # 4 us
-> +    default: 1
-> +
-> +  nuvoton,sar-sampling-time:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      SAR sampling time.
-> +    enum:
-> +      - 0 # 2 us
-> +      - 1 # 4 us
-> +      - 2 # 8 us
-> +      - 3 # 16 us
-> +    default: 1
-> +
-> +  nuvoton,clock-det-disable:
-> +    type: boolean
-> +    description:
-> +      Enable Clock Detection Module.
-> +
-> +  nuvoton,clock-det-data:
-> +    type: boolean
-> +    description:
-> +      Clock detection non-zero samples configuration for power up signal.
-
-[Severity: Medium]
-Is the description for nuvoton,clock-det-disable inverted relative to its
-name?
-
-In the driver, nau8310_read_device_properties() sets clock_detection to
-!device_property_read_bool(dev, "nuvoton,clock-det-disable") and
-nau8310_init_regs() sets NAU8310_CLKPWRUP_DIS when !clock_detection, so
-this boolean property disables clock detection rather than enabling it.
-The example below also sets both nuvoton,clock-det-disable and
-nuvoton,clock-det-data together.  In addition,
-Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml already uses
-nuvoton,clock-detection-disable for this feature.
-
-> +
-> +  nuvoton,boost-delay:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Boost Control Hold Timer in decrement (msec).
-> +    enum:
-> +      - 0 # 0 msec
-> +      - 1 # 1 msec
-> +      - 2 # 2 msec
-> +      - 3 # 4 msec
-> +      - 4 # 8 msec
-> +      - 5 # 16 msec
-> +      - 6 # 32 msec
-> +      - 7 # 64 msec
-> +      - 8 # 128 msec
-> +    default: 0
-> +
-> +  nuvoton,boost-convert-enable:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Boost Convert Enable.
-> +    enum:
-> +      - 0 # BOOST CONVERTER disabled
-> +      - 1 # BOOST CONVERTER enable gated by POWERUP signal
-> +      - 2 # BOOST CONVERTER disabled
-> +      - 3 # BOOST CONVERTER enabled
-> +    default: 0
-> +
-> +  nuvoton,boost-target-limit:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Boost Control Target Value Limit.
-> +      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V=
- step.
-> +    minimum: 0
-> +    maximum: 63
-> +    default: 63
-> +
-> +  nuvoton,boost-target-margin:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Boost Margin Value between Boost Target Voltage and peak output le=
-vel.
-> +      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V=
- step.
-> +    minimum: 0
-> +    maximum: 63
-> +    default: 0
-
-[Severity: Medium]
-Should these properties use physical units and standard unit suffixes
-instead of raw register selector values?
-
-Per Documentation/devicetree/bindings/writing-bindings.rst, properties
-representing physical quantities should use standard unit suffixes (-ohms,
--microvolt, -ns, -us, -ms) rather than raw register encodings.
-Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml already
-defines nuvoton,vref-impedance-ohms (enum [0, 25000, 125000, 2500]) and
-nuvoton,dac-vref-microvolt.
-
-Here, nuvoton,vref-impedance, nuvoton,dac-vref, nuvoton,sar-compare-time,
-nuvoton,sar-sampling-time, nuvoton,boost-delay, nuvoton,boost-target-limit,
-and nuvoton,boost-target-margin all expose raw register codes or step
-counts.  nuvoton,boost-convert-enable also uses a boolean-style -enable
-name for a 2-bit register field where both 0 and 2 mean disabled, and
-nuvoton,sar-voltage exposes duplicate register values 0 and 1 for 1.0 *
-VDDA.  Finally, the schema defaults for nuvoton,vref-impedance (0),
-nuvoton,boost-delay (0), nuvoton,boost-target-limit (63), and
-nuvoton,boost-target-margin (0) do not match the driver defaults in
-nau8310_read_device_properties() (2, 0x8, 0x32, and 0x2).
-
+diff --git a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yam=
+l b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
+index 33c25df7b815..a337345a1e90 100644
+--- a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
+@@ -15,6 +15,7 @@ description: |
+   of two banks of 32 GPIOs. These GPIOs can generate edge-triggered inte=
+rrupts.
+   Each bank's interrupts are cascased into one interrupt line on the par=
+ent
+   interrupt controller, if provided.
++  The Arm-based RTL9311B has the same controller, with one bank.
+   This binding allows defining a single bank in the devicetree. The inte=
+rrupt
+   controller is not supported on the fallback compatible name, which onl=
+y
+   allows for GPIO port use.
+@@ -24,14 +25,19 @@ properties:
+     pattern: "^gpio@[0-9a-f]+$"
+=20
+   compatible:
+-    items:
+-      - enum:
+-          - realtek,rtl8380-gpio
+-          - realtek,rtl8390-gpio
+-          - realtek,rtl9300-gpio
+-          - realtek,rtl9310-gpio
+-          - realtek,rtl9607-gpio
+-      - const: realtek,otto-gpio
++    oneOf:
++      - items:
++          - enum:
++              - realtek,rtl8380-gpio
++              - realtek,rtl8390-gpio
++              - realtek,rtl9300-gpio
++              - realtek,rtl9310-gpio
++              - realtek,rtl9607-gpio
++          - const: realtek,otto-gpio
++      - items:
++          - const: realtek,rtl9311b-gpio
++          - const: realtek,rtl9310-gpio
++          - const: realtek,otto-gpio
+=20
+   reg: true
+=20
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109051251.4718=
-79-1-YLCHANG2@nuvoton.com?part=3D1
+2.53.0
+
