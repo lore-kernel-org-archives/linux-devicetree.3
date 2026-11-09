@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201082;
-	b=oShkZWhCARmpN0B96khgQmtgD9AKxH2AyGp5zE/3BCPdjzRmgIxLoMVH9PNx1yQh4OIk
-	 l4I4yC1V1osfoJRd/dRQq7ovcZHxMy2Tf72lUblLJmh753odRPS9xe9wdn0vlMcrKVTbg
-	 /xOS+i4v4Llz8zx7Do+vf9kfo24VnKJRmQQ14pS2AkuLKE3WVrM+xFhTe9lN0YPvNViHJ
-	 0iTD/grkF5oLXF0LM0Fzwf9Mq8BcScbj/Jh07Mkq0NDGBaPO9ku4h8I1Oj3RcPt/ez3Sz
-	 +ddYpngHB3CjRO0Yd/EssatwFa3bjWLPr3ltgfKuTVqcTtxkgVjKAJbsZb0diQiGhxA==
+	t=1794201087;
+	b=Nq89jsA+inQkzn+NPXM2z1/EszwXeuJkSkOd3z6VXLmotB08vs9vSJnPtGfmZLcuNVdE
+	 wMbs+vgwDE838Hpt6qMjd3BbXNRpvaxFZIfXLG8Mp7gETyNaPeoBX+1Vxyc/Z+p7rMTbX
+	 HUtLwQAXY7SSL25/xJjaaCYTR4L8+5lBC5cFoEmt1Ntrpm+RuwJ7odF36Wa6G+ncRH1oG
+	 fe8Jz8yeI1feKyuU9F300ykuvYEFygmDpDIZysK/r88aD4Dh1h1I1e62+KiQxPkX4XkSG
+	 k/0/s7huxNff+WwE9CfK6+FRN+8x1e6+vn/z9s2pWft5bqK8a4k+LLpLRISTVmRLX6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794201087;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
-	b=fgk7RSXsqU2jkDv/seG0+L2J8wxCdOykaNK4Htm9JmgFH3eAeuD+5mnOG9LXXhe7mBc2
-	 N87rrcxy7ixDjS83w6oK4MLDAdIAyJ6k+QUL9j0LEcTz631nXSLTc2GQrN06wiAGiwiTP
-	 3PakU4/ukPj8hFELDG0cm1zNIw2r3+jsjull1tnstebdKe7Pn8oUua9z294jr7yv46qp5
-	 7zV7QjA5Vk/EuFu6Uobr2CYfT35SDEHIyi+7CdHbh7eeuiC1cffCfUEbkNDJ1BeWyPpfC
-	 MTfdsRUyHTJBsc69+KbsTWwLVUdv1jfQXpFNMD+Kjv7hcqhf0xlS1d0S7lcLyCBG2PA==
+	bh=E5rfszlHLd8JDdF+Yl/0eyAbCVz/g6JSQG6eBITtUcM=;
+	b=3WuU9reiZqYOEOfbQc2sA26UB0G1TmrMNDGAz5zNkDM/f7bsUYs0WgoJiO9bQE3i6i5f
+	 3IEZoDa1/s7W8q7Kj5xe5Ei2TSAdMp8QYXxwzXGJdtHijW+MafbgcEBaZduQ5zXtjlKGI
+	 0o2+WCssfoyuth044fS9Nr0sQwPkOZ2ivmUoJks/chmXIp55DKFLJYLH1EQpwd6qKD17j
+	 quK2iK+AQkY81ZbQ8lc6/yImwsB9YTxbvWYQBiBHC8MxyPXC9vXXSxW1pX6jH45UytOI6
+	 bs+pcX2feWt50Z/mAKKuk0XQnfVuI8omwGxnpqUBbmqOT5gSJKJBYj8oI7zdf50SiTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jms.id.au;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puU1onEx;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AjB0wzoH;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A92606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:11:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A92606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85AE606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D85AE606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puU1onEx
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso210992a12.0
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 21:11:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AjB0wzoH
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so235326a91.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 21:11:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794201081; x=1794805881; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794201086; x=1794805886; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
-        b=puU1onExTbaVViZ8755QQ7RLqVE74xhyo4OUB2HNFd9TH6z6R834VGBf3XEkzjwctl
-         KzNwv4/lgLhsckXhSHMA4C1dzEivWdEWl+WqYfqmO6DjC28gg7LKXemRDXh3574SNvdW
-         it/2vIzdjwuWJZqtbBOhp9004VSeCeccju2Lu8SpbmauffLDh+igMhwmojQdgk0jdfLZ
-         NFWsC2rsbCnALZLsEU0Zph+tcXnDUsMwlt28DhmU4v2iKxt75Sl0MDtj6CAOQUnuLQHg
-         Ax9wFY7dxCzZooBXJDaDneLglO9Sre6u7G6bgqfaVw7LqDVmb3SZtp8CkzUL8DCT1RrA
-         /Upw==
+        bh=E5rfszlHLd8JDdF+Yl/0eyAbCVz/g6JSQG6eBITtUcM=;
+        b=AjB0wzoHQuccLVFYpc2mPVSSpx63oU2LnEF/uO11gSZdt+/BLL6+BpL9nyYTXixGIR
+         mJmfDYfCNbfryTpt9IX69YHcbt2b+ksANMIhBH9QF9/8FvZ+OCGE65d/RWgo6O0fQMtG
+         QDk2nPi0GZYV3s+hJmppjsbFpiBeNkiQjPGvIrSpVLbybYJlo/kdsbQk/igVPyyoNFNT
+         qIrvacnE8JXyrHusbg5hkjf9aQQYJbsvu1lDdcqnpGXA1uqVEF/3jhcUrxOfVGej4Ljb
+         tajqDN57Ju6hm6Y1Ajgjqo/2RIhfjYOTYUcUd57Qt4P0GgtmWO3P4rCp9Qp4Wdgi2ZWR
+         y/3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794201081; x=1794805881;
+        d=1e100.net; s=20260707; t=1794201086; x=1794805886;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
-        b=c3Pdb5VR35tYhvF4iB+Ne5K4oarnYRSW4GC46e6BG/0zBOW8AkApx06N9uNPrMpQqp
-         c+0KRCnBzuY0Nj7BKyZrHKdt8UmNi3Nyrlb/VHI9VDvO6g6McENpKhC0ng+sigao8d9s
-         x+etF/kcZoL+34cs6M2fAAP+Q7tQd1evqJ2Ldez2RxW8hPBJ+h7twMTn8GwY+UYsMSWO
-         8RYC4ZhtW5vtyBpeXQekCQi8vnhXzC50LdWEeW0ntvuJ+Ca/bpFUW5nagFhyzcrAUaxI
-         C40bKRmFHY97RHSi36duBuOmIGPcVKaNWIF+fzN0mfV3s8nuoHX8dswPiC2rG6WJQGOp
-         neoA==
-X-Forwarded-Encrypted: i=1; AL+hErEAtLCB89nuWgb0qhnSLxz0IxxsHcR3us4Mer0K6mU22Us5so1gxmDU7Gb55ijHcYmBP1JZc6YiMtFr@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LT4vuWhlJQOqfZRYfbkukzaquLT0HTEoWwwvIImRhXq9Y98LQ
-	YOlLtyEF82dipDAvR24PGuj/vo/Su4b6KEO6saI65pKuqUlU/bPT+Jh4
-X-Gm-Gg: AYBFou3+x60wF2GgGCZPN+4vyH+9otKaulbtEBhZfaJCVKhVMA4HrPtm2oRvCuhLhEQ
-	zxBhi6pp012y/Pe0Vu5wAqQIOHnDpZlWkrpm/g5zlBZFP1h2+d/OcrQl4qcRzc65+iTbAxz6xXg
-	9KzFCowfezSO//IVa0mOKU43fT5GeF1ccpNzGEsbgVvjq4JZ9+17lx4SV2AnlPu3cv7tpG2+mOm
-	Te2UD2ddg6SjywcgMcwr8heWvOpdOy40jqKgqIwygSWqOauNo0930YCIlHjWRkNJ96zu5B6f6di
-	OicqTgCNjVqIgqrhHoLS5wMjr+Tk9uQurMMPMK9XC5RzOHeb2RkWJ6G+Tdxeyccb5Xjl0Kna+U2
-	kJKgoVMBaxEQGDVuwntRjev+fcAmpRo8itj11sCjTghJXbOf55GmdXjmzDr88m87kwYHV91wH+6
-	viVV1bMehRpvDY7tjYTOD+SUiBfPKIMKR2DMV8MQx2veKBWheK1cdzc0iOEuBGZnudz9d9g8Pea
-	+T+f4aSJxtM/VTK2ZGo8jCMzb5uxj9WyvEJy6dSbu+yYytBlwVgb6v+HK7BKgf0Dk5q2KiLR0Wu
-	fGZVWkh+1Y8sz4by5YuSJ3Fc7baJqs7V4CE0fXsWMGLvWbUk8UpqOc3KT5Hf0zaVHoAfbm+faG0
-	pbEN7g/M3hEf7zfWGtqcQf1UKrw5oHhwhCkuvr0b6G//pk0j3bic0REtQoA==
-X-Received: by 2002:a17:90b:1e47:b0:3ac:a6a5:5757 with SMTP id 98e67ed59e1d1-3b12d3fc296mr2052368a91.11.1794201081003;
-        Sun, 08 Nov 2026 21:11:21 -0800 (PST)
+        bh=E5rfszlHLd8JDdF+Yl/0eyAbCVz/g6JSQG6eBITtUcM=;
+        b=DAznuTXFzCl5SBaC0An+p1yvcc1RR9NTCZD9ga6QOPS1nzb8XtFoGh4BEj+zhGVsv/
+         uauwD68EULV5+9psZsTev0Gb+dcvWYLibWh+MJi1x4FngF8Qrh9gKOtedA0qE+HdRag5
+         pSbyDNxTD4LX6quHywA6mgq9/V7ZnhhwWFqnljS0wGwj1Z4cc/BmsrfnP4c/qiIKbt3j
+         NSnqJ6mHeJvUL1yRa9FqQRIoOk5lynS/Bk9wwZeJHw9Ia5o5ekdtuFrGGj17QOLUf4w1
+         tmINUkxeZiF3YBpO0PSTpkNwFY7VXrS9rkJswXKOPP5NxiSW3czNfDRnjR+q3hVOAny5
+         dMQw==
+X-Forwarded-Encrypted: i=1; AL+hErHHy9GyiLTutUzehVYIR5Y3mPCTrCkmz1sMe0YwFyUUQIX6M0q89UFHITETJq0lnMdqDhZ1oLBj2z2V@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DjuzCpyO0hGHFEFpp6dlPZJ+UlNtxAe4AgNzQFO6BsoUYXGBC
+	wIfrOnN05Jh7b/C+/rI8F4QszPKmI/0dT7HBgNaQi407LJivGEHgODhG
+X-Gm-Gg: AYBFou3C7k6RTFZQmsod79bOjDWvv9yr7BG5VGO2vGBJ3B4eo6gEhD5yn0fm83A42gr
+	mexQxUWMXxr00LOvN5U5xrNsHBlDlkunDtI9LPl6Uy3UkYlCMwyVcK9BpXVZXw+48EGKNm0TOmp
+	U4YyCHuLGfCysWSd2oa84Neo93YvvbSqD79gpwNRF//aeC7OOb7czI11RjoRnSQu9HZ40jUgFv9
+	KX0mX2vcywyjgDu4b3Wd4FgNa70YIq0iniJt9OM/X1rL0NJnJgNOXVX1QyGPIiKdWa9ome1rda4
+	XzqnCLea3DqTdt3rqR+NuZvaB+2/RCKfHfHUre2kgvEsSzDMOl+Il2E00CQoaspoQgvd5jFVVpm
+	lomRAsGIAvb7Z1K6FeDv3yQ1H2Tfo1ucTrvKAGAgCUv8Bnue9YHN6OobEZmAOcF3kFpiFjftUSd
+	64nssdl6ezT3TK4L7whPHlyclGBRoVWijWDmcjHa6afaeioTpMCR1QO4MLi4ha9K6gHCem58yHx
+	ZolGIOyYRJxcfQR4VFMwgKLTOeifHGWYbz1iNo1uZddwnFFzqX6iA9LiGnjz+Bkk5VjVZYS8Q/5
+	admfPzAqadvfuTITENqgtECmT9f3S7x5RcCxY9oR/LfeXZf0rK3daZ9B1jc08dcG9taKSeYoTJ7
+	bxnoII9f4CMjrusachdz+xFB8ZP2re3IxuElgmK2/gkBJ8oguGjGiNgJtug==
+X-Received: by 2002:a17:90b:4b0f:b0:3b0:9984:18c9 with SMTP id 98e67ed59e1d1-3b12d2cba5cmr2763825a91.11.1794201086140;
+        Sun, 08 Nov 2026 21:11:26 -0800 (PST)
 Received: from donnager-debian.. ([180.150.112.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm5247652a91.13.2026.11.08.21.11.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm5247652a91.13.2026.11.08.21.11.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:11:20 -0800 (PST)
+        Sun, 08 Nov 2026 21:11:25 -0800 (PST)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
 To: Paul Walmsley <pjw@kernel.org>,
@@ -95,11 +95,10 @@ Cc: Anup Patel <anup@brainfault.org>,
 	Drew Fustini <fustini@kernel.org>,
 	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
 	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3 3/7] dt-bindings: riscv: cpus: Add Tenstorrent Ascalon
-Date: Mon,  9 Nov 2026 15:40:43 +1030
-Message-ID: <20261109051050.105623-4-joel@jms.id.au>
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer bindings
+Date: Mon,  9 Nov 2026 15:40:44 +1030
+Message-ID: <20261109051050.105623-5-joel@jms.id.au>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109051050.105623-1-joel@jms.id.au>
 References: <20261109051050.105623-1-joel@jms.id.au>
@@ -114,34 +113,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Tenstorrent Ascalon microarchitecture and the Tenstorrent Ascalon-XG
-core.
+Document the RISC-V ACLINT mtimer and mtimecmp hardware, as described
+by the riscv-aclint specification, commit 4e570bfd3201f2 [2].
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Drew Fustini <fustini@kernel.org>
+Multiple vendors are shipping silicon with the hardware as described
+by the specification, which was abandoned[1] as a standalone spec at
+v1.0-rc4.  As we have multiple instances of hardware that implement
+the spec, the widespread implementation of the spec is de facto
+ratification, providing a stationary target for the bindings to document
+and an exception to the policy of not accepting things that are
+pre-ratification.
+
+[1] https://lists.riscv.org/g/tech-aia/topic/connections_between_aia_and/107177435
+[2] https://github.com/riscvarchive/riscv-aclint/blob/4e570bfd3201f2c09e5afd290b5091526b0f099a/riscv-aclint.adoc
+
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
-v3: No changes, pick up review tags
+v3:
+  - Rework commit message following discussion at LPC
+  - Add reg-names, rework description, fix example
 ---
- Documentation/devicetree/bindings/riscv/cpus.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ MAINTAINERS                                   |  1 +
+ .../bindings/timer/riscv,aclint-mtimer.yaml   | 56 +++++++++++++++++++
+ 2 files changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
 
-diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
-index 0da219ae6769..2d2e4606a53e 100644
---- a/Documentation/devicetree/bindings/riscv/cpus.yaml
-+++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
-@@ -75,6 +75,11 @@ properties:
-               - sifive,x280
-           - const: sifive,rocket0
-           - const: riscv
-+      - items:
-+          - enum:
-+              - tenstorrent,ascalon-xg
-+          - const: tenstorrent,ascalon
-+          - const: riscv
-       - const: riscv    # Simulator only
-     description:
-       Identifies that the hart uses the RISC-V instruction set
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..403875d5932e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24185,6 +24185,7 @@ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git
+ F:	Documentation/devicetree/bindings/clock/tenstorrent,atlantis-prcm-rcpu.yaml
+ F:	Documentation/devicetree/bindings/riscv/tenstorrent.yaml
++F:	Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+ F:	arch/riscv/boot/dts/tenstorrent/
+ F:	drivers/clk/tenstorrent/
+ F:	drivers/reset/reset-tenstorrent-atlantis.c
+diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+new file mode 100644
+index 000000000000..e6f3d08d4f93
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/riscv,aclint-mtimer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RISC-V Advanced Core Local Interruptor (ACLINT) timer
++
++maintainers:
++  - Joel Stanley <jms@oss.tenstorrent.com>
++
++description:
++  The RISC-V ACLINT specification defines a set of memory mapped devices which
++  provide timer functionality for each hart on a multi-hart RISC-V platform.
++  The mtimer device has a single mtime register and one mtimecmp register per
++  hart. The specification is at https://github.com/riscvarchive/riscv-aclint/
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - tenstorrent,atlantis-aclint-mtimer
++      - const: riscv,aclint-mtimer
++
++  reg:
++    items:
++      - description: mtime register
++      - description: mtimecmp registers
++
++  reg-names:
++    items:
++      - const: mtime
++      - const: mtimecmp
++
++  interrupts-extended:
++    minItems: 1
++    maxItems: 4095
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    timer@a2180000 {
++      compatible = "tenstorrent,atlantis-aclint-mtimer", "riscv,aclint-mtimer";
++      reg = <0xa2180000 0x8000>, <0xa2188000 0x8000>;
++      reg-names = "mtime", "mtimecmp";
++      interrupts-extended = <&cpu1intc 7>,
++                            <&cpu2intc 7>,
++                            <&cpu3intc 7>,
++                            <&cpu4intc 7>;
++    };
++...
 -- 
 2.47.3
 
