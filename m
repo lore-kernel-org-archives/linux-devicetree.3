@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227406;
-	b=vxFISQ0U0PclbmtxY4vb1D+Clto7kNnetQtMD5jb7or+2+V56BCKVlA0onySTjbFRQt9
-	 si5q3zobhxlOsHc/5Ojsh+L/vt7xSiMoaifzLb8axFqM5Mt7R/zIfdjsEzvGo+GdKE7Jg
-	 5YUOeUaoN12Hc93mj+ezNZgQRFXJqXJsC3aGz62YGx63eHW4ARZR/k6WBSJ2ScbGclhm5
-	 6JGbYp9whQqaXd9JdGcw6NyolWn9wtOGiDdU50jIHQcvpfLWDUPbnkalB3+eZ8IrmQsvW
-	 00k7TYdgHlqXOrMwX64l2rBq4gipQByLaqkc42xH4Gu2ArLNUKlvKx0kl29TUp+vC5Q==
+	t=1794227451;
+	b=Flj4dcF805z4uXGWfqzfVAbz4xKPuGdv7SfBEVVCReg0XqAfmiJ0eAZ9MLH0DD87XQdU
+	 /b+yVB29hp29R1eXrPogRM+yEtSrYIbGezihzV+e+4w3FvGcUHlWiuw9oDrUcOufwQHGQ
+	 b2hd1TpxLSzBZ+hpMwsNMqkmMik8eKKmnP7d4IYGpaiAimNAHJoHeRy0Cy0/NaWUO/7Lg
+	 xvxKyrB+BIR/XHCyR3NEOKA53f/5qXYwOUJ5AkyPqE8Zms1SZS9s5tm5RXleCHa6xfhrD
+	 JECWWF3g9VFdaIe4pXIX4jRFY+TsldY7diVpnBUK8JfGvtdvceF/+RCbOh7HtHT0wRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227451;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L8Rs7Er1w4HoT0SPorGcBhaQuHjxNAjYlYU8oAyOoRc=;
-	b=aCSpCs3hkxI3Jduzb7W8lTcf5mB+tk9Qqlu7JqdxbbBjjMF0hjpoSHNb5DuIY8FSWpzf
-	 NUyuPvHzQi2v7lFQe1PPnjW/KXcXaE2a0c9hU9lAa4CbE9q4O2WNn5fAKJzgmTMGpEqDl
-	 SUmxQ8ib0bCIyJRhVEfTw2qHa2typavEDCTOiT0JP/KrucHuyZ3SFxOKKpvTeCKF1bomN
-	 Qe7haa6yRn9uV7JnFndSVM00Oep8mxteezEQM45DQXQv3zUDBmSvqCWTSDdm/mFfTIFOD
-	 P7E6GvykidH4WoPqPaBHSLLR85VxbbrCYSgnIUukWq08pMjzJiS1us8LPheIHcgiuLA==
+	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
+	b=B4MkMDOTa0gp2QIikuix7hSZ4BvFAp3Iykh1NGqqR79NW9MddlCu6Mh2A0HGKich1A/X
+	 dQ97F8JzBMYAkdW848yMS9ep5IqPvF3d28j7PXUNOnF3alxI5CZHV0NDL4FoMkoeuz6V/
+	 nEpv7t72epUVCBPV30Ruyf7Fg8rGKQzMeYS+TEZXsBcoheWFOqy5TqGCX449TnaQBRJJq
+	 qOUrRYLW8c+tQT9zv1mj64KreoUqE4DiPmuzgXadamudkQ2tZbKuteLB0LxFYtjjs80kf
+	 Bhs1exa5CwyFgJxfbuFs7z0jr37pD8DPpItRS2l8oEWb80SWBMG3zzVLbyQIAm/35Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3uQ6Ax+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEC8606A322;
-	Mon,  9 Nov 2026 12:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32C606A31C;
+	Mon,  9 Nov 2026 12:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3uQ6Ax+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D681F0089F;
-	Mon,  9 Nov 2026 12:30:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C375C1F0089F;
+	Mon,  9 Nov 2026 12:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227406;
-	bh=L8Rs7Er1w4HoT0SPorGcBhaQuHjxNAjYlYU8oAyOoRc=;
+	s=k20260515; t=1794227450;
+	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y3uQ6Ax+FiR0R7buGb6YAx01uzdXvJh50W5B6ThswE0+i5zUkxKQJgaqhYeO8ckMJ
-	 mtmb6MPHIiIeOEOoMLJ8JGCJobVZY/yTNXd0d2W6dNx1jXllpkIXouU+N7deW5Hqo8
-	 qSvFPXm02uBQg738k1kfHzPPnzlkiaGwYc58H6GNX+mCFg5htYjCcey5FzHCtOIOkv
-	 7K+94cpvD4a0KTCiimlerJTw5Hj6e+4mT5L1qmYM6nZJkSQK1fsQYaMhFb80qWgxrH
-	 Yv5ta9d35Oa9nHM7Zq5qcBnF+bWut9SW38wepTWqrr080SDj5xD2lEKgY/QLCb9DI+
-	 xhsVNwVVbW8GQ==
-Date: Mon, 9 Nov 2026 13:29:58 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
-Message-ID: <avG8MITPLRuFcZdO@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
- <auug8QoQ62ETGg1D@ashevche-desk.local>
- <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
+	b=oZwWXSeG5G4rZwtosAWNOxR+zwE/P+4TdYtBuU4HsoqYv3Ei4ABx8IzSJrnlCXCVD
+	 pS4N9qGMBrA4KbNWuz8xavxeHdUjN82DJSb7D1/EDPddNXSIwlYyu6ErXs+2cODAdb
+	 Erby2ILCouiEja140JEQQse9xfYpHNHFe0he9sUexSdTMy8S4GpU9ueYMl4Aio0EMD
+	 CCIjCwCF9EqidbMGauMFpdKueskkpN/CL87/kYRgh7byOhY9WV3b6s7lqcMzW7Qipa
+	 OpohM5kbvXkAexlu6LKYHTW0/k1dE6heQYYcV74rz68P1z1D4IVm4z6TmzPpCT860D
+	 jsTD//MUdGsCw==
+Date: Mon, 9 Nov 2026 13:30:47 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 02/10] dt-bindings: display: panel: samsung,s6e3ha8:
+ Add AMB630QY01 panel
+Message-ID: <20261109-tacky-busy-kelpie-cbd5be@quoll>
+References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+ <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,99 +66,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xdcinei5k7d2f32b"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
+In-Reply-To: <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
 
+On Sun, Nov 08, 2026 at 12:32:23PM +0000, David Heidelberg wrote:
+> The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
+> 1440x2960 flexible AMOLED panel.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  .../bindings/display/panel/samsung,s6e3ha8.yaml    | 41 ++++++++++++++++++----
+>  1 file changed, 34 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> index ca250b1b91712..dcf347fe5ca83 100644
+> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> @@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: Samsung s6e3ha8 AMOLED DSI panel
+>  
+>  description: |
+>    The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
+>    Samsung Mobile Displays (SMD).
+>  
+>    Known panels:
+>      - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
+> +    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
+>  
+>  maintainers:
+>    - Dzmitry Sankouski <dsankouski@gmail.com>
+>  
+> +required:
+> +  - compatible
+> +  - reset-gpios
+> +  - vdd3-supply
+> +  - vci-supply
 
---xdcinei5k7d2f32b
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
-Message-ID: <avG8MITPLRuFcZdO@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
- <auug8QoQ62ETGg1D@ashevche-desk.local>
- <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
-MIME-Version: 1.0
-In-Reply-To: <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
+I see no reason why order of this schema should be re-invented. See
+every other binding or example-schema.
 
-Hi Bartosz,
+Best regards,
+Krzysztof
 
-> Date: 2026-11-09 12:16:56+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
->
-> On Wed, Nov 04, 2026 at 11:17:37PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 04, 2026 at 03:03:46PM +0100, Bartosz Golaszewski wrote:
-> >=20
-> > > + */
-> > > +int fwnode_property_get_names(const struct fwnode_handle *fwnode, ch=
-ar ***props)
-> >=20
-> > Triple indirection is rare. Do we really need it?
-> >=20
->=20
-> I don't have a better alternative. Having two functions: one for
-> counting the names and another for retrieving them into a
-> caller-provided array is IMO the worse alternative, so I'd keep it.
-
-Would it be possible to return the pointer, and then pass the count as
-a parameter?
-
-
-Have a lovely day!
-Alex
-
->=20
-> >=20
-> > > +	merged =3D kcalloc(n1 + n2, sizeof(*merged), GFP_KERNEL);
-> >=20
-> > Shouldn't here be something from overflow.h?
-> >
->=20
-> I guess size_add() would fit.
->=20
-> Ok for other comments.
->=20
-> Bart
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---xdcinei5k7d2f32b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrxvL8ACgkQ64mZXMKQ
-wqn37hAAtjuzjC77MoGzeovCVZHOkf27aePC3mBRrFB4n67PxKxAhnDteTJ0evAk
-XClW2pWcMHOYbUgvdJVlbAC5L8ShfrR7UN3Qbh+BMt0ji+0l3q267SU+eAmf24TL
-9MoAsrplaMPkwHdK0HajkcIy8fpPIC2QM8PkIpAk3JhZvfmmANA/p/KqYgSp3YiT
-u/HJP55J0A7I4f1CK2ym2RZ4NK2NpmlEsTEaa+M2+zhDmS2ztHq3fqu7EmOgksEz
-Vq6Rw7iVX6nzAiMnOWoQTMEs2pR/eVU2tjzBael3J+2h/uarnGWJEVfgsCymJ9FY
-EU0yg2ebM5mEEaH2uihxVdKnxnUrrjX2JVgaz7jiHBDe9CyHxH9ZHrijOr2QN9wf
-CUNMzvq2EN235hyg/aKVrxMvgSM3Sbk480HcjlarM2DotX+6HFMkbEr0bB7ORiMA
-TS6+mITone1URnbqAQvqKstDzGDPIsqyZcX9b2dUba91sxDiYbw9DMggeenvLIwS
-TCASeoWrO+ggD2sRpHdtkibM8uP9t6knNWEWKFcyFyxgLZFdGrfFldcaUNFaWH33
-I9DgDlRL3/DgZwF+qwdzAWNjwiajdAc/B9WowFRyZ97LUcdIWQudD/y/RftA/e6e
-5OGdtYkXSeANEuBfQGygAY/RUsnLvSTPE5biq5xmBLCkTvZgK84=
-=35DC
------END PGP SIGNATURE-----
-
---xdcinei5k7d2f32b--
