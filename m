@@ -1,82 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215720;
-	b=euy4EUzJnRr4kCr/GkhnTlWlvKCf96tuqaGrkmf/Fau6DC0UQQCpIKn6IqxO12xUjkH/
-	 9dgDL28FFpbmP+hGsZrFaEUWJnoQ69bklPeg0PBLGeKQ8Xm/r32DlhjdxvtE1gTiea5+M
-	 xLJe4HuEfEC++kdxBVaiCBebraM1eFNmwIS4giANsNbLROwzHA3ZcROSf0wzQkonG26EG
-	 3Heh/m92OT5eznCsIAcrH/sFulY+43e++U0JnpWJuvWT4GGxpj0hDq/XgKJg2on7l1po0
-	 dJp1HH+RLG3kEc9T4QAww9XO0t0Co6xoUhiiMTsmFFitC0EzJ6q5SEsV28G0/Bt+ikg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215720;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794216049;
+	b=EYVcFjQ3hW1II1oQOuq4YZtT/e1MUrsHprOyNYFUn6q8pw2RRkuANmUVQSmQeNduExX2
+	 eBZTUZ8Ws1Xz6dh7OZvtfgS5yRcn7qmfE23bvVMxzOtz/vQnLyInuBFzQmdRovA+lfr1m
+	 8VkwfzLZ4kQniuhHMH0yCsRfAAngq82a5eISVdGVcVGmrZgidO+UBJT9YpQ2t9skXAOcn
+	 CBLUyKGFfEHbauFJteI8HOwqwkGVvTbajXgufyeGm3SP1sykpT9Bg0vPSlTG6Ow2ZCAeN
+	 lwAHrV+8qyrUEa1JEUink8Q3NO74d4NCGYarEqGmA0pdW+Nwdn60wK6z5DJRosj9c9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216049;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=t7R2yoCiAeLQBhB6gJTWyBDgFqLo/L9FrePQ72IrN3c=;
-	b=b3i1sm5GmprniDnsOAXL/gl9Dhc21/VO4d7TOQ5OFPyxrzlUDGSIGTxefGqHe3OHhAl3
-	 AiU3KOew5d6YehG53iuWHirHj1LEEdIjch8FnzJlpi6Ppdr6fcO969H0bLU1QMgEtU4N3
-	 qxx6aMIpWXA1/OIixYH+ejNKoQ/HinNVwrhsHE97Rv5vwBc5npa1Q90+2wZWwA8+dkmoF
-	 p90XIPnnySUmcrdF9pdfQkq+7CIUcXIPMyj63eRDmvKfUEg7ZhTXj3v7SYNZhGEU+vwZV
-	 /yKLXrgIlS8vuHp170H3F1Odtcx75hkWN28gCPPcSMNqBnS8hPcvdQnLYanixR1iYHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h33lt1JZ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7BA60606A338;
-	Mon,  9 Nov 2026 09:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA60606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=ui+dYTVHR6Ir+tYC2uG3/X4Lj+sncsoEcKeeP7yC0jI=;
+	b=SUHrkL7d/nWiCB4HIqCUuIoMtC8tqv1tfYTH3yC0oY/qCmXdJC1nH/GItveGEGXhlAbW
+	 gY8joS74RopT0qn3QiLUP5vqKX0Kmv8Z69yzJbrxG/JZDTUyRjDRjE8SzArlnvhSQ9SbR
+	 StBOZTkzZpQMFGS3Cf04cdNegdXDrHIFaOoPMRGUf49FXJFY/EkEGhfjzLvHgTJFsDWd7
+	 3OTeh1KgnheyqFEF8N6miw5pWhAmpL2bxJq4jGjiRhoC8ji7AVbtfI35WnyVe4BeJwG1q
+	 S7fJbkpm4FRcL3QQnNuA99bBXxer8PEo1jrbcMd2a3IOBEjck6hbeCiomEHw71j6T5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1YApqM0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF94C606A31C;
+	Mon,  9 Nov 2026 09:20:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h33lt1JZ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C83F7169E;
-	Mon,  9 Nov 2026 01:15:15 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7BDAC3F85F;
-	Mon,  9 Nov 2026 01:15:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794215718; bh=hfA0ap4Xo70CAlarCd2qZoILhqj61SvsIL72n1hY+fo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=h33lt1JZ/yhNeAGVm7HDNMFh6sw0uDPyDv06QjCmoy5KbpQPNfsuZMfBTEfA97ipl
-	 R9bWDv8NTXX0Q2Xs96uve7ouUC0ATxB3G6kncf8uxZV+EysTXscy4Qn9pn6goN4LBB
-	 KZlbTFcwEmgFGeLw0Gzxd3lcoT36FP+ppwIdwJFs=
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: sudeep.holla@kernel.org,
-	james.quinlan@broadcom.com,
-	f.fainelli@gmail.com,
-	vincent.guittot@linaro.org,
-	etienne.carriere@st.com,
-	peng.fan@oss.nxp.com,
-	michal.simek@amd.com,
-	d-gole@ti.com,
-	jonathan.cameron@oss.qualcomm.com,
-	elif.topuz@arm.com,
-	lukasz.luba@arm.com,
-	philip.radford@arm.com,
-	david@kernel.org,
-	souvik.chakravarty@arm.com,
-	leitao@kernel.org,
-	kas@kernel.org,
-	puranjay@kernel.org,
-	usama.arif@linux.dev,
-	kernel-team@meta.com,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v15 07/35] dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
-Date: Mon,  9 Nov 2026 09:11:53 +0000
-Message-ID: <20261109091221.2532706-8-cristian.marussi@arm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109091221.2532706-1-cristian.marussi@arm.com>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1YApqM0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794216048;
+	b=YUu9J4Q+MOo7K5BEz3KergN5Gg81j1q9/iuLAUM0Ry7HQkSN4y0VkaTfFOO3KCDtkxWj
+	 Xvc0f9vAhFYHY+Y5Et/Nc8t4H65k4rJyxOKfZ54UHb9kAMBymHi6e5KS3eKgUondGkRkH
+	 +nxNm0AzNpzNKMOQxbDo8J0PvzSbkTCtmT74lRXl4k28N0UAVZ8WcksiYRDm8mEwfphyt
+	 IHw6NeOiJpGN0UPLmXLxXB+BDSfyeDmO3ym/Z7dNYgQ+2Himnsl0dluRDi1mVwZnpGIs3
+	 jheAdSMr+q9YgnSQrzizHAcWsGwPzKthByTH88hv4gZxxa5aGOoP5JbOzRKkzuJ3CEQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794216048;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ui+dYTVHR6Ir+tYC2uG3/X4Lj+sncsoEcKeeP7yC0jI=;
+	b=dLGTTsu+4QzRbmUz50DZBtZzKRN27CHSAWpd2U+2Gl/e7ucHMVad3ktAYUEnNCijpAQ6
+	 1qDcPlBIohL+9EkeQK6KwZNQhLM5QG/xk0vvp8o/MemLX28fNugsjOgTdiCbpRea4Lxqm
+	 /V96zLuWTnKbCIi9dfjSixAMHmlfbJ9h1y12CLHRCRpbzBwlnp44ckqtDKfpbQ2TLbJLP
+	 lMJn0moVPtmDqL0bEEXNATOVrzZ9iso9LEEBoykkLJlGqWBkU6sJWo01NMQ0bR9OESNi9
+	 icYb3O2S1zWGFD772wDtvjWCiCnr70s158/WNoLe8KElo8k9HwZDrveq5mh8HIInVog==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 393721F008A1;
+	Mon,  9 Nov 2026 09:20:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794216048;
+	bh=ui+dYTVHR6Ir+tYC2uG3/X4Lj+sncsoEcKeeP7yC0jI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f1YApqM0NYtPRG1O60XWekUZojkUYVpABbaXZaqw/gXBTXqFZ82PKj4S/mlN3qo9F
+	 thZ+/Jedw8etm7VP9xGf6Pg/kV9GKolua6vUo3vbOYzyCiHgvhrpAK6YKm2HVljk1X
+	 zwk5QAOkfz9QM5rAxrmeijC8G4TdsMFv6KGBrYPCx+SwriangAv2u3cLBUtyhTOj+k
+	 wDyPzo3cEdhutx1Ox/embp4yyJ6T0NKon7EfFvjwBda1QsYZXYjPCGvhSO9+OjllsB
+	 YmKf/UvtumxC07EBpUYnHMisd7MvHGr5cY9wS5Bz+0Vf+NY45wG/Ui9GJrdd5z/C8H
+	 IUy8baB7UP0ew==
+Date: Mon, 9 Nov 2026 10:20:40 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kyungmin Park <kyungmin.park@samsung.com>,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] iio: light: gp2ap020a00f: Prepare for chip
+ variants
+Message-ID: <20261109102040.00004c1a@kernel.org>
+In-Reply-To: <20261108-gp2ap030-v2-4-24eaa1b9fe59@kernel.org>
+References: <20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org>
+	<20261108-gp2ap030-v2-4-24eaa1b9fe59@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,44 +90,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add new SCMI v4.0 Telemetry protocol bindings definitions.
+On Sun, 08 Nov 2026 22:44:02 +0100
+Linus Walleij <linusw@kernel.org> wrote:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
----
-v3 --> v4
- - changed protocol number to lowercase 1b
- - fixed misplaced block for protocol 0x1b
+...
 
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
----
- Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+>  static int gp2ap020a00f_probe(struct i2c_client *client)
+>  {
+> -	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+>  	struct device *dev = &client->dev;
+>  	struct gp2ap020a00f_data *data;
+>  	struct iio_dev *indio_dev;
+> @@ -1413,6 +1427,9 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>  
+>  	data = iio_priv(indio_dev);
+> +	data->chip_info = i2c_get_match_data(client);
+> +	if (!data->chip_info)
+> +		return -EINVAL;
 
-diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-index 6fc44105f1c3..b63543390fd9 100644
---- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-+++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-@@ -324,6 +324,14 @@ properties:
-     required:
-       - reg
- 
-+  protocol@1b:
-+    $ref: '#/$defs/protocol-node'
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        const: 0x1b
-+
- unevaluatedProperties: false
- 
- $defs:
+-ENODATA is better.
+
+Otherwise LGTM.
+
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+
 -- 
-2.54.0
-
+Kind regards,
+Joshua Crofts
