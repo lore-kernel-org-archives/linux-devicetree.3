@@ -1,63 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252610;
-	b=HCx9CjTUDWXvEvRnSpn0v9sPnR/XhasQwY9Havv2fI4wkfbbPYOHJGhF6IotxVsQtP1U
-	 W4EAvMJSs4igD9VEgETkbgSguPzFBem4JIotg9WPHo/v8oklizjJBBHXm6UwNJml/5fsh
-	 muxPK32PhqlfM7b0lCzjPmHLFXgLrasI3T3OaTpdoMlF2IP5bVahnQzUxbZLntx9UA0QN
-	 eepcHBSfHBCdxW48WM/sPjUCpAuRI4gtjCwlP5dZTw5Mp2BqifMqOnQtlH48Hqf4eboKU
-	 pvM6EP58bNcYN4aHzsQNCrmWv9U5SsoH4Pn/cFB+QApueV9fjT5yg1Q5df2Y8OSSDnQ==
+	t=1794252955;
+	b=yliMYeE94zLK9I9V8Z7UHWkisR+tLMYwxagp/HBe0V48QdzwMlRMAGPMKA0En06ArvAh
+	 bAOXaYxUiuAzWbRkDGyLy08liEJEOc9XqQj0sxXLzyZxY/EkOZn0uHAi0/xQ5HoMvFOTO
+	 dutFKbGi1mIRdPW09JMlmbS97Aa1MBNZ3kCRVRz1BU3lEDEYvseh68MAQ9PexpVfYWu7K
+	 vNpt3DjqtCfKzmwbAG8MaQ3hpHbgy+rjUt1V7kFsri88I/2+BQSyigLkUFPhC4n2zfknI
+	 RV27A5geqkpZkHzac+w4Le8Xmwm1LtNb/lRIWCV42Ya3AXhoXQhI+0LETz8x9XTnqzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252955;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L6VfwYpY8IxdSh1G+DlU88baaChUFV7ZxIByH+ynFzQ=;
-	b=YBU2GV/LUuzCGVk7PPIiMcUxE7t1QMDjlTHConh+21RSGqSQtYvYY/3UpWcCu7JL8R8Z
-	 wY6Z5h1GXUxHMpjpEHFS9PqoZE8sRvTwknyKhDvEsC2oya4iMf9vZIvATwTdu2VXvgjae
-	 TQd1i48OLXzGhnz8NIw9KGibv4/vBhASQ/89DMlu/CjBiRTZI+mvgBI3aBMgmsA7o6Vrq
-	 AbkzpAxyQ2TBRI0nq9DTtOJO4lqDBmsrrFr55qaVPTfqjN1vhErohQGryN39C3P4t3/H7
-	 44dDu0EncV6LAZUt8euk73jcjyyafnqegl2vMfQaXbyNf0pqsJGvTbqLmmDSL97RLZw==
+	bh=GvJbX8tFvo6M8knK9lWgArZHC9iXmXi9MSIFfMGb9XA=;
+	b=ToHJHRqAxGSC39GN7i+DOW7u9HsPxoEdzF941mysQG5Zfm9BsHiwbnLrIuqSuMrRhAnk
+	 MQpBvK04HowRLXVxvemOt9T0xJ4VY+kvzkjpTT+o/TsTItduKxuaTFBrKxTZXUP9eRhc+
+	 t2WFSHS5BwsouOL0pxCnRknw6SmvRp2DFB8rDNzxUSM+aXvNyaRmj4PXuZH58OKJDDCpo
+	 ijWpruhL7uvLyvaNmKefD/H0jW/ybFIvu/aUqsuD7g4Qnue+1zIN6Cz4R08whyaCpHAvB
+	 3/DkeGIaARiqzpw+N3PIbcGWpYJWqE7bJuSFVT1x9oOmoEw4FkFeopSwbvl74mo75EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OiMOuThd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmVvzcKy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3672A606A330
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 19:30:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00406606A321;
+	Mon,  9 Nov 2026 19:35:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OiMOuThd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7EE1F008A2;
-	Mon,  9 Nov 2026 19:30:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmVvzcKy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602811F0089F;
+	Mon,  9 Nov 2026 19:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794252609;
-	bh=L6VfwYpY8IxdSh1G+DlU88baaChUFV7ZxIByH+ynFzQ=;
+	s=k20260515; t=1794252954;
+	bh=GvJbX8tFvo6M8knK9lWgArZHC9iXmXi9MSIFfMGb9XA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OiMOuThdsthnJ9VU+xpKTAMeJ9EWOEszQjTp1Upl7BWC2k488CbLmt89PxrYQiQrL
-	 3x3qgIuzS9/S3TancSeDeJmc7tk2kZPjA5Sq9Vr4v7Oj3Yhq7Fj3jl1ib04f9mh1N0
-	 sRFI/rYtTkN5liUT5nhce4JF7drT0njI5NnPCOlv5wXWlClPqavH1Zibn9q0Irlquv
-	 A50d8zvZoubOXOV/1E/CiiEw2OKBUs6nNHIDvHyx4GoRFEXwP/Y8QlXRtqNRAYe+BA
-	 GED0b8p/aTrp8lcYoxy5r8sZK6Xzbnqoxjl+zD1qw3GVfmbAuN4QT/VutT0FvPICNh
-	 zNcmRBdCloTeA==
-Date: Mon, 9 Nov 2026 19:30:05 +0000
+	b=HmVvzcKyyZYSYuEpcGH68C/7nyBvNxOyBaQVvhMISdKwW+YpdA+1Kjxjuor7HcxXp
+	 f7HDEoOL91u1jRv2JBFUNyMcw3x6M3sDW78TtDI2QxIzMcWtSxIWYOFTCzOyLVteXD
+	 NQdhoTn+MvEaIyCmZxGCCFyDQ0SEtC7dztX2Mv+oiBTGZCF2D6fYFI9MspIKCFMgKC
+	 3OBMOqfwd1M8JxZxjnSpXeXQOBGMp59hlIgRISZibX2jOGrGJ9jIxU6SEArS2vt41m
+	 d9sH6E9YomHdAHFYSNu4pNZgnJx4zBXbEL7dFDEtI1udb8TCLqnJulwZ1YYrbO9F0w
+	 pnfCjx2Q2C+oQ==
+Date: Mon, 9 Nov 2026 19:35:50 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	Thomas Gleixner <tglx@kernel.org>,
+To: Kohei Otsuka <kohei@spacemachines.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@kernel.org>,
-	Drew Fustini <fustini@kernel.org>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] dt-bindings: aplic: Add Tenstorrent Atlantis
- compatible
-Message-ID: <20261109-implosive-saxophone-2f278afdd759@spud>
-References: <20261109051050.105623-1-joel@jms.id.au>
- <20261109051050.105623-2-joel@jms.id.au>
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, conor.dooley@microchip.com
+Subject: Re: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
+Message-ID: <20261109-sheath-companion-d7063fcbdbfa@spud>
+References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+ <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+ <20261104-zen-aloha-35da49a7e72c@spud>
+ <CADMKYUAc3QPCdpH8JL9VHk4d0iETsUL2ao2i4OhoHYoZGoAnnQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,26 +64,52 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jYkxKq0oK3oBwCOD"
+	protocol="application/pgp-signature"; boundary="Xk0qMBEm0ZJtSjIi"
 Content-Disposition: inline
-In-Reply-To: <20261109051050.105623-2-joel@jms.id.au>
+In-Reply-To: <CADMKYUAc3QPCdpH8JL9VHk4d0iETsUL2ao2i4OhoHYoZGoAnnQ@mail.gmail.com>
 
---jYkxKq0oK3oBwCOD
-Content-Type: text/plain; charset=us-ascii
+--Xk0qMBEm0ZJtSjIi
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Mon, Nov 09, 2026 at 01:54:17PM +1100, Kohei Otsuka wrote:
+> On Thu, Nov 5, 2026 at 3:20=E2=80=AFAM Conor Dooley <conor@kernel.org> wr=
+ote:
+> >
+> > On Tue, Nov 03, 2026 at 11:11:31AM +1100, Kohei Otsuka wrote:
+> > > Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
+> > > including the fabric of PolarFire SoC. Its registers follow the 16550=
+A,
+> > > so ns16550a stays the fallback, but
+> >
+> > > it raises no interrupt on TEMT,
+> > > which the driver has to know about to support RS-485 on it.
+> >
+> > Doesn't this exclude using the fallback to ns16550a, since it requires
+> > specific interrupt handling?
+> >
+> Everything a plain ns16550a driver does works on
+> Core16550 including transmit, receive, FIFOs, modem control and the baud =
+rate
+> divisor. The only thing that needs the specific compatible string is
+> software RS-485
+> (em485), which waits for a TEMT interrupt the core doesn=E2=80=99t raise.
+> Without the patch, RS-485 direction control is missing, but the UART
+> otherwise works. If you=E2=80=99d rather
+> not have the fallback, I can match the compatible in 8250_of directly.
 
---jYkxKq0oK3oBwCOD
+In my opinion, this is enough to invalidate the ns16550a fallback.
+
+--Xk0qMBEm0ZJtSjIi
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavIfPAAKCRB4tDGHoIJi
-0rcCAP4ouz5K4oFu9QOK+AKf3XtURfpWVq2lqDQg90quvAqzOwD/b12aM/hP9T5t
-WjUp258JZ/CXrFdjz8LxMLrBgug1KgA=
-=McSo
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavIglgAKCRB4tDGHoIJi
+0t2WAQDr+SJzkU/53V56nypiHHoTlra6oqrdLRlSDdP/xbYZlQEAoYodUZrV5P8J
+rwEeTsutW32XJGvJzzg/+7yWStxKbg8=
+=yd+m
 -----END PGP SIGNATURE-----
 
---jYkxKq0oK3oBwCOD--
+--Xk0qMBEm0ZJtSjIi--
