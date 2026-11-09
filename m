@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227655;
-	b=pM/jTaywKy9doQPdHPERYFqSw8PdS1Qt1FdT4ytmoCscbkeZvexPXkqSA8h19fMSzB89
-	 vvMcFJF0RinhwPCo65KBk3PccFIhiIc6+wDlXx7UELoXJHUKmymTMyGXWv67EIOF7kirL
-	 x9bSE3re6nM/qnXeIApgsNC31hChFXEi+XHCHZQDx/aDILK60J0jQr6fLsvAx4vjgBy/Q
-	 Pj5vYesu5lrweZk87Ols6q6Rnl8cqNYMvLbr7pdnN4ckvRxrt2R+9OObDdwtuwuu+KIWH
-	 sxkUSyc4O0Y4IgB1gM8d0f0PRZIdnczn0AD7oFwyaT3hBdy+yjW4KoozkbB/gY+xREg==
+	t=1794227840;
+	b=xoOuliOAxrMdlj15gX3D9rA5a7MLT9bX7Oc/QpdcI8wknrAsMM4RDfUZTdCVnNNofmoV
+	 B7Kib0/PBvhhDxP3dTpxC9aB4DBNfzdFMvbohnMfFK01pJp6C9vPua9IITpBeZjhRPz6x
+	 oXhYmCytc8XwW3jdsyc496YRZdpyBjOZN2kKcmatSQ1GJLHMpY4/vUiP+9CTKQVQpDBuL
+	 +Jzyj9o5ESKs4s3M4UF5rR/Q4IxsqanzSrE/R+k7bLlxJKzjgOX8QM4cLcZH4s7dQLY4T
+	 iwFp1uXj5mBrl8ZpubkQJVSwzWirX/fTMmcbZwFiaK/pfQTlTOU+7p9DU1/+98rig6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227840;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xmIlBDozjkzvMSaRaAhvn1n0LrMtmUjIl/UdI6mSxd4=;
-	b=2S7Fm+4k3KNV2xJ4nUDaUqsGeL52mp7CQFiiHilvbtqAn0LqZfJPx1vEZLzKeDyL9fWd
-	 +mJDRYo57FXU9ec5xiQTvsa8MJR+JMUP+HaTuuyUbUCrL55NjadqGNfOrn8ALhg4PCibp
-	 QG/Ms1FcGnVPG6tszrRUJreS+fJgHZzm+diW8zoGXIxtgoJYL4plG+ZdvD4sUTEn4daaP
-	 k0db0f+eQSJyChLDculmPFhp6xGavtIRSEiU+hGXsjOXhKcYGvXNyXPHz2fWmhL6r438w
-	 D75AaJATZuMip4GMiU/T/jUxDmsLUKcsiBfhbPdi8k3Pv3svCTO5Tgn3MH3b7pTZLvQ==
+	bh=K1CWsVs0IPjpIDw2JWkNBzEKlJiME1CRvTNW72z+Z5c=;
+	b=QyBZH/aly2rekb6F6gjigbWF5Z7CteuCXFIO5PwUHbGsh057yNqOzMBR3eRxSsphmvrN
+	 4Fh9kw/F1j3wne+YqL8FQuSSGJFAWZUQnHdlSmeQdLvaihP47eyixuSn4gQmtwI3qhAwO
+	 r4g/0FebtlgxNRAscTAyOZIohiXgnCLVzy0fTiXzmhbgGtsaI/Akn+RX6Ao4HovGTX4w2
+	 BGVc4WQzo07AZ0sHfHD6y0ym1Uva/u6nvxrMjkPLtZqu6mpwlF1PSGaIbJn/2Zr2C8PoR
+	 6v5DKFSc+cZlrPlG0Ctos/nhHVJ9ru6MY3S6zfpjJT03CWLVY7FOjTFH3mBFv7/LgzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MX92hfP+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOiMeJ9N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DBC606D812;
-	Mon,  9 Nov 2026 12:34:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14030606A322
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 12:37:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MX92hfP+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900C71F0089F;
-	Mon,  9 Nov 2026 12:34:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOiMeJ9N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25E01F008A6;
+	Mon,  9 Nov 2026 12:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227655;
-	bh=xmIlBDozjkzvMSaRaAhvn1n0LrMtmUjIl/UdI6mSxd4=;
+	s=k20260515; t=1794227839;
+	bh=K1CWsVs0IPjpIDw2JWkNBzEKlJiME1CRvTNW72z+Z5c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MX92hfP+u9/kEx1sCzTzk1GwJfIsGDdDn/Z18+KCuTtS4D1f7L59KYixVJsTf8YGe
-	 Xgdbk3ZnRGJVeiRWL+skXE0p88m/KkLgi2h3j92wTLg+U/jeIPZYQUa1RzXGd+Wbkl
-	 iGKByy7xnfQAJDUAT+1KVZmiY3LYfsLRZ5n10ncHDNyCkWEDM5J55Z8fTxmgLKyAip
-	 1fYcFwgStjWNHbSY2B5eb90zM8Z2gYPLsuh0SoPZ+aNvgN6atxVw42FUr6nM7vsZ1B
-	 V55/yxomUz2BYHHUdMFzbRlaBuoaDhmm69tjY5V0zvAe3/R7CkEPrS7MWuIYgafuch
-	 w+/JuHdH+FpaQ==
-Date: Mon, 9 Nov 2026 13:34:12 +0100
+	b=fOiMeJ9NpINJhEWER3W2ji4evJ5usAogUOq97fLlOhiW1j+cDan4XbqUlot3B7vHX
+	 Rt7X2shSlbzgKF9d49yT1f7yei4HGUB+23soaXcR72xD2Zs+NM9PTTu0cKYNwbCReo
+	 bMQU7fVS1Ae30A8xx+dGqhkRaPiCbcR5HwZBOGSLYxU9Vz41hLSY/yfrQMEHYWocUm
+	 ue7LN27qUqdREMbW/BT5oFcHEzvM+k8dMdOz3qaQG2eXmvr1fWcjbYwnM34LkQAQGD
+	 dSz17Mr8d9b3W49b9Nabyv9be9YsJorCvwnM6mvuVLLoxiKqrHKba2wumxYpfEhvjM
+	 Mp4FWVHqTG/Fw==
+Date: Mon, 9 Nov 2026 13:37:15 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 01/10] dt-bindings: display: panel: s6e3ha8: Adjust to
- reflect the DDIC and panel used
-Message-ID: <20261109-tall-lyrical-stingray-1caaac@quoll>
-References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
- <20261108-crosshatch-panel-v3-1-87dd4ec4f7cc@ixit.cz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Thomas Gleixner <tglx@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer
+ bindings
+Message-ID: <20261109-unbiased-fancy-bloodhound-a6504a@quoll>
+References: <20261109051050.105623-1-joel@jms.id.au>
+ <20261109051050.105623-5-joel@jms.id.au>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,64 +65,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261108-crosshatch-panel-v3-1-87dd4ec4f7cc@ixit.cz>
+In-Reply-To: <20261109051050.105623-5-joel@jms.id.au>
 
-On Sun, Nov 08, 2026 at 12:32:22PM +0000, David Heidelberg wrote:
-> S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
-> the Samsung AMB577PX01. Introduce a compatible reflecting that, adjust
-> the example, and deprecate the DDIC-only samsung,s6e3ha8 compatible.
-
-Again: why deprecating?
-
+On Mon, Nov 09, 2026 at 03:40:44PM +1030, Joel Stanley wrote:
+> Document the RISC-V ACLINT mtimer and mtimecmp hardware, as described
+> by the riscv-aclint specification, commit 4e570bfd3201f2 [2].
 > 
-> We're going to introduce another panel with different sequence, so keep
-> calling original panel sequence just by the DDIC name is confusing.
-> While we at it, we can cleanly fix reversed GPIO polarity.
+> Multiple vendors are shipping silicon with the hardware as described
+> by the specification, which was abandoned[1] as a standalone spec at
+> v1.0-rc4.  As we have multiple instances of hardware that implement
+> the spec, the widespread implementation of the spec is de facto
+> ratification, providing a stationary target for the bindings to document
+> and an exception to the policy of not accepting things that are
+> pre-ratification.
 > 
-> Update the polarity to better match newly introduced compatibles with
-> fixed logic.
+> [1] https://lists.riscv.org/g/tech-aia/topic/connections_between_aia_and/107177435
+> [2] https://github.com/riscvarchive/riscv-aclint/blob/4e570bfd3201f2c09e5afd290b5091526b0f099a/riscv-aclint.adoc
 > 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->  .../bindings/display/panel/samsung,s6e3ha8.yaml         | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
+> v3:
+>   - Rework commit message following discussion at LPC
+>   - Add reg-names, rework description, fix example
+> ---
+>  MAINTAINERS                                   |  1 +
+>  .../bindings/timer/riscv,aclint-mtimer.yaml   | 56 +++++++++++++++++++
+>  2 files changed, 57 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> index 00ce5a4e1c6be..ca250b1b91712 100644
-> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> @@ -1,28 +1,35 @@
->  # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->  %YAML 1.2
->  ---
->  $id: http://devicetree.org/schemas/display/panel/samsung,s6e3ha8.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
->  title: Samsung s6e3ha8 AMOLED DSI panel
->  
-> -description: The s6e3ha8 is a 1440x2960 DPI display panel from Samsung Mobile
-> -  Displays (SMD).
-> +description: |
-> +  The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
-> +  Samsung Mobile Displays (SMD).
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..403875d5932e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24185,6 +24185,7 @@ S:	Maintained
+>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git
+>  F:	Documentation/devicetree/bindings/clock/tenstorrent,atlantis-prcm-rcpu.yaml
+>  F:	Documentation/devicetree/bindings/riscv/tenstorrent.yaml
+> +F:	Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+>  F:	arch/riscv/boot/dts/tenstorrent/
+>  F:	drivers/clk/tenstorrent/
+>  F:	drivers/reset/reset-tenstorrent-atlantis.c
+> diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+> new file mode 100644
+> index 000000000000..e6f3d08d4f93
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+> @@ -0,0 +1,56 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/timer/riscv,aclint-mtimer.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +  Known panels:
-> +    - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
->  
->  maintainers:
->    - Dzmitry Sankouski <dsankouski@gmail.com>
->  
->  allOf:
->    - $ref: panel-common.yaml#
->  
->  properties:
->    compatible:
-> -    const: samsung,s6e3ha8
-> +    oneOf:
-> +      - const: samsung,s6e3ha8-amb577px01
+> +title: RISC-V Advanced Core Local Interruptor (ACLINT) timer
+> +
+> +maintainers:
+> +  - Joel Stanley <jms@oss.tenstorrent.com>
+> +
+> +description:
+> +  The RISC-V ACLINT specification defines a set of memory mapped devices which
+> +  provide timer functionality for each hart on a multi-hart RISC-V platform.
+> +  The mtimer device has a single mtime register and one mtimecmp register per
+> +  hart. The specification is at https://github.com/riscvarchive/riscv-aclint/
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - tenstorrent,atlantis-aclint-mtimer
+> +      - const: riscv,aclint-mtimer
+> +
+> +  reg:
+> +    items:
+> +      - description: mtime register
+> +      - description: mtimecmp registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mtime
+> +      - const: mtimecmp
+> +
+> +  interrupts-extended:
 
-So the panel bindings use compatible of format DDIC-panel? Are you sure
-you keep it unified with existing approach?
+Use interrupts. git grep gives basically zero results for such syntax in
+the binding.
+
+> +    minItems: 1
+> +    maxItems: 4095
 
 Best regards,
 Krzysztof
