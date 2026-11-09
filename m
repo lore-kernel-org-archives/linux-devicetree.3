@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794250268;
-	b=GXW0uh33QAQ2JKVjUwRzG94xEpjSPkU1JM46yyYiQUd586IrgVw4H5XLDsN8Wk63Nue7
-	 9ZEiTlk+SqBbeRguJ5xFqESBsc/dxqdxRkXpULFB8ZbgWkHvZSN0uG3Qdfa37KwNdZ5An
-	 RXlfrm0vAipLzPKvjzmybcP3RnaKy0sQeisFAgld4fnbECcsetTmLhYXyV97LcQs6EuCL
-	 YpvvyzGLYvcpIFJ6T9xMEqdRczpJ2/4bcnvl3NjB6oMflIWjzm7/ydgpt90dfwi/r855s
-	 Qmo/FuUaYkCePFDwD8affBvYUQar6onUbqvZOmSbCR8MBJNSSXNm38el7Wt0ZaMKonQ==
+	t=1794250361;
+	b=Cr1IFRYTKgEtnpCnXgdR+mh6B8srmRGifqntuE0ZyioGDNe72vMBUxuy+5MHa1i6Z2eI
+	 egRdGAM65SpbpmpwhJlShV5vrNGdMsHtP68CrG8yai+MrZ4cWJEPijQGvbhKrth9rh9zx
+	 jVY/vU2A2J07wpU24vFTdtz+DFP9kGV042Gx03gN/Ac+mvZnzOxYXMVpC+yNe607nxdZ4
+	 2mfjJM+oskueQuTYxXCi66yqCGgAS0/CL7JjQMyS7v0CN4UW0ytgcyUb/GHPoCnmiGXDO
+	 +ozdaddmDkYxUgM0dArWFLeEuI9pSRq/OcoHrQHs0I1nFVBaCVOtSXXLTdZa2f2PPGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794250268;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kn4X6Xnaj6tVLjASU1DBTDnXZ8Bkp/tVdzWviNAkNa4=;
-	b=U6hCPWeJm47zb9FGLXQL3cSrVSBaxYUYGyoYK6v1zcxryqcqa9WtGJzsj3tpJSkKLb8r
-	 ZrmQ6re/uhKjtmb8DvLz7Es0SPM7z20L5SpcT5Jou/g0fsTll9C88uQidQKwg5N5fwSc6
-	 UNJj3rSRpXK0JCnZN9GD1v0UmQbo7VqYqJ/KWD70tnN7t9HEguP67qUh2EI3NNM30e1QE
-	 yP5ZJ2EZR0OjiEGaQrTTS4tH16GzSlsDormxljTtLq+dj4Zmbdk6xuZhbB6o0ZG06ehFO
-	 P3E4Q1DPTXrfUKUus4mCXSUU63Kw0QYBMWXXfASy4eQWye309IAHmSmO5pl54n21eJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250361;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=R4JwZ4xBL1UAJFNXAaHFlbH18MpWADe9cT+VMUYVjew=;
+	b=dfWuy4EpZazGO3G2nUF7ooaY65JXVA6nEhLhum86VSTNYk48ZGRVNYrG24arVJIOvseZ
+	 oYu2saZCvWq3mQ2qq3XJGvu835bjD/Aa2MclWGTvwNHHmLTl9Rnq/fuFisEQkc/t5IjQ7
+	 VhQjBkcELKsTucd5b+ZtH7GL90EQVjVF0YT9CdvqJsvagT6oMir3/wG0JL+u8D6NocIXG
+	 8p9tZKau4z0Yz11ucANWgwU0d3gSqT2axTeJZYlG278YlWhqK5b2OSfND6FARPt+yRCzy
+	 +QZpNjAw2uGKzNdRFCvODdzqyROSJT+G8woY7I3VKTqnUC91UTB5lngtvMCbEUFprpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcUKnm+k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETCMs8ox;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94543606A330;
-	Mon,  9 Nov 2026 18:51:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFB1606A31C;
+	Mon,  9 Nov 2026 18:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcUKnm+k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD91A1F008A1;
-	Mon,  9 Nov 2026 18:51:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETCMs8ox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77BF1F0089F;
+	Mon,  9 Nov 2026 18:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794250268;
-	bh=kn4X6Xnaj6tVLjASU1DBTDnXZ8Bkp/tVdzWviNAkNa4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HcUKnm+kCVXRMKIzVHGJ+agqfupO9+DgWO1IyMF/ng51qBDFy27vtO53laLR/yTEk
-	 hUHkKCc0oKY4v68iMnnv8Y+bgexnsZXfZDz4LIOHihHdczdb7ZzB5HQtibflYYM9B5
-	 hx3YiZhnRQNmD2c49gPZjxQ9xjoV6kwHcU2CUK1sgXAjitL7+xGcevltbgse249c+W
-	 U9s5brUDcedjOVd7JxwiXtgiGq7hUJvWkpIhIlgiVsp5JFU2uNMAM7UtUPohcoQDhI
-	 UIXmYDSVNJTRc1W6OT4ovLz/coCtBwQIfTyDkW+vPr51WP726nK5NPZwUl04GuXIGk
-	 h3U8FwoTu3Mwg==
-Date: Mon, 9 Nov 2026 18:51:02 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Xincheng Ji <jixincheng@ultrarisc.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Lunn <andrew@lunn.ch>, Jia Wang <wangjia@ultrarisc.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Anup Patel <anup@brainfault.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, linux-riscv@lists.infradead.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v7 0/7] riscv: Add device tree support for UltraRISC
- DP1000
-Message-ID: <20261109-december-oil-cb6524baf274@spud>
-References: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
- <179419183382.2791817.17305257804227954338.b4-reply@b4>
+	s=k20260515; t=1794250361;
+	bh=R4JwZ4xBL1UAJFNXAaHFlbH18MpWADe9cT+VMUYVjew=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ETCMs8oxIUeCb/SaZhVdN8FDrxkNl5zjs491MHag/tLAoL0jDahc5T6/m84s+Gcce
+	 Hb1l7I5UjGE/EkNzCYuH3M0yaobD8Wm+6SvcApFU4TOqLlhaw9NFX5y8x7c2ELHqJF
+	 Q4tbKZ67p696DXUBwmB9NTBo9BaaLd86JR1AhTlN5WR1Jj3LLm0enMKxhpGTBLTfxg
+	 a1RqEeboJgtl6+TY9gIz88QBZGdC8o0P8YtsX7iOAfnFjR4otyp4aWoJ3FoRqRt5TE
+	 gB+xM8vHmr5IppcFV0KNtmL6F/Uzy6vxFO0Op+wAHeCfPFDbjttUx+9ch5QxGJ2q4K
+	 8Ds3GeazRCeeQ==
+Message-ID: <sashiko-outbox-205445@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109184453.449141-1-robh@kernel.org>
+References: <20261109184453.449141-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 18:52:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,58 +59,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bcTszYGBuLy82DqL"
-Content-Disposition: inline
-In-Reply-To: <179419183382.2791817.17305257804227954338.b4-reply@b4>
 
---bcTszYGBuLy82DqL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: clock: missing SPDX license tag in
+  hisilicon,hi3519-crg.yaml
+--
 
-On Mon, Nov 09, 2026 at 10:37:13AM +0800, Xincheng Ji wrote:
-> On 2026-10-25 20:24 +0800, Xincheng Ji wrote:
-> Hi all,
->=20
-> A gentle ping on this series adding device tree support for the
-> UltraRISC DP1000 SoC and the Shenzhen Rongda M0 and Milk-V Titan boards.
->=20
-> Are there any remaining issues I should address before the series can
-> be picked up?
+commit 8c68b5566e3d58eaa450c64590a34c88cc578c96
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-RISC-V ULTRARISC SoC SUPPORT
-M:	Jia Wang <wangjia@ultrarisc.com>
-L:	linux-riscv@lists.infradead.org
-S:	Supported
-T:	git https://github.com/ultrarisc/linux.git
-F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-F:	arch/riscv/boot/dts/ultrarisc/
+dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
 
-Your colleague is the maintainer of this platform, you should be asking
-them - unless you're expecting someone else to apply the series (me?).
+This commit converts the HiSilicon CRG binding from plain text to DT
+schema YAML format and updates the allowed compatible strings.
 
-Cheers,
-Conor.
+> diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg=
+.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+> new file mode 100644
+> index 0000000000000..c0b7a5521fe3e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+> @@ -0,0 +1,61 @@
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/hisilicon,hi3519-crg.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 
->=20
-> Thanks,
-> Xincheng
->=20
-> --=20
-> Xincheng Ji <jixincheng@ultrarisc.com>
->=20
+[Severity: Low]
+This schema file is missing an SPDX-License-Identifier header on the first
+line, such as:
 
---bcTszYGBuLy82DqL
-Content-Type: application/pgp-signature; name=signature.asc
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 
------BEGIN PGP SIGNATURE-----
+Without it, dt-doc-validate (via make dt_binding_check) and checkpatch.pl
+report a validation error.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavIWFgAKCRB4tDGHoIJi
-0qb5AP9fwzC5MOM3iSNB/HrLlRRT1EbdbRPqW8FvOcPUT6xVCgD/SPYVNUA6AR/J
-jew/up1fnP9U2rgmfmxzX5+TtfbJIQY=
-=v1Wd
------END PGP SIGNATURE-----
-
---bcTszYGBuLy82DqL--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109184453.4491=
+41-1-robh@kernel.org?part=3D1
