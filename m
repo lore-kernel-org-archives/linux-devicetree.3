@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241785;
-	b=rNuVN5CZwvXhbX1OfD83BQsOVWXeM6ewboYFKDLwkVdUsDd6OiV3xAkqb5PW/lyONuNt
-	 Tu2LxTVO3GQVGvEE/T/B2c2DY30TqLZd4xNZ9y+CEaMKG+SY4xDZr6n9/7Xf5/DWpKa1A
-	 bWrqpip/iekRV8HhCeLAQbyYBaiZ0mvBvG81sYxRLAeEVVOUwuWJmxrRVQWk+zKfkCHZ3
-	 k2DAGDllo4opcAcJiVUvAvhaD11OwqBXGK6GC4MvXpxfSJIPAF/JuKat8ARPLIv21FGC8
-	 AcZYWySYb9bt8jrTIpqdiTHN4ZNp/FnXxJvlGHmsUAdcBBLyycMD/rj0RjciIBvIfUQ==
+	t=1794241888;
+	b=yfiSepqK5not9p9boSZyr9Tc+sly/s8CjdBbAKkjSqrT64rUv5u1xHCOO3W80ecWWBPp
+	 WM5CQX8/0eEBaopeP74BtEf/KJszSJAnxRDZ4XwA3DIV5YSc6l/LtOYOoTb9rMYnS5AfY
+	 OzKdcLHQ3+h1w27q/lyzztoELyp5WrcXxLk92JExDHfF0Yeu4BXf9cQdjBRZ53fN2p1+2
+	 fFlUk0rVoaqlxu8jNYl5B/zcgvK9WrRDfuVMV51TDwTxj3kGaDa39gBQAbmthxzaNET+8
+	 hYCS47/QemHLWHxnzAGHt4C5EjEekECrBqmDBQM3QBV3fmjmx38hRJlOJ/FSEFiGvaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241785;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241888;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=r4d7OyBXnGvPNnBlX0wd7R8ip1I6qe36+Ws70bLtTCw=;
-	b=Khpsa29msFCDJO6KLLIytXC9qxXYPXBTuMuncjvUJwrFWFQZGBoD9ViZFgW6tmeJtOsG
-	 H0o390F+G5Uqj4+HKGT0EBkjvF9M/HX7k6JMatWhWBRaz1LK7m3eqzYMAyyzs5VhPdQ//
-	 by9p14JjKvYbjdBpxBsG2vm6qrqdmvWJC0mE6nTuI0H28an0OXYQRbYSwyJ9EpVuLVsCF
-	 Oz1Ddls08MT9ok+TgRjq+YPNmw6S4jz4M2p4JCIXjyt/0yT55ERih0mANokp9diiG7P/M
-	 i6h0dqv9R+qTTzhW1OihlUxTedEridhV3pw+gv6gOj2XyMTb+lHUsQr69w/tCWpryCg==
+	bh=ROzbYBaB7rjGvS+IjgSHkI0QX1ACximXnkqUTE8t1k4=;
+	b=aCoso3uyTpgVGTjOsij485gtTxaIfyVDx4C5H7qGdgwSEDRFlKdY/UU1yxiGnjpevfSH
+	 1XHf+IMcUOTXax7rG0/yp2OEB7tAWksghtqQGoMKWvFdY0/vWAA7eDiH7+jqtL1pLjN/9
+	 EhJuvBWhs4G+uyk/FxfrCpWrXqQ+EOqxX9xt5fvTYErN581c6H9pjL2ubedPOtT+mpMhM
+	 +xBEA/9fQL7+yAZ2A+S1uxVEm0f1ujTUsRmu7ZWl3oWdRkbMeUIj5annSnM1HGQ4BRylp
+	 vCdRRI35X+cKSF0GfMLkuqBrVljbV9hvOG41PWpBpOnmPU2hEdS7B+WnzVtqLzvmEhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT811PDk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGRWQH4k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0A606A331;
-	Mon,  9 Nov 2026 16:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34446606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT811PDk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7713E1F008A2;
-	Mon,  9 Nov 2026 16:29:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGRWQH4k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5C41F0089F;
+	Mon,  9 Nov 2026 16:31:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794241784;
-	bh=r4d7OyBXnGvPNnBlX0wd7R8ip1I6qe36+Ws70bLtTCw=;
+	s=k20260515; t=1794241887;
+	bh=ROzbYBaB7rjGvS+IjgSHkI0QX1ACximXnkqUTE8t1k4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nT811PDktyKv69Q0FZhJPUDvVFlYI5CSfGmEaX+SOevdn8rVDOpeoLQ6j6PnArsRX
-	 uU9tFqEGDuNX4nSrEbY2SZTqqQaP4WBG2H9xGBUt1nBfMjXrHWSYF6mwMVaP66M9qZ
-	 MiN/mi8zUZupA80r2rUcyqsyaXlcXyMmvcM0ibnOHth98LJgRJWdD6WpNViTUY+g1E
-	 mlJPkCDT8Uo/gYRUMn9ut2RCIdcX/8NGRSOD1QCSUlYhMRsdabTzofO5ac3fguk4rv
-	 84lUfarQzHwzTRxzgAsXoJD3PWfZzM1zqIL7x82U/6Ghs4RIHE8zy4d+/0goojwzXD
-	 M9H+13wG/7sag==
-Message-ID: <sashiko-outbox-205230@kernel.org>
+	b=UGRWQH4kj9ZTkMY+gTWyPHwqInQqdvwVGlmbvSAT9dMJ3KrEQWDilLUopHyq8ii1M
+	 3pI53LYsUb/j0bPcKaGdzC4oM4atmlmo81J3TvXlvXVvQcQVJrGJX4wbm+bAosesAM
+	 bQyQHiD91kOfc0f25nG6e02zJ2GydbGsjYCBTTOcEUkZLJhMv8CSG/WMn7a1z9Ss4d
+	 BUwLKZAUugEx9DxgSF/W6GwM2PRF1xwdrJAFiKa/OvU2nhzEvgxtOHN02uh1xcTlRZ
+	 P+16RYW3fFQrW1hb1NMJRYhlj03rb4fXWMKtXfVF7h4CEl7YMS+yVogjcvqMw8qZ8E
+	 t5XGmk+JfN5kA==
+Message-ID: <sashiko-outbox-205233@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] ARM: dts: nxp/imx6: Fix imx6qdl pico dwarf and nymph
- includes
+Subject: Re: [PATCHv2 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261109161812.3629546-1-robh@kernel.org>
-References: <20261109161812.3629546-1-robh@kernel.org>
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109162523.1698129-2-dinguyen@kernel.org>
+References: <20261109162523.1698129-1-dinguyen@kernel.org>
+ <20261109162523.1698129-2-dinguyen@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 16:29:44 +0000
+Date: Mon, 09 Nov 2026 16:31:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,90 +63,142 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] ARM: dts: imx6: pinmux hog and GPIO conflicts on pico-dwarf
-  and pico-nymph
+- [Low] dt-bindings: edac: altr,socfpga-ecc-manager piles on Agilex5
+  conditionals
 --
 
-commit 92feeab6397394da98e778808f51f6d2369101e3
-Author: Rob Herring (Arm) <robh@kernel.org>
+commit 5ff2b28fe8d1c4bf87126e0c3c295e7d764f432e
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-ARM: dts: nxp/imx6: Fix imx6qdl pico dwarf and nymph includes
+dt-bindings: edac: altera: agilex5: document new edac support
 
-This commit updates the imx6dl and imx6q pico-dwarf and pico-nymph board
-device trees to include their respective baseboard .dtsi files instead of
-imx6qdl-pico-pi.dtsi, and adds missing properties to satisfy DT schema
-checks.
+This commit documents Agilex5 EDAC support in the Altera SoCFPGA ECC
+Manager binding, adding the altr,socfpga-agilex5-ecc-manager compatible
+along with up to 7 named interrupts and per-compatible schema constraints.
 
-Link: https://lore.kernel.org/all/sashiko-outbox-199279@kernel.org
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts b/arch/arm/b=
-oot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-> index d85b15a8c1272..dd8ce2df876c0 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-> @@ -9,7 +9,7 @@
->  /dts-v1/;
+> diff --git a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-mana=
+ger.yaml b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.=
+yaml
+> index 136e8fccd429a..16940b49471cd 100644
+> --- a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
+> +++ b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
+> @@ -20,7 +20,9 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> -          - const: altr,socfpga-s10-ecc-manager
+> +          - enum:
+> +              - altr,socfpga-s10-ecc-manager
+> +              - altr,socfpga-agilex5-ecc-manager
+>            - const: altr,socfpga-a10-ecc-manager
+>        - const: altr,socfpga-a10-ecc-manager
+>        - const: altr,socfpga-ecc-manager
+> @@ -33,7 +35,25 @@ properties:
 > =20
->  #include "imx6dl.dtsi"
-> -#include "imx6qdl-pico-pi.dtsi"
-> +#include "imx6qdl-pico-dwarf.dtsi"
+>    interrupts:
+>      minItems: 1
+> -    maxItems: 2
+> +    items:
+> +      - description: Global single-bit error
+> +      - description: Global double-bit error
+> +      - description: IO96B0 DRAM controller error
+> +      - description: IO96B1 DRAM controller error
+> +      - description: SDM QSPI single-bit error
+> +      - description: SDM QSPI double-bit error
+> +      - description: SDM single-event
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    items:
+> +      - const: global_sbe
+> +      - const: global_dbe
+> +      - const: io96b0
+> +      - const: io96b1
+> +      - const: sdm_qspi_sbe
+> +      - const: sdm_qspi_dbe
+> +      - const: sdm_seu
 > =20
->  / {
->  	model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Dwarf baseboard=
-";
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts b/arch/arm/b=
-oot/dts/nxp/imx/imx6dl-pico-nymph.dts
-> index 32ccfc5d41cee..4ce0d0d0756c4 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
-> @@ -9,7 +9,7 @@
->  /dts-v1/;
+>    interrupt-controller: true
 > =20
->  #include "imx6dl.dtsi"
-> -#include "imx6qdl-pico-pi.dtsi"
-> +#include "imx6qdl-pico-nymph.dtsi"
+> @@ -235,28 +255,45 @@ patternProperties:
+>        - interrupts
+>        - altr,ecc-parent
 > =20
->  / {
->  	model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Nymph baseboard=
-";
+> -if:
+> -  properties:
+> -    compatible:
+> -      contains:
+> -        const: altr,socfpga-ecc-manager
+> -then:
+> -  required:
+> -    - compatible
+> -    - "#address-cells"
+> -    - "#size-cells"
+> -    - ranges
+> -
+> -else:
+> -  required:
+> -    - compatible
+> -    - "#address-cells"
+> -    - "#size-cells"
+> -    - interrupts
+> -    - interrupt-controller
+> -    - "#interrupt-cells"
+> -    - ranges
+> -    - altr,sysmgr-syscon
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-ecc-manager
+> +    then:
+> +      required:
+> +        - compatible
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - ranges
+> +
+> +    else:
+> +      required:
+> +        - compatible
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - interrupts
+> +        - interrupt-controller
+> +        - "#interrupt-cells"
+> +        - ranges
+> +        - altr,sysmgr-syscon
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-agilex5-ecc-manager
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          maxItems: 7
+> +      required:
+> +        - interrupt-names
+> +    else:
+> +      properties:
+> +        interrupts:
+> +          maxItems: 2
 
-[Severity: Medium]
-Does including imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi cause
-pinctrl and GPIO conflicts with imx6qdl-pico.dtsi for /leds, &pcie, and
-touchscreen@38?
+[Severity: Low]
+Should Agilex5 (or the newer SoCFPGA generations) be split into a
+separate schema document instead of piling on another per-compatible
+if/then/else block under allOf?
 
-In arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi, &iomuxc hogs both
-MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21 and MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31
-via pinctrl-0 =3D <&pinctrl_hog>:
-
-arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi:&iomuxc {
-	pinctrl-names =3D "default";
-	pinctrl-0 =3D <&pinctrl_hog>;
-
-	pinctrl_hog: hoggrp {
-		fsl,pins =3D <
-			...
-			MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21	0x4001b0b5 /* PICO_P26 */
-			...
-			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x4001b0b5 /* PICO_P44 */
-		>;
-	};
-};
-
-However, both imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi define a
-/leds node with pinctrl-0 =3D <&pinctrl_gpio_leds> claiming
-MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31, and imx6qdl-pico-nymph.dtsi enables
-&pcie whose pinctrl-0 =3D <&pinctrl_pcie_reset> claims
-MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21. Because imx_pmx_ops does not set
-.function_is_gpio, pin_request() rejects a second device claiming a pin
-already owned by iomuxc, causing pinctrl_bind_pins() to fail with -EINVAL
-when probing /leds on Dwarf and Nymph and &pcie on Nymph.
-
-In addition, /leds in both baseboard files requests <&gpio5 31
-GPIO_ACTIVE_HIGH> as an output, while touchscreen@38 in
-imx6qdl-pico.dtsi uses that same GPIO5_IO31 line as its interrupt input
-(interrupt-parent =3D <&gpio5>; interrupts =3D <31 IRQ_TYPE_EDGE_FALLING>;).
+This schema already spans multiple generations with different property
+requirements, and Agilex5 introduces a distinct 7-interrupt layout
+combining aggregate IRQ-domain interrupts with direct GIC interrupts.
+Also, in the new allOf entry, the else branch only restricts interrupts
+to maxItems: 2 while leaving the 7 Agilex5-specific interrupt-names
+unconstrained on older platforms, and maxItems: 7 in the then branch is
+redundant with the 7-entry items list at the top level.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109161812.3629=
-546-1-robh@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109162523.1698=
+129-2-dinguyen@kernel.org?part=3D1
