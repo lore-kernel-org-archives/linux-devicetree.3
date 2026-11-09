@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254605;
-	b=ElnIrFsrdGHETjbKxXd0xTrmlj+Zhl8odQqOIhGm96r4xEMzrceMpa/s6XWBuTEQKY8w
-	 ky/mu8phQTmUUbJK+Erqa8yy1/up0Joj7xR2s457RuSIIFjLC/RPVysh3v7+N8/L0RuoE
-	 /0wVFOuZnm+2JEBtby6s7IOf08bOQlr3evbhAx2pI90ejkTzu9TDztEI6AJKr9V+KcU3c
-	 mxN70m9Pyn/OsJt5aiPmIwP+X1BVNaSOwYS+IXgqaQNljvkY+fB7TOGSmKhK9I6dUUu2K
-	 KT1SQFIFX8a0+fB+Q5T28YlIDx/hLN5Y8CxDOcrwQwkPcZrkFltrjtP7SjC+7qeEaGg==
+	t=1794254672;
+	b=1fUOxjJinzudLrGVkfbbKlwa2nid7GkZg6nxoycpJidMIi3POyw6O+aLdjAn3KJMs1e2
+	 WUYlJvTCBfNwOcqYn1jOFWdlIg1Z2jz+g1/MlHamcn2+pbRZxCNZuRTrrBCTwJIkZucMs
+	 TWr0QZyJNIqbpgziJkOdYFoA8uVzDtrSzeWiP+lTwDdZ3KEV/jivJoUxHEn6fnq1znpm4
+	 pPKyDzD1fZsBQ8LvBo8rCDS85dg7Dtv8zrZGPnyjcYbFkep0BerqZb8NBZQdRS7gyTZQ8
+	 xPpd3cE1n/mx6LvF5JVqLSF80UUS8vhC2WxDJbzR/eVYWS1pDahBiJvVe2rG1+2fazA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254605;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=XdJLJbVIQHqVGKpuMShdQSgSFsm+69CBaBnXPW98sOs=;
-	b=vs4pVYePCXhHjIdXpzBQ6tynyAJKBxWp+tkOw7uMUceNrKKOEXlGJkQdM7fPyngEZnaI
-	 jNljZOHTaDDYouyhwyFrTcNbIfhaL9BbSW0Q3y8QDBdEk8KhbKnGi6InJJgqdXv8V9NsZ
-	 djZvU8ob8lUFFLllpBIA2rFwXY/jjfX3ctZmIDRhPGE8HkYlZKGXJcJUQdJagrW8YbWFL
-	 aKhi8E1uLz0wtpHUNBXYrIvKsS6QFrDxTTLfZiDMthzPi6iiHYmLJLqe2F3RwqONy16W3
-	 v5NM/UAcc1torSg7LtA36IQEbC3Pa7IRM6NM7tSeiEP/KF6IRc0toVfYqw4DmU6n6vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254672;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=E0GlRhDnLo/iOQKkl6haVCGh9Hkd4sWEaYoV7HwSoCA=;
+	b=mp39RzCV325QeNHcmR49HWhhDpmwQUS7kD+I2ooEj8dwO8oFir2qKM0/qQGDIgEYbgof
+	 VHYXIsVlp1TFqwpYRPitihpT5augvESb9zLFwRmfUR8TJVOOSJdS5DZ7lPY2YeT1TWJS/
+	 S2H1mTNiF2k6PzOnywdCq0jcpzeXb4GbmlDOdO7qlRt3LjsXXllLK4xzpNc+vGKKJ1S1N
+	 sT+hcdC5IOQqECiiMPVC88Q2EYTEeiInC5ieWYlBZoRyYvjbVU71cGZxfK7OP99fCqjLl
+	 kvxwZHT6zZHbjUiIfwcVJGtSBtnoPWf6bgHZGkiBiRWQk8wIjrsYZjNY9uq+WP/Iaeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CgcfhwZg;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMWIIN+d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C851606A338;
-	Mon,  9 Nov 2026 20:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C851606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F01606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 20:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CgcfhwZg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794254605; x=1825790605;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XiFIr4wIIdZ1lLJz6CyLg064mfrzts0usX5vfZ3FSIQ=;
-  b=CgcfhwZgUSX1lY81cRELxJRoEomZ8Wu4haOPqMQ1jS2OqwhSz+hnH+Qv
-   hVsSjm4yjZNXut4e9p+fgsRJcbJWVA1K852M4GxDiqU/o62om20BJ7+Ox
-   985zt2OAk5FfQODDwxmFmcrABzIYq0017USjPxl5jBa4MyofzFX0nHSqi
-   j4yoAcIdIo9AK+EccLpi23pKbo4OqBekWiUWNG4ZPvxbx+msQNUzVBY0j
-   fy4TaV5J5VjFMZEyd0jSUoTNi8WY/6NxDMCJVcum1GlBGtO7j2ZdrRcEy
-   Im7KsEtxeeVTNTEleL331iNBGxXAu/nVHUCVW9CQdX9Nzb7t/lJIlekyH
-   g==;
-X-CSE-ConnectionGUID: bmOTn4s5QE+pSxL+dJUBCQ==
-X-CSE-MsgGUID: pVLlQRE5R6mlk9cbcXU2yQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3024009"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3024009"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 12:03:22 -0800
-X-CSE-ConnectionGUID: Nz1IaT65RqW47aDh6LK3Dg==
-X-CSE-MsgGUID: BKmsxJrwTT6uIgKFs3l55A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7777487"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 12:03:17 -0800
-Date: Mon, 9 Nov 2026 22:03:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Nikita Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] iio: light: ltr501: Switch to read_avail() op
- from manual attribute registration
-Message-ID: <avInA0Qgi841Fd9f@ashevche-desk.local>
-References: <20261108094253.83899-1-clamor95@gmail.com>
- <20261108094253.83899-2-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMWIIN+d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1DF91F0089F;
+	Mon,  9 Nov 2026 20:04:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254671;
+	bh=E0GlRhDnLo/iOQKkl6haVCGh9Hkd4sWEaYoV7HwSoCA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WMWIIN+dL1J134sCPMRE6INceKfEldklelxGXCQgs9fW05jPGMZbXys0ZUzcrwghg
+	 20i6OtiqNo1xeqmLImUbSmlEyFVQoNxu+mpsdXNzOAT9HclznWxml853Fnnda1qnba
+	 z9LRsdXGll0yNLP7PVazkFHQflszD5CCcldBjJcplwBNS5/0rNr8VCORi9qa8uQR+v
+	 MyOXDOaPKOcDXI3J9ewg/GD/qhzqLcLQGavVMXIju1aP8+WQbVI/4CyUy/N5kclBOm
+	 AbzkZQKanp0ovYmDBfubUyTNrdHUNRjvnBYTHpnoD0E+NRkiETmy+2aoqxArf1ZcJD
+	 ss2g4BOvu8u0Q==
+Message-ID: <sashiko-outbox-205531@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: add CIX Sky1 DisplayPort
+ transmitter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Liu" <Luo.Liu@cixtech.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109092623.102291-2-Luo.Liu@cixtech.com>
+References: <20261109092623.102291-1-Luo.Liu@cixtech.com>
+ <20261109092623.102291-2-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 20:04:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,48 +60,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108094253.83899-2-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Nov 08, 2026 at 11:42:50AM +0200, Svyatoslav Ryhel wrote:
-> Switch to the read_avail() operation from manual attribute group
-> registration. This eliminates the need for per-chip attribute_group
-> structures and related ltr501_chip_info iio_info entries.
-> 
-> Adjust LTR501_INTENSITY_CHANNEL to account for the new
-> info_mask_*_available layout, allowing the removal of _shared since all
-> intensity channels share the same layout of available entries.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dt-bindings: display: custom vendor properties duplicate
+  standard DT bindings
+- [Medium] dt-bindings: display: incomplete OF graph ports and missing
+  required phys/port
+--
 
-...
+commit 7968e7b18915fdc94006fbc915ec20e0e3171502
+Author: Luo Liu <Luo.Liu@cixtech.com>
 
-> +static const int int_time_avail[] = {
-> +	0, 50000,
-> +	0, 100000,
-> +	0, 200000,
-> +	0, 400000
-> +};
+dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+
+This commit adds the Device Tree binding schema for the CIX Sky1 Trilinear
+DisplayPort transmitter controller and adds a corresponding MAINTAINERS ent=
+ry.
+
+> diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml=
+ b/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml
+> new file mode 100644
+> index 0000000000000..9087b5edd9f02
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml
+> @@ -0,0 +1,108 @@
+
+[ ... ]
+
+> +  phys:
+> +    maxItems: 1
+> +    description: DisplayPort PHY the controller transmits through.
 > +
-> +static const int samp_freq_avail[] = {
-> +	20, 0,
-> +	10, 0,
-> +	5,  0,
-> +	2,  0,
-> +	1,  0,
-> +	0,  500000
-> +};
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description:
+> +      Video input from the display pipeline that drives this controller.
+> +
+> +  cix,adapter-port:
+> +    description:
+> +      RCSU video adapter port of this transmitter. Sky1 numbers its five
+> +      transmitters from 1 to 5. Port 3 is the native DP/eDP output.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 1
+> +    maximum: 5
+> +
+> +  cix,dp-max-rate:
+> +    description:
+> +      Maximum link rate the board is wired for, in units of 10 kbit/s.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [162000, 270000, 540000, 810000]
+> +    default: 810000
+> +
+> +  cix,stream-id:
+> +    description:
+> +      Index of the video stream this controller uses. Sky1 has two strea=
+ms,
+> +      numbered 0 and 1.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 1
+> +    default: 0
 
-When an entry is not a clear terminator, add trailing comma.
+[Severity: Medium]
+Can standard Devicetree mechanisms replace cix,adapter-port, cix,dp-max-rat=
+e,
+and cix,stream-id instead of introducing custom vendor properties?
 
-On top of that it's better to use 2d arrays (yes, it will need some casting,
-but this will make it clear that there is a tighten dependency between odd
-and even indices).
+cix,adapter-port encodes a 1-to-5 instance index where port 3 is the native
+DP/eDP output with a different RCSU register offset and bit layout from the
+USB-C DP transmitters; per writing-bindings.rst, differing programming mode=
+ls
+should be distinguished by compatible strings rather than an instance index
+property.
 
--- 
-With Best Regards,
-Andy Shevchenko
+cix,dp-max-rate exposes Linux DRM internal software units of 10 kbit/s
+without a standard unit suffix, duplicating the standard link-frequencies
+property (in Hz) from video-interfaces.yaml on the output graph endpoint.
 
+cix,stream-id hardcodes the input video stream index as a vendor property
+instead of modeling the display pipeline to transmitter routing through OF
+graph ports and endpoints.
 
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - cix,adapter-port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    dp0: dp@14064000 {
+> +        compatible =3D "cix,sky1-dptx";
+> +        reg =3D <0x14064000 0x4000>,
+> +              <0x14050000 0x400>;
+> +        reg-names =3D "dp", "rcsu";
+> +        interrupts =3D <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&clk 0>, <&clk 1>, <&clk 2>;
+> +        clock-names =3D "apb", "vid0", "vid1";
+> +        resets =3D <&rst 0>;
+> +        cix,adapter-port =3D <1>;
+> +    };
+
+[Severity: Medium]
+Should the binding define an output graph port and list phys and the OF gra=
+ph
+ports as required?
+
+The schema only defines a single input port from the display pipeline and
+omits the output port connecting this bridge to the downstream sink (such as
+a dp-connector, usb-c-connector, or eDP panel), which prevents describing
+board-level endpoint properties such as data-lanes and link-frequencies.
+
+In addition, each transmitter sits between a display pipeline and a
+DisplayPort PHY (and the driver unconditionally requires phys during probe),
+so phys and the OF graph ports should be listed under required and included=
+ in
+the example.  The unreferenced dp0 label in the example should also be
+dropped per writing-schema.rst.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109092623.1022=
+91-1-Luo.Liu@cixtech.com?part=3D1
