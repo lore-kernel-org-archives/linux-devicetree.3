@@ -1,48 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259898;
-	b=sZkBFTP5+jAjEapqGpk+OcBlR14uqpwW6wqYh/EGD1nT2zX9SpwACxVE4BsABQOqJhbe
-	 DdXubipCq54ZfsxweABprcHU0A2mJDGT6qFPNNyOGM2NDT/hTxroQ6uHW80jW+1A8kYuU
-	 V+F3InkuBHsvXR0W1eJVY8TN62tyxHin3o0DZarUPqrB1ACR7QNQJ9jKwM62HPllXlld+
-	 7N7e7di2gBMXQnoKXJKEc2AHHud1RzfGfwkor/jaf06KSZyOd/7NpwQh1jgNe9JEJNbHM
-	 HcPxXEQkzYkS13bZr73bBMrmF/fCjJH+Y4cpWIembgcIZ3SmDxJ1Yp9aVa1gbMQUwlQ==
+	t=1794260464;
+	b=swAz4obNwh+JM3WL/zEo3O842EeS0SyHa4PdS8GmN/nAoOCp4TeaqINfNMxOBMr3+bGK
+	 SGickJIEmtwv1tIppxAn2KUMjw5oIdP1asJDn36PcuAbU+lz9ccsfgcbDg9Z/LCtvoqkp
+	 l+jYviEOt8Yz+ke1V2slujvtjK2rwE+29jXNB5avH4+9kg/LoGPUgDFROnQLeNCPW/T2D
+	 uVWRrudFIWNj+Ju/eLYg6dlZYVh+S4UkY6gsZg0h3Z1zMNjW4xKj7briaGhloSzYqUL/5
+	 Vfs2R1my2hlTv+Lp9qxsWaDhky2YGHzzG4EB/ix5ob+acNTPDytG4uEdG389dYinwkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259898;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
-	b=kodxMWtmdIc8psOMRxOt45q8vZiPyR1Eh3VAbxIMiJj264iaWG+ZcA5FtES9+jVMoqsu
-	 lFq8ginvXM7oNNX/dmgS82d6+ChFToldrHzhTd5OgN3qCv0A+QWX72AwohrnY8SvFT/Va
-	 8hQ3ujI+V16WqtGgSpO32LVyUVnERiCXPT03JWWDS1SEdNMOCzuXejKKnVAovJZAe3OxN
-	 j0xhVhvtIDWNvZzQs5duf7r3fIQGRPe/jNW/RX5hCz1u6HOI8Yr5rBnAn4r52FIV3JbD6
-	 TQPeTmSRl/e71aaYZIYHgGWguenP/CXnrRxeeGUIpcEwfelWVXbObPswt2E5zmXXA/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260464;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=nc3TzyXMoGJC9UyE5HrL9w+JlONNvlln9BnUy6v27Ro=;
+	b=LNX7a4UwkC8iczME7EkuNr5VUb5X/k7JQzib7V0iGf+XjVqKUKODcMS22HA2j44N/1Dd
+	 XA0fOu3Zf55CJ3yemSzajQ5JZri/Th6MaTSNECN60JoW0TzSngdOFCAiUhlpNs1OuwtFo
+	 IEXy/CUr7ZCHcQLKsP7OsCwMqC7tV2ZtOnSpaLQs2wMV0c4ybc9AcYrOYYnCbn11Djf8b
+	 3uy4aloT6dA/WcDBRE+/d7f8pbvM1Yd8yIqG5POSSGb5YnjZzMnn9RUcxq3ZTjYwjZbfU
+	 GnFnjlGCx0JvL6c09jqYqDN7ExFBd8TSTDmtLsO1TVf9Munyn8mPbJNzj8Clcb9N/tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VwSCCpdb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A1z8N54J;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58297606A31C;
-	Mon,  9 Nov 2026 21:31:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AA0606A339
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 21:41:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AA0606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507381F0089F;
-	Mon,  9 Nov 2026 21:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794259898;
-	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=mCzhRyZ+wwhJJGibEXRKXuBZtQz4qUFVXIk74vVhWIPQA32tx8NBVYHdT3qb3a5kw
-	 z48+hw4FvLI1fapT7DbV6sWvt2t+9Qe+F1qsa+Mdn3g40jQ0rPBnWsh7aQqtBHsys6
-	 g1ebrARLWRxH/jQWYFGF0GZa5+nG9qWWgSzTqhJTWsAmk8A+StNDuDaAQyMIF7eV8B
-	 5abeOBvCj/VrkMHnLkridb1GLGM5eX0cKEXMgPMdVmBr+/Y0brbwYLgp0h3s3+3/bX
-	 d1U0yMMqUGb4gTmSbe/SMUPiABVuZ2ZBFx1YnDS5YpPHS7HMtfk+vmGkd2ShIqy0dP
-	 eMltTBWWZlacw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 2842C3021B8F;
-	Mon, 09 Nov 2026 21:31:19 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VwSCCpdb;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A1z8N54J
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9LAIrg1352247
+	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 21:41:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nc3TzyXMoGJC9UyE5HrL9w+JlONNvlln9BnUy6v27Ro=; b=VwSCCpdb+5zHIgyo
+	+Bxe81Mk+uvMyazHf8ErYvn4v9fSiBZeM/u3UCJ+OSNqepR3/wr4818JrMIbzYcQ
+	R+eJVaz2KZ4QJqLVbpV3so8+c5M/RsXcATSyJKan4wDotF19agsjLnbizjVRDTDG
+	lD+pGm6BqHEZ91DYiC77+OdTDiE2/llrovvp6aoJXq37pbF76h4ldRhyFBw6Bd9g
+	Cz+hG4GzVWGBfvxJuc81pVxtkoOB6zeg+G9LnNaYmJK4VPnhepfPN/SDgON7VHk1
+	TdphtmBuwaGIsJHymSF0ehEi9gb5NzQEs0rLIfhRWb38u0unWhu7hBEpO5ulBSpg
+	B+Ks2g==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucapac68-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 21:41:02 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a3451ea93so2132868eec.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 13:41:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794260462; x=1794865262; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nc3TzyXMoGJC9UyE5HrL9w+JlONNvlln9BnUy6v27Ro=;
+        b=A1z8N54JZ6Yo78bfoVBK0cma7Tfx9J1YDKGp7dLTNj4GfhS8V0WTxt03FzjNrRErmE
+         GAJLqHliNX4m66JpbCmGr6iKYjYfyhMyOSdbzebKHkjRYNvU2P9WIStdXbHhp6DzJgD2
+         hfUL7FnFCgUxMQYLAkmGr2izrfQ19vcJ9f3TeBJgbO/XUVsKm0Is9WmPi6DkbDl5aA/n
+         l9R4gZqaKx3ZAzbX947cE3y5PNvTvs1SpiGV1NIwA5/MtLA66MbEnZT1CHptY8bX0ABP
+         7BjTdUSEt9tPEXuxLlXkX3HuNTuC6Wuc4KjkPe+QHseHOiZ0EarDOnVz6NOcNTY+HTim
+         iJyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794260462; x=1794865262;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nc3TzyXMoGJC9UyE5HrL9w+JlONNvlln9BnUy6v27Ro=;
+        b=eYPt9ZDot/PlyBsaQ1J0nNbSTXO9o2LTRqb22KcqApYBUriJKC7TgcQJDGk00IpOE5
+         2skLfmfJBxIeYVdeOkxABl9h63hTElwZJDVb1slszlvjnwsCNzFXwHEji0HJPwceVaS+
+         DzxK9n0ezd8OU/8asJG/YTsAPRscfiAM4puhb2Q3Y1HpyqZa0WJVLxV0e3weWZ/HCRT2
+         qIkF6kfP+Vpbm3Nr6EyyNOFZq7GARzsnnJ0+ZWq4j2tCFGftiZqiGQTvFDK5kQspIUNU
+         ZZYIKnTCL+995m8i6RfZ1zJeKkdrdCFt2ZzmV9/wEaYJ0uL5js/WJo3OF4uvWkNp24oJ
+         82HQ==
+X-Forwarded-Encrypted: i=1; AL+hErH/SsW1bYdLe8A84QSPt8BRgFhKEY4t0EEqjQD9vC9Cqi3xcblvQrgp+eWTnhPDxx7WAGCP2SIlennq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rYvwgRbaHAUr9m3ngmEguyGLqBEP/aya7mntE4FQzKKHu/5FG
+	su6n9STAaefQevzCjwQHctxkiiU+COHhXszWro7p0aeLfy018XWLn10JpJGBKgJpy8XE0sMbKxi
+	ZoohFqPUzSWYhPkzp8QTr3xm2Ii63m1HYLeAcsTyd4H18RpsxC9rYF/Nzejor9JGL
+X-Gm-Gg: AYBFou2pkLQvNWCgqxdF7S0L/SM0x1Hh2BmrzgMlfdBBqzpF8xsAo2JjprEhphjlCFH
+	wHESQp0VQbC8Y/IUJOmkbKD+hxTVbVZPf7xKD5r7bRTXovccRWS9x/r2CrZzX65R64S+DMoBNJv
+	Z+ZPm4QktJIGp3XeVf5GqNz05RdJBtnF0lruq+TUWms5f+dMHqnxfJ9F3PkZOoHmXPZV36rPsOh
+	6h9q4oNVk9bzu5CGEf6T+VQazN8MuGv/tzzk2jAoDelETiUd63vAIEUq3dhrNGnbGmHBLN9Cz0u
+	Q+pKZNJBboEwcbqiAfQMVRVax9unCtgciW2qU6FE3Zh5ntsAZ55/jE6VLR7G6KttBH/4oj2nJfn
+	Yx4kg5zbxAIN43hfU6D0RPZHzgOmEtc/hTMGctE6o3y7yMf5Bw1LMIebpv8IxXJ1RlSMzB5yG1T
+	rRltdURBSn6Vi3AQAk0b1Hh2iF1f0=
+X-Received: by 2002:a05:7301:fc0b:b0:36a:18d2:8c79 with SMTP id 5a478bee46e88-37520216c5fmr571811eec.19.1794260462226;
+        Mon, 09 Nov 2026 13:41:02 -0800 (PST)
+X-Received: by 2002:a05:7301:fc0b:b0:36a:18d2:8c79 with SMTP id 5a478bee46e88-37520216c5fmr571765eec.19.1794260461408;
+        Mon, 09 Nov 2026 13:41:01 -0800 (PST)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm989985eec.12.2026.11.09.13.40.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 13:40:58 -0800 (PST)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
+        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+In-Reply-To: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
+References: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
+Subject: Re: [PATCH ath-next v3 00/17] wifi: ath12k: Add support for
+ QCN6432
+Message-Id: <179426045796.3811579.2501311030942871658.b4-ty@b4>
+Date: Mon, 09 Nov 2026 13:40:57 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,170 +128,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-From: Mark Brown <broonie@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261019232412.516028-3-ansuelsmth@gmail.com>
-References: <20261019232412.516028-1-ansuelsmth@gmail.com>
- <20261019232412.516028-3-ansuelsmth@gmail.com>
-Date: Mon, 09 Nov 2026 21:31:18 +0000
-Message-Id: <179425987829.3711751.2911706702501919873.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4541; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TxbeNRoApeZMXmEGvJ/B2ZT/ZxuqSXWwNg+NhfOldYg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+WS9X2GcV/NPVyccmmtNmu7PxCv2MNqFJ1n6CsXHfb
- 22ovmfeUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgImoGzMyvHob0KX0TJa/KWM5
- 71b7ur3cczaw7lN8mRD1QEtY9TuLO8M/Xcew9MiywG1sVeKNqdKMRjN3fEiovPuxqPnKCeXoPZp
- 8AA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Mailer: b4 0.16.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4NiBTYWx0ZWRfX+St1qYqKKGcO
+ 2n61nx7vpi9BDaAJYhnAff7RRheEcUkEk+4Vheq3A/0aJmdw0BH5wS/t6cJKWe4ydGK7UmDfe7U
+ wUMAWbbYLapG26zw2CUu1pUmFTSqJU06mmstEVBVoSM+TxKzoSCXeSvesM8XYGfCouShFzXovrR
+ jHqJbLNjfqJOJNL+Aur3BF+QdeAxKER5GK0UyFj8ytDNgQ+/5lB8HHrDfna4k8zMPgs+V05ZWGc
+ VkcO7dm5EYPMeGoq+OwO8WRoozWF8kXXLVSEZZqxdEEFv52H8/05D4723IB6AjqpxvXAJk3/bPu
+ D4VWRTLCStQTcJ3ZUO0yAPFo22paTqy+Ar7NfYeWGJ/cZ5gZWcciD2NcbH9CBZUFWzsv0Cim2rA
+ /oqGV3W7dl7+OWoAR6VNy1PqLFvmYwjMxSKieOAyWgk9KwAbsC5zgWDDSjv1ze4Dmw5rVLt7nCu
+ FbzEMBw1D5T2dzYwKgA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4NiBTYWx0ZWRfXxSa0gNeN00to
+ fvGzjDq+xAy71W57sPhxg/SAFwK5t5TpHmZyhY8hnUBXcPkKuUq5dpLvESHekifWKVu394+aq5n
+ qLaxw6SaQ976lzzArtNaYBei+Dh5YQ8=
+X-Proofpoint-ORIG-GUID: CgbL11HmDl-KS5u5qDmXura-bD3HOCb2
+X-Authority-Analysis: v=2.4 cv=TaQDJhQh c=1 sm=1 tr=0 ts=6af23def cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=oLphvwOYPl6AvyYkXNgA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: CgbL11HmDl-KS5u5qDmXura-bD3HOCb2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090086
 
-> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-> The driver configures the PCM bit clock to 2.048 MHz and supports
-> 8-bit and 16-bit samples, with up to 32 channels.
 
-> +config SND_SOC_AN7581_PCM
-> +	tristate "PCM support for Airoha AN7581 chip"
-> +	depends on ARCH_AIROHA || COMPILE_TEST
+On Fri, 23 Oct 2026 12:31:03 +0530, Aaradhana Sahu wrote:
+> QCN6432 is a PCIe-based device attached to the WCSS Q6 processor. It is
+> registered as a platform device (AHB), and remoteproc APIs are used to
+> boot and shut down the device, similar to other AHB-based devices such
+> as IPQ5332.
+> 
+> However, PCI APIs are used for device setup and register access. Since
+> QCN6432 requires both AHB and PCI APIs for its operation, a hybrid
+> AHB/PCI approach is implemented.
+> 
+> [...]
 
-This needs to select CONFIG_REGMAP_MMIO.
+Applied, thanks!
 
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/pinctrl/consumer.h>
+[01/17] dt-bindings: net: wireless: Add QCN6432
+        commit: 42da6a0777de4ebd6a4841c324e6e53dca8a5850
+[02/17] wifi: ath12k: Refactor PCI operations and MSI config structure
+        commit: 7a694970c901406b2d308bd49cc6b62655795196
+[03/17] wifi: ath12k: Add hardware parameter for QCN6432
+        commit: 7b6c88854744df5b407b6e992cf105b8c73bee63
+[04/17] wifi: ath12k: Add hardware ring mask for QCN6432
+        commit: d4be9943adb7c04cea4f9a20c2b084be73acf15a
+[05/17] wifi: ath12k: add hardware registers for QCN6432
+        commit: 907079526eab4b5cce13d0521ce104e6a9f4019a
+[06/17] wifi: ath12k: move multi MSI vector flag to ath12k_dev_flags
+        commit: ea97a091f2462e05a6501a3bd352404d9590b274
+[07/17] wifi: ath12k: Add hybrid_bus_type in ath12k_hw_params
+        commit: 9b5a7ca569c98cca3e94eb8484d69d32df71ca00
+[08/17] wifi: ath12k: Add hif operation support for QCN6432
+        commit: 7f83e54fb9ebdc5cf2468b8f0c0fcacc4efdba0d
+[09/17] wifi: ath12k: add support for unified data-region memory allocation
+        commit: e67dbfad7a497ba62ebbd3be2d989f699cc3f7a5
+[10/17] wifi: ath12k: move MSI config to pci.c
+        commit: e40bb1f7504dccd2342c877ca605aa8f55f26833
+[11/17] wifi: ath12k: Add platform MSI support for CE
+        commit: b9bc9ef941bd40efa7503aa37b16bd515ea3b965
+[12/17] wifi: ath12k: Enable MSI interrupt support for DP interrupt
+        commit: 4efe1e0f689496268f74854515c0f211f5a579f1
+[13/17] wifi: ath12k: use CMEM write for PPT on hybrid bus devices
+        commit: 206da6eab6748d7989094c3babf320da60f9fa45
+[14/17] wifi: ath12k: store and use MSI data per CE and DP interrupt group for QCN6432
+        commit: 3f5a096554996ace4bdba9b942600d2906a942b7
+[15/17] wifi: ath12k: Derive QMI service instance ID per protection domain
+        commit: 9b4353d61a6dbc4a9c72831df2379979311a7911
+[16/17] wifi: ath12k: Resolve userPD ID per device
+        commit: 4342c7914e4cb181051524b43a297fafc2f7a9c9
+[17/17] wifi: ath12k: Add QCN6432 AHB support
+        commit: ffa3eaf61775cb2239d22a138aafd2ba03374515
 
-These aren't used.
-
-> +#define     AN7581_PCM_BIT_CLK_1024KHZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x2)
-> +#define     AN7581_PCM_BIT_CLK_2048HZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x3)
-
-Is this really 2048Hz, not kHz?  
-
-> +static const struct snd_pcm_hardware an7581_pcm_hardware = {
-> +	.info			= SNDRV_PCM_INFO_MMAP |
-> +				  SNDRV_PCM_INFO_MMAP_VALID |
-> +				  SNDRV_PCM_INFO_INTERLEAVED,
-
-The pointer callback works in chunks of descriptors so you want
-SNDRV_PCM_INFO_BATCH as well.
-
-> +	.period_bytes_min = AN7581_PCM_FRAMES_PER_DESC,
-
-This is using a frame count to specify bytes.
-
-> +static int an7581_pcm_setup_time_slot(struct an7581_pcm_priv *priv,
-> +				      int direction, int bit_width)
-
-We don't have anything constraining things so that the slots fit in the
-BCLK.
-
-> +static int an7581_pcm_fe_startup(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-
-> +	/* On open mask interrupt and disable DMA */
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
-> +				  AN7581_PCM_IMR_TDESC_UPDATE_INT);
-> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
-> +				  AN7581_PCM_TXDMA_ENABLE);
-> +	} else {
-> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
-> +				  AN7581_PCM_IMR_RDESC_UPDATE_INT);
-> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
-> +				  AN7581_PCM_RXDMA_ENABLE);
-> +	}
-> +
-> +	usleep_range(10000, 20000);
-
-That's a fairly long delay for a digital part?
-
-> +static int an7581_pcm_fe_prepare(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-
-Note that we redo prepare as part of over/underrun recovery - we should
-reset the hardware position as well as the driver one.
-
-> +static int an7581_pcm_fe_hw_params(struct snd_pcm_substream *substream,
-> +				   struct snd_pcm_hw_params *params,
-> +				   struct snd_soc_dai *dai)
-> +{
-
-> +
-> +	if (priv->users <= 1) {
-> +		/* Setup Descriptor size and number */
-> +		regmap_update_bits(priv->map, AN7581_PCM_TRDRSR,
-> +				   AN7581_DESC_OFFSET | AN7581_DESC_SIZE,
-> +				   FIELD_PREP(AN7581_DESC_OFFSET, sizeof(*desc) / sizeof(u32)) |
-> +				   FIELD_PREP(AN7581_DESC_SIZE, num_desc));
-> +
-> +		regmap_update_bits(priv->map, AN7581_PCM_CHBFOSR,
-> +				   AN7581_PCM_DESC_CHBF_OFFSET,
-> +				   FIELD_PREP(AN7581_PCM_DESC_CHBF_OFFSET,
-> +					      AN7581_PCM_FRAMES_PER_DESC * bit_width / 8));
-
-This is a little confusing, the driver says it does interleaved format
-but the offset programming looks odd for that?
-
-> +
-> +static struct snd_soc_dai_link an7581_pcm_dai_links[] = {
-> +	/* FE */
-> +	{
-> +		.name = "an7581-playback",
-> +		.stream_name = "an7581-playback",
-> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
-
-> +			    SND_SOC_DPCM_TRIGGER_POST},
-> +		.playback_only = 1,
-> +		SND_SOC_DAILINK_REG(playback),
-> +	},
-> +	{
-> +		.name = "an7581-capture",
-> +		.stream_name = "an7581-capture",
-> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
-> +			    SND_SOC_DPCM_TRIGGER_POST},
-> +		.capture_only = 1,
-> +		SND_SOC_DAILINK_REG(capture),
-> +	},
-> +};
-
-This isn't actually a DPCM driver?
-
-> +static struct snd_soc_card an7581_pcm_card = {
-> +	.name = "an7581-pcm",
-> +	.owner = THIS_MODULE,
-> +	.dai_link = an7581_pcm_dai_links,
-> +	.num_links = ARRAY_SIZE(an7581_pcm_dai_links),
-> +};
-
-This should be const.
-
-> +static irqreturn_t an7581_pcm_irq_handler(int irq, void *data)
-> +{
-> +	struct snd_pcm_substream *substream;
-> +	struct an7581_pcm_priv *priv = data;
-> +	unsigned long flags;
-> +	u32 status, isr = 0;
-> +
-> +	regmap_read(priv->map, AN7581_PCM_ISR, &isr);
-
-> +	if (isr & AN7581_PCM_IMR_RDESC_UPDATE_INT) {
-
-> +	if (isr & AN7581_PCM_IMR_TDESC_UPDATE_INT) {
-
-> +	return IRQ_HANDLED;
-> +}
-
-This unconditionally returns IRQ_HANDLED regardless of if we actually
-found anything, this breaks any potential sharing as well as the debug
-and robustness features of genirq.
-
+Best regards,
 -- 
-Mark Brown <broonie@kernel.org>
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+
