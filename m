@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235989;
-	b=NskCxU/1q2GRMazaqHTmjXTih4o3frTQGzz4IZC7K9Legv0uwQaYbK8vuIAZw8XcfvnD
-	 BVm1Y5rsyeQE5wYeJQyoD6rYQvvPKjvSJ9QLyx511QB49nq6PIw8AV4052QUqd+DXzGgx
-	 cwXbEIDKnzc+mh89P+uPHyACsALgJNyyFFBigCpyUKciLo1UYpuRw0N2A3L9vSP1q8l/0
-	 Zr5vhUXTd8NiyXLWY4hkQcz8ZlwjdR/QPYYa4qVHDoOWY8hgNs7DjsWLIgNOETI7age+u
-	 rQAt53+LzWd5tWZfxkFNSK5Crb3LsHrV2VXt7m0ihYjZXNgaetGgy56RQAaLEgAFfWg==
+	t=1794236026;
+	b=fkscNMZFn8UA8HFSO4T52kRuMNdx6ljt+LWBIWDEPGVWz/qNCfvC1Q9G89Uyj0gXf1Ox
+	 WxEtKSA6fZxY/Y3QnNpxe9lgP4m3GTHN26wtM9sD+a7LMoqsdpN29Ki5jVU774hIRH3PD
+	 mn9SnGLEbxQW3C99R28HpdFGYPFIM9S0aWrtFKCqv8tR5XLHceKjPWkYDZIGFRqFsM601
+	 4b3ofa//wmhITIH6m6cgXPvz/4wS1sUS9QYcWkdk8gII9W/9dEFtnuAyXvD1UUJl2FxLO
+	 Za+asid+Lz7JqaSyaB7KD/XqgYTZY6lNuWwsgw8H8MJvT0csw0qjB5p2BqeRLTctyZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235989;
-	h=Received:DKIM-Signature:Date:From:List-Id:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9cRdiyFE5hmtMw4CHCQv9a9kkD9YdZDXT5dVOPNTVYE=;
-	b=mb2fttXDw1yKtG/N9duu5C/NfhVhPOLrTt97aR957zTbk8WsT5PxcnxU8shDMXvNaQe4
-	 QYA+zz4cHH7A+1X6kU9hyaZRLJunEb2hSVzmgHznjIxOJ95wR0lVhbCfhUFY3M2NP62TN
-	 4R1Am2P88MHuBheCiijkaOQxvkF/i/oEsoo6NjefZlSZ6ITSRYzvuYt30swI8BxFjq+up
-	 8AFyncR2LEA7Rkm0VNVZd68Sxf7qu1v5EWte+P/RusI/HCZS8amij61reBzwJnkrqNRyr
-	 o2tAovWjtd78UyYrf8Q/zA/KKaUKFrkJRJmG6P5vfTFp4YcB+5k1hEvthXI9yzNCCqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236026;
+	h=DMARC-Filter:Content-Type:DKIM-Signature:Date:Message-Id:Subject:Cc:
+	 From:To:Mime-Version:Content-Transfer-Encoding:References:
+	 In-Reply-To;
+	bh=ceacrMlp6mw/lN+zsSUJu5X8+9PuN/FPhfrLE5/MHh4=;
+	b=hVJYuGvJQIYOsQNuJgCSXIKaDbHM2P70eCT1B1Lv275dWbWAiXdYJPDOEVzSbqBfUQ6r
+	 r4Qn3CSPkp0cCNwF0JyTUubFivbJZEwKcsCGJBaPWMuq4zkxMqrBq9ypaK6sZdqTw8IOH
+	 NSvzgET5JoUIqV8FhiZUDoShGwUbUKl/mSfULAkIbmFwkdWDpxogI7Xpa+I7cJv5UL2o4
+	 EIVcZtWpCOd4WL3kfiTs47Bc8SgcS+FifmQPtMzX4chPmKM3oaF/TZQbwQ00UqD0QSs2a
+	 i+bhB0jJCln6fPN3pm0N+HO3IbbCytzC4sVZuDAttlh4ZmJ0iuSX5AaaJpBd4b4yGwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YuxPP/j0";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fhannenheim.net;
+	spf=pass smtp.mailfrom=fhannenheim.net;
+	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=unVqbcq6;
+	arc=none smtp.remote-ip=188.245.251.181
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0C1B6606A323;
-	Mon,  9 Nov 2026 14:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA013606A334;
+	Mon,  9 Nov 2026 14:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA013606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YuxPP/j0
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7E35B1F008A3;
-	Mon,  9 Nov 2026 14:53:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235988;
-	bh=9cRdiyFE5hmtMw4CHCQv9a9kkD9YdZDXT5dVOPNTVYE=;
-	h=Date:From:List-Id:To:Cc:Subject:References:In-Reply-To;
-	b=YuxPP/j0nyZ7lI64277PyW95OHzNOPlKOeQapmneAUMfEjIkfUY2op9J/3OpOCmNn
-	 wJkGZbqmAQRU6jDVK9SKmA6lKnaCcEuDxpmKIh4lT6YZ8JlGuKaKdUyW+kKtssXhGw
-	 FGNjoiWySjjJlq2MgZLVtqrRdQsRi6nPAELJKWtKNPYPX9t3uhW1Kp6IilP6BwH+D+
-	 7eASem1dY4qjBDHEpcI5j6xefRNUJ9Z+ZhouQUGDdJOK7KPKGJJWWBAqW9azqvz2kr
-	 VWq28TUA4eJmMhMaTQKCtxPJyreO7SlWCb+hZ7x8xh8X45jk5EKwOW9W3DBKK7Nf1K
-	 8lbuawWI/Op+w==
-Date: Mon, 9 Nov 2026 15:53:04 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
-Message-ID: <llvzidb4mkbx2wbhmvd2mmjmsf7ft6s6h6wbv72v2r3sacy3z4@5sxktqh2mzi4>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
- <auug8QoQ62ETGg1D@ashevche-desk.local>
- <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
- <avG8MITPLRuFcZdO@devuan>
- <6b7uxzbhrce55f5bgkvmg2r2h4ax4xg7le6vxkhzezbsef23gq@ojm3wm33v3xn>
- <avHXwL53ClRQptIh@devuan>
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=unVqbcq6
+Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1794236023;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ceacrMlp6mw/lN+zsSUJu5X8+9PuN/FPhfrLE5/MHh4=;
+	b=unVqbcq6rZN9RtkaS3VzwjS/EfmvS/Pod7VHNz/aTJfuSvsjGWhbCoApLoyXRxBWaCuODf
+	qkaBA52g/qCRWWrpLX1+hGV9VHWWn+VOEyj1UNbVy6/PhYKz10ZmtvQDkl16TeHWWSVQHh
+	iHHg1RxYAfvsJvvmzNIJ7zy6pdadcbU=
+Date: Mon, 09 Nov 2026 15:53:42 +0100
+Message-Id: <DMQRL5NXWCTG.3VYYE9QSVOK2U@fhannenheim.net>
+Subject: Re: [PATCH RESEND v4 3/3] arm64: dts: qcom: oneplus-kebab: new
+ device
+Cc: "Robert Oscilowski" <drgitx@gmail.com>,
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+From: "Frieder Hannenheim" <mail@fhannenheim.net>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Frieder Hannenheim"
+ <git@fhannenheim.net>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,41 +66,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avHXwL53ClRQptIh@devuan>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
+ <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
+In-Reply-To: <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
 
-On Mon, Nov 09, 2026 at 03:30:08PM +0100, Alejandro Colomar wrote:
-> Hi Bartosz,
-> 
-> > Date: 2026-11-09 13:59:05+0100
-> > From: Bartosz Golaszewski <brgl@kernel.org>
-> >
+On Mon Nov 9, 2026 at 12:08 PM CET, Konrad Dybcio wrote:
+> On 11/5/26 9:20 PM, Frieder Hannenheim wrote:
+>> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+>>=20
+>> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/line=
+age-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+>>=20
+>> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
+>> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>> ---
+>
 > [...]
-> > > > > > +int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
-> > > > > 
-> > > > > Triple indirection is rare. Do we really need it?
-> > > > > 
-> > > > 
-> > > > I don't have a better alternative. Having two functions: one for
-> > > > counting the names and another for retrieving them into a
-> > > > caller-provided array is IMO the worse alternative, so I'd keep it.
-> > > 
-> > > Would it be possible to return the pointer, and then pass the count as
-> > > a parameter?
-> > > 
-> > 
-> > Is this really better? I think it's less intuitive than just passing a
-> > pointer to an array of strings.
-> 
-> Returning allocated pointers has a benefit for static analysis: the
-> function could be marked with __attribute__((__malloc__(deallocator))).
-> 
+>
+>> +&i2c2 {
+>> +	status =3D "okay";
+>> +
+>> +	pm8008: pmic@8 {
+>> +		compatible =3D "qcom,pm8008";
+>
+> No PM8008 on the other phone?
 
-I had a comment under a different patch in this series, where I
-suggested that returning the number of properties could be used to
-simply count the properties with props == NULL. This would make the
-function future-proof in case we need that functionality.
+There's 4 phones in total: 8 (instantnoodle), 8 Pro (instantnoodlep), 8T (k=
+ebab)
+and 9R (lemonades). The OnePlus 8 doesn't have a PM8008. Should I define
+this in -common? It would need to be disabled when a dts for the OnePlus 8 =
+is
+submitted.
 
-Bart
+>
+>> +		reg =3D <0x8>;
+>> +
+>> +		interrupt-parent =3D <&tlmm>;
+>> +		interrupts =3D <112 IRQ_TYPE_EDGE_RISING>;
+>
+> interrupts-extended =3D <&tlmm 112 IRQ..>
+
+May I ask why? According to the docs interrupts-extended is only useful wit=
+h
+multiple interrupt parents which is not the case here. Or just for brevity?
+
+>
+> [...]
+>
+>> +&vreg_f {
+>> +	status =3D "disabled";
+>> +};
+>
+> I think it may be cleaner to move the definition to the other
+> phone's DT (are there just 2, or more?)
+>
+> Konrad
+
+The f block is used on the 8 and 8 Pro I believe. So I think it's best to k=
+eep
+it this way.
+
+Frieder
