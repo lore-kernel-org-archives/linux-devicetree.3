@@ -1,89 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253537;
-	b=Y0YB8SirCDtNalEXFBCCOK1YHOE3K1uiAs9Mc5EVsLdFo3lLWkhtUyYksEhrR2JCjGNu
-	 O7loGR3UUrXT0oL9oYZBANB65WtNbMRnGZNV43n+HFs/+y4CpMOMbM3INKUNSBlDl45zX
-	 ALLPZsCRfgx93v7JDwvkKG/lssn0D8ANG2OUFerg7rGiOamHtVTdqoMuCCxUh9PeYjg6N
-	 +BVMdBG+pbO1YYJdOrQaWK3QcSzC6FsdZofpeysTYmxaF0wsaiI+TTr1qkgzDIhnozc7G
-	 cS9FBbub+IlGzNF70KCvwmifOS9yeyBlkv2ueN1xNxwGeU0uCgtMaPv1E/X+uqGNU0A==
+	t=1794253714;
+	b=KAfC7dkD3mp3zLHsOkUti5yfSusPPA+P2cnGPCgnO6+cq3uppHNHdobucWF6l7BTXiyM
+	 oLj1ZwQt3RBcVrh01RYGQiaFRfYU5mBVSmIyW1FS/zoPHhExxua3Na217ohvi8/lScGpp
+	 aWmZ+a5u9aXRHty0vBVdqVdj7wkJfvvoeOF3QMVVp9AjXvOicJSVXEFYfEpEhFg8wHEK8
+	 fE//X/iTd6H+3Jazv0HGFl007ixK5tEJZI1r+Julzk5hKVppXUIRnqUyO9waWLJG45Stt
+	 z1WvUZS+obaSnH86uaAmpnaXf2Cc8X8P+VCW2jRTaMh9P03qwHt4quO1IxoQrvP42xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253537;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Q4lNPn/UK40kisCgS/o/tQFd2nFoymjIVtaW1cQeiCw=;
-	b=rJq1WlclWWlYd7DVcTCb8HIniS2Ui5SKktVERwVIKcwHJtUxs/fPZL25MugNC9RF+07j
-	 0tjLM/Fv5uBePz6hamijxWUsQLqF+vGlS5Duo3ytKFK4Ndmxfy+0nKM2Kyzy9D3yNKy23
-	 CbP7IlUZnPssE5XnW96Atxm7iFiA+FLKGjCZ8edQ+qjh2ctvRHkMXSyTtNN2YbUwR9V2S
-	 tph27iBwl0rqN7v+U8Lf1nNQaMHX4Y8QKOYZh3BcEMFOM/aZYjNv0nEPMLKPgW4xe7xRv
-	 p5J8biRV/kL0aY7UUxEMQiaLVd7cmXEZo9G/1QeWzxDv+s+77sbe1Qdb0YV1j2XEDlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253714;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=A8LWwHch8iz5/b23akV80ol5/MMcIgwIVUMrnGv0GxY=;
+	b=zdK4mUhmD7SkWl95WEWRM0umAuOd2pf2BeHzUusKLwbL+4T4+vr+NDOY++/LfEQUnBkI
+	 +bJjOZ49dVratAWwmi9Mo/4f628N4EO923CZA3hnisTMcYLr/InopB7FxA19Tb5dm371q
+	 IlCFKblLNYB1VDU4DlLtJVOpeTuRVFOb9CzrMXKZprINBQv40abBzuRPVotN6qGcmHp06
+	 0M28NhdAsEqhVc31nUknf48YxIWrRDD4q0mLjmRhUGp82hHhm6IH4dkFQKYU1T1EH8uw5
+	 0CBbYxFepqiFPJyNGzFv0nV4dzmz9JPXYWqJAHDSfpb9EdZVfGNW9Ae7XHjo+Od8+DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FsVMDLq+;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fR1wh0z6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9306606A31C;
-	Mon,  9 Nov 2026 19:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9306606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14264606A321;
+	Mon,  9 Nov 2026 19:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FsVMDLq+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794253537; x=1825789537;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dmur0JcSjI2h2Sn4a6LIR095JVkgSSE5Iw2d6Hhzk9U=;
-  b=FsVMDLq+Mdg+QVKbt+CSMo6Sq+5KSUyoTO4shsrZSlV1LkhqsQs69Prs
-   cCj1NNM6n19THfymMJdgmTegwFmjfjsPcnDya9f6EJaomAjkqXPY+q9EV
-   BMAIccnBzg/Y7aKGkw2ouRKFxdocxLTUdyRv5cKK3WjLn1SJNIh6zDkWh
-   hSO/XSA/x22ZXQeVrD1JcPGMdlRqcarQHMQ+igrVRH+vnO3lIz63pFnsH
-   JjdgptXz6sgtpUw4tnyhqEupeNmkt0fDqutcdKcLtMwZxjqPCinveQcEU
-   q+eTPHcJWpuGKRaste5TFrsdoSfa9GUb37D5D2KQ/VclyaF0cqMO3T1qk
-   A==;
-X-CSE-ConnectionGUID: 9/HKqxbaTeW2/Fk7GwzrGg==
-X-CSE-MsgGUID: sKPmDPxsTPysgk8aTRqTQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3015817"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3015817"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:45:37 -0800
-X-CSE-ConnectionGUID: kViXZNE9R2ico6E4XGQLrA==
-X-CSE-MsgGUID: ymLHrCHYTDuxbi0VO1H2QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8285756"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:45:33 -0800
-Date: Mon, 9 Nov 2026 21:45:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	"Simek, Michal" <michal.simek@amd.com>,
-	"Potthuri, Sai Krishna" <sai.krishna.potthuri@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>
-Subject: Re: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
- hysteresis
-Message-ID: <avIi2pDCcaKDx3Ro@ashevche-desk.local>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
- <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
- <aumyreagvU6zewKI@ashevche-desk.local>
- <DS7PR12MB9503E787CBD5E9292B5637CEDC762@DS7PR12MB9503.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fR1wh0z6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D91B1F008A1;
+	Mon,  9 Nov 2026 19:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794253713;
+	bh=A8LWwHch8iz5/b23akV80ol5/MMcIgwIVUMrnGv0GxY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=fR1wh0z6oiy/Ntnm9M7hG50ecB143XgeGf/Na/f8N0PyYpFB0al9UwvfSezSP2TEk
+	 KPE9fmMvumfvBTdjDsAkLpH6EbYJXFDg8pcbBNEPyITno6RN2YRLxgSu74ZqZpw+7u
+	 GNRooOuWuZggkLDubkwXOldRt4kWJrxD4aDhMCYwDkzZkzNrPRLqKIeKe/G6k+ygnG
+	 DqMs5DkJQ13wnqLPhOCmk/mRxSkIwQxH/priITQRL1dSAvZXz9GHe23bAyh5gf5Eun
+	 yvhe81A4XQjbYismOTwKaR38kiiZAUi1KiknkdTrrChDwRfG7aqs4hWM+udD5A0CCz
+	 5gcbjoxKXIhsA==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 626432FC6C89;
+	Mon, 09 Nov 2026 19:48:20 +0000 (GMT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,38 +52,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DS7PR12MB9503E787CBD5E9292B5637CEDC762@DS7PR12MB9503.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
+ amplifier
+From: Mark Brown <broonie@kernel.org>
+To: Neo Chang <YLCHANG2@nuvoton.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
+ robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org, 
+ neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com, 
+ lkp@intel.com
+In-Reply-To: <20261109051251.471879-3-YLCHANG2@nuvoton.com>
+References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
+ <20261109051251.471879-3-YLCHANG2@nuvoton.com>
+Date: Mon, 09 Nov 2026 19:48:19 +0000
+Message-Id: <179425369963.3711751.8538085283431158098.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2580; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=uz0EEhKFqb2Rh6VAYejYUKzktncm0H9HpNXhrqxvcSA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+Kbfs7VjTVXgy6tOdgrJNTtdrphdO8NIPnn60+PH8X
+ 4auij+sO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRVZ8Y/kfEO3N4Oz5pX2yt
+ EHrXcsH7V0HSxSq3Jmyf//pZdywH50mGf0aPBX93brz0f66CW9whhtPGfzg2L/JZsupI0PYVtQ8
+ SyvgA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Nov 06, 2026 at 11:35:00AM +0000, Mahapatra, Amit Kumar wrote:
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Tuesday, November 3, 2026 3:39 PM
-> > On Mon, Nov 02, 2026 at 05:51:08PM +0530, Amit Kumar Mahapatra wrote:
+> Add support for the Nuvoton NAU83G10 audio amplifier.
+> The NAU83G10 is a mono boost Class-D audio amplifier with
+> integrated DSP and I/V-sense support.
 
-...
+> +config SND_SOC_NAU8310
+> +	tristate "Nuvoton Technology Corporation NAU83G10 Mono Boosted Amplifier"
 
-> > >     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
-> > >     sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
-> > > -   *hysteresis = upper_mc - lower_mc;
-> > > +   *hysteresis = max(upper_mc - lower_mc, 0);
-> >
-> > But you can use abs_diff() and let it make the problem of the supplier.
-> 
-> I went with max() because an inverted pair (lower above upper) doesn't
-> really describe a hysteresis, so treating it as zero seemed the safest
-> reading. With abs_diff(), an inverted 80/90 pair would be read as
-> 10 degrees, and the next threshold write would then set the lower
-> threshold to 70.
+This handles NAU83G20 as well.
 
-Bu where did it come from? HW or DT? If the latter, we may just reject
-the wrong values at probe time, no?
+> +static int nau8310_dsp_idle(struct snd_soc_component *cp)
+> +{
+> +	struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
+> +	struct regmap *regmap = nau8310->regmap;
+> +	unsigned int idle_pattern, timeout = NAU8310_DSP_IDLE_RETRY * USEC_PER_MSEC;
+> +	int ret = 0;
+> +
+> +	ret = regmap_read_poll_timeout(regmap,
+> +		NAU8310_RF000_DSP_COMM, idle_pattern,
+> +		idle_pattern == NAU8310_DSP_COMM_IDLE_WORD, USEC_PER_MSEC, timeout);
+> +	if (ret) {
+> +		dev_err(nau8310->dev, "Timeout waiting for DSP idle state: %d", ret);
+> +		nau8310_sw_reset_chip(regmap);
+
+If you need to reset the chip you should probably also resync the cache,
+and there's some redundancy here with nau8310_software_reset().
+
+> +int nau8310_dsp_init(struct snd_soc_component *cp)
+> +{
+> +	struct regmap *regmap = cp->regmap;
+> +
+> +	nau8310_sw_reset_chip(regmap);
+> +
+> +	/* wait for the power ready */
+> +	msleep(120);
+> +
+> +	regmap_update_bits(regmap, NAU8310_R1A_DSP_CORE_CTRL2,
+> +		NAU8310_DSP_RUNSTALL | NAU8310_DAC_SEL_DSP_OUT, NAU8310_DAC_SEL_DSP_OUT);
+
+NAU8310_DAC_SEL_DSP_OUT is used by DAPM, you might want to solve this
+the way nau8360 does.
+
+> +static int nau8310_biq_coeff_put(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
+> +	struct snd_soc_component *cp = snd_soc_dapm_to_component(dapm);
+
+This is the same issue as was fixed in nau8310_clkdet_put() in this
+version.
+
+> +	/* Boost Control Target Value Limit. 0.16 V per step. */
+> +	SOC_SINGLE("Boost Target Limit", NAU8310_R17_BOOST_CTRL1,
+> +		NAU8310_BSTLIMIT_SFT, NAU8310_BSTLIMIT_MAX, 0),
+
+The binding describes nuvoton,boost-target-limit/-margin as having
+0.19V steps - either that or the comment here is wrong.
+
+> +	ret = nau8310_clock_config(nau8310, fs, nau8310->mclk);
+> +	if (ret)
+> +		return -EINVAL;
+
+Just return ret in case it's more descriptive.
+
+> +static struct i2c_driver nau8310_i2c_driver = {
+> +	.driver = {
+> +		.name = "nau8310",
+> +		.of_match_table = of_match_ptr(nau8310_of_ids),
+> +		.acpi_match_table = ACPI_PTR(nau8310_acpi_match),
+
+We don't need the wrappers for these pointers these days.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Mark Brown <broonie@kernel.org>
