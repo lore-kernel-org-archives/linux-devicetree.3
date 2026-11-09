@@ -1,38 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220600;
-	b=QfMLRzz7PQUdUd3DYBIqqXXy5FBP3mKSWUNDWa1m4YVH3ol4fffbKCjv2+gHuDPAuzQX
-	 VAm2cMlvQop2LDxpqytC7dW9doAtKpyECXwmdnqepJKfIZnq/Ckv7Hv5PSBw1u982aZr4
-	 RNtNbXwVv7thiM4gQ6c7jRNCI/sXRG6rWElRS6uWJHOQzkmeTIoWN+q/A326L+WhYpzI+
-	 h1FDBxmK2615NVmdPrTAjIoH2YZqq+79NJEdqb9UWjqOU6aR8hpHwg/0ZQy0+TTqAR0tj
-	 MisMgHyAxVuemrngoT3c4quh49bEFwkZHPlcrNA+gSqj+ptt3qnIXoM0Ix8vgLCNxSg==
+	t=1794220630;
+	b=NjVMSbyv6m5Mz3lupFLrzK+Zn2M98KUXDMfajVU1v7r2+f/C1Aala4IbVneNMbrmsbi1
+	 oxcjWgyk1AjVtM7BNPX0Z1L0i+d1u3SgGN9qfI4SHE9rryPn4xD6ydX54anFW5l17zwXz
+	 EDpz4KUlR4cP4CcUCdAMrRmY4U/9f7R3zeFNh1UL27ep4GA0X486b9aTvCWAbI8ceZer0
+	 WQk0sN8nqZ6BwHG0OZQP6pXLa/vx6pRttnuvopx/s0Bxii95Qf5Z60+iweF7QWZ54PSgF
+	 wm1Bmez7T1UJA/NxakAft+kmJZkpBpB0BdM2m1z2z7UVGRqW0zcx/koBfgFNMHPtDlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220600;
-	h=DMARC-Filter:Mime-Version:DKIM-Signature:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:From:To:References:
-	 In-Reply-To;
-	bh=ovprduxLgum2CY0XHb/PVUWcwSUV6g1yux7UTHcX5AM=;
-	b=KFmNbkQu/NFe38rmv3rbyJMq/0mtAjkTB6wHbPYAxRrqjK9T1/YACzyYAgFaiq+b8gaq
-	 +DvE1T1PGeh9ukB3J8umGyxrpCwYryVqxrg/ZUH8RmoRXpkvwgZ7LgbzlxbdbPcw6myWA
-	 q7kgjhetoirfsxaEpzvNoHfT12XPTPyjGdIz7SACGZjLAFC6jvlnqum9pv4mCn8A6Jrov
-	 BTOibZ/rNvIYBGm8SJ8IufOy9wB/SqiJtNe0Xp96oVULR1AAtP4ta9CDcpHxbdO9CdmdW
-	 LTCCS1BwF9AU0iuSAiAJWelk98wJdDsl3TMKPeXcsVboR1KmyrzJK2T1rsXuoN640Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220630;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
+	b=KxB1a7K+PvPvX29f0B2jxS0wd5u2GgqqrY8k1nWs1mBcBBTPApbxBI0b6LJc9ReyG7Fw
+	 L3d6rRmsHZTQ6jRrhEd6I/yeO5DQdjVFGGr5fgM14Do0jBA4m5ocvct7QFTLZCy/1SKPx
+	 yfZEE/Jf3OTufdJi9ry7IoTOOB2k6PWFlxNlYgkE1gqMBKGXdR1Qxp/yTqCBs73uEfrvV
+	 VAHsD1cm/sJuJvQfLMvw1dfPNpnMjtVnyeholAd6K+kQk+IHLU7uwby/WV5+ZsYUoq526
+	 ZyqxVIiZ4fZVLf5YXI524V28zq81cFKkfj+4LtM1JN1mt7qaNoAu14d0EJWcY5COevQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fhannenheim.net;
-	spf=pass smtp.mailfrom=fhannenheim.net;
-	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=0zVLGqBh;
-	arc=none smtp.remote-ip=188.245.251.181
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BE0606A31C;
-	Mon,  9 Nov 2026 10:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75BE0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEB7606A322;
+	Mon,  9 Nov 2026 10:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AEB7606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=0zVLGqBh
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794220623; x=1794479823;
+	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=S7Y1lMouhSsXanUL2M88fpxKKj/V7JtNNiWE2kkXW4PMPlAsxwxXMGp+2EgvSimiX
+	 gBjGNl0BWTz9lr2rruucIByBkB9npPaJfR5+lfwZHKoo9sh7D/Ks2V/afRQuqvKS4F
+	 jqthYrW3V/dctInVG5X67ZjYit0E+h5vYnhGiSoRIMt2yRkURI2ProyCTP/ou+B958
+	 maIADTiGv0o5YjDAYHx4DtdsS3c6mDYPulrEbk6Nc0Ngf4ryeR0seRoDp05yLunwYy
+	 8CwB9luL3vn21xlVo/zSEm+ME2WtpvZjEjzIb1MtgTJl5g/iUwVsmZmmJEJlr+h9wr
+	 7jW5aM/znH/Kg==
+Date: Mon, 09 Nov 2026 10:36:54 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+Message-ID: <20261109103645.32173-1-lsa.uz@pm.me>
+In-Reply-To: <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
+References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-2-lsa.uz@pm.me> <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 7f23696f074205ce908f5e43290b2a74f03e6da2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -41,110 +63,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1794220596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ovprduxLgum2CY0XHb/PVUWcwSUV6g1yux7UTHcX5AM=;
-	b=0zVLGqBhpJnPasZaYQ6zfHjg9JqU0jEm2CuMDhqHhWPVnr9eDZ6MTrN2FmnmxJOeaTORCf
-	q69MMMPQPO6LOSt0x8akGl0X35JnKTc31p8Paca+xcBYVJw5Fp5KEvY5pNA6+imgb46ZNg
-	EBaUU2E3O0vmY8n3HSdmzDixOQldvZE=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 11:36:35 +0100
-Message-Id: <DMQM4AN8JPSW.388R1H1XOM5JF@fhannenheim.net>
-Subject: Re: [PATCH RESEND v4 2/3] arm64: dts: qcom: Add
- sm8250-oneplus-common.dtsi
-Cc: "Robert Oscilowski" <drgitx@gmail.com>,
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
- <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-From: "Frieder Hannenheim" <mail@fhannenheim.net>
-To: "David Heidelberg" <david@ixit.cz>, "Frieder Hannenheim"
- <git@fhannenheim.net>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
- Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>
-References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
- <20261105-kebab_dts-v4-2-c6bbe6ded92e@fhannenheim.net>
- <48420a1e-3611-4543-9d3a-7add3049b7ac@ixit.cz>
-In-Reply-To: <48420a1e-3611-4543-9d3a-7add3049b7ac@ixit.cz>
 
-On Sun Nov 8, 2026 at 10:05 PM CET, David Heidelberg wrote:
-> On 05/11/2026 20:20, Frieder Hannenheim wrote:
->> This file contains common properties shared by all OnePlus devices using
->> the Qualcomm sm8250 chipset.
->>=20
->> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
->> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
->> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
->> ---
->>   .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 607 +++++++++++++=
-++++++++
->>   1 file changed, 607 insertions(+)
->>=20
->
-> [...]
->
->> +
->> +	gpio_keys: gpio-keys {
->> +		compatible =3D "gpio-keys";
->> +		label =3D "Volume keys";
->> +
->> +		pinctrl-0 =3D <&vol_down_l &vol_up_n>;
->> +		pinctrl-names =3D "default";
->> +
->> +		key-vol-down {
->> +			label =3D "Volume Down";
->> +			linux,code =3D <KEY_VOLUMEDOWN>;
->
-> Hello Frieder,
->
-> patch looks good, but I noticed - which one? this key-vol-down or later a=
-t bottom,
->
+Hi Benjamin,
 
-Hmm well the pon_resin doesn't seem to emit input events. I don't know if i=
-t's
-used for anything else but the volume down button still works if I drop it.
+Yes. The single file came from Krzysztof's answer on v1. I offered to
+fold the compatible into st,vd55g1.yaml with an if/then for the
+link-frequency minimum, and he replied with a link to Peter's 2/7, which
+adds the VD55G0 to that binding. His review of that patch asked only to
+keep the file name and to move allOf to the bottom, so I read it as one
+file for both:
+https://lore.kernel.org/all/20261020-cute-peccary-of-attack-2376af@quoll/
+https://lore.kernel.org/all/20260903-utopian-vagabond-mamba-44caea@quoll/
 
->> +			gpios =3D <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
->> +			debounce-interval =3D <15>;
->> +			linux,can-disable;
->> +			wakeup-source;
->> +		};
->> +
->> +		key-vol-up {
->> +			label =3D "Volume Up";
->> +			gpios =3D <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
->> +			linux,code =3D <KEY_VOLUMEUP>;
->> +			debounce-interval =3D <15>;
->> +			linux,can-disable;
->> +			wakeup-source;
->> +		};
->> +	};
->> +
->
-> [...]
->
->> +&pon_pwrkey {
->> +	status =3D "okay";
->> +};
->> +
->> +&pon_resin {
->> +	linux,code =3D <KEY_VOLUMEDOWN>;
->
-> or this one?
->
-> David
->
-> [...]
+I am happy to do either. Once you and the DT maintainers agree, I will
+send v4 promptly. For a separate file, it brings back v1's
+st,vd55g0.yaml with your Co-developed-by, and its MAINTAINERS line in
+2/4.
 
-Thanks for mentioning this. I had already tried disabling the gpio key and =
-just
-using the resin. I will drop the resin in the next version.
+Sergey
 
-Frieder
