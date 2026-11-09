@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228782;
-	b=JVVTVCXnYwQbLN34zwss60vvreAegB6R8lhJ66a2ExyYoVaOYQV+HOS4Rsi8rpmcrVvm
-	 WSYcnQUBL0HaZqACSFh3vzyyhJVRAxKbtfcCnqlJ3/MG+iT9Li3Iqjyn/jhYrOylNJhRY
-	 U3XaiTHgLQL8fnPUso3WGgJKsrMR5IfZS+VRR3BOmGb3f+gOiVVC2xRAFhUpWOufi/gBC
-	 9YQd9dESYvkrAg5VCwpyhl+ZCub0cdz6BasAXEiyqv52hDZXHGZ3VlIXSeQ8GjwSJYLc7
-	 VCjacJIqg446uUAqJkgfrw/Jc4nCQ2tMxUTBdDxYI+TCP4i5ax9vc5cwHFWDaBmR/Wg==
+	t=1794228820;
+	b=cR7oTYNc3th3i7Knat+gl4JCNtLN4IS6WFZKFjxgp+BswK8JwE0TdU79C5LG/7+IYz6o
+	 AuQ+Ud0rLlEDUy42+CdkOIFuXh2c+15Gk2uLqmd9zik0rT4OmV6R6UvbNwdpfh9npxadY
+	 ik5re3d0rokm01i64QB1Qmjjj+wBnr254d3D4fKWF1tER109/uS64uTahg98Inim9OjBM
+	 clV7vuDPo4ljpl7LVAh4SuavY/AuE7IfVVSR1orHQcvuFV0PSlbfycfccCh4ZQ0HIXsL7
+	 9iCXdWwLC5GtJasYVLWe74jNZijx/E8QftLVWfB3USQ63KN9jUoOhqQsPbHfwCl6egA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228782;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228820;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pIs2J9micTT/yi1fdIyjBwJhUsXlZCW/u6XJ1gvAbvk=;
-	b=L6fzLywuxkEVkgZikx/kgubYQAUm5Mj13YM7QnnkG9+0CkvmpeFqjGVcUXZwNtc0OkdE
-	 GJBGocAWxjcolqcT7gdviL7urtKisDNerO7bpl8EesZjyU3SjGEXx7PfzwUlfiQsgiuye
-	 qsIoOzzUAiOjfN8Z9mtNKoD2TCda0dxc0kpGalrwQ9MGSP8jB2F57Cr9aUZH+/DtFTFl2
-	 TfIpZVFseonyk3sRzNkcLedFgVn4umsOZTk+bS0rhiRKBU9Rqh6PEwMfH0tl7BYqE72b3
-	 AwnRj+QJXdN9w4IEIsTGkZHgiF2gUcZ2R2cE9/5lshgHkaMXB1ruIPUN3t5xUhSAyoA==
+	bh=Ux+kRKXXPI8nIz9tVs7F7c1iyRd71QPMq85RyBOC8hs=;
+	b=UIn16VWFVAfNkaTF1ZZb1SfFPb3CZ1uUidlReBpZBt6f+viEspJiScJ9x9pPIDnkLblb
+	 6d8mrrqg8+2p2+/Uz2sjIMelGlw9+5bni/ic79ExRBheS/jU9K/BfyVlleQbDXAd2wJ0t
+	 rfbqjbVluG+tL6wpZ0RTZOSsb+LoASxYxrCcyj1uAf4/ofH+LYxFPFVaGrq2/2yhPwRAn
+	 EvAq4VGRMJAEXVsZ9O2BBso0zp5G8Cy3vvgJrndTOTE/EYj1S5kRmHnY9kYvYJ2EM8u4F
+	 wGicEcKAOWllqaw+xrUXN3NkUplO0p9RY2bpblvBpBk5B4SMT9eDxI3Q2f1KX0OMvnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0JEYZ0f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LslcekGx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98603606D817;
-	Mon,  9 Nov 2026 12:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A25606A31C;
+	Mon,  9 Nov 2026 12:53:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0JEYZ0f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37F931F008BC;
-	Mon,  9 Nov 2026 12:53:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LslcekGx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E751F0089F;
+	Mon,  9 Nov 2026 12:53:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228782;
-	bh=pIs2J9micTT/yi1fdIyjBwJhUsXlZCW/u6XJ1gvAbvk=;
+	s=k20260515; t=1794228819;
+	bh=Ux+kRKXXPI8nIz9tVs7F7c1iyRd71QPMq85RyBOC8hs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m0JEYZ0fh4Nc7lNAi92hzLi5jia3FGYA8xZnmTZRMgh95mtU7u///gpRlN0mUB8Np
-	 ZSEGmOR8t6QighLHHqUYSrSNNVbojTzblY1yU1hogQPrPrl6Vw1D5PxK+f5WmJJZxL
-	 HCAAK49LpAxxeGNJrHpL3yN9Nz64DwWO3GPjDVt204bLr4RYdBEm6zJfxkIcuiXEHT
-	 I6/u3HHfJJsS2081HQQ9dPQHlr3m93celGYGa9VleIJCMT0WOsC3Edie3qEXz1ZMyB
-	 t4BMBo8FB03sL0hJIsOYOYmDHsbg8TqMaG41z3mqynrFQLl9ApOYkgrUzgVC44GwIR
-	 ZEA2qXuXnxtVw==
-Date: Mon, 9 Nov 2026 13:52:58 +0100
+	b=LslcekGxXHGx640hxCX1qU4y3Ga4SG1UR8Prf0X8VgVs1GLzCg5bCzJw7B6pO32OU
+	 mKE8Dk3709O1waviv0YC2ar9tj4kPP0W92IwaElOgyxliKvC/kLXaQvXl4V78Uh5Bv
+	 GEkPYWqRewIIWHjIODWTtSMgOG/Yxhml0mXxm+h+3Si3ha23p3V79Nucsxd2xFYK9N
+	 1AhHI+FgW+xMTowP399WLCuO9yTJv6bdpy3Dp2DmJhxT1hwwq1Rk+u3gBg8jzo2L1J
+	 /9GFrZ7CPEw012u6tph2ZiGmWrODeXW8JikeNqTDzb24v2YsdhmfYTuvemRn864i06
+	 k6iNs29nDkH1w==
+Date: Mon, 9 Nov 2026 13:53:35 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Eric Dumazet <edumazet@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 10/10] arm64: dts: qcom: nord: Add support for TSCSS
- node
-Message-ID: <20261109-formidable-outgoing-warthog-e6ab6c@quoll>
-References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
- <20261108-tscss-v2-10-d5f575010427@oss.qualcomm.com>
+To: Janne Grunau <j@jannau.net>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
+	Joshua Peisach <jpeisach@ubuntu.com>, Michael Reeves <michael.reeves077@gmail.com>, 
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] dt-bindings: PCI: apple,pcie: Add M3 generation
+ compatibles
+Message-ID: <20261109-athletic-shaggy-cougar-88b8bf@quoll>
+References: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
+ <20261108-apple-m3-pcie-v2-2-0e5ffec71da4@jannau.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,32 +66,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261108-tscss-v2-10-d5f575010427@oss.qualcomm.com>
+In-Reply-To: <20261108-apple-m3-pcie-v2-2-0e5ffec71da4@jannau.net>
 
-On Sun, Nov 08, 2026 at 06:48:31PM +0530, Imran Shaik wrote:
-> Add Timestamp Counter Subsystem (TSCSS) node support on Qualcomm Nord
-> SoCs.
+On Sun, Nov 08, 2026 at 03:22:36PM +0100, Janne Grunau wrote:
+> The PCIe controller on Apple M3, M3 Pro, Max and Ultra SoCs are
+> compatible with the one on M2 Pro and Max. Add their per SoC compatibles
+> "apple,t8122-pcie" (M3), "apple,t6030-pcie" (M3 Pro) and
+> "apple,t6031-pcie" (M3 Max/Ultra) to the bindings.
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> Signed-off-by: Janne Grunau <j@jannau.net>
+> 
 > ---
->  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> index 1ab7d9bc3cfe..1d5f27336f73 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> @@ -736,6 +736,20 @@ pcie_data_inbound: interconnect@1c00000 {
->  		qcom,bcm-voters = <&apps_bcm_voter>;
->  	};
->  
-> +	ptp@1c80000 {
-> +		compatible = "qcom,nord-tscss";
-> +		reg = <0x0 0x01c80000 0x0 0x2000>;
-> +		reg-names = "tsc";
+> Changes in v2:
+> - modified subject line
+> ---
+>  Documentation/devicetree/bindings/pci/apple,pcie.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-And the rest of the devices or entries here? Are you sure you are adding
-complete DTS for this device?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
