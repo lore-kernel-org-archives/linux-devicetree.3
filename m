@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251104;
-	b=e+aoGm5VNvO8sZTnymCNbys4rrVLvgZFZv2onLayEuzgxhOx3GLP6PLGWxHXsmU8nVSG
-	 nNz9oyOl/v9BZj3GlWlJ5rTxIC5/EGO7Ji2Qiq7DyqjXCyk8v7BvkEbwhb+Q/4mFrQ/1Q
-	 eylOBZU0A/ICY0m51sCe0V3EoO3XFm9GUO+PyyS0RUF/V91Ki+ixyoadakq+YqGAyExqu
-	 Y1nn+rkBqQOxANtjErTA37ebxlkj65RO17II+5Wed9fz04Mopx0mZuKOwnymt4QGOAIPG
-	 RzVBbadCoOsneDDLifkqmCPWyiXb4ygOUV5lmNvIm8spIOYltvd9uqYCNee8apDbu5Q==
+	t=1794251668;
+	b=UK9ZPr0j37u7KUNjdHA3ADQ2Nn3MgTu7IodqZ4uxhf0fPq7a1hYrnXeJDyhCChgfiS2J
+	 x6A9VQ3jkwvSM6lD3TB4780Oj9dJGUFPDE/PZNkrnU8/a9OIyqpiWF88BrIF8GCPqwN+p
+	 Fd9pBOHPuftI2/AEZUOkyYjK/HEZSPb3+m4IjIgb+GTdxcOzEmkHsaRqg7PrUxgfEGzLk
+	 JTroi/CSQSfNr7+glFuxF/ByCMEnhbIi8yTreZvwL9Su4ZQ/91S7mKq1C+Q/SkI3uRxmL
+	 LcaQl02g7rkVVAohacL35Z5vEYHfeqfy9z0wS62JtBOK/wADMvbPtSaQQkSdmJfgbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-	b=Zc6g/QG+MGealevCL9da+lqJbsCHGYRJ9nRt+Cc162KDV/LL9glr1sHP9LOz+EhSzDLW
-	 P/Dz9fk2GdIwLLQf9uR+cQXpWyApKk7sVyM6Y17j6SGS+iY9Cpps6n94c0gO4lwKdEjlu
-	 rG7kDdViC2+vP7JyV//NVh+cLqzKiAPgi7Mcr7ArtIdFqiJlJ+THA6bl+sFxc1GfekKE/
-	 iPdjnQ4deb1mJK+k6/tgt1zcghmdqCYYDecHxmpFlmGsbaeU/vVmqyM3L5HJD9Qf5EsQN
-	 IcDK3dFEwm6ZUQ7ukausLMkraqx0TyoCy8mhogt8mO9FCS6RlkJs9oAo1uS2owCmUhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251668;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yScAPiGp0GFiBSNweFgyV+f5Nk+ImZsWDqxYjRGsZ40=;
+	b=qqJp7U3cb0oA9FKIM7s+gSM5cDy48NbfgmvGzAqqFX/F3YHKGV9XwwxO9bHnHhVMFWhm
+	 B/HjQXHDckOLBFadDckhoblnueT7d++ka0emRKQDARf86dHB5uF/X2WzhVJ7J0oYUDIiq
+	 AWlQp65lUoUJGVJUyC5hgGvFkQIfjg5EkWiWgRfEYb+/saxZjPIqvrgcQ2es29xMC0huc
+	 8TGQ6ZG1gsZmV6APpQexsIgx2doIIcqi7apU6TkQo3h7s0EciLVfg9Htzp9fa9zL35RmC
+	 Cjw7G7f6hudlyn5Io2dOjkpDXv1/kKHGPwYos5HJEDBHWKqp69alZvurJq19QFtq9BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=jv7CoQJf;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikuyOB2O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130C760A381B
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 19:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130C760A381B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05521606A33C;
+	Mon,  9 Nov 2026 19:14:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=jv7CoQJf
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so13519295e9.3
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 11:05:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mgcrea.io; s=google; t=1794251102; x=1794855902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-        b=jv7CoQJftGCU4PBxF1KDzpDlQUH9a8qKtj4O92bLRSO3djfFWCNS1FPah4as/ZdEgO
-         p1HOwXwuJgdCE6rZXINhR7fxok3QUuovGgTfG+CGDPmFFhwd1p5bYlMIGp2TV+d87Omx
-         VEqk2lwx+EYiC2G/yYeLVjsyJO6PHsmHkL1H8yYGfpOi3rApQI3lCnQMficcBNzs6jTg
-         syLYLv1+W77kS1CnuO0iXi1LSilW3fO8LSsGTLA74K0rBtkCWq2aTpTCeFPk6QAv/Jky
-         WCCMP1dmI3MmMIE2klExHJ+omw3u7NxIvq9kmB/BREtssb5sjTqHdJiTXxdok0QifDx/
-         l9Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794251102; x=1794855902;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-        b=0Vfgb17mI06fHL7LHjSo3JpEIAun2YbIqhMSRWlKfZft+KfvAxMbtgU9bllKy0PaU4
-         BGDFzzpzC1E8PobcCeJnHCMYpvkZLryHBZyFlcNVsAVvy4n2AfMuByHLwuq6S4gIc3+4
-         OH4BfWsw+qIQULyjeDlvx4JdLGKU2MClGtL5eekVkg7nJTc/PPPszpyMxzS3Atknn5wD
-         LB1Wr/2mvUSphRE7Tz3LNNvOrYNoDEJuymHskHLhMEJVLy+51Vxt1qhqDdgd51/ghVUn
-         y3VSqmFgeRHkp7yC9HCojhGnAcL12cbk/2aIc4DZAbv6EKs1YM07/nfkcVlFVoRfSr2N
-         Ou/w==
-X-Forwarded-Encrypted: i=1; AL+hErEZ3mLsP/yTcx8mneZ09FVuykkToGhedq331qdddaHuR4JjJQpWPJ/HyviQQbTFa+qyTqoA8BYWDo6W@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eUHK0Do8Mpktnyxmfz8jZI6l6RY4HNDG+aKRxixkMmdRX1Yuz
-	AXIEkOnaHBwGq3BqmciGJmAGbxDxdK4+JcRSjMVL9bWyJtf8RPwFZ2GY3evCAFgIUPP4j0S1Xu7
-	MRRVgxu0=
-X-Gm-Gg: AYBFou2m/28DknJBuzhoh+Y9XkgBFMvPvrZDCMM7+NBzmEMe561nDoL2pbWc83pluE+
-	kp9Yhh9B9uE32eSBzmznWjfDfTwWVE/K1jqD0HZGERfnP1al+Dh+ERu5fvNPnlQwGs4PgWpB5dN
-	RDpX5uGcYK8FV6l8VPhdQLYqABGYliQZYnPwgfihzP/QaMuEVwHGAOP27+kw/PJ+DyJFmTWaKly
-	hM1Bhz7QnRfpugNtknbS81xfnctA+qIVDND1iJMepYl88LhkxNrKxvZe6JUFc4v8wOeBhn07LDn
-	O1XJEYAgnFPWgbtv23+2WHpM3WGUsIOR2Hl27C2sRGNXfQsadn+t1l7pnPGjqIeVpT4NGxDfxIW
-	03Hb299hntrojRGf6QfXX913mUuQQ1yoI2IrjkxfoaI40wqgKlO21ff9NAP5N8JXPIpRBUHf1d/
-	2J703E8VLfaMVRIdrALIjf6rZgEq/8+BNBn4nOz/SsMgIcg3NcSjbPoAL2SPCPHBjD4t5rUFyYR
-	48WWdTtmgqU3j7ghbeOr/0eq1WfILX3ZSqstWlFOh9S/NDKqglNL+zlER8Kl9XE1Emlex8lpu+j
-	6x9y13x+EcnqLfSZqpMQqP943b3ug4PcjqAKIv44E+caF4HBR1lwo1yPgN9hJJo=
-X-Received: by 2002:a05:600c:6291:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ba0234ead8mr3131845e9.22.1794251102350;
-        Mon, 09 Nov 2026 11:05:02 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm543440f8f.10.2026.11.09.11.05.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 11:05:01 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
-Date: Mon,  9 Nov 2026 20:03:45 +0100
-Message-ID: <20261109190345.61480-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <at8jCGfp9dKjieoo@zenone.zhora.eu>
-References: <20261024212520.91401-1-olivier@mgcrea.io> <20261024212520.91401-3-olivier@mgcrea.io> <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org> <at8jCGfp9dKjieoo@zenone.zhora.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikuyOB2O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BAE41F0089F;
+	Mon,  9 Nov 2026 19:14:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251667;
+	bh=yScAPiGp0GFiBSNweFgyV+f5Nk+ImZsWDqxYjRGsZ40=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ikuyOB2OXRQw3yowsJsGzDGPhOKU0n3ncbrXKnNwHhHzCyfJbAMYD8iKMyybsBq+z
+	 EOeE1gALckotHJxh8YOj1ftSZLk2R6m5+4iOpH9+7jSa/TsAa/Yw+3MAqEb7fsxVVm
+	 xwuGIWN/SURgpmJyZuz0PFvAAq73nCezlWg8Y/KFq7LB52quzB5Vub21bzIwmaoD9l
+	 XJxg2cb+9TDqcDasjfsNTrHHduwAYg1x3FpPBELg+Wo7RjWgyb4azKHpfXnqrz+9cm
+	 5cs+r1zTJd3uguXKZt5NVG/HJFZxwcnvfe0CEda9JAuvAL+bTT9blJhSRy9BQclCIJ
+	 4aCmDcUI6BRlg==
+Date: Mon, 9 Nov 2026 19:14:22 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	rdunlap@infradead.org, Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan
+ controller
+Message-ID: <20261109-mulch-mountain-118fd114a797@spud>
+References: <20261109133609.810876-1-robert.marko@sartura.hr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,17 +63,181 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tL8PWQule9TDGmoi"
+Content-Disposition: inline
+In-Reply-To: <20261109133609.810876-1-robert.marko@sartura.hr>
 
-Hi Nikolaus,
+--tL8PWQule9TDGmoi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 10:54:49AM +0100, Andi Shyti wrote:
-> I'll wait for Nikolaus ack/r-b for applying the patches.
+On Mon, Nov 09, 2026 at 02:35:05PM +0100, Robert Marko wrote:
+> The LAN969x fan controller has a PWM output and tachometer input in a
+> register block separate from the Sparx5-compatible temperature sensor.
+> Describe it with its own compatible and binding.
+>=20
+> The optional fan child specifies PWM period and polarity, tachometer
+> pulses per revolution, and thermal cooling levels.
+>=20
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> ---
+> Changes in v2:
+> - Describe the fan controller in a separate binding and compatible.
+> - Keep the existing temperature-sensor binding unchanged.
 
-Could you have a look at v2 when you have a moment? It is the version
-after your review of v1: the spike filter programmed on the X1000 and
-later, and the X1600 falling back to ingenic,x1000-i2c. It still applies
-on i2c-host and on v7.4-rc1.
+So, I think that this device has been modelled incorrectly from the
+outset. "devcpu_gcb" should probably be a syscon/simplemfd, as least
+going off of what I see in
+https://microchip-ung.github.io/lan969x-automotive_reginfo/reginfo_LAN969x-=
+Automotive.html?select=3Ddevcpu_gcb
+and the fact that we see silly offsets in the dts:
+		reset: reset-controller@e201000c {
+			reg =3D <0xe201000c 0x4>;
+		};
 
-Thanks,
-Olivier
+		gpio: pinctrl@e20100d4 {
+			reg =3D <0xe20100d4 0xd4>,
+			      <0xe2010370 0xa8>;
+		};
+
+		mdio0: mdio@e20101a8 {
+			reg =3D <0xe20101a8 0x24>;
+		};
+
+		mdio1: mdio@e20101cc {
+			reg =3D <0xe20101cc 0x24>;
+		};
+
+		sgpio: gpio@e2010230 {
+			reg =3D <0xe2010230 0x118>;
+		};
+That ship has sailed I think though, so I'm not going to ask you to
+rework this whole device.
+
+>=20
+>  .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,lan=
+9691-fan.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fa=
+n.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> new file mode 100644
+> index 0000000000000..0b7d38a6d20ae
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Microchip LAN969x Fan Controller
+> +
+> +maintainers:
+> +  - Robert Marko <robert.marko@sartura.hr>
+> +
+> +description: |
+> +  LAN969x fan controller with a PWM output and tachometer input. The fan
+> +  child's pwms property references this node to specify the PWM period a=
+nd
+> +  polarity.
+> +
+> +properties:
+> +  compatible:
+> +    const: microchip,lan9691-fan
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: System reference clock
+> +
+> +  '#pwm-cells':
+> +    const: 2
+> +    description: |
+> +      Number of cells in a PWM specifier.
+> +      - cell 0: PWM period in nanoseconds
+> +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> +
+> +  fan:
+> +    $ref: fan-common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      cooling-levels:
+> +        description:
+> +          PWM duty-cycle values corresponding to thermal cooling states.
+> +        items:
+> +          maximum: 255
+> +
+> +      pulses-per-revolution:
+> +        minimum: 1
+> +        maximum: 4
+> +        default: 2
+> +
+> +    required:
+> +      - pwms
+> +
+> +    dependencies:
+> +      '#cooling-cells':
+> +        - cooling-levels
+> +      cooling-levels:
+> +        - '#cooling-cells'
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - '#pwm-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/pwm/pwm.h>
+> +
+> +    fanctrl: fan-controller@e2010348 {
+> +        compatible =3D "microchip,lan9691-fan";
+> +        reg =3D <0xe2010348 0xc>;
+
+btw, how do I translate the addresses you have here to those in
+https://microchip-ung.github.io/lan969x-automotive_reginfo/reginfo_LAN969x-=
+Automotive.html?select=3Ddevcpu_gcb,fan_ctrl
+? Or are you looking at a register map in a different form?
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Cheers,
+Conor.
+
+> +        clocks =3D <&sys_clk>;
+> +        #pwm-cells =3D <2>;
+> +
+> +        fan {
+> +            pwms =3D <&fanctrl 40000 PWM_POLARITY_INVERTED>;
+> +            cooling-levels =3D <0 128 192 255>;
+> +            #cooling-cells =3D <2>;
+> +        };
+> +    };
+> --=20
+> 2.56.0
+>=20
+
+--tL8PWQule9TDGmoi
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavIbjgAKCRB4tDGHoIJi
+0tTZAQDJGw60A4OFmEARRryj9PsxPvhxg1QcXsmWAOIEbtCcxwD/Yg1yrJwMpVRb
+lq5d8M3MBVVStjG8TV1Me+VIOtF+KAc=
+=XmEl
+-----END PGP SIGNATURE-----
+
+--tL8PWQule9TDGmoi--
