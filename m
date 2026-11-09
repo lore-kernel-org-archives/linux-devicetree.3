@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217321;
-	b=JEhuloA/HUoSGQuuDO8l4D6eT2IwEXQMtSt40CC/3LD0CXiXm4CJRSBDzF3catbEQBpD
-	 HkRphZ4a6mKTFpHUg1B80zCNazbcpvy9X+GSKo0epW7ftPSRWsF0w17FNjoK+E3VQBuyu
-	 MBbbyMDjGC7y2F/22kV9U+H6eS4i9NT1yyb0sRnwPRZDeY0Mno1sP4JHPBOcw1oEnFMjr
-	 qpHY4G3fTVTPudn2vHhnduXrKlz9Nh/BRJTup+oevPPX/3+b/6sJ/kf0FKfx8PViemB7E
-	 96KfC6f4TZCqH2hMLoMnsQI2VosGGvxfUPPPGlUAMezxnhNvO5mISJOu44qhBHdPFjg==
+	t=1794217705;
+	b=RNVCaqt02cR1EmcnA8EugQCS8rLdVHlzAE54TknidOIY+TmXi4wk7XtSzb/X2WN7gOAN
+	 Q/yZAF6m71s3sNcz8NUhq1HV9onxQUf6SlS9zZKa7FomnnexW8vRLEm3i/YX8tVlg0/Y4
+	 qFEd6LfylTIY+36PDExyX51aPq72XmtIHu8aTku5UpAbl2unINmOdfgpCZa39lfbo+uFD
+	 nqL2PL9IkCVy9OaKVsGs5zWKPYao4qejhvilCEDNURXDP640vHS/0GCxXLwrweCBXmAIo
+	 1SrspjF6OtORGVNnxSP5Kg0dcH8eRPgxXFzHlTJ+XC1DyUxtY6DYIRg1r6iguIPoosg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217321;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217705;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=VT/zo9JcAtk0rbqrKOPs9YxznKVRxb2WxMsneu8EByM=;
-	b=FhFS3TGz1enPedLLSMB6ptbYlzJcCgVPcPrv/Fs94u0Jn/gYUUTHm9Lm/JYR+RXrc+zh
-	 PQriJJA0TrnPNcPJsokpb92TBl6jlavT23vCx/KlTIRt0UPgqe5CPUIyrl2xWp6Hh9UUU
-	 y3fDOjYU2levu3HMkmL7pikofcwVccpgGp/eSxKF75lpCmRScN8gyriH+tiLswZWTN24S
-	 +IXcsRHSRLnecas82p5TimA7PGdNSL6rKCsfr8MhuajMMabQCKgCZYtIJf2L67pfb3/9d
-	 sJxUwfDDyeIuEe8S6fQ1y53dUNnLL9d1Ip8jVfUR+eOkdfqdnfcP7LODPOoH+yoHdWw==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
+	b=HGxxpCtrUxquVvax1DrX2HcvSEpxeZl5Z6Z4KFOmqf/0jKUegBBTmHI6P4PPeH1ZtZs8
+	 /j9F9B9wPWmnKu9k9Dw0kGytel8igp7petPBJORMrS1MjMw3Nflri0pAKu8KQ0PCUqhaL
+	 SAyWnTT2GwxE+yyCNde5VQVVJovQLFfvbtW2YbsA4NxuSTvsAJIvcmdaUkSb840oKC+yx
+	 CFpy0QennD/Yq6DbJRQwOweUusy3MdbfbN/YrRqH0Ri6tMuZgXlzPHzzzVGb/hTtsY7da
+	 V85YMXvrfKKy9Ss55oe5P8d+QixQK6BMMxJ+c9AqUkK4EOJcegP8WOskxyLpAaUVLMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=jwJWJpYG;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZlXBi8H9;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DFC606A330
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90DFC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80035606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80035606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=jwJWJpYG
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so437336f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:42:01 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZlXBi8H9
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so1637215ad.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:48:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794217320; x=1794822120; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VT/zo9JcAtk0rbqrKOPs9YxznKVRxb2WxMsneu8EByM=;
-        b=jwJWJpYG53W3bYNAMjjnfAHNEopoiPfqGyHAI24dyaZQLuAXG/R0aWT62L7iE4Xa+l
-         nWuO1sGeg0D2G3nth8+R38WlTxdcOvd6mvfGIzMulOxmvp7AoazK5iluv2N3oUOZ/1Dz
-         LVIuHoEKRz4PPldNoDNglzCZ985xc9uoyEI2GQT/QHjpy00HhmmNLf3u1OOEa96NNl/Z
-         79wzRaz1EcbQ/uJtFl/1uOw/AYqFsdf9/EvwYYdhplVoG1uaz73zyGe7a7aiTGmheFPT
-         Z2V1uJjmro20ysyMeFGTlEFfIrEjM0J4KZ7Bx6jqPQfBKH9jj0cv0/VpjXq/STAlG0U9
-         AqGg==
+        d=chromium.org; s=google; t=1794217704; x=1794822504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
+        b=ZlXBi8H9C2Qa2qEGgPdejR/SS31GPaYygbtar6zhc8SyfN1DctEWEA2i+UaAJg6+5z
+         Gxgajq92FoClUY92/FrgKYVXG71iQC6yUOwaPDrpygQuYVxkHJv52k/C77+oyZ8J/rjh
+         iAN3RIydrnJT/whqUyD2xQsbFL5bKUmNUZ8Yg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217320; x=1794822120;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794217704; x=1794822504;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VT/zo9JcAtk0rbqrKOPs9YxznKVRxb2WxMsneu8EByM=;
-        b=wz1nlYnCeva+6X+8jdz/FsVsodfgz/aE5YkFPwfO6q5FY7bYoFbt4TORzMBkT1wn6u
-         TjXBVnQCS9sbQb+JyZws3TDV99P+OiO04V1rpjmap3nr2/Y2TNGWbDzO6h3Uh0TUiqp/
-         GgjOJfpb1HeSIkkZfz3eC9lcDguQHwahgRKFcobzJGs7bnygKzM7rRwT24HBMQsAIU+R
-         m9jDFC1u+CKwbBpQA9h+51dvl+9Cw8AurDiGQjWCOtrbt4XqJzAGPo/WsgPcJ+EAwR7w
-         6pW03gXVlK1U3RKnpvTc3pmv1HANFNkQCUSlcia1OyEoIg3+nJXQPipaFzmOIOKBCD8H
-         4Tow==
-X-Forwarded-Encrypted: i=1; AL+hErEyPBjSRUtCte/dLqKwE+cKtSYpkKW9xw3uJhdm70a+rejvZ8aA6T2kvKa/BVtrvED1XH8D3qZFLW9F@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NlycYqreA3mvnpM6zkpdyr8INEOha/VyF/oa6E9f4Ic8lH04u
-	KN8Genf1zswtUTekiL7PzX85Q1BXNdjiL7+jS3AecdPixA1L5cmDOxPdy0v4wwP+378=
-X-Gm-Gg: AYBFou1GGYYpnCqm14lTawzXWYvIZNNhkLlRTchJD2VK6Af38FHFlmiYLPaJH9ANP6Z
-	XrNGl96dmXl75YgWpEujjb0kNJUrLsocCY6bWIb5AbsBot1t+5gO5axmtptlLxdOs/A3bgvp+0s
-	SfjxIEP26Sitvpl2rnBJ828p5gN9ZWpVoRDdgiOmqbuacWgiVjnJFQrtAcuvwj8WxKwVGIEXdPC
-	AVVdhHIns0IYWPsmvHiCM1MwKZt5XnO1n6cklL3g4HkUcEKIXSvjGLMmByKa1G9R9ekTvfo/eGD
-	P3rWCIJyDjqWvEVR1pXv2Wkxa6SKlC41puWqGf91xIa0AKZzJhDxl4vNnnUD2j60Zfq5Emmm3IZ
-	e6Z+nDFKJcoLhzZ80YtNpqlaCADvVZ/zbHqcNlb9go1mXmmpNvRn68KNYv6EFv6Q4phGN988pFA
-	hl8chI49bigdZMPXe1mKS1HhgNjYd1om5FKwFeaDDPOSMkdYCutnosAVk8h9CoqYOKIsinp7y7f
-	a1/UOnHHQlforkEmHKcdUJQ5WB4Kh6ZMSLG1DGuc7MofwDAh3pBsYKVXd6DE/UOpczsFVnXENQB
-	9bJ+aR83vKP5VoWthkhdBiCo8LNfH7tJ82bBWSA8fd8FXkhcxuCN8FDJyQaQ6N5javqVvlYNggz
-	hq380kYNG
-X-Received: by 2002:a05:6000:40cc:b0:491:8462:20b6 with SMTP id ffacd0b85a97d-49583b0bb95mr7229716f8f.38.1794217320053;
-        Mon, 09 Nov 2026 01:42:00 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-496150c6e90sm7278409f8f.2.2026.11.09.01.41.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:41:59 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 09 Nov 2026 13:41:50 +0400
-Subject: [PATCH 3/3] power: supply: samsung-sdi-battery: Set the charging
- temperature range
+        bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
+        b=m0hSz/jXpOvnxzRAVpsTgr0Vj5UHsE+2PeRr3gzkR+3nW7phoL7bE2wGyTJdEDMqsr
+         e1KI2r0kbLc53i2X4jYeTQKXWx1uwd6F6DWvEfBqjlTCnKZEr6IauQFIhCM6LUtO8j1H
+         xB3que5f0YTqqrKXaNIiG3mop60vmFauWqeUD7rhmEcDSSbD8bVFamESeAOTt60NpYxN
+         +W3JdI7Q7tnNoCGyUJHhhlhoCLkF/fU2KnVDCGFDeHvyK351SF2J6UUdE7x9oaPD/X2N
+         DjlweqtpntnVSyTSK87jF2L68wgTLQ3bB8HGoHrmsD1lZksIEkVOzSA6ZKSq4cENS/OW
+         A7DQ==
+X-Forwarded-Encrypted: i=1; AL+hErETpIiAQH5DoHsRuvKnXvIFhDDhVu/zK6kzAPEh2T15FF7rpjYnJZpoRo11UDXNic82uTnamfLYtX0A@vger.kernel.org
+X-Gm-Message-State: APuU4Z/c77DLN5lP+sI6TjJ4el+ygBIUg+Fz7XUnmI7G6/jFKvWsll8g
+	lNhAeLYuTOAenIGCQkCT7r2WCSLrAAcLR5e3D1vXX4so1cSvZhhwHcAEcG/DfZhkrLLEK9AWcSZ
+	mbf4=
+X-Gm-Gg: AYBFou1g9lJwS0EHZPuzll7crECmFZzlLcLYyNy/yjx1BMi4xsDtFKaLoubMQvaTCuC
+	sG4MNmYwru3A9pAZVNJo9sxuIghLxuuq5EinEd4BopoHT+zNd+xZQFVuCdrT4Kh3aOK5tC5hYEn
+	fCZmz9VGCSKj8crnYUhlHsr34uENUY6CbKPh2A8/eSAt8QWF+NqExu9VvEsxpJkh7I+TwM9/zQq
+	QbxPXE5BSZFxSlsKdoRJmeToBBdngOGjbjHL+kCw+TcPFM7wxzKyJWdOP89iWmLQ5oEeDWEbqJE
+	4LZQKOj19JKP6IF3zhxGfxItI5eyYO1VWbNj/kbX9TLR66HENrpqa80t7E1jzBPpZpOf5POrivc
+	FLl8E1cPCRnS2vYb2VkgVUb/nxpJ0mrLXrXSjTGNvRo4HxjXXKC6zI6flwmBewCxSqEoKtZM+CB
+	KBEGgZ6F+olCi90eOMDXaHGT0qMw/Mr17fodW3alWYTAwpnKJL32RNtTpE0n14s4JeMMmzJFw7G
+	jE5KSprH1E0BxlUXmCqeuJrRn2dg0uMNOE4Iu5TLOqiQx4yx0Ww+Yyq2vfUoYrG/hrFyhAIHUDM
+	Qykjrs0IJgh8nYHn9/kx9vYYBQ232dKWgQz+GvlFYxm115VEM9I73kWOQNu9ldyrvLslxZLD1Tk
+	BMZAeYegn
+X-Received: by 2002:a17:90b:2d84:b0:3ab:2d17:51c5 with SMTP id 98e67ed59e1d1-3b12d0e9771mr3248263a91.6.1794217703916;
+        Mon, 09 Nov 2026 01:48:23 -0800 (PST)
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com. [74.125.82.49])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1032c4508sm5603312a91.2.2026.11.09.01.48.23
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 01:48:23 -0800 (PST)
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1028169c88.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:48:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFfGGq/Cvpy1MWYH3p6E0xzK9l2/qgm7spir03DdlSNGFIkYiBQIj2fIEOtX+3tBAqpFmX2yAd+6qZX@vger.kernel.org
+X-Received: by 2002:a05:7300:ce86:b0:35e:f1a5:9ba6 with SMTP id
+ 5a478bee46e88-37252b4c091mr6436576eec.5.1794217702332; Mon, 09 Nov 2026
+ 01:48:22 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,101 +95,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-battery-charge-temp-range-v1-3-a967abd8b80c@flipper.net>
-References: <20261109-battery-charge-temp-range-v1-0-a967abd8b80c@flipper.net>
-In-Reply-To: <20261109-battery-charge-temp-range-v1-0-a967abd8b80c@flipper.net>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3153; i=alchark@flipper.net;
- h=from:subject:message-id; bh=V8yoLBrj8mD8VVaKSjnQMeP0OJ8ZemjP5irT6VMLt1s=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9nBr/fPfb15KlzZO16yduUD768jeXhcjnVj5DpgRJL
- hMNxScvOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyMdYx0jBi5OAZjqpy2MDDdCOaqtnSM+/X/1XYypuTEjYN7OXY+Zjot2zZ7+qJ7j/QmGvxJuK24
- sPvOnbdXWZyGLJvPtfDJ39661LZ3XriRvnCNpvY0BAA==
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-10-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-10-angelogioacchino.delregno@collabora.com>
+From: Fei Shao <fshao@chromium.org>
+Date: Mon, 9 Nov 2026 17:47:43 +0800
+X-Gmail-Original-Message-ID: <CAC=S1ng1U7XK2SvM+2Tvb7z2nHiDEvLhVP75JHdwzkV7GiaiKA@mail.gmail.com>
+X-Gm-Features: AclHuK_kbp2RlyhWxo_Xx4hVQaPPUEY10kfNvYs17nATUWr47nBdslkFDfWhjSg
+Message-ID: <CAC=S1ng1U7XK2SvM+2Tvb7z2nHiDEvLhVP75JHdwzkV7GiaiKA@mail.gmail.com>
+Subject: Re: [PATCH v2 09/46] drm/mediatek: De-duplicate internal component checks
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Give each battery a charging range equal to its operating range, as the
-firmware parsing does when charge-temp-range-celsius is absent, since
-these static descriptions skip that parsing: keep their behaviour
-unchanged.
+On Tue, Jul 14, 2026 at 7:45=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> Both mtk_ddp_comp and mtk_drm_drv are performing similar checks
+> to distinguish components that have an external driver from ones
+> that don't - with the exception of mtk_ddp_comp also checking if
+> the component is related to a backlight driver.
+>
+> Create helper functions in the main component management driver
+> mtk_ddp_comp, one to check if the currently checked component is
+> internal/simple, and one (static, internal to mtk_ddp_comp only)
+> to check if it is a backlight related one.
+>
+> Since the amount of internal/simple components is lower than the
+> amount of ones having a specific driver, and since it is expected
+> that most of (if not all) of any new hardware support will need a
+> specific driver as well, the helpers are doing an inverted check
+> compared to what the code was doing before, as both mtk_ddp_comp
+> and mtk_drm_drv were checking for external component explicitly,
+> while now they're doing the same, but checking if NOT internal.
+>
+> Also, while at it, for the OVL_ADAPTOR components case, instead
+> of checking for MTK_DISP_OVL_ADAPTOR, call the already provided
+> mtk_ovl_adaptor_is_comp_present() function to check for this type
+> of component.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 46 ++++++++++++++-----------
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.h |  1 +
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c  | 16 ++-------
+>  3 files changed, 29 insertions(+), 34 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/me=
+diatek/mtk_ddp_comp.c
+> index 2ba2123238b3..a9c3e29fb340 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
 
-Leave any correction of these limits to a separate change, but note
-that they follow the charge-block thresholds of the matching vendor
-kernels, which count in tenths of a degree: the -50C and -30C lower
-limits look like a unit slip in the original import, as -50 there
-means -5C.
+[snip]
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/power/supply/samsung-sdi-battery.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+> @@ -700,26 +720,12 @@ int mtk_ddp_comp_init(struct device *dev, struct de=
+vice_node *node,
+>         if (ret)
+>                 return ret;
+>
+> -       if (type =3D=3D MTK_DISP_AAL ||
+> -           type =3D=3D MTK_DISP_BLS ||
+> -           type =3D=3D MTK_DISP_CCORR ||
+> -           type =3D=3D MTK_DISP_COLOR ||
+> -           type =3D=3D MTK_DISP_DSC ||
+> -           type =3D=3D MTK_DISP_GAMMA ||
+> -           type =3D=3D MTK_DISP_MERGE ||
+> -           type =3D=3D MTK_DISP_OVL ||
+> -           type =3D=3D MTK_DISP_OVL_2L ||
+> -           type =3D=3D MTK_DISP_PWM ||
+> -           type =3D=3D MTK_DISP_RDMA ||
+> -           type =3D=3D MTK_DISP_WDMA ||
+> -           type =3D=3D MTK_DISP_DPI ||
+> -           type =3D=3D MTK_DISP_DP_INTF ||
+> -           type =3D=3D MTK_DISP_DSI)
+> -               goto end;
+> -
+> -       ret =3D mtk_ddp_comp_init_internal_comp(dev, comp->dev);
+> -       if (ret)
+> -               return ret;
+> +       /* If there's no external driver for this component, allocate and=
+ init now */
+> +       if (mtk_ddp_comp_is_internal_comp(type) || mtk_ddp_comp_is_backli=
+ght_comp(type)) {
 
-diff --git a/drivers/power/supply/samsung-sdi-battery.c b/drivers/power/supply/samsung-sdi-battery.c
-index 33565002ee27..da283735df3b 100644
---- a/drivers/power/supply/samsung-sdi-battery.c
-+++ b/drivers/power/supply/samsung-sdi-battery.c
-@@ -659,6 +659,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 40,
- 			.temp_max = 60,
-+			.temp_charge_min = -50,
-+			.temp_charge_max = 60,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
-@@ -703,6 +705,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 40,
- 			.temp_max = 47,
-+			.temp_charge_min = -30,
-+			.temp_charge_max = 47,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
-@@ -747,6 +751,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 43,
- 			.temp_max = 49,
-+			.temp_charge_min = -50,
-+			.temp_charge_max = 49,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
-@@ -790,6 +796,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 40,
- 			.temp_max = 60,
-+			.temp_charge_min = -50,
-+			.temp_charge_max = 60,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
-@@ -835,6 +843,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 40,
- 			.temp_max = 60,
-+			.temp_charge_min = -5,
-+			.temp_charge_max = 60,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
-@@ -879,6 +889,8 @@ static struct samsung_sdi_battery samsung_sdi_batteries[] = {
- 			.temp_alert_min = 0,
- 			.temp_alert_max = 40,
- 			.temp_max = 60,
-+			.temp_charge_min = -5,
-+			.temp_charge_max = 60,
- 			.resist_table = samsung_temp2res,
- 			.resist_table_size = ARRAY_SIZE(samsung_temp2res),
- 			/* If you have tables for more temperatures, add them */
+If I understand this correctly, MTK_DISP_BLS and MTK_DISP_PWM are
+bound by the standalone pwm-mtk-disp driver. Initializing them as
+internal components requests the same exclusive MMIO region and fails
+with -EBUSY on whichever driver probes second.
 
--- 
-2.56.0
+Drop `mtk_ddp_comp_is_backlight_comp()` here so backlight nodes skip
+internal init as before.
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index e956e1966b86..18683aee61ff 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -1166,20 +1166,8 @@ static int mtk_drm_probe(struct platform_device *p=
+dev)
+>                  * blocks have separate component platform drivers and in=
+itialize their own
+>                  * DDP component structure. The others are initialized he=
+re.
+>                  */
+> -               if (comp_type =3D=3D MTK_DISP_AAL ||
+> -                   comp_type =3D=3D MTK_DISP_CCORR ||
+> -                   comp_type =3D=3D MTK_DISP_COLOR ||
+> -                   comp_type =3D=3D MTK_DISP_DSC ||
+> -                   comp_type =3D=3D MTK_DISP_GAMMA ||
+> -                   comp_type =3D=3D MTK_DISP_MERGE ||
+> -                   comp_type =3D=3D MTK_DISP_OVL ||
+> -                   comp_type =3D=3D MTK_DISP_OVL_2L ||
+> -                   comp_type =3D=3D MTK_DISP_OVL_ADAPTOR ||
+> -                   comp_type =3D=3D MTK_DISP_RDMA ||
+> -                   comp_type =3D=3D MTK_DISP_WDMA ||
+> -                   comp_type =3D=3D MTK_DISP_DP_INTF ||
+> -                   comp_type =3D=3D MTK_DISP_DPI ||
+> -                   comp_type =3D=3D MTK_DISP_DSI) {
+> +               if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
+> +                   !mtk_ovl_adaptor_is_comp_present(node)) {
+
+And here, pwm-mtk-disp isn't a component driver and never registers a
+component. Adding a backlight component may prevent the DRM master
+from ever binding on SoCs.
+
+Add `!mtk_ddp_comp_is_backlight_comp()` here, and in
+`mtk_drm_register_sibling()` in patch 40/46.
+
+Regards,
+Fei
