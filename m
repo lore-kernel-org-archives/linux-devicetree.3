@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229591;
-	b=FyL+AM4fTre6yrlFeP9M1lXCPWZrJl1I5KRQ1wit1l4r6vwl6uYC4dz64oD4rLvcfcty
-	 /gr0ivSN/Vpc/PP8OS659j3+9f8BJfnQ02JDlpBjv7CClcC5zmrzqaBIehzJLPFEqx2SW
-	 VaW4CjQdvEO8SHajQrB/88hrLIvruhuXeaFqhsnSgq84pFLvxVHkDUKfERvDQ52PQnlB0
-	 k/Sky5j3rD082e0faafijHnkjMSik9rhVxmy6aSfkDixUi2Y1GNPQA+tPPzmoJ9bnmbUH
-	 kRmYTrc0Lb6yTG3u2bppi0mJOoPO77grBcbPKv2YKpAa1QjwxtlXBbwXy3JekO9V34A==
+	t=1794229610;
+	b=A1T2oxvrt5F92W0BoUjy8v5DrTUWnikp1vlosFO+8+r/GhYTFS8iAVW8gKI7R9Bz7zpO
+	 LqygJ0Kw0wRi7t+UYMbFSj6Rg+mAkHKwsS/syQaIsINkRGcRoYlEJRHBsWaj2XllIUQWR
+	 OLhHG+3SOAjTZ2UveQ6AwqW6+is+Ii4vkxgb0Wc5xYddvmqESckp+wB7K9YKW1u5Yl5eR
+	 xkC+QECgksQZMi61x/yguTQvUj146PyUmu40eJVguEH0Ak13O33J7StS9ymEW8wuMEceT
+	 mKg0XaaSuOnNLpDTK26tl7ZIT7l+CeV8ir8cwLVy9E20QxG5kmtAgbbljP1zVNVtkcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229591;
-	h=DMARC-Filter:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 X-Lms-Return-Path:Cc:From:Date:In-Reply-To:References:X-Original-From:
-	 To:Subject:Message-Id:Received:Content-Type:User-Agent;
-	bh=eH2m2Zew8oyu1f0utHA4YTbxzS4hIWuowjmaOpnZyec=;
-	b=DhLtYcunTsLYMeG77rKTSMN4bK1HIOybamo3xmVpi7ZdylrpguQJRponsDUv72wOIdc5
-	 UmPq6/lNmij1gNQ3FOTvcaTDv46QaBN0FbKgGn07ar8meNtxBtB4PGhWotS/DD+g3uGxY
-	 gZyyKQVB5oaGMbyHyhZMnKnLdHeZsidVAu8QJh27URzsACFwA3U3dzpf1kSrZUWUn55SK
-	 3W7aNRlkzympihAFnc2WTfRrz3FP6NlUofMFtp/l68JLvUR77UBS4W5FNepA00O8GOzza
-	 Bgoc5LLGTkO/Cq7Q15Zc5YvVkvLG1sJrJ9kzz5oKx6xS9TrymcYTyfJpoPmytFsbvqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229610;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PybyCgFEOeMpgfEWJUHsfZ6hT1qaKHfrzLW0wrSobIo=;
+	b=azIwrKfQS94ZtzEyXpiJtpmpdnI4+4J3Md3nbuDIH5RE79bQQ2aOTlPKTXgDL4tJ7TCc
+	 pYknIAvw1YZK5hWWj6lZEudntiSSiRp/9582dOltWSUv3GnYTVeLne0l+V1O4CfAx3HD+
+	 H++6Iop0a1FMTMX8zKThPH39w0x7b74vMYM4+Z6ZVthWfFCBIeuEammjeu93Neibe1C6R
+	 U7WhYyII+rraoPHBuUjcs822iR5I96GGDjEbMp7rcxCinyN59gmR/0AAs8h0JcyYvCleE
+	 C35W+pyal9q0YUC61A519ecLERZmwyoeiTn1TLKvdj6m06zYgqEhsJB5aIp1QB+WqhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picoheart.com;
-	spf=pass smtp.mailfrom=picoheart.com;
-	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=FPncPHrn;
-	arc=none smtp.remote-ip=209.127.231.39
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKHNJIA6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4E2606A321
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:06:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4E2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AD6606A31C;
+	Mon,  9 Nov 2026 13:06:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=FPncPHrn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1794229584; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=eH2m2Zew8oyu1f0utHA4YTbxzS4hIWuowjmaOpnZyec=;
- b=FPncPHrnGO+ZqH6h4jZezfHOh68vzD6GFyBL9l21fKlsjKOgOM96kH5+woKABP9ihuvKnV
- SM91Ohyn7Bv1fjK5h4mEroQOsJzvKy1hMCAC/TndzXs/ZH0I328yxCFJEiHinh4ctVayui
- ZRf+KPrEPgHEa0bnSVJbqzpRI9Bq9b1XN0y6bn4sER4SIs2QpxfbR6VBjo9JeUlAOzp5G5
- HRukT3+mfocpS4Rwh6Td4H0wMihXt3SmDhn/2ySCE8SVvd1dn+vnyLc+h8kra6b5p5lpzN
- 7PKvLa6jyzNvaE0+SeBciYWWyotFeo3gZrWUvevi7uuIi64Lb5LMyk+8hHDSag==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKHNJIA6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F34F1F0089F;
+	Mon,  9 Nov 2026 13:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794229609;
+	bh=PybyCgFEOeMpgfEWJUHsfZ6hT1qaKHfrzLW0wrSobIo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cKHNJIA6y0axtxTpwfhLsliNXEsub8xL1Dvi02wF1h4C2yrVtX0kCzpslRusewXsn
+	 21Bc4MqQPdT5arJDyFLOabXkCAO7E97pndV0iL61vLoh6hwsI0UcLqHfvCzeAY0oTi
+	 OXDd6XWd99b9GY+ytWON1/bh9BKBr9+Y5Dh+GMEEUAu52ZKeEq3KbSdC3sK4o2mIpP
+	 ccTYSdnS37ZS2il3Dxj/qCR4ScYajyo9/bl0jjO24ycLUq8Pad5BZtNnHP3O143crI
+	 EjDqJyrUplBrm/FhD7iJDFb+bhpF6lQDTcjga6cNWiR+VyYyqC3EVfi9Ua+z2F2jWk
+	 ELdoEpge5EGug==
+Date: Mon, 9 Nov 2026 14:06:46 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Alban Bedel <albeu@free.fr>, Radu Rendec <radu@rendec.net>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: interrupt-controller:
+ qca,ar7100-cpu-intc: allow shared write buffer interrupts
+Message-ID: <20261109-binturong-of-subtle-discourse-f06daa@quoll>
+References: <20261108215738.113582-1-rosenp@gmail.com>
+ <20261108215738.113582-2-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,134 +59,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26af1c545+7976d1+vger.kernel.org+zengheng@picoheart.com>
-Cc: "Catalin Marinas" <catalin.marinas@arm.com>, 
-	"Jonathan Cameron" <jic23@kernel.org>, 
-	"Shaopeng Tan" <tan.shaopeng@jp.fujitsu.com>, 
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<x86@kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-doc@vger.kernel.org>
-From: "Zeng Heng" <zengheng@picoheart.com>
-Date: Mon, 9 Nov 2026 21:06:09 +0800
-In-Reply-To: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
-References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
-X-Original-From: Zeng Heng <zengheng@picoheart.com>
-To: "Drew Fustini" <fustini@kernel.org>, 
-	"Adrien Ricciardi" <aricciardi@baylibre.com>, 
-	"Alexandre Ghiti" <alex@ghiti.fr>, "Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Atish Patra" <atish.patra@linux.dev>, "Babu Moger" <babu.moger@amd.com>, 
-	"Ben Horgan" <ben.horgan@arm.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Chen Pei" <cp0613@linux.alibaba.com>, 
-	"Conor Dooley" <conor.dooley@microchip.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"Dave Martin" <Dave.Martin@arm.com>, "Fenghua Yu" <fenghuay@nvidia.com>, 
-	"Gong Shuai" <gong.shuai@sanechips.com.cn>, 
-	"Gong Shuai" <gsh517@gmail.com>, <guo.wenjia23@zte.com.cn>, 
-	"James Morse" <james.morse@arm.com>, 
-	=?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, 
-	"Liu Zhiwei" <zhiwei_liu@linux.alibaba.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Peter Newman" <peternewman@google.com>, 
-	=?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>, 
-	"Reinette Chatre" <reinette.chatre@intel.com>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Samuel Holland" <samuel.holland@sifive.com>, 
-	"Sunil V L" <sunilvl@oss.qualcomm.com>, 
-	"Tony Luck" <tony.luck@intel.com>, "Weiwei Li" <liwei1518@gmail.com>, 
-	"yunhui cui" <cuiyunhui@bytedance.com>, 
-	"Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>
-Subject: Re: [PATCH v11 0/5] riscv: Add initial CBQRI resctrl support
-Message-Id: <bb2f816c-9c8d-4a27-8353-a946ba58870c@picoheart.com>
-Received: from [172.16.137.224] ([124.160.26.250]) by smtp.feishu.cn with ESMTPS; Mon, 09 Nov 2026 21:06:12 +0800
-Content-Type: text/plain; charset=UTF-8
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108215738.113582-2-rosenp@gmail.com>
 
-Hi Drew,
+On Sun, Nov 08, 2026 at 01:57:36PM -0800, Rosen Penev wrote:
+> On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
+> interrupt 2, but write to DDR through different write buffers. Document
+> that such an interrupt is listed once for each write buffer, and that
+> all of them are flushed.
+> 
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  .../bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml   | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
-=E5=9C=A8 11/9/26 =E4=B8=8A=E5=8D=887:20, Drew Fustini =E5=86=99=E9=81=93:
-> This series adds initial RISC-V QoS support through the CBQRI
-> controller interface [1] integrated with resctrl [2], plus a DT-based
-> platform driver for cache controllers. It builds on the Ssqosid
-> extension [3] (srmcfg CSR) support that landed in the v7.3 merge
-> window. It has been tested on both the Tenstorrent Ascalon Shared Cache
-> controller and a QEMU implementation [4].
->=20
->    qemu-system-riscv64 -M virt,aia=3Daplic-imsic -nographic -m 1G -smp 8 =
-\
->        -kernel arch/riscv/boot/Image \
->        -append "root=3D/dev/vda ro console=3DttyS0 rootwait" \
->        -drive if=3Dnone,file=3Drootfs.ext2,format=3Draw,id=3Dhd0 \
->        -device virtio-blk-device,drive=3Dhd0 \
->        -device riscv.cbqri.capacity,max_mcids=3D256,max_rcids=3D64,ncblks=
-=3D16,mmio_base=3D0x04820000
->=20
-> Cache allocation can be exercised on the booted system. Mount resctrl
-> and read the default schemata. The L2 controller has 16 capacity
-> blocks, so the default capacity bitmask (CBM) is 0xffff:
->=20
->    # mount -t resctrl resctrl /sys/fs/resctrl
->    # cat /sys/fs/resctrl/schemata
->    L2:0=3Dffff
->=20
-> Write a narrower CBM to a new control group and read it back to confirm
-> the L2 controller applied it:
->=20
->    # mkdir /sys/fs/resctrl/group0
->    # echo "L2:0=3Dff" > /sys/fs/resctrl/group0/schemata
->    # cat /sys/fs/resctrl/group0/schemata
->    L2:0=3Dff
->=20
-> Note that this series only implements support for resctrl L2 and L3
-> cache resources using CBQRI capacity allocation control. cc_block_mask
-> maps onto resctrl's existing cbm schema. However, cc_cunits is not
-> supported as there is no existing equivalent for capacity units in the
-> resctrl schemata.
->=20
-> I previously iterated on an RFC series [5] that implemented all of
-> CBQRI, including capacity monitoring, bandwidth allocation and
-> monitoring. The bandwidth controls for CBQRI do not fit well into
-> resctrl's existing throttle-based MB schemata. I believe that the path
-> forward is Reinette's generic schema description proof of concept [6].
-> My plan is to rebase the full support of CBQRI onto the generic schema
-> once it is ready.
->=20
-> Tony Luck's AET series [7] replaces resctrl_arch_alloc_capable() and
-> resctrl_arch_mon_capable() with generic helpers that walk the resources.
-> This series keeps the two hooks because resctrl on v7.4-rc1 still
-> calls them, and answers the alloc hook from rdt_resource::alloc_capable
-> so whichever series lands second only has to delete them. If the AET
-> series lands first, the CBQRI glue will also need the three arch hooks
-> it adds, resctrl_arch_system_max_rmid_idx(),
-> resctrl_arch_get_num_rmid_idx() and resctrl_arch_unmount().
->=20
-> [1] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
-> [2] https://docs.kernel.org/filesystems/resctrl.html
-> [3] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
-> [4] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
-> [5] https://lore.kernel.org/linux-riscv/20260601-ssqosid-cbqri-rqsc-v7-0-=
-v6-0-baf00f50028a@kernel.org/
-> [6] https://lore.kernel.org/all/d258a32f-12d5-464d-abe9-4720fb3e44b3@inte=
-l.com/
-> [7] https://lore.kernel.org/lkml/20261019205031.16977-1-tony.luck@intel.c=
-om/
->=20
-
-I have tested the CBQRI patch series, covering the following:
-
-   * Boot-time initialization
-   * Mounting and remounting the resctrl filesystem
-   * Creating resctrl control groups
-   * Configuring schemata for L3 block_mask resource allocation
-
-All of the above worked as expected.
-
-Tested-by: Zeng Heng <zengheng@picoheart.com>
-Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-Zeng Heng
+Krzysztof
+
