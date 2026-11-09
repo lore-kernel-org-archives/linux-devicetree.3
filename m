@@ -1,52 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231362;
-	b=cDe+jcThbIEWaEvRfmKlPRYePKJfBeba6+jipJeo5eB/Ok69f+4Rj5a0pW0KWJoOyqvc
-	 cpRJVbi8F2E+wqZ3HRt5ip6N+/y7q9ULtB3kfBl5dIC9GRF1HhwmM0m9OEyVdne9tKXcw
-	 dag3vJWe/QL9coAY/rqGJR3MbviCs2wQb9mVCRSkcNGhrtP4GywnBmO4DMchdJP7T0CG+
-	 +SEmyZPKvQsq0OiEyVT9fb6ecFouYN0O1fG4BZ1Pxp11tUnfM0/cRhLT5YbLLfUH/prqY
-	 PNKulDQX+ZOt1+VkQp37tfEoVxj2IEq2P4jh8e9uxmYUkfwwHQcacZTosL1craiylXw==
+	t=1794231384;
+	b=WHEoMOCtXD1Tx6IPJpz2A9f/p67o/IegIY0wRomQ/PU3Z8J5i0mczHhwh8qCTRxG8VAG
+	 bE/pbxx/afPWp+Tyu3vFv1fuSb7vYGRv4IzJpkk9vwFj7Gep39w9fuMoTF+leBRc2/naM
+	 oOFf4J9sdNtd+IRYNdgpz4Dh9Zzp+LqNCMJ+k/V4atFWcJNmOTZT96hj/deaD038yd6bf
+	 tGvCKEVPKfaTUBXRNmDORT6DWVHLGw5YqtxRc+laYG1rDjaNDXLwCcnsSfM8ss3dZAkAs
+	 B/u7Dnfi0XlBGwRnXVQgkw1+ie/cGnmwzYj9QjAnKuEUVZCjF5eDux8I2jjNI0ukslg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231362;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=uznXjmkiTWgfr98zmBQdrDMNZkUNxUCbvJ6ZfvHz890=;
-	b=MjuyCUXoAA433Vka9yXOegjKqKVvWBSTBQHbpQW7UV+Vju0SWlcb+VO6JGWRZIhOGIsd
-	 J6MXD5w/ULlpiiFXmrFJ065dWJBGSE5nAMRc7CpEEBcR+mrGbymoNbb8e0jE3jcJUGsUF
-	 uV09thvu9RM3hn+OfwUUsJ5Z8DaBsmoLbHDvwjhO7gc9GCWbVSb+0n3WCG3uoUtatk5e8
-	 g0Dwgl1ovU8TRwXD1bho7XHiMK5/IujrfZR1sSyLIiVXLhuCDfNsFvzNfVTbQgA6fjN7t
-	 DALzcl6UwL3HbkGmXwljFF8kf5KG7nW9EN4LRUaWa+jc2bS5EmasqqfUgEDQnXH7OcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O3DcDAcu/e7R2Ks6MhqHwiL2VWmAmz6xdp3JBivfIuM=;
+	b=dXsOPuvAOrmZmrAZ3ZUOa9+p9ixXepOL6Rt/h1bSTXpO4zDgPp4KX6L2Agkc50U6VJOU
+	 0af+YfFmiewBvX7bJVtO0luyqOUXTyUuA6hnhtVwcsSvqrzNy6XiBgDzWl/JhgUjw/tSD
+	 3mNSBFx8hF/Oj/xm34U2JbIaxgBR8efK//gI3Fw5sj4+CNHlbDBUXJEXmlnMgsXZyb0w+
+	 7ldVWmbY7Kb94Dy8fAccZShVmS/YBSnFUP1M3LSnfjGZtK5yUhrgYPJaEduiDwEoAOc4t
+	 84qFzyskqHTQLeG3Av6QZ3NU7R4HSAHv4PYh0OqVJ+S4/PjRcSUF6KgPEA66KLY368w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NpDJfk8W;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=Lddqbonz;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE77606D822;
-	Mon,  9 Nov 2026 13:36:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE77606D822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EF0606A336
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 13:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20EF0606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NpDJfk8W
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:7074:f4f4:e983:bf17])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8CCAA219;
-	Mon,  9 Nov 2026 14:33:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794231218;
-	bh=gGqO8nVz867c6XThKctEkhYpYd9ubmcf2l1S/Rb7Zr0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NpDJfk8W/JZFZnnW4MrohS7IVZJm99HTCMLNVdLC8uuBy1S+YWPwR+/V5v3s5ZPz6
-	 35arQ74YMKo9Ns8IVX5iPHZeKhKrPbbV2sfrui6e2xfonlVUg7pfBJyRzhEYhBG2Mn
-	 mYAdeFdN4YKP0ZFomtE8xGUFeCYwrvfmhmf1ZBVE=
-From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Mon, 09 Nov 2026 22:34:34 +0900
-Subject: [PATCH DNI v4 13/13] media: rcar-fcp: Check device revision at
- probe time
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=Lddqbonz
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so10612235e9.2
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 05:36:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1794231382; x=1794836182; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O3DcDAcu/e7R2Ks6MhqHwiL2VWmAmz6xdp3JBivfIuM=;
+        b=LddqbonzUr6K0romfGF6hlerJbpmIzHvEHhqyIWAmAqdmk/R/RLWOz57Zi/UW/CxWH
+         znBTgbW4yHY5aYHkODU8j2wnYFi/mel9aRfgUbkIxM+mHIoNhu15PMhrj1e7+E8OhMcT
+         j8x+KiRb1/La5Rooi5P6A6uu9lXmk7j+uByHVEjrnV3amn0x/sRYfmJ5edOQesRb+he/
+         aJl4karHtl4ur9/hWKlLgGPSay0ISSarnokiHFKgoVCeOHF8kJOQloMP/OmlLTcszoGC
+         qbp5tnbYmGXru/ffupw7/Y4LpMU41pEBoxKS8btbKzb8vYC9lIKPkwyKN05QV+Mi78XP
+         mqkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794231382; x=1794836182;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O3DcDAcu/e7R2Ks6MhqHwiL2VWmAmz6xdp3JBivfIuM=;
+        b=dWOZcu1f6NMOFhtVJSg0t63fVgZ+upsrEtCfv6xYJ1gCAHhric3hHb4QoApzjElyO4
+         3bFxAdChxPWflRp/So2S3Lf092TCt9nRJ4zkOfEEc5ajFx219ESxCSKaHVMzTfRLbAQ7
+         lYWprf8Vj+7GtuGP0ZranTxetAe05mxQ1QPQfU7cZO0vloDbCyCfuR9xG0z6wjTXsNQg
+         FJ5mNA5kwb+dkldzFhkrL6FtNTAS83P3G+OXIiaeyU9bRvHv8ufXXCTWvNi1PVlPd5wx
+         XdIuc+TjCsvzJe+v8KSKU8I00RnwnGdvXje3gQ/vIcdeSYVIKCS91qRqIPD8bHpmYCdY
+         +drQ==
+X-Forwarded-Encrypted: i=1; AL+hErH5U5CDrmwaCP2B8vBxsoOf4B/7Hf3/Wk8MClZq+aIGml/dgCft3K7NyWtkWsfEaK4CZOEaVpNib8AU@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DNihgn8cfovKYH/yAVMr+lsM2+0sNkrBjwkVLnNjolU3mgU7e
+	e14k8X2AMNb59rbL2bvYw1ExWfYYYOGPuqyk+d9uXP04AXRrJwvHEWmuopGOYippyP0=
+X-Gm-Gg: AYBFou3UxK+SQNMn2dod5s92APC66qsPE7ay4qGwLguu+TbSowqRuDxDKwXWPv57CjY
+	tX3kNrkEJFVYlcAGYiAMywANLNjhO5NKaTjXSPF9YJR7WGzoJlq3KNtp6FLXy3LTdka56IDg1oW
+	azW0pbmMiSrvy4nX9d2YMuXDxdzoCTIs3Xoo7Eoy2tluwd6y0u+X1R1vjgxGP5RLWofa7u/1TCX
+	zDYR189g+IgqNclkq3hyzyTFFqHSr4ZCynV9uyhdfPH1tV1XCrVGpGVjbixF709h7ZGzWA8H4/2
+	uFLQyKzVx9PcGwPk8EHVW9nTpdv7cFeCvLSlxoUkloAble6wZJYzrbe+nGBHZZtUUuMT09gxJOJ
+	R1Iw9Eh8PL+2/O87TcP8vYRu3AxXt/z5UjN5vyGzlcXZ57Gy+WpwOKH2BS8t2KB5kZqgL5QimY8
+	NdCGvhlqt6fC7de1lOl3AfX+HuKTFK9RGauDu1CpyxYILQHhRoFYzd+CJK0ZayYkEGUynuYpvjb
+	DijFqWtUmNd6RxZCBdXNP4nvwtnpn/Mjgv5fTcV78vVKaOebukT6eJE+OLkDe1V0ep9AJ+r+oed
+	sc1dRw2jroS2SS5tiX+P+9ovUlV6yfoQHHJygbapr3q4t4MgrlwqtA7ppgWLIoxNBoZ3cXqdDVQ
+	PYxlyqodeCWNzISvS4/DoLaWna00vfRhImWdVldHaMtM8crwGuUYrBtF+7XDh64Ep1R63BY0dEb
+	Ib8axCwPdCw0C5+OC+xXJ4+bbo
+X-Received: by 2002:a05:600c:3e88:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4b963c8809emr71051325e9.35.1794231382337;
+        Mon, 09 Nov 2026 05:36:22 -0800 (PST)
+Received: from threadripper-fedora-workstation (cpe-109-60-83-229.zg3.cable.xnet.hr. [109.60.83.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1b64esm245418915e9.13.2026.11.09.05.36.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:36:20 -0800 (PST)
+From: Robert Marko <robert.marko@sartura.hr>
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan controller
+Date: Mon,  9 Nov 2026 14:35:05 +0100
+Message-ID: <20261109133609.810876-1-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,240 +112,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Ulf Hansson <ulfh@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
- Paul Elder <paul.elder+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+The LAN969x fan controller has a PWM output and tachometer input in a
+register block separate from the Sparx5-compatible temperature sensor.
+Describe it with its own compatible and binding.
 
-Verify that the device revision register reports a valid value,
-otherwise reject the device.
+The optional fan child specifies PWM period and polarity, tachometer
+pulses per revolution, and thermal cooling levels.
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
-Changes since v2:
+Changes in v2:
+- Describe the fan controller in a separate binding and compatible.
+- Keep the existing temperature-sensor binding unchanged.
 
-- Add FCP type information
-- Reject devices with an unsupported version
+ .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
 
-Changes since v1:
-
-- Use devm_platform_ioremap_resource()
----
- drivers/media/platform/renesas/rcar-fcp.c | 126 ++++++++++++++++++++++++++++--
- 1 file changed, 120 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-index d782101842af7acbb3c0675d72677bc5a4854cac..93584fdc19cf46e021efeed0f47064dea96a4edb 100644
---- a/drivers/media/platform/renesas/rcar-fcp.c
-+++ b/drivers/media/platform/renesas/rcar-fcp.c
-@@ -14,28 +14,80 @@
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/property.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
- #include <media/rcar-fcp.h>
- 
--#define RCAR_FCP_REG_RST		0x0010
--#define RCAR_FCP_REG_RST_SOFTRST	BIT(0)
--#define RCAR_FCP_REG_STA		0x0018
--#define RCAR_FCP_REG_STA_ACT		BIT(0)
-+#define RCAR_FCP_REG_VCR			0x0000
-+#define RCAR_FCP_REG_VCR_CATEGORY		(1 << 8)
-+#define RCAR_FCP_REG_VCR_REVISION_H3_ES1	(1 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_M3W		(2 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_V3M		(3 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_H3		(4 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_D3		(5 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_M3N		(6 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_V3H		(7 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_E3		(8 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_V4H		(10 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_V4M		(11 << 0)
-+#define RCAR_FCP_REG_VCR_REVISION_X5H_V1	(12 << 0)
+diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+new file mode 100644
+index 0000000000000..0b7d38a6d20ae
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#define RCAR_FCP_REG_CFG0			0x0004
-+#define RCAR_FCP_REG_CFG0_FCPVSEL		BIT(1)
++title: Microchip LAN969x Fan Controller
 +
-+#define RCAR_FCP_REG_RST			0x0010
-+#define RCAR_FCP_REG_RST_RIIFRST		BIT(22)
-+#define RCAR_FCP_REG_RST_RSIFRST		BIT(21)
-+#define RCAR_FCP_REG_RST_DCMPRST		BIT(20)
-+#define RCAR_FCP_REG_RST_MODRST			BIT(4)
-+#define RCAR_FCP_REG_RST_SOFTRST		BIT(0)
++maintainers:
++  - Robert Marko <robert.marko@sartura.hr>
 +
-+#define RCAR_FCP_REG_STA			0x0018
-+#define RCAR_FCP_REG_STA_ACT			BIT(0)
++description: |
++  LAN969x fan controller with a PWM output and tachometer input. The fan
++  child's pwms property references this node to specify the PWM period and
++  polarity.
 +
-+#define RCAR_FCP_REG_TL_CTRL			0x0070
-+#define RCAR_FCP_REG_TL_CTRL_TLEN		BIT(31)
-+#define RCAR_FCP_REG_TL_CTRL_VPOS_C(n)		((n) << 16)
-+#define RCAR_FCP_REG_TL_CTRL_VPOS_Y(n)		((n) << 0)
++properties:
++  compatible:
++    const: microchip,lan9691-fan
 +
-+#define RCAR_FCP_REG_PICINFO1			0x00c4
-+#define RCAR_FCP_REG_PICINFO1_STRIDE_DIV16	((n) << 0)
++  reg:
++    maxItems: 1
 +
-+#define RCAR_FCP_REG_BA_ANC_Y0			0x0100
-+#define RCAR_FCP_REG_BA_ANC_Y1			0x0104
-+#define RCAR_FCP_REG_BA_ANC_Y2			0x0108
-+#define RCAR_FCP_REG_BA_ANC_C			0x010c
-+#define RCAR_FCP_REG_BA_REF_Y0			0x0110
-+#define RCAR_FCP_REG_BA_REF_Y1			0x0114
-+#define RCAR_FCP_REG_BA_REF_Y2			0x0118
-+#define RCAR_FCP_REG_BA_REF_C			0x011c
++  clocks:
++    items:
++      - description: System reference clock
 +
-+enum rcar_fcp_type {
-+	RCAR_FCPF,
-+	RCAR_FCPV,
-+};
- 
- struct rcar_fcp_device {
- 	struct list_head list;
- 	struct device *dev;
- 	void __iomem *base;
- 	struct reset_control *rstc;
-+	enum rcar_fcp_type type;
- };
- 
- static LIST_HEAD(fcp_devices);
- static DEFINE_MUTEX(fcp_lock);
- 
-+static inline u32 rcar_fcp_read(struct rcar_fcp_device *fcp, u32 reg)
-+{
-+	return ioread32(fcp->base + reg);
-+}
++  '#pwm-cells':
++    const: 2
++    description: |
++      Number of cells in a PWM specifier.
++      - cell 0: PWM period in nanoseconds
++      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
 +
- static inline void rcar_fcp_write(struct rcar_fcp_device *fcp, u32 reg, u32 val)
- {
- 	iowrite32(val, fcp->base + reg);
-@@ -154,15 +206,62 @@ EXPORT_SYMBOL_GPL(rcar_fcp_soft_reset);
-  * Platform Driver
-  */
- 
-+static int rcar_fcp_setup(struct rcar_fcp_device *fcp)
-+{
-+	static const char * const models[] = {
-+		[RCAR_FCPF] = "FCPF",
-+		[RCAR_FCPV] = "FCPV",
-+	};
-+	static struct {
-+		u32 version;
-+		const char *name;
-+	} versions[] = {
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3_ES1, "H3 ES1.x" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3W, "M3W" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3M, "V3M" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3, "H3" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_D3, "D3" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3N, "M3N" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3H, "V3H" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_E3, "E3" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V4H, "V4H" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V4M, "V4M" },
-+		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_X5H_V1, "X5H v1.0" },
-+	};
++  fan:
++    $ref: fan-common.yaml#
++    unevaluatedProperties: false
 +
-+	unsigned int i;
-+	u32 version;
++    properties:
++      cooling-levels:
++        description:
++          PWM duty-cycle values corresponding to thermal cooling states.
++        items:
++          maximum: 255
 +
-+	/* Check the device version register. */
-+	version = rcar_fcp_read(fcp, RCAR_FCP_REG_VCR);
++      pulses-per-revolution:
++        minimum: 1
++        maximum: 4
++        default: 2
 +
-+	for (i = 0; i < ARRAY_SIZE(versions); ++i) {
-+		if (versions[i].version == version)
-+			break;
-+	}
++    required:
++      - pwms
 +
-+	if (i >= ARRAY_SIZE(versions)) {
-+		dev_err(fcp->dev, "Invalid FCP version 0x%08x\n", version);
-+		return -ENODEV;
-+	}
++    dependencies:
++      '#cooling-cells':
++        - cooling-levels
++      cooling-levels:
++        - '#cooling-cells'
 +
-+	dev_dbg(fcp->dev, "%s %s device found\n", models[fcp->type],
-+		versions[i].name);
++required:
++  - compatible
++  - reg
++  - clocks
++  - '#pwm-cells'
 +
-+	return 0;
-+}
++additionalProperties: false
 +
- static int rcar_fcp_probe(struct platform_device *pdev)
- {
- 	struct rcar_fcp_device *fcp;
-+	int ret;
- 
- 	fcp = devm_kzalloc(&pdev->dev, sizeof(*fcp), GFP_KERNEL);
- 	if (fcp == NULL)
- 		return -ENOMEM;
- 
- 	fcp->dev = &pdev->dev;
-+	fcp->type = (uintptr_t)device_get_match_data(&pdev->dev);
- 
- 	platform_set_drvdata(pdev, fcp);
- 
-@@ -178,12 +277,27 @@ static int rcar_fcp_probe(struct platform_device *pdev)
- 				     "failed to get reset control\n");
- 
- 	pm_runtime_enable(&pdev->dev);
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0)
-+		goto error_pm_disable;
++examples:
++  - |
++    #include <dt-bindings/pwm/pwm.h>
 +
-+	ret = rcar_fcp_setup(fcp);
-+	if (ret < 0)
-+		goto error_pm_put;
++    fanctrl: fan-controller@e2010348 {
++        compatible = "microchip,lan9691-fan";
++        reg = <0xe2010348 0xc>;
++        clocks = <&sys_clk>;
++        #pwm-cells = <2>;
 +
-+	pm_runtime_put(&pdev->dev);
- 
- 	mutex_lock(&fcp_lock);
- 	list_add_tail(&fcp->list, &fcp_devices);
- 	mutex_unlock(&fcp_lock);
- 
- 	return 0;
-+
-+error_pm_put:
-+	pm_runtime_put(&pdev->dev);
-+error_pm_disable:
-+	pm_runtime_disable(&pdev->dev);
-+	return ret;
- }
- 
- static void rcar_fcp_remove(struct platform_device *pdev)
-@@ -216,8 +330,8 @@ static const struct dev_pm_ops fcp_pm_ops = {
- };
- 
- static const struct of_device_id rcar_fcp_of_match[] = {
--	{ .compatible = "renesas,fcpf" },
--	{ .compatible = "renesas,fcpv" },
-+	{ .compatible = "renesas,fcpf", .data = (void *)RCAR_FCPF },
-+	{ .compatible = "renesas,fcpv", .data = (void *)RCAR_FCPV },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
-
++        fan {
++            pwms = <&fanctrl 40000 PWM_POLARITY_INVERTED>;
++            cooling-levels = <0 128 192 255>;
++            #cooling-cells = <2>;
++        };
++    };
 -- 
-2.47.3
+2.56.0
 
