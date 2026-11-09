@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201076;
-	b=UX9QfVUBxb+JG3vxMtWIuh9WulNtRav9nWp8JrVuyCmT2hrBn1SsMLoohiH0tXh1mbvA
-	 MR1Ngg9lDSFzV2tHUvuIzwq7d1ukb+Md1iJU8t2Se0iPXFhrVkai+Z9JfemQvM/LUnbgJ
-	 hBP0OXv5ENxJ7ZZFuNw7gnGNwXAVxqS5mhokFyYTrj/FBYNWA13+zwNeHbXdvRDOTS+Za
-	 yzqP6mIiJAj5Dqwx7n5on4PyFC0Cskbd3/erxWJFqN1c54ZaFtOMjUsFkjzaxueNhCXb4
-	 Z5OSkEMIPXfyLy0cjFRW1iZsxW13nppyjl15PfDIZLX+hA0VKA/lQd375Yr0NrtNLxw==
+	t=1794201082;
+	b=oShkZWhCARmpN0B96khgQmtgD9AKxH2AyGp5zE/3BCPdjzRmgIxLoMVH9PNx1yQh4OIk
+	 l4I4yC1V1osfoJRd/dRQq7ovcZHxMy2Tf72lUblLJmh753odRPS9xe9wdn0vlMcrKVTbg
+	 /xOS+i4v4Llz8zx7Do+vf9kfo24VnKJRmQQ14pS2AkuLKE3WVrM+xFhTe9lN0YPvNViHJ
+	 0iTD/grkF5oLXF0LM0Fzwf9Mq8BcScbj/Jh07Mkq0NDGBaPO9ku4h8I1Oj3RcPt/ez3Sz
+	 +ddYpngHB3CjRO0Yd/EssatwFa3bjWLPr3ltgfKuTVqcTtxkgVjKAJbsZb0diQiGhxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201076;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794201082;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=G+rCZlZvpLUe3/sSBMNpNP5w4u7bZtndPiMGg+R0D5I=;
-	b=0RIH8ywuRcUo2vFiLgOBYFZEZZY04QvjciVv1dWHZUjpzcI8E4+bB0zsOuRdPZVoMo8f
-	 evg8SjlDtcpVW9QK1JTC3WnT0Y1cLJyYjIcBGKG0ijikbL9ZuNwL9Jaae5wvjNktUg/Rg
-	 Zz6znGEnXlSex5IqPmvxqtGJm6YvgjdOzquJ9cbeUvAN+toTV070BlLROtUK5Jl+WoQOz
-	 GwnOvu26PXwDD9+qufSfU4eOCndZStc4P5I7hQfll/xKdpikloZs/1aUrY019czBv+OcM
-	 cnoNgpCcIRV+a3F3BmY6VIpKkX8sGecf72JQyQN1JSPzI5VO5jAQbeuKbNr+V2PxjfA==
+	bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
+	b=fgk7RSXsqU2jkDv/seG0+L2J8wxCdOykaNK4Htm9JmgFH3eAeuD+5mnOG9LXXhe7mBc2
+	 N87rrcxy7ixDjS83w6oK4MLDAdIAyJ6k+QUL9j0LEcTz631nXSLTc2GQrN06wiAGiwiTP
+	 3PakU4/ukPj8hFELDG0cm1zNIw2r3+jsjull1tnstebdKe7Pn8oUua9z294jr7yv46qp5
+	 7zV7QjA5Vk/EuFu6Uobr2CYfT35SDEHIyi+7CdHbh7eeuiC1cffCfUEbkNDJ1BeWyPpfC
+	 MTfdsRUyHTJBsc69+KbsTWwLVUdv1jfQXpFNMD+Kjv7hcqhf0xlS1d0S7lcLyCBG2PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jms.id.au;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E43YpmKc;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puU1onEx;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531F7606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531F7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A92606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 05:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A92606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E43YpmKc
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e987b4a710so1960345ad.1
-        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 21:11:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puU1onEx
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso210992a12.0
+        for <devicetree@vger.kernel.org>; Sun, 08 Nov 2026 21:11:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794201075; x=1794805875; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794201081; x=1794805881; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G+rCZlZvpLUe3/sSBMNpNP5w4u7bZtndPiMGg+R0D5I=;
-        b=E43YpmKcvUTnjE8CVAJ7qbNwv9CGJZy0QrMVSRT/MFSII4ud4mayIxXX76U69kakW/
-         j0HVTRjDpkOJpJLuveiUBOhhFWLzxKYC07o5uuYln84Lei5K3aOLXTw2cuHQarGcRReG
-         TgeHb3KAdMe5cMhoSfO7jSc05vb0pYpBVvetGqA+FAnVWPCsyif82JIgeV/fghsnc7x7
-         G36k/D/DB9HKJypp0Aqb0feHvzCa99AgGc0Lpvg4ypS7q0rO1tpfT/efPnFDMnbb6DCK
-         qpW37RKNBHXLCKcm6jNVF+OJbU6WTzXAVJsGfYNAXgh/8xQKmZq6xU5BtcH1YUl/zsqX
-         zJ3A==
+        bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
+        b=puU1onExTbaVViZ8755QQ7RLqVE74xhyo4OUB2HNFd9TH6z6R834VGBf3XEkzjwctl
+         KzNwv4/lgLhsckXhSHMA4C1dzEivWdEWl+WqYfqmO6DjC28gg7LKXemRDXh3574SNvdW
+         it/2vIzdjwuWJZqtbBOhp9004VSeCeccju2Lu8SpbmauffLDh+igMhwmojQdgk0jdfLZ
+         NFWsC2rsbCnALZLsEU0Zph+tcXnDUsMwlt28DhmU4v2iKxt75Sl0MDtj6CAOQUnuLQHg
+         Ax9wFY7dxCzZooBXJDaDneLglO9Sre6u7G6bgqfaVw7LqDVmb3SZtp8CkzUL8DCT1RrA
+         /Upw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794201075; x=1794805875;
+        d=1e100.net; s=20260707; t=1794201081; x=1794805881;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G+rCZlZvpLUe3/sSBMNpNP5w4u7bZtndPiMGg+R0D5I=;
-        b=svKC+58pJxnE5Mz5DcGBl6AnRCnvrU4ncYWmN3pNfhLdtn+kxA3KCn9y9mLOrvgmPh
-         2J4XAIiGOIbYThveMEr2pRE+okJSAHxBtEY0JWKF36O+oP5HN1XPFT34jnt8W5AUtASX
-         Fo9qjtycVtt43Xa3fcGG62XSi3JYBF+/xULIwPjMdJoyCRph8xiO5BkMnsdCnCJL4FP1
-         4cTSlZ3hVhTkepYl5VrIIGm2yu+K3qj/4HJdy7ho8xCs0CbjWux0hwkgaIUc9tD9x+Vn
-         +YNoeob2oA0xeRkscD36HZBJRp/h+gTK2+G9FYjBkLy0IeuVGzC8VANSYeSM/hpHR9+1
-         a+9A==
-X-Forwarded-Encrypted: i=1; AL+hErFWlim6/JeoZZHHZfdLUI+UVErY03wSelTS4g4wAWXBoG75zDi2Q8gFsM7IfpOOWkxDHPgNrPak4rr0@vger.kernel.org
-X-Gm-Message-State: APuU4Z8e4wsxqgfbLw9Oy4LBgoxpVT7fa4M3KyQUhbHGqGqjXHbnd8ai
-	BXHmi/gBM7BzMjuBMAXpkTffVbyX5lzfTj9BlNc3SNSNxIUu3NBX1uY7
-X-Gm-Gg: AYBFou3AY+IrN+a/CaB9VMUu7JZ9bIXUenri5odNOlRZlSbUJeFlSHmIGRM0oy6/4Xo
-	lslM4eea45d1BvlVFZQ6GRO+82DVd0za4E84hsAAM3wWXUE+UMGGEMIexLo7lsqjkqiGnHCcHkv
-	Lu3gUPkh8ZP7ByG9T9T9d1ToGLJHHTnVPJQ15lxs7zMK6WDVOerMmg3iSh0PfZ59QTeJBH96mWb
-	OJlza7FZAXqUFLQLOMvADP8VuUkcVgpY/bJ+9JvwUrLzlU8tJdP+mRPhlS/aGDPOl7dXLQAQqtQ
-	BWthhCwhrlWcVpruJJef3ppcCPZERFvNAR0zNOyHP7+tOhlI5OJuoR62sNNUE1eF6Z27lLvYe2p
-	806omN81gqVBTsfW4jzfZ9MJaKnqsz5QwBF1zsR6d6kMsrEri7kapoJTJ8/mcpLSwbwtM1XNy9y
-	kGaTaNDzhYM5CyP9Yt04Z7dSpywb0sBEN5DjOg2bW3p9yApMgZiVGcrxPalXUdyemG6xhDEV14s
-	rXVopDJhg40zvZn8h3n4zcrcFkeabT8V94vmOb0pVX1ClWiZs1oIlVVOPgCCJpx5GiUiXzRcwnB
-	fHCu0EidObdKNyFI1msI4FgbSjoHvBG8MQOccQZabrSJYph6wsCMPHj5kcou9QzfK/U1f7SHwmX
-	X4mZbfQnGCKbmBHXqo8Ne6qyx8qGktDatYPLNOSRVCZhi27dis9XX3GToO2ewmsxytaAQreaqJa
-	1ob/kr
-X-Received: by 2002:a17:90b:4b8f:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3b12d3fdbf6mr1750088a91.7.1794201075584;
-        Sun, 08 Nov 2026 21:11:15 -0800 (PST)
+        bh=lgRGsEIxSdF7se1kH5ZKybJwqIiFvQpOJpHKAYNwocs=;
+        b=c3Pdb5VR35tYhvF4iB+Ne5K4oarnYRSW4GC46e6BG/0zBOW8AkApx06N9uNPrMpQqp
+         c+0KRCnBzuY0Nj7BKyZrHKdt8UmNi3Nyrlb/VHI9VDvO6g6McENpKhC0ng+sigao8d9s
+         x+etF/kcZoL+34cs6M2fAAP+Q7tQd1evqJ2Ldez2RxW8hPBJ+h7twMTn8GwY+UYsMSWO
+         8RYC4ZhtW5vtyBpeXQekCQi8vnhXzC50LdWEeW0ntvuJ+Ca/bpFUW5nagFhyzcrAUaxI
+         C40bKRmFHY97RHSi36duBuOmIGPcVKaNWIF+fzN0mfV3s8nuoHX8dswPiC2rG6WJQGOp
+         neoA==
+X-Forwarded-Encrypted: i=1; AL+hErEAtLCB89nuWgb0qhnSLxz0IxxsHcR3us4Mer0K6mU22Us5so1gxmDU7Gb55ijHcYmBP1JZc6YiMtFr@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LT4vuWhlJQOqfZRYfbkukzaquLT0HTEoWwwvIImRhXq9Y98LQ
+	YOlLtyEF82dipDAvR24PGuj/vo/Su4b6KEO6saI65pKuqUlU/bPT+Jh4
+X-Gm-Gg: AYBFou3+x60wF2GgGCZPN+4vyH+9otKaulbtEBhZfaJCVKhVMA4HrPtm2oRvCuhLhEQ
+	zxBhi6pp012y/Pe0Vu5wAqQIOHnDpZlWkrpm/g5zlBZFP1h2+d/OcrQl4qcRzc65+iTbAxz6xXg
+	9KzFCowfezSO//IVa0mOKU43fT5GeF1ccpNzGEsbgVvjq4JZ9+17lx4SV2AnlPu3cv7tpG2+mOm
+	Te2UD2ddg6SjywcgMcwr8heWvOpdOy40jqKgqIwygSWqOauNo0930YCIlHjWRkNJ96zu5B6f6di
+	OicqTgCNjVqIgqrhHoLS5wMjr+Tk9uQurMMPMK9XC5RzOHeb2RkWJ6G+Tdxeyccb5Xjl0Kna+U2
+	kJKgoVMBaxEQGDVuwntRjev+fcAmpRo8itj11sCjTghJXbOf55GmdXjmzDr88m87kwYHV91wH+6
+	viVV1bMehRpvDY7tjYTOD+SUiBfPKIMKR2DMV8MQx2veKBWheK1cdzc0iOEuBGZnudz9d9g8Pea
+	+T+f4aSJxtM/VTK2ZGo8jCMzb5uxj9WyvEJy6dSbu+yYytBlwVgb6v+HK7BKgf0Dk5q2KiLR0Wu
+	fGZVWkh+1Y8sz4by5YuSJ3Fc7baJqs7V4CE0fXsWMGLvWbUk8UpqOc3KT5Hf0zaVHoAfbm+faG0
+	pbEN7g/M3hEf7zfWGtqcQf1UKrw5oHhwhCkuvr0b6G//pk0j3bic0REtQoA==
+X-Received: by 2002:a17:90b:1e47:b0:3ac:a6a5:5757 with SMTP id 98e67ed59e1d1-3b12d3fc296mr2052368a91.11.1794201081003;
+        Sun, 08 Nov 2026 21:11:21 -0800 (PST)
 Received: from donnager-debian.. ([180.150.112.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm5247652a91.13.2026.11.08.21.11.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm5247652a91.13.2026.11.08.21.11.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:11:15 -0800 (PST)
+        Sun, 08 Nov 2026 21:11:20 -0800 (PST)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
 To: Paul Walmsley <pjw@kernel.org>,
@@ -98,9 +97,9 @@ Cc: Anup Patel <anup@brainfault.org>,
 	linux-riscv@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3 2/7] dt-bindings: imsics: Add Tenstorrent Atlantis compatible
-Date: Mon,  9 Nov 2026 15:40:42 +1030
-Message-ID: <20261109051050.105623-3-joel@jms.id.au>
+Subject: [PATCH v3 3/7] dt-bindings: riscv: cpus: Add Tenstorrent Ascalon
+Date: Mon,  9 Nov 2026 15:40:43 +1030
+Message-ID: <20261109051050.105623-4-joel@jms.id.au>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109051050.105623-1-joel@jms.id.au>
 References: <20261109051050.105623-1-joel@jms.id.au>
@@ -115,30 +114,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add compatible for IMSICS in Tenstorrent Atlantis SoC.
+Add Tenstorrent Ascalon microarchitecture and the Tenstorrent Ascalon-XG
+core.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Reviewed-by: Drew Fustini <fustini@kernel.org>
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
 v3: No changes, pick up review tags
 ---
- .../devicetree/bindings/interrupt-controller/riscv,imsics.yaml   | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/riscv,imsics.yaml b/Documentation/devicetree/bindings/interrupt-controller/riscv,imsics.yaml
-index feec122bddde..442b8870f9c5 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/riscv,imsics.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/riscv,imsics.yaml
-@@ -49,6 +49,7 @@ properties:
-       - enum:
-           - qemu,imsics
-           - spacemit,k3-imsics
-+          - tenstorrent,atlantis-imsics
-       - const: riscv,imsics
- 
-   reg:
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769..2d2e4606a53e 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -75,6 +75,11 @@ properties:
+               - sifive,x280
+           - const: sifive,rocket0
+           - const: riscv
++      - items:
++          - enum:
++              - tenstorrent,ascalon-xg
++          - const: tenstorrent,ascalon
++          - const: riscv
+       - const: riscv    # Simulator only
+     description:
+       Identifies that the hart uses the RISC-V instruction set
 -- 
 2.47.3
 
