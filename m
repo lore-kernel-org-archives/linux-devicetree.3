@@ -1,92 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266700;
-	b=czrc6zehSKvEDK8eCi+V3hOSR1SowEKhPP6mrtvRRx6aILdhwU81XEhaPoeOHtd+7S0b
-	 45gcpEZWlwM4ClgIFRcCa5ZzAXCViwJB1NWbBog8wZOb23XBIAYiX7iLhd65L7Y6LSJMn
-	 GxKYeAROd6N/pquxoXsChIUhc0SelH7Pe36LLYrw0FhlpAn2/r9oZCmpFAevDaW/OX3Dz
-	 lyMmCgK6xfrQxY65XjNMElEZB1EzfuYfkrsw6jCV1Rdy4vmDWWCsMkz9qTGU75sT0N4Lh
-	 FzvxjacoPPJwEA1OWTn1KIG4BO+qu4udnLZCkNGsh6v33pgSJ1jlqd+VHJOW4LdH33Q==
+	t=1794267029;
+	b=aFx7/aAl+SKOIBqrnUMmRIw3RdXIJwQfQHLBflwO65nNd1y9Ox9uTnSu9/B5Lmye4YX+
+	 0qHb3GmYi1plEG0a/lshHhTtoGr8xOSPvK+nZFfNnuFHxrMcufS482AMAZYAeNMk8qA5i
+	 QHQ2VluLKr5EngLyyQaZ5JZwXQTZcaPOGYth77jkH5sR24uq56J07Oz8kq+Niz/VFCgA6
+	 oHTERAgk9f+t7VEh9nsXaGQ7RBjWRgtgAlPrP3A019tE6z4TyC7HIiBMZk1fXR/IUxvGq
+	 gtWw3HA4se7AoJdFLPl+ap64ugCp8g+Oo0HzHsEo68rt/OnySWnkLN/qmcNhK4NPsPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266700;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=;
-	b=OD7qOCHoYO6GiGYME++405RELurqNavu+IRrWvEserXDtZhIY/qUmmbGjPDfvi6Hoeil
-	 BnfXAGVxvcCL1kFR30kwhdjbUWULW5MgzHAUFEacBBZ8QlT0wYxISvzBagqYtGPDzH0PE
-	 U55O6seo+AHcuDDqqnPN0hr52rqIcWST+eoEvkiAtcfBXIBZQCH4FxUK6fSiKUWyrcUZA
-	 Q2bUq74frNBuKRNrIYHMGjHJdd21S/O/rn8SCUvZ1ajp9ZMxVNvQGiS6cLdwkKJ9Afag9
-	 GEiiToac48isJMSlZ61Yh1vVLCwjDhgU/lG6BILCuJd0MtbxIF2eakre11YfdHo/Luw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267029;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=utZOYS4SAXgB2EwrXvT+V1JUlvBmdbFEIh/ePk2lfvc=;
+	b=tjziwB/0NlzaAnNUS0reha6cK6pLZPLActGujvnpzVpTXnI4Fhpk6rCJ1clnZWmIVkB6
+	 rl8eSxIMtxNCDTRUZ4qPekhyZ7ULAgNAuPiyS+suJoceUnVKDArFww4MHNocYzukqR+kW
+	 Mqx/l58NvXc+vHmTwC41Bg7zbe2YMGGcsHBNhJylzqMSGWPB9djc66kyUfkl3LiPfPGQa
+	 /dhwgY1yJMN5pRaikSGUT5PEnNZs2Vd+QiruMmfCNSGNxQZYhafibBXFPzeEmoOtJSOJA
+	 84FAF63sRRdUvOv9xblmCgJr6vPz5C8NjTYgagyvqoRRhKFZwd7qZA8YhBPQrxGTNog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBXJQvMB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE60606A331
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 23:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE60606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3C760A260F;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id QWzsxrLD44vCDQYjSxCOdX; Mon, 09 Nov 2026 23:24:58 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QYjSxnCE3YskhQYjSxkJjR; Mon, 09 Nov 2026 23:24:58 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af2564a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
- a=_jlGtV7tAAAA:8 a=X6MXEInN9CrlbRLakdQA:9 a=CjuIK1q_8ugA:10
- a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=; b=piHV1Lxota5tnko/Lsecfqv1WG
-	cSQHd75k+wzOZePtR2ZBlYbAnYa767CLXA09Bue5KP/frAws6rpWrLxDno7xMPsdR3R6CNzjgOm3+
-	cofch2KLmvS3hJ1vebizHrCH3ik8x1EpQsMM5ZTEWoV5lhK8rLCKEWijw/0uEqxAvWlVvbwsWg8ZF
-	2pQ63lT/vKqlwMyKiiXuleanAdRR5f1N+ZfxfxcE+RMsjKRkRirqtXY72DAV3Zm/yi2XOPaOC7N5m
-	2zKyS4xlaXAPB1KfusHlQQ1baAU11/gRd2MMSB04++dLIDuE1geYLMAn6MfDMEFk69mafTmZsrFfj
-	HnTtmqgg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51608 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQYjQ-00000000xBF-2QUA;
-	Tue, 10 Nov 2026 04:54:56 +0530
-Date: Mon, 9 Nov 2026 15:24:55 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v8 5/7] watchdog: rzv2h_wdt: Add syscon based WDTDCR
- access
-Message-ID: <835899c7-5dea-4f34-b804-1b6bbb564d71@roeck-us.net>
-References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBXJQvMB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669221F0089F;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794267028;
+	bh=utZOYS4SAXgB2EwrXvT+V1JUlvBmdbFEIh/ePk2lfvc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=CBXJQvMBIvIZEOyxF5qOe9JcpCYk0gLQ6ZDI0AYWoHb0+F7XX9sr7rjM7TrKmKz4l
+	 JbDvlGg/LGAehpRfaQrL4FhL25tQRhvl+CrcSWqSxm8CBxdSsewWNq+kuj/C2YoW1M
+	 rbJhs2GTR4Djl6JmdaD7ukd/zvjRNKBnM4KSyS1Jx7dY6Nmuvk4H08bddnd09ZZoqu
+	 wfK42/4CkEVK2FnQLSpWmQm5567EExpkm7cZY2wCAyEf4PVmFrSEHupSkUJkxw/H3G
+	 eOA38Xv73rpefDtm4lciLjT1rBs4WUoVAueoWBev3BbofJRRDj6mwpuBbDtggGTMqn
+	 edSs5LsopPEKQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E118391AFA5;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,54 +53,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQYjQ-00000000xBF-2QUA
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:51608
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 87
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMWfcwWzU6A92ccjNKy58IsxTI68ggDg7PUmuNUqnU/n+C33knELVrfNl253CLz14okLX+4HkyRsAyrOpiFjaz+sic162n8F6LDUmj2AZ0GJ9JyDW5cY
- k4XGTbmFfX9PQpUX2LQbOJ1RK06pw/b9rFyksz9yLDox8YOosK321ifElrxz+tm1ObILX0VkaX4zM3GNw/Ecad32+ysCbtg9gmK+4cm/WJZlvhCOZh2gCtqu
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2] dt-bindings: net: Convert
+ snps,dwc-qos-ethernet
+ to DT schema
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179426702692.3543549.11224444718065652161.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:30:26 +0000
+References: <20261103220402.471214-2-robh@kernel.org>
+In-Reply-To: <20261103220402.471214-2-robh@kernel.org>
+To: Rob Herring (Arm) <robh@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, treding@nvidia.com, jonathanh@nvidia.com,
+ alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, joabreu@synopsys.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Thu, Oct 01, 2026 at 05:51:59PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> On RZ/T2H and RZ/N2H, WDTDCR is located in the SYS block rather than the
-> WDT register space. Allow the WDT driver to access it through the syscon
-> regmap exposed by the CPG driver. Retain support for the existing second
-> WDT register region for compatibility with older device trees.
-> 
-> The syscon regmap uses locks and cannot be used from the watchdog restart
-> handler, which runs in atomic context. Use the CPG helper for this path so
-> WDTDCR can be accessed without taking a lock, while continuing to use the
-> syscon regmap for normal start and stop operations.
-> 
-> Keep the WDTDCR start and stop helpers as void and treat the regmap
-> operations as best effort. Propagating errors from these MMIO-backed
-> accesses would complicate the control flow and error handling, while
-> the restart path in particular should make a best effort to restart
-> the system.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Hello:
 
-For my reference:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+On Tue,  3 Nov 2026 16:04:01 -0600 you wrote:
+> Convert the "snps,dwc-qos-ethernet-4.10" binding to DT schema format.
+> The binding uses several common snps,dwmac properties, so move them to
+> the snps,dwmac-common.yaml schema.
+> 
+> Drop support for standalone "snps,dwc-qos-ethernet-4.10" compatible
+> and "axis,artpec6-eqos" as there are no users. Also drop the
+> "snps,dwc-qos-ethernet-mdio" as it is also unused. Add the interconnects
+> and iommus properties. Replaced the example with one from Tegra186.
+> 
+> [...]
 
-Thanks,
-Guenter
+Here is the summary with links:
+  - [net-next,v2] dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
+    https://git.kernel.org/netdev/net-next/c/47d30748de0b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
