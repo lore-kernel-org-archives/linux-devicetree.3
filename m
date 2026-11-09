@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794185873;
-	b=Eo3uFDbGfnREQnxPpzxIqMsuxSqfc0vABtAo/8ZB7Tp5pzz3uGB8yYfxheK3zSKsd8oK
-	 i9+2iQEnjMVmK76Mg8N+SLA+l6ONKBhMcnsQfbsYnsYkNbK4Sdpvu7mO1duSpyCzjxyDj
-	 oG9UjiyVL1RMkQ9f6lcMyY3ZIYZM6e0zrn5U42XG6bFMvRyKaTWGFUPtPfUPWNTEzklnP
-	 ORXB15Q2jLyRoE3FpxPmWrcSrQr3X/Z15TLr5pmHBcqj38+xtiNRdzqrDeV60ucpBor31
-	 0vEfnZO2T1zUz4OjaeJITrGkU8gfHSTQ+q2MnxzVgd5cAWvyZLsc6QijY3QWvu8M+mA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794185873;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
-	b=f1z4HMtEL9drTHrBYhUoZca5xV1hxaZkPWocBO8xBrywnk+CXe4CB3Aj9JWDOBpDwjoO
-	 /E598ixsc3LTYpbz1lbeOHHoDysj14h9PBpyolqUVJRqpVnJbE3FEUAMO197Q7Xc1sZI7
-	 v5+mfdyLHwAXTUlM+1FiD/30poNKiLQggJhjekfcVIclzCtKQiK0AWqhTiH6Cq1oKxV4l
-	 lrFaIeXLSjw99p4p1Gey7stLDajWsHuRb0tWndzIDEI9wqvvlfMusjBXHt8AQF7ertOwm
-	 uLsoy7MFxnGFDDgS7m3nQmyvS8DEuB2RmjDi3Y9+MMn1/u2bn5S3szEnRD/9SyAhqGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8L9S03m;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794186384;
+	b=0Ftro9vDcnwBO33g7/xVDXVTqEd8ed9erzwc0SubJv03GuuECRPcEtUN0yH/EgoHV3/V
+	 YBzYDkBZUa336Awp6u2l2dhhxDCoCxkZTZuyqXAP4mBdIFfLlZYiVoeP69CQGBEFLYDIw
+	 KJ8rJAXLp9qpzKmI+mzP9P+TqtP3srLuv5INpk1Foho2LdnA/Q72NkoeCMoI2iAiEDUMc
+	 3NiLMlW/RfOCcxBEXspfz9kq9d/d8ldlx+xU6UiuIK0qet0PpxvC19IWa5qEp87+6Wo1U
+	 ze0oLsihOhJJgmpJ3An68IOjJuULnEq/w1caRBP9s461Rv0HlODUR0nind8mCpsKuHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794186384;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=0ccSxYjxGzAtaHzkcwmwCf630xLQpL/NmFnj7j12J9Q=;
+	b=kJLUmAtal8J4wbkH7M+4UknFCiomCAwAnxR9oJ/BnfyYPEfzQ5k59QUcHe2FL63s0zOC
+	 PwxzdNIPE09bMWUkwCprPJ3WKtHZOnIYePsI9TFeBpoEqrKSCrDhy/wLkO0M0CBLWkUms
+	 J1h8kjJHwgmEv6NkubXBgQXiWiJ/JV3oGdqRhYUg8dczM1vXZZeUtmUj0IZlAmsIAz/3x
+	 H8pel+y2oqENylqEF/Erq7MZZS5cYM2g+MW664OzK9FEdW3djNKQUpm0z7M6JefFLlcme
+	 1+LMFde1dW28Ab20kPzdWBD3T3bpccu34fyoSYQyTPZQPD9UNuftgDQX1sePZxrxoLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvOHLJpr;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4222606A31C;
-	Mon,  9 Nov 2026 00:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41CD606A31C;
+	Mon,  9 Nov 2026 01:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8L9S03m
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794185872;
-	b=oFtotlonBixhADIUAaRFb/R9eMIbYHB68t5Dp9YdKn8p035HsN5/CVVW1cl1Vi0VnmdO
-	 hxr2ZDGnNLu06Jy0tDHCr2okQEt97Wks6bw7SukTgqRuKyGCy+MS6kWLnIuezzXYIFvRx
-	 XbLOUX16ehdd1aDSMy0eavAlhe7qZOu/0j4pGoqq+yZpx8297RSPYUaXcTlAC8/wrEszR
-	 TKiZnB1nMhOyGQSzMeMyFAg86C/rxHiQcQVfbWneYh9dzvSNOujiH4o0NSVtWoCIc4Oqg
-	 RXIjlii04MQBATfn1e2W8KGsnN/zPFkxOQhK9h2THfDb6kc8uHu/Slk55PaXmPLlH6g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794185872;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
-	b=dV1A4t9XuKShgiXAc+9Ewo1uXYNMlPMZMg2W1DH+56FUCKuPuQxTgKLCFQEBOTbC7AKf
-	 sAaceBnQMilESeUG7ecZppQIaYIs8R5ZyOW4Q/D5k+Eaxz7ZwBBAJUdUXRL5b43ELVpse
-	 6vH/g564dYZj1tAVTC/XTn71ngv9HxdrDltXPwWZ1jWZjaXaSzt9ettwZfjQpSDiV/oa0
-	 9QZzrej2hnIFud6TwhJhWuR9bLwD8Zt8zkV/nmRRjHQl8KUcAojheJAXSDgZlz/zwUcf4
-	 rxL+zmb7VCGi9JHfaoENTZEWPjDeP6KEIU2/qxk8nDCP+UCQp5aCN3r+ZVfdf19Py6A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3954B1F0089F;
-	Mon,  9 Nov 2026 00:57:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvOHLJpr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5435A1F0089F;
+	Mon,  9 Nov 2026 01:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794185872;
-	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=k8L9S03m3BDqv8PczotWE3y1CXKgKWUtkn2VvTC3249n2qgohy+rBLEDsFkOvVj/7
-	 CPc6bkKvRtY3uT/YqDKFtGbDY5FkODbAWC54f53saPt/vj2DU7yBzouDml+Puu5B3Q
-	 56zCjPFefmzNgooLepmCgqPxPnRpeqUs20OMlc7AXfoCM/54N3J2iJSx4LLwx/rf1p
-	 13uIUQF58KpRSf210pruj6kk41tF6ZU1aM3g6F8Gv78gyu/rdEUluLXGgZ0ZxWz54g
-	 a3ovwriD7g0Z1S94keHCjHW2Huj7j6k653L1IG678tGn6CPsdvf0jgRJ5vzxkGRZGf
-	 ioCuA20uyFoxQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A9A7E4075E;
-	Mon,  9 Nov 2026 00:57:51 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Mon, 09 Nov 2026 00:57:49 +0000
-Subject: [PATCH] arm64: dts: amlogic: meson-sm1-odroid: mark the Ethernet
- PHY as a wakeup source
+	s=k20260515; t=1794186383;
+	bh=0ccSxYjxGzAtaHzkcwmwCf630xLQpL/NmFnj7j12J9Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RvOHLJpreStcLHwPG1Apj8qYNLgt2617Q3dKPvODU1JDDgNnxMDRd+YYEMcR0dKrG
+	 H7cHnPj48xbU3tC0tS5uNYGt8zR5vwPRaALUWAg+0zVZErkmQiIWJthtPZ3yZKbnaU
+	 HbijEEViBqHo4Yo2QBR4cDF5jbkf+I6c3zQOlzGeWrEg6g/7C+OlHk3VzBF4wR+emo
+	 N6VrqFEKyJ2SjfhfV4n6LIFzgTDmnF1ELEFvonDXnEaBFeCkpJPlXoDNW3iXyQgUl7
+	 Gn2xZmzJBEYH8Ga20ILrxfvgHQGPKieEGXeOcDRvwngA+6i6fIXpcloaKDpW/UTMNh
+	 QcbTk7sdryg1g==
+Message-ID: <sashiko-outbox-204280@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] hwmon: ltc4283: Add support for the LTC4284 swap
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexis Czezar Torreno" <alexisczezar.torreno@analog.com>
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109-staging-ltc4284-v2-2-14a270a38f7b@analog.com>
+References: <20261109-staging-ltc4284-v2-0-14a270a38f7b@analog.com>
+ <20261109-staging-ltc4284-v2-2-14a270a38f7b@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 01:06:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,84 +60,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-hc4-phy-wakeup-v1-1-d98784ecac88@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAIwa8WoC/x3MSQqAMAxA0atI1gYaJ6hXERe1RhsELS1OiHe3u
- HyL/x+IHIQjtNkDgQ+Jsq0JlGdgnVlnRhmToVBFQ6Q0OluhdzeeZuHdo7ZU82BMScSQIh94kus
- fdv37flgHcaZgAAAA
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1953; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=th9XEIxslt9+U3iOsvDowXn3pt6YXgBXd1xZpRrr4n4=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfpfry3jIbvs9Z9Uatelmny21OjdLSH79fPbD2nPIzI
- mF67HyGjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRMCOGf7ofCvuMDwa/vHVx
- zlTZbeVOSdWZE/2Nv/j83z819/luTRuG/6VWdbxz7a99TLhh3Ngh/o//ywEJu7TgQx/uaf9m9Wi
- sZgMA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
 
-From: Igor Velkov <iav@iav.lv>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] hwmon: ltc4283: missing default radc fallback in ltc4283_setup()
+--
 
-The RTL8211F interrupt is wired to GPIOZ_14 and described in the PHY
-node, but the node does not declare that it can wake the board. Without
-wakeup-source the Realtek driver does not make the PHY wakeup capable,
-so phylink leaves Wake-on-LAN to the MAC, and a magic packet does not
-wake the board from s2idle.
+commit c323a5fb63d971c9df83e57980902ef0c39f7d96
+Author: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on ODROID-HC4 with Linux 7.4-rc1 and the U-Boot and .config of
-Armbian: s2idle, Wake-on-LAN set with ethtool after the link is up. With
-this change a magic packet woke the board 5 of 5 times, in 8 s, with
-pm_wakeup_irq pointing at the PHY. Without it, 0 of 2: the RTC alarm
-woke the board.
+hwmon: ltc4283: Add support for the LTC4284 swap controller
 
-The test DTB had two other changes: the RTC alarm interrupt [1] and PCIe
-disabled. With PCIe enabled the board did not resume 2 of 2. In the one
-console capture resume starts when the packet is sent, then a hard LOCKUP
-and a panic follow while pci_pm_resume_noirq() of the root port runs;
-pci-meson has no system PM. So on the HC4 with its stock DT this property
-alone does not give working Wake-on-LAN yet.
+This commit adds support for the LTC4284 hot swap controller to the ltc4283
+hwmon driver, handling its dual current sense channels and dedicated ADC
+power sense resistor.
 
-Not tested on ODROID-C4, which shares this node.
+> diff --git a/drivers/hwmon/ltc4283.c b/drivers/hwmon/ltc4283.c
+> index 9ec409bc26482..a8587beed853a 100644
+> --- a/drivers/hwmon/ltc4283.c
+> +++ b/drivers/hwmon/ltc4283.c
+[ ... ]
+> @@ -1240,6 +1335,27 @@ static const u32 ltc4283_fet_bad_delay[] =3D {
+>  	256, 512, 1002, 2005
+>  };
+> =20
+> +static int ltc4283_read_resistor(struct device *dev, const char *prop,
+> +				 u32 *val, bool optional)
+> +{
+> +	int ret;
+> +
+> +	ret =3D device_property_read_u32(dev, prop, val);
+> +	if (ret) {
+> +		if (optional)
+> +			return 0;
+> +		return dev_err_probe(dev, ret, "Failed to read %s\n", prop);
+> +	}
+> +
+> +	if (*val < LTC4283_MIN_RSENSE || *val > LTC4283_MAX_RSENSE)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "%s(%u) too small or too large [%u %u]\n",
+> +				     prop, *val, LTC4283_MIN_RSENSE,
+> +				     LTC4283_MAX_RSENSE);
+> +	*val /=3D CENTI;
+> +	return 0;
+> +}
+> +
+>  static int ltc4283_setup(struct ltc4283_hwmon *st, struct device *dev)
+>  {
+>  	u32 val;
+> @@ -1252,24 +1368,38 @@ static int ltc4283_setup(struct ltc4283_hwmon *st=
+, struct device *dev)
+> =20
+>  	/*
+>  	 * Default to LTC4283_MIN_RSENSE so we can probe without FW properties.
+> -	 */
+> -	st->rsense =3D LTC4283_MIN_RSENSE;
+> -	ret =3D device_property_read_u32(dev, "adi,rsense-nano-ohms",
+> -				       &st->rsense);
+> -	if (!ret) {
+> -		if (st->rsense < LTC4283_MIN_RSENSE || st->rsense > LTC4283_MAX_RSENSE)
+> -			return dev_err_probe(dev, -EINVAL,
+> -					     "adi,rsense-nano-ohms(%u) too small or too large [%u %u]\n",
+> -					     st->rsense, LTC4283_MIN_RSENSE, LTC4283_MAX_RSENSE);
+> -	}
+> -
+> -	/*
+>  	 * The resolution for rsense is tenths of micro (eg: 62.5 uOhm) which
+>  	 * means we need nano in the bindings. However, to make things easier to
+>  	 * handle (with respect to overflows) we divide it by 100 as we don't
+>  	 * really need the last two digits.
+>  	 */
+> -	st->rsense /=3D CENTI;
+> +	st->rsense =3D LTC4283_MIN_RSENSE / CENTI;
+> +	ret =3D ltc4283_read_resistor(dev, "adi,rsense-nano-ohms", &st->rsense,=
+ true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * For LTC4284, rsense is for SENSE1, rsense2 for SENSE2, and radc is
+> +	 * the effective sense resistance for ADC+- pin.
+> +	 */
+> +	if (st->info->id =3D=3D ID_LTC4284) {
+> +		ret =3D ltc4283_read_resistor(dev, "adi,rsense2-nano-ohms",
+> +					    &st->rsense2, true);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret =3D ltc4283_read_resistor(dev, "adi,radc-nano-ohms",
+> +					    &st->radc, false);
+> +		if (ret)
+> +			return ret;
 
-[1] https://lore.kernel.org/r/20261019-hc4-rtc-alarm-irq-v1-1-078fc79e596f@iav.lv
----
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+[Severity: Low]
+Should st->radc also default to LTC4283_MIN_RSENSE / CENTI and treat
+"adi,radc-nano-ohms" as optional?
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-index e6f02d738a21..9a4684dfbde3 100644
---- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-@@ -277,6 +277,7 @@ external_phy: ethernet-phy@0 {
- 		interrupt-parent = <&gpio_intc>;
- 		/* MAC_INTR on GPIOZ_14 */
- 		interrupts = <IRQID_GPIOZ_14 IRQ_TYPE_LEVEL_LOW>;
-+		wakeup-source;
- 	};
- };
- 
+Unlike st->rsense, passing optional =3D false here causes an LTC4284 device
+instantiated via ltc4283_i2c_id without firmware properties to fail probe
+in ltc4283_setup().  Defaulting st->radc to LTC4283_MIN_RSENSE / CENTI
+would allow LTC4284 to probe without firmware properties just like LTC4283
+and would also make the optional parameter to ltc4283_read_resistor()
+unnecessary.
 
----
-base-commit: 81e55899e134541583a4e611ff750e1868671c67
-change-id: 20261109-hc4-phy-wakeup-9c15ebaa311e
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-staging-lt=
+c4284-v2-0-14a270a38f7b@analog.com?part=3D2
