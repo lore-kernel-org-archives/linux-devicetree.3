@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230449;
-	b=PebztCUNCbmT6whJwTk1ylvWf8yCwT3ywggD8x1yJn5cCUqAsKLbl2vwoPBdTqXZLcv3
-	 0H04zZ9i/xdfKYP63VMoB6gqlMMmLO0YYIzZxGzjKomQYkh29iiKlPwy2Np3v2hGpBN4G
-	 ofZ/5CTYlQ/+HPrxfCT/1Ma0auMXjQ/agvk+adk0lgyvyNjamPzgBppjXa+7QF5GPY9IF
-	 lYn+O/+CDocI8vgkYjoJYmhHeLlxSOluQOErRshwKwtlYiLZHwy1tKRFWRopemWc/Gm5Q
-	 6I/K9hpur0gRqzVm2qD/symxOh2NDbv3ieDziE3/WUOVg180h6lclKZ1Dz9YITFTQ/Q==
+	t=1794230484;
+	b=5E5VG4C5XekNvcBYEtzFCOFnDAFR7ywObQQPstUXI1y57Q3qxSyUpqLZmEbPpVToNSxy
+	 +o3UR7S3xvhDCH3DTH0+r1xsjKJ6CWQJ7XztIjlat9jEoQebFtbKDxr965fxXC76ah1H2
+	 SDSilbIT1tNK80Mc496xBAVcBexu8d9D7l+OGfs1BuBnFX1reIMmIjr/gKvgPT2Ir+rfC
+	 H8y5dS7xf0Ux1bsddirNLntjmSho5CGIfmppIcG/JVR5gBjdwWZEat/XDhrfqz5aP0agI
+	 2uG5SSBd/G/OcydZ5JINSsy/D/ItgJKStLCOrJ1q4tKhnLyb8SxxuGLEaDgknOqF/Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230449;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230484;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fbrWj/P7ReOH36vraQbqKTdB5cdLMUI0mnHZkL6w8nw=;
-	b=HDUkH9fwWQMWnW16H3U9cIFep41ywW0R8dVQLY+DgpMNAYEI/75+mm2Hf8hbm+H9ocBI
-	 aeV9GflNzsLE6z6IcHc1OLrA80CBitxYQgIy5Dm0P7OykgbufyM/2x+/OOKiK41wYZ4YU
-	 aAFTMN78k7pI02Jop+rD3yN0HoCuIRPmnIHIcNAw8FeuUJTow1aR0rpiHN7pd5LE11MfT
-	 ter/3lnxZh+vD62ZtyBRaZKgvfM19+Ht2o34H2IRq4DxajfrMEWQttf1G+IPynQLpDX1A
-	 jfNhQPOa1zLAsXdpMwvI4Bc5kq7ZPPQLZlZPMoFap7EY7Rcv8fqDzkKTh4Bgw1PGHNA==
+	bh=dSDOttOUZlbRzOTWEjKBcPBDk84wy77ID43rCwcUDVI=;
+	b=GWCxCLlltAIgJ6FNeTz36tvlaiDYWPvibF2jpnLuWOCdqLqwy++OyYiEhzdlVpH4sgsx
+	 vzqFIYa9o+LFeU+s5dd7Avfl5QbMQsh+gyH3OAwV+4g/KKFmBciOMXhmlcfZC4l5Kzoj3
+	 9SbeyDscACQ3L/0YzauQpTOyXukeklO8+RFnt9x/U0CBHnRwarMBOiPqfYfx17yinM+dl
+	 QtfX3Em1oLpk/MsAAGMPl2Pr6tS3C2GaB7UsISuKAU6J8Tb9oR9wKX4KZaS9FUWcdftAk
+	 O+pFCVro3EHXFbzf83dPE8KFIlNydOrBcF/M/tAOF9CT0uFsF2WcLErdk8KqEUx0PJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y60etLaJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rnm2OZ43;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7427D606A321;
-	Mon,  9 Nov 2026 13:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D48606A31C;
+	Mon,  9 Nov 2026 13:21:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y60etLaJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8321F008A1;
-	Mon,  9 Nov 2026 13:20:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rnm2OZ43
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF331F0089F;
+	Mon,  9 Nov 2026 13:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230449;
-	bh=fbrWj/P7ReOH36vraQbqKTdB5cdLMUI0mnHZkL6w8nw=;
+	s=k20260515; t=1794230483;
+	bh=dSDOttOUZlbRzOTWEjKBcPBDk84wy77ID43rCwcUDVI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y60etLaJSMnZOF8w/mZbUSb5AofUw7dLgMTR7pwz52+5nJwCu+0K/lQUIQm9tLCkG
-	 EGgZW3P77d7028QTbHNnMXqgZyBsEYy94vUbgJljQnMIffnZEPLWQZAT5ic2TIvfoV
-	 iJQF7xlLK5KWjwAOsXHqNWaSUSSrDjHpqSxinwjbYo2ZunFu+/WIg6t0TM+VKH8+UM
-	 +ISOYkh+354NA09jtlWzv011qCf5IGWMdCZ4aYfGYAhldsNpBRiJSdn/q31oRPEYC3
-	 tlzyRNnaRWg022z/f56RlYPJzl+301XZYbUSBBP2kaOj4Gn8FFVl7bmVv3PEBooJJh
-	 FICNhYksADSpQ==
-Date: Mon, 9 Nov 2026 14:20:46 +0100
+	b=Rnm2OZ43+sNN2aJJ52eRSZhb+eqAhS0A4vIyS9o1EgF2JmB9rRXJJMj6l3lgx4wJg
+	 AlxTQ5BR40MI2Hn9bUmUvgh1JoU7OMTQWgJY68SwtXc4y0UXSJDS3FsdS6LMCYbsNE
+	 ptwUXL4uVBXJ60moWUQZClLUvLZAT6jg6TGMa62lc+OIndtPBAMfabo6Z1PLer2hva
+	 s7Fl6mbCkFosCu+JvZ2k59W24/GVlgJkPB2y7lZrk/5eqfLsc/+VLPXvhIoNc/8PvL
+	 qEK5U+ELNg52phl2lFHfIFr2YMT+6wvczJuVGV/pArLaL48EuEO6F5tutar1rpipAG
+	 a5c6KfPcxQvjQ==
+Date: Mon, 9 Nov 2026 14:21:20 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Demeter Barna <me@fromdisposition.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8350: Add the inline crypto
- engine
-Message-ID: <20261109-qualified-cuttlefish-of-intensity-42ffda@quoll>
-References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
- <20261105-b4-sm8350-ice-v1-2-f55e6ea8e1ca@fromdisposition.org>
+To: Antoni Pokusinski <apokusinski01@gmail.com>
+Cc: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi, andreas@kemnade.info, 
+	khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com, jmkrzyszt@gmail.com, 
+	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
+	linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
+Message-ID: <20261109-psychedelic-kudu-of-tenacity-b06ada@quoll>
+References: <20261105200556.34240-2-apokusinski01@gmail.com>
+ <20261105200556.34240-3-apokusinski01@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,49 +64,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261105-b4-sm8350-ice-v1-2-f55e6ea8e1ca@fromdisposition.org>
+In-Reply-To: <20261105200556.34240-3-apokusinski01@gmail.com>
 
-On Thu, Nov 05, 2026 at 03:29:31PM +0000, Demeter Barna wrote:
-> Describe the UFS inline crypto engine at 0x1d88000 and hand it to the
-> UFS host controller with qcom,ice. The region covers the engine and its
-> hardware key manager (0x8000 + 0x9000), as in Qualcomm's SM8350 device
-> tree; it is clocked by the UFS ICE core and AHB clocks and powered by
-> the UFS PHY GDSC, as on SM8450. Without it the UFS driver logs
-> "Disabling inline encryption support" and fscrypt has no hardware path.
+On Thu, Nov 05, 2026 at 09:05:52PM +0100, Antoni Pokusinski wrote:
+> Document the TX and RX DMA request channels featured
+> by the OMAP I2C controller.
 > 
-> Signed-off-by: Demeter Barna <me@fromdisposition.org>
+> Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/sm8350.dtsi | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+>  .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index 55b32050c..2b258c4b4 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -1782,6 +1782,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->  				<0 0>,
->  				<0 0>,
->  				<0 0>;
-> +			qcom,ice = <&ice>;
+> diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+> index 58d32ceeacfc..ff946fdfaad3 100644
+> --- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+> @@ -37,6 +37,16 @@ properties:
+>    clock-names:
+>      const: fck
+>  
+> +  dmas:
+> +    items:
+> +      - description: TX DMA channel phandle
+> +      - description: RX DMA channel phandle
 > +
->  			status = "disabled";
->  		};
->  
-> @@ -1807,6 +1809,17 @@ ufs_mem_phy: phy@1d87000 {
->  			status = "disabled";
->  		};
->  
-> +		ice: crypto@1d88000 {
-> +			compatible = "qcom,sm8350-inline-crypto-engine",
-> +				     "qcom,inline-crypto-engine";
-> +			reg = <0 0x01d88000 0 0x11000>;
-> +			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
-> +				 <&gcc GCC_UFS_PHY_AHB_CLK>;
-> +			clock-names = "core",
-> +				      "iface";
+> +  dma-names:
+> +    items:
+> +      - const: tx
+> +      - const: rx
 
-Odd, your binding was hinting towards incomplete/legacy DTS, but I see
-complete - at least in clocks part.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
