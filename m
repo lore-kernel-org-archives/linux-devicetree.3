@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230143;
-	b=fMJrK0AIL9faobLGJUTaNAi1Yasoqkfun/Mf4j0ay8k/BEPNjeeCnrIGjzwIdJKPiplc
-	 9QD9ckzt/PzPfoG2l0Ya2M8efr8JGT3QfBSAQX6AEfQjYYOfPN+DLBn2mSjDZrKc4vs/d
-	 EDI8IYwQNVE4935z7DrFiqWNC7GgsRfrx0pQ9cfuRi3tPP0kIs+mIvK8Jrp4ij7tuNaYL
-	 O0hXZCp3ArT8RE96s+lAfBRxHz5O4gU7MWk2tIzYloUSPed/gKEtZPw/+YLoxOTkKOs+d
-	 weM+Y9ePjeCV3kgGSuK9XufnXFnjmjBQ0QyEP3+w9H5flsABttBzdVI8bW1mJFpbcjw==
+	t=1794230208;
+	b=zrFZNlXTFdJghXCT07O5gixiM3Kdu2zvA1LBADlfZN9KqSdUuVyEoppnqDMStGJON1e8
+	 TWySd74q1oam0fGbKCmZTTKultiwRhe4upPvgTzBRucFyITm5p0Dz0+71a3s3YNe6GlEa
+	 aV06DfZNUA/Kt8y96J+zoRCOEAi4kxdCRM5VZ4eWhkM9q9ZAfuwT+5kXMFOrRcanytfDH
+	 7H6hUmUoovaVIhiEATEeVC9DtWFb1Dhp0hDSHfo5XuskZrw2OajGgpgq4KlHitdciA3p4
+	 GUVee+1rFY+/UfvOyZ1rGlEXQY9sp/E5kQL7eP3sif1KIgdTWCmdMB8CibJnXfwpulA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230208;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qWYxEANPerw9+vwjfiGLR3BT2n5+ClkG5uu0vCxSqc0=;
-	b=zXP+O+cW93/OYo9vObojA/bM/1Q9VPJlZpYrmoJlIn77qulti2gmY3abTZ9T3ZVN8bGR
-	 HoqBAlOKmLAl14YxDX964cLCFv6rgyqNRaGwv9+fGYiquL2RiHjCJ4fUSo9M8FOVw5CKu
-	 ZXy5LZLEn7Ywjm+hFLYOCo6sFf9IGEwnsqD7nPo3oBxdvxe3BNiMuKo0Qz3TnKNPKyle+
-	 x65cJjifK9yQbys/u9lr57JJ0oTZ09qEPnR5k41iRqxMQ1n0kWlnNXTUiEzDMzywCWDEa
-	 r1gMdyb2gDHaDp+jVekAveO/XoWshqTQ2dOJ4BmdCI7jsrGHvc7aSSjj/y0cbmKbKMw==
+	bh=DJZPcRbincN2Flmn0XzWIYGVCGZ+6GUHIJvSkNagofM=;
+	b=RY8rGAhTTvoENTMHqMkm5dB6Y72opD5zn9WO1omb+Z2oj3E1XMSO1F1A8Uqbo98/6aRI
+	 NhjIZgL7YPuCJl9A7QEN/mYp2fTkR3TkYvj8sYy0eMLXPk83tktdZe4u6Zy8TvyMjTDrP
+	 YWtdy1FnZltY/gK+7CeuI4amrJf8xTkAI0tO1lTnotvvbMD7cz94n/bYPL7Kme7t75m3Y
+	 +ckxm02wLP/et0JLjY3n8fbl52bUKlRMJsphbB1pnkuXDML6aRJOqNppCVeLO/z3+ra1s
+	 HSAXhZKr/LwF1ipMhdKuwApVlMfV0G/SAmf1g+fCQYJi0z83gTl7p0jUfayQAjZNTBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJ1wGKph;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFxeMox;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5516606A31C;
-	Mon,  9 Nov 2026 13:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A312B606A325;
+	Mon,  9 Nov 2026 13:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJ1wGKph
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01571F008A1;
-	Mon,  9 Nov 2026 13:15:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFxeMox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422911F0089F;
+	Mon,  9 Nov 2026 13:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230142;
-	bh=qWYxEANPerw9+vwjfiGLR3BT2n5+ClkG5uu0vCxSqc0=;
+	s=k20260515; t=1794230208;
+	bh=DJZPcRbincN2Flmn0XzWIYGVCGZ+6GUHIJvSkNagofM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jJ1wGKphnG5o4B0V+76FtBaRwxwqHU/kdK+Xvn7MrRu3kfzPNlXEuyeEZEQcmRNy8
-	 nMsY2nzNS3OqnnRaxm7NVD+L9BezdNrsaEzazA13AC/ZG56c8oLgRgy2DTuIfQkuLJ
-	 h1Ueh9s4ei3oN7Mz8AbrN+OF+9urPjn4ATIszvVHBsF7K9PeocYWvX+C6VUV6TbWPy
-	 ZDWSAlBqD2LdyX5zDijaYamFQU19wd86LN0wm9uSgbPLr9UUNi0BcetcnS/OpIz1LY
-	 Q6SB72kvmr8eFkOu3GR5Qg+Df7ahzO0ohC5z9BqvjaEQmuMw2R98yH2i1g9Kll3k+H
-	 xTD5AWEG6snKw==
-Date: Mon, 9 Nov 2026 14:15:39 +0100
+	b=QzFxeMox9FdkZ2u7XwmZNmFg/6SH/4OkYDiOeM/es4Zkigp73LJCh9RFxWqhkbBwd
+	 bOhikqceoK5Teh87RaeaA2h9iKGEUyOIRL4HEtXcUN9yfCIMYn9QlSRdNKMwQQcNMj
+	 vtjH9LanRUvxBgWMEKhhmUHnOzo+37FEZF0LDvjN9edS8vTjKnkk8mLNFKpzY9gFKo
+	 75rMKNCiMK9plFuUXXycbajy4nHzqPBArHWrb+6CPqqaaOj9bCW+ja3C3r1+v9GwNZ
+	 wl1ITNQZGJy8Q509MrXDq0ddk8RCvElmhA7NP69HGoNIloXGOThV+snSyuO4pqgkLd
+	 nAvhA9b5Irv7A==
+Date: Mon, 9 Nov 2026 14:16:44 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
-	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org, neo.chang70@gmail.com, 
-	kchsu0@nuvoton.com, sjlin0@nuvoton.com, lkp@intel.com
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
- amplifier
-Message-ID: <20261109-myna-of-noble-downpour-e09d3e@quoll>
-References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
- <20261109051251.471879-3-YLCHANG2@nuvoton.com>
+To: Shan-Chun Hung <shanchun1218@gmail.com>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
+	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
+ MA35D1 PDMA controller
+Message-ID: <20261109-petite-imposing-ermine-fbbbcd@quoll>
+References: <20261109052900.2960473-1-shanchun1218@gmail.com>
+ <20261109052900.2960473-2-shanchun1218@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,101 +63,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109051251.471879-3-YLCHANG2@nuvoton.com>
+In-Reply-To: <20261109052900.2960473-2-shanchun1218@gmail.com>
 
-On Mon, Nov 09, 2026 at 01:12:51PM +0800, Neo Chang wrote:
-> +static void nau8310_init_regs(struct nau8310 *nau8310)
-> +{
-> +	struct regmap *regmap = nau8310->regmap;
-> +	unsigned int clk_det = 0, ana_ctrl = 0;
-> +
-> +	/* Latch IIC LSB value */
-> +	regmap_write(regmap, NAU8310_R02_I2C_ADDR, 0x0001);
-> +	/* Block MCLK */
-> +	regmap_update_bits(regmap, NAU8310_R04_ENA_CTRL,
-> +		NAU8310_MCLK_SEL_MASK, 0x7 << NAU8310_MCLK_SEL_SFT);
-> +	/* stall DSP */
-> +	regmap_update_bits(regmap, NAU8310_R1A_DSP_CORE_CTRL2,
-> +		NAU8310_DSP_RUNSTALL, NAU8310_DSP_RUNSTALL);
-> +	/* Default ADCI from slot1, ADCV from slot 0. */
-> +	regmap_update_bits(regmap, NAU8310_R0C_TDM_CTRL,
-> +		NAU8310_ADC_I_SEL_MASK | NAU8310_ADC_V_SEL_MASK,
-> +		(0x4 << NAU8310_ADC_I_SEL_SFT) | 0x4);
-> +	/* Set I-sense digital gain to +10.25dB */
-> +	regmap_update_bits(regmap, NAU8310_R14_ADC_VOL_CTRL,
-> +		NAU8310_ADC_GAIN_L_MASK | NAU8310_ADC_GAIN_R_MASK,
-> +		(0x1 << NAU8310_ADC_GAIN_L_SFT) | 0x62);
-> +	/* PGA in Class A Mode */
-> +	regmap_update_bits(regmap, NAU8310_R76_BOOST,
-> +		NAU8310_STG2_SEL_CLASSA, NAU8310_STG2_SEL_CLASSA);
-> +	/* Set I-sense PGA Bias Current to minimum,
-> +	 * Disable PGA Common Mode Lock.
-> +	 */
+On Mon, Nov 09, 2026 at 01:28:59PM +0800, Shan-Chun Hung wrote:
+> Add binding for Nuvoton MA35D1 PDMA controller.
+> 
+> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+> ---
+>  .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
+>  1 file changed, 71 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
 
-Even netdev does not use that format of comments anymore. And this is
-not netdev in the first place.
-
-...
-
-> +	nau8310 = devm_kzalloc(dev, sizeof(*nau8310), GFP_KERNEL);
-> +	if (!nau8310)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(i2c, nau8310);
-> +	mutex_init(&nau8310->lock);
-> +	INIT_WORK(&nau8310->load_fw_work, nau8310_load_fw_work);
-> +
-> +	nau8310->regmap = devm_regmap_init(dev, NULL, i2c, &nau8310_regmap_config);
-> +	if (IS_ERR(nau8310->regmap))
-> +		return PTR_ERR(nau8310->regmap);
-> +
-> +	nau8310->dev = dev;
-> +
-> +	nau8310_reset_chip(nau8310->regmap);
-> +	ret = regmap_read(nau8310->regmap, NAU8310_R46_I2C_DEVICE_ID, &value);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to read NAU8310/20 device id: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	nau8310->silicon_id = value & NAU8310_REG_SI_REV_MASK;
-> +	ret = nau8310_read_device_properties(nau8310);
-> +	if (ret)
-> +		return ret;
-> +
-> +	nau8310_print_device_properties(nau8310);
-> +	nau8310_init_regs(nau8310);
-> +
-> +	return devm_snd_soc_register_component(dev, &soc_comp_dev_nau8310,
-> +		&nau8310_dai, 1);
-> +}
-> +
-> +static void nau8310_i2c_remove(struct i2c_client *client)
-> +{
-> +	struct nau8310 *nau8310 = i2c_get_clientdata(client);
-> +
-> +	cancel_work_sync(&nau8310->load_fw_work);
-
-This looks safe, but still error-prone and discouraged. Use same order
-of cleanup as order of init/allocation in probe.
-
-See also include/linux/devm-helpers.h
-
-> +}
-> +
-> +static const struct i2c_device_id nau8310_i2c_ids[] = {
-> +	{ .name = "nau8310" },
-> +	{ .name = "nau8320" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, nau8310_i2c_ids);
-> +
-> +static const struct of_device_id nau8310_of_ids[] = {
-> +	{ .compatible = "nuvoton,nau8310" },
-> +	{ .compatible = "nuvoton,nau8320" },
-
-This suggests devices are compatible, but was not expressed in the
-binding (and then second entry is redundant).
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
