@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209375;
-	b=1+SmIuKXGBlpyECJ+1u753YF/OGVNN4VmbwvUwbmvEpQ7rgJs4RzjiChl6G8W0MD8muM
-	 o0DchuUkZyr+UvHtHUsU2crMfgkD0rwzNIpf0FL/AeZYMxqzX5+4nZS7aH/3JJip1h560
-	 aZu/3btPcxmjZ1RsJoTXyqGnqtYQWTnvaLM5iAPX4iyfyGDJAE8aNUA5ABzR6Si1pgmaq
-	 n3/w7pw/PKq8u/ICjqyCEiYK0qZAaGxeZzmZh48BWKoh92Q1lCEjzx5wzlHQFX0MRygw3
-	 5xzyfJm3kqRiK+70y4Ehih9j7Om26WfFgDuYtoevpGAtx9s+CnBFOB3Ki2CRS/9McjQ==
+	t=1794209405;
+	b=bPg+AzXXXNR87kFFt+R8i3GZOt3+Ahv8pTVwcZlsPRaQ4spxhvOHvO9/Al5cNLYi7QgB
+	 gl/sPWyQmiSejBfB0+gdHf0Oz0MNAs0oBnCH+pAECcg03xntAMuofIz2g64LaAjF4CHck
+	 CbSGM/4TMnkg79CdWH6tOVh79rUHdD7IPFsjQVScZfIOULiQWSaSKlNZ5UTsZt/gxYpnk
+	 zVQ8ieDHaDUshLKiSgzT79QZxHXYezCdYYk1n3Z7BPRtIRT275nA9624uC5HRvnRHGa9C
+	 xjLYy2YXgq6i+Ps2FBH1cUJjmf33b81bPB8M2yhLhTZfy7zTSn8hrvxcTUfID5eVZ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209405;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=lPe+9nTj86U4VmyBT29yr8pYap7kZ2kWsN2cIll7KGM=;
-	b=SY70TNQDL0n/pqkvB89o8bcQDfjNzKSmJ6GwzR/9NL02dgOP7gt154VF1INo1e556rnA
-	 nefyrBDXcaSIJv6orQjGLgwTOsDAMES+vuTl5/mlmgLxTlG8/Ht5tlM88U+wTR/oSF9Bd
-	 OYEsLnJsf5TtR6SaqtApt2uEeDJWgU8v778VpnVeHYRrw8K18FuPs6qR9UU0q6AT9JbV3
-	 foVBXKN6jcXKwtl9BrGFlC9kK/SDOFzur95NBl3YDz6HBdV7GVbEM97dl4nC1kd21Hp/+
-	 eJ7R2p5P4B791dFSnBKkyK1H+fQPuEe1kTBx7bVFAL9izJq53/40J0anK71WXlz5/Ag==
+	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
+	b=xkAPnBKCGF0OCB/lNhAIKmWGMhZJ869/jLvycOa/9qzZu82dPFm2zI3UXk5Hou1AfiU1
+	 VVulpeHmokeqtkjX4QIx4/nQ2UStx6R4DjHSQ0hcug9Qcl4cUhnexkJj6dbC3GZQhjB1z
+	 hGjc+1w8SWTdGAEozgrP7IoK+5HFzIm8qq+zTd/+yVbPmc2WR74Y1Xp/FzEJgWl9pIYAx
+	 IVzlpKgDrRxqDEQEeGNF/yZpUBAVjaOfJZRVlX3sBoWIK0MRe4ZtH8bA3dt0HHyUpIPbo
+	 JhDdKdWLsJqt7ikkJiNjJgaZy5jlcYh5XqwY+lJpX7ayiPAl84HnEe7FE4Y5VcPa5Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYyZ4rjo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA08606A31C;
-	Mon,  9 Nov 2026 07:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA05606A323;
+	Mon,  9 Nov 2026 07:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYyZ4rjo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18D061F0089F;
-	Mon,  9 Nov 2026 07:29:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712221F008BE;
+	Mon,  9 Nov 2026 07:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209374;
-	bh=lPe+9nTj86U4VmyBT29yr8pYap7kZ2kWsN2cIll7KGM=;
+	s=k20260515; t=1794209404;
+	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PYyZ4rjo75FHIVLNEw31B2S9SrJ/I1fC0KvCx+ZKI09m3u0kdl16cT2NqjaBzdGd6
-	 PI52Xa0vb4XoxojyxRnRVmPuLXg+/LsBrpRBLpL59IbGFUKDrkDNoQIYFeOC096KHW
-	 dvKDNIgek8PG5QddQcihl1g3EOjqfFPkZ7mSZLpQWWSoNuDP2yT2sjDIqDSduk3Zai
-	 PwPTK8+yQfXNpVusJmb5foQt6iZWbfcHc+LuZK6XkJMy+qyNXi762Q70h0kFvhF3qk
-	 6nJ3YsufEZ8Z9yGGMuWuOocJa1/7/keeoBnv1byYm71zoL/yyGvBcUe7v0aR5TYhhZ
-	 Tm904DuJI2kEg==
-Message-ID: <80990ab6-5072-43a2-b829-177c956080c6@kernel.org>
-Date: Mon, 9 Nov 2026 08:29:26 +0100
+	b=QUJUZjuYfxOSz6pip8ibC3zrHMpsfA9to2z6CC8oBADDu4wRuFdZ1VAuPzyjzGkv4
+	 IDkKSPvcAFqjmVXJGzxdDnUslUlpY7nHHzwaY2ZLCnmCqPd1aVmqiXsUWXkAyoZoQK
+	 mhkTgk23JMEo4CTlxYPiNu7GkPw0KQsfb9X7l5uhdJ0SFPc+YVNdikfJgi2g+LsvaB
+	 vPPHrFvU0pr1yP0cQRRrWc4AQXcySghNhEFvneKpj4fcv9IaO2KZQ/Z64vNJUzctuQ
+	 YN0QHUqL1M1ZB6d0EHtnJ3eD5cSEK2kS6fHJmWNQg6TOIxmlc5lGYin+Lr5dzJQ55s
+	 FB3nD2lNuIdjA==
+Message-ID: <391f12cf-d86e-428b-906f-df6d8128ee05@kernel.org>
+Date: Mon, 9 Nov 2026 08:29:59 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,20 +52,20 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: dsp: fsl,dsp: document debug reset
- control
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: shengjiu.wang@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, shengjiu.wang@nxp.com, daniel.baluta@nxp.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- andersson@kernel.org, mathieu.poirier@linaro.org, Frank.Li@nxp.com,
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
- p.zabel@pengutronix.de, linux-remoteproc@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20261105024106.338791-1-shengjiu.wang@oss.nxp.com>
- <20261105024106.338791-2-shengjiu.wang@oss.nxp.com>
- <20261106-savvy-invaluable-gaur-7af1b6@quoll>
- <CAA+D8AMxrUb-Pj74wrRn=vEyRUFKWWsR4Eq1LZ2ErsX=rRq=rA@mail.gmail.com>
+Subject: Re: [PATCH 4/4] arm64: dts: cix: add RTS5453 PD controllers to Orion
+ O6
+To: Gary Yang <gary.yang@cixtech.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Fugang Duan <fugang.duan@cixtech.com>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com
+References: <20261107011012.3655873-1-gary.yang@cixtech.com>
+ <20261107011012.3655873-5-gary.yang@cixtech.com>
+ <65af581e-caac-430a-88b1-3b7425c5209e@kernel.org>
+ <avEq_ngShxlvFSbS@gary-System-Product-Name>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -111,30 +111,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAA+D8AMxrUb-Pj74wrRn=vEyRUFKWWsR4Eq1LZ2ErsX=rRq=rA@mail.gmail.com>
+In-Reply-To: <avEq_ngShxlvFSbS@gary-System-Product-Name>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09/11/2026 03:22, Shengjiu Wang wrote:
-> On Fri, Nov 6, 2026 at 8:57 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On 09/11/2026 03:07, Gary Yang wrote:
+> hi Krzysztof:
+> 
+> Thanks for your comments!
+> 
+> On 2026-11-07 11:53, Krzysztof Kozlowski wrote:
+> 
+>> EXTERNAL EMAIL
 >>
->> On Thu, Nov 05, 2026 at 10:41:03AM +0800, shengjiu.wang@oss.nxp.com wrote:
->>> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+>> On 07/11/2026 02:10, Gary Yang wrote:
+>>> Describe the two Realtek RTS5453H port controllers on the Orion O6
+>>> I2C1 bus and add the I2C1 pin configuration.
 >>>
->>> The HiFi4 DSP provides a separate reset control for its debug logic.
->>> Keep this reset deasserted so that an external debug agent can access
->>> the DSP and perform debug operations.
+>>> The controllers route orientation and DisplayPort mode changes
+>>> through the USB/DP combo PHY lane switches, but that PHY support is
+>>> not upstream yet, so the connector graph endpoints are left out for
+>>> now. The Type-C ports are still registered and reported, only the
+>>> lane switching is deferred until the PHY nodes are available.
 >>>
->>> Also require the reset properties for the i.MX8ULP HiFi4 DSP.
+>>> Both controllers report through the same level-triggered interrupt
+>>> line, which the driver handles with a shared interrupt. The I2C bus
+>>> runs at 100 kHz because the RTS5453H I2C interface does not support
+>>> higher rates.
+>>>
+>>> Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+>>> ---
+>>>  arch/arm64/boot/dts/cix/sky1-orion-o6.dts | 51 +++++++++++++++++++++++
+>>>  1 file changed, 51 insertions(+)
 >>
->> That's ABI break without explanation.
+>> DTS cannot be combined in this patchset and must be split. Don't mix
+>> patches from independent subsystems when you send something explicitly
+>> targeting only one subsystem.
+>> See also: Documentation/devicetree/bindings/submitting-patches.rst
 >>
 > 
-> The i.MX8ULP HiFi4 DSP has not been enabled upstream before. This series
-> adds the DSP node for the first time, so there should be no existing upstream
-> DT relying on this compatible without the reset properties.
+> Do you mean the driver does not depend on DTS? Previously, it was acceptable
+> to put the DTS at the end of a patchset or place the DTS in a separate patchset. 
+> That’s why I put the DTS at the end of the patchset. Has the rule changed now?
+> 
 
-That does not change the fact that you break ABI, does it?
+Why can't you read the docs I pointed?
 
 Best regards,
 Krzysztof
