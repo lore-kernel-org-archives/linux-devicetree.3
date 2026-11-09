@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237336;
-	b=oZWWhJjqtT8LrZNoSgFhwqcayR1JAf0wH4ln+3GpWWq8irEP8HTa6Y/16ihbiN8n/euA
-	 RApsrX6seRFSRQKRead8xBNvNBNXWcOENlMcA5pFsgp6vtCql0jMpafbtmQR/VZYm/+g+
-	 YaLP+wEzFHJW8FCwVr9VYEEOf6AvNWNKB7KxfDvQW9tTRFVtKUYXc36Ke/XKBmWl1y9wb
-	 8PNKkcrvFd1SyJ6OcLnBmYJjbSToyheoCt8fFYqicUjXAx561GSUeC+FfukPr1ieBFTWK
-	 Dq502wZHCiZjJvYFo+89eLBEd8FKnz8GGY3hwZZkhD9dUCgm950B+Zns+LgoAK9wWDA==
+	t=1794237624;
+	b=TgfGZrOwFF5nv4N6CzHFroQ/n4YtXVXI5ymkgdfSgacOs0V+9KAghsS93/mtrl/AcYmA
+	 wt5eSrg3H1IJuHwU+4NWiuzJeYZUcmc+VT6rJkrmDSEj0aoNtP1Wwu8TNfiHJuSNsJlqf
+	 Fn3buIYejriE1awHALppbu3l6nJtvQkalZcUzxJXbsoZElNqID58RprTWeCuZy14pyY8m
+	 cQpXwoQC/jx7Mnh71jVsFQoBUPtvP6LPDB+7t6R9bRyZvy3pokyj+9+18EF7q5+DeHmhS
+	 nMqDDwaUm+S9f9wOBdC5894CQEWjQ/EfSd4bZjR9diX4RO78xteVm8S9YAlpRKxbk3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237336;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5XMjs81cwwebad2l/0/G1kSqG6DSPbx7k/K5ppMrACc=;
-	b=d7WR9dEzUEbkAl8K5YiMD/khCJhx8Fo6NctdmjHiOyS0/GPHHzs49Oa2TLABDUCtwlnz
-	 H5FJlLn7i43JblCCeRDMXhe6FFNPJf8kU3f9wiyh34dCQxSIHDlq6tRLHy6n1a5awrSwj
-	 ha+ZoIwRBjojNQcD1Hzq84p2k+BTJXfIG9JgYVvAuJO8llDTNMaFKePhuWcneKmD9yxRM
-	 x+5QVxtFUTB8kXZyyzs5OtUbqc1N68ZfSD5hFY1aQTdSaXnCKvH2pYmgkHLn1ep138wxA
-	 apSw8fTHwMIEnWphh0coREw78T7Ce2a2aWyNMZJFEdrgTvc0e1Kxj20H02/5g3qkjiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237624;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=vsIPcLDMIXTyEwRreAWLcBzGkN1NpY74ZgulLKfOydY=;
+	b=TjM/WgvovM6/Tg0s2Pf1ttQDF6zaVOyFMZQRLHACwNy9cs0r45WJLudxc5KfDVbMBYXT
+	 DnBjomo8JlUMciZL4zZVABJx/Jnd0GMMQzN5u3Xmd1S7HXNhgsjNZPS+Rb9yMAULfZOat
+	 cOrCLXpR0a2K+sO8N38frI7MnJNBhRYw45sJRDEOpxYvz7mOn+lWjj808lkNrG+wjKCGb
+	 VxK9RVE8rcik44KbMr3iZEQWblHNiouJBSrzWqOi2X4IqMxWWG1rDG03Xv61WdWcGMCh4
+	 ocrEdgU/OCRi7eHLkl5mZZSkTjqBZoyKkrdnTEGys8zx4zBuPIy1MfH9q921skEjjCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8f8wn6E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=BuctK3Du;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47F0606A31C;
-	Mon,  9 Nov 2026 15:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB361606A330;
+	Mon,  9 Nov 2026 15:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB361606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8f8wn6E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4A01F0089F;
-	Mon,  9 Nov 2026 15:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794237335;
-	bh=5XMjs81cwwebad2l/0/G1kSqG6DSPbx7k/K5ppMrACc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B8f8wn6EGcaPgbFkwh6lbFDJmPHUcDGKBWQnE821H4mxH94kWWQ70wKTZrTQDy1EM
-	 paputTixCpRd7qtDHlWeAcaPn0EkWecWXfsHiTED5ViYWDFQlXk+QlxQl1+icwUPAo
-	 sOTL9PGG326CG+lkiUfH17LKqYwWye9h8Zp4NDtLwvy8mMRLWhohq5r9+5byIac618
-	 qb+DixpKOCUonlAYkYJiiPk/qBLmPKGRanSYTELFgnAM2aTlW2lswvfDgwxtNiUtg6
-	 XCZDvAXog24/rceQEG+pxJwhmdY0p3QehtwYiZUau0Pbyj2qOKGK7LyH/yzZ1vG6iu
-	 ksK1vfdjB2JBg==
-Message-ID: <c1dc47d0-676e-4b88-b904-34d193e61808@kernel.org>
-Date: Mon, 9 Nov 2026 15:15:27 +0000
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=BuctK3Du
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794237582;
+	bh=vsIPcLDMIXTyEwRreAWLcBzGkN1NpY74ZgulLKfOydY=;
+	h=Mime-Version:Date:Message-Id:From:To:Subject;
+	b=BuctK3DuIvKekUC2uSyt5xjib4q/GmO0uwTGUHxT/c6/EcpvDNSkWVJmdhWrxz+Jr
+	 c2C0sd5txupCJKleL/ut0ezyjGKHjkKfePU0zqqIWqz6s18BIHB7C9BZX3oci8e6fM
+	 iLPEdzqmyFscqSXqupQv8I9A2uwz5P7zi/IuJ8pI=
+X-QQ-mid: esmtpsz17t1794237576tb0683395
+X-QQ-Originating-IP: Zc/gz7/geC3Mn7EbL4LCmN3uWkfa4QiL7HNG6KBXuGI=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 23:19:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7132004335593761603
+EX-QQ-RecipientCnt: 17
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,143 +58,114 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 v6 3/9] ASoC: qcom: lpass-rx-macro: Add shikra
- compatible
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
- <20261106-add_shikra_support-v6-3-2cda302237cc@oss.qualcomm.com>
-From: Srinivas Kandagatla <srini@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261106-add_shikra_support-v6-3-2cda302237cc@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 09 Nov 2026 15:19:33 +0000
+Message-Id: <DMQS4Y2FACDA.3T8ZB1OUW5HCP@linux.spacemit.com>
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Yao Zi" <me@ziyao.cc>, "Jiayu Du" <duge1256@gmail.com>,
+ <srini@kernel.org>
+Cc: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <dlan@kernel.org>, <troy.mitchell@linux.spacemit.com>, <pjw@kernel.org>,
+ <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+ <p.zabel@pengutronix.de>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261106060525.346873-1-duge1256@gmail.com>
+ <20261106060525.346873-3-duge1256@gmail.com> <au6niF5xiqj7cqJ4@pie>
+In-Reply-To: <au6niF5xiqj7cqJ4@pie>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MvGpJ04VJ1WqcVvjUaJwKh/8a0Sruq22nabdpa4Ch2nhBmsG9191jPHo
+	URs0twg4d4WTWV/hAUKx9RFx9IDZgvvDiyJoCkNXL30Cn/uCbaosYm4sjwM6QNVy+bXTw8v
+	+E2VLca19foQMm97iharwmVSvvAw0HnFehzME/kaM/5wqbb6ffguHuGhGHOWhhs++BBzWtJ
+	WuqTI65StKnZPO/oOlDPpyDnKWeYdS1/4EPovO1zWfSf6QMU98cc3HXjYkE7d1fdxHBjO4C
+	dcEvpScNleFMNOGDr8hEg2DxlmK8SLpece0AgBPfuq/QZRfcOmUR411GD/HFY2Avc/3oMZC
+	/9F0vmA8McswPQkFXeef3UhW7kY5ZFenfuiD97DEczp77/JM2OLoGtuD9HkBvXEqu3La5wE
+	d2qwIoWroWxuE4LMw84fB5aLz1+3Tct+Ex8qc+ZnR1z619/hhl4lIp07x1RHpxY+zAFaHW1
+	Ns7ekr9Hrjx3ZXc/jtPhIrkwvBS0IxM89xnfBhwPlgwEGsn3od1A9ApN0mQLOg/sgrPUsCi
+	gk32gxbQ8ctEk1iwkvi506Pl9cRkYn6J8NZotdNY435mTy5589KxyLviWfazFVGDW2vJN6t
+	ggm7DGpfu5J4n5Yl1Q+fccsma1v+wYYewiTCGNuyLHKKExLpgLYHwwc6hg5kIBSvY33YNxw
+	fm94p5zWDXzEBGQVOR488juE9gHqG/zGcLIbpQRKdz2T+lgPAglj1c/LGW508B/HTwvtr5S
+	dnp6xeED+iqjHWtba8ojixV2aaqkNb4j+IpZiKPCmfFuKj7Cm+P/h/oo8aTrV1nj/r0LWuW
+	gRpi0UW+Fx0FQ3UZRmsw0ylR2xgmNhT8Ztd7mKBV8TiXqabjanUszw2pQfGOe+d/58JMU55
+	taBY/eHOHfiRi805etPbKTjAAe2iJZlWEu7KDGG1mO37AXwErPZQDJLb1bwpIklbzlj2oXu
+	Xl6+TxzRbVPMusX3hOaEBQvp9wSIsgOPhOzrGGopUMAiFth7hx8gcKwHwDUI8i5NCJ79V7U
+	NMurUIMEvgKtbg99uX4r3AK0vMH77AtX3FQt4tzZ9Maijh4uaS7D6vAWZzTRHy5nLZsLFNF
+	/vS+MzqDtfgEqnsnUM3ut7RrpjlrNZhjw==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
+
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+
+On Sat Nov 7, 2026 at 4:22 AM GMT, Yao Zi wrote:
+> On Fri, Nov 06, 2026 at 02:05:24PM +0800, Jiayu Du wrote:
+>> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
+>> controller. These banks contain temperature calibration parameters and
+>> other configuration data.
+>>=20
+>> Snapshot the shadow registers with aligned 32-bit reads and expose the
+>> data in little-endian order at controller-relative offsets. Serve reads
+>> from the snapshot and use keepouts for the remaining register ranges.
+>> Keep the AES_WTM clock enabled and its shared reset deasserted while the
+>> provider is registered.
+>>=20
+>> Signed-off-by: Jiayu Du <duge1256@gmail.com>
+>> ---
+>>  MAINTAINERS                       |   1 +
+>>  drivers/nvmem/Kconfig             |  14 +++
+>>  drivers/nvmem/Makefile            |   1 +
+>>  drivers/nvmem/spacemit-k3-efuse.c | 151 ++++++++++++++++++++++++++++++
+>>  4 files changed, 167 insertions(+)
+>>  create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
+>
+> ...
+>
+>> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+>> index d2f5bb236663..28d6c59fbd74 100644
+>> --- a/drivers/nvmem/Kconfig
+>> +++ b/drivers/nvmem/Kconfig
+>> @@ -476,6 +476,20 @@ config NVMEM_SNVS_LPGPR
+>>  	  This driver can also be built as a module. If so, the module
+>>  	  will be called nvmem-snvs-lpgpr.
+>> =20
+>> +config NVMEM_SPACEMIT_K3_EFUSE
+>> +	tristate "SpacemiT K3 eFuse support"
+>> +	depends on ARCH_SPACEMIT || COMPILE_TEST
+>> +	depends on OF && HAS_IOMEM
+>> +	depends on COMMON_CLK && RESET_CONTROLLER
+>> +	help
+>> +	  Say Y here to read configuration and calibration data from the
+>> +	  SpacemiT K3 eFuse shadow banks. The boot firmware must have loaded
+>> +	  the shadow registers before Linux starts. Programming and reloading
+>> +	  the fuses are not supported.
+>
+> I didn't read K3's TRM, but is there a reason to depend on the
+> bootloader to do so? We should depend on the state set up by bootloaders
+> as less as possible, I think.
+The GEU hardware loads the shadow after reset. So YES, we don't need to
+rely on bootloader.
+
+--=20
+Troy Mitchell
 
 
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d
+Content-Type: application/pgp-signature; name="signature.asc"
 
-On 11/6/26 12:33 PM, Mohammad Rafi Shaik wrote:
-> Add shikra RX macro compatible data and hook it into the LPASS codec
-> v4.1 flow.
-> 
-> The RX macro register layout of LPASS codec v4.1 matches the v2.5+
-> layout, so reuse the existing v2.5 register access helpers, controls
-> and widgets for it.
-> 
-> v4.1 additionally requires the FS counter to be bypassed before it is
-> enabled during MCLK enable. This is a property of the codec version and
-> not of the board, so key it off the version detected by the VA macro
-> rather than off match data.
-> 
-> Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  sound/soc/codecs/lpass-macro-common.h |  3 +++
->  sound/soc/codecs/lpass-rx-macro.c     | 14 ++++++++++++++
->  2 files changed, 17 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
-> index 573b2145e1c4..b52665b11e35 100644
-> --- a/sound/soc/codecs/lpass-macro-common.h
-> +++ b/sound/soc/codecs/lpass-macro-common.h
-> @@ -30,6 +30,7 @@ enum lpass_codec_version {
->  	LPASS_CODEC_VERSION_2_7,
->  	LPASS_CODEC_VERSION_2_8,
->  	LPASS_CODEC_VERSION_2_9,
-> +	LPASS_CODEC_VERSION_4_1,
->  };
->  
->  struct lpass_macro {
-> @@ -70,6 +71,8 @@ static inline const char *lpass_macro_get_codec_version_string(int version)
->  		return "v2.8";
->  	case LPASS_CODEC_VERSION_2_9:
->  		return "v2.9";
-> +	case LPASS_CODEC_VERSION_4_1:
-> +		return "v4.1";
->  	default:
->  		break;
->  	}
-> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-> index c59c746fb638..5fe06ce6b960 100644
-> --- a/sound/soc/codecs/lpass-rx-macro.c
-> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> @@ -60,6 +60,7 @@
->  #define CDC_RX_FS_MCLK_CNT_ENABLE	BIT(0)
->  #define CDC_RX_FS_MCLK_CNT_CLR_MASK	BIT(1)
->  #define CDC_RX_FS_MCLK_CNT_CLR		BIT(1)
-> +#define CDC_RX_FS_CNT_BYPASS		BIT(7)
->  #define CDC_RX_CLK_RST_CTRL_SWR_CONTROL	(0x0108)
->  #define CDC_RX_SWR_CLK_EN_MASK		BIT(0)
->  #define CDC_RX_SWR_RESET_MASK		BIT(1)
-> @@ -652,6 +653,7 @@ struct rx_macro {
->  	bool is_ear_mode_on;
->  	bool hph_pwr_mode;
->  	bool hph_hd2_mode;
-> +	bool fs_cnt_bypass;
->  	struct snd_soc_component *component;
->  	unsigned long active_ch_mask[RX_MACRO_MAX_DAIS];
->  	unsigned long active_ch_cnt[RX_MACRO_MAX_DAIS];
-> @@ -1613,6 +1615,7 @@ static bool rx_is_rw_register(struct device *dev, unsigned int reg)
->  	case LPASS_CODEC_VERSION_2_6:
->  	case LPASS_CODEC_VERSION_2_7:
->  	case LPASS_CODEC_VERSION_2_8:
-> +	case LPASS_CODEC_VERSION_4_1:
->  		return rx_2_5_is_rw_register(dev, reg);
->  	default:
->  		break;
-> @@ -2045,6 +2048,11 @@ static int rx_macro_mclk_enable(struct rx_macro *rx, bool mclk_enable)
->  					   CDC_RX_CLK_MCLK2_ENABLE);
->  			regmap_update_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
->  					   CDC_RX_FS_MCLK_CNT_CLR_MASK, 0x00);
-> +
-> +			if (rx->fs_cnt_bypass)
-> +				regmap_set_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
-> +						CDC_RX_FS_CNT_BYPASS);
-> +
->  			regmap_update_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
->  					   CDC_RX_FS_MCLK_CNT_EN_MASK,
->  					   CDC_RX_FS_MCLK_CNT_ENABLE);
-> @@ -3652,6 +3660,7 @@ static int rx_macro_component_probe(struct snd_soc_component *component)
->  	case LPASS_CODEC_VERSION_2_6:
->  	case LPASS_CODEC_VERSION_2_7:
->  	case LPASS_CODEC_VERSION_2_8:
-> +	case LPASS_CODEC_VERSION_4_1:
->  		controls = rx_macro_2_5_snd_controls;
->  		num_controls = ARRAY_SIZE(rx_macro_2_5_snd_controls);
->  		widgets = rx_macro_2_5_dapm_widgets;
-> @@ -3837,8 +3846,10 @@ static int rx_macro_probe(struct platform_device *pdev)
->  	case LPASS_CODEC_VERSION_2_6:
->  	case LPASS_CODEC_VERSION_2_7:
->  	case LPASS_CODEC_VERSION_2_8:
-> +	case LPASS_CODEC_VERSION_4_1:
->  		rx->rxn_reg_stride = 0xc0;
->  		rx->rxn_reg_stride2 = 0x0;
-> +		rx->fs_cnt_bypass = (rx->codec_version == LPASS_CODEC_VERSION_4_1);
+-----BEGIN PGP SIGNATURE-----
 
-This does not look great, can we move this to of data?
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavHkhSEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9AggD+Mnv5Zg61NgXz
+ZDjIUJwrW/PSgOH3CWNzSHDOpq+DrYUBAOfObntacDDKXGuGn1wmRp6Qp8QY8cAv
+pn30xGwgyhMG
+=ZrI5
+-----END PGP SIGNATURE-----
 
---srini
-
->  		def_count = ARRAY_SIZE(rx_defaults) + ARRAY_SIZE(rx_2_5_defaults);
->  		reg_defaults = kmalloc_objs(struct reg_default, def_count);
->  		if (!reg_defaults)
-> @@ -3951,6 +3962,9 @@ static const struct of_device_id rx_macro_dt_match[] = {
->  	}, {
->  		.compatible = "qcom,sc8280xp-lpass-rx-macro",
->  		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
-> +	}, {
-> +		.compatible = "qcom,shikra-lpass-rx-macro",
-> +		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
->  	},
->  	{ }
->  };
-> 
-
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d--
