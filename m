@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263860;
-	b=QTHv+k/KZgxl12drEXFJ5AQUmlsgqK5/uzJg2Mp/bEmnDXcICHKg3GpRUwf7k/Wi+bpf
-	 orq3IZ3Qs0o5HuM0JMPbfMg+5RIqG8ZN5R+4bDmJxDe/OerNoum1/AyMVaSAbk9B0nBu3
-	 gcQfFcgah81Lt+DlBQYCGUW4mQjS24Zi7/+H7koLtuJ8xrlMJxO9nkNeti84XxQ08aQeB
-	 BgFLyvGV3IhP9ugEURhwszj17rsez9gYdXLFXyUOWjg48qmG8+80nWDHBsh0QfCrwCIpA
-	 scVlhCIKQPTtdB//V72acSu+y/gyowRkTAUG+zhVfLfNk5QsCdDOdb9tHWtdSuOh6Ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263860;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
-	b=DuIV1F1rRk15IeFP3TwfXtcHnKcT7i/SCSKXpQW8CBQ/aLeaUFkypuCHU6jsNGWc6fQ7
-	 pWme1X56uLF2NFfywd89xSdHfRcJwqokGp7isa2mf/yiGgEAgJysCGZ4tN4TWG+hCISow
-	 T/MUyGotYUGMMCPGtd8JGhG3+Aa251AOk6Lc8pN0Kw4qf6ox+hGCfpJfeaB2tKce1WOZG
-	 3JtB+HtdRoPTDS08DrPp4LqSx/tRwmROSXP/rwb3U82WaPuHP7jB+mKXKh9G6iY2Kngkp
-	 SYkqM3MYXekxMtZoI9niV1nUKybWOAmiU/mDKB1isV8VAarkj/UuLmU06UtlElqV97A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=sltVbzrP;
-	arc=none smtp.remote-ip=74.125.231.134
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794263926;
+	b=agRcgSiK8GjRMv3XjBOdYY+3ZG6AKgH7ZiBUbw4s7tfvrReqR26lV5tDpsrL5frX8LVl
+	 YgfTSmv3RK98TA9WSAE2I6toFPAIQHlt/X1IDgOVan8Hgyu9pr8MM+vS6dTDc+YQxEXpI
+	 taj3KkaFxUs+rL2A2Ac/nbia/ApBYP/h/1mhuIzIzeHXDBVVOa9kcj6G0F1TiwO2CJvP2
+	 szVsuGrDolEyaB0kynx6KsT1kD90NQtDENiaxwuz0noAbPEyO/3EqNSnSoOYXzFVejFMj
+	 eImaKL7HFTd7UFGxBcerwEnnjKX0MebF3lOKl3orvXqwUQSmG1B9Q9ZiFelczmO7N2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263926;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
+	b=MsuwdirB9vtUIzijNKc2l9F4S5A1tdO2fxrXh5/6wGnoT5iwLUNX1hXbkW5/rsnD1T82
+	 /ZB9Ut9SSGVCGuvyOZUm/i6V98qDYPbO/dQB4imPw1/aG2A+Ofdz41inGqa1FAmBB9/WV
+	 mtO7BVdma+7VFw0ZzSt+x/aGWexCxLIUUub5GKiP00s3o+4MuY4eSqZEnt7ca0/539Cqk
+	 hbAZ4cMSIYwkV3vvE9xezsjjhQQfNfG3PUzwPkruFO7Xl5uAKsXUwGnPFHU1k1zMb4fO8
+	 lCyv2yFxD1S4OU0eR5UiWKbR/cOMEAAqwGLOHN0UNr0uW+YA5z2kKx8foSimTLCr56w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heFvRUXR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3647D60A2608;
+	Mon,  9 Nov 2026 22:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heFvRUXR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794263926;
+	b=Ei9WoHABdHUWhS3vdisnjqGtgp6PiHAFIhhQ9ioHzXTAmxhhgTjc8hXcruwq8WgIaWQo
+	 R8ihid/LuBr6AuEu5Uu1vV1h5wXULmVb1098ooQBPbvczlFUJ+DCU1sO7J/xvdlNEaudR
+	 aRaWZTrUxe3YGGfHHM610cpJ/nMWpWAO4ML9eAAYx8Xyg8OUzyrTbmCj0+TmSKEsGQYEH
+	 mI7Q2k/uh5N/8h8n1FAFo+WUl8zqC/AFvV8IxykEPjZu3XgAj3Te3piHvgcjNx+NfNBEc
+	 wZWQy598DX4fmmTN6ce8cL8H+2ygPN++IdgvlXJmw4plNG8qrxQHIsaY+cNDuMXsLVQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794263926;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
+	b=uDQvlw48VFSmmSsJt/pluWAMqlqp6WLHHLW/Cx7QmbrAbfF/3INknZ4ZmQ8tN0mZ+SQO
+	 9uGc4DG6PmgnKX/4m6zfJ35mlEQcwez7VFRbMTWCS9a/4JLCmjwQSz8pn3x/uLbGy2C4i
+	 3FFEm/ucYXPhIWuAW7Ktjxa9K+ehBm+7I72HXrwJc5reqhkLNRskvSe4kTxMt3WIirNQB
+	 G1A6/jgO3tYK8yqu91lkUJHt7FjnkVvTogrRO6JTQUF44Cp3m68eFuBq9daxecv6s4/V+
+	 tm32e0z9xlvvfpuBDZUnMdlHKbvZxyX1VnDkv+7hJ3NRn34BSPkLpbYCzW1SGnCaZcQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483E6606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=sltVbzrP
-Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8217177c5daso394136a34.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 14:37:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1794263859; x=1794868659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
-        b=sltVbzrPcVPBEoocFVmHx6CNRKiWxCtPW+vxDuWArUIQgAgs4QDDNuN5hh4J0R7DIL
-         R++YKW9pKJ9Iwvx9TAssugbHOsPA1hZAy8InJibucpWYmxg+Q5JStHYwDymX092qS+Mk
-         FKCbdj2PwVo8KbRICaOv16AlHnTJeIi6dMoUu5PCWl/HtjikfDuMbxr5SyzM3+4TO22m
-         +Y4lQieYoGn2R6JzjR8GQr64Z0TNPMYFC7Wx8bULN5k0q+gBJ8JDYJzCPE3PLUuPOS8K
-         kgIdKXYNYr3zEIceFoyU5aY3Bq3SXzvIJsnSmJHSiOI99IivkcLseNW1I/+ebjdJ8x0W
-         MBEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794263859; x=1794868659;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
-        b=LXN0J4fT0V5W3yYuPXpvJmpRtXk53fjuED1bzl6Y5zlM858OV7paUf8bBvjXK3Rfpy
-         azBU1tLXh5VSvO4PKOaWWLm8+5Umj/WAw5nVQKnBTwzi6Fby7q/hqveKV9PCY+nnASj5
-         zZYq3UX5p5RTDoECdV9KV6gsgcDW/2LVAn3/UigXvduTpQFcmSLok08+CWiRSzDdfDzo
-         EKKglEflJUcXwYfB3vKEr7wexAh5jMxkGMa+OpVjqkOuqpBjbZaXT2zUspBRZaJg4r3i
-         8cYeusCwqrRhDv7Wi0QlAb/8ScxYrlBoIUk4S8spxOXHBbgHPE7a5xJ3OKW1hyeqWDgb
-         A5vQ==
-X-Forwarded-Encrypted: i=1; AL+hErGj83uDgP7akRr4Fcxnkl7xtEiE4Hb7ExePmpD09J9sKepHOm6cMzRU6bG7uHitcHodQxsM//2t3Jm3@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ohM6WDqMsiODRi5+WyhCG8/1YZvPs/lrfo2/nXze1P2V71rp8
-	31kbyJyZiJH8anoLGxPd3r+VGdqzCwGJk0FY8Xl4VRYgEYX75ejBdfNwrtELaPrMw4g=
-X-Gm-Gg: AYBFou2f4cmotpVYWozE3RFXvCzYpBx71GuGynTVO1d5yhKDg2nE0F3Cg6y9en+y0uz
-	BiPXCDnFSFqayBiiqGnwlSoktUmDWPJldX/fbrVaW1W6iYdmzwZU82SFaR/FH+kiUnupucbCd54
-	FsSI1qiTimWbrfbDZnBccVNMi8TgiJW55Uo5alTD0nshIwreFDqiDw0VW7Bj9Ouigt7I2Z+M8V9
-	4q5u7A3dVKlD5fk6Qh5gnDMToey2nvOHe2eJh2Yasfsbo3LZm6DScV8cDg09Dy6KJb/EDrnk8sx
-	I3r+eospJeVJKjsLDW2cAeKpoY9u9g2UBzc7/JhfFeyq/PA/5UbTFml3ZwH/6VLmvwc1abXKZEH
-	TVCMoFZEQiyorakp+Ka6eRMTOE63GB7jRH1YNfnUuYGWcorTSW1/xNA7zVA5iQpR6390yamfPK/
-	eiClX/hx6JVAYbApAL0D254Y97dt1bh1tEupxtC+mk/8SWt5OY4Jpsk6qFm6jZKn0j9Hl8sHADq
-	SP+kyUPP6d6SO34aBURi4XGhv5bfppNVHF0bDsbuiU+p/ZnDu8AdCid2W+4R/HgqmCot2xpp+r5
-	0plo+v4vPQpbu8KISi9uSpjCVyXB
-X-Received: by 2002:a05:6830:314f:b0:821:94d2:83cd with SMTP id 46e09a7af769-860dc79d674mr715978a34.9.1794263859082;
-        Mon, 09 Nov 2026 14:37:39 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbfa983sm492176a34.20.2026.11.09.14.37.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 14:37:38 -0800 (PST)
-Message-ID: <6c3c21e0-e499-4b6b-83b9-b4f63e6c9b7e@riscstar.com>
-Date: Mon, 9 Nov 2026 16:37:37 -0600
+	by smtp.kernel.org (Postfix) with ESMTPS id 012B51F008A6;
+	Mon,  9 Nov 2026 22:38:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794263926;
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=heFvRUXRB9lqeI4Vz15s8DasWP74Q1s6OE5/TPxSVT60wMJF3t4iJddwldKCes/9Q
+	 BG61fhxO/Gj3PhSmndy/Lf1i3css8ASEYZ8Af6yuV5+IikgY1EAVhyAVHzHspzzHGe
+	 t1D2GTNOJH6VPhtZGc0zOBU8R3b/Ih6D8IEV13yECmPn7k5N7y9NtbDNEgf5I4UyJN
+	 pfwKnGPUITxjjpJYRuwdaVVk88iFxTuFpRrqenowWX7K6tlR7F096GmvEE/jBJEXcJ
+	 ssFb3Uy0lWJrin7D/BWZ+XhrRbrw4gTyuQOXiSBUobdb27o5NC9T+9BEp8T7IKJ/74
+	 zOtfQxvVfuacQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6AADB486D3;
+	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
+From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 22:38:23 +0000
+Subject: [PATCH 5/8] dt-bindings: media: i2c: Add Samsung S5KGD1 image
+ sensor
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,220 +83,160 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] irqchip: introduce TC9564 SoC MSIGEN support
-To: Thomas Gleixner <tglx@kernel.org>, radu@rendec.net, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: Daniel Thompson <daniel@riscstar.com>, p.zabel@pengutronix.de,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- danielt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-3-elder@riscstar.com> <871p8vvx8x.ffs@fw13>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <871p8vvx8x.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-sm8150-camera-v1-5-3d2e7b407516@gmail.com>
+References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+In-Reply-To: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Gaurav Suman <gauravsuman007@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=3549;
+ i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
+ bh=/uP5BNjbdyi1wf98CyTi3wc+sNFa7nqcCb/NOpDJ6F0=;
+ b=zXKjcD9GYO3wZMfX1wq+CxIBgPCXHoqFK3BIJ4HHoRBM0e5rHu3wagCrvCbzEwOA6sUfOB+NN
+ As5nCPUenKbAJsHwP4oo+gQj6I6r65J7G/dVjwQ8L80yy+yfKN/riyI
+X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
+ pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
+X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
+ auth_id=1467
+X-Original-From: Gaurav Suman <gauravsuman007@gmail.com>
+Reply-To: gauravsuman007@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/8/26 3:17 PM, Thomas Gleixner wrote:
-> On Mon, Oct 12 2026 at 14:02, Alex Elder wrote:
->> +config TC9564_MSIGEN
->> +	tristate "Toshiba TC9564 MSI distributor"
->> +	depends on TC9564_PCI
->> +	depends on GENERIC_IRQ_CHIP
-> 
->    s/depends/select/
-> 
-> Otherwise this relies on some other driver to select GENERIC_IRQ_CHIP...
+From: Gaurav Suman <gauravsuman007@gmail.com>
 
-The reason this uses "depends on" rather than "select" is
-to avoid a recursive dependency.
+Add bindings for the Samsung S5KGD1 (ISOCELL GD1) 32MP quad-Bayer
+sensor, used as the front camera of the LG G8x ThinQ.
 
-     error: recursive dependency detected!
-         symbol GENERIC_IRQ_CHIP is selected by TC9564_MSIGEN
-         symbol TC9564_MSIGEN depends on TC9564_PCI
-         symbol TC9564_PCI depends on PCI_DYNAMIC_OF_NODES
-         symbol PCI_DYNAMIC_OF_NODES depends on OF_IRQ
-         symbol OF_IRQ depends on IRQ_DOMAIN
-         symbol IRQ_DOMAIN is selected by GENERIC_IRQ_CHIP
-     For a resolution refer to Documentation/kbuild/kconfig-language.rst
+This was written and tested with the help of an AI coding assistant
+(Claude Opus 5.5, Anthropic); I reviewed the change and the results.
 
-We already depend on TC9564_PCI (and use it as the default value).
+Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
+---
+ .../bindings/media/i2c/samsung,s5kgd1.yaml         | 105 +++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-GENERIC_IRQ_CHIP gets selected by IRQ_DOMAIN, which we get from
-OF_IRQ, from PCI_DYNAMIC_OF_NODES, from TC9564_PCI.
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..4b01f1057afe70665bb445c8395a6deaabc8bd9d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5kgd1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5KGD1 Image Sensor
++
++description:
++  Samsung S5KGD1 (ISOCELL GD1) is a 32MP image sensor with a quad-Bayer
++  (tetracell) colour filter array, controlled over a serial camera control
++  bus. The driver supports the 2x2 binned 3264x2448 mode at 30 frames per
++  second, RAW10 over a 4-lane MIPI D-PHY interface.
++
++maintainers:
++  - Gaurav Suman <gauravsuman007@gmail.com>
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5kgd1
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: MCLK supply clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analogue voltage supply, 2.8 volts.
++
++  vddd-supply:
++    description: Digital core voltage supply.
++
++  vddio-supply:
++    description: Digital I/O voltage supply, 1.8 volts.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
++
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          camera@2d {
++              compatible = "samsung,s5kgd1";
++              reg = <0x2d>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <19200000>;
++              reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
++              vdda-supply = <&vreg_2p8>;
++              vddd-supply = <&vreg_1p05>;
++              vddio-supply = <&vreg_1p8>;
++              orientation = <0>;
++              rotation = <90>;
++
++              port {
++                  endpoint {
++                      data-lanes = <1 2 3 4>;
++                      link-frequencies = /bits/ 64 <380800000>;
++                      remote-endpoint = <&csiphy_ep>;
++                  };
++              };
++          };
++      };
++...
 
-Should I just drop "depends on GENERIC_IRQ_CHIP"?
+-- 
+2.49.1
 
-> 
->> +/**
->> + * struct tc9564_msigen - Context for MSIGEN IRQ domain
->> + * @ioaddr:	Pointer to mapped MSIGEN memory
->> + * @irq:	IRQ number for MSIGEN
->> + */
->> +struct tc9564_msigen {
->> +	void __iomem *ioaddr;
->> +	unsigned int irq;
-> 
-> https://docs.kernel.org/process/maintainer-tip.html#struct-declarations-and-initializers
-
-I'll fix the alignment for these.
-
->> +};
->> +
->> +#define HWIRQ_COUNT			25
->> +
->> +#define MSI_OUT_EN_OFFSET		0x0000
->> +#define MSI_MASK_CLR_OFFSET		0x000c
->> +#define MSI_MASK_VALUE			BIT(0)
->> +#define MSI_INT_STS_OFFSET		0x0010
->> +
->> +static void tc9564_msigen_irq_handler(struct irq_desc *desc)
->> +{
->> +	struct irq_domain *irq_domain = irq_desc_get_handler_data(desc);
->> +	struct irq_chip *chip = irq_desc_get_chip(desc);
->> +	struct irq_chip_generic *gc;
->> +	unsigned long status;
->> +	unsigned long hwirq;
->> +
->> +	gc = irq_get_domain_generic_chip(irq_domain, 0);
->> +
->> +	chained_irq_enter(chip, desc);
->> +
->> +	status = irq_reg_readl(gc, MSI_INT_STS_OFFSET);
->> +	for_each_set_bit(hwirq, &status, HWIRQ_COUNT)
->> +		generic_handle_domain_irq(irq_domain, hwirq);
-> 
-> You want to use generic_handle_demux_domain_irq(), which allows you to
-> actually implement affinity settings for individual interrupts.
-
-That sounds better, thanks for pointing it out.
-
->> +	/*
->> +	 * Clear the MSI flag. Most interrupts within TC9564 are level-high
->> +	 * type. If any interrupts are still asserted then clearing this flag
->> +	 * will cause the (edge-triggered) MSI to be regenerated.
->> +	 */
->> +	irq_reg_writel(gc, MSI_MASK_VALUE, MSI_MASK_CLR_OFFSET);
->> +
->> +	chained_irq_exit(chip, desc);
->> +}
->> +static int tc9564_msigen_irq_domain_init(struct irq_domain *irq_domain)
->> +{
->> +	struct tc9564_msigen *msigen = irq_domain->host_data;
->> +
->> +	irq_set_chained_handler_and_data(msigen->irq, tc9564_msigen_irq_handler,
->> +					 irq_domain);
-> 
-> No line break required. You have 100 characters. All over the place.
-
-OK.  I normally stick with 80 columns but since you prefer 100
-I'll adjust the formatting throughout this file to use that.
-
->> +/* Find the PCI device we're associated with (not necessarily the parent) */
-> 
-> What does that mean and why is this platform device driver dealing with
-> a PCI device in the first place?
-
-We have modeled this chip using PCI endpoint bus, which allows
-a PCI endpoint to present a child bus that implements multiple
-device functions via each of its BARs (or a single bus can
-represent multiple BARs).  Device nodes within a pci-ep-bus
-sub-node use a platform device that is matched by compatible
-string.
-
-This MSIGEN block collects interrupts from multiple sources
-within the chip and translates them into MSIs delivered to
-the host.  We know that this block is subordinate to a PCI
-device.  If this were a direct child of the PCI device, we
-would just look at the parent.  But because the pci-ep-bus
-is in there, we need to go to the grandparent.  The code loops
-as it travels up rather than assuming it's parent->parent.
-
-(Daniel might have more to say on this--if so he'll chime in.)
-> This really wants proper comments explaining this in the source _and_
-> the change log of this patch. And no, your sloppy cover letter
-> explanation does not cut it at all.
-
-There are several distinct but interrelated drivers and it's
-been a bit repetitive to explain some of these things.  I'll
-incorporate better big-picture descriptions both in the code
-and in the patch headers in the next version.
-
->> +static struct pci_dev *tc9564_msigen_find_pci_dev(struct device *dev)
-> 
->> +static int tc9564_msigen_probe(struct platform_device *pdev)
->> +{
->> +	struct irq_domain_chip_generic_info dgc_info;
-> 
-> Struct is uninitialized.
-
-You're right, these should have been zeroed.
-> 
->> +	struct device *dev = &pdev->dev;
->> +	struct irq_domain *irq_domain;
->> +	struct tc9564_msigen *msigen;
->> +	struct irq_domain_info info;
-> 
-> Ditto. Look at other drivers how this is done correctly.
-> 
->> +	struct reset_control *reset;
->> +	struct pci_dev *pci_dev;
->> +	struct clk *clk;
->> +	int ret;
->> +
->> +	pci_dev = tc9564_msigen_find_pci_dev(dev);
->> +	if (IS_ERR(pci_dev))
->> +		return dev_err_probe(dev, PTR_ERR(pci_dev),
->> +				     "failed to find PCI device\n");
-> 
-> See bracket rules in the documentation I linked to or simply get rid of
-> that line break. Same all over the place.
-
-So you want brackets around the muti-line body of the if statement.
-
-Switching to 100 column line widths might make this become moot.
-In any case, understood.
->> +	dgc_info.name = "tc9564-msigen";
->> +	dgc_info.handler = handle_level_irq;
->> +	dgc_info.irqs_per_chip = HWIRQ_COUNT;
->> +	dgc_info.num_ct = 1;
->> +	dgc_info.init = tc9564_msigen_irq_chip_init;
->> +	dgc_info.exit = tc9564_msigen_irq_chip_exit;
->> +
->> +	info.fwnode = of_fwnode_handle(dev->of_node);
->> +	info.domain_flags = IRQ_DOMAIN_FLAG_DESTROY_GC;
->> +	info.size = HWIRQ_COUNT;
->> +	info.hwirq_max = HWIRQ_COUNT;
->> +	info.ops = &irq_generic_chip_ops;
->> +	info.host_data = msigen;
->> +	info.dgc_info = &dgc_info;
->> +	info.init = tc9564_msigen_irq_domain_init;
->> +	info.exit = tc9564_msigen_irq_domain_exit;
-> 
-> Both initializations (except for info.host_data) can be done at the
-> declaration with a static initialization, which avoids that parts of the
-> structs contain random stack content. No?
-
-Yes.
-
-I personally don't prefer initializing structs and unions
-where they are defined as stack variable.  But you're right,
-they need to get zeroed in that case.
-
-Anyway, I'll do what you suggest.
-
-> Please look through the sashiko comments as well.
-
-Yes I think I responded to all issues in both of them,
-indicating how (and whether) I intend to address each.
-
-Thank you for your review.
-
-					-Alex
-
-> 
-> Thanks,
-> 
->          tglx
 
