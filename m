@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222485;
-	b=FJx4XMRjM97UD+bCRCtOLampqePyiCwV5SK2QCT3TttdEbOJJLIQ55yHXZlH3rHSjmPx
-	 dO0myXvmEIQq0kLizL6kf+C4A2/CqdGkFT4qSTKTFl1ZMBNT3wyNC6ojlzld5Zt+IvrA+
-	 o3Ic2GxOCl9r7j9MMReLPyxd0L/4Ir4W859f4fhjkzehkDSE6hDbS1g03r2K3Hae/TwCC
-	 sEdKtz9Z/1QayP5og2Pnn9BbHYZgQwpxf1ZpYLpEjcpxkCI+9eVoiNnu2WK7zRPMYr0Xc
-	 ncO2+uSBRkTt9DD3ZKTCCrrqlSMQWUzbyzrIuBvVcmdV5SKscGy2isKR0hBL+a65MWg==
+	t=1794222497;
+	b=jLFV8wR5rK7YdKfdWLDRM+Uy4YZgmATlYxljEjTK4bD0nitRkaUXKzBStoqoccEGbf3T
+	 +/UJdSbQSALrNc7xM7PdrER/qBGclIK0/au7TMu42HxqR+o1M1ca2xfulpkyVbZV8kHMh
+	 5XIMAANB0EgEsN4iKaEHWRfHWR/tXAk+rmJTZp1MiW/8kRwvQXqWWrDpxxunKFpyQYFiM
+	 aYg2VG3yht6fGiOKcMWs3n4g1nr86JqqaYGXQFuWJjnLBZADHpS2gEGvHxLXSqSTdVjig
+	 sjVNq6qlpAQYZ3c9kDcfLKdqWlFPrscNjCGX6ERHxqnUNLwIgfjqwM5UoFW8MTd3MeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222485;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pdHzXegQ+XvZ3k1muU8qOHmHXIWhdGvV2NXRM9RO0cM=;
-	b=wSSQrn8JukyWFHpHNJMuHJRr9cnM+CC4nKuA0bH7FUNX86vf618RQ2XcSxPx0vua37pp
-	 FwttB4UEIroAGVaeimmjGo2gzFwXo3MBA7Goxa9MWm+TxB7VEe+hZGlti3BhfRYyFwQQm
-	 mhK5+Knsq1ghzWtqCKkRxe1O+ijG9hlPI7SI3xkXvRKN/jgsCoMnSPH2jxi+0VvIB5d9I
-	 +eQPlLYct4n8UMVeAu4jbRozxyMB/1PM/YtyhOqPjqhAk1LacjaLyGCEijko/Jtv0fQQ9
-	 SdGiNn7Du8D49ZNVokzfrWzmnKZ6qO8u56YPfU8n99XlyhMxPUuAT00ik+pE0SAaCqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222497;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
+	b=GfmrU4e068Sbh6c9JJnBI0pEOnC3dkEudox3bUEhSBLkYo01IpvMZIndBmCg75l4sd67
+	 9ZtgCNEhXcTY+dc2gHZHJ0rAkJ6+Yc4ptzvboREB2/d4Mz9unaVsjusXunbllW5PoUFgQ
+	 FqYyiAZjEZkAq/IfcZjI97s4LdDoF6Im4OuNvgXO0sKjN9UW4b5u6zYaaMKjdina01HEL
+	 TH4tqfDJ2xAsrh5p0AHh6RC99hpuS78HNLr5J/4cvhbY2nNAg09/MxJHCCX24YEH6PU6C
+	 foxnq0y1Ymoh4HyNOyy+B1e4Bkf+IVZroAPlE7fK1WNI9rGNQLhwDj1koc50dmS37sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkUFpLVi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LHo7EinQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="b/q6LzJQ";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B90606A31C
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 11:08:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE32606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 11:08:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE32606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkUFpLVi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B4E1F008A2;
-	Mon,  9 Nov 2026 11:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794222484;
-	bh=pdHzXegQ+XvZ3k1muU8qOHmHXIWhdGvV2NXRM9RO0cM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HkUFpLViIyMRm1a2yAbQjnl9lxeXpS7RT8A8iZoFK7bsuqbNPApAYrIZ3hRi0MBs3
-	 g91dELOV//a9KFH7IVLWFyJiu/w4Zfv9+41c+Zimk3yU01vTIW4vkLVEjnL9Z/qnqf
-	 UVI4IIdOnjlr7YAYWqyoDmJhqJWYG+r+TxDD8UXGJT4yWO83kRyVqp47Jx+5LB+o72
-	 62lCSZukZ62ue1GnDYd/qOO8HvXHLy55WuU9w7eBjlcoEe1sdbohrxBCK6pyf2opsR
-	 jnnfaQ1jU/ltySqeoCwMfD6wzVwWQ1c4o+t87zCJ2FQ2D+/raZzYf0chUch0hLMGWY
-	 b1WO46NxGHvXw==
-Message-ID: <sashiko-outbox-204858@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/7] arm_mpam: Add device tree support for MSC
- probing
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yin Li" <yin.li@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-5-150335a79381@oss.qualcomm.com>
-References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
- <20261109-mpam-resctrl-dt-knp-support-v5-5-150335a79381@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 11:08:04 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LHo7EinQ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b/q6LzJQ
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9B3aYS3937434
+	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 11:08:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=; b=LHo7EinQJg9ARF4n
+	xexAhH0K5D+x4kWAJSUylb7Smu9iPfa1I7dmdhZ+0cPSsH+wPyUt4j2t7la1iHH4
+	VddscktFCR5IrT93cKxXOOku1kni4IN3y7NU7yRAoWTfouT5r8XYbcRprBD8uI62
+	vnwFDLlxYvkMOSVgH8fWk3knoIAtryLKT2MaA5NMvMGNXG7I2Ui0nIlU4n+Fml7T
+	qg3Fuy7zLNHDbYLnV03csDxAYDixGN1eCLXj1BvyBlzI+DFLxTbMJau4XcVtbL6a
+	Mc19gRvhksR6JkjeI7i5el+MilEp4ZT9vcJNZ7ItjQX766j7C4HWF6IfNmdtM2fO
+	RS95IQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucydg0xj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 11:08:15 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2bdebfc5so21402485a.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 03:08:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794222495; x=1794827295; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
+        b=b/q6LzJQv6U8+LiGl8h2+VgYxDAiT7j6UQXWvU+MBWPOAKMDSLvC3BUuRIkIPDewZi
+         i+ID47LhK7CZumhzctS4SebuBUzxPsFcu1qnz7+9FjzdkPUTUZDv3cw+L5bUaT6ZOxJu
+         SxHIFZLz1G7Ux0HbWpndvNn4By57WeFtGU4yYeNJYW9XW2M6pt11p2+jiboRZssAnD/J
+         8JlH+UNuVofoTm0TLhRhf6obeFX/75W6cnQyNjvukyztIP1ed0Ghlu61+3DYnEb0mYSj
+         lZ2h5Gys78HnnUHdN/nbgMY1S3RS/M7jau39El03nL9chC/I1Q/aUiWoq1OXGJKxTYqf
+         wnrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794222495; x=1794827295;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
+        b=CG5O2KryDHhumtxZS5vjtx1nf4atLMSHhYieEPzqJhWI804VDLqrYxJH5nWMepDip7
+         w3Nlo1pFsUWaC4Rxh6WTYhWWDbktHK5ZWQisClCmM0UhGK4tRoJyDMyBzXFsOjl87lgU
+         N1hh6vdVEgSB+4ugrC30hxQYKRwS9QqorUSJA4uwoQhkivmRXI3k8PwY+3GwGZ0v9XVG
+         BemGClYexc74RcQ93imkRFe+jWaYT+wmHuUOJ0+iQBD7fw8UTjBg8sz4zFlwmoS9rxmW
+         F7Sjtab5hD0uPOFoGZCZukkxyZFUov9tGYkpDXwToayxti5YDMaNx94xfnfPIo3i4QN0
+         36Hg==
+X-Forwarded-Encrypted: i=1; AL+hErFHczcotXfM1wNNbpw8jCqyHcVSikrkxOv8VNJos5ZCavipS0tqxvSkMUVUS6YJOjHrNiK/Hvbgi4l9@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AKdQAgcU1b2yC4l7vPNP2gzLIWyZtmmsEHPnfZH21osNQmDNi
+	qrzg47dIMjSKsX9lb/jVXXEVS3XDiN9yXP81NNa6wKAnyYKiHtmUfyrtsg/CKvK+j2oW57mWW2T
+	FqQyOpU18bBs4yul4uKLteFaig8Bo9OVsGC7JlFXUVVTyzw/jLrkIQrxZyL+YVbLH
+X-Gm-Gg: AYBFou3y0QZYkE74i+01QxtGslH5a8HGebUGrcF9XLNtKO3cSqN/iqgNviQUAM1zDVb
+	6Ha7ixqTpFL9s/64EZh0JrZ9UHkM1K4sPDqjY3kR09tcfXxHsXmu+IlT7TaSm4FEB9AeL6VTJKd
+	3uSi2sbk9qD3qrtUICs9qdEk/fh2aNN/TKR4VoPwO2aCmYCQR78tZOie4JLudqbTLB4HRvEv75S
+	XjhzcgS2C/mGs8IihjBRPev/JRIBwq7jGqn9daOX+AR1Gy1yL3WyIMjESxgMVGj8jV5YeWxoFPq
+	96jSrQ24GAsTzhxzlfU8trUs46QlHup7BJeY/2UR5MJ2lgsjVTM1V4XvEcu13x+cH7d2k0uJ5gt
+	Xp5KUUm07BMZBE7cFQODROuRCz8sn6gKShbZTXNuokpLrMHudYipAjWpps9kJZRnCQwaEaA==
+X-Received: by 2002:a05:620a:a41b:20b0:93e:54fc:2c79 with SMTP id af79cd13be357-947842adee7mr515074285a.5.1794222495292;
+        Mon, 09 Nov 2026 03:08:15 -0800 (PST)
+X-Received: by 2002:a05:620a:a41b:20b0:93e:54fc:2c79 with SMTP id af79cd13be357-947842adee7mr515069785a.5.1794222494798;
+        Mon, 09 Nov 2026 03:08:14 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f94805sm148341166b.26.2026.11.09.03.08.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 03:08:13 -0800 (PST)
+Message-ID: <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 12:08:11 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,295 +114,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v4 3/3] arm64: dts: qcom: oneplus-kebab: new device
+To: Frieder Hannenheim <git@fhannenheim.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+        =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MyBTYWx0ZWRfX6d+wSLM5yN0x
+ 68EFr0z81OAXN3GQuzAHp9UYAWoXNmwRC285AfCwYZXymUtuzCGUI7FIU48+paGi1WHYM9yFxRX
+ unT/3dLX3qAYzEhEer+ngRIJKPfqyTk=
+X-Proofpoint-GUID: YYvCbzuXCMF3PaZRlKn5ecXAcoW7bUWb
+X-Proofpoint-ORIG-GUID: YYvCbzuXCMF3PaZRlKn5ecXAcoW7bUWb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MyBTYWx0ZWRfXwxTX3yVtsLm6
+ LV+G2qI5p94FLKu5/hMb8PY9Yba+jAGCvTAPFljySJYh1OAmDofI/Ad8a9h13rStmaJC+3XLVgZ
+ pWyUInO9TvdFzJ56wqVdANTvnfkS2cGoBngHnZhScdOcuonyns/kgFHFIlsv5U79nZQfnlhEGxm
+ gPvY8EIzY8iKdZHAkcr34daCo1iEItLWQtMsRD9UAEacxXJ47u5dtZHfuAbx7KaFPQIasXyAi3h
+ wJ0C3BPjiInG/75SS1Um+QJuUMten2dmfectGekfoEbjJP2kODelX/NrIU5hr4Oznw78rB8ZdXA
+ 3dlqRyKanC23MPeeiBtgh5EVOvi/RvmKr80uhgIM4Dc13nEgnF3sMrjc6iRVpv+dSleF/BF2XTl
+ jaKaDEOwnCuDL4iskIel4NutPKX/tw==
+X-Authority-Analysis: v=2.4 cv=XuRvqlF9 c=1 sm=1 tr=0 ts=6af1a99f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=OQN141zOAAAA:20 a=pGLkceISAAAA:8 a=WE8o4AYwAAAA:8 a=0q0syt3hQrrWoPH5w1IA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=6aV5INxNnvWGCTbEtcBN:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2611040001 definitions=main-2611090043
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] resctrl: mpam: DT MSCs all get id -1 and collide in
-  mpam_vmsc_find()
-- [Medium] resctrl: mpam: stale error returned by
-  mpam_dt_parse_resources()
-- [Medium] resctrl: mpam: uncleared cpumask in
-  mpam_get_cpumask_from_cache_id()
-- [Medium] arm_mpam: undocumented DT bindings and broken child handling
-  in MSC probe
-- [Medium] arm_mpam: broken DT parent and error checks in
-  update_msc_accessibility()
---
+On 11/5/26 9:20 PM, Frieder Hannenheim wrote:
+> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+> 
+> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+> 
+> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
+> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+> ---
 
-commit 6c78e8406d4a4b369efac7e14139c25fdb9faa61
-Author: James Morse <james.morse@arm.com>
+[...]
 
-arm_mpam: Add device tree support for MSC probing
-
-This commit adds Device Tree probing support for MPAM MSCs, parsing MSC
-and cache nodes to determine cache IDs, CPU accessibility masks, and RIS
-entries.
-
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_device=
-s.c
-> index bea231dac7e66..78caa8ae13490 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-[ ... ]
-> @@ -263,6 +266,171 @@ static void mpam_free_garbage(void)
-[ ... ]
-> +/*
-> + * The cacheinfo structures are only populated when CPUs are online.
-> + * This helper walks the device tree to include offline CPUs too.
-> + */
-> +int mpam_get_cpumask_from_cache_id(u32 cache_id, u32 cache_level,
-> +				   cpumask_t *affinity)
-> +{
-> +	int cpu;
+> +&i2c2 {
+> +	status = "okay";
 > +
-> +	if (!acpi_disabled)
-> +		return acpi_pptt_get_cpumask_from_cache_id(cache_id, affinity);
+> +	pm8008: pmic@8 {
+> +		compatible = "qcom,pm8008";
+
+No PM8008 on the other phone?
+
+> +		reg = <0x8>;
 > +
-> +	for_each_possible_cpu(cpu) {
-> +		struct device_node *cpu_node __free(device_node) =3D of_get_cpu_node(c=
-pu, NULL);
-> +		if (!cpu_node) {
-> +			pr_err("Failed to find cpu%d device node\n", cpu);
-> +			return -ENOENT;
-> +		}
-> +
-> +		__mpam_get_cpumask_from_cache_id(cpu, cpu_node, cache_id,
-> +						 cache_level, affinity);
-> +	}
-> +
-> +	return 0;
-> +}
+> +		interrupt-parent = <&tlmm>;
+> +		interrupts = <112 IRQ_TYPE_EDGE_RISING>;
 
-[Severity: Medium]
-Does the Device Tree path in mpam_get_cpumask_from_cache_id() leave stale or
-uninitialized bits in affinity by not calling cpumask_clear(affinity) before
-the loop?
+interrupts-extended = <&tlmm 112 IRQ..>
 
-Unlike acpi_pptt_get_cpumask_from_cache_id(), which clears the output mask =
-on
-entry, __mpam_get_cpumask_from_cache_id() only sets matching bits with
-cpumask_set_cpu(). In traffic_matches_l3(), tmp_cpumask is allocated with
-alloc_cpumask_var() without __GFP_ZERO when CONFIG_CPUMASK_OFFSTACK=3Dy and
-passed via find_l3_equivalent_bitmask() to mpam_get_cpumask_from_cache_id(),
-leaving uninitialized heap bits in the cpumask_equal() comparison.
+[...]
 
-[ ... ]
+> +&vreg_f {
+> +	status = "disabled";
+> +};
 
-> +static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_no=
-de *np,
-> +				  u8 ris_idx)
-> +{
-> +	int err =3D 0;
-> +	u32 level =3D 0;
-> +	u32 cache_id;
-> +	struct device *dev =3D &msc->pdev->dev;
-> +	struct device_node *cache __free(device_node) =3D NULL;
-> +	struct device_node *parent __free(device_node) =3D of_get_parent(np);
-> +
-> +	if (of_device_is_compatible(np, "arm,mpam-cache")) {
-> +		cache =3D of_parse_phandle(np, "arm,mpam-device", 0);
-> +		if (!cache) {
-> +			dev_err_once(dev, "Failed to read phandle\n");
-> +			return -EINVAL;
-> +		}
-> +	} else if (of_device_is_compatible(parent, "cache")) {
-> +		cache =3D of_node_get(parent);
-> +	} else {
-> +		/* For now, only caches are supported */
-> +		cache =3D NULL;
-> +		return err;
-> +	}
-> +
-> +	err =3D of_property_read_u32(cache, "cache-level", &level);
-> +	if (err) {
-> +		dev_err_once(dev, "Failed to read cache-level\n");
-> +		return err;
-> +	}
-> +
-> +	cache_id =3D cache_of_calculate_id(cache);
-> +	if (cache_id =3D=3D ~0U) {
-> +		dev_err_once(dev, "Failed to calculate cache-id\n");
-> +		return -ENOENT;
-> +	}
-> +
-> +	return mpam_ris_create(msc, ris_idx, MPAM_CLASS_CACHE, level, cache_id);
-> +}
+I think it may be cleaner to move the definition to the other
+phone's DT (are there just 2, or more?)
 
-[Severity: Medium]
-Does mpam_dt_parse_resource() check the wrong parent node and rely on
-undocumented Device Tree properties when called for a child RIS node?
-
-Commit "dt-bindings: arm: Add MPAM MSC binding" only defines compatible, re=
-g,
-and arm,not-ready-us on the MSC node with additionalProperties: false,
-without child RIS nodes, arm,mpam-cache, or arm,mpam-device. Even if a child
-RIS node is passed as np from mpam_dt_parse_resources(), of_get_parent(np)
-returns the arm,mpam-msc node rather than the parent cache node, so
-of_device_is_compatible(parent, "cache") is false and the RIS is skipped.
-
-> +
-> +static int mpam_dt_parse_resources(struct mpam_msc *msc, void *ignored)
-> +{
-> +	u64 ris_idx =3D 0;
-> +	int err, num_ris =3D 0;
-> +	struct device_node *np;
-> +
-> +	np =3D msc->pdev->dev.of_node;
-> +	for_each_available_child_of_node_scoped(np, iter) {
-> +		err =3D of_property_read_reg(iter, 0, &ris_idx, NULL);
-> +		if (!err) {
-> +			/*
-> +			 * ris_idx is read as u64 but indexes a 4-bit RIS selector
-> +			 * (0..MPAM_MSC_MAX_NUM_RIS). Reject out-of-range values here,
-> +			 * before it is narrowed to u8, so a large value cannot be
-> +			 * truncated into a valid-looking index.
-> +			 */
-> +			if (ris_idx >=3D MPAM_MSC_MAX_NUM_RIS)
-> +				return -EINVAL;
-> +			num_ris++;
-> +			err =3D mpam_dt_parse_resource(msc, iter, ris_idx);
-> +			if (err)
-> +				return err;
-> +		}
-> +	}
-> +
-> +	if (!num_ris)
-> +		err =3D mpam_dt_parse_resource(msc, np, 0);
-> +
-> +	return err;
-> +}
-
-[Severity: Medium]
-Can mpam_dt_parse_resources() return a stale error from
-of_property_read_reg() and abort probing of an MSC with valid RIS children?
-
-If an available child node with a valid reg property (incrementing num_ris)
-is followed by an available child node without reg, of_property_read_reg()
-sets err to a negative errno, the if (!num_ris) fallback is skipped because
-num_ris is non-zero, and mpam_dt_parse_resources() returns that negative
-errno to mpam_msc_drv_probe(), which tears down the MSC.
-
-[ ... ]
-
-> @@ -2392,15 +2550,34 @@ static int mpam_msc_setup_error_irq(struct mpam_m=
-sc *msc)
->   */
->  static void update_msc_accessibility(struct mpam_msc *msc)
->  {
-> +	struct device *dev =3D &msc->pdev->dev;
-> +	struct device_node *parent;
->  	u32 affinity_id;
->  	int err;
-> =20
-> -	err =3D device_property_read_u32(&msc->pdev->dev, "cpu_affinity",
-> -				       &affinity_id);
-> -	if (err)
-> +	if (!acpi_disabled) {
-> +		err =3D device_property_read_u32(&msc->pdev->dev, "cpu_affinity",
-> +					       &affinity_id);
-> +		if (err)
-> +			cpumask_copy(&msc->accessibility, cpu_possible_mask);
-> +		else
-> +			acpi_pptt_get_cpus_from_container(affinity_id,
-> +							  &msc->accessibility);
-> +
-> +		return;
-> +	}
-> +
-> +	/* Where an MSC can be accessed from depends on the path to of_node. */
-> +	parent =3D of_get_parent(msc->pdev->dev.of_node);
-> +	if (parent =3D=3D of_root) {
->  		cpumask_copy(&msc->accessibility, cpu_possible_mask);
-> -	else
-> -		acpi_pptt_get_cpus_from_container(affinity_id, &msc->accessibility);
-> +	} else {
-> +		if (of_device_is_compatible(parent, "cache"))
-> +			get_cpumask_from_cache(parent, &msc->accessibility);
-> +		else
-> +			dev_err_once(dev, "Cannot determine accessibility of MSC.\n");
-> +	}
-> +	of_node_put(parent);
->  }
-
-[Severity: Medium]
-Does update_msc_accessibility() leave msc->accessibility empty for standalo=
-ne
-MSCs placed under a bus node such as /soc?
-
-When an MSC node is under a simple-bus node rather than directly under
-of_root or a cache node, update_msc_accessibility() logs an error and leaves
-msc->accessibility empty, causing do_mpam_msc_drv_probe() to fail with
--EINVAL and preventing mpam_num_msc from reaching fw_num_msc. In addition,
-the return value of get_cpumask_from_cache() is ignored, so if
-mpam_get_cpumask_from_cache_id() fails on a later CPU after setting earlier
-CPU bits, probing continues with a partial accessibility mask. Also, as not=
-ed
-earlier, mpam_dt_parse_resources() and mpam_dt_parse_resource() still conta=
-in
-broken parent and error handling for undocumented child RIS nodes.
-
-[ ... ]
-
-> @@ -2574,15 +2754,45 @@ static int mpam_msc_drv_probe(struct platform_dev=
-ice *pdev)
-[ ... ]
-> +static void mpam_dt_create_foundling_msc(void)
-> +{
-> +	for_each_compatible_node_scoped(cache, NULL, "cache") {
-> +		for_each_child_of_node_scoped(cache, child) {
-> +			if (!of_match_node(mpam_of_match, child))
-> +				continue;
-> +			if (!of_device_is_available(child))
-> +				continue;
-> +			if (of_node_check_flag(child, OF_POPULATED))
-> +				continue;
-> +			if (!of_platform_device_create(child, NULL, NULL))
-> +				pr_err("Failed to create MSC device for %pOF\n", child);
-> +		}
-> +	}
-> +}
-
-[Severity: High]
-Do all Device Tree MSCs get msc->id =3D=3D -1 and collide in mpam_vmsc_find=
-()?
-
-Platform devices created from Device Tree (both via
-of_platform_default_populate() and of_platform_device_create()) have
-pdev->id set to PLATFORM_DEVID_NONE (-1), which do_mpam_msc_drv_probe()
-copies into msc->id:
-
-drivers/resctrl/mpam_devices.c:do_mpam_msc_drv_probe() {
-	...
-	msc->id =3D pdev->id;
-	msc->pdev =3D pdev;
-	...
-}
-
-drivers/resctrl/mpam_devices.c:mpam_vmsc_find() {
-	...
-	list_for_each_entry(vmsc, &comp->vmsc, comp_list) {
-		if (vmsc->msc->id =3D=3D msc->id)
-			return vmsc;
-	}
-
-	return mpam_vmsc_alloc(comp, msc);
-}
-
-When two DT MSCs create a RIS in the same mpam_component (for example,
-multiple MSCs backing slices of the same cache, or undescribed RIS entries
-placed into the shared MPAM_CLASS_UNKNOWN component during
-mpam_msc_hw_probe()), mpam_vmsc_find() matches the first MSC's vmsc because
-both have id =3D=3D -1. The second MSC's RIS is then linked to the first MS=
-C's
-vmsc, so mpam_ris_hw_probe() and runtime configuration dereference
-ris->vmsc->msc and access the first MSC without holding its locks, and
-mpam_ris_destroy() later performs a use-after-free write in
-clear_bit(ris->ris_idx, &msc->ris_idxs) if the first MSC was freed first.
-
-Comparing vmsc->msc =3D=3D msc in mpam_vmsc_find() (or assigning unique IDs=
- to
-DT MSCs) would avoid the collision.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-mpam-resct=
-rl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com?part=3D5
+Konrad
