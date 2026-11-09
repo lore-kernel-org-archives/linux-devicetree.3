@@ -1,81 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233563;
-	b=lnnm4PwfbmL9uKFT4RbqeqczkkyXHr14m7LACPGTHdkeEZzLAks2w+443pBpKfkznWov
-	 O6En18MVT8K74fka+wUIglTloeP9gqypcvRaY35UC2XOgAzR1vXgugc5920vyQbWMJB7g
-	 +t3A5IQScmP/mU5CQ0sarFT1WLG5o2IC2CetLxv6YBbB8jvD+J+ppDuW177u2BCu1zfHZ
-	 WCQsRACcZDgc8ZTeMBr2z1M7FfIQ5YLt+OGpFRb4H/wMyucq0502FgEo8yqKi0h22o3Oh
-	 3g8GSNaOkY3bTHZkvcQPr7FAKvYG90uQwivBQJbvAbThqhFZLVgyeVxDAaJ22lFTYZw==
+	t=1794233566;
+	b=vOJQwZwv0bHCJSpkbYTnRCM34+hDQelIlXQr1o+u7EJMVa0e6E5w3MlltR8bFhBd0jWq
+	 lX2Jyd2NwwARmO7VCI0FQCYN93SsIfVPAlm+EMv3ryG4mxTESg86x8/S5LzsUpOvRRDdJ
+	 u7k3eq0fQPTe4fafxkJJHAQ5hBgvIBP/1pYoqyfdV3K2EgBB6Q91debPewPL05TvLLViP
+	 EzxBsWfeVdBvI0WwyRJQTlcKXw6RfAv5MLeCLzxGBuMBg3JAIwfwRpEsrGZGG9FBVdeKI
+	 dwm78813i6nxVFOUa1n8QW7QmwxnsVOlzaoiohAsmO/QXelAkAbHEjvdk2rncV9NJfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gMBZC7vvaeuxFMqkjuXQps6Bm8Qlu7Ip2L2DaZOXdOM=;
-	b=s+GtUZEi6KQOsf5A1XwroTRXNZBI0s7+2gTJr1LfrEbCgtlRsV4P7g1AvxDnvlcTOSm4
-	 De75PNNPjgWqtY6YG5umtVKT0TCqtJPAyzIc9j7CkFjjr4h5DsP57MfL2JeCSswlwWgKc
-	 hygFNwBrVrpANWK3ZeYr8Syh9KIibdqP40ohlagX2R+vOaoYOG7RtW5dDwOrdbrp/xWnH
-	 7m0XYoZbdOwijEHm+w0JYRApa8Ahh54n0eGycv/JTYKR3htFaO6UG6uxPMClbOK6Deg0i
-	 v3uxDTl1ninE4wWMwnSYDy5k2HeveIzt/We86I/dP5WjB2Txq6lfbAgaxK3tj4pS9Qw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=P6VJcdeGPLmQQkKLnT/yRNbiCAJPKjitwFw5ODXVfxM=;
+	b=ds4Hzwm8aKsRxxhy8mvtmAlvZag0KDC2oNJfo11G+8s+HHdsoSlBOJauah63/NDx6eER
+	 BBOXC4wJIZeNdH+LcruGMP/GbWdr3ZphS1ZQwHzNdOUN0fsk3NP90lJY/Bj93/SM4GQ7Z
+	 BXUAd3WV3SMsSnQulpch4TqwHQH4PvQ9D37n6VYCP29r69Cut3WLZoVSOmrouJoar9c01
+	 23ewPUlmitqz0VBTM2CZUb2COwJGerk5blo/Yu0hlsOfhNWl+HwIEcsT+2+cs2GwA5CX6
+	 lRPw5cTFRbBtZ7k7IiBMOqW55c2Qa8gnBY1ZfAMa9XjCQfvzJoxWbX0g57vnvw0xG2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Bj3WdwtO;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=dRlC0QAJ;
 	arc=none smtp.remote-ip=74.125.82.53
 Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01132606A322
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 14:12:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01132606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6009B606A334
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 14:12:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6009B606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Bj3WdwtO
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a8cc11ac42so703434c88.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 06:12:42 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=dRlC0QAJ
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1aefd1bf74aso774844c88.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 06:12:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794233562; x=1794838362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gMBZC7vvaeuxFMqkjuXQps6Bm8Qlu7Ip2L2DaZOXdOM=;
-        b=Bj3WdwtOan8niHabwGBoQQToB/pC+hGkfHm7c+FGDAMzWlUZcUFaxbpnyJjEp7ZLMZ
-         x9r6+3qfVmoJb9egzMDGll2B8DkXFl17cTE6V16zlwu8fb70TS5ehwhi/ZRoBRbcvBBC
-         koUL7aERcMwWR1KXAcULsMPxiLus4Tr69h9o4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794233562; x=1794838362;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1794233565; x=1794838365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gMBZC7vvaeuxFMqkjuXQps6Bm8Qlu7Ip2L2DaZOXdOM=;
-        b=oqUhBMBCzXrACZcreKxvNrJ3FfQAjltd8nQizqYGKOfMy5XF5AgqdZ0fIFuAcwBPmP
-         is9RAc0hjI/5WiWQH1PL7s4QElkovyxW2Hvj8cq8sJh9iSyU8wgTuJtKP/LovWq/BPx7
-         U1G6n2113De+98hLKvZaZjQpXHM2UslETdyVsmU9K1T1VTbh7gcAGBB122pptqyMDh4O
-         qZyKT5zhU5ElHpeuFO4VhT1m/E9jarr1xJ8JE+hYTgxQr2Wdcvi2kmzkC5s+PhWF/mhW
-         pQFHHwK5M8jitXIR7jSVPrLp0qe1X1dPFvEhYDZ2+JTecAWTID8KVn0c8NOjSccq170D
-         IGYg==
-X-Forwarded-Encrypted: i=1; AL+hErHqXhGCPbLhO4CeeOoFBPhkbmw5uKdF8F+wd6/0vlqwg4OIuEZ01a8MHJbTOuVjxShwU0PDlu9fA6jy@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nUtZ4baLuuqZ8yhZFI9KNNoQyruiZQMU6TDjyYFNKK1x4M1hl
-	nD/9bQ98VaCEXiNZ9ATECMTnUcd2stksJQU6Kk75i1rMeFG8nxkr3anaRnVHDxGbwMOMW5viKmv
-	cJTtTv8VC
-X-Gm-Gg: AYBFou09OV+mVHjEXkoKUxE7S3DKorLRz6SXxwE/6393yXFQynyVHk1vbM7Ke7O5BSP
-	hbgF8K/U9ChME99TzTuLgMgejQixxJvj4O2ZA/ziN0A2R7RkjyHLT2rywrTA/ooLLrMDP6jN1uY
-	VUF4qhTStxLjj8cOWZh4xorP2fvaT9Uz5XffAWngdAOwu4xeWcYNQspcfr2JHVfAltITom1O8Iq
-	ZNoBwER7T6ESLhimtTIHBgGxsFGKYpqQZ14RQ5hUAwwQlAplXGLjL5fwkTtZVWR2w6XrI7spQSK
-	MZ8w9rFjFcXOCybsge8GeGXt0U45rPvM5mBWFXU96sRDDzOvOVj5RCvVxHgBA8KJp9PloW9w7cz
-	Zlfhg1WHWU0SA3JAowyV9tCDTM5Kb3CUA4bEb6YQJhwKccilo8Ucgps36XLOMoq00qF5MdjszdY
-	ioT4b5G6nzuw2LtEIZycLuyQoFkpHh797S1uitNylU1O94ZUVC656NwPD3QBL/5hWBpRW2cTYPi
-	6WW0Locs2r6wd4tV8/mMflPRg1jk1mKOP6Ezm16hlDQSE2Gp+kWDZTY0ikb9exgtt8DtHz4A9Er
-	hdUXgStU4oD+5VOoQg7Gpn0Kq+RJLnCxJekTUcqR2WJmq29irmr6k5hTK7kco1qVkcpaCC7feOB
-	xoypPYw==
-X-Received: by 2002:a05:701b:2505:b0:185:fd0c:4585 with SMTP id a92af1059eb24-1b39febb929mr6132872c88.33.1794233561859;
-        Mon, 09 Nov 2026 06:12:41 -0800 (PST)
+        bh=P6VJcdeGPLmQQkKLnT/yRNbiCAJPKjitwFw5ODXVfxM=;
+        b=dRlC0QAJCckylUWs3qDlJ6ej7WYZqMmz6DcTOZc6bi/YTVSu++odn0H3baflO+O8kr
+         nwYw6CN5XHqGNFRM1XOWegeKAfQWrUeVIlFA5PpRCpuUkzr0cXlMEUzIPXE+4/LLRqQw
+         a58qgJJaQjVM1nIrPj7QlWcNQVJGuQw36vbLM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794233565; x=1794838365;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P6VJcdeGPLmQQkKLnT/yRNbiCAJPKjitwFw5ODXVfxM=;
+        b=wnCXMRQdpmYBK0wcFtd2Y6ktq6at2SNqTq08fZA6mXq4hdm0LTRbREKQiwFvQxodPH
+         OQjaX2QUmQJOOueIhFD1UVFW2Mn6y7JD0nkO1KMs4LHFWlbep6BICIwW34wYd4kuzgxt
+         WwyrICr+BpKBkmTVxeKbag3/3Ja+KrMrvrH8d1uRaUHUFy9Bpd9yOlziXtqcb3gTwcfj
+         9ZNbAgQUjhsKDwPPDRm1x1FTRvm8Xkw/YoJPwdUu3y3zMVcXyF0oKJYKI2+MnhlFR0Cx
+         Y34kPbNTifOOxgwYLC4dCQZfJDTrPWLM15nQzLOL+Wknmsxe7qhkVIdWCr5L4ExBQH3M
+         7qDA==
+X-Forwarded-Encrypted: i=1; AL+hErHs+zsDv7AxQ2IBcXRUsUxCh4xVDoDGCEfy1Cj/vZBNXx+k432y5mufKiTs6eFWLETdQ8mXhNw6rTxk@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vGLzy+v49ScyyZLBmd+kxwsXl5d+k0aBoV0TsuQssw1utREmb
+	udnmyj/PO+XLQA3Ht5S4pW4JdbC0bdH6vOge0qxthHsHap4V09ZnUm06I9CavzJ1fQ==
+X-Gm-Gg: AYBFou3j9gP1JpLL7GOUIz/mjnyqMIWASB8an+wX1FxbWf5xYTLuXjFY1LNSsLWMJaW
+	YDazEAvIt6AeMaD1lp5/nsbE0aIPbtuLLgZBGg26alrZwlZhD/jzyMREuvzbOoZBsOq9lfSSutI
+	W9MwF/HILxvzujQea/ywQz36fRMI3XxoWJ+hxti4rBBY2YNULuSOv8tVAD3vs0GTEfeLg852+pw
+	PxOdhATPqpiumoT8LGnlvNjFd4Nmd9jSMMIlQa4sEaNsaGb8Mgo1KgtN21a7xfM4LuUlo2twZvY
+	2rSiXC05fkVY4TaVRdKDbj+EgHm3FZwSi2e3qcxK1Or9ExbAtN7W5BaOnmHbVb+UOMK6hjt6tBX
+	EfpLmUGFPHDAq4VBhib9GPyssMsze9mwpEtW74x7J+NORQXPq/Cf5tn41fVdwCR6dY8v3cjuqkE
+	Z0R8MwRMsGjjZZ3BDA2OU4o7P9K3cEY06Uuuy47d/4u6tv4pdGF6LNxMh1zL+Yv50/hOz4SJGRj
+	n9spR2pgqRtu6N7EFWR1WIzIpTOg3zv+Ri5RxGgqHuMA7xw130q6famOgbcykvuk5BTtTdnIalj
+	csbgAkoZexQ8/B9Ek3+aXcBvjmuXRoy3CFYi0HOXH04Bm3tvaiOQsO2bCyl0
+X-Received: by 2002:a05:701b:428a:20b0:194:e9e5:11b0 with SMTP id a92af1059eb24-1b269b0c10fmr10662445c88.14.1794233565388;
+        Mon, 09 Nov 2026 06:12:45 -0800 (PST)
 Received: from localhost ([2a00:79e0:203d:7:24d0:a2cf:66c5:ef86])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3771ea85bsm14374676c88.18.2026.11.09.06.12.39
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-372660f444csm21084768eec.19.2026.11.09.06.12.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 06:12:40 -0800 (PST)
+        Mon, 09 Nov 2026 06:12:44 -0800 (PST)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -83,10 +82,12 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-mediatek@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 0/5] arm64: dts: mediatek: mt8173-elm: regulator cleanup
-Date: Mon,  9 Nov 2026 22:12:27 +0800
-Message-ID: <20261109141233.983830-1-wenst@chromium.org>
+Subject: [PATCH 1/5] arm64: dts: mediatek: mt8173-elm: Clean up unused MT6397 regulators
+Date: Mon,  9 Nov 2026 22:12:28 +0800
+Message-ID: <20261109141233.983830-2-wenst@chromium.org>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+In-Reply-To: <20261109141233.983830-1-wenst@chromium.org>
+References: <20261109141233.983830-1-wenst@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,56 +99,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Several MT6397 (MT6391) PMIC regulator nodes in mt8173-elm.dtsi are
+not actually used on either Elm or Hana according to the board
+schematics. They may have been copied from the EVB dts.
 
-This series aligns the regulators in the MT8173 Elm / Hana device trees
-with the schematics and datasheets.
+- buck_vgpu: Output pins are unconnected; GPU power is supplied by an
+  external DA9212 buck regulator instead.
+- ldo_va28: Only connected to a decoupling capacitor for the PMIC's
+  internal audio codec and fuel gauge ADC blocks, both of which are
+  unused as both boards use an external ALC5650 codec and EC-managed
+  smart battery.
+- ldo_vgp4: Only routed to a test point on Elm and an unpopulated
+  resistor on Hana.
+- ldo_vibr: Output pins are unconnected.
 
-The comparison and digging through datasheets was mostly done by an
-agent. This was an experiment on my end to see if it could understand
-schematics and datasheets and help with the tedious process of comparing
-all the documents and device tree files. I think the overall results
-were pretty good.
+Keep these regulator nodes in place so that the regulator core still
+considers them constrained and can disable any unused rails left on at
+power-up (such as ldo_va28), but drop all their properties and unused
+labels. This is meant to preserve prior behavior.
 
-With that aside, this is just cleanup. It doesn't affect normal
-operation.
+Checking the regulator nodes against the schematics, drafting the change
+and reviewing it were done by an agent. Manually tested on a Hana
+(Telesu) device.
 
-Patch 1 removes properties and labels from unused regulators. The nodes
-are kept around to fit Linux's behavior: if a node is found, Linux will
-consider it well defined (constrained) and turn off unused ones, which
-is what we want.
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi | 26 ++++++--------------
+ 1 file changed, 8 insertions(+), 18 deletions(-)
 
-Patch 2 fixes the part name of the secondary regulator IC.
-
-Patch 3 fixes the regulator output names of the secondary regulator IC.
-
-Patch 4 fixes the voltage ranges of the connected outputs on the primary
-PMIC.
-
-Patch 5 fixes the voltage ranges of the outputs on the secondary
-regulator IC.
-
-
-Please have a look and merge.
-
-
-Thanks
-ChenYu
-
-
-Chen-Yu Tsai (5):
-  arm64: dts: mediatek: mt8173-elm: Clean up unused MT6397 regulators
-  arm64: dts: mediatek: mt8173-elm: Fix DA9212 compatible, node names
-    and labels
-  arm64: dts: mediatek: mt8173-elm: Fix DA9212 regulator names
-  arm64: dts: mediatek: mt8173-elm: Tighten MT6397 regulator voltage
-    ranges
-  arm64: dts: mediatek: mt8173-elm: Tighten DA9212 regulator voltage
-    ranges
-
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi | 78 +++++++++-----------
- 1 file changed, 34 insertions(+), 44 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+index 2c6ec714e117..dd0373b45b56 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+@@ -988,12 +988,8 @@ mt6397_vcore_reg: buck_vcore {
+ 				regulator-always-on;
+ 			};
+ 
+-			mt6397_vgpu_reg: buck_vgpu {
+-				regulator-name = "vgpu";
+-				regulator-min-microvolt = < 700000>;
+-				regulator-max-microvolt = <1350000>;
+-				regulator-ramp-delay = <12500>;
+-				regulator-enable-ramp-delay = <115>;
++			buck_vgpu {
++				/* unused */
+ 			};
+ 
+ 			mt6397_vdrm_reg: buck_vdrm {
+@@ -1017,8 +1013,8 @@ mt6397_vtcxo_reg: ldo_vtcxo {
+ 				regulator-always-on;
+ 			};
+ 
+-			mt6397_va28_reg: ldo_va28 {
+-				regulator-name = "va28";
++			ldo_va28 {
++				/* unused */
+ 			};
+ 
+ 			mt6397_vcama_reg: ldo_vcama {
+@@ -1079,11 +1075,8 @@ mt6397_vgp3_reg: ldo_vgp3 {
+ 				regulator-enable-ramp-delay = <218>;
+ 			};
+ 
+-			mt6397_vgp4_reg: ldo_vgp4 {
+-				regulator-name = "vgp4";
+-				regulator-min-microvolt = <1200000>;
+-				regulator-max-microvolt = <3300000>;
+-				regulator-enable-ramp-delay = <218>;
++			ldo_vgp4 {
++				/* unused */
+ 			};
+ 
+ 			mt6397_vgp5_reg: ldo_vgp5 {
+@@ -1100,11 +1093,8 @@ mt6397_vgp6_reg: ldo_vgp6 {
+ 				regulator-enable-ramp-delay = <218>;
+ 			};
+ 
+-			mt6397_vibr_reg: ldo_vibr {
+-				regulator-name = "vibr";
+-				regulator-min-microvolt = <1300000>;
+-				regulator-max-microvolt = <3300000>;
+-				regulator-enable-ramp-delay = <218>;
++			ldo_vibr {
++				/* unused */
+ 			};
+ 		};
+ 
 -- 
 2.56.0.455.g6c5a503b38-goog
 
