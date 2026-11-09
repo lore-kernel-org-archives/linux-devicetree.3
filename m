@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241775;
-	b=NmEDludg+NY/Xm5zfdbH2wZkrWkqQZCuhoAh/WiYJFcuYx6+dEvoa8GPSJKYCL3moIDk
-	 CxWTbO2UgIUu+ItUZLp6swJVvxiInWKyAS3ACh5we9lvaOrekPt10NEgJMVIOmhhBhrF/
-	 i1rDXLIwSOVgfMOa/O796unnZ/2D/5luh+mZilxrYF5b561jxwPhOiah+tgtj/y0ts0i9
-	 heNrQbm2sDBFFtAhUKHHFpnMWBgq/usx3cLQlGmcxUtol8Gl4Dhle+n0fauuKsEF4rIQW
-	 Wr7hvx4wDFlT94CeJ6A4dK6f5pxXcYPUAf2B2gRRC6/2eeIAhXnGAn1JaxAOzrseWkA==
+	t=1794241785;
+	b=rNuVN5CZwvXhbX1OfD83BQsOVWXeM6ewboYFKDLwkVdUsDd6OiV3xAkqb5PW/lyONuNt
+	 Tu2LxTVO3GQVGvEE/T/B2c2DY30TqLZd4xNZ9y+CEaMKG+SY4xDZr6n9/7Xf5/DWpKa1A
+	 bWrqpip/iekRV8HhCeLAQbyYBaiZ0mvBvG81sYxRLAeEVVOUwuWJmxrRVQWk+zKfkCHZ3
+	 k2DAGDllo4opcAcJiVUvAvhaD11OwqBXGK6GC4MvXpxfSJIPAF/JuKat8ARPLIv21FGC8
+	 AcZYWySYb9bt8jrTIpqdiTHN4ZNp/FnXxJvlGHmsUAdcBBLyycMD/rj0RjciIBvIfUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241775;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=EsTOtg1wHLEo0ZTusjGA4+BpHgdpiqnkxhcG+EozUhY=;
-	b=EWE1I4viX9T2O1zw6dl3ujcmoPk+saINPs2XwDWpMhpDq/IMAw0jyocUNMnw1nTIOWJs
-	 KdVNNENUITk99ywkhxA3qzVsEqwzB+Rk/h8WPDNtGnYjxotB28k/LasLszKQyM3Fh4qu3
-	 VP8NIbcYkHPSFW2qyd6hKuajgNBcjV+buZPqkpe5hV7iu5EQH6eyeu7rB68GCkq8l2hOo
-	 mOnKtKbQ/Z+Vg3yRdA6FFPNyqkCC3epExiqVKvLdfE9wNVlsz7g8AfhiodrzsQkIIi1NR
-	 CmV3lOqMsldsOVXlNMoZTyq3UqS24a8fsQ4ELtmoL7tzPI+gPpl8JpdWtOpDakfdy1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241785;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=r4d7OyBXnGvPNnBlX0wd7R8ip1I6qe36+Ws70bLtTCw=;
+	b=Khpsa29msFCDJO6KLLIytXC9qxXYPXBTuMuncjvUJwrFWFQZGBoD9ViZFgW6tmeJtOsG
+	 H0o390F+G5Uqj4+HKGT0EBkjvF9M/HX7k6JMatWhWBRaz1LK7m3eqzYMAyyzs5VhPdQ//
+	 by9p14JjKvYbjdBpxBsG2vm6qrqdmvWJC0mE6nTuI0H28an0OXYQRbYSwyJ9EpVuLVsCF
+	 Oz1Ddls08MT9ok+TgRjq+YPNmw6S4jz4M2p4JCIXjyt/0yT55ERih0mANokp9diiG7P/M
+	 i6h0dqv9R+qTTzhW1OihlUxTedEridhV3pw+gv6gOj2XyMTb+lHUsQr69w/tCWpryCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RBuPLtZq;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT811PDk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293F1606EE88;
-	Mon,  9 Nov 2026 16:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293F1606EE88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0A606A331;
+	Mon,  9 Nov 2026 16:29:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RBuPLtZq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5EF88C5845D;
-	Mon,  9 Nov 2026 16:29:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46E7760051;
-	Mon,  9 Nov 2026 16:29:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 227C410328531;
-	Mon,  9 Nov 2026 17:29:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794241769; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=EsTOtg1wHLEo0ZTusjGA4+BpHgdpiqnkxhcG+EozUhY=;
-	b=RBuPLtZqrGZ04Eym/pFeRTwd2DLY3KznOpoqdIOi4bmj0gCgBXibiaQfcp6sv3S6QyBDut
-	IiiwqzlfMxGQJ3YcFzwSh8BMBdVVRsIRgqsSfpwO0cIvBF9OcXiaZmR9B8mZKcCtw6N13/
-	AQGNnLkKN7EnCQUKsT/LfZAvCUCwWtVpsadHLcatmEuhJ8TVtp7lLCgN1m3xjF9xiL6vwa
-	HMAh6p0bpQbpVJRu0ggsgIIPPHbWNJEQZ6VCp91TeLVl/sbxkZSvjZ1cNZ11+a72h3h9kV
-	6yTfWwM5jGTq0XStRQCtBvpRFJdZUCNAIFXqLD7rzyzHPL5FGkdNsu3eVhefnQ==
-Date: Mon, 9 Nov 2026 17:29:19 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: E Shattow <e@freeshell.de>
-Cc: Owen O'Hehir <oo.hehir@gmail.com>, linux-rtc@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	"ziv.xu" <ziv.xu@starfivetech.com>, Conor Dooley <conor@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v2 2/4] rtc: Add StarFive JH7110 RTC driver
-Message-ID: <202611091629193b8f049c@mail.local>
-References: <20261108212826.15890-1-oo.hehir@gmail.com>
- <20261108212826.15890-3-oo.hehir@gmail.com>
- <ff0906c3-478e-4ad6-ac30-1e0a7cc35a41@freeshell.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT811PDk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7713E1F008A2;
+	Mon,  9 Nov 2026 16:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794241784;
+	bh=r4d7OyBXnGvPNnBlX0wd7R8ip1I6qe36+Ws70bLtTCw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nT811PDktyKv69Q0FZhJPUDvVFlYI5CSfGmEaX+SOevdn8rVDOpeoLQ6j6PnArsRX
+	 uU9tFqEGDuNX4nSrEbY2SZTqqQaP4WBG2H9xGBUt1nBfMjXrHWSYF6mwMVaP66M9qZ
+	 MiN/mi8zUZupA80r2rUcyqsyaXlcXyMmvcM0ibnOHth98LJgRJWdD6WpNViTUY+g1E
+	 mlJPkCDT8Uo/gYRUMn9ut2RCIdcX/8NGRSOD1QCSUlYhMRsdabTzofO5ac3fguk4rv
+	 84lUfarQzHwzTRxzgAsXoJD3PWfZzM1zqIL7x82U/6Ghs4RIHE8zy4d+/0goojwzXD
+	 M9H+13wG/7sag==
+Message-ID: <sashiko-outbox-205230@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] ARM: dts: nxp/imx6: Fix imx6qdl pico dwarf and nymph
+ includes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261109161812.3629546-1-robh@kernel.org>
+References: <20261109161812.3629546-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 16:29:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,39 +59,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ff0906c3-478e-4ad6-ac30-1e0a7cc35a41@freeshell.de>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 08/11/2026 19:12:58-0800, E Shattow wrote:
-> > +static const struct of_device_id jh7110_rtc_of_match[] = {
-> > +	{ .compatible = "starfive,jh7110-rtc" },
-> > +	{ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, jh7110_rtc_of_match);
-> > +
-> > +static struct platform_driver jh7110_rtc_driver = {
-> > +	.driver = {
-> > +		.name = "jh7110-rtc",
-> > +		.of_match_table = jh7110_rtc_of_match,
-> > +	},
-> > +	.probe = jh7110_rtc_probe,
-> > +};
-> > +module_platform_driver(jh7110_rtc_driver);
-> 
-> I note that JH7100 does not mention RTC in its datasheet. Does JH7110
-> RTC have any commonality with JHB100 and if so then would rtc-starfive
-> be a more suitable name for the code filename and module?
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] ARM: dts: imx6: pinmux hog and GPIO conflicts on pico-dwarf
+  and pico-nymph
+--
 
-The filename has to be soc specific, else we will end up with
-rtc-starfive.c, rtc-starfive2.c, etc... when the vendor choose to change
-the IP.
+commit 92feeab6397394da98e778808f51f6d2369101e3
+Author: Rob Herring (Arm) <robh@kernel.org>
 
+ARM: dts: nxp/imx6: Fix imx6qdl pico dwarf and nymph includes
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+This commit updates the imx6dl and imx6q pico-dwarf and pico-nymph board
+device trees to include their respective baseboard .dtsi files instead of
+imx6qdl-pico-pi.dtsi, and adds missing properties to satisfy DT schema
+checks.
+
+Link: https://lore.kernel.org/all/sashiko-outbox-199279@kernel.org
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts b/arch/arm/b=
+oot/dts/nxp/imx/imx6dl-pico-dwarf.dts
+> index d85b15a8c1272..dd8ce2df876c0 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
+> @@ -9,7 +9,7 @@
+>  /dts-v1/;
+> =20
+>  #include "imx6dl.dtsi"
+> -#include "imx6qdl-pico-pi.dtsi"
+> +#include "imx6qdl-pico-dwarf.dtsi"
+> =20
+>  / {
+>  	model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Dwarf baseboard=
+";
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts b/arch/arm/b=
+oot/dts/nxp/imx/imx6dl-pico-nymph.dts
+> index 32ccfc5d41cee..4ce0d0d0756c4 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
+> @@ -9,7 +9,7 @@
+>  /dts-v1/;
+> =20
+>  #include "imx6dl.dtsi"
+> -#include "imx6qdl-pico-pi.dtsi"
+> +#include "imx6qdl-pico-nymph.dtsi"
+> =20
+>  / {
+>  	model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Nymph baseboard=
+";
+
+[Severity: Medium]
+Does including imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi cause
+pinctrl and GPIO conflicts with imx6qdl-pico.dtsi for /leds, &pcie, and
+touchscreen@38?
+
+In arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi, &iomuxc hogs both
+MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21 and MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31
+via pinctrl-0 =3D <&pinctrl_hog>:
+
+arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi:&iomuxc {
+	pinctrl-names =3D "default";
+	pinctrl-0 =3D <&pinctrl_hog>;
+
+	pinctrl_hog: hoggrp {
+		fsl,pins =3D <
+			...
+			MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21	0x4001b0b5 /* PICO_P26 */
+			...
+			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x4001b0b5 /* PICO_P44 */
+		>;
+	};
+};
+
+However, both imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi define a
+/leds node with pinctrl-0 =3D <&pinctrl_gpio_leds> claiming
+MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31, and imx6qdl-pico-nymph.dtsi enables
+&pcie whose pinctrl-0 =3D <&pinctrl_pcie_reset> claims
+MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21. Because imx_pmx_ops does not set
+.function_is_gpio, pin_request() rejects a second device claiming a pin
+already owned by iomuxc, causing pinctrl_bind_pins() to fail with -EINVAL
+when probing /leds on Dwarf and Nymph and &pcie on Nymph.
+
+In addition, /leds in both baseboard files requests <&gpio5 31
+GPIO_ACTIVE_HIGH> as an output, while touchscreen@38 in
+imx6qdl-pico.dtsi uses that same GPIO5_IO31 line as its interrupt input
+(interrupt-parent =3D <&gpio5>; interrupts =3D <31 IRQ_TYPE_EDGE_FALLING>;).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109161812.3629=
+546-1-robh@kernel.org?part=3D1
