@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794254990;
-	b=XHPUTFfghc+bxK0Yrc/ozgBF/ZO/iGzz6f6M9ERzMJuJH9xQ+NRCeDw8LyLIb3ObvN9m
-	 /ojpCRZPF4RIDFxN1ZXJsLldCIDZOKlEXkOsxNdOL8Wj4gR8hJ82SyRUmXXzh5ClnZixI
-	 4oypa7Ozq/52T+LOwrSzyIlg8XYPq+0iw2+2jtJART3shkb8Ppo2KUhs5M1p8aIKyQJ0T
-	 nc5Pj8/LcZVqNJqYNToB7CFmM/UUFNZ5dFnJ0I2edqaQYvuYi7DnpK5jwJJfGrZrOd7Fh
-	 zOi/ioKKpVITaCgtLmiDdheIUigHjFpDskIXnWXEqCdV7NJmblGO3ekZcuXj0mlD/xA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254990;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=+qYgKgKkNrRami9gJNBATfSBpbaF04VJZNS+/MMoX8c=;
-	b=3C/mrO4BA1jVldD6LQEc5nVY56Rpehp51dbvRK3sn53+V+OJNHsvqhZPAj2tHI7n8Xyv
-	 r6sMVhfGXwNrgfHqUAzgKMS6ODcmKqnF7G7UQEWWSldXosPlEu3tgoJdQXhr+fsJVkEJw
-	 Ye/r8Q9YIWxKMheoWxF37z9ugWsKISMLBLwpnl26kF6ZebZAZfSM/QIAUr5FXCahsHnp9
-	 Zt7aa+RynC7jJRnXRgIUOCtzu2SfWGqjVj5zYJrmA6jMxxS49+RMB1QKo0sIsEnbA9uTc
-	 k4UoQyEVDsMeEXQm4Z4X5o4jCZk7WULNXHdjVWBhBoabLnnT55PKAi0ncHIVbAEdQ3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+9pLdYG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794255240;
+	b=x3NxuhqMF7iUy59Q+19sQIXXCjjYy1nPeN9vuBhJvicx00GxsXMydPFNxQurj+urJ6BX
+	 TsNQTaS9533TJKjuHCpX4w7AO2s4wZYOvB9OBLAG3ewc/tsi+nBDC4A7LOkC0XK9Jv94s
+	 CPLCJViDxe1KI6fKqluXbfQUNntm1VmVSJBLMdqLuDnSE8G042oNcpe/5/R5YIXOHR1XI
+	 +uZh5hMi0HfKgovxIusroNUWabPpjr3ln5VxJb4jVn05Td/aQ9eIfRmZLm3C5DengPsUh
+	 NwgD8RbfJzNeePnP9OKfbgJW+30x27rDLr37NLNCxmRUfF/whQPpitV7fDQ9UUexRBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255240;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=dBetkNFaWuC8eYwvQMWJ5GmcdqzTgzGr2hj1HKNyDIg=;
+	b=UHB7W5OZOo0XHCaHJS7l/Gde/skQ0NOlVZE28VzWpVT1bXDHStFPD2f+P+6EMrvEj5im
+	 T8O4GiW4mDjqFBzO3C7W+UJ02m4fYyYBa/Z8QUra2fFPLEl/mjggD4CT0LreQHC0QVKFB
+	 c7UIOWtxVT2B1VTkoY7Vf5ShXgyCFnDd+L6+PasReLLvKpV9hKoc3ONoH62jOdP/ywyK/
+	 IT6To6fl03fHAozeyc+TxeNMMU+xFzRgpWj5pjbMBsibHRdb8OZUwXFlNoxpYiXDzbFOP
+	 brEKV8RWTaoPcYRbi/wul4MqBoEVi2AQUicpzOsUqJJIHWybQSu/IpX37T1L7ai7giA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNKDPjKg;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D210D606A326;
-	Mon,  9 Nov 2026 20:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FD1606A336
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 20:14:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+9pLdYG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794254989;
-	b=jt/zc6MvdiEpcS53ati9Btcd2vN7CgaIKkRUez3PZppe0W4UDV9F0wZitezliwR70dPv
-	 4ojJbtX0fy8n5UIEL3QOVR1q78eRs7DHNN3sv72FeFk5C/xCexFmYo5A+2CtR9uKvW/zk
-	 +PQCWcsbv7w43fBT80KC745ugcGhDzKODthyhE6tTukKAUFAy1Q/VsQsXmoi7fpWyKY/R
-	 adV53Nu2/ZvS+nV+os/RJfHwWzw1XJrBKLD694ZnIedC5rM47mixeKeq1NZ3oIx4vHv2m
-	 cp+irFN678fojJudFFm5F4IG+sBbHQGvMEMbwqn10cRar3Ds3V7Eg2bwb2VTeRapNIw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794254989;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=+qYgKgKkNrRami9gJNBATfSBpbaF04VJZNS+/MMoX8c=;
-	b=BzEfqEq3Myc1AKCY6eDqNU/no6qi63CdJ8/FfhgfeuyLU0O9Ed3XboXmJAb3t1s0AOKv
-	 bujtPW3A4XUe0noP/DfQBBnTMYtD5wJ0D0n6Sa0W2joPA5rupvrj9oaAGM7Y98vEm9MGZ
-	 mMZemMalXeGqY665jrno03IdrhSY5OGKfKBZy3v4HbvMm3318Kx+EnSACfx6GH5vxG6V3
-	 e/2rO5pWov8oGVvzwvVFSIK83clMSjLxl4tLcAy9YiSeP40hJkn3wmdnQg8pUdj+BUzbj
-	 ZCn5RxGt4x03z27Om9061xQk29mOsAHHP9y8DE1gHm2oxhb32JP81de2CgZgCxpUxXA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1BC331F008A1;
-	Mon,  9 Nov 2026 20:09:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNKDPjKg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E111F008A1;
+	Mon,  9 Nov 2026 20:13:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794254989;
-	bh=+qYgKgKkNrRami9gJNBATfSBpbaF04VJZNS+/MMoX8c=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=X+9pLdYGEVKqNU7CQwWm6ej4fKMVhAyaMrLyuP8Zd2LY3oVztMA7h3BVmlRzRhEEb
-	 TRouOadiC6CKzCwuvqvI/uuhLHqcZDzoUW2yMgPMLC9OKovR57nvr2L4LKhs7p4htq
-	 vXpsLLUOCqsykRdKJDgDP72S+h3LkbxvmBlU/GOG1XhnsdroNBlBRiBQGG9CYzTW40
-	 b6abNN0yeD2zHAGzpGEeRD3ROf9jXKE0krfa9JtBeZ07Suk4C87t5WOW41CDLYa/1p
-	 uYxk56/yEYp7Z9S1+4C7aNpWLSGKcktnBu7r0hIGxLIL6iE3yJEU/nk0KND6kzKD++
-	 subbOqwnuEGGQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9CCDA48638;
-	Mon,  9 Nov 2026 20:09:48 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH v2 0/2] gpio: Add the Siflower SF19A2890 GPIO controller
-Date: Mon, 09 Nov 2026 15:09:30 -0500
-Message-Id: <20261109-sf19a2890-gpio-v2-0-b885fbd84c4c@telaak.dev>
+	s=k20260515; t=1794255239;
+	bh=dBetkNFaWuC8eYwvQMWJ5GmcdqzTgzGr2hj1HKNyDIg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LNKDPjKg6a7zYpsJXesbejZmAxgPK8dSlbYNtBbJKL5lbYHzXo/SZ+btWC0MesHas
+	 LQTIchQ39bF3TzOUu/CVsfVe6USn7+Sgb6MGNhBWOpMkbWpwZVgAXiRBJhwqqNJJJL
+	 9P8elKBzlC4v0FU8GzW7A1W2EAkL8ix2xDkGMkWKHflJ1Ao1yqoGPJyb41GBasF31d
+	 LkpwHhPo5qEheU27bmDrwkXWSKk/OQ9yrQZMjWN77Tz6ybiuXkBsmibx9z7GL1TDBk
+	 IEDyyPUMuazcEcEVpvVCKw5wu+NIffpRw67gNhhzWm6vrtWJyd4+Psc3I34z2Y9ME4
+	 WRtM6LtJOycjg==
+Message-ID: <sashiko-outbox-205554@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] regulator: willsemi,wl2868c: add the WL2868C
+ camera PMIC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261107015014.22374-3-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261107015014.22374-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261107015014.22374-3-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 20:13:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,98 +61,189 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHoo8moC/12OQQ6CMBBFr2K6tqYdCxZX3sOwKDDAqAFsS6Mh3
- N2CGhOXb/L/fzMxh5bQseNmYhYDOeq7CLDdsLI1XYOcqsgMBKRSCuCulpkBnQneDNTzAmSSAiZ
- Qa81iabBY02MdPOdvdmNxwdIvK5+ExfsYTf4Xa8n53j7XN4Jcrl+j+jcGyQVXCap0Xyp9AH3ye
- DPmuqswsHye5xcPo6kw1AAAAA==
-X-Change-ID: 20261102-sf19a2890-gpio-b21562e52f88
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Chuanhong Guo <gch981213@gmail.com>, Qingfang Deng <dqfext@gmail.com>, 
- linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>, 
- Qingfang Deng <qingfang.deng@siflower.com.cn>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254987; l=2936;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=YNNuUIhjyiZTY0/u39z7F4DHkB1CR2mjqFrrVwxsTQw=;
- b=aDWYDVEqbwGQOOzgeVDJcyo7dMkWGrTYnRUqmnnPNtCDyslKc9bZGlOK0oXMYMpUkLscHESvz
- BkExt1y9aMJDu1qc+SzG0x1KhQeDIPeY/2ng/JusVy51kaqWLIHGlKZ
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 
-This series adds a binding and a driver for the GPIO controller of the
-Siflower SoCs, starting with the SF19A2890, a MIPS SoC for home routers.
-Each line has a register block of its own, and each group of 16 lines an
-interrupt.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] regulator: wl2868c: preset LDOs enabled by wl2868c_probe()
+  when SYS_EN is 0
+- [Medium] regulator: wl2868c: reset released before enabling vsys in
+  wl2868c_probe()
+- [Medium] regulator: wl2868c: vin7-supply not enabled for I2C in
+  wl2868c_probe()
+--
 
-The binding is Chuanhong Guo's and the driver Qingfang Deng's, both from
-Chuanhong's SF19A2890 branch [1], with my changes noted in each. The
-same controller is in Siflower's SF21 RISC-V SoCs; the binding has only
-the SF19A2890's compatible, the one I can test.
+commit fa96a3434b8aa9642e9973857f62fda162d22f23
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-The SoC support itself (MACH_SIFLOWER_MIPS) goes through the MIPS tree;
-until then the driver builds with COMPILE_TEST.
+regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
 
-Tested on a GL.iNet GL-SFT1200: gpio-keys sees both buttons on both
-edges (the reset button on GPIO 27 as KEY_RESTART, the mode slide switch
-on GPIO 1 as BTN_0, 1 and 0 per slide); /sys/kernel/debug/gpio lists the
-49 lines; the GSW150 switch comes out of reset through GPIO 0 and the
-SPI NAND uses GPIO 8 as its chip select.
+This commit adds a regulator driver for the seven LDO outputs of the Will
+Semiconductor WL2868C I2C camera power management IC.
 
-[1] https://github.com/981213/linux/commits/siflower-7.1
+> diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl=
+2868c-regulator.c
+> new file mode 100644
+> index 0000000000000..64baeeacf378b
+> --- /dev/null
+> +++ b/drivers/regulator/wl2868c-regulator.c
+> @@ -0,0 +1,246 @@
 
----
-Changes in v2:
-- Write my notes on Chuanhong's and Qingfang's patches as lists, with
-  Co-developed-by on the driver (Bartosz).
-- Get priv with gpiochip_get_data(), drop the two else branches, and add
-  a blank line after the header comment (Bartosz).
-- Get the reset with devm_reset_control_get_exclusive_deasserted(), as a
-  local, not in priv (Philipp), and drop the OF_GPIO dependency.
-- Name only the SF19A2890 in the Kconfig help and the binding's commit
-  message, since the other SoCs need compatibles of their own (Conor).
-- Drop the ngpios property, which the compatible implies: the driver
-  takes the number of lines from its match data, and the binding takes
-  exactly four interrupts (Conor).
-- Order the binding's properties and its required list (Conor).
-- Add a MAINTAINERS entry for the driver and its binding.
-- Use GPL-2.0-or-later, not the deprecated GPL-2.0+ SPDX identifier.
-- Use readl() and writel() directly, without wrapper functions (Linus).
-- No comma after the match table's sentinel, as Uwe asked of the
-  clock driver.
-- Drop the unused linux/pinctrl/consumer.h include.
-- Link to v1: https://patch.msgid.link/20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev
+[ ... ]
 
----
-Chuanhong Guo (1):
-      dt-bindings: gpio: Add Siflower SF19A2890 GPIO controller
+> +static int wl2868c_enable(struct regulator_dev *rdev)
+> +{
+> +	struct wl2868c *chip =3D rdev_get_drvdata(rdev);
+> +	unsigned int bits =3D rdev->desc->enable_mask;
+> +	unsigned int ldos;
+> +	int ret;
+> +
+> +	guard(mutex)(&chip->lock);
+> +
+> +	/*
+> +	 * The enable register is written as a whole on purpose. SYS_EN gates
+> +	 * every output of the chip, and the per-LDO bits may be preset by the
+> +	 * firmware while SYS_EN is still clear: setting only SYS_EN and our own
+> +	 * bit would then bring the preset LDOs up as well. Writing the register
+> +	 * with the bits of the LDOs consumers have enabled, and only those,
+> +	 * keeps the other outputs off. chip->enabled was seeded from the
+> +	 * register in probe(), so an output the firmware left on is carried
+> +	 * over instead of being cleared by the first enable.
+> +	 */
+> +	ldos =3D (chip->enabled | bits) & WL2868C_LDO_ENABLE_MASK;
+> +	ret =3D regmap_write(chip->regmap, WL2868C_LDO_ENABLE,
+> +			   WL2868C_SYS_ENABLE | ldos);
+> +	if (ret)
+> +		return ret;
+> +
+> +	chip->enabled =3D ldos;
+> +
+> +	return 0;
+> +}
 
-Qingfang Deng (1):
-      gpio: Add Siflower GPIO controller driver
+[ ... ]
 
- .../bindings/gpio/siflower,sf19a2890-gpio.yaml     |  76 +++++
- MAINTAINERS                                        |   7 +
- drivers/gpio/Kconfig                               |  12 +
- drivers/gpio/Makefile                              |   1 +
- drivers/gpio/gpio-siflower.c                       | 310 +++++++++++++++++++++
- 5 files changed, 406 insertions(+)
----
-base-commit: d66b6b86d5a6278ca930112c634d03725beb7d9a
-change-id: 20261102-sf19a2890-gpio-b21562e52f88
+> +static int wl2868c_is_enabled(struct regulator_dev *rdev)
+> +{
+> +	unsigned int mask =3D WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
+> +	unsigned int value;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return (value & mask) =3D=3D mask;
+> +}
 
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
+[ ... ]
 
+> +static const struct regulator_desc wl2868c_regulators[] =3D {
+> +	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
+> +	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
+> +	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
+> +	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
+> +	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
+> +	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
+> +	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
+> +};
 
+[ ... ]
+
+> +static int wl2868c_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct regulator_config config =3D { .dev =3D dev };
+> +	struct regulator_dev *rdev;
+> +	struct gpio_desc *reset;
+> +	struct wl2868c *chip;
+> +	unsigned int id, value;
+> +	int ret, i;
+> +
+> +	chip =3D devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+> +	if (!chip)
+> +		return -ENOMEM;
+> +
+> +	mutex_init(&chip->lock);
+> +	config.driver_data =3D chip;
+> +
+> +	reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n"=
+);
+> +
+> +	if (reset) {
+> +		ret =3D devm_add_action_or_reset(dev, wl2868c_reset, reset);
+> +		if (ret)
+> +			return ret;
+> +		fsleep(1000);
+> +	}
+
+[Severity: Medium]
+Does wl2868c_probe() release the reset line and wait 1 ms before enabling
+the vsys power supply below?
+
+If vsys is initially off, the reset deassertion and 1 ms startup delay
+happen while the chip is unpowered, and the subsequent device ID read runs
+immediately after devm_regulator_get_enable() with no startup delay.
+Because devres unwinds in reverse order, unbind or probe failure will also
+disable vsys before wl2868c_reset() asserts reset.
+
+> +	chip->regmap =3D devm_regmap_init_i2c(client, &wl2868c_regmap_config);
+> +	config.regmap =3D chip->regmap;
+> +	if (IS_ERR(config.regmap))
+> +		return dev_err_probe(dev, PTR_ERR(config.regmap),
+> +				     "Failed to create regmap\n");
+> +
+> +	/*
+> +	 * The I2C interface is powered from the higher of VIN7 and VSYS, so the
+> +	 * system supply has to be up before the device can answer at all. It
+> +	 * stays enabled for as long as the driver is bound.
+> +	 */
+> +	ret =3D devm_regulator_get_enable(dev, "vsys");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable the system supply\n");
+> +
+> +	ret =3D regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
+> +	if (id !=3D WL2868C_DEVICE_ID_VALUE)
+> +		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
+
+[Severity: Medium]
+What happens on boards that power the control logic and I2C interface from
+vin7-supply without vsys-supply?
+
+The devicetree binding allows supplying either vin7-supply or vsys-supply,
+but wl2868c_probe() only enables vsys and leaves vin7 attached solely as
+the input supply of ldo7.  When vsys-supply is omitted,
+devm_regulator_get_enable() falls back to a dummy regulator while
+vin7-supply stays disabled during the initial register reads and whenever
+ldo7 is off, leaving the chip unpowered on the I2C bus.
+
+> +	/*
+> +	 * Seed the tracked set with the outputs the firmware left enabled, so
+> +	 * that the first enable() or disable() of any output preserves them.
+> +	 * The regulator core reads the state back through is_enabled(), which
+> +	 * does not look at this set.
+> +	 */
+> +	ret =3D regmap_read(config.regmap, WL2868C_LDO_ENABLE, &value);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read the enable register\n");
+> +
+> +	chip->enabled =3D value & WL2868C_LDO_ENABLE_MASK;
+
+[Severity: Medium]
+Doesn't seeding chip->enabled without checking whether bit 7 (sys_en) is
+set in value defeat the protection against preset LDO bits in
+wl2868c_enable()?
+
+When bit 7 is clear at probe time, any preset per-LDO bits in value are
+copied into chip->enabled even though all outputs are off and
+wl2868c_is_enabled() reports them as disabled.  The first wl2868c_enable()
+call for any single output then writes chip->enabled | bits together with
+bit 7, turning on all of the preset outputs and leaving them stuck on
+even after consumers disable their regulators.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107015014.2237=
+4-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
