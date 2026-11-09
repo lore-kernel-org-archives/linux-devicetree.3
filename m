@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215502;
-	b=3fuwjxH47vCopqmd/EIA7JfR/5yAE+PuTjvCehn5s4Zo3V9nED0/ONRDsNjK4DlmOq5W
-	 LwqxPePOK7tqK12JeFp9+jcSzVbC5zb2PfngiHUr+x7CZvjYrlIRKfiibSAPzrXv+ZF26
-	 ZlYVUfJF3b3XdsUzZ0R43x7vx1m7w4OAt1D0tF2mxL8h4R44fty9UupiDrf+het4niPaK
-	 278t+82A+5Ryw8hRuEa6ESsdRJ5RnP/txSwtHVB3CQ/rNtkA+W3VYIES794Q+93kBgtjQ
-	 hWsmMK0HdpHcTqUyzpzFQfkPiYEC/2a6NkZvxVIOtiB8mr3j+VudQETx08ZqtlWd6RA==
+	t=1794215522;
+	b=VyKUB9t4YMLCQdb9dQ3lg7DIzVK0GU8vcOLlrJ/Q3nWj+XfTNL0Z6aGsmZ79SwaGL8b4
+	 Xkls0iSmzw1QEmm7fRPPNPmmSBbW/gMPXjn/UpKTytK9wwGlm+cKYdqGHndaGJsggkJVa
+	 Ior2y8qrXjp/ErSKU6BIHmTqd6ENCWlQeXcSG+zlGadrJuQMGOfy/cc7a9xg5eoEfkghN
+	 1JfCsA8XxS/pTlPSfHjXjIYfLEyZ7U6wHf8IYVQZ2B73lNEc411ww53Ohj3RQMhWDzioa
+	 Muh5IkBnMbo0nRe3+WqIvMdI8sVppLYovoO/YbqRdLzn8q2QdnM/fuAReHkAvyxX7qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215502;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Cu1fNTAX+dVzj97WogMrCFPRZNCgkcB+1RUP2lhIjEQ=;
-	b=ARsiUeCatWvnZFktDWjDuIF7p65FJYUrxP2s/1TTOgPnU+hl4xxNWZMKyRFoqpam0Czl
-	 LUJEVYA86qnlJ4vevAnLidn0jkv6ZwofVXJC/oCUNW7qnywOA6kVA3ae01/0PQj+6FZ+Q
-	 mL6bqRLSivJBXAcfban3kkZsivyaWdblpr/IrUitTmyqjicjR2APxWDAGX1nVs7+IL2kj
-	 aO0C2EBSlp2sOvRGnjsorov3Pnw1Enmfx9fpyD70uOfYaCtawe4lpyB+NB4yPp7EoAfEP
-	 3HSV4BZvlwLa0CWvb9i/wMu1Oe/iRlCsIQAKATCelfjMkk1GGUbnJgSdmBTPoQ4m0UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215522;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=SOwx+TrjiqZmjyW3x8UmgFsxHh+2bldbZmSGJ3/I7qc=;
+	b=qQuzqrT8S+OsU28ey72HSsBYBCAKPr1vEiJbAJFuKSFk1D21e3qPBWG6osiYUifYltMC
+	 80+8phlVoTfYK/GI53kG/DMT+q67ZMUFuk6ZefKjBNDyOs016hAk2h5vRtSGEdf5o1cby
+	 JTl2HXeDUHNDKUmlzpDVhDGWIX0JH1xMeTiG/dZ9bmkZyof1nAI/3tL7YujZjkpECXb2c
+	 l6D17FviZ7ljLlNd7ZDLWe8hcE0OlLywxsfJ8zzelvLEq+aYCDDvl5cn2XRax947DGBPg
+	 P9uxiPYprw3p8594z7ggqN3dT/k3u840x46q0RXbnNJxs3L4l4kwCdRw2rPOMrIXkYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyKqVb4n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns+Ryu63;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E667606A331
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0386E606A31C;
+	Mon,  9 Nov 2026 09:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyKqVb4n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED8A1F008A2;
-	Mon,  9 Nov 2026 09:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns+Ryu63
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA5B1F0089F;
+	Mon,  9 Nov 2026 09:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794215502;
-	bh=Cu1fNTAX+dVzj97WogMrCFPRZNCgkcB+1RUP2lhIjEQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HyKqVb4nGVuJY0tNzbxF690KJKIhr56BxusKDd207P219c0w4/xSjyXSymxzjldw6
-	 vDmMfDzy4ZkBStbuyn6XHA70yENUFJwCbqgTCA/Is7SgTRaiov1fLKvfOu8R6xqn4/
-	 Z4vD3NX05mbxYCqSAzRuJ6CGJnjtN9soZApXg2oH5wRHIJjzNOJJFTzunCKP61zgN9
-	 QWv8pnEeEG6V4YrmTTypBar9G1/XZkjJe3GYUVBu+R+3rmgxd0wpoycxgzz4/haG9G
-	 k2pqj91VuHgyuA7JNQNCbf2gBxVGEDvPRhDSd/XbJtlme1e9tVPF3NzfNeiow5z0K1
-	 OUsk/HCclSdjA==
-Message-ID: <sashiko-outbox-204677@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: lemans: Enable the Inline Crypto
- Engine for SDHC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abhinaba Rakshit" <abhinaba.rakshit@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109-enable-ice-sdcc-for-lemans-v1-1-1f25debeea49@oss.qualcomm.com>
-References: <20261109-enable-ice-sdcc-for-lemans-v1-1-1f25debeea49@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 09:11:41 +0000
+	s=k20260515; t=1794215521;
+	bh=SOwx+TrjiqZmjyW3x8UmgFsxHh+2bldbZmSGJ3/I7qc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Ns+Ryu63yadoW2c4325ppqIQcD4NHuXGcXkZROKQolkkTc9AQM5NzGA/d5uBqYyqd
+	 WSe7waQ8h1hfMsLo+BlpGZMlppsGYuhdGkgAhZ2C/uA6dIynJ/Lzb6cXH/+nQjrEoO
+	 Tw2X/JhsDnHYwPgAQEMHScpD4B5vfguMtGlRtLxGjVUpuGyX2l/U+jKivZHs3Jjec7
+	 12bT7NQl4foNngGfzpPZEGgIqxNWurzyQyTlLSP9r01jf/w+uGw6Xq/cyz23G+GbiR
+	 scvq0iQL+EU9PLrf5s6BhGnqhtkA9YanZBuSBaiqQweDlUnWCwhyczNDi+HE/tVtac
+	 //Qird/D+539g==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>, radu@rendec.net, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, afaerber@suse.com
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+ cy.huang@realtek.com, stanley_chang@realtek.com, eleanor.lin@realtek.com
+Subject: Re: [PATCH v5 4/8] irqchip/realtek-intc-common: Add basic support
+ for Realtek DHC SoCs
+In-Reply-To: <20261018160653.3940371-5-eleanor.lin@realtek.com>
+References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
+ <20261018160653.3940371-5-eleanor.lin@realtek.com>
+Date: Mon, 09 Nov 2026 10:11:58 +0100
+Message-ID: <87y0b2v069.ffs@fw13>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,58 +61,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: qcom: lemans: sdhc missing cqhci reg and
-  supports-cqe for ICE
---
+On Mon, Oct 19 2026 at 00:06, Yu-Chun Lin wrote:
+> +static bool realtek_intc_dispatch(struct realtek_intc_subset_data *subset_data)
+> +{
+> +	const struct realtek_intc_info *bank_info = subset_data->bank_info;
+> +	struct realtek_intc_data *data = subset_data->common;
+> +	u32 ints, inte, mask, val;
+> +	irq_hw_number_t hwirq;
+> +	bool handled = false;
+> +	int irq;
+> +
+> +	if (regmap_read(data->base, bank_info->isr_offset, &val))
+> +		return false;
+> +
+> +	ints = val & subset_data->subset_mask->ints_mask;
+> +
+> +	if (!ints)
+> +		return false;
+> +
+> +	if (regmap_read(data->base, bank_info->scpu_int_en_offset, &inte))
+> +		return false;
+> +
+> +	while (ints) {
+> +		irq = __ffs(ints);
+> +		ints &= ~BIT(irq);
+> +
+> +		mask = bank_info->isr_to_scpu_int_en_mask[irq];
+> +		if (mask != IRQ_ALWAYS_ENABLED && !(inte & mask))
+> +			continue;
+> +
+> +		hwirq = (subset_data->bank_idx * 32) + irq;
+> +
+> +		if (!generic_handle_domain_irq(data->domain, hwirq))
 
-commit 62d5171c9cf52cc6dbe10886df2218e5f14f803c
-Author: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+You might want to use generic_handle_demux_domain_irq() which allows you
+to implement affinity setting for the individual demultiplexed interrupts/
 
-arm64: dts: qcom: lemans: Enable the Inline Crypto Engine for SDHC
+> +static void realtek_intc_handler(struct irq_desc *desc)
+> +{
+> +	struct realtek_intc_subset_data *subset_data = irq_desc_get_handler_data(desc);
+> +	struct irq_chip *chip = irq_desc_get_chip(desc);
+> +
+> +	chained_irq_enter(chip, desc);
 
-This commit adds the sdhc_ice node to lemans.dtsi and references it from
-the sdhc node via qcom,ice.
+https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?id=6cf0d999a18e799965cf2cf4a0157e257c805946
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
-com/lemans.dtsi
-> index 1fdb72fa55184..dfd41b613523f 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -4327,6 +4327,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->  			qcom,dll-config =3D <0x0007642c>;
->  			qcom,ddr-config =3D <0x80040868>;
-> =20
-> +			qcom,ice =3D <&sdhc_ice>;
+> +	realtek_intc_dispatch(subset_data);
+> +
+> +	chained_irq_exit(chip, desc);
+> +}
 
-[Severity: High]
-Does the sdhc node also need the cqhci register range, reg-names =3D "hc",
-"cqhci", and supports-cqe for sdhc_ice to be used?
+> +int realtek_intc_probe(struct platform_device *pdev, const struct realtek_intc_desc *desc)
+> +{
+> +	struct realtek_intc_data *data;
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+> +	unsigned int total_subset_num = 0;
+> +	int ret, parent_irq = 0;
+> +
+> +	for (unsigned int i = 0; i < desc->bank_num; i++)
+> +		total_subset_num += desc->banks[i].subset_num;
+> +
+> +	data = devm_kzalloc(dev, struct_size(data, subset_data, total_subset_num),
+> +			    GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->saved_en = devm_kcalloc(dev, desc->bank_num, sizeof(*data->saved_en), GFP_KERNEL);
+> +	if (!data->saved_en)
+> +		return -ENOMEM;
+> +
+> +	data->base = syscon_node_to_regmap(node->parent);
+> +	if (IS_ERR(data->base))
+> +		return PTR_ERR(data->base);
+> +
+> +	data->desc = desc;
+> +
+> +	data->domain = irq_domain_create_linear(of_fwnode_handle(node),
+> +						32 * desc->bank_num,
+> +						&realtek_intc_domain_ops, data);
 
-sdhci_msm_probe() only calls sdhci_msm_cqe_add_host() ->
-sdhci_msm_ice_init() when supports-cqe is present, and
-sdhci_msm_cqe_add_host() first calls cqhci_pltfm_init(), which requires a
-"cqhci" memory resource:
+https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=irq/drivers&id=51987720c2845807161f56f4714df4562f56f328
 
-drivers/mmc/host/sdhci-msm.c:sdhci_msm_probe() {
-	...
-	if (of_property_read_bool(node, "supports-cqe"))
-		ret =3D sdhci_msm_cqe_add_host(host, pdev);
-	else
-		ret =3D sdhci_add_host(host);
-	...
-}
+> +	if (!data->domain)
+> +		return -ENOMEM;
 
-Because the sdhc node only defines reg =3D <0x0 0x087c4000 0x0 0x1000>
-without supports-cqe or the cqhci region at 0x087c5000,
-sdhci_msm_ice_init() is never called: inline crypto remains disabled,
-and GCC_SDCC1_ICE_CORE_CLK and GCC_SDCC1_AHB_CLK enabled by
-qcom_ice_probe() are never gated during runtime suspend.  Adding
-supports-cqe on a board DT without the cqhci reg entry also causes
-cqhci_pltfm_init() to fail sdhci_msm_probe() with -EINVAL.
+Thanks,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-enable-ice=
--sdcc-for-lemans-v1-1-1f25debeea49@oss.qualcomm.com?part=3D1
+        tglx
