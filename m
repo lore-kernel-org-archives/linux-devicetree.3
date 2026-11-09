@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262570;
-	b=Vm4M9rP1Kq5maBRtp6R2KGR8Ubv6TlJECEuZZn0DPg0VHS+I7304aaBGbnGnR5jkwpJW
-	 OCz0TaLXffkzaySNmHN1U3Kzj9d8KlnaKrIu8aQNXxC3ZiGaDpLUUzTYhWGrZ8+Oy7xW1
-	 ySjSG1pgjye3+HQW9QfWLd1gsLj9gXcZRVtsT3LCGDnmT3fXhof2GD4L82rSYIAcb/D6M
-	 hA+AckcIpq4NJ4LVHd84w5BPAY8yctDs0tEPv6GEA2gtfUYg1RdfN0TFalFaL+/BEk5EE
-	 srGZY6NIVh34bHls2Zpzw+Mm+G3NLQd5OIXQDLQ8kF5R3FgfZoRWunMMpY5NGJfA9kQ==
+	t=1794262954;
+	b=a70HokyIW6ANIhlfjmM6oPV9h8VYXoRafMYI81XsNXiSsjhWHwBlLVU6wYdumc47436x
+	 sj1d8yRYV6lz3MujxpW2Ezu8QYmMoPpehSIMWusCySV3CmBMK/NANPecCbWsn6i5lahPi
+	 8yrWo5rION/v+4ZdasDUUADo3Mbr/mSlgTPqscTi2TrHBZTCv3mxQrySmUvARy32uNKXv
+	 l8K0qIYH8y6b4ZSFIVal1DR2YFm4GrnB0Gk3ATde/sb3jUh2OP6wpXgI+t6KNKzCoQMot
+	 nEhJejx5o0e4ORVLl9+p8OG7QZ/IzQQAvkRd5deoDJhQ2yGaF4JC2Yylnnc6/oJ8dUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262570;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4FemD5xhOYnoxUKsmEWJQcftEMPDrfhkiKUBcodzP0A=;
-	b=eQvi7Ufl84dRSZMyLgDJUcARlP85nWXy2linFM9ro6AXKHJII5VsBSzfrlbkpINyXNLx
-	 QIhFcoFz/4p8hBBl7RnMqGXOZDn6oIO4w0Wl/hGS3e0VlCMXeFNpXDV4j8bIOCIHFJa9d
-	 /knrIAy4wxpBV4j/W6vfOl30LRFiN5UQOPdJWeiNBq7p51W15kPMAhw8VFX8jeS3zBami
-	 c91lNSx76SuIC4re/C/iLkYdHE7+qKaqkmRQ+2HokEG1WmVPz+J+EsLmMrMMEEMNUFJlj
-	 6rqaXe0KL64aIbJRIe1Kjp89RTZ18s4tA1IPGSd3qOmDwIZiS8/nlr0zbOlHs/acpqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262954;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=jdAoxp7j24IGCyYpFNEy7lv88iXhyeVK+x0vKl9556s=;
+	b=1cYgDBVEg+0djH1kHjY3ZeVRVUdcWhSTpZCO9fOMsqi03yDKKe0tmjzbATeElEZ3ybr1
+	 xldJ/4rlofTJ3t+YyaSYrf8jllUXSE8AeZkTKfpbswySNxXCOcTcMc6tS0i9uYZ9j8D+2
+	 ACglnM9PpWBm2kV1jgl7ZrZuK557hOrHDT/RWYkY1EEQrSwQwwm3aAyg0bjzm3qTGKuOY
+	 sTx0bIBj7PK5gOTa75dsvaI1S0yC136M7s0dTRifgM+yip9bLpO/0m87WliEsnh+iIvPW
+	 ijoREnfqEOtZJYLW5Ne+h8iVEN+X3UnI2yfGXZAQOKHoTwZdMYQtcpfHzubbKab5Y8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=M7yUFPbY;
-	arc=none smtp.remote-ip=91.218.175.160
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrytBAw+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EC7606A339
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63EC7606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF8660A263B
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 22:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=M7yUFPbY
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bOWnTS1Ifi2XFoCDR3H2nfoH1oKDAc2ATIMj00qbqxU=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794262567; v=1; x=1794867367;
- b=M7yUFPbYbI4tJu+KAhWjCxC6vVrGHz33HpR7g4f4rxsPPqjidm+ZStA7H38/O2fEiEpN0UVU
- HNJWTbYsZ4FV65gAXo/WixFhG4tRfIsR7liiypo4mIz+w3KUEs53Lvg/wpcJbb8YEii3WodKsj0
- C2+n6HTfK2xpdC9E+XCIzGm7R023WUcc8oyRQqVaL9yOo7tWEK1BBSrQvo1bkdd6wd32dql32L/
- 6o2mZgLSJhN/oFJkX+dj9nClR+xLuJuQX4WDwklVZ/cAR5QAY3ZFyq+VlfM48CMdbn/fcZvQQin
- +39sGvofwdRC7vFaoPWVr8FvApQFxMe4UI6eE8OGzp+3g==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e58252eef6db5d3f;
-	Mon, 09 Nov 2026 22:16:07 +0000
-X-Mizu-Trace-ID: e58252eef6db5d3f
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Michael McAllister <me@michaelmcallister.org>,
-	Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/6] arm64: dts: qcom: sm6115: Add Motorola Moto G9 Power (cebu)
-Date: Mon,  9 Nov 2026 19:14:35 -0300
-Message-ID: <20261109221453.658316-7-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109221453.658316-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrytBAw+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFED51F008AB;
+	Mon,  9 Nov 2026 22:22:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794262954;
+	bh=jdAoxp7j24IGCyYpFNEy7lv88iXhyeVK+x0vKl9556s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MrytBAw+O2zhFQfCFkNkbR+wUKa0ncReLDpjpSai6L/yPR6VCaE7F9BwonWBcHlh8
+	 KhBrpzvLLgcY6tyHW7qI7LCMBoiIZTqf7mWjAfm1yC+LYnturGhgOD0hIS9g9XK7sC
+	 weiIRaNxqEVH181WyvSUxLOqjIGkGs6gcCLq99bP1RuJHCZQM0tCIsA8tPsrJ+zou2
+	 BbpMYhWGbjbGc57iYETvnxi/3j6gCt34XF9j5c0HLzkYrAf/F4jv9iROnYXVsqc/pB
+	 9c08WXoK9kUXCRaa6cDniuKVFIrf/Y6y6Q1pY4K61Wg/ClE5w+HSkS/uFZ2blM2//b
+	 3lvgNw//GYmBw==
+Message-ID: <sashiko-outbox-205717@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/6] arm64: dts: qcom: pmi632: Add LCDB regulator node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109221453.658316-4-val@packett.cool>
 References: <20261109221453.658316-1-val@packett.cool>
+ <20261109221453.658316-4-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 22:22:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,107 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add a device tree for the Moto G9 Power with the Tianma display panel
-based on the Novatek NT36525B DDIC. The panel driver will be added
-and enabled here in separate commits.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: pmi632: undocumented regulator@ec00 breaks
+  dtbs_check
+--
 
-Signed-off-by: Val Packett <val@packett.cool>
----
- arch/arm64/boot/dts/qcom/Makefile             |  1 +
- .../dts/qcom/sm6115-motorola-cebu-tianma.dts  | 18 ++++++++
- .../boot/dts/qcom/sm6115-motorola-cebu.dtsi   | 43 +++++++++++++++++++
- 3 files changed, 62 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
- create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
+commit 59a61b0cda3ab4cae16c1eae412c4c0a133346c4
+Author: Val Packett <val@packett.cool>
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6365f0ed0406..84ba824ed715 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -390,6 +390,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-xiaomi-lemon.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-motorola-cebu-tianma.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-motorola-guamp-holitech.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115p-lenovo-j606f.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6125-sony-xperia-seine-pdx201.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
-new file mode 100644
-index 000000000000..31ca51570ea2
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu-tianma.dts
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) 2026, Val Packett <val@packett.cool>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sm6115-motorola-cebu.dtsi"
-+
-+/ {
-+	model = "Motorola Moto G9 Power (Tianma)";
-+	compatible = "motorola,cebu-tianma", "motorola,cebu", "qcom,sm6115";
-+};
-+
-+&dispcc {
-+	/* Preserve the bootloader display until the native panel is supported */
-+	status = "disabled";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
-new file mode 100644
-index 000000000000..6f5263a67319
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-cebu.dtsi
-@@ -0,0 +1,43 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) 2026, Val Packett <val@packett.cool>
-+ */
-+
-+#include "sm6115.dtsi"
-+#include "sm6115-motorola-common.dtsi"
-+
-+&framebuffer0 {
-+	height = <1640>;
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm6115/Motorola/cebu/a610_zap.mbn";
-+};
-+
-+&i2c1 {
-+	/* awinic,aw99703 backlight @ 36 */
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm6115/Motorola/cebu/adsp.mbn";
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/sm6115/Motorola/cebu/cdsp.mbn";
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/sm6115/Motorola/cebu/modem.mbn";
-+	status = "okay";
-+};
-+
-+&venus {
-+	firmware-name = "qcom/sm6115/Motorola/cebu/venus.mbn";
-+	status = "okay";
-+};
-+
-+&wifi {
-+	qcom,calibration-variant = "Motorola_cebu";
-+};
--- 
-2.56.0
+arm64: dts: qcom: pmi632: Add LCDB regulator node
 
+This commit adds the pmi632_lcdb LCD bias regulator node and its ldo and
+ncp child nodes to pmi632.dtsi.
+
+> diff --git a/arch/arm64/boot/dts/qcom/pmi632.dtsi b/arch/arm64/boot/dts/q=
+com/pmi632.dtsi
+> index b0ed35094a98d..ab850050eb22a 100644
+> --- a/arch/arm64/boot/dts/qcom/pmi632.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pmi632.dtsi
+> @@ -204,5 +204,19 @@ pmi632_vib: vibrator@5700 {
+>  			reg =3D <0x5700>;
+>  			status =3D "disabled";
+>  		};
+> +
+> +		pmi632_lcdb: regulator@ec00 {
+> +			compatible =3D "qcom,pmi632-lcdb", "qcom,pm8150l-lcdb";
+> +			reg =3D <0xec00>;
+> +			interrupts =3D <0x3 0xec 0x1 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			status =3D "disabled";
+> +
+> +			pmi632_lcdb_ldo: ldo {
+> +			};
+> +
+> +			pmi632_lcdb_ncp: ncp {
+> +			};
+> +		};
+>  	};
+>  };
+
+[Severity: Medium]
+Are the Devicetree binding schema and driver for qcom,pmi632-lcdb and
+qcom,pm8150l-lcdb missing from the tree?
+
+Neither compatible string is documented under
+Documentation/devicetree/bindings/ or matched by an in-tree regulator
+driver, and Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml has
+additionalProperties: false without a pattern permitting regulator@[0-9a-f]+
+child nodes.  Adding regulator@ec00 causes dtbs_check schema validation
+failures on every board DTB that includes pmi632.dtsi, and boards enabling
+pmi632_lcdb will fail to resolve the pmi632_lcdb_ldo and pmi632_lcdb_ncp
+supplies at runtime.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109221453.6583=
+16-1-val@packett.cool?part=3D3
