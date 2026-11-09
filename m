@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224426;
-	b=gWHwuY1GOed+mrfXRPreiqqakTWKNEknInMF5I7rF95LzpCylYzEJPYRjcBTNoHW5II8
-	 fNdAV3DeZCGB3FoUIYNs6hUdbvHP9VV9TEig9/wLPJjjLQrk9iUCpx7Zfp2/3ZqwicLkj
-	 L+K03RDV6L9UDklQfv1etQeBAOZYBp4JbKosTIDYSnRm5EOlV2qTW1u9t9GalUnSGRsa+
-	 dxJg1V5iKZbxGTlfRJuVAWUSloVaqLA/ov5nwLmYpzLzgVM4FmHyZWfagDiw812VzZIzW
-	 5R1qQ7KlT3H3C3TSD4Jqo75cRKpR/Vbe8OIH++AB98/KL30jXW1am76koLRbjzyu32Q==
+	t=1794224588;
+	b=XgVUa5tFSaS/sDhXxaoz+J80VZ6Y8nY5lOvwQVvhwIdSIP0/0IysM0u9qfhd9KJAAnqT
+	 W6zqOhAfjqkZvzkcBxEZJe37rqVHqjC6noiSFHcXRCt6ShHqTBBkRMwF9JrENT+gGVTdE
+	 3Id3KRsf1/ikdCeCNGnabVvYN+31zgWLcsUemasjT78OUl4blR/y8BVyvY7soGkSRpq4R
+	 LKbpRS2Iy1hD5vDC/oR6P9pz+LRfH65m/wAaRyW9zIcFPSPbfLiSEAWRcUi1C+hjJn0W4
+	 r3EzyxKbbNCE4IfccvI6vO1aDni4TGwSyXkuExGjXV87/e1ykJS2KXQW70z95FiqU/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224426;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PZd9FKX7vK0V/X1JqUfs3UN2tmowH9MdlPVTC8nK3VI=;
-	b=q+ODJzFJKXQfr7JXaU5pNtFrH/Cf+1ur4bbAMKrgbT60GQxy1S5Y+A/JzlVj0yGV+R+H
-	 w+f1e1nL5r9iQs8dCPSDuPGCjnGo60/dVlqTclu8U0HmNrDiWV3mzmdwQzsdWpspbkw+V
-	 j9FEvZmz7/CNff9kYIDgUfL3BkYvUgbqYlGwF/Q4+dYa3EpsYlkb7Nw49ZafBq+FauRns
-	 Y2qHoZQZcVgtEK7G4Tn9r83EpRJbbnhHe8mUExBLUox31tXED3eQ42gqZfQIfhLIuS1q5
-	 MO8Cmy0kf4SeutUQcQ61VX61KSkWA4LHhZdLAwcSyu8fNw7h1+HzLEM5130va/SPaZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224588;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6vU3mgSk+MCk5co8UQRJJqmRFiY0ANHPowOGul2rpMA=;
+	b=Ui/vZad+ZkNdpbrOZB/4ncWiCXg//osX7JRj6lUtXgkZkmzBD+aYRUAIQsUB6oznMRv/
+	 rdsRsJzkqkAV/rqNrtYnqCE52N1g3fYivjAtvJk63/fJOj8IXL/tig0v/zuvqUiAu5j1k
+	 UKCviT1EUExgEbjEEDlHSWac38MAGGdNw4cmXG8/flw2p1EblhqxpatABhB+wKcafbS9k
+	 2bp54P9Rn3r9ze9vrfMuId+qyAswa361qCHjNVj2XHhUbm/AZIh42b/Y8rkoWerDeNxRj
+	 0459i4oDMESVQfYzbXhoOWJHtAb3YgQHcpl61f4mlavI7GQg7xQjV50wHHwgYLE74ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CDk8P3f0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFTssfdD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D0F606A322;
-	Mon,  9 Nov 2026 11:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F5B606A31C
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 11:43:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CDk8P3f0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C8E1F0089F;
-	Mon,  9 Nov 2026 11:40:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFTssfdD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BAED1F0089F;
+	Mon,  9 Nov 2026 11:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794224426;
-	bh=PZd9FKX7vK0V/X1JqUfs3UN2tmowH9MdlPVTC8nK3VI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CDk8P3f0wEf/F6G6ZwOZt8hj85M8kfcAPfECkb1/VY7Onl22LpUVwfKR5fYI+epAl
-	 6y9yTdOvwOoXMhGwX7gm3q1hvgBMdGbuSkq5Uinw1XHYDFL6CpbiloJHys7M3zn+Ao
-	 XrF26loT/WAHOOLMKZQI0N7/B2CqJ6cOPKi9BJ4KrKB+gh2xTXOQRp1Pleqgfhia33
-	 uoj7GDPdSYcIlG1KORb2E80VNJQ7JQN9LtbWDl8A/IDCEG3PoRe1s08jJb0RmWWxwH
-	 pobcrLNwCPPDjh+3M0sIJpS/RPDuRruS7toz3o9XXFyAfeyYOmbBGBYNX+0oQWgYKy
-	 /66Ln7bQCYzyA==
-Date: Mon, 9 Nov 2026 12:40:22 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: Re: [PATCH v6 v6 7/9] ASoC: dt-bindings: qcom: Add Maili LPASS macro
- codecs
-Message-ID: <20261109-elated-dormouse-of-inquire-dfa259@quoll>
-References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
- <20261106-add_shikra_support-v6-7-2cda302237cc@oss.qualcomm.com>
+	s=k20260515; t=1794224587;
+	bh=6vU3mgSk+MCk5co8UQRJJqmRFiY0ANHPowOGul2rpMA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZFTssfdD22maOLUlY2qxXosQZcu0yhWGlZIpQBChjtCVWjeVRNa2M079XsF2iB91b
+	 gQ3gDKtdynP7/tK/kvmaISA2L9pyvLXtvX+fo0d4kgcwZRgE4ABnPhZFVkbAw48UN9
+	 aJXDW2Z0oGgS9u25oGpMkYzZujVQUa9zGYvrklx3jmSpaD4XGU8MzrX4AGZiorhbxA
+	 GyQ9fQHuDUEaypP0TYiXhOiCvprcQZClp0FOpfmvypgVSTdNzhDDB5H1ICD8zG9cxU
+	 HbBr+CM/pbrt1qNlIyqP3Jqqi5q4J/KbyNjUtzR1/qQzuZRrzPqNkWN9daMaCgPZAG
+	 74iNNdNfoVLKQ==
+Message-ID: <sashiko-outbox-204889@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 7/7] arm64: dts: qcom: nord: Add MPAM MSC nodes for
+ the L2 caches
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yin Li" <yin.li@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-7-150335a79381@oss.qualcomm.com>
+References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
+ <20261109-mpam-resctrl-dt-knp-support-v5-7-150335a79381@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 11:43:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,30 +60,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106-add_shikra_support-v6-7-2cda302237cc@oss.qualcomm.com>
 
-On Fri, Nov 06, 2026 at 06:03:06PM +0530, Mohammad Rafi Shaik wrote:
-> From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> 
-> Add compatibles for the RX, TX and VA macro codecs found in the Low
-> Power Audio SubSystem (LPASS) of the Qualcomm Maili SoC.
-> 
-> The Maili RX, TX and VA macros are identical to their Hawi counterparts,
-> so document them with the corresponding Hawi compatible as fallback.
-> 
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 4 ++++
->  Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml | 4 ++++
->  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 4 ++++
->  3 files changed, 12 insertions(+)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: qcom: nord: undocumented qcom,nord-l2-cache
+  compatible string
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 945c2648afac411c203b55a624505e915359df08
+Author: Yin Li <yin.li@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: nord: Add MPAM MSC nodes for the L2 caches
 
+This commit moves the L2 cache nodes out of the CPU nodes to the root node
+and adds child MPAM MSC device nodes under each L2 cache.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index fdbe290350ddd..285c6a3e5cb7d 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+
+[ ... ]
+
+> @@ -907,6 +889,60 @@ dump_mem: mem-dump-region {
+>  		};
+>  	};
+> =20
+> +	l2_0: cache@19870000 {
+> +		compatible =3D "qcom,nord-l2-cache", "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		reg =3D <0x0 0x19870000 0x0 0x2000>;
+> +		ranges =3D <0x0 0x0 0x19870000 0x2000>;
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		msc@0 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x2000>;
+> +			arm,not-ready-us =3D <1>;
+> +		};
+> +	};
+> +
+> +	l2_10000: cache@1a870000 {
+> +		compatible =3D "qcom,nord-l2-cache", "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		reg =3D <0x0 0x1a870000 0x0 0x2000>;
+> +		ranges =3D <0x0 0x0 0x1a870000 0x2000>;
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		msc@0 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x2000>;
+> +			arm,not-ready-us =3D <1>;
+> +		};
+> +	};
+> +
+> +	l2_20000: cache@1b870000 {
+> +		compatible =3D "qcom,nord-l2-cache", "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		reg =3D <0x0 0x1b870000 0x0 0x2000>;
+> +		ranges =3D <0x0 0x0 0x1b870000 0x2000>;
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		msc@0 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x2000>;
+> +			arm,not-ready-us =3D <1>;
+> +		};
+> +	};
+
+[Severity: Low]
+Is a Devicetree binding schema missing for "qcom,nord-l2-cache"?
+
+"qcom,nord-l2-cache" is not documented under
+Documentation/devicetree/bindings/, and the generic schemas/cache.yaml in
+dtschema only matches const "cache" with additionalProperties: false, which
+rejects reg, ranges, #address-cells, #size-cells, and the child msc@0 node.
+As a result, both checkpatch.pl and make dtbs_check fail validation on the
+l2_0, l2_10000, and l2_20000 nodes.
+
+Also, per Documentation/devicetree/bindings/dts-coding-style.rst, reg and
+ranges should be placed immediately after compatible, before cache-level,
+cache-unified, and cache-size.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-mpam-resct=
+rl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com?part=3D7
