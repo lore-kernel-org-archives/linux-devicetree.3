@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221093;
-	b=eqE4bzEwrgTISBNKdx2h60Ph+N+bl1tQ3iUkcGCXLvzRuzmuE5LoJ+8OUoSQ8MUUKbyi
-	 lTkCblrm6JUzzUiKkn24IrzXSrVNrpYbNSkmtxo+009km7JK/ZSCAa7JzZC0SYlyZxKSR
-	 V+hmXMhx4LZuMRFTzJK7tjZc4edX+EbGAaM6TEZg7RuKWuqwcilDSb7yJcZ0qdXqyvu9j
-	 orM6bdhbLqB1P8yo/+KJLZGlKe2zHcHzgCq4BdFUryjJXnUa83JJuq5Mf3u+zzYi3br9r
-	 t1uEp62e7+E7Angbtm2e6Vvy0Kd5TErD6bYfIAmDCRwvUhguu1rtN57tYzFtxhD6yZA==
+	t=1794221211;
+	b=3pz+6GAqHJ8E+0k+PdXB3xp36Gfzyk9wMVXdjR1MwVCf8by4Cl011CAC8Ergkn8gHHg2
+	 nDxOOZvSBs9uvgxjjZXcgV/e6TTebiBFTURx/FfOT0X+05HwqenQjOiSFFbyCLo9eEBFm
+	 QnqcIU+CDqaTNkSFQvZoJ1VrBl9C73Gg6ZIJBDob+fxN1ISxK2go4ymT9b+Xl0OC3NUvx
+	 SgK2w1T3SVZViqWun+UO5+XmjnMEXDYx3P0MfkqMW8l2vBwsQgf+5ysJDX/Fa8sfnJcW4
+	 LQ16UmjDILZAzra8vy+fDh/5Og7UzNg+1dePc2i/+8shco+1qt5/WdHlc2hhZnW42Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221093;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jhRpB/3L64OWgVCzI6g0N4mh7LrBuRu768BeFhov7Os=;
-	b=3E5I8nhv6xbZ2tm89y/LITKoBo7hY/jdskC/Q1FFfTauvUuFarreTrI7tUbZK1Xp9DaL
-	 s8+zah6454O8plYZeK8egNQo58wcLXNXiO+I/fOPrbyyfR6spjudvs3jfv0LfzV9fscsV
-	 FpgW4oPnPSWLVYvShu++WZvillsUlNWoXnRYnLeR25/SOUCPJJXoXQfkavtEUtiiB0oZ9
-	 A2mUlTwuq3qJd3HSs6ZIJtRabT8QvgrGc8cd0z/TMSgl1xyK3Q2V5MNIJKFWOYckk1Yme
-	 1SJ8ArfKgvQao6CybUKuu/UkNYWqfgOsDvrGRrtMW6Bps6i8aSROxJ7xEkgjL2z9z8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221211;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wgmYZSso3S5s7ntmVXft5Hjp1pkxoHbFdmgMj87YoCY=;
+	b=cHCsMAN2MFkqqD/N2me+2DyhZSwpPv25IPXNEnpaF8QOhaPkaC4B1IxzmTaitWX1euVY
+	 nOnXIMhaCyqTRc/6EbN7bC3GFjr1Czb0XAMgxcgMZPS5QwaKEwf0uTS/xoaNgmuVGU/6u
+	 C827J8pNQcQoprkB83r6NvlzkJPFCR25uys9F/xppScv4d1RYOS6UqDRr1duUkM0vyFeu
+	 YmgXU7BXIcBYjz8XbyGaODWCqZNeiU0/hUuF7TeWZbeqLpmB3dzplPAmhAqof3KtuLQrt
+	 uFl5e7FktQT9Ao+pD40D5vxGkaIMi11K+/pSc2ciASZ7tfdbHHgNVeradwZqab93/Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HOjhnVfY;
-	arc=none smtp.remote-ip=91.218.175.44
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D624606A321
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:44:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D624606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46B81606A334;
+	Mon,  9 Nov 2026 10:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B81606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HOjhnVfY
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n9yUochbuHx8y/anYILHlFK/BKbY5H9S/STmPJZqyQA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794221089; v=1; x=1794825889;
- b=HOjhnVfYEClUjmyKsoac8lXoaH6LKyaEf/4JwcwlXSJOtwpIK1c83pIlmEymvLFacBUEh6R7
- YZuXoZy01D81CK+EPNHqEDiV+U82Ai0/YJ1DO+zZayEIIvXj5Pg4DlANmpWrwLdNHCRO32BoKok
- y9+TYo9cGtJND6iyEygCo5/0=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 941375bb5fe624cb;
-	Mon, 09 Nov 2026 10:44:49 +0000
-X-Mizu-Trace-ID: 941375bb5fe624cb
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 10:44:43 +0000
-From: Akhilesh Patil <akhilesh.patil@linux.dev>
-To: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
-	robh@kernel.org, crofts@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, alexandre.belloni@bootlin.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rtc@vger.kernel.org,
-	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
-Subject: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 760C11576;
+	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D9183FA1F;
+	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794221209; bh=zGW4Vk+oTTcAeYvgmOhuujaSbESC2vD11QIhzUqWk7w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h79isfwlJj5NA/YUWS8Ik8ho4Z0G1xk/NdkZHTI+7kY++cbuf7734EwR9LCt+Ww0O
+	 EJouX7BeyT+m5P4fhTwO4x8UvN4uCSp1Up19Def4Ui50nAl5N0tzsPl2WATHSB74O7
+	 BPCwwkSdpPWko5ab4dSUwtIoV7q7/DoVqO+iIaHY=
+Message-ID: <dc798bed-85b4-4d47-87c3-f0e0f156ed0a@arm.com>
+Date: Mon, 9 Nov 2026 10:46:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,91 +53,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+To: Jie Gan <jie.gan@oss.qualcomm.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
+ <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Move to my new linux.dev email address akhilesh.patil@linux.dev
-I plan to use this email for kernel development going forward.
-Also update email address in few yaml and driver source files.
+On 09/11/2026 01:25, Jie Gan wrote:
+> 
+> 
+> On 7/10/2026 10:38 AM, Jie Gan wrote:
+>> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed 
+>> the
+>> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+>> forces the device onto the AMBA bus, where the driver must read the
+>> peripheral ID from the device registers during probe. On several QCOM
+>> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+>> never probes and its trace path is unavailable.
+>>
+>> This series drops the "arm,primecell" entry and turns "qcom,coresight- 
+>> tnoc"
+>> into a standalone platform compatible. Without "arm,primecell" the device
+>> is created on the platform bus and probes through the platform driver by
+>> compatible string, bypassing the AMBA peripheral-ID read while 
+>> remaining a
+>> fully functional Aggregator TNOC that allocates a system trace ID (ATID).
+>>
+>> The series is organized as: binding first, then the driver support for 
+>> the
+>> platform-bus compatible, followed by the per-platform DT fixes that 
+>> switch
+>> the affected nodes over to it.
+>>
+>> - Patch 1 (dt-bindings) drops "arm,primecell" and makes
+>> "qcom,coresight-tnoc" a single standalone compatible, and updates the
+>> example node accordingly.
+>> - Patch 2 (driver) adds "qcom,coresight-tnoc" to the platform driver's
+>> match table and renames the itnoc-specific names to generic tnoc names,
+>> since the platform driver now serves both the Interconnect and Aggregator
+>> TNOC. It also restricts the ATID-unsupported handling to
+>> "qcom,coresight-itnoc" only, so the Aggregator TNOC on the platform 
+>> bus is
+>> no longer wrongly covered and correctly allocates a trace ID.
+>> - Patches 3-4 (kaanapali, sm8750) drop the "arm,primecell" entry on the
+>> traceNoC nodes and use the standalone "qcom,coresight-tnoc" compatible,
+>> fixing the probe failure on those platforms.
+>> - Patch 5 (glymur) switches the node from "qcom,coresight-itnoc" to
+>> "qcom,coresight-tnoc". This node is actually an Aggregator TNOC (its
+>> tn_ag_* endpoints show aggregation), so it should expose a system trace
+>> ID rather than being treated as an Interconnect TNOC.
+>>
+> 
+> Gentle ping.
 
-Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
----
- .mailmap                                                      | 1 +
- .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
- Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
- MAINTAINERS                                                   | 2 +-
- drivers/iio/pressure/adp810.c                                 | 4 ++--
- 5 files changed, 6 insertions(+), 5 deletions(-)
+Apologies for missing this. Please could you resend it based on v7.4-rc,
+as this doesn't apply cleanly on coresight/next
 
-diff --git a/.mailmap b/.mailmap
-index 7fb33babc931..54238d2f04dd 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -1030,3 +1030,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.com>
- Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
- Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
- Zijun Hu <zijun_hu@htc.com>
-+Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
-diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-index ad5f26ce5043..ca4d4210f609 100644
---- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-+++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: aosong adp810 differential pressure sensor
- 
- maintainers:
--  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-+  - Akhilesh Patil <akhilesh.patil@linux.dev>
- 
- description:
-   ADP810 is differential pressure and temperature sensor. It has I2C bus
-diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-index bdd995c5c1f4..837679dc01ac 100644
---- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-+++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: ST M41T93 RTC and compatible
- 
- maintainers:
--  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-+  - Akhilesh Patil <akhilesh.patil@linux.dev>
- 
- description:
-   ST M41T93 is spi based Real Time Clock (RTC) with time, date,
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..3aa8fa3c068f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
- F:	drivers/iio/chemical/ags02ma.c
- 
- AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
--M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-+M:	Akhilesh Patil <akhilesh.patil@linux.dev>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
-index 82aa433548d2..832df6ba0ee3 100644
---- a/drivers/iio/pressure/adp810.c
-+++ b/drivers/iio/pressure/adp810.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-+ * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
-  *
-  * Driver for adp810 pressure and temperature sensor
-  * Datasheet:
-@@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
- };
- module_i2c_driver(adp810_driver);
- 
--MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
-+MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
- MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
- MODULE_LICENSE("GPL");
--- 
-2.34.1
+Cheers
+Suzuki
 
