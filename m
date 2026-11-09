@@ -1,110 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214776;
-	b=Rb7NMqXdwsObq7Okboa4u3/elT3E8IaYsTwiTKdRuMYNN9CIp9V3AoOejzmkFqw1sGLu
-	 4NI87XbyazrzBKqhv4rU0Q51J9twrXOYEDv1vOeZYfBakj9b+ALqUGcnFsJchAzC3jZaJ
-	 nsS4RETDXttoaaIg9fxy4+JlY+gYMwJRHWGQfbZ91TQCoKH5XuGIuTDceiWq2wdv3gxuT
-	 gUhvqAwfovkeuwMmljZHGMDQ6DYZzM8A19wuk5c8HFxY8MocD5CtTnJMygoJSYyMSL5ed
-	 xYJ6Og6/htvCBHtuHjtjWMuIoX5fayIDFPN9EUoLw1pQE7C0qqK/h515CwJ4KhzbILg==
+	t=1794214852;
+	b=3dN2nF3ymywXwtX5FF57i0+cyPeSCra0BQn8W8hLtFBRh3CY6brHYiTm3tP3+mhD9WIl
+	 96woUwL8F1hksqip/ykxV4D6mkS23iG/kb93xqjC73sSM+5Oac/ANDAXUFyS7L+2aDYmd
+	 gSGyc1DlXCsq08z8IpGmj0gSRut72QEIZV1nx3xdjgB0WGDHEPwVxjf/AOGua75oUXy8L
+	 LTe2HVni9pOSMGB6uGqOlCVQYG5oaZI3hQuXa7tuw5Yi6IXq0Uq1JIIT72bTsnZZqu54f
+	 tw6Lu/B9HjXyB2NTi7wWxlEpTfVTp1UnQS/yX9PvFexYiovvwi8CYtQ5xVXU/+waVUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214776;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214852;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ssmNaEyrZS9wo/rCifldKjAHfj9Rbpdxj8LpdJl0xJQ=;
-	b=BJg/i4iewimCOwa3Umf3B4VKc2hhplOarbTjP/UQxaVBCPWQripnHh8VDAxRnfzLyjI9
-	 eFU3IIOWtc8HI9XCAf02moAZY67fXZqt6NFO/51ZRIoGFC5h2xATGOYH5HgmmTi/ZUt5O
-	 QQBcr9jh8nXeemdRYVxS3M/PQoqXMQCM7cMxlZTaoYr8B/KmYTsRI1Lt+kvxsZrAut492
-	 av0szxwc1loWBlqgJG7ii/Rr2jJ8IEt5RmfELerLXlAtEEnPHQaZrRJFTKvLKQGqRrD2U
-	 PUUMX6ir7Jx8D6yz3DXU19fUojxS5azzTqm8vDmgOEdVW2qtPA4midREAeLtSl2Ux6g==
+	bh=5cQRvkXNtjJAnko0WWY5a15d0+AvbQkqet34XcNU5HA=;
+	b=F6oep+jzWax6piV/vdzWAdDFkmWXl4/DqPY6EdUOXeJCPSunibXGLOJBDAbH+SO6OoC2
+	 D7/euAosnUVTnZm7bH8wlD0CQo6hvnM2wQs64KV0j/xH4R7BCOdx5UuPo3v+4b8bJHtoD
+	 5sWxH38njgph2mqRh6F206GaD8xey2o+0N+NqkOaEPUrzBu1VPpJbBPbyf7sBtmY8AXa7
+	 sQ2E+Sk7NNUiCpbQa9QTl0Gg5xg6m0rXLhvEKeoB6ADFRSxZ632M2fPq+PcvKXjKuP+yK
+	 8cI7Y9KPBj/WA2P892hA4ujaG42q2mtWS9BH+jaV6t3klAcEjhf72JBm270E/eexAsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZMIzDC2T;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J2h4RSMm;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ampd0T+T;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=L0leps9C;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C26D606A325
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 08:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C26D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B37606A31C;
+	Mon,  9 Nov 2026 09:00:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B37606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZMIzDC2T;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J2h4RSMm
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96AACF2540203
-	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 08:59:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ssmNaEyrZS9wo/rCifldKj
-	AHfj9Rbpdxj8LpdJl0xJQ=; b=ZMIzDC2Tk8gXcRoqzJIwMZcMlOLkQoQUBb6diV
-	o0DhyWyXYBsZ2bw9SsyO8CRObkYm0NYdVSBjbLSbD9reX/QSTMs34jp6KCpsMqD3
-	SPkkQphmUZeEz5outdf8cr45yY/ER/blLLDyWxtm7U0l5xpFNrg9UzCjdTzu77DJ
-	w+vbA9SJUOVlIWBtvGsmo5VxnzMY2wK+qk/ZNneJsOgZA4OMq3H0Kz5UUmSpqDQZ
-	UZKpQy3y9eIR1rQicrgSiZ8lDGdZpZaQMLprtoP26qs2w4tyQf/kLyFVJ5x8UPOf
-	shHCpe3NPWWGdAc+QwP2tL0EwemWwY7XXwFskwrOq1RmXxtw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsvc6ng2g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:59:34 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso1079437eec.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 00:59:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794214773; x=1794819573; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ssmNaEyrZS9wo/rCifldKjAHfj9Rbpdxj8LpdJl0xJQ=;
-        b=J2h4RSMm+UhT2BzGXnxMOr2lO450HdEmrsizrKexxQvaLCyp13ebOd3KZzDbGCUzjg
-         vHV7SFa205wEyX9xozk2LNMmxfhZALN/NO9bpvyYCWL+BFjUGpGXqiRyi/tbP1C5dvEO
-         gUpTIws8ORrM3bbQbAKSep9u+nMDRFheoxaHDrlfC5PNmjChv+a0mcmMdfGH8HiQZr+M
-         vIyOm89fEvrv54TxgdYQOVgpg1Ext77xzKlZnHYJpSGMQ/kSpdwQFsylta2PdYJ+jTxz
-         PGtQssDA6AK7HV6m1KGOmCaPL9bsBs7cIwUqITkF4K6VRubpcvNiM/0sDnT0sxAjOqZc
-         6bAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794214773; x=1794819573;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ssmNaEyrZS9wo/rCifldKjAHfj9Rbpdxj8LpdJl0xJQ=;
-        b=wTC50vQ0yzAoH0AyfcbdWwClcy25SRCBKbylUGnSzzzuAGjG066VprJVDuPLq1NoWj
-         09p+pv+HSCDSt50YToeIpNN6yfZhvim+gDKAwHlTGLqadFl23yWBfwxx20Lh4SeO4ZBj
-         ZIugzIRPdF+sdxucjAQ/vczBCzE8CcLloUZqiET9AnNakR2ZEKEpr6jJss3sSRfcmc0f
-         BinWLcrF15GUoyuOkk+5CWMIOLGyjo7HbIXOcPunQIx29X1mrG+bHMawncCCxOZQpRoN
-         3rMAkkHU37ZDSa98/DPaixcrT/F47wNL0TUiRefEqhM2Os/5Brvtx0eBVk/8J2eWDGjG
-         hZ4w==
-X-Forwarded-Encrypted: i=1; AL+hErFhLjJ3kZtg0NniDfuxNpnfoahV49NrxFyIX+IDxbHgk+YQFfXBs1dl6td3Oh147jgbxzxN/T2vj/2V@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WCxb1zKAWLCRflNH4jgM6qc3ZT4G554Sqy8sopfEf3Ic3RcEe
-	FhKdKO09bAqYpXoUaxGhR2dmN4W97R41m4fCTafV0bvkl/yixSFMN9ibturZgBxq9T3GJeWUzGp
-	xenAvQjKSy/zIhBFYBwDlV1tRc917KutsHBaFmSZHTj+ialctJ5M9mKPTDvVU9E5bU0anQsYk
-X-Gm-Gg: AYBFou1jR/fe8BftvBnqeujw+TkCmlhPybFEo0GCZOlpNRbSYUJOFINhhdTiDa/Pa0j
-	//JC4jmg7RbebdWnzCOx9gKzgIaQh1hLCCpkISMcF8YJs3T8PAN5zjLEFmNG5qPlhrykXoVLjMq
-	fssQZKtwoQiaZ+ps58037i9M4Llctqiw+TRmIVW5A/oF8cfBLcz3Cvq66cXw0Edlj1OBXS9YBKd
-	w1Kv2y4CSLWfFD0FDGgj9kRLX23d78jkn5VpB0JYwVyYnNNFNhwlwXqJZQauySenDki8NmgIor2
-	MbErOYhGnjDYjOsbHxGA4Lif09QAt+dFSxCXQ4iEjQM6UGSRqCQ6h2DBAVcaYWcPln8ZlqV+JSj
-	9/rwPEI94plWQOrSZu3bsGlz5SQ0NwwTIqCf13w/RdVWcM3aMfAtanvUl/xUtSTH3krpzwduavh
-	FDFnUFfQ/y2Q==
-X-Received: by 2002:a05:7300:33a8:b0:369:38e3:5363 with SMTP id 5a478bee46e88-3725d1a4f0amr6122858eec.7.1794214773309;
-        Mon, 09 Nov 2026 00:59:33 -0800 (PST)
-X-Received: by 2002:a05:7300:33a8:b0:369:38e3:5363 with SMTP id 5a478bee46e88-3725d1a4f0amr6122830eec.7.1794214772718;
-        Mon, 09 Nov 2026 00:59:32 -0800 (PST)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37391fa11ffsm5470848eec.6.2026.11.09.00.59.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:59:32 -0800 (PST)
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-Date: Mon, 09 Nov 2026 14:29:05 +0530
-Subject: [PATCH] arm64: dts: qcom: lemans: Enable the Inline Crypto Engine
- for SDHC
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ampd0T+T;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=L0leps9C
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96C3iM2401967;
+	Mon, 9 Nov 2026 04:00:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=5cQRvkXNtjJAnko0
+	WWY5a15d0+AvbQkqet34XcNU5HA=; b=ampd0T+TjOLux4JH/4qX4C4LcP8uzC2d
+	8o/gh9GFvp5qOpy4/n5bv1pP/e13p5PwWLRGNyZkwtEH7wBqDe5gqQozGJHnXpO3
+	rZZiVb90lQddwrMJqrzMtmfUB2ibYQZq4VgOo2xRyBDXontsFOvT5N+DCkdV21wE
+	Jsv4//LFj3b66khmLtgksIy6ovzGCz83ZAa3rWcCeNoFg+LPrjGV8LWjx87Fc07/
+	P0Nmd76mfkjEq5PPqu9ueyw6/Bm1AjQ4mDR7p0c5iSDbuoqy2NLDx+pwEcZNhcLh
+	c81Y9ZZTgSe6ln3svNMFboYiBec0k2NkIHZSpE00sg8feo3d4RBVxw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=5cQRvkXNtjJAnko0WWY5a15d0+A
+	vbQkqet34XcNU5HA=; b=L0leps9CWulFAeBkmRzwu1R1yVlsAKS5pEIFE+MM3mQ
+	jfoBgkfY6CBLtq5Z0bBbiBvXWUP9yY41pBQPA5xD6XaFGJy+gdv7NvvVucAPls7b
+	reop4P0UZfi/sEtXDuknie79SZoeAJh96L7idF7lrZzycwjAtcRpYA5Ox0FxD/YF
+	0H0DNmsL3cRR1ZEsqHfCsGL84k2F58LnHtrzZedHbKOv4kuTDYMb4K6DqWOq33uA
+	LKAoxdCJaBgi/x4V/hh+VCWSBZpeTq6AhqDbQvScdqc+nselecby9nfC++df+bLk
+	KnVci5it+8ucH2WoJM6Cl/KCmoeAC2F/QAgkd49NUJQ==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4htk6je40r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 04:00:14 -0500 (EST)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A990D8v045687
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 04:00:13 -0500
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 9 Nov 2026 04:00:13 -0500
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 9 Nov 2026 04:00:13 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 9 Nov 2026 04:00:12 -0500
+Received: from HYB-6AVb5If9qTU.ad.analog.com (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.41])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A98xreF024796;
+	Mon, 9 Nov 2026 03:59:58 -0500
+From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>,
+        Heiner Kallweit
+	<hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Marcelo Schmitt
+	<marcelo.schmitt@analog.com>
+CC: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+        Ciprian Regus
+	<ciprian.regus@analog.com>, <netdev@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        "Iustin
+ Stolniceanu" <iustin.stolniceanu@analog.com>
+Subject: [PATCH net-next v2 0/7] net: ethernet: adi: adin1110: Add OPEN Alliance TC6 support
+Date: Mon, 9 Nov 2026 10:59:45 +0200
+Message-ID: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,124 +119,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-enable-ice-sdcc-for-lemans-v1-1-1f25debeea49@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAFiL8WoC/x3MQQqDMBBG4avIrDuQKDaNVykuYvzTDtgoGRBBv
- HuDy+8t3kmKIlAampMKdlFZc4V9NBS/IX/AMldTa9qntcYzcpiWWiNY5xg5rYUX/EJW9kDnev9
- yxniqg60gyXHP3+N1/QG1/Ea8bAAAAA==
-X-Change-ID: 20261109-enable-ice-sdcc-for-lemans-9ee375987009
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfXy0Nuno9t3G25
- +SPY7cXnWSWoJUS4k39sHFFufb3Ku7cttbqKjdJbOAaqYLcQQa2iWmea8GfcUxJG0vV0GidloPi
- sojcZmgRWTNYgxtnULHLLJ8ZN057uQ/2E0HSvTybM0uyYfpNu8r11rguT489YSOjyl0Hy0juxap
- qrjFeS5gzIsva9MqqlMDmgI1kD0drJkF9w8TSo9C7esew/oyukao9sZ1YU9NZjRiP3huvTaAHez
- tEoqpRbcdkf6WO0rDxN/xMr+HyJjAzSwKFQ8I+G9a9LywPPMdZQMeZBtPmB6CcF44xYkEKbAZRg
- 72wnwlY/CS+GGrNB7V3nRC4Bn8wdyfZIF5kaBi52gCdLG3pmxq9jmkIKna4BNa4ZMgtrK2yVt0a
- tUtx5qFe8IOC1RIX7Xl13xgQ/YYWWoCRRr0mCSgLHSGbgXRlzDnsszzd/FVTi78lYCS9Dmh1M0j
- EyYe6p7ILEDkctcCZLw==
-X-Authority-Analysis: v=2.4 cv=WOjqzXsR c=1 sm=1 tr=0 ts=6af18b76 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=aDrDLeE5ssBeLXbAN28A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX7nJ/u+iKVUuA
- mOLYHCxNwImYGC5HYjfEvhhYq3GlrGAdIgyvTJF3DO16bDxJD0b00r2lTvr9E52qqHeRMMQ3P4+
- /sF4gYoZpGmXeVMcjM80mCSqYaiWud4=
-X-Proofpoint-ORIG-GUID: h2mYHPqeo89pMPijwwlJbXEVf8oso3-0
-X-Proofpoint-GUID: h2mYHPqeo89pMPijwwlJbXEVf8oso3-0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: JVYHGvlzRz_wvuc7DVOj07o5X7dWnzBm
+X-Proofpoint-GUID: JVYHGvlzRz_wvuc7DVOj07o5X7dWnzBm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX2LU24/J9QWKg
+ JsRlomIgAlRw4ivgrgx84jxI0LEO80mGNHSUgLy+LW1fssBOf7ExD6FHgRGj9jfHDebXFeTrTOP
+ R7MEkFCBFqEB7sEkLyopO69hrNSIztlawmsGuoePX+fkRYNK+k68
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX+o6qdxuHfq85
+ ywrZ4y92M6/RxCMmuv7P14xLD/5O7e2z3Z/w50UORLXIS9J/wImTiZ5C2vS1XCyxE8P4Mtic9kb
+ pei6+rSosMsX9M6M4wQb03DcCjRj9IIg+m6QiKmarWj7SB5DYiuBFtBd/RW18IjArAjvyw2dPN9
+ d53OJktkfKdliGG47nOeH0kYAPlgt+ZaM/gcBBhmGEKPptWrXQrc9921AZnLD552uIoEVjGN1uB
+ QL4FrhJu/abTuYuFZBX5ODm/sVrrhIvTSrwgS8v2e4+I2m5NEetvSz8WaiA8KHLoy8RUY/J1wps
+ 2zWMUqwpZ5SoI05/XXuu13X4tRcCAcJ9AwJn1BT8KgCKDGvRg8DQ442LF0K2wUgWxHrecx23eyP
+ 5EweAOvbfSW/KLN64UYqR88ugMU6RPIOZFYopyIJnrJaU+rKvyxXnDLKPpEcDUDXbZsKzUwWK8A
+ F+QQUnB58xeHq0cP/XQ==
+X-Authority-Analysis: v=2.4 cv=O7+sLx9W c=1 sm=1 tr=0 ts=6af18b9e cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=iT5Kz9XhaAhAbwJ0Y2EA:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1011
- lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090035
 
-Add an ICE node to LeMans SoC description and enable it by adding a
-phandle to the SDHC node.
+The ADIN1110 supports two SPI host interface protocols: the generic SPI
+protocol, which the adin1110 driver implements today, and the OPEN
+Alliance TC6 protocol. Two pins select the mode, and the device latches
+them when it comes out of reset:
 
-Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
----
-This patchseries enables Inline Crypto Engine for LeMans platform
-for SDHC storage.
+ - SPI_CFG1 selects the protocol: OPEN Alliance TC6 when low (or left
+   floating), generic SPI when high.
+ - SPI_CFG0 enables the CRC8 of the generic SPI protocol, or the control
+   data protection of the OPEN Alliance protocol: enabled when low,
+   disabled when high.
 
-Testing:
-* dtbs_check.
-* Validated on LeMans-evk with custom Mezzanine board for SDHC support.
+SPI_CFG0 can be read back, as the PROTE bit of CONFIG0, and the generic
+SPI case is already described by the adi,spi-crc property. No register
+reports SPI_CFG1, so the protocol cannot be detected by reading the chip.
 
-Dependencies
-============
+This series adds OPEN Alliance TC6 support for the ADIN1110 using the
+oa_tc6 framework, selected by a new adi,spi-oa-tc6 DT property:
 
-[1] Enable ICE clock scaling
-    https://lore.kernel.org/all/20260824-enable-ice-clock-scaling-v12-0-09271f583dc6@oss.qualcomm.com/
----
- arch/arm64/boot/dts/qcom/lemans.dtsi | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ 1:   oa_tc6: forward declare struct mii_bus in oa_tc6.h
+ 2-3: oa_tc6: configurable reset settle times, and indirect MDIO access
+      (MDIOACC) for MAC-PHYs without direct PHY register access
+ 4-5: adin1100: separate phy_driver entries per model, then skip the
+      soft reset on ADIN1110/ADIN2111, as it resets the whole MAC-PHY
+ 6:   dt-bindings: add adi,spi-oa-tc6
+ 7:   adin1110: add the OPEN Alliance TC6 probe path
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-index 1fdb72fa5518446ba2ea582e8362e86bba75c379..dfd41b613523fb85eb122488e0562447f7228e61 100644
---- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-@@ -4327,6 +4327,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			qcom,dll-config = <0x0007642c>;
- 			qcom,ddr-config = <0x80040868>;
- 
-+			qcom,ice = <&sdhc_ice>;
-+
- 			status = "disabled";
- 
- 			sdhc_opp_table: opp-table {
-@@ -4348,6 +4350,33 @@ opp-384000000 {
- 			};
- 		};
- 
-+		sdhc_ice: crypto@87c8000 {
-+			compatible = "qcom,sa8775p-inline-crypto-engine",
-+				     "qcom,inline-crypto-engine";
-+			reg = <0x0 0x087c8000 0x0 0x18000>;
-+			clocks = <&gcc GCC_SDCC1_ICE_CORE_CLK>,
-+				 <&gcc GCC_SDCC1_AHB_CLK>;
-+			clock-names = "core",
-+				      "iface";
-+			power-domains = <&rpmhpd SA8775P_CX>;
-+
-+			operating-points-v2 = <&ice_mmc_opp_table>;
-+
-+			ice_mmc_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-150000000 {
-+					opp-hz = /bits/ 64 <150000000>;
-+					required-opps = <&rpmhpd_opp_svs_l1>;
-+				};
-+
-+				opp-300000000 {
-+					opp-hz = /bits/ 64 <300000000>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+				};
-+			};
-+		};
-+
- 		usb_0_hsphy: phy@88e4000 {
- 			compatible = "qcom,sa8775p-usb-hs-phy",
- 				     "qcom,usb-snps-hs-5nm-phy";
+The ADIN2111 is not supported in OPEN Alliance TC6 mode yet.
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261109-enable-ice-sdcc-for-lemans-9ee375987009
+If adi,spi-oa-tc6 does not match the board strapping, probe fails with
+-ENODEV and a message pointing at the SPI_CFG1 strap and the property.
 
-Best regards,
+As promised in the v1 thread, I tried the wrong framing on an
+EVAL-ADIN1110EBZ in both directions. OA TC6 access to a generic SPI
+strapped chip gets no valid reply and does not set SPI_ERR. Generic
+SPI access to an OA TC6 strapped chip returns garbage and sets HDRE and
+LOFE in STATUS0, which are write-1-to-clear, and OA TC6 access keeps
+working afterwards. So the protocols can be told apart, but I kept the
+explicit property for now. If autodetection is preferred, I can do that
+before the binding is merged.
+
+Testing: Raspberry Pi 4 with an EVAL-ADIN1110EBZ, SPI at 25 MHz, against
+a 10BASE-T1L link partner, on a normal and a debug kernel (KASAN,
+lockdep, kmemleak). OPEN Alliance TC6 mode: probe/remove 20x, sysfs
+unbind/bind 10x, link up/down under traffic, frame sizes 42-1514 bytes,
+flood ping, ~9.4 Mbit/s TCP in each direction, 0% loss on 10 Mbit/s
+bidirectional UDP, joined multicast group and macvlan traffic. Generic
+SPI mode: same results with and without the series. Both mismatches
+(adi,spi-oa-tc6 set on a generic SPI strapped board, and the reverse)
+fail with -ENODEV and a clear message. OPEN Alliance TC6 was tested with
+and without control protection (SPI_CFG0).
+
+Known limitations, unchanged by this series:
+ - A "Config unsync" error (e.g. after a chip reset) makes oa_tc6
+   disable the device until the driver is reloaded.
+ - On unload, a lockdep enabled kernel prints a "suspicious RCU usage"
+   warning from phy_detach_internal(), as phy_disconnect() is called
+   without the RTNL held. The generic SPI path of the unpatched driver
+   does the same.
+
+Parts of the code and of the commit messages were developed with the
+help of an AI assistant (Claude Opus 5.5); all changes were reviewed and
+tested on hardware by the submitter. The v1 patches 1-4 were also
+reviewed with Sashiko (Claude Opus 5.5) before sending. For v2 I ran
+Sashiko again on the settle time patch (2/7) and the adin1110 patch
+(7/7), the two with real code changes, and fixed the one real issue
+it found.
+
+Changes in v2:
+ - Reordered: the adin1100 patches now come before the adin1110 OA TC6
+   patch that needs them, so the series bisects cleanly.
+ - 1/7: new: split the struct mii_bus forward declaration out of the
+   adin1110 patch (Alvin)
+   Link: https://lore.kernel.org/r/au3C27DWOcZiMLxb@analog.com
+ - 2/7: split reset_settle_us into hwreset_settle_us (default 1 ms) and
+   softreset_settle_us (default 0); fsleep() unconditionally (Alvin)
+   Link: https://lore.kernel.org/r/aus8XiLynJmSXaXc@analog.com
+ - 3/7: use if (!DPRAC) mdio_indirect_mode = true (Alvin)
+   Link: https://lore.kernel.org/r/aus8GQ-Xut5XBNwU@analog.com
+ - 4/7: new: one phy_driver per model with PHY_ID_MATCH_MODEL() instead
+   of a single entry with mask 0xffffffcf (Andrew, Alvin)
+   Link: https://lore.kernel.org/r/309a1eb9-8255-42f0-a510-b40bf3302bbd@lunn.ch
+ - 5/7: (was 5/5) omit .soft_reset on the ADIN1110/ADIN2111 entries
+   instead of checking the PHY ID in the callback (Alvin)
+   Link: https://lore.kernel.org/r/autAidTgykOObtzp@analog.com
+ - 6/7: (was 3/5) disallow adi,spi-crc together with adi,spi-oa-tc6 (Alvin)
+   Link: https://lore.kernel.org/r/aus899mJ-XZg6ZgF@analog.com
+ - 7/7: (was 4/5) set 50 ms / 10 ms settle times from the datasheet;
+   -ENODEV instead of -EOPNOTSUPP for ADIN2111; whitespace nits. Fail
+   with -ENODEV and a clear message if adi,spi-oa-tc6 does not match the
+   strapping (Andrew). Accept all multicast when the multicast list is not
+   empty and don't set IFF_UNICAST_FLT, and use DEV_STATS_INC() for
+   tx_dropped (Sashiko).
+   Link: https://lore.kernel.org/r/aus-LdkVRPxR6lFu@analog.com
+   Link: https://lore.kernel.org/r/c1747691-2c2e-4a7a-af04-92c94cb041b2@lunn.ch
+   Link: https://lore.kernel.org/r/sashiko-outbox-197578@kernel.org
+
+v1: https://lore.kernel.org/r/20261103160918.409701-1-iustin.stolniceanu@analog.com
+
+
+Ciprian Regus (4):
+  net: ethernet: oa_tc6: Allow custom reset settle time values
+  net: ethernet: oa_tc6: Add support for MDIO indirect access
+  dt-bindings: net: adi,adin1110: Add adi,spi-oa-tc6
+  net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
+
+Iustin Stolniceanu (3):
+  net: ethernet: oa_tc6: Forward declare struct mii_bus
+  net: phy: adin1100: Add separate driver entries for ADIN1110/ADIN2111
+  net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
+
+ .../devicetree/bindings/net/adi,adin1110.yaml |  12 +
+ drivers/net/ethernet/adi/Kconfig              |   1 +
+ drivers/net/ethernet/adi/adin1110.c           | 206 +++++++++++++++++-
+ drivers/net/ethernet/oa_tc6.c                 | 188 ++++++++++++++--
+ drivers/net/phy/adin1100.c                    |  33 ++-
+ include/linux/oa_tc6.h                        |  20 ++
+ 6 files changed, 435 insertions(+), 25 deletions(-)
+
+
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
 -- 
-Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+2.43.0
 
