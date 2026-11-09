@@ -1,76 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239898;
-	b=uLYv+fjHweICxBYcHForVCjXVzK2nII0vNn9bdanM9gfvkyNG/Oc3K67KWy6Ldl7T1IK
-	 rwgsETsf3/evax0+Ubwdc8qUPMcuygg1IhjD78S7h9+8zbbdDWauNvyErWgwoSw2JWXL/
-	 1L3YFAfwxCGPDRSDcCekkkgxfDV9U9i0Vm/GUxYjLUwWL1IQlM4vDyCgrM6M/nawq3qN5
-	 WLeWTs0xZtyaSCFOuZ3ZzDpEXef89ptn/fASe49BjptQLr1PjJ8CXOERa8K5EG1nPjc28
-	 +RwZLB9flVgEZjW0LnOmyvWRCCMe9IoBRJeEc0hx7htWpQwYqtpk9cnZcwCY+11i+hQ==
+	t=1794240000;
+	b=aqGpJ6tb4LhqAsV3dp47lMEA3TBlr35Z+PyQxEJq0RXGpb6lNFbt9pL2PNsYNoqDAyVW
+	 Yev8PDoT8AZNxtTEgF7CBOrV4+F1mjEJuTwE/XecPmXlf8DYwM51taCE2MkYH7czNJegZ
+	 A6CpeX45BRTlQz62f8r/v+rUrpxtlz7hxoc2R41sGYeCrvonAZrnZo8F1dFzex5qh7kd7
+	 tpsJOBuHkuhgaR4ILZ8Iab8eZV/jpNjOJDImGv26T1Avk/7vwNxox8H/rf1g3/VMuufWc
+	 isyAeCtGWgPirsY0pKrpn6g9QjoysDrnL0/otgz084CEOZ30kSHEDT+xut9Naccq5Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239898;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5xzFaNjdBU2+3j5ofh/IAiAGHMFfV4HPNdcRnthw2k4=;
-	b=PByuydhWyOmexAxZAiwAKRbMaB/tR2BTS6K2giu7AQqjt76hZTQUeyvShfF5fGMMQ6d9
-	 nJ8fMFVPAgYEuTLk2EZEtWf6ruYS7/EyLS+Gs65es301IVJD7qgzXvJZDDNlImNI30pnf
-	 ur4LOZjV7jWwHSmWv8HKW38YUbf9JmnRGAwymBgfYbNZAYrTJAYoW2aURLDUU6zygojqr
-	 Aqby2Exf0RrtHOBITmU3bdo7CGFdHMV+5MpPXnKxu8ifjZPbZer5yS7cduW/P8y7JH8ny
-	 cWxK9E8BrZFM+Mxg3sGx9c1WrvQnCZnSksNsxyrVAswsE2OjUH0j0kILQxULt35EQAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240000;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=x8+hwW/5zTCinXQlt6chk8M/+naLfTi9oCAtj9giEx8=;
+	b=jpt2Z8MI3AqFPv1oFnn/uqnAvyJTh1undTOfkOLXy95fdboU99f4UkbLCZ0nHoUwFiRB
+	 SLnuMqI35vPtTbj7569MnXqos72NVgYEuzk6lJ7XLFhPPdHogKyWzaJSEQPF6p+NjbTFa
+	 E+0eS/e2K1IrVfBgJwQIYMA9ROrKP039012r5r7YxJv4uZo26/veOcrN1BMOXtwlRnBap
+	 FFvpzmWkv/T8GzHRfztQiRW6f+Td7sLDh3Tbr7OREFP7KhJvjaPjyio88VJLE1/ZSL2Gv
+	 w6uIAB7Vu9p3AeXb0syDYtniLKGb91u51mf5mzNeDHKe6d2eZcAcc0w/e507dH8GiHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=J8Uat55c;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD5dyefz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B448606EEBC;
-	Mon,  9 Nov 2026 15:58:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B448606EEBC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E51606A326
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 15:59:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=J8Uat55c
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 2DB8726664;
-	Mon,  9 Nov 2026 16:58:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794239883;
-	bh=5xzFaNjdBU2+3j5ofh/IAiAGHMFfV4HPNdcRnthw2k4=; h=From:To:Subject;
-	b=J8Uat55cuxs2U/x9zu70hgT7pCcrEBVnNxXvyWdiA6QEI/xouLkfWO6DKaauruTTK
-	 G4j8c8zvH9sniRvBQRXgMWJgOCGuxHVmKn1DgElYio+caJKdRG72Iw2p9NxF8mcnM+
-	 YE+jF6MbBYC9sRkE/pcRjZX1643eaP0NvIUxiuam5djt/9/KbyGlMgaz+FoI7YEYAz
-	 Kb81q2fF3UIcwnW0dODqON8l6hi/DZh4piWzfat/DhCZiIrvHwr9P2ZOYaxsPkmdTG
-	 u9IabiWgHIVBbYGBWzAJ9XTWT+yPvfghuQGIZpmrY9y2Q6ADPPnNnb1qWkZQ9bK2ug
-	 3iUYa+LOEKddQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-bsp@toradex.com,
-	x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Subject: [PATCH v2 6/8] ARM: dts: imx6ull-colibri-emmc: Add Toradex Capacitive Touch Display 7" Parallel with Touch Adapter
-Date: Mon,  9 Nov 2026 16:57:46 +0100
-Message-ID: <20261109155751.475875-7-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109155751.475875-1-francesco@dolcini.it>
-References: <20261109155751.475875-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD5dyefz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E201F008BD
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 15:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794239998;
+	bh=x8+hwW/5zTCinXQlt6chk8M/+naLfTi9oCAtj9giEx8=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=KD5dyefz39IkPX3UpaTum/KOpvhWYH/QEA84LmJrf9FC2cuEL9j27K7ebX+wB04bn
+	 oz+hE/n+itAL2Mlh2FfHeaaui09M0oTGZnVfo4S/iV30QmPH1l28Cqht4sdZLHteOX
+	 +9teyevkdSyq5Owz2qgKH+u8e+A7cyy+ZCdE87MC0ReVVAaIcK3bCLzvF4EH43+fwK
+	 Pw4+dTJjHeRvRnhGfhhojYkKJAanwC6ZR73d8gyrgUX4ZlZGoulWzKVi31L/2QMksM
+	 IPDqOR6IbAF39fOdp2z09X4iZG5tveGk3+H6S1WLFQfR+Ni1To7yGvYDhSsy1bgSk2
+	 ZTHjWY7vAc0lA==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adfe77d336so7641311fa.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 07:59:58 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE1n6oK+i7NOkQFj1FGSFfORIEiLp7JHeHCVgwQefE1YAvGaH37ZR6ExL5hGR6UB4U3JsmRyaG5WA0r@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fyIUMsFFcopAX2dxrcqHx4MqdXxm03LpVKe+8d4Zm4upB7X8D
+	7CKoQ7oX6qm7pcZ4f/k0no3Su7k0OcRZQKjQtic6kUmGLQZq46wvlhqbaWeUVKNsX76UyyqXCVS
+	S/YZv6r6s5Fqe74XagJcDIDORNBFvpiw=
+X-Received: by 2002:a05:651c:e17:b0:3a8:7b84:be96 with SMTP id
+ 38308e7fff4ca-3adfa482a5cmr11743561fa.27.1794239997190; Mon, 09 Nov 2026
+ 07:59:57 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,157 +59,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-5-ae8178fce7e8@pigmoral.tech>
+In-Reply-To: <20261009-a733-clk-v6-5-ae8178fce7e8@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 10 Nov 2026 00:59:44 +0900
+X-Gmail-Original-Message-ID: <CAGb2v66PV8nKSoU+4qA6Z6AS62V0xkuPBjKSy=jUf7Oh0=bv6w@mail.gmail.com>
+X-Gm-Features: AclHuK9QXxwYcsEJa5-pvHGGLGfB5fBZTAKpVeZDXOjgDPABVDtQI4CTaoQK7OI
+Message-ID: <CAGb2v66PV8nKSoU+4qA6Z6AS62V0xkuPBjKSy=jUf7Oh0=bv6w@mail.gmail.com>
+Subject: Re: [PATCH v6 5/8] clk: sunxi-ng: a733: Add bus clocks support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
+	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Sat, Oct 10, 2026 at 12:54=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.te=
+ch> wrote:
+>
+> Add the essential bus clocks in the Allwinner A733 CCU, including AHB,
+> APB0, APB1, APB_UART, and MBUS. These buses are necessary for many other
+> functional modules. Additional clocks such as trace and gic are also
+> added as they fall within the register address range of the bus clocks,
+> even though they are not strictly bus clocks.
+>
+> The MBUS clock is marked as critical to ensure the memory bus remains
+> operational at all times. And the hardware requires an update bit
+> (bit 27) to be set so that the configuration takes effect and the
+> updated parameters can be correctly read back for the MBUS clock.
+>
+> The GIC clock is also marked as critical. The bootloader may leave the
+> GIC running on a PLL parent, and disabling that PLL during
+> clk_disable_unused would hang the interrupt controller and the system.
+>
+> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 108 +++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 108 insertions(+)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
+g/ccu-sun60i-a733.c
+> index 3368801053ec..371c4297c3ab 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
 
-Add a device tree overlay for the Capacitive Touch Display 7" Parallel
-on the Colibri iMX6ULL eMMC parallel RGB LCD interface.
+[...]
 
-The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
-and the touch input is provided by an Atmel MaxTouch capacitive touch
-controller.
+> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(gic_clk, "gic", gic_parents, 0x560=
+,
+> +                                     0, 5,     /* M */
+> +                                     24, 3,    /* mux */
+> +                                     BIT(31),  /* gate */
+> +                                     CLK_IS_CRITICAL);
+> +
+> +static const struct clk_parent_data mbus_parents[] =3D {
+> +       { .hw =3D &sys_24M_clk.hw },
+> +       { .hw =3D &pll_periph1_600M_clk.hw },
+> +       { .hw =3D &pll_ddr_clk.common.hw },
+> +       { .hw =3D &pll_periph1_480M_clk.common.hw },
+> +       { .hw =3D &pll_periph1_400M_clk.hw },
+> +       { .hw =3D &pll_npu_clk.common.hw },
+> +};
 
-The touch controller is connected to the Toradex Capacitive Touch
-Adapter, the connection to the various carrier boards is documented in
-the datasheet [1].
+Don't know why I didn't see this earlier, but my LLM agent flagged this.
 
-The panel, backlight and LCDIF configuration is identical to the Colibri
-iMX7 eMMC one, only the Atmel MaxTouch controller wiring and the
-conflicting PWM channels are SoC specific. To avoid duplicating it,
-rework the Colibri iMX7 eMMC overlay to include the dtsi shared between
-the two modules, and use it from the new overlay as well.
+Based on the manual (1.0) and BSP sources, the periph PLL sources are
+from periph0, not periph1.
 
-The overlay is also combined with the Eval carrier board device tree to
-provide a ready-to-use DTB.
-
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
-Link: https://developer.toradex.com/hardware/accessories/add-ons/capacitive-touch-adapter/
-Link: https://docs.toradex.com/104615-capacitive-touch-adapter-datasheet.pdf [1]
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
-v2: add the tdx vendor prefix to the overlay, shared dtsi and combined DTB names
----
- arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
- ...ap-touch-7inch-parallel-touch-adapter.dtso | 46 +++++++++++++++++++
- ...ap-touch-7inch-parallel-touch-adapter.dtso | 16 +------
- 3 files changed, 54 insertions(+), 14 deletions(-)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index a0d22028f20d..7332167aee44 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -365,6 +365,10 @@ imx6ull-colibri-emmc-iris-v2-tdx-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx6ull-colibri-emmc-iris-v2.dtb \
- 	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtbo
- 
-+imx6ull-colibri-emmc-eval-v3-tdx-panel-cap-touch-7inch-parallel-touch-adapter-dtbs := \
-+	imx6ull-colibri-emmc-eval-v3.dtb \
-+	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtbo
-+
- dtb-$(CONFIG_SOC_IMX6UL) += \
- 	imx6ul-14x14-evk.dtb \
- 	imx6ul-ccimx6ulsbcexpress.dtb \
-@@ -395,10 +399,12 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
- 	imx6ull-colibri-emmc-aster.dtb \
- 	imx6ull-colibri-emmc-aster-tdx-panel-cap-touch-7inch-parallel.dtb \
- 	imx6ull-colibri-emmc-eval-v3.dtb \
-+	imx6ull-colibri-emmc-eval-v3-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
- 	imx6ull-colibri-emmc-iris.dtb \
- 	imx6ull-colibri-emmc-iris-v2.dtb \
- 	imx6ull-colibri-emmc-iris-v2-tdx-panel-cap-touch-7inch-parallel.dtb \
- 	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtbo \
-+	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtbo \
- 	imx6ull-colibri-eval-v3.dtb \
- 	imx6ull-colibri-iris.dtb \
- 	imx6ull-colibri-iris-v2.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-new file mode 100644
-index 000000000000..14615f3089e3
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 7" Parallel connected through the 40-way
-+ * Unified Interface Display connector and Toradex Capacitive Touch Adapter.
-+ *
-+ * Toradex Capacitive Touch Adapter connection with the various carrier boards
-+ * is documented in the datasheet [1].
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
-+ * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-parallel
-+ * https://docs.toradex.com/104497-7-inch-parallel-capacitive-touch-display-800x480-datasheet.pdf
-+ * https://developer.toradex.com/hardware/accessories/add-ons/capacitive-touch-adapter/
-+ * https://www.toradex.com/accessories/capacitive-touch-adapter
-+ * https://docs.toradex.com/104615-capacitive-touch-adapter-datasheet.pdf [1]
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+#include "imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi"
-+
-+&atmel_mxt_ts {
-+	pinctrl-0 = <&pinctrl_atmel_adap>;
-+	/* SODIMM 28 / TOUCH_INT# */
-+	interrupt-parent = <&gpio4>;
-+	interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
-+	/* SODIMM 30 / TOUCH_RST# */
-+	reset-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
-+/* Conflict with SODIMM 28 / TOUCH_INT# */
-+&pwm5 {
-+	status = "disabled";
-+};
-+
-+/* Conflict with SODIMM 30 / TOUCH_RST# */
-+&pwm6 {
-+	status = "disabled";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-index 890461f92442..aa8ae9418b44 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
-@@ -22,6 +22,8 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- 
-+#include "imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi"
-+
- &atmel_mxt_ts {
- 	pinctrl-0 = <&pinctrl_atmel_adapter>;
- 	/* SODIMM 28 / TOUCH_INT# */
-@@ -33,20 +35,6 @@ &atmel_mxt_ts {
- 	status = "okay";
- };
- 
--&backlight {
--	status = "okay";
--};
--
--&lcdif {
--	status = "okay";
--};
--
--&panel_dpi {
--	compatible = "logictechno,lt161010-2nhc";
--
--	status = "okay";
--};
--
- /* Conflict with SODIMM 28 / TOUCH_INT# */
- &pwm2 {
- 	status = "disabled";
--- 
-2.47.3
-
+Once fixed, my review stands.
