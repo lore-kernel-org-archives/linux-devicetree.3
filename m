@@ -1,79 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794258127;
-	b=ea/i9Jw7e5FLfaPja9avyybuI2HfNhQRchi5VBNBo6WgAODSRPOCVUSyXx127wwDdd79
-	 Fc4YToUA82rpbacx4VW4F39gAyUR9ulQUR6W/PN43gwjlY/5CM6hDgQcj9zo5q1YrHdp9
-	 ct9sup3loexvqmdTChfbOBHLZHxZx0Frsl3VawgUnzr4jqExy4VPFeOsQjQ1vofISDu+2
-	 0WCNDEY2C08AltUNJ981ENwCJuZZJiT/e6IhFEgI3Rc5VsFUKbCJapAXWvX1uUtotMIUW
-	 pa5nxwmiFVbno6dxg042+ewKJX0iT1c99nsawswkFCni2Zhr1uWfAAX95diXuAH9fwg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258127;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dEmDwysiFkC37O/AIPW1WwJc9PVmtQkQhfxMRg9oKx4=;
-	b=VqONobnEbHJUZKGenTHP9uNs4PeErULNI8uJN47Bq7fTf7QdhzBkMZPj7gBeTA8Jog2N
-	 W/7T5fv8mfI6HlBeOp9Kf7lUbO/dUAb+6lkXkYdVWwTwF0h2ZvcsU+HCFuyhtYPDrOfsk
-	 d66G8PvyOxRslCVUrNTIdF5Jj1z/zHOhu7qKo8TqIvFGLCghic3PL1RRCFldxHh1mJKVR
-	 1QRPTJDgFpVZA4i764oTbkHgOGMBhBwXZZIPa/1pfU1+CStI4D0r55Nm6iWcuzeR5c3nA
-	 RLY37bkWXOsIljeMHb5flFjmT0sBpoYeEOk5tMj7HgyhPdLTrqOiG5uRX/Ncmb5Imiw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWj3MRF1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794259898;
+	b=sZkBFTP5+jAjEapqGpk+OcBlR14uqpwW6wqYh/EGD1nT2zX9SpwACxVE4BsABQOqJhbe
+	 DdXubipCq54ZfsxweABprcHU0A2mJDGT6qFPNNyOGM2NDT/hTxroQ6uHW80jW+1A8kYuU
+	 V+F3InkuBHsvXR0W1eJVY8TN62tyxHin3o0DZarUPqrB1ACR7QNQJ9jKwM62HPllXlld+
+	 7N7e7di2gBMXQnoKXJKEc2AHHud1RzfGfwkor/jaf06KSZyOd/7NpwQh1jgNe9JEJNbHM
+	 HcPxXEQkzYkS13bZr73bBMrmF/fCjJH+Y4cpWIembgcIZ3SmDxJ1Yp9aVa1gbMQUwlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259898;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
+	b=kodxMWtmdIc8psOMRxOt45q8vZiPyR1Eh3VAbxIMiJj264iaWG+ZcA5FtES9+jVMoqsu
+	 lFq8ginvXM7oNNX/dmgS82d6+ChFToldrHzhTd5OgN3qCv0A+QWX72AwohrnY8SvFT/Va
+	 8hQ3ujI+V16WqtGgSpO32LVyUVnERiCXPT03JWWDS1SEdNMOCzuXejKKnVAovJZAe3OxN
+	 j0xhVhvtIDWNvZzQs5duf7r3fIQGRPe/jNW/RX5hCz1u6HOI8Yr5rBnAn4r52FIV3JbD6
+	 TQPeTmSRl/e71aaYZIYHgGWguenP/CXnrRxeeGUIpcEwfelWVXbObPswt2E5zmXXA/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA10606A326;
-	Mon,  9 Nov 2026 21:02:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58297606A31C;
+	Mon,  9 Nov 2026 21:31:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWj3MRF1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794258125;
-	b=11sk9D9ruzcBCmP+enM98k1o/hWa58Kba0Nk2bhi8sic9vWpEPF30OyVqfDk5qHgu4m/
-	 YenGjYPNLmlmHqQ4g2CkuLVZKSnK7YYbesfMgfZQH98r13RpzHOtsg6UoXSm9Y+SRC1QU
-	 FXy1neE/n7Dln79AWCoPgbwvdKaiEOOnhFpLi2pCoz3WGM0G2U162oNqlKNvU2ujVv/ld
-	 rhwn39YelClNUf0UKSs1rNXXoehCQPeacIxmGJviPH4rCJG5wbIqqfGqQeTuGZQLvbv+3
-	 2q4TIQq30UyD8VNUEtNvZ+X/ttszk3AU+vaO2X9KXnY9fmzRt+GccT9HDgJ9ZWV201A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794258125;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dEmDwysiFkC37O/AIPW1WwJc9PVmtQkQhfxMRg9oKx4=;
-	b=En7L7vyYmO4C92yZU0R+Og1/U5inekiVljrQevCYT7NfmWL5cfIdwUHqMFtlPhonsR+4
-	 k+ebHMHbK3YLeDUtme9n/5G+t7IEogkoDFAVWWf+WdeOQ7hOYG5UVdK0O09dkYSvG7POT
-	 BY68yYG92q5McmHk2WGR66450GoTeb8O3gljtnIs2PRnqmLEPGYxrOgD8c8yYKXtGlqnF
-	 TvcexYShwVubWFscPx1m8fDp2AzoLpSKiQ7bSDnP3YtCasKehB03/wuKxonyjk/hfa6hZ
-	 OKJZDqb8qNB6MPuHKj2sG2z5GW4yoDBkTlxuUCZvqr+KHWfo2mHhPPqGqFBGOW4c59g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 02B9B1F008A1;
-	Mon,  9 Nov 2026 21:02:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507381F0089F;
+	Mon,  9 Nov 2026 21:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794258125;
-	bh=dEmDwysiFkC37O/AIPW1WwJc9PVmtQkQhfxMRg9oKx4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WWj3MRF1CsS9ekTN5vyqKz6GAcd8jUFwYzxz//21SOeahzRMhbLpxompo8VJ/r3x/
-	 aCMALzfCfgMbsvRHzSyvFnWQ8HKRjg+8TYd5b6JKQHvb6ckvf8TpEWI6sySQIlAEs7
-	 wwESC8yVYnVTZBRV24pxGYR/H/0NrvZPCNqLuOWG0z7Mg2RoLfEiyWLVXtDKshi1Pj
-	 uhedAZzn5hwNILhzmZrOMbzxAASIdt4/1mYogb1PABq+TN81O16aCJ4900vjMmj9/2
-	 YX/NRAWUk7y78sLX/vSAtUlCEarZVH+AkkBv4FThCRhAUCfxfH0BWYvhHpo4AEnAyI
-	 zkK4KxVlDfPQg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69B8448645;
-	Mon,  9 Nov 2026 21:02:04 +0000 (UTC)
-From: Umer Uddin via B4 Relay <devnull+umer.uddin.mentallysanemainliners.org@kernel.org>
-Date: Mon, 09 Nov 2026 21:02:02 +0000
-Subject: [PATCH v2 1/2] dt-bindings: arm: samsung: samsung-boards: Add
- bindings for SM-T515 board
+	s=k20260515; t=1794259898;
+	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=mCzhRyZ+wwhJJGibEXRKXuBZtQz4qUFVXIk74vVhWIPQA32tx8NBVYHdT3qb3a5kw
+	 z48+hw4FvLI1fapT7DbV6sWvt2t+9Qe+F1qsa+Mdn3g40jQ0rPBnWsh7aQqtBHsys6
+	 g1ebrARLWRxH/jQWYFGF0GZa5+nG9qWWgSzTqhJTWsAmk8A+StNDuDaAQyMIF7eV8B
+	 5abeOBvCj/VrkMHnLkridb1GLGM5eX0cKEXMgPMdVmBr+/Y0brbwYLgp0h3s3+3/bX
+	 d1U0yMMqUGb4gTmSbe/SMUPiABVuZ2ZBFx1YnDS5YpPHS7HMtfk+vmGkd2ShIqy0dP
+	 eMltTBWWZlacw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 2842C3021B8F;
+	Mon, 09 Nov 2026 21:31:19 +0000 (GMT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,55 +53,171 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-gta3xllte-support-v2-1-85c31b6efebd@mentallysanemainliners.org>
-References: <20261109-gta3xllte-support-v2-0-85c31b6efebd@mentallysanemainliners.org>
-In-Reply-To: <20261109-gta3xllte-support-v2-0-85c31b6efebd@mentallysanemainliners.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Umer Uddin <umer.uddin@mentallysanemainliners.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794258123; l=932;
- i=umer.uddin@mentallysanemainliners.org; s=20261109;
- h=from:subject:message-id;
- bh=rPHV+1f50EZ85D3csJMso8rMA1UhcD9FsDkCoV1Wx3o=;
- b=zUnWIrqvadiWfBOS7sVKmVI09UnbwQgEzT1TCWU/YJA2x+FMIDqrTIJwAk0MNH0+YVgWpLN9l
- xhuGqB0AkYwDYLxonFJPW+ZK1pX9fkNKksjEeJaueAvFfRf/pf93k2I
-X-Developer-Key: i=umer.uddin@mentallysanemainliners.org; a=ed25519;
- pk=Hsgrt4A72CFTe27AI1AAWlnLsiQrlb4+T+cbrfWDhUA=
-X-Endpoint-Received: by B4 Relay for
- umer.uddin@mentallysanemainliners.org/20261109 with auth_id=1466
-X-Original-From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
-Reply-To: umer.uddin@mentallysanemainliners.org
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/2] ASoC: airoha: Add support for AN7581 PCM driver
+From: Mark Brown <broonie@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261019232412.516028-3-ansuelsmth@gmail.com>
+References: <20261019232412.516028-1-ansuelsmth@gmail.com>
+ <20261019232412.516028-3-ansuelsmth@gmail.com>
+Date: Mon, 09 Nov 2026 21:31:18 +0000
+Message-Id: <179425987829.3711751.2911706702501919873.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4541; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=TxbeNRoApeZMXmEGvJ/B2ZT/ZxuqSXWwNg+NhfOldYg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+WS9X2GcV/NPVyccmmtNmu7PxCv2MNqFJ1n6CsXHfb
+ 22ovmfeUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgImoGzMyvHob0KX0TJa/KWM5
+ 71b7ur3cczaw7lN8mRD1QEtY9TuLO8M/Xcew9MiywG1sVeKNqdKMRjN3fEiovPuxqPnKCeXoPZp
+ 8AA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
+> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
+> The driver configures the PCM bit clock to 2.048 MHz and supports
+> 8-bit and 16-bit samples, with up to 32 channels.
 
-Add devicetree bindings for Samsung Galaxy Tab A 10.1 (2019, 4G) board.
+> +config SND_SOC_AN7581_PCM
+> +	tristate "PCM support for Airoha AN7581 chip"
+> +	depends on ARCH_AIROHA || COMPILE_TEST
 
-Signed-off-by: Umer Uddin <umer.uddin@mentallysanemainliners.org>
----
- Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml | 1 +
- 1 file changed, 1 insertion(+)
+This needs to select CONFIG_REGMAP_MMIO.
 
-diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-index db19a686f490..6ac7f895351e 100644
---- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-+++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-@@ -226,6 +226,7 @@ properties:
-       - description: Exynos7885 based boards
-         items:
-           - enum:
-+              - samsung,gta3xllte               # Samsung Galaxy Tab A 10.1 (2019, 4G)
-               - samsung,jackpotlte              # Samsung Galaxy A8 (2018)
-           - const: samsung,exynos7885
- 
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/pinctrl/consumer.h>
+
+These aren't used.
+
+> +#define     AN7581_PCM_BIT_CLK_1024KHZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x2)
+> +#define     AN7581_PCM_BIT_CLK_2048HZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x3)
+
+Is this really 2048Hz, not kHz?  
+
+> +static const struct snd_pcm_hardware an7581_pcm_hardware = {
+> +	.info			= SNDRV_PCM_INFO_MMAP |
+> +				  SNDRV_PCM_INFO_MMAP_VALID |
+> +				  SNDRV_PCM_INFO_INTERLEAVED,
+
+The pointer callback works in chunks of descriptors so you want
+SNDRV_PCM_INFO_BATCH as well.
+
+> +	.period_bytes_min = AN7581_PCM_FRAMES_PER_DESC,
+
+This is using a frame count to specify bytes.
+
+> +static int an7581_pcm_setup_time_slot(struct an7581_pcm_priv *priv,
+> +				      int direction, int bit_width)
+
+We don't have anything constraining things so that the slots fit in the
+BCLK.
+
+> +static int an7581_pcm_fe_startup(struct snd_pcm_substream *substream,
+> +				 struct snd_soc_dai *dai)
+> +{
+
+> +	/* On open mask interrupt and disable DMA */
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
+> +				  AN7581_PCM_IMR_TDESC_UPDATE_INT);
+> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
+> +				  AN7581_PCM_TXDMA_ENABLE);
+> +	} else {
+> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
+> +				  AN7581_PCM_IMR_RDESC_UPDATE_INT);
+> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
+> +				  AN7581_PCM_RXDMA_ENABLE);
+> +	}
+> +
+> +	usleep_range(10000, 20000);
+
+That's a fairly long delay for a digital part?
+
+> +static int an7581_pcm_fe_prepare(struct snd_pcm_substream *substream,
+> +				 struct snd_soc_dai *dai)
+> +{
+
+Note that we redo prepare as part of over/underrun recovery - we should
+reset the hardware position as well as the driver one.
+
+> +static int an7581_pcm_fe_hw_params(struct snd_pcm_substream *substream,
+> +				   struct snd_pcm_hw_params *params,
+> +				   struct snd_soc_dai *dai)
+> +{
+
+> +
+> +	if (priv->users <= 1) {
+> +		/* Setup Descriptor size and number */
+> +		regmap_update_bits(priv->map, AN7581_PCM_TRDRSR,
+> +				   AN7581_DESC_OFFSET | AN7581_DESC_SIZE,
+> +				   FIELD_PREP(AN7581_DESC_OFFSET, sizeof(*desc) / sizeof(u32)) |
+> +				   FIELD_PREP(AN7581_DESC_SIZE, num_desc));
+> +
+> +		regmap_update_bits(priv->map, AN7581_PCM_CHBFOSR,
+> +				   AN7581_PCM_DESC_CHBF_OFFSET,
+> +				   FIELD_PREP(AN7581_PCM_DESC_CHBF_OFFSET,
+> +					      AN7581_PCM_FRAMES_PER_DESC * bit_width / 8));
+
+This is a little confusing, the driver says it does interleaved format
+but the offset programming looks odd for that?
+
+> +
+> +static struct snd_soc_dai_link an7581_pcm_dai_links[] = {
+> +	/* FE */
+> +	{
+> +		.name = "an7581-playback",
+> +		.stream_name = "an7581-playback",
+> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+
+> +			    SND_SOC_DPCM_TRIGGER_POST},
+> +		.playback_only = 1,
+> +		SND_SOC_DAILINK_REG(playback),
+> +	},
+> +	{
+> +		.name = "an7581-capture",
+> +		.stream_name = "an7581-capture",
+> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+> +			    SND_SOC_DPCM_TRIGGER_POST},
+> +		.capture_only = 1,
+> +		SND_SOC_DAILINK_REG(capture),
+> +	},
+> +};
+
+This isn't actually a DPCM driver?
+
+> +static struct snd_soc_card an7581_pcm_card = {
+> +	.name = "an7581-pcm",
+> +	.owner = THIS_MODULE,
+> +	.dai_link = an7581_pcm_dai_links,
+> +	.num_links = ARRAY_SIZE(an7581_pcm_dai_links),
+> +};
+
+This should be const.
+
+> +static irqreturn_t an7581_pcm_irq_handler(int irq, void *data)
+> +{
+> +	struct snd_pcm_substream *substream;
+> +	struct an7581_pcm_priv *priv = data;
+> +	unsigned long flags;
+> +	u32 status, isr = 0;
+> +
+> +	regmap_read(priv->map, AN7581_PCM_ISR, &isr);
+
+> +	if (isr & AN7581_PCM_IMR_RDESC_UPDATE_INT) {
+
+> +	if (isr & AN7581_PCM_IMR_TDESC_UPDATE_INT) {
+
+> +	return IRQ_HANDLED;
+> +}
+
+This unconditionally returns IRQ_HANDLED regardless of if we actually
+found anything, this breaks any potential sharing as well as the debug
+and robustness features of genirq.
 
 -- 
-2.56.0
-
-
+Mark Brown <broonie@kernel.org>
