@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794240054;
-	b=3KJrHb0jCBWmdKJl6gzS7tE98YxOlMb1ncqG5+bHWj2m9fu1lqmkYSx3ptzR1zr4y+zc
-	 KBlD11yqrz4cUv4S2oRmiOB2bVlRLyzdH7UHi36jtfH0SUpmPxQU9TSCo8OjLscNyMTbb
-	 uOWeVNEVVkL1Fm4TaqF7AX2NX7gCAlS4+tIHCa6V/epl62ILkO5RLNWn920KU8N+QbMLL
-	 /LZh5Yb/a1pYNykLz++cMmfgR4sOEXGAc+4IHiQro632m8vXQ/IgZcrfZxT4trD+lc6yt
-	 7Xsrk2rnqg/PzbJUfJ+43NS+fszletZqkugILO4Qdf8QOO5zyWgOOjTds7N+EnSrcMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240054;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794240431;
+	b=p4IqwZx+w2Qm03PJ1biHWSDgkRlA1AwzEou+ZB9y1EDWtlgHPw4hQRBNOmSqtJ+DCHOk
+	 PXS2XgyvSThCuQEj5TOvlZoGnFvTy1yN0+SxSQVirWxMj1ntTf5gYPe8Hco4zLAKsaz5e
+	 0u5IN5LHAOb9mLuBT2pDPtmYg1mIgwyjqV5fk7btRLg9NWnlWwJQiJyDVPpOPnqmssSAZ
+	 qbJBQQIYwBwClyXb1xUWs7evX4vhu9P5bHUOEmMpeYwV6mv6l8AB3x2/ZGDHD/GPEf8/L
+	 8JZ94BLRJkNB0ftKu/TMcqJTuIt76U10yfFgwA7Cqfyozeb4q5oHsRAf1QqyncZ8QMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240431;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=zUAAWlNbR6q9k12Xva7G11dNMgLZ5tfgag11tYRdXFs=;
-	b=WK7+kQKMmIAiuDcBZG+jijFwaxl4JpGWyNwPbR/r3ezvdx3T6LbvvsAEGQgcecyWEQJS
-	 YEzGc7jbr7iqY9V4RqQFUZ76YQhV0rToxV48eWkTfFWcHxdaleaenVMM9vFQtHaNom9XT
-	 uwCwJPfRD5bPCjTAYrTZ19rb814p9dcTG4ZR+8biRPcDJtIy68ewpzcpMgviEPKpFZBCr
-	 6PAh3/oclMRRR6GPwGbgbs2pGKwqLKoavPxLeqfOzuQaYDtym+9RAx+noppy5ZHKFj0zZ
-	 pl+fL3Z+WcO4Spl9G7nxotiG3YuKqo2BFoGcNvKe2+DItLTm3SUsRdP+I+65+sltTrQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PAVOiEo7yvU59/BVYzddko8QH5/O/35Z26C3YJ1MLT0=;
+	b=EXKFuM8UIlbo4GdYEpFcHJWoiXb5U6d+hT3k6vuOvLhLqxJG/5mNacn3Z4ELYWoSseW0
+	 xZ0j+CqimGl+jOhdbEPFmRsRGJSXpoKMmqDWrXDqTqBvl+DM5BzMwMQcZ574xexHamaIB
+	 yNnubNMI0CxQj7YiUY4Yfgc5cLVQ6gz/gURON8Irq+DPMwubBrIuhYq/8wJ0y3lzcZdgM
+	 +4GMVz7hXZ6Q4pYB2Hbv204l49hkf1lDgGnR0QtjPCvO3+vLjyzEYuVvs/yTd/bSAEdLr
+	 u1AFva2OJmcPOODaePlU7TC994o5qVnwYCaZVH25ND8OOt8UIQzZhh8pzNq+7X8848A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XsshOqMz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sqa358sY;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D71606EEA9
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:00:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64D71606EEA9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6805606A326
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 16:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6805606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XsshOqMz
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1156046a12.2
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:00:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794240052; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HrQsCWDRHYSMpnXW7tIacw0DWxHm2N28bc2WwUX7jfrhqvmShBYdFT+X4U6wTTgiK6
-         1R/2QufnxMgKaZb3Hc4/FRFrOT2KEFgNQCvLF4Y1s3R5tlOEly0TREWBTxV0OgXFVHaV
-         ck6QzNMysTQOKXb/CIU9F8WfzVOkDUs8MRH8GSP48V+OY+P41kCpzCNujnjzVRvoSUUn
-         jgNLdL5GUf8vZVHFMEL9IKtQ9axWC4FUPkPFjpa7HEUOaRvpFHHy8L6LH6M8JfQLG7/M
-         N/HZJnryyEkWCOy7QOz7eO5lhAtbIvgD+kWTv2tmpg9PJquVWJnxNz/WMUkvIAxoLpsJ
-         X2EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zUAAWlNbR6q9k12Xva7G11dNMgLZ5tfgag11tYRdXFs=;
-        fh=WzYbArdc6/2mvNpuXc/edXaJyqqaiqXRYJwWDbBPLew=;
-        b=Hv70OKT7o/6Bi5anLgk0nRiffPBvuyc+9V9KP0ypyix66XgjX/Weo7JGmR1PUAgnNc
-         X/31Nkyj3xJ2uErsCATquOtUz5LCl/sdh+Wrdz1fPA3qljGu6qljeOGdbRPXJj+DPYfQ
-         odeMoY3RB/dt5wBE7KfGm1Jogz14n4ClO4cpno1L9OD/S3PspdJnIzlTP78Ibw2v/p7f
-         yM2J6xFKv0th8M9CFPhYfJ99IqpnDZmdl3AiA3XynkzDd9+odRLnhPVFPAwKuyhVJJZ1
-         zCIPH2ODazIDZ7YRP/9/JaCx6YKHulnihaQCXDZmb5eBtOtazh5b5MPzTph2XoDQPYFg
-         9WYw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sqa358sY
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15425215e9.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 08:07:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794240052; x=1794844852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zUAAWlNbR6q9k12Xva7G11dNMgLZ5tfgag11tYRdXFs=;
-        b=XsshOqMzA4g7VkUFJSMBdIgw+TyNKoOTeZcdXvA2/JueLosVVFf1C1anFVPFqzsdm/
-         +il24/vmlBaJ+7GEebvhk8L6xeucLXfjMgk4BCtasOETmK2ilY0mnGPZJiMUCECbmIOT
-         qh5NN0+nRWZcTbaiPUHeRJDKjbLLCNKGkgeHK/ulASwD+SBj0PafYUVdA+gU/Zk9PmDe
-         sKkXNPtxtGoHTWYE2OJRyc/+zykR19F3iaUdLi/Zy78CpfTt4Q6And+Wj4tufyBodwVc
-         ctKxYkiw3BSI0Tx+qZwpeeuCXN5Fwat8kOF+OWPx7UHHKkU9mMIV0n+rYKpkal3eyCj/
-         71Pg==
+        d=gmail.com; s=20260707; t=1794240429; x=1794845229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PAVOiEo7yvU59/BVYzddko8QH5/O/35Z26C3YJ1MLT0=;
+        b=Sqa358sYb7vDClaxbVoF/6a1DcYEcMdoUqLa/bldz4TkukcBnj/4j1SBdcQdsxrTVO
+         Tj5z+YqSHxTDeMLh9lQB9l2MWsLj+PoocVMw4V/gtIlhvWN8RZh1N6//6nLhuxinjDvr
+         hszV/LqdMCEePdts2i6OGA6Hd6Ksy7InsuWLKYZck3Zmj6PUNV7Xtbp4xKSfRPInT0ts
+         ZYBxK9dNRs/6xayKxgIto2MTNWoihDjf/3tfLvTn32LIazVlG/TbtHriVKDBBdUN5dYk
+         idr04ABO9NW++emuaZSQCmGlFYhBd1ZEVSAO4QTWWrbPu/NtUcDJVjCkAx11YyBQJgDX
+         a4Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240052; x=1794844852;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zUAAWlNbR6q9k12Xva7G11dNMgLZ5tfgag11tYRdXFs=;
-        b=UhsErI2layc07lJtmh2IIP1mGmb/til3fG0fteD26vKi/Q+88pfRH626KsjUatNUWs
-         ZjgeHS1/VdoEbLbV9Tt6QNY2lKv0n8zGAdRMKDn2wJZMZ83R1RF+EYU0N/nTF+Rbil5l
-         l9PPnpiMSZnMLWu9+Y567IYLemnKAq6XFyj2/53JwW3ZZxjoJYqQNHRwf0TTS/lkwREi
-         xT7aTqst5Ssyl5RC6z/dkWxQKReWO1oiIea2QJcnYXRwMPrOO9S0zTDLWGXPyj4raVYz
-         QUkgFeP4LaFI7SIj8rJS0hFuZC+kIxnyI/ZQAfGiGHxbcv0PXFZKFtmsdAJo4Z1n15C+
-         Wz+Q==
-X-Forwarded-Encrypted: i=1; AL+hErGDezZFoMeDzy+e6+K8Ar+5AvxgQVLEW+W6aF46qcX/wtsCgyid2xBwMDTRirD8mIUv3CQW9bF/3DCo@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/Ti1CuBTJoR+lNZ0erWmbDWuVaSOAQF6GAomNYcgwyVuaRAw6
-	2brO5bpCEKb98naK4NEKafe9VVfVViQJIJS06YpIE/fJ0QWApzSzBbaMvveSu/KTJvGaLrgy9oq
-	ppM1c3UaPogaIeNJoPnEk8GStZbgXVa4=
-X-Gm-Gg: AYBFou3jLF2Ri+TM7ynl/xGYY/8yEnYNpu0FTRkO7Y4IwsyOPy7Yq+FYPffFKEdSV36
-	vpKDMnstbLBicLPwOypF8+ouhEPGe7Qp2VJadl10WHwo8dx6FwEa2hPf/xcwaScH5mYRCDsIbgM
-	lBwG2qb3ll/5ROBz1GX8LdITnzV1J9WEiYVHhOLg0tOwUbrtzcB8NE285Kz5NBYd3TAvC/NeOVD
-	2m0xCqrMyivGhamgRJLMZ4P/3zHx2LVHlGU9peAL+0EibFv376aO39GM2c/KjQSopVVPtWgRn+h
-	zf2NqLi9ngRsjNQ5A2dUlxWH70nXl+0wEehLFDIn/yPvMNKE+PgNCPgvOAlfCs04kvY+ykuYY4O
-	pDYZaLg9Xq44fVMP2/6VIccTQXb2hwYgElstPpQt1nptslpX7BKHSrgcYV8hlysktDT77NmoMxT
-	F1sXbwhaGqr5X+EtiBVa0/DvugxKfPc0daZSSsKqzF2DkXkKFT7qjLKLwY1w==
-X-Received: by 2002:a05:6402:3908:b0:6b5:47d6:a8b0 with SMTP id
- 4fb4d7f45d1cf-6b756afd795mr8207a12.37.1794240052060; Mon, 09 Nov 2026
- 08:00:52 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794240429; x=1794845229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PAVOiEo7yvU59/BVYzddko8QH5/O/35Z26C3YJ1MLT0=;
+        b=2LJ+NStxE5c8dlWac9227yjBiNRtznIQUb/6KG6dtKuFkldDcLVGKR+VGjHatGzVw6
+         84KbzQdz9XTCZx7c8o50Mdbtfjd3Gge63qgWXEeLnu4uRTlCX1kzBXdfsw68x2bS0Uv2
+         k9WkMlAsN2Jkp/V1wjkK39GtdrY0xEFZU7tlKQvX/tMjga4I8bTGFrpY0+FepY1VbKag
+         11MwvQDt76N3YW7pk+gRbdewpFJeNe6Vhk8xjeTXiMubpcmTCrHMtJVGNR7f3/K9qI57
+         pOjMhnVCHuYuf/Tb9HEFjb5oT+VipiUiKuo7rtsJ4aECa/cUUg1H9iZTPFNphngAUJEL
+         JwTg==
+X-Forwarded-Encrypted: i=1; AL+hErHK/Bd1eIqFrONEz5UE8J4wWYYtYWkuZnoU6KeZdzNxRSmhiBLhFbMKoq3381BCHviaIzxZ7WsuXANk@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NMH2cEBC0oTpFYUUFnUyVV3XfHWTXx8Os+z86msI5wuBgVRwb
+	nSsiG2lWCBWg5tRGibh121eP1f7RH2QPPtCt/UOS1/5z6b/fbcpfd58K
+X-Gm-Gg: AYBFou3K91dR7XmAqLXC2uEnwiTTp9SZpN8zuapj9b41Hg+A+nH3PwvM21btujzEbtn
+	0DVcN2VAxW8XXgUJqiRMKCLUU7MDA2jMYHOfiQQ1YETkUXVM0kXNRxTPDT4KKMxRhUyxwsJurHe
+	mB6SHNd9GM4pvy5dvtt/yN/FjEISFHzvI66/r0DQulCFtkt1H4SsNIrIax7xHB1HRPvg4C5WY87
+	mV7jBB8tkH+dxvFOSu+qNKJu51RUZ1rtZfpTmh6TG+iQ7woFAo00/Eb6YfDAut8ryPtclUKM1an
+	AhWQTy/FrGMsVlkY9h9rnT87jINQ66npohgSL/QqwhcuPcT/1wrdmx+x8nKJMdAwzJSUqZKlXdQ
+	YpjJzxqjNzYR+0y9TAZe26Gbt5FV2VcZUdxBsvEaOWrx/++UGzybM6BDak6NmIcJdIH9A6+Q2Wt
+	Km7pIvpf3n+oGH75BoKFQvSiiiItcPQ7dgrtzwHRZyBYMZ0o9nQ3aUm5ZDG+N9qUQNjj9ffVdGf
+	Bxw2uCazZxxEIIQB0vKk4E3+vGTegiANI1JkCZ4uXk5CeXl/UkHBpktvYHcD3TonlUV06I6u/2Q
+	8ODvUqoHxbQVN7UFwhvmhoRqKh0LDmer/JzcXRrODBMC9Q0pd/1q7Pqp/dljC74N4JMS95ElZgh
+	RI07/wwXZ8SrAzYcb9VgzV447uTTqGryuGDSOxM7tKw==
+X-Received: by 2002:a05:600c:4f86:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4b960d9b17dmr83943565e9.9.1794240428927;
+        Mon, 09 Nov 2026 08:07:08 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:863:742:6109:ac9d:152:38c3:6463])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f119b96sm159174245e9.15.2026.11.09.08.07.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:07:08 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Igor Reznichenko <igor@reznichenko.net>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: [PATCH v2 0/3] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+Date: Mon,  9 Nov 2026 17:07:03 +0100
+Message-ID: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,121 +107,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CA+V-a8u-3NFryZA_8GN=fR09+fcyvNGLMV-09z-mPXTePxkgvg@mail.gmail.com> <744d20c9-9aa2-4f3b-b42f-cfdd0a17da65@roeck-us.net>
-In-Reply-To: <744d20c9-9aa2-4f3b-b42f-cfdd0a17da65@roeck-us.net>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 9 Nov 2026 16:00:25 +0000
-X-Gm-Features: AclHuK9DoJ0CyffK9_ibsQ9MndPimemnqbVSvRuC8icXaKh7HkxYXoo5YAyMhM8
-Message-ID: <CA+V-a8uHLK4-GFhWQO96yHBDzXYXQ+aggbWfskzXsK_17dAKCw@mail.gmail.com>
-Subject: Re: [PATCH v8 0/7] Add syscon support for Renesas WDT driver
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Brian Masney <bmasney+clk@redhat.com>, Stephen Boyd <sboyd@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Guenter,
+The Miyoo PocketGo S30 is an Allwinner A33 handheld with a 320x480
+1-lane MIPI-DSI panel built around an Ilitek ILI9488. The panel uses the
+existing ILI9488 DSI driver with its own init sequence (from the stock
+kernel), timings and DSI mode; the sequence is close to the
+E35GH-I-MW800CB one.
 
-On Mon, Nov 9, 2026 at 3:28=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> w=
-rote:
->
-> On 11/9/26 04:27, Lad, Prabhakar wrote:
-> > Hi all,
-> >
-> > On Thu, Oct 1, 2026 at 5:52=E2=80=AFPM Prabhakar <prabhakar.csengg@gmai=
-l.com> wrote:
-> >>
-> >> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >>
-> >> Hi all,
-> >>
-> >> This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs=
- in
-> >> the WDT driver. The WDTDCR register is part of the CPG/MSSR block for
-> >> which the CPG driver registers SYSC regmap. WDT driver now uses this
-> >> syscon to access the WDTDCR register.
-> >>
-> >> These patches were part of two seprate series [0] and [1], out of whic=
-h
-> >> certain patches have been queued separately, so I have included rest o=
-f
-> >> the patches into this single series.
-> >>
-> >> Merge strategy, as the WDT driver now includes renesas.h header file,
-> >> the driver patches can go via renesas-soc.
-> >>
-> >> Note, patches have been rebased on top of next-20260930.
-> >>
-> >> v7->v8:
-> >> - Dropped patch "watchdog: rzv2h: Drop enabling clocks in the
-> >>    restart handler" addressing Sashiko's comments
-> >>
-> >> v6->v7:
-> >> - Added a new patch to introduce rzt2h_cpg_wdtdcr_count_start() functi=
-on
-> >> - Added new patch to drop pm_runtime_resume_and_get() &
-> >>    pm_runtime_put_sync() calls while accessing the WDTDCR register.
-> >> - Dropped propagating WDTDCR access errors.
-> >> - Dropped converting WDTDCR handling to regmap as this would require
-> >>    resource address comparison to get WDT index to call
-> >>    rzt2h_cpg_wdtdcr_count_start().
-> >> - Made use of rzt2h_cpg_wdtdcr_count_start() in restart handler
-> >> - Added if regmap is available, use it for WDTDCR access
-> >> - Updated commit message
-> >>
-> >> v5->v6:
-> >> - Used pm_runtime_put_sync() in rzv2h_wdt_stop() function.
-> >> - rebased on top of next-20260922
-> >>
-> >> v4->v5:
-> >> - patch #1 is new addressing Sashiko's comments to avoid potential dea=
-dlock
-> >> - patch #4 is new addressing Sashiko's comments
-> >> - Dropped checking rzt2h_wdt_wdtdcr_count_start() return value in
-> >>    restart path.
-> >> - Handled the regmap locking in the driver and introduced nolock
-> >>    version to be used in the restart path.
-> >> - Added review-by tag.
-> >>
-> >> [0] https://lore.kernel.org/all/20260817192540.423994-1-prabhakar.maha=
-dev-lad.rj@bp.renesas.com/
-> >> [1] https://lore.kernel.org/all/20260814191415.2110732-1-prabhakar.mah=
-adev-lad.rj@bp.renesas.com/
-> >>
-> >> Cheers,
-> >> Prabhakar
-> >>
-> >> Lad Prabhakar (7):
-> >>    clk: renesas: r9a09g077: Add helper to start WDTDCR counter
-> >>    watchdog: rzv2h: Use pm_runtime_put_sync()
-> >>    watchdog: rzv2h: Drop WDTRCR_RSTIRQS define
-> >>    watchdog: rzv2h: Drop runtime PM handling from WDTDCR init
-> >>    watchdog: rzv2h_wdt: Add syscon based WDTDCR access
-> >>    arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR acce=
-ss
-> >>    arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR acce=
-ss
-> >>
-> > Gentle ping.
-> >
->
-> No feedback on the first patch of the series. If you let me know which pa=
-tches
-> don't depend on it, I'll be happy to apply them. AFAICS that would be pat=
-ches
-> 2-4 ?
->
-Yes, that's right. Patches 2-4 can be applied without the dependency patch =
-#1.
+Patch 1 makes the binding's port optional: the Allwinner sun6i DSI host
+links its panel as a child node and has no output port, and the driver
+does not use one. Patch 2 adds the compatible, patch 3 the panel. The
+board devicetree will be sent to the sunxi tree separately.
 
-Cheers,
-Prabhakar
+Testing: each patch built with W=1 for arm (multi_v7_defconfig,
+DRM_PANEL_ILITEK_ILI9488=y and =m) and arm64 (defconfig, =m), no
+warnings; dt_binding_check clean for ilitek,ili9488.yaml. Tested on a
+PocketGo S30 on 7.3.1 with v1 (A33 sun6i DSI, one lane): the panel
+probes and attaches to the DSI host, and the picture shows the right
+colors, size and position. v2 only renames the compatible and edits a
+commit message.
+
+Changes in v2:
+- Drop the "pocketgo" vendor prefix patch: PocketGo is a product line,
+  not a company (Krzysztof). The S30 is made by Bittboy/Miyoo, so use
+  the existing "miyoo" prefix: "miyoo,pocketgo-s30-panel".
+- 3/3: drop the claim that COLMOD sets the panel to 6 bits per color
+  over DSI, only say the stock value is kept (Igor).
+- Add Igor's Reviewed-by. I kept it on 2/3 and 3/3 although their
+  compatible changed from "pocketgo,s30-panel" to
+  "miyoo,pocketgo-s30-panel"; nothing else changed in them.
+- Link to v1: https://lore.kernel.org/all/20261103110524.2812831-1-romain.tisserand@gmail.com/
+
+Tool disclosure: this series was prepared with Claude Opus 5.5
+(Anthropic) as a coding assistant, in an interactive session: it
+extracted the stock init table and timings, wrote the code, the
+bindings and the messages. I reviewed and understand it, and tested it
+as described.
+
+Romain TISSERAND (3):
+  dt-bindings: display: panel: ilitek,ili9488: make the port optional
+  dt-bindings: display: panel: ilitek,ili9488: add the PocketGo S30
+    panel
+  drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+
+ .../display/panel/ilitek,ili9488.yaml         |  2 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9488.c  | 55 +++++++++++++++++++
+ 2 files changed, 56 insertions(+), 1 deletion(-)
+
+
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+-- 
+2.43.0
+
