@@ -1,128 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216430;
-	b=pBs/5S3J/zPGFJysi+P14O+mBmuj+Xi/RKkqtH59MXIlcy2n6iD7oklSZHu7yDR+ke+6
-	 Srd7WiuESv6c5tapGhFcSRCYsRH0KBJrRYBLxEBO1jXntkHl7dY5yBG4itsH22x2KThfW
-	 W043K75r7mUo7x87H4+CwvS8pTrGh284TLTFu8jEaBTod4US30s5QgWxywIO7KMTcFvkT
-	 hePwxIAcdLj+upd8jLsqDtbZ7NRwnXi6s8vqSPaCFgN6iUH9v+GwOPk4yTSesncYhe4QZ
-	 GDKacjRt7F/+zKDcdaOw+P2sIDf9lCtbveiv61Ou7sFPdUGMQWF8pfv++DNlRoanQVw==
+	t=1794216856;
+	b=KnbMqXj05euiDNcvTnrzZcT/J2MEiiosUEHz8HmAmreNJeFF7zP+42VRIy/RPg8r28Q/
+	 BpJ/9/OKMyLHEBr+4H8XbsXIvxLyarI7+AWjf/EkriUtx2NUqQbbdUdEkY5WsWiibYVO7
+	 NCc9Cf0q9YecXwT1yME6kYPLvgl+4tbySM7WJHIcen9k+ToG9D75kyE1WeFffreJj/O7g
+	 zEZbrQdfrqlsPA5B7cyAxf3cZhSvzuO3DCm2y7X+oYuK1PeKF87l/ecMPm/6r0/J6xOGL
+	 xn2QeMjFb3AHMbvYfPwFnK7C3jYKefnSiP4vZk/1z65qrNuc4Uid74AWSKZZT8+ZcMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216430;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=k98AldNnLDpToTE1usQ6ljOvdKlSyqcs1qtKA1cJ9KA=;
-	b=y8ZJB8Rfyejkv705vyYcldjwcfAdnDNTFAh34T93MXnVtBeT7WBhgOH8cAme44lW+8Y6
-	 WESg2a19xVVA/vvb49HPH8P5KMBCF1ht+ZsEJBUb+6sX4yMLs7x9ZyUsNqYOq/9j3VdJ+
-	 Mn9y1hkkAbUT2vvPLGGG7Npl7tW31UOP2si0hD3zusmKSD2QHnAY+Pn/r0702MZ8h7vGJ
-	 phYhzxhuNHLafWCSP1uCpGJr1UWCnRAknI8NC0WEucdoxFcGUggFbPkfbI5n72in67vbN
-	 1FDgh5NiO+EDwhYN3748QvURh8b9lurCpdyXeXa6BH+5wAsXhRxajfHhQyI7caKyHHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216856;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n4GaosAghDqO6pAayHdy/5ViKOQOZe9uvaTY4SQf0mY=;
+	b=LkTeb4cpJHDpJ3o4Necjxqo+lZ5nF/xI68qDJZLp8SeQ2m1ycNoR41Gz/HN0Ejp6+ff7
+	 /xTKLicGldHS9W/Ph13hRAd7LdRRImgL3zP6cVNZ2pYcZ1g2FrzzSz7xETsCCSjs9oP3b
+	 eacUrfMkGWXcdoabvpHF2fXqKTyp48HhY3PlXQ3KT4rnoI2i+UEee2WZTL5JaxuH2XY6p
+	 pUDjtSuJp07NAiY+k9WTbpI7TkvM8dYiJI2a9jCllo5tlRxeFHLOQfzKPMj3cqLGm1aEM
+	 gWzTrInrGb9k7oAUsgU2R/bexI57V/W4+e/X7+xCm/w1xGYYj2H2R2t5VR665EOg1jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gKMQwUUU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aS+CbvMl;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jmkDiJoQ;
+	arc=none smtp.remote-ip=79.135.106.119
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4BD606A332
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 09:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C4BD606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E131C606A325;
+	Mon,  9 Nov 2026 09:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E131C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gKMQwUUU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aS+CbvMl
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A56D3298468
-	for <devicetree@vger.kernel.org>; Mon, 9 Nov 2026 09:27:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=k98AldNnLDpToTE1usQ6ljOv
-	dKlSyqcs1qtKA1cJ9KA=; b=gKMQwUUUEeo+I3aMqxy/wLQMDWMf3z2dG+pM9i+I
-	V9+diFjLR/XeoZNRr3PTTXwE+xloGrPDuuhtRIEePQt3y5Tq92n6Z4K6PWB1wqYa
-	NG/ieTLs4M0FJisJp79ntwFPFDLyfBsasZ8wYqZvsS8pdl6K+yYBLCApF/vf/lmt
-	vluuc4pV2/bi0p1Fb1/AnqRXtODTQ5/TTZSLoPGNAaq1vIIf5Ue8syUDRdqXggZN
-	SkCqZ/9YDkZxPyGmbrAAnRGS7Jq87wm1yrn5OQUS7NeLEoSe8CfFGN0KA5tXpTI3
-	N5YDl3DxaQFfBXRDWnPlLZ8cVn2sI00GydtCUfFATo1dPA==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsuagwr1m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:27:08 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99077a0be0bso301832241.2
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 01:27:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794216428; x=1794821228; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k98AldNnLDpToTE1usQ6ljOvdKlSyqcs1qtKA1cJ9KA=;
-        b=aS+CbvMlvbFzd0c0FE71ZGbrUiKGQg1bDxDPdeYpFFlE09m0vSOVQ6VTdxJ6dvVdHd
-         PLt40791iu19ixjtx/1KALJg3yi1yK+2TGPMmp4yVg7AXvG5OCkIZaoHDJZKf1w5AgaN
-         wA5pcUXPIexCRKSgeafNw28R1PurxkWeG/sGNAdp/W/PUmf/HbCH8AbmbJCC7tLIiRoo
-         TTD5XXo9HCPMXHm7JXJ2bOUqKd/6FymIS+qyaVU+PMVHLRRc8v1Zp6H6pmwa/ZN9XvdE
-         fLZZ2I9GLcRDDFMYJvOq/aVBJsRSFyx37D52POl7Lwvy5TrIbRtH3Nn7GJqGUIpFA7NV
-         9yEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794216428; x=1794821228;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k98AldNnLDpToTE1usQ6ljOvdKlSyqcs1qtKA1cJ9KA=;
-        b=kC5edfFA1pte0XcSkZA/XWd6ndjKOlOghkPVmqMPZbsmHCrc1r4Y1sNfAtXZaafznw
-         3dzyr6Xfe5PlCdPRoa3A51CbN10cswR0N4ob4zkwXZUoAUWPIAtZSKBZNbSevtYTwk6x
-         wD3vL5i10TeQbQS4iGgTARt4NoDgTm9LlkoOi/AGthQbrPS7ELY5rSkxxmc8wRh171hU
-         ZQr4dHrlgF813j1NI0fr4GT6oya5VKZ1PPVfTMahP8ilMznSKBeQsiCyC0n4yyYUCJ6x
-         wor3PnY7cQFPGA4B0XHFmF1pVisN1V5uLUYl/bnPZakiHU0OSo4lILCRygkQdGlU3g10
-         zn+Q==
-X-Forwarded-Encrypted: i=1; AL+hErETMBhU8FGaODODdUwOuydbPedxS/Ydi4NyfDwGgDTWVX2slx0m5j/gdjok5eDFUaWWMpoqYnL4HSO1@vger.kernel.org
-X-Gm-Message-State: APuU4Z87VQkbqSYby+A6cOM/x1Doao7TsbB+PV/FW+HEpdVd53BlZwTV
-	FlDOndr1N8LINxd1FuJqy9uAqmGD54LDMlnWFi5HMgDbnLS1upjGZ/2CcJJAMEv7XhyNqJc0/Yj
-	YAb6OpFTdNf1aNueB+DYKMLowK6qmujdP681tWnED50EnBPOzf6pJhSLM31ppAsvR
-X-Gm-Gg: AYBFou3OEP2uooHwX09sTAv/xRIFz+1/P9x86ohzlgiAM4rRTmBuNoMuMV8vtoWoD2R
-	gYL2pQ1Jkx3KUlmkK5+AJOPtklc+0GNh/ng8SfW3qJZlPoUQcMlIErc7+OjnmCGspmt7ZBV+84T
-	NvTHWMPazhTVn4KjuEn10pw7MUIpeufo34PY1T1xrKZ9vaB8N1A+cnHXECiR3cefd3pNeyEmT0f
-	Bc7OPNXyIwITeqvUWOs7mbO2tt6g3QPmJRX0UnnhKEOtfJYTcF3llcqTNaAyWZxiA345W0Ia6DC
-	xqXisE6weYp/cXqUtBKpQdlKzBOOfGyWPSaCtRGouvFgdb9efcJOwkROPMwOMU1XlKYu2WsCLX0
-	FLMNNXOG+sriFKw5lYArWfDLuRIFYV47bkaiahA4MbRrqpZy3dV4DoqokxLf1iTU=
-X-Received: by 2002:a67:e702:0:b0:7d2:cdd6:6c8 with SMTP id ada2fe7eead31-7d2db13142fmr682418137.21.1794216427339;
-        Mon, 09 Nov 2026 01:27:07 -0800 (PST)
-X-Received: by 2002:a67:e702:0:b0:7d2:cdd6:6c8 with SMTP id ada2fe7eead31-7d2db13142fmr682404137.21.1794216426710;
-        Mon, 09 Nov 2026 01:27:06 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597371cc4sm8477370f8f.36.2026.11.09.01.27.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:27:05 -0800 (PST)
-Date: Mon, 9 Nov 2026 11:27:03 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Andrew Gigena <mail@andrewgigena.dev>
-Cc: Abel Vesa <abelvesa@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
-        Stanley Jhu <stanleyjhu@google.com>,
-        Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8150: Use standalone ICE node
- for UFS
-Message-ID: <s5rb27nhurw7arvnem4yec3z65oscezjvlj7flmywcjfqjgyou@25v7efso7zf2>
-References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
- <20261104-sm8150-ice-rfc-v2-2-d697bbce0278@andrewgigena.dev>
- <dxb7s2d25ixowmfifhvetctpckj7h4y5puiai7orhkimgj7uxu@ekhwvpm536mk>
- <CANn8UmeS0Fvdkamzu0Cgbv25+WdjHsXvCLMpsL98QSo-Gd731g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jmkDiJoQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794216852; x=1794476052;
+	bh=n4GaosAghDqO6pAayHdy/5ViKOQOZe9uvaTY4SQf0mY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=jmkDiJoQ3jdyua2YKHF10eJXBkEMoOX0bRLhzpMr1XtSLrAZs1YwFtYiR6U0adAKa
+	 QaWTfDiFDhiBL+PchGOghzPfXu0/xNX7LtUq12DfTJSZDQRAiMmT7c5oGS8Qlu83cl
+	 zNhTonvaK5GBNIi2IKoZxI9vhyk/FenzEMSi+N45qyzzfyDeXbbBEmRtlVjRB75x/x
+	 92e0s4APnzV7AN+37gs9SxQ9PTI5229TJbiUcMlzPr6BteXS0qpbNFfZqGJVsQJcCj
+	 Pc+pExztRPVH2UBxTl+Z/aG8n6UZ+L0LS5nHMn6AMmlB0/d0+nB2S+XyF/lXdNln/s
+	 KxTHcB/e4BNWA==
+Date: Mon, 09 Nov 2026 09:34:03 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] media: Add the ST VD55G0 global shutter sensor
+Message-ID: <20261109093353.3757-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 74ed771a4eab9a2850d6d5d62174c245ddcb0a0f
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -132,46 +61,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANn8UmeS0Fvdkamzu0Cgbv25+WdjHsXvCLMpsL98QSo-Gd731g@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNyBTYWx0ZWRfX3Bpnl5M075Bw
- prEK92UJkYW8nDOc56liJhvMGkqGoqPn54XSw1m1WUJBnWvQy4Kr62B3He3pz84HTKVKSiFMxlu
- wk+Ell3hqMZfQAI6nK/zDSK7ZxYHvsERq0DJ/NQgeNwawe2kkxbJ/W40K5pPySYJIsGTrFSF9f5
- pbwRqU5ALUVS6Dse+mxsi7zNnpy38KMap6DqQV1/jNz+mA1GhGeK3eeE8Z6rZ0I3bd37N+iqqz5
- HiAjH8GFLpklNN5RvWG7t6kWZCMX3LcUnH1kEz095pgs6Y9ajoZxojuHa+79KM2HL0NwUY+e4Yr
- govH9BS0UbiP/D3JSHxdstmJbHhUMh1fUcPbZCjzKWKcDm/gF2/INAI6XZHuPRWxhtiesZpoYbR
- CWxz9Jin+rn5dGRPZ0bbv8keUjGdquar6YCLgNzHFkFHlB9pJMQa4zUXeuT/i+Vxj1H3Qt0K4Sm
- l7JoRcGZ72IU3M5vv2Q==
-X-Proofpoint-ORIG-GUID: rHlJ0O1W7_v41nX-rztCpHBdARLKmNMP
-X-Proofpoint-GUID: rHlJ0O1W7_v41nX-rztCpHBdARLKmNMP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNyBTYWx0ZWRfXy2JQxdMZndFq
- n6bgjyNBoJw65PnnPROw5M455d5LfckaSv1zGzFjSsl0vOiJF+mcXv7xJ1Tg7MCRMUyNtgWdm0r
- kRXG1TS9cysk/29dsf+GTTIT2ZQnZYQ=
-X-Authority-Analysis: v=2.4 cv=V8LoQuni c=1 sm=1 tr=0 ts=6af191ec cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=n44UkhTd5bL0-s0LC_0A:9 a=CjuIK1q_8ugA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0
- phishscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090037
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26-11-05 18:51:44, Andrew Gigena wrote:
-> I understand, I'll keep that in mind for future patches. Should I
-> release patch v3 removing the "Tested-By" now, or wait for other
-> reviews?
+The ST VD55G0 is a 644x604 monochrome global shutter sensor. It is the
+infrared camera of the Microsoft Surface Pro 11 for Business with Intel
+(Lunar Lake, IPU7) and of the Surface Pro 9 (Alder Lake, IPU6), ACPI
+device SMO55F0. Without a driver the camera does not appear at all.
 
-OK, now you are top-posting.
+  1/4  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  2/4  media: i2c: Add ST VD55G0 global shutter sensor driver
+  3/4  media: ipu-bridge: Add ST VD55G0
+  4/4  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
 
-Please read through this:
+The driver is a port of ST's own downstream driver, firmware patch
+included, as vd55g1 carries its own:
+https://github.com/STMicroelectronics/vd55g0-linux-driver
+2/4 carries Benjamin's Co-developed-by, and its clock tree is based on
+his.
 
-https://docs.kernel.org/process/submitting-patches.html#use-trimmed-interleaved-replies-in-email-discussions
+Changes in v3
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-You can send v3 now.
+- 2/4, the three points of Sashiko's review of v2 2/4:
+  - under auto exposure, a stopped sensor's exposure and gains read back
+    what the last stream applied, not the manual values set before;
+  - probe holds a runtime PM reference until the subdev is registered,
+    so the sensor no longer suspends 22 ms after probe;
+  - RUNTIME_PM_OPS() and pm_ptr(), so the ops go with CONFIG_PM=3Dn.
+- 2/4: register with v4l2_async_register_subdev_sensor(), so that the
+  privacy LED the firmware describes is lit while streaming (Jizhou
+  Tong); a failed registration now goes through dev_err_probe(), as the
+  LED can defer probe.
+- 3/4: SMO55F0 moves before VD55G1, so the table stays in vendor order.
+  imx681 v10 3/3 adds SONY0681 at the same place, so whichever of the two
+  goes second needs a trivial fixup.
+- Fernando's Tested-by on 3/4 and 4/4. Not on 2/4: he offered it for
+  the Sashiko fixes alone, and 2/4 now also registers differently.
+  Fernando, if you want it on 2/4 as it is now, say so and I will add
+  it back.
+- The Assisted-by tags are dropped; see the end of this letter.
+
+v2: https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
+
+On both machines the sensor needs Hao Yao's int3472 fix, which sets the
+24 MHz clock the SSDB asks for; without it the sensor runs at four
+fifths of every rate this series computes. Its v2 fixes the Surface Pro
+11; on the Surface Pro 9 the _DSM wants 0 rather than 3 (Fernando):
+https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
+
+Tested with v3 on the Surface Pro 11 for Business, on v7.4-rc1 with Hao
+Yao's int3472 v2 and D. Manresa's ipu-bridge v5 1/2, KASAN and lockdep
+on, IPU7 run by the ipu6 driver, in three boots:
+- probe defers until ipu-bridge has made the endpoint, then binds;
+- after probe the sensor stays active and suspends about 1 s later,
+  with no power-off inside probe;
+- probe forced to fail at registration with a test-only parameter: no
+  clock or regulator warning, and a deferral prints no error. As a
+  control, the same failure after a runtime suspend inside probe gives
+  three warnings per probe (clock already disabled and unprepared,
+  unbalanced regulator disables);
+- every mode runs at 59.14 fps, in Y8 and Y10 at all four sizes and in
+  Y10 packed at full size;
+- under auto exposure, exposure and the gains read back what the sensor
+  applies, and after the stream stops, what it last applied;
+- the illuminator through led_mode, and the privacy LED that INT3472
+  describes, lit while streaming and off otherwise;
+- three unload and reload cycles, each with a capture;
+- s2idle for 20 s with the camera idle, and in the middle of a stream,
+  which the ISYS refuses: the sensor gets no callback, the stream goes
+  on, and a stream and compliance pass after both;
+- v4l2-compliance 46 of 46, and 54 of 54 through the media device, with
+  two warnings for the read-only crop;
+- no KASAN, lockdep or Oops report; the only other WARNING is the ipu6
+  driver's lockdep_assert_held() at each stream start, as with v2;
+- checkpatch --strict, W=3D1 and sparse clean on x86_64, i386,
+  allmodconfig and without CONFIG_PM; smatch and coccicheck clean; each
+  patch builds on its own; dt_binding_check clean, and it refuses a
+  VD55G0 example at 125 MHz.
+3/4 only moves its line and 4/4 does not change, so their unload test
+is v2's. The Surface Pro 9 entry is Fernando's test, not mine.
+
+Tool use, per Documentation/process/generated-content.rst (Assisted-by
+tags in commits were dropped in 7.4-rc1):
+
+* My contributions to this series were prepared with Claude Code
+  (claude-opus-5-5); work by others in it is their own.
+* This replaces any Assisted-by tags in earlier versions.
+
+Sergey Lebedev (4):
+  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  media: i2c: Add ST VD55G0 global shutter sensor driver
+  media: ipu-bridge: Add ST VD55G0
+  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
+
+ .../bindings/media/i2c/st,vd55g1.yaml         |   27 +-
+ MAINTAINERS                                   |    9 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/vd55g0.c                    | 2442 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   70 +-
+ include/media/ipu-bridge.h                    |    6 +-
+ 7 files changed, 2559 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/media/i2c/vd55g0.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.54.0
+
+
