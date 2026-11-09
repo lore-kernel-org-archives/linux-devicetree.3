@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227451;
-	b=Flj4dcF805z4uXGWfqzfVAbz4xKPuGdv7SfBEVVCReg0XqAfmiJ0eAZ9MLH0DD87XQdU
-	 /b+yVB29hp29R1eXrPogRM+yEtSrYIbGezihzV+e+4w3FvGcUHlWiuw9oDrUcOufwQHGQ
-	 b2hd1TpxLSzBZ+hpMwsNMqkmMik8eKKmnP7d4IYGpaiAimNAHJoHeRy0Cy0/NaWUO/7Lg
-	 xvxKyrB+BIR/XHCyR3NEOKA53f/5qXYwOUJ5AkyPqE8Zms1SZS9s5tm5RXleCHa6xfhrD
-	 JECWWF3g9VFdaIe4pXIX4jRFY+TsldY7diVpnBUK8JfGvtdvceF/+RCbOh7HtHT0wRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227451;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
-	b=B4MkMDOTa0gp2QIikuix7hSZ4BvFAp3Iykh1NGqqR79NW9MddlCu6Mh2A0HGKich1A/X
-	 dQ97F8JzBMYAkdW848yMS9ep5IqPvF3d28j7PXUNOnF3alxI5CZHV0NDL4FoMkoeuz6V/
-	 nEpv7t72epUVCBPV30Ruyf7Fg8rGKQzMeYS+TEZXsBcoheWFOqy5TqGCX449TnaQBRJJq
-	 qOUrRYLW8c+tQT9zv1mj64KreoUqE4DiPmuzgXadamudkQ2tZbKuteLB0LxFYtjjs80kf
-	 Bhs1exa5CwyFgJxfbuFs7z0jr37pD8DPpItRS2l8oEWb80SWBMG3zzVLbyQIAm/35Cg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794227542;
+	b=VTDOTDsrcPNV89PfP7mtYXmJaumXmBl8mNG6w+m5sxTppKq7xopC0CdDEwuoBZx0P4FG
+	 BKu7HzPl95+rWOS98MXFC6yVJ5qu9EhJPr2P5wE6/NaQ4wLFAJzaszXUcIJ5v+B2x26PJ
+	 tOAPIge1+8zkbg+Y+sAfhXuRkCArJ/pja8d4NCJBell5BV9aymHvO/+FiXpkSylSY4Pre
+	 H0wzyzDlRpgwHKW+/FP8O9AGXA8kg0mdpsP4pH+jxnrxpyPXohPR2BBRjShr4/hNk5Ri8
+	 7YfF+RjrEXGSz89q1CW4hsnXyNVGz8ySQY+4HRLVJZlEvag0ywAFVn3weu6dpb2b0dg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227542;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=f6BPwc11c83cwOLH+5RWoaKntH768lNpVpr+TChD/aM=;
+	b=yCkDYADZSePG4Iz1j3WlOagDLRoUXaRz+OHLg18JaDZiQPXOXx3KpcA44SZ24OHocUWR
+	 dABqCxDnIp53/D5M4ZpJ0jcxApXZM485pKLsVOCMcc3ciFk/Llvr7CgOtJ55XEzUkVmoN
+	 3nFTxLvrF4gJOyLLijxPX9m1gXU6ieVf+Lx0KHbssN1xyor/Xzc8xQQyQupgBEB93lOfg
+	 Nviq2zaBNDYuPgXpoJsU44VLzkTLbW5HQiVoBIuuWoNkU3YmDpQkmUFv5RQF+69ZnZ5jY
+	 WvomxyrlSzxMcet+hm56ol453D6M/u2llfYGiGOzQJmvgsRhL7+cSWAelkWm25SX/yQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkHLlJn5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32C606A31C;
-	Mon,  9 Nov 2026 12:30:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9D2606A33C;
+	Mon,  9 Nov 2026 12:32:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C375C1F0089F;
-	Mon,  9 Nov 2026 12:30:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkHLlJn5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794227541;
+	b=PW4HqF9+CYqhiOxqAPW2We3XXUzqcNd8RGVjlfMms6nwvoGVNi3O/rseBF+OqRB7MS2I
+	 I9YvEcesmaS5xJRpLBiSiCvu8bis8/LlsQcuj6tlYDRVdd+OqzK3nJABRWC5vXPiTsmL+
+	 97XF/5CTCuVpPfs4uGbuX/WJc6iox+smuwnybY2R/CPR1+cQIUzotDDtPFLGmY5dFOhRe
+	 gPcg+eoaG7lePOrECQrmbv/DQsbPTdDOC7PE6VnwQPeDmve2TGaav21ZM5r5q8g7m4Pyc
+	 JbWxqM2jxBDfWDH4cFBsp9ePf4vwomgzgau8BHj5pYZp3T+RzOantnPBCyBfp5AYaEA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794227541;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=f6BPwc11c83cwOLH+5RWoaKntH768lNpVpr+TChD/aM=;
+	b=n/6O3hXRlGwHuDfhY9B7Ja7Qi3NAO0tXXaK5F3MErnRBpAUr1MDSciFa5Cabl2xmxghr
+	 MSP5EXK+JMKOPfYb78QeDhdhTRPClX6radRv9ZvqQL3AVLd0aQMEucGYHZUKU3lGU2WJk
+	 noOzbTX3Rlkka8g2l0TgTOmcIex3hR5nq6YkeDN1OVbCM0fExFSje8J7WEL5ixe8CwbBl
+	 zS8p4/sT4z8P3JIU3gjGXnpdF8i25imoHMEdtHaU57p6RHz4FqoizUq3izI0fbjsonn/p
+	 QrUAFBitAEUGSLYBTcEZcqiFUJi9fxQKR+341x2grlTP9fauaL+FCWlIZNBpHlAiBeQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8E63E1F008A6;
+	Mon,  9 Nov 2026 12:32:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227450;
-	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oZwWXSeG5G4rZwtosAWNOxR+zwE/P+4TdYtBuU4HsoqYv3Ei4ABx8IzSJrnlCXCVD
-	 pS4N9qGMBrA4KbNWuz8xavxeHdUjN82DJSb7D1/EDPddNXSIwlYyu6ErXs+2cODAdb
-	 Erby2ILCouiEja140JEQQse9xfYpHNHFe0he9sUexSdTMy8S4GpU9ueYMl4Aio0EMD
-	 CCIjCwCF9EqidbMGauMFpdKueskkpN/CL87/kYRgh7byOhY9WV3b6s7lqcMzW7Qipa
-	 OpohM5kbvXkAexlu6LKYHTW0/k1dE6heQYYcV74rz68P1z1D4IVm4z6TmzPpCT860D
-	 jsTD//MUdGsCw==
-Date: Mon, 9 Nov 2026 13:30:47 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 02/10] dt-bindings: display: panel: samsung,s6e3ha8:
- Add AMB630QY01 panel
-Message-ID: <20261109-tacky-busy-kelpie-cbd5be@quoll>
-References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
- <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
+	s=k20260515; t=1794227541;
+	bh=f6BPwc11c83cwOLH+5RWoaKntH768lNpVpr+TChD/aM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mkHLlJn5ErLxk3HIccgLNbMKQoQYBPhs5eayWT3fR/3dAtf/4yLqj8K3MvL6UKWsW
+	 y+N4XacKpZ4JFk0USjnydR2lw8QYd4g1UK6Ek4w9wTuOr1xOoAWsHQ0daQ3s/7VkGU
+	 hItBx6fR0tLlqebdtEcIvVJzmTyMy9iWRtn612b/6v2VpkxXCNoZUQiYcBy4clNvZv
+	 /wySLeyQmIkFF1oCXaez82uSQwkGKNhBc7UNIAGJGYnSVcIMY4QuQEzwawKyF0b905
+	 OGhekJJ9ayKYFn2nv5jTJPKcIHIB/RSf5NeuHtwn0BYPPDUxFZsr8N/8HJ6MNijeOb
+	 bEg8DrZ8m271w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1FF7E4842D;
+	Mon,  9 Nov 2026 12:32:20 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Mon, 09 Nov 2026 13:32:16 +0100
+Subject: [PATCH v6 1/6] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on NanoPC-T6
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,46 +83,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-1-91f1efefba0b@pardini.net>
+References: <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-0-91f1efefba0b@pardini.net>
+In-Reply-To: <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-0-91f1efefba0b@pardini.net>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1967;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=C8auy3c4isZ5XfXrCAmEL8F9N9P5Ye2UTKa9ViZULk4=;
+ b=owEBbQGS/pANAwAKATteP+Oex+3pAcsmYgBq8b1R1mQNBqX9H00xyoLhCeSGvyRx4c7E3McBz
+ Sujy0waKGWJATMEAAEKAB0WIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCavG9UQAKCRA7Xj/jnsft
+ 6X0WB/9mVmK7vAE0Ed8SC14q/A6dWjN9RnozSKrufGdXyz9evMZqLZ0NPqJoK63wspfUJSOig7O
+ LXhxdtKsLlMwYdf5qGSnmJ5CheTn4VxuMZwCBlsXNFLBQVUZS4vDytBzOqJfjMxpdTgw0426QMs
+ 3dWdvESPx3Lpne34k2HB/mVmUN/3Y4vuQAhtGtDLkyV5MRqvZ0lEwXbRGtLDF3q57kufDfXVPx4
+ 0l5KK1vdH64AplwFM4nXUsD6ePAHCk4PCFwg0a7VDLGTOk65pmtbUku56U9zzlsk4s55P4yWlq3
+ jFaYVHV6DL5x1t+44mYOQe4QN7ev31fW7fIBGXq0elnvS/J4
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 08, 2026 at 12:32:23PM +0000, David Heidelberg wrote:
-> The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
-> 1440x2960 flexible AMOLED panel.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../bindings/display/panel/samsung,s6e3ha8.yaml    | 41 ++++++++++++++++++----
->  1 file changed, 34 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> index ca250b1b91712..dcf347fe5ca83 100644
-> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> @@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Samsung s6e3ha8 AMOLED DSI panel
->  
->  description: |
->    The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
->    Samsung Mobile Displays (SMD).
->  
->    Known panels:
->      - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
-> +    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
->  
->  maintainers:
->    - Dzmitry Sankouski <dsankouski@gmail.com>
->  
-> +required:
-> +  - compatible
-> +  - reset-gpios
-> +  - vdd3-supply
-> +  - vci-supply
+From: Ricardo Pardini <ricardo@pardini.net>
 
-I see no reason why order of this schema should be re-invented. See
-every other binding or example-schema.
+The FriendlyElec NanoPC-T6 carries two on-board Realtek RTL8125 NICs
+behind pcie2x1l0 and pcie2x1l2.
 
-Best regards,
-Krzysztof
+Describe the PCI function nodes and attach ethernet0/ethernet1
+aliases, so that U-Boot's fdt_fixup_ethernet() can fill in their MAC
+addresses from its ethaddr/eth1addr environment.
+
+The labels follow the schematic and case markings: ETH1 (pcie2x1l2) is
+rtl_eth1/ethernet0 and ETH2 (pcie2x1l0) is rtl_eth2/ethernet1.
+
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 30 ++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+index 13be56af095b..18e427e94dcf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+@@ -20,6 +20,8 @@ / {
+ 	compatible = "friendlyarm,nanopc-t6", "rockchip,rk3588";
+ 
+ 	aliases {
++		ethernet0 = &rtl_eth1;
++		ethernet1 = &rtl_eth2;
+ 		mmc0 = &sdhci;
+ 		mmc1 = &sdmmc;
+ 	};
+@@ -617,6 +619,20 @@ &pcie2x1l0 {
+ 	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+ 	status = "okay";
++
++	pcie@0,0 {
++		reg = <0x200000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x21 0x2f>;
++
++		rtl_eth2: ethernet@0,0 {
++			compatible = "pci10ec,8125";
++			reg = <0x210000 0 0 0 0>;
++		};
++	};
+ };
+ 
+ &pcie2x1l1 {
+@@ -633,6 +649,20 @@ &pcie2x1l2 {
+ 	reset-gpios = <&gpio4 RK_PA4 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+ 	status = "okay";
++
++	pcie@0,0 {
++		reg = <0x400000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x41 0x4f>;
++
++		rtl_eth1: ethernet@0,0 {
++			compatible = "pci10ec,8125";
++			reg = <0x410000 0 0 0 0>;
++		};
++	};
+ };
+ 
+ &pcie30phy {
+
+-- 
+2.47.3
+
 
