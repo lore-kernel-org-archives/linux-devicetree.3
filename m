@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249905;
-	b=ZkOO1PhdAhJB9iygfWY0y3m3yuOtcZ6WbmPQN8HD+9ar6OnCsonnmd8u+tVBw/MLNhNA
-	 8dDnI8KPLvAPrGGOzDJ2amWeYHfAm2wekdcUzUOCcmLebmzgg3+s3LoNeP06gQlEkOPKM
-	 FngQMYmLF+BH3Ej6tfCprgBB2rqdJe+mJXPSIjU1NsuduTCkdgXs/3HnvPRmrkv+2d4Lp
-	 GAKCYVentJ43Oe0TvOsqSM7D6uO4gVMHT4HZp4YASHtAKHCrGWsuzS23yka6yUZKs8W2p
-	 kfW0k1C+r3nR6vdMQRH24g4U/Lh/o5Y2nbshRMGc8dBo64MmhgaH8UKWGBa3MsO3GMQ==
+	t=1794250024;
+	b=KVq8Ovs2+B39bSEso2vepgeYyrW9qzNdUBQoriko+2eTYQs80t/jyt0Pf2syPaKED3hI
+	 I1oQZ5+XzXfsYuinVvcfXvoEt6cV9T+AkFmBD9bLVyPvqXs0jNFpIGnklo0qQdNex/kLH
+	 ANK52Z8jvP9Qsi9omW+DgnuP48x73oELwqYlVa+6S4QTEOmNPLFZMfTjCa/D1llOWNm0J
+	 ShGXaAxNHl3TVzuZBqYaYv/N1It7tV+jqyEGPqFV/I89tTKeDTNqeFYd6jYpZiLhdgZo9
+	 O/k8BLHKDZQ0F73lD/10e0w7OxQcZcrjCYL8ZmqTLr1xh65oQ8qcCPCua+gLXxppslw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250024;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
-	b=jDJOoA8OPfmbMQ53a7JgOKOybs8JDVhdeq8V9oUgqaJdirxKZCY+VuHluJPW28kjxbeK
-	 5l6rH8TVq7LlhgWw+7OdRjSxbzu3Fmifb/MjVj1khsPH6hmRUuEWEv7woapOrgeKg3Ybc
-	 U+H4XIKWu4uULC6KenBvFzP92NXGaFHnKAFQ9PNwyLnftPR/DKNXXhOYrAnLAi5vRS34Y
-	 uSW0FMhJYFAsGdizOBFsHHkdYncRvKVdlLwH7u3fLOJNsbAqUNDPtXG2GwUcWLRBGEu1K
-	 VoY8jhtfFy1EkCCyTe6IFX704GvzJJt4UmO2kiBo7DAZRJp3JRrJD9nLdY7/cHVfFfw==
+	bh=rCrvw5LpzEZ9/PFYR2h5t7QUY2o6lTYln5faL5j979s=;
+	b=kF7+7JTnNvDhuNK9F7go9XX5OMSN2eq3P+8KVFciS9mvVXGQ46MN8fjX+0u0wqun98rI
+	 z1Hum/LUo9O0DZtRR4f14xUyWnKdWx3D00tdXPLAFwRjwaTm9upbtzXi7CI40vZPjlyxz
+	 di5YBgll0C+TxCyxXpz5nbD2Njl8b8EIQzc4G6nrptUaNxtykwFdxsmmT4rhPZar58KKi
+	 3CCczVboImwHagkShK3DD0kk0U4JL7zz6Nxl4Y2NLcp64ETybCM8aexMt+dEeJ/Wbi/jX
+	 TD93YaIrnJc/VAfmqC+EvvzVSu0/B3mKwcEr5Qwl2q0hd8D5VRomCK2XhZA0Rz1egFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD90Y4LG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C24B606A321;
-	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683B0606A325;
+	Mon,  9 Nov 2026 18:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C0E1F0089F;
-	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD90Y4LG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F521F0089F;
+	Mon,  9 Nov 2026 18:47:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249904;
-	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
+	s=k20260515; t=1794250024;
+	bh=rCrvw5LpzEZ9/PFYR2h5t7QUY2o6lTYln5faL5j979s=;
 	h=From:To:Cc:Subject:Date;
-	b=Djr5FASIrZokbAR07zxKHRKGrVo0/+EC2r2qpovpyp+MRe9z3Ud25xUTQtUTfQfM6
-	 hnUd8klLrSn3YYUAJpHueczC6poMq9teoNnAcmM+Unk+XAPRikBTgDE+MEiip6hANZ
-	 Ep3PIIo3czMQISTGCm0fbcAfjukq9ka8jIY4SYHO0Iw/HmAlGuU0drdx+U4b7YVaBD
-	 9xRAp/6MecTYMjvRvL3pvynyFv10JkoJHeqokOcXVSRkrllasBRPhBadVXYtbtNDm/
-	 DXuw4zAckartT8GTvGx/mDvm+R1zimhqjmHCDkOq9mNg7VX9aHrm5YwnnfQkh0BV8p
-	 SIdtcPnDRlTpw==
+	b=bD90Y4LGJaHi9ULBCK00n1aUuQocG2nZYY9yaZdBh5RUnvHrYk5UxOySj83Gj+EqP
+	 jU7hVKoMwey+loTmFox3qUaVB+oZu9m+H/FMktV7IGoCNC83wez96Jp/5j8T7UxGLK
+	 gLqUArTfXgSiczLBvmmIbHIEvYhTP7YsEP9kM8ikQaKma367R0IFcvwpXeDP1rQw8B
+	 y89WwlafNLkK0d7gOQUX3NBJshJ9eFTZFuHzRw34vNpEctZrNDbzjJWzyda8Rh70A7
+	 OZUxN7Xh9aJ3Y+xxx6q24M+dLL1T9R+c7MeDG48DTBYpUQEatRlyoa9j5yNFqIUzKq
+	 X+TBXuqBebS9Q==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+To: Lee Jones <lee@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: linux-clk@vger.kernel.org,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
-Date: Mon,  9 Nov 2026 12:44:52 -0600
-Message-ID: <20261109184453.449141-1-robh@kernel.org>
+Subject: [PATCH] dt-bindings: mfd: max77620: Add gpio-hog nodes
+Date: Mon,  9 Nov 2026 12:46:53 -0600
+Message-ID: <20261109184654.462128-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,143 +62,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the HiSilicon CRG binding to DT schema format.
-
-The allowed compatibles was not very accurate, so update them to
-match the users. Drop the hi3516cv300 compatibles as the platform
-has no DT and only a few drivers (pending removal) upstream.
+Some Maxim max77620 users define gpio-hog nodes, so add support for them in
+the schema.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/clock/hisi-crg.txt    | 50 ---------------
- .../bindings/clock/hisilicon,hi3519-crg.yaml  | 61 +++++++++++++++++++
- 2 files changed, 61 insertions(+), 50 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/clock/hisi-crg.txt
- create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+ Documentation/devicetree/bindings/mfd/maxim,max77620.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/hisi-crg.txt b/Documentation/devicetree/bindings/clock/hisi-crg.txt
-deleted file mode 100644
-index cc60b3d423f3..000000000000
---- a/Documentation/devicetree/bindings/clock/hisi-crg.txt
-+++ /dev/null
-@@ -1,50 +0,0 @@
--* HiSilicon Clock and Reset Generator(CRG)
--
--The CRG module provides clock and reset signals to various
--modules within the SoC.
--
--This binding uses the following bindings:
--    Documentation/devicetree/bindings/clock/clock-bindings.txt
--    Documentation/devicetree/bindings/reset/reset.txt
--
--Required Properties:
--
--- compatible: should be one of the following.
--  - "hisilicon,hi3516cv300-crg"
--  - "hisilicon,hi3516cv300-sysctrl"
--  - "hisilicon,hi3519-crg"
--  - "hisilicon,hi3798cv200-crg"
--  - "hisilicon,hi3798cv200-sysctrl"
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--
--- #clock-cells: should be 1.
--
--Each clock is assigned an identifier and client nodes use this identifier
--to specify the clock which they consume.
--
--All these identifier could be found in <dt-bindings/clock/hi3519-clock.h>.
--
--- #reset-cells: should be 2.
--
--A reset signal can be controlled by writing a bit register in the CRG module.
--The reset specifier consists of two cells. The first cell represents the
--register offset relative to the base address. The second cell represents the
--bit index in the register.
--
--Example: CRG nodes
--CRG: clock-reset-controller@12010000 {
--	compatible = "hisilicon,hi3519-crg";
--	reg = <0x12010000 0x10000>;
--	#clock-cells = <1>;
--	#reset-cells = <2>;
--};
--
--Example: consumer nodes
--i2c0: i2c@12110000 {
--	compatible = "hisilicon,hi3519-i2c";
--	reg = <0x12110000 0x1000>;
--	clocks = <&CRG HI3519_I2C0_RST>;
--	resets = <&CRG 0xe4 0>;
--};
-diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
-new file mode 100644
-index 000000000000..c0b7a5521fe3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
-@@ -0,0 +1,61 @@
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/hisilicon,hi3519-crg.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon HI3519/HI3798CV200 Clock and Reset Generator (CRG)
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+description:
-+  The CRG module provides clock and reset signals to various modules within the
-+  SoC.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: hisilicon,hi3798cv200-crg
-+          - const: syscon
-+          - const: simple-mfd
-+      - items:
-+          - const: hisilicon,hi3798cv200-sysctrl
-+          - const: syscon
-+      - items:
-+          - const: hisilicon,hi3519-crg
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    description: >
-+      The identifiers for the cells can be found in:
-+
-+        dt-bindings/clock/hi3519-clock.h
-+        dt-bindings/clock/histb-clock.h
-+    const: 1
-+
-+  '#reset-cells':
-+    description:
-+      A reset signal can be controlled by writing a bit register in the CRG
-+      module. The reset specifier consists of two cells. The first cell
-+      represents the register offset relative to the base address. The second
-+      cell represents the bit index in the register.
-+    const: 2
-+
-+  reset-controller:
+diff --git a/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml b/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
+index ac063c2bab73..99014b792a74 100644
+--- a/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
++++ b/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
+@@ -165,6 +165,13 @@ properties:
+   regulators:
+     $ref: /schemas/regulator/maxim,max77620-regulator.yaml
+ 
++patternProperties:
++  "^(.+-hog(-[0-9]+)?)$":
 +    type: object
-+    properties:
-+      compatible:
-+        const: ti,syscon-reset
 +
-+    additionalProperties: true
++    required:
++      - gpio-hog
 +
-+required:
-+  - compatible
-+  - reg
-+  - '#clock-cells'
-+  - '#reset-cells'
-+
-+additionalProperties: false
+ allOf:
+   - if:
+       properties:
 -- 
 2.53.0
 
