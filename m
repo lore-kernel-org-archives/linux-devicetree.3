@@ -1,59 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227840;
-	b=xoOuliOAxrMdlj15gX3D9rA5a7MLT9bX7Oc/QpdcI8wknrAsMM4RDfUZTdCVnNNofmoV
-	 B7Kib0/PBvhhDxP3dTpxC9aB4DBNfzdFMvbohnMfFK01pJp6C9vPua9IITpBeZjhRPz6x
-	 oXhYmCytc8XwW3jdsyc496YRZdpyBjOZN2kKcmatSQ1GJLHMpY4/vUiP+9CTKQVQpDBuL
-	 +Jzyj9o5ESKs4s3M4UF5rR/Q4IxsqanzSrE/R+k7bLlxJKzjgOX8QM4cLcZH4s7dQLY4T
-	 iwFp1uXj5mBrl8ZpubkQJVSwzWirX/fTMmcbZwFiaK/pfQTlTOU+7p9DU1/+98rig6A==
+	t=1794228223;
+	b=P1Z0uvMTI4cspDKKwa9cKt8+6pKUN1sm7X4qZ7mQxhbYMuPplCeYR/jxXj0wWVr1t/4t
+	 fw50UMcYo4tOIkY3AE+cgGSUu99ZxngUcfqud/OHuMgAYHXua7/krU75Tfshwzj3hUwBf
+	 FSJGbgT+xwMbEWd0iBO9lqZhZSb5bINbfPjYkklAUxYhwrbbEi/WNyUX1T69NOfQ6GrEn
+	 fU7YesoeyJjlnzA8Rwe7E8NRujUFhPZLwEM1fnnR8hgzQMSPCeBYjniHWBSmrZmSlg0pN
+	 Ti96YosHbHSgwsSfnLiOHJaNpMbPagb6SQ1JCYArqMMHeI2ENX6bt0+nyhiHBPbCQCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228223;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K1CWsVs0IPjpIDw2JWkNBzEKlJiME1CRvTNW72z+Z5c=;
-	b=QyBZH/aly2rekb6F6gjigbWF5Z7CteuCXFIO5PwUHbGsh057yNqOzMBR3eRxSsphmvrN
-	 4Fh9kw/F1j3wne+YqL8FQuSSGJFAWZUQnHdlSmeQdLvaihP47eyixuSn4gQmtwI3qhAwO
-	 r4g/0FebtlgxNRAscTAyOZIohiXgnCLVzy0fTiXzmhbgGtsaI/Akn+RX6Ao4HovGTX4w2
-	 BGVc4WQzo07AZ0sHfHD6y0ym1Uva/u6nvxrMjkPLtZqu6mpwlF1PSGaIbJn/2Zr2C8PoR
-	 6v5DKFSc+cZlrPlG0Ctos/nhHVJ9ru6MY3S6zfpjJT03CWLVY7FOjTFH3mBFv7/LgzA==
+	bh=a86PC/JlFhI9QzWc5mWdTvSDfxy09rYrpKx10NN2IkI=;
+	b=ZYqpDotyB/bPPUtn5DcR4/OPZKjpwP2a30bWjEcqI1i7yqEOipzm09jYUFL2O3NGFqvb
+	 +gf6c5zUeF7j93qKIVQMt/6ulVwzGb7QaGgCIs+f77PvQzd8F6+rpQILlUR+D58h3aiMs
+	 zCKfvcf91XwRkO16GJZk56vLrLEKdhT5b8KJChTK2gZcYs0uBR3WTntzpy+wk7LgiN2bw
+	 SH7VEyyVRDQt2r/8rXqv52TpYQZXF+3Uef74LCCkbJmVxKG9Vs6m2JRBQXZ/r3TSOjK87
+	 wp3VpV3bwHhxSyhtQSctraTl9gCR5Rq1rCnG4NvJ6Ha5PaTyHUvF2ixEDbzH38ILXAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOiMeJ9N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9pIWTYv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14030606A322
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 12:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA356606A322;
+	Mon,  9 Nov 2026 12:43:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOiMeJ9N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25E01F008A6;
-	Mon,  9 Nov 2026 12:37:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9pIWTYv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8375C1F0089F;
+	Mon,  9 Nov 2026 12:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227839;
-	bh=K1CWsVs0IPjpIDw2JWkNBzEKlJiME1CRvTNW72z+Z5c=;
+	s=k20260515; t=1794228222;
+	bh=a86PC/JlFhI9QzWc5mWdTvSDfxy09rYrpKx10NN2IkI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fOiMeJ9NpINJhEWER3W2ji4evJ5usAogUOq97fLlOhiW1j+cDan4XbqUlot3B7vHX
-	 Rt7X2shSlbzgKF9d49yT1f7yei4HGUB+23soaXcR72xD2Zs+NM9PTTu0cKYNwbCReo
-	 bMQU7fVS1Ae30A8xx+dGqhkRaPiCbcR5HwZBOGSLYxU9Vz41hLSY/yfrQMEHYWocUm
-	 ue7LN27qUqdREMbW/BT5oFcHEzvM+k8dMdOz3qaQG2eXmvr1fWcjbYwnM34LkQAQGD
-	 dSz17Mr8d9b3W49b9Nabyv9be9YsJorCvwnM6mvuVLLoxiKqrHKba2wumxYpfEhvjM
-	 Mp4FWVHqTG/Fw==
-Date: Mon, 9 Nov 2026 13:37:15 +0100
+	b=M9pIWTYvDBscsjoqdj+ff4Jrjv6tMYkVR49IQ9UXzyvbUvrDtRsv/H8kxdjV1d7cg
+	 lc9/ovyHmXaqFYFvXyM5pN0KNogDVV+fA6Hg7SY42xTc6YFvu+rLhwH2qn5ke26XAr
+	 /LkJhX0VEiNl0EqUzQj7rfm8Xtk5SzCpD1/ZMYNv6PvGcxWsGbEfsOC8quBxap8ZgK
+	 TsyWXMstC6PGwzmpwKpKXSWY9fa8XOXPXXKrHkyH9aqdcZ9Vrwas9pIgzuOWdbRzcw
+	 dFpLcTkcD1MR+aZTF5Tj9L66S//Azf1T/Sa99E4PqL4JFMMQMaEQO0k+eprsDY2G2d
+	 riJ3f4MCuW8AA==
+Date: Mon, 9 Nov 2026 13:43:38 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Thomas Gleixner <tglx@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer
- bindings
-Message-ID: <20261109-unbiased-fancy-bloodhound-a6504a@quoll>
-References: <20261109051050.105623-1-joel@jms.id.au>
- <20261109051050.105623-5-joel@jms.id.au>
+To: Artem Novak <artem122novak@gmail.com>
+Cc: andrew@lunn.ch, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ARM: dts: kirkwood: Remove duplicate DS212 compatible
+Message-ID: <20261109-burrowing-sloppy-bumblebee-f2d7d8@quoll>
+References: <20261107060549.598466-1-artem122novak@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,93 +59,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109051050.105623-5-joel@jms.id.au>
+In-Reply-To: <20261107060549.598466-1-artem122novak@gmail.com>
 
-On Mon, Nov 09, 2026 at 03:40:44PM +1030, Joel Stanley wrote:
-> Document the RISC-V ACLINT mtimer and mtimecmp hardware, as described
-> by the riscv-aclint specification, commit 4e570bfd3201f2 [2].
+On Sat, Nov 07, 2026 at 12:05:49AM -0600, Artem Novak wrote:
+> The Synology DS212 Device Tree lists "synology,ds212pv10" twice
+> in its compatible property. The corresponding Kirkwood binding
+> also repeats this entry.
 > 
-> Multiple vendors are shipping silicon with the hardware as described
-> by the specification, which was abandoned[1] as a standalone spec at
-> v1.0-rc4.  As we have multiple instances of hardware that implement
-> the spec, the widespread implementation of the spec is de facto
-> ratification, providing a stationary target for the bindings to document
-> and an exception to the policy of not accepting things that are
-> pre-ratification.
+> Remove the duplicate from both the Device Tree and its binding
+> so that the documented compatible sequence contains only unique
+> identifiers.
 > 
-> [1] https://lists.riscv.org/g/tech-aia/topic/connections_between_aia_and/107177435
-> [2] https://github.com/riscvarchive/riscv-aclint/blob/4e570bfd3201f2c09e5afd290b5091526b0f099a/riscv-aclint.adoc
+> The compatible ordering is otherwise unchanged.
 > 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
 > ---
-> v3:
->   - Rework commit message following discussion at LPC
->   - Add reg-names, rework description, fix example
-> ---
->  MAINTAINERS                                   |  1 +
->  .../bindings/timer/riscv,aclint-mtimer.yaml   | 56 +++++++++++++++++++
->  2 files changed, 57 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+>  .../devicetree/bindings/arm/marvell/marvell,kirkwood.yaml       | 1 -
+>  arch/arm/boot/dts/marvell/kirkwood-ds212.dts                    | 2 +-
+>  2 files changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..403875d5932e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24185,6 +24185,7 @@ S:	Maintained
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git
->  F:	Documentation/devicetree/bindings/clock/tenstorrent,atlantis-prcm-rcpu.yaml
->  F:	Documentation/devicetree/bindings/riscv/tenstorrent.yaml
-> +F:	Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
->  F:	arch/riscv/boot/dts/tenstorrent/
->  F:	drivers/clk/tenstorrent/
->  F:	drivers/reset/reset-tenstorrent-atlantis.c
-> diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-> new file mode 100644
-> index 000000000000..e6f3d08d4f93
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/timer/riscv,aclint-mtimer.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V Advanced Core Local Interruptor (ACLINT) timer
-> +
-> +maintainers:
-> +  - Joel Stanley <jms@oss.tenstorrent.com>
-> +
-> +description:
-> +  The RISC-V ACLINT specification defines a set of memory mapped devices which
-> +  provide timer functionality for each hart on a multi-hart RISC-V platform.
-> +  The mtimer device has a single mtime register and one mtimecmp register per
-> +  hart. The specification is at https://github.com/riscvarchive/riscv-aclint/
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - tenstorrent,atlantis-aclint-mtimer
-> +      - const: riscv,aclint-mtimer
-> +
-> +  reg:
-> +    items:
-> +      - description: mtime register
-> +      - description: mtimecmp registers
-> +
-> +  reg-names:
-> +    items:
-> +      - const: mtime
-> +      - const: mtimecmp
-> +
-> +  interrupts-extended:
 
-Use interrupts. git grep gives basically zero results for such syntax in
-the binding.
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-> +    minItems: 1
-> +    maxItems: 4095
+You also should have Fixes tags.
 
 Best regards,
 Krzysztof
