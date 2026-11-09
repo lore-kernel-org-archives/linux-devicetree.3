@@ -1,136 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245938;
-	b=K8M7P9F7e201ov3l7dDYjzeDSb9lVFYsmyQovkmidDSRkKXnewTHVsXzJVjVKAT7vHSb
-	 VS1YJ9NVOMmOo+nHs7/hMozHZAOI2HTv3mSSuQ8RphfZFcTa4FSpwLeu4EXtX0iOGXUUH
-	 Vu55QUIHJLeNNhQwC2B5U9//Fb46E36UwhSgT1/xOsJkLzZOLY+vhkKPmVWxrUptabvVA
-	 zPNdGWlJhpiBr3sS++C4rXeBlhCoE455DhBGiIGKP0hfC0v0+XX2QgS+fGBB+RsIeqTRb
-	 pdHFoxn4qocj+QWxZBLuo2ozGEt+aoF5VbneWmtSwO3RkxNwZWmpgsq54ajzxkGR7CQ==
+	t=1794246123;
+	b=NfodXKacEIx6kotDEQ1Lh4/PtH9PPqdwQlFHxkDtCGSlKoMxP5Gx351iziEZNm0VfpDN
+	 mBLYDIovbbRNyGSzwGv81zQ/bPHPWwUn0JPwZhOgY2cdePtTZgTuQPLP1UWu6KnbqaRdX
+	 fL0nV62F/CulCm/vAXw2/9vLBOQqigRlgTou3mt8h4/N/zd0259B4pQ1bsBrYwbtThqGD
+	 ZCgcRATye/LdwwVL848kzNm/U9dA3oKo1JQ8oah3BH5QH+NI2l650kUWbRMKEG8Qpu8aa
+	 bkLmfcBvstPuFnLE1lOOf1UL+HspjxyYuCRJ4zFY4I57kFjB0kpIffc7R1izjYOMx1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246123;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VSgAu1YCz0/TBDQtz025D2yh3sRQq8BFfiF0sq3qrAw=;
-	b=QKkU9IXPPXjU97Yx7afrrAoEM0ZW8cvvPF4zdZh6B4QZlpCiSoIsdSeAokN9hLJRD6pN
-	 7/b8VJLG9WS7nSooG5gx2Dt9kzzoQ3e2G6CAkw2SJPsQEeiSo5vdLfY5RJ+l3f5jMEJIF
-	 UHpJVifJvuZvcQP4qEgXyKRXVUH7k8YpdIN+ffwkRmPTwPuQtool3NRVY+64TxSZC3Qen
-	 2l3Vm0YyavVzwCmjMO/9ABwZ8IiAjH7FJVZ21kV9KVzLM/G+Cp+W0lucCPFsh6chdJa11
-	 y+WwmL6dMEhMalPm3ymoyqgZnKT7sdRj17P/9BZso16Smu/Y+II22OqE4z3rpnRP5ew==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wNQ1BQPQK5n/U+GIMYrm3ZkE/2RFULvhCOZhn+eZxfI=;
+	b=5iXKONDkHPujCdI8eD1bhdQiRi7x0JzHW8t7/RF6+Saaqlmgsez1pkDe+OxXE8pmrygZ
+	 Dz8gthuyOTH4LJCs5ZvJIn5ufqRRLK+J8m9YHQNlwbI1OJxu114XO/dMrqvXD9YpDXnnW
+	 hrxIf9X8a72loY8Dtga59It/wD3Hlx4JfSFzUVFtqk2GFsi/SS9wO4emNLdtb7caWuCAG
+	 RrDFcQ21pRPWF6H/o+gmwhX3FgNNlyCMpw93d5+3xfmLPu+Yv/bdSSeVQEczQs5Y7wnSh
+	 hA43WzJZ6nj5WuitQwh4v8VzEhBThWrtFu8ym3jEvr4iepFmZrSh7Q+SOvlOoRfS/mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ET4UmX4l;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=yuBMX1vR;
+	arc=none smtp.remote-ip=74.125.231.198
+Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F36A606A32A
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F36A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8226C606A321
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8226C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ET4UmX4l
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9893105e9.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:38:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=yuBMX1vR
+Received: by mail-oi2-f6.google.com with SMTP id 5614622812f47-545a4fb8d5dso534907b6e.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:42:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794245936; x=1794850736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VSgAu1YCz0/TBDQtz025D2yh3sRQq8BFfiF0sq3qrAw=;
-        b=ET4UmX4lnrqCC21B5oGoVYsMQvX/uO5ZDK9wo7RPCXLUSHAzor2KKP7C7D4g9dOSKl
-         T9tIynx1iZ7nScEbu/rROoW0ihwiLqJhnnQ61YL9jqzvok+DK3S1a+gguxLlBKC8w5O1
-         moTFTURhfavgIUyQOJfzNwN7KB0x4LD4UGwaMonewXo+m5sWjx57U6MMJmglEzxfuxMO
-         LmUAzY4EtqQeiNxES10G3nMFPkiJj/jPtOOkesOWKBy7x6Ryd1/Cph6kqfXQpWmPijOY
-         8IbZFuODa/za16J/GDh0DmEFHyP77cWRenI/CjjMSrzXFx4Mn5aU+7EARh+lKdHOYquD
-         rC7w==
+        d=riscstar.com; s=google; t=1794246121; x=1794850921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wNQ1BQPQK5n/U+GIMYrm3ZkE/2RFULvhCOZhn+eZxfI=;
+        b=yuBMX1vRFXM5Ip52++lbq0FeCO/8O8aUZ/ZKdu7MKnTXQvli6mg4xNe04YdLSLCqq0
+         Bgm37gn9A7NswjPhMBs4UWQK1xx0HSDtdCI4+7P2W8kXtlmVCBxXoSvEb7YalplNkDJ8
+         HMR7AsLJ7qsEc8VGuMnf439yUrjllBjH+gSZMvhBK34NqHfKh3f0kWNslelvpr0GNiOF
+         P/wmVXBdiy3UDVzucwQz1JeWj74JlazmFvJiWd+umOFE6w4b7GLrHeWDA0Ttm1COfzOS
+         bITmAazKvGZvFgnaEpDEwHCiNJbo+tFFYEiWvSDi//+Ar9GATs40u1RQoSdCZveKjtoW
+         HePQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794245936; x=1794850736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VSgAu1YCz0/TBDQtz025D2yh3sRQq8BFfiF0sq3qrAw=;
-        b=djIVh0KuulXn0WbWPFEj2B/2DKN9/Xyq2LFKjLWft/iuGEYvkg+EzReCKaBhcuEs4X
-         3cK40ML9sERVFEtFwIybayTVFoj191WYKesnwxGT8Bb5734M3i0QceWLO2xDwwKoziG4
-         yk8QwqeFNKY1DiUR2n9geEebiTQNOxhDA3kuumN+kCNs1dVP0QMlqCvaDxNjJb1VCRtt
-         tFOGLj53oq6Gmnxw1ENsqLPOMYYS26jY+wxrswRx9U/BCd4ujuge6v0EoXBLerYQcnqs
-         LTBTRxFnjtMikeOUCo1Vrj39rH8bCE+eeJNo+vcKBhzqSO4Cg1lgBNddSid/JMEP72S/
-         gAog==
-X-Forwarded-Encrypted: i=1; AL+hErHdZiNI82DRMDN17vZDRPPM6g71EuyggNa2rFEv3xnzRbVxXQpajImf5zIRx0mT+HkSCqlCLAVOv5nB@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CO10/DZaPp99ce+sE4g16fKh6ypRBPhn5hQ+xoWWhy77mazgj
-	3DfCjmGhrHkdOLnRzMKlrOBlMMPbs6c78ruyQP3F81tcrd5m2z3rXgPC
-X-Gm-Gg: AYBFou0GlWhdkPv4uW/U/Sb/DjxHd5qzsb7qOB+gIkYp1mTHl7WTaXa3IpoWkOqxwBA
-	yk3Fxby4dCGh2DoF4/exOnmUJTUs1uj5TfJqScGudua3BliapssWmQNfgCEJt8kauoQy2sS4Ryt
-	rDS7UQtYt8OYqH0a7GeUvOUJ3O2Ngqfmepg3iaZoykdIx98D3TMNPKk0QTaUqa/MoiRI7EAK5lL
-	UCyKfi5H9S9aPtfyc825pLFtV8l1u50rgQMqVcsDQkUjwz/+8mHw4i74FBM4xZGoyrOAdU7VL64
-	zXEI4bQ2qHpns/WYhIYSm5QRPfwmKnHZvcvNu8TjWEAxjmuL5FjTWDz+xKJnz/h1CngaLnHKV5f
-	fxWyQouxTKnD+Eo8pTC4jg2UkzysVyDGq1XzLc4nTzSM5HexBRkRrtaBZIcJRh0+r91dDtTBWY6
-	mrCYZyDoCTxAtgBHqH9oP83YKha4S2NgMba32cWC5U3oia6CwUTLt/swR1WO8KmtY5VcQ8TbaxR
-	GMDCan++jbD3omMM3r5SNy6DX705xw5Ij1ifJKAjKcNcml4SBecJnAMosG8GbKXexnW7kn7ilkn
-	p4y9nwc3N0xMDjuQS4mlsGmHs3M=
-X-Received: by 2002:a05:600c:608a:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4b94d76329cmr92154365e9.1.1794245936334;
-        Mon, 09 Nov 2026 09:38:56 -0800 (PST)
-Received: from flare5 ([212.58.121.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0157b707sm2522005e9.0.2026.11.09.09.38.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:38:54 -0800 (PST)
-From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Robert Marko <robimarko@gmail.com>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Lee Jones <lee@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Stanley Jhu <stanleyjhu@google.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Amit Kucheria <amitk@kernel.org>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Georgi Djakov <djakov@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 01/17] dt-bindings: arm: qcom-soc: Add Halliday
-Date: Mon,  9 Nov 2026 17:38:37 +0000
-Message-ID: <20261109173837.2084788-1-lightofmysoul@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <78a88d4d-11af-40c1-b063-b6a4d4298ecd@kernel.org>
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com> <20261109-halliday-dts-v1-1-289114ab8197@gmail.com> <78a88d4d-11af-40c1-b063-b6a4d4298ecd@kernel.org>
+        d=1e100.net; s=20260707; t=1794246121; x=1794850921;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wNQ1BQPQK5n/U+GIMYrm3ZkE/2RFULvhCOZhn+eZxfI=;
+        b=N44HjhI3oVOmm+II8W58vAuKZW18AvIsFFAKamim3pY1T/rPsnkXF9bpfaHxyJUtLO
+         fp0kqzl1dPJSMex2QOVKwWv0x15MsfaIweX0P97aUxsvzO1TF6jNpzIDiF/8ylcSHzep
+         82uJfSBJNYkaWMdfDXa6v8InUGbz0bEIXiBS12tQMpY7EslMN8TZzQv35QpHyG6oF4fE
+         qkwiZ3eY+UoHeQStgxSyRB3bWC+7PI4sJe7h7DXxLD9/4otRckV05JXOQAiH1dHn/pSk
+         5Nwzk9XrCQlgvGCSSR/nRghS09lR7T3zogxBt1olR5F9zi8v6U1DLNnyB5YPp2e8tkct
+         yF/g==
+X-Forwarded-Encrypted: i=1; AL+hErG0TZGyOc7axmHBd85GJ+tqkEf2u504HCwTS2JUHo781cEt7cPMZ4sZLMTj3S4zuoxjoE08pbcAl+X6@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GufvJci7DJslHDN/4bnxcw800co6D8yQ1LIaTd+c9/u98WRiS
+	4gJUagahpc93ImtfKPGcnb56Aj/LMxKBEz59kz/z/YrWIi83I0R7dJcx7JUysaaVYUk=
+X-Gm-Gg: AYBFou3ZrxFI/Qn7pMPUQnqA99v362YoOyAg+wQoG7RtwsGWp2uZvRaXgUKUqFGaxvr
+	Lqj0Hq+qET6cmvp1vcd+hn351S9vN5kS0JRJQalvwd5GvyCLuPdrn1k51lr+u2j4ujAr+6z6DnZ
+	61yDWLdgA98BCn3OQGewmDPzUpGeKRuMwmmwbSg+jZfuWgEw1SAtffcyLMByBGhCpqsumY12hv0
+	qajkLY/R9qqO1sCWfnGHIK0TdoUvhTvcupKfXDdDWji2L+9yPvBm6tJ2aDDKZbZiJ+fBcQZfV0Y
+	i4CFftyGRodwipq6lGsQ6C4sXyP5S9GurVujtKNJ3LLM6c9wRQZrghU0XHdeivnTZM4TCgH7I8r
+	FIFtWiTKgfqJdSMqdkUsVlgFRLS9qyF3WmiSJ9LmOPuu8RaLsitEeft1cKfyrghDAM5Bzy3D1As
+	xE33RviEx7MhU0SM+RAgWkEHBJxk10vG/g10KGy5lQuukf6A1Ht6OLBlwR/DEPmGrNoSu0fd0a9
+	xx3kXdak9etgkbGg9vttAxHNucR0XCvNvwFgFkNQ7KemIk0hCP+wNBemRKQVXCe1n+0wdUVmBzt
+	aBC3pXWlvGBHc7E94aIl1ohFWNImiw==
+X-Received: by 2002:a05:6808:120c:b0:4b9:a829:f00e with SMTP id 5614622812f47-5683cc10684mr273208b6e.26.1794246121311;
+        Mon, 09 Nov 2026 09:42:01 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813c71bd0sm4925229b6e.4.2026.11.09.09.41.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 09:42:00 -0800 (PST)
+Message-ID: <b4c191bf-4d46-439e-b0fb-ead747413d48@riscstar.com>
+Date: Mon, 9 Nov 2026 11:41:59 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -140,14 +92,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
+ toshiba,tc9564-config-syscon.yaml
+To: Krzysztof Kozlowski <krzk@kernel.org>, sboyd@kernel.org,
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
+ alexandre.torgue@foss.st.com, marex@nabladev.com,
+ changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104004332.2141282-1-elder@riscstar.com>
+ <20261104004332.2141282-2-elder@riscstar.com>
+ <53323b7e-5169-4a36-a051-ed1eb1718b7d@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <53323b7e-5169-4a36-a051-ed1eb1718b7d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 09/11/2026 09:25, Krzysztof Kozlowski wrote:
-> This should be squashed with patch #15. Also, there is no benefit in
-> organizing patches within patchset where patches to the SAME subsystem
-> are split all over. #1 and #2 targets SoC, then there is a break and
-> again we are at SoC at #15.
+On 11/5/26 2:23 PM, Krzysztof Kozlowski wrote:
+> On 04/11/2026 01:43, Alex Elder wrote:
+>> Define the binding for the system controller that implements the clock
+>> and reset controller functionality present in the Toshiba TC9564 SoC.
+>>
+>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   .../toshiba/toshiba,tc9564-config-syscon.yaml | 68 +++++++++++++++++++
+>>   MAINTAINERS                                   |  8 +++
+>>   include/dt-bindings/soc/toshiba,tc9564.h      | 46 +++++++++++++
+>>   3 files changed, 122 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+>>   create mode 100644 include/dt-bindings/soc/toshiba,tc9564.h
+>>
+>> diff --git a/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+>> new file mode 100644
+>> index 0000000000000..5a241a9c915d1
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+>> @@ -0,0 +1,68 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/soc/toshiba/toshiba,tc9564-config-syscon.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Toshiba TC9564 Multifunction System Controller
+>> +
+>> +maintainers:
+>> +  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+>> +  - Alex Elder <elder@riscstar.com>
+>> +  - Daniel Thompson <daniel@riscstar.com>
+>> +
+>> +description:
+>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>> +  includes an embedded PCIe endpoint that provides access to various
+>> +  SoC peripherals via its BARs.  These peripherals include a simple
+>> +  controller to gate internal clocks, as well as a reset controller.
+>> +
+>> +  The clock controller uses registers within the same page as a reset
+>> +  controller, so this system controller controls access to both.
+>> +
+>> +  A total of 21 simple gated clocks are implemented within the SoC.
+>> +  At this time, support for enabling and disabling only a subset of
+>> +  them is provided at this time.  Similarly, the SoC implements 13
+>> +  resets, but currently not all of them can be controlled.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: toshiba,tc9564-config-syscon
+>> +      - const: syscon
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  "#clock-cells":
+>> +    const: 1
+>> +    description:
+>> +      Clock ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
+>> +
+>> +  "#reset-cells":
+>> +    const: 1
+>> +    description:
+>> +      Reset ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - "#clock-cells"
+>> +  - "#reset-cells"
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    syscon@0 {
+>> +        compatible = "toshiba,tc9564-config-syscon", "syscon";
+> 
+> I disagree this to be syscon.
 
-Thanks, I'll squash it into #15 and keep the SoC patches together in v2.
+Conor Ack'd this patch, and then followed up asking me to
+mention the other feature it provides, which I agreed to do.
+It is an important third use of the memory region.
 
-Stanislav
+   https://lore.kernel.org/lkml/20261105-irregular-awaken-b329b9c37e70@spud/
+
+In addition to the registers that control these clocks and
+resets, this address range contains two registers (one per
+PCI function) that indicate when a DWMAC hardware
+initialization step is complete.  The nodes representing
+those Ethernet MACs refer to this syscon with a phandle
+property (and offset).
+
+Is that additional use enough to warrant defining this as
+a syscon?  I.e., with that third use, does this no longer
+represent a "pure internal-register-access thingy?
+
+> This is internal to the PCI device. I read Daniel Thompson answer:
+> https://lore.kernel.org/all/auOI8LbZNWbNGJuN@aspen.lan/
+> And I accept arguments that you want to re-use a lot of existing
+> bindings like DWMAC and so on. Syscon does not count there.
+> 
+> I remember you posted somewhere full DTS, but now I could not find it
+> again and I do not see it in the cover letter here.
+
+I should have included it, and will include this in future messages.
+I squashed together the DTS commits into a single complete DTS that
+we are testing with, here:
+
+  
+https://github.com/riscstar/linux/blob/tc9564-dts/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+
+I'll also respond to your other message.
+
+					-Alex
+
+> So again, why does it have to be a syscon, which is pure
+> internal-register-access thingy?
+
+
+> Best regards,
+> Krzysztof
+
