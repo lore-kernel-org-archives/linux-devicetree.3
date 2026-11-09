@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794194051;
-	b=bEB5A7d6IMmQn/CqJW1dfJcmyk7Q/8w/jsXKVybDC8jlrqElWu1uJUvRagoo9lRJqmfC
-	 ocmI+i7UU5fAOVZZhwLfBizpdeLjq9ER0bl19WqZn2P8Kpa9vXpEwnYRwAdtetsA3sN8o
-	 gTdNXDGXN1PkAituLX7EWyRcLvKpdHcNWgu9/I17jAgi/3q7HRGrEU+KB/v2AbtXMm4PS
-	 q8Jzvl/1ry+B0GaomVfA5FPqs4BCHw9+Lpk3Ov/3WhasfjoVPCWLNhXpa4SStBBbLzZws
-	 pCXcDSRmRtbJn/t9bppWqkm+F07pKQei2zAByIRCJS1HhZOS7yYoqEbWHt8xKi4aQJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194051;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WB4Tk+0qVOcehtG5BkeFj5O+C0eJXoghgiyEgzDXsx8=;
-	b=xhR03+s6wXP8/SpnX1WcGdGSVcb8SR+Su4eB5SSbwjuZ6Uk0Y1vuhD9nKPdlXDr4Ub4z
-	 /cu7uH5FIbChUzPaTDbRJU0jK8rLWr9KSgeqIaVOW6+1VFQI2WEp119BTipca6k5YRN7p
-	 9HkWiqH+1PTr4CEYF3F8/rI3URxtmriknI2p8/2+NgDM4icjO80JnvWhDgUz3kRibrv1S
-	 mtm4+bjjRhp4egJB3mI1Fh6rEmhh9BZPJP8uH4bjEy6CYEWEYn1khmzzmK1HIzqBGy4bR
-	 wPwq1vnhfG9BGmZB/L4onbneORWVrBeAZDo7Gc/ghyCUUSyUpa3nXRtYUwiJv1PFoOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=WOI+pE5n;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794194236;
+	b=FzUMp4WtR5AIGVLN3X7lxDwEJk3kqhzBOVBjy7Cv2UQyTsHeHmhd6sglk2k58kjaSWew
+	 XB7tAI//8qr69b2ZZYxm+7sGonjZQNIYbeXLzlSGWG+P/Vi7mvV74lIzMxbV7qGmFZtkO
+	 xfV5HW74lMm2SG2FE8QFWu/6HfrQcipaLVOgIvb62z57cjVgs7GNv/KAExT7bsYMQz1Ef
+	 lbZqQTQtW88Jlc/jMZVl+CDqoAh3UvMK313u7BZAUm1aWbo3RBRy+jD4pFalsERYASPHj
+	 R8K3uS6wqutxZSkrwApx/HUpewp97ob3YHMDhk8KPNDPc9oSq8w7Yhkwvs7UgtH5Auw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194236;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
+	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=;
+	b=BcqcSN+Fkcvr+NEMj+7GboLqQNOIRCuF9Nr/KiSFB+BbQAxWcGnySVuEOPln5RcUGzrX
+	 XDORbj4Vd2a7N1QfJVZVLW7e/rupge1EC17MIuoAchfhPCKaZPk+Sl4fjy6jUuUkvEz5p
+	 2acPlZAamU6d4kPYELkptkiTxZYC56q+UUWDgU/8h/sx5ly6AjZHI1O2zt/HmeuVwGkRW
+	 nMC3AJUBiEASpwfr+9dmGzaXhG3qDV2d/fkXE6udeeeQ+54SzQWrD2gKr9sGkQ783QG6/
+	 +HSSVBj9vjUCJIEndnzpnNx1jzAlW8MSCo7DldQgEoz+wWuUkzd/OTYoihvYdQSyv+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pigmoral.tech;
+	spf=pass smtp.mailfrom=pigmoral.tech;
+	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2B8606A320;
-	Mon,  9 Nov 2026 03:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A2B8606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B401606A320;
+	Mon,  9 Nov 2026 03:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B401606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=WOI+pE5n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794193988;
-	bh=WB4Tk+0qVOcehtG5BkeFj5O+C0eJXoghgiyEgzDXsx8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WOI+pE5np5gTU+/FpMWvUnZFT82v4R51t1A44b11gVdC6wCMbzLdv6Kh8qG9iYEpp
-	 eBfWBYguxteb4L/98eOFqCE2g8PHjaTazHRlc/IaiCeSB+gBi47yqRNbvUlTsQ/LFs
-	 X7LB4+VEWihy7s/2zY/hq0ahq+8+HeTl3KMvLddlz+W2ye1q+njlg39V4jjnSBN28o
-	 VQQPKKXafYSZWryWBmMiYV98MS3P/7N7XYIJT3nd0XxdQcApakcIKKm0gQ2eQlAG97
-	 h/RMOIspD2iEnhikvNE/OdLZeNjzekJiZIyI8QGdzjhDjWcylpAzTK+S5dsZ5lmdN7
-	 TriKfPz8CibQg==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id CF7A0B220204;
-	Mon,  9 Nov 2026 04:13:04 +0100 (CET)
-Message-ID: <ff0906c3-478e-4ad6-ac30-1e0a7cc35a41@freeshell.de>
-Date: Sun, 8 Nov 2026 19:12:58 -0800
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4
+ARC-Seal: i=1; a=rsa-sha256; t=1794194189; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=L0MjgcqXPJitlOVyDqAKTd5p+9n9JBhQ+dGSFjhfNlVdklM9BiPhXCsr0Nc4SJrK76EzvVfdE9QeJrPXYS6Z/EV9n+YyRJVAskDgnwcVs0knngMBwCriIn4bt5ojg5RiwyVa8qcwj2PfzPI3ocxId48jDBcRXW900Z951pdo2qc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794194189; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; 
+	b=n5RjKUI4/T8o/eLGpOfchAZ9Xusey+v+/5oWqXYbsV1HXGH34vH//WqWreXqa+lrIxXEfZfAxxSNHohcvJo3pkW42s0Jjvcd/19wdDIPlpI/+Sdn8JFV/Ahr8KzSaNKDk8Oh++yLyVwcFKJOkVfr+uOLDlhLYpe8jVHLN56mrwg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: a=rsa-sha256; b=E4aXrlQ4V6gCj/NHcpw5zGo8qbS90mcj/GoM4hGCu8r8HhWeiKaagUo7Rth+K1/nQVg0UWV1ak3XKCiW8w8JPCnqxJptgCQ0vFWhEoP9bDXguXxDyCOTuc3Afk0puDsGvj8yBS0QMYi2evneze7XziX+9qqNc+AM+48Ow3x317U=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794194187174866.5006536015394;
+	Sun, 8 Nov 2026 19:16:27 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,433 +55,562 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] rtc: Add StarFive JH7110 RTC driver
-To: Owen O'Hehir <oo.hehir@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Hal Feng <hal.feng@starfivetech.com>, "ziv.xu" <ziv.xu@starfivetech.com>,
- Conor Dooley <conor@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20261108212826.15890-1-oo.hehir@gmail.com>
- <20261108212826.15890-3-oo.hehir@gmail.com>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261108212826.15890-3-oo.hehir@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 09 Nov 2026 11:16:17 +0800
+Message-Id: <DMQCR64N88M9.GCX83LKYT3IE@pigmoral.tech>
+Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
+ Adriano" <enzo.adriano.code@gmail.com>, "Norman Herms"
+ <dockseed@proton.me>, "Vinicius Pedrosa"
+ <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v6 6/8] clk: sunxi-ng: a733: Add mod clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Andre Przywara" <andre.przywara@arm.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+ <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech>
+ <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
+In-Reply-To: <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
+X-ZohoMailClient: External
 
-Hi Owen,
+Hi Andre,
 
-On 11/8/26 13:28, Owen O'Hehir wrote:
-> From: "ziv.xu" <ziv.xu@starfivetech.com>
-> 
-> Add a driver for the RTC in the always-on domain of the StarFive JH7110
-> SoC. It supports time, alarm with wakeup, and the frequency offset.
-> 
-> Signed-off-by: ziv.xu <ziv.xu@starfivetech.com>
-> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
-> [Owen: rework of the StarFive vendor driver for mainline: drop hardware
->  calibration & the default time set in probe, use the generic wake IRQ
->  helpers, wait for the update bit in set_time, re-read a time that rolls
->  over during the read, round the offset to the nearest step & follow the
->  sysfs offset sign, enable the 32k counter clock]
-> Co-developed-by: Owen O'Hehir <oo.hehir@gmail.com>
-> Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
-> ---
->  drivers/rtc/Kconfig      |  11 ++
->  drivers/rtc/Makefile     |   1 +
->  drivers/rtc/rtc-jh7110.c | 323 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 335 insertions(+)
->  create mode 100644 drivers/rtc/rtc-jh7110.c
-> 
-> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-> index 73ec9230e..332f2e022 100644
-> --- a/drivers/rtc/Kconfig
-> +++ b/drivers/rtc/Kconfig
-> @@ -1807,6 +1807,17 @@ config RTC_DRV_MPC5121
->  	  This driver can also be built as a module. If so, the module
->  	  will be called rtc-mpc5121.
->  
-> +config RTC_DRV_JH7110
-> +	tristate "StarFive JH7110 RTC"
-> +	depends on ARCH_STARFIVE || COMPILE_TEST
-> +	help
-> +	  If you say yes here you get support for the RTC in the always-on
-> +	  domain of StarFive JH7110 SoCs, with alarm and frequency offset
-> +	  support.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called rtc-jh7110.
-> +
->  config RTC_DRV_JZ4740
->  	tristate "Ingenic JZ4740 SoC"
->  	depends on MIPS || COMPILE_TEST
-> diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
-> index 46f1a0fc2..a5cddb8d8 100644
-> --- a/drivers/rtc/Makefile
-> +++ b/drivers/rtc/Makefile
-> @@ -82,6 +82,7 @@ obj-$(CONFIG_RTC_DRV_IMX_BBM_SCMI)	+= rtc-imx-sm-bbm.o
->  obj-$(CONFIG_RTC_DRV_ISL12022)	+= rtc-isl12022.o
->  obj-$(CONFIG_RTC_DRV_ISL12026)	+= rtc-isl12026.o
->  obj-$(CONFIG_RTC_DRV_ISL1208)	+= rtc-isl1208.o
-> +obj-$(CONFIG_RTC_DRV_JH7110)	+= rtc-jh7110.o
->  obj-$(CONFIG_RTC_DRV_JZ4740)	+= rtc-jz4740.o
->  obj-$(CONFIG_RTC_DRV_LOONGSON)	+= rtc-loongson.o
->  obj-$(CONFIG_RTC_DRV_LP8788)	+= rtc-lp8788.o
-> diff --git a/drivers/rtc/rtc-jh7110.c b/drivers/rtc/rtc-jh7110.c
-> new file mode 100644
-> index 000000000..d2d89cdd4
-> --- /dev/null
-> +++ b/drivers/rtc/rtc-jh7110.c
-> @@ -0,0 +1,323 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * RTC driver for the StarFive JH7110 SoC
-> + *
-> + * Copyright (C) 2021 StarFive Technology Co., Ltd.
-> + */
+Thanks for your patient review.
 
-Is this copyrighted work from previous year 2021 being imported without
-modification?
+Besides the issues you pointed out, I also found a few other places that
+don't match the manual. I'll fix those in the next version as well.
 
-If there is modification then I would assume it needs appended your
-authorship and the current year 2026.
+On Mon Nov 2, 2026 at 11:32 PM CST, Andre Przywara wrote:
+> Hi,
+>
+> judging from the "fun" this is to review, I very much appreciate your=20
+> efforts in putting this together ;-)
+>
+> On 10/9/26 17:52, Junhui Liu wrote:
+>> Add the module clocks found in the Allwinner A733 SoC, including video,
+>> storage, interfaces and others. While most of these clocks are similar
+>> to those in the A523 SoC, this implementation accounts for changes in
+>> register offsets and introduces support for new modules.
+>>=20
+>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 1103 ++++++++++++++++++++++++=
+++++++++
+>>   1 file changed, 1103 insertions(+)
+>>=20
 
-> +
-> +#include <linux/bcd.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_wakeirq.h>
-> +#include <linux/reset.h>
-> +#include <linux/rtc.h>
-> +
-> +#define JH7110_RTC_CFG			0x00
-> +#define  JH7110_RTC_CFG_ENABLE		BIT(0)
-> +#define  JH7110_RTC_CFG_CAL_SEL_HW	BIT(2)
-> +#define  JH7110_RTC_CFG_HOUR_24H	BIT(3)
-> +#define JH7110_RTC_SW_CAL_VALUE		0x04
-> +#define JH7110_RTC_IRQ_EN		0x10
-> +#define JH7110_RTC_IRQ_EVENT		0x14
-> +#define  JH7110_RTC_IRQ_ALARM		BIT(4)
-> +#define  JH7110_RTC_IRQ_ALL		GENMASK(4, 0)
-> +#define  JH7110_RTC_EVENT_UPDATE	BIT(31)
-> +#define JH7110_RTC_CAL_VALUE		0x24
-> +#define JH7110_RTC_CFG_TIME		0x28
-> +#define JH7110_RTC_CFG_DATE		0x2c
-> +#define JH7110_RTC_ACT_TIME		0x34
-> +#define JH7110_RTC_ACT_DATE		0x38
-> +#define JH7110_RTC_TIME			0x3c
-> +#define JH7110_RTC_DATE			0x40
-> +
+[...]
 
-Align 8-char tab stops per Linux coding style, and then tidy up the
-extra junk clearspace on some of the defines
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_parent_data avs_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>
+> Those two parents appear two more times below (usb01_ref_parents and=20
+> hdmi_sfr_parents). Please rename this array to something more generic=20
+> and reuse it below.
 
-> +#define JH7110_RTC_TIME_SEC		GENMASK(6, 0)
-> +#define JH7110_RTC_TIME_MIN		GENMASK(13, 7)
-> +#define JH7110_RTC_TIME_HOUR		GENMASK(20, 14)
-> +#define JH7110_RTC_DATE_DAY		GENMASK(5, 0)
-> +#define JH7110_RTC_DATE_MON		GENMASK(10, 6)
-> +#define JH7110_RTC_DATE_YEAR		GENMASK(18, 11)
-> +
-> +#define JH7110_RTC_CAL_MASK		GENMASK(15, 0)
-> +#define JH7110_RTC_TICKS_PER_SEC	32768
-> +
-> +#define JH7110_RTC_SYNC_TIMEOUT_US	1000
-> +
-> +struct jh7110_rtc {
-> +	struct rtc_device *rtc;
-> +	void __iomem *base;
-> +};
-> +
-> +static void jh7110_rtc_reg2tm(struct rtc_time *tm, u32 time, u32 date)
-> +{
-> +	tm->tm_sec = bcd2bin(FIELD_GET(JH7110_RTC_TIME_SEC, time));
-> +	tm->tm_min = bcd2bin(FIELD_GET(JH7110_RTC_TIME_MIN, time));
-> +	tm->tm_hour = bcd2bin(FIELD_GET(JH7110_RTC_TIME_HOUR, time));
-> +	tm->tm_mday = bcd2bin(FIELD_GET(JH7110_RTC_DATE_DAY, date));
-> +	tm->tm_mon = bcd2bin(FIELD_GET(JH7110_RTC_DATE_MON, date)) - 1;
-> +	tm->tm_year = bcd2bin(FIELD_GET(JH7110_RTC_DATE_YEAR, date)) + 100;
-> +}
-> +
-> +static u32 jh7110_rtc_tm2time(struct rtc_time *tm)
-> +{
-> +	return FIELD_PREP(JH7110_RTC_TIME_SEC, bin2bcd(tm->tm_sec)) |
-> +	       FIELD_PREP(JH7110_RTC_TIME_MIN, bin2bcd(tm->tm_min)) |
-> +	       FIELD_PREP(JH7110_RTC_TIME_HOUR, bin2bcd(tm->tm_hour));
-> +}
-> +
-> +static u32 jh7110_rtc_tm2date(struct rtc_time *tm)
-> +{
-> +	return FIELD_PREP(JH7110_RTC_DATE_DAY, bin2bcd(tm->tm_mday)) |
-> +	       FIELD_PREP(JH7110_RTC_DATE_MON, bin2bcd(tm->tm_mon + 1)) |
-> +	       FIELD_PREP(JH7110_RTC_DATE_YEAR, bin2bcd(tm->tm_year - 100));
-> +}
-> +
-> +static int jh7110_rtc_read_time(struct device *dev, struct rtc_time *tm)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	u32 time, date;
-> +
-> +	/*
-> +	 * re-read if the time rolled over between reading TIME & DATE, since
-> +	 * that rollover can also change the date.
-> +	 */
-> +	do {
-> +		time = readl(jrtc->base + JH7110_RTC_TIME);
-> +		date = readl(jrtc->base + JH7110_RTC_DATE);
-> +	} while (time != readl(jrtc->base + JH7110_RTC_TIME));
-> +
-> +	jh7110_rtc_reg2tm(tm, time, date);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jh7110_rtc_set_time(struct device *dev, struct rtc_time *tm)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	u32 val;
-> +
-> +	writel(jh7110_rtc_tm2time(tm), jrtc->base + JH7110_RTC_CFG_TIME);
-> +	writel(jh7110_rtc_tm2date(tm), jrtc->base + JH7110_RTC_CFG_DATE);
-> +
-> +	/*
-> +	 * The counter loads CFG_TIME & CFG_DATE on this pulse; the bit appears
-> +	 * to read back as 1 until the load is done.
-> +	 */
-> +	writel(JH7110_RTC_EVENT_UPDATE, jrtc->base + JH7110_RTC_IRQ_EVENT);
-> +
-> +	return readl_poll_timeout(jrtc->base + JH7110_RTC_IRQ_EVENT, val,
-> +				  !(val & JH7110_RTC_EVENT_UPDATE), 10,
-> +				  JH7110_RTC_SYNC_TIMEOUT_US);
-> +}
-> +
-> +static int jh7110_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	u32 val;
-> +
-> +	val = readl(jrtc->base + JH7110_RTC_IRQ_EN);
-> +	if (enabled)
-> +		val |= JH7110_RTC_IRQ_ALARM;
-> +	else
-> +		val &= ~JH7110_RTC_IRQ_ALARM;
-> +	writel(val, jrtc->base + JH7110_RTC_IRQ_EN);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jh7110_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +
-> +	jh7110_rtc_reg2tm(&alrm->time, readl(jrtc->base + JH7110_RTC_ACT_TIME),
-> +			  readl(jrtc->base + JH7110_RTC_ACT_DATE));
-> +	alrm->enabled = !!(readl(jrtc->base + JH7110_RTC_IRQ_EN) & JH7110_RTC_IRQ_ALARM);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jh7110_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	u32 val;
-> +	int ret;
-> +
-> +	jh7110_rtc_alarm_irq_enable(dev, 0);
-> +	writel(jh7110_rtc_tm2time(&alrm->time), jrtc->base + JH7110_RTC_ACT_TIME);
-> +	writel(jh7110_rtc_tm2date(&alrm->time), jrtc->base + JH7110_RTC_ACT_DATE);
-> +	writel(JH7110_RTC_IRQ_ALARM, jrtc->base + JH7110_RTC_IRQ_EVENT);
-> +
-> +	ret = readl_poll_timeout(jrtc->base + JH7110_RTC_IRQ_EVENT, val,
-> +				 !(val & JH7110_RTC_IRQ_ALARM), 10,
-> +				 JH7110_RTC_SYNC_TIMEOUT_US);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return jh7110_rtc_alarm_irq_enable(dev, alrm->enabled);
-> +}
-> +
-> +/*
-> + * 1 sec for the RTC = CAL_VALUE + 1 cycles of the 32.768 kHz clock.
-> + * Default of 0x7fff = exactly one second.
-> + * Each step of CAL_VALUE changes the rate by 1/32768, about 30.5 ppm.
-> + */
-> +static int jh7110_rtc_read_offset(struct device *dev, long *offset)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	s64 ticks;
-> +
-> +	ticks = (readl(jrtc->base + JH7110_RTC_CAL_VALUE) & JH7110_RTC_CAL_MASK) + 1;
-> +	*offset = DIV_S64_ROUND_CLOSEST((ticks - JH7110_RTC_TICKS_PER_SEC) * NSEC_PER_SEC,
-> +					JH7110_RTC_TICKS_PER_SEC);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jh7110_rtc_set_offset(struct device *dev, long offset)
-> +{
-> +	struct jh7110_rtc *jrtc = dev_get_drvdata(dev);
-> +	s64 ticks;
-> +	u32 val;
-> +
-> +	if (offset < -NSEC_PER_SEC || offset > NSEC_PER_SEC)
-> +		return -ERANGE;
-> +
-> +	ticks = JH7110_RTC_TICKS_PER_SEC +
-> +		DIV_S64_ROUND_CLOSEST((s64)offset * JH7110_RTC_TICKS_PER_SEC, NSEC_PER_SEC);
-> +	if (ticks < 1 || ticks > JH7110_RTC_CAL_MASK + 1)
-> +		return -ERANGE;
-> +
-> +	writel(ticks - 1, jrtc->base + JH7110_RTC_SW_CAL_VALUE);
-> +	val = readl(jrtc->base + JH7110_RTC_CFG);
-> +	writel(val & ~JH7110_RTC_CFG_CAL_SEL_HW, jrtc->base + JH7110_RTC_CFG);
-> +
-> +	return 0;
-> +}
-> +
-> +static irqreturn_t jh7110_rtc_irq(int irq, void *data)
-> +{
-> +	struct jh7110_rtc *jrtc = data;
-> +	u32 events, val;
-> +
-> +	events = readl(jrtc->base + JH7110_RTC_IRQ_EVENT) &
-> +		 readl(jrtc->base + JH7110_RTC_IRQ_EN) & JH7110_RTC_IRQ_ALL;
-> +	if (!events)
-> +		return IRQ_NONE;
-> +
-> +	writel(events, jrtc->base + JH7110_RTC_IRQ_EVENT);
-> +	if (readl_poll_timeout_atomic(jrtc->base + JH7110_RTC_IRQ_EVENT, val,
-> +				      !(val & events), 0, JH7110_RTC_SYNC_TIMEOUT_US))
-> +		dev_warn_ratelimited(&jrtc->rtc->dev, "interrupt events 0x%x not cleared\n",
-> +				     events);
-> +
-> +	if (events & JH7110_RTC_IRQ_ALARM)
-> +		rtc_update_irq(jrtc->rtc, 1, RTC_AF | RTC_IRQF);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static const struct rtc_class_ops jh7110_rtc_ops = {
-> +	.read_time		= jh7110_rtc_read_time,
-> +	.set_time		= jh7110_rtc_set_time,
-> +	.read_alarm		= jh7110_rtc_read_alarm,
-> +	.set_alarm		= jh7110_rtc_set_alarm,
-> +	.alarm_irq_enable	= jh7110_rtc_alarm_irq_enable,
-> +	.read_offset		= jh7110_rtc_read_offset,
-> +	.set_offset		= jh7110_rtc_set_offset,
-> +};
-> +
-> +static int jh7110_rtc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct reset_control *rst;
-> +	struct jh7110_rtc *jrtc;
-> +	struct clk *clk;
-> +	int irq, ret;
-> +	u32 val;
-> +
-> +	jrtc = devm_kzalloc(dev, sizeof(*jrtc), GFP_KERNEL);
-> +	if (!jrtc)
-> +		return -ENOMEM;
-> +
-> +	jrtc->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(jrtc->base))
-> +		return PTR_ERR(jrtc->base);
-> +
-> +	clk = devm_clk_get_enabled(dev, "apb");
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable apb clock\n");
-> +
-> +	clk = devm_clk_get_enabled(dev, "cal");
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable cal clock\n");
-> +
-> +	clk = devm_clk_get_enabled(dev, "32k");
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable 32k clock\n");
-> +
-> +	/* Never asserted again, as that would stop the clock & lose the time */
-> +	rst = devm_reset_control_array_get_exclusive(dev);
-> +	if (IS_ERR(rst))
-> +		return dev_err_probe(dev, PTR_ERR(rst), "failed to get resets\n");
-> +
-> +	ret = reset_control_deassert(rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to deassert resets\n");
-> +
-> +	irq = platform_get_irq_byname(pdev, "rtc");
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	jrtc->rtc = devm_rtc_allocate_device(dev);
-> +	if (IS_ERR(jrtc->rtc))
-> +		return PTR_ERR(jrtc->rtc);
-> +
-> +	platform_set_drvdata(pdev, jrtc);
-> +
-> +	jrtc->rtc->ops = &jh7110_rtc_ops;
-> +	jrtc->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
-> +	jrtc->rtc->range_max = RTC_TIMESTAMP_END_2099;
-> +
-> +	val = readl(jrtc->base + JH7110_RTC_CFG);
-> +	writel(val | JH7110_RTC_CFG_HOUR_24H | JH7110_RTC_CFG_ENABLE,
-> +	       jrtc->base + JH7110_RTC_CFG);
-> +
-> +	ret = devm_request_irq(dev, irq, jh7110_rtc_irq, 0, dev_name(dev), jrtc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to request irq\n");
-> +
-> +	ret = devm_device_init_wakeup(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to init wakeup\n");
-> +
-> +	ret = devm_pm_set_wake_irq(dev, irq);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set wake irq\n");
-> +
-> +	return devm_rtc_register_device(jrtc->rtc);
-> +}
-> +
-> +static const struct of_device_id jh7110_rtc_of_match[] = {
-> +	{ .compatible = "starfive,jh7110-rtc" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, jh7110_rtc_of_match);
-> +
-> +static struct platform_driver jh7110_rtc_driver = {
-> +	.driver = {
-> +		.name = "jh7110-rtc",
-> +		.of_match_table = jh7110_rtc_of_match,
-> +	},
-> +	.probe = jh7110_rtc_probe,
-> +};
-> +module_platform_driver(jh7110_rtc_driver);
+Okay, I'll rename it to sys_24M_hosc_parents and reuse it for those
+clocks.
 
-I note that JH7100 does not mention RTC in its datasheet. Does JH7110
-RTC have any commonality with JHB100 and if so then would rtc-starfive
-be a more suitable name for the code filename and module?
+>
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(avs_clk, "avs-clk", avs_parents, 0x=
+880,
+>> +				    24, 3,		/* mux */
+>> +				    BIT(31),		/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *de_parents[] =3D {
+>> +	&pll_de_3x_clk.common.hw,
+>> +	&pll_de_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(de0_clk, "de0", de_parents, 0xa00,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    CLK_SET_RATE_PARENT);
+>> +
+>> +static const struct clk_hw *di_parents[] =3D {
+>> +	&pll_periph0_600M_clk.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(di_clk, "di", di_parents, 0xa20,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    CLK_SET_RATE_PARENT);
+>> +
+>> +static const struct clk_hw *g2d_parents[] =3D {
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>
+> My copy of the manual puts the 300MHz clock first, then the 400 MHz one.=
+=20
+> Can you please check this?
 
-> +
-> +MODULE_AUTHOR("Samin Guo <samin.guo@starfivetech.com>");
-> +MODULE_AUTHOR("Hal Feng <hal.feng@starfivetech.com>");
+Yes, I checked the manual, and the first parent is indeed 300MHz.
 
-Review use of authorship macros as appropriate. This may be okay as-is.
+The last parent should also be pll_video2_4x rather than pll_video1_4x.
+I'll fix both.
 
-> +MODULE_DESCRIPTION("StarFive JH7110 RTC driver");
-> +MODULE_LICENSE("GPL");
+[...]
 
--E
+>> +
+>> +/*
+>> + * GPU_CLK =3D ClockSource * ((16 - M) / 16)
+>> + * Here we use a div_table to select M values that result in integer di=
+visors.
+>> + */
+>> +static struct clk_div_table gpu_div_table[] =3D {
+>> +	{ .val =3D 0, .div =3D 1 },
+>> +	{ .val =3D 8, .div =3D 2 },
+>> +	{ .val =3D 12, .div =3D 4 },
+>> +	{ .val =3D 14, .div =3D 8 },
+>> +	{ .val =3D 15, .div =3D 16 },
+>> +	{ /* sentinel */ },
+>> +};
+>> +static const struct clk_parent_data gpu_parents[] =3D {
+>> +	{ .hw =3D &pll_gpu0_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_400M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_200M_clk.hw, },
+>> +};
+>> +static struct ccu_div gpu0_clk =3D {
+>> +	.enable		=3D BIT(31),
+>> +	.div		=3D _SUNXI_CCU_DIV_TABLE(0, 4, gpu_div_table),
+>> +	.mux		=3D _SUNXI_CCU_MUX(24, 3),
+>> +	.common		=3D {
+>> +		.reg		=3D 0xb20,
+>> +		.features	=3D CCU_FEATURE_UPDATE_BIT,
+>
+> Just a heads up: in my A523 CPU clocks series, I reworked the update bit=
+=20
+> handling, so depending on the order of merging this might need some rewor=
+k.
+
+I've seen that. I'd prefer to keep this series independent of your A523
+CPU clocks series for now. Once your series has settled, I'll send a
+separate patch to adapt the A733 update bit handling, or update this
+series if yours lands first.
+
+>
+>> +		.hw.init	=3D CLK_HW_INIT_PARENTS_DATA("gpu0", gpu_parents,
+>> +							   &ccu_div_ops, 0),
+>> +	}
+>> +};
+>> +
+>> +static const struct clk_parent_data dram_parents[] =3D {
+>> +	{ .hw =3D &pll_ddr_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
+>> +	{ .hw =3D &pll_de_clk.common.hw, },
+>
+> Should this be pll_de_3x instead?
+
+You're right. The second and third parents should also be periph1 rather
+than periph0. I'll fix them together.
+
+[...]
+
+>> +
+>> +static const struct clk_parent_data irtx_parents[] =3D {
+>> +	{ .fw_name =3D "losc"},
+>
+> I think this clock should be sys_24M_clk.
+
+You're right. I'll fix it.
+
+>
+>> +	{ .hw =3D &pll_periph1_600M_clk.hw },
+>> +	{ .fw_name =3D "hosc"},
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(irtx_clk, "irtx", irtx_parents, 0=
+x1008,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_parent_data sgpio_parents[] =3D {
+>> +	{ .fw_name =3D "losc"},
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(sgpio_clk, "sgpio", sgpio_parents=
+, 0x1060,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_hw *lpc_parents[] =3D {
+>> +	&pll_video0_3x_clk.common.hw,
+>> +	&pll_video1_3x_clk.common.hw,
+>> +	&pll_video2_3x_clk.common.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(lpc_clk, "lpc", lpc_parents, 0x1080=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *i2spcm_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +	&pll_periph0_200M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm0_clk, "i2spcm0", i2spcm_pare=
+nts, 0x1200,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm1_clk, "i2spcm1", i2spcm_pare=
+nts, 0x1210,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_clk, "i2spcm2", i2spcm_pare=
+nts, 0x1220,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *i2spcm2_asrc_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +	&pll_periph1_300M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_asrc_clk, "i2spcm2_asrc", i=
+2spcm2_asrc_parents, 0x1224,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm3_clk, "i2spcm3", i2spcm_pare=
+nts, 0x1230,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm4_clk, "i2spcm4", i2spcm_pare=
+nts, 0x1240,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *spdif_tx_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(spdif_tx_clk, "spdif-tx", spdif_tx_=
+parents, 0x1280,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *spdif_rx_parents[] =3D {
+>> +	&pll_periph0_200M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>
+> The manual I am looking at says those two muxes are "Reserved". So are=20
+> those parents from the BSP? Can you please add a comment about it then?
+
+Yes, I took them from the vendor BSP. I'll add a comment explaining that.
+
+[...]
+
+>> +
+>> +static const struct clk_parent_data usb01_ref_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA(usb01_ref_clk, "usb01-ref", usb01_ref_parents=
+, 0x1340, 24, 3, 0);
+>> +
+>> +static SUNXI_CCU_MUX_DATA(usb2_u2_ref_clk, "usb2-u2-ref", usb01_ref_par=
+ents, 0x1348, 24, 3, 0);
+>
+> Don't these two clocks miss the gate at bit 31? So it should be=20
+> SUNXI_CCU_MUX_DATA_WITH_GATE instead?
+
+Oops, I missed them. I'll add them.
+
+>
+>  > +
+>> +static const struct clk_parent_data usb2_suspend_parents[] =3D {
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_suspend_clk, "usb2-suspend",=
+ usb2_suspend_parents,
+>> +				      0x1350,
+>> +				      0, 5,	/* M */
+>> +				      24, 1,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data usb2_mf_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_mf_clk, "usb2-mf", usb2_mf_p=
+arents,
+>> +				      0x1354,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data usb2_u3_utmi_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>
+> Aren't those parents exactly the same as the usb2_mf_parents[] above?
+
+Yes, I'll reuse the array.
+
+[...]
+
+>> +
+>> +static const struct clk_hw *edp_tv_parents[] =3D {
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video1_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_periph0_2x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(edp_tv_clk, "edp-tv", edp_tv_parent=
+s, 0x1640,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>
+> There is a second divider range from bits [12:8].
+
+Okay, I'll switch this to SUNXI_CCU_DUALDIV_MUX_GATE.
+
+>
+>> +
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(hdmi_cec_32k_clk, "hdmi-cec-32k",=
+ pll_periph0_2x_hws, 0x1680,
+>> +				      BIT(30),	/* gate */
+>> +				      36621,	/* pre div */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data hdmi_cec_parents[] =3D {
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .hw =3D &hdmi_cec_32k_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_cec_clk, "hdmi-cec", hdmi_cec_=
+parents, 0x1680,
+>> +				    24, 1,	/* mux */
+>
+> Even though there are indeed only two choices, the manual still=20
+> specifies the mux bits as ranging from [26:24] (as for many other clocks)=
+.
+
+Okay, I'll update the mux width.
+
+>
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_parent_data hdmi_tv_parents[] =3D {
+>> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_periph0_2x_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(hdmi_tv_clk, "hdmi-tv", hdmi_tv_paren=
+ts, 0x1684,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +
+>> +static const struct clk_parent_data hdmi_sfr_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_sfr_clk, "hdmi-sfr", hdmi_sfr_=
+parents, 0x1690,
+>> +				    24, 1,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static SUNXI_CCU_GATE_HWS(hdcp_esm_clk, "hdcp-esm", pll_periph0_300M_hw=
+s, 0x1694, BIT(31), 0);
+>> +
+>> +static const struct clk_parent_data ledc_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(ledc_clk, "ledc", ledc_parents, 0=
+x1700,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data csi_master_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video0_3x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_3x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_3x_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master0_clk, "csi_master0", csi_m=
+aster_parents, 0x1800,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master1_clk, "csi_master1", csi_m=
+aster_parents, 0x1804,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master2_clk, "csi_master2", csi_m=
+aster_parents, 0x1808,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +
+>> +static const struct clk_hw *csi_parents[] =3D {
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_de_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_600M_clk.hw,
+>
+> My manual lists two more parents: video0_4x and video1_4x.
+
+I missed them. I'll add them.
+
+>
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(csi_clk, "csi", csi_parents, 0x1840=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *isp_parents[] =3D {
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_600M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video1_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(isp_clk, "isp", isp_parents, 0x1860=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static SUNXI_CCU_GATE_DATA(res_dcap_24m_clk, "res-dcap-24m", hosc, 0x1a=
+00, BIT(3), 0);
+>> +
+>> +static const struct clk_parent_data apb2jtag_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .fw_name =3D "iosc" },
+>> +	{ .hw =3D &pll_periph0_480M_clk.common.hw },
+>> +	{ .hw =3D &pll_periph1_480M_clk.common.hw },
+>> +	{ .hw =3D &pll_periph0_200M_clk.hw },
+>> +	{ .hw =3D &pll_periph1_200M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(apb2jtag_clk, "apb2jtag", apb2jta=
+g_parents, 0x1c00,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static SUNXI_CCU_GATE_HWS(fanout_24M_clk, "fanout-24M", sys_24M_hws, 0x=
+1f30, BIT(0), 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_12M_clk, "fanout-12M", sys=
+_24M_hws, 0x1f30,
+>> +				      BIT(1), 2, 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_16M_clk, "fanout-16M", pll=
+_periph0_480M_hws, 0x1f30,
+>> +				      BIT(2), 30, 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_25M_clk, "fanout-25M", pll=
+_periph0_2x_hws, 0x1f30,
+>> +				      BIT(3), 48, 0);
+>
+> Where do those parents come from? My manual just lists the frequencies.
+> Is that matching the 0x1f3c register sources?
+
+Yes, these match the sources listed in CCMU_FAN_REG (0x1f3c).
+
+The current definitions fold the intermediate fixed dividers:
+PERI0_160M / 10 becomes PERI0_480M / 30, and PERI0_150M / 6 becomes
+PERI0PLL2X / 48.
+
+I'll use PERI0_160M / 10 and PERI0_150M / 6 in the next revision to match
+the documented clock tree more directly.
+
+>
+> The rest seems to be correct, as far as my mostly manual comparison goes.
+>
+> Cheers,
+> Andre
+>
+
+--=20
+Best regards,
+Junhui Liu
