@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794254881;
-	b=eQHt59yM4/zgrPk+J6g3CuCd2j/gaRS1MLNTpDxiusbL80nfOJucxeVpxfRj3BueQs9D
-	 ZiW45wQqXSqSx9bX+kgl5XVK5vIR+lk/egjiSv7LTAAwiG3ubIUzCtegff7C8gJxuD92S
-	 ZWwD8Bm0k/lTnsyaZ1MkK9dsreL6IobnnpdlgghmrEpoFcpAXUh88JHPJGoAYtr2M3t6Q
-	 R/KVPrQuYFuKMF96jI3CeauUdIrNcr3ySaO6roKxxTEGJGy/rOvA0dwEpnTgnjzUKZBaL
-	 WPcCJlT9PdXDoKn9epkVHeyE9W1tGQKF3ow3mdjgtC8H65Tu+V1WW1qa9JEgMdZKSAw==
+	t=1794254990;
+	b=Oqj+V+ZQ3UsfYFA+X294Bcc8YeJ6mg+WWV/Za9I7MDHwL3bW4/nufqdOBDe8tsFeqMlL
+	 WV9roj2+Cf1IYyMzpt+ZZ70yv0w+x474jKonKIYcwLYWI9z0Kfiw5PW0Dyme7JUWRQ2EB
+	 sSZfR4R9Uyv+yfoR1yeE+vU1EoewarpLZvV/UkQqd8B9qlQigxxwMho2RVMm4wiwYt3dr
+	 30eKcdaU8PdWE36ep5MF3EDovFbsL5jS7f4ag+TNpMwHkhshWHPmwKETI2nO1Zb//ivGr
+	 PW/Z8YZFxmVpPfAUXDPaz0qZv0AiRvxoQPxHLsO91V3Koi5sTY/XtFc7MaHdLQ+XItw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yeH43vPcTrmxtvR5EDQeUYlZILsKnLUoD+qsoobC8Ks=;
-	b=SDkiyfkrLJgGt00nvmU3DeKV16hmvH0FI1fjO2yoi/gGaF0qPWrdeANMBrHlmTQdx9g7
-	 MGe+8RAEXGz2u+fE0YPVt4IXq3nX4CZmbJGlMuaSO2FKGeDkPy7fGRGYxMZYyisbSOyPS
-	 1fowdu+ewTd4JX1SLYW512Jqu8mM3aPi5IWf7tuq5P0M2GnFPVw4UrTLGhuRrBW3twGbk
-	 CJ+7y16wAKQHhq1Q2ygAtOVVGnaVmLYnNg/in2Z9IrorDU5pCn9lk7pz1zFztgpKw6R4X
-	 AYYAeJPZnUcW/Avyh+w0vYBbjjv7iQ7g9IHNl+HVuNpN1PywLzV4i+MqcKEMS3Jr2Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254990;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=/8asDfPuN9E/dFme34IYbG5Lj3axm/bwNBj55SvVdks=;
+	b=IGCD6wMvn0W5pqRW3fAUgMXVZ1dB5I/N3Y1HhJ/RwvHuYR/kqVtIKBnX/CdNCLliISNR
+	 JIu0YYfQhhQAhBlOcAoJIXyHFf2ieV6coZWH2Pxj7kgO7c1OEVdMB2v0Jl+mqyEboszmr
+	 bMyBNOtwspGB1seZEj7AHqzDQd4wU7HNL0UXon06OGoSupameViOIvclmbn5IgAq8w0Qs
+	 8dtoQK/2+bKc1Hd9LyQJvaNJPqcoVVPOJgbCZTne9DjI/SJvOwNzJDBJgckvHLluiglWt
+	 aRufsTSJ5MUoQi2/DLGNTT61647Z273vlFFq6DdP/eaPAcHEAkMXx/JLAZBuu09fEhw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzS5K1aj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/EDtdXD";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54632606A337;
+	Mon,  9 Nov 2026 20:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/EDtdXD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794254989;
+	b=KYXk0HL3R7n0LpnjUsRxj8+TJev1zmAPK0j+ZiFOpYBzm2sbPbkLZEiFWzct2pmZc1ff
+	 PlvWWqqz53gOHCMun9Y0yNpRUl6jSEYEhylXRQ2Z2fLKgvyKp5nXUWyVrDJrYeUuARQFJ
+	 dfaNYcqyr7k9gPBXE68zZwO8CH0/5qyULZvxy83F2yuCzY5wAhjNZSDTtUnrisg2I4KTc
+	 kBVh3WqpXPQEwStT0DZTlIL3Cn4oTaU9uzlFq6fm+Uo0qE/viVUiY6mynzk6gxkyrY2dp
+	 LT0QInWXg3tM3SPuRXe6+QFya2jlKBJp/39k8+9oorPz2e1rcuJFV5nqT0jBj3c5MXw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794254989;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=/8asDfPuN9E/dFme34IYbG5Lj3axm/bwNBj55SvVdks=;
+	b=M70YBXpPFaBDDcihPnl6tbAMxmn3DKaV1YyQWnCZcJVVGZCc9KwUoZQJeUlFE1PX8v12
+	 b3xL6fWdhbwbxflsLQO/5It6Ppv88Ll0Bdd3EAkTOm9pFyBSr8Shb4WpRAoby42xFeyCL
+	 XYtJcWNxaInzTJizZjkXn6zrzLpYSrgKm7pLtqOIgxzR8hwZn5J7Ws7PDlrrqrYE22Pq7
+	 /NUOkQcAkH8dE1kk36/Vgd21w1rWIdoS9Sjq2r+SMllmEZRquj6T4cIwNPKlF2mT5ZFoX
+	 lTz+K+EaiAElkgZSSaXFFzk1wZICnOdUhOSvRgMJxMqhhBvuvASwOXQ23Dbs5FHDxgQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A384E606A330
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 20:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A384E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzS5K1aj
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2526409eec.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 12:08:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794254880; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l4abnJ4NE5+rVr3ng4K209M64MhRkokMXGXWI1EL1fJzTCeWyizYOGJHwf3J6dYx07
-         V+Hhf7J9GcKDRCWE08/StYVU2+TamY7xGVnprwQeBqaaaZtlO61nfbW9fq6o/RRROrig
-         g+U2k0ihkx2wxxVW5O0JtbcwR8UEWQb9W+0cZ3j3CnUS3Ng3EmfHVmKnn3dQ3XI3HG7j
-         IPJc5qDTnUzymu7A8E3j7knhbP7MPpKLYeCJwtyRxH8GHpGtIahZxcTpcN1A7LUjNsbW
-         fiGBdilIYQs0cbaA5/smlMedi5asTehgqC1g5IoAYIbtkSSkI0IGQRZMU454Ve963+fv
-         gP9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yeH43vPcTrmxtvR5EDQeUYlZILsKnLUoD+qsoobC8Ks=;
-        fh=UMhiYpAav1AraEbG06BWZmMhH6RENX+0ycIno+CdrCo=;
-        b=IKo1fFvVnaqI7T8RO+szW6kWvDdkZMD//7yZFRKu6puKb+cwe3r8QlM28oUGS+amiU
-         tgMvRSk3ukhmnZLhYFyOCYacyasHMx50J+kCL/mZFyHJr04spH0gxS1tSj2gix7fLUZw
-         KDVilqeaSEulAuttkYkzF3o2i5c4uvWyCL9GSGgzaviLtE6NENYnAeAA6jkKtvU0Syxm
-         AS7Nq0oQrws1UPHSr1IZ9n8FaMyPivtNYfrOhKeHOl0WdjsAew4KG84jF/TT0BCs1TKk
-         OSin9hTdjrRyUk/t5e6yFkAh/yRHhYvO8P82BQeRCPtNeNPTp16XUtKQCbaxSRIZGdul
-         80eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794254880; x=1794859680; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yeH43vPcTrmxtvR5EDQeUYlZILsKnLUoD+qsoobC8Ks=;
-        b=pzS5K1ajLL/ysho4dWDbqN799r7BUPcJItNm2WKd6HE8UbQZGQjHIWxpYuIVy4jY8J
-         deWaSjucO5x/RPlLk0GuknYJI3UJrKe1/NgsXSy4p3PsNNGUm7H+98ywcrlse/vl0VKx
-         YgOIaeKyw/ZUq4vwO3OnVq6kCpx0LxNb/nKpSEdf31x2ktnyCD3PmcNscntsjmbY0wKE
-         r3GWBcb+0VNzwuGVD6wNzdwTPDvf2nB6Anu1yIrUhC2qbjxq7YnjTr4yBQtDexFxsqVB
-         PovRMTFdH+7hCci+7SyYYWMnne0bVOb+4XrJ9pKpKbIQgRrUeMWMBf1v5eyS6EEwy2bA
-         KNSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254880; x=1794859680;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yeH43vPcTrmxtvR5EDQeUYlZILsKnLUoD+qsoobC8Ks=;
-        b=jpERAYmoBB04czSMLeTdA9ck3H1KPc8219RhJ6HrLO7RbsFAqraXyIRLoHLrV7NAFz
-         vi8TIPa1GD/vvQQuygYe7U/CMN2YNEjzBe8NxFFzpk3TI+/k9dBmNFbPNPwRG1O3W1RB
-         wp5ETiL1qRhq2MxBV5TXrhy0MckuoSRGcCFQRDpN4D6qBX11aRwC/I/38P2gY4gzgs96
-         qhF2BSkYETXakAQ2QlIBfUY7M90NNO+igRq2Enkb46JwpenUNw7Jy9W3vmgwzWAjEFJx
-         f0fnpgmnde7FkVakX2BW1gyuPiSjdkyeyn2l3OAUY5imMTUQaMhCHKNiQYob1qfH+Hf3
-         i0jg==
-X-Forwarded-Encrypted: i=1; AL+hErHvOIJTdyAIyFkXxpjpYkyaxWBGWkiQ6+ZE7HV9mSiNUqaLdQlDAMn/sCHtr75uoIUDVzniPAtrLDu0@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HiC+CAN6A3ISGy8qAucD1UPqjIJv3KsY+nanrKwzg++70nj5Y
-	K1Vz0hUr/VTiKtWCNg8PqWFgN7ixIKZoiaHsN8YhYKPMbuJjJgxlrxsT9FG2IKudoX+6UdJc6kn
-	9Faj1TMs8fiAmDsB03CDk+UAoWt2f/es=
-X-Gm-Gg: AYBFou1ndIz5LZZtYo8TLooetPDqznyDtgRUa+JwCDTzj5lQGlj+qRIfAA9VM1ncSmt
-	wId/CispMxlso1wLH5MA64Lib+dgWb9ThebDRMCB1yVGIYAuwNWGfcbrxOi/9swyxzlIdww05MK
-	MHoltPS8Os4JfFV6P4vaAwRyYSjsEfEtbt3j6/sInBTv9R5y52ux0zNOymzHhPfd60gbMgJp60n
-	IFgKtScDNYrs9eTaPn7EYUMBnSbonwUyUIzeK0r1Fi7VkvxpjSke5mMlhfwod5NqoMrOB3X5DDa
-	pgG6i6ls0gU/pj4DXK8nunpuVp+eMtI3FPlXoH9G4AN7MFymHBFROJfX1Y5+Gb2ipiXyJgb+Ho6
-	BZLyOHv57RxlrlCqhJ2vwtGP7NxgXqHI0qiZRyrzCMzMwGvz8swsFYCh1wcXSgjhYW5ij+nEz+h
-	+wdrCPBbn9VB1ksS7O+4B25dZCQYbrDRJ36g3gD8+V6/7gdMCJ9R4=
-X-Received: by 2002:a05:693c:639b:20b0:369:ef92:bd7b with SMTP id
- 5a478bee46e88-3752021a4b3mr405313eec.41.1794254879591; Mon, 09 Nov 2026
- 12:07:59 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 32E511F008A2;
+	Mon,  9 Nov 2026 20:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254989;
+	bh=/8asDfPuN9E/dFme34IYbG5Lj3axm/bwNBj55SvVdks=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=M/EDtdXDqhfFgq0pdWcRjU5Tr9Y0hlX8Bd4r/u0iHDbQ56PfkmVkhkv1SoZF4lBc/
+	 v6A8a8Hn3rsibI+S/BGjN/porTH5zLnov8G9e9Nib+hCafgW0g6FHtdqXsdLKH1SQI
+	 kTDLRRLTxRnlfTAiEZyj+bNOgcFxc+YsBxWxKon/qrdTM0G7bKvzz4TgxvWuckcuzt
+	 W5Di3vu1ZrcnNCijzwNLCAVDHn5AwMreYKwC2nHbKAazVZqW3fxcEAeDMX4oWBYThB
+	 VnC6c1QODxj20hFD0MdYRPIbb2g58V0y+wQGCoStY7/NZFI/I1VCq1q4M5PCFfQ05h
+	 2kFN6sTH3+OPQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B05AE48639;
+	Mon,  9 Nov 2026 20:09:48 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Mon, 09 Nov 2026 15:09:31 -0500
+Subject: [PATCH v2 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,59 +83,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108094253.83899-5-clamor95@gmail.com> <202611090518.mm6yt2nO-lkp@intel.com>
- <avInQ08dVrsc-Rbo@ashevche-desk.local>
-In-Reply-To: <avInQ08dVrsc-Rbo@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 9 Nov 2026 22:07:47 +0200
-X-Gm-Features: AclHuK-uW4-VZbHI3Cd7Hqy4mW6DNnwVcXugR9i4sn8vPx7NjzrQMM_Kf1jGWpY
-Message-ID: <CAPVz0n1FqXV-XXyBJpnp1ivd+uk6+zGvngobQZfUXMNBBPyORA@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: kernel test robot <lkp@intel.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Pan Chuang <panchuang@vivo.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>, 
-	oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-sf19a2890-gpio-v2-1-b885fbd84c4c@telaak.dev>
+References: <20261109-sf19a2890-gpio-v2-0-b885fbd84c4c@telaak.dev>
+In-Reply-To: <20261109-sf19a2890-gpio-v2-0-b885fbd84c4c@telaak.dev>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Qingfang Deng <dqfext@gmail.com>, 
+ linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254988; l=3368;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=gBaGbabUMc2JA71WrgLEKTYUF/cvS9i4MFpvPPv2yIc=;
+ b=8BufdIVM4MIYrul/uWU7+yEtqdBOSY8LbB/4Ja3VIIRcKJreWL12VNu/Zgk4sECqYwlO6pqBC
+ kYUAUBVAJUwBtO5SAJNMDNElZeWAvelUeFUu51bRSCnuTtu1b/JAILR
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 
-=D0=BF=D0=BD, 9 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:04=
- Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Nov 09, 2026 at 05:48:09AM +0800, kernel test robot wrote:
-> >
-> > kernel test robot noticed the following build errors:
->
-> ...
->
-> > All errors (new ones prefixed by >>, old ones prefixed by <<):
-> >
-> > WARNING: modpost: vmlinux: section mismatch in reference: trace_initcal=
-l_level+0x28 (section: .text.unlikely) -> initcall_level_names (section: .i=
-nit.data)
-> > WARNING: modpost: vmlinux: section mismatch in reference: __arch_xprod_=
-64+0xac (section: .text.unlikely) -> initcall_level_names (section: .init.d=
-ata)
-> > >> ERROR: modpost: drivers/iio/light/ltr501.ko: symbol 'iio_find_channe=
-l_from_si' undefined!
->
-> Forgot to import namespace?
->
+From: Chuanhong Guo <gch981213@gmail.com>
 
-It is not exported in the core
+Document the GPIO controller of the Siflower SF19A2890. Siflower's SF21
+RISC-V SoCs have the same controller, and will get compatibles of their
+own with their device trees.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/dr=
-ivers/iio/industrialio-core.c?h=3Dnext-20261109#n319
+Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+[Joseph Telaak:
+  - take it from Chuanhong's siflower-7.1 branch
+  - list myself as the binding's maintainer
+  - use GPL-2.0-only instead of the deprecated GPL-2.0 SPDX
+    identifier
+  - indent the example by four spaces
+  - drop the ngpios property, which the compatible implies, take
+    exactly four interrupts, and order the properties as in required
+  - commit message and subject]
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ .../bindings/gpio/siflower,sf19a2890-gpio.yaml     | 76 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 82 insertions(+)
 
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+diff --git a/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.yaml b/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.yaml
+new file mode 100644
+index 000000000..830a049ae
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/siflower,sf19a2890-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Siflower SF19A2890 GPIO controller
++
++maintainers:
++  - Joseph Telaak <joseph@telaak.dev>
++
++properties:
++  compatible:
++    const: siflower,sf19a2890-gpio
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description: One interrupt per group of 16 GPIOs.
++    maxItems: 4
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-ranges: true
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 2
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++  - gpio-controller
++  - "#gpio-cells"
++  - gpio-ranges
++  - interrupt-controller
++  - "#interrupt-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/mips-gic.h>
++
++    gpio@19d00000 {
++        compatible = "siflower,sf19a2890-gpio";
++        reg = <0x19d00000 0x100000>;
++        interrupts = <GIC_SHARED 246 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 247 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 248 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 249 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&gpioclk 0>;
++        resets = <&gpiorst 0>;
++
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&pinctrl 0 0 49>;
++
++        interrupt-controller;
++        #interrupt-cells = <2>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b5a6dc379..4193b433c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25706,6 +25706,12 @@ N:	sifive
+ K:	fu[57]40
+ K:	[^@]sifive
+ 
++SIFLOWER GPIO DRIVER
++M:	Joseph Telaak <joseph@telaak.dev>
++L:	linux-gpio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.yaml
++
+ SILEAD TOUCHSCREEN DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	linux-input@vger.kernel.org
+
+-- 
+Git-155)
+
+
