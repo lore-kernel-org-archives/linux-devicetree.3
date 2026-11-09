@@ -1,97 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246261;
-	b=UlgjsEJh+JasgoDwqvXblFYtlw3mnrfnptUNm80erVgLvNwvGhQWeiPVhLqd/qskvtBU
-	 edzE8/tpq0XAGX30MG6qQ7aS5wcl+82I5zssIUReua0l3IZQcHIgSSFbg9/0lhpRPm6qa
-	 36/qMUDnQtbaJE2rLD61Ei3Jm060qQQ2CdKkVfd8RRh/fG8AifVTkNB/+YTLN/sTyJa/s
-	 t3Z++BZkW0NuDjtrWuicJXZijUn6HnLzKisWK1UfRqstIuRr3ZH4TcTNkpx2C2r7Ryk5C
-	 RwTHmx43E4Z2QqhcRnssqEbuUHHNBO2pVPcfdvqI+n1IqvN01NPTxfqQmxUNVY76UPw==
+	t=1794246479;
+	b=29JnWW0HfcILPq32FYfVH466iEpr8sMsKWGP55GBHtRsbdeWnyhnh9GyeX3W9+hFfP6I
+	 QWS3bflKUkCpDTPJy8ZlepaEeusbFoWu/XAPET963Bnna4V8/wzAQ7rcrcKM58hjDJ2zD
+	 eUwwlDlGg8mJzHLMIbyPN9USgHYxO0bB8eCbxctinIGm2nXH7Gih6nBevb4sIDOdXBq60
+	 r9uOMYPCHGKlIBMzwWn5lyZXaoAuRCt3PRuUSknZ7qCQ6X+zVgqLgolT04/1en8eW2t4w
+	 ynQFqk/uVgS1KUg1hjGLd1dekBh1QM+1L4sFbb/EMyxGBXXUKTyS5I6965jziWDEkOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246261;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=OjWZlamdfaT2Fsld90J6bx425flXrkvcRLjTjpBQ3dk=;
-	b=ID0CWfhCmYa6IUGJPpViZVjkIrocNtWV9pbd6WfTeyb64Z6tL2DK2h1Po7mwxQmkRsdp
-	 ccmu5NUvwvf3+/56tbTT3Jn98CYmiC6hjJ2b2IXufMlkapkUvRT+64oqaXgRamXusDo7c
-	 yVg42W837yavwn3XIu/ejNIA+CqXlxNn+pEwWwhQmd7hAiLjO0JfBxvpw9CllqWEAplyg
-	 PHQU8QNbViyNIAkvSpJh0hLVBw9MCyj5Y1mZ3MySh4BVdq7+w06zN3TrTBefp0cUjZJ8w
-	 byhwiapFgY9Opo/UnQvJ+celd4TwoNczLabd6/l9xNSDs0xpmxnR8Q3fVXR/1FWR9zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246479;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
+	b=Uapf0lNeGsjBEo6qfOB0wPNX4VpNDT8CMMYG/8fDVygbmVtZIL0nBRnQ6z1SQ4q1cYdg
+	 Y91Giz0kqdRaBsAOcdNvrNU7Hy6KiIWPN84s3tSwAjHGCd8nR8iEC53N5J2oqyTzrLINd
+	 kDsZD72BGZ7t7yBdzOVDAux8OH2dTNiFIyOaF/cr1N6ivaWf3e7Zo+3hCSuKscohc+q2Q
+	 4ZHK33TKjpQiHPkfz4wAkD1DB1xQKRxpV0TQp/Es2J5Cq9q6fdP8o5SwotlkhxVsDHsu5
+	 v7/PZM+Ue2y5GndH0vb8h4Fp+AA1d+Ds//tDS976tsBtX7dMDHJo5PfLua3C+WEPqRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PohMA5qV;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=lg+jvrAZ;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E2F606A31C;
-	Mon,  9 Nov 2026 17:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E2F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99198606A326
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 17:47:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99198606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PohMA5qV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794246260; x=1825782260;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=NhxNjFEi6PnwzcWUVM17p+dTNJ9F3r9zX5QpBGi1PTE=;
-  b=PohMA5qVn83zepr9Funvn6/7iku9TWysRynwELeDTyfL7qYHDdSiFi5w
-   IRYVze212t18h4A6t5OALN0C2OyRsyOSG+f12S/Ver1lJqTFICCk8G1jq
-   Ck3WS6gzUyycoWZZpgVsTZWUuFLZSxf5VlGN7vFFco5xZ8fDwLOjRom1m
-   ZLAYNGyZYUf/y+/RYbdiyZWQBGSd1/b7BO99Ok5h6sM4DA8TJMZcL6bIC
-   WN0x/yu7xofs7i94VGqBd/vFSAR4QQ7TzR64kmOnr3u860b+WQNhkCQh3
-   T+UQh99Hj3ULfJLifJtgtPGSjKESGNM1WfovK4sx4qiEJj8g9PBtKtXiO
-   g==;
-X-CSE-ConnectionGUID: IaYKbD76Q3eLjg7bqWtUrw==
-X-CSE-MsgGUID: vSDm1INAROCytBS4CecdFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2966527"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2966527"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:44:20 -0800
-X-CSE-ConnectionGUID: JWaul6APRZuy2bfOcgRxjQ==
-X-CSE-MsgGUID: CBMGhc3HQFK20IxsFhV6Jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8112629"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:44:14 -0800
-Date: Mon, 9 Nov 2026 19:44:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=lg+jvrAZ
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso527912f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 09:47:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mgcrea.io; s=google; t=1794246477; x=1794851277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
+        b=lg+jvrAZ2oCcpclFvkbTpf91jID/AaZztTrOJRevcSz5eps7oFI86DUGJ7nt/JGOU7
+         zwN9T3JfLXyuaWQIK6M7QAZuK5Hk3zsCCX6Tqrz5GJBA260PvGVPBYm3QC1knxjRZOe8
+         zAHSCuPac1o0fsXhMhrfHQbMz9JUagHIqbBi4ex62KwT4DTpl4BUShq0Xd4LlIzsHgLD
+         ZGndriX1axeFbc40naXlzB/bY+bzX7p+U5NQWIB6dqnvX5doN0fXc9/W3BsAmTN3Ox2n
+         zkYW1KsG5Ky2FHu60+/q9fWLxElCn9a7GZJes+eCwj9CNaPNAoPWoJKdU7VY3VUKqqWb
+         p4bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794246477; x=1794851277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
+        b=xRmAha+f1TlXPNePeL9Oi+61qMFmWZ8GYSgFvBZBPBRZlbcwI8Z13e9j0UC8FJAFXD
+         pXlELV7oUN3wQb+cKjWRjq9CA0vL/Qdr03RGMc3dqmQPCtHkc9Vh8hO68gI10sFnr5EB
+         DVbCD89KHY/JSAAppqip30oI9YNVP3T40p7FOhyHNL84u9XMNYPQtf119JVFlK5fDgzH
+         4BdS8IGz28NxBX38xSbl5z3KCWoTW/vAo4saRZyAJMRgLKhP2KDHoz4Yv0yvae3lulN1
+         KVGb1zx5lIc/j1fl9N54TZVA6TJzS6NUE8PqdWmfrtbfvfURXUgzaOsoc8kQoZ+4rRQU
+         sLww==
+X-Forwarded-Encrypted: i=1; AL+hErGOoJ1DkwUnBaTmSDSYz65mHuK06KIWmzoy7TZjZQbpaGwkH275LF8wOa2J9r1k/hzSbkQKYTdDFqLU@vger.kernel.org
+X-Gm-Message-State: APuU4Z92LKfsad2Y6/dTfTY8yCLqrW03F28/WTpRI9uUZ1r/UKrEd9jU
+	QYqr7ewIsR4qQvXCN7e4L2vykO+yo8VKH+fwCoh1JDWk2xtL3+7HEQ9s15OhQtNDrcU=
+X-Gm-Gg: AYBFou3hJncU4EaLY0zuoeHR8zyTzGemWPQtJKBIWhjbciKxlZq5E3wl+s8HdTabD2E
+	/IbQeZ9/GCrCv1LTV6JdwmqnFysaHcz4RkvwL8qnej8X1cSbHmP6nyG8F391xSC9b7SN5zm0kuQ
+	hNdc9icQ/kMPTDUbGKBrXJcF6p6MzyK5/6f3T73PHpXmwSkVQ/uah52Xa2veaJWyMCJF0GSE60Y
+	kslUUxuq+5iHPt65tKxxJ/3xqrrfAXJWrg1qIWXD5JBUe/ThhPkLasY2KGPZibre8pfJfl+eR6w
+	QE+jiAyu30RbAS3hvWRqqGpNVcdidWWxZKGU1Tp1Ux6Y3FLmUZ+sDXG3bOP7veEFjb2AKOXrkxL
+	t8Rcfq7nHhES9C8D5uOXo4/YxdWMFWrPsSKhU9O/yfflimwrhuHMwozVKDIJ4iqzgc9oVDnBYuY
+	FMXyQP8ZBR4EJl9mxKBPNV/QVNwkWrdwPnKdUYLIEkI4cjJIM0+bzwt2BQM8L2MAj4w1auGrppq
+	7zU3orVRz6uYmuwRqgDjR6FNmq3E8apQ6kwY95UXN+8y32hpS2GhYZECEgfZtFilWKbE/vqgdMf
+	j2nUQ3ccej4IimsBO8xxqYpOkwU6zeByRy3gC8L5tHYA77nFjmIih1VzxkBEFMc=
+X-Received: by 2002:a05:6000:2212:b0:488:89c7:31aa with SMTP id ffacd0b85a97d-498307c50c2mr300693f8f.39.1794246476845;
+        Mon, 09 Nov 2026 09:47:56 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm167322f8f.53.2026.11.09.09.47.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 09:47:56 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <avIGbBH88xZwndaC@ashevche-desk.local>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-3-maxime.chevallier@bootlin.com>
- <auyjgDddFs3OvnC3@monoceros>
- <20261108013218.0fe627e7@jic23-hlaptop>
- <avAy6cemm3MRHSQO@monoceros>
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v4 0/5] drm/ingenic: Add the X1600 display controller and the HiBy R1 panel
+Date: Mon,  9 Nov 2026 18:46:35 +0100
+Message-ID: <20261109174640.96951-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,46 +109,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avAy6cemm3MRHSQO@monoceros>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Nov 08, 2026 at 09:32:10AM +0100, Uwe Kleine-König wrote:
-> On Sun, Nov 08, 2026 at 01:32:18AM +0000, Jonathan Cameron wrote:
-> > On Thu, 5 Nov 2026 16:42:42 +0100
-> > Uwe Kleine-König <u.kleine-koenig@baylibre.com> wrote:
-> > 
-> > > On Fri, Oct 30, 2026 at 05:47:04PM +0100, Maxime Chevallier wrote:
-> > > > +#include <linux/i2c.h>
-> > > > +#include <linux/mod_devicetable.h>  
-> > > 
-> > > Please don't include <linux/mod_devicetable.h>. <linux/i2c.h> already
-> > > provides i2c_device_id and of_device_id. <linux/mod_devicetable.h>
-> > > provides many more *_device_id and thus introduces a big list of
-> > > unnecessary dependencies.
-> > > 
-> > > I recommend to just drop <linux/mod_devicetable.h> here. If you insist
-> > > on full iwyu, there is <linux/device-id/i2c.h> and
-> > > <linux/device-id/of.h>.
+The display controller of the Ingenic X1600 is not the one ingenic-drm
+drives: it fetches frames through descriptors and keeps its interface and
+timings in register blocks of their own. It is the X2000's DPU without
+the composer. This series adds a binding and a driver for it, then the
+panel of the HiBy R1, an X1600 audio player: 480x800 parallel RGB, set up
+over a 3-wire SPI bus.
 
-It must also imply acpi.h.
+The driver covers what the R1 uses and what could be tested: parallel RGB
+panels on a 24-bit bus and one full-screen RGB565 plane. The composer,
+smart panels and other pixel formats are left out.
 
-> > IWYU is always a bit of a 'roughly' case in the kernel.
-> > There are standards assumed sets of this header will always
-> > include this other one. I've just started assuming that is
-> > always the case for these ones. 
-> 
-> Not sure I understand you correctly, but I think it's safe to assume
-> that including <linux/i2c.h> will always enough to get a definition of
-> the structs i2c_device_id and of_device_id. My preference is also to not
-> add includes for <linux/device-id/*.h> in drivers, but opinions differ
-> and so I typically point out this possibility.
+Two things come from the vendor kernel rather than the manual. A flip
+also writes SRD_CHAIN_START, which the manual doesn't describe for a
+running controller; flips without it were not tried. The panel's set-up
+sequence is the vendor's too: HiBy calls the panel LG35583, its maker and
+controller are unknown, hence the hiby prefix.
 
+Changes in v4:
+- 3/5: the clock runs from probe to unbind (devm_clk_get_enabled()), as
+  in ingenic-drm, instead of being gated with the CRTC (Paul). The
+  controller only takes register writes while clocked, so the timings
+  and the output format can now be set in the encoder's
+  atomic_mode_set(), and the bus_flags and color_order fields go. The
+  burst length is set once in probe, and atomic_disable() no longer has
+  a failed clock start to handle.
+- 3/5: probe brings the clock down to at most a 720p pixel clock right
+  after enabling it. After a reset it runs at its parent's rate, 1.4 GHz
+  on the R1, and kept that fast until the first modeset the controller
+  hung the R1 at every cold start.
+- 3/5: atomic_enable() takes the mode from the new CRTC state, there is
+  no writel(readl()) nesting, and drm_mode_config_create_initial_state()
+  replaces drm_mode_config_reset() (Paul).
+- 3/5: mode_valid() still checks the pixel count against 1280x720 rather
+  than 720 per side, which would refuse the R1's 480x800 panel (Paul
+  agreed).
+- 3/5: the file is ingenic-dpu-x1600.c, and the module and driver are
+  ingenic-dpu-x1600 (Nikolaus).
+- 5/5: unprepare() turns vcc off before vccio, the reverse of prepare()
+  (Sashiko).
+- Rebased on drm-misc-next.
+
+Changes in v3:
+- The compatible is ingenic,x1600-dpu, and the binding and the driver say
+  "display controller" rather than "LCD controller" (Nikolaus). The X2000
+  and X2600 manuals call this block the DPU, and the X1600 manual does too
+  in its register and clock names. There is no generic ingenic,dpu
+  fallback, as writing-bindings.rst asks for SoC compatibles: an X2000
+  binding can fall back to the X1600's. The driver keeps its file name;
+  splitting it for the X2000's composer and interfaces belongs with
+  X2000 support.
+- 2/5: no $nodename and no clock-names; the driver takes its one clock
+  unnamed (Krzysztof). The example's node is display-controller@.
+- 2/5: there is no IPU in front of this controller (Krzysztof asked on v2,
+  Paul answered): it fetches its own frames, so the output port is its
+  only link.
+- 4/5: reset-gpios, backlight and port dropped, panel-common has them
+  (Krzysztof). The example's endpoint points at the controller's new
+  label.
+- Krzysztof's Acked-by on 1/5 and Reviewed-by on 4/5.
+- Rebased on drm-misc-next after -rc1.
+
+Changes in v2, all in 3/5 and all found by the Sashiko review of v1:
+- Commits wait for flip_done instead of a vblank before the planes are
+  cleaned up. A flip's event waits until the controller reports reading
+  the new descriptor, which can be a frame after the vblank that v1's
+  default commit_tail waited for, so the old framebuffer could be freed
+  while still scanned out.
+- A CRTC being enabled sends its event from atomic_enable(), once the
+  controller runs; v1 sent it from atomic_flush(), which runs first.
+- A plane that is not visible is rejected: the controller always scans
+  out a whole frame, so v1 would have read past the end of a small
+  framebuffer placed off-screen.
+- atomic_disable() returns early when atomic_enable() failed to start
+  the pixel clock, instead of touching an unclocked controller.
+
+Tested on a HiBy R1: the fbdev console and a player drawing through
+fbdev, blanking and unblanking, 60 page flips in 0.97 s at about 61 Hz,
+and the colour order (RGB order swaps red and blue on this panel). For
+v2 also: 120 fbdev pans in 1.95 s (one flip per frame, none timing out),
+three blank/unblank cycles, and a 64x64 framebuffer set on the primary
+plane just past the right edge through SETPLANE, which v1 accepted and
+v2 refuses with -EINVAL, while a full-screen one is still accepted. v3
+was run on the R1 with its node changed to match: the driver binds to
+ingenic,x1600-dpu with its clock unnamed, and the player draws. For v4:
+four blank/unblank cycles with the clock left running and the timing
+registers kept, 60 pans in 0.98 s and 120 in 1.97 s with none failing,
+an unbind and bind of the driver, which turns the clock off and then
+writes the timings again from atomic_mode_set() on the first modeset,
+and five cold starts with the kernel loaded into RAM through the boot
+ROM's USB mode and started as the boot loader does.
+
+The X1600 has no device tree upstream yet; its support is being posted
+one subsystem at a time. The R1's backlight uses the X1600 PWM driver
+posted separately, now at v3:
+https://lore.kernel.org/r/20261102201325.29507-1-olivier@mgcrea.io
+
+v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
+v2: https://lore.kernel.org/r/20261025191640.13592-1-olivier@mgcrea.io
+v1: https://lore.kernel.org/r/20261025085816.60405-1-olivier@mgcrea.io
+
+Olivier Louvignes (5):
+  dt-bindings: vendor-prefixes: Add HiBy
+  dt-bindings: display: Add the Ingenic X1600 display controller
+  drm/ingenic: Add a driver for the X1600 display controller
+  dt-bindings: display: panel: Add the HiBy LG35583
+  drm/panel: Add the HiBy LG35583
+
+ .../bindings/display/ingenic,x1600-dpu.yaml   |  61 ++
+ .../bindings/display/panel/hiby,lg35583.yaml  |  67 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  12 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/ingenic/Kconfig               |  22 +
+ drivers/gpu/drm/ingenic/Makefile              |   1 +
+ drivers/gpu/drm/ingenic/ingenic-dpu-x1600.c   | 739 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  10 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-hiby-lg35583.c    | 342 ++++++++
+ 11 files changed, 1258 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
+ create mode 100644 drivers/gpu/drm/ingenic/ingenic-dpu-x1600.c
+ create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
+
+
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.39.5
 
