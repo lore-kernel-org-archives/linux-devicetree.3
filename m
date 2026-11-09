@@ -1,91 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266216;
-	b=PcXV99kuGjryjy6O0utjVF84gRvn/qg44ca0AT7wEwVUy8wCq0isNQdbq3239Y5ngCs8
-	 Ex0Y6M6v1LQzhMCoW/W7bM5JuW5X8pfsDRKNDra6bZI1xdryYpG1j+2azPAqnpgYUI4+j
-	 ol/ev/WgJd87cfdZcIoD/oYz8iVtIWVr5+wuQBl9dkdtgF8PWWXaiVIa3oO8qAVbwd9Kv
-	 YEXvNCqNO1ijsgs7/4VMTlsX+7lpnoxkzqwoqLU6lJGV/VOejzwVv2Zez/FC3s5hgl2ri
-	 q1ItgCv3cNj/E6inOqmCSipsIANHSdtvzxuf4CI5nr69WQJwTJqW8cR+Zm4OgJiwHsg==
+	t=1794266271;
+	b=HBqFv469ITJhOO75OYlZTpsFFM1qtsGtGqQPMXpRktzaqKEh5quS4SpgDHlE2bIULO3o
+	 alzT3Xfl7fFMKl8LRN+TZMiyzIuZqnlsljVgM3/hqwlxoL8Uou0RL/f12phS1Pmg0FvBp
+	 brvRd+8Yi2GrvErgOMMdlfZU4hZSKGXtapGYI/eq7wyfnQZlO4OxPKwFe0K2S63dtggOD
+	 NpYcmZ0d3F01+HnZkV1CZ/vml60lBkFo3Bcb3eeYllHv+SgDms3s6DUZZKCocuGpzGkAW
+	 UTygoFkfxSiZc1LYEeAjjVpMseglVYigRs0p/hyQE1UcyPZiLNOSKRMrJ8mO5r1zARg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266216;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=;
-	b=rALhKezQrY11PJppncYEitjDyxWUBQgTpN3fMCJ8b85x0V8bJ7OSZMFAvE2/r+CRuqy3
-	 XXdwbjLkUIASongWs45TrBLjyD/NTcZx87X3X12Y3fm55OZywB8liLgDxua4xJukRU9Ki
-	 hpRbfsP27fpRgmydf6Bhamxz58BnI5BiJ723IZLXbZqmn2rLrjqcOYH+R+05otiY43xYH
-	 VPGHoP9Fxr8eXgcmJlRykYH2C31r36P93NkQVqNhryxOYHTPFzpGTOcVei97uahXDi1MU
-	 oep+PiUewr27LhPV0/YHeKM1cEeqi6jafSlDCgiZNMRg2JeqkY7LzjFRsCQLewKBGHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266271;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NkJ7nhCGtP2bfpy6xch73us18gWd5z+wC6NK90PAwJQ=;
+	b=YIU7ECR+T+4HTd4YglzJnw2ryFMMgBrHZuRLjrEUpeLwpof3JJoT0C3UjhBCrNqMIbc6
+	 PwAJCWfWBjB1YxdMxr/fl54LoBc35gbajYQEC7/SRgGj7zhgxABNRiCASeEjnT/nZlbys
+	 FE6caVF97wUm0vFlLQG61d/+CigPla9DJlh8xJZ2deMI+BzSOSkd/UsMGey+4VUCXlGy4
+	 U4z7Zl43ML584a7bEDQMrd0qocWz0Ly1WAoWQ9hEIf3GC/cpy8EOUp/HFX++CHQXyyWF3
+	 wgsH/n+rEzw5orIaMs1V/R3VPtlfZeZZBGHDl/nnHHZZraPJ1jpBwiDY58FAF4fT5Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WA5GcYLs;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425EB606A321
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 23:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 425EB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02909606A31C;
+	Mon,  9 Nov 2026 23:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02909606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id QVXAxqF6KRiNxQYbfxOEKz; Mon, 09 Nov 2026 23:16:56 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QYbfxzaBdxqjjQYbfxGPdt; Mon, 09 Nov 2026 23:16:55 +0000
-X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6af25467
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
- a=GU2OR-2u3yUetoAu5r4A:9 a=CjuIK1q_8ugA:10 a=p49Upr6YYhNo69yxWKUU:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=; b=g8OM+qIh4P8JuAXOofLquteH9V
-	GA8GU+WHHy5ORMPSZWQXI2f2OHpxFOrmM6ExzkPpZDlo/xKgsF+FSDcJttYpKH6NowrZpbtzzGyzT
-	D99Mj8eK3o8LtpxJHBQzwEKYH7KBe8tYLPJQ/7yQ22xZfiIRmrqJzNAIckR50HsbtEZfVR7puSGZu
-	M3Pq6DIFGUP/dou1iJq4r4TPSNeRgBe32TRDERfdkm+KaAGOWtmjKLSxghGkwKkH8v2Mv4QSDT8zc
-	1PY3Z99s2mFe0WYa9TvLqjk+UoN3SvAvVYe3ALxd0NIof43zNhrR0jircdZTB5idKxqkRG0rtyNe9
-	UR1ibrIA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47824 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQYbd-00000000tOY-3UMs;
-	Tue, 10 Nov 2026 04:46:53 +0530
-Date: Mon, 9 Nov 2026 15:16:52 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WA5GcYLs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794266269; x=1825802269;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IYixSMqXWUtQF0nP2orfxiYyJRP1Caa+KvH552fQ4zw=;
+  b=WA5GcYLsGYoPjKZz9ycl9/6fhgrpQg1ypTYP72D6qjoMgu4RTOvniRGi
+   b2oH5rIDkttyjJGAt9Ezjmj31IR/H2Qc7+7yyMQayEJEfzZT1B+EI06ei
+   NxrKPgDDLzRdWdwaq6SvRxHNR+LHH8MDGcnOM0DFR3hAY36YTsOZiIEQL
+   jh8crt69DksPfPm4z5Jq47OkDnb1yDgbEY1RVn8rmnI6W/aD4ApoQ39TS
+   YqGg2IISWOrMJ9F6AampNGk7otJQ3h5fGpqDotnO43OnIKVCUyjK31I8M
+   5UPHAGjWgqPMnZTwhPxP8DgfFawQoNhZvzAKr0O/pepuKVfismRNuM3/J
+   Q==;
+X-CSE-ConnectionGUID: VOO9X9FxTPq2EHXVq6kYWw==
+X-CSE-MsgGUID: qQCo0t+gTfe94c8wW44xaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2998899"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2998899"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:17:49 -0800
+X-CSE-ConnectionGUID: P8vMSRmUSR+Tmy5ZSNRGNQ==
+X-CSE-MsgGUID: P/Qvs8lBSa2nsewI9/JduQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8426841"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:17:46 -0800
+Date: Tue, 10 Nov 2026 01:17:43 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v8 2/7] watchdog: rzv2h: Use pm_runtime_put_sync()
-Message-ID: <36f3db86-774e-4e38-9216-a5af7ccbf6a5@roeck-us.net>
-References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] iio: light: gp2ap020a00f: Add GP2AP030A00F support
+Message-ID: <avJUl-vxNWr2RNKe@ashevche-desk.local>
+References: <20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org>
+ <20261108-gp2ap030-v2-5-24eaa1b9fe59@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,40 +87,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQYbd-00000000tOY-3UMs
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:47824
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 27
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEePX5DxzMDWzfepKN7I30po9l6rZnMgr7xTIyrycFNx4ruKyIpswlDNXZXKH7rD4x5jQiJwqOQ4D0MRHOIBWyzkoAs9ZZEjsbTNU05XyY10ag5iWg7x
- sRzlHHHRUeoQYRhZ/MKsc+R5xexCSNo0OED5Q9j9fRCi45wQDzC9HdQZLm9rEHjXnEczfNAOkFEz2FZRJhDP3IkgQhdX6zIDrHYOk3+PqeReTeSPIyeXpexn
+In-Reply-To: <20261108-gp2ap030-v2-5-24eaa1b9fe59@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 01, 2026 at 05:51:56PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> pm_runtime_put() may trigger the idle check after pm_runtime_disable()
-> is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
-> runtime PM active.
-> 
-> Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Sun, Nov 08, 2026 at 10:44:03PM +0100, Linus Walleij wrote:
+> The GP2AP030A00F has the same register addresses and interrupt modes
+> as the GP2AP020A00F, but does not implement its automatic
+> illuminance calculation or selectable ambient-light cancellation.
 
-Applied.
+...
 
-Thanks,
-Guenter
+>  config GP2AP020A00F
+> -	tristate "Sharp GP2AP020A00F Proximity/ALS sensor"
+> +	tristate "Sharp GP2AP020A00F and similar Proximity/ALS sensors"
+
+Also make sure the text in MODULE_DESCRIPTION() and perhaps top comment in the
+code matches the above (ideally be the same).
+
+>  	depends on I2C
+>  	select REGMAP_I2C
+>  	select IIO_BUFFER
+>  	select IIO_TRIGGERED_BUFFER
+>  	select IRQ_WORK
+>  	help
+> -	  Say Y here if you have a Sharp GP2AP020A00F proximity/ALS combo-chip
+> -	  hooked to an I2C bus.
+> +	  Say Y here to enable support for the Sharp GP2AP020A00F and similar
+> +	  proximity/ALS combo-chips hooked to an I2C bus.
+
+Here we actually want more precise list of supported part numbers.
+
+...
+
+/* ...a comment to explain the delay... */
+
+> +	if (!data->chip_info->has_als_auto)
+> +		fsleep(1000);
+
+1 * USEC_PER_MSEC
+
+...
+
+> +	{ .name = "gp2ap030a00f",
+> +	  .driver_data = (kernel_ulong_t)&gp2ap030a00f_chip_info },
+
+Same comment about the chosen style.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
