@@ -1,92 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245322;
-	b=37r7/e89T/tpEBaq0jnlKKrqkxdmgK8u/6BhbkFcf+vWlgBjSxQSF5WIvbE1fuGjzEfQ
-	 j/2+WYXSwXJUTf5ShVKt5xgUtKWE6AtgEz/y3bZF8wNHOGOOitLYUE0M/fuhfVsM1JgzH
-	 07b7kOB+PbGDYthQfq7GjH1tmbvTVoZA3b/vM72r9URxO/l8Q0738U+0/2M17xb3drkDP
-	 aLpDgfgqnGGZozyxmclrQjHenPeyqjkddZdMTrBIxmREyDuoxJWGMsK/SKu2GIRFW076W
-	 VHnHqZVnwNqPzCrOFZH8RQyJxvjv5WtnQRFv0k/MQ03mJDYU46Ax31eKXPQtgTQX7dA==
+	t=1794245483;
+	b=yWVTDonRFq41qdmHNQy+BYSHUUXmuZHNKUgLpBO3/6so6XDJZB8NXZ5eKdCsFQLADSCb
+	 J38RNYLqLrVmZcJ2Czci81BZ5mV1DgLH4zrfSNgkG/FDlz3/bPg1Aa6JZr5U8/NTYjWuS
+	 P5l22PkPsSuuQcJbWtmzeEAR6O096LFt4Vb4stpzas/0ReDTC/09fXS1FhClRcXI8CRSz
+	 BYoRyigO+C2et31OBO5DbjFFzAKb3sVZJ9R2J2RVieGeA5C2AS9OWbKhlU3cz5F5H2HBz
+	 lSgc+f+les7QYzRhm+/dyI0zItsP3tc9KTQ2miDEEm+R6mcxpbZNFJ3g29r1rNhrlVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245322;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qRjzt/bH5jDngzJr4W8d1d/oZfLkUy/oU6+unqf5Pk4=;
-	b=SWmj8afr7Fe5sOpb45pmYAjB1UY0eZhowzRzF7778AteP7rgvo/z6Gngc180lobvOj8J
-	 fk8otKB/5rABFAuuf7nAr3v5i0c6NOkLDU9MxNZlYGITrQQ/ZPssrpznS35mKfnF+mf+T
-	 zxDuRKfpgJ2GoduLrOhxgI6k680EB8o99qE7rUqaNqxZsoU0LdQqB1LjhbG7D+lTz9Vk8
-	 Iz7fylDqyEYWbtABjrEMqkCrusKjcFv8BayazTn6JG7nnQ07nPxm6c3eAImpXHastxs5o
-	 Xg8m2kf2wKKbSmCtwHntPRABBWcYLqCA0XZZzRQU1dg0rgv6fXc045XZNp5vcY8+FaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245483;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZL3nYrPsqqItt2tFVj+sUMiuLO1InqAzv3kT3Gptqeo=;
+	b=dAl/Lxjz+7W6dVaakdnlFTKpsE4LDQ/FCWq3wp56pmYqokFevRtyZJE7Cna5p5S5MZwd
+	 kSWyR5GO1XWW2y7u7pKHYCa6BNP2UM+RaflwzsmOZTwfl6lbdxu4SOnL0qgIPxg4JIsUO
+	 zy3kPh+cPAY0LF8FbH/7RjRoHH2zswiGiTKh4W+AOik1/wiSxggCUckdrIB+6118mk/QW
+	 dyaVCeeaYT0IL5ibyoXvdkawkteiryUYcJftWQqlNgewN/WdEPFj+WHXzN0s7vo+8Zw2I
+	 c7WlPDuSlKWVTWqlJNi0ySM5uzO0LtASVI9HgELX7NYoE1yZQ+hHQRtalYf1+QQrzYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjfNukQx;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIsPyMz5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE5F606A330;
-	Mon,  9 Nov 2026 17:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE5F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA74606A335;
+	Mon,  9 Nov 2026 17:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjfNukQx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794245322; x=1825781322;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ar1TVtAm+rvGquAEzkco4mRBe7I0DyfasS/JM+grgNc=;
-  b=PjfNukQxbqA3dtIT/h64Gv6izhyVEfhLKz5J/Ei27qEpKK2pZAvOXFkj
-   ww4tdn163l0DtTeOISBiLN7V22nQfl8juvb1ek5ONlbxXqUyaY9div7bJ
-   V5I4V7KUDjqieU+480r67PGPsIChzxbl6bsOdUshye9VtfWpyhqtnZ1Fi
-   Sr2HuJwHB5M52RE+Rb19+X3AckITUDAeOlu+fdZ1P8Gb6Q0SGCSwe/n1x
-   dS1hkFBY9Ent+sHM68syZ546qLLMRZ/4xLgFdz0RaiiTih7O5mEUlpWpq
-   HB0jUZeTUT5Mx2ij6/NbFvqzTdRSNvk9OBuTQjoPueUnZE+bE5+AY6RD5
-   w==;
-X-CSE-ConnectionGUID: kQULd7oLTjmchRuVTUZwBA==
-X-CSE-MsgGUID: 428/Vel6Qu2Nui9WYPJDYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2970916"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2970916"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:28:41 -0800
-X-CSE-ConnectionGUID: VdCIUz+9TlyfdNc/xxFYmA==
-X-CSE-MsgGUID: ucYIODM9ShSeTtbSAloFqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8069574"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:28:36 -0800
-Date: Mon, 9 Nov 2026 19:28:33 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avICwdxyi-W1Y3PD@ashevche-desk.local>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIsPyMz5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FEC1F0089F;
+	Mon,  9 Nov 2026 17:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794245482;
+	bh=ZL3nYrPsqqItt2tFVj+sUMiuLO1InqAzv3kT3Gptqeo=;
+	h=From:To:Cc:Subject:Date;
+	b=YIsPyMz5BjpR0loCF6GQUpImEM7Ihg/LZWf66GyRNC9HRmemr23EWJnuQCXBACpVk
+	 1y0L8GV13Z8mBcGL5f/sBMvloJTcia72Pc3XKf+lEFI3vYLa9M02rKn29xVJjCvPd+
+	 9lmPXMZUej69U7KvyUjuGLJEXfuavnUgBo1jAav9jne0uAroFWmRZBrLa1pCc3hpa5
+	 uWwK5wJGlPNXYDKRgz+uoBqY3MoJo3tD29ZJ1IrQsuQ1vPfKyqnT29q8bHZdL+/Nio
+	 IbsTUy150rUfnDEWQWo8wyqPIg3YbdzE/uN2cETj4wCqPZn45YPDSQPmGufF+JVauT
+	 rA8wsuRps6LFg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nishanth Menon <nm@ti.com>
+Cc: linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: reset: Convert the ti,syscon-reset binding to DT schema
+Date: Mon,  9 Nov 2026 11:31:11 -0600
+Message-ID: <20261109173112.4111810-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,51 +62,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
+Convert the ti,syscon-reset binding to DT schema format. It's a straight
+forward conversion.
 
-...
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../bindings/remoteproc/ti,keystone-rproc.txt |  2 +-
+ .../bindings/reset/ti,syscon-reset.yaml       | 58 ++++++++++++
+ .../bindings/reset/ti-syscon-reset.txt        | 91 -------------------
+ 3 files changed, 59 insertions(+), 92 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
+ delete mode 100644 Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
 
-> > > +	for_each_property_of_node(node, prop)
-> > > +		count++;
-> > 
-> > Hmm... Don't we have a helper for that already?
-> 
-> I haven't found one. Though I'm thinking that maybe
-> fwnode_property_get_names() with props == NULL could serve that purpose?
-> Possibly wrapped in a static inline fwnode_property_count()? Would
-> anyone use it though?
-
-I haven't found any users for this. Most of the current ones of
-for_each_property_of_node() are filtering by property name.
-
-...
-
-> > > +		names[i] = kstrdup(prop->name, GFP_KERNEL);
-> > 
-> > Can property be statically defined somewhere? We might want to also optimize
-> > these duplications with const variant (here or elsewhere, for fwnode generic
-> > path, I believe).
-> 
-> Please rephrase because I'm not quite following what you're saying.
-
-Can prop->name come from something that is declared as
-
-static const ... foo = {
-	... .name = "bar";
-};
-
-?
-
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+index 847552133633..94f4508c8b0c 100644
+--- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
++++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+@@ -46,7 +46,7 @@ The following are the mandatory properties:
+ 			managing the resets for this device, and a reset
+ 			specifier. Please refer to either of the following reset
+ 			bindings for the reset argument specifier as per SoC,
+-			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
++			Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
+ 			    for 66AK2HK/66AK2L/66AK2E SoCs or,
+ 			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
+ 			    for 66AK2G SoCs
+diff --git a/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
+new file mode 100644
+index 000000000000..1cbb2bf88716
+--- /dev/null
++++ b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/reset/ti,syscon-reset.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI Syscon Reset Controller
++
++maintainers:
++  - Nishanth Menon <nm@ti.com>
++
++description:
++  Reset controller implemented by registers in the parent syscon.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,syscon-reset
++      - items:
++          - enum:
++              - ti,k2e-pscrst
++              - ti,k2l-pscrst
++              - ti,k2hk-pscrst
++          - const: ti,syscon-reset
++
++  '#reset-cells':
++    const: 1
++
++  ti,reset-bits:
++    description: >
++      Seven cells per reset, indexed by the reset specifier:
++
++        Cell #1 : offset of the reset assert control register
++        Cell #2 : bit position of the reset in the reset assert control register
++        Cell #3 : offset of the reset deassert control register
++        Cell #4 : bit position of the reset in the reset deassert control register
++        Cell #5 : offset of the reset status register
++        Cell #6 : bit position of the reset in the reset status register
++        Cell #7 : Flags used to control reset behavior, available flags defined
++                  in the DT include file <dt-bindings/reset/ti-syscon.h>
++
++required:
++  - compatible
++  - '#reset-cells'
++  - ti,reset-bits
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/reset/ti-syscon.h>
++
++    reset-controller {
++        compatible = "ti,k2e-pscrst", "ti,syscon-reset";
++        #reset-cells = <1>;
++        ti,reset-bits = <0xa3c 8 0xa3c 8 0x83c 8
++                          (ASSERT_CLEAR | DEASSERT_SET | STATUS_CLEAR)>;
++    };
+diff --git a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt b/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
+deleted file mode 100644
+index 61a0ff33e89f..000000000000
+--- a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
++++ /dev/null
+@@ -1,91 +0,0 @@
+-TI SysCon Reset Controller
+-=======================
+-
+-Almost all SoCs have hardware modules that require reset control in addition
+-to clock and power control for their functionality. The reset control is
+-typically provided by means of memory-mapped I/O registers. These registers are
+-sometimes a part of a larger register space region implementing various
+-functionalities. This register range is best represented as a syscon node to
+-allow multiple entities to access their relevant registers in the common
+-register space.
+-
+-A SysCon Reset Controller node defines a device that uses a syscon node
+-and provides reset management functionality for various hardware modules
+-present on the SoC.
+-
+-SysCon Reset Controller Node
+-============================
+-Each of the reset provider/controller nodes should be a child of a syscon
+-node and have the following properties.
+-
+-Required properties:
+---------------------
+- - compatible		: Should be,
+-			    "ti,k2e-pscrst"
+-			    "ti,k2l-pscrst"
+-			    "ti,k2hk-pscrst"
+-			    "ti,syscon-reset"
+- - #reset-cells		: Should be 1. Please see the reset consumer node below
+-			  for usage details
+- - ti,reset-bits	: Contains the reset control register information
+-			  Should contain 7 cells for each reset exposed to
+-			  consumers, defined as:
+-			    Cell #1 : offset of the reset assert control
+-			              register from the syscon register base
+-			    Cell #2 : bit position of the reset in the reset
+-			              assert control register
+-			    Cell #3 : offset of the reset deassert control
+-			              register from the syscon register base
+-			    Cell #4 : bit position of the reset in the reset
+-			              deassert control register
+-			    Cell #5 : offset of the reset status register
+-			              from the syscon register base
+-			    Cell #6 : bit position of the reset in the
+-			              reset status register
+-			    Cell #7 : Flags used to control reset behavior,
+-			              available flags defined in the DT include
+-			              file <dt-bindings/reset/ti-syscon.h>
+-
+-SysCon Reset Consumer Nodes
+-===========================
+-Each of the reset consumer nodes should have the following properties,
+-in addition to their own properties.
+-
+-Required properties:
+---------------------
+- - resets	: A phandle to the reset controller node and an index number
+-		  to a reset specifier as defined above.
+-
+-Please also refer to Documentation/devicetree/bindings/reset/reset.txt for
+-common reset controller usage by consumers.
+-
+-Example:
+---------
+-The following example demonstrates a syscon node, the reset controller node
+-using the syscon node, and a consumer (a DSP device) on the TI Keystone 2
+-66AK2E SoC.
+-
+-/ {
+-	soc {
+-		psc: power-sleep-controller@2350000 {
+-			compatible = "syscon", "simple-mfd";
+-			reg = <0x02350000 0x1000>;
+-
+-			pscrst: reset-controller {
+-				compatible = "ti,k2e-pscrst", "ti,syscon-reset";
+-				#reset-cells = <1>;
+-
+-				ti,reset-bits = <
+-					0xa3c 8 0xa3c 8 0x83c 8 (ASSERT_CLEAR | DEASSERT_SET   | STATUS_CLEAR) /* 0: dsp0 */
+-					0xa40 5 0xa44 3 0     0 (ASSERT_SET   | DEASSERT_CLEAR | STATUS_NONE)  /* 1: example */
+-				>;
+-			};
+-		};
+-
+-		dsp0: dsp0 {
+-			...
+-			resets = <&pscrst 0>;
+-			...
+-		};
+-	};
+-};
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
