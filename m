@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218105;
-	b=bzuQvW5vZxtlAaQb28MyewXsRCU215m41VYiVXYguvc6OXlOqKB4e+nyGS1avO62//YD
-	 6Q9uRV9+X9HJw5mv5yC28GLwIni5jPV/s9tRVR5dWBt2EMVehhB9QA5rCNi8ARUHvZ3QE
-	 PCyBe77Z7pMoP55fc63s6/6/tazJ+zTWTCCg4qbdsMUUbv081+yTeEpKgGK0gElVoT6uP
-	 QHpjBvtPft3sIVfa3Bfv3Rj3Du5+T32mShTsa2bQMZ4zRPR8hSN9ULaBDxw6YpXXJ7RdF
-	 rp1hq+mMrLZEeCWRjQBrIVbvmVIzhSwvFiKt5+jvXayfFsoJNw5Qi0Uq1+aTeYPs+oQ==
+	t=1794218499;
+	b=xXBaQd9A6OBMGszyULUGS9rtaUHMqiWRKmLhVR3g4iCuXLqNTQFdy4dYRPbTQmPTbPqd
+	 rhgSuE1d6tAR5FuoPLL13cdPRN6mspupnnqx2IouHWawceSLPo/chHrWW8A7uWuxVQkXg
+	 XpmSeuU31qhk8KdjQs/r7+RvuB27Zv/Htc68y2cKqK9Zb6UxiJ6J8iH3wwGVkm8iajmxw
+	 IfclVjT5ux+Tp5gkWM9f9OxFgHBO3Gq7pvxhsts6i9nI9LUYipgZKHHtVd6Kmqt36COt3
+	 BjWVjvrVfq3ATegDKaWHR5D1TTAuJqVxT8mW5LpDVxLGgnCmjTRkCe0k/FJkJcoEmKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
 	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=vn7V5zWgWjR2AxhbbXtzmU81jhYCCnS3gbGv+/5Hh8Q=;
-	b=0Y6HPO73VTxjV//8dJz/Bigt1Fyd1rUuRCrCaFbEI02VtaKNbSNLH6oxjIZ/TUQaBlRV
-	 Mr42kTFCpzFHvqG8I7HqPpdpFaIT5EPdZWvHLSnJQCIILY2xBfPC9Fbl2N19HAJDmIqPq
-	 7svkm/6Xlv0a0hI+/Hha3cMjMjj0b7qrc58UYMxn0tz2BdeVaYKIYPOKmyDMJsDNtUA7F
-	 mAF5boMuBpCQMxXQZsjG6Q+yhWfzjNhCXsm3zbRljCoBpzh4bKXx2w+4trIpTi37U5xMP
-	 baL3urGhtdwyLAytZe6UDPbmdw1uVockTZtXAt5zByGYnpZmg1oFgs9yrZQ/yUVtn8w==
+	bh=u7i9Jegrymse5jYW/nuIjFSVf/yelpcmNA/2X5G1/LA=;
+	b=0h2Z6lm2X4XqiDRRTkeg9qYGcCOIiTnoMgwmBrBu5Tdx4WRvYK3ZsM3M6GbG7clxW9Tz
+	 0JDLI0F3ruZy4X7DkLM90rFVxaaiGzaGc9mRbgkEpEUsbcZRD3wZA73oKJzOTiy7FMW9w
+	 8BkYcfWCItAqdrqNsbb+w1QxVh7cowmAuufPhXhubxeCItvA/obTc/uzTDurURiba6ZB4
+	 XlereE0ZU4rCQpCtyhtFCnuZkd3bO5fi+lfJrITluaMpsYYvPMmXaLEgwj1Vx3SCZ07VE
+	 ep1TDzu4jncHeKu0FAh88zQW/jZst0Sy7ac0Flb+sYyshMQNwlBMKwZeVvJFtzcogaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUG4zbF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XM+TBrs6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60437606A321;
-	Mon,  9 Nov 2026 09:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84243606A31C;
+	Mon,  9 Nov 2026 10:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUG4zbF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A6D1F0089F;
-	Mon,  9 Nov 2026 09:55:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XM+TBrs6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC821F0089F;
+	Mon,  9 Nov 2026 10:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218105;
-	bh=vn7V5zWgWjR2AxhbbXtzmU81jhYCCnS3gbGv+/5Hh8Q=;
+	s=k20260515; t=1794218499;
+	bh=u7i9Jegrymse5jYW/nuIjFSVf/yelpcmNA/2X5G1/LA=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=FWUG4zbFrGPjlsUUYCS7eLB+wVTHdqvhSomjjUrLfHGzs5DcZBo9eyCdYxfcGEsvu
-	 X5IxtbOs5IYFl/GCUOzLWBj3k2p6nVnYd/AymccQWV24NifCdO7c9yJhJQL81xQogJ
-	 wAVtB7QA01+tbqeIHkc2di1H2cdvdes2y6PRZMpEtnCKiF3o6g+f7NJJYcxWiq9/ZR
-	 FxOJO5TmB+BXtCuw7lCtZ0OND8xswpgssUpfPSPRtkjjifGdBi91tjF3Bhyz46DhJs
-	 CPhnfSz5trwWRiz8yevWh95WLjWhYsrAmZ8WPNxCqqt4xjTb0A73Cc4OeD+TB+RDr7
-	 y20yyMsf/kVYw==
+	b=XM+TBrs6oKhd7aKCmsI5RYPzjxw0YqPHiVjIDO7X0JhcAm+brDA1dUCnn1KShe8bf
+	 Sj4+pHlBOk5qLOHd/Y61hINhxILwmeOMnc4PYXoMZwPHKr8Re2fAhnwnciebO3XPyM
+	 tyCe34DHTeJNx/dujU0UuBEkbXMMh86VK4BSmCHaJpsXeXaPb8y6KZk+92KjUgYatC
+	 cdHxhUL04zJDY8D6PvixurnzURDrH1b8SOmKLa2xkJaosvo6FNDQ6eUbm6SGxyd62x
+	 bcs/fuVDltYJAw3N8DB69pBRpMHjlhXPx2omxsFTR1wCVXkzDiav2k3xTmEuP5kMEL
+	 4u0uWbkjADIuA==
 From: Thomas Gleixner <tglx@kernel.org>
 To: Gregory CLEMENT <gregory.clement@bootlin.com>, Vladimir Kondratiev
  <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
@@ -50,13 +50,13 @@ To: Gregory CLEMENT <gregory.clement@bootlin.com>, Vladimir Kondratiev
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-Subject: Re: [PATCH v2 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+Subject: Re: [PATCH v3 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
  controller driver
-In-Reply-To: <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
- <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com>
-Date: Mon, 09 Nov 2026 10:55:01 +0100
-Message-ID: <87v766uy6i.ffs@fw13>
+In-Reply-To: <20261104-eyeq5_msi-v3-2-2866f732cd38@bootlin.com>
+References: <20261104-eyeq5_msi-v3-0-2866f732cd38@bootlin.com>
+ <20261104-eyeq5_msi-v3-2-2866f732cd38@bootlin.com>
+Date: Mon, 09 Nov 2026 11:01:35 +0100
+Message-ID: <87se1auxvk.ffs@fw13>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,130 +68,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 
-On Mon, Nov 02 2026 at 17:50, Gregory CLEMENT wrote:
-> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
-> +{
-> +	u16 value;
+On Wed, Nov 04 2026 at 13:58, Gregory CLEMENT wrote:
 > +
-> +	lockdep_assert_held(&msi->lock);
-> +
-> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
-> +	value &= ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
-> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
-> +}
-> +
-> +static void __eyeq_msi_unmask_irq(struct eyeq_msi *msi, unsigned int bit)
-> +{
-> +	u16 value;
-> +
-> +	lockdep_assert_held(&msi->lock);
-> +
-> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
-> +	value |= FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
-> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
-> +}
-> +
-> +static void eyeq_msi_mask_irq(struct irq_data *data)
-> +{
-> +	struct eyeq_msi *msi = irq_data_get_irq_chip_data(data);
-> +
-> +	guard(raw_spinlock_irqsave)(&msi->lock);
+> +	i = 0;
+> +	for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS) {
+> +		irq_domain_set_info(domain, virq + i++, bit, &eyeq_msi_irq_chip,
+> +				    msi, handle_edge_irq, NULL, NULL);
 
-What's the reason for ...irqsave() here? The mask/unmask callbacks are
-invoked with the interrupt descriptor lock held and interrupts disabled,
-so a plain raw_spinlock() is sufficient, no?
+Ok. So you addressed that part, but the rest of the comments I made on
+V2 still apply. This patch also requires a review ideally from Vladimir 
 
-> +static void eyeq_msi_isr(struct irq_desc *desc)
-> +{
-> +	struct irq_chip *parent_chip = irq_desc_get_chip(desc);
-> +	struct eyeq_msi *msi = irq_desc_get_handler_data(desc);
-> +	void __iomem *status_reg;
-> +	unsigned long pending;
-> +	unsigned int bit;
-> +
-> +	chained_irq_enter(parent_chip, desc);
-
-https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=irq/drivers&id=6cf0d999a18e799965cf2cf4a0157e257c805946
-
-> +static int eyeq_msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
-> +				 unsigned int nr_irqs, void *args)
-> +{
-> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
-> +	struct eyeq_msi *msi = domain->host_data;
-> +	unsigned long bit = 0;
-> +	unsigned int i;
-> +
-> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
-> +
-> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
-> +		for (i = 0; i < nr_irqs; i++) {
-
-This does not support MULTI_MSI, so nr_irqs is always 1. That allows to
-simplify both alloc() and free() by a lot, no?
-
-> +#define EYEQ_MSI_FLAGS_REQUIRED			\
-> +	(MSI_FLAG_USE_DEF_DOM_OPS |		\
-> +	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
-> +	 MSI_FLAG_PCI_MSI_MASK_PARENT)
-
-Just a cosmetic nit:
-
-#define EYEQ_MSI_FLAGS_REQUIRED		(MSI_FLAG_USE_DEF_DOM_OPS |	\
-					 MSI_FLAG_USE_DEF_CHIP_OPS |	\
-					 MSI_FLAG_PCI_MSI_MASK_PARENT)
-
-is easier to read. But no strong opinion.
-
-> +#define EYEQ_MSI_FLAGS_SUPPORTED		\
-> +	(MSI_FLAG_PCI_MSIX |			\
-> +	 MSI_GENERIC_FLAGS_MASK)
-> +
-> +static const struct msi_parent_ops eyeq_msi_parent_ops = {
-> +	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
-> +	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
-> +	.bus_select_token	= DOMAIN_BUS_NEXUS,
-> +	.bus_select_mask	= MATCH_PCI_MSI,
-> +	.prefix			= "EYEQ-",
-> +	.init_dev_msi_info	= msi_lib_init_dev_msi_info,
-> +};
-> +
-> +/*
-> + * In endpoint mode the snooper is a platform MSI controller: the host writes
-> + * the doorbell and the snooper raises a local interrupt. Expose it as a
-> + * platform MSI parent so endpoint functions can allocate doorbells.
-> + */
-> +static const struct msi_parent_ops eyeq_msi_platform_parent_ops = {
-> +	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
-> +	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
-> +	.bus_select_token	= DOMAIN_BUS_NEXUS,
-> +	.bus_select_mask	= MATCH_PLATFORM_MSI,
-> +	.prefix			= "EYEQ-",
-
-It might be sensible to use a distinct prefix here, e.g. 'EYEQ-P-' or so.
-
-> +static int eyeq_msi_create_domain(struct eyeq_msi *msi, struct device_node *node, bool is_rc)
-
-__init ?
-
-> +static int eyeq_msi_parse_vector_region(struct eyeq_msi *msi, struct device_node *node)
-
-__init ?
-
-> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi, struct device_node *node)
-
-__init ?
-
-> +static void eyeq_msi_program_hardware(struct eyeq_msi *msi, bool is_rc)
-
-__init ?
-
-> +
-> +static int __init eyeq_msi_of_init(struct device_node *node, struct device_node *parent)
-> +{
-
-Also please check the sashiko response vs. handle_simple_irq() and the
-affinity mechanism.
-
-Thanks,
-
-        tglx
