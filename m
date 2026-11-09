@@ -1,104 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221396;
-	b=rnH6o5R+APl28bDmSnIesm8bmrcUQtLVZkOOF5EgeJiM7hcvtemooQEUo0ZHtauaT6zi
-	 7A1eItKJc/GAPqryb1WplABsA9UN0bdaaxNLGSufKD4F6xQlSMEOz6aAGCgbbZqUcu6wZ
-	 dQhd1YkP/lpmtLEjCekiksXc+rWgzDFaFe4wgRW3mNDUfZ16ntD39NU0BPi+yqR2TJedl
-	 xCW/FDE3h1syPvdZl1w+PioGX082nhMz3r2d0B+z9VCemexspSiAGxyXC50qh9XILydVO
-	 TYo56hr05j9/TQobAiXwtCfwdSZufeYEKs8aWYHgcqmpM7sn8p52gKERdJtenXKiNPg==
+	t=1794221746;
+	b=tTz+E5fPvTmwEEL0iLDI43Pu95UmBuE5P5Y3QIMX8rmnV0BqjVL6k288tjhPEZ3DgMD0
+	 iMIEYROKWge5GuTKKozVHMUn8z6bjW1tKUct7yO40jRJm8bRj1bYLopcsl/0rMQpv6LcI
+	 qZp212Uq7i/ebJJDg1Mwk3MzPZxRg9tBHlSnHAVnAV/HYqBh3VAwEelfgMZmZoinYpRrZ
+	 FUyp2ll7A8pIn6zESwvaJEZnceQwyfqXRScRC0m7f2YlUpWk/UmbwMXNpsf/f2jpjy/Lk
+	 4ci+Jhg7WneTPBstEZ+Hj2eIpvZjyn5L8P7i8Iv7Gl6qyvCU5ukFlZgrQyMDmoghVMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221396;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NgKYqbq3f7/8t+kF9Yhdju6I9FMl4pNRxfyiV7ruPTk=;
-	b=BpTMk9qKkK6TlhXeIv01fY7F/XtI5/gIxIv2/IRCB0ki6855u1sf+wuiDWF1DSSXiuBn
-	 b5nEs5pLH8tDaOSvHnu7kzhzhbDiBojWJ/qUXOxCP1VJk6qGhRFNfLBSO/yhr8oJhewg0
-	 V18JtNh1ZWqKaF+xKF6wqJEPC4G+9BrRoncf4WH4xMuVXAf1M+bDNpdOcjQ0nAuuZKB4L
-	 bDxR69N2aanWkPjWzmpoxPqctsiZqM/9VOe60BHgvVvUKbEbnguLcUH3vmKp9BEqKSdi5
-	 JLFQBFJvJNHpniAZRXqV5Y3k55KZH6/JWXuOaXHVWjbtq7pa3KWPRGMu1zAcs31nErA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221746;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=QcooCw+Izy7CSz4rZKn79yrnwc+IMNrYWjCE+8mGqko=;
+	b=PnxNgIUc+6Kz+zWww+Uz8fabQIZFiiNdHD/5SqFOR5hG3EqhQIkx1BPuGbo+Ak1kSEBW
+	 wJGUzQvJS/nM6FPfOV79+ZBkZzBEfrLnpIbDDkpoECfqAB2X+ZIzHPJNAcRVOmGaG7Rg6
+	 kW2HWykoAtKj+oTjeINUpW+tb+T340AbbZOjALuWuUxkHJLN37QWUJcZeXqVGUEDDBjPc
+	 N5T2jQOjJZWzPfopJAljAff25W//zwCnond+R/wHOmUBoQVJKu03Jz6WSjPYWEHAN2LPO
+	 oTDNFIF0Pc9doKkVSphAtVR+cGI6OLxGAUPq0Ukz04D1GLGFwAYjKSL1WOhVcMmWykg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wnXF0tQT;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5edhJoQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F27606A333
-	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:49:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F27606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B073606A325
+	for <devicetree@vger.kernel.org>; Mon,  9 Nov 2026 10:55:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wnXF0tQT
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea7190aea1so2250715ad.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 02:49:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794221395; x=1794826195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NgKYqbq3f7/8t+kF9Yhdju6I9FMl4pNRxfyiV7ruPTk=;
-        b=wnXF0tQTrt5OiyPRGod5jK2ZGyS+xr0U46+pQW7tSef6aLHlpVzejbvVbf2f2tsVwH
-         AfB3B9szQTSl3Qlaj4icROD2eJR2WQfJbtiD3E0BM+0OHEi8hbR63q5PZZV8qIdvn7dY
-         Nhv3wVd4XbJdeeMTtDTeeb+3KzghbqAnFH6H4wihhHS6y4tAe3ADFzmwl+tpRmqOXm8X
-         MqJEEI8xkiDjcmTikmUgNrJpiY4lnYn+WwdtrjhtK8MMS0EaRsr95Jf2u6atE6Mp+1AC
-         HocaQJ/Tc6bFm78RcKQgRPx4wUtkLTBT8ZGPS4wBBV7RslVEC5xO9V3rGERvfB6oZ8Ng
-         oNHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794221395; x=1794826195;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NgKYqbq3f7/8t+kF9Yhdju6I9FMl4pNRxfyiV7ruPTk=;
-        b=xlkqPp5Psx6ey+az/nI1LHAyWlslqRmyuq/HSYeNAVXmW+p+m3MevKf8vM4kbYS4Pi
-         q8eY9FUGdTxRfhmavUR3a2AJaQTUwbSUwU/88ML107GHzVStliuarBay9gv8CkWHseZ3
-         sh22zKwAA3sOBrdFk2PncNTPzmjS0yos+Kr7ZlQlKh+2sJw77/IycoOQzZSNlgyq/yON
-         m4R5vdACYXuJYmXAVyp8snPjso7ugiSqUxzzRsIAJDK/u1MfZS4+bwJlQaspF5LtQ5LI
-         x1SNLk4u0ENuFqlLEnyilvv3PFXTynbwqH4Rhla8iXpAjLW9DwA/O6mwFWmf2xQ2e0wP
-         IFtg==
-X-Forwarded-Encrypted: i=1; AL+hErE+ETP+9XKaQTZbYnT5t3WNGsbNqoKiYoB+c1omWNMSg58bqujcqJ3ZJv7rGlp/ELzOTGwhA+Bga0uy@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/so7Z3owJHPm3bbVwd46TWEKZ0+xmNeqxvfTREOcoAvwIxrKA
-	S5Wfo4mjn9foGcKZJkv03wNvsOhVNUK+W6b/YULE5v16sEq1DQSIfv9C
-X-Gm-Gg: AYBFou1RECItDF7OTKxCzWl8CisGPrQpBoJIiN02xVlZX9MlYTowbio3zVZ5Haohuz5
-	C+jTkCvRxd/X7h2thxUVjvjuPrUzoFn+q1gaJQNw3omaTcGqaNPiXquuXdFHPDOadUmW+CfDV62
-	g+YUoX1BdWpY8qs/47OYR2nFbhM1R7YgPGMGAEDq4QdfEc8/TIAnQbDwobhVa3Wer5sCkoBO32K
-	W0nJl+q7WZWGxi4QdryE0QwUpr43eDtAGB2OU1nZU+lJ7CZsO7i8K2H3bcaNXho68fPtY6k69Iq
-	oiYQCNlS4K5/9RtGY2ZUHSLduOXP22/jWMYUS2DBK8wtJqij9OZmK2l5SInCYCmgRkhuJ2jrSWs
-	zIx2/84RdBm06qIZoZYkCtym1Qsry6GFgynYfW9SA7utlixTKcRWlKZhyyT3sZ08ySXuDTC/7m0
-	cWfCqqYHODCiMlJfqLg53yjnreMD/+Q49GMaE/jwUxXINqV9yVJMIDbXWldBxrqyp0ZEnbbVbH+
-	E4BcraaU4phpZuVaC/oAyAG1XFIs89hfeY3ecObL04F+dQuuvg5fstWmAp1dKXoltRBtAYBZIO/
-	JiPF19INfbWc65s3lEGR/Ua0Pq3w/lU9ix7jPE5UDYn+pnJ/rJWBkWcdWR4S3KGZkis7PnRX1tO
-	7zmvuf43Dv+cRWmTuE3W6eoF/skpehgO9838TgOnNVehPtCB437DiVhsXiyQjMYU3NRXsaD2D7N
-	qvFewQrBbD5Ta8
-X-Received: by 2002:a17:902:ef10:b0:2df:e95f:70bb with SMTP id d9443c01a7336-2ed833ec899mr35607505ad.4.1794221394479;
-        Mon, 09 Nov 2026 02:49:54 -0800 (PST)
-Received: from rahuls-x2elite ([152.57.87.39])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81739d6dsm8602685ad.66.2026.11.09.02.49.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:49:53 -0800 (PST)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	platform-driver-x86@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] platform: arm64: Add HP OmniBook 5 16 embedded controller driver
-Date: Mon,  9 Nov 2026 16:19:14 +0530
-Message-ID: <20261109104914.1534-3-theflyingrahul@gmail.com>
-X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <20261109104914.1534-1-theflyingrahul@gmail.com>
-References: <20261109104914.1534-1-theflyingrahul@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5edhJoQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362091F008BC;
+	Mon,  9 Nov 2026 10:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794221745;
+	bh=QcooCw+Izy7CSz4rZKn79yrnwc+IMNrYWjCE+8mGqko=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B5edhJoQUbORSr2IKHckICJ2QnxnBnYoMA9s8jD+/PXw688mbFTfEoaZS89mpLUk6
+	 bkGSej1IudbIQgwRf5L6EiDuZ8UH4LPYJfKZPvuDbI0/XDRq0MidS8jNJeqXSJFoQ+
+	 wjOz+DkBKjK1ikS8tOGT+xfrXG18O84qzB8f2PmNdAk6OYdQyPBz6Vi+CVR4CqIcW0
+	 0Ihc9cBCF9unchMdsKMFU5/2cBfhiJjggxhPcB2vtim8dL79/PxKc5s5lYTubGz9yc
+	 yj27tRF/3r/03uiAL1q0Wf+3fecLJrc3R8pHW08HSCH/Uc5CLeEaKTFylz50xH61My
+	 cl/ysH6qImuCw==
+Message-ID: <sashiko-outbox-204854@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Liu" <Luo.Liu@cixtech.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109103010.110911-3-Luo.Liu@cixtech.com>
+References: <20261109103010.110911-1-Luo.Liu@cixtech.com>
+ <20261109103010.110911-3-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 10:55:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,548 +59,797 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The embedded controller of the HP OmniBook 5 16 (Snapdragon X2) sits on
-I2C at address 0x76 and takes commands through a mailbox: wait for an
-idle status (0xef), write the command and sub-command (0xed), wait for
-completion, then read the 32-byte reply (0xee). Its interrupt line
-signals events, read from register 0x00 and acknowledged by writing 0
-back, as HP's ACPI does.
+Thank you for your contribution! Sashiko AI review found 16 potential
+issues to consider:
+- [High] drm/cix: cix_dp_replay_deferred_hotplug() always fails with
+  -ENODEV
+- [High] drm/cix: sink DPCD caps not read before detect, mode_valid, and
+  mode_set
+- [High] drm/cix: PHY ref leak and wedged state in
+  cix_dp_encoder_enable() and prepare
+- [High] drm/cix: HPD work cancellation and IRQ ordering races on
+  teardown and suspend
+- [High] drm/cix: unclocked MMIO reads in cix_dp_aux_transfer() and HPD
+  workers
+- [High] drm/cix/dptx: NULL dereference in cix_dp_panel_hw_cfg() with
+  NO_CONNECTOR
+- [High] drm/cix/dptx: double connector cleanup and UAF in
+  cix_dp_bridge_detach()
+- [High] drm/cix/dptx: broken sync flags and YCbCr 4:2:0 selection in
+  atomic_check
+- [Medium] drm/cix: unbalanced PHY and clock teardown in
+  cix_dptx_shutdown() and remove
+- [Medium] drm/cix: unbalanced disable_irq() and lost force_hpd state
+  across suspend
+- [Medium] drm/cix: broken VSC SDP payload and stream override in
+  dptx_setup_vsc_sdp()
+- [Medium] drm/cix: cix_dp_aux_cmd_submit() reads FIFO and continues on
+  NACK or DEFER
+- [Medium] drm/cix/dptx: unchecked state allocation in
+  cix_dp_connector_create()
+- [Medium] drm/cix/dptx: ignored mode_set failure causes divide-by-zero
+  on enable
+- [Medium] drm/cix/dptx: CIX_DPTX_ENHANCED_FRAMING_ENABLE not cleared
+  when disabled
+- [Medium] drm/cix/dptx: unlocked access to shared state in mode_set and
+  oob_hotplug
+--
 
-Expose:
-- the fan speed and the four thermistors HP's thermal zones use, through
-  hwmon;
-- the two EC LEDs HP's mute LED WMI methods drive, as the mute and mic
-  mute LEDs;
-- the keyboard backlight timeout (30 s, 3 min or always on) and the
-  current backlight level as sysfs attributes; the EC runs the backlight
-  itself, and its backlight events notify the level attribute;
-- the F9 (mic mute) and F11 (programmable) hotkeys, which only the EC
-  reports, as input events, using HP's WMI key codes as hp-wmi maps them.
+commit a2a34412966dc5d33f9669af4c794727d4e8b1e4
+Author: Luo Liu <Luo.Liu@cixtech.com>
 
-The command codes, event codes and reply formats are the ones HP's ACPI
-methods use on this laptop.
+drm/cix: add Sky1 DisplayPort transmitter driver
 
-Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
----
- .../ABI/testing/sysfs-driver-hp-omnibook-5-ec |  19 +
- MAINTAINERS                                   |   8 +
- drivers/platform/arm64/Kconfig                |  17 +
- drivers/platform/arm64/Makefile               |   1 +
- drivers/platform/arm64/hp-omnibook-5-ec.c     | 417 ++++++++++++++++++
- 5 files changed, 462 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec
- create mode 100644 drivers/platform/arm64/hp-omnibook-5-ec.c
+This commit adds a DRM bridge driver for the CIX Sky1 DisplayPort
+transmitter, implementing DP link training, AUX transfers, hotplug
+handling, and connector management.
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec b/Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec
-new file mode 100644
-index 0000000000..4c6f5cb20e
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec
-@@ -0,0 +1,19 @@
-+What:		/sys/bus/i2c/devices/<bus>-0076/kbd_backlight_timeout
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Rahul Pon <theflyingrahul@gmail.com>
-+Description:
-+		(RW) How long the keyboard backlight of the HP OmniBook 5 16
-+		stays on after the last key press, as the embedded controller
-+		applies it: "30s", "3min" or "always". The Fn key still turns
-+		the backlight on and off.
-+
-+What:		/sys/bus/i2c/devices/<bus>-0076/kbd_backlight_level
-+Date:		September 2026
-+KernelVersion:	7.4
-+Contact:	Rahul Pon <theflyingrahul@gmail.com>
-+Description:
-+		(RO) The keyboard backlight level of the HP OmniBook 5 16:
-+		0 (off), 1 or 2. Only the backlight key changes it, inside the
-+		embedded controller. The attribute is notified when the EC
-+		reports a change.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index aa647f5d37..d043a2f8f6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12284,6 +12284,14 @@ L:	platform-driver-x86@vger.kernel.org
- S:	Orphan
- F:	drivers/platform/x86/hp/tc1100-wmi.c
- 
-+HP OMNIBOOK 5 16 EMBEDDED CONTROLLER DRIVER
-+M:	Rahul Pon <theflyingrahul@gmail.com>
-+L:	platform-driver-x86@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-hp-omnibook-5-ec
-+F:	Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
-+F:	drivers/platform/arm64/hp-omnibook-5-ec.c
-+
- HP WMI HARDWARE MONITOR DRIVER
- M:	James Seo <james@equiv.tech>
- L:	linux-hwmon@vger.kernel.org
-diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-index 3f879410b3..2b34f5ab1b 100644
---- a/drivers/platform/arm64/Kconfig
-+++ b/drivers/platform/arm64/Kconfig
-@@ -48,6 +48,23 @@ config EC_ASUS_GLYMUR
- 	  temperature sensors readout, fan monitoring, keyboard and EC event
- 	  reporting.
- 
-+config EC_HP_OMNIBOOK5
-+	tristate "HP OmniBook 5 16 Embedded Controller driver"
-+	depends on ARCH_QCOM || COMPILE_TEST
-+	depends on I2C
-+	depends on HWMON
-+	depends on INPUT
-+	select INPUT_SPARSEKMAP
-+	select LEDS_CLASS
-+	select NEW_LEDS
-+	help
-+	  Driver for the Embedded Controller in the Snapdragon X2-based HP
-+	  OmniBook 5 16, which reports the fan speed, thermistor
-+	  temperatures and hotkeys, and drives the mute LEDs and the
-+	  keyboard backlight timeout.
-+
-+	  Say M or Y here to include this support.
-+
- config EC_HUAWEI_GAOKUN
- 	tristate "Huawei Matebook E Go Embedded Controller driver"
- 	depends on ARCH_QCOM || COMPILE_TEST
-diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-index 3bc3d4669c..6c72726eae 100644
---- a/drivers/platform/arm64/Makefile
-+++ b/drivers/platform/arm64/Makefile
-@@ -7,6 +7,7 @@
- 
- obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
- obj-$(CONFIG_EC_ASUS_GLYMUR) += asus-glymur-ec.o
-+obj-$(CONFIG_EC_HP_OMNIBOOK5)	+= hp-omnibook-5-ec.o
- obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
- obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
- obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-diff --git a/drivers/platform/arm64/hp-omnibook-5-ec.c b/drivers/platform/arm64/hp-omnibook-5-ec.c
-new file mode 100644
-index 0000000000..bfe20e12aa
---- /dev/null
-+++ b/drivers/platform/arm64/hp-omnibook-5-ec.c
-@@ -0,0 +1,417 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * HP OmniBook 5 16 (Snapdragon X2) embedded controller
-+ *
-+ * The EC takes commands through a mailbox: wait for an idle status, write
-+ * the command, wait for it to complete, then read the reply. Command codes
-+ * are the ones HP's ACPI tables use on this laptop.
-+ */
-+
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/sparse-keymap.h>
-+#include <linux/interrupt.h>
-+#include <linux/leds.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/string.h>
-+#include <linux/sysfs.h>
-+#include <linux/unaligned.h>
-+
-+/* The pending event, cleared by writing 0 (HP's IC10.INTR, field CMD5) */
-+#define HPEC_EVENT		0x00
-+#define HPEC_STATUS		0xef
-+#define HPEC_REQUEST		0xed
-+#define HPEC_REPLY		0xee
-+#define HPEC_REPLY_LEN		32
-+
-+#define HPEC_STATUS_IDLE	0x00
-+#define HPEC_STATUS_DONE	0xe0
-+#define HPEC_POLL_TRIES		20
-+#define HPEC_POLL_US		5000
-+
-+#define HPEC_OS_FLAG		0x01
-+#define HPEC_OS_FLAG_LEDS	0x84
-+#define HPEC_KBD		0x05
-+#define HPEC_KBD_TIMEOUT_GET	0xfe
-+#define HPEC_KBD_LEVEL_GET	0xff
-+#define HPEC_LED		0x06
-+#define HPEC_LED_GET		0xff
-+#define HPEC_LED_ON		0x80
-+#define HPEC_THERMISTOR		0x26
-+#define HPEC_THERMISTOR_INVALID	0xff
-+#define HPEC_FAN		0xbc
-+#define HPEC_FAN_RPM		0x03
-+
-+/* The four thermistors HP's thermal zones enable, in their order */
-+static const u8 hpec_thermistors[] = { 0x00, 0x07, 0x04, 0x0a };
-+
-+static const char * const hpec_thermistor_labels[] = {
-+	"EC thermistor 1", "EC thermistor 2", "EC thermistor 3", "EC thermistor 4",
-+};
-+
-+/* EC events, with HP's WMI hotkey codes from hp-wmi where they exist */
-+#define HPEC_EVENT_HOT		0x0b
-+#define HPEC_EVENT_KBD		0x0d
-+#define HPEC_EVENT_KBD_KEY	0x1d
-+
-+static const struct key_entry hpec_keymap[] = {
-+	{ KE_IGNORE, 0x0d, },			/* backlight key, run by the EC */
-+	{ KE_KEY, 0x11, { KEY_MICMUTE } },	/* F9, WMI 0x270 */
-+	{ KE_IGNORE, 0x1d, },			/* backlight key, run by the EC */
-+	{ KE_KEY, 0x1e, { KEY_PROG2 } },	/* F11, WMI 0x21a8 */
-+	{ KE_IGNORE, 0x30, },			/* fan and thermistor notices */
-+	{ KE_IGNORE, 0x31, },
-+	{ KE_IGNORE, 0x32, },
-+	{ KE_IGNORE, 0x33, },
-+	{ KE_IGNORE, 0x34, },
-+	{ KE_IGNORE, 0x35, },
-+	{ KE_IGNORE, 0x36, },
-+	{ KE_IGNORE, 0x37, },
-+	{ KE_IGNORE, 0x38, },
-+	{ KE_IGNORE, 0x88, },			/* Fn lock, WMI 0x21ab */
-+	{ KE_END, 0 }
-+};
-+
-+/* Keyboard backlight timeout, in EC value order */
-+static const char * const hpec_kbd_timeouts[] = { "30s", "3min", "always" };
-+
-+/* EC LEDs 8 and 9, which HP's mute LED WMI methods drive */
-+static const struct {
-+	const char *name;
-+	const char *trigger;
-+	u8 index;
-+} hpec_leds[] = {
-+	{ "platform::mute", "audio-mute", 0x08 },
-+	{ "platform::micmute", "audio-micmute", 0x09 },
-+};
-+
-+struct hpec;
-+
-+struct hpec_led {
-+	struct led_classdev cdev;
-+	struct hpec *ec;
-+	u8 index;
-+};
-+
-+struct hpec {
-+	struct i2c_client *client;
-+	struct mutex lock;	/* serializes mailbox commands */
-+	struct hpec_led leds[ARRAY_SIZE(hpec_leds)];
-+	struct input_dev *input;
-+};
-+
-+static int hpec_wait(struct hpec *ec, u8 status)
-+{
-+	int i, ret;
-+
-+	for (i = 0; i < HPEC_POLL_TRIES; i++) {
-+		ret = i2c_smbus_read_byte_data(ec->client, HPEC_STATUS);
-+		if (ret < 0)
-+			return ret;
-+		if (ret == status)
-+			return 0;
-+		fsleep(HPEC_POLL_US);
-+	}
-+
-+	return -ETIMEDOUT;
-+}
-+
-+static int hpec_command(struct hpec *ec, u8 cmd, u8 sub, u8 reply[HPEC_REPLY_LEN])
-+{
-+	u8 request[] = { cmd, sub };
-+	int ret;
-+
-+	guard(mutex)(&ec->lock);
-+
-+	ret = hpec_wait(ec, HPEC_STATUS_IDLE);
-+	if (ret)
-+		return ret;
-+
-+	ret = i2c_smbus_write_i2c_block_data(ec->client, HPEC_REQUEST,
-+					     sizeof(request), request);
-+	if (ret)
-+		return ret;
-+
-+	ret = hpec_wait(ec, HPEC_STATUS_DONE);
-+	if (ret || !reply)
-+		return ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(ec->client, HPEC_REPLY,
-+					    HPEC_REPLY_LEN, reply);
-+	if (ret < 0)
-+		return ret;
-+
-+	return ret == HPEC_REPLY_LEN ? 0 : -EIO;
-+}
-+
-+static int hpec_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
-+			   u32 attr, int channel, long *val)
-+{
-+	struct hpec *ec = dev_get_drvdata(dev);
-+	u8 reply[HPEC_REPLY_LEN];
-+	int ret;
-+
-+	switch (type) {
-+	case hwmon_fan:
-+		ret = hpec_command(ec, HPEC_FAN, HPEC_FAN_RPM, reply);
-+		if (ret)
-+			return ret;
-+		*val = get_unaligned_le16(reply);
-+		return 0;
-+	case hwmon_temp:
-+		ret = hpec_command(ec, HPEC_THERMISTOR, hpec_thermistors[channel], reply);
-+		if (ret)
-+			return ret;
-+		if (reply[0] == HPEC_THERMISTOR_INVALID)
-+			return -ENODATA;
-+		*val = reply[0] * 1000;
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int hpec_hwmon_read_string(struct device *dev, enum hwmon_sensor_types type,
-+				  u32 attr, int channel, const char **str)
-+{
-+	if (type != hwmon_temp)
-+		return -EOPNOTSUPP;
-+
-+	*str = hpec_thermistor_labels[channel];
-+	return 0;
-+}
-+
-+static umode_t hpec_hwmon_is_visible(const void *data, enum hwmon_sensor_types type,
-+				     u32 attr, int channel)
-+{
-+	return 0444;
-+}
-+
-+static const struct hwmon_ops hpec_hwmon_ops = {
-+	.is_visible = hpec_hwmon_is_visible,
-+	.read = hpec_hwmon_read,
-+	.read_string = hpec_hwmon_read_string,
-+};
-+
-+static const struct hwmon_channel_info * const hpec_hwmon_info[] = {
-+	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
-+	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-+	HWMON_CHANNEL_INFO(temp,
-+			   HWMON_T_INPUT | HWMON_T_LABEL,
-+			   HWMON_T_INPUT | HWMON_T_LABEL,
-+			   HWMON_T_INPUT | HWMON_T_LABEL,
-+			   HWMON_T_INPUT | HWMON_T_LABEL),
-+	NULL
-+};
-+
-+static const struct hwmon_chip_info hpec_hwmon_chip = {
-+	.ops = &hpec_hwmon_ops,
-+	.info = hpec_hwmon_info,
-+};
-+
-+static enum led_brightness hpec_led_get(struct led_classdev *cdev)
-+{
-+	struct hpec_led *led = container_of(cdev, struct hpec_led, cdev);
-+	u8 reply[HPEC_REPLY_LEN];
-+
-+	if (hpec_command(led->ec, HPEC_LED, HPEC_LED_GET, reply))
-+		return LED_OFF;
-+
-+	return (reply[1] >> (led->index - hpec_leds[0].index)) & 1;
-+}
-+
-+static int hpec_led_set(struct led_classdev *cdev, enum led_brightness value)
-+{
-+	struct hpec_led *led = container_of(cdev, struct hpec_led, cdev);
-+	int ret;
-+
-+	/* As HP's method does before every change */
-+	ret = hpec_command(led->ec, HPEC_OS_FLAG, HPEC_OS_FLAG_LEDS, NULL);
-+	if (ret)
-+		return ret;
-+
-+	return hpec_command(led->ec, HPEC_LED,
-+			    led->index | (value ? HPEC_LED_ON : 0), NULL);
-+}
-+
-+static irqreturn_t hpec_irq(int irq, void *data)
-+{
-+	struct hpec *ec = data;
-+	struct device *dev = &ec->client->dev;
-+	int event;
-+
-+	scoped_guard(mutex, &ec->lock) {
-+		event = i2c_smbus_read_byte_data(ec->client, HPEC_EVENT);
-+		if (event < 0) {
-+			dev_err_ratelimited(dev, "cannot read EC event: %d\n", event);
-+			return IRQ_HANDLED;
-+		}
-+		i2c_smbus_write_byte_data(ec->client, HPEC_EVENT, 0);
-+	}
-+
-+	if (!event)
-+		return IRQ_HANDLED;
-+
-+	if (event == HPEC_EVENT_KBD || event == HPEC_EVENT_KBD_KEY)
-+		sysfs_notify(&dev->kobj, NULL, "kbd_backlight_level");
-+
-+	if (event == HPEC_EVENT_HOT) {
-+		dev_crit(dev, "EC reports a critical temperature\n");
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (!sparse_keymap_report_event(ec->input, event, 1, true))
-+		dev_info_ratelimited(dev, "unknown EC event %#x\n", event);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static ssize_t kbd_backlight_timeout_show(struct device *dev,
-+					  struct device_attribute *attr, char *buf)
-+{
-+	struct hpec *ec = dev_get_drvdata(dev);
-+	u8 reply[HPEC_REPLY_LEN];
-+	int ret;
-+
-+	ret = hpec_command(ec, HPEC_KBD, HPEC_KBD_TIMEOUT_GET, reply);
-+	if (ret)
-+		return ret;
-+
-+	if (reply[0] >= ARRAY_SIZE(hpec_kbd_timeouts))
-+		return sysfs_emit(buf, "%#x\n", reply[0]);
-+
-+	return sysfs_emit(buf, "%s\n", hpec_kbd_timeouts[reply[0]]);
-+}
-+
-+static ssize_t kbd_backlight_timeout_store(struct device *dev,
-+					   struct device_attribute *attr,
-+					   const char *buf, size_t count)
-+{
-+	struct hpec *ec = dev_get_drvdata(dev);
-+	int i, ret;
-+
-+	i = sysfs_match_string(hpec_kbd_timeouts, buf);
-+	if (i < 0)
-+		return i;
-+
-+	ret = hpec_command(ec, HPEC_KBD, i, NULL);
-+
-+	return ret ?: count;
-+}
-+static DEVICE_ATTR_RW(kbd_backlight_timeout);
-+
-+/* The level is set only by the backlight key, inside the EC */
-+static ssize_t kbd_backlight_level_show(struct device *dev,
-+					struct device_attribute *attr, char *buf)
-+{
-+	struct hpec *ec = dev_get_drvdata(dev);
-+	u8 reply[HPEC_REPLY_LEN];
-+	int ret;
-+
-+	ret = hpec_command(ec, HPEC_KBD, HPEC_KBD_LEVEL_GET, reply);
-+	if (ret)
-+		return ret;
-+
-+	return sysfs_emit(buf, "%u\n", reply[0]);
-+}
-+static DEVICE_ATTR_RO(kbd_backlight_level);
-+
-+static struct attribute *hpec_attrs[] = {
-+	&dev_attr_kbd_backlight_level.attr,
-+	&dev_attr_kbd_backlight_timeout.attr,
-+	NULL
-+};
-+ATTRIBUTE_GROUPS(hpec);
-+
-+static int hpec_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct device *hwmon;
-+	u8 reply[HPEC_REPLY_LEN];
-+	struct hpec *ec;
-+	unsigned int i;
-+	int ret;
-+
-+	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-+	if (!ec)
-+		return -ENOMEM;
-+
-+	ec->client = client;
-+	i2c_set_clientdata(client, ec);
-+	ret = devm_mutex_init(dev, &ec->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = hpec_command(ec, HPEC_FAN, HPEC_FAN_RPM, reply);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "EC does not answer\n");
-+
-+	ec->input = devm_input_allocate_device(dev);
-+	if (!ec->input)
-+		return -ENOMEM;
-+
-+	ec->input->name = "HP OmniBook 5 EC hotkeys";
-+	ec->input->phys = "hp-omnibook-5-ec/input0";
-+	ec->input->id.bustype = BUS_I2C;
-+
-+	ret = sparse_keymap_setup(ec->input, hpec_keymap, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = input_register_device(ec->input);
-+	if (ret)
-+		return ret;
-+
-+	hwmon = devm_hwmon_device_register_with_info(dev, "hp_omnibook_ec", ec,
-+						     &hpec_hwmon_chip, NULL);
-+	if (IS_ERR(hwmon))
-+		return PTR_ERR(hwmon);
-+
-+	for (i = 0; i < ARRAY_SIZE(hpec_leds); i++) {
-+		struct hpec_led *led = &ec->leds[i];
-+
-+		led->ec = ec;
-+		led->index = hpec_leds[i].index;
-+		led->cdev.name = hpec_leds[i].name;
-+		led->cdev.default_trigger = hpec_leds[i].trigger;
-+		led->cdev.max_brightness = 1;
-+		led->cdev.brightness_get = hpec_led_get;
-+		led->cdev.brightness_set_blocking = hpec_led_set;
-+
-+		ret = devm_led_classdev_register(dev, &led->cdev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (client->irq > 0) {
-+		ret = devm_request_threaded_irq(dev, client->irq, NULL, hpec_irq,
-+						IRQF_ONESHOT, "hp-omnibook-5-ec", ec);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "cannot request the EC interrupt\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id hpec_of_match[] = {
-+	{ .compatible = "hp,omnibook-5-16-bf1xxx-ec" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, hpec_of_match);
-+
-+static struct i2c_driver hpec_driver = {
-+	.driver = {
-+		.name = "hp-omnibook-5-ec",
-+		.of_match_table = hpec_of_match,
-+		.dev_groups = hpec_groups,
-+	},
-+	.probe = hpec_probe,
-+};
-+module_i2c_driver(hpec_driver);
-+
-+MODULE_DESCRIPTION("HP OmniBook 5 16 embedded controller");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx.c b/drivers/gpu/drm/cix/dp=
+tx/cix_dptx.c
+> new file mode 100644
+> index 0000000000000..8915c50bc9db3
+> --- /dev/null
+> +++ b/drivers/gpu/drm/cix/dptx/cix_dptx.c
 
+[ ... ]
+
+> @@ -0,0 +1,2086 @@
+> +static int cix_dp_link_configure(struct cix_dp *dp)
+> +{
+> +	u8 bw_code =3D dp->mode.bw_code;
+> +	u8 lane_cnt =3D dp->mode.lane_cnt;
+> +	int ret;
+> +
+> +	cix_dp_write(dp, CIX_DPTX_LANE_COUNT_SET, lane_cnt);
+> +
+> +	if (dp->caps.enhanced_framing) {
+> +		cix_dp_write(dp, CIX_DPTX_ENHANCED_FRAMING_ENABLE, 1);
+> +		lane_cnt |=3D DP_LANE_COUNT_ENHANCED_FRAME_EN;
+> +	}
+
+[Severity: Medium]
+Should CIX_DPTX_ENHANCED_FRAMING_ENABLE be cleared when
+dp->caps.enhanced_framing is false?  If a sink without enhanced framing is
+connected after one that enabled it, the transmitter keeps sending enhanced
+framing while DP_LANE_COUNT_ENHANCED_FRAME_EN is cleared in the sink DPCD.
+
+[ ... ]
+
+> +	value =3D cix_dp_read(dp, CIX_DPTX_AUX_REPLY_CODE);
+> +	if (reply)
+> +		*reply =3D value;
+> +
+> +	if (is_read) {
+> +		if (value =3D=3D CIX_DPTX_AUX_REPLY_CODE_AUX_ACK ||
+> +		    value =3D=3D CIX_DPTX_AUX_REPLY_CODE_I2C_ACK) {
+> +			value =3D cix_dp_read(dp, CIX_DPTX_AUX_REPLY_DATA_COUNT);
+> +			if ((value & CIX_DPTX_REPLY_DATA_COUNT_MASK) !=3D bytes)
+> +				return -EIO;
+> +		}
+> +		for (i =3D 0; i < bytes; i++)
+> +			buf[i] =3D cix_dp_read(dp, CIX_DPTX_AUX_REPLY_DATA);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static ssize_t cix_dp_aux_transfer(struct drm_dp_aux *aux,
+> +				   struct drm_dp_aux_msg *msg)
+> +{
+> +	struct cix_dp *dp =3D container_of(aux, struct cix_dp, aux);
+> +	size_t to_access =3D 0;
+> +	size_t accessed_bytes =3D 0;
+> +	int ret;
+> +
+> +	if (!cix_dp_get_hpd_state(dp))
+> +		return -ENODEV;
+> +
+> +	do {
+> +		to_access =3D min_t(size_t, DP_AUX_MAX_PAYLOAD_BYTES,
+> +				  msg->size - accessed_bytes);
+> +		ret =3D cix_dp_aux_cmd_submit(dp, msg->request,
+> +					    msg->address + accessed_bytes,
+> +					    msg->buffer + accessed_bytes,
+> +					    to_access, &msg->reply);
+> +		if (ret)
+> +			return accessed_bytes ? (ssize_t)accessed_bytes : ret;
+> +
+> +		accessed_bytes +=3D to_access;
+> +	} while (accessed_bytes < msg->size);
+> +
+> +	return msg->size;
+> +}
+
+[Severity: Medium]
+Does cix_dp_aux_cmd_submit() read from an empty CIX_DPTX_AUX_REPLY_DATA
+FIFO when the sink replies with NACK or DEFER?
+
+When value is non-zero (NACK or DEFER), the reply data count check is
+skipped, but the loop still reads bytes entries from
+CIX_DPTX_AUX_REPLY_DATA into buf and returns 0.  In cix_dp_aux_transfer(),
+multi-chunk transfers also keep submitting subsequent chunks after a NACK
+or DEFER instead of stopping and returning the reply code to the DRM AUX
+helper.
+
+[ ... ]
+
+> +static int dptx_setup_vsc_sdp(struct dp_sdp *sdp,
+> +			      struct cix_dp_config *config)
+> +{
+> +	sdp->sdp_header.HB0 =3D 0;
+> +	sdp->sdp_header.HB1 =3D 0x7;
+> +	sdp->sdp_header.HB2 =3D 0x5;
+> +	sdp->sdp_header.HB3 =3D 0x13;
+> +
+> +	switch (config->format) {
+> +	case CIX_DP_FORMAT_YCBCR444:
+> +		sdp->db[16] =3D 0x1 << 4;
+> +		break;
+> +	case CIX_DP_FORMAT_YCBCR422:
+> +		sdp->db[16] =3D 0x1 << 4;
+> +		break;
+> +	case CIX_DP_FORMAT_YCBCR420:
+> +		sdp->db[16] =3D 0x3 << 4;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	switch (config->colorspace) {
+> +	case DRM_MODE_COLORIMETRY_BT709_YCC:
+> +		sdp->db[16] |=3D 0x1;
+
+[ ... ]
+
+> +	switch (config->bpc) {
+> +	case 16:
+> +		sdp->db[17] =3D 0x4;
+> +		break;
+> +	case 12:
+> +		sdp->db[17] =3D 0x3;
+> +		break;
+> +	case 10:
+> +		sdp->db[17] =3D 0x2;
+> +		break;
+> +	case 8:
+> +	default:
+> +		sdp->db[17] =3D 0x1;
+> +		break;
+> +	}
+> +
+> +	/* Dynamic Range and Component Bit Depth */
+> +	if (config->dynamic_range =3D=3D DP_DYNAMIC_RANGE_CTA)
+> +		sdp->db[17] |=3D 0x80; /* DB17[7] */
+> +
+> +	sdp->db[18] =3D config->content_type & 0x7;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does dptx_setup_vsc_sdp() program the wrong pixel encoding and bit depth in
+the VSC SDP payload?
+
+CIX_DP_FORMAT_YCBCR422 sets sdp->db[16] to 0x1 << 4 (YCbCr 4:4:4) instead
+of 0x2 << 4 (YCbCr 4:2:2).  On the default (RGB) path, sdp->db[16] is not
+cleared before ORing the colorimetry bits, leaving stale format and
+colorimetry values from earlier modesets.  In addition, 6 bpc falls into
+the default branch and encodes sdp->db[17] as 0x1 (8 bpc) instead of 0x0.
+
+In cix_dp_set_misc(), the VSC SDP path also only sets the pixel format
+override for CIX_DP_FORMAT_YCBCR420 (leaving override format bits as RGB
+for YCbCr 4:2:2 and 4:4:4) and hardcodes config->content_type to
+DP_CONTENT_TYPE_NOT_DEFINED instead of using the connector's content_type
+property.
+
+> +
+> +static int cix_dp_panel_setup_colorimetry_sdp(struct cix_dp *dp,
+> +					      struct cix_dp_panel *dp_panel)
+> +{
+> +	struct cix_connector *conn =3D dp_panel->connector;
+> +
+> +	if (conn->config.override & CIX_DPTX_STREAM_OVERRIDE_ENABLE) {
+> +		dptx_setup_vsc_sdp(&conn->sdp[CIX_VSC_SDP], &conn->config);
+> +		infoframe_write_packet(dp, dp_panel->source_id, CIX_VSC_SDP,
+> +				       &conn->sdp[CIX_VSC_SDP], 1);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int cix_dp_panel_hw_cfg(struct cix_dp *dp, int stream_id)
+> +{
+> +	struct cix_dp_panel *dp_panel =3D dp->active_panels[stream_id];
+> +	struct drm_display_mode *mode =3D cix_dp_get_mode(dp, stream_id);
+> +	struct cix_connector *conn;
+> +
+> +	if (!mode)
+> +		return -EINVAL;
+> +
+> +	conn =3D dp_panel->connector;
+> +
+> +	cix_dp_cfg_adapter(dp, stream_id);
+> +
+> +	cix_dp_set_misc(dp, dp_panel);
+> +	cix_dp_panel_setup_colorimetry_sdp(dp, dp_panel);
+> +
+> +	cix_dp_mode_set_transfer_unit(dp, dp_panel->source_id, mode,
+> +				      conn->config.bpp);
+> +	cix_dp_mode_set_timing(dp, dp_panel->source_id, mode, conn->config.bpp);
+> +	return 0;
+> +}
+
+[Severity: High]
+Can cix_dp_panel_hw_cfg() and cix_dp_panel_setup_colorimetry_sdp()
+dereference a NULL dp_panel->connector when the bridge is attached with
+DRM_BRIDGE_ATTACH_NO_CONNECTOR?
+
+When DRM_BRIDGE_ATTACH_NO_CONNECTOR is passed to cix_dp_bridge_attach(),
+cix_dp_connector_create() is skipped and dp->dp_panel.connector remains
+NULL.  Enabling the bridge then calls cix_dp_panel_hw_cfg(), which ignores
+the -EINVAL return from cix_dp_set_misc() and dereferences conn in
+cix_dp_panel_setup_colorimetry_sdp() and cix_dp_mode_set_transfer_unit().
+In addition, cix_dp_hpd_event_work_func() returns early when
+dp->dp_panel.connector is NULL, and cix_dp_bridge_funcs does not implement
+the bridge detection or EDID callbacks needed when connector creation is
+delegated to the display controller.
+
+[ ... ]
+
+> +static void cix_dp_replay_deferred_hotplug(struct cix_dp *dp)
+> +{
+> +	struct phy *phy =3D dp->phy;
+> +	union phy_configure_opts opts =3D { 0 };
+> +	u8 dpcd_rev;
+> +
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED))
+> +		return;
+> +	if (dp->force_hpd !=3D connector_status_unknown)
+> +		return;
+> +	if (cix_dp_get_hpd_state(dp))
+> +		return;
+> +
+> +	phy_validate(phy, PHY_MODE_DP, 0, &opts);
+> +	if (phy_get_mode(phy) !=3D PHY_MODE_DP)
+> +		return;
+> +
+> +	/*
+> +	 * The combo PHY is already muxed to DP, so the sink may have been
+> +	 * plugged in before the connector existed. Probe the AUX channel to
+> +	 * make sure one is really there before forcing a hotplug event.
+> +	 */
+> +	if (drm_dp_dpcd_readb(&dp->aux, DP_DPCD_REV, &dpcd_rev) < 0)
+> +		return;
+> +
+> +	dp->force_hpd =3D connector_status_connected;
+> +	dp->status =3D connector_status_unknown;
+> +	schedule_delayed_work(&dp->hpd_event_work, 0);
+> +}
+
+[Severity: High]
+Does drm_dp_dpcd_readb() in cix_dp_replay_deferred_hotplug() always fail
+with -ENODEV?
+
+cix_dp_replay_deferred_hotplug() returns early if cix_dp_get_hpd_state(dp)
+is true, so reaching drm_dp_dpcd_readb() guarantees cix_dp_get_hpd_state(dp)
+is false.  Because dp->force_hpd is only set to connector_status_connected
+after drm_dp_dpcd_readb(), cix_dp_aux_transfer() sees
+!cix_dp_get_hpd_state(dp) and rejects the AUX read with -ENODEV, preventing
+deferred hotplug from ever triggering.
+
+> +
+> +static void cix_dp_hpd_event_work_func(struct work_struct *work)
+> +{
+> +	struct cix_dp *dp =3D container_of(work, struct cix_dp,
+> +					 hpd_event_work.work);
+> +	struct phy *phy =3D dp->phy;
+> +	union phy_configure_opts opts =3D { 0 };
+> +	enum drm_connector_status old_status;
+> +	enum phy_mode mode;
+> +	int i;
+> +
+> +	if (!dp->dp_panel.connector)
+> +		return;
+> +
+> +	/*
+> +	 * On a USB-C DP alt-mode PHY the hotplug only becomes valid once the
+> +	 * PHY has been switched to DP mode, so wait for the mode change.
+> +	 * A native DP PHY has no ->set_mode() operation, which leaves the
+> +	 * mode at PHY_MODE_INVALID forever; there is nothing to wait for.
+> +	 */
+> +	if (cix_dp_get_hpd_state(dp) &&
+> +	    phy_get_mode(phy) !=3D PHY_MODE_INVALID) {
+> +		for (i =3D 0; i < DP_HPD_MAX_TRIES; i++) {
+> +			phy_validate(phy, PHY_MODE_DP, 0, &opts);
+> +			mode =3D phy_get_mode(phy);
+> +			if (mode =3D=3D PHY_MODE_DP)
+> +				break;
+> +			msleep(100);
+> +		}
+> +	}
+> +
+> +	old_status =3D dp->status;
+> +	drm_helper_probe_detect(&dp->connector.base, NULL, false);
+> +
+> +	if (dp->status =3D=3D connector_status_connected)
+> +		cix_dp_handle_connect(dp);
+> +	else
+> +		cix_dp_handle_disconnect(dp);
+> +
+> +	if (old_status !=3D dp->status && dp->drm)
+> +		drm_helper_hpd_irq_event(dp->drm);
+> +}
+
+[Severity: High]
+Does probing the connector before cix_dp_handle_connect() leave dp->dpcd,
+dp->link_config, and dp->caps uninitialized during detection and mode
+validation?
+
+cix_dp_detect() only checks the HPD pin level and never reads DPCD.  In
+cix_dp_hpd_event_work_func(), drm_helper_probe_detect() runs before
+cix_dp_handle_connect(), so cix_dp_connector_detect() passes zeroed or
+stale dp->dpcd and dp->downstream_ports to
+drm_dp_set_subconnector_property().  Likewise, when a native DP monitor is
+connected before cix_dp_bridge_attach() creates the connector, or after
+system resume, DRM probes the connector and validates modes before
+cix_dp_handle_connect() ever runs, and cix_dp_bridge_atomic_enable() calls
+cix_dp_bridge_mode_set() before encoder_enable() reads the sink's DPCD
+capabilities.
+
+Also, in cix_dp_handle_connect(), DPTX_STATE_CONNECTED is only cleared when
+cix_dp_panel_read_sink_caps() fails with -ETIMEDOUT or -ENOTCONN; if it
+fails with -EIO or -EBUSY, DPTX_STATE_CONNECTED remains set with zeroed
+caps and blocks later retries.
+
+> +
+> +static void cix_dp_hpd_irq_work_func(struct work_struct *work)
+> +{
+> +	struct cix_dp *dp =3D container_of(work, struct cix_dp,
+> +					 hpd_irq_work.work);
+> +	u8 status[DP_LINK_STATUS_SIZE + 2];
+> +	int ret;
+> +
+> +	if (!cix_dp_get_hpd_state(dp))
+> +		return;
+> +
+> +	mutex_lock(&dp->session_lock);
+> +
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED) ||
+> +	    !(dp->state & DPTX_STATE_ENABLED))
+> +		goto end;
+
+[Severity: High]
+Can cix_dp_get_hpd_state() and cix_dp_aux_transfer() read DPTX registers
+while dp->apb_clk is gated?
+
+As noted above cix_dp_detect(), cix_dp_read() hangs the bus if called when
+DPTX_STATE_INITIALIZED is clear and dp->apb_clk is disabled.
+cix_dp_hpd_irq_work_func() calls cix_dp_get_hpd_state() before locking
+dp->session_lock and checking DPTX_STATE_INITIALIZED, and
+cix_dp_aux_transfer() (reachable via /dev/drm_dp_aux*) and
+cix_dp_hpd_event_work_func() access DPTX registers without checking
+DPTX_STATE_INITIALIZED under dp->session_lock.
+
+[ ... ]
+
+> +static int cix_dp_pm_complete(struct cix_dp *dp)
+> +{
+> +	int ret =3D 0;
+> +
+> +	mutex_lock(&dp->session_lock);
+> +
+> +	if (!(dp->state & DPTX_STATE_SUSPENDED))
+> +		goto end;
+> +
+> +	ret =3D cix_dp_host_init(dp);
+> +	if (ret)
+> +		goto end;
+> +
+> +	enable_irq(dp->irq);
+> +	dp->state &=3D ~DPTX_STATE_SUSPENDED;
+> +
+> +	if (dp->drm && dp->drm->mode_config.poll_enabled)
+> +		drm_kms_helper_poll_enable(dp->drm);
+> +end:
+> +	mutex_unlock(&dp->session_lock);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+If cix_dp_host_init() fails in cix_dp_pm_complete(), does dp->irq stay
+disabled while a later cix_dp_pm_prepare() or cix_dp_deinit() calls
+disable_irq() a second time?
+
+Because cix_dp_pm_prepare() and cix_dp_deinit() call disable_irq(dp->irq)
+unconditionally without checking whether DPTX_STATE_SUSPENDED is already
+set, a failed resume nests the IRQ disable depth.  Additionally, when
+DPTX_STATE_SUSPENDED is set, cix_dp_oob_hotplug_event() overwrites
+dp->force_hpd with connector_status_disconnected instead of recording
+hpd_state, losing Type-C plug events that arrive during suspend.
+
+> +
+> +static int cix_dp_prepare(struct cix_dp *dp)
+> +{
+> +	int ret;
+> +
+> +	mutex_lock(&dp->session_lock);
+> +
+> +	if (dp->state & (DPTX_STATE_ENABLED)) {
+> +		ret =3D 0;
+> +		goto end;
+> +	}
+> +
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
+> +		ret =3D cix_dp_host_init(dp);
+> +		if (ret)
+> +			goto end;
+> +	} else if (dp->state & DPTX_STATE_INIT_TRAIN) {
+> +		reset_dp_and_reinit(dp);
+> +		usleep_range(100, 200);
+> +	}
+> +
+> +	if (cix_dp_get_hpd_state(dp) &&
+> +	    !(dp->state & DPTX_STATE_CONNECTED)) {
+> +		mutex_unlock(&dp->session_lock);
+> +		cix_dp_handle_connect(dp);
+> +		mutex_lock(&dp->session_lock);
+> +	}
+> +
+> +	if (!(cix_dp_get_hpd_state(dp) && (dp->state & DPTX_STATE_CONNECTED))) {
+> +		ret =3D 0;
+> +		goto end;
+> +	}
+> +
+> +	ret =3D cix_dp_core_on(dp, true);
+> +
+> +end:
+> +	mutex_unlock(&dp->session_lock);
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static int cix_dp_encoder_enable(struct cix_dp *dp, int stream_id, int e=
+nable)
+> +{
+> +	int ret;
+> +
+> +	if (enable) {
+> +		ret =3D cix_dp_prepare(dp);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret =3D cix_dp_enable(dp, stream_id);
+> +	} else {
+> +		if (!(dp->state & DPTX_STATE_INITIALIZED))
+> +			return 0;
+> +
+> +		ret =3D cix_dp_disable(dp, stream_id);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret =3D cix_dp_unprepare(dp);
+> +	}
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Does a failure in cix_dp_enable() leak PHY references and leave the
+transmitter wedged with DPTX_STATE_READY set?
+
+In cix_dp_encoder_enable(), cix_dp_prepare() calls cix_dp_core_on(), which
+calls phy_init() and phy_power_on() and sets DPTX_STATE_READY |
+DPTX_STATE_INIT_TRAIN.  If cix_dp_enable() then fails, DPTX_STATE_ENABLED
+is not set and cix_dp_core_off() is not called.  A subsequent disable will
+return early in cix_dp_unprepare() because DPTX_STATE_ENABLED is clear,
+while a subsequent enable will call reset_dp_and_reinit() (leaking another
+phy_init() call) and then return early in cix_dp_core_on() because
+DPTX_STATE_READY is still set, skipping link training after the reset.
+
+Also, if the display controller resumes and calls cix_dp_prepare() before
+cix_dptx_pm_resume() clears DPTX_STATE_SUSPENDED, cix_dp_handle_connect()
+will bail out on DPTX_STATE_SUSPENDED and leave the display disabled.
+
+[ ... ]
+
+> +static void cix_dp_deinit(struct cix_dp *dp)
+> +{
+> +	cancel_delayed_work_sync(&dp->sw_hpd_irq_work);
+> +	cancel_delayed_work_sync(&dp->hpd_irq_work);
+> +	cancel_delayed_work_sync(&dp->hpd_event_work);
+> +	disable_irq(dp->irq);
+> +
+> +	mutex_lock(&dp->session_lock);
+> +	cix_dp_host_deinit(dp);
+> +	dp->state &=3D ~(DPTX_STATE_CONFIGURED);
+> +	mutex_unlock(&dp->session_lock);
+> +
+> +	mutex_destroy(&dp->session_lock);
+> +}
+
+[Severity: High]
+Can HPD delayed work items be re-queued after cancel_delayed_work_sync()
+during teardown, bridge detach, or suspend?
+
+CPU0                              CPU1
+cix_dp_deinit()
+  cancel_delayed_work_sync(...)
+                                  cix_dp_irq_handler()
+                                    queue_delayed_work(...,
+                                      &dp->hpd_event_work, 0)
+  disable_irq(dp->irq)
+  cix_dp_host_deinit(dp)
+  mutex_destroy(&dp->session_lock)
+                                  cix_dp_hpd_event_work_func()
+                                    <-- unclocked MMIO / UAF
+
+In cix_dp_deinit(), disable_irq(dp->irq) is called after
+cancel_delayed_work_sync().  In cix_dp_bridge_detach(), hpd_irq_work is
+cancelled before sw_hpd_irq_work (which queues hpd_irq_work), while dp->irq
+remains enabled and dp->dp_panel.connector is only cleared after
+drm_connector_cleanup().  In cix_dp_pm_prepare(), the works are cancelled
+before DPTX_STATE_SUSPENDED is set, allowing a concurrent
+cix_dp_oob_hotplug_event() to schedule them right before cix_dp_host_deinit=
+()
+gates dp->apb_clk.
+
+[ ... ]
+
+> +static void cix_dptx_shutdown(struct platform_device *pdev)
+> +{
+> +	struct cix_dp *dp =3D platform_get_drvdata(pdev);
+> +
+> +	if (dp) {
+> +		mutex_lock(&dp->session_lock);
+> +		dp->active_stream_cnt =3D 0;
+> +		mutex_unlock(&dp->session_lock);
+> +		cix_dp_pm_prepare(dp);
+> +	}
+> +}
+
+[Severity: Medium]
+Does zeroing dp->active_stream_cnt in cix_dptx_shutdown() cause
+cix_dp_host_deinit() to call phy_exit() while the PHY is still powered on?
+
+When a stream is active at shutdown, forcing dp->active_stream_cnt =3D 0
+without calling cix_dp_ctrl_stream_off() and cix_dp_core_off() leaves
+stream_clk enabled and the PHY powered on when cix_dp_pm_prepare() ->
+cix_dp_host_deinit() calls phy_exit() and disables dp->apb_clk.
+Conversely, in cix_dptx_remove() -> cix_dp_deinit(), if
+dp->active_stream_cnt is non-zero, cix_dp_host_deinit() returns early and
+leaks the clocks and PHY references.
+
+> diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx_drm.c b/drivers/gpu/drm/ci=
+x/dptx/cix_dptx_drm.c
+> new file mode 100644
+> index 0000000000000..0ddcd76691e03
+> --- /dev/null
+> +++ b/drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
+
+[ ... ]
+
+> @@ -0,0 +1,653 @@
+> +static void cix_dp_adjust_mode(struct drm_display_mode *mode,
+> +			       struct drm_display_mode *adjusted_mode)
+> +{
+> +	int diff =3D mode->htotal - mode->hsync_end;
+> +
+> +	/*
+> +	 * Cix DP requires horizontal backporch to be greater than 12.
+> +	 * This limitation may not be compatible with the sink device.
+> +	 *
+> +	 * Everything below is derived from @mode instead of accumulating on
+> +	 * @adjusted_mode, so that repeated atomic checks of the same state
+> +	 * produce the same result.
+> +	 */
+> +	if (diff < CIX_DPTX_MIN_H_BACKPORCH) {
+> +		adjusted_mode->htotal =3D mode->htotal +
+> +					CIX_DPTX_MIN_H_BACKPORCH - diff;
+> +		adjusted_mode->clock =3D (int64_t)mode->clock *
+> +				       adjusted_mode->htotal / mode->htotal;
+> +	}
+> +
+> +	/* The sync polarities are inverted with respect to the source mode. */=
+\n> +	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+> +		adjusted_mode->flags &=3D ~DRM_MODE_FLAG_PVSYNC;
+> +	else
+> +		adjusted_mode->flags |=3D DRM_MODE_FLAG_PVSYNC;
+> +
+> +	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+> +		adjusted_mode->flags &=3D ~DRM_MODE_FLAG_PHSYNC;
+> +	else
+> +		adjusted_mode->flags |=3D DRM_MODE_FLAG_PHSYNC;
+> +}
+
+[ ... ]
+
+> +static int cix_dp_pick_format_bpc(struct cix_dp *dp,
+> +				  struct drm_connector_state *conn_state,
+> +				  struct drm_display_mode *adjusted_mode,
+> +				  int info_formats, int suggest_bpc,
+> +				  int *color_format, int *bpc, int *bpp)
+> +{
+> +	struct drm_display_info *info =3D
+> +		&conn_state->connector->display_info;
+> +	int curr_bpc;
+> +	int format;
+> +	int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(fmt_prio); i++) {
+> +		format =3D fmt_prio[i].format;
+> +		curr_bpc =3D fmt_prio[i].bpc ? fmt_prio[i].bpc : suggest_bpc;
+> +
+> +		/* Only use 420_only flag for YUV420 format */
+> +		if (!(info_formats & BIT(format)) &&
+> +		    !(format =3D=3D DRM_OUTPUT_COLOR_FORMAT_YCBCR420 &&
+> +		      drm_mode_is_420_only(info, adjusted_mode)))
+> +			continue;
+
+[Severity: High]
+Does mutating adjusted_mode->flags in cix_dp_adjust_mode() break CEA mode
+matching and YCbCr 4:2:0 format selection in cix_dp_pick_format_bpc()?
+
+cix_dp_adjust_mode() toggles DRM_MODE_FLAG_PVSYNC and DRM_MODE_FLAG_PHSYNC
+without updating DRM_MODE_FLAG_NVSYNC and DRM_MODE_FLAG_NHSYNC, leaving
+adjusted_mode->flags with either both positive and negative sync flags set
+or neither set.  When cix_dp_pick_format_bpc() then passes adjusted_mode to
+drm_mode_is_420_only(), drm_match_cea_mode() fails to match the mutated
+flags (and any adjusted htotal/clock) and always returns false.
+
+Furthermore, cix_dp_pick_format_bpc() does not skip non-4:2:0 formats when a
+mode is 4:2:0-only (so RGB444 or YCbCr 4:2:2 is picked whenever link
+bandwidth allows), and it does not check drm_mode_is_420() or
+dp->caps.vsc_supported before picking DRM_OUTPUT_COLOR_FORMAT_YCBCR420 (nor
+does cix_dp_bridge_atomic_check() validate adjusted_mode->clock against
+CIX_DP_MAX_FREQ).
+
+[ ... ]
+
+> +static void cix_dp_bridge_mode_set(struct cix_dp *dp,
+> +				   struct drm_crtc_state *crtc_state,
+> +				   struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_display_mode *adjusted_mode =3D &crtc_state->adjusted_mode;
+> +	struct cix_connector *cix_conn =3D &dp->connector;
+> +	int color_format;
+> +	int link_rate;
+> +	int bw_code;
+> +	int bpc;
+> +	int bpp;
+> +	int ret;
+> +
+> +	ret =3D cix_dp_pick_config(dp, conn_state, adjusted_mode,
+> +				 &color_format, &bpc, &bpp);
+> +	if (ret) {
+> +		dev_err(dp->dev, "no usable DP link configuration: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	cix_conn->config.format =3D cix_dp_drm_format_to_dp(color_format);
+> +	cix_conn->config.colorspace =3D conn_state->colorspace;
+> +	cix_conn->config.bpc =3D bpc;
+> +	cix_conn->config.bpp =3D bpp;
+
+[Severity: Medium]
+Can cix_dp_bridge_mode_set() race with cix_dp_hpd_irq_work_func() and
+cix_dp_handle_connect() on dp->mode, dp->connector.config, and
+dp->link_config?
+
+cix_dp_hpd_irq_work_func() holds dp->session_lock while cix_dp_train_loop()
+reads dp->connector.config.bpp and updates dp->mode, and
+cix_dp_handle_connect() holds dp->session_lock while updating
+dp->link_config, but cix_dp_bridge_mode_set() reads dp->link_config and
+writes dp->connector.config and dp->mode without holding dp->session_lock.
+Similarly, cix_dp_oob_hotplug_event() reads dp->state and updates
+dp->force_hpd without holding dp->session_lock.
+
+> +	dp->pixel_per_cycle =3D cix_dp_pick_ppc(adjusted_mode,
+> +					      cix_conn->config.format);
+> +
+> +	link_rate =3D cix_dp_pick_link_rate(dp, adjusted_mode, bpp);
+> +	bw_code =3D drm_dp_link_rate_to_bw_code(link_rate);
+> +
+> +	dp->ops->mode_configure(dp, adjusted_mode->clock, bw_code, bpp, false);
+
+[Severity: Medium]
+If cix_dp_pick_config() or dp->ops->mode_configure() fails in
+cix_dp_bridge_mode_set(), can cix_dp_bridge_atomic_enable() divide by zero?
+
+When cix_dp_bridge_mode_set() fails before dp->mode is populated,
+cix_dp_bridge_atomic_enable() still calls dp->ops->encoder_enable() with
+dp->mode.lane_cnt =3D=3D 0 and dp->mode.bw_code =3D=3D 0.  Link training su=
+cceeds
+vacuously for 0 lanes, and cix_dp_mode_set_transfer_unit() and
+cix_dp_mode_set_timing() then divide by dp->mode.lane_cnt.
+
+[ ... ]
+
+> +static int cix_dp_connector_create(struct cix_dp *dp,
+> +				   struct drm_encoder *encoder)
+> +{
+> +	struct cix_connector *conn =3D &dp->connector;
+> +	struct drm_connector *connector =3D &conn->base;
+> +	int ret;
+> +
+> +	conn->dp =3D dp;
+> +
+> +	connector->polled =3D DRM_CONNECTOR_POLL_HPD;
+> +	connector->ycbcr_420_allowed =3D true;
+> +
+> +	ret =3D drm_connector_init_with_ddc(encoder->dev, connector,
+> +					  &cix_dp_connector_funcs,
+> +					  DRM_MODE_CONNECTOR_DisplayPort,
+> +					  &dp->aux.ddc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_connector_helper_add(connector, &cix_dp_connector_helper_funcs);
+> +
+> +	drm_atomic_helper_connector_reset(connector);
+> +
+> +	ret =3D drm_connector_attach_encoder(connector, encoder);
+> +	if (ret)
+> +		goto err_cleanup;
+> +
+> +	cix_dp_add_properties(connector);
+
+[Severity: Medium]
+Can cix_dp_add_properties() dereference a NULL connector->state if the
+allocation inside drm_atomic_helper_connector_reset() fails?
+drm_connector_attach_max_bpc_property() unconditionally writes to
+connector->state->max_requested_bpc and connector->state->max_bpc.
+
+[ ... ]
+
+> +static void cix_dp_bridge_detach(struct drm_bridge *bridge)
+> +{
+> +	struct cix_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	/* The hotplug workers reach the connector, stop them first. */
+> +	cancel_delayed_work_sync(&dp->hpd_event_work);
+> +	cancel_delayed_work_sync(&dp->hpd_irq_work);
+> +	cancel_delayed_work_sync(&dp->sw_hpd_irq_work);
+> +
+> +	if (dp->connector.base.dev)
+> +		drm_connector_cleanup(&dp->connector.base);
+
+[Severity: High]
+Does calling drm_connector_cleanup() in cix_dp_bridge_detach() cause a
+double cleanup when the DRM mode_config or an atomic state still holds a
+reference to the connector?
+
+cix_dp_connector_funcs sets .destroy =3D drm_connector_cleanup, so the
+connector is reference-counted and cleaned up when its last reference is
+dropped (such as during drm_mode_config_cleanup()).  Calling
+drm_connector_cleanup() directly in cix_dp_bridge_detach() zeroes the
+embedded struct drm_connector while references remain, leading to a
+refcount underflow and a NULL connector->funcs->destroy dereference in
+drm_connector_put().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109103010.1109=
+11-1-Luo.Liu@cixtech.com?part=3D2
