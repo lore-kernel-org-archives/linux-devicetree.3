@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300576;
-	b=AjoAqKtWc1+/UnTzAliUpyM+X8M1T9XFesSbOfa68VUwR2tsw2ER/et6Qe5oQUMFUjfR
-	 spOlyZx+4SRhVCU3HvUMbgjDiAV+mKSMHKqgth0AHfX7nlOf7dtrg/ulsSQE8jIBqL/in
-	 Paazy5RjfTadcRxxaMM8OpdIoVVZwcAbwLFj+Rt8iaPCq7VBOrfj2oWhe2KBeOR2BeyR9
-	 r/u20Unx6AFRXWJccTJ8WgCKcfbMrYeQnMIoZRalJpw1nR+pNd74q4YAeR/de9DUMTNVJ
-	 mFamdYtpoNWtxSh4/E0qgUI4Peh5e2JF8WymVh1my4Wz9wcmGn3i1TXbBY8rdpGhMSw==
+	t=1794301246;
+	b=yaE1NsytD8vL3dhlRxHGLPb+ppQ3ETRQDVk5LbWj3Gnn+2MdR34LKA6YD4YZlERfchye
+	 fDFMnVYpFjSgOlnQu3xlqjBiLGvW1P68/2y0TSl2TQu98uDgQtVkup4KhW/ELTDCztx1x
+	 /pSi5SmdlGrRk5noiGCBSarRixSMrJZ4k9ZUfAVMuyIP+6DfK5aP3R894XS6uBnOCf6I5
+	 jXEXKDzEKHqrbi1NS1ioTCOv3METtHfoRdzWOrTJjoknBqbdHoXw59UWHOX9laAAyNrAK
+	 lmaNqpWvhgrev1PgRSSpP7FxuI2/wYX8wMeANlCd0r1jwTnrX+i6p/jnLCV0GVV2b1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300576;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=aHn8KcgHhLcXL95P9INTAmVAeZpvAJPCq7Suu5pEHwk=;
-	b=cDFwRT3MIDxvq0mrBB3Kq/6VfFnFDDXiB1/UqEgkB/q2pcYm2RHYyzZ+nM3KYmby8vF6
-	 GmwYjnNUPyhZP1UvtZKvBnc/camkOzHqKvYTRT1tgROUWSTrgosuodjYM0yD75NrdcNYs
-	 o3OMDdsRD5TkbwdYmWoWki+C3Bt6Friz8HiwA/djvAlcI7CfGag+rTGDlKcuTgTeG28W9
-	 idpkGZsKnQ89QNI4EBnU6fXezVzH1pP0e0WTqqRvsbiZNOEWFE8JXKKelofU4VKfyjG1A
-	 uk4ztcDBmDg2UzlaGqdeunmmB1ErRtRoUdCxQhxqzDzAtBYoKdjxAOo0DpqSIO6Shfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301246;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3j4gUsFhEh2nfdqytzisLXu8cCMHpm+EG29QS7tXFIk=;
+	b=bramT4WtNLGa2APwAUU6fYywM8iogboX1ObOkqfQH4I5iHWlN91eEqugdin/6B9SgfSo
+	 95yiT59A5ABPQv9ST6h51QhAMjnU7i8ADU0YO/rDLFnGCnZDEGkiG9MrH1psfwT3C2ZcS
+	 t/v8eg/DG4gU1qc0OxB48fC5GYHQ4rNKQ0amOjyvGB8TW4skj40weU01iZHVecQVJ3Sv+
+	 OGbx5LEbvcxG3dKLAiyOZBCQ41qjL3jqy8spM6aCqL5vlz0wJU2003oNrA70eSPM+1r7f
+	 HBeeJyRxftxpjUsjAHhOLwiHSJ5jFmenfBozaBUWihUb39D0xS+4Q9VnwYymqHVFFFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=KZ7GbPpj;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ1oZCGt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC80606A31C;
-	Tue, 10 Nov 2026 08:49:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC80606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1EA1C606A31C;
+	Tue, 10 Nov 2026 09:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=KZ7GbPpj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=aHn8KcgHhLcXL95P9INTAmVAeZpvAJPCq7Suu5pEHwk=; b=KZ7GbPpjr8rhjj9TeCSN3isJMo
-	4d122GgaAflfPr6ZO4ozp74l8SzqGjVsu5H6TFM2vMhzmL0KHht4wMTwld3FIKNZ8RCqHqHs4jcgV
-	v83dvQpMXC0J35H4CocMuWLe3GQWQip4RgxB9bd28fy1oU+bREnQbTP6s89Rxpecyd3teH+M5USVw
-	ZhnyQ/EhBeB8TNton7OX7iwnUvu+OQeTaHKe12xysLOnzjUoTwOovZI5eCPjfEW3Tjn10GDXQjiUk
-	sMmsr7Jx78SnG58k0FIX2G0gYSMFPfijeXJxkR4cFyERpEqF35KcnYXRp1JFGQaq61Ii8HYqvm/vU
-	7OtWoU3A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Shawn Lin <shawn.lin@rock-chips.com>
-Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
-Subject:
- Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the RK3588 PCIe
- SMMU
-Date: Tue, 10 Nov 2026 09:49:29 +0100
-Message-ID: <10924894.NyiUUSuA9g@diego>
-In-Reply-To: <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
-References:
- <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ1oZCGt
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D8F6F1F0089F;
+	Tue, 10 Nov 2026 09:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794301245;
+	bh=3j4gUsFhEh2nfdqytzisLXu8cCMHpm+EG29QS7tXFIk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CJ1oZCGtt8PFgApVSJmdynBE9Wmam/U0OvgYSvGasShw/YozvRFpLUi8X6bjCGv/D
+	 G0HtjT1u9vUxOPaFvc+YTxRCQtEse6KllRxUbHS3VOijvQhaoPPdrREToIl0bihk4z
+	 q14+LZArzQ23MiUVmXtPTnGLQTGgs/Efvq7fyHYfZ5ghYvC/di8AibaaPtzNtMJDAT
+	 WVZEikd0ub96ezYKgALsvts4KlYsbsZrYr96pQzkih+yQ0+wn6ISnt+zU5PRBWH79g
+	 /GrNytRGplUi6HjUr68yk/KanlCmARcQT2OZt3E8q9q/3ILDFPkuO+eA4XY+B4726y
+	 xfSircixq+Hng==
+Date: Tue, 10 Nov 2026 10:00:42 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Johan Hovold <johan@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,41 +69,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avICwdxyi-W1Y3PD@ashevche-desk.local>
 
-Am Dienstag, 10. November 2026, 09:40:44 Mitteleurop=C3=A4ische Normalzeit =
-schrieb Shawn Lin:
-> Cc: Simon and Finley
->=20
-> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 15:11, Arun Iyengar via =
-B4 Relay =E5=86=99=E9=81=93:
-> > The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
-> > (mmu600_pcie) is enabled for every RK3588 board, but its node describes
-> > neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
-> > (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
-> > why nobody noticed: on a board that enables no PCIe controller in that
-> > domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
-> > board without PCIe), genpd powers the domain off and the clock framework
-> > gates the clock as unused after boot, while arm-smmu-v3 stays bound.
-> > At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK =
-on
-> > the dead block, the interconnect stalls, "reboot: Restarting system" is
-> > never reached and the board only comes back ~90 s later when the
-> > watchdog fires.
+On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
+> > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
+> > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
+> 
+> ...
+> 
+> > > > +	for_each_property_of_node(node, prop)
+> > > > +		count++;
+> > > 
+> > > Hmm... Don't we have a helper for that already?
+> > 
+> > I haven't found one. Though I'm thinking that maybe
+> > fwnode_property_get_names() with props == NULL could serve that purpose?
+> > Possibly wrapped in a static inline fwnode_property_count()? Would
+> > anyone use it though?
+> 
+> I haven't found any users for this. Most of the current ones of
+> for_each_property_of_node() are filtering by property name.
+> 
 
-We have a work-around for that in some boards, manually disabling the
-smmu until now. As the SMMU is part of the SoC and always present
-the general DT practice is to have it always enabled, as it does not
-depend on the actual board design.
+Yep, so no need to have it now.
 
-Hence we end up in the situation described above.
+> ...
+> 
+> > > > +		names[i] = kstrdup(prop->name, GFP_KERNEL);
+> > > 
+> > > Can property be statically defined somewhere? We might want to also optimize
+> > > these duplications with const variant (here or elsewhere, for fwnode generic
+> > > path, I believe).
+> > 
+> > Please rephrase because I'm not quite following what you're saying.
+> 
+> Can prop->name come from something that is declared as
+> 
+> static const ... foo = {
+> 	... .name = "bar";
+> };
+>
 
-So this series fixes the actual underlying problem, making these
-workarounds unnecessary in the future :-)
+You can't know it for every instance of struct fwnode_handle, so the
+answer is: no.
 
+PS: is there a way of using match_string() with non-const data?
 
-So definitly thanks a lot
-Heiko
-
-
+Bart
