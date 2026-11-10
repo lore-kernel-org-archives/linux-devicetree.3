@@ -1,89 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296839;
-	b=Swb0vtF3Cl/ldnWNo3QeJMOtuZQ5FMs+PdSMMBEwQIg0gFKtYV9ukXOQqArXaJqAWpNf
-	 MDyuZV05fULn0FgGAaX3280/PONg3iXloscRsXlyF91n11rN8DaFuF6blVcPvSbPo2OAi
-	 XR0HnYUFJZRkBkvsNka9zgQTYLp5mEMjx2Ez2wXQBcutIEjw1ZwNC7G0XbcfCMYRBL2oX
-	 3LbuflOkYjpjU0VxV4W2KxWCmINASQaOV9qWsG7HHTBMHMaEDxL3VkAFoAeTErtudBAi5
-	 YNU1i/fTkg1Y3312DzPnGfvtyz4COWFzLMIHf+X0+XUCVl876jHllaqNdD7nMlUliSw==
+	t=1794296851;
+	b=FmKZHGSoxN2XWLEzx81jElbHsgWNu5Le1iVuqEeMzKzrfmDjoT62nV7fdTNnzTHR+tOb
+	 3dnACoH7gHydSgYgrzAR+uPEoqq7D5SkoI2qxk273NgBGM1yudsKvUlaxALGFV7ladeZB
+	 KAw7crniFkPsUofbZxbsqfRW7RjbjbabZI+BrbdiqWL/OSBaxzI90X0ZDmUtUO7KsN5tj
+	 ZZRPwMkwTUwuABE5I9Hm8SY0rAJPf3Se5R9bJpi3bMQaL6NwGeJMSFGlNQCecBacGnIt7
+	 bSxPTIMbHqc3Tm8V1jly7SA87txJjLChmORQ21sk6dtyrcZ4pfUaCQfOyb+obxtoXBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296839;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
-	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1baqYX7J86dweMCkPQfESiLRzdTWwZDtqPYe1PsN2XM=;
-	b=5X5bV4I+hHazMq0vJZQKIabqOstXCjX1IW6pO9U/gL7mxzgwdifDE8hmfI2OIH6auCSE
-	 zU1ExkPC/AukGgyTUrc1EXM5+NRz7HlVo4bFd0/GjiwA3mnrB32K3j4C9wNhhN3CwV9Rv
-	 zz7NtHoUt2xSgY6yAbmp/n0AOe9sgaBYYMwSGtlwQPHtDB6xC3SQn36PcPXBPOUwN1DL1
-	 FDYVM5pqQ+9MaxhL8T+bnKPuzRtogcdOSdD5TaFyml9MaM+2a4bgakozdgUcD0GRhaWkO
-	 wMEE4tngK4gYj9REIJ1w/PKIi/7qYRAdb75EQLu2OCsr75qfXCydEaRVphxlivQD1Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296851;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=ZdOpelxHEyCF0gxFn3MQJ7SWUNe56C4I7f9Inm7VJXY=;
+	b=BdkOBoSaHUTOuWH2yYR2H2rrx34mHVfjsFygcH79/KbSMPVY1KypPAUhF4+99fGmcmKh
+	 xdckpwfMmFordPP4Q0FYaEPit1dJPc7AKS3+w4NqJQngrVCAdJ6ZwjdWgw8lGwh3h7+us
+	 oltJ6dl0Llv5/krlp6cRnNcE9zV7RMnDfaqlJAHLDodazrL1kHUiJbINTsoZ8tuo5xiZx
+	 OvM8+rUwoY854hTplABO7TA5otjslk9HCMNFD6FJxymSVKYxd/kUFfqG800EsaX+bOfrB
+	 LhR9Uxg1DeUBT9vnG4otgsoqsRKKcbAY8edOUIpn4rsV3rbUW0Dx2qJbSCgGWuIX8Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cirad.fr;
-	spf=pass smtp.mailfrom=cirad.fr;
-	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=BA+bFgOL;
-	arc=none smtp.remote-ip=194.199.235.221
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="U2Cw/7TT";
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98F6606A331;
-	Tue, 10 Nov 2026 07:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A98F6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA67D606B51A
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:47:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA67D606B51A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=BA+bFgOL
-Received: from retz.cirad.fr (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTPS id 2431620D4CA9;
-	Tue, 10 Nov 2026 08:47:17 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTP id 00D2320D4CB1;
-	Tue, 10 Nov 2026 08:47:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 00D2320D4CB1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
-	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794296837;
-	bh=1baqYX7J86dweMCkPQfESiLRzdTWwZDtqPYe1PsN2XM=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=BA+bFgOL5chCN83DvWwCtjB8Z/AMp/wJolkNGrtjSp1z2whP/uU++tMBmDXuEBLMN
-	 ZyQsQbooCG7bDpGwD1c/vV3ifVnw0/7F2B7oAIzUd75Zwg9GvVwyYYpxcn8R0GCU24
-	 kQ2gnKIi/lAIkb+e6viQUw1/g801FLVpiEllrrjaStvqkVkHBqlLTm3VGEQpq9VU04
-	 4+dFqejklQanlpnsfjZtDFEPwlBUIgIOtDw0mb1x6qIj7rGWzirkV7G8CetzYukF6n
-	 M2QS8C40UoO0LKYHiVuR94I3PW2iDjJaMRrdFlLi9RXWHp0t6h7uh/gw99yk3iGpmR
-	 Aqmk4ayc8cetQ==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id m0-m20SpvJkb; Tue, 10 Nov 2026 08:47:16 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
-	by retz.cirad.fr (Postfix) with ESMTPSA id 045BD20D7CF7;
-	Tue, 10 Nov 2026 08:47:15 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-bluetooth@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-Subject: [PATCH 1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
-Date: Tue, 10 Nov 2026 08:46:06 +0100
-Message-ID: <20261110074607.363918-2-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110074607.363918-1-frederic.mahe@cirad.fr>
-References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=U2Cw/7TT
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id QVjhxt96lVK9UQgZmxy4DG; Tue, 10 Nov 2026 07:47:30 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QgZlxX2oflaNKQgZmxEMdR; Tue, 10 Nov 2026 07:47:30 +0000
+X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6af2cc12
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=rxihhvIKAAAA:8
+ a=igakLOeW_9eA_uLUBNUA:9 a=QEXdDO2ut3YA:10 a=vyXZNj8PikhivSrfMdal:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=ZdOpelxHEyCF0gxFn3MQJ7SWUNe56C4I7f9Inm7VJXY=; b=U2Cw/7TT81ID
+	O2OAzJ6ZhvN5ToA3vikuAdlPBfe8y8AoBRPL8PUiKOrPNt8Qn/inWHuO4GZbK/kG0yn+vOzSAqyYZ
+	toKMqKk/r1NQedBlT00k5MeTyHLEHSHtuEZDnJOraLrfApTNHffu4TmbmArlmLcXYoWsnomMLITc1
+	2TfSg2HjfLw13ubb5a+o8frHWD12hVjWhArW0bRcGVKsLaBQFtn3zFdeh+NMUtn6x4qKUIKnpPwCO
+	FjaGLOT4XrtDdtrK/tvGXVWO8UBmI1jkVJ+A0LU/9nAzoU61Os77s6p2gEi4OEbx6C3pMuztIlO0X
+	qMhbXeoDwlFmYdSGFyPxmg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51292)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQgZk-00000001A5f-2jf5;
+	Tue, 10 Nov 2026 13:17:28 +0530
+Message-ID: <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
+Date: Mon, 9 Nov 2026 23:47:26 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,62 +76,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
+To: Rong Zhang <rongrong@oss.cipunited.com>,
+ Keguang Zhang <keguang.zhang@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
+ Icenowy Zheng <uwu@icenowy.me>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ linux-mips@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+ <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQgZk-00000001A5f-2jf5
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:51292
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 8
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfH8nyBJWmRZioWzUxuS0IGU0ZMe3+FWqgM1R+w69jg3z2GFgJK01upLcBKwS53GtlYv25aUuSb6AfhRdWaIzYicC+3Bh2ubuVp9Aoy+GoYc5agqqi2Zp
+ sCpMtJZ6fnMvmT3SeLu2Q2nYJZKEylr4Rs/d5EhrB5BhAcKILg5l4fwvUSGUGnIbUmrhbgpQic/hLM4noyrZKbDC60WoT4dtIHwia91RjUQj80FMDGCc2Bfh
 
-The RTL8852BS is a Wi-Fi 6 + Bluetooth 5.2 chip with Wi-Fi on SDIO
-and Bluetooth on UART (H5). Its Bluetooth part works with the
-RTL8822CS driver data, so use realtek,rtl8822cs-bt as fallback.
+On 11/9/26 23:02, Rong Zhang wrote:
+> The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
+> has no clock controller.
+> 
+> Retrieve clock frequency from OF to make it work.
+> 
+> Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+> 
+> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> ---
+>   drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
+>   1 file changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
+> index 2811e7eab631..57b9e699c131 100644
+> --- a/drivers/watchdog/loongson1_wdt.c
+> +++ b/drivers/watchdog/loongson1_wdt.c
+> @@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
+>   	u32 timer_offset;
+>   	u32 set_offset;
+>   	u32 wdt_en_bit;
+> +	bool no_clk;
+>   };
+>   
+>   static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
+> @@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
+>   	.wdt_en_bit = BIT(1),
+>   };
+>   
+> +static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
+> +	.timer_offset = 0x8,
+> +	.set_offset = 0x4,
+> +	.wdt_en_bit = BIT(1),
+> +	.no_clk = true,
+> +};
+> +
+>   struct ls1x_wdt_drvdata {
+>   	void __iomem *base;
+>   	struct clk *clk;
+> @@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+>   	struct ls1x_wdt_drvdata *drvdata;
+>   	struct watchdog_device *ls1x_wdt;
+>   	unsigned long clk_rate;
+> +	u32 freq;
+> +	int ret;
+>   
+>   	drvdata = devm_kzalloc_obj(dev, *drvdata);
+>   	if (!drvdata)
+> @@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+>   	platform_set_drvdata(pdev, drvdata);
+>   
+>   	drvdata->pdata = of_device_get_match_data(dev);
+> +	if (!drvdata->pdata)
+> +		return -ENODEV;
+>   
+>   	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
+>   	if (IS_ERR(drvdata->base))
+>   		return PTR_ERR(drvdata->base);
+>   
+> -	drvdata->clk = devm_clk_get_enabled(dev, NULL);
+> -	if (IS_ERR(drvdata->clk))
+> -		return PTR_ERR(drvdata->clk);
+> +	if (drvdata->pdata->no_clk) {
+> +		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
+> +		if (ret)
+> +			return ret;
+> +
+> +		clk_rate = freq;
+> +	} else {
+> +		drvdata->clk = devm_clk_get_enabled(dev, NULL);
+> +		if (IS_ERR(drvdata->clk))
+> +			return PTR_ERR(drvdata->clk);
+>   
 
-This patch was prepared with the help of an AI assistant (Claude),
-which also ran the tests.
+Wouldn't it be much easier to just create a fixed rate clock and use it
+(as suggested by Sashiko in the devicetree patch) ?
 
-Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
----
- .../bindings/net/bluetooth/realtek,bluetooth.yaml     | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+Guenter
 
-diff --git a/Documentation/devicetree/bindings/net/bluetooth/realtek,blue=
-tooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/realtek,blue=
-tooth.yaml
-index 7d567122b..ffdf13b05 100644
---- a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y=
-aml
-+++ b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y=
-aml
-@@ -4,16 +4,16 @@
- $id: http://devicetree.org/schemas/net/bluetooth/realtek,bluetooth.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
-=20
--title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS Bluetooth
-+title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS Bluetooth
-=20
- maintainers:
-   - Vasily Khoruzhick <anarsoul@gmail.com>
-   - Alistair Francis <alistair@alistair23.me>
-=20
- description:
--  RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS is a WiFi + BT chip. WiFi part
--  is connected over SDIO, while BT is connected over serial. It speaks
--  H5 protocol with few extra commands to upload firmware and change
-+  RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS is a WiFi + BT chip.
-+  WiFi part is connected over SDIO, while BT is connected over serial. I=
-t
-+  speaks H5 protocol with few extra commands to upload firmware and chan=
-ge
-   module speed.
-=20
- properties:
-@@ -28,6 +28,9 @@ properties:
-           - enum:
-               - realtek,rtl8821cs-bt
-           - const: realtek,rtl8723bs-bt
-+      - items:
-+          - const: realtek,rtl8852bs-bt
-+          - const: realtek,rtl8822cs-bt
-=20
-   device-wake-gpios:
-     maxItems: 1
---=20
-2.47.3
+> -	clk_rate = clk_get_rate(drvdata->clk);
+> +		clk_rate = clk_get_rate(drvdata->clk);
+> +	}
+>   	if (!clk_rate)
+>   		return -EINVAL;
+>   	drvdata->clk_rate = clk_rate;
+> @@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
+>   	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
+>   	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
+>   	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
+> +	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
+>   	{ /* sentinel */ }
+>   };
+>   MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
+> 
 
