@@ -1,65 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292294;
-	b=26qVE4kyc6oFUSPpGzJdWVZEoz27gY022NRR2iPSjL+6JIdbZXvjH+sdzXxnu/YaFSC3
-	 1R4T+gKLgi+sW/t6ZLlfjUDCpfVIRkWeOi32SZHJLjcoDkRPNV/IED5YoHvgh5AmGsc4x
-	 o5OX1LBbfaTs5w2DPAsQ04MkFihkQc+vSg/6cHAA3/QDNSbQHFJZEQL9IdJFC7DnBmyuQ
-	 Kq8gcr4GFd1aiLVyibkJjY5uI7EcvfLsMPLx2mtJVqHFPJrwUXVQh4B639uTVVdbho7xX
-	 5k37GU87YqvpQ+HUJG8S03DJa0ClvBFkmRU3mS0LQvwmt0MLT0ve31UqDCf0xB5as9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292294;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pJFFAlvHvpv/DNb0ovxFiTKs4dBdzL3exBW92NJume8=;
-	b=06wvy2WFUjo22S8czKLFREvgeUJmuQwIaeVFSofz1I6L7FubDZ0nT+Mpa3h6xMCn+DJx
-	 aqoPguZJzXiHypYXNAgUv4SkT5ie3mfrYQEslxrc0moOEd9q6doZ+Oe7i/fvTn4HqvBtG
-	 OYF8lplI1S0CHkAKZ2a+/pvPaq/6rBtjjNQaFZZNGlU95Tgkc1k23/27JZ4VsssUPMywY
-	 oqEUT2zLnde9TZ/Mfs2STIdrYbnlZzFGWmyiCR/Cdlkx6eOkUbHjhJpmsDNUhzr14VKuZ
-	 CS83Vttopt5oMI7H07bNHW1BeLdiUsNPsnStbJ4abLTQqgiZTZxPsPXFOaR9cEb7/Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IRsjWwn9;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794292333;
+	b=p4Y1MnJ6Hz1iFx8TqlnPK29XsU/X8IMmwUOSrDbzyis5tsP/jBhDEI6aaMiKaoQEU57J
+	 JLSAZt7+dOZjftZxPkwtDwpRv2vpNj3rlvWI65Q5ZgkVZvpUQbzURYywTUwZKdageRdpB
+	 cRqhpkicHQVFFTB2dI2lRnb7g2ODXX8LuWMtg7HvQLl5J2MIQlS1BZLx3VXMLcLmt7g+c
+	 hHmthE6Px3rjSumO/oGHLLMUDXP0xb09wCmHRifF6uuUKObAi6xCc3wqQhXJJOvdpR6j9
+	 puAzhUBDHwu4cy2t70PIqlL98Ss+KLxc1StjKI2eEio8CSsGE97UQ/iQH3qypWSE86A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292333;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=zIeUCbrWL2otG3jWvVxAJl75ky18Wd1uPMPZj3Tbo5Q=;
+	b=ZwIxJKPIQ+1+PsA3gOZXT7mRbjAAIygd9Bl/cClHbICMvR8wRPc1ebDsmNzUBuCEFWUO
+	 rjAORtnRQf3rfN+wFCsbJz8Jl5sA+DLk91n3d6L2QeKmVRPC8VKyt+vu23ae6lc3NhkzT
+	 BBjkw1qpxNC4yVbLsCLtbh7HhqGtzZSkigO5hniUBSSPSyxnX0uCxxXRi2YzfKsSs8K33
+	 rrOGfkGUv84lfJ8eOy7bpmxhoRn/WVFeFHrJ9p1noa8bW9DK0ADkFc7YhMYYjb5POHOUb
+	 tNZqI3nVHwglvXhudvE+rbzzuMfSi6OYevFXtxIXSrhLt7Oob3Mp++mxesuXlKsgHPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ClFyTW6r;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=Xjo64+AO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCC8606A31C;
-	Tue, 10 Nov 2026 06:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FCC8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB9A606A325;
+	Tue, 10 Nov 2026 06:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECB9A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IRsjWwn9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=pJFFAlvHvpv/DNb0ovxFiTKs4dBdzL3exBW92NJume8=; t=1794292293; x=1795501893; 
-	b=IRsjWwn9JUuBB77lN5SpOhKFN8eK0drtAfJP0YLHUOv4Hbn8WfOtoljfaftpAgigza/hgkZ8SzI
-	KZaeAkW1VHG2V76FzyX3nmhugdMzGhXOHC/LbT5ZARoQfetfzP/INd0b4aHkyJZ+t/Y6V4p7cvFKJ
-	keVOKwaaEFF+b+Zo46MN3oK0dQw67F+GCLG88/MuCKIR8n1QZNffXF5HduRIvvLl/A/jhcJkmo92L
-	WTSCxOqg6onbK6MkUTOJdRLyCceC3bcQIUBS5+7jlQvtRjmFJhSClwddetonVAZ9kGSqkPm3yHvkh
-	aTxmUWYYnhntH3zSfgwqmNAe1XT9zZOxKmTg==;
-Date: Tue, 10 Nov 2026 07:31:26 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
- <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christopher
- Obbard <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
- <andrew.goodbody@linaro.org>, Paul Walmsley <paul@pwsan.com>, Russell King
- <linux@armlinux.org.uk>, Rouven Czerwinski <rouven.czerwinski@linaro.org>,
- linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 6/9] ARM: dts: omap: dm816x: Update USB node
-Message-ID: <20261110073126.5c434695@kemnade.info>
-In-Reply-To: <20261102-patch-ektor5-dm8168-dts-v3-6-9bd6d1d128f2@linaro.org>
-References: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
-	<20261102-patch-ektor5-dm8168-dts-v3-6-9bd6d1d128f2@linaro.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ClFyTW6r;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=Xjo64+AO
+ARC-Seal: i=1; a=rsa-sha256; t=1794292320; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=QPAQkbaQzTsdjgKdlzRRC8KGCRND6s6ght+Xfv3xNz/whL7snq7wksYlW5oRxjeI7N
+    cVyMALkVngdtJ2vVfeBdPIf6JV2/VoEUOX+3qk1RtZ3bYrnr2HEAxUYjvZ0J5tXJ9hZw
+    lWzehFTI5MV0TYKLFgVtjQczgTTq6wzSnse6Pakt+oppGBA7ojRDTRPmujM7YmOMo6gA
+    pJe4UTImP9RNEpEaxhY0CRolJCN3kJ0ToP90zIWw30V3UFRqMsQJr3/1i77CFiicJtxL
+    czMHp8iFedkjbjoNDnv6kZY19lW9WssMi2bZPacC8h1NHKvvldn5K/GKMcwCehJShFHi
+    A/fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794292320;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=zIeUCbrWL2otG3jWvVxAJl75ky18Wd1uPMPZj3Tbo5Q=;
+    b=jUSWHBah2R8OU1JrSK7ofZ70Cr2srslHtf/IbMBLlmSR5LqVfWpPGluxC7sAGtQ/3P
+    B14SCP+hvRnFJgotDBOHtE6lCq+J5memm6wQVse+Ibt7UTqatBq2UEn6+GANgOU5+CmP
+    CE+MefAYQZ8dGjntUMgcrLEla2ye1MW3Er+gO+kDTNd3njsw5ZhVQyM0JFUw3JOdEkD3
+    Kz8+Dg3yoMeV8syUuNQjxfMgCR1xi7IRfd1vbPKDm9JAfYIFVL96U153pwT2HcS3+ozC
+    0BveaFkBltAK1vQlwtL/DfaljaiPZTK9Tf0TO51PDGRncjz7C6KlZeyg3s+Nvphijl0U
+    GbHA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794292320;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=zIeUCbrWL2otG3jWvVxAJl75ky18Wd1uPMPZj3Tbo5Q=;
+    b=ClFyTW6rFAShb2ZEZTRyTL88MdUoFU8PB6YTkg7aAuc1avwCjdjjgoaCSsoHtLqC4z
+    /qGEDCCt9sHkclyPYihKIfZzhXV7Rpyr8DuQ4I6i10i4NJQiL5xFdaP4ewyWnmPSZy/M
+    0DFMV0a/iOuEaC28cTRe0NwUc617hzwpWb/zuL9rWtlnzjk5w0AlIfBml6c3YYnuQ+Wm
+    Zok4N83x3+9lZsMye3HW6bJ+nq20SYThidGFCcgDoi+7c7Tzh7//y/dlSxuvjvjGzrzy
+    q78oauLe92RoRd25l70inWAz491HdY7nZM0hJ/hVlNfTdVHUAUbarG/zHuama7HBLxsN
+    wuQA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794292320;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=zIeUCbrWL2otG3jWvVxAJl75ky18Wd1uPMPZj3Tbo5Q=;
+    b=Xjo64+AOfGqMUYgW2NM37V+kCo5lPlDWaHKMX24Ixjl1ZjGzPvIewVloiQ+FWUF14e
+    O/II7zE5X71F8cyMa7Aw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25pZm8iNLlWLhMfIu14x/UU8X8YOyRO3gSBU"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AA6W00Fm
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Tue, 10 Nov 2026 07:32:00 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,99 +93,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261109190345.61480-1-olivier@mgcrea.io>
+Date: Tue, 10 Nov 2026 07:31:29 +0100
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Message-Id: <384F58FF-41C4-46AC-8B2A-1B6ABCDA6981@goldelico.com>
+References: <20261024212520.91401-1-olivier@mgcrea.io>
+ <20261024212520.91401-3-olivier@mgcrea.io>
+ <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org>
+ <at8jCGfp9dKjieoo@zenone.zhora.eu> <20261109190345.61480-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Mon, 02 Nov 2026 20:52:52 +0100
-Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+Hi Olivier,
 
-> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+> Am 09.11.2026 um 20:03 schrieb Olivier Louvignes <olivier@mgcrea.io>:
 > 
-> USB node was not working correctly with DMA enabled as the supporting
-> code had been updated without updating this SoC's device tree. Bring the
-> device tree more up to date so that it works with DMA enabled.
-> Removing deprecated usb_otg_hs `ti,hwmods` property in DT node in favour
-> of ti-sysc implementation.
+> Hi Nikolaus,
 > 
-> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> On Mon, Oct 26, 2026 at 10:54:49AM +0100, Andi Shyti wrote:
+>> I'll wait for Nikolaus ack/r-b for applying the patches.
+> 
+> Could you have a look at v2 when you have a moment? It is the version
+> after your review of v1: the spike filter programmed on the X1000 and
+> later, and the X1600 falling back to ingenic,x1000-i2c. It still applies
+> on i2c-host and on v7.4-rc1.
 
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
->  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 40 +++++++++++++++++++++--------------
->  1 file changed, 24 insertions(+), 16 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> index 1e8d225dfb2c..314e5e580c8b 100644
-> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> @@ -573,18 +573,26 @@ uart3: serial@48024000 {
->  		};
->  
->  		/* NOTE: USB needs a transceiver driver for phys to work */
-> -		usb: usb_otg_hs@47401000 {
-> -			compatible = "ti,am33xx-usb";
-> -			reg = <0x47401000 0x400000>;
-> -			ranges;
-> +		usb: target-module@47400000 {
-> +			compatible = "ti,sysc-omap4", "ti,sysc";
-> +			reg = <0x47400000 0x4>,
-> +			      <0x47400010 0x4>;
-> +			reg-names = "rev", "sysc";
-> +			ti,sysc-mask = <SYSC_OMAP4_SOFTRESET>;
-> +			ti,sysc-midle = <SYSC_IDLE_FORCE>,
-> +					<SYSC_IDLE_SMART>;
-> +			ti,sysc-sidle = <SYSC_IDLE_SMART>;
-> +			ti,sysc-delay-us = <2>;
-> +			clocks = <&default_clkctrl DM816_USB_OTG_HS_CLKCTRL 0>;
-> +			clock-names = "fck";
->  			#address-cells = <1>;
->  			#size-cells = <1>;
-> -			ti,hwmods = "usb_otg_hs";
-> +			ranges = <0x0 0x47400000 0x8000>;
->  
-> -			usb0: usb@47401000 {
-> +			usb0: usb@1400 {
->  				compatible = "ti,musb-dm816";
-> -				reg = <0x47401400 0x400
-> -				       0x47401000 0x200>;
-> +				reg = <0x1400 0x400>,
-> +				      <0x1000 0x200>;
->  				reg-names = "mc", "control";
->  				interrupts = <18>;
->  				interrupt-names = "mc";
-> @@ -621,10 +629,10 @@ &cppi41dma 11 1 &cppi41dma 12 1
->  					"tx14", "tx15";
->  			};
->  
-> -			usb1: usb@47401800 {
-> +			usb1: usb@1c00 {
->  				compatible = "ti,musb-dm816";
-> -				reg = <0x47401c00 0x400
-> -				       0x47401800 0x200>;
-> +				reg = <0x1c00 0x400>,
-> +				      <0x1800 0x200>;
->  				reg-names = "mc", "control";
->  				interrupts = <19>;
->  				interrupt-names = "mc";
-> @@ -661,12 +669,12 @@ &cppi41dma 26 1 &cppi41dma 27 1
->  					"tx14", "tx15";
->  			};
->  
-> -			cppi41dma: dma-controller@47402000 {
-> +			cppi41dma: dma-controller@2000 {
->  				compatible = "ti,am3359-cppi41";
-> -				reg = <0x47400000 0x1000>,
-> -				      <0x47402000 0x1000>,
-> -				      <0x47403000 0x1000>,
-> -				      <0x47404000 0x4000>;
-> +				reg =  <0x0000 0x1000>,
-> +				       <0x2000 0x1000>,
-> +				       <0x3000 0x1000>,
-> +				       <0x4000 0x4000>;
->  				reg-names = "glue", "controller", "scheduler", "queuemgr";
->  				interrupts = <17>;
->  				interrupt-names = "glue";
-> 
+Yes, it is not forgotten.
+I just have to solve another issue before.
+
+BR,
+Nikolaus
 
