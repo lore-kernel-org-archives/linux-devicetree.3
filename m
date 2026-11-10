@@ -1,124 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303605;
-	b=JVD1tOSbh4EW7Q6tszW5+6M5oT13aGrh1YMe9PkPu9lsOnxeN6ipLXtYvfgGf/8xOKXe
-	 llStM/CFQGmAd/pouP45pZU0pZ7MwUuWbA2Sjk4k+yPmTPIdpGUHPTF8BhP26W/bhBWs5
-	 79W1pZJGBCcjvts5zqV8bz4slKfkX8ikF8lWHmedJzGuxECz8SEkGZzbfasGSZ2NsU7je
-	 oyQxoLou0cKESRO2EWHeZotenmB+tIvcX56JgJ6Vd20jWiXQevjZ8+TcplY9mQFOxhEzC
-	 +oNAdegNn7glteSOidqGaw1U24TApYPVRefw2s+qRHirpQ2Y/DGrU5VWdvcVVxQgs8g==
+	t=1794303604;
+	b=aQo8ay+W/8o6EkROdxqAPLNmqZgThOhtOmxL8XTcAaSSwfMAaWr5BwKZuwVNFk1nUVHx
+	 J/uBOed022buWiKnoWUZXcy/+kiwl7cGmNYyN+XoFSoO04oBVl9IEb1unjje5nz2pLEcs
+	 eUhAX8edwLzfd99Z/tAql6P0r7ggnI86F8HuV235s9ZOc+tKohyQgxJ9Y0GHdP2efvOom
+	 JCsiYy1YG5MjVcI/TXrDURwUDqZsWYfHOC25TacU0lBOYo29Fax+fhvOLxHeR8+AM4VKI
+	 dBo1m30eCL/05p6TbTfopKQi2nGt/MshUpbbjYdxA76XaRfzvRLMx5nlXpLuAZWbR0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303605;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=y7bkcxYY1gBkDRHqiDcxBJm6m3c0cx4HJ2rva7mAxEY=;
-	b=tkPps2S7V3Ki14UyP3WvUQ5NDKxe1FLEvJPNA/wUlWG69p+YvafLYf+2qeDsf5SEWuGW
-	 w4jd3w2StV503tLedCCMOHvXZqEkX3WYZijb44RG1xHR7lSTPwofuBeEm9v9PlPFs5nJS
-	 6A+jJgN+nG3xYndiWYbyUUV8UUfCr5j3H+Xx3fHBbLQAXK5mjVtObWIAX4cH8fGAx6Dx8
-	 jya+2p6EruMIu+NZ/4Axge4pkiePqv97ihG+kJFgQOVnNOSxFYIrG7t1EBbqoekfYOq7I
-	 k2sfziQNSZd+zHt3dLXgImKYZVC++Q+E+JYLAylytuPCAjvacSJtZR4hFaYb5opCtKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303604;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=+Xt+00HyDSv8lfLDiJMZJ5tz6uCFKhBO+O40JYLBMWQ=;
+	b=cFe4snN8K3I2wK8mpi2WlW2bBhlTraiLjIxYjWqGyr14XEFKzACjxjrUilyE7vQyS54D
+	 IxXb41++ha9glDg8tZtR07owbSQj33VM/TVjvWK44d+u4oKxtFeBewTWyG16C54xoncNU
+	 UMwcZgot6LgFj0NmJO7fEYKY5wBbh32wfNCcRQG74Ug/BJexLTw2FqsNCz2Qyr5QTQ5J1
+	 Leyk7wmXsv/DOApCWj5ST9/jrw3jRRh7OK0JBhcY9vcyHV3Xsf7206JdTPJ0TCMC4Hx2M
+	 7bBcF7VkPxCbOGxHUtq07sPrT4CpAVq3ODfz1Y/+oc3H43g92gYX1yxt1YWq11MVXQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n34dV9sR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BA7K7rFQ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=Fw8kpcc3;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA29606B164
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 09:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DA29606B164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4851B606A338;
+	Tue, 10 Nov 2026 09:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4851B606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n34dV9sR;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BA7K7rFQ
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l6ZJ2433758
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 09:40:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=y7bkcxYY1gBkDRHqiDcxBJm6
-	m3c0cx4HJ2rva7mAxEY=; b=n34dV9sR7yaBOmNYnZyPb+PNUxzdVHxYNu1sctjY
-	DkiQR+rFEmIQZ+y2vsNnX6hca7rAODfb+cQWCkZrqe6CzMVfYNzzDKeCUvYo5oO+
-	nhs2JX4ITljFgx+tICJo0N1hVxnToYHfluOQW26Qe/RnV3IGxlYeqmXPoxeJa0e0
-	yi/3ypalME67O09T4E7LGupXYf/fs3OrJLHNZ4ewTtFH8XJiqCy0IqjKeDvARjDX
-	4feCch7Yg5KeevMTrKndc2YGHrvJijlv42Fg0Zkk2qTqA6tkfWQQcaGTeSHBY+uS
-	xsOLtm0BSostCSKR18yA0L1lXC92oxYwS42I6cidzrwd7w==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hux848pec-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 09:40:04 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf6c528aso329557885a.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 01:40:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794303604; x=1794908404; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y7bkcxYY1gBkDRHqiDcxBJm6m3c0cx4HJ2rva7mAxEY=;
-        b=BA7K7rFQ+JoVmlyr6TRw9pfS4UpjQKYY6fQubJzMC3YQgWEa6nEi03WxsnlgCEv0xp
-         uabidMcK2Dz0NkhfHa5uTMI/NJYgQ0K8QIQbef8NAG19YKg1ki+eyfXmrWnCol3kK8jl
-         RkeOPPsgLpj/GpokFCSEgakWTp9PU0t7WXUowxZ23OgeXTqv1V7Vi0TYiV691x6J1qiG
-         CmomTFP1yi9q9qqO9iPCgE0bWgA+YLbyacW902kP//BqYLjidHGg/jYi9Si0z4hCWb1K
-         +PW5b6v2sYUirxbuDDVqAn9d+BoylkQr7F5XGghnrKlAW/HVIBN6dJyyGauYxLVUTnPx
-         nHBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794303604; x=1794908404;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y7bkcxYY1gBkDRHqiDcxBJm6m3c0cx4HJ2rva7mAxEY=;
-        b=xfZyB+liv9lawLr0+wl7CxVTs+qCT/+exi9z86iyl9S+CLsYDtwCIC11Nomet+cNfG
-         6RyJVC2vxhKs//adSBRROc2PUslrn2WreirBEMEpZ+0CuQqPXXfbA7P+BmLAq4fLFGCQ
-         j+UfjJBXgZLwog5JgvRlzI/8eQnWKa2bVs+jiKMhKi1qrKRBkP/TkzcqUujsfxnEAMIk
-         QG905eBv5t3ERUquy5EJQTXZccLjaNWX8+V0uizvzCG4Y852PVmsEH9qGRMcG77yuX3i
-         RjAX0+UcZVpnr+UNAZxRIvRJ8/YNnwuGGcopLrSfltcGN4J1h6dcqM9tahEAx8QbDlY0
-         IycQ==
-X-Forwarded-Encrypted: i=1; AL+hErHDxqCmUXYkfVTgi/FQviC9736ADjZGI2gunKL2vKYUgELOAx7MnMYmAmqmedwXv7XSX2899c6lqI8U@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nRSEPMhSx+YycCw566NOGE0604rKcYGqvMCBMh3AKc06lRfgz
-	doOb29tSo1x9c6zXFZXr4Re9DP3lw6SiB7/IKaSXwRc6RhYndoy+SqWTXvFVmbN6bMRTS4RHgdv
-	Ye/p1sh2wxPaUALc1zGfPSiJ7x3/l9zC9fd3WOwjAwFB03ykSaQBThfTE29mvZKXj
-X-Gm-Gg: AYBFou0+poxxkkonmhBBqsFOCrAEBq4FbfszKKtv3RqNJz+aFJoWJYAjsngbxGsDclH
-	T5MWggtrnRarhbaaBmmkJMXtwchG1b75kIQL3H1qgq75iNar+mhG/gKPwb/nnxLG1AbgQ+7Vki6
-	DRpfCiruq2MzIKYXHbOGMek1AAiZbp0NIq9VHwddkYV3f/CCtNNYDV5KH83bATLyGNqnyHgYrZr
-	zq1tsUxH3vNhvROrpXH1K0k44Zw4MONM6ALbq2omRkFZjDbb1Ub+8680jg47P4X5ZeaDPWS6hdV
-	lPtedkaBGyEDvX14K8HyE+STcw8YoRvAqW7A6iYpEPGrgX+/iMHM7KSRY1elTr6+iKAeqavbHu/
-	juzJDkHuk39BqIPzLfYve4DMbuDZEslc/HpfaupVCMVo8mMtIUqiVPjVd82qXJd1O
-X-Received: by 2002:a05:620a:1792:b0:93e:c12c:9dc4 with SMTP id af79cd13be357-9479f4084c1mr331191885a.68.1794303603379;
-        Tue, 10 Nov 2026 01:40:03 -0800 (PST)
-X-Received: by 2002:a05:620a:1792:b0:93e:c12c:9dc4 with SMTP id af79cd13be357-9479f4084c1mr331187785a.68.1794303602432;
-        Tue, 10 Nov 2026 01:40:02 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c5b9sm3991165f8f.9.2026.11.10.01.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:40:01 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:40:00 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] clk: qcom: Add SM8350 camera clock controller
- driver
-Message-ID: <xypphmxc7hgjfp6ci76lwjkeu6u65vzzniehwujfa2ticldvkd@outkepympoli>
-References: <20261107173621.3538964-1-vz@kernel.org>
- <20261107173621.3538964-4-vz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=Fw8kpcc3
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id DCB0B1F95E;
+	Tue, 10 Nov 2026 10:39:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794303598;
+	bh=+Xt+00HyDSv8lfLDiJMZJ5tz6uCFKhBO+O40JYLBMWQ=; h=From:To:Subject;
+	b=Fw8kpcc3XmOIRHdtW8NnUakw65Bkjhu+jVrQIWqOdFl0d29N8bgJ06Scm/I7bY6t6
+	 xPyvtuvJsHmgt2bViYIg04BxNryQH9rdlwx+1Gz+XVHY+NJsJniC/6p6yJxFKyGdlA
+	 sPh4AB2028tzkTcLQDrihIQng02DwbxfkSMed6hMUdgKoPAUg+zb83nmQjFsTHXlc5
+	 v9dROSzWIz/pL52XnPxmBHqBEd13CeqfV4fy9CjFHsm7I6CGj2smSIql7OgnQNEj3d
+	 YR4Ss/EML5b/XUc3BkidpZoIfT9FvG0EqtFztE70iSVWNzfupUVmZSmVPyChZqwLYN
+	 8XqAiJrlUbAng==
+Date: Tue, 10 Nov 2026 10:39:54 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v3 0/4] arm64: dts: freescale: Add Verdin iMX8M OV5640
+ camera overlays
+Message-ID: <20261110093954.GA129290@francesco-nb>
+References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,42 +74,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261107173621.3538964-4-vz@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOCBTYWx0ZWRfX8KTpFdeWFt6P
- h732l6a6IOsJN5BX+wQVO2PB4ClTbrNkywgynoSYL5MfFQSQspYkiVWjkghYKrx2EcxsJmRv1Vj
- dq3qAF9T5blIn3Et9eEvgqB7Om+GoUsGFt0HaZf0KDG0AN4NSeh9CGXbxxEUx/n6NxMM1y5Z4GS
- gP3YLqQr9PfwWmYBKVETpfirMKtFlpnR8gs2LkzNy68sybJ1jyqhe3gwpG1H3r5C2sVMesvVWoB
- evuKZftRDiKx/GrPBvuwo6jAz4uQiBT3/aw70iiKGr7mKHvQzxwSZY45bJtB4ZDjLXUlDu2RLiG
- iFnNOYV8iE5Az/fnwOcYqqh5h7kpITDGZD0PLx6v6QRXnjOX/mCASa1amcAzF28kftjcSbXIjFs
- B64SKTrG/ZxJUPeYqmlBF7seQAy4dHiq79R4yphmYyR1m6tM2QfhNGZhdi6yfIVyKRsnkOz9FIE
- ISJFaLHLPsDtvmWyy5Q==
-X-Proofpoint-GUID: mXrNZc3YcgmiA2hDcoVz95pkvgiBh0CW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzOCBTYWx0ZWRfX3YyQVPJBFoO2
- m642k0Ya9hiABpFGVFdmcnJD6ETgNudzVnffEYUmuT4Yh8xrvDr/4hxH9HCnvfLifispQjHgWKI
- Vmxb/0ZYEaJom3nxVy/E+2zw2NJkkP0=
-X-Proofpoint-ORIG-GUID: mXrNZc3YcgmiA2hDcoVz95pkvgiBh0CW
-X-Authority-Analysis: v=2.4 cv=JNSuIMKb c=1 sm=1 tr=0 ts=6af2e674 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=M3dMwcLLegYjQ9TkI8IA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100038
+In-Reply-To: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
 
-On 26-11-07 19:36:20, Vladimir Zapolskiy wrote:
-> Add a driver for the camera clock controller on Qualcomm SM8350 SoC.
-> 
-> The clock controller has six Lucid 5LPE PLLs and one Zonda 5LPE PLL,
-> clock and GDSC data is taken from the downstream Qualcomm msm-5.4
-> kernel.
-> 
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+Hello all,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On Thu, Oct 22, 2026 at 04:31:24PM +0200, Ernest Van Hoecke wrote:
+> Following feedback on the Verdin iMX8M Mini series, introduce a binding
+> for the connector's sideband GPIO nexus. Add connector mappings to the
+> carrier descriptions and stable labels for the SoM-specific CSI media
+> nodes. This allows one pair of OV5640 overlays to be shared by both SoMs
+> and all three carrier boards.
+> 
+> The binding intentionally covers only the connector's GPIO signals.
+> MIPI CSI-2 endpoints, I2C, clocks and supplies continue to use their
+> existing bindings and are connected through stable labels in the Verdin
+> device trees.
+
+We have now an official page documenting this connector
+
+Link: https://developer.toradex.com/hardware/hardware-resources/peripherals/toradex-camera-connector/
+
+Ernest: if there is a new patch series, I would mention it.
+Kieran: the danger note in the page is for you ;-)
+
+Francesco
+
