@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294689;
-	b=urZM12fO47zb4blEXuZXVAz1cglAelUKGFGDKKwxPenU9XVPPtSxu1cKYBtd0w5aC4Xi
-	 0Zo73sqZHTYBhGsRr8wja4iVZSclWQ1lasicFvwDkKmrrdV3Pm0Fk7tq1nXJyDkTL8ndh
-	 D3PknXsg2XilUKpgaRP8JCPM72Uzd+0rltkPlbz+cEHLTsQB9DwZiXWkvOjjNhnAUMruA
-	 TtcQuu6RfTobKpo7DAZR88l+rIw1ouYiaW2ynY4JmSg54x5eFGijl9TW6EpLNyYVKh8fI
-	 aBP4TN6sJKUWnaEqe1hRKw4kLSc/m1JZIhk3V+ikcB8Ehxdz3oMo/jTofLGmej2aLzw==
+	t=1794294710;
+	b=q548/W/WKuQOFFQvjWS26KvrAQY2EV4wn/5MrndOasXinM4FUS8AWMnKtnw8qcQjqutG
+	 wsrtTfSPFDCnOXae2jizE9VqiRmP5hjuVTXn0Akz7um4TjfC6VUo/Yu8LHsu5logWRbaJ
+	 uPqttt5hlt7RHdXczdCTdP7Nj3BJqiehxZkAFdxODeIqtdVyhdlRpWxRjAS9F1YlfUwj9
+	 GnLYdN26ocIsbd8lPO52kLN+YJt3i3kdaJYyYGJZPnNlXGcqXI8XabmONSzTkKjyUtoON
+	 1Z8KluB3Ze3d8J9mKBEVAc9xRJBmJi94N4Ezs6HW7REOS873JU+SipTe06CeiYHiagg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294689;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-	b=JCbzKjK+Fhoj7Zbgq50tZSlc+AOaOlKJ5I+njjS9mxhYKaUfCZEuqKuQ7TlTcL0joKCf
-	 q+Fcec7WesV2FB4coBBlourlTXWIS2y73TGUCkUS9wIH4f9GJyTsnhLR47vcg5XL7Ydl6
-	 FGLfC1FY7QkRuy66YvaqM/MWrEKcQGbqRS4d528tC86lVevVLsVSaMXUglEkMLkMMl3y0
-	 Hf8szcjZPUsNIcgIEKYuaFV4Awhdv2HBTr37/6xVG+AxORiuUiUH6RB/OhvARhEUCgtUn
-	 9FcokSUmyhDmcFZilm5sbteJWX1zadPSaIyBNa/WN0PsjNe+n110fBxLHlPDTtzNLHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294710;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GkBybTkwE49kIc06+RCvE13RGhar/sx9sHchhnfXl5Y=;
+	b=JWYtMgquPjCSYRSQ0pedkaCZJYcTStmHRJLabxUB5HYryqCHWFDXdSVsEwuACvDdD7xJ
+	 KwsBxBaOxTIdoyJ8ulhD5ghfOHBSdsK5LnHKlaKwmK9h9+wU99W62zPB0qwSVvRiJr7mS
+	 e4S6+4H18/7Y++z8TF84JnuGQfv68z6wBMIotIhhnh2TF2Mv8/RkXvq8+qdIZfxFkBkT6
+	 hMaovgOT511LSW2M0CbKXBYfoY5h3xJ4ihiybOJlSkKa0bpuTfNsOxiv/Y+d8wu8mmHA+
+	 ozAPV3i0eQcXnaYv+EOsWOZqW3+GwRvMABsIc3nT7Vkcsd8aGnopqfFexKE5IiIUfbg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/jRM855";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD9C60A2622;
+	Tue, 10 Nov 2026 07:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/jRM855
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794294710;
+	b=Dg2CRgTjbinFmI1uK9T4OwgDt8yn5aZDNJZHjbOf/j7MvkmUVPJ/k2GbfbSa7dEsSqsH
+	 JUdZDb58JqxrstemicQ4gM0CGCG3cOqrnUISIzUUMhYGRN7Sv2a8UT/grcdWprK1V2zfs
+	 +UtYxLiZFaMw7a7mpXKL/A5ppfGI2J6xILAaXhQdopAoiTwMCDt9heGfVRvSkSJUX30uk
+	 458J++jnXGjZ80B5X+SobeT18TIeqyU1jpy92I4igR2sXJNjrb3wBmvEokO9Et+NwH/p8
+	 iMPRYMyXWSfDCfkBwaTH7U3I8s8sq0ONt3AqRCpa7uC5ecZRuPOfl6ksh2Sjz5tEaUg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794294710;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GkBybTkwE49kIc06+RCvE13RGhar/sx9sHchhnfXl5Y=;
+	b=kmNB7ylJoLS43Wk54DYB4IwPY7R4b9pIC+2T2tWlnuhJALyX5dPj0ipw1R/3+wRjeddC
+	 KI7iHnM44rXAPh+JrGcENfdVCZqaMazxthJYk+M+2dEOCXduJOFlhZmt1IWNeOZezKBoB
+	 SJQkr4KSYc39VXGh3GGRqsaTZl9mQEl+uDwXI/MBpZcRHLu8hZqf5iuau2K76EowWD/gk
+	 J+Muz4ULzulqmCnZ/5laANgU0vvixlHB7IfHT2cecX7wyjxIC9RBZg7ObCllAH9bTP4jd
+	 scDIQBkDD0n6WJjhrtN3djGKv5eNw1ocJD0U2GDIOnlBE2QAIXuiwA3cl8zviQsLN7w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8604B606A326
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8604B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c05273c38so2028521d50.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 23:11:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794294688; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SR46eGnYRESaWeBq9AnRfLc/+HXSTk4w2eAFlm0JUAi0t9zW4oMp1ID6XXRgXm1PIK
-         kB+b1Ac8WhY364EPWAHiV8yJPwET8uz7cHqHar6VLqgGv74nNqQV6bdmYV5acXHA5D4h
-         jasGZeaXsccxEFsFhULTLVtaPk77oLAHIkkUrc+f/yIwhcZb5C5bFElDen9jDKHpSF5P
-         jLA8cINk7TxxVDvaRKmne7sS2WV+ZLHPyIVnk3SHV+9aa/37r8WAcYKtM6I2s2FOSTFm
-         O12fm9bTPOoCHj63qbjPzDoGbUG6yNnlIzbcv2b73pXtf1zzJZ3Xmqjiy9sw7AzqNgbp
-         roMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        fh=UTm+A36wsiHm3HkKBIvF+SzUuGUeF94pALCAVYwd4rY=;
-        b=TRcViLgzos+5KPF5me5dVC+pYPsGPEKVePCddxs/ehVxQqzNe+FcuxZ6JmP5Wggd5y
-         guptPj1ap4W0rVn/ww5Em7e7eHUVP3k1QV/y+qAV1HtP1VnMOkFGu/ZaYWmNsHLcStOU
-         nGzmHPVgNNbNQXi76W6RAEkvQL3oQlN2zAJq9xCypwN7RzlhAQJinDn6iGv1cJ1lNbq8
-         SlhDNpo7/k2s/S184IqBhJac8M/Bj+5pyI/F7kQnyNm6YULZECJgXtdUTLkcZ1pQK5Xm
-         X5P603jb2jrhfAZOHfvcToCHpfS1bYIRK1GuZ7Z0J1TTm5tvTw8DlM0+3nz4OAxe7Rwt
-         cwUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794294688; x=1794899488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        b=aVZph5jnpz05+IInawFNEBG4LWaGyR6KawbNhlPio048THbmdlYy905j4OFPaX2CCj
-         TUycftg6CzZQDxK7jZ7CjGl14d09h98g8UJxxBZ6lnP7g+pTrHx9V1Z+dDmU3/7PamWR
-         6GWkClYFkHadDsV02afWsVL5zo6p8KbSPQ8vhwj7MNxvc2wDvZwmcCK9MLd1JLI/IPrk
-         CgySYic2c1reZ/EjbRjPpjarqZitNvLUlTFzYU0NJms8wsUrOr5BdiS3VhMtbtebkDTH
-         Dkhw4xDoARR+pWLPEeJhdn59fqCKzxGps/S9SS/2HAo6UJfiGQ71mi7wNQ07QvtkYiCe
-         0mzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794294688; x=1794899488;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        b=XX2/1E/qvSvwRmy0KAxb4jJqkjvtqm7PjjXENAZwpZwX2TKabLpth/f32tMJVF4Glm
-         3TeYjuTugKWRhR3bw4CQs9BbQhsXD3mrr9JGivirZ/ls8jpihmmJ6nXGcRAcIEip8onf
-         puwdycDWVSTFYyIDYhyxw3oVS32WQt56UtxKy/ifAAJ7hGT2swuw112yVpXRkNrUXCUR
-         rAl3qrGjlBrtb7Z9+lXPv6hBNPSBGflob32znKvLJuzuvC2HrM6mB3iNf5YG/LtbWXgw
-         n/iArJgizxgY8s7NYn94J7epK8ibqjjF2GE02JKAMi+QSjoxKzRCr+Z8rzqDm4uoUvzi
-         35EQ==
-X-Forwarded-Encrypted: i=1; AL+hErHNLU+KDz8GeQwAqg4GsiLKTlvOL4uZ7HvIdKxL0RERHVnYEaMBA3re6AlzzQrnK2DC6JIg17d0DF0i@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OZAdyA1wdnopo5wvsGp1/iwcZFM83IbTQ62F/i3mmFxBweB2m
-	mDMUxJvwlGXSBOc9H9Sx7onIGIJQkhE8Bbq29LUJk5fRYE/y01SPP0I1HqLqW/P+9uHbQKExDQN
-	+fS2R/bOhso22Sh4tvU5O1H3an6ZQJpk=
-X-Gm-Gg: AYBFou0tBWMXbFmrXGviV3w0UtXXCPbGQ3h2rEDm0b1d73W9U2+AWdUV6AZy6NKt5sT
-	V5I8b3et4LlKs7woiy7KJruEYNjBhLMXoGKL191vyVUEpUX97pbaLdEFwknZFrJkrufLlbg41df
-	rGv+ilekSRsJxfjIg97mmu/iS1lPb/UwzcoTU8BAlD3x8Lt5XW5uaE6I1b8JZZnxwf0867iANJF
-	8r2OWCx/f2JSuHNtaXLMyDOeB4skOa7UuNo5/+wefTvXbNdb3gFMBFn1lZrxcRnlhNIg65MZAng
-	0I5I6EtN6S4+k9nSFZv/Bl2TZfDQLzWoJbU9TA9DB/zaNk3ZvtadvKboKe7aHUG9QTY8ra93w9X
-	3gFnQV+WCMj+Gqq5dz4CohCHYNIVD6hCS17uL
-X-Received: by 2002:a05:690e:480b:b0:679:c916:46ed with SMTP id
- 956f58d0204a3-67c56867600mr864381d50.65.1794294688510; Mon, 09 Nov 2026
- 23:11:28 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 60ED61F008BD;
+	Tue, 10 Nov 2026 07:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794294710;
+	bh=GkBybTkwE49kIc06+RCvE13RGhar/sx9sHchhnfXl5Y=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=F/jRM855uprZIIFgV7t9VH7WNEZSaAI6GD7zm/dgo9q1WSi4zX3kr+x8EgT6KFvGg
+	 mlvZrSohMJtkXDs/WYhEWUYgwEtTM1/xIr1aocoF7EtbDpZD6sSZHsh+Dz5DeCGibh
+	 o3uJEzqdnzQCbkm0nwGauvVwNnuPQxuTNPPSwbGG4u5NGxPINZmdO6KKN38eefHLOu
+	 KUZu3n7VZuIqGrLeDM38PWh57bVPOFldrDdpOtMJvW5AblkHj0m1TbKDIKVphsuBDG
+	 o+sJACVdxd7cs2Or+2IOfi/Y9FWqchEfwkKyA5VYNgZDMR1AD+4eUB89CvvaUEg9gu
+	 Vm+PrLUACSHHg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E84DD4894F;
+	Tue, 10 Nov 2026 07:11:48 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:11:51 +0000
+Subject: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to the
+ RK3588 PCIe SMMU
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,32 +83,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at> <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 10 Nov 2026 08:11:17 +0100
-X-Gm-Features: AclHuK_6GpTQ67xpDENQByDg8QRKTv0ORuAztrJZSqgIK4qf--6_2HTmK0qNm1Q
-Message-ID: <CAFBinCDi3m0gMTQBCd-yrCfAKkT0QeuXq0wE_i+CfCtS2oX+yA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: amlogic,meson6-ir: allow wakeup-source
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Niklas Cassel <cassel@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294708; l=1589;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=XjCTjW7WX2P6Yil1lroIFdMhtw3N6JLNEl/nbTe3Rtc=;
+ b=KT3JAHOImp1NNVgBlK1O+84HkPyq2khzDT/ZgpgGMhXk6Q8ZUnIvjXRkQhFMFSDOZHumy00Z7
+ ROfIwWwGlmIC+fICCGyWRiAcj/Z0XCId4AlPvl96YptG5dDrNNRRMd9
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 6, 2026 at 11:20=E2=80=AFAM
-<christian.koever-draxl@student.uibk.ac.at> wrote:
->
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->
-> The receiver can stay powered across suspend and wake the system when
-> a remote control key is pressed. Allow boards to mark it as a wakeup
-> source.
->
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
->
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+
+The MMU-600 for the PCIe controllers (mmu600_pcie) is enabled for every
+RK3588 board, but its node does not describe that it lives in
+RK3588_PD_PCIE. It only works today because TF-A leaves the domain on at
+boot and, on most boards, an enabled PCIe controller holds it on later.
+
+On a board that disables all PCIe controllers using that domain (the
+Orange Pi 5 with its M.2 slot in SATA mode is one), genpd powers
+PD_PCIE off as unused after boot while arm-smmu-v3 is still bound. Then
+at reboot arm_smmu_device_shutdown() writes CR0 and polls CR0ACK on the
+unpowered block, which stalls the bus: the kernel never reaches
+"reboot: Restarting system" and the board only comes back once the
+watchdog fires.
+
+Describe the power domain, so genpd keeps it on for as long as the SMMU
+is bound.
+
+Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU on the rk3588 SoC")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index aa69fd3793fd..bcd342c025c9 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
+ 			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
+ 		interrupt-names = "eventq", "gerror", "priq", "cmdq-sync";
+ 		#iommu-cells = <1>;
++		power-domains = <&power RK3588_PD_PCIE>;
+ 	};
+ 
+ 	mmu600_php: iommu@fcb00000 {
+
+-- 
+2.55.0
+
+
