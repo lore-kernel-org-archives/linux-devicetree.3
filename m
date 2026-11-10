@@ -1,44 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.195.17.241
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279167;
-	b=HahhN631/7VAP4dPR73bYW3Ffg4I/DmASAWo+ghJlzuSa2LUNdaRSVOx5rORS8ws5VKC
-	 SuoYlzHNYcGblO8U0gxt9kOcuOZrOXsZtNBVk4v7l3VvMLhQEZqb5UMLg/t1uD0IQT2Qi
-	 rb43hQ4FWbxxOj9lPC+hyz/yBidun5cNeArACURFwOU+N+Rem+Rgu3oGM+A1awxpBMYqV
-	 j75U99xm7XVp4/tob9N4/caqdlRv+m0amPsc20QhohNBhw2pNlBv+4Z0XwnPtxW0B8cnr
-	 wjvghe9hBU/njJUnKoHShK9OhcghmIunercm2ZK11I8vLDmiV0Xb/QE0m7OociKLigw==
+	t=1794279255;
+	b=qnOhFw8XVNMvnzjuLFQT67EAa9lTv+kSSRh9ooX3DaiwzunpIts6gyDNS8DN02y867VN
+	 sl5mCpgeIegu9xks4mscY9ud/RhITH7Vfs4CE2aX3kcAfXSYGLJQ5CCdqZyq9hoyzw1eG
+	 Acug8wGgJf7rqn9P2MltN12ckE+s26ppxbn/NMzVJrgNGqK0TAEOfoHKCBmbr3Ubwn7z9
+	 ZvoTneD4OGHoZ5/1m6zMSVw0ovrD6LVUrX4/sWO8P9i2O4WAxPV5VpRFKB/wLvbQ4PGlJ
+	 6SLkXbJC/UMLiks10UC++LZ95GR0+84eqaKTSXx1mi8d0VIrbAl42486ymqEIAzp3Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279167;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=1pznVwkEZpAe1hyxNb7ShpTi+47BEMmqvSU22FSDZfs=;
-	b=gMt/0twC7TwSRsAyI37ZiAG/yOQzAkSdWijdpKUtzzCKxrL5aRvN2oPT9SnxvA8CHblV
-	 fjhhVY4cDvsvIOpo0/NdCJw3adbnckWVSxhkW4XFat5JiQ3S7GVoenFoXdv59zjOPuD+h
-	 OSoU+aaTiCkt9lf0csLMWx1zq7eI1I4MyeX3JDdJjuEfmFAeVlZ8XIC+JbYSFo0oXJvSR
-	 gRp0vPh3oVClS7BXC4tgVQ8kMpUd7L2ic/KnL9Ss+4mGdMNk8NLTHPAFTHA3MIL0SJDrM
-	 0x3Fk6bnkKvlqGlNvesNI82zYcaD2H4usoUiyC/JkQa706pz9WvkwGUnmT/TaR1OCkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279255;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
+	bh=L0FesyqekxcreqPmbLKaXNf2uKAXud4unlEpOkqCHeE=;
+	b=O5utS/lUbz7hhlDoyg4GrFSuAx/RXQblWMEDP0dRxqks9svPyexN3ZwqpXBBOvi6zzZN
+	 sJ7iEkf+5Tt8pGwTzaWmYmh4QgfL6wnnBjEw510dy4u0Trr61VUNabCZK3mFtQ8UHdTZ2
+	 1e0ctfgTFiquRiwb2MZ4kFcNitK938jhicRwZmRk+MESZlfdn19gza6QfZBeO6lqmR9nQ
+	 OEDTITnnbbK56yJp3Yf6mfiEEaeU8DeqMfKOyOZpI75iHWZ2MzaZmhQEq+otcF/oo5KqB
+	 oLv16NdMXD6VvxMdxFhO+o3UEpYJBzm5l1YBX8w6P36OVNfDyV07IJjLXN6rLlJaQ3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="Ns/2mPV9";
-	arc=none smtp.remote-ip=45.195.17.241
-Received: from mail-m17241.xmail.ntesmail.com (mail-m17241.xmail.ntesmail.com [45.195.17.241])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TCDFt/na";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15848606A325;
-	Tue, 10 Nov 2026 02:52:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15848606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951AE606A31C;
+	Tue, 10 Nov 2026 02:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ns/2mPV9
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 541744873;
-	Tue, 10 Nov 2026 10:52:32 +0800 (GMT+08:00)
-Message-ID: <ab5694a1-2f10-4888-ad27-20715d3f98a6@rock-chips.com>
-Date: Tue, 10 Nov 2026 10:52:31 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCDFt/na
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1FB1F0089F;
+	Tue, 10 Nov 2026 02:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794279255;
+	bh=L0FesyqekxcreqPmbLKaXNf2uKAXud4unlEpOkqCHeE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TCDFt/napVv9OM2gzICUXVEugkfDr3IUPOknLyVhaQbC1893zobf9f4jPKA5UwIwG
+	 MdCuDZ+v4oyZrqyAhwnbqF3gNMjXiWB9BVOIxXnZp9hSETNvfoSw6P7KNdLyOspGon
+	 UBu2UblrikCl2jRaUO7v/KU21v/1S3BHgwl4GsgafnFJtkQS2esBNxu31Li39P5lco
+	 f+M4Xi/aIrY0+kCdnl+UNa1NVbE/nrEWi8UAj69NukPDqGh8nPgcZUGj4NuWiZRee5
+	 YxXIXDH2C0qVV9CjLxyjYEAjOwoL74YeL5RfMQjbySMyWpWAkFDGlMcD0T6uTHZQAg
+	 JwO0Gbu+pWcfQ==
+Date: Mon, 9 Nov 2026 21:54:12 -0500
+From: Brian Masney <masneyb@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Alban Bedel <albeu@free.fr>,
+	Antony Pavlov <antonynpavlov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/6] clk: add a driver for the ath79 PLL controller
+Message-ID: <avKHVDJJkhGgyBsI@x1g10>
+References: <20261110013646.1582970-1-rosenp@gmail.com>
+ <avKAhjtbi85dpGoV@x1g10>
+ <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,156 +68,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dave Jones <s.dave.jones@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
- <20261030064905.2248999-3-damon.ding@rock-chips.com>
- <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
- <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
- <20261106152915.GA3406543-robh@kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261106152915.GA3406543-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1c35f1cad03a8kunm4f8fb2772be325
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHh1CVh1NGh1CTUxNTh4ZQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5KVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Ns/2mPV9pH9bVvzBBCDzik0xz9kGzB25NEhWCgaJIvkA3av+MymfxdL510FRETs5vrsiCdISksI3CW1wh0tet9VEr08fX0Gv7MFLrFvI8AT3q6u9sMAphY8Oao2Ra1viV41VNtT+Z+VO25d7jt6OQBQja6J3O3lp6ZQ84Bc7Lus=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=1pznVwkEZpAe1hyxNb7ShpTi+47BEMmqvSU22FSDZfs=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-Hi Rob,
+Hi Rosen,
 
-On 11/6/2026 11:29 PM, Rob Herring wrote:
-> On Wed, Nov 04, 2026 at 04:59:58PM +0800, Damon Ding wrote:
->> Hi Krzysztof,
->>
->> On 11/3/2026 7:20 PM, Krzysztof Kozlowski wrote:
->>> On Fri, Oct 30, 2026 at 02:49:01PM +0800, Damon Ding wrote:
->>>> Document the eDP transmitter PHY with NaNeng IP block found on the
->>>> RK3568 SoC.  The PHY has its own register window inside the eDP PHY
->>>> GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
->>>> a reg property describing that window.  Also add the
->>>> "rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
->>>> the Rockchip GRF schema.
->>>>
->>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>>>
->>>> ---
->>>>
->>>> Changes in v4:
->>>> - Add the reg entry for the PHY node and the ranges/#address-cells/
->>>>     #size-cells for the parent syscon node.
->>>> ---
->>>>    .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
->>>>    .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
->>>>    2 files changed, 88 insertions(+)
->>>>    create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->>>> new file mode 100644
->>>> index 000000000000..b78da00ffefd
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->>>> @@ -0,0 +1,68 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Rockchip eDP Transmitter PHY with NaNeng IP block
->>>> +
->>>> +maintainers:
->>>> +  - Damon Ding <damon.ding@rock-chips.com>
->>>> +  - Heiko Stuebner <heiko@sntech.de>
->>>> +
->>>> +description:
->>>> +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
->>>> +  registers, therefore the PHY node is expected to be a child of the
->>>> +  eDP PHY GRF syscon node.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: rockchip,rk3568-edp-phy
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +    description: PHY registers within the eDP PHY GRF.
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 1
->>>> +
->>>> +  clock-names:
->>>> +    const: refclk
->>>
->>> Just "ref"
->>
->> Will fix in v5.
->>
->>>
->>>> +
->>>> +  "#phy-cells":
->>>> +    const: 0
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +  - reg
->>>> +  - clocks
->>>> +  - clock-names
->>>> +  - "#phy-cells"
->>>> +
->>>> +additionalProperties: false
->>>> +
->>>> +examples:
->>>> +  - |
->>>> +    #include <dt-bindings/clock/rk3568-cru.h>
->>>> +
->>>> +    soc {
->>>> +      #address-cells = <2>;
->>>> +      #size-cells = <2>;
->>>> +
->>>> +      edp_phy_grf: syscon@fdcb0000 {
->>>> +        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
->>>
->>> This is beyond the scope of this binding. Drop entire node.
->>
->> Will Drop in v5. The example should only show the PHY node itself.
-> 
-> Actually, drop the whole thing and put in GRF binding if you want an
-> example. MFD examples should be complete, not piecemeal with each
-> sub-device.
-> 
-> 
+On Mon, Nov 09, 2026 at 06:35:32PM -0800, Rosen Penev wrote:
+> On Mon, Nov 9, 2026 at 6:25 PM Brian Masney <masneyb@kernel.org> wrote:
+> > On Mon, Nov 09, 2026 at 05:36:40PM -0800, Rosen Penev wrote:
+> > > The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
+> > > arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers every
+> > > clock before the driver core is up. This series replaces it with a new
+> > > driver in drivers/clk.
+> > >
+> > > Only the reference and CPU clocks are registered early, with
+> > > CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate from
+> > > plat_time_init(). A platform driver bound to the same node registers the
+> > > DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early provider
+> > > returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
+> > >
+> > > Patches 1 and 2 move the two remaining non-clock duties out of the arch
+> > > clock code, so that it only uses its own registers and the clk API: the
+> > > QCA956x timer interrupt workaround, and the reference clock that is
+> > > read from the bootstrap pins when the device tree has no rate. Patches 3
+> > > and 4 add the UART1 and PCIe PLL clock IDs. Patch 5 adds the new driver,
+> > > and patch 6 removes the old code.
+> > >
+> > > Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The CPU,
+> > > DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match those
+> > > of the old code. The serial console, both GMACs, the PCIe PLL with a
+> > > QCA9880 behind it, and the WMAC all work, and no devices are left
+> > > deferred. The other SoCs are not tested on hardware. For each SoC the
+> > > rate calculation was compiled in userspace together with the old code
+> > > and fed 2 million random register sets. The results are identical,
+> > > except where the old code overflowed 32 bits with register values that
+> > > no real setup uses.
+> > >
+> > > Changes in v2:
+> > > - Post the new driver as one patch, instead of moving
+> > >   arch/mips/ath79/clock.c to drivers/clk and cleaning it up over six
+> > >   patches (review feedback).
+> > > - Register only the reference and CPU clocks with CLK_OF_DECLARE, and
+> > >   the others from a platform driver (review feedback).
+> > > - Describe the SoCs with match data, and read the CPU, DDR and AHB
+> > >   selection of AR934x and later with one function.
+> > > - Keep mapping the AR934x SRIF block from its fixed address. It lies
+> > >   inside the wireless MAC registers, which ath9k claims, so it can't be
+> > >   a reg entry of the PLL node.
+> > > - Drop the clkdev registrations, which have no users.
+> > >
+> > > Claude Code (Claude Opus 5.5) was used while preparing this series. It
+> > > wrote most of the new driver from the old one, together with the
+> > > userspace test of the rate calculation. I reviewed and tested every
+> > > change and take responsibility for it.
+> >
+> > 40 minutes elapsed from when I asked for changes to when a fully formed
+> > new driver was posted with major changes. Your cover letter says this
+> > v2 was tested on real hardware, however I am honestly a bit skeptical
+> > given the short time frame. On top of that, that's not enough time to
+> > also go through what all Claude did for you. Please slow down!!
+>
+> This was tested with a linux-next kernel on an Archer C7 v2 hooked up
+> through serial and two ethernet cables (LAN and WAN). There's no
+> difference that I can see between the old and new driver.
 
-Understood. For incoming v5, the example will be dropped from the PHY 
-binding schema entirely, and the complete MFD example will live only in 
-the GRF binding schema.
+The clk_summary debugfs entries would be a good place to compare as
+well.
 
-Best regards,
-Damon
+> That being said, I only have two pieces of hardware on which testing
+> can be done. Both are rather new relatively speaking. Older version of
+> this series is currently live on OpenWrt with seemingly no ill
+> consequences.
+> >
+> > I'm going to pass on reviewing this version. I want you to take some
+> > time to test this on real hardware, and understand the code. If after
+> > that you truly have no additional changes, then I'll reconsider
+> > reviewing this version.
+>
+> Sashiko had two complaints. I'll fix those in v3.
+> >
+> > Also, if you want to help, then consider helping with reviews on patches
+> > from other people, in particular with the large series for the new SoC
+> > vendors. It's a lot of work reviewing the flood of patches from
+> > everyone. You can see the backlog for the clk core on the kernel.org
+> > patchwork server.
+>
+> I agree. It's quite unfortunate and have no solution to it.
 
+Just some friendly advice: If you keep churning out AI code as quick as
+you can generate it, then your stuff will end up at the very bottom of
+the review queue. There's a long backlog of other changes that need to
+be reviewed.
+
+I'm not saying that you need to go review patches, but that goes a
+really long way to building goodwill in the community. Maybe if you post
+a large series like this go help review 2 or 3 patch sets that's in the
+backlog from other people.
+
+But seriously, the main ask from me is to please slow down before you
+post new patches. Provide some more details about how this was tested on
+real hardware.
+
+Brian
