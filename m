@@ -1,68 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323668;
-	b=BzYS0+f06G4nezi1gfk0EVZlAV4wRyVimJWovp2PLWqTeC51yXXA4SxCWwhWJNi9wP24
-	 JydY4ZaiFuF4l93Tz41ZJf+PADXj5FuOMCpQepuhCss6DN41M/R+xOUuLwRDW+VeZDpjw
-	 K4wk2cB70PBR9n94ozCeTnffBn+CUs1JjATTP1bz8f0pq4SiuGgFiHSmCOP20Qoa6ho3T
-	 yPkwAWMDPJr62yKPyKPW3wHYf5Vbor1G2hSgUpvBnRU3DowigtIPN4G0fPeYfv6FGaqnf
-	 CEC4niC4EbZjelqrxZHnww5zFlWiZ29OtzUjkxK34Ncf4TSSbPJJ5tz3kCVjyjB5tQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323668;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=;
-	b=wlVLb0Xp5gPtIjxAtwI5afYt/+YUugPQci+RKMSAB4I5iBWsfwbwsWnaqX8XPLqeTZTf
-	 nWn31wN9oEAYm+XGmOLZqsakUNODSPl1zJKybV5aRiKk158BHQYIfuSzyElnact2cNrtx
-	 QhyKojRiweCTfsNoeNcbv4HBc6qqyEaZwlLFMeownbniXNgBehktKQVO2c/mDsEIaT8Ft
-	 4mRaD+PPGFvGXRoHYWuQ4+KNFJak70QOdy8s3RRmX6QfQ6fb//ko43Si50knz86xBEikC
-	 iiQc8/yMJXYx+N518GhiDX/2N7CGbE2IIgWotiwwENtmPkavW8n40tNtlWJKBfPGxlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TIHnyEb2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323735;
+	b=FC71+5AQJRBbXN2pMs3Q+jQw+ZLhBOMVIhJLtOkpvtQE6rigufeNy2aLWncG4gvon3SZ
+	 OqNVMdYb7aVOUR5WOPc10eWOFcCKI/7jVubFv0J7MwwwcpGyS7v2Y3adKhZBT7ehv0Ddj
+	 Aw8vWdTr6VoUFpJE/MeDrYx3REypn0dxgzrSBNunKhOdebvjwRVHJr1N0D+fMQzJjCl7O
+	 SStqIvb2cERvrtLfK9ZEcWJ9LAoIDVnHFmTFBaK/gw3N5q2yQEzcjFnUsSzyGhcSUEFqC
+	 hg2hzePRy5xx5SCvUcMmUvKQai5x86gQtERRz1bItjT4U3b2iVGWt5eMk6UEJA1rezg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323735;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=OAce0CBAN3GtzGnv5CfUsNZro3HCLUdMOg5tLbPBU9E=;
+	b=nDVUWNT8eON2ugT+9Y0UmLiFKTsbirjiahdoH9eWHN0TjZ271+JYIbm69YnlxqBaY1Yz
+	 8CkTYU6ecyRYxxZsZa3P/KT7MuSmuEXmopAN3p+jYIyQ6vEU4sEI+X11Dkl05iqS8JH/4
+	 NIb/f3DDnp6UgFPQXXYnDa6pfp4K8o8o1GPfiQ/YdykhpUQDaDKwF6euIY6U+kJQ1WOME
+	 hjQU2uQSkV0dxP/c339x8NCjWGi7Dp0fuYP5nqCOPSTXM3KkxjNzIC1k+jBNyvQCG1p6H
+	 EL+ML31O4Q0vYCTQH6m9zAWeX1PXYk4w+Df8wTex2QaUDctPaWbl/Nf8gK6lscw5++Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=e38LNXra;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C46606A33B;
-	Tue, 10 Nov 2026 15:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C46606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D728606A320
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 15:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D728606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TIHnyEb2
-ARC-Seal: i=1; a=rsa-sha256; t=1794323645; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lJe5WwfPQsboU9jabFq1Vhi5ZfpWQL282ERr2ptHz//+dM4i6Bc2YFDCXyugFvqgHH3nFHnCmDWnITQ/qh+WtyNmQmuilitgdMuQDOM4CzV++xQuYXlY29dqnp0s9ltOt68wysZMvrO9B8zQuWFalhOg6OoBwyJMo5oc2qYXm+M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794323645; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=; 
-	b=iCeL2J52dTRD0dWv0gR8dcKEIusicoe+++W979gN3D6e0FZCXbfpwNQVDMjprd/vyEUR72npI3rZ532I/kpwbW5uM8XmIuvk9D2pblS6pVoHS4nUD3Lm8lN1hYqZMcsZImciiJ5vveDIqsgeDAu7ZQr43ITNoBWlkkRN/Ncsi1s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=TIHnyEb23ivDdlDaTZ23hgRBxU6pCSlmo4+pnq+FIf3oLa5YXU+wP+8Ie7Zo+WbWMwIW7RKOejdeUD8YdqSOTFhxEgzsP7NCKIEotA3WzUUkaNdPKf6Qcu/qwaX4cnnnKvKe9+JoxoQpuy+tEDxNibVJi3lPSv60bTpZca+Mftw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794323644960444.4158919867489;
-	Tue, 10 Nov 2026 07:14:04 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 3EDC5180354; Tue, 10 Nov 2026 16:13:49 +0100 (CET)
-Date: Tue, 10 Nov 2026 16:13:48 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
- RK3588 PCIe SMMU
-Message-ID: <avMzjsG_Zl8Gh0wJ@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=e38LNXra
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id QmPnxG7ZQyb4YQnZNxwIwm; Tue, 10 Nov 2026 15:15:33 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QnZLxifPrFhzrQnZMxvTGx; Tue, 10 Nov 2026 15:15:32 +0000
+X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af33515
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=p-LfKV-GAAAA:8
+ a=RRSeb3MyvwmVutVlTdYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=97BuGM4RKn6GwmfqMd6i:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=OAce0CBAN3GtzGnv5CfUsNZro3HCLUdMOg5tLbPBU9E=; b=e38LNXra+eyP
+	nkYaLpOx7nJhvyEYwHl2D8iiSBeT9O39AI2Ps6ozjFicpvxAKBUk8u3UKBDcbY6cSYTwOwgJdj+mW
+	gdglvpMfe2A96sy8tbpZu5uDju+eK1ghOtH9Q0u63qWfkFON31yHQ9tya0B631bhWfUTSqWQkrnWT
+	hpO5JEIQ2UgfkQiyAawhHuxdPIuYehLSTgtNUzcMhJcmN87V0I0dumGe3+mbDoPESV13LnPhnQC6a
+	fNx5Y3l+Tllx2CdM4UyrefGx2a3k/LJgg0yMTbZCEj7SblUTX+ww3RreLrFPofzbSB1nhZGhDzVNb
+	b7SGuSYt/BeYSnZcfB//Xg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37486)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQnZL-00000001MYS-2AG5;
+	Tue, 10 Nov 2026 20:45:31 +0530
+Message-ID: <20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
+Date: Tue, 10 Nov 2026 07:15:30 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,102 +76,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="24vzfqtpamx44f6c"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.7.7.1.5.4/291.452.71
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: trivial-devices: Add National lm77
+ temperature sensor
+To: Lukasz Majewski <lukma@nabladev.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261110150243.1531953-1-lukma@nabladev.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261110150243.1531953-1-lukma@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQnZL-00000001MYS-2AG5
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37486
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 2
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGevUcJ2C+XLcZW4Su4jmnGvyTALLlvCYNSGQxoQcCuNA1yRQ9IzvuiNlHQPbZ9piikcvjAEkXP0yfqDEhRogwPiRLOKrrUpM5EsWOhL2ITw8qUr+Urm
+ KwCiPXmnSnovqtJUOf02RrmLjKYZ9uIAH0Hh1Svrk9GF4auLFR2Gw/5jC5lHAZTG5vm5N9QiM3T+8zP8l+GGuFE6iFe6S7EmR2zt1GvudqN2/oBWDIwCaAnB
 
-
---24vzfqtpamx44f6c
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
- RK3588 PCIe SMMU
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, Nov 10, 2026 at 07:11:47AM +0000, Arun Iyengar via B4 Relay wrote:
-> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
-> (mmu600_pcie) is enabled for every RK3588 board, but its node describes
-> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
-> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
-> why nobody noticed: on a board that enables no PCIe controller in that
-> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
-> board without PCIe), genpd powers the domain off and the clock framework
-> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
-> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK on
-> the dead block, the interconnect stalls, "reboot: Restarting system" is
-> never reached and the board only comes back ~90 s later when the
-> watchdog fires.
->=20
-> Patches 1 and 2 allow power-domains and clocks in the arm,smmu-v3
-> binding (arm,smmu.yaml already allows both for the earlier SMMUs).
-> Patch 3 makes the driver get and enable the clocks of its firmware node
-> before the first register access, for as long as it is bound; nodes
-> without clocks (and ACPI/IORT systems) are unaffected. Patches 4 and 5
-> describe the power domain and the clock in rk3588-base.dtsi. Both DT
-> patches are needed: with the power domain alone the clock is still
-> gated and the shutdown still hangs.
->=20
-> Related: Pranjal Shrivastava's "iommu/arm-smmu-v3: Add runtime PM
-> support" v11 (2026-09-29, 20260929034510.2023173-1-praan@google.com,
-> not merged) adds pm_domain-based runtime PM and resumes the SMMU around
-> shutdown, but has no clock handling. This series is compatible with it:
-> once it lands, the clocks from patch 3 should move into its runtime
-> suspend/resume callbacks.
->=20
-> Tested on an Orange Pi 5 (RK3588S) with the M.2 slot in SATA mode and
-> the root filesystem on the SATA SSD, where every reboot used to hang:
-> three consecutive reboots printed "reboot: Restarting system" and the
-> boot loader started 0.6 s later (previously ~89 s, from the watchdog);
-> clk_summary shows aclk_mmu_pcie enabled with iommu@fc900000 as consumer
-> and pm_genpd_summary shows PD_PCIE on; the SMMU probes as before and
-> SATA keeps running at 6.0 Gbps without errors. With patch 4 alone
-> (power domain, clock still gated) the reboot still hung at
-> "arm-smmu-v3 fc900000.iommu: shutdown" on the serial console. Boards
-> with PCIe enabled are already in the state these patches describe.
->=20
-> This series was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit messages, and I reviewed and tested
-> every change as described above.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On 11/10/26 07:02, Lukasz Majewski wrote:
+> Add "national,lm77" as compatible for the National (now TI) LM77
+> digital I2C temperature sensor.
+> 
+> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
 > ---
+>   Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+> index a8b2b9deade4..9413ee0626f5 100644
+> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
+> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+> @@ -387,6 +387,8 @@ properties:
+>             - national,lm85c
+>               # I2C ±0.33°C Accurate, 12-Bit + Sign Temperature Sensor and Thermal Window Comparator
+>             - national,lm92
+> +            # Temperature sensor
+> +          - national,lm77
 
-While at it, maybe also add the reset line (SRST_A_MMU_PCIE on
-RK3588) to make the hardware description complete? See also the
-MMU-600 TRM, that there is one clock and one reset line:
+I'd suggest to retain alphabetic order.
 
-Link: https://support.arm.com/documentation/100310/0202/Signal-descriptions=
-/Clock-and-reset-signals?lang=3Den
+Having said that, is there any evidence that this chip is used
+on a system supporting devicetree ?
 
-Greetings,
+Thanks,
+Guenter
 
--- Sebastian
+>               # Nuvoton Temperature Sensor
+>             - nuvoton,w83773g
+>               # NXP ISP1301 USB transceiver
 
---24vzfqtpamx44f6c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzNKwACgkQ2O7X88g7
-+prULQ//VEgh6N9Y3WLpzFsig1dhiT2LoeoOtAVe85S1Tbd7/c3fTMzrhVzWhVFq
-W3WBHB+HGc66sORyvrmexq2QVFCcwp10rhrgc78z+K2d84NJilMXrnB2YcjCRWtC
-8m5sCiP0PA64jV41kv/NQ7++CBG2MVSkXZdqJvua7BCSW6jBtxEx0H6hAYsomNkK
-tJb7BKs2XbWg7Evz/zQmSNSAZLCSu938nBIrX+eh1Z3vFrvWx6Z1TK5vn5IDD6LT
-p6Oy1i8suyCXOus6c/LLUy/saeg3QoksFYWMV7TcCZk0mplPGDdyzjjH4W/yihqi
-CvgBkzOxY6AZfTkzhJZ94LzuuhdbKZQemaHaE9sBZQ6Zs6+RCjlWBLnKsOy7Ut55
-ZbncW/uK5OFJTfGgsrG5cNwTN+GJGKXlVdqmgjh6mo7ItQrbK91XoZH3oAC02ZDy
-+F75j6CS57Cb/QtObqTakXOiyBlwB393eeVhVmBnHb5xmt7vmmR9h4w4I/sxwokO
-5Vbg7RFZuS38HrbtRXOMkCZAOvDvBJ4zQ8dWGI6rMdrfMffpfLGd7sjIho/vZJo7
-wta4vE2aYvEguH9aoEGrztvW0UgjqMOGfI+txG3u7Mxv6O8ZujV8tR6QOLx8pCAd
-sDav3IQ9EtmrV4NTZnIcVtkZ4Go3kbrhPlVfDSXQtZqBI8rGQAY=
-=DQeM
------END PGP SIGNATURE-----
-
---24vzfqtpamx44f6c--
