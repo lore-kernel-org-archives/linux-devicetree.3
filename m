@@ -1,101 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794331753;
-	b=XteTGj8pTNqV1WO0cO9JXiMWZuTj8qh/yDqA6ppr7STOLjhAbtJ+ZIDeMstqNArmWQr8
-	 YV3V8SEEUC0BpIldAeQEN71kz/G38jIHCJZ2B1logA+ES9RmbL2CJHE3YHckVukfbhyC+
-	 TMWkhi7eNp1GcsHb73IqSka2Mupi5CQqteHw5cHrTff4Sj0EWpsjHsA6as0BksxhCmK/s
-	 1rgDjFUbOQ03WDObhTWKv/2sLVYJk/aezXgO7OEBFg6W3b8yMu+gOXgHCHlCXZ82KPf3G
-	 Zgqq8KH1m1roileGaWiT6+Mr33oxFeLkVr+LJV8ydcnuNvprFP1PNWAjWDj26s7fQ+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331753;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=w8bphJreiwxcy3ITTArW1/PZkIIYY+g7zot2n2erm3c=;
-	b=yWojoO9iG96WfAU1kocMS3/3yrvPvKMiGi15/AhvH9zECW9T0NqdfhiNun+PH1OW6z5t
-	 Vgy6xZbF4AzWBzf4ADMbaiDF9a0FaHB9hLEp1x6nd/wffqo/2FNTGzcp5/lb38+o8aaRL
-	 CTCszsrpiuJVtO4dm8G0ie9iOdjmO9zMzuJgBQqjCwrPrtjFIa1gJzpcOhMjELhPUTlsv
-	 WuKf8ePdEmwd2eHMRHwMBLr+drO9S/ori6q4fZIECPsspVcVVmxolt9gXMM0bmtkMQQLb
-	 pajzMNC31JuMcTekUkJE5JGDqITJHvVpZp5jxqsIIMchLANujQLJAs+tTC//Y84qoXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PbFSQaga;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794332394;
+	b=AQR+qy6hXVuPxMB1aWt+IqWH4sZR2W5g3boXYTqNk/0xyVsYbivOaLWCR+rMsFG3M0R7
+	 BAu6dpnPHNcwWrfuecf1ZAF+z9RIyygYQzQsJhd8gEJeDFv27CkKq2mu9edf+sdJWN4we
+	 +RCDEBmGxjEzs/Q9KLq/uovWRvboScgiPd11GnMOTYAd3kNnso8gbGLCzKyQdWQlNs8a3
+	 +VlnKDgmvjAahOIyCaSoppxLKYrtKdQRQXnLDO08pSgkGvD/VUaczhqzumMj7IjAHpEVZ
+	 t7QxCHYaaB5V+Tyql7saXkv6SXoR/WJSTIWrl8r8nZeSzlKESYujqktYVmsJXpNt9rQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332394;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=C/CW9UeKb6nIJKTf8Z9vYcXmdOZkRzveAetbAoCHv0Y=;
+	b=i+xnq7unkpL74hC0gCgvFM0GbAgnO+KTmd3fpn875OscFvy14W2U9NQPnN3KlQaiOgUi
+	 5LJfiNDwi2q9xby2/SOAZJ4InhY3vm3OF3LYS5mr9XV8SIROLp0+rn0/mZ9z8HRxZbxGz
+	 Fr/X4H7rf4IXqyYGKAI6Uw//wRnfzPwCXzYMv92ZguRVit5+sxwIAiVUhxKKbFm6iWb48
+	 xNEshRMczwv0yS89SNXxIcPPbW2jnUzjOY22+4Sbr74/lkP2H67ROhaCSWmuUi35/6RUW
+	 v0nJ9FAAlwU/K2z98b3kZIO/WnPSKUdjhDKI7VCOsaIe7E6l6P0t8nlKVTPdDsSFyqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EC5606A320
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 17:29:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04EC5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PbFSQaga
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso2091296e87.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 09:29:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794331751; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q8Q5GblOBTV26nSLSoYPqUItu3QYi9UYtn3CJVg3elJR5DqZcQE023t38YEDpZpVrQ
-         PCl8kVSBqqqE59LPvT0cpm2G6KlgdZgKX5V4/DV/cHYhitbc/lhY3fd2QDMoGzATdEYe
-         qUX6zaf2FxhjRGU9K33jy1y83ZQPlucunNGqo5JhOXgtTus3g7ELFExbyVIz/7HX5cyX
-         3TXsPPHpc0Odi7WWR1nngy6HBEFRSdY8zPS16QmhftFRDvvqG0qKuUDgipSTM/7j0WEG
-         2u2LrtgBtB/f64koFGM4OwOGW/PryNrkcUEuaVIFSZeKbYH9M40aWVm/BZxkV53k/qx+
-         +jwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=w8bphJreiwxcy3ITTArW1/PZkIIYY+g7zot2n2erm3c=;
-        fh=Ya41U5MZ/AzmE13N3llhfEUPopiVhpAmh+2azqaSSmI=;
-        b=PLBMvP4r3cnMTGN1LCh/+Q1UXQ+/S/jNzgO8Km08Q18We/hr27uBGU1byJ9JkiUK7R
-         pkv8TF4GiOcK+GgjBO2ZHgCZBtqbvmS4YnLmhBMekigHMuTaJstJRiKo+Qt6Cl1SHYVW
-         h1+GLz4p1th+XeI8rATi5PT6AYg8uaN4Ns9plwD4nZAROZ03BDwrELFVGY3Ya7GGTxhP
-         Hg3dPkU8zatXiIjvUSFAMv98YS1ytyxbyYaHRLCFSPeogBdn9Yg9SQe5smDTcfR7iAod
-         93OBMoJoBnhvbqltvPl1uV07gCBALr2GFh+Y2YNzPG0rCNlu4yMksPlubjaKSYcACkOl
-         xGww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794331751; x=1794936551; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w8bphJreiwxcy3ITTArW1/PZkIIYY+g7zot2n2erm3c=;
-        b=PbFSQagaMljm8DPweBD5ptIJdMs7OFR32JuuChwcvPCrZQ/QdaIq0PaMTor3MpTZBi
-         zJGOfy9GMIKeLgUmpvlyZJNjllQVX3PKpqphML+g/uwC7MA+ZP2LZjVDlR2LbQtCPmrl
-         8UGrhoV+xm4rOXOT4eWH9yMtDcFjQgXAwmmmuiPQdpAsgUnJjw3vi9OyhGNt/5WKpv/T
-         4IB496q7sXY1TSqAxwY/Timx//3/pdeGEV6HDfAVjpNt43w4T9X+/DFHXJ93n0giarU8
-         QGGaJ3vfa49hR2uRjNYrna8nRnpIOaYj4eJIE8t6g40LisdXoXIf+GPIpRTANb8opdiV
-         GpSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794331751; x=1794936551;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=w8bphJreiwxcy3ITTArW1/PZkIIYY+g7zot2n2erm3c=;
-        b=W9XF62xQaLtIam475cc50sggZi3G20rdLJ1AUgO4vGNfX6knrwVWriXJPpqVzJB8fB
-         DI4D1VYjomdBDrJTN+iXXYLcgHnFWBCj98DbzDO+MGPDLMxRajQ/DSmi0Moq0pPByyfl
-         H5srV5gg1luNbPN35BA3tneIeOlmKxCXOuoDvIWr8UNB6OuFXeFCeciZIobs6Itx1UlP
-         loGAVonviWyYxdf3XU291aOVPcVpfEPMQKp70PyIdpEuxRJ3v4j1Oe2aCEZfrXbta3di
-         Lp5E57TORmgP4wkxwaNb5oglC+dTnFUCVFO5gcvgWzt0XCc9ftH+guVhTULqzPGIImvJ
-         hpsw==
-X-Forwarded-Encrypted: i=1; AL+hErFg+2UUzt6El4XKRsQOr8v9B6VwSQ8FcXNXNQZRjHouxnsxRcSJxY01KY12ArUE0pnpE1O7OGPad3RB@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bFgCMLGS/Q84K2p4xJW4I1Go4p4X7Ugfyrz3OSIYP3YVB42LG
-	NbyfB0eO0OdBck6Iv6jUtZAMAI4dKKUmWc9yW4boYlsWNi+bhXA/8kumGzzP0UYl0lcrbFSEoTP
-	/3CrGIBQv2pFqJvFdRC23NKlHXSFNTPShGow4Dwc=
-X-Gm-Gg: AYBFou0FazNF+2yaTaD5PYJ0WhXPeQvC8GY7llJR4oVL/eWOsrUAaSaWDpNbiNYn6Ps
-	s6CQptz9uHs3L06uTs+bapbAp8cLHRj+H2WZ0L21Ta8YSFD7Hgis83c8J+yCgXG4bJ4vkIFsP3q
-	BiT6rnfpPPzXcedh5PezHEOLwhHLMpt+kwY6cGQPVslxExXSXx4xSTNBb96klAPZoVsRM91NWg+
-	hDXacHRAZ75E2/LePfddXA8drnpG42qh6z1wJ1KhHRc+IdvZlK0w6XJyNSTD3BSOJnx6c5c0VQS
-	UbdpqofSQwTxnvvYXbopWvq616Sx9NpVFywyM/jQZ5FGKXp2gdTMOhB8ud9Sibhq5m5vI1twVu8
-	t8Qpt0ehOJ9dZASsgnGap8ANsbi3T1kYLX0XQ8vnACa6O5El9rf9vE6Z2W4dPoW2PLxXSvlvbVA
-	xS48gt7BPvP/LspO70CgO4WCLjI6AUobWjA51Shit9JfNMetaYTV1KrtV4nhBab2NsN2567bqNf
-	wcPHRn+WWb2Vuc=
-X-Received: by 2002:a05:6512:6c3:b0:5c0:ca1:9dcc with SMTP id
- 2adb3069b0e04-5c156ec1df8mr1016598e87.57.1794331750711; Tue, 10 Nov 2026
- 09:29:10 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E06606A327;
+	Tue, 10 Nov 2026 17:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1E06606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:9bfc:b113:5373:d0ec:2ad1] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xQpoy-001CWh-2R;
+	Tue, 10 Nov 2026 18:39:48 +0100
+From: John Crispin <john@phrozen.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH 2/7] pinctrl: airoha: add per pin mode field mux
+Date: Tue, 10 Nov 2026 18:39:36 +0100
+Message-Id: <20261110173941.301478-3-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110173941.301478-1-john@phrozen.org>
+References: <20261110173941.301478-1-john@phrozen.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,32 +73,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261011154556.155831-1-kieweg.leander@gmail.com>
- <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com> <f06459fd-616b-4810-a8f9-cb4df2fcbd8f@suse.de>
-In-Reply-To: <f06459fd-616b-4810-a8f9-cb4df2fcbd8f@suse.de>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Tue, 10 Nov 2026 18:28:59 +0100
-X-Gm-Features: AclHuK9GFcVmvDqE1moH6mB6Jdj4VCxpr5sDVvrrE5IOwXQD8Dcfwi1xMM5Md94
-Message-ID: <CAMwcS0ii+=5LvgeFRmMkQKUm9oReQj=-t7vZ5uxCrLGi=jzvnQ@mail.gmail.com>
-Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> Oh, I thought you wanted to send a v7. :)
->
-> There's nothing blocking it, I think. I'll merged the driver in soon.
+Newer Airoha SoCs select the function of a pin through a mode field in
+a dedicated IOMUX block instead of through function specific bits in
+the chip SCU. The AN7589 has a 4 bit field per pin, eight pins per 32
+bit register. A group can then need one register write per pin, and
+the two entry regmap[] of a function group cannot carry that.
 
-Hi Thomas,
+Let a function group supply a pin_modes[] array, parallel to the pins
+of the group. When it is set, set_mux writes each mode into the IOMUX
+regmap and then applies the regmap[] entries of the group, so a group
+can combine its pin modes with a register write in the GPIO block.
 
-thank you for the review and for merging it!
+A SoC with an IOMUX describes it in its match data with struct
+airoha_pinctrl_iomux, which holds the width of the mode field. Probe
+then takes the regmap from the airoha,iomux phandle.
 
-After Christmas I will submit the QEMU patch to get the official
-device ID. Then I will send a follow-up kernel patch to replace the
-placeholder.
+No functional change for the existing SoCs.
 
-Best regards,
-Leander
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+ drivers/pinctrl/airoha/airoha-common.h  | 14 ++++++++
+ drivers/pinctrl/airoha/pinctrl-airoha.c | 48 +++++++++++++++++++++++++
+ 2 files changed, 62 insertions(+)
+
+diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/airoha/airoha-common.h
+index 850e733db15a..7a0cb8924e71 100644
+--- a/drivers/pinctrl/airoha/airoha-common.h
++++ b/drivers/pinctrl/airoha/airoha-common.h
+@@ -49,6 +49,12 @@
+ 		.group_size = ARRAY_SIZE(table##_func_group),		\
+ 	}
+ 
++#define PINCTRL_MODE_FUNC_GROUP(id, table)				\
++	{								\
++		.name = id,						\
++		.pin_modes = table##_modes,				\
++	}
++
+ #define PINCTRL_CONF_DESC(p, offset, mask)				\
+ 	{								\
+ 		.pin = p,						\
+@@ -75,6 +81,7 @@ struct airoha_pinctrl_func_group {
+ 		u32 val;
+ 	} regmap[2];
+ 	int regmap_size;
++	const u8 *pin_modes;
+ };
+ 
+ struct airoha_pinctrl_func {
+@@ -102,6 +109,10 @@ struct airoha_gpiochip_regs {
+ 
+ extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
+ 
++struct airoha_pinctrl_iomux {
++	u8 mode_bits;
++};
++
+ struct airoha_pinctrl_confs_info {
+ 	const struct airoha_pinctrl_conf *confs;
+ 	unsigned int num_confs;
+@@ -126,6 +137,8 @@ struct airoha_pinctrl {
+ 	const struct airoha_pinctrl_confs_info *confs_info;
+ 
+ 	struct regmap *chip_scu;
++	struct regmap *iomux;
++	const struct airoha_pinctrl_iomux *iomux_info;
+ 	struct regmap *regmap;
+ 
+ 	struct gpio_chip gpiochip;
+@@ -135,6 +148,7 @@ struct airoha_pinctrl {
+ 
+ struct airoha_pinctrl_match_data {
+ 	const char *chip_scu_compatible;
++	const struct airoha_pinctrl_iomux *iomux_info;
+ 	const char *pinctrl_name;
+ 	struct module *pinctrl_owner;
+ 	const struct airoha_gpiochip_regs *gpio_regs;
+diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
+index b50108826d8d..f9ae4020b764 100644
+--- a/drivers/pinctrl/airoha/pinctrl-airoha.c
++++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+@@ -401,6 +401,35 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
+ }
+ 
+ /* pinmux callbacks */
++static int airoha_pinmux_set_pin_mode(struct airoha_pinctrl *pinctrl,
++				      unsigned int pin, u8 mode)
++{
++	unsigned int mode_bits = pinctrl->iomux_info->mode_bits;
++	unsigned int modes_per_reg = sizeof(u32) * BITS_PER_BYTE / mode_bits;
++	unsigned int shift = (pin % modes_per_reg) * mode_bits;
++	unsigned int reg = (pin / modes_per_reg) * sizeof(u32);
++
++	return regmap_update_bits(pinctrl->iomux, reg,
++				  GENMASK(mode_bits - 1, 0) << shift,
++				  mode << shift);
++}
++
++static int airoha_pinmux_set_pin_modes(struct airoha_pinctrl *pinctrl,
++				       const struct group_desc *grp,
++				       const u8 *modes)
++{
++	int i, err;
++
++	for (i = 0; i < grp->grp.npins; i++) {
++		err = airoha_pinmux_set_pin_mode(pinctrl, grp->grp.pins[i],
++						 modes[i]);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
+ static int airoha_pinmux_set_mux(struct pinctrl_dev *pctrl_dev,
+ 				 unsigned int selector,
+ 				 unsigned int group)
+@@ -431,6 +460,15 @@ static int airoha_pinmux_set_mux(struct pinctrl_dev *pctrl_dev,
+ 		if (strcmp(group->name, grp->grp.name))
+ 			continue;
+ 
++		if (group->pin_modes) {
++			int err;
++
++			err = airoha_pinmux_set_pin_modes(pinctrl, grp,
++							  group->pin_modes);
++			if (err)
++				return err;
++		}
++
+ 		for (j = 0; j < group->regmap_size; j++) {
+ 			switch (group->regmap[j].mux) {
+ 			case AIROHA_FUNC_PWM_EXT_MUX:
+@@ -824,6 +862,16 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
+ 
+ 	pinctrl->chip_scu = map;
+ 
++	if (data->iomux_info) {
++		map = syscon_regmap_lookup_by_phandle(dev->of_node,
++						      "airoha,iomux");
++		if (IS_ERR(map))
++			return PTR_ERR(map);
++
++		pinctrl->iomux = map;
++		pinctrl->iomux_info = data->iomux_info;
++	}
++
+ 	/* Init pinctrl desc struct */
+ 	pinctrl->desc.name = data->pinctrl_name;
+ 	pinctrl->desc.owner = data->pinctrl_owner;
+-- 
+2.34.1
+
