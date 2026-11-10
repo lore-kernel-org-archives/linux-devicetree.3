@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314800;
-	b=Zi0t8dWNrdiiYXnzuZr7CiKYaCBiYK26YxigXYJvR54rh+kejqzkZfxb4fZF/7Ca6Thm
-	 IKqo9Z8VPGi3ZQXnTN5hNKsDb75uaJR0n7m+B50sa9Oz0lLyTo+FWIRJdLs7QnZsbsHlx
-	 gGsTj0XBl5ot/NKvJS7zfWjDugA8ozgCeAlBiSKwbDYw4+6c5ITkRIi1jLcfA3jcRi8nq
-	 Sk5RpkB9U5ZU7SsYWCG5yq8Bdob57qisBUk9sUOLCZpsG2ls1BrRkBOrvLG6MHIfwkJFv
-	 UXq5WDhiK2Yu6fUi36xBWlWsvbHhFyQxTS8yMAwVPBXfMH3J4eZsNPJVFHhg/TRZj3g==
+	t=1794314946;
+	b=LVVdyvukVlU3IVVsSxG1T/BtxV85sarTJ0L3N3lm29Zlw45FtWgs1uHt8mgiOzcbLWPD
+	 fbI623gEA+aiIgdfIytqHbLNG3jwEETFj5CzMaiCpMFg920Muwi3FPq2DRNepBjquLYAc
+	 r5Fzmo4LGrD79mlC3MVzDnLR7k8QiqvSkWgpBEcpu5TEqwB89tCZweEKUIE3RJ3fBtt2b
+	 N/UV5uzkdM6yq4u81YUp211PTSGFvrVBhGgpTTs43VSEle/xpn7NyR2KPBAahl7vpNtjB
+	 AkMBhR/aoOK9JUQ0JaCJNnSMQBQXB60AaqktIiv/Hj0KP4N1H1vgHX6ndkdzCwT34rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314800;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3tf9Nhm3wEIZKlX+voEioL0VaJtWq62Gp0ZaFsQlRI4=;
-	b=EhIScPYxu6M9/i5wkYGEIFuna4RmcDdLbwBT7cYF1PkdXfMjmKgpRNDVk8nKsA2SSzQx
-	 Plwkw/6jCut3Csp8nrljKq3fhZzIAkIfxlaF7mcH02aZnRB6UnLve1i92tUxa1KElQV+B
-	 5Zhn6mWb6Uv9ITXKbrt7jJnGHXNvryjmv62YuOzBA2rPHbYWY+UqrjUnmNgpnCOpM8J95
-	 gVE+5Rd8fpsIzuLm3V7eBonuTTRfWtAS3zhgwau/vTiSUWN0c/iUDj76tY6HLAyDqg65x
-	 phzsbLCYAd02zaOOtT5HcjEsrvJTTQrfmIZBC4WbIi4geGn2ttCQM8KzEI2z01f50NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314946;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zHXJPTkKerzfVJJNUx8F5qgPDu406iPyqd9JEKnwCR8=;
+	b=jdvIp5A9xr3YN6cJRqF2SH7ITXNznvEQzi/4NhYsn4uXnQn159rtLTt4Ql60+yJVA+xf
+	 S/d/sqyC89UUyRVgmPui6hJHFS31OKHqcS1JQZqoMO+yv4oy/IhDg6aiU39NXSP8KM3JX
+	 /I3bTKMB68Rxos9tTV332aL2EKHMb4fqqtTXGRxEaS/Mo2v8UjVvKcjDBlCg8WmiLbbeT
+	 nCcNA0SCuCNLqEAcVzv2MctXXq0+H+1K7VOtoPKNwmQZLAYhPhkO3nFeqrBDrRyKhIXCd
+	 IGsx9ALe2f5++V/vSok8grGaSyUlEMfn/ojWqY0M4i5/MooV/f65g6JTRGwAALIhPRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljepd4rt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0B6606A33A
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:46:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B0B6606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 1120940265
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:46:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1794314791;
-	bh=3tf9Nhm3wEIZKlX+voEioL0VaJtWq62Gp0ZaFsQlRI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=TrICYwcAYTtrym8vDSAPT2wgzAF6FWMVQILkGZ048uOL9bJbddoTVrQ+s2aIVhcwv
-	 /h9YG7JSJFBRaNN0DohhY/xSM8GMZ+4ZwvUI0jeuz027MjN4YhVbTyteeQBWTtNxlT
-	 PJpMAiWU2YLtuQp48TDReaMZS9XTSAMG8L316JWIZ1xxJvkMjEark3j8Zj9vIsM5ps
-	 EVfA7daemXnXcacplbEpxgZl0i+8lJ8p3RpFo024DSeM0rep3gsHuVc35cpqE6l467
-	 Dm3yasT5zTR8g+iva6PTrUi3L/rrVuxq8vuT9PfsVnXnlXsksyosjnEPLg18UUDQIZ
-	 KhzKLiHqZ6uuLSS0aHO+908AYOIOX4ae/fRS9qGw1RgQLoQqlnagxwVJePiVbtf+Ti
-	 /ujEoxzpXtCEIcJzPuyi9ReEvpSogfu9PViRDmCAVrW6ICd22KOgw87mOWQYMQhVf+
-	 64zB5k78FQbmaHlrHkzdhkDLxTcmcb7B/7Dpm0zRYXe4s413Z2v2KwGPm7vKmuGk56
-	 7UsGcDmRW0j/PxxS2A9V5rnXK/aJPuQhmRPb2egmrKw5eAt19nYA04nfieHyu+IRS8
-	 XpI+aYVPDXDqdWlXVwib9zs8A/jD8hbF3QiQBT4vvl29aQTFaTD8zPkPFqabWCE4Kc
-	 JRudUlc/u6TkibyO6nuWY578=
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49febef74e3so13638895e9.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 04:46:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314790; x=1794919590;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3tf9Nhm3wEIZKlX+voEioL0VaJtWq62Gp0ZaFsQlRI4=;
-        b=n5Mb22tPOyvkpkk2MmcakgRIgf6CmC7/Qzqc4ISPQLSfTCKR2g1On/I0Vt0dw0ecmF
-         +7+mvFtSEZKs4n2WpAes8cnMMlDmbFA4XdcJA3yH3dQR7lT3TH+OvFUftbZpRxYI6KCg
-         3kArOIDjBVy9rdfs7AlMsIzOUoz9e6KVZPGC7H/KrVGX9KTmylZjG3CmUd0bRQ91k/hL
-         9TqXSQgs2eylwSHK+e8HokxE8MZLKSGfCq0/XDQnGsWUsU/vwNpwpTw5zrqoh4E80Geh
-         fESvy4/GmM4fCFk34/cEnYlqEzpDBhXHT56ItDUK13l1H4gDVlMm9pbxSmCIJEptHjVt
-         37mw==
-X-Gm-Message-State: APuU4Z983EKEE3En4cIl3QnbWUsdAdUfN2a6YPyjhc3SszOXCnOLtv29
-	35ypqn1cUIsBnJCQ/9Xmx+nL55Gkbi8/bW5V5gF+4NjweapMbcOfXbIVn3MCJ7Dzt55zq0erFcF
-	e1eU3xN+Utx9c5Ck3WE53f+iOpBPcH1QQ61N9gFE0eO1bPXS3fqd1yBi3GOMH+AkqBaZ/KPPjfA
-	RyaCw=
-X-Gm-Gg: AYBFou1tATAqZs1RKm00GqshlIFaS6UV8ei0TkvNrs4uk6ojclMbAsmPE+MdrdZSluO
-	iRHzCFLhh9ulfkDA4n0Cl4UAF0v37frTF5kCBgO6+cRH+/4xz745BZeT5VrcupE8gWOsQlFxJo4
-	YaWcafSqXjmRuPbFhqm67E4wsFRNfcY8skslMXyaAUTu1a8SqcaPUvLiGmNc43Q7x3OBMik2J/n
-	pPzHNOxng4yyITKiTQ81MlMPqETonJC5YTOrXU8VS4W+MNqeaPt5BqLZt2yZ3yAFSy3x1tJxMCO
-	j9yGkAQmdDYAgWuWEb70DctgGlm6bfMOrQsruC+hfLn9fje1y9107+3rJM8MvRL+eU+CC4DleRt
-	0d9FAtb17zHwy5gs3B92hvdrxpYwvLKmuE8JMbW1vQkCjlwzjzZIQI13fcT49s6Be4qa/5+aGZ4
-	oSww==
-X-Received: by 2002:a05:600c:870e:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4ba0234267amr41310555e9.8.1794314790557;
-        Tue, 10 Nov 2026 04:46:30 -0800 (PST)
-X-Received: by 2002:a05:600c:870e:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4ba0234267amr41310155e9.8.1794314790230;
-        Tue, 10 Nov 2026 04:46:30 -0800 (PST)
-Received: from ?IPV6:2001:67c:1560:8007::aac:cab2? ([2001:67c:1560:8007::aac:cab2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe9357sm71022925e9.9.2026.11.10.04.46.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:46:29 -0800 (PST)
-Message-ID: <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
-Date: Tue, 10 Nov 2026 13:46:28 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C40606A321;
+	Tue, 10 Nov 2026 12:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljepd4rt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B7C1F0089F;
+	Tue, 10 Nov 2026 12:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794314945;
+	bh=zHXJPTkKerzfVJJNUx8F5qgPDu406iPyqd9JEKnwCR8=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=Ljepd4rto1iEmd+Tcv7jE9zOVDTxqkpn0TOaeAIdWl8+Z+DP+jwrsgRXPqYQYF4qv
+	 SFgTk6OwyIpolXoq1MLgNE0r4X93ZxEn9zCEvPn+Hawwsbiqy10OeoVgqM97qLHdQW
+	 6dL0WnTVZAriiZhGLrPrPZBqb3w8vglv1sOiA6RRpehwliZVOBWXl7HPkEs6bL/MiH
+	 him3PIskGnGVVjUAXONOTx6NGQSUHVeqMfj+31ChQwO7ltqvXyn1lc4E1ZCIkt/neN
+	 z2bYRw1QMmZuk3L1hZHWaZuUvIIYvIu/RMkBY7dxVdzDfTivDj2//YWe93OxX/qC8B
+	 cumb5sZPsZQ+g==
+Message-ID: <aac5e0a0-754a-4323-9417-cc17d7d42930@kernel.org>
+Date: Tue, 10 Nov 2026 13:48:56 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,54 +52,93 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek,ili9488: make
+ the port optional
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
- Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
- <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+ <20261109160706.2272332-2-romain.tisserand@gmail.com>
+ <20261110-comical-adder-from-saturn-8c8fbb@quoll>
 Content-Language: en-US
-From: Sarah Emery <sarah.emery@canonical.com>
-In-Reply-To: <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Troy,
+On 10/11/2026 13:00, Krzysztof Kozlowski wrote:
+> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
+>> The panel is a MIPI-DSI peripheral, a child node of its DSI host, and the
+>> driver does not use a graph port. A port is only needed when the host
+>> links its panel through the graph; other DSI hosts, such as the Allwinner
+>> sun6i-a31-mipi-dsi one, link the child node and have no output port to
+>> point at. The PinePhone panel is described that way on the same host,
+>> without a port.
+>>
+>> Keep the port allowed (panel-common) but no longer required, as for other
+>> DSI panels such as ilitek,ili9881c.
+> 
+> ilitek,ili7807s and a few others have the same and it is confusing. The
+> port should be required when this is connected over SPI or I2C, but not
+> for MIPI DSI. I think that for MIPI DSI port is meaningless so actually
+> incorrect.
+> 
+> Why was it added in the first place?
+> 
 
-On 05/11/2026 09:29, Troy Mitchell wrote:
-> +	model = "SpacemiT K3 CoM260 IFX TQ";
-> +	compatible = "spacemit,k3-com260-ifx-tq", "spacemit,k3-com260", "spacemit,k3";
-> +
+However won't all DRM drivers actually require panel? see b089c0a9b14c
+and 169466d4e59c which removed fallback to the child node.
 
-On the CSB1-N10SPK3 server from Firefly, using 10 K3 nodes, reading the 
-TLV EEPROM of a node gives: "TLV 0x21 (Product Name): k3_com260_tq".
-
-The latest EDK2 from SpacemiT derives the compatible from the TLV EEPROM 
-name, so EDK2 will report "spacemit, k3-com260-tq" as compatible. This 
-is by reading the EEPROM that was factory-flashed, so it is not 
-something easily fixed by a firmware update.
-
-My understanding is that the nodes from CSB1-N10SPK3, the "K3 CoM260 TQ" 
-and the "K3 CoM260 IFX TQ" are all the same: a "K3 CoM260" module on a 
-"TQ" or "IFX TQ" carrier board.
-
-Is there two different carrier boards name "TQ" and "IFX TQ"? Or is it 
-just the same thing, called differently in this patch and in the EEPROM?
-
-I've seen EDK2 referencing both configurations ("TQ" and "IFX TQ").
-
-I'm not sure how devices out there are referencing themselves. But if it 
-is in fact one device and the EEPROM calls it "k3-com260-tq", this patch 
-will not work for device-tree matching.
-
-What do you think? Can you clarify the situation?
-
-Many thanks,
-
-Sarah
-
+Best regards,
+Krzysztof
