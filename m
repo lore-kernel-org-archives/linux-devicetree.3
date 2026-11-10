@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340521;
-	b=tH/aYvDc1+vlGrUepwqPeCb3y92E93oxzGscrQlz96m+YDNHQhoaT5IjbwWmpYNh+O6N
-	 6GJJBeBV4QPvAH8MXbHaP/JGAe56m9iwjaU0wbVjYZVrQAnpnCYP793ZgrENxH3JjZtsf
-	 UpeOaZl30HoW94tqJjwL6v2Axus/nRfXTwdDyv8z1+uYgo5sWdNm/cNIU1a7Q06TpAXQO
-	 HGfo0S22G7L2oDDX6mysdInwd94K5on1robD5Zt+B9bey6aDfcNaTcBjrudO3JcDOC6UQ
-	 PixDL4nksndm9BZaQurkmAKtnNo4UUpadtilZxlU87dd4O7lXJgPWnjTnqx3cofQtCQ==
+	t=1794340534;
+	b=tKyIPOKdk+41187pkSR4dckJaZfc/GMswuweVxSf1mKTd3/o1l5e8W8yDvlUWHZwcKEs
+	 VNUsY0KRI46fI17uYQLQOqd+Tw3JW7VZ7u3aZzs0SW5vj6HlFXFTfoDv/hCclfCGqR5C7
+	 6X2QtrYO147yuK/27A4GjcxzqTKr4+jz6JHZ6b2IkQPV8pG73qtrJkkI/pgizxO0xA5ZR
+	 NCJL9gIOMX9ibJ5ODx+fbP5mrEi2GgMN5Ola8aWVctAABQbl6UuAeONrBDWKdjlyDsm8q
+	 Q2XrAT16+PSXR0nx+9je1H0ZCTJOpB49GmZ+jnIOjFTLMJWe/o0IXaG/XegtUwUQJVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340534;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=yVkNG1PTzTQKZlpak61kasG8vOUOw5z3BtbexeiQsok=;
-	b=pZAGRhdkedT2j/e8dU60zAjFHWuPy5kkeoQohywzkOdBaplT5MihCRYH7+RDELLZAj0p
-	 APoUyBxt/N2e0dBlXx56KiK/EOOn8Kpq+nYvmHscavqQKOXkuj590/JpGYtNK0ZwalEEL
-	 ZaZOksi2YLMOmgOwzii0WpC8aAuetKYdDBKYfkk9bCwa26Ga5XczOlU9Xl0TMYdwLJDsi
-	 bfsaG1Jqq0+TReVvIRcaW4cCwG9+LLwfg5ghrE5XoV87BciXQuMJkgnUHluhzR0PWs7UT
-	 tRQh/LE7PusxUALRtpyK3npAeXzTnp48VkogWffH0HjFMefPPuKZtdOKvHUAEdDTLpA==
+	bh=uIoaKU+WhtDOPDavT0BYjCyVI+GSt2myqJ5MXDT+xj0=;
+	b=gsbFqTBPAhxO7Y9E4viomm28x+Mt57kAuOTmB6Rj+2JtRU7ATG6HO+aBgWdOqtC3HGzo
+	 sHRCT1t0QWo4FK1YfXk0IscLHaHuT3FaoHffyjoODo0y1b1KppljFqzH/0EEsJWtCzH0g
+	 Ha0Agoixec6J8EODCQbMiWv9frYNs2z8KMGjS9FIdPEW9hxdxz4xOkFKrs/hl3AC/xwKs
+	 APhmyAUZraJpHKMa72oi5zxzBxO1UZDjmvSSn1Z5Rw/avwK/+GktuQ2EmYZeTx7aUek2u
+	 8aToHEP67gNQX+Du8JEIx1/6s327/0xmAV/Ui90uaJZrmff/7yk6M5kS/omPD3pFsCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aLf42TAA;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=MYlOm5Xe;
+	arc=none smtp.remote-ip=109.224.244.116
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E45606A327;
-	Tue, 10 Nov 2026 19:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24E45606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B90606A336
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:55:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44B90606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aLf42TAA
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=MYlOm5Xe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794340518; x=1794599718;
-	bh=yVkNG1PTzTQKZlpak61kasG8vOUOw5z3BtbexeiQsok=;
+	s=protonmail3; t=1794340530; x=1794599730;
+	bh=uIoaKU+WhtDOPDavT0BYjCyVI+GSt2myqJ5MXDT+xj0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=aLf42TAA2+a7nHlBhsu9/blGl76fxiLwOFvAMPxTixKUfZvmgmT1d0KtwNAzrxMMc
-	 8tYp0xtxFN2RRXtAxNKxu5QzuEGWH72WAWXmfLAsj5TpE95qHilK8Ro5qNAbaewhdW
-	 0ajqUByDXHkAXhjjR70PXgPUA//RzfPzeJ3DPB1X9mDDB31fklZ+kuKC93E5pGP86m
-	 fuubCAxfbNhPsJIamDJBSXoyTk/+jkGx8uVveyThgsdRxMGaH57pfHNvSBEWnHVHTG
-	 Bk2ruf4EJrriw3U3LGpEpu6bK3vhb3zDo7yPhXOMKftVPtj3455GyhQk5a5m1IhyNP
-	 c3z4TAt3pDsrA==
-Date: Tue, 10 Nov 2026 19:55:11 +0000
+	b=MYlOm5XeW63YR0Dp/nE1+ESRez6OEdqAMyeqJ0fblpXUOiLET4QdR/3qxOJUNG58Q
+	 DyDir8Q3Z4ROGm6YHBcZSKEGQQplryu4WutYxlr6VdqH3QsjSDgKnaDbSr1YEIJuqd
+	 ebbFIEcxPst7pwYgX0Yp7oIAqM16P/5AmT1oyE1w4OnYQyMYqczAEYhOK/XrOwQH2R
+	 1u7JkWrNzLfWtzNCvjKNAIXOdPULvS+8w80Q/Gc0UeASDvfugREP/0x0e+2gbAwiQq
+	 mPiZNR48TIK8SZZpUg2H061bNLzks0/9kMjnj6sCyNcWOE1ZtwMVvXwzwduCsGlTbz
+	 W8DLUmNnyg/tA==
+Date: Tue, 10 Nov 2026 19:55:26 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/6] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-Message-ID: <20261110195454.48176-2-lsa.uz@pm.me>
+Subject: [PATCH v4 3/6] platform/x86: int3472: Map the VD55G0 supplies to "vddio" and "vana"
+Message-ID: <20261110195454.48176-4-lsa.uz@pm.me>
 In-Reply-To: <20261110195454.48176-1-lsa.uz@pm.me>
 References: <20261110195454.48176-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: b04a1a86ea771cab38fe6384f8e1574039aacfed
+X-Pm-Message-ID: 291a552148be829449acf60710b5f33d7346ce95
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,90 +67,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The VD55G0 is a monochrome global shutter sensor with a 644x604 active
-array, sending over a single MIPI CSI-2 lane, with the same supplies,
-reset and strobe GPIOs as the VD55G1. Its MIPI rate runs from 750 to
-1200 Mbps (UM2829, 13.1), so its link frequency starts at 375 MHz, and
-its I2C address is set in its NVM rather than fixed.
+The ST VD55G0 IR camera of the Surface Pro 11 with Intel (ACPI HID
+SMO55F0) is powered through two GPIOs of an INT3472 discrete device: the
+power enable, and type 0x10, which int3472 calls DOVDD. Which rail each
+one feeds is not documented, and it cannot be measured here: the sensor
+answers on I2C only with both on.
 
-allOf moves below required to carry the if/then for that minimum.
+Intel's own control logic driver names type 0x10 Avdd, so map it to
+"vana". The power enable takes "vddio"; whether it feeds VDDIO or VCORE
+is not known either. VCORE is not described, so the driver gets a dummy
+regulator for it. The vd55g0 driver enables all three together, so the
+names do not change what the sensor gets.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
-v4: no change; Krzysztof's Reviewed-by from v3. One file stays, as he
-answered Benjamin on v3:
-https://lore.kernel.org/all/20261110-normal-ingenious-kakapo-f8c479@quoll/
-v2: the VD55G0 joins this file instead of a st,vd55g0.yaml of its own,
-with allOf below required for the if/then, as Krzysztof asked of Peter
-Marshall's vd55g1 v2, whose 01/11 and 02/11 took this approach:
-https://lore.kernel.org/all/20260918221705.323510-3-pm@petermarshall.ca/
+New in v4, so that 2/6 uses the same supply names on DT and ACPI
+(Sakari). 2/6 needs it on ACPI.
 
- .../bindings/media/i2c/st,vd55g1.yaml         | 27 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ drivers/platform/x86/intel/int3472/discrete.c | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/D=
-ocumentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-index dfd87beba06..0245673d105 100644
---- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-@@ -16,21 +16,23 @@ description: |-
-  array size of 804H x 704V. It is programmable through I2C interface. The =
-I2C
-  address is fixed to 0x10.
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platfo=
+rm/x86/intel/int3472/discrete.c
+index b19ea6ee337..a7098b08f8b 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -150,6 +150,17 @@ static const char * const power_enable_hids_vdda[] =3D=
+ {
+ =09NULL
+ };
 =20
-+ The VD55G0 is a monochrome global shutter image sensor with an active arr=
-ay
-+ size of 644H x 604V, programmable through I2C at an address set in its NV=
-M.
++static const char * const power_enable_hids_vddio[] =3D {
++=09"SMO55F0", /* vd55g0 on Microsoft Surface Pro 11 */
++=09NULL
++};
 +
-  Image data is sent through MIPI CSI-2, which is configured as only 1 data
-  lane. The sensor provides 4 GPIOS that can be used for external LED signa=
-l
-  (synchronized with sensor integration periods).
-=20
--allOf:
--  - $ref: /schemas/media/video-interface-devices.yaml#
--
- properties:
-   compatible:
-     enum:
-+      - st,vd55g0
-       - st,vd55g1
-       - st,vd55g4
-       - st,vd65g4
-     description:
--      VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a color o=
-ne.
-+      VD55G0, VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a
-+      color one.
-=20
-   reg:
-     maxItems: 1
-@@ -101,6 +103,23 @@ required:
-   - reset-gpios
-   - port
-=20
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,vd55g0
-+    then:
-+      properties:
-+        port:
-+          properties:
-+            endpoint:
-+              properties:
-+                link-frequencies:
-+                  items:
-+                    minimum: 375000000
++/* Intel's own name for type 0x10 is Avdd */
++static const char * const dovdd_hids_vana[] =3D {
++=09"SMO55F0", /* vd55g0 on Microsoft Surface Pro 11 */
++=09NULL
++};
 +
- unevaluatedProperties: false
+ /**
+  * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
+  * sensor driver (as in DT bindings)
+@@ -199,6 +210,20 @@ static const struct int3472_gpio_map int3472_gpio_map[=
+] =3D {
+ =09=09.con_id =3D "vana",
+ =09=09.enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
+ =09},
++=09{=09/* Sensors which expect "vddio" as con_id for power enable */
++=09=09.hids =3D power_enable_hids_vddio,
++=09=09.type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
++=09=09.type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
++=09=09.con_id =3D "vddio",
++=09=09.enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
++=09},
++=09{=09/* Sensors which expect "vana" as con_id for DOVDD */
++=09=09.hids =3D dovdd_hids_vana,
++=09=09.type_from =3D INT3472_GPIO_TYPE_DOVDD,
++=09=09.type_to =3D INT3472_GPIO_TYPE_DOVDD,
++=09=09.con_id =3D "vana",
++=09=09.enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
++=09},
+ };
 =20
- examples:
+ static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
 --=20
 2.54.0
 
