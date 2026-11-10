@@ -1,44 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.126.93.238
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300059;
-	b=u4yNrlPyO2vPRVlwnEQGCEI5mu/pSXfAlsc3+8EwHYBNLmljsA9OYZhyuGbBBDUdkBGd
-	 eWCDoAlRO1e8JWsMdqIzdhjUw9O71DraMAr8EO/cld0FizvGohO6kSybIAMHhR3j7NA7g
-	 d9BjlrBLYVdRY6r9Y8eaYX1YM+UpRRs7cG4b5kMzkEGH5VhxzO3rMk8Pgj67vFj8tSgSe
-	 ORUCipiqpvdIvwaKU5es0dIe6YQ98D7bPgnB2bq30RE+qHmrNmrow3ja21UhtzvE5Jv5+
-	 LhB8felWoA2VnKAj3MVP17XLsGMcYvivF0ItMQk3lfxHLJcmQjBZE4T/IvfslIcuuXA==
+	t=1794300096;
+	b=1cvYBwTG2oYSiMEpA+jIvoxl7X/6XrHOEwo05c5U7RKbTjj9RVxKEhUa2h5O92s+kK5b
+	 PYIv8dEl5eZ+HDyc1RWA20e+ioEpQhThAQp9AEWvxmSB1Idi2Ea4x+i8AzEbOAwpJBgL0
+	 Ix3jd9SJ7WTDMV8leLIzioZGEUnWfdcy7aXurb+Bo65Yf3KFsa6iDcY6ewahbBwO2CP8H
+	 DB7y7n21tKB6HVo6vRLt5vG9GDWSb5doqg+DFXen/A2yVdybtIh2wlR4fFGYrIB/bbobB
+	 56f0t+jfNprKVlIQxZ5K7bFdvTfR+zBy1T0En8XhIkqZFahqLX3Ayjmw3phaKfd0W/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300059;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
-	b=rgPXOHLRbSK7htilEIx+gopSaKCm+l17BPcyS1LRKhNelV3LIl+40fUhzLzgpXNcwjd9
-	 BtllOAoQ05jddgSNNlvRfyrHNyXU8k1DA8d8F0WHABucbNeiWhwGLUvxu5IPqLCJuGhpQ
-	 hLjvQdfk3yCCR4LzG/Fnct0ozhqzRGABloafOqZY1Hpt2avsrhhIgaZPtRAJy7DqRK+gn
-	 oT027bXY6TICaxAgY7j1+COj2iGsUXNNaGwRC5L2nVbTpqlblwFBZq96702XWzXaQm4BA
-	 Nvg0FjW37H4d7kROdT6k6KiQIkMIuGiSefBY6RnN9A3rAgpvuWP2U5NqR6PIhOaN+eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300096;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9rgKTlMw6fcRUkwTOQ8CZeZpTsNKklCiCM9n3CCbhXk=;
+	b=A3EqlpmM0PUifYX4c0DqA8uXq5B2SOK4KTlODn8NHwoO83O1pqiiae9BG7iduUDIS08V
+	 cEr3CLnhR2of6PpFd04/wLw671DTLVXbt68YZwAycrB6zomm+NoWY3kRUSVJhGUzTcMbI
+	 BYp+YCfzsF6L4x43DEG8gbqE2btE2+aD9u1JlFmiwPCyHYK8yPv+/TvXET4jXKk+O2+Vf
+	 1lWRXzMYg08WwSuRTCmO9OY+2RTdfRtkLib/340eRBn2SClAQASX2zrqFtxA+QFhvUdzY
+	 H6IpWLy2ZTKXLU8Ad/kxi8akyAxCLn2gYlpFc4Z8t/mbhVFi17GZgp43S4L3dCw2z7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg;
-	arc=none smtp.remote-ip=103.126.93.238
-Received: from mail-m93238.xmail.ntesmail.com (mail-m93238.xmail.ntesmail.com [103.126.93.238])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SojWknHx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B24606A31C;
-	Tue, 10 Nov 2026 08:40:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B24606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CAD606A31C
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:41:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5423d7e15;
-	Tue, 10 Nov 2026 16:40:46 +0800 (GMT+08:00)
-Message-ID: <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
-Date: Tue, 10 Nov 2026 16:40:44 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SojWknHx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140D11F0089F;
+	Tue, 10 Nov 2026 08:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794300095;
+	bh=9rgKTlMw6fcRUkwTOQ8CZeZpTsNKklCiCM9n3CCbhXk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SojWknHxjS4uEng8btn35+eRYdK06tIb2Mmsme34lyTvTpyi1NCltR+0XOuUAlL+/
+	 y6iJXRYPGGKQ6CkWyEejqCz0slbgNWrmWli8H4wI2AgQSoUKpftiK3k0HxPJ7Jz7iS
+	 4alOle1RSFCFiaWj+BN8mSePq0VQ9NuVAS+Mn96CdBKhnCDksozHxXa4szfE/FAjgn
+	 kMooxubWz8MyXSXY//5Hjmh6ydmCW5m7VyXzJBV+o3jJzGSA9t8+3JhZ6YpYREMbpM
+	 A5Z531gYThchvZANKk6LTEE3IO5sBTM1ckI1OM9/p60YQ7aYDReH6QptJLoVefFOr2
+	 HoK2ieeOBYLrg==
+Message-ID: <sashiko-outbox-206651@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261110-a9-i2c-v8-2-1e9d2682f86b@amlogic.com>
+References: <20261110-a9-i2c-v8-0-1e9d2682f86b@amlogic.com>
+ <20261110-a9-i2c-v8-2-1e9d2682f86b@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 08:41:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,108 +60,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
-Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
- RK3588 PCIe SMMU
-To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Niklas Cassel <cassel@kernel.org>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c49deb4a03a4kunme182f695684554
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTxgYVk8dSRkfTh5OTx9ITFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Ub1Vz6pg4k6UDZWkqzesWeqUcDzAnME4g7qqjqvvetdVS/Ss/SwQXxpNyBNYMdrUu/8p/ufPvd5dmdHK4QSGnWfq3IjAecSeG3pCLk7ElJpWWcjAWfAbiW1rMa5gcgNzalcqvN8CF4cWUxh29xpvhKY4L5PyMUWV01V2VvR56Bg=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
-	h=date:mime-version:subject:message-id:from;
 
-Cc: Simon and Finley
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in
+  aml_i2c_do_start()
+- [Medium] i2c: amlogic-a9: stale irq_state and edge IRQ miss in
+  aml_i2c_irq()
+--
 
-在 2026/11/10 星期二 15:11, Arun Iyengar via B4 Relay 写道:
-> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
-> (mmu600_pcie) is enabled for every RK3588 board, but its node describes
-> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
-> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
-> why nobody noticed: on a board that enables no PCIe controller in that
-> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
-> board without PCIe), genpd powers the domain off and the clock framework
-> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
-> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK on
-> the dead block, the interconnect stalls, "reboot: Restarting system" is
-> never reached and the board only comes back ~90 s later when the
-> watchdog fires.
-> 
-> Patches 1 and 2 allow power-domains and clocks in the arm,smmu-v3
-> binding (arm,smmu.yaml already allows both for the earlier SMMUs).
-> Patch 3 makes the driver get and enable the clocks of its firmware node
-> before the first register access, for as long as it is bound; nodes
-> without clocks (and ACPI/IORT systems) are unaffected. Patches 4 and 5
-> describe the power domain and the clock in rk3588-base.dtsi. Both DT
-> patches are needed: with the power domain alone the clock is still
-> gated and the shutdown still hangs.
-> 
-> Related: Pranjal Shrivastava's "iommu/arm-smmu-v3: Add runtime PM
-> support" v11 (2026-09-29, 20260929034510.2023173-1-praan@google.com,
-> not merged) adds pm_domain-based runtime PM and resumes the SMMU around
-> shutdown, but has no clock handling. This series is compatible with it:
-> once it lands, the clocks from patch 3 should move into its runtime
-> suspend/resume callbacks.
-> 
-> Tested on an Orange Pi 5 (RK3588S) with the M.2 slot in SATA mode and
-> the root filesystem on the SATA SSD, where every reboot used to hang:
-> three consecutive reboots printed "reboot: Restarting system" and the
-> boot loader started 0.6 s later (previously ~89 s, from the watchdog);
-> clk_summary shows aclk_mmu_pcie enabled with iommu@fc900000 as consumer
-> and pm_genpd_summary shows PD_PCIE on; the SMMU probes as before and
-> SATA keeps running at 6.0 Gbps without errors. With patch 4 alone
-> (power domain, clock still gated) the reboot still hung at
-> "arm-smmu-v3 fc900000.iommu: shutdown" on the serial console. Boards
-> with PCIe enabled are already in the state these patches describe.
-> 
-> This series was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit messages, and I reviewed and tested
-> every change as described above.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Arun Iyengar (5):
->        dt-bindings: iommu: arm,smmu-v3: allow a power domain
->        dt-bindings: iommu: arm,smmu-v3: allow clocks
->        iommu/arm-smmu-v3: enable optional clocks
->        arm64: dts: rockchip: add the PCIe power domain to the RK3588 PCIe SMMU
->        arm64: dts: rockchip: add the clock of the RK3588 PCIe SMMU
-> 
->   Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 10 ++++++++++
->   arch/arm64/boot/dts/rockchip/rk3588-base.dtsi            |  2 ++
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c              |  7 +++++++
->   3 files changed, 19 insertions(+)
-> ---
-> base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
-> change-id: 20261110-smmu-v3-pcie-pd-a2f127b81d8f
-> 
-> Best regards,
-> --
-> Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> 
-> 
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-> 
+commit 75985e9b577bcde7a76a8a6f844a5a7564d2426a
+Author: Junyi Zhao <junyi.zhao@amlogic.com>
 
+i2c: amlogic: Add Amlogic A9 I2C controller driver
+
+This commit adds an I2C controller driver for Amlogic A9 SoCs along with its
+Kconfig, Makefile, and MAINTAINERS entries.
+
+> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
+-amlogic-a9.c
+> new file mode 100644
+> index 0000000000000..3e08a0333ceea
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+
+[ ... ]
+
+> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
+> +{
+> +	struct aml_i2c *i2c =3D dev_id;
+> +	u8 *buf =3D NULL;
+> +	u32 rd_len, i;
+> +	u32 rd_val;
+> +	u32 irq_state;
+> +
+> +	spin_lock(&i2c->lock);
+> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
+> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
+> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
+n:0x%x\n",
+> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
+> +		goto irq_trans_out;
+> +	}
+> +
+> +	if (irq_state & A9_TRANS_ERROR) {
+> +		i2c->error =3D -ENXIO;
+> +		goto complete_irq_out;
+> +	}
+> +
+> +	switch (i2c->state) {
+> +	case A9_STATE_READ:
+> +		buf =3D i2c->msg->buf;
+> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
+> +		for (i =3D 0; i < rd_len; i++) {
+> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
+> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
+> +		}
+> +		/* Rx must clear thresh after read fifo */
+> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
+> +		break;
+> +	case A9_STATE_WRITE:
+> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
+> +		if (i2c->pos =3D=3D i2c->msg->len)
+> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
+> +		/* Tx must clear thresh after write fifo */
+> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (!(irq_state & A9_TRANS_DONE) ||
+> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len)) {
+> +		spin_unlock(&i2c->lock);
+> +		return IRQ_HANDLED;
+> +	}
+
+[Severity: Medium]
+Can multi-chunk reads (msg->len > A9_I2C_FIFO_DEPTH) miss the completion
+interrupt and time out in aml_i2c_xfer_msg()?
+
+Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml:
+        interrupts =3D <0 164 1>;
+
+The interrupt is rising-edge-triggered (IRQ_TYPE_EDGE_RISING), so the
+controller's enabled interrupt output must drop to 0 and transition back to=
+ 1
+to latch a new interrupt in the GIC.
+
+In aml_i2c_irq(), irq_state is sampled once before draining up to 32 bytes
+from REG_CFG_RX.  On a 64-byte read, the 32nd byte of the second chunk asse=
+rts
+A9_RX_THRESH_READ before the final NACK and STOP finish on the bus.  If
+A9_PHY_DONE asserts while the handler is reading REG_CFG_RX, prior to
+clear_irq_status(i2c, A9_RX_THRESH_READ), the interrupt output stays
+continuously high across the clear without generating a new rising edge, wh=
+ile
+aml_i2c_irq() checks the stale irq_state snapshot and returns without
+completing i2c->done.
+
+Similarly, if both A9_RX_THRESH_READ and A9_PHY_DONE are already set in
+irq_state while more than 32 bytes remain to be read, aml_i2c_irq() reads 32
+bytes, clears only A9_RX_THRESH_READ, and returns early because i2c->pos <
+i2c->msg->len.  Because A9_PHY_DONE remains asserted in REG_CFG_IRQ_STATE a=
+nd
+fewer than 32 tail bytes remain in the FIFO, no new rising edge is generated
+and wait_for_completion_timeout() hangs for 500 ms before returning
+-ETIMEDOUT.
+
+> +
+> +complete_irq_out:
+> +	i2c->state =3D A9_STATE_IDLE;
+> +	reset_fifo_pos(i2c);
+> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
+ESH_WRITE, 0);
+> +	complete(&i2c->done);
+> +irq_trans_out:
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +	spin_unlock(&i2c->lock);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
+> +{
+> +	unsigned int reg_val;
+> +	unsigned int trans_len;
+> +
+> +	trans_len =3D msg->len;
+> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
+> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
+> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
+> +	aml_i2c_set_mask(i2c, REG_CFG_START,
+> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +	/* enable thresh mode */
+> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
+> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
+_WRITE;
+> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
+> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
+> +	}
+> +}
+
+[Severity: Medium]
+Does writing START_START to REG_CFG_START before clearing IRQ_ALL_MASK and
+enabling threshold interrupts race with hardware completion or NACK?
+
+If execution is delayed between writing REG_CFG_START and calling
+clear_irq_status(i2c, IRQ_ALL_MASK) (for example due to vCPU preemption or
+PREEMPT_RT spinlock preemption), an address NACK or short transfer can asse=
+rt
+A9_NCK_ERROR or A9_PHY_DONE and then have its status bits wiped out by
+clear_irq_status().  When aml_i2c_irq() then runs, it reads irq_state =3D=
+=3D 0,
+misses A9_TRANS_ERROR or A9_TRANS_DONE, and returns without completing
+i2c->done, causing wait_for_completion_timeout() to time out.  Clearing
+REG_CFG_IRQ_STATE and configuring REG_CFG_IRQ_ENABLE before asserting
+START_START avoids this window.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-a9-i2c-v8-=
+0-1e9d2682f86b@amlogic.com?part=3D2
