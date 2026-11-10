@@ -1,63 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285315;
-	b=DR9KCJb/xzSoEsFLBUk6BaNldDCAriz28R+ebDr5O2d1i8yFcfMXXVro87tYWbULQoKS
-	 u3pWW9TGX3oqkCnPcIP+xxHW5lWtpxm/x9g5igBtg04R/lOm6L+McZFHqjQ7WbVZ7nNCS
-	 oNsHTihXJGybyELZS6azGcxMafQGWTlVr+jiNHEAro7qOOf7xTAXUCCnCmRcrATc9rfAv
-	 E3lA/kGi2i/1zypyUEbn9Fj+G3yrG8QOaSBGSjLqcTIa1oaFmzmerlOglp84zRqYFhOBY
-	 SKmDgyX2CBhrWGacuKSsgyfINxzuJxQOxAPVM6D2kzYJIWhnxvfXFw6FFr32/61mXLw==
+	t=1794285306;
+	b=stSaRsORVFB2yEtjnkNjOF+M0LJHloHRvPqeFChQMYF/0RgmKoMgOK8Z/fkBtmDu2ZaO
+	 2XPxVN/1vMWcu1jPpgzhgd3v5XzGdt53kkPUDov+Ok3ZF1D18ubbaGle3DjWIFtWbqAIr
+	 FSmp5WQmodQGcFQD9bRRSjdgkw6JQbeb+c9bWvA3owKNFlxqP4IXvamC21CiohuEpujeb
+	 ouuH1W1xNE+/JuDAKze2lWKuQmQA85hYA7wo9nXVXMXtlM3tLuwq34lfgLUuyPPYuDrA9
+	 IMx4YyAJQBGPIhBDjcOmATDhrsIrb6EoYs85rtT1ScujgspOfEAWmWPIpQYcuByJHwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285306;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
-	b=4XfDLfhqdzaoH6rZTgqc5/ZW+odsecuGpldIPW7iSnlZ4QvbZ6g/L5+iOIVYNPzuDs4q
-	 MR+may369tNXoNgFiY2UdWsoTJsl2bSV+iqNXt0zcKzPNcpNE7WjoKNQwDwhRgxS0qsyf
-	 huAdnDZ7ma/OTEaYsCrIzGxNH4RF7t3iR43kDF8JUmH9ZN3MCO0mXWntoezPL7mf9A5FP
-	 PWoUABCf8LEzAG64J+voq7IkSy6NEIIiG431/XxkXDYimNX08HZS7EhcWHhlx5k0jMlP2
-	 n0huG5T7zCX6brYxb5IfQdN6c9CH3tgybWgSVByOqosEEkwAXJGk3edKzIsSyryO9oA==
+	bh=zfwjN6fG8/jvSCSqDiUFOSSPXc7FFGswmXCNW9VpGbU=;
+	b=5WFjbt4GilZayqpBBypVtajJ1J/SmV3LhX0L0MHM36D7bKKSQCV+J9Tip67yyFiAj08Q
+	 ex/Lyvh5JDlgK212auAW5UPyFGjeuWtHiRWjm/jq9vi47ax0f+KTczBwemxW+cXsAFxWG
+	 x9xfRfkQlsZos9j3PBWePVom5UFH+aTg8p8KHLb9jKyEo3vy/mgZ6r51aXYwHLPyrBBRj
+	 +THAaGILDfsQvNp/W3S3/NfKtqhb0TnMRF5jVCarBeEWjLw0a4IZ6VDPmzRvy93CJAFJH
+	 Pi69BwN+T6DDLCmcgM8cJEzxIS3g/Hu+62Kn/UhhYndGM+gnB9v/kz074peJ1EoRvlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjZzbBPx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937B260A2616;
-	Tue, 10 Nov 2026 04:35:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADC7606A88A;
+	Tue, 10 Nov 2026 04:35:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3191F008A5;
-	Tue, 10 Nov 2026 04:35:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjZzbBPx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783801F008A7;
+	Tue, 10 Nov 2026 04:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285315;
-	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
+	s=k20260515; t=1794285305;
+	bh=zfwjN6fG8/jvSCSqDiUFOSSPXc7FFGswmXCNW9VpGbU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QAjRDM1ZQ2uWIew7HTdjExTJeN/CQ5VzvY2lLry0aYesvqxZN4eGLnI2ymJ47oigj
-	 uGxSlGoMC+sTxCG0iZynv9ln2vK+KjGPrPcWlItocyqzPt6FJGFLBM/Hf3GBh9G4Ng
-	 KxSTblbJsnTIk97+AYmHSzgxkTebV2Lxo1dVF5sIOwNYdU7RwoLjYmowzUsA8KXwlP
-	 nQ6V7CN1z7t2YIgBkiPrn/wvYf9g2dwoO6C0maVNxVPYxRdLol9+N8x/C4rvQvm8n8
-	 olaincQ2UPhkVscKMh+YauAiVUgkeT4+dm9Drp3qW5ZLA10NRUudu+rRkxRevTQJA9
-	 1N76Z/QSgjj1A==
+	b=TjZzbBPxrAnl+wyNQBe14auTt/X/HGI56gZQdojoqaGyK50uP/bmoS+R+rqXE14Vx
+	 6TFwWyBQWhFsstYMlimHhEnXrYTuZG2qG0PBzn/trlFbRU27b2qeAFh1Ffke34H/4U
+	 nNFIUj1br6CJrFmQd+MUArj13f6CtwTCV/PGQwPkIzqe81lsDmEhB7hXvVwNfpogww
+	 H3OYDYaxI1aWzrzmb2e66/LhDK1EvyIl8XmN50mMKqQ4FlcE0VcgsLQ7z4AdYFs2F3
+	 Lom/NX8cYqIEt6RdE6zJm0i63276IjxXb1O7SM3WG4sVZrbPT8waRTCPFTY+nDFeuU
+	 3Pev26d2PfadQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Paul Sajna <sajattack@postmarketos.org>
-Cc: David Heidelberg <david@ixit.cz>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
-Date: Mon,  9 Nov 2026 22:34:56 -0600
-Message-ID: <179428529344.1061455.14898677998626512432.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	quic_kkumarcs@quicinc.com,
+	quic_linchen@quicinc.com,
+	quic_leiwei@quicinc.com,
+	quic_suruchia@quicinc.com,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 00/12] clk: qcom: ipq-cmn-pll: Add IPQ5210 CMN PLL support
+Date: Mon,  9 Nov 2026 22:34:46 -0600
+Message-ID: <179428529342.1061455.1754522824154624445.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
-References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+In-Reply-To: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
+References: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,16 +78,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 06 Sep 2026 14:11:08 -0700, Paul Sajna wrote:
-> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+On Sun, 06 Sep 2026 07:18:06 -0700, Luo Jie wrote:
+> The CMN (Common) PLL block of IPQ5210 is almost same as that of IPQ9574
+> which is currently supported by the driver. It accepts a 48 MHz reference
+> clock from the on-board Wi-Fi block and is configured to run at 12 GHz.
+> The difference is in the output clocks.
 > 
-> Downstream dtsi for reference:
-> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+> This patch series adds support for IPQ5210 into the CMN PLL clock driver.
+> On the IPQ5210, the CMN PLL block supplies a broad set of output clocks
+> to the networking hardware and GCC:
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-lg: Enable NFC
-      commit: b115248511aedffd43b82e1cae196c6836fcfe83
+[11/12] arm64: dts: qcom: ipq5210: Add CMN PLL device node
+        commit: 4a155c4e88e0d5189724c799fbe8e610d22cb277
+[12/12] arm64: dts: qcom: Update IPQ5210 xo_board to use fixed factor clock
+        commit: 1d6abd242b45fb772190641fae374fd45ce0086b
 
 Best regards,
 -- 
