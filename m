@@ -1,76 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320244;
-	b=JT5OVmi5ZDa7SbvqtI/4AL0WplYrrgDOggpu0d+bsrz2+JuahLx7TrT2YrRoEHzeMRQS
-	 w0J74c5qEjq2GE/dFAn7M0RqOOMZn8st5nZO99J41g+Fh0vxKJBK+tSeQH1S4umNiI+er
-	 BhOLLbuoEi+ijxkKMFwI2XdZviQORUle47LHqEqs2wgVrzpYcnLz9ZSPL7wFfDS9es6Ew
-	 CUfqdA6I1irUWYaemyBEKbxuPB7/dZLm9Wr0Gf4gIMflXtYbEGMXjajLNSh2Pm6AZMsmO
-	 wEGM6W2QNxh3KQGC29Zj+K0Rww0OkmzIHupKqWKiUnhHxek6YUe04PR4HxYS0LR3OAQ==
+	t=1794320434;
+	b=XTqFxQZ/kHQGJZ/WiHLExNhRv2gn8jJtJjIPeMdpocEXz/K30YZVMlI9X21VR2IJnkN+
+	 K+j90Y8nNRu4loY98wLHbJDt3FKnU7+ldIOrJr08r8GYOpw1YLdIrfLcvY3yiGeVeY0pZ
+	 NsVrmYytuqfch9xhLUmRBG9D/pqrRD53ZXlmU48d0ZvtOSLzPz3r4SjDQZJFICvcSqIfo
+	 28tkPzu4XwPj+IqCo/HU/37rBGXG8HxJhgVfqxmSWn5BT7jfE4XezmpvFu7C3ZTx3NXcF
+	 +ytT8R3P22EJgo+yWJLNpEnPT918j1gam+JaIXvW2DuSYtCiV/vHoIbYq8Scq+g7X1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320244;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=1sO8TShiJNFb0KYXxNfr4n78remHhHZjTgn2fa5N6SM=;
-	b=0tt8MhD4ahlb9y/hNCoqKGtI6VCEb8P92kCCpAXlP8xpeWsIRjXvHX8mBgSHsWBZzFsy
-	 Bj6AbwkFKmobp56MIAoOPfQghpA06ngJOwzlhTIwtouPOgeYwCyljOIBfGaexqEzPILOn
-	 cBwDS6X46mQbg4G95AaD5SKk07zGBWuamjOinO2tLc8rSdgJWDc4pNdKZ7nYut7PoPRjI
-	 n6sCQojUvYNGW5U4FFxCJWWw0WMT01dTOW3VL3xL9THcaaotPNl179EUO3pIiveiZBosi
-	 LGSnqRtYPCqROmKNrHkGx1AWBuOlVMQ1+7CddUaVTjAAi39rhYn2jk5JIxk3hR7G0Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320434;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pjjNjXW/DLhm8uTgpvdp1RvacwHSWzmRlnWHV9BPT4E=;
+	b=T1x0YloX2ZPKh8pqYs3CnN9xeWFI07nERGUjxNg4s8cgglP3O8Jsh6hLrUDFKYAzH1ft
+	 r4IQjDuQN7wMmySBEFkzpVmoRVsNQgrxHlYEamYq0ngNZzAQVQE7VY3HPeIDAYjAVki7p
+	 EdFdvrrttZbk9yF3CE7f+5Ym62QB1kom6h+s4L/WR1jL255F6aGjX/mImsfIhJZrSFZVA
+	 vuI2sj1fc4k7ok9e+Kkskl50EdfPQEO+VLStCfefduGVRqkmqenQoyFAUjBqJeMWNnF31
+	 SA+jwSBKBOxG3jlIA8jVRuOHllW4Qi02ovNn7Uqom9V6kqQ1aOoLnO/L4kAykEpeQxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDICeYXe;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CF660A2612
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 14:17:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CF660A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5463360A382E
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 14:20:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5463360A382E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b75712fb57so1350646a12.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:17:24 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDICeYXe
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0cf2c0785so20539547b3.3
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:20:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794320433; x=1794925233; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pjjNjXW/DLhm8uTgpvdp1RvacwHSWzmRlnWHV9BPT4E=;
+        b=IDICeYXehUCODeb6gf08r5i2r/Lverd0wyvsfsCYPyCpfVRD2EBgtWpUnwoAar6XRO
+         wgxoDhY0VKKJCAv7zWsmxzdskVr1R+CNe/rqFPIafdLl0x1F/sKJYx8uEr7TnUk0zgTX
+         D+7kqoaEUnsT5V8dnYR3PsOlr+dI0Osb5bDhYC7Tvc7W8eOeQRSEYmWMcBHqjAjdSEY6
+         j6QQEP7+SExFix5mFuGo4XXctgewthQmFzntr1vFM+cuMQXB2lJTIS6PJMrLlp+Gjjzs
+         G8JjPocE3MDl8wvYC3ZVxFwN+O3jiBNNEIWH7I9QHv1JuJxQ/SJBCG4hheXqaTQ35ZLz
+         GAcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794320243; x=1794925043;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1sO8TShiJNFb0KYXxNfr4n78remHhHZjTgn2fa5N6SM=;
-        b=WEhrSdc5JEHCwchAaUl1ibGGKLsLU4YVhnLs/rggvsxc1ifkgkXTVNoUrtg8yd3tbP
-         kQGxJ29n6pcQadE8RukewF6Ts0rRkMvH9/huEkFxQE6hgQgLPzBxPrjKggoZB6foxdeB
-         m9FL8GwyC6H2ruWDZttD2PhXSUVs0pCyCDdkHiPRbfmLQRnUTtGJ7FMhsqQW0/11XDUx
-         RmensztsZaSXONA8D3/CU2wBDoJLVdt7arWm5BroRrOED52IhvYw9QzD9fo2Np4NJYQO
-         g7iXYF38GlW/ZbEzdkluJJwmp/hbf06+X4LrDHR0ov1hglBB2eO9uozZ8ioZgmFQyMao
-         WDxA==
-X-Forwarded-Encrypted: i=1; AL+hErEJZfYSgJ6/YAI9ORwQnJ8KaCqiu2IpcBHUSEMt+vwOJoK73KH88EpV04TOOQiHiMnqssLqk0N3LsK+@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TfeiUXzn7ORowy+Yje+1cH6Aiw3JAmDJlLckZiJK43xH5xEIh
-	WK9can/heNdyuD19bIlbSyNU01L2Uekjg6NmW6pmjqpy5U0an6FMUE9A2YaXWGdjRC4=
-X-Gm-Gg: AYBFou2kQefmQymoERVEd0p1WQIwaKzh7PqyQAW/e9VaBjdTFBVL1QkKMZqFZf/g37o
-	UrGrx9xVPQg0zkpUOM3rwopEtdgOEzaJ4yU7+GvV0k+ZGWLF8ewCxr/Y8Mp2Uq+x254MRrZHUqw
-	LYjAMzl8jIGYlMFyMEpYYucqYGgR3iE7RGx7RZYYvWGO4ZyLsPzhsWf6lNdyDPn12L+WbOrfycB
-	ZSTE6f0Jbofo0PVW26qCBTCaBRjrKWdt76q6DnA7TfEhZvXsmqhOEM4XswqA3hE+mqlm1DpuMnt
-	Rb/xzKBV2+5/yWswWb8T0iM/Sfu8RXU0dR12yMb79SiB4YAoFY4AEcWXgnXvQSKc8Wfy37hriV3
-	ztyAWxzHVDG7IJb4FO/U0ecAEbq4trYjS/V+d8rfUVpyBoJjqjTKmnGwKGcy/0txcrQ2v6DEPh1
-	i7r+lXT0fqe5WEV106+OrFeMftRiDVFfeVKnN/kq2cidN3fBNqx/fuyRM49pUEfmYPkaqE7vHu+
-	jxiUGNeNrdsQuRWIwUwNtDoEwfcLopPrnGtlwFm1MA3XJRrFmiL0o6Vo2wpueVOD4wjk4iEQWSV
-	8HRbBFXik74Yxres/nrYypudGophiF/4QtadAQbJ+/w9rm8k3BR6CUM89Mqe6iW+hSg=
-X-Received: by 2002:a17:906:4e87:b0:c46:74f6:e149 with SMTP id a640c23a62f3a-c504952ce0bmr186759966b.16.1794320242459;
-        Tue, 10 Nov 2026 06:17:22 -0800 (PST)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a62a91bsm112356966b.57.2026.11.10.06.17.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:17:19 -0800 (PST)
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b570ff3dfdso2270763a12.3
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:17:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEu8yojtKhIACsFKzFd4fynlRvCPLNFp088I2aC3U+yzsz/vOGI816eiOWfat+h16It1dEPIPEGydYT@vger.kernel.org
-X-Received: by 2002:a05:6402:43cd:b0:6b5:7140:e2f9 with SMTP id
- 4fb4d7f45d1cf-6b756af3757mr2247392a12.33.1794320239029; Tue, 10 Nov 2026
- 06:17:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794320433; x=1794925233;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pjjNjXW/DLhm8uTgpvdp1RvacwHSWzmRlnWHV9BPT4E=;
+        b=jbr7o6bKyr3QA6ALph1turlEU9gerCR0lZkSt5miJl6Bi+VeesLzcX0Dp0YGMeVo2n
+         MUyoA7+67sk2w2AB94n3A+76GWzMRXwbOqOrFs13bGCBDD87LHmHVHPXW/1BCjAq5tkd
+         o/5qcnP3SYj4m6UsS27i5Qmc24Lfdm+l17RN2JVaalR58lW9GYRJtq2X6VkCeRpaiUbZ
+         4CYwJEMyibGiButsqKpeootYs/ajc6inEqE0axb+G6HopLpWXKbkWtwCXBCOzkSIDoay
+         DiU9UGLb4RQYAgvPFcR4BNOEzYHvkcX58Npz3C6cnzW6Y92ob6czef+pGFY7FnFkWa2N
+         VDDw==
+X-Forwarded-Encrypted: i=1; AL+hErH4oTZ4u2UGUsIi3vdwnAnaRtste61sALmRAUdvDefL847U6C3IbOt2we+YSILT7Rznj8WNx8l+tc8j@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fxsGdFH9ngsAPRK6w5yY9kgslrqmEhO1w+FEuLCz45e0LYU2N
+	USWPBYPsOIP7elD2e9eqw+nZOMdqVqWAY/GWL/44eLwyC4TFLxu5PNuw
+X-Gm-Gg: AYBFou0BVhKwjyNKpVfmaGKNk3pcmYP0xioSWsLKmzHrASu9K9BydU9aeO8mAcKPNPy
+	24mj1tTw5tUHQ0te86NBsEH9jeAW2omVBsN44Gbgh4nhAUgLsnA9RQh1JTQ641ufAx9i/0P4RPZ
+	6N6jL1X8GjISF2GtiZcePIx8N86lwvFLgvxICtbMkzOt+wFfHb/2QpqPhSIjiCD+SSW98/AgETk
+	iZ4oapByHhk4XMm57aORFhtdpmeRhxlGeU/OOv/7SK/HgxMpHaOYHQ1qUu1BvZaF2Dl8ZPo8hc0
+	Uy5NFCwsLzasNfTVGoeP3VTxpuiEjWJeamqHafh9NrH2Wp6ki9ZEP+zl6pPlwvFDPl7mm+iyze1
+	Jn1SSt/pGQbeiXdonQzQTUyEfQYv8dwwJ2SY/xrbkdRlXDXQ0kpPTFBjTITCRIyV1eMfQnwagv1
+	q/fx6Z9eVT1EEa9VBceWw9h5mcxspeL2scV0EDosKvFjZRzb8l20qlaNErhDW/rHtkcXH7rTj2o
+	MjZX5iFQSeWUjg0HwzMCBXWhCfTL4iputhdA6YQ61EiN1XXgnTx8k21to2zdM5YbHNTTGQ9YYgm
+	1CjnW5Ds6jgOxdbXnpdnZLNskXi3fVY+vmJKknFnJ34EEZq1A+hF4PhKAezb8ULjp2fUUWJEe/1
+	xvF+sdk+iL+kX2zLS7WGysD8=
+X-Received: by 2002:a05:690c:c4e5:b0:8b0:4f12:d28a with SMTP id 00721157ae682-8b392c0b62dmr12596647b3.65.1794320432935;
+        Tue, 10 Nov 2026 06:20:32 -0800 (PST)
+Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a802:b7f6:2185:e89b:b285:6098])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589a229csm1863712d50.5.2026.11.10.06.20.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 06:20:32 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: lee@kernel.org
+Cc: maz@kernel.org,
+	andy@kernel.org,
+	jic23@kernel.org,
+	dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-iio@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: mfd: mxs-lradc: Fix interrupt order
+Date: Tue, 10 Nov 2026 11:19:33 -0300
+Message-ID: <20261110141934.42490-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,44 +106,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026063942.3173469-1-den@valinux.co.jp>
-In-Reply-To: <20261026063942.3173469-1-den@valinux.co.jp>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 10 Nov 2026 15:17:04 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXoxM-e0i=WTz3pgugmrxWb=BHfkCvsbWORvNO6eQTVzg@mail.gmail.com>
-X-Gm-Features: AclHuK-Nj7_0nF4taJQudffw83bvsSL8D-xjCW71vcQzgkfQMu5qEkMjXoji9MU
-Message-ID: <CAMuHMdXoxM-e0i=WTz3pgugmrxWb=BHfkCvsbWORvNO6eQTVzg@mail.gmail.com>
-Subject: Re: [PATCH v2] arm64: dts: renesas: spider: Add overlay for PCIe ch0
- endpoint mode
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 at 07:39, Koichiro Den <den@valinux.co.jp> wrote:
-> PCIe channel 0 on the R-Car S4-8 Spider board can work either as a Root
-> Complex (the default) or as an Endpoint. Add an overlay that disables
-> the RC node and enables the EP node, to let it work in EP mode.
->
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v2:
->   - Polish the header (Marek)
->   - Link to v1: https://lore.kernel.org/r/20261022082113.3163666-1-den@valinux.co.jp/
+The interrupt descriptions added during the conversion to YAML do not
+match the ICOLL source numbers used by the existing DTS files.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.5.
+For i.MX23, Table 5-1 of the reference manual maps source 36 to touch
+detection and sources 37 through 44 to channels 0 through 7. imx23.dtsi
+lists these sources in that order.
 
-Gr{oetje,eeting}s,
+For i.MX28, Table 5-1 maps source 10 to touch detection, sources 14 and
+15 to the threshold interrupts, sources 16 through 23 to channels 0
+through 7, and sources 24 and 25 to buttons 0 and 1. imx28.dtsi also
+lists these sources in that order.
 
-                        Geert
+Reorder the schema descriptions to match the hardware documentation and
+the existing DT ABI.
 
+Fixes: 009528b5aa13 ("dt-bindings: mfd: convert mxs-lradc bindings to json-schema")
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+Changes since v1:
+- Newly introduced.
+
+ Documentation/devicetree/bindings/mfd/mxs-lradc.yaml | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml b/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
+index 782b2f4005a0..755029880677 100644
+--- a/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
++++ b/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
+@@ -87,13 +87,13 @@ then:
+   properties:
+     interrupts:
+       items:
++        - description: touchscreen
+         - description: channel 0
+         - description: channel 1
+         - description: channel 2
+         - description: channel 3
+         - description: channel 4
+         - description: channel 5
+-        - description: touchscreen
+         - description: channel 6
+         - description: channel 7
+     fsl,lradc-touchscreen-wires:
+@@ -102,6 +102,7 @@ else:
+   properties:
+     interrupts:
+       items:
++        - description: touchscreen
+         - description: threshold 0
+         - description: threshold 1
+         - description: channel 0
+@@ -110,11 +111,10 @@ else:
+         - description: channel 3
+         - description: channel 4
+         - description: channel 5
+-        - description: button 0
+-        - description: button 1
+-        - description: touchscreen
+         - description: channel 6
+         - description: channel 7
++        - description: button 0
++        - description: button 1
+ 
+ additionalProperties: false
+ 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
