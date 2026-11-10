@@ -1,70 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294184;
-	b=GRki2Y9qQQZpoeNyJKEYk1Ptj/S262IXk1qbxxypA1yoA3YuqHQ5K1DC2nE2NSu+15WH
-	 xiqXv7XttLXyQ/pfgHxF0imDGjdBydWbn0EyjgdKpIl7BPlgx8XnLq5r89WV0AI1U/9ws
-	 F/yeGnJldMLgiT6gvMRlBMysc3GFEn6uj4vyVn8d7tRh9E1L9tYRidKVW/UA9q9Sdks4I
-	 RgXOOUw5Cj7PbRNmfveg4JCuVPC4pRmaCC3RKDH0hARSb/VxluH4haigQ3ODPaWG52wqP
-	 5z2rh+ytB0TdcVi75avGbrEAPFn8QNSLmpqxq1O6x9Q8tQ68bAG0lrQqGjKFNqmfASw==
+	t=1794294409;
+	b=f31wh+r+V65Ox9UtOh292nPgIIW+MaRxXYw0KQ2BtBQuCWrowamVXXKhFge6CAiwA+bH
+	 iA9jOg7iDzZXKDKcUUhZqKzsq5C9IAejGGsXfBzdUATH1Gxww8XKYW9h9XjKM4+aNCWPL
+	 70tlrrh0YDSWRIVkj9pnF+qj0z3BKAdFFQ5HS2oZrd06ep3OSM19/t+umnrxxRzM6QNxu
+	 iJ7cCA7pTHo8b3WwKDNmkYM2lRqPQnJaAZVnoeizuCg5kPqStUXujJFy/IxleNAJ7A/kT
+	 7FPIRh7pxHxyQ1bkvXRDduS1iNakhXWgBS2JZ8LJcR6XYbMWvuOp48NYy7Q4YTonV7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294184;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Content-Transfer-Encoding:To:
-	 Message-Id:References:Cc:Received:In-Reply-To:X-Lms-Return-Path:
-	 X-Mailer:Subject:Mime-Version:X-Original-From:Content-Type;
-	bh=AQ6PmIZO68yetAWhyb5dnFveB4R9S1m9N+UaLksBrPo=;
-	b=lONSJXT6LkKT9+B9MoanPJhkTgTK6p4qye/rsZQ6KWK7Vz7BlcNs4Yf83eCT8a8L6hVx
-	 SUh/qRGp4mWz4q1rKaTEQrci0yvVzRQNHS9XVdmM7DvD5hirIISAh+Agu0reLkjxAcO8P
-	 Kk26+nFsnSTV5CMKITY/w+h4f+s/4zgFdt7k4KJByq48CaKOMacCzIQXuh7DaLSRucAVa
-	 lig4irEej2jdrDs1GLCNccnhycPNKl+S8IOw2A7tyl0ykCLPFLyKMqfGsC5oQUzQDY16i
-	 YxayGq9HubhNBNmHIuFt1mnNh97thAQuD7iC2pUU/ZpB+37S6X0uPCMR2fWQ5nY2zmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294409;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oK7s+kTj8JHO9aImQkcN2MWu+t89MEslq0oYBzkYn0I=;
+	b=XaIq+jn8fxl2wAYOWX6iNCGUn28toj/hf1U3BG8PW8eosYrrV7JleObrqOMKVZY8Md29
+	 CEwq3dEW/N99zyInJGItyiexmR3HIt+Y/wKwS6YToKXEGqROr4QH3l8/oj8ue39twihYK
+	 AOaJx9ZQ+fwWppEsJwqHvw+ipSHpQZXY8UU/nSBzfxZUfuqlLhe8VsofYJxaSMyNJFCg1
+	 UpPmUQZjhh+gK+vEVFNXFuXZnGfvayoJz85BI5adM5X4KHcAyztNK0W1fjOH1JtCF+uPX
+	 xBTBhMESKDtELf2dkcfbr2uS9iZyYOeawzq9xs0FHogbU4XbT4ER54JuwSW7ak0CLtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cipunited.com;
-	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=ZmVQ83jK;
-	arc=none smtp.remote-ip=209.127.231.20
-Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xur0yAYh;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9899606A33D
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9899606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820FE606A325
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 820FE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=ZmVQ83jK
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794294179;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=AQ6PmIZO68yetAWhyb5dnFveB4R9S1m9N+UaLksBrPo=;
- b=ZmVQ83jKTdVV1HqFFfbiQDIn6w8etoIe8KQXqou8S55Z1gxdm20Id78eAb4evzffq2vM18
- Iz6zB6dJy710ZYclTk2DNYysoxpM1YHTHZBrXQBkbdJ5zLLxWXlCJEovBPBuKs7hsajZiB
- 8AdwjAO2x93kS1EG/FnVxDVSKFBODzEzR4kS+eLn9+FhODtvYVH4d/NZBSylZ9/nZVFa9d
- grc8Z/SQJUSLibUoUeA35HATMn6afS6k0mG0FVOPnpz/6xs7REXtZA8IEHo3uEfeeSKsq7
- lCMbj6D9VbqOLhlRbLGdWKjWhyq0b3hb8Qat5oa+pvEp8FSFg5VY+/QckiW9ig==
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Date: Tue, 10 Nov 2026 15:02:33 +0800
-Content-Transfer-Encoding: 7bit
-To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
-Message-Id: <20261110-mips-ls7a-wdt-v1-4-968bb85122e6@oss.cipunited.com>
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
-Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
-	"Icenowy Zheng" <uwu@icenowy.me>, 
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
-	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Rong Zhang" <rongrong@oss.cipunited.com>
-Received: from [127.0.1.1] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 15:02:56 +0800
-In-Reply-To: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
-X-Lms-Return-Path: <lba+26af2c1a0+3067dd+vger.kernel.org+rongrong@oss.cipunited.com>
-X-Mailer: b4 0.17-dev-ce4c1
-Subject: [PATCH 4/4] MIPS: loongson3_defconfig: Enable LOONGSON1_WDT by default
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xur0yAYh
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so1034207b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 23:06:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794294408; x=1794899208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oK7s+kTj8JHO9aImQkcN2MWu+t89MEslq0oYBzkYn0I=;
+        b=xur0yAYhREMTd55KzyJm5zbg3HXoHVb1qk1JhWPSqNWMyhGSzmKR/0NOqEfdIcTGt0
+         032kXl//6GeRrYO5qabzdcEi8jRvx4DVKz+MNvgE/1lwV+fx5cQFmDjKq4RUmRtrZeUQ
+         Kvaq9CHdh6vGjJsFmWKcvF7/EAB8A983xBzQ/6y76Cr7kR2XCMWDx1EUsQ2XVq8CGeT6
+         kqaj9pDmn5Xu7+u96+GHsAzuG5w1pkt7iYlII3g+7Jp44BWV5xvUqQpn3jLqzgK4HT7E
+         32Y5YB7O00VbjWH4JbEY4HOoCWPn32OeG0vC4vAGmYyrPu3Cqpy+MIoFVqmyM2gpmczD
+         fo7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794294408; x=1794899208;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oK7s+kTj8JHO9aImQkcN2MWu+t89MEslq0oYBzkYn0I=;
+        b=dG6/SKsGPuKEkTLjkRB+/56oJ11j8NTolOwZ+jFZfatVNTi7I1vflaIOpDr3HKlrOv
+         GW/2R7/5rQUi7VYAnJ23DzS1GUwMjjpoCiVKuyO7dHmTmXTlnR9kXKaa3pC10Wrf1Ebd
+         i1VndwIyhsnYpyg6GjqN7XGP9ZNLzAwvVtbCX2Zq9nX/oeecJbCYArnFJD0SF/K3hGbj
+         HN5zO0yCBYlvs9H9pZQCcvTd2OHOKi3IZ3uflhUhtSTQce72+L4VpJb/HkSzRxqG3D97
+         dnxaEdbHfw+GbCK2vuvvwrDRqUitUMyUuE2yHMsUyY07/swBDLCjJoK+e1O4KJVzBqdt
+         9qsA==
+X-Gm-Message-State: APuU4Z8gHp9myzYn/eTDBVYebSKcO+Y0APiarlyDFN210baoDe819RoJ
+	19mGxhi9wKkOwQoAWcigLBlvQgdQJcLGFfluT8n0nns5jWsC2spNhgMH
+X-Gm-Gg: AYBFou0zMoR7Ps48fm6bUo9V6XaW9fsaxN+sYolcp5B9HAIq/NXtzffCJDt9hLllwEC
+	m5aD0uTHcowIDNYzuRcGhJFzOa2QJinZvySq85NxKSvpXT1ybLTudeC8erpCc5UEmxj4MIQGaNJ
+	xLC0/cpQXza2fm8gRcl8Y5a7OCTez2cRLI+SnD38Wi/AteJF6xbJ/w9OTPG72mY+FY0yWTaV4pr
+	izQrKESOZzDxZWvWuAnW0N4NzKfRwJiCJZN155ad3KazJD9dJcMw27Y/3rbSmJYP6td/OFcLA8z
+	/nGzMlMGoRpvihyrMWR+RqFocarTa6LsLVk2WkRAo/3fS2LBpVfhGJe/oTVZ05WqP6tZS18Lw3e
+	fN/9c9BuDiBF93gyrd43A+QMnOcNWgNko5V0xGQ+q39L0rCaES0zMa5dBopzLTKEca9v6OyRC1f
+	dQELH+ZZRLFEn8fhbRMI6XFQM/FqL1Zcnle3MSPkcvD2VN2ox3g6eiXD1WYff32NCrQWcpdffYs
+	zY3T2FVIFjZiRGT7yAUklbbSefDk3pC+B+eAd7w3hNQ6FpCHLuGAk8TQnKRwng7FOmmddDhSpqB
+	GJ9vgW7HT2AqRgWw3Ivqkeb9NNE=
+X-Received: by 2002:a05:6a00:1389:b0:89a:19ae:10e9 with SMTP id d2e1a72fcca58-8ba8725e415mr1910547b3a.38.1794294407637;
+        Mon, 09 Nov 2026 23:06:47 -0800 (PST)
+Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3f3e7sm511794b3a.40.2026.11.09.23.06.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:06:47 -0800 (PST)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen Wang <chen.wang@linux.dev>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Longbin Li <looong.bin@gmail.com>,
+	Dinh Nguyen <dinguyen@opensource.altera.com>,
+	Paul Zimmerman <paulz@synopsys.com>,
+	Felipe Balbi <balbi@ti.com>
+Cc: devicetree@vger.kernel.org,
+	sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Yixun Lan <dlan@gentoo.org>
+Subject: [PATCH 0/4] usb: dwc2: Add USB DRD support on CV1800 Series SoC
+Date: Tue, 10 Nov 2026 15:06:21 +0800
+Message-ID: <20261110070627.217946-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,155 +109,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The Loongson-7A has a watchdog. With proper support added to the
-loongson1_wdt driver and a relevant node added to ls7a-pch.dtsi, enable
-LOONGSON1_WDT in defconfig to make it work by default.
+The current DRD implementation of DRD will cause a interrupt flow on
+CV1800 Series SoC. It has two reasons:
+1. The DRD does not sync the phy mode when change the controller mode,
+   it is a violation of the DRD as it does not rely on a OTG phy.
+2. The CV1800 is entered with a Session End Detected interrupt, but the
+   DRD code has no change on it, so the controller will enter the
+   interrupt storm.
 
-This basically mirrors commit 5e73ad3ffceb ("MIPS: Loongson1: Add
-watchdog support for Loongson1 board") except that the driver is built
-as a module, since some LOONGSON64 platforms are not LS7A-based.
+This patch add fixes for these two problem, and I have tested this on
+a Huashan PI board (it has a CV1812H SoC).
 
-The defconfig file is also refreshed.
+Note: This patches set does not resolve all the problems, as
+      usb_add_hcd() will override the role set by dwc2, but I am not
+      sure whether it should change skip_phy_initialization of hcd.
+      So I kept it as it is and users still needs to set the role
+      in the userspace as "role-switch-default-mode" in devicetree
+      takes no effect.
 
-Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+Inochi Amaoto (4):
+  usb: dwc2: gadget: honor pullup requests in core_connect
+  usb: dwc2: drd: Sync the generic PHY mode with role requests
+  usb: dwc2: Add USB DRD support on CV1800 series SoC
+  riscv: dts: sophgo: Enable USB role switch on Huashan PI
 
-Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
----
- arch/mips/configs/loongson3_defconfig | 54 ++++++-----------------------------
- 1 file changed, 9 insertions(+), 45 deletions(-)
+ .../boot/dts/sophgo/cv1812h-huashan-pi.dts    |  4 +-
+ drivers/usb/dwc2/core.h                       |  5 +-
+ drivers/usb/dwc2/drd.c                        | 77 +++++++++++++++----
+ drivers/usb/dwc2/gadget.c                     |  3 +-
+ drivers/usb/dwc2/params.c                     |  1 +
+ drivers/usb/dwc2/platform.c                   |  4 +-
+ 6 files changed, 73 insertions(+), 21 deletions(-)
 
-diff --git a/arch/mips/configs/loongson3_defconfig b/arch/mips/configs/loongson3_defconfig
-index 12cb1a6a1360..00c591f21938 100644
---- a/arch/mips/configs/loongson3_defconfig
-+++ b/arch/mips/configs/loongson3_defconfig
-@@ -66,7 +66,6 @@ CONFIG_NF_CONNTRACK_SNMP=m
- CONFIG_NF_TABLES=m
- CONFIG_NFT_CT=m
- CONFIG_NFT_NAT=m
--CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
- CONFIG_NETFILTER_XT_TARGET_CLASSIFY=m
- CONFIG_NETFILTER_XT_TARGET_MARK=m
- CONFIG_NETFILTER_XT_TARGET_NFQUEUE=m
-@@ -91,33 +90,11 @@ CONFIG_NF_TABLES_ARP=y
- CONFIG_IP_NF_IPTABLES=m
- CONFIG_IP_NF_MATCH_AH=m
- CONFIG_IP_NF_MATCH_ECN=m
--CONFIG_IP_NF_MATCH_RPFILTER=m
- CONFIG_IP_NF_MATCH_TTL=m
--CONFIG_IP_NF_FILTER=m
--CONFIG_IP_NF_TARGET_REJECT=m
--CONFIG_IP_NF_NAT=m
--CONFIG_IP_NF_TARGET_MASQUERADE=m
--CONFIG_IP_NF_MANGLE=m
--CONFIG_IP_NF_TARGET_ECN=m
--CONFIG_IP_NF_TARGET_TTL=m
--CONFIG_IP_NF_RAW=m
--CONFIG_IP_NF_SECURITY=m
--CONFIG_IP_NF_ARPFILTER=m
--CONFIG_IP_NF_ARP_MANGLE=m
- CONFIG_NF_TABLES_IPV6=y
- CONFIG_IP6_NF_IPTABLES=m
--CONFIG_IP6_NF_MATCH_RPFILTER=m
--CONFIG_IP6_NF_FILTER=m
--CONFIG_IP6_NF_TARGET_REJECT=m
--CONFIG_IP6_NF_MANGLE=m
--CONFIG_IP6_NF_RAW=m
--CONFIG_IP6_NF_SECURITY=m
--CONFIG_IP6_NF_NAT=m
--CONFIG_IP6_NF_TARGET_MASQUERADE=m
- CONFIG_NF_TABLES_BRIDGE=m
- CONFIG_BRIDGE_NF_EBTABLES=m
--CONFIG_BRIDGE_EBT_T_FILTER=m
--CONFIG_BRIDGE_EBT_T_NAT=m
- CONFIG_IP_SCTP=m
- CONFIG_L2TP=m
- CONFIG_BRIDGE=m
-@@ -189,7 +166,6 @@ CONFIG_VIRTIO_NET=m
- # CONFIG_NET_VENDOR_ATHEROS is not set
- # CONFIG_NET_VENDOR_BROADCOM is not set
- # CONFIG_NET_VENDOR_CHELSIO is not set
--# CONFIG_NET_VENDOR_CIRRUS is not set
- # CONFIG_NET_VENDOR_CISCO is not set
- # CONFIG_NET_VENDOR_DEC is not set
- # CONFIG_NET_VENDOR_DLINK is not set
-@@ -250,9 +226,9 @@ CONFIG_SERIAL_8250=y
- CONFIG_SERIAL_8250_CONSOLE=y
- CONFIG_SERIAL_8250_NR_UARTS=16
- CONFIG_SERIAL_8250_EXTENDED=y
--CONFIG_SERIAL_8250_MANY_PORTS=y
- CONFIG_SERIAL_8250_SHARE_IRQ=y
- CONFIG_SERIAL_8250_RSA=y
-+CONFIG_SERIAL_8250_MANY_PORTS=y
- CONFIG_SERIAL_OF_PLATFORM=y
- CONFIG_SERIAL_NONSTANDARD=y
- CONFIG_VIRTIO_CONSOLE=y
-@@ -263,11 +239,14 @@ CONFIG_GPIO_LOONGSON=y
- CONFIG_SENSORS_LM75=m
- CONFIG_SENSORS_LM93=m
- CONFIG_SENSORS_W83627HF=m
-+CONFIG_WATCHDOG=y
-+CONFIG_WATCHDOG_NOWAYOUT=y
-+CONFIG_WATCHDOG_SYSFS=y
-+CONFIG_LOONGSON1_WDT=m
- CONFIG_MEDIA_SUPPORT=m
- CONFIG_MEDIA_USB_SUPPORT=y
- CONFIG_USB_VIDEO_CLASS=m
- CONFIG_DRM=y
--CONFIG_DRM_RADEON=m
- CONFIG_DRM_AMDGPU=m
- CONFIG_DRM_AMDGPU_SI=y
- CONFIG_DRM_AMDGPU_CIK=y
-@@ -276,6 +255,7 @@ CONFIG_DRM_AMD_ACP=y
- CONFIG_DRM_AMD_DC_SI=y
- CONFIG_DRM_AST=m
- CONFIG_DRM_QXL=y
-+CONFIG_DRM_RADEON=m
- CONFIG_DRM_VIRTIO_GPU=y
- CONFIG_FB=y
- CONFIG_FB_RADEON=y
-@@ -288,27 +268,12 @@ CONFIG_SND=m
- CONFIG_SND_SEQUENCER=m
- CONFIG_SND_SEQ_DUMMY=m
- # CONFIG_SND_ISA is not set
--CONFIG_SND_HDA_INTEL=m
- CONFIG_SND_HDA_PATCH_LOADER=y
--CONFIG_SND_HDA_CODEC_REALTEK=m
--CONFIG_SND_HDA_CODEC_REALTEK_LIB=m
--CONFIG_SND_HDA_CODEC_ALC260=m
--CONFIG_SND_HDA_CODEC_ALC262=m
--CONFIG_SND_HDA_CODEC_ALC268=m
--CONFIG_SND_HDA_CODEC_ALC269=m
--CONFIG_SND_HDA_CODEC_ALC662=m
--CONFIG_SND_HDA_CODEC_ALC680=m
--CONFIG_SND_HDA_CODEC_ALC861=m
--CONFIG_SND_HDA_CODEC_ALC861VD=m
--CONFIG_SND_HDA_CODEC_ALC880=m
--CONFIG_SND_HDA_CODEC_ALC882=m
-+CONFIG_SND_HDA_INTEL=m
- CONFIG_SND_HDA_CODEC_SIGMATEL=m
--CONFIG_SND_HDA_CODEC_HDMI=m
--CONFIG_SND_HDA_CODEC_HDMI_GENERIC=m
--CONFIG_SND_HDA_CODEC_HDMI_INTEL=m
--CONFIG_SND_HDA_CODEC_HDMI_ATI=m
--CONFIG_SND_HDA_CODEC_HDMI_NVIDIA=m
- CONFIG_SND_HDA_CODEC_CONEXANT=m
-+CONFIG_SND_HDA_CODEC_REALTEK=m
-+CONFIG_SND_HDA_CODEC_HDMI=m
- # CONFIG_SND_USB is not set
- CONFIG_HIDRAW=y
- CONFIG_HID_A4TECH=m
-@@ -406,7 +371,6 @@ CONFIG_PRINTK_TIME=y
- CONFIG_STRIP_ASM_SYMS=y
- CONFIG_MAGIC_SYSRQ=y
- CONFIG_DEBUG_FS=y
--# CONFIG_SCHED_DEBUG is not set
- CONFIG_FUNCTION_TRACER=y
- CONFIG_FTRACE_SYSCALLS=y
- CONFIG_CMDLINE_BOOL=y
+--
+2.56.0
 
--- 
-2.55.0
