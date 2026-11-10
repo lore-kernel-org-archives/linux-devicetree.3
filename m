@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305286;
-	b=dwn/rkqlGx4+MNh4t55OVTaE1jdBo2GJbqBtTJzagk/cZahLMFLFwW/zQ8BVCZ+1RFJw
-	 Vd7brlxFswc3kwrSdwt99q75yPsXfwYDA8orQFSBEj1Ksvg6tdI2xzndL22L13ufE8Lbg
-	 4YNvrTcInqLtiQLkaa0aOv8DX9MoQZazo1KYGRB9kzY+nmH/s6hquyJ32U9ugzomEvVBJ
-	 TNlXSEkx3y2R4I2S1to51TGzK05V3rwi1cYaRykgcCXy6JorgvXh2RSsQ9+Tp8ZHfoAUD
-	 a9uF3l+gptJCHcuZfGW3MY4twdG9o765eEmpT41MC0km+BaVsf1HpnSUo6n2kBWGziA==
+	t=1794305290;
+	b=xC2yRiByyFywLK4d5GUCAij0yVizEoXpq8BMmMuFRopVzW4avPml5ZzpWB+b4YipRu9V
+	 DnutILFZf+ZvNSaWGITSDJclRmCY2M961TdsEbtAUuIcPPTf4gsh+HzeMD+w6DjGII/lY
+	 uzVEhxPtcrfpX8/Ywlti4JhI30yBd3f3EGSBgDA3miPHgV+MNSePQv0qx/UmV5w+S6ojW
+	 6EAmeRmaemV4aAZrFJp47s1M6CIR5X6DZnUlQ1L+SItwqkMi36PirFfJBxca9vuHT4qN4
+	 H8CKLqZPtniWAoqy0+yR/hfCLrU4HFiObYxEn0frwY/fbyavpATqNNQBdjuYqbSLjTw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305286;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
-	b=mb59pHV5P+xqxHVI5vsNGEIBkdIVyeQM4UQVG4nuQixVEpsuKIQWmTLw50uwv4t7E9N9
-	 ZSRzRWE3AqVXLxnR8GA14n8t3DZDatfReMy8dYUcrMbMF7NBuxA8H5/3H+r+MQ+uEpmnC
-	 ujqgVTwJPpwB2LMlpo56W/qWlrThDT+ay81VUw89sdRYalIdNWBWnD06smvZzf+d5BQAh
-	 JkDBm9hC4y5QsivYGFbDHR0rz46a2ctmgMMmpKhw2NsZW6DlyOCCWtbhsD/tjpSpJI8kv
-	 WknDdkgPRGxBF6U9/qzkWCLfq/4IS+6u2tBzz7z8CkdUGgMX/8bxVrnJ89IhRc06ckA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305290;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sAtO1ui35lKQKmmC9SSVGfb9Aw3vRzE4A4i1731weE0=;
+	b=PhCx/UfASM8DJLyL+rgzfz8a8+f8kqE9w8iwb1dJAIjp3x6VsREm0wKzJQAUy2ZeVkSP
+	 IuiDpa6x83VJall9vYOHqBYSIb0pQ5mmJS/Ck9G6XuYcZEh/ubPT3CDHcdjWi/h6O4/vp
+	 4cgGoDAwo9/kTUTEOnW+yDTZ4b27eDG/oEfZG484we2+oumbS05OiD9ucVmLpyMJJ/5m9
+	 IjkVZWqlbWTZ4KdChK7YzKxDF4bQ7NwI2GDVy61JTKQG0q1XT/v5G899n+ZJ18xub50nn
+	 JcOZBG78+OisA5mSWg53IeKxNjKvnn2Sf7HDDMNBBmggE3G2FUzYvqh3PglqvPeKfqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fyK8TmzD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAb59tv2;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F8E606A330;
-	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985F960A263A;
+	Tue, 10 Nov 2026 10:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fyK8TmzD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAb59tv2
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305285;
-	b=LlehauwcR8cuAOyPlPD3uxMA604JJqL6v84k8hILOuXnVZDDJTl5KsF/dFnaqwQDTpuh
-	 DSXv5AS+4tzrx3X3JDbC2m0C+iOzMtDMh4v354flEG6eCpLCLhlN4ShBDOw/J2gDbJc4F
-	 qpNlNhIDj4OzOKN67Nh4IZp8VDFdQ93U7og0ftR4exRYHWVtYK2VA6QpukSIVC4L1wyHI
-	 Fhy6eKXgcNLjEMi79hKD/j2lJBFHaEJzajRS4Jm/f/rV569BYqmgwW9bVS4Ri4JPBGEal
-	 UrhwV3gDUw75rYvTLeNbp9H+lumXCFew53aUSWgB3MKYqR4zKiUQ0Qxk+qmz9yZfFbg==
+	t=1794305289;
+	b=cu4S7iH/mu4Vy/cFSUE+jwOog/HZxRQyKPj1hnGBeFQTxHQRwxegzf3HwM36Z7MUjyJ4
+	 HoKGFFlCbi1w3ggIFgJB0nS1jkrfBl/iuT1/I4tEYeqh9Mydwjv5Bnqybr2pR5Q8WYO5X
+	 OE1yOtkTCjLlWI9hjX4H5e4JRQVBgBBXoKr+4W0HJWypRt4/ySxUr4Xnzq4rkFMiSnmWi
+	 s1u7qgZ8ZIi6wstN8mjS+HMRVwD1BsLGz/7bdcA774xTeXQUNAlfQLIr7AqwZ1pPrw35N
+	 0Mbb7A6GVNHglVjv1lDgHJZLY1vgEG3/VmRSl0LGS74cVibcXBnr6OSY4Qu39XARCpQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305285;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
-	b=PV7TiprlVYeWO6N73ZcLHsmkqkri9STqr/QoM0P81Rfp4PYLxHy5suGfpAGt+DyUVaAX
-	 kBVXnH7HGj6wzgGuRzDSTJ5aXnpI2AjhFe86NQCXAXDkOZlMvG9t5ggUBAqQDJY2rAbNT
-	 gkjSE8v/8JNO1UgcpM4feEMRA3n8SHoejC84UEJIhCNWr6Hgyc8VftXgC0soFFvu6Uprk
-	 3a7mJYB3UcL9+unDMuD2OZGYSI3bHM+gz5q+Zcc/H6sMYKGpKDFVxt/Q7MHhusDsOv4PC
-	 2BhM4MenUSzvPqmsQfqiawkbnaCO70Pu+1W28kShak7lYPC8IvBl5Fjr+Zay+3e9hjw==
+	c=relaxed/relaxed; t=1794305289;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sAtO1ui35lKQKmmC9SSVGfb9Aw3vRzE4A4i1731weE0=;
+	b=2H3+ZFw6QRQgh+jshRG16p4cXweG/6h+F3g2lewU5HTb52aqZicG45bqYhP+bG9VLjfi
+	 FRQYNpVHQZ5+4pcYYt/doEGf+pGZ4gC4PW3ZYUn1YPWpGZF61e8JuCgjISojMTi/I95QO
+	 NMhF6NR1sDmWRARIUq7FXw5R62uUrx4DyAKbNkucp2pgdaxS90dLk3e0uCbpwqoxHGERL
+	 hz5MsT8eeQ5WMRyCiVi3V1dcAgJ6pO0syCaYy60nbYsNilIZLpB2Ane/9hIpdafbwqH5l
+	 iN5TaqWh+9n47xqsOPr5SwC/qKfFyrYOwUEU0sGJRObDPzuL6eaGx8vnlsGUu6TP/8Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9BE301F0089F;
-	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 404D61F008BE;
+	Tue, 10 Nov 2026 10:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305285;
-	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=fyK8TmzDA8ShBZD86SWMzsiCNwXAJjyz6y42jHauYolG6ty0AAKvcKZewwKDIaQtj
-	 72sli78nstv+Vx9MFtgy5OSlKT3G7XZUo5rtKA4/HPjWdU7Pl47Y0KhORD7VBIDMJa
-	 cXLBOLW/UP/NoD1n/U4ekxEembIqSr1s+qcZNMbuDNvFbEdnmfpVyv85iJthJuhY8p
-	 XZrH1c+Y2PbMup0Clny3Dx0J/19JWqSD80CGx5PxLFKbZM18gtFDPWh6usHrYxNaGC
-	 Jp+0Q5reJHIQLmMpJteQbH+mX0x2kJ2ii0ubW1B7JL2hi9C19KB8KFbMUurLlUKosl
-	 +HpQtVpObROHA==
+	s=k20260515; t=1794305289;
+	bh=sAtO1ui35lKQKmmC9SSVGfb9Aw3vRzE4A4i1731weE0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XAb59tv2nYSBluZfBf12DR6+7jY+5OYJipxCX2reIjPZi0w4YsCzb3CUO47bQDlaW
+	 VLSFmokz0yggGo0WvtMPiwJ4cpk314QR84lH3TrijJ0X2izssVJXMNUoaQpaLMgwNc
+	 Xrb2CwWtjQL84L73f7TBkyY/6V4WADxuOWY1ns7vjYxIr200A+igFkMbhYmGeG+DXu
+	 okCs+HH5RPAKDkgL06szwRuQKF3zk6HJtOzDf68mQMtDVJ6EvOEmKlFB1iDcNBXPnH
+	 NLtz/XkIOxSukGX6eMSqD7YGOEwQkoITb++iQAgHzQYZzdjIjeAO1c5647hTBi66PE
+	 bcvoHoNWzRJJg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2EABC48A7C;
+	by lkml.kernel.org (Postfix) with ESMTP id B7FF748ADB;
 	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH RFC 00/12] media: rockchip: Add a VEPU580 stateless
- H.264/HEVC encoder driver for the RK3588
-Date: Tue, 10 Nov 2026 10:08:02 +0000
-Message-Id: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
+Date: Tue, 10 Nov 2026 10:08:09 +0000
+Subject: [PATCH RFC 07/12] media: rockchip: rkvenc: Encode pictures wider
+ than 4096 pixels
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,25 +84,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/11VSY5cNwy9ilHrNEBSFEl5GyAHyDbwQuIQdwIP6
- baNAIbvHpZtBOi/LH1x0Jvq6+05nx7z+fb61dfbU355fH788L5/4C+vbv52v/8zHx6jf98ISBA
- RHp7+/pLv/SGh0AUdYNOtL398ynr893ujP26///br7c2Pw+fP56/0T/cWP6895T+fe8ynn3c/7
- k/+toe8flWBWLhIRCcHnmA4JRgxA2MrbwjH4T/G/V+lrhmug3kti0mQtUsPD/AF1Qd9Adj1ZRW
- LrUhVyIPHu+8cISdjU45FAZ5S3TJeVsGucCe2RblddcCQgBlWEzin+xkzj1w2THfjdcYgCx5Lh
- kGBl4/RU8VRghKC7GWVS6/RkIiCOHetEC82g55AZaGHaOyEy6w1G60pMCpAAQYvgY1DKNlEnQq
- JQ9YFQ+mtOXQRRGNRJLZrS+GIQvZagWugXzaUyd4IbMmVvAeC5dq5jvraW63WPEYO/rJqSbFCD
- 7FDvm1UOd/PsN+qIxdN7DcCvqyqPZrR8iwAGXqOcS0GPGcBzwgWXEzrsmFsEYksy6AzaUlsi0w
- 8OazxM7Szh/u4oJFzkJvUaQL0RDMwt3PhZD4aGi2p4yQXbaxEG3KIBcQGn9U1u9vbxBirpjSQW
- Zeqau24KytPy0l3yZXeGdMjqNwN8dQ5FzTMRmZVbc2t0N1jTGVRNfDDRUeWW4zLrL0BzZfOWgc
- L5pzYpLMwN0b9LaSJMLqgERYyWmkTVUsOtjMEt0nmtNbHnKe5n3rRIU2f3ukgutoiA8chcDLt4
- mgqW1w+qeDilNB9ZiM8kHm23WWD7AGzACcIJOamfsXFldL0Dsi5o9+lAduKmyBzJjU/h7a1Xa/
- v6qZMP1fcULMF4SE0UlZojb2pjc2el9zIUXkMkTEXtKJo9kErdkV03TGPu1H5uiERnX3HkJo43
- CdOzxkJBAumnNXWiXmpCpGtnqTUDGOn7T0RwIys4a5Okv627Jps4Q1h+7md2ZoFXeyid1v2Yze
- jE1iDjJcEmONEAhscNUXMjohOzXvStO9OJ3L1xmCXWeIFnS8Ondveq87+g8Bl6kNltLOTkKH1d
- qlqouaEWrIzw9q2Olq50CFSLjnmSfKRF5aZaDaGk2K5zLtesXpJHGumwnLnUyX2HcOzn/PBP7x
- 79/ipxwlZalPZ3pxtC7TONZ45muEgNOq0Sk2+vfn27T9Xf+LODwcAAA==
-X-Change-ID: 20261110-rkvenc-e0f1c61c00a2
+Message-Id: <20261110-rkvenc-v1-7-ea8b47122d8c@gmail.com>
+References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
+In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
@@ -117,181 +100,191 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=9591;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=7132;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ZAT0wBXyyAUYNvuDNGERTIQu8xp4Lu6oc4UsNxSc1ZA=;
- b=dCUzZ1YoJi3kGTk14s7KuFvWLxUQnuzAXxm/cOHewA14+tyeJYYUlA34D0HBJUWbdK/M7MXfX
- 0sQJGZg4p9oCRmMKLlmjzAWxHbJiIiLNuQiOzCy9fv+c8cUk79gklnr
+ bh=56b7J5fUEmfLr8Fj+TP9yyNIRX3fqgMQpuiuYDuQe0k=;
+ b=YJG7IIZbn+1H7XmugCQJIpUWIBMUzPf7b49krYrJy0urWaN0yXq8LYI6DaUPP67KT3MVcgAeq
+ uE9PlWt7NEOCgM1xRnPHoKIdw9GWDg3ET8rmfAYlIJ6VcVHiz3PaIjg
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-This RFC adds a V4L2 stateless encoder driver for the VEPU580 (RKVENC)
-of the Rockchip RK3588, the H.264/HEVC encoder block with two cores
-that the vendor kernel drives through its "mpp" framework. It is a
-non-Hantro user of Paul Kocialkowski's H.264 stateless encode uAPI, and
-the first user of the HEVC stateless encode uAPI I am proposing in a
-separate RFC.
+The internal line buffers of the VEPU580 cover pictures up to 4096
+pixels wide. Wider pictures need an external line buffer of 480 bytes per
+64-pixel column, given to the encoder by its bottom address and its
+(exclusive) top address in ADR_ELBB and ADR_ELBT. Both registers hold
+address bits 31:8.
 
-It depends on unmerged work and is sent for review of the approach. It
-applies on media next 6628e7d4c6b2 (v7.4-rc1) with, in this order:
-- patches 1-7 of "[PATCH 00/14] media: Add V4L2 H.264 stateless encode
-  and VC8000E support" v1 (Paul Kocialkowski, 2026-05-22):
-  https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
-  (https://patchwork.kernel.org/project/linux-media/list/?series=1099281)
-- my "[PATCH RFC 00/11] media: h264: Stateless encode core follow-ups"
-  (the SPS/PPS fix, the CBR rework on v4l2-enc-cbr and VBR);
-- my "[PATCH RFC 00/10] media: Add a V4L2 HEVC stateless encode uAPI
-  and helpers", for the HEVC patches;
-- patches 6 and 7 of "[PATCH v2 00/17] media: rockchip: rga: Add
-  multi-core support" (Sven Püschel, 2026-09-16), for
-  v4l2_m2m_set_max_parallel_jobs():
-  https://lore.kernel.org/all/20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de/
-Paul has announced a rework of the H.264 core helpers for v2; the
-driver will follow it.
-
-Patches 1-4 add the binding, the driver with H.264, and HEVC. Both
-cores are independent DT nodes (nothing in the hardware ties them
-together) bound as components of one m2m device, sharing the first
-core's IOMMU domain; jobs of different contexts run on both cores in
-parallel. The one-stream-on-two-cores handshake of the vendor driver is
-not used. Patches 5-6 change the defaults the driver took from MPP
-(no texture adaptive QP, MPP's moving-scene H.264 tuning), with the
-measurements in the commit messages. Patches 7-8 encode pictures wider
-than 4096 pixels (HEVC in tile columns, as MPP does), patches 9-10 add
-MPP's I picture QP limits and re-encoding of oversized pictures for
-HEVC, patch 11 offers VBR for H.264. Patch 12 adds the device tree
-nodes and can go through the Rockchip tree once the binding is
-accepted.
-
-H.264: Baseline/Main/High, CAVLC/CABAC, 8x8 transform, I and P pictures
-with one reference (the hardware has a single reference read port),
-single slice. HEVC: Main profile, I and P pictures, inline short-term
-RPS and long-term pictures as resolved by the core, TMVP. Both up to
-16384x8192. For both, the core writes the parameter sets at the start
-of the CAPTURE buffer and the hardware writes the slice header and data
-from its syntax registers. Reconstructed/reference pictures are
-driver-internal FBC buffers. Fixed QP, constant quality and constant
-bitrate come from the cores, whose picture size target drives the
-hardware row rate control; the measured per-picture statistics are
-reported back (V4L2_CID_MPEG_VIDEO_AVERAGE_QP for H.264, the HEVC
-feedback control for HEVC).
-
-There is no public documentation of this block. The register layout,
-meanings and default tuning values were derived from the Rockchip MPP
-userspace library (Apache-2.0), read as documentation and written as
-named fields and formulas; the power, watchdog and reset/IOMMU recovery
-sequences follow the vendor kernel driver. No code was copied.
-
-Related: Jiaxing Hu's RFC for the VEPU510 of the RK3576 (a stateful
-H.264 driver) is a different generation of this block:
-https://lore.kernel.org/all/20260722073417.2064667-1-gahing@gahingwoo.com/
-
-Tested on an Orange Pi 5 (RK3588S), on a v7.3-based kernel whose
-rkvenc files and binding are byte-identical to this series, with a
-request-API test client and GStreamer (local patches), decoding every
-stream with FFmpeg and measuring PSNR against the source:
-- H.264, 1080p60, 300 pictures of two clips (Big Buck Bunny and a
-  natural one): CBR at 4 Mbit/s with an IDR period of 120, 8 Mbit/s
-  with 10 and 20 Mbit/s all-intra within 2.2% of the target, the
-  largest one second window at most 1.37 times the bitrate (a scene
-  change in a P picture); VBR with the peak at 1.5 times the bitrate
-  in the same cases and at 8 Mbit/s with an IDR period of 120
-  within 3.2% of the target, every one second window
-  within the peak (at most 0.94 of it);
-- HEVC, CBR with an IDR period of 120: 1080p60 at 2-16 Mbit/s and
-  2160p30 at 20 and 40 Mbit/s within 3.4% of the target, the largest
-  one second window at most 1.35 times the bitrate; 4104x2160,
-  5120x2880 and 8192x4320 in tile columns, PSNR-Y 43-52 dB.
-With earlier revisions of patches 2-4: both cores probe and bind,
-v4l2-compliance 1.32 44/49 with 0 warnings (the 5 failures are the
-tool not knowing stateless encoders); H.264 and HEVC at 1080p and 4K,
-fixed QP 22-37 with GOP 1/10/30, the three H.264 profiles with CAVLC and
-CABAC, HEVC TMVP on/off, SAO off, long-term references, CQ and odd
-sizes with a conformance window, decode with 0 errors at 38-59 dB PSNR,
-and the HEVC feedback control matched the expected NAL type, POC, QP
-and reference list on every picture; two parallel 4K streams run one
-on each core at about twice the single-stream rate with outputs
-identical to single-stream runs; both cores runtime-suspend after the
-last job; H.264 up to 16384x2048 and 8192x4320 through the external
-line buffer. The error, watchdog and IOMMU recovery paths have not been
-exercised on hardware.
-
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit messages, and I reviewed and tested
-every change as described above.
+Allocate that buffer per context at stream start when the encoded width
+is above 4096, program it for every picture, and raise the frame size
+limits of both codecs to the 16384x8192 the encoder supports.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (12):
-      dt-bindings: media: Add the Rockchip VEPU580 video encoder
-      media: rockchip: Add a VEPU580 stateless video encoder driver
-      media: rockchip: rkvenc: Prepare the VEPU580 helpers for a second codec
-      media: rockchip: rkvenc: Add HEVC encoding
-      media: rockchip: rkvenc: Don't enable adaptive QP with the row rate control
-      media: rockchip: rkvenc: Use MPP's moving-scene H.264 RDO tuning
-      media: rockchip: rkvenc: Encode pictures wider than 4096 pixels
-      media: rockchip: rkvenc: Encode HEVC wider than 4096 pixels in tile columns
-      media: rockchip: rkvenc: Limit the QP of the HEVC I pictures to 15..51
-      media: rockchip: rkvenc: Re-encode oversized HEVC pictures
-      media: rockchip: rkvenc: Offer VBR for H.264 encoding
-      arm64: dts: rockchip: Add the VEPU580 encoder cores to the RK3588
+ .../media/platform/rockchip/rkvenc/rkvenc-h264.c   |  6 ++--
+ .../media/platform/rockchip/rkvenc/rkvenc-hevc.c   |  6 ++--
+ .../media/platform/rockchip/rkvenc/rkvenc-regs.h   |  2 ++
+ .../platform/rockchip/rkvenc/rkvenc-vepu580.c      | 38 ++++++++++++++++++++--
+ drivers/media/platform/rockchip/rkvenc/rkvenc.c    |  8 ++++-
+ drivers/media/platform/rockchip/rkvenc/rkvenc.h    |  4 +++
+ 6 files changed, 54 insertions(+), 10 deletions(-)
 
- .../bindings/media/rockchip,rk3588-vepu580.yaml    |   93 ++
- MAINTAINERS                                        |    8 +
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   56 +
- drivers/media/platform/rockchip/Kconfig            |    1 +
- drivers/media/platform/rockchip/Makefile           |    1 +
- drivers/media/platform/rockchip/rkvenc/Kconfig     |   18 +
- drivers/media/platform/rockchip/rkvenc/Makefile    |    8 +
- .../media/platform/rockchip/rkvenc/rkvenc-h264.c   |  519 +++++++
- .../media/platform/rockchip/rkvenc/rkvenc-hevc.c   |  869 +++++++++++
- .../media/platform/rockchip/rkvenc/rkvenc-regs.h   |  539 +++++++
- .../platform/rockchip/rkvenc/rkvenc-vepu580.c      |  999 +++++++++++++
- drivers/media/platform/rockchip/rkvenc/rkvenc.c    | 1581 ++++++++++++++++++++
- drivers/media/platform/rockchip/rkvenc/rkvenc.h    |  329 ++++
- 13 files changed, 5021 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-rkvenc-e0f1c61c00a2
-prerequisite-patch-id: fd11f19266754d1bd40bf61dd5d1da74a0dc13c2
-prerequisite-patch-id: 7c7edc7344998d520efaf7b430c90fd527c704c7
-prerequisite-patch-id: 4689de770eb1bcdc153d6beda2e392d0ce6f344d
-prerequisite-patch-id: 0afdcc24892eac773036d05d8f504e5ccb35eb62
-prerequisite-patch-id: ecc849b3328d4396380f0cfc331536c16d2e0d28
-prerequisite-patch-id: c62d0fd16706c4328624948805eb2f8d7b223ae0
-prerequisite-patch-id: e955d15603fd070034960a1362e4867c2f124d69
-prerequisite-patch-id: 76eb64d7920ddc1f268afa6f13df14cf9d1931c8
-prerequisite-patch-id: 654c303a6e9e4a3108e9ae9b7c9aa78f95b82c0c
-prerequisite-patch-id: 96f470c1f8b2ca83ffc496f41fd173e925180501
-prerequisite-patch-id: fa3430fcef00637bb84f9401bb9045dd46194298
-prerequisite-patch-id: da666def8ed2b5296da8dee1be387b2818ba3cc3
-prerequisite-patch-id: 7e532c86fbd0f7bd6705ac4f1544b7d7d27cbc26
-prerequisite-patch-id: 09e1836b24606834b9ac4aa3c851d39f564cfef6
-prerequisite-patch-id: fd8fcc747458e52344df760a17b61748361bfbb1
-prerequisite-patch-id: 883eefffa7ea70d39d357467780cb4f2b69c8d36
-prerequisite-patch-id: aa018c975f9b1f0555164d46446dea01d6496823
-prerequisite-patch-id: d8d6323a5177f6b1ce661a86ee5813d55b4a3570
-prerequisite-patch-id: 25c5c1c067936d313b20c287e66da34fa6c52f02
-prerequisite-patch-id: d7ab57d731445a0d6a06a305f015060e1ea2aa0d
-prerequisite-patch-id: 68ed30e5ad9b17d0a8f4cbc8c4278cbb2a82ea23
-prerequisite-patch-id: 5f042c1c0679a0f587bcd623e69d7f3aa205d4ce
-prerequisite-patch-id: 4e3feb81141e90296253fe1809dd9d7b8cd86244
-prerequisite-patch-id: 68222baa5172eef1abdbe693e0209056b98e9d54
-prerequisite-patch-id: d66a7ce272d3911c662d008828570f439ce298c7
-prerequisite-patch-id: dcb576eb303c4f0794c67ae9b2c1a41c208ab519
-prerequisite-patch-id: 53bde0480b78711ed69704eb2f343b667fdbe087
-prerequisite-patch-id: 6cf0960c01f1c7ce51101987c37633ffe214075f
-prerequisite-patch-id: 6ad9550f96aeed8429737800e4afc6e35be2c3ed
-prerequisite-patch-id: 42252ba52d9c65ea011f6971395e709cc4bff684
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+index 665c54278029..11051aea43b4 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+@@ -501,11 +501,11 @@ const struct rkvenc_coded_fmt_desc rkvenc_h264_fmt_desc = {
+ 	.size_align = 16,
+ 	.frmsize = {
+ 		.min_width = 64,
+-		/* The external line buffer for wider pictures is not handled. */
+-		.max_width = 4096,
++		/* Wider than 4096 with the external line buffer. */
++		.max_width = 16384,
+ 		.step_width = 2,
+ 		.min_height = 64,
+-		.max_height = 4096,
++		.max_height = 8192,
+ 		.step_height = 2,
+ 	},
+ 	.ctrls = &rkvenc_h264_ctrls,
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+index a3d35a7fdc3f..638b13d6642a 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+@@ -689,11 +689,11 @@ const struct rkvenc_coded_fmt_desc rkvenc_hevc_fmt_desc = {
+ 	.size_align = 8,
+ 	.frmsize = {
+ 		.min_width = 64,
+-		/* Wider pictures need tiles, which are not implemented. */
+-		.max_width = 4096,
++		/* Wider than 4096 with the external line buffer. */
++		.max_width = 16384,
+ 		.step_width = 2,
+ 		.min_height = 64,
+-		.max_height = 4096,
++		.max_height = 8192,
+ 		.step_height = 2,
+ 	},
+ 	.ctrls = &rkvenc_hevc_ctrls,
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h b/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
+index e8e7ce045f90..dd91004e31cf 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
+@@ -82,6 +82,8 @@
+ #define VEPU580_LPFR_ADDR			0x02c4
+ #define VEPU580_EBUFT_ADDR			0x02d8
+ #define VEPU580_EBUFB_ADDR			0x02dc
++/* Widest picture the internal line buffers cover. */
++#define VEPU580_LINE_BUF_MAX_WIDTH		4096
+ 
+ /* Frame class: control */
+ #define VEPU580_ENC_PIC				0x0300
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+index f14d5ae0b7f7..adb1372dff57 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+@@ -179,9 +179,41 @@ void vepu580_setup_common(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+ 	rkvenc_set(core, VEPU580_SLI_SPLT, 0);
+ 	rkvenc_set(core, VEPU580_SLI_CFG, VEPU580_SLI_CFG_SLI_CRS_EN);
+ 
+-	/* No external line buffer: widths above 4096 are rejected for now. */
+-	rkvenc_set(core, VEPU580_EBUFT_ADDR, 0);
+-	rkvenc_set(core, VEPU580_EBUFB_ADDR, 0);
++	/* The external line buffer: top is the exclusive end, 0 when unused. */
++	if (ctx->line_buf.cpu) {
++		rkvenc_set(core, VEPU580_EBUFT_ADDR,
++			   ctx->line_buf.dma + ctx->line_buf.size);
++		rkvenc_set(core, VEPU580_EBUFB_ADDR, ctx->line_buf.dma);
++	} else {
++		rkvenc_set(core, VEPU580_EBUFT_ADDR, 0);
++		rkvenc_set(core, VEPU580_EBUFB_ADDR, 0);
++	}
++}
++
++/*
++ * The internal line buffers cover pictures up to 4096 pixels wide. Wider
++ * pictures need an external one of 480 bytes per 64-pixel column. Its
++ * address registers hold bits 31:8 only, hence the 256-byte rounding (the
++ * DMA allocation itself is page aligned). The content does not outlive a
++ * picture, and a context runs one picture at a time, so one buffer per
++ * context is enough.
++ */
++int vepu580_alloc_line_buf(struct rkvenc_ctx *ctx)
++{
++	unsigned int width = ALIGN(ctx->coded_fmt.fmt.pix_mp.width,
++				   ctx->coded_fmt_desc->size_align);
++
++	if (width <= VEPU580_LINE_BUF_MAX_WIDTH)
++		return 0;
++
++	return rkvenc_alloc_aux(ctx->dev, &ctx->line_buf,
++				ALIGN(DIV_ROUND_UP(width, 64) * 480, 256),
++				false);
++}
++
++void vepu580_free_line_buf(struct rkvenc_ctx *ctx)
++{
++	rkvenc_free_aux(ctx->dev, &ctx->line_buf);
+ }
+ 
+ /*
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
+index 26bee08d4c2d..61c745994da9 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
+@@ -505,7 +505,12 @@ static int rkvenc_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	    ctx->src_fmt.fmt.pix_mp.height != ctx->coded_fmt.fmt.pix_mp.height)
+ 		ret = -EINVAL;
+ 	else
+-		ret = desc->ops->start ? desc->ops->start(ctx) : 0;
++		ret = vepu580_alloc_line_buf(ctx);
++	if (!ret && desc->ops->start) {
++		ret = desc->ops->start(ctx);
++		if (ret)
++			vepu580_free_line_buf(ctx);
++	}
+ 	if (ret) {
+ 		rkvenc_queue_cleanup(q, VB2_BUF_STATE_QUEUED);
+ 		return ret;
+@@ -524,6 +529,7 @@ static void rkvenc_stop_streaming(struct vb2_queue *q)
+ 	if (ctx->started) {
+ 		if (desc->ops->stop)
+ 			desc->ops->stop(ctx);
++		vepu580_free_line_buf(ctx);
+ 		ctx->started = false;
+ 	}
+ 
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.h b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+index c2dd0bb91c51..ec6a955921b8 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+@@ -226,6 +226,8 @@ struct rkvenc_ctx {
+ 	struct v4l2_ctrl_handler ctrl_hdl;
+ 	struct rkvenc_core *core;
+ 	struct v4l2_ctrl *avg_qp_ctrl;
++	/* External line buffer, only for pictures wider than 4096 pixels. */
++	struct rkvenc_aux_buf line_buf;
+ 	void *priv;
+ 	bool started;
+ };
+@@ -249,6 +251,8 @@ static inline void rkvenc_or(struct rkvenc_core *core, u32 reg, u32 val)
+ int rkvenc_alloc_aux(struct rkvenc_dev *rkvenc, struct rkvenc_aux_buf *buf,
+ 		     size_t size, bool kernel_mapping);
+ void rkvenc_free_aux(struct rkvenc_dev *rkvenc, struct rkvenc_aux_buf *buf);
++int vepu580_alloc_line_buf(struct rkvenc_ctx *ctx);
++void vepu580_free_line_buf(struct rkvenc_ctx *ctx);
+ void vepu580_setup_common(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+ 			  struct rkvenc_run *run);
+ void vepu580_setup_me(struct rkvenc_core *core, unsigned int width_mbs,
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
