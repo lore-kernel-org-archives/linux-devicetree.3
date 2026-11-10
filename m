@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308364;
-	b=agvkYSaZdVcPY/fgLC61nOt5QrimALm+mfuza5j4JQFKW6sP8eRUsGyj6KtUd6zvJp8L
-	 20qScm7DkZ2hVTZngmuH5omTIRZ5UlIPP60JgdiPkUjaxqdicha3k9OmrSxEkVqxZDrdV
-	 c6xtkWq3aHjn3sDCukeC5QKaO/3KS9odYf4JcL58tBREjwdHYrniEGxNlDCYQrnEVYUY3
-	 JmM6qW08st+Q7SdlPkvEoDfremYNwGvSPZWNUiGISOhHLRoVX4EOFZBOiqJP5dbd+IgVM
-	 Kzc2HD5ZEO3LSNMVQ7rqJo74Gr0L9jPAt2C+bzLGUkLFU37QVZ7WsaD+tGZvqLYDlOw==
+	t=1794308363;
+	b=YviG+Jf6/gaMJZ9Hc/LVty5X4vfN66P1wrmnm4g+IF0m16CLIj5Bb1g05wcbw6ctiOTE
+	 WKpPAkHhR3evQbsPpttxAsQpf6NKo0JHKZkQxjVsJYqiI7iOuULtQ5LQjwtb4qrFxqbyC
+	 vEqj6HEiGwUJ7nk5JCyRmhN4+nypm9gr4AvJSqHUmtItAd8NEqdCRpGQzE//DHToFMJM/
+	 Qqr4xg3B/9Qxe95lvtL2fBmoQzcuQeHxnRYnJXxkwQwxIQZA31fsILFzpxNLIKmB5nV0c
+	 zizq+iM3ad0Wj1CQm0Wqi9Wzf+K4EhdIVgHmNegDwsBe8Xb6yPyKJWm2d5KMnJNCCuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=pvF6QhKLZwUOSdpU5it2yFnQfDJc4l9yR6jPH+WNhbY=;
-	b=rxFHm23l4zjZkYcZWkziozqFTLnEnwnG2+bKPIpsVA2YcnOjt8e6PZ8uBHdtEgYR2xIK
-	 72J2sflB32yQ3soGrZJR3rVbCeTosXSq/Cok9YoSW8/IeYLmRT8osA2DZu0Z0UI+ozJuM
-	 AM9/EQDa1Cbm0rF9iR5SgblAAQN+V11SS1wTBQpvO3knpMxO+xVHr5vg3ggYTt/Egdlmt
-	 7CL11+0p+b1GqC4DlRmkdAfezW94jTCl53VzNswe/2z8zkGtgve7X3qaonOLhQEuQVVfF
-	 VggGuE3bR7WHKJ2hAQ2A/7ubnrsym35BT79vdgQoqEfKYZRFHkfwzUYH3k0P1txj4sw==
+	bh=DGkDAf1iwgLQ/ySGo4CZw9li+oraQecEr79Tmk1GLfo=;
+	b=wrUyYtq6ZkNPA7JZ4kQHMJTaeZQWUbnJwpsTDt32+SCmI9Y36Sm8l+aIJ8t+oIYR/Fr3
+	 AhHPpuExJUcnlt3wnD6a/rPqCxoOhJBhyv/X+0ODM0Zx5v89YAAllDuel0KFLqoAAemLG
+	 1UmM388D0Yxj+znZWHPzR9dv/Xx9L5YvMaKTjNWyTv7oKR8Pt2whwGWaKWV9Q+XirKCAJ
+	 3+2FMoY8O2Rzh6tbsdJ73xw5XVaX3DfLdcKb9r6OXQo6eHWhPyNx1BDO6zrFHATxhkcpo
+	 jLFVw3iTbQUNIWzwvOPQbQSuU/5nrYZ8Byp0z8wLx6CUSKDz+D58RvhgOwW1sSH1g2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nxe6uiks;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FhkQ69rn;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3029F60A381F
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3029F60A381F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225A060A2623
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:59:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 225A060A2623
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nxe6uiks
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490585eddfcso1462523f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 02:59:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FhkQ69rn
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4910b863b84so1139331f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 02:59:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794308362; x=1794913162; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794308360; x=1794913160; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pvF6QhKLZwUOSdpU5it2yFnQfDJc4l9yR6jPH+WNhbY=;
-        b=Nxe6uikseMUheSg2vxV6HL1VexUTVPduXnxZ3w8EfD4rNVJxr9ytAdl+2XkblTP+6t
-         XIDyRLPhpyVUWEHQBUbZh5wSpNmtURlaNKIEvaBhdDDoMh5rbFG3QHSGARQJ+LzhOEwb
-         pCOCkwMcHeevUtee/8OJ2WCApv/2974d+G7SfqI2c7KvBZP1vLzH3wSLGwdVH8WFqmIT
-         UaWmM51IDTqRWRTpucI0BOS5S2MgrglX5PN53lZOqoZNUAyoXkxk7c+ogCRiBKHLISbU
-         cCKzfBxe5rnY1K2pJdTMr67y/NG2PT03AJVDSmy/q26CQ05z9fdWnTmmojSYBz6SXwqL
-         qYgw==
+        bh=DGkDAf1iwgLQ/ySGo4CZw9li+oraQecEr79Tmk1GLfo=;
+        b=FhkQ69rnMGYvFxm1FlDscknXqbGZwUCtX6Oyxj4ckoqssL68KY1DLq/J6TZEssr1IO
+         9jG/keoTf0yZlCr5So/mr85rbjyQHA9cHd+ZN11hDYSQo3elIBkna0jqUlOprrDe9MPZ
+         qKshkmrlrZTQ0h2CvXz5UcwuQQke0zB6Qmr2wVw46HA6pAHQvaoe8IQbnexfraMU+u6n
+         swecQf7bDJRrVBWH3Byo+ZXcJ3fK6BAOKNw9Kqo/RM+MnYWzdaKwB3FzwfFqZEy2cKg8
+         kiDfW8l4c4bkVvNu3VWQZOkrEN/0riA/0t+U5eBh1IFJKvbYMCiGfgnLO+/pWXCo7MpA
+         uqng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794308362; x=1794913162;
+        d=1e100.net; s=20260707; t=1794308360; x=1794913160;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pvF6QhKLZwUOSdpU5it2yFnQfDJc4l9yR6jPH+WNhbY=;
-        b=p6GRCygXvnLMqeyQ3ManjLsuMio9yzxKxCvLEtkE6C8zmcxlbQ+JRbKcFjOzy+qU88
-         MFe5YUXXYa81tyf+zIQl9JTROav0oWFHv22q2K4YjnBPmQJ/T1wQYdR0UgTFh2+X4Ch/
-         B4QcZZryHHguRhX/UJ8BPehUlho2DF5eMfZqFFHpk8yCrqBnNt0nV2NqYH2GzZFjQJVp
-         H3k6vEyWBh+A9/7KUeYwDcP6249bNroe6+SOOWMLUqONV3y1rxij+zubCS3lfqOaI1em
-         4UQh+UKFtda1B35ocux/cZ9zVoEU5jmT186I9XFkwhlCGfZTcF/Gs/slq0oWRMQPtNYM
-         HJFw==
-X-Gm-Message-State: APuU4Z+vjYcbKQ1OL7L0WmBWC7eKr1VAVcR056a7jMbE/wXRvGNYxhGz
-	92n1F/TKElaD4xh3Nh+/HMCI8w1kHPrzFAI7oVUEWNbfkSvPGi3HCweU37q5bhpC
-X-Gm-Gg: AYBFou0lGyDYtAB4bDkOxk/0n4EoshSPvOGkZmvenAkamf3SIXHZVXMu09CRke18i6a
-	XGtahd12KV29E7yQozsgyJr+UuuDRpm3SLrEg0DsA0pWoyM49FScprOe/x+WMwT5CIbsiI0ypay
-	uptfnhVHQ33ot5/IogUamYOoSpSIztucwsWFwa/hq4sH4n1Nofw1WnWTRHadjeVXa72GCmVV9Ci
-	ONOjfFd4A6nN0b+R9/ud50tJwBBbJ36ZPZ3K/V2kJh+LMUuF3JvaW4YeSH3U1T0uyqegShpUwtj
-	dknWlhj4axW7uOhupEKuzkrxJlHj9yUcIjXyd80z1IgahatPp5eeihvrk2+narF4bp7Ok3YK9dW
-	qaCbPr6M2kWyKwcXyJjHSWPdg0qa06KEDEJ1SjUYmc+NOzOOpF0/6FhpJ7vo6Ci3HcZaUVqVJrj
-	fstPMkTdogFqrMmoqU6lP9z/fNb2A+WA2SQINwp8+k9VVcdUMO3Mhw6gBZ/8sdzII7S7FfcHtNR
-	UjFrWwwCrqpmdYC1jxiZUciHYF8l8RiRcWjSIWEjjxoZaoffKlR6Klr5CtnE3oJIcPHZG+XruK9
-	QQkClT+c/VNf+qflKToARr1Pa7ZH3i39NzMagW90DR8W1AmsAfd0ZKDFuKYRE7mlkh/e2Mf9H7d
-	qAwfPYpbuKZUSIN/aDY+t4hnp0nl9P9nMZ4df6SXhNvUSVNMmD2c=
-X-Received: by 2002:adf:e00b:0:20b0:491:273c:9649 with SMTP id ffacd0b85a97d-4982ecf6922mr2926241f8f.15.1794308362368;
-        Tue, 10 Nov 2026 02:59:22 -0800 (PST)
+        bh=DGkDAf1iwgLQ/ySGo4CZw9li+oraQecEr79Tmk1GLfo=;
+        b=dRQiuwwd+nZxkZiJF3hfA8ZqeH3iYfxp8Xr8XNI5FCO51LKG450S4869cbrAaWizhD
+         ismzYromshYneaMBjdaEKAy3j0X3ayrsbU+7SgZNH7v0M5zbFiHibblBRmpRPBVz87cW
+         NrIIAv0Ho05RgpUJzQXrLKJcxqdr4whrIgu0UhuVrBdfvlhD/YukCkutpVf4dmR0o/0l
+         M/6anUhnPyKqDX7Ur7cEyXJK9Fl6XvCkjQnyK0g2GAL8QZGApA4Y7u4mMPASODXbs2Uv
+         k7eDIjy/w9olkYlCCdpacJFY6KxCYqu7e2mEBnfHOd5HBwLffICCdsT/3eHe71Y1GvPi
+         d/Ww==
+X-Gm-Message-State: APuU4Z/Rlfh5dQaA3Yjki4mpKxhSllZCpKFvqhAoCWHk3lxn0JHZU+8n
+	aYcgQS0SLbhXkPE2jiPXbbKUCSzKhOkV3YhxcGPq+rA/b7cB7H8KPGCy2tyx/2lD
+X-Gm-Gg: AYBFou0wsl74OG5F8mrS+/YC541qVcQaa4cyX8NI2e6OvQzV66AIbrx7073UgUT1nSG
+	gXA8IiCT44o49fCHcoJuacNi7FLHJvwOtPN0pHJNs0B7RQZ83pmsuxXGYEWOKwRALKhobrmEiHP
+	7d7GmZ7yDZ1sXIsBc8Tynji2i6Y/tidmLa2cdNtH0ERGfKpz09oPYAxyd6LRR178P7uJj/Hi9Wa
+	IK2pNFXSQTPBk5WdPBOMOKdkZFQbCS4KjNWKykORdk5ZuggC7zrObe0V/yhWYoguLwzBDpZnysz
+	kuN6zbc4qYgVZHWyRg1EyN0XqzO/vMKrYlNJkAxiF6860q3yNj6Ujfg8Ok/85oKCEkDJikuekgp
+	0QDi3TmZVsZtndFyr6fQoJUUoNwMC3mnTNI9NGfSwjHeQnkqLkTcjh+wQO1MGITtzLeD8a36aK3
+	pG8PdwSRXv3SEsXqVFCLhN3zkg2+JVEEYo0CV9OphWZmFeTfGuVmSoULqo/yNojIBFdLwc4AKl6
+	9+vaMGdMmHQR74YGWGY9gehPb8N4ITVsDtEbiJihrHFgQMu1zUMGXsZzrS2hG0S67XsAYUHgkHT
+	yHTkD7NoL4y89KM0wOZJZv1IzkSCTIcYWQjVJ23Asl6T0Garup0JQE60ucOHbX18tDarLOVj55j
+	yNH+/oQ3iz+b6q2hJtSerQPh03DvFtt7sXo/VE8VYzeiocAm6+Fs=
+X-Received: by 2002:a05:6000:24c4:b0:492:b1c5:6db6 with SMTP id ffacd0b85a97d-49835e20e10mr4901092f8f.6.1794308360444;
+        Tue, 10 Nov 2026 02:59:20 -0800 (PST)
 Received: from [10.0.1.33] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988bdef64dsm2933551f8f.20.2026.11.10.02.59.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988bdef64dsm2933551f8f.20.2026.11.10.02.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:59:21 -0800 (PST)
+        Tue, 10 Nov 2026 02:59:20 -0800 (PST)
 From: Antoine Gouby <antoine.gouby@gmail.com>
-Date: Tue, 10 Nov 2026 11:59:18 +0100
-Subject: [PATCH v2 6/6] ARM: dts: imx6dl-colibri: Add VGA overlay
+Date: Tue, 10 Nov 2026 11:59:16 +0100
+Subject: [PATCH v2 4/6] ARM: dts: imx6dl-colibri: Add Toradex Capacitive
+ Touch Display 7" Parallel with Touch Adapter
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-colibri-imx6-overlays-v2-6-9776c186d953@toradex.com>
+Message-Id: <20261110-colibri-imx6-overlays-v2-4-9776c186d953@toradex.com>
 References: <20261110-colibri-imx6-overlays-v2-0-9776c186d953@toradex.com>
 In-Reply-To: <20261110-colibri-imx6-overlays-v2-0-9776c186d953@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -107,172 +108,136 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Antoine Gouby <antoine.gouby@toradex.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4935;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4596;
  i=antoine.gouby@toradex.com; h=from:subject:message-id;
- bh=BTOXFn7FRMReU92cBtLstQ5vnpngA8gkkNTJbTILgmo=;
- b=owGbwMvMwCWm0rPo7MxLN2YynlZLYsj69JPZo//o0vZ5PDcNAx6brspzm/9t6edJf1f6+Gzfs
- PWJkfSuNR2lLAxiXAyyYoosGU9UBfkUQmQ9OJqTYeawMoEMYeDiFICJKEgyMnSkxU3lErp3ny+r
- IcJp+ezJG2qS4v+l1a379uVgXhXLztcM//Su3Xp7TElgf8qi1XJ+R7jXrJ6u2c+7TUo5/vgJi9B
- di/kB
+ bh=I2N4IIgnqZ9lXk9WuHPxr/mHiETXFvJEgNN5qC1ebNs=;
+ b=owGbwMvMwCWm0rPo7MxLN2YynlZLYsj69JP5Qq813zeHH+b/w3uTD+h2SX1dV55ZZfJ774QKK
+ 9niWMHUjlIWBjEuBlkxRZaMJ6qCfAohsh4czckwc1iZQIYwcHEKwEQenGBkOJ4457apv9T05W2T
+ 9ANuCrDeOTsl7bXc4+aS7zHpZ8/3MDL8L9itFX4o7Ly6p1/cu+PNDJfa+Q94Ze+eV1BzsGnuHd0
+ p7AA=
 X-Developer-Key: i=antoine.gouby@toradex.com; a=openpgp;
  fpr=68E425110E20541D48088363248CA2CD99D2D899
 
 From: Antoine Gouby <antoine.gouby@toradex.com>
 
-Add a device tree overlay for the VGA output on the Colibri iMX6
-parallel RGB LCD interface. The VGA output is driven through a
-non-programmable video DAC without VESA DDC I2C signals to a DVI
-connector. The DAC power-save input is driven by the BL_ON signal on
-SODIMM 71, like on the Colibri iMX6ULL and Colibri iMX7.
+Add a device tree overlay for the Capacitive Touch Display 7" Parallel
+on the Colibri iMX6 parallel RGB LCD interface.
 
-The overlay is also combined with the Colibri iMX6 V1.2 Aster,
-Evaluation Board v3, Iris and Iris v2 carrier board device trees to
-provide ready-to-use DTBs.
+The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
+and the touch input is provided by an Atmel MaxTouch capacitive touch
+controller.
 
+The touch controller is connected to the Toradex Capacitive Touch
+Adapter, the connection to the various carrier boards is documented in
+the datasheet [1].
+
+The touch interrupt and reset signals on SODIMM 28 and SODIMM 30 share
+their pads with the Colibri PWM<B> and PWM<C> outputs, disable PWM1 and
+PWM4 to avoid the pin conflict.
+
+The overlay is also combined with the Colibri iMX6 V1.2 Evaluation
+Board v3 device tree to provide a ready-to-use DTB.
+
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
+Link: https://developer.toradex.com/hardware/accessories/add-ons/capacitive-touch-adapter/
+Link: https://docs.toradex.com/104615-capacitive-touch-adapter-datasheet.pdf [1]
 Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
 ---
- arch/arm/boot/dts/nxp/imx/Makefile                | 21 +++++++
- arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso | 67 +++++++++++++++++++++++
- 2 files changed, 88 insertions(+)
+ arch/arm/boot/dts/nxp/imx/Makefile                 |  6 +++
+ ...nel-cap-touch-7inch-parallel-touch-adapter.dtso | 57 ++++++++++++++++++++++
+ 2 files changed, 63 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index c15b09c058eb..cd4c8062e678 100644
+index 7f527e2b9090..02d21d62b370 100644
 --- a/arch/arm/boot/dts/nxp/imx/Makefile
 +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -84,6 +84,10 @@ imx6dl-colibri-v1.2-aster-tdx-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx6dl-colibri-v1.2-aster.dtb \
- 	imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel.dtbo
- 
-+imx6dl-colibri-v1.2-aster-vga-dtbs := \
-+	imx6dl-colibri-v1.2-aster.dtb \
-+	imx6dl-colibri-vga.dtbo
-+
- imx6dl-colibri-v1.2-eval-v3-hdmi-dtbs := \
+@@ -88,6 +88,10 @@ imx6dl-colibri-v1.2-eval-v3-hdmi-dtbs := \
  	imx6dl-colibri-v1.2-eval-v3.dtb \
  	imx-hdmi.dtbo
-@@ -96,10 +100,18 @@ imx6dl-colibri-v1.2-eval-v3-tdx-panel-res-touch-7inch-parallel-dtbs := \
- 	imx6dl-colibri-v1.2-eval-v3.dtb \
- 	imx6dl-colibri-tdx-panel-res-touch-7inch-parallel.dtbo
  
-+imx6dl-colibri-v1.2-eval-v3-vga-dtbs := \
++imx6dl-colibri-v1.2-eval-v3-tdx-panel-cap-touch-7inch-parallel-touch-adapter-dtbs := \
 +	imx6dl-colibri-v1.2-eval-v3.dtb \
-+	imx6dl-colibri-vga.dtbo
++	imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtbo
 +
  imx6dl-colibri-v1.2-iris-hdmi-dtbs := \
  	imx6dl-colibri-v1.2-iris.dtb \
  	imx-hdmi.dtbo
- 
-+imx6dl-colibri-v1.2-iris-vga-dtbs := \
-+	imx6dl-colibri-v1.2-iris.dtb \
-+	imx6dl-colibri-vga.dtbo
-+
- imx6dl-colibri-v1.2-iris-v2-hdmi-dtbs := \
- 	imx6dl-colibri-v1.2-iris-v2.dtb \
- 	imx-hdmi.dtbo
-@@ -108,6 +120,10 @@ imx6dl-colibri-v1.2-iris-v2-tdx-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx6dl-colibri-v1.2-iris-v2.dtb \
- 	imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel.dtbo
- 
-+imx6dl-colibri-v1.2-iris-v2-vga-dtbs := \
-+	imx6dl-colibri-v1.2-iris-v2.dtb \
-+	imx6dl-colibri-vga.dtbo
-+
- imx6qdl-dhcom-pdk2-overlay-497-200-x12-dtbs := \
- 	imx6q-dhcom-pdk2.dtb \
- 	imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtbo
-@@ -154,15 +170,20 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+@@ -141,11 +145,13 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6dl-colibri-iris-v2.dtb \
+ 	imx6dl-colibri-iris-v2-hdmi.dtb \
+ 	imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel.dtbo \
++	imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtbo \
  	imx6dl-colibri-v1.2-aster.dtb \
  	imx6dl-colibri-v1.2-aster-hdmi.dtb \
  	imx6dl-colibri-v1.2-aster-tdx-panel-cap-touch-7inch-parallel.dtb \
-+	imx6dl-colibri-v1.2-aster-vga.dtb \
  	imx6dl-colibri-v1.2-eval-v3.dtb \
  	imx6dl-colibri-v1.2-eval-v3-hdmi.dtb \
- 	imx6dl-colibri-v1.2-eval-v3-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
- 	imx6dl-colibri-v1.2-eval-v3-tdx-panel-res-touch-7inch-parallel.dtb \
-+	imx6dl-colibri-v1.2-eval-v3-vga.dtb \
++	imx6dl-colibri-v1.2-eval-v3-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
  	imx6dl-colibri-v1.2-iris.dtb \
  	imx6dl-colibri-v1.2-iris-hdmi.dtb \
-+	imx6dl-colibri-v1.2-iris-vga.dtb \
  	imx6dl-colibri-v1.2-iris-v2.dtb \
- 	imx6dl-colibri-v1.2-iris-v2-hdmi.dtb \
- 	imx6dl-colibri-v1.2-iris-v2-tdx-panel-cap-touch-7inch-parallel.dtb \
-+	imx6dl-colibri-v1.2-iris-v2-vga.dtb \
-+	imx6dl-colibri-vga.dtbo \
- 	imx6dl-cubox-i.dtb \
- 	imx6dl-cubox-i-emmc-som-v15.dtb \
- 	imx6dl-cubox-i-som-v15.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
 new file mode 100644
-index 000000000000..f22f1969a6a8
+index 000000000000..ffc54438d33b
 --- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso
-@@ -0,0 +1,67 @@
++++ b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel-touch-adapter.dtso
+@@ -0,0 +1,57 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * VGA output connected to the Colibri parallel RGB LCD interface through a
-+ * non-programmable video DAC with a DVI connector.
++ * Toradex Capacitive Touch Display 7" Parallel connected through the 40-way
++ * Unified Interface Display connector and Toradex Capacitive Touch Adapter.
 + *
-+ * The VGA output is available on multiple carrier boards (including Iris,
-+ * Eval, Aster) without VESA DDC I2C signals.
++ * Toradex Capacitive Touch Adapter connection with the various carrier boards
++ * is documented in the datasheet [1].
 + *
-+ * The DAC power-save input is driven by the BL_ON signal on SODIMM 71.
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
++ * https://docs.toradex.com/104497-7-inch-parallel-capacitive-touch-display-800x480-datasheet.pdf
++ * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-parallel
++ * https://developer.toradex.com/hardware/accessories/add-ons/capacitive-touch-adapter/
++ * https://docs.toradex.com/104615-capacitive-touch-adapter-datasheet.pdf [1]
++ * https://www.toradex.com/accessories/capacitive-touch-adapter
 + */
 +
 +/dts-v1/;
 +/plugin/;
 +
 +#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
 +
-+&{/} {
-+	vga-encoder {
-+		compatible = "dumb-vga-dac";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_bl_on>;
-+		/* Colibri SODIMM 71 - BL_ON */
-+		enable-gpios = <&gpio3 26 GPIO_ACTIVE_HIGH>;
++&atmel_mxt_ts {
++	pinctrl-0 = <&pinctrl_atmel_adap>;
++	/* Colibri SODIMM 28 - TOUCH_INT# */
++	interrupt-parent = <&gpio1>;
++	interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
++	/* Colibri SODIMM 30 - TOUCH_RST# */
++	reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
 +
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
++	status = "okay";
++};
 +
-+			port@0 {
-+				reg = <0>;
-+
-+				vga_enc_in: endpoint {
-+					remote-endpoint = <&lcd_display_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				vga_enc_out: endpoint {
-+					remote-endpoint = <&dvi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	dvi-connector {
-+		compatible = "dvi-connector";
-+		analog;
-+
-+		port {
-+			dvi_connector_in: endpoint {
-+				remote-endpoint = <&vga_enc_out>;
-+			};
-+		};
-+	};
++&backlight {
++	status = "okay";
 +};
 +
 +&lcd_display {
 +	status = "okay";
 +};
 +
-+&lcd_display_out {
-+	remote-endpoint = <&vga_enc_in>;
++&panel_dpi {
++	compatible = "logictechno,lt161010-2nhc";
++	power-supply = <&reg_module_3v3>;
++
++	status = "okay";
++};
++
++&pwm1 {
++	status = "disabled";
++};
++
++&pwm4 {
++	status = "disabled";
 +};
 
 -- 
