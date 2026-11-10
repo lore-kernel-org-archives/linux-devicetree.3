@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.129.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794342399;
-	b=te6ZPjA7XBpwZaKth0ph5AL4e1eQmd5ihEAUydQp8lt4SGCvAL5PAz2KMMoWry2Xkvyq
-	 XR0zbxFIRGURZ+JOaGXzCd+ehZpi4u55wfu9AScEmb2si96oZ+ZaIrcZR9tLo88v3hMfa
-	 A+dWIK7yyVhYHy9JkvQ6o906oD+8n52jLRtYz6NZ5gcEM3EPuzEmfG8x9jKu2lXBDUFRc
-	 Ydc5287BZjhLL4IQJlozxmkjZuaRxmPQCnVuRMf+BGN47i3DU5fyO39qkk8UyvMdwo48Z
-	 yzt3vlIpF3x0pwdDyD/lcX+MG7fpfZO4ZBdOzoAWV0vToC8ncvxbF3IfMimnkdYvfKQ==
+	t=1794342400;
+	b=hY6BtryD/U4mG8QjLnIqWR9jgH0tUQgufQtuwcwUabKltw2+OynwfgEVJfnHsZMHW2mS
+	 DwNOuDfAbKxSzOkN0QeMVYxpR4jyFl+ZFXd4O4panixdPuTRF2xKG7vqwN2RNzLe5pBGP
+	 ZTXhbKY4C4rGk+ir18pHCiv0U8psFjnEJBYgb83IZ0uyjvhfN0Etc10QFh3w267x0r38N
+	 F97WaJkALJ/n0Ds3Iw1x2/6B07eipjl5KvIswQp/DyJxxvjT1xxdh9qAGd5G5NrOx6Y9P
+	 FKgqzQ8y7sGv28K9Hi3YaThBmf1iFBSeyco8TcWIUWOr+aURU/5EzbizAvnKh1ed6kg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342400;
 	h=DMARC-Filter:DKIM-Signature:X-Virus-Scanned:Received:DKIM-Signature:
 	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
 	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
@@ -28,65 +28,65 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-userprincipalname:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-MDID:X-PPE-STACK:
 	 X-MDID-O:X-PPE-TRUSTED;
-	bh=lqSWLmFkcmmVALXmh5uCljq1PkhvoyH8M0Qiy3g4yyk=;
-	b=lFJp5V8cz7qu79WnPscAvVP/dPJPWI/tmOW8UvMpHjqa3F9ZQEPwZxj74HRcPcUjKraO
-	 iwT5ribLtIGQhajMWRojkR45q/bUZ8Gsr4aiMVjWaQGMpoSUbWAQfrPFFUlh5ZHPNF6q/
-	 scSbFP4WBODl333PwsFJD6unxkzX1aif4nMwI5CMbf5lNNnm+gAOZJvfdRvTruNc+nxve
-	 dG071ryOWc0BnZGDg88vmMs+M92ZlZFgy/l0Wjz8eCpebj3ln17vPABXPH94BSUIUYPns
-	 a+zhlkFXH8rDrGgphgaPRwT3A8PnHpwsmJq912aI9gVb8o6rwJ22GwMflu7wXZVaH2w==
+	bh=F6IHkkP7aExJ77G8FTsAgEmNofcm1QHyqmwHRx/qPFs=;
+	b=qWFoRkmsScAxXAcezMQ3ZlN0kkh9hRxOKE02SGSyJxwMiMZcaDdP65rHAjemanQXfsQG
+	 rSfTZaVryAgxPg37zL/QwDKSeIebWdiXMaKB/VoZvsP0SnDsXJrlpipJecB43IjHOk7C8
+	 nnJVshNrSyJKFrF2M9j+Xg0miHa8fcrpzAjFiXM9hTNb6KAbvirDXm8QEiSbjOtXgmOoU
+	 fswMDFqJK/7oVBMblBNVJi7KJ8ugcJDRnX0NwJaYFe6vjrMPBe0IPZ3bceVahxNHFpMGN
+	 47GOPLjbDB+BjVGDEylYMMKZTPjL+piNHFjkwszt3XjHyZY5M8SjYvaukfNwwyxpxIg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sitime.com;
 	spf=pass smtp.mailfrom=sitime.com;
-	dkim=pass header.d=sitime.com header.i=@sitime.com header.a=rsa-sha256 header.s=mail header.b=QmjHLVnG;
-	dkim=pass header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-Sitime-onmicrosoft-com header.b=nU0mHqpY;
+	dkim=pass header.d=sitime.com header.i=@sitime.com header.a=rsa-sha256 header.s=mail header.b=DWdwBkuX;
+	dkim=pass header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-Sitime-onmicrosoft-com header.b=VuloOqlx;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.129.48
 Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [148.163.129.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E4760A3803;
-	Tue, 10 Nov 2026 20:26:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E4760A3803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F53B60A5BEB;
+	Tue, 10 Nov 2026 20:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F53B60A5BEB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sitime.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.a=rsa-sha256 header.s=mail header.b=QmjHLVnG;
-	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-Sitime-onmicrosoft-com header.b=nU0mHqpY
+	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.a=rsa-sha256 header.s=mail header.b=DWdwBkuX;
+	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-Sitime-onmicrosoft-com header.b=VuloOqlx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
  h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
- s=mail; bh=lqSWLmFkcmmVALXmh5uCljq1PkhvoyH8M0Qiy3g4yyk=;
- b=QmjHLVnGWdk7HyD5TEqyiZxbztdfFEzfZ2SBf4ihJpe6VBSkOeFn6RR1S/uylAOMy09ztrhWLqOvv93b9VQ3hHhkqAxmoVebttVw+ucPtqNjR8A+PdkotJY3+xzu4yYNRPhWXrm61safoAaBEYYR8l+Nf58InFQWNVc3VkPvTqZll6MrDder/ET73HbfcxyJWLOnm7FzFJHBcmAm3rRK5xibVaQciUiT+b0UP0wBfe7eITpOtrarkDIlmpn8bXY7+g4uS4oAlEUGmLuVy6LkmkkDLJTa/+JSH6iVCa6FtAbC4N0XcX8gwlcP7iADNWhgLwckIEHTYoZY2vW+romIow==
+ s=mail; bh=F6IHkkP7aExJ77G8FTsAgEmNofcm1QHyqmwHRx/qPFs=;
+ b=DWdwBkuXX/cKu5+6yoEq/URsP+Wo6098M5nw8hVAr6lD6DUVi6jxuJ3P1sJ1CHYoaH40YOHYVWleBj6Gn+GK3C+RKOHYAMUQ6v6Tsbpgb+zIs1Cg6cDfLSrdJQYn+oZ/Ev3anHGd26+9W4Okpxvfc8rE1xbF8svRigWIYWRKL12KtlFj8LRa6LgygsvEygghcPLyLspNhaGpAtMc/k599+K6+s2E9EtnBEID/jwXfm8Siyc1c/GOQlOSonIKmrXqMCjlUnnVPuXDxF0TEPk1wTDaR7d+LX9zzHCuorQSRX9kWPhO/gySTPjLagyWWjobFRdagr6k2XKpGdf2KDM9HA==
 X-Virus-Scanned: Proofpoint Essentials engine
 Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021098.outbound.protection.outlook.com [52.101.62.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 4ED951C0075;
-	Tue, 10 Nov 2026 20:26:30 +0000 (UTC)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id AA6D21C006C;
+	Tue, 10 Nov 2026 20:26:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I5kdhQoWsvwsiHkugRoMJNE10CCxt6W0liXki/2yuXX1s8hP+TcUvJ2teYYFpINsV7ou4zFgYeqbeDF4K4adO7vEd1LQR7c6H8yYhxhVyqyUXoKMdM+ATGw9420MUVYlf3htamLzxdCPZ/3avPbCERQHjocIHEEIh3B/4edaXiXuJP9mxorN/bjFTGBJw360DqvGGVwZEi8mkgvUiT5T8A3iLY/Q2WpNevB/T3etPpu+R0wPrajh9tneHDrEewRZaMLSwfO60y0ORa4JEsTc36yHdr2qlyBAyMpwqJE9OE1S3PKrTJYAfmQ44AashauAxDrY21o9LsrGtjz3+kt2DQ==
+ b=mdyoG1Wk5th+lJ48ltEa2abnEpHFmga9OiCP4e6NTCw/cs40Xsv2b0tHols7OMc8M6ORs2sM6Pch8k/cr8RN3NRzovsngEvEW/GmzRckBih5/hrbHjsG3hIeVMMgYnTIp6SmnYpQz4yUlHPHojdyYmbnMwmNfqpge/XDDsidoapalspWuE0qDgC50ES8UqjW0jKzj/z08N5Dk2UsLhM+7m7udU6WPjkHY4nJvK+KE2jb2m5/KBkF50bZgTjW4MkG3Krc3p/x5WFXhLJqs98960HUQ5jI2PMXILxsoIMs+BYXqThfLwtCKeMnaN8ejplzoal2A9kV7wH/UkgMZkWMlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lqSWLmFkcmmVALXmh5uCljq1PkhvoyH8M0Qiy3g4yyk=;
- b=CGOrNcR5MEmtNArTrEb+Vf8sc55d8+51UmOVhCz/mxKD3t/QHUjoxmx/QdNF8jpBCyiEplqv+N5sUENF+0N5OP867VlEQ5EO+MzkejGLb4gg0dyUzrDa2AyoGOOfmSnyR91wwvL4pLc8NhA8g9NvfCoOPCW1Q+XhTn0a55h7lnW5Q9NSAjbAeMrqTR+Wg63Y3TZTi3OP6htdGTsgyyA33NevSbYF/Dsg5qovq7pemgXsnUnno20aRD8ceME5vWyh+Jtxyg0d5qPsUf6IFo3Q5tVtcBHEn9BdIg3KtGoEme2sb8ZJ1cQilBPlH8V6wdbar3/4+W60D4BSUkdgRUy6vQ==
+ bh=F6IHkkP7aExJ77G8FTsAgEmNofcm1QHyqmwHRx/qPFs=;
+ b=xPpZT7qjkoLYKJd6J17mvXGafk6ZD7fMHupjZTZ6nFk/sro8uqACm55M/hi8qqXmk2ohTrsd7iQNaVyk0YUR2T4uuql5EKvLf2tI1FHRMkdSO7HOUx4+WK8MEuIVlUL3Xrhh4mRRRMOBjaxD+wGiLGCqY2SSjWvJCbHP7+lU4WXRhuwObhaIR5LcxY9A4CD4+sfA3Z4+3fabGuk9baBMvLpLYBtbPunrx8hEJ5upi6fdj0cw/j5i4FmcfCJrsRaBNRXlrOu0MCzniF/O0vddGK/gJWAVTU2hXMj0r/lcrTztdQf2BNIu3MBshiMTxX0jEAILCUB1IfaQ6OL+gwUnmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
  dkim=pass header.d=sitime.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lqSWLmFkcmmVALXmh5uCljq1PkhvoyH8M0Qiy3g4yyk=;
- b=nU0mHqpYyAey3eVg2AtZ1cd0MWrDoGR9/m9G1NquenFsDymllUfbylhZ4gV/BeztsjqEUi2MGgoiBebZriRtLrOUV/fKvjp0iIQkUoxMFhJSsxBSOIi6CXwuLf5qEAihKFryeEQpUzG5O395Bo0HdOsXVXCouUg5AK+yary16uQxFF28pE/EwZdDr5+rAoVf/cnSPkPU23boqzbF3sisn0NAjd/SvhrSixnhfrto7Yhx4yeckgQS+LmMkOnW8wvrUKQD6/uxflVvj98WZTdO9U1zjMfClJ7kccpU/V7dtEG7QUm7cUy+maWwiQjGeigmCVR+7ZneGAtajv8kE77fqQ==
+ bh=F6IHkkP7aExJ77G8FTsAgEmNofcm1QHyqmwHRx/qPFs=;
+ b=VuloOqlxogLb2BRGm5bX6Spec7dslggmKIgEGpfabttAJUht5aqHofhY+NiyUpm2frSzyU1FF0Ac/nykmI4EdK3vK38LjVrLVA/ufzM3EbPuLCnE8eDnGZLmIZmfWH3XfH1X51GDSzgmiim4NaG3t0bn+8O/PWOrCydXwackNSbm+OV52CRswCj7fnIqD9x9kAALDdHbpcjz8bRPL/FlU41MMNPIRJ+uoMwj2V2QSTGkFMIAbzb0txfFoAy1q2oYPRR0QzrvidnhvC+qMF5I89akuNi13yZfTK6JpevYdLq9mdb2qwg5dA8yZpbxB7tlTEKnLNOyiBGmQhcgv9gA/g==
 Received: from LVWPR20MB994915.namprd20.prod.outlook.com
  (2603:10b6:408:3bf::16) by PH0PR20MB6205.namprd20.prod.outlook.com
  (2603:10b6:510:295::5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 20:26:24 +0000
+ 2026 20:26:25 +0000
 Received: from LVWPR20MB994915.namprd20.prod.outlook.com
  ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
  ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 20:26:24 +0000
+ 20:26:25 +0000
 From: Ali Rouhi <arouhi@sitime.com>
 To: "jiri@resnulli.us" <jiri@resnulli.us>
 CC: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
@@ -102,13 +102,13 @@ CC: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
 	<devicetree@vger.kernel.org>, "netdev@vger.kernel.org"
 	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net-next v15 11/13] dpll: sit9531x: add support to adjust
- output phase
-Thread-Topic: [PATCH net-next v15 11/13] dpll: sit9531x: add support to adjust
- output phase
-Thread-Index: AQHdcVG86eVFyVW2CkGcNBKGFhgL1w==
-Date: Tue, 10 Nov 2026 20:26:16 +0000
-Message-ID: <20261110202607.55744-12-arouhi@sitime.com>
+Subject: [PATCH net-next v15 13/13] dpll: sit9531x: model the inter-PLL sync
+ line as a pair of pins
+Thread-Topic: [PATCH net-next v15 13/13] dpll: sit9531x: model the inter-PLL
+ sync line as a pair of pins
+Thread-Index: AQHdcVG9xv2EBzUMZkmHEZXAAnqpcA==
+Date: Tue, 10 Nov 2026 20:26:17 +0000
+Message-ID: <20261110202607.55744-14-arouhi@sitime.com>
 References: <20261110202607.55744-1-arouhi@sitime.com>
 In-Reply-To: <20261110202607.55744-1-arouhi@sitime.com>
 Accept-Language: en-US
@@ -119,47 +119,47 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=sitime.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|PH0PR20MB6205:EE_
-x-ms-office365-filtering-correlation-id: 5188c5bc-9549-4e98-ea2d-08df3f68e43d
+x-ms-office365-filtering-correlation-id: 4c0b8af2-1c53-443d-4f82-08df3f68e48e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|3023799007|261026140227099003|261022075727099003|261026121527099003|261028144727099003|261009223027099003|261021123027099003|261021121427099003|261022105027099003|10067099003|261102123227099003|260925021311599003|260925021911599003|260925022911599003|5023799004|56012099006|38070700021|6133799003|22082099003|18002099003;
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|261022115727099003|3023799007|261026140227099003|261022075727099003|261026130827099003|261026135527099003|261026121527099003|261021133027099003|261021130227099003|261021135927099003|261028144727099003|261009223027099003|261021123027099003|261021121427099003|261022105027099003|10067099003|261022113327099003|261102123227099003|5023799004|56012099006|38070700021|6133799003|22082099003|18002099003;
 x-microsoft-antispam-message-info:
- S/GybPg1GOyzqLcxtnN4+6ArwXSVw9Avb/xE7j0V5nHn6nJD/FRb2xhAEnWX79cqxKqiOZTaPk9dABxdMveMKoduljaET5EDtv1aZmtCRZOdZxhPqJf5I5Wd7SVF3tuUoNUwduD8Y1AeNa8nm5NN7jG4OejTpu5vSYvhFEQtW8zUxNZlMapPTmxLFz2ELvHUTLtzdrh/mjX9D2wXC57qT+ygFrscZNoO5MzAAeYed8scGpr7ALTCy3KAUMf1xIrY4ecUjY2XMBcSlc1YLQRiOidpTljQsVzruHQFRqoQ5/rsVyIDoUXvLTKa29QvSe4VAye0G+1kIEZ4LZLTFrUghERg2Fc3AeyGX5HI35e+2nz52Uk+MyLNBYG37kwVQG8Jxq6EXLIjY6pe4NTRO/5ZeRfVaiNL7NOIKRmhRsNycv/mJHJ6U7dt1iPx4wHdtmTEJ8s+ZJN75+Dbq9dAXLqj8I8k0EGRfHF6mmwI+dRCbSGE4i2XSk4WbU9A4MJalX1R2jENNIPA7rGhZHB/5CE/IneGPT+g1da+9vMPHYhQbPlkeoT657IEjyeeMqj19jI9qGklrhyFx+HHhH2MXFpwLEaTysk5V6BQkLlbsaMgmw4wRT7dvNI6/67kP5Ht/BfD66tmFOsnL8+yvMb+sb1ZR/wNXmYEAVYvzEnj7CwB6zAFcNWGFn9LSV8+KmmbaWAiH/TTmg9g5Jp4Z7rJnHsmvfNQcdMugZujCKTyACfv8bU=
+ V8TlHaqTSDzN6JSOgI/NS6YxMhAJfiKPDbj1lp0oOr+FY8Kg8iiafjGtgu5VcQbggLNUEm6yOlk9nJ+nteELOKI59IShhvRCSs8oVx3Pc02NLFE4FK99gj14K/F1DHYuqNGjekCyXHuniB+5kV/fIBq4SYQJ9hSjvkv9T6dH5V6Q3bfXzDC4GZVz3gzmc1GyGIxvRIFsw4SYae+vEE9WHYWRUg6L6TTh7J8S0qMBcd8dwi16xP+SsgSKQ06aoc4YYu7MCGmUb8oDTppj/z6XR3muXzvMCEAnvfiit80BJgMCkiKZe1PugQNmEXeIDeNHlt1niUxMHew1TTrKwgv7ueVUbIPtO1HEn+vg1vjfjqweocPeOcPZGMynoi1S3b+xsLh4rKPhuBlEGh5TfA4iIq82GdPOFuxLwzSAo3c0WiVUDRGga4Xt14Q/vDcFhuOtLxItWkst4IdAlKLk5eLN+cSKiNun3UQulW/2JgC2fpBahfgD8XTckM7l7Tq03bf+GkAila2u5CsjFClR7/pGoskB7bEU2vpEUbc8bVLoz/pjUrPQowVkf722Ak0ba/wYcI5aRx6ZrSTNq55UuaNyuvYToe6NoYirVSC9wocizEc/MMHtqcvKyF3vU2UePLT1AwWHHCL42PdiCatuD0Wr9UAiznPmqjerbo31NBUOU0lvR959WgKOTIF2MvtxwVDKRuMuf1Q1AP76Jekqdr0qsWS8567cLbjGu6Fh2fa6Rxo=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(3023799007)(261026140227099003)(261022075727099003)(261026121527099003)(261028144727099003)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(261102123227099003)(260925021311599003)(260925021911599003)(260925022911599003)(5023799004)(56012099006)(38070700021)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(261022115727099003)(3023799007)(261026140227099003)(261022075727099003)(261026130827099003)(261026135527099003)(261026121527099003)(261021133027099003)(261021130227099003)(261021135927099003)(261028144727099003)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(261022113327099003)(261102123227099003)(5023799004)(56012099006)(38070700021)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?zRIa4E6jYX534fWW9+uiV8AH8fprMcJKo/fT5Rp+aipc4FipNMGpg2y3hY?=
- =?iso-8859-1?Q?QfyygXiev9n0Nz1nE9Zc2VuQX2BQjLsyz9CDNuw1uKdZiCaoCE8ViVS2St?=
- =?iso-8859-1?Q?m5V3ke5auxvQrrDJLuTT6Hz82Wz+Y6cwhhu8epPiGSS9O4NFiI3EiNcAmw?=
- =?iso-8859-1?Q?gGo2ITR82IdBOpI63KR6NgEDYQQl2vg+bCsC4T8PsqjzbHPQgPDIqg08dL?=
- =?iso-8859-1?Q?Uam17cOWCEy49QLAdBLpZaeBfezVbzJJ3CbsiVrjF4a8acD9FE8om1qlO3?=
- =?iso-8859-1?Q?yL01rEdFVU4ex9+VKEER36Tfwlrb5bweWbCE6iD7DaBNeYI8pD8ddV8j1h?=
- =?iso-8859-1?Q?qun8sntU/TwsWWC58UNGF/LU41yKuYEm/FiGHYhCxxSHbMw+HI9176Cv33?=
- =?iso-8859-1?Q?CapBokFqJazKcfHXRn+c4apireuJe1UsmHanfR2/GJJJ9QFNWE50RWDmHR?=
- =?iso-8859-1?Q?CxhOFkE0i8or9IIQSLOZiVXvrlY0v/Eh8QrhWTjGnInbsqPiqqyiSpQJvk?=
- =?iso-8859-1?Q?dprJqgh+w/77RcrD0KivDCXcQdJiOufMg64p96qpl9tfhfqR2nUqqY+xWH?=
- =?iso-8859-1?Q?0UqMWugYHSjvwmmVc5tVtpX833mxmNKJBchwASPHMpTcwjWYJklQ6dFgDm?=
- =?iso-8859-1?Q?LfYbRyFsxm0tRn845omfWkj9srjlkVzKZhiqe4bpKGtBqEETTpxhSsDI5Z?=
- =?iso-8859-1?Q?I/Ex2/AdlX0gvZltY785CgMNA1Q2zbqYWOYy/zooHaB0I6U1b/61t45dTY?=
- =?iso-8859-1?Q?Q4iYavo3TjcYZcZpnFV9T03FwNzWWB190vuNeIYR76fz/A8eB4QZ8/Jw82?=
- =?iso-8859-1?Q?QTIjlKa7rFLlEE3cyQj5SeHCxoUteXHq4NIB4pQYzYfunRfBTQCdD2tYvS?=
- =?iso-8859-1?Q?gYhDMHGXVTUMFRM9UvattFANtA+p2eaLuFImltTBbFaBJO6OlTviUHmOX5?=
- =?iso-8859-1?Q?3WeDs6b6o4HnyhOaP/m58FqmuwGVzNnBu3sJ5VSeemS9TDAmTOQmbaIDfX?=
- =?iso-8859-1?Q?qNdvt0x7tTk0+0cImcH2mcnKydjdutkiuk6dkEmdGxC0CokLAtM/Q5vWYr?=
- =?iso-8859-1?Q?SwycdF4eLpmBJKfMcrfAaZVVUm6/qaOAUCf4PIMP5YkekcfhZMXuFgPmqk?=
- =?iso-8859-1?Q?PvW8MVdyT/MoKDKX/aTFIdrsrtWNioL2AIVsjE914lemvBHW4jqPuGLslz?=
- =?iso-8859-1?Q?XgWO1fbNBXR8Y0XLQleplIzImG5reguF2xzv7Ez6cRDL+p2g5Wi8sBc0aW?=
- =?iso-8859-1?Q?zYKB/pkky4emhlWj1HdUDVZuh5WuabAeyKfAEYDEevqBFE1ApPKMy/bvkk?=
- =?iso-8859-1?Q?5D/mFI+5q0NEWFIIJC8Er6fDrsmx2Lqjyvgk80inmimPnHSYLLaOt3f4pR?=
- =?iso-8859-1?Q?eVFcyZ6TI9aMukZbeIjv8e1RujmMCCJgi+9yEjZ/lXrdaWJ337AsRPd8Fh?=
- =?iso-8859-1?Q?3EGy5glOzoqzB+DlZG1MmZJbQF4F3FZb/v9QJatpTlQbMcHi1sHzi8StXh?=
- =?iso-8859-1?Q?H1qwemus8hGvpqvvjfgyw1gIRw41EAxsfeRxvBTSuKAEmBS2rfGYmzpDxq?=
- =?iso-8859-1?Q?ZkQclMKTG7DGNiYabN7/HT4HmObLz8UoCJpV4SMGHIFkWtFucSvr6YrBAb?=
- =?iso-8859-1?Q?Jzxt58XVTxPxAS7CifCQ6AvYK4EG/KfPwV3j/p4Lim4t3TuKCyRI5usjGF?=
- =?iso-8859-1?Q?Cilsy4quO6gd80dVn60mA8ixTl5TdJXwkBwf7EIfneKUadVndUMFAKNlEX?=
- =?iso-8859-1?Q?mxWdkv3KitwRdhSgGIfK2yVu5+xXUsjVQytcMaxmyeXvfV?=
+ =?iso-8859-1?Q?1P5Azf5qeLqxkMn9nvNhvwJZY8XO/gFhcPOBgeAf80U7iHwxyj27qZYtAW?=
+ =?iso-8859-1?Q?zA+tRO2+dCSudL6c1QR9FEISPfEZLR1+ERaSCMpYXd3rc6GGFQr98UtKXb?=
+ =?iso-8859-1?Q?hYxNTHW6ZDvhC5R12/zykIl1bLGrbuhOPvq9CMNFI/DH46DopKnvev9gyq?=
+ =?iso-8859-1?Q?8dFAQjgyYCAtzM11mBw7iWBvgYdYcmeeX+5S8sG+JbKwwJACjxH71ff2s4?=
+ =?iso-8859-1?Q?jkNtluYJxjtmSjG+qqouCHERObxyIkarl/YmIcLQ/XzhDCBCtCK9mHRUqj?=
+ =?iso-8859-1?Q?h6dOz8JJ8ZiG1tAmJECvBtAeMbMfEbUibhk6TozkUc38jg5/+NN+qYz6Kc?=
+ =?iso-8859-1?Q?PNkXKVYsXeNcl4AjUzqz2zaWTemD7nbuhMxH4t4OyVO+XmIFHT6ghl/89l?=
+ =?iso-8859-1?Q?BxuMzINKRnGkRD5nlCsMXFzx9qcyHKt048E7QbhBqRs+bp16/3KOZUzrkT?=
+ =?iso-8859-1?Q?1MWsaReyu+UTuBpQ25pN1Oq6gIVBqg1LmjrC7MbiZhu0wTE39zGUUVuZgx?=
+ =?iso-8859-1?Q?bB50x2RNHBGys8VdsqqYLcRijDeGThk61C1HtRf6zQ0cNOfemuON8PQJ8c?=
+ =?iso-8859-1?Q?/iWDnOWZwIgaREdfTxPt+5MJwxCagwHJK5GvbH33mtZ/yzIzKe3sTR+K/e?=
+ =?iso-8859-1?Q?om/9pCtLnjn3Q+XK/59BNu1gyHMh1hWPe8nBmSJOL3HmWhDTKDr6waFk4V?=
+ =?iso-8859-1?Q?81cmQodoK6ZL69LuWyG+Mfr5snVvHgEUvUmPpBa95ZbMK92srjcfbBjp+B?=
+ =?iso-8859-1?Q?FDQdHQWpYc36Jy96uMiRM7szLzMvlnZnt7QpCOz0EfDMdNIoh8zNHVkCpQ?=
+ =?iso-8859-1?Q?nNB88H9mYvY1TztpsjlC7VNZvKcYCHuMnQivb1IjAj9OeYLBOSJt53Jrk0?=
+ =?iso-8859-1?Q?TvOGXG1yeXNymVBcNoPF1Eu/zrYQZVrgMwZM2n8eErGol+9Ekx298Y1ekO?=
+ =?iso-8859-1?Q?JOb94GJ80uBfQkga+jHOkHnUESQQk4qic27GMUnW2RQQXbjyWk3ZehRCUO?=
+ =?iso-8859-1?Q?sL4FzR8mbB6HrYnfzOGT6cVnLVTCwwpJVoYa7aHc5VP+eAwuF5Tfvm2Mlx?=
+ =?iso-8859-1?Q?QUE9amaA8G6h/FHxn88TQC+PjbWB4mwZbvjCaS2whH8D+ZyCzJitbqRp13?=
+ =?iso-8859-1?Q?5D9uGd6ri69QHGnL1jVTyCF81yQiYu0KJpmO6kiVC2/tEPJ21sUI2NIq3D?=
+ =?iso-8859-1?Q?u766GvL92x1iIdTVRVY05y1kmS34As9NPGpKH6MlXatyPpkxfyDlVEP1Wf?=
+ =?iso-8859-1?Q?LN9QLb8wBHoaB5qAVLn4gHt/YEdYLGAK2HG45IfKLq+L7fjeaMvcTrTiXK?=
+ =?iso-8859-1?Q?ghSGJ6zdJt5BRtvAYF0YicDLOS9tADZTesEmE/eJhYTpBt9Zwy6ba9NhJW?=
+ =?iso-8859-1?Q?2GvAGqbdwGwx+uuReCGzlG8S6+pnOEYyvlZ2g3zkPj9qzXwxE3e0RIE/7n?=
+ =?iso-8859-1?Q?WF/cBHaoqj0sBWAsa238a85j1t5ZbvlTlEW9NMgVuyHmEw24oafMrMHduA?=
+ =?iso-8859-1?Q?aBDS9sqzXkcS4zFpfu0EZWQ8I2rjhiyONbPHye6fEtMY2W27mLwdDVbvai?=
+ =?iso-8859-1?Q?tBwnEaarn91Ai4ni2Kmme8oHMNF+w+xSwPuBKhZZccEJx85qQz3wH8F1Hq?=
+ =?iso-8859-1?Q?31xAhrf6k9y2qxtH0WIfC78VsAgVg+MB8SevZpxPOxR5WV8jpRgtFMQzkT?=
+ =?iso-8859-1?Q?ygWn3TtGymsog06M6vkyIZQV2GU2HIiWYazm+dNvcIKFuisR8ODlmc7AbM?=
+ =?iso-8859-1?Q?EHI6ylkZ6fbzfGJKW7VkGZABRc/QQ0LcYCcLvpqPsC8BUw?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
@@ -172,1348 +172,1293 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-Exchange-RoutingPolicyChecked:
-	CtIc47KETaCPOPuycr+ob89Sfq0AMTrjd3Fdp0h00zhq27KLORgoXCEE1njvKStjGwWFDgMxC3UyS7g/qksOJEhbWJnZHGIcgTdv4KCaZmoWDTiNCsTyplbhVI6ZxJ2yPpzkJObktSsS7hx559zn1DttGcEsuhzZqfBYYqHamlSn8Q5aMYZ98a+SeeWRlDroCvYMe8C9NnSeza+oClqLz389mLchjpwfUCrJ/MM2+QPNsmqph066uP35SIUHAjXog48xr3ePA9MBYPnUs1z3YnWRa4zBkJQlenO1JrX1dl++33WP/L0t/V8RAl0T8k3wNAYaW0M/2oHXB4EMSq9+Vw==
+	YWqKOre/LrZlXZT8n5ohK856LWJSXNrsTc35r4W9t0SAzG1aKIwhV9+q3QhbrXZubMEioXfX3gNA/twYDPy0dpixD3uLcxky6oB25IhRKTSOeH8Ajdk3hvEnF3ao6OunN4CkGZyXgKEc29hxxuaa9RwLQlgU3epGEQNflZkMTgqbGJHm0Dz5bposWLsMNQbLamm28S91/hh89EnQpYGRfxRRKxDnjYI5LJb+hcwfS6CwXNgEyxpeDt84D58SFEMxioygP5tt/Ykq5jz06Z6DOo9l05+ZRlT1dnTbqWLKdq1U5tNJjjgeXYn/OgTye4LiHQLC9QXgChxvgT9AImORjw==
 X-OriginatorOrg: sitime.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5188c5bc-9549-4e98-ea2d-08df3f68e43d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 20:26:16.1593
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c0b8af2-1c53-443d-4f82-08df3f68e48e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 20:26:17.4634
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q0anr5Zg61OYYFEauS+W2Loml/dRCvR8XyxSwTWuVSISTXFHzHrBoRIis+axDo2zAYhxb8kDeLuHMU7iubsACQ==
+X-MS-Exchange-CrossTenant-userprincipalname: zdXRIk2gvw0YuuF3CnEFuOmhEtXzRklpsKnv+y7E2zqiFG9UMhVaSHaTGvKT1Z367AIbB3+m5MFbskWMv8oFJg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR20MB6205
-X-MDID: 1794342391-IvI2IUWhVzc5
+X-MDID: 1794342392-UK25TE9ygUgL
 X-PPE-STACK: {"stack":"us1"}
 X-MDID-O:
- us1;ut7;1794342391;IvI2IUWhVzc5;<arouhi@sitime.com>;ba04557de9d2da8490f5f1e6de07b967
+ us1;ut7;1794342392;UK25TE9ygUgL;<arouhi@sitime.com>;ba04557de9d2da8490f5f1e6de07b967
 X-PPE-TRUSTED: V=1;DIR=OUT;
 
 From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>=0A=
 =0A=
-Shift an output in time against the other outputs of its PLL. A delay is=0A=
-a coarse count of VCO cycles plus a 3-bit fine field in 30 ps steps; a=0A=
-request is split between them and the getter reports what the registers=0A=
-hold.=0A=
+The part has an internal line by which one PLL can drive the others as a=0A=
+reference. Model it as two pins: an output pin on the source PLL, whose=0A=
+state says whether it drives the line, and an input pin on each=0A=
+destination, selectable like any input and reporting no signal while=0A=
+no PLL drives the line.=0A=
 =0A=
-The range advertised to the core is +/-1 ms at 1 ps granularity. The=0A=
-driver writes only positive delays, so an advance is held as the=0A=
-complementary delay within the output period. The delay is applied by=0A=
-the PLL's phase flush, which restarts the divider phase of every output=0A=
-the PLL drives, and a rate change re-times a programmed delay in the=0A=
-same programming window.=0A=
+Taking the line writes a pattern to the source's EXT page and sets a=0A=
+global enable; giving it up writes the disable pattern. The owner is=0A=
+read back from the pages, and a line enabled from a page the driver does=0A=
+not recognize, or from two pages, refuses every connect.=0A=
 =0A=
-Suggested-by: Ivan Vecera <ivecera@redhat.com>=0A=
+Resume re-reads the line owner, the output mutes and the output delays,=0A=
+which a profile reload may have changed.=0A=
+=0A=
 Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>=0A=
 Signed-off-by: Ali Rouhi <arouhi@sitime.com>=0A=
 ---=0A=
- drivers/dpll/sit9531x/core.c | 848 ++++++++++++++++++++++++++++++++---=0A=
- drivers/dpll/sit9531x/core.h |  15 +=0A=
- drivers/dpll/sit9531x/dpll.c | 116 ++++-=0A=
- drivers/dpll/sit9531x/prop.c |  14 +=0A=
- drivers/dpll/sit9531x/regs.h |  29 ++=0A=
- 5 files changed, 946 insertions(+), 76 deletions(-)=0A=
+ drivers/dpll/sit9531x/core.c | 708 ++++++++++++++++++++++++++++++++++-=0A=
+ drivers/dpll/sit9531x/core.h |  32 ++=0A=
+ drivers/dpll/sit9531x/dpll.c | 398 ++++++++++++++++++--=0A=
+ drivers/dpll/sit9531x/regs.h |   3 +=0A=
+ 4 files changed, 1112 insertions(+), 29 deletions(-)=0A=
 =0A=
 diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c=0A=
-index 458de502bc8f..9896d5aa40f5 100644=0A=
+index 8f305cc27737..e3ce7b6cad6b 100644=0A=
 --- a/drivers/dpll/sit9531x/core.c=0A=
 +++ b/drivers/dpll/sit9531x/core.c=0A=
-@@ -245,6 +245,23 @@ static int sit9531x_write_pll_close(struct sit9531x_de=
-v *sitdev, u8 pll_idx,=0A=
- 						 offset), val);=0A=
- }=0A=
- =0A=
-+static int sit9531x_update_pll_close(struct sit9531x_dev *sitdev, u8 pll_i=
-dx,=0A=
-+				     u8 offset, u8 mask, u8 val)=0A=
-+{=0A=
-+	u8 attempt;=0A=
-+	int rc;=0A=
-+=0A=
-+	for (attempt =3D 0; attempt < SIT9531X_CLOSE_TRIES; attempt++) {=0A=
-+		if (attempt)=0A=
-+			usleep_range(1000, 2000);=0A=
-+		rc =3D sit9531x_update_pll_u8(sitdev, pll_idx, offset, mask, val);=0A=
-+		if (!rc)=0A=
-+			break;=0A=
-+	}=0A=
-+=0A=
-+	return rc;=0A=
-+}=0A=
-+=0A=
- static void sit9531x_input_get_regs(const struct sit9531x_dev *sitdev,=0A=
- 				    u8 index,=0A=
- 				    unsigned int *force_reg,=0A=
-@@ -1534,6 +1551,65 @@ static int sit9531x_pll_small_update(struct sit9531x=
-_dev *sitdev, u8 pll_idx)=0A=
- 				     SIT9531X_SMALL_UPDATE_CMD);=0A=
- }=0A=
- =0A=
-+static int sit9531x_pll_small_update_close(struct sit9531x_dev *sitdev,=0A=
-+					   u8 pll_idx)=0A=
-+{=0A=
-+	return sit9531x_write_pll_close(sitdev, pll_idx,=0A=
-+					SIT9531X_PLL_REG_SMALL_UPDATE,=0A=
-+					SIT9531X_SMALL_UPDATE_CMD);=0A=
-+}=0A=
-+=0A=
-+/*=0A=
-+ * Undo a phase flush: restore the trigger select and the flush enable of =
-@plls=0A=
-+ * from @armed.=0A=
-+ */=0A=
-+static int sit9531x_phase_flush_undo(struct sit9531x_dev *sitdev,=0A=
-+				     bool ctrl_back, u8 ctrl, u8 plls, u8 armed)=0A=
-+{=0A=
-+	const u8 en =3D SIT9531X_PLL_PHFL_ON_DEMAND_EN;=0A=
-+	int rc =3D 0, ret;=0A=
-+	u8 i;=0A=
-+=0A=
-+	if (ctrl_back) {=0A=
-+		rc =3D sit9531x_write_close(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1,=0A=
-+					  ctrl);=0A=
-+		sitdev->flush_ctrl_pending =3D !!rc;=0A=
-+		sitdev->flush_ctrl =3D ctrl;=0A=
-+	}=0A=
-+=0A=
-+	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
-+		if (!(plls & BIT(i)))=0A=
-+			continue;=0A=
-+		ret =3D sit9531x_update_pll_close(sitdev, i,=0A=
-+						SIT9531X_PLL_REG_PHFL_CTRL, en,=0A=
-+						(armed & BIT(i)) ? en : 0);=0A=
-+		if (!ret)=0A=
-+			ret =3D sit9531x_pll_small_update_close(sitdev, i);=0A=
-+		if (ret) {=0A=
-+			sitdev->flush_arm_pending |=3D BIT(i);=0A=
-+			sitdev->flush_armed &=3D ~BIT(i);=0A=
-+			sitdev->flush_armed |=3D armed & BIT(i);=0A=
-+			if (!rc)=0A=
-+				rc =3D ret;=0A=
-+		} else {=0A=
-+			sitdev->flush_arm_pending &=3D ~BIT(i);=0A=
-+		}=0A=
-+	}=0A=
-+=0A=
-+	return rc;=0A=
-+}=0A=
-+=0A=
-+static int sit9531x_phase_flush_undo_retry(struct sit9531x_dev *sitdev)=0A=
-+{=0A=
-+	if (!sitdev->flush_ctrl_pending && !sitdev->flush_arm_pending)=0A=
-+		return 0;=0A=
-+=0A=
-+	return sit9531x_phase_flush_undo(sitdev, sitdev->flush_ctrl_pending,=0A=
-+					 sitdev->flush_ctrl,=0A=
-+					 sitdev->flush_arm_pending,=0A=
-+					 sitdev->flush_armed);=0A=
-+}=0A=
-+=0A=
- /*=0A=
-  * Realign the PLL's output dividers with the on-demand phase flush (PHFL)=
-, or=0A=
-  * restart the PLL when its profile has PHFL off (PLL page 0x47 bit 7 clea=
-r), as=0A=
-@@ -1542,27 +1618,39 @@ static int sit9531x_pll_small_update(struct sit9531=
-x_dev *sitdev, u8 pll_idx)=0A=
-  */=0A=
- static int sit9531x_output_phase_flush(struct sit9531x_dev *sitdev, u8 pll=
-_idx)=0A=
+@@ -857,6 +857,8 @@ static bool sit9531x_prio_src_live(const struct sit9531=
+x_dev *sitdev, u8 src)=0A=
  {=0A=
--	u8 ctrl, orig, phfl, armed_mask =3D 0, parked =3D 0, i;=0A=
-+	u8 ctrl, orig =3D 0, phfl, armed_mask =3D 0, parked =3D 0, touched, i;=0A=
-+	bool ctrl_back =3D false, armed_here =3D false, fired =3D false;=0A=
- 	int rc, ret;=0A=
+ 	u8 index =3D sit9531x_hw_src_input(src);=0A=
  =0A=
-+	/*=0A=
-+	 * Retry a pending undo first so the reads below see the profile's=0A=
-+	 * settings.=0A=
-+	 */=0A=
-+	rc =3D sit9531x_phase_flush_undo_retry(sitdev);=0A=
-+	if (rc)=0A=
-+		goto out;=0A=
-+=0A=
- 	rc =3D sit9531x_read_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_CONFIG47,=
-=0A=
- 				  &phfl);=0A=
- 	if (rc)=0A=
--		return rc;=0A=
--	if (!(phfl & SIT9531X_PLL_CONFIG47_PHFL_EN))=0A=
--		return sit9531x_write_pll_u8(sitdev, pll_idx,=0A=
--					     SIT9531X_PLL_REG_DIRECTIVES,=0A=
--					     SIT9531X_PLL_DIRECTIVE_RESTART);=0A=
-+		goto out;=0A=
-+	if (!(phfl & SIT9531X_PLL_CONFIG47_PHFL_EN)) {=0A=
-+		rc =3D sit9531x_write_pll_u8(sitdev, pll_idx,=0A=
-+					   SIT9531X_PLL_REG_DIRECTIVES,=0A=
-+					   SIT9531X_PLL_DIRECTIVE_RESTART);=0A=
-+		fired =3D !rc;=0A=
-+		goto out;=0A=
-+	}=0A=
++	if (index =3D=3D SIT9531X_INTSYNC_PIN_ID)=0A=
++		return sit9531x_intsync_driven(sitdev);=0A=
+ 	if (index >=3D sitdev->info->num_inputs)=0A=
+ 		return true;=0A=
  =0A=
- 	/*=0A=
- 	 * The phase trigger is chip-global and fires every PLL with on-demand=0A=
--	 * flush enabled; record which ones the profile arms.=0A=
-+	 * flush enabled; disable it on the other PLLs for the pulse.=0A=
- 	 */=0A=
- 	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
- 		rc =3D sit9531x_read_pll_u8(sitdev, i, SIT9531X_PLL_REG_PHFL_CTRL,=0A=
- 					  &phfl);=0A=
- 		if (rc)=0A=
--			return rc;=0A=
-+			goto out;=0A=
- 		if (phfl & SIT9531X_PLL_PHFL_ON_DEMAND_EN)=0A=
- 			armed_mask |=3D BIT(i);=0A=
- 	}=0A=
-@@ -1575,18 +1663,19 @@ static int sit9531x_output_phase_flush(struct sit95=
-31x_dev *sitdev, u8 pll_idx)=0A=
- 					    SIT9531X_PLL_REG_PHFL_CTRL,=0A=
- 					    SIT9531X_PLL_PHFL_ON_DEMAND_EN, 0);=0A=
- 		if (rc)=0A=
--			goto unpark;=0A=
-+			goto undo;=0A=
- 		rc =3D sit9531x_pll_small_update(sitdev, i);=0A=
- 		if (rc)=0A=
--			goto unpark;=0A=
-+			goto undo;=0A=
- 	}=0A=
- =0A=
-+	armed_here =3D true;=0A=
- 	rc =3D sit9531x_update_pll_u8(sitdev, pll_idx,=0A=
- 				    SIT9531X_PLL_REG_PHFL_CTRL,=0A=
- 				    SIT9531X_PLL_PHFL_ON_DEMAND_EN,=0A=
- 				    SIT9531X_PLL_PHFL_ON_DEMAND_EN);=0A=
- 	if (rc)=0A=
--		goto disarm;=0A=
-+		goto undo;=0A=
- =0A=
- 	/*=0A=
- 	 * Write the update register whole; a read-modify-write skips the write=
-=0A=
-@@ -1594,21 +1683,19 @@ static int sit9531x_output_phase_flush(struct sit95=
-31x_dev *sitdev, u8 pll_idx)=0A=
- 	 */=0A=
- 	rc =3D sit9531x_pll_small_update(sitdev, pll_idx);=0A=
- 	if (rc)=0A=
--		goto disarm;=0A=
-+		goto undo;=0A=
- =0A=
--	/*=0A=
--	 * Select the in-register phase trigger; the register also holds the OEb=
-=0A=
--	 * bits.=0A=
--	 */=0A=
-+	/* Select the in-register phase trigger, preserving the OEb bits. */=0A=
- 	rc =3D sit9531x_read_u8(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1, &ctrl);=0A=
- 	if (rc)=0A=
--		goto disarm;=0A=
-+		goto undo;=0A=
- =0A=
- 	orig =3D ctrl & ~SIT9531X_DIVO_PHASE_TRIG;=0A=
- 	ctrl =3D orig | SIT9531X_DIVO_PHASE_SEL_REG;=0A=
-+	ctrl_back =3D true;=0A=
- 	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1, ctrl);=0A=
- 	if (rc)=0A=
--		goto restore;=0A=
-+		goto undo;=0A=
- =0A=
- 	/*=0A=
- 	 * No delay between set and clear; one I2C transfer is longer than the=0A=
-@@ -1616,40 +1703,19 @@ static int sit9531x_output_phase_flush(struct sit95=
-31x_dev *sitdev, u8 pll_idx)=0A=
- 	 */=0A=
- 	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1,=0A=
- 			       ctrl | SIT9531X_DIVO_PHASE_TRIG);=0A=
--=0A=
--restore:=0A=
--	ret =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1, orig);=0A=
-+	fired =3D !rc;=0A=
-+=0A=
-+undo:=0A=
-+	touched =3D parked;=0A=
-+	if (armed_here && !(armed_mask & BIT(pll_idx)))=0A=
-+		touched |=3D BIT(pll_idx);=0A=
-+	ret =3D sit9531x_phase_flush_undo(sitdev, ctrl_back, orig, touched,=0A=
-+					armed_mask);=0A=
- 	if (ret && !rc)=0A=
- 		rc =3D ret;=0A=
- =0A=
--disarm:=0A=
--	/*=0A=
--	 * Restore the profile's flush enable; an armed flush re-flushes every=0A=
--	 * output divider of this PLL on the next trigger.=0A=
--	 */=0A=
--	if (!(armed_mask & BIT(pll_idx))) {=0A=
--		ret =3D sit9531x_update_pll_u8(sitdev, pll_idx,=0A=
--					     SIT9531X_PLL_REG_PHFL_CTRL,=0A=
--					     SIT9531X_PLL_PHFL_ON_DEMAND_EN, 0);=0A=
--		if (!ret)=0A=
--			ret =3D sit9531x_pll_small_update(sitdev, pll_idx);=0A=
--		if (ret && !rc)=0A=
--			rc =3D ret;=0A=
--	}=0A=
--=0A=
--unpark:=0A=
--	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
--		if (!(parked & BIT(i)))=0A=
--			continue;=0A=
--		ret =3D sit9531x_update_pll_u8(sitdev, i,=0A=
--					     SIT9531X_PLL_REG_PHFL_CTRL,=0A=
--					     SIT9531X_PLL_PHFL_ON_DEMAND_EN,=0A=
--					     SIT9531X_PLL_PHFL_ON_DEMAND_EN);=0A=
--		if (!ret)=0A=
--			ret =3D sit9531x_pll_small_update(sitdev, i);=0A=
--		if (ret && !rc)=0A=
--			rc =3D ret;=0A=
--	}=0A=
-+out:=0A=
-+	sitdev->chan[pll_idx].flush_pending =3D !fired;=0A=
- =0A=
- 	return rc;=0A=
+@@ -1091,6 +1093,18 @@ static u8 sit9531x_prio_activesel_pick(struct sit953=
+1x_dev *sitdev,=0A=
+ 	return srcs[0];=0A=
  }=0A=
-@@ -1730,7 +1796,7 @@ static int sit9531x_output_divo_write(struct sit9531x=
-_dev *sitdev, u8 out_idx,=0A=
- 	int rc, j, rb_rc;=0A=
- 	u8 written =3D 0;=0A=
  =0A=
--	*back =3D false;=0A=
-+	*back =3D true;=0A=
++static bool sit9531x_prio_table_lists_intsync(const u8 *srcs)=0A=
++{=0A=
++	u8 slot;=0A=
++=0A=
++	for (slot =3D 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++)=0A=
++		if ((srcs[slot] & SIT9531X_PRIO_NIBBLE_MASK) =3D=3D=0A=
++		    SIT9531X_PRIO_SRC_INTSYNC)=0A=
++			return true;=0A=
++=0A=
++	return false;=0A=
++}=0A=
++=0A=
+ static int sit9531x_prio_table_commit(struct sit9531x_dev *sitdev, u8 pll_=
+idx,=0A=
+ 				      const u8 *srcs)=0A=
+ {=0A=
+@@ -1107,6 +1121,11 @@ static int sit9531x_prio_table_commit(struct sit9531=
+x_dev *sitdev, u8 pll_idx,=0A=
+ 		if (sit9531x_prio_src_usable(srcs[slot]))=0A=
+ 			empty =3D false;=0A=
  =0A=
- 	slot =3D info->clkout_map[out_idx];=0A=
++	if (sitdev->intsync_stale &&=0A=
++	    (sit9531x_prio_table_lists_intsync(srcs) ||=0A=
++	     sit9531x_prio_table_lists_intsync(chan->prio_srcs)))=0A=
++		sit9531x_intsync_refresh(sitdev);=0A=
++=0A=
+ 	memcpy(back, chan->table_pending ? chan->table_back : chan->prio_srcs,=0A=
+ 	       sizeof(back));=0A=
  =0A=
-@@ -1757,6 +1823,7 @@ static int sit9531x_output_divo_write(struct sit9531x=
-_dev *sitdev, u8 out_idx,=0A=
- 	msb_old =3D old_bytes[4];=0A=
- 	divo_bytes[4] |=3D msb_old & 0xFC;=0A=
- =0A=
-+	*back =3D false;=0A=
- 	for (j =3D 0; j < 5; j++) {=0A=
- 		rc =3D sit9531x_write_u8(sitdev,=0A=
- 				       SIT9531X_REG(page, base_reg - j),=0A=
-@@ -1815,12 +1882,357 @@ static int sit9531x_output_divo_read(struct sit953=
-1x_dev *sitdev, u8 out_idx,=0A=
- 	return *divo ? 0 : -ENODATA;=0A=
+@@ -2585,6 +2604,556 @@ static int sit9531x_clear_notifications(struct sit9=
+531x_dev *sitdev)=0A=
+ 	return 0;=0A=
  }=0A=
  =0A=
 +/*=0A=
-+ * Phase adjust is a 34-bit coarse delay in VCO cycles plus a 3-bit fine d=
-elay=0A=
-+ * in 30 ps steps, in bytes PROG6..PROG2. PRG_RST_DELAY is unsigned, so an=
++ * Close the debug window on a PLL's EXT page; the key opens every debug=
 =0A=
-+ * advance is written as T_out - |phase|.=0A=
++ * register on the page while it holds the unlock value.=0A=
 + */=0A=
-+=0A=
-+/* Register of byte @i (PROG6 first) of an output's PRG_RST_DELAY block. *=
-/=0A=
-+static unsigned int sit9531x_output_prg_reg(struct sit9531x_dev *sitdev,=
-=0A=
-+					    u8 out_idx, u8 i)=0A=
++static int sit9531x_intsync_debug_lock(struct sit9531x_dev *sitdev, u8 ext=
+_page)=0A=
 +{=0A=
-+	u8 slot =3D sitdev->info->clkout_map[out_idx];=0A=
-+	u8 page =3D (slot > SIT9531X_PAGE_OUTSYS0_SLOT_MAX) ?=0A=
-+		  SIT9531X_PAGE_OUTSYS1 : SIT9531X_PAGE_OUTSYS0;=0A=
-+	u8 base =3D SIT9531X_OUT_PRG_DELAY_BASE +=0A=
-+		  SIT9531X_OUT_PRG_SLOT_STRIDE * (slot % 6);=0A=
-+=0A=
-+	return SIT9531X_REG(page, base + i);=0A=
++	return sit9531x_write_close(sitdev,=0A=
++				    SIT9531X_REG(ext_page,=0A=
++						 SIT9531X_PLL_REG_DEBUG),=0A=
++				    SIT9531X_PLL_DEBUG_LOCK);=0A=
 +}=0A=
 +=0A=
-+static int sit9531x_output_phase_bytes_read(struct sit9531x_dev *sitdev,=
-=0A=
-+					    u8 out_idx, u8 *bytes)=0A=
-+{=0A=
-+	unsigned int reg;=0A=
-+	int rc;=0A=
-+	u8 i;=0A=
++/*=0A=
++ * Values written to the source PLL's EXT page to enable or disable INTSYN=
+C,=0A=
++ * which locks the frequency PLL to the phase PLL.=0A=
++ */=0A=
++struct sit9531x_intsync_reg {=0A=
++	u8 offset;=0A=
++	u8 en_val;=0A=
++	u8 dis_val;=0A=
++};=0A=
 +=0A=
-+	for (i =3D 0; i < SIT9531X_OUT_PRG_BYTES; i++) {=0A=
-+		reg =3D sit9531x_output_prg_reg(sitdev, out_idx, i);=0A=
-+		rc =3D sit9531x_read_u8(sitdev, reg, &bytes[i]);=0A=
++static const struct sit9531x_intsync_reg intsync_config[] =3D {=0A=
++	{ 0x2D, 0x02, 0x00 },=0A=
++	{ 0x50, 0x08, 0x00 },=0A=
++	{ 0x51, 0x04, 0x00 },=0A=
++	{ 0x54, 0x02, 0x00 },=0A=
++	{ 0x55, 0x28, 0x20 },=0A=
++	{ 0x5C, 0x0F, 0x00 },=0A=
++	{ 0x5D, 0xFF, 0x00 },=0A=
++	{ 0x6C, 0xDD, 0x00 },=0A=
++};=0A=
++=0A=
++/*=0A=
++ * Find the PLL whose EXT page holds the INTSYNC enable pattern, whole or =
+in=0A=
++ * part. Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++int sit9531x_intsync_src_detect(struct sit9531x_dev *sitdev)=0A=
++{=0A=
++	s8 src =3D -1, partial =3D -1;=0A=
++	int rc, ret, n_en, n_dis;=0A=
++	u8 pll, ext_page;=0A=
++	u8 n_pages =3D 0;=0A=
++	unsigned int i;=0A=
++	bool enabled;=0A=
++	u8 global;=0A=
++=0A=
++	lockdep_assert_held(&sitdev->multiop_lock);=0A=
++=0A=
++	rc =3D sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &global);=0A=
++	if (rc)=0A=
++		return rc;=0A=
++	enabled =3D global & BIT(SIT9531X_INTSYNC_EN_BIT);=0A=
++=0A=
++	/*=0A=
++	 * Read the EXT pages even with the global enable clear; a page can hold=
+=0A=
++	 * the enable pattern under a clear bit.=0A=
++	 */=0A=
++	for (pll =3D 0; pll < SIT9531X_NUM_PLLS; pll++) {=0A=
++		ext_page =3D SIT9531X_PLL_EXT_PAGE(pll);=0A=
++=0A=
++		/*=0A=
++		 * Open the EXT page's debug window to read the INTSYNC=0A=
++		 * registers.=0A=
++		 */=0A=
++		rc =3D sit9531x_write_u8(sitdev,=0A=
++				       SIT9531X_REG(ext_page,=0A=
++						    SIT9531X_PLL_REG_DEBUG),=0A=
++				       SIT9531X_PLL_DEBUG_UNLOCK);=0A=
++		if (rc) {=0A=
++			sit9531x_intsync_debug_lock(sitdev, ext_page);=0A=
++			return rc;=0A=
++		}=0A=
++=0A=
++		n_en =3D 0;=0A=
++		n_dis =3D 0;=0A=
++		for (i =3D 0; i < ARRAY_SIZE(intsync_config); i++) {=0A=
++			u16 reg;=0A=
++			u8 val;=0A=
++=0A=
++			reg =3D SIT9531X_REG(ext_page, intsync_config[i].offset);=0A=
++=0A=
++			rc =3D sit9531x_read_u8(sitdev, reg, &val);=0A=
++			if (rc)=0A=
++				break;=0A=
++			if (val =3D=3D intsync_config[i].en_val)=0A=
++				n_en++;=0A=
++			else if (val =3D=3D intsync_config[i].dis_val)=0A=
++				n_dis++;=0A=
++		}=0A=
++=0A=
++		ret =3D sit9531x_intsync_debug_lock(sitdev, ext_page);=0A=
++		if (!rc)=0A=
++			rc =3D ret;=0A=
 +		if (rc)=0A=
 +			return rc;=0A=
-+	}=0A=
 +=0A=
-+	return 0;=0A=
-+}=0A=
++		/*=0A=
++		 * A page with the disable pattern or with other values is not a=0A=
++		 * source.=0A=
++		 */=0A=
++		if (!n_en || n_en + n_dis !=3D ARRAY_SIZE(intsync_config))=0A=
++			continue;=0A=
++		n_pages++;=0A=
 +=0A=
-+/*=0A=
-+ * The register value includes the divider's settling cycles; a value belo=
-w them=0A=
-+ * means no delay.=0A=
-+ */=0A=
-+static void sit9531x_output_phase_bytes_decode(const u8 *bytes, u64 *coars=
-e,=0A=
-+					       u8 *fine)=0A=
-+{=0A=
-+	u64 prg_coarse;=0A=
++		if (n_dis || !enabled) {=0A=
++			/*=0A=
++			 * A page holding both patterns, or the whole enable=0A=
++			 * pattern under a clear global enable, does not drive=0A=
++			 * the line.=0A=
++			 */=0A=
++			if (partial < 0)=0A=
++				partial =3D pll;=0A=
++			continue;=0A=
++		}=0A=
 +=0A=
-+	*fine =3D (bytes[0] & SIT9531X_OUT_PRG_FINE_MASK) >>=0A=
-+		SIT9531X_OUT_PRG_FINE_SHIFT;=0A=
-+	prg_coarse =3D (u64)(bytes[0] & SIT9531X_OUT_PRG_COARSE_HI_MASK) << 32;=
-=0A=
-+	prg_coarse |=3D (u64)bytes[1] << 24;=0A=
-+	prg_coarse |=3D (u64)bytes[2] << 16;=0A=
-+	prg_coarse |=3D (u64)bytes[3] << 8;=0A=
-+	prg_coarse |=3D bytes[4];=0A=
-+	*coarse =3D (prg_coarse > SIT9531X_OUT_PRG_DIVO_CYCLES) ?=0A=
-+		  prg_coarse - SIT9531X_OUT_PRG_DIVO_CYCLES : 0;=0A=
-+}=0A=
-+=0A=
-+/*=0A=
-+ * @coarse excludes the divider's two settling cycles; the register value=
-=0A=
-+ * includes them.=0A=
-+ */=0A=
-+static void sit9531x_output_phase_bytes_build(const u8 *old_bytes, u64 coa=
-rse,=0A=
-+					      u8 fine, u8 *new_bytes)=0A=
-+{=0A=
-+	u64 prg_coarse =3D coarse + SIT9531X_OUT_PRG_DIVO_CYCLES;=0A=
-+=0A=
-+	/* PROG6 RMW: preserve OPSTG_VCASC_BUMP in [7:5] */=0A=
-+	new_bytes[0] =3D old_bytes[0] & SIT9531X_OUT_PRG_OPSTG_MASK;=0A=
-+	new_bytes[0] |=3D (fine << SIT9531X_OUT_PRG_FINE_SHIFT) &=0A=
-+			SIT9531X_OUT_PRG_FINE_MASK;=0A=
-+	new_bytes[0] |=3D (u8)((prg_coarse >> 32) &=0A=
-+			     SIT9531X_OUT_PRG_COARSE_HI_MASK);=0A=
-+	new_bytes[1] =3D (u8)((prg_coarse >> 24) & 0xFF);=0A=
-+	new_bytes[2] =3D (u8)((prg_coarse >> 16) & 0xFF);=0A=
-+	new_bytes[3] =3D (u8)((prg_coarse >> 8) & 0xFF);=0A=
-+	new_bytes[4] =3D (u8)(prg_coarse & 0xFF);=0A=
-+}=0A=
-+=0A=
-+/*=0A=
-+ * Caller must be in the programming state; @back reports whether every by=
-te=0A=
-+ * holds its old value.=0A=
-+ */=0A=
-+static int sit9531x_output_phase_bytes_write(struct sit9531x_dev *sitdev,=
-=0A=
-+					     u8 out_idx, const u8 *new_bytes,=0A=
-+					     const u8 *old_bytes, bool *back)=0A=
-+{=0A=
-+	int rc, ret, rb_rc =3D 0;=0A=
-+	unsigned int reg;=0A=
-+	u8 i;=0A=
-+=0A=
-+	*back =3D false;=0A=
-+=0A=
-+	for (i =3D 0; i < SIT9531X_OUT_PRG_BYTES; i++) {=0A=
-+		reg =3D sit9531x_output_prg_reg(sitdev, out_idx, i);=0A=
-+		rc =3D sit9531x_write_u8(sitdev, reg, new_bytes[i]);=0A=
-+		if (rc)=0A=
-+			goto rollback;=0A=
-+	}=0A=
-+=0A=
-+	return 0;=0A=
-+=0A=
-+rollback:=0A=
-+	for (i =3D 0; i < SIT9531X_OUT_PRG_BYTES; i++) {=0A=
-+		reg =3D sit9531x_output_prg_reg(sitdev, out_idx, i);=0A=
-+		ret =3D sit9531x_write_u8(sitdev, reg, old_bytes[i]);=0A=
-+		if (ret && !rb_rc)=0A=
-+			rb_rc =3D ret;=0A=
-+	}=0A=
-+	*back =3D !rb_rc;=0A=
-+	if (rb_rc) {=0A=
-+		dev_err(sitdev->dev,=0A=
-+			"out%u: phase-adjust rollback failed (%d), the delay registers are part=
- old and part new\n",=0A=
-+			out_idx, rb_rc);=0A=
-+		if (!rc)=0A=
-+			rc =3D rb_rc;=0A=
-+	}=0A=
-+=0A=
-+	return rc;=0A=
-+}=0A=
-+=0A=
-+/*=0A=
-+ * Return the error of @cycles VCO cycles plus the nearest fine steps (in =
-@fine)=0A=
-+ * against @abs_ps.=0A=
-+ */=0A=
-+static u64 sit9531x_output_phase_quant_err(u64 abs_ps, u64 fvco, u64 cycle=
-s,=0A=
-+					   u8 *fine)=0A=
-+{=0A=
-+	u64 cycles_ps, steps =3D 0;=0A=
-+=0A=
-+	cycles_ps =3D mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco);=0A=
-+	if (abs_ps > cycles_ps)=0A=
-+		steps =3D div64_u64(abs_ps - cycles_ps +=0A=
-+				  SIT9531X_OUT_PRG_FINE_STEP_PS / 2,=0A=
-+				  SIT9531X_OUT_PRG_FINE_STEP_PS);=0A=
-+	*fine =3D min_t(u64, steps, SIT9531X_OUT_PRG_FINE_MAX);=0A=
-+=0A=
-+	return abs_diff(abs_ps, cycles_ps +=0A=
-+			(u64)*fine * SIT9531X_OUT_PRG_FINE_STEP_PS);=0A=
-+}=0A=
-+=0A=
-+/*=0A=
-+ * Fold @phase_ps into one output period and split it into VCO cycles and =
-fine=0A=
-+ * steps; @phase_adj gets the realized delay in the request's sign. Pure=
-=0A=
-+ * arithmetic, so call it before entering the programming state.=0A=
-+ */=0A=
-+static int sit9531x_output_phase_encode(u64 fvco, u64 divo, s32 phase_ps,=
-=0A=
-+					u64 *coarse_out, u8 *fine_out,=0A=
-+					s32 *phase_adj)=0A=
-+{=0A=
-+	u64 abs_ps, cycles, frac_ps, coarse =3D 0, coarse_ps, t_out_ps;=0A=
-+	s64 phase_norm_ps =3D 0;=0A=
-+	u8 fine =3D 0;=0A=
-+=0A=
-+	t_out_ps =3D mul_u64_u64_div_u64(divo, 1000000000000ULL, fvco);=0A=
-+	if (!t_out_ps)=0A=
-+		return -EINVAL;=0A=
-+=0A=
-+	if (!phase_ps) {=0A=
-+		*coarse_out =3D 0;=0A=
-+		*fine_out =3D 0;=0A=
-+		*phase_adj =3D 0;=0A=
-+		return 0;=0A=
++		if (src < 0)=0A=
++			src =3D pll;=0A=
 +	}=0A=
 +=0A=
 +	/*=0A=
-+	 * The period is DIVO VCO cycles but often fractional in ps (7812.5 ps=0A=
-+	 * at 128 MHz from 5.12 GHz), so fold whole cycles modulo DIVO and carry=
-=0A=
-+	 * the sub-cycle part. The DPLL core limits the request to +/-1 ms.=0A=
++	 * Record a PLL with a partial pattern, though it does not drive the=0A=
++	 * line, so that no other PLL is enabled alongside it.=0A=
 +	 */=0A=
-+	abs_ps =3D abs(phase_ps);=0A=
-+	cycles =3D mul_u64_u64_div_u64(abs_ps, fvco, 1000000000000ULL);=0A=
-+	frac_ps =3D abs_ps - mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco);=
-=0A=
-+	div64_u64_rem(cycles, divo, &cycles);=0A=
-+	abs_ps =3D mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco) + frac_ps;=
-=0A=
-+	/*=0A=
-+	 * Truncation can leave a request within 1 ps of a whole period, which=0A=
-+	 * is the same edge as no delay.=0A=
-+	 */=0A=
-+	if (abs_ps >=3D t_out_ps)=0A=
-+		abs_ps =3D 0;=0A=
-+	phase_norm_ps =3D phase_ps < 0 ? -(s64)abs_ps : (s64)abs_ps;=0A=
-+	abs_ps =3D (phase_ps < 0 && abs_ps) ? t_out_ps - abs_ps : abs_ps;=0A=
-+=0A=
-+	if (abs_ps) {=0A=
-+		u64 floor_cycles, err, alt_err, realized;=0A=
-+		u8 alt_fine;=0A=
-+=0A=
-+		/* mul_u64_u64_div_u64(): abs_ps * fvco would overflow. */=0A=
-+		floor_cycles =3D mul_u64_u64_div_u64(abs_ps, fvco,=0A=
-+						   1000000000000ULL);=0A=
-+=0A=
-+		/*=0A=
-+		 * The fine field spans 210 ps, more than one VCO cycle in every=0A=
-+		 * band, so take the nearest of floor, floor + 1, and floor - 1=0A=
-+		 * with a larger fine code; the floor on a tie.=0A=
-+		 */=0A=
-+		coarse =3D floor_cycles;=0A=
-+		err =3D sit9531x_output_phase_quant_err(abs_ps, fvco, coarse,=0A=
-+						      &fine);=0A=
-+		alt_err =3D sit9531x_output_phase_quant_err(abs_ps, fvco,=0A=
-+							  floor_cycles + 1,=0A=
-+							  &alt_fine);=0A=
-+		if (alt_err < err) {=0A=
-+			coarse =3D floor_cycles + 1;=0A=
-+			fine =3D alt_fine;=0A=
-+			err =3D alt_err;=0A=
-+		}=0A=
-+		if (floor_cycles) {=0A=
-+			u64 fewer =3D floor_cycles - 1;=0A=
-+=0A=
-+			alt_err =3D sit9531x_output_phase_quant_err(abs_ps, fvco,=0A=
-+								  fewer,=0A=
-+								  &alt_fine);=0A=
-+			if (alt_err < err) {=0A=
-+				coarse =3D fewer;=0A=
-+				fine =3D alt_fine;=0A=
-+			}=0A=
-+		}=0A=
-+=0A=
-+		/*=0A=
-+		 * Program a delay that quantizes to a whole period or more as=0A=
-+		 * none, and round one past the advertised range toward the=0A=
-+		 * request's side.=0A=
-+		 */=0A=
-+		coarse_ps =3D mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);=0A=
-+		realized =3D coarse_ps +=0A=
-+			   (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS;=0A=
-+		if (realized >=3D t_out_ps) {=0A=
-+			coarse =3D 0;=0A=
-+			fine =3D 0;=0A=
-+		} else if (phase_norm_ps < 0 ?=0A=
-+			   t_out_ps - realized > SIT9531X_OUT_PHASE_ADJ_MAX_PS :=0A=
-+			   realized > SIT9531X_OUT_PHASE_ADJ_MAX_PS) {=0A=
-+			u64 rem;=0A=
-+=0A=
-+			coarse =3D floor_cycles;=0A=
-+			coarse_ps =3D mul_u64_u64_div_u64(coarse,=0A=
-+							1000000000000ULL, fvco);=0A=
-+			rem =3D abs_ps - coarse_ps;=0A=
-+			if (phase_norm_ps < 0)=0A=
-+				rem +=3D SIT9531X_OUT_PRG_FINE_STEP_PS - 1;=0A=
-+			fine =3D div_u64(rem, SIT9531X_OUT_PRG_FINE_STEP_PS);=0A=
-+		}=0A=
-+=0A=
-+		if (coarse + SIT9531X_OUT_PRG_DIVO_CYCLES >=3D=0A=
-+		    (1ULL << SIT9531X_OUT_PRG_COARSE_BITS))=0A=
-+			return -ERANGE;=0A=
++	sitdev->intsync_partial =3D src < 0 && partial >=3D 0;=0A=
++	if (sitdev->intsync_partial) {=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "PLL%c holds an INTSYNC source configuration that does not drive the l=
+ine\n",=0A=
++			 'A' + partial);=0A=
++		src =3D partial;=0A=
 +	}=0A=
 +=0A=
-+	coarse_ps =3D mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);=0A=
-+	abs_ps =3D coarse_ps + (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS;=0A=
-+	/* The result is within the range, so it fits the s32 the ABI carries */=
++	/*=0A=
++	 * With more than one page holding the pattern, refuse every connect; an=
 =0A=
-+	if (phase_norm_ps < 0)=0A=
-+		*phase_adj =3D abs_ps ? -(s32)(t_out_ps - abs_ps) : 0;=0A=
-+	else=0A=
-+		*phase_adj =3D (s32)abs_ps;=0A=
++	 * enable on one would also set the global enable over the other.=0A=
++	 */=0A=
++	sitdev->intsync_conflict =3D n_pages > 1;=0A=
++	if (sitdev->intsync_conflict)=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "%u PLLs hold the INTSYNC source pattern; recording PLL%c\n",=0A=
++			 n_pages, 'A' + src);=0A=
 +=0A=
-+	*coarse_out =3D coarse;=0A=
-+	*fine_out =3D fine;=0A=
++	sitdev->intsync_src =3D src;=0A=
++	sitdev->intsync_foreign =3D enabled && src < 0;=0A=
 +=0A=
 +	return 0;=0A=
 +}=0A=
 +=0A=
 +/**=0A=
-+ * sit9531x_output_phase_read - read an output's programmed delay back=0A=
++ * sit9531x_intsync_readback - re-read the sync source record from the par=
+t=0A=
 + * @sitdev: device pointer=0A=
-+ * @out_idx: logical output index=0A=
-+ * @phase_ps: result in picoseconds=0A=
-+ * @beyond: set when @phase_ps is outside the advertised range=0A=
 + *=0A=
-+ * An advance is stored as the period minus the advance and reads back as =
-one=0A=
-+ * only when it fits the range. Caller must hold sitdev->multiop_lock.=0A=
++ * A page reads the same latched or not, so a recorded partial source is k=
+ept=0A=
++ * unless the scan resolves it. Caller must hold sitdev->multiop_lock.=0A=
 + *=0A=
-+ * Return: 0 on success, -ENODATA for an output no PLL drives or whose Fvc=
-o=0A=
-+ * is unknown, <0 on other errors=0A=
++ * Return: 0 on success, <0 on a read error=0A=
 + */=0A=
-+int sit9531x_output_phase_read(struct sit9531x_dev *sitdev, u8 out_idx,=0A=
-+			       s64 *phase_ps, bool *beyond)=0A=
++int sit9531x_intsync_readback(struct sit9531x_dev *sitdev)=0A=
 +{=0A=
-+	const struct sit9531x_chip_info *info =3D sitdev->info;=0A=
-+	u8 bytes[SIT9531X_OUT_PRG_BYTES], fine;=0A=
-+	u64 coarse =3D 0, fvco, ps, divo;=0A=
++	bool partial =3D sitdev->intsync_partial;=0A=
++	s8 src =3D sitdev->intsync_src;=0A=
 +	int rc;=0A=
 +=0A=
-+	lockdep_assert_held(&sitdev->multiop_lock);=0A=
-+=0A=
-+	if (out_idx >=3D info->num_outputs)=0A=
-+		return -EINVAL;=0A=
-+=0A=
-+	*beyond =3D false;=0A=
-+=0A=
-+	if (!sitdev->out[out_idx].routed)=0A=
-+		return -ENODATA;=0A=
-+=0A=
-+	rc =3D sit9531x_get_fvco(sitdev, sitdev->out[out_idx].pll_idx, &fvco);=0A=
++	rc =3D sit9531x_intsync_src_detect(sitdev);=0A=
 +	if (rc)=0A=
 +		return rc;=0A=
 +=0A=
-+	rc =3D sit9531x_output_phase_bytes_read(sitdev, out_idx, bytes);=0A=
-+	if (rc)=0A=
-+		return rc;=0A=
-+	sit9531x_output_phase_bytes_decode(bytes, &coarse, &fine);=0A=
-+=0A=
-+	/*=0A=
-+	 * Take the period from the divider; the cached rate is unset at probe=0A=
-+	 * and whole hertz at best.=0A=
-+	 */=0A=
-+	rc =3D sit9531x_output_divo_read(sitdev, out_idx, &divo);=0A=
-+	if (rc && rc !=3D -ENODATA)=0A=
-+		return rc;=0A=
-+=0A=
-+	/*=0A=
-+	 * Fold the cycle count, not the picoseconds; the fine steps can carry=0A=
-+	 * the sum a fraction of a cycle past the period.=0A=
-+	 */=0A=
-+	if (!rc)=0A=
-+		div64_u64_rem(coarse, divo, &coarse);=0A=
-+=0A=
-+	ps =3D mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);=0A=
-+	ps +=3D (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS;=0A=
-+=0A=
-+	if (!rc) {=0A=
-+		u64 t_out_ps =3D mul_u64_u64_div_u64(divo, 1000000000000ULL,=0A=
-+						   fvco);=0A=
-+=0A=
-+		if (ps >=3D t_out_ps)=0A=
-+			ps -=3D t_out_ps;=0A=
-+		if (ps > SIT9531X_OUT_PHASE_ADJ_MAX_PS &&=0A=
-+		    t_out_ps - ps <=3D SIT9531X_OUT_PHASE_ADJ_MAX_PS) {=0A=
-+			*phase_ps =3D -(s64)(t_out_ps - ps);=0A=
-+			return 0;=0A=
-+		}=0A=
++	if (partial && (sitdev->intsync_src < 0 ||=0A=
++			(sitdev->intsync_src =3D=3D src &&=0A=
++			 !sitdev->intsync_partial))) {=0A=
++		sitdev->intsync_src =3D src;=0A=
++		sitdev->intsync_partial =3D true;=0A=
++		sitdev->intsync_foreign =3D false;=0A=
 +	}=0A=
-+	*beyond =3D ps > SIT9531X_OUT_PHASE_ADJ_MAX_PS;=0A=
-+	*phase_ps =3D ps;=0A=
 +=0A=
 +	return 0;=0A=
 +}=0A=
 +=0A=
- int sit9531x_output_freq_set(struct sit9531x_dev *sitdev, u8 out_idx,=0A=
- 			     u8 pll_idx, u64 frequency)=0A=
- {=0A=
--	u64 fvco, divo;=0A=
-+	u8 old_bytes[SIT9531X_OUT_PRG_BYTES], new_bytes[SIT9531X_OUT_PRG_BYTES];=
-=0A=
-+	u64 fvco, divo, coarse, old_divo =3D 0;=0A=
-+	bool retime =3D false, bytes_in =3D false, bytes_back =3D false;=0A=
-+	bool divo_back =3D false, divo_in, back, landed, encoded =3D false;=0A=
-+	bool beyond;=0A=
-+	struct sit9531x_out *out =3D &sitdev->out[out_idx];=0A=
-+	struct sit9531x_chan *chan =3D &sitdev->chan[pll_idx];=0A=
-+	s32 phase_adj =3D 0, held =3D 0;=0A=
- 	int rc, ret;=0A=
--	bool back;=0A=
-+	u8 fine;=0A=
- =0A=
- 	lockdep_assert_held(&sitdev->multiop_lock);=0A=
- =0A=
-@@ -1829,28 +2241,117 @@ int sit9531x_output_freq_set(struct sit9531x_dev *=
-sitdev, u8 out_idx,=0A=
- 	if (rc)=0A=
- 		return rc;=0A=
- =0A=
-+	if (out->phase_stale && !out->retime_pending) {=0A=
-+		s64 phase_ps;=0A=
++/**=0A=
++ * sit9531x_intsync_refresh - re-read a stale sync source record=0A=
++ * @sitdev: device pointer=0A=
++ *=0A=
++ * Caller must hold sitdev->multiop_lock.=0A=
++ *=0A=
++ * Return: 0 when the record is current, <0 when the scan fails=0A=
++ */=0A=
++int sit9531x_intsync_refresh(struct sit9531x_dev *sitdev)=0A=
++{=0A=
++	s8 owner;=0A=
++	int rc;=0A=
 +=0A=
-+		rc =3D sit9531x_output_phase_read(sitdev, out_idx, &phase_ps,=0A=
-+						&beyond);=0A=
++	if (!sitdev->intsync_stale)=0A=
++		return 0;=0A=
++=0A=
++	owner =3D sit9531x_intsync_owner(sitdev);=0A=
++	rc =3D sit9531x_intsync_readback(sitdev);=0A=
++	if (rc)=0A=
++		return rc;=0A=
++	sitdev->intsync_stale =3D false;=0A=
++	if (owner !=3D sit9531x_intsync_owner(sitdev))=0A=
++		sitdev->intsync_ntf_pending =3D true;=0A=
++=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++/*=0A=
++ * Check if the inter-PLL sync line carries a signal, from the recorded so=
+urce=0A=
++ * or a PLL locked to the line. Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++bool sit9531x_intsync_driven(const struct sit9531x_dev *sitdev)=0A=
++{=0A=
++	const struct sit9531x_chan *chan;=0A=
++	u8 pll;=0A=
++=0A=
++	lockdep_assert_held(&sitdev->multiop_lock);=0A=
++=0A=
++	if (sitdev->intsync_src >=3D 0 && !sitdev->intsync_partial &&=0A=
++	    !sitdev->intsync_stale)=0A=
++		return true;=0A=
++=0A=
++	for (pll =3D 0; pll < SIT9531X_NUM_PLLS; pll++) {=0A=
++		chan =3D sit9531x_chan_state_get(sitdev, pll);=0A=
++		if (chan->routed_ref =3D=3D SIT9531X_INTSYNC_PIN_ID &&=0A=
++		    chan->locked && !chan->ho_freeze &&=0A=
++		    !chan->stale && !chan->intsync_dropped)=0A=
++			return true;=0A=
++	}=0A=
++=0A=
++	return false;=0A=
++}=0A=
++=0A=
++static int __sit9531x_intsync_disable(struct sit9531x_dev *sitdev,=0A=
++				      u8 src_pll_idx, bool restore,=0A=
++				      bool *owner_kept, bool *touched);=0A=
++=0A=
++/*=0A=
++ * Set the global enable and latch the INTSYNC source pattern into the PLL=
+'s EXT=0A=
++ * page. Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++int sit9531x_intsync_enable(struct sit9531x_dev *sitdev, u8 src_pll_idx,=
+=0A=
++			    bool *rollback_failed, bool *touched)=0A=
++{=0A=
++	u8 ext_page, val;=0A=
++	int rc, lock_rc;=0A=
++	unsigned int i;=0A=
++=0A=
++	lockdep_assert_held(&sitdev->multiop_lock);=0A=
++=0A=
++	if (rollback_failed)=0A=
++		*rollback_failed =3D false;=0A=
++	if (touched)=0A=
++		*touched =3D false;=0A=
++	if (src_pll_idx >=3D SIT9531X_NUM_PLLS)=0A=
++		return -EINVAL;=0A=
++=0A=
++	ext_page =3D SIT9531X_PLL_EXT_PAGE(src_pll_idx);=0A=
++=0A=
++	rc =3D sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &val);=0A=
++	if (rc)=0A=
++		return rc;=0A=
++	if (touched)=0A=
++		*touched =3D true;=0A=
++	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,=0A=
++			       val | BIT(SIT9531X_INTSYNC_EN_BIT));=0A=
++	if (rc)=0A=
++		goto err_disable;=0A=
++=0A=
++	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GLOBAL_UPDATE,=0A=
++			       SIT9531X_SMALL_UPDATE_CMD);=0A=
++	usleep_range(1000, 2000);=0A=
++	if (rc)=0A=
++		goto relock_err;=0A=
++=0A=
++	rc =3D sit9531x_write_u8(sitdev,=0A=
++			       SIT9531X_REG(ext_page,=0A=
++					    SIT9531X_PLL_REG_DEBUG),=0A=
++			       SIT9531X_PLL_DEBUG_UNLOCK);=0A=
++	if (rc)=0A=
++		goto relock_err;=0A=
++=0A=
++	for (i =3D 0; i < ARRAY_SIZE(intsync_config); i++) {=0A=
++		rc =3D sit9531x_write_u8(sitdev,=0A=
++				       SIT9531X_REG(ext_page,=0A=
++						    intsync_config[i].offset),=0A=
++				       intsync_config[i].en_val);=0A=
++		if (rc)=0A=
++			goto relock_err;=0A=
++	}=0A=
++=0A=
++	rc =3D sit9531x_pll_small_update(sitdev, src_pll_idx);=0A=
++	if (rc)=0A=
++		goto relock_err;=0A=
++=0A=
++	rc =3D 0;=0A=
++	goto relock;=0A=
++=0A=
++relock_err:=0A=
++	sit9531x_intsync_debug_lock(sitdev, ext_page);=0A=
++	goto err_disable;=0A=
++=0A=
++relock:=0A=
++	lock_rc =3D sit9531x_intsync_debug_lock(sitdev, ext_page);=0A=
++	if (lock_rc)=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "PLL%c: INTSYNC enabled but the debug window was left open: %d\n",=0A=
++			 'A' + src_pll_idx, lock_rc);=0A=
++=0A=
++	return rc;=0A=
++=0A=
++err_disable:=0A=
++	{=0A=
++		int rollback_rc;=0A=
++=0A=
++		rollback_rc =3D __sit9531x_intsync_disable(sitdev, src_pll_idx,=0A=
++							 false, NULL, NULL);=0A=
++		if (rollback_rc) {=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "INTSYNC rollback failed after enable error: %d (original %d)\n",=0A=
++				 rollback_rc, rc);=0A=
++			if (rollback_failed)=0A=
++				*rollback_failed =3D true;=0A=
++		}=0A=
++	}=0A=
++=0A=
++	return rc;=0A=
++}=0A=
++=0A=
++/*=0A=
++ * Check if every INTSYNC register of an EXT page holds its disable value.=
+ The=0A=
++ * page's debug window must be open.=0A=
++ */=0A=
++static int sit9531x_intsync_page_off(struct sit9531x_dev *sitdev,=0A=
++				     u8 ext_page, bool *off)=0A=
++{=0A=
++	unsigned int i;=0A=
++	u8 val;=0A=
++	int rc;=0A=
++=0A=
++	*off =3D false;=0A=
++	for (i =3D 0; i < ARRAY_SIZE(intsync_config); i++) {=0A=
++		rc =3D sit9531x_read_u8(sitdev,=0A=
++				      SIT9531X_REG(ext_page,=0A=
++						   intsync_config[i].offset),=0A=
++				      &val);=0A=
 +		if (rc)=0A=
 +			return rc;=0A=
++		if (val !=3D intsync_config[i].dis_val)=0A=
++			return 0;=0A=
++	}=0A=
++	*off =3D true;=0A=
++=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++static int __sit9531x_intsync_disable(struct sit9531x_dev *sitdev,=0A=
++				      u8 src_pll_idx, bool restore,=0A=
++				      bool *owner_kept, bool *touched)=0A=
++{=0A=
++	bool in_window =3D false, was_enabled;=0A=
++	u8 ext_page, val;=0A=
++	int rc, lock_rc;=0A=
++	unsigned int i;=0A=
++=0A=
++	lockdep_assert_held(&sitdev->multiop_lock);=0A=
++=0A=
++	if (owner_kept)=0A=
++		*owner_kept =3D false;=0A=
++	if (touched)=0A=
++		*touched =3D false;=0A=
++	if (src_pll_idx >=3D SIT9531X_NUM_PLLS)=0A=
++		return -EINVAL;=0A=
++=0A=
++	ext_page =3D SIT9531X_PLL_EXT_PAGE(src_pll_idx);=0A=
++=0A=
++	rc =3D sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &val);=0A=
++	if (rc)=0A=
++		return rc;=0A=
++	was_enabled =3D val & BIT(SIT9531X_INTSYNC_EN_BIT);=0A=
++	if (touched)=0A=
++		*touched =3D true;=0A=
++	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,=0A=
++			       val & ~BIT(SIT9531X_INTSYNC_EN_BIT));=0A=
++	if (rc)=0A=
++		goto restore_global;=0A=
++	/* A sample taken before this write can still show a lock. */=0A=
++	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++)=0A=
++		if (sitdev->chan[i].routed_ref =3D=3D SIT9531X_INTSYNC_PIN_ID)=0A=
++			sitdev->chan[i].intsync_dropped =3D true;=0A=
++=0A=
++	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GLOBAL_UPDATE,=0A=
++			       SIT9531X_SMALL_UPDATE_CMD);=0A=
++	usleep_range(1000, 2000);=0A=
++	if (rc)=0A=
++		goto restore_global;=0A=
++=0A=
++	rc =3D sit9531x_write_u8(sitdev,=0A=
++			       SIT9531X_REG(ext_page,=0A=
++					    SIT9531X_PLL_REG_DEBUG),=0A=
++			       SIT9531X_PLL_DEBUG_UNLOCK);=0A=
++	if (rc)=0A=
++		goto restore_global;=0A=
++	in_window =3D true;=0A=
++=0A=
++	for (i =3D 0; i < ARRAY_SIZE(intsync_config); i++) {=0A=
++		rc =3D sit9531x_write_u8(sitdev,=0A=
++				       SIT9531X_REG(ext_page,=0A=
++						    intsync_config[i].offset),=0A=
++				       intsync_config[i].dis_val);=0A=
++		if (rc)=0A=
++			goto restore_global;=0A=
++	}=0A=
++=0A=
++	rc =3D sit9531x_pll_small_update(sitdev, src_pll_idx);=0A=
++	if (rc && owner_kept)=0A=
++		*owner_kept =3D true;=0A=
++=0A=
++	goto relock;=0A=
++=0A=
++restore_global:=0A=
++	/*=0A=
++	 * Restore the global enable, or finish the disable if the page holds=0A=
++	 * the disable pattern.=0A=
++	 */=0A=
++	if (restore && in_window) {=0A=
++		bool off;=0A=
++=0A=
++		if (sit9531x_intsync_page_off(sitdev, ext_page, &off)) {=0A=
++			if (owner_kept)=0A=
++				*owner_kept =3D true;=0A=
++		} else if (off) {=0A=
++			rc =3D sit9531x_pll_small_update(sitdev, src_pll_idx);=0A=
++			if (rc && owner_kept)=0A=
++				*owner_kept =3D true;=0A=
++			goto relock;=0A=
++		}=0A=
++	}=0A=
++=0A=
++	if (restore && was_enabled) {=0A=
++		int ret;=0A=
++=0A=
++		ret =3D sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,=0A=
++				       &val);=0A=
++		if (!ret)=0A=
++			ret =3D sit9531x_write_u8(sitdev,=0A=
++						SIT9531X_REG_INTSYNC_GLOBAL,=0A=
++						val |=0A=
++						BIT(SIT9531X_INTSYNC_EN_BIT));=0A=
++		if (!ret) {=0A=
++			/* The page-0 small update applies the global enable */=0A=
++			ret =3D sit9531x_write_close(sitdev,=0A=
++						   SIT9531X_REG_GLOBAL_UPDATE,=0A=
++						   SIT9531X_SMALL_UPDATE_CMD);=0A=
++			usleep_range(1000, 2000);=0A=
++		}=0A=
++		if (ret) {=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "PLL%c: INTSYNC enable not put back after a failed disable: %d\n",=0A=
++				 'A' + src_pll_idx, ret);=0A=
++			if (owner_kept)=0A=
++				*owner_kept =3D true;=0A=
++		}=0A=
++	}=0A=
++=0A=
++relock:=0A=
++	lock_rc =3D sit9531x_intsync_debug_lock(sitdev, ext_page);=0A=
++	if (lock_rc) {=0A=
++		if (rc)=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "PLL%c: debug window left open: %d\n",=0A=
++				 'A' + src_pll_idx, lock_rc);=0A=
++		else=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "PLL%c: INTSYNC disabled but the debug window was left open: %d\n",=
+=0A=
++				 'A' + src_pll_idx, lock_rc);=0A=
++	}=0A=
++=0A=
++	return rc;=0A=
++}=0A=
++=0A=
++/*=0A=
++ * Clear the global enable and latch the INTSYNC disable pattern into the =
+PLL's=0A=
++ * EXT page. Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++int sit9531x_intsync_disable(struct sit9531x_dev *sitdev, u8 src_pll_idx,=
+=0A=
++			     bool *owner_kept, bool *touched)=0A=
++{=0A=
++	return __sit9531x_intsync_disable(sitdev, src_pll_idx, true,=0A=
++					  owner_kept, touched);=0A=
++}=0A=
++=0A=
++/*=0A=
++ * Notify the output pins in @outs and, when @src, the INTSYNC source pin.=
+ Call=0A=
++ * without multiop_lock: the notification takes the subsystem locks, which=
+ are=0A=
++ * taken before multiop_lock.=0A=
++ */=0A=
++static void sit9531x_drive_pins_ntf(struct sit9531x_dev *sitdev, u16 outs,=
+=0A=
++				    bool src)=0A=
++{=0A=
++	struct sit9531x_dpll *sitdpll;=0A=
++	struct sit9531x_dpll_pin *pin;=0A=
++	struct dpll_pin *dpll_pin;=0A=
++	int rc;=0A=
++=0A=
++	if (!outs && !src)=0A=
++		return;=0A=
++=0A=
++	list_for_each_entry(sitdpll, &sitdev->dplls, list) {=0A=
++		list_for_each_entry(pin, &sitdpll->pins, list) {=0A=
++			if (pin->dir !=3D DPLL_PIN_DIRECTION_OUTPUT)=0A=
++				continue;=0A=
++			if (pin->id =3D=3D SIT9531X_INTSYNC_OUT_PIN_ID ?=0A=
++			    !src : !(outs & BIT(pin->id)))=0A=
++				continue;=0A=
++			dpll_pin =3D READ_ONCE(pin->dpll_pin);=0A=
++			if (!dpll_pin)=0A=
++				continue;=0A=
++			rc =3D dpll_pin_change_ntf(dpll_pin);=0A=
++			/*=0A=
++			 * The source pin is one pin registered on every DPLL.=0A=
++			 */=0A=
++			if (pin->id =3D=3D SIT9531X_INTSYNC_OUT_PIN_ID)=0A=
++				src =3D false;=0A=
++			if (!rc)=0A=
++				continue;=0A=
++			mutex_lock(&sitdev->multiop_lock);=0A=
++			if (pin->id =3D=3D SIT9531X_INTSYNC_OUT_PIN_ID)=0A=
++				sitdev->intsync_ntf_pending =3D true;=0A=
++			else=0A=
++				sitdev->out[pin->id].ntf_pending =3D true;=0A=
++			mutex_unlock(&sitdev->multiop_lock);=0A=
++		}=0A=
++	}=0A=
++}=0A=
++=0A=
++/*=0A=
++ * Re-read a stale sync source record; return true when a source pin=0A=
++ * notification is pending. Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++static bool sit9531x_intsync_stale_retry(struct sit9531x_dev *sitdev)=0A=
++{=0A=
++	if (sit9531x_intsync_refresh(sitdev))=0A=
++		return false;=0A=
++=0A=
++	if (!sitdev->intsync_ntf_pending)=0A=
++		return false;=0A=
++	sitdev->intsync_ntf_pending =3D false;=0A=
++=0A=
++	return true;=0A=
++}=0A=
++=0A=
+ /**=0A=
+  * sit9531x_phase_offset_read - read phase difference via TDC=0A=
+  * @sitdev: device pointer=0A=
+@@ -3022,6 +3591,7 @@ static int sit9531x_chan_state_fetch(struct sit9531x_=
+dev *sitdev, u8 pll_idx)=0A=
+ 	chan->ho_freeze =3D !!(ho_freeze & BIT(pll_idx));=0A=
+ 	chan->ho_valid =3D !!(pll_status_1 & SIT9531X_PLL_STATUS_1_HO_VALID);=0A=
+ 	chan->stale =3D false;=0A=
++	chan->intsync_dropped =3D false;=0A=
+ =0A=
+ 	return 0;=0A=
+ }=0A=
+@@ -3197,6 +3767,15 @@ static int sit9531x_dev_state_fetch(struct sit9531x_=
+dev *sitdev)=0A=
+ 		return rc;=0A=
+ 	}=0A=
+ =0A=
++	mutex_lock(&sitdev->multiop_lock);=0A=
++	rc =3D sit9531x_intsync_src_detect(sitdev);=0A=
++	mutex_unlock(&sitdev->multiop_lock);=0A=
++	if (rc) {=0A=
++		dev_err(sitdev->dev,=0A=
++			"Failed to detect INTSYNC source: %d\n", rc);=0A=
++		return rc;=0A=
++	}=0A=
++=0A=
+ 	for (i =3D 0; i < sitdev->info->num_outputs; i++) {=0A=
+ 		bool beyond;=0A=
+ 		s64 phase_ps;=0A=
+@@ -3522,6 +4101,7 @@ static void sit9531x_dev_periodic_work(struct kthread=
+_work *work)=0A=
+ 	struct sit9531x_dev *sitdev =3D container_of(work, struct sit9531x_dev,=
+=0A=
+ 						   work.work);=0A=
+ 	struct sit9531x_dpll *sitdpll;=0A=
++	bool src_moved;=0A=
+ 	bool answered;=0A=
+ 	int rc;=0A=
+ =0A=
+@@ -3531,16 +4111,16 @@ static void sit9531x_dev_periodic_work(struct kthre=
+ad_work *work)=0A=
+ 	 */=0A=
+ 	mutex_lock(&sitdev->multiop_lock);=0A=
+ 	answered =3D sit9531x_dev_ref_states_update(sitdev);=0A=
++	src_moved =3D sit9531x_intsync_stale_retry(sitdev);=0A=
+ 	answered |=3D sit9531x_dev_chan_states_update(sitdev);=0A=
+ 	mutex_unlock(&sitdev->multiop_lock);=0A=
+ =0A=
+ 	list_for_each_entry(sitdpll, &sitdev->dplls, list)=0A=
+ 		sit9531x_dpll_changes_check(sitdpll);=0A=
++	/* The source pin is not a selection pin; the walk above skips it. */=0A=
++	sit9531x_drive_pins_ntf(sitdev, 0, src_moved);=0A=
+ =0A=
+-	/*=0A=
+-	 * Clear the W1C notification latches on pages 0 and 6 after acting on=0A=
+-	 * them; while set they keep INTRB asserted.=0A=
+-	 */=0A=
++	/* The latches are W1C; left set, they keep INTRB asserted. */=0A=
+ 	mutex_lock(&sitdev->multiop_lock);=0A=
+ 	rc =3D sit9531x_clear_notifications(sitdev);=0A=
+ 	mutex_unlock(&sitdev->multiop_lock);=0A=
+@@ -4015,13 +4595,13 @@ static bool sit9531x_dpll_pin_is_registrable(struct=
+ sit9531x_dpll *sitdpll,=0A=
+ 		if (index =3D=3D SIT9531X_MAX_INPUTS)=0A=
+ 			return true;=0A=
+ 		if (index =3D=3D SIT9531X_INTSYNC_PIN_ID)=0A=
+-			return false;=0A=
++			return true;=0A=
+ =0A=
+ 		return sit9531x_input_pin_is_registrable(sitdev, index);=0A=
+ 	}=0A=
+ =0A=
+ 	if (index =3D=3D SIT9531X_INTSYNC_OUT_PIN_ID)=0A=
+-		return false;=0A=
++		return true;=0A=
+ =0A=
+ 	if (index >=3D sitdev->info->num_outputs)=0A=
+ 		return false;=0A=
+@@ -4420,12 +5000,128 @@ static int sit9531x_suspend(struct device *dev)=0A=
+ static int sit9531x_resume(struct device *dev)=0A=
+ {=0A=
+ 	struct sit9531x_dev *sitdev =3D dev_get_drvdata(dev);=0A=
++	u16 outs_was =3D 0, outs_now =3D 0, outs_unread =3D 0, outs_moved =3D 0;=
+=0A=
++	bool src_moved;=0A=
++	s8 owner;=0A=
++	int rc;=0A=
++	u8 i;=0A=
+ =0A=
+ 	/* After power loss the part is on page 0, not the cached page */=0A=
+ 	sit9531x_page_cache_drop(sitdev);=0A=
++=0A=
++	/*=0A=
++	 * A part that lost power returns with its profile's INTSYNC routing and=
+=0A=
++	 * output mutes, which the poll does not read; read them back. Arm one=0A=
++	 * re-select for a source lost and restored between samples.=0A=
++	 */=0A=
+ 	mutex_lock(&sitdev->multiop_lock);=0A=
+ 	sit9531x_reselect_arm(sitdev);=0A=
++	/*=0A=
++	 * Drop and report writes pending from before suspend: a reloaded=0A=
++	 * profile may have replaced their registers.=0A=
++	 */=0A=
++	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
++		struct sit9531x_chan *chan =3D &sitdev->chan[i];=0A=
++		bool retime =3D false;=0A=
++		u8 j, ho;=0A=
++=0A=
++		/*=0A=
++		 * A table write-back is pending only under forced holdover;=0A=
++		 * once that is cleared, the next poll reads the table from the=0A=
++		 * registers.=0A=
++		 */=0A=
++		if ((chan->table_pending || chan->ho_release_pending) &&=0A=
++		    !sit9531x_read_pll_u8(sitdev, i, SIT9531X_PLL_REG_HO_CTRL,=0A=
++					  &ho) &&=0A=
++		    !(ho & BIT(SIT9531X_PLL_HO_FORCE_BIT))) {=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "PLL%c: forced holdover cleared over suspend, priority table restore =
+dropped\n",=0A=
++				 'A' + i);=0A=
++			chan->table_pending =3D false;=0A=
++			chan->ho_release_pending =3D false;=0A=
++		}=0A=
++=0A=
++		for (j =3D 0; j < sitdev->info->num_outputs; j++) {=0A=
++			if (!sitdev->out[j].retime_pending ||=0A=
++			    sitdev->out[j].pll_idx !=3D i)=0A=
++				continue;=0A=
++			sitdev->out[j].retime_pending =3D false;=0A=
++			retime =3D true;=0A=
++		}=0A=
++		if (!retime && !chan->flush_pending &&=0A=
++		    !(sitdev->flush_arm_pending & BIT(i)))=0A=
++			continue;=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "PLL%c: pending before suspend, dropped:%s%s%s\n",=0A=
++			 'A' + i, retime ? " delay re-time" : "",=0A=
++			 chan->flush_pending ? " output realignment" : "",=0A=
++			 (sitdev->flush_arm_pending & BIT(i)) ?=0A=
++			 " on-demand flush enable" : "");=0A=
++		chan->flush_pending =3D false;=0A=
++		sitdev->flush_arm_pending &=3D ~BIT(i);=0A=
++	}=0A=
++	if (sitdev->flush_ctrl_pending) {=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "flush trigger source select pending before suspend, dropped\n");=0A=
++		sitdev->flush_ctrl_pending =3D false;=0A=
++	}=0A=
++	owner =3D sit9531x_intsync_owner(sitdev);=0A=
++	/*=0A=
++	 * The delay registers are reloaded with the profile too; read them back=
+=0A=
++	 * as probe does.=0A=
++	 */=0A=
++	for (i =3D 0; i < sitdev->info->num_outputs; i++) {=0A=
++		struct sit9531x_out *out =3D &sitdev->out[i];=0A=
++		bool beyond;=0A=
++		s64 phase_ps;=0A=
++=0A=
++		if (!out->routed)=0A=
++			continue;=0A=
++		rc =3D sit9531x_output_phase_read(sitdev, i, &phase_ps,=0A=
++						&beyond);=0A=
++		if (rc) {=0A=
++			dev_warn(sitdev->dev,=0A=
++				 "Output %u delay not read on resume: %d\n",=0A=
++				 i, rc);=0A=
++			out->phase_stale =3D true;=0A=
++			outs_unread |=3D BIT(i);=0A=
++			continue;=0A=
++		}=0A=
++		if (out->phase_adj !=3D phase_ps || out->phase_stale)=0A=
++			outs_moved |=3D BIT(i);=0A=
 +		out->phase_adj =3D phase_ps;=0A=
 +		out->phase_armed =3D !beyond && phase_ps;=0A=
 +		out->phase_stale =3D false;=0A=
 +	}=0A=
-+=0A=
-+	/*=0A=
-+	 * The reset delay counts VCO cycles; an advance is stored as T_out -=0A=
-+	 * |advance| and must be re-encoded for the new period. Write it in the=
-=0A=
-+	 * divider's programming window; a second flush would restart the PLL's=
-=0A=
-+	 * dividers.=0A=
-+	 */=0A=
-+	rc =3D sit9531x_output_phase_bytes_read(sitdev, out_idx, old_bytes);=0A=
-+	if (rc)=0A=
-+		return rc;=0A=
-+	sit9531x_output_phase_bytes_decode(old_bytes, &coarse, &fine);=0A=
-+	beyond =3D !out->phase_armed && out->phase_adj;=0A=
-+	if (out->retime_pending || out->phase_armed ||=0A=
-+	    ((coarse || fine) && !beyond)) {=0A=
-+		held =3D out->retime_pending ? out->retime_ps : out->phase_adj;=0A=
-+=0A=
-+		rc =3D sit9531x_output_phase_encode(fvco, divo, held, &coarse,=0A=
-+						  &fine, &phase_adj);=0A=
-+		if (rc)=0A=
-+			return rc;=0A=
-+		encoded =3D true;=0A=
-+		sit9531x_output_phase_bytes_build(old_bytes, coarse, fine,=0A=
-+						  new_bytes);=0A=
-+		retime =3D memcmp(old_bytes, new_bytes, sizeof(new_bytes)) !=3D 0;=0A=
-+	}=0A=
-+=0A=
-+	if (retime) {=0A=
-+		rc =3D sit9531x_output_divo_read(sitdev, out_idx, &old_divo);=0A=
-+		if (rc && rc !=3D -ENODATA)=0A=
-+			return rc;=0A=
-+	}=0A=
-+=0A=
- 	rc =3D sit9531x_prg_enter(sitdev);=0A=
- 	if (rc)=0A=
- 		return rc;=0A=
- =0A=
- 	rc =3D sit9531x_output_divo_write(sitdev, out_idx, divo, &back);=0A=
--	/* NVM update and loop lock */=0A=
-+	landed =3D !back;=0A=
-+	divo_in =3D !rc;=0A=
-+	if (!rc && retime) {=0A=
-+		rc =3D sit9531x_output_phase_bytes_write(sitdev, out_idx,=0A=
-+						       new_bytes, old_bytes,=0A=
-+						       &bytes_back);=0A=
-+		if (rc) {=0A=
-+			divo_back =3D bytes_back &&=0A=
-+				!sit9531x_output_divo_write(sitdev, out_idx,=0A=
-+							    old_divo, &back);=0A=
-+			landed =3D !divo_back;=0A=
-+		} else {=0A=
-+			bytes_in =3D true;=0A=
-+		}=0A=
-+	}=0A=
-+	/* Always leave PRG_CMD so the loops re-lock */=0A=
- 	ret =3D sit9531x_prg_commit(sitdev);=0A=
- 	if (ret && !rc)=0A=
- 		rc =3D ret;=0A=
--	if (rc)=0A=
-+	if (rc) {=0A=
-+		if (bytes_in || (encoded && !retime && divo_in)) {=0A=
-+			out->phase_adj =3D phase_adj;=0A=
-+			out->phase_armed =3D phase_adj !=3D 0;=0A=
-+			out->phase_stale =3D false;=0A=
-+			out->retime_pending =3D false;=0A=
-+		} else if (retime && landed) {=0A=
-+			out->retime_ps =3D held;=0A=
-+			out->retime_pending =3D true;=0A=
-+			out->phase_stale =3D true;=0A=
-+		} else if (encoded && landed) {=0A=
-+			out->phase_stale =3D true;=0A=
-+		} else if (beyond) {=0A=
-+			out->phase_stale =3D true;=0A=
-+		}=0A=
-+		if (landed)=0A=
-+			chan->flush_pending =3D true;=0A=
- 		return rc;=0A=
-+	}=0A=
- =0A=
--	/* Flush the output phase so the new DIVO starts aligned */=0A=
- 	rc =3D sit9531x_output_phase_flush(sitdev, pll_idx);=0A=
--	if (rc) {=0A=
-+	if (chan->flush_pending)=0A=
- 		dev_warn(sitdev->dev,=0A=
--			 "out%u: rate changed but the divider phase was not realigned (%d)\n",=
-=0A=
-+			 "out%u: rate changed but the divider phase was not realigned (%d), the=
- poll retries it\n",=0A=
- 			 out_idx, rc);=0A=
--		rc =3D 0;=0A=
-+	else if (rc)=0A=
-+		dev_warn(sitdev->dev,=0A=
-+			 "out%u: rate changed, the flush left something to put back (%d)\n",=0A=
-+			 out_idx, rc);=0A=
-+	if (encoded) {=0A=
-+		out->phase_adj =3D phase_adj;=0A=
-+		out->phase_armed =3D phase_adj !=3D 0;=0A=
-+		out->phase_stale =3D false;=0A=
- 	}=0A=
- =0A=
--	sitdev->out[out_idx].freq =3D div64_u64(fvco, divo);=0A=
-+	/*=0A=
-+	 * A delay beyond the range was not re-timed and now decodes against the=
-=0A=
-+	 * new divider.=0A=
-+	 */=0A=
-+	if (beyond)=0A=
-+		out->phase_stale =3D true;=0A=
-+=0A=
-+	out->freq =3D div64_u64(fvco, divo);=0A=
-+	out->retime_pending =3D false;=0A=
- =0A=
- 	return 0;=0A=
- }=0A=
-@@ -1893,20 +2394,130 @@ int sit9531x_output_freq_get(struct sit9531x_dev *=
-sitdev, u8 out_idx,=0A=
- 	return 0;=0A=
- }=0A=
- =0A=
--/*=0A=
-- * Phase adjust: per-output 34-bit coarse delay in VCO periods plus a 3-bi=
-t=0A=
-- * fine delay in 30 ps steps, in PROG6..PROG2:=0A=
-- *   base + 0  PROG6  [7:5] OPSTG_VCASC_BUMP (preserved)=0A=
-- *                    [4:2] PRG_RST_FINE_DELAY=0A=
-- *                    [1:0] PRG_RST_DELAY[33:32]=0A=
-- *   base + 1  PROG5  PRG_RST_DELAY[31:24]=0A=
-- *   base + 2  PROG4  PRG_RST_DELAY[23:16]=0A=
-- *   base + 3  PROG3  PRG_RST_DELAY[15:8]=0A=
-- *   base + 4  PROG2  PRG_RST_DELAY[7:0]=0A=
-- * Outputs 0-5 are on Page 3, 6-11 on Page 4; base =3D 0x15 + 16 * (out_id=
-x % 6).=0A=
-- * PRG_RST_DELAY is unsigned; a negative adjustment is wrapped to=0A=
-- * (T_out - |phase|) modulo one output period.=0A=
-- */=0A=
-+int sit9531x_output_phase_adjust_set(struct sit9531x_dev *sitdev,=0A=
-+				     u8 out_idx, s32 phase_ps)=0A=
-+{=0A=
-+	u8 old_bytes[SIT9531X_OUT_PRG_BYTES], new_bytes[SIT9531X_OUT_PRG_BYTES];=
-=0A=
-+	const struct sit9531x_chip_info *info =3D sitdev->info;=0A=
-+	bool bytes_back, bytes_in, same;=0A=
-+	struct sit9531x_chan *chan;=0A=
-+	struct sit9531x_out *out;=0A=
-+	u64 fvco, divo, coarse;=0A=
-+	u8 pll_idx, fine;=0A=
-+	s32 phase_adj;=0A=
-+	int rc, ret;=0A=
-+=0A=
-+	lockdep_assert_held(&sitdev->multiop_lock);=0A=
-+=0A=
-+	if (out_idx >=3D info->num_outputs)=0A=
-+		return -EINVAL;=0A=
-+=0A=
-+	/* An unrouted output has only a placeholder in pll_idx. */=0A=
-+	if (!sitdev->out[out_idx].routed)=0A=
-+		return -ENODEV;=0A=
-+=0A=
-+	out =3D &sitdev->out[out_idx];=0A=
-+	pll_idx =3D out->pll_idx;=0A=
-+	if (pll_idx >=3D SIT9531X_NUM_PLLS)=0A=
-+		return -EINVAL;=0A=
-+	chan =3D &sitdev->chan[pll_idx];=0A=
-+=0A=
-+	rc =3D sit9531x_get_fvco(sitdev, pll_idx, &fvco);=0A=
-+	if (rc)=0A=
-+		return rc =3D=3D -ENODATA ? -ENODEV : rc;=0A=
-+=0A=
-+	/* Fref * DIVN outside the VCO band is not the rate the PLL runs at. */=
-=0A=
-+	if (!sit9531x_fvco_in_band(pll_idx, fvco)) {=0A=
-+		dev_dbg(sitdev->dev,=0A=
-+			"out%u: PLL%c Fvco %llu Hz is outside its VCO band, delay not settable\=
-n",=0A=
-+			out_idx, 'A' + pll_idx, fvco);=0A=
-+		return -EINVAL;=0A=
-+	}=0A=
-+=0A=
-+	/* Take the period from the divider; the cached rate is whole hertz. */=
-=0A=
-+	rc =3D sit9531x_output_divo_read(sitdev, out_idx, &divo);=0A=
-+	if (rc)=0A=
-+		return rc =3D=3D -ENODATA ? -ENODEV : rc;=0A=
-+=0A=
-+	rc =3D sit9531x_output_phase_encode(fvco, divo, phase_ps, &coarse, &fine,=
-=0A=
-+					  &phase_adj);=0A=
-+	if (rc)=0A=
-+		return rc;=0A=
-+=0A=
-+	rc =3D sit9531x_output_phase_bytes_read(sitdev, out_idx, old_bytes);=0A=
-+	if (rc)=0A=
-+		return rc;=0A=
-+	sit9531x_output_phase_bytes_build(old_bytes, coarse, fine, new_bytes);=0A=
-+=0A=
-+	/*=0A=
-+	 * Skip the write if the quantized bytes are unchanged; a rewrite=0A=
-+	 * restarts the divider phase of every output on the PLL.=0A=
-+	 */=0A=
-+	same =3D !memcmp(old_bytes, new_bytes, sizeof(new_bytes)) &&=0A=
-+	       !out->phase_stale;=0A=
-+	if (same && !chan->flush_pending) {=0A=
-+		rc =3D 0;=0A=
-+		goto cache;=0A=
-+	}=0A=
-+=0A=
-+	if (!same) {=0A=
-+		/*=0A=
-+		 * Output-system registers take effect only inside PRG_CMD,=0A=
-+		 * committed to the NVM shadow.=0A=
-+		 */=0A=
-+		rc =3D sit9531x_prg_enter(sitdev);=0A=
-+		if (rc)=0A=
-+			return rc;=0A=
-+=0A=
-+		rc =3D sit9531x_output_phase_bytes_write(sitdev, out_idx,=0A=
-+						       new_bytes, old_bytes,=0A=
-+						       &bytes_back);=0A=
-+		bytes_in =3D !rc;=0A=
-+=0A=
-+		ret =3D sit9531x_prg_commit(sitdev);=0A=
-+		if (ret && !rc)=0A=
-+			rc =3D ret;=0A=
-+		if (rc) {=0A=
-+			if (bytes_in) {=0A=
-+				out->phase_adj =3D phase_adj;=0A=
-+				out->phase_armed =3D phase_adj !=3D 0;=0A=
-+				out->phase_stale =3D false;=0A=
-+				out->retime_pending =3D false;=0A=
-+				chan->flush_pending =3D true;=0A=
-+			} else if (!bytes_back) {=0A=
-+				out->phase_stale =3D true;=0A=
-+				chan->flush_pending =3D true;=0A=
-+			}=0A=
-+			return rc;=0A=
-+		}=0A=
-+	}=0A=
-+=0A=
-+	/*=0A=
-+	 * Restart the divider phase so the delay applies against a known edge.=
-=0A=
-+	 */=0A=
-+	rc =3D sit9531x_output_phase_flush(sitdev, pll_idx);=0A=
-+=0A=
-+cache:=0A=
-+	/* Cache what the registers hold */=0A=
-+	out->phase_adj =3D phase_adj;=0A=
-+	out->phase_stale =3D false;=0A=
-+	out->retime_pending =3D false;=0A=
-+=0A=
-+	/*=0A=
-+	 * A delay that quantized to zero needs no re-time: the quantum is the=0A=
-+	 * VCO cycle, not the output period.=0A=
-+	 */=0A=
-+	out->phase_armed =3D phase_adj !=3D 0;=0A=
-+=0A=
-+	if (chan->flush_pending)=0A=
-+		return rc;=0A=
++	rc =3D sit9531x_intsync_readback(sitdev);=0A=
 +	if (rc)=0A=
 +		dev_warn(sitdev->dev,=0A=
-+			 "out%u: delay applied, the flush left something to put back (%d)\n",=
-=0A=
-+			 out_idx, rc);=0A=
-+=0A=
-+	return 0;=0A=
-+}=0A=
- =0A=
- /*=0A=
-  * Clear the write-1-to-clear notification registers on page 0 and the clo=
-ck=0A=
-@@ -2389,6 +3000,9 @@ static int sit9531x_dev_state_fetch(struct sit9531x_d=
-ev *sitdev)=0A=
- 	}=0A=
- =0A=
- 	for (i =3D 0; i < sitdev->info->num_outputs; i++) {=0A=
-+		bool beyond;=0A=
-+		s64 phase_ps;=0A=
-+=0A=
- 		mutex_lock(&sitdev->multiop_lock);=0A=
- 		rc =3D sit9531x_out_state_fetch(sitdev, i);=0A=
- 		mutex_unlock(&sitdev->multiop_lock);=0A=
-@@ -2397,6 +3011,23 @@ static int sit9531x_dev_state_fetch(struct sit9531x_=
-dev *sitdev)=0A=
- 				"Failed to fetch output %u state: %d\n", i, rc);=0A=
- 			return rc;=0A=
- 		}=0A=
-+=0A=
-+		/*=0A=
-+		 * The profile can set a delay; read it so a request of 0 ps can=0A=
-+		 * clear it.=0A=
-+		 */=0A=
-+		mutex_lock(&sitdev->multiop_lock);=0A=
-+		rc =3D sit9531x_output_phase_read(sitdev, i, &phase_ps, &beyond);=0A=
-+		mutex_unlock(&sitdev->multiop_lock);=0A=
-+		if (!rc) {=0A=
-+			sitdev->out[i].phase_adj =3D phase_ps;=0A=
-+			sitdev->out[i].phase_armed =3D !beyond && phase_ps;=0A=
-+		} else if (rc !=3D -ENODATA) {=0A=
-+			dev_err(sitdev->dev,=0A=
-+				"Failed to read output %u delay: %d\n",=0A=
-+				i, rc);=0A=
-+			return rc;=0A=
-+		}=0A=
- 	}=0A=
- =0A=
- 	mutex_lock(&sitdev->multiop_lock);=0A=
-@@ -2520,6 +3151,25 @@ static void sit9531x_ho_release_retry(struct sit9531=
-x_dev *sitdev, u8 pll_idx)=0A=
- 		 'A' + pll_idx);=0A=
- }=0A=
- =0A=
-+/*=0A=
-+ * Re-time the output delay after a failed rate change. Caller must hold=
-=0A=
-+ * sitdev->multiop_lock.=0A=
-+ */=0A=
-+static void sit9531x_retime_retry(struct sit9531x_dev *sitdev, u8 out_idx)=
-=0A=
-+{=0A=
-+	struct sit9531x_out *out =3D &sitdev->out[out_idx];=0A=
-+	s64 was;=0A=
-+=0A=
-+	if (!out->retime_pending)=0A=
-+		return;=0A=
-+=0A=
-+	was =3D out->phase_adj;=0A=
-+	if (!sit9531x_output_phase_adjust_set(sitdev, out_idx, out->retime_ps))=
-=0A=
-+		dev_info(sitdev->dev, "out%u: delay re-timed\n", out_idx);=0A=
-+	if (out->phase_adj !=3D was || out->phase_stale)=0A=
-+		out->ntf_pending =3D true;=0A=
-+}=0A=
-+=0A=
- /*=0A=
-  * Write back the priority table after a failed write. Caller must hold=0A=
-  * sitdev->multiop_lock.=0A=
-@@ -2590,6 +3240,18 @@ static void sit9531x_reselect(struct sit9531x_dev *s=
-itdev, u8 pll_idx)=0A=
- 		 'A' + pll_idx);=0A=
- }=0A=
- =0A=
-+/* Run a pending output-divider flush. Caller must hold sitdev->multiop_lo=
-ck. */=0A=
-+static void sit9531x_flush_retry(struct sit9531x_dev *sitdev, u8 pll_idx)=
-=0A=
-+{=0A=
-+	if (!sitdev->chan[pll_idx].flush_pending)=0A=
-+		return;=0A=
-+=0A=
-+	sit9531x_output_phase_flush(sitdev, pll_idx);=0A=
-+	if (!sitdev->chan[pll_idx].flush_pending)=0A=
-+		dev_info(sitdev->dev, "PLL%c: output dividers realigned\n",=0A=
-+			 'A' + pll_idx);=0A=
-+}=0A=
-+=0A=
- /*=0A=
-  * Retry pending writes, then read each PLL's state; return true if any st=
-ate=0A=
-  * read succeeds.=0A=
-@@ -2603,11 +3265,20 @@ sit9531x_dev_chan_states_update(struct sit9531x_dev=
- *sitdev)=0A=
- 	/* Retry pending writes first so the reads below see their result */=0A=
- 	if (sitdev->loops_open)=0A=
- 		sit9531x_prg_commit(sitdev);=0A=
-+	sit9531x_phase_flush_undo_retry(sitdev);=0A=
-+	for (i =3D 0; i < sitdev->info->num_outputs; i++)=0A=
-+		sit9531x_retime_retry(sitdev, i);=0A=
- =0A=
- 	sit9531x_input_off_retry(sitdev);=0A=
- 	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
- 		sit9531x_table_back_retry(sitdev, i);=0A=
- 		sit9531x_ho_release_retry(sitdev, i);=0A=
-+		/*=0A=
-+		 * A flush pulse sent into open loops may be lost when they=0A=
-+		 * re-lock.=0A=
-+		 */=0A=
-+		if (!sitdev->loops_open)=0A=
-+			sit9531x_flush_retry(sitdev, i);=0A=
- 		rc =3D sit9531x_chan_state_fetch(sitdev, i);=0A=
- 		if (rc) {=0A=
- 			sitdev->chan[i].stale =3D true;=0A=
-@@ -2925,15 +3596,46 @@ static void sit9531x_dev_stop(struct sit9531x_dev *=
-sitdev)=0A=
- 			dev_warn(sitdev->dev,=0A=
- 				 "PLL%c left in forced holdover\n", 'A' + i);=0A=
- 	}=0A=
-+=0A=
-+	sit9531x_phase_flush_undo_retry(sitdev);=0A=
-+	if (sitdev->flush_ctrl_pending)=0A=
-+		dev_warn(sitdev->dev,=0A=
-+			 "phase flush trigger source select not put back\n");=0A=
-+	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
-+		if (!(sitdev->flush_arm_pending & BIT(i)))=0A=
-+			continue;=0A=
-+		dev_warn(sitdev->dev, "PLL%c: on-demand phase flush left %s\n",=0A=
-+			 'A' + i,=0A=
-+			 (sitdev->flush_armed & BIT(i)) ? "parked" : "armed");=0A=
-+	}=0A=
- 	mutex_unlock(&sitdev->multiop_lock);=0A=
- =0A=
-+	/*=0A=
-+	 * Re-time first, since it re-locks the loops; the flush runs only into=
-=0A=
-+	 * locked loops.=0A=
-+	 */=0A=
- 	mutex_lock(&sitdev->multiop_lock);=0A=
++			 "INTSYNC source not re-detected on resume: %d\n", rc);=0A=
++	sitdev->intsync_stale =3D rc !=3D 0;=0A=
++	src_moved =3D rc || owner !=3D sit9531x_intsync_owner(sitdev);=0A=
 +	for (i =3D 0; i < sitdev->info->num_outputs; i++) {=0A=
-+		sit9531x_retime_retry(sitdev, i);=0A=
-+		if (sitdev->out[i].retime_pending)=0A=
++		if (sitdev->out[i].enabled)=0A=
++			outs_was |=3D BIT(i);=0A=
++		/* The mute state of a request left unconfirmed is unknown */=0A=
++		if (sitdev->out[i].state_stale)=0A=
++			outs_unread |=3D BIT(i);=0A=
++		rc =3D sit9531x_output_state_refresh(sitdev, i);=0A=
++		if (rc) {=0A=
 +			dev_warn(sitdev->dev,=0A=
-+				 "out%u: delay left not re-timed to its rate\n",=0A=
-+				 i);=0A=
-+	}=0A=
- 	if (sitdev->loops_open) {=0A=
- 		sit9531x_prg_commit(sitdev);=0A=
- 		if (sitdev->loops_open)=0A=
- 			dev_warn(sitdev->dev,=0A=
- 				 "output loops left unlocked at removal\n");=0A=
- 	}=0A=
-+	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {=0A=
-+		if (!sitdev->loops_open)=0A=
-+			sit9531x_flush_retry(sitdev, i);=0A=
-+		if (sitdev->chan[i].flush_pending)=0A=
-+			dev_warn(sitdev->dev,=0A=
-+				 "PLL%c: output dividers left unaligned\n",=0A=
-+				 'A' + i);=0A=
++				 "Output %u mute state not read on resume: %d\n",=0A=
++				 i, rc);=0A=
++			sitdev->out[i].state_stale =3D true;=0A=
++			outs_unread |=3D BIT(i);=0A=
++		}=0A=
++		if (sitdev->out[i].enabled)=0A=
++			outs_now |=3D BIT(i);=0A=
 +	}=0A=
  	mutex_unlock(&sitdev->multiop_lock);=0A=
- }=0A=
- =0A=
++=0A=
++	sit9531x_drive_pins_ntf(sitdev,=0A=
++				(outs_was ^ outs_now) | outs_unread |=0A=
++				outs_moved, src_moved);=0A=
++=0A=
+ 	if (sitdev->irq > 0)=0A=
+ 		enable_irq(sitdev->irq);=0A=
+ 	kthread_queue_delayed_work(sitdev->kworker, &sitdev->work, 0);=0A=
 diff --git a/drivers/dpll/sit9531x/core.h b/drivers/dpll/sit9531x/core.h=0A=
-index 4f3f74ac8d7c..bbf5026f945d 100644=0A=
+index 8718c463c560..7dc78ddb18e5 100644=0A=
 --- a/drivers/dpll/sit9531x/core.h=0A=
 +++ b/drivers/dpll/sit9531x/core.h=0A=
-@@ -27,6 +27,8 @@=0A=
- #define SIT9531X_MAX_INPUTS		8=0A=
- #define SIT9531X_NUM_INPUT_PAIRS	(SIT9531X_MAX_INPUTS / 2)=0A=
- #define SIT9531X_MAX_OUTPUTS		12=0A=
-+/* Output phase-adjust range advertised to the core, +/-1 ms in ps */=0A=
-+#define SIT9531X_OUT_PHASE_ADJ_MAX_PS	1000000000=0A=
- /*=0A=
-  * INTSYNC, the inter-PLL sync line, is two pins: an input pin on the PLL =
-that=0A=
-  * locks to it, numbered after the inputs and the xtal, and an output pin =
-on the=0A=
-@@ -109,6 +111,11 @@ struct sit9531x_ref {=0A=
-  * @routed: mapped to @pll_idx by the initial configuration; an unrouted=
+@@ -142,6 +142,8 @@ struct sit9531x_out {=0A=
+  * @locked: PLL is active and its outer loop reports lock=0A=
+  * @stale: last state read failed; the fields hold the previous sample and=
 =0A=
-  *   output has no pin=0A=
-  * @pll_idx: PLL driving this output (0-3)=0A=
-+ * @phase_stale: programmed delay may differ from @phase_adj=0A=
-+ * @phase_armed: non-zero in-range delay programmed; a rate change re-time=
-s it=0A=
-+ * @phase_adj: realized delay in whole VCO cycles plus 30 ps steps, with t=
-he=0A=
-+ *   requested sign; an out-of-range profile delay is held as the positive=
+  *   are not reported=0A=
++ * @intsync_dropped: driver turned INTSYNC off after this sample; a lock t=
+o=0A=
++ *   INTSYNC in it is not trusted=0A=
+  * @mode: 0 =3D sync (outer loop enabled), 1 =3D free-run=0A=
+  * @routed_ref: input the device routes to the PLL, as a logical index=0A=
+  *   (INTSYNC: SIT9531X_INTSYNC_PIN_ID); SIT9531X_REF_INVALID if none=0A=
+@@ -184,6 +186,7 @@ struct sit9531x_chan {=0A=
+ 	bool		active;=0A=
+ 	bool		locked;=0A=
+ 	bool		stale;=0A=
++	bool		intsync_dropped;=0A=
+ 	u8		mode;=0A=
+ 	u8		routed_ref;=0A=
+ 	bool		inner_lol;=0A=
+@@ -233,6 +236,12 @@ struct sit9531x_chan {=0A=
+  * @reset_gpio: optional reset line, NULL if absent=0A=
+  * @irq: optional INTRB IRQ, 0 if not wired=0A=
+  * @intsync_src: PLL sourcing INTSYNC, or -1=0A=
++ * @intsync_partial: @intsync_src has a partial source configuration or th=
+e=0A=
++ *   global enable clear; not driving=0A=
++ * @intsync_conflict: more than one PLL page holds the source pattern=0A=
++ * @intsync_foreign: global enable set with no page holding the pattern=0A=
++ * @intsync_stale: @intsync_src must be read back before use=0A=
++ * @intsync_ntf_pending: the poll must send a source pin notification=0A=
+  * @irq_ack_fails: consecutive failed INTRB acknowledgements=0A=
+  * @fvco_band_warned: bit per PLL warned for Fref * DIVN outside its VCO=
 =0A=
-+ *   decode=0A=
-  * @retime_pending: re-timed delay not yet applied; the poll applies @reti=
-me_ps=0A=
-  * @retime_ps: delay to apply while @retime_pending=0A=
-  */=0A=
-@@ -121,6 +128,9 @@ struct sit9531x_out {=0A=
- 	bool		part_muted;=0A=
- 	bool		routed;=0A=
- 	u8		pll_idx;=0A=
-+	s64		phase_adj;=0A=
-+	bool		phase_armed;=0A=
-+	bool		phase_stale;=0A=
- 	bool		retime_pending;=0A=
- 	s32		retime_ps;=0A=
- };=0A=
-@@ -296,6 +306,11 @@ int sit9531x_output_freq_set(struct sit9531x_dev *sitd=
-ev, u8 out_idx,=0A=
- int sit9531x_output_freq_get(struct sit9531x_dev *sitdev, u8 out_idx,=0A=
- 			     u64 *frequency);=0A=
+  *   band; written under @multiop_lock=0A=
+@@ -270,6 +279,11 @@ struct sit9531x_dev {=0A=
+ 	int			irq;=0A=
  =0A=
-+int sit9531x_output_phase_read(struct sit9531x_dev *sitdev, u8 out_idx,=0A=
-+			       s64 *phase_ps, bool *beyond);=0A=
-+int sit9531x_output_phase_adjust_set(struct sit9531x_dev *sitdev,=0A=
-+				     u8 out_idx, s32 phase_ps);=0A=
+ 	s8			intsync_src;=0A=
++	bool			intsync_partial;=0A=
++	bool			intsync_conflict;=0A=
++	bool			intsync_foreign;=0A=
++	bool			intsync_stale;=0A=
++	bool			intsync_ntf_pending;=0A=
+ =0A=
+ 	bool			loops_open;=0A=
+ 	bool			flush_ctrl_pending;=0A=
+@@ -318,6 +332,24 @@ int sit9531x_output_phase_read(struct sit9531x_dev *si=
+tdev, u8 out_idx,=0A=
+ int sit9531x_output_phase_adjust_set(struct sit9531x_dev *sitdev,=0A=
+ 				     u8 out_idx, s32 phase_ps);=0A=
+ =0A=
++/*=0A=
++ * Return the PLL driving INTSYNC with a complete source configuration, or=
+ -1.=0A=
++ * Caller must hold sitdev->multiop_lock.=0A=
++ */=0A=
++static inline s8 sit9531x_intsync_owner(const struct sit9531x_dev *sitdev)=
+=0A=
++{=0A=
++	return sitdev->intsync_partial ? -1 : sitdev->intsync_src;=0A=
++}=0A=
 +=0A=
- static inline u8 sit9531x_pll_page(u8 pll_idx)=0A=
- {=0A=
- 	return SIT9531X_PAGE_PLLA + pll_idx;=0A=
++int sit9531x_intsync_enable(struct sit9531x_dev *sitdev, u8 src_pll_idx,=
+=0A=
++			    bool *rollback_failed, bool *touched);=0A=
++int sit9531x_intsync_disable(struct sit9531x_dev *sitdev, u8 src_pll_idx,=
+=0A=
++			     bool *owner_kept, bool *touched);=0A=
++int sit9531x_intsync_src_detect(struct sit9531x_dev *sitdev);=0A=
++int sit9531x_intsync_readback(struct sit9531x_dev *sitdev);=0A=
++int sit9531x_intsync_refresh(struct sit9531x_dev *sitdev);=0A=
++bool sit9531x_intsync_driven(const struct sit9531x_dev *sitdev);=0A=
++=0A=
+ int sit9531x_chan_routed_ref_read(struct sit9531x_dev *sitdev, u8 pll_idx,=
+=0A=
+ 				  u8 *ref);=0A=
+ int sit9531x_input_mon_fetch(struct sit9531x_dev *sitdev);=0A=
 diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c=0A=
-index a32d37a396b1..e6271ebd47ac 100644=0A=
+index ba4ac5e7d365..1bd2b962cdab 100644=0A=
 --- a/drivers/dpll/sit9531x/dpll.c=0A=
 +++ b/drivers/dpll/sit9531x/dpll.c=0A=
-@@ -611,6 +611,7 @@ sit9531x_dpll_output_pin_frequency_set(const struct dpl=
-l_pin *pin,=0A=
- 	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
- 	bool moved =3D false;=0A=
- 	u64 was, hz;=0A=
-+	s64 phase_was;=0A=
- 	u8 actual_pll;=0A=
- 	int rc;=0A=
+@@ -27,6 +27,20 @@ static bool sit9531x_dpll_is_input_pin(const struct sit9=
+531x_dpll_pin *pin)=0A=
+ 	return pin->dir =3D=3D DPLL_PIN_DIRECTION_INPUT;=0A=
+ }=0A=
  =0A=
-@@ -618,10 +619,15 @@ sit9531x_dpll_output_pin_frequency_set(const struct d=
-pll_pin *pin,=0A=
++static bool=0A=
++sit9531x_dpll_is_intsync_pin(const struct sit9531x_dpll_pin *pin)=0A=
++{=0A=
++	return sit9531x_dpll_is_input_pin(pin) &&=0A=
++	       pin->id =3D=3D SIT9531X_INTSYNC_PIN_ID;=0A=
++}=0A=
++=0A=
++static bool=0A=
++sit9531x_dpll_is_intsync_src_pin(const struct sit9531x_dpll_pin *pin)=0A=
++{=0A=
++	return !sit9531x_dpll_is_input_pin(pin) &&=0A=
++	       pin->id =3D=3D SIT9531X_INTSYNC_OUT_PIN_ID;=0A=
++}=0A=
++=0A=
+ static bool=0A=
+ sit9531x_dpll_is_xo_pin(const struct sit9531x_dpll_pin *pin)=0A=
+ {=0A=
+@@ -177,16 +191,18 @@ const struct dpll_device_ops sit9531x_dpll_device_ops=
+ =3D {=0A=
+ };=0A=
  =0A=
- 	mutex_lock(&sitdev->multiop_lock);=0A=
- 	was =3D sitdev->out[dpin->id].freq;=0A=
-+	phase_was =3D sitdev->out[dpin->id].phase_adj;=0A=
- 	rc =3D sit9531x_output_freq_set(sitdev, dpin->id, actual_pll,=0A=
- 				      frequency);=0A=
- 	if (rc) {=0A=
--		if (!sit9531x_output_freq_get(sitdev, dpin->id, &hz))=0A=
-+		moved =3D sitdev->out[dpin->id].phase_stale ||=0A=
-+			sitdev->out[dpin->id].phase_adj !=3D phase_was;=0A=
-+		if (sit9531x_output_freq_get(sitdev, dpin->id, &hz))=0A=
-+			moved =3D true;=0A=
-+		else=0A=
- 			moved |=3D hz !=3D was;=0A=
- 	}=0A=
- 	mutex_unlock(&sitdev->multiop_lock);=0A=
-@@ -632,8 +638,11 @@ sit9531x_dpll_output_pin_frequency_set(const struct dp=
-ll_pin *pin,=0A=
- 		NL_SET_ERR_MSG(extack, "Output frequency set failed");=0A=
- 		/* The core notifies only a request that succeeded */=0A=
- 		dpll_pin =3D READ_ONCE(dpin->dpll_pin);=0A=
--		if (moved && dpll_pin)=0A=
--			__dpll_pin_change_ntf(dpll_pin);=0A=
-+		if (moved && dpll_pin && __dpll_pin_change_ntf(dpll_pin)) {=0A=
-+			mutex_lock(&sitdev->multiop_lock);=0A=
-+			sitdev->out[dpin->id].ntf_pending =3D true;=0A=
-+			mutex_unlock(&sitdev->multiop_lock);=0A=
-+		}=0A=
- 	}=0A=
+ /*=0A=
+- * Pin-state contract. An input is SELECTABLE while listed in this PLL's=
+=0A=
+- * priority table and DISCONNECTED otherwise; CONNECTED is refused because=
+ the=0A=
+- * device selects by priority. Operstate is ACTIVE when the device feeds t=
+he PLL=0A=
+- * this input (chan->routed_ref), the PLL is tracking and the lane has sig=
+nal;=0A=
+- * NO_SIGNAL on loss of signal; QUAL_FAILED on frequency drift; STANDBY=0A=
+- * otherwise. The routed reference is used because on loss of signal the d=
+evice=0A=
+- * falls back to another listed source and leaves the selection naming the=
+ lost=0A=
+- * one. On manual input select, the routed input is CONNECTED. An output i=
+s=0A=
+- * CONNECTED while driven and DISCONNECTED while muted; SELECTABLE is refu=
+sed.=0A=
+- * The XO pin is always CONNECTED.=0A=
++ * Pin-state contract. An input or the INTSYNC destination is SELECTABLE w=
+hile=0A=
++ * listed in this PLL's priority table and DISCONNECTED otherwise; CONNECT=
+ED is=0A=
++ * refused because the device selects by priority. Operstate is ACTIVE whe=
+n the=0A=
++ * device feeds the PLL this source (chan->routed_ref), the PLL is trackin=
+g and=0A=
++ * the lane has signal; NO_SIGNAL on loss of signal; QUAL_FAILED on freque=
+ncy=0A=
++ * drift; STANDBY otherwise. The routed reference is used because on loss =
+of=0A=
++ * signal the device falls back to another listed source and leaves the=0A=
++ * selection naming the lost one. On manual input select, the routed input=
+ is=0A=
++ * CONNECTED. The INTSYNC destination has signal while the driver's record=
+ shows=0A=
++ * a PLL driving the line. An output or the INTSYNC source is CONNECTED wh=
+ile=0A=
++ * driven and DISCONNECTED otherwise; SELECTABLE is refused. The XO pin is=
+=0A=
++ * always CONNECTED.=0A=
+  */=0A=
  =0A=
- 	return rc;=0A=
-@@ -741,12 +750,102 @@ sit9531x_dpll_output_pin_state_on_dpll_set(const str=
-uct dpll_pin *pin,=0A=
- 	return rc;=0A=
+ /* Caller must hold sitdev->multiop_lock. */=0A=
+@@ -215,6 +231,22 @@ sit9531x_dpll_selection_state_get(struct sit9531x_dev =
+*sitdev,=0A=
+ 		*state =3D DPLL_PIN_STATE_DISCONNECTED;=0A=
  }=0A=
  =0A=
 +/*=0A=
-+ * Report the delay as programmed after quantization, including one whose =
-flush=0A=
-+ * is pending.=0A=
++ * For INTSYNC, use the driver's record of a PLL driving or locked to the =
+line=0A=
++ * in place of the LOS monitor. Caller must hold sitdev->multiop_lock.=0A=
 + */=0A=
-+static int=0A=
-+sit9531x_dpll_output_pin_phase_adjust_get(const struct dpll_pin *pin,=0A=
-+					  void *pin_priv,=0A=
-+					  const struct dpll_device *dpll,=0A=
-+					  void *dpll_priv, s32 *phase_adjust,=0A=
-+					  struct netlink_ext_ack *extack)=0A=
++static bool=0A=
++sit9531x_dpll_selection_no_signal(struct sit9531x_dev *sitdev, u8 pin_id)=
+=0A=
 +{=0A=
-+	struct sit9531x_dpll_pin *dpin =3D pin_priv;=0A=
++	lockdep_assert_held(&sitdev->multiop_lock);=0A=
++=0A=
++	if (pin_id =3D=3D SIT9531X_INTSYNC_PIN_ID)=0A=
++		return !sit9531x_intsync_driven(sitdev);=0A=
++=0A=
++	return pin_id < sitdev->info->num_inputs &&=0A=
++	       sit9531x_ref_state_get(sitdev, pin_id)->los;=0A=
++}=0A=
++=0A=
+ /* Caller must hold sitdev->multiop_lock. */=0A=
+ static bool=0A=
+ sit9531x_dpll_selection_active(struct sit9531x_dev *sitdev,=0A=
+@@ -229,12 +261,7 @@ sit9531x_dpll_selection_active(struct sit9531x_dev *si=
+tdev,=0A=
+ 	if (chan->routed_ref !=3D pin_id || !sit9531x_chan_tracking(chan))=0A=
+ 		return false;=0A=
+ =0A=
+-	/*=0A=
+-	 * Do not report a lane without signal as locked, whatever the lock bit=
+=0A=
+-	 * says; the PLL is about to switch away from it.=0A=
+-	 */=0A=
+-	if (pin_id < sitdev->info->num_inputs &&=0A=
+-	    sit9531x_ref_state_get(sitdev, pin_id)->los)=0A=
++	if (sit9531x_dpll_selection_no_signal(sitdev, pin_id))=0A=
+ 		return false;=0A=
+ =0A=
+ 	return true;=0A=
+@@ -256,12 +283,13 @@ sit9531x_dpll_selection_operstate_get(struct sit9531x=
+_dev *sitdev,=0A=
+ 		return;=0A=
+ 	}=0A=
+ =0A=
++	if (sit9531x_dpll_selection_no_signal(sitdev, pin_id)) {=0A=
++		*operstate =3D DPLL_PIN_OPERSTATE_NO_SIGNAL;=0A=
++		return;=0A=
++	}=0A=
++=0A=
+ 	if (pin_id < sitdev->info->num_inputs) {=0A=
+ 		ref =3D sit9531x_ref_state_get(sitdev, pin_id);=0A=
+-		if (ref->los) {=0A=
+-			*operstate =3D DPLL_PIN_OPERSTATE_NO_SIGNAL;=0A=
+-			return;=0A=
+-		}=0A=
+ 		if (ref->qual_fail) {=0A=
+ 			*operstate =3D DPLL_PIN_OPERSTATE_QUAL_FAILED;=0A=
+ 			return;=0A=
+@@ -587,8 +615,7 @@ sit9531x_dpll_input_pin_phase_offset_get(const struct d=
+pll_pin *pin,=0A=
+ 				       "Failed to read the input clock monitors");=0A=
+ 			return rc;=0A=
+ 		}=0A=
+-		if (dpin->id < sitdev->info->num_inputs &&=0A=
+-		    sit9531x_ref_state_get(sitdev, dpin->id)->los)=0A=
++		if (sit9531x_dpll_selection_no_signal(sitdev, dpin->id))=0A=
+ 			rc =3D -ENODATA;=0A=
+ 	}=0A=
+ 	mutex_unlock(&sitdev->multiop_lock);=0A=
+@@ -662,6 +689,325 @@ sit9531x_dpll_output_pin_direction_get(const struct d=
+pll_pin *pin,=0A=
+ 				       enum dpll_pin_direction *direction,=0A=
+ 				       struct netlink_ext_ack *extack);=0A=
+ =0A=
++/* Caller must hold sitdev->multiop_lock. */=0A=
++static bool=0A=
++sit9531x_dpll_intsync_src_connected(const struct sit9531x_dev *sitdev,=0A=
++				    const struct sit9531x_dpll *sitdpll)=0A=
++{=0A=
++	return sitdev->intsync_src =3D=3D sitdpll->id && !sitdev->intsync_partial=
+;=0A=
++}=0A=
++=0A=
++/* Caller must hold sitdev->multiop_lock. */=0A=
++static int sit9531x_dpll_intsync_refresh(struct sit9531x_dev *sitdev,=0A=
++					 struct netlink_ext_ack *extack)=0A=
++{=0A=
++	int rc;=0A=
++=0A=
++	rc =3D sit9531x_intsync_refresh(sitdev);=0A=
++	if (rc)=0A=
++		NL_SET_ERR_MSG(extack, "INTSYNC source could not be read back");=0A=
++=0A=
++	return rc;=0A=
++}=0A=
++=0A=
++static int=0A=
++sit9531x_dpll_intsync_src_state_on_dpll_get(const struct dpll_pin *pin,=0A=
++					    void *pin_priv,=0A=
++					    const struct dpll_device *dpll,=0A=
++					    void *dpll_priv,=0A=
++					    enum dpll_pin_state *state,=0A=
++					    struct netlink_ext_ack *extack)=0A=
++{=0A=
 +	struct sit9531x_dpll *sitdpll =3D dpll_priv;=0A=
 +	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
-+	s64 phase_adj;=0A=
 +	int rc;=0A=
 +=0A=
 +	mutex_lock(&sitdev->multiop_lock);=0A=
-+	if (sitdev->out[dpin->id].phase_stale) {=0A=
-+		bool beyond;=0A=
-+		s64 phase_ps;=0A=
-+=0A=
-+		rc =3D sit9531x_output_phase_read(sitdev, dpin->id, &phase_ps,=0A=
-+						&beyond);=0A=
-+		if (rc) {=0A=
-+			mutex_unlock(&sitdev->multiop_lock);=0A=
-+			NL_SET_ERR_MSG(extack,=0A=
-+				       "Output delay could not be read back");=0A=
-+			return rc;=0A=
-+		}=0A=
-+		sitdev->out[dpin->id].phase_adj =3D phase_ps;=0A=
-+		sitdev->out[dpin->id].phase_armed =3D !beyond && phase_ps;=0A=
-+		sitdev->out[dpin->id].phase_stale =3D false;=0A=
++	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);=0A=
++	if (rc) {=0A=
++		mutex_unlock(&sitdev->multiop_lock);=0A=
++		return rc;=0A=
 +	}=0A=
-+	phase_adj =3D sit9531x_out_state_get(sitdev, dpin->id)->phase_adj;=0A=
++	if (sit9531x_dpll_intsync_src_connected(sitdev, sitdpll))=0A=
++		*state =3D DPLL_PIN_STATE_CONNECTED;=0A=
++	else=0A=
++		*state =3D DPLL_PIN_STATE_DISCONNECTED;=0A=
 +	mutex_unlock(&sitdev->multiop_lock);=0A=
-+=0A=
-+	/*=0A=
-+	 * A profile delay on a slow output can exceed the s32 attribute; leave=
-=0A=
-+	 * it out.=0A=
-+	 */=0A=
-+	if (phase_adj > S32_MAX)=0A=
-+		return -ENODATA;=0A=
-+	*phase_adjust =3D phase_adj;=0A=
 +=0A=
 +	return 0;=0A=
 +}=0A=
 +=0A=
-+/* Program the per-output PRG_RST_DELAY registers */=0A=
++/*=0A=
++ * Driving the line is an explicit routing, not a selection candidate, so=
+=0A=
++ * SELECTABLE is refused.=0A=
++ */=0A=
 +static int=0A=
-+sit9531x_dpll_output_pin_phase_adjust_set(const struct dpll_pin *pin,=0A=
-+					  void *pin_priv,=0A=
-+					  const struct dpll_device *dpll,=0A=
-+					  void *dpll_priv, s32 phase_adjust,=0A=
-+					  struct netlink_ext_ack *extack)=0A=
++sit9531x_dpll_intsync_src_state_on_dpll_set(const struct dpll_pin *pin,=0A=
++					    void *pin_priv,=0A=
++					    const struct dpll_device *dpll,=0A=
++					    void *dpll_priv,=0A=
++					    enum dpll_pin_state state,=0A=
++					    struct netlink_ext_ack *extack)=0A=
 +{=0A=
 +	struct sit9531x_dpll_pin *dpin =3D pin_priv;=0A=
 +	struct sit9531x_dpll *sitdpll =3D dpll_priv;=0A=
 +	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
-+	const struct sit9531x_out *out;=0A=
-+	bool moved;=0A=
-+	s64 was;=0A=
-+	int rc;=0A=
-+=0A=
-+	out =3D sit9531x_out_state_get(sitdev, dpin->id);=0A=
++	bool was_connected, moved, owner_kept =3D false;=0A=
++	int rc =3D 0, detect_rc =3D 0;=0A=
++	bool changed =3D false;=0A=
++	u8 hw_src;=0A=
 +=0A=
 +	mutex_lock(&sitdev->multiop_lock);=0A=
-+	was =3D out->phase_adj;=0A=
-+	rc =3D sit9531x_output_phase_adjust_set(sitdev, dpin->id, phase_adjust);=
++=0A=
++	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);=0A=
++	if (rc) {=0A=
++		mutex_unlock(&sitdev->multiop_lock);=0A=
++		return rc;=0A=
++	}=0A=
++	was_connected =3D sit9531x_dpll_intsync_src_connected(sitdev, sitdpll);=
 =0A=
-+	moved =3D out->phase_adj !=3D was || out->phase_stale;=0A=
++=0A=
++	switch (state) {=0A=
++	case DPLL_PIN_STATE_CONNECTED:=0A=
++		if (was_connected)=0A=
++			break;=0A=
++		if (sitdev->intsync_src >=3D 0 &&=0A=
++		    sitdev->intsync_src !=3D sitdpll->id) {=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "INTSYNC is already sourced by another PLL");=0A=
++			rc =3D -EBUSY;=0A=
++			break;=0A=
++		}=0A=
++		/*=0A=
++		 * The enable drives the line from every page holding the source=0A=
++		 * pattern.=0A=
++		 */=0A=
++		if (sitdev->intsync_conflict) {=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "More than one PLL holds the INTSYNC source pattern");=0A=
++			rc =3D -EBUSY;=0A=
++			break;=0A=
++		}=0A=
++		/*=0A=
++		 * The global enable covers every page, so this PLL would drive=0A=
++		 * the line alongside the configuration that set it.=0A=
++		 */=0A=
++		if (sitdev->intsync_foreign) {=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "The sync line is enabled by a configuration the driver does no=
+t recognise");=0A=
++			rc =3D -EBUSY;=0A=
++			break;=0A=
++		}=0A=
++		hw_src =3D sit9531x_input_hw_src(SIT9531X_INTSYNC_PIN_ID);=0A=
++		if (sit9531x_input_prio_present(sitdev, sitdpll->id, hw_src)) {=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "PLL selects INTSYNC as a reference; it cannot drive it");=0A=
++			rc =3D -EBUSY;=0A=
++			break;=0A=
++		}=0A=
++		rc =3D sit9531x_intsync_enable(sitdev, sitdpll->id, &owner_kept,=0A=
++					     &changed);=0A=
++		break;=0A=
++	case DPLL_PIN_STATE_DISCONNECTED:=0A=
++		if (sitdev->intsync_src !=3D sitdpll->id)=0A=
++			break;=0A=
++		rc =3D sit9531x_intsync_disable(sitdev, sitdpll->id,=0A=
++					      &owner_kept, &changed);=0A=
++		break;=0A=
++	default:=0A=
++		rc =3D -EINVAL;=0A=
++		break;=0A=
++	}=0A=
++=0A=
++	if (changed && !rc) {=0A=
++		sitdev->intsync_src =3D state =3D=3D DPLL_PIN_STATE_CONNECTED ?=0A=
++				      sitdpll->id : -1;=0A=
++		sitdev->intsync_partial =3D false;=0A=
++	}=0A=
++=0A=
++	if (changed)=0A=
++		detect_rc =3D sit9531x_intsync_src_detect(sitdev);=0A=
++	if (changed && rc) {=0A=
++		if (owner_kept ||=0A=
++		    (state =3D=3D DPLL_PIN_STATE_CONNECTED &&=0A=
++		     (detect_rc || sitdev->intsync_src =3D=3D sitdpll->id))) {=0A=
++			sitdev->intsync_src =3D sitdpll->id;=0A=
++			sitdev->intsync_partial =3D true;=0A=
++			sitdev->intsync_foreign =3D false;=0A=
++		} else if (detect_rc) {=0A=
++			sitdev->intsync_stale =3D true;=0A=
++		}=0A=
++	} else if (changed && detect_rc && sitdev->intsync_conflict) {=0A=
++		sitdev->intsync_stale =3D true;=0A=
++	}=0A=
++	if (detect_rc)=0A=
++		dev_warn(sitdev->dev,=0A=
++			 "INTSYNC source cache not refreshed: %d\n",=0A=
++			 detect_rc);=0A=
++=0A=
++	/* The core notifies only a request that succeeded */=0A=
++	moved =3D sit9531x_dpll_intsync_src_connected(sitdev, sitdpll) !=3D=0A=
++		was_connected;=0A=
++=0A=
 +	mutex_unlock(&sitdev->multiop_lock);=0A=
 +=0A=
 +	if (rc) {=0A=
 +		struct dpll_pin *dpll_pin;=0A=
 +=0A=
-+		NL_SET_ERR_MSG(extack, "Phase adjust failed");=0A=
-+		/* The core notifies only a request that succeeded */=0A=
++		if (rc !=3D -EBUSY && rc !=3D -EINVAL && rc !=3D -EOPNOTSUPP)=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "Failed to set INTSYNC source state");=0A=
++		/*=0A=
++		 * Runs under the core's lock, as __dpll_pin_change_ntf()=0A=
++		 * requires.=0A=
++		 */=0A=
 +		dpll_pin =3D READ_ONCE(dpin->dpll_pin);=0A=
 +		if (moved && dpll_pin && __dpll_pin_change_ntf(dpll_pin)) {=0A=
 +			mutex_lock(&sitdev->multiop_lock);=0A=
-+			sitdev->out[dpin->id].ntf_pending =3D true;=0A=
++			sitdev->intsync_ntf_pending =3D true;=0A=
 +			mutex_unlock(&sitdev->multiop_lock);=0A=
 +		}=0A=
 +	}=0A=
@@ -1521,107 +1466,188 @@ flush=0A=
 +	return rc;=0A=
 +}=0A=
 +=0A=
- static const struct dpll_pin_ops sit9531x_dpll_output_pin_ops =3D {=0A=
- 	.direction_get		=3D sit9531x_dpll_output_pin_direction_get,=0A=
- 	.frequency_get		=3D sit9531x_dpll_output_pin_frequency_get,=0A=
- 	.frequency_set		=3D sit9531x_dpll_output_pin_frequency_set,=0A=
- 	.state_on_dpll_get	=3D sit9531x_dpll_output_pin_state_on_dpll_get,=0A=
- 	.state_on_dpll_set	=3D sit9531x_dpll_output_pin_state_on_dpll_set,=0A=
-+	.phase_adjust_get	=3D sit9531x_dpll_output_pin_phase_adjust_get,=0A=
-+	.phase_adjust_set	=3D sit9531x_dpll_output_pin_phase_adjust_set,=0A=
- };=0A=
- =0A=
- const struct dpll_pin_ops *=0A=
-@@ -827,6 +926,17 @@ sit9531x_dpll_output_ntf_pending(struct sit9531x_dev *=
-sitdev,=0A=
- 		return false;=0A=
- 	if (out->state_stale && sit9531x_output_state_refresh(sitdev, pin->id))=
++static const struct dpll_pin_ops sit9531x_dpll_intsync_src_pin_ops =3D {=
 =0A=
- 		return false;=0A=
-+	if (out->phase_stale) {=0A=
-+		bool beyond;=0A=
-+		s64 phase_ps;=0A=
++	.direction_get		=3D sit9531x_dpll_output_pin_direction_get,=0A=
++	.state_on_dpll_get	=3D sit9531x_dpll_intsync_src_state_on_dpll_get,=0A=
++	.state_on_dpll_set	=3D sit9531x_dpll_intsync_src_state_on_dpll_set,=0A=
++};=0A=
 +=0A=
-+		if (sit9531x_output_phase_read(sitdev, pin->id, &phase_ps,=0A=
-+					       &beyond))=0A=
-+			return false;=0A=
-+		out->phase_adj =3D phase_ps;=0A=
-+		out->phase_armed =3D !beyond && phase_ps;=0A=
-+		out->phase_stale =3D false;=0A=
++static int=0A=
++sit9531x_dpll_intsync_dst_state_on_dpll_get(const struct dpll_pin *pin,=0A=
++					    void *pin_priv,=0A=
++					    const struct dpll_device *dpll,=0A=
++					    void *dpll_priv,=0A=
++					    enum dpll_pin_state *state,=0A=
++					    struct netlink_ext_ack *extack)=0A=
++{=0A=
++	struct sit9531x_dpll *sitdpll =3D dpll_priv;=0A=
++	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
++	int rc;=0A=
++=0A=
++	mutex_lock(&sitdev->multiop_lock);=0A=
++	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);=0A=
++	if (rc) {=0A=
++		mutex_unlock(&sitdev->multiop_lock);=0A=
++		return rc;=0A=
 +	}=0A=
- =0A=
- 	out->ntf_pending =3D false;=0A=
- =0A=
-diff --git a/drivers/dpll/sit9531x/prop.c b/drivers/dpll/sit9531x/prop.c=0A=
-index f726fbe037f3..6cf5fc3459dd 100644=0A=
---- a/drivers/dpll/sit9531x/prop.c=0A=
-+++ b/drivers/dpll/sit9531x/prop.c=0A=
-@@ -170,6 +170,20 @@ sit9531x_pin_props_get(struct sit9531x_dev *sitdev,=0A=
- 		props->dpll_props.capabilities =3D=0A=
- 			DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE;=0A=
- 		curr_freq =3D 0;=0A=
++	if (sitdev->intsync_src =3D=3D sitdpll->id)=0A=
++		*state =3D DPLL_PIN_STATE_DISCONNECTED;=0A=
++	else=0A=
++		sit9531x_dpll_selection_state_get(sitdev, sitdpll,=0A=
++						  SIT9531X_INTSYNC_PIN_ID,=0A=
++						  state);=0A=
++	mutex_unlock(&sitdev->multiop_lock);=0A=
 +=0A=
-+		/*=0A=
-+		 * The part takes a delay anywhere within the output period;=0A=
-+		 * +/-1 ms is a round figure within the s32 ps attribute.=0A=
-+		 */=0A=
-+		props->dpll_props.phase_range.min =3D=0A=
-+			-SIT9531X_OUT_PHASE_ADJ_MAX_PS;=0A=
-+		props->dpll_props.phase_range.max =3D=0A=
-+			SIT9531X_OUT_PHASE_ADJ_MAX_PS;=0A=
-+		/*=0A=
-+		 * The 30 ps fine step is not advertised; requests are rounded=0A=
-+		 * to the nearest achievable delay.=0A=
-+		 */=0A=
-+		props->dpll_props.phase_gran =3D 1;=0A=
- 	}=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++/* INTSYNC is an internal line; only the per-PLL priority table is touched=
+. */=0A=
++static int=0A=
++sit9531x_dpll_intsync_dst_state_on_dpll_set(const struct dpll_pin *pin,=0A=
++					    void *pin_priv,=0A=
++					    const struct dpll_device *dpll,=0A=
++					    void *dpll_priv,=0A=
++					    enum dpll_pin_state state,=0A=
++					    struct netlink_ext_ack *extack)=0A=
++{=0A=
++	u8 hw_src =3D sit9531x_input_hw_src(SIT9531X_INTSYNC_PIN_ID);=0A=
++	struct sit9531x_dpll *sitdpll =3D dpll_priv;=0A=
++	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
++	int rc;=0A=
++=0A=
++	mutex_lock(&sitdev->multiop_lock);=0A=
++=0A=
++	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);=0A=
++	if (rc) {=0A=
++		mutex_unlock(&sitdev->multiop_lock);=0A=
++		return rc;=0A=
++	}=0A=
++	switch (state) {=0A=
++	case DPLL_PIN_STATE_DISCONNECTED:=0A=
++		rc =3D sit9531x_input_prio_remove(sitdev, sitdpll->id, hw_src);=0A=
++		break;=0A=
++	case DPLL_PIN_STATE_CONNECTED:=0A=
++		NL_SET_ERR_MSG(extack,=0A=
++			       "Device selects its reference by priority; use selectable");=0A=
++		rc =3D -EOPNOTSUPP;=0A=
++		break;=0A=
++	case DPLL_PIN_STATE_SELECTABLE:=0A=
++		if (sitdev->intsync_src =3D=3D sitdpll->id) {=0A=
++			NL_SET_ERR_MSG(extack,=0A=
++				       "PLL cannot lock to the INTSYNC it drives");=0A=
++			rc =3D -EINVAL;=0A=
++			break;=0A=
++		}=0A=
++		rc =3D sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);=0A=
++		break;=0A=
++	default:=0A=
++		rc =3D -EINVAL;=0A=
++		break;=0A=
++	}=0A=
++=0A=
++	mutex_unlock(&sitdev->multiop_lock);=0A=
++=0A=
++	if (rc =3D=3D -ENOSPC)=0A=
++		NL_SET_ERR_MSG(extack,=0A=
++			       "Priority table is full of unique sources on this PLL");=0A=
++	else if (rc && rc !=3D -EINVAL && rc !=3D -EOPNOTSUPP)=0A=
++		NL_SET_ERR_MSG(extack, "Failed to set INTSYNC input state");=0A=
++=0A=
++	return rc;=0A=
++}=0A=
++=0A=
++static int=0A=
++sit9531x_dpll_intsync_dst_operstate_on_dpll_get(const struct dpll_pin *pin=
+,=0A=
++						void *pin_priv,=0A=
++						const struct dpll_device *dpll,=0A=
++						void *dpll_priv,=0A=
++						enum dpll_pin_operstate *state,=0A=
++						struct netlink_ext_ack *extack)=0A=
++{=0A=
++	struct sit9531x_dpll *sitdpll =3D dpll_priv;=0A=
++	struct sit9531x_dev *sitdev =3D sitdpll->dev;=0A=
++	int rc;=0A=
++=0A=
++	mutex_lock(&sitdev->multiop_lock);=0A=
++	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);=0A=
++	if (rc) {=0A=
++		mutex_unlock(&sitdev->multiop_lock);=0A=
++		return rc;=0A=
++	}=0A=
++	sit9531x_dpll_selection_operstate_get(sitdev, sitdpll,=0A=
++					      SIT9531X_INTSYNC_PIN_ID,=0A=
++					      state);=0A=
++	mutex_unlock(&sitdev->multiop_lock);=0A=
++=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++/*=0A=
++ * The destination pin id SIT9531X_INTSYNC_PIN_ID is one past the end of r=
+ef[];=0A=
++ * do not add ops that index ref[id].=0A=
++ */=0A=
++static const struct dpll_pin_ops sit9531x_dpll_intsync_dst_pin_ops =3D {=
+=0A=
++	.direction_get		=3D sit9531x_dpll_input_pin_direction_get,=0A=
++	.state_on_dpll_get	=3D sit9531x_dpll_intsync_dst_state_on_dpll_get,=0A=
++	.state_on_dpll_set	=3D sit9531x_dpll_intsync_dst_state_on_dpll_set,=0A=
++	.operstate_on_dpll_get	=3D=0A=
++		sit9531x_dpll_intsync_dst_operstate_on_dpll_get,=0A=
++	.prio_get		=3D sit9531x_dpll_input_pin_prio_get,=0A=
++	.prio_set		=3D sit9531x_dpll_input_pin_prio_set,=0A=
++};=0A=
++=0A=
++static const struct dpll_pin_ops sit9531x_dpll_intsync_dst_pin_manual_ops =
+=3D {=0A=
++	.direction_get		=3D sit9531x_dpll_input_pin_direction_get,=0A=
++	.state_on_dpll_get	=3D sit9531x_dpll_intsync_dst_state_on_dpll_get,=0A=
++	.operstate_on_dpll_get	=3D=0A=
++		sit9531x_dpll_intsync_dst_operstate_on_dpll_get,=0A=
++};=0A=
++=0A=
+ /* The XO feeds every PLL and is always connected. */=0A=
  =0A=
- 	sit9531x_prop_pin_package_label_set(sitdev, props, dir, index);=0A=
+ static int=0A=
+@@ -974,12 +1320,18 @@ sit9531x_dpll_pin_ops_get(const struct sit9531x_dpll=
+_pin *pin)=0A=
+ 	const struct sit9531x_dev *sitdev =3D pin->dpll->dev;=0A=
+ 	bool manual;=0A=
+ =0A=
+-	if (!sit9531x_dpll_is_input_pin(pin))=0A=
++	if (!sit9531x_dpll_is_input_pin(pin)) {=0A=
++		if (sit9531x_dpll_is_intsync_src_pin(pin))=0A=
++			return &sit9531x_dpll_intsync_src_pin_ops;=0A=
+ 		return &sit9531x_dpll_output_pin_ops;=0A=
++	}=0A=
+ 	if (sit9531x_dpll_is_xo_pin(pin))=0A=
+ 		return &sit9531x_dpll_xo_pin_ops;=0A=
+ 	/* Read once at probe, before any pin is registered. */=0A=
+ 	manual =3D sit9531x_chan_state_get(sitdev, pin->dpll->id)->manual_input;=
+=0A=
++	if (sit9531x_dpll_is_intsync_pin(pin))=0A=
++		return manual ? &sit9531x_dpll_intsync_dst_pin_manual_ops :=0A=
++				&sit9531x_dpll_intsync_dst_pin_ops;=0A=
+ 	/*=0A=
+ 	 * Set before any pin of the input is published and not written again.=0A=
+ 	 */=0A=
 diff --git a/drivers/dpll/sit9531x/regs.h b/drivers/dpll/sit9531x/regs.h=0A=
-index 3f8ceb7e9798..8c76609b99c5 100644=0A=
+index d6c6b4a6a6bb..6913f9f7f0ad 100644=0A=
 --- a/drivers/dpll/sit9531x/regs.h=0A=
 +++ b/drivers/dpll/sit9531x/regs.h=0A=
-@@ -158,6 +158,35 @@=0A=
- #define SIT9531X_DEBUG_UNLOCK_VAL		0xC3=0A=
- #define SIT9531X_DEBUG_LOCK_VAL			0x00=0A=
+@@ -254,6 +254,9 @@=0A=
+ #define SIT9531X_PLL_REG_ACTIVE		0x02=0A=
+ #define SIT9531X_PLL_ACTIVE_BIT		BIT(0)  /* PLL reached active state */=0A=
  =0A=
-+/*=0A=
-+ * Per-output phase delay: 34-bit coarse in VCO cycles plus a 3-bit fine=
-=0A=
-+ * field in 30 ps steps, in a five-byte block PROG6..PROG2:=0A=
-+ *=0A=
-+ *   base + 0     PROG6  [7:5] OPSTG_VCASC_BUMP (preserve)=0A=
-+ *                       [4:2] PRG_RST_FINE_DELAY[2:0]=0A=
-+ *                       [1:0] PRG_RST_DELAY[33:32]=0A=
-+ *   base + 1..4  PROG5..PROG2  PRG_RST_DELAY[31:0], MSB first=0A=
-+ *=0A=
-+ * Block base is 0x15 + 16 * (slot % 6), slot from clkout_map[]; slots 0-5=
-=0A=
-+ * on page 3, 6-11 on page 4.=0A=
-+ */=0A=
-+#define SIT9531X_OUT_PRG_DELAY_BASE		0x15=0A=
-+#define SIT9531X_OUT_PRG_SLOT_STRIDE		0x10=0A=
-+#define SIT9531X_OUT_PRG_BYTES			5=0A=
-+#define SIT9531X_OUT_PRG_OPSTG_MASK		0xE0=0A=
-+#define SIT9531X_OUT_PRG_FINE_SHIFT		2=0A=
-+#define SIT9531X_OUT_PRG_FINE_MASK		0x1C	/* bits [4:2] */=0A=
-+#define SIT9531X_OUT_PRG_COARSE_HI_MASK		0x03	/* bits [1:0] */=0A=
-+/*=0A=
-+ * The divider takes two VCO cycles to act on a programmed delay; the enco=
-ded=0A=
-+ * value includes them, as in the reference flow.=0A=
-+ */=0A=
-+#define SIT9531X_OUT_PRG_DIVO_CYCLES	2=0A=
++/* PLL EXT page INTSYNC configuration registers */=0A=
++#define SIT9531X_PLL_EXT_PAGE(_idx)	(SIT9531X_PAGE_PLLA_EXT + (_idx))=0A=
 +=0A=
-+#define SIT9531X_OUT_PRG_FINE_STEP_PS		30=0A=
-+#define SIT9531X_OUT_PRG_FINE_MAX		7	/* 3-bit field */=0A=
-+#define SIT9531X_OUT_PRG_COARSE_BITS		34=0A=
-+=0A=
+ #define SIT9531X_PLL_STATUS_OUTER_DIS	BIT(5)=0A=
+ =0A=
  /*=0A=
-  * Register-triggered phase flush: DIVO_PHASE_SEL_REG selects the register=
-=0A=
-  * trigger; pulsing DIVO_PHASE_TRIG high then low flushes. Preserve the OE=
-b=0A=
 -- =0A=
 2.39.2 (Apple Git-143)=0A=
 =0A=
