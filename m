@@ -1,67 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318102;
-	b=onZBplXS5pbuVGqEtV/MfFGpKTlYD8XF4TMIIggjMFvEXnQFwm7eDCm0ay+SamU9fvJv
-	 iAmgqmJp+8FQ7HDUj+zWI4RUvTvHYQ3ztLCx/wQlG523ZFXGB9o9ME2ZRhGctEN1OVcuz
-	 ObS811o5lLcqX3qGKLNCmu1857M4X4mpyVQiJdl8L8nw9bOHFI5jI4o38MqCZ5JNBFi0E
-	 mFT3FyKlpn2IFntH2VwndKvXcOc5+k9id4qycRlqPUsKsrybDLjweHbDo0a2BFHi5kWVs
-	 RcqtPD9OxHmRvkQnhiyxae/O2VqmRGVNktULCHB0eraLEr9Dkvmd5iVpUsmHaz4l8HA==
+	t=1794318558;
+	b=bYLKBxGwxhzG5zUszAM1GHF86ia3jHbrBEQ3Lk2f9/CIzH9zir2QJlNL2UVYBMwHKfsQ
+	 0yHoBllNM9FtR5EUTTBZvIhGVJ/FfxNMdsacgLabsroL4QvSJgUySlfni+ylCE/XwA5IN
+	 LBhFMvvMDamtgvhhbhCVML1/0rYKPghro5DY2gpVn4UVLEW/XALMvOi4/I9nMhPR0CX+y
+	 RAbZgSbfKTIY4LtzEsOZHpUCtsugFf6agOCwWIv6bt9s9irLACn8Q4WxyjVqdXhcKKABl
+	 K/E0361AFxE3CcoubD6cWBUJfj3HrJ9n0OWXtc99V51yIcwQsEjS+jaU4habkfsaJBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318558;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:From:To:
 	 Subject:X-Mailer:References:In-Reply-To;
-	bh=lasqxXVeKXMxHny0oj9QIIm0EdQKa7hCoZn0gBzmIq4=;
-	b=FekfZoBchlVTwebS8x6KVP5+kgbciAwZPaHK6uWaNX9qTkquEWik6nRkhCNlDHlMfiIW
-	 G/NlpUUVVt6L/pfLZ0hNROYBpU7rPzlNF5afWzWIPbvXE8jfcsGv2Ly+/wRZSYClqMhpg
-	 6/4Id0r59YIrHeRsgU1BGg7X9QCIi6+WawIGBsXzwp2Spu+6AJjqbLWI8bh95tYSHUF1l
-	 v7JQeb2JX/fB2m/YMUPaxq4dR/wJmyy/C7J8RvqcKYHuAU0bMozK3RoS5tc6UKCFGrhHu
-	 0lHD8+EvLydJ9HEqTCNbw14WIHqT9eYMHK3mzzyC1wz/m5pEtZkgmJrWClJE+F/TgOg==
+	bh=WucAi45P7LFqiSe90dwgZKi3069Pbv0dkw7tkGVFfhg=;
+	b=lCBs8jSpdZ0tA0+xxBClkBYsxvgojHdCZZ1ADqiw4VFMno+0ua4KJoqVCLW0grxZQu7f
+	 jX3Pn/qbRfSCiFSj+NfpszI2EtwGX4Fx++6mxB8LE+DzpTTl4u7k3dOrYcQ6+W0HykiBU
+	 9gLvLNb57zka2bEI9WQDFc9QOQTFj9HuoxhfYnlYHBYt0cF19z26Rk0pFSU/5sneA73tl
+	 fWLCLVB0zmk0P+PdtJomIld+Alytpa7og7JQs1ZXrld1JNHTJjXQQA8dmLP1hF9Zf4nTR
+	 7m7zTT+0k8lPwb7hQVtMDwoobndz4pAoF3UAQLgqUCXkftmdNFuwaoK2pci3AUNyE6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MmP7E7uD;
 	arc=none smtp.remote-ip=68.232.153.233
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99D2606A321;
-	Tue, 10 Nov 2026 13:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99D2606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF816606A32E;
+	Tue, 10 Nov 2026 13:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF816606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MmP7E7uD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794318107; x=1825854107;
+  t=1794318558; x=1825854558;
   h=mime-version:content-transfer-encoding:date:message-id:
    cc:from:to:subject:references:in-reply-to;
-  bh=c/J2BX5zYovG7XXcvnry2XAw/WRw3cFjhkZ9MkToNyk=;
-  b=iW59M+8oln9X+WWzxl0gG8aKrZSib7EeaX9KFoZN9Fsztq6VU6OmILYd
-   dNflNr2PUJ4ruZxMPNR1KHBdcxwZPHqo6GHW2wZyn8XUFsCHc99OJteVg
-   iMDaZUQJGjxxlnfRyaeZ3nbRKibkZKXYa0wSJQ09gstX4UTnuTfLKLeFG
-   udDwFnMDAMzHcKG5w4LG15Ulmn+eDVZt5B/QlzCiCjTZQ0STyT2qjixT+
-   IJRl2+UnZKpqjomchMUXJIALaWq1kdoe7SN34luaR9Kn7gbChKd+JJ7EC
-   BjZP43wW2Mvx+OpOVzHrunbms/VagrrcHStpu4Sw5t8cc3+QOlx0alaKc
-   w==;
-X-CSE-ConnectionGUID: 6uO7UKHWTY+5neRwOdB0yw==
-X-CSE-MsgGUID: O8hmv08iQbeHE26wbSZtlg==
+  bh=4jDqGAE3KXmzi8NszJwL8KHelw3BtEwY4FX/0+qVaEE=;
+  b=MmP7E7uDBDQChjWI88OuF4huu/XeibAfLssw0WAEOW960xaEJlgMmQyU
+   1x8gUHXCi5Nyj0D8ri+G9mtfid9zGZ1K2e1UvNVkG2Fb5Xn9Dl3SjQW82
+   r6mnnDPf7HOSIhmcgnSAg+QeS+dbgji+tb+fYNFiisbRasLJ67yTkAx3J
+   yHYoTyfZEk0PI0UPehS2a95wyjBCfIwvVi40D94JTz7I24l7RtUmsw7b9
+   6dr0tlRYztY7xMp1MU7ds8ALizmzQPOFgAzZU66deG/UqzssK5n7+04pK
+   BGscDPWanGxISRXxnyjEGHHcdIQFWJEsOy1fuv0mn1CHRvRfAjMf4pAea
+   g==;
+X-CSE-ConnectionGUID: Nm8SpLRoQCKu6bAsD/8N9Q==
+X-CSE-MsgGUID: f8n1udbwQq+uOA+ZYLEFBg==
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="76951348"
+   d="scan'208";a="66290142"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:41:41 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:49:17 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Tue, 10 Nov 2026 06:41:34 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.2.2562.56; Tue, 10 Nov 2026 06:49:16 -0700
+Received: from localhost (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Tue, 10 Nov 2026 06:41:33 -0700
+ Transport; Tue, 10 Nov 2026 06:49:15 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,8 +73,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 10 Nov 2026 14:41:32 +0100
-Message-ID: <DMRKOG9MGJ12.7OG591B2X3XB@microchip.com>
+Date: Tue, 10 Nov 2026 14:49:14 +0100
+Message-ID: <DMRKUCAN92TO.3J516XODSPDH3@microchip.com>
 CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
 	<davem@davemloft.net>, <kuba@kernel.org>, <horms@kernel.org>,
 	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
@@ -87,207 +87,246 @@ CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
 From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
 	<jensemil.schulzostergaard@microchip.com>
 To: Paolo Abeni <pabeni@redhat.com>, <jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
 X-Mailer: aerc 0.21.0
-References: <20261103-dsa_lan9645x_switch_driver_base-v16-1-781c96d735cf@microchip.com> <20261110112810.235223-1-pabeni@redhat.com>
-In-Reply-To: <20261110112810.235223-1-pabeni@redhat.com>
+References: <20261103-dsa_lan9645x_switch_driver_base-v16-4-781c96d735cf@microchip.com> <20261110112822.235243-1-pabeni@redhat.com>
+In-Reply-To: <20261110112822.235243-1-pabeni@redhat.com>
 
 On Tue Nov 10, 2026 at 12:28 PM CET, Paolo Abeni wrote:
 > This is an AI-generated review of your patch. The human sending this
 > email has considered the AI review valid, or at least plausible.
 > Full review at: https://netdev-ai.bots.linux.dev/sashiko/
 > ---
-> --- Patch [1]: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9=
-645X ---
-> commit 9f0c74e8611a75335b66615c753e5ac04e4a4bc9
+> --- Patch [4]: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa=
+ driver for LAN9645X ---
+> commit 2bc50b43f8638df7f8c7d09bfad9a789fecdd370
 > Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
 chip.com>
 >
-> net: dsa: add tag driver for LAN9645X
+> net: dsa: lan9645x: add basic dsa driver for LAN9645X
 >
-> This adds a DSA tag driver for the Microchip LAN9645x switch. It uses a
-> front port as an NPI CPU port, with a long prefix plus a 28 byte IFH on
-> extraction and a bare IFH on injection. On receive, the classified VID
-> popped by the rewriter is restored as a hwaccel C-tag. On transmit, a tag
-> with a non-zero VID is moved from the payload into the IFH.
+> This adds a basic DSA driver for the LAN9645x switch. It covers switch
+> init, named regmap requests from a parent device, NPI, CPU and front
+> port setup, and phylink MAC configuration. Only the internal CuPHYs on
+> ports 0-4 and RGMII on ports 7-8 are wired up, and the parent MFD
+> driver that provides the regmaps is left for a later series.
 >
->> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+>> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_main.c
 >> new file mode 100644
->> index 0000000000000..9b373bac91e90
+>> index 0000000000000..f91e825343353
 >> --- /dev/null
->> +++ b/net/dsa/tag_lan9645x.c
->> @@ -0,0 +1,513 @@
+>> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+>> @@ -0,0 +1,453 @@
 >
 > [ ... ]
 >
->> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
->> +				     struct net_device *ndev)
+>> +static int lan9645x_tag_npi_setup(struct dsa_switch *ds)
 >> +{
->
-> [ ... ]
->
->> +	qos_class =3D netdev_get_num_tc(ndev) ?
->> +		    netdev_get_prio_tc_map(ndev, skb->priority) :
->> +		    skb->priority;
->> +	qos_class =3D min_t(u32, qos_class, GENMASK(IFH_QOS_CLASS_SZ - 1, 0));
+>> +	struct dsa_port *dp, *first_cpu_dp =3D NULL;
+>> +	struct lan9645x *lan9645x =3D ds->priv;
+>> +	struct phylink_config c =3D {};
 >> +
->> +	/* Make room for IFH */
->> +	ifh =3D skb_push(skb, LAN9645X_IFH_LEN_BYTES);
->> +	memset(ifh, 0, LAN9645X_IFH_LEN_BYTES);
+>> +	dsa_switch_for_each_user_port(dp, ds) {
+>> +		if (dp->cpu_dp->ds !=3D ds) {
+>> +			dev_err(ds->dev,
+>> +				"NPI port on a remote switch is not supported\n");
+>> +			return -EINVAL;
+>> +		}
 >> +
->> +	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
->> +	lan9645x_ifh_set(ifh, tag_type, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ);
->> +	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
->> +	lan9645x_ifh_set(ifh, qos_class, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
->> +	lan9645x_ifh_set(ifh, BIT(dp->index), IFH_DSTS, IFH_DSTS_SZ);
->
-> [Severity: Medium]
-> [Finding: main-7-6]
-> [Sources: opus-5-5]
-> Should IFH_IPV be set here too?
->
-> The field table at the top of the file lists IFH_IPV (pos 48, width 3)
-> under "Extraction/Injection header". Nothing on the xmit path writes it,
-> so after the memset() it is 0 for every injected frame.
->
-> The commit message says LAN9645x is in the same family as lan966x, and th=
-e
-> IFH layouts are close (IFH_TCI is at bit 103 in both). lan966x_ifh.h
-> describes QOS_CLASS as "Classified internal priority for queuing" and IPV
-> as "Classified internal priority for resourcemgt, tagging etc".
-> lan966x_port_xmit() sets both of them:
->
-> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_port_xmit()=
- {
->     ...
-> 	lan966x_ifh_set_qos_class(ifh, skb->priority >=3D 7 ? 0x7 : skb->priorit=
-y);
-> 	lan966x_ifh_set_ipv(ifh, skb->priority >=3D 7 ? 0x7 : skb->priority);
->     ...
-> }
->
-> The lan9645x switch driver in this series reserves buffers per
-> (port, prio) through QSYS_RES_CFG. If IPV stays at 0, would high priority
-> traffic injected from the CPU be queued by QOS_CLASS but charged against
-> the prio 0 reservation? Any tagging or mapping based on IPV would also
-> see priority 0.
->
-> Could IFH_IPV be set to the same clamped qos_class? If LAN9645x ignores
-> IPV on injection when BYPASS=3D1, could a comment say so?
->
-
-Correct. With IFH.BYPASS set the analyzer is skipped and the queue
-system takes the egress queue from IFH.IPV, so every injected frame was
-queued in queue 0. The next version sets IFH.IPV to the same clamped QoS
-class as IFH.QOS_CLASS.
-
-> [ ... ]
->
->> +	/* While we have REW_PORT_CFG_NO_REWRITE=3D0 on the NPI port, we still
->> +	 * disable port VLAN tag pushing with REW_TAG_CFG. A frame ingressing
->> +	 * on a vlan aware port, which is forwarded to the CPU, will not carry
->> +	 * vlan info in the frame data, because the tag is popped. The
->> +	 * classified VID is only communicated via the IFH, never in the
->> +	 * payload. We therefore restore it via hwaccel and must not pop an
->> +	 * in-band tag here.
->> +	 */
->> +	if (ifh_gap_len) {
->> +		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
->> +		 * reports. The classifier recognizes both TPIDs as VLAN tags,
->> +		 * so an S-tag has already been used for classification by the
->> +		 * time we get here. Restoring it as 802.1AD would make the
->> +		 * bridge push it back into the payload and reclassify the frame
->> +		 * to the port pvid, on a different VID than the one the
->> +		 * hardware forwarded it on.
->> +		 */
->> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
+>> +		if (first_cpu_dp && dp->cpu_dp !=3D first_cpu_dp) {
+>> +			dev_err(ds->dev, "Multiple NPI ports not supported\n");
+>> +			return -EINVAL;
+>> +		}
 >
 > [Severity: Medium]
 > [Finding: main-1-1]
 > [Sources: opus-5-5]
-> Do lan9645x_xmit_get_vlan_info() and lan9645x_rcv() agree on which bridge
-> VLAN protocols are supported?
+> Can the "Multiple NPI ports not supported" branch in
+> lan9645x_tag_npi_setup() ever be taken?
 >
-> On xmit, the bridge TPID is read with br_vlan_get_proto(). An in-band tag
-> is stripped only when its TPID matches that protocol, and an S-type tag i=
-s
-> signalled for 802.1ad:
+> dsa_tree_setup_cpu_ports() runs before .setup. This driver has no
+> preferred_default_local_cpu_port(), so that function gives every local
+> user port the first local CPU port:
 >
-> lan9645x_xmit_get_vlan_info() {
+> net/dsa/dsa.c:dsa_tree_setup_cpu_ports() {
 >     ...
-> 	br_vlan_get_proto(br, &proto);
->     ...
-> 		if (ntohs(hdr->h_vlan_proto) =3D=3D proto &&
-> 		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
->     ...
-> 	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> 					     LAN9645X_IFH_TAG_TYPE_C;
->     ...
-> }
+> 		dsa_switch_for_each_port(dp, cpu_dp->ds) {
+> 			/* Prefer the first local CPU port found */
+> 			if (dp->cpu_dp)
+> 				continue;
 >
-> On rcv, IFH_TAG_TYPE is never read, and the tag always comes back with
-> vlan_proto 0x8100.
->
-> With a VLAN-aware bridge set to vlan_protocol 802.1ad, br->vlan_proto is
-> 0x88a8. Wouldn't __allowed_ingress() in net/bridge/br_vlan.c then see a
-> protocol mismatch?
->
-> net/bridge/br_vlan.c:__allowed_ingress() {
->     ...
-> 	if (skb->vlan_proto !=3D br->vlan_proto) {
-> 		/* Protocol-mismatch, empty out vlan_tci for new tag */
+> 			if (dsa_port_is_user(dp) || dsa_port_is_dsa(dp))
+> 				dp->cpu_dp =3D cpu_dp;
+> 		}
 >     ...
 > }
 >
-> In that case the bridge pushes the tag back into the payload and puts the
-> frame on the port pvid. The comment above says the C-tag choice avoids
-> exactly this, but it only does so when br->vlan_proto is 802.1Q.
+> That makes dp->cpu_dp !=3D first_cpu_dp unreachable. A second CPU port in
+> DT is accepted without any message, and only the first CPU port goes
+> through the phy_interface_empty() check.
 >
-> The commit message says:
+> If the second CPU port is port 5 or 6, probe would then fail later in
+> phylink_create(), and the driver's "Port %d has no usable interface
+> mode" message would not be printed. The commit message says:
 >
->     This assumes a bridge vlan_protocol of
->     802.1Q, which is the only protocol the driver offloads.
+>   "Declared as a CPU port there is no such fallback, and the probe
+>   fails, and our driver logs an error including the port number."
 >
-> Is that enforced anywhere? DSA has no handler for
-> SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. __br_vlan_set_proto() sends that
-> attribute with SWITCHDEV_F_SKIP_EOPNOTSUPP, so changing vlan_protocol to
-> 802.1ad on an offloaded bridge still succeeds.
+> If the second CPU port is port 7 or 8, DSA sets it up as a CPU port and
+> attaches its conduit, but lan9645x_npi_port_init() is never called for
+> it.
 >
-> If 802.1ad really is unsupported, the TAG_TYPE_S branch in xmit looks dea=
-d.
-> Otherwise, could rcv take the TPID from IFH TAG_TYPE or from the bridge
-> protocol? tag_ocelot.c does this in ocelot_rcv():
+> Would it work better to count ports with dsa_switch_for_each_cpu_port()
+> and reject anything above one?
 >
-> 	vlan_tpid =3D tag_type ? ETH_P_8021AD : ETH_P_8021Q;
+
+Correct, the check cannot trigger here.
+
+This driver has no tagging protocol change and no port_change_conduit,
+so at setup every user port has the first local CPU port, and a second
+CPU port in DT is accepted silently.
+
+The next version counts the local CPU ports with
+dsa_switch_for_each_cpu_port() and rejects anything but exactly one.
+
+>> +
+>> +		first_cpu_dp =3D dp->cpu_dp;
+>> +	}
 >
-> At the end of this series the lan9645x switch driver does not implement
-> bridge join or program VLAN classification yet. So this path stays dorman=
-t
-> until bridge and VLAN offload is added, and the tagger is not changed lat=
-er
-> in the series.
+> [ ... ]
+>
+>> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
+>> +{
+>> +	u32 val =3D 0;
+>> +	int err;
+>> +
+>> +	/* The parent must reset the whole chip before instantiating its
+>> +	 * children, so the switch core is disabled when we get here. The
+>> +	 * sequence below must not run more than once: initializing the
+>> +	 * memories on a running core corrupts pointers inside the queue
+>> +	 * system, which eventually fills up and stops passing traffic. If the
+>> +	 * core is already enabled the chip was not reset, so skip it.
+>> +	 */
+>> +	if (SYS_RESET_CFG_CORE_ENA_GET(lan_rd(lan9645x, SYS_RESET_CFG)))
+>> +		return 0;
+>
+> [Severity: Medium]
+> [Finding: fable-5-1-7-9]
+> [Sources: fable-5-1, opus-5-5]
+> What happens here if the register read fails? lan_rd() discards the
+> regmap_read() error and returns 0:
+>
+> drivers/net/dsa/microchip/lan9645x/lan9645x_main.h:lan_rd() {
+> 	u32 addr, val =3D 0;
+>     ...
+> 	WARN_ON_ONCE(regmap_read(lan_tgt2rmap(lan9645x, t, tinst), addr, &val));
+>
+> 	return val;
+> }
+>
+> If the read over the parent regmap fails (the intended parent is an SPI
+> bridge like ocelot-spi), the result looks the same as CORE_ENA =3D=3D 0. =
+The
+> RAM_INIT sequence would then run on a core that may already be enabled,
+> which the comment above says corrupts the queue system.
+>
+> lan9645x_set_feat_dis() uses the same pattern:
+>
+> 	feat_dis =3D lan_rd(lan9645x, GCB_FEAT_DISABLE);
+>
+> A failed read there gives num_port_dis =3D 0, so the SKU port count check
+> in lan9645x_setup() is skipped without any error.
+>
+> Should these two reads check the regmap_read() return value and fail
+> the probe?
 >
 
 Dismissed, intentional.
 
-The driver will not support 802.1ad bridges. The hardware classifier
-treats both TPIDs as VLAN tags and the egress TPID follows the ingress
-tag type, so following the bridge vlan_protocol in rcv would hide one
-symptom without making 802.1ad work. On xmit the TPID is taken from the
-bridge because the stack picks the TPID of the frames it sends.
+SPI itself has no ack or checksum, so an unresponsive device or a broken
+bus can complete the transfer successfully with all zeros or all ones,
+and checking the return value of these reads would not catch it.
 
-The bridge offload patches will reject joining a VLAN-aware bridge and
-enabling VLAN filtering when vlan_protocol is not 802.1Q. A later
-vlan_protocol change on a bridge that already filters is not seen by the
-driver, since DSA does not handle
-SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. Rejecting it needs DSA to pass
-the attribute to drivers, which is independent of this series.
+The parent verifies the register interface when it initializes it, by
+reading back the interface configuration, so a device that does not
+respond fails the parent probe before the switch is instantiated.
 
->> +	}
+What remains is a transfer error reported by the SPI controller itself,
+a host side failure, which lan_rd() reports with WARN_ON_ONCE().
+
 >> +
->> +	return skb;
->> +}
+>> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
+>> +	lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
+>
+> [ ... ]
+>
+>> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
+>> +	 * use the same masks. Control frames are redirected to CPU, and
+>> +	 * the network stack is responsible for forwarding these.
+>> +	 * The dataplane is forwarding according to the offloaded MDB entries.
+>> +	 */
+>> +	lan_wr(ANA_FLOODING_IPMC_FLD_MC4_DATA_SET(PGID_MCIPV4) |
+>> +	       ANA_FLOODING_IPMC_FLD_MC4_CTRL_SET(PGID_MC) |
+>> +	       ANA_FLOODING_IPMC_FLD_MC6_DATA_SET(PGID_MCIPV6) |
+>> +	       ANA_FLOODING_IPMC_FLD_MC6_CTRL_SET(PGID_MC),
+>> +	       lan9645x, ANA_FLOODING_IPMC);
+>
+> [Severity: Low]
+> [Finding: fable-5-1-2-5]
+> [Sources: fable-5-1]
+> This isn't a bug, but this comment in lan9645x_setup() doesn't seem to
+> match what the patch does.
+>
+> lan9645x_switch_ops has no .port_mdb_add or .port_mdb_del. Nothing in
+> this patch redirects IGMP/MLD control frames to the CPU either.
+>
+> The comment also says "Control and dataplane use the same masks", but
+> control uses PGID_MC and data uses PGID_MCIPV4 and PGID_MCIPV6. These
+> are three separate PGIDs. They only end up with the same value because
+> of later writes in lan9645x_setup().
+>
+> Is this comment left over from the bridge and MDB patches that were
+> dropped in v16?
+>
+> [ ... ]
+>
+>> +static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
+>> +{
+>> +	const char *resource_name;
+>> +	struct regmap *tgt_map;
+>> +
+>> +	for (int i =3D 0; i < NUM_TARGETS; i++) {
+>> +		resource_name =3D lan9645x_resource_names[i];
+>> +		if (!resource_name)
+>> +			continue;
+>> +
+>> +		tgt_map =3D dev_get_regmap(lan9645x->dev->parent, resource_name);
+>> +		if (IS_ERR_OR_NULL(tgt_map)) {
+>> +			dev_err(lan9645x->dev, "Failed to get regmap=3D%s\n",
+>> +				resource_name);
+>> +			return -ENODEV;
+>> +		}
+>
+> [Severity: Low]
+> [Finding: fable-5-1-1-2]
+> [Sources: fable-5-1, opus-5-5]
+> This isn't a functional bug, but can this driver probe on any in-tree
+> configuration?
+>
+> lan9645x_request_target_regmaps() needs 17 named regmaps from
+> dev->parent, and lan9645x_reset_switch() relies on the parent having
+> reset the chip. Nothing under drivers/mfd/ registers these regmaps or
+> creates a child with the "microchip,lan96455s-switch" compatible.
+>
+> The commit message says:
+>
+>   "The MFD driver will come in a later series"
+>
+> Until that series lands, this driver and the tagger it selects can be
+> built but never bound. Would it make sense to merge this together with
+> the parent driver?
 >
 > [ ... ]
 
-pw-bot: cr
