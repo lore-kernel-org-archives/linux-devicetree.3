@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335783;
-	b=4QHq0WC1PUbj+UoiLYPd+83TkLd2D6rC+lkuYmR0wL3Un/t85YD/wPHDU19eKyRnZ/o7
-	 5embu99AX5ZctVeL+/bxG0WWFYnU5nlL9infCnYqumQCgJXqM5l1rFmWFAUBS1lpqCJe9
-	 kRtFgZd0h7MFqlgSqDpsaYfuWum6vpt98HQjhUQ5PrT1jRAbg3bXTN7ha1+n9pTccngyx
-	 OkZLVOEL1wvdJaCnL7XETVJ2s4nyd2eo+AswRkC7Wy2qtyXhTx2V0Gn14+cgHea3auOAQ
-	 xfOz6OE+7BD3Ayip/Iz7HqWgBIA3WExDCe1lDBssnRrb5VVye1vI9Bg9u+v8ZEs3rNQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335783;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=o/9JOxpI2/7CQXqdlvWs/lcxk0emk3kCWaaIB+hKwgY=;
-	b=A+7CdYM+DKROLpIXwTbhTp+8c9dMTIM+t8rhZ8F44f6g2K5nFCimQI8XrMEekqdb3BPk
-	 SiyzsFLKgyy+FomozC9A4VUFPK8rVkvYTxQ3GSidg0rDKrh1KLg0TJYfjgFtp4ezdv09R
-	 4QD+hwI10i885QR9/3+kXOZr/UXq1Xx/cJUK7R+BEuOLde8jYCOOAR/vrvQaNtBJbVlSU
-	 r2tAvK0sV+2HIIZqo/DupT7KGuLKe9fJloeyeuCifjF0PtNnUPgaMsUM07c68ff4HMERN
-	 pCdzE6n+XueFDnmdy/g6CrFVic2OQlW+XUDHGUPnutITcMbtX+DlYTbXJfwctmbmYUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RwJ5nb/u";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794335954;
+	b=BdMK/4Dap0wM0qlbwxtmhe2E5PyduPwaq5aJRsCHS+rQeaAp5r8H70h4j3Zaq8yDU3pd
+	 sa5R9kRHg1XReGjP3A908vH7tpWqStfg9vJLOjLUT/QWhG3wKNyCT1o6Z3uJiFqHIhfIS
+	 HC/p1dDKX87mDKQ2/7zx/kZl93pGNUhSQf0VxyISZMld0i1gHhA+SsZ5AoDLbhSWvgcJ5
+	 K9MSseu7rGtHABKbX9UUh+fLO6bZZxvtLSvIUojai3iCxDkEu5/n7zhN2buGfRslpYiLi
+	 FZma+rajFYP9kmW1c3uhY2212joS7N2dO1iQjh75u36crTmR7KFFF1lzQIhf8bFsIpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JmEY1Uike6JX8cO3a6s3fXhYo6n5w8yRovxQQfIWojQ=;
+	b=Dv3M7LLjohi1IdbRC8yMExSrxW9HaPCtlebRSeUboJZrFpWsyasCAWQYxIf6Ws3qN0Iq
+	 a7tjAvkQHjoNaNnnUNRkjDjhKznnFFetNif5pxCFfjTZeVNVOoDtueBGtGWDsWGu9K30U
+	 XRdekj+apdzdo+1td8tQmqLJJGBN3iG1pRVeeUz//1yieDTbTgB4APBTbcOK0HuLC5XLe
+	 NtNC+9OeDjPfMYt6ikOJot9szGxAwH0IAtgZUF20/uUd12OuPj8o8lYxzDLKHBF3xSHLr
+	 BIvJj324P6Vb8Z/3Kh1T4cWOX4iAhSrDqgeDidgCPocqcbOMNgluC9rnX/W9DkXyRHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZK+++rZl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C083606A32E;
-	Tue, 10 Nov 2026 18:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A570606A31C
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:39:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A570606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwJ5nb/u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED9E1F008A3;
-	Tue, 10 Nov 2026 18:36:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794335783;
-	bh=o/9JOxpI2/7CQXqdlvWs/lcxk0emk3kCWaaIB+hKwgY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RwJ5nb/uG5KNkgG2SOgAhOM5Cvz+Z40dsqL0z7aySCK4t1I8/oq9I3B1RPqCKZOU6
-	 cMMPUmvqF94sGROh03MSpfPaDpBnq04YIcBGljeCiD/1rrPB1rh5WlEyh45GVVO4cq
-	 usn8DX7xSRI4/RkFgS4WTXBbYr62/dfTdSIxO64s2Z9K8r2/R0TUzy2XdgvPenLXGr
-	 eVkBb8ybN/luKqoz0dL9cSAPVmL2xszKLpaqoxvcbpxmdierlQrXrpobm6H66IbOPd
-	 LlJBc6HWf8y5hOn/6IzKeL8EIX0+zV7FaJwFY81KP81TL6CsEOa4Ps6C01NiQijS10
-	 CiOQF1FVa5P9Q==
-Date: Tue, 10 Nov 2026 18:36:18 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: input: Add Nuvoton MA35D1 keypad
- controller
-Message-ID: <20261110-dingy-unaligned-377ac75bb5bc@spud>
-References: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
- <20261110111419.89535-2-fyhsueh4linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZK+++rZl
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ace304021eso20916671fa.2
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:39:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794335952; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J/aKqqqFkngmvGBUjYXEQ+TJDosCNlmUyRf+mF8JE9bxA2v22LHWVwAz7OKfHhRicA
+         58sAhaGs//o2f13GgJ3FSrtdQLfONz7Nf6+ICErEZ4jWlVlnbOVtrbBp0v3eyWvAgC6i
+         Kb+10mn8cK8k2mRaAtuMyFq97fAClhVIas6JiJ2QSHFrGhMBU2nYtnirabC90p1pUXhB
+         YBg+QP52A+dulkK5r6V4cAmGO1H4yscm4JjfCDTwTIZTMVbqiKZu1p1/uvzCMzPYoD4X
+         r0Qw2tezUt88I7k+FlmTZt2mSvVWFmi/54rzy1b4ViA9jNU2sEHBXQ5ZWFRdBevsYbx/
+         uCVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JmEY1Uike6JX8cO3a6s3fXhYo6n5w8yRovxQQfIWojQ=;
+        fh=a+0F96jtdxYmkzlcBSlOtGRwOTcWVEQOVpcZpcwwrFw=;
+        b=J43cfvod3oE2/lLkWEgnXpyXSfiuZgIjZgqylrj2yfhXOaK8F39jTO/u8gCTjJ5jJp
+         g8nk22E+j+8jZs39alKxhdw+Ct5GY1M6cp7dGfuD0Z+YPKQTmTOCtHq/vhKk8hKlyPsl
+         xGRTRnQlEnhWXUt2zO8Y6f27lyd1Vf8xx9335+9aVnKtH/WGJgqJRdx3U519/hjujHYH
+         c7OHpRgtgwLHkms4XDZmF9JT0/RzobyQX0BhhVJJGZb6xzL3OJGhzHIyxqGKCuRen6sS
+         Ej3o2v+ij+g+TxcO3LKFakVG5mw9DRFRXfdFw2LzEpp3o8FGYcvF5WRkGiGxrDpuiKUe
+         B/qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794335952; x=1794940752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JmEY1Uike6JX8cO3a6s3fXhYo6n5w8yRovxQQfIWojQ=;
+        b=ZK+++rZlDpL8nJx/vrqs2LmHOH1By/P/mzHLEUh8O8wjnJtLXEQtQuZj3zWwE6PclG
+         4lIV/AOheJPvT2VHdGF7q+mpTiZoI222lEGXjhUZOe8i6dT9dMM16YILK8zSaNgeeQPZ
+         AtOYN+PMz/1lSc5iHIL+Y2xi1aM+dM4BqDjlsXcBbVxgvJPIiBkMCOtFTaxirllohYVq
+         jaKz7qIHYnqKLY2Rx11Diq7ErC+TxqMHCE91QeWGT7UayAN49ON1zol4e8fZlANsQNhn
+         DcM41EUnh17e0HEEgIeRacLpvhJuBsWV05JodBw276Y1m/40YIKW2nBKpF26Vj02DXId
+         /b/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794335952; x=1794940752;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JmEY1Uike6JX8cO3a6s3fXhYo6n5w8yRovxQQfIWojQ=;
+        b=YMmT61Xr9WYSQRdYpu2FUSDZTwDaWIYSIp+QgodDN0Rfg/8v5lmY8D5G7xuzOJSnyG
+         vA6lbENnaxqM2VCLvAOy90I9Feh77nHgI+wBnfb6CrBNccTMqv7+fHM6AgPZ4S/XRHwM
+         UFEHmhO1Mc8mUu/oyHc2rF7zkay2JFpVUn5REtX9EFG9aCng8waZS3CEz43Wk5BZHAH3
+         Dvgxd+cI4dtmCEHqiQNdTuL+0ZaU59uNx9LpPMlYw7kpSIWaPw0L8qXsljwXgPiHBCJL
+         ltL/q99UffBjVpFENJ6w7zoneb0kqW3dX3+lNrm5bZWKuYDPHVdSTEujb78NBijFDwaz
+         VZqg==
+X-Forwarded-Encrypted: i=1; AL+hErGSV3xTBB3uUEqsjLuEqgQOWCpdNYk4htqzWLmjCQ1Odu6UZkNFUYtgkkhCerV+GsoMjXitnvRYcd2P@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5ymdfHpNdFGhjRUT2WtTTjOTia8OXSsLxMO676wCS7bbUTPYd
+	/jB15cAZv0AyziPT7zQajOAEr7NxP6qtDPdN4f4Xq7n3z5zkDHL9Y4B29axT3jsO6qrpD4JFZ+m
+	kHF/F336GtSSF8qoRdRpOyS7Pt/FF0Y8=
+X-Gm-Gg: AYBFou2YX+K+l1RWPQJm0C3Mh0QRsWngOWWMxBCYbPYaob+a1pS/Bl7SIx3tUWE/FMb
+	h+hZ24PuqQuWhWU++C47s0yfJWdGLZr90EHqA9/Rp6E9HyZVaSVgOuE/+DV4yEei9borjv2drPk
+	8f1aH9JUHdCmfSs4QDe1ilkFlTS/IPoFlgciFBRlPYIz/Qqs7M+4zJUKB8zzUJmb5h+pUaUMWM3
+	PeumaXWV4tIdamOmqN7lbVALUepmC2WiHSF+igBUWWEMh9icc/9Ff5MfoE3SCPuRb/pEw47+37D
+	8xv3aHCxAP58Ebm9blTniGBET9SCwwO/zz9ICvsKcOJ6HnSRev6RHKxAR4voy2t5pBuvcIBTjgR
+	s9GBdNXuMS02PUrnDQRJ8uxu4K7j/3eEN9Gt0Yd0rIqe4+DTRDMIEYEAJOWsRYnhoXfpF2cA0hj
+	l/oNc2lTvRYC373IzGSMUtgOZOs/hcheZYDlG3zXhn+p4mxZ8k
+X-Received: by 2002:a05:651c:b12:b0:3ad:de02:e9a8 with SMTP id
+ 38308e7fff4ca-3ae0967065cmr7621621fa.18.1794335952183; Tue, 10 Nov 2026
+ 10:39:12 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,129 +105,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Qv4BxQDfbEUAvEjd"
-Content-Disposition: inline
-In-Reply-To: <20261110111419.89535-2-fyhsueh4linux@gmail.com>
-
---Qv4BxQDfbEUAvEjd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1794334398.git.stefano.r@variscite.com> <3cb427c8d5c6244cebeca5310bd03171f5685edf.1794334398.git.stefano.r@variscite.com>
+In-Reply-To: <3cb427c8d5c6244cebeca5310bd03171f5685edf.1794334398.git.stefano.r@variscite.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Tue, 10 Nov 2026 15:39:00 -0300
+X-Gm-Features: AclHuK-Z_-LDXVn1T9DAos8gp7iZX9KtLfARNWk7UgbNlE7ndGND8A4QqRcbfD0
+Message-ID: <CAOMZO5AuK9coQ5m3h7s3teW-jrX6a268aLSsgVbt2cbndGVSbA@mail.gmail.com>
+Subject: Re: [PATCH v1 3/3] arm64: dts: imx8mp-var-smarc: Add support for
+ Variscite Echo board
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com, 
+	Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Shawn Guo <shawnguo@kernel.org>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	Maud Spierings <maudspierings@gocontroll.com>, Mehmet Fide <mehmet.fide@screeningeagle.com>, 
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 07:14:18PM +0800, Feng-Yi Hsueh wrote:
-> Document the Nuvoton MA35D1 hardware matrix keypad controller.
->=20
-> The controller supports up to eight rows and eight columns
-> and generates interrupts for key press and release events.
->=20
-> Signed-off-by: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+Hi Stefano,
 
-Most of what the bot says seems valid to implement,
-pw-bot: changes-requested
+On Tue, Nov 10, 2026 at 3:21=E2=80=AFPM Stefano Radaelli
+<stefano.radaelli21@gmail.com> wrote:
 
-Thanks,
-Conor.
+> +       ft5x06_ts: touchscreen@38 {
 
-> ---
->  .../bindings/input/nuvoton,ma35d1-keypad.yaml | 73 +++++++++++++++++++
->  1 file changed, 73 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d=
-1-keypad.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypa=
-d.yaml b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
-> new file mode 100644
-> index 000000000000..be678d0b38b9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
-> @@ -0,0 +1,73 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/nuvoton,ma35d1-keypad.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton MA35D1 Matrix Keypad Controller
-> +
-> +maintainers:
-> +  - Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-> +
-> +description: |
-> +  The Nuvoton MA35D1 keypad controller scans a matrix of up to eight rows
-> +  and eight columns and reports key press and release interrupts.
-> +
-> +allOf:
-> +  - $ref: /schemas/input/matrix-keymap.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nuvoton,ma35d1-keypad
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  keypad,num-rows:
-> +    minimum: 2
-> +    maximum: 8
-> +
-> +  keypad,num-columns:
-> +    minimum: 1
-> +    maximum: 8
-> +
-> +  autorepeat:
-> +    type: boolean
-> +    description: Enable key autorepeat events.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - keypad,num-rows
-> +  - keypad,num-columns
-> +  - linux,keymap
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/input/input.h>
-> +
-> +    keypad@404a0000 {
-> +        compatible =3D "nuvoton,ma35d1-keypad";
-> +        reg =3D <0x404a0000 0x10000>;
-> +        interrupts =3D <79>;
-> +        clocks =3D <&clk>;
-> +
-> +        keypad,num-rows =3D <4>;
-> +        keypad,num-columns =3D <1>;
-> +        linux,keymap =3D <
-> +            MATRIX_KEY(0, 0, KEY_1)
-> +            MATRIX_KEY(1, 0, KEY_2)
-> +            MATRIX_KEY(2, 0, KEY_3)
-> +            MATRIX_KEY(3, 0, KEY_4)
-> +        >;
-> +    };
-> --=20
-> 2.43.0
->=20
+The ft5x06_ts label is unused. Should it be removed?
 
---Qv4BxQDfbEUAvEjd
-Content-Type: application/pgp-signature; name=signature.asc
+> +/* Header */
+> +&uart1 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pinctrl_uart1>;
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNkIgAKCRB4tDGHoIJi
-0hSzAQCKMBN2QbVi/h1KHYGGkzgqlIPuWmK2ry8I+T84uCGD1QD+J47KIlwrgiRj
-27vxsEA9CS9u2nAtNbd+piMnxqSdUAg=
-=vTqZ
------END PGP SIGNATURE-----
-
---Qv4BxQDfbEUAvEjd--
+Shouldn't you pass uart-has-rtscts, as both RTS and CTS lines are
+described in pinctrl_uart1?
