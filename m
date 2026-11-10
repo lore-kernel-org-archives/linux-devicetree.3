@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336635;
-	b=fPsLt3hib3pFu2PX9hmzIjNQ9D2qhtiLdhFJFyyQdOQM7LwYd9UXWQ+znoFlsbhGd448
-	 Mg51OYYVcQRGtzatemDm51rlTY9ZTfcYjjVb39Lgv0hcWhbm7absxU/gC6/mgiPtHlI3A
-	 +VDxs/eMkhJ3k2jUKwH83D4Dbxi2XwTobUzbvjLdUydd/sua+J091NMb10379dI6VkOHV
-	 2jExCBCy8crJxaCYC5HK06FixVCbztWlgvWAmSKi39bkHYAVzo9rN8F5Z+ayWk8qpJ5ob
-	 ukE69DTu8qBBGXtj5JD0TVjE8+GAPhG0qnJPNAx0WWht1B6BDedOC6HWaNWUSWn5bbQ==
+	t=1794336638;
+	b=ShuKGj8nPnerCmSoGIv3tKNpH6hX+W9D7ZnSdLjB+aLHpbNyJdLVFyYeLkmZPFGe5Lhs
+	 T/CeS6W0QJbprFrGfYIn9spuKT2c0G/Jpq5QWA7pzWaG+mLytChME5A9cN9k3YeYLqeXp
+	 jxFBRS/2QbvO1V82DrXOA0MKoTJDE2te+O/EpodoTHf9NXOjHnppMlxrponu+p3uTSDyb
+	 9g7wtUvgoHb+WgunovuEiFdbIZ8p2mqiiscCWAiUV66AUduxXaN1LTWUeNjNrN1eURRUQ
+	 0uFL/L3qDG6Zg8gwKFQzibBOyJgiiPOv5XZmVbho9U7vnM0uzg5yYpfZd8ogxtpy01w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336635;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gKKMKFJ8jd9w9selKiKzD90QbdySenwaAWwxAS6B4nc=;
-	b=bdZoyjYV5HxSkxAiKz40p0uT8KRzVL7SlJvI/R2gxAG0lJfPgeGGQQfgewfSyvIm9Ax9
-	 DIe2NboPzoKDaNK2TAY9ZdPIQFSkl/sJ6nKvu0JiFGMJUvO/R61x4/DSVeu57uhQds1La
-	 RKe36BlS4/3WIajYIdEJ3HEG8Eul5KU/6TYreZJejCEmp+F7eQOzzQRcA7J9xdUDCXv/2
-	 vlbJwbCC9uWR3DjCC8QKzt0ZJtxDjBH3rBEzJVOEwgH/AZIN9k2Jy24vkxsyRPfjiEpKn
-	 86ZPEFM40p7oP+z9Qm44WDR9MztdW/vjhx/bKlbbwhGXlhzZwaFqTvKFMIRwsnbWrFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336638;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
+	b=k17WjBse6NdRbdgTh9CH+2UCi61oFZ1pspNar7iwN+aVZssrQBLBqFaS5kpKS8Fv9D5T
+	 06uPvV0Sx2BEEg2FFbARUO/BJirvFCOSfj69+WVoPSQf2PwKKGhAgiCe1mxZ5EEou6Ayb
+	 xYm8mHYaKR3ZpMq1RExXG07OGh1zLKCFEUIJNnIdJFLQIZhnLODoZik3s3unS4Dv7E8P8
+	 snXbROzxrfjOUQFBi+S6XcxpZUa9wT8sIbUo60FOh0hHkI3DWIo9PHPDhugPTJmA1sw4a
+	 pL40LtdZYaUhHhJfMGW8SQlhYyAcXN3bVW93Inn5X0qPqAmISc+RYrsVTYhlkciqlVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IXyo75oZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B5F606A32E;
-	Tue, 10 Nov 2026 18:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8F6606A33B;
+	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IXyo75oZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540A21F008A1;
-	Tue, 10 Nov 2026 18:50:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566731F008A2;
+	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336634;
-	bh=gKKMKFJ8jd9w9selKiKzD90QbdySenwaAWwxAS6B4nc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IXyo75oZklgtjFS/Iksrs1AuFbEk9BfOs4xR456swKIBK5nEkoWpPvJr4XMxHXcN8
-	 Ae7vNieK7zAP7quhlGFs6ySSmskcoif5+okK7aCMk6rLji669mnwtZohZQ6PkBW8El
-	 kxrl12HO/ilCVTUWHli/cqAPxiVEQNSHgvDSjTMxf0lVfTxei8PVbTJFf3gAWfmOLF
-	 2cjE9tnVknHOj9Pmy8yoaTn9f2n/Y02tRw7MU+1M3cWQy3UA6xj0BfbHKO6kTGg5GA
-	 rcxf6iNOFGJUUCRCGhi/8IgSOO9tLKpJuw2r8ykmuJOczBdUQJ/Vq437zGu7HUtxoR
-	 eHeYOSB1Umdag==
-Message-ID: <sashiko-outbox-207610@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] arm64: dts: freescale: Add support for Variscite
- VAR-SMARC-MX8M-PLUS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <b76a07664068aa8cdeada3f44b3b1c4fa56cc887.1794334398.git.stefano.r@variscite.com>
-References: <cover.1794334398.git.stefano.r@variscite.com>
- <b76a07664068aa8cdeada3f44b3b1c4fa56cc887.1794334398.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 18:50:32 +0000
+	s=k20260515; t=1794336637;
+	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kx2ZaO3znvu4YvmU84JU+Iyq4xCs5EF+0qqxwsv7Row54evB55RJqH6zZjZ2YTzQ+
+	 KH6d3TrAUB73sCg7Q4T8ypXYbrkMJ+f7ztTRCFp7X1Ta5vIntCe6skoAzfj1B/aNst
+	 XvaFfDfIz59yeRWjUCmhwHiJa8ugLfELWt6zQuawcKMqTkbJZnBIaDbriM8t/kINrw
+	 VNbS+DBr7usofeo/G9oKuoz5YkNWqwUOJ0KUAyTNIZKZIyV8m8Qp7xFy+bHtMetLOC
+	 EZjZd1GYO25xuVcTjsbN28QUu2N6kI0ISNCbTTLxHSEa0ajGl9mwxkTRvGZO7e3GM0
+	 IWu6/RQKO9MaQ==
+Date: Tue, 10 Nov 2026 12:50:34 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: linux-kernel@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-rockchip@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-phy@lists.infradead.org, Dave Jones <s.dave.jones@gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Message-ID: <179433663384.1318226.574453120666617957.robh@kernel.org>
+References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+ <20261110074533.4052196-2-damon.ding@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,109 +66,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110074533.4052196-2-damon.ding@rock-chips.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] arm64: dts: freescale: invalid 11536000 Hz clock rate on sai3
-  node
-- [Low] arm64: dts: freescale: unused vddio-supply on TI DP83867 PHY
-  nodes
---
 
-commit 50d8452ea2f7f3e97972d70c5d7ed45e6dc9ead0
-Author: Stefano Radaelli <stefano.r@variscite.com>
+On Tue, 10 Nov 2026 15:45:31 +0800, Damon Ding wrote:
+> Document the eDP transmitter PHY with Naneng IP block found on the
+> RK3568 SoC. The PHY has its own register window inside the eDP PHY GRF,
+> so its node is modeled as a child of the eDP PHY GRF syscon with a reg
+> property describing that window.
+> 
+> Also add the "rockchip,rk3568-edp-phy-grf" compatible with its own
+> binding schema, so the shared Rockchip GRF schema is not extended with
+> per-device conditionals.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> 
+> ---
+> 
+> Changes in v4:
+> - Add the reg entry for the PHY node and the ranges/#address-cells/
+>   #size-cells for the parent syscon node.
+> 
+> Changes in v5:
+> - Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
+>   the PHY node, matching the updated driver.
+> - Split the "rockchip,rk3568-edp-phy-grf" syscon node to its own
+>   binding schema, instead of extending the shared Rockchip GRF schema.
+> - Rename the reference clock to "ref".
+> - Drop the example from the PHY binding schema, as complete MFD
+>   examples belong in the GRF binding schema.
+> ---
+>  .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 46 +++++++++++
+>  .../rockchip/rockchip,rk3568-edp-phy-grf.yaml | 80 +++++++++++++++++++
+>  2 files changed, 126 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+>  create mode 100644 Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
+> 
 
-arm64: dts: freescale: Add support for Variscite VAR-SMARC-MX8M-PLUS
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-This commit adds the common device tree include for the Variscite
-VAR-SMARC-MX8M-PLUS system on module.
-
-Link: https://variscite.com/system-on-module-som/i-mx-8/i-mx-8m-plus/var-sm=
-arc-mx8m-plus/
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-smarc.dtsi b/arch/a=
-rm64/boot/dts/freescale/imx8mp-var-smarc.dtsi
-> new file mode 100644
-> index 0000000000000..139815cfd5f8c
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-smarc.dtsi
-[ ... ]
-> +	reg_phy0_vddio: regulator-phy0-vddio {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vddio_phy0_1v8";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <1800000>;
-> +	};
-> +
-> +	reg_phy1_vddio: regulator-phy1-vddio {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vddio_phy1_1v8";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <1800000>;
-> +	};
-[ ... ]
-> +&eqos {
-[ ... ]
-> +	mdio {
-> +		compatible =3D "snps,dwmac-mdio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		ethphy0: ethernet-phy@4 {
-> +			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <4>;
-> +			reset-gpios =3D <&pcal6416 6 GPIO_ACTIVE_LOW>;
-> +			reset-assert-us =3D <10000>;
-> +			reset-deassert-us =3D <100000>;
-> +			vddio-supply =3D <&reg_phy0_vddio>;
-> +			ti,min-output-impedance;
-> +			enet-phy-lane-no-swap;
-> +		};
-> +
-> +		ethphy1: ethernet-phy@5 {
-> +			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <5>;
-> +			reset-gpios =3D <&pcal6416 7 GPIO_ACTIVE_LOW>;
-> +			reset-assert-us =3D <10000>;
-> +			reset-deassert-us =3D <20000>;
-> +			vddio-supply =3D <&reg_phy1_vddio>;
-> +			ti,min-output-impedance;
-> +			enet-phy-lane-no-swap;
-> +		};
-> +	};
-> +};
-
-[Severity: Low]
-Are vddio-supply, reg_phy0_vddio and reg_phy1_vddio needed on ethphy0 and
-ethphy1?
-
-Neither Documentation/devicetree/bindings/net/ti,dp83867.yaml nor
-Documentation/devicetree/bindings/net/ethernet-phy.yaml defines
-vddio-supply, so it fails schema validation under ti,dp83867.yaml's
-unevaluatedProperties: false rule.  Neither the DP83867 driver nor the PHY
-core requests vddio-supply, leaving reg_phy0_vddio and reg_phy1_vddio
-unclaimed to be disabled as unused regulators at late_initcall.
-
-[ ... ]
-> +&sai3 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_sai3>;
-> +	assigned-clocks =3D <&clk IMX8MP_CLK_SAI3>;
-> +	assigned-clock-parents =3D <&clk IMX8MP_AUDIO_PLL1_OUT>;
-> +	assigned-clock-rates =3D <11536000>;
-
-[Severity: Low]
-Should assigned-clock-rates on &sai3 be 12288000 instead of 11536000?
-
-IMX8MP_AUDIO_PLL1_OUT runs at 393216000 Hz (32 * 12288000 Hz).  Requesting
-11536000 Hz selects a /34 divider (11565176 Hz), which is not a 256 * fs
-multiple for any standard audio rate.  Because clocks is specified on
-wm8904_smarc rather than on the simple-audio-card,codec subnode,
-simple_util_parse_clk() leaves simple_dai->clk unset and never updates the
-MCLK rate in hw_params, so wm8904_set_sysclk() sees 11565176 Hz !=3D
-12288000 Hz at 48 kHz and has to fall back to the internal FLL instead of
-using MCLK directly.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794334398.gi=
-t.stefano.r@variscite.com?part=3D2
