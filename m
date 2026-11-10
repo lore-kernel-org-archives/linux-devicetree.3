@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341327;
-	b=BigorPkiOnhXR6MTXa3DMM3hcgUpjp4SVWSAD5K2svPqVsCaR2JcmN0C7ZaMO6qRO0ut
-	 l9Q7/VfrohoRe0hG13LBIq+8z0PQdK1WNUPC+3klXZu/OSIRcA4FfOD3veRDbC38JKeFe
-	 x3zCWM321hnj+WfG7SFmr3No73HaFOg7a4UMkHzkGMrtvnYhGIDCAtnIYNX0Ur1v5pxkd
-	 R0UHl59Lz4h2JDkmlTlk8+490lJBqcXWIqyUx3pevHfoc29b7JpaVkLQ/1y5Pa0CPCK72
-	 n5XltNSLhiAp2Ui1rPTH99gwciZO9maUMiJnAoWFRabsNM7oP8ANEGblDt/Qp1ADIlg==
+	t=1794341941;
+	b=tkxiO41ArDoGZ6l1V/oqO7IW8t37GVMq1Re5NQSyMCBYkh1U56WmOY3UjIipcKl1BUnS
+	 8vtGxPueTe6Y2/48Mos5mqSdiecIfBzSk15x7o9SiHeiUofoS8VebGnIv2ohMLJy3l/vq
+	 jUWWD0Om9STKjYHjQH3gNpj64x/ZGh9R3Rl6Jo9CT5kwWI+2D1z55klo6eVxJlxBhdNnb
+	 3ekPpg+Us5eHdIsXvOMjygzieqy+CS2+qAFLaqOAWqx0d1XhWBSwuQzmJvR8lLrxRVL3a
+	 6sGVmLVJgMIq74T+khZms9s768v6RGovFI2cM8hM2oKUi1+JfAmtXHIbE9PE7Qji3bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341327;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RLqXByamkZhJZ65JXbFgm2scLbRUIk2K/YyB3fLw6kI=;
-	b=JWsqf39VoNxCGl8FUlsM+Oi9sUHupfBFf/Qq1zf2sq2Y5rPF2Oefp33+vCnGDTLeqWxO
-	 +CzTL2bh5+hcrS8qy2fxozjtDLORNmTremer84j6A7BUDfpRS4/rrPcr5fqKLox0egCwy
-	 grd8m3iEB5sAiVNrKAjBGVWzN73U6sUZvpc7zwZLLRYOY4ZU7O3ikO0GdqyE8Nrc0bukD
-	 Mj8oL/6r1/cCVYiZfe9BA67mzcJS8bs8zaN7DdxNQBgXL4+TXIU6yAZFLnYL4Qb/LXsBE
-	 Q+/PGL4X51iTyR3z3aPt95gVWcNkebKYpVt1FQucBe+Y5rkJMgH76Hcx88oqb/PCI+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341941;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=juK68wZhByXSKADyyYfPmjuuJBwSajAS7el5mvid4ZY=;
+	b=aizZBbjJ+cdFhiVtfRw0wzUw8ee0+KSDN4ErdXXn9KhGqU/3Vs77rYJOnN6V3vTT/xWi
+	 En6nN5+KqlyEsBzufHUQ9UKCi713zrOPZkSt4BLv71FnlwimyGB4Ss5hI7fRQ33gfMDcF
+	 EtZLOFsBvLXCNef+5q/BuW0QN2hBtDt7yobCdWujEF9pDQ48JxFx8X+/Fkr3/t8MOnxGy
+	 3E69Q2jzxwHMMVTADGQrRyQqb+gjrQv3XXABjecJS69M0Jm4NXcwyr3WENpaFxp02xBMD
+	 1iLq1GEgOqvuzsmPLV/nrwAO8iMXkKGL+OkZMHwJ4vLBvn4bMmBf3HwlBO4XXRFh+Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Inoqt/Y6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TrF6p9up;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673D8606A320;
-	Tue, 10 Nov 2026 20:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4537606A31C;
+	Tue, 10 Nov 2026 20:19:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4537606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Inoqt/Y6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FCB41F008A1;
-	Tue, 10 Nov 2026 20:08:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341327;
-	bh=RLqXByamkZhJZ65JXbFgm2scLbRUIk2K/YyB3fLw6kI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Inoqt/Y6Ud+R20HCM4wfUapvecOwDM/U2H6VjptTnjQj/O01GUkxAbinHYO7ck9+J
-	 56LHS4ItjN8gCoeTjrqSR8XmBgjzqT+Wu/dg67DHPve+WwC+PE2qhNnmon/K3zA6fY
-	 B61xzmUB+fzuvC/jaiZDry5jVAkHhSw8wrNxt2Ri9ptBZ2+mxMv5b42eOISOq34qco
-	 h6O0AizjOlJaFQzuqG2Maq4iBZMa0RAUfjN87ifHlSr4P/q2xf7nRjBFoT2hwHVuB/
-	 1DFAibUWAZcHqLvCQrXzLKZLh8Xi4BFLU9swlvdccGNmJX1kXcvJFRsxBTWCSczutj
-	 k8qQQynPgW0+w==
-From: Jakub Kicinski <kuba@kernel.org>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TrF6p9up
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794341941; x=1825877941;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xSTSWZR6Nw1Z+uKRJrpUe5ksHZNU7RF77FI0Rq6jAFw=;
+  b=TrF6p9upz55gT8BQeYYjjNpJle9fkjhw5+HTKzUgDf9aYr3L9XemR8Wy
+   GwMC8p+Fa4XvJxWdXa/rbWr3pIXqmHOGooQjp70KTkW/FM9MXvryBDR/I
+   XGDlsfzONY9wCmdbE1BFyI2jasCVQrjyHkWDQZ9IuYe7fNnLRIKLhvWHw
+   qb0PFm9/ZlcRJUj7qQwpM+e/bmC1pz76/02VTn301IAcqpHj4SPys4Myf
+   3kLFW3ebxRSHYzIx+KPDYzQjWziP52kGRqPjKxlwCHQ7qPud4rWhZ5hnY
+   ALdUdzfw57t0n48wZa5ZW2aJZSlxCDEzAOFWQWM+NWTrozOUx0gO9TMto
+   g==;
+X-CSE-ConnectionGUID: f8w3ZVrORkGwTxhFEadvIw==
+X-CSE-MsgGUID: 1fOKeKYcQT6Ra0JxYZYWeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3097340"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3097340"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 12:19:00 -0800
+X-CSE-ConnectionGUID: 19vcfB1bRk6BSkk74uN2TQ==
+X-CSE-MsgGUID: YIXuxEJYSZG7ApbTiRH9ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8555566"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2026 12:18:56 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQsIu-00000000xRr-14R8;
+	Tue, 10 Nov 2026 20:18:52 +0000
+Date: Wed, 11 Nov 2026 04:18:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andreas Kemnade <andreas@kemnade.info>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Wolfram Sang <wsa-dev@sang-engineering.com>,
+	Paul Walmsley <paul@pwsan.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Sicelo <absicsz@gmail.com>, linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA converter
-Date: Tue, 10 Nov 2026 12:08:44 -0800
-Message-ID: <20261110200844.2190972-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104040320.18077-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20261104040320.18077-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	Andreas Kemnade <andreas@kemnade.info>
+Subject: Re: [PATCH 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+Message-ID: <202611110448.h78DkY1D-lkp@intel.com>
+References: <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,144 +96,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA converter
+Hi Andreas,
 
-This adds the "altr,socfpga-stmmac-agilex5-tsn" compatible for Agilex5
-boards where an FPGA GMII-to-RGMII converter between the MAC and the PHY
-supplies the RGMII delays. socfpga_get_plat_phymode() now returns a new
-mac_interface field. The new setup_plat_dat callback forces that field
-to GMII and rewrites any RGMII phy_interface to plain RGMII.
+kernel test robot noticed the following build warnings:
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index 6d4bc1fe8f751..131d2a98c863f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+[auto build test WARNING on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
 
-[ ... ]
+url:    https://github.com/intel-lab-lkp/linux/commits/Andreas-Kemnade/bus-ti-sysc-fix-I2C-quirk-for-OMAP3-variants/20261110-114612
+base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+patch link:    https://lore.kernel.org/r/20261110-i2c-sysc-v1-1-8945eb1d38f0%40kemnade.info
+patch subject: [PATCH 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+config: arm64-randconfig-1000-20261110 (https://download.01.org/0day-ci/archive/20261111/202611110448.h78DkY1D-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110448.h78DkY1D-lkp@intel.com/reproduce)
 
->  static phy_interface_t socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
->  {
-> -	return dwmac->plat_dat->phy_interface;
-> +	return dwmac->mac_interface;
->  }
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611110448.h78DkY1D-lkp@intel.com/
 
-[Severity: Low]
-This isn't a bug, but socfpga_gen5_set_phy_mode() and
-socfpga_gen10_set_phy_mode() both still have this comment:
+All warnings (new ones prefixed by >>):
 
-	/* Overwrite val to GMII if splitter core is enabled. The phymode here
-	 * is the actual phy mode on phy hardware, but phy interface from
-	 * EMAC core is GMII.
-	 */
+>> Warning: drivers/bus/ti-sysc.c:169 struct member 'revision_doubleword' not described in 'sysc'
+>> Warning: drivers/bus/ti-sysc.c:169 struct member 'revision_doubleword' not described in 'sysc'
 
-After this change, phymode comes from dwmac->mac_interface, which is the
-MAC-side mode. For the agilex5-tsn compatible it is GMII while the PHY
-runs RGMII, so the comment now says the opposite of what phymode holds.
-
-Should the comment be updated to match the new meaning? The same applies
-to the name socfpga_get_plat_phymode().
-
-[ ... ]
-
-> @@ -673,10 +676,28 @@ static const struct socfpga_dwmac_ops socfpga_agilex5_ops = {
->  	.setup_plat_dat = socfpga_agilex5_setup_plat_dat,
->  };
->  
-> +static void socfpga_agilex5_tsn_gmac_setup_plat_dat(struct socfpga_dwmac *dwmac)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
-> +
-> +	socfpga_agilex5_setup_plat_dat(dwmac);
-> +
-> +	/* FPGA converter supplies RGMII delays; MAC uses GMII, PHY gets plain RGMII */
-> +	dwmac->mac_interface = PHY_INTERFACE_MODE_GMII;
-
-[Severity: Medium]
-mac_interface is forced to GMII for every phy-mode. phy_interface is only
-rewritten for RGMII variants. What happens with phy-mode "sgmii" or
-"1000base-x"? The altr,socfpga-stmmac.yaml phy-mode enum allows both for
-this compatible.
-
-In that case socfpga_get_plat_phymode() returns GMII.
-socfpga_dwmac_fix_mac_speed() then disables the SGMII adapter on every
-link-up and never turns it back on:
-
-	if (sgmii_adapter_base)
-		socfpga_sgmii_config(dwmac, false);
-	...
-	if ((phymode == PHY_INTERFACE_MODE_SGMII ||
-	     phymode == PHY_INTERFACE_MODE_1000BASEX) && sgmii_adapter_base)
-		socfpga_sgmii_config(dwmac, true);
-
-socfpga_gen10_set_phy_mode() also skips its final enable:
-
-	if (phymode == PHY_INTERFACE_MODE_SGMII)
-		socfpga_sgmii_config(dwmac, true);
-
-Meanwhile phylink and the Lynx PCS keep using the DT mode. The
-GMII-to-SGMII adapter would stay disabled while an SGMII or 1000base-x
-link comes up, and nothing reports the problem.
-
-Should the GMII override also be guarded by phy_interface_mode_is_rgmii()?
-The other option would be to reject non-RGMII modes for this compatible.
-
-> +	if (phy_interface_mode_is_rgmii(plat_dat->phy_interface))
-> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
-
-[Severity: Medium]
-If the converter always adds both the TX and RX delays, rgmii-id seems to
-be the only phy-mode that describes the board consistently. Is that
-right?
-
-"rgmii", "rgmii-txid" and "rgmii-rxid" each describe the PCB as providing
-the delay in at least one direction. The converter would then add its
-delay on top of that. This code rewrites all of them to plain RGMII
-without a warning, so the link could fail with no diagnostic.
-
-The stmmac core already handles MACs with fixed internal delays. With
-plat_dat->has_internal_tx_delay and has_internal_rx_delay set (as
-dwmac-ultrarisc.c does), stmmac_pltfr_probe() runs:
-
-	if (plat->has_internal_tx_delay || plat->has_internal_rx_delay) {
-		plat->phy_interface =
-			phy_fix_phy_mode_for_mac_delays(plat->phy_interface,
-							plat->has_internal_tx_delay,
-							plat->has_internal_rx_delay);
-		if (plat->phy_interface == PHY_INTERFACE_MODE_NA)
-			return dev_err_probe(&pdev->dev, -EINVAL,
-					     "unsupported phy interface mode\n");
-	}
-
-When both delays are set, phy_fix_phy_mode_for_mac_delays() maps rgmii-id
-to rgmii and returns PHY_INTERFACE_MODE_NA for the other three modes:
-
-	if (mac_txid && mac_rxid) {
-		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
-			return PHY_INTERFACE_MODE_RGMII;
-		return PHY_INTERFACE_MODE_NA;
-	}
-
-Documentation/devicetree/bindings/net/ethernet-controller.yaml says this
-about MACs with hard coded delays:
-
-  It does however mean that a 'phy-mode' of 'rgmii' is now invalid, it
-  cannot be supported, [...] Thus the MAC should report a fatal error for
-  any modes which cannot be supported.
-
-Could has_internal_tx_delay and has_internal_rx_delay replace the
-open-coded rewrite here? Then inconsistent phy-modes would be rejected at
-probe time.
-
-> +}
-> +
-> +static const struct socfpga_dwmac_ops socfpga_agilex5_tsn_gmac_ops = {
-> +	.set_phy_mode = socfpga_gen10_set_phy_mode,
-> +	.setup_plat_dat = socfpga_agilex5_tsn_gmac_setup_plat_dat,
-> +};
-
-[ ... ]
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
