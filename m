@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323271;
-	b=C8LYYaBvbVu3EhD+M2RlY1QdWE87UVcqcoZLg+p05qWOYx7mHOIZsXNRsaQRutTKaboF
-	 aJmXPVpyRQAZa8DUncRZYVRKtBFxO85ElzgHDEO+O7NWDm+oDmEIsaRaUckBWJYpMHAP2
-	 S3puPY2DS9q2ls7oo/8LX451ulMak1q+EpQ/ilXP1GPFsBzDXLQAsxE1mNNiKHupVI0XW
-	 PcxfvQd4K3x+QHJKrlcHS6MhMx+hSAIhES0fhHmbVQZqhwyQTHJALempbUWDe/xYVPcD+
-	 50oDPIeWvkIQUe8FGwLVDyAO25eHrN53CHgoYSeRx0xnZEAiU1sR9Fnn9xFFg2eipLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323271;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=;
-	b=t3jqoCLga+UUSWVguQHOkMK/jBlKlWCuFP+ApGIZSIDzl0rPAjU3hncEagbxdoURUGtk
-	 TcTyB7g7+DFxa9W1ffWJ+jh624OtOUbPfC0rYpgznqek5I/964XlInTq8QcPKZZFxfLzj
-	 ig4F9DiqZWYS8Zx1DlG0GcWx5VYqzj81B2GOlwsGI3JIVzik7SGZDhFalN0dZOEGNQ5hG
-	 mxFawJNIOBhRQQ8CS6R/lWOKV9+B+v1lzExLD/EKY02D+zHyjmIn7zXtMqj6AuJVKD4jv
-	 BjajwNFV/09SMrO3ozyHQzZ41A+T6zLd9VtewYGHwTmr21R6V6swkRqwGwU27aBU+XA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=QRjJSqxV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323430;
+	b=t7xRPxftL+8zSfUTBqNb+5GI0r4zZPmL5UOgS/s9tnnC4dHIRMefhhoPSyjg3JggnNul
+	 Ko9jnECh5dxFdso82jMy12X2iIYxMJKUv2B9nsKCYrO7oHQI/WWQcdueGMeURb5buL408
+	 EfjlzRCq6gSzaVBIrBgtVj8HzdGI5oqe3F4+DgSKcthsn6q9X3ris+m+7OS4NStVieaJZ
+	 1tNy6LicOZ2gfCWLvW/I6uajbnb2Pl8/IUcam0ZmjTx/Di+FRK5ydf+KPwrp8TuK1B6L/
+	 bVSnO2S1Q2H6V9vtoSwTxle6My48M7NUUB5d7U1djU6T6Gsf4odr4C0gj9XBzMZ2h1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323430;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=tNwFIQTuLqPptxDq0q7lwq5bGxrBo31P8x/INtelVOU=;
+	b=Vl6jrvQQ6nmnZgldAqhFqhJkLBt8ZrN7cU1AHQ+VhHVg8n7stWqR6MMqJrxFbpJR3Zqf
+	 8GfJvSDMePenet6Ifo8D4J2zXA2gvpDVgRahVMKnDEYh/a/Ie1F8fwqlGx7tTH1MfyFBY
+	 lYQePFrOUlhYr8EcGpuHAMuON17fuKqrNCYgAoUFQJfPPPhzKOYVeB7YxpCjmaAEqQde4
+	 2iGFvn2tZseaUN31JQrpRPs7yRIPGGl9IKpnHARBR6Xg5SloFc41+OYif92Kmq/Xo/O3H
+	 dY1Zf6S5lFA1H5tbBuNoL2d4XlI6DrFncgWrlqezft7G85QfEbHVHefxdEX2WM6NCKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=R64kc9tV;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFEB606A31C;
-	Tue, 10 Nov 2026 15:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCFEB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A66606A31C;
+	Tue, 10 Nov 2026 15:10:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A66606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=QRjJSqxV
-ARC-Seal: i=1; a=rsa-sha256; t=1794323233; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LTHpbf6iKPc1H4j1Tkp5iU4AwuH4eCUg77sjoArjLy2nTrBHq0wLL32uREEMwEcWDafTZmtUu9bszpofcatrLNODBKsMuxn/SfkOhv6yVObfSElPxBWwZh/0LQ902YFSFJY0mdGRiJ8yvzbL9OUoDRV0R4osnvdJBkGNOwVdCYI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794323233; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=; 
-	b=oL+IYwbknP13YKIskQ/bX+VuESZhp60+mg6eDKy2f88P2GHDnRSfq/CAmEmtMbr+OBcyrC+CpPSyjI4HYYLqn8bxBJSwG3fdMJNm0fLACv/9vKa4hLtnYrVzIngxljhyuZ84vFUtjEsdoMQfFEBGbdJpkxXrkDQ42lbW3opntFg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=QRjJSqxVE+/gxtf7abYigr1OptoAd5GDzyMDjrCp++CWDG77G7nJ+xa6OaCyBwpmgoXIvDiFn+/u+h/c3LmQ1nvtpiLpQcNcL2s5EQXk7EE75QZRCsehNMuqPSQUsnB8EtPteAdt6hj1E16MsNnIWoADiwRXA9mVCg1XaQuSTdE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794323232230649.3017002854683;
-	Tue, 10 Nov 2026 07:07:12 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id F2928180354; Tue, 10 Nov 2026 16:07:00 +0100 (CET)
-Date: Tue, 10 Nov 2026 16:07:00 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 5/5] arm64: dts: rockchip: add the clock of the RK3588
- PCIe SMMU
-Message-ID: <avMyK-ZQh8qVrFmw@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-5-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=R64kc9tV
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7434109ECF;
+	Tue, 10 Nov 2026 16:10:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794323423;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tNwFIQTuLqPptxDq0q7lwq5bGxrBo31P8x/INtelVOU=;
+	b=R64kc9tVaQiyNfMtkeRQNcqJEjgYoq73Ip9mVhozEpXakMJrQ0YYJw/rXHZ/THR0GyP7pL
+	DlG0JQE9rcUyh4m7MXDHK39U36kunaY3Vzv+JQjN/7FLPdoRDNIP/4nFOXgt03mbvEYF4L
+	PPnAh2DjGcJTAV0XfNsrAGkHmBNCTGz4QvHb2vPzphgMaEadahbEkz7ONEaJ1pzHE0+YHj
+	/vf84hbdgCZrYJs9xSHegAPQSzFO4qxK8tq49kVSW4ReK+1w+CcmVbEDpjkxbaLD8Zw1oD
+	jMVxV08Rc/5/HInFoJOfWBdD2dKUmgyLPwubLoW6DtTQK4ppTW0d0F3rdyTfDw==
+Date: Tue, 10 Nov 2026 16:10:22 +0100
+From: =?UTF-8?B?xYF1a2Fzeg==?= Majewski <lukma@nabladev.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Shawn Guo
+ <shawnguo@kernel.org>, Stefano Radaelli <stefano.r@variscite.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm: fsl: Add an entry for Cloos CBASE
+ board
+Message-ID: <20261110161022.7eaf17f2@wsk>
+In-Reply-To: <4969e7d1-3e6c-412e-bad1-6bde149ec545@nxp.com>
+References: <20261110150024.1530988-1-lukma@nabladev.com>
+	<4969e7d1-3e6c-412e-bad1-6bde149ec545@nxp.com>
+Organization: Nabla
+X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,87 +69,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qogk6fc2sep2osv7"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-5-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
+
+Hi Daniel,
+
+> On 11/10/26 17:00, Lukasz Majewski wrote:
+> > Add an entry for the i.MX8MM Cloos CBASE board.
+> > 
+> > Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+> > ---
+> >  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml
+> > b/Documentation/devicetree/bindings/arm/fsl.yaml index
+> > c8290a83205b..3aee85026f6c 100644 ---
+> > a/Documentation/devicetree/bindings/arm/fsl.yaml +++
+> > b/Documentation/devicetree/bindings/arm/fsl.yaml @@ -1102,6 +1102,7
+> > @@ properties: items:
+> >            - enum:
+> >                - cloos,imx8mm-phg           # i.MX8MM Cloos PHG
+> > Board
+> > +              - cloos,imx8mm-cbase         # i.MX8MM Cloos CBASE
+> > Board  
+> 
+> Should we sort this alphabetically? That is  cloos,imx8mm-cbase
+> should be placed before cloos,imx8mm-phg
+
+Yes, you are right... :-/ I've missed this.
+
+>  >                - tq,imx8mm-tqma8mqml-mba8mx # TQ-Systems GmbH
+>  > i.MX8MM TQMa8MQML SOM on MBa8Mx
+> >            - const: tq,imx8mm-tqma8mqml     # TQ-Systems GmbH
+> > i.MX8MM TQMa8MQML SOM
+> >            - const: fsl,imx8mm  
+> 
 
 
---qogk6fc2sep2osv7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/5] arm64: dts: rockchip: add the clock of the RK3588
- PCIe SMMU
-MIME-Version: 1.0
 
-Hi,
+-- 
+Best regards,
 
-On Tue, Nov 10, 2026 at 07:11:52AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The PCIe MMU-600 runs from ACLK_MMU_PCIE, which is also the parent of
-> the PCIe controllers' master clocks. When no PCIe controller is enabled,
-> nothing holds it and it gets gated as unused after boot, while
-> arm-smmu-v3 is still bound to the SMMU.
->=20
-> Describe the clock, so that the SMMU driver keeps it running.
->=20
-> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU =
-on the rk3588 SoC")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
+Lukasz Majewski
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk3588-base.dtsi
-> index bcd342c025c9..8eed22ca69ab 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -559,6 +559,7 @@ mmu600_pcie: iommu@fc900000 {
->  			     <GIC_SPI 374 IRQ_TYPE_EDGE_RISING 0>,
->  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
->  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
-> +		clocks =3D <&cru ACLK_MMU_PCIE>;
->  		#iommu-cells =3D <1>;
->  		power-domains =3D <&power RK3588_PD_PCIE>;
->  	};
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
-
---qogk6fc2sep2osv7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMxQACgkQ2O7X88g7
-+po1iw/+OFyH6jhIzKzEZMOnmy8SjHGAN+RooTWnNJifq/F3ZE7c4/A9Uk/X9th/
-6LSsk7G9a4AGWIw2yDlZwOVfFQfJSU0AIOLFW6Zg5nF3wSzN9ekVQo0qmjikH3p0
-r+y2ky33DRNMCwga0c4DtIP90Q21upZLMqt6cua9H33MYlQQfCSTgF5SG6bl+rgP
-bgTj7BviaNQ1yHIt5o+YqIh42NKkDHIcLblvQX5yz624FSllFxIfGvIy5aooivQ+
-OowrZdVmISVkHddUNGSh4/9rpAui12Uub23j3d+hanqDu411/FpYUfI3y8vq/mD5
-d70Q6g3IF0fQA0qFaWMmz5Qoq9kfrym7gtSK6VO1jl7IaDaXDFowZ8HlPpXob9Xi
-Q6MSzkKWDNbrs7wjtE5H3CAFIFNnIv4cvxiAOymC5BUmORGxjSbD4VFdRp5UoqLj
-/gI5DTwHZ94clngU2ll6gWCz5dtXzaJM8FBWKrYabJjLr02Hknt0uhxlu08t1RGp
-2u/yxLBI43cm234G4Hvqi5j0fhtTyB3+fm1PjN1d5RCDT2nf9HiSbURkbsHAxhq0
-hynlu0xr5vHGCsHJ/SIuB8POUIEfXTNZHK89o+rpnUdy5cmmgQvo2dvDWQN0/Yvo
-QsTol2p50KxkzF9YP17/r2Ff0oPJ6ekFAAC1RaDupSI2am+MP0s=
-=pXCf
------END PGP SIGNATURE-----
-
---qogk6fc2sep2osv7--
+--
+Nabla Software Engineering GmbH
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Managing Director : Stefano Babic
