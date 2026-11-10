@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794327111;
-	b=tgeleeMXa+RPGrw020aUJKeiEKEThzHH8GzBG716bH+rb/cfuJKKDsSAYPQ7xAf6FFVt
-	 yhADQ22pCU0q1BpFht3VMLg1P3+NStDj5zdQw7t0wEa61QM1PRPgst8NZnzaGDRNNp1VQ
-	 E0vE7+NpqOgbHs/E0lnzurjH4gHB2ulaOEykDlzCUnoYLGPO0QYwoeNIqH94MgmYs6P2V
-	 w1Hi2J2jjXqZ0utQH8xgpOc5HozY+7Mi28xtO7h6idZ9QFdk9c6MDfQ7A9HaL9PeQlieJ
-	 qZdJfEsEVLvW5+V/WwjQb5zNvnypdeceyUMx7GIoyZQTxVoJ9mTkgMK9W5UUdiY0NEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327111;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
-	b=Ws2q4JeWV7CBMI4p6mDiD+2Ijf0KovyUC66eQ6iixEy5iFhFT1bIjiiohGO9i0KvVQQm
-	 G5K2Xavj8bQnRL6Eo9JtwsGuZNMEgp7c+iQLZ2IKjeyeygXMmGs1X3Q57fRkRmbKHoHcL
-	 CrykkeMZAsayNhxJOiXqJe5jNtaIXh2/saNYCevLBh5jmzknLyAQn71yTL9gumI2cuvvW
-	 fvH7YBCpdfFbHH6xPDeAj4HNzf/aMDz+JM34z2uENXjGEfRY3adEwumqjINrFq34GTGOe
-	 QpvdezrBdlNRyEcTBpmw5C6UbwpveiEy9co7GSZP+wAvRLVIHaJji7qLK5rzADm8q3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XnbLYiH/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
-Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794327193;
+	b=pvl1P5ps8OorOMTJ3XQe/eSjyNTr7m9DTiw7rGOuWK3Z4cg3s690E4H33C3uaXh6303g
+	 VkDNGTuEqlcFhFyQYQ0Xgpu5G93Tsp/yuqjfu+y3GrvJxLuvup394yDvZEoc8e0AAkIiT
+	 kG8SL4NjN7mZO0S8suXQXhPVVnu65KJiQGs272BXKnpTXATQcJV9PVE+4R5G/igdAIS88
+	 o+ZingrjGKrua2Idtqc06WKQVI3ACWAXUaI5z2CVutgJIREhbhHK9jUFs9MH9wyUjEWbT
+	 qW1FONQoTd+PICBdIrJrzivXqv+HlG78P1znjvOY+rBFEIgYkjQNX+ZCCo7VJ7Wuj1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327193;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=;
+	b=fUISVfx1K59iV0YrRNr7YrVGlnhzHj2k6J2I8w2oYpZ7xqc4DSuzJLw18Uktko6bZw33
+	 ISgFjm3Kaxuok25XWZfWDD7McwyDECz2mYwllQdNZwZy+eCjlA7uXTIzX6Qymtp9nUYU5
+	 /nua3Ev3RIB3XQVTumbP1+wl0ILKNcxYIXJ9aJ7uouJefUOOnmhsYc6Fed6FmFtKHWbCH
+	 yfxMk6ydZPDkVhyYkV0PHh6KqF0Wgusk/RpvV8vIu7hfrbVQ5RkDu7U+4wAzR3gk/rGdD
+	 7A2HP+wqTCbVp0soBFaoClER428E1XVNvyEt2K2gcc7aUsF6mtUcYzf1IExXlrLncXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E380606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 16:11:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E380606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C1D606A32D
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 16:13:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7C1D606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnbLYiH/
-Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c504b4f2b6dso42020166b.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:11:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794327109; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M36Rq0x1Js31RHePd8jbg5STwYHQoeVrLmtxTXgq0nxX/Y7xqB4rgNfhGSLA8oNdn3
-         +8FdZMztToErxttkdVqO/t4QqpmxZkPbbfJkHCJHBBu0lXUgEmIBFGBusHYouEQewEhg
-         RbQgccrzrITrglNL6lGwStEf7h3v0Cuw6AWzZe2sImMmebeyzyaDMmrd9U3M8PIMSeZw
-         5PcDtXt9Beh5xQ2mVDVebGqRHEc4PEVJKv1QpQN4ykZc5HZWIa+6erCjTnhV2mJXg//t
-         xiqYMVLnFVJiR6LNoHOqZrKqjEaA4mfcqQEfS04qUUzMHZfzUOr0vovJXzPNdjbHH0Nn
-         u6gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
-        fh=70//e0LKV/d+3jtTqs/d9QyLMlIPmONmu7vAdysfxT8=;
-        b=MmNrXYqap9tl/mtDS0c7n9ySPDu2BO3XqByQKlxpMZUTczVrBhYHpYXy105hhf651U
-         WqvYuJ8/ysNis+0dejWFVzBF1ZM1RrbK3yMOmhHbi1606KgqambzRwX6s6nCCf4HAX4b
-         4sD/YHWxftPpQFUXNHZI8CFhOAB/BNOLaLrH3PY0XgDYNWKDZAUoov1aDIna6znp7BUq
-         XpVa0uiuTiO1DIaDsiBtq4VB29J49pYCE87uLYqGmjTBrNqhZaGqpKPkiMic6eFYu9k4
-         bcQwkjoz2TfZcxhl6ERIODtZGPYhkpXiHEFw+0fdDjl9FCnt6gtsZOgg1XkuTGktfCpH
-         XG1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794327109; x=1794931909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
-        b=XnbLYiH/BEhso9UcOwBEMSmuHcO7oYlTWKU8OtykCgMDUGTV71MZHPgFznVu/FF3Lx
-         eYn7nIzUbe4btbN1pwn1AVC+TgOLlu06/5ulCjD28TxM6gipf5iwX5IWjGs1zC1l0nhV
-         XPjfqa6SWsCKcU0rRUy7M511R90KLD84/UqZOxQ0omw9soKuSfqHsCaYRnvaQTNgi+la
-         Rjl2qqHS8ayFnhKOC7Dk7lua7qh8sUWgDTmCEucqdAwnxGo0KtSXTIxpqN6R3sLydW9b
-         y25+v6SXahDFEcz4bq3qVBgjEOmu/gDHLG4JxOiiCjOAGCXtPmr0jTj+X+rQNEB4CTMf
-         SwUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327109; x=1794931909;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
-        b=FcC002HmId1MgoJx57l5TU0ddOlS6sklxtkiwvLMV2uQX20u22JbjJJJn6m2vUCWCc
-         7oyEawvcdknWQoDnGGbzsvWXg4KIyG6TYEEkFs3zgJThD4Tnklw1mRBg29SWNpIlkm0d
-         XR7BU4/UZjvGYKs9y6G+wTwjcUsNmmLG7PkJqgzF51JlT0a40H6T2E8I3PWgAZ2w1kci
-         lMrwszFVE/pUUAoIdTl/CVJ/qdN1gesrDDahLmUGAFd1eX0YGG03y2jizqEhOBVStJk+
-         sw9mMba7HA6K07zJlIKs+0FekPRbKaOo2emzsdm0mdIp+YnWhAqxF3mInbbP+MbaIs71
-         DmPw==
-X-Forwarded-Encrypted: i=1; AL+hErG/L48k7tb9Xb5htUNkjck7fvlTRMtUpUuphrFNDwo2+6wMvTOLp36mBcxV/d7+MAKs4hR7t0b7GbvL@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d6vyAHnvnukS31qNWOd/mRl62AEFa43RkVYN7qD44y+zYldci
-	xJrIxhltqBvLfM5JrcaKp3LVo3xXSK0tSfFOhmzGtCWgKtgkI4nloZlGdmXew6RkH3VFwcTG1AF
-	xs7+z2YdxaUWbDcmy+Dqb/GnENAixb3OiG1oTacBB4w==
-X-Gm-Gg: AYBFou1ZhlvnCsw2FfNStX5Hs5B+F9PHX1OruU5WT09IPbPzskJbhegXlwTnsn8Qj3h
-	4aKfJuXKTW2EThdJj36nKy3NpDrOGLCVH6Dt4GlV3qr9zPztfe+3txUAd9Cz5VS6AZUUKUUBna/
-	GaN2Eg7cyCzWi4VMYCT4oc+tFY50j+tTKtej+rdmYzYnP1/d+4k3OuxMwVSbGY73t1bQ369U2cV
-	k7UDNRwq3rw2v/3pTS5ZJXDn7+5pcRiBy7YmlxRHBi/t9OXFs4kE1dfJZ3NfOfAQcU/i0uWPxSs
-	Gb5vPdJ1g2sOVkHeLosbYgGCWRkXFxKhdc3cdRgJi5ZzfE+Nhu5oEvtWCMOk+Uz3wUQ/FZTQkDd
-	X51x4X1J2/GrGTub5oUt8b+aKT2BmVVNHnGSNb5BN6IcPxx02+Zw=
-X-Received: by 2002:a17:906:194a:b0:c41:266:68a7 with SMTP id
- a640c23a62f3a-c504952c255mr192385866b.10.1794327109186; Tue, 10 Nov 2026
- 08:11:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.phl.internal (Postfix) with ESMTP id CC952138136A
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:13:11 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
+	 x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
+	asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
+	S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
+	S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
+	/gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
+	Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
+	LLVckhHoSzC+MGE1iJu5eg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
+	1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
+	jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
+	GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
+	Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
+	mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
+	auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
+	Tsc8Y3Jb1FgwsS6Y0dcjg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:gC+NPqeOaS8h6+Ft1Cmq5DDs3Gce9VhINlFWbTciwbedMBB
+	mX153sF22BVRghBAFyZ2CJ6bF54cq37FA0++y6rxm7+KTV/emBm28/EcI6ZlB7Oc
+	Ai4SA2R4L2Qw1CKCmE2JyLyAUUaYJops9vmu0m8Z7LgzI+0StDCLAQVh+MTuRrfL
+	nOjS8QsM2tJJ6gglTH4DFvSZlCVwQeQ0MFDiivtlX13BxZvWs2ir37LOoenEnKxh
+	RlLJ5jvX4WFC7G4/osvc0IDx0oxIrsdGGx7RDd0l+oeh+Jc9MVRqPv2oEaSBWQ5T
+	VFtzA9bxYuZ4Jy/zs3dZs2A/G5DNh/YzvWAVwRQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
+X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
+    <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
+    sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
+X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
+    Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
+    XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
+    DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
+    +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
+    wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
+    D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
+    DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
+    LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
+    x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
+X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
+    <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
+    <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
+    <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
+    <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,74 +115,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
- <20261106115040.1199269-1-amadeus@jmu.edu.cn>
-In-Reply-To: <20261106115040.1199269-1-amadeus@jmu.edu.cn>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 11 Nov 2026 00:11:35 +0800
-X-Gm-Features: AclHuK-W_aGhTciJcK2jT1mQzUOxx8a9MsoP2BEfAZfP7jfpZyRRqnBuAfsnq9g
-Message-ID: <CALj3r0hOjksUtYg+qLqPU9kz4w3SAqGvSmFFi9YBXNGiEPEZSw@mail.gmail.com>
-Subject: Re: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on
- Photonicat in battery mode
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: bigfoot@classfun.cn, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: AK-jVwBtQCQR
+Date: Tue, 10 Nov 2026 17:12:28 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>,
+ "Arnd Bergmann" <arnd@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>,
+ "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
+ patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
+ "Support Opensource" <support.opensource@diasemi.com>
+Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
+In-Reply-To: <avM5EnC9yujUZcCO@nsa>
+References: 
+ <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+ <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Chukun Pan <amadeus@jmu.edu.cn> =E4=BA=8E2026=E5=B9=B411=E6=9C=886=E6=97=A5=
-=E5=91=A8=E4=BA=94 19:51=E5=86=99=E9=81=93=EF=BC=9A
+On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
+> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
+>> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
+ote:
+
+>> > drivers/iio/adc/ad7793.c
+>> Maybe. Analog devices ack needed.
+>>=20
+>> Production part but this one indeed fails to probe.  Analog
+>> folk, do you want to fix this one up?
 >
-> Hi,
+> Given it's production we should fix. Looking at platdata seems to nice=
+ly
+> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
+> just remove platdata and assume some defaults.
+
+Sounds good. I already dropped my removal patch for this one.
+
+>> > drivers/iio/frequency/ad9523.c
+>> Maybe. Analog Devices ack needed.
+>>=20
 >
-> >    (5V_BOOST and 5V_OUT). Adding a `vcc` prefix would break the 1:1
-> >    mapping between the DTS and the schematic, making it harder for
-> >    anyone tracing the board power.
+> Hmm we definitely use this one and we have OF support out of tree with
+> likely some DT abuse of what can be in DT or not. Not sure if I have
+> some HW around but we'll need to fix it.
 >
-> I didn't mean to change the nodename, but rather aliases.
-> BTW nodes should be sorted by nodename (placed at the top).
->
-> >  ... However, 5V_OUT
-> >  is a distinct net in the schematic. Keeping the node makes the DT
-> >  power tree accurately reflect the hardware and clearly documents
-> >  that both the USB VBUS and HDMI 5V domains share this OR-ed source.
->
-> It is not an independent network. 5V_BOOST and 5V_OUT are on the same
-> VOUT, only separated by a diode. The device tree describes the hardware.
-> 5V_OUT is not a regulator, it has no enable control, so treating it as
-> a standalone regulator is incorrect.
->
-> >  ...  For now, chaining
-> >    `vcc5v0_usb30_otg0` -> `5v_out` -> `5v_boost` is the most accurate
-> >    representation.
->
-> Adding a fake regulator is just a waste of startup time.
+> In general for ADI parts, I think we can drop the ones that are not
+> recommended for new designs. All the others I tempted to say we should
+> keep. Naturally we need to fix all the drivers that do not compile
+> without platdata. And for the ones with defaults we can also just remo=
+ve
+> platdata and use the plain defaults.
 
-Hi,
+Ok, I'll leave it alone as well now.
 
-Thanks for the feedback.
+I currently still have patches to remove adp8860/8870 (backlight), ad7877
+(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
+are currently unusable with DT but are all listed as in production.
 
-I understand your concern regarding 5V_OUT not being a standalone
-physical regulator. However, I'd prefer to keep the node for two
-reasons:
+I assume you want to fix all of these and keep them in the kernel,
+but possibly still remove the adxl34x and only keep the IIO driver for
+that part?
 
-1. Consistency: The DTS already models other always-on fixed rails
-   without any enable control (e.g., vccin_5v, vcc_sysin, vcc_syson).
-   Keeping 5v_out is consistent with this established pattern in the
-   same file.
+I also have patches to remove platform_data probing from ad5761, adf4350,
+ad5791, ad5421 and ad5504, these all have DT support.
 
-2. Accuracy to the schematic: 5V_OUT is a distinct net where the
-   external DC input and the boost output are OR-ed together. Keeping
-   this node makes the DT power tree a 1:1 mapping to the hardware
-   schematic, clearly documenting that both USB VBUS and HDMI 5V share
-   this OR-ed source.
+See=20
+https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
+?h=3Dboard-remove-7.4
+for the updated series. I hope to slowly get through that. Let
+me know if you want me to skip any more of those patches.
 
-Regarding the startup time, a fixed-regulator without GPIO or clock
-controls does no hardware I/O during probe, so the overhead is
-negligible.
+Thanks,
 
-On the node ordering: the node is named `regulator-5v-boost` (starting
-with 'r'), so it is correctly sorted after `battery` and `chosen`.
-
-Coia
+    Arnd
