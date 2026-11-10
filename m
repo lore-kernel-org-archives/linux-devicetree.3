@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340380;
-	b=YTvtXsthHo+s0Zh9afO8xjgQunECv9E+TtcoOPT3JeFDEPU9A7m32PZx4UU9PLSPtRjI
-	 zqeNXDB1YNPFKSiD9N8Wv8zUg35fueMwO4MTfMCYDyGi3qn6qEcC6oWXlZHlz3kOMHmAd
-	 qgVJV+vzLXskNcXPWb6Zv49m7jJjC1Uv/1nyoHMKNvjn10/3ddqqvog0wqEktXULA8SqZ
-	 J6hUNBNM7WNITpHBYlZSihRsB9XafhnmRB/yMwHUJIu2K0D4Hk2gjL1rg91fysoilEaGz
-	 aNc1rG46yCHT7evd25MyK/ozY52wy8jhas8Htx9SXrpVjM/O1RUykOUvfcxjNsJQ6IQ==
+	t=1794340375;
+	b=BKk6+NNu43CjIY57DhJkl6Ouj/pvGQk7m470NkQ/eFDLFRWLsVxXw9o8EI+UA+dZOxgU
+	 Q2FuGw/cdSPi1E8lL9kAdGQV318XAB7hWO8jq5AgEo7rXbud+JjF7gxBhHyEVWkTOg+MP
+	 /pghcyZcAY8bdAJZsm4hsK98UsKxVVLAwilfcMgpHDq/Gc1OYdHecd66iA8bYnarIef/p
+	 km+kRjKxpx1q5sTJ5uw4qs1KTUccjye+ybC0c+rygoeQhX62f0S/jG/9TlsinS8jdooJn
+	 MEwF+Hii4Ft4Q0E6qANQ+o/NKAJE8blbvw+vGeLnHnhg5wYVTRKk/G7gKNDqcRPHbrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340375;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=mBu26pyTeT9bETEg9HiE5XJ66rAa9mCFfqD+c+2OSIU=;
-	b=Ph9NBPrmkSOl1OMwkK9bJLlwG+mZOupm9wH3u1u7mnvS5CXHkN0mJe+UYhgJDSWen5Kd
-	 20+RYv7u+7WJH9I5JF6MLiU4XCn/KIRZl91sVEYIqhozodTzmDmIgR7nQqNzxha5mz4vW
-	 SU9oKM/s/O3yM0OCzjpTtIrdEFLzcyZJ6LQxr8SswwwQiYcqQ7+CTJ0KCaHxE8K3sUUI9
-	 2sywwujt1pqPbddMqc2ZHsoUlBH6z5TzOGFC7naeMFCZSynvIQnN2wEl36LrS3zPjLHpn
-	 1m0vPZ+bzxjelyTVoFnAKEARIB5gXdHfz8c4VdExcOGWne8L5z3sAo9K+K8XrdQo9Sw==
+	bh=XK0glUGtYh2qenvIp5qWYb1mVMZVDWpeT01ZIqCTHss=;
+	b=oFT7EL2x/n6Q2kms38KvJP7W7kjnwwndrd2Xe5Dy2RG6XlFiM68YBUlbOJknxF923L/X
+	 ttLIdAp37+VdY+phbz9zHIUJSDIwmLraEjtyeVI2qWvgn42m93qzcHn2y3rBeJFSHqCqA
+	 Q9E4m8gA0IP7TtszhwhfHPU9bBrae6b0VJJCNYDgX5mFAV1gtgtiXprGNHM19e3baoD7S
+	 VnVovfbF96AxOXSH4ugYS83T9ZH9yWADQD5Q9hdSAzXr8JcxgGBQy+mhq6GXyt8Vzkfwg
+	 uEP4m9A+puAI7jKyApRoBZKiSDPwAEv0xeqEj3+CPNAV9fBCYHZjSLlGImUfMifZQlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yxf+eg6a;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gvKc+S5C;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED8E606A32A
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED8E606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDBB606A334
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:52:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDBB606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yxf+eg6a
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35159e0092aso242331eec.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:52:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gvKc+S5C
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36ecc11bd26so287081eec.3
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:52:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794340379; x=1794945179; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794340374; x=1794945174; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mBu26pyTeT9bETEg9HiE5XJ66rAa9mCFfqD+c+2OSIU=;
-        b=Yxf+eg6aCLVazkjeYAnLQAXiYKmoPEjlCBy7GqXizgRVvQRUN0Eh8hG8APhTHMXCpv
-         fJPUdCCeVndvWT+k4iCNgAW25nB8CBI8bdCXA53n5knpT5XTXtwsAMkt2Glyuc5os2ve
-         fbOmCa2YNQtFN4ZJhAPfEBmPHPHxkP1jcdNloq4HOPRHaChvQwQsbUHANZcTel3xcqVv
-         cCS//yS7yzSEoylTqmCxV5pD3JAWtdfduOoR/IndH55U8k1Xj1LwOa2/KLuzOJLuStcZ
-         ivG9tJSpThpW+FnTz80UqzYnqvW9OI3qzMSZSrFa+B0pfGNdv5n/IaMF/Kn7hzexcixJ
-         dNSA==
+        bh=XK0glUGtYh2qenvIp5qWYb1mVMZVDWpeT01ZIqCTHss=;
+        b=gvKc+S5CLxUYAye0zrhTm1rEdr8R6KJpXFKE9ItC4AUioMkqErMof+XzlAb807xC/C
+         yMMaIFlJ1xsWUD0ThK8F3QnkoR6BnB54EraFAvsLniIthjoFsH7MeMjL75sPC8q7upLN
+         PAM5JJyKuCUAjzJ9xBwnLkX63Vvd7CSKh/aQQNYJWOtPhaKGrOHFYcpHxFIK/0HqvcOR
+         XR0w4qKtvRSdy4ieIolCIlJ5BEl7YRj4qFxjy/9YB0EctPyu9eUttLQRBm9vWRm2C19P
+         tbEPN7nmUZH0jDgL9U4zfy8saqUImMUR7YkLB3vbNHqeYZj0dX5OhnKn+prhAskEjynu
+         F1Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340379; x=1794945179;
+        d=1e100.net; s=20260707; t=1794340374; x=1794945174;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mBu26pyTeT9bETEg9HiE5XJ66rAa9mCFfqD+c+2OSIU=;
-        b=L4oGxyan9ZfsOQ8ahDdBCdMuIFTXq0+EaVbGk76Vl8Ob3jaIUaj3DlFR8B4tdFxMoX
-         ZGoATI9UluWJvJBsnMXy3PXKP24if+BV3TnQYxc0sMP3QJg4EkxDDi4jKYbH48Wm1Pfz
-         yUrCwb2/mfLdj55UFxfFBJupBPE0qjtLcGhEXG2HRJyaGMh/mwkGkp3QmF4exqXJqFPE
-         i7XICRgZqxFWkpgwVOeEvJyUa7g5/MmYowZpDqYzDSioeyR7O8W/ZON28wzQvBlYc3Ve
-         B6DZj73b9dAw1fjIWvDnnl2GAFYXc6fwNFESQ2NGFgtBnarvCDfd3ohGSUwRU2afpGU2
-         G8Jw==
-X-Gm-Message-State: APuU4Z9FRzWCegzNNLknWg7JbVmlwJ1UhygAVtVIe3TRtpLrDpq5Lny7
-	9no67cOjaB1wkR42caAsm/gfTRIIM5jOqw2bOfhMowJRKSTd9ptJrxQj
-X-Gm-Gg: AYBFou0qpmkl7+Uf0KYqS2mZ0BtCfe5tOF8VmaCSA+239OoaOx1AIDI21tgA+qvzlap
-	jwGZE3X4L+aPG7bYD55BvpJ5RSpm047QCzxwJC05SgRFdOcU1BZ3n1h50mMF1/7Mlp2SzWk4gbL
-	Ezu+NOLig5A+/YXT86xWH0zwbSk97TvRsU+96BNQK+eS8FWYbg4xAOa/sfFzqlv84U5odlTKPT6
-	VNfvw5epRMkg4YfS0HAFf12YS0p+MsHpqjp12eEwPm9oFpLOMhz5TUMmIzJDFrW6shZCyxVJ5UG
-	1myN6UpO7oaIZRAzxYHACKaj0YJSRE83ai4p+shYYX7+pSmC+igOJCwvGphvGxfQswXyVP+hp2a
-	pVFhJkkbpy+JUuxRZKYeHyyXxyvfskJEnzTPt9SyUeMVrjYYXr9O0tY/dE9T1yFpJK7A1GVGmYV
-	Ww+3ji1vx2Na9o0JdZGvE/CvdO3BukeZwZqkWorcnaRQ5y4LUUxm2N2xik3j+1xkXSc2aqP11rx
-	2BYQMTDq9wzmNDiuITZQCgjwWUcE6G/daPmx31wCWkHL6UGkcstLFVSebieiVy8ewVJkCf2F2Df
-	i7FvO7GXuRrKeffVSUIl/Uvcft44Ae2ZnabYH9Q=
-X-Received: by 2002:a05:7300:7f01:b0:36c:a1bc:6114 with SMTP id 5a478bee46e88-3768076e52bmr664865eec.0.1794340378880;
-        Tue, 10 Nov 2026 11:52:58 -0800 (PST)
+        bh=XK0glUGtYh2qenvIp5qWYb1mVMZVDWpeT01ZIqCTHss=;
+        b=WIuegKeO4l0sV3OYVVDT5eneyZruiPrXJ/rgCKB3Hkxt5NaUNH9DMeQJbkZM68U/BY
+         XY2TFALLaxNPCxFnJKOSieeJJB4soc6tc9QTbF8qid3WWin+v/GqeGJIV4WoDquYjwNB
+         LCFG03+elzltiKvbQRKhi+MMPvNwqQC/8bECBL3E1IcdZNnebYxu4qnBe+uc+F9Nt9ta
+         zjEnsEJi3/vGslAnTwhC7bnmkzxn0kxD6JzAQs+TVFUrm2qm+1pnhOqBFZW2wfccXYQI
+         fyBwsj2JrTvcGclYCSJpyiq16vzwKYYhzhSnHS4z3jLyJChtPqMABtV0u70uMARZJE1e
+         Ff6w==
+X-Gm-Message-State: APuU4Z/aRCaCuQKSKq0VewSR02oRVVhGJOpp6QWf4MJDnu4uJR8TFQ+P
+	3y6h2op34YpMUakenhqF7rqqUsG/VYHKwBQr6hkgJPKx2lfPJ/vxmnMd
+X-Gm-Gg: AYBFou18Ac94BCwYBaLHM7SZq4PTMQvACvY8XuO6uxvD9SLixweoUuOEktx+nHeztVv
+	fYLQlvZy0psJMCBY5j3PXy4vVRwlPznnMGig+sctHEp9ZgYXEol6TRhQSxm8vQ0QvsBeIs7VSNh
+	qL6eDhRd4YH+pUOyfvWrpKg0x7a0JvJtV0J7c+sLDnmmX6mUzJMH1Ef+ZKB+kVfG5yX/dIU5xEU
+	XcS/JxdWFQZAC7FPYBfGkiMzHKo0LwbH1nR1mHX7OFGwonvKMvc/5CIfQc0gQyU+b1cwHuiDKVf
+	iEFsXTBCve21a+utwXJ8OcQb9FSjpx6WqOdIUNWXbxROmT4uBiF7GL8LjxkXkXrK58vOMhn2Gkh
+	voLcGpjMVNKJDEYifbQS4V4uPDN4NtOXbUtmrHyr5EgTbN47g/AN7z5FllpOgt1RGHexyU8DxUl
+	F0QQkZ6DVTLQjPGoddZhm5miea+oa3lQAOkM1AdEUhtc2LUoXkrcx72oJN8gLN31CYcK3WB9Fki
+	3N1x161rd0P4YMWYt+aN9odjpO8xRwcj8k8riX/f10ydgkMnDkUS/CeySvsf5/Yy3IK8epWUX7J
+	odqJdxYGHsS0EWU/L2WOXBFESVJdZZiGux4ZTDbgK3loujeaERZ8LyjXmyZO
+X-Received: by 2002:a05:7300:f547:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-376854b73ddmr592563eec.2.1794340374097;
+        Tue, 10 Nov 2026 11:52:54 -0800 (PST)
 Received: from [192.168.1.11] ([2401:4900:881f:d9bc:11f3:620a:3333:518d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.52.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.52.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:52:58 -0800 (PST)
+        Tue, 10 Nov 2026 11:52:53 -0800 (PST)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 11 Nov 2026 01:22:33 +0530
-Subject: [PATCH 3/7] dt-bindings: arm: omap: document BeagleBone family
- board compatibles
+Date: Wed, 11 Nov 2026 01:22:32 +0530
+Subject: [PATCH 2/7] dt-bindings: arm: omap: document missing AM33xx boards
+ and SoMs
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ti-omap-dts-fix-v1-3-19022d1ff4b4@gmail.com>
+Message-Id: <20261111-ti-omap-dts-fix-v1-2-19022d1ff4b4@gmail.com>
 References: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 In-Reply-To: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -105,62 +105,70 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-omap@vger.kernel.org, Bhargav Joshi <j.bhargav.u@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=2011;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=2257;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=HFD7yxMISHUSRTOxRHCJ1DZNRBnsW4DxRdCeVpvA1IA=;
- b=KibNFDfdnzCmfgogghjKl7j+PawBFGlgfn5VQEmbtrmRm7DHebL62iSv+m8SOCRuWuKBHnKyR
- Z1WMw60HA2JCIUmp8yPwla4WC/hU1dvfp+/XhdSuMiyZBthF+Hk+4k7
+ bh=ToVc+9KRI9uPv3z9Dm2qjNBtZIyu3nXqpyevUzcgwDM=;
+ b=8WjKIkFnAI1eIHACbL0SOi2MHdaM4Wq2VK76kK3l3tauEuAJpu9+2Ey1BzgL4mnC4IBQPb6fG
+ DR7VRvyxg2BC8HHrC6Q1bFOazeYDIMIVJbBfOSdKvydA/rBM5qZZyZH
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Several AM335x boards derive from the original BeagleBone or BeagleBone
-Black and chain multiple board compatibles before "ti,am33xx", causing
-dtbs_check warnings against omap.yaml.
+Several AM33xx devicetrees trigger dtbs_check warnings because their
+compatibles are missing from omap.yaml.
 
-Document BeagleBone family boards (BeagleBone Black, PocketBeagle, Bosch
-SHC), BeagleBone Black variants (OSD3358-SM-RED, SanCloud BeagleBone
-Enhanced, BeagleBone Black Wireless, BeagleBone Green), and BeagleBone
-Green Wireless.
+Document the missing AM33xx compatibles (Bosch Guardian, Gumstix Pepper,
+Moxa UC-2101, TCL SL50, BeagleBone Blue, AM335x EVM-SK, and VScom
+OnRISC), add entries for the EETS PDU001 and Newflow NanoBone boards,
+and for boards based on the MYiR MYC-AM335X and Grinn ChiliSOM modules.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/ti/omap.yaml | 28 ++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ Documentation/devicetree/bindings/arm/ti/omap.yaml | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/ti/omap.yaml b/Documentation/devicetree/bindings/arm/ti/omap.yaml
-index c97eb4953ed25..e0af554388669 100644
+index f694dcbf23486..c97eb4953ed25 100644
 --- a/Documentation/devicetree/bindings/arm/ti/omap.yaml
 +++ b/Documentation/devicetree/bindings/arm/ti/omap.yaml
-@@ -159,6 +159,34 @@ properties:
-           - const: grinn,am335x-chilisom
+@@ -104,13 +104,22 @@ properties:
+       - description: TI AM33 based platform
+         items:
+           - enum:
++              - bosch,am335x-guardian
+               - compulab,cm-t335
++              - eets,pdu001
++              - gumstix,am335x-pepper
++              - moxa,uc-2101
+               - moxa,uc-8100-me-t
++              - newflow,am335x-nanobone
+               - novatech,am335x-lxm
+               - seeed,am335x-bone-green-eco
++              - tcl,am335x-sl50
+               - ti,am335x-bone
++              - ti,am335x-bone-blue
+               - ti,am335x-evm
++              - ti,am335x-evmsk
+               - ti,am3359-icev2
++              - vscom,onrisc
            - const: ti,am33xx
  
-+      - description: BeagleBone family boards
+       - description: Compulab board variants based on TI AM33
+@@ -136,6 +145,20 @@ properties:
+           - const: tq,tqma3359
+           - const: ti,am33xx
+ 
++      - description: MYiR MYC-AM335X SoM based boards
 +        items:
 +          - enum:
-+              - ti,am335x-bone-black
-+              - ti,am335x-pocketbeagle
-+              - ti,am335x-shc
-+          - const: ti,am335x-bone
++              - myir,myd-am335x
++          - const: myir,myc-am335x
 +          - const: ti,am33xx
 +
-+      - description: BeagleBone Black based boards
++      - description: Grinn ChiliSOM based boards
 +        items:
 +          - enum:
-+              - oct,osd3358-sm-refdesign
-+              - sancloud,am335x-boneenhanced
-+              - ti,am335x-bone-black-wireless
-+              - ti,am335x-bone-green
-+          - const: ti,am335x-bone-black
-+          - const: ti,am335x-bone
-+          - const: ti,am33xx
-+
-+      - description: BeagleBone Green Wireless
-+        items:
-+          - const: ti,am335x-bone-green-wireless
-+          - const: ti,am335x-bone-green
-+          - const: ti,am335x-bone-black
-+          - const: ti,am335x-bone
++              - grinn,am335x-chiliboard
++          - const: grinn,am335x-chilisom
 +          - const: ti,am33xx
 +
        - description: TI OMAP4430 SoC based platforms
