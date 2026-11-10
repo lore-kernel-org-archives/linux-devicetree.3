@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299056;
-	b=qCbI792+DJW4dHORVU8lNLxrYeJUlWV84GNjKKKCYmV5YKy1Y0oBMiehCXcndSu6U010
-	 tEhcb0gb6vHThMh4b5TIuKVLrlL8du/u0JtVl+NupDgSPJ6W/Y0pDvR3dGxY4JreLfZsz
-	 KMpQmqbtr3Mg/zXXi1Q8+KyZiPVixGJZwfJ9XJwPFRS1kGYuXl/7yB1tSKQ60Mq+Ng1uQ
-	 sySDYAPaY7Og2v4bQYyUO3p3VjYUnvm1KjMrrFrLoW71zHwuihyVhtyCG9b0ArcsRw0lm
-	 s9Gd8SpauczQIYuTlKkA+9aVj767bf0wdcP6zqEfxJWjVSBuGqw6yU3Yau1Vqqsu6dw==
+	t=1794299145;
+	b=Y/anC8h77N+Pr/LpW2++ujQbrI4p+bqFZlZgzSg5sSt4AA0EvyL56Disy2C29LNQ1uy1
+	 qJXc8gwY+uoGYkixYPvwkSX9I/KUBXXELw718mWNXjGI47hquxDvEVyvJ+aEXfcMvCvW8
+	 Q9F1slyu7CesrqC72OLPW4fhG0ICpDtv9LqORTXK5o8Xlri9HLr+qD6dI8nHtmY94iZir
+	 cUGdQU1Br2Wgw5c3KNse2jB9NjJJ7WPV87UQz4LzmkFAnl+bsQHr6FbAKDNiLbiQ3LKBN
+	 tUZwEv6usRYLw6A2ucr2y6w3LPOxlQuNFwCPXQHpoxbkRqlNKKDUnN5MHGey2ZC+FxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299056;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=pJ7kZ9nUY1FS8i9+F2Sr6CiD7I+mA4vNUnLZI2Bguvc=;
-	b=i2omwFzW0pDyplgKxv7b20oxKKVek/M8UMbrbymaHrAbNW8A+61EkzNbAA04sjFvG3iX
-	 +9w+/vJuK4mbGiGN80Su+pN/QByGJkywsQNoZOHb0MDmgjx62l93KIaL3nUNu9stXhIFO
-	 70VEqZZiKe397sAqy7aLW6MQ0hSPPJvz0mMMAriBq2yXLlTEaV+gux/HN/hCxI3DyW7Lt
-	 X8uTfyx7EIfSeP5gjUSWPKFU0Vb/E+E6XvYrbwbE/XqQ7aAcVcSRmMzwvkiU5WHxkzlJf
-	 6HB7WcKmnydPu7obXQSGRR5FBJc37I8FPFw7l/JKgs9Gj48xRXmY7u7J7mmL8TySvuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299145;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=AQAAmgkAJ2N7z6or5zK/Wmjvv/xT0bZlGZgV3QvIlJg=;
+	b=mBCa7feOvi49olHWCB+UNhHi26kE3PvlOaqRElsEHO3/BjOLYZyFTBprqsvm92spM1yP
+	 PzjqWZgP+yoDxUUXKc1A6jI8XdHFhBGYcFvnt4doo5F5gNXHzZxTNSLsHvsc1RIeajBOb
+	 /6HNxG6gEIo9SiyUxGCCLgWiDQfSqL42AcnzTmFOZCR7SbUxZUb3iOsUvKtUJXMNPHCKV
+	 TKRscBlqnU8ahoemTKMcIOmk8uVZUpJZkbeJltfjURep8ac3QqPdh5MMGe2IRZJ+/8nZZ
+	 pAI/0jtDtMr/XqaImLSljWDP0A2Ukiqm7prqgvNweC683KvQA9snpZTxaPsNOwhV2gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=dNpiQxcm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Q7HuxEpV;
-	arc=none smtp.remote-ip=103.168.172.149
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6xSlQFv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CEE606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5CEE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEEC606CFA9;
+	Tue, 10 Nov 2026 08:25:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=dNpiQxcm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Q7HuxEpV
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1B0E2EC0591
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:24:15 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 03:24:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794299045;
-	 x=1794385445; bh=pJ7kZ9nUY1FS8i9+F2Sr6CiD7I+mA4vNUnLZI2Bguvc=; b=
-	dNpiQxcm/LTlEH+ENPBJvoiFcYsHoAYRUPxxiWnMnZvx0bcOleaFPTnP4ajNucix
-	iRbUa46O2NvgQ2gOC9ZH6JVUlLAWc0uALNMBhiOg+hq82+IiLP/bZMC6aCHNXCFb
-	iJbsKTYmgzGwzt7ooDMT00ZpU3FV1jizbHO9Sl1dIXTNu1HXk0qjK3BoWqKRbUVL
-	ShAR1NCT+Q9sQIGdiXxly6wOPRw4/oY4Ia0uOePastoa5MeGPlCq37HnA0yBIkGJ
-	NSx3vOy9xbHXSVFswyN+1yPQR9odChV2+vB+v2mxwpr1vXh8Yqskj3uLhRlTiNGi
-	SVLfC3XsTwaC2kRLLWKJXQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794299045; x=
-	1794385445; bh=pJ7kZ9nUY1FS8i9+F2Sr6CiD7I+mA4vNUnLZI2Bguvc=; b=Q
-	7HuxEpVd0l+Y1znEZuutAuPCK1IvS5vSA1eYwtm6S/V2FMpuNLY9ITRzSvVcg5MV
-	rqtyqvCCyutLDbaNFvMsr4BUa9Vd+6Tcrdk6UKVfUJlK7/U/G47yVrYhNSoS2CXT
-	WRs+pa/tBWsQLbxtHOS1sZCosn0MJ1y+XVI9zXwVHWY2m9r/0jKf1h2Xnmm4ewI5
-	SAaXG9PalmiOv0EM4GtDG6V2GyvyUXRtLX5S+zcn9siKVgOnFAHnqlBWM8ToDkVg
-	Gs4xfgslPooxfQbbR40RfmLAQOUsb+OdQue1x5M9STT34FNniEtq/6K2iexyYuWI
-	ox+4Na261koKbSU/TxK+Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794299045; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm2:rsa-sha256:l5PU4Nndu/iJxLFuGvPywTCcUDLLPFG9Aui0DU3I0Gz8esV
-	gxl7evjsGBgQLL0rxvk+Spwhr7DShWMfKU029nbEzOFrv1ZznCSijQrtyacdzV9T
-	Hyl4TtBiPb/06dpvzsyfqUEXG5d2DixDvq2rs39D8RjfesHmWRcfHyxun/ziEw66
-	lheA1QJywlkyA5+ocKw5d0ESfiFpMDVLLOP0HU4BlHy9VEYhXOqvxuMx7MlJrQ5/
-	/RWUOEutl+p8PUK6nU/qdrIHUielHNfBNItIxgvw1p6pIVFPwt84MTrfBJSxuL95
-	UsrGnx7zkKZBs/HWBfBSQWom44ePoeV/sw/IrHw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ktkt6ltiBGKbSI1Dv4eMdW/rPon5WRacUu/yJWvAbFM=:YHe1sRh1MG0Z87scZREWOS/U54FxdcAzg54EAvaJvyM=;
-X-ME-Sender: <xms:ntTyai159Zd1TWTFb8disCIbX-ESvHK6iER0DnaW1P1yFFn3BPS-mA>
-    <xme:ntTyav7ZbdXs1acK2ek2q1NrSAQLPptJX-kA8SrkFj68JoAnHM7cU2yl_W90tVrn7
-    WR_lijJeUQiLGtL2zVu6nfC0xy6zkrgcMVB4S6oAxfS0J0zyo552yLD>
-X-ME-Proxy-Cause: dmFkZTFhnp+eSghulVC5JWADloFkUjjFVGSalw0CVyEdMRmlAiSUDb7+3LfuLl3igcWhrv
-    rxwikOVoj6lne5AbCik35y+9S6btewepACyIhyG90ycgGUYbwMNhaKkA64CoB4aB5y/I60
-    cMtl1TZXAzhvHDdO2oMYLvai3+H6wMrcPNFHwTDXMM0Kjbs1XA9ZS6itTWdU5hRvnkUxkP
-    ad4R+WVBoKTvmiH4LNLGAVG86/jTgDEkLgB7rX0PL5U6tW7XpOJEssncm/1a1JaF6CcvmG
-    yiOpEF6KRUz+RDTu7fs+tbNhQq1fIT1ral92Q28jjJT9XIT/eDIUC6zbGzGKkpbK5czYTn
-    afXL1tsd35fxMj8mT54b1hKMZ2BVznP2Oe4/mRFh5QYiPLqdxmd+XvPSiPbpXbEm2AcYjc
-    bhmOSTCGNaDDZALeu7FHIoJuFeNryO3porVnFS8ZIn00T/dLZUnKvfst2bsbXg00go9Qzv
-    OkAvBUz+QeTI5teT8YR+WF0CPD43gPElAaBPgnYQrXb3eERb15ZCfNzzxAZoAjF911X7Ub
-    63csgRLyBuqOqcgACZHxmZ4yFF2i6FeVlEAXt5u3DQUrbCQRCCwpC9D6qBgEvStRMuL2KN
-    k5sKSCWxkwfJsAeCeDWGoe4aMYJx4mZ5fdDMuJq8irFnYAcOsyTPP1OCPBpQ
-X-ME-Proxy: <xmx:odTyavhCNDjOH-wzRpLquum4MOhNTbNjM5N-FMB7oUXl9n35geZwUQ>
-    <xmx:odTyajrMwqZ1TsWy7i4c74538Rp37lQXTUfWB16cSovXoyoS6-u_2A>
-    <xmx:odTyavQXrqvAhbwrt_LRb0k6nDLqtld5g-cuP37ngUj7rErjnNwBVA>
-    <xmx:odTyakRQV5b1qZQl2gcWE6c267k7X66XhBWjbGCdpsHKSDQotltrig>
-    <xmx:pdTyai6-zP5L2uLUegPSsdJ_F-fX7biOcPtSyo02lUVSD-CD1YdDA0Ij>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0680B32A0097; Tue, 10 Nov 2026 03:23:58 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6xSlQFv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCA31F008A5;
+	Tue, 10 Nov 2026 08:25:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794299145;
+	bh=AQAAmgkAJ2N7z6or5zK/Wmjvv/xT0bZlGZgV3QvIlJg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i6xSlQFv3u/gaeDf8Bn5BFIAcUeJRAnWPg7ZlyXisgslqVw83XB2YkxIkYXqYaKow
+	 hE9nPxl9+z+njHc5ReP4Y4TPqqXEDfY9I9uSohgHmZBgWhun+8IFSu6iXuhyp1uESn
+	 txH7o1secI/ddYvPTp7/+5oK9hAc498iSRNhH+olmdri/vQerMk4ue36tNYDP2RHzB
+	 Er+RtSdCfK3wDQ7TV266Ck5ZBo9HFBmDtlLHbUPjzOgZ/qFiqYFZCHJR3m1jD3+RXu
+	 OpFXXmRITUoV3zrClDQFEVm+kFqUE53ifxyJcnoZSya/rrQxPSv1g1xUOn3CRSlEmW
+	 dNp1rH8JF6v5A==
+Message-ID: <sashiko-outbox-206609@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] usb: hub: Retry SuperSpeed for a device stuck on
+ its USB 2.0 peer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Arun Iyengar" <aiyengar1990@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110-usb-port-pairing-v1-3-9307e29d2ed2@gmail.com>
+References: <20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com>
+ <20261110-usb-port-pairing-v1-3-9307e29d2ed2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 08:25:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,65 +60,210 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: A4QaHkHhrVgc
-Date: Tue, 10 Nov 2026 09:23:27 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Brian Masney" <masneyb@kernel.org>
-Cc: "Long Zhao" <longzhao@ambarella.com>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- "Michael Turquette" <mturquette@baylibre.com>,
- "Stephen Boyd" <sboyd@kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>,
- linux-clk@vger.kernel.org,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- devicetree@vger.kernel.org, "Long Zhao" <zl020895@163.com>,
- linux-kernel@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
-Message-Id: <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
-In-Reply-To: <20261110-interesting-hilarious-shark-2dbfc0@quoll>
-References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
- <179427375370.1061670.4050288038934218487.b4-review@b4>
- <20261110-interesting-hilarious-shark-2dbfc0@quoll>
-Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026, at 09:02, Krzysztof Kozlowski wrote:
-> On Mon, Nov 09, 2026 at 08:22:33PM -0500, Brian Masney wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] usb: hub: hub_reset_peer_child() resets external USB 3.0 hub
+  USB 2.0 half
+- [High] usb: hub: hub_reset_peer_child() resets suspended peer on
+  HUB_RESET_RESUME
+- [Medium] usb: hub: peer_reset_work not canceled in hub_quiesce() or
+  hub_disconnect()
+- [Medium] usb: hub: missing runtime PM reference in
+  hub_queue_peer_reset()
+--
 
->> - I can then merge patches 3 and 5 into clk-pile.
->
-> You will have code depending on non-exisitng ARCH_AMBARELLA symbol, but
-> if that's fine for you then sure.
->
->> 
->> - The DTS folks will take patch 4.
->
-> The entire platform is for SoC tree. This sounds ok for
-> me, but I am not sure if Arnd was merging pulls with
-> dependencies. If not, then worse case the arm64 bits will
-> wait a cycle. Anyway, I guess you can take clock bits.
+commit 764ab1aa27d71134800c09ef7673211be6ab0bc2
+Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-The way I usually handle new SoC families is to have
-a separate branch for those beside the usual dt/driver/defconfig
-updates, possibly for multiple new SoC families, and
-possibly including required drivers. The idea is that
-whatever we merge here has at least a chance to boot
-into an initramfs with a console.
+usb: hub: Retry SuperSpeed for a device stuck on its USB 2.0 peer
 
-If it can boot without the clk driver, the easiest way
-would be to just keep the clk and arch/arm64 bits
-separate. If the clk driver is required to boot, I would
-suggest having a branch with the two clk patches that
-can get merged (not applied) into both the clk tree
-and the soc/newsoc branch to put the other patches
-on top. This would make sure we only have each commit
-once, but still have a clean history that includes the
-driver in both sides.
+This commit queues a work item when a SuperSpeed hub activates to check
+connector-paired USB 2.0 peer ports and reset any SuperSpeed-capable
+device connected at high speed so it can re-enumerate at SuperSpeed.
 
-     Arnd
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 199d3f535a891..df88de5bbf54d 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -1076,6 +1076,89 @@ int usb_remove_device(struct usb_device *udev)
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * A SuperSpeed port paired through a connector with a port of another h=
+ost
+> + * controller can start after a SuperSpeed-capable device has connected =
+at
+> + * high speed on that peer: with VBUS always on, the device looks for a
+> + * SuperSpeed link while the SuperSpeed host is still down, gives up, and
+> + * connects at high speed. It only tries SuperSpeed again after VBUS is =
+cycled
+> + * or after a USB 2.0 bus reset, so reset it now that the link can train.
+> + */
+> +static void hub_reset_peer_child(struct usb_device *peer_hdev, int peer_=
+port1)
+> +{
+> +	struct usb_hub *peer_hub;
+> +	struct usb_device *udev;
+> +
+> +	/* Wait for an enumeration in progress on the peer port to finish */
+> +	usb_lock_device(peer_hdev);
+> +	peer_hub =3D usb_hub_to_struct_hub(peer_hdev);
+> +	if (!peer_hub || peer_port1 > peer_hdev->maxchild)
+> +		goto out;
+> +
+> +	udev =3D peer_hub->ports[peer_port1 - 1]->child;
+> +	if (!udev || udev->speed !=3D USB_SPEED_HIGH)
+> +		goto out;
+> +
+> +	usb_lock_device(udev);
+> +	if (udev->state !=3D USB_STATE_NOTATTACHED &&
+> +	    udev->bos && udev->bos->ss_cap) {
+> +		dev_info(&udev->dev,
+> +			 "SuperSpeed peer port available, resetting\n");
+> +		usb_reset_device(udev);
+> +	}
+> +	usb_unlock_device(udev);
+> +out:
+> +	usb_unlock_device(peer_hdev);
+> +}
+
+[Severity: High]
+Does hub_reset_peer_child() reset the USB 2.0 half of an external USB 3.x
+hub and disconnect all of its downstream USB 1.1/2.0 devices?
+
+An external USB 3.x hub contains both a SuperSpeed hub and a separate
+high-speed USB 2.0 hub wired in parallel.  The USB 2.0 hub enumerates on
+peer_hdev at USB_SPEED_HIGH and advertises udev->bos->ss_cap in its BOS
+descriptor, but it stays on the USB 2.0 bus permanently alongside the
+SuperSpeed hub rather than migrating on reset.  Because neither
+udev->descriptor.bDeviceClass =3D=3D USB_CLASS_HUB nor port_dev->child is
+checked, calling usb_reset_device(udev) runs hub_pre_reset() ->
+hub_quiesce(hub, HUB_PRE_RESET), which calls usb_disconnect() on every
+child attached to the external USB 2.0 hub.
+
+> +
+> +static void hub_peer_reset_work(struct work_struct *ws)
+> +{
+> +	struct usb_hub *hub =3D container_of(ws, struct usb_hub, peer_reset_wor=
+k);
+> +	struct usb_device *hdev =3D hub->hdev;
+> +	int port1;
+> +
+> +	for (port1 =3D 1; ; port1++) {
+> +		struct usb_device *peer_hdev =3D NULL;
+> +		struct usb_port *port_dev;
+> +		int peer_port1 =3D 0;
+> +
+> +		mutex_lock(&usb_port_peer_mutex);
+> +		if (port1 > hdev->maxchild) {
+> +			mutex_unlock(&usb_port_peer_mutex);
+> +			break;
+> +		}
+> +		port_dev =3D hub->ports[port1 - 1];
+> +		if (port_dev->connector_peer && port_dev->peer) {
+> +			peer_hdev =3D to_usb_device(port_dev->peer->dev.parent->parent);
+> +			peer_port1 =3D port_dev->peer->portnum;
+> +			usb_get_dev(peer_hdev);
+> +		}
+> +		mutex_unlock(&usb_port_peer_mutex);
+> +
+> +		if (peer_hdev) {
+> +			hub_reset_peer_child(peer_hdev, peer_port1);
+> +			usb_put_dev(peer_hdev);
+> +		}
+> +	}
+> +
+> +	hub_put(hub);
+> +}
+
+[Severity: Medium]
+Should hub_quiesce() cancel or flush hub->peer_reset_work, and should
+hub_peer_reset_work() stop when hub->quiescing or hub->disconnected is
+set?
+
+Unlike hub->post_resume_work, hub->leds and hub->tt.clear_work,
+hub->peer_reset_work is never canceled or flushed in hub_quiesce() or
+hub_disconnect().  If the SuperSpeed hub is suspended, reset or
+disconnected while hub->peer_reset_work is pending or running, the work
+continues and resets the USB 2.0 peer device while the SuperSpeed hub is
+no longer active to accept the connection, and usb_hub_cleanup() can
+return from usb_deregister(&hub_driver) while hub->peer_reset_work is
+still running on system_power_efficient_wq.
+
+> +
+> +static void hub_queue_peer_reset(struct usb_hub *hub)
+> +{
+> +	int port1;
+> +
+> +	for (port1 =3D 1; port1 <=3D hub->hdev->maxchild; port1++) {
+> +		if (hub->ports[port1 - 1]->connector_peer) {
+> +			hub_get(hub);
+> +			if (!queue_work(system_power_efficient_wq,
+> +					&hub->peer_reset_work))
+> +				hub_put(hub);
+> +			return;
+> +		}
+> +	}
+> +}
+
+[Severity: Medium]
+Can the SuperSpeed hub autosuspend before hub_peer_reset_work() finishes
+resetting the peer device?
+
+hub_probe() sets a 0 ms autosuspend delay and enables
+pm_suspend_ignore_children() on the hub interface.  When the device is
+stuck on the USB 2.0 peer, the SuperSpeed hub has no attached children,
+and hub_activate() drops its HUB_INIT2/HUB_INIT3 runtime PM reference
+immediately after calling hub_queue_peer_reset().  Because
+hub_queue_peer_reset() does not take an interface runtime PM reference
+(unlike kick_hub_wq() and the HUB_RESUME path), the SuperSpeed hub and
+bus can runtime-suspend while hub_peer_reset_work() is waiting on
+usb_lock_device(peer_hdev) or resetting udev, preventing the SuperSpeed
+link from training.
+
+[ ... ]
+
+> @@ -1346,6 +1429,10 @@ static void hub_activate(struct usb_hub *hub, enum=
+ hub_activation_type type)
+> =20
+>  	/* Scan all ports that need attention */
+>  	kick_hub_wq(hub);
+> +
+> +	/* Let devices stuck at high speed on a connector peer move over */
+> +	if (hub_is_superspeed(hdev) && type !=3D HUB_RESUME)
+> +		hub_queue_peer_reset(hub);
+>   abort:
+
+[Severity: High]
+During system resume (type =3D=3D HUB_RESET_RESUME), can hub_peer_reset_wor=
+k()
+run before the peer child device has resumed or before hub_wq has thawed?
+
+system_power_efficient_wq is not freezable, so when hub_reset_resume() ->
+hub_activate() queues hub->peer_reset_work during dpm_resume(), the work
+can run while udev on the USB 2.0 peer port still has udev->state =3D=3D
+USB_STATE_SUSPENDED and udev->can_submit =3D=3D 0.  hub_reset_peer_child()
+only checks udev->state !=3D USB_STATE_NOTATTACHED and calls
+usb_reset_device(udev), which runs drv->pre_reset() or
+usb_forced_unbind_intf() on the suspended interfaces before
+usb_reset_and_verify_device() fails with -EINVAL without resetting the
+port or rebinding the drivers:
+
+drivers/usb/core/hub.c:usb_reset_and_verify_device() {
+	if (udev->state =3D=3D USB_STATE_NOTATTACHED ||
+			udev->state =3D=3D USB_STATE_SUSPENDED) {
+		dev_dbg(&udev->dev, "device reset not allowed in state %d\n",
+				udev->state);
+		return -EINVAL;
+	}
+
+Conversely, if the device fell back to the USB 2.0 peer during system
+suspend/resume, hub_wq (which is WQ_FREEZABLE) has not thawed yet when
+hub_peer_reset_work() runs, so peer_hub->ports[peer_port1 - 1]->child is
+still NULL and the reset is missed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-usb-port-p=
+airing-v1-0-9307e29d2ed2@gmail.com?part=3D3
