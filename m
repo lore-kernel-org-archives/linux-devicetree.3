@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269295;
-	b=3Z4JpojWvPykWoqKfj+/ElbylyBB+NvurwmewGfT9LTNpj2+DV40jxCGlFkgIfSJaG6E
-	 HbqjZLEYmRF0HAMjcsycThaMcOlxKxS5YAJOSqF7q721cwgNCNMb5efDzLfOV3hBYl2/h
-	 vrfFf2PWbTyS6e6OAP+BfEhSSYy30uzHLXxSAIxKEgIZ+ywvynbaPtFHYviniB5Bjhmjm
-	 lIldFy//ziUuVOQ+oo/r2LkiiJEtmWjt2TuykA6t3M/FoxFCYIZ6NPlsrWKO2Fj3tw2p7
-	 6yDZ4J6F5KNq6AO9KGuYj/JymTZ0wFzTSnqDMxKr9LIx/KAZHqbA2AvgtrbGpmfqzMA==
+	t=1794269290;
+	b=JVOt9PY8cGcqTNIr06Pfh7DIoHLf3RX9fdxDoosvw8YqxLaYEXqO4Nr/7DvhuAqSPBV6
+	 aKhPamUUviUsUq5s2Se/f+mfaA3LK1sM2mb3eOdqyMHAulhdODqkrP6maCuZjW8YqvqT2
+	 J90dJpv7IUHS+PU9y11p5CSExs7sY6ObZUURB9Echew6ULQtmWWTMKFITyGcDk/FKRdNk
+	 i/R1+MRJRD5KA3KB8tWNAg2AEHq4KdmqJfqAaFUa/FaaMSQgYQEyJ02xp9vWnHdOzFA75
+	 54mF7gOgBDaQuvyXBfAqBcqZfs+6fGz2y1GTURo7rJj+U2P8nb9fPW1Ovj3f/zFb49w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269290;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xAKv7qC2wxPIbTea23GQAKBZyNJlV9zWgrcWZRncFq4=;
-	b=o6iOWW4V7+5DYMoJpweH9tlEgWKisAwfXAvlxma01odQlYpN+fq8NeaweiZ7g3GmZUM0
-	 nbm5Hegl/eKo3LlT7gN6o1LhK/Cmt0XDbR95qnS8xFLEz9421/jR6R1G9ZLYq3r76gOi0
-	 k2le3hXaLa5mXdG/MfDjnSeQYyP3ervLBtU4rhnyzqcxZqrQWTLSxkNveelb7wgjJv5Yi
-	 1ITOHlUNpzrVEuyHuZ/KTS3QhNVigvnUU22McMsq+20kI7IANQ2CJ12jnIRmTj5BTRl01
-	 ryfeEcT5TAFwfal67eEnh95bLU20Fr++02zNzCFYvxUGNMU70ov7+bgjEUKQyL5mUag==
+	bh=jrxKnimkJlrFR0WRqhZUCXVjI+A7zsd604Fm1CjsY5Y=;
+	b=GJx1Hq5pxaYddtD4BN1wgbIlmoReOmcYtHpoxO2lteVll3qLgIn31lWkh/pWeUJ53EqL
+	 My/cn+uvB+ZZXoaYsX5biCRmLxaErKkezJPmZRGHSAxbTaKGGsnrOogF4GREvGIScvt1R
+	 HIe3Wz/bbuIP74gG7weTvjNfon0wSGYB/B8cWAFxmp2jGL3F+ywXLpLL/eNCRjYcEBgPI
+	 hdMeDWesdlLpivDZoncKo1gQM89POUlyUDqy1715bRfahG0+GFdDi4pYVjCYp7s9Y9lEg
+	 gt80/PmGWZ3TZU0yYkSlGeSsEio8ZOV52g+S4TydMqV1zLnu7uKWUSjCrpJAgH6JYOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CY3ZSYuM;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fAT/bcyF";
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5A760A2633
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 00:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF5A760A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA2860A261A
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 00:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA2860A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CY3ZSYuM
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-490f38e9688so1152420f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 16:08:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fAT/bcyF
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1244676f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 16:08:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794269293; x=1794874093; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794269289; x=1794874089; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xAKv7qC2wxPIbTea23GQAKBZyNJlV9zWgrcWZRncFq4=;
-        b=CY3ZSYuMj6d1KBAuZ6mSZcQGtrsjTZEfWlgaZXhTn+GsyS2D+PfZK7YizsfmWrNXZe
-         Trybh+Wfbt57HwdfM/se4a4grwhRBYczTw0XyuBmuTg8cjGxf/fvPlwvE6M9XwTmEM7x
-         zKA4HCgkRuTjjizqx4XElLoNhedo2ri+wxoHbWa9mVBS1l9sz0zcPLyjdqRthZ5VNZDr
-         aLUCld4zrjNa46S89hjyEpVOL+H/pc5OM+QntJsZVSgbLjdzxdh0uIIMOrCIqY+Nr/Yc
-         dgLfLwoff65nz07LVtf0UqFBPO7nMmh5Qr3xpg9tI2y8Sav39wdVxzkqRTAuYFytFEjf
-         hZwg==
+        bh=jrxKnimkJlrFR0WRqhZUCXVjI+A7zsd604Fm1CjsY5Y=;
+        b=fAT/bcyF94tPNIyAtZNuFvVu25DD39UP0tsXgVALMMITkcXdx4F2P0SUEwY0K86s1s
+         HeC9TFkDEbWLcwNm+5FsT+WG1ZaoQwSsv/Wc7yPMmfNiIe7fJjN4jTDZFK8xw0inJzZV
+         7/7hSxUntpvMfzQTau+SSllyj6MLOPxQtPiAWowsbfArxB+J5WU0b/3ePEvHEO6IJQgE
+         YboiXsN3ioo3wvXLBZ7ZaLPdAYoA55ccPVurWQ4cu9hNID1KbYm0E36fUhN5OF/A2+Tu
+         FJO76NOBVp7oWMyS+7AJGwP3iy90/Puo9MV4D86jZ4xYnl2YDtLl8glWCcE3RGF3ogYc
+         hIyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269293; x=1794874093;
+        d=1e100.net; s=20260707; t=1794269289; x=1794874089;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xAKv7qC2wxPIbTea23GQAKBZyNJlV9zWgrcWZRncFq4=;
-        b=K0KMybZe6lkU6BZqEvsMLjSQA5HX9Cb3Cz3tVoabM9ztALlNs10KnXfD+YdjzJ9uwd
-         s4dIat+ZzYXluvp8I8t8+Xb+aSpzA4e1UBg5NClYGKfR3CGur9f8/VnUnJOXKAHHQthv
-         hPcAApXnjNST1QQz/vR3u7k8ee7rfPOvjlBG3Q1QYSyZIpMxRl40iegvrwtYoS6RNE/N
-         Ki+28rBEShBcx234mLgyTl1lb0CL0N8PFAI0Jqh2rXJHQcs02YcpdUIvgIUMRjo7OYea
-         71f7Acdb9gvVUlVI/Q/FIXfkKffdLGs+4zoBdjO1kJEm/OXQ6GfDbiT2EenmyOyMwzOA
-         1zPw==
-X-Forwarded-Encrypted: i=1; AL+hErG9wUcwPorTFVj2N72xvRZ8s5RJmeKXt7fcTkiXpv8OmBKfrdcE/n8nWf74vjbMF8jxBSk6Zfv72DCr@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ukwSGiYdTqtP0WdHR3f6pUx/fxYvkfML9AJnP+4kdnOHaOlci
-	hf33W6SooRkBzAVFxjCLPvZrTX1SMqqrf3H9nmObREnhBjeD1P0TwZX0omRWzw==
-X-Gm-Gg: AYBFou2q2KYFona+2SzSux4qldtM7AWuzJCl+nmmv1ipsN55TNONmr8tzb50MzdcvrK
-	cCvyGdpeQPfYbeXTrsMtVEjvPNdfk7X/dJL1FRX7VMVMJdTXHdFBcHFOh4+jmwV/SwP/id6DWr5
-	5CLk9YCpdVL8AHaP5QGpFJxX5xetSSNMmPxAGqvJWXjcBIfPIXDZKbH1CCwDU7rrVRDdYD0wtqY
-	0Mv6702IqyU64u+w3nakAd7wsalu8JYchoelny4xZMy/s/vdmi1ByuT4P7QBkhZNveBHyH8WBBk
-	S/dPHOTMJ66iFA4jgrZauHrgbWkTt80nRNDBhr2IR3Me4OvR75ISBKs5JNfxRMwfCiqJZZZFg+/
-	VoUpigo49Cu0UQ6i/MUDQIjNrF3sZXfMCE6qF17v9qyNGEZhKgWacQtM5rPRQhDB4UxIB/EQWZW
-	TUf9QQiVOAOpQ4yeX1lU9PneeUZFHk58QaZ8h0W685gVZdWtaaN3EVt4neV2WwLFIirJoNYVe8A
-	ml8kDovRNeFEYGqYrbrjhxkfW6lnxbq/RI3LvuBEOfaSa0/wSJQd9MMbzN9jO2174kHO7G45YfP
-	ynNFnGjiS1fLmuqFdBH7WRBBOLpzBWpGOgLpUfGozQVILNTIZK8raffRV6hh3yLpSIv1aAzBerK
-	82Xt/jAwfZK1zK2Yc5xnKYOB+b9t/i+ml7ZIg+vrul/fKuOqAA5g4LwgfA7PRyj4tu2gUNyQ=
-X-Received: by 2002:a05:6000:5c5:b0:492:3f98:5070 with SMTP id ffacd0b85a97d-498364d741cmr1563424f8f.12.1794269293229;
-        Mon, 09 Nov 2026 16:08:13 -0800 (PST)
+        bh=jrxKnimkJlrFR0WRqhZUCXVjI+A7zsd604Fm1CjsY5Y=;
+        b=nW3++ZHdyUYF/GWCCA/fyAxEclkjjxmAsfz2baTgjucQxgJ9a8V9Clw3wiPUKWko4x
+         exmmUGm7/wlnOG37eOW5GxsVlYYeV/vjQk7IiEhJqz5FN86Fjk0T0S+wCGFgIKl2xsFC
+         wsf0BydrZaCmqRJUQq4smfRGe+RXneC/G+kmX3KUeHqekXxpzuvwqXXRVdjrEK3M7wY/
+         rffXn80jWsXJv4viDRpVHxhJpYlsuLS72G8mE1lP/J9DJ/VCIu7SfdNmeiRxphDf8ZEB
+         7M+tXjIklUcZ513ogPpYbSEK1NjPxE+iHRZI00L/i/Grg4d7h0FfGkVb7RbcEmr239e3
+         6yNg==
+X-Forwarded-Encrypted: i=1; AL+hErFRWDTRsrS6smCbyNNQ7v2OnOzvMe8tCVZDCjYhFUq+yt/kegnUuNLSeykmY87koZrzqReT3sIcY7DO@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HAbJArzt36KZcCH+h0dI9+VqYCBsGcxnZWOD07IJEtph+MKr/
+	tp7d22H8YvTMVM1QBfh/xx08ad9SG2dHPg3RpbMry9hjhez651IgFTMx
+X-Gm-Gg: AYBFou1pfQoP+55Zanz22GA5gfVtxGwKjxtPUXzrM9rG2JlzI/PpaypMWmcDDB1xKsz
+	ZQl2HIofWjrT2wkZBp9liM/SujvjqKMoWOcRiN1SRd1ZD0lmiyJyEOT14RjDC/+oNP1XnJxjbcM
+	gD0HC48Kh1PKHLY1jihNrXOg+Q7d8uhJbAajVSoaQ+x/PBT0WKaH68ZJZ9mni3VM7oQwJiJK1y6
+	hAtGtxBxE6Iu8BAwdYChp1jAUkGObp/OImg9YTfsyCCIa2XEGPTB3/YQ9ZDPYTEfvJc2K7t4Hm6
+	F9Hg3ZwfWjyRQEaORju3v5oNKzXj4g29wXVafinN28MRz/GqDu8wKWKb9UlxY3ueOlmc3C1QhKH
+	ZQDbFEBpwdwioU5Z0gV1kF6LLYIP9vO8g74kBaROqm5+8QjvNpdPlXYnXz6lZ3jObr6xmjbOmJf
+	MrE/fkSzzyIEHEDU/ml7MQB/oyJtR/KRkB03Hrf5iGu7+OXzz88x9zFbB3sjHmf1+EROtczfcPT
+	RBDD/z07EXWp6a12kEXue7V6i+mK55MkoYs66oIe1fsx5kBW4nJknmx3FXyozuu/lvd2rhIcOKY
+	vAu+mNJ0rRF9fg5AEQcW/UX5j5Cw85tkVJZo2kdTcLYENQUowyCN5L/UV1HV4t8nNmVE6JJ4RNm
+	UV/Wr/+m+zWmOyXZh+A/zf+Hd+VNhib5xwGWbZ+fJ9B/ll+acHTo=
+X-Received: by 2002:a05:6000:641:b0:490:b23b:802d with SMTP id ffacd0b85a97d-498308b94famr1294764f8f.37.1794269288613;
+        Mon, 09 Nov 2026 16:08:08 -0800 (PST)
 Received: from Ansuel-XPS24.localdomain (host-212-171-11-30.retail.telecomitalia.it. [212.171.11.30])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm1704703f8f.37.2026.11.09.16.08.11
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm1704703f8f.37.2026.11.09.16.08.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:08:12 -0800 (PST)
+        Mon, 09 Nov 2026 16:08:08 -0800 (PST)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
@@ -92,9 +92,9 @@ To: Stephen Boyd <sboyd@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v12 4/5] clk: en7523: generalize register clocks function
-Date: Tue, 10 Nov 2026 01:07:49 +0100
-Message-ID: <20261110000753.508-5-ansuelsmth@gmail.com>
+Subject: [PATCH v12 2/5] clk: en7523: use devm variant for clk_hw_register and fixed clock
+Date: Tue, 10 Nov 2026 01:07:47 +0100
+Message-ID: <20261110000753.508-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261110000753.508-1-ansuelsmth@gmail.com>
 References: <20261110000753.508-1-ansuelsmth@gmail.com>
@@ -109,54 +109,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Airoha AN7583 SoC will use the same logic used by Airoha EN7581 SoC to
-register clocks. Generalize it to register clocks defined in soc_data.
+Use devm variant for clk_hw_register and clk_hw_register_fixed_rate
+to correctly unregister the clocks on probe fails.
 
-Add the clocks definition in EN7581 SoC to support this new implementation.
+This should never happen under normal condition but it's better to
+handle these cleanup.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/clk/clk-en7523.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/clk/clk-en7523.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index fbe10e4c3693..7d302498c3d5 100644
+index 24fdec2e6198..2baec734df9f 100644
 --- a/drivers/clk/clk-en7523.c
 +++ b/drivers/clk/clk-en7523.c
-@@ -147,6 +147,7 @@ struct en_clk_priv {
+@@ -651,7 +651,7 @@ static struct clk_hw *en7523_register_pcie_clk(struct device *dev,
+ 	if (init.ops->unprepare)
+ 		init.ops->unprepare(&cg->hw);
  
- struct en_clk_soc_data {
- 	u32 num_clocks;
-+	const struct en_clk_desc *base_clks;
- 	const struct clk_ops pcie_ops;
- 	int (*hw_init)(struct platform_device *pdev,
- 		       struct clk_hw_onecell_data *clk_data);
-@@ -823,12 +824,15 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
- static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
- 				   struct regmap *map, void __iomem *base)
- {
-+	const struct en_clk_soc_data *soc_data;
- 	struct clk_hw *hw;
- 	u32 rate;
- 	int i;
+-	if (clk_hw_register(dev, &cg->hw))
++	if (devm_clk_hw_register(dev, &cg->hw))
+ 		return NULL;
  
--	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
--		const struct en_clk_desc *desc = &en7581_base_clks[i];
-+	soc_data = device_get_match_data(dev);
-+
-+	for (i = 0; i < soc_data->num_clocks - 1; i++) {
-+		const struct en_clk_desc *desc = &soc_data->base_clks[i];
- 		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
- 		int err;
+ 	return &cg->hw;
+@@ -708,7 +708,7 @@ static void en7523_register_clocks(struct device *dev, struct clk_hw_onecell_dat
+ 		val = readl(base + reg);
+ 		rate /= en7523_get_div(desc, val);
  
-@@ -1314,6 +1318,7 @@ static const struct en_clk_soc_data en7523_data = {
- };
+-		hw = clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
++		hw = devm_clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
+ 		if (IS_ERR(hw)) {
+ 			pr_err("Failed to register clk %s: %ld\n",
+ 			       desc->name, PTR_ERR(hw));
+@@ -770,7 +770,7 @@ static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_dat
+ 		}
+ 		rate /= en7523_get_div(desc, val);
  
- static const struct en_clk_soc_data en7581_data = {
-+	.base_clks = en7581_base_clks,
- 	/* We increment num_clocks by 1 to account for additional PCIe clock */
- 	.num_clocks = ARRAY_SIZE(en7581_base_clks) + 1,
- 	.pcie_ops = {
+-		hw = clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
++		hw = devm_clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
+ 		if (IS_ERR(hw)) {
+ 			pr_err("Failed to register clk %s: %ld\n",
+ 			       desc->name, PTR_ERR(hw));
+@@ -1105,7 +1105,7 @@ static void en751221_try_register_clk(struct device *dev, int key,
+ 	if (WARN_ON_ONCE(key >= EN751221_MAX_CLKS))
+ 		return;
+ 
+-	hw = clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
++	hw = devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+ 	if (IS_ERR(hw))
+ 		pr_err("Failed to register clk %s: %pe\n", name, hw);
+ 	else
 -- 
 2.55.0
 
