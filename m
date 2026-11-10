@@ -1,69 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323461;
-	b=hyLRUFay9yH10S/slMhDJfavvGR5qAAoKckDf49Lyv6Ewv0OF3AuM0n/fGHee1p0fP6R
-	 VenQei5NFWOLTK9RibG/JB1Tw9HJ1PiCKIsa9Lj/ykt7CFHK/HxqHOZSC2Fb8wqm9o3GQ
-	 diOQFomyiQCWeKqyQlGb2kVr7JDE6iAKRYuGYsW0qsVYKZCiKEgxebwblH/i9dinJKu2N
-	 pjQ+xZKtOKl8pnb1Dag5GWA7+awvvPvTuYgY9eMpFnD5hG/H6FZxsiYT7Pr0rer/r3lZ3
-	 LUZMln/U1oc3AKxbtR/VzUB3BF395CuebuR+S8fUYsqxO44r/d37xZdxLSfmx+VYOtw==
+	t=1794323643;
+	b=f59NB9oXxfY0XBGkucLp0td1/WRSVEMECFEAuDfrd2uxUhcPy5QUElr5mUpnFj70L4Zu
+	 oaXFkhqwwJ+tOpOtqpBCYVGBsR/Qlvozgz9Yoj2EHhE4xej2w2CYS/si4LF9Y2OA1p66Y
+	 eaSpDeSSetvtXGgZKYUgvzdLKU8Bu8NPrK0k2UoA1TV1pgQIF19jTz4KW2fDMo2iMuaDE
+	 EZuekpOp6Ci4GkKcN9uyjR+BiZp/m0bU4GHKdoIGl0dfTMcceM/9fTGBdehjVKQyE9DvM
+	 Y2N5HTUKw5+c0Nw8IIzFA3Jk9M2SwToZGx6twDacaOWiPidUVnhhYcKEp4i7P/XPHaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323461;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
-	b=WX8kUhDlzDRCnaPncaycSbA5N31RSKip9nwxx7ruFbpuc5ZtExxkHCrWaLVquXkQCpMS
-	 hOiN0L4+0JyhTuksXKZYN9JLpB3J2Vt1QPSz1EUTFsWIpPWwCxWa9OdYeLcayFc7iYeWz
-	 5LBWl2iDezYSl1amuPszThASbamfvc9rYoPpKTiCXhjgHqGqKcGp0zZMWqVHkxisXkExH
-	 p04GgBOY1tR8gh1mtdQpAuiV04c2U1Wh0fgqxYIPTv3VdeOHUryphZoWbwOYc/xNwrKuf
-	 g2fn/Rw8ppbH3IbMK/Hx0H8aDJTaFQXGnT6yW1Xs+PrD407AmvqtlN6tqPOGMD7/iPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323643;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=lhDDcg+XFL8juadnmK5nrRutOKs6R7LkB2wmeynZIlA=;
+	b=fqVLNl1w0WMHD0/TDjj3fQtK7PNk8Qnz9bf49Lb85ONPzP3Bv2TImafwzxbImmeoq+OQ
+	 qznh6PyAFV+PaOvSUIzgAz8dF+R97LEgT+cotGyYAoFK+u7Bg+3WZXdp4wigR5G5LNRNT
+	 f5GpuwkOjoQ+loFmURbVBf3Rk5pSYBjQaoNadPkDVwv1UhxesTVDyhKaX7hByjvtExH/4
+	 oAdm4XSEkVEzKA9WIdjCVBx7bDId1gFFlkDU+1/NGrS4fRgHyFHdQBYqysWgD1BKYyMQI
+	 ZcvQF4ixzS3jpi/8elFbWABVRH72HJycjM7/QiB5ajczQHIrykoIa9sSkK8wUv3KbMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPPLUWd5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1160606A31C;
-	Tue, 10 Nov 2026 15:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0556606A320;
+	Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117751F008A5;
-	Tue, 10 Nov 2026 15:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPPLUWd5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252AD1F008A1;
+	Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323460;
-	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ff3FmVsDnez4qfT39XX0kcfM/DNkc0rXxt/RVnKcZqMWRUtIVUZO3sY1Y1T/jrJAa
-	 LMkcjSntcqIt/Dbq3Xerko7WDpaJXndU2wUtOuoW2+uINMqX2Jsh+NPneCeq+ZzcTc
-	 y/10hlPv9GBW10fubJHi/KnE3+svfMF9H9xnKvALCEtFQgdn75smaq1BywPaQM223f
-	 lLXjmVkwU/bhZko1W7RzSFeDujo+89KOrwp2v8SoKRveZnQxtqZcT6qfBOCpXiNOJC
-	 WtdpzOM3P3/7d3roJBdk72LHb5u6IbqeBvAteyUJlQN8Vrn4anv8df/BaYyyG/q+C2
-	 W0F51h3lnQSGA==
-Date: Tue, 10 Nov 2026 16:10:54 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avMzoKHbsuMcZpW2@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
- <avMBNUEL9_V7WnK-@devuan>
+	s=k20260515; t=1794323642;
+	bh=lhDDcg+XFL8juadnmK5nrRutOKs6R7LkB2wmeynZIlA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EPPLUWd5JT7h3t3vV/xFBpSL9MAB97x6x8A3vFz3mKyoFSPpOJq8Z2YK8aS72BU7P
+	 VAN0aXpya+XPZVLFwvHUNTSx3iaDLq+vGbNWHBFrEooRTpkiTyfyl/wHfOboiNyiE/
+	 emahqSZWmK+09JeAcQ4TLhSU84Vj/85mt/ptmQWZP+YmYNDAPxyrHJ2bVQDXktDh+h
+	 6psmQExmkrZjpkW5M8l5/Vxxat7gogo9godh4uaOYpF+E8r1/fFsvo6QWvFXt9oWXR
+	 v0TUZnXyliGoDnfRVLkSvG9+HAIZSS65G3zqIDQ7n952TjDXCmlK11nFb1rlP0UFvh
+	 lDUTzWfSi0FSw==
+Message-ID: <sashiko-outbox-207242@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 4/7] drm/imx: Add support for i.MX94 DCIF
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
+ <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 15:14:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,210 +59,392 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qpxgmtmgum7gp73j"
-Content-Disposition: inline
-In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
 
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [High] drm/imx/dcif: unclocked MMIO access when runtime PM resume
+  fails
+- [Medium] drm/imx: dcif: missing vblank reference in
+  dcif_crc_source_enable()
+- [Medium] drm/imx/dcif: unmasked interrupt status handling in
+  dcif_irq_handler()
+- [Medium] drm/imx: dcif: unchecked runtime PM resume in
+  dcif_hw_probe_init()
+- [Medium] drm/imx: dcif: unbalanced clock disable if
+  dcif_runtime_resume() fails
+- [Low] drm/imx: dcif: signed overflow in dcif_crc_source_parse() ROI
+  check
+- [Low] drm/imx/dcif: split __free() declaration in
+  dcif_crtc_query_output_bus_format()
+- [Low] drm/imx: dcif: missing fb->pitches[0] bounds check in
+  dcif_plane_atomic_check()
+--
 
---qpxgmtmgum7gp73j
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avMzoKHbsuMcZpW2@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
- <avMBNUEL9_V7WnK-@devuan>
-MIME-Version: 1.0
-In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
+commit b9251fe09a901a215b6a40b8b790485d134d37e2
+Author: Sandor Yu <sandor.yu@nxp.com>
 
-> Date: 2026-11-10 12:35:22+0100
-> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
->
-> > Date: 2026-11-10 12:10:57+0100
-> > From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-> >
-> > Hi Bart,
-> >=20
-> > > Date: 2026-11-10 10:00:42+0100
-> > > From: Bartosz Golaszewski <brgl@kernel.org>
-> > >
-> > [...]
-> > > > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> > > > > >=20
-> > > > > > Can property be statically defined somewhere? We might want to =
-also optimize
-> > > > > > these duplications with const variant (here or elsewhere, for f=
-wnode generic
-> > > > > > path, I believe).
-> > > > >=20
-> > > > > Please rephrase because I'm not quite following what you're sayin=
-g.
-> > > >=20
-> > > > Can prop->name come from something that is declared as
-> > > >=20
-> > > > static const ... foo =3D {
-> > > > 	... .name =3D "bar";
-> > > > };
-> > > >
-> > >=20
-> > > You can't know it for every instance of struct fwnode_handle, so the
-> > > answer is: no.
-> > >=20
-> > > PS: is there a way of using match_string() with non-const data?
-> >=20
-> > Given the definition here:
-> >=20
-> > 	$ grepc match_string .
-> > 	./include/linux/string.h:int match_string(const char * const *array, s=
-ize_t n, const char *string);
-> > 	./lib/string_helpers.c:int match_string(const char * const *array, siz=
-e_t n, const char *string)
-> > 	{
-> > 		int index;
-> > 		const char *item;
-> >=20
-> > 		for (index =3D 0; index < n; index++) {
-> > 			item =3D array[index];
-> > 			if (!item)
-> > 				break;
-> > 			if (!strcmp(item, string))
-> > 				return index;
-> > 		}
-> >=20
-> > 		return -EINVAL;
-> > 	}
-> >=20
-> > You should be able to call it with a cast.  It's dangerous, but
-> > technically it works.  I'm not encouraging it, though.  :)
-> >=20
-> > 	char **strings;
-> >=20
-> > 	...
-> >=20
-> > 	i =3D match_string((const char *const *) strings, n, "foo");
-> >=20
-> > This is a historic problem in C, which was solved in C++.
->=20
-> BTW, self-correction:  it is solved for char *const *, but char** is not
-> convertible to const char *const *, neither in C++ nor in future C.
+drm/imx: Add support for i.MX94 DCIF
 
-Self-correction of the self-correction: char ** will also be convertible
-to const char *const *.  I was confused during a short moment, it seems.
+This commit adds DRM/KMS driver support for the NXP i.MX94 Display Control
+Interface (DCIF), including CRTC, primary and overlay planes, and CRC
+generation.
 
-	alx@devuan:~/tmp$ cat const.c=20
-	#include <stddef.h>
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dc=
+if/dcif-crc.c
+> new file mode 100644
+> index 0000000000000..132e40d3f3d45
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+[ ... ]
+> +void dcif_crc_source_enable(struct dcif_dev *dcif, enum dcif_crc_source =
+source,
+> +			    struct drm_rect *roi, int ncrc)
+> +{
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	if (source =3D=3D DCIF_CRC_SRC_NONE)
+> +		return;
+> +
+> +	if (dcif->crc_is_enabled)
+> +		return;
+> +
+> +	dcif_crc_config(dcif, roi, ncrc);
+> +
+> +	regmap_set_bits(dcif->regmap, DCIF_CRC_CTRL,
+> +			DCIF_CRC_CTRL_CRC_MODE | DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN |
+> +			DCIF_CRC_CTRL_CRC_TRIG);
+> +
+> +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> +		dcif->crc_is_enabled =3D true;
+> +}
+> +
+> +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
+> +{
+> +	if (!dcif->crc_is_enabled)
+> +		return;
+> +
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncr=
+c));
+> +
+> +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> +		dcif->crc_is_enabled =3D false;
+> +}
 
-	int
-	main(void)
-	{
-		const char *const *ccp =3D NULL;
-		char **p;
+[Severity: Medium]
+Should dcif_crc_source_enable() and dcif_crc_source_disable() acquire and
+release a vblank reference with drm_crtc_vblank_get() and
+drm_crtc_vblank_put()?
 
-		ccp =3D p;
-	}
-	alx@devuan:~/tmp$ cat const.c | gcc -x c++ -
-	alx@devuan:~/tmp$=20
+dcif_irq_handler() only samples DCIF_CRC_VAL_R(0) and calls
+drm_crtc_add_crc_entry() when DCIF_INT0_VS_BLANK fires, and that interrupt
+is only unmasked while a vblank reference is held.  On a steady display
+without continuous page flips, the vblank disable timer will mask
+DCIF_INT0_VS_BLANK after the atomic commit that enables CRC finishes,
+causing reads from debugfs crc/data to block indefinitely.
 
+[ ... ]
 
-Cheers,
-Alex
+> +		while ((opt =3D strsep(&options, ",")) !=3D NULL) {
+> +			if (i > 3)
+> +				return -EINVAL;
+> +
+> +			ret =3D kstrtouint(opt, 10, &params[i]);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			i++;
+> +		}
+> +
+> +		if (i !=3D 4)
+> +			return -EINVAL;
+> +
+> +		roi->x1 =3D params[0];
+> +		roi->y1 =3D params[1];
+> +		roi->x2 =3D params[2];
+> +		roi->y2 =3D params[3];
+> +
+> +		if (!drm_rect_visible(roi))
+> +			return -EINVAL;
 
->=20
->=20
-> Cheers,
-> Alex
->=20
-> >  I have
-> > a proposal paper for the C Committee for solving it as in C++:
-> > <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
-> >=20
-> > This paper will be discussed (and probably voted in) in the next meeting
-> > of the committee (which happens next week), so there's a chance that
-> > this will be solved for C2y, and thus the cast will no longer be
-> > necessary.
-> >=20
-> > The history of why this is not allowed in C but is in C++ is, as far as
-> > I've been told, the following:
-> >=20
-> > Back before C and C++ were standardized, C++ invented const, with rules
-> > slightly more allowing than what they are now.  This was going to be
-> > standardized first in C89.  But very close to the release of C89, they
-> > realized about the danger of converting a const char** to a char**
-> > implicitly.  They were so close to the release, that they opted for the
-> > safest approach: disallow any non-trivial conversions.
-> >=20
-> > Later, while standardizing C++98, they realized we could allow a few
-> > more conversions safely, and so they did.
-> >=20
-> > C could have taken advantage of that, and pick C++ rules in C99 or C11,
-> > but for some reason, nobody proposed that.  I'm proposing it now.  :)
-> >=20
-> > We've already discussed this proposal informally within the committee
-> > for some a year and a half, and there seems to be consensus that we want
-> > it.  We're only being careful about the specific language.  But I think
-> > I finally got it, and it will go in next week.
-> >=20
-> >=20
-> > Have a lovely day!
-> > Alex
-> >=20
-> > >=20
-> > > Bart
-> > >=20
-> >=20
-> > --=20
-> > <https://www.alejandro-colomar.es>
->=20
->=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
+[Severity: Low]
+Can unsigned values in params[] wrap to negative ints in struct drm_rect
+and bypass the ROI bounds checks?
 
+For example, "roi:10,0,2147483648,10" sets roi->x1 =3D 10 and
+roi->x2 =3D INT_MIN, which wraps in drm_rect_visible() to a positive width
+and then passes dcif_crtc_check_crc_roi() because roi->x1 >=3D 0 and
+roi->x2 <=3D m->hdisplay, programming truncated 12-bit coordinates into
+DCIF_CRC_POS_R and DCIF_CRC_SIZE_R.
 
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
+cif/dcif-crtc.c
+> new file mode 100644
+> index 0000000000000..d5285105fa4df
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+[ ... ]
+> +static int dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
+> +					     struct drm_crtc_state *crtc_state)
+> +{
+> +	struct dcif_crtc_state *dcif_state =3D to_dcif_crtc_state(crtc_state);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D NULL;
+> +	struct drm_bridge_state *bridge_state;
+> +	u32 bus_format;
+> +
+> +	dcif_state->bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
+> +	dcif_state->bus_flags =3D 0;
+> +
+> +	bridge =3D dcif_crtc_get_bridge(crtc, crtc_state);
+
+[Severity: Low]
+This isn't a bug, but per Cleanup API conventions, bridge should be defined
+and initialized in a single statement rather than declared with
+__free(drm_bridge_put) =3D NULL at the top of the function and assigned
+later.
+
+[ ... ]
+
+> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct drm_display_mode *adj =3D &crtc_state->adjusted_mode;
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +	int ret;
+> +
+> +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
+> +
+> +	/* enable power when we start to set mode for CRTC */
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
+> +		return;
+> +	}
+> +	dcif->crtc_pm_enabled =3D true;
+[ ... ]
+> +}
+> +
+> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +
+> +	if (dcif->has_crc && dcif_crtc_state->crc.source !=3D DCIF_CRC_SRC_NONE)
+> +		dcif_crc_source_disable(dcif, 0);
+> +
+> +	dcif_disable_controller(dcif);
+> +	dcif_disable_plane_panic(dcif);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +
+> +	if (dcif->crtc_pm_enabled) {
+> +		dcif->crtc_pm_enabled =3D false;
+> +		pm_runtime_put_sync(drm->dev);
+> +	}
+
+[Severity: High]
+If pm_runtime_resume_and_get() fails in dcif_crtc_atomic_enable(), won't
+subsequent callbacks still access DCIF MMIO registers while the clocks and
+power domain are off?
+
+After dcif_crtc_atomic_enable() returns early with dcif->crtc_pm_enabled
+set to false, drm_atomic_helper_commit_tail_rpm() still runs
+drm_atomic_helper_commit_planes() because crtc_state->active is true,
+invoking dcif_plane_atomic_update() and dcif_crtc_atomic_flush() without
+checking dcif->crtc_pm_enabled.  Later, dcif_crtc_atomic_disable() also
+calls dcif_crc_source_disable(), dcif_disable_controller(), and
+dcif_disable_plane_panic() before checking dcif->crtc_pm_enabled, causing
+unclocked MMIO accesses and an external abort on ARM64.
+
+[ ... ]
+
+> +irqreturn_t dcif_irq_handler(int irq, void *data)
+> +{
+> +	struct drm_device *drm =3D data;
+> +	struct dcif_dev *dcif =3D to_dcif_dev(drm);
+> +	int domain =3D dcif->cpu_domain;
+> +	u32 stat0, stat1, crc;
+> +
+> +	regmap_read(dcif->regmap, DCIF_IS0(domain), &stat0);
+> +	regmap_read(dcif->regmap, DCIF_IS1(domain), &stat1);
+> +	regmap_write(dcif->regmap, DCIF_IS0(domain), stat0);
+> +	regmap_write(dcif->regmap, DCIF_IS1(domain), stat1);
+> +
+> +	if (stat0 & DCIF_INT0_VS_BLANK) {
+> +		drm_crtc_handle_vblank(&dcif->crtc);
+> +
+> +		scoped_guard(spinlock_irqsave, &drm->event_lock) {
+> +			if (dcif->crc_is_enabled) {
+> +				regmap_read(dcif->regmap, DCIF_CRC_VAL_R(0), &crc);
+> +				drm_crtc_add_crc_entry(&dcif->crtc, false, 0, &crc);
+> +				dev_dbg(drm->dev, "crc=3D0x%x\n",  crc);
+> +			}
+> +		}
+> +	}
+> +
+> +	if (stat1 & (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1)) {
+> +		u32 panic =3D stat1 & (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1);
+> +
+> +		dev_dbg_ratelimited(drm->dev, "FIFO panic on %s\n",
+> +				    panic =3D=3D (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1) ?
+> +				    "layers 0 & 1" : panic =3D=3D DCIF_INT1_FIFO_PANIC0 ? "layer 0" :
+> +				    "layer 1");
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: Medium]
+Should dcif_irq_handler() mask stat0 and stat1 with DCIF_IE0(domain) and
+DCIF_IE1(domain), and return IRQ_NONE when no enabled interrupt is
+pending?
+
+DCIF_IS0(domain) latches DCIF_INT0_VS_BLANK on every vertical blank even
+when it is masked in DCIF_IE0(domain), which is why
+dcif_crtc_enable_vblank() clears DCIF_IS0(domain) before enabling it.
+Because FIFO panic interrupts remain enabled in DCIF_IE1(domain) whenever
+the CRTC is active, a FIFO panic interrupt firing mid-frame while vblanks
+are disabled will see the latched DCIF_INT0_VS_BLANK bit in stat0 and
+spuriously call drm_crtc_handle_vblank() and drm_crtc_add_crc_entry().
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dc=
+if/dcif-drv.c
+> new file mode 100644
+> index 0000000000000..3b1b9dbf0c6b0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+[ ... ]
+> +static void dcif_hw_probe_init(struct dcif_dev *dcif)
+> +{
+> +	struct drm_device *drm =3D &dcif->drm;
+> +	u32 val, vmin, vmaj;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF: %d\n", ret);
+> +		return;
+> +	}
+[ ... ]
+> +static int dcif_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	dcif_hw_probe_init(dcif);
+> +
+> +	ret =3D dcif_kms_prepare(dcif);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_request_irq(drm->dev, dcif->irq[dcif->cpu_domain],
+> +			       dcif_irq_handler, 0, drm->driver->name, drm);
+
+[Severity: Medium]
+Should dcif_hw_probe_init() return an error code so dcif_probe() can abort
+when pm_runtime_resume_and_get() fails?
+
+If runtime resume fails here, dcif_hw_probe_init() returns early without
+reading DCIF_VER, masking bootloader interrupts, or stopping the
+controller, and dcif_probe() continues on to request the IRQ and register
+the DRM device with uninitialized hardware state.  Also, calling
+dcif_hw_probe_init() before dcif_kms_prepare() powers on and disables the
+hardware before devm_drm_of_get_bridge() checks for probe deferral and
+before dcif_kms_link_suppliers() sets up the supplier device links.
+
+[ ... ]
+
+> +static int dcif_suspend(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D drm_mode_config_helper_suspend(&dcif->drm);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pm_runtime_suspended(dev))
+> +		return 0;
+> +
+> +	return dcif_runtime_suspend(dev);
+> +}
+> +
+> +static int dcif_resume(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (!pm_runtime_suspended(dev)) {
+> +		ret =3D dcif_runtime_resume(dev);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return drm_mode_config_helper_resume(&dcif->drm);
+> +}
+
+[Severity: Medium]
+If dcif_runtime_resume() fails in dcif_resume(), won't the runtime PM core
+call dcif_runtime_suspend() a second time on already disabled clocks?
+
+When the CRTC is active before system suspend, device_prepare() increments
+the runtime PM usage count so drm_mode_config_helper_suspend() ->
+pm_runtime_put_sync() leaves the device RPM_ACTIVE, and dcif_suspend()
+then calls dcif_runtime_suspend() directly without updating the runtime PM
+status.  If dcif_runtime_resume() fails during system resume, the clocks
+remain disabled while runtime_status is still RPM_ACTIVE, so
+device_complete() -> pm_runtime_put() will invoke dcif_runtime_suspend() ->
+clk_bulk_disable_unprepare() again.  Using pm_runtime_force_suspend() and
+pm_runtime_force_resume() would keep the runtime PM state in sync with the
+clocks.
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-plane.c b/drivers/gpu/drm/imx/=
+dcif/dcif-plane.c
+> new file mode 100644
+> index 0000000000000..9f54f1b2d8d17
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-plane.c
+[ ... ]
+> +static int dcif_plane_atomic_check(struct drm_plane *plane, struct drm_a=
+tomic_commit *state)
+> +{
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_st=
+ate(state, plane);
+> +	struct dcif_dev *dcif =3D plane_to_dcif_dev(plane);
+> +	struct drm_framebuffer *fb =3D new_plane_state->fb;
+> +	struct drm_crtc_state *crtc_state;
+> +	int ret;
+> +
+> +	if (!fb)
+> +		return 0;
+[ ... ]
+> +	if (new_plane_state->fb->format->has_alpha &&
+> +	    new_plane_state->pixel_blend_mode =3D=3D DRM_MODE_BLEND_COVERAGE &&
+> +	    new_plane_state->alpha !=3D DRM_BLEND_ALPHA_OPAQUE)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+Should dcif_plane_atomic_check() reject framebuffers with
+fb->pitches[0] > 0xffff?
+
+DCIF_CTRLDESC3_PITCH() is a 16-bit field (GENMASK(15, 0)), so a
+framebuffer stride >=3D 65536 bytes is silently truncated in
+dcif_plane_atomic_update(), corrupting scanout.
 
 --=20
-<https://www.alejandro-colomar.es>
-
---qpxgmtmgum7gp73j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzM/0ACgkQ64mZXMKQ
-wqm5Vg/9FMzxE1DzVEdsHiBQi+kE7cGOI4ma9sgDJoEjK6z5pi5vl41VIbj9mKII
-2gyshPP75e70Ee00CxPc7F1OEuG0DLkf7Rz9MfydiUWxowxGnZZmvwGjgknk3uZY
-TEq+UcZ4eJneqVtMT2O74AtskE0VxyxIrr0fBn/vn/3wxMd3atylcFUuZqSW1jiQ
-vUAiMxz6JNIKvtIvaK6FPdMJqP60PxQ5gtIXQtvFlnRx6y8cB2Qoq/wsPdo7RBqf
-kmx/lVrbl7Z+i7d3pjq7DkIMdpEYzozg3i0PrGJb3+XmXS4OnNN7GRQUHFZvGEXg
-We8350HB3xTkLK3uJTkJ2OO0Yx1Rvuc1x3qIoGlBhhmJirYwjO4smRXKIABqNjEM
-tZY+QdsyOgfIiAD+2HGpqyxSSznYC8nOZ8+XlhGVxwEdDeLjJzA3cBuGVQZVzwo2
-TXhd/ONWz3/s8yv63CnJINvJliYYJSedAf96xADYYUo+gJx7Nk93eepRxQDWIMI8
-jXvCFC4Q9bNXrS5t4lDPGzyiK35y//hBaz1r56nVjRPIiAaUnd5uKDAbY4elhUjM
-0GGBVUuPq/ucJ73OfL3fY/oWl8s5aF3AyyGJQRp6PVp8zEzpBIX/6mX2b4MIz2mv
-+f+RIixqGWjFtWrhHpUqAN0MEqtmid9TfhEokNAKeWhIAhcZPfM=
-=i4c8
------END PGP SIGNATURE-----
-
---qpxgmtmgum7gp73j--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-dcif-upstr=
+eaming-v11-0-9e13c85ae0d8@oss.nxp.com?part=3D4
