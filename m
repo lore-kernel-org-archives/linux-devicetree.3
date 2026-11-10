@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318558;
-	b=bYLKBxGwxhzG5zUszAM1GHF86ia3jHbrBEQ3Lk2f9/CIzH9zir2QJlNL2UVYBMwHKfsQ
-	 0yHoBllNM9FtR5EUTTBZvIhGVJ/FfxNMdsacgLabsroL4QvSJgUySlfni+ylCE/XwA5IN
-	 LBhFMvvMDamtgvhhbhCVML1/0rYKPghro5DY2gpVn4UVLEW/XALMvOi4/I9nMhPR0CX+y
-	 RAbZgSbfKTIY4LtzEsOZHpUCtsugFf6agOCwWIv6bt9s9irLACn8Q4WxyjVqdXhcKKABl
-	 K/E0361AFxE3CcoubD6cWBUJfj3HrJ9n0OWXtc99V51yIcwQsEjS+jaU4habkfsaJBA==
+	t=1794318643;
+	b=j/8/0J+odkZDU2TH35Hn7RvGrTy5To4Z3qVK2cunCM7aOUPRAzRugyAwiNvL3h71pytF
+	 yqYkjCzCkhlmPnH6QpXUGKpMJr/l58VhQmMo1a16QCF8Jo/aS9yXgUhqOqR3B81wQg01Q
+	 GS4ScmIdGoCNvrasnDkDSTp7i+D8lQoHfBHCpL6ofSOQXM2mgKHUM045p+4V7vl4wcFAv
+	 SGPgernuHrw3EJ8x/+5t7WoNDulI7lC0Z0JiUU7pOHyeWtgiP9FQ2zM1G4eEKtDsWSCD4
+	 RhjyqDl8C0G91yfc8E4Abs7q8Yb/LodunDmf7Urx00MhjSGLkOtPPYDI2LA5kIEVp1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318558;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:From:To:
-	 Subject:X-Mailer:References:In-Reply-To;
-	bh=WucAi45P7LFqiSe90dwgZKi3069Pbv0dkw7tkGVFfhg=;
-	b=lCBs8jSpdZ0tA0+xxBClkBYsxvgojHdCZZ1ADqiw4VFMno+0ua4KJoqVCLW0grxZQu7f
-	 jX3Pn/qbRfSCiFSj+NfpszI2EtwGX4Fx++6mxB8LE+DzpTTl4u7k3dOrYcQ6+W0HykiBU
-	 9gLvLNb57zka2bEI9WQDFc9QOQTFj9HuoxhfYnlYHBYt0cF19z26Rk0pFSU/5sneA73tl
-	 fWLCLVB0zmk0P+PdtJomIld+Alytpa7og7JQs1ZXrld1JNHTJjXQQA8dmLP1hF9Zf4nTR
-	 7m7zTT+0k8lPwb7hQVtMDwoobndz4pAoF3UAQLgqUCXkftmdNFuwaoK2pci3AUNyE6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318643;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
+	b=5th1HBBC2s3/eSHcCCFP0WZ6Wi2QVMO3JfKB5jk5mMIlrK7ofZ4RFb5nv8hEL/mH2Rtg
+	 Nwrtr2YpLk9HTHhIaetVNK5x33PV48iX7py1StBfGV7JnL47xW8INsYlVLr40f0KYnxsW
+	 syv9+xZ1FvuVHKDOUrpcSYAZLOhJ7kinX8eG4SdtE3K7A9wZfTfvdIIC31r9qHDOKMKDb
+	 7uA/42i0BWmwod3agRaSwUc/byFQe0UjpMpmXH+RXpcpEYf4Yol/MT+q8ZpcIqHxvhe7F
+	 6wp/bha5Hw+yCC/VDLRwkGua0a6QRZWHNkxH0Xc+9VjXod6UYDE0xO3c4sK2YobhNYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MmP7E7uD;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF816606A32E;
-	Tue, 10 Nov 2026 13:49:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF816606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CC606A321;
+	Tue, 10 Nov 2026 13:50:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MmP7E7uD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794318558; x=1825854558;
-  h=mime-version:content-transfer-encoding:date:message-id:
-   cc:from:to:subject:references:in-reply-to;
-  bh=4jDqGAE3KXmzi8NszJwL8KHelw3BtEwY4FX/0+qVaEE=;
-  b=MmP7E7uDBDQChjWI88OuF4huu/XeibAfLssw0WAEOW960xaEJlgMmQyU
-   1x8gUHXCi5Nyj0D8ri+G9mtfid9zGZ1K2e1UvNVkG2Fb5Xn9Dl3SjQW82
-   r6mnnDPf7HOSIhmcgnSAg+QeS+dbgji+tb+fYNFiisbRasLJ67yTkAx3J
-   yHYoTyfZEk0PI0UPehS2a95wyjBCfIwvVi40D94JTz7I24l7RtUmsw7b9
-   6dr0tlRYztY7xMp1MU7ds8ALizmzQPOFgAzZU66deG/UqzssK5n7+04pK
-   BGscDPWanGxISRXxnyjEGHHcdIQFWJEsOy1fuv0mn1CHRvRfAjMf4pAea
-   g==;
-X-CSE-ConnectionGUID: Nm8SpLRoQCKu6bAsD/8N9Q==
-X-CSE-MsgGUID: f8n1udbwQq+uOA+ZYLEFBg==
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="66290142"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:49:17 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Tue, 10 Nov 2026 06:49:16 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Tue, 10 Nov 2026 06:49:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B797F1F0089F;
+	Tue, 10 Nov 2026 13:50:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794318643;
+	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ARQaY0hkEu2mlYmzoDeCsETqRL70Rruf/IlDQMb8CRngH3xEQjbeKz+rJn/0MWFwx
+	 GnFk/07ysVGmgEmqyg3PntGLWDCFLnLCxGGE38F9vwSzToqlUNaapzJfSHDW1sRn5p
+	 12NYEd7Wno45uL6UBj91BsWCKVtD/CUiuNRAj2ObH943zdagznikm/PUpTmf0KSaEe
+	 20sUGuB0L0BzmpA0KRDHyo9v1Ujg4WrPmuvcNSXzv+Oef3wgcp2PMindf9iQ9tZTKx
+	 /WkBEJev9r8B3auYA1WRvdODvWQdIr5Jz39XqTOvyRsI/IiHRBqiGOSTGlgBa2aQqk
+	 HSJK14RYiPGcw==
+Date: Tue, 10 Nov 2026 13:50:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Hyun-Uk Son <hyunuk.son@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Ki-Seok Jo <kiseok.jo@irondevice.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
+Message-ID: <40646ae6-f6be-4408-aefe-521fb0ea9bee@sirena.org.uk>
+References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
+ <20261027093232.859755-3-hyunuk.son@irondevice.com>
+ <179318672062.199157.7461931531075403104.b4-review@b4>
+ <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,262 +67,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wBWp4atyzpScsPlD"
+Content-Disposition: inline
+In-Reply-To: <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
+X-Cookie: You can't take damsel here now.
+
+
+--wBWp4atyzpScsPlD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 10 Nov 2026 14:49:14 +0100
-Message-ID: <DMRKUCAN92TO.3J516XODSPDH3@microchip.com>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <horms@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-To: Paolo Abeni <pabeni@redhat.com>, <jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa
- driver for LAN9645X
-X-Mailer: aerc 0.21.0
-References: <20261103-dsa_lan9645x_switch_driver_base-v16-4-781c96d735cf@microchip.com> <20261110112822.235243-1-pabeni@redhat.com>
-In-Reply-To: <20261110112822.235243-1-pabeni@redhat.com>
 
-On Tue Nov 10, 2026 at 12:28 PM CET, Paolo Abeni wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
-> ---
-> --- Patch [4]: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa=
- driver for LAN9645X ---
-> commit 2bc50b43f8638df7f8c7d09bfad9a789fecdd370
-> Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
-chip.com>
->
-> net: dsa: lan9645x: add basic dsa driver for LAN9645X
->
-> This adds a basic DSA driver for the LAN9645x switch. It covers switch
-> init, named regmap requests from a parent device, NPI, CPU and front
-> port setup, and phylink MAC configuration. Only the internal CuPHYs on
-> ports 0-4 and RGMII on ports 7-8 are wired up, and the parent MFD
-> driver that provides the regmaps is left for a later series.
->
->> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_main.c
->> new file mode 100644
->> index 0000000000000..f91e825343353
->> --- /dev/null
->> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
->> @@ -0,0 +1,453 @@
->
-> [ ... ]
->
->> +static int lan9645x_tag_npi_setup(struct dsa_switch *ds)
->> +{
->> +	struct dsa_port *dp, *first_cpu_dp =3D NULL;
->> +	struct lan9645x *lan9645x =3D ds->priv;
->> +	struct phylink_config c =3D {};
->> +
->> +	dsa_switch_for_each_user_port(dp, ds) {
->> +		if (dp->cpu_dp->ds !=3D ds) {
->> +			dev_err(ds->dev,
->> +				"NPI port on a remote switch is not supported\n");
->> +			return -EINVAL;
->> +		}
->> +
->> +		if (first_cpu_dp && dp->cpu_dp !=3D first_cpu_dp) {
->> +			dev_err(ds->dev, "Multiple NPI ports not supported\n");
->> +			return -EINVAL;
->> +		}
->
-> [Severity: Medium]
-> [Finding: main-1-1]
-> [Sources: opus-5-5]
-> Can the "Multiple NPI ports not supported" branch in
-> lan9645x_tag_npi_setup() ever be taken?
->
-> dsa_tree_setup_cpu_ports() runs before .setup. This driver has no
-> preferred_default_local_cpu_port(), so that function gives every local
-> user port the first local CPU port:
->
-> net/dsa/dsa.c:dsa_tree_setup_cpu_ports() {
->     ...
-> 		dsa_switch_for_each_port(dp, cpu_dp->ds) {
-> 			/* Prefer the first local CPU port found */
-> 			if (dp->cpu_dp)
-> 				continue;
->
-> 			if (dsa_port_is_user(dp) || dsa_port_is_dsa(dp))
-> 				dp->cpu_dp =3D cpu_dp;
-> 		}
->     ...
-> }
->
-> That makes dp->cpu_dp !=3D first_cpu_dp unreachable. A second CPU port in
-> DT is accepted without any message, and only the first CPU port goes
-> through the phy_interface_empty() check.
->
-> If the second CPU port is port 5 or 6, probe would then fail later in
-> phylink_create(), and the driver's "Port %d has no usable interface
-> mode" message would not be printed. The commit message says:
->
->   "Declared as a CPU port there is no such fallback, and the probe
->   fails, and our driver logs an error including the port number."
->
-> If the second CPU port is port 7 or 8, DSA sets it up as a CPU port and
-> attaches its conduit, but lan9645x_npi_port_init() is never called for
-> it.
->
-> Would it work better to count ports with dsa_switch_for_each_cpu_port()
-> and reject anything above one?
->
+On Tue, Nov 10, 2026 at 08:41:57AM +0000, Hyun-Uk Son wrote:
 
-Correct, the check cannot trigger here.
+> > > +	ma5311->adc4_pga_left =3D 0x10;
+> > > +	ma5311->adc4_pga_right =3D 0x10;
 
-This driver has no tagging protocol change and no port_change_conduit,
-so at setup every user port has the first local CPU port, and a second
-CPU port in DT is accepted silently.
+> > Like I said on v1 we usually leave the device with the hardware defaults
+> > to avoid having to decide on a specific use case in the kernel -
+> > presumably the defaults in the hardware were chosen for a reason.
 
-The next version counts the local CPU ports with
-dsa_switch_for_each_cpu_port() and rejects anything but exactly one.
+> I added a register initialization function because the factory-default
+> register settings are not suitable for practical use.
 
->> +
->> +		first_cpu_dp =3D dp->cpu_dp;
->> +	}
->
-> [ ... ]
->
->> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
->> +{
->> +	u32 val =3D 0;
->> +	int err;
->> +
->> +	/* The parent must reset the whole chip before instantiating its
->> +	 * children, so the switch core is disabled when we get here. The
->> +	 * sequence below must not run more than once: initializing the
->> +	 * memories on a running core corrupts pointers inside the queue
->> +	 * system, which eventually fills up and stops passing traffic. If the
->> +	 * core is already enabled the chip was not reset, so skip it.
->> +	 */
->> +	if (SYS_RESET_CFG_CORE_ENA_GET(lan_rd(lan9645x, SYS_RESET_CFG)))
->> +		return 0;
->
-> [Severity: Medium]
-> [Finding: fable-5-1-7-9]
-> [Sources: fable-5-1, opus-5-5]
-> What happens here if the register read fails? lan_rd() discards the
-> regmap_read() error and returns 0:
->
-> drivers/net/dsa/microchip/lan9645x/lan9645x_main.h:lan_rd() {
-> 	u32 addr, val =3D 0;
->     ...
-> 	WARN_ON_ONCE(regmap_read(lan_tgt2rmap(lan9645x, t, tinst), addr, &val));
->
-> 	return val;
-> }
->
-> If the read over the parent regmap fails (the intended parent is an SPI
-> bridge like ocelot-spi), the result looks the same as CORE_ENA =3D=3D 0. =
-The
-> RAM_INIT sequence would then run on a core that may already be enabled,
-> which the comment above says corrupts the queue system.
->
-> lan9645x_set_feat_dis() uses the same pattern:
->
-> 	feat_dis =3D lan_rd(lan9645x, GCB_FEAT_DISABLE);
->
-> A failed read there gives num_port_dis =3D 0, so the SKU port count check
-> in lan9645x_setup() is skipped without any error.
->
-> Should these two reads check the regmap_read() return value and fail
-> the probe?
->
+They rarely are, but they tend to be safe and what is suitable for
+practical use will vary depending on the system.  A gain that makes
+sense for a line output will be unsuitable for headphones, and vice
+versa.  There are a few things, like zero cross for example, which are
+pretty much universally sensible and we do change those but for things
+that are likely to vary with use case we just go with what's in the
+hardware since that gives us consistency without us making decisions
+that might favour some users over others.
 
-Dismissed, intentional.
+> static int ma5311_rx_tdm_slot_put(struct snd_kcontrol *kcontrol,
+> 				  struct snd_ctl_elem_value *ucontrol)
+> {
 
-SPI itself has no ack or checksum, so an unresponsive device or a broken
-bus can complete the transfer successfully with all zeros or all ones,
-and checking the return value of these reads would not catch it.
+=2E..
 
-The parent verifies the register interface when it initializes it, by
-reading back the interface configuration, so a device that does not
-respond fails the parent probe before the switch is instantiated.
+> Also, this control is essential because it allows the speaker output=20
+> channels to be dynamically assigned to different playback channels=20
+> during PCM playback.=20
 
-What remains is a transfer error reported by the SPI controller itself,
-a host side failure, which lan_rd() reports with WARN_ON_ONCE().
+This would be better represented with DAPM routes directing playback
+=66rom the audio interface rather than a custom control.
 
->> +
->> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
->> +	lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
->
-> [ ... ]
->
->> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
->> +	 * use the same masks. Control frames are redirected to CPU, and
->> +	 * the network stack is responsible for forwarding these.
->> +	 * The dataplane is forwarding according to the offloaded MDB entries.
->> +	 */
->> +	lan_wr(ANA_FLOODING_IPMC_FLD_MC4_DATA_SET(PGID_MCIPV4) |
->> +	       ANA_FLOODING_IPMC_FLD_MC4_CTRL_SET(PGID_MC) |
->> +	       ANA_FLOODING_IPMC_FLD_MC6_DATA_SET(PGID_MCIPV6) |
->> +	       ANA_FLOODING_IPMC_FLD_MC6_CTRL_SET(PGID_MC),
->> +	       lan9645x, ANA_FLOODING_IPMC);
->
-> [Severity: Low]
-> [Finding: fable-5-1-2-5]
-> [Sources: fable-5-1]
-> This isn't a bug, but this comment in lan9645x_setup() doesn't seem to
-> match what the patch does.
->
-> lan9645x_switch_ops has no .port_mdb_add or .port_mdb_del. Nothing in
-> this patch redirects IGMP/MLD control frames to the CPU either.
->
-> The comment also says "Control and dataplane use the same masks", but
-> control uses PGID_MC and data uses PGID_MCIPV4 and PGID_MCIPV6. These
-> are three separate PGIDs. They only end up with the same value because
-> of later writes in lan9645x_setup().
->
-> Is this comment left over from the bridge and MDB patches that were
-> dropped in v16?
->
-> [ ... ]
->
->> +static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
->> +{
->> +	const char *resource_name;
->> +	struct regmap *tgt_map;
->> +
->> +	for (int i =3D 0; i < NUM_TARGETS; i++) {
->> +		resource_name =3D lan9645x_resource_names[i];
->> +		if (!resource_name)
->> +			continue;
->> +
->> +		tgt_map =3D dev_get_regmap(lan9645x->dev->parent, resource_name);
->> +		if (IS_ERR_OR_NULL(tgt_map)) {
->> +			dev_err(lan9645x->dev, "Failed to get regmap=3D%s\n",
->> +				resource_name);
->> +			return -ENODEV;
->> +		}
->
-> [Severity: Low]
-> [Finding: fable-5-1-1-2]
-> [Sources: fable-5-1, opus-5-5]
-> This isn't a functional bug, but can this driver probe on any in-tree
-> configuration?
->
-> lan9645x_request_target_regmaps() needs 17 named regmaps from
-> dev->parent, and lan9645x_reset_switch() relies on the parent having
-> reset the chip. Nothing under drivers/mfd/ registers these regmaps or
-> creates a child with the "microchip,lan96455s-switch" compatible.
->
-> The commit message says:
->
->   "The MFD driver will come in a later series"
->
-> Until that series lands, this driver and the tagger it selects can be
-> built but never bound. Would it make sense to merge this together with
-> the parent driver?
->
-> [ ... ]
+> > > +static int ma5311_reset_control_put(struct snd_kcontrol *kcontrol,
+> > > +				    struct snd_ctl_elem_value *ucontrol) {
+> >=20
+> > > +	ret =3D ma5311_reset(component);
 
+> > This might break the machine driver if it's relying on setting the DAI =
+up
+> > during probe()...
+
+> With internal verification, I figured out that synchronizing
+> private data to reset hardware register setting is enough,
+> because The driver does not rely on probe() for any essential=20
+> configuration and dai_ops callback functions always set
+> the essential settings including PLL, TDM slot, etc..
+
+The issue is that machine drivers often only reconfigure things during
+probe() (including the generic ones) so the dai_ops might not get called
+again after a reset.
+
+> On our target platform, the required DAI settings,=20
+> including PLL and TDM slot  configuration, are reapplied=20
+> when the PCM streams are reconfigured after a reset.
+
+Sure, it'll work for some systems but not in general.
+
+> > > +	default:
+> > > +		dev_err(component->dev, "%s: unsupported PCM format: %d\n",
+> > > +			__func__, params_format(params));
+> > > +		return -EINVAL;
+> > > +	}
+
+> > Don't we need to configure anything in the hardware for clock provider
+> > mode here?
+
+> Since the frame size is already calculated in ma5311_dai_set_tdm_slot(),
+> I don't think we need to configure the clock provider mode here.
+
+You shouldn't rely on set_tdm_slot() having been called, generally
+things should work by default.  Usually the result is the equivalent of
+a set_tdm_slot() based on the hw_params channels and widths.
+
+> Lastly, do I need to address all feedback from the Sashiko bot, or are on=
+ly=20
+> the "High Priority" and "Medium Priority" comments mandatory, with the=20
+> remaining comments serving as recommendations?
+
+If it's pointing out something valid/useful then of course update for
+that but there's no requirement to update for everything.  Your other
+suggestions look OK from reviewing them here, though I might spot
+something in context - in general it's a lot easier to just send the new
+version, especially if it's just implementing the requested changes.
+
+--wBWp4atyzpScsPlD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzIS0ACgkQJNaLcl1U
+h9Da1wf/bgkQCHFqKUYSzIoHpxGeMZXf+w8h+CHd5ZTxYCvfLl9ySXYFUDHgakxz
+nI4Wn1QFxeyaj/XuNMqnnSzZxFDaFDj4mNTwvOxLf1atQecJb3mZCGPqnNoC423W
+a/uUhWOUQq2z1/5qVNLyiQQ8BvWWn00cc96zst3cTQXPeJwry2CWpq5J8OTD50KM
+OZXR6g4AAeEJTqJIp4uFBqMPLQy8p3NaeJhe3toXjyB+3cDNjVKodkwjXdK0qCN/
+u3C6p04IUf+czG2/QMoexte6gjH6qyXdyLca2W9PdaVp/XVw5i+V6KBMzJaPnuVx
+z/g8aGOV9fwTq+Q5fXGK1e5L7Fonbw==
+=q/0p
+-----END PGP SIGNATURE-----
+
+--wBWp4atyzpScsPlD--
