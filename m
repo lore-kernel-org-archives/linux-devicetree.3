@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354981;
-	b=40H3nbfTPnEiSEphYr00I2513lCegNOCfF7BFq8gbPBEt3/qF3qNrCeWzAdGgdrA+jGR
-	 Yh6rhn1rPvPbLWGtY/9SYH8ye5I8II9FHzVMA4C2o4YTrcWf6tFOKGze9dRGv3VhXVePN
-	 fPOYHX7UAsJMg5mAFQF/9y7FvxPeTO296JrNsjYL21MaYCfxhkCfxDMZsDvZYfp5szwBY
-	 nKZ/ak2Apl5bURyvvjm+GFZrVzp4HISkqmjzHCGiyNFx+9GKnJHNBLgTJP/1FbdaxdWro
-	 2+VD447rS87rN37QbINNf4LZq6KwVDfEzzPC3lycZZXugY0/FSO28clfzO7SVxGxP5w==
+	t=1794355145;
+	b=zRrB+ZXsNpoe7iS/dEZoyiM97i48/gqOZKIMEijsTWmI98itFcqLQKnZPVq/5NzjpcbT
+	 3qJyuhzbv1avC/HMxuzR24FBujt8JiunVEU62OVuWGuJGDSH9lUDSfswGG8gyX4ygJ3rs
+	 q6hNiN4AlNP9wFP9EOvz7FyFczAxyfRRNbwGg6ogAH8UqzQwKKE+S8PYwLCxttdSc34bw
+	 ib7h2MRCv98AX7Dz5lirwV3Mks8xEYnFn1jIAyex//pJfL/pTJOld+ypln7Gdj+Wh0x42
+	 rR9ta2OpCTzXsp4HfdleYqW4IoQjKnL+daWTZ/Z15ohWwxhZlNCshopHeNb9165kg6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354981;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TbgkfmRSlQR0RSZaLLsWqAT5L9ZTG2kkyMrzBfuV6Vk=;
-	b=ppYc20/9nbFodxMBHHYuSsqDHohGNgpqHzmKgGhElRfjinLuKzVx1TKxv1DIlwQk8cfc
-	 VwmARdpvIMk/ZuT7sLgeaZ1kCQscZ4a9a4vlcGMjTMjtP4v/nrZtWjgZ0/AnQGTsKTnPy
-	 DWtRmBxDovyrEx9G3c3KWw8/vRce9BPW3qULDckL2lN22KxMVdlau6MgSCNcFYaRTHXVS
-	 sW4ryle6ccCjtZQUDLxQGLJiZ/qiYzmkRwErObBCI/vVAlXQRq9gkP7pw4BKHBKFPAV7+
-	 l3l+SgZAoMXsHdWQAZqgq2z+XIvBOxG/wpLpQEr7hBQGNIPjqaEM6PEzp8p3Elx3Dng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794355145;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gTjQQ0hv6nEnHTZSzSTYgIUZrrKlVjfKW7eaOQ1C+N4=;
+	b=p/mT6zfO6FI5BL9hhjq856CGAtnU+NXvqz//oqHoB4HGhk695GTnvbraxxZ7pIr8xOes
+	 IgxMci50hnJaCPIws7aEW/dEdRbMi3NJsDueO25ANAMAEPVHSp2ASYiDQCh2cC+TK6p3v
+	 /GcHlFbtXd2rIK+KVKGpUK263LXmAz2uqixFndvpmIfI+uftyx/torLry9O2eGaGV2lsE
+	 ZAeMaFKC69lqdHyDGn/k7zJj7HADOHPd+7jfq0IW4dJXNh3PCTU7OvS0HTmTrWv/5UAzN
+	 rLRym34nVh7NlMb0KIPbAqH+uKcVIgV2iSDsl+r0er13cUNPmAKFQAWtjTq74TBwkxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=andrewgigena.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R2E9AEZm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FF5606A320
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FF5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-677d35fd1d2so3166774d50.1
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 15:56:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794354980; x=1794959780;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TbgkfmRSlQR0RSZaLLsWqAT5L9ZTG2kkyMrzBfuV6Vk=;
-        b=NYyjJQXj8waIU4t/nImFD0tcptzSeiJDANp8KnwQ1NfKBvTkUc8spbV+OzKNXn+zsI
-         aDR+YzdfhAnY+I4tCzcGNymG9kbQBsQoVZMZnlhQBgCekLuJIxE07+FPlHAlPWTdYHGU
-         FOJwVZkDUyuPxhaMRR/9NBRH+ImHqCEf1lYWTrsCdrGKZG6IlSdD0HMQ9XbUyF1ejNtK
-         VjAjA+8FskX+Irvx3eSlq/8ODshT9Q1nxAa7kfsh3TpR3BktRyrmsqYjU6Zen3UB3To7
-         UW3LJeZxS50WOZDRnkXvQNLyqUkkG97MyJneMidsE8+lImpGw2ok+lKLSgj6oDa+llh/
-         /ZpA==
-X-Forwarded-Encrypted: i=1; AL+hErFKi8uJReuR0CAynJ3RSmJ4Ll/y8jClJL+FgV67Y7Z66dqHPNlnFhpDoKVzz460+YouYbMGqiXEDcMN@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b1nVOZWWv07ajtfvnhCdSeKWUl81TbpLr2IsySTlLxLyANZAy
-	3go34Iw66rQU5pTaT2Fwxb+TobYE3t2izDw3R521Xu6/Pw1YxcJMZXv2
-X-Gm-Gg: AYBFou2Fob62pwuUtyurz2aKyjs+dg7jDF9dTMrlcsqw0VWiOORsOZM0H0b3lwA6GSe
-	SrwInwRA8ETvbFQplFRZzX9eyoFnKfuim3Jt8q/EVIaPM/75oufVYw8NR7KhdKBeJZR5oq4fHES
-	D1fhbux9krLRF/wmzyO/3Nuh1/3utG+LEx0YemtvQzqjccnI/o+3Sc14zK4DO0fgskUIh8jcPg2
-	M1lnufQPKhgmHqpB0v4c98JryBMQh6jZkc8/aQCcA7pj9JIzC6LsI7yagZcWvgG2EyWMiF4J08y
-	JaSg98BSCftSM9LZ8VeihoivOrzg8jX3xUm4JsHBaMkOrx4eOWGMsCbREw3qIWYnHlz5boSq4JB
-	sQALmv7xgBgNxPp557YABe8lb+cy5+CiVMb7uz0fIwv3vw2ADFPdhh6xHacb7I5CXVgCYranNyM
-	SN/p22wIdmmqhFWXQQsABIBLZK72j2u/+bhix17Xk4uwcsfS6OWkW5cA5Cjau8o60kRoovR/0e9
-	L5WpJmPNPtWpmbMTz+NZlde1TRFPlgXB0TXnTVeYVJq0rTzs0pHwLxsl8iYSk6BjUPaLBVWeYmH
-	Awjz2eF8UZ5kfqoEKk5RNZBBzE6rlLGOhYzjNkLvKkiQvqX2CTmjJatQaHqtH1vFBeJ/+1aa
-X-Received: by 2002:a53:ec04:0:b0:679:4176:47e4 with SMTP id 956f58d0204a3-67c6811a961mr389098d50.99.1794354980450;
-        Tue, 10 Nov 2026 15:56:20 -0800 (PST)
-Received: from ?IPV6:2800:a4:806:ef00:2f77:7097:372d:6d14? ([2800:a4:806:ef00:2f77:7097:372d:6d14])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c58a294ffsm3158931d50.23.2026.11.10.15.56.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 15:56:19 -0800 (PST)
-Message-ID: <fb65a7d2-5656-4659-bd96-17fc5bea2b84@andrewgigena.dev>
-Date: Tue, 10 Nov 2026 23:56:13 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C3E606A31C;
+	Tue, 10 Nov 2026 23:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R2E9AEZm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C671F0093C;
+	Tue, 10 Nov 2026 23:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794355145;
+	bh=gTjQQ0hv6nEnHTZSzSTYgIUZrrKlVjfKW7eaOQ1C+N4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R2E9AEZmd/UYIFVTACDAv4IwZhE8LtxeC9vvHLirSTrOHNzlvUKsI2o/PwyiVd9Bd
+	 FNsfRNBpPiTtJ8SaH4vVPIgKIEiFY7B0gxaixTfErdtZI90Fc+MBZmeSTZs8sNxe7H
+	 knL4BPFOOiEZpW+aOyFIKkQi9Ek32gvdAdW7Zv75wzgsqLeVPZY9LKcIhbSAa6Yh+7
+	 Lc+r2wiR/GITJ8x+CirpOliWeFnaGoQpHMyXO3Mik/Vyrwj7bLzxnt6fGkNcZW3eGI
+	 iV5tzoS3/eZsO0fNYAqoflLcriYEk0bBLdRLeOuwkcJ26s7QjJol9kEV55Ibx61HB3
+	 6YPFHHw978HDg==
+Message-ID: <sashiko-outbox-207987@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] usb: typec: add CIX Type-C PD controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gary Yang" <gary.yang@cixtech.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110051723.434009-3-gary.yang@cixtech.com>
+References: <20261110051723.434009-1-gary.yang@cixtech.com>
+ <20261110051723.434009-3-gary.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 23:59:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,66 +59,184 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <C4VI5PNThYmwD0VGOO9DvvHRRydBUz2k5DOLjkianYgYaz4G3-El6cDpnQh2siR4mMwjeiL4_Yp2xEAYeJDJ2Q==@protonmail.internalid>
- <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
- <88407f72-0c6e-4e46-b97b-7031c237dac7@kernel.org>
- <83c6281f-1887-4481-8c63-957b4bc856b9@linaro.org>
-Content-Language: en-US
-From: Andrew Gigena <mail@andrewgigena.dev>
-In-Reply-To: <83c6281f-1887-4481-8c63-957b4bc856b9@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Bryan,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] usb: typec: cix_pd: missing IRQ disable across system suspend
+  and resume
+- [Medium] usb: typec: cix_pd: unserialized mux state changes via
+  partner_altmode()
+- [Medium] usb: typec: cix_pd: unconditional IRQ_HANDLED in
+  cix_pd_irq_handle()
+--
 
-> What you could do to unblock your series and not have a dependency on
-> another series is cherry-pick the necessary patch.
->
-> https://patchwork.linuxtv.org/project/linux-media/patch/20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com/
+commit 02feb7b4ab5ba21a4874114738a3f180152e2832
+Author: Gary Yang <gary.yang@cixtech.com>
 
-I took Anusha's approach and dropped the dev_pm_domain_detach() hack.
-Single power-domain SoCs now use dev_pm_domain_attach(dev, 0) and the
-loops check for a NULL pd_list. I folded it into the PHY patch with
-Co-developed-by and Signed-off-by for Anusha, so the series has no
-dependency on another series.
+usb: typec: add CIX Type-C PD controller driver
 
-On your other points:
+This commit adds an I2C driver for the CIX Type-C PD controller (Realtek
+RTS5453H) to report port status, orientation, USB data role, and
+DisplayPort alternate mode state to the Type-C framework.
 
-> Is there really no AHB clock to be listed here ? Seems again suspect.
+> diff --git a/drivers/usb/typec/cix_pd.c b/drivers/usb/typec/cix_pd.c
+> new file mode 100644
+> index 0000000000000..5a7a3efd3ac12
+> --- /dev/null
+> +++ b/drivers/usb/typec/cix_pd.c
 
-There is no separate AHB clock. The "core" clock is cam_cc_csiphyN_clk,
-whose parent is cam_cc_cphy_rx_clk_src at 400 MHz, and the second clock
-is the CSI PHY timer.
+[ ... ]
 
-> These are not the correct names
+> +		if (typec->partner && dp && !typec->partner_altmode) {
+> +			typec->partner_altmode =3D
+> +				typec_partner_register_altmode(typec->partner,
+> +							       &cix_pd_dp_partner_altmode);
+> +			if (IS_ERR(typec->partner_altmode)) {
+> +				dev_err(typec->dev,
+> +					"typec port(%d): failed to register DP altmode: %ld\n",
+> +					typec->id,
+> +					PTR_ERR(typec->partner_altmode));
+> +				typec->partner_altmode =3D NULL;
+> +			} else {
+> +				typec_altmode_update_active(typec->partner_altmode,
+> +							    true);
+> +			}
+> +		}
 
-Renamed to vdda-0p9 and vdda-1p2 in the binding, the driver and the DTS.
+[Severity: Medium]
+Can dp_altmode_driver reconfigure the shared Type-C mux behind cix_pd's
+back when bound to typec->partner_altmode?
 
-> But why ?
+cix_pd_init_ports() registers typec->port_altmode with USB_TYPEC_DP_SID
+without setting typec_altmode_ops, which gives port_altmode its own handle
+to the platform Type-C mux.  When dp_altmode_driver binds to
+typec->partner_altmode, writing to sysfs displayport/configuration or
+unbinding dp_altmode_driver calls typec_altmode_notify() or
+typec_altmode_set_state(), switching the physical mux to TYPEC_STATE_USB or
+TYPEC_STATE_SAFE outside rts->lock while leaving typec->mode stale at
+TYPEC_DP_STATE_D/E.
 
-The SM8150 timer RCG only has 19.2 MHz and 300 MHz. link_freq / 4 rounds
-down to 19.2 MHz and the settle count comes out zero, so the rate is
-pinned to 300 MHz through timer_rate_hz.
+In addition, calling typec_altmode_update_active(typec->partner_altmode,
+true) immediately after registration runs before a modular
+typec_displayport driver finishes binding, so try_module_get() is skipped
+while the disconnect path still calls module_put() on the bound driver.
 
-Best regards,
-Andrew
+[ ... ]
+
+> +static int cix_pd_event_handler(struct cix_pd *rts, u8 clear_irq, bool f=
+orce)
+> +{
+> +	int ret, err =3D 0;
+> +	u8 data_control[3] =3D {0};
+> +
+> +	mutex_lock(&rts->lock);
+> +	if (clear_irq) {
+> +		data_control[0] =3D 2;
+> +		data_control[1] =3D I2C_INT_ACK_BIT;
+> +		data_control[2] =3D 0;
+> +
+> +		ret =3D cix_pd_block_write(rts, RTS_DATA_CONTROL, data_control, 3);
+> +		if (ret)
+> +			goto i2c_err;
+> +	}
+> +
+> +	ret =3D cix_pd_block_read(rts, RTS_DATA_STATUS, rts->data_status, 6);
+> +	if (ret)
+> +		goto i2c_err;
+
+[ ... ]
+
+> +static irqreturn_t cix_pd_irq_handle(int irq, void *data)
+> +{
+> +	struct cix_pd *rts =3D data;
+> +
+> +	if (cix_pd_event_handler(rts, 1, false) =3D=3D -ESHUTDOWN)
+> +		return IRQ_NONE;
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: Medium]
+Does cix_pd_irq_handle() returning IRQ_HANDLED unconditionally prevent the
+IRQ core from detecting a stuck shared level-triggered interrupt line?
+
+cix_pd_event_handler() acknowledges I2C_INT_ACK_BIT and returns 0 without
+checking whether this controller instance actually asserted the interrupt.
+If a sibling controller sharing the line holds the level-triggered IRQ
+asserted while not yet probed, while probe-deferred in cix_pd_init_ports()
+(which runs before cix_pd_probe() acknowledges pre-existing interrupts), or
+while unresponsive over I2C, any healthy bound instance on the same IRQ
+line still returns IRQ_HANDLED on every pass, causing an unbounded IRQ
+thread loop and I2C bus storm instead of letting note_interrupt() disable
+the stuck line.
+
+[ ... ]
+
+> +static int __maybe_unused cix_pd_suspend(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
+> +	int ret;
+> +
+> +	if (client->irq > 0 && device_may_wakeup(dev)) {
+> +		mutex_lock(&rts->irq_lock);
+> +		if (!rts->wake_enabled) {
+> +			ret =3D enable_irq_wake(client->irq);
+> +			if (ret)
+> +				dev_err(dev, "failed to enable IRQ wake: %d\n",
+> +					ret);
+> +			else
+> +				rts->wake_enabled =3D true;
+> +		}
+> +		mutex_unlock(&rts->irq_lock);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused cix_pd_resume(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
+> +	int ret;
+> +
+> +	mutex_lock(&rts->irq_lock);
+> +	if (rts->wake_enabled) {
+> +		disable_irq_wake(client->irq);
+> +		rts->wake_enabled =3D false;
+> +	}
+> +	mutex_unlock(&rts->irq_lock);
+> +
+> +	/* Force the USB role to be reprogrammed after system resume. */
+> +	ret =3D cix_pd_event_handler(rts, 0, true);
+
+[Severity: Medium]
+Can cix_pd_irq_handle() run while the parent I2C adapter is still suspended
+during system sleep transitions?
+
+cix_pd_suspend() does not call disable_irq(client->irq), so the interrupt
+remains enabled during dpm_suspend_late() after runtime PM is disabled on
+the parent I2C controller, and resume_device_irqs() unmasks it at the end
+of dpm_resume_noirq() before dpm_resume_early() and dpm_resume() resume the
+I2C controller, USB role switch, and Type-C mux:
+
+dpm_resume_noirq()
+  resume_device_irqs()
+    <threaded IRQ>
+      cix_pd_irq_handle()
+        cix_pd_event_handler()
+          cix_pd_block_write()  <-- I2C adapter still suspended
+dpm_resume_early()
+  device_resume_early()         <-- I2C adapter runtime PM re-enabled here
+dpm_resume()
+  cix_pd_resume()
+
+When the I2C transfer fails, cix_pd_event_handler() returns -ESHUTDOWN
+without acknowledging the level-triggered interrupt in RTS_DATA_CONTROL,
+leaving the line asserted so it repeatedly re-fires.  In addition,
+cix_pd_resume() calls cix_pd_event_handler(rts, 0, true), which clears
+HPD_IRQ via HPD_IRQ_ACK without writing I2C_INT_ACK_BIT.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110051723.4340=
+09-1-gary.yang@cixtech.com?part=3D2
