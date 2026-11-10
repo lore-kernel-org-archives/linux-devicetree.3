@@ -1,49 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311318;
-	b=m5D7QEMDboWD8OzaAtpBdvnTT3ubnhtLS4HCx+G3jw/doww2CvlPVMnQChji4k/EnUvb
-	 i1e/H2Sq0ejRHjvRrNRN3oTv4eDV3SU2MBgkyFOKwL+Tqxa/yVvnzt1ZS3eVLDMPtlV4l
-	 XHDIzIfm/yFviKB+ysFN1YNCA2EE5tiB2wXbXSsceVp+DdlUsR8wfDW2/Il4GqnlsjfrF
-	 NtyQSN6nCJ8RQbmsBGRmo9NLRlx4v1GbUjaRfl7nsWyR+zO0A7rGsoTFoU/KmgYBafzxN
-	 iL+QjKRxKBp6dl+1G6DNhTtOQb7fgxeqYuULlsXUDs5T/8jrs4ESLlS4f9g4eDFO6vw==
+	t=1794311567;
+	b=myTG0hiGolm69TbPnGNTapebi7jT0Eo2J2l9uqdaVPhoZrsOOEZg8Nhtsup6K59JKZU+
+	 19XTFvmIIvKYhIgSIYRjf9zOWdgmjiq3I+/TVMu7WNqFbN7Lv9PmDnOHGbgpWLYLMJCKq
+	 U5UoC3lkBj8JbANzyaTUtOXegepCCdla+/9LOLAch1ghmTD3ew78n96SHvBk6n4AxTDfo
+	 YwuaH0WECpoXFwg3VraAnGwu43kml+OV65t1d8QJ1hvgABc4uAE4aiSZLcHRJDDvK1SIv
+	 8Yzr8ihQiVrUFq+/i76tv8OAoZu4PgvjNHV5dzwAaLmbIVbtJzso6w6NU1AZLuuA7Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311318;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=tSZhKAIK1EHxD3XnyhYBftCRX2avMBVk9Fjkswdk57s=;
-	b=5iqbsAvsnVg9Cq2rBtIChax81HGGhELUNm33lPBmbo/WZ9DKwrW/60WpwbGPguvxfc9V
-	 E/ZZXMZsq4c3D/K0rg+1dZ3SCvxRV+Fi+BSqdxpZ8IhlVT2OlVk9ZM1ew8N3ATJaBK01c
-	 A/A8cbq64LPKz+9tvTm5kyxAAVxCsM5skL9P7Ov3IHe74H3oeVNaXtqM57JFzIcVDa/ep
-	 Wnh9JGpwvh2P8OI9W6g2dLfiUMH3PW3zwYZxDdY2s+5VXTjIMQry2vKzE8ATqHEdfn2oN
-	 iNg2woDKMmfFIfDHzjYOHaVggAiZ4ezs/bFWQDR6HKHp16OG1DueYuJqkaXG9EQHFYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311567;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
+	b=lLz1uVuABKy0R/oE4ibXJrpYP3D4bHt/WMhu78sRimtVU14ifoJlKB8d7YV1ArVHbXQa
+	 RM2fcCEK8YK92UhdL1O05xg7XLCaVsaUBz1AqsW+L9vBPPmeWtirnN+iH+Xr3PblpzeHR
+	 PuHkU6g5Eu0O/2Bur5MOVDjblvuWZtHm6hc4leN8KJabJqoNPQRWBfBkXeNUuzfwY0S02
+	 QL4U7bs3HpEEJyU192XRtyq8Q9BH0QGXV0Ql7nxtdjIO9AJEtYt1zB7z4DuMJDR/bpQUZ
+	 akxJ1qfIi9KQeIcIr5bnhRXV2MYVX2ZiBBd+ekXSjS1qFREH4X+hCZZaRtqykjNczIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qqtOx6p6;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC332606A321;
-	Tue, 10 Nov 2026 11:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC332606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96235606B5AB;
+	Tue, 10 Nov 2026 11:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qqtOx6p6
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9D05D33D;
-	Tue, 10 Nov 2026 12:46:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794311173;
-	bh=tSZhKAIK1EHxD3XnyhYBftCRX2avMBVk9Fjkswdk57s=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qqtOx6p60ZFA7kfVRbtUBadyGZVACGSAhtNYhMG70e/xaOTbs1fvT3czoHy4nzOub
-	 rswa3AR9CdilC95o8FcHOvcnZBq7V55yydP3MsPFIO3VbbjkJcHCuIkgcQ2EJwbr+R
-	 rga9Ct3Bo23RZBe8A6a2U96VtderXVHXSRuYobC0=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EE91F0089F;
+	Tue, 10 Nov 2026 11:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794311567;
+	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DP8HkjU5T83IWyPjBkGBGk4rtnDD7AROqjLS347ksks61BqCyegrtofOXDOd2MLWj
+	 y5v5LekEWgJIwdi8jcSVZSOfNh6DNLeRf0oEPf/qx0r2rhECckbAgQ26HUC+9Op824
+	 TYWCdeeANpr3OrBAjhz4yPYln7Mawc17X/WCBA1PMuBGt0NlmdHwGEqMuCi+dix0x5
+	 qja565LmnhO5EGUi7MgurfmPOlTht4sa9a0fKJzxR+zIOMF4yf3pZFrolv35TtX201
+	 yu0bevNg1SHN2X4DU0xoVtcm7Zwier+QtgstMCRDMzA67VOyk+THdhPCTaOPcJMAJP
+	 vRjnlElsnjGNg==
+Date: Tue, 10 Nov 2026 12:52:43 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Demeter Barna <me@fromdisposition.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Add SM8350
+Message-ID: <20261110-colossal-dancing-clam-1db0cd@quoll>
+References: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
+ <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,52 +62,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261110093954.GA129290@francesco-nb>
-References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com> <20261110093954.GA129290@francesco-nb>
-Subject: Re: [PATCH v3 0/4] arm64: dts: freescale: Add Verdin iMX8M OV5640 camera overlays
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Francesco Dolcini <francesco@dolcini.it>
-Date: Tue, 10 Nov 2026 11:48:33 +0000
-Message-ID: <179431131331.194410.16578072822295578866@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
 
-Quoting Francesco Dolcini (2026-11-10 09:39:54)
-> Hello all,
->=20
-> On Thu, Oct 22, 2026 at 04:31:24PM +0200, Ernest Van Hoecke wrote:
-> > Following feedback on the Verdin iMX8M Mini series, introduce a binding
-> > for the connector's sideband GPIO nexus. Add connector mappings to the
-> > carrier descriptions and stable labels for the SoM-specific CSI media
-> > nodes. This allows one pair of OV5640 overlays to be shared by both SoMs
-> > and all three carrier boards.
-> >=20
-> > The binding intentionally covers only the connector's GPIO signals.
-> > MIPI CSI-2 endpoints, I2C, clocks and supplies continue to use their
-> > existing bindings and are connected through stable labels in the Verdin
-> > device trees.
->=20
-> We have now an official page documenting this connector
->=20
-> Link: https://developer.toradex.com/hardware/hardware-resources/periphera=
-ls/toradex-camera-connector/
->=20
-> Ernest: if there is a new patch series, I would mention it.
-> Kieran: the danger note in the page is for you ;-)
+On Mon, Nov 09, 2026 at 01:55:29PM +0000, Demeter Barna wrote:
+> SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
+> hardware key manager behind it, clocked by the UFS ICE core and AHB
+> clocks and powered by the UFS PHY GDSC. Document the compatible. Being a
+> new SoC, it stays off the legacy single-clock list, so both clocks and
+> the power domain are required.
+> 
+> Signed-off-by: Demeter Barna <me@fromdisposition.org>
+> ---
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Awesome. Lets hope the fire stays as imagery :D
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I did get my 'camera dt-addon' compiling with Herve's DTC updates, but
-there's still (probably quite a bit) more work to do yet before we could
-have generic camera addons for connectors.
+Best regards,
+Krzysztof
 
-Looks promising though!
-
---
-Kieran
-
-
->=20
-> Francesco
->
