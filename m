@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307445;
-	b=J6oMLlR81ERNZQsjbPUdP6foi8HpRztMdofRlLLX5mXjl+iuVaaG2BPdwEoR8V0NOfQe
-	 fjIg/3up0CH7CmZyDZvniS0HoHSCJz/8pVfw2KLAEx9ekduvMjH4zb99SXhJsH9jHCrIX
-	 ERX/8egCTYvqaXX3YeDOa1dFYw7FDyPSBuFNS1bmhDG6p0lCelOmBkBJ0ec/P9wLOMeBO
-	 90n9ZGzzSrvd+JAE7db8yXQBHCb30RumT3fKeoKu0AtcvwI7UayU/Epa2HX5pWbaJsl7A
-	 Q2zf6GEtYt5elfGj9500u3ETZfVILiEB2HLhiRPk1H5Uy8NfHv1WhlyH/hWmi6DgVIg==
+	t=1794307531;
+	b=0sPwdReqtpxOODD7y4PwLA3One2rOgH/OGuyPkqfxRAZtr/f0EEgA3dDQRlcP/Su5Gcj
+	 JFGW98/b+nyv45R3HnHEyFlv9FlA0RC+jaiYYMNyVTxh3B4dzvRP27nCi0byXNUDqkvnn
+	 5oMM8N3KCB7jMVtPYnGJz+WqhS8UAlCcF3F7Apd323g1VSPzFapXr0hohqA4fBn0AO7ny
+	 DPK4M3k0ZYa9yb7za8VSyTCLzip8Hce1dttfhaBvQFeO77UgVXQZKrthOks4Wc+12YKD1
+	 5e7GyTRurdGWPSVtBzpwecuT6qpT/zB9I8AOh8m8q+kBDxuZBLrssONk25x3o84ahFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307531;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=+gUYLE9inULQdAdJ9bS6kOu3zld0piruK95rFsfT6B0=;
-	b=z2U4aFmUjhk10MAcW2YHBHt9TD7GHreGY8q2Mdr5S9TxNQe9fuoHERBcbfgrFAFVW9uj
-	 bz/3s8BAew46/+xTfWMLPHcC8Mmsnw1Bo4vnyfDjL9irSrzwNmAqeqFJPJLRq6og7mD5A
-	 yl4hn+uOmo7qcpE+dJ0H9frSFVJVeaVqQLHRwrNY0xij80bwo+eOkJXNwl1ARqOl+w5Yv
-	 L412CPjGtZHuUe7NovO4+tATqZnHuTE+hnd9fIudGF9Txk6MrfY2FUEVh2kdE5Ondwpm3
-	 ue/CPcHWZOP7I9Y0xqkHRq2R6fzvsVo3hQh4ddMwtZbBsbakMthi2/o2qI7+eqJqgZA==
+	bh=WIxvLAR79v0V/SQkC0OO2SBckOatgfJxUVAHQnclIqw=;
+	b=Q2niqB9GUvDKYu0zQWrbZe08fG21eW54RhGEbJNSSvs+jBNxW1xw9p2D6GEScZNzFEok
+	 lubfltcL9hDz+/zwo8Ojfa4G3FTnKpNtQhm9OzIr5De4o71LH32NJQIDPLIFPn0vjhwBu
+	 a057dM8u2ORMWHjEdACErW6z432QkLsF8OPa53cbHmPWRRhcn1KdLaejfGPLhE7LPCkbQ
+	 3q8aDbGOqMZJZnpsn+046PX46FEjjzhMLWKUAMwmSWz+Oh01XxptsasJEEXwky+k7yWwz
+	 JFITZlapjMzn4Z9RS9+rtrVbOlbPlu0gPruGpBgK1epEKGnjtTidpoXQ9DXZPovqRaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mg9mxldi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI5cy5xM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6635606A332;
-	Tue, 10 Nov 2026 10:44:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903B4606A32A;
+	Tue, 10 Nov 2026 10:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mg9mxldi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40011F008A1;
-	Tue, 10 Nov 2026 10:44:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI5cy5xM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D6C11F008A1;
+	Tue, 10 Nov 2026 10:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794307445;
-	bh=+gUYLE9inULQdAdJ9bS6kOu3zld0piruK95rFsfT6B0=;
-	h=From:Date:Subject:To:Cc;
-	b=mg9mxldiafUf1x8tlMkXVLxJz/4snxL0VcVAImqvEDKlTxuLrnII4OMH0pcAWaT/V
-	 R9TPd11azz+B8oUKrhl8zrt6CMlY7xLXSTBWP4Y9IVnb1ij+Lr0aMemdcaJBdlGREC
-	 Iq7IWMgdcLnroFuy57RAcoFbgdOK3wOKXhhZdc4vAhwiPQK2qdhT4eHT54igoXrUYs
-	 yLr8RqUq4EF4nj1dRIgaAX5pNqCR7k/tBQki0ERM3CgCrX0KY8mNQBPyHcVW2a8aOE
-	 0IpJl8Xsv381DD1Q5SQmCPsq/95E76ApjqKBJt4acOWW353TEU+294L/72cpDwMFLQ
-	 TM76k3Nu2fY8g==
+	s=k20260515; t=1794307531;
+	bh=WIxvLAR79v0V/SQkC0OO2SBckOatgfJxUVAHQnclIqw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=FI5cy5xM/P273ywbT5zF+DAL8MbAynJnFiOBrf1BVeu3AN+VCBdMvB+NkIVinoDpj
+	 Nf8QYuY5z+jABhZMkHHoEm7RSHs7TfoMjxJwhEehCiFsO//WSdv98ZfASRRo8qLaVo
+	 rSJvgVrFzrloHMElujD/aGBvIEdKp4/mfHFf34tg2t1OSVCBheNY6hVTiOjRFQjVHn
+	 jo3M60vAmg9+BE5E6FKVRb+5fSDFH57SGgaY6HgRytgTxYJ1pf8LFxpm49vwWALGp4
+	 POpMhHwUJGHq/vxe0RStfDEXYFuTs5gu8KFi06ExAlcjiSZikG3gEBZt/jxYiE4JkK
+	 OQWBaLJ3wrLZg==
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 10 Nov 2026 11:44:02 +0100
-Subject: [PATCH] dt-bindings: net: wireless: brcm,bcm4329-fmac: Describe
- the MAC address
+Date: Tue, 10 Nov 2026 11:45:26 +0100
+Subject: [PATCH 1/2] dt-bindings: bluetooth: brcm: Allow a platform BD
+ address
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,63 +55,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-brcm-fmac-mac-v1-1-df9e6264b056@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MTQqAIBAG0KsM3zpBLSO8SrQwG2sW/aAQQXT3q
- MXbvhuFs3CBpxuZTymyb/BkKkJcwjazkgmeYLVtjTFajTmuKq0hqk8TOufqiYOtNSrCkTnJ9X/
- 98DwvBtKapl8AAAA=
-X-Change-ID: 20261110-brcm-fmac-mac-4a8553dea230
-To: Johannes Berg <johannes@sipsolutions.net>, 
+Message-Id: <20261110-brcm-bcmbt-mac-v1-1-c68003a06f64@kernel.org>
+References: <20261110-brcm-bcmbt-mac-v1-0-c68003a06f64@kernel.org>
+In-Reply-To: <20261110-brcm-bcmbt-mac-v1-0-c68003a06f64@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, van Spriel <arend@broadcom.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-Samsung Ux500 phones with BCM4334 store the unique Wi-Fi MAC address in
-persistent EFS storage rather than the distributed NVRAM template. The
-bootloader can recover that address and supply it in the device tree.
+The bootloader can recover the device-specific Bluetooth address from
+persistent storage on Samsung phones using BCM4334B0, and pass it in
+the Bluetooth node. The Broadcom UART binding currently rejects the
+standard local-bd-address property.
+
+Reference the common Bluetooth controller binding to accept the optional
+six-byte, little-endian address, and illustrate it in the example.
 
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
-Describe local-mac-address and illustrate it on BCM4334.
+ Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Developed with LLM assistance.
----
- .../devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml       | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml b/Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml
-index 81fd3e37452a..0f99c6261a56 100644
---- a/Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml
-+++ b/Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml
-@@ -61,6 +61,13 @@ properties:
-     description: SDIO function number for the device (for most cases
-       this will be 1) or PCI device identifier.
+diff --git a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+index 612d21123aaa..5c44d8459166 100644
+--- a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
++++ b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+@@ -127,6 +127,7 @@ dependencies:
+   brcm,requires-autobaud-mode: [ shutdown-gpios ]
  
-+  local-mac-address:
-+    description:
-+      The factory-assigned MAC address, as six bytes in network byte order.
-+      The bootloader may supply this from persistent board data when the
-+      address is not programmed into the chip or the NVRAM configuration
-+      contains a shared template address.
-+
-   interrupts:
-     maxItems: 1
-     description: Out-of-band (OOB) IRQ line for waking up the host
-@@ -157,6 +164,7 @@ examples:
-       wifi@1 {
-         compatible = "brcm,bcm4334-fmac", "brcm,bcm4329-fmac";
-         reg = <1>;
-+        local-mac-address = [00 11 22 33 44 55];
-         interrupt-parent = <&gpio>;
-         interrupts = <24 IRQ_TYPE_EDGE_FALLING>;
-         interrupt-names = "host-wake";
+ allOf:
++  - $ref: bluetooth-controller.yaml#
+   - $ref: /schemas/serial/serial-peripheral-props.yaml#
+   - if:
+       not:
+@@ -153,6 +154,7 @@ examples:
+ 
+         bluetooth {
+             compatible = "brcm,bcm4330-bt";
++            local-bd-address = [55 44 33 22 11 00];
+             max-speed = <921600>;
+             brcm,bt-pcm-int-params = [01 02 00 01 01];
+             shutdown-gpios = <&gpio 30 GPIO_ACTIVE_HIGH>;
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-brcm-fmac-mac-4a8553dea230
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+-- 
+2.56.0
 
