@@ -1,70 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306288;
-	b=rwWHpmVVmnkmstoVlcLLZvwh66AkEdRE8ZP8k/R4dWaw979VWxQ3S/xU4B+AOsi1buOq
-	 BPNYV9blMDA6JyCIKuyJZ2id3Wv/o/Sty2fCo6lObhn+pg9J02nXC8LqGumgDSsOYGee3
-	 WNPyBxv6ya+gcaHsh9Via4LehB59Zw5LEsBbq0gcFmIscz6e9CNJYXT+/eyIXNQ/9QsdD
-	 56vId4MDAi4x6PNFHh0P57y1APoGGsulzrI2aPUSr3imN+OaDWRVkHpTt0PhNWtWFaRsT
-	 pJI0uxm2vKlFHhIQV3e74d8hZO8NUHX4cJBd47yu3pdwfs7/w20Q5V0ekuOIRhSlDMw==
+	t=1794306570;
+	b=GI/LcRLZStIz3p7jifA8jgugMUXn7Mos/YMYaLhmdjk7xmZQXRv5rhpcFTlPweovqABk
+	 wCU8psQRRRc4TLgIaEg5wCB9olajtE5S3XY2X6CCsyg1O+Kj3/0Jzjm/DrUgPVfODL82X
+	 YTjxaAKJP3ivPIEZx1TFr1/WFrLKJDCy861rb0CTTAkWSzDK8QY5mCUYWzB8DrvWvSBQS
+	 TpRHEWia0UwEVsj+UVtoV4setiXNr1PjPtsxqESfkIkVgC7kxMA+BqWmJMDu4pqA4YMO/
+	 ZZEuaPBAqwfkoKltbQIf23OlvIE4UT5+5MaqFuc5Fluh8PFBgbmTt3D7H4gz7S0fY5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306288;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EhDjNoe3/JC0Wvq34jTb4Txp8C72674LsLZBKo4ri38=;
-	b=QSS9Ujqi1R0hJXD0VDRUhJKgmUxlJDjvlPob//WQvvWA4sF+5GBx7dvuSO5x8yrce1Sh
-	 uoMGFtsq5mSJoQIVprwza7d5sWSCj5nLGmHX2o4cFb+er7+PWKOZixR+PbM9UqFwsalq4
-	 wS8uhBOFbQPf4EfJ4x+pNzKbt4eY5JO0tR1HTwNrwY7+17YUkEIn/Y2HFEWbJhQH3mFFX
-	 dxJA/aYEW9krdBRm6V0StHPGbKAxZZaW0wxjGXi6Hl1oCx82KoTDEjrhMVK2pn7L/Jyyg
-	 DlINBAkvcgEH9OUHAiCIjZQSBoakJnOoAVIebThgRDD+DijoE+h/C+KNho3te1NTNjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306570;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=v2xg6hOG8tJYsiUIo+rhQhOmRkcdSZdLofEQMTd+hPQ=;
+	b=DFV292m8Go6vgKVSYdMPB+Uv15j5TlDVnhsNhrEbfoACAqnr/9j6ucOkY/KMLwvdMwkt
+	 /49luA8zTX2/MKXiDVutjkr49znN0BIdaOa6C4PT8se6S7AedlsVEUnynvLrCCeatm2XV
+	 BlxBf1SexkMCtNg5+8i+3ecVs2bVpF3hCQaqLk7aYa8zNxE3Fo9FTkvtFis2Du75UYFw9
+	 76OI61eWsmMEk20AXveMXMsVItfVgBecRcz164GCX6fLALTnpVdoA2ft/Uu7YfHXAvlFs
+	 phkNHpoUEirmWSGCLv1iEVySB9syw7K2+3yIzNUacTQE3o3CpICD5tjMgDztUK2Gvbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TNCFRS9K;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRDbb0vQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EDC606DE1B
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9EDC606DE1B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C227606A321;
+	Tue, 10 Nov 2026 10:29:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TNCFRS9K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=EhDj
-	Noe3/JC0Wvq34jTb4Txp8C72674LsLZBKo4ri38=; b=TNCFRS9K+hFp4Rdn4i0u
-	ltnPkaWkMoaqydg2WtduSpQ34JwM3o5hAunPza0rJ0+Me/aJc+YUUUTteWx5vBbd
-	xJ/MXF2iC+/sZixjVWv8RYDMNNAv/M9bF1H/w9KGgdPI9cCGt6jEp5h/HXhbLMn4
-	kuAzNSsaSyurbxWzChy+HzOiG6uPrhsqvhsq2UbLqLqiNlgpxie/aVPduwzN2PJ5
-	+jMwd8HXrVynOZ3V2fPayIXM6jiTno2QTKRGI9+fDqJn4Q7/Z5ZlP/hSmPxUcllT
-	NMb8ibdtlIDHaEz3yXy5ucxgIRJvcOWi2Lygae3YKRB6MZNzQAJImk56YbPuo3uF
-	1A==
-Received: (qmail 188051 invoked from network); 10 Nov 2026 11:24:44 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 10 Nov 2026 11:24:44 +0100
-X-UD-Smtp-Session: l3s3148p1@tqO2fOlf8JsujnsO
-Date: Tue, 10 Nov 2026 11:24:44 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 6/8] i2c: of-prober: Defer regulator_disable() on
- successful probe in simple helper
-Message-ID: <avLw7DllX_VM7wex@shikoro>
-References: <20261103043734.2179858-1-wenst@chromium.org>
- <20261103043734.2179858-7-wenst@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRDbb0vQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F74D1F0089F;
+	Tue, 10 Nov 2026 10:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794306570;
+	bh=v2xg6hOG8tJYsiUIo+rhQhOmRkcdSZdLofEQMTd+hPQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dRDbb0vQ8jSYjC/bRQf5405AJBZL/knalNcpL9AkFq7HXcvXtq4nkKhO35Gs4hbY5
+	 3yos0alKhziqWixpucq823yVO0RzTwVZBZGU3jiaQLIiIoOy7j3Tjy2CXrsr4xSP9G
+	 BX1h41irrZGGIYJH1TQl1ttMvIvpkS4OFMf0lVuscQMFR4Y2pQHZxmaEEnxJddMX+3
+	 vxptwezsMREU31A22+c2g22+J00h3AfRub4F7RNuZICQ+k8vSC76EEjvJkRK9BMH8w
+	 I2GjP3kDUPBTYTHzAK1HMqhBBL0M4RgIgZUh+F/iE81fapMH5EmohVwystsgplRTf3
+	 ZaYQGiosXqrug==
+Date: Tue, 10 Nov 2026 11:29:26 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Michal Simek <michal.simek@amd.com>, 
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v3 3/5] dt-bindings: net: dp83867: make
+ exclusivity explicit
+Message-ID: <20261110-ecstatic-affable-mackerel-db9cb7@quoll>
+References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+ <20261106-v7-2-topic-dp83867-v3-3-45e1d3adf1bf@pengutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,38 +64,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103043734.2179858-7-wenst@chromium.org>
+In-Reply-To: <20261106-v7-2-topic-dp83867-v3-3-45e1d3adf1bf@pengutronix.de>
 
-On Tue, Nov 03, 2026 at 12:37:30PM +0800, Chen-Yu Tsai wrote:
-> When a I2C component is found, its device node is immediately enabled.
-> This triggers device creation and driver binding. The prober will hold
-> the regulator enable reference across this part. If the driver probes
-> synchronously, then it happens within this window. On the other hand,
-> if the driver probes asynchronously, there is a high chance that it
-> happens after the prober's cleanup function was called, in which case
-> the regulator would have been disabled when the driver's probe function
-> is called. This would then require the driver to wait 100 ms for the
-> hardware to reinitialize, even if the probe function was just a split
-> second late and the regulator was disabled a few milliseconds ago.
-> 
-> Recently, some of the drivers for the components that are targeted by the
-> I2C OF component prober gained the ability to skip waiting for hardware
-> initialization if the regulator was left enabled. This happens when the
-> PMIC has them on by default, or if the component prober left them on
-> after probing the component.
-> 
-> Tests on the Hana Chromebook showed that if the prober and trackpad
-> drivers are both builtin, then the time between the prober enabling the
-> device node and the trackpad driver asynchronously probing is between
-> 5 ms and 30 ms, though sometimes there are outliers exceeding 100 ms.
-> 
-> Wait 100 ms before dropping the enable refcount on our end so that the
-> actual driver has the opportunity to catch and increase the refcount on
-> their end.
-> 
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+On Fri, Nov 06, 2026 at 08:47:27AM +0100, Steffen Trumtrar wrote:
+> The io_impedance_ctrl nvmem cell and the properties
+> ti,{min,max}-output-impedance are mutually exclusive, as noted in the
+> ti,max-output-impedance description.
 
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+But it also said it is allowed and one will be chosen over other, if
+both present.
+
+> 
+> As this is only stated in the description and not made explicit in the
+> schema, the binding checker will not catch if this condition is ignored.
+> 
+> Make it explicit in the schema that only one of them can be used. With
+> that, drop the note, which also described a precedence for device trees
+> that the schema now rejects.
+> 
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+>  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> index 2cd8311ece5e..833540743bdf 100644
+> --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> @@ -7,9 +7,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+>  title: TI DP83867 ethernet PHY
+>  
+> -allOf:
+> -  - $ref: ethernet-phy.yaml#
+
+You just added it, so instead place it at the end in previous patch.
+
+Best regards,
+Krzysztof
 
