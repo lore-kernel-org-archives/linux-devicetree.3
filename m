@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304840;
-	b=gxVx3cZpQKufVAz85qGdQQHfjMHIWmhVEcxgwfT7HdD4Yt3277fVit7lEDmcdZWxPiLL
-	 al/SMSeDDb3fY2B6kgBKQjZCGXWSx5aQYrB99YGOWKzwOLRx9hciu7CWM6dLRysQYILGC
-	 5aw3VN/dOkIKY5AzFj676Xduaa207vIUlr2HjMjG9fqIEG8ZRAcsmLk/w4lsRBQyb7PQ2
-	 +OxBZp2ZI7x6qNVjQgQZP+z3Ma7y4vxW9ntkYCzS1bgSfSCA+212HLJ39PmV0EXE/T6be
-	 NrU7yLiycGunb/0eKdQemdfqUgdYDDD6ZsJ+lGduQuMz20omm4Guc9ePTnlnRUC1MHA==
+	t=1794304893;
+	b=HEFNo0ifdvZFKYG/ioPfOb5UMn661b2n7pYKjA4BwTq9l7yXJ59EKP6WyO9ZshlRdFrq
+	 pl1+RnEJxqtHTTFLiQuAfahn0PZdv9UPw1+RASvvdvOxLhzCiesEz1DUgQGhX/R8jje3h
+	 SWbw+VwH4bpJsR4owjwh90OQg0O9Nt8siQJ8vERSG1lUy4BfjtI95ZDSm14/O28exJ+dT
+	 TDRfqE91FFiedPfxhJX8FluVKPS//qv3sT+qnHhK3Ohr21tSDdBSanEfl8YVOwi2kXmGK
+	 7rz17D2gKRalzeDmikML1qZum+jfNHoZt2qqWe7nGYIGSWBA9LufPOy9qhj/4Xj2ztg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304840;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BQEC6GLqhqq+5gtoPURzWbkHyEh6URzsuNMwg+FEDBY=;
-	b=AOcMK8V2oBajbc+ylFkcJsDmx5W+8elAEmP02Oa11FQb7R1bk598kfqMHj84mSy5AJZR
-	 hUn3UgNknRZ/EplXd1W1D5O0YiVsrAm26WMMXu2H3NgosEQejaPMhoTAc4sAdOeWfHHGq
-	 BKrbICRUQll3VDva85I+rbi60sbvaVVutqAAzDbl9GJxPnxZ7I1buVDge+DYAsnPai5ac
-	 YP3PUPaEmGjAggfCwBLbddlLwxvLEc2d3MaB/VUsOOvcJy6ocnoYxYB2ehyAHoSO5+frQ
-	 0cmMHgNE96kk4a5ibbu4b6Ff6n4QtJpEQePD4KVxnCkooq/FuxeLw/D1LYlVlH9jitA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304893;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ADIRuleOP-NewSCL:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Pcf79JCJAWHbiN6Vn4/htZhJapEM9Xf8xgTLcJyZEcE=;
+	b=eQBjrv0SxIG98OkejaqxQTFKXR+fLWHeXkVNxeqfsnNieOId1nMtCI49vL4BxDjD1+kE
+	 rD7Y8iss0rGU1+HfsLUUxiDnloLlRrmILEJtACULJJtd98tdHD8YRcCRgjL1LpD6yimZG
+	 w6jfjYIhtUkj14RYoq8jceDHe7i4VQaQaMFxffjRphWyGTYbhsnP1bb4den+Hr+O+9L/y
+	 D0T85D+/DCCSaow1D/hA3YVgcEyHwbpUF3pJajJ3BENSWcJ6B4OGQDkB3J7iO4tIG29KM
+	 Cv/3b/YSa/TKCfyZ5Vr9/JF3jD8GObsP786eb/BFPqda5JRfHBvFEf/z09HyMiPNGRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VkKnt/Kn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rQMnbe0t;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=UyFzQBOG;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39C360A5BE3;
-	Tue, 10 Nov 2026 10:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29C7606A33C;
+	Tue, 10 Nov 2026 10:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A29C7606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkKnt/Kn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110341F008A3;
-	Tue, 10 Nov 2026 10:00:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304839;
-	bh=BQEC6GLqhqq+5gtoPURzWbkHyEh6URzsuNMwg+FEDBY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VkKnt/KnTPX+ef1DMRYyiYmh33F06k4dy2l4dBwPRTiCm6WjU6jDAb0TLdZpIsvDD
-	 npNOpkAlJsbhJ8r/mGGiK/HfL8lzXebieHHecqH4xQ4D+GZDcq0sAddcwLcPypB01h
-	 LuhUDG0u3MBkB7/juuMPHJs+kSmNauq8KcflakOWpKnt382t8XRSz9zooEjfiyZ0bo
-	 rwadkICL1f/B6wyTO71rVzH9KiRbrrg9V+yMyJdvWAGoLRXEc4IbOAqwu0DMEhLmwP
-	 MIbzWYE3LpiRziEki/eH2OeSJqHnjGhJnWYs0DAM9NZSDAD7mG+CCJcfxMF3ZQ0eqW
-	 3Bnhh153jf6JA==
-Message-ID: <sashiko-outbox-206823@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/12] pinctrl: airoha: an7581: select force GPIO mode
- on GPIO requests
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhengping Zhang" <zhengping.zhang@airoha.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110094339.749110-6-zhengping.zhang@airoha.com>
-References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
- <20261110094339.749110-6-zhengping.zhang@airoha.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 10:00:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rQMnbe0t;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=UyFzQBOG
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7lHuo3216554;
+	Tue, 10 Nov 2026 05:00:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=Pcf79JCJAWHbiN6V
+	n4/htZhJapEM9Xf8xgTLcJyZEcE=; b=rQMnbe0tR1P12PChTNuf6RLu2Eqsqt3H
+	XcfAXgt+QaIMbUqOSUiR74tBu/n3dkVT/5xTV7yrFwvLhA8iRSdHHuCDc640gBDr
+	wa4kj2ff31+i4OE0OZED4QW9DoFqbwffs4DyZQgRzdajAScL1CiYOjyzL8t7F3Zk
+	lwqViPnBi2BsuBSyn9QHTahiONSloAXkUsfwVb5Z9Ftjy2vypb2HcnUv2facACWZ
+	VLId3LtIyLPU8gCYdai4O9aVjT8wDAWgIMyowb3lycH8jf7Y8XuDh4b4PRzxT+nY
+	x3tvUJVsdBSd5/4Ccbs1VklMuXAG/LwAT+LkrDfKV1yfDf4RnOJPKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=Pcf79JCJAWHbiN6Vn4/htZhJapE
+	M9Xf8xgTLcJyZEcE=; b=UyFzQBOGfJJzc2WziCMovN4whtbapVxhmcyv/KeJruX
+	NVdtpcfvcOjxscGrDWqa4Wuj5AvlL96CrlAiBr4OgidG2POnuKVO1pvTRKBhNsLd
+	lPlJeR/O6PL4IhgiO+JTn7gVE/Ab8UABj/Cq1P35hFVifkAoQ0djJGW5TjSSVy/r
+	UFr2/POnR1ThFOBO4yhNSs+nqySTSDn1UwV1MpTuWyPXro0YTeaOrLW6gJl5fu3d
+	v0YrYqQDK12xF2YaXmUCdqjKkc/JSz6JUWRblmmF/SYOq1enDansABPyflXBRwc1
+	pnS6nysEMSh5Om6kiM05sG8LuLMScuAi4ruOvo28C1A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4huwenhffq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 05:00:59 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6AAA0w1a021107
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 10 Nov 2026 05:00:58 -0500
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 10 Nov
+ 2026 05:00:58 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 10 Nov 2026 05:00:58 -0500
+Received: from HYB-GHaNx595DZ2.ad.analog.com (HYB-GHaNx595DZ2.ad.analog.com [10.117.116.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6AAA0eua008466;
+	Tue, 10 Nov 2026 05:00:43 -0500
+From: Christopher de Guzman <christopher.deguzman@analog.com>
+Subject: [PATCH v2 0/4] hwmon: (pmbus/ltc2978) Add support for LT7175 and
+ LT7176P
+Date: Tue, 10 Nov 2026 18:00:39 +0800
+Message-ID: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,94 +92,126 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEfr8moC/4WNSw6DIBRFt2LeuDRAI2hH7qNxwOepNCoG0LQx7
+ r1+FtDRzUnuvWeFiMFhhGe2QsDFRefHHfgtA9OpsUXi7M7AKReMckrmKaaAaiB9kkzmV4iJ6BI
+ f0mhVNNzCvp4CNu5zPr/qi+Os32jScXc0OheTD99TvbCj99+yMEJJIXSpJS90mdtKjar37d34A
+ ept237KNgzd0QAAAA==
+X-Change-ID: 20261020-upstream-lt7175-lt7176p-b9e37cba8f2d
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan
+	<skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Christopher de
+ Guzman <christopher.deguzman@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794304841; l=2885;
+ i=christopher.deguzman@analog.com; s=20261020; h=from:subject:message-id;
+ bh=lNd3XhwiREZFjb8YSQiZAwOfJHUr5v741WXrnVtLqRY=;
+ b=Agu+HOC9yGUx1vqE4ETtOEHCPsoLD9Ci82Rv4+OF8VKpRF4OfaMCsxWeI52b31R2eKU2CG+7k
+ KVO36Bi28CHDLFvzauczxWifcFHi+7R9wZ0ZLauFTfZJKyA9tyu05xs
+X-Developer-Key: i=christopher.deguzman@analog.com; a=ed25519;
+ pk=nSwfp91RWULY/zCnrDkBvXulgnpfKy+5C6/Gh3ecLwo=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: DhpFf0MzOw6gwGEVNxo9MZ1-_B8gBm-6
+X-Authority-Analysis: v=2.4 cv=Dv/Da2/+ c=1 sm=1 tr=0 ts=6af2eb5b cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=bC-a23v3AAAA:8
+ a=gAnH3GRIAAAA:8 a=_jlGtV7tAAAA:8 a=VwQbUJbxAAAA:8 a=8AirrxEcAAAA:8
+ a=07d9gI8wAAAA:8 a=ag1SF4gXAAAA:8 a=JfrnYn6hAAAA:8 a=LjB95_yAhz7QVSCH7TwA:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=nlm17XC03S6CtCLSeiRr:22
+ a=ST-jHhOKWsTCqRlWije3:22 a=e2CUPOnPG4QKp8I52DXD:22 a=Yupwre4RP9_Eg_Bd0iYG:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX8rFEKJI1v4J6
+ t8ZMhywRB3i508Xc2suqRQ/ThwwbwNoLuMSK4ixeyxKbQcbmSDM39dqplvw6BgJdnB1zCdaJIJi
+ ymT//Vz8HW43o/xqFwM006V+s1cjMliQthrNUim1Urr2qhz0BWicDx0tpJTM3ov9CSC8eSvG3Py
+ aiyU/sOxSPAfTn8qGBblhFY0w9iVP/kwS8I8mxERI2cFxHYsIHgslAi951HDIkersrMIvrNmYQu
+ yJDmW7Ozussjkt9STFqZo4IKV9a1u08hBDTk6kIKAZH2q7ZQXBekuUFZYd2bvkTQW8ngqPZNnYn
+ ZHvDcWKkqL/S6QPJycqCJ46+nlNQ+K1+iZdO+KroFFjifW9VuLAbAFn2Fqs/zcSNUmXP/RCbESr
+ UGG224rNezrvubdjylMQiZRRu+4bwzK0j1Qmbly2xlOmrr+By/qlA8tOY/lpeQEFwpRWBJ45kPp
+ m7RrnfdZGpoGtOjuJzg==
+X-Proofpoint-ORIG-GUID: DhpFf0MzOw6gwGEVNxo9MZ1-_B8gBm-6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX4zDnKS5ss5PA
+ z9u/3msZ7XA/z0vL0Spb5FIab+k+tm3Di3OKWsvBIAvhtK8QiizlOqXnQ6sWjHgXsM59AFhyynU
+ 92VYfz6B5fEakPQJ0VjzfFvHboDRR5y3nlq2QZCKv1lQtTBfO5/x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100039
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] pinctrl: airoha: an7581: mux conflict between hsuart and
-  hsuart_cts_rts
---
+Add support for the LT7175 and LT7176P PMBus buck regulators to the
+ltc2978 driver. Both belong to the LT7170 family (MFR_SPECIAL_ID
+0x1C1D) and are identified by their PMBUS_IC_DEVICE_ID string.
 
-commit b98ded648dd882fe63d659f1c2bdcde0ac118345
-Author: Zhengping Zhang <zhengping.zhang@airoha.com>
+Patch 2 also changes how LT7170-family chips are identified: the
+IC_DEVICE_ID string is matched against ltc2978_id[] instead of using
+a strncmp() per chip, as suggested in review. Patch 4 fixes a related
+documentation error for LT7170/LT7171.
 
-pinctrl: airoha: an7581: select force GPIO mode on GPIO requests
+Tested with LT7175 and LT7171-1 eval boards on a Raspberry Pi 3B. The
+chip identification change was tested on a 6.12 kernel because the
+board does not run hwmon-next; the series is build-tested on
+hwmon-next.
 
-This commit extends the AN7581 pinctrl driver to support GPIO mux groups for
-GPIO0-49 using per-pad force GPIO overrides, clears force GPIO bits when
-selecting peripheral functions, and enables shared mux conflict checks.
+Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
+---
+Changes in v2:
+- Drop the -1 variants from the bindings and the i2c/of tables (Guenter)
+- Add lt7175/lt7176p as case labels on the existing lt7170/lt7171
+  probe block instead of duplicating it (Guenter)
+- Identify LT7170-family chips by matching IC_DEVICE_ID against
+  ltc2978_id[] with a length check instead of a strncmp() per chip;
+  this avoids reading past the returned data (Guenter, Sashiko)
+- Don't list LT7175/LT7176P under the curr1 "iin" label (Sashiko)
+- New patch 4: remove LT7170/LT7171 from the curr1 "iin" label for the
+  same reason
+- Not addressed: ltc_get_max() compares IEEE754 peak values as LINEAR11
+  (Sashiko). This is pre-existing and also affects LT7170/LT7171; I can
+  send a separate fix if that is useful.
+- Link to v1: https://patch.msgid.link/20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7581.c
-> index 3cbdfc31e97e5..b266cc8bc65f4 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-an7581.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
 
-[ ... ]
+---
+Christopher de Guzman (4):
+      dt-bindings: hwmon: ltc2978: Add support for LT7175 and LT7176P
+      hwmon: (pmbus/ltc2978) Add support for LT7175 and LT7176P
+      hwmon: ltc2978: Document LT7175 and LT7176P support
+      hwmon: ltc2978: Remove LT7170 and LT7171 from curr1 iin documentation
 
-> @@ -721,7 +792,14 @@ static const struct airoha_pinctrl_func_group uart_f=
-unc_group[] =3D {
->  			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK,
->  			GPIO_HSUART_MODE_MASK
->  		},
-> -		.regmap_size =3D 1,
-> +		.regmap[1] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_FORCE_GPIO_EN,
-> +			BIT(15) |
-> +			BIT(16),
-> +			0
-> +		},
-> +		.regmap_size =3D 2,
->  	},
->  	{
->  		.name =3D "hsuart_cts_rts",
-> @@ -731,7 +809,14 @@ static const struct airoha_pinctrl_func_group uart_f=
-unc_group[] =3D {
->  			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK,
->  			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK
->  		},
-> -		.regmap_size =3D 1,
-> +		.regmap[1] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_FORCE_GPIO_EN,
-> +			BIT(13) |
-> +			BIT(14),
-> +			0
-> +		},
-> +		.regmap_size =3D 2,
->  	}, {
+ .../devicetree/bindings/hwmon/lltc,ltc2978.yaml    |  4 ++-
+ Documentation/hwmon/ltc2978.rst                    | 32 +++++++++++++++++-----
+ drivers/hwmon/pmbus/Kconfig                        |  6 ++--
+ drivers/hwmon/pmbus/ltc2978.c                      | 23 ++++++++++------
+ 4 files changed, 45 insertions(+), 20 deletions(-)
+---
+base-commit: 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
+change-id: 20261020-upstream-lt7175-lt7176p-b9e37cba8f2d
 
-[ ... ]
+Best regards,
+--  
+Christopher de Guzman <christopher.deguzman@analog.com>
 
-> @@ -1432,6 +1834,7 @@ static const struct airoha_pinctrl_conf pinctrl_pci=
-e_rst_od_conf[] =3D {
->  };
-> =20
->  static const struct airoha_pinctrl_match_data pinctrl_match_data =3D {
-> +	.check_mux_conflicts =3D true,
->  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-
-[Severity: Medium]
-Does enabling check_mux_conflicts prevent hsuart and hsuart_cts_rts from
-being selected together?
-
-hsuart_pins covers only the TX/RX pins (gpio15, gpio16) and clears
-BIT(15) | BIT(16) in REG_FORCE_GPIO_EN, while hsuart_cts_rts_pins covers
-only the CTS/RTS pins (gpio13, gpio14) and clears BIT(13) | BIT(14).
-Configuring 4-wire HSUART with flow control therefore requires selecting
-both groups, just like uart2 and uart2_cts_rts.
-
-However, unlike uart2 (whose mask in REG_GPIO_PON_MODE is only
-GPIO_UART2_MODE_MASK), hsuart includes GPIO_HSUART_CTS_RTS_MODE_MASK in
-its mask with val =3D GPIO_HSUART_MODE_MASK, requiring the CTS/RTS bit to be
-0, while hsuart_cts_rts requires that bit to be 1.  With
-check_mux_conflicts enabled, airoha_pinmux_set_mux() ->
-airoha_pinmux_check_conflicts() rejects selecting both groups with -EBUSY,
-and selecting hsuart_cts_rts alone leaves the TX/RX pins unclaimed and
-their force-GPIO bits uncleared.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110094339.7491=
-10-1-zhengping.zhang@airoha.com?part=3D5
