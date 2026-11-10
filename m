@@ -1,68 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309117;
-	b=aj23rSau3dE8uOrSiau0gDwNZsvYWkkx9WSB0V9mezGuKjtweaqGV62oqq2qBzuru7uH
-	 S38rlh+A0++UdtKg0swNhwz4k4z2aODREVKtKjbkQEx3E5NK6A6zzWWWefrRIJv5/wyAd
-	 BY1IzTh45jNJsA9sNOFduPPfI/Hw+ZzKm9SQM59hF6CFfLuOWSFwd922unWVR73Joe/7V
-	 1wQpjcQKJv55dW3kqIHaudnoqcTCOZCWJa6bX/8lD3r2AGfKQmT146kmcYFvN+D6fu/ex
-	 qoaRX6rkry1A2VV/yzPgQzWkxYkVew/b1WfJN/DO+EOESVF1HdPMZp/4z4T4wengjFw==
+	t=1794309153;
+	b=d60EF3OvD6aJ8c514Lp3Kj1XVmEl1p7wL9P9ft3bbro0bDz+FTplUUMBktdlJOM5TV7H
+	 R8kJ8/bBASpo983jwvZsukhuCq/L0zzXNnjHm7z90SXMm/Y714iuZUiMJ07sk52oR+4P4
+	 WGJoaQ1WGi8TSTiyOQzORRFOKDBHlYPQWRK9v0pal65vks+7rvdBfh64XKz+2e/ZOTHfk
+	 KoH5Sw6qbX0F/yBXXlrhJ/B2qzerJE3SWiBNTpTlVmkU3N/8/UJV+wgHzTug00leIVMs8
+	 R8pg3/I0yyyZyf3rAgCGIx3gT9WtjLjZnc0Bok3fz5b/VJw+IMBSKArWZuBrRispS6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309117;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=KwOMqReEGh0Ih1HTKwwC8fhh61cTvDF88ZgrH8p/zw0=;
-	b=RExBqbz8meT0Cu8x7/LvV+/unDEkqVxJ1bc0JRLWOeI+oQX9PfP8rCDB018WAvMwhWOO
-	 Zf3ImN5QjHVkyyD6ezPQg+g8B19gmhS2YuFJxEIXwjIdIm2X2go5JUHuqP2htvsmyrNY3
-	 sRg5IikJcFaFFc7wTRDUKfbG8VVay2H5q+QESzkO9w/2UjlOa0fmBs2IIuq1nURBZ71ix
-	 RXQBNkQ3SmR+pcHG9sXVLbTJoVNBRHRiHx7nHWSkjIcY4upygcDTv9ZlEVgAw73e2eszN
-	 /B5WBHedwK732TB1NXxY6TiA/r6dAUO2HTtyVQJz7yGz7ye/lbKSY0j7XDtZirs7BkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309153;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=AYQvHUr5XcDTIZEyFup8naCoxmdjA1fPKlc6d6EU6sw=;
+	b=mkJkqwmtbzDYx0Pc0sEvUqsFEk6Vk9UPko6ezN3iILbaCIgJr5SI+TVtsOSGfE4gOHrt
+	 2YgQHTNaWlTc0KYeCZGX1QKgujmNbxvTh2YFg3PXphyc7ZKzuvC5EomkRRNb23uT7BcdX
+	 8m+GCmmhomBWFFEaQsYMOKta7JehKJ6gHZMFkyI8SdKVeyadQMfjP8nEwrwDIUu7OSBNs
+	 D/XIuNnoSFdX5qT4/wmzXy/lBiCaPCk/poEsfPSAhj+n/s8rXx8Ph5J/hPO4cyup8vQIY
+	 lJG/9g7O4TpfxSDntbmurR7gdMQ5apSCktxuFQfmI7j0SxVpZLagjnK8lSrVVqjuGCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QYXnx+aS;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRhzUP27;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CA4606A325
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6CA4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23B3606A31C
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QYXnx+aS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=KwOM
-	qReEGh0Ih1HTKwwC8fhh61cTvDF88ZgrH8p/zw0=; b=QYXnx+aSkafOzcSvfg84
-	+n0fhAQDf3znURYRalx2f6M7bcGzQ1rO+qluar0Ep4W2h6OFl8gOwAewJx0+Pan3
-	dPMe1MxRPZ7GptCOkWB1qxv3al+97t/CtWcAQd2rwNK4SN31coneVoF7c4Adg3Yt
-	gjPiWxmJyiCiFCkRcntx1RMZz0fGxk07DTTb4IAKaA7cT1NrtdjpMpnEl3n9yj75
-	TXCQEDCNmNc4ZChAPy/JbPan56r3xGYqrQEs4/6b+bgCYhCzmpY7L5AvzDCfczxV
-	v/NUt5zgVO5JIccXDh7wM/ajsOEbKxNgEWYNGFRUPkrAGbfokTDlSZfJf19fcT6O
-	Zg==
-Received: (qmail 205390 invoked from network); 10 Nov 2026 12:11:54 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 10 Nov 2026 12:11:54 +0100
-X-UD-Smtp-Session: l3s3148p1@u8pgJepf4p8ujnsO
-Date: Tue, 10 Nov 2026 12:11:54 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Stefan Roese <sr@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 2/2] i2c: mt7621: limit SCL_STRETCH only to Mediatek
- SoC
-Message-ID: <avL7-gfNNvO0s_gw@shikoro>
-References: <20261103210542.15965-1-ansuelsmth@gmail.com>
- <20261103210542.15965-2-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRhzUP27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DB91F008A1;
+	Tue, 10 Nov 2026 11:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794309152;
+	bh=AYQvHUr5XcDTIZEyFup8naCoxmdjA1fPKlc6d6EU6sw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WRhzUP276Rf5UHhNU0oSxRF1kaioxtr9GUeq49EqObfxhZ4wF4CWky8x6q95RvNGI
+	 z0J2mVZbpMurF0q4U40kH1aPBuAqe2asni82J7qSanoftdPBkxCFEwT9gl3/I60BSB
+	 zIC1Hg69YRhsVeiyROL5aLYDM5oaA+Dx5Sp+1fitT8wgvHj2GPZ/cpoOAPyKYPeinZ
+	 ysYsynmeylK7g+70b83m5vOrijIU+WyDCnIYIDyFHIr8xvqgk8aSbDZg86MA8cyv9K
+	 +cq7YBudUIkeKMx4oxmKqNjtb2m6FFyD6bYN9dauhkS36zbWJgWVCniF+nK0KYHrl7
+	 m92fyGoZlAejw==
+Message-ID: <sashiko-outbox-206923@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
+References: <20261110-i2c-sysc-v1-0-8945eb1d38f0@kemnade.info>
+ <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 11:12:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,21 +59,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103210542.15965-2-ansuelsmth@gmail.com>
 
-On Tue, Nov 03, 2026 at 10:05:41PM +0100, Christian Marangi wrote:
-> The same I2C driver is also used for Airoha SoC with the only difference
-> that the i2c_reset should not enable SCL_STRETCH for Airoha SoC.
-> 
-> Introduce a new compatible for Airoha and limit the SCL_STRETCH only to
-> Mediatek SoC.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] bus: ti-sysc: undocumented revision_doubleword member in struct
+  sysc kernel-doc
+--
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+commit 0008e125c797b0d08a6fb8ecb495aa9e3c3c8337
+Author: Andreas Kemnade <andreas@kemnade.info>
 
-Will apply it to my for-andi branch.
+bus: ti-sysc: fix I2C quirk for OMAP3 variants
 
+This commit tracks whether the revision register spans two 16-bit words via
+a revision_doubleword flag in struct sysc instead of relying on the upper
+revision bits or a fake 8-byte register range on OMAP3 I2C controllers.
+
+> diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
+> index 12285ad9ef51f..c07a0e1f9a878 100644
+> --- a/drivers/bus/ti-sysc.c
+> +++ b/drivers/bus/ti-sysc.c
+> @@ -153,6 +153,7 @@ struct sysc {
+>  	struct ti_sysc_cookie cookie;
+>  	const char *name;
+>  	u32 revision;
+> +	bool revision_doubleword;
+>  	u32 sysconfig;
+>  	unsigned int reserved:1;
+>  	unsigned int enabled:1;
+
+[Severity: Low]
+struct sysc has a kernel-doc comment above it, so adding revision_doubleword
+without a matching @revision_doubleword description triggers a W=3D1 kernel=
+-doc
+warning.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-i2c-sysc-v=
+1-0-8945eb1d38f0@kemnade.info?part=3D1
