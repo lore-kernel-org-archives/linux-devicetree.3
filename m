@@ -1,97 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321505;
-	b=l5FZdLL1RWW/95pQyf6Vxa8blBuA/ee/mpkdReOhNZi5+mojcPS8RKgx2W8XRbbTh1Z0
-	 QxS6uZ6fjlcfLHGAPpO6c/H5VJzn6s2mUy29pf+DWkQnHmPhwsBNXFWfyvMgKEBAjyXna
-	 92IA38KKaFKqUzmNvT4ycwmMVTEIsDENsPAu90YjvKzbbHGr3vJxsqIzprQrn7z15etOl
-	 wCNlRC6nIVyaXdNKInBhKjXXjw1tgkuZEjIUgDOJdre20y7hV88l2KNjH9MdtJAXuTaSs
-	 XzxUIIiAmXvVjDoE6cFTS42Wid5X1ztbaC2MzASmju2pflBngy3kkKdrifUU80sjkKA==
+	t=1794322016;
+	b=cxr3LZlN6sJe2969DrwNkqMSt1n/o1kDRYQ/W2hxtQW6MHm72bfaj/T2q8E6jeGm7/hH
+	 fPvOcljo9O4miX29KEVs9v0DY0hGlbGVrscDmlLzpEGuaOO4/QZizCEdqODjsXDWXW2uJ
+	 6UMtqv5XRXmlHbFBwhy2kidl8S4rhAv/aBIfejK7qqy1ot7EQP/aII8Ypi3MzeTmOik1l
+	 jYLPAbzTotOutcEJqiwVWB6BjvTNdQDh3VstAk94t4CoCKPFG12mkQr2i1bJJWSFm8H0L
+	 NTwluz5TWsFcjFTpCRFS6zap+XnGkEDnOjWl2UJ8dPzNgUJEfE1ug4Es0GlejUSzrCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321505;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-	b=3c+wxImrEBTgblhkccSz/wvCVr8Ul4ot2IsA1w45EFnr1KTWqbMIcq3Vbd+n2keSa8im
-	 oLNKKoIIFMWq/gzIjym3WjuA+vc7eLJZ7j64O0MyXAy19PkoHh7+6ZM6th8m2XN+rdi4p
-	 RVCpgWZbwonubg51NFEHFpOu/N1i9N09yNA9DGRMz/OyQZiPjB9CAncDqYWO5nGFePV8Y
-	 7VAT737kTWYd/nA2O0PwqRDWSfydVagplsaQejY7uv0TfBLdHsdwUH9W2wtNQRneu5TFd
-	 yAgahIzJAO/QhWkQluAXzzX9Goy1ESYLnD8i7heql/5Qv7UHDq9vKISgP0hQCYxHP3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322016;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ahpMbNRu+oaU/D+J9CQu8q3KW+PhWHMWtw7yeScr5x4=;
+	b=dPSUpRJyLvYVciBwTRRhCyoJscIBQewBlxRc2/Ozb9juurTrkZ0zoCqxI98eHrBtn1by
+	 pRVct2OLpP6nEgdauPNKySjlMQe/becg+Ayc5TY/cu0sIhQ2nlnIz3ACjCazFEEzGVvI0
+	 fDP4HTPS4gjVDuzgNGqwxsRAmbbhMq2bhvfnd+3m9fozm02PjrDdfW9I8za9vO+eLsylF
+	 rCNsk7PqsAMz7AR/l/rXR0YdugNYSa8k4jVvgRGowaHH/BSOEIqp9nB5wCuiu7OLOH41A
+	 6q0zfPzyn4pGvcZj/EGDTA4Fl4amowFWKLE3+jaj0az8r1EnATQBQvobPMpgV2RICfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hrJve89P;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSSgWphG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC32C60A3825
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 14:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC32C60A3825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AD660A2631;
+	Tue, 10 Nov 2026 14:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hrJve89P
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so1225391a91.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:38:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794321504; x=1794926304; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-        b=hrJve89P30ZZYGbe0BJQdAnnZFrGUVIhrkrfu+XymLOuVqkHijsWcVWhZqP+Kraafb
-         xr0ZXuYsI6GU200X0y4+GdOyPWsw8+7UYT6BPHVdgrvBqty31OcYgQMhVqABZdQtu8JX
-         Gz0gon8/PXNxLHaMa/IhkUZr6hFE0I7UmlrJY2Vm7uiWm/9KXLgNOoSKgzNLI+rynwPl
-         q/zC9vsCS5b8d6rZmvpXV945VruWAKAzrH4wVaQ/YNieNoVnbqLh3yCwf1vL3srgAXAN
-         L0GkYN5gIa/JkzEUkA2KpmAiP+f3v71mbj30VaLZ0aNbmoQ6cRJfZf+at3UDB5IYkMNn
-         sHhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321504; x=1794926304;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-        b=BPhWpKYoNdr2CM1kYLaM7YKe8Zkj7DewRUfjYcLpt0vGEQd7DfaczVbhYr4BUWXmoy
-         55fYi9uZRUFQGp4R6RrNyyG84K0J2bGsApppei7QYMZCn6X53ZlSNvqBQB8F30CsFnMd
-         QiRwjy9PQFP+sJGnV+o2WOyvWDmLDCMCo4YU+6XetrPKkb0uSIcOtGW0oeSkP25y/pPb
-         X65U9OIJfHmLCDIP/MysOdWLtAJ2wcJVq1vyvqR92VJZcNzf9mGInScvQJ+ZCPc8wGi0
-         mHpv56B8QXxX5+LFiN4knb2N5VJ9kgG3uxrJq6J+vAe2RV9SgMRdmTjC5YliGpFyTuvj
-         mobA==
-X-Forwarded-Encrypted: i=1; AL+hErEmrrFGXJ0GSenLmu0h34UbswZ5uz20M0F6O4z3k7JRgZ5JmWTksx1lz0P7KjzuBlMycDcBxtiuPLRY@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dnQA0gbsdp9GsSvFIk6G6xN8oqzH29ZR10O58ZHoPCpmJVVJL
-	iD1DcN57kCOjrUFfvC4sM7ZJFoz6yo6K/bNdrRsn+im4ukcV+mDClaUIEXM5lVNFWd0=
-X-Gm-Gg: AYBFou1eY+fMnVZ2Vv06oaysCUbGHUdr2BqQXZCAXEcID0b95tVmFKDTQbE6Q4drh29
-	j47qTlI2sbWn3qsKLuxIqfj+zMZbrevSkt6avvRHWae6hrRg9PoV/BwdPRLvITIyLWF/tzbck4B
-	X+nbf+YD6/C6dBvguu6fJyurGmSXngcnDwdKnmJJ9C6RSdxWcxfKzAvXU/8dP0DX00YdGbrotuU
-	F/LlP/KOcIUEBZ3nXJkS0eUx67hM2Rj9bY9IWjG7MCgc5vR4ABB/mD52yaNmlTlf2T0DCtRhlXk
-	KWE8Endfn82G8W3U2M2Htqner2EKL/Zonu+HR830SjPuSQcLgAqgCjR8IF9iqxXB6Ykt/QTayrm
-	kGV1p3JZANDdQs0RKYJHI5DOhFo/l0qlR8cyYVz74ptex5kTPZpnS7OVJ8eXJN9YD1VQXgWEaYq
-	Y4ND/brp2EzZYRj+LbKJSldeNfAwv616x/2DfML70xTYLXuIAyPwE+2mHiU0ivTvucpTJyFBDC4
-	B5C7ox5yeTbKjoPCvrIVjoqOYfXbpi112LPEA7v263oImdLj7saDczEujgqZOpHd6sHz6YYBy0b
-	ikHv2qkv0pncUOt9s9CRKyO/sTtka3lJ
-X-Received: by 2002:a17:90b:55cd:b0:3ac:9925:72ae with SMTP id 98e67ed59e1d1-3b166cddadbmr2410116a91.31.1794321503970;
-        Tue, 10 Nov 2026 06:38:23 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:a917:5683:7f92:9eda])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1690eb517sm1867517a91.4.2026.11.10.06.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:38:23 -0800 (PST)
-Date: Tue, 10 Nov 2026 08:38:21 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Nishanth Menon <nm@ti.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: reset: Convert the ti,syscon-reset binding
- to DT schema
-Message-ID: <avMsXdwyw4FsQtZG@p14s>
-References: <20261109173112.4111810-1-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSSgWphG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDFD1F008A3;
+	Tue, 10 Nov 2026 14:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322015;
+	bh=ahpMbNRu+oaU/D+J9CQu8q3KW+PhWHMWtw7yeScr5x4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iSSgWphGAZzZqhQ+c0Be8QZCxHpeK6wmtxK+Sstue5s6HPrFgpFkwJz4UlYxj7bgx
+	 DmLBVqgbHYgz0bBLBML2qsLjY8ev3tyts5RizUgZ6GZkqxDCb2mvJzQGJ/3EVvnv1N
+	 LJe5x1LGUGpYgV68dzspFycDUXaXpyIQuOhDux66FbI4BlKd7sRsAFeUWV+066WEkZ
+	 DqIs3yj7LZPDEX9YK4EJ/QsgSrQVEy58z9dDZMdFWTlCmTqVxJoQgm6/5BHGGrVtSN
+	 QadY7MBdF0ceyycMMf68yDiAcXNYMkljlC5NDkXV8fQ15HZ62NIKgiqOFph2KR9iIO
+	 QYQpqtXmvF2/A==
+Message-ID: <sashiko-outbox-207210@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 5/7] dt-bindings: clock: nxp,imx95-blk-ctl: Add LDB
+ bridge child node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261110-dcif-upstreaming-v11-5-9e13c85ae0d8@oss.nxp.com>
+References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
+ <20261110-dcif-upstreaming-v11-5-9e13c85ae0d8@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 14:46:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,204 +60,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109173112.4111810-1-robh@kernel.org>
 
-On Mon, Nov 09, 2026 at 11:31:11AM -0600, Rob Herring (Arm) wrote:
-> Convert the ti,syscon-reset binding to DT schema format. It's a straight
-> forward conversion.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/remoteproc/ti,keystone-rproc.txt |  2 +-
->  .../bindings/reset/ti,syscon-reset.yaml       | 58 ++++++++++++
->  .../bindings/reset/ti-syscon-reset.txt        | 91 -------------------
->  3 files changed, 59 insertions(+), 92 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
->  delete mode 100644 Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: clock: nxp,imx95-blk-ctl: split variant schemas
+  with subnodes
+--
 
-Applied.
+commit 40c5ccb540e5f895cb96974a17da3a21e1ed5c2d
+Author: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-Thanks,
-Mathieu
+dt-bindings: clock: nxp,imx95-blk-ctl: Add LDB bridge child node
 
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> index 847552133633..94f4508c8b0c 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> @@ -46,7 +46,7 @@ The following are the mandatory properties:
->  			managing the resets for this device, and a reset
->  			specifier. Please refer to either of the following reset
->  			bindings for the reset argument specifier as per SoC,
-> -			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> +			Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
->  			    for 66AK2HK/66AK2L/66AK2E SoCs or,
->  			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
->  			    for 66AK2G SoCs
-> diff --git a/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
-> new file mode 100644
-> index 000000000000..1cbb2bf88716
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
-> @@ -0,0 +1,58 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/reset/ti,syscon-reset.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+This commit adds a bridge child node pattern to the nxp,imx95-blk-ctl
+binding schema for nxp,imx94-lvds-csr to support LVDS Display Bridge
+controllers.
+
+> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.ya=
+ml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> index fbbf1b3f17904..c2aeb434a8102 100644
+> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> @@ -51,6 +51,10 @@ patternProperties:
+>      $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
+>      unevaluatedProperties: false
+> =20
+> +  '^bridge@[0-9a-f]+$':
+> +    type: object
+> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
 > +
-> +title: TI Syscon Reset Controller
-> +
-> +maintainers:
-> +  - Nishanth Menon <nm@ti.com>
-> +
-> +description:
-> +  Reset controller implemented by registers in the parent syscon.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,syscon-reset
-> +      - items:
-> +          - enum:
-> +              - ti,k2e-pscrst
-> +              - ti,k2l-pscrst
-> +              - ti,k2hk-pscrst
-> +          - const: ti,syscon-reset
-> +
-> +  '#reset-cells':
-> +    const: 1
-> +
-> +  ti,reset-bits:
-> +    description: >
-> +      Seven cells per reset, indexed by the reset specifier:
-> +
-> +        Cell #1 : offset of the reset assert control register
-> +        Cell #2 : bit position of the reset in the reset assert control register
-> +        Cell #3 : offset of the reset deassert control register
-> +        Cell #4 : bit position of the reset in the reset deassert control register
-> +        Cell #5 : offset of the reset status register
-> +        Cell #6 : bit position of the reset in the reset status register
-> +        Cell #7 : Flags used to control reset behavior, available flags defined
-> +                  in the DT include file <dt-bindings/reset/ti-syscon.h>
-> +
-> +required:
-> +  - compatible
-> +  - '#reset-cells'
-> +  - ti,reset-bits
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/reset/ti-syscon.h>
-> +
-> +    reset-controller {
-> +        compatible = "ti,k2e-pscrst", "ti,syscon-reset";
-> +        #reset-cells = <1>;
-> +        ti,reset-bits = <0xa3c 8 0xa3c 8 0x83c 8
-> +                          (ASSERT_CLEAR | DEASSERT_SET | STATUS_CLEAR)>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt b/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> deleted file mode 100644
-> index 61a0ff33e89f..000000000000
-> --- a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> +++ /dev/null
-> @@ -1,91 +0,0 @@
-> -TI SysCon Reset Controller
-> -=======================
-> -
-> -Almost all SoCs have hardware modules that require reset control in addition
-> -to clock and power control for their functionality. The reset control is
-> -typically provided by means of memory-mapped I/O registers. These registers are
-> -sometimes a part of a larger register space region implementing various
-> -functionalities. This register range is best represented as a syscon node to
-> -allow multiple entities to access their relevant registers in the common
-> -register space.
-> -
-> -A SysCon Reset Controller node defines a device that uses a syscon node
-> -and provides reset management functionality for various hardware modules
-> -present on the SoC.
-> -
-> -SysCon Reset Controller Node
-> -============================
-> -Each of the reset provider/controller nodes should be a child of a syscon
-> -node and have the following properties.
-> -
-> -Required properties:
-> ---------------------
-> - - compatible		: Should be,
-> -			    "ti,k2e-pscrst"
-> -			    "ti,k2l-pscrst"
-> -			    "ti,k2hk-pscrst"
-> -			    "ti,syscon-reset"
-> - - #reset-cells		: Should be 1. Please see the reset consumer node below
-> -			  for usage details
-> - - ti,reset-bits	: Contains the reset control register information
-> -			  Should contain 7 cells for each reset exposed to
-> -			  consumers, defined as:
-> -			    Cell #1 : offset of the reset assert control
-> -			              register from the syscon register base
-> -			    Cell #2 : bit position of the reset in the reset
-> -			              assert control register
-> -			    Cell #3 : offset of the reset deassert control
-> -			              register from the syscon register base
-> -			    Cell #4 : bit position of the reset in the reset
-> -			              deassert control register
-> -			    Cell #5 : offset of the reset status register
-> -			              from the syscon register base
-> -			    Cell #6 : bit position of the reset in the
-> -			              reset status register
-> -			    Cell #7 : Flags used to control reset behavior,
-> -			              available flags defined in the DT include
-> -			              file <dt-bindings/reset/ti-syscon.h>
-> -
-> -SysCon Reset Consumer Nodes
-> -===========================
-> -Each of the reset consumer nodes should have the following properties,
-> -in addition to their own properties.
-> -
-> -Required properties:
-> ---------------------
-> - - resets	: A phandle to the reset controller node and an index number
-> -		  to a reset specifier as defined above.
-> -
-> -Please also refer to Documentation/devicetree/bindings/reset/reset.txt for
-> -common reset controller usage by consumers.
-> -
-> -Example:
-> ---------
-> -The following example demonstrates a syscon node, the reset controller node
-> -using the syscon node, and a consumer (a DSP device) on the TI Keystone 2
-> -66AK2E SoC.
-> -
-> -/ {
-> -	soc {
-> -		psc: power-sleep-controller@2350000 {
-> -			compatible = "syscon", "simple-mfd";
-> -			reg = <0x02350000 0x1000>;
-> -
-> -			pscrst: reset-controller {
-> -				compatible = "ti,k2e-pscrst", "ti,syscon-reset";
-> -				#reset-cells = <1>;
-> -
-> -				ti,reset-bits = <
-> -					0xa3c 8 0xa3c 8 0x83c 8 (ASSERT_CLEAR | DEASSERT_SET   | STATUS_CLEAR) /* 0: dsp0 */
-> -					0xa40 5 0xa44 3 0     0 (ASSERT_SET   | DEASSERT_CLEAR | STATUS_NONE)  /* 1: example */
-> -				>;
-> -			};
-> -		};
-> -
-> -		dsp0: dsp0 {
-> -			...
-> -			resets = <&pscrst 0>;
-> -			...
-> -		};
-> -	};
-> -};
-> -- 
-> 2.53.0
-> 
+>  required:
+>    - compatible
+>    - reg
+> @@ -63,7 +67,9 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: nxp,imx95-camera-csr
+> +            enum:
+> +              - nxp,imx94-lvds-csr
+> +              - nxp,imx95-camera-csr
+>      then:
+>        required:
+>          - '#address-cells'
+> @@ -72,8 +78,24 @@ allOf:
+>        properties:
+>          '#address-cells': false
+>          '#size-cells': false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          not:
+> +            contains:
+> +              const: nxp,imx95-camera-csr
+> +    then:
+>        patternProperties:
+>          '^formatter@[0-9a-f]+$': false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          not:
+> +            contains:
+> +              const: nxp,imx94-lvds-csr
+> +    then:
+> +      patternProperties:
+> +        '^bridge@[0-9a-f]+$': false
+> =20
+>  additionalProperties: false
+
+[Severity: Low]
+This isn't a bug, but would it be cleaner to split CSR variants that have
+subnodes (such as nxp,imx94-lvds-csr and nxp,imx95-camera-csr) into
+separate binding schemas, similar to nxp,imx95-display-master-csr.yaml?
+
+Adding a second variant-specific child node pattern to
+nxp,imx95-blk-ctl.yaml requires three separate per-compatible if-then
+blocks in allOf to toggle #address-cells, #size-cells, formatter@[0-9a-f]+,
+and bridge@[0-9a-f]+ across unrelated CSR blocks.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-dcif-upstr=
+eaming-v11-0-9e13c85ae0d8@oss.nxp.com?part=3D5
