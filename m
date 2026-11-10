@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311567;
-	b=myTG0hiGolm69TbPnGNTapebi7jT0Eo2J2l9uqdaVPhoZrsOOEZg8Nhtsup6K59JKZU+
-	 19XTFvmIIvKYhIgSIYRjf9zOWdgmjiq3I+/TVMu7WNqFbN7Lv9PmDnOHGbgpWLYLMJCKq
-	 U5UoC3lkBj8JbANzyaTUtOXegepCCdla+/9LOLAch1ghmTD3ew78n96SHvBk6n4AxTDfo
-	 YwuaH0WECpoXFwg3VraAnGwu43kml+OV65t1d8QJ1hvgABc4uAE4aiSZLcHRJDDvK1SIv
-	 8Yzr8ihQiVrUFq+/i76tv8OAoZu4PgvjNHV5dzwAaLmbIVbtJzso6w6NU1AZLuuA7Zw==
+	t=1794311723;
+	b=irPIcpAxNI00PCRzY6ZPaMfYuvRc0iSu06MrVrtrCs/csqjYmrAVxZras4JxS0DbS6HU
+	 0dg0plyN148mCSYOBKJeoXOTn/2Lm4K9uhvI/gt/6p1DZ4E+JHMKO53fYaeT9mmQ4h8X1
+	 IL8T40BnuHG5YyB9Md4PVIiu0jpFpDrnPygnk0/za1kCLEayAjsCMwFl3JA/YiDFLngsm
+	 KzBHxiK6zZmqJm+dz9VTpQR8D2LeG6QAU56XYsgdPtvxFaSxvhmy2Qs1lHjf6XiL7TMcZ
+	 euRudhFcNLpQYWz686IsTLDSa4QAlmmj4PcK2x1vXZchNl/SZDQWhO86aQpESGpy/Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311567;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311723;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
-	b=lLz1uVuABKy0R/oE4ibXJrpYP3D4bHt/WMhu78sRimtVU14ifoJlKB8d7YV1ArVHbXQa
-	 RM2fcCEK8YK92UhdL1O05xg7XLCaVsaUBz1AqsW+L9vBPPmeWtirnN+iH+Xr3PblpzeHR
-	 PuHkU6g5Eu0O/2Bur5MOVDjblvuWZtHm6hc4leN8KJabJqoNPQRWBfBkXeNUuzfwY0S02
-	 QL4U7bs3HpEEJyU192XRtyq8Q9BH0QGXV0Ql7nxtdjIO9AJEtYt1zB7z4DuMJDR/bpQUZ
-	 akxJ1qfIi9KQeIcIr5bnhRXV2MYVX2ZiBBd+ekXSjS1qFREH4X+hCZZaRtqykjNczIw==
+	bh=2R+pCgHKZ0bswFzRGYD/aZSxNJMUNxjGeJPVpJytDAw=;
+	b=z80YTtYPMOaD6czrGJOCiL2z7HRA1PQbAs91YDOmoe+yMIGM6LxRmSxzQq5qb6e/hCh2
+	 fNpzrT10ZxpkfsofuXKUw0OWlB44yqiSHiYUP/FWikAKSdiRkxbIR4utpzOfYXWgCscpE
+	 GPPD827Xj3YwLsHkwCQ3pw/pi9Rf5FScxlGix+IeV5v2zLFdr/giHDGi4JSeWqdj5WkSW
+	 MPJ0Zj0C7NltPh7JFqalGPaQdAs0/+ZeQjdbsEWr+KyRCfPt/B7scpLoaSpc0ZaMy9p+q
+	 79Z627VjZ29gArkLBgIQeFxiAu4mo/WIQOb3aYXxyYGYrUKMfHrJWNym6xc8rf3vnZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS2OM92v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96235606B5AB;
-	Tue, 10 Nov 2026 11:52:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907B6606A333;
+	Tue, 10 Nov 2026 11:55:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EE91F0089F;
-	Tue, 10 Nov 2026 11:52:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS2OM92v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B891F008A1;
+	Tue, 10 Nov 2026 11:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311567;
-	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
+	s=k20260515; t=1794311723;
+	bh=2R+pCgHKZ0bswFzRGYD/aZSxNJMUNxjGeJPVpJytDAw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DP8HkjU5T83IWyPjBkGBGk4rtnDD7AROqjLS347ksks61BqCyegrtofOXDOd2MLWj
-	 y5v5LekEWgJIwdi8jcSVZSOfNh6DNLeRf0oEPf/qx0r2rhECckbAgQ26HUC+9Op824
-	 TYWCdeeANpr3OrBAjhz4yPYln7Mawc17X/WCBA1PMuBGt0NlmdHwGEqMuCi+dix0x5
-	 qja565LmnhO5EGUi7MgurfmPOlTht4sa9a0fKJzxR+zIOMF4yf3pZFrolv35TtX201
-	 yu0bevNg1SHN2X4DU0xoVtcm7Zwier+QtgstMCRDMzA67VOyk+THdhPCTaOPcJMAJP
-	 vRjnlElsnjGNg==
-Date: Tue, 10 Nov 2026 12:52:43 +0100
+	b=jS2OM92vhGYFLQZtgJ17ES5I2SoXGonxOLA7ySexc1gVBw34/i50QgPMhWtEJkAys
+	 RhP2CxLM4meD+xXi1lk1WmT888/peHhJidvH+Q9HL0FJMvzeP9b9kVrcrBZ2TebGt4
+	 f2DYc0xq2IUrRFF+OODN8Caq9vATVSyIJqV4KIcoj2IbbihkA3PMQezr190in9Dx5U
+	 em8n+aSTQMk3hPd7bNlyAzNjhySjzdQR0MS1icoWls7tbWPjLzDdKbtFxmzL3IU0Do
+	 7Vn3uMYpk/a/lPlJJfMdoPNnvlSzVO0l2kKsMbyRvHAusikUvQpQna2cUgzZVgDVao
+	 PZ93koTOVgAWA==
+Date: Tue, 10 Nov 2026 12:55:19 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Demeter Barna <me@fromdisposition.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine:
- Add SM8350
-Message-ID: <20261110-colossal-dancing-clam-1db0cd@quoll>
-References: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
- <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
+To: Rodrigo Rea <rodrigo.rea@marsrover.mx>
+Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, alexander.stein@ew.tq-group.com, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, rodrigo.rea@nxp.com, 
+	daniel.aguirre@nxp.com
+Subject: Re: [PATCH v2] dt-bindings: rtc: pcf85063: Add NXP PCA85074A
+Message-ID: <20261110-provocative-voracious-parakeet-dfc33a@quoll>
+References: <20261109152352.6335-1-rodrigo.rea@marsrover.mx>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,19 +60,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
+In-Reply-To: <20261109152352.6335-1-rodrigo.rea@marsrover.mx>
 
-On Mon, Nov 09, 2026 at 01:55:29PM +0000, Demeter Barna wrote:
-> SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
-> hardware key manager behind it, clocked by the UFS ICE core and AHB
-> clocks and powered by the UFS PHY GDSC. Document the compatible. Being a
-> new SoC, it stays off the legacy single-clock list, so both clocks and
-> the power domain are required.
+On Mon, Nov 09, 2026 at 03:24:02PM +0000, Rodrigo Rea wrote:
+> From: Rodrigo Rea <rodrigo.rea@nxp.com>
 > 
-> Signed-off-by: Demeter Barna <me@fromdisposition.org>
+> Document the NXP PCA85074A real-time clock with nxp,pca85073a as a
+> fallback compatible. Both devices have the same register layout for
+> clock, calendar, alarm, offset, RAM and timer functions, allowing the
+> existing PCA85073A driver support to be used without a new match entry.
+> 
+> Link: https://www.nxp.com/docs/en/data-sheet/PCA85074A.pdf
+> Signed-off-by: Rodrigo Rea <rodrigo.rea@nxp.com>
 > ---
->  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Changes in v2:
+> - Require nxp,pca85073a as the fallback compatible, as requested by
+>   Conor Dooley.
+> - Drop the driver patch: the existing fallback match provides DT support.
+> - No runtime test of the new fallback DT has been performed.
+> 
+> Link to v1:
+> https://lore.kernel.org/20261105215204.2446733-1-rodrigo.rea@marsrover.mx/
+> 
+>  .../devicetree/bindings/rtc/nxp,pcf85063.yaml  | 18 +++++++++++-------
+>  1 file changed, 11 insertions(+), 7 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
