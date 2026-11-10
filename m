@@ -1,44 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276531;
-	b=T1pHYoZPh+1vIRP9zoFMEQFEfdR53avwCXXVlM2no71PX5d6D8A85DN6Iul91XhUIT8o
-	 xKV8H6kZkggvtWxMJPqDAOq6mY+gfKwv+AIpDUEscYbdg8UGFum9VZUJ4/9WE+5gwu2El
-	 xlOuGov/T24BzzQQtSDGvtRK+tX7Rv9Prx3Eyh2b8sbCXy2fkhOJUV14bturptJH3iHQB
-	 GPcjQ9dSefe+oa78feMEhqM7zkgNUtg8s7umW9oqq0mqTnZKPmbq+zPuOYYEDg6XF5jU5
-	 Kr4Tgi4N2vParE69r4z7Oj+fFA2t4OQuNtEvKz8h4BclrRSvmgrCBab9trLfsJWQ7UQ==
+	t=1794276738;
+	b=mIn1+cY9uODuQWk96xutCbuJQbjply2mQUzBDG1SLHZSoqyaBV5NbsLIxC5gRn7mpFW6
+	 jq2YQZdsiLptU7cwl2puNSr8F5TU/wJ8m6msMGLE0/ZLXXnlOjZFzYd9F22XdP9Gfgabf
+	 DJnL7RtJqNwpSyOF1iKxLo/8X2QVFbrba9FRtvOe8HethSjGgn7OjMNutwsmZmUlBnifJ
+	 vIgzHf5kuveOw7ouTHZD7P6wFNyt5ECKpsjNWko97dQupzpf95Mh5mNN46k9Jk4LpFA0b
+	 NE2f2CEoXgl12uUe6f7Mlj1ZqxMAX6lBI2DMGtwbX0zeucvh6QhE3bIEJymaUxGki7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276531;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=GKIy7W9V1DOhRGum57t2Y4YFkP9DEDYp7ywnEyxOco0=;
-	b=4C26UTuL/s21OESQn3z6KoxdcmGR5G9txTh9agZj4pGF2wKqcW4khkUbVqydz2wNB+hs
-	 tuthvFL/NR8vgaq1NUEtQWCs4bElvit2LMlpn/YhbnsAJu5LSKv8t2BNCO3wJM+yp1UuA
-	 /Fp/XanpD3TjFFpZtKd8StqlQq6UBNcMYdW8+ETajeTgj1JOli6nlojifArNzH+vGKbhB
-	 en/FL7b7tS+jqv6vJwGXS/omRmG44swmUBHMfRQZj2nD7/JIjb/rVoS5QhHzJAE4DRsI2
-	 gAgmkAjwx5j6w5Zbbhwrf3sS7OUg7IcN4OBRt3KuREiIsd0ZjA7zonMUMhxpfszwa7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276738;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=irS42R6+DvFbO9i+VAkwWMQued7GWtppLzl2IM79+R0=;
+	b=BKkcHQI7XIGVaEJWcFD0Mk3NS7+E/Pr+oOMJ8o5bojGfQlgt85L0iYBg+axP0a+op7KL
+	 XlnRKTNf802T19XNYXhklKrayLQw8qNm5eLqacoxCoi4wnkvF9cGLiLJf7cIfUGi/x7HI
+	 bz3uMeF+qCg8/9+UYifsu64keRtWZv9ELbS54a4QxN6VKb8Bw4JxmO1PfEf+IT8pCUTS0
+	 60iOXDHr6wQonX1AaiWqo7Ji/LiMeTWTslWZauoUmkzMq0FSCrgyrqBP3W7m8JggFVm6a
+	 b8vFPWOkIfd7+C1nzsLL6lOuB3Xl1Csg3Nx4EEYjKJtbeAkN30amfCVmtTk4rbm8jiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G2mrV4dP;
-	arc=none smtp.remote-ip=160.236.53.20
-Received: from mail-m1602365320.xmail.ntesmail.com (mail-m1602365320.xmail.ntesmail.com [160.236.53.20])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b="vpQfZu0/";
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD2A606A31C;
-	Tue, 10 Nov 2026 02:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FD2A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009DF606A31C;
+	Tue, 10 Nov 2026 02:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G2mrV4dP
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54157f5aa;
-	Tue, 10 Nov 2026 10:08:36 +0800 (GMT+08:00)
-Message-ID: <38fdf732-ffa1-45d4-a436-08d542ed2528@rock-chips.com>
-Date: Tue, 10 Nov 2026 10:08:32 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=vpQfZu0/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1794276728;
+	bh=irS42R6+DvFbO9i+VAkwWMQued7GWtppLzl2IM79+R0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vpQfZu0/K5FY4Ri8ZPm3OThlykgbtYatCEuL1qj5/JKs8wZgAtRpS8vp9eVBxxawV
+	 EkYiGUyAVuWXzkyLOpHlFNVVtUuLVyw5IOpqKfg9Ge6qHYRKDFNmICo0odsSayrmbN
+	 39VJGnlUTdSkeBe7llmvuhl/FllSkS24EcMLW+zSS+Wcx8E+onshTn59zRpWYWqVPS
+	 4+fB4ibvyY5obQqnVTR+75fKhhfh6HL/M16RRZrp/NbUwNtZ4P+u25IbdSjOfp+r5P
+	 XvRBQCTbMY5nli94CFOdvNYLnLiAhaaSEuqf6aj4l0EiVwb+wV41XsPpoFPlOh6fXl
+	 gez3m24/WUveQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jNqsh0vWSz4wKm; Tue, 10 Nov 2026 13:12:08 +1100 (AEDT)
+Date: Tue, 10 Nov 2026 13:10:05 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree
+ representation
+Message-ID: <avJ88R_GDqtdBW1u@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-8-dianders@chromium.org>
+ <auhYb6FV2dPrbVxB@gractus.seuss>
+ <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
+ <aurMrnE3vD5eCEAV@gractus.seuss>
+ <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,111 +78,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
- <avDN3pPY5Qwt9B1p@venus>
- <b60b7079-b7b6-4d83-8167-2e4fc6021aae@rock-chips.com>
- <5573124.44csPzL39Z@diego> <avIEPncVnojQBqpX@venus>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <avIEPncVnojQBqpX@venus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c336e29503a7kunm8423815768d9d5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUJNVh5LHx0fGElJS0pCSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=G2mrV4dPhT6SK9ihMPCZt3ZO8snXTozKw2nqL0KEWGC2zddBvJ6jGFGTlBWaeC4v4sNv+DGIOnQilbo5xBHitNVv458i2OLeD7v19yFAjUViMd8hdkAa8dKChvg5wbPQ8tam9+EBf3gI8zeK4zSjx5CzBalS4O7YWjVm8dvMnaY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=GKIy7W9V1DOhRGum57t2Y4YFkP9DEDYp7ywnEyxOco0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n7OeUluRuJBoVz+V"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
 
-On 11/10/2026 1:51 AM, Sebastian Reichel wrote:
-> Hi,
-> 
-> On Mon, Nov 09, 2026 at 02:26:44PM +0100, Heiko Stübner wrote:
->> Am Montag, 9. November 2026, 02:31:35 Mitteleuropäische Normalzeit schrieb Chaoyi Chen:
->>> Hi Sebastian,
->>> On 11/9/2026 3:42 AM, Sebastian Reichel wrote:
->>>> Hello Chaoyi,
->>>>
->>>> On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
->>>>> Hi Sebastian,
->>>>>
->>>>> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
->>>>>> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
->>>>>> combination. It contains a Wanchanglong W552793BAA panel and a
->>>>>> Goodix GT1158 touchscreen. This adds the DT description of it.
->>>>>> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
->>>>>> ---
->>>>>>  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++++++++++
->>>>>>  1 file changed, 90 insertions(+)
->>>>>>
->>>>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
->>>>>> index 6a95a8bb6fb8..327ca13b60f0 100644
->>>>>> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
->>>>>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
->>>>>> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
->>>>>>  		regulator-max-microvolt = <12000000>;
->>>>>>  	};
->>>>>>  
->>>>>
->>>>> I seem unable to apply the patch to the latest linux-next tree.
->>>>>
->>>>> So I tried to resolve the conflict manually, but the actual
->>>>> test screen did not display. I will look into this further.
->>>>
->>>> Strange. The base of this series was Heiko's for-next tree from
->>>> Friday. No RK3588 EVB1 patches landed since then:
->>>>
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/commit/?h=for-next&id=cabb6811c38a46337d5f4252b4dc390f9296856c
->>>>
->>>> If your board uses the original Rockchip bootloader, which shows a
->>>> Rockchip logo on the panel, you also need Cristian's latest YUV420
->>>> patches that reset VOP2 at probe time avoiding some issues with the
->>>> pre-initialized panel as a side effect. Those were recently applied
->>>> by Heiko to the DRM tree, so testing on linux-next is indeed
->>>> sensible.
->>>>
->>>
->>> Hmm, the newest linux-next tag which I used is next-20261105, and Heiko's 
->>> tree last updated date is1106. I'll give it a try on Heiko's tree.
->>>
->>> And I'm using mainline U-Boot, which obtained from the latest nightly build:
->>> https://gitlab.collabora.com/hardware-enablement/rockchip-3588/debian-image-recipes.
->>>
->>> The backlight working correctly, and the DCS command has been sent, but nothing display.
->>> Perhaps I should look elsewhere.
->>
->> I would assume it could be the SPLL (again).
->>
->> I.e. a recent u-boot change broke the SPL-based forced clock init and Jonas
->> fixed that in [0]. Had the black display again recently too.
->>
->> And it seems it hasn't been merged yet.
-> 
-> Sounds reasonable. FWIW I only tested with the pre-flashed Rockchip
-> U-Boot (as described above). I intentionally keep that on my RK3588
-> EVB1, so that I can test RK3588 with vendor TF-A/U-Boot and upstream
-> or downstream kernel. All my other boards run upstream TF-A/U-Boot.
-> 
+--n7OeUluRuJBoVz+V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-That's right. It looks like we've tripped up on SPLL again. :)
+On Fri, Nov 06, 2026 at 06:43:12PM -0800, Doug Anderson wrote:
+> Hi David,
+>=20
+> On Wed, Nov 4, 2026 at 4:44 AM David Gibson <david@gibson.dropbear.id.au>=
+ wrote:
+> >
+> > > +class Property(bytes):
+> > > +    """Holds a device tree property name and value.
+> > ...
+> > > +    """
+> > > +    def __new__(cls, name, value=3Db''):
+> > > +        if not isinstance(value, (bytes, bytearray)):
+> > > +            raise TypeError(f"Expected bytes or bytearray, got {type=
+(value).__name__}")
+> > > +        obj =3D super().__new__(cls, value)
+> > > +        obj.name =3D name
+> > > +        return obj
+> >
+> > Thanks!  I do wonder if we're doing this if we should update __eq_ and
+> > __hash__ methods to take into account the property name.
+>=20
+> I don't think we can include `self.name` in `Property.__eq__` and
+> `Property.__hash__` without breaking `Property` comparisons against
+> plain `bytes`:
+>=20
+> 1. `fdt.getprop(node, name)` returns a `Property`, and existing callers
+>    (including 10 assertions in `tests/pylibfdt_tests.py`, such as
+>    `self.assertEqual(prop, b'test_tree1\0')`) compare `Property`
+>    directly with `bytes`. If `Property.__eq__` required `other` to be a
+>    `Property` with the same `.name`, `prop =3D=3D b'...'` would evaluate =
+to
+>    `False`.
+>=20
+> 2. If `Property.__eq__` only compared `self.name =3D=3D other.name` when
+>    `isinstance(other, Property)` and still allowed `prop =3D=3D b'...'` f=
+or
+>    plain `bytes`, then:
+>    - `=3D=3D` would no longer be transitive (`Property('a', b'x') =3D=3D =
+b'x'`
+>      and `Property('b', b'x') =3D=3D b'x'`, yet
+>      `Property('a', b'x') !=3D Property('b', b'x')`).
+>    - Python's data model requires `a =3D=3D b` to imply `hash(a) =3D=3D h=
+ash(b)`,
+>      so `hash(Property('a', b'x'))` must equal `hash(b'x')` if
+>      `Property('a', b'x') =3D=3D b'x'` is `True`.
+>=20
+> In `DeviceTree`, properties are stored in `node.props` keyed by
+> `prop.name`, so `node1.props =3D=3D node2.props` already compares both the
+> property names and the byte values.
+>=20
+> What do you think?
 
-The upstream TF-A/U-Boot with that patch makes the panel work. But there
-is slight jitter in the displayed content.. I'll look into this further.
+Good point, never mind.
 
-Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
--- 
-Best, 
-Chaoyi
+--n7OeUluRuJBoVz+V
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmryfPEACgkQzQJF27ox
+2Gdtxg//VI/JCF7+MKwc7Y3gjycZy4wujOF3RLkBYUlHbcpCIiSpfA6vnKFVeisb
+sJVh/oPAAk8r8Iw2PsBXnzWFsKi8qTJGrPaFZj34PZUzfjMeYsa2wVobn4fuaqQF
+XbHBv1e8mngBZRvcsTicaX6TjyUMmQ23O5tE88eC+aWyymneb3W/2N0KJ90VpqUr
+yE/oZpTrv8uOMs73YDz6YjWx57YdbFZXVxeH+3jDjCCCkbuBiOvQ0GYnC5sHNvak
+6KCQk5Y2qiiEEkHMuAE7yKb52A85gwwSD+0ZKdGqfTYSODSH8uHmfVDQ1Jk4+wPT
+hkCu+G4yU3C4xllxI3z4ZMcZXKjH84d5os4psNM5bZmNvBJa3kft1KhwxyBxq3rY
+nARFahHoRVsfZ37Nl1BNe9G4i4wFahFTfKlB+GxZ3uNwc4O5CKMj5f/1pDmGbY+Q
+tq3i/7VqYFHMsEomdbz9pfMaBv0aTwnv4Ts0QqJZ8bnKZh+zaJHMzhTSBW4dl0Zi
+p/B6ST+N3u9NVCrGBo9uVbLHDztPCDUBspNIcBo16d0PEVroEZJAiS4Xx5O6qwV0
+Punx+p1DNX4VRHAa0szCCGNmZItltujv00ywnRtl1Ws2OibXvUhVMoH7wp0rJac/
+eJNT0USfWRTVxzURcWuT0V2Z94oVwdbF8LOzBQmg+VlVKF1C/kc=
+=kEek
+-----END PGP SIGNATURE-----
+
+--n7OeUluRuJBoVz+V--
