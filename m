@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289997;
-	b=owLnWDfAfvCdSKmAVJUqMo6WADmVdr5oGwvtLsemvXhropYIA8EsGfnq28rVm8LseEWW
-	 jdRDb1vaxWMPpC5gmc/cynYdBSPFOh77QJyjvR5bZ2M36qIEt4C/q+q+sMR7qkPCZOZ0e
-	 wMlSy5HkxW7luncgVlPtbFh7pFvxfHdy/a0mM/SuMustRuti4A84Ph/fN3IriuI2PbFBh
-	 ZoE6Gq9REwdHeB1U5PW4ralsmuFk6+Dz8vDNCYVOpze4IKkU63WWga52ZjrSrIPazEice
-	 XsVx65et+qwCSb0pXh3qWAQsWGKZYb0apTtyszyu0PJIAjacyCpG3iJWmr9rlXKiWPA==
+	t=1794290234;
+	b=40ZTRlVgHy1XEHbRdUa3j8deCLRxKHSZaS0YlN3vPCGtxmeClsqWoCUgn+f9q2JpigYF
+	 GPcLSkResfZR7H+ng0D8iPYweH61Jo4k7lCUog7HFya6vkbfshISJGc6rkONYzx/LinJP
+	 lUNjzLiSqqX6rQjEGPqa89CmFZ2KSca5/irA+da+kGXa9pKP8qzdbcU4ZMXZWsYx8W7VB
+	 LB65Tafixs4JhayIlMd61EMpLygbXgvq4AQ2siu/bczXkT49XvsggF53vKgelxwKJLmie
+	 xFSB6GkkoPddC5nD/SsAduDleKmWjl1shfiBapKwh0ksuDtO8iJBOArTPx15s5I9I0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289997;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=YnyI1E/tXADZNI0XTbGcSGGT3VaZrgmrn187FtfBb6I=;
-	b=gb64hfJzhR4K8gIoyes/kcJfKYMCcepoyE1I5bROkwTXcvpXRtEAXidxMrm01ffS5UjU
-	 qUQFGI2PrpeI+GVnXAx9QJsgQhymfqlNgEhH1Mta6Ci2GEOPbPKnorwmMMj0yOjLPJs77
-	 V7siuS53btZda6ddXbKNd8hPC3AAQOsmlPXJ37s4Q/dIPBdvlsec0DGZNcY9SckJ7HEpy
-	 3JWb9KLybQIMsbkIJA8D1iMkkPYuQTavG0srGaIFx/R12YaAgWTmZNxVLYWaou+AUsdto
-	 xssUk3f3RzWxKh14M1FcQcDysDklUjwiUSyjNKijUmlKkkRxci9vlM3an+8nykU8NwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290234;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=laBwzBmPEr/UQH5HBsppamR1QuUoc2VFWIqykmeqG8k=;
+	b=q78Bz6VPMSQG5T+M+ZPNDD1fg+Zw0DRfsYNFcr9pHzsWcBosCOoGIaGL9iImZmQTCXdP
+	 iK+6BjMlQ1utijbgp1ArSZB52yI4R9K549D2UOCWSqkBGnTVLymjT70IbV7hF6BmqrNUv
+	 CUV92ol1BFRm6WBiJwbt8crkcypqprew+0jN5CDkXOSi/p9ad0cA3O6g4mjshNFRfRudj
+	 Dv3Uiy391xsLs621C6IVEHID9R/pJ00JxSoDzdCDBffeDHYuCQqsE5SEXkuUOlXRbimIr
+	 VCY9FEcYW7GG1DU39Tev8YXx2QrU63YasNqIwo7GokJJYci95Y/eZT7E5WfTpwZxhZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RlMcej0s;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkEJ7jCl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73250606A321;
-	Tue, 10 Nov 2026 05:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73250606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B29606A31C;
+	Tue, 10 Nov 2026 05:57:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RlMcej0s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794289987;
-	bh=YnyI1E/tXADZNI0XTbGcSGGT3VaZrgmrn187FtfBb6I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RlMcej0sH+YHRrPEV9YJUIDy+wr6QvgUvUSjUzl4ynFK/1A8o78bX9qhhf4hLaJBE
-	 Cgvy6tJbLtFjESxgLDfQ5jUWGX9jCHJ7J99aQUIh2oDdIx9ZD40yjfvfqs584FmjMN
-	 AO5kC+oLKBbDRMRfWNuLN3ER0TVOFagPaKoEAaNG7Gb6060YCs37/NL/sB6jvovceY
-	 St82FWpxTZKZa9eOIBQWuhF5VmbeDPF+ycRnUkJaiyNVqvmK6DUak+/7QGwsJWCiFv
-	 +WKdv8aHB3CcR/0EsGkGqEcxiX+udLc9ycwIKHIGblQlXb0O08pdPPuuWYBKBfM/rc
-	 fIITpQN0q2Vlw==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C4AAC64C3C;
-	Tue, 10 Nov 2026 13:53:05 +0800 (AWST)
-Message-ID: <fff90721f7892c0285f4fed7fed460c7c1e183cb.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
-Date: Tue, 10 Nov 2026 16:23:05 +1030
-In-Reply-To: <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
-References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
-	 <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkEJ7jCl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABBA1F0089F;
+	Tue, 10 Nov 2026 05:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794290233;
+	bh=laBwzBmPEr/UQH5HBsppamR1QuUoc2VFWIqykmeqG8k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZkEJ7jCl/H+zwZKOlFMtXpmzXp/O/qncWiCxcXudVtUFO6J0dHXbikhndygAIWKM8
+	 m4X+4FmArNd6a9kYaisb7ZHex78VyPUeikck8ixb4CdTOVnv85F3eP6oR5B0XBSTHf
+	 nLmVBy1mTtJzWMWOTCQkUp1co4LeRAvDvX1WPHPdVTaTm+9Kfy0TkIYDRkPE83YKPc
+	 eDyR+54iPmT5Qg+CFwwcFdVYKbTtasbjtEwz23RiQdUgQwgGEZA+xfAnTCprgWiy4Y
+	 KOW+mpsCPh53TXwPvixfTp2N5Q6noO8bxTANsmAvASeaBp2qFJA/icMO+kQbAHtbsU
+	 OOMPNGZgSWVrw==
+Message-ID: <sashiko-outbox-206359@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/8] arm64: dts: allwinner: h616: Add GPU OPP table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Arun Iyengar" <aiyengar1990@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110-h616-zero2-dt-v1-3-05506d760f21@gmail.com>
+References: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
+ <20261110-h616-zero2-dt-v1-3-05506d760f21@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Tue, 10 Nov 2026 05:57:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,25 +59,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-On Mon, 2026-11-09 at 18:41 +0100, Dawid Glazik wrote:
-> AVCRP is an Intel x86 server platform equipped with an ASPEED
-> AST2600 BMC. The BMC is used for out-of-band management, platform
-> monitoring, and system control.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: allwinner: h616: GPU OPP triplets set min voltage
+  below target
+--
 
-It's probably my fault to some degree for not providing a better
-explanation of what I was after on v4, and for merging changes from
-others in the past that were pretty lax on the description, but what I
-was hoping for was something more like e.g:
+commit 77493b95bc2bf6851fa12081534ceeb124aa8295
+Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-- f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM"), or
-- bc83b7353d2b ("ARM: dts: aspeed: Add Facebook Anacapa platform")
+arm64: dts: allwinner: h616: Add GPU OPP table
 
-Are there more details you can provide? If there are, I'm fine if you
-reply here with them, and if there are no further concerns I can update
-the commit message while applying the patches.
+This commit adds a shared GPU operating points table for the Allwinner
+H616/H618 Mali-G31 GPU covering 306 MHz to 600 MHz.
 
-This also applies to the JNCRP patch that follows.
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arc=
+h/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> new file mode 100644
+> index 0000000000000..511174eee271b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> @@ -0,0 +1,62 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
+> +
+> +/ {
+> +	gpu_opp_table: opp-table-gpu {
+> +		compatible =3D "operating-points-v2";
+> +
+> +		opp-306000000 {
+> +			opp-hz =3D /bits/ 64 <306000000>;
+> +			opp-microvolt =3D <810000 810000 990000>;
+> +		};
+> +
+> +		opp-336000000 {
+> +			opp-hz =3D /bits/ 64 <336000000>;
+> +			opp-microvolt =3D <810000 810000 990000>;
+> +		};
+> +
+> +		opp-360000000 {
+> +			opp-hz =3D /bits/ 64 <360000000>;
+> +			opp-microvolt =3D <820000 810000 990000>;
+> +		};
+> +
+> +		opp-384000000 {
+> +			opp-hz =3D /bits/ 64 <384000000>;
+> +			opp-microvolt =3D <830000 810000 990000>;
+> +		};
+> +
+> +		opp-420000000 {
+> +			opp-hz =3D /bits/ 64 <420000000>;
+> +			opp-microvolt =3D <850000 810000 990000>;
+> +		};
+> +
+> +		opp-456000000 {
+> +			opp-hz =3D /bits/ 64 <456000000>;
+> +			opp-microvolt =3D <870000 810000 990000>;
+> +		};
+> +
+> +		opp-504000000 {
+> +			opp-hz =3D /bits/ 64 <504000000>;
+> +			opp-microvolt =3D <890000 810000 990000>;
+> +		};
+> +
+> +		opp-540000000 {
+> +			opp-hz =3D /bits/ 64 <540000000>;
+> +			opp-microvolt =3D <910000 810000 990000>;
+> +		};
+> +
+> +		opp-576000000 {
+> +			opp-hz =3D /bits/ 64 <576000000>;
+> +			opp-microvolt =3D <930000 810000 990000>;
+> +		};
+> +
+> +		opp-600000000 {
+> +			opp-hz =3D /bits/ 64 <600000000>;
+> +			opp-microvolt =3D <950000 810000 990000>;
+> +		};
 
-Andrew
+[Severity: Medium]
+Should the minimum voltage in opp-microvolt match the target voltage on
+opp-360000000 through opp-600000000, as in sun50i-h6-gpu-opp.dtsi?
+
+opp_parse_supplies() parses a 3-cell opp-microvolt as <target min max>.
+_opp_supported_by_regulators() checks regulator_is_supported_voltage()
+against [u_volt_min, u_volt_max], and regulator_set_voltage_triplet()
+falls back to [min_uV, max_uV] when [target_uV, max_uV] fails.
+
+Keeping min at 810000 uV lets boards whose GPU supply maximum is below
+950 mV retain higher-frequency OPPs and run them up to 600 MHz while
+undervolted below their target voltage.  Setting <target target 990000>
+still lets boards with a higher regulator-min-microvolt use lower OPPs,
+since [target, 990000] overlaps the regulator range and
+regulator_check_voltage() clamps min_uV up to the supply's minimum.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-h616-zero2=
+-dt-v1-0-05506d760f21@gmail.com?part=3D3
