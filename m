@@ -1,64 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337006;
-	b=xBYFzjWtjlIowGn7A60RlSbwa4FEhnN5SDXlf4Zl/0ngN0WVCrB8QrRGE1R77x3Z6L9H
-	 noZO5jWBFNMEecypXNnJ3nU6AkTDsO51AhsoQxkQ7Z4Xd5w7Ow2Xz9ITiiGhHDbevMT1E
-	 yu+GTSRTzAYSWe06JK6E3kEpDoteBOHMVUqqPAUUdupUgmigaxuWxkJvCUtnri+bBekJP
-	 MxFLw+k4UNzZklJOk9JSplpb9bk2EK8obtb3qaQb8TXcRT+Z8bevfydEkxM342RGSHbCN
-	 X+yEOcN4pR+AnfXuexdRkwYJeZKesjscmDVUzITRnMDDPCUi6NnnjX32zPfmA3HCheA==
+	t=1794337067;
+	b=Glv4Q0sb5oyl89/W7AH8l4o4zp8XDQmq+5lmYsWI7rsifLuk/r+3UUAthY2XgwUeEEyQ
+	 3F41z+eeBPgDlgNRcE8kNCj4tjhGCF7GsRLNqbwdmP/cAibvgbb3ACClV6aoGK2bX6obY
+	 V/J+2uIV11dCzBPuhToVULvmNhTUs4y/2XlxBWM6INdAQrVA0HsrYpo6/iavtjQe1+Ylb
+	 oiSRf853C6UNEZmGZFM85yoyvbeDP6Tgkji75cXEYU9gHqCPikV/nvhztSelyQwQdDwbO
+	 GMjjIjxSg2Mgyds0ica2ieJZVEqIZykvrgIlwgeE0u+L1WZWXJ7ZusYVR814Q8fkAKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337006;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u8imW74Qi5u4rYZaASt9BvkUnwV5h/SQzuQOySm1baM=;
-	b=c0sbnADESdO6kOKFJBEcDs85cEGph5y78L3mvSgyGxcWAxnB89qTTOAAYK77GVtxcpjv
-	 A5ExI7djvFmrTc/ckfk34IZhtNzq1lhymK+Ui95N5ft1LdBCI4XJBznh9Jkfy4odsxCxe
-	 LfvqmwL+9R7bBcpV0a1r7vwXYivDKZIUTjdMFQ5Vn2ZTjUZWqjf2PJnwnQuooykdhjAnZ
-	 jyQZo2Etute/1Hn/nf1YB3De0BRl16bLnOteElPLAqazZy1nASTHh9GWzhzoCT0nZ2Nx9
-	 UwPNLGlA6AIaJ90InUNiCggWWcXJt5+90T/X8LMBPHkZ4pBSTLH8gCitWkuXK6b2QtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337067;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=Tt+WmpAkUFOgrfzi7btk/x8M0AYBTyuSqOIMJxNpD+0=;
+	b=Ip7y3x8uNlbcuRd9IOHkQtbbsdIgK5ZwHywc0lD0clLlCH5S1oWTPXzIE/UqsZTYgclJ
+	 gi6a8mPkXfmj1FWMvpeHgA/B9Gg4fwpJbgTzdVGTd/mzcnvTA5MvD4iPs0p3niOdbglOU
+	 e+HfcQJVnsF+DcKHwEOqZVnjaarbm8T4NRQLt7OjfCBWnpgPv4B/OQCiDhyBYFIORvQwE
+	 B7bmLThy6gTmdddifJEEOSGFa2hYlZhA/DTC4bj225QTPg1Ft8Ose9a6KMMlPAOXXWBz6
+	 pIFdMlRWpiF3ZsR5Qp9LtHxZFN4NtTfFOCdbnyUaYED47jT+tzgVNGgQ3o36tAQPyAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrjfhPuy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=rojer.me;
+	spf=pass smtp.mailfrom=rojer.me;
+	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=O9a8UIa7;
+	arc=none smtp.remote-ip=88.99.92.76
+Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67747606A330;
-	Tue, 10 Nov 2026 18:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523C606A332
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:57:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C523C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrjfhPuy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA591F0089F;
-	Tue, 10 Nov 2026 18:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337006;
-	bh=u8imW74Qi5u4rYZaASt9BvkUnwV5h/SQzuQOySm1baM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QrjfhPuyjrn758SshpFQS7FRi6KIfKbRgyl+CtMhrvVvZjUmlpcp6iWAN/kkbzjOA
-	 fNFWbEyH6+KMFB//wyuZPXioASmVeGISz6wXCAfnqmeKgWv3NntFCBjVvNp7B/4jS7
-	 OiI33lv7t0PXZtKvuhfgHDcw7h65oJjCiD9eS+SgFHLZIUGDIZ5xe1XA6WDiAALDvI
-	 Pze3mQX2QzMQ1ohGkXp5QaJMOP+oFQOkZLTtr/nd9oIDyTv9WIPV4HAnkGedbmrW5P
-	 oz626tq/cWbFeP6dzaJPS06hPO78cnQPDN5YjrRJCuSNDtuqimDwlsforrvFKYkLHQ
-	 S/7QH8nQ8c3oA==
-Date: Tue, 10 Nov 2026 18:56:40 +0000
-From: Conor Dooley <conor@kernel.org>
-To: =?iso-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Vasily Khoruzhick <anarsoul@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
-Message-ID: <20261110-attire-jump-6178a8647787@spud>
-References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
- <20261110074607.363918-2-frederic.mahe@cirad.fr>
+	dkim=pass (2048-bit key) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=O9a8UIa7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
+	t=1794337057; bh=Q4YkH5NtpBumyhhscsY/D/wVL7UIGd+c47iMMzSXQ9o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=O9a8UIa7eUHrbyVB8oBUf3riQiJbYL+R4gLsXysG3Rcr2SCIyUxXIkHTJLPCrpBXj
+	 xcSnngxqF1WX410ViBiY/MB4LO3rm1+8WygkwkrlB4h5Hmzo+hYcY0quvOM+JTvlny
+	 iin5qWdBHifecs15G0dyUJ6l4YhMUxfO2ybSGv5ZHtc6vd9IZJq4ashpgdM/X/6L/t
+	 Ox+VTLONNOT7X1YmdeyObK9+C1yG0pn72fgi9vvBwhIZ9lzY0Antc1OGqSwmDgqVaM
+	 mYt3iawuT76SvbVOZHpVkrgVjITFhwS4bQdXTiOSDzf6l6yY4VzqV0w+HTuEtrbc64
+	 8obRQENWHS4+Q==
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail1.rojer.cloud (Postfix) with ESMTPSA id C2E902174A
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:57:37 +0000 (UTC)
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df7f544919so1268232eaf.1
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:57:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFZKGZZJoRT24/voQMPiaFRMkvDFLkXs3+J5FnKPNUhdbSdrMOUmUS2qstNnpsu/JVxQZrNsazhg1Cy@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lmYSG6vag3mJ325vWFIqH4NTX1V67pNNOjbY/Uuai+aFdT2/i
+	HVBdBywuYGpMWLQz4pmkprQQQM4sXWWAvWVqAlF0LKR3GHD25lEu+3VgDebGH+2Vk1cAcvwk6kN
+	if4K/2XoqPKvU8OkCBwph8gV2IrIBWA==
+X-Received: by 2002:a05:6820:1c8b:b0:6f7:7a4a:9d7b with SMTP id
+ 006d021491bc7-718a576d5b8mr1715751eaf.41.1794337056322; Tue, 10 Nov 2026
+ 10:57:36 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,27 +67,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kBGoRM1PY2im1kOY"
-Content-Disposition: inline
-In-Reply-To: <20261110074607.363918-2-frederic.mahe@cirad.fr>
+References: <20261031104714.3271017-1-rojer@rojer.me> <20261031104714.3271017-3-rojer@rojer.me>
+In-Reply-To: <20261031104714.3271017-3-rojer@rojer.me>
+From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
+Date: Tue, 10 Nov 2026 20:57:24 +0200
+X-Gmail-Original-Message-ID: <CABFmFwoAMs8upS4wtjJo3oS3r7fFfnffm2Fn5nWOCZ+Z879d+g@mail.gmail.com>
+X-Gm-Features: AclHuK9MmlZCXre31qUD1WX8nPu4qqnNXxwDWOVxcYi7QO4VkRvqA9uFGpDjBG0
+Message-ID: <CABFmFwoAMs8upS4wtjJo3oS3r7fFfnffm2Fn5nWOCZ+Z879d+g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi
+ R2S Plus
+To: heiko@sntech.de
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	jin@mediatomb.cc, shawn.lin@rock-chips.com, jensenhuang@friendlyarm.com
+Content-Type: text/plain; charset="UTF-8"
 
---kBGoRM1PY2im1kOY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Heiko,
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+gentle ping on this one. the mmc changes have been applied for 7.5[1],
+it would be nice to get the DT bits in time for 7.5 as well.
 
---kBGoRM1PY2im1kOY
-Content-Type: application/pgp-signature; name=signature.asc
+[1] https://lore.kernel.org/linux-mmc/CAPx+jO8n6Y9PWDkxurwjjfGXSiGS0KWrYK0C7=5Uqic1Gn+M7w@mail.gmail.com/
 
------BEGIN PGP SIGNATURE-----
+On Sat, 31 Oct 2026 at 12:47, Deomid rojer Ryabkov <rojer@rojer.me> wrote:
+>
+> The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
+> controller in 4-bit SDIO mode, where FriendlyElec fit an optional
+> Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
+>
+>   - SDIO signalling at a fixed 1.8V (VCC_18)
+>   - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
+>
+> Enable the controller and add the power sequence. The SDIO pins need
+> 8mA drive strength for SDR104 tuning to succeed, as in the vendor
+> device tree [1]; with the SoC default of 4mA no sample phase works.
+>
+> On boards without the module the controller gives up after about 0.2s
+> ("mmc2: Failed to initialize a non-removable card"); nothing else is
+> affected.
+>
+> With the mmc core change for the module's CMD11 handling at a fixed
+> 1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
+> rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
+>
+> [1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev24.dts#L144-L172
+> [2] https://lore.kernel.org/linux-mmc/20261030142224.3183407-1-rojer@rojer.me/
+> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+> ---
+>  .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 55 +++++++++++++++++++
+>  1 file changed, 55 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> index 6ba4a74cb1f..a25421f5851 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> @@ -17,6 +17,15 @@ / {
+>         aliases {
+>                 mmc1 = &emmc;
+>         };
+> +
+> +       sdio_pwrseq: sdio-pwrseq {
+> +               compatible = "mmc-pwrseq-simple";
+> +               clocks = <&rk805 1>;
+> +               clock-names = "ext_clock";
+> +               pinctrl-names = "default";
+> +               pinctrl-0 = <&wifi_reg_on_h>;
+> +               reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
+> +       };
+>  };
+>
+>  &emmc {
+> @@ -34,3 +43,49 @@ &io_domains {
+>         vccio4-supply = <&vcc_io_33>;
+>         vccio6-supply = <&vcc_18>;
+>  };
+> +
+> +&pinctrl {
+> +       wifi {
+> +               wifi_reg_on_h: wifi-reg-on-h {
+> +                       rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+> +               };
+> +       };
+> +};
+> +
+> +/*
+> + * SDR104 tuning fails with the default 4mA drive strength, use 8mA like the
+> + * vendor device tree.
+> + */
+> +&sdmmc0ext_bus4 {
+> +       rockchip,pins =
+> +               <3 RK_PA4 3 &pcfg_pull_up_8ma>,
+> +               <3 RK_PA5 3 &pcfg_pull_up_8ma>,
+> +               <3 RK_PA6 3 &pcfg_pull_up_8ma>,
+> +               <3 RK_PA7 3 &pcfg_pull_up_8ma>;
+> +};
+> +
+> +&sdmmc0ext_clk {
+> +       rockchip,pins = <3 RK_PA2 3 &pcfg_pull_none_8ma>;
+> +};
+> +
+> +&sdmmc0ext_cmd {
+> +       rockchip,pins = <3 RK_PA0 3 &pcfg_pull_up_8ma>;
+> +};
+> +
+> +/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS) */
+> +&sdmmc_ext {
+> +       bus-width = <4>;
+> +       cap-sd-highspeed;
+> +       cap-sdio-irq;
+> +       keep-power-in-suspend;
+> +       mmc-pwrseq = <&sdio_pwrseq>;
+> +       no-mmc;
+> +       no-sd;
+> +       non-removable;
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
+> +       sd-uhs-sdr104;
+> +       vmmc-supply = <&vcc_io_33>;
+> +       vqmmc-supply = <&vcc_18>;
+> +       status = "okay";
+> +};
+> --
+> 2.53.0
+>
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNo6AAKCRB4tDGHoIJi
-0nnSAQCFIoM4GYZglD/WwQpxDX+5sCXjmakE+bkUW0bDG1pyfgEAliCFskf+23B2
-YsTLdzd0nPu3HBNEcI+w+XJrYB3tOQU=
-=fxea
------END PGP SIGNATURE-----
 
---kBGoRM1PY2im1kOY--
+-- 
+Deomid "rojer" Ryabkov
+rojer@rojer.me
