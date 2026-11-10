@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337145;
-	b=CSaHDmoe8to8Aayov8s0bhezAnzyosziFPeRPZzNdfd9GyMw/K3tKjjeTAcBIrk3DKg+
-	 A23U3DvhrMEZ4TUSaXwVygRMSBWSKAYRAAwaGY0yNJ2U1QplH9fSK92qrj+dDSVhk5spa
-	 EtdcIFpK8jgpd5WY9i3L54qlLeNirH3BjgRj0dUHT//0v5GVocuSrGaCxdpQsJ8EbV9U7
-	 hzhmWq2L6dhQx8qQJWdu8qbfY5g1Oes/Wthp+iASw2RNHbG7AJ8Ic+rlscjiPJEz/gQMk
-	 dyIn0BAearVKZpmZe+3W6/pyS3S2ndpKt0qq7k336lgK/kYB9vzMS/7bx4sMsmZGksw==
+	t=1794337385;
+	b=ReaVVdDT5wCUsrSZyJQ4GZ4oy16Npwd58pixkg5yMKPKP8GIBTDB3oOPHOUJvGlC9v3T
+	 RX3LesPxTBHhMIPMFDe4irWinzgld2//GM0nE/cKKy+8LOX47s8PnJ8zh4ONb0Bvjk6Ux
+	 bywba5pKUUr1djzYD4miVB1FaFe/WyQY3qKDNOL0mUUW+kuMp1M4fAx7CtbPb5xqRUNQ0
+	 fla8+vDwDB5Zx5nY8ZsRnt1KQ1Q22Rw3AwJ6uhCeBU8TSHUhWU0w+c17R18/b2SHeRAqV
+	 SeVJYaK9RL4SqvD6SOGakdHK+qTGQgaFma6Y+lvh5ECQp3JpmQ5+bTQhCkVse76oWIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337385;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3+Ll2YF7cP/FlHHtxkvTmmRg2Zv+2hxybwAXwgDSfLg=;
-	b=NaqQ3s1HbYFXGBJbq+M+EKDMicZaqxOwaagz5y71MLK+EXZfSPmk7dcw4ujoIr588P+B
-	 UsG3PwSn63EC8hOTwcrVJ5qkYfQ6rWYn/RgZlnNhy556XZ+cDXi1m2hpGGDT2vAMaeNrU
-	 4AoVY9QWLQBtT57RfQx9deoVGRgGR+Oz6PQ2mqq1ZmPZp1bpcA/t8pTU9ytH2syLDD5kU
-	 VGBFk/LnRjh5VhWnvZSC92VFkLBPeyd3mi4L0X6j632/6Ty2fqOyN7Mlo1/U2386HJTa5
-	 IOmo0oGutrpzF0z2wCfBxrkhCIjd1ZdT5A7DubU6SrSLMCmrUxAdzMvZuOCaXoPO5+w==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=/PjZhem9Fy6JL3Nw2p6DDW52np5aGp43vE9XJ42j9eU=;
+	b=3GH9SYJrL5vGWJw6Kl1bCyfYdnV5N4PZ9mHLampN8nkS1ANx7/epvfrbMVgr3lVpQreN
+	 Y7syojaXGGEcOhl8FxIJl02542XiJwOWSxMj7Dzujyt9dp9vrzeoVgX4ZlduslUcn5QJf
+	 Tic/22j6u9ghDtN+yERcj8pPuZvfvQD++zuGvSieLMNYMM/Ay4Y/Is6KAh5CXPh80KJ9Q
+	 hdeS4Uv/QDLyUSeRS8LlGGyujrzHQiZp8Nh7vBxCwmU4CyP1AX0S2PQCl3XlU0nDLGAK7
+	 nUSMocJm0V/ZBNuz+mlnAvqA4mkPSuSinP8wSgOdZntbtTgZTCENi5hQCWk8nahWj+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSN1TWvs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QoYXJD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86D5606A320;
-	Tue, 10 Nov 2026 18:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB9B606A320;
+	Tue, 10 Nov 2026 19:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSN1TWvs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847051F008A1;
-	Tue, 10 Nov 2026 18:59:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QoYXJD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC741F008A1;
+	Tue, 10 Nov 2026 19:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337144;
-	bh=3+Ll2YF7cP/FlHHtxkvTmmRg2Zv+2hxybwAXwgDSfLg=;
+	s=k20260515; t=1794337385;
+	bh=/PjZhem9Fy6JL3Nw2p6DDW52np5aGp43vE9XJ42j9eU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nSN1TWvsgJIFATur6WlNmPE/Ea6BhJ013bSAFHPeOyu++ooRpdmgP7xOB6smAQvlN
-	 ZOtPn6HuilVksOwLYRCHRY0/Pe3aPQFWAgT9cGimnbJQ9ousI3NgIjQpt8THcyr4qm
-	 FcuswLkBGa16w6X8xsWgerGCLoi4B/hZ71XLUDAlQe5IrOkEE6uCcHpoLOCzQgUU2Z
-	 uPNiNrRARLit1QOjTL4u/69xu1Ev1QJsvSAppIn4vCli1BJR4VjN6XOwOFHMNwP4AU
-	 SmqmhMGHUXxARA2xBDpgGwfItlAg4mDpR9+9oWDiB+tDWKr9/OZlDEAPDJ3nzN2vCo
-	 j0E62NYSCBClA==
-Date: Tue, 10 Nov 2026 18:58:59 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rong Zhang <rongrong@oss.cipunited.com>
-Cc: Keguang Zhang <keguang.zhang@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	b=V1QoYXJD9tflrzIMnyiqrqjWKZ8LsYBm2IenrZjL3A6jVjtgvM/Yn9+IjEk5dncuj
+	 On8xbe0+qdk47L7Oq4jPClQ46H24MWVDls54Umxu1jRlRFwZO5IEoganktJ9rrRi8k
+	 JHGc03JhSBcBoANuQfEzfubO2iTqluHATaoEWWlW4nn7hTCtKLZ2joJ0wq1sQWgkcB
+	 G4vpFRHzCxtrhqoSTIBWyXhjOB1/LPVf6NF2f4pYrQQMwRgOTwHUSp151TLoBxcczr
+	 5fEP0K0pHKlgA4O3OOY5xUdvu/RV9Q7ls8B75Vt6guXhmPeDHudwt/JqZSbFppixur
+	 MF5q9Q58m/m5w==
+Date: Tue, 10 Nov 2026 19:02:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: watchdog: loongson,ls1x-wdt: Add
- ls7a-wdt compatible
-Message-ID: <20261110-barterer-pandemic-e4c658cac7c4@spud>
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
- <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com>
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v5 0/3] leds: Add driver for MAX8907 LED cell
+Message-ID: <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
+References: <20261108151348.204182-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,110 +63,41 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DcPnR+w8m8amSTyQ"
+	protocol="application/pgp-signature"; boundary="7eMEJL0RBZ9sH+V+"
 Content-Disposition: inline
-In-Reply-To: <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com>
+In-Reply-To: <20261108151348.204182-1-clamor95@gmail.com>
+X-Cookie: You can't take damsel here now.
 
---DcPnR+w8m8amSTyQ
+
+--7eMEJL0RBZ9sH+V+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 03:02:30PM +0800, Rong Zhang wrote:
-> The Loongson-7A has a watchdog, which is similar to Loongson 2K0300,
-> except that it has no clock controller.
-
-I find this hard to believe, the device seems to be getting a clock from
-somewhere that the clock-frequency property is providing the rate of.
-
-Why is that clock not represented in devicetree?
-
-Confused,
-Conor.
-
+On Sun, Nov 08, 2026 at 05:13:45PM +0200, Svyatoslav Ryhel wrote:
+> Add a small driver to control the LED cell provided by the MAX8907 PMIC.
+> The LED does not require any specific configuration and is folded into the
+> PMIC's node.
 >=20
-> Add "loongson,ls7a-wdt" compatible as well as a conditionally required
-> field clock-frequency.
->=20
-> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> ---
->  .../bindings/watchdog/loongson,ls1x-wdt.yaml       | 31 ++++++++++++++++=
-+++++-
->  1 file changed, 30 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt=
-=2Eyaml b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> index 50a9b468c4a3..cb93e9578f82 100644
-> --- a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> @@ -18,6 +18,7 @@ properties:
->        - loongson,ls1b-wdt
->        - loongson,ls1c-wdt
->        - loongson,ls2k0300-wdt
-> +      - loongson,ls7a-wdt
-> =20
->    reg:
->      maxItems: 1
-> @@ -25,13 +26,34 @@ properties:
->    clocks:
->      maxItems: 1
-> =20
-> +  clock-frequency:
-> +    description: Frequency of clock in Hz
-> +
->  required:
->    - compatible
->    - reg
-> -  - clocks
-> =20
->  unevaluatedProperties: false
-> =20
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - loongson,ls7a-wdt
-> +
-> +then:
-> +  properties:
-> +    clocks: false
-> +  required:
-> +    - clock-frequency
-> +
-> +else:
-> +  properties:
-> +    clock-frequency: false
-> +  required:
-> +    - clocks
-> +
->  examples:
->    - |
->      #include <dt-bindings/clock/loongson,ls1x-clk.h>
-> @@ -41,3 +63,10 @@ examples:
-> =20
->          clocks =3D <&clkc LS1X_CLKID_APB>;
->      };
-> +
-> +  - |
-> +    watchdog@100d0030 {
-> +        compatible =3D "loongson,ls7a-wdt";
-> +        reg =3D <0x100d0030 0xc>;
-> +        clock-frequency =3D <50000000>;
-> +    };
->=20
-> --=20
-> 2.55.0
+> Patch 1 of the series requires this patch:
+> ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+> https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
 
---DcPnR+w8m8amSTyQ
-Content-Type: application/pgp-signature; name=signature.asc
+This doesn't apply against current code, please check and resend.
+
+--7eMEJL0RBZ9sH+V+
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNpcwAKCRB4tDGHoIJi
-0rRaAQCsd/xFDmpZxHcOoc6LRDHiAbgMmTxm6UJYk4dulCZVjAEAuwdw4mSAb9Vw
-TPUtVK7itzEhmaBrdgGu4P471tUx6gs=
-=S73F
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzamIACgkQJNaLcl1U
+h9BzNQf/TV7Y11t+TQpv58LlQd90sRSGdPg8xP0doArCvthyydcTGUovPYVorBXd
+B4AP5zjo+FyLfZjj1F/VT0NgkFeQtOVSwQyeciK6jEnz+BdkpbvqpFBKzjp12HFE
+H7H8GoCXRs8/P0cKKO4c1ODtGLHQMTYBAKVdiHn1w6FSgsQxJ16okDsTweuLuwEw
+m3BBo8/2YZYbkO/FB94ZbrPbvfubAU6r2hzl2hUMIBd2FoIwdpGRStyVmG3smIm5
+Afw5VUrcB8MgI4dY5U7JpQXoYq0XlGieO8UkakmxKmbS3HrAvgprlNqmz/mtcgS8
+1BRIKPQe6Q6g9qoR9uG90JH9xri6tQ==
+=HWC/
 -----END PGP SIGNATURE-----
 
---DcPnR+w8m8amSTyQ--
+--7eMEJL0RBZ9sH+V+--
