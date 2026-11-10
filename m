@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.71
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.27
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316231;
-	b=xZgtp1M18oWK+3sVPLKCnoWyr6Jr57JVAEJ/44pXN/9EfCPKA6pN2owzi/zKTHrMAp6D
-	 mAZjrJQkuF8z2QIhPWPrxAm75z+r0gNmu+PkwIbyuJNxxsjsuzDbbwU4KpOedwxrcB/HV
-	 wtwh6hCIdUDmKMh+f+S/kbGIWPRpYgzq/qxlz+Vw5gE9wyDYq1hi4EMVxI04NshFveUCs
-	 F12wg4pjxGZc+cy5gIWzxooV25YFOj2w4A1znbYQsRy92rwkNJOtLiprwiUDsQb+f3FPh
-	 9Mb6/iIPKYsND+TTvVIMPYjNpJNKl8Nw7prSCKY+wsVfC3+QmjhRjAbwGgs5H3mT2YQ==
+	t=1794316239;
+	b=RABi8B9FcAHXIV2jlg5zzxRtGbDvQKaENA2oWh13qcB1xPCY9ryIgTLVKD97vblLEz0d
+	 HGTcWbJekWr9K5JnuVNO31bUhabJQqDrUFegbr4WU97lNz4vh17r22vU6chAOr9DlOTBO
+	 GcC6kn5PWLrd5qbIVqUQzpVWLEeauVTi2/weWU6zlfvTCfu6ZUGtF9Y/Dve5dyNa0dnNy
+	 PnU6c7InBATL/3awtcmUgGAhE6T/aN1HFfeHpPhBn6XarZWXzvFOVGz4TPKf7cd3ZXhJ9
+	 iobb6ae7pZZVP+9qg9nJAXP6rIASFvm0vTytBr2+JtfElVPZH7+r3kdp74UI1QJDxTA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316239;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -27,35 +27,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CfmEDI2aB8q+5oH8lglRkxHWssrtlRbOz4Ue1JsdrRw=;
-	b=pSKCUEOV+Y3JdA3HIG2hUYb3+puwTKH4A6wFAbYP/IQTxPbjhB/eiz4KAdONs8K0VzKL
-	 VYF/oVyP9PXsiHbeJVhw5z0Tdtfa8dKqrcscP6qvd1IOXFwlHUc8RoEw5EF8U4OYFw4CV
-	 LmzZacQoUdlg+axsitm2HIRCFwUmOJWG1xqM1ta+650vpXAzgH2CfuD+0Fs8HdRFJfGZc
-	 +Bfy2ArFnBhHETJE4yoJSvCTpoeFTvFLxL89jvTB5+loy7oclULr37Vi/6js2ogNpp00D
-	 CN3sHqRUIaJWXMYqxvZjATgWFIzA8GBn7PhW+YXkmK1oEv+ZgZdnpNp5ry1IrVUJ8sg==
+	bh=zTYAkvEmLyeerTI7MVTbkhwC64035xp5K6FKPBICv5Q=;
+	b=frU/JVCSutne0LI7ipQiaodueYxXL5YDRb4nad4CewytwAavjlBEbSxI9+sYZlxxQDj6
+	 xb/sduRuig//u3CPGSX5i0RzFQOk8YN5nb0Wha2YLE+yOzK/cqVfwNadC+ZguEEtBSabB
+	 wGuoE2aA9dpYiUO+SSNtYn19xh4V3gk2xts8ZhcEdGHWYFr39bKPlnXTfQhVrQHGHGG0f
+	 SHO5u1BFOZwYtHvd1uuhLDgAjLxiZk0IZE0GkB+LlkMwhvnVaKmkSOaCaPrMfazdrQFWu
+	 yz6q2wVE0VHlTmloSlVxssdi604ULuaQZRyuirp/BgwN68XT6K1nUB80IF5tHG22rhQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=KQl30Bxv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.71
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013071.outbound.protection.outlook.com [52.101.83.71])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=JQcJM2BF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.27
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010027.outbound.protection.outlook.com [52.101.84.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA63606A7DC;
-	Tue, 10 Nov 2026 13:10:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA63606A7DC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A9560A2621;
+	Tue, 10 Nov 2026 13:10:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76A9560A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=KQl30Bxv
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=JQcJM2BF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Npa7Ot+r6tUP0zAVCkCkdtqVkMjCALMv3SNb8prRMFGL6gvnqwNvbiPlQhuFi8kZUbGfqneMR3iFlxpiO7j+dlLqisYPRMPUbMKsew4hop72Cc3Dkmp9I56y+ZSJLcZLu+B0hwgyg3OmhYUI9jd5nxct/VS2iEPM11zabUj3XeYkGW9SoMiM9smUls7sW4GgvTaoBhjl56VGXVPgZztycbJPNsLYDD1z/qQLRrtMHu8jKY3qPOzFHhI1iB4tFkFvogkpBEbyjxrvAAMpVPA+WDrGr/bH3LOx96xyhIbrAz9JVuSDOfipx+avLiyBJabpOoD3FXXNJknc/iQhnMut/w==
+ b=mkRc94e1BjGh+zrjLiXrf4c6/XT4CzBrFrp254CPwQhDtsVhwsuW+TiH/FplKk2r3mk9E5mi6DGuJ3lboP+lcpdt9c3GfTxaUZS6DU3OqvuknifSjowT26jDLHoMaecOF7WPIgWHDkykqLa2M+hHMDdwwfCIf9m+/AGXSlhTFtUMaPaVtMiYqoMS36D7gbEkAfVfwlVOZg5+hjM3nEG5o2cUiXf8J2L6UH1fcvPP68r0nH9sCqI1e86cUKeiCBJOHO80yznBv9XexBjdQu6fghRT2unI3RPjR49keFVznQBvF17EcCGnZYj8dQBS72AtDHm6AmOTV7yrRwcJkKkWUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CfmEDI2aB8q+5oH8lglRkxHWssrtlRbOz4Ue1JsdrRw=;
- b=w2QxWlRteMyleXj20xoIW9NpaCUgBr3hFHivnxadTs5GolvBepxFdh1bw1bnxTOSZq70/Ot9YXUXdCZihS+hyq2ANRz+qLzVKWtLY9hd+2dhXLTwnwsDq9dpHmDtIWY7idvKpuh22bZFTufQ7USymmsUlr6iqtKgJtwv0EpXvGR6oaSBxX1h19Zh7sFjRr3qo+bDOjAoU0UMmcJKeEUyOEeVtXrzchc+Mg8gz2cQGWPWfxJgtsazAuCgt8G5T9wwNXSursYk/rEx08ZoO9vHW4oLufvzEuaYr1Y1sZjo0h87k+XC2rqw+6AGNejQ4HCKc/peKdjom5nH0dkBb+XDdw==
+ bh=zTYAkvEmLyeerTI7MVTbkhwC64035xp5K6FKPBICv5Q=;
+ b=TzbqmO0kdzpgWIPmmgoPZkZNG7JfmuxKH3IQARE1hxwsjGD1xaMAB0Ldnp6c/y5X3xxFW/xR21Rv17LTPf9hnSDsmnwqQw3MaNdlw1h07LAoD2oHNeng6LPXQLES5+9lcF0omjFBnoCP8KZSgw8i2VrPm32tCeQbUyVdGKI8JN6VMda3nnhKTOmTcF1tsK6gpEOWZyZuH88eulU+93EbSMpJOq1EYFYN6vUmc7xXhYDYTwDi7/4NJl2GH02QoQ+66ytpQ0vvLTP9tH9+mFNGpYKlISEr/hTWqamO0glzl7PP/sCDKMGm2zhiFZzqJwlGA3ByZf9dkPjuB5iQ2G0lYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
  smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -63,18 +63,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CfmEDI2aB8q+5oH8lglRkxHWssrtlRbOz4Ue1JsdrRw=;
- b=KQl30BxvL9/l4/kFEUFgoC0J0p/u5MqAiFH1kUYIoBLgI0gh6LNOpgGhDdjSZOgaSxZbI5f8OZbd2amFeWTDYrSq+huWNWY+ekuaiB/t7+53To8RMx3udb0sFnOSFY6dNji88tUyYRCPRdahGWdnhEK+XTUzznHOo3VwVffvhRpFpznm/y43FNwPLBzkpt3hbXtQmzi/sMz3pkK0n/6TuLVDn9WZ+bEaxfLeWIsgha8P5Iep00w1kfehcSJPlftM6975XFdDwYvAApVZIB+j9iCWNxSs3TXtoEmVGTFLF/R20waRp20tcJmrzwilBVq5P5mP6j9W/csijg6RD2m5cQ==
-Received: from DB9PR02CA0015.eurprd02.prod.outlook.com (2603:10a6:10:1d9::20)
- by MI3PR10MB363412.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:290:99::19) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=zTYAkvEmLyeerTI7MVTbkhwC64035xp5K6FKPBICv5Q=;
+ b=JQcJM2BFOUAGx8bPuZjyHZztSeEpVi7Pad48Eb3zh9ldZ/0sulCkGyouyMBhhkbkWBjk+leAO47/wG+dDW5Z6Y6kPG5p1iO/3mgcO9+q/e4JVoYb79IG4AesAcjyBHODgY3deoU4gAfSeVE+7Y0OgHNHfMdhF83hDYwIIfsYLuPDlGV/8oN2O9xTglV4qlzk843JLnGZX8p0zff/ZAoPR2mve/5wqSfwCNxC+/uuOPSrPyF4rAZvVvqDUTR5bL6TEGxDuu9P2clSD5cL77/vFChqLCb7TjJujFmvvt9bw4t1X4AhTp7JAn0qRJDsJSO2hrROLZjPx7ewoAvT7grVkA==
+Received: from DUZPR01CA0319.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4ba::18) by AS2PR10MB6427.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:546::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 13:10:25 +0000
-Received: from DU2PEPF00028D13.eurprd03.prod.outlook.com
- (2603:10a6:10:1d9:cafe::17) by DB9PR02CA0015.outlook.office365.com
- (2603:10a6:10:1d9::20) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 13:10:30 +0000
+Received: from DU2PEPF00028D0E.eurprd03.prod.outlook.com
+ (2603:10a6:10:4ba:cafe::5d) by DUZPR01CA0319.outlook.office365.com
+ (2603:10a6:10:4ba::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 13:10:25 +0000
+ Nov 2026 13:10:26 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
  is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -82,20 +82,21 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.59; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028D13.mail.protection.outlook.com (10.167.242.27) with Microsoft
+ DU2PEPF00028D0E.mail.protection.outlook.com (10.167.242.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 13:10:24 +0000
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 13:10:25 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 14:11:04 +0100
+ 2026 14:11:06 +0100
 Received: from localhost (10.48.87.14) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 10 Nov
- 2026 14:10:23 +0100
+ 2026 14:10:25 +0100
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Tue, 10 Nov 2026 14:10:23 +0100
-Subject: [PATCH v2 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
+Date: Tue, 10 Nov 2026 14:10:25 +0100
+Subject: [PATCH v2 5/5] arm64: dts: st: add LTDC pixel clock controller on
+ stm32mp25
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,7 +108,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261110-ups_mp25_clk_syscfg-v2-3-624559bb8ec7@foss.st.com>
+Message-ID: <20261110-ups_mp25_clk_syscfg-v2-5-624559bb8ec7@foss.st.com>
 References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
 In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
@@ -122,238 +123,108 @@ CC: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316221; l=7137;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316221; l=2481;
  i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
- bh=dv40+MDWCuL2eVVnwhdIenGwlzLv8ZtCsARwXSkjPSM=;
- b=TgzNBDBCYgWDVnNAbNraG7pj6q1GpmcC/xmOep+HIPlTeP/Dm1TV4wW8iVlnouoZ8OhZP53iB
- qiMYg0GBSFqDB7JlmNXoTAuhpPHOP/iFnUX7ZpS3+NdFP7fsWqcKpq/
+ bh=Tzb5sNPI0J+nQs51D07/6E51im5s63BGs9nZS7k8hCc=;
+ b=8JfDsR8PHNeYGDvs2QhFInKo0UWJA9GY9aCGNTL/qjcVdBAGNzXl66m1qzkoIvq1/ivui6/pQ
+ FmD2U/Ng+tRArA+Ej4AoITj5f3uLpnzNgpYLGaeVcdMd1TDXhxcCcUg
 X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
  pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
 X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D13:EE_|MI3PR10MB363412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13bc87fb-de10-4d5f-55e2-08df3f2bfbc2
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0E:EE_|AS2PR10MB6427:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ef597dd-e26f-43b5-c823-08df3f2bfc61
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|1800799024|36860700016|11063799006|56012099006|10067099003|261022105027099003|261022075727099003|261021121427099003|261021135927099003|261028144727099003|261102123227099003|261009223027099003|261026140227099003|261009221227099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|1800799024|36860700016|11063799006|56012099006|10067099003|261022105027099003|261021121427099003|261021123027099003|261021135927099003|261028144727099003|261102123227099003|261009223027099003|261026140227099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	cigFiRyC+uQOYok/NzGgv8CbMR41Y7PbzmIhwKema/HdOqh1gUBc2YLOsOILAK8YGi7TizZrOd4Bkixc+qK9Fu9pXZAOX0bD2tH4Hl7XgenRYuh6wG2uvnJ8ndgpnSOCv9P/Iaw4XDBg2DhlkqbnW3wLBPZfRzm3rzLt8dlE7SPJOUMxipUWOnMZWsTXrHWPRxaxfU5jgh2NuyxLVyOjmhBsGuexPuao32Vq/yJuFGzzi87ivXW0ZpaXqM+ICX+Ym4MFF4rwhqREbB67Ix4vB/AOt79GqNQt1EdPGNW2UQg1Bj10e5bXlLCiOaxY/k6oH5OxCaRb3RiXLLJAgqukKDEM0Uabj4imRfOchP7XyDhsHgkFwHnmzI8lHNyFVU5F42WFJhkuDo8MYeFSrbtUE+YapHTWNRvlOmTLkBfdPhpLZ0m9OYaFa4xhdU9q/0lxIuiKZSx1WeDbd1q/vUZJ9iV+yfDt11/G5KdEtFkXrTBtH61a/0T4+lve12Ip3PzFWDCP/52q5tQcQy0Z9SLJfS87A2oZ2q6wd9gAxZFDjCcNSZaqhmSoiF+0ldcKk6a0o+i/lA1R5tITOePHFtMPEZnHDtA9U/URnDgrLFMxZRTKsLv1xAVC5a3h05GPsJfRdNQys4XnN+bqUzoke/RT/EnQVWr3nZ3QgMM8acrmJpGu4Vpt0muRKaEK36270SBGukJsxCm/8bCqSa2+twkMXA==
+	68NtCNIZPbuhuET0oezet+U7uVFKee6Y89Dcmnkek39NlTN7BTw7XE+rgoX/ktyvMrPMbrJ4FUQ8bSxkeM24oyrULcxZWJMpl4wsCa6yRxwTYET67nra1I3a1mux8b5S9WSKbpHW3pATlbjA1N5Q9oAomy4p2kN310Btg+CdVvDITGWZQvIAf9FrL8eaZWkoHe50pX9EWKf2Mz+He6cO9UkvH1w7RAg3pphVOMr76ytN7LQmKZHG+mE1JD6/8/xqmwBGznLPtCHQB7soqzKtV2vJ3s2HiHsvg3WoAc8vYNxr3IhMNi2bvyxN06OTpxqXrgk/9HEnTGvFtRJi1Qfwr4IidUO7x3qhImmOpy0YhgC3RC+RwzI2sTclFdNj2FG+r6+FRRnTiLO/wtsS0AqOEaD4ltma8CXWP91pD5umDieNsuU6ZYKSDfWojDedFAiGe37f8pmVPXM3IefGSWv+JNoVQXLG2lxrjlkcxHC0BWO2JfIe2J+B8txRiA0E8H2JmLd8Xkmg8o3hbpZnx08mWQxIkGG9uTugPHNRpBx8S1PRSWLBAVD84w3lFnqeb/gZD64b/s+Cfyn0gg4kW409nWnWDg/lvLcjcSr0hPH1FRb9gm1TWSjTgfJVkwQeuA5XIYn2ZWGbyed8vvp7ahVRGccl27d/voIbqY88UgxsbhhTbM/5HRr97mALkGL2fThlmWrhePF6vEb+UuUP2gwoPQ==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(1800799024)(36860700016)(11063799006)(56012099006)(10067099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021135927099003)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(261009221227099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(1800799024)(36860700016)(11063799006)(56012099006)(10067099003)(261022105027099003)(261021121427099003)(261021123027099003)(261021135927099003)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	SaNFuQWyElt3GHjxsQNQBvVMOkuZRiJS0Zf1O0zyPs5TpqSMrydODaetHqlUgXSzsgRwLe23rfFbxk46F9TKcHOmDYSw2YLmxUt50ezWj9YyuIl2cMO/B7X4yzpTT8+0yC/QbfHA5GWmAvQUhxlaN6RiBXiqNZ09OQ+p7C9W1HMM9KQgCd0SQFXVNYdNXItQQvbgVuOxskwzKWktKgZ//B38GgdoPGkcFc7LDSM7rSL05y7DzjPRM7rbwoiud2RwWHFm9zdwjVZWwbjdaV9wOwSVF3u3KX103MAcrMe6kTPfWlsc/iGG7a5hOo8pDwOXPnKJCxDyaBQtpN3W5nALuyV3YYpYKk6jj+/z7B1WqlmgTV0SwIk/8XBsBq9DgJpK8VjGJx4CgCzz+qhAg6eax1NjB3EWqfg/PZ+w0a5lF8KX8X/jcdqfR6n2lQk2jNvG
+	FxIE5GQeVVDkh//TKsaSOsZUROUQBnLqvvCueLUNOaIDlR5VIP1JkrSbtOCVz5Wr7/J6FAe5wbaCBpXcFFBVa1+eDj9+jUN+F6KOlTTDXJtVbvmz2BL3/Vxszxv32xAvDR2JH5XAxuN2M7SnZX9t/vpiq9+X+irBjlwb8HPreWoVkJ1BPgQFXNBr2GqJvvcNhgztTgeXdfLBMUAWHGhO0+AW4YSCK6KUfWMjnBtcsz+Mz+tOoJErhVwaaKPYGA2xulorYQxHDgNqgmxes6LjSWb1rDnNSm7y361wnTtdkaln6ZOiu/JbpHy4k35QCO66ANJmizQkixphcyI3ZQyjXcWe4Cb9KpuTkjnR146tmIYhd5NrsTaAVHf0AeZlyAHDypAdcMTSiZeWKEpyXgKIfUTirFTePzxIvFRgbUs7eqx+g+Es8wlphwuBwHE1O50z
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 13:10:24.7639
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 13:10:25.9186
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13bc87fb-de10-4d5f-55e2-08df3f2bfbc2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef597dd-e26f-43b5-c823-08df3f2bfc61
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D13.eurprd03.prod.outlook.com
+	DU2PEPF00028D0E.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR10MB363412
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB6427
 
-On STM32MP23x and STM32MP25x, the LTDC pixel clock is selected in the
-SYSCFG DISPLAYCLKCR register among the DSI PHY byte lane clock, the LVDS
-PHY pixel clock (reset value) and the LTDC kernel clock, the latter
-being the one needed by the RGB (DPI) output.
+Describe the LTDC pixel clock multiplexer of the SYSCFG as a
+clock-controller sub-node and use it as the LTDC "ref" clock instead of
+the SYSCFG node itself, whose deprecated "#clock-cells" property is
+removed.
 
-No driver registers this clock, so the selection can't be changed from
-its reset value and a display connected to the LTDC RGB output can't
-work.
+Only the LTDC kernel clock is available as parent on STM32MP251; the
+LVDS and DSI clocks are added on STM32MP255.
 
-Add a driver registering this clock as a mux. The SYSCFG node is bound
-to the STM32MP2 SYSCFG driver, which populates its sub-nodes, so the
-driver is probed from the "st,stm32mp25-syscfg-clk" clock-controller
-sub-node and uses the regmap of the parent SYSCFG node. The mux parents
-are taken from the "clocks" property of the sub-node, and the clock is
-exposed through a onecell provider so that the other SYSCFG clocks can
-be added later.
-
-Co-developed-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- drivers/clk/stm32/Kconfig                |  11 +++
- drivers/clk/stm32/Makefile               |   1 +
- drivers/clk/stm32/clk-stm32mp25-syscfg.c | 134 +++++++++++++++++++++++++++++++
- 3 files changed, 146 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 9 ++++++++-
+ arch/arm64/boot/dts/st/stm32mp255.dtsi | 8 +++++++-
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/stm32/Kconfig b/drivers/clk/stm32/Kconfig
-index 5dbd75cde657..a298983f5511 100644
---- a/drivers/clk/stm32/Kconfig
-+++ b/drivers/clk/stm32/Kconfig
-@@ -39,5 +39,16 @@ config COMMON_CLK_STM32MP257
- 	help
- 	  Support for stm32mp25x SoC family clocks.
- 
-+config COMMON_CLK_STM32MP25_SYSCFG
-+	tristate "Clock driver for stm32mp25x SYSCFG clocks"
-+	depends on COMMON_CLK_STM32MP257
-+	select MFD_SYSCON
-+	default COMMON_CLK_STM32MP257
-+	help
-+	  Support for the clocks provided by the stm32mp25x SYSCFG, i.e.
-+	  the LTDC pixel clock source selection between the LTDC kernel
-+	  clock (RGB output), the LVDS PHY pixel clock and the DSI byte
-+	  lane clock.
-+
- endif
- 
-diff --git a/drivers/clk/stm32/Makefile b/drivers/clk/stm32/Makefile
-index e04727b59449..8088d172651f 100644
---- a/drivers/clk/stm32/Makefile
-+++ b/drivers/clk/stm32/Makefile
-@@ -2,3 +2,4 @@ obj-$(CONFIG_COMMON_CLK_STM32MP135)	+= clk-stm32mp13.o clk-stm32-core.o reset-st
- obj-$(CONFIG_COMMON_CLK_STM32MP157)	+= clk-stm32mp1.o reset-stm32.o
- obj-$(CONFIG_COMMON_CLK_STM32MP215)	+= clk-stm32mp21.o clk-stm32-core.o reset-stm32.o
- obj-$(CONFIG_COMMON_CLK_STM32MP257)	+= clk-stm32mp25.o clk-stm32-core.o reset-stm32.o
-+obj-$(CONFIG_COMMON_CLK_STM32MP25_SYSCFG)	+= clk-stm32mp25-syscfg.o
-diff --git a/drivers/clk/stm32/clk-stm32mp25-syscfg.c b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-new file mode 100644
-index 000000000000..69b9a7592838
---- /dev/null
-+++ b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-+ * Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com> for STMicroelectronics.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/err.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index dac3d2d23ff0..8d644153dbcb 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -4,6 +4,7 @@
+  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+  */
+ #include <dt-bindings/clock/st,stm32mp25-rcc.h>
 +#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+ #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
+@@ -2076,10 +2077,16 @@ exti1: interrupt-controller@44220000 {
+ 		syscfg: syscon@44230000 {
+ 			compatible = "st,stm32mp25-syscfg", "syscon";
+ 			reg = <0x44230000 0x10000>;
+-			#clock-cells = <0>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 
++			syscfg_clk: clock-controller {
++				compatible = "st,stm32mp25-syscfg-clk";
++				#clock-cells = <1>;
++				clocks = <&rcc CK_KER_LTDC>;
++				clock-names = "ltdc";
++			};
 +
-+#define SYSCFG_DISPLAYCLKCR		0x5000
-+#define DISPLAYCLKCR_DPIVSLVDS		GENMASK(1, 0)
-+
-+#define STM32MP25_SYSCFG_NUM_CLKS	(CK_SYSCFG_PIX_LTDC + 1)
-+
-+/*
-+ * The LTDC pixel clock source is selected in SYSCFG_DISPLAYCLKCR among
-+ * the DSI byte lane clock, the LVDS PHY pixel clock (reset value) and
-+ * the LTDC kernel clock, which is used with the RGB (DPI) output.
-+ *
-+ * The parents are listed in the DPIVSLVDS field order, while .index refers
-+ * to the "clocks" property of the node, ordered "ltdc", "lvds", "dsi" so
-+ * that the inputs missing on a SoC can be omitted at the end of the list.
-+ */
-+static const struct clk_parent_data clk_pix_ltdc_parents[] = {
-+	{ .index = 2 },	/* dsi */
-+	{ .index = 1 },	/* lvds */
-+	{ .index = 0 },	/* ltdc */
+ 			usb2_phy1: phy@2400 {
+ 				compatible = "st,stm32mp25-usb2phy1";
+ 				reg = <0x2400 0x24>;
+diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+index 7a598f53a2a0..08cbc383af20 100644
+--- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+@@ -7,10 +7,16 @@
+ 
+ &ltdc {
+ 	compatible = "st,stm32mp255-ltdc";
+-	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
++	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>,
++		 <&syscfg_clk CK_SYSCFG_PIX_LTDC>, <&lvds>;
+ 	clock-names = "lcd", "bus", "ref", "lvds";
+ };
+ 
++&syscfg_clk {
++	clocks = <&rcc CK_KER_LTDC>, <&lvds>, <&clk_dsi_txbyte>;
++	clock-names = "ltdc", "lvds", "dsi";
 +};
 +
-+struct stm32mp25_syscfg_mux {
-+	struct clk_hw hw;
-+	struct regmap *regmap;
-+};
-+
-+static inline struct stm32mp25_syscfg_mux *to_syscfg_mux(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct stm32mp25_syscfg_mux, hw);
-+}
-+
-+static u8 stm32mp25_syscfg_mux_get_parent(struct clk_hw *hw)
-+{
-+	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-+	unsigned int val;
-+
-+	regmap_read(mux->regmap, SYSCFG_DISPLAYCLKCR, &val);
-+
-+	return FIELD_GET(DISPLAYCLKCR_DPIVSLVDS, val);
-+}
-+
-+static int stm32mp25_syscfg_mux_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-+
-+	return regmap_update_bits(mux->regmap, SYSCFG_DISPLAYCLKCR,
-+				  DISPLAYCLKCR_DPIVSLVDS,
-+				  FIELD_PREP(DISPLAYCLKCR_DPIVSLVDS, index));
-+}
-+
-+static const struct clk_ops stm32mp25_syscfg_mux_ops = {
-+	.get_parent = stm32mp25_syscfg_mux_get_parent,
-+	.set_parent = stm32mp25_syscfg_mux_set_parent,
-+	.determine_rate = clk_hw_determine_rate_no_reparent,
-+};
-+
-+static int stm32mp25_syscfg_clk_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct clk_hw_onecell_data *clk_data;
-+	struct clk_init_data init = { };
-+	struct stm32mp25_syscfg_mux *mux;
-+	int ret;
-+
-+	clk_data = devm_kzalloc_flex(dev, *clk_data, hws,
-+				     STM32MP25_SYSCFG_NUM_CLKS);
-+	if (!clk_data)
-+		return -ENOMEM;
-+
-+	clk_data->num = STM32MP25_SYSCFG_NUM_CLKS;
-+
-+	mux = devm_kzalloc_obj(dev, *mux);
-+	if (!mux)
-+		return -ENOMEM;
-+
-+	/* The mux is a sub-node of the SYSCFG, whose regmap it shares */
-+	mux->regmap = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(mux->regmap))
-+		return dev_err_probe(dev, PTR_ERR(mux->regmap),
-+				     "failed to get the SYSCFG regmap\n");
-+
-+	init.name = "clk_pix_ltdc";
-+	init.ops = &stm32mp25_syscfg_mux_ops;
-+	init.parent_data = clk_pix_ltdc_parents;
-+	init.num_parents = ARRAY_SIZE(clk_pix_ltdc_parents);
-+	init.flags = CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT;
-+	mux->hw.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &mux->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register %s\n",
-+				     init.name);
-+
-+	clk_data->hws[CK_SYSCFG_PIX_LTDC] = &mux->hw;
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, clk_data);
-+}
-+
-+static const struct of_device_id stm32mp25_syscfg_clk_of_match[] = {
-+	{ .compatible = "st,stm32mp25-syscfg-clk" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, stm32mp25_syscfg_clk_of_match);
-+
-+static struct platform_driver stm32mp25_syscfg_clk_driver = {
-+	.probe = stm32mp25_syscfg_clk_probe,
-+	.driver = {
-+		.name = "stm32mp25-syscfg-clk",
-+		.of_match_table = stm32mp25_syscfg_clk_of_match,
-+	},
-+};
-+module_platform_driver(stm32mp25_syscfg_clk_driver);
-+
-+MODULE_AUTHOR("Gabriel Fernandez <gabriel.fernandez@foss.st.com>");
-+MODULE_DESCRIPTION("STM32MP25 SYSCFG clock driver");
-+MODULE_LICENSE("GPL");
+ &rifsc {
+ 	lvds: lvds@48060000 {
+ 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
 
 -- 
 2.43.0
