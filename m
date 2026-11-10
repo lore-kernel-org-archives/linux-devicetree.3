@@ -1,102 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315292;
-	b=Z/i9clVDOA/+wVr1nmgAkQI2K1YqqB9ld6QzENELm3dgx5btpbWgYgt2EQg7AVqQFsX/
-	 p4rWSrokPh7UMfsUV7TtlkgVtqAGOat5pFwDqHsHKrco86AvdO5CbIhf37oXVN/+V6mZa
-	 k6FaoQPTpEQPFuFeoahKi75rQEPSuzTIWQ/Gsr+vGZGtoeLQsFwRlaisEBrB53cttWvuy
-	 l7yLS/VnJiT92IEBozfB3RmsMoybxkHdguzGmmRQKt+gU3Ahw31CmY6Kd0cnD/zpr02JN
-	 CZfni09swa3/uQCqMRF+ZdGXxhEQfwvXcUqV537COK3n6Z6HATH3y2CDeHeqyDVeikg==
+	t=1794315481;
+	b=L+4KhVFfcefmDjkGUvyBSnFhONXoCRjx23Ywn/sp002fOE1Tt4jP4D95kgDvk2XmS+VB
+	 gAj90UDuV0QdGGLpwzTOwwZTwLkKlAW+pfomBm5YfwvKm+bXITR+qIPiJXkZcpwPvTspI
+	 ppT9G77/LzJD6Arx5v7kaHyupu6kXQ/lmpEvUDe2DuuD8oC+s2JGpBZmdIC9rSrt/u3EK
+	 1UQ+SnN4+5v3gkVxOcI8Mf3jlRiXEAl0KhrZ8Pzeb8PxFtRt7ZMy7daheHvwuZWJgHuxm
+	 X60GzGj5kOMjxrljXFQAINEz7DdmLy6pGxuMTBo5MnA6zJZiY8nc/fTGm9tNiYbp7qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315292;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=fxrnxJLF1V/Ug4nKMrgXtpb6TxG0TqIYaCbJFS+zDU8=;
-	b=Kypppn4MGKr11HCUB+tw+h3ADo0X+q74ioIw6hmjfmPTJaxPd8mj7S41OcU1k9S3eoMG
-	 F7J3pbIEduF8sm531EmNLFBiApS7JI0XdS4zjhvREF8/BQT7V7nIU37SfFtV7AtgR2EJI
-	 x0RX+y/9FROkCgFdnnsmHtQ8WZYOUYAuzYGCzkGJyS6SO+26cs06aGzFWzeb65ubKrzwI
-	 Y9+pe/Keugan3VzCNwxRK6Huoe2cJ3yXwmYiK/wDxnUHGE3rSH+1Ut/nZ/lpew/W9SgJV
-	 xifxn1F8x9rQlkN04+wxEJk0iiY/E3CDzNLPRs9tG3cYFwvQV6Y2JlmU9gIJwZgsHEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315481;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=H+mwwfBgfHGTRg9UaddozXfFfAVGCo+7WdhMoWki75U=;
+	b=auVxWdiG4Iu69LL6MvkP/oyqQlJ2nIUxH4WNCbAKOLuYSqyAQ/fH4Kmitm4zUb0KIN8r
+	 XCmgHq7qitcyR84wtkNAJanS4533eeRsmPP6PJoZvwN9Mou4TDRwYIX/dUQI+N6aSyFiF
+	 IiCyh0n2+oGsi8JMrbHkIxUyQzzimRDYu4xJMib733C50hnvb+EywyBGWdiD0Ne2kjHEI
+	 aly8taLzKl4yyXUEq5vfRFtgX+UsIu0WGhAjDgLW8lqzhrvV2HyDj2RRqSf9sMXOMGubN
+	 6uOoNGW77GaqNl5BTF8N8vQZ0qrUGvBh1sx2bmHU0cIm+Pe7a/ZzSHvse5d+3AV4ooA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AbKE8eq9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="bguL4U/4";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AbKE8eq9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="bguL4U/4";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJ3TAB2F;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C90BvSwe;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C7160A2628
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:54:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C7160A2628
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1533606B2DB
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1533606B2DB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AbKE8eq9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bguL4U/4;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AbKE8eq9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bguL4U/4
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3204721EFD;
-	Tue, 10 Nov 2026 12:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794315290; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fxrnxJLF1V/Ug4nKMrgXtpb6TxG0TqIYaCbJFS+zDU8=;
-	b=AbKE8eq9fpCyMS1on/prRofLI+mm4b42ElzxHnLIEMzVKCqCSK8rc/wkuAMHx8vQiTf+Yb
-	YchlVuIGyaZnWh4h+hHOpzUvRh70LmKbF4ZtcUYDj7GiTzgtbuW9+gKQJJpzs8q4BzU4oD
-	W9cy6CRWNVHphBT7ftpHiAM0P5B9IUA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794315290;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fxrnxJLF1V/Ug4nKMrgXtpb6TxG0TqIYaCbJFS+zDU8=;
-	b=bguL4U/4dZy2f6WsWX2kV37PDxzBlg3MVcIBLsgDV9TwMYQexjHA0CsDyTe0sOwjo1E5aZ
-	g2Ol+epT3c9MSWCA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794315290; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fxrnxJLF1V/Ug4nKMrgXtpb6TxG0TqIYaCbJFS+zDU8=;
-	b=AbKE8eq9fpCyMS1on/prRofLI+mm4b42ElzxHnLIEMzVKCqCSK8rc/wkuAMHx8vQiTf+Yb
-	YchlVuIGyaZnWh4h+hHOpzUvRh70LmKbF4ZtcUYDj7GiTzgtbuW9+gKQJJpzs8q4BzU4oD
-	W9cy6CRWNVHphBT7ftpHiAM0P5B9IUA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794315290;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fxrnxJLF1V/Ug4nKMrgXtpb6TxG0TqIYaCbJFS+zDU8=;
-	b=bguL4U/4dZy2f6WsWX2kV37PDxzBlg3MVcIBLsgDV9TwMYQexjHA0CsDyTe0sOwjo1E5aZ
-	g2Ol+epT3c9MSWCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B893A1339F;
-	Tue, 10 Nov 2026 12:54:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6mqOIxkU82qRQgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 12:54:49 +0000
-Message-ID: <f06459fd-616b-4810-a8f9-cb4df2fcbd8f@suse.de>
-Date: Tue, 10 Nov 2026 13:54:49 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJ3TAB2F;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C90BvSwe
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABANrB1599621
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:58:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=H+mwwfBgfHGTRg9UaddozX
+	fFfAVGCo+7WdhMoWki75U=; b=lJ3TAB2FoTFuUj/1kD/GeyLffEzjID6ZEaHA5B
+	gaD9NaS4tbNL7wLxiLV6FqeeggxnTy7Kw5QvsNyKv1lcPFe1XRN4vxxbHripYmL0
+	A7bO0h73eE/Sqy3C4GgzM0ruU3+bbLeoN9vZxdagX3BC6IEJu9zKOtQ/98Sxg0Z6
+	SaM0SVELxxwTE0pAKPDSSYDCRZUgMPtbWtiUrKNSM/YLJbqOIWOlZ5444oEGV2Gg
+	UEipX1nEfdH16mXR9BzyAMXq15punf2QZtEFWAasFSzB6rraF24H1HhsG/lrA38u
+	YVwc90aPIiDnVgfPSyB6rIDiP8YhwtN2+ww83bOxlCy3y0kQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hutv4a4ys-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:57:59 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d2ecff433dso1320133137.2
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 04:57:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794315479; x=1794920279; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H+mwwfBgfHGTRg9UaddozXfFfAVGCo+7WdhMoWki75U=;
+        b=C90BvSwe7f5A/NR1qO6eAZxHl0FtnLKpMqWq0dqz1fVTzg7rIPC18rZ8NEt+iMUx2k
+         Ujgpfqj+RvkLr1t5wHfOzXrr4nEZ2FqiGmvHtFn+BZcgN25Fr4gcTEehzez1cRqU/A1E
+         FUhf/futHYwzkfdYNpI6wv6PbhrxlHLkwZGBadXtomeIwXbOUbmUPg1QqJpBShBL/WLZ
+         oAeD2dbprPcyEY88sv2SblY/3LeWgTyjf2H1VD+ICvQ1g35cu4L7TPjqWN/0tZ0xUzG8
+         maqRaSw4JTX0riX4sWFMMS2Rhh7t2a6sxeTFyBqiFKWG0FyEDQyf+3mtanlXgeh2RE4D
+         KPxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315479; x=1794920279;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=H+mwwfBgfHGTRg9UaddozXfFfAVGCo+7WdhMoWki75U=;
+        b=g5H0+tW7bP2ZwYImcVzrTaD411rf0wrnghCuVivVUeHHK9xVQ2kqpvunXo3iOKb8BR
+         FBTYw+PLYZaE6ioCL7lJFAngD3t/MFDE3pxvFhP/5MpUu7HmL/V6irWKud/1/uDIV9G2
+         UxgvUl4iqllhLAaflFt1bF/wvqlEarj007uUmh2KTWR10j7VXpCW+/yYL0mBO44PIJu/
+         zvEd3ffnHbjVm0rL6UGmQh8zjCgU//YRNShwdKWKvhtsWid9GRKRdvI1DcmFfIqX+kRr
+         6XcBoNaBOtqCWEsux+4HlcWypD5JULEWy/NdQ0SEUpJ4EHbVrU9xpzp9+9ZWpP0lSSBM
+         Ax7A==
+X-Forwarded-Encrypted: i=1; AL+hErGGHv909ntX5UkOp6yEFK7OZFw2Et2D/AfoW1FNIuNuJ+LSYOxW3ayALKA0djlRyhAKAn2tlWffdr/s@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T8I6WvMY95W6btqjwGS58eXhNQvrS4eeTNKQC0jg/+t8JRka9
+	hRH5WNEZ4B5wovJL+YCgW/uF+drLJQ8Sbaeh8JmjgywDHyUPwQTEYccVQKB5DwhC5pVYCN2Jb3H
+	KLlR+PtoNGdRirDlfU52nuCC+yk9FvuFVZntLoBLZuEtYKhCC4zI+h9KOnoftLQLV
+X-Gm-Gg: AYBFou3cueSeVaJG/IPaGIMWu9REtJ5qN9CnxAzmjry4vzO2m8Jb1fdggf8nQo2Q21M
+	uwzx6H5QrKlA3v2tCZf3xgvAPpgKe+LSUWj9Fc1o/iz262UEpqAylj1ImTswXEQ1rVvhBqsj5an
+	hlWTaCz4ytOsqz6eX6FfgYxK0vQJLYhvWeMdFiSvBjwUAWG+RIULUPcAYSCAmNflpqAoIbqHC19
+	3SwXoiiaYLSzYaQwgS0gmvt3eIiEtYp0sQHAEGKB+TwjEJE4zvbIM1IbzsOS83ooHOrBkBbT1T6
+	HqsjVFTadYQ1ibVOAaqpRfleWf7EJUV0kAuDKbWLWvMWLlnmeve6hIJPhgdVz8Lk7vF6Ka7/k4k
+	Wuv8DHBbxk19kU+B4MbZWftbxy+qzYmpd6u3x5ffLrUXVmvQc+GUKG64zxR2sk6/m5NEfDg==
+X-Received: by 2002:a05:6102:2c8d:b0:7a8:15b9:dd34 with SMTP id ada2fe7eead31-7d301ad48abmr861891137.2.1794315478902;
+        Tue, 10 Nov 2026 04:57:58 -0800 (PST)
+X-Received: by 2002:a05:6102:2c8d:b0:7a8:15b9:dd34 with SMTP id ada2fe7eead31-7d301ad48abmr861866137.2.1794315478372;
+        Tue, 10 Nov 2026 04:57:58 -0800 (PST)
+Received: from [127.0.1.1] ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fba35csm58422365e9.1.2026.11.10.04.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:57:57 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 0/3] arm: qcom: display/msm: Require DSI graph endpoint
+Date: Tue, 10 Nov 2026 13:57:41 +0100
+Message-Id: <20261110-display-msm-of-graph-v1-0-0f3106f817b4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,147 +114,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP
- GPU)
-To: Leander Kieweg <kieweg.leander@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-References: <20261011154556.155831-1-kieweg.leander@gmail.com>
- <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org,vger.kernel.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,linux.intel.com,kernel.org,baylibre.com];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -11.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g1MxIr0KqWLOEZNqTpMVBTx7
+ p3W5Vv8f4BJVDF4ZAdEWdV0GhPoloHveewEtUmG3OUlETls1MKHdxxswKnFLnLokV1FfPclFXU
+ BKQ1RWt3+2+frsi31W/z8e8F5fgHK9GyLeAAAAA==
+X-Change-ID: 20261110-display-msm-of-graph-a081a5c614b4
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Krishna Manikandan <quic_mkrishn@quicinc.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Del Regno <angelogioacchino.delregno@somainline.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Mahadevan <quic_mahap@quicinc.com>,
+        Richard Acayan <mailingradian@gmail.com>,
+        Danila Tikhonov <danila@mainlining.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2992;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=/tEHBo/1L53Cz1wvKQP13TTvfSMPe/VgE4L7czNBqRQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq8xTNYKySglQ0J6E+qNdJThU9Din5uwEj+/k6q
+ YSmAOg6wn6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavMUzQAKCRDBN2bmhouD
+ 16DtEACW7kLeMUKsxhWZScVcuTXcpHcht89n+bbmV6jkN+byb9WiQTXqrUZXRyrbKvUXQeVS21Q
+ q/D3M5SPkoGVpO6hFmTPNPCxD/PDAQAVuz1XM+S0dWofbJNUQTAQReOcXrRifj5e+MpJ14MSi1t
+ 3prdLR4aF5bcvS2bE+M8JQtPT2O0JfO+Hup5OXvropkXYMU3uWqadvvHKPEpCBnt0h2LgyYaV6D
+ TQKBhtmjEZn1xc9yoPWEAPvXTOUm1YnXtr2xHhR3GF9tdHUX1juGSCD2LlXSBl3qr4jwlnW8FPp
+ C0ORUwPgbmvEAbyV4kYf5MLAGzHA/pMLdPu0aIGuAaNUBtauUFIzeM58bYp8qZLg1wvmEpgRXy7
+ 1bSkDOAWnS+RfHFO4yOdsWG63Hl/+TER3zaiCMe1s3U54oTM8lGUdFQRZZaD5Dz3jrMw5VBdiPR
+ 8Or7fD7Ow7MC2ge0fFy1rsbufmQJgByoayi04EP4AYu3mmn96IY6IUIQIzRwcuNaBGPshLvrYA7
+ H9cQKQMvdzk/X6j5NvKSaES9TgCdLR62ItvJHmjR0pvXd2axnKJ6DtFDhkKqU4KFMnur8gqyMEv
+ Wo1FAHi7CfBEogL163vFaYb1+eG5J2YrXhQVVqeuzliNzN5i5qtxFc2fO+rG5ys2XmOyGg7qeTm
+ T7IU0bHdRtlr4lg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MSBTYWx0ZWRfXx1I+++2esyZd
+ jIttPPfdKSoZZw12DLj61pdMYnI8a5e9biFjIKALnsTQsW6D7rNgK+Ub3RHExQYPdf0a5u3ix7i
+ J3jUukoJ28449Ma+jQ87xT2eEbB+Oqk=
+X-Proofpoint-ORIG-GUID: 79QrHOEaZwfz8ylFA6-ExWDwOdagZ-7N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MSBTYWx0ZWRfX1vn/wwVAmJJR
+ cuAG9Yto40pqDxpad5XJRgwDHoAVIz0zn9a4zWLvYiNun99qKbltKjadxqDC7V88l01iYxt5FB3
+ h0fpmJT0L8Zybzlao+Y4JOG3FkvHQuWnxk1e9jBdTFOsmObo3bTGGEyWrjq+2iaEctZdXNj5nVt
+ xYdJNx7y0lRmMZU1nV9Rr1Nsngkx+vxxNfSQY4rKdye3YcPT8F5A8cjGtI3CEDffPijumdpcRkP
+ Q6VyACdku2N/PLInG92Bj7XxSh/dyhL5uED1c9B5tDMdHLfUzCPr4n2Kp90JXGtvVbqE3xyghes
+ HhoqkjNxKo8bp7kK9W7A9srsIte1GVOXH35JMJ8klwd3YgPRCUnTsDaIFWB+4Vz9oWvU9lxtT0X
+ GuSy5akMcHkLVpS0dfArBBJkei8muqs1e01PJANWWxpJBn1CvSgTsBCZH1T/0gQUjp7E3w9faNg
+ UPw0fQ9GJtCGDT21uLA==
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6af314d8 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=569UQr4CCCqzOnBEreAA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: 79QrHOEaZwfz8ylFA6-ExWDwOdagZ-7N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100051
 
-Hi
+Qualcomm DSI display drivers won't work without proper endpoint, so be
+explicit about this in the bindings, so we can validate the DTS
+properly.
 
-Am 10.11.26 um 11:36 schrieb Leander Kieweg:
-> Hi Thomas,
->
-> a gentle ping on v6 of the GlandaGPU series. Is there anything else I
-> should change before it can be merged?
+Best regards,
+Krzysztof
 
-Oh, I thought you wanted to send a v7. :)
+---
+Krzysztof Kozlowski (3):
+      arm64: dts: qcom: msm8916: Disable disconnected DSI
+      arm64: dts: qcom: msm8996-oneplus: Disable disconnected DSI
+      dt-bindings: display/msm: Require DSI graph endpoint
 
-There's nothing blocking it, I think. I'll merged the driver in soon.
+ .../devicetree/bindings/display/msm/dsi-controller-main.yaml      | 6 ++++++
+ .../devicetree/bindings/display/msm/qcom,milos-mdss.yaml          | 1 +
+ .../devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml        | 2 ++
+ .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml        | 1 +
+ .../devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml        | 4 +++-
+ .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml        | 8 ++++++--
+ .../devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml       | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml        | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml         | 1 +
+ arch/arm64/boot/dts/qcom/msm8916-samsung-a3u-eur.dts              | 6 ++++++
+ arch/arm64/boot/dts/qcom/msm8916-samsung-gt510.dts                | 6 ++++++
+ arch/arm64/boot/dts/qcom/msm8916-samsung-gt58.dts                 | 6 ++++++
+ arch/arm64/boot/dts/qcom/msm8916-samsung-serranove.dts            | 6 ++++++
+ arch/arm64/boot/dts/qcom/msm8916.dtsi                             | 4 ++++
+ arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi              | 2 --
+ 31 files changed, 76 insertions(+), 5 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261110-display-msm-of-graph-a081a5c614b4
 
-Best regards
-Thomas
-
->
-> Best regards,
-> Leander
->
-> Am So., 11. Okt. 2026 um 17:46 Uhr schrieb Leander Kieweg
-> <kieweg.leander@gmail.com>:
->> This is v6 of the GlandaGPU DRM driver series [1][2][3][4][5]. It
->> addresses review feedback from Thomas Zimmermann on v5.
->>
->> GlandaGPU is a small VHDL soft-IP 2D display controller, currently
->> targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
->> been tested against a QEMU digital twin and on real hardware.
->>
->> Hardware/VHDL:   https://github.com/stiangglanda/GlandaGPU
->> QEMU fork:       https://github.com/stiangglanda/qemu-glandagpu
->> Userspace tests: https://github.com/stiangglanda/GlandaGPU-userspace-tests
->>
->> Changes since v5:
->>
->> driver core:
->> - Replace the custom glanda_crtc_atomic_flush() with
->>    drm_crtc_vblank_atomic_flush() (Thomas Zimmermann).
->>
->> On the QEMU device ID: it's currently a placeholder from the
->> experimental range, since I haven't submitted the QEMU patch to get
->> an official one yet. Is that fine to merge as is, with a follow-up
->> kernel patch once the official ID is assigned?
->>
->> [1] v1: https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
->> [2] v2: https://lore.kernel.org/dri-devel/20260730173643.256052-1-kieweg.leander@gmail.com/T/#t
->> [3] v3: https://lore.kernel.org/dri-devel/20260824195418.17707-1-kieweg.leander@gmail.com/T/#t
->> [4] v4: https://lore.kernel.org/dri-devel/20260913205007.118552-1-kieweg.leander@gmail.com/T/#t
->> [5] v5: https://lore.kernel.org/dri-devel/20260920193944.110983-1-kieweg.leander@gmail.com/T/#t
->>
->> Leander Kieweg (2):
->>    dt-bindings: display: Add GlandaGPU binding
->>    drm/glanda: Add initial DRM driver for GlandaGPU
->>
->>   .../bindings/display/kieweg,gpu.yaml          |  56 ++
->>   .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->>   MAINTAINERS                                   |   6 +
->>   drivers/gpu/drm/tiny/Kconfig                  |  11 +
->>   drivers/gpu/drm/tiny/Makefile                 |   1 +
->>   drivers/gpu/drm/tiny/glandagpu.c              | 634 ++++++++++++++++++
->>   6 files changed, 710 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
->>   create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
->>
->> --
->> 2.43.0
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
