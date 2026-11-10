@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298272;
-	b=abSiPZ0P894lbqt8jfQTCeqMzC4/QMrpjpw6/ZAOUWDH9DFD9WjheeVu1Nr+paghFz91
-	 ZMdKaSWBi2KBYePQc6ELWBNDy96u8IAKexIzNj/4uRXciFYF6b94YtP1FKaL87aCjXI83
-	 2VT+KxVaDx7f/rV+FrPCZfuj97cO/bCiVcMbK5S2/078FmvuCMvqo5GShRDAyo29o4oxd
-	 FxgpkE7Mk/TSGwaF40+9lp8/rzt+HAiZ0Sp2q0X1pxFUj9LJklQYL+57w/y78sCa+UmPy
-	 UAsXleXmfPN6NlgSqNRnCZXtj2fZhh5SiQs1l+eE6fNkR3vIkna3nIr8JA1IPaFu03w==
+	t=1794298419;
+	b=AtF8pmaLFgPiQnqLVcgkrQH129OCuCh4xwRDBusiuBqvyHy8lkX8l0E1tqwqYvJAYoHK
+	 AidCKy7kTRB0UrhFvv22bZiGc2eznw1sxC1aEGgnnH319KkER+p0evDbK9NCcgfFKNJO3
+	 hU2oUf0sw+lcNIBcy8h8hZ4u0KVFKep3b3NJv0CBjU84sb0QKIqELhViCgDkSOf3C1ql3
+	 fhYQ7bvyX/jFdEtBluz8XRCmzAt0d9olRLToKQnAaytaBMhg7pyC7faqDnMZH1N+GdXzA
+	 sDGSzkl5gbSUKTFKQpcs3U6Br7NbhflcFz4tzhZaPbDD2hNmnFJhF/yzeMZnDn54hQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298272;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=G2hTVRuQRjgta+rs5/PlgRcbqufNPlDCusmR3nTXejc=;
-	b=CGV/oV5tA3zy49nStuxlG8ypaQGiJo9uiwKxFfAqfIMdjTLJtizZFxT9/1wyjej+94EN
-	 cMkrv7jTiD8CrQlQGHhJc5xr4BFrUTzRo2VhkxoCwOjD5ikae4gcGj7JQnfUIn5cF+XRk
-	 5GNXy/o16pHYJhKzmuebNJRCK0ZuJHE580qgRmF7kBSPvuHUMDFMEe6sP12hSf7MRsPkK
-	 6v/hhs4C/+U8HbaAoNaiKMKVKDjhSoU1f6SS+pxfRw6dxCAj6HQf+44TMWuwupaFWP+Hz
-	 jYF4gEqulK6llwO7HVqkou/2NJCvuqN6Ly5qgrNf02w96GUN5JBdUSlA0SNvQ+nxaig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298419;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WyWgG8alvAiP6dZN+wnkNn50hQMCgufqPB6nftMdjyo=;
+	b=wk/zCAkuWZoNxrVTAZoNBE52Zt8y3LRNhI1cNO7pfLUfrGRB9beQoy2D+Ox0cWLq8FHH
+	 Fpk0A4QTXL5AVJe7FtTtojRIt8IPdGK1CrZaW3IL4ZieUeFs/u+DCHigMmKgJhnXGJiCr
+	 nTiFaV9tZqYx8hhvlJ8GYKajbyy2+8ICD2vXNB4D/cIptXVHYuoXJsP1AVEk1vGa7+cNt
+	 CAy4Us7+sGhUeZ8rpy/Cyxut/i3L+s7Z+D6cLq8g88stGhz/jbXYN2//8MM1sQmDei5UB
+	 aivYX6fC71nNPuH5e/KdZ3dOX9Jrxqn0nW+8ysZD9ln7Zj14XmHVpyZZGSGzqlo5N4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnZ7B2Nt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPy1ZHCK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF25606A321
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D714606A31C;
+	Tue, 10 Nov 2026 08:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnZ7B2Nt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BE61F0089F;
-	Tue, 10 Nov 2026 08:11:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPy1ZHCK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6DD1F0089F;
+	Tue, 10 Nov 2026 08:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298272;
-	bh=G2hTVRuQRjgta+rs5/PlgRcbqufNPlDCusmR3nTXejc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gnZ7B2NtjoD9pR5p4llQ7O4u2Odvbnz447XScTo8rHviimHefch+tr3owOm1tbzcL
-	 lvPcAeTNCatgBFcueIVaToIvKB5NEshdWniScbSgFHtwbTBbAmNtnnqcMhJa0ovE58
-	 WeK4xWpUF5cHCgHJWkf/l0w6h7+RAXUFkVteQNrjzyL95OOscWueVP+2OmcD0WlvhZ
-	 Ft89bJ26ippudAOt9X8dH6fGazrkVFBJYSJqTGiRh6CcCG14QX0+COpf+egn0Tk2BY
-	 vJYZyKyrl9CoLwKl6HTfwzOveTfmNT4Al2LYKXf1rpdkdCqRSVg2Y3+qOTkmc6bmge
-	 MKDcuDyKRM0fA==
-Message-ID: <sashiko-outbox-206571@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] media: verisilicon: Reset the Rockchip encoder
- cores on timeout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261110-hantro-robust-v1-3-6b6269c05bfa@gmail.com>
-References: <20261110-hantro-robust-v1-0-6b6269c05bfa@gmail.com>
- <20261110-hantro-robust-v1-3-6b6269c05bfa@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 08:11:11 +0000
+	s=k20260515; t=1794298418;
+	bh=WyWgG8alvAiP6dZN+wnkNn50hQMCgufqPB6nftMdjyo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XPy1ZHCKJRLqtlLI6aImqc+y39MOGlJHA+qmVcX5jeg0hnbFd5dQluJ6vbQRqtP1v
+	 iMPMjr4aJ0UjdviT4220uT8k7AcIRi4cEpvxLbpjWDLhQDL/MLsF2xCASCN15wwwhH
+	 U3LjWJrv3Axn4Y4ffbi3Xo4Ip+VdOJDceQLiSAMVGH7LS7ufpo1mZOPaHvdxiuus/0
+	 mAoowkNHE9REYIXEHYnCXwGWrK+oh1q3f2kBAGtVzF5/OspgxLxNSn8NO9JHZp4/78
+	 twsENThxPLigbaQTNv61fK30aS7wCANhyfHQdl6s3OYX0tS9oSBxMOvQfcZ4MeAWFG
+	 zGEO39lSWxgpA==
+Date: Tue, 10 Nov 2026 09:13:34 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gaurav Suman <gauravsuman007@gmail.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: media: Add qcom,sm8150-camss
+Message-ID: <20261110-fictional-jolly-kestrel-4e4c11@quoll>
+References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+ <20261109-sm8150-camera-v1-1-3d2e7b407516@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,91 +61,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109-sm8150-camera-v1-1-3d2e7b407516@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Medium] media: verisilicon: uncleared IRQ disable bit in
-  hantro_h1_jpeg_enc_run() [1]
---
+On Mon, Nov 09, 2026 at 10:38:19PM +0000, Gaurav Suman wrote:
+> Add bindings for the camera subsystem on the Qualcomm SM8150
+> (Titan 175): four CSIPHYs, two CSIDs and two VFEs, plus two lite
+> CSID/VFE pairs. Like the SDM670 binding, only the CAMSS core blocks
+> are described.
+> 
+> SM8150's camera clock controller has no SOC_AHB branch clock; the
+> slow AHB clock source is listed instead, as the downstream driver
+> does.
+> 
+> This was written and tested with the help of an AI coding assistant
+> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
+> 
+> Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
 
-commit 433d2270fcbefc689a4dc88d1c36fa283eb8f9a5
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+It seems you are repeating existing work (see lore.kernel.org).
 
-media: verisilicon: Reset the Rockchip encoder cores on timeout
+Dropping.
 
-This commit pulses the optional hardware reset lines in the Rockchip
-VEPU1 and VEPU2 reset callbacks to recover encoder cores that become
-stuck on the bus after an IOMMU fault and job timeout.
+Best regards,
+Krzysztof
 
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
-rs/media/platform/verisilicon/rockchip_vpu_hw.c
-> index 02673be9878e1..0dced75158334 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-
-[ ... ]
-
-> @@ -468,6 +469,33 @@ static void rk3066_vpu_dec_reset(struct hantro_ctx *=
-ctx)
->  	vdpu_write(vpu, G1_REG_CONFIG_DEC_CLK_GATE_E, G1_REG_CONFIG);
->  }
-> =20
-> +/*
-> + * Stopping the encoder through its registers isn't enough when it is st=
-uck
-> + * on the bus, for instance after a translation fault in its IOMMU: it k=
-eeps
-> + * AXI transactions outstanding and never becomes idle, which also preve=
-nts
-> + * the IOMMU from stalling. Pulse the reset lines of the core, if the de=
-vice
-> + * tree describes them, to return it to its idle state.
-> + */
-> +static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
-> +{
-> +	int ret;
-> +
-> +	if (!vpu->resets)
-> +		return;
-> +
-> +	ret =3D reset_control_assert(vpu->resets);
-> +	if (ret) {
-> +		dev_warn(vpu->dev, "Failed to assert resets: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	udelay(5);
-> +
-> +	ret =3D reset_control_deassert(vpu->resets);
-> +	if (ret)
-> +		dev_err(vpu->dev, "Failed to deassert resets: %d\n", ret);
-> +}
-> +
->  static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
->  {
->  	struct hantro_dev *vpu =3D ctx->dev;
-> @@ -475,6 +503,7 @@ static void rockchip_vpu1_enc_reset(struct hantro_ctx=
- *ctx)
->  	vepu_write(vpu, H1_REG_INTERRUPT_DIS_BIT, H1_REG_INTERRUPT);
->  	vepu_write(vpu, 0, H1_REG_ENC_CTRL);
->  	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
-> +	rockchip_vpu_enc_hw_reset(vpu);
->  }
-
-[Severity: Medium]
-This problem wasn't introduced by this patch, but when vpu->resets is not
-present in the device tree, does rockchip_vpu1_enc_reset() leave
-H1_REG_INTERRUPT_DIS_BIT set in H1_REG_INTERRUPT [1] across later
-runs?
-
-hantro_h1_jpeg_enc_run() starts the encoder without writing to
-H1_REG_INTERRUPT to clear H1_REG_INTERRUPT_DIS_BIT, so after a watchdog
-reset all subsequent H1 JPEG encoding jobs have completion interrupts
-disabled and time out as well.
-
-[1] https://sashiko.dev/#/bug/linux-22957774-1c15-4f2d-87b4-d6b2e043ac2a
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-hantro-rob=
-ust-v1-0-6b6269c05bfa@gmail.com?part=3D3
