@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295603;
-	b=bEXn9JHgGAT8tb6Kl2A5sn0oGkkPi60LMfL/i8vDtHGU638PL/SGfsEAzLYiHfp0dHRN
-	 SavryLHOpK8tPWLa5poNZN72VwlkIHBiYGApjdJ+o7hRcI+OiIcm9OlJfFAlw3doBvBdM
-	 xT+F7mcQu1vmK+5XGv3dBSZSk/N6ptmgG6DvbC/6mkrGZcrEgAbDJm59lKd5MQL2oTGiC
-	 wVsn8m6dEwf3sczERX02zti7iR+Rwmau2lUpwP7o8i587DbFrcJ6H9RqoTQSSQpn8Kd1/
-	 XQ9AeMjk1fRwugXMUnmPCh5ALVXuO1lIyXgcEBj+TVamuQCLR1ookI0fYahGfAiN8nw==
+	t=1794295649;
+	b=SdEnxraElAVg8jX3NRqYIjhlaxiHQBx0ja/jhS7Ot8RHe2CvqpCw8TABnALY9cvTzrWp
+	 2TpxRvjBCv3t+xFcHXvYKUbUSshZnt9vqk+Ipm8q5tIF4nYtql4odf+ZmpP2/RR1ISmtS
+	 161L1EkHQw45asywUA+bI4i2SiHq46q7QlYwW3DPCp7oQuuTo56GbT8V6s/X08qrFpn3G
+	 qqihwA8IjroEnMLsUNNatABMD9cX/9MrpeK99bEhce0iLB3rtqPRu7/8nqEgYz+rxL+Ij
+	 DzR4dsIXoHwOS+4yDy9041jCv0tIs0ZKOznmwuA96bU5CoSDQNpui+aPdDmHhWl2gRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295603;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=p2kg3JeBZpmgQXqbxQbHiOPCOpd0Trotz2Z5D+/Gm2w=;
-	b=Hcn37qQTT2wQahkxQsbKmoDvU4QlQhnumqNzFi+eqBiLPML19j7atQOubhczBDyv+6t3
-	 QEP+xQRNNqjdtTAjfkRgsDb4LZOieqCxw9skEeRCDAIuBvg7HtpeKhBc7IZWCTxkawTnO
-	 yPQvtcDn2sexox5lSgsIOcIW0revNeBvmCnPutk4a6F7ykZhB2T1qK310MmU55d8jTajh
-	 CVDnpP8IgH+7Oz/bdNty3dIRRBHTIHuVtyYVCPsEzCz4csh1OhfLvXhHHh5ZoOxNpsxmE
-	 TepGWi8DvheS2YAqhUDyP3CVh6jt+e2lby82Sq0A6w2AGVKnhxk/HOjs+LEh/3QLQvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295649;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=fXEgxHGGbNywcAgwLjVcb2CWVAIvTJVpGwgt60PS7Ns=;
+	b=FXq7Z4vo4N8VhXJBqKH6bP0ba7WPZlb72kGncUkRllAH9jCwcbL+4TpJkFbo5282qrCe
+	 6kyzrkINSnsZipuBKXMe2wc4TlkCE+R7MeFnvWu7m5LhNemp7cpNSiUS4uZQSYWeuKQi7
+	 ezmAZFxAUXjxPZrRpwT7tzN//Q2PQxESIhhX1tZm0iTTvYXsuuRBLOxyMBagVKtJVXWeg
+	 xG2HuCxFcV3lLeJPVXQlqzLa3iXEhU/MbOD0DTbegfiikBWnxiMkWsGYcceGgIApHcFpY
+	 tTwxXf1KGZmduenlM/hGs7lZUYrXFmKKRzgcHrb+HWeBcBMeSqJ0iFQ/iM5VV95qOTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9KH1FRp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cj6qplcP;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA1A606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A516606A31C
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A516606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9KH1FRp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78CFB1F0089F;
-	Tue, 10 Nov 2026 07:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295602;
-	bh=p2kg3JeBZpmgQXqbxQbHiOPCOpd0Trotz2Z5D+/Gm2w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R9KH1FRpYIK/gM0AQoey0mnOcZTXAcfCC4kJqTM8F5BrDwRPkNDLb8kPDHwTeXeOL
-	 eW0OWkqqF15lvdK21F+w/dlvuAomk7Ep+e0xCQVHZyKN/AjPYIAFK2I3s8ej6HAufp
-	 PNSnTRAIo4GOAR650W7TgT7c4fJLMi+Yff8SJgEjQP5iSX8xXBwkNpTiG6Chz3AgJq
-	 697KYOfqNQKN8gi+TRxn9J9DzYGMlTiwgZCfJ0ZEoQc4GtZ+MqDVkFy6q6yqtFzQbk
-	 s2NZIF38GbAD2RhlgDzuf4SYSGN3VCgy4Gj2tafAJE/pEMXdzmh+LHzpd3t7/ap9+V
-	 +fnm0J9EvBMPw==
-Message-ID: <sashiko-outbox-206486@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] iommu/arm-smmu-v3: enable optional clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 07:26:42 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cj6qplcP
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e987a2ba0cso9865025ad.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 23:27:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794295649; x=1794900449; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fXEgxHGGbNywcAgwLjVcb2CWVAIvTJVpGwgt60PS7Ns=;
+        b=cj6qplcPDoP8/0o0M1zFhZq9sKHanEMF7YfOWqtb7yqDD9mN/0OL54LgxPlf33aTvr
+         Wqc8iZA3bsHZvEuZ77u8JxmNzkWy8loqsloCa8Su/zLG5ezWFV5P9bQq5pOyj4sqCGbj
+         IulMG6EcCHANiq810c1uqEDwAIT20o3j52ZU3L99Meis7zbICaxpYdjqWE1AKftKaeh2
+         CBS7njlRD6at+m57Q5MF5UI7309UgfRqmp22e3cZcAIWp9lrYCjRNaudu/lyxshf7I+4
+         imuustvpNls5pS5uWtV/6s3t+4sg2XP2PdGCfEEArZqxJF5I6xwKaBgV4dEqbA0NnfVj
+         k8eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794295649; x=1794900449;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fXEgxHGGbNywcAgwLjVcb2CWVAIvTJVpGwgt60PS7Ns=;
+        b=0wcZYhcbeth0IxI6VzfodjzbwTnkEIDxh5/lDT/3DtUD6tlyHXPqO1kMeJcfOAxU3y
+         kYrpf8P14JVtlnpSlsfpid+2D74SJmm3kVNa+sxRcP3GNmsDloVht6a4pMFCTKokB0mf
+         BV0iER6AJVykeqDbg59U3N2E8M2AIpa1EFgDgat+D8qxssl2Z8ViDeeNFCnH2tHCZ8xB
+         7uWvbMzCUVw/AF5r/GFbPsDkOay6GuWf54J1Ukz/whrXESnYZJ0oPZAf0z7hUziyb7nA
+         WU4oFWLaGw3LrKCjwG/MbDiunie2XRtcsQVkQ2xlVHvX7mEvxS9BdansBe5ety7Cax74
+         0Grw==
+X-Gm-Message-State: APuU4Z/gU9/zTWROO8sp+HUTCYaX/2h24Q43FnzprcKUko8qv6CX31qz
+	xBeoLjolLvkJXe9D4tjqLRTUq0ZbShADhhrEgni9MVxkLqKRR+pGHodPoTw4vBKi
+X-Gm-Gg: AYBFou3X8EBVgUnNeXgsbOCSON0v5oQc7EA+ncgWUa/dsnVfGGAdu6lIYCJfeg8RqGi
+	eealeGuNunW+YWjW6T8AIEWFBMZTRaytisARC6ml9tCFahl+Hf/hF6xBvs+srsL/Hj3EqTUTcKe
+	3n3+t6DYygapD5BbNNSVhJUS9DLZ2hs05z3XeRgjfx01IwNYD1YP08yS05+obQnedQCPN0J57Sa
+	Dvo0Kj6rdEBH235ukSOzBKAtLRcgFxVxkQXdF857NhdpYdkTQwAHSrB4YwIt0/+FvgkjnEmXPWQ
+	uj0DGTlmG8oTUOHYyn5Da45+pfyr0G4+vFU6KskmjvR7+TUbD+1SxK/284lmj7ldWgeXQ/DRnat
+	fR7ocU0+lfWgP9o//HySSGhB5G3FlspHRHoOeD6RHgk6u0UvdROtcW9QAU+nnimaH5nAj51vnW4
+	vIzRdXb2zcghxOQFVc94d2tgtuGvfvQdF2N8K09cioEJmSMU/+uKNZdr0pknOwoF+2pYAG7Ad3+
+	RB/7hlQ9o3B9ah480n1vRRCneMKlVdx92uYUDzfCHmi1ji8AA7URfo/Hwl+Sl6332olDE6xoczV
+	OJFsFxaZG0KsVgvsSVJUIJ7Q7/k=
+X-Received: by 2002:a17:903:1a2b:b0:2e9:5507:b538 with SMTP id d9443c01a7336-2edb8fb38f2mr16009195ad.3.1794295648858;
+        Mon, 09 Nov 2026 23:27:28 -0800 (PST)
+Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6e0c9cesm5627985ad.69.2026.11.09.23.27.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:27:28 -0800 (PST)
+Date: Tue, 10 Nov 2026 15:27:09 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: sashiko-reviews@lists.linux.dev, Inochi Amaoto <inochiama@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org
+Subject: Re: [PATCH 2/4] usb: dwc2: drd: Sync the generic PHY mode with role
+ requests
+Message-ID: <avLHFUl6S3BUOqeI@inochi.infowork>
+References: <20261110070627.217946-1-inochiama@gmail.com>
+ <20261110070627.217946-3-inochiama@gmail.com>
+ <sashiko-outbox-206474@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,88 +97,172 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-206474@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] iommu/arm-smmu-v3: device refcount leak in
-  arm_smmu_device_probe()
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [Medium] iommu/arm-smmu-v3: device reference leak in
-  arm_smmu_device_dt_probe() [1]
---
+On Tue, Nov 10, 2026 at 07:18:48AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issues to consider:
+> - [High] usb: dwc2: drd: inverted default mode check in dwc2_drd_init()
+> - [Medium] usb: dwc2: drd: unupdated PHY mode on USB_ROLE_NONE in
+>   dwc2_drd_role_sw_set()
+> It also noticed 1 related pre-existing issue this patch does not
+> introduce:
+> - [High] usb: dwc2: early role switch registration race in
+>   dwc2_driver_probe() [1]
+> --
+> 
+> commit 5fa24c9321d10a0419f734968d84804314b53dd6
+> Author: Inochi Amaoto <inochiama@gmail.com>
+> 
+> usb: dwc2: drd: Sync the generic PHY mode with role requests
+> 
+> This commit updates the generic PHY mode via phy_set_mode() during DRD
+> initialization, role switch updates, and system resume.
+> 
+> > diff --git a/drivers/usb/dwc2/drd.c b/drivers/usb/dwc2/drd.c
+> > index 1ad8fa3f862a1..1ad3804cbc805 100644
+> > --- a/drivers/usb/dwc2/drd.c
+> > +++ b/drivers/usb/dwc2/drd.c
+> 
+> [ ... ]
+> 
+> > @@ -111,14 +113,11 @@ static int dwc2_drd_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
+> >  	 * mode and sessions. It is the case if cable is plugged at boot.
+> >  	 */
+> >  	if (!hsotg->ll_hw_enabled && hsotg->clk) {
+> > -		int ret = clk_prepare_enable(hsotg->clk);
+> > -
+> > +		ret = clk_prepare_enable(hsotg->clk);
+> >  		if (ret)
+> >  			return ret;
+> >  	}
+> >  
+> > -	spin_lock_irqsave(&hsotg->lock, flags);
+> > -
+> >  	if (role == USB_ROLE_NONE) {
+> >  		/* default operation mode when usb role is USB_ROLE_NONE */
+> >  		if (hsotg->role_sw_default_mode == USB_DR_MODE_HOST)
+> > @@ -127,6 +126,15 @@ static int dwc2_drd_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
+> >  			role = USB_ROLE_DEVICE;
+> >  	}
+> >  
+> > +	if (role == USB_ROLE_HOST || role == USB_ROLE_DEVICE) {
+> > +		ret = phy_set_mode(hsotg->phy, role == USB_ROLE_HOST ?
+> > +				   PHY_MODE_USB_HOST : PHY_MODE_USB_DEVICE);
+> > +		if (ret)
+> > +			goto out_clk;
+> > +	}
+> 
+> [Severity: Medium]
+> Does guarding phy_set_mode() on USB_ROLE_HOST || USB_ROLE_DEVICE leave
+> hsotg->phy stuck in PHY_MODE_USB_HOST when switching from USB_ROLE_HOST to
+> USB_ROLE_NONE?
+> 
+> When hsotg->role_sw_default_mode is USB_DR_MODE_UNKNOWN and hsotg->dr_mode
+> is USB_DR_MODE_OTG, role remains USB_ROLE_NONE.  This skips phy_set_mode(),
+> whereas dwc2_force_mode(hsotg, role == USB_ROLE_HOST) below forces the
+> controller into device mode (matching dwc2_drd_init() and
+> dwc2_drd_resume(), which both set PHY_MODE_USB_DEVICE for USB_ROLE_NONE).
+> 
 
-commit 30c1e41e25870c67f127c773eba01cc753f1ae3f
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+Yes, the check can be removed
 
-iommu/arm-smmu-v3: enable optional clocks
+> [ ... ]
+> 
+> > @@ -160,26 +168,40 @@ static int dwc2_drd_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
+> >  		/* This will raise a Connector ID Status Change Interrupt */
+> >  		dwc2_force_mode(hsotg, role == USB_ROLE_HOST);
+> 
+> [Severity: High]
+> This problem wasn't introduced by this patch, but registering the role
+> switch in dwc2_drd_init() before dwc2_driver_probe() finishes initializing
+> the core and workqueue allows concurrent role switches to race with probe
+> [1]:
+> 
+> CPU0 (probe)                      CPU1 (role switch / IRQ)
+> dwc2_driver_probe()
+>   dwc2_drd_init()
+>     usb_role_switch_register()
+>                                   dwc2_drd_role_sw_set()
+>                                     dwc2_force_mode()
+>                                       /* unlocked RMW on GUSBCFG */
+>   dwc2_core_init()
+>     /* RMW on GUSBCFG */
+>                                   dwc2_handle_conn_id_status_change_intr()
+>                                     if (hsotg->wq_otg) /* NULL */
+>                                       queue_work(...)  <-- event dropped
+> 
+> dwc2_force_mode() modifies GUSBCFG without holding hsotg->lock, racing with
+> dwc2_core_init().  In addition, because hsotg->wq_otg is not allocated yet,
+> dwc2_handle_conn_id_status_change_intr() drops the connector ID status
+> change interrupt, leaving the controller in a mismatched state.
+> 
+> >  
+> > -	if (!hsotg->ll_hw_enabled && hsotg->clk)
+> > -		clk_disable_unprepare(hsotg->clk);
+> > -
+> >  	dev_dbg(hsotg->dev, "%s-session valid\n",
+> >  		role == USB_ROLE_NONE ? "No" :
+> >  		role == USB_ROLE_HOST ? "A" : "B");
+> >  
+> > -	return 0;
+> > +out_clk:
+> > +	if (!hsotg->ll_hw_enabled && hsotg->clk)
+> > +		clk_disable_unprepare(hsotg->clk);
+> > +
+> > +	return ret;
+> >  }
+> >  
+> >  int dwc2_drd_init(struct dwc2_hsotg *hsotg)
+> >  {
+> >  	struct usb_role_switch_desc role_sw_desc = {0};
+> >  	struct usb_role_switch *role_sw;
+> > +	bool is_host;
+> >  	int ret;
+> >  
+> >  	if (!device_property_read_bool(hsotg->dev, "usb-role-switch"))
+> >  		return 0;
+> >  
+> >  	hsotg->role_sw_default_mode = usb_get_role_switch_default_mode(hsotg->dev);
+> > +
+> > +	if (hsotg->role_sw_default_mode != USB_DR_MODE_UNKNOWN)
+> > +		is_host = hsotg->dr_mode == USB_DR_MODE_HOST;
+> > +	else
+> > +		is_host = hsotg->role_sw_default_mode == USB_DR_MODE_HOST;
+> > +
+> > +	ret = phy_set_mode(hsotg->phy,
+> > +			   is_host ? PHY_MODE_USB_HOST : PHY_MODE_USB_DEVICE);
+> 
+> [Severity: High]
+> Are the if and else branches inverted here?
+> 
+> When role_sw_default_mode is configured (for example USB_DR_MODE_HOST on an
+> OTG controller where dr_mode is USB_DR_MODE_OTG), the if branch ignores
+> role_sw_default_mode and checks dr_mode instead.  When role_sw_default_mode
+> is USB_DR_MODE_UNKNOWN, the else branch evaluates USB_DR_MODE_UNKNOWN ==
+> USB_DR_MODE_HOST, which is always false.  This sets hsotg->phy to
+> PHY_MODE_USB_DEVICE while dwc2_ovr_init() at the end of dwc2_drd_init()
+> forces the controller into host mode:
+> 
+> drivers/usb/dwc2/drd.c:dwc2_ovr_init() {
+>     ...
+> 	dwc2_force_mode(hsotg, (hsotg->dr_mode == USB_DR_MODE_HOST) ||
+> 				(hsotg->role_sw_default_mode == USB_DR_MODE_HOST));
+> }
+> 
 
-This commit acquires and enables all optional clocks described in the
-firmware node during arm_smmu_device_probe() using
-devm_clk_bulk_get_all_enabled().
+Yes, it is inverted.
 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/=
-arm/arm-smmu-v3/arm-smmu-v3.c
-> index 6d4520c473086..cce66db932197 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+I will fix them in the next version.
 
-[ ... ]
+Regards,
+Inochi
 
-> @@ -5800,6 +5802,11 @@ static int arm_smmu_device_probe(struct platform_d=
-evice *pdev)
->  	if (ret)
->  		return ret;
-
-[Severity: Medium]
-This problem wasn't introduced by this patch, but can
-arm_smmu_device_dt_probe() leak a reference on smmu->impl_dev [1] when
-"#iommu-cells" is missing or invalid?
-
-If "#iommu-cells" validation fails, arm_smmu_device_dt_probe() leaves ret as
--EINVAL and continues instead of returning early.  On "nvidia,tegra264-smmu"
-it still calls tegra_cmdqv_dt_probe(), which acquires smmu->impl_dev via
-of_find_device_by_node(), and then returns -EINVAL here before
-arm_smmu_impl_probe() can take ownership of that reference:
-
-drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c:arm_smmu_device_dt_probe() {
-	if (of_property_read_u32(dev->of_node, "#iommu-cells", &cells))
-		dev_err(dev, "missing #iommu-cells property\n");
-	else if (cells !=3D 1)
-		dev_err(dev, "invalid #iommu-cells value (%d)\n", cells);
-	else
-		ret =3D 0;
-	...
-	if (of_device_is_compatible(dev->of_node, "nvidia,tegra264-smmu")) {
-		tegra_cmdqv_dt_probe(dev->of_node, smmu);
-		static_branch_enable(&arm_smmu_erratum_repeat_tlbi_cfgi_key);
-	}
-
-	return ret;
-}
-
-> =20
-> +	/* Optional clocks: keep them running for as long as we are bound */
-> +	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to enable clocks\n");
-> +
->  	smmu =3D arm_smmu_impl_probe(smmu);
-
-[Severity: Medium]
-Does returning here when devm_clk_bulk_get_all_enabled() fails leak the
-device reference on smmu->impl_dev?
-
-Earlier in arm_smmu_device_probe(), arm_smmu_device_dt_probe() (via
-tegra_cmdqv_dt_probe()) and arm_smmu_device_acpi_probe() (via
-acpi_smmu_dsdt_probe_tegra241_cmdqv()) acquire a reference on smmu->impl_dev
-and rely on arm_smmu_impl_probe() -> tegra241_cmdqv_probe() to release it.
-If devm_clk_bulk_get_all_enabled() fails, such as with -EPROBE_DEFER,
-returning before arm_smmu_impl_probe() leaks that reference on each probe
-attempt.
-
-[1] https://sashiko.dev/#/bug/linux-084125c9-12e1-45a7-ad09-6882ddb42c3c
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-smmu-v3-pc=
-ie-pd-v1-0-628819ca44b9@gmail.com?part=3D3
+> [1] https://sashiko.dev/#/bug/linux-a825f666-6a3b-40af-8377-023f8afa7caf
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261110070627.217946-1-inochiama@gmail.com?part=2
