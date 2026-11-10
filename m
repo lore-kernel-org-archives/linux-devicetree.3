@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794303790;
-	b=EUngJdcvKmle1qIuFs8zDlHEX3/aYXgbFrDngIId3P4SEK4n7ysASeUI+aPbaajpD/5k
-	 v1swh3Jw8YbMo5V7NbvV6rxVG9GjTe+WNG8SMDyNielN5jl7HLcH+iA395/WaITMgrAyO
-	 cRoVGVMqjY7g8cFL1UQWHCRCcpEPWW+Ti8ZXwcNUyN7e/tbnzFHjhyW8/Jwpp6SheeCqf
-	 V8qBOk/SvDwp+1WifzML6mKxuHA3hSLCTSzZCi4w6QgKN3cJaY0V47C408hsKSj+Kpb3G
-	 eskHV+Sgv0OAsi/HWm0VIqkpYmdF7MWVyz1dV8f3b4eVGd+gjXIjIVJpw+JC7Gfh8ZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303790;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:X-B4-Tracking:X-Change-ID:To:CC:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/STSAsKApnUqwh9qjDB+bZluSJUxcFNCda7tshnzAkY=;
-	b=xpB/yv6gfnJYSkQjzJOPfHtjO/GvsHnrYZubx38fbjjTNWQCJYcRQJKlGZ0A6R3kv7Z/
-	 HNhweTCHnwt6sCttTRgtt6ngb15Ov53lBXi59w4MqMoL3zm1sAbsjr18sYBNs/F2wBuc+
-	 v9xOcW4IK3frF6pdBEAQnVX4fLGB84UDELBhHbZ1oKttVv1YBltHptw//olRddhKCqVXA
-	 jAHa7z19l4ySD0Q583j3zxzPgd4++9lylN1qr2gI/hh9aFmkkfCK654Qb1AkBU7m865D4
-	 4JfnSdcbLTfmQzvbWX1FWYv5jWIZ1Vy0sivSVLCuVkNwjrkUBuwtd8ZZ4ydnyyrhnqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rOIk1gEA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.25
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010025.outbound.protection.outlook.com [52.101.61.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794303828;
+	b=oMrBFV3lRk7bKMSG9fgZpkyeD8VFgLvJDyuOioViFUehz5fm4w7cFmu5gax5oHAHIk+j
+	 4tUVS1AjlYCRCz4GL3/sdQ7e/cPYnlEurtlWLQO5LqmHnkT7x0sxxNmIC9LrgyKQ5Hqoi
+	 iF9xF8nKKejxYiqPsun9toaM5AIUZGy31Aa+B9LHRYEY/tIylt39eidjeA4koxzv5iFFt
+	 B3SxHjri7lRJ+/709/kzWArdmC71IqnvJhqfiiRATa1y8tT76Z51wYLJMWWmDpj+ot3S7
+	 f16PQ/0VY+2odyjdAmpfjbNNoWo4nofAomhJoQKXOsgTSTle22H1N2eZIxa+Dk4Fpdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303828;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-MTK;
+	bh=m2zyjpjCatk61E/s/TP65CRra9P/1L2a4z/kweMtxFE=;
+	b=ayUdHP09kz2xHOBDfho6g5kU8eCPtlnYCEyTzOjizs+TdjXkB+bo+Z6DbxgwNBBRzNrE
+	 SSZWdJ1JUSmJgq7yAXfmM7KCjMEGcLNuH4K9UPZGKCtGdh2GDWb/DRlEbqwKsvBO0X++/
+	 C350nBlUpvkxmYxX9kMmEi/2naHqUBs2Lfa8rwtkvfXIq1ZXQc4ODTyTEYrAYeT64CTH9
+	 4Qi2TVySmz3bSErl8M6gYNOaatmyXFrcrI4sQ8aWHS6tJwqZvpidZPP9gpGLxQ71ve+Zm
+	 mVV/qhcijXJPyHusyUE0Dk0WoSoGe/g67r/NcwYMNKaa3s0nq2a5ED0AVdx9sZAUHew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=airoha.com;
+	spf=pass smtp.mailfrom=airoha.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lkNkxeE5;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4737D606A33D;
-	Tue, 10 Nov 2026 09:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4737D606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD805606B9CD;
+	Tue, 10 Nov 2026 09:43:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD805606B9CD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rOIk1gEA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I9IPi1MP4iuetC+LfB9msZBeMfklMmGE5Sxpog0UogC3tlZHTShjb2Jl1e9jLMr3dG6pHTCK/hElRGdPcQ0JAWh8NlQXbvvz3U3P+ZXrDlXOn2mhITG+/TpHSOm91eBvNYlpCtvXjc528G9MLQzEbCtLMK00kebeEmPjVg1/xDZHfKTBtRZPC9EBj2YwOK0d3r8r7LHeYJXNnLZx4Hxio+WPvUJRfbcNxz89EMPJPGEOQoBC5yyM1pRz98WSMhbZsfwo4G9WKfRow4pocDEXh/2yjw9Ky5tEOGi2NHb9MYzIocKC0THGqQ/NbYwOECKtcc0RKw0sV+J0BxsTpFUcmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/STSAsKApnUqwh9qjDB+bZluSJUxcFNCda7tshnzAkY=;
- b=jF/csgJJfZMY/zN2a7USsJJhA1Uj7yzmhuL8UuuaSei514oOY5isvxB7BiAkpROJvsjaFUO6icPFLa2EEZcNsBVVhp9qQwVl07zvJmAsxKYkLjFuCesF2dYMrUmhafN3IiM3R05FO7+3V3QQtxQPqqeQjiQ+4pVQc5TuRV/Tc/Dbv8Om64/EOhON8yF1dnBgTXIy4JjH/Lzu5MXxc9CDR6A7VPLSdaoPo+K4782fXThsYgOQaO9BcwIM8mPoOZwNBJFN54vr578Fq5FXG5cEq7oIIpIXzxFSkE+Pdo4ZkfMY9eF9NxFTAI8LU8u0xZnX2JIFWiscjQfj8DGNuWgegQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.ozlabs.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/STSAsKApnUqwh9qjDB+bZluSJUxcFNCda7tshnzAkY=;
- b=rOIk1gEAYQ69mRqZ5DpS0xnCF0UgQKCR6Xoi58a9EiKLtPFxaQG79FbvAzPyYxFzSOIikZV+oopjEdVgf5aiZmVIgPGw//Jv4z5AEto/tgVehvk8tt4HuzBoGjOqyOr08Wli1rJzeNTwGpN5g80/Jhp9tSZMIJ9tm2q5DWWL+OY=
-Received: from CH0PR07CA0026.namprd07.prod.outlook.com (2603:10b6:610:32::31)
- by SA1PR12MB7174.namprd12.prod.outlook.com (2603:10b6:806:2b1::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 09:43:04 +0000
-Received: from CH2PEPF000166BE.namprd04.prod.outlook.com
- (2603:10b6:610:32:cafe::a4) by CH0PR07CA0026.outlook.office365.com
- (2603:10b6:610:32::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 09:43:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF000166BE.mail.protection.outlook.com (10.167.252.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 09:43:03 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 03:43:02 -0600
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 03:42:59 -0600
-From: Carl Lee <carl.lee@amd.com>
-Date: Tue, 10 Nov 2026 17:44:50 +0800
-Subject: [PATCH] ARM: dts: aspeed: anacapa: remove unused EEPROM
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lkNkxeE5
+X-UUID: 37994830dceb11f18dc8c9802ae25ab1-20261110
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=m2zyjpjCatk61E/s/TP65CRra9P/1L2a4z/kweMtxFE=;
+	b=lkNkxeE5e5wGoZQwsVIrDFl96hFdWZV6GkZMCzEtNk2DkU6X/yRSLr+wV/LJWq/8Aj2fl1bnp/oyELQBMGfU0a25AdbkPcSfzmy0m27CwxRsMulnWA8do38h0PIzufDoXFnAZX/FSHlIIAvec/u+ZbRvAsbW71QWDbSc+zQwCw4=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:a81d7e34-8cc3-4ec7-ad64-18721cf4c3cd,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:f7e51766-4b51-4c95-bb1b-80ac6aad9c96,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 37994830dceb11f18dc8c9802ae25ab1-20261110
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
+	(envelope-from <zhengping.zhang@airoha.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 842654037; Tue, 10 Nov 2026 17:43:43 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 10 Nov 2026 17:43:42 +0800
+Received: from mediatek.com (172.18.153.129) by mtkmbs13n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Tue, 10 Nov 2026 17:43:42 +0800
+From: Zhengping Zhang <zhengping.zhang@airoha.com>
+To: <linusw@kernel.org>, <lorenzo@kernel.org>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<brgl@kernel.org>, <mikhail.kshevetskiy@iopsys.eu>, <naseefkm@gmail.com>,
+	<benjamin.larsson@genexis.eu>, <linux-gpio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mediatek@lists.infradead.org>, <lei.dong@airoha.com>,
+	<ansuelsmth@gmail.com>, Zhengping Zhang <zhengping.zhang@airoha.com>
+Subject: [PATCH 00/12]  pinctrl: airoha: configure GPIO muxes explicitly and fix pad mappings
+Date: Tue, 10 Nov 2026 17:43:27 +0800
+Message-ID: <20261110094339.749110-1-zhengping.zhang@airoha.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,88 +83,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261110-arm-dts-aspeed-anacapa-remove-unused-eeprom-v1-1-e3b5d9cc1a03@amd.com>
-X-B4-Tracking: v=1; b=H4sIAJHn8moC/x2NOw6DMBAFr4K2zkoYAUWuEqXY2A9w4Y92A0JC3
- D1Wypli5iKDRhg9u4sUR7RYcgP36MhvkldwDI1p6IfZOdezaOLwNRarQGDJ4qUKK1I5wHverVm
- gakk8usnLGMI0Lx9qxapY4vm/vd73/QPfzzLQfQAAAA==
-X-Change-ID: 20261110-arm-dts-aspeed-anacapa-remove-unused-eeprom-415ca4dd56fb
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<carl.lee@amd.com>, <colin.huang2@amd.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794303904; l=1070;
- i=carl.lee@amd.com; s=20260203; h=from:subject:message-id;
- bh=KuqCqTn6qEaQVN++wIzRcgfygQpkPnvrXYdt7F+hVQU=;
- b=zSQtksEijXNXCK3cDWPPHjQ1xaeYS2ziuEy1FOokwfZDvuqgb5I0Jo8EPuX3/N39BGiZPMHRO
- Kt2rIOGX6OXDEruQCRZaNwjB16tDRRGXXRG1s+lOLDCVfcWJMVIG67G
-X-Developer-Key: i=carl.lee@amd.com; a=ed25519;
- pk=pyq7QaQvoxMg806KVkRwpCbiah+7ncWr4MBpK1AEyjA=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BE:EE_|SA1PR12MB7174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93f77399-ecd7-4640-62c8-08df3f0f0424
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|36860700016|82310400026|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|261102123227099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zLXBmk+k6vxUKNV3/3zeDTGQHolGpP503+dJDtadoiXXlP/MGxsibEgl4M1YIfKM+wd+NnA/pah+FmRXYctILOgSJ/5RhmERePjAECxLo8KbetHceFyuAKSK7VFSlBaa4OAZ6fjtfcoHy7+z2XQRpp53eSXFPPunFYKMSTPyKuhbqFYAU7wfNwmCiJUotXKv9RJOLTnOcPthoem6EcqAALB3++o8w2ubT8izoYjZ4tgTgYA4llfLt+et5MoP6BahzjOBXO/MSSPw8U2kngEomuB1JAN4XGBuY1lJYSzySBZlqz+I3l2RDqbHc6w+3DfBF3/VzOQlGvQkzgdFR7WXW+Drw3mgmsoisYJljoBQHbpQm0k5J68ISCXvnP3VOsFbpmcJiOCC0WOi4aL+/w2VbkWfAeV5GSjT4G418lYQOqNZ4/MemFmjjZHF0lZDttiql5QXrYr9IypAGQOGeVdlrdz7VWxyxmc7S/l3mK/yfL0e7FR8a6+Ye14wKeNsu3sXzPP2ZlEB2PPttOM9cAMid5S3KrWUzHUaYWtYhpDEl3x44EBrbfqpHjhJXxMISDzFKsgFnJ7zhnWC6jkSPXE1YiN38F7NG47dggnNgUjMxlZo3gzT/6SDc1HskS7wjdwcuJxDFE8sg0xs/vM2tFF8fIN2z026W0y+IyMUfcR3hWslA8kpvA23u7CB2M50saZHTN0Ou3Iks2UhBeCTQVh//g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(36860700016)(82310400026)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uacHEv1jiD7VC6gIUIfnabnKMFt8N3mBgHheVXzpbSnRpGRH9MwSjstvUXdqT95BmkHX1VHJnm7ydTN13knInIGtlKJmbaszFkaR1jLJP3EsYoiKBadCP+65sf1fUSxpE/4ckpAt8qFOuRmGc7x8wBL5l1armdIibTaNf9PWP/3x4WorHXJlX1bRzvlfzjiFUDL8JMaQlEAlRGETEuNrE9VklPYPdOvSU2yYdimavpXf6BUP7RQjcWI0nBr/3YJ4fxC2VxwV9c55mHB9pObRCtAHokRPUuCkZKid0WLjX+Mjw/DXMa3bk48N0dBmbLC+B4JI0WTklBKzkEEXgH4dMuz4CEzHw45noLC4Ey19ENdJzk+BKKQ2rQlrhLmTBB+zyOKJfk+ZZDdOK0bORdUKmLxS3btpuW+ZhrNtdpJ5uB6L5iLBRQaaF2pgin0yvUXo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:43:03.6128
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93f77399-ecd7-4640-62c8-08df3f0f0424
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166BE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7174
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Remove the unused HPM board ID FRU EEPROM (0x51) from
-the I2C mux channel 4 device tree node.
+This series makes GPIO mode selection explicit on AN7581, AN7583 and
+EN7523, and fixes related GPIO direction, LED group and SPI/eMMC mux
+configuration issues.
 
-The EEPROM is no longer needed in the Anacapa device tree.
+Background
+----------
+GPIO direction and data register programming is separate from pad mux
+selection on these SoCs. The current GPIO request path does not select
+the GPIO function, relying on the pads already being in an appropriate
+state. If the bootloader leaves a pad configured for an alternate
+function, a GPIO request can succeed without connecting the GPIO
+controller to the pad. Output writes may then fail to drive the pin,
+and input reads may not reflect the external signal.
+The problem also affects the opposite transition. Once a pad has been
+forced to GPIO mode, selecting its peripheral mux without releasing
+the GPIO override can leave the peripheral disconnected from the pad.
+While addressing these transitions, the series also corrects GPIO
+direction programming, AN7581 PHY LED group assignments, AN7583 SPI/eMMC
+mux configuration and the EN7523 128-pin PCM SPI CS2 pad assignment.
 
-Signed-off-by: Carl Lee <carl.lee@amd.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 6 ------
- 1 file changed, 6 deletions(-)
+Implementation
+--------------
+On these SoCs, shared GPIO pads can be routed to peripheral functions
+through mux control bits in the SCU registers. In the absence of an
+enabled alternate function, these shared pads normally operate as
+GPIOs. Dedicated peripheral pads have separate selectors for GPIO
+operation, so clearing all mux bits is not a universal way to select
+GPIO mode.
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 1fddf3a5d138..1b05b006b3ac 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -805,12 +805,6 @@ i2c13mux0ch4: i2c@4 {
- 			reg = <4>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--
--			// HPM BRD ID FRU
--			eeprom@51 {
--				compatible = "atmel,24c256";
--				reg = <0x51>;
--			};
- 		};
- 		i2c13mux0ch5: i2c@5 {
- 			reg = <5>;
+Per-pad force GPIO controls allow individual shared pads to operate
+as GPIOs while leaving shared peripheral mode settings intact for
+other pads. GPIO-controller PWM output also requires the appropriate
+pad routing: selecting ordinary GPIO operation clears the pad's PWM
+selection, while PWM operation uses the PWM selection together with
+the applicable GPIO routing controls.
 
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261110-arm-dts-aspeed-anacapa-remove-unused-eeprom-415ca4dd56fb
+The series uses these per-pad controls to configure GPIO mode on
+demand. Resetting the IOMUX registers at probe could disrupt interfaces
+still using bootloader settings, while clearing shared peripheral
+mode bits could affect pads outside the requested group.
 
-Best regards,
+The common driver gains a gpio_request_enable callback and identifies
+GPIO-category functions through the pinmux core. It finds the matching
+single-pin GPIO group using pinctrl pin numbers, including controllers
+whose GPIO ranges have a nonzero pin base. GPIO requests and explicit
+GPIO pinctrl states apply the same SoC-specific group configuration.
+
+The common code checks for incompatible values of shared mux bits
+against GPIO owners and claimed mux groups. Validation and register
+updates are serialized, and register update failures are returned to
+the caller. GPIO request handling and conflict checks are enabled
+through SoC match data.
+
+The SoC-specific changes select GPIO mode as follows:
+
+  - AN7581: GPIO1-31 use SCU 0x228, and GPIO32-46 use 0x22c.
+    GPIO47-49 retain their PCIe reset GPIO selectors at 0x21c.
+    GPIO1/2 additionally require the I2C/MDIO routing to be disabled.
+
+  - AN7583: GPIO1-31 use SCU 0x228, and GPIO32-38 use 0x22c.
+    GPIO39-52 use the dedicated-pad GPIO selectors at 0x21c.
+
+  - EN7523: GPIO0-29 use SCU 0x224. GPIO28/29 also retain their
+    existing PCIe reset GPIO selector settings at 0x218.
+
+AN7581 and AN7583 have no documented force GPIO bit for GPIO0; their
+GPIO0 configuration clears the existing PWM selection only.
+
+Peripheral group configurations release the corresponding GPIO
+overrides when selecting their functions. AN7581 retains its existing
+MDIO and PWM configurations; AN7583 and EN7523 also enable the required
+GPIO overrides when selecting GPIO-controller PWM output.
+
+The AN7583 and EN7523 PON groups exclude the software-controlled
+TX_DIS/RX_DIS pads so they can be requested independently as GPIOs by
+the PON PHY driver, avoiding ownership conflicts with PON mux selection.
+
+The bindings describe the expanded GPIO groups and corrected pad
+assignments. GPIO numbering and existing compatible strings are retained.
+The final patch adds an Airoha co-maintainer and extends the maintained
+file patterns to cover the SoC-specific drivers and bindings.
+
+Validation
+----------
+Tested the PINCTRL functionality on AN7581, AN7583 and EN7523 using OpenWrt
+master (backport to kernel 6.18), including build tests and explicit GPIO
+requests, with particular attention to GPIO-controlled LEDs.
+
+Daniel Schwierzeck (2):
+  pinctrl: airoha: fix setting of GPIO direction
+  pinctrl: airoha: an7583: fix SPI pin mux config
+
+Robert Marko (1):
+  pinctrl: airoha: an7583: fix eMMC pin mux config
+
+Zhengping Zhang (9):
+  pinctrl: airoha: configure pin muxes on GPIO requests
+  dt-bindings: pinctrl: airoha: describe all EN7581 GPIO mux groups
+  pinctrl: airoha: an7581: fix PHY LED GPIO group assignments
+  pinctrl: airoha: an7581: select force GPIO mode on GPIO requests
+  dt-bindings: pinctrl: airoha: describe all AN7583 GPIO mux groups
+  pinctrl: airoha: an7583: use force GPIO mode for GPIO requests
+  dt-bindings: pinctrl: airoha: describe all EN7523 GPIO mux groups
+  pinctrl: airoha: en7523: use force GPIO mode for GPIO requests
+  MAINTAINERS: add myself as Airoha pinctrl co-maintainer
+
+ .../pinctrl/airoha,an7583-pinctrl.yaml        |  18 +-
+ .../pinctrl/airoha,en7523-pinctrl.yaml        |   9 +-
+ .../pinctrl/airoha,en7581-pinctrl.yaml        |  28 +-
+ MAINTAINERS                                   |   5 +-
+ drivers/pinctrl/airoha/airoha-common.h        |  15 +-
+ drivers/pinctrl/airoha/pinctrl-airoha.c       | 263 ++++++-
+ drivers/pinctrl/airoha/pinctrl-an7581.c       | 629 ++++++++++++---
+ drivers/pinctrl/airoha/pinctrl-an7583.c       | 736 ++++++++++++++----
+ drivers/pinctrl/airoha/pinctrl-en7523.c       | 579 +++++++++++---
+ 9 files changed, 1855 insertions(+), 427 deletions(-)
+
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
-Carl Lee <carl.lee@amd.com>
+2.43.0
 
