@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294583;
-	b=xWrl8N4CAhdcLpGcMXhJx/h3vDEWxwNwsfSzGlBCybKYfPSzG8t/BnfRMg8exf2IWZjw
-	 AtHch+QxX9Ss+xOgyhLT5XyHdu/nQhtfmYox5tdpzf7wxApbLpzL3KBKO4qF34NEr/ERK
-	 Bu1GKs0ZYfNUpKjnYfq9ZtYgXTxQPFYfeVAbadnx3Nye4zVZrF8erDYlHCMUDYHj52JmR
-	 u3IjZrchynCuldAf6/HGX5ckCx2N1iCjz1Kr3yGfUwNIBo1IsCj5YGt9qLSLAOMTn1ONk
-	 T8JZ8Mtxfd0ZgXcIt8HrG9YKmi+Bg/jLM3+EN0BbICr5q82Yn9jRSZv7f6OQdxCJr/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294583;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794294689;
+	b=urZM12fO47zb4blEXuZXVAz1cglAelUKGFGDKKwxPenU9XVPPtSxu1cKYBtd0w5aC4Xi
+	 0Zo73sqZHTYBhGsRr8wja4iVZSclWQ1lasicFvwDkKmrrdV3Pm0Fk7tq1nXJyDkTL8ndh
+	 D3PknXsg2XilUKpgaRP8JCPM72Uzd+0rltkPlbz+cEHLTsQB9DwZiXWkvOjjNhnAUMruA
+	 TtcQuu6RfTobKpo7DAZR88l+rIw1ouYiaW2ynY4JmSg54x5eFGijl9TW6EpLNyYVKh8fI
+	 aBP4TN6sJKUWnaEqe1hRKw4kLSc/m1JZIhk3V+ikcB8Ehxdz3oMo/jTofLGmej2aLzw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
-	b=sEoks9YlO2bR5SXhFGRhNu8oL/PPMGMdxVGbtHOOWcscMRrl0BeH//ij+WcI0/nLJG74
-	 WKaSYKWjCOiJcxtzu0UdIKENmlVy1Mn1/jXkOrBX8/d6uvoKrACDTtiFUCTagM3f+01k4
-	 mfxa2W+SWJySqUsYv87tkpjCQ3wTfdIUUrmvU2JrkKZ02d+m9U72tV8+Vt0Xmk/VZ2/LG
-	 aixfBLu7p68dy6/ZlCoV96ZI9KGExNjWo3Z8omUDWixFYZgAp6AQAbfQxR+bNRMu5GoQ8
-	 oYXFhSmgkhhR32JP+1154B+g+ymdylK7Y+77zFpLYw+/Gf/fVFHyANgjdJOIg7x6m3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kux4lxYn;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
+	b=JCbzKjK+Fhoj7Zbgq50tZSlc+AOaOlKJ5I+njjS9mxhYKaUfCZEuqKuQ7TlTcL0joKCf
+	 q+Fcec7WesV2FB4coBBlourlTXWIS2y73TGUCkUS9wIH4f9GJyTsnhLR47vcg5XL7Ydl6
+	 FGLfC1FY7QkRuy66YvaqM/MWrEKcQGbqRS4d528tC86lVevVLsVSaMXUglEkMLkMMl3y0
+	 Hf8szcjZPUsNIcgIEKYuaFV4Awhdv2HBTr37/6xVG+AxORiuUiUH6RB/OhvARhEUCgtUn
+	 9FcokSUmyhDmcFZilm5sbteJWX1zadPSaIyBNa/WN0PsjNe+n110fBxLHlPDTtzNLHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F75606A325
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F75606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8604B606A326
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:11:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8604B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kux4lxYn
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed06b725fdso12865925ad.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 23:09:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c05273c38so2028521d50.1
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 23:11:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794294688; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SR46eGnYRESaWeBq9AnRfLc/+HXSTk4w2eAFlm0JUAi0t9zW4oMp1ID6XXRgXm1PIK
+         kB+b1Ac8WhY364EPWAHiV8yJPwET8uz7cHqHar6VLqgGv74nNqQV6bdmYV5acXHA5D4h
+         jasGZeaXsccxEFsFhULTLVtaPk77oLAHIkkUrc+f/yIwhcZb5C5bFElDen9jDKHpSF5P
+         jLA8cINk7TxxVDvaRKmne7sS2WV+ZLHPyIVnk3SHV+9aa/37r8WAcYKtM6I2s2FOSTFm
+         O12fm9bTPOoCHj63qbjPzDoGbUG6yNnlIzbcv2b73pXtf1zzJZ3Xmqjiy9sw7AzqNgbp
+         roMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
+        fh=UTm+A36wsiHm3HkKBIvF+SzUuGUeF94pALCAVYwd4rY=;
+        b=TRcViLgzos+5KPF5me5dVC+pYPsGPEKVePCddxs/ehVxQqzNe+FcuxZ6JmP5Wggd5y
+         guptPj1ap4W0rVn/ww5Em7e7eHUVP3k1QV/y+qAV1HtP1VnMOkFGu/ZaYWmNsHLcStOU
+         nGzmHPVgNNbNQXi76W6RAEkvQL3oQlN2zAJq9xCypwN7RzlhAQJinDn6iGv1cJ1lNbq8
+         SlhDNpo7/k2s/S184IqBhJac8M/Bj+5pyI/F7kQnyNm6YULZECJgXtdUTLkcZ1pQK5Xm
+         X5P603jb2jrhfAZOHfvcToCHpfS1bYIRK1GuZ7Z0J1TTm5tvTw8DlM0+3nz4OAxe7Rwt
+         cwUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794294583; x=1794899383; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=googlemail.com; s=20260707; t=1794294688; x=1794899488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
-        b=Kux4lxYnLYf+9rdgdLp1Jq+goBmmTj84IJeCdAmoFuhtZDgFchrbQ8Csmw3IFzXiO6
-         M3ZDwCYyCPE3vs7cofIYnFA9H/O+5XfE6fma6KoyBNK+8KlUjnU8KHMB+5ooJYGfQQuu
-         qW5ev3Dl8EOxWvodbkUqRGp/ivEG141AdwNFD+P+qrs7S7064InRsV1hxvkiN1HGQO7a
-         nhkgj4uObbA5YUhEPQADVtMKHOB07eTja+CHLvOBTFVLfMg7bCTkEblIyjig8hm8hd0a
-         vvrKcCaAeVE18dLh/DPB/71JW3mlD1VgUfuT/iA8t2obokaQUUEZdFJyuOFmfT487wwF
-         VOcQ==
+        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
+        b=aVZph5jnpz05+IInawFNEBG4LWaGyR6KawbNhlPio048THbmdlYy905j4OFPaX2CCj
+         TUycftg6CzZQDxK7jZ7CjGl14d09h98g8UJxxBZ6lnP7g+pTrHx9V1Z+dDmU3/7PamWR
+         6GWkClYFkHadDsV02afWsVL5zo6p8KbSPQ8vhwj7MNxvc2wDvZwmcCK9MLd1JLI/IPrk
+         CgySYic2c1reZ/EjbRjPpjarqZitNvLUlTFzYU0NJms8wsUrOr5BdiS3VhMtbtebkDTH
+         Dkhw4xDoARR+pWLPEeJhdn59fqCKzxGps/S9SS/2HAo6UJfiGQ71mi7wNQ07QvtkYiCe
+         0mzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794294583; x=1794899383;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794294688; x=1794899488;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
-        b=h5/L2q3D3y5JmGVcKaQdLiEKXAWz3irEN01jrU8Bbr5kQJqW0uMbxKczrLX/xRv0/A
-         HbNVBkzYKOzoUAtX9L1n4QYD1G86XFMiGh8Z+7OjNKNMHmRJv3R3ilvNmiRlhyGWTnb3
-         nSE2NZ5EVu9yMDxKIpN6L7pxc4d6aQHpqnVapPEAYYKUYXW4buqNopPMihIrCj3lrFXk
-         VE+upmc7p+tlHG8ukbBQnPXsRfQK6yNJuHXYr4t1M7eu9RUbCklgEHRKjxeGVeFdS8xX
-         SY9LICerBK7c/H/8RclFERO9rf/OYUXof7AAOJCCf1NNGWfa9zhx+lTLKuhOHgfy81Lj
-         IMXw==
-X-Forwarded-Encrypted: i=1; AL+hErGyXL04fhdVB24RAePe1MlzbJIepUNhGE0+hlEGOAgts4AhW6xPJlTt2YMVFKBFQ0fe8kb8ppZAU8+m@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7CYN6kPU0T1EhPe9DisWGGxqNPo9h5WI5awa69sLMIhkOM40v
-	VM3MZxrLG/g7gfCQPGM8X61+TMjJR/Y2eF6oXFaVbg5+nFNGFvtKDjc3
-X-Gm-Gg: AYBFou3QAHxZuHtsD/sHA9Am4yzRi0htoO9r7FOuACZqUCTk71L3iUEz+ghr+jr/wuZ
-	jIG8cSyIjAbkSZSSNlWpE4R5OhHMEptsFW/eg/TcUny1TCOiC9m56LTgqzkHNm2+jLi03tqoJCq
-	IwDbv0MLbRNrbcRlAUJT0M+GI4/ZgeNUXVi7Je4YS9RCqi020O87IV+yYtWxzXC88XNUN4TrdmH
-	fWYtFXRF4g0+9CqgThWcGO88uIbMSUwgZeQiyfv+lwAt2tAd5UbBTyWKHIwT1ouT/kynqwXU9QO
-	/C5q+WYSBdLLxoouguLSrhrlv0nfbilG6w+Cv4Y3XAYho2NIw+NP1bYr4EucZqTjQ2P95rY0jtk
-	251BthpGyhRc1Xp5ciFV7xppsdKdmdXhwYs1iqPvLCKukQ7GO87GIRB1u6gp8+xWwRjsQceA9MP
-	s1aNXZrdVOVr25NiwI7LKA+nebtdmisMEVV2weFncv+e3z3UfWMihSZzVizeLksqZhLuG9RpInf
-	p4wvFbcsjZEgB4BKITSksjQASJ4lr7UzqUrquE27RK487yHAbfA0SmwDLyDbIqucxSIjF5YcIby
-	RI5NQzxQvckFlXP7zR2Wb+RaSKI=
-X-Received: by 2002:a17:90b:3844:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b16797724fmr1270966a91.18.1794294582592;
-        Mon, 09 Nov 2026 23:09:42 -0800 (PST)
-Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16771b08asm2648642a91.13.2026.11.09.23.09.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:09:42 -0800 (PST)
-Date: Tue, 10 Nov 2026 15:09:23 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Inochi Amaoto <inochiama@gmail.com>, 
-	Chen Wang <chen.wang@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Hiago De Franco <hfranco@baylibre.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] phy: sophgo: Add USB role switch for CV18XX/SG200X
-Message-ID: <avLC68zOj8WKuslb@inochi.infowork>
-References: <20261103085847.338613-1-chenyou910331@gmail.com>
+        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
+        b=XX2/1E/qvSvwRmy0KAxb4jJqkjvtqm7PjjXENAZwpZwX2TKabLpth/f32tMJVF4Glm
+         3TeYjuTugKWRhR3bw4CQs9BbQhsXD3mrr9JGivirZ/ls8jpihmmJ6nXGcRAcIEip8onf
+         puwdycDWVSTFYyIDYhyxw3oVS32WQt56UtxKy/ifAAJ7hGT2swuw112yVpXRkNrUXCUR
+         rAl3qrGjlBrtb7Z9+lXPv6hBNPSBGflob32znKvLJuzuvC2HrM6mB3iNf5YG/LtbWXgw
+         n/iArJgizxgY8s7NYn94J7epK8ibqjjF2GE02JKAMi+QSjoxKzRCr+Z8rzqDm4uoUvzi
+         35EQ==
+X-Forwarded-Encrypted: i=1; AL+hErHNLU+KDz8GeQwAqg4GsiLKTlvOL4uZ7HvIdKxL0RERHVnYEaMBA3re6AlzzQrnK2DC6JIg17d0DF0i@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OZAdyA1wdnopo5wvsGp1/iwcZFM83IbTQ62F/i3mmFxBweB2m
+	mDMUxJvwlGXSBOc9H9Sx7onIGIJQkhE8Bbq29LUJk5fRYE/y01SPP0I1HqLqW/P+9uHbQKExDQN
+	+fS2R/bOhso22Sh4tvU5O1H3an6ZQJpk=
+X-Gm-Gg: AYBFou0tBWMXbFmrXGviV3w0UtXXCPbGQ3h2rEDm0b1d73W9U2+AWdUV6AZy6NKt5sT
+	V5I8b3et4LlKs7woiy7KJruEYNjBhLMXoGKL191vyVUEpUX97pbaLdEFwknZFrJkrufLlbg41df
+	rGv+ilekSRsJxfjIg97mmu/iS1lPb/UwzcoTU8BAlD3x8Lt5XW5uaE6I1b8JZZnxwf0867iANJF
+	8r2OWCx/f2JSuHNtaXLMyDOeB4skOa7UuNo5/+wefTvXbNdb3gFMBFn1lZrxcRnlhNIg65MZAng
+	0I5I6EtN6S4+k9nSFZv/Bl2TZfDQLzWoJbU9TA9DB/zaNk3ZvtadvKboKe7aHUG9QTY8ra93w9X
+	3gFnQV+WCMj+Gqq5dz4CohCHYNIVD6hCS17uL
+X-Received: by 2002:a05:690e:480b:b0:679:c916:46ed with SMTP id
+ 956f58d0204a3-67c56867600mr864381d50.65.1794294688510; Mon, 09 Nov 2026
+ 23:11:28 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,189 +104,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103085847.338613-1-chenyou910331@gmail.com>
+References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at> <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 10 Nov 2026 08:11:17 +0100
+X-Gm-Features: AclHuK_6GpTQ67xpDENQByDg8QRKTv0ORuAztrJZSqgIK4qf--6_2HTmK0qNm1Q
+Message-ID: <CAFBinCDi3m0gMTQBCd-yrCfAKkT0QeuXq0wE_i+CfCtS2oX+yA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: amlogic,meson6-ir: allow wakeup-source
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
+	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 04:58:44PM +0800, Chen-Yu Yeh wrote:
-> This makes one DTB work as both USB host and USB device on the Milk-V
-> Duo 256M, following the discussion in the thread "Milk-V Duo 256M: USB
-> peripheral mode works on mainline, how should dr_mode be handled?" on
-> the sophgo list. There, Inochi pointed out that a dual-role switch is the
-> right way and that the default should match the vendor image.
-> 
-> The usb-role-switch support in dwc2 hangs on this SoC. It clears B-valid
-> through the GOTGCTL session overrides while VBUS is present, and
-> GOTGINT.SesEndDet then fires back to back. The vendor kernel writes only
-> the ID override in the top syscon and lets dwc2 follow the Connector ID
-> change, and this works on mainline too, without any change to dwc2. So
-> the role switch lives in the PHY driver, which already owns those bits.
-> 
-> Test setup
-> ==========
-> 
-> Milk-V Duo 256M, vendor buildroot rootfs, loaded by hand from U-Boot.
-> Tree: v7.3-rc5 with these changes, CONFIG_USB_DWC2_DUAL_ROLE=y,
-> CONFIG_USB_ETH=y. The series itself is based on current master; the files
-> touched by patches 1 and 2 are the same in both trees.
-> 
-> Tests 1 to 3 ran with CONFIG_USB_DWC2_DEBUG=y and the DT properties
-> applied through an overlay. Test 4 ran with debug disabled and the
-> board DTS from patch 3.
-> 
-> In the logs below, 
-> R=/sys/class/usb_role/3000000.syscon:phy@48-role-switch
-> 
-> 1. Default peripheral, bare board on a PC, nothing done after boot
-> ------------------------------------------------------------------
-> 
->   # ls /sys/class/usb_role/
->   3000000.syscon:phy@48-role-switch
->   # cat $R/role
->   device
->   # devmem 0x03000048 32
->   0x000003C0
->   # cat /sys/class/udc/*/state
->   configured
-> 
->   PC$ lsusb | grep 0525
->   Bus 003 Device 009: ID 0525:a4a2 Netchip Technology, Inc. Linux-USB Ethernet/RNDIS Gadget
-> 
-> 2. Switching at runtime, same setup
-> -----------------------------------
-> 
->   # echo host > $R/role
->   # cat $R/role
->   host
->   # devmem 0x03000048 32
->   0x00000142
->   # echo device > $R/role
->   # cat $R/role
->   device
->   # devmem 0x03000048 32
->   0x000003C0
->   # cat /sys/class/udc/*/state
->   configured
-> 
-> The switch was repeated without an interrupt storm, then:
-> 
->   # echo none > $R/role
->   # cat $R/role
->   device
->   # devmem 0x03000048 32
->   0x000003C0
-> 
-> 3. Default host, on the USB & Ethernet IO board, nothing done after boot
-> ------------------------------------------------------------------------
-> 
-> Only role-switch-default-mode differs from patch 3 here.
-> 
->   [    3.409672] usb 1-1: new high-speed USB device number 2 using dwc2
->   [    3.666655] hub 1-1:1.0: 4 ports detected
->   [   72.484979] usb 1-1.1: new high-speed USB device number 3 using dwc2
->   [   74.804484]  sda: sda1 sda2 sda3 sda4
-> 
-> The USB stick was plugged in by hand at about 72 s.
-> 
->   # cat $R/role
->   host
->   # devmem 0x03000048 32
->   0x00000142
->   # devmem 0x04340018 32
->   0xF300081E
->   # devmem 0x04340440 32
->   0x00001005
->   # echo none > $R/role
->   # cat $R/role
->   host
->   # ls /dev/sd*
->   /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda4
-> 
-> 4. Patch 3 as committed, debug disabled
-> ---------------------------------------
-> 
-> Bare board on a PC, nothing done after boot:
-> 
->   # cat $R/role
->   device
-> 
->   PC: usb 3-9: New USB device found, idVendor=0525, idProduct=a4a2
->   PC: usb 3-9: Product: RNDIS/Ethernet Gadget
-> 
-> On the IO board, with a USB stick already plugged in at boot:
-> 
->   # cat $R/role
->   device
->   # echo host > $R/role
->   # cat $R/role
->   host
->   # dmesg | grep -E 'usb 1-1'
->   [  415.464739] usb 1-1: new high-speed USB device number 2 using dwc2
->   [  415.940738] usb 1-1.1: new high-speed USB device number 3 using dwc2
-> 
-> Before this series
-> ==================
-> 
-> With usb-role-switch on the dwc2 node, "echo host" hangs the board in the
-> SesEndDet storm, and so does boot without role-switch-default-mode.
-> 
-> With dr_mode = "otg" and no role switch, writing the ID override by hand
-> worked:
-> 
->   devmem 0x03000048 32 0x3C0  -> high-speed RNDIS gadget on the PC
->   devmem 0x03000048 32 0x142  -> disconnects from the PC, host side starts
-> 
-> Three round trips were all correct, and ping over usb0 afterwards was
-> 5/5. On the IO board, the hub and USB stick appeared after one toggle,
-> but not at boot, because usb_add_hcd() moved the PHY to host after dwc2
-> had already set up for device:
-> 
->             at boot       after one toggle
->   GINTSTS   0x05000023    0x04200021
->   GINTMSK   0xd0bc3cd4    0xf300081e    (PrtInt masked -> unmasked)
->   HPRT0     0x00021403    0x00001005    (ConnDet pending -> port enabled)
-> 
-> Test 3 above reaches the right-hand values at boot without a toggle.
-> 
-> Not tested
-> ==========
-> 
->  - A USB stick already plugged in at boot in the default host case.
->  - Running on a master based tree: all tests used the v7.3-rc5 tree.
->  - Boards other than the Duo 256M. Nothing changes on them, since the
->    role switch is only registered when the PHY node has usb-role-switch.
-> 
-> Question
-> ========
-> 
-> With patch 3, the hub on the IO board needs "echo host" after each boot.
-> Should the IO board overlay (sg2002-milkv-duo256m-eth.dtso) set
-> role-switch-default-mode = "host", or should it stay the same as the
-> vendor image?
-> 
-> 
-> Chen-Yu Yeh (3):
->   dt-bindings: phy: sophgo,cv1800b-usb2-phy: Add USB role switch
->     properties
->   phy: sophgo: Add USB role switch support for CV18XX/SG200X
->   riscv: dts: sophgo: sg2002-milkv-duo256m: Enable USB role switch
-> 
->  .../bindings/phy/sophgo,cv1800b-usb2-phy.yaml |  11 ++
->  .../boot/dts/sophgo/sg2002-milkv-duo256m.dts  |   7 +-
->  drivers/phy/sophgo/Kconfig                    |   2 +
->  drivers/phy/sophgo/phy-cv1800-usb2.c          | 107 ++++++++++++++++--
->  4 files changed, 119 insertions(+), 8 deletions(-)
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.43.0
-> 
-
-NAK on this patch, I do not think fix phy is the right way for a
-controller problem. See my new patch:
-
-https://lore.kernel.org/linux-usb/20261110070627.217946-1-inochiama@gmail.com
-
-Regards,
-Inochi
+On Fri, Nov 6, 2026 at 11:20=E2=80=AFAM
+<christian.koever-draxl@student.uibk.ac.at> wrote:
+>
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>
+> The receiver can stay powered across suspend and wake the system when
+> a remote control key is pressed. Allow boards to mark it as a wakeup
+> source.
+>
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
+>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
