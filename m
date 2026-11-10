@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336638;
-	b=ShuKGj8nPnerCmSoGIv3tKNpH6hX+W9D7ZnSdLjB+aLHpbNyJdLVFyYeLkmZPFGe5Lhs
-	 T/CeS6W0QJbprFrGfYIn9spuKT2c0G/Jpq5QWA7pzWaG+mLytChME5A9cN9k3YeYLqeXp
-	 jxFBRS/2QbvO1V82DrXOA0MKoTJDE2te+O/EpodoTHf9NXOjHnppMlxrponu+p3uTSDyb
-	 9g7wtUvgoHb+WgunovuEiFdbIZ8p2mqiiscCWAiUV66AUduxXaN1LTWUeNjNrN1eURRUQ
-	 0uFL/L3qDG6Zg8gwKFQzibBOyJgiiPOv5XZmVbho9U7vnM0uzg5yYpfZd8ogxtpy01w==
+	t=1794336659;
+	b=GwjD5bOffcQoohmzOzXCUtbneFp6dcZ9A1HpXMf6KVMxmHkK9sN6pcTjxw5710OzVceY
+	 h1nq9GOQiuuNIIipyQPsXsTtBVGyCiw6nWb8duCKB3Xu2GU8d3OyAVe7On6P7E6TNiW0p
+	 jB5nLAMlw6M/EbiS2jUzbxVF4npZpP4oyFggucSl2gKqqX+3jSZa5SgRHFEUU8v91jP6h
+	 0wGUnu9HkCGnWcDzRQB+kTUbsVHnVO9F15pGgNnlS/tYDNz4g4JNxZSTGD60g3ZBpY5xu
+	 iE6Ct0ClUfr2qxoBoa1/JP5mgEMRuEvJsk0GXeSsfhwSKpzX+BabPR+4X9RR+3pVyaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336659;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
-	b=k17WjBse6NdRbdgTh9CH+2UCi61oFZ1pspNar7iwN+aVZssrQBLBqFaS5kpKS8Fv9D5T
-	 06uPvV0Sx2BEEg2FFbARUO/BJirvFCOSfj69+WVoPSQf2PwKKGhAgiCe1mxZ5EEou6Ayb
-	 xYm8mHYaKR3ZpMq1RExXG07OGh1zLKCFEUIJNnIdJFLQIZhnLODoZik3s3unS4Dv7E8P8
-	 snXbROzxrfjOUQFBi+S6XcxpZUa9wT8sIbUo60FOh0hHkI3DWIo9PHPDhugPTJmA1sw4a
-	 pL40LtdZYaUhHhJfMGW8SQlhYyAcXN3bVW93Inn5X0qPqAmISc+RYrsVTYhlkciqlVA==
+	bh=lw5R+03CbcJOauGhuqqyB5KrNrCBNCqxs2tnPrtkBQw=;
+	b=41z61EWEJIj5pgbn/OJKZD2UJoitlVQVcoDCjw0hIdyJdwGLku/y9I0DjJRqlJlal9xM
+	 1qlFVEPf1IGB5hRfnMsrnDMJpAn0+gx9gU3bF8LCw37rreBG5MGLYOWlLPzNoEQ+VHOBT
+	 +/W5ZtMUMTDYt69L31uW/Ux59h8/SKncKBB4qnP35VLwJvjwmRtDITDx8/LtkOCzlchNW
+	 2raLT+herhooMUcKSzPrPUtSAdpWeVd88gR9Ropiw/SrJbf3LVqQNjCk66kcec9rS1SJT
+	 QsC4ezMXjTL8j0AP47etVJoIjMZ4PQm/qHdrMXrpILbIq6pDB6NS2FsSzfUMWN5zi2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqWUJALF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8F6606A33B;
-	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618F6606A321;
+	Tue, 10 Nov 2026 18:50:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566731F008A2;
-	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqWUJALF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CD11F008A7;
+	Tue, 10 Nov 2026 18:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336637;
-	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
+	s=k20260515; t=1794336659;
+	bh=lw5R+03CbcJOauGhuqqyB5KrNrCBNCqxs2tnPrtkBQw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kx2ZaO3znvu4YvmU84JU+Iyq4xCs5EF+0qqxwsv7Row54evB55RJqH6zZjZ2YTzQ+
-	 KH6d3TrAUB73sCg7Q4T8ypXYbrkMJ+f7ztTRCFp7X1Ta5vIntCe6skoAzfj1B/aNst
-	 XvaFfDfIz59yeRWjUCmhwHiJa8ugLfELWt6zQuawcKMqTkbJZnBIaDbriM8t/kINrw
-	 VNbS+DBr7usofeo/G9oKuoz5YkNWqwUOJ0KUAyTNIZKZIyV8m8Qp7xFy+bHtMetLOC
-	 EZjZd1GYO25xuVcTjsbN28QUu2N6kI0ISNCbTTLxHSEa0ajGl9mwxkTRvGZO7e3GM0
-	 IWu6/RQKO9MaQ==
-Date: Tue, 10 Nov 2026 12:50:34 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: linux-kernel@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-rockchip@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	b=JqWUJALFbq4GQTW0TDwQn+AcB9wpH2ZkJ5ed2nNxVceaHrDnqKDd+ltQqhmq9qPfK
+	 eVSs01rTw3OmzwgCFfHvXI35nlkno4ibamI3Xgbi07nMDc8P0uZHy/41kfPCT7dqBZ
+	 tCBojIc0lg4Z6Oeb5xHEedTfS2k1kSJ+WeMTEWI1O+hbeoU4J5J3g++zyLTh5o3J6v
+	 lSiTEyC6L5UgDrhWqO0nzZGFlgpy+DUsZp+TAd2NGAsOluA/R2xQAGvMfZJEMhUVZd
+	 SPYJbZznNcsMJ0cIncGa23G6VH5cvfKqecn/px8kHY91ZOP4PJtwHilqC4uSKzKMQq
+	 Y/N+GahASFbNg==
+Date: Tue, 10 Nov 2026 18:50:55 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-phy@lists.infradead.org, Dave Jones <s.dave.jones@gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-Message-ID: <179433663384.1318226.574453120666617957.robh@kernel.org>
-References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
- <20261110074533.4052196-2-damon.ding@rock-chips.com>
+	Conor Dooley <conor+dt@kernel.org>, van Spriel <arend@broadcom.com>,
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: net: wireless: brcm,bcm4329-fmac: Describe
+ the MAC address
+Message-ID: <20261110-comfy-traverse-f4a2749f34ba@spud>
+References: <20261110-brcm-fmac-mac-v1-1-df9e6264b056@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,44 +60,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="udU847c1Gm7zZV4Y"
+Content-Disposition: inline
+In-Reply-To: <20261110-brcm-fmac-mac-v1-1-df9e6264b056@kernel.org>
+
+--udU847c1Gm7zZV4Y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110074533.4052196-2-damon.ding@rock-chips.com>
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-On Tue, 10 Nov 2026 15:45:31 +0800, Damon Ding wrote:
-> Document the eDP transmitter PHY with Naneng IP block found on the
-> RK3568 SoC. The PHY has its own register window inside the eDP PHY GRF,
-> so its node is modeled as a child of the eDP PHY GRF syscon with a reg
-> property describing that window.
-> 
-> Also add the "rockchip,rk3568-edp-phy-grf" compatible with its own
-> binding schema, so the shared Rockchip GRF schema is not extended with
-> per-device conditionals.
-> 
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> 
-> ---
-> 
-> Changes in v4:
-> - Add the reg entry for the PHY node and the ranges/#address-cells/
->   #size-cells for the parent syscon node.
-> 
-> Changes in v5:
-> - Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
->   the PHY node, matching the updated driver.
-> - Split the "rockchip,rk3568-edp-phy-grf" syscon node to its own
->   binding schema, instead of extending the shared Rockchip GRF schema.
-> - Rename the reference clock to "ref".
-> - Drop the example from the PHY binding schema, as complete MFD
->   examples belong in the GRF binding schema.
-> ---
->  .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 46 +++++++++++
->  .../rockchip/rockchip,rk3568-edp-phy-grf.yaml | 80 +++++++++++++++++++
->  2 files changed, 126 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->  create mode 100644 Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
-> 
+--udU847c1Gm7zZV4Y
+Content-Type: application/pgp-signature; name=signature.asc
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNnjwAKCRB4tDGHoIJi
+0jBmAQCD36ZytGuKw+f2d+RIxLcD+mwHwO622R52owDqF5/m9QD+PEZCaDeu2cUp
+fbudI+tiId+GLa5O81lJVq5nPSihpgI=
+=SfOD
+-----END PGP SIGNATURE-----
+
+--udU847c1Gm7zZV4Y--
