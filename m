@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305291;
-	b=bXjSUNIidSIBuxlcF+qzlSqjZ2T6sB4Rg5QYxA6VzfP4O0ugDofOKsyD0YCbFEr1yOqB
-	 0+khtbNxxOh/ya6N3LIBSF47qJhLvB/UiYaPcVouR9/70R0tJq5kjPx7iqOHWT8ESMxrK
-	 g8L3DTfiFCm+3dMBxpaEQqiw8uN8zrz6+lx0I0v0RA6oZUxvLxLKfZLUIwYXbQf+4buCf
-	 Y8E2FZfyqZsGo9GnQJZ21/qzNCNsWVnWjaMq3hVNLBPy/OTtTn8SGNbkTWvNCZP0zJY1m
-	 cmcIMRWUO8fmHx9oSQa3kYhEM4bRE1NjQtmKGMj8+CacTdVTlbn4hNM6K9G76zukV9w==
+	t=1794305288;
+	b=c+vHI3KhJt5Q9MX2Xo/X13+5Qz4UV5w5iqyTTe6nz2Pj0tXtl7JLi73P4pySjvuhtwds
+	 XnOwLpvTfmM6LTn/dd20BwjOhxGxsM3a4mWGFYbC1XD6Eqm/Pxi3RWGDka/vY17JEOkQY
+	 e14S68u9541XhOVDa+k/S0Xcq1SWsrx4OVRZyjZtwRaiFDJRdnRLJLa7omL+/aPwguFSA
+	 xTa58J6zSpqNjPkdLW3zWhFwszM1/n/47Fwcgpo+yGi3B60lNlHIjjnTbpYfnqmCsXOJu
+	 P3M3crAAYdZby96w0YMSuqCErif28l0LlDGx1mA5f85QhefLLn0X8vconpeMKaqclhQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305288;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=1Vk6p6H20eKWgL+Ep4/xsxzbX1QI70sd4Zlr9S54X6+zgTfeGTOfmsEVr80RPCfv3YUr
-	 P9wjL4jrc5M9sTBselRco9lz37QyZt8MnnACSPQbDhMv5etpu+5UM2CTM7ptq6R8jMSBp
-	 HAsV5nQLwB+3gU14ZNqjQIyF4VTyNYjR8jCGxUpkVgOzbF5rl8oDROmYzF0N/lYhZ0LtE
-	 T6t8uP7JSCDZ2GgpkqVgiC4KwjQk6s7At4HZpMPR8x4oUDiPquZZ6rvgUGVUdeEDSol70
-	 E+t2XH85tz2miQ1MSjiZ139gkhCAIhOEHp+qKtGVUlFeJM6L3xR5WAP6LPuLT3MKxPA==
+	bh=sjSjCzUGPlwjM7Cq+1WXDSwpytiQODGjGVc6jZ248rs=;
+	b=DM7Wo8JlwS6lP9c8m27sJHff+WoxjDn7iDfmUXQX9hWApngeIoXq7u1qjGMrDzw+hcf7
+	 vAfOCL2MdcHe3Q1Gs0sFDjJk9AHEk3Ym5T+jkOZlzhEuORMi2BGS4/mfNmamlwrWMUosK
+	 qvM2vd6uE/cjzJ000dagn1Ph3c90AfYc1qVOCwHhD0hfvf5Wx7c+40ASSwKhUbDaQiBYC
+	 S4ezxKqFTKeBTUI3UAO0r31KBsIo8k7TP+HyoQFllGSED+3g72MB3XM91tF2/Jb5+Ts8K
+	 eIj4jP5YGQvTdIq8yjE+SpnZtaWzkn+/hBv6Gz5WGVgT/iswhfSosmck97tRbuDFdiA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaF72Ert;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBAE606B50E;
-	Tue, 10 Nov 2026 10:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD26606AA56;
+	Tue, 10 Nov 2026 10:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaF72Ert
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305291;
-	b=3oU0SDBegbA21IVpz/wd/wLmf73gLyCSpODYunpZkYE4vo7c35Um5Fh5j1AbaoTnrfB6
-	 zPzfAFybxcjEN0MAkoCffLTgKz6gj4DmNmxG2Uax7jfVkh+sqZdQuwPD/iRVSDTvLKh8v
-	 yE64JDlDvmT5wOYAz476kAbxjkaHbFGTGvIp1S8P/pBSt4qqZ4COKYzzhewuqKe8Xl+Fz
-	 9yjXNWD5FkzRyKHo2bJJSTinuSY/gKvU5ELt78rQUqk2c8KOCcTIMJSzH78NcKe0BeKlc
-	 gmmvZzxORgprVOznIyDuO+lz39XvHr24L051djFbIJROsLbzdkmJDftVTtmCgoRNUcg==
+	t=1794305287;
+	b=fsXEYepmf6/DpIdDhwjcGLNnWluVH8TtKHhJF7IhqxoEmuCahb5wUyeSGEG7+ko/UYmf
+	 PngcuxT0M8PMq2F7KTWZIET7T30sGPiL4zCrVHGoA1kMwHVa9S5+GfhSbBXxWurRazLND
+	 MGb4Lf4Wpm83A3HwvLoSow1DcI5bMfwx3dhTRGTuEPrG6DgZiapaFOpFyrW9Elyb7wSIu
+	 jFAW2Rwz9j5e+v6ZjvadY/Q2MRhYYAODipGss2KUrDhClK9fgfvl8F6wOzl09I2N0Owbh
+	 AA+Xsu1SFsuKafm3bMAeHh4U0F4nI/ah/Iac6/6nRd5+aIBbarSfxMkOe/qcDMRw8lw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305291;
+	c=relaxed/relaxed; t=1794305287;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=wtTlIG20j+2SsiDpTOJjjKVjPuVK2jFIOi33QP47bvxZxNz/1BV5qHfEeHzUJXPYtci4
-	 Yq8Ml/Dx3AgcUbMQD5G+oeubs7vdd6Mhbyq+P1wRuOSNotaq4uNR4kcyaglECBb5Xlthe
-	 +1p0GPlYj6vW9acb58heox3WK1i2OswusVfvNL8GXrw3uAdbx5KaF69gTOZJE8qJbnhNL
-	 fXTF1eBlUfeFmjJxpWLUjt1gussRL5Wm7gfXtPaIUG9DfZIYU+PkFbHSTnTExztjn6+Ah
-	 aAuHNBYPc2Qsh09LR17OJzNMsSla7iGPD7gVK8YpNLxCzfbWUvmoCz61uTFljSoUShA==
+	bh=sjSjCzUGPlwjM7Cq+1WXDSwpytiQODGjGVc6jZ248rs=;
+	b=meMOrkT14GRFZ3YNhwleGoeSRWYthMXFj2QK7DiLIlz0TWJV/aTYYGW+gRzOHj+tcG76
+	 R08xKVaj7PP5/bYc4Yju75AIBNTaHFBa9Gtmq5NPSuTc8ZDQZRc9A4Xe8L5+92gkMgU7L
+	 +H2icwJXYpCiN62vMyxPm9wXTKdi/4UiiST22wUpfAP23Tpafl3+HTHgpCVufL8j+J9PR
+	 NBBcR89OtJqTVbG6LslQORjhhgtjL2jrD/49wLzrXUonl4cKKcEaIavo3NPDHDAy3RVSE
+	 fqNcDCEVY93NjjRy/QBb9M1U4GrDqcRG2tel3yWvnYJ+wFbqtD1ONa8n1I2YtmNRCgQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5CA871F008A2;
-	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D664C1F008A5;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305291;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
+	s=k20260515; t=1794305287;
+	bh=sjSjCzUGPlwjM7Cq+1WXDSwpytiQODGjGVc6jZ248rs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hkElKgQCF9iJFu5nJZ2/fX0ANR7TzUr3kN9lcdSg699suV/Jx+BLLA9udQRtO9tY+
-	 //y9BRG5HQW3iRiGdg6wLQ/D8HOr0H7QxEMYEIKivTfDsBq9nh3Rp3IQ60YnrKGzOZ
-	 ZZegptyrjXGNj+LzsHPnXyO+8SSGJNtwG5cJyj9gjPFOOA2KO8VZ56zeKVGVXMBKcb
-	 aQizxFyuKe7mxGDBh96lc6nF7wyIixlQgAybx2ZwYImByj1THyIZr90u0nG2SjZlzT
-	 H/OV+dp7qdLoo0+AZtoxMXeaTTt+JKZmmyLHPHS1ngzUq2qTjwXpY5QylZQBYyip6c
-	 hfgcE8ZQkm/zQ==
+	b=YaF72ErtIRNeRJ0sUh+sSRk9Qx1L60i/TW2MGvSDbcwEcKggWeHJ3bqYrOO6p84WW
+	 qKzQkJm1Z0dtKF2v7yuvKwE5Cq2Hd2Aq+VQBz05cyxCyZANq3uhhjL7j/MVb1ppWlJ
+	 yxijhGmlWauzX79Q38WB/TIKM/y3CS335GTbKxKuyvF3l9iEDb1MgDcTRujgfOakT/
+	 +kVfB/fFyCu7JC5PX7laryAJuvmeXc2y0lVmouHOLBDZL+5n9lb7YaKhLBchci71Ph
+	 tImbNt6jSGVDztuhLvrpYlxscQP6c0NpOgSgZBOSX8HJBJ8AnTkzo1/Q/dt2c+7jMe
+	 L2TrzTP6q/q6Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 20ECB48AEF;
-	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 696B648AC2;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:08:14 +0000
-Subject: [PATCH RFC 12/12] arm64: dts: rockchip: Add the VEPU580 encoder
- cores to the RK3588
+Date: Tue, 10 Nov 2026 10:08:05 +0000
+Subject: [PATCH RFC 03/12] media: rockchip: rkvenc: Prepare the VEPU580
+ helpers for a second codec
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvenc-v1-12-ea8b47122d8c@gmail.com>
+Message-Id: <20261110-rkvenc-v1-3-ea8b47122d8c@gmail.com>
 References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -100,11 +100,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=3181;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=14020;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=kagifa6Lmg0J/Xo2eD/GKAYer7IvTfvqdz6aGlCXzQU=;
- b=Z55zyJzLXjk5M0iOHQBuQmkiC3qqZVinOuzqIhqBgV9OAHTjmiFRh0C7Jcn5sf5tp6ip/f6hn
- dUnPCBOY7WSCOjYQ4VM4zLV2TEaEVljLIwKq9tLlNcHjTz+3XVBALkU
+ bh=2iM36112RbghY9B9VIRnOIpKw7ji7d2ivVWmz4kYfgU=;
+ b=9q/xxio0FdMlQWDIBAi4OFbgD94TcCxgcIhF2QQnCNlIlaJEOrRLKuZ8kI/MvhNd1lC2tQXfI
+ YxishvArS7BBnW5vz3J0Hgxr97YYyv030/yPLUF8Wk/nxoLUL2Ubxtb
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,85 +115,338 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Add the two VEPU580 (RKVENC) video encoder cores and their IOMMUs.
+Make the codec-independent VEPU580 programming usable by the coming HEVC
+backend, without changing the H.264 programming:
 
-Interrupts, clocks, resets, power domains and the clock rates (500 MHz
-AXI, 800 MHz core) are taken from the Rockchip BSP rk3588s.dtsi. Each
-IOMMU has two register banks and two interrupts, and keeps the BSP's
-rockchip,disable-mmu-reset.
+- The encoded picture size alignment (enc_rsl and src_fill) comes from
+  the coded format: 16 for H.264, while HEVC uses 8.
+- The hardware row rate control takes its codec-specific parameters (QP
+  adjustment per deviation bucket, outer threshold multiple, AQ mode)
+  from a table. The H.264 one holds the values used so far.
+- The row_rc_qp_range module parameter moves to the shared code so that
+  both codecs honour it. Its name and default are unchanged.
+- Controls shared by several coded formats are registered once.
+- The status read-back also collects the inter and intra block counts
+  per block size and the lowest and highest QP of the 8x8 block QP
+  histogram, for the per-frame statistics.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 56 +++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ .../media/platform/rockchip/rkvenc/rkvenc-h264.c   | 22 +++++-------
+ .../media/platform/rockchip/rkvenc/rkvenc-regs.h   |  7 ++++
+ .../platform/rockchip/rkvenc/rkvenc-vepu580.c      | 41 +++++++++++++++-------
+ drivers/media/platform/rockchip/rkvenc/rkvenc.c    | 24 ++++++++++---
+ drivers/media/platform/rockchip/rkvenc/rkvenc.h    | 41 +++++++++++++++++++++-
+ 5 files changed, 103 insertions(+), 32 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..9c813e6475c5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1397,6 +1397,62 @@ vepu121_3_mmu: iommu@fdbac800 {
- 		#iommu-cells = <0>;
- 	};
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+index c669a6322f29..227d341d060b 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+@@ -12,20 +12,12 @@
+  */
  
-+	vepu580_0: video-codec@fdbd0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbd0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>,
-+			 <&cru CLK_RKVENC0_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC0>, <&cru CLK_RKVENC0_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC0>, <&cru SRST_H_RKVENC0>,
-+			 <&cru SRST_RKVENC0_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_0_mmu>;
-+		power-domains = <&power RK3588_PD_VENC0>;
-+	};
+ #include <linux/bitfield.h>
+-#include <linux/moduleparam.h>
+ #include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <media/v4l2-h264-enc.h>
+ 
+ #include "rkvenc.h"
+ 
+-#define RKVENC_H264_ROW_QP_RANGE	2
+-
+-static unsigned int row_rc_qp_range = RKVENC_H264_ROW_QP_RANGE;
+-module_param(row_rc_qp_range, uint, 0644);
+-MODULE_PARM_DESC(row_rc_qp_range,
+-		 "CBR: maximum per-row QP change by the hardware rate control (0 = frame-level rate control only)");
+-
+ #define RKVENC_H264_PROFILE_BASELINE	66
+ #define RKVENC_H264_PROFILE_MAIN	77
+ #define RKVENC_H264_PROFILE_HIGH	100
+@@ -390,15 +382,16 @@ static int rkvenc_h264_run(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+ 	vepu580_setup_h264_tuning(ctx->dev, core, intra);
+ 
+ 	/*
+-	 * In CBR mode the frame size target from the common rate control is
+-	 * handed to the hardware row rate control, which adapts the QP of
+-	 * each macroblock row by up to RKVENC_H264_ROW_QP_RANGE.
++	 * In CBR mode the frame size target of the rate control is handed to
++	 * the hardware row rate control, which adapts the QP of each
++	 * macroblock row by up to the row_rc_qp_range parameter.
+ 	 */
+ 	h264->hw_rc = rc->mode && rc->mode->type == V4L2_H264_ENC_RC_TYPE_CBR &&
+-		      READ_ONCE(row_rc_qp_range);
++		      READ_ONCE(rkvenc_row_rc_qp_range);
+ 	if (h264->hw_rc)
+-		vepu580_setup_row_rc(core, rc->qp, state->qp_min, state->qp_max,
+-				     min(READ_ONCE(row_rc_qp_range), 15U),
++		vepu580_setup_row_rc(core, &vepu580_h264_row_rc, rc->qp,
++				     state->qp_min, state->qp_max,
++				     min(READ_ONCE(rkvenc_row_rc_qp_range), 15U),
+ 				     (u64)rc->size * 8,
+ 				     mbs, state->width_mbs);
+ 	else
+@@ -506,6 +499,7 @@ static const struct rkvenc_ctrls rkvenc_h264_ctrls = {
+ 
+ const struct rkvenc_coded_fmt_desc rkvenc_h264_fmt_desc = {
+ 	.fourcc = V4L2_PIX_FMT_H264_SLICE,
++	.size_align = 16,
+ 	.frmsize = {
+ 		.min_width = 64,
+ 		/* The external line buffer for wider pictures is not handled. */
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h b/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
+index 6957cdf53446..8103bfdf7151 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-regs.h
+@@ -360,6 +360,11 @@
+ #define VEPU580_ST_BUS				0x4030
+ #define VEPU580_ST_SNUM				0x4034
+ #define VEPU580_ST_SLEN				0x4038
++#define VEPU580_ST_PNUM_P64			0x4100
++#define VEPU580_ST_PNUM_P32			0x4104
++#define VEPU580_ST_PNUM_P16			0x4108
++#define VEPU580_ST_PNUM_P8			0x410c
++#define VEPU580_ST_PNUM_I32			0x4110
+ #define VEPU580_ST_PNUM_I16			0x4114
+ #define VEPU580_ST_PNUM_I8			0x4118
+ #define VEPU580_ST_PNUM_I4			0x411c
+@@ -367,6 +372,8 @@
+ #define VEPU580_ST_BNUM_CME			0x4124
+ #define VEPU580_ST_MADI				0x4128
+ #define VEPU580_ST_BNUM_B16			0x412c
++/* Histogram of the QP of the 8x8 blocks, one counter per QP 0..51 */
++#define VEPU580_ST_B8_QP(qp)			(0x4200 + 4 * (qp))
+ 
+ /* Debug class */
+ #define VEPU580_DBG_FRAME_CYC			0x5200
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+index 33d5154ef8da..3a32caad2216 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+@@ -12,10 +12,16 @@
+ #include <linux/bitfield.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/minmax.h>
++#include <linux/moduleparam.h>
+ #include <linux/slab.h>
+ 
+ #include "rkvenc.h"
+ 
++unsigned int rkvenc_row_rc_qp_range = 2;
++module_param_named(row_rc_qp_range, rkvenc_row_rc_qp_range, uint, 0644);
++MODULE_PARM_DESC(row_rc_qp_range,
++		 "CBR: maximum per-row QP change by the hardware rate control (0 = frame-level rate control only)");
 +
-+	vepu580_0_mmu: iommu@fdbdf000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbdf000 0x0 0x40>, <0x0 0xfdbdf040 0x0 0x40>;
-+		interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC0>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
+ int rkvenc_alloc_aux(struct rkvenc_dev *rkvenc, struct rkvenc_aux_buf *buf,
+ 		     size_t size, bool kernel_mapping)
+ {
+@@ -74,17 +80,18 @@ static void vepu580_setup_src(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+ 	struct vb2_buffer *vb = &run->src->vb2_buf;
+ 	unsigned int width = ctx->coded_fmt.fmt.pix_mp.width;
+ 	unsigned int height = ctx->coded_fmt.fmt.pix_mp.height;
++	unsigned int align = ctx->coded_fmt_desc->size_align;
+ 	unsigned int ystride = pix->plane_fmt[0].bytesperline;
+ 	unsigned int cstride = 0;
+ 	dma_addr_t addr[3] = { 0 };
+ 	unsigned int i;
+ 
+ 	rkvenc_set(core, VEPU580_ENC_RSL,
+-		   FIELD_PREP(VEPU580_ENC_RSL_PIC_WD8_M1, ALIGN(width, 16) / 8 - 1) |
+-		   FIELD_PREP(VEPU580_ENC_RSL_PIC_HD8_M1, ALIGN(height, 16) / 8 - 1));
++		   FIELD_PREP(VEPU580_ENC_RSL_PIC_WD8_M1, ALIGN(width, align) / 8 - 1) |
++		   FIELD_PREP(VEPU580_ENC_RSL_PIC_HD8_M1, ALIGN(height, align) / 8 - 1));
+ 	rkvenc_set(core, VEPU580_SRC_FILL,
+-		   FIELD_PREP(VEPU580_SRC_FILL_PIC_WFILL, ALIGN(width, 16) - width) |
+-		   FIELD_PREP(VEPU580_SRC_FILL_PIC_HFILL, ALIGN(height, 16) - height));
++		   FIELD_PREP(VEPU580_SRC_FILL_PIC_WFILL, ALIGN(width, align) - width) |
++		   FIELD_PREP(VEPU580_SRC_FILL_PIC_HFILL, ALIGN(height, align) - height));
+ 
+ 	/* MPP sets src_range for every YUV input; out_fmt selects 4:2:0. */
+ 	rkvenc_set(core, VEPU580_SRC_FMT,
+@@ -450,17 +457,24 @@ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ }
+ 
+ /*
+- * Frame-level QP with the hardware row rate control: each macroblock row
+- * gets target_bits / num_blocks bits per block; the cumulative deviation
+- * from that target selects one of nine QP adjustments, bounded by
+- * qp_range around the frame QP and by [qp_min, qp_max].
++ * Frame-level QP with the hardware row rate control: each block row
++ * (macroblock row for H.264, CTU row for HEVC) gets target_bits /
++ * num_blocks bits per block; the cumulative deviation from that target
++ * selects one of nine QP adjustments, bounded by qp_range around the frame
++ * QP and by [qp_min, qp_max].
+  */
+-void vepu580_setup_row_rc(struct rkvenc_core *core, unsigned int qp,
++const struct vepu580_row_rc vepu580_h264_row_rc = {
++	.qp_adj = { -2, -1, 0, 1, 2, 0, 0, 0, 1 },
++	.dthd_outer = 4,
++	.aq_mode = false,
++};
 +
-+	vepu580_1: video-codec@fdbe0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbe0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>,
-+			 <&cru CLK_RKVENC1_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC1>, <&cru CLK_RKVENC1_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC1>, <&cru SRST_H_RKVENC1>,
-+			 <&cru SRST_RKVENC1_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_1_mmu>;
-+		power-domains = <&power RK3588_PD_VENC1>;
-+	};
++void vepu580_setup_row_rc(struct rkvenc_core *core,
++			  const struct vepu580_row_rc *cfg, unsigned int qp,
+ 			  unsigned int qp_min, unsigned int qp_max,
+ 			  unsigned int qp_range, u64 target_bits,
+ 			  unsigned int num_blocks, unsigned int blocks_per_row)
+ {
+-	static const s8 qp_adj[9] = { -2, -1, 0, 1, 2, 0, 0, 0, 1 };
+ 	u64 ebit16 = div_u64(target_bits << 4, num_blocks);
+ 	s32 row_bits, thd;
+ 	unsigned int i;
+@@ -474,6 +488,7 @@ void vepu580_setup_row_rc(struct rkvenc_core *core, unsigned int qp,
+ 	rkvenc_or(core, VEPU580_ENC_PIC, FIELD_PREP(VEPU580_ENC_PIC_PIC_QP, qp));
+ 	rkvenc_set(core, VEPU580_RC_CFG,
+ 		   VEPU580_RC_CFG_RC_EN | VEPU580_RC_CFG_AQ_EN |
++		   (cfg->aq_mode ? VEPU580_RC_CFG_AQ_MODE : 0) |
+ 		   FIELD_PREP(VEPU580_RC_CFG_RC_CTU_NUM, blocks_per_row));
+ 	rkvenc_set(core, VEPU580_RC_QP,
+ 		   FIELD_PREP(VEPU580_RC_QP_RANGE, qp_range) |
+@@ -485,12 +500,12 @@ void vepu580_setup_row_rc(struct rkvenc_core *core, unsigned int qp,
+ 	rkvenc_set(core, VEPU580_RC_ADJ1, 0);
+ 	for (i = 0; i < 9; i++)
+ 		rkvenc_or(core, i < 5 ? VEPU580_RC_ADJ0 : VEPU580_RC_ADJ1,
+-			  VEPU580_RC_ADJ_QP(i < 5 ? i : i - 5, qp_adj[i]));
++			  VEPU580_RC_ADJ_QP(i < 5 ? i : i - 5, cfg->qp_adj[i]));
+ 
+-	rkvenc_set(core, VEPU580_RC_DTHD(0), -4 * thd);
++	rkvenc_set(core, VEPU580_RC_DTHD(0), -cfg->dthd_outer * thd);
+ 	rkvenc_set(core, VEPU580_RC_DTHD(1), -thd);
+ 	rkvenc_set(core, VEPU580_RC_DTHD(2), thd);
+-	rkvenc_set(core, VEPU580_RC_DTHD(3), 4 * thd);
++	rkvenc_set(core, VEPU580_RC_DTHD(3), cfg->dthd_outer * thd);
+ 	for (i = 4; i < 9; i++)
+ 		rkvenc_set(core, VEPU580_RC_DTHD(i), 0x7fffffff);
+ 
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
+index 0e5afaefc0dd..623c50db25a8 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
+@@ -720,6 +720,7 @@ static void rkvenc_read_feedback(struct rkvenc_core *core,
+ {
+ 	void __iomem *r = core->regs;
+ 	u32 sse_bsl = readl_relaxed(r + VEPU580_ST_SSE_BSL);
++	unsigned int i;
+ 
+ 	fb->bs_len = readl_relaxed(r + VEPU580_ST_BS_LGTH_L32) |
+ 		     (u64)FIELD_GET(VEPU580_ST_BS_LGTH_H8, sse_bsl) << 32;
+@@ -728,9 +729,20 @@ static void rkvenc_read_feedback(struct rkvenc_core *core,
+ 	fb->qp_sum = readl_relaxed(r + VEPU580_ST_QP_SUM);
+ 	fb->madi = readl_relaxed(r + VEPU580_ST_MADI);
+ 	fb->madp = readl_relaxed(r + VEPU580_ST_MADP);
+-	fb->intra_blocks = readl_relaxed(r + VEPU580_ST_PNUM_I16) +
+-			   readl_relaxed(r + VEPU580_ST_PNUM_I8) +
+-			   readl_relaxed(r + VEPU580_ST_PNUM_I4);
++	for (i = 0; i < RKVENC_PNUM_COUNT; i++)
++		fb->pnum[i] = readl_relaxed(r + VEPU580_ST_PNUM_P64 + 4 * i);
++	fb->intra_blocks = fb->pnum[RKVENC_PNUM_I16] + fb->pnum[RKVENC_PNUM_I8] +
++			   fb->pnum[RKVENC_PNUM_I4];
 +
-+	vepu580_1_mmu: iommu@fdbef000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbef000 0x0 0x40>, <0x0 0xfdbef040 0x0 0x40>;
-+		interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC1>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
++	fb->qp_min = -1;
++	fb->qp_max = -1;
++	for (i = 0; i < 52; i++) {
++		if (!readl_relaxed(r + VEPU580_ST_B8_QP(i)))
++			continue;
++		if (fb->qp_min < 0)
++			fb->qp_min = i;
++		fb->qp_max = i;
++	}
+ 	fb->cycles = readl_relaxed(r + VEPU580_DBG_FRAME_CYC);
+ }
+ 
+@@ -941,8 +953,12 @@ static int rkvenc_init_ctrls(struct rkvenc_ctx *ctx)
+ 	for (i = 0; i < ARRAY_SIZE(rkvenc_coded_fmts); i++) {
+ 		const struct rkvenc_ctrls *ctrls = rkvenc_coded_fmts[i]->ctrls;
+ 
+-		for (j = 0; j < ctrls->num_ctrls; j++)
++		for (j = 0; j < ctrls->num_ctrls; j++) {
++			/* Controls shared by several codecs are added once. */
++			if (v4l2_ctrl_find(hdl, ctrls->ctrls[j].id))
++				continue;
+ 			v4l2_ctrl_new_custom(hdl, &ctrls->ctrls[j], NULL);
++		}
+ 	}
+ 
+ 	ctx->avg_qp_ctrl = v4l2_ctrl_find(hdl, V4L2_CID_MPEG_VIDEO_AVERAGE_QP);
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.h b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+index 83a6084fc084..5bc365101600 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+@@ -53,8 +53,24 @@ struct rkvenc_rec_buf {
+ 	size_t fbc_hdr_size;
+ };
+ 
++enum rkvenc_pnum {
++	RKVENC_PNUM_P64,
++	RKVENC_PNUM_P32,
++	RKVENC_PNUM_P16,
++	RKVENC_PNUM_P8,
++	RKVENC_PNUM_I32,
++	RKVENC_PNUM_I16,
++	RKVENC_PNUM_I8,
++	RKVENC_PNUM_I4,
++	RKVENC_PNUM_COUNT,
++};
 +
- 	vdec0: video-codec@fdc38000 {
- 		compatible = "rockchip,rk3588-vdec";
- 		reg = <0x0 0xfdc38000 0x0 0x100>,
+ /**
+  * struct rkvenc_feedback - per-frame values read back from the status block
++ * @pnum: number of inter (P64..P8) and intra (I32..I4) coded blocks per
++ *	  block size, see &enum rkvenc_pnum
++ * @qp_min: lowest QP of an 8x8 block, -1 when the histogram is empty
++ * @qp_max: highest QP of an 8x8 block, -1 when the histogram is empty
+  */
+ struct rkvenc_feedback {
+ 	u32 int_sta;
+@@ -64,6 +80,9 @@ struct rkvenc_feedback {
+ 	u32 madi;
+ 	u32 madp;
+ 	u32 intra_blocks;
++	u32 pnum[RKVENC_PNUM_COUNT];
++	int qp_min;
++	int qp_max;
+ 	u32 cycles;
+ };
+ 
+@@ -105,9 +124,12 @@ struct rkvenc_ctrls {
+ 
+ /**
+  * struct rkvenc_coded_fmt_desc - coded (CAPTURE) format description
++ * @size_align: alignment of the encoded picture size (enc_rsl), the
++ *		hardware pads the source up to it
+  */
+ struct rkvenc_coded_fmt_desc {
+ 	u32 fourcc;
++	unsigned int size_align;
+ 	struct v4l2_frmsize_stepwise frmsize;
+ 	const struct rkvenc_ctrls *ctrls;
+ 	const struct rkvenc_codec_ops *ops;
+@@ -222,7 +244,24 @@ void vepu580_setup_me(struct rkvenc_core *core, unsigned int width_mbs,
+ 		      bool intra);
+ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ 			       struct rkvenc_core *core, bool intra);
+-void vepu580_setup_row_rc(struct rkvenc_core *core, unsigned int qp,
++
++/**
++ * struct vepu580_row_rc - codec-specific row rate control parameters
++ * @qp_adj: QP adjustment for each of the nine deviation buckets
++ * @dthd_outer: multiple of the base threshold for the outer buckets
++ * @aq_mode: value of rc_cfg.aq_mode
++ */
++struct vepu580_row_rc {
++	s8 qp_adj[9];
++	unsigned int dthd_outer;
++	bool aq_mode;
++};
++
++extern const struct vepu580_row_rc vepu580_h264_row_rc;
++extern unsigned int rkvenc_row_rc_qp_range;
++
++void vepu580_setup_row_rc(struct rkvenc_core *core,
++			  const struct vepu580_row_rc *cfg, unsigned int qp,
+ 			  unsigned int qp_min, unsigned int qp_max,
+ 			  unsigned int qp_range, u64 target_bits,
+ 			  unsigned int num_blocks, unsigned int blocks_per_row);
 
 -- 
 2.55.0
