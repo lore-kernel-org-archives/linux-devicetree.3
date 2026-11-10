@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304355;
-	b=duiaIlIJ/PHtet6ifFCEkpS5BufxYSG/dpqNnHaIsjc7Uu0gOg2bfGIbkI/1l056eT8X
-	 P0t8e1M4MIkxv2gboWOZVNpE7wk+YygX4lTFHNL/hLqfBFRCUqdUVJuTJMnXzeKdkse3b
-	 RgIuxvmxy5McibD7XWiDH8oZO5yW5PeWDISt7DYPfIGOm7RiV8n4qSMuTUiVC/HN+mbVD
-	 tzi8augyy3eWt/YcLSqcJ3z2gGXihQ0aX5s929M8hWAfjVryv5idKt5WGCPYAJTEECjOo
-	 y/Q/aV0m4D0v5EagZ5+xnrO+T73p+6ozrjdnxVfqpbvxk7tJPhECZ+9L5EnHyRibr1A==
+	t=1794304382;
+	b=z7eS8dYVz1mUH+YYflfVghKazg5Uthn9KmVQ4afu8XzmF20jv1XG6aT7divjO87arEZk
+	 T5ymYL/JavQBFvbWPA8PntBMwA3ibFmxUPOCkhOzFEx0zQ74WSs/auSSCJEPTM+CQY6PM
+	 JOSdNiBlG0aLOPKqT7Wwp0yZWga3cfTrZTw74Mi1syqk7QtOQHBz6JbnoeTjkutSUH8h0
+	 8ZRT/VWeBPdSAPlRriTWl5SBAopiAJWYCo9JYb8PVIlB+jjqKU0DIan0nhzb6yYJRLwPU
+	 G0V1uJN1AjroynJwUE4f8t0NXKa6OyxmuTyEgPLq4f7w4Ha/oBbQInJY+Pa2gxZ/l0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304355;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=Yd4FxpRCS4fQY+YVzPkOkyaH0M5G0U4APBjJlbUa4/g=;
-	b=22njJ/inJ2BgANIOcdQw4SbGeaxUeqHvhFNt5xW/JyNF/K0Se0cp65MeuH+c13BtxHO6
-	 q8eRDsJKnRjBqS8t1SjHNp7nkROofsklmoiiuPZV5H3ICnf2p9KdaVYgERf/pp2Z6NaEL
-	 /zOAGgldUcQ7GRUmmfozp4bwSb77hHVG1OYwjw3t3tncoZhrnhkfumG+gpgYC6DFur3uJ
-	 O734ZzgJJrayrQ3OUczAOM4DIZ+MoDWULvT0aHMVbFPS7DXKwrPdpRrYBBJsEC87bqOEN
-	 3CpyViiXwElFkmuA8o0YGHVbkKTrynlzrxNywO0UT5S9XCZv41Qtt4W+O9LcK4F4tFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304382;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fT31XLKUQuRmxzdqIKu0tH+kJNHQhLTcjslw879wGR8=;
+	b=gEGhP0SWVYrtjn8b3UE8NNME4cu4S4ACHCovbblHOK2t6YbeNyEE2WNmN1nB1x6C1Hkl
+	 flbOZbVrxtCyJQUdKOF8LbEUT6lcPJlIzD/BWpRL+n5/eQkJSwbAF+Rz83LuG7eBQbOtC
+	 R11art4/ipnfjWnEfAZPTkz1N1ZKH+ZeYHnOC44AkatEkTbY5MW8SevvJSQ6PThQjEkv+
+	 6Ls+xTWXy57nGFHUg4vI2o7dY0zOeKpUKho409W7RU75z0n0H7BXGGnBc5RgTz4ol5NfE
+	 nL18CTNATj/Bt+YLD1mDNriZUKKlYz2JNv//Q+1QUT/CXZKtGznM9gotGgBfBUUoYog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBcc5m4A;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQKlb41l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63240606A934;
-	Tue, 10 Nov 2026 09:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63240606A934
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D215606B159;
+	Tue, 10 Nov 2026 09:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBcc5m4A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794304355; x=1825840355;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+aBQV5lSYGDF45swiVHgkDWTmEtQKr+fym2AXMrBjZI=;
-  b=cBcc5m4ABsejuZ10rzqhIuFF7ZAYOYBQzm9MnL1MeN2xzb8ldfNsAYED
-   Z74Qgteqs3L85WrS0ZATkZSud51FM+h4Sr6Hp5Any3vEmJMScxmC+Q7Vd
-   2C9h5Itl1gAfFF5Q8+SkXmR/fFMuXhxX1DMkYkBrl4TOt4zdIpIvPOO01
-   jg7zsVomXxXb2EiF9FSB/+t5nWmoV29cYa1mu6VP2OTbqugL03+6iMJtW
-   blYvoB7zAyqr1H8U8BsmRhNEHfMVE83pGTYQLlyg2i9isgAdtpJ1Fn59r
-   0DDLPfCo65LSdupcly/GRAyY5cnHDpyEnkMxPI4J+YrdtPD4wO1GDE+51
-   Q==;
-X-CSE-ConnectionGUID: zJaLw8UvQ/+Si5ZhGm47iA==
-X-CSE-MsgGUID: 1r943kFAQqSeWSRfNjLTPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3145566"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3145566"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:52:34 -0800
-X-CSE-ConnectionGUID: RqZZdffeSYCZBA+bkxr8ZA==
-X-CSE-MsgGUID: PIqk/GEfQ5CJNwQE2WRiZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7968707"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:52:28 -0800
-Date: Tue, 10 Nov 2026 11:52:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <avLpWqh5cbIYj3oA@ashevche-desk.local>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-3-maxime.chevallier@bootlin.com>
- <auyjgDddFs3OvnC3@monoceros>
- <20261108013218.0fe627e7@jic23-hlaptop>
- <avAy6cemm3MRHSQO@monoceros>
- <avIGbBH88xZwndaC@ashevche-desk.local>
- <avLluP28gVZEfFfe@monoceros>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQKlb41l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753C81F0089F;
+	Tue, 10 Nov 2026 09:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794304381;
+	bh=fT31XLKUQuRmxzdqIKu0tH+kJNHQhLTcjslw879wGR8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TQKlb41lI4RDKQ8tDImElNGyAfW0fMdyvLQCvPeNqgQ07ZXRedM6ti2wVjopsmh7F
+	 /YZC6s2AL+k0eU8XHT8YZIrJaTA14iTrFkhm2D84xolMnT1s54MkfFjznVjqzHnUta
+	 sjJsNO3nJzjicFgYF9GtpjIibVjtyQLm3HPGJFtgXaoMN/0gJj6zy12EKa1fEZ5cWK
+	 /PDVwh65kO/V0SzLqupPGitAmatpeNSwpLtgFIloA5QlFJpbTvlOthDVDIn9w1BPOM
+	 CZgVYNEncBsgcpa2ziTtwmpD8z0ttwZMx0f0yURuCRtFkeLvdcN816I49HwbVVCcXt
+	 9QmwPxxnZBQbg==
+Message-ID: <sashiko-outbox-206812@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 01/12] pinctrl: airoha: fix setting of GPIO direction
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhengping Zhang" <zhengping.zhang@airoha.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110094339.749110-2-zhengping.zhang@airoha.com>
+References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
+ <20261110094339.749110-2-zhengping.zhang@airoha.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 09:53:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,44 +59,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avLluP28gVZEfFfe@monoceros>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 10:40:05AM +0100, Uwe Kleine-König wrote:
-> On Mon, Nov 09, 2026 at 07:44:12PM +0200, Andy Shevchenko wrote:
-> > On Sun, Nov 08, 2026 at 09:32:10AM +0100, Uwe Kleine-König wrote:
-> > > On Sun, Nov 08, 2026 at 01:32:18AM +0000, Jonathan Cameron wrote:
-> > > > On Thu, 5 Nov 2026 16:42:42 +0100
-> > > > Uwe Kleine-König <u.kleine-koenig@baylibre.com> wrote:
-> > > > > On Fri, Oct 30, 2026 at 05:47:04PM +0100, Maxime Chevallier wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] pinctrl: airoha: missing Fixes: trailer on GPIO direction fix
+--
 
-> > > > > > +#include <linux/i2c.h>
-> > > > > > +#include <linux/mod_devicetable.h>  
-> > > > > 
-> > > > > Please don't include <linux/mod_devicetable.h>. <linux/i2c.h> already
-> > > > > provides i2c_device_id and of_device_id. <linux/mod_devicetable.h>
-> > > > > provides many more *_device_id and thus introduces a big list of
-> > > > > unnecessary dependencies.
-> > > > > 
-> > > > > I recommend to just drop <linux/mod_devicetable.h> here. If you insist
-> > > > > on full iwyu, there is <linux/device-id/i2c.h> and
-> > > > > <linux/device-id/of.h>.
-> > 
-> > It must also imply acpi.h.
-> 
-> That's true, but irrelevant for the patch under discussion because it
-> doesn't use acpi stuff. So at least here even with full iwyu you don't
-> need to care about <linux/acpi.h> or <linux/device-id/acpi.h>.
+commit 6dcec8340cfdb81d9b7f8c972e7a3451fe15d376
+Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 
-True.
+> pinctrl: airoha: fix setting of GPIO direction
+>
+> The GPIO_CTRL registers have two bits per GPIO where the values 0x2 and
+> 0x3 are reserved. It can happen that both bits in GPIO_CTRL of a GPIO
+> are set when the pinctrl driver is probed (e.g. modified by bootloader),
+> but the current code just clears the LSB. Thus when switching a certain
+> GPIO to output, the updated GPIO_CTRL register can contain the reserved
+> value 0x2 for that GPIO. This can result in not driving the GPIO pin at
+> all.
+>
+> Always clear both bits per GPIO and just set the LSB when the GPIO is
+> configured for output.
+>
+> Signed-off-by: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
+> Signed-off-by: Zhengping Zhang <zhengping.zhang@airoha.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Low]
+Since this fixes the single-bit GPIO_CTRL mask introduced in
+1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC") and later
+moved into airoha_gpio_set_direction() by 62b1dd7eeaca ("pinctrl: airoha:
+add set_direction() helper for gpio_chip"), should it include a Fixes:
+tag?
 
+  Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110094339.7491=
+10-1-zhengping.zhang@airoha.com?part=3D1
