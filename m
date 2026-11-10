@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307951;
-	b=Om+nHG/QKOhmtsh38vLCqJx+x62eXBF1rGUIpEWckBpnXpq96CjFoxGr/3JUYzte4ULH
-	 wXMBZ71S5zF6MSmCFsfT4kJq5ERKvS8rAl36/P+CLyrqFIZH6RKFc8wpmWM6XGtlKB1Zl
-	 yhiShz4p8nw37XyHyxsEB5Pzh8a0OTD0L3OfQ5+vp9gcYsRwwE/V7KBsU0n1my+uvjmzO
-	 29MWdypoRGceAXl6nbHv48hfTujceB3rFgSggXLgMaLz76ykfyUEJLLEBxtbU6Y41QHpJ
-	 oyClRcSrfNw94ODYKr/GYJKomq9tL+GDIJx3FdUCTt/DYisUmUUSWMIsuf9mzzPZk1A==
+	t=1794307982;
+	b=ldPCKOIXU3+GkSNVLRLvDNFJ2xaTXLLH3MgppZ2Az6/awwY7L2YBB6LxIT4cH45AcUIN
+	 C9etxDSc3WiuedPMdDioaVuSWeOW6Qu5ekyCQmsE+ZeL1s1cNw6tGfniS8DFhNOZaxbUq
+	 FCLQ237FdRnDhJMCJCQ+7K1a7Y/1PZuU0y2DDPmJTkRw0oK67y0JmCsud5+Sxu7FYezf/
+	 L+YGvf/hrwRpfb61LWqt44HwXDWKE6Yyt8UHpRYG90hlE5hTIZrW24Rqd3SPHLQDCk5br
+	 6tU3Ci4OiSTA9cKMuxW60/TXr7DtlPXh91ITI+l6k+G2zdC9uO45cj5fUJ1Vnv9fMTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307982;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3Etb+nfiDsoWTz/LyOKz5W/yENWKTSQEQSgT8Mc1H+o=;
-	b=rr/+2vYa7jcyoXhz2khkRofLBuV3wJO86phnYdaWFcKhvVsqocI8/EKym0rLtxmnU0aZ
-	 XfgcgIBiX1WqvMj9Hvn7kYLqdhHqitQcZ5PWAWpy7jETII0TNhtnOkhXjHiKKIwFka/g9
-	 AW5eKQ74gT4qaYCPpNGfVXJ64errhUH5idF57Nunwtk2DKZRzkFhH07v6NESGPyREgjyU
-	 vIwk0GNrderfgdJY4gArCWLQbAUB97s7Sa2QxOBzu/GP0BCFcjgOmYpzImkpTLWS2WYnH
-	 79+w/gcaJAhZYrFPnS3BhDhGIqjv45WkzRBmodl9d4ao2tHdLwaNRenKIPyc9qOyyhg==
+	bh=OgKc3c5QH5H+T6m8YvXodkG+iDUitzJmbpA5RXrr4bg=;
+	b=JKC9BISKY560yWIeFgXVPgEikxmSyYJ3+FRV3gMN++FMdU4yz/n98kRIAQ8h1prcMha8
+	 ZZCasC6JrBsWuznrxgCm5hUiCzQs1YOcBXWPgoYZcNadn7JJDj+dDL7aj1PorZF1qzFIh
+	 RjMctY3chQgo9ROPlcwF8afVw0MAOoQZO6oEdv5DWp+qDHAV0xDpQKkwfvV8W9jOr00kQ
+	 xoKO8vgZYh9YcUpmuFaRQDSnV/tm9KzMwO5mIOcKznGd5lyrX6Ec2QQtTv5hhP7+cZffh
+	 GVCrwThpMt8EKUmls8ojV4hovHMNc+10z7yo/kpjCoPV3vcX312rG8ztI0EGBADdeig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lmai/xZp";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHLTICha;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DA2606A32E;
-	Tue, 10 Nov 2026 10:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19AC606A321;
+	Tue, 10 Nov 2026 10:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmai/xZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 537AF1F0089F;
-	Tue, 10 Nov 2026 10:52:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHLTICha
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467951F0089F;
+	Tue, 10 Nov 2026 10:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794307950;
-	bh=3Etb+nfiDsoWTz/LyOKz5W/yENWKTSQEQSgT8Mc1H+o=;
+	s=k20260515; t=1794307981;
+	bh=OgKc3c5QH5H+T6m8YvXodkG+iDUitzJmbpA5RXrr4bg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lmai/xZpKjnN971+SgAgIBfGh8AFqcGqKDuz6auDLi0VCqwenyHJ9eR/nS7mgnXwn
-	 jobwAHMx0SnO+AzWxPrdLQxmz/UiL+VItbRl/WAzKegNLLh6WNOpL2EuMCWrf/XXLS
-	 +w2ZFPb2tJzPgV7Rr5s8d3X8eBTQd+h7kiS09/F1HnchFJ3rHQD5ilct3Lp3bUapRZ
-	 b+J5QO2MeYmkO1qV8D4WuIs72ZQ7Umuvr2kLnKgEvcmaaEjTYttj9r4c9uO4+jtdOH
-	 xoQ/+fhmEM0HgsOZESghkHqboj7uxX15+xrMPLjzifHc3NbAJC8MNAVlkAOURoLxsN
-	 +5At5nQFmmGKw==
-Message-ID: <sashiko-outbox-206898@kernel.org>
+	b=UHLTIChaMVM9VPANu5liatvsy6XYB1dy5Wazg55lBlVZ1DQsRdPK52k7a7kodz65m
+	 rk5X9viS7hdpACkERjdH/ZotGqlmV6D7NSsVZi0EH15uFXTINYuWpnNRSgYtrnYLRK
+	 6oB276CdIqHqXBg2BxFapFsn0DSmvnhcEiajGE5up/aX9tuhg3RTChV3D5XCfgut24
+	 AuYptDBT1X4TnTqVLYw4Jl6+JVKZksJgFJCM0PFdgu8DrQ5aw7bTvEhTEZqDgJ+lTi
+	 1fp7767dz8rwMQrsymB+UjdOhm8G5vhcWRsk3EFAqiSmsP8VQH/4vBfb07xxjDEHA7
+	 LRCpxniYRqtnw==
+Message-ID: <sashiko-outbox-206899@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] usb: typec: tcpm: Don't cut a pending state delay
- short on a re-queue
+Subject: Re: [PATCH 1/5] dt-bindings: clock: Add STM32MP25 SYSCFG clock
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110-tcpm-attach-reboot-v1-1-7657cc1e2dca@gmail.com>
-References: <20261110-tcpm-attach-reboot-v1-0-7657cc1e2dca@gmail.com>
- <20261110-tcpm-attach-reboot-v1-1-7657cc1e2dca@gmail.com>
+To: "Gabriel Fernandez" <gabriel.fernandez@foss.st.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110-ups_mp25_clk_syscfg-v1-1-667829cd290a@foss.st.com>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-1-667829cd290a@foss.st.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 10:52:29 +0000
+Date: Tue, 10 Nov 2026 10:53:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,85 +61,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] usb: typec: tcpm: use-after-free in tcpm_unregister_port()
-  [1]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: clock: stm32mp25-syscfg-clk duplicates parent
+  syscfg clock provider
 --
 
-commit fc426c7d09bd548d8d6ca702db9699249b1a96bd
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+commit 56dc8d49308b7af249ab11bbe59e951afa0c0726
+Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-usb: typec: tcpm: Don't cut a pending state delay short on a re-queue
+dt-bindings: clock: Add STM32MP25 SYSCFG clock controller
 
-This commit checks whether a pending state transition delay has expired in
-tcpm_state_machine_work() and re-arms port->state_machine_timer for the
-remaining time if the work item was re-queued early.
+This commit adds the devicetree binding and clock identifier header for
+the STM32MP23x and STM32MP25x SYSCFG display pixel clock controller.
 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index d721baef52104..0a19b7665555b 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -6569,6 +6569,18 @@ static void tcpm_state_machine_work(struct kthread=
-_work *work)
-> =20
->  	/* If we were queued due to a delayed state change, update it now */
->  	if (port->delayed_state) {
-> +		/*
-> +		 * The work may have been queued again for another reason
-> +		 * while it was running, for instance by tcpm_init() at port
-> +		 * registration, which sets two states in a row with the
-> +		 * port lock held. Do not cut a pending delay short; re-arm
-> +		 * the timer for the time that is left.
-> +		 */
-> +		if (ktime_after(port->delayed_runtime, ktime_get())) {
-> +			hrtimer_start(&port->state_machine_timer,
-> +				      port->delayed_runtime, HRTIMER_MODE_ABS);
-> +			goto done;
-> +		}
+> diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp25-syscfg-=
+clk.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp25-syscfg-clk.=
+yaml
+> new file mode 100644
+> index 0000000000000..027d14f28b0cd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/st,stm32mp25-syscfg-clk.yaml
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/st,stm32mp25-syscfg-clk.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32MP2 SYSCFG clock controller
+> +
+> +maintainers:
+> +  - Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> +
+> +description: |
+> +  The SYSCFG of the STM32MP23x and STM32MP25x SoCs provides clocks, desc=
+ribed
+> +  by a clock controller sub-node of the SYSCFG node.
+> +
+> +  The provided clocks are identified by the macros defined in
+> +  include/dt-bindings/clock/st,stm32mp25-syscfg-clk.h:
+> +    - CK_SYSCFG_PIX_LTDC: LTDC pixel clock, selected in the DISPLAYCLKCR
+> +      register among the LTDC kernel clock, used by the RGB parallel out=
+put,
+> +      the LVDS PHY pixel clock and the DSI PHY byte lane clock.
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stm32mp25-syscfg-clk
+> +
+> +  "#clock-cells":
+> +    const: 1
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can
-state_machine_timer_handler() trigger a use-after-free on port->wq during
-tcpm_unregister_port() [1]?
+[Severity: Medium]
+Does this st,stm32mp25-syscfg-clk child node duplicate the clock provider
+already defined on the parent SYSCFG node?
 
-drivers/usb/typec/tcpm/tcpm.c:state_machine_timer_handler() {
-	if (port->registered)
-		kthread_queue_work(port->wq, &port->state_machine);
-	return HRTIMER_NORESTART;
-}
+Commit 1b9482f8dfce ("dt-bindings: arm: stm32: add required #clock-cells
+property") already added #clock-cells =3D <0> as a required property on
+st,stm32mp23-syscfg and st,stm32mp25-syscfg in
+Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml for this
+display clock multiplexer, and the existing STM32MP23 and STM32MP25 dtsi
+files already wire <&syscfg> as the LTDC reference clock:
 
-drivers/usb/typec/tcpm/tcpm.c:tcpm_unregister_port() {
-	port->registered =3D false;
-	kthread_destroy_worker(port->wq);
-	port->wq =3D NULL;
+Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml:
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - st,stm32mp23-syscfg
+              - st,stm32mp25-syscfg
+    then:
+      required:
+        - "#address-cells"
+        - "#clock-cells"
+        - "#size-cells"
+        - phy@2400
+        - phy@2800
 
-	hrtimer_cancel(&port->vdm_discovery_timer);
-	hrtimer_cancel(&port->enable_frs_timer);
-	hrtimer_cancel(&port->vdm_state_machine_timer);
-	hrtimer_cancel(&port->state_machine_timer);
-    ...
-}
-
-Because tcpm_unregister_port() destroys port->wq before cancelling the
-hrtimers, an expiring timer on another CPU can pass the port->registered
-check and queue work onto the freed worker:
-
-CPU0                              CPU1
-tcpm_unregister_port()            state_machine_timer_handler()
-                                    if (port->registered)
-  port->registered =3D false;
-  kthread_destroy_worker(port->wq);
-                                    kthread_queue_work(port->wq, ...);
-                                      <-- use-after-free
-  hrtimer_cancel(&port->state_machine_timer);
-
-Cancelling the hrtimers after setting port->registered =3D false and before
-calling kthread_destroy_worker(port->wq) would avoid this race.
-
-[1] https://sashiko.dev/#/bug/linux-3223298d-cf35-4f30-825a-9241513c9ba5
+Adding a separate reg-less child node just to instantiate a platform
+driver goes against Documentation/devicetree/bindings/writing-bindings.rst
+and leaves two conflicting clock provider bindings on the same SYSCFG
+block.  Could the parent SYSCFG node remain the clock provider directly
+(for example by registering the clock or an auxiliary device from the
+syscfg driver)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-tcpm-attac=
-h-reboot-v1-0-7657cc1e2dca@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-ups_mp25_c=
+lk_syscfg-v1-0-667829cd290a@foss.st.com?part=3D1
