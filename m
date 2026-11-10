@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317462;
-	b=keCiPBNUdXcZEAlCq7obCMFNSfp+qdDUz4wrB0RQ16XNPQpEXf7kFscCMIF0NX/kdn/k
-	 Em6zc0yWjPOKibNdI1DZ4/N4HNaru348GS0GXhMaAhx7blZjSF/bhlGWdNbojEVzmz/KP
-	 Nd2a2DbnEZKDU1f011DSB/UZNF13jCa806qZkPad3LDk1GM7V+XoE9QeqAADu3FsyzkYF
-	 2l22R1x1pWnw2Dwj+QtvtRdHIdf7W8/eBXelzsO5z5U64KM06jyCEBcNo8p4zdqBvpcad
-	 837UIn24+9uEEJ6Xb+4Dcw4AuMp0JZYsUQnxWIqNfFBojJ5GAlSVy5Kr+SrqfIXqnwQ==
+	t=1794318102;
+	b=onZBplXS5pbuVGqEtV/MfFGpKTlYD8XF4TMIIggjMFvEXnQFwm7eDCm0ay+SamU9fvJv
+	 iAmgqmJp+8FQ7HDUj+zWI4RUvTvHYQ3ztLCx/wQlG523ZFXGB9o9ME2ZRhGctEN1OVcuz
+	 ObS811o5lLcqX3qGKLNCmu1857M4X4mpyVQiJdl8L8nw9bOHFI5jI4o38MqCZ5JNBFi0E
+	 mFT3FyKlpn2IFntH2VwndKvXcOc5+k9id4qycRlqPUsKsrybDLjweHbDo0a2BFHi5kWVs
+	 RcqtPD9OxHmRvkQnhiyxae/O2VqmRGVNktULCHB0eraLEr9Dkvmd5iVpUsmHaz4l8HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317462;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pewesUty4m8/6Jf4CX95BIWO4NK1BdB+BvjzGPy6b9Q=;
-	b=IfJnNGurlL2p32dyv7d9VFa4RjXj7qfbaa5DbPtTSu0wYsrduCgdDGpMOqekqq9QTfCh
-	 ixUf7VEa1YnRQg/O9qVMWdb4WuAVF2Rz5sXuvVWyNC6L7XQE90QI0iQUFoApXwxr7vZ2h
-	 67hArS+h9IatrvX/9prf11vXOGn/goOwHG3b6BE/MIbgg58+mQS2udjtYnLETvOo/vqmQ
-	 LVLy7GHUEzLjmrthO1bwrHC1liYFR8fduzu9aAu7LSfX4mVD7fiqF6fs17YHnHpr9zTSL
-	 zS4TV4sZfTX7/Rhdu4G++OdWAT8HFA42IsvN4c0MOR0eXohSkPgU9QrolSl4gWAZ1Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318102;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:From:To:
+	 Subject:X-Mailer:References:In-Reply-To;
+	bh=lasqxXVeKXMxHny0oj9QIIm0EdQKa7hCoZn0gBzmIq4=;
+	b=FekfZoBchlVTwebS8x6KVP5+kgbciAwZPaHK6uWaNX9qTkquEWik6nRkhCNlDHlMfiIW
+	 G/NlpUUVVt6L/pfLZ0hNROYBpU7rPzlNF5afWzWIPbvXE8jfcsGv2Ly+/wRZSYClqMhpg
+	 6/4Id0r59YIrHeRsgU1BGg7X9QCIi6+WawIGBsXzwp2Spu+6AJjqbLWI8bh95tYSHUF1l
+	 v7JQeb2JX/fB2m/YMUPaxq4dR/wJmyy/C7J8RvqcKYHuAU0bMozK3RoS5tc6UKCFGrhHu
+	 0lHD8+EvLydJ9HEqTCNbw14WIHqT9eYMHK3mzzyC1wz/m5pEtZkgmJrWClJE+F/TgOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIPPi35k;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C2A606A7E5
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 13:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99D2606A321;
+	Tue, 10 Nov 2026 13:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99D2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIPPi35k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE051F008A1;
-	Tue, 10 Nov 2026 13:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317461;
-	bh=pewesUty4m8/6Jf4CX95BIWO4NK1BdB+BvjzGPy6b9Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bIPPi35ku6Affa9aD1E09KxOAcxbT8F+4Adl78tcT87zoCLWJQxHi4uUwjSuQ5b2T
-	 AL7Dz+ObNZp4HmGcLvR45bR0snOcPiwCvNe9FmZZoIATIuzmFbQjImqfEnOx7PqJou
-	 mtTdkZ0mf0AS9qGB+jbyI2EPMU+LGBknxlW/AkC2ltCs9UROFuAD6+G4AMJsmT/tgp
-	 oVI8CwK3mj7kd2LIesT13BdZXrDtfx+f8EJfb97R/G2uqOAFinMovRbOdJYRn0MJzo
-	 9MK3zNy7Cu04nocxHaxAFy0uAskJZA87HbnXKE1GOt6uPxInzFSv8tc0EjT4B5rwOt
-	 WYKSHuNasNecQ==
-Message-ID: <sashiko-outbox-207123@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm/tiny: Add RAiO RA8875 display controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Azuddin" <azuddinadam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110130515.45819-3-azuddinadam@gmail.com>
-References: <20261110130515.45819-1-azuddinadam@gmail.com>
- <20261110130515.45819-3-azuddinadam@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 13:31:01 +0000
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794318107; x=1825854107;
+  h=mime-version:content-transfer-encoding:date:message-id:
+   cc:from:to:subject:references:in-reply-to;
+  bh=c/J2BX5zYovG7XXcvnry2XAw/WRw3cFjhkZ9MkToNyk=;
+  b=iW59M+8oln9X+WWzxl0gG8aKrZSib7EeaX9KFoZN9Fsztq6VU6OmILYd
+   dNflNr2PUJ4ruZxMPNR1KHBdcxwZPHqo6GHW2wZyn8XUFsCHc99OJteVg
+   iMDaZUQJGjxxlnfRyaeZ3nbRKibkZKXYa0wSJQ09gstX4UTnuTfLKLeFG
+   udDwFnMDAMzHcKG5w4LG15Ulmn+eDVZt5B/QlzCiCjTZQ0STyT2qjixT+
+   IJRl2+UnZKpqjomchMUXJIALaWq1kdoe7SN34luaR9Kn7gbChKd+JJ7EC
+   BjZP43wW2Mvx+OpOVzHrunbms/VagrrcHStpu4Sw5t8cc3+QOlx0alaKc
+   w==;
+X-CSE-ConnectionGUID: 6uO7UKHWTY+5neRwOdB0yw==
+X-CSE-MsgGUID: O8hmv08iQbeHE26wbSZtlg==
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="76951348"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:41:41 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Tue, 10 Nov 2026 06:41:34 -0700
+Received: from localhost (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Tue, 10 Nov 2026 06:41:33 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,299 +70,224 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 10 Nov 2026 14:41:32 +0100
+Message-ID: <DMRKOG9MGJ12.7OG591B2X3XB@microchip.com>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <horms@kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
+	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+To: Paolo Abeni <pabeni@redhat.com>, <jensemil.schulzostergaard@microchip.com>
+Subject: Re: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9645X
+X-Mailer: aerc 0.21.0
+References: <20261103-dsa_lan9645x_switch_driver_base-v16-1-781c96d735cf@microchip.com> <20261110112810.235223-1-pabeni@redhat.com>
+In-Reply-To: <20261110112810.235223-1-pabeni@redhat.com>
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [Critical] drm/tiny: ra8875: heap overflow in ra8875_clear_screen()
-  via mode width
-- [High] drm/tiny: ra8875: plane updates run before CRTC enable and
-  screen clear
-- [High] drm/tiny: ra8875: miscalculation of HNDR and VNDR in
-  ra8875_hw_init()
-- [High] drm/tiny: ra8875: missing drm_dev_enter() in
-  ra8875_crtc_atomic_enable()
-- [Medium] drm/tiny: ra8875: missing vdd-supply regulator enable in
-  ra8875_probe()
-- [Medium] drm/tiny: ra8875: missing drm_gem_fb_begin_cpu_access() in
-  ra8875_fb_dirty()
-- [Medium] drm/tiny: ra8875: unaligned u16 destination in
-  ra8875_fb_dirty()
-- [Low] drm/tiny: ra8875: missing MMU dependency in Kconfig for
-  DRM_RA8875
---
+On Tue Nov 10, 2026 at 12:28 PM CET, Paolo Abeni wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+> ---
+> --- Patch [1]: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9=
+645X ---
+> commit 9f0c74e8611a75335b66615c753e5ac04e4a4bc9
+> Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
+chip.com>
+>
+> net: dsa: add tag driver for LAN9645X
+>
+> This adds a DSA tag driver for the Microchip LAN9645x switch. It uses a
+> front port as an NPI CPU port, with a long prefix plus a 28 byte IFH on
+> extraction and a bare IFH on injection. On receive, the classified VID
+> popped by the rewriter is restored as a hwaccel C-tag. On transmit, a tag
+> with a non-zero VID is moved from the payload into the IFH.
+>
+>> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+>> new file mode 100644
+>> index 0000000000000..9b373bac91e90
+>> --- /dev/null
+>> +++ b/net/dsa/tag_lan9645x.c
+>> @@ -0,0 +1,513 @@
+>
+> [ ... ]
+>
+>> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
+>> +				     struct net_device *ndev)
+>> +{
+>
+> [ ... ]
+>
+>> +	qos_class =3D netdev_get_num_tc(ndev) ?
+>> +		    netdev_get_prio_tc_map(ndev, skb->priority) :
+>> +		    skb->priority;
+>> +	qos_class =3D min_t(u32, qos_class, GENMASK(IFH_QOS_CLASS_SZ - 1, 0));
+>> +
+>> +	/* Make room for IFH */
+>> +	ifh =3D skb_push(skb, LAN9645X_IFH_LEN_BYTES);
+>> +	memset(ifh, 0, LAN9645X_IFH_LEN_BYTES);
+>> +
+>> +	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
+>> +	lan9645x_ifh_set(ifh, tag_type, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ);
+>> +	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
+>> +	lan9645x_ifh_set(ifh, qos_class, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
+>> +	lan9645x_ifh_set(ifh, BIT(dp->index), IFH_DSTS, IFH_DSTS_SZ);
+>
+> [Severity: Medium]
+> [Finding: main-7-6]
+> [Sources: opus-5-5]
+> Should IFH_IPV be set here too?
+>
+> The field table at the top of the file lists IFH_IPV (pos 48, width 3)
+> under "Extraction/Injection header". Nothing on the xmit path writes it,
+> so after the memset() it is 0 for every injected frame.
+>
+> The commit message says LAN9645x is in the same family as lan966x, and th=
+e
+> IFH layouts are close (IFH_TCI is at bit 103 in both). lan966x_ifh.h
+> describes QOS_CLASS as "Classified internal priority for queuing" and IPV
+> as "Classified internal priority for resourcemgt, tagging etc".
+> lan966x_port_xmit() sets both of them:
+>
+> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_port_xmit()=
+ {
+>     ...
+> 	lan966x_ifh_set_qos_class(ifh, skb->priority >=3D 7 ? 0x7 : skb->priorit=
+y);
+> 	lan966x_ifh_set_ipv(ifh, skb->priority >=3D 7 ? 0x7 : skb->priority);
+>     ...
+> }
+>
+> The lan9645x switch driver in this series reserves buffers per
+> (port, prio) through QSYS_RES_CFG. If IPV stays at 0, would high priority
+> traffic injected from the CPU be queued by QOS_CLASS but charged against
+> the prio 0 reservation? Any tagging or mapping based on IPV would also
+> see priority 0.
+>
+> Could IFH_IPV be set to the same clamped qos_class? If LAN9645x ignores
+> IPV on injection when BYPASS=3D1, could a comment say so?
+>
 
-commit c87472ee809dcef3cdfa786e0f03db0247928c50
-Author: Adam Azuddin <azuddinadam@gmail.com>
+Correct. With IFH.BYPASS set the analyzer is skipped and the queue
+system takes the egress queue from IFH.IPV, so every injected frame was
+queued in queue 0. The next version sets IFH.IPV to the same clamped QoS
+class as IFH.QOS_CLASS.
 
-drm/tiny: Add RAiO RA8875 display controller driver
+> [ ... ]
+>
+>> +	/* While we have REW_PORT_CFG_NO_REWRITE=3D0 on the NPI port, we still
+>> +	 * disable port VLAN tag pushing with REW_TAG_CFG. A frame ingressing
+>> +	 * on a vlan aware port, which is forwarded to the CPU, will not carry
+>> +	 * vlan info in the frame data, because the tag is popped. The
+>> +	 * classified VID is only communicated via the IFH, never in the
+>> +	 * payload. We therefore restore it via hwaccel and must not pop an
+>> +	 * in-band tag here.
+>> +	 */
+>> +	if (ifh_gap_len) {
+>> +		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
+>> +		 * reports. The classifier recognizes both TPIDs as VLAN tags,
+>> +		 * so an S-tag has already been used for classification by the
+>> +		 * time we get here. Restoring it as 802.1AD would make the
+>> +		 * bridge push it back into the payload and reclassify the frame
+>> +		 * to the port pvid, on a different VID than the one the
+>> +		 * hardware forwarded it on.
+>> +		 */
+>> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
+>
+> [Severity: Medium]
+> [Finding: main-1-1]
+> [Sources: opus-5-5]
+> Do lan9645x_xmit_get_vlan_info() and lan9645x_rcv() agree on which bridge
+> VLAN protocols are supported?
+>
+> On xmit, the bridge TPID is read with br_vlan_get_proto(). An in-band tag
+> is stripped only when its TPID matches that protocol, and an S-type tag i=
+s
+> signalled for 802.1ad:
+>
+> lan9645x_xmit_get_vlan_info() {
+>     ...
+> 	br_vlan_get_proto(br, &proto);
+>     ...
+> 		if (ntohs(hdr->h_vlan_proto) =3D=3D proto &&
+> 		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
+>     ...
+> 	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
+> 					     LAN9645X_IFH_TAG_TYPE_C;
+>     ...
+> }
+>
+> On rcv, IFH_TAG_TYPE is never read, and the tag always comes back with
+> vlan_proto 0x8100.
+>
+> With a VLAN-aware bridge set to vlan_protocol 802.1ad, br->vlan_proto is
+> 0x88a8. Wouldn't __allowed_ingress() in net/bridge/br_vlan.c then see a
+> protocol mismatch?
+>
+> net/bridge/br_vlan.c:__allowed_ingress() {
+>     ...
+> 	if (skb->vlan_proto !=3D br->vlan_proto) {
+> 		/* Protocol-mismatch, empty out vlan_tci for new tag */
+>     ...
+> }
+>
+> In that case the bridge pushes the tag back into the payload and puts the
+> frame on the port pvid. The comment above says the C-tag choice avoids
+> exactly this, but it only does so when br->vlan_proto is 802.1Q.
+>
+> The commit message says:
+>
+>     This assumes a bridge vlan_protocol of
+>     802.1Q, which is the only protocol the driver offloads.
+>
+> Is that enforced anywhere? DSA has no handler for
+> SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. __br_vlan_set_proto() sends that
+> attribute with SWITCHDEV_F_SKIP_EOPNOTSUPP, so changing vlan_protocol to
+> 802.1ad on an offloaded bridge still succeeds.
+>
+> If 802.1ad really is unsupported, the TAG_TYPE_S branch in xmit looks dea=
+d.
+> Otherwise, could rcv take the TPID from IFH TAG_TYPE or from the bridge
+> protocol? tag_ocelot.c does this in ocelot_rcv():
+>
+> 	vlan_tpid =3D tag_type ? ETH_P_8021AD : ETH_P_8021Q;
+>
+> At the end of this series the lan9645x switch driver does not implement
+> bridge join or program VLAN classification yet. So this path stays dorman=
+t
+> until bridge and VLAN offload is added, and the tagger is not changed lat=
+er
+> in the series.
+>
 
-This commit adds a DRM tiny driver for the SPI-connected RAiO RA8875 TFT
-display controller using the GEM shmem helper.
+Dismissed, intentional.
 
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6a470..2f1c49e31dd60 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -98,6 +98,19 @@ config DRM_PIXPAPER
-> =20
->  	  If M is selected, the module will be built as pixpaper.ko.
-> =20
-> +config DRM_RA8875
-> +	tristate "DRM support for RA8875 display panels"
-> +	depends on DRM && SPI && OF
-> +	select DRM_CLIENT_SELECTION
-> +	select DRM_KMS_HELPER
-> +	select DRM_GEM_SHMEM_HELPER
-> +	select VIDEOMODE_HELPERS
+The driver will not support 802.1ad bridges. The hardware classifier
+treats both TPIDs as VLAN tags and the egress TPID follows the ingress
+tag type, so following the bridge vlan_protocol in rcv would hide one
+symptom without making 802.1ad work. On xmit the TPID is taken from the
+bridge because the stack picks the TPID of the frames it sends.
 
-[Severity: Low]
-Should DRM_RA8875 depend on MMU?  DRM_GEM_SHMEM_HELPER depends on MMU, so
-selecting it on a !CONFIG_MMU build triggers an unmet direct dependency
-warning and fails to link against MMU-only symbols such as vmf_insert_pfn().
+The bridge offload patches will reject joining a VLAN-aware bridge and
+enabling VLAN filtering when vlan_protocol is not 802.1Q. A later
+vlan_protocol change on a bridge that already filters is not seen by the
+driver, since DSA does not handle
+SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. Rejecting it needs DSA to pass
+the attribute to drivers, which is independent of this series.
 
-[ ... ]
+>> +	}
+>> +
+>> +	return skb;
+>> +}
+>
+> [ ... ]
 
-> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
-> new file mode 100644
-> index 0000000000000..bf1584c6aa79d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/ra8875.c
-
-[ ... ]
-
-> +	/* Horizontal timing */
-> +	hdwr =3D (mode->hdisplay / 8) - 1;
-> +	hndr =3D ((mode->htotal - mode->hdisplay) / 8) - 1;
-> +	hstr =3D ((mode->hsync_start - mode->hdisplay) / 8) - 1;
-> +	hpwr =3D ((mode->hsync_end - mode->hsync_start) / 8) - 1;
-> +
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HDWR, hdwr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HNDFTR, RA8875_HNDFTR_HNDFT(0));
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HNDR, hndr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HSTR, hstr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HPWR, hpwr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Vertical timing */
-> +	vdhr =3D mode->vdisplay - 1;
-> +	vndr =3D mode->vtotal - mode->vdisplay - 1;
-> +	vstr =3D mode->vsync_start - mode->vdisplay - 1;
-> +	vpwr =3D mode->vsync_end - mode->vsync_start - 1;
-
-[Severity: High]
-Are hndr and vndr calculated from the total blanking interval instead of
-the back porch?
-
-In drm_display_mode_from_videomode(), htotal - hdisplay is the sum of the
-front porch, sync pulse, and back porch.  Because HSTR/VSTR and HPWR/VPWR
-already program the front porch and sync pulse width, RA8875_HNDR and
-RA8875_VNDR0/1 expect only the back porch (mode->htotal - mode->hsync_end
-and mode->vtotal - mode->vsync_end), so this double-counts the front porch
-and sync pulse into the scanout timings.  Also, neither ra8875_probe() nor
-ra8875_mode_valid() checks that each porch and sync pulse is non-zero before
-subtracting 1, which can underflow these registers.
-
-[ ... ]
-
-> +	memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
-> +	txbuf[0] =3D RA8875_DATAWRITE;
-> +
-> +	for (y =3D 0; y < height; y +=3D rows) {
-> +		rows =3D min(rows_per_chunk, height - y);
-> +		ret =3D ra8875_write_pixels(ra8875, 1 + rows * width * 2);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Critical]
-Can userspace overflow ra8875->txbuf in ra8875_clear_screen()?
-
-ra8875_probe() allocates ra8875->txbuf for a fixed width of
-RA8875_MAX_WIDTH (800), or 25,601 bytes.  However, ra8875_mode_valid() only
-checks that horizontal timings are multiples of 8 and does not reject modes
-larger than RA8875_MAX_WIDTH or call drm_crtc_helper_mode_valid_fixed().
-If DRM master commits a custom mode with mode->hdisplay > 800 and the
-primary plane disabled, ra8875_clear_screen() writes 1 + 16 * width * 2
-bytes into txbuf, overflowing the heap buffer.
-
-> +
-> +static void ra8875_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_=
-atomic_commit *state)
-> +{
-> +	struct ra8875_device *ra8875 =3D
-> +		container_of(crtc->dev, struct ra8875_device, drm);
-> +	struct drm_crtc_state *crtc_state =3D
-> +		drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_display_mode *mode =3D &crtc_state->mode;
-> +	int ret;
-> +
-> +	ret =3D ra8875_hw_init(ra8875, mode);
-> +	if (ret) {
-> +		drm_err(&ra8875->drm, "Failed to initialize hardware\n");
-> +		return;
-> +	}
-> +
-> +	ret =3D ra8875_clear_screen(ra8875, mode);
-> +	if (ret) {
-> +		drm_err(&ra8875->drm, "Failed to clear screen\n");
-> +		return;
-> +	}
-> +}
-
-[Severity: High]
-Does ra8875_crtc_atomic_enable() wipe out the initial plane update on every
-modeset?
-
-Because drm->mode_config.helper_private is not set to use
-drm_atomic_helper_commit_tail_rpm(), the default
-drm_atomic_helper_commit_tail() runs drm_atomic_helper_commit_planes()
-before drm_atomic_helper_commit_modeset_enables().  On initial modeset,
-ra8875_plane_atomic_update() writes the framebuffer while the controller is
-still held in reset, and then ra8875_crtc_atomic_enable() resets the chip
-and zeroes display RAM in ra8875_clear_screen(), leaving the panel blank.
-
-In addition, ra8875_plane_atomic_check() passes can_update_disabled =3D true
-and plane commits do not pass DRM_PLANE_COMMIT_ACTIVE_ONLY, so plane updates
-while the CRTC is disabled will also write to the powered-down controller.
-
-> +
-> +static void ra8875_crtc_atomic_disable(struct drm_crtc *crtc, struct drm=
-_atomic_commit *state)
-> +{
-> +	struct ra8875_device *ra8875 =3D
-> +		container_of(crtc->dev, struct ra8875_device, drm);
-> +
-> +	ra8875_write_reg(ra8875, RA8875_P1CR, RA8875_P1CR_DISABLE);
-> +	ra8875_write_reg(ra8875, RA8875_P1DCR, RA8875_P1DCR_MIN);
-> +
-> +	ra8875_write_reg(ra8875, RA8875_PWRR, RA8875_PWRR_DISPOFF);
-> +}
-
-[Severity: High]
-Can ra8875_crtc_atomic_enable() and ra8875_crtc_atomic_disable() race with
-ra8875_remove() and cause a use-after-free?
-
-CPU0                              CPU1
-ra8875_crtc_atomic_enable()
-  ra8875_hw_init()
-    msleep(RA8875_RESET_WAIT_MS)
-                                  ra8875_remove()
-                                    drm_dev_unplug(drm)
-                                    ...
-                                  devres_release_all(&spi->dev)
-                                    /* frees txbuf and rst_gpio */
-  ra8875_clear_screen()
-    memset(txbuf, 0, ...)         <-- use-after-free
-
-Unlike ra8875_plane_atomic_update(), neither CRTC callback guards its
-hardware and buffer accesses with drm_dev_enter() and drm_dev_exit().
-Because ra8875->txbuf and ra8875->rst_gpio are managed by devres on
-&spi->dev while struct ra8875_device lives until the last drm_device
-reference drops, drm_dev_unplug() does not wait for in-flight CRTC enable
-or disable callbacks before devres frees txbuf and rst_gpio.
-
-[ ... ]
-
-> +	for (int y =3D rect->y1; y < rect->y2; y +=3D rows) {
-> +		struct drm_rect chunk;
-> +
-> +		rows =3D min(RA8875_TXBUF_ROWS, rect->y2 - y);
-> +		chunk =3D DRM_RECT_INIT(rect->x1, y, width, rows);
-> +
-> +		iosys_map_set_vaddr(&dst, ra8875->txbuf + 1);
-> +		drm_fb_swab(&dst, NULL, src, fb, &chunk, false, &fmtcnv_state);
-> +
-> +		if (ra8875_write_pixels(ra8875, 1 + rows * width * 2))
-> +			goto err;
-> +	}
-
-[Severity: Medium]
-Does passing ra8875->txbuf + 1 to drm_fb_swab() perform unaligned 16-bit
-writes on every pixel?
-
-ra8875->txbuf is kmalloc-aligned to an even address, so ra8875->txbuf + 1
-is at an odd byte address.  For DRM_FORMAT_RGB565 in system memory,
-drm_fb_swab() calls drm_fb_swab16_line(), which casts the destination
-pointer directly to u16 * and dereferences it without put_unaligned(),
-triggering alignment faults on strict-alignment architectures and UBSAN
-warnings.
-
-[ ... ]
-
-> +static void ra8875_plane_atomic_update(struct drm_plane *plane, struct d=
-rm_atomic_commit *state)
-> +{
-> +	struct ra8875_device *ra8875 =3D container_of(plane->dev, struct ra8875=
-_device, drm);
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
-ate(state, plane);
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
-ne_state(plane_state);
-> +	struct drm_framebuffer *fb =3D plane_state->fb;
-> +	struct drm_rect rect;
-> +	struct iosys_map *map =3D &shadow_plane_state->data[0];
-> +	int idx;
-> +
-> +	if (!fb)
-> +		return;
-> +
-> +	if (!drm_dev_enter(&ra8875->drm, &idx))
-> +		return;
-> +
-> +	if (iosys_map_is_null(map)) {
-> +		drm_err(&ra8875->drm, "Shadow map is null\n");
-> +		goto exit;
-> +	}
-> +	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect=
-))
-> +		ra8875_fb_dirty(ra8875, map, fb, &rect);
-> +exit:
-> +	drm_dev_exit(idx);
-> +}
-
-[Severity: Medium]
-Should the framebuffer CPU read here be bracketed with
-drm_gem_fb_begin_cpu_access() and drm_gem_fb_end_cpu_access()?
-
-drm_gem_begin_shadow_fb_access() only vmaps the buffer and does not
-synchronize caches for imported DMA-BUFs, so reading src in drm_fb_swab()
-can observe stale data on non-coherent platforms.  Also, ra8875_fb_dirty()
-could pass &shadow_plane_state->fmtcnv_state instead of allocating and
-freeing a local drm_format_conv_state on every update.
-
-[ ... ]
-
-> +	drm =3D &ra8875->drm;
-> +	connector =3D &ra8875->connector;
-> +
-> +	ra8875->rst_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HI=
-GH);
-> +	if (IS_ERR(ra8875->rst_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ra8875->rst_gpio),
-> +			     "failed to get reset GPIO\n");
-
-[Severity: Medium]
-Does ra8875_probe() need to enable the vdd-supply regulator?
-
-The raio,ra8875 DT binding requires vdd-supply, but the driver never
-requests or enables it (for example with devm_regulator_get_enable(dev,
-"vdd")), leaving the controller unpowered on boards where vdd-supply is a
-switchable regulator.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110130515.4581=
-9-1-azuddinadam@gmail.com?part=3D2
+pw-bot: cr
