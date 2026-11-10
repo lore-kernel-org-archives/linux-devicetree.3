@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331222;
-	b=McxenayUSzGG6a9IWvDVulozNMnPUf7Q2VN/31ndKVAyjRZGv2//uQmUG1QiNhH81P0e
-	 Q8sZrvRDlxhisRYNsHEHgk0U15nNLmepe4qnELfxtUFvpLtTGCCh1CbR8Mn2VO21XrELT
-	 edt6gLb9nhvtbYGJbjwBt8O+9TKGvcZ/TboEPCBBplFoq7ox8k3WPJIQ+KGWnBkiTbF6W
-	 2iKdepis1cBlv+dxERyuE1Jiyv7wnpF/M8GRRgzEWqifenGPcoUmEgTh9wVmYMc7m5ZgK
-	 c+g9rbESWHNkJnxxsvbJGylrzMDqfioo4ggU9Aie2yzdbFPAbdtDrYR8IIM8kQwfoOA==
+	t=1794331316;
+	b=RA5jfLfxjjiGCeCcX9wZyZahjz1/t7nIFtTnowCtqxjtp8jshB/jmYAZbohU1duwPt2S
+	 VpFFFmFyrj3+EYczncJyTL0G0OD69dEqT2x9lrhl6wDYqJrc+3a55INc08imm8NK6nJOa
+	 dasQWtOVgjeCBE75dVyE5/MC44gU4i5OHsM+HgqxWBp8VfIZk+oB4uF6DWDqXaB5s1LsG
+	 5/WMNqKIav3rHlCg49VeyXYH2amNxIcHfLqjkedDpTakpiz4sLlIGSz2al7GY3iB0lgs0
+	 mwBo0xzcQl3Omq25UsMzE4LCIoI7KslFHvzFKSwGKZ93kiy4NLUHb/IOgeEQ+6yR9YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331222;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XwRHJ5rgcBcS/4oDRmK/CSwkap1QXXY5pWQdVGpfuaE=;
-	b=RRPYHa+xh3e+MRJJNN88+vAYgV6nNRLXTakqJsOZz7H7x7LxMU3pZGkR+mdnsLxDHXsn
-	 HFUcynZ4kes72ErnQvMVLOzrWMRZWs4lGq0QG5wB/K5a/PG6olN+xHmGtkyLSjhMpRreB
-	 wa2MXguh02cKdj3q6+/Mk2CZXFTQ+ZAprAvjFJBALieABiG61ACGrCVftoH1fPKsZWkpA
-	 xjaroIsPpoyHIEHYDrlcRdC603ahmPkIqCs5c7IWqzsdfU1vvojCMs/u8wtJhzE0p3jW3
-	 wyIGZ30J6iuBRQW84baG3oqVmAvbYMZ+FKXIN/+c2zck3hhwV5J07IUhAqYUAoy/myA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331316;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Hool60VyVPPuV9j4bE2qOmk4HnIvQiZg/cOhP/ivp10=;
+	b=U77Sb8SqvMdmOGxuRiFNvP1W/DMlHkgpN5wsxHgnkluP0KInSl28dj5bnYtVHYhgXmHI
+	 dlvmn0lvKoXF5+CNZvVrJM/MrtyVO0dfM6d5C0F1sTSfSJHr+vrCv+m629JzP2bIqQUQA
+	 i+OnSof51c9TLV0rGQhDw5W3DxWH2y51wWELpSo/9P+WKO6/ANiz6SCrZnBPjJzuNZnI2
+	 piRLfBZ+6p9y3JxYxpTYId5iG0fyiQGFXpBJLLLfA9D/ssiZf+MbV7ctrv9nkZy3xWFpf
+	 Rt/FUJ/AgMHnjpocl0Y2vSvYO4B73hzg0Zc9glFDyPxodbdrmlK9WYQm2SOuWAAoYVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWIfuL3b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E987606A323;
-	Tue, 10 Nov 2026 17:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWIfuL3b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2FED1F008A1;
-	Tue, 10 Nov 2026 17:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331222;
-	bh=XwRHJ5rgcBcS/4oDRmK/CSwkap1QXXY5pWQdVGpfuaE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aWIfuL3biVKcls24awRmlDaxX50cwvW8NTp+Aa/EzJdEwMU1fhbGDxg+SjhTp5iug
-	 yEW7edgKdyNirTBn1O7tFs9gIOTpQ9rRhHZjmidlb3deOMxrufYS6dlROvSNAV3weE
-	 0DbrTCslV6QhXF7TtxObbOnk+r2YotVslR09KwTLxcsatsmhNiY9WromBP5WCBVUy5
-	 LxSoOp7G1yESkGPXS057ZH3nsEpnfJ71wq2oYqIlBYGfpygltQRGfa6Yz7Ja5Jafts
-	 JYGbDdMcU2CNUHKGhfeTAz+2iOncfXO2/y+LNB1YyRebsY9N/afsgPNoXqtDhhfbDr
-	 COQsNLKXaIJ+g==
-Message-ID: <sashiko-outbox-207462@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/5] dt-bindings: crypto: add Rambus CryptoManager
- Hub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Ousherovitch" <aousherovitch@rambus.com>, "Saravanakrishnan
- Krishnamoorthy" <skrishnamoorthy@rambus.com>, "Joel Wittenauer" <Joel.Wittenauer@cryptography.com>, "Thi
- Nguyen" <thin@rambus.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261110-cmh-b4-a-v8-v8-1-4cea8ebc1d40@rambus.com>
-References: <20261110-cmh-b4-a-v8-v8-0-4cea8ebc1d40@rambus.com>
- <20261110-cmh-b4-a-v8-v8-1-4cea8ebc1d40@rambus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 17:20:21 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94BD606A321;
+	Tue, 10 Nov 2026 17:21:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C94BD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:9bfc:b113:5373:d0ec:2ad1] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xQpXU-001C99-1e;
+	Tue, 10 Nov 2026 18:21:44 +0100
+From: John Crispin <john@phrozen.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	Felix Fietkau <nbd@nbd.name>,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH 1/3] dt-bindings: arm: airoha: add AN7589
+Date: Tue, 10 Nov 2026 18:21:41 +0100
+Message-Id: <20261110172143.296304-2-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110172143.296304-1-john@phrozen.org>
+References: <20261110172143.296304-1-john@phrozen.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,51 +67,32 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: crypto: rambus,cmh-v1030: invalid unit suffix
-  and $ref on rambus,slot-stride-bytes
---
+The AN7589 is the next generation Airoha SoC. Document the SoC compatible
+and the compatible for the Airoha evaluation board.
 
-commit fe48437ab6a40e215371f9ad1c5f69cf88124d19
-Author: Alex Ousherovitch <aousherovitch@rambus.com>
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+ Documentation/devicetree/bindings/arm/airoha.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-dt-bindings: crypto: add Rambus CryptoManager Hub
+diff --git a/Documentation/devicetree/bindings/arm/airoha.yaml b/Documentation/devicetree/bindings/arm/airoha.yaml
+index 7c38c08dbf3f..bf432d256882 100644
+--- a/Documentation/devicetree/bindings/arm/airoha.yaml
++++ b/Documentation/devicetree/bindings/arm/airoha.yaml
+@@ -26,6 +26,10 @@ properties:
+           - enum:
+               - airoha,en7581-evb
+           - const: airoha,en7581
++      - items:
++          - enum:
++              - airoha,an7589-evb
++          - const: airoha,an7589
+ 
+ additionalProperties: true
+ 
+-- 
+2.34.1
 
-This commit adds the device tree binding schema for the Rambus
-CryptoManager Hub hardware crypto accelerator and registers the rambus
-vendor prefix.
-
-> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
-ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> new file mode 100644
-> index 0000000000000..eef82c2d71794
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> @@ -0,0 +1,145 @@
-
-[ ... ]
-
-> +      rambus,slot-stride-bytes:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [512, 1024]
-> +        default: 512
-> +        description:
-> +          Stride in bytes between consecutive VCQ ring slots for this
-> +          mailbox's command queue.  Like rambus,num-slots this is a
-> +          per-board host-memory ring geometry, not derived from the
-> +          compatible.  A slot must hold a complete command sequence,
-> +          which needs at least 512 bytes.
-
-[Severity: Medium]
-Does rambus,slot-stride-bytes cause make dt_binding_check to fail?
-
-In dtschema (meta-schemas/vendor-props.yaml), the -bytes unit suffix is
-deprecated and disallowed on vendor properties, and properties using a
-standard unit suffix already have their uint32 type assigned by the core
-schema and must not specify $ref: /schemas/types.yaml#/definitions/uint32.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-cmh-b4-a-v=
-8-v8-0-4cea8ebc1d40@rambus.com?part=3D1
