@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269046;
-	b=C7Wy3dzLVkKp0YlHN5duMmOunZI1bp/rGVey5As61pa/AvhODJnZIT0XFvNWK0tqhXJ7
-	 sul7WLhKrxOQVhRyAAMSsmghv47RrVysn0lx7zCMTHCJFejNSKnnPNACSGbtpUtX/4BVa
-	 PI0zhC1khIJ5wd9MqieI4H9mJPKJan3aSh19AU6rerr7MQOYgYLhTBLNiUM/yB3SsDhvi
-	 sH4Yi3G99PyVgfXBi3gQzeABzLA0GWn1Jk7RY+lqOL8fQmkFCX3WMCqrPZZ2Rd99QwO63
-	 w/U96uItdqtnCII72EQI3wm6bwduaCS7HAEqYbhvpLanS49uxNQxTITN7hPhssO0+5w==
+	t=1794269288;
+	b=t7SAauH5TChuxfY431L07Z9gN2XBc6cQHeOevB8oSGaSadqAAnow49x2B/kz3GAaDziW
+	 Squ2Gv6827BUYIG/9SxUm5sPykFUrVq2YX+EFt+tOITuCNh/rfxQKwz1kx336fuydOYFn
+	 0x5QMGdSwGcisb1IU+g7RF/y56jQLGlZv1n9sA8JXBcf4eS35aAUGL0deXwIqt8lCcCn6
+	 hGdia9c0F3UU+z1I8cXb0ZgxMTqDflTs38CVLeH6y4T25nY/VcqC7kk13IakuN38bHhCO
+	 MYriKK4cY1iAroE1UzFkKdZkHSiKQrBidpxxspHaGLvtYbuqVZ+mnoYZHtrZV8S7PIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269288;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vESg3aj26lEluvBcaUBYlDgZP/BjzkrTsmOjKAVCv8k=;
-	b=4SDIMdqPeMaZoIRkj0XWKHQU7NMpTyR3Uoc9KL+LarhqNrDpUXNSRGqMHfC0AFl+spXP
-	 W/APRwjP89r/bsKZ06tAwqJV5Ua+96jcGZjLv30dikDGPBazg3mHDfpJ1G4W/TW4g7/yF
-	 CofBWHatfkjqgle8eduDiz21AwudCsKMGMMXU5SK8XbDxRnLoXp6uJt3KbtDGqyOfldtd
-	 /4ibXoHU3zL/chiKLK9tbF/5NEKsemBDuk7gVy2PIrBTGBBnGduO79TJTTjUucTQFWKlF
-	 xicfDUkil3x8ieTzcjhkhKZtn8NETpg6FmA5izM2VkGQZrFr3zd2NWMo8+6bcLYy0ZQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HBllqaFspq6PXDfJKO7BEL1LDpbj0tKT551PveSJLv0=;
+	b=iVW79riolyn++c0uaK+Xb0/NSzeZUTowS6HKtLdXpZU3+GgixZj2aPGrFBnixRzvBYxK
+	 Mu6wGf5vdbQc6S+YxzGyGvYLYtPSAjA22u68qPW9eMlyg6fiBOSThMwDa/5ci3h0zrz/B
+	 7ATkb8Fr5Di1pRCUZ0rQXEsPc6Y7xCxMtrCwECdFRKAKtw7fAVmrX7mmtCi/qkw3lMa7V
+	 UjiKasdNjj4qSGycwOC646gV0+7m/o0DWNjrai4bfQJ5LiSRSqRJgQXGrZpRpSjfJ/4WL
+	 nMiv6Mzc7trXg+jf5UK40W0CZH7Caf5AKNmBtd3zjH49rJCxrEnNT9Fggs6HjWejgUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YN77BDj2;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iL5+I0cL;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F59606A334
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 00:04:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F59606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3405606A33F
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 00:08:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3405606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YN77BDj2
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so12242145e9.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 16:04:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iL5+I0cL
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e46e449e8so963322f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 16:08:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794269045; x=1794873845; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vESg3aj26lEluvBcaUBYlDgZP/BjzkrTsmOjKAVCv8k=;
-        b=YN77BDj28AgJIKBjQOvbV7gOozPi0QbWFAXmF69f0sSx+uC5nwG5WFm+q2acmxICIC
-         jU3ABme9xOBIXz/YlxDAATfhxn/I4Ek26jZ32MsWxTv0SwHzXG2fchiOJvHFbpt9q7/b
-         iagEpoRSfb35tW+6AJ6KUtAKWTQAh0CAXMAASLbNe4+1LoGFkQVCkNcvxgx5M5Z9ch4r
-         gqNuq5qri/Qe6gcGW470dXFscsCTziXLbFOr6/jI+rpwaEDBcPUuRINtNUmdkVnUTqhk
-         XsXtyU6M26x36c8vWDq80w8Ran5mIWbTd9TIW9sJPUYuhW+dw8H0k1viQLJvoqVWy5yR
-         7Apw==
+        d=gmail.com; s=20260707; t=1794269286; x=1794874086; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HBllqaFspq6PXDfJKO7BEL1LDpbj0tKT551PveSJLv0=;
+        b=iL5+I0cLr+ATVuNDWPuu5e61AlHGDreEeL8uYqTJan6brOFqG81URE/GhFEPf1EXj8
+         19SD+Z0FTubz4ms3PvY57QzZw7b+ObGHn8SoL9HrwcKy1++JPooTxj7pk9161Vf/vKIU
+         ekhd8K3g54CvLJbULwkZx1M1mNfkjLBDvxOWAKLz71aQLSEg6hnozUNxcsh2YTRSPywx
+         uS+RUOfu4IxObk8F68Gc6CHL60uz8I0PCEb/uiY+t2qH6Muh+YOzzcrsILyLqobYSFfE
+         /h3j+2zTwDNASqYiOdpu/BJO7DMO6jP9ruk4rC6aMfFPN1t62vW26Vfx7364HCvw50gX
+         9NjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269045; x=1794873845;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794269286; x=1794874086;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vESg3aj26lEluvBcaUBYlDgZP/BjzkrTsmOjKAVCv8k=;
-        b=u5YJSPQfWW9Hct4POInVLHGO3DRHLl+8JOhxMWjVJ4zPSvszHLJMdD0naPkPCGkK4w
-         Gud9/zZPHYsXa8FAbleXZPn3b/kwDqL2P9lEUyP7ZfLRo0bqaahJISEGF2Ea+gwIYCha
-         1dJb35bLB4Y+WjsE+1qiHTKySa0Gr9Rk/BSkniaw1kDwBTgfuuJc8RcCfKb5fBISm+6y
-         QaI+ZtGAHfoQdO4RRGYznuVT4FerDCfpEWdmPv1K1B3EculllFJb2t1ASF9ExlOJw9ku
-         Ghhhhxo+I1S0QN9rdu5Tpk7ZbIS9oE35v05wzBBX4/wG3OeqQ4dbhFs0/RrHHuXzuSL/
-         SoHw==
-X-Forwarded-Encrypted: i=1; AL+hErHWeQgbC0atbR0lUsSsvE9L1SgNjy6lXU65CungJ+jJJcDaWik3sePMYtbu9KCx3WNEQ6XgcEuz/bsB@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fmrwFSvhlWSzJM+YPnJegiU1zqyn89bt9pnk7dK7LwtwjhN5B
-	BJaYYy1HVuGEChq7XDrL/9ozIWpwtzYzQORDR381S9XsppTIczX/X7eYlGpE7yLU+s19A/rZHpv
-	zp/u8
-X-Gm-Gg: AYBFou3Wu4/vakKfo2axi2Y1drXimirR53zF6NGpQW0D0nh6RCttx3hqSxwBu9pgAZe
-	PGj7CKfTg2Qjibqm+SFLlNo6CSBwVZ7eFaE/EFLiu6zDyzXALWor+XocAg8frec6p5Qw7hFvSgb
-	SByQI94/A4gM6LOdUL5LObvMjuIc6Akha9pMaM320dpiNgTHsEQ2Yk0gIei3T9nK5gYcefxNS0K
-	3mlZtsHwtkdEIw73jBYRcTQ7Ln7xu6KFNGYNYS+lOsD3xpkGmd/erpiF7eGrZNcTgEZvsPWFIBn
-	9DW9XegYXSVAgOpShHO+EdGCx07WbozX1unLo3m4SeQLhS/SoFOOC9DRiLgQV8ch+dR1Kp9plc2
-	jgpWi3m8fhy/AQWiW5k24rMEsZvfSz4gWfjCVglk2u9/6aJDOj/NDeaOSUAoQX19s3BG0Z5lF/3
-	TdSxJSv4GboPMGT5yQyFFQLw/1fsXP+xTru9pifKKnYez/JPWmWm689b9otLqS9pxljSzsuEzSq
-	+748q60TJZOX1OLmM0ZshPN94yRBAx+9HNnDsXAza0C/+9beZDvYsKf4HB4TCwzXFXUHs5ZNR9c
-	WY6tPDgZJJGAiJTOAMl0t74fn31INX6H8y8R6UI=
-X-Received: by 2002:a05:600c:811b:b0:4a2:1197:1de0 with SMTP id 5b1f17b1804b1-4ba02344e46mr9602805e9.19.1794269044761;
-        Mon, 09 Nov 2026 16:04:04 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.74.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2c5asm38245075e9.5.2026.11.09.16.04.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 16:04:04 -0800 (PST)
-Message-ID: <fef23213-8ccd-4235-a375-c00aa540bdbb@linaro.org>
-Date: Tue, 10 Nov 2026 00:04:03 +0000
+        bh=HBllqaFspq6PXDfJKO7BEL1LDpbj0tKT551PveSJLv0=;
+        b=BsvW41g0XmO+xAMRaVuu2uaN0qSGspAZZH97dJtKQiNNWhg0SMKE2i8pVPgr4qr3t1
+         h1/7EamamZZo5eoNlM0oyHi9WGzFsr2McplFyHauGhwGuXzJVZYbMzB/5rWuCG07HPmR
+         ycL05IWC/FUPY1fIxG5/U1ZBGi+a5UKeSa7B6vfyFf6KD88fyn6OTUFIRckKKZn4tW3z
+         mDzdqSoovQv6rjHQAARlNkaSXSqtT0jGOKG/tZJfJQbIlz3gBw45Glozbbbs8iMHpxQp
+         HXMhovZAakyDrA9mmKNgOk/PtJCYa6n1ZUn7UBK5s1jPrz89KjmJVteKGc6FRl5Nqht1
+         C0Lw==
+X-Forwarded-Encrypted: i=1; AL+hErFk15rjS06B+Zox/e/JIsOi9C66Al2lN3LyKsVPIUKrClgDvmZ0IuVFygIg2GJDf3VNOw6INKh9+rAr@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gxmdEhF96+pNafAY6suhx96nmIv+mANiWORNlU/9eePLrOEIg
+	KZeMF6xvrhkQc4ZXJlTDQO6053OntsP5nM+A5asxUos3VLtblwSIy9UB
+X-Gm-Gg: AYBFou3pWX+rMwfpqydsHaJJHvaHSf21Q7mVT+WQnJblF8uKhoxzzfRdFmaRQHQCI0D
+	p7SpTjAQm6xHWu2TaJHB7ZFdrFaFbpxTRAv6+yX9Ez8yM2aJ3c3JBGa0BKAPFOHf2nx+R/0K2dx
+	DOwOZgeVHaoYuMn4xWL6YZmnRE5yog6GHYxvxDSRETJVhILwZZ8zMxDPPm59bpHJSw8recmV1Fy
+	mL3SuScOzR+07J/U+n0rYxhC1sEvhznWVh0pjFzcLSQ1NmoseRO935Q5rhOlBPM69mdNMGulA+o
+	G4dA1rYeXQ9gfdFkgeB73Szr58zen0JSJ+kGqou1CLtC43Wauu1oXyLgz5CSTlFQZkS0Zts/Vcq
+	VbQxQelgqjZtgCwvfvjp4XaZOVviHx39GQMPd17vN+RyXuRCPLJ7x76hSJlrhRaQVL9wk3jHdBQ
+	ygJVXjKcP419TxWSinLME5Hm1pauG83kFJxKfdHVRMxyrbQDZXVMHWGY0A7vEuEJ4moe6QADhEk
+	GeEz6nUGatMiXw407OOGpZa6gnY+QT87LmszsLLpIGBXa0irrjsSxDRHbUkntpcCMkgcYWiddW7
+	CUpg+0uZdJVhiWiTVynF+ct+webDYrGIVW6pq4yE4x2wHea3JhbXed5eXUqiDgRyJfoAJ7ieD92
+	cvKAG/2/2P3GmDduYH1lHCFJTyNA9aN0CdtIV+fyaF18GdrJ6kQ==
+X-Received: by 2002:a05:6000:25f1:b0:491:9fc1:e6c2 with SMTP id ffacd0b85a97d-498318067demr1350295f8f.51.1794269285946;
+        Mon, 09 Nov 2026 16:08:05 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (host-212-171-11-30.retail.telecomitalia.it. [212.171.11.30])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm1704703f8f.37.2026.11.09.16.08.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 16:08:04 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v12 0/5] clk: add support for Airoha AN7583 clock
+Date: Tue, 10 Nov 2026 01:07:45 +0100
+Message-ID: <20261110000753.508-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,30 +104,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] media: i2c: Add Samsung S5K3M3 image sensor driver
-To: gauravsuman007@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
- <20261109-sm8150-camera-v1-4-3d2e7b407516@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261109-sm8150-camera-v1-4-3d2e7b407516@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09/11/2026 22:38, Gaurav Suman via B4 Relay wrote:
-> Tested on an LG G8x ThinQ (SM8150, CSIPHY1).
+This small series introduce some cleanup and support for
+clock and reset of Airoha AN7583.
 
-What would be common practice would be to post patches for the platforms 
-themselves - i.e. the DT patches to test these changes and view the 
-binding implementation on real hardware.
+The implementation is similar to EN7581 but AN7583 introduce
+new reset and more clock divisor support.
 
----
-bod
+Changes v12:
+- Fix dereference on pcie early unprepare
+
+Changes v11:
+- Move to global spinlock
+- Move pci ops to sleepable prepare/unprepare
+
+Changes v10:
+- Fix whitespace in include patch
+- Add reset and phy cell as required
+- Add additional patch for devm variant
+- Add additional patch for lock for clock and reset access
+
+Changes v9:
+- Fix compilation error for priv (again) (this time fixed)
+
+Changes v8:
+- Add ACK tag by Connor
+- Fix missing priv->base assign
+
+Changes v7:
+- Add further info for DT patch
+- Add serdes selection support
+- Rebase on top of linux-next
+  Link: https://lore.kernel.org/all/20261009070725.13196-1-ansuelsmth@gmail.com/
+
+Changes v6:
+- Address bot suggestion for DT patch
+- Add further information on chip-scu phandle
+- Add dedicated PERSTOUT reset and PCIE_HB reset
+  Link: https://lore.kernel.org/all/20260819221458.30040-1-ansuelsmth@gmail.com/
+
+Changes v5:
+- Rebase on top of linux-next
+- Drop even more patch to reduce patch delta
+- Make chip-scu specific to AN7583
+  Link: https://lore.kernel.org/all/20260528190000.9164-1-ansuelsmth@gmail.com
+
+Changes v4:
+- Add review tag for DT patch
+- Fix clock patch to use en7581-chip-scu compatible
+- Drop PCIE SCU SSR write
+
+Changes v3:
+- Drop .set_rate patch (will be proposed later)
+- Drop chip-scu binding and related patch
+  Link: https://lore.kernel.org/all/20251106195935.1767696-1-ansuelsmth@gmail.com
+
+Changes v2:
+- Add .set_rate support
+- Rework DT to EN7581 implementation (clock driver is parent)
+- Add additional cleanup patch
+- Merge binding with schema patch
+- Add chip_scu phandle
+
+
+Christian Marangi (5):
+  dt-bindings: clock: airoha: Document support for AN7583 clock
+  clk: en7523: use devm variant for clk_hw_register and fixed clock
+  clk: en7523: protect concurrent access to reset and PCI register
+  clk: en7523: generalize register clocks function
+  clk: en7523: add support for Airoha AN7583 clock
+
+ .../bindings/clock/airoha,en7523-scu.yaml     |  25 ++
+ drivers/clk/clk-en7523.c                      | 367 +++++++++++++++++-
+ include/dt-bindings/clock/en7523-clk.h        |   3 +
+ .../dt-bindings/reset/airoha,an7583-reset.h   |  65 ++++
+ 4 files changed, 448 insertions(+), 12 deletions(-)
+ create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
+
+-- 
+2.55.0
+
