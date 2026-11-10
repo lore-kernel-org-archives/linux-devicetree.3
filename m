@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794289018;
-	b=wd2rvB8t1Pt/FPzmcy4MGvmstN2JTFcOU9li+mZFG01zA2+ytoXS2CsgBEeWpFxnuUu0
-	 Bduy7rnuMKejRZ1xZeaHNMYxw2EJE8hOW7wyQzl0GMR/M4aaJ18B80VIiUzYgQiLcAOhx
-	 U6o7h2O+hCtods9+tofKCMavBoLkURAWWGpeskbunzTbgmrllPzuXiluW38ETeIApFnGu
-	 TtfZ3jaLUtaEZjZBxkFcV4ui7vA1RxSvs+CLxpMZ3ujCCHbsNPpA92sv2kZuW/b7rAsN5
-	 FgophFP2rpm5em2XlXv1TPq8Y16Hke1Q59iG891th094vENjG6DtHW8nzf7TFJimLqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289018;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
-	b=xTKIMzHcKT5lmruE/A8IDsaTYICQIBaWDSdiMiSqEtWyS8urMjRAL1U7CMwTrv4ivjqP
-	 gGZf+ZdmGCgKztKXygUlv7O5fBm/ZI+3ujeYKdiWo9vv10aU7zoYTYHiOuUTsVJRG6n6B
-	 ltHrk3MenkzpUF8NiktKqqqoMB7OM2zTiOb62OvGQJhx3g7rLlI+lZcAZtecw76ZotChU
-	 MnJ56msXS7YQOS08DzYYEexJaZwyndJQkbjsM+0q+gCmsoe+s1NBV3bmLoDa29XPAzUe1
-	 G5JxfdMH7vxOTq++xoWfftoj0rO8DF7Zu6o//lMRxlimzeA2iep399181ACKKLbv2Ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr5PZCIw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E4606A31C;
-	Tue, 10 Nov 2026 05:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr5PZCIw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794289017;
-	b=J9FtsbkjJFM7XH+0lt5Q2W+Z1+CEcR39LWJ7eW4vsYUtlOFHx4O+agX3J3/qYFbACvW1
-	 7mCRBNhMW9jmgKTjElcsOVBxwP/lILmBRxRORUWfM/Ph51fMKwi16BDzoISJ/5cgkaTGk
-	 ja4BqrBKIBUv+8xuX5uLGaYmt9QM+LJi65odh4oFy6zD9B027NXZA7nqCUo2HmHJm/mJg
-	 PBX5+jURXffG3ICy+aRIPTqbIJNQ9QLfosiokyLecpA7VTKOAXi/84qWjhM1kvCHWd6bS
-	 jOnUTA9LYNpvqn2ZBx0i9NdnSwOr90HpPa2FbxUy4X7HUzMg7TzT57T9GKhX4OMavCQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794289017;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
-	b=0IueqRRqAwPbfc1gU5Q1QPfmZFIb9Vj2/7iErsLQwLvb/QM+WOznigy0F8y22MJwymkE
-	 kpK2PTbK6KHDR2V8rlRDnmHAzbokgXq+QopQSfBloMtKL+xhP225R/M21joUeI18bYNTs
-	 5/prfeHEbH4wn80xPn12pAW1thGwzE3EZb6YmvIod9afX6FCOZKUYzFfWKDbFSFo1Kkqi
-	 YIC8lQh2Cp3dB0VUUKwiwYLJBpYbmYWzU5C+fe6j2UWGldyhepeXDEHWoCxd0WS0CkgOx
-	 5L+jdthk8T1357bQZISShuRLdpnDIaXhmpLecqGhroaw9y4iV7j0fLmTr2drD0V++mg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794289167;
+	b=AU/9ITf0sTq3kLAiXkqvSiEk7vhy0/ZKTZZuGBLxoPTEYDA/lJDLOgFy52uBTr8KUjyE
+	 3jVRIoNonBzaKfh7pqlsOA35bzvtqvOc0jEMy1Uz3LN35bXmw0HbD/7IpVD2CQ4u2quiL
+	 jQuxTffgG6a55Yy/pDCNBlgmCq/H616CI0kwvHoF5fpmGldkP95bWI1b/8FtDZ/jaJCtW
+	 oWlxskbsoM5PPWPD8LZ3zknpUMaJpL2INWjbaZNJqGTyQT7W4lbgGsW3YiudXuDsvXWvg
+	 D8ZSQNlTRNurfSb9kXoCm6SQQhqRUh5BBT4ImxTpB/Mp4kfmOMKmOgCsaFUp2oYfNMA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289167;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NZXjw7iHdBYOz25+dloLm4rv1gSDvBYEq3SFSQ7c0Jo=;
+	b=S0n0Zwc2VG7Fghf6BWvPpo79tgTQ+VMBsB8lT5Af/FK0xvyvevwFdTyYs5HUALtEaJ7N
+	 tSa1s7/TEbI8th5znMc8ca0I+rqP1UMx/tJ0APtqwCiO9BXx+duL8cKn/I06u13dQn+9u
+	 XgM5Ql3PP44304PvdfDrP5nxLDHO9FNeO/2BCJD6v3nTuL2dvQfH58WW97Qf9FJ8baaRz
+	 x2Rb7FDCxcxePCfgy7aQW63wVpe7lklx3CKr8+63Gkfbm3w9f/P2s2LyOnNvFtj4eiJhZ
+	 AwWzmupDcYwMiECPf6Bq0oaALIYPtxNGB/zND0cfq1pox7RtgsfQoMC4FveLtXQPaPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q11nkyxb;
+	arc=none smtp.remote-ip=95.215.58.184
+Received: from mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 19ABF1F008A1;
-	Tue, 10 Nov 2026 05:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794289017;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Jr5PZCIwY0fFRz2nQ4EkFpekkFqHH0aOSvvVW0sZdMmIXyZC+239K1JUdkjUjt3my
-	 JnHiYuWqMplIVzDWBOvVrTWNiqMtW3e3eSVx08Tm/+i6VVeXrUozsDUXLrsYHYDiOw
-	 OpdhRAgsYw6AZwYNa4FVbqzFN6daMxJW5gxGW5J0jeh3IltdOyUoZlEcha8EEAiJsw
-	 Hp/Y2d1CKVWaOktU0qhd7+zfqbNQaavZG1HP7C9Tj9ZvpU2uRbXwkP4VCR2RPze9be
-	 vrratBvUWUPi/kZcvGJMJDDJh3h3Rox5xx3dDgN7mMZotX2Q0LPkUoJroHJ0H+rDGY
-	 O+APREBv3xunw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 925474889D;
-	Tue, 10 Nov 2026 05:36:56 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 05:36:55 +0000
-Subject: [PATCH 1/8] arm64: dts: allwinner: h616: Cover the codec RAMP
- register
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF03A606A325
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 05:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF03A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q11nkyxb
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BeEpc+Ak8iIFPGrajMqKB8SxEGKljrqyyyjENWLZtvI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794289164; v=1; x=1794893964;
+ b=Q11nkyxbklIE7a1OsVUnYsONQBP5jWofJRTEVU0/oWy+6WSrq/bHw4x4gRHBRY4SwsaMdsdp
+ BYsG96ilsPlaO/d8VUJKJvWIkyJmkfmLe/paVGp/pwYf1d6FqQaeKKoZepI2k692UO0FCFZgp8r
+ Tdy50+7jtPYLV79K5wddcwRs=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13f18eadacae033a;
+	Tue, 10 Nov 2026 05:39:24 +0000
+X-Mizu-Trace-ID: 13f18eadacae033a
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 05:39:15 +0000
+From: Akhilesh Patil <akhilesh.patil@linux.dev>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	robh@kernel.org, crofts@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, alexandre.belloni@bootlin.com,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rtc@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261110053915.GB2506228@u5ce4748bae3b54.ant.amazon.com>
+References: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
+ <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
+ <avG6iHBBDp0ATTsi@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,63 +69,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h616-zero2-dt-v1-1-05506d760f21@gmail.com>
-References: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
-In-Reply-To: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794289015; l=1252;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=BSR+K6Y2s3B1U4tlKARegXXjsMuZ0Bl9ncjh06Y7t+g=;
- b=F8+sGiy59SecjOOHu2S85UUAAYQ7TffzPe3QK/d/ww7kTf9DBio3QsJ9MF8X8ldXki5ASmFer
- Pqnsac5Ps1BCGvKU10OSa04i6E1DPFTwtCdQA/zUyGjycb8JwviSq/2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avG6iHBBDp0ATTsi@ashevche-desk.local>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Mon, Nov 09, 2026 at 02:20:24PM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 09, 2026 at 10:44:43AM +0000, Akhilesh Patil wrote:
+> > Move to my new linux.dev email address akhilesh.patil@linux.dev
+> > I plan to use this email for kernel development going forward.
+> > Also update email address in few yaml and driver source files.
+> 
+> ...
+> 
+> > --- a/.mailmap
+> > +++ b/.mailmap
+> > @@ -1030,3 +1030,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.com>
+> >  Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
+> >  Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
+> >  Zijun Hu <zijun_hu@htc.com>
+> > +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+> 
+> It's not a rocket science to see the order in this file...
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
 
-The codec node maps 0x31c bytes, but the H616 codec has its DAC
-RAMP control register at offset 0x31c (H616 user manual v1.0,
-section 8.4.6.56), and the sun4i-codec driver uses it: the H616
-regmap has max_register = SUN50I_H616_DAC_AC_RAMP_REG (0x31c). The
-access only works because ioremap() rounds the mapping up to a page.
+I missed the instructions in the file, Thanks.
+Updated in V3 patch.
 
-Grow the region to 0x320 bytes so that it covers the register.
-
-Fixes: 3eef85034c96 ("arm64: dts: allwinner: h616: Add audio codec node")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index e4e0b999473e..68bd6137c316 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -806,7 +806,7 @@ spdif: spdif@5093000 {
- 		codec: codec@5096000 {
- 			#sound-dai-cells = <0>;
- 			compatible = "allwinner,sun50i-h616-codec";
--			reg = <0x05096000 0x31c>;
-+			reg = <0x05096000 0x320>;
- 			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&ccu CLK_BUS_AUDIO_CODEC>,
- 				 <&ccu CLK_AUDIO_CODEC_1X>;
-
--- 
-2.55.0
-
+Regards,
+Akhilesh
 
