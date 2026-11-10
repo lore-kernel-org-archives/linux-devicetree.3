@@ -1,63 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337067;
-	b=Glv4Q0sb5oyl89/W7AH8l4o4zp8XDQmq+5lmYsWI7rsifLuk/r+3UUAthY2XgwUeEEyQ
-	 3F41z+eeBPgDlgNRcE8kNCj4tjhGCF7GsRLNqbwdmP/cAibvgbb3ACClV6aoGK2bX6obY
-	 V/J+2uIV11dCzBPuhToVULvmNhTUs4y/2XlxBWM6INdAQrVA0HsrYpo6/iavtjQe1+Ylb
-	 oiSRf853C6UNEZmGZFM85yoyvbeDP6Tgkji75cXEYU9gHqCPikV/nvhztSelyQwQdDwbO
-	 GMjjIjxSg2Mgyds0ica2ieJZVEqIZykvrgIlwgeE0u+L1WZWXJ7ZusYVR814Q8fkAKg==
+	t=1794337090;
+	b=g35R3R40sLU4J+fSYrDRZKV/DgsGTzqQWyk/AhCXPh6xj8XGjzopXL703vEcuGY326zq
+	 SewSHa2m5nyFI6KNUpjwXdVs13ZyxyA6qMwEUvk3B5vS2uJh8Gkvs8c6B/jKEoR0lbEuV
+	 06khze9AAHZ/+24kNqEktaLugiYrLkFH4NdVgJHxuxTwGdanqfOq4exdfmywQF/wyx49I
+	 cn/dcQBA+REW86L5W2oLAYpM/v6Bd/2PIgxEHymbv7+7skxW3QPa8jkhw2gaZ1gjNXq0u
+	 Bw02lcuJbFuyITu0iRI1C+QRBcdWEUV4pefCAVj16X17iPKuShFx/s1Z1q3AdwLRGZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337067;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Tt+WmpAkUFOgrfzi7btk/x8M0AYBTyuSqOIMJxNpD+0=;
-	b=Ip7y3x8uNlbcuRd9IOHkQtbbsdIgK5ZwHywc0lD0clLlCH5S1oWTPXzIE/UqsZTYgclJ
-	 gi6a8mPkXfmj1FWMvpeHgA/B9Gg4fwpJbgTzdVGTd/mzcnvTA5MvD4iPs0p3niOdbglOU
-	 e+HfcQJVnsF+DcKHwEOqZVnjaarbm8T4NRQLt7OjfCBWnpgPv4B/OQCiDhyBYFIORvQwE
-	 B7bmLThy6gTmdddifJEEOSGFa2hYlZhA/DTC4bj225QTPg1Ft8Ose9a6KMMlPAOXXWBz6
-	 pIFdMlRWpiF3ZsR5Qp9LtHxZFN4NtTfFOCdbnyUaYED47jT+tzgVNGgQ3o36tAQPyAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337090;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uax/a+Cf5PnYF3LAag3fOWDgi1ERLoTCpA7WArwoVB4=;
+	b=hq7O6/XdnLfpbajuClCxgPTEMhIO+lBJchOXFtJoweq4M8+hK1qiX4zCYaPHM/aR64Rl
+	 GiF+uL/zsZACZ04dmpqr6GYeEafl96JPoIyhF6/His+QUuCHHTLrfkNWSCyE6rShgmC0D
+	 KUCz2kHf6z0o2npF4sv/yiIyI6y2SkbNuTmyNw8sT4oYmJ+UqJixRGgBoCy3YEEwoW7j0
+	 wsIoGI5w90aRT2WsUZG/QX1fqB+iUPyqtKVk983sXmuqcw+DjR+QDml+ypwJdWovUnhOs
+	 EtdvxHjoJszEf/WU39mGtimFxRHm3No4fXsZlvVS7GM3yCfbt07R/TUzUSS5IvIrsSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=O9a8UIa7;
-	arc=none smtp.remote-ip=88.99.92.76
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hC8j81W4;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523C606A332
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C523C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3905F60A2605
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3905F60A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=O9a8UIa7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1794337057; bh=Q4YkH5NtpBumyhhscsY/D/wVL7UIGd+c47iMMzSXQ9o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=O9a8UIa7eUHrbyVB8oBUf3riQiJbYL+R4gLsXysG3Rcr2SCIyUxXIkHTJLPCrpBXj
-	 xcSnngxqF1WX410ViBiY/MB4LO3rm1+8WygkwkrlB4h5Hmzo+hYcY0quvOM+JTvlny
-	 iin5qWdBHifecs15G0dyUJ6l4YhMUxfO2ybSGv5ZHtc6vd9IZJq4ashpgdM/X/6L/t
-	 Ox+VTLONNOT7X1YmdeyObK9+C1yG0pn72fgi9vvBwhIZ9lzY0Antc1OGqSwmDgqVaM
-	 mYt3iawuT76SvbVOZHpVkrgVjITFhwS4bQdXTiOSDzf6l6yY4VzqV0w+HTuEtrbc64
-	 8obRQENWHS4+Q==
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id C2E902174A
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:57:37 +0000 (UTC)
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df7f544919so1268232eaf.1
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:57:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFZKGZZJoRT24/voQMPiaFRMkvDFLkXs3+J5FnKPNUhdbSdrMOUmUS2qstNnpsu/JVxQZrNsazhg1Cy@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lmYSG6vag3mJ325vWFIqH4NTX1V67pNNOjbY/Uuai+aFdT2/i
-	HVBdBywuYGpMWLQz4pmkprQQQM4sXWWAvWVqAlF0LKR3GHD25lEu+3VgDebGH+2Vk1cAcvwk6kN
-	if4K/2XoqPKvU8OkCBwph8gV2IrIBWA==
-X-Received: by 2002:a05:6820:1c8b:b0:6f7:7a4a:9d7b with SMTP id
- 006d021491bc7-718a576d5b8mr1715751eaf.41.1794337056322; Tue, 10 Nov 2026
- 10:57:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hC8j81W4
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-943e8d35f74so204498585a.0
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:58:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794337089; x=1794941889; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uax/a+Cf5PnYF3LAag3fOWDgi1ERLoTCpA7WArwoVB4=;
+        b=hC8j81W4XVy6GM6NSCd0k/bnKZL9dDfHbCnjIHZEMV4YCCxJo+rbG8Q2gJ1ziBpLGq
+         b/WGl7uM+GbW0ScCbcGRV81gVeRTeNgz0MizF5kMHCM5ZPPdbitL1rbaLNattI6y9fcm
+         0DpQSnY4WXKFOr6Wn7dT2dmcAELqKsJEKzR++vApSbK2g+bqtAQ3mQs5BCzW7QtRSntj
+         GWWCQkNu74fERR+RfULkWg5huVt0eR7NbF0yCDO4S9QOY3TsdNE17R5IVmsDeMYlMoLP
+         36wy31vJ31vDKQ9MKJyqWq+R6e/unEw5WoidBXKtWmZIODw2TxbkPGzvtWf17iNMm5uC
+         b7ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794337089; x=1794941889;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uax/a+Cf5PnYF3LAag3fOWDgi1ERLoTCpA7WArwoVB4=;
+        b=U0z+VK7F7dgG3YxRmphpkqPy4PDR59uoGC8RDfv5zUM7VIOhqnpiUuBntGvatshfAY
+         uLSmN601krbhWaLnw9m6nLLWcOrcUbM8ts/xcWCqseuY9OGG7btMOrksBq80bhPCtECW
+         TJr+kL1pQv8T64RKGfimCyJUCqa0zex05fLnHg3TMj0EO5mTUsNy6PztNF9eLgdUGojG
+         fTrmGKN8bv6CnnCDbKXofDLJHi76d0sN5PPYxhOxEnk8ff/p8ftOAcG6yUuS9aVP+72L
+         kE88kmFKW3f9WPWizGJvlnT1PzKO/IXX1Ap7bUJp0ltpHHB0xpF+Mdm5LJE9e2LIBEo1
+         txKg==
+X-Forwarded-Encrypted: i=1; AL+hErFZsZe7xW6fYJN9EcjmQck4FSQlHly/h3ohBK78OCY1hmrxHONuHL+vhm+gOJWBPx9wi+b4higMsvIY@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NQVmJWwmAFujst/yWHgplB3ArcAq9dWriDcI633eEK+6Zs3Cs
+	wFKjczhJfSa6oNH+uR0wJd7IPkBegFN+r7fk6ToMdemxPC7bSITYvhNO
+X-Gm-Gg: AYBFou2wQgVrI7RWjuMlBYC0yrECuUjZsayPkGhwUJk9JFaVPsTszqvAG52xTogeIn9
+	6KusRHaAgSgtrSNXE/JCzQ2AX1R7qlfQXW/m5bSSogQn+UycA6xk/xqs7uYQIEtalYYSyLc9RRD
+	y7XztgRGQMe0N9bTfOIoHbH71izAd+I28vrkKLwfhyeQMS+UXPN9krDutfKEXNf/IUFKuzzFvbo
+	H7ZAlx+une4jqr4ylXJlaRc4q/iGUfpPZzoj08i315JxkKOjRVoSSmLCdlS3meMs3APFsNCc6Sk
+	hgGAcZvTMIca81EDFYqL+71ulOb0WKVbBkWnqGa46Zh8hztrXWE8wcqtNPGxcs4KKYe8B+kt6pR
+	mvcEBDv3wpYKUZgs4kP1y4AQwH4ZX4rqlxJRPgMPkXxtM2HcLVIL7e8Ce0xJhT6r/46gBXDXInZ
+	H4GAccfrna2lRujs/EkjZYhne+12Q5/0fQWrKNUF1D4ugrEW4/G9dCBnEwRKtVv8gfIQB9GCXFI
+	b9fSvLf/maLqp4ICDclSPZkTPiIpwPCfgc4keUxtgugFv7tQVmMREL0Gq1ygawuxZvIPDtU0wxi
+	igIr6WtBbxO+jvxcyae4OMFbS+p5dEfGKlhZqlRzmsGQwtg38S4wN5gxLdLvL50cnmoHVRHcI/P
+	opNOVJSpv0807UdQJt6j5+pA8y9TnBeEpLcY0+Vn1j9xE0/QgwklS9+CyCsYIP7eHPWTFASeHVO
+	2L5mPEiX0HtFTKQVvhJCNhyiYqkG1gKvP1QCOoWCjJgZ0BU0zebpcanySmeItXLLgzDXNb85iBT
+	Uo43xFj4ntp/bMKpL3VmuCEKlHSvv8KozbsqsAcWlXUwg==
+X-Received: by 2002:a05:620a:4041:b0:93e:c12c:f127 with SMTP id af79cd13be357-9479f38d707mr575616785a.83.1794337089011;
+        Tue, 10 Nov 2026 10:58:09 -0800 (PST)
+Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:940a:c6ea:f292:3644])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e619affsm290954085a.4.2026.11.10.10.58.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 10:58:08 -0800 (PST)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pci@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>
+Subject: Re: [PATCH v7 1/8] Bluetooth: hci_qca: Add M.2 Bluetooth device support using pwrseq
+Date: Tue, 10 Nov 2026 13:58:04 -0500
+Message-ID: <20261110185804.56861-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261005-monza-wireless-v7-1-5a6de7662dcb@oss.qualcomm.com>
+References: <20261005-monza-wireless-v7-1-5a6de7662dcb@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,133 +117,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031104714.3271017-1-rojer@rojer.me> <20261031104714.3271017-3-rojer@rojer.me>
-In-Reply-To: <20261031104714.3271017-3-rojer@rojer.me>
-From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
-Date: Tue, 10 Nov 2026 20:57:24 +0200
-X-Gmail-Original-Message-ID: <CABFmFwoAMs8upS4wtjJo3oS3r7fFfnffm2Fn5nWOCZ+Z879d+g@mail.gmail.com>
-X-Gm-Features: AclHuK9MmlZCXre31qUD1WX8nPu4qqnNXxwDWOVxcYi7QO4VkRvqA9uFGpDjBG0
-Message-ID: <CABFmFwoAMs8upS4wtjJo3oS3r7fFfnffm2Fn5nWOCZ+Z879d+g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi
- R2S Plus
-To: heiko@sntech.de
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	jin@mediatomb.cc, shawn.lin@rock-chips.com, jensenhuang@friendlyarm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Heiko,
+Tested on an ASUS Zenbook A16 (UX3607OA, X2 Elite), whose mainline DT
+connects Bluetooth through the M.2 E connector (W_DISABLE2# on GPIO
+116), with the QCC2072 support from [1] on top. Without this patch
+hci_qca asks for a "bluetooth" pwrseq target the connector doesn't
+provide, W_DISABLE2# stays asserted and reading the version times out
+(-110). With it, W_DISABLE2# is released, setup completes and a phone
+connects.
 
-gentle ping on this one. the mmc changes have been applied for 7.5[1],
-it would be nice to get the DT bits in time for 7.5 as well.
+[1] https://lore.kernel.org/r/20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com
 
-[1] https://lore.kernel.org/linux-mmc/CAPx+jO8n6Y9PWDkxurwjjfGXSiGS0KWrYK0C7=5Uqic1Gn+M7w@mail.gmail.com/
-
-On Sat, 31 Oct 2026 at 12:47, Deomid rojer Ryabkov <rojer@rojer.me> wrote:
->
-> The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
-> controller in 4-bit SDIO mode, where FriendlyElec fit an optional
-> Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
->
->   - SDIO signalling at a fixed 1.8V (VCC_18)
->   - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
->
-> Enable the controller and add the power sequence. The SDIO pins need
-> 8mA drive strength for SDR104 tuning to succeed, as in the vendor
-> device tree [1]; with the SoC default of 4mA no sample phase works.
->
-> On boards without the module the controller gives up after about 0.2s
-> ("mmc2: Failed to initialize a non-removable card"); nothing else is
-> affected.
->
-> With the mmc core change for the module's CMD11 handling at a fixed
-> 1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
-> rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
->
-> [1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev24.dts#L144-L172
-> [2] https://lore.kernel.org/linux-mmc/20261030142224.3183407-1-rojer@rojer.me/
-> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
-> ---
->  .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 55 +++++++++++++++++++
->  1 file changed, 55 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> index 6ba4a74cb1f..a25421f5851 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> @@ -17,6 +17,15 @@ / {
->         aliases {
->                 mmc1 = &emmc;
->         };
-> +
-> +       sdio_pwrseq: sdio-pwrseq {
-> +               compatible = "mmc-pwrseq-simple";
-> +               clocks = <&rk805 1>;
-> +               clock-names = "ext_clock";
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&wifi_reg_on_h>;
-> +               reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-> +       };
->  };
->
->  &emmc {
-> @@ -34,3 +43,49 @@ &io_domains {
->         vccio4-supply = <&vcc_io_33>;
->         vccio6-supply = <&vcc_18>;
->  };
-> +
-> +&pinctrl {
-> +       wifi {
-> +               wifi_reg_on_h: wifi-reg-on-h {
-> +                       rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-> +               };
-> +       };
-> +};
-> +
-> +/*
-> + * SDR104 tuning fails with the default 4mA drive strength, use 8mA like the
-> + * vendor device tree.
-> + */
-> +&sdmmc0ext_bus4 {
-> +       rockchip,pins =
-> +               <3 RK_PA4 3 &pcfg_pull_up_8ma>,
-> +               <3 RK_PA5 3 &pcfg_pull_up_8ma>,
-> +               <3 RK_PA6 3 &pcfg_pull_up_8ma>,
-> +               <3 RK_PA7 3 &pcfg_pull_up_8ma>;
-> +};
-> +
-> +&sdmmc0ext_clk {
-> +       rockchip,pins = <3 RK_PA2 3 &pcfg_pull_none_8ma>;
-> +};
-> +
-> +&sdmmc0ext_cmd {
-> +       rockchip,pins = <3 RK_PA0 3 &pcfg_pull_up_8ma>;
-> +};
-> +
-> +/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS) */
-> +&sdmmc_ext {
-> +       bus-width = <4>;
-> +       cap-sd-highspeed;
-> +       cap-sdio-irq;
-> +       keep-power-in-suspend;
-> +       mmc-pwrseq = <&sdio_pwrseq>;
-> +       no-mmc;
-> +       no-sd;
-> +       non-removable;
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
-> +       sd-uhs-sdr104;
-> +       vmmc-supply = <&vcc_io_33>;
-> +       vqmmc-supply = <&vcc_18>;
-> +       status = "okay";
-> +};
-> --
-> 2.53.0
->
-
-
--- 
-Deomid "rojer" Ryabkov
-rojer@rojer.me
+Tested-by: Jesse Casco <jesse.casco@gmail.com> # ASUS Zenbook A16 (UX3607OA)
