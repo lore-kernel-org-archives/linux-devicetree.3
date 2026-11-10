@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297727;
-	b=1joHO3PzqRBbVHYMMGXrzDlWyFWjAgpABPdt6k6R+fKmaxApKLXO9kMFl/PKd9RqWS+c
-	 mz/C+0hLciwHBkSvO6fQIVkJxebVPj+Cs+xWXDEyL0jy8fMtpq62Wwd1xw2L/zPl0KRix
-	 XX051AdTwrB2rze4MJqn0auFcqQqXlXAzlv2m9mbWEhT5Xti/NovsoSyHuifPtTcuSfqE
-	 oSZHurR2sxZIFprZd9q2mWjTWmgHWSkr3/dMcSsihZ9ipO4lsEWPis5oDKyLA3Vaxi576
-	 E4mtrOYBCfAVo1GXubP6OwNMYQ41YUPtT10/acYDp8snJBHkivtOojwhpUES6pRbyZw==
+	t=1794297760;
+	b=I099suj9lx8XFGU3VjEdCREFIIJsPoAMc/KRuFOtaeDgakrVZvhEaNgrOGZqWX99U17q
+	 etW/zJ7VuEnnkGTFE6TfpKb92/sz7QIpebrUvWBVdKfrb54TUQ7dL6YsW+HzNs7bG5ioa
+	 plMq/iqmpQMK4WDG/ISfeaSA8cMvEMaMu8V92VCtPSrXRQetdt3TS51y+Tn6a/Nmkw1P9
+	 29gU3PprKCuWPGjyCIzOGaSZNM0fd80qL7KCtjnl/fddq5JWQkiOnCKAUlOs5yzwKCOl/
+	 oZlivlsgymaWqoEg3i4ML6297yTdWvkqk3mSq+JSc9iPzckipMa1E/6Sns6FKPqwLTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297727;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:User-Agent:References:
-	 From:Content-Transfer-Encoding:Subject:In-Reply-To:Message-Id:
-	 X-Lms-Return-Path:To:Date:Content-Type:Received:Cc:Mime-Version;
-	bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
-	b=YQQB8rvmN3PhtitIShdAMktjx/ccnTmViyiDIPKckH6AevG+7XWRg6+xHbBzHYixIj0t
-	 QsB1AlHlkogRmH9HTMw8+Ll3HIHizzugGOH9ssKO9q/elKFtwfiqlWCTkCTa0aoN2Y7P3
-	 vCCr7kainYaibqzd3WCSugpHKujEl+ulLCluK8IE2XTqE0GJ4yMiHOKH62RS3J5MNwWUp
-	 wDVLSF4kP/1wHUuFrxBFSH/Cb+EHwJkRZaSlrtPi1FOrEZqa5xY5PYGJYlkY6Y3yRsfCa
-	 5RaEawHGdczwL5ZCTdbT2D44f4fA37dml8LclRNzvaVEHsHwOElFkCJQQ0UjpxeKFqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297760;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AzlN3AkWLSdBc/kc/1UhObJxFo1YqRiElThcXbSlnv4=;
+	b=MwGP7vGCKjj4DLrpbGk4xLWvtgYnsglceCy4n8QMNn02UqRMcyAc9fTCrA3A2a8JfMA7
+	 j9aSHCF16vhVmv+OOZbxDz2ENoBmrark/Dt1XAHqx2Ick6HZ0Hg1L3G9SBGrjqOGKMynR
+	 E64d6/khcXc6KzKE2AnojvnSHs1UbEY21m1ThU8BlG6OzAbGdNbAbFMrX9bJR0hzVloN4
+	 f3IczXnFx4ZAH3B729a7L5hdBEVUVp8r6hlfS2jh0Glfpy8AfdHKFiCX6fcVaXfbDaV5O
+	 oZILIKfBfcungYrBZKKgvpmF1hVg07sy+2gRBmJXvpJv6eaY59Jmc0rZKEPBTCN/NvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cipunited.com;
-	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=wltkyhpT;
-	arc=none smtp.remote-ip=209.127.231.58
-Received: from va-2-58.ptr.blmpb.com (va-2-58.ptr.blmpb.com [209.127.231.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PpHULgDq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5E36077D76
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5E36077D76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C91606A32E;
+	Tue, 10 Nov 2026 08:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=wltkyhpT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794297714;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
- b=wltkyhpT6aJ/DYIMp5/qYUOValAPJTOD/s77xR0bAzvmRdJd+RwiFLS7tUqLW56OU1JXz1
- ex/6MLdBAwf6KsHMpVsVpqJTnIDl5EhsbXk0++7S6Xejew5jD8g2HHKq+LBKtRg+TzWNXr
- bDfE6h/8ajX88fRoRT0S/e34R1tXRzkUHulXkifED/eNCaMD2TtDrqQluaBAh9kAyXmnzA
- 3KP604RX++bojdSs8fWyOD9PbRSPpimC+lpB659gv4vpcfBFsD3+M4pic4V21w8vyoIEOa
- 8sseJUnJcTg8Lu3h3OWan56++QlF+VlhF35+7swTzM8BMhAvtaXZadePpkjDFQ==
-X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-User-Agent: Evolution 3.62.1-3
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com> <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com> <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
-In-Reply-To: <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
-Message-Id: <a1cae24c83e4b60bc6abfd1b387b3e92fe54c07d.camel@oss.cipunited.com>
-X-Lms-Return-Path: <lba+26af2cf66+7d6f78+vger.kernel.org+rongrong@oss.cipunited.com>
-To: "Guenter Roeck" <linux@roeck-us.net>, 
-	"Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
-Date: Tue, 10 Nov 2026 15:59:59 +0800
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.8.156] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 16:01:40 +0800
-Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
-	"Icenowy Zheng" <uwu@icenowy.me>, 
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
-	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PpHULgDq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5FD11F0089F;
+	Tue, 10 Nov 2026 08:02:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794297759;
+	bh=AzlN3AkWLSdBc/kc/1UhObJxFo1YqRiElThcXbSlnv4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PpHULgDqTzaVRk0Nu1guUJ2j23qbcgjmANz6xf/JOk0W/5JVWYmzaruYC7Qe1IPN4
+	 gQMwf+8mAi8PgW+yVkBwV9r7sb89Y80WAEV0W5883zHElDUGBX9H/5zQ+QDrB+7Oso
+	 PjlziCDWwZtAY2s+g+H7ZwTUmTfztk0VjDpTe0CLB8vjTunkumSXpxLT5O0q5AmP4P
+	 vk7MrPguUM4hF1g4/rh8Pg4El6mjBVmjGdnpG2pHGGCQOnFvhzXEGDvQesEm4XIm9o
+	 I8PXyFMxykxnpw7p8w7vZxDrp+Ec9pre4WHpbMsRZWZ6lkItiLSDpafwr4iDKlIPiE
+	 aqpS8iqRZRrJg==
+Date: Tue, 10 Nov 2026 09:02:35 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Brian Masney <masneyb@kernel.org>
+Cc: Long Zhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>, 
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+Message-ID: <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,109 +63,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179427375370.1061670.4050288038934218487.b4-review@b4>
 
-Hi Guenter,
-
-On Mon, 2026-11-09 at 23:47 -0800, Guenter Roeck wrote:
-> On 11/9/26 23:02, Rong Zhang wrote:
-> > The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
-> > has no clock controller.
+On Mon, Nov 09, 2026 at 08:22:33PM -0500, Brian Masney wrote:
+> Hi Long / Krzysztof / Conor / Rob,
+> 
+> > Add the Ambarella CV75 SoC and EVK support: the board binding, the
+> > RCT clock binding and driver, ARCH_AMBARELLA, the devicetree and
+> > MAINTAINERS.
 > > 
-> > Retrieve clock frequency from OF to make it work.
+> > The clock ID header is added before the devicetree that includes it,
+> > so patch 2 (the clock binding) has to be applied before patch 4 (the
+> > devicetree).
 > > 
-> > Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+> > The ambarella vendor prefix and the CV75 secure scratchpad syscon
+> > binding are already in linux-next. This series does not repeat
+> > either of them.
 > > 
-> > Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> > GPIO, UART and pinctrl bindings and drivers are separate series.
+> > This devicetree references those compatibles.
+> > 
+> > Tested on the CV75 EVK. The board boots. That boot used a local tree
+> > that also includes the GPIO, UART and pinctrl patches.
+> > 
+> > To: Arnd Bergmann <arnd@arndb.de>
+> > To: Krzysztof Kozlowski <krzk@kernel.org>
+> > To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> > To: soc@lists.linux.dev
+> > To: linux-arm-kernel@lists.infradead.org
+> > To: Michael Turquette <mturquette@baylibre.com>
+> > To: Stephen Boyd <sboyd@kernel.org>
+> > Cc: Jerome Brunet <jbrunet@baylibre.com>
+> > Cc: linux-clk@vger.kernel.org
+> > Cc: Brian Masney <masneyb@kernel.org>
+> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Cc: Rob Herring <robh@kernel.org>
+> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Cc: Conor Dooley <conor+dt@kernel.org>
+> > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > Cc: Will Deacon <will@kernel.org>
+> > Cc: devicetree@vger.kernel.org
+> > Cc: Long Zhao <longzhao@ambarella.com>
+> > Cc: Long Zhao <zl020895@163.com>
+> > Cc: linux-kernel@vger.kernel.org
+> > 
+> > Signed-off-by: Long Zhao <longzhao@ambarella.com>
 > > ---
-> >   drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
-> >   1 file changed, 25 insertions(+), 4 deletions(-)
+> > Changes in v11:
+> > - clk: use builtin_platform_driver(). The Kconfig symbol is bool. (Brian)
+> > - clk: drop CLK_IS_CRITICAL from the core PLL. It has no enable op. (Brian)
+> > - clk: drop the misleading (u64) cast in the div_u64() call. (Brian)
+> > - clk: add .suppress_bind_attrs = true to block sysfs unbind. (Brian)
+> > - clk: drop MODULE_AUTHOR. (Brian)
+> > - Link to v10:
+> >   https://patch.msgid.link/20261019-cv75-soc-v10-0-d386065e2dd5@ambarella.com
 > > 
-> > diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
-> > index 2811e7eab631..57b9e699c131 100644
-> > --- a/drivers/watchdog/loongson1_wdt.c
-> > +++ b/drivers/watchdog/loongson1_wdt.c
-> > @@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
-> >   	u32 timer_offset;
-> >   	u32 set_offset;
-> >   	u32 wdt_en_bit;
-> > +	bool no_clk;
-> >   };
-> >   
-> >   static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
-> > @@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
-> >   	.wdt_en_bit = BIT(1),
-> >   };
-> >   
-> > +static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
-> > +	.timer_offset = 0x8,
-> > +	.set_offset = 0x4,
-> > +	.wdt_en_bit = BIT(1),
-> > +	.no_clk = true,
-> > +};
-> > +
-> >   struct ls1x_wdt_drvdata {
-> >   	void __iomem *base;
-> >   	struct clk *clk;
-> > @@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
-> >   	struct ls1x_wdt_drvdata *drvdata;
-> >   	struct watchdog_device *ls1x_wdt;
-> >   	unsigned long clk_rate;
-> > +	u32 freq;
-> > +	int ret;
-> >   
-> >   	drvdata = devm_kzalloc_obj(dev, *drvdata);
-> >   	if (!drvdata)
-> > @@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
-> >   	platform_set_drvdata(pdev, drvdata);
-> >   
-> >   	drvdata->pdata = of_device_get_match_data(dev);
-> > +	if (!drvdata->pdata)
-> > +		return -ENODEV;
-> >   
-> >   	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
-> >   	if (IS_ERR(drvdata->base))
-> >   		return PTR_ERR(drvdata->base);
-> >   
-> > -	drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> > -	if (IS_ERR(drvdata->clk))
-> > -		return PTR_ERR(drvdata->clk);
-> > +	if (drvdata->pdata->no_clk) {
-> > +		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		clk_rate = freq;
-> > +	} else {
-> > +		drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> > +		if (IS_ERR(drvdata->clk))
-> > +			return PTR_ERR(drvdata->clk);
-> >   
+> > ---
+> > Long Zhao (5):
+> >       dt-bindings: arm: add Ambarella CV75 platforms
+> >       dt-bindings: clock: add Ambarella CV75 RCT
+> >       clk: ambarella: add CV75 RCT clock controller
+> >       arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK DT
+> >       MAINTAINERS: add ARM/AMBARELLA SoC support
 > 
-> Wouldn't it be much easier to just create a fixed rate clock and use it
-> (as suggested by Sashiko in the devicetree patch) ?
+> The clk changes look good to me.
+> 
+> Before I start to merge things, and since I'm a new maintainer here, I
+> just want to make sure that I am doing this correctly, and have the
+> expected merge strategy for everyone involved.
+> 
+> - I create a new shared immutable branch based on v7.4-rc1 and I can put
+>   the first two dt-bindings patches in that. I merge this into clk-pile
+>   (feeds clk-next) with --no-ff. The DTS folks will merge this immutable
+>   branch as well.
+> 
+> - I can then merge patches 3 and 5 into clk-pile.
 
-Makes sense. I will take that approach (and fix other concerns found by
-Sashiko) when I resubmit this.
-
-Thanks,
-Rong
+You will have code depending on non-exisitng ARCH_AMBARELLA symbol, but
+if that's fine for you then sure.
 
 > 
-> Guenter
-> 
-> > -	clk_rate = clk_get_rate(drvdata->clk);
-> > +		clk_rate = clk_get_rate(drvdata->clk);
-> > +	}
-> >   	if (!clk_rate)
-> >   		return -EINVAL;
-> >   	drvdata->clk_rate = clk_rate;
-> > @@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
-> >   	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
-> >   	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
-> >   	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
-> > +	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
-> >   	{ /* sentinel */ }
-> >   };
-> >   MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
-> >
+> - The DTS folks will take patch 4.
+
+The entire platform is for SoC tree. This sounds ok for me, but I am not
+sure if Arnd was merging pulls with dependencies. If not, then worse
+case the arm64 bits will wait a cycle. Anyway, I guess you can take
+clock bits.
+
+Best regards,
+Krzysztof
+
