@@ -1,132 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354388;
-	b=xebGTCiWGRx2UXwdOWCMdskJp2gd3qNdVMlEFi+Je6GNV/lHbCxhWCvtUrQr0nd6JukT
-	 99Kgei9J6dHUoxMyuKCWp5O/D8muKDaqPv213OvZzih9QbfoFJm5jPvxiwtAOcrLzBGZZ
-	 cDnokxE+5qEx4EHm8P1sFuaAdGyy7Ans8WrzB5bEVv9r/vrdZypv9izKao3ZQawOZfjY8
-	 didVdZH4tBthJJlln6yhCeB1HwGZF/mBoC/v2ATzfLxZvo7vRs2ai1kx5lAtwl6mVNaEW
-	 /ZGVJD84VZBlMDQCLo04wNbBqy0eLjbYydhxfOKgGDY7bmghfezD+sUUhCAUl/G5IFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354388;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=ZY2me7IpVMu0VOVk6MnkcMVwheYkAPTnm5Mdg+hRDNQ=;
-	b=z+8Ll9ZSmRgjErJgRz22CB136WTAUG4xLzuEYKQbVgC3O3Xl8CiGXtQ8HnlSq2z6k5wT
-	 zm9AJ3GEkEN9bsyvqCL9WonBVRXpsynoXTPcbXelkxYwBJcx465yQRny4/a6tUi5sN2W+
-	 Gh5+4onjfUZrk1OJFer1CAHsodsEJwha0h+la3NDqYeOyugov6VF3DwdfK/cVHPYYFi54
-	 IHZV/F2PSiIvZwQnrOPMEyC3bFuyk5EBzK+Fil4Ytj6jm49r+X7QRSWgIq6VeSe9+J8au
-	 L7xzXldobsbq1pqYTx9ZuaSBEof20D92Ien7o8KACnb5GDVFDxILag6r9OrTie3PmvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alistair23.me;
-	spf=pass smtp.mailfrom=alistair23.me;
-	dkim=pass header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=jk640Ehh;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lmtr+bbr;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794354680;
+	b=N+6OGbZvKZy2sYrpXm/sd1a7qv5E9BpPgDUWfCVtLTxwlQAiN5ZHJ9mCA66wPmxrR2E8
+	 OZ+fbFHoekwkprcUma3pt1ffg0NTL9odLjkbvDUFLqvcI4BUvOgkaazXFp40gvgqlf3dH
+	 Li0hzldbBixOKUnMp+FC2sHKgD6ntvq/XN80w0tQlyKeBtQRw9PMZ7LhjKoFC+Q0D5HH/
+	 wjuqYd+a489cnDAOa+yTdzMNneezDcdU56kYsRB3VP37lT4prChOKDLXqgLClkPEs3auF
+	 +36E33e3wCed/spFEdiuW6/bLhj7nNkwod71zSoRmzJYPySfCTolDJWVP+UVDrc9Dng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354680;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6OGx1XmvR4VQSMtCunhvhj/SAy3XKm9gDW0pRMSvWtQ=;
+	b=Gj4AOWO7oc83omY0caXeE5G+3UX3elSB6wbmCA7wWiH3mx3PLvLH/TBCxrLBgR6GlpFC
+	 tGLqRKF8SkfrYEwjZD1Y20u5ClQHVQxNN4Dm3t8n0puHSOU6I3EeJ0fmSyto0Ozugvias
+	 Wy+HtK3otczMKTm6AKHChEMpwjoUAZHDQSpAQgHr/4Bj1Z2UPD48cW20D1dV71uWZZDa+
+	 1LgtSos5I15hAGFNeleIHl41474h9JOi0iQ5NO/EFpBtpJmQgFVn+2RGf3kwARuNOAqXI
+	 xIlFlA7cbFmlS4zAZXUXjSr0imqyL8lHdjz1/8KLGO9eX+wCrbcSip3lKco+I2y/tlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=bahWWZtl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C09606A320
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:46:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C09606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63671606A31C;
+	Tue, 10 Nov 2026 23:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63671606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=jk640Ehh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lmtr+bbr
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 03738EC0603
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:46:27 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 10 Nov 2026 18:46:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
-	 t=1794354386; x=1794440786; bh=ZY2me7IpVMu0VOVk6MnkcMVwheYkAPTn
-	m5Mdg+hRDNQ=; b=jk640EhhOn6BUw/7ufZbyLIKl6+VvvxX52wTBFwV2tHnxDPJ
-	bNjdVbvtOEkejoZAfb7xi9PWHFexZeWIJOJ/QnTNDNPEuEMRX7yGMADwJogI1mdk
-	xPUFBu79/DGXK5HbdL3oCSttToR7SXAYPNiE0i/YVVQZV0L8qK8UXy8U9cX+pmhZ
-	+BFMnEaXY6/sxzsDVHl2+PruEwM+XRofoehZUCi4NVYDf9vAYtV6bxWlvNekKXPM
-	HnoHSvOkxCwjvjESST/WHw6sDETdpjqpJ9Bt2225H5QhG5yWfX1PbSjpIcN8dlNG
-	JrjBxvzgd9s7ubsxalnAXAqLQw/Apr+rHmy7xw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794354386; x=
-	1794440786; bh=ZY2me7IpVMu0VOVk6MnkcMVwheYkAPTnm5Mdg+hRDNQ=; b=l
-	mtr+bbrpddw2sjZ2iDC0zd5tCSck1Bj/s+Lqf4Fojga18upa4H1K51jfqWcofpZJ
-	4ZDXsZFnE8Aq3GtOkOlPXQ2dzlkGZK/WnqugBQtyL8VZfaj4/ZOEegRIhPUoMGKD
-	EdLsAi/y3CQh8yu+DwsjX78uhxkSlYnZoxbWwgRi6pNIyAWOXL6lLCgo8WmUfwtA
-	UcOHEwZ/e9Bix4g2axl1S4NSLxN93ZWb59/CXKC1IBnA9iKTvfap0zlaxe8u8CWe
-	Ws+WBC/9nVg1CGEdCusyb9JNWrjZDaLZekT8i8/T8vDGV/ZwyjbwSxwt0iNggyzH
-	sqMHrChKxIWZHgSJobJrw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=alistair23.me a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794354386; d=alistair23.me;
-	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm3:rsa-sha256:QkteVwR6RIwzn3l10nGUC8GIbV/XqudoIUEr/h5i7U3p4b/
-	62zJluO8IoLe5+brkJKPknZ6SKv8uOcaudglbq0tI4saxvPNmbw6411P68Y2ABUi
-	3JAP+vEaNWfHzAowYrrL7cX41SOXtvGn0pOg9XP86gXuH8zSLu1EAlnOfjErNUFb
-	9sGY1kfIuMLjFbmJbfu7ji2oxE1rf/nzDlg+lquRi7Pi6P2Fn+YQkW0DaCYtcNge
-	E0/SiM3ag8NzD6bjpuPmv1P+tSr0OFT8M/AXcg/kZSflVLm//IdLB45yPQlFAqpj
-	DfRFq6chOsV635/xC1lqWai0N2dNxA1qZ3wKmAQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:yPP5o9W0fBO30YwgA0F0JjRPXXCnTS3aB7uDWJvLydc=:ZY2me7IpVMu0VOVk6MnkcMVwheYkAPTnm5Mdg+hRDNQ=;
-X-ME-Sender: <xms:0qzzany6GxsHyC930g5fQYTXx6oCA4a5h0Dum7peRLAuV6Fedkz7Nw>
-    <xme:0qzzai_Cb4QMph3LXJZZbkaGXLpvbPqAXTuWvp2itaVFmU2n9sj2K5g0LlLbOCll1
-    2sjY5qCDxtsJb8xuUYWiIzXviKn1U42HOON4Bd-RTitlJCbQs0RaCgn>
-X-ME-Received: <xmr:0qzzap8111gQl_AuhacNRNykSqYf0T_pFG3yfCvixwaip9WDTvfzYuBbRhZpEN7H5Pj_Hrzw23ubLg0_WB-9>
-X-ME-Proxy-Cause: dmFkZTFACASdWw7/TKSrRhU+vyKUHE0wTEU3blEN/5RhWbn//aiGCLx0Kh/k1ulJ16CuUP
-    BP7EUxRg6kSnNbfU5v5KvMCMgqcluKMm4CjhYo9/fEjoK2BFQF5MxCs9vc+iN1MO22b7q+
-    bB3PfYt2kw4PrOXofzg/daiwrlA/mp7bW55wVQOkLCDq8CGP5opoSKyWvf7frRKr9thQ99
-    BT8/0CdteNiFz9UXzRZykaMdmPRKFUbz7XTgfNgfLwd0dVyIa/tuuZLLWg56SG2F6bybjC
-    Q8khudhNY/zpwo2IqJGXsMxvfUC5+UlbtCloBxmC+NPg1nyQFJyLU2LeEt3vjriLcejZex
-    50zvu8TF+2g94bAFCE3c10QTaic7zl6nr3XFCdw0jAvN7RbFTSxBB2kXL+VHCPGhWnWPWR
-    G9ciABlafCkL73l+02Q4m0vyGrgSTPxcbOvA0Sq5pO1MimoYWtyMFtLIT1ZUr/S6eb0WYc
-    RTy5ME/aD1zERn3xbdgWou2uP4nhboM4LKsE1oj7lFRzD2kNeDoLtO3xYY6xNMmEWdkJXz
-    99uZ08R4SI+a211Yl6GnKTpUZUYxroERVEOMbU+HbqRG/6rJ7EskLCTW3iIOTgCnwOTXHr
-    gNZ88nTCxaTztaBW1H0MLyJiUOGBfXa+qPu8IDAcUqsKowzj0h7FDJtUdHBA
-X-ME-Proxy: <xmx:0qzzai724q694-C_AKowocvyDvzAQoI-0vHncrE9fwDD1e77zBP8mw>
-    <xmx:0qzzaqatolX-p9SIU67hYHuFYMzUIPhuLmmZrHmh1rrGVoCG9nUi7Q>
-    <xmx:0qzzas9SbUW5S4r5SBtNN9oTznFgsfhqVkceRtBswxkKtX5MAiROyw>
-    <xmx:0qzzapTPQYNJ4GMWY60c4V0j8-7JV3oQzeT98_Nc7cIMhSExItQeaA>
-    <xmx:0qzzagP1YnW1WJkDqYo1qEy6OwTVnrvBnq1S-ji6xofCr4hT0RkgSLkB>
-Feedback-ID: ifd214418:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 18:46:21 -0500 (EST)
-Message-ID: <055961e4d9ce7e0c78c12389f432e1d8732d83ec.camel@alistair23.me>
-Subject: Re: [PATCH 1/7] ARM: dts: imx: keep the SY7636A VCOM on
-From: Alistair <alistair@alistair23.me>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Pablo Mazzini <pmazzini@gmail.com>, Frank Li <Frank.Li@nxp.com>, Sascha
- Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, 	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 09:46:18 +1000
-In-Reply-To: <20261110103405.5e0384bb@kemnade.info>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-		<20261026003918.155321-2-pmazzini@gmail.com>
-		<20261026083058.04173f10@kemnade.info>
-		<54130686e08db48928484e226f48dc31a8c5ee29.camel@alistair23.me>
-	 <20261110103405.5e0384bb@kemnade.info>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=bahWWZtl
+ARC-Seal: i=1; a=rsa-sha256; t=1794354641; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=EmDBqOAib7RPXs2Io35hafHp06Hu8sNthICZOfB8436c4fJxyM9K9xhpSByg1kigzVuy/x76YyssPzVCVqW+rvhpOkOwUB261nfiICr22l2l5Z4cszJwVUM3NfA19KgM9iQzCj5FXRFrhJwHbHoemfSW5vG/khZcaoRW7pGdoCk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1794354641; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6OGx1XmvR4VQSMtCunhvhj/SAy3XKm9gDW0pRMSvWtQ=; 
+	b=FCNoKGcgVXUbIPq+vnn3rxyBAnYqhKEiOY8Rwvu3h3oBYJHnL418VXLdGhrM3A0sFy8LV8I+awBiwxhqq8aBptLfXu8kVO5ug5u/BoY5GDuEwMr8KFodwj9qvE6tIMzDpz8iKNVXcWsae+tHqhtiWKZdwkXVng/wEGk9yzcdKsM=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=bahWWZtlIwNX1VYG4dzqH49d9CZ7bv4qhRrXlRBuzmiXDRUV3OqPoEEAyzQjRapbU3UIJ9dJTKF10km2gaFVn/fcMf0gBzDT5j+q3lyyRlCuTc9NpUEJpQQ/bSA+n1O6TCZx3rq2BgCZWHWTGSUbtbKNSRHhlU+8ucReRvAzmiM=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=6OGx1XmvR4VQSMtCunhvhj/SAy3XKm9gDW0pRMSvWtQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1794354638934632.5692174558644;
+	Wed, 11 Nov 2026 00:50:38 +0100 (CET)
+Date: Wed, 11 Nov 2026 01:50:37 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: John Stultz <jstultz@google.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH RFC 2/3] alarmtimer: Choose the wakeup RTC by sleep state and priority
+Message-ID: <20261111-re-tglx-alarmtimer-rfc2@iav.lv>
+In-Reply-To: <87qzgsth2g.ffs@fw13>
+References: <20261104-b4-alarmtimer-rtc-priority-v1-0-e996681b8086@iav.lv> <20261104-b4-alarmtimer-rtc-priority-v1-2-e996681b8086@iav.lv> <87qzgsth2g.ffs@fw13>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -136,121 +64,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-11-10 at 10:34 +0100, Andreas Kemnade wrote:
-> On Tue, 10 Nov 2026 15:23:03 +1000
-> Alistair <alistair@alistair23.me> wrote:
->=20
-> > On Mon, 2026-10-26 at 08:30 +0100, Andreas Kemnade wrote:
-> > > On Mon, 26 Oct 2026 00:39:12 +0000
-> > > Pablo Mazzini <pmazzini@gmail.com> wrote:
-> > > =C2=A0=20
-> > > > The SY7636A hwmon driver turns VCOM on at probe. The reMarkable
-> > > > 2,
-> > > > Kobo
-> > > > Libra H2O and Tolino Vision 5 have had the rails on so far.
-> > > > Mark
-> > > > VCOM
-> > > > always-on before the driver stops doing it.
-> > > >=20
-> > > > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> > > > ---
-> > > > =C2=A0arch/arm/boot/dts/nxp/imx/e70k02.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
-> > > > =C2=A0arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts | 1 +
-> > > > =C2=A02 files changed, 2 insertions(+)
-> > > >=20
-> > > > diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> > > > b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> > > > index dc7ff108aa85..bd9c6c6fa117 100644
-> > > > --- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> > > > +++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> > > > @@ -154,6 +154,7 @@ sy7636: pmic@62 {
-> > > > =C2=A0=09=09regulators {
-> > > > =C2=A0=09=09=09reg_epdpmic: vcom {
-> > > > =C2=A0=09=09=09=09regulator-name =3D "vcom";
-> > > > +=09=09=09=09regulator-always-on;
-> > > > =C2=A0=09=09=09};
-> > > > =C2=A0=09=09};
-> > > > =C2=A0=09};=C2=A0=20
-> > > No, please not. That regulator is in practice used with a not yet
-> > > upstreamed
-> > > driver for the EPDC on that platform used to deal with the
-> > > current
-> > > kernels
-> > > fp9931 / tps65185 drivers. So it is very welcome to have it not
-> > > always turned
-> > > on.
-> > >=20
-> > > =C2=A0=20
-> > > > diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> > > > b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> > > > index ff9d50942884..6cf5603c0752 100644
-> > > > --- a/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> > > > +++ b/arch/arm/boot/dts/nxp/imx/imx7d-remarkable2.dts
-> > > > @@ -327,6 +327,7 @@ sy7636a: pmic@62 {
-> > > > =C2=A0=09=09regulators {
-> > > > =C2=A0=09=09=09reg_epdpmic: vcom {
-> > > > =C2=A0=09=09=09=09regulator-name =3D "vcom";
-> > > > +=09=09=09=09regulator-always-on;
-> > > > =C2=A0=09=09=09=09regulator-boot-on;
-> > > > =C2=A0=09=09=09};
-> > > > =C2=A0=09=09};=C2=A0=20
-> > >=20
-> > >=20
-> > > Here the situation is a bit different. If I remember correctly,
-> > > there
-> > > is some special EPD logic in userspace on top of some ordinary
-> > > kernel
-> > > display driver. But thesse things are missing is devicetree?!
-> > > But=C2=A0=20
-> >=20
-> > Yeah, the kernel just exposes a framebuffer and a special secret
-> > sauce
-> > userspace program writes to that.
->=20
-> Looking at that processor. It seems to have an EPDC like the i.MX6
-> has.
+On Wed, Nov 11 2026 at 00:14, Thomas Gleixner wrote:
+> So this gets _ONE_ suspend() and _ONE_ resume() call and nothing more
+> and everything falls in place and is comprehensible, no?
 
-It has been awhile since I looked at this, but from memory the display
-isn't connected to the EPDC. It's connected like a normal (non-eInk)
-display. Which is why it needs special userspace software
+Thanks, that is much simpler. v2 will first replace the freezer_delta
+handling as you sketched, then add the per-state wakeup_ctl with one
+pseudo device and no priority, and reject suspend into a state without
+an RTC while an alarm is armed. It will be based on tip timers/core and
+follow the tip style. I'll also check whether user space looks up the
+alarmtimer device.
 
-> Looking even further. The Kobo factory kernel for i.MX6SLL devices
-> specifies
-> fsl,imx7d-epdc as compatible for that.
-> So if your display is just connected to that EPDC, then you could
-> probably
-> wire up things on top of my EPDC driver with DRM interface.
-
-I remember that it isn't that simple
-
->=20
-> So you still too need to run your own fork for the display?=20
-
-Yep, it needs a custom kernel (with the FB display driver in the
-kernel) and then a custom userspace.
-
-At the time there didn't seem to be anyway around that. I haven't
-looked in a few years, but short of reverse engineering their userspace
-(which would be easier to do today) there isn't much to do.
-
-Alistair
-
->=20
-> >=20
-> > > that might need to learn to deal with regulator
-> > > enabling/disabling.
-> > >=20
-> > > Regulator always on is probably not desired here, either.=C2=A0=20
-> >=20
-> > Yeah, I **think** we don't need that
-> >=20
-> You just need to add logic to enable/disable the regulator (if it is
-> not
-> wired up yet). But it is nothing from the perspective of mainline to
-> worry
-> about.
->=20
-> Regards,
-> Andreas
+Igor
