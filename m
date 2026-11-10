@@ -1,68 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325607;
-	b=cMku49Pu2WYj73KAVVLciZ8iDnOPJqaqvxSL+qD1IaiVP6zUCG4hLwlBK3RVdV7Pwvu9
-	 K+E5MbWI+7XkJ11e5aiSnEFmcbjhNxnqj65mtOwW0o5zTY9syaICbeS+xoYC82hxx72HP
-	 bFKvj3Bx3f8sgvCaq3v3AurNOjHYkkp+Hmalw5416LumlBg5axBVDYL2XGXBSHeFhedRk
-	 HnP1rXrA+Njp0oRaf1gbYmBJm4cCqBb4n3mtbloyv6quk9WcG6MX6CIirhNK6XvpbALkg
-	 I56wfumVsIo/BWx+eRP0RQ5cHvCrSuYqttH5H/ybIPOTXuc/51KIvpi3X7/Qr6v0PJQ==
+	t=1794325695;
+	b=peY1v6YC8RiyKRlaSRmy7i9mdw5KO7NbNqEmn2oFyXdwb6DFp8S/0QlUbeabEPdnvOvd
+	 uAj41oZUV7+Zy0+QRmrj6cuNwjncbxPCW/JeVHg7WQBWYc76PdTKoERBgXTF7XTYQ/E7l
+	 uQoqWcxUcdNDdovjhT/2WnXBpi8JDiDyN4+sF5f4W0e6JguaG8LoZEGiniMNx1tQNuxCl
+	 Dvj1Jx4XQc5YLPvb4Tu2PpoGE/LK9W7lKNlTS/WkFZWGXmhaAP0p2y9bKI55dtLiBmGIo
+	 ntBGk2HogjnwyhAj1zHtMdGAa56JvhJSS9Hf5tgYg5ToncCidlxax5NqNG6NQ6WDKxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325607;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zeb6oiymxFDObRDcInmYbRceyPxEMFNrP3XnY1mdxgw=;
-	b=Qe1bWGEc09ltaOj+Rw646GmJ2VSiu+sjrBJBQGLVuRjpV+/E0BTAlb0/HEwUp681pk9i
-	 TLzJrSPg2PcJjxZ+Mvw592QPnXh/b/TVsdo+c3WBKHSjCBRxQVpayRTFR9mAS+kDJvwd6
-	 k26jbhJxDT+onJy/r9YMICoYt7Tln6FbKHH9lwttBLTBMS+z2SvH3pfhlEkSvoxUWG8n8
-	 efFeLYeO3qj/KPK3ty+a/vRsB+FtCDB+1sC3WS+vq/nw0kc+0tRpywHJpMqqQ4hFisVNN
-	 uCs4D6npA0JOdlFmnRDW2OdDwtsvYK7VfNQ1FvZG7iO3Q1QVD+D01FfpCNnlO6xnhLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325695;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=UAwyQ/bEfICw1lHx5rCY/pV9EvLuRsJGgBLXgqR0Hi0=;
+	b=2klRADVVfnKSBNpsM8abmNhlx/msLC4cDSVkAP5rw1CgqwIxQQE/TCbCdrvY9vkObYSZ
+	 4Q4XA6cqOE/iq1altZL/6Y7Q8UVpmar68DZKHMsFvdxov1TSrxLJyKxBb0ILgpT2L3Fyu
+	 lrDk423kuT4aZZxkWKisBXxHIv6VaH7jOJC5pOf8Acrcfi3NahBqlaSLXkKonfaYIsBZD
+	 mfp7WnRFMoQQ3SLsHThBf6oWeB/jY9a6+FqxfayyqNPo6/ecpZfeiYkCINShnp3BGri75
+	 CUyrjuIPwJJiiy6COR5IcGQNfABOEdUjBAqyzU85/EPvPzvLumDHrzieBo1M1URXhKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8rfhSdu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B13606A326;
-	Tue, 10 Nov 2026 15:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8rfhSdu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 531A71F008A1;
-	Tue, 10 Nov 2026 15:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325606;
-	bh=zeb6oiymxFDObRDcInmYbRceyPxEMFNrP3XnY1mdxgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m8rfhSdu+qgwEFNcVdZ4mx8q4gM2VEPIdELukpJS9tJxo0nIViQ2JPw0kNyDO+2Z1
-	 ZN8uucI9P9UfXIfDZOY+7sZkrLmIDNu974cbzyFKz82lK9SKRvczFajlIhN56HvaYg
-	 q+fcYMgAj/eV9hlv+Q9Km9gxnXlixiMfBf6BGmJX1C4UXV38Wh9vz0gZeC9zNZVBku
-	 HvcAIGTa3cmRv9VzEQKXfO6BNVslhBHmwiE3DYHT9rlGUW3/1sjn1UZedgDCdUYsye
-	 Kek2TKqvr/9bDJ42HIydrPDRUb5sUBHdH+y4XCmiMuTnP+p3AVxCGZJPeiWSsr7fZS
-	 Nf9U8Mnp7oesw==
-Date: Tue, 10 Nov 2026 09:46:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
- platforms
-Message-ID: <20261110154643.GA4159803-robh@kernel.org>
-References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3FB60A263E;
+	Tue, 10 Nov 2026 15:48:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3FB60A263E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id C9921A85BC;
+	Tue, 10 Nov 2026 15:48:05 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf03.hostedemail.com (Postfix) with ESMTPA id 679516000A;
+	Tue, 10 Nov 2026 15:47:56 +0000 (UTC)
+Message-ID: <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
+Subject: Re: [PATCH v3 1/5] string: Add strprefix(), and deprecate
+ str_has_prefix()
+From: Joe Perches <joe@perches.com>
+To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki"	
+ <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, Andreas
+ Schwab	 <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, Danilo
+ Krummrich	 <dakr@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
+ <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart	
+ <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
+ Torvalds <torvalds@linux-foundation.org>, Linus Walleij
+ <linusw@kernel.org>, Namhyung Kim	 <namhyung@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski	
+ <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 07:47:55 -0800
+In-Reply-To: <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+References: <cover.1794323750.git.alx@kernel.org>
+	 <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,23 +76,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 679516000A
+X-Stat-Signature: jfwhutdpd88zfz37tr54rxpcmsbdz7uh
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+itX/azYWscfSefJ1cEeZtVDBix6JdnqE=
+X-HE-Tag: 1794325676-569192
+X-HE-Meta: U2FsdGVkX185pC9GD+XhwDY8fHTdpb4bEWMa7jC2vmoDxUm1jtR0t65c4Gtf7cyCvm9M4TppdazpgmUQRhwjk/CxFnV/hUKlqniGchOmsyNAb16mfHvFATFnXjIooXXdQQXJSnIIkhegnkJAYKeuTiaN4ixgIMtRnua1HUa4VNEpVGqk/i1+umqDu0u8ZEWjUZgW4IlcCejQBkAdglRIFYA2fLf73M2AoS28U821DoGSjmwiZ4FLuuVwkNB16ewyGLJT0BKECphGhHwwugANfTpnxmrvKOdIzCMJ8eS+rI0QIx/MTX0a6tNRWuLtWQfa
 
-On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
-> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
-> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
-> forces the device onto the AMBA bus, where the driver must read the
-> peripheral ID from the device registers during probe. On several QCOM
-> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
-> never probes and its trace path is unavailable.
+On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
+> As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> between an empty prefix matching an empty string from a non-matching
+> prefix.  This is a fundamental design flaw in this API, and not
+> something that can be fixed.
+>=20
+> As always, this is a consequence of choosing sizes instead of pointers.
+> Sizes are often the wrong choice.  In this specific case, pointers are
+> more capable of differentiating these cases, as NULL is a special
+> sentinel value that doesn't need to overload a valid value.
+>=20
+> Let's implement strprefix(), a function that returns a pointer
+> right after the prefix if found, and a null pointer if not found.
+>=20
+> We'll slowly migrate existing code from str_has_prefix() to strprefix().
 
-But it works fine on some platforms? We have a property to override the 
-peripheral-ID which would solve your issue. That would be much simpler 
-and avoid the ABI break on any of the working platforms.
-
-But this is already applied and it's not any platform I use, so I don't 
-really care.
-
-Rob
+Most uses of str_has_prefix could use the existing strstarts.
