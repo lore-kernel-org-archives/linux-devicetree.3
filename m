@@ -1,108 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322839;
-	b=AMUK1ZghYVNDrHRw3rvpAS6vUgcswv47O5Z2XmywigrkuG4P6F5aW30eKQPZ2UDjkVV2
-	 0Mknrpk89S38DW94pqVpPPQWzWlRyNw7Z6VoeECu1YDW5MQSjXtgF/LBgP09ZbTlIaHoB
-	 a2ZJxJHLIHepdboQxp0nHs5u8WC7FjanSvrIA4BPzBB3Yac9kFM0dJlM4pUpkLfOist2J
-	 lSSvvuCSD3y7oitEfFhGhAjVUrr6V0NKKYwd+GmP6G+cZqvx5X689ihVLQ0718njILAUB
-	 o6CxU+JZwEvxvxUBquWi05FGHkHYLg3poYU0OjyLAnDWSRLf93vzceTNwzFU4cxPZpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322839;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
-	b=2cJFJa81EWWgjZFLAmIXSLFdR7C4ZuRbZCENASpgvCh5KSC1Kt74VKBFTYWJId0xtdNB
-	 2F0TrYrEbnMq824HTBE/pxz542hw0ZFK4pFb/KpLMyocPIfcBGOYRO/HiPGd/czhpiPew
-	 KnlXmeW0FJmZbmBA2V6BxbU2Qz265mKqBIgZeAWd1Ng1KVCZX8YBEcB3Zv+EXe8sG0Uig
-	 Ga3YbtXqCleWEtZQ00kyGbkflP86PSbEkz8JXgzkqo2B+chsVqsI5m3r0CRvs9BRTPS9I
-	 pe97d0tziMKCqUL1dvn6DcTdQk87HGds7/8a6j14imahq/JtrSdX2er9HRjeY7vKBIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c9UsD3KW;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tusOz9pK;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794322848;
+	b=FT6xWxpTC+pZmx0iN2ASR7J46IiAOGyzvMG14ae4x3CGmrW3beYcXpcMO5Z8in/QecJC
+	 ryM1PPIrFEXDhGUGXlAqHaI3bEMdi2pk2eW9MZ+IxWzEh7pV1D9T7cKNGE0F0UZBCmHyn
+	 Z13CQ+ichn/KA2XGF3PT6HfboKfPFyjZttj4M3eV+/BfMWInnrwO0FoAh8JbGKVhRioEu
+	 pH43cpLoxzJP/1cd6IuwSOr74mMX5EtbNKD9cM2uXmogw1Z56uK7lGghm/FqV2JOjluQW
+	 huYeD1E962HxTlnRnVJXMzEwbB23Pb/t6nCCbxToZ7sk7cVDhN859hgWAKYvVL2I8yw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322848;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=;
+	b=3odu2V2AM1zZMo6NXB7VEY9oI5nIScUOv9rIQBnLDqmFjE7kz3DG/x/VqK9kVOnPyhk1
+	 6qeIcdrDnNSCUUFpwrokmtq3rmNCdpN87mnFioiv09KrOfD4R66ZH+roIElcPQz29Jhsn
+	 0LaI8YD0y0tHmKnrdS3Xzt3+IqJ436DycGffow9Xj6lI+xG4EyEVuHRIH8RqxQH/X3lLu
+	 oWLBbYMLw3LnWAU7JwxrYIhozKVvFWXKO5nLyRo3PbOCBCJAdad3jpXuckPOFfdZS1pB2
+	 nVJgBNIE8KEDDqEphJo0tYqJSVaaDKL8l+EjryQRNzNRbQyHBVcUJtYCyQh24pkN2sg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAA160A3830
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 15:00:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DAA160A3830
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8665560A5BC8;
+	Tue, 10 Nov 2026 15:00:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8665560A5BC8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c9UsD3KW;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tusOz9pK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794322838;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
-	b=c9UsD3KWmStb/oKxNMAK8SFDP0/vCTrWIN3buDC1DNThRqTcg5/sTvamBndQnu+V+XGxnt
-	/7lvtSFG4S0HvKIqs3MdDrhGoO6g+9c0p9Lk3f46I+7mRMYIXrDk9byNjb/gZTIDJ2Sijt
-	qxOhinJ1kBoNcrudMW5rd+u4G01EBwE=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-194-nxU8qurROECCGVFoaVCrng-1; Tue, 10 Nov 2026 10:00:36 -0500
-X-MC-Unique: nxU8qurROECCGVFoaVCrng-1
-X-Mimecast-MFC-AGG-ID: nxU8qurROECCGVFoaVCrng_1794322835
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4902ce85f72so1651206f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:00:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794322835; x=1794927635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
-        b=tusOz9pK2ic6QyHtNsIwAaalvgbrOb/B1eGmJzxXoiJmJf6dDJCGS1OUG6pfXHX92Y
-         FhKNbyYh106vbiIJ3/1TUPtFAL82MkXSmzhDy2aXSjfrIIc6D62s5+6ArVkrHJJiqJb7
-         UplRoxnkE+ebe9N9+9XDYXLpm1oOUhKAyqe6uvSiBNpzmpF44ereoOr+sZZn5qcA9wJL
-         IbVv8FmK+XZ+ntUE93Bbi/0PiJRTA3xiWRy88sxLQpwXLx4xZaz0ZE1TCDvjeecJ761S
-         EVha7EUO02k2gLMEcepy7RzQum3wDjgDlph6Pzv4quqEGAKuHlAsQn/evjCS5FywUX/2
-         y2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322835; x=1794927635;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
-        b=0NqIf0s/LuYC5ufpx5V5jSOv11CVaLn1ka+OMt6SUPSbVIhaYi9ir9PgyalFerHoOg
-         k7ekLcasuY3HatwXf6E1N+nu3mrbKEgcyszqugh2JIFwJeMlD+T26O4YY+gNlkIc5QQJ
-         vuBknCgBao7MjtB8szMSRWiwHyVo+MH22fDioVmwg/Xej4hr0WQ9AKS9ZgrhHmzcl/Wn
-         fVAThIYyBfQxie+4M3mjRBy3R2z+JBOgrm+AkidjO9gZ30cM20O0MihIJ8rlnSpfGZex
-         ve9XgjaFgAjeI4ONvbHTa09uIkQ4Al01TE5OcE9HUTQmMK7u9Wl87AJXiGvWwBXMjcsD
-         VlCA==
-X-Forwarded-Encrypted: i=1; AL+hErHQztGzaFvX9XCAHXJjg/BlAaL8uXMTWENkyCgexEvb72sitMKzKEKF1NmzWZ+dE+FTUkmYtsZoTaBq@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lnBL8gkexpToh/KtqpvDJTENFCWHvNvHp1KzVY51AaCtcPgBj
-	rw2dGqs72v2rLVUB5gBtuwZ/8Uuti0MfS3fTdlYavsVz3zv+T3Iu9/CCAa06NaouZzuncWyXtPs
-	ThLxRZq2UjqyDOIyKMFU8V6Fza1LSkj3Nf8BsA2vSBiOsyDYCcNRYMjoduc/mVZs=
-X-Gm-Gg: AYBFou3xnC0CR21P6OZUovS121Kz3QIuNm26/uexlYLPvGElrvT7Os2OTR/1c0S8PFx
-	2+MZQC/KfHDV4p5mzsDknuQmLYfH4lS++G7JlUZ+ixoQUbJp56WPtWzRKkBhKmpKEEPTk3RYCWj
-	cWJpA0QV/TfOKk7mnhX7uAoCC41LppNLgOjSy1eC40slZW20hA7uz4BT5WxypQ7xgrVCsk5XgJ3
-	V5EzqcL6R7+mDuKMi+r4yJ8wpde53Boz1ZTRmOhCH6ztW8vaB2Q+H2soODJBv/sovyOiYH/596l
-	BtJQPw/NyCD8bwdXYCfgNEV6dMF82YUVedmUpKZX+rLziX9nbYSryaOYXVEbzzKoJ1a7tnkTn1s
-	rBT8AsPcxS3ZKEPxNd4JcmdB/zbQ++3hQarf0OvsjvY0qJgELMqfRFOyaCw0GBpFA2FA3L1lH0x
-	dVzC34jbseqnVK/uxUYTkMVZ2dptYx0A==
-X-Received: by 2002:a05:600c:4e55:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4ba023050eamr52358675e9.2.1794322834836;
-        Tue, 10 Nov 2026 07:00:34 -0800 (PST)
-X-Received: by 2002:a05:600c:4e55:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4ba023050eamr52357655e9.2.1794322834148;
-        Tue, 10 Nov 2026 07:00:34 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0237fbe5sm47374655e9.3.2026.11.10.07.00.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 07:00:32 -0800 (PST)
-Message-ID: <c14fb8f4-82b5-4aac-8c64-a2dadb210e9a@redhat.com>
-Date: Tue, 10 Nov 2026 16:00:30 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ
+ARC-Seal: i=1; a=rsa-sha256; t=1794322829; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Eb0p/omXtaq1k5nxNfO+ujP/HRbgPhXxnjYl+jPdYc33Yc4CrkysC7ePkukgW8NK5IKc5RY+vhGMiAznLn97L7pksj0kVP0VZ1zSIMSmmfMe1WNC4FF183uIUlrKrPSETt5Z75rc6eSv7KOMulct6Wto+FSqVTG4EzDTjhT+YMM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794322829; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; 
+	b=G9ld2mFn+L16/WrbrJefoNJzbBywfBEPAo+iqStgHa6C6TF5jHufoDYvw2tnQhDwUgHu4Zl7LC2qACeUO5z0i0bWjSMDNeEZG7n6jsKYHlAgvNB7ThslS4sN+7ErElweraMVKzr0KRYQGd5GilNe5cFtg3BEkanr62mXWRAWPpM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=gDpkEvFJvIQrrlLE8Kbk9F2ORW97VzC+pAoFvwtWAdavuP8rXp7dDxdBG0pvOYEzPRLWJag0ME6Wb/fcmYkLCkagSxHhVF32qTeT1los1whzDp4eLXfbMyslEUXbKBlIA+InyXnlx12Js13nHIYPDnzuc94GNosGA4yZb2G+fVc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794322827521487.8316939248318;
+	Tue, 10 Nov 2026 07:00:27 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id D82A2180354; Tue, 10 Nov 2026 16:00:17 +0100 (CET)
+Date: Tue, 10 Nov 2026 16:00:17 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
+ the RK3588 PCIe SMMU
+Message-ID: <avMwk16cTHMQIwmC@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,58 +73,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v28 2/3] net: phy: Add support for Template
- Control register for PMA
-To: Kyle Switch <kyle.switch@motor-comm.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-References: <20261104060636.3901918-1-kyle.switch@motor-comm.com>
- <20261104060636.3901918-3-kyle.switch@motor-comm.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261104060636.3901918-3-kyle.switch@motor-comm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yvnwakyswhfsguxx"
+Content-Disposition: inline
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
+X-ZohoMailClient: External
 
-On 11/4/26 07:06, Kyle Switch wrote:
-> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-> index 06f4bc3c20c7..353ca13c64fc 100644
-> --- a/include/uapi/linux/mdio.h
-> +++ b/include/uapi/linux/mdio.h
-> @@ -63,6 +63,7 @@
->   /* Media-dependent registers. */
->   #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
->   #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
-> +#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
->   #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
->   					 * Lanes B-D are numbered 134-136. */
->   #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
-> @@ -320,6 +321,17 @@
->   /* PMA 10GBASE-R Fast Retrain status and control register. */
->   #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
->   
-> +/* PMA 10GBASE-T Template Test Mode Register*/
-> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
 
-IDK if this has possibly been discussed in previous revisions,
-but uAPI should not use GENMASK(). The plain hex should be preferable.
+--yvnwakyswhfsguxx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
+ the RK3588 PCIe SMMU
+MIME-Version: 1.0
 
-/P> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
-> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
-> +#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
-> +#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
-> +#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
-> +#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
-> +#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
-> +#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
-> +
->   /* PCS 10GBASE-R/-T status register 1. */
->   #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
->   
+Hi,
 
+On Tue, Nov 10, 2026 at 07:11:51AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> The MMU-600 for the PCIe controllers (mmu600_pcie) is enabled for every
+> RK3588 board, but its node does not describe that it lives in
+> RK3588_PD_PCIE. It only works today because TF-A leaves the domain on at
+> boot and, on most boards, an enabled PCIe controller holds it on later.
+>=20
+> On a board that disables all PCIe controllers using that domain (the
+> Orange Pi 5 with its M.2 slot in SATA mode is one), genpd powers
+> PD_PCIE off as unused after boot while arm-smmu-v3 is still bound. Then
+> at reboot arm_smmu_device_shutdown() writes CR0 and polls CR0ACK on the
+> unpowered block, which stalls the bus: the kernel never reaches
+> "reboot: Restarting system" and the board only comes back once the
+> watchdog fires.
+>=20
+> Describe the power domain, so genpd keeps it on for as long as the SMMU
+> is bound.
+>=20
+> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU =
+on the rk3588 SoC")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk3588-base.dtsi
+> index aa69fd3793fd..bcd342c025c9 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
+>  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
+>  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
+>  		#iommu-cells =3D <1>;
+> +		power-domains =3D <&power RK3588_PD_PCIE>;
+
+The TRM says the power domain of MMU600_PCIE is PD_PHP, not PD_PCIE.
+See Table 7-1 RK3588 Voltage Domain and Power Domain Summary around
+page 1096 (depending on specific TRM version).
+
+Note, that PD_PCIE is a child of PD_PHP, so it makes sense that
+PD_PCIE also works.
+
+Greetings,
+
+-- Sebastian
+
+>  	};
+> =20
+>  	mmu600_php: iommu@fcb00000 {
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+>=20
+
+--yvnwakyswhfsguxx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMYEACgkQ2O7X88g7
++prfPw/9H7V6CFJtfI0s9f5zQ1tXpHmng97aGYhRQAxloE/LcvZHpFI8zHFOAL+3
+/BQfGKhYVHxw0VEO4VSVrIbaLWag1mtFtYfjINdR5/uT6937ctWfyskTfMuKf/35
+O3nOwz8Uihhq3ZbA+AFJ+DLbUiRs7+Ka7rn4IxvDE/YEZrVPFJIRmU/iJ5NZTiDs
+u8AVATgGiVEmYXFkrqUr3siaEB5QiITUOkv8F4y5i9xYcrqnRr+9LrwjXVsjVpn+
+cySgWnAySJ13eX55L4XktWLXiqd26EaK7dRTcWsNm6mACod8BP1sGtDJkS310fFv
+Utzx30B9Qh7ThWXF2HwdmeqSGfzWFc54k8IHtmx7PcpKkxmOFXG5+e7gOw1IMCE0
+Ro9SQxIwJ44twPtPyuQyA/nzqvui8ZmzFhZ9TmuKjyuR1tOLmg1546WVLJroN3+B
+ceLNYAhT94Xopbf4C1WAA8WWOSEuhU7ILyyDB+LqVQEG8YtaP6d9wFq0vRDxKbXj
+WITuytLrKkMWWjwXtq2qWko1HLDCHv1SV/1lmw7Vxye2Gx8mLIjnrRXgRVfhcmZA
+TC7g/FJ3/oEvKSbf9OrE5LglaqBWGgwbzN+e/g7UCoQnfHKOwHB9phFeOj7nUTvW
+/zzCKbC+DQ+HjRbMKlP9bEw/GgJebMSK+fDAM7d68zim0FCJ5Jo=
+=Q6ux
+-----END PGP SIGNATURE-----
+
+--yvnwakyswhfsguxx--
