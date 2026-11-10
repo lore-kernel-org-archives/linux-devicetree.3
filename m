@@ -1,118 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284965;
-	b=FIJv+oM9Tv0hoy1L+tyzTqLh/K63PlwpRDFHDIUVmwfy0ozz95jiQRW5JoYT/VdXIEul
-	 eUpY5xO87NnvTHasSUCamRm698gikjzTibPzYTR24gfJgXQ3s4MZVxzhZ4SSdgUgdCV/0
-	 CTEtFhlazZyhyvKFrMQjg+9DZrTV+dO6QaHohm95B24bLHSmDwp+ZzWIj1T843PnGe3wd
-	 TtTEcoVzR8HYlUp1p51au8AF1J/VE4ZykJAsrYxm6PLSW+Wtxh7ADajMYVEOWqPNapKwE
-	 xGj2E5jFFJ+XlRVBLE3yZBW8XxK5Fo+b6Qr+V+n91KvQp7a9HIPMhxB0xfwU+gKFVqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oU84e4rENdC2Ajr5wnQYgmXRLgcMxlcGM1poO3t4D6A=;
-	b=3/4JS0NHGl2BUp+55kYl56DjaaXCu1mOOFitmeec1ek0I/aPjlJMvLMGIaxTz/gWa5Bz
-	 lZgwHe11v8uCD6qPWbLfldrPTfMz9pWtpwSOv/BjqhiXthwbVNkgiclrSny87Rm69KgIE
-	 IZMgD1jlh3VY2VcjHVEUcTU6sjdSNhdOj2AxJTEz6uvV0GWFvUJnQUFxMaC5Vzx8fsjmq
-	 vZnCxW9Oo/xDJHGZ+d/zn9Us0tQaHyHSb7Ir4sdZuNfwu+RaBSB88LYFrcm6MBwss3TN+
-	 Oqd/wYu2UUO00WvLs+UFfamYjOHGpNA55fiWQBRPv2p0KPyQ/SwBb30O9KyW1R/D/EQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sifive.com;
-	spf=pass smtp.mailfrom=sifive.com;
-	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=BNSdpTLC;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794285167;
+	b=P5TcUdnhFRypWFSP4ak3xgpMs1+NOjoIVD1FizkD2hBH4z8TKGWqUkRheEfGoVSJRWWT
+	 SmXCSqwwHG2qF3hvJdq58HkGM3e3jH0poXDGMkZzxeU43DrdiZgI0e06pkvezXeGxRePT
+	 KlSk4HwaKdpNMvcup/upSk+vseLihwvlwvdfkNEuPm7zpe70O3Pus81QXfVC1ft8Qon8U
+	 H7a+cq953A6Un0TasijKZ04par2GdmDRSQW+Vr+DoUmEp5Kh9hykaT/O0L2SZz94s26jM
+	 KqDsIzKMlXLaH5zvCoM1wWR8W4mUGSX4M/gPMv3Z6xS73D7a0Xodu91biFMIO95c26g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285167;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	b=nuW2BrIjMp3zoEzaT/qHfUx7S3UTSiNxuWdgYvKXSTv/QZMcci8Qa5E24Nb5Jbld27/q
+	 latbsaw/Er28StwlRXfwjiT57wp9Nqn7r4DaYcOcX9R49uQh9tvojmwRladOxHDitwG/t
+	 J95fgOBLLKOP1IFepY+Lyhm5cKFsAVNqpykNGLt6ajc/m6/HUjTAWY74nYDtLRSWHdOks
+	 4l2DRhK/hWINkj8V3jfr7XpPRFafjxtG+KqOHGBVk8pTh8e+sxrHY3wTlZMKHwru5ibQQ
+	 qhlyFxEQR0kFVxr483+g5KGp9n0kf1L+5gbZb1wccTxYGUS8KBvZvFytE65+iDSfKcw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgnXt6gl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416C8606A336;
+	Tue, 10 Nov 2026 04:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgnXt6gl
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794285166;
+	b=Z378CStSMwTIZc/P5aYbQsazLh9BRp4b+nLORvtNB/A+2BIX0s+6BYX8uk2SL1Qidab2
+	 0xfCocerkydMUpNC2MzAHq/MuE5idmC0mnnebMVI5jC/7ziGV2bAKO6obkWVvhKwAPF25
+	 WvQs56fmnVrX3BzKauAKlDZxPdyivI80lBWJFGyfJxAdszrfV2ahBECEdckTqterV2W4/
+	 F1xSCnlwBg8HGS1RnvfK+zbJnbScggbkf9DQv/VzL8N7U2UipcEuebisrnDGrNIIW4M+m
+	 cvAl3GliVdwTJPSDNhiNcviI24rXHbcoo10+0VQgPqbC3GnTwVU73Ku1bhfc8QJuGUA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794285166;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	b=DpAQ+Aa8Ac2U1Dvy/Cu2/IPlfaMlIbH7V3zuSnwSwyhbMtsJEst68eCWAJLbBKdNBy1u
+	 HzQrQrAqYO5xpSS49mjKqW7LLVRTkX0HYdQ0xuaTY4whwxWIEdY8jfQaax+apNoX4CEGN
+	 sTDs6AwhC9vdIaomIY2vzjjrGaK8HRGNpYLpE3a0CdEgf5Tlv32CaEdAcI9mYADaHr2xl
+	 nVMfWUkOaYRFDrzZUwCG1p0Qz+rhuF9Fq7pWhjT60VFp2OHBwEN/A2ubWVs8I6eninOpB
+	 dCTmVZAitdErkK5Q0UnzaGjy5h1Q56XvuSNmpP/z9lk0n7W8Yf65Z9rHbha0ziBanig==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC63C606A33C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 04:29:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC63C606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=BNSdpTLC
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b244fb7fffso2030650c88.1
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 20:29:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1794284964; x=1794889764; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oU84e4rENdC2Ajr5wnQYgmXRLgcMxlcGM1poO3t4D6A=;
-        b=BNSdpTLCxzeni26nLXimNwG3tsiucVXQvdSMs/iNf8HV6IN0yWNddKipGiTFS3jHU4
-         TI4cBxxHxxGJYJrViUIZjBj+Pd5p3V7VFLTOzHO8sHOMeixUvTD2n2tWys5s4qLwYrX0
-         I8IJ58etpTH3IkpJst1FRPg7vC2qJfxn3HOn4MUHhZLEvwWH29DPlteUISOoBqBfKNqv
-         tkzWpD3UGhzOaf3vOF1AiqzoBqxUAZtIpbwvJO9qjMC7xbDGa/a+s2ZLNCUvcFDBl/yD
-         esHGGgmJA5JEc+VYTPwliHIErINFxhsB0xh+yDpNkrLd04SWlybKODvFumGaeM7pnao+
-         DvUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284964; x=1794889764;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oU84e4rENdC2Ajr5wnQYgmXRLgcMxlcGM1poO3t4D6A=;
-        b=GNgY7rQYpKSGyTTCcdJFRGvyt/k5z+Pw2kSirHBbJ15/Ju4TqzaORK0Ud3GgZCwTmy
-         pX9Ew0e1Ty9RF9sd4k30CLQDZxTtW9OmWErsNX3XueNHE8c4k1xZTRR2JBfjNl1vtfpT
-         r5TTprn1VrT2aM/SvshPQ9dvhhyMO0ix9ko0231vDovE1e0Ohf/p26Okla6+CF/cuqXH
-         x8lbxPs+7bvF8YnR6slfAPrptuYQkx7tDmHg9WZMhbK1c06qvtSIFmIz6uG1VbBnfX4N
-         f769WAnyhzxPT4/2DE8wvkVCNTMIagPU2u3ElAcGs64Xxe6i0yafv3PSTm5N2dRVPeJP
-         SuhA==
-X-Forwarded-Encrypted: i=1; AL+hErFHuYwK0yKTPhBthzm1JGChqADyY3m4eMba+RA9TQiv2c/dwm3e4Hf4o8sVkmemslbdHN7YVIYFirW0@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vVdVXZS2EgdWtzarRFiGgYhEAUBPKVXzlVcQ5cEn19hzr0GEV
-	1q1zDkeSVK14dW1RLSyUg/mbZrPuN7MpH+rwlLII501lnGL5LG53yzmQ0fdBP1YJTYM=
-X-Gm-Gg: AYBFou3tCD17Vhw4751wNNDmZxFMiZDxORtTbxO+/kzWGunWbxO83rwAQr3eHbt1O5t
-	0GyEJzj8s6OHJCiOcO+TFpQPN145RmhFTyEk/h2iJjw/VPp38H/F2X56TyDjGCP72M2+Puym8oi
-	BE96C1x4ecP1bY9vPrWWme3/AmMFy1bcUscfUYZjlsYBOJE/x095v1xyB3YUA64MBQYm6957pSS
-	w2yPYmz3vxjc1pBPr8bNf1oauAna61G1b9v0X3Idqs9nUek58Rfmkw08qGVc80LHr/oSxbVP2g8
-	kCoUxXQWOlkUluzldt3Da48uScrSlLCyQ9jDmiulxr92uZKNXSJF+zxtV8qNvBCMbmUt+GD2Zdq
-	3Lq4R49e5GI+17RB0wXSguRYB7UfK1bVHRcIxK+efh3QVYW5rYlR++eNnZD+a7OWB3FlpDGfwvk
-	2sWQYDfWFcPD4awOCP5odYfapeeqLJKXcsEpyI3VVnBytaOeha085ptygdoN8mqcBHp6nG9uq45
-	9Dmzx1gyANpkfj0DwotMBQcpBJ82jOKbiSp62yFLw4ZxfXgglqAoYDKxY9LRwN7kyXzS+rLj7ER
-	lKS3f4YEOcv6+ttExVCI2dJH5GxjGq74K0lAntcP3G35gowQW2JseclnoqNuUFUQmA==
-X-Received: by 2002:a05:7022:4189:b0:1b3:b53e:b4cd with SMTP id a92af1059eb24-1b3b5fee29fmr2657556c88.21.1794284963812;
-        Mon, 09 Nov 2026 20:29:23 -0800 (PST)
-Received: from sw08.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm3403963c88.12.2026.11.09.20.29.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:29:23 -0800 (PST)
-From: Leo Yu-Chi Liang <leo.liang@sifive.com>
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Cc: Leo Yu-Chi Liang <leo.liang@sifive.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	Anup Patel <anup.patel@oss.qualcomm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mayuresh Chitale <mchitale@gmail.com>,
-	Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zane Leung <liangzhen@linux.spacemit.com>
-Subject: Re: [PATCH v6 07/14] gtrace: Add function to copy into perf AUX buffer
-Date: Mon,  9 Nov 2026 20:29:19 -0800
-Message-ID: <20261110042920.2108205-1-leo.liang@sifive.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261001052243.3042627-8-mayuresh.chitale@oss.qualcomm.com>
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com> <20261001052243.3042627-8-mayuresh.chitale@oss.qualcomm.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 488501F008A5;
+	Tue, 10 Nov 2026 04:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794285166;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=AgnXt6glt27Z8uemQPwxjODeGgM6+uRQnOo7BTbOwVh5qo9w7e2/Z8mzGRCJa9Y+n
+	 rsZL7FcSbxGvr/zI5P7x4cRhYMQMz0vaUuilvrBqZgu7OE3vjbNw+y5rJss0KyAWpj
+	 0fLt3vniLxOqYPOa3q3YC6X5/a8pShSJzS8IbpB3j0e5PZkWtJspLPBW2QryrKBwke
+	 WQHDNSBjJR3FQY3iP8HwMK+hWng3bE7IhAOoXufBldttcPaKtwJlZjQt4rkM6+f4/f
+	 aoxdpXlS3wNjwxDO07exVK6VHXufY68lHH0l5N8KuCO39LH4aEd7fh/Vqae+LPabH8
+	 kE9LK5rGz4apg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C625A4885D;
+	Tue, 10 Nov 2026 04:32:44 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Tue, 10 Nov 2026 12:32:29 +0800
+Subject: [PATCH v14 04/14] gpio: pl061: drop redundant pending check in the
+ IRQ handler
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,42 +83,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-cv75-gpio-v14-4-e586aad0467a@ambarella.com>
+References: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
+In-Reply-To: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
+ devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=1082;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3XWHZond2pOFeGIXcPtw+mHYxFL9WC432M4BN6DutlY=;
+ b=eaFAUfP4vaZ2PfPolFZj7JveFBZiYQbjbetYBLL31HHus+sapJGy1TnNFjczsi6KFP6LhcWur
+ nx1PwEx8QkfDNXTHLgspWLoR5MbEPqjQpCNuKMzF91XKErG3wgQoh0g
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
+Content-Transfer-Encoding: 7bit
 
-Hi Mayuresh,
+From: Long Zhao <longzhao@ambarella.com>
 
-On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
-> +	list_for_each_entry(node, &path->comp_list, head) {
-> +		comp = node->comp;
-> +		gtdrv = to_gtrace_driver(comp->dev.driver);
-> +		if (!gtdrv || !gtdrv->copyto_auxbuf)
-> +			continue;
-> +
-> +		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
-> +		ret = 0;
-> +		break;
-> +	}
+for_each_set_bit() does nothing when the mask is zero, so the
+if (pending) wrapper around it is redundant.
 
-This calls copyto_auxbuf() of the first component in the path that
-implements it, which assumes only sinks implement it. On Eswin/EIC7700
-pre-ratified trace hardware the encoder and funnel each have an embedded
-system memory sink. Whether a component is the sink depends on the
-topology: an encoder connected to a funnel is not the sink, but an
-encoder with no output connection is. In the first case the data would
-be copied from the encoder rather than from the funnel, and under the
-funnel's lock (the same lock mismatch sashiko pointed out).
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ drivers/gpio/gpio-pl061.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Only the sink holds the path's trace data, so could this just call the
-sink's callback?
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index 919cf86fd590..721f14cf404e 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -219,11 +219,8 @@ static void pl061_irq_handler(struct irq_desc *desc)
+ 	chained_irq_enter(irqchip, desc);
+ 
+ 	pending = readb(pl061->base + GPIOMIS);
+-	if (pending) {
+-		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+-			generic_handle_domain_irq(gc->irq.domain,
+-						  offset);
+-	}
++	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
++		generic_handle_domain_irq(gc->irq.domain, offset);
+ 
+ 	chained_irq_exit(irqchip, desc);
+ }
 
-	struct gtrace_component *comp = gtrace_path_sink(path);
-	...
-	gtdrv = to_gtrace_driver(comp->dev.driver);
-	if (gtdrv && gtdrv->copyto_auxbuf) {
-		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
-		ret = 0;
-	}
+-- 
+2.34.1
 
-Thanks,
-Leo
+
