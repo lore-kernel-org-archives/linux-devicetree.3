@@ -1,68 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269942;
-	b=Ri5tZ2k+MBNtiSlBOPFXAPM2XCTZ5Cp+f4PtYcGD3EapF4GJB6k8Fvy+rC5n+q85k5k1
-	 iCYtOVkHOTHCGk/DxiJdFzWxYo9Hgc7U5KH6BuABaITMofh7lpxsRvgco5JxdMBZklxG9
-	 yvs6hfoQmQyod1ObLmBziB/cuue/8I1WL/qlfKhnzTWTeK5HEnsj6rnYTS848uDBId/D8
-	 RrHklGGTTT0PwJ6kMSI/kv8ZAIKUWP+SoObeKEl+OXLV0Ds7ajuOjdiAnA7gGCVfFrI4e
-	 d96v9Jx6tsRvy/Cxbsz3WFLNX9j56H0rk0bPvy4nto2fsFPImyIsawQaJoC1ygl4siA==
+	t=1794269943;
+	b=4kH+jXnwQ9YDjmUjYeEfQZeCeSgslri3yc4mH4pKa6EqS3Nq+/MneU85q2W0x4WXoVUS
+	 /ilHyXnMXJUfsLVf6XHkxZFc7LbteHkkSxYdLXI1Nu0zaptkVgCIJCRAbVyo/bJIichrs
+	 MB6ngokUjyJFVCCd9SFLWDwZKgxRFLB/36Jf1sQqm7YbLdUsHaplD+v7rjbRcx0x1fpcD
+	 cZUt46fOS23MKfUJ6PtcpP6BUA0dUqWptiYPICT8TAaCyblCDWAvrtSgBwtIFLMcVnxXQ
+	 Uic8P5gfXX9dIrqK1v/LDwnnVnomXd/qNgGUw7FLxU+gttIkrgJt3LMMeeslmO2un6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269943;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=nysLrwzoQAe2qw/VpKL+Q2ul7kXLQN9mYGdMAz8BYVU=;
-	b=404zQP05g7taUiKVDHCS5kZwGp/s5ImcITqrfnVYZqNqUFVVN6Ej4DvGU6JlrObwGUxd
-	 Nobh1jEHznA9kmTIP88vg9G9E/7tMpSWF2/GXQeqytoo/xy9PBK4q50Jvzz2GDvFqEfHr
-	 6Zlub1PLZtVvALoUfaq0JcZOIWQbhkmWT/9Hwt6EqMPF9KpyR+75MKgCGKguDcOOzlSLR
-	 NjZsQIjvMR4GCztr6EraBomNUjjRA5LXbjr/yDJUh+ar1odhpsImuhUiLkO0fXDvtd3QT
-	 2oiI6ld6LNJbOIYDr3nLTs8jOhSDS+RDgbNBIaOoN/M8utWRf1pVrOd+g/TviTn7VqQ==
+	bh=D340QR5pIY14AeGchJexrYYpbRr2AoZb/MZ4YNUL/uE=;
+	b=OPJ/6NQ9JwqzDiPpyYd12iWGyvVi9LErs1JfOI5XigXH0eiyx80QEg9gjIsBxUjXian6
+	 YsSEJKKREuu4JHM39p3d7teqxN64/I6C/FOWhVY5bLBAATXt1XihFqi3vcqhjmCCR1jZg
+	 ENR5E6jDmB9nPvw118XQK2WC3W2EEQMZ/2xQnxt8sHVE0qhJyq5YjpRNewYjuzjHsUtuv
+	 JD8ZPPYOTDiEmYvWglgz8BKEYYIEl6X/9u+OBB6/YLedVP0hB2F9eCpONRuU6sosQkqCk
+	 PupgCrpetm8oGlIsXHr0eqW5wjdPmCmrtwj7bQY3J88gtzHxd/t/QmQRiabag7d42RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVQDjg7p;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWR0ui3U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC40606A333;
-	Tue, 10 Nov 2026 00:19:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9284606A33E;
+	Tue, 10 Nov 2026 00:19:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVQDjg7p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929A51F008A3;
-	Tue, 10 Nov 2026 00:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWR0ui3U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C8A1F008A7;
+	Tue, 10 Nov 2026 00:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794269941;
-	bh=nysLrwzoQAe2qw/VpKL+Q2ul7kXLQN9mYGdMAz8BYVU=;
+	s=k20260515; t=1794269942;
+	bh=D340QR5pIY14AeGchJexrYYpbRr2AoZb/MZ4YNUL/uE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TVQDjg7pbClHUDJ/j+YKSQ+slS8aD19hQ8/hBTOCnK4pvJJGU8NERUg9JZRmAu6if
-	 8eHt/MXF/7GH7ZGnWiB9tFbzfTRnyioW++FE0wjg5WJKyuC5fbHLD2w5ttQYWO9c35
-	 B1tqyUcR3ypOnP7+Sh/a759mKfdeAaZJz0NJhTYsJO+P3AK6rCUc1+ic1GfS1L2f0L
-	 3d21sopk9eQ0RJhDJYIT6G13dMVj7XvfKXRsAFnfI2YhEA9MtBA2jyU6PJGe3EAagd
-	 1PQzYPMFlTnTOCQfODHmG1nrBlRNKxEgZqNZ6JTOvk44OXLPE7SuA2vTWyrNFHItfV
-	 ZAk31ZBeq0egQ==
+	b=oWR0ui3UsuipkM4nt5kPePj4b7WnqO5HKzNfHNTVtlXChiiep43oBRJIEYE1x8pPL
+	 LAo8wnPvLxlxWAAdCXPpDwUBwWrkBckUhl0YBITLYRzg5m2WlNfNDNCgwugmenxIDu
+	 XT4x+31H8H3FpjJX+jzBCXOjNXy+9yTGDYBTfVAUDDynOuaMUAtcDb0IUDcEjB1WUi
+	 QttBZO/lomz/8wYi1Vzg4mDtDeHSne55IFV8MIBqm/OrDZiWfnxHtMJM5N5alIbEpJ
+	 JSNYeo8RkRqj1HyEHqoNLBANFglTa3EuyxlwSdu3hjsUcTsMawWiuAIv9jB8/y96nA
+	 QbLZGq9bC1AXg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
+To: linux-arm-msm@vger.kernel.org,
+	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/4] Asus Zenbook A16/A14 (UX3607OA/UX3407NA) EC driver
-Date: Mon,  9 Nov 2026 18:18:53 -0600
-Message-ID: <179426970779.877162.914179721642251304.b4-ty@b4>
+	konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Add support for Mahua QCB
+Date: Mon,  9 Nov 2026 18:18:54 -0600
+Message-ID: <179426970782.877162.15936105150365282409.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
+In-Reply-To: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,23 +69,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 15 Oct 2026 10:55:28 +0200, Konrad Dybcio wrote:
-> The Snapdragon X2 series-based Zenbooks come with a bespoke embedded
-> controller firmware, bearing some resemblence to the reference Qualcomm
-> implementation (qcom-hamoa-ec.c), albeit with too many changes made to
-> consider them anywhere near "compatible".
+On Tue, 27 Oct 2026 17:19:51 +0530, Sivansh Gupta wrote:
+> Add initial device tree support for the Mahua QCB. The QCB (Qualcomm
+> Compute Board) is a board built on the Qualcomm Mahua SoC. Mahua is a
+> 12 core derivative of the Glymur SoC.
 > 
-> This series introduces a new driver to let the user retrieve current
-> RPM of the two fans, the temperature readouts from 2 temperature
-> sensors and get/let keyboard brightness levels. The driver also
-> notifies the EC of system suspend entry/exit.
+> Unlike the CRD, the QCB is suitable for compute workloads,
+> power measurements and oscilloscope-based hardware validation.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] dt-bindings: embedded-controller: Add ASUS Zenbook A16 EC
-      commit: c9970526e61a968381399cf556789123fe67ea5b
+[3/4] arm64: dts: qcom: Commonize glymur-qcb.dts to glymur-qcb.dtsi 
+      commit: 71e1b237de83978ba89576f92c5da892794d67a9
+[4/4] arm64: dts: qcom: Add Mahua QCB
+      commit: 3b0df46f80ea1ee0111796f6ffc74be3a2873e9f
 
 Best regards,
 -- 
