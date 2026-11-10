@@ -1,68 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285303;
-	b=0URb00JJEzKQc2zdDBo53H1igdre2Gb/GcSf5CX6PIthr5aTWGCx+1MLOOwpMzT1+j8n
-	 ztEuwCUTnX/5KVNMwD2LoLvsd5qzYiHo1VjmpSOdXOKiX3wuPjr3F/VM8nTg7FTJGw4yR
-	 6IF40HZ1CKxkOo0GSAN9VLN/Tg8Tv9IH3XdJQdWcWg23hMIgqUueyQ7JWoI7Lk7C3Sxhw
-	 Jpx8t4Qh1OKTfPXv5PAUB6qHFTsfRc8IQJQ5Zi4aFeb2gLS5XcbJ/9VfuqVBDcUXWzddD
-	 y3bX9Q8M879lPjElrhq1mvOsKhaE/rDpV44F3xVn504SC6YNkIWIz9p4bwy/w+6bNqA==
+	t=1794285315;
+	b=DR9KCJb/xzSoEsFLBUk6BaNldDCAriz28R+ebDr5O2d1i8yFcfMXXVro87tYWbULQoKS
+	 u3pWW9TGX3oqkCnPcIP+xxHW5lWtpxm/x9g5igBtg04R/lOm6L+McZFHqjQ7WbVZ7nNCS
+	 oNsHTihXJGybyELZS6azGcxMafQGWTlVr+jiNHEAro7qOOf7xTAXUCCnCmRcrATc9rfAv
+	 E3lA/kGi2i/1zypyUEbn9Fj+G3yrG8QOaSBGSjLqcTIa1oaFmzmerlOglp84zRqYFhOBY
+	 SKmDgyX2CBhrWGacuKSsgyfINxzuJxQOxAPVM6D2kzYJIWhnxvfXFw6FFr32/61mXLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285315;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=fttV6xK/wiAMrm+IgHFd4MzCw0BG6Ef7ml6FkhjfXNg=;
-	b=3JqQkTzY1b1UuxsFTmyUW8/jDnvsYYJ4Va8eg+y0mPBmPHpkMQhTFHiatJFp7Z2scN0f
-	 GhEpkCdWnLWs/raIkr05PHvVKl8ulmgyJC0wQog+Gq9qA3n+brXhFAokgdFGoJThwJxUp
-	 RFdVlUuMUGlGsIuVPm1e8unleE8KqqguRwAxWvvwbYhEAu3Px78QqcxR15LxUr4NOzwtU
-	 rfaCFM0f55QAW3cFtaGEWAeUFueLCVH9QpBZEvnc1ymGP9U9ezLZjMczQX2p6WLUA3Hda
-	 EKBIIcS3uW+e2DU7PtyDmC40wxODsnL4aOyn4loOrbeiPmH7p39HMJcuRZ6Z+NuyOUw==
+	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
+	b=4XfDLfhqdzaoH6rZTgqc5/ZW+odsecuGpldIPW7iSnlZ4QvbZ6g/L5+iOIVYNPzuDs4q
+	 MR+may369tNXoNgFiY2UdWsoTJsl2bSV+iqNXt0zcKzPNcpNE7WjoKNQwDwhRgxS0qsyf
+	 huAdnDZ7ma/OTEaYsCrIzGxNH4RF7t3iR43kDF8JUmH9ZN3MCO0mXWntoezPL7mf9A5FP
+	 PWoUABCf8LEzAG64J+voq7IkSy6NEIIiG431/XxkXDYimNX08HZS7EhcWHhlx5k0jMlP2
+	 n0huG5T7zCX6brYxb5IfQdN6c9CH3tgybWgSVByOqosEEkwAXJGk3edKzIsSyryO9oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVq0ZTZv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F1B606A31C;
-	Tue, 10 Nov 2026 04:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937B260A2616;
+	Tue, 10 Nov 2026 04:35:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVq0ZTZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8911F0089F;
-	Tue, 10 Nov 2026 04:35:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3191F008A5;
+	Tue, 10 Nov 2026 04:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285303;
-	bh=fttV6xK/wiAMrm+IgHFd4MzCw0BG6Ef7ml6FkhjfXNg=;
+	s=k20260515; t=1794285315;
+	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AVq0ZTZvislLeFDGGUtKnXwKfskL2EhQkqJJ7QnSM5ftMautN71Ky9lxu4eGlPCCv
-	 vmEWGrEK2ATJ6OBhUSDKcPqKKc5ra7c/nEWOT461x6cMs70BGN1WfZDq2Q4xENtCfy
-	 wxn8Q/q5FfjomF9dVOXe7pKUNR44WBn6SaJDrKoNC6Xw758V5UwPEU79y8Afh5J/3x
-	 5p14+fUeB0GYVQbeqXO3Qw2A3nSEaJtk65XwfbEzRigQv7yMJmmUG/VASah/ZqixJ7
-	 6Ys3CYXXe+DsZDOjOQBv0rnOolQpcDumFK4GY46NSkCdfDMfJJOcj52TzteHE9tc5o
-	 PNwDJWzGslpSg==
+	b=QAjRDM1ZQ2uWIew7HTdjExTJeN/CQ5VzvY2lLry0aYesvqxZN4eGLnI2ymJ47oigj
+	 uGxSlGoMC+sTxCG0iZynv9ln2vK+KjGPrPcWlItocyqzPt6FJGFLBM/Hf3GBh9G4Ng
+	 KxSTblbJsnTIk97+AYmHSzgxkTebV2Lxo1dVF5sIOwNYdU7RwoLjYmowzUsA8KXwlP
+	 nQ6V7CN1z7t2YIgBkiPrn/wvYf9g2dwoO6C0maVNxVPYxRdLol9+N8x/C4rvQvm8n8
+	 olaincQ2UPhkVscKMh+YauAiVUgkeT4+dm9Drp3qW5ZLA10NRUudu+rRkxRevTQJA9
+	 1N76Z/QSgjj1A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	bhelgaas@google.com,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	Alex Elder <elder@riscstar.com>
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Sajna <sajattack@postmarketos.org>
+Cc: David Heidelberg <david@ixit.cz>,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v4 0/3] PCI: introduce TC9564 misc driver
-Date: Mon,  9 Nov 2026 22:34:44 -0600
-Message-ID: <179428529354.1061455.14011360627239052056.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
+Date: Mon,  9 Nov 2026 22:34:56 -0600
+Message-ID: <179428529344.1061455.14898677998626512432.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918152659.413268-1-elder@riscstar.com>
-References: <20260918152659.413268-1-elder@riscstar.com>
+In-Reply-To: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,21 +71,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 18 Sep 2026 10:26:55 -0500, Alex Elder wrote:
-> The Toshiba TC9564 is specialized SoC that implements a PCIe switch as
-> well as an Ethernet AVB/TSN bridge.  It also implements other functions,
-> including a reset and clock controller, an address translation unit, and
-> a few other devices.  PCIe BARs provide access to registers that manage
-> these IP blocks, and the SoC is modeled using a PCI endpoint bus in
-> devicetree.  This allows the IP blocks to be bound to platform drivers
-> using MMIO through the PCI BARs.
+On Sun, 06 Sep 2026 14:11:08 -0700, Paul Sajna wrote:
+> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
 > 
-> [...]
+> Downstream dtsi for reference:
+> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
 
 Applied, thanks!
 
-[3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
-      commit: 12f074acca972ca6b3a2317c2349ed93446e01e5
+[1/1] arm64: dts: qcom: sdm845-lg: Enable NFC
+      commit: b115248511aedffd43b82e1cae196c6836fcfe83
 
 Best regards,
 -- 
