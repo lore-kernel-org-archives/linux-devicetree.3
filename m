@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794289019;
-	b=eAxEpMvE8CZYxeGFMG2iKYdRwq7JiptSmZZt6hjShHNT8SwIpOk8gsBowb6hrCabyop3
-	 Fagd7sGpktGuw6FyOz98JGU7vay4cS0qCz4KQUl0f3VxcUGGoIAuQU9O6YcfvKMwfCrCx
-	 tt6mmes5Z4AQJuvFcPm49RPhldynwBaqyQu9xXALdSwjSqvyLZ8xHdcb25xj4DyYPXX7e
-	 YcUO/GhLBDMypHSaI802O4xEkh2/J2ey9eUTPPeU2nprK+ZCfz2BhPMqH3qPZPwpiPsgd
-	 gy8k1e3GguU5xhQ+DcrjTes8elXYg0hqcmabJz8rl5XBKZTpsweJfHePlTFqpWUu32g==
+	t=1794289018;
+	b=wd2rvB8t1Pt/FPzmcy4MGvmstN2JTFcOU9li+mZFG01zA2+ytoXS2CsgBEeWpFxnuUu0
+	 Bduy7rnuMKejRZ1xZeaHNMYxw2EJE8hOW7wyQzl0GMR/M4aaJ18B80VIiUzYgQiLcAOhx
+	 U6o7h2O+hCtods9+tofKCMavBoLkURAWWGpeskbunzTbgmrllPzuXiluW38ETeIApFnGu
+	 TtfZ3jaLUtaEZjZBxkFcV4ui7vA1RxSvs+CLxpMZ3ujCCHbsNPpA92sv2kZuW/b7rAsN5
+	 FgophFP2rpm5em2XlXv1TPq8Y16Hke1Q59iG891th094vENjG6DtHW8nzf7TFJimLqA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289018;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
-	b=h/9gKLpIvPhNVcfB8YSeBUrRG2Ly9eaX7iF5w2MHZcMcpRA3v09Oerj/OxIZaVG2GZ3G
-	 OxFqha84UMMbinveqRLqcVqxGRtZbm6W3SdokjHlIlvYVYpJrz10+zo6VVe3NheyMpQby
-	 0tjW7q64GmQcu0ffZvwVaqumjkZU8hB5zZHTdOaJqLwoKMXPbRM/hLTlzVgZFyiE1mWcq
-	 JpWF4rE6uiNgV9aiUPVEFkL5a687/0cWPli6GctzBvKpgVV4HP8nUGuG/BqhiL47/O/th
-	 v8bynhfcLp6s0at6r0cYx+0rrPfAxg5SJlZWssuMwZbsmQfCfh0QCS/vGKFed+U95+Q==
+	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
+	b=xTKIMzHcKT5lmruE/A8IDsaTYICQIBaWDSdiMiSqEtWyS8urMjRAL1U7CMwTrv4ivjqP
+	 gGZf+ZdmGCgKztKXygUlv7O5fBm/ZI+3ujeYKdiWo9vv10aU7zoYTYHiOuUTsVJRG6n6B
+	 ltHrk3MenkzpUF8NiktKqqqoMB7OM2zTiOb62OvGQJhx3g7rLlI+lZcAZtecw76ZotChU
+	 MnJ56msXS7YQOS08DzYYEexJaZwyndJQkbjsM+0q+gCmsoe+s1NBV3bmLoDa29XPAzUe1
+	 G5JxfdMH7vxOTq++xoWfftoj0rO8DF7Zu6o//lMRxlimzeA2iep399181ACKKLbv2Ig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IReWKkhQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr5PZCIw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F162F606A33D;
-	Tue, 10 Nov 2026 05:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E4606A31C;
+	Tue, 10 Nov 2026 05:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IReWKkhQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr5PZCIw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794289018;
-	b=Na2wMfpKXhzrFGK74WPaAKTpe+xcg7gBdDVmoCbt2tDGxZV1qMJjV8ERYypi26IjtTq9
-	 3wPOkMJSjjngAf2oI4vfOLfM9cTQAX5zBc9nGqchEAbVbEabvZ6wes9CtRFqQPtXQkoWB
-	 GuJPIPXqHNihwLMgLkZeZMYHUzuuEgQl3qfphAG2dyTr+uSc/b5SYRRKgC+pPdNWVLfX3
-	 fWRMegq42uUVmDXhwT1vUhplkmXIYiA39rXD8IstCPtBwMii96ydeMzVhmBGFkVllsPVX
-	 aAOSR1L8UrL3CeVnnz/YxfXMJMW7zeE0Rrti/lwcOmQI4lM2GRig4ZUfFm4Rl0K6oCw==
+	t=1794289017;
+	b=J9FtsbkjJFM7XH+0lt5Q2W+Z1+CEcR39LWJ7eW4vsYUtlOFHx4O+agX3J3/qYFbACvW1
+	 7mCRBNhMW9jmgKTjElcsOVBxwP/lILmBRxRORUWfM/Ph51fMKwi16BDzoISJ/5cgkaTGk
+	 ja4BqrBKIBUv+8xuX5uLGaYmt9QM+LJi65odh4oFy6zD9B027NXZA7nqCUo2HmHJm/mJg
+	 PBX5+jURXffG3ICy+aRIPTqbIJNQ9QLfosiokyLecpA7VTKOAXi/84qWjhM1kvCHWd6bS
+	 jOnUTA9LYNpvqn2ZBx0i9NdnSwOr90HpPa2FbxUy4X7HUzMg7TzT57T9GKhX4OMavCQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794289018;
+	c=relaxed/relaxed; t=1794289017;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
-	b=d9FR42Vx9cGQuZuDxa6hP+gpnkdjLquTgcJT7vnDTt4/j3DBWj93/riGW+0TJ7KXQ1q0
-	 ZSpLzThs8HpmSF/eeVBw30VYSZVacxPfQ6QNtiTt5MsVqIUlz1FjjYgM2b3amSbjjH+Vf
-	 ZBnv7hePY4dXY3QgHPFvRD3m9QnNtvbN5vwZ1hWKoAas2xEhUE5dZhewp4p1BNc6M2HaH
-	 +KUAU91gewELszaeGzlR2Kp6yIfDVx3TbLUL5YywKAOeGAAUF0u55yUttq5H2ose2akKI
-	 LUNh7qk0vTL7Tptj5OXbVmdOGKmi6VlIrGXX6lkroXmpr9BsLvsVNjiZ4Fb1xWpXckw==
+	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
+	b=0IueqRRqAwPbfc1gU5Q1QPfmZFIb9Vj2/7iErsLQwLvb/QM+WOznigy0F8y22MJwymkE
+	 kpK2PTbK6KHDR2V8rlRDnmHAzbokgXq+QopQSfBloMtKL+xhP225R/M21joUeI18bYNTs
+	 5/prfeHEbH4wn80xPn12pAW1thGwzE3EZb6YmvIod9afX6FCOZKUYzFfWKDbFSFo1Kkqi
+	 YIC8lQh2Cp3dB0VUUKwiwYLJBpYbmYWzU5C+fe6j2UWGldyhepeXDEHWoCxd0WS0CkgOx
+	 5L+jdthk8T1357bQZISShuRLdpnDIaXhmpLecqGhroaw9y4iV7j0fLmTr2drD0V++mg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 458C01F008A4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 19ABF1F008A1;
 	Tue, 10 Nov 2026 05:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794289018;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
+	s=k20260515; t=1794289017;
+	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=IReWKkhQKF6NSu7COjWiNE5qqRwZa//FZ5wN9Spk+81YpPWq5Ij5tzVy/q0xjNyld
-	 R7xQcS6AINJwX6jrdO5l6Gy49X02oEOSpIyk9fcKQ/7MjgeZP1rzYld0R8wnQYbrG/
-	 5hEI+dNmgjJR9XcW1J6h2IypitTDdWh1/lbk9D7sW6BeNwZZW6i2ydn14f+VYZjWzE
-	 84YU1Y/vneIebR40rFX6KMFG/iCPx2TjVGonb9vNJ3wNYCqTBwbBytuUUN0UnSf/5a
-	 RuO9psNIfUXEScKlFbwKCLShcpyjlOInaM2qCDMpAMavjyvbLU+qaAaz6v3WSLddeQ
-	 lTDeNyO+sOAog==
+	b=Jr5PZCIwY0fFRz2nQ4EkFpekkFqHH0aOSvvVW0sZdMmIXyZC+239K1JUdkjUjt3my
+	 JnHiYuWqMplIVzDWBOvVrTWNiqMtW3e3eSVx08Tm/+i6VVeXrUozsDUXLrsYHYDiOw
+	 OpdhRAgsYw6AZwYNa4FVbqzFN6daMxJW5gxGW5J0jeh3IltdOyUoZlEcha8EEAiJsw
+	 Hp/Y2d1CKVWaOktU0qhd7+zfqbNQaavZG1HP7C9Tj9ZvpU2uRbXwkP4VCR2RPze9be
+	 vrratBvUWUPi/kZcvGJMJDDJh3h3Rox5xx3dDgN7mMZotX2Q0LPkUoJroHJ0H+rDGY
+	 O+APREBv3xunw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C64FC488AB;
+	by lkml.kernel.org (Postfix) with ESMTP id 925474889D;
 	Tue, 10 Nov 2026 05:36:56 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 05:36:58 +0000
-Subject: [PATCH 4/8] arm64: dts: allwinner: h616: Throttle the GPU from the
- GPU thermal zone
+Date: Tue, 10 Nov 2026 05:36:55 +0000
+Subject: [PATCH 1/8] arm64: dts: allwinner: h616: Cover the codec RAMP
+ register
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h616-zero2-dt-v1-4-05506d760f21@gmail.com>
+Message-Id: <20261110-h616-zero2-dt-v1-1-05506d760f21@gmail.com>
 References: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
 In-Reply-To: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -96,11 +96,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794289015; l=1929;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794289015; l=1252;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=teKOTEf4Ehrd6NI/Dk5AeKkHXxd5JXaOLzoyVTpHUvU=;
- b=+C62sstufF9DUcspTyYWdroKBtE0YbldKzOadENtR0M9QPURkJPdKa5dDR8JEWNjIBFmbSYpf
- znoWxcN6w7lAFZhzlaAu+zyYgU6/yLlfr3tVr/jBbGQqT1aprfFClur
+ bh=BSR+K6Y2s3B1U4tlKARegXXjsMuZ0Bl9ncjh06Y7t+g=;
+ b=F8+sGiy59SecjOOHu2S85UUAAYQ7TffzPe3QK/d/ww7kTf9DBio3QsJ9MF8X8ldXki5ASmFer
+ Pqnsac5Ps1BCGvKU10OSa04i6E1DPFTwtCdQA/zUyGjycb8JwviSq/2
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,63 +111,33 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The gpu-thermal zone only has the 110 C critical trip point, and the
-GPU node is not a cooling device. Once a board describes GPU operating
-points (panfrost devfreq), the only reaction to a hot Mali-G31 is
-therefore a shutdown.
+The codec node maps 0x31c bytes, but the H616 codec has its DAC
+RAMP control register at offset 0x31c (H616 user manual v1.0,
+section 8.4.6.56), and the sun4i-codec driver uses it: the H616
+regmap has max_register = SUN50I_H616_DAC_AC_RAMP_REG (0x31c). The
+access only works because ioremap() rounds the mapping up to a page.
 
-Make the GPU a cooling device and add a passive trip point at 85 C
-(2 C hysteresis) that lets the thermal core lower the GPU OPP. 85 C is
-the CPU alert level mainline uses on the H6 (same thermal sensor
-generation), and is below the 90 C at which the vendor BSP for the
-H616 throttles the GPU (it maps the GPU to its CPU "target" trip).
+Grow the region to 0x320 bytes so that it covers the register.
 
-Boards without a GPU OPP table are not affected: panfrost then
-registers no devfreq cooling device and the map stays unbound.
-
+Fixes: 3eef85034c96 ("arm64: dts: allwinner: h616: Add audio codec node")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index 68bd6137c316..93c3b8279241 100644
+index e4e0b999473e..68bd6137c316 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -162,6 +162,7 @@ gpu: gpu@1800000 {
- 			clock-names = "core", "bus";
- 			power-domains = <&prcm_ppu 2>;
- 			resets = <&ccu RST_BUS_GPU>;
-+			#cooling-cells = <2>;
- 			status = "disabled";
- 		};
- 
-@@ -1124,12 +1125,24 @@ gpu-thermal {
- 			sustainable-power = <1100>;
- 
- 			trips {
--				gpu_temp_critical: gpu-trip-0 {
-+				gpu_alert: gpu-trip-0 {
-+					temperature = <85000>;
-+					type = "passive";
-+					hysteresis = <2000>;
-+				};
-+				gpu_temp_critical: gpu-trip-1 {
- 					temperature = <110000>;
- 					type = "critical";
- 					hysteresis = <0>;
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		ve-thermal {
+@@ -806,7 +806,7 @@ spdif: spdif@5093000 {
+ 		codec: codec@5096000 {
+ 			#sound-dai-cells = <0>;
+ 			compatible = "allwinner,sun50i-h616-codec";
+-			reg = <0x05096000 0x31c>;
++			reg = <0x05096000 0x320>;
+ 			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&ccu CLK_BUS_AUDIO_CODEC>,
+ 				 <&ccu CLK_AUDIO_CODEC_1X>;
 
 -- 
 2.55.0
