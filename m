@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285316;
-	b=RhVUki9s6JQDgRDn5C6u2khQpKKMgdlNg/CvM25dGA8YlP/Mnx0bzZKhPlCFo4Qcfo98
-	 JmI0x5kpAD+zYJcszJ2duFio7sAcwa39Ev8FGIKL6QPYo4O/c/vW9PCq5lrVhls+bjAld
-	 GLhI0qegUpvwF3XQlZ34oLj2j5CQmYd/K9d2/DSe9+NEkL5pFieUeNwN96wociagff2qQ
-	 /NN4FAcWoeCopU68MXtM9VzvVkweXKF/hoxtnmV4w7rNIn5TVxeoA43xBMsdMfzCO9kZq
-	 isHD3OQl6moTKKxicHvg2lN3ZeQ2PYiuSFvq9A05hJROe7legrcm5f2eEGCOMPQY1xA==
+	t=1794285311;
+	b=A350YPq7r5+v7IJ4CpJyYvbNjKrORjV/oIBQABt7h+y64fK5/ueA29zGVNx/zeEel/r4
+	 tk/drQCOOEr19oS5S2zkZFDIZFPYrMNNFXIHsek4LCnKfae+wZ+JIZWWmFHSAWoXBXv7G
+	 JpSaIQl6h2BCX/qhdx9hJAZCohUdDJc0XUxljozwm4/4dXKMdK+riScW2AADmjZ0Hb96o
+	 PUb8+LiGujtB3KNVAKwWpSy2eL11rxz63yHygacHo5Vk91isamEUe9ZRZu0Xni2CC630o
+	 0irkAZaOTcMUGZPBzFaz7JRlWggbYToIToqzYyqIju8Zv2iJIctsXqPBONfYgSg2DGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285316;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285311;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=0c+Mrs7fdFlkOypjAPyFlv9lw5EYdXVmD/sbtaJk5eg=;
-	b=uX4Crr/E2sYudWOM/DImRbMWwWfCzjFkhELTHbNzyaBKcax15Qlf+fT4xjtCLy2ed40f
-	 Qy0TE1esBeHmqfhiooEKog0Emde6tb5bFdGqR0JhsVQifckxSlH/wQUNfMOL5eYX5n0GL
-	 Yto0CKAeqCgNfoa/Vc1i/NN94Y6dj/FNB4hbfZzeLQmT1st8TMtqi20TNQkaTVf1ECsr2
-	 De/4Q34uqnXIOKVTRNgNBfPvpszE2aGDtqxrs9Gu9ChvEpgHwXl6wpe21Xpx0aHJ/BDdG
-	 lQqLk39Hc820NErG09PhNsablmKuVIYUmswh3BpzccR64GVsuApKI473JmXYgPTCnoQ==
+	bh=osSCQ6MRhgcPLXLd03zAi9lqyiYKKtOmetBa0dOdet8=;
+	b=15F6vVTZla5tprK+i0l7uxg9oqbf34+HmcpKga3r88iqT6Ts8804AHoIbCLZr0XLDTQK
+	 SBGFhSNbefx8bHhzTtOvrUfcKVSjj31iqYbxLsU/bqytTb0AeVcjTvvb2RDtxCfpEMXtl
+	 HjACqtUV/gFj5rF+yceCJLNy02tEhRQChlTi/dpHXl2V6JtpVgzz4wMHrucCUzzR932sD
+	 Y0dXuBNCRgJhGhVTjWdMxn9sHnyBpN0qa0dwu7jUZrpgn4U4F4QolvrpfjrVg0G6fAP7R
+	 k7aFmjadNAaxd9tUcBxOf0t1WLsVZl2jDjURBa63Y2vIPhp/wn9T0d30YGDxvWbe42A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVFnWFHQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMmpBTgQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E2D60A262B;
-	Tue, 10 Nov 2026 04:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAC6606A8BF;
+	Tue, 10 Nov 2026 04:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVFnWFHQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2B011F00931;
-	Tue, 10 Nov 2026 04:35:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMmpBTgQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89DB1F00901;
+	Tue, 10 Nov 2026 04:35:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285316;
-	bh=0c+Mrs7fdFlkOypjAPyFlv9lw5EYdXVmD/sbtaJk5eg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IVFnWFHQg6eUwUxmf7MAtO1Br6ZEgzyutlzdEkEiOmDKwy3Qm2ZOvWxTfXyMb1gvA
-	 KSXCRf9Pp+pFDKSYew3uYl3+lQHjBaFLu8xrz8EpnR9eg1KUc3q+6xpaTE2EscfVHN
-	 LRW12ydntAeB2stxwoNo/kLevXrbz8dkPe5D2GAZozvXfFKgtECMG+1lN6wy5o5Kvh
-	 7dviXtb0f8YbvUIHVKNqE/BXc8wCiaA27Itjkk/+vYHA+GBTCuwb5qg9b11pU/30Oz
-	 107OfhuB3x7qAzUeIAUnl+geXAZ2NAyF3aZSMU1MV4yAZsNjsyze3Eu4fHrdda/EO4
-	 WVoqFXriSR2Dw==
+	s=k20260515; t=1794285310;
+	bh=osSCQ6MRhgcPLXLd03zAi9lqyiYKKtOmetBa0dOdet8=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=fMmpBTgQv3AdZeIYXSg3466SIkU/2abOI1WX4DM7eWVC4MK64PuxpCLKdLAPMKi1u
+	 CIdO9l2PuMqnaYDR9jhFlnUYeJCZnsd7aalw3D1mrB96zD/zwyCOI9eqpw9troBfUC
+	 /bm2evMsgGgkI5uoBsRivMuVzdvbe+6xawMNi3uB/94J9DFr9rS+282zvPiFP9owA5
+	 5HlKSLiFtNx1dRIgD5TyeddIK/6K0gEmvfQgOmQRHiwhXT8ZvbwHZdjn0IkYPTVFll
+	 5QC16IUUbmcD2igtwYVHS3zrK/9GI5iiX/ichiCdKqhlBGc5w1e3qbfDUVr8o1TNoK
+	 dTAbqiPOsFiIA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: linux-arm-msm@vger.kernel.org,
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Andy Gross <agross@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Shujath Mohd <shujath@outlook.in>
-Cc: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	angelogioacchino.delregno@somainline.org,
-	martin.botka@somainline.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/1] arm64: dts: qcom: sdm845-sony-tama: Enable UFS host controller and PHY
-Date: Mon,  9 Nov 2026 22:34:57 -0600
-Message-ID: <179428529350.1061455.5732686238752911382.b4-ty@b4>
+	Richard Acayan <mailingradian@gmail.com>
+Subject: Re: (subset) [PATCH v3 0/9] ADSP for SDM670 and sound on Google Pixel 3a
+Date: Mon,  9 Nov 2026 22:34:51 -0600
+Message-ID: <179428529329.1061455.1012375831394550332.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <PUZPR01MB5141BA498FEEA594E61CCFB1C3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <PUZPR01MB5141BA498FEEA594E61CCFB1C3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <20261107022453.159341-1-mailingradian@gmail.com>
+References: <20261107022453.159341-1-mailingradian@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,21 +72,27 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 14 Sep 2026 15:31:15 +0530, Shujath Mohd wrote:
-> This patch enables the UFS host controller and PHY on Sony Xperia Tama
-> devices.
+On Fri, 06 Nov 2026 21:24:44 -0500, Richard Acayan wrote:
+> This series adds a user for the SDM660 sound support code [1]. It also
+> adds the ADSP remoteproc for SDM670.
 > 
-> UFS is currently disabled in the Tama device tree with the following
-> warning:
+> [1] https://lore.kernel.org/r/20260730174353.108023-1-mailingradian@gmail.com
 > 
->     /* BIG WARNING! DO NOT TOUCH UFS, YOUR DEVICE WILL DIE! */
+> Changes since v2 (https://lore.kernel.org/r/20261003175659.23536-1-mailingradian@gmail.com):
+> - stop using fallback compatible and add lcx power domain (3-5/9)
+> - move lpass codec bclk from sdm670-google-common.dtsi to sdm670.dtsi
+>   (5/9, 9/9)
+> - reformat q6dsp dts (5/9)
+> - set flags for codec interrupts (7/9)
+> - move "qcom,..." properties to board dtsi (7/9, 9/9)
+> - add review tags (6/9)
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-sony-tama: Enable UFS host controller and PHY
-      commit: e7bf7f1c2385d6f28bfa79b59fd2d555cb056da5
+[2/9] dt-bindings: soc: qcom: aoss: Add compatible for SDM670
+      commit: 9d1c507083783fa16a0f510b8ed7bac1e151f856
 
 Best regards,
 -- 
