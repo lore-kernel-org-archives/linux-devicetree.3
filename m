@@ -1,76 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308943;
-	b=Dm5o52MSvUR2KFy1+M/WmBQwRZvw372Ku4wfiqmbyHI/SkqjDW0pMjKSxQeZHYvKP2uk
-	 JJf2LIr4VaeegyUlMsWp2G9YrvC7PYx1TIOVwf5lmyOBK5jg+BA1xorZXgmM7tedA8gg0
-	 irXtROoN3w90NVZO8P1Db/rN8FOlZstkiNLi1mIkoHEFTSTpGZvZo7RHz8A/pP/5ZJJUM
-	 zNsATxc3QfVVOX10Mcb/CQjLPI2fwItIJJD6jG3zso5jlZFNWQTzswwVqFObm9EyIOG5B
-	 H/ZUSSZ/M/GAhA0hIqhMVC1jHqCzVSUDuQuolwLADLJeU9BQC9LSDrC3bJz0q+/1z+w==
+	t=1794309058;
+	b=K7kbxmFualncdNNsddAhEgRu/9BOLMXwDPWCbo41CbZq0QV2lB2NvhLZPZzeTf0njqw/
+	 SpbCZ5bUrETri4AAMGaYr8p4ykEEJP7CUUwYyyiO0EB+iXWbX0At9EzwewKXW9kojtT2w
+	 jd4QiGapSnWH/lLwJixwme3s1oUC7SQ5ispj8cK6SZgK6/5j1P2IIGgHQAalIyk2Aosvp
+	 DGaaWnQPnZ3btV2wVQ8fM+HuT/y5q8bgRDkv6/+QaM1/mnbbyI84F6nx7Us0pE75CIhZT
+	 +O8gWGt/Mi449umTSJhE0n1yiqDme5uEGx3tls/EoEo/ggy+W9XnFzbc7KMB2J2jyVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308943;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=auzMHF9mizeGPb4pIAKNV1dcFrP9ke4ZkvXnr9sGJcA=;
-	b=r7UavGndmGWbVFJ1iU0c/MTOQBohs0veA+CmAdzfrh8JYh/V+HcBznwWVmEgu/Jk8H9q
-	 NHBsHpDBk1BgMJVWnpKnkN7Eyki+rATBc1DFsI3Mj8sXBhxl15wvuV7K4T6MTi5k/afAP
-	 pQVdfhattHJ77gTnxdJno8skUx7M1KBc9BQ3egrGHlfoiQF4X8qyh4LmG4IbjYaGZw87N
-	 rCNnEUDqJQkhutkMJeUEyuA+Gw6DWjOToutlCYmdQcoNZDhCktmlBdtzVPDUj5F8+N0yj
-	 UX8B/d+C9KLZvDa3nA+YNzSJAiA6iYBFqK4BqpPL5QgMB+2A9CFoKyaVuXYq8X8PFPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309058;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wRhstAJRC5xiQsYu+JzyOCa4Dl4h2pV6bk94Dt2C34o=;
+	b=VMNZzZjTe2o5eL/6gIKgiqCjQax6EzLYghFpu6Ou/HGWphPXVH0M0/naEjldXX0/MFPx
+	 FrnE3T5jj0HSAK3LehLjIyMV9b9mI80M6K6RFmJL35R0dHg4njV+Ap0pRTqsbQMMZ3tnF
+	 yeDxW96WHIFc0ZQ4OwHm4Yi8elXSGBuKJBZHxwmf/sqNjGw8pmivd+suiw+weZypd45X8
+	 jKuImpSmLioyYl/4K2znI9jEIeULWKGoAgtaPtlU+TtT94SB3UAG+OVYoDYitG+2my5v0
+	 pVHQSigV4NqyJRuLsM64vY4576CjfKi/TynrroKErnygp8+420nplXyf2A1bdFDlr7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.44
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ATUDKg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4090606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:09:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4090606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so484130241.3
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:09:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794308942; x=1794913742;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=auzMHF9mizeGPb4pIAKNV1dcFrP9ke4ZkvXnr9sGJcA=;
-        b=tdloBvMsPAVWC7S/wrT9fmzF+BfJ8BRJGZVMUD6VCI2SPhxQl++hyFnxaIppi6jF7U
-         0THugqv6pwc2P3zK5iKsqZJVQwavbN04R9cZzL989xGQ/XjpMxJFc/PBQb6curuVSytU
-         rbvKJ4dLoQb0gkl+JRAuKTRgAOTF9+FlULXgjeBrFgo9iHcMAef+kwfJx6y3A2FYgGT+
-         WP75oBoiCLQI35/6K8PWTd+ZFNbVjZU453cvbtba+OOt1xilwCYQIg0oJ5sLlLhGGynh
-         TYwE0Io22Ecqy7Zhnia+hIxhT2pHS5vfBpDo32NskTRi6xeLYjpqJdI3VvbZSsn3FQsm
-         m+tw==
-X-Forwarded-Encrypted: i=1; AL+hErGw8tTHP479UHbrx6fJksrFJjMNRXYLht+uCkdep/QxQgwY468XVtCLYYPMyAf9h5pXGkv+kYHGkJ6Z@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UHygSN6oIyTihr8JtSZOdjx5MS7O4r92v8bu7f0EKRcFgLDci
-	a5O32mK1Io351CKFqUye/ID/WCpjUoU5tYFlCkVUBBB6jQN+CC4xo3/xcrEG0jGrVIA=
-X-Gm-Gg: AYBFou3k6W2wheM3zR0i/qP5tcEG4nKLvlk3YgehEpC5lkZdT9jXUsz8A/QuvnpGSoW
-	XloYQh2KIqcnahTwEtnT+SkMG34cEAkFxlcQZk+cUbeN4X+KUhmMGiA2/UAZQhZRH1Sx/MkmaE3
-	VjkVRbFMo4ajKgXytCllWOfJNZ5m7DCfEZT6oJ+amq1uMev/wnofsLu/1dL6f1le67kuFW7xP7g
-	8jqX078KaoxdcR34djkf/yLreCQ+l9QYwRziCskG1gl/eUyTW9hsyZNns2YPt3qSfGFncaPANdn
-	PeTJdrjBqQLjGDSpJ64LxX4hK/MMxAk1SkAavj0KaEpIbDg43KPj9hEYmCn1zJvI8pHY91Yb6lT
-	dxFYNV3pwy9J1NvX8zcx1dF9R3Vb3VtIRY7/3YR/tAtje5BG16oq+hl2jVbruDX4/fzI0bEVkYu
-	ijRQ4H30ebur0el98z2mE8iYlrOyqTtxdLDIdai5HGq4AoXpue2CnWyrxqwK6VfGy/GqEsGaE0V
-	sATJ/qu5qP52nQaOfCjHODEZ6LJY4BFcDQKvIEwMt3qRbEhwIKatjhZyhekC4H7jMT7Q/0ZWPLY
-	bPUGvopJeO0u/agjVqNKMMqEdlqeE3WCPDPcMuxxDrfFqcmwKRPsXn6lOzHtao2vibI=
-X-Received: by 2002:a05:6102:448a:b0:7b3:7653:5487 with SMTP id ada2fe7eead31-7d301c3067amr588235137.32.1794308941667;
-        Tue, 10 Nov 2026 03:09:01 -0800 (PST)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fec2818sm1549202241.1.2026.11.10.03.09.01
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 03:09:01 -0800 (PST)
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cc91ddf447so768314137.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:09:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH6CHpfH+6UTVO8r74daFmpaARFeRlfk/LtmZsmwDU7IFuxaVTjpSr5slNPB9Ug9JtCWgIwJ7MTDtqR@vger.kernel.org
-X-Received: by 2002:a05:6102:688e:b0:7d2:d65f:b479 with SMTP id
- ada2fe7eead31-7d301c226cfmr561698137.28.1794308940907; Tue, 10 Nov 2026
- 03:09:00 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8D7606A325;
+	Tue, 10 Nov 2026 11:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ATUDKg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E141F0089F;
+	Tue, 10 Nov 2026 11:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794309057;
+	bh=wRhstAJRC5xiQsYu+JzyOCa4Dl4h2pV6bk94Dt2C34o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A8ATUDKgImRjziRxEUdGfa5kpbI1iH73VaS8PDukLfx9Q0rxYXwUVQ3tKA1rdmSDj
+	 3Ro+gsTb4g44q/JK8UCxo48n2Ruda48fe+syHxkAbOPfb4yL7oQPfa7S2RGap6kEsh
+	 /EbCxOSEjlPq4wQZkPJsdDjzDveSdPcHgA7TG7F2NHuqUc7pVcSRkucNSMnKEUOrVi
+	 PikhC+ae7M972Bfbvv+kQeaiW5LMNf3q9vfvCEHWYQrxZ8iHNkkPw4ww+7mBJdRlQC
+	 fOPqQkfx2IQveAo+a+dTJYbtq4obh/DOEJ52dBFx1+7SL1JNzRbM3pxMGIaUPRkHgO
+	 BCaOyou6gwoEA==
+Date: Tue, 10 Nov 2026 12:10:50 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avL4LoCz2wc164zo@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,51 +71,159 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev> <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
-In-Reply-To: <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 10 Nov 2026 12:08:49 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
-X-Gm-Features: AclHuK8XmPD0hM0Yy0td_5BzKaCizARWIEsuGHtnTdehhY19YbtXTFG2NJSt-Nk
-Message-ID: <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, mailhol@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
-	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, 
-	claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wx2y6hldnr44vqml"
+Content-Disposition: inline
+In-Reply-To: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
 
-Hi Marc,
 
-On Tue, 29 Sept 2026 at 16:19, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
-> On 02.09.2026 17:15:37, Claudiu Beznea wrote:
-> > Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a typo
-> > fix patch was added on the CAN driver.
-> >
-> > Merge strategy:
-> > - patches 1-5/7 should go though the CAN tree
+--wx2y6hldnr44vqml
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avL4LoCz2wc164zo@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+MIME-Version: 1.0
+In-Reply-To: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+
+Hi Bart,
+
+> Date: 2026-11-10 10:00:42+0100
+> From: Bartosz Golaszewski <brgl@kernel.org>
 >
-> Applied 1...5 to the linux-can-next tree.
+[...]
+> > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
+> > > >=20
+> > > > Can property be statically defined somewhere? We might want to also=
+ optimize
+> > > > these duplications with const variant (here or elsewhere, for fwnod=
+e generic
+> > > > path, I believe).
+> > >=20
+> > > Please rephrase because I'm not quite following what you're saying.
+> >=20
+> > Can prop->name come from something that is declared as
+> >=20
+> > static const ... foo =3D {
+> > 	... .name =3D "bar";
+> > };
+> >
+>=20
+> You can't know it for every instance of struct fwnode_handle, so the
+> answer is: no.
+>=20
+> PS: is there a way of using match_string() with non-const data?
 
-Thanks, but six weeks later they are still not visible?
-Same for " [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict
-resets in top-level"
-https://lore.kernel.org/20261009-holistic-warping-puffin-3b92fe-mkl@pengutronix.de
+Given the definition here:
 
-Am I looking at the wrong tree?
-Thanks again!
+	$ grepc match_string .
+	./include/linux/string.h:int match_string(const char * const *array, size_=
+t n, const char *string);
+	./lib/string_helpers.c:int match_string(const char * const *array, size_t =
+n, const char *string)
+	{
+		int index;
+		const char *item;
 
-Gr{oetje,eeting}s,
+		for (index =3D 0; index < n; index++) {
+			item =3D array[index];
+			if (!item)
+				break;
+			if (!strcmp(item, string))
+				return index;
+		}
 
-                        Geert
+		return -EINVAL;
+	}
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+You should be able to call it with a cast.  It's dangerous, but
+technically it works.  I'm not encouraging it, though.  :)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+	char **strings;
+
+	...
+
+	i =3D match_string((const char *const *) strings, n, "foo");
+
+This is a historic problem in C, which was solved in C++.  I have
+a proposal paper for the C Committee for solving it as in C++:
+<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
+
+This paper will be discussed (and probably voted in) in the next meeting
+of the committee (which happens next week), so there's a chance that
+this will be solved for C2y, and thus the cast will no longer be
+necessary.
+
+The history of why this is not allowed in C but is in C++ is, as far as
+I've been told, the following:
+
+Back before C and C++ were standardized, C++ invented const, with rules
+slightly more allowing than what they are now.  This was going to be
+standardized first in C89.  But very close to the release of C89, they
+realized about the danger of converting a const char** to a char**
+implicitly.  They were so close to the release, that they opted for the
+safest approach: disallow any non-trivial conversions.
+
+Later, while standardizing C++98, they realized we could allow a few
+more conversions safely, and so they did.
+
+C could have taken advantage of that, and pick C++ rules in C99 or C11,
+but for some reason, nobody proposed that.  I'm proposing it now.  :)
+
+We've already discussed this proposal informally within the committee
+for some a year and a half, and there seems to be consensus that we want
+it.  We're only being careful about the specific language.  But I think
+I finally got it, and it will go in next week.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Bart
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--wx2y6hldnr44vqml
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmry+7MACgkQ64mZXMKQ
+wqmmXg/+JeY9H4QAyqVc4xKon1zkJm4/P+50FgURTEMAfhalUbXNOhgyHq3QtwPo
+RoaqS8aCxAiVqZ3Qqf/qecOpkYoqQqtg8OUV4Np+DNTd6dSuIxlm4nk2frFFLPRR
+Bux4w0usdq0kR9M9f4R051z++FzMPV0wX2IhrGaHVArt6igqkoIITR6gh/i+TxBv
+8ylPyg6kvREx2OnxliD/mQfrr/3rkyFNhNKJhDsFScjWPYGsyGXLn2GLs8jPhhB4
+PbB+r6j/QFkqx/RfrWvLc6XqZhUsdXvAcKo1Ti5Ar7EFBWXzMi9VaDlMWNNtz7dh
+CXyErp4TiTRW4w54ZgponS1C0tLN9CFfKEVMbD/J+zYzwJ8yqAoidlCYAfN5ZASY
+dam6rZj2W6MjFQx/8dC1+DdWTW6ihy7q6cHUJt2YI4uowd5wquSBdC8EetoU0MlB
+o6q4ye5rK94anbe9ydQd7Nkyp4sKjUlZHpzMRB0az3fL8rT0FsiXSz0jIPRQzk7v
+qdcaDXnBtUuDgkblQCedfJySBDm9N9Gmh3NJdQtOGk57KQ586yeNPExs3o0SivF5
+cJ3ckUERShrT9/bAGrSpjZKGR3yG6S4oNQMY4arUXntsR34sZfKeoGmA7kHSBljk
+F0nB+Ypd308lrNHlK4GRc1TrMn+/FxXew2+9N8X4xdTHleGKHLw=
+=qslH
+-----END PGP SIGNATURE-----
+
+--wx2y6hldnr44vqml--
