@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794327860;
-	b=G0udZ7pro7jQrUt1eOJPHqsGFm2OCQXtFSjkNr0VtpJV+lnl6On8UJnYbNjYwP8PJ+On
-	 eapzfeScMHGQeHmlftHLYz9cgQTPvbVsVMBvARsaJM5mO5Ukxtcfr1Wi4rgv1g+iev4BF
-	 gkyeupaOnhToGemlsG+Rk7LHPNJrFCefrr+zHeD8qF5LqwV42UCYYh3cWViFf3hHQYag9
-	 7VI4S5+x5haOgCCfIwI02yG2wLHgEC08i+yM6GnsG+PfonGlqf7iHGa+RMPCngo/IOTgb
-	 McYHL++HPnn/Rqjt2Q36s09LEYrf9MmATHSlZjHVv7X23W6NiKpoGZ1rlg03C2FjTFw==
+	b=UF1S7fX5kCBiFqgATbnQUETwSgV/LNpV4fxhbn2lfG7Iq6Ppxv0ERDPYJhwPzOwwkJJ9
+	 J3gz2P/qTW/cRxu8Lw0LYAhGav2UPXtbzRCeE/KoXuwVFhgo0rHA3TwGXwrTQ8g0wGRl1
+	 tYsmZib6mOyln+G0UpbuwEspFA/hC1cs9Lywf7AA4/xLkB155xp7M3LXZTuIfMEsRNYcA
+	 wz+Y+9CH+jX90WGWb7ZYEZMSRHs3nBEvZxL/AfkFMtcJ3YE7LxCOwdHh5H4YT/v1ZI6v7
+	 6VmPeljHQCNFw+ybrZCI4rCb3eGZ7JH+MrKZLsftAP8mUooa01+5Cii7MV6RY9q0TFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794327860;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=VMVsIg9meqQ62t0+CY5CMduv42wKWJXNSJQ6i89MUtU=;
-	b=oYZbKIiE7hYnCUxqedFC18ELrZK1c8hKCG+xangq5nYdTBJa8Cw1z06API8/nJ9rJ+Ie
-	 p2oNjqcGgnwnJzjPMLSA/z+JWbeYq2PjSMYRylaoewDwZvPCID2VrEzQsiffkU5swDFWs
-	 y8ZuuVJzu0jx8lCWVL0dIz0NTEsZKyfUib57X4LonFbzahjPSfXcRS0ptD7usjFQUlr4j
-	 pktb++rZgx3XTV32BBjP1ERmlxHbx4G8avlwuDmi5t6Cm7o8MbWEdX5uVFAoorsljR2Ej
-	 Bf0nRdEecjQLsJtrshsv7RMT9Cuvp77h/uVtlMQFH1j6xE497WLkd0Jo8gNsXWJFzuQ==
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=HVMSgz3CY/8/3JYVAcyQp/zth9ub02Ou+XtUUypEUVI=;
+	b=3ng7lS+4pM0pc/5OGT9t3PRXiSwwy5eC/KVEgR5cP5bO9mZH9CBZ50vZtlrhUn9ziU1P
+	 ng6Dxi1pOK8z9EoDzePRFaUb6fjbtOShz/YVDpNHM5034ej4TCzTPOP8Rnd14HU1OVOW+
+	 IWAp0U4UjzykihF3cW6clBo17OLbMwH4Gy/d0LXOpk9gUiLW/1e983eY4IVp5PaXcCNJ1
+	 /3SaSrW3TrbBAzhFLsVIyVUhT80n62JTyDxZEtm/T8Yb2V8fuA7DlIPXvvAguOBkRQYOc
+	 ZlZRItgDUhDc/+lf3BIQ9G3qRoIdPhmlJv86Kr6GByc0F8ytaxu6Xn1J4Hr41FR5bzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EENM8nu1;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=qZvIy9Hq;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HAppfUhU;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=HSOq0GZE;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8508D606A33A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FDF606A339;
 	Tue, 10 Nov 2026 16:24:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8508D606A33A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84FDF606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EENM8nu1;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=qZvIy9Hq
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HAppfUhU;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=HSOq0GZE
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1794327857;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VMVsIg9meqQ62t0+CY5CMduv42wKWJXNSJQ6i89MUtU=;
-	b=EENM8nu1gPjUplzI0LyqYGDYDX8ydEIilY2kjl2L4RJM3e8Zgf0G7mP7B96tI6B+vMgdaT
-	2u5+ES4kgbgdRK3MmNArmOuQe1pvBz+jr/6bhDcm0b/zJoB9OAFoE7dWT7dcvYUYBTKRZK
-	3Wc67DDXgJ8/LnYUc8jFGzbgUcibwaVigomk992mb2zK6xJsXCkfh1qXr7Y2safpN8ss0I
-	L6LuAO6s9CIB9Y3gpn5PLm6IwwMiPrSeAqtmZjVAlOH7Ioi3Y45BwQazlZlrdhBvfp7Bcv
-	4uUYy4y3GeeaYj0cl+FLvrKZmRNgZ+HisihcwVby16knSiQaoef2uu1dHOtd/g==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVMSgz3CY/8/3JYVAcyQp/zth9ub02Ou+XtUUypEUVI=;
+	b=HAppfUhUS8prBnU6ajzPS1/F8m1z2Gy0HHJlYbYImKn8mqHWzyjcvP9RL8TjMmY0twcpez
+	c3Is/6W+BvxO23SpYNdeBFRLU5J4a+bQ2uQMjB0XQ3arkQPAnVo6XFpL2JBLWgmV2my27g
+	p0rYdzxUI0spwGEfr46hM4NcluB7PoiDBf2u5HRFce4WGyyq0M3OjiIREzSbAC1rLkRNHX
+	di9Rb2MCCxDm66Z251vJeeT1Pds1yoCof4K2Z5QSMZGHyWOgAN6uRodVqinxwA7zD8N/Zu
+	B95TQb6rHgjDbOFNG9OKPbPQ3G/Io70/PhWG1VPPgQAQoSbZjjvN4B/RHNTrqA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1794327857;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VMVsIg9meqQ62t0+CY5CMduv42wKWJXNSJQ6i89MUtU=;
-	b=qZvIy9HqzdP4cmxki1IfCUc3zcjfH8nAuG9BO2d3g8Ig0zYDMXzkTbk/y6I3uP/mop1xVg
-	yMwKWeViyNHeTECg==
-Subject: [PATCH v7 00/11] nvmem: Add Raspberry Pi OTP nvmem driver
-Date: Tue, 10 Nov 2026 17:24:01 +0100
-Message-Id: <20261110-rpi-otp-driver-v7-0-2345d0ee65f0@linutronix.de>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVMSgz3CY/8/3JYVAcyQp/zth9ub02Ou+XtUUypEUVI=;
+	b=HSOq0GZE4GI9G/wjQ9B8gCTXs9xreOkvSQG+tCKKSYksJpREZB5Pgtq8j02eZhKzAVb+/P
+	SYEaYhN4DumUjfBA==
+Date: Tue, 10 Nov 2026 17:24:02 +0100
+Subject: [PATCH v7 01/11] soc: bcm2835: Use IS_REACHABLE for function
+ declaration
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,13 +70,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACFF82oC/3XQzU7DMAwH8FeZcibIcZsvTrwH4rAmDgtCbZV01
- dDUdycZByqlHP+y/bPsO8uUImX2crqzRGvMcRpL0E8n5i7n8YN49CUzBFTQg+FpjnxaZu5TXCl
- xLYMj4V0I2rMyNCcK8fYA395/c74On+SWqtSOS8zLlL4fG1dR+/7FV8GBE6AXfiAFYF6/4nhd0
- jTG27MnVhes+EdIkA2BlbBCK3IaTaePiG5PqIboCoG2V6WuOmXlEdHvifaQvhAuGK9RemNQHBF
- yRyA0hCzEgIqkBUN0dkeE2hPYEKoSUGat9qLH5p3btv0ATWr5tRECAAA=
-X-Change-ID: 20260408-rpi-otp-driver-75fce1dcff7d
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-rpi-otp-driver-v7-1-2345d0ee65f0@linutronix.de>
+References: <20261110-rpi-otp-driver-v7-0-2345d0ee65f0@linutronix.de>
+In-Reply-To: <20261110-rpi-otp-driver-v7-0-2345d0ee65f0@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -89,99 +87,52 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-hardening@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794327856; l=3710;
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794327856; l=1460;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=nOC1D+FzrtqhciV4vMD0rRrY6gGMlplEHYuBvs/KV+4=;
- b=HjfrNLCGJwvmuPU54O2NOIyR8TehJe80KJDwMAsf2C1JBqXCQ8+9TTtwi3JjD6c02kW6BzKlV
- EtDgHACOrCdB4WVB1kNI5jmu28zsggtdIhsVZJMaF7ckweXexiMi7OU
+ bh=uxXK8avB9nb6Zmd3jDyY1bgqVIcNgF3TcaoqB76MexM=;
+ b=w+ga/bAg6USiU/RP5A9EhY7FAdZdokLh9VUDiuX9+LU0jBEyEI3TLrOeuk5zN1ol0M6VBqZ8h
+ lz+HktjWk1ZBpoNpdf+V1VIoOv/iuiJy5VH5FGAY70C5MUmY703TGL6
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Hi,
+The drivers that depend on the RASPBERRYPI_FIRMWARE use
 
-This series adds support for the Raspberry Pis OTP registers. The
-Raspberry Pi has one or more OTP regions. These registers are accessible
-through the firmware. Add a driver for it and add updates the devicetree
-for the Raspberry Pi 5.
+	depends on RASPBERRYPI_FIRMWARE || (COMPILE_TEST && !RASPBERRYPI_FIRMWARE)
 
+This should ensure that the driver is not compiled in when
+RASPBERRYPI_FIRMWARE is 'm' on COMPILE_TEST which leads to linker
+errors.
+
+The same can be achieved by using IS_REACHABLE in the
+raspberrypi-firmware header. This evaluates to false when invoked from
+built-in code. This way the Kconfig can be written as
+
+	depends on RASPBERRYPI_FIRMWARE || COMPILE_TEST
+
+Which is a more readable variant.
+
+Suggested-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
-Changes in v7:
-- Rebase to v7.4-rc2
-- Added Patch to register rtc driver by soc enum from drvdata
-- Link to v6: https://patch.msgid.link/20260522-rpi-otp-driver-v6-0-b0eac97d1428@linutronix.de
+ include/soc/bcm2835/raspberrypi-firmware.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v6:
-- Use %pe in dev_err
-- Include <linux/slab.h> to fix build on arm
-- Add arm defconfigs: multi_v7_defconfig and bcm2835_defconfig
-- Reword commit messages
-- Link to v5: https://patch.msgid.link/20260520-rpi-otp-driver-v5-0-b26e5908eeac@linutronix.de
+diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm2835/raspberrypi-firmware.h
+index 5a0cbb18d0b6c..33ac26f2f135a 100644
+--- a/include/soc/bcm2835/raspberrypi-firmware.h
++++ b/include/soc/bcm2835/raspberrypi-firmware.h
+@@ -201,7 +201,7 @@ struct rpi_firmware_clk_rate_request {
+ 		.id = cpu_to_le32(_id),		\
+ 	}
+ 
+-#if IS_ENABLED(CONFIG_RASPBERRYPI_FIRMWARE)
++#if IS_REACHABLE(CONFIG_RASPBERRYPI_FIRMWARE)
+ int rpi_firmware_property(struct rpi_firmware *fw,
+ 			  u32 tag, void *data, size_t len);
+ int rpi_firmware_property_list(struct rpi_firmware *fw,
 
-Changes in v5:
-- Move alignment check to nvmem core
-- Use IS_REACHABLE to simplify Kconfig
-- use root_only for private driver
-- Add driver as module to arch64 defconfig
-- Use MODULE_DEVICE_TABLE
-- Remove some unused attributes, fix typos, minor fixups
-- Link to v4: https://patch.msgid.link/20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de
-
-Changes in v4:
-- Additional patch to drop unnecessary select schema
-- fix dt-bindings
-- use __counted_by_le
-- additional alignment check in read/write callbacks
-- Link to v3: https://patch.msgid.link/20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de
-
-Changes in v3:
-- dts: add "raspberrypi,bcm2835-firmware" as fallback and fix dt-bindings
-- Fix Kconfig depends
-- Changed firmware data fields to __le32
-- Add MODULE_ALIAS
-- Link to v2: https://patch.msgid.link/20260505-rpi-otp-driver-v2-0-e9176ec72837@linutronix.de
-
-Changes in v2:
-- register nvmem driver from firmware driver and drop firmware sub nodes
-- Use struct_size and __counted_by for dynamic array
-- Drop unneeded comment in Kconfig
-- Use NVMEM_DEVID_NONE
-- Use kzalloc
-- Update module description
-- Link to v1: https://patch.msgid.link/20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de
-
----
-Gregor Herburger (11):
-      soc: bcm2835: Use IS_REACHABLE for function declaration
-      nvmem: core: Enforce stride and alignment checks for nvmem_device functions
-      dt-bindings: raspberrypi,bcm2835-firmware: Add bcm2712-firmware compatible
-      nvmem: Add the Raspberry Pi OTP driver
-      firmware: raspberrypi: register nvmem driver
-      arm64: dts: broadcom: bcm2712: add raspberrypi,bcm2712-firmware compatible
-      dt-bindings: raspberrypi,bcm2835-firmware: Drop unnecessary select
-      arm64: defconfig: Enable the raspberrypi otp driver as module
-      ARM: bcm2835_defconfig: Enable the raspberrypi otp driver as module
-      ARM: multi_v7_defconfig: Enable the raspberrypi otp driver as module
-      firmware: raspberrypi: use drvdata to register rtc driver
-
- .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  20 ++--
- arch/arm/configs/bcm2835_defconfig                 |   2 +
- arch/arm/configs/multi_v7_defconfig                |   1 +
- .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |   4 +-
- arch/arm64/configs/defconfig                       |   1 +
- drivers/firmware/raspberrypi.c                     |  62 +++++++++-
- drivers/nvmem/Kconfig                              |  11 ++
- drivers/nvmem/Makefile                             |   1 +
- drivers/nvmem/core.c                               |  12 ++
- drivers/nvmem/raspberrypi-otp.c                    | 131 +++++++++++++++++++++
- include/soc/bcm2835/raspberrypi-firmware.h         |  17 ++-
- 11 files changed, 246 insertions(+), 16 deletions(-)
----
-base-commit: c9ea4adf1af3e26c64c45ab8005295c420a5703b
-change-id: 20260408-rpi-otp-driver-75fce1dcff7d
-
-Best regards,
---  
-Gregor Herburger <gregor.herburger@linutronix.de>
+-- 
+2.47.3
 
