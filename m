@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305041;
-	b=U/olmyWXE1bPcRbyEjjvSdMup7NAaFb5oE1B6J0xg8ZhtWsr8AXxxfG5lccUbnj/tkol
-	 MWeijCmmR0XrhW7CuxLSVcOwFLzuwVLogr3Q4wRWLZBDpb8p0TyXXsRA40RiICsLx8xUi
-	 AR7gtWIYjBZ4R/PSFCF5HeORkxl/f1mbwGwLXMM1LZkQQTrNtexzwWzo/t/wHDprzznf8
-	 hKSKRf+tZSbhmsYCqQVDBWZ6oXG0iwyaxjCtvBjZLJzHGabeRAqUmVNmrD2qg7M93tugg
-	 SYCzyDU9Ady+1UkPiVrKkgOjC5nRkQNhyXAKIgT7zvvkmrxNwPEVfvcQ7SMPKIkPUGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305041;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=5v0nfMk4rBodRMogcp330VoEDCSVbK9/ewM4ci8K6Js=;
-	b=wVGyn5N23fOjEn+bMhJctXLiwL+Kb589NyjN3NLpcqmvhbbaHJhe+sbbrd2vWR/u57CN
-	 HEHV7qJX3mzT3eqI/Yf7uONDJLZMuFHZ71ZXIGpUpbcdN/SQctoPNud6PFT6LdvLm30cb
-	 VTPSsUoje61HmLx66++DDKfNjvowWNPBQw80p9U4HrI9JnaNhqF5YA21062Iq0ZgpdJAA
-	 auACttw8/RqZkLyp+3LT3i2x6pSvYGDmDC4DsjrMHZptYkAYpPgBLZItuOIhITgbyR2j9
-	 SmN31Vhq2eMn8JxZO4FaRPdxEM0zU/c1LM2MskrysXYxd6vn8hgltqUY5LWA92wMUWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Jx4nILAn;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA40F606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA40F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794305286;
+	b=dwn/rkqlGx4+MNh4t55OVTaE1jdBo2GJbqBtTJzagk/cZahLMFLFwW/zQ8BVCZ+1RFJw
+	 Vd7brlxFswc3kwrSdwt99q75yPsXfwYDA8orQFSBEj1Ksvg6tdI2xzndL22L13ufE8Lbg
+	 4YNvrTcInqLtiQLkaa0aOv8DX9MoQZazo1KYGRB9kzY+nmH/s6hquyJ32U9ugzomEvVBJ
+	 TNlXSEkx3y2R4I2S1to51TGzK05V3rwi1cYaRykgcCXy6JorgvXh2RSsQ9+Tp8ZHfoAUD
+	 a9uF3l+gptJCHcuZfGW3MY4twdG9o765eEmpT41MC0km+BaVsf1HpnSUo6n2kBWGziA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305286;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
+	b=mb59pHV5P+xqxHVI5vsNGEIBkdIVyeQM4UQVG4nuQixVEpsuKIQWmTLw50uwv4t7E9N9
+	 ZSRzRWE3AqVXLxnR8GA14n8t3DZDatfReMy8dYUcrMbMF7NBuxA8H5/3H+r+MQ+uEpmnC
+	 ujqgVTwJPpwB2LMlpo56W/qWlrThDT+ay81VUw89sdRYalIdNWBWnD06smvZzf+d5BQAh
+	 JkDBm9hC4y5QsivYGFbDHR0rz46a2ctmgMMmpKhw2NsZW6DlyOCCWtbhsD/tjpSpJI8kv
+	 WknDdkgPRGxBF6U9/qzkWCLfq/4IS+6u2tBzz7z8CkdUGgMX/8bxVrnJ89IhRc06ckA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fyK8TmzD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F8E606A330;
+	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Jx4nILAn
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B760C1516
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 02:03:56 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8E68D3F85F
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 02:03:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794305039; bh=u5FOKVXPwtEHvG/wCtI/T33KcnjC+imee3/ObiHKJ8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jx4nILAnk+ME/7qVWxLbx6XJCwMtl3RVZ5HWoZ06s+0BcZdOf517Zd90INwyS0PgO
-	 8tVkg+FsynhsoiBZP711U1Pz2J4vhco11BHAUdK+0sYG6RKAwp8OExnBkf8/tzt00J
-	 Btf7gtgotjZiXaBf0NcGK5Sfx2b9snLNyywIk6S0=
-Date: Tue, 10 Nov 2026 10:03:46 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Cunyuan Liu <cunyuan.liu@cixtech.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gary.yang@cixtech.com,
-	fugang.duan@cixtech.com, daniel.almeida@collabora.com,
-	aliceryhl@google.com, p.zabel@pengutronix.de,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
-	robin.wang@cixtech.com
-Subject: Re: [PATCH v2 2/3] drm/panthor: Add initial support for CIX Sky1
-Message-ID: <avLsAlL048MtIX4x@e142607>
-References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
- <20261109120902.125242-3-cunyuan.liu@cixtech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fyK8TmzD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794305285;
+	b=LlehauwcR8cuAOyPlPD3uxMA604JJqL6v84k8hILOuXnVZDDJTl5KsF/dFnaqwQDTpuh
+	 DSXv5AS+4tzrx3X3JDbC2m0C+iOzMtDMh4v354flEG6eCpLCLhlN4ShBDOw/J2gDbJc4F
+	 qpNlNhIDj4OzOKN67Nh4IZp8VDFdQ93U7og0ftR4exRYHWVtYK2VA6QpukSIVC4L1wyHI
+	 Fhy6eKXgcNLjEMi79hKD/j2lJBFHaEJzajRS4Jm/f/rV569BYqmgwW9bVS4Ri4JPBGEal
+	 UrhwV3gDUw75rYvTLeNbp9H+lumXCFew53aUSWgB3MKYqR4zKiUQ0Qxk+qmz9yZfFbg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794305285;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
+	b=PV7TiprlVYeWO6N73ZcLHsmkqkri9STqr/QoM0P81Rfp4PYLxHy5suGfpAGt+DyUVaAX
+	 kBVXnH7HGj6wzgGuRzDSTJ5aXnpI2AjhFe86NQCXAXDkOZlMvG9t5ggUBAqQDJY2rAbNT
+	 gkjSE8v/8JNO1UgcpM4feEMRA3n8SHoejC84UEJIhCNWr6Hgyc8VftXgC0soFFvu6Uprk
+	 3a7mJYB3UcL9+unDMuD2OZGYSI3bHM+gz5q+Zcc/H6sMYKGpKDFVxt/Q7MHhusDsOv4PC
+	 2BhM4MenUSzvPqmsQfqiawkbnaCO70Pu+1W28kShak7lYPC8IvBl5Fjr+Zay+3e9hjw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9BE301F0089F;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305285;
+	bh=eHagWRYIWscXSlSBPRRbd2cp5pUeWmSEqXoFxGRsFO4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=fyK8TmzDA8ShBZD86SWMzsiCNwXAJjyz6y42jHauYolG6ty0AAKvcKZewwKDIaQtj
+	 72sli78nstv+Vx9MFtgy5OSlKT3G7XZUo5rtKA4/HPjWdU7Pl47Y0KhORD7VBIDMJa
+	 cXLBOLW/UP/NoD1n/U4ekxEembIqSr1s+qcZNMbuDNvFbEdnmfpVyv85iJthJuhY8p
+	 XZrH1c+Y2PbMup0Clny3Dx0J/19JWqSD80CGx5PxLFKbZM18gtFDPWh6usHrYxNaGC
+	 Jp+0Q5reJHIQLmMpJteQbH+mX0x2kJ2ii0ubW1B7JL2hi9C19KB8KFbMUurLlUKosl
+	 +HpQtVpObROHA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2EABC48A7C;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH RFC 00/12] media: rockchip: Add a VEPU580 stateless
+ H.264/HEVC encoder driver for the RK3588
+Date: Tue, 10 Nov 2026 10:08:02 +0000
+Message-Id: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,274 +84,214 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109120902.125242-3-cunyuan.liu@cixtech.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/11VSY5cNwy9ilHrNEBSFEl5GyAHyDbwQuIQdwIP6
+ baNAIbvHpZtBOi/LH1x0Jvq6+05nx7z+fb61dfbU355fH788L5/4C+vbv52v/8zHx6jf98ISBA
+ RHp7+/pLv/SGh0AUdYNOtL398ynr893ujP26///br7c2Pw+fP56/0T/cWP6895T+fe8ynn3c/7
+ k/+toe8flWBWLhIRCcHnmA4JRgxA2MrbwjH4T/G/V+lrhmug3kti0mQtUsPD/AF1Qd9Adj1ZRW
+ LrUhVyIPHu+8cISdjU45FAZ5S3TJeVsGucCe2RblddcCQgBlWEzin+xkzj1w2THfjdcYgCx5Lh
+ kGBl4/RU8VRghKC7GWVS6/RkIiCOHetEC82g55AZaGHaOyEy6w1G60pMCpAAQYvgY1DKNlEnQq
+ JQ9YFQ+mtOXQRRGNRJLZrS+GIQvZagWugXzaUyd4IbMmVvAeC5dq5jvraW63WPEYO/rJqSbFCD
+ 7FDvm1UOd/PsN+qIxdN7DcCvqyqPZrR8iwAGXqOcS0GPGcBzwgWXEzrsmFsEYksy6AzaUlsi0w
+ 8OazxM7Szh/u4oJFzkJvUaQL0RDMwt3PhZD4aGi2p4yQXbaxEG3KIBcQGn9U1u9vbxBirpjSQW
+ Zeqau24KytPy0l3yZXeGdMjqNwN8dQ5FzTMRmZVbc2t0N1jTGVRNfDDRUeWW4zLrL0BzZfOWgc
+ L5pzYpLMwN0b9LaSJMLqgERYyWmkTVUsOtjMEt0nmtNbHnKe5n3rRIU2f3ukgutoiA8chcDLt4
+ mgqW1w+qeDilNB9ZiM8kHm23WWD7AGzACcIJOamfsXFldL0Dsi5o9+lAduKmyBzJjU/h7a1Xa/
+ v6qZMP1fcULMF4SE0UlZojb2pjc2el9zIUXkMkTEXtKJo9kErdkV03TGPu1H5uiERnX3HkJo43
+ CdOzxkJBAumnNXWiXmpCpGtnqTUDGOn7T0RwIys4a5Okv627Jps4Q1h+7md2ZoFXeyid1v2Yze
+ jE1iDjJcEmONEAhscNUXMjohOzXvStO9OJ3L1xmCXWeIFnS8Ondveq87+g8Bl6kNltLOTkKH1d
+ qlqouaEWrIzw9q2Olq50CFSLjnmSfKRF5aZaDaGk2K5zLtesXpJHGumwnLnUyX2HcOzn/PBP7x
+ 79/ipxwlZalPZ3pxtC7TONZ45muEgNOq0Sk2+vfn27T9Xf+LODwcAAA==
+X-Change-ID: 20261110-rkvenc-e0f1c61c00a2
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>, 
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=9591;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=ZAT0wBXyyAUYNvuDNGERTIQu8xp4Lu6oc4UsNxSc1ZA=;
+ b=dCUzZ1YoJi3kGTk14s7KuFvWLxUQnuzAXxm/cOHewA14+tyeJYYUlA34D0HBJUWbdK/M7MXfX
+ 0sQJGZg4p9oCRmMKLlmjzAWxHbJiIiLNuQiOzCy9fv+c8cUk79gklnr
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Hi Cunyuan,
+Hi,
 
-On Mon, Nov 09, 2026 at 08:09:00PM +0800, Cunyuan Liu wrote:
-> Add Sky1 SoC data for system-level cache settings and to skip devfreq.
-> 
-> The GPU on CIX Sky1 needs an external reset before the driver first
-> accesses the hardware. Without this reset, the GPU hardware cannot be
-> accessed correctly. Acquire an optional exclusive reset for all platforms
-> and apply it after enabling the clocks during initial probe. Platforms
-> without a reset keep working through the reset framework NULL handling.
+This RFC adds a V4L2 stateless encoder driver for the VEPU580 (RKVENC)
+of the Rockchip RK3588, the H.264/HEVC encoder block with two cores
+that the vendor kernel drives through its "mpp" framework. It is a
+non-Hantro user of Paul Kocialkowski's H.264 stateless encode uAPI, and
+the first user of the HEVC stateless encode uAPI I am proposing in a
+separate RFC.
 
-Adding support for an external reset should be separate from the enablement
-of Sky1 GPU.
+It depends on unmerged work and is sent for review of the approach. It
+applies on media next 6628e7d4c6b2 (v7.4-rc1) with, in this order:
+- patches 1-7 of "[PATCH 00/14] media: Add V4L2 H.264 stateless encode
+  and VC8000E support" v1 (Paul Kocialkowski, 2026-05-22):
+  https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
+  (https://patchwork.kernel.org/project/linux-media/list/?series=1099281)
+- my "[PATCH RFC 00/11] media: h264: Stateless encode core follow-ups"
+  (the SPS/PPS fix, the CBR rework on v4l2-enc-cbr and VBR);
+- my "[PATCH RFC 00/10] media: Add a V4L2 HEVC stateless encode uAPI
+  and helpers", for the HEVC patches;
+- patches 6 and 7 of "[PATCH v2 00/17] media: rockchip: rga: Add
+  multi-core support" (Sven Püschel, 2026-09-16), for
+  v4l2_m2m_set_max_parallel_jobs():
+  https://lore.kernel.org/all/20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de/
+Paul has announced a rework of the H.264 core helpers for v2; the
+driver will follow it.
 
-> 
-> Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
-> rendering results are displayed incorrectly.
+Patches 1-4 add the binding, the driver with H.264, and HEVC. Both
+cores are independent DT nodes (nothing in the hardware ties them
+together) bound as components of one m2m device, sharing the first
+core's IOMMU domain; jobs of different contexts run on both cores in
+parallel. The one-stream-on-two-cores handshake of the vendor driver is
+not used. Patches 5-6 change the defaults the driver took from MPP
+(no texture adaptive QP, MPP's moving-scene H.264 tuning), with the
+measurements in the commit messages. Patches 7-8 encode pictures wider
+than 4096 pixels (HEVC in tile columns, as MPP does), patches 9-10 add
+MPP's I picture QP limits and re-encoding of oversized pictures for
+HEVC, patch 11 offers VBR for H.264. Patch 12 adds the device tree
+nodes and can go through the Rockchip tree once the binding is
+accepted.
 
-Adding support for SYSC_ALLOC should be a separate patch. It can be used
-by other SoCs as well, not just Sky1. 
+H.264: Baseline/Main/High, CAVLC/CABAC, 8x8 transform, I and P pictures
+with one reference (the hardware has a single reference read port),
+single slice. HEVC: Main profile, I and P pictures, inline short-term
+RPS and long-term pictures as resolved by the core, TMVP. Both up to
+16384x8192. For both, the core writes the parameter sets at the start
+of the CAPTURE buffer and the hardware writes the slice header and data
+from its syntax registers. Reconstructed/reference pictures are
+driver-internal FBC buffers. Fixed QP, constant quality and constant
+bitrate come from the cores, whose picture size target drives the
+hardware row rate control; the measured per-picture statistics are
+reported back (V4L2_CID_MPEG_VIDEO_AVERAGE_QP for H.264, the HEVC
+feedback control for HEVC).
 
-> 
-> Keep the clock settings provided by the PM firmware. This first version
-> does not read OPPs or enable devfreq. It does not register a GPU cooling
-> device.
+There is no public documentation of this block. The register layout,
+meanings and default tuning values were derived from the Rockchip MPP
+userspace library (Apache-2.0), read as documentation and written as
+named fields and formulas; the power, watchdog and reset/IOMMU recovery
+sequences follow the vendor kernel driver. No code was copied.
 
-This looks like a stop gap measure. What is your plan here? When do you
-think you might be able to provide OPP and devfreq support and what is
-the hold up?
+Related: Jiaxing Hu's RFC for the VEPU510 of the RK3576 (a stateful
+H.264 driver) is a different generation of this block:
+https://lore.kernel.org/all/20260722073417.2064667-1-gahing@gahingwoo.com/
 
-> 
-> Tested on Orion O6: offscreen pixel readback, kmscube, glmark2 at 1080p,
-> runtime suspend and resume with a retained EGL context, software-triggered
-> reset-worker tests, and module unload and reload. Display tests used
-> local Komeda support.
-> 
-> Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_devfreq.c  | 11 ++++++++++-
->  drivers/gpu/drm/panthor/panthor_device.c   | 13 +++++++++++++
->  drivers/gpu/drm/panthor/panthor_device.h   | 19 +++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_drv.c      | 14 ++++++++++++++
->  drivers/gpu/drm/panthor/panthor_gpu.c      | 14 ++++++++++++++
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 ++
->  6 files changed, 72 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> index 2249b41ca4af..1914549f7b1f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
->  
->  	ptdev->devfreq = pdevfreq;
->  
-> +	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
-> +	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-> +		ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-> +		return 0;
-> +	}
+Tested on an Orange Pi 5 (RK3588S), on a v7.3-based kernel whose
+rkvenc files and binding are byte-identical to this series, with a
+request-API test client and GStreamer (local patches), decoding every
+stream with FFmpeg and measuring PSNR against the source:
+- H.264, 1080p60, 300 pictures of two clips (Big Buck Bunny and a
+  natural one): CBR at 4 Mbit/s with an IDR period of 120, 8 Mbit/s
+  with 10 and 20 Mbit/s all-intra within 2.2% of the target, the
+  largest one second window at most 1.37 times the bitrate (a scene
+  change in a P picture); VBR with the peak at 1.5 times the bitrate
+  in the same cases and at 8 Mbit/s with an IDR period of 120
+  within 3.2% of the target, every one second window
+  within the peak (at most 0.94 of it);
+- HEVC, CBR with an IDR period of 120: 1080p60 at 2-16 Mbit/s and
+  2160p30 at 20 and 40 Mbit/s within 3.4% of the target, the largest
+  one second window at most 1.35 times the bitrate; 4104x2160,
+  5120x2880 and 8192x4320 in tile columns, PSNR-Y 43-52 dB.
+With earlier revisions of patches 2-4: both cores probe and bind,
+v4l2-compliance 1.32 44/49 with 0 warnings (the 5 failures are the
+tool not knowing stateless encoders); H.264 and HEVC at 1080p and 4K,
+fixed QP 22-37 with GOP 1/10/30, the three H.264 profiles with CAVLC and
+CABAC, HEVC TMVP on/off, SAO off, long-term references, CQ and odd
+sizes with a conformance window, decode with 0 errors at 38-59 dB PSNR,
+and the HEVC feedback control matched the expected NAL type, POC, QP
+and reference list on every picture; two parallel 4K streams run one
+on each core at about twice the single-stream rate with outputs
+identical to single-stream runs; both cores runtime-suspend after the
+last job; H.264 up to 16384x2048 and 8192x4320 through the external
+line buffer. The error, watchdog and IOMMU recovery paths have not been
+exercised on hardware.
 
-This should not be in the driver. If you want to have a fixed frequency just use a fixed
-clock provider, or make the clock provider query the firmware for the value.
+This series was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit messages, and I reviewed and tested
+every change as described above.
 
-> +
->  	/*
->  	 * The power domain associated with the GPU may have already added an
->  	 * OPP table, complete with OPPs, as part of the platform bus
-> @@ -323,8 +329,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
->  	unsigned long freq = 0;
->  	int ret;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq->devfreq) {
-> +		if (ptdev->soc_data && ptdev->soc_data->skip_devfreq)
-> +			return clk_get_rate(ptdev->clks.core);
->  		return 0;
-> +	}
->  
->  	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 9687c59de350..a3a32abec5f7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -229,6 +229,11 @@ int panthor_device_init(struct panthor_device *ptdev)
->  		return ret;
->  	}
->  
-> +	ptdev->reset_control = devm_reset_control_get_optional_exclusive(ptdev->base.dev, NULL);
-> +	if (IS_ERR(ptdev->reset_control))
-> +		return dev_err_probe(ptdev->base.dev, PTR_ERR(ptdev->reset_control),
-> +				     "Failed to get GPU reset\n");
-> +
->  	ret = panthor_devfreq_init(ptdev);
->  	if (ret)
->  		return ret;
-> @@ -511,6 +516,12 @@ int panthor_device_resume(struct device *dev)
->  	if (ret)
->  		goto err_disable_stacks_clk;
->  
-> +	if (!panthor_device_is_initialized(ptdev)) {
-> +		ret = reset_control_reset(ptdev->reset_control);
-> +		if (ret)
-> +			goto err_disable_coregroup_clk;
-> +	}
-> +
->  	panthor_devfreq_resume(ptdev);
->  
->  	if (panthor_device_is_initialized(ptdev) &&
-> @@ -553,6 +564,8 @@ int panthor_device_resume(struct device *dev)
->  
->  err_suspend_devfreq:
->  	panthor_devfreq_suspend(ptdev);
-> +
-> +err_disable_coregroup_clk:
->  	clk_disable_unprepare(ptdev->clks.coregroup);
->  
->  err_disable_stacks_clk:
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd41..afb4167bd364 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -19,6 +19,8 @@
->  #include <drm/gpu_scheduler.h>
->  #include <drm/panthor_drm.h>
->  
-> +struct reset_control;
-> +
->  struct panthor_csf;
->  struct panthor_csf_ctx;
->  struct panthor_device;
-> @@ -34,10 +36,24 @@ struct panthor_pwr;
->  struct panthor_vm;
->  struct panthor_vm_pool;
->  
-> +/**
-> + * struct panthor_sysc_config - GPU system-cache configuration
-> + */
-> +struct panthor_sysc_config {
-> +	/** @alloc: System-cache allocation policies for GPU access types. */
-> +	u32 alloc[8];
-> +};
-> +
->  /**
->   * struct panthor_soc_data - Panthor SoC Data
->   */
->  struct panthor_soc_data {
-> +	/** @skip_devfreq: Keep the firmware clock settings without devfreq. */
-> +	bool skip_devfreq;
-> +
-> +	/** @sysc_config: System-cache configuration, or NULL to keep defaults. */
-> +	const struct panthor_sysc_config *sysc_config;
-> +
->  	/** @asn_hash_enable: True if GPU_L2_CONFIG_ASN_HASH_ENABLE must be set. */
->  	bool asn_hash_enable;
->  
-> @@ -138,6 +154,9 @@ struct panthor_device {
->  	/** @soc_data: Optional SoC data. */
->  	const struct panthor_soc_data *soc_data;
->  
-> +	/** @reset_control: Optional external GPU reset. */
-> +	struct reset_control *reset_control;
-> +
->  	/** @phys_addr: Physical address of the iomem region. */
->  	phys_addr_t phys_addr;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index dc8d0191aef4..4d7b1230cd7b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1872,12 +1872,26 @@ static struct attribute *panthor_attrs[] = {
->  
->  ATTRIBUTE_GROUPS(panthor);
->  
-> +static const struct panthor_sysc_config sysc_config_cix_sky1 = {
-> +	/* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
-> +	.alloc = {
-> +		0x00230000, 0x00000023, 0x00000000, 0x00000000,
-> +		0x00523222, 0x00523200, 0x00000022, 0x00000032,
-> +	},
-> +};
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Arun Iyengar (12):
+      dt-bindings: media: Add the Rockchip VEPU580 video encoder
+      media: rockchip: Add a VEPU580 stateless video encoder driver
+      media: rockchip: rkvenc: Prepare the VEPU580 helpers for a second codec
+      media: rockchip: rkvenc: Add HEVC encoding
+      media: rockchip: rkvenc: Don't enable adaptive QP with the row rate control
+      media: rockchip: rkvenc: Use MPP's moving-scene H.264 RDO tuning
+      media: rockchip: rkvenc: Encode pictures wider than 4096 pixels
+      media: rockchip: rkvenc: Encode HEVC wider than 4096 pixels in tile columns
+      media: rockchip: rkvenc: Limit the QP of the HEVC I pictures to 15..51
+      media: rockchip: rkvenc: Re-encode oversized HEVC pictures
+      media: rockchip: rkvenc: Offer VBR for H.264 encoding
+      arm64: dts: rockchip: Add the VEPU580 encoder cores to the RK3588
 
-These should not be in the driver but in the device tree bindings. If you extract
-the system cache code into a separate patch we can have a proper discussion there.
-
-> +
-> +static const struct panthor_soc_data soc_data_cix_sky1 = {
-> +	.skip_devfreq = true,
-> +	.sysc_config = &sysc_config_cix_sky1,
-> +};
-> +
->  static const struct panthor_soc_data soc_data_mediatek_mt8196 = {
->  	.asn_hash_enable = true,
->  	.asn_hash = { 0xb, 0xe, 0x0, },
->  };
->  
->  static const struct of_device_id dt_match[] = {
-> +	{ .compatible = "cix,sky1-mali", .data = &soc_data_cix_sky1 },
->  	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
->  	{ .compatible = "rockchip,rk3588-mali" },
->  	{ .compatible = "arm,mali-valhall-csf" },
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index a383b04f101e..9a6963fe62ae 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -63,6 +63,19 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
->  		  ptdev->gpu_info.selected_coherency);
->  }
->  
-> +static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
-> +{
-> +	const struct panthor_sysc_config *config;
-> +	unsigned int i;
-> +
-> +	if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
-> +		return;
-> +
-> +	config = ptdev->soc_data->sysc_config;
-> +	for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
-> +		gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
-
-This will crash for arch10 GPUs. I know that you're relying here on soc_data not having
-the fields filled in, but if we move the sysc_config data to being provided by DT, we
-need to check here.
-
-> +}
-> +
->  static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
->  {
->  	struct panthor_gpu *gpu = ptdev->gpu;
-> @@ -317,6 +330,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
->  	}
->  
->  	/* Set the desired coherency mode and L2 config before the power up of L2 */
-> +	panthor_gpu_sysc_config_set(ptdev);
->  	panthor_gpu_coherency_set(ptdev);
->  	panthor_gpu_l2_config_set(ptdev);
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> index 4c5b953796e4..f9b65a4dae83 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -116,4 +116,6 @@
->  #define   GPU_COHERENCY_ACE				1
->  #define   GPU_COHERENCY_NONE				31
->  
-> +#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
-> +
->  #endif /* __PANTHOR_GPU_REGS_H__ */
-> -- 
-> 2.53.0
-> 
+ .../bindings/media/rockchip,rk3588-vepu580.yaml    |   93 ++
+ MAINTAINERS                                        |    8 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   56 +
+ drivers/media/platform/rockchip/Kconfig            |    1 +
+ drivers/media/platform/rockchip/Makefile           |    1 +
+ drivers/media/platform/rockchip/rkvenc/Kconfig     |   18 +
+ drivers/media/platform/rockchip/rkvenc/Makefile    |    8 +
+ .../media/platform/rockchip/rkvenc/rkvenc-h264.c   |  519 +++++++
+ .../media/platform/rockchip/rkvenc/rkvenc-hevc.c   |  869 +++++++++++
+ .../media/platform/rockchip/rkvenc/rkvenc-regs.h   |  539 +++++++
+ .../platform/rockchip/rkvenc/rkvenc-vepu580.c      |  999 +++++++++++++
+ drivers/media/platform/rockchip/rkvenc/rkvenc.c    | 1581 ++++++++++++++++++++
+ drivers/media/platform/rockchip/rkvenc/rkvenc.h    |  329 ++++
+ 13 files changed, 5021 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-rkvenc-e0f1c61c00a2
+prerequisite-patch-id: fd11f19266754d1bd40bf61dd5d1da74a0dc13c2
+prerequisite-patch-id: 7c7edc7344998d520efaf7b430c90fd527c704c7
+prerequisite-patch-id: 4689de770eb1bcdc153d6beda2e392d0ce6f344d
+prerequisite-patch-id: 0afdcc24892eac773036d05d8f504e5ccb35eb62
+prerequisite-patch-id: ecc849b3328d4396380f0cfc331536c16d2e0d28
+prerequisite-patch-id: c62d0fd16706c4328624948805eb2f8d7b223ae0
+prerequisite-patch-id: e955d15603fd070034960a1362e4867c2f124d69
+prerequisite-patch-id: 76eb64d7920ddc1f268afa6f13df14cf9d1931c8
+prerequisite-patch-id: 654c303a6e9e4a3108e9ae9b7c9aa78f95b82c0c
+prerequisite-patch-id: 96f470c1f8b2ca83ffc496f41fd173e925180501
+prerequisite-patch-id: fa3430fcef00637bb84f9401bb9045dd46194298
+prerequisite-patch-id: da666def8ed2b5296da8dee1be387b2818ba3cc3
+prerequisite-patch-id: 7e532c86fbd0f7bd6705ac4f1544b7d7d27cbc26
+prerequisite-patch-id: 09e1836b24606834b9ac4aa3c851d39f564cfef6
+prerequisite-patch-id: fd8fcc747458e52344df760a17b61748361bfbb1
+prerequisite-patch-id: 883eefffa7ea70d39d357467780cb4f2b69c8d36
+prerequisite-patch-id: aa018c975f9b1f0555164d46446dea01d6496823
+prerequisite-patch-id: d8d6323a5177f6b1ce661a86ee5813d55b4a3570
+prerequisite-patch-id: 25c5c1c067936d313b20c287e66da34fa6c52f02
+prerequisite-patch-id: d7ab57d731445a0d6a06a305f015060e1ea2aa0d
+prerequisite-patch-id: 68ed30e5ad9b17d0a8f4cbc8c4278cbb2a82ea23
+prerequisite-patch-id: 5f042c1c0679a0f587bcd623e69d7f3aa205d4ce
+prerequisite-patch-id: 4e3feb81141e90296253fe1809dd9d7b8cd86244
+prerequisite-patch-id: 68222baa5172eef1abdbe693e0209056b98e9d54
+prerequisite-patch-id: d66a7ce272d3911c662d008828570f439ce298c7
+prerequisite-patch-id: dcb576eb303c4f0794c67ae9b2c1a41c208ab519
+prerequisite-patch-id: 53bde0480b78711ed69704eb2f343b667fdbe087
+prerequisite-patch-id: 6cf0960c01f1c7ce51101987c37633ffe214075f
+prerequisite-patch-id: 6ad9550f96aeed8429737800e4afc6e35be2c3ed
+prerequisite-patch-id: 42252ba52d9c65ea011f6971395e709cc4bff684
 
 Best regards,
-Liviu
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
