@@ -1,50 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307660;
-	b=cGSQtlcXVQumwN+o0gnAovMAuvC+PhMplSZk8GK3uFiUvh4Chm45d/onSWg38BiSpdnp
-	 DmJoqdiqfVtzm4L/VjTSz5Vxn7cYP4NZrr5barhI4LQSCtwBDvphlmUkPvjz5ky8qMmoa
-	 r+sRQRtSxInk88j1IrFGb3GP4whOX3MYcQSalJkB/0KSyMnABl6FB17pTX5w1D7XyXxF+
-	 2J8g6/dnzPOlAVwprJJQnzmY8QyK3KTIBZEv3Uy9GJh80MxnUVLqRcnoicWWvefc2OuMt
-	 CI7S+hXhU1bhtcxeoVi7izoUiLNA4gzMb5jsxS/F/9GmOMaP+m1umT+5b0nUzfQG57A==
+	t=1794307755;
+	b=kDCh01/et8fgxK5mOeh0tXLht7QELmmBtLavy8xKycYZmi7aCfIQ2wDuJm7PmaGHZuFo
+	 ziYimsp0vpXhMgaH4qRL/J196K/wRFv5/Eg78CXzcWVyb4Vhh/coUXwjs8QGpJikC2PJV
+	 /k7fxEmk+XoVgkWsOYENJosTd3GgRikwG7A8kn09PWg1xc39shInkXzA/WBHdXw212P9b
+	 6A38sEKT+hPYRGkJNcmExvXY7UQGOzFkhwY4rRpMu8XvKNwtv98uQhhsBp4zlf/XClYKb
+	 i+1HAMymhusCLU+CkCBt+fbjxG9uKwtSFRpfSoyoUNsV42d7TiV+X2tBYHXC7DbCZ/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307660;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wZODk0x3yqzJBCDWpOPES/A5BYp24Qrx21fQgua+nqE=;
-	b=wD5JggpH20HMwNIf2JZBQCPnKQjK6IGd5Nujm51+FhQwCucECEVDO05WmX0Am15WDxyt
-	 sfjp72pcma1aLPqUQahT2eypH2bcuWiP1fRa7X0mszttaUXzPcMioN1gXybQIIWxnJr8Y
-	 WAd5lQSKVd0LWcv/H72qqxVDfuvtRrPEAGyu4g46SYdj+rHOMH9U0ayoMqApju8r6aIMR
-	 Vqk6yOMf+X7lburnASWPaCiklRaCWgYOj7nmx1KcLlr9OGX3f/Ukks8q9iNcMUq/LO8c8
-	 dicBA+IqMEHdrSL22+XN0jg7o0n7MzMGcMAGjiDcYpYW3FQb4dioRHPuXCz48HaTB0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307755;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=iWP2CZAkG4eD7hnYu+nDWuqH9itBVNhxkIcUyAB8zMo=;
+	b=y04uFbE0bGf6RLcA/EmVl8YUi8oa7KdnW4+aqE0ROR6Huqivq0ITJNMGyub06Hoag77+
+	 AMO6LS4JCK+9kyIuYOjP/zLTK+uQRfO2Mh5hOQk9pVRdSJjMqgWCIEhgp9WgFtbdv2sqP
+	 w5yO+cjzb2vABfDagjqrVP9q/4VTzxV3iOAHCtbQG/R9B63I+DZuu0SZRvPc5Eroft+41
+	 kbmMdJk2VzJO2ZIdLRdLa0m6AM5hq2AzDWCl26nxwFgNwHbZNi0duRtRL0oIncmbrc15G
+	 BrEMEy1exAL+gjDDM4n7bB/ZkEU4b87WzQuWk4BlmL+DX7jASChgXpgMd+1Qj7cP4Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=nKIdliMo;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOi1N+5C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB5C60A2604;
-	Tue, 10 Nov 2026 10:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB5C60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B8A606A31C;
+	Tue, 10 Nov 2026 10:49:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=nKIdliMo
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=wZODk0x3yqzJBCDWpOPES/A5BYp24Qrx21fQgua+nqE=; t=1794307659; x=1795517259; 
-	b=nKIdliMorgaQx7vWL70FDqhx5wOhju0DL8x18EVc5d1Bq8R78/ml0VKpG1u4xZnMbnlG97Q8ojZ
-	AnR8TjPyImmrVf/MJu9Pw0fsAgXe/QI26tpOXKdltCDqHGWPNnkX8IdLKD9fwCHBoguG25XHXxC/U
-	V0HIZCKnb9xFP/B6hIFeELbZZYmvYfdmuVkAwxUKMuAhqRe9fTltQ9joHPmHJIQxiJJb7LUxniFMR
-	/vwGu+RB+ZxKekHqwcncw+pB9tHhgqBSN3AZZvT3G0uz0JO02ZBlnn+fDeGEVlLC4hCEkzuxUIyIR
-	/HoBu9CcL7/kjcjttErYdQcrCj14SbblLOUA==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 10 Nov 2026 11:46:14 +0100
-Subject: [PATCH 3/3] ARM: OMAP2+: remove i2c from OMAP3 hwmods list
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOi1N+5C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315B21F0089F;
+	Tue, 10 Nov 2026 10:49:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794307754;
+	bh=iWP2CZAkG4eD7hnYu+nDWuqH9itBVNhxkIcUyAB8zMo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HOi1N+5Csjag0ojWGIDpI8FO1/24jFA90rmgjne8kGwY8B3/WYVgJHMbIqJBkerB8
+	 ytEc1KT6zjWoQEmxREvmDmY7fWXE4TOVCJ2AHgDyZ7INaAF6nYn4E2RFKakwOAajkv
+	 jDHVIoXTRx2OPKpaiAqN522IOgblK5Vsk8D5XUC0eBKMbbGyhEmpIqVlguRE8l6Ehp
+	 hCk1vGQcu3hHnAVBTWrlDqnl0A6e/f5WIA4N8rZ0Eo0ETaFjA0OxpxNblsm+2qmxIn
+	 Os/OLAzaWNAvjqUCaQlalVAUnKkX9+S9rtzgFryJbMePkspFelwthVLzCDTLsIz567
+	 nd0AOX9UwHtWA==
+Message-ID: <sashiko-outbox-206890@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
+ sub-node to STM32MP2 SYSCFG
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gabriel Fernandez" <gabriel.fernandez@foss.st.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 10:49:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,201 +60,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-i2c-sysc-v1-3-8945eb1d38f0@kemnade.info>
-References: <20261110-i2c-sysc-v1-0-8945eb1d38f0@kemnade.info>
-In-Reply-To: <20261110-i2c-sysc-v1-0-8945eb1d38f0@kemnade.info>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Thomas Richard <thomas.richard@bootlin.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Paul Walmsley <paul@pwsan.com>, Russell King <linux@armlinux.org.uk>
-Cc: Sicelo <absicsz@gmail.com>, linux-omap@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4470; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=dJ7m5yFM4nPU3HLiIjt0TUzuu0qUiJjWRTDLZhcz+GY=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBq8vX/mebuKiyfjDpaB7vsAWdsFCaM4o4tXOGyH
- jo3fn2mjGuJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCavL1/wAKCRCEYUX6QCjc
- 8Y2nD/93fQpAdBOEGofXlArCwVfUTpEYp/bOTcv2A23KC24sRKUDZZoMUhwaZ/x+Q5XwxYe+/RD
- wIZNkHafPDzwyoEUhgEI07/v7P/wrxhEnI1BXpAn/kIN5xx3SyXRrUNkROz+I/fVdWdmx5nJZfU
- f7ZmR/Ggc0rzCLpDpVCWyQV2YQk2q55QLaT3zavMtxnlyI8LOfE1WW0IlgxT0GCErFfNHD2YTa+
- wPi8SIJ8UV7oQ8H/HSIYMPA+zPZAhqBVsapn7ppXFou5C7COnG/YUmqpUZDHIcZogVXXzomXQAv
- Ur5NDIrhiEbsaRGNbhQXrFyClaKIsWmLtBf7D6VZ3Pfpg1nxsGP3kamnpH6CoJN22wf/FRBBO5l
- DyNm4cJT7pqqntLuSzsCTZSF5sKw13KD5dGxs1LAa3lXXsqOhmN6Ds9Vm8a2754T14VwbDFZvVy
- +0mrgF+LFEzezu2Vt82E0ewBkp35gSFfDs9vlR3Mb3Yp0C6S79mptP8uIMN2YB1BA4U0B6cOsWJ
- h2HHMdzVms0t9loSP8TLPIB0luZaK878K2N4ZWWtcXYAG9L4KaOV3g2F63DCMsxDRDATClRPEdo
- S/ZrF1sOvTdzlof4u5N6fkdp4wTMkztPsdwEd5BHfByR/DbXjp+V8Gz4CLLL9Taw+T+983U97wj
- TC4AjYsop9ZfoJw==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-Not need anymore due to ti-sysc transition, so clean up here.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: arm: stm32: split STM32MP23/25 SYSCFG into separate
+  schema
+--
 
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
- arch/arm/mach-omap2/omap_hwmod_3xxx_data.c | 112 -----------------------------
- 1 file changed, 112 deletions(-)
+commit a55565d107267a4ad1a075c0905a54ac3317622d
+Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-diff --git a/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c b/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
-index 5cbdf58ad59f7..022019ff4a398 100644
---- a/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
-+++ b/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
-@@ -299,18 +299,6 @@ static struct omap_hwmod_class_sysconfig omap3xxx_wd_timer_sysc = {
- 	.sysc_fields    = &omap_hwmod_sysc_type1,
- };
- 
--/* I2C common */
--static struct omap_hwmod_class_sysconfig i2c_sysc = {
--	.rev_offs	= 0x00,
--	.sysc_offs	= 0x20,
--	.syss_offs	= 0x10,
--	.sysc_flags	= (SYSC_HAS_CLOCKACTIVITY | SYSC_HAS_SIDLEMODE |
--			   SYSC_HAS_ENAWAKEUP | SYSC_HAS_SOFTRESET |
--			   SYSC_HAS_AUTOIDLE | SYSS_HAS_RESET_STATUS),
--	.idlemodes	= (SIDLE_FORCE | SIDLE_NO | SIDLE_SMART),
--	.sysc_fields    = &omap_hwmod_sysc_type1,
--};
--
- static struct omap_hwmod_class omap3xxx_wd_timer_hwmod_class = {
- 	.name		= "wd_timer",
- 	.sysc		= &omap3xxx_wd_timer_sysc,
-@@ -431,12 +419,6 @@ static struct omap_hwmod am35xx_uart4_hwmod = {
- 	.class		= &omap2_uart_class,
- };
- 
--static struct omap_hwmod_class i2c_class = {
--	.name	= "i2c",
--	.sysc	= &i2c_sysc,
--	.reset	= &omap_i2c_reset,
--};
--
- /* dss */
- static struct omap_hwmod_opt_clk dss_opt_clks[] = {
- 	/*
-@@ -592,51 +574,6 @@ static struct omap_hwmod omap3xxx_dss_venc_hwmod = {
- 	.flags		= HWMOD_NO_IDLEST,
- };
- 
--/* I2C1 */
--static struct omap_hwmod omap3xxx_i2c1_hwmod = {
--	.name		= "i2c1",
--	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
--	.main_clk	= "i2c1_fck",
--	.prcm		= {
--		.omap2 = {
--			.module_offs = CORE_MOD,
--			.idlest_reg_id = 1,
--			.idlest_idle_bit = OMAP3430_ST_I2C1_SHIFT,
--		},
--	},
--	.class		= &i2c_class,
--};
--
--/* I2C2 */
--static struct omap_hwmod omap3xxx_i2c2_hwmod = {
--	.name		= "i2c2",
--	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
--	.main_clk	= "i2c2_fck",
--	.prcm		= {
--		.omap2 = {
--			.module_offs = CORE_MOD,
--			.idlest_reg_id = 1,
--			.idlest_idle_bit = OMAP3430_ST_I2C2_SHIFT,
--		},
--	},
--	.class		= &i2c_class,
--};
--
--/* I2C3 */
--static struct omap_hwmod omap3xxx_i2c3_hwmod = {
--	.name		= "i2c3",
--	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
--	.main_clk	= "i2c3_fck",
--	.prcm		= {
--		.omap2 = {
--			.module_offs = CORE_MOD,
--			.idlest_reg_id = 1,
--			.idlest_idle_bit = OMAP3430_ST_I2C3_SHIFT,
--		},
--	},
--	.class		= &i2c_class,
--};
--
- /*
-  * 'gpio' class
-  * general purpose io module
-@@ -1605,52 +1542,6 @@ static struct omap_hwmod_ocp_if am35xx_l4_core__uart4 = {
- 	.user		= OCP_USER_MPU | OCP_USER_SDMA,
- };
- 
--/* L4 CORE -> I2C1 interface */
--static struct omap_hwmod_ocp_if omap3_l4_core__i2c1 = {
--	.master		= &omap3xxx_l4_core_hwmod,
--	.slave		= &omap3xxx_i2c1_hwmod,
--	.clk		= "i2c1_ick",
--	.fw = {
--		.omap2 = {
--			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C1_REGION,
--			.l4_prot_group = 7,
--			.flags	= OMAP_FIREWALL_L4,
--		},
--	},
--	.user		= OCP_USER_MPU | OCP_USER_SDMA,
--};
--
--/* L4 CORE -> I2C2 interface */
--static struct omap_hwmod_ocp_if omap3_l4_core__i2c2 = {
--	.master		= &omap3xxx_l4_core_hwmod,
--	.slave		= &omap3xxx_i2c2_hwmod,
--	.clk		= "i2c2_ick",
--	.fw = {
--		.omap2 = {
--			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C2_REGION,
--			.l4_prot_group = 7,
--			.flags = OMAP_FIREWALL_L4,
--		},
--	},
--	.user		= OCP_USER_MPU | OCP_USER_SDMA,
--};
--
--/* L4 CORE -> I2C3 interface */
--
--static struct omap_hwmod_ocp_if omap3_l4_core__i2c3 = {
--	.master		= &omap3xxx_l4_core_hwmod,
--	.slave		= &omap3xxx_i2c3_hwmod,
--	.clk		= "i2c3_ick",
--	.fw = {
--		.omap2 = {
--			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C3_REGION,
--			.l4_prot_group = 7,
--			.flags = OMAP_FIREWALL_L4,
--		},
--	},
--	.user		= OCP_USER_MPU | OCP_USER_SDMA,
--};
--
- /* L4 CORE -> SR1 interface */
- static struct omap_hwmod_ocp_if omap34xx_l4_core__sr1 = {
- 	.master		= &omap3xxx_l4_core_hwmod,
-@@ -2300,9 +2191,6 @@ static struct omap_hwmod_ocp_if *omap3xxx_hwmod_ocp_ifs[] __initdata = {
- 	&omap3_l4_core__uart1,
- 	&omap3_l4_core__uart2,
- 	&omap3_l4_per__uart3,
--	&omap3_l4_core__i2c1,
--	&omap3_l4_core__i2c2,
--	&omap3_l4_core__i2c3,
- 	&omap3xxx_l4_wkup__l4_sec,
- 	&omap3xxx_l4_per__timer3,
- 	&omap3xxx_l4_per__timer4,
+dt-bindings: arm: stm32: Add clock-controller sub-node to STM32MP2 SYSCFG
 
--- 
-2.47.3
+This commit adds a clock-controller sub-node to the STM32 SYSCFG binding,
+requiring it on st,stm32mp23-syscfg and st,stm32mp25-syscfg and forbidding
+it on all other variants.
 
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
+yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index a559f8b03b842..38c844e8f19db 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> @@ -45,6 +45,10 @@ properties:
+>    "#size-cells":
+>      const: 1
+> =20
+> +  clock-controller:
+> +    type: object
+> +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
+> +
+>  patternProperties:
+>    "^phy@2[48]00$":
+>      type: object
+> @@ -80,6 +84,7 @@ allOf:
+>          - "#address-cells"
+>          - "#clock-cells"
+>          - "#size-cells"
+> +        - clock-controller
+>          - phy@2400
+>          - phy@2800
+>      else:
+> @@ -87,6 +92,7 @@ allOf:
+>          '#address-cells': false
+>          '#clock-cells': false
+>          '#size-cells': false
+> +        clock-controller: false
+>          phy@2400: false
+>          phy@2800: false
+
+[Severity: Low]
+Should st,stm32mp23-syscfg and st,stm32mp25-syscfg be split into a
+separate binding schema?
+
+Unlike the other seven compatibles in st,stm32-syscon.yaml, which only
+take compatible, reg and optionally clocks, the STM32MP23/25 variants
+forbid clocks and require six dedicated properties and sub-nodes
+(#address-cells, #clock-cells, #size-cells, clock-controller, phy@2400
+and phy@2800) that have to be explicitly set to false for every other SoC.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-ups_mp25_c=
+lk_syscfg-v1-0-667829cd290a@foss.st.com?part=3D2
