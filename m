@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271177;
-	b=OFWxoue/AjK10l5/bLGHJhdinECJsltEK3ykWCeFf/bUD+QrOiymQB5hKEB15dyQNV/c
-	 5MPkn581/eu1xqPDUTML+9lzJUrzEFRcaVMlemdcMfpK4qfydKKVyctu/cEXIyWY0UZXF
-	 +KfkCXyWAAnxRJ1HqTO9eOpt1q0EW4AdOV5GoGrfWXOYm2jJ3Ichzrv/tkTLkF4+2XqXP
-	 JStGfGePT07nvajAX9+B+DxaBPTZalCImpX4rMyJBDtmsnoB4Gfg8QbgyPpbxmv70iw4S
-	 GCe3pIovIlhT6ZyKTPUp+TAi0RZEUyr0zetqyswpbXsgaNQkEHmLKZufAFAbYjsDNKw==
+	t=1794271912;
+	b=zk3eS+ZJ1eNkxCTATP9d5KgUSKAJiZ5ay8K2OxF4TJwPPgwBkeSKRh213L2vUnNXdw8S
+	 V2IhErGsrjNyFWvzRNTs2au1rZhbZouvToz94L+Gkfrj3EngDOV0XEx2CJGU5G5eLqgdu
+	 fJs327B8KpUcYKL39c9ZkmVL6ZxnRC25UnXl7E5Z71vWo872Ug5EAe/7w3t2JbhfU5Dce
+	 mwdZ+bng3QWnWVaZEV8SghEaUozhN3d19p6sbWVHNfTrHdy0Ggg+EWNyVLDg3z5kpmGEn
+	 0y6U821ASOno+dVjVw/JbxuhfjdlPeEUiLurdMwnQxhzl4TGsxjwu4TMwzf1mIQrAqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
-	b=w0ZaU1A/F+FbPMFDdOGE7e+HORXbYmpTTAgKlkwKWG/ASt7Q4nL85wM9yHn/mV5hkUKb
-	 /5jYeQyjbZBFT7RikAg9GPm8Gmr/l54oG11NIC8kv/Uzxk6TWhzhFvnkCNzQpbRW13BDz
-	 h0L+pr2aqZAaEr4kUVtUDz4r+j9Hb9lzoDwbYjBIYhCVDccL2AYCqUVjjPaIub2MYbvOF
-	 svDgSGkbV/d1b+PuFHspmAsGbPJbHEeVn9RjEprHTVN1W2ihrX8uT14+GoaWIjtMYIT2s
-	 wJp/+Mp0+A61w9IFC9ic9ZAioOwBp3dVmu7E8Eau/9BKjA79bT7BurEIKzSAzV9HY7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271912;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/ZZGxslTPXnp2BqN/n2KIlTkyJk1Sa8ub/8ujXBLIjs=;
+	b=kOlmXAFTIiWiLNrL4PG2xWSuVeVxODZnnko/VYDbBPAK03loTroWc+qli5Tm0SmDujvd
+	 Yuul5eVVs7Lb3JKWBeYMmkITfqjMfxWznssEIPFDxL0Ga6XgXoj3tv3YeTSRCUnZKYIib
+	 I1I6JVW100vN1T3Cl8cX7S7OSQFwRtmkB8g2dbfP5f1o9DmDll1iTBNP1FEsQ8DPY0nPm
+	 gtiPyppKkrTDsS7Hz7S3RJao4yd1iRbjxqWqo6DVAB8kBw9UCxg2brbiA8J4rpt/1Jo1z
+	 BUrKl+5QlpSCSObr7RSEs328HqVpVxmjIqKf9lkc4eoe9dcCOvJDD60mbwsxkToThsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6nYydig;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlgirT6v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E858606A321
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 00:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E858606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A954606A325;
+	Tue, 10 Nov 2026 00:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6nYydig
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so936403a91.3
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 16:39:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794271176; x=1794875976; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
-        b=a6nYydig6QvSKo7EkEElyV2YraExoirso0hjPWfiBXMd5zbsE5V2+ys7gBTXGBgLMy
-         KztL3S4lXSLQNQFXbomWBbd4uwbtyFzJ3PlMxe3uSSdlmkG5VE/Md9tv0hOKnruaYi0x
-         aPiGZY/Lb/b9UIj6yOm3Bkfm7pAV+dJnpXqlq919gh7//xQg6gdoEVc1qcuuy4ZsBpqV
-         bd01OkHyArnS20r2xDk3ROR//CEabXF5XGAQjI7VyXzuf/s1A2ioL/h/VL0QUAHHRZFz
-         iXsyGWYm6ejppGHGdXnl0oclHQR9TKzhn0HYYCOubjWw6Rhb4LBRNRyKYxgjASXaQTqt
-         k2Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794271176; x=1794875976;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
-        b=KTioc1bo6oIWS7dez09iQUFmFiHpFTOcBEbjduiQuEoEy5TrE4BN/7jLK4248g0z0r
-         GSNBZ3SaUczAgeeD6H86QGNbkPQ2xq/6DH2Y0h1v6BLUVKvMRkhC2S5+JcetWNwQioV2
-         3ct5V3SoT1oBs6L92t07c/Jtw6/P/oIImAfIl5G3Bj6sQMO9TkpOqt+l+MekrW+ooKHH
-         /rMPxsN1khySdkQ9l0t91F3Ra1RxogyYUu0+yEkTMhmblR9IRIrTgbdLIbE12nEn7FEx
-         7JXUOx5E82b+oMEEiXxlRwZ2BdsEtCGFT26z1XruQg7EpYal/aaPWNaUp2LebtStSXoS
-         +lXw==
-X-Forwarded-Encrypted: i=1; AL+hErFNhZbCngIWACyj3LHKkBJbqudYPxrw8HR0j5ZfX4W480EoCLkqeV79CzW9XRWN/RSmr5nkM76Xj+9J@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Pjn4To9tB4ZSaip/sZPrJyEdMiXLcEigfQFhhzdo60hXc2eve
-	Isvh0n+g814k46rob1Ulm++OFLvivrOE2GijUNyZoq5eMVOELCjifTRf
-X-Gm-Gg: AYBFou1Z1Jhkhfzqrfd/LXwbxUyn5ZcgFG/7adIFORjo5EqRae2bQDvDDk91oXbL99v
-	0JXMt6vNy9mbhUBOMDm5H97xgIDKIZVMFloE2fOZ04pFc+GXM18hPxfZWXX5fqxHuSqw8kg2yer
-	tBsolXmb6IMtwq5mgc7EiC2l6S/xHeJ5rgolISJk+Vf9NPYXpOZaJxBVoCx9+5rcvBiwx+iVKxQ
-	uA8PUOK6DT7A7ISdhbp0iZNtI0Rh+/6SsXXDVY3LfwxZtxz6Fyro+IjVCA9TvxDPbR0XWOTRsoN
-	B+kMb6LDcXbBls/XDIIiCDnA2QYWXMCOq2pXFjNS30JIN9nAoypAJdc7tNzpaFZF+0jX+5NSBs4
-	i8WpfNTAHcrKr1g+aDDK2mowoTFfo/B6drfapmMzo4LGEU3nrJDG9zezCHGRLqtOUktaOXjQRj0
-	FQusDhrAL86zWP6DFO9vdZmU49Lrj5XXHIFWK8ge0jHQhxf5lD7SdhtJev7P+1naWMiqkAMrTLz
-	jMfi9S+9mLHdjON6hwMMm7eZS+z+SxTu53POZj2x1193fo3T8jCi9eRgavQkT8ep5QUlZmuPbgz
-	i28I+x28LzrQueF/3m7kBNzl738xptAS0pc288gwr31sYhD6/Va8lrQ1b8exaU7SrLH2EESsUy9
-	PwNen
-X-Received: by 2002:a17:90b:4ad0:b0:3ac:9d83:8856 with SMTP id 98e67ed59e1d1-3b166ad1ee5mr1415032a91.9.1794271175917;
-        Mon, 09 Nov 2026 16:39:35 -0800 (PST)
-Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16779d5c8sm1512711a91.2.2026.11.09.16.39.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 16:39:34 -0800 (PST)
-Message-ID: <d2f451a0-33bb-47ab-b31e-aa40df9d7ab7@gmail.com>
-Date: Tue, 10 Nov 2026 08:39:18 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlgirT6v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD65C1F008A1;
+	Tue, 10 Nov 2026 00:51:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794271912;
+	bh=/ZZGxslTPXnp2BqN/n2KIlTkyJk1Sa8ub/8ujXBLIjs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TlgirT6vLgXSXwCTnqzaDI8BwTe3uQRNXgRxXrLs8Mk7h+nzDroboJHoxqa3/qavJ
+	 v305J/NCDLX1H4rsClHO5xSaDQrz/uxUBqJZb0LfuasWWxWV+s4Zeki1qjsdVVmIpX
+	 wCWpWYO8+l1bF5JUDUsKZgTkYFApyyltj0m7WbGgf7j527vjeihun3moxyYkuOMaTV
+	 s6s32+a+9QND9LRL9jWoYUcHgTCkleMbSEGyBDIcszR66NFU+KTmsTK0r1siCkZULy
+	 8fvEsd8eg0svD4bi8qywRFwe7QtNvsnTN4dwKkbavCDc1EBflXKkrL6tEMrVcMWrtm
+	 ALPIg2TnO10UQ==
+Message-ID: <sashiko-outbox-205906@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 5/5] clk: en7523: add support for Airoha AN7583
+ clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110000753.508-6-ansuelsmth@gmail.com>
+References: <20261110000753.508-1-ansuelsmth@gmail.com>
+ <20261110000753.508-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 00:51:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,45 +60,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
- MA35D1 PDMA controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
- Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20261109052900.2960473-1-shanchun1218@gmail.com>
- <20261109052900.2960473-2-shanchun1218@gmail.com>
- <20261109-petite-imposing-ermine-fbbbcd@quoll>
-Content-Language: en-US
-From: Shan-Chun Hung <shanchun1218@gmail.com>
-In-Reply-To: <20261109-petite-imposing-ermine-fbbbcd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Dear Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] clk: en7523: AN7583 MDIO clocks lack rate ops in
+  en7581_register_clocks()
+- [Medium] clk: en7523: mismatched clk_ops callbacks in
+  an7583_data.pcie_ops
+--
 
-Thanks for the review
+commit 80220805154b9c38bb07ac1b3edf5679520c435d
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-On 11/9/2026 9:16 PM, Krzysztof Kozlowski wrote:
-> On Mon, Nov 09, 2026 at 01:28:59PM +0800, Shan-Chun Hung wrote:
->> Add binding for Nuvoton MA35D1 PDMA controller.
->>
->> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
->> ---
->>   .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
->>   1 file changed, 71 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> Best regards,
-> Krzysztof
+clk: en7523: add support for Airoha AN7583 clock
 
-Best Regards,
-Shan-Chun
+This commit adds clock and reset controller support for the Airoha AN7583
+SoC to the en7523 clock driver.
 
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 7d302498c3d51..7523ec7e0d8aa 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
+
+[ ... ]
+
+> @@ -369,6 +378,138 @@ static const struct en_clk_desc en7581_base_clks[] =
+=3D {
+>  	}
+>  };
+> =20
+> +static const struct en_clk_desc an7583_base_clks[] =3D {
+
+[ ... ]
+
+> +	}, {
+> +		.id =3D AN7583_CLK_MDIO0,
+> +		.name =3D "mdio0",
+> +
+> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
+> +
+> +		.base_value =3D 25000000,
+> +
+> +		.div_bits =3D 4,
+> +		.div_shift =3D 15,
+> +		.div_step =3D 1,
+> +		.div_offset =3D 1,
+> +	}, {
+> +		.id =3D AN7583_CLK_MDIO1,
+> +		.name =3D "mdio1",
+> +
+> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
+> +
+> +		.base_value =3D 25000000,
+> +
+> +		.div_bits =3D 4,
+> +		.div_shift =3D 19,
+> +		.div_step =3D 1,
+> +		.div_offset =3D 1,
+> +	}
+> +};
+
+[Severity: Medium]
+Can AN7583_CLK_MDIO0 and AN7583_CLK_MDIO1 change their rate when registered
+through en7581_register_clocks()?
+
+en7581_register_clocks() registers every entry in base_clks with
+devm_clk_hw_register_fixed_rate(), whose clk_fixed_rate_ops lacks
+.determine_rate and .set_rate callbacks.  When airoha_mdio_probe() in
+drivers/net/mdio/mdio-airoha.c calls clk_set_rate() to divide the 25 MHz
+default clock down to 2.5 MHz, clk_set_rate() returns 0 without updating
+the 4-bit divider in REG_CRYPTO_CLKSRC2, leaving the MDIO bus at 25 MHz.
+Earlier series discussion noted that adjustable clock rate support is
+planned for a separate series, but the in-tree airoha-mdio consumer already
+relies on clk_set_rate().
+
+[ ... ]
+
+> @@ -1329,6 +1565,18 @@ static const struct en_clk_soc_data en7581_data =
+=3D {
+>  	.hw_init =3D en7581_clk_hw_init,
+>  };
+> =20
+> +static const struct en_clk_soc_data an7583_data =3D {
+> +	.base_clks =3D an7583_base_clks,
+> +	/* We increment num_clocks by 1 to account for additional PCIe clock */
+> +	.num_clocks =3D ARRAY_SIZE(an7583_base_clks) + 1,
+> +	.pcie_ops =3D {
+> +		.is_enabled =3D en7581_pci_is_enabled,
+> +		.prepare =3D en7581_pci_enable,
+> +		.unprepare =3D en7581_pci_disable,
+> +	},
+> +	.hw_init =3D an7583_clk_hw_init,
+> +};
+
+[Severity: Medium]
+Should pcie_ops pair .prepare and .unprepare with .is_prepared rather than
+.is_enabled?
+
+Because en7581_pci_enable() and en7581_pci_disable() are wired to .prepare
+and .unprepare while .is_prepared, .disable, and .pci_unprepare are NULL,
+clk_unprepare_unused_subtree() sees prepare_count =3D=3D 0 with no .is_prep=
+ared
+callback and skips .unprepare, while clk_disable_unused_subtree() sees
+.is_enabled return true with no .disable callback.  If the PCIe clock is
+enabled in REG_PCI_CONTROL at boot and no consumer claims EN7523_CLK_PCIE,
+clk_disable_unused() never gates it.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110000753.508-=
+1-ansuelsmth@gmail.com?part=3D5
