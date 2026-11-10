@@ -1,97 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339050;
-	b=DgRs6XZhnqKVDo8mGRi/VCU8vstRVjKSV+fP8bXew36wa+5WNOrSa8bn5AI5l+Xvryk3
-	 TDrMc2B8WKWoYXrlRZAiZi7jItQ7+QQcfMT4qQHrzBIcxQ1bkoazX0TSiZc8CbUkkKfHJ
-	 g2ZxnyaVnYLnt5ArZMisNcgJKuUFbHfuv4qUjBlSMedpaMJfXH25ZYG44TRJXtdMm8EhH
-	 S/Qw8DpRAqzPqyZga1P80vrlbhVAknrYv4McoVwp5MxG5Tvp5YM8OnyD9Jpz1F3IXDtP1
-	 sLtsQ6G55ZR7htATobAg5u8BfX5NJ3bZ7lbHOe+Hukqe+WiPOl+VzcwjzjtT1II/uuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339050;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-	b=Nnbv+txNJ5twKY0auPhrWOYrnNQqUonpYPLsmNEYkFg3W0jEO6BGczy9mTchLDGQeq/b
-	 bcMj22ABnDVDFfyx7Yv/mMhiVlQMdyOFZsj+1v557mgvgRte0USQQ76IfeuSPUX+2HeyK
-	 CcCYK7xSoZfvJFwPiWkPe9H4WU9WDi9MTnr5hlryClKdf8xMlbvRHJTmZBbZs6MmIf8z6
-	 M7+K/MoivrqTXNAcIfHIrJo5bLNFPCydIBzvGwgNmuouYbxrH44ZbM7IQ4NHm+2YGe1f8
-	 PxgThKeGB7tApBKCtK3ZSI6doMeVj9nITAw3qv5IW4VQGoNEic1NclIK9/l+5sFxqNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6bqoH7V;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794339108;
+	b=SWvzidfmCt9j4z7+2Egl/Zfd89N0h9NeZA4O+hVKsCXU3g+Sz4DX+xEiI6E2qTFiKf67
+	 wzrJdi1u+dAAesYVspGG/ybMgzKSa5sbzCsRxxeBV8joEjvw9An4bXz0lU69QvyL1YHLM
+	 i4wFOwh5tVh2hDIfM3EOXRM4PgIKdg64rL2S9YWunVADmt1f/wIILFrmg4QJbO2l+/C5Y
+	 DR7B8Ymp84jUzUiQqGGyAox1rIz/XtZf9xyjnJjtDLnkEq8kHH4lBlWP3pvcsXBzjdt3m
+	 VpnHFlp2Gf4rhd4w3v9qvsrShiQxQjQLmHUYxZhbBNA/coLyhnuE9se4yC3+uUXqZqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339108;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:MIME-Version:In-Reply-To:
+	 References:From:User-Agent:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
+	b=XIGR14rW4nd7imjJrkodwRagAsprg1jsTUN3K7B+e/4X7cuvqaiOr0h0CiCbTvm2R7ci
+	 uJ7CwcMpzNeaqUKTklsKYUV69+1MiwxqbDpAIWbME8a9NN+vCGWAinHzsoA/R+Xk22bxN
+	 6eC3VWMozYvsS67uNV5ihRWkMVBjzQKX4yay0Bumf2UJ2LbogEcuvX9i1fpXFYdATFJ/6
+	 iy7g2l33uiTe2D68UKh8Krx2ZcouJtyJmSmsYJO7tt1dcbxyvbmANH+ZaBfvI7i14cIaY
+	 RN3F+yX62mwnfdrho0upRZz7aEFlR38NfPhXj0HNy4GXpLEbgwUkMtwJMvH3W0FXu7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=O13ecu1l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3640260A2607
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3640260A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AD060A2604
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4AD060A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6bqoH7V
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso1492838eec.1
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:30:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794339049; x=1794943849; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-        b=h6bqoH7VMNzR1Uc8o0iEVl0dIWWYMzwCTv6JFmJwsHvXwfnuMX5+S6eMyAsWfiLx+l
-         maYL1X56Wenjg94aCeWnt+n3mUhiGzVA6W8phl+vz6gAgnJdhIg1fMSR0g7Gycs9kZys
-         YaB5rn2nBFLXFSAqlVsBpZtSZ8bWKK2n67cBTXOmoWOfULksbn2//xs5yDHaK5aAZzJI
-         il8OBSG0LJ4l7HKAGKsKpMvhugu16sV1otQvL7/0rFlvQ8W8JxhwRP+7isSixfkh80yr
-         QBZ3DnUerdp1P7LLemzkt9rRw25skVMLMy377c0vHVjyQctiuK5N4P0+EdYXcaR2z4y1
-         H0Tw==
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=O13ecu1l
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D90293F853
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794339104;
+	bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=O13ecu1lE0fY9ozGK0wADVTciwDl5oh4wWejqscWQGPEHm9+cXEzVoTYuGVpkcVLk
+	 hq94WGJd9CUjJsIPIFTDIsG4xJjI9sZgC3L1W+0wxjB6rXjoKAYNS658eBTdTMHhmZ
+	 W/cdXta6dacpVo49NLwXls6GE3lPZFQO6AZK1TJGZrpnIxC0hQLmvri8WoocWyMneF
+	 wCbVaJVEbnq7ufxHUAp5U0cbcnp0xTm+2x6nWVdHa7upjL2k9V/Izf/jsfqwYsLfbk
+	 mpuDEAjFmo7pW4EG4NsxyOhCUlokKyYRpFeLn6UZLCoLl0W9oYWvamlKkPu0C0UxeS
+	 OKYUuT8DX3U50ZVkW00nITkHPbRNQ73UCMnvxcNYx6uDdrAsEwcaHxIH7V3G1+8k7M
+	 is6vPH8+7GYE6Ylvx/Il/j5vSUCp/YwubrF0THfnQBrvQSueNFTy0w/su/CK/Grllf
+	 v0xVO54cq8ln/h3bfKJEQbxMo4y/BM7pRtXKYKmQNZd2V80TAnCx0ZHxIgOx6OGYlq
+	 6biHiLr87/FHjCqBeG6S2O8+6qzGjLwZsWqbBbBpxsbqIoH/HSm6m5bx0jBJMoMvwv
+	 SWcMOLfEWkxDm5WBTwYGbYvzQvaliHMkNYCMrXTdojyapbxO/FfHP3V5QapEMTyEE9
+	 XavCVlxpgOBIoRwm2cS9J9AU=
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c3f04e0e481so205736966b.1
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:31:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794339104; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rbjA3RQttEdCt+0b+5+Jdy60dLjxiDIDnQ4q3Zjgan5kAMqULsQ7uPNKYMXlT158Wz
+         6LD3JSy9kpNBcskQvTstFIJOwexthwxT6QwYau+S6CJKapsIKj9+8OcBtqtSC6yfmL2r
+         1tFMd5m3AovtBWzz4ClyWDm7TukaVW+S6FCXz74zj1BTvtNwC5g/WH444WnGV+ozviVI
+         A8xuov7+nIJqjiP2g0T8aCAdK9/kWBzyujtKb42J/NiVdqEJ1vbn+4ezyxxYnMgoeyVf
+         6SOuWDX7wz7QEZ7HvAzSN225+yTnlvr5nUC6Hq5ao7oTs69Uqn4HBwFCsvsgktHGFbkC
+         NCzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:user-agent:from:references
+         :in-reply-to:mime-version;
+        bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
+        fh=J0q7S++8BieLxdBzVE0EtLY4Er7mSoCS1dDOAVzJRX0=;
+        b=WgZ8HscTOpMkb7QPiJt4ma/DJQxcx+Y4So9jFBNjlZgwU8rA1VBrY5wftFHgA6snFQ
+         vAZmd3OtUqmpPr8TMw3T6Rj3PubVeK+cMA2D9AyUk7q3byRXQtCrDeImNhmLs+wS6QJp
+         PjYRVxNJPi3SkL1YCPrAo/9bYnkzLZaVsO2QzM4K89f+FkFk2l4LbHq+kVQzT2Gy73D8
+         +JR7yRrZxC+xvDRAa+AQaeeoGuAfCK6Gn2D9CbtOclR0t606hW803zEItGEAjnBZP9gx
+         89+hTQO9nY+t1kJopKGEzf2drlq1bwBIgYqJvYfSMTZ94PlZuoj8JHOflE6YrykVnsMm
+         EOZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339049; x=1794943849;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20260707; t=1794339104; x=1794943904;
+        h=content-type:cc:to:subject:message-id:date:user-agent:from
+         :references:in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-        b=ZoLB+tTJymJPTaihKV20ZW/L+pA/WK5GJHtbHMQMnpaXZJd7+VdUwnixYTc39RVKjJ
-         KJgqoqnGhifpybweyJmqlt7Yym6DWzNU2nq9IjN2zo+AqrnrrbWbVegtFkbgOODmPPDE
-         QUFYxhgmvtDpa1iViKwL+61EbRFiBwy8MLQiYwXfzgvt0NkTlHS4k0kzpg8heVI4S1Xo
-         U7egkvBZGUSctbBX4IogfIk+V/Ogvet7FQa7R4XhlpUhvHpgXV7MQw3ly1p1U/Z9DClg
-         MgoE+2aSDLx+yhvTt9mWBaEB7imQQCVHXEO+BwiL9fLP9VbU2kVehDzHxmBjDU6q5LbX
-         PliA==
-X-Gm-Message-State: APuU4Z88OcD5Lf7YyDFHIspdX/cx8ijHES+t+9lY7yRXov1NxAsFyanB
-	UMSuP+1grMhZQkH1GXqI8og2RATaX2sQ4UOAwZ774W32gdnqPIszbrqN
-X-Gm-Gg: AYBFou2OK91o421PlG+93WHQrI3JscXcG2ylvDZplLp7MlgbAzcvA2G2olYdbUpASb+
-	vS8GeuFPlq3KK8zn5f3M1yeVLw2Eo21S31IlMn140XbOL/ekzrKM4ZtoBMgz/qIX8DnX1V5nKwm
-	WlMik1xdxp9tHXgWH9MO/lfMNoeJjthf49NiAT8XLhV9cuQEt74LC11n4OGlz3Ahwq1IHniEu4v
-	pryK/UOEVMWZehTMsM80dhR5FJR0e3utEA+mA7i5664yfbE586thz8Smt8uHphgBQArxH4nP5kI
-	qxujIZs/s2ovp6kGoycwlY+4wb3N/zN88ciKefg7ThVUyIyJKDMX6vCJwOs2MbUOwdR9tmhSVxC
-	uwwTfG5bCPLOhBVRZNYBn4UjekA7GEOMLfJ+3PIKP+siv2SHqJdEkFBvAAp1TjUS0lc4nwGfeFf
-	qDiEqDblqzC2U8vjP7H/CRkcnRaxZy1HT0kl2DgnMwSwC4UNnQzJGIu4N+tEsw5AxKT7wJp0lRl
-	LTSAZqbdWhQ2r659j1NuIHzwjnxOA9bG24EaZ1praoVdYRM2C29VljALGlf0Rqk46ly7kQoQCbr
-	IE90C54J5804rENLyCXnB2L4ZHGt9swiHnDtq4j4Snd2Q3yVgA==
-X-Received: by 2002:a05:693c:8814:20b0:36f:4615:9747 with SMTP id 5a478bee46e88-37680a5d9e4mr395559eec.0.1794339049150;
-        Tue, 10 Nov 2026 11:30:49 -0800 (PST)
-Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm7730435eec.0.2026.11.10.11.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:30:48 -0800 (PST)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH 2/2] arm64: dts: rockchip: add USB-C DP altmode support to LubanCat 4
-Date: Wed, 11 Nov 2026 03:30:28 +0800
-Message-ID: <20261110193028.512456-3-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110193028.512456-1-cyan2254650260@gmail.com>
-References: <20261110193028.512456-1-cyan2254650260@gmail.com>
+        bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
+        b=eK9K2o6nYmtA67nj7KFxj/yHqBWuUy9RBmgdI8ddJCGS0Jgok4y3kSmrZ1eRCrc99E
+         ar2Gk2SQhUV+KQ3RruuKFXLFhMiXfW27vse03Gq1wSjZ2u2kGraYsyJ5me4aPXK6LT5j
+         /93HCrlmUZWm8PX+LsagbX8ss3KkOa7FLKRmFahvzBluu2zeN67GvkrVxZwYL0oYA4WV
+         1hGD9Z2mxglrDwlT2i7nY09HgRZ4/gWOMaqja7fm+cCUmQmCws+OhS402KuWgeGd12B+
+         QfBZOZqraxqtVwYpwW3dmlJOYDbwIEee16tixJVLzezxjsN8lwguYliLOVCeBgCsmn5Y
+         ajfA==
+X-Forwarded-Encrypted: i=1; AL+hErGGKQ9XL+g7E4Wt/G3QC+WXJU45oAuxsWdgSvUyceMm5VD/LKPO6ZSTojPhMFtI2+xYaPNVcvnX6WQx@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MqHRqRZJUjpNS8JnGETcWXlCeATRYdtCtoRn1m59uHpHlRePP
+	1ir21S8t+p7aJaJtKW1MSZnKXDnPcH4XG/MnfTXfLJT5cWtYqIhn9hL/0fRe+cNtywn96VltER9
+	F/c407tXc/30vivqqAo3H7JOCRYAg4ZhX8C42AEC7EaOkIt7oy37/xYhs6d+GYEz1eM/fC/uoYV
+	Isb+ob0F6uc7+8z+y1Cfolxo35mDqSmJPF5UCTVD3CyiDsPRfvzmGg0g==
+X-Gm-Gg: AYBFou2iO1XJvz/uSf8JdAq76LoyYsKKGZD1MCH2Y+lncxLl88KAuVTXaeW+NjaCT9s
+	2GjhNuKYnK3XODGTD8RfK67it7KnW+qZBmiSjEjboyEvN3ZpflyrR+z5JUXzWv+oHUzsQp7TdoV
+	nzgfhFmsTM2nuYGIsy5ae3gUYL7TBZ4rMPn8ckrOIMmAnvNeCg50eifge0
+X-Received: by 2002:a17:907:2d9e:b0:c50:4b7a:de71 with SMTP id a640c23a62f3a-c5066c973bfmr7684766b.28.1794339104483;
+        Tue, 10 Nov 2026 11:31:44 -0800 (PST)
+X-Received: by 2002:a17:907:2d9e:b0:c50:4b7a:de71 with SMTP id
+ a640c23a62f3a-c5066c973bfmr7681666b.28.1794339104008; Tue, 10 Nov 2026
+ 11:31:44 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 10 Nov 2026 11:31:42 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,125 +116,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109051050.105623-8-joel@jms.id.au>
+References: <20261109051050.105623-1-joel@jms.id.au> <20261109051050.105623-8-joel@jms.id.au>
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+User-Agent: alot/0.0.0
+Date: Tue, 10 Nov 2026 11:31:42 -0800
+X-Gm-Features: AclHuK9fQA8Jgn0xTRsqLvStB1Q8zamqe0b0Aq0C1Bxekl-A8FrsSuWOeKP0fC4
+Message-ID: <CAJM55Z_zrUjaWrxSqZ=8VWEJqbh_Oa6gTHf=UJZyR2__MCVueQ@mail.gmail.com>
+Subject: Re: [PATCH v3 7/7] riscv: dts: tenstorrent: Add Atlantis platform
+To: Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Thomas Gleixner <tglx@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The Type-C port on the EmbedFire LubanCat 4 supports DisplayPort
-alternate mode through the RK3588 usbdp combo PHY (usbdp_phy0).
-The sideband use (SBU1/SBU2) AUX signals are routed through two DC
-switches controlled by GPIO4_B3 and GPIO4_B4.
+Quoting Joel Stanley (2026-11-09 06:10:47)
+> Add initial support for the Tenstorrent Atlantis platform, based on the
+> Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
+>
+> The evb machine represents an internal bringup vehicle with just the
+> interrupt controllers and a UART. This will be updated in time with a
+> full featured machine once details are available.
+>
+> The chosen node sets bootargs to earlycon=sbi to aid debugging early
+> boot, as the platform may not have a bootloader to fill out the chosen
+> node.
 
-Add the DisplayPort alternate mode entry (SVID 0xff01) to the USB-C
-connector and connect connector port@2 (SBU) to usbdp_phy0 port@3.
-Configure usbdp_phy0 with mode-switch and sbu{1,2}-dc-gpios.  Enable
-dp0 and connect dp0_out to usbdp_phy0 port@2, with dp0_in fed from
-VOP2 VP1.
+Does this mean OpenSBI uses a different uart from uart1?
 
-Tested driver stack registration on LubanCat 4 hardware:
-- dw_dp bounds successfully to display-subsystem;
-- DRM DP connector card2-DP-1 is registered and reports disconnected;
-- typec_displayport registers the DisplayPort altmode driver;
-- usbdp_phy0 registers the phy-switch and phy-mux.
-Physical DisplayPort link training and monitor video output are pending
-verification with a physical USB-C to DP sink/cable.
+If not that means both Linux in S-mode and OpenSBI in M-mode will
+both try to use uart1 at the same time. It might work by chance,
+but a much better solution would be to just use "earlycon".
+You already define chosen/stdout-path to point at uart1 and the
+driver for 'snps,dw-apb-uart' implements earlycon so it should
+work much the same.
 
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
----
- .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-index a94aaddb2..6c5a942df 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-@@ -323,6 +323,13 @@ usb_con: connector {
- 			source-pdos =
- 				<PDO_FIXED(5000, 2000, PDO_FIXED_USB_COMM)>;
- 
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0xffffffff>;
-+				};
-+			};
-+
- 			ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
-@@ -342,6 +349,14 @@ usbc0_ss: endpoint {
- 						remote-endpoint = <&usbdp_phy0_ss_out>;
- 					};
- 				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_dp_out>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -857,6 +872,9 @@ &usb_host2_xhci {
- 
- &usbdp_phy0 {
- 	orientation-switch;
-+	mode-switch;
-+	sbu1-dc-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PB4 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
- 
- 	ports {
-@@ -878,6 +896,22 @@ usbdp_phy0_ss_in: endpoint {
- 				remote-endpoint = <&usb_host0_xhci_ss>;
- 			};
- 		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			usbdp_phy0_dp_in: endpoint {
-+				remote-endpoint = <&dp0_out_con>;
-+			};
-+		};
-+
-+		port@3 {
-+			reg = <3>;
-+
-+			usbdp_phy0_dp_out: endpoint {
-+				remote-endpoint = <&usbc0_sbu>;
-+			};
-+		};
- 	};
- };
- 
-@@ -895,3 +929,26 @@ vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi0_in_vp0>;
- 	};
- };
-+
-+&dp0 {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy0_dp_in>;
-+	};
-+};
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
--- 
-2.56.0
-
+/Emil
