@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322016;
-	b=cxr3LZlN6sJe2969DrwNkqMSt1n/o1kDRYQ/W2hxtQW6MHm72bfaj/T2q8E6jeGm7/hH
-	 fPvOcljo9O4miX29KEVs9v0DY0hGlbGVrscDmlLzpEGuaOO4/QZizCEdqODjsXDWXW2uJ
-	 6UMtqv5XRXmlHbFBwhy2kidl8S4rhAv/aBIfejK7qqy1ot7EQP/aII8Ypi3MzeTmOik1l
-	 jYLPAbzTotOutcEJqiwVWB6BjvTNdQDh3VstAk94t4CoCKPFG12mkQr2i1bJJWSFm8H0L
-	 NTwluz5TWsFcjFTpCRFS6zap+XnGkEDnOjWl2UJ8dPzNgUJEfE1ug4Es0GlejUSzrCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322016;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ahpMbNRu+oaU/D+J9CQu8q3KW+PhWHMWtw7yeScr5x4=;
-	b=dPSUpRJyLvYVciBwTRRhCyoJscIBQewBlxRc2/Ozb9juurTrkZ0zoCqxI98eHrBtn1by
-	 pRVct2OLpP6nEgdauPNKySjlMQe/becg+Ayc5TY/cu0sIhQ2nlnIz3ACjCazFEEzGVvI0
-	 fDP4HTPS4gjVDuzgNGqwxsRAmbbhMq2bhvfnd+3m9fozm02PjrDdfW9I8za9vO+eLsylF
-	 rCNsk7PqsAMz7AR/l/rXR0YdugNYSa8k4jVvgRGowaHH/BSOEIqp9nB5wCuiu7OLOH41A
-	 6q0zfPzyn4pGvcZj/EGDTA4Fl4amowFWKLE3+jaj0az8r1EnATQBQvobPMpgV2RICfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSSgWphG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794322340;
+	b=L/ZD/XITcbqyg/q0fOZEWg3a9JHJVPws7V5ZhnJh/zPpG5RvXGSb+8YSA2YJmy1HD7pG
+	 n/NSj09uaRM0NsT5qRxqPLpCtvaiWk6A58zk8XZnHut9J8ChOuiWE1iaADJsjbKeAEGYJ
+	 mpC7CaZu9PSY1WTnWJy4rWlDCfJcoJclGyT7u+/UWXOfezGYQwEVYFW3/LWIHBQwL++2q
+	 RlCDxNbUvUaofQF3sMqM/41B5KeMWJ2hd9sHd9DfzY9DMb+CK66f6FAuy0heBtADvJjvd
+	 xpSmcGOLmczhdS+zgHocWD0morTuYv/Fw/Kvi+QGxDZ/bbmkRpHEy/OKNBpDFOfrlTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322340;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=;
+	b=AC1S4XNmQdJO8U6CMkZEEhZ6xbpAx9Vukue2dGP3UmZp4pY10w3g0WCKkrJXoA+fFoYD
+	 kPS/MzJG6PlMowcXbkuK+6R0w7xbKkeerlOfv9zqiKTaaWEmfhMAHvQFFFczk48KkEHYX
+	 NozqN6uECj6sglXc3kp/iTZp6YK00rTLWqBeKY3vbqd3bC9NKDoei+YDcanba3FgZNHNA
+	 b4FxgJNCuDyncPH2hgYUVUssMN6dq+c0Y2RTaBWQDosom4MeBMpo+rcnyXr7WNPU9WYYw
+	 uyzEXTadYEk5LlEbzrF2eXOC40ytkjqj2j3qxikm+5kZ5tHP8cJ8v65kVsFj08rmFXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AD660A2631;
-	Tue, 10 Nov 2026 14:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9C4606A31C;
+	Tue, 10 Nov 2026 14:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9C4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSSgWphG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDFD1F008A3;
-	Tue, 10 Nov 2026 14:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322015;
-	bh=ahpMbNRu+oaU/D+J9CQu8q3KW+PhWHMWtw7yeScr5x4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iSSgWphGAZzZqhQ+c0Be8QZCxHpeK6wmtxK+Sstue5s6HPrFgpFkwJz4UlYxj7bgx
-	 DmLBVqgbHYgz0bBLBML2qsLjY8ev3tyts5RizUgZ6GZkqxDCb2mvJzQGJ/3EVvnv1N
-	 LJe5x1LGUGpYgV68dzspFycDUXaXpyIQuOhDux66FbI4BlKd7sRsAFeUWV+066WEkZ
-	 DqIs3yj7LZPDEX9YK4EJ/QsgSrQVEy58z9dDZMdFWTlCmTqVxJoQgm6/5BHGGrVtSN
-	 QadY7MBdF0ceyycMMf68yDiAcXNYMkljlC5NDkXV8fQ15HZ62NIKgiqOFph2KR9iIO
-	 QYQpqtXmvF2/A==
-Message-ID: <sashiko-outbox-207210@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 5/7] dt-bindings: clock: nxp,imx95-blk-ctl: Add LDB
- bridge child node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261110-dcif-upstreaming-v11-5-9e13c85ae0d8@oss.nxp.com>
-References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
- <20261110-dcif-upstreaming-v11-5-9e13c85ae0d8@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 14:46:54 +0000
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV
+ARC-Seal: i=1; a=rsa-sha256; t=1794322317; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IES5w9/rUmQUIOSvczKB958G9ik3/KHQOdqZIpBImeiL6/DiyiXey9VoKv7eSSR//k6c8Fw0ubhAX3eutKWdaQm+KuBtR00hvQuaDMCFAvgg+s4IAxKfAFIX20MW+yKqOBKVdgvqkTmOVaw2rB8WPPnH01qLjyN/0xQuh4lonLA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794322317; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; 
+	b=G9yyZtFQYlZJTLFV0v3bg3BtMw3vkmi3+Poehl2oVa7CSuYF8dGEw/a8aUIy0/4IKr1R0wdNDNCGA2GijuVP/LJrrBnmfKrXPim37YeqeG7MDroFOJ4CvPGazX4JZmOhi+8JsK59WZKRhcQVkDWdzuUedf6LuuFtz/a2OEFdBU8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=aMZJcmnVNEHIWb8uXyKM728ieo5RiRGM1+v6GUx2I12YzHcAOTMRGrUmWeIx092Qx2aaQKx4J0j3zaJJSCDbDa6Jm8SynPbnlTZonYnMYZL0QwpSQIbBqCbpHcIsUMGRAhvQdoQ8pNLIlLckmZBw1gyZRVnn/HDBlOkYnVM97Gs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794322316098419.50846392536164;
+	Tue, 10 Nov 2026 06:51:56 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id F1A01180354; Tue, 10 Nov 2026 15:51:46 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:51:46 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
+Message-ID: <avMvRiHSp_7d8oD3@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,84 +71,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tfqghsv2wlsgx7bh"
+Content-Disposition: inline
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: clock: nxp,imx95-blk-ctl: split variant schemas
-  with subnodes
---
 
-commit 40c5ccb540e5f895cb96974a17da3a21e1ed5c2d
-Author: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+--tfqghsv2wlsgx7bh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
+MIME-Version: 1.0
 
-dt-bindings: clock: nxp,imx95-blk-ctl: Add LDB bridge child node
+Hi,
 
-This commit adds a bridge child node pattern to the nxp,imx95-blk-ctl
-binding schema for nxp,imx94-lvds-csr to support LVDS Display Bridge
-controllers.
+On Tue, Nov 10, 2026 at 07:11:48AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> An SMMUv3 instance can sit in a switchable power domain of the SoC, for
+> example the MMU-600 in front of the PCIe controllers on the Rockchip
+> RK3588, which is part of the PCIe power domain. If the domain is not
+> described, nothing keeps it powered while the SMMU is bound, and any
+> register access after it has been turned off as unused stalls the
+> interconnect.
+>=20
+> Allow a single power-domains entry, as arm,smmu.yaml already does for
+> the earlier SMMU architectures.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
 
-> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.ya=
-ml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> index fbbf1b3f17904..c2aeb434a8102 100644
-> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> @@ -51,6 +51,10 @@ patternProperties:
->      $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
->      unevaluatedProperties: false
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+>  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
+ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> index 3c044e4f03d4..c8f22dfdb1db 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> @@ -63,6 +63,9 @@ properties:
 > =20
-> +  '^bridge@[0-9a-f]+$':
-> +    type: object
-> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
+>    msi-parent: true
+> =20
+> +  power-domains:
+> +    maxItems: 1
 > +
->  required:
->    - compatible
->    - reg
-> @@ -63,7 +67,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: nxp,imx95-camera-csr
-> +            enum:
-> +              - nxp,imx94-lvds-csr
-> +              - nxp,imx95-camera-csr
->      then:
->        required:
->          - '#address-cells'
-> @@ -72,8 +78,24 @@ allOf:
->        properties:
->          '#address-cells': false
->          '#size-cells': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx95-camera-csr
-> +    then:
->        patternProperties:
->          '^formatter@[0-9a-f]+$': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx94-lvds-csr
-> +    then:
-> +      patternProperties:
-> +        '^bridge@[0-9a-f]+$': false
-> =20
->  additionalProperties: false
+>    nvidia,cmdqv:
+>      description: |
+>        A phandle to its pairing CMDQV extension for an implementation on =
+NVIDIA
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+>=20
 
-[Severity: Low]
-This isn't a bug, but would it be cleaner to split CSR variants that have
-subnodes (such as nxp,imx94-lvds-csr and nxp,imx95-camera-csr) into
-separate binding schemas, similar to nxp,imx95-display-master-csr.yaml?
+--tfqghsv2wlsgx7bh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Adding a second variant-specific child node pattern to
-nxp,imx95-blk-ctl.yaml requires three separate per-compatible if-then
-blocks in allOf to toggle #address-cells, #size-cells, formatter@[0-9a-f]+,
-and bridge@[0-9a-f]+ across unrelated CSR blocks.
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-dcif-upstr=
-eaming-v11-0-9e13c85ae0d8@oss.nxp.com?part=3D5
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzL34ACgkQ2O7X88g7
++pqJrw/+Ltixuq2mwS/7jblulvQQALfQna4bWRC1zreexGhF+leoXqP9JEMhCnkp
+Vr3wOBovLKA//DQokcLKXgDGqVS21CBMdTAEp2Gc+G0N0VHZzdSP7i3QCkr9qNZI
+vPm9hifWU277QF5SgT/YCR94Jt8m46KSkFNiaeq2dTUBi+/TpYO1y1UxvNnlBm8H
+ySl3PLGGBj909ezmEy12KLVHxYAPM3SKAbE6dr7Uyo3B2yuMp5uY1TPdYbJpNi4+
+s/qBdbgxBqPVWVhRspqwjcJKpc2jnv1aLQjZsHCulAxY6iOnGscDwHgCnerj7xw2
+XJOJ+cmGi2CvqRYloutaEx3DFDW0ANLaOvxLBe43c8jwuDP72eeM+Bl4JnNxQOZX
+uVu6498a/JQxBCXyo0IW/vEUQ/VhCo6bG7CaLHIWmuX/gVH0DNCuz43JFInaZaCz
+lHffjGUeQNGigfx+zlTTu1Ng0rqBA6qKnva8gOUE2AvFkWD3lYh7MWuZWy4Foz6i
+g2FEtxt2CfNYpzm6/XE5Sp5ayNqO0l3N2Y+m2W413Ae8Pe5dmtZmNekDmJOLKzYq
+PWNKmQ16cANFsiA0Zq8fL7p4EArT1cC7o37lWeKdJJdodL+edfTFWmee0YmmrTOA
+lsBVO1mkefW/Kf+L2CL8+DoN0EUu7+qa7rVBLxOlkPB+b3A8UsU=
+=xEf6
+-----END PGP SIGNATURE-----
+
+--tfqghsv2wlsgx7bh--
