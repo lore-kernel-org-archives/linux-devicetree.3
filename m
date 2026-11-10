@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794307017;
-	b=SfiYVIG5WmcBKu2ac/FFufZNffytB/BfW9rcGsL3Cs9IKoaG2mhJO1kT3JrKCg8Z2/yS
-	 ToLDOEi1JQAuLDUVcxdBg2/ZjsSMNsT0ZjRx2MPvWIFbIOwfYRwJj1J/VopK4SSlwB56/
-	 A7kqrkWp2fxyjafJne8btS2+WeJYir8UVTsD+3nYHB8LockZTh2UpG+OlVpRr1jMthAeD
-	 NJZuQe5UjTLRrDKY3RBmaUSijxxBybRZ2G1sZd5HBhv4S9MdcphavfhxPzEcRn9h2A962
-	 ZjLu/FeKyZn0NmU3RVUUzVh8EDe1E2Mj4m5QuNfo8RLdpwm6D5Pcxc0DpRKi7tq83PQ==
+	t=1794307146;
+	b=46p3NwqcPqqsIWe+J1JyA1XIcK1QePXwoig92Tom3BxVpXLA3Z/ZGP0quGZ3rFp0x6sh
+	 +fmGN7/K+txm2SO2FI0iAgdQgynLJdisNds34OA7ftr1PwlZoXkpZ1dKuIkj5+rkwRRMW
+	 CpZAqzUfNhSPG/JHNqvYgbed0vCwGQ7sKPUgb0yTd130WeF2bjAWXU/VFE+Yax60+sQtv
+	 vyLfpBFJqtp9ufGnpN9bqviqhdsmAss2l7E6CMypjgLorNpqG6hp88sgWuBo+vLcBlpBU
+	 crJ+oA7Qvr3zEAK7FROTha3mxw/b0lNPBquevrdK/PyckKt2jdY+I8GuOWFxNaq9DFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
-	b=h+O99+XRkL+7N8MDwkmiSHpWlE1YThs2x7+7+pSQ+BRj/YHAmAenUVtxLOhZq1Jz1+oY
-	 fNLZ7t/An+JqWnC4hRkYkzm7NZ9uTONjVr/VvJ4pXU5FuPFHqWaFW835hz4C9AM8CE8Wu
-	 knqGUuu8KOUFSH7z/6GrM9IDasZ6vEcs7rdwapHDWhySIVu4axpgbtunwaqg69no4oWSu
-	 0QY2cW90grHdKLHVR4Bnmc9J6g+isosW+m9qf0zvyv7Kqp7TdP9pnVubNDQ6/v2OvS3Cp
-	 8vRM44a2coMME73o3BMPB5+77mbxMMB0b8D8kVUlAG/doflK8ofBdeuABVJROBj525Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307146;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g5RQKUG5bh8bp1Y7KkAg3WudRjo1nNv/KFbkLN7VwaE=;
+	b=WpvHzA0NmAyExzKQQzLOYgN7GVd+8nK2RoGLPp6/WSyJQiURBLPLCDtXXk2gSPAdwPzc
+	 j8Kk4v0z7lz9NXfYR8H3+u2Mc0wowgGebGPZgCXyQK1Xr596tdcphh51/aUjrNoPxFbBg
+	 UBVS4LZbufM+Mi/DYvqeKlhy/8jac8Zkl8f7ZDW5PKTNQBAk/1etmqMwmpR4PidHCaJwn
+	 OoX9JgS+XCIkUtAUMCp2Xq4ZC0uPRdc+KgTd8Tlw+L5clfM5bpJVbny5I9Jhfe+WqoL0e
+	 Klv2xrrTXnMHOlJRrgTunxMJ534t5EWNVZ0MgYTcM65BJx2M24fOOBUD7lW2zqWKe9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J503BMjn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edt3XDD9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32133606A326;
+	Tue, 10 Nov 2026 10:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edt3XDD9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794307145;
+	b=GoIImfyIRoYg7sTzLx6OdruXOmsi5q1bwxY52A79qC7zq7OHrTSom86lC+T+JdmJ4Rh6
+	 gAQRmbNRhZLaaoQ3sHARqvP31/LjBpzvLYp13SV/3tC+KMQPceHssjmuLJ55I1nHhVqHc
+	 Yk2yqeaSZ2ctYe0YJ5nWO2ovkvZjOIi2TsBpFbhdkLEUahoqUi2oYFg7UXYBH6JZzLuZe
+	 iJNMhO+SMLjdoqeljFYxLz+MNpeiNkfvqNUPeZfqB/IGX3BcGdMk2D/Y/1kECmkHz9tBe
+	 YSVNp9hhpNtO/bRtQMArerPiCGp32e69SWFf6hKesmKtLe9Nqkt4fTk8pp69O0UD35w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794307145;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g5RQKUG5bh8bp1Y7KkAg3WudRjo1nNv/KFbkLN7VwaE=;
+	b=vDX8HmLCV8D+wMO7U1WzZKfuoVuYo1ARfbx8POfj5BFSoFzaX14Y3Yi6B0B4c+UmJfGp
+	 izWyFwW5Y7AzKj4WCR4L7ROgIRgaYhgKvQd0NBSqGcd752RMxNO1YYEK9ZSeAxVh+oZnf
+	 58iwH8j1W5Y8OmhQrzcuPXuhIUjrxZ3HOodo6n9i1+UIy3G/v9UQ92Jd7UXW0B+kAIfHZ
+	 iNJcYfCD8Inz6h2JfA2UtfzX+26q4AMj9QMiY7+/8JUfYaJP1XFWQm+RlMO3O9WiPbOR3
+	 Zkbdatz19yEy3bR8Guk1UM/GTcBBhJIVVgCrTeMO40Jb0qiZvNAWvZAMUYC2wB4U9Fg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1020C606A325
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:36:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1020C606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J503BMjn
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so15137271fa.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 02:36:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794307015; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OVnq8fBk3+iZlvV/T+JZwJUg3X6MNoK0Axp1a0gFv+w8Kv95NN0ZaiQCpxAmvQ32ae
-         uUseqAqCy1+zNFt5lxfu8Oae551gVNuwecC6HmgOJ/gnbs5z3ZuLh/BPmJlgqYVcJpT3
-         zYiT+fmq+CkV2JSyZScaXUOpqcG6jF8cZsro3rBPm6QM1P+wzhbsJFFdTYiWFnbDl9HY
-         saH6fxSKDLmI+Fs8zsHBPrcOhWYCMj1GFZyepOV6L9jEHUHsJ2Vxf5yy3JYbVwyoG/KZ
-         5nWng6jS4ORD8fmxU2aDohw+BGVu4kzFkT1SOROEzLfpcNrnXa5BklFAo6RHTttY1YAW
-         eqTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
-        fh=UmnuYRNjocVab7PpFyOeZjr94W23RKmvgsRE0+sHWmI=;
-        b=FfokxQuEuUL93awB9qOOzwgPWdcLrnLAwTcbsQVy3bLmXNLjST6zh/7rJoCwri0CKR
-         Bd/30EQDO3KesC4WIGFbG86+U/Zb5OcXo3FOsDUMHeujQXc8kHgd0ihAjCo1URJDNUeV
-         6bgYSAcJaORrnW80FAZIXm6pY5V43VBduXJMxXSZeZx/1gDeetT3Ae2bpaI8EmWXyxMk
-         jmDePX4Ef3M+sqkef/wtVCyO487LBet/fjfBfP2TpBuV8nyAtNouaVL99awRHQ0p3WPA
-         Y4bn41xE4cKRWGpJIopbURJxSdClPcoQkVFE9LiT95hlsKFDxSspq6Wo19zCn4H9vqht
-         7mfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794307015; x=1794911815; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
-        b=J503BMjnaaTggjFgc1Y7SCm6wsh7qUldbVRgkaLJ1xleeJ7jxprTqE3gkXFoElz9SX
-         xZF5uaSzh7ZZOdFwqMFdAHkUfYjPKsZCI15iydMd3nQ373fLjCgEbIh/Zg2876eEftEc
-         hlMSXum/NZZbtiysKeO4D+tYs1hbA8e56EqcvPS/UDGdOwnMknyqg2hy5Vy8bp1uIjvd
-         /UoMltf2T/4xD01cihAPn/s2foFZ25U3iurhWADk93onEd7pc2dHNIGVPTXKiit+ReHQ
-         JsIG02HPsl2Z/JWZvG+/g2HjikAwuDmsOxOeyCiIOy23gUly/ErGhSLtoUPmMoPUbW2i
-         vgsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794307015; x=1794911815;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
-        b=iSbaxfY2MGeA0M5S/xP3cfL3xRVgURA4KN9ah1fxTI4YMAZaoIjZJFyxgHiqDq3HQe
-         hXC1N62ga0OohamVHjW17iZqWf7JdtVxT0hexpAvNkf108ni2k1mbox465/+8H6by38s
-         WQxUDyxgCcpC3M8aVVCwFEc3X6DomhSVPmk5W25+1VY0Q9FCPEx/RFp0PHfO7wZqnX7e
-         RNpJGkBbRF8nI0hMQ8UE98ABNUdmMQuNmf3WbX5y9YSQtgEqGejQM0DMy5cQyCuN5EMe
-         NeLiM0wX0E59V3rt0jlif5B05TKaxikIg5ffH0aGLA13jfzmLE7JMXyXtkkCh7uaSrWG
-         fhbw==
-X-Forwarded-Encrypted: i=1; AL+hErGpe7kxNULj+8gfYZY750pFu81Gp2iNrhLE1+DcMV5xlbWpzITaXRY/kjPlLS8tHL9rWNhLLXIB6z6Y@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aCHt/bWAxzTiPzJo2IJE3ATSOrXirhGPFLOns/8sHv+YeYuTW
-	tfEC/eHAarcsuXNKhcXW9rQSJY+VpHykUKV54UJyFAiysAgT4177hmRvRTIFkBJCy2M3TUJGBW9
-	i75p66d/GAsWMkckwqNmo7K6eXtfaTGg=
-X-Gm-Gg: AYBFou3OA72tTew3hq2BVVlpa1i2kVlrMrgUZNQlZwECO6/922HS3EeqhN1njG/IWfE
-	o4D4VZ3Is/FQpvMpKUqH1GOScGv9MKw4zzi0wQqgheVl3B2/QklrrGJoTU8qM8y7nZnaZcPK6ej
-	oIjGjx+NZiG+XDcn/I/2T9vYNoaYAMxguChCym2bhOSQ1ETkiNn2y6jHJpz1ojVFZJqn9YXKp3x
-	pQx4/YX64OuYlSpkrbusPp/7dqOocHKxbhI+0+VaMHqeyqLRjIrMweI4C5iq/dh2KATGh9t/g5S
-	A4eKSz3Ispk1Y/A2fI7owJp5d1/d02xMSfWpNjkJcEflDGIdFCiBVxD40NGqSnpw45SW0SkeCH5
-	KfCV4ENmPZ3Begd8dKIuwJ6CLpIYzNLza9oREg6Di94YU0+NyPbxVggX9kMNHZ7VorX59cpELH1
-	NbnGABWbD8WVTCrUkVIx1H+r+qEbnDn3ZXoXfhbjgTayU2fS8sN81qgI0z+INAsM/13xxJxC63l
-	dfw8E1skkDiu5QCf06+cldcbqN+i2hIskz2
-X-Received: by 2002:a05:6512:1090:b0:5bf:c5e8:7451 with SMTP id
- 2adb3069b0e04-5c156ef6a9amr665923e87.65.1794307014867; Tue, 10 Nov 2026
- 02:36:54 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id D73591F008BC;
+	Tue, 10 Nov 2026 10:39:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794307145;
+	bh=g5RQKUG5bh8bp1Y7KkAg3WudRjo1nNv/KFbkLN7VwaE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=edt3XDD9mNaeibOSvdmf4xo+pLavm+3qXiIiXpqa+5Ihm/vdh83E07bml/KApz+Kh
+	 LxsevU9KwRLea6mzmJrCU9Eq+Gvs5wka/I527E9/QECgvROZ27cPxODEZlqUQmWzSq
+	 EBBWSEbhXE5mLDuAcLbxGK1Bc8egVwkHdKd/pAm0wZWa2OK4c6g7YorfnOEX0b8i0r
+	 bnGdZeCeFyY8hDyF8J2G8/3yXmFK19a8HWsjzX3g4eDJUkgTYLGMfCjOH+G56tRmkY
+	 KzTeYh/EDDRjjrKW0dUadgjuz8mmH/EEhSS+dpbUNN1Uldbt6GOJelaw3J6KNd3ayD
+	 vLDmMb1kaIP/A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 64B6F48AFA;
+	Tue, 10 Nov 2026 10:39:04 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 10:39:06 +0000
+Subject: [PATCH 3/3] arm64: dts: rockchip: Mark the Orange Pi 5/5B Type-C
+ port self-powered
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,72 +83,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261011154556.155831-1-kieweg.leander@gmail.com>
-In-Reply-To: <20261011154556.155831-1-kieweg.leander@gmail.com>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Tue, 10 Nov 2026 11:36:42 +0100
-X-Gm-Features: AclHuK8uvc2i2P_Jt29Mbu3rg5cUM-90uDWt_jYSqLTDdxYVxLIh3qQpLucOIBo
-Message-ID: <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
-Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
-To: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-tcpm-attach-reboot-v1-3-7657cc1e2dca@gmail.com>
+References: <20261110-tcpm-attach-reboot-v1-0-7657cc1e2dca@gmail.com>
+In-Reply-To: <20261110-tcpm-attach-reboot-v1-0-7657cc1e2dca@gmail.com>
+To: Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794307143; l=1209;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=z+vxGhU01KVE5a3ZqBJ+uJfWrWfvjtfbECzmzBJv814=;
+ b=xRGXBDxcq1rtQtvPBSmY6c9nPZGec9E/oqmuDrREyarhSKPghY6jUNc9pw5Z7FO5MVhqW8bgx
+ x3+AsXJbZyeCCMfqsaVtE742F0t4NQQBol9+ZKjFUGtI6E1xkkfMeMb
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Thomas,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-a gentle ping on v6 of the GlandaGPU series. Is there anything else I
-should change before it can be merged?
+The board is powered from its separate power-only USB-C input. The
+FUSB302 port's VBUS comes from vcc5v0_sys through a load switch, so the
+board never runs from this port's VBUS.
 
-Best regards,
-Leander
+Without self-powered, tcpm keeps Rp on CC during PORT_RESET (error
+recovery), because opening CC on a port-powered device would remove its
+own supply. With self-powered, the port opens CC for tErrorRecovery
+whenever it resets, including at boot. A partner left in a stale state
+by a warm reboot then sees a real detach.
 
-Am So., 11. Okt. 2026 um 17:46 Uhr schrieb Leander Kieweg
-<kieweg.leander@gmail.com>:
->
-> This is v6 of the GlandaGPU DRM driver series [1][2][3][4][5]. It
-> addresses review feedback from Thomas Zimmermann on v5.
->
-> GlandaGPU is a small VHDL soft-IP 2D display controller, currently
-> targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
-> been tested against a QEMU digital twin and on real hardware.
->
-> Hardware/VHDL:   https://github.com/stiangglanda/GlandaGPU
-> QEMU fork:       https://github.com/stiangglanda/qemu-glandagpu
-> Userspace tests: https://github.com/stiangglanda/GlandaGPU-userspace-tests
->
-> Changes since v5:
->
-> driver core:
-> - Replace the custom glanda_crtc_atomic_flush() with
->   drm_crtc_vblank_atomic_flush() (Thomas Zimmermann).
->
-> On the QEMU device ID: it's currently a placeholder from the
-> experimental range, since I haven't submitted the QEMU patch to get
-> an official one yet. Is that fine to merge as is, with a follow-up
-> kernel patch once the official ID is assigned?
->
-> [1] v1: https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
-> [2] v2: https://lore.kernel.org/dri-devel/20260730173643.256052-1-kieweg.leander@gmail.com/T/#t
-> [3] v3: https://lore.kernel.org/dri-devel/20260824195418.17707-1-kieweg.leander@gmail.com/T/#t
-> [4] v4: https://lore.kernel.org/dri-devel/20260913205007.118552-1-kieweg.leander@gmail.com/T/#t
-> [5] v5: https://lore.kernel.org/dri-devel/20260920193944.110983-1-kieweg.leander@gmail.com/T/#t
->
-> Leander Kieweg (2):
->   dt-bindings: display: Add GlandaGPU binding
->   drm/glanda: Add initial DRM driver for GlandaGPU
->
->  .../bindings/display/kieweg,gpu.yaml          |  56 ++
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  MAINTAINERS                                   |   6 +
->  drivers/gpu/drm/tiny/Kconfig                  |  11 +
->  drivers/gpu/drm/tiny/Makefile                 |   1 +
->  drivers/gpu/drm/tiny/glandagpu.c              | 634 ++++++++++++++++++
->  6 files changed, 710 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
->  create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
->
-> --
-> 2.43.0
->
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+index 6e081bc06cfe..b621fc8638c7 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+@@ -117,6 +117,7 @@ usb_con: connector {
+ 				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
+ 			source-pdos =
+ 				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++			self-powered;
+ 			try-power-role = "source";
+ 
+ 			ports {
+
+-- 
+2.55.0
+
+
