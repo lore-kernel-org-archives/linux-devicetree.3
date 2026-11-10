@@ -1,65 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.82.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296752;
-	b=ra+VU6J3GUVT+vNUqcG0nKNBcywj24sbwu+bjEg4t65l7yOnJ89IV5EWfGrkYSqwX3CY
-	 ekdJ61LpW1Di+ORf5Jl6jAFLCkOFWt8CDKJSeTelKgjhYIBJ9kCG6RPSf9uNA63u5EeQM
-	 /n9gPxybp3Noh2RDd7Y3aeWXO7Jztng3zJkYVdR2bmkfT1pZQzVQRpRw967zJ7cX7A7zx
-	 cVZTDpz2dOvVLgR+xrIwTIACPF0gDSx3/XQ3WKjSOKkyeDBTfoxLaLDkNNba8Lfrx9w1M
-	 DlTA54H7raHasDCcGUacBWlsh1jQH3+wKozWjoUDxuKarMCm1jG19EJgKcs7/kOcSQQ==
+	t=1794296833;
+	b=Oz38uiOgUxwK/TgB+aFsIbDizigkQRSvVRzAptjW8pF75N/CI1LMavizQGATpDiLzzBt
+	 usYEGedo+GgyTctA2H449FS+Ijeft6sZ3W8c5wBWj5aLdzNbA/IN7S90RT3UwjcK1USpD
+	 ZZ/47aeTvr4IiIYT8bD3dhZbawDom4mRrOVKqr9c7qelnj/avedqJO+a5J3SXwxvaDoBR
+	 cebwUNsARXAi2RRytEx4jUHmpTPmS2UHIAOOYM5y8O22+sdMHd5XqNFH2+2GF26Q7hzh7
+	 xoJT3NEpB3AHV8cmH7SrNueQmiCvDn+r7dvKFjHg8/KCtNTZbaZx3Hk1RLxXOiSPHLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296752;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=KKnJ9j2I4wwMNUFVM40Ukd6sfFrm3+y8FEhOVW263CY=;
-	b=mdFbTEfY1Uv973QBbbeEjpctdVmqPfxDv5EoulUHyFMsSPepqRNJUcdZy9IK4XZKKZnD
-	 ei7hTOD9YZJvMA4j1z7rJM5+lm2c24Dm04B6T5WqUZRbAD+sOl3IfH6pTb80GdvTIyVdE
-	 I3+n1xCGCvIdJidf00DBDWprk2GioyTJhiljWd30CpXY34prFExWuhFcHBhVIeK6bsVPU
-	 kIGGQACePoC+HmI9/WZE8WigpWsAgw4wREKDQnkNtcSDYdNflR1PKVIPQlO5kPzW2YTf5
-	 JW96WDKPeILAvEiNZIidQOig7Xj+w9a29aOceC67Sq3qwb08HlpaVI1xl70Xe0wMP7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296833;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mfTY212zApa5ehOLo+920M5IDmH72kkgNtIxDrvSizo=;
+	b=te+fSz7Gh7BCoIniW0GoUdZh9MrC7MhWflmecoOwuQi4w9soIGo7fWSHXO6yxjTcfx4L
+	 RaB2v9Exk0yeiQbVv4nzp8/iK0SkJJw9W4G2By8YOsK22f4M6jHnYzTgxP/U4cg2Hkouc
+	 ZC8wXxhEoSSMUVyl7AR6Y4CC+97hFg7mPHXYBxsYBeYcXsAWHA547k3YotG0bLtlRIhYx
+	 hOn7jolxgWAlq91AiidsD3W+2li4m8+Y3zRGk2vSqRalNRLy6Vu2e86Tv/uh8oetNnZGE
+	 1DlyIsXFsrCM8zaT4KUHqHbR9XL+0lk/ea5DuAALSJSVCqj9FGK6kwreljRz8WNgarg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="CqVUt/EA";
-	arc=none smtp.remote-ip=156.224.82.27
-Received: from mail-m8227.xmail.ntesmail.com (mail-m8227.xmail.ntesmail.com [156.224.82.27])
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=c3QPy4YH;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9365660A2615;
-	Tue, 10 Nov 2026 07:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9365660A2615
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED502606A339;
+	Tue, 10 Nov 2026 07:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED502606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=CqVUt/EA
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 542170afb;
-	Tue, 10 Nov 2026 15:45:41 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Vinod Koul <vkoul@kernel.org>,
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=c3QPy4YH
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id E98E320D78F8;
+	Tue, 10 Nov 2026 08:47:09 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id C9D7620D7CF7;
+	Tue, 10 Nov 2026 08:47:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr C9D7620D7CF7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794296829;
+	bh=mfTY212zApa5ehOLo+920M5IDmH72kkgNtIxDrvSizo=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=c3QPy4YHf6uoEBpjCpO2aq4SeEQklbaMPaB1SxoJmL2pfYAxXnHOmBbM8Ce/6SjZe
+	 KzQr3/RswObM+fKbEg9CRG3nMVtl0fCbdx8QkkbAxwUc/ZfK7TwVgb6tzDXr+PyTwq
+	 h5uqtUMtjamdqozSHKzmxJRYVIp5e30Hievr6oF4i5fhN6YyEHhl2dPQ9fGuFtm8sg
+	 VGEQKHGWArHOp6vUQTfeGshTf4A/puahEadfkW98UJT6W0tSFHLMnp5x8spZLQekWn
+	 uWkI4lm4Lt+t5ILJZ1bSeClwARJOapjSZkEzWs61hSsb2Er55ggiaOJxd2EdEthyj0
+	 mFFmgwD4T564g==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id QGSqc_bMMjO0; Tue, 10 Nov 2026 08:47:09 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id CF35F20D78F8;
+	Tue, 10 Nov 2026 08:47:08 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	linux-phy@lists.infradead.org,
+	Yixun Lan <dlan@kernel.org>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	linux-bluetooth@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 3/3] arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
-Date: Tue, 10 Nov 2026 15:45:33 +0800
-Message-Id: <20261110074533.4052196-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110074533.4052196-1-damon.ding@rock-chips.com>
-References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+	=?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+Subject: [PATCH 0/2] Bluetooth for the RTL8852BS on BPI-F3
+Date: Tue, 10 Nov 2026 08:46:05 +0100
+Message-ID: <20261110074607.363918-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,100 +90,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c46b7ef103a8kunm3f9229952eb2ef
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEkYVkwYT0IfHUtKTUNMH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=CqVUt/EAklDkxLi1y7T45Zklx7jb2xZHZPAsF9ek4ovXHNZFUS/v38TnVmDLMOpkZgu2bQa+uPregpeLvrAsFzLi0LQC/9VzgdtQkurHa5ixb1xx7RAQPbg5BEiLZafyQ5nk7HjUaOzm9RI6Q+QzJ9Ag3BFAf2v2JdXHbqOdJXo=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=KKnJ9j2I4wwMNUFVM40Ukd6sfFrm3+y8FEhOVW263CY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Add the eDP PHY GRF (with the eDP PHY child node mapped by its own
-register window) and the eDP controller nodes for the RK3568/RK3566
-SoCs.
+The BPI-F3 (SpacemiT K1) carries an RTL8852BS Wi-Fi + Bluetooth module.
+Wi-Fi (SDIO) has no upstream driver, but Bluetooth on UART works with
+the existing hci_h5/btrtl code and linux-firmware's rtl8852bs files.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Patch 1 documents the compatible, with rtl8822cs-bt as fallback, so no
+driver change is needed. Patch 2 enables it on the BPI-F3.
 
----
+GPIO usage was tested one line at a time: GPIO 63 is the power/enable
+line and GPIO 64 the device wake line. The vendor DT also drives
+GPIO 65 and GPIO 67; Bluetooth works without them (and RSSI is the
+same with GPIO 67 high or low), so they are left out.
 
-Changes in v4:
-- Model the PHY node with a reg property under the parent syscon.
+Fr=C3=A9d=C3=A9ric Mah=C3=A9 (2):
+  dt-bindings: net: bluetooth: realtek: Add RTL8852BS
+  riscv: dts: spacemit: enable Bluetooth on BPI-F3
 
-Changes in v5:
-- Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
-  the PHY node, matching the updated binding and driver. (Sashiko)
-- Rename the PHY reference clock to "ref", matching the binding.
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 45 +++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ .../bindings/net/bluetooth/realtek,bluetooth.yaml | 11 +++++++----
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 15 +++++++++++++++
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 1a4562df20ee..e3f370cad5d5 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -402,6 +402,24 @@ usb2phy1_grf: syscon@fdca8000 {
- 		reg = <0x0 0xfdca8000 0x0 0x8000>;
- 	};
- 
-+	edp_phy_grf: syscon@fdcb0000 {
-+		compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+		reg = <0x0 0xfdcb0000 0x0 0x8000>;
-+		clocks = <&cru PCLK_EDPPHY_GRF>;
-+		ranges = <0x0 0x0 0xfdcb0000 0x100>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		edp_phy: phy@0 {
-+			compatible = "rockchip,rk3568-edp-phy";
-+			reg = <0x0 0x100>;
-+			clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
-+			clock-names = "ref", "apb";
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	pmucru: clock-controller@fdd00000 {
- 		compatible = "rockchip,rk3568-pmucru";
- 		reg = <0x0 0xfdd00000 0x0 0x1000>;
-@@ -878,6 +896,33 @@ hdmi_out: port@1 {
- 		};
- 	};
- 
-+	edp: edp@fe0c0000 {
-+		compatible = "rockchip,rk3568-edp";
-+		reg = <0x0 0xfe0c0000 0x0 0x10000>;
-+		clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HCLK_VO>;
-+		clock-names = "dp", "pclk", "hclk";
-+		interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&edp_phy>;
-+		phy-names = "dp";
-+		power-domains = <&power RK3568_PD_VO>;
-+		resets = <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
-+		reset-names = "dp", "apb";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			edp_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			edp_out: port@1 {
-+				reg = <1>;
-+			};
-+		};
-+	};
-+
- 	qos_gpu: qos@fe128000 {
- 		compatible = "rockchip,rk3568-qos", "syscon";
- 		reg = <0x0 0xfe128000 0x0 0x20>;
--- 
-2.34.1
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.47.3
 
