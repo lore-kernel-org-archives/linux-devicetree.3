@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334584;
-	b=eoGdcdc/FNA7Sf94hqu7URz5Foy+YQ03p5HOTKIVNzx74SBi71h7BtNe4KfH1V+Oje5C
-	 GUFELUQ8PV2NUuzEis5oHwNNib8aMdb3X5DJTA445WgrWBGErjUFtpyHVHjpO8YGAokkQ
-	 kfszD2aFwEBQ3CIVBjcwxXb7q/RALOWndYXTI7IkRaJ8Jc4tqFMmDu5cuxpxp408lNVJQ
-	 GdDb6epXNwTpWN+aKJg8OAluCcPasi8Uw6blfoJoDd4AgP23TfJRs5Usta08t1DGMah/T
-	 6GG+YRTzapZspa9GfP9VgHFWYo9dbeeZooqpHZwXdk7dheGBEtaPV58+xRIQCLyQYLg==
+	t=1794334735;
+	b=zDqvsP2DzLYwsNqrUeet8b6Sr8AhconUl1TiN1EGeD1Qti7hJmbfPumCASuWbIijtFGV
+	 Brviia1/cdOeXsWfIVFiEAv1KWhKYRnsbGaxMJNDEXWMheZOZ0GMsB2/nXzRFajTMTq0I
+	 Bin1XsKA70r3afvl/tJCeppsNuyhZem6kaHKjhVJ65ExcQW7nVC1sVFF2YcZqabNC3COU
+	 YSXwEXGDUbdD0mhbYJC3AtvkcU0VH9cXiDApvDIHQRqH6u4OBCpxLclG2RZzh/pGq5jxO
+	 I4ZCJXZlWyt0q5fzcHpgKr7Ux05Qyvx4b/MxWeVCQrMvXp+TlqiZjm3LCeU7QHqZAQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334584;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WOswCe00ecth5aegw9K1yzGGEgL8XZ5Bn4726F7aM/M=;
-	b=RF5lnT8Y+wALlV+DxuZmWLJLogUctBKOMk6H90m5osjYaMpD++wIWSEO/EEggTv27kwu
-	 J/Y3Ye5NH1qVyzg56chHJ2m5blMKMKYRKkUliYHfWmed5vkYr+VEjEIVHidYc2r3IDH8r
-	 tjbssbpInnvNJs8rMrIFxwx1ipyDpUJIftgrjCXXM4op2Nm46y0XKCWE8RVu6DxSEnpzU
-	 +QHEHB+X/gseiXzgtoRO5hINMbNMGcasrgY2m+RT4wpVfz66CIQLlN47o9htoUpdv9Puq
-	 5L4FSpbIKoTBkqMkoMH6WiVAhKsBF+fmCBPxXZib1pr9D9ao/1guWHNkzalUXpvErsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334735;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ti0FFiAc19qMbwUdWnG2Fegu5iHFKeoAF69fwct6oz4=;
+	b=ztKS6dQvoyB/jeRiQkOteJCwebjTAW4QN1ExoJe7Cec7ekAz2eZC0GmGVikWCO7Tl2Pl
+	 cP3k51oqHqrCL3RzLjiWBwYGNrWW9MLe/hxiRbXnxooAa4UCqg7PE3eSPV8DSyXzdW5Fl
+	 cOkFNTcT/IR+RxNeCFu6P4dXbbPuYhvkNnbmr26WiQZm4UX56tpr4QEyv2N9gGD/ITh0k
+	 5dU/g+YnzEOQpGFERwpY+zCYF0l9JV44uFvfWfSnhj1AMKtHrWHuZHCY6wokiKB3VRsVb
+	 O6QZSQicrzB8zy6cmbTVRR8+ieXzOPDCcLl/PvLVoytAoVPrsgeKpNb01UeZDAbKwCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCkXlZHo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeruiO8w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3319606A31C;
-	Tue, 10 Nov 2026 18:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEBF606A320;
+	Tue, 10 Nov 2026 18:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCkXlZHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260641F008A1;
-	Tue, 10 Nov 2026 18:16:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeruiO8w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565FC1F0089F;
+	Tue, 10 Nov 2026 18:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334583;
-	bh=WOswCe00ecth5aegw9K1yzGGEgL8XZ5Bn4726F7aM/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LCkXlZHovhXIEMkXyHaLIoiLZziXCf5ktPbVRuney59bKd3vZcA+KXDhc/H83FMEk
-	 jFuIo4HTN7InXDDc+UGiTHBakPkz5vJSl/6Z7d4w+j3dpRQkAauRhMzZyDBLCYQlOL
-	 8RZIq369C9kUf46m9S/dOkAhg/op4aFOwwloUzfldj/8KqIo+XOWRE7ZoNYZ3qwOkK
-	 1p6wQ0TKq8Tbw0tlMQjY2nccZIKESS/KYDK85SYLEbUDr9au0yUabufFucp30J9Ctu
-	 M4NjYNx5kldzJ8oagpAimob0D9oasNsRZVjbe+wPc/5omaGFhIDL9e3ZPlQD5Z6GD7
-	 6R8RjjrsZyliQ==
-Date: Tue, 10 Nov 2026 18:16:19 +0000
-From: Conor Dooley <conor@kernel.org>
-To: kohei@spacemachines.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, conor.dooley@microchip.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: serial: 8250: add Microchip Core16550
-Message-ID: <20261110-appease-euphemism-0bd52845b396@spud>
-References: <20261110-core16550-rs485-v3-0-4294334243fa@spacemachines.com>
- <20261110-core16550-rs485-v3-1-4294334243fa@spacemachines.com>
+	s=k20260515; t=1794334735;
+	bh=ti0FFiAc19qMbwUdWnG2Fegu5iHFKeoAF69fwct6oz4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JeruiO8wDEvUtzVDB/HytMdFLSTbVBjy7bsq/3OG7qCNYx+byR+PCDntTHGMzTaY5
+	 Y3281yxPfX5y7wm0SNdnYs1QN+syDXWaurpxXcHWYXKgsoifNq2AObISC+moEYRoH2
+	 scuzGwHyaeudfKcp8oX8ZXf6KqxJcitl2EmKwc/1yFIuBoXAoNY3rsIEBC9qjxfgEH
+	 vtx8xfV0fmquxBXqSq4hrIqk01hHqxtJ1BZxoLKHRLTUi52Nqla6iOcEBY0613BkmM
+	 HPajy513ZLd71RiT5fm0DbSJBYwW7C6m/2kagSqkE9Kmndj6BmH8ihs0ZgBX+wPxWY
+	 bPqoX78/RpE/w==
+Message-ID: <sashiko-outbox-207570@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 4/5] crypto: cmh - add AES skcipher/aead/cmac
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alex Ousherovitch" <aousherovitch@rambus.com>, "Saravanakrishnan
+ Krishnamoorthy" <skrishnamoorthy@rambus.com>, "Joel Wittenauer" <Joel.Wittenauer@cryptography.com>, "Thi
+ Nguyen" <thin@rambus.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261110-cmh-b4-a-v8-v8-4-4cea8ebc1d40@rambus.com>
+References: <20261110-cmh-b4-a-v8-v8-0-4cea8ebc1d40@rambus.com>
+ <20261110-cmh-b4-a-v8-v8-4-4cea8ebc1d40@rambus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 18:18:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,74 +65,133 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5peolnbzRFGeN4F6"
-Content-Disposition: inline
-In-Reply-To: <20261110-core16550-rs485-v3-1-4294334243fa@spacemachines.com>
 
---5peolnbzRFGeN4F6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Critical] crypto: cmh: stack overflow in ahash_request_zero() via
+  missing tfm->fb
+- [Medium] crypto: cmh: missing CRYPTO_ALG_ASYNC mask in
+  cmh_aes_aead_init_tfm()
+--
 
-On Tue, Nov 10, 2026 at 09:06:48AM +1100, Kohei Otsuka via B4 Relay wrote:
-> From: Kohei Otsuka <kohei@spacemachines.com>
->=20
-> Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
-> including the fabric of PolarFire SoC. Its registers follow the 16550A,
-> but it raises no interrupt on TEMT. A driver that knows only ns16550a
-> waits for one in software RS-485 mode (em485), so RTS stays asserted
-> after the first frame and the port stops receiving. ns16550a is
-> therefore not a valid fallback.
->=20
-> Add microchip,core16550-rtl-v3 as a compatible of its own. As for
-> Microchip's other FPGA fabric cores, the -rtl-v3 suffix is the major
-> RTL version of the IP, Core16550 3.x.
->=20
-> Link: https://github.com/linux4microchip/meta-mchp/issues/5
-> Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+commit 89559a30a0ea6b4fc4382fe41b13de31385e0958
+Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-With both dt-binding maintainer and microchip fpga hats on:
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+crypto: cmh - add AES skcipher/aead/cmac
 
-Thanks,
-Conor.
+This commit registers AES skcipher (ECB, CBC, CTR, XTS), AEAD (GCM, CCM),
+and ahash (CMAC) algorithms on the CMH AES core, along with the AES core
+ABI definitions.
 
-> ---
->  Documentation/devicetree/bindings/serial/8250.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
-tation/devicetree/bindings/serial/8250.yaml
-> index 50d5c977afa3..d9ee14f7b694 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> @@ -111,6 +111,7 @@ properties:
->            - aspeed,ast2400-vuart
->            - aspeed,ast2500-vuart
->            - intel,xscale-uart
-> +          - microchip,core16550-rtl-v3
->            - mrvl,pxa-uart
->            - nuvoton,npcm750-uart
->            - nuvoton,wpcm450-uart
->=20
-> --=20
-> 2.53.0
->=20
->=20
->=20
+> diff --git a/drivers/crypto/cmh/cmh_aes_aead.c b/drivers/crypto/cmh/cmh_a=
+es_aead.c
+> new file mode 100644
+> index 0000000000000..7edacf38198bf
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_aes_aead.c
 
---5peolnbzRFGeN4F6
-Content-Type: application/pgp-signature; name=signature.asc
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +static int cmh_aes_aead_init_tfm(struct crypto_aead *tfm)
+> +{
+> +	struct cmh_aes_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
+> +	const struct cmh_aes_aead_info *info =3D cmh_aes_aead_get_info(tfm);
+> +
+> +	memset(tctx, 0, sizeof(*tctx));
+> +	tctx->authsize =3D info->maxauthsize;
+> +
+> +	if (info->type =3D=3D CMH_AES_AEAD_CCM) {
+> +		struct crypto_aead *fb;
+> +
+> +		tctx->ccm =3D true;
+> +		fb =3D crypto_alloc_aead("ccm(aes)", 0,
+> +				       CRYPTO_ALG_NEED_FALLBACK);
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNfcwAKCRB4tDGHoIJi
-0oevAP9+B2mKIfIt9MlyTQPo2uuhkDjROEjGArmWBz+UubfWDQD+MAPDc1uACvh4
-EuiIKGiMg36T/N1hXY55h64GA4xRMAM=
-=YANR
------END PGP SIGNATURE-----
+[Severity: Medium]
+Does this fallback allocation need CRYPTO_ALG_ASYNC in the mask so that
+ccm(aes) does not wrap rambus-cmh-ctr-aes?
 
---5peolnbzRFGeN4F6--
+On architectures where ccm-aes-lib is not registered (such as arm64 and
+arm), allocating ccm(aes) instantiates the ccm template via
+crypto_ccm_create_common(), which grabs ctr(aes) using the passed mask.
+Because cmh_aes_register() has already registered rambus-cmh-ctr-aes at
+priority 300, the fallback ends up running CTR on the CMH hardware via
+bounce buffers and rejecting requests over 32 MiB with -EINVAL, rather
+than using a software implementation with no size limit as documented.
+
+> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
+es_cmac.c
+> new file mode 100644
+> index 0000000000000..34a7a5ba07baf
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
+
+[ ... ]
+
+> +static int cmh_aes_cmac_init_tfm(struct crypto_ahash *tfm)
+> +{
+> +	struct cmh_aes_cmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> +	struct crypto_ahash *fb;
+> +
+> +	tctx->key.mode =3D CMH_KEY_NONE;
+> +
+> +	/*
+> +	 * The generic cmac(aes) shash has no export_core, so the crypto
+> +	 * core cannot wrap it as crypto_ahash_fb().  Allocate it here
+> +	 * instead; masking out CRYPTO_ALG_ASYNC excludes this (async)
+> +	 * driver so the allocator picks the generic, synchronous transform,
+> +	 * and its request is embedded after the reqctx.
+> +	 */
+> +	fb =3D crypto_alloc_ahash(crypto_ahash_alg_name(tfm), 0,
+> +				CRYPTO_ALG_ASYNC);
+> +	if (IS_ERR(fb))
+> +		return PTR_ERR(fb);
+> +	tctx->fb =3D fb;
+> +
+> +	crypto_ahash_set_reqsize(tfm,
+> +				 sizeof(struct cmh_aes_cmac_reqctx) +
+> +				 crypto_tfm_ctx_alignment() +
+> +				 sizeof(struct ahash_request) +
+> +				 crypto_ahash_reqsize(fb));
+> +	crypto_ahash_set_statesize(tfm, crypto_ahash_statesize(fb));
+> +	return 0;
+> +}
+
+[Severity: Critical]
+Can leaving crypto_ahash_tfm(tfm)->fb pointing to the async CMH transform
+overflow the kernel stack when a caller uses crypto_hash_digest() or
+HASH_FBREQ_ON_STACK()?
+
+Because cmh_aes_cmac_alg sets CRYPTO_ALG_NO_FALLBACK,
+crypto_create_tfm_node() leaves tfm->fb pointing to tfm itself, while
+cmh_aes_cmac_init_tfm() sets tfm's reqsize to over 800 bytes above
+MAX_SYNC_HASH_REQSIZE:
+
+crypto/ahash.c:crypto_hash_digest() {
+	HASH_REQUEST_ON_STACK(req, crypto_ahash_fb(tfm));
+	int err;
+
+	ahash_request_set_callback(req, 0, NULL, NULL);
+	ahash_request_set_virt(req, data, out, len);
+	err =3D crypto_ahash_digest(req);
+
+	ahash_request_zero(req);
+
+	return err;
+}
+
+HASH_REQUEST_ON_STACK() reserves only sizeof(struct ahash_request) +
+MAX_SYNC_HASH_REQSIZE bytes on the stack and binds req to
+crypto_ahash_fb(tfm) (still the CMH tfm).  crypto_ahash_digest() then
+returns -EAGAIN because an on-stack request is used with an async
+transform, and ahash_request_zero() zeroes sizeof(*req) +
+crypto_ahash_reqsize(tfm) bytes, writing over 800 bytes past the stack
+buffer.
+
+Pointing crypto_ahash_tfm(tfm)->fb at crypto_ahash_tfm(fb) (and restoring
+it before freeing fb in cmh_aes_cmac_exit_tfm()) would direct stack
+requests to the synchronous fallback transform.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-cmh-b4-a-v=
+8-v8-0-4cea8ebc1d40@rambus.com?part=3D4
