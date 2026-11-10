@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310689;
-	b=zF2fWyJ54qmzskFPXaRkCj6f6DlwngrgvLhZ8nF3jvc9OAERz2guppmyOSVpc0RFThUU
-	 e/cMvoiRXAJQXxc+Ax1Cr35CQfmW/tuBbmZHp3tY8dsGxo0jn29vqFN7zFXpe7g60kCch
-	 ONk45KjaDbgBpeHAVvzmQhpPWVScygYfwHSe85qO0H2iD4T8hvz4HfkHNHLCdqTxH8DOE
-	 6CEvvPVJVr+5I0q3FIMnNlNRn9cUC8eZRd9E5mMuXLZt/QXPinlZB9WB+tRDho38jkusw
-	 Znen+uuhFcmUcWWEYVZ557rxZpj2fKERTTJYnbrT5Aus2j7nc9K7R06D805OwX24vSw==
+	t=1794310729;
+	b=bM+9wffmIsKdwaZy3WtzHn1ud/RG47tvyACAIFU5UlgYW88YwNVBLkp6mpnfJ/MMRPEc
+	 g40rRIqQ3dpxJV42nUEXfGxbznq0HeQxw3DuOkn54UiZTSs+CwOkQpPNEFt0MNNZVmEXm
+	 Ps98ktTfVBXP7AELwNhshyHObL9i+8ChY8uU4PWP4gwRur3QfeeNgMn6jzBCAZXvPi0O9
+	 x1L8IlBF3yv7tWjD/pIWIIZf5IJbmeXAfVLDfiqf7gQfAB3z0nTL+W97sP132tPFjzQuQ
+	 GvkthVI0rIKYXVTYR16Zy2niMW4mwypcS5Onl1rsg14A8VzL8zWBDooBypLHPaZ5U3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310689;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=iorjE9z8QyUMJ1RAj7sx526U6HMd38S2kCHhClS7b6g=;
-	b=N9YcCfCepbSs2DvvOPc0iEIsy/aZfupHvLM2+7ILALHd6oHP0gayOrOidFebfc4aTc3b
-	 ewSoPZHfbfgLW66TxrqmTJA6y82dYsQODxni8w2whk3wKYzEoE2GweyCOO1+GrzVc2XcD
-	 c/gHab20Zsej9MBS6ZnxQ72nXW/zT7ZhJwLX5HXab1vsavKidq7cp54bPoYpQTaG9dHa6
-	 OxAXQxh/Ds4c/FEXY1/pFDFoBEnhU2Lkwu03QINvbAYw82vEqks6gF4/M63VGXVxnor2u
-	 hjKjpmVWvJjM9LqkPwWjfQ2m3RVp0Eqpi28Ecknj280K2vkkh7z8s7VWD+wnzU3HkLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310729;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=6I+JHeyZuaCKZLVFRW5Ed83CP01+3aMwrBoHmGNmzl8=;
+	b=jU863bfsGUaUpXl1wJkr82yNTQnHGS0QDOGMFKyq/AN1bcjQb7dERYXOvQT9EcE0P3Bv
+	 gk96Qq0EN0ydSZufDzy4e53RmChJxnQfQQShyusm62d+MIu+n3RTDaKiOJ3bHAOYym2vm
+	 Me21Bga70PlDy60HrRJSiNuEuECI3x7KyZG3odjtGEi5jEUYE5e0cVdhXjoA+kBWY3hk0
+	 /eRfwH6k+6ld9wtq6ioizpNN7d2mIe2s22JG788AIRjjZASgZP5YLEC5neknP248ZSIIU
+	 Y1HSv1xeSfPIVjlndDCohZ4nFZaAMkTlI05JiHNhbmyRvtmgEmMooQXzk91+GNjYjVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ax6ncekN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5047A60A2602;
-	Tue, 10 Nov 2026 11:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ax6ncekN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B267B1F008A5;
-	Tue, 10 Nov 2026 11:38:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794310688;
-	bh=iorjE9z8QyUMJ1RAj7sx526U6HMd38S2kCHhClS7b6g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ax6ncekNiCm0/WnNpBe+QkJAmkI4oOEbuK1DQjWXxBTCEqs+Zdr8PJVEdRCbQ2/Os
-	 k3ve5AQxcXxUNprkLBWYlkPxNonI1WWsvSpfsesZno+5vEPAN4kmtQioXc0BV7CF7N
-	 dJ9qfoI8VrnE343YvqwStJo7+RtLcXpf1J1OJGxgPz1WfGB0IJjTPeaykorRUY8ZyE
-	 ky8+kRroM9PJhysCoSYiIe+x+VOdcviDs5+8yvlk96SCd/WOR6Lf/86xpTDlf0WRRc
-	 ITPy1m6FlZV+Do87p+giooag+XfwYVkkf/y8Qxkt7mFVhRVq1TNaJocHluzyQ8crZ0
-	 ulUL1ciCT0RVA==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id DD327310B69B;
-	Tue, 10 Nov 2026 11:38:05 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>, 
- Leon Romanovsky <leon@kernel.org>, 
- Animesh Agarwal <animeshagarwal28@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-tegra@vger.kernel.org
-In-Reply-To: <20261104124057.240288-1-clamor95@gmail.com>
-References: <20261104124057.240288-1-clamor95@gmail.com>
-Subject: Re: (subset) [PATCH v2 0/7] ASoC: dt-bindings: Add/Update
- #sound-dai-cells to Tegra related codecs
-Message-Id: <179426618773.3711751.13100572621405559085.b4-ty@b4>
-Date: Mon, 09 Nov 2026 23:16:27 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D0460A2603
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:38:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D0460A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1222654e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:38:49 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794310728; x=1794915528;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6I+JHeyZuaCKZLVFRW5Ed83CP01+3aMwrBoHmGNmzl8=;
+        b=XYRcJf0afeY6+yjhM8/MtMfS13zmW0YOoXQlQRVMVyghqwiMuKYkz4GbRXOaIZptQC
+         WQYlYzFokas8AOMoZody6jxxCZnREQgJ7w0upAlOQSr7LwHnyJQnXwJX8EJPvd4WSqIG
+         Yrf2wEKXZ4b9/NFfHnaP85JM/2zuDEO70+dkF7yUcJRt0wATgRqJuwDoOao65D7iCRpb
+         Rp75vihR9WSENfLlYBlEoN4U+WURpB/J+R+TzNCGLbwbSqFkCrXqtks9eVsHpHIHVfms
+         EwGjfPEu5AtbTJyrfdBZmsB+maJUAWfZB7BKKhuYW7g+zYahLJew6yFqQPE5YEmEDBcP
+         UbzQ==
+X-Forwarded-Encrypted: i=1; AL+hErFbvBaex597lqjXG74mZCjfc/wkbrJ69K9I8N1vLvDe0s8HbnBJdlDZxwqnn8ZUBcU4PJd2vKLuCVHq@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B4rBUIZMzG3QzLZoeQfYVxeG97Yc/v0fA5Fq2eEzjO8P49QcE
+	fGIs5gwxo4NMB1zK/y5g16T7/6r0WL8A07H3BJgKfeZRvTX1KoqXnNbfiFiff9R+jlE=
+X-Gm-Gg: AYBFou2g7wIZgvZ9j7axq7r1OKdnFXkxPYIgCmtPWR2W5e9hcai2w0TWppt8DeDmYci
+	KrgBE6L77e1Qc4K9sqYrSu+bhpzPZAk+3aPW3GMaZlXWCTPjWSleOtE7ziG82FFSBfgcieikG94
+	jGKGxmbm8jd0QDMP/O/v/xryDylqNHQgC0SoPwYZWFN3HBVteS3NDLE1xJi2joxTzfJX7Clf+bo
+	36QoiCE/1aXBftji7A5s05OpBqQw/e/PNMxNykHu+ZCuMrjzJRX95WoiuklHISbvG2mnX2+HK5U
+	dR4swGCpMjsyEOkgJgf7mtXY/D1XV+26V8rcAfrR8rG0xMI3TeL9/x6TN3+I/OWOcv1xNqIxpCU
+	9DZTPHaScdpQLrB1eVvX3IUgpasFb+RVwjuzYuSOrTA1Eps0VzhfvYzd4aaG8s/roXN5gtRq7jC
+	3maip92zQBFvthKGQR9EhWna/KZVh9XuL+tRTg3Ba4exN+ehjJB+OkyDg2IbC5fYr5zxUYvM0ds
+	iyoAB4RiFMaMjbLl2bpbxPLmflTx87ivOkWH5Wm6bQO0gu/U7mdmlz3THgdtR1WWenuBa28yMbx
+	k59TBNeVpUPRHW2gRosdgdInBVOjb3YjN8wAdTAt0hl/oU/g/fteIkEVcDGoOfrbrToSVZY=
+X-Received: by 2002:a05:6122:8ca:b0:5ea:d247:adb0 with SMTP id 71dfb90a1353d-5ee0d0c6e91mr907607e0c.4.1794310728391;
+        Tue, 10 Nov 2026 03:38:48 -0800 (PST)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c2f3bfasm1544204e0c.0.2026.11.10.03.38.45
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 03:38:45 -0800 (PST)
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso1155676e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:38:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG9Bd3qAo6OK8yOKIpYRcDfNWDUuHcjKwNZny2PsluveUZGqVGMHqZm1+rHX6paIJpPYeBXk4BsiXIr@vger.kernel.org
+X-Received: by 2002:a05:6102:688e:b0:7a8:1837:9eb9 with SMTP id
+ ada2fe7eead31-7d301c1a90dmr782422137.27.1794310725440; Tue, 10 Nov 2026
+ 03:38:45 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,62 +80,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2055; i=broonie@kernel.org;
- h=from:subject:message-id; bh=A+08dPCEhdxswcFtASv+WxHVH5TxmCKisizGltwDYZk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+M8km/VJniHrW+p9ny5PeO+7p2vtsNz344FYtx6RTw
- s9nFZzUUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgInsaWFkmGFb5NbXJjzjkOzK
- dYxzlN65vLrC2Dztvs4t4cJKsakM6owMtxgurhS816Je0et9kDP5QfHViM3a1mY28hkvFD4vELD
- nAwA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
+ <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com> <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
+In-Reply-To: <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 10 Nov 2026 12:38:33 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
+X-Gm-Features: AclHuK_lxOefaCYe09vBlve1NogRGIcO0y48-fj-2S6VLM4EBEDUoZvwulW0sXI
+Message-ID: <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, mailhol@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, 
+	claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 04 Nov 2026 14:40:50 +0200, Svyatoslav Ryhel wrote:
-> ASoC: dt-bindings: Add/Update #sound-dai-cells to Tegra related codecs
-> 
-> Add/Update #sound-dai-cells to some codecs often used by Tegra devices.
-> Document #sound-dai-cells property for i2s and ac97 nodes of Tegra20
-> and Tegra30 devices since they all provide a single dai cell. Add these
-> properties to SoC level Tegra audio-related nodes. This is required for
-> creating more complex audio paths.
-> 
-> [...]
+Hi Marc,
 
-Applied to
+On Tue, 10 Nov 2026 at 12:28, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
+> On 10.11.2026 12:08:49, Geert Uytterhoeven wrote:
+> > On Tue, 29 Sept 2026 at 16:19, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
+> > > On 02.09.2026 17:15:37, Claudiu Beznea wrote:
+> > > > Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a typo
+> > > > fix patch was added on the CAN driver.
+> > > >
+> > > > Merge strategy:
+> > > > - patches 1-5/7 should go though the CAN tree
+> > >
+> > > Applied 1...5 to the linux-can-next tree.
+> >
+> > Thanks, but six weeks later they are still not visible?
+> > Same for " [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict
+> > resets in top-level"
+> > https://lore.kernel.org/20261009-holistic-warping-puffin-3b92fe-mkl@pengutronix.de
+> >
+> > Am I looking at the wrong tree?
+>
+> I tried to get stuff into the last merge window. For various reasons it
+> didn't happen. Anyways - I've pushed all queued Renesas related patches
+> to the can-next/testing branch. I hope I've collected all the latest
+> series. Can you have a look?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+Thanks, LGTM at first sight (I guess Biju or Claudiu will scream if
+something is still missing).
 
-Thanks!
+Gr{oetje,eeting}s,
 
-[1/7] ASoC: dt-bindings: maxim,max98088: Document #sound-dai-cells property
-      https://git.kernel.org/broonie/sound/c/062bf3ac1ff2
-[3/7] ASoC: dt-bindings: realtek,rt5631: Document #sound-dai-cells property
-      https://git.kernel.org/broonie/sound/c/084a4da7eee3
-[4/7] ASoC: dt-bindings: wlf,wm8903: Document #sound-dai-cells property
-      https://git.kernel.org/broonie/sound/c/0f4a5bcb3245
-[5/7] ASoC: dt-bindings: wlf,wm8994: Update #sound-dai-cells property
-      https://git.kernel.org/broonie/sound/c/c90862fdb96e
-[6/7] ASoC: dt-bindings: nvidia,tegra20/tegra30: Document #sound-dai-cells property
-      https://git.kernel.org/broonie/sound/c/6ffb307005e8
+                        Geert
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
