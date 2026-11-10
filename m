@@ -1,63 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294180;
-	b=b8LERjO+E6QUnaBBwysSDF3nfp6qy8hkqY/4nPfRS5IW9Gmf8NO6QXtysO5i+6xwtAzv
-	 sB1SQx4JR2GsU8G+ShPLMnHPRh2eFsqDhmDlRznH0HRIaDTnBXwR/Q5MrJwyNsyNfBg8J
-	 +KQgmj9f9BDsnyy47poun1BMziTj3fQvGyCdxHlE3A62Q0ROEV4AFdULDslFbhDjrkdQI
-	 RW9avI9ec8EUTzrzjHVasb4iBwujTK+OPL7lfdVCfP9SIuz1Etqx/YH4XrfKWQvJ3q43z
-	 zS1Wyg3IsfDqC2iesMbjy3tL/91lRg06jOz224/bhfrVrlj5dldAxCTB8cCsGGZ15Mg==
+	t=1794294177;
+	b=meWZ0PPoEGqyt/2AiwReXwBE83UmnLyK6epLOZItLTI2ldENkCG0Wym6rq93YFbYTfZr
+	 kX0kS0Njgp5Vi7oxQdwLoLkZ9A4TBFFAUBUqcqbA+LtEy1mrOeKUttnsOve3VHvnPPyri
+	 ZeGV2p3x+8Binjz1eH+OdzG19a31X0sE3f/K8MAWQUnWdyMkXW4qS+1JntJRUuMFQgTqw
+	 IfuWPTYAVt42hGYZ6LEw/Aq3whwfdjiVzIY9nFwDx7qreyGQKZjxTFh/1F/yikuWNVu3F
+	 N+Pr2JgO4CRW6JMGkQMeYnu5gRV/kjOdmLanC+zBfnImZsWxm2VBBPL9AN3c1Q9u7rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294180;
-	h=DMARC-Filter:DKIM-Signature:Cc:From:Date:X-Mailer:Content-Type:
-	 Received:References:X-Original-From:In-Reply-To:Message-Id:
-	 Mime-Version:Content-Transfer-Encoding:To:Subject:X-Lms-Return-Path;
-	bh=VtDaiBvkfKI1+bXdcUXzcnZOabPvH6+FEFj3kyTZ72Y=;
-	b=QTj/MvapRwCFweVTxJWcqq2Wp4EV7d7wPc5biDIYr2JOScthyzL9FmUW05Ur9ghsPA+I
-	 kpCPeIlrA31S5aDthYk1cwLbwleObUw7ec8hm2Ds1JGa9HXQsVCBMgTMp0mtx8XcNZ4OT
-	 HV9Gg5idmFDVtmY3szgq7iHyY2mo5TiOUJvNxu70NDEqJrAY93SsdIDUHeq8nt1Qe2Cbe
-	 tkNc2SKAtYLkZ4ds5cJRz1os1RnTdTAofVksGwO4O0Dq3eI/1pa13TsW1VeuhZrt/PdP5
-	 rSjalJmOcen7RJcR1RNhZz6ddr0AKh/2aJ6vx0N7Z81uzjLrpbPPmB+n5B2QSNN2nfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294177;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:To:Subject:
+	 Message-Id:X-Mailer:Cc:Date:X-Lms-Return-Path:Content-Type:
+	 X-Original-From:X-Change-Id:X-B4-Tracking:From:Mime-Version:Received;
+	bh=UleRd71tSF6eVZUuoDFDW/IbSpmyxdNph78pCLJH6Zc=;
+	b=XF28/oqJtS7n2kVyvc5uV6B4pv4kMOWjWfARF1+xVMcB6G2tED5GB4DQ2TGIVdWZgnhu
+	 u6Vg/t4e4SibyTmzq1Bh8HRxkD7YQwKBMpotkAcEqU4G6FFjKps5VNKRPjclvnWSM2684
+	 qPeRQm5FfRUtuEJLnnOlCcI84nxeqlrr+yVowPBTBR95rh5QjDWI/iKYf1hKmMI/IrRcK
+	 Q+v2i0lc5DHycM3+GlzkMAJttIhPcKaZ6AHHyI/JVFjiuNtMvKYqCEpTvOtUnxYPQkPsO
+	 n0nm3RwSLiFTNy2aL+ibYkZc0wLkTSq3RYPRYKz8A52PuHG66ZI7ohX0VVhX98zQ7LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.cipunited.com;
 	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b="d9GI3/Bp";
-	arc=none smtp.remote-ip=209.127.231.54
-Received: from va-2-54.ptr.blmpb.com (va-2-54.ptr.blmpb.com [209.127.231.54])
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=0mHHzO3h;
+	arc=none smtp.remote-ip=209.127.231.50
+Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D14606A336
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D14606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F339606A325
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:02:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F339606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=d9GI3/Bp
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=0mHHzO3h
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794294174;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794294170;
   h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=VtDaiBvkfKI1+bXdcUXzcnZOabPvH6+FEFj3kyTZ72Y=;
- b=d9GI3/Bpox/LDYRbAdfDF3TMwJ1HXTzwZLm6rJY0h6UxDvk/7dGgm3ciG7BxeMvnxd2Y+K
- a6rpsPcGJUE9JLBrQlpaN4oDe7hRjYLrDqnaVlKrkbAH7Vp/4uWqK83VGunKgJIS3+i/Is
- M2ancIUQV+NNQph+Rx0lfaf8uY18evuXkfqmFVPeo332xtgPw7IfDKiQ61FkDh7iLDQjfv
- G6p+ll7860h91JSpkGYb/0cuJbQkZg/dhn6NB+IYno8A4/32MVB3LHL+v8bY6lkol/gE5E
- 2iJCQ1JGUEBxXEfIOFapKIgN09ZEIbBkBJLOdaAcJmhe7unavkLZeCKgq9HEsw==
+ bh=UleRd71tSF6eVZUuoDFDW/IbSpmyxdNph78pCLJH6Zc=;
+ b=0mHHzO3hdDm+ZqSmeePie3b7fSizRXzVc5ISORKVWO/3kMoCUKn/YYe1Gd2lzn/GfJoG99
+ VwKnnnWYfQ24n6lcS+1SLnM+XU31eB8yyR9dut/ff/ZdO0J40b4AXhv/2CDWMgSu5RBtTY
+ EGR8bRzLCKjhcMAmMsWlqQrHKL9RttmkGu8zWMMiW6DpO5/PzJwnO8slzwIWYTRk2aGL/r
+ alMNMEAbn/m54u36R2uqggVVy/JFyF8DRWDX3IwGbt09fZ6Cq7vxuLo/OEA4liwLnt1jus
+ U+SYnJkX4mOfuwvT9PDhZ9ANE+SnmKM3fk6ww4NT4Jon28vsR7a7kQSJvdVkKg==
+Content-Transfer-Encoding: 7bit
+To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Subject: [PATCH 0/4] watchdog: loongson1: Add Loongson-7A watchdog support
+Message-Id: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+X-Mailer: b4 0.17-dev-ce4c1
 Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
 	"Icenowy Zheng" <uwu@icenowy.me>, 
 	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
 	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
 	<linux-kernel@vger.kernel.org>, 
 	"Rong Zhang" <rongrong@oss.cipunited.com>
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Date: Tue, 10 Nov 2026 15:02:31 +0800
-X-Mailer: b4 0.17-dev-ce4c1
+Date: Tue, 10 Nov 2026 15:02:29 +0800
+X-Lms-Return-Path: <lba+26af2c197+d3af15+vger.kernel.org+rongrong@oss.cipunited.com>
 Content-Type: text/plain; charset=UTF-8
-Received: from [127.0.1.1] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 15:02:51 +0800
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
 X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-In-Reply-To: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
-Message-Id: <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
+X-Change-Id: 664fad58-mips-ls7a-wdt-1e614643b33d
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE vPSU3UzU4B8JTMzk7TEFFML3dzMgmLdnGLzRN3ylBJdw1QzQxMzE+MkY+MUJaCegqLUtMwKsHn RsRB+cWlSVmpyCcgQpdpaAMP50/FxAAAA
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,102 +75,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
-Subject: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
-X-Lms-Return-Path: <lba+26af2c19c+d3620a+vger.kernel.org+rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 15:02:46 +0800
 
 The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
 has no clock controller.
 
-Retrieve clock frequency from OF to make it work.
+Add "loongson,ls7a-wdt" compatible as well as a conditionally required
+field clock-frequency. The driver will retrieve clock frequency from OF
+to make it work.
+
+With these, add a watchdog node to the LS7A PCH dtsi to wire it up, and
+enable LOONGSON1_WDT in defconfig to make it work by default.
 
 Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
 
 Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
 ---
- drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
+Rong Zhang (4):
+      dt-bindings: watchdog: loongson,ls1x-wdt: Add ls7a-wdt compatible
+      watchdog: loongson1: Add Loongson-7A watchdog support
+      MIPS: Loongson64: Add watchdog node for LS7A PCH
+      MIPS: loongson3_defconfig: Enable LOONGSON1_WDT by default
 
-diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
-index 2811e7eab631..57b9e699c131 100644
---- a/drivers/watchdog/loongson1_wdt.c
-+++ b/drivers/watchdog/loongson1_wdt.c
-@@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
- 	u32 timer_offset;
- 	u32 set_offset;
- 	u32 wdt_en_bit;
-+	bool no_clk;
- };
- 
- static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
-@@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
- 	.wdt_en_bit = BIT(1),
- };
- 
-+static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
-+	.timer_offset = 0x8,
-+	.set_offset = 0x4,
-+	.wdt_en_bit = BIT(1),
-+	.no_clk = true,
-+};
-+
- struct ls1x_wdt_drvdata {
- 	void __iomem *base;
- 	struct clk *clk;
-@@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
- 	struct ls1x_wdt_drvdata *drvdata;
- 	struct watchdog_device *ls1x_wdt;
- 	unsigned long clk_rate;
-+	u32 freq;
-+	int ret;
- 
- 	drvdata = devm_kzalloc_obj(dev, *drvdata);
- 	if (!drvdata)
-@@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, drvdata);
- 
- 	drvdata->pdata = of_device_get_match_data(dev);
-+	if (!drvdata->pdata)
-+		return -ENODEV;
- 
- 	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(drvdata->base))
- 		return PTR_ERR(drvdata->base);
- 
--	drvdata->clk = devm_clk_get_enabled(dev, NULL);
--	if (IS_ERR(drvdata->clk))
--		return PTR_ERR(drvdata->clk);
-+	if (drvdata->pdata->no_clk) {
-+		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
-+		if (ret)
-+			return ret;
-+
-+		clk_rate = freq;
-+	} else {
-+		drvdata->clk = devm_clk_get_enabled(dev, NULL);
-+		if (IS_ERR(drvdata->clk))
-+			return PTR_ERR(drvdata->clk);
- 
--	clk_rate = clk_get_rate(drvdata->clk);
-+		clk_rate = clk_get_rate(drvdata->clk);
-+	}
- 	if (!clk_rate)
- 		return -EINVAL;
- 	drvdata->clk_rate = clk_rate;
-@@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
- 	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
- 	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
- 	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
-+	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
+ .../bindings/watchdog/loongson,ls1x-wdt.yaml       | 31 ++++++++++++-
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi          |  6 +++
+ arch/mips/configs/loongson3_defconfig              | 54 ++++------------------
+ drivers/watchdog/loongson1_wdt.c                   | 29 ++++++++++--
+ 4 files changed, 70 insertions(+), 50 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 664fad58-mips-ls7a-wdt-1e614643b33d
 
--- 
-2.55.0
+Thanks,
+Rong
