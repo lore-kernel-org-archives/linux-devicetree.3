@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278947;
-	b=egq4sM5BZmex2T1xAjofjt81G/qJZSpO4n8lZSD4WXnELEsxoAKXsGXLjqhf3pU91h7K
-	 wop2OxM4USc/YGhjB8BN8WlfPklzYf8uDJMCLtk1NEOlUA+EZBybszyUexkzb+0IM+nBd
-	 8MO2BDYhdYtJa66vW5brWHG9d7AxtuHdnth/5fbwXWJM+AhcLD59V3qZ1x9pMWeocucMv
-	 qPtLF1AssXQSro/1NuyY5mXRYYz/Lt4Z6WXXivizQApRnqua17wPfmcifMBNqklouspgM
-	 450/lazuu+v4rw5QrVtnmk36fVCVEam6svxDMGqOfyHM/XNZHjedrSwZDCSItc/GSow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278947;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BWKvH/OjHWbKXA6A9HL2uzCDLGobFi9XpMtJ+4XFWG8=;
-	b=F6hTieAIRepHXZKYAVLxkrlmEANTHKeyHXUVOuf94H+mSUrKiVEXPZ9VainqDyjk2qFZ
-	 39orO8FEmsdpGsw87eHLHCM3sLn+aebaT1yNQp7AY7IAIrX9mNi8rNqL1J8UDPHWH0w8x
-	 +3/xrb5s3Q0JuKuUCoygE659RpbtC2ksYUgl4w5nUgc2qYLZsXMKffxDYHHN1EzM0jiV9
-	 zhK5f3FlFA3uT5sHFLOITw8dL/CoJlOMwaAoMLrhYJj5yUafyLkLAuUshpFZlplQOQq4k
-	 hS7rU/ZdAT9MRUgoWUNyVKMWpS95KBUNj5ffuGxQWfP18l1LWZOJRgnwtGh8kkarljg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExmSTTIC;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794279006;
+	b=kwuIDr0X0Cn4Cy+uM/Zx9vvc7O3Ieui68m80840KeRstEiSuqQvWQIowaAj6cBgGx2VQ
+	 qdAkXBdYefavXDhactYOn4ENlU77rzOw6y/FkxExHLXDx9oFZyWRtVXAgef12LOM5Tl7C
+	 7M55HGeoMvFOrjt8bkmutVhbioAhQqJRmCZHWPLlJlkiWsc1B4wEMQ5wqY8nbMe1RN+bq
+	 7vpMTluQjzmiNnVxWem+s4u/heSAPOozwgFRswu4I3a9VHMg4q+oWDYbg0LgkHbts93Zp
+	 KxU/3Tf3Kxa+xaA4WCzslUK39Gip22LW7KJov8RSX/49/WpJ446BC5zZ6yHhd4wo2ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279006;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	b=To7o23awPOX/8dgFSmYTE08P6pIGgDavm38XXledT5R7SakzZ9aKSkoZIlkRwFQZv62N
+	 iYtJ6NPaSbTR8YRFb4YPW6VWzWMSTDgVOfrMXe9VEYPII52nQpkisAGEym4muFpBHub8s
+	 SZvSF2rnLDa9qEyJBcaleN7CyhZOcuEJE1n99tvPOBFaAyZIV+u4Q8eXP/Im9sjlvvPRr
+	 pCGFrL3g5FUtzPMiPdfgvjPcnTPVAGeLjpki+3zv3zi6Jv5SF/Y4o2ydsGr5e6U+NLNDl
+	 rPlO+Wh24lEMvZIOJU6yClPoUChc0kqpVND4rgE1mH3ibjMtLpuGk9OVNxeiwnBAZMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5woi9aA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC73606A325;
-	Tue, 10 Nov 2026 02:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF347606A31C;
+	Tue, 10 Nov 2026 02:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExmSTTIC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CF11F0089F;
-	Tue, 10 Nov 2026 02:49:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5woi9aA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794279005;
+	b=HkWJp3dN3bPcWkGcNa51GuPtkf3vveyOXqO542kEZK+7fpYVhjg3eJst6Gn55gdR0UEi
+	 7eqaWgW2AcuUc7KiyAXlZA0AUCSPbGLkDBdFPX9RYvv9G2o/4NcOWdgTUTflWGQRyhJKi
+	 Om+Hl4kWVtSWuCbOh6Dszdm+uodX6Hv6/aGiijOP7FMagGQOVWvsdiB6BTsuooidfr7tQ
+	 gz7k9aeXs5EuHNgMXe/n3v3Xm8qrgdU0NCanr+8EBILHOok89bEy7L82K+SO4n3UIvxud
+	 lKAD20n2whf5pm9idFrsw4kaEPbNtGqVstHX5WNE7udSsjJMukzkU/5KqL3uhUD1gLQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794279005;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	b=sx2o9zcNtPg9Ui4uVFqQI0Qha6ao2cUJCU52dHZnN637ENKBsAGFAzk0E/cyCzw+/mF0
+	 3voeXXR4LtjLYpTo1DKO/Qbra3yFYyY2BMsy4QSsgxr9W5tizaZir+8IPGgBKhn/opfx/
+	 4QkatUMTYyv1ouxLzqIy3hBxAEcomSd+rJVSyvlq6YAzNYqRzLZkO4qrcGToIKCdkLNSs
+	 JdzoJCjTYKPyS384ToroP8NcRU0kXuM5LMdCPiyx4dlXg2YujAFmJFuQFrC4OeJLg4FpA
+	 MpYem0wlK3eGBzaOFN9lxacxcNQZdquiMkRd7HMrmFPOMZ2PTDKZa6QPvgQtvPKxQkg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 056431F008A2;
+	Tue, 10 Nov 2026 02:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794278946;
-	bh=BWKvH/OjHWbKXA6A9HL2uzCDLGobFi9XpMtJ+4XFWG8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ExmSTTICFqGUvQ/013AEAixSsbQRgn9rwwIkbZ4cDbwMvm0ajSeDtxYW28ZGIAU9P
-	 3B1V28iEmJbZSukUTXmx8ZZUGxtDeOyrv/BGxBTVZBZ9zZH8tJ8jC3rF7fTv2cpMHf
-	 vjRX3GOxf1SXNKRu9Z4qvghZ7zxXQhQAx6AQhbwqq3qPRJgffT8ia2d2NWGR/aPBek
-	 umG4/6LBhsuQFLjEfGRFndLvzevgdXSIxadq1X3nPPj0hq3vDrwxnBH2EJcpDQGAcD
-	 6wgHvhvtfaBa5vEg88IGh57YAxbLmHtPphPw5nKMPiwTGUg5PIMYevACq7J0E8Rl1V
-	 10IbQgifEI6Fw==
-Message-ID: <sashiko-outbox-206068@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/5] arm64: dts: amlogic: Add Amlogic S4 Audio
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiebing Chen" <jiebing.chen@amlogic.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261110-audio_drvier-v8-5-1489241e4c83@amlogic.com>
-References: <20261110-audio_drvier-v8-0-1489241e4c83@amlogic.com>
- <20261110-audio_drvier-v8-5-1489241e4c83@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 02:49:05 +0000
+	s=k20260515; t=1794279005;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=F5woi9aAlFi8Llc0+haPwKizbAi19rFnofw2murvP3XYSUdD4VmWmbxeNu1KbBzCJ
+	 2yycd548ROFgSR2UsZhm/uEOmJPE8vipp56X5XgZFVeQY8bY0yHfZzCJlh1goiScUH
+	 Wn9Gh40AxG75dIXav6paHwsjYAfA9GtoqiFWlOX+QnnDam/FwcZjXjodpe2mqfecvE
+	 iTENfRQkH3HlQ2I3h7X3GnHwMS1QeUe7wH95vz/cYt9Qnvq5uEhboOqbV+wvrWyH+G
+	 Qv8oPZSmImXvTUkvrk5LMVogUmwxgB3Zk6hxS3Odo9/gHoeLG3hA0VQ9ZYhaV8aEGQ
+	 w/o07rSwk13WA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8557D4878A;
+	Tue, 10 Nov 2026 02:50:04 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Tue, 10 Nov 2026 02:50:01 +0000
+Subject: [PATCH] arm64: dts: rockchip: Enable SDR104 on the ODROID-M1 SD
+ card
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,167 +82,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-odroid-m1-sdr104-v1-1-8edc6d5c1bf6@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAFqG8moC/x3MPQqAMAxA4atIZgOJf6BXEYfSRs2glRREkN7d4
+ vgN772QxFQSTNULJrcmjWcB1xX43Z2boIZiaKgZmJkwBosa8GBMwZg6XAeh1pHvnR+hZJfJqs+
+ /nJecP7EZavRiAAAA
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1796; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=qnYQwjnRjrYCEMA3SHfY2+DFHlJaSH/TMsn5Af6nh14=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFmf2qInZi0x0TBUjGFZfEd0j8Vikydvzr+ZEWZx+0Daj
+ ReMh3+XdZSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJtFgxMmwxtXqmcaHfyfmt
+ WtfeFasLt5424FNcwX/snvzEilnvvCwZGXb6Pb90ZsqCt+zXziwLDdVQdFlz76vypO9nOvoPOO1
+ IvcsHAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: amlogic: wrong spdifin interrupt number in
-  meson-s4.dtsi
-- [Medium] arm64: dts: amlogic: missing pinctrl configuration for
-  spdifin on AQ222
---
+From: Igor Velkov <iav@iav.lv>
 
-commit ba863296d8a1f9c2893c9c4c64db87474f58e6e7
-Author: Jiebing Chen <jiebing.chen@amlogic.com>
+The SD card already switches to 1.8 V, but only SDR50 is allowed, and
+clk_sdmmc0 on RK3568 is a mux without a divider: dw_mmc-rockchip asks
+it for twice the card clock, 200 MHz for SDR50, the mux rounds down to
+the 100 MHz parent and the card runs at 50 MHz.
 
-arm64: dts: amlogic: Add Amlogic S4 Audio
+Allow SDR104 instead; the MMC core still falls back to SDR50 for cards
+without SDR104. With the 150 MHz max-frequency from rk356x-base.dtsi
+the clock comes from the 300 MHz parent and the card runs at 150 MHz.
+Hardkernel's vendor kernel already uses sd-uhs-sdr104 on this board.
+With a SanDisk 128 GB card, direct read goes from 22 MB/s to
+58-64 MB/s and direct write from 20 MB/s to 47-50 MB/s.
 
-This commit adds audio controller device tree nodes for the Amlogic S4 SoC
-and enables the sound card and audio peripherals on the AQ222 board.
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested with an Armbian 7.3.3 kernel (rockchip64), the property added to
+the DTB with fdtput: reboot, sysrq-b, watchdog reset, poweroff, s2idle,
+deep, hibernate, hybrid-sleep and suspend-then-hibernate; the card
+re-tuned and came back in SDR104 at 150 MHz in all 29 runs.
+---
+ arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts b/arch=
-/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
-> index 0a3f81ea0fb0a..334b57bde4def 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+index ec43dee18094..6f77e73abc8e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+@@ -610,7 +610,7 @@ &sdmmc0 {
+ 	disable-wp;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
+-	sd-uhs-sdr50;
++	sd-uhs-sdr104;
+ 	vmmc-supply = <&vcc3v3_sd>;
+ 	vqmmc-supply = <&vccio_sd>;
+ 	status = "okay";
 
-[ ... ]
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261110-odroid-m1-sdr104-f6e03a0c5ac9
 
-> @@ -129,6 +140,207 @@ vddcpu: regulator-vddcpu {
->  				<699000 98>,
->  				<689000 100>;
->  	};
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
-[ ... ]
 
-> +		/* spdif coax input */
-> +		dai-link-11 {
-> +			sound-dai =3D <&spdifin>;
-> +
-> +			codec {
-> +				sound-dai =3D <&spdif_dir>;
-> +			};
-> +		};
-
-[ ... ]
-
-> @@ -235,3 +447,102 @@ &ethmac {
->  	phy-handle =3D <&internal_ephy>;
->  	phy-mode =3D "rmii";
->  };
-
-[ ... ]
-
-> +&spdifin {
-> +	status =3D "okay";
-> +};
-> +
-> +&spdifout_a {
-> +	pinctrl-0 =3D <&spdif_out_h_pins>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Is &spdifin missing pinctrl-0 and pinctrl-names properties to mux the
-spdif_in pin (and a corresponding spdif_in pinmux node in meson-s4.dtsi)?
-
-dai-link-11 wires &spdifin to the external coaxial receiver &spdif_dir,
-and pinctrl-meson-s4.c defines the spdif_in function on the pad next to
-spdif_out_h, but unlike &spdifout_a, &spdifin has no pinctrl configuration
-and will not receive an external input signal unless the pin was already
-muxed by firmware.
-
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
-dts/amlogic/meson-s4.dtsi
-> index dfc0a30a6e61b..98ac01c5d6adb 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-
-[ ... ]
-
-> @@ -863,4 +878,385 @@ emmc: mmc@fe08c000 {
-
-[ ... ]
-
-> +	toddr_a: audio-controller@330100 {
-> +		compatible =3D "amlogic,sm1-toddr",
-> +				 "amlogic,axg-toddr";
-> +		reg =3D <0x0 0x330100 0x0 0x2c>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "TODDR_A";
-> +		interrupts =3D <GIC_SPI 32 IRQ_TYPE_EDGE_RISING>;
-> +		clocks =3D <&clkc_audio AUD_CLKID_TODDR_A>;
-> +		resets =3D <&arb AXG_ARB_TODDR_A>,
-> +			 <&clkc_audio AUD_RESET_TODDR_A>;
-> +		reset-names =3D "arb", "rst";
-> +		amlogic,fifo-depth =3D <8192>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	toddr_b: audio-controller@330140 {
-> +		compatible =3D "amlogic,sm1-toddr",
-> +				 "amlogic,axg-toddr";
-> +		reg =3D <0x0 0x330140 0x0 0x2c>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "TODDR_B";
-> +		interrupts =3D <GIC_SPI 33 IRQ_TYPE_EDGE_RISING>;
-> +		clocks =3D <&clkc_audio AUD_CLKID_TODDR_B>;
-> +		resets =3D <&arb AXG_ARB_TODDR_B>,
-> +			 <&clkc_audio AUD_RESET_TODDR_B>;
-> +		reset-names =3D "arb", "rst";
-> +		amlogic,fifo-depth =3D <256>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	toddr_c: audio-controller@330180 {
-> +		compatible =3D "amlogic,sm1-toddr",
-> +				 "amlogic,axg-toddr";
-> +		reg =3D <0x0 0x330180 0x0 0x2c>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "TODDR_C";
-> +		interrupts =3D <GIC_SPI 34 IRQ_TYPE_EDGE_RISING>;
-> +		clocks =3D <&clkc_audio AUD_CLKID_TODDR_C>;
-> +		resets =3D <&arb AXG_ARB_TODDR_C>,
-> +			 <&clkc_audio AUD_RESET_TODDR_C>;
-> +		reset-names =3D "arb", "rst";
-> +		amlogic,fifo-depth =3D <256>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	frddr_a: audio-controller@3301c0 {
-> +		compatible =3D "amlogic,sm1-frddr",
-> +				 "amlogic,axg-frddr";
-> +		reg =3D <0x0 0x3301c0 0x0 0x2c>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "FRDDR_A";
-> +		interrupts =3D <GIC_SPI 36 IRQ_TYPE_EDGE_RISING>;
-
-[ ... ]
-
-> +	spdifin: audio-controller@330400 {
-> +		compatible =3D "amlogic,g12a-spdifin",
-> +				 "amlogic,axg-spdifin";
-> +		reg =3D <0x0 0x330400 0x0 0x30>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "SPDIFIN";
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_EDGE_RISING>;
-> +		clocks =3D <&clkc_audio AUD_CLKID_SPDIFIN>,
-> +		<&clkc_audio AUD_CLKID_SPDIFIN_CLK>;
-> +		clock-names =3D "pclk", "refclk";
-> +		resets =3D <&clkc_audio AUD_RESET_SPDIFIN>;
-> +		status =3D "disabled";
-> +	};
-
-[Severity: Medium]
-Should the spdifin interrupt be 35 instead of 151?
-
-On Amlogic SoCs (such as meson-g12.dtsi and meson-sm1.dtsi, which use
-148..154), the interrupts for toddr_a..toddr_c, spdifin, and
-frddr_a..frddr_c form a contiguous block.  Here toddr_a..toddr_c are at
-32..34 and frddr_a..frddr_c are at 36..38, while spdifin still has 151
-from G12A/SM1, so any consumer of the spdifin interrupt will bind to the
-wrong line.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-audio_drvi=
-er-v8-0-1489241e4c83@amlogic.com?part=3D5
