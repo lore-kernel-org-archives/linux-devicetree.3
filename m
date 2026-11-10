@@ -1,74 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276738;
-	b=mIn1+cY9uODuQWk96xutCbuJQbjply2mQUzBDG1SLHZSoqyaBV5NbsLIxC5gRn7mpFW6
-	 jq2YQZdsiLptU7cwl2puNSr8F5TU/wJ8m6msMGLE0/ZLXXnlOjZFzYd9F22XdP9Gfgabf
-	 DJnL7RtJqNwpSyOF1iKxLo/8X2QVFbrba9FRtvOe8HethSjGgn7OjMNutwsmZmUlBnifJ
-	 vIgzHf5kuveOw7ouTHZD7P6wFNyt5ECKpsjNWko97dQupzpf95Mh5mNN46k9Jk4LpFA0b
-	 NE2f2CEoXgl12uUe6f7Mlj1ZqxMAX6lBI2DMGtwbX0zeucvh6QhE3bIEJymaUxGki7Q==
+	t=1794276924;
+	b=ZvPCP5g3ChUBqSmG5MSrH3KmMZV7g/Nos/IoUtgBS+DVmQhNibPGIYLETFTBzBvaxttK
+	 Z8oxEce44rIl0donM063YT9Y3vEPYklOrj8/8G6poc1lVLCL+7JVxPBb1MJCAXjVskA93
+	 C78wIzQCCkMsl4SW6plx1vy8QJK6mz6Wg5pnK6rtAa/Em5Bbs78/WVTVIY1ZzF5vadv1j
+	 ZYZ/xIuXh1Z/o8ME6XmZnBABU0YvqoXDQ19KXg1xp4fZLIqZ61LxK5iqdZ7P44ecOKi6u
+	 am5iS3BUNEk2knZ96MKDoeTCnNsUcZSu8C2Pw8Uj8y2ErkC9UzO2s1t1qz+aJbp1RXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276738;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=irS42R6+DvFbO9i+VAkwWMQued7GWtppLzl2IM79+R0=;
-	b=BKkcHQI7XIGVaEJWcFD0Mk3NS7+E/Pr+oOMJ8o5bojGfQlgt85L0iYBg+axP0a+op7KL
-	 XlnRKTNf802T19XNYXhklKrayLQw8qNm5eLqacoxCoi4wnkvF9cGLiLJf7cIfUGi/x7HI
-	 bz3uMeF+qCg8/9+UYifsu64keRtWZv9ELbS54a4QxN6VKb8Bw4JxmO1PfEf+IT8pCUTS0
-	 60iOXDHr6wQonX1AaiWqo7Ji/LiMeTWTslWZauoUmkzMq0FSCrgyrqBP3W7m8JggFVm6a
-	 b8vFPWOkIfd7+C1nzsLL6lOuB3Xl1Csg3Nx4EEYjKJtbeAkN30amfCVmtTk4rbm8jiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276924;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=B1b5L3SSHXE6fNhcgsaO4Hc+U71TpybJ5OywHRvOXXo=;
+	b=QdzwVNJ6hpqvVbYjZdWzHd9omAeSZVTZXE1gReBhRhUmgb1OwRr32tfbk0snj2OF89ZR
+	 wJhX5RHTe6Gr/DfBBk650B4ZQ8sTvuV5HiB7CTo3fq3YhMdrNWcSoZzJnTUQ0TlNfNJkE
+	 N56Wp1LZRkZg+1ZHDU3792o2sWMcw9c+juUd0jxOOCj1IgZwnsDu+bsgK2TgB1TO5cLrH
+	 Put/SnKZvTynMeTlI/WDMQbE5TM7Zu75lBXIgnE6wB1tbAiPMF2hFU05mrqda0DqAlnXk
+	 QNak1eT1Vlx8xE9DZqvaqmcR0gf8Hpym7NDpBwOoFo2IWB0AHOFNvH00aZ+uz4XFIyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b="vpQfZu0/";
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ZEjZoRMp;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=JsD8jvpW;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009DF606A31C;
-	Tue, 10 Nov 2026 02:12:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009DF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DB2606A321;
+	Tue, 10 Nov 2026 02:15:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44DB2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=vpQfZu0/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794276728;
-	bh=irS42R6+DvFbO9i+VAkwWMQued7GWtppLzl2IM79+R0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vpQfZu0/K5FY4Ri8ZPm3OThlykgbtYatCEuL1qj5/JKs8wZgAtRpS8vp9eVBxxawV
-	 EkYiGUyAVuWXzkyLOpHlFNVVtUuLVyw5IOpqKfg9Ge6qHYRKDFNmICo0odsSayrmbN
-	 39VJGnlUTdSkeBe7llmvuhl/FllSkS24EcMLW+zSS+Wcx8E+onshTn59zRpWYWqVPS
-	 4+fB4ibvyY5obQqnVTR+75fKhhfh6HL/M16RRZrp/NbUwNtZ4P+u25IbdSjOfp+r5P
-	 XvRBQCTbMY5nli94CFOdvNYLnLiAhaaSEuqf6aj4l0EiVwb+wV41XsPpoFPlOh6fXl
-	 gez3m24/WUveQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jNqsh0vWSz4wKm; Tue, 10 Nov 2026 13:12:08 +1100 (AEDT)
-Date: Tue, 10 Nov 2026 13:10:05 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree
- representation
-Message-ID: <avJ88R_GDqtdBW1u@gractus.seuss>
-References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-8-dianders@chromium.org>
- <auhYb6FV2dPrbVxB@gractus.seuss>
- <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
- <aurMrnE3vD5eCEAV@gractus.seuss>
- <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ZEjZoRMp;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=JsD8jvpW
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0kjmp2799632;
+	Mon, 9 Nov 2026 21:15:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=B1b5L3SSHXE6fNhcgsaO4Hc+U71TpybJ5OywHRvOXXo=; b=ZEjZoRM
+	pS2ml0JzHJPkkvpByCG9R+8VeIdBLKwrD9wEGFyQdPuhuzg0Zbi3l8Euoc4KCevJ
+	jvnr795BHV+oOR/3VfiGhha1lTYWRdCJl0Rv7uJLswUuWEzLwmJkzm6Zqc0YQmt0
+	eARWKUvLAGgaWITAuIBjIyZtLoHSxY35FihHCDIkqHKLabONTEP1ykTlsuRUv15h
+	++qI4eMpEud7Kys6e0YYD9Ld2nCqrrdmBYWS92XeyWfpYP3r0FVIVnK5qtovRRWu
+	wvLqqH5sZL7WDn+zKbAaKTNq8zKRvrEZNDcefsNxf00iFIdfHQDugBZE7VqwFM95
+	3yySOWGuxjHJikA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=B1b5L
+	3SSHXE6fNhcgsaO4Hc+U71TpybJ5OywHRvOXXo=; b=JsD8jvpWnsCHvVrUS7BbP
+	jdcAtkjQVpGDjK48oeO+ui7Uf0+Bk9l1PWd0ePP4s7BpPO+OvooXCoNmvuGXIlqJ
+	yJQZQryBEfSfJMPjqzQUX/cK5Slel+CS73xownBsXhXV4o2hdU2LqXnM4NkXtRwF
+	Y80EItMWOta9EfYz5adsNXnc0omsX1xG8tf+ZNAF/BadXU1hmWuFhmvkOR7EqUVH
+	cU0BiRhAuPxsw55zrrCqNQ2xY7mpcKzwXMDUxfZ+eaCUiWCfcUi3lph6tnQTa4uV
+	3lBAa93w+chqUQL+2OPM6MNg3g87i735jDL7CJFUsZjDZ+HCgndPScKdo0K7UBix
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hugta4056-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 21:15:17 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6AA2FGTE027152
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 21:15:16 -0500
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 9 Nov 2026 21:15:16 -0500
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Mon, 9 Nov 2026 21:15:10 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 9 Nov 2026 21:15:11 -0500
+Received: from JGERONI2-L01.ad.analog.com ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6AA2EovW016346;
+	Mon, 9 Nov 2026 21:15:02 -0500
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>
+CC: <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
+        <andy@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+        <joshua.crofts1@gmail.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v6 1/2] dt-bindings: iio: temperature: add ADI MAX30210
+Date: Tue, 10 Nov 2026 10:14:41 +0800
+Message-ID: <20261110021442.410-2-johnerasmusmari.geronimo@analog.com>
+X-Mailer: git-send-email 2.44.0.windows.1
+In-Reply-To: <20261110021442.410-1-johnerasmusmari.geronimo@analog.com>
+References: <20261110021442.410-1-johnerasmusmari.geronimo@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,94 +106,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n7OeUluRuJBoVz+V"
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=UXCnBoU7V--1Sj0dzODCKgYNoBBLHH7N+aGYWzbUdpkQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAwOCBTYWx0ZWRfX+KF6YF/hzyDx
+ MFRfKzBbsl8TyMmSlhIPYe4ZtMWHlNYejDpctgd7dTg9q1/zj9QyXz3wY95qTdVbZYsQ19FZ2D/
+ 1jOB+34IXgpzVx0E769pdhkFgeNSC1gZZxPItecN/5H6koi2xHX5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAwOCBTYWx0ZWRfXwd6pRSQRBaKo
+ roo1Kdm3soK6v+uCb5n8o3VaFj+5ZCBisJgFGbLO+VjPhZC0weGUyWGGhILtQSVIuupwLAtvHdZ
+ NIEcWmNnH2771ShQOY9/oYv8T2iafPys+zRstoE63JC+fFoBteQj4CyHCY5JVul3JVkN1clD1am
+ wJq8LWvRq8LMqk0CalQPVQaBB8nN1WxO2X9Sqlap1oXB9gbD1Fi5G4oLMeu6gG9fNchZUNGHBWp
+ QUUotCOsiaFXMZ3iwZkdeOwI6txwtU9E3pZIu5L5iJ0qR/lEzrz4JcMpQEs/TaiDDb/nvNFai+F
+ D1MqauKqorto7eGn4GRynPpbzvba7K26d7yV/eBjs9pV6+YpInqhjYbTYkGbXHZrPLEA95si82v
+ igRciBOPDe1Now6z8xMp0ETy09zDoTxRSwA3Xl6BIL0lxJwnyEFJfyGDibZi61ui71RTawEy7Bb
+ no5q9WliA2/tCSSn81Q==
+X-Proofpoint-ORIG-GUID: 285XVMWPpMP4Bg8iHiXNUdzWXZ0B1NVi
+X-Authority-Analysis: v=2.4 cv=UP5Ijyfy c=1 sm=1 tr=0 ts=6af27e35 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=8Tyz5C_Vz1RR8MM-A30A:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: 285XVMWPpMP4Bg8iHiXNUdzWXZ0B1NVi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_01,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100008
 
---n7OeUluRuJBoVz+V
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add device tree binding documentation for the Analog Devices
+MAX30210 temperature sensor.
 
-On Fri, Nov 06, 2026 at 06:43:12PM -0800, Doug Anderson wrote:
-> Hi David,
->=20
-> On Wed, Nov 4, 2026 at 4:44 AM David Gibson <david@gibson.dropbear.id.au>=
- wrote:
-> >
-> > > +class Property(bytes):
-> > > +    """Holds a device tree property name and value.
-> > ...
-> > > +    """
-> > > +    def __new__(cls, name, value=3Db''):
-> > > +        if not isinstance(value, (bytes, bytearray)):
-> > > +            raise TypeError(f"Expected bytes or bytearray, got {type=
-(value).__name__}")
-> > > +        obj =3D super().__new__(cls, value)
-> > > +        obj.name =3D name
-> > > +        return obj
-> >
-> > Thanks!  I do wonder if we're doing this if we should update __eq_ and
-> > __hash__ methods to take into account the property name.
->=20
-> I don't think we can include `self.name` in `Property.__eq__` and
-> `Property.__hash__` without breaking `Property` comparisons against
-> plain `bytes`:
->=20
-> 1. `fdt.getprop(node, name)` returns a `Property`, and existing callers
->    (including 10 assertions in `tests/pylibfdt_tests.py`, such as
->    `self.assertEqual(prop, b'test_tree1\0')`) compare `Property`
->    directly with `bytes`. If `Property.__eq__` required `other` to be a
->    `Property` with the same `.name`, `prop =3D=3D b'...'` would evaluate =
-to
->    `False`.
->=20
-> 2. If `Property.__eq__` only compared `self.name =3D=3D other.name` when
->    `isinstance(other, Property)` and still allowed `prop =3D=3D b'...'` f=
-or
->    plain `bytes`, then:
->    - `=3D=3D` would no longer be transitive (`Property('a', b'x') =3D=3D =
-b'x'`
->      and `Property('b', b'x') =3D=3D b'x'`, yet
->      `Property('a', b'x') !=3D Property('b', b'x')`).
->    - Python's data model requires `a =3D=3D b` to imply `hash(a) =3D=3D h=
-ash(b)`,
->      so `hash(Property('a', b'x'))` must equal `hash(b'x')` if
->      `Property('a', b'x') =3D=3D b'x'` is `True`.
->=20
-> In `DeviceTree`, properties are stored in `node.props` keyed by
-> `prop.name`, so `node1.props =3D=3D node2.props` already compares both the
-> property names and the byte values.
->=20
-> What do you think?
+Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/max30210.pdf
+Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../iio/temperature/adi,max30210.yaml         | 61 +++++++++++++++++++
+ MAINTAINERS                                   |  7 +++
+ 2 files changed, 68 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
 
-Good point, never mind.
+diff --git a/Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml b/Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
+new file mode 100644
+index 0000000000000..8bfd154bbc438
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2026 Analog Devices Inc.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/temperature/adi,max30210.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices MAX30210 Temperature Sensor
++
++maintainers:
++  - John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
++
++description: |
++  The MAX30210 is a temperature sensor with an I2C interface.
++  https://www.analog.com/media/en/technical-documentation/data-sheets/max30210.pdf
++
++properties:
++  compatible:
++    enum:
++      - adi,max30210
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++  powerdown-gpios:
++    description: GPIO connected to the CVT/PDB pin (active low).
++    maxItems: 1
++
++  interrupts:
++    description: Connected to INT pin. Interrupt triggered on both rising and falling edges.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        temperature-sensor@40 {
++            compatible = "adi,max30210";
++            reg = <0x40>;
++            vdd-supply = <&vdd>;
++            powerdown-gpios = <&gpio 12 GPIO_ACTIVE_LOW>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <17 IRQ_TYPE_EDGE_BOTH>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0017755f593bc..87e455b592461 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1786,6 +1786,13 @@ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/devicetree/bindings/iio/dac/adi,max22007.yaml
+ F:	drivers/iio/dac/max22007.c
+ 
++ANALOG DEVICES INC MAX30210 DRIVER
++M:	John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
++L:	linux-iio@vger.kernel.org
++S:	Supported
++W:	https://ez.analog.com/linux-software-drivers
++F:	Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
++
+ ANALOG DEVICES INC ADA4250 DRIVER
+ M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
+ L:	linux-iio@vger.kernel.org
+-- 
+2.34.1
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---n7OeUluRuJBoVz+V
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmryfPEACgkQzQJF27ox
-2Gdtxg//VI/JCF7+MKwc7Y3gjycZy4wujOF3RLkBYUlHbcpCIiSpfA6vnKFVeisb
-sJVh/oPAAk8r8Iw2PsBXnzWFsKi8qTJGrPaFZj34PZUzfjMeYsa2wVobn4fuaqQF
-XbHBv1e8mngBZRvcsTicaX6TjyUMmQ23O5tE88eC+aWyymneb3W/2N0KJ90VpqUr
-yE/oZpTrv8uOMs73YDz6YjWx57YdbFZXVxeH+3jDjCCCkbuBiOvQ0GYnC5sHNvak
-6KCQk5Y2qiiEEkHMuAE7yKb52A85gwwSD+0ZKdGqfTYSODSH8uHmfVDQ1Jk4+wPT
-hkCu+G4yU3C4xllxI3z4ZMcZXKjH84d5os4psNM5bZmNvBJa3kft1KhwxyBxq3rY
-nARFahHoRVsfZ37Nl1BNe9G4i4wFahFTfKlB+GxZ3uNwc4O5CKMj5f/1pDmGbY+Q
-tq3i/7VqYFHMsEomdbz9pfMaBv0aTwnv4Ts0QqJZ8bnKZh+zaJHMzhTSBW4dl0Zi
-p/B6ST+N3u9NVCrGBo9uVbLHDztPCDUBspNIcBo16d0PEVroEZJAiS4Xx5O6qwV0
-Punx+p1DNX4VRHAa0szCCGNmZItltujv00ywnRtl1Ws2OibXvUhVMoH7wp0rJac/
-eJNT0USfWRTVxzURcWuT0V2Z94oVwdbF8LOzBQmg+VlVKF1C/kc=
-=kEek
------END PGP SIGNATURE-----
-
---n7OeUluRuJBoVz+V--
