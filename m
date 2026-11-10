@@ -1,70 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269940;
-	b=2pDz0g5slkgT7yD6K7LRh8GbfnSsq/xzLKvkpVixwDRGjncZew+mrveINhCRv9ZwixVf
-	 NlpnE5x4JvH4zvCpuKIjtk3kjPnABd6VpQh6tw8WOiAArXHupmye28Zvpomskn5/mh+7n
-	 W85++tr1sYytyCGs1RDeQ7nd1OYFWYlo2oFhBLS2cLMK44w8bZMqP533TN9RaDDAMOiZ8
-	 Um2sHNNzBbUlqGgPt76ApYmgBDblKIvmqsbDw/cF+SY9wiMblDWgweTHtNEKKNHAIggpW
-	 1Fh9K+kuBzThIf+QziDH0w/dZ6lwlikegWXl2UEQNAxwM79zM0HKFKoQSOckoKGMw/w==
+	t=1794269956;
+	b=Ik3XiSPljAKFnzo7Sljj1cZSaVzucu92/+gFaqrNdcjuvDDLaDncaww6IvnOT/MZ3rvj
+	 6Bb0/nC8chXt3si6mI4uaL+IXpVaYPo4O/ATQPNqaSIf9kKQ+aLjYPZimZLtttMln2jzG
+	 h6rw8un6NoBu0aKqr+looG7GSZZDmDIOpFVk6wfQuBaWOQD9E0udZV1pMzlE0pvERezH2
+	 a3Z+h+cPM7zEBukderyUr+XkDx50mBQDefvf0QKSj8Dla0R3XvnRVrDI2qCyJeAHCOxP3
+	 hLyGjaMIRqNeq2D+TxF5GOTKm1ZbeCCiQdOooa6k28MHcRnPb7FegLlEcBRkP/XCAQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269940;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KHE58ax+PEyPhniZNrxi/+FM1uEajhUVPzOagR6Yuok=;
-	b=u9W6M8LQixZAfy9QWwLSXdoOekj4wbOoAAy1Q7j5HkxhUUCfFouNG1IHwdmV4Y15Hsgt
-	 fxHuYToExs4t42kVAsUU3nkzGv3J5Z2NZHY3jpM83A2KiCaoXYhmGiiQclwgdJrdzrMS2
-	 TEUe0Muy/Q7XU87LF7hVGdyvFFIP95NqrvoJpDNLDO882SAqSlFsknxRqoUnB4sez9TTn
-	 i/V5NwIlGLEBShFx82MoVRXbCWWjNxsWSfCUldTGYVDuC6ue2wHG3+2LRu/0uLHcUtvMg
-	 mrYyzGNslq8XSrPm+pMB6PK1IYIyqDADem/vReEzToKJoUSqdicOjvvaldtkwVIBUag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269956;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=k2nj6EFwtFEoGtqUTnS6Y+9lcxQ+ylbF3CebdYj5FfE=;
+	b=qeAsFQcN0pg5RHuahzCGVcdlQuXGpt1iCMccFQSjNtZfN9wG/9r0YNl5e5bnFA2DBH38
+	 SATNAyW2irG61LxKNI9UKxHr/ex4El84tkmEO9BSTL2k9tOWurjNtSqjDl1SVnyQB05YL
+	 4WqYUgWgJvTJ2OfzpTxmpSCm0If6Tw+unPxJ7sEs8GZZixOdbbSZZL/pXbbqlGZqNpv8O
+	 BEasCj1YDiPTaiO72ujV4YNwBuc+mlK2BtRVbRNPPZr6ls4+Em9vxiZrEan1i71H/a/NC
+	 wiIpZ9ZTheupA1XgvwuNiXVixoFZJ6y/UXqd3Ku728Bh6KTsxkF6R6teItfdqwNjdCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEvKZ78d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DwksX/ik";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818DF606A31C;
-	Tue, 10 Nov 2026 00:19:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC85606A337;
+	Tue, 10 Nov 2026 00:19:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEvKZ78d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DAE51F0089F;
-	Tue, 10 Nov 2026 00:18:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwksX/ik
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFFD1F008A1;
+	Tue, 10 Nov 2026 00:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794269940;
-	bh=KHE58ax+PEyPhniZNrxi/+FM1uEajhUVPzOagR6Yuok=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EEvKZ78djbpGqeIjeOwK5XDBVYxNbW0qUuNh6pgsFntgKUFz+fwfpRuRehHF+cQK6
-	 RwDTtcqxn4BjTZ7cE45cMqH+yYUM3f0CWSnkqicNH3AnUtPvTV4clXzuIAzbOi7sPa
-	 LtEorvj6GrP9KZFohTvoI8aLNkwgDeow4iCGCkPb+qMZSgtZ97aXX5U1hhpaXio2im
-	 RG0Fiw+QYT6lo8fRhOEpXfO/l5wRF1EwpJ0c+Zw0NwoejjKVVqjP3O2412kwqA9463
-	 Fgpcqg7KzE1ffq3a27gDSv/IPm11AqrUB7yRWYxReOtGYgiPla1iVW+ZodJ9uIZzF4
-	 h6zWQJFeIistQ==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 0/8] Commonize Glymur regulator settings for fixed rails
-Date: Mon,  9 Nov 2026 18:18:52 -0600
-Message-ID: <179426970787.877162.11018805236130863553.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
-References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+	s=k20260515; t=1794269955;
+	bh=k2nj6EFwtFEoGtqUTnS6Y+9lcxQ+ylbF3CebdYj5FfE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DwksX/ikUtARzsjADm3q50PeuoQDRMxygiuyL0uIfw7in0xnoUdVRgP+/2sq0Kf3v
+	 i1dSPwcb4JBMbdJQnmvG4WXEBaarzpsCHaAcYIUnFyUqKt9MPv3Pwvll78JarIG/YD
+	 Khz/lDjbXh/BFxleQK73Fz+ITJXyYQ9odqTUFlmyG/v0bXxITltvTvuH83kVtwu2gw
+	 h+QHGnujuIKc6T1ZqF2tmHbMqRg8VN9YvgavdJnxynw62Afbi9YueGZtuphkI5bdfI
+	 pV2dnEOOnhtRwaAoC6pRq+G18MNKI19eTzal2XRKeAs212yLL7OVtraZunNugxp1Ce
+	 mHT0a+j8Ca+mQ==
+Message-ID: <sashiko-outbox-205833@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 1/5] dt-bindings: clock: airoha: Document support
+ for AN7583 clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110000753.508-2-ansuelsmth@gmail.com>
+References: <20261110000753.508-1-ansuelsmth@gmail.com>
+ <20261110000753.508-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 00:19:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,31 +60,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] dt-bindings: clock: airoha: unwieldy per-compatible conditionals
+  in schema
+- [Low] dt-bindings: clock: airoha: inaccurate description of
+  airoha,chip-scu
+--
 
-On Fri, 06 Nov 2026 10:29:01 +0100, Konrad Dybcio wrote:
-> Certain rails are predefined and will ALWAYS have to be the same for a
-> given PMIC configuration (due to electrical and other requirements).
-> Factor these out to remove a layer of pain when creating DTs and let
-> one have a better way to reason about the settings across the platform.
-> 
-> Glymur-SiP will be the next target after/if this is accepted
-> 
-> [...]
+commit 078856d9f139a456969b8b085cbf1d617f56642a
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Applied, thanks!
+dt-bindings: clock: airoha: Document support for AN7583 clock
 
-[8/8] arm64: dts: qcom: Add Glymur SiP CRD
-      commit: 83402dd1d06a97eb2a377d65afee334c24a5a3d3
+This commit documents Device Tree bindings for the Airoha AN7583 clock and
+reset controller, adding the airoha,chip-scu property and clock/reset ID
+definitions.
 
-Seems I tricked b4 again... 
+> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
+ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> index fc37786ac7ed8..05cd20ce3ab91 100644
+> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
 
-On the way here I had to fix up kalambo-crd, so please help me double check
-that I got it right.
+[ ... ]
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+> @@ -57,12 +58,36 @@ properties:
+>        available serdes port.
+>      const: 1
+> =20
+> +  airoha,chip-scu:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: phandle to the Chip SCU providing the registers required
+> +      for configuring the PCIe related clocks and resets.
+
+[Severity: Low]
+As reported by Brian Masney on v9 [1], is the description of
+airoha,chip-scu swapped with the main SCU register block?  As noted in the
+commit message and implemented in drivers/clk/clk-en7523.c, the Chip SCU
+provides base clock rate and divider registers, whereas PCIe clocks and
+resets live in the main SCU region.
+
+>  required:
+>    - compatible
+>    - reg
+>    - '#clock-cells'
+> =20
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: airoha,an7583-scu
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +
+> +      required:
+> +        - airoha,chip-scu
+> +        - '#reset-cells'
+> +        - '#phy-cells'
+> +
+> +    else:
+> +      properties:
+> +        airoha,chip-scu: false
+
+[Severity: Low]
+This isn't a bug, but with airoha,an7583-scu added, every compatible in
+this binding has its own if/then block under allOf with different rules for
+reg, #phy-cells, #reset-cells, and airoha,chip-scu.  Would it be cleaner to
+split the diverging variants into a separate schema document (or at least
+consolidate the shared constraints) rather than adding another
+per-compatible conditional branch here?
+
+[1] https://lore.kernel.org/r/179383990045.753844.10400171550739497565.b4-r=
+eview@b4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110000753.508-=
+1-ansuelsmth@gmail.com?part=3D1
