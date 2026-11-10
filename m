@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794343661;
-	b=j9p6aOcybLyAcaUgwGfEULyE9IgMkrd6fMzarHjJzssLFk1vOrnNXXgxYw4C28pJGwpy
-	 ve1DWcCHmWuVon5m46624mwMa4IqE9gUPb/CoNTcl3iURy7O/1TlxzZw3Ry1LcRWzJ/y9
-	 pkBvx1DkSXHs1XQ1T2yutmXR+PziTY3xbCYQZIjnwwkgWBFYaLOHfad1UsW0fcVPe7qEG
-	 VdPPYnRWj0fhY18iDQHoPjmL9RTGz5ilh93otq5S7e9ghIfNvwJlDts1IAucweFbMvy0a
-	 ys7fTRjFtkhvUpdtqqbjkRnmW6p+tk58vtCCX22KUsvl7NYTMbezuDa2XniDKirAugA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343661;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-	b=muVjhGkijsqGYiiUj+g9wSRsgRJQi0tFuzWNsiMERxrZMfLBtQlBK3A4DTxrum6AUoCY
-	 3CvAApHNzn9SYmjMIhV+MZj2urtQKkgyMXd1sb3ckvhwfx/yuHqxw6/5fZLgfh3/WupiI
-	 NYKVAb3nilkKcNerJO19r+W7Mq5RvQ+qPotPJLGEiadUVqMVbCHi4trNC1jtPbXa7VPRR
-	 TGyTLWh1mdRIR2ylJwPdRZL7QNWgDN5Xe7KkfvO7Ew+CH++uR+sZ96n5/1CbBQYy+kUXk
-	 qxbd+OZYp98Q8tjkJn2pBu/Qy8918uwJOnFVq9J5BGKew+tb9IIgoGzA3DLEN6UMYtQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794344005;
+	b=TJKMD376XxN22I+d/tlQkF5zfYQnIcxVxbXE22Bg24gsXzE+NhDyeL09s11rrXxTwcTZ
+	 fkPq5asY8StKRL15ani+0iy9cZZKqNxjNnM3vzBS6jcE3C7Xgu1olBF/bwl/rihogpeui
+	 H3Lpk/L2lW/TTDVS90XjHC84X5flBtviALFSP41aHMyh+jeJEGOA6i2g7o9yuxnF46vKz
+	 otL+MRwcvNlQ/YKkT6jzHh9dhKGqkjp1F6AiVB20Vhsq2jGz4R4fG3YTG1BKcxSoQCURn
+	 tsQxdfcmLR00JGEU90BDqOnOY5rNO59DqDz/i+2COuoDHPpzxDz6+CHyMHmbDXmJFjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344005;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=EIaK17YQczWR3c0lrZalaK0eS/qz/HNl+rgA3afwJ4Q=;
+	b=CEkiEqyrLCQjqQNbKcfwsz0J2ajxMhKIiCsm/ED67NLZZXlm0cWFoOaOk4FzKmQLO3Bc
+	 GopgGBoU6JWb/LuDXv8p6l52I/27+xPHXLLh8ypfo6b6iqkMbpf525Kw85IqYrkZ5sB+2
+	 mFfVJyCpbbOv26ZHFkLh7EFFod/davdvL+IZ7gPcxaE6IXERrHs9mrEoPyTE+/dtl70mw
+	 4o51QZr2CYFDzxGtTXnIcq/jSvZssLgaoNfmlg65UsZ/djpfY37e6OoT/lWOnO+KejoFn
+	 WSHbLLTNy71QKEncI2pJKnuXbhiM1btY579voaaldhBXY+EoxkQnvxEal90yl35PWxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niLKlp4i;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8D8606A333
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 20:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D8D8606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F27606A320;
+	Tue, 10 Nov 2026 20:53:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51F27606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso356577766b.3
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:47:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794343659; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KwUE0bP0JN4Yo0Gve2YeBRntTmszTvwvF+13rJg1kKCNRxfYUV7UPUYGHf+zfaeUJ2
-         wrMVEDKde8tNMqX5z87msT/fspO+8wUFOdtfa24j9sA75N3RRf51Yp0P6Nt6NYpau7K6
-         vcbXNQPpWb6TxjWGmpY0m6JIMV1KS7Zpgj+iVoRXbA2aSjarpfC7hDOjHWMnCUBuh/Lu
-         +YNZUhHIosIUp5BKnvn5U48TgrqkKaykDoZfhuJ8coAjHVvfh1fJZrUVSZHHFySk/bty
-         Gy0SzW9XePzjPcPRndxwhK7V4Y0SRK/HnRWHMgV7J2QgBbM36cXP3NavW7cPuKbp6ldM
-         O/IA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        fh=cllDWyYTAs8o60C0EYMxd/0xMvRNNGO4gq2KSorI0O8=;
-        b=H08OHSGE7+HXyykYMFD2HZ9KRntz6O/iUHZTFuuQPWQM2X1B19CVsSZiG3bE1EOw8E
-         6aN0yDllnNj6n5eEleGjgDPXpWOZNpNhyuDr5Od39/c5PPqq2pmeDxMcXoHxXbDVsZD6
-         rLCHp4Y1Jtp4uoPYQIzMEA5wWSdhUdniPXaH+2Gm5Lj5iH29vpOJ3gHMtPxbV1I4PEn3
-         HiqIdSICgt6xZlkI2bMxRdXg4x7i0neSE/xYPhHMtY/ogrSFkACVWvMUDEj1onP3WEl5
-         1mbLiNAuOWUDFYH1E0t54NGofYR6XD4OTte+DSUahLWXqdF3pyJx16AZ1E/EM7kJ7Cs7
-         JJJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794343659; x=1794948459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        b=kyTgKKe+EjpbrhUk5Et4nVWbjvTgPhhAiWlXDPWD5e2simWlTxywGmwH5T1bIxsNSK
-         YButoRRKyFjPlChndRNNeyubyhrugPo6xA5G/wXVpMYWd6TQKcL0/4ewmjAPXM/snxLx
-         TFwe8K53CMZVeugFg5+u8f/2rGawWSw/ov3X+c6jRgwc/zuuD0W/9gy42uhoLJEvl5Qu
-         rIbpo8pHk2s/4c2y0PiuUQQtToYykA7573bsFPi25bQAvn84fu7CnT75Laeb/wKII01c
-         47jcrtGpGsJU5RlurWSC87FmanH3NtEptf00DrR3tzx/fiH3QWNOCv3mX+c7eC4+vdS5
-         hGgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794343659; x=1794948459;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        b=ykY50xFEYEEkkC4YoR9lxWZAMd97sTUP8ECc8FfLo3fe8xwFdJwdAWdomd8njRrXcm
-         KHb0B9V0kKsmCseVOsUPM0tzlOjNlPeinMKhzHf6hsgWb0cZUdq0nIAXbzKckdM+C+5g
-         ymZYUk0HizJV6EzZhj4HgjdBE+BNXV568sz4vuJKfJ6eTyOLQXP3pxKWHMaxxKtp5Sjf
-         jqv7QpuucRnkCsttgDKIJKCo1N1eR1w0na5mTnaVF8+l2zY+RnhQDzAlUGu8jYAdEAin
-         mMRmsTIAyuexCcx4NfKrZ7IDy7iXwNp5mfc9oYrkqhssjJgG3P+4+msceFwizaRuLo+S
-         JyWQ==
-X-Forwarded-Encrypted: i=1; AL+hErGmgN17nCVTYXu10r3pcOrS5L4wNMaPIVMrKnBXXn3ffb8C0uJtj67iGhWpr9K60aBb2/4jv2TgAZ9l@vger.kernel.org
-X-Gm-Message-State: APuU4Z90E16A0H3zFMhOtHeyIggBbjUINu/vC5v4++bVc4Az+u5Z6h75
-	WAg1361N4zZ4cSqNBgKlX5xkfoh+lpMuO7UOR/g0ArArRcKZ+nGVru6U4POolCjCD7VjmChM7Kl
-	rjItR9L04l8cmY2pbFggCqfw2HfXf8pe3hQ==
-X-Gm-Gg: AYBFou1paBdZHgKRQOdk2/2JujnHtYOviPPvfnboJwNJcx/ZZ9UPEnQiA7igaaEBk1s
-	6OBdOYozwZ+V6SMZblUAVCubJLCEHowy6u7apL4uZaJccdF7xSX9UwRAOb3VHzgfob2zW4WzmQs
-	k2ubK8SXudaQeVNlfMFUfinZKcpi/+9Ghw3heoU32NXYCjLd4sVEOn9nC/wjAMtP4mAbe7Il6p3
-	clpUk2Zs+tzgF/qx6kxIn8F3Qjh1xhAOVB8TuerakqrKZ8nGhBZAF7rE7eogwWYyYZd4Q0mQUsN
-	V7vp507/f/h9kXY4r0zuSohcYTPgkD4y0Qq8Fw3BZKx8rFApA2zXQxaL3kewrGQzjnDlw7+n92G
-	IY7zogweZXYpAF0GKqGFuGbAvzX0KEDCLltiZS2FEJpaCT41Q2eAVssSBdyK0Jv9Ak2wXFJxTI5
-	sugvtZwN5Ukwnx75NNGUS/drbLs99PCQze2N3qVvJ3gBBrwLvalj5MqFhACJNObxwNDDuhG+Z95
-	JwmCaBsRZSJvgH6WhQ/amDq9aY/YAvYuNC1t1nA/PQe1xhtCw==
-X-Received: by 2002:a17:907:9629:b0:c4c:ddd1:d006 with SMTP id
- a640c23a62f3a-c5066ca17a0mr19662266b.38.1794343659272; Tue, 10 Nov 2026
- 12:47:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=niLKlp4i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794344005; x=1825880005;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=dvsuOXj9X68peu/AhyXR+DhZ0w75kjIt96Nt7etSiME=;
+  b=niLKlp4iDOXZOLuNEveyrE1ZOdC2XBctkN6Bsp47VPeZqfKL62UZaE9z
+   SOYryT3l7DUWOoVKT1OdD5eZTmkOVkYRA+80TVRMC/qd8VyHxug6WIood
+   At5sBxU/ggXf5nNldmj7LsGFxyM2COCQqq8QWTT4rKKngVnciQG54Jtth
+   aDY1E+4zte4V77M6LU0eCq14xjFT1uXn/OCdXl2HftZGRYt9SvnqzV4r1
+   b/ZJTkHXKpxBq6gwHKtgIV2CXEBt7/HuUkBWXeOwRVgSnJsbjWGs6lBlt
+   L8fRYQrpKUU81ep8qpZxBSE1uAIZC1J/Z+k4nDQ3SSRzxF6bFHDEoYM+G
+   g==;
+X-CSE-ConnectionGUID: A8WLAlNOQkuqqfA6Rmy35w==
+X-CSE-MsgGUID: 7PREujA6SpGnqaSqy6vwYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3004612"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3004612"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 12:53:24 -0800
+X-CSE-ConnectionGUID: mDz2KGjSQ8+b8Ig0N2yJVQ==
+X-CSE-MsgGUID: 2EjV/cYTQAaan751quN40g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8830301"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 12:53:21 -0800
+Date: Tue, 10 Nov 2026 22:53:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com, andy@kernel.org,
+	robh@kernel.org, conor+dt@kernel.org, joshua.crofts1@gmail.com
+Subject: Re: [PATCH v6 2/2] iio: temperature: add support for Analog Devices
+ MAX30210
+Message-ID: <avOEPk_cwJSqxECQ@ashevche-desk.local>
+References: <20261110021442.410-1-johnerasmusmari.geronimo@analog.com>
+ <20261110021442.410-3-johnerasmusmari.geronimo@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,149 +83,254 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110013646.1582970-1-rosenp@gmail.com> <avKAhjtbi85dpGoV@x1g10>
- <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com> <avKHVDJJkhGgyBsI@x1g10>
-In-Reply-To: <avKHVDJJkhGgyBsI@x1g10>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 10 Nov 2026 12:47:26 -0800
-X-Gm-Features: AclHuK9U37xyg1UGTBVZdBBrLCrGhl3O6c9YzBYNAJfL0Ndc_wBpWSkIc42JL4I
-Message-ID: <CAKxU2N-ZxfMs-6gTiaYthNt5aun0wt0qH9HJy_xaUdkhHYQ5Ng@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] clk: add a driver for the ath79 PLL controller
-To: Brian Masney <masneyb@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Alban Bedel <albeu@free.fr>, Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110021442.410-3-johnerasmusmari.geronimo@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 9, 2026 at 6:54=E2=80=AFPM Brian Masney <masneyb@kernel.org> wr=
-ote:
->
-> Hi Rosen,
->
-> On Mon, Nov 09, 2026 at 06:35:32PM -0800, Rosen Penev wrote:
-> > On Mon, Nov 9, 2026 at 6:25=E2=80=AFPM Brian Masney <masneyb@kernel.org=
-> wrote:
-> > > On Mon, Nov 09, 2026 at 05:36:40PM -0800, Rosen Penev wrote:
-> > > > The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
-> > > > arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers eve=
-ry
-> > > > clock before the driver core is up. This series replaces it with a =
-new
-> > > > driver in drivers/clk.
-> > > >
-> > > > Only the reference and CPU clocks are registered early, with
-> > > > CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate =
-from
-> > > > plat_time_init(). A platform driver bound to the same node register=
-s the
-> > > > DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early pro=
-vider
-> > > > returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
-> > > >
-> > > > Patches 1 and 2 move the two remaining non-clock duties out of the =
-arch
-> > > > clock code, so that it only uses its own registers and the clk API:=
- the
-> > > > QCA956x timer interrupt workaround, and the reference clock that is
-> > > > read from the bootstrap pins when the device tree has no rate. Patc=
-hes 3
-> > > > and 4 add the UART1 and PCIe PLL clock IDs. Patch 5 adds the new dr=
-iver,
-> > > > and patch 6 removes the old code.
-> > > >
-> > > > Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The =
-CPU,
-> > > > DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match th=
-ose
-> > > > of the old code. The serial console, both GMACs, the PCIe PLL with =
-a
-> > > > QCA9880 behind it, and the WMAC all work, and no devices are left
-> > > > deferred. The other SoCs are not tested on hardware. For each SoC t=
-he
-> > > > rate calculation was compiled in userspace together with the old co=
-de
-> > > > and fed 2 million random register sets. The results are identical,
-> > > > except where the old code overflowed 32 bits with register values t=
-hat
-> > > > no real setup uses.
-> > > >
-> > > > Changes in v2:
-> > > > - Post the new driver as one patch, instead of moving
-> > > >   arch/mips/ath79/clock.c to drivers/clk and cleaning it up over si=
-x
-> > > >   patches (review feedback).
-> > > > - Register only the reference and CPU clocks with CLK_OF_DECLARE, a=
-nd
-> > > >   the others from a platform driver (review feedback).
-> > > > - Describe the SoCs with match data, and read the CPU, DDR and AHB
-> > > >   selection of AR934x and later with one function.
-> > > > - Keep mapping the AR934x SRIF block from its fixed address. It lie=
-s
-> > > >   inside the wireless MAC registers, which ath9k claims, so it can'=
-t be
-> > > >   a reg entry of the PLL node.
-> > > > - Drop the clkdev registrations, which have no users.
-> > > >
-> > > > Claude Code (Claude Opus 5.5) was used while preparing this series.=
- It
-> > > > wrote most of the new driver from the old one, together with the
-> > > > userspace test of the rate calculation. I reviewed and tested every
-> > > > change and take responsibility for it.
-> > >
-> > > 40 minutes elapsed from when I asked for changes to when a fully form=
-ed
-> > > new driver was posted with major changes. Your cover letter says this
-> > > v2 was tested on real hardware, however I am honestly a bit skeptical
-> > > given the short time frame. On top of that, that's not enough time to
-> > > also go through what all Claude did for you. Please slow down!!
-> >
-> > This was tested with a linux-next kernel on an Archer C7 v2 hooked up
-> > through serial and two ethernet cables (LAN and WAN). There's no
-> > difference that I can see between the old and new driver.
->
-> The clk_summary debugfs entries would be a good place to compare as
-> well.
->
-> > That being said, I only have two pieces of hardware on which testing
-> > can be done. Both are rather new relatively speaking. Older version of
-> > this series is currently live on OpenWrt with seemingly no ill
-> > consequences.
-> > >
-> > > I'm going to pass on reviewing this version. I want you to take some
-> > > time to test this on real hardware, and understand the code. If after
-> > > that you truly have no additional changes, then I'll reconsider
-> > > reviewing this version.
-> >
-> > Sashiko had two complaints. I'll fix those in v3.
-> > >
-> > > Also, if you want to help, then consider helping with reviews on patc=
-hes
-> > > from other people, in particular with the large series for the new So=
-C
-> > > vendors. It's a lot of work reviewing the flood of patches from
-> > > everyone. You can see the backlog for the clk core on the kernel.org
-> > > patchwork server.
-> >
-> > I agree. It's quite unfortunate and have no solution to it.
->
-> Just some friendly advice: If you keep churning out AI code as quick as
-> you can generate it, then your stuff will end up at the very bottom of
-> the review queue. There's a long backlog of other changes that need to
-> be reviewed.
-Sure. I'll wait a bit.
->
-> I'm not saying that you need to go review patches, but that goes a
-> really long way to building goodwill in the community. Maybe if you post
-> a large series like this go help review 2 or 3 patch sets that's in the
-> backlog from other people.
->
-> But seriously, the main ask from me is to please slow down before you
-> post new patches. Provide some more details about how this was tested on
-> real hardware.
-Sure.
->
-> Brian
+On Tue, Nov 10, 2026 at 10:14:42AM +0800, John Erasmus Mari Geronimo wrote:
+> Add support for the Analog Devices MAX30210 I2C temperature
+> sensor.
+> 
+> The driver uses regmap for register access and integrates with
+> the IIO framework. It supports:
+> 
+> - Direct mode temperature conversion
+> - Configurable sampling frequency
+> - Threshold events
+> - FIFO operation with IIO kfifo buffer support
+> - Optional interrupt-driven data ready signaling
+> 
+> The device provides 16-bit signed temperature data and a
+> 64-sample FIFO.
+
+...
+
+> +	/* Drop the reference even if the write fails; a later direct read clears AUTO anyway. */
+
+It's a bit too long. Make it multi-line.
+
+...
+
+> +static void max30210_fifo_read(struct iio_dev *indio_dev)
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	/*
+> +	 * FIFO_DATA_REG auto-increments in hardware; bulk_read would treat
+> +	 * each subsequent byte as a separate cacheable register.
+> +	 */
+> +	ret = regmap_noinc_read(st->regmap, MAX30210_FIFO_DATA_REG,
+> +				st->fifo_buf,
+> +				MAX30210_FIFO_BYTES_PER_SAMPLE * st->watermark);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Failed to read from fifo.\n");
+> +		return;
+> +	}
+> +
+> +	for (unsigned int i = 0; i < st->watermark; i++) {
+> +		u32 raw = get_unaligned_be24(&st->fifo_buf[MAX30210_FIFO_BYTES_PER_SAMPLE * i]);
+
+		unsigned int idx = MAX30210_FIFO_BYTES_PER_SAMPLE * i;
+		u32 raw = get_unaligned_be24(&st->fifo_buf[idx]);
+
+> +		s16 temp;
+> +
+> +		if (raw == MAX30210_FIFO_INVAL_DATA) {
+> +			dev_err_ratelimited(&indio_dev->dev, "Invalid data\n");
+> +			continue;
+> +		}
+> +
+> +		temp = sign_extend32(FIELD_GET(MAX30210_FIFO_TEMP_MASK, raw), 15);
+> +
+> +		iio_push_to_buffers(indio_dev, &temp);
+> +	}
+> +}
+
+...
+
+> +static irqreturn_t max30210_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct iio_dev *indio_dev = dev_id;
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	unsigned int status, enabled;
+> +	int ret;
+> +
+> +	ret = regmap_read(st->regmap, MAX30210_STATUS_REG, &status);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Status read failed\n");
+
+It's always recommended to have the messages to be ratelimited in IRQ handler,
+that's in case of intermittent problems with reading this may flood the kernel
+log.
+
+> +		return IRQ_NONE;
+> +	}
+> +
+> +	/* STATUS flags are set whether or not they are enabled in INT_EN. */
+> +	ret = regmap_read(st->regmap, MAX30210_INT_EN_REG, &enabled);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Interrupt enable read failed\n");
+> +		return IRQ_NONE;
+> +	}
+> +
+> +	status &= enabled;
+> +	if (!(status & (MAX30210_STATUS_A_FULL_MASK |
+> +			MAX30210_STATUS_TEMP_HI_MASK |
+> +			MAX30210_STATUS_TEMP_LO_MASK)))
+> +		return IRQ_NONE;
+> +
+> +	if (status & MAX30210_STATUS_A_FULL_MASK)
+> +		max30210_fifo_read(indio_dev);
+> +
+> +	if (status & MAX30210_STATUS_TEMP_HI_MASK)
+> +		iio_push_event(indio_dev,
+> +			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
+> +						    IIO_EV_TYPE_THRESH,
+> +						    IIO_EV_DIR_RISING),
+> +			       iio_get_time_ns(indio_dev));
+> +
+> +	if (status & MAX30210_STATUS_TEMP_LO_MASK)
+> +		iio_push_event(indio_dev,
+> +			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
+> +						    IIO_EV_TYPE_THRESH,
+> +						    IIO_EV_DIR_FALLING),
+> +			       iio_get_time_ns(indio_dev));
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +static int max30210_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long mask)
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+
+		struct regmap *map = st->regmap;
+
+> +		if (val < 0 || val2 < 0)
+> +			return -EINVAL;
+> +
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		for (unsigned int i = 0; i < ARRAY_SIZE(max30210_samp_freq_avail); i++) {
+
+			unsigned int mask = MAX30210_TEMPCONF2_TEMP_PERIOD_MASK;
+			unsigned int value = field_prep(mask, i);
+
+> +			if (val != max30210_samp_freq_avail[i][0] ||
+> +			    val2 != max30210_samp_freq_avail[i][1])
+> +				continue;
+> +
+> +			return regmap_update_bits(st->regmap, MAX30210_TEMP_CONF_2_REG,
+> +					MAX30210_TEMPCONF2_TEMP_PERIOD_MASK,
+> +					FIELD_PREP(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, i));
+
+			return regmap_update_bits(map, MAX30210_TEMP_CONF_2_REG,
+						  mask, value);
+
+> +		}
+> +
+> +		return -EINVAL;
+> +	}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int max30210_set_watermark(struct iio_dev *indio_dev, unsigned int val)
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	if (!val)
+> +		return -EINVAL;
+> +
+> +	val = min(val, MAX30210_FIFO_SIZE);
+
+I would put check here to make it look more natural.
+
+	val = min(val, MAX30210_FIFO_SIZE);
+	if (!val)
+		return -EINVAL;
+
+> +	/*
+> +	 * FIFO_A_FULL sets the number of empty FIFO slots remaining when
+> +	 * the A_FULL interrupt fires. For a watermark of N samples, set
+> +	 * FIFO_A_FULL = FIFO_SIZE - N.
+> +	 */
+> +	ret = regmap_write(st->regmap, MAX30210_FIFO_CONF_1_REG,
+> +			   FIELD_PREP(MAX30210_FIFOCONF1_A_FULL_MASK,
+> +				      MAX30210_FIFO_SIZE - val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->watermark = val;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int max30210_setup(struct max30210_state *st, struct device *dev)
+> +{
+> +	struct gpio_desc *powerdown_gpio;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(powerdown_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(powerdown_gpio),
+> +				     "failed to request powerdown GPIO\n");
+> +
+> +	if (powerdown_gpio) {
+> +		/* CVT/PDB needs a 5 us low pulse; hold it asserted for twice that. */
+
+If I am not mistaken somewhere else you used Greek MU, why not here? Please,
+check the comments for the consistency.
+
+> +		fsleep(10);
+> +
+> +		/* Deassert powerdown to power up device */
+> +		gpiod_set_value_cansleep(powerdown_gpio, 0);
+> +
+> +		ret = devm_add_action_or_reset(dev, max30210_powerdown, powerdown_gpio);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		/* The supply was just enabled; the device needs tPU before it accepts I2C. */
+> +		fsleep(700);
+> +
+> +		ret = regmap_set_bits(st->regmap, MAX30210_SYS_CONF_REG,
+> +				      MAX30210_SYSCONF_RESET);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * Datasheet Figure 6:
+> +	 * tPU max = 700 µs after power-up or reset before device is ready.
+> +	 */
+> +	fsleep(700);
+> +
+> +	/* Clear status byte */
+> +	return regmap_read(st->regmap, MAX30210_STATUS_REG, &val);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
