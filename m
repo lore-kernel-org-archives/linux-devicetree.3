@@ -1,82 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352670;
-	b=lcijpXX4iPwb1s3PmiLRNCDQW7JbxE7zr+/YZETz5FC6nbO+MJ+1Va/luDoPwAGtt6Vd
-	 H/rYWBQCcsHdwtOSf/khQIwg+PTRtVckbPzWeskhoGVuCxZakvxxx9XzffC/hJ/wFQRZ0
-	 URL4XM5G4PEV1kDzA+eKzQT++WAN2o8Tp4Gl0Ab+/+2GKg8Rj3s9KemH9APzVb351b78r
-	 npfK7zd1INW2BL7J0bNYyCIOYFH0AnLKYi+7c0JUG1t1SSEZ3oZJO5Ys772geizvsTKN4
-	 d7MfNiiW5ODB1fBIAucMZ7Dle0kEZsPz4amC8V48PkAW1Q9tkC7Sw8dY0LnCbxEdxNA==
+	t=1794353056;
+	b=CbVoIHDS4Zis/J//13N6Inx9+0dN63H9fJ9oBuPLCKQh7v4g10PAKDs4gQKGD1bCCfJA
+	 ZyxGJ/WXxulud7jWlc9fwRiZomArQf8A+cSVAGQO2fk2EQt/sM4xWGFE13KdS0BAR5Agn
+	 pouUfSXfBbMYghkwVvEm3N0NhCyLsGzn/E+bzlHlP+R+MNFPZ+Rw81aEQZMET7QXKfSVO
+	 nn/OS36acHCUpq6vahofuHYBlEQTdaNGwotiUf+7S21IyWE+lW0fJuKtgWFjR1lgLivcv
+	 ankNmUUwtcuNaIkXfKOEapsxuyCkoiaQ8FjMNlXYeo+sWgzRe+TE3A/BKL8sMMAEksQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352670;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gbmiIYRmaOIY16FesNo5fSYIqv3eyHrsXkU16JRHHC8=;
-	b=sNSGPDwBY/Ozu2lOFNE6Om11b9Q3E9fc9pq8EjN7BrAIDqTxlBUK9EcNRds2BpUtMtNO
-	 Ri6BqqI5IFn0dohyxcFrLFiDfDEBTM/vuJe62q8Gjn9k+BsH5JtTMaTzlfikmh1+bW5fU
-	 N/vObU/JQ+QN33zkQQz4q7NrEYoEqiWsarcRgXjxicEC0GnE0Zz+24yk4QXe60UUqfsEs
-	 axrfN3Ah+uyIeXqxG514jkt203knoSJ7/v/efShqhjqObi0bgV1FyrEXgpQ7CncJ8kA2C
-	 fKgQGxU4HXVHg3UxtVPvTJEEo9/whPEtajYcv8WXmiqdMicOh7hg2tz0ttBPCqQagCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353056;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=oBdSHQJupvZ8LPJt+TyfOUM8vW0yJLnqhiA1y51JB4s=;
+	b=Ib5xP26ix1hG8cF+9xLRQP3HgoA9vHN2NUv7JGmCCFr2AiwqY6vAgYHKyO7yyjz42jpM
+	 R/OpQYpkEt7dZArncv11fiCdrmoOx4lBfMftp/2MSp2ELgKr6ODDi6wPBhKERyF0wP309
+	 CTQ7Iw6p1+bDJpxoySh+sWHrS07EqqMQe6bNB5T89clipXvhDfeRGvK6kMPjMADssvBNz
+	 WaTK3h6dBgO7C/yxEPwEqYDeGLb2rsDv1Q5Gs8eX380oDkhlxnzySsD3gkekzMRp/jAZO
+	 TTscQYej5VRkY3J+PQpjxJrW0A5eMLF3zP8P789OZ5R1utNokACYyMlqMVpDPzJxBqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS6b8KC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOODjP2U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26328606A31C;
-	Tue, 10 Nov 2026 23:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C42D606A320
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS6b8KC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F361F0093C;
-	Tue, 10 Nov 2026 23:17:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOODjP2U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7851F0093C;
+	Tue, 10 Nov 2026 23:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352670;
-	bh=gbmiIYRmaOIY16FesNo5fSYIqv3eyHrsXkU16JRHHC8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WJS6b8KC1LJY2RUo9wiF5fL7kLRtABCnBxnzmLOUAlldosxNl2+W+GTjJBDvaRBvm
-	 Fu2jpwZwDfWPJ2Hqn4VF1ipfVWnrZzCXNFfVTAjGpVQco5nVz9fomH48P07U7gOa7Y
-	 rBitF4k71S7d2mXqcdSux3x4V1b5ZJdWi4ALo3+PHFAcr6ya/VnZyaxd6lTF/6eJsF
-	 qfI6EJ+cBIAy9kjD8xtvz7qV+Zsgv9AZwwuA6BYoRf/yZmlEI1gbohNlcix4uQCcYY
-	 1FlJW2JOxAPpUPmbEibgKU0ZWnYf5FOSUaMZ43Jyjnk11EMXIN9uy4Uu56EJ+DVAey
-	 To4C8xAa7SnNQ==
-Date: Tue, 10 Nov 2026 15:17:48 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 2/5] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <avOmHFcy/yFOr9YX@x1>
-References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
- <20261108-dfustini-atl-sc-cbqri-dt-v11-2-33a1bf0cf01c@kernel.org>
+	s=k20260515; t=1794353056;
+	bh=oBdSHQJupvZ8LPJt+TyfOUM8vW0yJLnqhiA1y51JB4s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dOODjP2UvvwHyJM7oMSYMUwpvJAGRo91w1wnoanKUX3WzN2WhJEs/muODCe4Q9C9z
+	 i98BpP97PkerSlwU2c0PHHhykb9d2in+gCNORzqXBE6FAJEUceqFLd9G6bsQxhbRie
+	 T1jNUHmZuReZyASPTgtGUEUdL7rEidY0adsJQYBB+SIbzpRkAHv6zFCITYa35HcH8w
+	 rWYSasUFDqOg8rEl2Fm0cpr45shp/h5HZnLAL7Ka43QTkXIOwwW22RYx3jBMCAL0Hk
+	 he563XvtR0+pFhTb1yEZNeO20DE+oAv8Eh8M2GtPlc82zLcbo3OszPgjkUYADZH5U2
+	 6N698xf1DCxnw==
+Message-ID: <sashiko-outbox-207895@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] power: supply: core: Read the charging temperature
+ range and alert settings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexey Charkov" <alchark@flipper.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261109-battery-charge-temp-range-v1-2-a967abd8b80c@flipper.net>
+References: <20261109-battery-charge-temp-range-v1-0-a967abd8b80c@flipper.net>
+ <20261109-battery-charge-temp-range-v1-2-a967abd8b80c@flipper.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 23:24:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,41 +60,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-dfustini-atl-sc-cbqri-dt-v11-2-33a1bf0cf01c@kernel.org>
 
-On Sun, Nov 08, 2026 at 03:20:51PM -0800, Drew Fustini wrote:
-> Wire CBQRI capacity controllers into resctrl as the L2 and L3 cache
-> resources.
-> 
-> resctrl exposes a single capacity mask per resource, so when more than
-> one capacity controller backs a cache level they must report the same
-> number of capacity blocks. The same holds for the other capabilities
-> resctrl exposes once per resource. A level whose controllers disagree
-> is left unexposed. Other levels are unaffected.
-> 
-> The set of controllers backing each level is fixed when resctrl is set
-> up at late_initcall. Control domains are created in the cpuhp online
-> callback and keyed on the onlining CPU's cache id from cacheinfo, so a
-> CPU that is offline at probe time still joins its domain once it comes
-> online, provided a controller for its cache is in that set.
-> 
-> A CPU whose cache has no controller, or whose domain cannot be created,
-> still comes online. It is left out of that level and a warning is
-> logged, since bringing the CPU up matters more than controlling its
-> cache traffic. A domain is published on the ctrl_domains RCU list only
-> after it is fully initialized and brought online, and removed from the
-> list before it is taken offline, following the documented safe
-> traversal rules.
-> 
-> Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-> Acked-by: Reinette Chatre <reinette.chatre@intel.com>
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] power: supply: core: out-of-bounds read in
+  power_supply_ocv2cap_simple() [1]
+--
 
-Hi Reinette, I still need to get more reviews on this series, but I
-wanted to check if your expectation is that all the patches in this
-series should be merged through arch/riscv?
+commit adb164988f0d04b6bb830ddbcbc6a92311698583
+Author: Alexey Charkov <alchark@flipper.net>
 
-Thanks,
-Drew
+power: supply: core: Read the charging temperature range and alert settings
+
+This commit reads the charge-temp-range-celsius and alert-*-temp-charge-*
+firmware properties into struct power_supply_battery_info, falling back to
+the operating temperature range when charge-temp-range-celsius is absent.
+
+> diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/sup=
+ply/power_supply_core.c
+> index de15314ef9549..3bfc4fb8687ef 100644
+> --- a/drivers/power/supply/power_supply_core.c
+> +++ b/drivers/power/supply/power_supply_core.c
+> @@ -855,6 +855,14 @@ int power_supply_get_battery_info(struct power_suppl=
+y *psy,
+>  			     &info->constant_charge_voltage_max_uv);
+>  	fwnode_property_read_u32(fwnode, "factory-internal-resistance-micro-ohm=
+s",
+>  			     &info->factory_internal_resistance_uohm);
+> +	fwnode_property_read_u32(fwnode, "alert-low-temp-charge-current-microam=
+p",
+> +			     &info->alert_low_temp_charge_current_ua);
+> +	fwnode_property_read_u32(fwnode, "alert-low-temp-charge-voltage-microvo=
+lt",
+> +			     &info->alert_low_temp_charge_voltage_uv);
+> +	fwnode_property_read_u32(fwnode, "alert-high-temp-charge-current-microa=
+mp",
+> +			     &info->alert_high_temp_charge_current_ua);
+> +	fwnode_property_read_u32(fwnode, "alert-high-temp-charge-voltage-microv=
+olt",
+> +			     &info->alert_high_temp_charge_voltage_uv);
+> =20
+>  	if (!fwnode_property_read_u32_array(fwnode, "ambient-celsius",
+>  					    min_max, ARRAY_SIZE(min_max))) {
+> @@ -871,6 +879,14 @@ int power_supply_get_battery_info(struct power_suppl=
+y *psy,
+>  		info->temp_min =3D min_max[0];
+>  		info->temp_max =3D min_max[1];
+>  	}
+> +	if (!fwnode_property_read_u32_array(fwnode, "charge-temp-range-celsius",
+> +					    min_max, ARRAY_SIZE(min_max))) {
+> +		info->temp_charge_min =3D min_max[0];
+> +		info->temp_charge_max =3D min_max[1];
+> +	} else {
+> +		info->temp_charge_min =3D info->temp_min;
+> +		info->temp_charge_max =3D info->temp_max;
+> +	}
+> =20
+>  	len =3D fwnode_property_count_u32(fwnode, "ocv-capacity-celsius");
+>  	if (len < 0 && len !=3D -EINVAL) {
+
+[Severity: High]
+This problem wasn't introduced by this patch, but can an empty
+ocv-capacity-table-N property in power_supply_get_battery_info() [1]
+cause an out-of-bounds read in power_supply_ocv2cap_simple()?
+
+drivers/power/supply/power_supply_core.c:power_supply_get_battery_info() {
+    ...
+		proplen =3D fwnode_property_count_u32(fwnode, propname);
+		if (proplen < 0 || proplen % 2 !=3D 0) {
+			dev_err(&psy->dev, "failed to get %s\n", propname);
+			power_supply_put_battery_info(psy, info);
+			err =3D -EINVAL;
+			goto out_put_node;
+		}
+    ...
+		tab_len =3D proplen / 2;
+		info->ocv_table_size[index] =3D tab_len;
+
+		info->ocv_table[index] =3D table =3D
+			devm_kcalloc(&psy->dev, tab_len, sizeof(*table), GFP_KERNEL);
+    ...
+}
+
+When ocv-capacity-table-N is present but empty,
+fwnode_property_count_u32() returns 0, which passes the proplen < 0 ||
+proplen % 2 !=3D 0 check.  devm_kcalloc() then returns ZERO_SIZE_PTR with
+ocv_table_size[index] set to 0, and power_supply_ocv2cap_simple() later
+dereferences table[0], crashing the kernel.  Rejecting proplen <=3D 0 (simi=
+lar
+to resistance-temp-table below) would avoid this.
+
+[1] https://sashiko.dev/#/bug/linux-4a0a5d5f-629d-4b0d-b4be-07415bcb018e
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-battery-ch=
+arge-temp-range-v1-0-a967abd8b80c@flipper.net?part=3D2
