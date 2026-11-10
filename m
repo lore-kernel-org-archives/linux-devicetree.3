@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297020;
-	b=gmDrXCc2+1x/oR/xAI/QtC9stLtZQoX6Ph46TgaJ3KR3KBuI4/x1CFN1DAGbZv/5NaVE
-	 mmAUkt+h8oKYm+gGQI/zyXfNGF1p7tPR2IsIAJVsrNuR6Szfr2ax0iOJJM7XNXhrPzm1C
-	 eiV6wwbuV6o4rb14f+bsG6sevhigQFr03zFWKPPTMuzU1NnJ5tsLbdqvU9wq1QyYh7OF/
-	 pKxp0K+cDl+DFAMDhCo7OM3+a7KA4zMrK4ZfEl7UQsqprXTBnmEeelflQGLNSA0Y/tVGl
-	 jdovanPaXK8yePflRbeHYEicjS17T/I7o/yb+g/NGQGMuqy/VYqWhFCrtY/Aje+JnaQ==
+	t=1794297672;
+	b=zFSPqA8HROwzlLKiRMN9faEwn/fbybGP/4/dlwNspKMbEN+uViS8HpWRQU3m0FGPj3aU
+	 FdeCrzUqhcmwSmE58BpHdM+EMO2DusfDsYjplLsZI/DGoaSHtaSy0Zpdq27M+nKPW67uv
+	 p+qwoLGf8CR22os6ahkEBdjEqwo6WcWuXyTjbpHKeQAajlnbjCPqS6E+INz4CGXxjBStk
+	 PW5BAkwJq5cYwi+NnCrgFBec2JBlyCNj3DyfBKpEgIViCCHbKrcUxvb9Z/2KczORdhSnO
+	 mzyYAGtQtidzCTu9OzrA1YOiETvZeYggxC8ChDJsXEU/jvN+ErVD5KfXgq3QHfg065w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297672;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TJku+c8t4bTpn2fY+P+fG+gIMWMUc/Q8CL46TPcoVoY=;
-	b=nwmy5JpbZoDjB3Gxs7J3bPk+bZ5nCjBFO0VtY8jDXHi2XWogsTRS71khWgxCecpRQtF4
-	 ACY12cTp5LniMye+86jlhqeg4z0UBsQvuRHBWipSD++Ze32xDEmtY4otUhEmbvfYJiEy8
-	 yI+g7xa0X1eLI0TidXvF92bQHSfgqWDXCprK5lZ93Yp+vyYMRHdX+k/5885NTjCNjGY2W
-	 6s0E/j8C8Tp6yFWGbqj/tyb4HHSWQ5HibV0CuqiUUJDca8nhM6LuZ689a3Y7O6b1ySr2K
-	 b0jgHfy/R+6yasWtEXbwUHtNGHk+RkEgP12/fflJs52WQqG3/2j3aPGGfhgAYsKeuYQ==
+	bh=yddDVzwr2bKs1Uh96wp294uqm9xQ9ZvBG0Pxzm8Ku8c=;
+	b=RGynTiBpZlcM453y53YcLv/WHM4pAgO+diZQYw06zOfguXduK+FxEujx0KeX6U6D9bHo
+	 7uvQZPHkYn9PPHpRqVRlNzT5xzrMs6oyMXbNyGzyz+yUo5JkI2Cf6GUF4adk8OFJvgs8d
+	 kKpxwQkJDlcB1lXSLIVw3jYRK3WMWEu0KWP/sYZCDt+b25Yf8JmG9CIJHzfFPh+YUMmqO
+	 A9uIM8JUWGSddmcYCBtDuNSpdx4yXJhkJukuf+4jWRFzyOdG7fNJsQ+o+KBxEcnranMPW
+	 jj1Qy1Q6Vl5JxM+ir+LeL5XgTS7Hg2rXC+r9C5PKgLjrs7FReWkNC4USxy9MXIVxzng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h21YCkb4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRrphewM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C560606C637
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97654606A735
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:01:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h21YCkb4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0231F008AB;
-	Tue, 10 Nov 2026 07:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRrphewM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32201F0089F;
+	Tue, 10 Nov 2026 08:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794297020;
-	bh=TJku+c8t4bTpn2fY+P+fG+gIMWMUc/Q8CL46TPcoVoY=;
+	s=k20260515; t=1794297672;
+	bh=yddDVzwr2bKs1Uh96wp294uqm9xQ9ZvBG0Pxzm8Ku8c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h21YCkb4QVb7MQp9jMOVDEVGG12UZwhgSOHDIjGf3CwZjpqLgNrPKS1yOTx9rFZZR
-	 IWtTlt4iWBkLLwoKhUWqhXdy/ZekWaG5NV3jD5rUQjWAQhkCAmj87WL47RoEbamdRE
-	 hBjeFQ1/bNUaiI0neztpzpJzju4xZk3DnagOmM6B2G2iF+GD4G16YITrEUgYZWDJ35
-	 SY2yNQMbF34OjRm3hzdTjBQnCWI5dpGbqDGR1mNC2V2BXnA9x/A8mmm3/zvwjv+pOy
-	 1XU1A2iwK8qM+5nrkbJvGalbgMKDEgj2iLrXT7utg9USALOgF66wCrffkhsy3r05h+
-	 rgl3HJT7ayRkA==
-Message-ID: <sashiko-outbox-206534@kernel.org>
+	b=hRrphewMQwfhuSq8Q7VejqyYpCQrIKrihU/ONP6ZLW9f65tAp9e+uGJoZh/6y7NOR
+	 QWLYSkdXT5aXOKoSbwWeTAIjOOZO1+kB3AbJs34Oohp0U25r++8R4LOViAK3mvjk3+
+	 wCPcXGzYw2zn4yGLejo1efe2SqH6pRHsJFg6GuOdv8UYUSag3XdlCkAFwYl8Lv1kAW
+	 TD6bjwq26Hj0drL0for2/BawEoKrcxrm+0avrkadm01ZXaDS5061+SNN0tYCsYO6MU
+	 M8J6qK1JdfoMqO6ZXT9swXlyBDyIwWBJ6O31qVED7/W+RqZru70MsNmujjYoK5GTu1
+	 s44Ram9emNkAg==
+Message-ID: <sashiko-outbox-206554@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] media: verisilicon: Don't hold a VPU behind an
- IOMMU in reset after remove
+Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261110-hantro-robust-v1-2-6b6269c05bfa@gmail.com>
-References: <20261110-hantro-robust-v1-0-6b6269c05bfa@gmail.com>
- <20261110-hantro-robust-v1-2-6b6269c05bfa@gmail.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261110074533.4052196-2-damon.ding@rock-chips.com>
+References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+ <20261110074533.4052196-2-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 07:50:15 +0000
+Date: Tue, 10 Nov 2026 08:01:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,73 +60,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [High] media: verisilicon: null pointer dereference in hantro_probe()
-  [1]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: soc: rockchip: leftover clocks in
+  rk3568-edp-phy-grf schema
 --
 
-commit 4e4d9ad2d3b9dfeb29c03b860ceeca44937863cf
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+commit 9b91012944140ff14ec2e2563f712e212d1da630
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-media: verisilicon: Don't hold a VPU behind an IOMMU in reset after remove
+dt-bindings: phy: Add rockchip,rk3568-edp-phy
 
-This commit leaves the resets of a VPU behind an IOMMU deasserted during
-probe error cleanup and driver removal so the IOMMU can access its
-registers when it subsequently runtime suspends.
+This commit adds Device Tree binding schemas for the RK3568 eDP
+transmitter PHY and its parent eDP PHY GRF syscon node.
 
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466e..702d878c7b509 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1069,6 +1069,22 @@ static struct v4l2_m2m_dev *hantro_get_v4l2_m2m_de=
-v(struct hantro_dev *vpu)
->  	return v4l2_m2m_init(&vpu_m2m_ops);
->  }
-> =20
-> +/*
-> + * The resets may also cover the bus interface that the IOMMU of the VPU=
- is
-> + * accessed through, e.g. on the RK3588 AV1 decoder. The IOMMU is a sepa=
-rate
-> + * device which is runtime resumed with the VPU while it is unbound, and
-> + * accesses its registers again when it runtime suspends afterwards. Hol=
-ding
-> + * the VPU in reset at that point causes an asynchronous external abort,=
- so
-> + * leave the resets deasserted for a VPU behind an IOMMU.
-> + */
-> +static void hantro_reset_assert(struct hantro_dev *vpu)
-> +{
-> +	if (device_iommu_mapped(vpu->dev))
-> +		return;
+> diff --git a/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk35=
+68-edp-phy-grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/rockch=
+ip,rk3568-edp-phy-grf.yaml
+> new file mode 100644
+> index 0000000000000..852420798f06a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-=
+phy-grf.yaml
+> @@ -0,0 +1,80 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: rockchip,rk3568-edp-phy-grf
+> +      - const: syscon
+> +      - const: simple-mfd
 > +
-> +	reset_control_assert(vpu->resets);
-> +}
+> +  reg:
+> +    maxItems: 1
 > +
->  static int hantro_probe(struct platform_device *pdev)
->  {
->  	const struct of_device_id *match;
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/rk3568-cru.h>
+> +
+> +    soc {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +
+> +      edp_phy_grf: syscon@fdcb0000 {
+> +        compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-=
+mfd";
+> +        reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
+> +        clocks =3D <&cru PCLK_EDPPHY_GRF>;
+> +        ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +
+> +        edp_phy: phy@0 {
+> +          compatible =3D "rockchip,rk3568-edp-phy";
+> +          reg =3D <0x0 0x100>;
+> +          clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
+> +          clock-names =3D "ref", "apb";
+> +          #phy-cells =3D <0>;
+> +        };
+> +      };
+> +    };
 
-[Severity: High]
-This problem wasn't introduced by this patch, but can hantro_probe() hit a
-NULL pointer dereference [1] when dereferencing match->data?
+[Severity: Medium]
+Should clocks be dropped from properties, required, and the parent
+syscon@fdcb0000 example node in rockchip,rk3568-edp-phy-grf.yaml?
 
-drivers/media/platform/verisilicon/hantro_drv.c:hantro_probe() {
-	...
-	match =3D of_match_node(of_hantro_match, pdev->dev.of_node);
-	vpu->variant =3D match->data;
-	...
-}
-
-If a probe is forced via sysfs bind on a device without a matching OF node,
-of_match_node() returns NULL and match->data is dereferenced
-unconditionally.
-
-[1] https://sashiko.dev/#/bug/linux-4e7cd977-2daf-4048-ad53-7801b4bba80e
+The child rockchip,rk3568-edp-phy schema now owns and requires the apb
+clock (PCLK_EDPPHY_GRF).  Requiring clocks on the parent syscon node as
+well causes dtbs_check failures unless device trees duplicate
+PCLK_EDPPHY_GRF on both the parent syscon and the child PHY node.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-hantro-rob=
-ust-v1-0-6b6269c05bfa@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110074533.4052=
+196-1-damon.ding@rock-chips.com?part=3D1
