@@ -1,56 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324474;
-	b=cr78omjL4CD7wMlebMmNJbNCqDrOjsWet6ZRvGGAQb9DPJZSC0heMdCAnbsG4KkWZ+o/
-	 JLJKqdhqcGFl6vUfh4qqHyA8cLLUgl9Fr6FEt8nLyBypeZD4trcAvdxxGQG6F2lmKPa+n
-	 L7NgilI36kdu/APZBTnl3DXLpZXWaKMd1SBgOwQNLTP/KyG+Oy8FIl4gDISS6GvWZyd/l
-	 32xi+nbwgcBteIpycCKlEnkk0Ai2UJjZ5nrkQqTBI3/lY1SGyiLV3k+NwYQ0Y/TZt1XyV
-	 srp/T11LNgKJ6gMLfc4s5ratF3pIkEnIUS59evkaTg26dI+R70D6zhBVfHkmAkJm07Q==
+	t=1794324803;
+	b=hfXQ1dzqQqtsv0N2K5+8rL2lmJ0IsJ5aZ5/ejqUXwFneT+Sm8snITfA2x0fhXbzzEZ1R
+	 DEMwbOEDL8+4UsVl6p/0H34UkiB44aeGkJDmSayFPkKljRIJ6uY1tZ8DTz3OVlo1dUf1c
+	 G1/iqcwj2x4uM9cHV71Fx1luGIdlLMtG6YLIck4dRVWCOUEcF6x+XiXjmyIcj85bsMHtT
+	 mcW5V906NmS8XoLTUBwN296ye4FYaNVFX8RklEcxyj0dH9N1fxShOyWCk8OwDzPWIOn9l
+	 C90DPx0S6+Wsz5Gge8ZQCEpWGycEYwGhrUi1cZLcTEUMh+HSEpb8P7DO+aXSjoWyxvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324474;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LLjq8kkWSwtU1FCYazl1WUTtOMw4z36xQzzMmhXmoKc=;
-	b=2G7L8LHHxrcjyshWfKZ6NFirnb64+G11EjOq+U+T4/n5WRssATDa2cRhysaV+o1GRwln
-	 caXVEdmOUXz/xZPK3GcdOnUIAzFziUUYu9wh9wKNelWTwx2jQqYh/5FF1dnXyqL8tYOHG
-	 RXqAFKhLX8g+/bEnFp0epcRN8D8pkClfHFV0gtgWAUi9grbEK6xNSk8FvongkIUvwFovz
-	 FdfSK5lsF3h48p4Iz1sNtD7Gqw98m7Lw2574QUYGSYHvAPrmIbb2+t8d3xuE6QBAmHweI
-	 xUKu+5ujnttYNej5BCfSYnAor7meGmZTUEKZaXXxZ2cIBhhIHkiajgtc7dny7fOo1dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324803;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 Alx-In-Reply-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=XCxFswGonhuE70D4bHiEsaJMPpD38NA8Fe7r383T5jE=;
+	b=EMNgWp5MM5/w6hjo3AOKEJ76/vX3n7mYXIHdQLxgzFo/ffkuMCieXTmdtkV5+bl1/tq/
+	 cqegvVKGu8w1g6s0Ceroc053OrBAH7kiUKSVYofVO5ZOP4ioYm94cEdHfzk6enk7kAKi1
+	 /GH2OFMBNfGNBzh/2iK4DrV78kHam2avGckV4MUaT10+L+6pg3SjuLgzxk7B84OTtrnS9
+	 EcTsiF4C1wTKKhRnZlPVBxYenXzJMy6phM37BYjIKnqmVpR26wHI0rhjMjtmvYQuPLmS1
+	 4Dc4fbfyVPCnihiqT21sz3gC3tfAtqYjdpqqfw1QwDcbrM5cssGYdd3gGS9ALaPgIJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjeuSyG1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ddie5fmi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85482606A321;
-	Tue, 10 Nov 2026 15:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B44606A332;
+	Tue, 10 Nov 2026 15:33:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjeuSyG1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7D21F0089F;
-	Tue, 10 Nov 2026 15:27:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ddie5fmi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8A91F008BC;
+	Tue, 10 Nov 2026 15:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324474;
-	bh=LLjq8kkWSwtU1FCYazl1WUTtOMw4z36xQzzMmhXmoKc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GjeuSyG1MFRuzacta/bgFzyNVQPs9czbkmcdGc6xidREzitccUgWdIJyrtdPi1Ui8
-	 wJdw9O7UuQ/Tb9jQwtVD2UIa72Us64lAsQMOLsD+2XOvfCqDUpz8brnGluZXxDXuiT
-	 Q7jYh3IuG/b5tm3CYuclhEuRCkUrUitCPj9TWTBo9ppuiVzYQP5+iR/WZmWrPD2AlY
-	 mC9524RsNLKXvv22mile/8aTOUUKUhUYpiiUJBm3tj4CjxXhfb4tE1+oSQMCllWz+t
-	 J+La186w6VPE1vy56/7Ar7Jay7ZgCDRRg+K8ZskfSkVUrnDgRF3WvUKQJfWvimFEQi
-	 zR9uXIrcq8iZw==
-Message-ID: <sashiko-outbox-207264@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: freescale: Add device tree definition for
- Cloos CBASE with i.MX8MM
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lukasz Majewski" <lukma@nabladev.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261110150546.1535950-1-lukma@nabladev.com>
-References: <20261110150546.1535950-1-lukma@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 15:27:53 +0000
+	s=k20260515; t=1794324803;
+	bh=XCxFswGonhuE70D4bHiEsaJMPpD38NA8Fe7r383T5jE=;
+	h=Date:From:To:Cc:Subject;
+	b=Ddie5fmijPGpWDhGPmU+YjBYCpO5CEMKmqG4sNfMvkr//zUNZs3epGRhkI8paoKet
+	 wQ4vpdKa5p8mdW2cObWPCOOPKzonr50YJ4VO1PSfeVdUyeUxbB2uZ1wnheKlGftFAR
+	 cLOslfVMB4yrZSG5ZrBf1MSX9glRSMIHiwagiHg2CTz7yTJtNIIi80uayaOs4cqH+x
+	 eUbdJ7xO1lKv1gLumX5pXvrPj+T7aEVBOYEYFod+IE+/mKcUu+qbpMu1SWN2knF5aE
+	 KDIZ1CntjQRnLQEGEm7OIdHUan7qwdDxOAF1Y3KHjGYBKpbMYdhRvpvx+vSTKRyM9g
+	 2PsPHgsQ/jucA==
+Date: Tue, 10 Nov 2026 16:33:15 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alejandro Colomar <alx@kernel.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v3 0/5] Add strprefix() and fix a bug with it
+Message-ID: <cover.1794323750.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
+Alx-In-Reply-To: <cover.1793876837.git.alx@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,181 +69,234 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ldbuj4gtwrs6ecqn"
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] arm64: dts: freescale: usdhc2 fails probe due to disabled
-  reg_usdhc2_vqmmc
-- [Medium] arm64: dts: freescale: missing Makefile entry for
-  imx8mm-cbase.dtb
-- [Medium] arm64: dts: freescale: lcdif enabled without mipi_dsi or
-  display bridge
-- [Medium] arm64: dts: freescale: undocumented compatibles and missing
-  lm77 OF table
-- [Low] arm64: dts: freescale: decimal unit-address port@10 for reg =3D
-  <10>
-- [Low] arm64: dts: freescale: flexspi left enabled after deleting
-  flash0 node
---
 
-commit ed8bce86f8c6ce432aef83c22f5cd48f6151d1c7
-Author: Lukasz Majewski <lukma@nabladev.com>
+--ldbuj4gtwrs6ecqn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alejandro Colomar <alx@kernel.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v3 0/5] Add strprefix() and fix a bug with it
+Message-ID: <cover.1794323750.git.alx@kernel.org>
+MIME-Version: 1.0
 
-arm64: dts: freescale: Add device tree definition for Cloos CBASE with i.MX=
-8MM
+Hi!
 
-This commit adds the device tree source for the Cloos CBASE board based on
-the i.MX8MM TQMa8MQML system-on-module.
+str_has_prefix() is based on sizes and lengths, which means it must
+overload the valid length 0 to mean not found.  This is a typical
+consequence of choosing to design an API around sizes and lengths, and
+vanishes when moving to pointer-based similar APIs.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts b/arch/arm64/=
-boot/dts/freescale/imx8mm-cbase.dts
-> new file mode 100644
-> index 0000000000000..0bbd724f3aabc
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
-> @@ -0,0 +1,577 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright 2022 Fabio Estevam <festevam@denx.de>
-> + * Copyright 2026 Lukasz Majewski <lukma@nabladev.com>
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "imx8mm-tqma8mqml.dtsi"
-> +
-> +/ {
-> +	model =3D "Cloos i.MX8MM CBASE board";
-> +	compatible =3D "cloos,imx8mm-cbase", "tq,imx8mm-tqma8mqml", "fsl,imx8mm=
-";
+According to its author (Steven R.), str_has_prefix() was never meant to
+accept an empty prefix, but that's not documented, and there's no
+obvious reason why that would be acceptable for a generic string
+function (as opposed to a function very specific to its original use).
+Users of strings need a function whose behavior extends naturally to the
+empty string, and we can do better, by returning a pointer.  And indeed,
+users have ended up using str_has_prefix() with empty prefix, expecting
+it to work (as is natural of a generic string API).
 
-[Severity: Medium]
-Should arch/arm64/boot/dts/freescale/Makefile also add
-dtb-$(CONFIG_ARCH_MXC) +=3D imx8mm-cbase.dtb?  Without that entry, kbuild
-never compiles imx8mm-cbase.dts during make dtbs or make dtbs_check.
+This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+strprefix() in one place to fix a bug reported by Bartosz.
 
-[ ... ]
+We can later work on replacing the other uses of str_has_prefix(), which
+might hide similar bugs.
 
-> +				port@9 {
-> +					reg =3D <9>;
-> +					label =3D "lan-sfp1";
-> +					phy-mode =3D "sgmii";
-> +					sfp =3D <&sfp_top>;
-> +					managed =3D "in-band-status";
-> +				};
-> +
-> +				port@10 {
-> +					reg =3D <10>;
-> +					label =3D "lan-sfp2";
-> +					phy-mode =3D "sgmii";
-> +					sfp =3D <&sfp_bot>;
-> +					managed =3D "in-band-status";
-> +				};
+This patch set also adds infrastructure to make string functions return
+a pointer that is as qualified as the input pointer.
 
-[Severity: Low]
-Should port@10 be named port@a to match reg =3D <10>?  Unit-addresses in no=
-de
-names are hexadecimal, so port@10 triggers a dtc unit_address_vs_reg warning
-and fails dtbs_check against ethernet-switch.yaml.
+Changes in v2
+~~~~~~~~~~~~~
 
-[ ... ]
+-  Copy the description from str_has_prefix().  [Steve]
+-  Add links for the Reported-by tags.
+-  Make these APIs const-generic.  [Geert]
 
-> +&i2c2 {
-> +	clock-frequency =3D <100000>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_i2c2>;
-> +	status =3D "okay";
-> +
-> +	onewire@18 {
-> +		compatible =3D "maxim,ds2484";
-> +		reg =3D <0x18>;
-> +	};
-> +
-> +	temp@49 {
-> +		compatible =3D "national,lm77";
-> +		reg =3D <0x49>;
-> +	};
-> +};
+I didn't apply some changes requested by reviewers:
 
-[Severity: Medium]
-Will temp@49 fail module autoloading and schema validation?
+-  I didn't remove the deprecation of str_has_prefix(), because I think
+   it should not be used in new code.  It remains useful for code that
+   is already using it, because rewriting all the surrounding code to
+   use pointers instead of offsets might be too risky.  However, for new
+   code, strprefix() produces simpler code, and is safer, so I don't see
+   why str_has_prefix() would be good in any new code.
 
-drivers/hwmon/lm77.c only defines an i2c_device_id table and has no
-of_device_id table, while i2c_device_uevent() emits an OF modalias for DT
-nodes, so the lm77 module will not autoload when CONFIG_SENSORS_LM77=3Dm.
-In addition, neither "national,lm77" (nor the node name temp@49 instead of
-temperature-sensor@49) nor the board compatible "cloos,imx8mm-cbase" is
-documented in the Devicetree bindings, which causes make dtbs_check to fail.
+-  I didn't rename strprefix() to strsuffix(), because that name would
+   be worse (strsuffix() is widely implemented with other semantics, and
+   having it different here would lead to confusion and bugs).  Andy
+   agreed.
 
-[ ... ]
+See range-diff below.
 
-> +&lcdif {
-> +	status =3D "okay";
-> +};
+Testing
+~~~~~~~
 
-[Severity: Medium]
-Why is lcdif enabled here when mipi_dsi remains disabled and no display
-bridge or panel is defined?
+I haven't changed the implementation of the function, so haven't re-run
+tests.  Since the changes since v2 are only about type safety, with a
+new wrapper macro, I have built again with 'allmodconfig', just to make
+sure it still compiles.
 
-In imx8mm.dtsi, lcdif's output endpoint connects to mipi_dsi, which defaults
-to status =3D "disabled".  During boot, mxsfb_probe() -> mxsfb_load() ->
-mxsfb_attach_bridge() fails to find an enabled remote bridge or panel and
-aborts probe with -ENODEV ("Cannot connect bridge").
 
-[ ... ]
+Have a lovely day!
+Alex
 
-> +&usdhc2 {
-> +	assigned-clocks =3D <&clk IMX8MM_CLK_USDHC2>;
-> +	assigned-clock-rates =3D <400000000>;
-> +	assigned-clock-parents =3D <&clk IMX8MM_SYS_PLL1_400M>;
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&gpio2 12 GPIO_ACTIVE_LOW>;
-> +	disable-wp;
-> +	no-mmc;
-> +	no-sdio;
-> +	sd-uhs-sdr104;
-> +	sd-uhs-ddr50;
-> +	vmmc-supply =3D <&reg_usdhc2_vmmc>;
-> +	status =3D "okay";
-> +};
+v1: <https://lore.kernel.org/linux-hardening/cover.1793876837.git.alx@kerne=
+l.org/>
+v2: <https://lore.kernel.org/linux-hardening/cover.1793882260.git.alx@kerne=
+l.org/>
 
-[Severity: High]
-Does usdhc2 fail to probe because reg_usdhc2_vqmmc is left disabled?
+Alejandro Colomar (5):
+  string: Add strprefix(), and deprecate str_has_prefix()
+  device property: Fix fwnode_name_eq() for empty node names
+  stddef: Add const_cast()
+  string: Add [C]QChar_of() and QVoid_of()
+  string: Make strprefix() const-qualifier-generic
 
-imx8mm-tqma8mqml.dtsi sets vqmmc-supply =3D <&reg_usdhc2_vqmmc> on usdhc2,
-where reg_usdhc2_vqmmc has status =3D "disabled":
+ drivers/base/property.c  |  5 +---
+ include/linux/stddef.h   | 12 ++++++++
+ include/linux/string.h   | 63 +++++++++++++++++++++++++++++++++++++---
+ lib/tests/string_kunit.c |  9 ++++++
+ 4 files changed, 81 insertions(+), 8 deletions(-)
 
-arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi:
-	reg_usdhc2_vqmmc: regulator-usdhc2-vqmmc {
-		compatible =3D "regulator-gpio";
-		...
-		vin-supply =3D <&ldo5_reg>;
-		status =3D "disabled";
-	};
-
-Because imx8mm-cbase.dts does not enable reg_usdhc2_vqmmc,
-sdhci_esdhc_imx_probe() -> mmc_regulator_get_supply() ->
-of_regulator_dev_lookup() finds the disabled DT node with no registered
-regulator device and returns -EPROBE_DEFER permanently, leaving the SD card
-slot unusable.
-
-[ ... ]
-
-> +/* SPI-NOR memory is not mounted on the used SoM */
-> +/delete-node/ &flash0;
-
-[Severity: Low]
-Should &flexspi be disabled instead of only deleting &flash0?
-
-imx8mm-tqma8mqml.dtsi sets status =3D "okay" on &flexspi, so deleting only =
-the
-child flash0 node leaves the FlexSPI controller enabled to claim its QSPI
-pins, IRQ, and clocks in nxp_fspi_probe() with no flash attached.
-
+Range-diff against v2:
+1:  d3b325ecefd1 ! 1:  556766412884 string: Add strprefix(), and deprecate =
+str_has_prefix()
+    @@ Commit message
+    =20
+         We'll slowly migrate existing code from str_has_prefix() to strpre=
+fix().
+    =20
+    +    Copy the description from str_has_prefix().
+    +
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+    +    Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-=
+each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+         Cc: Andy Shevchenko <andy@kernel.org>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## include/linux/string.h ##
+     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t dest=
+_len, const void *src, size_t count,
+    - 	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
+      })
+     =20
+    -+/**
+    + /**
+    +- * str_has_prefix - Test if a string has a given prefix
+    +- * @str: The string to test
+    +- * @prefix: The string to see if @str starts with
+     + * strprefix - string prefix
+     + * @s: The string to be tested
+     + * @prefix: The string to see if @s starts with
+    -+ *
+    -+ * Returns:
+    -+ * *  @s+strlen(@prefix) if @s starts with @prefix
+    -+ * *  NULL if @s does not start with @prefix
+    -+ */
+    -+static __always_inline char *strprefix(const char *s, const char *pre=
+fix)
+    -+{
+    -+	size_t len =3D strlen(prefix);
+    -+	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+    -+}
+    -+
+    - /**
+    -  * str_has_prefix - Test if a string has a given prefix
+    -  * @str: The string to test
+    -  * @prefix: The string to see if @str starts with
+       *
+    -+ * DEPRECATED: Use strprefix()
+    -+ *
+       * A common way to test a prefix of a string is to do:
+       *  strncmp(str, prefix, sizeof(prefix) - 1)
+       *
+       * But this can lead to bugs due to typos, or if prefix is a pointer
+     - * and not a constant. Instead use str_has_prefix().
+    ++ * and not a constant. Instead use strprefix().
+    ++ *
+    ++ * Returns:
+    ++ * *  @s+strlen(@prefix) if @s starts with @prefix
+    ++ * *  NULL if @s does not start with @prefix
+    ++ */
+    ++static inline char *strprefix(const char *s, const char *prefix)
+    ++{
+    ++	size_t len =3D strlen(prefix);
+    ++	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+    ++}
+    ++
+    ++/**
+    ++ * str_has_prefix - Test if a string has a given prefix
+    ++ * @str: The string to test
+    ++ * @prefix: The string to see if @str starts with
+    ++ *
+    ++ * DEPRECATED: Use strprefix()
+    ++ *
+    ++ * A common way to test a prefix of a string is to do:
+    ++ *  strncmp(str, prefix, sizeof(prefix) - 1)
+    ++ *
+    ++ * But this can lead to bugs due to typos, or if prefix is a pointer
+     + * and not a constant. Instead use strprefix().
+       *
+       * Returns:
+2:  ac9728afa027 ! 2:  eed085c85f36 device property: Fix fwnode_name_eq() f=
+or empty node names
+    @@ Commit message
+    =20
+         Fixes: a9c8c738066b7 ("device property: Add fwnode_name_eq()")
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+    +    Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-=
+each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+         Cc: Andy Shevchenko <andy@kernel.org>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+-:  ------------ > 3:  2bf5cf7baad8 stddef: Add const_cast()
+-:  ------------ > 4:  415453a31ebf string: Add [C]QChar_of() and QVoid_of()
+-:  ------------ > 5:  35bf6672f84f string: Make strprefix() const-qualifie=
+r-generic
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110150546.1535=
-950-1-lukma@nabladev.com?part=3D1
+2.55.0
+
+
+--ldbuj4gtwrs6ecqn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzOTUACgkQ64mZXMKQ
+wqnw2xAAsmfnUTsvAQv1TyrYARi1Rd58hvUnxkG0m6V70un81IQZzPti4rO0jV16
+0Fog3LISySdunRGGJ7C5HE4TaZYCs/sbwTLU6LY+cLR6iNrQUbMt5JJ2csSsh9FZ
+/rf0HmaN1+Vrefx9yPI/ORllPlLfH3kCaOYxrYZwQKXxWPPCfmAX2juZwRrIrUEL
+qrpTLm6saG5XjpbaklmpSvFhwB9xp5g0BOj9GTrB9msYVlvGtyYh6OuO/T/uPfg1
+RJtPsIU0xly8E8EFdmMjPj+Rl9wAljEiM8+bFftAvLPLI5R/UY8WQG9Vw1vyyZhK
+IMxpEBg0/ukd1nXwiV4xN3aMxBMw3/JjILW9iv4WR3r5fCLUgvJWxsKkRsoq2SNA
+fYkw+617nuwSDyI3jqD/UUGw7OEHLvUTHGA9zMRVirJUY/y0l0gpbNYZJzABNcTw
+sIRWOcIvaUp16PU5jKcB0Zw6lPs5rjdoVhcRgPy7hpg3um5icBOnIx8p26VwlmJL
+CfRFjY/fTiGzEcBL+MG8FU3FTy41SWTfeCWAzwUzrWgZhdQTGvRh1b6jcsqTubpS
+QNCQ+2tGq93IX9uv3IhtwUB7+Op/a3V1s456OTWHrhAulkmDy3DUN3lJc8espvXr
+qaVWVPlJDQbKx0o7Jgr+L6Fm6wlHspagP7b550s7AtoCTCEQ1Qw=
+=S/N8
+-----END PGP SIGNATURE-----
+
+--ldbuj4gtwrs6ecqn--
