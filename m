@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295428;
-	b=pzmdRaOWiCW4V9wuQyneUaTvYx6VhHrBvLk8NKet3JHJ4PbZt/sRq7Cvstf1AYFS5D0y
-	 VIQ2GEBSes9429URy5+lUznLZbJuaOEG0nGoA0q4jFY+YMSayHS60ufgny/cmxAn6whkd
-	 2eMjIAX/c7vcp5nqoA5SHjaYcp7IMxlQq1T137yVPaYZj9S8B6L3/ZwB0Ji9MtKSXBeGd
-	 IDitmO04UOYl0Nrt+8RadJuW50fVJqggAI/yPupqMoheDPVJwqLMnX4Tdw97Me0R62vm7
-	 CjSCXeJ5U1ugSd0SgBf7J+0wppaswTgwLQ+rWPLREMARm35dlD7ErgpVV4NjQG7dE9w==
+	t=1794295603;
+	b=bEXn9JHgGAT8tb6Kl2A5sn0oGkkPi60LMfL/i8vDtHGU638PL/SGfsEAzLYiHfp0dHRN
+	 SavryLHOpK8tPWLa5poNZN72VwlkIHBiYGApjdJ+o7hRcI+OiIcm9OlJfFAlw3doBvBdM
+	 xT+F7mcQu1vmK+5XGv3dBSZSk/N6ptmgG6DvbC/6mkrGZcrEgAbDJm59lKd5MQL2oTGiC
+	 wVsn8m6dEwf3sczERX02zti7iR+Rwmau2lUpwP7o8i587DbFrcJ6H9RqoTQSSQpn8Kd1/
+	 XQ9AeMjk1fRwugXMUnmPCh5ALVXuO1lIyXgcEBj+TVamuQCLR1ookI0fYahGfAiN8nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295428;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295603;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PARC/I2iyCF6h48VHRzrLzNVpQgzglAh4qBS9viN1Xs=;
-	b=ycHpbSEwVm1uFaItNycxP8ImyHjXwfjLLD1DCU+r4tD4csibyhLfPzY6GRqwoEzPZ/Q9
-	 dWOXLoPaDoPejTZt4S9k1PizIQE+qMVUs7OkScJCkmenz0ouVEEj08ccpAhmiP6eT/SLc
-	 lmYPvoGHE+oB5pPUIwL6qekEO6fnx4Ac6Hs2j16PnodkYqd0XcvMfDQVdl92OV0f+FD55
-	 3PvQ+Z3wjCwSy0FPOwU6zR4Coj9C0fvWOuazIdxnID35P4fxLCZc1hbjtcWxSygRZMCeY
-	 0mbVkUI9bJWFoWO6bAGsFaJG4WWOa5osuUd6RMH95pMDSbSeielP1/A+zgvG9lp5jtA==
+	bh=p2kg3JeBZpmgQXqbxQbHiOPCOpd0Trotz2Z5D+/Gm2w=;
+	b=Hcn37qQTT2wQahkxQsbKmoDvU4QlQhnumqNzFi+eqBiLPML19j7atQOubhczBDyv+6t3
+	 QEP+xQRNNqjdtTAjfkRgsDb4LZOieqCxw9skEeRCDAIuBvg7HtpeKhBc7IZWCTxkawTnO
+	 yPQvtcDn2sexox5lSgsIOcIW0revNeBvmCnPutk4a6F7ykZhB2T1qK310MmU55d8jTajh
+	 CVDnpP8IgH+7Oz/bdNty3dIRRBHTIHuVtyYVCPsEzCz4csh1OhfLvXhHHh5ZoOxNpsxmE
+	 TepGWi8DvheS2YAqhUDyP3CVh6jt+e2lby82Sq0A6w2AGVKnhxk/HOjs+LEh/3QLQvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADzY9dbm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9KH1FRp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA50606A31C
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA1A606A31C
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:26:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADzY9dbm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0259F1F0089F;
-	Tue, 10 Nov 2026 07:23:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9KH1FRp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78CFB1F0089F;
+	Tue, 10 Nov 2026 07:26:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295428;
-	bh=PARC/I2iyCF6h48VHRzrLzNVpQgzglAh4qBS9viN1Xs=;
+	s=k20260515; t=1794295602;
+	bh=p2kg3JeBZpmgQXqbxQbHiOPCOpd0Trotz2Z5D+/Gm2w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ADzY9dbmRX1uxx3HEu0CAuiehVBzUGfXq0rUv3d9MALYmV+m6yPunuldWTdUKQdGU
-	 bapKmAtreMv3xeQCQiH7qur5yuwPMCi2pJ79pkbwhOHzPYpbV4UKXuQWbYiUwdVrbF
-	 lrGwTQdxZPJ9KFkQpILS1b9tUPtsED01mr8gsAozmuzBZhK1P+w9WxXRrskqlHEN/u
-	 F7Sq9CPxLtnLPdiklr/aKnsW4PoYksW3+rcgaQDcnzzIjecDsfQgIG5Iav8LnY0qh5
-	 xAcmnC+TRWNeMJAeVi9tHiVioe1sqefLchvylIB0KsNVxvAU/+CBuAD/B4XSAIGDWV
-	 fjhmawvf4uYWA==
-Message-ID: <sashiko-outbox-206483@kernel.org>
+	b=R9KH1FRpYIK/gM0AQoey0mnOcZTXAcfCC4kJqTM8F5BrDwRPkNDLb8kPDHwTeXeOL
+	 eW0OWkqqF15lvdK21F+w/dlvuAomk7Ep+e0xCQVHZyKN/AjPYIAFK2I3s8ej6HAufp
+	 PNSnTRAIo4GOAR650W7TgT7c4fJLMi+Yff8SJgEjQP5iSX8xXBwkNpTiG6Chz3AgJq
+	 697KYOfqNQKN8gi+TRxn9J9DzYGMlTiwgZCfJ0ZEoQc4GtZ+MqDVkFy6q6yqtFzQbk
+	 s2NZIF38GbAD2RhlgDzuf4SYSGN3VCgy4Gj2tafAJE/pEMXdzmh+LHzpd3t7/ap9+V
+	 +fnm0J9EvBMPw==
+Message-ID: <sashiko-outbox-206486@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: iommu: arm,smmu-v3: allow clocks
+Subject: Re: [PATCH 3/5] iommu/arm-smmu-v3: enable optional clocks
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Arun Iyengar" <aiyengar1990@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
 References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 07:23:47 +0000
+Date: Tue, 10 Nov 2026 07:26:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,45 +62,85 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] dt-bindings: iommu: arm,smmu-v3: unconstrained clocks property
+- [Medium] iommu/arm-smmu-v3: device refcount leak in
+  arm_smmu_device_probe()
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [Medium] iommu/arm-smmu-v3: device reference leak in
+  arm_smmu_device_dt_probe() [1]
 --
 
-commit 42a979d69e35794390e397c67d04e277f3c21933
+commit 30c1e41e25870c67f127c773eba01cc753f1ae3f
 Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-dt-bindings: iommu: arm,smmu-v3: allow clocks
+iommu/arm-smmu-v3: enable optional clocks
 
-This commit adds an optional clocks property allowing between one and four
-clocks to the arm,smmu-v3 Devicetree binding schema.
+This commit acquires and enables all optional clocks described in the
+firmware node during arm_smmu_device_probe() using
+devm_clk_bulk_get_all_enabled().
 
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
-ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> index c8f22dfdb1dbc..f8a74730667c8 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> @@ -63,6 +63,13 @@ properties:
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/=
+arm/arm-smmu-v3/arm-smmu-v3.c
+> index 6d4520c473086..cce66db932197 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+
+[ ... ]
+
+> @@ -5800,6 +5802,11 @@ static int arm_smmu_device_probe(struct platform_d=
+evice *pdev)
+>  	if (ret)
+>  		return ret;
+
+[Severity: Medium]
+This problem wasn't introduced by this patch, but can
+arm_smmu_device_dt_probe() leak a reference on smmu->impl_dev [1] when
+"#iommu-cells" is missing or invalid?
+
+If "#iommu-cells" validation fails, arm_smmu_device_dt_probe() leaves ret as
+-EINVAL and continues instead of returning early.  On "nvidia,tegra264-smmu"
+it still calls tegra_cmdqv_dt_probe(), which acquires smmu->impl_dev via
+of_find_device_by_node(), and then returns -EINVAL here before
+arm_smmu_impl_probe() can take ownership of that reference:
+
+drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c:arm_smmu_device_dt_probe() {
+	if (of_property_read_u32(dev->of_node, "#iommu-cells", &cells))
+		dev_err(dev, "missing #iommu-cells property\n");
+	else if (cells !=3D 1)
+		dev_err(dev, "invalid #iommu-cells value (%d)\n", cells);
+	else
+		ret =3D 0;
+	...
+	if (of_device_is_compatible(dev->of_node, "nvidia,tegra264-smmu")) {
+		tegra_cmdqv_dt_probe(dev->of_node, smmu);
+		static_branch_enable(&arm_smmu_erratum_repeat_tlbi_cfgi_key);
+	}
+
+	return ret;
+}
+
 > =20
->    msi-parent: true
-> =20
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 4
-> +    description:
-> +      Clocks needed to access the SMMU registers and to keep its transla=
-tion
-> +      units running, if they are not managed by firmware.
+> +	/* Optional clocks: keep them running for as long as we are bound */
+> +	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to enable clocks\n");
+> +
+>  	smmu =3D arm_smmu_impl_probe(smmu);
 
-[Severity: Low]
-Should clocks be constrained with an explicit items list, clock-names, or
-implementation-specific compatible strings instead of allowing 1 to 4
-unidentified clocks on the generic arm,smmu-v3 binding?
+[Severity: Medium]
+Does returning here when devm_clk_bulk_get_all_enabled() fails leak the
+device reference on smmu->impl_dev?
 
-The SMMUv3 architecture does not define clock inputs, as clocks depend on
-the specific implementation (such as MMU-600) and SoC integration.
-Allowing up to four clocks without per-item descriptions or clock-names
-(which is rejected by additionalProperties: false) leaves the clock
-ordering and identity ambiguous whenever multiple clocks are present.
+Earlier in arm_smmu_device_probe(), arm_smmu_device_dt_probe() (via
+tegra_cmdqv_dt_probe()) and arm_smmu_device_acpi_probe() (via
+acpi_smmu_dsdt_probe_tegra241_cmdqv()) acquire a reference on smmu->impl_dev
+and rely on arm_smmu_impl_probe() -> tegra241_cmdqv_probe() to release it.
+If devm_clk_bulk_get_all_enabled() fails, such as with -EPROBE_DEFER,
+returning before arm_smmu_impl_probe() leaks that reference on each probe
+attempt.
+
+[1] https://sashiko.dev/#/bug/linux-084125c9-12e1-45a7-ad09-6882ddb42c3c
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-smmu-v3-pc=
-ie-pd-v1-0-628819ca44b9@gmail.com?part=3D2
+ie-pd-v1-0-628819ca44b9@gmail.com?part=3D3
