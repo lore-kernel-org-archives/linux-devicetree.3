@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312353;
-	b=tjj7ANNECHpwDAhP27UqV1qb/RtBdX6UF99P5sxIY8jikqh1rSp8bjWL1yL6EhbGitb5
-	 ssv0QD5wZdHKDhoF5Q9A/gyFa3SAfRz+cKd1BmXyh7X0iBX/oa5PUSp5Q4Y1iGo/I5E8M
-	 U7kcwX0xVWw6gj2tg0N6akijroEjDM2maO6Wkrf/ETeTf19TVWVtkmQPvEgliKLHBkQAN
-	 7lAyu2G/GCIj56GgzgSNMtFur5+n5aMKJdCzmnJaREikam0uJoZcGmYGaQGTIC7rJMSpL
-	 dgIlQvgC7TRmm0WFmk1LXeljSSZ/b+z7M0fAtRjvtiTkIGi/LEOpxw6SmhM2rBqKZxQ==
+	t=1794312541;
+	b=XCs5m7HfeY3DaYViEXIN/Vu6RrDv05O9JNZ4A4TTk9LfTeY/zjX6QKc9u8O2tQBZFSeK
+	 bpJqCIVd3hj+RJhr7RZ12Vj841nYc3cBrIn5ePdEuT6Xdm+fOGHsqw+XdEEJRGnOrnk0i
+	 31Ocip8yxKyTf90SWMd+e1z+G/aGilId98lJ0zq1z6ei4Q+G5CsG9uDGzZWMjyNNorZ+e
+	 wKBXahCtp+DGHUt6eS3rUOZNSVMKlWtkAlQu5ayWUZvb8MyI3dQ3c7s1vlbyK3YdOkJkx
+	 Bi7P80WrhiQioZ3rqYNesEdD9gomq8Dq9sNe95ZNx2lQdH06YvOKEyQlulKEJ9vuf1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312353;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jpxgMCCbAUfPdT98Oq2wh4v9R3fJXQgdQPolxS8WuxM=;
-	b=wfoFiLyPdNobHTtksZv4vcd2UlqphnBPwfZKtYAYh4/noW5LG69LE9MzyogLc+BuXMsJ
-	 gsGqZ37sjNoAOrAhO0f9gFp1SyOUOCgPIZYi12tWA0ZR56X4PvdEKXplsTgB351FGeguN
-	 ka6lAUeay2Uvsh4MZvs47eexTug+HgddJmjHy1nGSTSD0BJZrZ/AMdd0geD4gznnshtt8
-	 psslIts5wRLCgmna/PPN+ehRHIGuSypSJ5LDvmnciZKlDJvCH0qRea4OadXYzke8s2sEg
-	 3k0vtTdoqa8aSAVGxTV+QC1ZvdKDnxJSQjNu3DIylHZPUYL9NcCFCKwwjZom51qfewQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312541;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=MSLoVk874f54dyaO5Erk/rLRwG/Enessr1TXDHq51u0=;
+	b=Wfct6PiRYzSNTaOUN6YtSvCKkg1qUpUNN/FpGJ/8znY47duCHw3EB5j6xgAr6R+H67Iv
+	 LFTIClOD5oniwQ+hJCQT7apuKHesQbtgJEYS1uyQ95ocWGx/pTON5Dlsxkj7aBlwREkne
+	 JQog3qVXdS4zcbKy6sHd6OTKrfLQVnP8DQvwU0bhr2KkBky8lSR8OxHI0+u7jo4KL2L9Q
+	 J306LgPMTlgVX0Y4n7Dph4nmQwqeCtFsfY69dYV21EJIqNnWESOQEQB8pV/L7KmB+YIQU
+	 zSJZr9j23XZ+kPqLASQwJPAcdiWC1jY3uIAB8lkvj7sQspX8D12Ku368b+DDMaCO8Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tuxon.dev;
-	spf=pass smtp.mailfrom=tuxon.dev;
-	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=LF4BFKzr;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ivIfBkg6;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1F2606A326
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 12:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA1F2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B002360A380D;
+	Tue, 10 Nov 2026 12:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B002360A380D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=LF4BFKzr
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so281846f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 04:05:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1794312346; x=1794917146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jpxgMCCbAUfPdT98Oq2wh4v9R3fJXQgdQPolxS8WuxM=;
-        b=LF4BFKzrTfKOrCuSfp4DCyhP5JXW6aLC8XDTOi3QC6I1vLZtLE95OOLLw8+PaO15OD
-         Mqzsu8ibEbOPvk0C0LZpmcHuoWuVD46E4lCbRLNSR4rlywp/TUbyv5jDIrUHnqRKUN0+
-         VgYmCiQFOWw3por3vt60eXOGS7VxhrTSAy2uD5KjqibIYZXvhF8xkBxmfq26pC90h+jz
-         nKnTq6DPVdhiHAlRe3p9KUoVmEpDTiOAWO5AsRJkCiuO3TGigutjr1wKeh2R+kZU8E2o
-         7B4YTnJAghxXdSsuvEnENaGO3330T8hm5HVDo0cO+QeGHXLRYcSbSeMAQmUnkuj/DUfe
-         xkLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794312346; x=1794917146;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jpxgMCCbAUfPdT98Oq2wh4v9R3fJXQgdQPolxS8WuxM=;
-        b=0NjbK9cBjWz9MkEPpqCX0LO2X7/d8rULfCT1eauJbmYt0AiRq9YF2oCnI2J6XCoh4z
-         1SaPTzguHAK0feySbFcdp22DEqeWshJFYUbiX0ma3Ejmwx/z4aQRxdEo++spCf1lI3HX
-         ZNjYiVz3xIYeBM7AWx6t96nnmH3t9xfKDRApLHxVmYHrag3pRRrqMqS+ZM2iQtxTkOt7
-         qfvn3nOXl5JZDfun8BxaWHupFOO8JfFuHiBuGyQUz8QgdBl0YVj8A+UK9VEw4/qkzDAl
-         aXoXRafUxCsu24L3dv7/HwBKnxUc5qiOofi+sWCW9EnS0p4NCLppHp1BUEUDskp2eCjz
-         0d3A==
-X-Forwarded-Encrypted: i=1; AL+hErG0j5pR968s+PXElRwYakVEUFqLHdD3zyLLXjgl8XEZ42TDo4aZerS7atlxEP/VpHc25FkUEt9fDMV6@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PH0XH5nfg3Ahry0YR1l78sjBiSQx+3/LYg2ZTf+/uUUQc5vFD
-	n3cS1ck09kQEhVp04hDTe/C7yPTs12lPpweYo+BTMimVInBGDz2sdUf1NN4Vns3Btws=
-X-Gm-Gg: AYBFou29TkZwaK4UqDVYFVCJFeJ8soS67Urh2rf0JjVRmfTQwDfRKMnJ3jOEVlmHp5z
-	/YQ78dvCJm0PtpnWbrN3ovesxWvW+d/61dve0Nwp1bf3h2hqrLQp6UJDqmvBOlKeKRDYqYFboI2
-	KywduZG0NR++gDHGaYws6x6+e0rSdKuhYMSNTcwEKcNVcKa7ZOPLswxJLLAzkx8H0uBnLk8NvX8
-	3WNzttEoAkXl+jfAKldld/0VhbWCICLtfS515L8NuLL5ADILGSRGmVPr0B2a6NBTgf5tB2O7Bqv
-	zZQyLvTxR8sjnXXgn8/3QcZoWyupQYhXNIFNnEbVkju45UE4ebUGk1cbDvz2BOj3V/Ob4Z5c0rh
-	jEmSv7OcR1/+ZYZoUKxdv4ojaXTmGbroNeQLdDeJkxVh2aACRToVTI0p7SBkNRR3jpQWuF4+wGx
-	H6VP7NPAaurH2j76qWdqzo/2OyYExztKG+kB7fugTY1kR4vIsiODy5sJ8jFMZLPl7y4dwMjj7A2
-	PWRQYfV962bS8TX26m2Ol5OX03iyTwkuROsC6pYgsdWpBOeBaAWICtWI9vYvr8tjUxe7ZOCrhvR
-	Pa9O3PesJWTpbY6Lkl8/J29ReYyTwDgyTPsQM7rZgaPH8PWlXASkz0up/eyouIatn58Clk4=
-X-Received: by 2002:a05:600c:3b8e:b0:4b2:2ec5:8a2b with SMTP id 5b1f17b1804b1-4ba023367dbmr51948635e9.10.1794312345435;
-        Tue, 10 Nov 2026 04:05:45 -0800 (PST)
-Received: from [192.168.50.4] ([82.78.167.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0223c41csm61119315e9.14.2026.11.10.04.05.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:05:43 -0800 (PST)
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Message-ID: <dbeb92ed-4bce-4de7-9699-6a8eb6a07284@tuxon.dev>
-Date: Tue, 10 Nov 2026 14:05:42 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ivIfBkg6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794312538;
+	bh=0dtvKEKu/71R4CYmq7iaHMNTzXKLvIiGByglTAieoOk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=ivIfBkg6Z2NA3g7m5HezVfna1FDDuUAAWibgGg1VrfRR7fRySt4TXfrE6gOzd+P0n
+	 g9AGhcqytp9ZFMKXw7xPTawu8oCLkg4AH3zeAebFXfHv8Mn1pLqAz8G0ypOyk2+AHU
+	 yoDaI6XV5zTvI8Vhq4x1JioFOnVJ4cl5TvybDWVRICWEWAxOerB7b+zzLF4/ZKUuKI
+	 w69wq/KmnsMxYnhHVrrlfg2LICuiApouSOzMSNKkXoWzBhFptU/v7HzdTPQkWfCyvm
+	 qN9CN/aYiMYOXhiZ3T9TbaMK2w8+8g0nj2kfa3LB2ySCI+X8/sT4v476SyRu6UZEIH
+	 MJpXDms5kz7Sg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C08B717E02F2;
+	Tue, 10 Nov 2026 13:08:57 +0100 (CET)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH net-next v5 00/10] net/stmmac: Add Mediatek MT8189 support
+Date: Tue, 10 Nov 2026 13:08:47 +0100
+Message-Id: <20261110-dwmac-mediatek-mt8189-v5-0-7d99d6292962@collabora.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,44 +63,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, magnus.damm@gmail.com, biju.das.jz@bp.renesas.com,
- fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
- <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
- <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
- <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XRzU7EIBDA8VdpOIsBhillT76H8cDH4BK3rbZY1
+ 2z67pK6cROzPU4m/PgHLmymKdPMDs2FTbTkOY9DHfChYeHohlfiOdaZKaFaYQTw+NW7wHuK2RV
+ 6433pZGe5jS4R2E5blKyefZ8o5fPmPrOBCh/oXNjL72aij896UbmuvZuJh7Hvczk0UbUWkdBog
+ xq0Rxs1eAdGeeVQRICIJChu1jHPZZy+t/hFbti10+x0LpILLk0CjeRccPAUxtPJ+XFyjzVhUxd
+ 1k6zSe5Kqkgbho9E1Kdl7EvxJUsh2T4IqKawvqLwPCfCepG+S3P2FRVcpdG2QOgUUSf+X1nX9A
+ ew26pvyAQAA
+X-Change-ID: 20260703-dwmac-mediatek-mt8189-9dafe3984951
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Andrew Lunn <andrew@lunn.ch>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794312537; l=5981;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=0dtvKEKu/71R4CYmq7iaHMNTzXKLvIiGByglTAieoOk=;
+ b=D7y0IxoV4cVW0fhM1mXnMLnQaQuzMBl6/XHv9ErVSjuARG7bSgB9RIaCshXc4aFPO1xxNQEoK
+ 9qyWAlr++JODgwOXOAwZbthHkAeHeSr7Sr3Tg/NJdR5DNSoxwSCL6u4
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Hi, all,
+This series adds the Ethernet support for Mediatek MT8189 SoC and its
+variants (MT8371, MT8391). These SoC integrate a Gigabit Ethernet MAC
+with RGMII/RMII/MII interface, with a similar design than previous SoCs
+such MT8188 or MT8195.
 
-On 11/10/26 13:38, Geert Uytterhoeven wrote:
->>> Thanks, but six weeks later they are still not visible?
->>> Same for " [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict
->>> resets in top-level"
->>> https://lore.kernel.org/20261009-holistic-warping-puffin-3b92fe- 
->>> mkl@pengutronix.de
->>>
->>> Am I looking at the wrong tree?
->> I tried to get stuff into the last merge window. For various reasons it
->> didn't happen. Anyways - I've pushed all queued Renesas related patches
->> to the can-next/testing branch. I hope I've collected all the latest
->> series. Can you have a look?
-> Thanks, LGTM at first sight (I guess Biju or Claudiu will scream if
-> something is still missing).
+This series is based on net-next tree (sha1: d26955e57475).
+It has been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK
+(MT8391) boards, which both integrate an Airoha AN8801R Ethernet
+PHY, with hardware enablement series ([1]).
+It has been also tested on Mediatek Genio 510-EVK (MT8370, variant of
+MT8188) and 1200-EVK (MT8395, variant of MT8195).
 
-LGTM.
+[1]: https://lore.kernel.org/linux-mediatek/20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com/
 
-Thank you,
-Claudiu
+---
+Changes in v5:
+- Rebased on net-next (sha1: d26955e57475)
+- Added received trailers in patch 2 and 3
+- Updated commit message in patch 2 (K. Kozlowski)
+- Fixed in patch 6 max delay values check and wrong value in error log
+  in mediatek_dwmac_config_dt function (Sashiko)
+- Link to v4: https://lore.kernel.org/r/20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com
+
+Changes in v4:
+- Rebased on net-next (sha1: 7b6ab4dbc156)
+- Added Reviewed-By and Acked-by trailers in patch 1
+- Added patch 2 to add deprecated flag in the mediatek,tx/rx-delay-ps
+  vendor property and update their description (A. Lunn)
+- Dropped in patch 3 mediatek,tx/rx-delay-ps description changes
+  in bindings and patch description (A. Lunn)
+- Patch 4:
+  - Used single delay stage divider define for both RX and TX case
+    to simplify implementation
+  - Added MII delay definitions 
+  - Dropped Reviewed-By trailer due to changes
+- Patch 5:
+  - Fixed MII/RGMII delay stage divider inversion (Sashiko) 
+  - Used single delay stage divider define for both RX and TX case
+    to simplify implementation
+- Added patch 6 to add the standard internal delay properties use
+- Patch 7:
+  - Renamed delay stage divider fields in variant struct (M. Chevallier)
+  - Simplified patch implementation by using one delay stage divider
+    per mode in variant structure and commonizing delay computation
+    in new single private function
+- Dropped "net: stmac: mediatek: use TX clock phase shift in RGMII mode
+  with 1Gbps speed" previously present in v2 and v3, as suggested by A.
+  Lunn
+- Rebased patches 8 to 10 over previous patches modifications
+- Link to v3: https://lore.kernel.org/r/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com
+
+Changes in v3:
+- Rebased on net-next (sha1: 6b3e73774815)
+- Added Reviewed-By trailers in patch 3 and 5
+- Added patch 1 to fix unit in rx/tx delay property description
+  (Sashiko)
+- Patch 2:
+  - Reworded patch description to add clock list details
+  - Removed the specific MT8189 clocks list so the axi and apb clocks
+    are also described for this compatible too and reworked the clock
+    list and number check
+  - Added mediatek,rmii-clk-from-mac as not allowed for MT8189 (Sashiko)
+- Added patch 4 to simplify TX/RX delay handling in mt2712_set_delay,
+  as suggested by M. Chevallier and modified following patches
+  accordingly
+- Fixed in patch 7 tx_rgmii_delay_stage_div null case and register value
+  in mt8195_fix_mac_speed (Sashiko)
+- Added in patch 9 the axi and apb clocks to MT8189 clock lists 
+- Link to v2: https://lore.kernel.org/r/20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com
+
+Changes in v2:
+- Rebased on net-next (sha1: 528de6832b21)
+- Dropped "net: stmmac: mediatek: rename MT2712 and MT8195 variant
+  methods" and "net: stmmac: mediatek: add support for TX deallocation
+   adjustment feature" patches, present in v1 (M. Chevallier)
+- Patch 1:
+  - Removed rmii_internal clock from required clock list (A. Lunn)
+  - Added MT8189 stage delay divider values in "mediatek,rx-delay-ps" and
+    "mediatek,rx-delay-ps" property description (Sashiko)
+  - Updated commit description
+- Added patch 2 to simplify TX/RX delay handling in mt8195_set_delay
+- Added patch 3 to add RX/TX delay stage divider in platform data
+- Patch 4:
+  - Replace MT8195_PERI_ETH_CTRL_BASE by MT8195_PERI_ETH_CTRL_OFFSET to
+    harmonize the variable and definition naming (A. Lunn)
+  - Added Reviewed-By tag
+- Added patch 5 to add the TX Clock phase shift use in
+  RGMII and in 1G speed
+- Patch 6:
+  - Reworded flag and define names to explicit a bit more what the
+    feature does
+  - Updated commit description
+- Patch 7:
+  - Added the new definitions and needed fields in platform data
+  - Updated commit description to add the info about MT8189 RX/TX delay
+    stage divider and maximum values, and remove reference about 
+    stage fine feature 
+- Link to v1: https://lore.kernel.org/r/20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com
+
+---
+Louis-Alexis Eyraud (10):
+      dt-bindings: net: mediatek-dwmac: fix unit in rx/tx delay property description
+      dt-bindings: net: mediatek-dwmac: deprecate rx/tx delay vendor properties
+      dt-bindings: net: mediatek-dwmac: add support for MT8189 SoC
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt8195_set_delay
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt2712_set_delay
+      net: stmmac: mediatek: use standard internal delay properties
+      net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+      net: stmmac: mediatek: add PERI_ETH_CTRLx register offset in platform data
+      net: stmmac: mediatek: add support for TX clock output enable feature
+      net: stmmac: mediatek: add support for MT8189 SoC
+
+ .../devicetree/bindings/net/mediatek-dwmac.yaml    |  52 ++-
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 368 +++++++++++++--------
+ 2 files changed, 276 insertions(+), 144 deletions(-)
+---
+base-commit: d26955e57475434b59d43ba372b2a50d33d5e0ed
+change-id: 20260703-dwmac-mediatek-mt8189-9dafe3984951
+
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
