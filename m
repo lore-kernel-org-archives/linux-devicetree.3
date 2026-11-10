@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305289;
-	b=wCLVhi3kLQHmxCG7zfT94hvyll53FilkxOl7x9/cpETVySzvXqD/rxqxdOE5XLEKPLNZ
-	 251H5lkUM/R32Sxo2oslVX1+zWbrsXwX4/1Fpe5qND5JwtJcb738hIULGxMuTEM5UGTvD
-	 MM007WbONl6bUYYdNjzWA5yh4sZ0gVZM+LikxoMZIeb05K/AZJ4ZFuYBe62qAeA0fHm5v
-	 yeznUnXpefZDtsaWZ609biUjn/PKHK+G8VLSlX5uYTBA9hsy+Sw6Zg/8wbnBJCrzczQx8
-	 9AG0lkp73daZFYP5lmPIY+OJkpmYS3KjOB/94lCwrg1jV4r98ZB2uzvyB1bt31WKJPA==
+	t=1794305291;
+	b=GF6XwJcXlGXH+wGKv2Z8fWARKr4WavsEXlxAt59X2KnpuqeAvx4LDzY1E9gcHW8EQWeX
+	 w4gSZoGjevy5mcpdBLi6S+tefllRHZbUjOPIsND1q+dfDaxb3bWKhHEebP3wTY9w59r7g
+	 0cIh0cjUUi8cO91UPhJ9d1YqNlzorIG6GtgpeK0C1WmDuA81m0BLA0O+gPTaHBPb99ZHt
+	 GhuNQ/oZ/hnwbHw2zSPZEdvGVhqfke/rLSe8znmHAdmFUgCDGh7sjXl28c9EzwLlQhOHj
+	 4PXqtenWlhARQYjob+Crj0sAXR/xaZVb7Z4R9Cu4B6yPX0zbR5diCfJAfRgy2OoqxHg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305291;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OTqb+u/6zluLlOP3I5e/tKiZ+G2oB8lCoDxeE9cs974=;
-	b=DOnBcL9SrD2qI9m4C3eLR8+33cu4WiUKT52lAJDasmkK9scWPmDWMkQmQwdGkHVMxW1T
-	 n1H0UOlbvTDiIyoX636zy39MDTe7pU4sXPZ8o17ZMZRd0DeG9JGqtXfTK0PPB5XcQQhoh
-	 lxIep+LA+ZDLAiCpg8nMxBp9LJyTYp1Wqth5BKM8setM1KwdZUTINfyF4SWIJAMqMFaV/
-	 7+E+FASSEuF9SguDwYT99jbIJKQzfTgD4SQzl3oPKABaAmiX+TFqpdm0n3fCTHbpsaZ4q
-	 y/1szEkeeimjD/CxCuP+59bFHOkvt2fCgvE3VFk4xh4Q3Dg9R4OskBPcniI0HP22cOA==
+	bh=Lh32Z30mmHI0PILnepXbAQ166lUKFxf5yfIlmnK4noU=;
+	b=3M4ycL6ZiEJHpqEMcMYGbftSVuc4fhuKkOfCvbGleXKODGmctgeSYI9SQHu6NJefhQXn
+	 svyOqS+n+E9pPAFvZym6FRF0/Zt31LWM0+2GIjvf0It6/pqZbh7kfRQ8hyMajykpnrUh1
+	 sGCWVfmcOIDCrPSdM1TAkQ42XmOQZj+nukkACgxHCv+kagMjlME37hZ9oXUpSzIht0eio
+	 A0LiL7SRaWmUaBL3X4V+2+RHUaAMeKLXGHaku/8tGbRqwPAHuoXcMevrOhw31G+iOe3rm
+	 G9PzkRQuyr956ySQLS57JneVPyso4FvpnnWb9xGb9MPtrxADtexPQ9ZNKVxdKxLi4tg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0uGdAZb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1OuxHm8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9117E60A2602;
-	Tue, 10 Nov 2026 10:08:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBEF60A3806;
+	Tue, 10 Nov 2026 10:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0uGdAZb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1OuxHm8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305289;
-	b=mjLchmhisOZ9utNR2iYyC0qO12e8/rYmajuKxySz11UVgEnUgK2PI57S9iolJxG/DDdr
-	 qpxNiytCaH1cEKurnOaysMa7NYofANiuLGLA5LM11+Kr3gVvgwefZH6OX5aCU1fsOErmu
-	 yM/iGrdwoT7fNxOKAZJTeYVjSZXtwtodQX2ikT3yuGNWLI2b6Y4WP1DSVNjDpRt1CbP2I
-	 lFJ8ZDf6NY1pj45bSFUcEjM1c+lU579vN4UQW8NSv78YSxQklJIE67Ke7DSP8iPUitPiy
-	 zR76Npbt0vXc243SDQD1myyhZsqtaBybXlprY8q1EqgayPHsZPBUQpQpKknSAyiHYfw==
+	t=1794305290;
+	b=Cltzq1OiQ31vKNj5q6tBgtuytmY9nYMOpBSdy+DN3Jn7E+h8eLT6JKzjBR/tsfRX+dTw
+	 DbOlene3s43d+QJP7AEheG8+ElUVfw35hPAYVOfAh2WIAk1JD5P+KLANM2d3Tf0Yh9zH3
+	 5MxmprU/LvvpfxhxHbQ4C9E/tFqUo2y/2EM05hRUsh+nbX7Zueqe0y7p+pEtLWLGB6pQU
+	 TCsFqLXd7utCy1w6Wg1iyysqV35Zuue+YdGLNR4iuPJrRlo7YW8EORuRU0azJNG8PSQaO
+	 3XwYnNlmDXUWDYY3ydTYpJ/wS2+4ozV/Hih8zIgg0yqZyu+zVoiVY/PHcTyVULtFNbQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305289;
+	c=relaxed/relaxed; t=1794305290;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OTqb+u/6zluLlOP3I5e/tKiZ+G2oB8lCoDxeE9cs974=;
-	b=jHie0Bc2N8OBYYniFnDiJ+iCQXSM/WM6K9Un2eI7I4To9+uy8FBHZ43FkGV8gGCq9wLb
-	 /IJ6e21kE4AxkxJ8z9J/ydmMUYp14T4x4Mzct2eGzqvtMdoyQ58+ig4NbsiKNVyuIYAp1
-	 EY35E1u8x9RV6Ilx8yzRlI4qEIZpCYUl3sOY33Hw/CO1PTN4C8C+cSDgNzImZ+Y7D/VUJ
-	 VG98IuqmQnYDm8ytOpryNNCRxSV6L6Akvw4FJVtNWT5bixdPCwlpBf5C/WN70TmqysGjC
-	 EQUlnPS+rN7ZP0sKptXPDrdfm8EB5ImN08U2GIcIkDcgcNbH2mHgDGHTLba1KCKUE2w==
+	bh=Lh32Z30mmHI0PILnepXbAQ166lUKFxf5yfIlmnK4noU=;
+	b=VOESPx/PowVOrbNLHDviFqtghUG5b3yfkKSwRoxCVIFpVTUhxvTxLd6UPxHdEdVQlTAt
+	 HxdJeWi9+YP69NNbc/c/1uBHemavzn7Ij8wCADOwDHl6uqb4K8q2rDOp9ri8IuS6uuw1z
+	 dfAk87Uk3E9GHnFE54UZxXPbLDyjR3w5dxVlkdLGBF0w1mFpmL3YHgsN5lG399/sPzBu6
+	 /dt7DeBemUAPzwEcFjiK8wwu+H/yZpr8MNFSfd1lFluNbR/ik+AOQ6URpGPBdbqjgvjBO
+	 ecuIV7SG8tdSgJA/LjvMHrUnQgyJ9zZ7xJ+bpeo0HN0ouLVk7H41mfiiD2SROrRKjdw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DC74C1F00921;
-	Tue, 10 Nov 2026 10:08:07 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 56E451F008A1;
+	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305289;
-	bh=OTqb+u/6zluLlOP3I5e/tKiZ+G2oB8lCoDxeE9cs974=;
+	s=k20260515; t=1794305290;
+	bh=Lh32Z30mmHI0PILnepXbAQ166lUKFxf5yfIlmnK4noU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=c0uGdAZb8/CN7Ervp+UO+TmjZFZoxNjEhG2ghJvw01KTA2x3X0V9E1AZtNSKYvd6I
-	 ZSXO+b94oxPM/i20Xrr0QUzA5za2yi/MG1ndBicF63gqa4vJGPBduIHkEQz9icoULQ
-	 C6T7Hc6P4bvRd80xk6Z+FrazALBv/xamFhimRifb8fFJe8Dv8Schai0XB3tEv8BYhw
-	 t/Z9hpKke2UV6RDTJmuAChgK5T4Zm6GBBXgLyKvO+nw1pnFIPMV1YO6aSJyPrQQ4P3
-	 9rVcs6dk8NZ4HF6QnLuXrYX/syrbDeOG3mAXLtV7SUTFqRN0NKMS3p/4d4iSa2NRDr
-	 0xKpH1eyU/URQ==
+	b=L1OuxHm8VNg5iOdYT/q6ga+2kzYllAvYF8N2zzkji7Ao5EA4UotDnC4cOk1tk886T
+	 6ULXZ/mnFYye9czrgyiPtr++Z8T8XNictF1m3rrdF72xRl+iBXCn1wN6xY+ovXkHFK
+	 dXefexQzZMtL721dGnWeePbTsRxjvoed2MwF/uKX5Ew31JwYRKwO1viStOgGZMSuBH
+	 AjvbJ/SVUpv88meRabC60CeGo5QUm12DiYg2UH2dBf1DD9d9EgBHk+uZV0dwUsRFMu
+	 tl9/fByuP3VGvo7Iq6kO8iLH/cajzwtPBDxmyY+TJdBKR5ZRaC1YZHD2/hsweyo8+6
+	 NMjDsLCKMN1qA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F0B4548AE7;
-	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0EEC848AEB;
+	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:08:12 +0000
-Subject: [PATCH RFC 10/12] media: rockchip: rkvenc: Re-encode oversized
- HEVC pictures
+Date: Tue, 10 Nov 2026 10:08:13 +0000
+Subject: [PATCH RFC 11/12] media: rockchip: rkvenc: Offer VBR for H.264
+ encoding
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvenc-v1-10-ea8b47122d8c@gmail.com>
+Message-Id: <20261110-rkvenc-v1-11-ea8b47122d8c@gmail.com>
 References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -100,11 +100,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=5197;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=2309;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=CnTD9k51xhPhovXec4M42UtPMZ1lQDg4WDx349udodE=;
- b=UUJtPAINCYJCxhN14fvrq/KWdnnGuiFyM242OcxpOY2HMHNMedmUAWZzgTaGaG52znL8+nheO
- 08PQMiNgBj7CcwkIcVJUEdjeOGvHzzmaf2OEqHI1G2Jdb8oCd+yozUP
+ bh=JF9FEhr+Fnv76x4udoa/NyLN+ajs26dykYgNbWUENQo=;
+ b=RzAbjJ74L7b+RRhiG7UT37yP7BGoU6GeGywkhjOgqEOVXxXNrH0bqsfUP8SikAg1F4XkcPxx5
+ x5LRkXw7TtiA4hD1pDWP1uz5bWPWEnEWOQvoUHWA2WuafXj4OG9P3wg
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,117 +115,55 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Let the constant bitrate mode of the HEVC encode core code a picture far
-above its size target a second time, as the Rockchip MPP library does:
-once the last pass of the picture finished, ask v4l2_hevc_enc_reencode()
-and run the whole picture again with the new QP, writing the slice data
-over that of the first pass. The hardware writes the slice header, so the
-software headers stay as they are.
-
-A codec backend now returns RKVENC_PASS_AGAIN from next_pass to encode the
-whole picture again, which restarts the summed status of the passes, and
-RKVENC_PASS_NEXT for the next pass of the same picture.
+The H.264 encode core has a variable bitrate mode now. Offer it in
+V4L2_CID_MPEG_VIDEO_BITRATE_MODE and add V4L2_CID_MPEG_VIDEO_BITRATE_PEAK,
+which the core reads for it (default 20 Mbit/s, twice the default
+bitrate), and hand the size target of the variable bitrate pictures to the
+hardware row rate control as for constant bitrate.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../media/platform/rockchip/rkvenc/rkvenc-hevc.c   | 24 +++++++++++++++++-----
- drivers/media/platform/rockchip/rkvenc/rkvenc.c    |  6 +++++-
- drivers/media/platform/rockchip/rkvenc/rkvenc.h    | 11 +++++++---
- 3 files changed, 32 insertions(+), 9 deletions(-)
+ drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
-index 9baf76f7fc43..acbbfdd3f613 100644
---- a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
-@@ -688,19 +688,33 @@ static int rkvenc_hevc_run(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+index fcb8c070ab30..313c33038670 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+@@ -381,11 +381,13 @@ static int rkvenc_h264_run(struct rkvenc_ctx *ctx, struct rkvenc_core *core,
+ 	vepu580_setup_h264_tuning(ctx->dev, core, intra);
  
- /*
-  * The next tile column continues the bitstream right after the previous
-- * one, as a slice of its own (the hardware writes its slice header).
-+ * one, as a slice of its own (the hardware writes its slice header). Once
-+ * the picture is complete, the rate control may have it encoded again with
-+ * a higher QP, from the first tile column, over the slice data of the first
-+ * encode.
-  */
- static int rkvenc_hevc_next_pass(struct rkvenc_ctx *ctx,
- 				 struct rkvenc_core *core,
- 				 struct rkvenc_run *run)
- {
- 	struct rkvenc_hevc_ctx *hevc = ctx->priv;
--	const struct v4l2_ctrl_hevc_pps *pps = &hevc->enc.state_active.pps;
-+	struct v4l2_hevc_enc *enc = &hevc->enc;
-+	const struct v4l2_ctrl_hevc_pps *pps = &enc->state_active.pps;
- 	u64 offset = run->hdr_bytes + run->fb.bs_len;
- 
- 	if (!(pps->flags & V4L2_HEVC_PPS_FLAG_TILES_ENABLED) ||
--	    hevc->tile >= pps->num_tile_columns_minus1)
--		return 0;
-+	    hevc->tile >= pps->num_tile_columns_minus1) {
-+		if (!run->fb.bs_len || offset > rkvenc_dst_size(run) ||
-+		    !v4l2_hevc_enc_reencode(enc, offset))
-+			return 0;
-+
-+		rkvenc_set(core, VEPU580_ADR_BSBS,
-+			   rkvenc_dst_addr(run) + run->hdr_bytes);
-+		rkvenc_hevc_setup_qp(hevc, core);
-+		rkvenc_hevc_setup_tile(hevc, core, 0);
-+
-+		return RKVENC_PASS_AGAIN;
-+	}
- 
- 	if (!run->fb.bs_len || offset + SZ_4K > rkvenc_dst_size(run))
- 		return -ENOSPC;
-@@ -708,7 +722,7 @@ static int rkvenc_hevc_next_pass(struct rkvenc_ctx *ctx,
- 	rkvenc_set(core, VEPU580_ADR_BSBS, rkvenc_dst_addr(run) + offset);
- 	rkvenc_hevc_setup_tile(hevc, core, hevc->tile + 1);
- 
--	return 1;
-+	return RKVENC_PASS_NEXT;
- }
- 
- static void rkvenc_hevc_done(struct rkvenc_ctx *ctx, struct rkvenc_run *run,
-diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
-index a82a22137488..7313523af6b3 100644
---- a/drivers/media/platform/rockchip/rkvenc/rkvenc.c
-+++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
-@@ -965,7 +965,11 @@ static irqreturn_t rkvenc_irq_thread(int irq, void *priv)
- 		if (ops->next_pass)
- 			ret = ops->next_pass(core->curr_ctx, core, &core->run);
- 		if (ret > 0) {
--			core->run.pass++;
-+			/* A picture encoded again starts a new status sum. */
-+			if (ret == RKVENC_PASS_AGAIN)
-+				core->run.pass = 0;
-+			else
-+				core->run.pass++;
- 			rkvenc_hw_start(core);
- 			pm_runtime_put_noidle(core->dev);
- 			return IRQ_HANDLED;
-diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.h b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
-index c1dce59d8308..8fae10e2c69d 100644
---- a/drivers/media/platform/rockchip/rkvenc/rkvenc.h
-+++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
-@@ -113,12 +113,17 @@ struct rkvenc_run {
-  *	 registers (codec syntax, rate control and references)
-  * @next_pass: optional, called after each hardware pass that finished without
-  *	       error, with the status of the passes so far summed in @run->fb.
-- *	       Returns 1 after updating @core's shadow registers for another
-- *	       pass of the same picture, 0 when the picture is complete, or a
-- *	       negative error code.
-+ *	       Returns RKVENC_PASS_NEXT after updating @core's shadow registers
-+ *	       for another pass of the same picture, RKVENC_PASS_AGAIN after
-+ *	       setting them up to encode the whole picture again (the status
-+ *	       of the passes so far is dropped), 0 when the picture is
-+ *	       complete, or a negative error code.
-  * @done: called after the hardware finished; @fb holds the status read-back.
-  *	  The backend sets the CAPTURE payload and may change @state.
-  */
-+#define RKVENC_PASS_NEXT	1
-+#define RKVENC_PASS_AGAIN	2
-+
- struct rkvenc_codec_ops {
- 	int (*adjust_fmt)(struct rkvenc_ctx *ctx, struct v4l2_format *f);
- 	int (*start)(struct rkvenc_ctx *ctx);
+ 	/*
+-	 * In CBR mode the frame size target of the rate control is handed to
+-	 * the hardware row rate control, which adapts the QP of each
++	 * In CBR and VBR mode the frame size target of the rate control is
++	 * handed to the hardware row rate control, which adapts the QP of each
+ 	 * macroblock row by up to the row_rc_qp_range parameter.
+ 	 */
+-	h264->hw_rc = rc->mode && rc->mode->type == V4L2_H264_ENC_RC_TYPE_CBR &&
++	h264->hw_rc = rc->mode &&
++		      (rc->mode->type == V4L2_H264_ENC_RC_TYPE_CBR ||
++		       rc->mode->type == V4L2_H264_ENC_RC_TYPE_VBR) &&
+ 		      READ_ONCE(rkvenc_row_rc_qp_range);
+ 	if (h264->hw_rc)
+ 		vepu580_setup_row_rc(core, &vepu580_h264_row_rc, rc->qp,
+@@ -466,12 +468,15 @@ static const struct v4l2_ctrl_config rkvenc_h264_ctrl_cfgs[] = {
+ 		.min = V4L2_MPEG_VIDEO_BITRATE_MODE_VBR,
+ 		.max = V4L2_MPEG_VIDEO_BITRATE_MODE_CQ,
+ 		.def = V4L2_MPEG_VIDEO_BITRATE_MODE_CBR,
+-		.menu_skip_mask = BIT(V4L2_MPEG_VIDEO_BITRATE_MODE_VBR),
+ 	},
+ 	{
+ 		.id = V4L2_CID_MPEG_VIDEO_BITRATE,
+ 		.min = 10000, .max = 200000000, .step = 1, .def = 10000000,
+ 	},
++	{
++		.id = V4L2_CID_MPEG_VIDEO_BITRATE_PEAK,
++		.min = 10000, .max = 200000000, .step = 1, .def = 20000000,
++	},
+ 	{
+ 		.id = V4L2_CID_MPEG_VIDEO_CONSTANT_QUALITY,
+ 		.min = 1, .max = 100, .step = 1, .def = 50,
 
 -- 
 2.55.0
