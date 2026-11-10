@@ -1,62 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334735;
-	b=zDqvsP2DzLYwsNqrUeet8b6Sr8AhconUl1TiN1EGeD1Qti7hJmbfPumCASuWbIijtFGV
-	 Brviia1/cdOeXsWfIVFiEAv1KWhKYRnsbGaxMJNDEXWMheZOZ0GMsB2/nXzRFajTMTq0I
-	 Bin1XsKA70r3afvl/tJCeppsNuyhZem6kaHKjhVJ65ExcQW7nVC1sVFF2YcZqabNC3COU
-	 YSXwEXGDUbdD0mhbYJC3AtvkcU0VH9cXiDApvDIHQRqH6u4OBCpxLclG2RZzh/pGq5jxO
-	 I4ZCJXZlWyt0q5fzcHpgKr7Ux05Qyvx4b/MxWeVCQrMvXp+TlqiZjm3LCeU7QHqZAQg==
+	t=1794334888;
+	b=S0lPtunfWO1Xq6LikYcG/aPd0e8rEZ8mS0CKGStq4xajnt0PbZ+gFQwRsIdDBTHchdt7
+	 YXkO/QAm4bCuN7oyVcSYbNm4UXecIArDDXykcqHxPPXQeU5+kvgecYLLnhRN61H6boTuH
+	 xCBoSVQXHifCFmEWX/8BRmBAaB3xrp7/B+UXuHiB+Gh/Rpc/xmc4s0lrWSs/nsrO+m2ah
+	 jlpOFZbhcgq5RKhRIHHn+pcz8R3Hg9e7UjjAOLi0MZmEGxMxSTvv6/j2BXcwG8c7/YFSW
+	 flmnQYfX00jJ+6PC424VEhdxLgOPHefU1zjqYUiJUe+l6kDbz2Aptvo6a0TO/haCLYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334735;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ti0FFiAc19qMbwUdWnG2Fegu5iHFKeoAF69fwct6oz4=;
-	b=ztKS6dQvoyB/jeRiQkOteJCwebjTAW4QN1ExoJe7Cec7ekAz2eZC0GmGVikWCO7Tl2Pl
-	 cP3k51oqHqrCL3RzLjiWBwYGNrWW9MLe/hxiRbXnxooAa4UCqg7PE3eSPV8DSyXzdW5Fl
-	 cOkFNTcT/IR+RxNeCFu6P4dXbbPuYhvkNnbmr26WiQZm4UX56tpr4QEyv2N9gGD/ITh0k
-	 5dU/g+YnzEOQpGFERwpY+zCYF0l9JV44uFvfWfSnhj1AMKtHrWHuZHCY6wokiKB3VRsVb
-	 O6QZSQicrzB8zy6cmbTVRR8+ieXzOPDCcLl/PvLVoytAoVPrsgeKpNb01UeZDAbKwCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=F2RJY2BkqBxCSZFDxPJ5Kj7nqHWBCu+6Ch+FlubSWS4=;
+	b=N/7usieCg0fYnESykZcMhZpM80oN0sqyRAGBmPor64W9R25y8b89f9OlE9voyNeun8sy
+	 gsFAg9N8p1pmzHMhsFXcMNJhclgWRm08Jwie+HSn/454DXjOoPfbvUKpRHCRLtmdBtNB6
+	 qjeG7wmsycCSPnWSPb7GSCLpybVgCP1ZOE3Iv7wldROqORDwvY08DGWEQekHPkce/ofLa
+	 uecFohAB10y/3uKBdUh7lknB84cfDKS9dcgQLi2k8NMMgNTiapysh0Bf09zNGaqUPGxN+
+	 7bhRjCx3xkyos2vLbsEGpfFgBlvr6rA+gJIirrfRdgd08uwm1HGZQFydZySFnMqTcSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeruiO8w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RMKqWfWA;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEBF606A320;
-	Tue, 10 Nov 2026 18:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71465606A321
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:21:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71465606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeruiO8w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565FC1F0089F;
-	Tue, 10 Nov 2026 18:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334735;
-	bh=ti0FFiAc19qMbwUdWnG2Fegu5iHFKeoAF69fwct6oz4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JeruiO8wDEvUtzVDB/HytMdFLSTbVBjy7bsq/3OG7qCNYx+byR+PCDntTHGMzTaY5
-	 Y3281yxPfX5y7wm0SNdnYs1QN+syDXWaurpxXcHWYXKgsoifNq2AObISC+moEYRoH2
-	 scuzGwHyaeudfKcp8oX8ZXf6KqxJcitl2EmKwc/1yFIuBoXAoNY3rsIEBC9qjxfgEH
-	 vtx8xfV0fmquxBXqSq4hrIqk01hHqxtJ1BZxoLKHRLTUi52Nqla6iOcEBY0613BkmM
-	 HPajy513ZLd71RiT5fm0DbSJBYwW7C6m/2kagSqkE9Kmndj6BmH8ihs0ZgBX+wPxWY
-	 bPqoX78/RpE/w==
-Message-ID: <sashiko-outbox-207570@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/5] crypto: cmh - add AES skcipher/aead/cmac
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Ousherovitch" <aousherovitch@rambus.com>, "Saravanakrishnan
- Krishnamoorthy" <skrishnamoorthy@rambus.com>, "Joel Wittenauer" <Joel.Wittenauer@cryptography.com>, "Thi
- Nguyen" <thin@rambus.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261110-cmh-b4-a-v8-v8-4-4cea8ebc1d40@rambus.com>
-References: <20261110-cmh-b4-a-v8-v8-0-4cea8ebc1d40@rambus.com>
- <20261110-cmh-b4-a-v8-v8-4-4cea8ebc1d40@rambus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 18:18:53 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RMKqWfWA
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so23594765e9.3
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 10:21:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794334887; x=1794939687; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F2RJY2BkqBxCSZFDxPJ5Kj7nqHWBCu+6Ch+FlubSWS4=;
+        b=RMKqWfWAghzk5WJuHRkb1WroS6RTG+obBeePaKx6J5bQfU0ZMHKjkHkPl6sL/w31eX
+         PwigkiYuHVH6o+Sea79842++t/bM2z5y8yn0HibdY2aS8MjZy5PHguk/K4UGy+/w7/1T
+         dE9wWNABKEoXDp1j9Q0MhvBbF34Jf4qDZgNr9XsN0fR1tmLznMBHOOOj2972JUm3sx1L
+         sWGU4u6zv9t8HmEh/r21Ds1ORky6PzkdS2JBJHxF/ceCZbYMd9Ypsrk8pyc0uA7HFTsA
+         OaGWy51YrbUMeszqh444NCapezU+pVBPAlFzEpsqJ+NZvqoITX/aQ5pvlGTm8YfAlL7w
+         BjtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794334887; x=1794939687;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F2RJY2BkqBxCSZFDxPJ5Kj7nqHWBCu+6Ch+FlubSWS4=;
+        b=QMk2r+JMkLJn8InbmPLht48QKXTXbRri6bZGu7uCYFky4vM0WxSxeU+nE3O3wkTIxT
+         DBeg2zpNcRT7UDawazirGwm6fYXqH0bBSky5SOi6cMhwIRhwNPD2WRffSKloDdf/BBsW
+         DE/M/fYj4bJoifZXQb+MA4hC5kATwsGQE9pDiTR/La9wi8Qhv1XA0FKaoIwswmKz+f3g
+         +H8HdpOfuviU7rWLPfLvWXRV6r+LLjC0k+X13nm9NUCWjrp2B50mBnSn9xCDxSI4m4ZW
+         aJI8OJaknOOOIKebQhsv62TPy4mEjTFe1inmxmoz95r+f3cQGLgtQEvTBydCXhRzyRx0
+         Qp+g==
+X-Forwarded-Encrypted: i=1; AL+hErGu7KBtOJZT8kcN2z7SCKNlsAg0V/mA0omy9KPSvCWK/AEcg21HaYg18c8Pk2gn64DaacVqn8hihR5P@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ljW+r9qR2EMGHQDfkeGX/2B2njlfFwudDcEiQ9zT2dErqOcmO
+	EsG9wRwzu8OiTS75QtKU3pG+Af5r0ARsC1BjZ0OBk18hISpQG8RUeWC5
+X-Gm-Gg: AYBFou2SksJoiq3je6hVQZkHYkVzI4Zyc6zbqC/o2wfYVovENxWUzo8HKbJgh8Whv6j
+	Ca93kZdqbL2FsUnsDwflTHh/00Ga/y0wOlRcO+EFbXn0dgwHUDVAV0zrbo5EihGG2ScyFtn5F+s
+	ATYxhfyXGT4Th9QGRRzXj2Ky3Rn5yxPEegzkTh4rRJCWtoK9qPsU7G/jZAoVflELuCaooOkBBw/
+	ihsoEQUt+o8yJ4VQ14ppoAvIbLqxCKlYEofEJAoyblsHGMIsYflbzlBnNHHKqxODat/d0WXQcDV
+	+gGelFKKLKMVveECxXfvrE4ZA5zlhWXm/gqDS8YDD+u0tSBWmXP1emuxtkOQpncHajnw71w2xM5
+	KR0/QLGNOf8zKU/eccbic1lzvDsG4PMfrPcazmn/r6vTaLwGWQEo51SsWOsL/Po5ksohoUlhu1Z
+	/snVsUeW2MsuDyhqB30kgYt44X70y15J0oF4XwK1kYK2lBzrVVMxJ0HGlWVMfkn48dlJAJXzv6S
+	/CE4i1GcPBJvBGqrsYTYauXegG2W0ksAsSLTQKrsu6dpfwDdWV5+hQXfNsaHHXtC/yZ5CjU+jEq
+	IEWvNeFelTgrDwY6zQiJMXGWHTrZ5Mreot25I9Fy5iY1L5RRxpf7DI6OgoUos7pqDbRxsTrIJvN
+	QHWSkjC4vmcy1NNnY+bZQFGQSU97+52HQlOfSZTLzwKn8Z8FER/0bcp8=
+X-Received: by 2002:a05:600c:8b84:b0:4a7:6bc7:f778 with SMTP id 5b1f17b1804b1-4ba02355aa5mr62875845e9.30.1794334886677;
+        Tue, 10 Nov 2026 10:21:26 -0800 (PST)
+Received: from Lord-Beerus.station ([93.146.104.162])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01d9df5csm95507825e9.0.2026.11.10.10.21.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:21:25 -0800 (PST)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: [PATCH v1 0/3] Add support for Variscite VAR-SMARC-MX8M-PLUS and Echo board
+Date: Tue, 10 Nov 2026 19:18:10 +0100
+Message-ID: <cover.1794334398.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,133 +114,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Critical] crypto: cmh: stack overflow in ahash_request_zero() via
-  missing tfm->fb
-- [Medium] crypto: cmh: missing CRYPTO_ALG_ASYNC mask in
-  cmh_aes_aead_init_tfm()
---
+This patch series adds support for the Variscite VAR-SMARC-MX8M-PLUS
+system on module and the Echo carrier board.
 
-commit 89559a30a0ea6b4fc4382fe41b13de31385e0958
-Author: Alex Ousherovitch <aousherovitch@rambus.com>
+The series includes:
+- Device tree bindings for the module and carrier board
+- SOM device tree with on-module peripherals
+- Echo carrier board device tree with board-specific features
 
-crypto: cmh - add AES skcipher/aead/cmac
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-This commit registers AES skcipher (ECB, CBC, CTR, XTS), AEAD (GCM, CCM),
-and ahash (CMAC) algorithms on the CMH AES core, along with the AES core
-ABI definitions.
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: Add Variscite VAR-SMARC-MX8M Plus
+  arm64: dts: freescale: Add support for Variscite VAR-SMARC-MX8M-PLUS
+  arm64: dts: imx8mp-var-smarc: Add support for Variscite Echo board
 
-> diff --git a/drivers/crypto/cmh/cmh_aes_aead.c b/drivers/crypto/cmh/cmh_a=
-es_aead.c
-> new file mode 100644
-> index 0000000000000..7edacf38198bf
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_aead.c
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8mp-var-smarc-echo.dts   | 647 ++++++++++++++++++
+ .../boot/dts/freescale/imx8mp-var-smarc.dtsi  | 640 +++++++++++++++++
+ 4 files changed, 1294 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc.dtsi
 
-[ ... ]
 
-> +static int cmh_aes_aead_init_tfm(struct crypto_aead *tfm)
-> +{
-> +	struct cmh_aes_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
-> +	const struct cmh_aes_aead_info *info =3D cmh_aes_aead_get_info(tfm);
-> +
-> +	memset(tctx, 0, sizeof(*tctx));
-> +	tctx->authsize =3D info->maxauthsize;
-> +
-> +	if (info->type =3D=3D CMH_AES_AEAD_CCM) {
-> +		struct crypto_aead *fb;
-> +
-> +		tctx->ccm =3D true;
-> +		fb =3D crypto_alloc_aead("ccm(aes)", 0,
-> +				       CRYPTO_ALG_NEED_FALLBACK);
+base-commit: a62533fb6362e6424a7bb4ecd4b5afe1a3355849
+-- 
+2.47.3
 
-[Severity: Medium]
-Does this fallback allocation need CRYPTO_ALG_ASYNC in the mask so that
-ccm(aes) does not wrap rambus-cmh-ctr-aes?
-
-On architectures where ccm-aes-lib is not registered (such as arm64 and
-arm), allocating ccm(aes) instantiates the ccm template via
-crypto_ccm_create_common(), which grabs ctr(aes) using the passed mask.
-Because cmh_aes_register() has already registered rambus-cmh-ctr-aes at
-priority 300, the fallback ends up running CTR on the CMH hardware via
-bounce buffers and rejecting requests over 32 MiB with -EINVAL, rather
-than using a software implementation with no size limit as documented.
-
-> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
-es_cmac.c
-> new file mode 100644
-> index 0000000000000..34a7a5ba07baf
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
-
-[ ... ]
-
-> +static int cmh_aes_cmac_init_tfm(struct crypto_ahash *tfm)
-> +{
-> +	struct cmh_aes_cmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct crypto_ahash *fb;
-> +
-> +	tctx->key.mode =3D CMH_KEY_NONE;
-> +
-> +	/*
-> +	 * The generic cmac(aes) shash has no export_core, so the crypto
-> +	 * core cannot wrap it as crypto_ahash_fb().  Allocate it here
-> +	 * instead; masking out CRYPTO_ALG_ASYNC excludes this (async)
-> +	 * driver so the allocator picks the generic, synchronous transform,
-> +	 * and its request is embedded after the reqctx.
-> +	 */
-> +	fb =3D crypto_alloc_ahash(crypto_ahash_alg_name(tfm), 0,
-> +				CRYPTO_ALG_ASYNC);
-> +	if (IS_ERR(fb))
-> +		return PTR_ERR(fb);
-> +	tctx->fb =3D fb;
-> +
-> +	crypto_ahash_set_reqsize(tfm,
-> +				 sizeof(struct cmh_aes_cmac_reqctx) +
-> +				 crypto_tfm_ctx_alignment() +
-> +				 sizeof(struct ahash_request) +
-> +				 crypto_ahash_reqsize(fb));
-> +	crypto_ahash_set_statesize(tfm, crypto_ahash_statesize(fb));
-> +	return 0;
-> +}
-
-[Severity: Critical]
-Can leaving crypto_ahash_tfm(tfm)->fb pointing to the async CMH transform
-overflow the kernel stack when a caller uses crypto_hash_digest() or
-HASH_FBREQ_ON_STACK()?
-
-Because cmh_aes_cmac_alg sets CRYPTO_ALG_NO_FALLBACK,
-crypto_create_tfm_node() leaves tfm->fb pointing to tfm itself, while
-cmh_aes_cmac_init_tfm() sets tfm's reqsize to over 800 bytes above
-MAX_SYNC_HASH_REQSIZE:
-
-crypto/ahash.c:crypto_hash_digest() {
-	HASH_REQUEST_ON_STACK(req, crypto_ahash_fb(tfm));
-	int err;
-
-	ahash_request_set_callback(req, 0, NULL, NULL);
-	ahash_request_set_virt(req, data, out, len);
-	err =3D crypto_ahash_digest(req);
-
-	ahash_request_zero(req);
-
-	return err;
-}
-
-HASH_REQUEST_ON_STACK() reserves only sizeof(struct ahash_request) +
-MAX_SYNC_HASH_REQSIZE bytes on the stack and binds req to
-crypto_ahash_fb(tfm) (still the CMH tfm).  crypto_ahash_digest() then
-returns -EAGAIN because an on-stack request is used with an async
-transform, and ahash_request_zero() zeroes sizeof(*req) +
-crypto_ahash_reqsize(tfm) bytes, writing over 800 bytes past the stack
-buffer.
-
-Pointing crypto_ahash_tfm(tfm)->fb at crypto_ahash_tfm(fb) (and restoring
-it before freeing fb in cmh_aes_cmac_exit_tfm()) would direct stack
-requests to the synchronous fallback transform.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-cmh-b4-a-v=
-8-v8-0-4cea8ebc1d40@rambus.com?part=3D4
