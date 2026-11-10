@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794326927;
-	b=IyYGDHKQzoOYHG5uvSGlPFb4LXonn4Vs837Z8tTHsxaE+OObO+GksjSHtX52xj05NJsp
-	 KRZWGcrcoHk8BXW7dpPOQmrFQRMsLVduehuvsRL8ARNWjOdg6gUhvuq9qSS3eCeMpgj38
-	 qDcQkHXqXXjiuuvGiwE3/SLkp1TldK1qNO06+DKbw5Nh7KvRkdQjTje4CZQKeFqxnB1Kf
-	 Y3Kj6221R/aQazyRleicHAZvR3TfjxkSBIyMimmxPVIalFJM+d7VEK4bG6sk/wACEBK9i
-	 tSwXapOsaK/ZU9ZL3uJeoFEiPOPlrNBj7yz8EqGs+x7/tc/wIdb2UjIqyyhJUliX75g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326927;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WPm+Vr6nQIbCRb4yT5UWIVEBEuiJoTmih+ganpauvx4=;
-	b=xheNaDQmChsSc7OjZHiCbd6shWf/TlxdaLIU1gA7RQXw8Ek2kD+IYyJ6lYdBa34c16PO
-	 SZnggf6mabZyuLWPws3XQGKTjDYm7lUwknI0nzAwRmKsCF5w2X5qXpomghivTRvPknfbV
-	 ZgvPjBn+ID5/DQbc7FsbH9/FxoJ7rZRGqnHpqL1/I0vC9Y1xzPnceYBI9HIf8cQYtT4o4
-	 aA3NZFydr2h+k7TWAcSMuHAyGMLEVYMIkMm1I9TmhNWHs9fx5/JzkFBDLgTkTqlVVeGuD
-	 Euy7r8gDQ/m9BlgeQxRbaTKWlRbtWIQUD3cvy1ywARSUb3HwESbJJaOPlZVjd/JeBqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=axis.com;
-	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=phRhtZQZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.45
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011045.outbound.protection.outlook.com [52.101.70.45])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794327019;
+	b=P8VXeAUgGT89SpLhXYuFPqJKr6kxWlseA4JGxRPCKS2uY/hLB3E/Iimt2dIk8veTf4HG
+	 0qlaKt2eQQBYwLqvFfoT+pthn6vNm5M61tM8rQWKakzV4oWcCO7C2VBDxdVdasCuzmeMZ
+	 Tqk09namrkgEuVek+DvR9eEKWhVqUvSDT2RkypgKaIkqrxNyMSa1aKwUZY0UBbWTZJkAI
+	 UY0W/w3IWPJzf2jUObDKgnhNYE4HADJJfpYwveMhdpXNRxKQDIRSkC2oa0NXGeIwEiLm4
+	 YCLAziWIaMICuequ0b9edSxCvKVmJyx/wjB1KF5JvwVG66CTKffBuJ6iWnfAn2hU7xw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327019;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
+	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=FRuAqnYyFGI3EP5jhxTkn/d3PhY5cH92FYdb7x+TtB8=;
+	b=12bKK1L9h0pdy4h5JhaiQ7l+ODHn8f3lYwQqTGGqdViv6XX5zWoa2Ly5ifjsxUMgc2BA
+	 1CFZb3jnz61Vh9zphMPUX//9uQdy1R2czwGhrOFgWovgHyjkY7qn8zgh8JaPRibEwljyX
+	 +hYLE5MYXCQQk6GE8xUrzEr2oZIv9Xbk0ABuoTPKDU9kEzn5XgLTdCw2KC0fA+U7Bg4hm
+	 o9iz5+MIDZhvj5+NQ477i5TIL5PqnaeIdYX9oxtFvMLlkwD8aI+lyuC+gqEV0sOwlDQ6M
+	 spBmgjyqLoQ5zONoOO1j78TqY3aLARjEm9DYAjUxJ1xenwMxnOpDNJvJRnfSHK55FhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DcKWCGdo;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=mf2+VrQB;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02761606A31C;
-	Tue, 10 Nov 2026 16:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02761606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F9560A381A;
+	Tue, 10 Nov 2026 16:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9F9560A381A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=phRhtZQZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Njw2ZpPpQllFzgQC3GjyglutzHsXWiMM+6U+mtGK+0Xs7WUweEfpmxs2hoAHerhqPABzyb4aAQ5mtaPpyFo3ZZjUGazJF2+QAmOiejGwWUbaVilV6iWEWfnTRLcV5BHjE6cUtlTj79a76g5ewL2dIvydSgjEjw8hu6lssAt3lpGOWhQ5SXzC28Hkly8ygwiiHM+dDGdJOL8R2YoymEb9QFqOeuN6xYeMANghPGM3vL5zbhDM7fN90RpT3StAwOv0SSQ7gGzG0BrJGlFpC5dH673mHZPuSFjgNS4nAOk4h9CAjD6oaCQjWc1Th3dHEELbJNMWlK3injtqNNUV5qPEig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WPm+Vr6nQIbCRb4yT5UWIVEBEuiJoTmih+ganpauvx4=;
- b=HmGE049/sc0KgrP9G2QnlF35SN1U+VRYn3LiH9yCDD/mhOmklLpTqLPW3sp6+Id2cBkabf2Z5BmvazFeX/X9IEnIdz/YKyNJUd9ZW0ETf1f/xK1MIyjgmfrELksBlc8iEXN1Ijzs16FW6u4M0rUQ97YQJfqwaBsWRSLwOtoOUdY+nKP5BQxnwyCwucNBxOmDgFIHRpbF0cVaydcgazBiRf6ElACW8uoDtqwdJONLLb2b6ylJqy76vvIBUBmJzFb93BrdTXVKQmN9gjUfhyg1HOXLebzllP5FNI5QiXQntwnVrpi1V7l/TzVakyNrV+KZX889MWrs6KWXCtNNiNgT4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WPm+Vr6nQIbCRb4yT5UWIVEBEuiJoTmih+ganpauvx4=;
- b=phRhtZQZNIVCCY9GSuRPLe9KWelC6OMXHO7YxLTTsgWQEnNRIReSQKX7dIs/ozWZs/pMatLWd0cugpBAqB0I/B2mo5ug0KYL00y59/+YHB8Znu/IBkF02XikC4CdgodfIqmcLb6tOIV+uMvVW5EfEdSslyd0Xl0QgQnFSqNEPds=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from DU4PR02MB12006.eurprd02.prod.outlook.com (2603:10a6:10:62a::23)
- by GV1PR02MB11143.eurprd02.prod.outlook.com (2603:10a6:150:1ee::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 16:08:41 +0000
-Received: from DU4PR02MB12006.eurprd02.prod.outlook.com
- ([fe80::7584:3ff:da11:e6b3]) by DU4PR02MB12006.eurprd02.prod.outlook.com
- ([fe80::7584:3ff:da11:e6b3%5]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 16:08:40 +0000
-Message-ID: <389d5226-b147-4b8f-b3c3-b6bffc5ca78e@axis.com>
-Date: Tue, 10 Nov 2026 17:08:38 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] This series adds support for Texas Instruments
- OPT4041 Ambient light sensor
-To: Jonathan Cameron <jic23@kernel.org>,
- Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@axis.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
- <20261023215858.623ef46b@jic23-hlaptop>
-Content-Language: en-US
-From: Jesper X Nilsson <jesperni@axis.com>
-In-Reply-To: <20261023215858.623ef46b@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MM0P280CA0116.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:9::33) To DU4PR02MB12006.eurprd02.prod.outlook.com
- (2603:10a6:10:62a::23)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DcKWCGdo;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=mf2+VrQB
+Message-ID: <cc35b2127b04772f05948ac51c8faa5ef07da0b0.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794327016;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FRuAqnYyFGI3EP5jhxTkn/d3PhY5cH92FYdb7x+TtB8=;
+	b=DcKWCGdoLsr5BypGSISy+81kuWGKqGX7oDJRmI88rB9xcHk3G2T1QSetSuTvCMysdAIIUW
+	s3oV6gZX0mluQvH8+U6jrSepGWnLx6a4vgHJ7NUPD2xfZvXVvP9S8c8cHpqndIvt87nNrB
+	/bZCvpSrTfSu5mW7JYKzihkMoZrlwf7lRaJs1bcUUFeDjOF5W6Ys23rRnCKPWQsjTi4iCp
+	qqNd+vPmcD6kt+LQVbZMFXwBwMEJNUez7PRzn+dyfKue7B+9TNSdKxFWhIfAeEeL4yFRyS
+	HmVS0n98Mpp2FOGnPJAv7egbI+FepAYa27pSizTX8RsAkpUcoKtGN9ILkZlWRg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794327016;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FRuAqnYyFGI3EP5jhxTkn/d3PhY5cH92FYdb7x+TtB8=;
+	b=mf2+VrQBVLH2r3NQRUxdCKuIej6hKePUGi7N6mN0ogRC2orCIZ38tqM1XNF+uqyZWQFS/C
+	47ioVG+ovAxlh+Dw==
+Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
+ Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Eric
+ Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>,
+ devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, mfd@lists.linux.dev,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Tue, 10 Nov 2026 17:10:15 +0100
+In-Reply-To: <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
+References: 
+	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
+	 <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
+	 <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,113 +89,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR02MB12006:EE_|GV1PR02MB11143:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5184f4e-4ff3-499e-f0d2-08df3f44e253
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|56012099006|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	esASLNdZYEpIJIgW14EyK1fERkUwou79McGE0GaWG5wvyk+EGubB7WdOcFVIVa0Hpdazb0Z4YwwjkO/pdNIXE3aJdHB4w91UdC8ReidfX7NvlycmEKbyGd7C/bXlSdR1dVUqescnwmZ6HZXgv/0YCi/vlydE8I7ouIexgk0ZNdGkOY6z3r9JF3w9C31I12e8wtKm9MkoXEkaYeRn91L97F3oIkes6Ua7quA/8B6BWAlAJzU/cpIY5YeDbVX21WB+ljSUqxALLST0aXhw2AnimoINrZYsFdKtplkbGSd2C3mX3orAhNGsi6HhQj3yHIqU0+uNjq/5eQIz+IDOmAZ1Qn8/qKE18OillghXz+gNObRrvL/6QMkZqfRmeto6wyt6ARViSfwUtrTZ2FzvR21FObBV8ddVSRTWNonG9RXA3oBh25fmhq6AQWWZI0kRWgTZhOz/Z9LMvC+mnv74OBrSgpwQzlh3d7rfrMLiO7aJ/6EfFzStIGUcp/lx3esScscu0wHmE4wP2ol2L81DWilwzHvGxtXm1MNUsv7WGPe8v7JU3lfJMf38ksPnNUvHEcdFCR5wwE+WmLr5k5O5Bord7zbxYaT/8dk7IXA7QfXNOOCSZEL4U++X1njMy7F3eDJiRwO93bNwMqCxbFqsaVfrBtngZsLjafm701cjycqvXLQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR02MB12006.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Wk9iRFpIdXpXWDhaV1VRSnZWUWEwdmpURUQ1bERtdUFWYlltZWEyNmhQckd0?=
- =?utf-8?B?c0lZZGV0MEJVNjdTUGx6UExQZzZyQUtVaE5RVEV2QzIvOGVHYXNBOUxEUGlm?=
- =?utf-8?B?UDdjS3lWQ0VDanBwWVIvTE9zdzZUTldIRW85TG1tZVdVSDFwZEIzRFFvZXVp?=
- =?utf-8?B?d3pBOEJEbWNONjM5SldNaGdySWJuZkl0NFFMM0dzT1IxN3ZpdGlJUThtQXZs?=
- =?utf-8?B?bVowK0JkNnpYbnArSGdOZ0V0cHRveERsb2ZVNTRjdFk1N041WHVzeGlBOTRT?=
- =?utf-8?B?dk9sK3l0N2ViUS8wMnN6RlRlRWFPSkZnTzA4SEVReDY1Q0VacEdGR25mOTUx?=
- =?utf-8?B?aVA4bjdRUmcxd3dCOGl0WkNUR0s5OEltZ3BYWW5PZlBwU3BTU2hHbDJoVHJC?=
- =?utf-8?B?d2FIaUd1V29BYVJjOFRUeHpCZUxCeDJEdjJRZDV5eFlJWVF4b0szbXNVTXIx?=
- =?utf-8?B?emFHWEd5ZDNpOUdDVnZsNkpkU3l4a00xQzN2UldOU1g2U05MQnk2UE9wVUU2?=
- =?utf-8?B?L3ppUVc0RGRoc2U4V0hQSWlVT3cySG5TR0srRnNNVEtoNXBoV0xvd1EzWXlS?=
- =?utf-8?B?UkNleTd1V1FBQ1R0T0J2aTJFTDV1Vk9zWGswSHZSYXhSL3JHVnc3UXp3MUlh?=
- =?utf-8?B?Tkd4K3VTUGVqMVVYUlJpN1hMc0V1OVRMSGV0WXJVb2pTUHd0S0dEYmJqUm1Z?=
- =?utf-8?B?ODBIQ002ay9FcVAxdHo5OFBPYmttTEhlWVhXM05QUmJTZUlPR1BxNGVvNGFw?=
- =?utf-8?B?eS9vMWFtN01GcXZYdUtsNXh3TTRhN2xGbHphODFMMTllb1VscEwrdTM5emdn?=
- =?utf-8?B?WXdEZjBiOUZHS3loeHM4YndST1pQSmt6ckI5dXljQmVvUkIrcDBzWi8vdlow?=
- =?utf-8?B?QU1nanZScXRMTGI3RVNBYWd4UmFYYVVIMkhLK3NXb1ZGSGlCTVpWemNNM1B3?=
- =?utf-8?B?aUdqdy9nbmlqWE9LRjBpNG91aXhCUGVMUWYyZ0hMVEdhS04wU29rNHVpYXVm?=
- =?utf-8?B?MkNtbmJtUmxPZE56eDY1eGdVWlpUOGVrMFRtd0dpZ0RTS3d0WDExSW1CcHMx?=
- =?utf-8?B?NHRleFJzYUQ2dkQ2ME94MlUzbFFzRGdIbUh5TmVyNmVaaUZENmNRVGNCRmlp?=
- =?utf-8?B?RHlHUlJXS2V5Z1RhdEhmS1Q4bzlSWFY3N254em9Gb3NIRUpSZE5sVjF4TXBu?=
- =?utf-8?B?MmdKN2NTTHEzcG5KS0JVZDhxS2pTVUZrc25yM1Q0RndVRFVONFl6WTBuVTJ6?=
- =?utf-8?B?OTFmRlF5UUNNTlZKUmV0dzNxQzVGVmlDYXNqVFd3d2FHRXcxS2QwMXVqbVAx?=
- =?utf-8?B?WEFNaE04SkF3am4veEx6QTY0Tk1udDREVjcxVkUvaHNaa2tmcmtwYVd4eHdS?=
- =?utf-8?B?Mk9iVTNnR2FpYjd3WFExMzE4S1RlRzVnQWNnRmI1WHM1RzVnRmc5M3M3WVdr?=
- =?utf-8?B?bTRkaEMvU2JWRDBMeXV1bSs5WnBBZFVxNzJ5QURmQXRuekM3SVE5bmwyWDVo?=
- =?utf-8?B?ZWlOSDhjSG9NbHZydGdxYzFkMFVHZ1dUc21QYm1MbEcvMGpuSGdZbDI3aVlw?=
- =?utf-8?B?VCtHY1VyblhySFpUTlVMTCtIRVlCek1jajJiMDJSVjVjZW9qMmJ4ZnZpRkwy?=
- =?utf-8?B?VUFKTkIyeStVVXlEM0Rha29lVllLT215RDAzVjh2c1VpS1lEY252MWM2OFpG?=
- =?utf-8?B?S2xNMUxpK0RaM09ueEkzZUMwalBzZGd6a0JHa0wxa2dudDZkSys0RG04c2lB?=
- =?utf-8?B?Wi80d2s4TngrZkR3TWFFTDJYYWQyYUVIbnpTS3ErL0UySm0yKzR2S1RZY054?=
- =?utf-8?B?dWlPQVN3aFNTL2E2YTBWTm5SR0ZaWm1zSTQ4WStCZm4vVzQ2T0QrSk5yQWIz?=
- =?utf-8?B?UDNxLzAra0RuczM4czNTYkJpc1hmend4a3F1V1Fsc3FMV1E0ek14QTVWL3hC?=
- =?utf-8?B?cVliZjJmbklEdkdtVEhSTVhSM2czTGwrbmxIZVdQbk1YRUxaazl6VzY2dGNS?=
- =?utf-8?B?aCt3azl5QmxxeCtOMXBRTzd5VFlqQkFlVDlpRlp5ZGlzU1NzYVBzbHFneVlV?=
- =?utf-8?B?bmx5aW9RWm1MYnBGT2FTVXp4YW1OazhpTkhUWEVCSG9wSDRCTkluRmcxSjZs?=
- =?utf-8?B?WGpkMWQwTDA2VjZHVDhBdlNxbEl4SEZOUlpIVkN5eWdkdGpYRXVzMDErRzNq?=
- =?utf-8?B?c013K1UrMkR6YXBRNWRSUGpwOWdiVDFaV2xwRmdLVEMvcENGMnhWUWdCRm9Z?=
- =?utf-8?B?dkVDNGZGSDB2dlh6RWVNc2VJbXI5TzZ2V0pLdlVud0FTMnZwRVhiRlVnZytY?=
- =?utf-8?B?T2x2QVQ0Mi9KZVoyNkwzTWxRL1lSaEpBQ3huaU5NWk1jREJNeStOQT09?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5184f4e-4ff3-499e-f0d2-08df3f44e253
-X-MS-Exchange-CrossTenant-AuthSource: DU4PR02MB12006.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:08:40.0721
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rVvYLhROZbaBA6ian/+7zq+Py7T90yZnmhIe1uE9D7Jo+snclxjAMUl5AoSD65SsvBjkVHbOIw8OjW1ToVtp0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR02MB11143
 
-On 10/23/26 22:58, Jonathan Cameron wrote:
-> On Fri, 23 Oct 2026 14:30:27 +0200
-> Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
-> 
->> Extend the opt4001 driver to support OPT4041, since it is so similar to
->> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
->> from 380nm to 1000nm. The register map is almost the same for both
->> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
->> fifos of size two, one for each channel.
->>
->> Since OPT4041 has two channels it has one bit in register 0Bh to select
->> which channel is compared to the threshold register. The driver does not
->> support setting the threshold registers, so no new support has been
->> added for this.
->>
->> The OPT4041 is pin compatible and has the same package as
->> opt4001-sot-5x3. Although the device id is different, I added a new
->> compatible string since the driver already had different compatible
->> strings to differentiate between the two OPT4001.
->>
->> Datasheet: https://www.ti.com/lit/gpn/opt4041
->> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-> 
-> 
-> Normally I'd say slow down to give more time for review, but seems
-> you got good reviews anyway and the code looks clean to me.
-> 
-> Ah well, sometimes you win - but generally wait a few days at lesat
-> between versions.
-> 
-I will keep that in mind. Since I got good comments so fast, I was eager 
-to fix them.
+On Fri, 2026-11-06 at 22:51 +0100, Vasilij Strassheim wrote:
+> On Fri, 2026-11-06 at 12:13 +0100, Krzysztof Kozlowski wrote:
+> > On Thu, Nov 05, 2026 at 03:16:48PM +0100, Vasilij Strassheim wrote:
+> > > Add a binding for the SoC-e SWIP multifunction FPGA IP core.
+> > >=20
+> > > Describe the shared MMIO address space and address translation for
+> > > the required Ethernet switch child and the optional integrated MDIO
+> > > controller and MMIO-controlled MDIO multiplexer.
+> > >=20
+> > > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > ---
+> > >  .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++++++=
+++++++++++
+> > >  1 file changed, 137 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml b/D=
+ocumentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > new file mode 100644
+> > > index 000000000000..625be299e262
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > @@ -0,0 +1,137 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
+> > > +
+> > > +maintainers:
+> > > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > +
+> > > +description:
+> > > +  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logic, a=
+n
+> > > +  MDIO controller, and an MDIO bus multiplexer in one memory-mapped =
+device.
+> > > +  The MDIO bus multiplexer is wired to the integrated MDIO controlle=
+r.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: soce,swip
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  '#address-cells':
+> > > +    const: 1
+> > > +
+> > > +  '#size-cells':
+> > > +    const: 1
+> > > +
+> > > +  ranges: true
+> > > +
+> > > +  mdio@204:
+> > > +    $ref: /schemas/net/soce,swip-mdio.yaml#
+> > > +    unevaluatedProperties: false
+> > > +
+> > > +  mdio-mux@202:
+> > > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
+> > > +    unevaluatedProperties: false
+> > > +
+> > > +  ethernet-switch:
+> >=20
+> > Why are you mixing children with and without bus addresses? This is
+> > discouraged and shows that device is not correctly represented, e.g. if
+> > the ethernet-switch does not have resources, then THIS device is the
+> > ethernet switch.
+> >=20
+>=20
+> There is no hardware reason for leaving the switch child unaddressed.
+> Just an error that occurred while converting the binding to the MFD
+> model.
+> I will describe the switch function as an ethernet-switch@0 child node
+> with a reg property for it's register resources, like the ocelot MFD
+> binding.
 
-> Applied to the testing branch of iio.git. I'll be rebasing that
-> on rc1 once available.
-> 
-Have the changes been applied? I can not see them on the testing branch 
-of iio.git
+It looks like I need a different name for the MFD parent to avoid a
+naming collision with the ethernet-switch@0 child. I checked other
+bindings but could not find a suitable example.
 
-Best regards,
-Jesper
+I would appreciate any suggestions for a suitable name for the parent
+node representing the FPGA IP core. It mainly acts as a container for
+its child devices. I am considering "bus", "ip-core" or "shell".
 
-> thanks,
-> 
-> Jonathan
+> > > +    $ref: /schemas/net/dsa/soce,swip-switch.yaml#
+> > > +    unevaluatedProperties: false
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - '#address-cells'
+> > > +  - '#size-cells'
+> > > +  - ranges
+> > > +  - ethernet-switch
+> > > +
+> > > +dependentRequired:
+> > > +  mdio-mux@202:
+> > > +    - mdio@204
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    ethernet-switch@80020000 {
+> > > +        compatible =3D "soce,swip";
+> > > +        reg =3D <0x80020000 0x10000>;
+> > > +        #address-cells =3D <1>;
+> > > +        #size-cells =3D <1>;
+> > > +        ranges =3D <0x0 0x80020000 0x10000>;
+> > > +
+> > > +        mdio_parent: mdio@204 {
+> > > +            compatible =3D "soce,swip-mdio";
+> > > +            reg =3D <0x204 0xc>, <0x200 0x2>;
+> > > +            reg-names =3D "data", "control";
+> > > +            #address-cells =3D <1>;
+> > > +            #size-cells =3D <0>;
+> > > +        };
+> > > +
+> > > +        mdio-mux@202 {
+>=20
 
