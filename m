@@ -1,90 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322574;
-	b=uukA8qZKd8gN4KE9nViWJF9w6hWsnnn+HGqQ9OQQuthqdKiwjx/OuVaT3NGOHNPe9XRI
-	 txbq35iL42UgCFMqho1zrHL1ewsPVwW0wXt28tyWfBTkfZ4CEUoZoOSkS/MACmE4v/idK
-	 WTq8WvmmLZHi5aAyjVWvcge5Dg6OWdn+SYiUtjL1vnkWnViWMLUKf320hY6KLynItngR1
-	 Pdn+soAdKzO8+2JeSW5bKQzMyb6QN+wNruGsjq5CpSmgQ4cVnibnOfZSsJyX17FGeYLEr
-	 wnhQqa1FdQwfDZVYUj3xwS/lCKao2XlIubN3rgE8Et6QaHqcz9F5Q+vOxDWyB7X54sA==
+	t=1794322839;
+	b=AMUK1ZghYVNDrHRw3rvpAS6vUgcswv47O5Z2XmywigrkuG4P6F5aW30eKQPZ2UDjkVV2
+	 0Mknrpk89S38DW94pqVpPPQWzWlRyNw7Z6VoeECu1YDW5MQSjXtgF/LBgP09ZbTlIaHoB
+	 a2ZJxJHLIHepdboQxp0nHs5u8WC7FjanSvrIA4BPzBB3Yac9kFM0dJlM4pUpkLfOist2J
+	 lSSvvuCSD3y7oitEfFhGhAjVUrr6V0NKKYwd+GmP6G+cZqvx5X689ihVLQ0718njILAUB
+	 o6CxU+JZwEvxvxUBquWi05FGHkHYLg3poYU0OjyLAnDWSRLf93vzceTNwzFU4cxPZpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322839;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=oORDmuKjipQctS12DwaKaR7VWThQmhuzt9K9csDftBc=;
-	b=NPfppHko0NQbfJn9IwMAD4RSlwrRg7CtYlJ/j+OtkdZGDpL34pzHONOZU/FIiPSQS+CY
-	 6z6WWvUzy+ZlSrWSC8cSKa4xxJNpvlANSjcoti4TuWc9GKTTHBmvZeuIwR8Lc/sE4OUOv
-	 tp6RycnZpCCWILnbf2YQoEQ9MLW0aQlzeTDMw79U8+zjw7HjdBi+X3iZHyAxAzWSfo5xG
-	 TiBjRY3mHoisafHE3bknnd0sLIt6x6+vFSj+3twtdORaPf0jyWV+Tqy3QHZyrVjY/RT5m
-	 LopPsIdWiOY9p7MmRPYwnGcQb00NZEZkWLm6iK/L9idBhDpHAvWjyFOv3Z08bbQV5vA==
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
+	b=2cJFJa81EWWgjZFLAmIXSLFdR7C4ZuRbZCENASpgvCh5KSC1Kt74VKBFTYWJId0xtdNB
+	 2F0TrYrEbnMq824HTBE/pxz542hw0ZFK4pFb/KpLMyocPIfcBGOYRO/HiPGd/czhpiPew
+	 KnlXmeW0FJmZbmBA2V6BxbU2Qz265mKqBIgZeAWd1Ng1KVCZX8YBEcB3Zv+EXe8sG0Uig
+	 Ga3YbtXqCleWEtZQ00kyGbkflP86PSbEkz8JXgzkqo2B+chsVqsI5m3r0CRvs9BRTPS9I
+	 pe97d0tziMKCqUL1dvn6DcTdQk87HGds7/8a6j14imahq/JtrSdX2er9HRjeY7vKBIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PRBwIaAu;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c9UsD3KW;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tusOz9pK;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3833160A2616
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 14:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3833160A2616
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAA160A3830
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 15:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DAA160A3830
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PRBwIaAu
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c9UsD3KW;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tusOz9pK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794322572;
+	s=mimecast20190719; t=1794322838;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oORDmuKjipQctS12DwaKaR7VWThQmhuzt9K9csDftBc=;
-	b=PRBwIaAunXzkROxK0ke7a40/QGW7FkH4Tp4EfUT72/PFqmDQbT0amAzQEqrIljSVy5uoMw
-	Z4ErbnGdYGvzQ3NdzwaJKQtyjqPwmjUlCtYnT5PYfsrj7nkQPQV7lLh258li0Ligr3gUtY
-	IMbN4OmmM6q4vi7klMu0YznPiHaz8UA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-253-_cjHZJsTOjCn06W9wlcITA-1; Tue,
- 10 Nov 2026 09:56:08 -0500
-X-MC-Unique: _cjHZJsTOjCn06W9wlcITA-1
-X-Mimecast-MFC-AGG-ID: _cjHZJsTOjCn06W9wlcITA_1794322566
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A51861956057;
-	Tue, 10 Nov 2026 14:56:05 +0000 (UTC)
-Received: from pabeni-thinkpadp1gen8.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 912FA7E2;
-	Tue, 10 Nov 2026 14:55:58 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: kyle.switch@motor-comm.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com
-Subject: Re: [PATCH net-next v28 3/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-Date: Tue, 10 Nov 2026 15:55:41 +0100
-Message-ID: <20261110145541.265328-1-pabeni@redhat.com>
-In-Reply-To: <20261104060636.3901918-4-kyle.switch@motor-comm.com>
-References: <20261104060636.3901918-4-kyle.switch@motor-comm.com>
+	bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
+	b=c9UsD3KWmStb/oKxNMAK8SFDP0/vCTrWIN3buDC1DNThRqTcg5/sTvamBndQnu+V+XGxnt
+	/7lvtSFG4S0HvKIqs3MdDrhGoO6g+9c0p9Lk3f46I+7mRMYIXrDk9byNjb/gZTIDJ2Sijt
+	qxOhinJ1kBoNcrudMW5rd+u4G01EBwE=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-194-nxU8qurROECCGVFoaVCrng-1; Tue, 10 Nov 2026 10:00:36 -0500
+X-MC-Unique: nxU8qurROECCGVFoaVCrng-1
+X-Mimecast-MFC-AGG-ID: nxU8qurROECCGVFoaVCrng_1794322835
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4902ce85f72so1651206f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:00:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794322835; x=1794927635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
+        b=tusOz9pK2ic6QyHtNsIwAaalvgbrOb/B1eGmJzxXoiJmJf6dDJCGS1OUG6pfXHX92Y
+         FhKNbyYh106vbiIJ3/1TUPtFAL82MkXSmzhDy2aXSjfrIIc6D62s5+6ArVkrHJJiqJb7
+         UplRoxnkE+ebe9N9+9XDYXLpm1oOUhKAyqe6uvSiBNpzmpF44ereoOr+sZZn5qcA9wJL
+         IbVv8FmK+XZ+ntUE93Bbi/0PiJRTA3xiWRy88sxLQpwXLx4xZaz0ZE1TCDvjeecJ761S
+         EVha7EUO02k2gLMEcepy7RzQum3wDjgDlph6Pzv4quqEGAKuHlAsQn/evjCS5FywUX/2
+         y2IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322835; x=1794927635;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YzZIHnwUb49OQ5Ge1hfLtzEhOshkFMXkInmhEVBjARo=;
+        b=0NqIf0s/LuYC5ufpx5V5jSOv11CVaLn1ka+OMt6SUPSbVIhaYi9ir9PgyalFerHoOg
+         k7ekLcasuY3HatwXf6E1N+nu3mrbKEgcyszqugh2JIFwJeMlD+T26O4YY+gNlkIc5QQJ
+         vuBknCgBao7MjtB8szMSRWiwHyVo+MH22fDioVmwg/Xej4hr0WQ9AKS9ZgrhHmzcl/Wn
+         fVAThIYyBfQxie+4M3mjRBy3R2z+JBOgrm+AkidjO9gZ30cM20O0MihIJ8rlnSpfGZex
+         ve9XgjaFgAjeI4ONvbHTa09uIkQ4Al01TE5OcE9HUTQmMK7u9Wl87AJXiGvWwBXMjcsD
+         VlCA==
+X-Forwarded-Encrypted: i=1; AL+hErHQztGzaFvX9XCAHXJjg/BlAaL8uXMTWENkyCgexEvb72sitMKzKEKF1NmzWZ+dE+FTUkmYtsZoTaBq@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lnBL8gkexpToh/KtqpvDJTENFCWHvNvHp1KzVY51AaCtcPgBj
+	rw2dGqs72v2rLVUB5gBtuwZ/8Uuti0MfS3fTdlYavsVz3zv+T3Iu9/CCAa06NaouZzuncWyXtPs
+	ThLxRZq2UjqyDOIyKMFU8V6Fza1LSkj3Nf8BsA2vSBiOsyDYCcNRYMjoduc/mVZs=
+X-Gm-Gg: AYBFou3xnC0CR21P6OZUovS121Kz3QIuNm26/uexlYLPvGElrvT7Os2OTR/1c0S8PFx
+	2+MZQC/KfHDV4p5mzsDknuQmLYfH4lS++G7JlUZ+ixoQUbJp56WPtWzRKkBhKmpKEEPTk3RYCWj
+	cWJpA0QV/TfOKk7mnhX7uAoCC41LppNLgOjSy1eC40slZW20hA7uz4BT5WxypQ7xgrVCsk5XgJ3
+	V5EzqcL6R7+mDuKMi+r4yJ8wpde53Boz1ZTRmOhCH6ztW8vaB2Q+H2soODJBv/sovyOiYH/596l
+	BtJQPw/NyCD8bwdXYCfgNEV6dMF82YUVedmUpKZX+rLziX9nbYSryaOYXVEbzzKoJ1a7tnkTn1s
+	rBT8AsPcxS3ZKEPxNd4JcmdB/zbQ++3hQarf0OvsjvY0qJgELMqfRFOyaCw0GBpFA2FA3L1lH0x
+	dVzC34jbseqnVK/uxUYTkMVZ2dptYx0A==
+X-Received: by 2002:a05:600c:4e55:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4ba023050eamr52358675e9.2.1794322834836;
+        Tue, 10 Nov 2026 07:00:34 -0800 (PST)
+X-Received: by 2002:a05:600c:4e55:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4ba023050eamr52357655e9.2.1794322834148;
+        Tue, 10 Nov 2026 07:00:34 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0237fbe5sm47374655e9.3.2026.11.10.07.00.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:00:32 -0800 (PST)
+Message-ID: <c14fb8f4-82b5-4aac-8c64-a2dadb210e9a@redhat.com>
+Date: Tue, 10 Nov 2026 16:00:30 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,285 +112,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v28 2/3] net: phy: Add support for Template
+ Control register for PMA
+To: Kyle Switch <kyle.switch@motor-comm.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+References: <20261104060636.3901918-1-kyle.switch@motor-comm.com>
+ <20261104060636.3901918-3-kyle.switch@motor-comm.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261104060636.3901918-3-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
---- Patch [3]: [PATCH net-next v28 3/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy ---
-commit 7395dc0c40b1873da64b3582ad548b846fa382f0
-Author: Kyle Switch <kyle.switch@motor-comm.com>
+On 11/4/26 07:06, Kyle Switch wrote:
+> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+> index 06f4bc3c20c7..353ca13c64fc 100644
+> --- a/include/uapi/linux/mdio.h
+> +++ b/include/uapi/linux/mdio.h
+> @@ -63,6 +63,7 @@
+>   /* Media-dependent registers. */
+>   #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
+>   #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
+> +#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
+>   #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
+>   					 * Lanes B-D are numbered 134-136. */
+>   #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
+> @@ -320,6 +321,17 @@
+>   /* PMA 10GBASE-R Fast Retrain status and control register. */
+>   #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+>   
+> +/* PMA 10GBASE-T Template Test Mode Register*/
+> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
 
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+IDK if this has possibly been discussed in previous revisions,
+but uAPI should not use GENMASK(). The plain hex should be preferable.
 
-This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-existing motorcomm driver. The phy_package helpers give access to the
-shared top extended register space, and the four ports share a mutex, the
-package mode and a SerDes init flag.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 463e1ea3efc93..492e236ec9e31 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -33,6 +39,18 @@
->   *  ------------------------------------------------------------
->   */
->  
-> +/* YT8824 Register Overview
-> + * UTP Register space	| SERDES Register space
-> + *  ------------------------------------------------------------
-> + * | UTP MII		| SERDES MII		|
-> + * | UTP MMD		|			|
-> + * | UTP Extended	| SERDES Extended	|
-> + * | UTP Top Extended	| SERDES Top Extended	|
-> + *  ------------------------------------------------------------
-> + * |   Common Top Extended			|
-> + *  ------------------------------------------------------------
-> + */
-
-[Severity: Low]
-[Finding: main-2-3]
-[Sources: opus-5-5]
-Is this overview accurate for the SerDes extended registers? It puts
-"SERDES Extended" among the per-PHY spaces, and only "Common Top Extended"
-is shown as shared across the package.
-
-yt8824_extern_config_sds_init_paged() writes all of its SerDes tuning
-registers (PLL VCO/FBDIV, CDR, AFE, DFE, TX pre-emphasis, calibration
-restart) through the calling PHY's own address:
-
-ytphy_modify_ext() / ytphy_write_ext()
-    __phy_write(phydev, YTPHY_PAGE_SELECT, regnum)
-        __mdiobus_write(phydev->mdio.bus, phydev->mdio.addr, ...)
-
-Only the efuse reads go through ytphy_read_top_ext() and the package
-address. yt8824_config_init() runs this sequence for just one port per
-package, gated by priv->sds_initialized.
-
-If the SERDES Extended space really is per port, would ports 1-3 never get
-their SerDes tuning? If it is aliased package-wide, which seems likely with
-a single QXGMII lane, could the overview say so?
-
-[ ... ]
-
-> @@ -642,11 +950,1168 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-
-[ ... ]
-
-> +static int yt8824_config_utp_init_paged(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	ctrl = FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH0, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH1, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH2, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH3, 0);
-> +	mask  = YT8824_U0_CSR_RESETB_TX_CH0 | YT8824_U0_CSR_RESETB_TX_CH1 |
-> +		YT8824_U0_CSR_RESETB_TX_CH2 | YT8824_U0_CSR_RESETB_TX_CH3;
-> +	ret = ytphy_modify_ext_with_lock(phydev, YT8824_U0_CSR_RESET_REG,
-> +					 mask, ctrl);
-> +	if (ret < 0)
-> +		goto err_restore;
+/P> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
+> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
+> +#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
+> +#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
+> +#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
+> +#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
+> +#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
+> +#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
 > +
-> +	ctrl = FIELD_PREP(YT8824_U1_CSR_RESETB_TX_CH0, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U1_CSR_RESETB_TX_CH1, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U1_CSR_RESETB_TX_CH2, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U1_CSR_RESETB_TX_CH3, 0);
-> +	mask = YT8824_U1_CSR_RESETB_TX_CH0 | YT8824_U1_CSR_RESETB_TX_CH1 |
-> +	       YT8824_U1_CSR_RESETB_TX_CH2 | YT8824_U1_CSR_RESETB_TX_CH3;
-> +	ret = ytphy_modify_ext_with_lock(phydev, YT8824_U1_CSR_RESET_REG,
-> +					 mask, ctrl);
-> +	if (ret < 0)
-> +		goto err_restore;
-
-[Severity: Medium]
-[Finding: main-7-9]
-[Sources: opus-5-5]
-Are these U0/U1 TX channel resets local to the calling port?
-
-yt8824_config_utp_init_paged() runs from every port's config_init: on each
-attach, each system resume, and the MII BMCR_RESET ioctl path. There is no
-phy_package_init_once() or similar guard around it.
-
-Going by their names, several registers written here through the per-port
-address may cover more than one port:
-
-  YT8824_PLL_DAC_RST in 0xa2b6 (toggled 0 then 1)
-  YT8824_U0_CSR_RESET_REG 0xa01d and YT8824_U1_CSR_RESET_REG 0xa01e
-  YT8824_P01_PLL_EN_REG 0xa218
-  the P0/P1 DAC bias registers 0xa2d5-0xa2d8
-  YT8824_U0_U1_ENABLE_ODD_PREAMBLE in 0xa003
-  the PLL VCO registers 0xa20a/0xa20c/0xa20e
-
-The same patch treats 0xa000 (space select) and 0xa13e-0xa140 (efuse) as
-shared top extended registers, reached through the package address.
-
-If the U0/U1 and P0/P1/P01 registers do cover sibling ports, attaching or
-resuming one port would briefly hold the neighbouring ports' TX channels
-and PLL DAC in reset. Wouldn't that drop links that are already up? This
-is based only on the register names and address range.
-
-[ ... ]
-
-> +static int yt8824_config_init(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
-> +		ret = yt8824_config_utp_init_paged(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +	} else {
-> +		if (!priv->sds_initialized) {
-> +			ret = yt8824_extern_config_sds_init_paged(phydev);
-> +			if (ret < 0)
-> +				goto err;
-> +			priv->sds_initialized = true;
-> +		}
-
-[ ... ]
-
-> @@ -3240,6 +4705,455 @@ static int yt8821_resume(struct phy_device *phydev)
-
-[ ... ]
-
-> +static int yt8824_resume(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	ret = yt8824_power_on(phydev);
-> +	if (!ret)
-> +		priv->sds_initialized = false;
-> +	mutex_unlock(&priv->shared_lock);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-[Finding: main-1-1]
-[Sources: opus-5-5]
-Does clearing sds_initialized here defeat the once-per-package check in
-yt8824_config_init() above?
-
-phylib calls config_init before resume in each of these paths:
-
-  phy_attach_direct()
-    phy_init_hw()      -> yt8824_config_init(), flag set to true
-    phy_resume()       -> yt8824_resume(), flag cleared
-
-  mdio_bus_phy_resume()
-    phy_init_hw()
-    phy_resume()
-
-  phy_start()
-    __phy_resume()     -> yt8824_resume(), flag cleared
-
-So the flag is false again as soon as port A is attached. The next
-config_init on any port of the package reruns
-yt8824_extern_config_sds_init_paged(). That happens on port B attach, and
-on each port's mdio_bus_phy_resume().
-
-That sequence clears YT8824_CSR_US_GLB_RESET_N and reprograms the PLL
-VCO/FBDIV/spare registers. It also writes CALIB_SEQ_SW_RST and pulses
-YT8824_RESTART_CAL_CTRL_REG (0x40, then 0). In 10G-QXGMII mode all four
-ports share that lane.
-
-Can bringing up one port re-calibrate the SerDes while the sibling ports
-are carrying traffic?
-
-The opposite case looks possible too. Suppose config_init runs with no
-resume after it, for example phy_init_hw() from the MII ioctl BMCR_RESET
-path. The flag then stays true across suspend, and the first config_init
-after system resume would skip the SerDes init.
-
-In both cases the flag no longer matches the struct comment "true once the
-package-wide SERDES init has been done".
-
-[ ... ]
-
-> +static int yt8824_phy_package_probe_once(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	struct device_node *np = phy_package_get_node(phydev);
-> +	const char *mode;
-> +
-
-[ ... ]
-
-> +	/* Initialise shared lock for YT8824 */
-> +	mutex_init(&priv->shared_lock);
-> +	priv->sds_initialized = false;
-> +	priv->package_mode = PHY_INTERFACE_MODE_INTERNAL;
-> +	if (!of_property_read_string(np, "motorcomm,package-mode",
-> +				     &mode)) {
-
-[ ... ]
-
-> +	} else {
-> +		phydev_err(phydev, "missing package-mode in PHY package node.\n");
-> +		return -EINVAL;
-> +	}
-
-[ ... ]
-
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct yt8824_shared_priv *shared_priv;
-> +	int ret;
-> +
-> +	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret = yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +	}
-> +	phy_package_unlock(phydev);
-
-[Severity: Low]
-[Finding: main-4-5]
-[Sources: opus-5-5]
-phy_package_probe_once() uses up the package's once bit before the DT has
-been validated, and nothing clears it again:
-
-__phy_package_set_once()
-    return !test_and_set_bit(b, &shared->flags);
-
-yt8824_phy_package_probe_once() also sets package_mode to
-PHY_INTERFACE_MODE_INTERNAL before it reads "motorcomm,package-mode".
-
-If that property is missing or unsupported, this PHY returns -EINVAL. Its
-devm_phy_package_leave() only drops its own reference. If a sibling has
-already joined the package (overlapping probes, for example with async
-probing), the shared struct survives with the once bit still set.
-
-Would that sibling then see phy_package_probe_once() return false, skip the
-DT check, and bind in INTERNAL mode, even though the DT is invalid or asks
-for 10G-QXGMII?
-
-Could a successful package init be tracked in a separate flag under
-phy_package_lock(), so siblings fail or retry when it isn't set?
-
-The !priv || !np early return can't happen once of_phy_package_join() has
-succeeded, so an uninitialized shared_lock isn't reachable. The concern is
-only the unvalidated package mode.
--- 
-This is an AI-generated review.
+>   /* PCS 10GBASE-R/-T status register 1. */
+>   #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+>   
 
