@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340389;
-	b=jgMwi8y/Ie3tcRLdqV0xepxe9c3lXeWq9VaERRCGGKsL3zANBlnCvOaRxCD4aHiN9ph7
-	 +PrNRfSFu37MsCnZL5IybpRjciu11L5lAgjMzUBd8XNIAzHsnw5S8vVarkQMX4ZR05elm
-	 q2bwEplKPR6TCWKM+ncT9ABMbGtRlLvO+GVgh28wI/vKf5Uu/FaQ8f3elGPAZvWF93jB2
-	 FQR3OI1C2zIMn4IhrR1XLAm/j7hN7DZBj5ccRmlNo55q5DfbkJfMc7jFnVE1ELFTJIhyA
-	 o9ot44WRIcfWP0gHnJPiNrC74bo296iKfO8TkhToaV7JxFwqVCPBE6QKwgusjEEcsuw==
+	t=1794340394;
+	b=W8gxsOb+0ozjWLQHB2nrNZ1hC0/j7kB30nWvuQ0w1LAsr8jWF/ADD+lug5YwFCQ/CtlV
+	 vpABf1buW7yuY9taHehJ0+7PWt70zcwb7Wvq6YAlkeYFK1QWJOagEGGOtDWcvgQMvPpE6
+	 GJCQCpXEBxjJ9zBxX2Tj8adjcZWD6STG9wBOr2uvNJYMzJLTcnRaY8csrF6a5BHB/qIjJ
+	 o3Hu/ERMbWLQtEztSC8wfR90yUuah/wCqxs7D3/zpB2wB5p9X+hWUKJtLIRVIrWnyQwN3
+	 tpziH7pUmZO3s16hlL67xkK0oYnVjuXbU3BatJaE7XEOQEeYo/SsHeLMovsrSlSdtdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340394;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-	b=uHVXOAZPT5kaiNQcUGBo1qXNhI7NbtwKhDe6kBJsGSZkhyoGnX4q4r9KiZRFWjSxzEAi
-	 HbIukPAqoNX2l1Jb6Q+1DsUrSaIbR3gWhdQ/EOTOU8qMkEdAuRYoi98MHhDSJBSTtr1/i
-	 C3NdQY2B8b79Gt+YEE5Ydq92d3TyklHP7CL0ZSDxwvacAx49GKch/VKLZz64fE7Om58O4
-	 kSJ/Lq2W7UxpKxXcQ+JkVfDJmlox1oiRcZ6E99q0X1MleNE0tunYmdottlncOF285kfmg
-	 719anluSkAeIAUfR+Ty1sRyPQwYVsIC6F4UVx8AGTM1ZmOTbShVtZYNL2YD8czQbVAw==
+	bh=WL9SHgfJTRGu/WBkYdNm7G/jAeYVCea7hdaqofQfU7g=;
+	b=PHGmtKNPKH4lMLBs40ImW5yqBxgbR0WXywm3FQuZaFoluTULj3pCBjIwUBoeK0YDEYHC
+	 7Bvny9mkRnYMEmGQ5Zj3dWpKmW+Cc7od0xDbuEzddGENNjKMCEDfEixk2pAfVhhzHJACD
+	 AtLVq1oHRyAedDMuLs04uh+hy7GvLRuaXO8Wd0beiZdChsXU9ZbjchCynsacubKLfjZzi
+	 dRMODn0Kb16yVI31YI9y6BiMZNjzLjPBxrv2staqK0mqHkbKDR8Ihi2NcvG59R+SlahTL
+	 amGySFHrkKNvcpMYQTCQgRlu66FThDVnAQz+BiXQQgElyY44KRgLnJIxeH0xLW4/vXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J5l/iCaV";
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjJdQ4P0;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7389E606A333
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7389E606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4229606A339
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:53:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4229606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5l/iCaV
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36dc4797082so346274eec.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:53:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjJdQ4P0
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0d09fc934so301911a91.3
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:53:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794340388; x=1794945188; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794340393; x=1794945193; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-        b=J5l/iCaVj/L6+H5ov0FJz0p5e7rr/0JFjFNg7uedGUKahcImhk04lcJf3uhwT0M0Wx
-         Vdol1OBCMzAk29mjfTm2OsVU+4DTDUFwFn+Mvrgeltauje0W9PLJGF4ekFehP4dnkzYD
-         IVOj7AymgQYccUhEnl30tCvV4bNcnRJutdtvWpkt0Pngwv1UYqdyRA38OZ+cvKMs/pTn
-         aAASDx8K1kuzF9HiC2SoTBBH6b0T7m3Uhmv9i/80vu+sPXSgH8Wr5ka/RUwgudqE2jQk
-         nOWOT7jHUS3tYWwMpMH1ADpcH4eKjRHfKvfgInH9/eXZs9Tu9n/hV2SEXKfNlwQLB4o6
-         4n4A==
+        bh=WL9SHgfJTRGu/WBkYdNm7G/jAeYVCea7hdaqofQfU7g=;
+        b=RjJdQ4P0TaxJRvRooZd1WV+O6P7NwLQnlInIdiOq9sDBKpRL5JMAJOHc57dvfPSCqA
+         F0lcUbi0N8b3V6wddGJbLnWQ+CrqAnzoHBcxgSWkE7/RwgCLDoSRDGfwSN3t+h8vLADY
+         t9m2mLl3w3K4OGN0zmD6qLafSjcx/13gHSXwb1zZNh2PFy3C25IChklwawBI3QN3Lm4q
+         3l5VovYBJ4mRPYwXWilE4joz/BbiAj0jQdztGoU43KFkeEnvrEFNQniNlMFQk8o7Btss
+         0tsYzCEaU+gbvVt21/RK6Bx/c3Gj/Ru46jKDVFqcv17WJtFPaYkP5Tf8gL8wsZbDoBz4
+         kYVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340388; x=1794945188;
+        d=1e100.net; s=20260707; t=1794340393; x=1794945193;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-        b=bajnJT8b6zNy+O3vbs37EM84kSG0y1PF2WY8NpydcypMl+NU3DRVmXU9pEYy74+kf7
-         /V/wGvp2oSjhf/AI+RR0xY3QylzmuAx5dWjhOzIfN8T7XupAxH+lIyni8rrvrM97E8fF
-         NhtXiyM9i4FgkUI8yPJc1qRFqSvNe09k851q+vgcIoYhmkSwv7MN+8d4nk1GgcU6XQpA
-         reJBp2y6caGxUn0ww1LJBXASfcJ8eXhKvnoSz9s3RTE7/G/0B9aoMUCPazvrucddMceE
-         TRtZuuiRCp8kxI78X+8V8tXfbYq/6os7zBWqshnR+xwUjNw21MhVXnPpiisx7z6MU2Rm
-         e0IQ==
-X-Gm-Message-State: APuU4Z/Age2qDRpkbt2d5zyq5Gq06GMhuVsY2P+ySTka1H9WKdk7IVzv
-	03Dn4mZKOlKOVVi7fw3rpqJr0aiSYdB4D5z3VshpAlYz7/5gbvucKdjc
-X-Gm-Gg: AYBFou36OihcwNLl7vUvmPECeyHydQRAstFaCQhRYg5juBCtjkoS6VuWJ1KvaLRd6A8
-	+WY5DM6KlsOvIExJ5VfF5AEBypcrQ+SN8xXUDOQIPcdTS24QNiQxzOpR1rA7jxbVMCBLIneWE8m
-	1UVMdpVVKlcIMGTaYREGBqFOrTtZu4Ji0LMhyCOUZ549c6uyh6ZNJX27yxemVa75N0fBJdUeRRx
-	LiPa2aSEs+F03ZivejkTjlXHsWd7eCRyNBEP1v8+qHBxV5lYFMFxtTOPlyw05Ltsp9unPtUGlWU
-	edVoL5+Z89l+WsqA2KhClLNsivX988zgFJoGwHDB1NyBxQLqa6lP1DlfYP4a4jhUMJBHJmk0Po/
-	ijFdVDUEWQKl867ru0/npfMZVEuIce/5cobfldbz15z3oT3Z93AfMRvzE7N/TEcUS4ebz0Lb8c/
-	SAidow6zkZdTpt/kiU8wws9BL1Vkdmk8dWvDZjAX9zXafO5ZRKBiS1m+mmn3V1UgqiVqUgIOXM/
-	US8PiQgXSYZEvka2q5YqwNhFWKoCY1QVMrlHsdPb1h23QlCmuxxKtqZczoRM5tXhTu8OTHyWsLV
-	9D8mdRk5sPPNOthJ2Dr/NVCEG9Fzpr90aHH7R84R
-X-Received: by 2002:a05:7300:e9d9:10b0:36a:143d:98db with SMTP id 5a478bee46e88-376854ba2demr670711eec.1.1794340388437;
-        Tue, 10 Nov 2026 11:53:08 -0800 (PST)
+        bh=WL9SHgfJTRGu/WBkYdNm7G/jAeYVCea7hdaqofQfU7g=;
+        b=WNvyMP0cfy+/PR37r20Yvsfg8EyFDYYguXM4NNa7/P3Pn3ZwC6HnvoZgNWvG+5U5Cr
+         qA4h8yCORjIwpQD3pUJPP4hxiJyJLLab8XZYIaCfkFwb5JcW11BLTrXtBnv7v7i4+8FY
+         WyfZ4QItP6+JyomZJIFxp58ArjzqgIcH+6D27IxAYMfz9NOcnmaVKYaPVm02EfuJv86R
+         58ENNXBuLFGydt4pGoF0ywZJHGwC90bkWpSXFJx33zNqJwMHtKP5/YQU1O265FuYxJH1
+         +Cu6qDFPHa/8Vb3zZugeKzQQmtA/5k7zZPXWEFbErHsAIYczvY7jDyocJXbOhU5YEjff
+         sWlQ==
+X-Gm-Message-State: APuU4Z+14rxc/pD8BTaAGUwe8YcOWWBorGuYH+8KiUOqFJblUKwf5OjO
+	OEx5N+S8gjnk18ExAXn6UfZJNM2KnhMfuAVx075XpbolpB2szr/kGI2v
+X-Gm-Gg: AYBFou1hWqOtq+7hb1zTgfn9QlH6xqruv3Iz84pu/wPaCnXrRwo+FwnmqBNIMP0OD7o
+	ARR5+WeIDUzN/xMgyqmaWjDZYVJ7J8oPKWqy+hYfxExSRNtkQCGQmegbMFBXOeS09n6TR0FZcHU
+	FGZqcLOCT/tu5DzstYZPDTIuIfE3rg4oM5fdwDY+kF5FuOUgwfQX1LUQC9gHCTDc4KeTpvSAJQo
+	blL6/dehVsn4NopUsJkoCnBRAdOXdloAoNILPgD7W5H02C9Y44pYsUDM0PsRI9cqIoShiVNP1Lq
+	Vuuzss2Eg5sTTGJls9OTdlwUeOCsG/sh/9GXlPwTDOxgJRI7o0m14KKS+uejScgH2rrDUlfbcZK
+	lFcycQ3M0L5Lmo3YdJMbISScd8gf8NGluC7DxIFAB0fMFOoU36X+rPaJHLRZieJKlzFzhZQmWN+
+	8NufcX350Oc7dLbe1/T8GWwIdZoQIIajahGQFAA3afNxMnV5MqmPwkXlBXPzsTgvuFqWgMH/Cr5
+	GeHucbrspKPtmrsrAi8+IfwmtTjbjbBJL6GFJHGQQjx1z/kbKqFwlIkg+vuBa6D8YwDAivNYHyp
+	+ZNlLD5Wu6BeqceJjsYqOXbB/NdOUL9QYf9l2GE=
+X-Received: by 2002:a17:90b:28c3:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3b182d34513mr149153a91.0.1794340393165;
+        Tue, 10 Nov 2026 11:53:13 -0800 (PST)
 Received: from [192.168.1.11] ([2401:4900:881f:d9bc:11f3:620a:3333:518d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.53.03
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.53.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:53:07 -0800 (PST)
+        Tue, 10 Nov 2026 11:53:12 -0800 (PST)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 11 Nov 2026 01:22:35 +0530
-Subject: [PATCH 5/7] ARM: dts: ti: omap: am335x: add board compatibles for
- nano and pdu001
+Date: Wed, 11 Nov 2026 01:22:36 +0530
+Subject: [PATCH 6/7] ARM: dts: ti: omap: omap4-panda-es: drop redundant
+ fallback compatibles
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ti-omap-dts-fix-v1-5-19022d1ff4b4@gmail.com>
+Message-Id: <20261111-ti-omap-dts-fix-v1-6-19022d1ff4b4@gmail.com>
 References: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 In-Reply-To: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -105,51 +105,36 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-omap@vger.kernel.org, Bhargav Joshi <j.bhargav.u@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=1304;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=897;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=iiiNe2YmgDYbJuXDc3R3d+03XUkBIvy8dBS58FXrgXs=;
- b=3u7NS6WDKuDRZlRdtola0QbBGcSKerNcA9rN/jByJq2Q0w1OdePF/XoqfXao4Mamf79AFSdGW
- 5uP5Q5J6ezrA2Hjww7BldT8zzJ+v6WtM/bFkXGXzO0NbIN7HGejeqPy
+ bh=BRnkJw3cHyRHMzMZ0B/KYf4+f70CIw00mFhCF3duqu0=;
+ b=aVlp7YfQ2U/wkPFkov8Zzk2jzrkg3QeNdbU342SFwuZTRBt8/vXz25600TLPBSI0VqH0tZZIw
+ RjBAOTuggEbDyDKDbUeKrSEyKVEqf1WKVm311zOyYsANoKEGaCEL/FI
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-am335x-nano.dts and am335x-pdu001.dts only specify the SoC compatible
-"ti,am33xx", causing dtbs_check warnings. Add board specific
-"newflow,am335x-nanobone" for the Newflow NanoBone and "eets,pdu001" for
-the EETS PDU001.
+PandaBoard-ES uses the OMAP4460 SoC rather than OMAP4430, and no driver
+matches "ti,omap4-panda". Drop both redundant strings to match omap.yaml
+binding.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- arch/arm/boot/dts/ti/omap/am335x-nano.dts   | 2 +-
- arch/arm/boot/dts/ti/omap/am335x-pdu001.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/ti/omap/omap4-panda-es.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-nano.dts b/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-index d51cdd6e1ab40..40e60e0abaa87 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-@@ -8,7 +8,7 @@
+diff --git a/arch/arm/boot/dts/ti/omap/omap4-panda-es.dts b/arch/arm/boot/dts/ti/omap/omap4-panda-es.dts
+index 70c609811d119..2c7de0bb02d55 100644
+--- a/arch/arm/boot/dts/ti/omap/omap4-panda-es.dts
++++ b/arch/arm/boot/dts/ti/omap/omap4-panda-es.dts
+@@ -9,7 +9,7 @@
  
  / {
- 	model = "Newflow AM335x NanoBone";
--	compatible = "ti,am33xx";
-+	compatible = "newflow,am335x-nanobone", "ti,am33xx";
+ 	model = "TI OMAP4 PandaBoard-ES";
+-	compatible = "ti,omap4-panda-es", "ti,omap4-panda", "ti,omap4460", "ti,omap4430", "ti,omap4";
++	compatible = "ti,omap4-panda-es", "ti,omap4460", "ti,omap4";
+ };
  
- 	cpus {
- 		cpu@0 {
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts b/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-index 9f611debc2090..c36e1b7922c9c 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-@@ -18,7 +18,7 @@
- 
- / {
- 	model = "EETS,PDU001";
--	compatible = "ti,am33xx";
-+	compatible = "eets,pdu001", "ti,am33xx";
- 
- 	chosen {
- 		stdout-path = "serial3:115200n8";
+ /* Audio routing is different between PandaBoard4430 and PandaBoardES */
 
 -- 
 2.56.0
