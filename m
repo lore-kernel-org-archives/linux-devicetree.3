@@ -1,110 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293021;
-	b=pMA02LHAeFngKnwM5sRgl1T82oJYWJdWIOtniyv0ppE9Cd1P9YIjHpMLIh9KrfFwz6/N
-	 CBzxMKb0E9gEND5xotDuY0xgCWeyxHeKBw+6TtPH7QkDEcRk9iOR8TBP9cDvxK+OCvAzU
-	 HovkkWO5nowCBbZS1AS8P0loJx28Yiv0fk5y2oHBoeTeOJkTdlPdUSrUOKwylcTIdLJdO
-	 kzwClrZioTtRtJ1ZoiKUIVdM7MxFkEon8PmVNYbA272XtsMkmhf1ScB67un4DuCa23rWy
-	 +PgYihjaIRSgl152OMNy3AoZjHz8V77m1LuqrRZJVZN4u2k114SR/PxC7asRLcFZkJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293021;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.85
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794293261;
+	b=jpdd6zZ0MalDWWLZHMNBZt0LALVicSds2+w82Wn3EQdCnu27l71yxkfZr69jL+8vml5z
+	 dOgKSIrtcKA6DZlAVOS+Wcf1qBdFXvCIOkd1wdhcToi5Gn9gDj18E2PH4pnPvJvtCxr3Z
+	 hfbLVqmEA7b4bz9iZ0n4xQ4T5uXP8AkZlA16+Y/8oxF+T4gFapbV5dv+cf+g31aCEcDi3
+	 RRW7e4bf88YVaUxcl8BaB6gWXww1g//N7wNWcbXhd9Y3fSJ3b11DpRMHtpqhE+Zg87/ea
+	 OzSlKxa7d3qAA5fOLlLPYd+y//5bVrelxdjMZdN4p5J68KjWVrNI67Z14g9QSgLsQuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293261;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=l+aF2tyKoI75LNYryEDqpv3NapaynPVLnIbDr/MktCQ=;
-	b=lpJvMO++LRKjIA2yw5ZjmbtOLEvSj7jRQ4Fb6WivFoGT6lncddkc/GbNB0f+zRXnhpol
-	 YHd+8wL3494smdoi4CP6UJ2cqM6bmJf88rkLq1ZMbG5SJM7IKzpyTLaBLXnMpAE7k4T3S
-	 HqlJzOpNUnr4WWaEfdfSLrWFPlN6kbnXojVTos8LuPUswnsKOQNacwIt2L7/9UV7fjDmN
-	 Zj03RwyMozIIWQ2bXGw3/ellD+Ai73dI/ogNkXbkyWB/moCFvp58PlWcmXWcHNkBGmDyP
-	 tq4Lj4osH0MruP+XAzhG96jeDEpZVkfJ4InGYQRmr7FqiawpMpBHkhO9PEUME6XblPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lZ8JyNG1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CIOL1VyJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dG/+d7qdRS3Rypn08EP37x9XYX6JL4SH3lp1vH1L/lo=;
+	b=Jf/tSUm46wLlsTPXTNOyf1c9vEqIRA97GS7Wnd5sGds+2jtBO1fkWRdwvXKUJPffJgOF
+	 KIlP+wDNlME4iEfmvvqpsjsBqdlQw/dEbnr9gGTxvkSpND2tdGnvRm4cLRBDN+fCwhGAX
+	 w9A7k0UZAE+PQEIHdb77huxkVnZyj4l5veLmZORHNy7QNo+APA/i4+C34C4fZ0ewYptJ5
+	 qeXF0CS7gpMeCG6tKBOHejx4o9bJNUkc5ri5jSfmupCc6TyQpzkqYePkstgLGg4YECgrF
+	 gbImpaj27dpolXCead1BF2lbu4Uh3L9gfWCQRY9OhlBYWEBm6Xz2RGa8PEICUMLDv5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VwAHz306;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.85
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023085.outbound.protection.outlook.com [40.107.44.85])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3268606B1C1
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3268606B1C1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B14F606A325
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B14F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lZ8JyNG1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CIOL1VyJ
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA4ATXA2920120
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:43:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	l+aF2tyKoI75LNYryEDqpv3NapaynPVLnIbDr/MktCQ=; b=lZ8JyNG1vBZwwYua
-	aFo0km1sUjWyZwlpQP4jwiT3BHLTIZ3B8JnbqY6SSu6S+6tDzG7gVdxtapOnLmpt
-	AZBuZNVElPunatHbcdr+SAOJsz+cwkmlpLRViq9tXg8ayjRs6tfKkpa2VtJpy8My
-	/mgbyMr+fURqbjaVTbHha6UNvj5CqjCOcCvd5zjwzKNQIcGDtIS5UoC4kppiWwzb
-	D4Zgtzju/+LMCpapFfMBmkAQFMoii8Qq7aWUwrZEyrQ2lIzkDQFWkKXMAeRf0QZL
-	m2HB0GNXlwjyyh8URISRDQG6dltBouocMOIg37JNC05av6mbJYC+uODkTqn1hRXT
-	sB0G3Q==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg24xs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 06:43:39 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36d1353fdcdso1728135eec.0
-        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 22:43:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794293019; x=1794897819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+aF2tyKoI75LNYryEDqpv3NapaynPVLnIbDr/MktCQ=;
-        b=CIOL1VyJmFqtBfC47M7TH5Bwo1DnOEDl/bUEq2MKd982M2XWVSupp/qyZd/HZkmeQe
-         scgGHJuXqChR8lIVe6Oya229go5IN2fpWBl6Z7lHtz6Wgl+Bx6nl92Eiew9ma0pZSOSB
-         7fov6zKRAlDPs7vfYOp2HY+/FRRpUciBnssfaa49cUVdh57+0tp+uVFq+DSEuphZvr5X
-         mm+htzuZtrTia3wM3mwMlRC2CDZpEXookiBlMPucpE3MP/cw/TUyfJdIj180Q2XRxpO1
-         zqqH4ZJNG1c+kR3ABTjNBTskS9Z9JBoVT196ouruckrW77IVOxqbBUcPd0VnbQD79nI/
-         0pGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794293019; x=1794897819;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l+aF2tyKoI75LNYryEDqpv3NapaynPVLnIbDr/MktCQ=;
-        b=Fq65FPzR+PmEPQ3gaf6aF1jB78USvhrMYwBnV+VyrCiDpfj9L6ptE+o/WAnfZdnJXO
-         DkeiJ9jKIoFRoe5wMWbSvZRokgU5T0sEtb32nR9K4SSI6CcHtSmQqqcXxv5EhCz2lB/X
-         CcnLFAZPkK3hegVg5YB1KVYTZlX1PISPrrrWClkqRBHpju+CTy+HbAird+Vxg6Y8lgiE
-         zX18VFANvHsOPSMun59lFTOWVgIKteZooabtFOinc5xFJr6c5doH0r3IcuQGZ13yq0cP
-         invblb2ptXHEo57gNnZT/nt6sk1sHvjwN5lOlca0MhSy7Ayy7hw8viUzCc0e4uqc7R71
-         aaiw==
-X-Gm-Message-State: APuU4Z99XyEjMtE9D4Tvf2y8jcmNxwB4RiyFJuXFcJCIEO2mA351ydOR
-	TdyRKpC5QwLNOX5WbFQ6/MqvMRTly423ksc6RKNmIGWTD0DZIR7FrKdWjUzdeCBGMrO+IUzlhJB
-	J9BEJNQ0AShnFtSAE0aY/zFnKD0oZJysRwUyEl9jkaIzJrTFlnZBGCBneIDyd86co
-X-Gm-Gg: AYBFou0rK+pBhU+6djH4YRg/cpViM/1zH/aBOMQuDQLEykyFN/1nXYnxNgCM5ZUqUYm
-	SDo62rFEHMFMs/EV3OnC7cHcWAU/0wipF/2LkO0pzs6y5zxViMReV4jqh2jU3LuRdo1c19L4nsR
-	bo098kPjEmnN5cLAWgwNR0CXCBdmYyoAAKpLW9Kq7paOlmTu3hXLef+EZJvAO31dY/JoZzXDvns
-	AYBxWK0p+Mk0/Ommlmi0VARxXgaR3eCZAQVutt3BbMx9IetJWDuRBVkuilRo58wUk6nHFIYYOVT
-	ZVTLNXtJpXdUEIFepyjLdsptWkn80aGD5ykXTsaib1r7QPZMOxoKdQXKOA3eu5o900vsqjt8HQY
-	iyfL9NMuQO4BxpvsYuQdVd8AqUoh9V85bqs82V4QsAPoHWJsli5nza7bzLECQd7XPYOSait6+fn
-	N8
-X-Received: by 2002:a05:7301:5081:b0:36d:d0f2:7c83 with SMTP id 5a478bee46e88-3751fc35fa5mr2336491eec.32.1794293018657;
-        Mon, 09 Nov 2026 22:43:38 -0800 (PST)
-X-Received: by 2002:a05:7301:5081:b0:36d:d0f2:7c83 with SMTP id 5a478bee46e88-3751fc35fa5mr2336466eec.32.1794293018083;
-        Mon, 09 Nov 2026 22:43:38 -0800 (PST)
-Received: from [10.218.30.203] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe2ff5dsm4267706eec.5.2026.11.09.22.43.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 22:43:37 -0800 (PST)
-Message-ID: <a7a66343-6bea-42a9-a288-44978bfe865d@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 12:13:34 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=VwAHz306
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JyXhjT6yphqZsdXQspdL7IsDQ/qM/v5hgCsA38Smds88qzC22JpVzVPR6mlVCsGxfqF6BCPaxxKNfX90rNn7/RiCH+VBZxYN4S3f5Z7vmpwfsW5eA3blMaj6s1VvFIQs4tNIe/1ybeZwwDzb7gOoDfzNavKxaPgmUrSPjEJUD1nrDUbHUoQu5BAwfA7tKvxWqvlVjVe173BHCLPkZP1KxC01wKUFV7i6V48iNcRdb27tcHMg+JZcG3hSoSj64xyYDYq73HDgzLwgWNQP4gug1l4moVVBMzjbfyPzSQICd1e8RIfpNnhHIAEkZbwbTeHkY3mAO1ome9T0w8P8/6vhXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dG/+d7qdRS3Rypn08EP37x9XYX6JL4SH3lp1vH1L/lo=;
+ b=beJ+E7Z1caAGXXDVp0uw79MOd447tNpqFgsxlMcmJ96umSuhUK/lohlJrHMSawukxGcWwrhicHKdPQNwv5/6sjNYXXsJKxUt0hMv8l3hBPW7HxfKg+DsyINAwzpnFT8x6B/z+bXSqYIKqsNdkXhGsPC5f1BQt6xkg+ZvBFcFLk5RXXWfWW2xzyTEMkCUyv7zvlcJidXKNe5kUR0GmdqCinaPgqgrRkopSB81WBMqvdlDQVsUSH06brSIQXzy+XgRcfd7DrhX1FiQT+Hwr8Ux3V61w1PiiHao4qT8FW2Spght/BuK3fMKIWe7eDsXa3eBTgQtpjgN8wkHGjffAnpo5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dG/+d7qdRS3Rypn08EP37x9XYX6JL4SH3lp1vH1L/lo=;
+ b=VwAHz306GiQkvo37EAc3M8NFLFmd9O6Pgb7MS8UJglmyuxcSOtSvupyLxg+/6xK8lJ/a7qlmn5bBkc1OkGFlVvmx1rsL4F7IpwQ4tbgYqIwXnn+uaWG2qKPJek/71Caz3sI5uSa7GXbaRwOEBHLpjEXGs45JEjA3f3n+BOSWhc/EkczNMzccdV8rVOh81aOGhd4IqxmyR31U1byU6HndqvB9ilKC+WoqSmBHhKMHSbJ4ze9LcmVJEP45A9+qHJ2voiPdty3srMNRifS3Cy6YQddgE3ck3LVvBcYJmpbkfI6DbUS5/p5Wc9IFmU3FyH+cVxKk3y0hXsYuIONiNrkfUg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com (2603:1096:400:74::7)
+ by TYSPR03MB7476.apcprd03.prod.outlook.com (2603:1096:400:432::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 06:47:38 +0000
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40]) by TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40%3]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 06:47:38 +0000
+Message-ID: <71f13431-ab14-4bf2-8928-125c7af554f9@amlogic.com>
+Date: Tue, 10 Nov 2026 14:47:35 +0800
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3 1/2] i3c: master: svc: Add amlogic a9 support
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev, robh@kernel.org,
+ conor+dt@kernel.org, Frank.Li@kernel.org, neil.armstrong@linaro.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+References: <20261106-a9_i3c-v3-0-804b69b9095b@amlogic.com>
+ <20261106-a9_i3c-v3-1-804b69b9095b@amlogic.com>
+ <sashiko-outbox-200995@kernel.org>
+Content-Language: en-GB
+From: Junyi Zhao <junyi.zhao@amlogic.com>
+In-Reply-To: <sashiko-outbox-200995@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SEWP216CA0003.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b4::6) To TYZPR03MB5743.apcprd03.prod.outlook.com
+ (2603:1096:400:74::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,117 +101,334 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
- iommus constraints
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
- <20261104-shikra-el2-v4-2-97e7019debff@oss.qualcomm.com>
- <sashiko-outbox-197408@kernel.org>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <sashiko-outbox-197408@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAyNiBTYWx0ZWRfX2yK6Me5UeHXt
- /Spns4rrKuHVIYaf4VnLTxc5vQCMlknuIXa+jp22/puPxWZ3Ej+4T/r8oDww+2AyKOkb42bLbzQ
- z0IxlqVJjitHg6DCTBl3R2Igq86A9swKhOMJYm7wksSnRRmeLXmQ1PO+NGPAAH6bteES5lLLho5
- DLBAoYVKnnYRl4YaIkedWY4By+jNbx5Zl6KjOqSesbNJtODPs5kxtmBQH6MLAzvqP3MA+3Dw43T
- oh070Ehh/QFp54thxcJ4n+J070hyvNq6f6qu9Pd7oBVLRlXw1ld4KgfyZqAEaVlLGso11o8fssL
- 3DVLveTEDE5vohDACfBrR0zYyre4Kx0BvJn+Hpzj9rj2XTGV7L98ui728fiKeFwLUCRuEDYzj0l
- rjr1YCpWU2z3bmJbC20RHwLq8RBIJiksz5EyG5kN8MMtyaM9zcdjwcsmXCrXJxtIqRvA+ZzwBt+
- QUqVozpGCLrmMrtYmyg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAyNiBTYWx0ZWRfX1aJeuT0ew5G/
- 3C1nRZBtFTH0F25hmzwesg9nkYxfhckFaJ7/+RYQRxjZkDTvMnA82ykfSHIVp2FaPvkZ0lzyJsg
- L49gAteeh+wvpjZotJNjky1R0LMC8Kk=
-X-Proofpoint-GUID: PYgi_gy1z1zNZTFvYH1QVXCYA2gS4397
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af2bd1b cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=L3DyAVMOO9YV_QvAdvQA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: PYgi_gy1z1zNZTFvYH1QVXCYA2gS4397
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100026
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB5743:EE_|TYSPR03MB7476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32172fd0-f9d4-4f6a-e425-08df3ef68238
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|18002099003|22082099003|6133799003|10067099003|4143699003|5023799004|11063799006|261028144727099003|261102123227099003|261009223027099003|261026130827099003|261026140227099003|261026121527099003|261026135527099003|261022115727099003|261022075727099003|56012099006|261021133027099003|261021130227099003|261022113327099003|261021121427099003|261022105027099003|261021135927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	Y+I5K8H6iM4bPL1b5fn3kdqT3h/Z+uJcQdV7iCIskn0PT+Iwg9cHYOIcWQH+qJECBzfU8uxWDwID8JSV37TN20oT6Rp7zg/Luxi4YY1X02FV6r4mZvXj/IoRUtRAUytYA530BUv1jsj3HkCo9F+NZ2X9H85c4Q2ISA6vLIcOsXEqnk8oBNR5mCwf+LDIn0ksIus5cbLdJAQeFr0zl0AaP6SGf8I5yIoNvRUq4rEJ2fTz2cdEjgy2sMpYiry9cKCOoZVt4WtC/msj80eUbIeN2ndSJZwJs3086v9QBz8TMzCMlIkmkbI6/7wOSIqfAv4i4F8YOcIUfhBIK1X/8bjsWuUnDtwBg6qT80zWWEj3F2NlKSztzCyv5B4Md0Kp9u6kIApAM4eGLv9W2nne8yUCq6LGACgV4c5xJzNBXeh4mui3yiJsAJnHzuWVRA8Qn5/UD/m0edN6D+EEkbE4MK6vojXhVME1Gmk1Amzt3vlmnrLMofJr7xD+AI15qn9LoUcdE7fiTKbf609VhBWFDwiuOYBtIG12bshRY9ERN/0JCU9bmwp6WoJus4ZAQwynguMd1vcEsEQntAR7Pgg6mDpUuH5RNPscyRKGOyFY4JbEejI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB5743.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(5023799004)(11063799006)(261028144727099003)(261102123227099003)(261009223027099003)(261026130827099003)(261026140227099003)(261026121527099003)(261026135527099003)(261022115727099003)(261022075727099003)(56012099006)(261021133027099003)(261021130227099003)(261022113327099003)(261021121427099003)(261022105027099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VkR5czBrbGx4UGduUUtjeTVMcnF6VExQYkwvWWwwelRUeXJiRm5oelBBL3RB?=
+ =?utf-8?B?OWFLbWlVcmhkeTBKRkdsZHZpSnVSeXFaY3ZwVU44L3Q5V0RFdnJJU25teE01?=
+ =?utf-8?B?RktXL0dNTXdSUGRpd1ZCMUFwaDQ5d1RaZmhyOExEWVFsVmZ0K0xXaVMxWjVt?=
+ =?utf-8?B?YTR0NlROMldYR0ROcjg5SFN3b2VhV3o5elpxSXV4SjhUellucVFCWFYyQnNz?=
+ =?utf-8?B?M0JWb1YxeDVIcVNDVE1taytPc1h0NlJmR00vR0syR2dkNjR3MjdVR3pVREJO?=
+ =?utf-8?B?a095TzNzbHNMSnN5V24wL2c0THJRZHdXcEl5YUw1L2FTRXBYSHhwUG1uYllk?=
+ =?utf-8?B?VldlZXBkUmRkbzNXb3M5RjA4WE1mbnlUTmxLNm9UaDhueWwzcWsxSnhxRzIx?=
+ =?utf-8?B?dWEvS1Q4Q2taK3JRdHRjUGJKTTBoNmxZb0JWcDNVZmUxblJvaGRiNWlILzdF?=
+ =?utf-8?B?UUMwdmg5Vkp6bS9GWmdVNHBSVTNRVFpUZTZyNjBPRXBrbzU1RXJjdEJPaTZn?=
+ =?utf-8?B?UVZvZ0FSYVdOM2gvVWhlc29ydnZxVmdDK1A2Nm1HUCtRc1U3bUNQVzZyK1RE?=
+ =?utf-8?B?bUlkbGdkVnF5dTByaWtkSEtBNStrVFZBNUpOdHRtQUlSdkNsVlZjbFhVeUVp?=
+ =?utf-8?B?UXI4U2psbmdyZE4rQXZ2ZnM0NlQzTVRhTGVYOFBDUkVwSXQ4QnA4ZENWYWJH?=
+ =?utf-8?B?cEtNU3ZDR1pIKzZZQXY2ay9LeHphYjNvSTBiM3pPcEFhYUdtWGtLOFJSWnA2?=
+ =?utf-8?B?OVpnNG1BL0R6ODRGbnRDYkVtVlBCZVlRQWlyakZFdWs0ZHlhT1JOOTZPTlFI?=
+ =?utf-8?B?OGRMWUxNYTk3SFRMQ3NiZzE1T3V1cjFSV2VSSllRcDlLSUxuZXVGeDYxQkVK?=
+ =?utf-8?B?VmZyeWJ0ZFVFWGF6UlZVdGJWak1tYWNPei9VV1pKRVNGVUJPVkZIam9hT1BV?=
+ =?utf-8?B?QTBybGtyQm91Q0ZsUXJFcmZ3RzZ0enorUFFZYzdzWXZhY2NVbXJRbU02dDVR?=
+ =?utf-8?B?eEE0aDJwTGZRN0lCTlVpZkg0cWxqeGxLcmF2b0NDSzJqeDNtcERhb3ZYN1h4?=
+ =?utf-8?B?cVlBaTlhcWJHc3NFU0lxcjdqYnRRMXJUVjJTcXZBRXBmQXJkZThkSFcrMm1L?=
+ =?utf-8?B?R1AxaEIvaGgwdWVGaXhtQm5WL21mbHZlbmoyN0RNdUg4ZWtoNnhzTk1wRnMv?=
+ =?utf-8?B?Q0FUQmNWZHJHbUlNNnFMSkhjeHpmT1paeXhlQVVUa1RKcG8xcVZoMzUydENF?=
+ =?utf-8?B?a0pNRVJENFlHVjc1RHh5Y1JleWNmTjl4WVozYkEwTkF2bFZYTzF1YW5vSVhW?=
+ =?utf-8?B?TU9mWFNJeG5za3lBVlg3Zk9VTzZEdGVzRDEvaTluTHVOeUN6dzNYM0M0eXBa?=
+ =?utf-8?B?ZEkzbFYwb1QxbDdHakxTZ0xhRHlhMm1halVBVlJTZ1VRNkNXaEJpdFFpZWVC?=
+ =?utf-8?B?a3plM2FjdTdNMEh4YkExV1ZOQWt2Uzd1K0h1bEozVjdtM0VEbjBpZnFCeFQr?=
+ =?utf-8?B?ZVVId01ZRXpZRDc0bkpFSWdvaXpmRHM0ZFJTalN5cWRnNHRlTlliSVdCVFBh?=
+ =?utf-8?B?ZHBKTW5KMmdpV1JTOWQwbndEU21pdnBZYU9wSHlUMTEyM052dks5amNRUDc3?=
+ =?utf-8?B?L1dwN0tVVm83UUI5c3hVMHFEYWFPZ2hxdGVsaUJjRGVxRGU2ZmNTODhnaksz?=
+ =?utf-8?B?dy9VQmxMZVhWZGZJS1ZNdHpURjJkNGRCRDZMaStQK3ZwK1Y0dTFQQ3IzN3pQ?=
+ =?utf-8?B?UUE4STB1VC9obU5mdmZCMEVIdUIxSGs0TVhiZmhDWElFNmxVRUwxMzRjOGdV?=
+ =?utf-8?B?YXRKSjgrbXppOWUxQm9HeHNDSUhBQ0xqT1RSczZQbXB5aU0wV3ROU1ZMdmFm?=
+ =?utf-8?B?OXkxdnRBejFkeTVGZVJ5S0RQczA3ZGZYUnJicThjd3ArUGQwTk5LZnByM2xx?=
+ =?utf-8?B?bDZtNEVOS3JUdzc5ZzZ5VUczajVxb0hKUmNNYTQrVlIwSnppWnd2eU8wU1Ns?=
+ =?utf-8?B?TTdmS2lMOHM5TTRKczJtOHV6ckJObjNHN0R2d2g0Mnl5b3BramdONlB4b0xh?=
+ =?utf-8?B?WTdqOHgvMFFhWXBHdFlkcStmRG5UZHJCWHZRUC9pcDhHcll3SDFaT3UwcFIw?=
+ =?utf-8?B?Z1BXNDgwaUd3VHAwcWR3WHBQUmVYTWpZYXJoUXJGVlgrYW1mcisrNFdjTHRw?=
+ =?utf-8?B?am4yT2NGN3FxZWY3aHEwakkzQ3Y5R2JPOG9JYTlvZWJKYWRFV0VMTXo1cDhH?=
+ =?utf-8?B?RXlCNU9yZFBDcDRPT0h0UFJQajNoYlBLdDBoWERIcmJQVUtXbGJhZTB2YktI?=
+ =?utf-8?B?WkUrUmU2a2xTcUxHdzNoUEJyL0dRZXpzUTBqTGJuL2RxNGE1LzhUQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32172fd0-f9d4-4f6a-e425-08df3ef68238
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB5743.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 06:47:38.0550
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aHB+twcULcwWzsnwiSeyf3GgpoxBnR0D2YGxfoEXUA1c0CCgY6UYHMTVUlZtRSdgoDcRVv0VFc+Jy9au2CnkTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7476
 
-On 11/4/2026 7:42 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dt-bindings: remoteproc: shikra-pas: iommus applied to mpss-pas in allOf
+Hi sashiko,
+Thks the detail.
+
+On 06/11/2026 15:32, sashiko-bot@kernel.org wrote:
+> [你通常不会收到来自 sashiko-bot@kernel.org 的电子邮件。请访问 https://aka.ms/LearnAboutSenderIdentification，以了解这一点为什么很重要]
+> 
+> [ EXTERNAL EMAIL ]
+> 
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issues to consider:
+> - [Medium] i3c: master: svc: unbalanced fclk disable in
+>    aml_ao_i3c_tail_clocks()
+> - [Medium] i3c: master: svc: NULL dereference of clks[0].id in
+>    aml_i3c_init()
+> - [Medium] i3c: master: svc: unclocked MMIO read in
+>    aml_ao_i3c_tail_clocks()
+> - [Low] i3c: master: svc: duplicate fast_clk lookup in aml_i3c_init()
 > --
->
-> commit 53aa8f92faa854bf45005817e5eaa528a79c90a8
-> Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
->
-> dt-bindings: remoteproc: qcom,shikra-pas: Add iommus constraints
->
-> This commit adds iommus property constraints to the Shikra PAS remoteproc
-> binding schema for booting at EL2 without a hypervisor.
->
->> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
->> index 34a2f15e93616..8c8a7616d4787 100644
->> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
->> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
->> @@ -112,6 +112,8 @@ allOf:
->>             maxItems: 1
->>           firmware-name:
->>             maxItems: 1
->> +        iommus:
->> +          maxItems: 1
->>           power-domains:
->>             items:
->>               - description: CX power domain
->> @@ -134,6 +136,9 @@ allOf:
->>             minItems: 2
->>           firmware-name:
->>             minItems: 2
->> +        iommus:
->> +          minItems: 3
->> +          maxItems: 3
+> 
+> commit 13e8b1ef64cdb3b2e6850ddcbaa3e5a7ffee2a56
+> Author: Junyi Zhao <junyi.zhao@amlogic.com>
+> 
+> i3c: master: svc: Add amlogic a9 support
+> 
+> This commit adds Amlogic A9 and A9 AO I3C controller support to the
+> Silvaco I3C master driver, including a vendor_init callback that registers
+> the AO variant's internal clock divider chain and configures the fast_clk
+> rate.
+> 
+>> diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
+>> index e700392f0801f..aef56286ecfa8 100644
+>> --- a/drivers/i3c/master/svc-i3c-master.c
+>> +++ b/drivers/i3c/master/svc-i3c-master.c
+> [ ... ]
+>> @@ -2019,27 +2049,43 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
+>>        if (master->num_clks < 0)
+>>                return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
+>>
+>> +     ret = clk_bulk_prepare_enable(master->num_clks, master->clks);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
+>> +
+>> +     /*
+>> +      * Vendor specific setup may register additional clocks (e.g. the
+>> +      * internal divider chain of the AO variant) and program clock rates,
+>> +      * so it must run with the clocks enabled.
+>> +      */
+>> +     if (master->drvdata->vendor_init) {
+>> +             ret = master->drvdata->vendor_init(master);
+>> +             if (ret)
+>> +                     goto err_disable_clks;
+>> +     }
+>> +
+>>        for (i = 0; i < master->num_clks; i++) {
+>>                if (!strcmp(master->clks[i].id, "fast_clk"))
+>>                        break;
+>>        }
+>>
+>> -     if (i == master->num_clks)
+>> -             return dev_err_probe(dev, -EINVAL,
+>> -                                  "can't get I3C peripheral clock\n");
+>> +     if (i == master->num_clks) {
+>> +             ret = dev_err_probe(dev, -EINVAL,
+>> +                                 "can't get I3C peripheral clock\n");
+>> +             goto err_disable_clks;
+>> +     }
+>>
+>>        master->fclk = master->clks[i].clk;
+>> -     if (IS_ERR(master->fclk))
+>> -             return PTR_ERR(master->fclk);
+>> +     if (IS_ERR(master->fclk)) {
+>> +             ret = PTR_ERR(master->fclk);
+>> +             goto err_disable_clks;
+>> +     }
+> [ ... ]
+>> @@ -2163,9 +2209,213 @@ static const struct svc_i3c_drvdata npcm845_drvdata = {
+> [ ... ]
+>> +static int aml_ao_i3c_tail_clocks(struct svc_i3c_master *master, struct clk *parent)
+>> +{
+>> +     struct device *dev = master->dev;
+>> +     struct clk_bulk_data *new_clks;
+>> +     struct clk_init_data init = {};
+>> +     struct aml_i3c_ao_clk *ao;
+>> +     struct clk *fclk;
+>> +     char name[64];
+>> +     int ret;
+>> +
+>> +     ao = devm_kzalloc(dev, sizeof(*ao), GFP_KERNEL);
+>> +     if (!ao)
+>> +             return -ENOMEM;
+>> +
+>> +     spin_lock_init(&ao->lock);
+>> +
+>> +     snprintf(name, sizeof(name), "%s#div_en", dev_name(dev));
+>> +     init.name = name;
+>> +     init.ops = &clk_gate_ops;
+>> +     init.flags = CLK_IGNORE_UNUSED;
+>> +     init.parent_data = &(struct clk_parent_data) {
+>> +             .index = -1,
+>> +             .hw = __clk_get_hw(parent),
+>> +     };
+>> +     init.num_parents = 1;
+>> +
+>> +     ao->div_en.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+>> +     ao->div_en.bit_idx = AML_AO_I3C_FCLK_DIV_EN_SHIFT;
+>> +     ao->div_en.hw.init = &init;
+>> +     ao->div_en.lock = &ao->lock;
+>> +
+>> +     ret = devm_clk_hw_register(dev, &ao->div_en.hw);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "failed to register %s\n", name);
+>> +
+>> +     snprintf(name, sizeof(name), "%s#div", dev_name(dev));
+>> +     init.name = name;
+>> +     init.ops = &clk_divider_ops;
+>> +     init.flags = 0;
+>> +     init.parent_data = &(struct clk_parent_data) {
+>> +             .index = -1,
+>> +             .hw = &ao->div_en.hw,
+>> +     };
+>> +     init.num_parents = 1;
+>> +
+>> +     ao->div.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+>> +     ao->div.shift = AML_AO_I3C_FCLK_DIV_SHIFT;
+>> +     ao->div.width = AML_AO_I3C_FCLK_DIV_WIDTH;
+>> +     ao->div.hw.init = &init;
+>> +     ao->div.lock = &ao->lock;
+>> +
+>> +     ret = devm_clk_hw_register(dev, &ao->div.hw);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "failed to register %s\n", name);
+>> +
+>> +     snprintf(name, sizeof(name), "%s#gate", dev_name(dev));
+>> +     init.name = name;
+>> +     init.ops = &clk_gate_ops;
+>> +     init.flags = CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED;
+>> +     init.parent_data = &(struct clk_parent_data) {
+>> +             .index = -1,
+>> +             .hw = &ao->div.hw,
+>> +     };
+>> +     init.num_parents = 1;
+>> +
+>> +     ao->gate.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+>> +     ao->gate.bit_idx = AML_AO_I3C_FCLK_EN_SHIFT;
+>> +     ao->gate.hw.init = &init;
+>> +     ao->gate.lock = &ao->lock;
+>> +
+>> +     ret = devm_clk_hw_register(dev, &ao->gate.hw);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "failed to register %s\n", name);
+> 
 > [Severity: Medium]
-> The commit message states that iommus constraints are added for
-> qcom,shikra-cdsp-pas and qcom,shikra-lpaicp-pas. However, in the allOf
-> section of Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml,
-> the first conditional block matches both qcom,shikra-cdsp-pas and
-> qcom,shikra-mpss-pas:
->
->    - if:
->        properties:
->          compatible:
->            enum:
->              - qcom,shikra-cdsp-pas
->              - qcom,shikra-mpss-pas
->      then:
->        properties:
->          ...
->          iommus:
->            maxItems: 1
->
-> Does placing iommus in this shared conditional block unintentionally allow
-> iommus on qcom,shikra-mpss-pas?
->
-> Also, since commit 95697c560209 ("dt-bindings: remoteproc: qcom,pas-common:
-> Drop iommus") removed iommus from qcom,pas-common.yaml, iommus is no longer
-> declared in top-level properties. Should iommus be defined with its broadest
-> constraints (minItems: 1, maxItems: 3) in the top-level properties block and
-> then constrained per compatible in allOf (with maxItems: 1 for
-> qcom,shikra-cdsp-pas, minItems: 3 for qcom,shikra-lpaicp-pas, and
-> iommus: false for qcom,shikra-mpss-pas)?
+> Can the clock framework read AML_AO_I3C_FCLK_DIV_CTRL while pclk is
+> disabled during runtime suspend?
+> 
+> svc_i3c_master_probe() invokes vendor_init() before calling
+> pm_runtime_enable(), so clk_pm_runtime_init() sees
+> pm_runtime_enabled(dev) == false and leaves core->rpm_enabled unset for
+> div_en, div, and gate, and none of the three clocks sets
+> CLK_OPS_PARENT_ENABLE.  Once svc_i3c_runtime_suspend() disables pclk,
+> any clock query (such as reading /sys/kernel/debug/clk/clk_summary)
+> calls clk_gate_ops.is_enabled or clk_divider_ops.recalc_rate and performs
+> an unclocked MMIO read of AML_AO_I3C_FCLK_DIV_CTRL.
+> 
+clk_bulk_prepare_enable is before vendor init.
+So, pclk enabled before registering.
 
-Right, the shared block shouldn't carry iommus. I will move it into a 
-separate conditional for qcom,shikra-cdsp-pas only.
-iommus is not applicable to qcom,shikra-mpss-pas, so I'd prefer not to 
-declare it at top level. I will keep iommus only in per-compatible 
-blocks: maxItems: 1 for cdsp and 3 entries for lpaicp.
+>> +     fclk = devm_clk_hw_get_clk(dev, &ao->gate.hw, NULL);
+>> +     if (IS_ERR(fclk))
+>> +             return dev_err_probe(dev, PTR_ERR(fclk),
+>> +                                  "tail i3c fast clock failed\n");
+>> +
+>> +     new_clks = devm_kcalloc(dev, master->num_clks + 1, sizeof(*new_clks),
+>> +                             GFP_KERNEL);
+>> +     if (!new_clks)
+>> +             return -ENOMEM;
+>> +
+>> +     memcpy(new_clks, master->clks,
+>> +            master->num_clks * sizeof(*master->clks));
+>> +     new_clks[master->num_clks].id = "fast_clk";
+>> +     new_clks[master->num_clks].clk = fclk;
+>> +     master->clks = new_clks;
+>> +     master->num_clks++;
+>> +
+>> +     /*
+>> +      * Keep the clk bulk state balanced for the following
+>> +      * clk_bulk_disable_unprepare() calls (error paths and runtime PM).
+>> +      */
+>> +     ret = clk_prepare_enable(fclk);
+>> +     if (ret)
+>> +             return dev_err_probe(dev, ret, "can't enable fast_clk\n");
+>> +
+>> +     return 0;
+>> +}
+> 
+> [Severity: Medium]
+> If clk_prepare_enable(fclk) fails here, does the err_disable_clks path in
+> svc_i3c_master_probe() call clk_bulk_disable_unprepare() on an unprepared
+> and disabled fclk?  master->clks and master->num_clks are updated to
+> include fclk before clk_prepare_enable(fclk) succeeds, which will trigger
+> WARN() assertions in clk_core_disable() and clk_core_unprepare().
+> 
 
-Thanks
-Komal
+Thks the detail.
+
+Could move clk_prepare_enable(fclk) before creating new_clks.
+
+
+>> +static int aml_i3c_init(struct svc_i3c_master *master)
+>> +{
+>> +     struct device *dev = master->dev;
+>> +     struct clk *fclk;
+>> +     long fin_freq;
+>> +     int ret, i;
+>> +
+>> +     if (svc_has_quirk(master, AML_I3C_QUIRK_AO)) {
+>> +             /*
+>> +              * clk_bulk_get_all() preserves the DT order, and the
+>> +              * binding restricts the AO variant to exactly one clock,
+>> +              * which is always "pclk".  So clks[0] is the input of the
+>> +              * internal divider chain.
+>> +              */
+>> +             if (strcmp(master->clks[0].id, "pclk"))
+>> +                     return dev_err_probe(dev, -EINVAL,
+>> +                                          "invalid AO input clock\n");
+> 
+> [Severity: Medium]
+> Can this dereference a NULL pointer if the DT node omits clocks or
+> clock-names?
+> 
+> devm_clk_bulk_get_all() returns 0 with master->clks == NULL when no
+> clocks are present in DT (passing the master->num_clks < 0 check in
+> svc_i3c_master_probe()), and leaves master->clks[0].id as NULL if
+> clock-names is missing.
+
+
+The DT binding requires the AO variant clock to be "pclk", so this case 
+cannot occur.
+
+> 
+>> +
+>> +             ret = aml_ao_i3c_tail_clocks(master, master->clks[0].clk);
+>> +             if (ret)
+>> +                     return ret;
+>> +     }
+>> +
+>> +     for (i = 0; i < master->num_clks; i++) {
+>> +             if (!strcmp(master->clks[i].id, "fast_clk"))
+>> +                     break;
+>> +     }
+>> +
+>> +     if (i == master->num_clks)
+>> +             return dev_err_probe(dev, -EINVAL,
+>> +                                  "can't get I3C fast clock\n");
+>> +
+>> +     fclk = master->clks[i].clk;
+>> +     if (IS_ERR(fclk))
+>> +             return PTR_ERR(fclk);
+> 
+> [Severity: Low]
+> This isn't a bug, but this fast_clk lookup and IS_ERR() check duplicate
+> the identical loop that runs in svc_i3c_master_probe() right after
+> vendor_init() returns.  Could master->fclk be resolved once in a helper
+> or before setting the clock rate?
+>> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261106-a9_i3c-v3-0-804b69b9095b@amlogic.com?part=1
 
