@@ -1,133 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354202;
-	b=YhbtZNmyn2ATLTYOOjwrj46I5fefBBnLXLsAoLBC9aOwatzNe+rX4Fez+vCZ620a1dB7
-	 r2svHgtZ+sVEcXBCGpGTxy6fjV9T6/Bht06gPEmx5pt/xnQ1irKDpNg2ipLhU+pKCblKs
-	 Npzju9WOU7Hfr2ZSEnGKA6/IeoeRMCpkw4SKAlqgGXMuY4a2qdYvTBZr+LeZLTdEW3e+L
-	 10pxCE6bmj39DFRFBU7payJx/L5VAz6CcZkaQC0Dw5R2CQ2G4KP8AuNJhFAl/zE4D6B/O
-	 w5FNSU/np2JJudAZxxcUlJRjxRpAWx1xii8h2ZTRaDUAC6amSejDwsTOsUFPQvaKnzA==
+	t=1794354354;
+	b=MTAdFbAZ5j3Fm0WsBqQs1tgbgq3F1+VTH3WF4QjcKlj47SWjyzoEbWqS4drOciYKwzuU
+	 VY46mTfxcSoOiCHI5vtbvAQrGLvFI8xrKLlk+Hp//9X+cwtG0WNmHQTTOY3bN6cvkH4c6
+	 UsFKT76DAY5onFOu0nLB3wuKQ/zO/RUwAnwe9gXWm+/eiM/xgwDZAJMyYa67EV+3c742s
+	 SSXe+naBjVhI5z6yMvx2sxcX08teQxwSUVqN3TEl1iF5WFnhc430Lk6WAIvfVeF5F61Q4
+	 axkwRZnSzO8aCjAvJmA5wFLT5fTD5LS5Eo0x6OPRILP9ykA8zI8dvo6ItDkDGMZqd/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354202;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
-	b=DrTpfM3ewNqfQacIHp5EOkspBzj+Ulo7OXy+nUpJNXYFzP+IyFlM0S18PrLH6ZBcXBIb
-	 HJRivBEad3ziAj85G2cyi0m8PERjLvAP2JcoJEM9U2HMC9Re4VPXbIzqidD9fkFscRYBb
-	 xUfoFcv+NuIkjKGjIs77s025Jc5RSkVZ6R5KFvkxI+F61DtDPfNZPiit3Lz8p28d0hXov
-	 vQ62NbsN/qZE/RZKik1+lDdPMdHHcSwsBERryP8+1nPgefZghWdhRyI62rrdLdGv+FfeM
-	 7de1zRIbIuI5yhpKTl72Byk8fotxzh5eS55xH+RevBpPrR7ynRGdvwP3bii/5+Jb2+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354354;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YPJuazr+aBlGlIiwel2r0Bkzs9agjt70cGq/ZORNd6k=;
+	b=d1PYunsSsRRSn7fQLHTQUQG/v/orM9unFRtx2+7alhOp1v1SnBx0kC/p3usQeymZnrDi
+	 XKWSq08qMOJD4QkhcwCZolfLMUBoAUA7NxwsqaZYM3ETNt7im/WN9kJ6UAyqqpeVG9ClY
+	 4y1mHQOjkTeTOkfHiN7aQlabliGW2/589Ud/aWGnQSFDveSk68+QCp/YsNvWw5XVKL8Xc
+	 CwFC3GuyZQE1+Fqk6ePVJ9bCdbi8qN3mrnRlByYFs8x4byKcP8SBzWPd4FRZo2DSVbyDp
+	 C7DKN0HSDd6ZMxbWYcB8NIrzu/G6LUnc4vXytTOfxk2z6aUt02pSyCG2olmCPJnARRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alistair23.me;
-	spf=pass smtp.mailfrom=alistair23.me;
-	dkim=pass header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kqk10bdm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D32606A326
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9D32606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBBF60A2619;
+	Tue, 10 Nov 2026 23:45:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id F40BAEC05F4
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 18:43:20 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Tue, 10 Nov 2026 18:43:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
-	 t=1794354200; x=1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0p
-	CIuLNaVpstw=; b=SLTRwptregmi5YgLcqMIJr1XNTmok1drjTOQY8r7bwcZnPJY
-	e3WMsgkDUiQBxSB6DEYNqLWcK4F8oo8eJw9LTPyiJBn4PZMWJ7YTPHQrrDiRgejZ
-	CP8gY++zNgjuAAkDbIxIatPrnGggdEiamfEIqb72zQ1bvwbj0Lqbw2GBr4Sm3vA2
-	DwEeNElmboQe3Kn//Rfhkx84HRAH3wIE637Glo5jhbRXbLkdjoM9liT6PIGCZH7A
-	vHxB9KthZ6mV8pQToL9FokWuKrFFXLZQmD24ZLWR513xzcglC/eJYuiL3+t67YQL
-	vYsRF/O2EbsacqFxAAOihJwY/dHgqsZTTi9ySw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794354200; x=
-	1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=; b=L
-	vIryW+Uc//8KT1///hSFZ5BUkFs5DKzbZtv9/CNM/3k3Q6wDtjwFMcPnN8OwxQNm
-	EUtTpvdIjQvFZfDX5b4qK1ECoJQ4+EQ3VLSlswSlJy/BVEzw6MPcrCi5ahBowtH6
-	NBEbzAzU/LW1xHdP3pSi6zsLtoOgL7KfyetPbw7ycGdn68Ee/I4qjv20rQLyWO70
-	DDHZ72z8+l8u6dcm+6EgsZdLlxMq93ONZZXmXBtpayNSw4GNV8cjIeu6aAZ9ePxa
-	O/G/7WYKnBDnU1fN3y3ltodBRa52YcfOMKeYaizTOpafz6CnSJmNJdrGMS7K0giG
-	sJKYHRYvfEP2pIE2rPk3w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=alistair23.me a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794354200; d=alistair23.me;
-	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm3:rsa-sha256:bRWlTYAcCn/m/N8Cyj2UCqYFXRVwxLpSagmLIK61Md9g8fq
-	OBgSWN+nORjTX2KRqs5JUVO5VZ5se0FwVyRnuxNcPxdbyV/ApkNzmjVTuXspxaZc
-	gdGj2ZTvf8vbo7ryNse+K7DK+nJ0aGz8It92Jxod/Ps7P1rzePSchdzONgcmP5DL
-	tXJiKh3m1uqRtmLErmAApB750/HkL1ui9jizhKNF1sg7Yq7qR0JGC5r0eO6k1hWB
-	kuP4qf6MRXM3BOGZenZBhL9HqtFZMj2Tzc6fsbTm0iWIVUSgeLVGjFVe+p4eNFTG
-	ivt/juxpSha6yizLRfmrTrt7K0/iXhUlCYcCAGg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:Qk7gK0IsGB1Q6aMT9k9ePKHHzrDKj/tmy1PB+LqXS+8=:0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
-X-ME-Sender: <xms:Fqzzav6CaRv0CZbpxaOaxI427YxzI0JXQeiBEP_FEXoTduxxdSW9KA>
-    <xme:Fqzzar1XqJKXDv2fua0IUkpihguiZF-Qx6aLA8ONrbsGVXIzDnDN0ErOEiEGSkTC8
-    5UTtqjBatuyRVNJiI8mNr5ZKRIrqVfut_k589jJma_ZL-ZRH4N2wHXP>
-X-ME-Received: <xmr:Fqzzarh7rCqzpoW2_Ze1VXOpeFiDtFZ-HYgAXPzeAZFzbk2Tybau9VCEwHTuwtDUvv27UKLQLcHDpk8j1Rcp>
-X-ME-Proxy-Cause: dmFkZTFEX2UJcgpQyiNt+GxCdCP+sn8sCJSYmF1dP9IOYwinxKt8hHWepJE33Bo25oa75j
-    7gYdW9w0WbI1jJmzHwxrRwYH/Xkjfzj1yd9rLQkOTNeYP831KcvJRlyXTPGSQntqNX989A
-    rJ1Zv+fbrOEP/F1XVyGYnhaIFK2xhP3dYOl1BebBb9gXvOcQfiXrvc3yExHxVmuC3DQ3S0
-    IrX3U95+MFySpqTExrClQ99RERJLeLlqG5NK7HRE2QLNSdmp1C7JQGLx7RRqoYYPQlFJZy
-    fYNjsLgymWFoiNeFxev51sYd0FUYH6bv6duka8km9mkgrCBoXVpgMooGzQuArczz/S0zjF
-    89VpIcB+8BgGiEqNTOMqmqWpArDL00KPCSx2ZdPUXc2L4Exmfoj+27+VnHOZBbu8Ac7HgB
-    q2YkjksWafyjGGs9Iu95Z32qXKTMWdJEvixQ+ByAd7GSyLoimQrcIjtICLp45ZWR3PmevI
-    yVO0bxLh2ji5bMhtqUzh9YIuA9OPL1cyhZVLmRX5XKYJV4zQI7u1J2o6xCBPHxRtziYFY3
-    DG/t4hLh+MjwNGQIZUcbiThQqLn4C3EvgJ84tcb2sALmQ7YX3iQ1ionCAt1bLwaJqwXChL
-    2wN4nvBvJshvhI8X+7wZIyqrpMHa/3jL2PaDkVTIvrcRpGOUSTIj5VcN2L1Q
-X-ME-Proxy: <xmx:FqzzanQ17uTRRiZOYy9o-IGG0nlVQclLbKF8PHhe7VVHf3OGtWQJaQ>
-    <xmx:Fqzzat7uwXYoFXrH1gMhNdWKIwL6bfq7JMDDnbN8p_6ymoRAN1feVw>
-    <xmx:Fqzzavz_pwLK_ml4Tho34EuPc1x8Jg81BmUW6ftWq9xEgWr89JhJtw>
-    <xmx:FqzzatCuIMkDsSetXx98vgWYEBIUs-IEK98FOma_PsVTFHQXUUwr0w>
-    <xmx:GKzzasWECsVibloWQs9MRGueFVep43cowMHxf1hnUYg2YjXDMRaTJ1dM>
-Feedback-ID: ifd214418:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 18:43:13 -0500 (EST)
-Message-ID: <7ba76316996d17efab87a180c88da4c3300f075c.camel@alistair23.me>
-Subject: Re: [PATCH 1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
-From: Alistair <alistair@alistair23.me>
-To: =?ISO-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>, Marcel
- Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
- <luiz.dentz@gmail.com>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Yixun Lan
- <dlan@kernel.org>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Troy Mitchell
- <troy.mitchell@linux.spacemit.com>, linux-bluetooth@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 09:43:10 +1000
-In-Reply-To: <20261110074607.363918-2-frederic.mahe@cirad.fr>
-References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
-	 <20261110074607.363918-2-frederic.mahe@cirad.fr>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kqk10bdm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38A3C1F0093E;
+	Tue, 10 Nov 2026 23:45:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794354354;
+	bh=YPJuazr+aBlGlIiwel2r0Bkzs9agjt70cGq/ZORNd6k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Kqk10bdmV62qI7Jfbvf3CUQwvVFScNNAITV5Ps8nSa+h+GAaWcTlTTtEZFX43+0nj
+	 fb0VBGauB5lIEnTO9z+nqynfzqwg2SZMoVzkPvPMITtOVGz3BvS1n4VOix0DKIgapa
+	 Dav1qpU5OMuHTpvcCBaEdI88dmf5uh8ixPfHJQ97e7NnDTldrOHoe93CD8juikYY1t
+	 7KZodFdkmIFBY6oc2K3QPFxVbMpsXUpRy38kiC5LHvWEz7y8lFRHAljM1EBG6+duQv
+	 mIhnmGpIm1O0hnufi8VABGfOAo8YLkCo+0HtW4f8Prc4V4WN2DoJOVyMT0C+cN/vwt
+	 DXJ/IL75ukI8w==
+Message-ID: <sashiko-outbox-207954@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] arm64: dts: allwinner: add A733 SoC description
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enzo Adriano" <enzo.adriano.code@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <7c0ee4e609db5979d2a6598f46f40896b4f47a57.1794227241.git.enzo.adriano.code@gmail.com>
+References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
+ <7c0ee4e609db5979d2a6598f46f40896b4f47a57.1794227241.git.enzo.adriano.code@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 (by Flathub.org) 
+Date: Tue, 10 Nov 2026 23:45:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -136,78 +59,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-On Tue, 2026-11-10 at 08:46 +0100, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
-> The RTL8852BS is a Wi-Fi 6 + Bluetooth 5.2 chip with Wi-Fi on SDIO
-> and Bluetooth on UART (H5). Its Bluetooth part works with the
-> RTL8822CS driver data, so use realtek,rtl8822cs-bt as fallback.
->=20
-> This patch was prepared with the help of an AI assistant (Claude),
-> which also ran the tests.
->=20
-> Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: allwinner: missing A733 CCU dt-bindings headers and
+  schemas
+- [High] arm64: dts: allwinner: pio node lists 10 interrupts instead of
+  11 on A733
+- [Low] arm64: dts: allwinner: undocumented allwinner,sun60i-a733-uart
+  compatible
+--
 
-Reviewed-by: Alistair Francis <alistair@alistair23.me>
+commit 7fc84ade8f1b2531c3b62b4ae64bebc46f692d4e
+Author: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-Alistair
+arm64: dts: allwinner: add A733 SoC description
 
-> ---
-> =C2=A0.../bindings/net/bluetooth/realtek,bluetooth.yaml=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 11 +++++++--
-> --
-> =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
->=20
-> diff --git
-> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> index 7d567122b..ffdf13b05 100644
-> ---
-> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> +++
-> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> @@ -4,16 +4,16 @@
-> =C2=A0$id:
-> http://devicetree.org/schemas/net/bluetooth/realtek,bluetooth.yaml#
-> =C2=A0$schema: http://devicetree.org/meta-schemas/core.yaml#
-> =C2=A0
-> -title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS Bluetooth
-> +title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS Bluetooth
-> =C2=A0
-> =C2=A0maintainers:
-> =C2=A0=C2=A0 - Vasily Khoruzhick <anarsoul@gmail.com>
-> =C2=A0=C2=A0 - Alistair Francis <alistair@alistair23.me>
-> =C2=A0
-> =C2=A0description:
-> -=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS is a WiFi + BT chip. WiFi
-> part
-> -=C2=A0 is connected over SDIO, while BT is connected over serial. It
-> speaks
-> -=C2=A0 H5 protocol with few extra commands to upload firmware and change
-> +=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS is a WiFi + BT
-> chip.
-> +=C2=A0 WiFi part is connected over SDIO, while BT is connected over
-> serial. It
-> +=C2=A0 speaks H5 protocol with few extra commands to upload firmware and
-> change
-> =C2=A0=C2=A0 module speed.
-> =C2=A0
-> =C2=A0properties:
-> @@ -28,6 +28,9 @@ properties:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 - realtek,rtl8821cs-bt
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: rea=
-ltek,rtl8723bs-bt
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
-rtl8852bs-bt
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
-rtl8822cs-bt
-> =C2=A0
-> =C2=A0=C2=A0 device-wake-gpios:
-> =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+This commit adds the base SoC device tree description for the Allwinner
+A733 (sun60i-a733.dtsi), covering the CPUs, PSCI, timers, GIC, RTC,
+clock/reset and pin controllers, UARTs, I2C controllers, and MMC0-2.
+
+Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986=
+b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun60i-a733.dtsi
+> new file mode 100644
+> index 0000000000000..d0b9f432e3ab3
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> @@ -0,0 +1,601 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+> +
+> +#include <dt-bindings/clock/sun6i-rtc.h>
+> +#include <dt-bindings/clock/allwinner,sun60i-a733-ccu.h>
+> +#include <dt-bindings/clock/allwinner,sun60i-a733-r-ccu.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/reset/allwinner,sun60i-a733-ccu.h>
+> +#include <dt-bindings/reset/allwinner,sun60i-a733-r-ccu.h>
+
+[Severity: High]
+Are the A733 CCU and R-CCU dt-binding headers and schemas missing from the
+tree?
+
+None of dt-bindings/clock/allwinner,sun60i-a733-ccu.h,
+dt-bindings/clock/allwinner,sun60i-a733-r-ccu.h,
+dt-bindings/reset/allwinner,sun60i-a733-ccu.h, or
+dt-bindings/reset/allwinner,sun60i-a733-r-ccu.h exist under
+include/dt-bindings/, so preprocessing any DTB that includes
+sun60i-a733.dtsi fails immediately and leaves all CCU and R-CCU clock and
+reset macros undefined.  In addition, the allwinner,sun60i-a733-ccu and
+allwinner,sun60i-a733-r-ccu compatibles used by ccu and r_ccu below have no
+binding documentation or driver support.
+
+[ ... ]
+
+> +		pio: pinctrl@2000000 {
+> +			compatible =3D "allwinner,sun60i-a733-pinctrl";
+> +			reg =3D <0x02000000 0x800>;
+> +			interrupts =3D <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
+
+[Severity: High]
+Does omitting Port A's interrupt (GIC_SPI 67) shift all GPIO bank interrupts
+on pio off by one bank?
+
+Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+requires 11 interrupts for allwinner,sun60i-a733-pinctrl to cover Port A
+through Port K.  In drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c,
+prepare_function_table() assigns irq_bank =3D 1 to Port B through irq_bank =
+=3D 10
+to Port K (since Port A has 0 pins at bank 0), and sunxi_irq_base_reg()
+indexes IRQ status/control registers by 0-based bank number:
+
+drivers/pinctrl/sunxi/pinctrl-sunxi.h:sunxi_irq_base_reg() {
+	if (pctl->flags & SUNXI_PINCTRL_NCAT3_REG_LAYOUT)
+		return pctl->bank_offset + bank * pctl->bank_mem_size +
+		       A733_IRQ_REGS_OFFSET;
+    ...
+}
+
+Listing only 10 interrupts starting at Port B (GIC_SPI 69) maps GIC_SPI 69
+to bank 0 (Port A) instead of bank 1 (Port B), so when any GPIO interrupt on
+Port B through Port K fires, sunxi_pinctrl_irq_handler() reads the preceding
+bank's status register and fails to clear or dispatch the interrupt.
+
+[ ... ]
+
+> +		uart0: serial@2500000 {
+> +			compatible =3D "allwinner,sun60i-a733-uart",
+> +				     "snps,dw-apb-uart";
+
+[Severity: Low]
+Is "allwinner,sun60i-a733-uart" documented in
+Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml?
+
+The binding schema does not list allwinner,sun60i-a733-uart, which causes
+dtbs_check validation failures on uart0..uart6 and r_uart0..r_uart1 (other
+Allwinner arm64 SoCs use "snps,dw-apb-uart" directly).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794227241.gi=
+t.enzo.adriano.code@gmail.com?part=3D2
