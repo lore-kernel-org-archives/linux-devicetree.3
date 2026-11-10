@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299264;
-	b=W6Jonf8lAIuMViWKFqITyz5+onHWqKrFMCcrGgl67PT48AiMPYmPeiEI8Gm9JQ/cWnQj
-	 CyTLdAue3PdnKfkEDDWId9vuUwzCuucA1P4+vY6VrCiwAtyxfeLV8LgkbO4ENh4NYKo2q
-	 juEbWlKRdx/gDjOC0YGBYu582cuPqYA/sQmRFfoU6FmIwJ4OK6ABk9Gj/1QdqLISPWj1n
-	 37kX6YoQ7CZBt2sFsi8bidotH7ctwJ1gZMm5DS2/9pXMCr3TGgd2btvwXvcTh3RNH5nhR
-	 otneauzod9Gw7sPq8LWnVDD1ZIMes4QPRN3uMqM7NAHNpre0wvjQ4HXeLIHwxmrIguw==
+	t=1794299519;
+	b=cdOnJ5K/3B3qoNoRv2xRaDracpg/XZtLvk1MRdaQFUtwVlZymC+6Hj1/aiJLvllaLZJ2
+	 H19mZCNzNH57+bCjkC0F5FAzHoIdZgvoObbd1Y2Wg+ol/Weg0YonNX+aWG5l8tRfy4YKI
+	 Wv5Gcodc2NNjL4tNTiNDB3pAPGVWPkDtpUeQxL9PyEQnEgnkzJnTjOmu/UHXdeJ04rNZs
+	 bZeGZl8vaoHtCeHktYSbQ2nSdhdtaTzLH9XVleNoFlsX1iJR6RI4KE6gLFNrzvSz+d9NP
+	 yF6/WQtxtgYXHiH05BIkBwTTNG0W6czA72l4pAAZuWXlCm/2GBAEAeJyFVWB2ZVYwjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299264;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=z+n7GkR0pifD4/2RXbWX1AgFi3gIudpbZojDZ36ABEI=;
-	b=lw/FIaZq1sXuw4yvOKogkWDF0lS1c35CLIbnVAkosjXLSmOl9bGFzdEnkV464cpTX4ee
-	 kkbFqp7yh8Cy2KUlzles8EDTYK7NENDbZg3XHWJUYDMdje2/W7OYI1YnOCbKo06QFjR5k
-	 8YOfuc45vE13LlpvhEnO3mjUYkRFUM4LlKD/m8APdXoXj/yG/Hb7lNVHyXYxHOjEvmsaO
-	 d5je1qyhqzTqZihPekyfGSg94Cr5viYSZVRxOq4jfgKW/2mx8ki//kjUQK+WsNz3EIPS2
-	 zfjAsLeoO6mW8gS42HvSyOy8/WeFgBHib+Q5acdCenT29lyC/0PeCa3yLom5nQPQF9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299519;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XvORE3MO+QpGTemEFXAK4gwUdDzsakLGghinRkb/8ug=;
+	b=C7YsnIyYvbCf6AYBFldpWkN3Nfq9D5zH8vkquCYzacykaJMYKnu0HVDIFgnIyqwLBmrz
+	 pDgzWAAYFiY/u/4VO18zuoPLLGgHrj5A2uiLlzeeX/fLwVgOAkwtQy0CbX2KMAazbFNbl
+	 Qf4ofPjLYNjtg4yZx4OPbjMIinbM+Nsde5IuinNohBYZ6O8DOGYf/YmjbzhOP7fvJ6JN4
+	 YLuR6ld0rLtJMvM9Uz6U3wXEN36gSEbjNQNOX4VsaS4HLi17YuYKc0/7smFc0zgW3xTtp
+	 8X10093AAchhq/tNYgCKDVNoPHHX/E3u0VQCLNdngPhII1zvoWZyhdw+sMViSqyRGbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZmFI8GN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kQ/Hr+R2";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4B7606A32E;
-	Tue, 10 Nov 2026 08:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9669606A321
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZmFI8GN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A511F0089F;
-	Tue, 10 Nov 2026 08:27:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQ/Hr+R2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10621F0089F;
+	Tue, 10 Nov 2026 08:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794299263;
-	bh=z+n7GkR0pifD4/2RXbWX1AgFi3gIudpbZojDZ36ABEI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZZmFI8GNnAwgGco9NL4ZOKCriB1Tr+v9Rt7NPAbeQDLDiFDI+Dh2vLJEGXT7lqvOH
-	 HAZxaN+LTljukkAVoByTl4oLxcaSSK0WV7kGd6p5veY0hoH2pHSG45Mkw+QybHKM1+
-	 FwKwv3YhebrGYlRCiqUFpit5EHNkFc1hKTWYHcfIaIPPnFIm8IzuicAi6Vf5GkS5Vq
-	 RsYDb0eqWHV6ByFO8dLr44IBNYFdThXlNqHOMXaA4nm+lVN44gY/n0FSUT3ZOJ5qqY
-	 4FrWnY8t99X54Kj7g5O/a5wP7DlZck7U+EbSwvYwj5qgCK5a6f+9+ANNO7tNmK7fac
-	 NQbFDjJSnAD5g==
-Message-ID: <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
-Date: Tue, 10 Nov 2026 09:27:34 +0100
+	s=k20260515; t=1794299518;
+	bh=XvORE3MO+QpGTemEFXAK4gwUdDzsakLGghinRkb/8ug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kQ/Hr+R2cN7g1jzkNe+Nqe79U6K048oMkC5WBsV3+mUuZDeyt1VyoEiQirVWOkb9U
+	 5DJ/SqiOJ5VVwWIqhx3bSO0hYrhha9yk4noizWv8npokMmbIBCIMd0ygtydN8m5PM9
+	 /mUX/77S9FDX6FRauI7XQEtSS15jNGEYTHmUwyjsY3I61D/x+SLv8IEmKvolHet6sv
+	 W6hNhqIeBy1zAUS4b5Hl8xn9kKXIy6KFY/0rHOtcOtObLYZP7bK57GUTD2JM9GDoMp
+	 rKFWWRLNR5aRmcVbBQm7Fa6ZXXaN4OKgq3UcsLXL3Eg4HLgsbqW/2FJcTO9LlLD3xu
+	 FHo2wB7+lW2wg==
+Message-ID: <sashiko-outbox-206627@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: rockchip: rk356x: Add eDP controller
+ and phy nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261110074533.4052196-4-damon.ding@rock-chips.com>
+References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+ <20261110074533.4052196-4-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 08:31:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,113 +60,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
-To: Arnd Bergmann <arnd@arndb.de>, Brian Masney <masneyb@kernel.org>
-Cc: Long Zhao <longzhao@ambarella.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-clk@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
- linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
- <179427375370.1061670.4050288038934218487.b4-review@b4>
- <20261110-interesting-hilarious-shark-2dbfc0@quoll>
- <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/11/2026 09:23, Arnd Bergmann wrote:
-> On Tue, Nov 10, 2026, at 09:02, Krzysztof Kozlowski wrote:
->> On Mon, Nov 09, 2026 at 08:22:33PM -0500, Brian Masney wrote:
-> 
->>> - I can then merge patches 3 and 5 into clk-pile.
->>
->> You will have code depending on non-exisitng ARCH_AMBARELLA symbol, but
->> if that's fine for you then sure.
->>
->>>
->>> - The DTS folks will take patch 4.
->>
->> The entire platform is for SoC tree. This sounds ok for
->> me, but I am not sure if Arnd was merging pulls with
->> dependencies. If not, then worse case the arm64 bits will
->> wait a cycle. Anyway, I guess you can take clock bits.
-> 
-> The way I usually handle new SoC families is to have
-> a separate branch for those beside the usual dt/driver/defconfig
-> updates, possibly for multiple new SoC families, and
-> possibly including required drivers. The idea is that
-> whatever we merge here has at least a chance to boot
-> into an initramfs with a console.
-> 
-> If it can boot without the clk driver, the easiest way
-> would be to just keep the clk and arch/arm64 bits
-> separate. If the clk driver is required to boot, I would
-> suggest having a branch with the two clk patches that
-> can get merged (not applied) into both the clk tree
-> and the soc/newsoc branch to put the other patches
-> on top. This would make sure we only have each commit
-> once, but still have a clean history that includes the
-> driver in both sides.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] arm64: dts: rockchip: rk3568-edp lacks binding/driver match
+  and rockchip,grf
+- [Low] arm64: dts: rockchip: rk356x: duplicate PCLK_EDPPHY_GRF clock in
+  edp_phy_grf
+--
 
-There is a build dependency - DTS needs clock binding header - so it has
-to be second, unless the dependency is decoupled.
+commit 39d000ce8ae0719491fd06506c51a275929fc4ce
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-Best regards,
-Krzysztof
+arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
+
+This commit adds the eDP PHY GRF, eDP PHY child node, and eDP controller
+nodes to rk356x-base.dtsi for the RK3568/RK3566 SoCs.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index 1a4562df20ee5..e3f370cad5d51 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> @@ -402,6 +402,24 @@ usb2phy1_grf: syscon@fdca8000 {
+>  		reg =3D <0x0 0xfdca8000 0x0 0x8000>;
+>  	};
+> =20
+> +	edp_phy_grf: syscon@fdcb0000 {
+> +		compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+> +		reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
+> +		clocks =3D <&cru PCLK_EDPPHY_GRF>;
+> +		ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		edp_phy: phy@0 {
+> +			compatible =3D "rockchip,rk3568-edp-phy";
+> +			reg =3D <0x0 0x100>;
+> +			clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
+> +			clock-names =3D "ref", "apb";
+
+[Severity: Low]
+Should clocks =3D <&cru PCLK_EDPPHY_GRF> be dropped from the parent
+edp_phy_grf node (and from rockchip,rk3568-edp-phy-grf.yaml in commit
+"dt-bindings: phy: Add rockchip,rk3568-edp-phy") now that the child
+edp_phy node claims and enables PCLK_EDPPHY_GRF directly?
+
+> @@ -878,6 +896,33 @@ hdmi_out: port@1 {
+>  		};
+>  	};
+> =20
+> +	edp: edp@fe0c0000 {
+> +		compatible =3D "rockchip,rk3568-edp";
+> +		reg =3D <0x0 0xfe0c0000 0x0 0x10000>;
+> +		clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HC=
+LK_VO>;
+> +		clock-names =3D "dp", "pclk", "hclk";
+> +		interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+> +		phys =3D <&edp_phy>;
+> +		phy-names =3D "dp";
+> +		power-domains =3D <&power RK3568_PD_VO>;
+> +		resets =3D <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
+> +		reset-names =3D "dp", "apb";
+> +		status =3D "disabled";
+
+[Severity: Medium]
+Can the edp@fe0c0000 node pass dtbs_check or probe when enabled?
+
+"rockchip,rk3568-edp" is not documented in
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+or matched in rockchip_dp_dt_ids[].  In addition, the binding requires
+rockchip,grf and rockchip_dp_of_probe() fails with -ENODEV when that
+property is absent:
+
+drivers/gpu/drm/rockchip/analogix_dp-rockchip.c:rockchip_dp_of_probe() {
+	...
+	dp->grf =3D syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+	if (IS_ERR(dp->grf))
+		return dev_err_probe(dev, PTR_ERR(dp->grf),
+				     "failed to get rockchip,grf property\n");
+	...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110074533.4052=
+196-1-damon.ding@rock-chips.com?part=3D3
