@@ -1,57 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.126.93.238
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300048;
-	b=GGRwf1rRb/uPB2VLkeN5HzeKBt/bEAVJ6Cc8nSKbaDmKvi6VfuYHa9cftl+jTV1C0Lyv
-	 hnDLOHUBAmTjfD3ISi99IjpkhiIY4sSYiNdTwTrTVqJ6t92J34xWW7Qc3Ewq7uuVwym5a
-	 VQsfmUkARjNX9EKlnV8k5wn3ZNTKnqNenia9dDQbGwDCqiBMiAKCLYgfj69Acp+XwOOlV
-	 3MimezK8vSvNzIaZrvwgNYj3k5EAU30oqlOuKJf5aoubxuce0sRQcs668NbsLF3IFdE5Q
-	 yK7QT5wnnuEQ2i+YqLX+DqGjISTosh5iUws2FLmZOutgk8T6SiPon59psXLPC9t+94w==
+	t=1794300059;
+	b=u4yNrlPyO2vPRVlwnEQGCEI5mu/pSXfAlsc3+8EwHYBNLmljsA9OYZhyuGbBBDUdkBGd
+	 eWCDoAlRO1e8JWsMdqIzdhjUw9O71DraMAr8EO/cld0FizvGohO6kSybIAMHhR3j7NA7g
+	 d9BjlrBLYVdRY6r9Y8eaYX1YM+UpRRs7cG4b5kMzkEGH5VhxzO3rMk8Pgj67vFj8tSgSe
+	 ORUCipiqpvdIvwaKU5es0dIe6YQ98D7bPgnB2bq30RE+qHmrNmrow3ja21UhtzvE5Jv5+
+	 LhB8felWoA2VnKAj3MVP17XLsGMcYvivF0ItMQk3lfxHLJcmQjBZE4T/IvfslIcuuXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300048;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5cpYZBRJZ/IrLL+nNgM7nCdju8ZzXvVptDb+Rb5Dx9E=;
-	b=JF694q+MpA0wczobtTU+wSClnUU/xxDhDcQglrPTN7oifu18tJzTXt7b7KzO63POBcDm
-	 h4+SYdoLr6xtgqs1XD4Ul0IYXrJ0FLYmNn1e5jWnXoBKx9gDH8MXvFrRZynrbGpYAJ4jf
-	 eAvL94TuRpn6N8tcaoDyUDk7qdKvROSEViz0+xUJ4GUrz8ykUhOYSOXFJfanXrN8gZMQW
-	 Aoc2hTnSBANuctwoqL44qi8mKPkltgX1DQ31Mtkcdz6bGpk/Ipud3QQO28Ul28nkk5p6B
-	 mxCs731knfd8A5Nm6DaxQHF+j+vtNTMRAvqs3ooadXQiMgci11EG4Vl82XVE6qQeTIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300059;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
+	b=rgPXOHLRbSK7htilEIx+gopSaKCm+l17BPcyS1LRKhNelV3LIl+40fUhzLzgpXNcwjd9
+	 BtllOAoQ05jddgSNNlvRfyrHNyXU8k1DA8d8F0WHABucbNeiWhwGLUvxu5IPqLCJuGhpQ
+	 hLjvQdfk3yCCR4LzG/Fnct0ozhqzRGABloafOqZY1Hpt2avsrhhIgaZPtRAJy7DqRK+gn
+	 oT027bXY6TICaxAgY7j1+COj2iGsUXNNaGwRC5L2nVbTpqlblwFBZq96702XWzXaQm4BA
+	 Nvg0FjW37H4d7kROdT6k6KiQIkMIuGiSefBY6RnN9A3rAgpvuWP2U5NqR6PIhOaN+eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj069CrJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg;
+	arc=none smtp.remote-ip=103.126.93.238
+Received: from mail-m93238.xmail.ntesmail.com (mail-m93238.xmail.ntesmail.com [103.126.93.238])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28B5606A321
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B24606A31C;
+	Tue, 10 Nov 2026 08:40:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B24606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj069CrJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5C61F0089F;
-	Tue, 10 Nov 2026 08:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794300047;
-	bh=5cpYZBRJZ/IrLL+nNgM7nCdju8ZzXvVptDb+Rb5Dx9E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kj069CrJ4VnS46ro46ieJqf7g+yfhR3HbcEpwgKiPAQ6+1O2wFQSjPWuzOipJzE7Q
-	 clM+vfqeYiVDdV86P7+pg0uVXyH3m3L6m8M6PJS3pGjDYn7eyK+dvO77LYuGtQrEBL
-	 RPvLm5fs0P3bPmwp+AvzlE0PdbvjJ+frvT3kHrFvPWk30J3NQu/vVveVeoBVx3k7NK
-	 X86CfvlopZPQ1DLREDNNzVjJvY+yovj0UzdTjXcKX/IqPKw2F8qlVpAfyNY0+Rv45G
-	 iGpxc8p/mw7nn6LofQrAmAXY4mdv+r5h9yvjgGyidxfLt+NAjMb0+HECbYlawgHHdg
-	 jr71suZC9VYoQ==
-Message-ID: <sashiko-outbox-206648@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/9] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jason Yang" <jason98166@gmail.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 08:40:46 +0000
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5423d7e15;
+	Tue, 10 Nov 2026 16:40:46 +0800 (GMT+08:00)
+Message-ID: <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
+Date: Tue, 10 Nov 2026 16:40:44 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +47,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
+ RK3588 PCIe SMMU
+To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Niklas Cassel <cassel@kernel.org>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c49deb4a03a4kunme182f695684554
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTxgYVk8dSRkfTh5OTx9ITFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Ub1Vz6pg4k6UDZWkqzesWeqUcDzAnME4g7qqjqvvetdVS/Ss/SwQXxpNyBNYMdrUu/8p/ufPvd5dmdHK4QSGnWfq3IjAecSeG3pCLk7ElJpWWcjAWfAbiW1rMa5gcgNzalcqvN8CF4cWUxh29xpvhKY4L5PyMUWV01V2VvR56Bg=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: rockchip-samsung-dcphy: stale SSC state in
-  samsung_mipi_dcphy_pll_configure()
---
+Cc: Simon and Finley
 
-commit fa85aa14323095163211849e2a7f194d32765398
-Author: Jason Yang <jason98166@gmail.com>
+在 2026/11/10 星期二 15:11, Arun Iyengar via B4 Relay 写道:
+> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
+> (mmu600_pcie) is enabled for every RK3588 board, but its node describes
+> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
+> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
+> why nobody noticed: on a board that enables no PCIe controller in that
+> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
+> board without PCIe), genpd powers the domain off and the clock framework
+> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
+> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK on
+> the dead block, the interconnect stalls, "reboot: Restarting system" is
+> never reached and the board only comes back ~90 s later when the
+> watchdog fires.
+> 
+> Patches 1 and 2 allow power-domains and clocks in the arm,smmu-v3
+> binding (arm,smmu.yaml already allows both for the earlier SMMUs).
+> Patch 3 makes the driver get and enable the clocks of its firmware node
+> before the first register access, for as long as it is bound; nodes
+> without clocks (and ACPI/IORT systems) are unaffected. Patches 4 and 5
+> describe the power domain and the clock in rk3588-base.dtsi. Both DT
+> patches are needed: with the power domain alone the clock is still
+> gated and the shutdown still hangs.
+> 
+> Related: Pranjal Shrivastava's "iommu/arm-smmu-v3: Add runtime PM
+> support" v11 (2026-09-29, 20260929034510.2023173-1-praan@google.com,
+> not merged) adds pm_domain-based runtime PM and resumes the SMMU around
+> shutdown, but has no clock handling. This series is compatible with it:
+> once it lands, the clocks from patch 3 should move into its runtime
+> suspend/resume callbacks.
+> 
+> Tested on an Orange Pi 5 (RK3588S) with the M.2 slot in SATA mode and
+> the root filesystem on the SATA SSD, where every reboot used to hang:
+> three consecutive reboots printed "reboot: Restarting system" and the
+> boot loader started 0.6 s later (previously ~89 s, from the watchdog);
+> clk_summary shows aclk_mmu_pcie enabled with iommu@fc900000 as consumer
+> and pm_genpd_summary shows PD_PCIE on; the SMMU probes as before and
+> SATA keeps running at 6.0 Gbps without errors. With patch 4 alone
+> (power domain, clock still gated) the reboot still hung at
+> "arm-smmu-v3 fc900000.iommu: shutdown" on the serial console. Boards
+> with PCIe enabled are already in the state these patches describe.
+> 
+> This series was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit messages, and I reviewed and tested
+> every change as described above.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+> Arun Iyengar (5):
+>        dt-bindings: iommu: arm,smmu-v3: allow a power domain
+>        dt-bindings: iommu: arm,smmu-v3: allow clocks
+>        iommu/arm-smmu-v3: enable optional clocks
+>        arm64: dts: rockchip: add the PCIe power domain to the RK3588 PCIe SMMU
+>        arm64: dts: rockchip: add the clock of the RK3588 PCIe SMMU
+> 
+>   Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 10 ++++++++++
+>   arch/arm64/boot/dts/rockchip/rk3588-base.dtsi            |  2 ++
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c              |  7 +++++++
+>   3 files changed, 19 insertions(+)
+> ---
+> base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
+> change-id: 20261110-smmu-v3-pcie-pd-a2f127b81d8f
+> 
+> Best regards,
+> --
+> Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> 
+> 
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+> 
 
-phy: rockchip-samsung-dcphy: Move block-level setup to runtime resume
-
-This commit moves the APB reset pulse and BIAS block initialization from
-the PHY power-on path to the runtime resume callback so that a second PHY
-consumer does not reset an already running block.
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/=
-phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index 7a009d87a6656..d6acc3e2d4486 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-
-[ ... ]
-
-> @@ -1373,10 +1372,6 @@ static int samsung_mipi_dcphy_power_on(struct phy =
-*phy)
->  {
->  	struct samsung_mipi_dcphy *samsung =3D phy_get_drvdata(phy);
-> =20
-> -	reset_control_assert(samsung->apb_rst);
-> -	udelay(1);
-> -	reset_control_deassert(samsung->apb_rst);
-
-[Severity: Medium]
-Does removing the samsung->apb_rst pulse from samsung_mipi_dcphy_power_on()
-leave SSCG_EN enabled in PLL_CON4 when the transmitter is reconfigured from
-a rate above 2.5 Gbps to 2.5 Gbps or below while the device stays
-runtime-resumed?
-
-Without the APB reset on each power_on, PLL_CON3 and PLL_CON4 keep their
-previous values, and samsung_mipi_dcphy_pll_configure() only touches them
-when samsung->pll.ssc_en is true:
-
-drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c:samsung_mipi_dcphy_pll_co=
-nfigure() {
-	...
-	if (samsung->pll.ssc_en) {
-		regmap_write(samsung->regmap, PLL_CON3,
-			     MRR(samsung->pll.mrr) | MFR(samsung->pll.mfr));
-		regmap_update_bits(samsung->regmap, PLL_CON4, SSCG_EN, SSCG_EN);
-	}
-	...
-}
-
-In addition, samsung_mipi_dcphy_pll_calc_rate() sets samsung->pll.ssc_en =3D
-true when fout > 2500000000LL, but never resets it to false for lower
-rates, so switching to a lower-rate mode keeps spread-spectrum clocking
-enabled with stale modulation parameters.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-dcphy-rx-v=
-1-v6-0-d681ba20b36a@gmail.com?part=3D5
