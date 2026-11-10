@@ -1,70 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328375;
-	b=Ibe0/d5v8U98ZMWBKc5cmXSUhTfro1uUdHjqjhXKhmp4Gxsh0wFCU4jjNLYyfRj2Ckd/
-	 1YROxa6STZOru0HW8w95+cADC8v5eQxwJ+/5ajoa4CtupLfD9CEudBUKs2B1o7UXhHZe2
-	 7C0L5Q3lr9VsRWjq5AhRvDOQmuIVARC++IpDpj4zsd+k8lUVs6zmZwrfR/QyQWOXPkKOZ
-	 XFl1L7e9Vxe2r1PknN8jBKKs6cQWrXstOdmlgFVzOMJeoGKB27MwtJCSMTNIYUDq7qv8z
-	 3Y8RLSt4Y8cQuXgisGexsiFL9/wxxK8y/vRq2qoY+lyImIZkaVVcft6zSDqkbhdu21A==
+	t=1794328452;
+	b=dNU2KT1U7lVIz4u4h8hndAQM5Oouslx31CsIEalHeJVwlqE83PuSf944SBrnjdVLAH+a
+	 g9gk79Lc9VjhkNRu9+tyht8gdWplf8LFFV1HlOkrNvtKgsGWJxUAaf+RDWjr3UGfMAnK7
+	 bFU+xf6lWmWT9k286pNd5wtYMvC/TcFfwRAfDTd+C1OksdX3TdUz5QKgX+dztvTw+qXKl
+	 dwLGl0Rsh/aYCxM/qHXBft92RLUUwNnofqqOkIMTEOUO6q/PhPce9zkCXV1HpFoSMbMyc
+	 iX6zt4pshSf6kzjNVzwzP0leyBUXaM+koZn9mUaeDSKeR7xodx8BbSHeRY7dsbXB2SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328375;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=O7Jegl1jgTWHpCnkVKKRRzSGStNzjcqpAmRoYpUqNSo=;
-	b=BwSdPQ4QHmMQjx5DRDSIPZqZjsy31QO5kxHB64X24103XhQOhN1Gv8t5VLUfXgHmekK9
-	 Z8mlFja7G3laYjXC5dDMoM/uBfxU9byKkuca3QrWEgI44bCs8axVbOHCuKZV/9ysB/nLJ
-	 /aiy5Y+xvTnOIewchBBmi7hUoGFDqWxzSPAqrLPy9ty2DTcecGhLoXErpwlADRMSOlTdD
-	 ITEOFr2aEZ8qdv8NG6RuxF59Eyx1fET2tgsOCctCkj0+D+u1UEVHT6yKdJoNIBLKfQ0Re
-	 MYoZtd4d6W4BpDxWvKP3xjYN/ppd9Bzp2HGlkSspdLc0UVkuokhqngC8BTKtQIAox2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328452;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=fUL6Xh2WbmGKAcxaBuVm0nFH+CmMGfcIgEr7PqQfd+MNbHecZsNA2NN+7IgLO8hDa11/
+	 X8KF7MILhY8y11CrMae7fcQXYAX6EpTTfIPowXCShXAmBITrP2+80RN9xuw7eX5wiS3P0
+	 c7vs/rz8TpKKtSpdJhwFTq6fvQ4mE4tmCq4VD1KBqfSsALXphZFz6o0X5xLK6/rSM4hX5
+	 7xKvXkTeQb7AC1swVmwwxYulEg4c9kGcguqMPD4ERtjmlMDolebGyeCoHkbNJJyc2WUSB
+	 Lp8MdL++Qv4DWCkHuHcT+k13mqgu9ZX/jkRCHPR6dN/t9sPWshm/ccPjmwBqbo0QRtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Zc0aqhtA;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BHGLnRCl;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2AC606A204;
-	Tue, 10 Nov 2026 16:32:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF2AC606A204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 0DD7E1C4341;
-	Tue, 10 Nov 2026 16:32:51 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf01.hostedemail.com (Postfix) with ESMTPA id EE3BD60016;
-	Tue, 10 Nov 2026 16:32:41 +0000 (UTC)
-Message-ID: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-From: Joe Perches <joe@perches.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki"	
- <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, Andreas
- Schwab	 <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, Danilo
- Krummrich	 <dakr@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
- <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart	
- <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>, Linus Walleij
- <linusw@kernel.org>, Namhyung Kim	 <namhyung@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Date: Tue, 10 Nov 2026 08:32:41 -0800
-In-Reply-To: <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
-References: <cover.1794323750.git.alx@kernel.org>
-	 <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DC1606A23A;
+	Tue, 10 Nov 2026 16:34:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DC1606A23A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Zc0aqhtA;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BHGLnRCl
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794328450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=Zc0aqhtAp8NFr7WZLqMD58PdmTOyW1xwEp/QZFbI+RseZ30jYPU6AuUGL1ULAK71210fw9
+	uG4G3XBeOolyAV6TGxIAMhdDlI3MCZmTBBC1wX/Uqt0DnDbtE7tN9R950lHYVyMvrFqDH+
+	jZloD/4TOGknCpdyvUPaYJxLnYCrbsZZY3y9uUdFp3EEqcYN+qY1sdZVfaGJkMRKyijkgc
+	1j/ax36+htpX+q8jksQXLfVdIQlpNJ9pfLNxTxZL3hYJ0IkFnqNDzDn8/fYNIgqbyRMmo5
+	onBfnW5AHV1fgbC4ROh9+RxASuUGfTzjLxaTyqi6VyPT9KHXlUFMExDmaUYl+w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794328450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=BHGLnRCl71hR61YSzaGy+5CKNTEZ1Pr4XbR9nafKgpDKUIU0cqIRki2HnbcWIus0PzkmIa
+	BSqhtBOo6+RdO+Cg==
+Date: Tue, 10 Nov 2026 17:34:00 +0100
+Subject: [PATCH v8 01/12] firmware: raspberrypi: reorder
+ rpi_firmware_property_tag enum
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,36 +69,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: EE3BD60016
-X-Stat-Signature: mp8xao1qrwddju9nzuyip8mr885n8do4
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18QrhYeut7Lp9jEX7fMdRrU/x1vmS6is5s=
-X-HE-Tag: 1794328361-279135
-X-HE-Meta: U2FsdGVkX19mRZocbBpptel45dGmmyuITr1m5kU6f/MCdgw7zyp42Lt9p8rwk1AwtWwqvUuTXSrVbbpC+WZMCNQlScguvbF/fp8QvUKZy6bX5OrrWZVylJIK5F/uf/mP//94tQRpit19ctDzMHGmXyZHRUFZIahy7AXe+ttUOBAh8XiedqLFbcyMoZseYLv8KKb9P525JfTfeaipS3TohBcIVQOrwjl0q7sqJVCQkzab2gi2Y6fSCJY9aE/ycYkpvrssOELldVCYA/OT+QQagS8c/evSCjag8q9+FlL47GakQTWD6qMRb/yjUefhkQv+0cylqj9qmuN3Dgv6C1hQH070PEeodHlIUH5Xx5H14aAuv5AkhkMaKT8d8hNm0FHqaTzMXG236F+W/jDWUK48Bw==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-rpi-otp-driver-v8-1-797e0577d414@linutronix.de>
+References: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+In-Reply-To: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794328449; l=4711;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=/uVtf3kszhzLO1BlweCr+n2EDaewhQfZuSguFQqGLwA=;
+ b=FN7Y0DWNj3ylOfsjGIA8LHmQHUb7bVGX+mnjhvugGTHJoieMMr3aEWeNXUIKB/QgvnOUNgyVf
+ sNyumRM3tD5CBCGxYLoK2iEiipY8fn+KhHlpNH+faW8xOocx2efqWMz
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
+The enum was once ordered by tag values. The later added tags were added
+in a different order. Reorder the tags again.
 
-no commit description on proposed patch
+No functional change intended.
 
-> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  include/linux/string.h | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/include/linux/string.h b/include/linux/string.h
-> index 9e59f9697c9e..55ca4cb5122c 100644
-> --- a/include/linux/string.h
-> +++ b/include/linux/string.h
-> @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, cons=
-t void *src, size_t count,
->   * *  @s+strlen(@prefix) if @s starts with @prefix
->   * *  NULL if @s does not start with @prefix
->   */
-> -static inline char *strprefix(const char *s, const char *prefix)
-> +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
-> +
-> +static inline char *(strprefix)(const char *s, const char *prefix)
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+---
+ include/soc/bcm2835/raspberrypi-firmware.h | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-Why introduce a new coding style?
+diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm2835/raspberrypi-firmware.h
+index 8c3d43977a031..5a0cbb18d0b6c 100644
+--- a/include/soc/bcm2835/raspberrypi-firmware.h
++++ b/include/soc/bcm2835/raspberrypi-firmware.h
+@@ -72,9 +72,16 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_GET_EDID_BLOCK =                         0x00030020,
+ 	RPI_FIRMWARE_GET_CUSTOMER_OTP =                       0x00030021,
+ 	RPI_FIRMWARE_GET_DOMAIN_STATE =                       0x00030030,
++	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
++	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
++	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_GET_THROTTLED =                          0x00030046,
+ 	RPI_FIRMWARE_GET_CLOCK_MEASURED =                     0x00030047,
+ 	RPI_FIRMWARE_NOTIFY_REBOOT =                          0x00030048,
++	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
++	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
++	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
++	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_GET_RTC_REG =                            0x00030087,
+ 	RPI_FIRMWARE_SET_CLOCK_STATE =                        0x00038001,
+ 	RPI_FIRMWARE_SET_CLOCK_RATE =                         0x00038002,
+@@ -82,17 +89,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_SET_TURBO =                              0x00038009,
+ 	RPI_FIRMWARE_SET_CUSTOMER_OTP =                       0x00038021,
+ 	RPI_FIRMWARE_SET_DOMAIN_STATE =                       0x00038030,
+-	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
+ 	RPI_FIRMWARE_SET_GPIO_STATE =                         0x00038041,
+ 	RPI_FIRMWARE_SET_SDHOST_CLOCK =                       0x00038042,
+-	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
+ 	RPI_FIRMWARE_SET_GPIO_CONFIG =                        0x00038043,
+-	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_SET_PERIPH_REG =                         0x00038045,
+-	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
+-	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
+-	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
+-	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_SET_RTC_REG =                            0x00038087,
+ 
+ 	/* Dispmanx TAGS */
+@@ -109,7 +109,6 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_PALETTE =                0x0004000b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_TOUCHBUF =               0x0004000f,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_GPIOVIRTBUF =            0x00040010,
+-	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PHYSICAL_WIDTH_HEIGHT = 0x00044003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VIRTUAL_WIDTH_HEIGHT =  0x00044004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_DEPTH =                 0x00044005,
+@@ -119,6 +118,7 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_OVERSCAN =              0x0004400a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PALETTE =               0x0004400b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VSYNC =                 0x0004400e,
++	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PHYSICAL_WIDTH_HEIGHT =  0x00048003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_WIDTH_HEIGHT =   0x00048004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_DEPTH =                  0x00048005,
+@@ -127,10 +127,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_OFFSET =         0x00048009,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_OVERSCAN =               0x0004800a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PALETTE =                0x0004800b,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VSYNC =                  0x0004800e,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_BACKLIGHT =              0x0004800f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 
+ 	RPI_FIRMWARE_VCHIQ_INIT =                             0x00048010,
+ 
+
+-- 
+2.47.3
+
