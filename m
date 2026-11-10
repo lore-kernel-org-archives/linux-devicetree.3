@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794339108;
-	b=SWvzidfmCt9j4z7+2Egl/Zfd89N0h9NeZA4O+hVKsCXU3g+Sz4DX+xEiI6E2qTFiKf67
-	 wzrJdi1u+dAAesYVspGG/ybMgzKSa5sbzCsRxxeBV8joEjvw9An4bXz0lU69QvyL1YHLM
-	 i4wFOwh5tVh2hDIfM3EOXRM4PgIKdg64rL2S9YWunVADmt1f/wIILFrmg4QJbO2l+/C5Y
-	 DR7B8Ymp84jUzUiQqGGyAox1rIz/XtZf9xyjnJjtDLnkEq8kHH4lBlWP3pvcsXBzjdt3m
-	 VpnHFlp2Gf4rhd4w3v9qvsrShiQxQjQLmHUYxZhbBNA/coLyhnuE9se4yC3+uUXqZqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339108;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:MIME-Version:In-Reply-To:
-	 References:From:User-Agent:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
-	b=XIGR14rW4nd7imjJrkodwRagAsprg1jsTUN3K7B+e/4X7cuvqaiOr0h0CiCbTvm2R7ci
-	 uJ7CwcMpzNeaqUKTklsKYUV69+1MiwxqbDpAIWbME8a9NN+vCGWAinHzsoA/R+Xk22bxN
-	 6eC3VWMozYvsS67uNV5ihRWkMVBjzQKX4yay0Bumf2UJ2LbogEcuvX9i1fpXFYdATFJ/6
-	 iy7g2l33uiTe2D68UKh8Krx2ZcouJtyJmSmsYJO7tt1dcbxyvbmANH+ZaBfvI7i14cIaY
-	 RN3F+yX62mwnfdrho0upRZz7aEFlR38NfPhXj0HNy4GXpLEbgwUkMtwJMvH3W0FXu7A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=O13ecu1l;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794339160;
+	b=SmbwZ2oBLK4Vb05SvjnB9eW3lm6kTN6Qw02ST2a0y318cDUn2rOLW6y0B7mY1NO8J+N/
+	 bavOYOlOG9M4Haacpo7Yap7azTYhs5MWvM1Ck9cgBsW1F9T9qoOBA8h4ujm45jx0NDrWU
+	 IBR0LcM4m5SwWEJuEb5koQpUQGa3yTselANwSoke73g31nZCGtF1nBgJeEHVnpF5yYI2C
+	 T38YnnvCtlAGNVQN800PAGmkPcKD4+66y4+5f8A2xW9PcpcjM5uiArWfiLTerFGKED/vJ
+	 7QZZxin2ebuhxifoxEkeNdSOXU+R+bIRR0ZwjYOJSakzhF3ShPZvDU0BOYQXpwiP3Jw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339160;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7mEklAilVKf92dtmVDJu0KURfc8Tj/Pz0ePFWAC4NZ0=;
+	b=oj5RH6acqtAao0DZH16OEbq6qkJi1FLip4GkwcGAAvGUe8A0BDvaxh+slZigApyE4ceF
+	 kPppR632yFl/ISwjELqumNCH7cFvIlLp5mKFS+j5bP9DkeOnJlT8l9E8oPY9Nn/8OT6FT
+	 K972oMf7c2fFcfc7rfxsQf3480QP96XMRjJ2dWBX/5VsyYHdI3//9DQjHKi/SfFmloyxS
+	 J7keiJ+i258EqGw0wvzdSQXIhmwrCbrX4OsAkXJuBwENgaoxh1uXmXDlUKdZSoO0zl5lI
+	 RofGt6iR6dNNQRvpeUVUyN8pse2HenNbfYk9X6uD9OYk7AfCTDtWrfncbLjpbHpCgjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA8Wjybm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AD060A2604
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:31:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4AD060A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0ABA606A320;
+	Tue, 10 Nov 2026 19:32:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=O13ecu1l
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D90293F853
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1794339104;
-	bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=O13ecu1lE0fY9ozGK0wADVTciwDl5oh4wWejqscWQGPEHm9+cXEzVoTYuGVpkcVLk
-	 hq94WGJd9CUjJsIPIFTDIsG4xJjI9sZgC3L1W+0wxjB6rXjoKAYNS658eBTdTMHhmZ
-	 W/cdXta6dacpVo49NLwXls6GE3lPZFQO6AZK1TJGZrpnIxC0hQLmvri8WoocWyMneF
-	 wCbVaJVEbnq7ufxHUAp5U0cbcnp0xTm+2x6nWVdHa7upjL2k9V/Izf/jsfqwYsLfbk
-	 mpuDEAjFmo7pW4EG4NsxyOhCUlokKyYRpFeLn6UZLCoLl0W9oYWvamlKkPu0C0UxeS
-	 OKYUuT8DX3U50ZVkW00nITkHPbRNQ73UCMnvxcNYx6uDdrAsEwcaHxIH7V3G1+8k7M
-	 is6vPH8+7GYE6Ylvx/Il/j5vSUCp/YwubrF0THfnQBrvQSueNFTy0w/su/CK/Grllf
-	 v0xVO54cq8ln/h3bfKJEQbxMo4y/BM7pRtXKYKmQNZd2V80TAnCx0ZHxIgOx6OGYlq
-	 6biHiLr87/FHjCqBeG6S2O8+6qzGjLwZsWqbBbBpxsbqIoH/HSm6m5bx0jBJMoMvwv
-	 SWcMOLfEWkxDm5WBTwYGbYvzQvaliHMkNYCMrXTdojyapbxO/FfHP3V5QapEMTyEE9
-	 XavCVlxpgOBIoRwm2cS9J9AU=
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c3f04e0e481so205736966b.1
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 11:31:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794339104; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rbjA3RQttEdCt+0b+5+Jdy60dLjxiDIDnQ4q3Zjgan5kAMqULsQ7uPNKYMXlT158Wz
-         6LD3JSy9kpNBcskQvTstFIJOwexthwxT6QwYau+S6CJKapsIKj9+8OcBtqtSC6yfmL2r
-         1tFMd5m3AovtBWzz4ClyWDm7TukaVW+S6FCXz74zj1BTvtNwC5g/WH444WnGV+ozviVI
-         A8xuov7+nIJqjiP2g0T8aCAdK9/kWBzyujtKb42J/NiVdqEJ1vbn+4ezyxxYnMgoeyVf
-         6SOuWDX7wz7QEZ7HvAzSN225+yTnlvr5nUC6Hq5ao7oTs69Uqn4HBwFCsvsgktHGFbkC
-         NCzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:user-agent:from:references
-         :in-reply-to:mime-version;
-        bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
-        fh=J0q7S++8BieLxdBzVE0EtLY4Er7mSoCS1dDOAVzJRX0=;
-        b=WgZ8HscTOpMkb7QPiJt4ma/DJQxcx+Y4So9jFBNjlZgwU8rA1VBrY5wftFHgA6snFQ
-         vAZmd3OtUqmpPr8TMw3T6Rj3PubVeK+cMA2D9AyUk7q3byRXQtCrDeImNhmLs+wS6QJp
-         PjYRVxNJPi3SkL1YCPrAo/9bYnkzLZaVsO2QzM4K89f+FkFk2l4LbHq+kVQzT2Gy73D8
-         +JR7yRrZxC+xvDRAa+AQaeeoGuAfCK6Gn2D9CbtOclR0t606hW803zEItGEAjnBZP9gx
-         89+hTQO9nY+t1kJopKGEzf2drlq1bwBIgYqJvYfSMTZ94PlZuoj8JHOflE6YrykVnsMm
-         EOZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339104; x=1794943904;
-        h=content-type:cc:to:subject:message-id:date:user-agent:from
-         :references:in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HlDh8YMmHEBtzHMVqB6csYqKYNKf7MABmovW9DqJSao=;
-        b=eK9K2o6nYmtA67nj7KFxj/yHqBWuUy9RBmgdI8ddJCGS0Jgok4y3kSmrZ1eRCrc99E
-         ar2Gk2SQhUV+KQ3RruuKFXLFhMiXfW27vse03Gq1wSjZ2u2kGraYsyJ5me4aPXK6LT5j
-         /93HCrlmUZWm8PX+LsagbX8ss3KkOa7FLKRmFahvzBluu2zeN67GvkrVxZwYL0oYA4WV
-         1hGD9Z2mxglrDwlT2i7nY09HgRZ4/gWOMaqja7fm+cCUmQmCws+OhS402KuWgeGd12B+
-         QfBZOZqraxqtVwYpwW3dmlJOYDbwIEee16tixJVLzezxjsN8lwguYliLOVCeBgCsmn5Y
-         ajfA==
-X-Forwarded-Encrypted: i=1; AL+hErGGKQ9XL+g7E4Wt/G3QC+WXJU45oAuxsWdgSvUyceMm5VD/LKPO6ZSTojPhMFtI2+xYaPNVcvnX6WQx@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MqHRqRZJUjpNS8JnGETcWXlCeATRYdtCtoRn1m59uHpHlRePP
-	1ir21S8t+p7aJaJtKW1MSZnKXDnPcH4XG/MnfTXfLJT5cWtYqIhn9hL/0fRe+cNtywn96VltER9
-	F/c407tXc/30vivqqAo3H7JOCRYAg4ZhX8C42AEC7EaOkIt7oy37/xYhs6d+GYEz1eM/fC/uoYV
-	Isb+ob0F6uc7+8z+y1Cfolxo35mDqSmJPF5UCTVD3CyiDsPRfvzmGg0g==
-X-Gm-Gg: AYBFou2iO1XJvz/uSf8JdAq76LoyYsKKGZD1MCH2Y+lncxLl88KAuVTXaeW+NjaCT9s
-	2GjhNuKYnK3XODGTD8RfK67it7KnW+qZBmiSjEjboyEvN3ZpflyrR+z5JUXzWv+oHUzsQp7TdoV
-	nzgfhFmsTM2nuYGIsy5ae3gUYL7TBZ4rMPn8ckrOIMmAnvNeCg50eifge0
-X-Received: by 2002:a17:907:2d9e:b0:c50:4b7a:de71 with SMTP id a640c23a62f3a-c5066c973bfmr7684766b.28.1794339104483;
-        Tue, 10 Nov 2026 11:31:44 -0800 (PST)
-X-Received: by 2002:a17:907:2d9e:b0:c50:4b7a:de71 with SMTP id
- a640c23a62f3a-c5066c973bfmr7681666b.28.1794339104008; Tue, 10 Nov 2026
- 11:31:44 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 10 Nov 2026 11:31:42 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA8Wjybm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B8D1F0089F;
+	Tue, 10 Nov 2026 19:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339159;
+	bh=7mEklAilVKf92dtmVDJu0KURfc8Tj/Pz0ePFWAC4NZ0=;
+	h=From:To:Cc:Subject:Date;
+	b=JA8WjybmoYPULa5SpWa0fBuvhrCVrP6lBuUztr1PxnysKsVbpHEloxbT1KANUUEuD
+	 1w1iedTKgpSAl2zgLAVEkvwGmrA1+0T34yoH6HLzN9Zk/DmX7SGEmL0ncGoB7AZcJu
+	 4fQyvJHVJ/Kg1AAYMts10Bq3sQDgp/pzaPvNT28fWxp4wpuvCd11Pss3sBvQIgq9hb
+	 D6EcOfCzHrvdff76f74XnrzK7mDku3u5IvohsQ/N5hUASHquBDMYQ3Nrul8bXNYDY+
+	 03tmZI05/qes+D5qjN8/3fukFEEZv5Iak4YeojmLPhdqIeFCsLzcyuWNbqEWcxa/8z
+	 M8/ykNGLWmHCg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wei Xu <xuwei5@hisilicon.com>
+Cc: linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
+Date: Tue, 10 Nov 2026 13:32:28 -0600
+Message-ID: <20261110193229.1531663-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,42 +62,149 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261109051050.105623-8-joel@jms.id.au>
-References: <20261109051050.105623-1-joel@jms.id.au> <20261109051050.105623-8-joel@jms.id.au>
-From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-User-Agent: alot/0.0.0
-Date: Tue, 10 Nov 2026 11:31:42 -0800
-X-Gm-Features: AclHuK9fQA8Jgn0xTRsqLvStB1Q8zamqe0b0Aq0C1Bxekl-A8FrsSuWOeKP0fC4
-Message-ID: <CAJM55Z_zrUjaWrxSqZ=8VWEJqbh_Oa6gTHf=UJZyR2__MCVueQ@mail.gmail.com>
-Subject: Re: [PATCH v3 7/7] riscv: dts: tenstorrent: Add Atlantis platform
-To: Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Thomas Gleixner <tglx@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@kernel.org>, Drew Fustini <fustini@kernel.org>, 
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, linux-riscv@lists.infradead.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Quoting Joel Stanley (2026-11-09 06:10:47)
-> Add initial support for the Tenstorrent Atlantis platform, based on the
-> Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
->
-> The evb machine represents an internal bringup vehicle with just the
-> interrupt controllers and a UART. This will be updated in time with a
-> full featured machine once details are available.
->
-> The chosen node sets bootargs to earlycon=sbi to aid debugging early
-> boot, as the platform may not have a bootloader to fill out the chosen
-> node.
+Convert the HiSilicon CRG binding to DT schema format.
 
-Does this mean OpenSBI uses a different uart from uart1?
+The allowed compatibles was not very accurate, so update them to
+match the users. Drop the hi3516cv300 compatibles as the platform
+has no DT and only a few drivers (pending removal) upstream.
 
-If not that means both Linux in S-mode and OpenSBI in M-mode will
-both try to use uart1 at the same time. It might work by chance,
-but a much better solution would be to just use "earlycon".
-You already define chosen/stdout-path to point at uart1 and the
-driver for 'snps,dw-apb-uart' implements earlycon so it should
-work much the same.
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v2:
+ - Add missing SPDX license tag
+---
+ .../devicetree/bindings/clock/hisi-crg.txt    | 50 ---------------
+ .../bindings/clock/hisilicon,hi3519-crg.yaml  | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 50 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/clock/hisi-crg.txt
+ create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
 
-/Emil
+diff --git a/Documentation/devicetree/bindings/clock/hisi-crg.txt b/Documentation/devicetree/bindings/clock/hisi-crg.txt
+deleted file mode 100644
+index cc60b3d423f3..000000000000
+--- a/Documentation/devicetree/bindings/clock/hisi-crg.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-* HiSilicon Clock and Reset Generator(CRG)
+-
+-The CRG module provides clock and reset signals to various
+-modules within the SoC.
+-
+-This binding uses the following bindings:
+-    Documentation/devicetree/bindings/clock/clock-bindings.txt
+-    Documentation/devicetree/bindings/reset/reset.txt
+-
+-Required Properties:
+-
+-- compatible: should be one of the following.
+-  - "hisilicon,hi3516cv300-crg"
+-  - "hisilicon,hi3516cv300-sysctrl"
+-  - "hisilicon,hi3519-crg"
+-  - "hisilicon,hi3798cv200-crg"
+-  - "hisilicon,hi3798cv200-sysctrl"
+-
+-- reg: physical base address of the controller and length of memory mapped
+-  region.
+-
+-- #clock-cells: should be 1.
+-
+-Each clock is assigned an identifier and client nodes use this identifier
+-to specify the clock which they consume.
+-
+-All these identifier could be found in <dt-bindings/clock/hi3519-clock.h>.
+-
+-- #reset-cells: should be 2.
+-
+-A reset signal can be controlled by writing a bit register in the CRG module.
+-The reset specifier consists of two cells. The first cell represents the
+-register offset relative to the base address. The second cell represents the
+-bit index in the register.
+-
+-Example: CRG nodes
+-CRG: clock-reset-controller@12010000 {
+-	compatible = "hisilicon,hi3519-crg";
+-	reg = <0x12010000 0x10000>;
+-	#clock-cells = <1>;
+-	#reset-cells = <2>;
+-};
+-
+-Example: consumer nodes
+-i2c0: i2c@12110000 {
+-	compatible = "hisilicon,hi3519-i2c";
+-	reg = <0x12110000 0x1000>;
+-	clocks = <&CRG HI3519_I2C0_RST>;
+-	resets = <&CRG 0xe4 0>;
+-};
+diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+new file mode 100644
+index 000000000000..3c2cc3411de5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/hisilicon,hi3519-crg.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HiSilicon HI3519/HI3798CV200 Clock and Reset Generator (CRG)
++
++maintainers:
++  - Wei Xu <xuwei5@hisilicon.com>
++
++description:
++  The CRG module provides clock and reset signals to various modules within the
++  SoC.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: hisilicon,hi3798cv200-crg
++          - const: syscon
++          - const: simple-mfd
++      - items:
++          - const: hisilicon,hi3798cv200-sysctrl
++          - const: syscon
++      - items:
++          - const: hisilicon,hi3519-crg
++
++  reg:
++    maxItems: 1
++
++  '#clock-cells':
++    description: >
++      The identifiers for the cells can be found in:
++
++        dt-bindings/clock/hi3519-clock.h
++        dt-bindings/clock/histb-clock.h
++    const: 1
++
++  '#reset-cells':
++    description:
++      A reset signal can be controlled by writing a bit register in the CRG
++      module. The reset specifier consists of two cells. The first cell
++      represents the register offset relative to the base address. The second
++      cell represents the bit index in the register.
++    const: 2
++
++  reset-controller:
++    type: object
++    properties:
++      compatible:
++        const: ti,syscon-reset
++
++    additionalProperties: true
++
++required:
++  - compatible
++  - reg
++  - '#clock-cells'
++  - '#reset-cells'
++
++additionalProperties: false
+-- 
+2.53.0
+
