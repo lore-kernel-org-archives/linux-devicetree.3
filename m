@@ -1,71 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319614;
-	b=DwsuItT1Idy3mX21AWswMeJVmbz882QHMXjx/U4ASZAdjORTiUMXXCwLwR57ah85s6cm
-	 P65np333zKqMBNryl/YxfK9AW5/Dm6SgjYJ26+B7Bn5A7upt3krQB4KdJz2wiep6285Rt
-	 LeWvIWhYwx1sNAsMni1QkANsuF66OzejwWk7fchIBtHow1CyEx6QhpCCyovfXtTbzxvE9
-	 imHc+0IlK6lKBfHP7bfECXC+7OygCPErlM2jxZUe9Xr1GjDef2lWfvI29s2FDDisTYMaE
-	 2CH/v2elOwNfsEVvT4xnrcLsySAjHvJmCW9yEX5RgUV1bgItKHXv1MWdIgZVcecPK2w==
+	t=1794319921;
+	b=07fUMffk/BMRFMyJN1hRce+8lEk5ylNBfqZLnDrFilE9LtYjDneKTOrnomgT54z/m2Et
+	 ojkbSRNx56dmpG/C5X4eOPW9GRKr+zDqjKjYsTu8eRhZvCSQo5uhrkFgJ9YrJbx7K8fbv
+	 dRz7Cm3ELzbuaPQoN/u8AlIAD1jZz1DaiG3vQSxcPZmNGx+bQ5LLs9Yy3E11mPXqSUA72
+	 vbx5zTOWSd3U722khjQjpcJKASxpe6NZ0XW01q7+t374XTbbhKIMl9OJSp6JQLGNoB+/K
+	 efT3aCqip6LRbxmN6pxabtipkJe+YLXbpGrXcoIgTlnPvPKQDPkyy6PzdoByF6W9pdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319614;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6mdx737bcxeVcciGfuHgnMznol7+4MpQaOj9g4XVWL0=;
-	b=WcBNa7O1XUUxt5lLStrrp8jaQ7efVi5lQQGJIJeuzQSrtmSo2MhKWc9v+sN4/X3QNnEB
-	 J6x6R0kZzCXiA1JM6tNp+KnOOfWh/V2qsh6OwpTZO6Roc8e0uDdMBif4+/dj4ClMtfgMg
-	 FK+vQrVaFWl0kWXVT+vT5iiaOAM06N+24aCc6syASX2w2jspIJxDXFYAbFJcANLHa4/Lz
-	 n4jGrRpj/t4yYNo40ISnDextn8bcdF0oyUFsxchLeDcN9Q/ST6mx0ZQ8XpqXjKBusvGbE
-	 1b6ZolRfsAFswY5Ypg1SNr/SIwj+B4aeOaxEeNYmMscTin1yliH3+gyHH9qEuCL4cZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319921;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=JRlTB/Oq0MlZ1FntrVFpPEXr0i4FFsjXVYH+2p/mtY8=;
+	b=FrJF6sYlnhGPEPlrcPt6tU1TLuEI7y2doP++bTsc7MskuVrRmDkM3F1S3PzcFZ5oiXVT
+	 QiyTxcwAm1gwKM8ifmv/iy0KCZ4Ur8vUVL8Am+eDdUdgc8M0CbxRw85JzLZathMUAn+wY
+	 o9TLfTHXwG0XXhDKlQPrMVWaBL5ifOEGEkYKC8FA29NWDU8/YBBmHKAT2c8CfiZFZHjIn
+	 FWpHPSq1Kw5GNA88AQQ+JxgWJQKpEfGCcNDUxHcB3rRepImlu31ksrNuQSQ1sf0ecdmcR
+	 oc5LHmZx/ROfktlTLoLRvFPVLyZi8qWm0wqBEenAe92eYHfFZk87tsQJFiXE9sBQdHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPYmvbsb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SyA5/nIq";
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B8F2D606A321;
-	Tue, 10 Nov 2026 14:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE62060A380F;
+	Tue, 10 Nov 2026 14:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE62060A380F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPYmvbsb
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CAD501F0089F;
-	Tue, 10 Nov 2026 14:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319613;
-	bh=6mdx737bcxeVcciGfuHgnMznol7+4MpQaOj9g4XVWL0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OPYmvbsbYEIAyqQ66foGVr6ozvMzlKC/en38xqcdxVQU0194eo5B5cptbbZlk3FLj
-	 qjGNveKQdTK1fN7MKM+xFNGe9chMw0b0WEdx25m3+F3JSvLh1z0L9Ka8ZEIeUEbU9G
-	 C/dLvCsb8iG/f4N1k9xrHxvLk10X3p/cafIzVXoTCFJK62SV4Ky8ze+UI7VYWtxxxH
-	 CxS+KsSNb+UMi/8hIiodrdCDFOEwdfXqd0F3TH0ysqUr6TBjfzgPVAPaSLxhrx49d9
-	 TgKEVCV1O4elPHxm6ocTfStWrv/pZtE+FKVIIWtx41H5VYYtZrx84xPDQwLNgJAHcV
-	 p6vTXvGrT2tbw==
-Date: Tue, 10 Nov 2026 15:06:50 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <42haexjuvyhxznlre4wtwb6ent3epgnqn6mvj2pjxrbryvy7yt@2p7odc4trzo7>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
- <l7ppjeoqvc6hblk52a6upei4ee2caahe2ltiur4gwig3ez7d3c@dmzzy22ixvlc>
- <CAHp75VdZpqt8PzVypQ85U1OjxszXOmCP9MKv3ozQOh-UVFnR-w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SyA5/nIq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794319920; x=1825855920;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qNtMH7l1kU6ZZbKE7+CnTRLFKr9x7riNWahstWq+vdw=;
+  b=SyA5/nIqpYQmyQOREPRL/ZZ/30ZIyRSDSN29juuIxOzC4+lGHc7miVRt
+   c2oLzPeZ4U1EXeLwaxbjPlxtKA1/A1lsmoP45dc8jdRF1gJWjyXgTPO3B
+   /D7OhpKoIxD/BZwqehqVmlwETEbSs907G6gTyOY8M0LZIxBKbFcSrFxt0
+   YDJDRerxrl1uIhcizRzTVtarhJrnoLHsKVvonSnnNZjStTY49CZbLY5Sh
+   aqrRsPxP2vmIDHs/1ovf/pUJGFIVqZDjK3mv4xm8Bf411cMQkE7mezfyJ
+   1zFL4Jv7W7xfK9nnvy3Icxf5coouDdpfcG2AUPayAeY0owBr+trTkN8wM
+   w==;
+X-CSE-ConnectionGUID: FouLpKS8TueSSkTrllyUZg==
+X-CSE-MsgGUID: bm5IsMSnRqWb6rnUreIdJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3056122"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3056122"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:12:00 -0800
+X-CSE-ConnectionGUID: 9jp5mXF7SQ6yZQExcMRuPA==
+X-CSE-MsgGUID: FjuImkjfRqe1iQ4XjmnGHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8303202"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:11:55 -0800
+Date: Tue, 10 Nov 2026 16:11:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Brian Masney <masneyb@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Long Zhao <longzhao@ambarella.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>
+Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+Message-ID: <avMmKJpczepWTRdc@ashevche-desk.local>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+ <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+ <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
+ <avMM8z-LYncKS8ip@x1g10>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,74 +97,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VdZpqt8PzVypQ85U1OjxszXOmCP9MKv3ozQOh-UVFnR-w@mail.gmail.com>
+In-Reply-To: <avMM8z-LYncKS8ip@x1g10>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 12:51:53PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 11:50 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > On Tue, Nov 10, 2026 at 11:12:02AM +0200, Andy Shevchenko wrote:
-> > > On Tue, Nov 10, 2026 at 11:00 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > > > On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
-> > > > > On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> > > > > > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > > > > > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
-> 
-> ...
-> 
-> > > > PS: is there a way of using match_string() with non-const data?
-> > >
-> > > Why? It's an input parameter, it returns an index. Whatever you
-> > > provide will be not modified.
-> 
-> 
-> > What I mean is that the following change
-> 
-> > +               ret = match_string(merged, n1, sec_props.array[i]);
-> > +               if (ret >= n1) {
-> >                         merged[count++] = sec_props.array[i];
-> >                         sec_props.array[i] = NULL;
-> >                 }
-> >
-> > Results in:
-> 
-> > drivers/base/property.c: In function ‘fwnode_property_get_names’:
-> > drivers/base/property.c:607:36: error: passing argument 1 of ‘match_string’ from incompatible pointer type [-Wincompatible-pointer-types]
-> 
-> > And I don't see a good way of working around it without doing:
-> >
-> >         match_string((const char *const)merged, n1, sec_props.array[i]));
-> >
-> > which is ugly.
-> 
-> Ah, got it! But why is the "merges" char ** and not char * const *? I
-> believe that will fix the issue.
+On Tue, Nov 10, 2026 at 07:24:19AM -0500, Brian Masney wrote:
+> On Tue, Nov 10, 2026 at 09:46:29AM +0100, Arnd Bergmann wrote:
+> > On Tue, Nov 10, 2026, at 09:27, Krzysztof Kozlowski wrote:
+> > > On 10/11/2026 09:23, Arnd Bergmann wrote:
 
-Then you won't be able to assign dynamically allocated strings from
-prim_props and sec_props to members of "merged".
+...
 
-  CC      drivers/base/property.o
-drivers/base/property.c: In function ‘fwnode_property_get_names’:
-drivers/base/property.c:601:27: error: assignment of read-only location ‘*(merged + (sizetype)((long unsigned int)i * 8))’
-  601 |                 merged[i] = prim_props.array[i];
-      |                           ^
-drivers/base/property.c:614:41: error: assignment of read-only location ‘*(merged + (sizetype)((long unsigned int)count++ * 8))’
-  614 |                         merged[count++] = sec_props.array[i];
-      |                                         ^
-drivers/base/property.c:619:16: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-  619 |         *props = merged;
-      |                ^
-make[4]: *** [scripts/Makefile.build:321: drivers/base/property.o] Error 1
-make[3]: *** [scripts/Makefile.build:603: drivers/base] Error 2
-make[2]: *** [scripts/Makefile.build:603: drivers] Error 2
+> > > There is a build dependency - DTS needs clock binding
+> > > header - so it has to be second, unless the dependency
+> > > is decoupled.
+> > 
+> > Ok, I see. Let's go with Brian's suggestion then.
+> 
+> I see that the pinctrl driver was merged into v7.4-rc1 and also
+> lists ARCH_AMBARELLA. It doesn't cause any build warnings or issues, so
+> I'm fine with this too just as long as ARCH_AMBARELLA is going to appear
+> in the tree.
 
-This is where we could use kstrdup_const() but we'd have to keep track
-of these strings now in error paths and that complicated things. I'll
-just keep the existing loop I have.
+We have a bug about dangling / orphaned symbols in Kconfig. It's discouraged to
+have them. I dunno if we get the checker patch being applied (it was some
+activity a few months ago).
 
-The alternative is of course relaxing match_string() or introducing a
-non-const variant or even hiding the variant behind a macro using
-_Generic(). But that's work for another series I think.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Bart
+
