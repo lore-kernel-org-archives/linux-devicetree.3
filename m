@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300335;
-	b=erovdncVcgMZRp0QvPv77WpRuejG1qVscQwyqNyoymY/oM7zoojUEK2/+bX72r1WB1wh
-	 1u+jjWkz5+51Hqc5g57yCUqTQlD0P0IOsHMVLMe0YRuDe6injZRAhHqJ3GI0gWL3CB8k7
-	 UODuWmAM77BaIx3BSYrUQQdgFS4NjHN9q/oQK2YqZ1aYbf02AirRtB4xkM5fF90I6pk5J
-	 pYH7jpDL+gskKS1yZMj+/8hfSikjBXL77PYPziispRlyESneHhUfwMe4QRDD+JyQr2H2t
-	 dY3UYGJK9ySn9lrpmHgPnoCxwnu948w+3thnIE0I8hTYafrBFYBNmWERfe6f47O03pw==
+	t=1794300427;
+	b=q7ZJbN8sg/NhOK4f1nGdWVfDcWh6niamcbfbZ0TDl5S97vlkLH1Umga9+Lr3S5EUw5+E
+	 4BI3NCGRwm0COcEGioGZOczd3Mm7WDQYZWf8oHbe0tjhBJpTbCgsgfmBFfr+NbkJQU5Cn
+	 /+9DnF2wget6fb0FPSbcCQmcrJfKAF6M+NKMzn6tSAdnxf6xa91V979ts4+J93ALCnFuY
+	 sZ9DEKElrp5bj04LCIIxh01qzAdWn9P1R6/i3TqmoZazwusmD+gSbfeuQoAkrdIKe8nN7
+	 TqkWfHSsh731ftcnG6wMRSIeD6ZL5HwXSc5r+9V31JjnFZn3gR3uWCpey8fKnSKFNUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300335;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 Content-Transfer-Encoding:In-Reply-To:References:X-QQ-SENDSIZE:
-	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=sUto69GneM3/21N1G4JPtL94JDaDhP2/KjnoIeniECk=;
-	b=HHMgpDwqUcAJ+E5aPOvvTGPqFc4dDBwfcczxfo9dFCq6ogwjHwhXwQZ2A9XzOhZp9FbW
-	 NUR3fkikgtMZvJa7ZuJRTyEwluhjzzR73/DN2GlEggB3uZvSw1O6WSrA6jQq26wDhf0G5
-	 GwMz9Y2/k+gnMsqf/R4l+UUHwHwpvXO0g4QlpbtoRDK1iHusNaEurwa70m+3mB6cCVkGa
-	 bFvQW94HkDfDc/r3z47wX+qxXn3y7ihdLFPL/EyTuCneu5IdW4ubWA+altkVXBwiyDGzZ
-	 +jwHevwv9S1/C1/qqXjK4lSCKuKAschpYDRclweg2Lv+s6ZWCLONuQFhdXOpeykZgsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300427;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=tb236Dm5vjk3jIJHIZtBKJRyeMEkcz2Hz6AmSpXUM38=;
+	b=GIeFmb3yeFODo6s25wdumFa0Gom4BdjnGxc3OhzCW/N9ktNQPRlnDqpKNaaDaokladGA
+	 j76NOmef5qP8RPYQKiYGgqVudwvhibs+HTk3VfT16Rx9PLiJ40SwqroMu7C8mb5vFgCoY
+	 BRau5TCaaVDV7qL/5HnMaINwBIiivq9I0XTTsk0oR2gZMCk4Fyx8tpmFuuwclbhrG3S3d
+	 0Ni/vU8WrlM0+OSpoXbkGVrPxAndFwKKInefseHwjTUe7gBjs+Ih1ehefKbYQnuaZh/1R
+	 t1chqvKZ8sJ3tLX18S6ew7P6dcDUmyDuInMf3/pDVWMzpGFAYNUhGczF+jaKkXPEPOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Pmrp1zLQ;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cgC+Y2WX;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="kE/mRSPY";
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA352606A31C;
-	Tue, 10 Nov 2026 08:45:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA352606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B12606A325
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 08:47:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50B12606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Pmrp1zLQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794300281;
-	bh=sUto69GneM3/21N1G4JPtL94JDaDhP2/KjnoIeniECk=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=Pmrp1zLQtx/5nIr+Y5iQ2mlQeMA1CYwGweLyEYJAh7qy5//x4lI597D4KpAhYE8R9
-	 JYWJDdpP5cWGd++UMpi1H7c4UCla7UMwVQRmY4nP/MysInDHirSrCzz2nWdqGU1Hw9
-	 Z16dzNPqvJF7dDxht4xbY3dBQJyEr70QYZWWPM18=
-X-QQ-mid: esmtpsz16t1794300279t7e784a46
-X-QQ-Originating-IP: RZyIr1RkrL/Ze4oQ+7VPt95YCi+emVuRwyceRtOz8jI=
-Received: from = ( [183.48.247.17])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 16:44:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8600440983646492188
-EX-QQ-RecipientCnt: 19
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cgC+Y2WX;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=kE/mRSPY
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 60A641400132
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:47:06 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 03:47:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794300417;
+	 x=1794386817; bh=tb236Dm5vjk3jIJHIZtBKJRyeMEkcz2Hz6AmSpXUM38=; b=
+	cgC+Y2WXxO/XaImP2Gm48Wap91NQSiNuC5bPDsseRWrORVRfmbbWXNQosdG5qKP/
+	hl7uhyaxlhnj2qvg0FJGGYqsrVfkRvwFhB+uz8/ad2rq3j9nrobXhl4bnUUESCSN
+	T0U5W6qYyKx2vLFLMMhDYcE5TdpGVsbSeLJxM4JmLQizdUdU3NAuP4VboagSHVxS
+	bPWd/LYM0ebOe3n6OZhXv+8KZcVqqCgkO2hNRSoAOmN6nApW8F++nP7OL+Jghd1z
+	pv66YhkWVPXQ1emlHL2qpc3rc/c+PvBBIK+qcapDm2uNmPGNxQyZ3Oyd+m+Iad7s
+	XuxC1IjAIyaFtuGGL4DoQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794300417; x=
+	1794386817; bh=tb236Dm5vjk3jIJHIZtBKJRyeMEkcz2Hz6AmSpXUM38=; b=k
+	E/mRSPYeLWtnTujMQqC+6MeTrE+UKfjRBdR8AX8oroox+S1B0gYbl08nb+pcRFWP
+	dZLPqck94q+klISPxktsroSmqOP7Z/2DLr3haN8K+aTPWurrEXBonJR6JORXcPTS
+	ZPswAFAcZLo5kBsg+5vIHkAJitT6sLiq5hgG/L+dmMQzscTiqI/jmaVRRqx2+XIo
+	Th9MTu2LiBJhHy/Byeqs1Qx9aN86VSkuvuHEjysASJD5QdzXDdXJKGmjP9zS/qjp
+	ijm3wcGvpM95upb80dfIuR9dP7F0hEoCzvypNwmwiRX+k1ig6BlcVu+a0Lb2IdMj
+	sAfV6w58gdUr9wsdji2PQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794300417; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:jY7+zdTqbZ/LcodmfUhRlh3R41/TrvunNUhvlHwc4To9WLg
+	VgR9oLjr3B9BAGrtvUR8GnGOg/HqG0tNDlPnSogzI1T5fIr8WJtO2ljDW2Lsix5w
+	2KoqCi6BjYppQrw4W3xBrHiQ0ErdscRw03Fs1dasw2rEaEzD3ft8fn+jGQZf2Ql3
+	v1QmT5zio/uF6yk6ZwP0xJiTDsqk0UBivy2+GDUyBwgHrlYrfmXbISoNCVswUkCq
+	OgIYWkNwW6c9QhOQWlFglmVmWpa3hZlA9/IR9Ffpp45l8NO9ZwEeVzOfd8FMFn55
+	EpYETQZlpVRGFaAS97cLwUn9a+ITN5ZPEAxxwLw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:lERdrb9Ixmt/09H167x565OA+x+60OUGjeylKHspBT4=:/J/XjW7Q6CFdj+SNsM8IKlFX81NAeeVIkFwzukOjqaM=;
+X-ME-Sender: <xms:-tnyapZWpF7wmx-xErevIPpESn9od4WYUbneta5UlMF1DyZKOrXa7w>
+    <xme:-tnyarN1mrP318EQ7eZAOCEin2fmQvn7aELTkSzMqyVL64lXEQJ2yMdc0iXja-5Gj
+    d7-nprKmtLa84fScPVNtjUXWSgO9N11d5RbPOPKdjqQ4DN3wewilaxX>
+X-ME-Proxy-Cause: dmFkZTErx1dxoqSf6te9rXHPqp0f1SJG/nfdWjOU7ZalO87A+EP4qML1q0Z0D8gxg/nRWC
+    rvfIBrNbS4wqwUNlWo/9KOxDTwGOhlIXs8DwpTnxQBvdJ3XFf8AYcyH9uv5L2alR1WEZZY
+    YAOY30rhi9AKJC/pO2DdYe1oePMkSIa3oFgFKmZGPqe1XxtwiCj1GPkRLFipZntZWM+KeB
+    //2NuoZILEAf0rhOOLud9ax/noqUHj31GklZ/DeCrl5G8BdmbpNh8Mme3/E7sFzUdMddXc
+    gvZ8RE5e+VmIGYI8lt8iNh/6COeH4R247RPHZyeSvx7zMUO4KASDH+ZWhqu71g/24fjEmI
+    +VlonHM3LwH9lX8bzfkCxMXcl4KHEfqgf7CE05e5nPpb/S5YEQCcptGJyQg6OZ1igs50+Q
+    lcBBM7acbUOoBx+F6ko9cMQJIrV82q7SQ3QikYVWRL2vanSAs5ZHI5ymDoIqZf76vuZG3t
+    /6exr7ZlBOE1DMvqyYM0HB4FryKT1nQ3820ZBtrU0/rpK6SivFbfRI4vB8QLKpOKAG3cOK
+    NJKaspt85Zu4Gv41H3Tjmv+br8SL1kbryf3eyDw3xImDq2XrkWZASsGdjknHNxOpeEAHJ5
+    jWG3cIpSozZ1BvcfbolW73Kdtw2oqERaIbQK3jB9y5sQBDNsFx6WfAGVZXog
+X-ME-Proxy: <xmx:_dnyahLRQ_SqIpxW5ldaasvoRJZw1y8bu-mOJoR4YiYu1EifSHjXGQ>
+    <xmx:_dnyaqWHhl3huLu3H0ff75gGpVGetik4mBPIsIQFydiUv_9glx_SSg>
+    <xmx:_dnyauN3-clC1hcF9Et2ItV1Eo2XlWhsETg2vEftAmFAa-55UjXTxA>
+    <xmx:_dnyaukE-5Vt6vurldhKktgim6GhalK9eXVaAPjAJstnvs7nSAbjqA>
+    <xmx:AdryaksipLQyu4Nqkx8C9EgX_qlE2hcaQ_6UpkzGv2xMfKSJ-gW7ioKC>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id F034E32A0099; Tue, 10 Nov 2026 03:46:49 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,107 +114,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=18f11060a803f47ff361742ba8691daff4c6fbfbe03e1b9c377f4db00c26;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 10 Nov 2026 08:44:36 +0000
-Message-Id: <DMRED3CXA5IJ.3FLQ7UFUTN0R9@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: =?utf-8?q?Fr=C3=A9d=C3=A9ric_Mah=C3=A9?= <frederic.mahe@cirad.fr>
-Cc: "Marcel Holtmann" <marcel@holtmann.org>, "Luiz Augusto von Dentz"
- <luiz.dentz@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Yixun Lan" <dlan@kernel.org>, "Vasily Khoruzhick" <anarsoul@gmail.com>,
- "Alistair Francis" <alistair@alistair23.me>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, <linux-bluetooth@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: enable Bluetooth on BPI-F3
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261110074607.363918-3-frederic.mahe@cirad.fr>
-References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
-	<20261110074607.363918-3-frederic.mahe@cirad.fr>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MShfLn39PbN2APgg9dvNoZD0mnyzgy9+pWI3O+qvUle3b+72Hb0DW5jh
-	+1gCDbjd+J6Io1XLGyUL13hxdi0ki1gq0pJ+KDFHfB/PxOpOwYu8ItIbIcCW+oH/XS3N/8S
-	3frioK4ctTvZZ1UX8eLcegFjaLe/mfvqvycD1gu8jSaRR2aFiO5BRdO9lzjxgHppMC+uAD7
-	ziP8QK5WcvnB7tTI3bvuspACf89XB65k2y7PIR1pThs9AkArppm5KfHtyBtVclpsdmmuDsU
-	VfyfZ+CrsJ5HFDQSvsOwGPr0SC7Cx8kD5cirKakzwiqSbJJz/bXQC7S1ux7M6IYiJDppUXG
-	ANqtTgZ4YadObYvv31A9sYRFxhk+xkksh1ydebGUTEx5tCTACBQfky8uSnAk4g4mb3ECQ7Z
-	Wfcn+blF/AKUNaMCwoltRdF4AVbMwLdC+Y9A0czXxiroI062FNF25SVEzkburqCPIZ0rb1Y
-	SDvnNcQXsZfqEcJfQZqNsofkskEnK0+QA9BoY5PXDDnQ2M1gJIxz6rz6hy3MNJ9IdxIqIVt
-	qvtjCNE5yX45Y5n1adxttOhK0tdUexuAyG5kuwwKqNOiNWEj9UCzSfvKHOh4VBrGwaBK45w
-	JJc0NSCtAriyyptUxrqLDP2f7imKpUM87cTaRcYv3hpFELUtMh5lFYzom+Os9jSh7yPahpC
-	HUz4apRyc+iXTQXIWNZX5dwahwEi5dUN2OzsuSP+1uWt0tIDSnOXO6q3b+64VEvbjUVj3fW
-	0Ukh+Fl7gJ6EBPBGyklAxHR47iHcGAwQb0ICJvb9+FKk9wpOGy9zJ7SkugIabFPSxaZCIpO
-	yjY7F7HylA1FHqWzHNGlo44pMZXU6yETsISwUYavcdmGFtI3gvaAygBRxgOm/t9fCTenvUw
-	zJw6SMh1JcNDXBKxlkTJFbV7B0wdAT5yeclqbUebsCH6Gg1y7KwgUIvumPMGAvxL/p4p3n4
-	5iGR/MjDrnIEsmc1kLO7ofIJbFK878qTg+DGkYl7oOEXlktShgdkvraqlyL+Vm7P1ltc1XP
-	qg8khqNHQFfsQQaP5ApNt4X6v0rK51vqbawxm53SB0KH1rquATxoPaiZmCIwiDZbMRWh7jm
-	mpasRtzGCriChpZJ5QTUcw=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+X-ThreadId: A4QaHkHhrVgc
+Date: Tue, 10 Nov 2026 09:46:29 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Brian Masney" <masneyb@kernel.org>
+Cc: "Long Zhao" <longzhao@ambarella.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ "Michael Turquette" <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>,
+ linux-clk@vger.kernel.org,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ devicetree@vger.kernel.org, "Long Zhao" <zl020895@163.com>,
+ linux-kernel@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
+Message-Id: <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
+In-Reply-To: <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+ <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
---18f11060a803f47ff361742ba8691daff4c6fbfbe03e1b9c377f4db00c26
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Tue, 10 Nov 2026 08:46:07 +0100, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
-> The BPI-F3 has an RTL8852BS module whose Bluetooth part is on UART2,
-> with hardware flow control. GPIO 63 powers Bluetooth on and GPIO 64
-> is the device wake line.
+On Tue, Nov 10, 2026, at 09:27, Krzysztof Kozlowski wrote:
+> On 10/11/2026 09:23, Arnd Bergmann wrote:
+>> On Tue, Nov 10, 2026, at 09:02, Krzysztof Kozlowski wrote:
+>>> On Mon, Nov 09, 2026 at 08:22:33PM -0500, Brian Masney wrote:
+>>>>
+>>>> - I create a new shared immutable branch based on v7.4-rc1 and I can put
+>>>>   the first two dt-bindings patches in that. I merge this into clk-pile
+>>>>   (feeds clk-next) with --no-ff. The DTS folks will merge this immutable
+>>>>  branch as well.
+>>>> 
+>>>> - I can then merge patches 3 and 5 into clk-pile.
+>>>>
+>>>> - The DTS folks will take patch 4.
+>> 
+>> If the clk driver is required to boot, I would
+>> suggest having a branch with the two clk patches that
+>> can get merged (not applied) into both the clk tree
+>> and the soc/newsoc branch to put the other patches
+>> on top.
 >
-> The firmware config switches the UART to 1.5 Mbaud, so take the UART2
-> clock from the 48 MHz slow_uart2 clock.
-slow_uart2 is a programmable divider (MPMU_SUCCR_1), not a fixed
-48 MHz clock. Its rate is whatever the bootloader left there.
+> There is a build dependency - DTS needs clock binding
+> header - so it has to be second, unless the dependency
+> is decoupled.
 
-[...]
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
-/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 58035d886..280adc9dc 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -383,6 +383,21 @@ &uart0 {
->  	status =3D "okay";
->  };
-> =20
-> +&uart2 {
-> +	assigned-clocks =3D <&syscon_apbc CLK_UART2>;
-> +	assigned-clock-parents =3D <&syscon_mpmu CLK_SLOW_UART2>;
-Please add CLK_SLOW_UART2 to assigned-clocks and set it explicitly:
+Ok, I see. Let's go with Brian's suggestion then.
 
-	assigned-clock-rates =3D <0>, <48000000>;
+For reference, I'd also be fine with the alternatives
+we mentioned. We've done all of those before:
 
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&uart2_0_cfg>, <&uart2_0_cts_rts_cfg>;
-> +	uart-has-rtscts;
-> +	status =3D "okay";
-> +
-> +	bluetooth {
-> +		compatible =3D "realtek,rtl8852bs-bt", "realtek,rtl8822cs-bt";
-> +		enable-gpios =3D <&gpio K1_GPIO(63) GPIO_ACTIVE_HIGH>;
-> +		device-wake-gpios =3D <&gpio K1_GPIO(64) GPIO_ACTIVE_HIGH>;
-> +	};
-> +};
+1. Include the actual clk driver in the immutable
+   branch to cover both compile-time and (potential)
+   runtime dependencies.
 
---=20
-Troy Mitchell
+2. Merge the initial clk driver through the soc tree
+   alone with an Ack from Brian.
 
---18f11060a803f47ff361742ba8691daff4c6fbfbe03e1b9c377f4db00c26
-Content-Type: application/pgp-signature; name="signature.asc"
+3. Decouple the dts from the binding, using only
+   numeric clk IDs for the initial merge in 7.5,
+   start using the binding in 7.6.
 
------BEGIN PGP SIGNATURE-----
+4. Merge the clk driver in 7.5 through the clk tree,
+   merge the rest in 7.6 through the soc tree.
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavLZdCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9shwD/ctzYIBUZsuLe
-dMFLfduAxPc7n4ySob06tzWvF4yFEtYBAO20Qqsvk4E1YLuWVcrPvgvy6Z/0EImi
-egn5XeWhGVkK
-=3dgM
------END PGP SIGNATURE-----
-
---18f11060a803f47ff361742ba8691daff4c6fbfbe03e1b9c377f4db00c26--
+      Arnd
