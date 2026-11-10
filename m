@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304257;
-	b=tItLN0e/g6YMXGMGLhv6hIfLLufMWUXbod+F76w+T9LJNQzyaxo/360b3g63C0T68fg8
-	 i1kcvrmAN5EZUfWNaXPFnJ7d7SM26QrEWps0mmUDbY5j6P3tj+9iUh9ERZYCuKZeuC4KS
-	 IofHeGJUu5cyR0KjaAzQUwRSKysrpJcdSUJzX2scPk/lbhCZAprr6dw9z3dUjSYDON6t8
-	 Ji4EsFAmpD+rzdJKSeMM6Mba31W0OuHN5S/x/8+mYXRX6hV6qEKGvapewBdCpvwxmT86n
-	 SHf903YAlQx/Ge3jRxOv7uctC0AKjirgMFPpeauKzZgY3F6DoMMz/qmQ0TzrrDN/5Hw==
+	t=1794304355;
+	b=duiaIlIJ/PHtet6ifFCEkpS5BufxYSG/dpqNnHaIsjc7Uu0gOg2bfGIbkI/1l056eT8X
+	 P0t8e1M4MIkxv2gboWOZVNpE7wk+YygX4lTFHNL/hLqfBFRCUqdUVJuTJMnXzeKdkse3b
+	 RgIuxvmxy5McibD7XWiDH8oZO5yW5PeWDISt7DYPfIGOm7RiV8n4qSMuTUiVC/HN+mbVD
+	 tzi8augyy3eWt/YcLSqcJ3z2gGXihQ0aX5s929M8hWAfjVryv5idKt5WGCPYAJTEECjOo
+	 y/Q/aV0m4D0v5EagZ5+xnrO+T73p+6ozrjdnxVfqpbvxk7tJPhECZ+9L5EnHyRibr1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304257;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=e3//m6z05CCr++yJ8pEIRKHvzyBVaUWMryM2WqTqQJs=;
-	b=e5zncX4kvOERDBgVSJwQjqOcJQnMph2UrYsCeq+2vy5nXA6mEJ2cO2rdil21avnNEckW
-	 8PFSvDqK0/KGmVpghaMOzh8MfsEAvoY3GvmhI0erC19mMkWZmXN7FZdo1oCddPfWJhLW6
-	 Yaycqu1/KRMacnNlpdaB/rfxULTQqMzo7nds05Ng8p53GHUeglNrpzpPmGD2IpHUyDmHE
-	 guSArupINd8F6GUBWYYMirURl61pQibEfJS5c8/W21ZJKEAldOdqaYzUPsGOzZa8Q3aXe
-	 4X5pu9kCij8LKd3p/OSQ+gCWuU59+xGuXFrlYdG+vGiN0gasOh5jYcDhiXtPb6Fedyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304355;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Yd4FxpRCS4fQY+YVzPkOkyaH0M5G0U4APBjJlbUa4/g=;
+	b=22njJ/inJ2BgANIOcdQw4SbGeaxUeqHvhFNt5xW/JyNF/K0Se0cp65MeuH+c13BtxHO6
+	 q8eRDsJKnRjBqS8t1SjHNp7nkROofsklmoiiuPZV5H3ICnf2p9KdaVYgERf/pp2Z6NaEL
+	 /zOAGgldUcQ7GRUmmfozp4bwSb77hHVG1OYwjw3t3tncoZhrnhkfumG+gpgYC6DFur3uJ
+	 O734ZzgJJrayrQ3OUczAOM4DIZ+MoDWULvT0aHMVbFPS7DXKwrPdpRrYBBJsEC87bqOEN
+	 3CpyViiXwElFkmuA8o0YGHVbkKTrynlzrxNywO0UT5S9XCZv41Qtt4W+O9LcK4F4tFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N70KADS+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBcc5m4A;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 84D53606BF07;
-	Tue, 10 Nov 2026 09:50:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63240606A934;
+	Tue, 10 Nov 2026 09:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63240606A934
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N70KADS+
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A5B851F008A3;
-	Tue, 10 Nov 2026 09:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304257;
-	bh=e3//m6z05CCr++yJ8pEIRKHvzyBVaUWMryM2WqTqQJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N70KADS+ISsQ/NyHQkqIdHNIS4xgAvB+H6oPlzBasLeGPdixmDRbQb7KeWAIoe9Lk
-	 kRYG5YOAEhhWJX2sNCu3Pl7lonBwby+ZinIhXmEVJnL7Ahy4k858wH5kVGZkrgCu6j
-	 cP+B0aTnXONg0wJLIkW6H15r/gPjegA9ItVuhv2pQcuMkOX9N7Xpkl+eC91lLS5+7l
-	 wwHWocYvbB9wrTQfJy15fVIxT/htEEAzVJHQREUniV+3bvxHSXPd/bcOo18glzhX00
-	 wF5Sboa1ktHhMPhaTL4wQZYA4psu7VYQthoawI/ejYlQrdgM+DIxpcltAR7QTnXQtC
-	 uUWH3gBEmHlxQ==
-Date: Tue, 10 Nov 2026 10:50:53 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <l7ppjeoqvc6hblk52a6upei4ee2caahe2ltiur4gwig3ez7d3c@dmzzy22ixvlc>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBcc5m4A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794304355; x=1825840355;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+aBQV5lSYGDF45swiVHgkDWTmEtQKr+fym2AXMrBjZI=;
+  b=cBcc5m4ABsejuZ10rzqhIuFF7ZAYOYBQzm9MnL1MeN2xzb8ldfNsAYED
+   Z74Qgteqs3L85WrS0ZATkZSud51FM+h4Sr6Hp5Any3vEmJMScxmC+Q7Vd
+   2C9h5Itl1gAfFF5Q8+SkXmR/fFMuXhxX1DMkYkBrl4TOt4zdIpIvPOO01
+   jg7zsVomXxXb2EiF9FSB/+t5nWmoV29cYa1mu6VP2OTbqugL03+6iMJtW
+   blYvoB7zAyqr1H8U8BsmRhNEHfMVE83pGTYQLlyg2i9isgAdtpJ1Fn59r
+   0DDLPfCo65LSdupcly/GRAyY5cnHDpyEnkMxPI4J+YrdtPD4wO1GDE+51
+   Q==;
+X-CSE-ConnectionGUID: zJaLw8UvQ/+Si5ZhGm47iA==
+X-CSE-MsgGUID: 1r943kFAQqSeWSRfNjLTPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3145566"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3145566"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:52:34 -0800
+X-CSE-ConnectionGUID: RqZZdffeSYCZBA+bkxr8ZA==
+X-CSE-MsgGUID: PIqk/GEfQ5CJNwQE2WRiZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7968707"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:52:28 -0800
+Date: Tue, 10 Nov 2026 11:52:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Angelo Dureghello <adureghello@baylibre.com>,
+	Tobias Sperling <tobias.sperling@softing.com>,
+	Eason Yang <j2anfernee@gmail.com>,
+	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
+	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <avLpWqh5cbIYj3oA@ashevche-desk.local>
+References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
+ <20261030164705.297354-3-maxime.chevallier@bootlin.com>
+ <auyjgDddFs3OvnC3@monoceros>
+ <20261108013218.0fe627e7@jic23-hlaptop>
+ <avAy6cemm3MRHSQO@monoceros>
+ <avIGbBH88xZwndaC@ashevche-desk.local>
+ <avLluP28gVZEfFfe@monoceros>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,109 +103,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
+In-Reply-To: <avLluP28gVZEfFfe@monoceros>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 11:12:02AM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 11:00 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
-> > > On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> > > > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > > > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
+On Tue, Nov 10, 2026 at 10:40:05AM +0100, Uwe Kleine-K�nig wrote:
+> On Mon, Nov 09, 2026 at 07:44:12PM +0200, Andy Shevchenko wrote:
+> > On Sun, Nov 08, 2026 at 09:32:10AM +0100, Uwe Kleine-K�nig wrote:
+> > > On Sun, Nov 08, 2026 at 01:32:18AM +0000, Jonathan Cameron wrote:
+> > > > On Thu, 5 Nov 2026 16:42:42 +0100
+> > > > Uwe Kleine-K�nig <u.kleine-koenig@baylibre.com> wrote:
+> > > > > On Fri, Oct 30, 2026 at 05:47:04PM +0100, Maxime Chevallier wrote:
+
+> > > > > > +#include <linux/i2c.h>
+> > > > > > +#include <linux/mod_devicetable.h>  
+> > > > > 
+> > > > > Please don't include <linux/mod_devicetable.h>. <linux/i2c.h> already
+> > > > > provides i2c_device_id and of_device_id. <linux/mod_devicetable.h>
+> > > > > provides many more *_device_id and thus introduces a big list of
+> > > > > unnecessary dependencies.
+> > > > > 
+> > > > > I recommend to just drop <linux/mod_devicetable.h> here. If you insist
+> > > > > on full iwyu, there is <linux/device-id/i2c.h> and
+> > > > > <linux/device-id/of.h>.
+> > 
+> > It must also imply acpi.h.
 > 
-> ...
-> 
-> > > > > > +               names[i] = kstrdup(prop->name, GFP_KERNEL);
-> > > > >
-> > > > > Can property be statically defined somewhere? We might want to also optimize
-> > > > > these duplications with const variant (here or elsewhere, for fwnode generic
-> > > > > path, I believe).
-> > > >
-> > > > Please rephrase because I'm not quite following what you're saying.
-> > >
-> > > Can prop->name come from something that is declared as
-> > >
-> > > static const ... foo = {
-> > >       ... .name = "bar";
-> > > };
-> >
-> > You can't know it for every instance of struct fwnode_handle, so the
-> > answer is: no.
-> 
-> I believe I misput my question. If there is any potential that *some*
-> of fwnodes use statically defined string literals for the property
-> name? If so, kstrdup_const() and friends may be a better choice here
-> to save some memory (which is getting more and more expensive these
-> days :-).
->
+> That's true, but irrelevant for the patch under discussion because it
+> doesn't use acpi stuff. So at least here even with full iwyu you don't
+> need to care about <linux/acpi.h> or <linux/device-id/acpi.h>.
 
-Ah, that makes more sense. I'll look into it.
+True.
 
-> > PS: is there a way of using match_string() with non-const data?
-> 
-> Why? It's an input parameter, it returns an index. Whatever you
-> provide will be not modified.
->
+-- 
+With Best Regards,
+Andy Shevchenko
 
-What I mean is that the following change
 
-diff --git a/drivers/base/property.c b/drivers/base/property.c
-index 40fbf01a9faa..1c43fd2c8d57 100644
---- a/drivers/base/property.c
-+++ b/drivers/base/property.c
-@@ -563,7 +563,7 @@ EXPORT_SYMBOL_GPL(fwnode_property_match_string);
-  */
- int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
- {
--	int ret1, ret2 = -ENXIO, n1, n2, i, j, count;
-+	int ret, ret1, ret2 = -ENXIO, n1, n2, i, count;
- 	char **prim = NULL, **sec = NULL, **merged;
-
- 	if (IS_ERR_OR_NULL(fwnode) || !props)
-@@ -604,12 +604,9 @@ int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
-
- 	/* Properties from the primary node take precedence. */
- 	for (i = 0; i < n2; i++) {
--		for (j = 0; j < n1; j++) {
--			if (!strcmp(merged[j], sec_props.array[i]))
--				break;
--		}
-+		ret = match_string(merged, n1, sec_props.array[i]);
-
--		if (j >= n1) {
-+		if (ret >= n1) {
- 			merged[count++] = sec_props.array[i];
- 			sec_props.array[i] = NULL;
- 		}
-
-Results in:
-
-  CC      drivers/base/property.o
-drivers/base/property.c: In function ‘fwnode_property_get_names’:
-drivers/base/property.c:607:36: error: passing argument 1 of ‘match_string’ from incompatible pointer type [-Wincompatible-pointer-types]
-  607 |                 ret = match_string(merged, n1, sec_props.array[i]);
-      |                                    ^~~~~~
-      |                                    |
-      |                                    char **
-In file included from ./arch/arm64/include/asm/processor.h:34,
-                 from ./include/linux/sched.h:13,
-                 from ./include/linux/ratelimit.h:6,
-                 from ./include/linux/dev_printk.h:16,
-                 from ./include/linux/device.h:15,
-                 from drivers/base/property.c:11:
-./include/linux/string.h:336:38: note: expected ‘const char * const*’ but argument is of type ‘char **’
-  336 | int match_string(const char * const *array, size_t n, const char *string);
-      |                  ~~~~~~~~~~~~~~~~~~~~^~~~~
-make[4]: *** [scripts/Makefile.build:321: drivers/base/property.o] Error 1
-make[3]: *** [scripts/Makefile.build:603: drivers/base] Error 2
-make[2]: *** [scripts/Makefile.build:603: drivers] Error 2
-
-And I don't see a good way of working around it without doing:
-
-	match_string((const char *const)merged, n1, sec_props.array[i]));
-
-which is ugly.
-
-Bart
