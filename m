@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794329947;
-	b=D/h6Kmf/lLWDGD+9cBRXiAOv35YBDAXCQk5NQ8dhxfXTIeVdhk8pbqiO+hoZQyhfTfy4
-	 Tl6nWDrUbvOrLAD0AOtrSnCa9ONw0Sr8Ri00yFFGsmusrCidG8mUEthCTpOZkfqk4ZR+t
-	 QvkWiedvQujCtvbsRNyqsR2va26JCfYQOImXhsZmQbTrT20fExljfXf0vBR4Sq4e67zhG
-	 PHhk4c5axWtTvQspw+8NSbeD61PyMT7HpNxpdk+Y8TKj8DsjB8BMGiyTfPfEEt9ONrkQr
-	 d0xkB9L66K7c2XsUbfrDg8aQtz3v6Hr7Ti+KcmoZWZeEFlOGUJL7ZhzAXDzMErN+DtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329947;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Message-ID:In-Reply-To:References:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Correlation-ID:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:
-	 X-Source-Args:X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:
-	 AntiSpam-DLSP:AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:
-	 CFBL-Feedback-ID;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=;
-	b=PBg5SL2rvfbJf8sFBIPPzqXMzBrccD97R9qQZLxOpChfJiCT0WFlHrfbhF6qeyzJKlbI
-	 DI9rLXsa2LkzTxnhwR7CMbZYsYWdZ+5InTQ7TDfEIUeIo0m8BkwHG7hXw+6DpGA9JnPHT
-	 G4lAr3pczh+C4hKVdjBNkYZIVAPAPgBAKpXMuUEZFQD9D/2Xag3x7Lsn4sI5geNx//0Er
-	 vvCYJOaz1S03P8/T3xs7LbzAU3jzAhwcw0F4s+dYg9Kda884ASz9vTCZoVTUTJC6pkmIC
-	 pSDAa8Rt1LtITbR53YQbTp8COLIRawPBKSCd9tQgmV8UjpL5OD6B414WnWIstZ/lE1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=TKnWmkAI;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qrob+Jmo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794330169;
+	b=gYOa/MVvaBgbmhBnRhR3OoMzBBhBPBjmwukUCybqvms6d+k6XA6Wb7NzAMnJfaGj7ZjM
+	 fafShchsvXwFApFlErftlnVACb468Ljk+XYK/rcJCnkEY4qImu6rv1Gg2JKGYP8OWGZWF
+	 ff7n69oB+zy6UZ07DI4UwdSqeWz0n4ggO+uiUlJvc+XJ3Hdj39sLci2dOPgBcrkPq4Gd6
+	 Vyn1a7LwfKdtw6l/fCAXwfJKftys3811da9a5bJdmraoziv8v6KsN6uSJgUNFtJx2vpnP
+	 m/oPk8nKu+eYeoUEQrBxVYABFKxFrAZC49yQxpx/dNzfeOyq625CD6N7EJX2Hg2JX+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330169;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:To:Cc:References:Subject:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+	b=bdCW0Y8RMISj32EYg2tfv9oxLNuWeX6lXnjKyvTySQuiELRMp4On1V0UPuhBAJCWa7O7
+	 4c5ePI9YGHg9VTNiB1xI2s7KA1iXAaqznIyKz6hjScDPA/vvgVWkPcpY4l9OKaieTGFfe
+	 bN3VgFAnxlMLoPcdd1o07M6D4cdYNhFpjpBuvnaPBxN9Et+aooagHbRzivDBRfm2zP+bK
+	 rGGZc3qT5WoDGKn5GeoOnGs60MO7K3BUNModU0xnye6atOuajG4/ArQCXYyKuaLjknZBx
+	 R/crYcNQSzEC0nTBl5BzyTr0ZZRTYbWTPXdNDSbm3QKUJtjw39HAHXIeSZcj+L9BWjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=hQD9mPgX;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67361606A32E;
-	Tue, 10 Nov 2026 16:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67361606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DC0606A321
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 17:02:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6DC0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=TKnWmkAI;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qrob+Jmo
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1794329946;
-	 b=cZNLJxOWwxDKVcSsdgOU6CaD/5ErAYMcRGF5qp2BSFvSYMkRuap6eoz2WLWbIdpC41pdggvUMp
-	  zbKlUmvMbLYHjfSa2OnYzgKlf61vso0/1umsUS01rVJpmUKYwP60xySCQZxRjvcOQqvywafr+S
-	  zFqYn/xOaRQ4vRXLsttqO2oLlhLvKbeFUvOOTOLXSsqL41RN8FAPzLpcq2D6co2W21ObrUqKVb
-	  nhibg0rx997lVuA7vUi1HeF750+MW4Jat8/KgSJc7cIBSDk0zPcxXkzHmYYmPRgnh3O/po2UeY
-	  mwebBPv/7dylvX+zc3VIatRsQ/T/6d5ni6ML2IX9pe4Arw==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1794329946;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:References:
-	  In-Reply-To:Message-ID:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
-	b=HT9i9dksxEva4787IeLvs+iXTj6v+HE2h8lb+0tH5vPOqSRJr2Gzhk76836S+Y8LS14LP6KrIF
-	  oBtDiHOJ1PctOCehPjbgyMnjCStuZSEH5WN5zjHOcUpOXzYHj6koktw+phxStMY/8WBf8QghYu
-	  TH1JgPukjS8amG0VPyaH0IBT862rf5J+mxhRz3lyaCc5EHv2L5VmkTl/2qohCKqEQyvQYhrmHS
-	  /H5ul9Ukjb1zzQD4TH+kLvmQVAb5d0dLALVQ5WLu81u3XtI0dCxVRKfBXxD8Hj8erIAmZ+/TG1
-	  1FBS0F1rtbGzlNp3b9CmYJm5JpfCWZDYxCQ1kdj7xw8KBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Message-ID:Cc:To
-	:From:Date:Reply-To:List-Unsubscribe;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=; b=TKnWmkAIN/x/wWkIgFW/wa4HVJ
-	zMyZdAY+TiPy0BB4A1BXO0MUbn+PbtVEn/KCrmMghQLGAyDj6CjI9w4Wg51IOfJLpDW9XUHm9XRjK
-	Iv46he44aRq00ygy9D84pnFKdze+PSlAJXYjlwR/aDQM32s5FncOVsvG/taGeerGxR/4=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQpBS-0000000CceW-0HqR;
-	Tue, 10 Nov 2026 16:58:58 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=; b=qrob+JmocH4xrMNATvmA7uR9iO
-	PFT1HYk++mL+WoYIIKR/e1076P3KQDF0HyphTZqavIj/MZiTDl7fLT4v5NYbph2DKjeLtI9AVWch+
-	GWsJlSro+N+mTPVWO2CP27m63QfdVhPy9xUI1HQPEKESYGlj/IUo+7h4mZNOJ20saiKA=;
-Received: from [109.54.113.250] (port=16151 helo=dummy.faircode.eu)
-	by esm19.siteground.biz with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQpB8-000000007rc-1PpM;
-	Tue, 10 Nov 2026 16:58:38 +0000
-Date: Tue, 10 Nov 2026 17:58:35 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Message-ID: <cea97670-facd-48b0-97c3-651ca9d71c75@valla.it>
-In-Reply-To: <avM8OYHxB4nAKCnb@p14s>
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it> <20261102-remoteproc_virtio_map-v2-4-26b300e01c62@valla.it> <avM8OYHxB4nAKCnb@p14s>
-Subject: Re: [PATCH RFC v2 04/11] remoteproc: report VIRTIO_F_VERSION_1 for
- non-rproc-specific vdevs
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=hQD9mPgX
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 078CA40267
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 17:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794330166;
+	bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type;
+	b=hQD9mPgXugfhtIhDcvsq4SZThekNRzFT3sMIjicEtPufbY6ARxAAxLQP9WwXgY4CC
+	 aR/wvfhIAOuf3xGqJZo7ygWk+aKNtZBVp7lmCnO9LJjMhM5KrxcmeB8bpIIiHRMrzY
+	 PrQkHf/lANfXuOSU36xUjcvWW5YuG7yc9cPxFeqpveHCwXebfEbaeOUTnysB/U1Bfa
+	 CPGExOBT+QlJol/ka/7z/wx722r0mcwCR5XGgD0Q5CsXjt2jIbL03XUfyNoMmsSoTh
+	 azWcf7ngIBV/oFBaUnd03Yo25hSnHRyOScMrPajLZzJy5tRQmcPlyGJChgcodsy58N
+	 FmaWQlVn+De1Ouo/qWit8uxUXwv+CoTiMTgzmtBj9+o9QGitYLGM8c7Q/jbx1Yas5Y
+	 Y/48ZWEGk1Yw3ZMsowhzD+KSuKGreYgOQSxMwuhcsT8w3gjGieQ12dOUI6ZXkWpzhG
+	 8sMIACnv7Y4gRSVmbu8/sq3RVbNdvF6kvTeBTqiOTSECV65jVm7E9GQMzEHXuE4I6+
+	 4yxISxem7RcOd1JlrFHtBjJWAIfBc13cDpxb24Pe6pnOiyz2sJ0yOQF8Nn30Xsj4Se
+	 9g6K+eeCapUKBWNEHlb7hd/cxrT1Mr+c02r8iPBVBUvKS9yvI67OBzeGZE5fHy1WgH
+	 wOfMNs7ArNDVqstymZ1zmUTA=
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-492d47f142cso284810f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 09:02:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794330165; x=1794934965;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+        b=hwHTdj/ahCnikf5NxsL9nsfCJfDN+KfY5BL5Ilt8MpEWVeZD9eV+vPVmKab8of/ptB
+         9WnEEgcffkJiZ0jNq7/LV0u5wwDhiNtAxVHkHsZBsqhywer7EoxjgsXiPK4vzf3hu+KY
+         COtmKpFINFSONBjcJqpe7d26H4YSP+bujaUNnDE5nUKndWyWjR7As0hRU3p4y1CBCMxB
+         xX3+bJ/hii6Ftz+x8gZsvuPtFtwHic3yhnUOaDqqsUe3cHQiOc9BmCOqBaH8p8pNrokA
+         c9f+/khAdOULEq0pN9PG84xpR1KcbjRqpMeFFwvMpb8LN+OwhRtbVhXaRK8ZEXhNnRh7
+         EyQw==
+X-Forwarded-Encrypted: i=1; AL+hErHDDF+xitqO/1b3n9yzgFI2KeRUr+mQ/uhERqA7c/P8VspN2QHcs5x4glIwwL+s5jWHPJs81SSddrbL@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MTYHqlhcbfj4S2PgCndF/gXWNzL4Knxr9mlGwgAmGoyAfNhza
+	8QMKJGaDQPTpGgUPTzZtZDziqlfI3LH4VLI3jM2o/hYrfx9+elukhQneBhPn2Lw0+WjOvVd2axy
+	T7xw4rxh8p3pVB+En1kp3igxSiHB4a3ncj41idZtKEqb14XLTu7F+EFWz8mcawGfZfVGlFMYEUl
+	ecSLg=
+X-Gm-Gg: AYBFou0fJUJy/CfMiHJhjYuQoIzG5bG9inc36FnUIECNtWghwgZmKvP3nz75L/AnXRC
+	J/N7WDKuM4zV9aPpxmRijS1KeAyzaSlwC9R9sb2/JcGHc1SUawAGzklKqdsv8wjLRml+fMOiQ3W
+	HTJ49DIraUnVGnoiKWoQu5X74ijkwP8krn/tHwMhLmpSp5aMeipZr8AHMGjk97RKnZY+yslNFvq
+	jP+PhmOAx/D0QMkPWAjRsiXvFK+O+oWUMgKysytwep7IYrm4AGjUl2RysnX/REk/7coDS5r3ugA
+	bXfw6+2bBxPEM/2iVXW1K78ftPZNOwjBKADTRzMIhIyokxaGKvqq7ECmG6FTCavJQ5/yc5nQ4u/
+	krOJTueLbvn+FOZ8QBMQ6Whk7Mg2wFgGb3YZWLwb2rxg2WqKh6rrpPmPaOKvK1mKFNdgb5SrYCk
+	pLvZ1ba7gzPStLlgl5WxuCd2zlWtpu05Qs6ZIpM3unUVRigOyfj12Y
+X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-49992cc6a24mr288603f8f.8.1794330165611;
+        Tue, 10 Nov 2026 09:02:45 -0800 (PST)
+X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-49992cc6a24mr288536f8f.8.1794330165190;
+        Tue, 10 Nov 2026 09:02:45 -0800 (PST)
+Received: from ?IPV6:2a01:cb19:9432:11ec::c98? (2a01cb19943211ec0000000000000c98.ipv6.abo.wanadoo.fr. [2a01:cb19:9432:11ec::c98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836c83432sm5386247f8f.58.2026.11.10.09.02.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:02:44 -0800 (PST)
+Message-ID: <546efd00-ddaf-47f4-9387-2635785a1bf5@canonical.com>
+Date: Tue, 10 Nov 2026 18:02:42 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,165 +103,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <cea97670-facd-48b0-97c3-651ca9d71c75@valla.it>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: bda9790e3da571369204bdc5c7e2349b
-X-AntiAbuse: ID - bda9790e3da571369204bdc5c7e2349b
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xQpBS-0000000CceW-0HqR-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+To: devnull+codykang.hk.gmail.com@kernel.org
+Cc: airlied@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, codykang.hk@gmail.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dlan@kernel.org, docular.xu@gmail.com,
+ dri-devel@lists.freedesktop.org, heylenay@4d2.org, krzk+dt@kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
+ maarten.lankhorst@linux.intel.com, me@ziyao.cc, mripard@kernel.org,
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org, sboyd@kernel.org,
+ simona@ffwll.ch, spacemit@lists.linux.dev, tzimmermann@suse.de,
+ u.kleine-koenig@baylibre.com, vkoul@kernel.org
+References: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+Content-Language: en-US
+From: Sarah Emery <sarah.emery@canonical.com>
+In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Mathieu,
+Hi,
 
-10 Nov 2026 16:46:09 Mathieu Poirier <mathieu.poirier@linaro.org>:
+We have incorporated this patchset into the Ubuntu kernel for display 
+support on the K3 platforms.
 
-> Hi,
->
-> I started reviewing this set, making it to this patch.=C2=A0 I will conti=
-nue tomorrow
-> but due to the KVM forum later this week, I may not finish before next we=
-ek.
+During testing, we found an issue: the screen would display artifacts 
+all over, kind of like black lines blinking.
 
-Take your time, I'm in no rush to have this merged.
+I have implemented the following patch to fix the issue:
 
-> That said, I applied the first 2 patches so no need to include them in th=
-e next
-> revision.
+drm/spacemit: map scanout buffers write-combining
 
-Ok!
+The K3 display controller is not DMA-coherent: the DPU fetches scanout
+buffers straight from memory while fbcon and userspace write them through
+a cached CPU mapping. The shmem helpers clean the buffer only once, when
+the sg table is first built, so nothing flushes later CPU writes. Dirty
+cache lines shadow what the DPU scans out, and erased fbcon text lingers
+on screen until the lines are evicted by chance.
 
->
-> Thanks,
-> Mathieu
->
+Add a gem_create_object() hook that sets map_wc on the shmem objects.
+The K3 harts implement Svpbmt, so the CPU mapping becomes genuinely
+non-cacheable and writes reach memory immediately; the one-time clean in
+dma_map_sgtable() still covers the initial contents.
 
-Thank you!
+---
+  drivers/gpu/drm/spacemit/spacemit_drm.c | 16 ++++++++++++++++
+  1 file changed, 16 insertions(+)
 
-Regards,
-Francesco
+diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c 
+b/drivers/gpu/drm/spacemit/spacemit_drm.c
+index 12b2fe8b6fc99..fe354219b996d 100644
+--- a/drivers/gpu/drm/spacemit/spacemit_drm.c
++++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+@@ -12,6 +12,7 @@
+  #include <drm/drm_fbdev_shmem.h>
+  #include <linux/component.h>
+  #include <linux/of_graph.h>
++#include <linux/slab.h>
 
-> On Mon, Nov 02, 2026 at 12:26:41AM +0100, Francesco Valla wrote:
->> There is currently no way to report the VIRTIO_F_VERSION_1 using the
->> resource table alone, as the per-vdev feature array is limited to 32
->> bits.
->>
->> Considering that the VIRTIO 1.0 specification is now ~10 years old,
->> always report the VIRTIO_F_VERSION_1 feature for virtio devices that
->> are not specific for remoteproc usage. These latter, which as of today
->> are rpmsg and rproc-serial, are excluded to avoid impacting the existing
->> usecases, since VIRTIO_F_VERSION_1 changes the semantics of the
->> communication (e.g., the configuration space is assumed to be
->> little-endian rather than follow the device's endianness).
->>
->> While at it, replace BUG_ON() with WARN_ON() and return an appropriate
->> error in case of features that would overflow the 32 bits limit.
->>
->> Signed-off-by: Francesco Valla <francesco@valla.it>
->> ---
->> drivers/remoteproc/remoteproc_virtio.c | 28 +++++++++++++++++++++++++---
->> 1 file changed, 25 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc=
-/remoteproc_virtio.c
->> index c56d3330adfe..f1b362158a9c 100644
->> --- a/drivers/remoteproc/remoteproc_virtio.c
->> +++ b/drivers/remoteproc/remoteproc_virtio.c
->> @@ -16,6 +16,7 @@
->> #include <linux/of_reserved_mem.h>
->> #include <linux/platform_device.h>
->> #include <linux/remoteproc.h>
->> +#include <linux/rsc_table.h>
->> #include <linux/virtio.h>
->> #include <linux/virtio_config.h>
->> #include <linux/virtio_ids.h>
->> @@ -27,6 +28,11 @@
->>
->> #include "remoteproc_internal.h"
->>
->> +static bool rproc_virtio_rsc_vdev_rproc_specific(struct fw_rsc_vdev *rs=
-c)
->> +{
->> +=C2=A0=C2=A0 return (rsc->id =3D=3D VIRTIO_ID_RPMSG || rsc->id =3D=3D V=
-IRTIO_ID_RPROC_SERIAL);
->> +}
->> +
->> static int copy_dma_range_map(struct device *to, struct device *from)
->> {
->> =C2=A0=C2=A0=C2=A0 const struct bus_dma_region *map =3D from->dma_range_=
-map, *new_map, *r;
->> @@ -268,8 +274,17 @@ static void rproc_virtio_synchronize_cbs(struct vir=
-tio_device *vdev)
->> static u64 rproc_virtio_get_features(struct virtio_device *vdev)
->> {
->> =C2=A0=C2=A0=C2=A0 struct fw_rsc_vdev *rsc =3D vdev_to_rsc(vdev);
->> +=C2=A0=C2=A0 u64 features =3D (u64)rsc->dfeatures;
->>
->> -=C2=A0=C2=A0 return rsc->dfeatures;
->> +=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0 * All non-remoteproc-specific virtio devices are ass=
-umed to be
->> +=C2=A0=C2=A0=C2=A0 * compliant with virtio specifications 1.x; there is=
- no other method
->> +=C2=A0=C2=A0=C2=A0 * to transmit this capability from the remote proces=
-sor to the host.
->> +=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0 if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 features |=3D (1ULL << VIRTIO_F_VE=
-RSION_1);
->> +
->> +=C2=A0=C2=A0 return features;
->> }
->>
->> static void rproc_transport_features(struct virtio_device *vdev)
->> @@ -285,6 +300,7 @@ static void rproc_transport_features(struct virtio_d=
-evice *vdev)
->> static int rproc_virtio_finalize_features(struct virtio_device *vdev)
->> {
->> =C2=A0=C2=A0=C2=A0 struct fw_rsc_vdev *rsc =3D vdev_to_rsc(vdev);
->> +=C2=A0=C2=A0 u64 features;
->>
->> =C2=A0=C2=A0=C2=A0 /* Give virtio_ring a chance to accept features */
->> =C2=A0=C2=A0=C2=A0 vring_transport_features(vdev);
->> @@ -292,8 +308,14 @@ static int rproc_virtio_finalize_features(struct vi=
-rtio_device *vdev)
->> =C2=A0=C2=A0=C2=A0 /* Give virtio_rproc a chance to accept features. */
->> =C2=A0=C2=A0=C2=A0 rproc_transport_features(vdev);
->>
->> -=C2=A0=C2=A0 /* Make sure we don't have any features > 32 bits! */
->> -=C2=A0=C2=A0 BUG_ON((u32)vdev->features !=3D vdev->features);
->> +=C2=A0=C2=A0 /* Make sure we don't have any features > 32 bits except t=
-he expected ones. */
->> +=C2=A0=C2=A0 features =3D vdev->features;
->> +
->> +=C2=A0=C2=A0 if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 features &=3D ~(1ULL << VIRTIO_F_V=
-ERSION_1);
->> +
->> +=C2=A0=C2=A0 if (WARN_ON((u32)vdev->features !=3D features))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->>
->> =C2=A0=C2=A0=C2=A0 /*
->> =C2=A0=C2=A0=C2=A0=C2=A0 * Remember the finalized features of our vdev, =
-and provide it
->>
->> --
->> 2.56.0
->>
+  #include "spacemit_drm.h"
+  #include "spacemit_crtc.h"
+@@ -75,6 +76,20 @@ int spacemit_drm_mode_config_init(struct drm_device *drm)
+         return 0;
+  }
 
++static struct drm_gem_object *spacemit_gem_create_object(struct 
+drm_device *drm,
++                                                        size_t size)
++{
++       struct drm_gem_shmem_object *shmem;
++
++       shmem = kzalloc_obj(*shmem);
++       if (!shmem)
++               return ERR_PTR(-ENOMEM);
++
++       shmem->map_wc = true;
++
++       return &shmem->base;
++}
++
+  DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
+
+  struct drm_driver spacemit_drm_drv = {
+@@ -82,6 +97,7 @@ struct drm_driver spacemit_drm_drv = {
+         .fops = &spacemit_drm_fops,
+
+         DRM_GEM_SHMEM_DRIVER_OPS,
++       .gem_create_object = spacemit_gem_create_object,
+         DRM_FBDEV_SHMEM_DRIVER_OPS,
+
+         .name           = DRIVER_NAME,
+--
+
+I'm sending this here in the hope that it will be useful for a future 
+revision.
+Is there a v3 in preparation?
+
+Thanks,
+
+Sarah
