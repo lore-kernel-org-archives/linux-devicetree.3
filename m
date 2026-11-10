@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325402;
-	b=3sBieBxRXF8aUlvEdhX/L0QzJA1ps4Rt06xxZT8X8jKzlpNACcNavscsuAjwHYhpEF9G
-	 pnr7KJ0WuwjuFmIMxRIuG6QaKw0fNAOVX8FT1sxmIf6YL1kECKMDTyP+HR43xw9afdOKX
-	 glMpGo3h8JLv4HUc6squwBU2C1exennP925VSCCzcy7Jr1HPQhVqnFyxfa+Z2GiqeZ/A3
-	 HKLNaIkTlW4g/MtkxVFD6gOlOtS0XtvdmFjbHLn+brkvWok/EPfQ4KfXtS3K68M7ZQEQ0
-	 ZKDNBF7j7fl7LGhpu5gM2Yvn/LTwRGpBcm2q2aw67cGZxXCUJO5G4/w8wMX9fJ7A6RQ==
+	t=1794325477;
+	b=Ohmz7v1Mb2mXulPGp50QI9GrqZzDvuQiZ9D+Xy3sRtMzXx47iFnFF6FgUmAluBA9fyIS
+	 xlWzpm0p/JNgebyjrOQG8QoUYakLfEAQ34/LmePkmcjjUe5P7/Y+lfMWtHmg3IiFHDS+T
+	 KwmgTWv0ibkKiP6mAsBLPHBkelCrpUYaBGDAcKJeksBClMVDnA5eaDfbGsbVbmy4Kkwp3
+	 V4oSGInLF6no2WRHTvQPxvKRvb2MoUUmsQiqsf6w378yVBhY9oC04WZHSMSKw1TwX8+tx
+	 Qebt0fCWt2y0O4Shf7nkfmQbqC51L8sbl1uVI/6EpCnnGp9iNsS3yjEGQ7c3HPuYhvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325402;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TQtG4o/ML/2sB0MvTtvE7H8moOh6q/FDtaR4iqmNY1g=;
-	b=h13JYM2ASlDvDtDQyuluQuN5qEaLjtIIohFobnnHG1R5Ov0wn/2GfDtMLdUvFBRNJdv1
-	 m8SxJZNZuRmYxwDjEpAtN3VSeptMUmHqumiE3A05qewtVpb0Pwkb9x2uaMk18+4y7DLYJ
-	 9y5PA1H3Z4OB/QOHvRKeTF2R37+wu7xTqeo2rlnQrAZCz20jiHNDu/KhPTpofwzJXj2qC
-	 xZ1ettb6eNJy2S7/Mm0XV0yJ5WrZUh7qgyf5ZWif1HIeiMH8NUt+WYlkVFDyzc6XMFtss
-	 ZFlzPOS+jNHbAYJbylZYRH9YeMTuSdeJaXji/gOp1fP9QV5yXil0i6WbcTS6LmNoCow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325477;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=374PxO+3w1e3d3nPSFUNzy14TN0zxVAnl5Wj19VchHk=;
+	b=4h1kCpmP+ccYjRLGUzSVTKqtbPWfIlxXknZ2+B8e9Tg7r63oKkAXFONHZV4p44B5mhjb
+	 +yZs6U7pVZhhNft0P/B3QmjO5ho/1HzWAoz+r8rrina6atbfhLm5JTnugVue8t/GxnDk0
+	 WdnQMhU2aZ1NSZJmg4k4pXQf2HzACfYfVHZWuTrOXTFzRR/smVDCOQ3lZZ+aNoHe2eWIT
+	 0Tfahi0CVbpgo5ReYLirHZHGQ/nknSY7MWr23mC6WSn3bFzFQSne2ZIuiSIf5/cdim5uq
+	 UmUzZEoHEeutVoEVlbmj7oWaevJKFwm7bBwOGuGuYt/nfznnoqxkhF4adOYF9Qgut0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=andrewgigena.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFdk0YJ8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33166606D762
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 15:43:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33166606D762
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdab9e9761cso1086967a12.2
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 07:43:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325401; x=1794930201;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TQtG4o/ML/2sB0MvTtvE7H8moOh6q/FDtaR4iqmNY1g=;
-        b=SgWBFlqLHwDW5MsbuyBLU1ctU4fo4Zq2I89CXAp3uVhn9X+dQjgulDdi+Ju5pwPO/z
-         mMFRucHWG/MU5aw5dWd7N5AMuMqQZmUVXxtiZPvZVarwzkom+nEFxQV0InAurjFKKGLh
-         dAWh4s9no5d5SZMiSZDLUSdcm7uHDMYePEhcuRFadln+7n/bdSwdSq1k0sDpdY8JVrUT
-         IVHppq+iCAdtpGy6o5n3jqUga5n6D08FIeAHgeovMFmUvNbx6wIPYqceyZE7lIXbF9f5
-         YiWsLCan84WFIAcdP9DEOxl6uZnUVwQHV1M0q9MouoEeAum83/ImQOexMkM7dm/06IEz
-         T8yQ==
-X-Forwarded-Encrypted: i=1; AL+hErEILXnWCecxmbcwHF1YVmZYFsj6UFaGIood41qJqABFiVfYKcFXVa88XM7tYzbhsdhf5LryPvZp/VG/@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eKqNWaYS3NYZQlMO/Qz6gXcbHQc0u6l0LREZ/SMTBkgTysBVE
-	6cqmqttynAKqMyow0XvV1cqS2jqoAZrIEJm2GrWJ2/uk5XfasyODlDcf
-X-Gm-Gg: AYBFou2bmMewWXmliya+A6PLG6sUDl4xOeCYJ9WOzcMKFOmuglviPacHfnQOpmGaDVW
-	04UkXBvbemPaRluT7Q4B/vR0TZPopgkeDCAriTjcJnHn0aEUCqXtCurolMduY4i5aKr90PiuSnK
-	ZLv4uKXMjFLj/LkWw3j+if1+LJsYvR90ARDb2JeBfyGD3WMDXzk2j1Dv7UOO9oAuYtIe+xpIivg
-	25FV2FXy9gmQuf//CmD50uYrNpIlz8xWWf4lShcaVsLfoRSY2/GbpRSvGCa5wuEDFvmuNZ3vaRp
-	aGRrG0ZZY6LWZfIJKD7/BIOrj+t1qo0Vs1r+/2hz+bA2WBZkQl1GSUZ0mHbbdVdKEmnlAWHH40o
-	IYTFL4VR3aRHO+KSAZFCwVeVXMML2h56bUolTWRDhCw+qCdzdoxsI1DpOL8UaAOb3CNg8nhzMYs
-	0UgpvIASCFf5ad6IFDka2LHByKPzvZBp55HPBy1efmujP4upaAhHPqgp+Gvw1M1C6RifZJhsKbH
-	DzPztL+m4ljJakchBQOitRm7QthXsfuNdy6V2Y7kIhjzOedGQSSlT0S7+NeqyNpaUUMJ3uX3x+5
-	L6dlrgWnjw2GKEkC4rNUsj2vYi5D2u/gp6ddmzMBMwqH6LvnDkL1PsMOyLFUoioKY0jM3w+C
-X-Received: by 2002:a17:90b:288a:b0:3b0:a9de:9886 with SMTP id 98e67ed59e1d1-3b166cc035emr3111438a91.12.1794325401459;
-        Tue, 10 Nov 2026 07:43:21 -0800 (PST)
-Received: from ?IPV6:2800:a4:890:2c00:14b6:ffbd:f8b2:d9f2? ([2800:a4:890:2c00:14b6:ffbd:f8b2:d9f2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d5e830dsm891469a12.4.2026.11.10.07.43.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 07:43:20 -0800 (PST)
-Message-ID: <987c1008-d0ab-4508-82a2-1a26104a47c8@andrewgigena.dev>
-Date: Tue, 10 Nov 2026 15:43:13 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69104606A332;
+	Tue, 10 Nov 2026 15:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFdk0YJ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF231F008A3;
+	Tue, 10 Nov 2026 15:44:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794325477;
+	bh=374PxO+3w1e3d3nPSFUNzy14TN0zxVAnl5Wj19VchHk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XFdk0YJ8D6xr9EJt3KdmH8mXjDyC0ssy4EFI0Vm61BIDKqYu70YEo1/Xk3eFv1gs3
+	 nBB9aBp2AAAvZU5mm2dhDoqNMj6IOeWwR/HlYCeHSMucGsIcDLvTD9WbQqm8hIsu6b
+	 wcz04w2kpj08OBv921AH7vOgfyvvAKXaUMf9icP+ZLr6JgcTiOa9yXq8rx8VE5C7uZ
+	 AsE1yInEWo7vqIBR8g1/KFLo8cp3aOugi6u8pAGo+J9oget28xY3uKEviS0zLWCJvB
+	 ipG+IQvdjXESa8XcrLwEVkGxWSNzTxkZrzM84Ic/YFq82rqRDAGWQAZ5/twC7YHm67
+	 azSoWL73Lgr4g==
+Message-ID: <sashiko-outbox-207284@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alejandro Colomar" <alx@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+References: <cover.1794323750.git.alx@kernel.org>
+ <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 15:44:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,56 +59,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-phy@lists.infradead.org
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
- <20261109-slick-transparent-ostrich-28ddad@quoll>
-Content-Language: en-US
-From: Andrew Gigena <mail@andrewgigena.dev>
-In-Reply-To: <20261109-slick-transparent-ostrich-28ddad@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] string: strprefix() breaks Clang builds via void * subscript in
+  QVoid_of()
+- [Medium] string: strprefix() always returns char * due to non-const
+  (strprefix)()
+- [Low] string: strprefix() macro parameter pfx mismatches @prefix
+  kernel-doc
+--
 
-First of all, apologies for the late reply and for not following your review
-advice earlier - that was my mistake, and I should have responded to your v2
-comments individually instead of letting them carry over.
+commit f882ec908122ee0c3f780648b859ed41700664d0
+Author: Alejandro Colomar <alx@kernel.org>
 
-I have now gone through your v2 and v3 comments again and addressed most of
-them locally in a v4:
-- reg/reg-names moved to the top, redundant minItems dropped, property order
-  aligned with writing-schema.rst, example cleaned up, ports use
-  patternProperties, bus-type dropped from the CAMSS binding, etc.
+string: Make strprefix() const-qualifier-generic
 
-Regarding your v3 question about the order of reg/reg-names/interrupt-names
-(vfe0, csid0, vfe1, csid1, ...): I took it from qcom,sc8280xp-camss.yaml,
-which uses the same paired VFE/CSID layout and is the closest reference for
-SM8150. The entries are also in ascending register-address order in the SoC DTS.
+This commit wraps strprefix() in a const_cast(CQChar_of(s) *, ...) macro so
+that its return type preserves the const qualifier of its first argument.
 
-If you would prefer a different grouping (e.g. all CSIDs then all VFEs, as in
-sm8250), I can reorder the binding, DTS and driver resource table. Please let me
-know which ordering you prefer. I would like to hear your feedback first so I
-can adjust anything needed before sending v4.
+> diff --git a/include/linux/string.h b/include/linux/string.h
+> index cb096e9eb9835..3e8a0537b86bb 100644
+> --- a/include/linux/string.h
+> +++ b/include/linux/string.h
+> @@ -577,7 +577,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, cons=
+t void *src, size_t count,
+>   * *  @s+strlen(@prefix) if @s starts with @prefix
+>   * *  NULL if @s does not start with @prefix
+>   */
+> -static inline char *strprefix(const char *s, const char *prefix)
+> +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
 
-Best regards,
-Andrew
+[Severity: High]
+Does expanding CQChar_of(s) here break Clang builds (make LLVM=3D1)?
+
+CQChar_of(s) expands to QChar_of(const, s), which expands QVoid_of(s):
+
+include/linux/string.h:
+#define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
+#define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
+
+Because __QVoidptr_of(p) is void * or const void *, applying the [0] array
+subscript operator to it fails to compile under Clang ("error: subscript of=
+ a
+pointer to void") in every translation unit that calls strprefix(), such as
+drivers/base/property.c, and triggers -Wpointer-arith under W=3D3 in GCC.
+
+[Severity: Low]
+Does naming the macro parameter pfx instead of prefix cause scripts/kernel-=
+doc
+warnings?  The kernel-doc comment immediately above documents @prefix, and
+scripts/kernel-doc binds that comment to the macro definition that follows =
+it.
+
+> +
+> +static inline char *(strprefix)(const char *s, const char *prefix)
+>  {
+>  	size_t len =3D strlen(prefix);
+>  	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+
+[Severity: Medium]
+Does strprefix(s, pfx) still unconditionally return char * even when s is
+const char *?
+
+include/linux/stddef.h:
+#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p))
+
+In const_cast(CQChar_of(s) *, strprefix(s, pfx)), the first _Generic
+association is const CQChar_of(s) *, which is const char *.  Because the
+underlying (strprefix)() function returns char *, the controlling expression
+never matches const char * and always selects the default branch, returning
+an unqualified char * and stripping const from read-only strings.  Should
+(strprefix)() return const char * and avoid casting s to char *?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794323750.gi=
+t.alx@kernel.org?part=3D5
