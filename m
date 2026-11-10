@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340002;
-	b=xyYaBTQvtWyaUEOQOCLM6KujBDWrJZ4Ss7V1Pv5jv2MSMqQjdsI17iBQqD71pYxGIj4j
-	 cUGhsnp/b64boRUUlN09Ifjw3Wl1YDWhszvYFfpB+3w6+olsmOqPnhyfdMmlDDy4oCyS8
-	 o/KBvsLYWXBx8dez19BcLF+CdEjLeF+336zbXl0vX9G/kqgq4caUkpmwOA9L/rKDtRaE1
-	 fNlnDv9XqubDKPTZZ0LpkRSNtrb4RG8NVBr5JdneLx40a6ezm3C4aZ/tj4u8OvaqMEAqa
-	 cp9by80NXTvUCJl3H6CYoMhKPmU7p7bt0xIh90lqQsPCh0exMw1r+pCiYgkBC8LIY8w==
+	t=1794340151;
+	b=OGrGOiQ0PCqirGV3Xdr627Xtz7V+SZGrZ6UQ9KDTtFBOKvjAu8JiYcF6pjvZhGHTPywp
+	 AUJEVvGQ1P4WiAbGlxce2ZcuYnp91MWc4NiQRS95peG1lDHybf7Mf4fZs+6iSXcovizPX
+	 0sWV0SMMxgd6QRa6yhxAwfoeotlI2byZCgMXcRurkmOyruRP1NFQbveM3ml2V6k4qYBlT
+	 R9v0SvIT+4FPEqEjE85i7tW9E9faJ1elovkIN2vRHmu0z6zO/cdc9CeL5XQ3ri+w3/kgg
+	 7UYyis6kFAdPCE1u6LyC2lqcRvE233OgtHXq6WuKoCjXxaENnBc8Q9vdtKGZZq78sUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340002;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=s78xVEGiTbd40PYo5ZCRciMpKWzAs00uAC9ZgFZwEl8=;
-	b=t2s9zsGXq0K8YkrDS7ppw1h+jEIpQjeGiWm6HLopuexf7HRNlXxRZJnjiBsIDoOi8kRY
-	 2XVeO4TKDaD5nHgzgN3JwnVdOYId7/Ad+rpb+iTAPm2z3IrL6kJmY4X1WWo6JpUutR+qv
-	 xy/xFlVSJGvZwtBrsPArlFSw2SphQgDuUHegVzfP/Hm+ACVoY1TFiwPN+fGS4mKTXfyzt
-	 7eosSjLqsFq9+vjGfJA3GlVefDE7Ji7+WiWar0cahsNY19lmWE8uONXlivSgPtN78oUtN
-	 /IEt1o9L5DpUVKU1RQFznV25/jBq0fufIvx51Asal9ZSSxdTmbFLzCP/EIjzPUIZTxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340151;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XgFkiaalUYGH25eD9eEfRJdOi43ZuGo2ADVP/IUyemI=;
+	b=Y8qZoKLDUqyDAe+P+6e7uaX5Ylrwg91VASbwT9j6khpvLd+VfAUqoJLfJsy52nKDu2T6
+	 RqmaNJ1rBlxucBu8cg9NIRL3z+HE5JBaDbRTfIHabYcVt3DfUgo4wtK9tGxFFqJNgZe6r
+	 hxJP+pqFOsmr2EOEXHost+S/7azkTsmt+VY8E7J/jcWKw/6mrzOQRIVvdYrYve/dnoLLg
+	 H3kDWhL2qX061rh44BoEPAKQKQ4CA1aEpYF/ypwnCRS/fsN8+76rwdhunHQhZMrDRjy0c
+	 7dgZQPU1wIoDkSStYkRCWpVGqQzSNYWdQDzu91iNMoLAkUPbJbtIyH5uAXR8GWcgjTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=r00O5qmu;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBEji5Ek;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E07606A321;
-	Tue, 10 Nov 2026 19:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27E07606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630FF606A31C;
+	Tue, 10 Nov 2026 19:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=r00O5qmu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794339999; x=1794599199;
-	bh=s78xVEGiTbd40PYo5ZCRciMpKWzAs00uAC9ZgFZwEl8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=r00O5qmuxYq8woAmduOcwzbPp//3pqWtRHU06KLx4nJEh1m491NSiuQNCJC+f24Md
-	 wXvFwxvvc6CmHRnmO9gxlFiogtk6Y61qPHickO6HWXigvTlG4vaDzY5RNo6Eoor1CZ
-	 CUUvuBFRIZmaAISphfzEpHRRLEfPPKORzUtreQGHp4gxWPHMw+DCJV2htNQQF5tUzi
-	 GJpx8bUCObqF5CW0gj7WNlheYnlZ5MguQCW5rZYitmysK+Dhky4kAHAmigB4DPrMRY
-	 1U8Kk3q8KMY9JXA86kOZ1tJFDNXHUlaI5PcNCnoPIuZ4bcr/7xrqMj1EpdYvUApdf/
-	 BQCwN08GLntsw==
-Date: Tue, 10 Nov 2026 19:46:29 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261110194620.46374-1-lsa.uz@pm.me>
-In-Reply-To: <3750472c-5a49-48f6-a8bf-0bae45e4c01b@foss.st.com>
-References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain> <20261109124610.85065-1-lsa.uz@pm.me> <avHDwGAe99WYaty9@kekkonen.localdomain> <20261109132746.22125-1-lsa.uz@pm.me> <3750472c-5a49-48f6-a8bf-0bae45e4c01b@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a6624b0f434eaf29d2bdf4eea112c843ac323dd3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBEji5Ek
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AEA1F0089F;
+	Tue, 10 Nov 2026 19:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794340151;
+	bh=XgFkiaalUYGH25eD9eEfRJdOi43ZuGo2ADVP/IUyemI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dBEji5EktwQXVijgfeTc7chJnh47UX9U47ngoQUfa0S++uE6pUw4ke9IWrvhmIExF
+	 9EJrhpuzZiOh3U0m+CuyfkYp1WpQUjric1RqgR1sm6xyOa87DeOVHtmrS7l2jjMPaL
+	 WZ0OFzCgpu4EMETLyexjd4SHqjvSD3ZF8790dc13SToZ1QjoF1Zi+x2g0NSUHbmAUs
+	 jNq+eUynrGX+0gr680gi2O3B76Yfi0/pWI+WG4fMX38fMz8aLHMnxi2pOx4EHDrqiq
+	 gIK7bQdsVjkqT+6wuntnzhiOyVCI4Iri/46WfOMSDe6znhFvf81Dnj3s6CyMaq1EK5
+	 SReH+HoRbRGHg==
+Message-ID: <sashiko-outbox-207683@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] backlight: add ktd3137 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
+References: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
+ <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 19:49:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,36 +59,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Benjamin,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] backlight: ktd3137: use named initializer in ktd3137_ids
+--
 
-On Tue, Nov 10, 2026 at 10:46:57AM +0100, Benjamin Mugnier wrote:
-> From a user perspective they are mostly interchangeable. vd55g1 uses
-> AE_TARGET_PERCENTAGE while vd56g3 uses AE_COMPENSATION for instance.
->
-> The downstream driver uses AE_TARGET_PERCENTAGE and that's why you have
-> it here. It would make more sense to use AE_COMPENSATION semantic wise,
-> but this is not a deal breaker.
+commit 8835810206d0f5ccda9a816dd64ce8c1128ef9b3
+Author: Roman Vivchar <rva333@protonmail.com>
 
-I tried AE_COMPENSATION on the VD55G0 here, with the firmware patch the
-driver loads. Positive values work as UM2829 says, but a negative one
-drives the AE to its maximum.
+backlight: add ktd3137 support
 
-A white sheet in front of the camera, the illuminator on, each value in
-a stream of its own:
-- AE_TARGET_PERCENTAGE 7, 14, 27: exposure 27, 49, 89 lines;
-- target 7 with +1 EV (0x0100) and +2 EV (0x0200): 48 and 91 lines;
-- target 14 with -1 EV (0xff00): 1796 lines, analogue gain 24, digital
-  gain 2048.
+This commit adds an I2C backlight driver for the Kinetic KTD3137 display
+backlight IC.
 
-On the Dgrey test pattern every negative value did the same: -0.5, -1
-and -2 EV in two's complement, and -1 and -2 EV as sign and magnitude
-(0x8100, 0x8200). AE_TARGET_PERCENTAGE works both ways, so v4 keeps it.
+> diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/=
+ktd3137.c
+> new file mode 100644
+> index 0000000000000..1595aefd46e6c
+> --- /dev/null
+> +++ b/drivers/video/backlight/ktd3137.c
+> @@ -0,0 +1,258 @@
 
-Is this known for the VD55G0 firmware?
+[ ... ]
 
-Sergey
+> +static const struct i2c_device_id ktd3137_ids[] =3D {
+> +	{ "ktd3137" },
+> +	{ }
+> +};
 
+[Severity: Low]
+This isn't a bug, but new struct i2c_device_id entries should use named
+initializers ({ .name =3D "ktd3137" }).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-6768-ktd31=
+37-v2-0-9496c51efea4@protonmail.com?part=3D2
