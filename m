@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282636;
-	b=s0sYivmWVB98YZslm4npJfo3XxfW7OjJjvQECqZji9xYjqT+B68q6cSOPtQofDltNJ1E
-	 +GJENq+V4OLSVMfyStWG9pnm5xAcJ42CGijStNcj/MHsvjnizBLuMBHAdrA1Xh1ShB8Cl
-	 RBUXfcUr8fQc1V2ZtxPfjrIRGsorMnCSKe8mfmFM927cZ6dZEfmiH+qoLutwhLiUlzbzD
-	 xZuUdWVttKW05cJIMvh7oUeRFcWG0nXeaSnbjIvZTgBfBcGc9CSMmVsgG6kpK1oH+XveE
-	 j/rvy36BVBMdhSaGbWls20xDL8BArE702q0HNfRyPKeJA652X9MynO1oyE6NOCdgOzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282636;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MV0OvgMSx7hxRRX3CY+g3um09nSxeAkINXsIoO3rsLY=;
-	b=xrk/vf7dBUHHdeg4R0PZjxGOdh1wSukswp13U9NUbuc1PoBThPgXMoH4pscQBYJ2dfqm
-	 Bvaatyrzw9AI68eDss6Z2MQirLpkjVy2O8xLlT/qQQcyabj2DRrW46CpPJxqPmlVuFXq0
-	 UXxtFxttcKrTyAlp4oKyLJTif9hbnHOPfHXvCMmg78azIUbfma+p83ZeVwZeqtQPhDEqt
-	 hy2oiyQrEENuBD8S0oIZj6lj1hEQwgCtd/brSFSydu0zWKQQpJ1U0fBUp9tCWX/hAILrg
-	 QlTr+cCEA6tzEFwPj167Fw3t7vFIPOEGuMvjag/WyqGyRnfEWnagRLXL8tXuOcE/6lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oYtd8aI/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794282959;
+	b=RCbj2NSrRr/MXPUkBnud/11xWDoejVS0T24EwtWimHsAV37KGr8hsCJz8OqoWZfIVPeT
+	 l1KiHynXiSnA7dye+8EOJUBWJlboIAqiGveuDxMAjT+imeMYqbHm8QRjAmakBb1Rr8Kv8
+	 TNxiwL40TfDFpUdp2uqJ+lYGe2/jt37a9DzugVvBvqxo/cDRmqkZJH8pg+e13C7FB1jlA
+	 FpkGlhIR1meTTfTz4KCPKcK3uyyEHvUW97UtZVb+6OWHq0AiK+shu3BP31eQ+cAmAvmvn
+	 AUjvzBcv9DFit+uFYVczz7fOM0pMVe3V3GtwOfq9qUHP64bDy6Rwg7CkBR/ij/Yx9zg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282959;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=E6UYnRbtns8rpu9+AhvFjoippi/YIybDZhgJ7jbcd38=;
+	b=peKHrOPGJdXXUypZ1fNMVpo3MJxR0S4xKUTWOiZ6TmfRDj/szuvHyxyv64KHAxuktxVK
+	 ExP3AuwXLPTA+6flrU9xXGeBvYhJyIl6tRXqDM2QMkHqHG3r64Zz3rTggd8jQZ+Li6gmn
+	 /umJTqy8zBVhgsIAFHGG+8ld6uG7cYJSVIj7cwGfeimUxHVB/24DimOjsBobJkLI382Mo
+	 CYfalINO/5vTCc5e13BfDerOKsvMTLRM7DtNSdvXLCTxx62josT3uYsXJLGzYmKNy3hS8
+	 1004fgc+9j20vucxhPDrrOQMTshDVe/vHqMhoXxcX57279RbcmkL11qUXdF12l5dXlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kOiG7qLF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.51
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010051.outbound.protection.outlook.com [52.101.61.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D3D60A263D
-	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD36C606A332;
+	Tue, 10 Nov 2026 03:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD36C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYtd8aI/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A321F008A2;
-	Tue, 10 Nov 2026 03:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282635;
-	bh=MV0OvgMSx7hxRRX3CY+g3um09nSxeAkINXsIoO3rsLY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oYtd8aI/q4/XVY550Qa3UfEiP+OwQvASGO4dvqX0cuVtLoL/ogj8MjGbSGDY+/vNs
-	 scALzo3xPP67xE1lxFgqWTZ0ZrK39tlD14wfZEGK7RO5LaN8uqhW+hz11IiPG0Pp6I
-	 WNyFVu1AnKEItoBlHB6vME5AeIgy/yfY3BDFu/AUMZgRF1IN91HCjvmWETchq62hJR
-	 wUi5P7h3Z4qqzZ3dSmldSk+N3OB+M2SQomFPU2NHZwmwPNZZHON7cMta4Wa+cYOQW+
-	 Cv/LRAyy/YhVyLQpT7mdhZJcyLC90CT5pQcXuzRMkMk0YCAxgcnYeeD3aGXUgPzVxo
-	 xw3+BsBZ4gj3g==
-Message-ID: <sashiko-outbox-206151@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v22 3/8] coresight: tmc: add a function to switch the
- ETR to a free etr_buf
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110-enable-byte-cntr-for-ctcu-v22-3-05d48c0eb110@oss.qualcomm.com>
-References: <20261110-enable-byte-cntr-for-ctcu-v22-0-05d48c0eb110@oss.qualcomm.com>
- <20261110-enable-byte-cntr-for-ctcu-v22-3-05d48c0eb110@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 03:50:34 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kOiG7qLF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YrPo7kpbDQJ432L33BqW/nlLTpShHrEpImFGY5OZ4GsjkagknO0oCFRxdpkslYvPjDrpJvUBijLoQl2xIIoF0LfTTZFSz9fgqDhGzIjav12n0XBTM2wSCRxrzBBUCPfpNUR04vmhATmkJGp4ePEDmMMRlSqGaFTxgdEgNjdzyZY0JYTIrxHuQpyP7pA/AG3mXHP8BDRX395BbNRYIROXYPzrdtOHUWPy8epm6B8LRGn3vMlc02GpK9gBBtCMvgsHkDgqHp14TvW10XD9rYIO+cJ4swWy56qAkBIdMBqS95ON9jyBZ3C/YvTsSjqXH6jHtRkc8iTKY53wfc4NMTnWFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E6UYnRbtns8rpu9+AhvFjoippi/YIybDZhgJ7jbcd38=;
+ b=fThns5DTGr0KZ7iAu27Ng7jR0jedNZKuFKJX9gGzlrMd6A2e4QeGyOjwfY1T9A1GHz4u0dqPeGcoOZceK71KQFU49/fuDo6SsF3zc2B/p4n6BhwCt/rrI3J6y5PWWfznCtBLLOIr8P3auRsYK3bIAaEkyEluD4thJ8n2R1iMlElCRJ7lecjRPlwfS4DXG5nW/wLDuVWWwMk0Rj8+/0yIC/4vndX7mhE4PH0ocE1QfmFEBYSy6f4LH/Xmc76C00DPfabHPuJJ2zfNUvbH5IR6twy50MhjBsdaK7xHownCmSC9/+GGdtly/iuWw23mJxWBhMBtFH99cPEd9luFbyDwXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E6UYnRbtns8rpu9+AhvFjoippi/YIybDZhgJ7jbcd38=;
+ b=kOiG7qLFasGA0pToc7VXtIp+uMxVO/pAtXGneuHumCzp0kqr0A3SdXPAitxgn+FZReUWnjk9nd7ZF32Kn7GnypJYh7pgKNrSeoUSE03YQcSnoQMfRfct71iyU6vWIIJLtjnyjs/MYAjxDePPMWhXajqOiQZREkod0i63clVKKcA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
+ by IA1PR12MB8520.namprd12.prod.outlook.com (2603:10b6:208:44d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 03:55:34 +0000
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d%4]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 03:55:30 +0000
+Message-ID: <b05eee8c-ef32-416f-8c44-5eeec37d2e21@amd.com>
+Date: Tue, 10 Nov 2026 09:25:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] fbdev: xilinxfb: remove the driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ michal.simek@amd.com, deller@gmx.de, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, git@amd.com
+References: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
+ <20261106170902.3656809-2-radhey.shyam.pandey@amd.com>
+ <20261109-jumping-dolphin-of-refinement-14df24@quoll>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <20261109-jumping-dolphin-of-refinement-14df24@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0190.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::15) To CY1PR12MB9697.namprd12.prod.outlook.com
+ (2603:10b6:930:107::6)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,127 +101,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|IA1PR12MB8520:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d125edd-62e4-4672-ce4e-08df3ede768c
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|10067099003|261026140227099003|261028144727099003|261102123227099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	6vAnwJHpd5XSAuPb0RbRLZOtFdQ7mxd6EMSVeDlxyajnK+G3WpfuNgL9wboooKkPDksloQRKFbFsgUDfM6wXG+7xs9R5RCMQCzc4I2ERXPg+QMZTfrFruoSpNXaKN5EfiUbEP4tRWPr4sJh3HZMf+wzTHG8BAJWDLYKdnMo83NAhGXy2n8Rc1MGnE68kYxaDhxCupYNzBA+tdkof5JGboeP40mZ4+vLUXGc78pk67Kn5XywwPa/8WO4JhMQIX8MrFSehMZ4Q7R9Es3GzApFQyLV9E9P11Jc4qEYul++tuaMeRaeHVNwqdMiqlFe2kOyZ7PtCfPVzpKoY6JR7C3omHKqQhLrARV1w6P6A+SJeO1BHp1rlnZNLyvsnMx9p47MxowaAMCIS3rgV/KPggkHJnG7KhtZEUYMACHFo3oj7cub3NMKeoM/p5phLuQTK1sQ/Jx27NxeYQm4/4rXBEv9zw7wf/JBtxclvFuTSEyE9Okpk74EU7JR7gx+5Ei3usY64XcJC46RMMTQ3G1Pt8ZqWSGtDZIeeBXeEkW+v6/GmjwV/JdeS6+m9xODA67UX4Pcb/BfQQHLUVf5FYiw9pRvfD4UD+jjEtxpbuycNXO58MiamI3SElvHJTkLZRgrNEaNJXgZSR+qQrGiPYYxaU4fh1ZKQJ3EkmumXxpK84eGT/Oc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(10067099003)(261026140227099003)(261028144727099003)(261102123227099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?clNNRUJIYWFEOXBqL1lURkUrcnhvTk93T2MvV3BOMjhBb2NmL2FuRlVYM1R6?=
+ =?utf-8?B?eklSVVRZWlJjSWxkNUhXbmIrV3ZBZlpXcmJobG9oZVJqcVFqcTMwYVNPaGtH?=
+ =?utf-8?B?NlZCdnJZUVJDTzAzcjcwOGcrSFREdkVGekVlVHBRVkdSczBQNnNoRWdCb1k3?=
+ =?utf-8?B?d1p2OXdHUzBtbTUrK0xRYWpPejFqcEFPSE5Db0kreDZhd0hLODJuY0MweFBU?=
+ =?utf-8?B?bi9lUXN5aVhzNjZxTWtpd3ptajlNYkFSU1doRjlWWWRLT3NvbTFVSFBIZFEr?=
+ =?utf-8?B?K2JpL3owOExEMElDbGlDYVlHOUpRZlpJY08yVUJ6WkorTER1eE9QYytIaXpn?=
+ =?utf-8?B?NjlwMUIxOWpnMCtDOHFZKzZQQm1DVUxGQ2R1UFdoV3I1T3MrOHRGTzV1dExD?=
+ =?utf-8?B?aUpNQ1RhL0wzbU52RS9SRER0NHJuaEtQL0pEOFpYZ0F5ZHdYU2pWWTZVaXlu?=
+ =?utf-8?B?dEFHWms5UDVlOEw3eGZYU0wzWVBzWXdyYjBTc2VCUGZTam5Scjd6WVA2RzM3?=
+ =?utf-8?B?WWtibnpqeWlCOENiMVNhbnFmeUhjZUsvc0xXT0crOXVWOExwQ3RuRVB5VnJx?=
+ =?utf-8?B?L0gxZHdsckVPTEFFVnlUK2ZHSDBkV0E1RDdtTWpGZmM2UzNHT2V6OFYvRVMr?=
+ =?utf-8?B?dGxDdlVkOGF2bmRsRTN0anBsR3lxTDNpeUlWanRWN0VNN0hoZERWUDBvMEsr?=
+ =?utf-8?B?QWt2UlgyU3lWQ2tCMTRPSzRYai9mY3VkaTZrb1hBdkJDUVNHRUJmcW84OUFV?=
+ =?utf-8?B?Vnd3VDdNVk9DZ3grUENBMHdNYmVXOExPdU5KY2wrcms5dTZNQnF0c2xKVE5Q?=
+ =?utf-8?B?L0JjYlhhV08rYk9ITEJrVmZ1V2ZjQ0pLUUhHR05MdDNwUUQvdWY3aWRsZi9X?=
+ =?utf-8?B?Z1BqNDMxQ3dXU1hqQllRNnpQblJ0aXlNWmZoV0NuS0ozUUFYQ3kwbStsbmRU?=
+ =?utf-8?B?RGs1WFU4SW5vOGorZWp0Q1ZpaWdyY204RUVMUVp2Nm45ak8xeVN2MkRkZUcv?=
+ =?utf-8?B?Vi84Vlp1blBZaEQwc3hRRTR6bndJWnJBVkpqZFNVMmVZQnB0VlJaTE9NYkxX?=
+ =?utf-8?B?NlpobmVZZW9vUStGL2xPaktKVzlCTzJtMkdxbjUxY1R0QTl0OHRhWkhZYVRu?=
+ =?utf-8?B?YjJteXhrdnkrMTB2d1UzU3g1MnpMSWdEbDRzU3M3Ti9pQ29kT0ZQNW0xa2l1?=
+ =?utf-8?B?bHUyeWwwSXpKNzR6K1k0eUtIV0NXVGh3R25SRHVLVFp5UUVMd3hYeTU4M0xL?=
+ =?utf-8?B?dnplOWI2eVZhOHhQZ3FpUFY0K1JOSGNiK1JmclhEZysrMjlReFpDNG5pK2dE?=
+ =?utf-8?B?REhxY2RWd05DNVBXcDB4RmlLTWF6V1ZXY0x5VUk5dWFuaXYxbG5tSEZZSFZs?=
+ =?utf-8?B?T3RZSTQzSHB0elo0NVg0S0VsYzE5SklOcjJvSk5rME16WFZNY01GUTlmaFd4?=
+ =?utf-8?B?MnJXNndrWW41MHZOU1JKK2s0MTgzZ0paY1kyN2xjeDVhQURWMUdzSXNqVXVN?=
+ =?utf-8?B?cHRtWURHZ1gzZzJLREIycGFsRmtNaFNPQ01oL1I0OXpBTFY3ZmNvSXNWSXo2?=
+ =?utf-8?B?ZmVwY1R3bTVFREY5Q1FJTlhDb2IvaStqR1JRMTlZSDg1QVdKNkF5VEdJNCs5?=
+ =?utf-8?B?VkdtNnNwK2hWU1ZXNlRGZDdlRk43RjU2c0w5L2VlTkpYNWlTNTIvRm5BclZr?=
+ =?utf-8?B?L3FpbmY2S3JXc1pOSWxUTVlCWGwyNUNZZllKZSt4UnIrV3FMM2JtUTQxY213?=
+ =?utf-8?B?c1J1cHRZSG95UjlSZGtVT2tialpBZmt4OWZsYUltbWZXcjBLK0kvWUI1RkxN?=
+ =?utf-8?B?TmtZMFZmUlVydS9tT3hRV2MyT3NTSzhnTTdPNFhZZ2xDeHdWditXd1VrSTZQ?=
+ =?utf-8?B?UU1vMWZTejFZR0RuZnpZVzhGUmJiSVhiMEhtMXR0OVNLSVJycWdCbUNpRmpJ?=
+ =?utf-8?B?VlpabmRkckt1QjFBajdNdEJDSnB1RnNnL3QxTkJtdjAyQ3lVdEc5d3YvWWpK?=
+ =?utf-8?B?MWtRRDZ4SmF5ZHphaDV2azNsVmZESE9VNWJOUmFUUitmYjdOcURvSVEvZDZu?=
+ =?utf-8?B?Tnp2ellOZ0g0dFNFVm40aGxGODJ3aDhvNXVEUytlSnQzSWRZNkI3eVpSQlJI?=
+ =?utf-8?B?MndDcEZpNUk4MGk4d01EcFBUMmVraU5ybnpML05uM2lmc1BNNk9aT3ltcXVS?=
+ =?utf-8?B?NjZ1d0pkckxWWUNST29pY3VNM1VRUmZyaFRFNm5YL2xIVDMxMmlEeHZva0RQ?=
+ =?utf-8?B?WkNKU2FsOEZUTUQ0cTFJelViTVdkTEJaekswNjVIcUVqSEtQdHZaMVNMNFVI?=
+ =?utf-8?Q?lwgD9S5ZaVSbKCce2W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d125edd-62e4-4672-ce4e-08df3ede768c
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:55:30.4034
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8cH9RBHwtZIPf64bMkzd6sfDxOKFQNM4fGIVz9Q/+YM7/vumn0DVRhqp+Z/yRLib
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8520
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] coresight: tmc: unhandled enable failure in
-  tmc_etr_switch_buf_node()
-- [Low] coresight: tmc: redundant register writes in
-  tmc_etr_reset_sysfs_buf()
---
+On 11/9/2026 7:17 PM, Krzysztof Kozlowski wrote:
+> On Fri, Nov 06, 2026 at 10:39:01PM +0530, Radhey Shyam Pandey wrote:
+>> Remove xilinx framebuffer soft IP driver. This IP core relies on Xilinx
+>> Platform Studio (XPS) and the ISE Design suite, both of which were
+>> discontinued by Xilinx years ago. Furthermore, modern AMD toolchains
+>> (Vivado Design Suite and Vitis) provide no support for the legacy PLB
+>> (Processor Local Bus) architecture used by these cores. As a result,
+>> no new hardware designs can be built using this IP.
+>>
+>> Nothing in the tree document the driver compatible strings. Given the
+>> complete obsolescence of the supporting hardware development tools
+>> and the lack of upstream users, remove the dead driver.
+>>
+>> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+>> ---
+> 
+> You can include here defconfig update.
+> 
 
-commit 5c5376ae2653b11790a1e4a68e0d311b9dacd681
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Thanks for the review. Based on Michal’s suggestion during the internal 
+review, I left this out of the current series and plan to send defconfig 
+update as a follow-up once this series is applied as it will go through 
+his tree.
 
-coresight: tmc: add a function to switch the ETR to a free etr_buf
+Thanks,
+Radhey
 
-This commit adds tmc_etr_switch_buf_node() to switch an active ETR sink to
-a free buffer from etr_buf_list while returning the previous buffer node
-for reading.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hw=
-tracing/coresight/coresight-tmc-etr.c
-> index e9213f4568341..5032f5598e15b 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -1224,6 +1224,71 @@ static void __tmc_etr_disable_hw(struct tmc_drvdat=
-a *drvdata)
-> =20
->  }
-> =20
-> +static void tmc_etr_reset_sysfs_buf(struct tmc_drvdata *drvdata)
-> +{
-> +	u32 sts;
-> +
-> +	CS_UNLOCK(drvdata->base);
-> +	tmc_write_rrp(drvdata, drvdata->sysfs_buf->hwaddr);
-> +	tmc_write_rwp(drvdata, drvdata->sysfs_buf->hwaddr);
-> +	sts =3D readl_relaxed(drvdata->base + TMC_STS) & ~TMC_STS_FULL;
-> +	writel_relaxed(sts, drvdata->base + TMC_STS);
-> +	CS_LOCK(drvdata->base);
-> +}
-
-[Severity: Low]
-Is tmc_etr_reset_sysfs_buf() needed when tmc_etr_switch_buf_node() calls
-__tmc_etr_enable_hw() immediately afterwards?
-
-__tmc_etr_enable_hw() already resets TMC_RRP, TMC_RWP and TMC_STS_FULL
-after waiting for tmc_wait_for_tmcready() and programming TMC_DBA, and
-guards those writes with tmc_etr_has_cap(drvdata, TMC_ETR_SAVE_RESTORE).
-Calling tmc_etr_reset_sysfs_buf() beforehand duplicates those MMIO writes
-and writes TMC_RRP, TMC_RWP and TMC_STS unconditionally before TMCReady is
-checked, including on SoC-400 devices without TMC_ETR_SAVE_RESTORE and in
-ETR_MODE_ETR_SG where hwaddr is the scatter-gather table base address.
-
-> +
-> +/**
-> + * tmc_etr_switch_buf_node - switch the ETR to a free buffer of the etr_=
-buf_list.
-> + * @drvdata:	drvdata of the TMC device.
-> + *
-> + * Stop the ETR, hand over the current buffer for reading, switch to a f=
-ree
-> + * buffer and restart the ETR. All of this is done with @drvdata->spinlo=
-ck held,
-> + * so it can't race with the sink disable path.
-> + *
-> + * Return: the node of the switched out buffer, or NULL if the sink isn'=
-t in
-> + * sysfs mode or there is no free buffer. The ETR is left untouched in b=
-oth
-> + * cases.
-> + */
-> +struct etr_buf_node *tmc_etr_switch_buf_node(struct tmc_drvdata *drvdata)
-> +{
-> +	struct etr_buf_node *nd, *curr_node =3D NULL, *picked_node =3D NULL;
-> +	unsigned long flags;
-> +
-> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> +	if (coresight_get_mode(drvdata->csdev) !=3D CS_MODE_SYSFS)
-> +		goto out;
-> +
-> +	list_for_each_entry(nd, &drvdata->etr_buf_list, link) {
-> +		if (nd->sysfs_buf =3D=3D drvdata->sysfs_buf)
-> +			curr_node =3D nd;
-> +		else if (!picked_node && nd->is_free && !nd->reading)
-> +			picked_node =3D nd;
-> +	}
-> +
-> +	if (!curr_node || !picked_node) {
-> +		curr_node =3D NULL;
-> +		goto out;
-> +	}
-> +
-> +	__tmc_etr_disable_hw(drvdata);
-> +
-> +	/* The switched out buffer is free again once it has been read */
-> +	curr_node->is_free =3D true;
-> +	curr_node->pos =3D 0;
-> +	curr_node->reading =3D true;
-> +	picked_node->is_free =3D false;
-> +	drvdata->sysfs_buf =3D picked_node->sysfs_buf;
-> +	drvdata->etr_buf =3D picked_node->sysfs_buf;
-> +
-> +	tmc_etr_reset_sysfs_buf(drvdata);
-> +	if (__tmc_etr_enable_hw(drvdata))
-> +		dev_err(&drvdata->csdev->dev, "Failed to restart the ETR\n");
-
-[Severity: Medium]
-If __tmc_etr_enable_hw() fails because tmc_wait_for_tmcready() times out,
-does leaving drvdata->sysfs_buf and drvdata->etr_buf pointing to
-picked_node->sysfs_buf desynchronize the driver state from the hardware?
-
-Because the sink remains in CS_MODE_SYSFS while the hardware still holds
-the previous buffer's registers, a later tmc_disable_etr_sink() or
-tmc_etr_switch_buf_node() call will run __tmc_etr_disable_hw() ->
-tmc_etr_sync_sysfs_buf() on picked_node->sysfs_buf against stale TMC_RRP
-and TMC_RWP values.  In ETR_MODE_FLAT, tmc_etr_sync_flat_buf() computes
-etr_buf->offset =3D rrp - etr_buf->hwaddr using the old RRP, which can exce=
-ed
-etr_buf->size, underflow etr_buf->size - offset in tmc_etr_buf_get_data(),
-and cause an out-of-bounds memory access when inserting the barrier packet
-or reading the buffer.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-enable-byt=
-e-cntr-for-ctcu-v22-0-05d48c0eb110@oss.qualcomm.com?part=3D3
