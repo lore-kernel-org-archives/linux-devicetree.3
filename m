@@ -1,46 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279878;
-	b=zJiXavNhQBaa770ISSAmeBlMh3L0rEEvMrXYH35GDBu7MUf8EFP1jrJ4TWJzdQfxj5Y7
-	 fU4zZ3vprsBPvJ+YOZT7ePcbQbaoqAFimtdnQGXv8ke+qJDfXU3N7QLS8/ZmmX05jWjqG
-	 +ZKjVQifElPTz4rCT5fYaY5VAzcZlNmXTVRUR/lZ2aXbLBGUVA85Gquw3KOvzxGXDi6Ic
-	 5e95fm0BuoDAuWPXGWMJZN8fvYQe6Fhk8dRDEbl5s9u/ydJn7mRLCHvrpcLNjQ1I1bvNd
-	 m49sLnfS221+x7gH/lT0P2Ap8LPX77ZIWeF1vKFdvw2a6b8+HywWoT/ZEuXtJED3sDA==
+	t=1794280094;
+	b=FSaWsjw9u8mCBlLpE3axAnSlGGJYN19Z5mITwefnwaTbOaBJUMj2lzD0KTkWHxxqmdiZ
+	 G3rm/Ig0LPr9JUuK4UDNDlQlwIAUEXy6tQPkuUbFn9RXoldLQkkCBcHTtdcNz57eUrrNF
+	 f2x9koJhx5g6iTDPHCXRbPXS2dlNrQiERG3TtkBVP4Ekb4oN8uWJmbHD8FjF/OIEqc/2p
+	 SHo7YN8rEaPQvf91F1CN7J0A96ut4u1v/0+kIacPJvvXxNz4NQ3eY5qQ7h5iyewnq86Cn
+	 SPpxGzhcLNaGfqTV31HaDTTxB4O36FN0mWmf7nxqDIQsHnzLJFbVfJ6jzByTBhMeioQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279878;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=4xiQhXRH8z/0o/LHnQmce5UJlHs8s87KBdTsEMBYeSg=;
-	b=cK1Sena0FTKQIboZIs+Fj7KKGk5tZf5qSI+aAFMuBIspuyboTAeqDQudGqwjyG+RN5fB
-	 VHC8u7wz6Pefc0EVr30QBl0OjRv7DINtn7ePIJyu/peRNiSE9Hm+Em/P6wskWgVTcCd++
-	 vLR1++5lmPk026VKXI4rP16hNMqyLiK/WZ2k12T4UEqn8l84eUp74cTUQLqKnx0zEbefx
-	 dgZjgzI3N9MUhI/NCIoutXO0VJemoN7cYSoDH0Bwkuxm4Cv74Y3KO45zRHASzpPsaAoBd
-	 CeVaCcPEuSJqUuWi90dqcITv4Ean/898dY5SO8cTTEn/PWaI9aMxveYOg9UsWa2Iv/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=kxXrVe4VYlIQzW68nXA3FT5khD/dasufUzEWUgRYIzU=;
+	b=j+wkkWylVVemXwZqrfiSpNTXWHLCrc5fsBBxCeHOmiUn69e/1sef+Tf0GTREgsbpIUSd
+	 9n7pERITzu2DsAuvBTLtds50etGQkQk1oc8WR6cO9jEaHHVmVUVtRZsyuLOsHMFoHLmEd
+	 tVubai02NiEsj8lCWmbEyDR8BrQztFshOShN0RD76Rdvo4OX/l4OW2YPJMvDC29zGYZE0
+	 vG8QqL+fAe2sDp8r9Zg2gVjIPjcovQdm7CL3uUYm0OCPfTgExSImUaOWxTfxE+QHqJMXM
+	 WL9v2PYdkI4D9+oZexgooj+nWZAwSvCP3FBMmuLQ6NOQSsbJ0kEDILfhy+ZqIvA12FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ultrarisc.com;
-	spf=pass smtp.mailfrom=ultrarisc.com;
-	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=X4Fb+ra1;
-	arc=none smtp.remote-ip=218.76.62.146
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58D79606A31C;
-	Tue, 10 Nov 2026 03:04:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D79606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	dmarc=pass header.from=sifive.com;
+	spf=pass smtp.mailfrom=sifive.com;
+	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=UOhCUjmW;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4767C606A321
+	for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 03:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4767C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=X4Fb+ra1
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=UOhCUjmW
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3ada81853so1323661c88.0
+        for <devicetree@vger.kernel.org>; Mon, 09 Nov 2026 19:08:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=4xiQhXRH8z/0o/LHnQmce5UJlHs8s87KB
-	dTsEMBYeSg=; b=X4Fb+ra1YJ1IDHPmdpdWNboPB3Q/AN+E69Vx2cbabTS/TK9Dz
-	6sTh3/ENxz+1R2SGwDR2jK0wv9b4KWeX1rNJjbwulkRemxd9DFbbxSgsXoZ9HcLp
-	Kp13uZGs1yhYtFXUkZZKq/oSDqQIAj+TcezFhAuo8lqjrtdDOCFNcpC56Q=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwC3cwWjifJqdbQDAA--.1137S2;
-	Tue, 10 Nov 2026 11:04:03 +0800 (CST)
+        d=sifive.com; s=google; t=1794280093; x=1794884893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kxXrVe4VYlIQzW68nXA3FT5khD/dasufUzEWUgRYIzU=;
+        b=UOhCUjmWqyhIgvb6DM4kMuaVtMGn8ypxPihudQDurBoK7Hf9XEKPsEIK8NVnyCDGGC
+         drPemDaDW0v/ZMthSVCjgBd8+uNpQ+Gf2F40YqjsbSZARP9+BnGxHnTeLx1aih/k8A42
+         7+iGnZgiHMfsh6MtQGmrAjo168DSbAYe/gj7NF1cHLXA10TXCSSBBAhIPIGQUcc4b0LS
+         u5BNaFw5kLU3b0G3aiwFGJo9gqgzeJKTFIciBuwwVkvVau81G/cywEenCk3XivD1QGVB
+         pqI3DtkJMigBBJO7B6y4OReh1Qqpt3wSSIbAXHLmjh1I5nUk0TbeK4vlluypWJjwTJWG
+         JDlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794280093; x=1794884893;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kxXrVe4VYlIQzW68nXA3FT5khD/dasufUzEWUgRYIzU=;
+        b=Mwd0x9tJ0M0n/GQJFsS+diwP0yqcB5WT2UlVStQQVxQLcRrPtVheXJH/K6zXzY1C0P
+         lJvnJnFdgHYZNXRPgHOLV//mSMWjBb6wOxNSsSC9UVM4vgP2Cy729QFkMNc2xw7LeSQP
+         zA2dsB+O2i04MAwSacSPs9gBwOeBL2KtOBqAD94x1vf3jVjH3PbLUQaOhvaZOBIGDbWA
+         jzftx4ovo8WOFKfCKzLb0+aE+wXgdIiiSn7RlF+uc4BGlT9MOcz+uleX60idudi5EITO
+         q0S6IKA7v8LIQ+a6fGNHaahu7CUY/Ie7XRfEqwLLLPQK0Os3Jkkb4dKWzZHzDsPgoYp3
+         U23Q==
+X-Forwarded-Encrypted: i=1; AL+hErEgOgWMANWx+h5UEW7Ao2AeuP2SPKqCIHsSvysHAeZH/BjboBU1N0o0e5Rfdr51jiC1X1MKAXQQX6O3@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oR9sBwS13zjxW38VAAA944bwMVATDTA4pWMimE3MUc0+Cec8v
+	Wub7aOIx1a4j5G3YWK0NAUk2hu0C9v5ks7R8I8P41KYibFKuXDi0DwhzJjrDIblpMl8=
+X-Gm-Gg: AYBFou045+u5yDwbJzXOcwptZLKKNBnOM1pDCrwmi77oTD98E2Jpx4UKG9ew5TvtFVZ
+	bbM4yPY6hJOG8TX7WvbjpR4fh5F3Cb14/GYDmick4BSqYFdf+DXG7ifjJl05d5/galks/3NpDHb
+	PttKOs9b3hECyMJUJE1RCrgjaL5sxsZnX306LSo6H1vz6w6xm8snx4GOQ0jnbxG5fiMvYttCn4x
+	zOmKQlHBVovktcZQU0Zmae82d1wzdmRaDKFoddH8vyc0EoDf1XIxiv9lNnmIJ2GEtUy7gT/mB21
+	wkkiAE7Pnf0hLS192Jjx7wM20kV50M1HljRf0hZ/Uqvl4Uxu97aM0gmzmttiuH43I4h1dyQOzeL
+	QhYjaUoYl/HdGykV5O2y5MqD1uM43zxnzsak1z7QHEr19VSQ/oLG1pIbiLN7P1121NNFevGXXdG
+	394ARqKNRWYnHCvgQVyHUiay1hq0Y3+pIfwFtO44xK7ycmprLf02aMDB9MJD/yLaa8DtVgNKf4O
+	9o8wurbmJWpjusL0UCFkFBK0bkfuMCaNgnW/jrCwk+qpbL/CUyhxVHinU3SCXm7hgZEgo5SqcQk
+	XlLD3TI1PR8K/WDnZ0z9NOBvRVG/vX1BTY1bUX5CPgWiy871nrOtpXvypH3Rdpmgcw==
+X-Received: by 2002:a05:7022:458b:b0:1b2:4871:b1f7 with SMTP id a92af1059eb24-1b3b602aee6mr2497518c88.39.1794280093242;
+        Mon, 09 Nov 2026 19:08:13 -0800 (PST)
+Received: from sw08.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3117480c88.22.2026.11.09.19.08.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 19:08:12 -0800 (PST)
+From: Leo Yu-Chi Liang <leo.liang@sifive.com>
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Cc: Leo Yu-Chi Liang <leo.liang@sifive.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	Anup Patel <anup.patel@oss.qualcomm.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mayuresh Chitale <mchitale@gmail.com>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Sunil V L <sunilvl@oss.qualcomm.com>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zane Leung <liangzhen@linux.spacemit.com>
+Subject: Re: [PATCH v6 02/14] hwtracing: gtrace: Initial implementation of gtrace framework
+Date: Mon,  9 Nov 2026 19:08:07 -0800
+Message-ID: <20261110030809.2405947-1-leo.liang@sifive.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261001052243.3042627-3-mayuresh.chitale@oss.qualcomm.com>
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com> <20261001052243.3042627-3-mayuresh.chitale@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,70 +122,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 0/7] riscv: Add device tree support for UltraRISC
- DP1000
-From: Xincheng Ji <jixincheng@ultrarisc.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Xincheng Ji <jixincheng@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
- Jia Wang <wangjia@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, linux-riscv@lists.infradead.org, 
- Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <20261109-december-oil-cb6524baf274@spud>
-References: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
- <179419183382.2791817.17305257804227954338.b4-reply@b4>
- <20261109-december-oil-cb6524baf274@spud>
-Date: Tue, 10 Nov 2026 11:04:07 +0800
-Message-Id: <179427984780.3452989.12543035151641565906.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794279848; l=453;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=AKmP8RKXVTpdxPdWVhnoAlrhLYhNlPvdKpQ6BfqIlWs=;
- b=x23kKOdwmsjgrKabUH1vUED8rhWivG6x8fw5ZWFFnwQOZiCXqye4K7J9v03fkW1Shsrmy+u8O
- MgNUBf6f9UIBHMsDFZrW48vLturGcuWO5EIeJr+WykDax/CPsMO2Duo
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-CM-TRANSID:AQAAfwC3cwWjifJqdbQDAA--.1137S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYG7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E
-	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
-	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
-	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
-	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
-	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
-	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26x
-	kF7I0En4kS14v26r4a6rW5MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU=
-	=
-X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQATDmrm4a4ABAAZsC
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Conor,
+Hi Mayuresh,
 
-Jia has left UltraRISC, but the platform maintenance handover was
-unfortunately missed. I would like to take over maintenance of the
-UltraRISC platform and will send a MAINTAINERS patch adding myself.
-The existing repository URL will remain unchanged.
+On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
+> +const struct gtrace_component_id *gtrace_match_id(struct gtrace_component *comp,
+> +						  const struct gtrace_component_id *ids)
+> +{
+> +	const struct gtrace_component_id *id;
+> +
+> +	for (id = ids; id->version; id++) {
+> +		if (comp->id.type != id->type)
+> +			continue;
+> +
+> +		return id;
+> +	}
 
-For this series, yes, I was hoping you could pick it up while we
-complete the handover. Would that be possible?
+Following up on sashiko's comment: we are adding support for SiFive
+pre-ratified trace components on top of this series, and they are
+registered with major version 0. Using version 0 as the table terminator
+means a driver cannot list a { type, version 0 } entry, which the
+eswin/EIC7700 SoC ships.
+
+For now this works because only the type is compared and the
+mkversion(1, 0) entry matches any version. But a later version check
+would silently drop version 0 components.
+
+Since GTRACE_RVTRACE_ENCODER is 0, the type cannot be the terminator
+either. How about reserving type 0:
+
+	enum gtrace_component_type {
+		GTRACE_COMPONENT_TYPE_NONE,	/* id table terminator */
+		GTRACE_RVTRACE_ENCODER,
+		...
+	};
+
+	for (id = ids; ids && id->type != GTRACE_COMPONENT_TYPE_NONE; id++) {
+
+The NULL ids check would also cover the missing id_table case that
+sashiko raised.
 
 Thanks,
-Xincheng
-
--- 
-Xincheng Ji <jixincheng@ultrarisc.com>
-
+Leo
