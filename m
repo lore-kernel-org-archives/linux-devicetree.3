@@ -1,62 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331316;
-	b=b76DoyV5f4VrjIra6j/4KUEqZLUYacM0vLTE7+hE6BRiMAnXSro3cPJtJwBQ2d0y/b/B
-	 TC5eJ5gKlkIGulEhNmAuaZbKW4uje7H2qdl+Q2wti9CFI3miGLbyHLH4bGK7cc8vtouLt
-	 fs4xCfgha+63hW4D42grKX4+ED+IPN8nHqd7jkz5AhneZjeB2/B8sW1v6vaFUXzSoeqIV
-	 c3ouDz6HeEvtRdwzZ9f3/iJf5KICsSsAhauxo7gQYdXRrVYfdQnm2+wjd9fM8n/gyS9os
-	 E4/tvVeW5s8cQXLezHG7VfIo4urt50Zqph/P05pWikwdIhvk1rqin6TfolcbIcev10g==
+	t=1794331713;
+	b=5OfNKnYje78sySFUvjPwEm3/RRfqDI51G8CaKjeClkf1z4gxFQwugfpNyFLWdmcMEw24
+	 NJO4NraYUpNDvk9+YLwOSLDb8qw2DXizv21X6N/SonWWy4UwJ2Lk40s2BBsN45KZvAomt
+	 niZrAJx4O8Y11AGv7H2s07qmYe6vx3s1OFUQj+4LL6fBd3dLDzk2sw7FdOjzsvQBEoxQe
+	 rGSFDRNwvvay7eH6SK02LYRdqBbHPLF6Oso1pOu5cyrD4I8uWVPLzEe6/9NEAE9KfhRK/
+	 dYV2B7k8D32c2syTNWB2GZpMc5V6Rai2mRDXb+dBzy6h8agNsvnFR1TyfgM+Bk0uQiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331316;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GEmhqoKBqwQlH70Y7aS0Pdx89Lkc5hycHMCshw3pUM8=;
-	b=MPenMWmd8YtoKuN+EXvM9KvHxrSmQWyeK8wkuOKNGr4R/paVxYW2e5gjundApbrzkD12
-	 gXYR5EOK14acmX/arSHzPBiv9XMQBn0j8+iasYLS0THZcEbjgoixI6MW3WiU28SS9CLHF
-	 LFDY2AGw101FXz2OYSxBXcdmbyTZDpeio6aiDCuQm2SC+raC5cZlkK+HXCRqKSoOHvuFI
-	 wDVTllQaUq60mU9xEmTdMqtDTajKhoJnQ3sNvBW8hZ4Bqi1Ll8GtPJMP82BR3gs+Uk2yV
-	 wIOHmWUNXjTxTEqYwYqioiQtqIIGtkGtPS6LyrcQmFf+KpqGfchTNbbgp8HrM5ALLkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331713;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BQiR9KXvsTVPL/1Zqbc4KD75wts+2IaCB1iOX6lOykw=;
+	b=Ut7rdsUk+ZV3epjyBE6gG7K6cX32Oip5b0qPHtoJIpAXi9GyhdaWiB9JPEP9913NuYxo
+	 kcEJDXHI0IjnE63uoZIzyOSNO886EQMsovj4iIXHd3trvf1twUe8yOvq7dvLRhG44qzFV
+	 6ZwrGF4jn9vaCy5HurLJwnGcuTH7l7sgoEbWrGHHrSjBRQHuGCh1WNoak5mn432yOk9RK
+	 tc1z7OYelIeaC+hKnxNv0SNtNMK6YVKQ3Z8oMvWS3qOvoQHN15IrNkSJQKMipgskdeoDo
+	 /Z+++576JfnZj61AoXfysGRPxjUNBw5d+nG3FfzlZQ6izE2723Vvsohkk+9zXxWLP/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJKdN5rp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94D7606A325;
-	Tue, 10 Nov 2026 17:21:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C94D7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:9bfc:b113:5373:d0ec:2ad1] (helo=bertha10..)
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xQpXU-001C99-0U;
-	Tue, 10 Nov 2026 18:21:44 +0100
-From: John Crispin <john@phrozen.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	Felix Fietkau <nbd@nbd.name>,
-	lei.dong@airoha.com,
-	Linqi.zhang@airoha.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	Rajeev.kumar@airoha.com,
-	upstream@airoha.com,
-	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: [PATCH 0/3] arm64: dts: airoha: add AN7589 support
-Date: Tue, 10 Nov 2026 18:21:40 +0100
-Message-Id: <20261110172143.296304-1-john@phrozen.org>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D66606A31C;
+	Tue, 10 Nov 2026 17:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJKdN5rp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C5F1F0089F;
+	Tue, 10 Nov 2026 17:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794331712;
+	bh=BQiR9KXvsTVPL/1Zqbc4KD75wts+2IaCB1iOX6lOykw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BJKdN5rpa55lEEPJYQrOjgPM1OQE6kUdh/XIzMMV6OhbiI6mq9mEq/1Kf+5QuxV/i
+	 k2M3yJsNqHypSOOAeTBQRdv2th46Z522hRZbedoRZSMAra8qrKN/wwziBh1BMwHeLp
+	 sDTAg2d+4nBAfWfduZoXZI1vXfUy3B9pf7XZOGjRp+uM722wWUVbWg16NeIq/q2VnT
+	 l7mdCuaT9Rm6Wu3EqyRn54UqEGqifwecwFVUUkyzIij1Kb0ioLaLnZXRe62PWibiIe
+	 hwpmsRjs2F65DTLK4RnShz/NbI6pqXHiD/ZfwT7UxrE3jHVO4uoHx3XKWlqrPsDj1X
+	 nRSsJRNqWqeYQ==
+Date: Tue, 10 Nov 2026 11:28:29 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: stable@vger.kernel.org, Lu Baolu <baolu.lu@linux.intel.com>,
+	Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+	kvm@vger.kernel.org, linux-media@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Oza Pawandeep <quic_poza@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Srinath Mannam <srinath.mannam@broadcom.com>,
+	linux-kernel@vger.kernel.org, Joerg Roedel <jroedel@suse.de>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [PATCH v7 2/5] iommu: Use resource_size_t for reserved region
+ length
+Message-ID: <179433170801.751718.12828883568888640225.robh@kernel.org>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-2-5c0f72083e52@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,32 +79,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-The Airoha AN7589 is a quad Cortex-A73 SoC. This series adds its board
-compatibles, a base SoC dtsi with the CPUs, PSCI, the GICv3, the
-architected timer and the console UART, and the device tree of the
-evaluation board with 2 GiB of DRAM.
-
-The remaining blocks follow with the series of their drivers.
-
-The series applies to next-20261105 and has no dependencies.
-
-John Crispin (3):
-  dt-bindings: arm: airoha: add AN7589
-  arm64: dts: airoha: add AN7589 SoC dtsi
-  arm64: dts: airoha: add AN7589 evaluation board
-
- .../devicetree/bindings/arm/airoha.yaml       |   4 +
- arch/arm64/boot/dts/airoha/Makefile           |   1 +
- arch/arm64/boot/dts/airoha/an7589-evb.dts     |  22 +++
- arch/arm64/boot/dts/airoha/an7589.dtsi        | 134 ++++++++++++++++++
- 4 files changed, 161 insertions(+)
- create mode 100644 arch/arm64/boot/dts/airoha/an7589-evb.dts
- create mode 100644 arch/arm64/boot/dts/airoha/an7589.dtsi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-add_iommu_ranges-v7-2-5c0f72083e52@oss.qualcomm.com>
 
 
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
--- 
-2.34.1
+On Fri, 06 Nov 2026 22:44:25 +0530, Vikash Garodia wrote:
+> On 32-bit systems with LPAE, physical addresses are 64-bit. A reserved
+> region can be larger than 4GiB, but its length is stored as size_t,
+> which is only 32-bit there. The length gets truncated.
+> Use resource_size_t for the length so it matches the width of
+> phys_addr_t and holds the full size of the region.
+> 
+> Fixes: 2b20cbba3390 ("iommu: iommu_alloc_resv_region")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/d223ee9f-b262-408a-a201-8b16d310bbe0@oss.qualcomm.com
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  drivers/iommu/amd/iommu.c       | 2 +-
+>  drivers/iommu/intel/iommu.c     | 2 +-
+>  drivers/iommu/iommu.c           | 2 +-
+>  drivers/iommu/of_iommu.c        | 4 ++--
+>  drivers/iommu/virtio-iommu.c    | 2 +-
+>  drivers/of/address.c            | 2 +-
+>  drivers/vfio/vfio_iommu_type1.c | 2 +-
+>  include/linux/iommu.h           | 4 ++--
+>  include/linux/of_address.h      | 2 +-
+>  9 files changed, 11 insertions(+), 11 deletions(-)
+> 
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
