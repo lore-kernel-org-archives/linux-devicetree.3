@@ -1,95 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794382616;
-	b=CPRSQc9bjJz4Aoz6GQnr3WPj96vdSMTMHyjfkFmvg+fn1ThnB77OZNSyrXp92/WAPnm/
-	 ZAaL5cch9FxQORJ0XwmUSwD/xiH65XcB21N1Y3ca/4X/s5tNFHMzoopduwtGv/82uKkan
-	 mzQOiZC5EUqhFIFinzs4O9e9T9VFUBHc56S4wNld2+Xx5xcNPgBCYIVO3KlDTixEEgfrv
-	 dGs/dJNZOt+cwqcLbgkUTdz5DxwAC33kvTRVYg35dq0fzXVHChupqB0wEwaNylQhf81hp
-	 YX2HgIslD6l2MtUDziZ14peMeKkZ5mXQWFF7RgN+QrYT+hjBEqq8gS9uuQlican1b2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382616;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ziZu9JiRnRxdCgL7BG+mZbEtW/lrPYvsJBgkZZ8k1+Y=;
-	b=vhYaerQYXYlsVZZTTngIGMMoxEDozxJOycRNi7Xyj68bixW5q3eEl1s7ifud0Dwi+Wxf
-	 NDyN+CtnZL3mVFiBOtTjTWMowBWyVVqFTGWSGF0jcB6j32WRNRtiFyQSkvaX93U3y/ZJr
-	 412t70fAfNcLRrarEa4SmYxjb7VOVjINFiKddx0ceGHPDmcchyJmQoQqstobNugQHDxV5
-	 CpwKUa2+wmoyyfdPmObxBrA5osgPXEYGBqfAm9+iwpIDxx7X1GGpTXMD92m3ysmmsMalK
-	 dkMerJvPhbG73izbly5sccronAGfqMVoUIPGVjVMeebEidODRqBIT196yFcjEyRUCVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qea2qAtR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.65
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.83.219
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794383190;
+	b=Yn+x5HCAyTYY0RrVCZoKm6CsUZxaok9tLVfgoIfICdS4A5NPc4Nmdr0+giwm0c6NT9zX
+	 Jz5ohMp6gH+dt/aWNs1eWHgkbIRqoYzyXNxKfmOamMX33+Oj0ySinnRVrndbA6th7QtFY
+	 ct5zDD8wHM5667FCa8y3v8ziPGDuYmawtzeD4hIs9WLzBGXFOOkhkzwy9evyz6vU9CGAF
+	 15ZPg4cUiW0xw2bNCKJm5OwrOfiqCuBhGK/i5eoyg8STL/L7M6i5RqUvGlqsfQN4EU3eJ
+	 FAaS6y/kKy2N8BKP41ZhiO5y+JWtzWrY6J7XVZUXFrGTSYe1w0oo3iMZvdt5ZLIPNXg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383190;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=c1VSYUCW8DjIZRH9cT9PKM8BeqoT2mVv/wXrHisLhI0=;
+	b=n01JEaUZ0UGvI7Xk6+1CIeoGRpDJth8pDtCgDMMl33HPdLpp5MssIttbWcg9cMl1tbk4
+	 zEqBerwXAE1uHNrv40L3dl6zbMFxVCLQYAP9sHHBNkLPb0zqZNQOd3ZlNYsukEFHaXRlc
+	 txK5QkScINMozIw8yqNH6gAjyZm5RX4pd30zmJfzvwYr3ghQ5TiGlfoHDJhtqG8LhGFwV
+	 4T/xBCaNKHsKrlNgvuBjaVYokcpSAv5LC4YM6RKvwxSMJCaUcgYg5jT47YgtXxA6ETSvi
+	 raEceQZj9tDJFg38y6Waj40iHmFxzyqft+fzJ79+nFF0P2V1NWd/kpyNG0Qo/Ot2vPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="DsS/fXyT";
+	arc=none smtp.remote-ip=156.224.83.219
+Received: from mail-m83219.xmail.ntesmail.com (mail-m83219.xmail.ntesmail.com [156.224.83.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DB6606A31C;
-	Wed, 11 Nov 2026 07:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0DB6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265B0606A31C;
+	Wed, 11 Nov 2026 07:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 265B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qea2qAtR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dDcwwZh94Wtcd8quL5yZaBHDeblP0WyWTtVGNDhGEnsmJi9c4nTFqzi31KGeSAv6g1H8HxD5JCFEENPM3eXbESzrfOvNR5/Fp09Y5/UPON/O2za0X9WWoTi26wJwVzR/l/brD4gok7obWe8xLRTPxjwHmKg+2/E37AmIsAODKS1oPeEB5ZCvNq92mYNb26+wmX20gp3A1is86fOOpYgN2rzGK8LZqF0zFbq2uf1ndswdzZ/RS8/+oynJiTKWDpdoXokdjZ5QWJWL72TGiICMa+u9jv8WP2Km5Zj8rlzciXlLA8AeCWZ1MQncJd2X95rPqXP5LFiVClnDrZFk37JF+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ziZu9JiRnRxdCgL7BG+mZbEtW/lrPYvsJBgkZZ8k1+Y=;
- b=oEx2BrLPCEcqIUPpzsc+rVnBw2ipvyfZldP3hwD+9lV+oWy9EN09mGRzIllaY2CD61zR9fUiIWkwCeSEyAzlBCrvQnCDKB12/yzeLQffxwEQmiTYaNqF6tyn8AijW9jclvfNnJ7v75zm7CN49+nCTRL9bLtK2s5iRoFw35i6rftV/2zaqJnFmBaVaSZWEwZSrTJxH1Lf7PSlcgTawTsVjXC4x+aRSqujpqodu1Ipi0jC1OXnif3LnounBqjXa7HVw1dagJfKyAO7XxVfKsS61dN8P33m7TpopHen6043RHKlL+Tull2QOicV8IpOUdppP2pSWUk2gEdYFLdT4WkL0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ziZu9JiRnRxdCgL7BG+mZbEtW/lrPYvsJBgkZZ8k1+Y=;
- b=Qea2qAtRoINGz1I+OL/PKBzx+9jOBMNOx3fe2/ACmzxuJU60NU1EpefhKb35EmRsgYnbj0KcOGZpSP07BWsfiT9tyqUUCWPzrM1LsrHXKTnwhOwfAEjQ2UndgHDu7N2kBp8XG79DU7AW7i4PQicLeR11TTISSJyXiiK7ffycE1g=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
- by CH1PR12MB9621.namprd12.prod.outlook.com (2603:10b6:610:2b2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 11 Nov
- 2026 07:36:53 +0000
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 07:36:53 +0000
-Message-ID: <b28e1ea5-4309-4e50-8097-528163711569@amd.com>
-Date: Wed, 11 Nov 2026 13:06:47 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 6/8] net: xilinx: tsn: add the endpoint RX
- data path
-To: sashiko-reviews@lists.linux.dev, Srinivas Neeli <srinivas.neeli@amd.com>
-Cc: devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20261016-patches_v2_external-v3-0-e33d3960ca1e@amd.com>
- <20261016-patches_v2_external-v3-6-e33d3960ca1e@amd.com>
- <sashiko-outbox-175444@kernel.org>
-Content-Language: en-US
-From: "Neeli, Srinivas" <srneeli@amd.com>
-In-Reply-To: <sashiko-outbox-175444@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0338.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21f::16) To SN7PR12MB8147.namprd12.prod.outlook.com
- (2603:10b6:806:32e::5)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=DsS/fXyT
+Received: from [172.16.12.11] (gyproxy-mailtls0-entmail-virt215.gy.ntes [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 544786367;
+	Wed, 11 Nov 2026 15:46:07 +0800 (GMT+08:00)
+Message-ID: <4043eb42-ce62-41ff-9a7d-d840bb90364d@rock-chips.com>
+Date: Wed, 11 Nov 2026 15:46:07 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,141 +48,197 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|CH1PR12MB9621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c76aa04-1b88-4ba7-7e2c-08df3fc68e50
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|11063799006|4143699003|261022105027099003|261022075727099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261009223027099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	XlPyqXi3MUO5vaA21DB/2Y6Juxi/cJdGlvSNbfzZeU25p2JEJ6aoLp4PBNT1ohI20fv+3S049jb0e6a11q6vyKQv582zX0c9m6/ubNZJWo7sEk5VtA+R5m1xw/40qBZ8JI32Ux4WxTfWOflqMM42b4Uzyfnp5GjIf79ExsC0af01DGoGb3iN7FJ9yVb/cPT/rfc0U5vYjmpwWy+9GSgI/BONbqlhxElhNvOZMfT4IAu9v4fxvgjs28S7GtJEirPuCIz8yku/qYixL497i6glguxWkn7jCAzbvfIkr1vmVo2OBf7xwzErB04RAJYVW/IuvPDsi5TR/iw2zls41CUWEDO6O0WkmNSt4qlOKRzbAsdaF/6WRg36iJe30xPxlR52CbPqCfy/sdrYzSAhhNU3jz7SDkFyXC/fm67JcIQ/t6qGKING6l0P+Zi2o8CEemZS7Ck6nim0doEEge/XKNpqKyrYgLAYLHknlQdBPBnO9iUzZf76jSk8mkaT6huBHRyCpwJA3EHWNzNbLIxtyg2Vk8a9KjGFmjdW4O5hPa0CBCB70gyXLC722Z2JkEETzXVXDvrijq8igTKtYQJKp7Vk/QqCw6snFvKLWn29+3igiqU5mi0mGUXFOCg5Lc/lledgN8BZUB1RNoGoj6I/VxORgS16jVLBQiQVlRDMEJFPnK8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(11063799006)(4143699003)(261022105027099003)(261022075727099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a0tFQm1sNy9DWXFPZllrdFNuU2FzTldaSkVGVjE3cVlrWkQxYkIrcVJ4N3BH?=
- =?utf-8?B?NFdseWFDNXRYOEF1M1RvYWFsd1dObll6Y2FieFNkR2JWQUFiVDJSTmd3eW53?=
- =?utf-8?B?WUhQZU9WVHhhOHcxWEtHS0ZlY1UwUnRZaXB6R3dpeGYrZTY0N1gvY0IwbFl3?=
- =?utf-8?B?WW9Bb3U1MVhhSnRQWDZndTArZjZjTENlMlh1M2pMdThGZFBUYjBuTEx4Nzhk?=
- =?utf-8?B?U2p3OGNIcy9SSFB3bW1tWEpmM3IxZXdUQkJrN0VBZ2cxRFZHbW82NHpYRFR1?=
- =?utf-8?B?QjhoSUhEWXI2RW1oUnBsWDRPNW9IOTZBWlhwUlFBenl3N1p4V3VWMThLRTBi?=
- =?utf-8?B?ZS8wWkpaWnEvVEdUeURXSnEwcVROS1BGTWlTVjZTUld1RnQ0Q3Ixbk9nRmc0?=
- =?utf-8?B?TmFpUzB2WVplNFZYd2xDK3ZTZEp3UUo0dDVmR1JwUHVBcW10THczQkZ4Wm8w?=
- =?utf-8?B?cGxpSHFQc2ZGcnpqaE9HTk5xVmpieDRxbklIaktiOVhXd3pvRTkxRCtNWnk0?=
- =?utf-8?B?enhubFJDT0RWUU4wQU1ERHhhOGZkVTFmaWlwK21kY1Nab3F1UG1MbnRDeGZr?=
- =?utf-8?B?Qk03dzc5RjlaamVEMHZIdzNsSFpDc1NOVHNiRTRySlBwMU9TSzFqNzljUUhS?=
- =?utf-8?B?RDVGWllsZjNQRnVocWxlQkUxbnRkenQyanVTaml4NEMxYlY0MXFmK2FGZTBO?=
- =?utf-8?B?M0NOQW9Cd0laQkU4UzR1ampTZkoxMTFWM1JSOUJFc2JEU05scHNldnd2T2hq?=
- =?utf-8?B?K0pENjcwa2pNajAyQm83cFRPQ3E2YitaUmwrQ1greWV3MWtuMTg0VG9UUmhv?=
- =?utf-8?B?ZWJhd09lczR6Ym9VM1VHM0cxWm9UdW4reVYzbEt3ak8raHhvUHpsTlc1Zmh2?=
- =?utf-8?B?MzE3MHpCRHhCNHNmM24vR3BMN1BxV3RjNFRYZ0M3M2Y1TWVPY1lvbmRRVzly?=
- =?utf-8?B?M21LSlg1aWt6ajBHMmphaU0xamJYbGQ3a3ZpejQzUlU5V0h4Z3JVak1sTU40?=
- =?utf-8?B?cW50TmJDVGVsR3R2emMyVk11RG9vT0pteHhzL2ZWU3c3WVJuakNvVS95cENl?=
- =?utf-8?B?ZkJIcFk1RnJTM2xKSGtFbmN6VmtkdUFVSmhkTzlvbHhmNHBIb1M2TEVkYlpO?=
- =?utf-8?B?SDM3UDhyRDJ0YkNEKzFYYkQ2NTVBSUJIZ2NuOE50TFp1N3dRZkpFZEFIbnpD?=
- =?utf-8?B?eEFYZVdiTTJBL0lWU0hvazEza0dPNzVBbXZwM2ZPSGUwVFdzYTlVVnhVbDJL?=
- =?utf-8?B?K2VCc0NxdVdOaEJoN1hBWkJlK1h3N0l6b09kcmw1c2ViUTFIVTZnTHozekUr?=
- =?utf-8?B?S3JROFpCV2N0WEh6d29IVVpmdnk2SWJrMWVXWVZHWEVrYWF2cnpLMExyMlZa?=
- =?utf-8?B?Z0pYRzNqL2xGRFJsTHVyK2N3U084VUFTOEYrSldvMmMvcGJicmVveENySmQ1?=
- =?utf-8?B?c01CMEtrOTNLTmxrbmtHcG1aNXduT0FrQ2tnYU1tM25NV0VOMWRIZkdkc3h1?=
- =?utf-8?B?NlhTbmdHYmJ2dU9adi9rNXl1VWtPV3RJS0ZMbEt6Y1FiY3IrYjhoaXJVZEtW?=
- =?utf-8?B?WXFnaTVTSTNhNkQyR0RYRTlhYlFFRkdCZlY2K2hsTklrNU5tL3B0Nmc1N0FV?=
- =?utf-8?B?SnpDbGRkWitnSWJYR2k5WndyQkE3LzBnZVVBSDR0eWZKVUR1Q1hoNkZyanVO?=
- =?utf-8?B?a1dEckcyUVhrU2RCQnpNTGF0YWQwa25yak1LRFZvUmpxTUJDd3UwcVR1Mklv?=
- =?utf-8?B?RlpuNUdXNE1pUXJ4UVl0R3BmRTlLTElNZ1VBa1ZscEpVY2xYMGZ0M0dwTHph?=
- =?utf-8?B?ZC91RithZ3ArUTVxRURRemFKaG0wdDdua1NNcHM2cGhOamxRNldlYkhWaTBl?=
- =?utf-8?B?ajNQeWNGNUNqem10cXJVdS9ud1drYXhmR2RBTnVTelV4YU8xNHNPNnFrSk9T?=
- =?utf-8?B?OW5Gd04yeXBtZldSUHBEeDRJbUJQVXk2ZTE5b0VDTWhvK0JZNG10RnZ2SUhZ?=
- =?utf-8?B?b0xDS0xXUnJtczIxc1BVNHFoVHdIenQ1T285dG5BK0h3Sng2K1NPbEZORGIv?=
- =?utf-8?B?ZWp6c09xbS82ZkdrQmFLbHl0TlZRSElGVHJXdSs5RldiTE1GRkVVMCtUaFRw?=
- =?utf-8?B?dmIvZnVaUW9EdWNwL3Z1YVdZcnZBRk5IS0lGYXVNRGNOS014a3RmYnY2ajBC?=
- =?utf-8?B?aXdaU2oyYjFzYmRicU9TNW9yWXlNVUxHTFVtc0tXVmhmMGc1ZGxDWllGRS8y?=
- =?utf-8?B?c29aLzQ4SmlkRGhrOXRmeGpOa3c3OS9UeDZISUFZZkVKNG9xZXoxR2wvTTUv?=
- =?utf-8?Q?vXUvtp/sytf9Nfy/DH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c76aa04-1b88-4ba7-7e2c-08df3fc68e50
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 07:36:53.4418
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J5nT3RCrRPzdpO5gXmZXrRpBClcKCMMQ7xjeuSqd7TQwc6KAFSM2t58O7p1mhROE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9621
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 09/16] pmdomain: rockchip: add optional per-domain
+ power-on settle delay
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ shawn.lin@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
+ leonard@lausen.nl, jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261108065917.135194-1-gahing@gahingwoo.com>
+ <20261108065917.135194-10-gahing@gahingwoo.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <20261108065917.135194-10-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c9923f9203a8kunm2dd9fb713a378a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU1IVh9CHRpNQh1NH0pLHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=DsS/fXyTLnDgYvp4+HkqNssTj/QM61Fo3GnodXNmaCRPr2KWX7UWDRpIfJDDkszxhbuKwJP9MLaKB2+aG2VRLw1doWXQEajCGSYqF1Zu2Ok6Z8JZ2525aVYsklSN7UjrZex71vfnr33sqgYx00j4eu0zWgq2vrGIHnuomDKY/V4=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=c1VSYUCW8DjIZRH9cT9PKM8BeqoT2mVv/wXrHisLhI0=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
 
-On 10/17/2026 3:04 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] net: out-of-bounds read of DMA metadata due to missing meta_len check
-> --
+在 2026/11/8 14:59, Jiaxing Hu 写道:
+> The RK3576 NPU power domains need some time to settle after the idle
+> request is released.
 >
-> commit 0ae3124fbc7145cd6d9f2c1314d8d1defc3b13e2
-> Author: Srinivas Neeli <srinivas.neeli@amd.com>
+> Without that wait, the QoS registers are written while the domain is not
+> fully up, and the first cold power-on raises an SError.
 >
-> net: xilinx: tsn: add the endpoint RX data path
+> Add an optional delay_us field and wait that long after releasing the
+> idle request and before restoring QoS.
 >
-> This commit adds the RX data path for the endpoint to start receiving frames.
-> It posts RX buffers to the channels and handles inbound frames in a completion
-> callback. It also serialises the RX refill process against the interface
-> teardown.
+> Rename the DOMAIN_M_O_R_G macro to DOMAIN_M_O_R_G_W.
 >
->> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
->> index ab3d6d8cb9440..0a13e04d40575 100644
->> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
->> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> [ ... ]
->> @@ -112,6 +135,181 @@ ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int idx)
->>   	return xchan->skb_ring[idx];
->>   }
->>   
-> [ ... ]
->> +static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
->> +{
-> [ ... ]
->> +	metadata = dmaengine_desc_get_metadata_ptr(skbuf_dma->desc,
->> +						   &meta_len,
->> +						   &meta_max_len);
->> +	if (IS_ERR_OR_NULL(metadata)) {
->> +		if (net_ratelimit())
->> +			dev_warn(ep->dev, "Failed to get RX metadata pointer\n");
->> +
->> +		dev_kfree_skb_any(skb);
->> +		DEV_STATS_INC(ndev, rx_dropped);
->> +		DEV_STATS_INC(ndev, rx_errors);
->> +		goto submit_new;
->> +	}
->> +
->> +	/* MCDMA metadata: [0] = status, [1] = sideband (TID/TDEST/TUSER), [2..] = app */
->> +	tuser = metadata[1] & TSN_TUSER_MASK;
->                   ^^^^^^^^^^^
+> The NPU power domain is switched off when the driver probes, so the first
+> power-on goes through this wait even when the bootloader left the NPU on.
 >
-> [Severity: Medium]
-> Could this result in an out-of-bounds read if the metadata array is too small?
+> With delay_us set to 0, an SError still happens even with the regulator
+> kept always on; with 15 us, 536 cold power-ons in a row are all clean.
 >
-> The driver gets the metadata pointer and its length via meta_len, but it only
-> validates the pointer using IS_ERR_OR_NULL(). There isn't a check to see if
-> meta_len is large enough before accessing metadata[1].
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> ---
+>   drivers/pmdomain/rockchip/pm-domains.c | 56 ++++++++++++++++----------
+>   1 file changed, 34 insertions(+), 22 deletions(-)
 >
-> If the DMA hardware or backend driver provides fewer than 8 bytes of metadata,
-> reading from metadata[1] might result in an out-of-bounds access. Should
-> there be a check that meta_len is at least 2 * sizeof(u32) before accessing
-> the array?
-   The length is fixed by the provider rather than by the frame. For MCDMA
-   xilinx_dma_get_metadata_ptr() returns
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index db3879846db6..e3cc60fa2277 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/of_address.h>
+>   #include <linux/of_clk.h>
+>   #include <linux/clk.h>
+> +#include <linux/delay.h>
+>   #include <linux/regmap.h>
+>   #include <linux/regulator/consumer.h>
+>   #include <linux/mfd/syscon.h>
+> @@ -59,6 +60,7 @@ struct rockchip_domain_info {
+>   	u32 pwr_offset;
+>   	u32 mem_offset;
+>   	u32 req_offset;
+> +	u32 delay_us;
+>   };
+>   
+>   struct rockchip_pmu_info {
+> @@ -185,7 +187,7 @@ struct rockchip_pmu {
+>   	.need_regulator = regulator,			\
+>   }
+>   
+> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
+> +#define DOMAIN_M_O_R_G_W(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, delay, wakeup, regulator)	\
+>   {							\
+>   	.name = _name,					\
+>   	.pwr_offset = p_offset,				\
+> @@ -200,8 +202,10 @@ struct rockchip_pmu {
+>   	.req_mask = (req),				\
+>   	.idle_mask = (idle),				\
+>   	.clk_ungate_mask = (g_mask),			\
+> +	.delay_us = (delay),				\
+>   	.ack_mask = (ack),				\
+>   	.active_wakeup = wakeup,			\
+> +	.need_regulator = regulator,			\
+>   }
+>   
+>   #define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
+> @@ -258,8 +262,11 @@ struct rockchip_pmu {
+>   #define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
+>   	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
+>   
+> -#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
+> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
+> +#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, delay, wakeup)	\
+> +	DOMAIN_M_O_R_G_W(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, delay, wakeup, false)
+> +
+> +#define DOMAIN_RK3576_R(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, delay, wakeup)	\
+> +	DOMAIN_M_O_R_G_W(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, delay, wakeup, true)
+>   
+>   /*
+>    * Dynamic Memory Controller may need to coordinate with us -- see
+> @@ -681,6 +688,10 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   		if (ret < 0)
+>   			goto out;
+>   
+> +		/* Some domains need to settle before the QoS registers answer. */
+> +		if (pd->info->delay_us)
+> +			udelay(pd->info->delay_us);
+> +
+>   		rockchip_pmu_restore_qos(pd);
+>   	}
+>   
+> @@ -1314,25 +1325,26 @@ static const struct rockchip_domain_info rk3568_pm_domains[] = {
+>   };
+>   
+>   static const struct rockchip_domain_info rk3576_pm_domains[] = {
+> -	[RK3576_PD_NPU]		= DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
+> -	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     false),
+> -	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  false),
+> -	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), false),
+> -	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  false),
+> -	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  false),
+> -	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  false),
+> -	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  true),
+> -	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
+> -	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
+> -	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
+> -	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
+> -	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
+> -	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    false),
+> -	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
+> -	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
+> -	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
+> +	/*                                            name    p_offset pwr      status  r_status r_offset req      idle     g_mask   delay wakeup */
+> +	[RK3576_PD_NPU]		= DOMAIN_RK3576_R("npu",  0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  0,    false),
+> +	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     0,    false),
+> +	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  0,    false),
+> +	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), 0,    false),
+> +	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  0,    false),
+> +	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  0,    false),
+> +	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  0,    false),
+> +	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  0,    true),
+> +	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  0,    false),
+> +	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   0,    false),
+> +	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  0,    false),
+> +	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  0,    false),
+> +	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  0,    false),
+> +	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    15,   false),
+> +	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    15,   false),
+> +	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    15,   false),
+> +	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  0,    false),
+>   };
 
-     *max_len = *payload_len = sizeof(seg->hw.s2mm_status) +
-sizeof(seg->hw.s2mm_sideband_status) +
-                               sizeof(seg->hw.app);
+1. The settle requirement is on the top-level NPUTOP domain only.
+    PD_NPU0 and PD_NPU1 do not need the delay: when a device is attached
+    to npu0/npu1, genpd powers the parent (nputop) first, and by the time
+    the child domain switches on, the settle time has long elapsed. Cold
+    power-on of npu0/npu1 without any delay has been clean in our
+    validation. You can just drop delay_us from both entries; keeping it
+    on nputop is enough.
 
-   which is 28 bytes, and the pointer starts at the status word, so index 1
-   is the sideband word and is always in range. A shorter payload is not
-   reachable, and the earlier IS_ERR_OR_NULL() already covers the case 
-where
-   the provider attaches no metadata_ops at all.
+2. The same failure mode exists on the display pipeline. PD_VOP needs a
+    15 us settle as well.Please add delay_us = 15 to RK3576_PD_VOP.
 
-Thanks
-Srinivas Neeli
+>   
+>   static const struct rockchip_domain_info rk3588_pm_domains[] = {
+
+-- 
+Best regards,
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
 
