@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384795;
-	b=axWHNF/uzT4o0n1QbFQio7ywt/ftl3lmyBPsEWxkc3yJahIdXCHOZ+6NFS9plT/K2EFd
-	 9s5d9jsXPR0RtMiWxqgeFUfole/MrBVS6XM/05DoA9sopEdnBnwzcgIE+hKw/o9Z7Wset
-	 OT3js7SaJy8DZFn7jC0jr3CSOf/cRaCXgOJJfb8EQuMhkhh/zOQ6m/NkQ5XDeTyOkI7RH
-	 IMWDTWkaD7uDo74FLHIFsUccg2AYfjGWf7GT9LKjpI3lT/zDQbMsiXEZZFeFm0zNLLrJP
-	 u/ScZfusYQmVl8J60LRmK+gy4LMCaO2kDTd2h8sM+e8+ORKvikAiI1KyHbV67qppJaA==
+	t=1794384876;
+	b=4zkFy/hpEjUSm4Q2Gw+KFpMAIb1OMVPKVDF06IWnHM4krgFcIaCceqgcZ7CBiPu56bcY
+	 kvHXUwfjozMDbXHDVop0dNssfjee/UULzbP/6k4DmkJrsmpjV5KTilFq+HGPAe7/BFVR1
+	 DWCOgfTA23zDZW2LSQSlSky59tuxnASN0szLneSfqPg31OiINhbQSSTxmD53ZQ3bmPaAO
+	 Cozrul6511MKPNroup5ww3WJN+B7uNhFwhxELmkEOWqYcdPhzY7RTfxCAhyEu/tSIIKZN
+	 4M1RoZd0+gJ3GqtIBUUUwGfRG3N8hShIixu0YquJ28+I0WZu7/qco+01LEBaK83XwiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384795;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9YStaXLmZqq8Mk73jV98wX9vee9O4AJUr3rQ079g0/w=;
-	b=2el9zUi+WPakow7vsS7gDqouFyNmpjZl03sViSzJnYqwirEYajyFccbCHeDPQx3UR72Z
-	 cp5TNhzUxvzLhlChgiz/YmCK3EUJIoETPbe8L59FyhyX0Y3Mk9DCTTm6gEGIIcfWe3IlV
-	 CPOuYMLNyq7Nq1f9+G1jez1e4mHJOB+eLIotAhmBrnTQraggi6YpU4uXZNr42f9NZa2u7
-	 gWa+PDMXCRfRXkFcNZ+LfP6v0s96kDcs7RPY0rycWP0pC4kZEGURxwxbkKtiH2UUNOKb2
-	 Jw/GUhlF6TxcUnvMEdU8g6XFmV7B5xmm3a5Qrz2jfhAFlIJkRTW3xyILTnCneF8Vdbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384876;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=E+C8d3Do3w1qPf4bAwCdmsKgcCvZnfIixJM7CpZJlBYYGQU63/zbhegGBNWJ+kgEzE0r
+	 yV0Pby/yL6WB/1oMPMq2u14syUmJC91YGagc0JLAuxhPlKfZ9p72lR4mE4pbLGNcBxwT6
+	 CSAPxg2opk5+7AZZa3kBpq6q4daunYbLoWhMRuD6ta/QQzZShOS4mTk2ZcGTGqqSmj9Rj
+	 +0lZcFz/PfRjztZbO+k9EP5e8CG/wQ98IZC1ZCPOq2Q/XKF5jPRUXUneJ45VSqzZYI99N
+	 Q5qVRzR5dHTmj6MhbIf7/P2NddIC2MC3wWFttyE5Wk6vNc8GrAZZnir/kJ7IKDo8gxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bytesatwork.ch;
-	spf=pass smtp.mailfrom=bytesatwork.ch;
-	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aT1Jicm3;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACknxjPd;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="X4/X251s";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B455B60A380F
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B455B60A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bytesatwork.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytesatwork.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969E9606A908;
+	Wed, 11 Nov 2026 08:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969E9606A908
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aT1Jicm3
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so35155805e9.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 00:13:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794384793; x=1794989593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9YStaXLmZqq8Mk73jV98wX9vee9O4AJUr3rQ079g0/w=;
-        b=aT1Jicm3sHzTX8p1TOELgrXLYpjd4evTQuBc/SYETNH20j8pmfU3DM0SA1QRI/X00j
-         LcquPfxozYMnUc/ltRb4aJn/bjqZtBVel6YCYZRQjQcoKD+olfEjxv9hu9eGSd2xjMGl
-         EuOeehPbjXmMEC0rEGwuvx2Sm3mkFXk+rruwTi8tJEIH2m0GXIMUoT/RxQJEw4n/mGEX
-         GRqWMiOinTdFLQOLeaZ7nbgbbbnxm3qhCazTDyOrdXO3HGVT4vOJtKWBEbpGgA6hEehn
-         TRsK2lP+O5cvDYrN0NFdj6O+FDZPs9zPt4IdNl70e1muLgss4psGsg9R77lGvjXLRToT
-         zbBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384793; x=1794989593;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9YStaXLmZqq8Mk73jV98wX9vee9O4AJUr3rQ079g0/w=;
-        b=DWgsP9/6hs+aPhLZLEn7LO8AvbC+fejVAAjTS65nfSuJmFzdGyxv+fS2IFhXgqlddl
-         WVWG6rKJbdjMCn8N+gQvaoDxERK1jsmzshCiLKX40A272Iz7ETTlY+vU9qa6vdrEiZMu
-         H25KD1eheiejOjrps2WAKRgzZf2BZihcGe12zEgyMZeWeVAP+1fhwGVQLJQf8EWlkeXi
-         DgHkWJ/GrUa7oy5rBm1HGlhl7AtkgT1MmdL+iZB5GMvE3rQyBAFcSAh0frPSEYOOiCVl
-         RvrCyFm8q2cJLB1G88p6EyxBP/4PkYcEan0Gs2a+S5cbuzw7avJdPRQMpEhUcazv7+ay
-         3F2g==
-X-Forwarded-Encrypted: i=1; AL+hErGdlvczo94K4Eyw3XPT1jomEl5OKdt7XSfdMkW6SfsoPVDOhuGAGaHgh/P6S2DYohSGoSfwnYpkVpgY@vger.kernel.org
-X-Gm-Message-State: APuU4Z9j+Y0ImNF6Ar4fzK6ZNP8AUFyvTZS9HjpNVzgHzB1Bt9CzR/WX
-	TWjhQvgkHfdmxfNh7NQEo9sN2Z689PwH+icGBkfCu2xomFRfQclwYjdiCuQb3SA5ioa5tWjMrAD
-	qSlvnRQs=
-X-Gm-Gg: AYBFou0/L+yxKsEb0nTl1VAGyjYA+W/qjGF3k98o3KMxO6sRjxnRFOWTV/D6GAl6AnM
-	206LV/Huqeo7qLYkCMeGmjC6tKNZTA4ZfHJAueFxZIEvWPs+WT5Zkg2B5ixKuTalx78i8/6jcNN
-	ZQ0+Ck2vXKx9yyRlD//EWlf+1uwFbqV+OuXHP56gbaw9RYJFDqqUgturxkQfDEof07EULTGORN8
-	cPOf9n5xTkrBFm/DvRcdy/iob2c3Y6YJ43S7B1QD0d3mKt8kLILrY2ENXKj/j/nx4tU08/G+SL5
-	/Ky6qN/Si44xcZvj1YCUkPwWRyDHy7XH+KfYf9cHebNYPrAEjSURLdmXWecoFFcBvNdSHzhV5y6
-	55PGjGiQLlCFXfGHvw1dyAy1PXV4r8j5ZbuQwuQBwkN9bZIWzNxyF15xuah3Kek1F2edM4eMeEC
-	FHsPbBDaKBck5n8hA2+2EeXFwFTMK4JNipXEhonlxQyEBapheSx+U4erog67ncRvBBMdPsfTwlO
-	gXOAA9azXzLbsLAqAuaxXqWF7fJRjGF0j5eAddf5bX4tvL7ZviXTui+I7hOpszY2EobL9rS6ulg
-	CpEtucHJnXzjlfP0mlbjI08VTkyEaadWVH3P67fbotXaBBIkwwRlOU7JWSqtELrfaemHFDieeCN
-	uhbcq8wVgfA==
-X-Received: by 2002:a05:600c:1f93:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ba0938124fmr32566665e9.16.1794384793014;
-        Wed, 11 Nov 2026 00:13:13 -0800 (PST)
-Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net. [83.150.40.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02242bd9sm113233815e9.15.2026.11.11.00.13.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:13:12 -0800 (PST)
-From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
-To: Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Alexander Forsch <alexander.forsch@bytesatwork.ch>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH v2 5/5] arm64: dts: freescale: Add support for bytesatwork i.MX93
-Date: Wed, 11 Nov 2026 09:11:50 +0100
-Message-ID: <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
-References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACknxjPd;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=X4/X251s
+Date: Wed, 11 Nov 2026 09:14:32 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794384873;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=ACknxjPdebw24cai+wRztA8YbfoiKGH3lQps7QtppIkCXFbDZttO0oQ+Fq8N2YUBZqPW9G
+	Y4aubWBAQWvDF1wFF92KqdWYYr/2ApOPKWwgwXV/tODBz6VYc4ttmhXo3aX9gIIZ7lSduP
+	1A9NfjHHwda+nlZFatWBY9BYEOLfaAzUy0Duu8C/AF9MRzfcFDIr2wp1QXwuuRmb89PnN9
+	PR4viPPL+Z2kcAiUW+mEGxbNGjTVSiFV5WYCtlcUBX3y7LolQYNhdgT2KDWUhNq3YJl8JM
+	dxv9A7pLPrSClMBbFHhJRk4NdMODVuLqL6pdVQ3Kzcc3pfgFa3ZAOkqMiOgfgQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794384873;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=X4/X251s/ZiAX1MjcpLjNyXXGutSoNKv4fi+XLSCARWmJ0XzxrdyH8IPU7sWh1u5YZ4/gN
+	p9DApfiwFN5dagDQ==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v9 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
+Message-ID: <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
+ <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,711 +83,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
 
-Add support for the bytesatwork i.MX93 byteENGINE OSM module
-placed on the byteDEVKIT.
+On Wed, Nov 11, 2026 at 09:02:19AM +0100, Krzysztof Kozlowski wrote:
+> On 11/11/2026 08:23, Gregor Herburger wrote:
+> > Hi,
+> > 
+> > This series adds support for the Raspberry Pis OTP registers. The
+> > Raspberry Pi has one or more OTP regions. These registers are accessible
+> > through the firmware. Add a driver for it and add updates the devicetree
+> > for the Raspberry Pi 5.
+> > 
+> > ---
+> > Changes in v9:
+> > - Fix sashiko comment and use fwbuf->count instead of bytes in memcpy
+> > - Link to v8: https://patch.msgid.link/20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de
+> > 
+> 
+> Big series sent three times within last 24 h. Please slow down and give
+> people chance to review your work.
+I sent v7 with a missing commit and based on an wrong commit so Sashiko could
+not apply the series. Sashiko found an issue in v8 so I tried to fix it in v9.
 
-Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
----
- MAINTAINERS                                   |   7 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../boot/dts/freescale/imx93-bytedevkit.dts   | 449 ++++++++++++++++++
- .../boot/dts/freescale/imx93-byteengine.dtsi  | 199 ++++++++
- 4 files changed, 656 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
+I have the impression people are not reviewing stuff as long as sashiko has
+issues. So I wanted to fix those things quick.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..ba51f625ddad 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5877,6 +5877,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/can/st,stm32-bxcan.yaml
- F:	drivers/net/can/bxcan.c
- 
-+BYTESATWORK MODULES AND BOARDS
-+M:	Alexander Forsch <alexander.forsch@bytesatwork.ch>
-+M:	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-+S:	Maintained
-+F:	arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
-+F:	arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
-+
- C-MEDIA CMI8788 DRIVER
- M:	Clemens Ladisch <clemens@ladisch.de>
- L:	linux-sound@vger.kernel.org
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb5..0a7eb69ef76e 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -898,6 +898,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-11x11-frdm-pixpaper.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-14x14-evk.dtb
- imx93-14x14-evk-mqs-dtbs += imx93-14x14-evk.dtb imx9-mqs.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx93-14x14-evk-mqs.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-bytedevkit.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-kontron-bl-osm-s.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-lino-verdin-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-lino-verdin-dev.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts b/arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
-new file mode 100644
-index 000000000000..cb5d17c8444c
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
-@@ -0,0 +1,449 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 bytesatwork AG
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/net/ti-dp83867.h>
-+#include "imx93-byteengine.dtsi"
-+
-+/ {
-+	model = "bytesatwork byteDEVKIT i.MX93";
-+	compatible = "bytesatwork,bytedevkit-imx93", "bytesatwork,byteengine-imx93", "fsl,imx93";
-+
-+	aliases {
-+		serial0 = &lpuart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reg_vdd_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_vdd_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_vref_1v8: regulator-adc-vref {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vref_1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
-+		off-on-delay-us = <12000>;
-+		enable-active-high;
-+	};
-+
-+	reg_usb2_vbus: regulator-vbus {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_usb2>;
-+		regulator-name = "USB2_VBUS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio2 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	lcd_bl: backlight-lvds {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_lvds_backlight>;
-+		compatible = "gpio-backlight";
-+		gpios = <&gpio2 26 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+
-+	mipi_bl: backlight-mipi {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_mipi_backlight>;
-+		compatible = "gpio-backlight";
-+		gpios = <&gpio3 26 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+};
-+
-+&adc1 {
-+	vref-supply = <&reg_vref_1v8>;
-+	status = "okay";
-+};
-+
-+&eqos {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&pinctrl_eqos>;
-+	pinctrl-1 = <&pinctrl_eqos_sleep>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy_qos>;
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		clock-frequency = <5000000>;
-+
-+		ethphy_qos: ethernet-phy@0 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <0>;
-+			enet-phy-lane-no-swap;
-+			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-+			ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-+			tx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-+			ti,dp83867-rxctrl-strap-quirk;
-+			ti,clk-output-sel = <DP83867_CLK_O_SEL_OFF>;
-+		};
-+	};
-+};
-+
-+&fec {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&pinctrl_fec>;
-+	pinctrl-1 = <&pinctrl_fec_sleep>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy_fec>;
-+	fsl,magic-packet;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		clock-frequency = <5000000>;
-+
-+		ethphy_fec: ethernet-phy@c {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <0xc>;
-+			enet-phy-lane-no-swap;
-+			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-+			ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-+			tx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-+			ti,dp83867-rxctrl-strap-quirk;
-+			ti,clk-output-sel = <DP83867_CLK_O_SEL_OFF>;
-+		};
-+	};
-+};
-+
-+&lpi2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&pinctrl_lpi2c1>;
-+	pinctrl-1 = <&pinctrl_lpi2c1>;
-+	status = "disabled";
-+
-+	/* LVDS Touch */
-+	touchscreen@5d {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_lvds_touch>;
-+		compatible = "goodix,gt911";
-+		reg = <0x5d>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <20 IRQ_TYPE_LEVEL_LOW>;
-+		irq-gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
-+		touchscreen-inverted-x;
-+		touchscreen-inverted-y;
-+	};
-+};
-+
-+&lpi2c2 {
-+	/* Mipi Touch */
-+	touchscreen@5d {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_mipi_touch>;
-+		compatible = "goodix,gt911";
-+		reg = <0x5d>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <21 IRQ_TYPE_LEVEL_LOW>;
-+		irq-gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&lpuart1 { /* console */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&media_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&usbotg2 {
-+	dr_mode = "host";
-+	vbus-supply = <&reg_usb2_vbus>;
-+	disable-over-current;
-+	status = "okay";
-+};
-+
-+&usbotg1 {
-+	dr_mode = "host";
-+	disable-over-current;
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-3 = <&pinctrl_usdhc2_sleep>, <&pinctrl_usdhc2_gpio_sleep>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	bus-width = <4>;
-+	status = "okay";
-+	no-sdio;
-+	no-mmc;
-+};
-+
-+&dsi {
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "youritech,et050fw01-kt", "ilitek,ili9806e";
-+		reg = <0>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_panel_reset>;
-+		backlight = <&mipi_bl>;
-+		reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
-+		vdd-supply = <&reg_vdd_3v3>;
-+		vccio-supply = <&reg_vdd_1v8>;
-+
-+		port {
-+			panel_mipi_in: endpoint {
-+				remote-endpoint = <&dsi_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi_out_port {
-+	dsi_out: endpoint {
-+		remote-endpoint = <&panel_mipi_in>;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_eqos: eqos-grp {
-+		fsl,pins = <
-+			MX93_PAD_ENET1_MDC__ENET_QOS_MDC			0x57e
-+			MX93_PAD_ENET1_MDIO__ENET_QOS_MDIO			0x57e
-+			MX93_PAD_ENET1_RD0__ENET_QOS_RGMII_RD0			0x57e
-+			MX93_PAD_ENET1_RD1__ENET_QOS_RGMII_RD1			0x57e
-+			MX93_PAD_ENET1_RD2__ENET_QOS_RGMII_RD2			0x57e
-+			MX93_PAD_ENET1_RD3__ENET_QOS_RGMII_RD3			0x57e
-+			MX93_PAD_ENET1_RXC__CCM_ENET_QOS_CLOCK_GENERATE_RX_CLK	0x5fe
-+			MX93_PAD_ENET1_RX_CTL__ENET_QOS_RGMII_RX_CTL		0x57e
-+			MX93_PAD_ENET1_TD0__ENET_QOS_RGMII_TD0			0x57e
-+			MX93_PAD_ENET1_TD1__ENET_QOS_RGMII_TD1			0x57e
-+			MX93_PAD_ENET1_TD2__ENET_QOS_RGMII_TD2			0x57e
-+			MX93_PAD_ENET1_TD3__ENET_QOS_RGMII_TD3			0x57e
-+			MX93_PAD_ENET1_TXC__CCM_ENET_QOS_CLOCK_GENERATE_TX_CLK	0x5fe
-+			MX93_PAD_ENET1_TX_CTL__ENET_QOS_RGMII_TX_CTL		0x57e
-+		>;
-+	};
-+
-+	pinctrl_eqos_sleep: eqosgrpsleep-grp {
-+		fsl,pins = <
-+			MX93_PAD_ENET1_MDC__GPIO4_IO00			0x31e
-+			MX93_PAD_ENET1_MDIO__GPIO4_IO01			0x31e
-+			MX93_PAD_ENET1_RD0__GPIO4_IO10			0x31e
-+			MX93_PAD_ENET1_RD1__GPIO4_IO11			0x31e
-+			MX93_PAD_ENET1_RD2__GPIO4_IO12			0x31e
-+			MX93_PAD_ENET1_RD3__GPIO4_IO13			0x31e
-+			MX93_PAD_ENET1_RXC__GPIO4_IO09			0x31e
-+			MX93_PAD_ENET1_RX_CTL__GPIO4_IO08		0x31e
-+			MX93_PAD_ENET1_TD0__GPIO4_IO05			0x31e
-+			MX93_PAD_ENET1_TD1__GPIO4_IO04			0x31e
-+			MX93_PAD_ENET1_TD2__GPIO4_IO03			0x31e
-+			MX93_PAD_ENET1_TD3__GPIO4_IO02			0x31e
-+			MX93_PAD_ENET1_TXC__GPIO4_IO07			0x31e
-+			MX93_PAD_ENET1_TX_CTL__GPIO4_IO06		0x31e
-+		>;
-+	};
-+
-+	pinctrl_fec: fec-grp {
-+		fsl,pins = <
-+			MX93_PAD_ENET2_MDC__ENET1_MDC			0x57e
-+			MX93_PAD_ENET2_MDIO__ENET1_MDIO			0x57e
-+			MX93_PAD_ENET2_RD0__ENET1_RGMII_RD0		0x57e
-+			MX93_PAD_ENET2_RD1__ENET1_RGMII_RD1		0x57e
-+			MX93_PAD_ENET2_RD2__ENET1_RGMII_RD2		0x57e
-+			MX93_PAD_ENET2_RD3__ENET1_RGMII_RD3		0x57e
-+			MX93_PAD_ENET2_RXC__ENET1_RGMII_RXC		0x5fe
-+			MX93_PAD_ENET2_RX_CTL__ENET1_RGMII_RX_CTL	0x57e
-+			MX93_PAD_ENET2_TD0__ENET1_RGMII_TD0		0x57e
-+			MX93_PAD_ENET2_TD1__ENET1_RGMII_TD1		0x57e
-+			MX93_PAD_ENET2_TD2__ENET1_RGMII_TD2		0x57e
-+			MX93_PAD_ENET2_TD3__ENET1_RGMII_TD3		0x57e
-+			MX93_PAD_ENET2_TXC__ENET1_RGMII_TXC		0x5fe
-+			MX93_PAD_ENET2_TX_CTL__ENET1_RGMII_TX_CTL	0x57e
-+		>;
-+	};
-+
-+	pinctrl_fec_sleep: fecsleep-grp {
-+		fsl,pins = <
-+			MX93_PAD_ENET2_MDC__GPIO4_IO14			0x51e
-+			MX93_PAD_ENET2_MDIO__GPIO4_IO15			0x51e
-+			MX93_PAD_ENET2_RD0__GPIO4_IO24			0x51e
-+			MX93_PAD_ENET2_RD1__GPIO4_IO25			0x51e
-+			MX93_PAD_ENET2_RD2__GPIO4_IO26			0x51e
-+			MX93_PAD_ENET2_RD3__GPIO4_IO27			0x51e
-+			MX93_PAD_ENET2_RXC__GPIO4_IO23			0x51e
-+			MX93_PAD_ENET2_RX_CTL__GPIO4_IO22		0x51e
-+			MX93_PAD_ENET2_TD0__GPIO4_IO19			0x51e
-+			MX93_PAD_ENET2_TD1__GPIO4_IO18			0x51e
-+			MX93_PAD_ENET2_TD2__GPIO4_IO17			0x51e
-+			MX93_PAD_ENET2_TD3__GPIO4_IO16			0x51e
-+			MX93_PAD_ENET2_TXC__GPIO4_IO21			0x51e
-+			MX93_PAD_ENET2_TX_CTL__GPIO4_IO20		0x51e
-+		>;
-+	};
-+
-+	pinctrl_lpi2c1: lpi2c1-grp {
-+		fsl,pins = <
-+			MX93_PAD_I2C1_SCL__LPI2C1_SCL		0x40000b9e
-+			MX93_PAD_I2C1_SDA__LPI2C1_SDA		0x40000b9e
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1-grp {
-+		fsl,pins = <
-+			MX93_PAD_UART1_RXD__LPUART1_RX		0x31e
-+			MX93_PAD_UART1_TXD__LPUART1_TX		0x31e
-+		>;
-+	};
-+
-+	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmc-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_RESET_B__GPIO3_IO07	0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2gpio-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CD_B__GPIO3_IO00		0x31e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_gpio_sleep: usdhc2gpiosleep-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CD_B__GPIO3_IO00		0x51e
-+		>;
-+	};
-+
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc2: usdhc2-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CLK__USDHC2_CLK		0x1582
-+			MX93_PAD_SD2_CMD__USDHC2_CMD		0x40001382
-+			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x40001382
-+			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x40001382
-+			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x40001382
-+			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x40001382
-+			MX93_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
-+		>;
-+	};
-+
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhz-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CLK__USDHC2_CLK		0x158e
-+			MX93_PAD_SD2_CMD__USDHC2_CMD		0x4000138e
-+			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x4000138e
-+			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x4000138e
-+			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x4000138e
-+			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x4000138e
-+			MX93_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
-+		>;
-+	};
-+
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhz-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CLK__USDHC2_CLK		0x15fe
-+			MX93_PAD_SD2_CMD__USDHC2_CMD		0x400013fe
-+			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x400013fe
-+			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x400013fe
-+			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x400013fe
-+			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x400013fe
-+			MX93_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_sleep: usdhc2sleep-grp {
-+		fsl,pins = <
-+			MX93_PAD_SD2_CLK__GPIO3_IO01		0x51e
-+			MX93_PAD_SD2_CMD__GPIO3_IO02		0x51e
-+			MX93_PAD_SD2_DATA0__GPIO3_IO03		0x51e
-+			MX93_PAD_SD2_DATA1__GPIO3_IO04		0x51e
-+			MX93_PAD_SD2_DATA2__GPIO3_IO05		0x51e
-+			MX93_PAD_SD2_DATA3__GPIO3_IO06		0x51e
-+			MX93_PAD_SD2_VSELECT__GPIO3_IO19	0x51e
-+		>;
-+	};
-+
-+	pinctrl_usb2: usb2-grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO18__GPIO2_IO18		0x31e
-+		>;
-+	};
-+
-+	pinctrl_lvds_backlight: lvds-backlight-grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO26__GPIO2_IO26		0x31e	/* LVDS Backlight */
-+		>;
-+	};
-+
-+	pinctrl_lvds_touch: lvds-touch-grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO20__GPIO2_IO20		0x31e	/* LVDS Touch INT */
-+			MX93_PAD_GPIO_IO21__GPIO2_IO21		0x31e	/* LVDS Touch RST */
-+		>;
-+	};
-+
-+	pinctrl_mipi_touch: mipi-touch-grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO21__GPIO2_IO21		0x31e	/* MIPI Touch INT */
-+			MX93_PAD_GPIO_IO20__GPIO2_IO20		0x31e	/* MIPI Touch RST */
-+		>;
-+	};
-+
-+	pinctrl_panel_reset: panel-reset-grp {
-+		fsl,pins = <
-+			MX93_PAD_GPIO_IO10__GPIO2_IO10		0x31e	/* MIPI Reset */
-+		>;
-+	};
-+
-+	pinctrl_mipi_backlight: mipi-backlight-grp {
-+		fsl,pins = <
-+			MX93_PAD_CCM_CLKO1__GPIO3_IO26		0x31e	/* MIPI Backlight */
-+		>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi b/arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
-new file mode 100644
-index 000000000000..b97e9d508897
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
-@@ -0,0 +1,199 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 bytesatwork AG
-+ */
-+
-+#include "imx93.dtsi"
-+
-+/ {
-+	model = "bytesatwork byteENGINE i.MX93";
-+	compatible = "bytesatwork,byteengine-imx93", "fsl,imx93";
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ele_reserved: ele-reserved@a4120000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0xa4120000 0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&mu1 {
-+	status = "okay";
-+};
-+
-+&mu2 {
-+	status = "okay";
-+};
-+
-+&lpi2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&pinctrl_lpi2c2>;
-+	pinctrl-1 = <&pinctrl_lpi2c2>;
-+	status = "okay";
-+
-+	pmic@25 {
-+		compatible = "nxp,pca9451a";
-+		reg = <0x25>;
-+
-+		regulators {
-+			buck1: BUCK1 {
-+				regulator-name = "BUCK1";
-+				regulator-min-microvolt = <650000>;
-+				regulator-max-microvolt = <2237500>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+				regulator-ramp-delay = <3125>;
-+			};
-+
-+			buck2: BUCK2 {
-+				regulator-name = "BUCK2";
-+				regulator-min-microvolt = <600000>;
-+				regulator-max-microvolt = <2187500>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+				regulator-ramp-delay = <3125>;
-+			};
-+
-+			buck4: BUCK4 {
-+				regulator-name = "BUCK4";
-+				regulator-min-microvolt = <600000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+
-+			buck5: BUCK5 {
-+				regulator-name = "BUCK5";
-+				regulator-min-microvolt = <600000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+
-+			buck6: BUCK6 {
-+				regulator-name = "BUCK6";
-+				regulator-min-microvolt = <600000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+
-+			ldo1: LDO1 {
-+				regulator-name = "LDO1";
-+				regulator-min-microvolt = <1600000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+
-+			ldo4: LDO4 {
-+				regulator-name = "LDO4";
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+
-+			ldo5: LDO5 {
-+				regulator-name = "LDO5";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+		};
-+	};
-+
-+	/* I2C IOexpander */
-+	tca6418e: gpio@34 {
-+		compatible = "ti,tca6418";
-+		reg = <0x34>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <10 IRQ_TYPE_EDGE_FALLING>;
-+	};
-+};
-+
-+&usdhc1 {
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	bus-width = <8>;
-+	non-removable;
-+	status = "okay";
-+};
-+
-+&wdog3 {
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc1: usdhc1grp {
-+		fsl,pins = <
-+			MX93_PAD_SD1_CLK__USDHC1_CLK		0x1582
-+			MX93_PAD_SD1_CMD__USDHC1_CMD		0x40001382
-+			MX93_PAD_SD1_DATA0__USDHC1_DATA0	0x40001382
-+			MX93_PAD_SD1_DATA1__USDHC1_DATA1	0x40001382
-+			MX93_PAD_SD1_DATA2__USDHC1_DATA2	0x40001382
-+			MX93_PAD_SD1_DATA3__USDHC1_DATA3	0x40001382
-+			MX93_PAD_SD1_DATA4__USDHC1_DATA4	0x40001382
-+			MX93_PAD_SD1_DATA5__USDHC1_DATA5	0x40001382
-+			MX93_PAD_SD1_DATA6__USDHC1_DATA6	0x40001382
-+			MX93_PAD_SD1_DATA7__USDHC1_DATA7	0x40001382
-+			MX93_PAD_SD1_STROBE__USDHC1_STROBE	0x1582
-+		>;
-+	};
-+
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-+		fsl,pins = <
-+			MX93_PAD_SD1_CLK__USDHC1_CLK		0x158e
-+			MX93_PAD_SD1_CMD__USDHC1_CMD		0x4000138e
-+			MX93_PAD_SD1_DATA0__USDHC1_DATA0	0x4000138e
-+			MX93_PAD_SD1_DATA1__USDHC1_DATA1	0x4000138e
-+			MX93_PAD_SD1_DATA2__USDHC1_DATA2	0x4000138e
-+			MX93_PAD_SD1_DATA3__USDHC1_DATA3	0x4000138e
-+			MX93_PAD_SD1_DATA4__USDHC1_DATA4	0x4000138e
-+			MX93_PAD_SD1_DATA5__USDHC1_DATA5	0x4000138e
-+			MX93_PAD_SD1_DATA6__USDHC1_DATA6	0x4000138e
-+			MX93_PAD_SD1_DATA7__USDHC1_DATA7	0x4000138e
-+			MX93_PAD_SD1_STROBE__USDHC1_STROBE	0x158e
-+		>;
-+	};
-+
-+	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		fsl,pins = <
-+			MX93_PAD_SD1_CLK__USDHC1_CLK		0x15fe
-+			MX93_PAD_SD1_CMD__USDHC1_CMD		0x400013fe
-+			MX93_PAD_SD1_DATA0__USDHC1_DATA0	0x400013fe
-+			MX93_PAD_SD1_DATA1__USDHC1_DATA1	0x400013fe
-+			MX93_PAD_SD1_DATA2__USDHC1_DATA2	0x400013fe
-+			MX93_PAD_SD1_DATA3__USDHC1_DATA3	0x400013fe
-+			MX93_PAD_SD1_DATA4__USDHC1_DATA4	0x400013fe
-+			MX93_PAD_SD1_DATA5__USDHC1_DATA5	0x400013fe
-+			MX93_PAD_SD1_DATA6__USDHC1_DATA6	0x400013fe
-+			MX93_PAD_SD1_DATA7__USDHC1_DATA7	0x400013fe
-+			MX93_PAD_SD1_STROBE__USDHC1_STROBE	0x15fe
-+		>;
-+	};
-+
-+	pinctrl_lpi2c2: lpi2c2grp {
-+		fsl,pins = <
-+			MX93_PAD_I2C2_SCL__LPI2C2_SCL		0x40000b9e
-+			MX93_PAD_I2C2_SDA__LPI2C2_SDA		0x40000b9e
-+			MX93_PAD_PDM_BIT_STREAM1__GPIO1_IO10	0x1280
-+		>;
-+	};
-+};
+Anyway I will wait a bit with the next revision.
+> 
+> Best regards,
+> Krzysztof
+
 -- 
-2.47.3
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
+
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
