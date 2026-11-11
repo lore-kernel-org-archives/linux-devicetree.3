@@ -1,137 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402186;
-	b=jcBESZdOhRAB4HFJaQj0n42D0nrDRCE+6ryrKUgZX/E/QgLGdbiWyKdktGbiTCOfrlh7
-	 5loxRZgHMB73Ij1a8IC7Sc0Wejiwac4NYILQJ8I3jI7CtAXCAuPJPskMFwcCa1KAOgpEK
-	 0SCO1SEWjKuF6J3rPPY1JKR9dW4IBjwLPk5agj/vC1CXE0ggJQ9uSMroDqyS09hJpiwN8
-	 X5m7tHh4Ft3mkIE9Kai12igBD7Z59HhubhMYDsgKcZA1BsmBiGuzhzOy+99JVRAGzxyen
-	 iOih6iCNBEs+XirU4PoZ9KUjydTA3EIG49fP2RookJeT2jYuB09mY5/aKeSUGNWrVBw==
+	t=1794402238;
+	b=LeO7StZam6DcYxyBvXi6u6yVycoNqebv1EQXO7ymTkHYpoT50QBeB9D9C5OLgRuGJP2f
+	 N9bhrlddqsF5kSuOq1b1rXH+Zd+6qEu8BdRd8HVJZ4DHV9pc1Sa0MYaVufx0fBzOiuKe8
+	 /AsR7MR329gmR0TYmBDSTlX+UGX4Fzpl0qvXT4x8n/glJKab44dQWwaGlWEcsEAFgvS7A
+	 EDUxEEG/NsbNnje/rq9V26oRhiD3V74Ke3Dhz8YLJgSK6992w/ZgRT1agpRF1g/XRg21e
+	 ehn+8371WHU0BwCYzOpyzvsYf60eX9lHSC0ZYc8AfEocLmHZjstNZmgoNi/U//BTDPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402186;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=L8WR9+GG2EfUF3UrFaA4c5ksUoCcRyLK8GiwEhxkvFI=;
-	b=SiLTyc1dt22OB9PkoIvKwsfBYsXubbETmzew/joaODko2fsnHrKfnxaITLFLUcrXzNC7
-	 BnFXjQ0ihKIVZPryTg9bhfRe/+532E6PEg+IYy51rIhh7StbvgJdM3Mrlc1JpcrbqxgFP
-	 soFsCSMPhaQ5Ci/2PvPJWqpdEugHmoskUceDprXbb7/t4dXumsIST/IaaqswV6ZXj5WKU
-	 hLkpMqEeUoqENX4EOxqtu6JiLFMZjdy145+vyQ7B4ZsQguEISqK0P+kvO3a8Iu9p8vYaL
-	 aJfmxi163eglV6RjNRHqewSFKb+hN1N1Q9vEeV4kHaatvdJKWiNCR/VqLbeXb8Ig3JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402238;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AWaIRPGVBwDKyVXL8rFvxOr7TIsCYjaMi2R2yUDvOKI=;
+	b=PMaSjUVQLNh+CSQXe3g8zJ3RSuRbrdtiSl+GLLxgOmB3BdwlbDfAo9MFZv2dnldo0umy
+	 OQNDyFFw/Huq/c2hkKflm1bnTHz6C+ld7zp5SXIY8uroKLyr5yw1vOwQ9BtSKZQ+FK4Nf
+	 iX7CHF0v7eRYHzzcCy9ZGy3gsrMoPMlyJyps3qjJuNAen0oxHKpkIwvsu7kAlqRwFHbbF
+	 kboCmzvfIWpd0WnzpJGzswiL3tdhJLSnHBL92+MAPMUxmrgY8417PeePBKIWV4taCF/Ww
+	 qH8LxvG9i9+r2AJTiq7ovDWsUfJ7OZaII2qB1rlgm2rHrv6R9Wo4xu4Lutj2+X7WPuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PH9mWwXg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZjzR67P8;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bY88ne8f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04284606A33B
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:03:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04284606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7E6606A327;
+	Wed, 11 Nov 2026 13:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PH9mWwXg;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZjzR67P8
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZ2vS2338129
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:03:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=L8WR9+GG2EfUF3UrFaA4c5ks
-	UoCcRyLK8GiwEhxkvFI=; b=PH9mWwXgQ5gEnifkFQhZ3anQH+M6DXWxjaYRNBm4
-	8z/pNaY5400bAsBEpQNm+vBW+Q+jfqxxN8HzrTI5OzBHGZzkIlvScO/QKa7SGl2a
-	PcypMhUu/gBKUX5uX9oh04q9yOC77RcAXm6BOFLzWoUXUVzVzcsM5EsBVKTYRsaf
-	ij+ZkoP+ccbshZD5IvbBTtE8sEoCZpbwWmu4e2y+FeoOw8o2qNPB3O+GvjrxE3+p
-	AL5/WPO/FeuqH2XP24+LiL3cpFAdsvCWMFBzD9x9fNyI2UQVztZgs07w1ZKgjDrL
-	0O5WFB1GTvFsJB+TEYBpy6tRV1lwTog6SnR/2XN3l1argg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmapjg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:03:04 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eab0467c89so4037237e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:03:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794402184; x=1795006984; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L8WR9+GG2EfUF3UrFaA4c5ksUoCcRyLK8GiwEhxkvFI=;
-        b=ZjzR67P8wqGqtdDTOZihJridX5Q+5MAT9lUERZhujk3OFRjnm/V3mV6hyZLHbMF+FB
-         +byN0EVBtuZuuy7pVYmilcT+CwaRmYKUJUn1DS22CGwS191pyWZ2YqgC0M32PjG0nK7r
-         fdUJ0Z32Nk3ThjHjex4z18y95JXPOjKkHBew2NeXNP42a6nE9fwxzlMoOUFCPeMLElUM
-         u44kv3rU/ciITpwAdoXoXmblb0bND3+tK1Q4gU+gaSRSlNag+u0LRXnKMR+hpPZQyPwk
-         wTgsrQqOEWHdoXmaZhouO421u7IYZzMWsXy53ZGchDt7r/u5x/cejS8bsSnALtMQugnt
-         0rMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794402184; x=1795006984;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L8WR9+GG2EfUF3UrFaA4c5ksUoCcRyLK8GiwEhxkvFI=;
-        b=v2ROB966gcO8pV+ILnKqEU//CnpFNvVerQbS4p12/j73ceeFAgYMkTy/zVqGYy+Wmn
-         TmegpD+01Jw7dRSygGWSRoLSvaCWqDnRCpyaqYsPmazVEsZZApdlzCDvxjqwzBbrWnSy
-         NQ9c74Ubgtf5AErc6vj38GoDoM2rj6zdK/QTLpdSXawsAq/BiAnaFb/3OeAunVrqQOHJ
-         7/7gYs5X5x4jBVvCRSDMmwz9QGPsQrh250FHO9AM3ZGQoIvLdDO5N9f0CnTdOYLVqxsn
-         LzKK71QHjO1q6JPMb25bjxfkaY2ORyMfqszddv7hthBZYskZeaC2z1XLPHWW4CaLr/fr
-         h67Q==
-X-Forwarded-Encrypted: i=1; AL+hErHm6Eakv2/FOXSWOeP8KxbOeqWV9WjJE0d1qZWKBKQRJL/Bco9u6KegFKKRm4qVjWqL6EylJR+05dmm@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yS5Q02RTHydbLIRweM+bSv9j52hh2U2R1vyb6nF1hVvEZto3E
-	e2IDRJ05ud0tOrWJz5AgeEV9niNHOkK/PrZtG/E39SgWzrpP/51ZW2HxDqAvfovIItwWcfPxZDC
-	qrlTm2R2sQnA0ObqtG1Hd5Qa8epASuCZEyXx0gqrUc47B/08RXVWn2T/zh4Cun/Y1
-X-Gm-Gg: AYBFou3DJXIBYYvDwds5e+DlNe3IedIaKbOyGIVOS1tOEC17kweOHnfV1qChVQlj/i4
-	kaP02XQEGLcNZBzhBLfd73oHWsOlz9/uEbRDjEGpbayIrJjvueFOoqrbuTDnHGUx8AKmPsYV1jO
-	CBacuAtkK3WlNWm+Zrk7jM+lek6cSC6Xpgusm0fOL+XY/z1g0rXchlOEJXUH8GvxIgYExPZeTAS
-	a/up/Mn5AiUWh5PRUdKS8VG919gOs6sh45v2FF9pRriJmH1RO8cv/3LHVykITGNEHPkV8tZ3Dii
-	YMoWi4W8T+NqVQMnrs7TwXPLHp37Z9Pl+JLwyF3YQUd+c1f/PsYNnUfYU+OpAL3dLEMwPkxkelL
-	T8hfvbf5fJ5idXoj8SDyIvdqRcn12mYIQRxjuHHSauvVvTTCG90mxpHDJtpltydp7OZObVgCoTu
-	x/W8As78lb3hTpeYYHZGlOpSAWv2DchD3TlPo7b0x5X5XvZgq9B7WeblyJjyUoNA==
-X-Received: by 2002:a05:6122:1782:b0:5c9:a7af:8178 with SMTP id 71dfb90a1353d-5ee1c2b2435mr795038e0c.2.1794402183595;
-        Wed, 11 Nov 2026 05:03:03 -0800 (PST)
-X-Received: by 2002:a05:6122:1782:b0:5c9:a7af:8178 with SMTP id 71dfb90a1353d-5ee1c2b2435mr795003e0c.2.1794402183114;
-        Wed, 11 Nov 2026 05:03:03 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157bafba6sm959941e87.62.2026.11.11.05.03.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:03:02 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:03:00 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-        devicetree@vger.kernel.org, kvm@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/5] iommu/dma: Keep reserved regions below the IOVA
- rbtree anchor
-Message-ID: <5pyhbuzlrk2pf3sct7zopoycvgliuvzzmd5qse65p3r63jarvo@g3clac2ao4xq>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-1-5c0f72083e52@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bY88ne8f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B07C1F00A05;
+	Wed, 11 Nov 2026 13:03:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402238;
+	bh=AWaIRPGVBwDKyVXL8rFvxOr7TIsCYjaMi2R2yUDvOKI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bY88ne8fKH+AMIpDjGgLPKo2tQ3gBNt/paxmaTdDQeVQ9jEMzkXYg0fc6aof9e3cj
+	 +EL8B7FEAS7BYmklA4wBXRvGufXIl+4383D4TJznpHT8v/vh7XnIIHfw52NMLud/Hf
+	 BY9iJWiDXU1ZIXK8iFaRtcG30l7q0cJpAUA/sFeisFkFs5XsIcB41DFYXWNjHedPui
+	 DCH57s3lM2cHITACQwufd/q6xziE6/X5QBouCIQkjCkxWYMssR7RMiKKK11PgXzwVW
+	 11bIbTeGD+XulA/fHEmYWO17PgqnlOTLjZyJgmUDH0YjVD2kWQrrVru4kDW+uIYHhY
+	 xqbonlRzll3bw==
+Date: Wed, 11 Nov 2026 14:03:54 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michiel van Beers <michielvanbeers@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+	Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: backlight: lm3630a: Add led-max-microamp
+Message-ID: <20261111-cute-impetuous-otter-0d70c2@quoll>
+References: <20261107-lm3630a-led-max-microamp-v1-0-ec9e441d9b2c@gmail.com>
+ <20261107-lm3630a-led-max-microamp-v1-1-ec9e441d9b2c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -141,72 +61,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106-add_iommu_ranges-v7-1-5c0f72083e52@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: QN3pkipVjDh4-eDpSDppOhHrMMReYOQC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfX+vYFgWzRBBOG
- uBbawQ88IHl8qCg9VrNvMaHA/LAYZ7y4fNSHdLrBx4tEtrvCQPCCC9DnxWpmwk8QN8kpEsjEXil
- sqd0sdt3iK5uaifoPPvlxWO0GY2otSA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfX+2dYzclFXKFd
- p2pNSCvgpw8RBWxKWQd8IAVen5fE3bGmwbGC8szJ85mbHJTQmLKRWadKyquDDVexEr0tdaJB0tT
- LFc31UBfeWzWX4CFbk36j8ej75mEkILINmCsKxHMO96+nf0/IA/gjD5ghDnTXxuRkxqUaffuliY
- 6esL7x3noeVBaBGqQV9deAFdI9mDHpW8SM7GJtXLdmKcUUweEJxvFIAdchLpI4q44OKJBTlziio
- 6ipxjVQLeQZwXVnytM2yVYwlTtIZ91PFsLVKjrIsHifyG+11V1RbzRV/EnUqYm1GIZEXyAVEGKi
- QJteGh3rGG+YvinnzxCD9VXqlfOCrI2Qp18Shk06RLynJ/J18DZjmPvLiF9FmrlEMJCZxvXIpJ9
- SlmtfffjZmcgnV/D+avMkgOs5cvGUj+CiMx+zCj3KdGTOB5ZBOhfNa0vgQ3ZGOdabtCNxjALSSQ
- LPYh4yjBOEW3YE4GS6Q==
-X-Proofpoint-GUID: QN3pkipVjDh4-eDpSDppOhHrMMReYOQC
-X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af46788 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=WA2_6xBGtpbLEjlkeFEA:9 a=CjuIK1q_8ugA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110051
+In-Reply-To: <20261107-lm3630a-led-max-microamp-v1-1-ec9e441d9b2c@gmail.com>
 
-On Fri, Nov 06, 2026 at 10:44:24PM +0530, Vikash Garodia wrote:
-> The IOVA allocator tracks address ranges by page frame number (PFN).
-> The highest node in its rbtree is a fixed anchor at PFN ~0UL, which is
-> embedded in the DMA cookie. dma-iommu converts reserved regions to PFNs
-> with iova_pfn(), which returns unsigned long. On x86-32 with PAE,
-> addresses are 64-bit but unsigned long is 32-bit, so the upper bits of
-> the PFN are lost.
-> A reserved region that ends at the top of the address space then gets
-> the anchor's PFN. reserve_iova() merges it into the anchor and lowers
-> the anchor's pfn_lo. At teardown, free_iova_mem() no longer recognises
-> the anchor and frees it to iova_cache, which corrupts the slab. PCI host
-> bridge windows above 16TiB and the reservation after the last PCI DMA
-> window hit the same problem.
-> Compute the PFNs in u64. Skip ranges that start above the PFN space and
-> clamp the end one PFN below the anchor. The allocator never hands out
-> those IOVAs, so nothing is lost. On 64-bit, PFNs never reach ~0UL, so
-> nothing changes there.
+On Sat, Nov 07, 2026 at 01:13:54PM +0100, Michiel van Beers wrote:
+> The LM3630A has a full-scale current setting per control bank, from
+> 5 mA to 28.25 mA in steps of 750 uA. Boards whose LED strings are rated
+> for less than the chip default of 28.25 mA have no way to describe that
+> limit.
 > 
-> Fixes: fade1ec055dc ("iommu/dma: Avoid PCI host bridge windows")
-> Fixes: 7c1b058c8b5a ("iommu/dma: Handle IOMMU API reserved regions")
-> Fixes: aadad097cd46 ("iommu/dma: Reserve IOVA for PCIe inaccessible DMA address")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-195658@kernel.org/
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> Add the common led-max-microamp property to the led@0 and led@1 nodes.
+> The property is optional, so existing devicetrees remain valid.
+> 
+> Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
 > ---
->  drivers/iommu/dma-iommu.c | 32 ++++++++++++++++++++------------
->  1 file changed, 20 insertions(+), 12 deletions(-)
+>  .../devicetree/bindings/leds/backlight/lm3630a-backlight.yaml    | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> index 6393cbf3afdf..a031679d5468 100644
+> --- a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> +++ b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> @@ -77,6 +77,14 @@ patternProperties:
+>          minimum: 0
+>          maximum: 255
+>  
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+I do not see in this node reference to LEDs common.yaml. You need it for
+any common properties.
 
+Best regards,
+Krzysztof
 
--- 
-With best wishes
-Dmitry
