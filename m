@@ -1,45 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418968;
-	b=x5Q7Us+XA4bPYU/T9RWkDHOtg0TWFO9qTx/jYMpEB8gQwaMURXk8TfcbiZsbO5NQia1x
-	 gK34vXrO58dWySBfP0pVIB0P5BKnO5epm07r1NzH5YlwOVfO1Y9UGx6Hva9z7wYtP4R4M
-	 z/yXgknhH2vIpUVgDV+epUUM1PrEK1SPqmOb/HCBBXqhAsIgjABD4pxXIVr7oILJPd68/
-	 A6zo8LYCE77GAKT2ozACg673DS7u97gI28y09/5errz1zmxCDOP+VDu/nnxGIMwhUg19K
-	 6ugU8K1laKywJn1iIlgz+3UFnhqIE5MZeeRrgTYmAZFeUJsX0D8JziaYit1Xlz7Qg/w==
+	t=1794418995;
+	b=I7qvZHeP2Tmap5JPrVr04VwroMbCFjwwX5nM9h13hKovVmbFF+hAO3fQTfWWoMVGeGMy
+	 NiA3XuVnt2SmQxCV8wkE1BPyDEq6YEdjY7obXDytXc06ABo86hR8fR99HKfBaWhF+582s
+	 iprWouDvvYefXuRxSeiRHZYCUYgnGBYmeZ898BGCNPMXe+50zU5lLfyfc9uKcNmBf/7Mp
+	 Rd2L/ByAhIRmd3NEPCeEKzuoyeOSG0TzafSjnXQolb4VO0R0tlN8DxziUui3m2JklXgDz
+	 qM/ho7ldNP2jlEoKk5vDyh0uAeL8e39L3qsvKf65YK0gSDfjl1TbkDZFdJ4oDLg7c+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418968;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FAwXsGMxHewPWPm6WxGQCA3dKCUew19FpLp3l0TW3t0=;
-	b=iprvQ/PaqkIIY4umw0g9BMd/+Yn7H6Xx1V4ajlp3eS2Qjr16P5gS7jEaIZ0ra3YMDkOD
-	 R5inAqtgxCT0ZyNBv+FMPHa3IE6HSAurwFjsJU4AwTKsMB0b9rUt8hFA82dmqk7VYwxBg
-	 O//CWAe8SmyVg/LZeg4Lz4v86QWPZIrxi8HdtTLzD0Yo8fjStv1mZZ4Lr9zTIu+PbQwKp
-	 Wc3+rNdqJ4bZs4N4mbEV9SlXJjOsD/3Z2CHyTtNhznOXLWz8h7RcmbMwXhpnERSkEDwoV
-	 +cDvAExNZV1LmeweOYAcu4+RDJx73syAOstLj0WcVrPKBLbX1eU1VILo6rZ1i70aAgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418995;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=u1s5rkPCeMxXLGpOkwm4W0sjwzd61X5pioztJG/wrP0=;
+	b=k2tS8ccPNK4TotGyx5piKS+JwCMvwqDfDJWYZtIsQLheHKdh0Fd7OTbq0Es1vdZ30f/y
+	 So5Bne8hlFxz/t+Y5hmM8Jwyxna9usecVHb9SRomzsn3WDzj6NHAG+vdy1eCGqC9NaLjF
+	 1713zMgKt5ksT21gY5li8CMZSMH5G7tD4FFceGN1W8IIwduHt1qrZ4bN+2fbqbmkMGJwj
+	 KtN5uIakUJBeF892TRLI5q+lLbZec8xUTqWZUSr+TMqXcEPBPLUzQcaYdi4Grhqj9nTw1
+	 qGG8YxHRMkxF6hCvaTyQZQ2K10nXgWcqKQrJ68eyEhI7NjX12+WQE/HZ7M6UOe6S9WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O97vrQG/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I/mCXOuA";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F65606A327;
-	Wed, 11 Nov 2026 17:42:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004EA606A321;
+	Wed, 11 Nov 2026 17:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O97vrQG/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6491F00A08;
-	Wed, 11 Nov 2026 17:42:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I/mCXOuA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9B51F00A05;
+	Wed, 11 Nov 2026 17:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418968;
-	bh=FAwXsGMxHewPWPm6WxGQCA3dKCUew19FpLp3l0TW3t0=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=O97vrQG/2rvL6wugfknCIb/X50x2KeSwNnnmRtxyvW4y5zZwE2/p0wcWGzkAdkTgj
-	 nddDPPX6II5KbVL0oaYNVCFQC0F6KNc8V+mgdJIT0Y6QoBYTiqn9Rfa3xZb6U5yD6P
-	 PPcKy9rxAnrGCy8/mc5oXs24aXfj0x4iwJ4hw1bEPLWyfm5LL8oWq4z0Jz5mpBFgY+
-	 6bghjaKQ8thHSBS1oBY4duu7U2Ug6V4JDLBYP1qRLEDMVuiWRrV5Q2Nd6fYEkIEfaF
-	 fJx1pMPs078aXhm/XgMz/QN1jzoKQ3OfN8hzd8pNEeOuFnpL0BQJWqSqVDwHS5yIY4
-	 3WtALMA/vKyzw==
+	s=k20260515; t=1794418994;
+	bh=u1s5rkPCeMxXLGpOkwm4W0sjwzd61X5pioztJG/wrP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I/mCXOuAMNT5zpb2utZopCT8CByLpH3Z/uKgQnosx8sd5tFK+YMXQ/ni3Hgp3ArBc
+	 H5LrV3retAVvTH7jAt/heABIZ1E18wI6B8y2De77d8IbvKpiqT8tm2LclA6HGaHunk
+	 md3ldu6kkQdkvKSo4iKD8+s+w+e51clIVf4LzOxpgJzXk33wn/v07/DBgkLAwPdA20
+	 Y4PCEkRilqzOUgWI9BitIs9gl2hmz4yWwSF1wezsOacD3D1fQoP7cl/YjjFdxP44z7
+	 cghZiXmqyMWbqDmIkVIXf6sZMuCnwdI+2oPzOEz/38db+pE+pkxZIsJhafgm/wzTfa
+	 7Y4+F+ld8NWrg==
+Date: Wed, 11 Nov 2026 17:43:09 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Rong Zhang <rongrong@oss.cipunited.com>
+Cc: Keguang Zhang <keguang.zhang@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] MIPS: Loongson64: Add watchdog node for LS7A PCH
+Message-ID: <20261111-unlucky-parrot-eb416eb0c794@spud>
+References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+ <20261110-mips-ls7a-wdt-v1-3-968bb85122e6@oss.cipunited.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,55 +66,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 2/2] regulator: willsemi,wl2868c: add the WL2868C
- camera PMIC driver
-From: Mark Brown <broonie@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-In-Reply-To: <20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>
-Date: Wed, 11 Nov 2026 17:42:43 +0000
-Message-Id: <179441896388.393238.285161772971892952.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1227; i=broonie@kernel.org;
- h=from:subject:message-id; bh=7YllnNRI6qnMQEWy4tOJG2q5XI4ahkNJN+Tm3AlIwf8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+rBTRm7//Y+TNsENzIr7+97UqtO17xK2w5+Cii9neL
- o+ml1trd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiFc8Y/umUirqwm317Vbyq
- aNn0fzzCxx1qrm6wmW78reHknb5JlxMY/ulVacebG79sTHnZ7JH/LOo589IKB5lnPy+4q+b8Uvd
- 0YgEA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="El6grj8KCEocYUnH"
+Content-Disposition: inline
+In-Reply-To: <20261110-mips-ls7a-wdt-v1-3-968bb85122e6@oss.cipunited.com>
 
-> The WL2868C is an I2C camera power management IC with seven LDOs.
-> LDO1 and LDO2 are fed from VIN12 and cover 0.496 V to 1.512 V with a
-> 7-bit voltage selector; LDO3 and LDO4 share VIN34, and LDO5 to LDO7
-> have one input each, covering 1.504 V to 3.544 V with an 8-bit
-> selector. All outputs step by 8 mV.
+--El6grj8KCEocYUnH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +	/*
-> +	 * Seed the tracked set with the outputs the firmware left enabled, so
-> +	 * that the first enable() or disable() of any output preserves them.
-> +	 * SYS_EN gates the whole chip: while it is clear no output is up, the
-> +	 * per-LDO bits are only presets and is_enabled() reports every output
-> +	 * as off. Seeding them in that state would make the first enable() of
-> +	 * any single output switch all the presets on.
-> +	 */
-> +	ret = regmap_read(config.regmap, WL2868C_LDO_ENABLE, &value);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read the enable register\n");
+On Tue, Nov 10, 2026 at 03:02:32PM +0800, Rong Zhang wrote:
+> The Loongson-7A has a watchdog. With proper support added to the
+> loongson1_wdt driver, wire it up by adding a watchdog node to
+> ls7a-pch.dtsi.
+>=20
+> Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+>=20
+> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> ---
+>  arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/d=
+ts/loongson/ls7a-pch.dtsi
+> index f304f99946f1..770c96e9b908 100644
+> --- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+> +++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+> @@ -67,6 +67,12 @@ ls7a_uart3: serial@10080300 {
+>  			no-loopback-test;
+>  		};
+> =20
+> +		watchdog: watchdog@100d0030 {
+> +			compatible =3D "loongson,ls7a-wdt";
+> +			reg =3D <0 0x100d0030 0 0xc>;
+
+The style here is weird, usually we like to have the whole property in
+hex BTW.
+
+> +			clock-frequency =3D <50000000>;
+> +		};
 > +
-> +	if (value & WL2868C_SYS_ENABLE)
-> +		chip->enabled = value & WL2868C_LDO_ENABLE_MASK;
+>  		rtc0: rtc@100d0100 {
+>  			compatible =3D "loongson,ls7a-rtc";
+>  			reg =3D <0 0x100d0100 0 0x78>;
+>=20
+> --=20
+> 2.55.0
 
-Should the driver not also override the LDOx_SEQ registers to make sure
-we have software control of them, or hide the enable/disable ops if
-they're non-zero?
+--El6grj8KCEocYUnH
+Content-Type: application/pgp-signature; name=signature.asc
 
--- 
-Mark Brown <broonie@kernel.org>
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavSpKgAKCRB4tDGHoIJi
+0uh8AQD94th9BfopVZyqRbIZD31gY1VVmL6TqtnSFDsxE0d5BwD/YfeALYRNnFP3
+ncDWkx77DWCCWzkm8mNqiRG4oFQnagU=
+=mk3p
+-----END PGP SIGNATURE-----
+
+--El6grj8KCEocYUnH--
