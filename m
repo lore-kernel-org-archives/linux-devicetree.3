@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391016;
-	b=uVLUvEdOhpB/Wp0ao/y3uftuKZJTxk6luljTrlPzW4Xif+hS6JckWOEUCP8leuxvxCPT
-	 9+RY/cfhO7jgM/GA2bhdiRyqckr5AaYkjoHmQLwUkNH7L/bM4xBFnrLHRw2OulJ6EILFn
-	 yG2ihruEYLg4k0JfAlihaXfwqbcAGAvi+h6VGHcWTp+3oV+GByg+DGsFD80sp0Lvq1QVz
-	 4wrKySBs1mlE+fzlVNm0+ExuqSHUfHZUh50ZOjhuj2K41S9tuwJM/ZaOf/Tlnf4yDfj13
-	 Bhs/xljeSMrSJKbZAbou2kYHHJTso1P2a1S5Hu/0UPQvXXGxEZ/4FczCgplMRSwJTVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391016;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
-	b=HoReiYKqrvfuiiJNi3DG6Lvzkz18ZamsKqKlWEdxYo7433mJrecwQ44TSByh0eBlAooY
-	 c4Ac3wXHO1buIjs0rAtXTt3wwWJVaVGi4toQqafsYodS/o5YQvLE8mq52B0oRfkrGRqu7
-	 fK4ruxm/zPDF13VXt46WAvYLKq7CYGJBX+myaRfGH6uxUh4eufDGi1wNRAOYnP+hOCYVL
-	 D4SRlcFqIiPqUL0Tf+EQyMC4wl0McSsYLudpYm3V18SYlLRY/NE/11XdAg4+IU+HkR2Ey
-	 DV86zJhx0S851haz6Qv+K1tD3vGmApuhbkSnDP2gexlKvheArYamTAc47t7gtAykHCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WXvFk3F+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794391057;
+	b=aANh36X0vGawCZJ9orJrQMzEpGQaTCnNxYUajOncVnREpWgeD4brztlyr+dOMPckXwcN
+	 NiEgxTeKNEIHR0P12TU4SAq0YhcRcms9pFzcXT4sJ6SlQqLC9OY/I83wM71Kwxn9xMIVM
+	 MTQ3/U3MxQCwBbyoB2tjLYOSl3ags3eEFPWb6qleIM95qXVWrehel1xN/TGCjvSE0QSAH
+	 cgOFuI61cNw2yhN5iG6CQoL7+/xD1iesyvzSk2Sm4avnpMZp4F+XxoPK4Epd29zBJUJPm
+	 8f2nDxtia7dYSD/Ns6a+LlzFnbFKIqu9p57Skock6WXPaKB/rqxECQqzsevtP1SyMbg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391057;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ee4yHCK8M1GzmysXRLc2uH0TnLVx/VLePg+e+5PvWNE=;
+	b=lspLS8jdFQ1Wqb4o5wtSm0gSWj4O0TMDu8V27FF71nQeRzLlonjIRTHCWC9Sr25iwSZm
+	 TN3bs0L2UvQSQCuHpSqWVO91zS+4JKYRTHI520yOvjg6/VPSamjLN5Des2DF4PtYBmzIm
+	 KEaDz4gd2n6zUZSdN88xuCAdtPgZmVJiFRhn2HpJLSlq+fuZAEMR97ZxEwVWv+Smsx25o
+	 //QrjUqB6RFtyTGwOSP1wEBkkjjnt3nCS9uLqVh7kRrw2Ik/cxboIsH/GM2DgR/f+3ppB
+	 9fWvv665BH/Z53KugO/3kSNS0vGEZRyngmr2z3Fj7dY1UJgE4WsXjbMiegMAouBpfjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=m4t47nr5;
+	arc=none smtp.remote-ip=79.135.106.31
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CEF606A321;
-	Wed, 11 Nov 2026 09:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CEF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD73606A326;
+	Wed, 11 Nov 2026 09:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD73606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WXvFk3F+
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 05B202006B6;
-	Wed, 11 Nov 2026 10:56:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794391008;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
-	b=WXvFk3F+61CU54Ym7trObxW9xYz/mbrKKuC2r8tnN5yObEoZn+GStCbJ3SxHmHfJlEqZH+
-	iEafUMV4dET7aYMWAhAZdy/v+ERrP2aoIO59PWV1ZmXCyvQYNLQPKlzNoWgB3O6KJpPdut
-	USk57Q3O+4o3E7s4k1WW0uYGgQPa/nNAFNtBEZt/LrBgxoDud7FYMjKhIuMLgsniyjWdrI
-	7u3hA0f6vGVmWGr8fxTB2BN0kBM0mhwijH8rmnwnLbb4CRK/vNrusJYIEN8s5JjZtbyDQC
-	4RhU5qixZszwEec8zqiOwNFeuJEz/WNQ0yhLFmhBY9IvoqBs24bNhFY/2ptu4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794391008;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
-	b=QgnlPgyqEheFYwtRSP9gnS8v+A1gb91KJExubPo4sC1u2Q59fzAT6snSHH98reLplTAyXL
-	GnEqaTn3bKEc0Ja2NoH7gTytDShJs30YMd+Sym9ghxE5RQgUxHLuujQFqYm8dMwqYtfccX
-	lQN98LPe96ziiMGKaOiGLisboWt79zX4B9q+e2p30BtGEvA/Ls55ccR3T1GVPTfHmafh9v
-	soQOPLNOoHNLB7diCmv+FgwX9wRRwc6m8IWgyj4KYBGrJw66GeSkJ9mhgoa7TWAcBtyrl5
-	7mEwOu2Cqu65zxNT9eguHuBAiXeFAKYLzfntX12mrbWZMkAtzhkaSKaLtwFZIA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794391008; a=rsa-sha256;
-	cv=none;
-	b=dTZhwMwmm5sSQ8oWQl2hPy5f7RGIxlq92RYKdJvCOuRoJkfv7x+LWIP/6o8uuWiEneQ+Ll
-	znOFaOKU8xd4J6vUNxH+CTrV2/cUyHK96BKltF5SX0vQL2+gk/6BdUCZSRfhGjBFNKLPyV
-	RqZgWFPOxvla7hyT26rUuUnwbY5KwhvsF5LjyY7js9jssEhv6TQXyH0/I42h/jJbLtKhjy
-	yUw6PdG5RX16XEDR/3iApQhm8RYEq+51D7eLvEigbrc1vEcIQEZ9qca5Me6DCLgJZoRYM8
-	TTL81xIMXQmY8LhTxtLQsNx+llWEIvxljT8m8+BmtZPOn9nYm+jmEh/Zujh0MQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <d59f52d1466c515f574be1e9eb127ca3e43d155b.camel@pengutronix.de>
-Subject: Re: [PATCH v2 4/4] clk: siflower: Add SF19A2890 peripheral clock
- and reset manager driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: joseph@telaak.dev, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
- Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>
-Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?=
-	 <u.kleine-koenig@baylibre.com>, linux-mips@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 10:56:47 +0100
-In-Reply-To: <20261111-sf19a2890-sysm-v2-4-d2fcb723e4f1@telaak.dev>
-References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
-	 <20261111-sf19a2890-sysm-v2-4-d2fcb723e4f1@telaak.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=m4t47nr5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794391054; x=1794650254;
+	bh=Ee4yHCK8M1GzmysXRLc2uH0TnLVx/VLePg+e+5PvWNE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m4t47nr5jR+D1TYRq5yR3mAsEtIr/lm1dhRb1f18JZR0Jk+rFtc3VbqfZ7JgkIdad
+	 0NT4XaxzqcTrrkmmb0PV0qf5+MSV/i1m8YNSfp3OoEzPOGQBboo2qRT/o7G3TJoAzd
+	 HjLDKgfinQKhVwP1yc564mSpa0thYZthpzSTdvjXjn8+cE/7iv4s5pmfj/l+zTNZML
+	 YgxDAzX1Np5X6Y2dDneNnuVQ8bqgh570WIjvPFQnAk3gm4GfmIgBUim1g19B1Zp6B5
+	 3QWdLKsjpTc2Z+u8yvpFwAestDExvHpCEBWbKhLmh2l1tfEA5pTKUJglKO+m2Rait/
+	 VWWta+MkCh/hA==
+Date: Wed, 11 Nov 2026 09:57:25 +0000
+To: Emfox Zhou <emfox@debian.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] media: Add the ST VD55G0 global shutter sensor
+Message-ID: <20261111095717.52181-1-lsa.uz@pm.me>
+In-Reply-To: <179438997668.7.9005518768995826598@debian.org>
+References: <20261110195454.48176-1-lsa.uz@pm.me> <179438997668.7.9005518768995826598@debian.org>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: cb4bd0c39d0ddfd686146a1d749335718ef79166
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,106 +64,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mi, 2026-11-11 at 03:19 -0500, Joseph Telaak via B4 Relay wrote:
-> From: Chuanhong Guo <gch981213@gmail.com>
->=20
-> Add a platform driver for the peripheral clock and reset manager (CRM)
-> block found on Siflower SF19A2890 and compatible SoCs.
->=20
-> Each CRM block manages a group of APB peripherals through three registers=
-:
-> a reset register, a clock gate register, and a shared Bus Output Enable
-> (BOE) register that must be asserted for any peripheral in the block to
-> respond to bus transactions.
->=20
-> The driver registers a clock gate controller and a reset controller from
-> a single DT node. A shared spinlock protects all read-modify-write
-> accesses across both. BOE is managed automatically: asserted when the
-> first clock gate is enabled and deasserted when the last one is disabled.
->=20
-> Some peripherals have more than one reset line, one for each clock
-> domain of the same IP, like the separate UART and APB resets of a
-> PL011. The driver exposes each such group as one reset, because the
-> lines have to be asserted together: the GMAC's two lines are the two
-> sides of an asynchronous AXI bridge, and asserting one alone locks up
-> the bus.
->=20
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [Joseph Telaak:
->   - take it from Chuanhong's siflower-7.1 branch
->   - one compatible per block, with its gate bits, critical gates and
->     reset masks in tables in the driver instead of the
->     siflower,valid-gates, siflower,critical-gates,
->     siflower,reset-masks and siflower,num-resets properties
->   - parent gate N to input clock N by index, not by global name
->   - update the gates under the spinlock too
->   - drop the separator comments
->   - Kconfig dependencies and help, subject]
-> Co-developed-by: Joseph Telaak <joseph@telaak.dev>
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  MAINTAINERS                                    |   1 +
->  drivers/clk/siflower/Kconfig                   |  11 +
->  drivers/clk/siflower/Makefile                  |   1 +
->  drivers/clk/siflower/clk-sf19a2890-periphcrm.c | 368 +++++++++++++++++++=
-++++++
->  4 files changed, 381 insertions(+)
->=20
-[...]
-> diff --git a/drivers/clk/siflower/clk-sf19a2890-periphcrm.c b/drivers/clk=
-/siflower/clk-sf19a2890-periphcrm.c
-> new file mode 100644
-> index 000000000000..349e0d7ce0c3
-> --- /dev/null
-> +++ b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
-> @@ -0,0 +1,368 @@
-[...]
-> +static inline struct sf19a2890_periphcrm *
-> +rcdev_to_periphcrm(struct reset_controller_dev *rcdev)
-> +{
-> +	return container_of(rcdev, struct sf19a2890_periphcrm, rcdev);
-> +}
-> +
-> +static int sf19a2890_periphcrm_reset_update(struct reset_controller_dev =
-*rcdev,
-> +					    unsigned long id, bool assert)
-> +{
-> +	struct sf19a2890_periphcrm *crm =3D rcdev_to_periphcrm(rcdev);
-> +	unsigned long flags;
-> +	u32 reg;
-> +
-> +	spin_lock_irqsave(&crm->lock, flags);
+Hi Emfox,
 
-Could be simplified with guard(spinlock)(&crm->lock);
+Thank you for testing on the Surface Pro 8.
 
-> +	reg =3D readl(crm->base + REG_RESET);
-> +	if (assert)
-> +		reg |=3D crm->reset_masks[id];
-> +	else
-> +		reg &=3D ~crm->reset_masks[id];
-> +	writel(reg, crm->base + REG_RESET);
-> +	spin_unlock_irqrestore(&crm->lock, flags);
-> +	return 0;
-> +}
-> +
-[...]
-> +static const u32 sf19a2890_usb_resets[] =3D {
-> +	[RST_USB] =3D GENMASK(2, 0),
+Yes, please send the Tested-by for 3/6 and 4/6. v5 will add the
+Surface Pro 8 to 6/6 as you tested it, and carry your Tested-by there if
+you give it for 6/6 with that entry.
 
-Do these three bits control separate reset lines?
-Does the hardware require them to be changed together?
+v5 will be on media-committers next, where type 0x10 is now called
+INT3472_GPIO_TYPE_AVDD, so 3/6's "vana" entry moves to that name. It
+maps the same line on your machine, and I would keep your tag on 3/6
+across the rename:
+https://lore.kernel.org/all/20261111063351.96951-1-lsa.uz@pm.me/
 
-> +	[RST_USB_PHY_POR] =3D BIT(3),
-> +	[RST_USB_PHY] =3D BIT(4),
-> +};
-[...]
-> +static const u32 sf19a2890_uart_resets[] =3D {
-> +	[RST_UART0] =3D BIT(0) | BIT(4),
-> +	[RST_UART1] =3D BIT(1) | BIT(5),
-> +	[RST_UART2] =3D BIT(2) | BIT(6),
-
-Same question as above.
-
-regards
-Philipp
