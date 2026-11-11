@@ -1,56 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388494;
-	b=xDO31u2Kb/X0ifvNckuNy87Om9+d7d0CLhhiOnsLk49/8/Kio0bH6u1wqMpVCEwGdUr7
-	 336wNTP9iTuY/J6IavPHXNlj3lovWxixBsIZL7REhKmVQFMDebEv9l9CrfsR1+HxhFUKR
-	 i2f8KAploDUufV3L0zB6GE8pZgYnlbx7luxS9EP8uI3yQv7lzuSjQeQItrfIry2/G6UA+
-	 qclEVbKy8rIMoTJDoff+U5CK7IJ1hav7mzXavDtViRRCsCuT8W4i6lscfzdQtSFdRXQpr
-	 oMdTnwwR4Py5TFAf2VssnB04yjwrtZUh1sXewMvmqYAXlbzYQ2kwLTDN6yFz3MDknwA==
+	t=1794388495;
+	b=YPAOKoLordC8dseBk6mUxPamk52wDpZWGOrwZbhXss9GJA+b6oQJ4fv+joNcdgkH2+7b
+	 5SBD9thjL0NBpH0ZKtaGbHnBrb4UP5Tww/Xo5Orgse+UZnu9O5M9JC6Pkkq3EWuVM2kWY
+	 XoL6HaCJmCx8FvWkFdDxuyglEW93W5LXLPvzXt+I4VmYGcd52oc/Iyq2pTI4vtkE4C5mu
+	 K66p6q/3Zxr1n+aUNMzAIQD57n2yFZPKWwZNkg5uY/pkgL1Bar/xSgQFgWpt3XfbYvAqW
+	 KkTCHf5U6e0q8jhGyJ2gjMoqu+CdIifvffn6jzorwWJiY3pGOYRs/bo2ZrHNYgykoFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388494;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iFd4Nnjt2zQ2LmJ9Y2IUzZIp2XBVIDFFmfJCMjQtJ3M=;
-	b=NdGcAUCxu9kamRyn8zuf95xuwNdivAr9IcmX1KnDRMy04NBWXZ1Zc3NEBpzOLtN9Y1Aj
-	 e/DseIwudfck3vQGrUzqnecNKR0KuX4ypbO49FyYny/RvMPt8BSyjQKSwlL970B4koY5W
-	 4MGQjwTycsqEhzW2xSz+SUZUW8rXhYsvIeYnPzsFdqlDL+JUBQUYnmWvZpDGsdhv2ZrEl
-	 gF/7DB2HveeugVzMWIb0fGMpM4IEXy7CQB/aIOkUfjDprBmQJQWsfcU6PVy0goAOQPWrX
-	 mYOYzBlpDe98+FRfG1dcJiZO7Eq2NiXzJuwhpEZC3yeNWy+RURGIJ9nNdfZIPLzDmow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388495;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
+	b=VULKEE/2JfwvRMeCnqbqViG8tIaz7ATXeVcVkdgS9icLbyAoLMB1dl7e3jt74K0/Yl5G
+	 vRharpnagZ5RXOGkIxA2YwJERtwj5FMvb+3fS8fw6pK0WkQa6SV/56yfPRUprl90jwfa7
+	 hXH/4Db6TVBaKF+L2kYO7TSAaug3VAGFNZUsYDDUUq/tloeHvZwd6csNH9rtnkQAKZLgA
+	 zWYgRi6wU629njKSCdzDJ2tl7CmXWfzshu58Yye13p4dxy+gaPBwpwgTaee+7RSTNtlsQ
+	 DqyBI5pHIlRu1K4K3dWpmG09OrZB2Z6zLK623rwxy08zz8pUYx6+PJTxWibZd383SHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt9wDII+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Mo3o/ejO";
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B180606A31C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF978606A321
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF978606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt9wDII+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B911F00A09;
-	Wed, 11 Nov 2026 09:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388493;
-	bh=iFd4Nnjt2zQ2LmJ9Y2IUzZIp2XBVIDFFmfJCMjQtJ3M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tt9wDII+Xz6VSSklMo/xRVm8x2krTjPXrSPpKPZWSxppJLsEn5MngisxgPeV0F0nK
-	 0m0JuHOjNCDNdltzzOaKlmoYO8VhgOq3Gsqos47/6eKangdTSgs+17ZFdT6aog3iQj
-	 aAk2XciW5kKzSPDYSu69D72TkQhcdNMksRuQTXq7ZqBTTZiWSJUSf3qcp03uuvTjiP
-	 fwoz7JZ5EFL9NpFJkEYTSmVMk7mMLTLxJDWoqu7Dt476S7tSjJiYHQy8s8EmCoswtN
-	 8kZh6KOKcqYILVZo+Vjm/0X9FUiavTzxFWxU2+SrLqYs1dGOugMmM4pWvsZRSjcJNh
-	 d9R87W2/4EheQ==
-Message-ID: <sashiko-outbox-208675@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: example-schema: Show example of
- dependentRequired
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261111090449.53511-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261111090449.53511-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 09:14:53 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mo3o/ejO
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1935307f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 01:14:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794388493; x=1794993293; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
+        b=Mo3o/ejO5eEm/4lsClFXD97OGtT2rZOLvBTBTgG1NveGUf2IHBjdEX2ZBRkaCeSkAN
+         0+B15HUnQdIeOEuw1osEeAv8iy8zw09HeRfarjQ4Ou1p8eQF/JgrdyyRH4Akkovy82PA
+         gFGholXanrrhUyhHmi8WxQJy5CQ039dFebXE15W89v9z2UFB8YJBgXX1KmQUC4U8Rd2S
+         /dHTh4gHXH8KKaKb6onZbYvygCi+/+Gf2S0rb+Tm8KtNxDVjkKYo4goh3h1rxRh6l3sV
+         s2T7URet6HooCiQOE1OtLDSK/rLoB2/oDPc51diEwiNpFJ0TwW+YTrFVg3rgZ3I5y37q
+         sLtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794388493; x=1794993293;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
+        b=F1DR08UI4TfcLQX9MG3fQMgp/zZDhNdWgVIz+dGqfgarJbRycRDxITDYeF6tAio9iW
+         uw7PZKZuoEKiOJRjhStVBSoMNfx2EnjZFAbkTeixp1gch/I415wtTxT56m/a1PqYpr5H
+         Gq8B1IOFr9zQ2fzKQLky2/etsqrnj+j6WzFD56UPb1qiaWih2c2tFjzrTqeGRvP+d9fV
+         y3MtuxzAkc7A0d31jXj5DoWFMvQ0oJeq2tKE2sLZIBb6BQLbgSLG4vpxV5hd4Re4DAXN
+         IpAdwJgoQLnCeth2V2F1aCihkisUqpVyeBLzPLoapZ/BOJLEugh4EWlQAJ+VgG/a92JB
+         r5iw==
+X-Forwarded-Encrypted: i=1; AL+hErGzIbFqZ8IgvVghFsxEnY+u7ePyHWtazmmSKzBLTLb5qKEChuRoBj24sKLs9loAftvhMkq+VS25OL5t@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9XsjKvT9Wac4ZQlZIHkNwsvBVM8DaVLIvN2mqc2HmdOftSNAl
+	0y0xRyyvJX3VfSJjmuQ7CcpF3p19q3dWvCTfEwPzNky2Hw1IzBYBL6XQ
+X-Gm-Gg: AYBFou1BXX0dw5IEe+NlRoBf9XpSKC3TjV0eGLHY5MmCy7ZaINapX3Ad43Xb7VixZsj
+	UcOnkbTjwkouNqD0cqfuMP1xsxgEjhPR8u7ooZpJV1cZZl9DBjAjLro6B2aNr4DXDwEprq4PHxp
+	VBf9yJFE3ASyCdmjg+z/Amj8BqrGS54uKBS1T/DJ34cJuP4Fhpy6VcFwxlEIVznw1lVdsYXjjYX
+	6OiVIcWKZSr7olQ2N1OTB1+qMD7HrJ4c8kjjKqxlKmLuk/7P1eZXE8zymJTPUE4WyGhfs97bF41
+	ArtmmRxCZKxSzlpiOeoqnHjERYMox50mrVet4ycbCM89HtCqDujuU86Ed+X+sK6BzPQLBtz7q1N
+	tjvNDRzUhMLVZy0C2PvgQr16Pro9grLA8UrriNKsgLPcYAIITO/ZAh2ApQQLASA9+h/o8+fWIJy
+	w063uM6zeDRPA4YCjLHUiJY5BmfKfBIfW9QDprOKW0hU0jcg3/wxm9tTgz0GhalGTkSz3sVOOW8
+	RofitkLAsOsiqcw5FdKMraglW93yz16M4JEmK6p7EnMhcaY/5CbTXTPRUBFxn3ZsQDJzWkbxSIK
+	eAJYSUEZCTXKIw2RZlPWPVyPdnY0InzoHlTq+EgXvXSgDncB/5mwdXNM99FRbCRJzwzcMkG3t04
+	/8QaI9+khBlmpOov+BytvJTXoegAbtU7jdGgAZLBXTFYSYYhsYxugDgHvhdKPvg==
+X-Received: by 2002:a05:600c:6994:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4ba0935bd68mr32873845e9.4.1794388492912;
+        Wed, 11 Nov 2026 01:14:52 -0800 (PST)
+Received: from Lord-Beerus.station ([93.146.104.162])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02005946sm145501635e9.1.2026.11.11.01.14.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:14:52 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:14:50 +0100
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com, Nate.D@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet
+ LEDs to carrier boards
+Message-ID: <avQyCgitN-stXoS7@Lord-Beerus.station>
+References: <20261105101739.10614-1-stefano.r@variscite.com>
+ <auy-OW_td7N8oHK_@SMW015318>
+ <auzAh7404GAsY-U0@Lord-Beerus.station>
+ <9c416362-4e28-4327-b8c3-bd789d2922f0@lunn.ch>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,63 +109,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9c416362-4e28-4327-b8c3-bd789d2922f0@lunn.ch>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: example-schema: conflicting and duplicate
-  dependentRequired example
---
+On Wed, Nov 11, 2026 at 03:03:12AM +0100, Andrew Lunn wrote:
+> > 2. The Ethernet connectors, LEDs and their wiring are on the carrier.
+> 
+> The PHY itself is on the Module?
+> 
+>     Andrew
 
-commit a3f4513191420436a3b3975020d020b961833f59
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi Andrew,
 
-dt-bindings: example-schema: Show example of dependentRequired
+Yes, the PHYs whose LED configurations I'm moving are physically
+located on the SOM.
 
-This commit adds a dependentRequired example to example-schema.yaml to
-document the preferred way to express conditional property requirements.
+I'm moving them following the approach we previously discussed here:
 
-> diff --git a/Documentation/devicetree/bindings/example-schema.yaml b/Docu=
-mentation/devicetree/bindings/example-schema.yaml
-> index b04f3cc4312c0..0c78eda67a2e6 100644
-> --- a/Documentation/devicetree/bindings/example-schema.yaml
-> +++ b/Documentation/devicetree/bindings/example-schema.yaml
-> @@ -217,6 +217,14 @@ required:
->    - interrupts
->    - interrupt-controller
-> =20
-> +# Properties might be required only if some other property is present.
-> +# dependentRequired is a shorter and preferred way to express this, inst=
-ead of
-> +# if:then: block.
-> +dependentRequired:
-> +  # foo-gpios is not a required property, but if present, then foo-suppl=
-y must
-> +  # be provided as well.
-> +  foo-gpios: [ foo-supply ]
+https://lore.kernel.org/all/31f30651-7c99-42cb-9e27-e4806529d137@lunn.ch/
 
-[Severity: Low]
-Does requiring foo-supply when foo-gpios is present conflict with the allOf
-conditional block right below?
+https://lore.kernel.org/all/fac81a12-92c9-4e29-96ca-473c18fca675@lunn.ch/
 
-Documentation/devicetree/bindings/example-schema.yaml:allOf:
-    then:
-      required:
-        - foo-supply
-    else:
-      # If otherwise the property is not allowed:
-      properties:
-        foo-supply: false
-
-That block already makes foo-supply unconditionally required on
-vendor,soc2-ip and forbids foo-supply on all other compatibles, which makes
-it impossible to specify foo-gpios on any compatible other than
-vendor,soc2-ip.
-
-Also, should this replace the existing dependencies block just above
-required (and the comment in allOf referring to dependencies) rather than
-leaving two top-level keywords in the example schema that demonstrate the
-same construct?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111090449.5351=
-1-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Best Regards,
+Stefano
