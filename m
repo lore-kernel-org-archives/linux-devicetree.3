@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794402350;
-	b=qrCbIB2DIftIG5oDS5Wm3snXVRuN/SfGCd2c2Z2MqYjcEbHc71R2n111h70Gy4jCMrrA
-	 dtTLVb2FhdVIGlLcbeI2uFPglIKxbbrjqAqvwdIwJ20QeFJ21uoyUTd6aN+ubeI0zhTA4
-	 lQxZCvCipF8h82exj2LtKZTyKrqgDfMrpVYjbVOxKZ9JglCm/8L295LpVi6PySipMgbZG
-	 pSKYsTMeFrYsYPEMQzYFDetyfAgAoeP9t4I051roiSotdW6F6s/1eKXQWNqSu07PCmfdQ
-	 heXCv6FJjcXzVeEgOjGIN4zPzBnZGTvlxXsMliuqBnir7j82cfaGUPcPEHZpSOL3Oaw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402350;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=;
-	b=sqbN7GfJrabR7Z7AtX7cDzasEg2qFeZu7NcQACI62bWcchKuRyK9T3llJpRdEis4bSBd
-	 /0VbduSNbaomhP4Sev/DonbYaRK+8LecLph2J0oekWgelFxdnKRtJwGgovGG4m755yYzF
-	 oPDg6k2Pi+XfgM5tpbOxhi6HnBhqy6v3Mw+JSvG4oW6UrPcwJg6esRwmo/5F2cusb/HNy
-	 BSI0ePuAt1dYQ9qaJ+qderHhcBxddpGnnqa1eHAsfZBTiQlOIBIcLhmT9Q5GagHO+tcoN
-	 tCp2MjqwNeKrKH3L8Mb068RLeArkremm6NakVdjT7AXL9/C1EaSR9bpGwqaYwXxRcPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=L5b5U28A;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794402414;
+	b=GQlMlhfiZr2RV5bGGVkL0c9KyAoFNN4bVu7ARhIQ8+QfNSyCFq7EIELbHQ2Jh831/4eF
+	 KX6QB00xWIFvI63y/+aQJ+0R2mOPMk7iXGqBgl47jucnPUVTmb9b7jm1QXi/DesMInS4S
+	 CpkFZzn4lK6bMl4MnMW1LK43a0qIRYslFjLLVeZuBl5+LTm2BMm3c+piM9ndD1P/Jq4Kw
+	 AD6xm0tz+9DjwUGw2M/ryCg6SQIOHSovPUhbGZvOyWbqP6reAVqoKAtntiyggoXP/BTDl
+	 UhSR1RFBCkJ9cSQZqXoyiTLpABHevGbfVb6xnpsDR3tnT8v2nWkUqkf1H9V2GMhrrQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402414;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=TsavWsjShJJGBgdbg3MCd30tYdrc0p8AQysSwTzBos8=;
+	b=RVpeCp41DXBvQlDNXX7sSiXYW3gF5wWpDQTSFwzI4PZlskZUxm1w69BSYyCraUDV1oMQ
+	 rI9HKKpK53hVOEHA0+OvfgxOh4dxuWylVN8grPTiG0o6N0ULUg4xA1MzZRDS9RDkhQIaM
+	 kM7AyA3HJ2FDgZtLgBax+XVLPXPB3qCUFcYaGO4gCLtOjt77YMI+tXGJ5CJG3hD0qWbIF
+	 2utwn4KX27Br+gkE04rhe3iDwroArOPPkHiqsv/vT2pwS1qXXEoKG1JVhSo4fg95Gbrcg
+	 gaO0G3R9OYrFnUKT1ipGv2tNunINA+CNItf2s/XaRlvdHxOpja3ZOLD+4NLJES99vjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WuCc8pdz;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD576606A331;
-	Wed, 11 Nov 2026 13:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD576606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BED606A31C;
+	Wed, 11 Nov 2026 13:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4BED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=L5b5U28A
-ARC-Seal: i=1; a=rsa-sha256; t=1794402324; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jdjmGwIHKro4sEJif9BOEN84OIIJnIpTUfWL4IgyG3hNZ9ynPIxp+PLHYNTd+eUvTiHpLU9jBXZJJYHBPskKp+LIErnN4QLikWo1e2HfTLerMdtdq6F/7HoHmxU7IkoL1/HmYUrJP3Syy0754XuDkkj9yV1VDk1dxTWTOh+T4YE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794402324; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=; 
-	b=avmH6+Mwod4rZA5f1Erj0TgAqFETT2e+UE9vz4F364NrRB7zmR1/Tk5rNF2wWsy0Bxgj1tdK+ZDlWjxLujjBeXUfEitdwgBxZglJ54M8LJtn3V7/DNVz4/s0zGgx2iwSauOuv8uOdrFQQQu5j5BaKt9lOp4VXoZROHQvlQcvvFE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=L5b5U28A4NnyzChU9vvcpDypOIl+HM5LVyHk00mWLK9GuK87Y+At9JjkgTd3+MSW9tE7QYSzcT6zrxDPeYUTT2WWzo4UDKwOxbv00R9RZYpSAqHBErqJbIXaLpaYwg06W1o30gksPepsiPLK6SARaTy6UdvNJEIaynl74O7nC6o=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794402322616938.5574111886522;
-	Wed, 11 Nov 2026 05:05:22 -0800 (PST)
-Message-ID: <9e8aaf6f-6899-4d60-a2f1-be11d3923dc7@collabora.com>
-Date: Wed, 11 Nov 2026 14:05:16 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WuCc8pdz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=TsavWsjShJJGBgdbg3MCd30tYdrc0p8AQysSwTzBos8=; b=WuCc8pdzkGjLD1lqWBww+P9lpe
+	devYGnPLiUvLgvjOBXhkamuh6TbLj9i/vU5SQiNA/6iZMVgtNBDUQ4dN1puyzBWlwCWrbaNnZ5NeL
+	XyDluwEU43rO/gt6EKbFAw8gV1UXaJTX0MnLHiemGEDoI0MVSwO05e4LLa9sp9Pvd06w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xR82J-00FkQI-On; Wed, 11 Nov 2026 14:06:47 +0100
+Date: Wed, 11 Nov 2026 14:06:47 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: aiyengar1990@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: rockchip: use rgmii-id for the Orange
+ Pi 5/5B ethernet PHY
+Message-ID: <fdb7836a-67f9-4db0-8820-d72f56beca3f@lunn.ch>
+References: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
+ <20261111-opi5-dts-v2-1-821f666418a6@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,108 +66,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/9] phy: rockchip-samsung-dcphy: Always write the
- rate-dependent registers
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-4-d681ba20b36a@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-4-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-opi5-dts-v2-1-821f666418a6@gmail.com>
 
-Hi Jason,
+On Wed, Nov 11, 2026 at 07:19:49AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> The Orange Pi 5 and 5B have a Motorcomm YT8531C RGMII PHY on gmac1
+> (the PHY driver binds as "YT8531 Gigabit Ethernet"). The board neither
+> uses extra long clock traces for TX nor for RX, yet the device tree
+> describes it as "rgmii-rxid", which according to ethernet-controller.yaml
+> means that the PCB provides the TX delay, and then makes the MAC insert
+> the TX delay with tx_delay = <0x42>. The setting was copied from the
+> vendor kernel, which uses the MAC delay lines everywhere.
+> 
+> Describe the PCB correctly as "rgmii-id" and drop tx_delay, so that the
+> MAC adds no delay and the PHY adds both: motorcomm.c programs its
+> default 1950 ps for RX (as now) and for TX. This is the setup the
+> binding recommends, and the one the same vendor's Orange Pi CM5
+> (rk3588s-orangepi-cm5-base.dts), with a YT8531C on gmac1 of the same
+> SoC, already uses in mainline.
+> 
+> Besides being the correct description, this removes the MAC from the
+> timing path for both directions, so no board-specific delay-line value
+> is needed any more.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-Thanks for the patch!
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-On 11/10/26 09:18, Jason Yang wrote:
-> The lane timing init functions write DPHY_MC_ANA_CON1, the four data
-> lane ANA_CON1 registers and DPHY_MC_DESKEW_CON0 only above a data
-> rate threshold, and the registers have to be zero below it [1].
-> 
-> Today the APB reset at the start of every power_on provides the zero.
-> 
-> A later change moves that reset to runtime resume, so a power_on at a
-> lower rate after a higher one would keep the old values.
-> 
-> Write the registers on every power_on, with zero below the threshold.
-> 
-> [1] RK3588 TRM: sections 22.4.2 (reset values) and 22.4.3
->     (DPHY_MC_ANA_CON1, DPHY_MC_DESKEW_CON0)
-> 
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-
-Best regards,
-Michael
-
-> ---
->  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 24 +++++++++++++++--------
->  1 file changed, 16 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index ce1bc62497c5..7a009d87a665 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> @@ -1228,7 +1228,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  	regmap_write(samsung->regmap, DPHY_MC_ANA_CON0, val);
->  
->  	if (lane_hs_rate >= 4500)
-> -		regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, 0x0001);
-> +		val = 0x0001;
-> +	else
-> +		val = 0;
-> +	regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, val);
->  
->  	val = 0;
->  	/*
-> @@ -1259,7 +1262,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  	 * under 1.5Gbps or equal to 1.5Gbps.
->  	 */
->  	if (lane_hs_rate > 1500)
-> -		regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, 0x9cb1);
-> +		val = 0x9cb1;
-> +	else
-> +		val = 0;
-> +	regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, val);
->  }
->  
->  static void
-> @@ -1284,12 +1290,14 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
->  	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON0, val);
->  	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON0, val);
->  
-> -	if (lane_hs_rate >= 4500) {
-> -		regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, 0x0001);
-> -		regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, 0x0001);
-> -		regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, 0x0001);
-> -		regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, 0x0001);
-> -	}
-> +	if (lane_hs_rate >= 4500)
-> +		val = 0x0001;
-> +	else
-> +		val = 0;
-> +	regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, val);
-> +	regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, val);
-> +	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, val);
-> +	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, val);
->  
->  	val = 0;
->  	/*
-> 
-
+    Andrew
