@@ -1,105 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794404578;
-	b=bz9SP4Bg3R6sAUlLzhsDtztSo3aHmLJI5/sl5voVi7rMbz0pJYYyLyUuMrBu6qtRpyRX
-	 aZwFS8/c1MatOyIH0FME8B/NoE03oMD1VMzPghNefJ9nxRZ4iACnh0WLz46AGjrBMvEOS
-	 p6K5j01liLtA1fPeVaeGy1ygxOLd9cH5mCsongd3wAq7KH2euGgf1brHbWLUdsIN3A1Sm
-	 xxcWaKi05qmpMkfgoEN0r2JORcJ4a5VzQ/rPZeVX96hueVIMeaX+N7k2HZSu5LDGUs/K2
-	 YxgB573rBoRtA+CTWhig4kezaeQdm1Q1FRl00csGLJuq439UOZVbkTJPG60CsgZ8Mhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404578;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2SOwV+gq/96MupRZON/hP4eDQReNFTMANeDIlOBzue4=;
-	b=0Xn6eCxLH8kDEJE+wPDUSU+KzgJewqFRIRH1QI+5PkcT3ChWWttn7LWejJoSGd2vpIAj
-	 T7m9YPK0M+JdrOQZJT2B+9h05h3A4vyIyHATHMVOtidhYEZkeS9UFurVhEqLYkVtXKdJl
-	 5sOY/hUhVs27/108JpAzYQr7ZfbcUR5YddtPCBlL+/4E/gkk2Hd3Cp1kDWad3HvJk6jDC
-	 A0jJMnQ11l6xQ71Ibz8doMVmv0cllxx9qwnKB8eoUYw/v4MwwW1Jqy+/jZqrttC107L8S
-	 OIekadp3GKH8b7NozJ9ADTNy3EPP/LQXVdcOIBX3HLJUMGKMkk9magV7a+jitr4peOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FxOpsk7e;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.0
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011000.outbound.protection.outlook.com [40.107.130.0])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794404580;
+	b=1yrjpZf42c5LeifGArIcrDKOkj1hKCMerhyA035eGhlwq2Ncuxj83+q1zWUJCdN4s9Rm
+	 b1Eu5Q/ipusKzO1iNTNkEMEkIKIrS3JwRatxy+f9XnICa4Lya2exJJ8UCiTh6BwRHa0+c
+	 ybK8z+ZJod7xpWoNTx2KB7LvYdXNAYXWnx86hNEirLgLc5+i6uY6YVbGF097ZIemLo9Ay
+	 kCHut6Wm2WFymGpcqwRLytf/LTynFIuK/ClD1v1AkR2Tu5gZCv47dEpY9AvPrLrenZcOo
+	 GlMP22OkJhOEYHhdN90/dCzwmITSDWRMv1B5w//bLINBcHi0Ky2RvK8w9RAC3w0daTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404580;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=VaIAg1habeILU8KEab0l6YC8eAz90GtM/D3rpCBbIiqAutFSWFYfhHlGv2H49BCWHHX2
+	 bOTHZLbI/9J+qVJZ3X9zgR60z5cFGPGKDYeJ3RALBUf/a2VCEF5rm1SfMrsto2LzgI5zN
+	 VNz3EJTWWoosPXHEmBpgS3Zze3whx0IMsqlyUz4WYWtWuJpHeLuGidRmUwvchlWLUnVtE
+	 AkercXBDts0jAMJQXXwcDWED2NOpvEtVQWfJU/+0qUIDnrgzjVftFPrKMk5o+FfUn6viM
+	 G/RPWao+7mLrOynMXfvT1BMGv3QXejHrHbmHKoGTgnDz+lEH/7C6RIhDGPEAGKGLt/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nCJHLJSH;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HltmtrYc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="ZqMFgX/Y";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kSurVkYJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E40A606A8A3;
-	Wed, 11 Nov 2026 13:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E40A606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E871606A8A4;
+	Wed, 11 Nov 2026 13:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E871606A8A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FxOpsk7e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TMbkawmPKVgLz56z5U4BhcvE4SxG4aN3zjz/y3Wx8duZU5ndHnnODKVk7ooZKk5hTZXWZshVfSYJGLZgXh+k4smV1rS/QiSO0vQhxnNF7CZt2bbuZTN9RlGmh86yZ25euvHn6CSooKK8yunwB3UMhul1PyO0xFUfAT3AXuskRW4jXlaLqkLZBtsI0aHkFy4k0rHXxrhlqQl4o1MqxaSKv2Dse0hL3TXAwMMiEqESewszRVJI7DoHF0WYxCP1G6PCHIQIO2q6PuKQ6u04aJpSr6WHRpAGWkQ2j4+U8h0hsNGaJYogRJGHjwKGFAstWW7dDGEnLQYuW7MClx/HBT6jWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2SOwV+gq/96MupRZON/hP4eDQReNFTMANeDIlOBzue4=;
- b=oFcSNTgvx02/vQPTHSWS/sGDzxwfUo9pdvmHDrmrBsqxN1kk/HnGl2ynW2D0zlsteOW7C6HwdmPF7NMUB1X4l3ac+hECWjbh3xAkf9Jpxxy5cGTWkyY7Up4gmGyF0TCJaObopAtXfjkHS8PldcZi44lU4M4uFlIhpf3NyTeIh4YGkRNLbErgo/JS7tpscvE9/MfLzUuOlBu8VOfhhZIbIuk18wMz1NtKG0nihvdNaWa5/9/vCFu+s5O9HHkRf0OSCLtdl+8isr+IcF1ZVFsaLYoHsjie/JBUEXpADYW6NxUKA2rFghDg0SYxLIflgk+oc5eH84ZikTox1qVXPLc91A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2SOwV+gq/96MupRZON/hP4eDQReNFTMANeDIlOBzue4=;
- b=FxOpsk7e74r9M0Os4vUrvl9FrazN3nHrdemNODoS4NSRoE6otqjsR1Un4bpmfgtOd6v/StYBXFVC6+A4QwCwrny+VxUZSuOb0AKmwR6AoukzFGf6vPKb23nBwg47GwiiG5J7FDR7xkRCPy607E7j4qcbYSY4KqeM5SAWhSnU0okeV8Jzt5FZPH3ye58NTthyWS++1iCBeBAFZPugpqpcapK93Efkc+VpYIn+Lrj+gk1VbrGzdc82xnTOrCBb2XQe6nrG37e9Zksu9rRNSGUoW4hSm19kwZNxfKHqLD6xz7Vx6HMECzBcyDceehBhwDA4Z8huqYtFicdJxt8E+MQ/6w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by CPHPR04MB721690.eurprd04.prod.outlook.com (2603:10a6:380:104::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 13:42:55 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 13:42:55 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 11 Nov 2026 21:47:31 +0800
-Subject: [PATCH v5 3/7] iommu: register the DMA channel bus for IOMMU
- notifications
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-edma-iommu-v3-v5-3-2537cebe6ca2@nxp.com>
-References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
-In-Reply-To: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
- Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2PR01CA0041.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nCJHLJSH;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HltmtrYc;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZqMFgX/Y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kSurVkYJ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C1A005CD45;
+	Wed, 11 Nov 2026 13:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794404578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=nCJHLJSHmwetqnRekosDQH3pW0NXodCbj5AHXg2bajivqcMdFbHe3X+6Kjh4xwUS5C3riS
+	izaX5wyF4Mk8xdl+hnBkSZDsT6u1w61M4J5jG/80/dIkMQzLED0hAd4kPNsVIZAxb4XK0A
+	IOLwJYTgCtmax6j1TEYQFLDxXtzGpQU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794404578;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=HltmtrYcdBKzJla3QuYhHR3mK6Mfp6J1+2MNQ7gHSPMrZxiN6zGQTOCICr2XajaBlRP/aZ
+	EN0fc3nZkamHFzCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ZqMFgX/Y";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kSurVkYJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794404577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=ZqMFgX/Ycvj0V6D7whtErBY4t0j61F7Nu9eWp7O8VRLMjoEgydkBWkFvMHQvzjw0Wqlk8w
+	kYMOo09J0n6vu0HQHcCkbToT10nnIhepXA5p9ZXrkwUp3AaTKXwuHT7uE4r3Gi5sjeE03b
+	/QEh4F7EVGf2SgUnUL84Olt3dwsjnPc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794404577;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=kSurVkYJsIz/A7tx1thcSWtnZkSFgZO/pTOaWGQqDfgiBUI4kYwZkS7txD7cR/aYOQgrVn
+	brOagByGJ553hdDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F01331339F;
+	Wed, 11 Nov 2026 13:42:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id utsxMeBw9GpeXwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:42:56 +0000
+Message-ID: <8eaf9955-485f-4908-bb65-1e0c3184fb36@suse.de>
+Date: Wed, 11 Nov 2026 14:42:56 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,116 +108,216 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|CPHPR04MB721690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f0e2c48-1928-4300-d15c-08df3ff9b08c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|921020|10067099003|11063799006|261009223027099003|261022105027099003|261021121427099003|261102123227099003|56012099006|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Ax4SI2i7BrRO4NA0MMloLu9pN97Z3QXjl9tO6y81P/2RNU8uOLZPqy8Eeqmepu/p0847xEX3Nn5bNqQTAUWVgFQ+0rXwsOC/A9SnDCfjX4UDGLo5x6HLdeaqSh6DTzB/tkKjIsNqZRKlV4paskSh6FdZxPRII97bmPfXQNg+e3GIbKFwBvgH6oqG8HA+Kla5/PUORNfuT0KaIomesMAQxEpk+ztkjzXDJP1yiu+JvAgfzIgpcZVSuHGqZtKkjpLQOz2Ll09FJEIm7K6zRU8jeeFCd6IvXaDFwvjkuv/IQUXhe3J5VkEOeXxKY9DWuK4RiX5Tep3ck6YQBoKhTXecgiOApPMC5xj7Nh5K86Urip8oE8PBWWLYNc7pCUCCkuuK6cQI+nob+eI6TpsFKDhdJd1LsCb/rmQpGiy7RHwRMH06fgWeMlhcL86sWRdJX2wxshcOdTBCX+4w4fvcG5jDMcyFNoZlQqHh69m9xs17pV15TPti0CxYJeHC8JoHZ+esnqOpykQMAaIaIHOJWsbmeluUpG0uKymSPRN62reYlr9mc4JSPLWecyQRy8ueGR+XFKIXYT5Zy4cESaD93BffLEBBIlfanLGaR0LAJJE5arY2q05sh0gQmkOztxiaQzvFSjJYIW+hgUsNG/on5mAeSwiwPlVHvVAtmD7j0yTYPR/P0UT7VLuN+w+utOVQda5FgOHkJLNWJinsKcONmQnuXQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(921020)(10067099003)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RCsvMktRTVJoYk9GUUwrMGFDN2Y3N0RGYk5vMVM2bXVHQ1BtVk1RTXc4N2Na?=
- =?utf-8?B?UW5Ebmk3R0dkQS9NLzVmaXZjZWJqL3owcDRSeXNIenRrNHI3eEJXdjRLZUdp?=
- =?utf-8?B?UFMxRUlCcDB0blFISEl4UU83WDVXMXJxYVpmbDVBdzdBc2laSlM5QlZSWGYv?=
- =?utf-8?B?WEI1UUltOVNpL0hqdHhBK0U1amxwVk01eXF0ZlFhUUNoY2FMM0o0SnJVbW1F?=
- =?utf-8?B?SldFRXBoSzRSYlN0MHIyL3daN2VGVFZXZWxJSzVUQlNBYlNqUWtSaFhqQ2I4?=
- =?utf-8?B?bnNVRk9tcFhkYlF4L09GM1I3S0FXVW84TW1tS2ErK3JTUUcwbzJZdXBvMUIy?=
- =?utf-8?B?UGZNRG5BaTc4dnJUT2xsWHYvQ3VsS2s3dmpFWHB1c0VkZ0ZpVEhZMG1vSnFG?=
- =?utf-8?B?NWFURnBTUUF0dnpxd3BBcEJaZlpnWXpwV0lNeUo5cnk0cmMzbTEwdDlVTFJO?=
- =?utf-8?B?ZnkyQ0lhVFhZZ3JvVjJOdHVtQVkvTDZwVWlabmZaSWJ6bkpDeWUyOFhwanM5?=
- =?utf-8?B?YjVydXBuekdWYXErc0tZM0ttNTk5d0xoaTl1Zml2N29RdkR5U3VWNnIveWtN?=
- =?utf-8?B?WmtHNENEcmRkbloxNDBPdnRwcTBtNG0va2R5ZUhGNjc4MnFYaCthVnVYemFI?=
- =?utf-8?B?aWdOY3lSTjlRZUFDdjQyb0lqSEN1U0xmR2lRS0V0UUoySXhTTXlEUEhvTVpz?=
- =?utf-8?B?d2hwK0hLWFB6d1JYWjdUOU1zQ1FBYlV5REd6Q3JKUmpMZTNVZXhDbmNuVlp2?=
- =?utf-8?B?aWt2QUlFV0Y1eGJFUFVGOE5RUDB4RmtyTjIwL0JrbXhjVk4xNFN0a2Jham1t?=
- =?utf-8?B?OWdxRCsxaHoxMGlXZis3c2gzRlpHK3kzM0FwSzFPWWZGZmFiSWxtK2pDaWdL?=
- =?utf-8?B?VjNLcmsrNjZXU2pTc1FISGtYaFVrY2lyZVlwWlpJUUVWbFdVVDd0UHRZVFVB?=
- =?utf-8?B?WnN2OE1EZEt0cE1YanZsTndVRWtnNUVTMnBWOTJkbkRIbDdKdHpHcXkwRWM5?=
- =?utf-8?B?b3Izd0Y5dHM1c0o4RG00T0taeXRZdlZuT3dEekgrdUgycnNNd0VxQUUrVXBG?=
- =?utf-8?B?bFI2SlVrMm4yNmVzRlFiN1VsVlpxa3o0cGR5WTdHUjB1YVJjTEY5Mk00eFZX?=
- =?utf-8?B?bExMVWxRQVRBc01jT2thRFdqdDE0Y2RtTzg4cWFIRWZIeWtUSTA5K2U2aVB5?=
- =?utf-8?B?QnpWK3Q5dnJxUERkS3k4dkh0azl3VXBTcytQd2FRWFpUWGM0VFhjTHljdGZz?=
- =?utf-8?B?ME9uc2RnTWFkTDN2c2luV1Q0MXg4ZzJZa2hSWnNDdlVManRucS9NekdWdXMy?=
- =?utf-8?B?SDMvby9RM2I2OEFYVmxMNGpuaE1lU2IwSEd5cWxBc2pPK2NkY29vL01XTDU2?=
- =?utf-8?B?SGtyOXFCbjErRFhmdDI3Z1h4WVNlVFR5Rkd2c2ZSOTkvTFdWSlJFWGNsKyto?=
- =?utf-8?B?eUhURjR4QXRlRmUvZDk4KzROU3o0ODFWVnl3N2pBZmRXcW9aWlhFT3Y4MnFM?=
- =?utf-8?B?TUk0N1gvK3ZRUlZ1cW1xMHF4Y0ZDVjdjaEM0b1FGN1ZNMzdZWWJPVXFLOVQv?=
- =?utf-8?B?Y0xQOEZvdnB6TlI3bG0vYmN5bVBIbUZwRjZVWEFGR2d5dVFWczJEV2pmRVFT?=
- =?utf-8?B?ME9HZDE0eUJncUtzYllsM3dEa1lvNHVTY1JHRCtyTDkzMlJzRWx0bWVWRTJC?=
- =?utf-8?B?RW9taEI3MGg2YkY0MXNRVHpwUE1zL0RKODhLUGF0YXZqNEFLY1M2NEdXRkVW?=
- =?utf-8?B?OHRtQ3oxVVBwQWRzVUVvWVFUclJTK1NHOGVQZEdlTlNHZU9JN3AxYUc1VEh2?=
- =?utf-8?B?c2V1aklYaGdKLzR6cDBhdGxOSmlFbnozMG96T1ZDM2k0MVM5NVlzNkNxNTlr?=
- =?utf-8?B?cG93TEwvZU5tOHhXcUgreGZ5c0tyR2ZINlF2WDQzekxiUC9DVk5FVFVsd05j?=
- =?utf-8?B?cHNPMytzQjZhcmtCTkVzY1Q5WHVtcTBOK29MMXRpU1VWa3JRa3pZa3ZacVV3?=
- =?utf-8?B?cEoyWlJURmRRNEJBT2VLcVNESDRQMk03NmZlcmttR0NQOEtGZndURzBhTzVD?=
- =?utf-8?B?RnVPdXNCalpZV1paQnJkSVV5VXNyMExIK0lKZ1I4ck9xZ0FtY3cyb1h6ZENn?=
- =?utf-8?B?Qnl1clpSNjVkZk0yT1FnRDhTT1BpdGRRV3RNa1M3dGRTb3ZhdXF0VktRUmpH?=
- =?utf-8?B?MFIzblVmTDNKNDhLeGxoY3hEZGhKVW8zV1FYRHZvNHVIQlFtbi8xZFVDbG9I?=
- =?utf-8?B?WnVSM0hXUjh4MlpHVUYrVFFzSXNNT1FNcEFHSmovK0RiMDZyVXhJQ1N0VUNW?=
- =?utf-8?B?cDgxdTcybG9zNThSTTJNaTVEQzNORkRCeDRRTTRjNGdPdmJBUjlwbkFCZ2Mv?=
- =?utf-8?Q?RDNRx4T+CS2I8nsuAI4xn/1fSB6PO1w9Vmxvr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f0e2c48-1928-4300-d15c-08df3ff9b08c
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:42:55.2485
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pisc9+NIuPluyFn9/p5mtEm2CL1MaW+WFQYLk2Bi9jeuP/jq5wXNGlV7DNVOU65ZhMOiqy3pSjzJMUP0JPtAkd/yt69/cpqybTx8H0mvKSNM9nN3htX1GKLuKgHPwuJU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPHPR04MB721690
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 08/15] drm/client: splash: pick the image source in one
+ place
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
+ Peter Jones <pjones@redhat.com>
+Cc: Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027135342.2003632-1-maximpedraza@gmail.com>
+ <20261027135342.2003632-9-maximpedraza@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261027135342.2003632-9-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:email,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C1A005CD45
 
-From: Peng Fan <peng.fan@nxp.com>
+Hi
 
-DMA channel devices are about to be registered on a dedicated DMA channel
-bus so that they get a properly balanced bus association before
-device_register().
+Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
+> The client chooses between two sources with a boolean: the BGRT if the
+> firmware left one, otherwise the BMP loaded as firmware. A third one is
+> coming, and with it an order of preference that a boolean cannot hold.
+>
+> Name the source in use with an enum, picked once by
+> drm_splash_pick_source(), and have drm_splash_image_load() switch on
+> it. No functional change.
+>
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>   drivers/gpu/drm/clients/drm_splash.c | 45 +++++++++++++++++++++++-----
+>   1 file changed, 38 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
+> index 337c7160c4a1..911149b92a52 100644
+> --- a/drivers/gpu/drm/clients/drm_splash.c
+> +++ b/drivers/gpu/drm/clients/drm_splash.c
+> @@ -39,6 +39,16 @@
+>    * a static image.
+>    */
+>   
+> +/*
+> + * Where the image comes from. drm_splash_pick_source() sets the order of
+> + * preference; NONE is zero, so that a new splash starts without a source.
+> + */
+> +enum drm_splash_source {
+> +	DRM_SPLASH_SRC_NONE,
+> +	DRM_SPLASH_SRC_BGRT,
+> +	DRM_SPLASH_SRC_BMP,
 
-Add that bus to iommu_buses[] so the IOMMU core installs its bus notifier
-for it. This allows of_dma_configure() to probe a per-channel IOMMU and,
-more importantly, lets BUS_NOTIFY_REMOVED_DEVICE release the IOMMU group
-and domain when the channel device is unregistered.
+I'd call this DRM_SPLASH_SRC_FW, because that's what you're loading 
+from.  Although the format is a BMP, BMP is also the format of BGRT.
 
-The dmaengine bus is registered from a core_initcall, before any IOMMU
-driver can call iommu_device_register(), which iterates iommu_buses[] and
-fails if a bus has not been registered yet. Guard the entry with
-CONFIG_DMA_ENGINE because the bus does not exist when the DMA engine core
-is not built.
+Patch 4 already mixed this up. Renaming the BMP names there to FW seems 
+sensible.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/iommu/iommu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The rest of the patch looks good.
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fc..6fa871bbd63a 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/amba/bus.h>
- #include <linux/device.h>
-+#include <linux/dmaengine.h>
- #include <linux/kernel.h>
- #include <linux/bits.h>
- #include <linux/bug.h>
-@@ -191,6 +192,9 @@ static const struct bus_type * const iommu_buses[] = {
- #ifdef CONFIG_ARM_AMBA
- 	&amba_bustype,
- #endif
-+#ifdef CONFIG_DMA_ENGINE
-+	&dma_chan_bus_type,
-+#endif
- #ifdef CONFIG_FSL_MC_BUS
- 	&fsl_mc_bus_type,
- #endif
+> +};
+> +
+>   struct drm_splash_scanout {
+>   	int id;
+>   	/* Modesets scanning this buffer out, by position in the list */
+> @@ -87,7 +97,7 @@ struct drm_splash {
+>   	const struct firmware *fw;
+>   	void *map_data;
+>   
+> -	bool use_bgrt;
+> +	enum drm_splash_source src;
+>   };
+>   
+>   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
+> @@ -429,7 +439,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   		return -EINVAL;
+>   	}
+>   
+> -	if (splash->use_bgrt) {
+> +	if (splash->src == DRM_SPLASH_SRC_BGRT) {
+>   		x_pad = efi_bgrt_image_offset_x();
+>   		y_pad = efi_bgrt_image_offset_y();
+>   
+> @@ -498,10 +508,31 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
+>   				 size_t *img_data_len)
+>   {
+> -	if (splash->use_bgrt)
+> +	switch (splash->src) {
+> +	case DRM_SPLASH_SRC_BGRT:
+>   		return drm_splash_bgrt_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_BMP:
+> +		return drm_splash_fw_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_NONE:
+> +		break;
+> +	}
+> +
+> +	return -ENOENT;
+> +}
+> +
+> +/*
+> + * Pick the one source the image will come from: the BGRT is whatever the
+> + * firmware shows, and the BMP loaded as firmware is the fallback. With
+> + * neither, only the background colour is drawn.
+> + */
+> +static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
+> +{
+> +	if (drm_splash_bgrt_available(splash))
+> +		return DRM_SPLASH_SRC_BGRT;
+> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
+> +		return DRM_SPLASH_SRC_BMP;
+>   
+> -	return drm_splash_fw_load(splash, img_data, img_data_len);
+> +	return DRM_SPLASH_SRC_NONE;
+>   }
+>   
+>   /* At unregister, once nothing else can use the image */
+> @@ -818,10 +849,10 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
+>   
+>   	if (!splash->source_picked) {
+>   		splash->source_picked = true;
+> -		splash->use_bgrt = drm_splash_bgrt_available(splash);
+> +		splash->src = drm_splash_pick_source(splash);
+>   
+> -		/* If no other image has been loaded, try to load a BMP as firmware */
+> -		if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
+> +		/* The BMP loaded as firmware is the only source that arrives later */
+> +		if (splash->src == DRM_SPLASH_SRC_BMP) {
+>   			ret = drm_splash_fw_request_bmp(splash);
+>   			splash->fw_requested = !ret;
+>   			if (ret)
 
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
