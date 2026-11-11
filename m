@@ -1,121 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426293;
-	b=Y58A86y9PASuTmE4oKIqcYa4plH7VWOBa72Sau285i97SRXPyIYAsA7UVnEIsAgouwpB
-	 Y1BPuJZ5n29F+eI2GnzOuoi764VHZv89PoOKSBDdFgfjWQZQgsyozRtC4oXFFyG2g4Dk5
-	 IaXczDHG1D0dj+VWJ4lg9vQ7qiZocGxzJLAO4pS7ghk6TpQCxcamrb3O8fUw+MblxRTi6
-	 UDnihrT0mqImDuFFEdCv+rCDHuplv4aP/PeoJhyA0GjyxTd6YGFdv5YkOr2k+RYUY5cZX
-	 qOvn+pieo2VRa2WwpkIG418vR8L2u3BEUL+i9DiM/Bsylvy2EHO4bnGfYesxW4iZdiQ==
+	t=1794426915;
+	b=M17cSjcGpxXPjS5G7R5y9u8QMWR8pKFNh5Q49fGSZ5tGZwOyow7bs/iYs7EuK9l/jbsL
+	 gV0XtMEFf4UGludiCJubuy6xh6htM6E9K8hzziGlDfD6I9cX+GgLYgLMUWyhnmKiT2joQ
+	 pcVsXXdXktiGrtZJRUVhR6tFH8P/ep3wBCVQ/I/s6HX3WB5MiQpqJnVX5dCbs+mrEBBhJ
+	 XJDmKnSuJxa2DV6S5GCDOeX5A0x9tb0IYVdzbRzFULnrRo9uTzmk9OnedfXj9Jjw7yQuQ
+	 XMx7XkFDzUFNjdnpW+6I9zu9VPhevmF/fRqkmrducWzIt2H/ALUVs9d4EP76L7iRa6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426293;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=gw48uU5TuI97IZTqjbPClG+wxWg8KU+drJon/k2SkSQ=;
-	b=JCCRB1lEZIJgi2DkfiBfgOH3tE88hWnsbWvpajb/9tTGlsrhr+fTjHJtA9/fhGe/J5jZ
-	 Nx2wRtgVvhUOX83u+wGR3eMZs9luHg3dMoYLf9RXpbmXVyCJcbRs/e6WzGaNVLbsYhwX4
-	 xLJFh1P6yOv6vKlowFpql2p/PC7Qzd0TtDZZcULwSObteR4tEojxAPMlw5H/zsZ1EdmU9
-	 57APGM2Zt0BlzqOmLwoL9xZPcmUzgFbPFufDxW799Zr4RpxO9w46giGCXA9mz1Jv0FMYF
-	 nsNdX9fsvgVNHWuEIRR9T84ovYTcHMIXnTL8SBk3Cs9cVUWpu6w/0CykYxfoRS/SxSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426915;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 Alx-In-Reply-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=iENEpx4FRqC7og/qPl3NdY89leTg1m+KfD2SYQ647gM=;
+	b=hJTidC0JJuWOgfmCp/asHNLeJjEIw2pc9ifakvKyiRzQmVJ95brC+/VilJ/IY58j+ltS
+	 MDQNrsl1moyYPXf/658Cy238cw/fHAbz+dprNz68rYh/ElSEAgzhDRe9OZK19lubTdd1s
+	 4wqPL4ojXfVtBX+Gb7C1i3PEiCqzvBB+F2uuXtTHmfs4ZCWCe3GYP0ZpjLz7Gkn3rpLLV
+	 NdcCB5/94p4zNCVfgcaNqBB7RlM2RYyKjRn2NHzTxLm6pddDLnM6AZpRL1UrG+JLtS/ko
+	 MsYp1IRIxXy13KFQZdhG1dKPBISCIoCXLlPa9Y/pyzVfZq4pnpnVFh2grNIbu1gPerQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KOTABQTy;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1eb5kEs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB3460A2616
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 19:44:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECB3460A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ADE606A31C;
+	Wed, 11 Nov 2026 19:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KOTABQTy
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so2060111a91.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:44:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794426292; x=1795031092;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gw48uU5TuI97IZTqjbPClG+wxWg8KU+drJon/k2SkSQ=;
-        b=nTXQEDBVYrZDy28jSq6ixHjwE40CDefYt9xHYtalRDgNEqwQ+DfrjoIORe7IYeURAu
-         iE1ZwOJbYJN5FyanO9kHAzliUKyGTyMk5ISoiiX6/dCtwpl+5xyu7/DyF20p0WJqoAuC
-         5ZiHf1cxRJd7Ek8kAbQS3lh15zUBtXREjTV8FzagXRkgXDj7PISQY7p5L6uZ09Reh/vH
-         I52IXCDOBKXZkfODm5bpsPcToyPlJx1ZVbwrzo+OiReZiyNhNTwNFokLmeRxMvSANdZz
-         jJB+K1A7HH8m4H5NvU2I4RhkuyGJLmCrx0b2HxiIa7XGR7H0kLyROsp/vTdSVI36uc83
-         PyVg==
-X-Forwarded-Encrypted: i=1; AL+hErF33AKTgkARB4PvUGdHFFm09YP9HTjKRJgeGieHYCcvXpUO0I5TLKYrp5gv1yKOLojoxq6Pck4yoQIE@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6QHSKwZA7YSK1EyhTGpzizN8npxQihPXlagwWecOCv/KVGWnn
-	MZYIVAHELklaCGeG/k93MXh1tr3rAEDWVoRxeE/O05aMoHQJFovkxs4AE7t7VaFNCCTUFiuNDNt
-	E1VLHelq4PMQZA27Z9J/M2aBGKpIvkIUK5B/VlM6MkzdIavmKkjn1kV1jZe1qkRUg6L2WwAReNG
-	Xl9FbdzSPiQUrr574tsdEgmrG6KpvSao/TOo+bZr0/31oEp1a5oL5MmruEOlttB3kPsgnjmZSpn
-	vvlPGrOz8z96w==
-X-Gm-Gg: AYBFou3PGKTtkoX6MuCo2tHmDutpgHUAJA50uK2YZwCnsQhZLke1qDYN5icOVw9AYWz
-	qwe7OCyUN4wPdGaZ0PS72l7U7N0UtNg0qir9aprU81L8ZoFnKwWDdLs2YJ2Sd/KhnjlkeATwHmN
-	Tg3TfuXeW92o48zVdaauWPfR5qvBA5DW01GvXvtTEAx3ijxDGc4AcDtX1ZE/4QYqjBZIN8a7HI5
-	FlTLkcNbEn9Nq1StgnXr/jcEDcYZPBM5RZqYISe3dQNxtFnr40GkWvS8jCox9xyittB+Dn3fMcI
-	8b94XKsDm8KmSSr/6Oosg6qXCCV9GUS9Ps7rFgU4aysTFo6ERNlyh1GZpAxyZrtTKonX449yj4c
-	ZD1xDlgtuntOSBAVWjHFtcopeoQNonCWU69ygFixDTNetdc+inxcEAAB3ALxICnqL5c4G1chOaJ
-	fX1pXcrVc1eSdMYgTyzGjqgvbwFq8wjkHv
-X-Received: by 2002:a17:90b:5487:b0:3a0:516d:9f88 with SMTP id 98e67ed59e1d1-3b182eac822mr3149106a91.26.1794426291786;
-        Wed, 11 Nov 2026 11:44:51 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c475f0sm279087a91.5.2026.11.11.11.44.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2026 11:44:51 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-37628596fc9so580980eec.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:44:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794426290; x=1795031090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gw48uU5TuI97IZTqjbPClG+wxWg8KU+drJon/k2SkSQ=;
-        b=KOTABQTyMmSotnDBqowcSSEsu2WGYMXB1N5ZVC96ERVJ6H4jgXrEuqOj1J5TMU0zqe
-         NOqtCkW3n+1LMjoBIxceyQzR25kXBJGFZyuVXYdA6teWUjsVIO+3W9B10GK3oa99rxOx
-         4+6gpq5X4gSxixbltiAwtclOUq6Dz8UKzQadY=
-X-Forwarded-Encrypted: i=1; AL+hErGSFHZjrCsSjZx0dv5dYw2biW3z0Ss+HU+TPwvZitB3JEvcYJ1CEZHB8b4kTguQgqA+WTl7YtYTP7zX@vger.kernel.org
-X-Received: by 2002:a05:693c:42d3:b0:36a:54a0:6b4c with SMTP id 5a478bee46e88-37686757ce7mr3184472eec.25.1794426289696;
-        Wed, 11 Nov 2026 11:44:49 -0800 (PST)
-X-Received: by 2002:a05:693c:42d3:b0:36a:54a0:6b4c with SMTP id 5a478bee46e88-37686757ce7mr3184439eec.25.1794426288973;
-        Wed, 11 Nov 2026 11:44:48 -0800 (PST)
-Received: from mail.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm17948013eec.11.2026.11.11.11.44.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 11:44:48 -0800 (PST)
-From: Kamal Dasu <kamal.dasu@broadcom.com>
-To: linux-mmc@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Kamal Dasu <kamal.dasu@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Shawn Lin <shawn.lin@linux.dev>
-Subject: [PATCH v12 6/6] mmc: core: Add support for resetting an eMMC at system resume
-Date: Wed, 11 Nov 2026 14:44:26 -0500
-Message-Id: <20261111194426.1652644-7-kamal.dasu@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261111194426.1652644-1-kamal.dasu@broadcom.com>
-References: <20261111194426.1652644-1-kamal.dasu@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1eb5kEs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4348F1F00A05;
+	Wed, 11 Nov 2026 19:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794426915;
+	bh=iENEpx4FRqC7og/qPl3NdY89leTg1m+KfD2SYQ647gM=;
+	h=Date:From:To:Cc:Subject;
+	b=Z1eb5kEsXN69s6NNrYa/U6+Ib/1gnZ1tvkHy0ekIkZgm0b4Gn6xSjbTyOlprMOGFK
+	 dRTzmdDg5SH62wMLOkq++cj1XzrxI/NyUHJKbQdSuMKy3j8rz1Txbddjyl+zLDg7C7
+	 t26lNyrm4HZOQbQtn/G/3HFlLUyoX5Qd6dh5OXZrSj53YcvZLchuA7PmAPIYv9iQG9
+	 qj6Uv+U0wubfTSUtTqRHn+PLD6dGTQwGl6qI4oMZ9dMJr6ShPgSv9Q6CSCVX2IiOZz
+	 ed7zCPbEFXHBVRcSnro3J1B5VX9AiVXFnl1NGN29CXSlxzFRTgXWZMw5dFnh07RzIH
+	 0/rJ9R5DxZcxw==
+Date: Wed, 11 Nov 2026 20:55:07 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <cover.1794425425.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
+Alx-In-Reply-To: <cover.1793876837.git.alx@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,122 +70,327 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i3rwcpva5plffwsz"
+Content-Disposition: inline
 
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 
-The DT property reset-card-at-resume specifies that we need to make a reset
-of an eMMC card at system resume, assuming it also has stayed powered on
-during system suspend.
+--i3rwcpva5plffwsz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <cover.1794425425.git.alx@kernel.org>
+MIME-Version: 1.0
 
-To implement support for this, let's start by parsing for the new DT
-property and set the new bit MMC_CAP2_RESET_AT_RESUME if it's found. Based
-on the property, we must also set MMC_PM_KEEP_POWER in the pm_flags for the
-host, to keep the eMMC powered on during system suspend.
+Hi!
 
-Finally, to manage the actual reset during system resume, let's extend
-mmc_resume() to support the needed behaviour.
+str_has_prefix() is based on sizes and lengths, which means it must
+overload the valid length 0 to mean not found.  This is a typical
+consequence of choosing to design an API around sizes and lengths, and
+vanishes when moving to pointer-based similar APIs.
 
-The property only makes sense together with keep-power-in-suspend, as the
-card would otherwise be powered off and system suspend is refused. Validate
-that in mmc_validate_host_caps(), to make the host probe fail upfront on
-such a misconfiguration.
+According to its author (Steven R.), str_has_prefix() was never meant to
+accept an empty prefix, but that's not documented, and there's no
+obvious reason why that would be acceptable for a generic string
+function (as opposed to a function very specific to its original use).
+Anyway, as suggested by Steven, I've added a WARN_ON_ONCE() to catch
+such uses, and also added documentation stating this limitation.
 
-While at it, claim the host around the reset in mmc_resume(), as it sends
-commands to the card, and propagate any error from the reset so that a
-failure to re-initialize the card is reported by the resume path.
+Users of strings need a function whose behavior extends naturally to the
+empty string, and we can do better, by returning a pointer.  And indeed,
+users have ended up using str_has_prefix() with empty prefix, expecting
+it to work (as is natural of a generic string API).
 
-Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Co-developed-by: Kamal Dasu <kamal.dasu@broadcom.com>
-Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
----
- drivers/mmc/core/host.c  | 17 +++++++++++++++++
- drivers/mmc/core/mmc.c   | 12 +++++++++++-
- include/linux/mmc/host.h |  1 +
- 3 files changed, 29 insertions(+), 1 deletion(-)
+This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+strprefix() in one place to fix a bug reported by Bartosz.
 
-diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index 8e9e61839198..94c8ec81ee08 100644
---- a/drivers/mmc/core/host.c
-+++ b/drivers/mmc/core/host.c
-@@ -48,6 +48,14 @@ static int mmc_host_class_prepare(struct device *dev)
- 	if (host->bus_ops->pre_suspend)
- 		return host->bus_ops->pre_suspend(host);
- 
-+	/*
-+	 * If it's required to make a reset of the card at system resume, this
-+	 * indirectly also means that we must keep the card powered on during
-+	 * system suspend.
-+	 */
-+	if (host->caps2 & MMC_CAP2_RESET_AT_RESUME)
-+		return mmc_set_host_pm_flags(host, MMC_PM_KEEP_POWER);
-+
- 	return 0;
- }
- 
-@@ -375,6 +383,8 @@ int mmc_of_parse(struct mmc_host *host)
- 		host->pm_caps |= MMC_PM_KEEP_POWER;
- 	if (device_property_read_bool(dev, "wakeup-source"))
- 		host->pm_caps |= MMC_PM_WAKE_SDIO_IRQ;
-+	if (device_property_read_bool(dev, "reset-card-at-resume"))
-+		host->caps2 |= MMC_CAP2_RESET_AT_RESUME;
- 	if (device_property_read_bool(dev, "mmc-ddr-3_3v"))
- 		host->caps |= MMC_CAP_3_3V_DDR;
- 	if (device_property_read_bool(dev, "mmc-ddr-1_8v"))
-@@ -620,6 +630,13 @@ static int mmc_validate_host_caps(struct mmc_host *host)
- 		return -EINVAL;
- 	}
- 
-+	/* Resetting the card at resume requires that it stays powered on */
-+	if (caps2 & MMC_CAP2_RESET_AT_RESUME &&
-+	    !(host->pm_caps & MMC_PM_KEEP_POWER)) {
-+		dev_warn(dev, "reset-card-at-resume requires keep-power-in-suspend\n");
-+		return -EINVAL;
-+	}
-+
- 	/* UHS/DDR/HS200 modes require at least 4-bit bus */
- 	if (!(caps & (MMC_CAP_4_BIT_DATA | MMC_CAP_8_BIT_DATA)) &&
- 	    ((caps & (MMC_CAP_UHS | MMC_CAP_DDR)) || (caps2 & MMC_CAP2_HS200))) {
-diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-index 026003ba507d..71c59cf1178f 100644
---- a/drivers/mmc/core/mmc.c
-+++ b/drivers/mmc/core/mmc.c
-@@ -2314,14 +2314,24 @@ static int mmc_hw_reset_recovery(struct mmc_host *host)
-  */
- static int mmc_resume(struct mmc_host *host)
- {
-+	int err = 0;
-+
- 	if (mmc_card_keep_power(host)) {
- 		pm_runtime_set_active(&host->card->dev);
- 		mmc_card_clr_suspended(host->card);
- 	}
- 
- 	pm_runtime_enable(&host->card->dev);
-+
-+	if (mmc_card_keep_power(host) &&
-+	    host->caps2 & MMC_CAP2_RESET_AT_RESUME) {
-+		mmc_claim_host(host);
-+		err = _mmc_hw_reset(host);
-+		mmc_release_host(host);
-+	}
-+
- 	host->pm_flags &= ~MMC_PM_KEEP_POWER;
--	return 0;
-+	return err;
- }
- 
- /*
-diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-index 032c018650e0..3c0ea74e3e35 100644
---- a/include/linux/mmc/host.h
-+++ b/include/linux/mmc/host.h
-@@ -430,6 +430,7 @@ struct mmc_host {
- 	u32			caps2;		/* More host capabilities */
- 
- #define MMC_CAP2_BOOTPART_NOACC	(1 << 0)	/* Boot partition no access */
-+#define MMC_CAP2_RESET_AT_RESUME BIT(1)	/* Reset the card at system resume */
- #define MMC_CAP2_FULL_PWR_CYCLE	(1 << 2)	/* Can do full power cycle */
- #define MMC_CAP2_FULL_PWR_CYCLE_IN_SUSPEND (1 << 3) /* Can do full power cycle in suspend */
- #define MMC_CAP2_HS200_1_8V_SDR	(1 << 5)        /* can support */
+We can later work on replacing the other uses of str_has_prefix(), which
+might hide similar bugs.
+
+This patch set also adds infrastructure to make string functions return
+a pointer that is as qualified as the input pointer.
+
+Changes in v4
+~~~~~~~~~~~~~
+
+-  [1/6]
+   -  Remove deprecation notice.  [Steve]
+   -  Move documentation of str_has_prefix() to strprefix().  [Steve]
+   -  Document str_has_prefix() by comparing it to strprefix().
+   -  Match parameters in documentation and code.
+-  [2/6]
+   -  Add WARN_ON_ONCE() to str_has_prefix().  [Steve]
+   -  Document limitation of str_has_prefix().
+-  [3/6]  -- no changes --
+-  [4/6]
+   -  Document that it might drop const, but doesn't need to.
+   -  Make const_cast() more robust, by replacing 'default:'
+      with 'T:'.  [David]
+-  [5/6] =20
+   -  Replace [0] array notation with * pointer notation, to silence
+      spurious -Wpointer-arith diagnostic.  I wouldn't have changed
+      anything if it weren't nontrivial, because that diagnostic is not
+      part of -Wall -Wextra, and is also not too important, but since
+      the solution was trivial, I'm fine with it.  TBH, I prefered [0],
+      but I can live with *.  [sashiko]
+-  [6/6]
+   -  Define the macro after the function, to avoid wrapping the
+      function name in parentheses.  [Joe, David]
+   -  Document why we need CQChar_of() --the simpler typeof()-- is not
+      good enough.  [David]
+   -  Change the function to return non-const.  const_cast() can't add
+      const, it only removes it; thus, we must have it always in the
+      function, and then have const_cast() drop it conditionally.  This
+      also removes a cast.  [sashiko]
+
+I didn't apply some changes requested by reviewers:
+
+-  I didn't rename const_cast(), since I'm not convinced about the
+   suggested alternatives being better.  And after all, a cast is only
+   needed for dropping const, but never for adding it (because it adds
+   implicitly), so a const_cast() obviously implies that const might be
+   dropped.
+
+See range-diff below.
+
+Testing
+~~~~~~~
+
+I haven't changed the implementation of the function meaningfully, so
+haven't re-run tests.  Since the changes since v2 are only about type
+safety and diagnostics, I have built again with 'allmodconfig', just to
+make sure it still compiles.
+
+Alejandro Colomar (6):
+  string: Add strprefix(), and deprecate str_has_prefix()
+  string: Warn if the prefix is the empty string
+  device property: Fix fwnode_name_eq() for empty node names
+  stddef: Add const_cast()
+  string: Add [C]QChar_of() and QVoid_of()
+  string: Make strprefix() const-qualifier-generic
+
+ drivers/base/property.c  |  5 +---
+ include/linux/stddef.h   | 12 ++++++++
+ include/linux/string.h   | 62 +++++++++++++++++++++++++++++++++++++---
+ lib/tests/string_kunit.c |  9 ++++++
+ 4 files changed, 80 insertions(+), 8 deletions(-)
+
+Range-diff against v3:
+1:  556766412884 ! 1:  a74fabd985a8 string: Add strprefix(), and deprecate =
+str_has_prefix()
+    @@ Commit message
+    =20
+         We'll slowly migrate existing code from str_has_prefix() to strpre=
+fix().
+    =20
+    -    Copy the description from str_has_prefix().
+    +    Move the description from str_has_prefix(), and describe
+    +    str_has_prefix() by comparing it to strprefix().
+    =20
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+         Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-=
+each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+    @@ Commit message
+    =20
+      ## include/linux/string.h ##
+     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t dest=
+_len, const void *src, size_t count,
+    + 	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
+      })
+     =20
+    - /**
+    -- * str_has_prefix - Test if a string has a given prefix
+    -- * @str: The string to test
+    -- * @prefix: The string to see if @str starts with
+    ++/**
+     + * strprefix - string prefix
+     + * @s: The string to be tested
+     + * @prefix: The string to see if @s starts with
+    -  *
+    -  * A common way to test a prefix of a string is to do:
+    -  *  strncmp(str, prefix, sizeof(prefix) - 1)
+    -  *
+    -  * But this can lead to bugs due to typos, or if prefix is a pointer
+    -- * and not a constant. Instead use str_has_prefix().
+    -+ * and not a constant. Instead use strprefix().
+    ++ *
+    ++ * A common way to test a prefix of a string is to do:
+    ++ *  strncmp(s, prefix, sizeof(prefix) - 1)
+    ++ *
+    ++ * But this can lead to bugs due to typos, or if prefix is a pointer
+    ++ * and not a constant.  Instead use strprefix().
+     + *
+     + * Returns:
+     + * *  @s+strlen(@prefix) if @s starts with @prefix
+    @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t dest_=
+len, const v
+     +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+     +}
+     +
+    -+/**
+    -+ * str_has_prefix - Test if a string has a given prefix
+    -+ * @str: The string to test
+    -+ * @prefix: The string to see if @str starts with
+    -+ *
+    -+ * DEPRECATED: Use strprefix()
+    -+ *
+    -+ * A common way to test a prefix of a string is to do:
+    -+ *  strncmp(str, prefix, sizeof(prefix) - 1)
+    -+ *
+    -+ * But this can lead to bugs due to typos, or if prefix is a pointer
+    -+ * and not a constant. Instead use strprefix().
+    + /**
+    +  * str_has_prefix - Test if a string has a given prefix
+    +  * @str: The string to test
+    +  * @prefix: The string to see if @str starts with
+    +  *
+    +- * A common way to test a prefix of a string is to do:
+    +- *  strncmp(str, prefix, sizeof(prefix) - 1)
+    +- *
+    +- * But this can lead to bugs due to typos, or if prefix is a pointer
+    +- * and not a constant. Instead use str_has_prefix().
+    ++ * This is similar to strprefix(), but returns an offset instead of
+    ++ * a pointer.
+       *
+       * Returns:
+       * * strlen(@prefix) if @str starts with @prefix
+-:  ------------ > 2:  cd09427148a0 string: Warn if the prefix is the empty=
+ string
+2:  eed085c85f36 =3D 3:  0058b60f662c device property: Fix fwnode_name_eq()=
+ for empty node names
+3:  2bf5cf7baad8 ! 4:  ce623fe0432b stddef: Add const_cast()
+    @@ Commit message
+         It's similar to C++'s const_cast(), but it is more restrictive: it=
+ can
+         only cast away 'const', and not arbitrary qualifiers.
+    =20
+    +    David made it a bit more robust.
+    +
+    +    Link: https://lore.kernel.org/linux-hardening/20261111102535.434c2=
+eee@pumpkin/
+    +    Co-developed-by: David Laight <david.laight.linux@gmail.com>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## include/linux/stddef.h ##
+    @@ include/linux/stddef.h: enum {
+      	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
+     =20
+     +/**
+    -+ * const_cast() - Drop const in the left-most derivation of a pointer
+    ++ * const_cast() - At most, drop const in the left-most derivation of =
+a pointer
+     + *
+     + * @T: Type for the cast.
+     + * @p: Pointer to be casted.
+     + *
+     + * If @p is of type const @T, then it is casted to @T.
+    -+ * Otherwise, @p is returned without any casts.
+    ++ * If @p is of type @T, then it is returned without any casts.
+     + * This avoids mistakes that change anything other than 'const' in a =
+cast.
+     + */
+    -+#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p))
+    ++#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
+     +
+      #endif
+4:  415453a31ebf ! 5:  206d2045abcf string: Add [C]QChar_of() and QVoid_of()
+    @@ include/linux/string.h
+     + * This macro produces the type name 'void',
+     + * qualified with any qualifiers present in the element of @p.
+     + */
+    -+#define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
+    ++#define QVoid_of(p)       typeof(*(__QVoidptr_of(p)){0})
+     +#define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
+     +
+     +/**
+5:  35bf6672f84f ! 6:  69d1792e5edf string: Make strprefix() const-qualifie=
+r-generic
+    @@ Metadata
+      ## Commit message ##
+         string: Make strprefix() const-qualifier-generic
+    =20
+    +    Add a macro of the same name, which returns a pointer that is
+    +    const-qualified iff the input string is const-qualified.  The retu=
+rn
+    +    type is a possibly-const-qualified pointer to char, even if the in=
+put
+    +    is a possibly-const-qualified pointer to void, which is why we req=
+uire
+    +    the CQChar_of() macro.
+    +
+    +    The function now needs to return 'const char *', because const_cas=
+t()
+    +    can only drop const, but never add it.
+    +
+         Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+    +    Cc: Joe Perches <joe@perches.com>
+    +    Cc: David Laight <david.laight.linux@gmail.com>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## include/linux/string.h ##
+    @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t dest_=
+len, const v
+       * *  NULL if @s does not start with @prefix
+       */
+     -static inline char *strprefix(const char *s, const char *prefix)
+    -+#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pf=
+x))
+    -+
+    -+static inline char *(strprefix)(const char *s, const char *prefix)
+    ++static inline const char *strprefix(const char *s, const char *prefix)
+      {
+        size_t len =3D strlen(prefix);
+    -   return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+    +-  return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+    ++  return strncmp(s, prefix, len) =3D=3D 0 ? s + len : NULL;
+    + }
+    ++#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pf=
+x))
+    +=20
+    + /**
+    +  * str_has_prefix - Test if a string has a given prefix
+
+--=20
+2.55.0
+
+
+--i3rwcpva5plffwsz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0yBQACgkQ64mZXMKQ
+wqmzOA/+IUpNzbc45ROcCRtsveFAXqpiG9N6sA4xOyqMuujWDKE3tlKBV8Z5gFjd
+KkEMBLXxYWFNxtZKdNyIDfMr7EwIHquwAw/JuiHZqfumOU8Sasca8++0w8S9dA+6
+JRE/NPNP+Th8RdUUeQoYTIxodsJl58JgMTlh/rSPRiL7wa+YnajTJ9KfbEhkPAS2
+RVIQpxCSpyH7VlmNce04ck7cXBXPR7uj6QOXfbb45HQnHYyf1i2HfHfjTlcKZJdX
+EdxxCgkdhQ3GhfRPkYRCz3qdq7AvfQdYaNFNDgltARw6bdSB2vuoYrrfSuXwjbZc
+YYmuRBQuepuuFwrrZ7rexdu+b6qIhy/P4KOyzanN8MfKHeeHI9BK+ssy3hwKKiqP
+oFbNFAKwlm4iBhPnrQn8doyjivb6zqz7N7885cdsxZe5st5HIeD+QFk4VI6f3mKD
+kbnyYry8ragXzHyCJ/murBfmufgyuI7vMWs9rHSABt56IB+e9aeAyUFCXSyHG+Gy
+3tAxwv6PT5Z3Pxgxkm+K2+XmXzOfLzLyVGyz30AYvJdaftFaT9OK6b7dqHWgbGlf
+xY/28rgLzQyF+lsZ/h4WTVIMpfbhGmy6m0SWvfuXZ5GoxMHKxRjNXUIBz6quiJTd
+9L2t4WWsj2pSAzErus5vl7mvrMsh02P33MbH5JQJ3wPKAxWGQ1g=
+=SvjB
+-----END PGP SIGNATURE-----
+
+--i3rwcpva5plffwsz--
