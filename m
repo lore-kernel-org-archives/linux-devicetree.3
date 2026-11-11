@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403906;
-	b=VCvCoWow1oWh2vWBSlu/iP9QMiyMZ7CcXyWY+758IKUUFc9kyPK0Kb9TwD5EqGn+vF9K
-	 /URIvilhwpAheJQWdqtW2Y526A1kuAKqJNuSGX78jW3YA2njUwLa5D8KEGjt2z8hgwSkr
-	 iMwCC1ewX4nhTbBb2WWj9j+tQIhoDDtS/ivVGtgDZZkWGK/tBrdrTuqZd+SklGpmTzd3M
-	 pikirJmynfeSXIh/swqqMWUd6KGmUpZxf4CpDRu2rwfWqwCX9+6I9/NwujOHVvFdv4w7H
-	 HVGLjceqxbTdEmNasam0BqsTuT66aAO7d5a19GvDKQgg4JxeV7RTmevtIQUyi8TSnmA==
+	t=1794403907;
+	b=Nt+rNeHIRD5+MAqhke/06OQlz3KfEFj+yLAMk/RqgoEbcy5UmDcbn/4s906fZO77Q2gf
+	 2+W+LyRNdUZUVgi/OUUyGYt1wHJEUQ0icNkCnMIdgM0qGvcmMAQu6j+4qTN9G9ac7AFgy
+	 LP6e7rVZKArnyjpKURL3jNCJza9+siz5hwhRDc+bVGGcwRIvPLwqsA5Pjv2jDSR4H0Ssd
+	 gHBLHvOb0oLcB1j8hdObRFgi0NWVccAJiilWymE8jpxCuhGlV98YHiF1ne+OiAGh16Ck0
+	 7iz477wlBwjV7PQVwpXRUEnHGJOkl424Pp5ATzWj96tIDGtn4DRm3nSOt0KaB7CywXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403907;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=G8qkZnmaQmgcsJmklkVA9+lzZWNtRCGmSFYQH3Mj5xE=;
-	b=0pdLvH5Z0VPCeSXABvZQ1gz6T0EEK8dxWDz1VZERSJrfRiHDveQl+uqcQq4Xu+UXT4EZ
-	 VhpBadkuoQj8cfqsHAa6oA6G1B0tmOf57VN8r4jPwcpr71ACRAG0uFt3OWNB7gE3WjaPt
-	 0Y1haJiRiP/Z+KHmdWlpyHYRGRu2qW4gGuUcj+9gpQ0M7KwDEtj778K9+Pd9ari3Omi1Y
-	 Y96A4ib07kPhMwvckfWg7+Kux+tEcLqpDT38M0UeJg89yUFCwQPr5se2lTWGfTxUGuz3K
-	 PDWQe7sbPUR3Ek3gCGnLcyU8eKMZkdiVPrK+TFh6jbyCddqNx/2iSZlsTDTbYfOpV9g==
+	bh=gDkCPzQ/fTCTlPmLlCXyz89P1VioVc68pLa4Q0ahyVc=;
+	b=xggV/W/zT9fkL8YjCVQgO52dHp/oHa80yjHarI7R9jan58dHNow+4okiPajUAza0Xcll
+	 STVAjVlr98v/hqjVSCCX67y0CX/F5Mv5Bi5tJ2IpFdt7Ynpv0K17ocnEaSfrnnYh2EWOV
+	 UI5zTXJnMx9IQJEfTFOrQUyJ0+W0jyX74ehMGU0mqmHKgYQ9Cc4rZhTFq2EglCBn4cTwt
+	 pUDPj1ZHedSrco3SLE6W4YYj1BVeJGYPqcfV3ki/JyKfLR8trTydTKuaRy/nMFe2VEz0B
+	 RBJTs7OZ/l+LeGGZoHQUlPRs0ZAmgMj0PV/sqWi21IjA1Sy2MPHxXIGYrDiNmasHD/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=bytesatwork.ch;
 	spf=pass smtp.mailfrom=bytesatwork.ch;
-	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=FekIPMwG;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iUcyu9Sc;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7137606A8A4
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:31:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7137606A8A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E8C606A8B6
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84E8C606A8B6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=FekIPMwG
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so18491195e9.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:31:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iUcyu9Sc
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-49465892f7bso2308659f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:31:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403904; x=1795008704; darn=vger.kernel.org;
+        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403906; x=1795008706; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G8qkZnmaQmgcsJmklkVA9+lzZWNtRCGmSFYQH3Mj5xE=;
-        b=FekIPMwGx7yh/nYv6KSPNlOCyLlIbCjmyBhzMQnkD7ULKNXkBZECk/rQxZEM5RUGcW
-         KiZbA5rizOv4mOw2tRvViDDTwf9c0oY+yB2ogK0xYvQTutVnUbuKyf1SuwN81kqA5kHP
-         BK6yNWVKAv7JB/uq01NUryWOqbuzlRHQu6yKzqOVPblyVPFZALr9zMpvZNUko/1vqYp0
-         2icnOsKKEg1SCpMF547oIBQl8pnyYIxM11TaArtGQYjNLMWly0gQXR/jLUTW1zlxBwmK
-         T1coSiUNFftypUepY/ifXI3GV8G5DC2MCgRf0GSVI5fOJiJ/BJfDp//qQ0PNu5oR7SI0
-         LP2Q==
+        bh=gDkCPzQ/fTCTlPmLlCXyz89P1VioVc68pLa4Q0ahyVc=;
+        b=iUcyu9Sck45Kxmq/0s8TOCF6HLyN6AnOmFf45/RJxUDqf7Rl3sRYUl2duyVuZbJ15H
+         w4AtaKkfo7IJfun7IYoOL9NadnZYVoTgLLqZK950a6ReRIiNugWsUJhf5c6pUciZni8x
+         prqt34UB475UCSb8O3Ulbif1JD/93qWxbRf/bo2yrFX5yHPpILV+V6zwxRE+6LQgDJcC
+         09dpq7oCPrPbS8F4LVeEl0yoTp/yEKT7bKDqe24kPURKYs+52jA9K5DqFNfSOtVBtnMG
+         a5egcQIUSBciYkqtg4mnYkmqnMeNMy4rMht2cOBfiAED8hRrJvbNmuPHrAXp22QV8jkj
+         /Uqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403904; x=1795008704;
+        d=1e100.net; s=20260707; t=1794403906; x=1795008706;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G8qkZnmaQmgcsJmklkVA9+lzZWNtRCGmSFYQH3Mj5xE=;
-        b=1qWEHfmgSmBKhvKtL9Up8YLvbB7/8/trzKnPwqiMA7POSrigkW+2uMeVEHXPIWzu5Y
-         V7zgVsB/a9gckYqR6FfBQ4QvNg/YFs/hffJ8pO4Gs/W4ioCxH5sTn/DR7kZLzmi6fAFr
-         SqC/JCqLlubhJOuZZNykAPVugh0SM73nOzDSduGTI+0VwjywObxtGguvrNDNd5HU7vuf
-         WHI6aMtnv+GjHMALRyDLt30KH0REKS6b1OEgNHPKqx7t0oUFbSki8aDvWyvAbcTmcCiU
-         G4ofHhGzAQQ51NgUiGniQu9vyDkrRnxBlH4SbkfHAHJ82IhS+dbshecCN/KqWsBg2tV9
-         o2WA==
-X-Forwarded-Encrypted: i=1; AL+hErH+rNZMnPnVzqVklKYm0AW85VLPWWZpkCzQ7gXttCXL3AydCBkeHS94Pz8PtWdPiwr6r7lGg53+rBRG@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NHSj3XLfuMheE+KhYi2HVQmwovp0frV7PBMWfwhbHgeJMrb1B
-	Lk7fJJ+qlBtCqrzhAIGLc+dHKiTnptMW9ht9Riwwei8uwugZUcNu5ua5EHSemRvzZmc=
-X-Gm-Gg: AYBFou1Ax2W5FuEZphFlZ9hiVIb1O/m3tz0hThXu+er6g+Kq+1qB5H9JyB3wx2BQq6z
-	kBbGHXzP+sZsNqYf4iM8M3c2B5ecyWPOGnQ7jLccXfIya4qdEwHqkABTG0heJ0DKnDO6DwMhVIg
-	T9vlYMq4wdm+pgAJvU5S/WvVB/WnLZmOzyQradDfL2ohFUoCta/v4gtxU8kJF8mRmF4ElzxmJr/
-	LvXKvrkJ6kN5KU8itubMBdZToFCGJPRxq+VBps5EH+QK4mKCjlH4+LOyonc2JreOS/vmudJ83kg
-	E0uw3mtJF0D6kK8otrgi6ZtoyEU8Lkrk3Rypvsbhyk/xC/eInsuK09LRnf2ar3krdq1mXJi7cet
-	eI1DaHKs+Be7FZdmxFWP1OrTK9u6n7CoCsqd/iV366eet0cUUDxPK3fdHpRrJ67EWRnxDtU4wJY
-	WGJevRVbR1t36WrkQvv1cG2l78yKD7jLeF/YWyRLBt5MLKr5uEazDsjgi8tOwbcTC1t8LkidwT5
-	2aw0jE2EaLfNE69ciGOlvGMi0TsLcRS5ys48tjSgU1GFBMqcHYOOf95T76YxPqgVQpzuDF3LARd
-	a87VqmmpNVudbALjYrGVMCEBVggiYWtlOAW+IJ0L/vVMBYdw44a5rZEbJ2ZofiOHEf2+VxvBcpF
-	+3mE/0uRVhWI=
-X-Received: by 2002:a7b:c342:0:b0:4a2:f58:9a82 with SMTP id 5b1f17b1804b1-4ba08e16f94mr38360965e9.13.1794403904169;
-        Wed, 11 Nov 2026 05:31:44 -0800 (PST)
+        bh=gDkCPzQ/fTCTlPmLlCXyz89P1VioVc68pLa4Q0ahyVc=;
+        b=i+Q7cygFVQcZ5KdCZ1qludtNcHuRVTWN3w8v8NfbXe731fqlUOdYC/WeaEIVEr1un/
+         qV1TWgFPDVPr9iXgrsJQtbpxMuxeT8To7xi5qSPEQL+I9lYiVvoXEVknzop2Lzk7x0mW
+         Tg+1UTihOExrhB6y1O5FfWg1x5O/0QKGKJaIE/vAI32ancTun/01DmkkozVay6Zn/kkB
+         1wvVbP4y2PUb4Uu5eEIF4rUuNDUElVybEeN+C5IcOVZ5we1yWw6IXCly5sRG1x/7dKP5
+         bY9UMRRoMN+i1BsAm1g7wHWKo7tz221px24gaIIpfP7GptND8qVsk0wKIO1KQpK04y2h
+         CNGA==
+X-Forwarded-Encrypted: i=1; AL+hErFPRZC2qqglf2GVZuKZGdesOsMksndQdjB/7Yh1qL8vmbu0HOUnZ4ANAXMZl8hIQRn7akOrTCqg+QVX@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RPo9JM5pAYk00rAT1nGt2O4LpFcdxHh8xpglKpXb3W7t5AS3g
+	DEXHNf0t4yxO3OZr53xCHd7w7sjnprpiIE5iOaVR3xt7dd6buItjDmbiAlGG+JHAebk=
+X-Gm-Gg: AYBFou2xcLDLxNoRoYhxg5f086wruY9d0s+lIdEpiITtgxtBL61UuDPJyX37U2YFQVE
+	LpOUjSaTvGaNYTp4gvr5Js1WWa4lJGrxm3x2xofJ9NBURXs0DGN0XhDvFV3vKglemWL4NB03g/H
+	kI55AtUfVQ/qUlDOr+hWA9PHel+yqoAZhgEW06adxrGddSBeXozm0feGUlomWlxYksAgLgYzIUI
+	72xKmzIbsJjrZJqv+KM8SxvVrYl7FUFR3ub2miVqZ2RpKWIEgLrrPyOUtniWD0EjbAZwYP4PAw3
+	VMfURnVZFNXBKEXFy5QJrI69XU96w5eWdBh43KWV0hIutpqJVs3gTUrmsSi+pIZpPu5l8oLL/MB
+	muimF7kd/rTchOYdKeZbszQSFwGUkV623/GF3AGgSDMf3AFc1p9zbcL77BkWeRG+Tm+Gh4WSTsb
+	iv7JhTdEs+ss5OLV6MyYFyW3e741VSeeFC4pgeGsuE0GhRcD5egFQEGgN8Bt2QIOF+5kXiHE0HW
+	MA8FI+oqNewd5PZZ3ObM9UO6swRggwSX5iZDIKwFIQ2qYPL8tKYlXFT4H+4wlK4X7qX4HzqonQy
+	iZHTnonMZWf25dZp7kCE7XQX5f7y5tT7srQUJvTBe/7NVyAyX2AKf2ZJhn25ZDlufDKoPh+R2aC
+	fZn4LrQkFCg==
+X-Received: by 2002:a05:6000:4688:b0:493:8704:ad42 with SMTP id ffacd0b85a97d-49a90b3a0d6mr1095762f8f.7.1794403905804;
+        Wed, 11 Nov 2026 05:31:45 -0800 (PST)
 Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net. [83.150.40.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:31:43 -0800 (PST)
+        Wed, 11 Nov 2026 05:31:44 -0800 (PST)
 From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -100,9 +100,9 @@ Cc: Daniel Baluta <daniel.baluta@nxp.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH v3 3/5] arm64: dts: freescale: imx93: Add MIPI DSI controller node
-Date: Wed, 11 Nov 2026 14:31:17 +0100
-Message-ID: <20261111133119.1063210-4-frank.obergfell@bytesatwork.ch>
+Subject: [PATCH v3 4/5] dt-bindings: arm: fsl: Add byteENGINE i.MX93 platforms
+Date: Wed, 11 Nov 2026 14:31:18 +0100
+Message-ID: <20261111133119.1063210-5-frank.obergfell@bytesatwork.ch>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
 References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
@@ -117,65 +117,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add dsi node to the i.MX93 for support with mipi dsi panels.
+Document the vendor prefix for bytesatwork AG and add the compatible
+strings for the byteENGINE i.MX93 System on Module (SoM) on the
+byteDEVKIT carrier board.
 
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 ---
- arch/arm64/boot/dts/freescale/imx93.dtsi | 34 ++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ Documentation/devicetree/bindings/arm/fsl.yaml         | 7 +++++++
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx93.dtsi b/arch/arm64/boot/dts/freescale/imx93.dtsi
-index e926b6360a9d..1123e372eb79 100644
---- a/arch/arm64/boot/dts/freescale/imx93.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx93.dtsi
-@@ -58,6 +58,39 @@ npu@4a900000 {
- 						 <&clk IMX93_CLK_SYS_PLL_PFD1_DIV2>;
- 			assigned-clock-rates = <800000000>, <133000000>;
- 		};
-+
-+		dsi: dsi@4ae10000 {
-+			compatible = "fsl,imx93-mipi-dsi";
-+			reg = <0x4ae10000 0x10000>;
-+			interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk IMX93_CLK_MIPI_DSI_GATE>,
-+				 <&clk IMX93_CLK_MEDIA_DISP_PIX>,
-+				 <&clk IMX93_CLK_MIPI_PHY_CFG>,
-+				 <&clk IMX93_CLK_24M>;
-+			clock-names = "pclk", "pix", "phy_cfg", "phy_ref";
-+			fsl,media-blk-ctrl = <&media_blk_ctrl>;
-+			power-domains = <&media_blk_ctrl 0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					dsi_to_lcdif: endpoint {
-+						remote-endpoint = <&lcdif_to_dsi>;
-+					};
-+				};
-+
-+				dsi_out_port: port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
- 	};
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index c8290a83205b..e4be6fdb5808 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1555,6 +1555,13 @@ properties:
+               - fsl,imx93-wireless-frdm   # i.MX93 and IW610G WLCSP (Wi-Fi + BLE + 802.15.4) SiP FRDM Board
+           - const: fsl,imx93
  
- 	sram: sram@20480000 {
-@@ -183,6 +216,7 @@ lcdif_to_ldb: endpoint@1 {
- 
- 		lcdif_to_dsi: endpoint@2 {
- 			reg = <2>;
-+			remote-endpoint = <&dsi_to_lcdif>;
- 		};
- 	};
- };
++      - description: i.MX93 boards with bytesatwork byteENGINE and byteDEVKIT
++        items:
++          - enum:
++              - bytesatwork,bytedevkit-imx93
++          - const: bytesatwork,byteengine-imx93
++          - const: fsl,imx93
++
+       - description: i.MX93 boards with Toradex Lino Modules and Verdin Adapter
+         items:
+           - enum:
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ac2f54adde73..95f386db1d01 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -285,6 +285,8 @@ patternProperties:
+     description: B&R Industrial Automation GmbH
+   "^bytedance,.*":
+     description: ByteDance Ltd.
++  "^bytesatwork,.*":
++    description: bytesatwork AG
+   "^calamp,.*":
+     description: CalAmp Corp.
+   "^calao,.*":
 -- 
 2.47.3
 
