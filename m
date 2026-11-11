@@ -1,94 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393460;
-	b=aEA/XLik66ou6iqiPNFTqeuuJYwVgoYefALXeb9V8M0nUcC2xXObZiEsC7pGTw2fHJ5Q
-	 bw3eeeNHKGSY4VVj2+SgPpI42eZEo1J9/GmImA6zblfheuvQz15pwakUJpIGjHIKvk64a
-	 ztbcbMzh8PQQeGx9IEJ3Bpjd/4j+7ikI9SaqhUX6ZPCmZ2T31rKnCXTdZn84B8FDtLfJk
-	 OsNbgwz8O2SNBuYkNxU63hSaSVHSZ1f3iVIOHWMeRgEkobBj1hB2O9g0wfdjanVX/YSAE
-	 UPZnyeEMM1l88hW5Mdblmg44suTFUrv2CU+GGgVFUhrQirAwch1zpykbtDFHRBc2UuQ==
+	t=1794393484;
+	b=ORf8X4ePtiprj5Uh9j5UDBLjcwNuSRyLW8nAXXbbnH2sz9VbZCq0cDk0/z3iiiyjv/eb
+	 mexx7CkU+oOv7eLLMadymgiyrwvsfEnIKML5avhhmIKgqbdTHriOE2hdgFKbTBW2mNtXW
+	 WgsUoRu8ku16o+9aZObbVrKgjNm5KifJ/fmkZcPpU0sFdA/omKrfqg9GAvC7YUJVUUENE
+	 MKwHO8SwfJx4B4xbVi5lQhS4ApIEQUopmLD+Heq3WXDUnwXsOKldErfwNo+slcVUNF2ca
+	 FRQGJ6I1Sj1ILWZpavHIKKeprDzCr8mFzG3oSY3LJ2mj+wTti+5Yo5TwE28lXm4PIsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393460;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oOsEgmtZ69SxpFbETr57+D9pSIer3EWHG4MXYrOTcB4=;
-	b=emGGBTKCfVJhAeg5awWZf6bvTzpHdM1WPSYny9VO7exSSePxXWLPfMeO4Vgs+9QKj6IC
-	 2ebWtfDeIS9iWj18gh9Wx32vy1f8tQaCdYNpXy869NtIPZFyzOcPBHkMyjIsRydfJKcbX
-	 U9X1Ps7/cRuyCJpJ/Z9zNNJsJ6Bgf0SZCDCfQ8d6dUJ6naFkR4ndjuh54W0Y8MxJC74PC
-	 salKBam9qsYwbct2EFJrZAVZArE5gDv34sKBgOODhvCdeLEf0lr9yCMEw0/X/mR5lbXDp
-	 GCIp0Id5NQqeeDszcsoYlj42cmJKEJJ2M0gl+JkAZ/IEy9oF+ysCY9wV3gneP2JhX2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393484;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
+	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Debian-User;
+	bh=xbp7pSLhVxMYC2hVfg6GZZO7WIxGD+BRZdBndKeoUgk=;
+	b=Vy8Y7q/pyosgIeRWIQ4axZ98r3+hD9EhNsQ1vKwu90YOp7tktJtowfaleD8+8aIijVzG
+	 laqwSDVpNvPVPF2mEQuuXdg1c3Kf91huOaxyL3SiW0hZeShmEB5ylsO42Fd3OsOX6R24+
+	 LjR0rwQF3irZk6XIPT6SEfQ6QbQ2rdwdrlxMCy8Gaor1DPY4Th4M/fD3beTaJbCv2yAlp
+	 dTvEveuphqVTE0i/smEgtD1TuVcES3CAsrZgDSPhq89ZM6EAX383qAvVa+a9Zg758LCZw
+	 c+u1GaCfMF8mymynjuFOmWkgzAcrGq0H76kA3Jgf+xBLwuinAGsRXpmtRJnXtLoRU5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IQrdNLmU;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=n5nSQ3XH;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A603606A330
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A603606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4435606A32D;
+	Wed, 11 Nov 2026 10:38:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4435606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IQrdNLmU
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so920394c88.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 02:37:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794393459; x=1794998259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oOsEgmtZ69SxpFbETr57+D9pSIer3EWHG4MXYrOTcB4=;
-        b=IQrdNLmUkTb0QulDRJPXkTLdVZNJIHZmsCFZg8DmIwe8hOHt38+G1g4Gh8LFJ9XZgX
-         ckC1QGiDDqplvyYcReSFKBteQ1ervRy/byGtlQgUftKiu9gTWV2veG1eBb6ffpt0EYXv
-         4u7c+oCWTKeV9N4W56wNzW5TO0y3fmyAkqTK4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794393459; x=1794998259;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oOsEgmtZ69SxpFbETr57+D9pSIer3EWHG4MXYrOTcB4=;
-        b=Yhyv3fUE3a0T4ZSXsxiRp5Y5Mj2RLo58J8EIlNyNfW0E1hjZgV0ls3SkU0UPzv8ogY
-         +bWM1NrWShJA7ntqoOmgopspH5p93Ki2+Jn2yLRM5X1OhhvPcc34VXygZCaQiKKY+fp3
-         sJuuDuD//JvcsEK06QLTrCFr5Ox38SX7tFG3zr6Ziv1bGPHuNLRFeeV9U4OnTDGItCQw
-         4ZATth7Avrz4/j27nbAt5DCVYFzUBBG+8UAPT1f99DbwSfGODOEQWO5U6LrH/IN6RN+L
-         Ld6zQagvRvwU7SargoqQHY5z8h6TgNHlhQ9qK+cVQZIGr3CII1xiArVuIRquatFHVWHk
-         3F4g==
-X-Forwarded-Encrypted: i=1; AL+hErGViOQF5+ceXydL5u0/t+3jUCvwb4M83pddfwCcHMw1IXc8/PItUw8QHAozY27gI6OF/0YyMf86+8tu@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0KzBU669SAc/EhTMhXLDnuOR5fP/t2THtKJoqwc/o+UZ4ouNR
-	McuRgjaZrqv85XYkd51Df5rJfEdnVnzoykNiLKXK8Z3SCH4wfqSODyC5bb2KU3K9AA==
-X-Gm-Gg: AYBFou25GJjm5IAcXGSVTJ/YoPtU487fr37rTGNgUmQVqmStr1rUDB/svxBGWHYoBh5
-	LWIk22XVGpXQGXPgFnI5ex6CawB8ADvpIYk1hXDza+Yf5P/+n0gyMnbEvv+kW/m0ZvzhPureJmk
-	F9k2TOq4J8sS+tQCmWfzIJVw4YFuNAS6eVynB0lBO2iJ9U8gEflEjPDzq3ZSMouxSIYKEz4Rd0C
-	YU6HdKWHpKNBxwmTAYqX6NckpNI+M+13EoZ6x7kbVox01PcpqOaAcwaNFroHHuz/+p6oGAHxvas
-	TiVcK/cU+OXWwmc9JM8P3WipZ3ogQTfALKURNBmQfiSADD7/N5xaMI6PBJuuBzs1qhXBngDNTSd
-	NhMB0ws9AAjwfSRFI8V9hKl1NNbb2xBk+qESYKuEoJ8xuBjhmsvjOhAeXHFBYuoXui+aFZsq79G
-	M0GwTS+UNAz8rHORPIPlCzl7JwxcPJDO29KTqJ4GORYQGlOft8pi8SNGKbZE7u1uJ7Ofgwhl35x
-	HaXCeRQO/upQJIopYEyYHX/H+QYG2+qkdPugZnP/rFvXgYx0YP9gLL4sHBypBtSVcWkFdojCWLj
-	WpbiE4+0IsWH0wtU8Sxaq33u4iuPiWGwixnIjEooaDvYsTiuSPC+BnPsP3y41nlp1SZblRLnC+A
-	rqCoz+hrWzhlS8kLD
-X-Received: by 2002:a05:7023:a4c:b0:19d:6484:869f with SMTP id a92af1059eb24-1b3c02fcd46mr1947792c88.7.1794393459210;
-        Wed, 11 Nov 2026 02:37:39 -0800 (PST)
-Received: from fshao-cloudtop.c.googlers.com.com (61.14.81.34.bc.googleusercontent.com. [34.81.14.61])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm14735194c88.2.2026.11.11.02.37.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:37:38 -0800 (PST)
-From: Fei Shao <fshao@chromium.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Matthias Kaehlcke <mka@chromium.org>
-Cc: Fei Shao <fshao@chromium.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH 0/2] usb: misc: onboard_usb_dev: Add Genesys Logic GL3525 hub support
-Date: Wed, 11 Nov 2026 18:36:11 +0800
-Message-ID: <20261111103710.1393311-1-fshao@chromium.org>
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=n5nSQ3XH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
+	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=xbp7pSLhVxMYC2hVfg6GZZO7WIxGD+BRZdBndKeoUgk=; b=n5nSQ3XHVM/rCaQFZKy4K+mtN1
+	YZb87iBqVze+2y568rQ8zZ4v/F4U5cAhzukTQLTCrUgxHG9zIPkIyK/qUlFMdO1TbegC+IGqHQcdI
+	0+XEY7F2cgk57Q/Or1yKqeZQ3GzBzWRP7f16FKRnA1zTdQuzRYkFZlesno54soHmOX6BaMKZEpv+7
+	oRRkiDyEyvE1wpLXD0ZMhqw7rJHzcWyZXmIDfDQ9qVQ4ODW0yFqDw1mH7Tj8XUUSFU6XZxUvDL9Kc
+	1VHN+EkKSAyNs43k9P4pZGuRNuJzqjK2PiHffHwL9QDPpBzpVgLG0Hzb4uo3/2TbayQlFdZpV85xR
+	oi58Za3w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xR5i7-00D7ZR-2N;
+	Wed, 11 Nov 2026 10:37:48 +0000
+From: Emfox Zhou <emfox@debian.org>
+Subject: Re: [PATCH v4 0/6] media: Add the ST VD55G0 global shutter sensor
+Date: Wed, 11 Nov 2026 18:37:32 +0800
+Message-ID: <179439345249.5.16817789862917866412@debian.org>
+In-Reply-To: <20261111095717.52181-1-lsa.uz@pm.me>
+References: <20261111095717.52181-1-lsa.uz@pm.me>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>,
+ George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
+ Fernando Rimoli <fernandorimoli11@gmail.com>, D. Manresa <dmanresa@gmail.com>,
+ Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,21 +80,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Debian-User: emfox
 
-This series adds DT binding and onboard_usb_dev driver support for the
-Genesys Logic GL3525 hub controller.
+Hi Sergey,
 
+Here they are, for v5:
 
-Fei Shao (2):
-  dt-bindings: usb: Add Genesys Logic GL3525 hub controller
-  usb: misc: onboard_usb_dev: Add Genesys Logic GL3525 hub support
+3/6:
+Tested-by: Emfox Zhou <emfox@debian.org>
 
- Documentation/devicetree/bindings/usb/genesys,gl850g.yaml | 4 ++++
- drivers/usb/misc/onboard_usb_dev.c                        | 2 ++
- drivers/usb/misc/onboard_usb_dev.h                        | 2 ++
- 3 files changed, 8 insertions(+)
+4/6:
+Tested-by: Emfox Zhou <emfox@debian.org>
 
--- 
-2.56.0.542.g3ef89b7020-goog
+6/6, with the Surface Pro 8 entry:
+Tested-by: Emfox Zhou <emfox@debian.org>
 
+The tag on 3/6 holds across the rename. This machine's ICL2 returns type
+0x10 on the line the driver maps, so the entry named AVDD takes it the
+same way "vana" does, on the same pin, 0x0A.
+
+Thanks,
+Emfox Zhou
