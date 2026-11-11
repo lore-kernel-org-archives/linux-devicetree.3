@@ -1,50 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407584;
-	b=NWSPWlYDs4T2jbsRln7VfM2P+/j0mxf8Hi8HqtdDymvevjyCbjnfqXGZ/tQ5/V0eC59t
-	 wmSGuf+G8+WnqobZ0aDhxrQhGwbLNKtx5O3BrdbhLi/Vsq32hmcpn4keQy2scTSiEqOd5
-	 3HaEY05QACi04wV00nnF28ObyL8CgqGNV90MKr52zR4MPdd4z6xXlFOXUiQQ/U1Y+53hj
-	 MaRWdnY/q4962Y9VgNSvbxU+6ExoYKPtYAYm4TDmo+BWXv+j/GLrdLBz0NtKvkoNg+5DE
-	 6e7JoaD6QM2GeDyjygYLsLABoRLaXjHUoQXt56ti9Vz44Qtz5dsCk50RKskVdTDQpDQ==
+	t=1794407719;
+	b=0BGQLSMkmTtiAKOuzfx88j1AwesgR/utfcYseSe7i2ubzz8qkwl2MNGIkhv+RWdm2kme
+	 q+LvfyUgpXd7Az2WdnnIlL6MBdAaL+d0A0vaUwOOxD17ZvW8zslzWtZun3eWJOvp4VBKf
+	 2mmcFTdgrO0JKf549WoW0LuZL4sb21T/3JnjG/DMuK9iCpGVTbix0hGx+jJSenvVWuD7G
+	 tAQkCsAqnwSgSomIuM3LKUlH5U2U8wws3+dwUoFgQR6VwLN6sMcvPf+B/3yOQLxW8Lu0L
+	 amO5Cw4HhNFGsdDha0zXHg1sjo9Iz78EyU1UEXCEH9o84LtWQSYhelBNK3R5sbnPZrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407584;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:Subject:To:
-	 Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Q7nTbtg3NOHUNDWE397ThEwNuYuuiTDqnX6yT9Vqs8E=;
-	b=YqJT545a4ZsKUrJSqss+j7fUSFpOuRD3+o9TwUljCkN5axe1I/kNRV4syJmjQxUhJRVI
-	 AO1Ig33QsHwh33V6TXmvGbwOTmmZJ3ESmgKZgWKDDfHdyurSH3fYbuU1molUqRpdEQj7i
-	 5PWMQyczDj/X9/4gmbOkk9fSt4TUbDvANv850VrZBpRV6tm+0Y0Vlxz2qc792a6c5vkgU
-	 6wrR3+4h5wmtT2xdnDVt76SCDjd+W2YGv9QiQEuU01DJU/jkkxiM3/V7Jo3vBaWHM/2hY
-	 a/MPTKNaQGXfDjAUjTWqzZ2g11GiZoAhoF/1N4TjjmDNaWMBF2Bdt2CNo6gjLHI3xYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407719;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Q/hXxN4rvNs3UDQ3MT+UG0UyPwYQt/ekw3a+w3cLnQ=;
+	b=m9/YZMS4RGaD6P/UyEUpmfK8zPUIGdZGZFvtAeKYvJkSJeaBot8pclYik2l1DZz2ziZl
+	 IwJPcUILRFS///BRJVtLCpJaG2Xj95rG+dDb8rrr/P/MD3Gc6INWE+9yx+9gy7eFmz2yl
+	 W6VA0x0FArp01ezNl37E+C1vBcIZgUJW5PkuUXupv1xrRDjrHWD0UK9EgLOJZZGttL5W+
+	 ikgvNa7WIEcyBrIb1cIWc3oZQ3x3+CTNwT6ETFAKuQlERak/R2Jzxh733F53O9rKktbzV
+	 wi/s8iNi+Mg4R6CXWZ/YXykwOHrMIXv6C5D7J848BSw96BAOgot9p9wu4zEDLnCkATg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=fQ7Jo0y6;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COU7FLQv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C115360A380F;
-	Wed, 11 Nov 2026 14:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C115360A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1992B606A885
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 14:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=fQ7Jo0y6
-Message-ID: <fb7b4ede-a325-4c5e-a37d-fe3cc7a92f87@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1794407575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q7nTbtg3NOHUNDWE397ThEwNuYuuiTDqnX6yT9Vqs8E=;
-	b=fQ7Jo0y6y1TRDYwtYJgO1STJDXTDFtL/3trxMkZ0Ta6gVXwNHfIfQ/Ezhct73kXpoVFQWr
-	4m7n74TvisUz6uatQ6SYNsbV4EeQw0ifL4ObQhnQ/uKYDaJehRR+ahM1hiEeja9VNgFDeS
-	MpCJ+MZO13xY97WzfIP+bYOcF/+1tLQ=
-Date: Wed, 11 Nov 2026 15:32:51 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COU7FLQv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18CF1F00A0F
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 14:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794407718;
+	bh=9Q/hXxN4rvNs3UDQ3MT+UG0UyPwYQt/ekw3a+w3cLnQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=COU7FLQvxdhk4C8nYc21n25kqj3ApGY8GCwZq6s0xJauuPIzvmEZsSTUNbby9RBjS
+	 737QUOwawy0JypJGpH74Qt3ejgp9WnqFFCwg3JbLZ8R6dEj0z+iu9AqtvONsPWBuQa
+	 t+nxCMaD1bgwJM9ojt9FMcCURu5e5wEAXSlrVNBOCt/2Ilwevm+70BQ3MB25B6p9a2
+	 5G0PpDNjfsT0XXGNnc3A522PGjAAAvb64pVKhImXDLvRMWG9ArFTt9q4HrN6qpGCUl
+	 SohRAco0dyT2TpTdA2qaUTg5qkLs/v+ioCb3elCF5yprZtyYDUwW0y1ekXkEiwSOBf
+	 7+niM+gSCO13w==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so2077660a12.2
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:35:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFNvyT+U6GjQTj+/NCQdcRd4tU+HNi/4jL3gEtGcRMBwN0XVhG5mE7bV6TG2al72Wqw2u+YwyqZVtLn@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wK+F8yq7pjQoVqinEOXqX82I4IdmlHhtnK6CmVQkN2vK/mXz7
+	lMBZYOh24V1MYNKLfNPwZaniT880SY4glLjX/dZYnZuXY1ccxCBXby70I2ZCHJ40QQz9fM9zSN1
+	I+olAR+HxGsMjLPcDJtDI1lLOQ0TSag==
+X-Received: by 2002:a05:6402:1d4e:b0:6b7:78e5:3fe2 with SMTP id
+ 4fb4d7f45d1cf-6b778e5412fmr1833663a12.8.1794407717277; Wed, 11 Nov 2026
+ 06:35:17 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,63 +59,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 03/15] dt-bindings: nvme: apple: Add apple,t8142-nvme-ans2
- compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, iommu@lists.linux.dev
-References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
- <20261106-apple-dts-m4-m5-nvme-v1-3-22f4827b4ece@cyberchaos.dev>
- <20261111-comical-quaint-turaco-e8c1c2@quoll>
-Content-Language: en-US
-From: Yureka <yureka@cyberchaos.dev>
-In-Reply-To: <20261111-comical-quaint-turaco-e8c1c2@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com> <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
+In-Reply-To: <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 11 Nov 2026 08:35:04 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+X-Gm-Features: AclHuK97dhZ8RDnOSi6eJDa7cXf78Q2-j_uGZ4_1m7mWgziIuwSZeAEy4jr55Z4
+Message-ID: <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+Subject: Re: [PATCH v3 01/11] dt-bindings: gpio: vf610: fix clock requirements
+ per SoC
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/11/26 13:46, Krzysztof Kozlowski wrote:
-> On Fri, Nov 06, 2026 at 10:04:12PM +0100, Yureka Lilian wrote:
->> "apple,t8142-nvme-ans2" on the Apple M5 SoC is compatible with
->> "apple,t8132-nvme-ans2" so add its per-SoC compatible.
->>
->> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
->> ---
->>   Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
-> Squash all nvmem patches. Don't add compatibles one by one.
+On Wed, Nov 4, 2026 at 9:56=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.com=
+> wrote:
 >
-> Best regards,
-> Krzysztof
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
+> while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
+> a single "gpio" clock. The VF610 controller has no gateable clocks,
+> so force clocks and clock-names false.
+>
+> Fixes: c61d8b5791ab ("dt-bindings: gpio: gpio-vf610: Add imx8ulp compatib=
+le string")
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  .../devicetree/bindings/gpio/gpio-vf610.yaml       | 41 ++++++++++++++++=
+++++++
+>  1 file changed, 41 insertions(+)
 
+Now a bunch of warnings in linux-next. Breaking binding changes like
+this need to be applied with the .dts changes.
 
-Hello Krzysztof,
-
-
-(replying to all three of your emails here)
-
-thanks for your feedback! I did run `b4 prep --check` and `make 
-dtbs_check` before sending and it passed without warnings on all 15 
-patches of this series. I will now also run `checkpatch.pl --strict` as 
-you suggested.
-
-For v2, I will make one commit per type of dt-binding, so "dt-bindings: 
-nvme: apple: Add t6040,t8140,t8142", and then "mailbox: apple,mailbox: 
-Add t8132,t6040,t8140,t8142", etc., ok or do you have another suggested 
-grouping?
-
- > Please stop inflating this. You are only making it difficult to 
-review your work.
-
-It would be appreciated if you can tell me clearly what is expected, as 
-this statement is not actually telling me what is inflated / wrong.
-
-Thank you!
-
+arch/arm64/boot/dts/freescale:952:50
+   Schema warnings:50
+     60 gpio@47400000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43830000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43820000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43810000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     41 gpio@47400000 (fsl,imx93-gpio): clocks: [[6,116],[6,116]] has
+more than 1 item
+     41 gpio@43830000 (fsl,imx93-gpio): clocks: [[6,119],[6,119]] has
+more than 1 item
+     41 gpio@43820000 (fsl,imx93-gpio): clocks: [[6,118],[6,118]] has
+more than 1 item
+     41 gpio@43810000 (fsl,imx93-gpio): clocks: [[6,117],[6,117]] has
+more than 1 item
+     40 gpio@47400000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43850000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43840000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43820000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43810000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     34 gpio@47400000 (fsl,imx95-gpio): clocks: [[24,54],[24,54]] has
+more than 1 item
+     34 gpio@43850000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43840000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43820000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43810000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     19 gpio@47400000 (fsl,imx93-gpio): clocks: [[3,116],[3,116]] has
+more than 1 item
+     19 gpio@43830000 (fsl,imx93-gpio): clocks: [[3,119],[3,119]] has
+more than 1 item
+     19 gpio@43820000 (fsl,imx93-gpio): clocks: [[3,118],[3,118]] has
+more than 1 item
+     19 gpio@43810000 (fsl,imx93-gpio): clocks: [[3,117],[3,117]] has
+more than 1 item
+      5 gpio@43870000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43870000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43860000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43860000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43850000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43850000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43840000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43840000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43820000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43820000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43810000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43810000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      3 gpio@47400000 (fsl,imx95-gpio): clocks: [[25,54],[25,54]] has
+more than 1 item
+      3 gpio@47400000 (fsl,imx95-gpio): clocks: [[2,54],[2,54]] has
+more than 1 item
+      3 gpio@43850000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43850000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43840000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43840000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43820000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43820000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43810000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43810000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      2 gpio@2e200000 (fsl,imx8ulp-gpio): clocks: [[41,18],[41,18]]
+has more than 1 item
+      2 gpio@2e200000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+      2 gpio@2d010000 (fsl,imx8ulp-gpio): clocks: [[19,22],[19,10]]
+has more than 1 item
+      2 gpio@2d010000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+      2 gpio@2d000000 (fsl,imx8ulp-gpio): clocks: [[19,21],[19,9]] has
+more than 1 item
+      2 gpio@2d000000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
