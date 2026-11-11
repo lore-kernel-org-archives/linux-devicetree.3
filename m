@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794384251;
-	b=2xH636pUsej+8JtF+foirubSr1R0L+IT966a4eeCedjLSOOliKQ3o+4MDUxgSgVI6gRR
-	 N0lDDscroHrbAg8WylhZx7dRIBbI48NxxV92mrAZcVLhAFbMeKQKvyNS+Y04ASDDPxlA9
-	 6pXW3nj4Uo0lT5lpgZJevL95W5C6C7ss8iP+pspSUjB/TSCTTjGO8oJmwddjNrX/S3B6W
-	 Syn3QX+5i+c/19/8OvxAJNvwg43OQha5ZYocU/efctHjZzvmbsQMnvXJDWP8F1EGBB3ST
-	 49STqt1NtnT/ds8tVsHhSNHvsAneLGTKjV0VfaJv46FwfnAn/h2azEwbSl6nXhuhmWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384251;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-	b=Cu4Juml9wZ+LBWJXp6bTAKnaa0Mjh95pwuOEoDpb7IRVj0isHg28EaroU2VUjs3oX5LX
-	 BCLHB1GSg1ObpU+xtXyJErutBJPmevOo3vLlmrhU994z15gsDdG+RWpaful6cLQ5COFyt
-	 4dW4IbX5JsFg7iGZTtw3mVxS9eAns1/WYiP6cHKKjLDz6ds0Bx/ZEs3cBgEKBwxjccqN+
-	 9rdr8mjkJBYRGQ9mt8MMb7V+btjv8w6SjxjRuoWUVpJmY4vh9BAa6ueUioCOD8RuwyFav
-	 64M0sJEKJZm7MxpcYVOm5fxq7BBx8qqOoT64Vmql5AQCkYjv0AvKiynb3LMZ3Nbx3qA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794384618;
+	b=JiVNe1rZdHjEPU/n6slusiec1vRRLaEUCWh1sD+nt+b7EG7nWFeazSY4Y/OSZPRNv6Ir
+	 d3vPEX2RNek6SrFb/CkWGfc/2buxEXiGSf9KmetXQE2ua+TvGHAiuKBy6wYxTKxAY22Kh
+	 slZyPWIMc1FP8y5c/TtI0b/LzEAfxePg91JfOTY1BKFjKX+yW6R7xWIqSoYiDzceFVQGy
+	 pUFB09WPfDIz1locFbq0hm2TnS3Y6T3v5m9FuxiWX28h/JRwsVoIhXv59NrdC7B/QsB7u
+	 Z8EoBrZfI1Gy811df4XvYBWFx5I6hGzJfGCPYz0XS8Q4xzxRtMV0GTIDykVLjQ0ZSgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384618;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=jXpcicRQvvdQmIEDAXIk+GYTbWLlwy/52Qk6C2+xAZ4=;
+	b=o0e/7RKBosaibXiNQHXXNr7nbAIognMkcVETomGZGwEQ6SIzoh5h3CSLTHFVVJt1rJOB
+	 BemtFV0byA0DM2/INUczIoL0MpHb6s66zLAS2QDv2ZiGRqhyO/O9FXFsToGal81GW+4vQ
+	 N2Z8FmOM2sOHBrZhuR1v4vXKh66Bw7o4mKYRLDFket4u0nXNwvV2PZogLyu2F1v5KnxZe
+	 GCEqB3uQBpdZ3S1aeGVdPVckYjKEGHrE2AZOJuC+LiTJyHv1D62Pn5AZdEDtAh8oalPLV
+	 fbSk+wLzbSQ4psRu1sGlZIn6qkv9NbEIspsePTMCd3RubxaffI70t1aIgzAP5eDZevg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmEGsZk3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6837606A321
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6837606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29BD606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36f8cdd30beso4921625eec.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 00:04:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794384250; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UeFPT7BfZs2mvMtNkgKm5orH6C5dFqQsDrywke5rFstql5a80A2OEECkwHOSFfi6Kr
-         AzotJa8ApjLy5d+nHd+Xvb+yBmtgJ58BaN3T2++YL7LFBt+CiXmPJxHDQi6iM+CGpxSL
-         T9qJZyO5S6s9Qd0tlOzSlGITQmsopT0GEiBNmrOgcEVHEN4CmInPnkamFdcglJYTw59+
-         sfuR+Cqcs8sAgnsvg7B3cMVBFYCGBD0TMc76tzGZudjJZ7vd9ZDv9Sefe7S0uOZ19JzK
-         lxjJv6+92r5hsekjEAO8wxFHi8qqF6ZokQmAT/dC+SFP9e/flx6fnyHwdAdUdf3slOPu
-         zRcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        fh=+BKICVCHwkCLB6WnfJc+DmIkbxcDDpR9CUF/eHVc7gg=;
-        b=Y+H6bZEXq6DgkBI8MVHchoPcsb/Z7/AmcWMd/G01uNkeH7L2E7psdj27dqjnwg6voI
-         +n2aEDGTA8tAx578hSNlOE9NtQI866aqIM1i9Bs50IR7rOsxw4gqO53BBReMNdFhgBFb
-         jsyMIFfKQQtA8oLBEn6owvncGxPjQgFNLKAPTxGaw8mCcPLjXL+qfdqdHR2eGiqikQhg
-         HNfdrHfyXxHOBVrSqBJyYcTxoFdjYtKxkhh7S8MZVCLBObTfqrllBhfpwg/DEWOm1Nk3
-         A1BsrqYPUyvaoUU4j98C8vvaUTrs3sLhenV8MqSRkarr3/1XkWJMrinyFFbaJd6+qjzF
-         X59w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794384250; x=1794989050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        b=kzpLQfiwu0lF3hZg9xt82iPrgOdaOSV+6MVvCpKSxyopwjMFtTqsiojJJNFe72Iu9w
-         S0FlRWDuF4L0+fOBKFDZUYNij3m2zmKyuxxdhi56DKV3i1z9s9+Ff0XcnWuvkiMUOSkp
-         OOEV7WDrtpUE5dhjSELEiWfTns7p9uU+uFD3cndCvIMlMqfl76EhWstj8n/909tB4nPN
-         YBqKSQ72S9FJAjQXpfBZyASR99LDe+xmnBxCHLNVyGoSyu9E/YCw7s0loJKC1Dlkkiut
-         o0OzMR1VNT76qoDQLMkJeXMITaRo0JpCbbmSkR28fFObutvBytpPPfle58m2dri3z9Sk
-         nRlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384250; x=1794989050;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        b=UkR5NuMFpJ1XwhEJB1LgCKTer9cyZYJ+XtXi4LKU8zk66Ax+eRM1TZ+U6Za+H3XXcV
-         CZPCm2HawMRSV4HDVi9Vg1LmQNdYxSrsXec0gdml88UICdXSZ3hPxva8xFwrfP0nYUJM
-         rhKy1u6UbynEAPR2AqqcAFqp+QjOowVAbTm5JoO4g/yJhAOMuXzp5bQ4cYwgVZq9yXRz
-         RJrzdLrr3q8JhjsSZh4sLjokony8iOqS4CctWn5d8JkL92VXaW0cYse4c1oXMZD8yI+n
-         J95YH3jcKTqMSsqE2A8rx/bPmwe9kAmIBYJEbrBaXHBRJ+7Ni4hXdzNAi9ZWM46CYplD
-         uXHA==
-X-Forwarded-Encrypted: i=1; AL+hErEtALJQa9qqNru52pQHb4zO4i+ivs2W/l6qCTgaU31NNX8ILxImXb8dsrLprJDg+mRz6O1303FeTJGe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+h/56BOKj/r7xhBy0NB1FitHRI+oEVXtYu2iLAGHs1/VT82/c6
-	/W4VKs1OCLu4kL0IYvw7q4NeD/En5eEN1y1kdhjdGAhnl8JY2n3UoCebaemnm0EyO8L9u9wY9Kj
-	G1V3OtjfNazQaL5FgnCBPHt9T+eyBWNA=
-X-Gm-Gg: AYBFou3yDpj/fetZlUD2aQ9y72cEvAQNfmrF3XSpIOknZXyw1hLioZYRBJ6AyKO32t4
-	arutarlwmv8lL4JrIaNQ6HDpM9FEsCiPOb5U/hisGgt06jNGkwxXlm0//UXMbJ5oUo2sF8rWS7w
-	Eqk7H0VKnurC2dEZaFaabssaDYjUhToJWhuOxaBn3g9hpV48g8U/QL8s+etWNRx3t9MMeypWeER
-	8hU66gkYaz51i4xccq2dMRlUlfs9BJKMLAnxBHZDfKibgJoVWDnPyhKC6FlumPIh0dZ+/XUyoih
-	fXergQy1nFxGwOBqyjNAVHuR7G5IBFM/4Inevfif5/yeO/5w0j8KztYDUf6CABEYT30EygP7um7
-	uKj7omRdNBlntIJzyZTrzvMpPh2mn8esFphwu5eZURCpeQVHcpXjDG6s7H+d0Wc9Gw9qKdk6LDD
-	jbunsgA9N+hDZabFTZxElzwxxqd6m85Q==
-X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id
- 5a478bee46e88-3768366a866mr2441050eec.5.1794384249564; Wed, 11 Nov 2026
- 00:04:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmEGsZk3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01FA11F00A05;
+	Wed, 11 Nov 2026 08:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794384618;
+	bh=jXpcicRQvvdQmIEDAXIk+GYTbWLlwy/52Qk6C2+xAZ4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dmEGsZk3dZnxgOWx7FsFnBTfyLwpddC1ZsC2fdXl/PhW5yx1PKgpuQM+FhL/mMWlV
+	 oP1IP4neKY0zohbZpWfWK3Td6C3W6THvxnVS5Nsj0KrP6GOxYrFGLMczYN6c85UyDs
+	 zlmxFb2b1kOuE15bvqACa3zIogNaacRmtOTLACEu+PtRXBsBQCjxt2pygKL7Dr8h2J
+	 hVRALl6NBWsMYgQub7lB84DJ8QA3a4dkn4g7dij68/+7447Wd6IoZ3nvutOCNUh4h2
+	 xCW3Lfh//ANSQn7tQiFtkxtKqJ0fiDnt5O9KNUjAk8+6hFdBHdv0P3VJF2r4QNTTP9
+	 EDLvxy8VXEF5g==
+Message-ID: <sashiko-outbox-208574@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v8 2/3] ptp: Add driver for R-Car Gen4
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261110080727.2377040-3-niklas.soderlund+renesas@ragnatech.se>
+References: <20261110080727.2377040-1-niklas.soderlund+renesas@ragnatech.se>
+ <20261110080727.2377040-3-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 08:10:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,38 +59,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261108151348.204182-1-clamor95@gmail.com> <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
-In-Reply-To: <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 11 Nov 2026 10:03:57 +0200
-X-Gm-Features: AclHuK8vaEcJ7SqWAmNPakfkNoxiPosAOmNdZbgEthELf7kS-7VilDYNl0DIvFg
-Message-ID: <CAPVz0n1LmYHJts91P4OU3WFiUBwcU6sA7Z9McOdLK6cLu6PzvQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] leds: Add driver for MAX8907 LED cell
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=B2=D1=82, 10 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:0=
-3 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, Nov 08, 2026 at 05:13:45PM +0200, Svyatoslav Ryhel wrote:
-> > Add a small driver to control the LED cell provided by the MAX8907 PMIC=
-.
-> > The LED does not require any specific configuration and is folded into =
-the
-> > PMIC's node.
-> >
-> > Patch 1 of the series requires this patch:
-> > ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
-> > https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
->
-> This doesn't apply against current code, please check and resend.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] ptp: rcar_gen4: check pm_runtime_resume_and_get() in
+  ptp_rcar_gen4_probe()
+- [Low] ptp: rcar_gen4: missing PTPTMDC_REG write on error in
+  ptp_rcar_gen4_probe()
+--
 
-It requires commit converting max8907 schema from text to yaml to be
-applied first. I assume you may just ack schema adjustment and it will
-be picked by Lee, but that is up to you to decide.
+commit 0b281490f8408b05b34c2584004769891977d1ff
+Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
+
+ptp: Add driver for R-Car Gen4
+
+This commit adds a PTP clock driver for the system-wide gPTP timer found
+on Renesas R-Car Gen4 SoCs.
+
+> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
+> new file mode 100644
+> index 0000000000000..e82b6c5abc306
+> --- /dev/null
+> +++ b/drivers/ptp/ptp_rcar_gen4.c
+
+[ ... ]
+
+> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_resume_and_get(dev);
+
+[Severity: Medium]
+Should ptp_rcar_gen4_probe() check the return value of
+pm_runtime_resume_and_get()?  If runtime resume fails, the device remains
+suspended and its usage reference is already dropped, so the following
+iowrite32() calls access unclocked registers and a later
+pm_runtime_put_sync() in the error or remove path will underflow
+dev->power.usage_count.
+
+> +
+> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
+> +	iowrite32(1, priv->base + PTPTMEC_REG);
+> +
+> +	priv->clock =3D ptp_clock_register(&priv->info, dev);
+> +	if (IS_ERR(priv->clock)) {
+> +		pm_runtime_put_sync(dev);
+> +		pm_runtime_disable(dev);
+> +		return PTR_ERR(priv->clock);
+> +	}
+
+[Severity: Low]
+Should the ptp_clock_register() error path also write 1 to PTPTMDC_REG as
+ptp_rcar_gen4_remove() does?  On R-Car S4 and V4H the gPTP block shares
+its module clock with the Ethernet controller, so pm_runtime_put_sync()
+does not gate the clock while the Ethernet device is active, leaving the
+hardware timer running after a failed probe.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110080727.2377=
+040-1-niklas.soderlund+renesas@ragnatech.se?part=3D2
