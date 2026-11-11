@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794395500;
-	b=hboMd374YrEFsty9tsVXzi5B/Gs+2JvkJxSTn2tWthr2IPAk1Yy5yvGw3yO8u1Ekwqmh
-	 Vu0RLPOnJsubVfS72j1FUeKE5544iYMjY0vlzIh49KNcCHOWMz/GWtgF8Mtu33T7P6d0W
-	 DJtNKNhGZ8f3KnvBe2R0ylYyuLi9WGiS/YQ5ASRqQ6lv6LFR7xHhnaT2HqDKKCIVr4j8o
-	 6CoSIUjXnWj9Tj41ksTJHNcc2CuMia5uHCHJlGMBjAd8x6ugLSO3U7ObCHivfo/0jVXJ6
-	 0pJjAAzcczcHF9nwMdaK87pqz3Ofs6eKCp6T/Ygr1cBZik2j56YQhAOgqrzv1bok0wQ==
+	b=luIak11uxZwtLFOM0QDH9P746rfp80BTLf2L0rRnbL4WOCzZOkTkDXNFD63jz9mHpMtT
+	 omOX64TXIYD12brunjezRAuVQ4drh8MfYj1LB/1JBSNhyrHRhFriSayZD+OIIou6jhvg1
+	 ePACeTPWEsKybCLhTeoy12D7eROFpWCwwUT6FIrDt1RT8KpG5zDEdKGZ/eRDFdykZwZx2
+	 yiGM+l8bBbdmUPwgRMwf4Rk4BH3Y5RN/0oWv6t2QNw3P0j1/von5Gg++DSlXtvTaEVERi
+	 5Mw2Mm7Y1C9CGqrtL0Kotkv8UbujAN17VVgXOEtb4sE3yACt5/xE9zeZ15zLlxaGcgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794395500;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=oHc+4wiOP77Y6rdhUER6E6O/YlekIux0worEr8HMXOU=;
-	b=oO8spDu/+rRrn/wqE1/2NZ8cZp0+d4VYENJZ2brrDLBDlk20nxZswvYqgBcC4bcS/tMt
-	 3dm2lfUsmHI4W96qQIq/UVLn5GB/XM0Eqaf/w+IMa3OATKJni8265/4D8ThO76fA7H7rV
-	 vY/oQ2WzP68XPILidfGy+bKr9/C4nr073mvbSakSci0uGtrJ8RsBv+rq8FMjZR+W8YvrV
-	 K/PMZjmbQvlr6otTfPNZylew2TdNHtfGOiisCOzkNvWDNtkGP4hywsW3kks5FmjxBznZ0
-	 ozAutjxS9T7vVWHAQu25mjRPDr5471Ru6reoREYkI22E4MFWJ6ehn6sEUfhdgkuqyIg==
+	bh=jwIvi+CDyCVtdUk1U/U2+9OpUe/CHWnmzUcZIl4KO1Y=;
+	b=iW21X0XnW4PYzkby6s5ysi1cicMd4X5isoclsYXTfzkvvaFQ38K7rITHuAtR8ax3QnFz
+	 a72yTH2lEMAp2b8HBhkRmh0F/PYOhBrkG8oP3j/nclHCfKhwn1sR6oOrPj0VSiqg96bjC
+	 StbVIgcYhxbawI51qHTRNV2t0dQIDWOiCSGHP00y2lyEQGs78364Obd3Z7VNz1nNTx5FT
+	 9J6fb+YR8GjLpWYGKPfEqflLS+fBvhzu9iKRB3Q5/fo6b4g6gOiJLeK2Y9jHxxE2wRKsn
+	 Ul2IbfpLigrRX3AOSqDgxlLINS86KZbJkPHdq58YUtqeUsaUpJr2DUlJRYzOOxRUQ3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=op9squEQ;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ybxQD8f2;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECC40606B40E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29C73606B410;
 	Wed, 11 Nov 2026 11:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC40606B40E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C73606B410
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=op9squEQ
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ybxQD8f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=oHc+4wiOP77Y6rdhUER6E6O/YlekIux0wo
-	rEr8HMXOU=; b=op9squEQ2EvmNXUcq/zC+JBgpfGs5S+OxKn/EvnDrbjRauwayv
-	b79cdmlHmHLC/1QtqnyZ72MZicPlyLhD7O9Af+/xk33dY9w6cYo6Pv2sLXYl5DM5
-	EYbuSvjwk5NZ8wKQVEz2dw/nLEjlr7W5od3EmmGa/XVrAUTQ9+OjD+fWY=
+	Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=jwIvi+CDyCVtdUk1U/U2+9OpUe/CHWnmzUcZIl4KO1Y=; b=ybxQD8f2xHw5z
+	cywyvAr4DiypgZEzaEAuAKYavVUXtu6hyLQz/5i1YlQH2ErezkMhZjFiwMb5gzoq
+	O4VHTN+GYG1VqWX+D+F4lCjoO9sOWRDMgX5/VNPG+O3gz3ijeOqjNkwfV6FRHc0N
+	sPHLPKu7C35SLsMShetY+gtbxGOytU=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.178.45])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3QEVkTfRqfLWsAA--.2531S3;
-	Wed, 11 Nov 2026 19:11:33 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3QEVkTfRqfLWsAA--.2531S2;
+	Wed, 11 Nov 2026 19:11:32 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
@@ -50,12 +50,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v10 1/2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Wed, 11 Nov 2026 19:11:31 +0800
-Message-ID: <20261111111132.1296892-2-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v10 0/2] regulator: add the Will Semiconductor WL2868C camera PMIC
+Date: Wed, 11 Nov 2026 19:11:30 +0800
+Message-ID: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,173 +63,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgC3QEVkTfRqfLWsAA--.2531S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrZF1kpF
-	Z8GrsFkFs5Cr1xGw4xK3W8u3W3KF1rArn5Ar1UC348Kan0qFnaqr9Ikw15Za4Fyw48GFWa
-	yryDZF47J3WrZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
-	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
-	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
-	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20x
-	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
-	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
-	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
-	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bouciUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREIB2rzcNlJ1wBJs4
+X-CM-TRANSID:3pYKCgC3QEVkTfRqfLWsAA--.2531S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtFW5Jw4rtrW7Zw1kZrWDArb_yoWxJr48pF
+	Z8XrZakr4kJrW8W39rCw1xZ34rur1SyrW5tryvyr18Z3Waya4Iqryayr15CF1UGr1kCr1a
+	yryDua4xGF18Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgcTQUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREIB2rzcNlJ1wBIs5
 
-The WL2868C is an I2C-controlled camera power management IC from Will
-Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
-from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
-VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
-3.544 V. All outputs are programmable in 8 mV steps and are gated by
-per-output enable bits with a chip-wide SYS_EN master. The chip also
-exposes an optional active-low RST_N input.
+*** AI-assistance disclosure ***
+This cover letter and the two patches below were prepared with the help
+of an LLM coding assistant.  The author reviewed every line, ran every
+gate quoted in this letter himself, and takes full responsibility for
+the content.
 
-VIN7 and VSYS are both inputs of the internal control logic, which is
-powered from the higher of the two voltages, so a device tree has to
-describe at least one of them. The remaining inputs only feed LDOs, so
-they stay optional: an input can be left unconnected when the outputs it
-feeds are unused on a given board.
+This is v10 of the WL2868C binding+driver series.  It supersedes v9
+(<20261107015014.22374-1-xiaqinghuan@mail.ustc.edu.cn>).
 
-The example enables ldo1, which is fed from VIN12, so it also describes
-vin12-supply; the binding says an input may only be left out when the
-outputs it feeds are unused on a given board.
+What changed in v10
+===================
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/regulator/willsemi,wl2868c.yaml  | 99 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 105 insertions(+)
+v10 addresses the three Medium findings sashiko posted on v9 2/2
+(<sashiko-outbox-205554@kernel.org>, 2026-11-09) and the two Low binding
+points from the v7 review (<sashiko-outbox-201357@kernel.org>) that v9
+did not carry forward.  Sorry for the round trip: v9 2/2 is
+byte-identical to v8 and v8 2/2 to v7, so those reports predate v9, and
+v9 only carried Rob's binding points.  v10 fixes all five.
+
+2/2 regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+
+1) [Medium] "reset released before enabling vsys in wl2868c_probe()".
+   Accepted; all three sub-points were real.  v9 got the GPIO, registered
+   the reset action and waited 1 ms before enabling the control supply,
+   so the deassertion and the delay ran while the chip could be
+   unpowered, the device ID read followed the supply turn-on with no
+   startup delay, and the reverse-order devres teardown disabled the
+   supply before asserting reset.  In v10 (drivers/regulator/
+   wl2868c-regulator.c, wl2868c_probe()) the reset GPIO is taken with
+   GPIOD_OUT_HIGH (RST_N asserted), the control supply is enabled first
+   (wl2868c_enable_control_supply(), new), and only then is RST_N
+   explicitly released with gpiod_set_value_cansleep(reset, 0) followed
+   by a startup delay before the device ID is read.  The reset action
+   (wl2868c_reset_assert(), renamed from wl2868c_reset()) is registered
+   after the supply action on purpose: devres unwinds in reverse order,
+   so on unbind RST_N is asserted again before the supply is disabled,
+   not after.  The 1 ms values are now WL2868C_RESET_RELEASE_US /
+   WL2868C_STARTUP_US; I could not quote a datasheet page (see the note
+   at the end), so the letter keeps the same conservative 1 ms as v9.
+
+2) [Medium] "vin7-supply not enabled for I2C in wl2868c_probe()".
+   Accepted.  The binding allows either supply, but v9 only asked for
+   "vsys" with devm_regulator_get_enable(), so a vin7-only board got a
+   dummy regulator and the control logic never came up.  v10 adds
+   wl2868c_enable_control_supply() (drivers/regulator/
+   wl2868c-regulator.c): it uses devm_regulator_get_enable_optional()
+   for "vsys" first and falls back to "vin7" only on -ENODEV, keeping
+   whichever is present enabled for as long as the driver is bound.
+   The -ENODEV check (not IS_ERR) matters: -EPROBE_DEFER for a vsys
+   provider that has not probed yet is returned as-is instead of being
+   misread as "no vsys described".  On boards that describe both, only
+   VSYS is enabled as the control supply and VIN7 stays available to
+   the regulator core as LDO7's input, unchanged from v9 behaviour.
+
+3) [Medium] "preset LDOs enabled by wl2868c_probe() when SYS_EN is 0".
+   Accepted; this is a real bug on a board whose firmware presets LDO
+   bits with SYS_EN clear.  v9 seeded chip->enabled from the whole
+   LDO_ENABLE byte, so the first enable() of any single output wrote
+   SYS_EN | (preset bits | own bit) and switched on outputs no consumer
+   asked for.  v10 seeds the tracked set only when the register already
+   has SYS_EN set (wl2868c_probe(), right after reading
+   WL2868C_LDO_ENABLE); with SYS_EN clear chip->enabled stays 0, which
+   matches what is_enabled() reports, and the first enable() writes
+   SYS_EN | <that one output>.  The comment in wl2868c_enable() was
+   updated accordingly.
+
+1/2 regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+
+4) [Low] example enables ldo1 without describing its input.
+   The provider node is already gone since v9 (Rob's point); the
+   remaining half is fixed here: the example now also describes
+   vin12-supply = <&vreg_vin12> next to vsys-supply, since the binding
+   says an input may only be left out when the outputs it feeds are
+   unused on a given board (willsemi,wl2868c.yaml, examples).
+
+5) [Low] MAINTAINERS driver pattern dangling in the dt-bindings patch.
+   The "F: drivers/regulator/wl2868c-regulator.c" line moved from 1/2
+   into 2/2, where the file is actually created, so
+   scripts/get_maintainer.pl --self-test=patterns has no dangling
+   pattern at any commit of the series.
+
+Gates run on v10 (on the 7.2 pristine base, commit 25f7927e6ccb)
+===============================================================
+
+  git am of 1/2 + 2/2 on a pristine checkout: clean, git status clean
+  scripts/checkpatch.pl --strict --no-tree v10-0001 -> 0 errors, 0 warnings, 0 checks
+  scripts/checkpatch.pl --strict --no-tree v10-0002 -> 0 errors, 0 warnings, 0 checks
+  make ARCH=arm64 W=1 drivers/regulator/wl2868c-regulator.o
+    -> rc=0, no warning
+  make ARCH=arm64 DT_SCHEMA_FILES=.../willsemi,wl2868c.yaml dt_binding_check
+    -> rc=0 (CHKDT/LINT/STYLE/DTEX/DTC all pass)
+  scripts/get_maintainer.pl --self-test=patterns at both commits
+    -> no new warnings (pre-existing unrelated upstream warnings only)
+
+The 1 ms reset/startup delays and the 150 us enable_time come from the
+WL2868C datasheet; I do not have a citable document revision to link,
+so I kept the same conservative values v9 already used.
+
+Qianhui Xu (2):
+  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+
+ .../bindings/regulator/willsemi,wl2868c.yaml  |  99 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/regulator/Kconfig                     |  11 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/wl2868c-regulator.c         | 280 ++++++++++++++++++
+ 5 files changed, 398 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+ create mode 100644 drivers/regulator/wl2868c-regulator.c
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 000000000..972813fbd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,99 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description: >
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+  VIN7 and VSYS feed the internal control logic, which is powered from the
-+  higher of the two, so at least one of them has to be connected. The other
-+  inputs only feed LDOs, so an input may be left unconnected on a board that
-+  does not use the outputs it feeds, which is why they are not mandatory.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: >
-+      Input supply for LDO7 and one of the two supplies of the internal
-+      control logic.
-+
-+  vsys-supply:
-+    description: >
-+      System supply, the other supply of the internal control logic. The
-+      control logic is powered from the higher of VIN7 and VSYS.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+anyOf:
-+  - required:
-+      - vin7-supply
-+  - required:
-+      - vsys-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+            vsys-supply = <&vreg_vsys>;
-+            vin12-supply = <&vreg_vin12>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-max-microvolt = <1128000>;
-+                    regulator-min-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f82..435beaf95 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29058,6 +29058,12 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
- 
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
+base-commit: 25f7927e6ccb6f4d8652b2b474d4c935faf580f6
+--
 2.53.0
+
 
