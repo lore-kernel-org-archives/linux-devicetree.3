@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370467;
-	b=bIMcHO5qqlNXU+xtGWE3qFaeQc0uj3LAlLAtJRGfuhVsYeOb0RcgGjvM/nASjmjKzgPh
-	 8+/IhiFcUk1afVlMF58sJ/4COOH2SzkCaFdO0GyrYIbqtSKAf0O2ZPIOlf0BdMpI46L4a
-	 r1iJqJVO29cyBDFBh2p5L/jGMab1TADHC2XMUIHGDMb7bn7b6I+FkDSzYg88gBYcy/6xQ
-	 jj3fvsxeTBkB4Lp7aibaUA3RMf76zcWzXH2retDVw/+N7OeBXXWsL7V5CdSGP9cqbn7sT
-	 Md2viHkU0imYCHnTANA/QqbQtKVjLL8m9MvRBcTVPbOrparHSMJDZEEq2rlvQfyUbRw==
+	t=1794370486;
+	b=qaAXI9+oewotFXi1VK+tfYFeguiiY/9zE4xm6QrYw1j1JlatcsRPcWwbhBzvusRbQPms
+	 oX6CANx3rj2/ClZPmDzggNAqdpsc46Wy8Y2FkUdIFcyJLu/3BGBgt5gLKaLdSDDEI1pAz
+	 YvXD7/dEk6iiCQHCEcbQ83RNr831YsQcKC7TwyV3ZKxwqtB6v2qiMpOvnWMGWqBA2u32V
+	 9bgXgG6YsqJkJaRQSbB/rEmdKLr1eiBqO0u/Bd+dj97W6ZSpu9LRCEpP3GMRTHN1hDfzg
+	 9uFQUa9KGb8bb6IT0XhyDOrcjyxN93X/pJCiEqM65U1dMIVbTM3v38w+JZNwTy/sNnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370486;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=5LxM/zW32Rd01ubKGpE8Na9mT8q2E7+7oK0A4eJKMjo=;
-	b=O5AZmrMK8ec576GLLqYVjnBv7WnkbfZcj6IOJrkx55z50WdhO1HM8XXu4lhVlBNMGuX/
-	 NiqhevwwNx56NcDNhQaupmHM0tUuxxuUY767+fZOU8TNDIPYxR7QToUxyTfoMes/YHklb
-	 RUMbh5OMDWUbE5FX1IGq7Op9kupiVcWkilJu0+AT4ktOwS3gtBhYOXgDlMHX0DfMS6gOo
-	 4A8uChvkNtxLsDYbo6AQzPIfhngBzysz4Um5pOzXh/cqt89Nx1F0oo2NuNm68skcgdUkc
-	 SdKEnOASk9SYVfnGLty92iIwBB6yZOnerpQoynOx9H8CZciUkr+UjOSCn9fzq7AwVAQ==
+	bh=Bka+P1SKn7+o7710EoziSWAmGI6ixZAyxquFEjs1PAs=;
+	b=H8vtm9aczBJD4tq2p2CSwyoaSyq216avJkbAsvxGUO9XW0+l5DrAZmiIFJY+3W0kgOPm
+	 va9XWIUaeRM28r9b3MrFavWOTaMQ0I2gzoSR5lp5Jsdc6jzIpo2vNVFiLxg0DqwmQPFZb
+	 Lqr52YtEYADuU8f7uTKs8xT84CQ7EwUq7dqL1JJp3iEwRyQO+5LcdA83f9z20XYnLAIkY
+	 9pMaAbQwYCjKTJZoQV2cdIWlAGNm3i4dyKu/r/ak4382E67C/ydeUVfl2bwi61kIFYPof
+	 giM0m64/unICzxGltgCTNjvkJsWBqoQvm5CYa5EcChixtuGWDE0j1qfOQQUQNHcCPNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nabladev.com;
 	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=jBG5EcGP;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Sc6fSMSq;
 	arc=none smtp.remote-ip=178.251.229.89
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB14606A31C;
-	Wed, 11 Nov 2026 04:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BB14606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61CA606A31C;
+	Wed, 11 Nov 2026 04:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61CA606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=jBG5EcGP
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D1EB710DCE8;
-	Wed, 11 Nov 2026 05:14:16 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Sc6fSMSq
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 24FC410DD83;
+	Wed, 11 Nov 2026 05:14:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794370460;
+	s=dkim; t=1794370480;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=5LxM/zW32Rd01ubKGpE8Na9mT8q2E7+7oK0A4eJKMjo=;
-	b=jBG5EcGPj0USytRC6I/igvoroGRuYoLBX87GgPWn1WWLEuqCxdpNV1dQcgXaz6EI6VezNI
-	+Xdwsbx3mvxUat0M1o3GZquUuPcHsTI8tMSBX3ZOdW4TR6vIbcJvXDq79M8J0zVf3y04Ox
-	rkx6jDo2yPfgUas0yemQuiFq4j00ys5J6++dVnDRVuwrnfP5fIpDFgBsLEcTRGXzYzUTzC
-	o/OjJ1MlWP0I6VQYpCR8L+PIKF7lE0j4yKGhbh/IQln8a9Dib/aMr2LCus8Vh2WHlyP1IO
-	/ap7ToQ2aImYknUFIPFs4f15heXThefab97+6SpdVno6nTDYqsWxxTy3/vJrlQ==
-Message-ID: <0865fe86-3ea1-4ebd-8ded-642eff159b97@nabladev.com>
-Date: Tue, 10 Nov 2026 14:59:51 +0100
+	bh=Bka+P1SKn7+o7710EoziSWAmGI6ixZAyxquFEjs1PAs=;
+	b=Sc6fSMSquBBcfsDHjtLo5bB5J7aopkltjJTi9XygiXTqObpYtwnCoIaEWwubIqF9Dg5esX
+	stboBY5p3f1nt2Lt6QNF1bd+2n9NLY98oj9ejH3UF09a1bbCnOMu+6/6RMbYaU6Z3/7f/z
+	o45+dbX++pyipfFfta+I+cddBceOuULLpMl6cYgao1QMmeE32E7tEQS9ClpHBwqmnASXhq
+	NdO7N8gVgguw/1aG+cB8MjCk5Rz8cr+oKG/cSwaGnSK7pYNcFePgswpHdIdX3Pgdx6fmkX
+	t0oVJ2p6tcdq37rCk5s/KWlqLf+/FeMU1cZj1hG6F2T1Tt+0LApWj8I/fTKBEg==
+Message-ID: <58f2ae35-c310-491a-a4c2-ead854ad10e8@nabladev.com>
+Date: Wed, 11 Nov 2026 03:41:01 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,76 +57,63 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip ATA6563
-To: Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+Subject: Re: [PATCH 2/2] dt-bindings: usb: generic-ehci: Restrict
+ access-controllers to ST STM32MP2 SoC
+To: linux-arm-kernel@lists.infradead.org
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930214729.809649-1-marex@nabladev.com>
- <d8c3ca76-3d93-4abc-8a78-d23e0f018975@nabladev.com>
- <auGdT2kdxwfbB_ol@parshuram>
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org
+References: <20260907161203.713424-1-marex@nabladev.com>
+ <20260907161203.713424-2-marex@nabladev.com>
 Content-Language: en-US
 From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <auGdT2kdxwfbB_ol@parshuram>
+In-Reply-To: <20260907161203.713424-2-marex@nabladev.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/28/26 7:59 AM, Vinod Koul wrote:
-> On 27-10-26, 18:18, Marek Vasut wrote:
->> On 9/30/26 11:46 PM, Marek Vasut wrote:
->>> Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
->>> It is pin-compatible with TI TCAN1042 and has a compatible programming
->>> model, therefore use ti,tcan1042 as fallback compatible.
->>>
->>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>> Signed-off-by: Marek Vasut <marex@nabladev.com>
->>> ---
->>> Cc: Aswath Govindraju <a-govindraju@ti.com>
->>> Cc: Conor Dooley <conor+dt@kernel.org>
->>> Cc: Fabio Estevam <festevam@gmail.com>
->>> Cc: Frank Li <Frank.Li@nxp.com>
->>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
->>> Cc: Rob Herring <robh@kernel.org>
->>> Cc: devicetree@vger.kernel.org
->>> Cc: imx@lists.linux.dev
->>> Cc: linux-arm-kernel@lists.infradead.org
->>> Cc: linux-can@vger.kernel.org
->>> Cc: linux-kernel@vger.kernel.org
->>> ---
->>> V2: No change
->>> V3: No change
->>> V4: No change
->>> V5: Add RB from Krzysztof
->>> V6: No change
->>> ---
->>>    Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml | 1 +
->>>    1 file changed, 1 insertion(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
->>> index 0cf5fa21106b6..e97b1bc0a2e45 100644
->>> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
->>> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
->>> @@ -18,6 +18,7 @@ properties:
->>>          - items:
->>>              - enum:
->>>                  - microchip,ata6561
->>> +              - microchip,ata6563
->>>                  - ti,tcan1051
->>>              - const: ti,tcan1042
->>>          - items:
->>
->> +CC Vinod, is this patch OK with you ?
+On 9/7/26 6:11 PM, Marek Vasut wrote:
+> Tighten the access-controllers DT property availability, restrict it
+> only to ST STM32MP2 SoC, which is currently the only known user of it.
+> Once more users start using access-controllers, the restriction can be
+> losened here.
 > 
-> Looks good to me, I will pick this after rc1 (monday)
-I would like to do a brief reminder here, so this won't get lost, since 
-rc1 is now out and I don't see this in dmaengine.git.
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-usb@vger.kernel.org
+> ---
+>   Documentation/devicetree/bindings/usb/generic-ehci.yaml | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> index 908b02d9175e0..9f5130a0e784c 100644
+> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> @@ -217,6 +217,9 @@ allOf:
+>         required:
+>           - access-controllers
+>           - clocks
+> +    else:
+> +      properties:
+> +        access-controllers: false
+>   
+>   unevaluatedProperties: false
+>   
 
-Thank you for your help!
+How can we proceed with these patches ?
+
+Thank you for your help !
