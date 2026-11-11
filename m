@@ -1,80 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391865;
-	b=bKVmmxzzQYNdI+J9x0JFXe1+JppsjoQR2/yPfqg001l5f7wLCsjOWZ9wWlu8koY9v2c7
-	 T1G5ZZ7rO4wzHobejXILVXL2YKJw8o4aCLntMOulCO52z8a0LbjjIycDfV96hzmR2HtVh
-	 dljlXTQY8pbO6ZJR0OP1k9Qt37ew0ChXXvtH602VK9f2LZnIKBC4BMrb9J0WOnWssB/GI
-	 W0AmHTTzjEidmTiamebC1OROW98mD8Y3cPp4bPq7GP8QCTrq+92sbtQPHyi4r0GictZfc
-	 CjJoKnaykG0Ds/WS0k0mp3H0u7rP+87tP2YcGgW85VbTh2OibHHlDWYDbuUglSaaiAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391865;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
-	b=PqZSPu2vcUp3/RVSHSo5V+deWk5s+4pRJdDhzQroacvVMHLiwaH5bbjMaWDtPfYlEOoC
-	 EI4G305mqvgG7re0MdPT1nWIDfCRO/BCi5na/Akm5+AE8hbA5d6EhysMxnnS1fqcpGq8U
-	 baLuEX5jZTibzrCLS0t2M6A78rqtQab0JF69ovHpgRdHOCv6gwGOvNevnxVlnkOd/Kb1G
-	 70c0u4nSZmeX78OFYNuxri8zp6BCLYGfjgZn8QqOoS+2qHlOihLelduUR+diALBMuvhrL
-	 0cs/koNh6L/bILITeoMX6hNo+OIsHpjBp3UtIri3qiHZXHoGmGCTXG/TNHZoAFgBzQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmxEV35e;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD9B606A321;
-	Wed, 11 Nov 2026 10:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmxEV35e
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794391865;
-	b=p9MRjS+svJOKDbhKShM/ab67hspTke3L8LrLaIL7b02iLmEMAB+maIpUn+x8qm+OXocX
-	 HDwEbollkLhpJCHTDXe2gubmW6/kXqQOoSMABKnbkI6D8q9jkZBCvKdXST9ADQd7hCiUc
-	 c6ZDzpS0MZvXpxMXxzkMm+nViSfzqm2swh3gX4bYTTfJvPTtJQ5uKoughjWnYRiSWHPKs
-	 rvIXb6BTlmOAc+xrJwLeagUKijuFkCJB+iiJOe3A9Wmqq1rQaxrk+0JvXzL+xTMAjlteA
-	 jk+D8b1dLw5fCiBKpZ7/RIgkqVy6BunhOBPOBdAQweHIDBmG0goL2OPq+7IFI+W+9sA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794391865;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
-	b=zhgrszivGwRwiOLD+nPYK8LiVDj/zrLkxhX0AAYWU/vgVCpPMNlDbqnnGUlRBw2UJPUL
-	 8APhqK3qwVDYD2zOpAbPgQwiVNgKxYw1qk/LhGTYagTzMEiHxQK5HX8luBREBGPlE0OiD
-	 DYs+y4lF5RPdGLG3JxYPRSVJ7gnxvUIOKXfmAHh1o/CokNQOPAdzU1Dx1XOmwYOelOfaC
-	 GS5YOQNVhEwtCT33vdQCzBJwlIypY4GSbt3zfeyd1LFJDjl1DcYF2LegbqJ4XLdf+T3Na
-	 82MmlAL0YPswsvG0H2whK8nBdRkkeWdjr5sn43iu7WiBznFyBaMFaYh7jF4XELBgQ8A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794391988;
+	b=0r1lC7SDGAp4EPZY6Y7dvtCopHHCXsWcJ/SY+48i3s+gFyQ9LUtIKP3tnWV3ho/Uy60B
+	 MMnHPDT3PSb2p59syvQ1IlCjZYQmQSuq5MNKTJ89e789mm0Jh6MYqBl7mbYz0RozU9pC6
+	 5k5m5WuFxBdsNbrMKBV8CPogXSRyr0NlLXyxlnXDWOkKsjwFOGmQ3C/srqu7dlKI2QxHs
+	 U/GMAsX1s5vbKYfgcDUB655oB6xK0wr+N+P4I9ia97CnX9WjEdeX5EUq9+FqwcA4jYPVK
+	 gfKFLjAcUfv3hbRX1oDdz/RxWQf7zoANg37v+KgCe1E7ONydBs7zj4eUOQOEjueaToA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391988;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2C7a88iO2E9XdVBZbTeYDh+7SXQMlaU53ksWWdkmdz4=;
+	b=y31flicyuYkStLK1mOqmqYzfRk0pZ4XvkoIDRzAWXyooiuJx1lrpWMawIEAmC6Wdb1gH
+	 77GHBAPu7v08tatk2zvenifCvg8vQdtdrqltDQ8dF/5HvBHFoeOrHr7EUU7d/vXMjlwc/
+	 wnSBqB7j8AaXBYOoBRq6AfGmqLH72ulKhxRzkUN2MbHpaAvz8y/06e/BsBH5XXQF6vW27
+	 FWqqY08uQV6RJSyD/q7DgTbggdV2sRmBINvCBpKFcaMEOdB4VhajJ8AKHgnTdaK8IneDF
+	 dWIZqI62ZdVioq0Ie522yT5nbFQ3IIW0JL9eS1Gu9Klany37gg0xScrrJgYf5FrllMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IJLWBs9l;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 379131F00A06;
-	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391865;
-	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BmxEV35eURXXe49GNtaLBd0cG23dFNAR39x8IsdpOGEC18XbEDgvgj8NiYXfy3wGi
-	 B2WCodeTuigPwKqtKHHy/G28GWi5ZmVP7XrbnwqJn3BRNH08wrvIe5jf4Pgxcyg1qE
-	 IaxWGPSXt2IhONRqxvbqcBoQfUQ1F4whvmTpbbPPEbowlCrmjNm4BVFCBQnEVAOxW/
-	 UrYYLflwk7rGUWifDLmePxd364TNvg79wKaTftQmtrlQlFmR/rk+ccSL9r2Cg2OOWe
-	 6qK2E1kxQX3668D5XRjN3aObBbfv1XwGBj3kO+2RrbTMguVNnxUEBFUm4wzC5HKAco
-	 OoBgsnWXjiRLg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7E88C48F2F;
-	Wed, 11 Nov 2026 10:11:03 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Subject: [PATCH 0/6] memory: tegra114-emc: Fix bus width and pad
- auto-calibration
-Date: Wed, 11 Nov 2026 11:10:55 +0100
-Message-Id: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03ED8606A8BA
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03ED8606A8BA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IJLWBs9l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=2C7a
+	88iO2E9XdVBZbTeYDh+7SXQMlaU53ksWWdkmdz4=; b=IJLWBs9l73kgyLAhSBwi
+	2VtRD0FQDYlwKBf+I6liqPKC/VCia+dXbWEeKxUrRDT2KR5VhHwRAlfderxj26QQ
+	nvjyIuqgQvOsGqgapM5ZduCSppr4Xwunp7uu/ZB0b7MoaQOXef9bkSAjsZsmm0kS
+	h4/DRWa1Nz/arhDLC1jpJXDamp5lMrX4EAhSwO0Y//C8DHG8Purbwhy09Vrhs1CY
+	pCMg4u4JLuagjOBzQ5p2bQqOJ+C51Xz3F+Ru1Kx034fIT9crhWWo1v8r3aH11rs8
+	vMCQQIgZwGDX5MGtcTCX9tLHUmsAs1DbTnDopi3D2DY38PjsyuprJDwbUZvGVDy+
+	DQ==
+Received: (qmail 565258 invoked from network); 11 Nov 2026 11:13:04 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:13:04 +0100
+X-UD-Smtp-Session: l3s3148p1@9NbJcP1fvIAujnun
+Date: Wed, 11 Nov 2026 11:13:03 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v25 04/11] mmc: renesas_sdhi: Add max_divider field to
+ support SoC-specific clock ranges
+Message-ID: <avQ_r3gSdHgXeSub@shikoro>
+References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+ <20261028-rzg3l_sdhi-v25-4-57f16691c2ed@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,141 +72,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBA0V+RWXcgE1/QX5Eu0mTUEXyQiVIQ/
- 920XZ7FvScoR2GFZ3FC5ENU1iWDHgX40S0Do4RssMY2RKbFfdMU2c3Is8dEVGEV6tJZVxtDAXK
- 3Re7l83t2r791f0/s03cE13UDcS0LVXUAAAA=
-X-Change-ID: 20261107-upstream-emc-t114-4d53a2a5001d
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=5983;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=gWkZ9sMR0wqVhYJEWQWSZiG5AKiQGnM8VYMjsshbjj8=;
- b=0T0mLCBKLbK+HF1RGAP25033S6Ovp+Jd2Vjs9+qkwsXJPxyTb16YyHJJjjAKG63JuVFRG3OMa
- qhZPzEEeJ0fCX2qPuknx30/GFgtXnmSffN3C3Q6ePX4rY1R0aifSY2w
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eRN2m3VJbg1fMCn0"
+Content-Disposition: inline
+In-Reply-To: <20261028-rzg3l_sdhi-v25-4-57f16691c2ed@bp.renesas.com>
 
-On a Tegra Note 7 (Tegra114, P1640) I had kernel panics, bit errors and
-WLAN firmware hangs under load, and two kernel panics on EMC rate
-changes from pll_p to 624 MHz on pll_c. Looking at the EMC I
-found three problems in the Tegra114 EMC driver:
+--eRN2m3VJbg1fMCn0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. EMC_AUTO_CAL_CONFIG is masked down to the self-clearing start bit
-   before it is written, which clears AUTO_CAL_ENABLE on the first rate
-   change. The bootloader leaves calibration enabled, with channel 0 as
-   master and channel 1 as slave. Patch 1 stops clearing the register.
-   Programming the table values needs the channel registers, which
-   patches 4 to 6 describe and use.
-2. emc_icc_set() assumes a 32-bit DRAM bus, but Tegra114 has two 32-bit
-   channels. Every interconnect request asks for twice the EMC rate, so
-   actmon at 312 MHz moves the EMC to 624 MHz (patch 2).
-3. Pad auto-calibration is disabled for every clock change, but the
-   interval is only restored if EMC_CTT_TERM_CTRL changes, so it stays
-   off after the first change (patch 3).
+On Wed, Oct 28, 2026 at 12:51:21PM +0000, Biju Das wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G3L supports a wider clock divider range than the hardcoded 512
+> used by existing SoCs. Add a max_divider field to
+> renesas_sdhi_of_data and tmio_mmc_data, and use it in
+> renesas_sdhi_clk_enable(), renesas_sdhi_clk_update(), and
+> renesas_sdhi_set_clock() instead of the fixed value.
+>=20
+> While at it, check the return value of clk_round_rate() in
+> renesas_sdhi_clk_enable(). A negative error code was previously
+> divided and clamped into f_min; now the error is propagated and the
+> clk_cd clock is disabled again.
+>=20
+> Default to SDHI_MAX_DIVIDER_DEFAULT (512) at probe time when
+> platform data doesn't set it. This paves the way for RZ/G3L's extended
+> divider support.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Patches 1 to 3 are small, do not depend on the device tree change and
-are marked for stable. Patch 1 comes first on purpose: patch 2 and the
-clk patch mentioned below make the EMC run at a real 624 MHz on pll_c
-more often, and both panics I saw on a change to that rate were with
-the calibration cleared. Patches 4 to 6 are not marked: they need the
-binding and the device tree. Patches 1 to 5 are for the memory
-controller tree, patch 6 for the Tegra tree. The driver has been there
-since v7.2, but the first in-tree Tegra114 device tree with EMC timings
-(TF701T) came with v7.4-rc1, so the stable tags matter for v7.4 and for
-out-of-tree device trees.
-
-A separate patch for clk-tegra124-emc.c deals with a related problem:
-PLLM is fixed on Tegra114, but the device trees have timings at PLLM
-rates the bootloader did not set up, and those are loaded with the EMC
-at another rate. I am sending it to the clk maintainers at the same
-time. It does not need this series to build, but it should not land in
-a release without patch 1, for the reason above, so it is not marked
-for stable and asks to be left out of AUTOSEL.
-
-The Tegra Note 7 device tree is not in mainline yet; I used
-Svyatoslav's tegratab series on top of v7.3 with this series. Results
-on the P1640 (Micron MT41K128M16, 1 GB, RAM code 0), with the channel
-registers in the device tree unless noted:
-
-- EMC rate follows the actmon level (102, 204 and 624 MHz). The timing
-  registers match the table at each rate.
-- EMC_AUTO_CAL_CONFIG reads 0x20f10000 and 0x28f10000 in the two
-  channels after rate changes (before: 0), the interval is set (before:
-  0), and EMC_AUTO_CAL_STATUS keeps changing (before: stuck).
-- A memory test of 3 h 20 min on a wall charger (1700 passes of
-  checksums and copies over 160 MB, memory sensor up to 65 degC, EMC at
-  624 MHz in 1208 of the 1700 passes) ran without errors, the first two
-  hours together with a WLAN upload of 36 GB. That kernel had this
-  series, an unrelated wlcore fix and a debug print.
-- With an earlier version that mapped the channel registers at fixed
-  addresses, a memory test of about an hour with the EMC switching
-  between 408 MHz on pll_p and 624 MHz on pll_c, and a 32 minute hold
-  test at 624 MHz (pattern left untouched for 150 s per round, then
-  compared), ran without errors or panics.
-- With the same kernel but without the channel registers in the device
-  tree, so that the driver takes the path patch 1 leaves for existing
-  device trees (what a stable kernel with patches 1 to 3 does):
-  EMC_AUTO_CAL_CONFIG keeps the bootloader values 0x20f10f0f and
-  0x28f10f0f in the two channels through rate changes between 204, 408
-  and 624 MHz, EMC_AUTO_CAL_STATUS keeps changing, and a 10 minute
-  memory test switching between 408 MHz on pll_p and 624 MHz on pll_c
-  on every pass (261 passes) ran without errors.
-
-These runs do not prove that the missing calibration caused the earlier
-panics, since those runs also had the wrong bus width, but I have not
-seen a panic on a 624 MHz change since. I also do not claim that this
-series fixes the WLAN hangs: on 7 November the WLAN chip stopped
-transmitting for about a day with these patches applied and then worked
-again, for reasons I could not find, and I have not been able to
-reproduce it. Not tested: Dalmore, Roth, TF701T, suspend and resume.
-
-Mikko, tegra124-emc.c has the same masking of EMC_AUTO_CAL_CONFIG
-(since 73a7f0a90641). I cannot test on Tegra124 and do not know
-whether its channels need the same per-channel setup, so I left it
-alone. Is it worth a look there?
-
-Tool use (see Documentation/process/generated-content.rst): the
-patches, their changelogs and this cover letter were prepared with an
-LLM coding assistant (Claude Code). It compared the driver with the
-downstream tegra11_emc.c and the Tegra 4 TRM, read the EMC registers on
-the device, wrote the code changes and drafted the texts from my
-measurements and instructions. I reviewed the changes and ran all tests
-on the device.
-
----
-Patrick Fischer (6):
-      memory: tegra114-emc: Stop clearing EMC_AUTO_CAL_CONFIG
-      memory: tegra114-emc: Use the full DRAM bus width for interconnect requests
-      memory: tegra114-emc: Always restore the auto-calibration interval
-      dt-bindings: memory: tegra: Add Tegra114 EMC channel registers
-      memory: tegra114-emc: Program pad auto-calibration per channel
-      ARM: tegra: Add EMC channel registers on Tegra114
-
- .../memory-controllers/nvidia,tegra124-emc.yaml    | 11 ++++++-
- arch/arm/boot/dts/nvidia/tegra114.dtsi             |  3 +-
- drivers/memory/tegra/tegra114-emc.c                | 37 ++++++++++++++++------
- 3 files changed, 39 insertions(+), 12 deletions(-)
----
-base-commit: 1e88944ecbe9def8aeef898a2e9ce29cf509a9de
-change-id: 20261107-upstream-emc-t114-4d53a2a5001d
-
-Best regards,
---  
-Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
+--eRN2m3VJbg1fMCn0
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0P68ACgkQFA3kzBSg
+Kbb7BA/5Af/RDYwiViUf5wT/04w1QC2xoY8WHXtYeENo5CPm+Tk6rKRQ7+TtWkd+
+J6m0aeT7yt0wrdA0nyp3Qk6NWsG3hiGZ038Bnz+U49wWEXldMvkmzT5nLo8zNhRb
+krzOMciSp+yr8SuQuYEDUFMiznAWbqMXD9U4pRTIhiocJVjgCuNwDsKKFgt/OjUy
+0X9360dTaB227NLS/TWzmgNUmBjWCV60WCriD3fqUowyNYbp1+fT7o3npDQB9bvp
+nPyWwUeowfGjvLlZMkmuolPablKvNkiG6Eow0nz7XIzkItCMQSMft8I9zbpj8c1M
+Nh5+cfAmw6O2wuJnWuowov+TWBxXUoRTW4N+kA3pZAYHo2CA5oE/zXgi9pee8nMP
+YjehirkupPvY8Rr/4ZRfbGau7GAxrDy11U9uGCNX92W7Mm7GgSIGDRjbBsHl2H6p
+2X1r6xFf5a8S2E6IRvk2rKGKHpk0Jnz+7O29kgUrJi9v4X9TbzLephRYbQKtIRth
+0g+8C6oHfRz6jKKjHSxhvqcHl9Sb08RisuIMPb2jty9l7g+4pFFNV3B7c0Nx8zrs
+sWUwVq+DLUteVY+gTI+Sjd2aAkOn6nOKkrEbZbXtvVPN74eqINmkWWIbI7sDm5p5
+BC96Wy00dlgSCZZ51zIJSiNZ0f7gZDs0VbpluM1xzZdjcK/yV+U=
+=X5ZG
+-----END PGP SIGNATURE-----
+
+--eRN2m3VJbg1fMCn0--
