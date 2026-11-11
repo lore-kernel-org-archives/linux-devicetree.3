@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794388102;
-	b=mvRHuHpd45/bAVuS4IV2TechZjJT8+8N5OY4uieuxVyFlNGKfw1FGSDkR/3kwOPAspYT
-	 ypddNCf1KXQUCDHtXUeqjHD026YpdpjSuIGycjbVVeacK01l0VH29kgO+zxsE2rA4Qt0D
-	 HER701Udx4r4TIsDlz8hxuIzXoEgZV3HKHs+SJR/yq9sqWqHw6TIEdeVGCzTecCYCW2YX
-	 +gN/X/dJWq1AI6IQI2ulXLnxVW6AzHSdcn7/DqwjntbdTwnTIKns9GEf0HPZVN34fkGLp
-	 vP68sz8Pi3Y5S9lgLWIdafR+ry+45bbkCKrerdC2Go7cIouQkrWsgnx9AtYRnhZSBlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-	b=HfoG5lYD49S34UinotBE3aDQF2sF2jjK/xVG3QwW+UsuSBbYwR/RLAm6pvjKY+/iWaMD
-	 RBvHnWr4kGsLW+bZZLJaS/3xfty7qmI7IQBUDh7ZdhC6MT2M+yIdudwmwNNatc/EF4j++
-	 UQ2Sp7Zt5EOJEUK4rrJXJTt2NhrxJNa7He8pfqKl2UKMlJSajMLtevJ1sfW9PCg+8xvw5
-	 JLEw9w/yUbZKovUZTgrNcnorvvFPCRm0KVMMTWFCxFoyNMaJj6l7YuhxgXOapfuLcPEUy
-	 rk3GH3LPKulTXePowNLMhEunbQ6T5+al4c3mlx+Hyr2RmWXvdHeJ33sYZZs4S6BCNNQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL7Ux6x4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794388457;
+	b=tYqzUyoNBUP18wLkGOvnplZJtc5BN1o+Y24+sUxy04s+0C/sKULVTA8a31746nTIsYV2
+	 Ss/X4MHUvSRjPQKOSZ6Ki+XgQYUJCfwlQGWQ1HM8YirfzS0nQlepCk2DCZE6E21EX7ycP
+	 6jxhn6TS0f1GjpVKvpfqpi4C6IKWmMEL3DduhOxJyH7njX/kB+HdWtA6fBdsILyuRa8Gr
+	 Ho9y0/KTLxY5dzfcbiqVdBImLVGXC86DGspMeaSpIVkD4GfDl1j8k/1kQz0F4uUQyw4DL
+	 phpjNerP0+0XIwEp2FOFcA8U+0SKLVnxFzIZIMKaTdsU8iyhGCZuG6lk88w3Fb5lAOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388457;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=b+G7hrGrlGrY3UI909QDJiCQQXsMdD5fgPKxtHlSaZQ=;
+	b=YgFh4mnWlWcpK8yKrm6iIt6dF9v5eVTuBh3bucAz2Cjbae/QiwIMPArvcibCxEf0RNH7
+	 OkSt2x/feoGTG3lCC8ch+aOUKX8nqYp+GWokiM8WTGROCOa1710rCiyRuf4S61eHsfAuK
+	 6aK++v0I1mxtCBZq29awKR2kl7SQWJxHpCc//ZDeq3g8UPTxD/FNWMwEQQ8gnPg2nSwj4
+	 sgoLIS4fICr8hPmsKkiLqpRa54N/gW7IqlxoqiACW0ggF9O9NepGpEZdY/Fd35uomtgpe
+	 AYQbm+qroUSeqGIuPVvSVhUnB/rSu9lZVa48IJDjxWyhJ7LNkIdRUP19Y90Yg+R3rfg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fm8LDO15;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F89606A31C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8F89606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D2078606A326;
+	Wed, 11 Nov 2026 09:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2078606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL7Ux6x4
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-823b938464fso2009208a34.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 01:08:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794388100; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NwbiEf2PzhY7corfDtOmq5qnrTSn6ZvI8g91/0tNg9goAg9WCTFEOD77iQ4a2fuACX
-         fBVBd3FoIs0eSqHtnYTI/YcvueMAS539/eTb98QjDFsglb5OhMZEv87a09+D+14hVB9r
-         4IInw3Rp2OeK4f4KcJRAIUoxxZHh2gj9nQDxgm3tZbBp7zncdqht54CvZwe1h8BPz3CW
-         reyk37iSmof0nJOB3+0apFgznfoJN0Mpqv2rqhI1uqZ/P5+jL0RTcBluN4DkyJuEoGXE
-         dtqXC5Fu/hnqNvv8agEc8qx0voDplpaoTpROw2aDDwXFgHl0VbwVTjQjPuyB/gLBO27J
-         CM9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        fh=HkhM+0D6npzZNsaId1WL2mb8lb69Au7eZs1TKEF1LkY=;
-        b=eonCQvIUegB7G5NQvMs2hObyP+YkDmiWQR5JmYUKalk6VpONkzy3Y98VKkiUGnH+zf
-         jNwctdbxhK5OHp0vqInIxaCUgMDwC4kJQrly2JtezEwf48hIAj/rkW65Eviw9OUlI/6x
-         Oovcz/Dbvm+q1UFZDuSYpLUrn5tDMJb4f9JSCirseF1EifLSWHKM4H+4hoI3HRWFuhy3
-         AcOPD1As4OgkJ6YeBrXw+sqhWyrlNMyydF0mmAuGJunxrLyhxYSVk7Y1pzPJ6NVVewSs
-         YsPxL+5q2KukZlXOMXz2bcaWK1vsqL5k3eXvoBeqyr6KLS2JyCKl37na6sujqzLPNFxj
-         GQcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794388100; x=1794992900; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        b=AL7Ux6x4ip6rFzYdnmZzpTZruFrBi/tmi2O32NjvsCi1areQq2rhMCzynqpCv98H7a
-         umHzge6mEBjWcY6Eni+wB7y++iWqUVjSmTnHqfVsB6M9DscVKGiegKkyoKoAtBZ2UkEE
-         30Et8RY7qNnRuffk7BPRpJbt7j6D8df750SgHA8s0WX1bLF8+FYDE1nfa0/NZ2VFTAfH
-         e10oDV5I1pmbNECEa3YDmY13aEiLq/LRDyYtKEMmnZoKjxj2o1qPLZGOfZP+nFWzyD8n
-         wyjAERxIXd518dGg119g9WUeeBlKJQ/qXYMzGFcCNw5kYuZYruMt9LZvdIKHwSrEtu5y
-         VSlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794388100; x=1794992900;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        b=XynFGzmkzCLPq6rIXCJQ6zQ8x+ScI+7f7dTDASOkTt2nNxIkBznG/9WoA0LioDiNd8
-         R2gWVnvz80q3CfrrOL3vUYP5TLA/sBpSlN/zd4I0XnRZBsxzEpNGozASCu5cBL75ZsEe
-         5vXMeGBGK0saqpN32K/xNwlSgUKCFQ0LLQckZcXBEBUwhk3eoc1EklxV+8hGP6r0j51r
-         ShycBUcQ9TX0IBCWvZRLIWDlTeOXmbC+E/Wa1PsGVdR2WPOwGOXuSyM8fKlUT9InMjZD
-         yetOAcJxtYvDwcFN5kv2ZeIzRYyhJpVmxSu718CVh6j4owdFkF1eS3ogsrH6LHxJIJf7
-         Ddag==
-X-Forwarded-Encrypted: i=1; AL+hErHRyYDVYGJmslEFXLtQzapd3jPCU363xtM4W9IgwFhSo3ZYUqzEIKPLv3zE6CgZ7xQ7wpH9Eph9hIkO@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hjH5r5Alh/nfx8hajuJRFNaV/XW8NDKH6URy33uWuOrUSJjuA
-	QM8vUvbSW6jaWubSW3K2E8NvM+tNxvrNYygRs6EtcpZacEFg6vchi6B6QD7ThoZfd7wQR3QwqFq
-	F+W2W6yk3W5bcHsIStSoci4lxon9N0M4=
-X-Gm-Gg: AYBFou3/h11jZP/Hs09S7gDrB2ZKUrRuNz/GPDawAxQD6nd3kYmTAqUJ4w9vxtUVKEV
-	46RskT97TB8/1VOUN2qhEk9aQOCIxI5gCxONNT6oYqfUcq50V+sbVUd1abyh9cPThcLvWyGN5XF
-	LbvJpRgUyKL3S3XeGvTH5DVbsYtHRzHUMuype6Dq46QJNVygg1N2h0AZGaa6pGdyw4FA6QUr+xZ
-	Yr0qZnhQ+Hw95A2ifNXWtfeH5iL8tk+aYYSiAou+GrXmzW7JKgp0kBbF59mF9ql2uGR5FtGKIvU
-	15n8PDPDgdtqYtbazRGD7ank0Anl9z3S2qXu/CKdux5k1cdoezhvhwOMMTo8L2xvd3Tai6PTOPq
-	54QBfdf9TQCF47MkYyyCALWIjGUUdT3GsiEPf5A==
-X-Received: by 2002:a05:6830:438a:b0:824:e29:e00e with SMTP id
- 46e09a7af769-860f287b5famr1402960a34.20.1794388100515; Wed, 11 Nov 2026
- 01:08:20 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fm8LDO15
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e376:67cb:cc18:4691])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 7BAD58FD;
+	Wed, 11 Nov 2026 10:11:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794388311;
+	bh=WIquQU926rRQBDcSiSikssDBTl6Ahv9qxOLA8KCpfrs=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=fm8LDO15BsEVZT2IEoysycLlz2HKCIvPAr0b76MYtEQMvubFJbA7/c9ZgYkTb4MCx
+	 740dvB3nc+dXpo3H6iTw4dOCcPAww61Y64CYQ9eR8z1zWnhoYjBuQngWuXMzMH5ODg
+	 CsZyvbuutGRWFoNZHoZuTSkbS5p6YQ8KFONqAiBo=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,123 +53,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com> <4d149414902c2e7d2d8cbfb2cf741f6e6b21add0.camel@codeconstruct.com.au>
-In-Reply-To: <4d149414902c2e7d2d8cbfb2cf741f6e6b21add0.camel@codeconstruct.com.au>
-From: Eric Yang <eric.yang.wiwynn@gmail.com>
-Date: Wed, 11 Nov 2026 17:08:09 +0800
-X-Gm-Features: AclHuK9PoMNLsTgMB1BxJw0pLV5rr9HNmObTBU7Lyh86uA-154BvlF3_R020LyE
-Message-ID: <CAFme=rkf7Kgvv2DjLos8EbLamqVzcHMUWsUQb-ZRmeMWjWZ-mA@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: yosemite4: Remove Floating Falls board nodes
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, patrick@stwcx.xyz, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	Sean He <sean.he.wiwynn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com> <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com> <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
+Subject: Re: [PATCH v4 01/13] dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGDn_VIO_DP_{TX,OTHER}
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+To: Krzysztof Kozlowski <krzk@kernel.org>, Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Wed, 11 Nov 2026 18:14:08 +0900
+Message-ID: <179438844820.272237.18262716067322018404@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-Hi Andrew,
+Quoting Krzysztof Kozlowski (2026-11-10 18:30:50)
+> On Mon, Nov 09, 2026 at 10:34:22PM +0900, Paul Elder wrote:
+> > Add the CPG_SGDn_VIO_DP_TX and CPG_SGDn_VIO_DP_OTHER clocks that are
+> > used by FCPV, VSP, VCON, and DPTX cores.
+> >=20
+> > It should be noted that there is likely a discrepancy regarding the
+> > clocks. In practice it ought not to be an issue as all the clocks derive
+> > from the same SGD1_VIO_MAIN clock and none of them are programmable or
+> > gateable.
+> >=20
+> > According to the datasheet, the FCPV[BID] and VSPD cores use
+> > SGD*_VIO_DP_TX=CF=86 while the VSP[BI] cores use SGD*_VIO_DP_OTHER=CF=
+=86.
+> > However, educated guessing suggests that IP cores in the same pipeline
+> > should be using the same clocks:
+> > - FCPV[BI] -> VSP[BI]:                  SGD*_VIO_DP_OTHER=CF=86
+> > - FCPVD -> VSPD -> VCON -> DPTX:        SGD*_VIO_DP_TX=CF=86
+> >=20
+> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> >=20
+> > ---
+> > Changes in v4:
+> > - Add all the clocks
+> > - remove DNI
+>=20
+> What is DNI?
 
-Thanks for the review.
+Do not integrate. Most of the patches here were DNI in previous versions
+because they depended on a lot of downstream things, but now those dependen=
+cies
+are in the process of upstreaming so these can graduate from DNI status.
 
-On Fri, 2026-11-06 at 15:46 +1030, Andrew Jeffery wrote:
-> So the expander and EEPROM are on a pluggable board?
+>=20
+> What do you expect from us on this patchset?
 
-Yes, they are on the Floating Falls board, which is a separate board
-that would connect to the Sentinel Dome through a connector. That
-connector is not populated on any Sentinel Dome currently in use.
+Reviews...?
 
-> Which "stage" does the devicetree currently represent?
+Although now that you've pointed it out the extended explanation about the
+clocks probably belong in the patch adding the dt nodes and not here. I'll =
+move
+it over in the next version. We really only need the first paragraph for th=
+is
+patch specifically.
 
-The Yosemite 4 hardware itself is not going to change any more, and
-this is its only devicetree. The Floating Falls board is not part of
-that hardware: no system currently in use has it. This patch therefore
-only makes the devicetree describe the hardware as it is, by removing
-the nodes for a board that is not there.
 
-> Have you seen this discussion:
+Thanks,
 
-From what I read in that thread, your concern is that a devicetree
-that is changed to follow the current design phase no longer says which
-hardware it describes, so changes to it become incompatible changes
-against a boundary that is unclear. You suggested:
+Paul
 
-- sending only the finalised design
-- a separate .dts per phase, with the common parts in .dtsi files
-- for small differences, a .dts that includes another .dts and adjusts
-  properties or deletes nodes
-
-Did I understand your concern correctly, or is the number of changes to
-a devicetree also part of it?
-
-I would also like to ask for your advice on how we handle future
-platforms during their pre-production design phases.
-
-In our case the firmware is built from the devicetree of the latest
-stage only, and the devicetree and the userspace usually change
-together, so we would like to send each change as we make it. Even
-within one stage, the devicetree can need changes because of new
-requirements or problems found. A platform can also have several SKUs
-that are developed separately and can be at different stages. We build
-all SKUs of a platform into one firmware image with a single
-devicetree, so a devicetree per SKU would mean an image per SKU for us.
-
-Of your three suggestions, the second looks the most workable for us.
-Sending only the finalised design would leave the devicetree we build
-our firmware from out of upstream until the design is final, which we
-would like to avoid. The include approach looks suited to small
-differences, but the differences between stages on our platforms can
-include:
-
-- a device moving to a different I2C bus
-- GPIO line names changing
-- devices being added or removed
-
-My understanding is that your per-phase suggestion could work for us in
-the following way:
-
-- The top-level .dts keeps the platform's current name, and our
-  firmware is built from it.
-- Parts that do not change between stages or SKUs go into a common
-  .dtsi.
-- For each SKU, the top-level .dts also includes a .dtsi for the stage
-  that SKU is currently at.
-- Each change is sent as a DTS patch against the file for the SKU and
-  stage it applies to, or against the common .dtsi if it applies to all
-  of them.
-- When a SKU moves to its next stage, DTS patches add the next stage's
-  .dtsi and switch the top-level .dts to include it. The previous
-  stage's .dtsi can be removed in a later patch, or kept if you prefer.
-
-For example, with two SKUs at different stages:
-
-  platform.dts            (top-level, keeps the platform's name)
-    includes platform-common.dtsi
-    includes platform-sku1-stage2.dtsi
-    includes platform-sku2-stage1.dtsi
-
-and after SKU 2 moves to its next stage:
-
-  platform.dts
-    includes platform-common.dtsi
-    includes platform-sku1-stage2.dtsi
-    includes platform-sku2-stage2.dtsi   (added)
-
-Is that correct and acceptable to you, or would you recommend something
-different? I would appreciate your advice.
-
-Also, when two SKUs have different devices at the same address on the
-same bus, the devicetree cannot describe both. I would appreciate your
-advice here too: is removing such devices from the devicetree and
-creating them in userspace the only way, is there another way, or
-should this be avoided at the hardware design stage?
-
-> This kind of verification isn't terribly useful?
-
-In v2 I will leave that paragraph out and reword the commit message to
-say that the board is not in any system currently in use and its
-connector is not populated.
-
-Thank you for your time and for sharing your perspective on this,
-Eric
+>=20
+> Best regards,
+> Krzysztof
+>
