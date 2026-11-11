@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396261;
-	b=PhhuQk4mG9PCNsK7RZH6ETz7j/eSx9+hCs17szaIIRQJEtDHL3pmgnQ/dV8o5OdcKuAX
-	 h2eRdXg5Ap8Gxy+pYKo+MRWAVkRHcDR1hGJWkZYTBeZZiB7O0hxSwmcTGu6c+rYfbUb21
-	 TCybuu20aYa7jY2z8FdhA5vKgCyoM5dAXpEBYE86YAb1OIe3Og39+fkJec51pZPdINIoQ
-	 7JDA3wSvugjXZWAMvT5FQWHGMZAnT4Gz7tjoGiIm8btzAlnGWOyHWV/p023rutkpfu5vp
-	 txtTLzCyX3iWRY8+gvWDLCUsMcMjOwTTYKksZZ/OciDd4OAJuUFm7fwgTE8F3gkRRFw==
+	t=1794396403;
+	b=jvMnvXiapztZx5YZu+gZOagFBBELKnTe3g9s8S7ujKkAxgsUBx2Ok7XYH1pZgaGK1h0e
+	 pRUqGH6FtFy5MCSJCeKy9TxNsNNS1QoRP35FoMU7JgUTm+/yiqVNLmgfjLQbhnDxeFoaX
+	 kOqsx1xO+/wGCGnMhYEPC4tpK+vhw7rfpgIH5rT0Aef2zc5zYfHoElUeW6vntgEn9B+0j
+	 2C1dOZ7qlcjia57mQxUTxPmzFSIsLV76CfsSU0voPd1q6VnD19mB6Azp9iko2uAVrBzMZ
+	 nyw3Iuvf4bGn2tchDe10B0yv27irlwbOmQug14iEdr+VGJpT1hrT3ZUkbVcEOALuEtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396261;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TyC5RG/xS6ek+VZLhU7M9QAvgJKCmjqZswCm4LBfDrM=;
-	b=S98nPYdD9MCXvrel0V6WXsIV/b2zpcXZM/1A7HaBXGQpjIgJ9QjTK/AMr/WWP2c0Jmb6
-	 x/HO6oertr1kEB1MNtto6LU6FxfB/DURtQNlejO95RiNrOKqyxiItp+WQr7mNXX0GFeH9
-	 /5s1yIXOVmYHJjHbn84ENtkiCnUIwv4d1I452OO9ugkLrDyyGaB9YZ1ZErw7PDpA+mdhX
-	 xncAfqgT4/S0s6jJ+gdVX3HFD14uWaFaGy9gplxlu4VIdcQ0jQLUOqd1RqgRobsrtVtnd
-	 mL1IkdZGbv6t9yZEvT6firkP/IqOOivu/11kpnZysL59AFhBLwTc2CfjrkfKTysQFZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396403;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=rq/0BY92ovll+sdF/Fqt/90gT7zmz+HyIa+ppKfQiuU=;
+	b=knZ1T8eCZ+byztFK9YXD0qy853IRaFdozBCUXmQSv2kGBNCc7c7uDO+FDR8Sn76ztaSu
+	 aobdPbzXW6NtTsUJXHKYwo9SU8W84RXHMN5xgrg8PiWNiG+hLfsrV+pbfuAFF5eIeQTzu
+	 Rsnfcasz9mIULXy+mRIleNyoXP2XhsAfSBs8r4T+VaK9My6Mk6gBSZGnrw6mqOFWgXYFx
+	 q+VvVHmmvscRdTMayrX9Nlmb5G0m8RAr88ejiewZSoqmVO0t4eeFCkqMDmhqs5/dp4IQC
+	 MrG14/w4jPD50ih24u3hZrfjWP9ITfeRzyqKRQjwrfw9WEAkArzSgZ7lKZEzg7WIJCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="AQ5+E/2N";
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSdkku5v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A44606A327
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6A44606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D621606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AQ5+E/2N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=TyC5
-	RG/xS6ek+VZLhU7M9QAvgJKCmjqZswCm4LBfDrM=; b=AQ5+E/2NMJbces3nNLB7
-	Dhp+waLJGw1j50cO1JBzfY4d1iIDKC9tJdVFKJFRKAbN6RpKi235h/eVd1rCzcpk
-	9pGbHjrWplc5sEuTwWsFZvbx+0IrBTSZBEVa4wWQkn8IKuw4lwDFlbbzJKKEHA+P
-	gtPA53DgA/519DujpqPJx3D77/mfkho2wV/cIaz6i21QeWap/p4wkpRko/YtDZD0
-	jlD2Gqz50Gi492U+ui3ZbtI0Yj888QDdhfWpR8hra68pZ5sgN16tmCw+k+pRjVy6
-	wcvffTVy4yRWJPmGq3TNnhb5YjZ7kX3yYUVO+6/coo/pggt8mincU8ji9Xf7PC89
-	Rg==
-Received: (qmail 590099 invoked from network); 11 Nov 2026 12:24:15 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 12:24:15 +0100
-X-UD-Smtp-Session: l3s3148p1@cp1bb/5fSuEujnun
-Date: Wed, 11 Nov 2026 12:24:14 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 11/11] mmc: renesas_sdhi: Add RZ/G3L SDHI support
-Message-ID: <avRQWlS4DsBDU5c5@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-11-57f16691c2ed@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSdkku5v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1861F00A05;
+	Wed, 11 Nov 2026 11:26:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794396403;
+	bh=rq/0BY92ovll+sdF/Fqt/90gT7zmz+HyIa+ppKfQiuU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VSdkku5vO2gMghxhrhj8/yxnzIdSzzb62CDtevhBR5+bd2HW5pESc48IK/ihYnW81
+	 IIBXQzwmgW5dJNGCqmnkj6nuP+WUrWkdoacT7QeeiVIsNXDVvBPilGVXla670hBod8
+	 8sOihVM7+/9Z9IL5dvOi8Fj614zkjYhcPvOUbbXGE+r2tqBFTcZuFdbJS8+2r6OEE6
+	 ZYcnkzttt54dQ3zfw7kJOwfQKjifVEjQvL3zHEPBcgzeO7HCvC1/rn0BA+jRiAmBwk
+	 cVuow9Vzf/ko7ssQ30HtoO3tcEnnsJbnttqgvv5K7MxfRWmOXsH/RypvzbTiKGjcb0
+	 mHXdS/6onQB3A==
+Message-ID: <sashiko-outbox-208873@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: example-schema: Show example of
+ dependentRequired
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111111403.83665-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261111111403.83665-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 11:26:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,58 +59,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TDYaANhAGqmkt0P2"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-11-57f16691c2ed@bp.renesas.com>
 
---TDYaANhAGqmkt0P2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: example-schema: duplicate dependencies and
+  dependentRequired
+--
 
-On Wed, Oct 28, 2026 at 12:51:28PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> The RZ/G3L SDHI is close to existing variants but differs in three
-> ways the driver can't handle today:
->=20
-> - It has an 11-bit clock divider. The upper bits live in CLK_CTL
->   bits [17:16], so the register must be written with a 32-bit access
->   on this SoC.
-> - Tuning needs a second HW adjustment register (HWADJ2), programmed
->   together with TMPPORT2.
-> - HWADJ4 must be cleared when tuning starts.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+commit 1be156d7b94f469cc7bb5216878b759c591f8b64
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+dt-bindings: example-schema: Show example of dependentRequired
 
-I like the renesas_sdhi_sclken() helper.
+This commit adds a dependentRequired block to example-schema.yaml to
+demonstrate conditional property requirements.
 
-All review done, congrats! I will run some tests on R-Car hardware in
-a few minutes.
+> diff --git a/Documentation/devicetree/bindings/example-schema.yaml b/Docu=
+mentation/devicetree/bindings/example-schema.yaml
+> index b04f3cc4312c0..a37d10ff7469a 100644
+> --- a/Documentation/devicetree/bindings/example-schema.yaml
+> +++ b/Documentation/devicetree/bindings/example-schema.yaml
+> @@ -217,6 +217,14 @@ required:
+>    - interrupts
+>    - interrupt-controller
+> =20
+> +# Properties might be required only if some other property is present.
+> +# dependentRequired is a shorter and preferred way to express this, inst=
+ead of
+> +# if:then: block.
+> +dependentRequired:
+> +  # clocks is not a required property in this binding, but if present, t=
+hen
+> +  # clock-names must be provided as well.
+> +  clocks: [ clock-names ]
+> +
+>  # if/then schema can be used to handle conditions on a property affecting
+>  # another property. A typical case is a specific 'compatible' value chan=
+ges the
+>  # constraints on other properties.
 
+[Severity: Low]
+Should this replace the existing dependencies block just above required
+instead of adding a second section for the same construct?
 
---TDYaANhAGqmkt0P2
-Content-Type: application/pgp-signature; name=signature.asc
+example-schema.yaml already demonstrates conditional property presence under
+the Draft-07 dependencies keyword (which is also referenced in the allOf
+comment below), so keeping both leaves the example showing the legacy and
+Draft 2019-09 keywords side by side.
 
------BEGIN PGP SIGNATURE-----
+Also, requiring clock-names whenever clocks is present conflicts with the
+clocks and clock-names definitions earlier in this file, where clocks has
+maxItems: 1 and the comment on clock-names advises skipping xxx-names for
+single-entry lists.
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0UFoACgkQFA3kzBSg
-KbZXxA//VK0YsuDvIDhInLV9TiDuTr0cVWSPldJlUM9iuRmA4Aaq7btGKrKPziBE
-4r7tGKTpARWrO1binEIwkZtBwBNCKWG59Vrn9WXV59LZ0mGu877aoyuCaNFvsDVo
-TB3Slnt1jbp4c3zwk4XpRz84MNoxunbl4x6eIic7reJjpqGcOf4XRjQa1eNIQeTc
-yAHuO9llw/AkfoAl2FGt7woiHcw5PQ0Nzi+BjZe8/PY6zbZPmmk326GasGsQbhaE
-bScvVPSlhs/mgVDvEje0Q4qRyQNU2lOCSUAeW6HdXwTe9/JzB9wZALSOfXHLOX8l
-imr16uKsiEimAS7C2dj6WioQoS2po/xN7dAhw+iqLRjiTGYBIuYAmv6aXSFm+eRH
-zXj4Qo/gWILrUbvrTl0aC3saHyB6OjyYONvYalVF+jg18PxllDcUUhQlP6FS0oE5
-UtoPMD6t7oYJe2ysfA4osTQrSu/KJMOK4Q9eNwLtraGcdadkkCTqMs2Lc7EscUVL
-YWvK1mf2ZKxcDki5KsxlYKvg5GGQwaFLNtUzk3DxuYEzMcCcs6f7Huk2nIY6HkJz
-LcthyifcBJDf641GeVdVU5Y9m9euxU7/SHwqAuMUWc02nGH4Z4vHQOodV7LgRxk/
-bVZ5ZUUj7C3w2XRTItAl2dAwEKJ4FW+v/1mA9GaN11RSK/R0ebU=
-=bwTq
------END PGP SIGNATURE-----
-
---TDYaANhAGqmkt0P2--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111111403.8366=
+5-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
