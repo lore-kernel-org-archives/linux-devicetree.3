@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437006;
-	b=yNxgyCeYvTE5H6jMRa24LXMtPHWkyCylyIO5lBLdqXxAGQ8e/5gUvks4UYSkolJMa3ld
-	 /p1RCOIC7vPN04ftiGgg/4f563SxdTqc6bjdV+GRiTd0oiBfYGuU62VAOcAiDSCvGoyE3
-	 diBVYDLb/73SeOOZaufH4RX1FWbHlyMaxbYTHr8Pa3WO0hoOKiOGAqKwR82xLKZMZiaWb
-	 GU314NXeGExx1lECyqkg7+PC79BwB3EuNmycJUPbM0M+h/sY+9BsjlPUCSeOSCqrAOhT+
-	 icTVK2cFiiisECw4yvythOD8Om0e0zOkAUFMT2Kdqc66lzKhPqjOerpzGZLlDTni04g==
+	t=1794437004;
+	b=Y/P4JSz3T12DzfRFgcap0nlUjD/nA75zIwowb6QJDnnD3wL72Akf9XWahcJzGrESbLr1
+	 81xRxFPOelC9IDj0LQrNOW/aM/TVVUQL6pN0sDyZbISmVM8vTIPnODHY7eEOAA8mkzDVq
+	 fWjvuB1CHo9GjuLnCEgaI3ez3dKm7XzYzKe0j4gQi0vZEXYmO50TL0pRnOIzeA6SN+esf
+	 xW4zBcjlkPyMtV2DILORVgnp77N7e613fZ2MLL8T03KhHCHswIpsKwduVgBDCqule5/Wn
+	 2nZ3SYII/IJkHd8YbaSq0Ma/0s4LIPL8MsG9hzHkXctFypLT5/jFNM1R3wCIaHh3RnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437004;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=Mvm2B4aA/p4I2wK+YBoHM5JvjypAI+iz8BH1ZFQP+gk=;
-	b=uPT+BovL9XFGYukaTPCKYKcHrpVRS9JlVqDSb57btqBfMYkeUpELRV0MUdIvYyrfxxSY
-	 qNbY+q5ERIADJkD97hhT00CqvLT6ZzlYSKHGv45XhtCvvMD/uHyQMLLa5f6xIkgC8DVnF
-	 W+1DCKqiKpB2rMBjTlNPtZUlEctdiXSomJvICy8YMIYzywzukS1GLQHRzSjht9Kga/T3x
-	 WyE87RJIVlsqSmkse2Ypv8maFs9AYgHmrRzvhExxycQLWBjfOmnZGRcXreT9nsJh8iMrL
-	 8lxZDXbfJXIyj15Zdw/Liex2GxVMAZOw76+SEVRrKnWhghosxkPLfk005StXfO0LbcQ==
+	bh=UeJIGxY5ErXXyutQODurGJuOPaEIwFDPftosdrDquo4=;
+	b=Acnv+pIRy4y7QovSwmCjV/p2xQsN22nRk/wbWS0IbFA9QZWrVg9vLBLLyRolENfsrGvX
+	 DyNM9GF1B13KjttmAeWHxbHTvf7J5OsO6GOPnUdEK9NicEhknzOvSihN8FfBTf7IAeuZp
+	 wGZSaMefDoHzhIgFor0DgWpf0Pj8ZURMvN/6lrxw/fvNQkggDi+37SKZdQUsvz+ZrdlX7
+	 bgB7OVTqikVd69Jy/ZNOLS+uNeJK8S0hzCpHlYowNLu0nx0em5vKkLBg1iJs6UstMkg8Q
+	 3l7yHRhFmfN0DrcdAkXkJ7GT2cy1q5iS7NAN7qr5kEuzkm+POTdGyP0S1hGeea0U4lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxbFGovA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFJg7ifo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5125606AED2;
-	Wed, 11 Nov 2026 22:43:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6764A606A8B0;
+	Wed, 11 Nov 2026 22:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxbFGovA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805641F00A07;
-	Wed, 11 Nov 2026 22:43:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFJg7ifo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6F21F00A06;
+	Wed, 11 Nov 2026 22:43:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437006;
-	bh=Mvm2B4aA/p4I2wK+YBoHM5JvjypAI+iz8BH1ZFQP+gk=;
+	s=k20260515; t=1794437004;
+	bh=UeJIGxY5ErXXyutQODurGJuOPaEIwFDPftosdrDquo4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QxbFGovAddVgfQIBYt3i06TYTqIA+xDMdvDo8WJTWnPzCj1V4h+CSL0XpUJgV/eWr
-	 GfkNoQ1VjRK3K1z08+/VGIADIV995Dot4RllhCoST85lE3ybquJnyXzhN7ij7Kd3OR
-	 uQPtuUVs29t3UvaGQTXRr09PTbQv3dD0v8ftRYKVEsYw7c1329rjSjIqcneF50ujj6
-	 aqOWBfZPdR0hPbbidIWsV3/H8lYGESybD1PYDa7owc+vk5nyF7eH76z4gUhC/3+riD
-	 V6jBpwKYA9i3pzdB8uoAU4XK5dI/9vehG16fFIgKo1qSp/GChpSRvWsD2cybIUMTxN
-	 BfzOpUXnW55mA==
+	b=UFJg7ifoWir3FpRhZXf10gK6sJsDWAE5nZot4uimGei2FVwGbQi09RGw73Va4/wCy
+	 76nLG8BPhPOXoMU7zmhaHOUQazwjcZVOU5QoonImdFlRDiLwxFx/Ih7akKV/yk90Oo
+	 q3wE/bPd/7UyGjGI/wWgQVOhQYncjO9kbsr57XEJ3BWbbVa+0rSrlsqpC7RxMh6XCy
+	 3Np5yTsPSd6D2cnFlwGMrui98dLeTo3QhZTbh9ALkBBptdn0OIdagl65R10xWXrr2o
+	 K4bOjoYrXRd9j9/lRn2ISKR2BOGK/ldbg2RuHCUndP9CdDu+lODBrzhbpYLBxJI1yd
+	 voJgfnzH4qCHg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 16:43:06 -0600
-Subject: [PATCH 9/9] arm64: dts: marvell: armada-3720-gl-mv1000: Add switch
- fixed-link
+Date: Wed, 11 Nov 2026 16:43:04 -0600
+Subject: [PATCH 7/9] arm64: dts: marvell: Drop unused USB 'phy-names'
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-marvell-v1-9-938788aff3ae@kernel.org>
+Message-Id: <20261111-dtbs-marvell-v1-7-938788aff3ae@kernel.org>
 References: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
 In-Reply-To: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,33 +65,53 @@ Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.16-dev
 
-As the switch port 0 has an 'ethernet' phandle, 'phy-mode' and one of
-'fixed-link', 'phy-handle' or 'managed' are required by the DSA schema.
-The expressobin has appears to have a similar configuration, so copy it
-and use 'fixed-link'.
+'phy-names' is not valid without a corresponding 'phys' property, so
+drop them when 'phys' is not present.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/marvell/cn9130-crb-A.dts          | 2 --
+ arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi | 4 ++--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts b/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
-index a881a3326dba..93af902f4f6f 100644
---- a/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
-+++ b/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
-@@ -161,6 +161,12 @@ ethernet-port@0 {
- 				reg = <0>;
- 				label = "cpu";
- 				ethernet = <&eth0>;
-+				phy-mode = "rgmii-id";
-+
-+				fixed-link {
-+					speed = <1000>;
-+					full-duplex;
-+				};
- 			};
+diff --git a/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts b/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
+index a7b6dfba8af5..5823b25e5faf 100644
+--- a/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
++++ b/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
+@@ -28,11 +28,9 @@ &cp0_comphy2 0
+ &cp0_usb3_0 {
+ 	status = "okay";
+ 	usb-phy = <&cp0_usb3_0_phy0>;
+-	phy-names = "usb";
+ };
  
- 			ethernet-port@1 {
+ &cp0_usb3_1 {
+ 	status = "okay";
+ 	usb-phy = <&cp0_usb3_0_phy1>;
+-	phy-names = "usb";
+ };
+diff --git a/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi b/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
+index 71c225221617..a68c958fbb30 100644
+--- a/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
++++ b/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
+@@ -89,15 +89,15 @@ &cp0_spi1 {
+ &cp0_usb3_0 {
+ 	status = "okay";
+ 	usb-phy = <&cp0_usb3_0_phy0>;
+-	phy-names = "usb";
+ 	/delete-property/ phys;
++	/delete-property/ phy-names;
+ };
+ 
+ &cp0_usb3_1 {
+ 	status = "okay";
+ 	usb-phy = <&cp0_usb3_0_phy1>;
+-	phy-names = "usb";
+ 	/delete-property/ phys;
++	/delete-property/ phy-names;
+ };
+ 
+ &cp1_usb3_1 {
 
 -- 
 2.53.0
