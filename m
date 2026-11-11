@@ -1,49 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388457;
-	b=tYqzUyoNBUP18wLkGOvnplZJtc5BN1o+Y24+sUxy04s+0C/sKULVTA8a31746nTIsYV2
-	 Ss/X4MHUvSRjPQKOSZ6Ki+XgQYUJCfwlQGWQ1HM8YirfzS0nQlepCk2DCZE6E21EX7ycP
-	 6jxhn6TS0f1GjpVKvpfqpi4C6IKWmMEL3DduhOxJyH7njX/kB+HdWtA6fBdsILyuRa8Gr
-	 Ho9y0/KTLxY5dzfcbiqVdBImLVGXC86DGspMeaSpIVkD4GfDl1j8k/1kQz0F4uUQyw4DL
-	 phpjNerP0+0XIwEp2FOFcA8U+0SKLVnxFzIZIMKaTdsU8iyhGCZuG6lk88w3Fb5lAOw==
+	t=1794388494;
+	b=xDO31u2Kb/X0ifvNckuNy87Om9+d7d0CLhhiOnsLk49/8/Kio0bH6u1wqMpVCEwGdUr7
+	 336wNTP9iTuY/J6IavPHXNlj3lovWxixBsIZL7REhKmVQFMDebEv9l9CrfsR1+HxhFUKR
+	 i2f8KAploDUufV3L0zB6GE8pZgYnlbx7luxS9EP8uI3yQv7lzuSjQeQItrfIry2/G6UA+
+	 qclEVbKy8rIMoTJDoff+U5CK7IJ1hav7mzXavDtViRRCsCuT8W4i6lscfzdQtSFdRXQpr
+	 oMdTnwwR4Py5TFAf2VssnB04yjwrtZUh1sXewMvmqYAXlbzYQ2kwLTDN6yFz3MDknwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388457;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=b+G7hrGrlGrY3UI909QDJiCQQXsMdD5fgPKxtHlSaZQ=;
-	b=YgFh4mnWlWcpK8yKrm6iIt6dF9v5eVTuBh3bucAz2Cjbae/QiwIMPArvcibCxEf0RNH7
-	 OkSt2x/feoGTG3lCC8ch+aOUKX8nqYp+GWokiM8WTGROCOa1710rCiyRuf4S61eHsfAuK
-	 6aK++v0I1mxtCBZq29awKR2kl7SQWJxHpCc//ZDeq3g8UPTxD/FNWMwEQQ8gnPg2nSwj4
-	 sgoLIS4fICr8hPmsKkiLqpRa54N/gW7IqlxoqiACW0ggF9O9NepGpEZdY/Fd35uomtgpe
-	 AYQbm+qroUSeqGIuPVvSVhUnB/rSu9lZVa48IJDjxWyhJ7LNkIdRUP19Y90Yg+R3rfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388494;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=iFd4Nnjt2zQ2LmJ9Y2IUzZIp2XBVIDFFmfJCMjQtJ3M=;
+	b=NdGcAUCxu9kamRyn8zuf95xuwNdivAr9IcmX1KnDRMy04NBWXZ1Zc3NEBpzOLtN9Y1Aj
+	 e/DseIwudfck3vQGrUzqnecNKR0KuX4ypbO49FyYny/RvMPt8BSyjQKSwlL970B4koY5W
+	 4MGQjwTycsqEhzW2xSz+SUZUW8rXhYsvIeYnPzsFdqlDL+JUBQUYnmWvZpDGsdhv2ZrEl
+	 gF/7DB2HveeugVzMWIb0fGMpM4IEXy7CQB/aIOkUfjDprBmQJQWsfcU6PVy0goAOQPWrX
+	 mYOYzBlpDe98+FRfG1dcJiZO7Eq2NiXzJuwhpEZC3yeNWy+RURGIJ9nNdfZIPLzDmow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fm8LDO15;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt9wDII+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D2078606A326;
-	Wed, 11 Nov 2026 09:14:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2078606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B180606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fm8LDO15
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e376:67cb:cc18:4691])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 7BAD58FD;
-	Wed, 11 Nov 2026 10:11:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794388311;
-	bh=WIquQU926rRQBDcSiSikssDBTl6Ahv9qxOLA8KCpfrs=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=fm8LDO15BsEVZT2IEoysycLlz2HKCIvPAr0b76MYtEQMvubFJbA7/c9ZgYkTb4MCx
-	 740dvB3nc+dXpo3H6iTw4dOCcPAww61Y64CYQ9eR8z1zWnhoYjBuQngWuXMzMH5ODg
-	 CsZyvbuutGRWFoNZHoZuTSkbS5p6YQ8KFONqAiBo=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt9wDII+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B911F00A09;
+	Wed, 11 Nov 2026 09:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388493;
+	bh=iFd4Nnjt2zQ2LmJ9Y2IUzZIp2XBVIDFFmfJCMjQtJ3M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Tt9wDII+Xz6VSSklMo/xRVm8x2krTjPXrSPpKPZWSxppJLsEn5MngisxgPeV0F0nK
+	 0m0JuHOjNCDNdltzzOaKlmoYO8VhgOq3Gsqos47/6eKangdTSgs+17ZFdT6aog3iQj
+	 aAk2XciW5kKzSPDYSu69D72TkQhcdNMksRuQTXq7ZqBTTZiWSJUSf3qcp03uuvTjiP
+	 fwoz7JZ5EFL9NpFJkEYTSmVMk7mMLTLxJDWoqu7Dt476S7tSjJiYHQy8s8EmCoswtN
+	 8kZh6KOKcqYILVZo+Vjm/0X9FUiavTzxFWxU2+SrLqYs1dGOugMmM4pWvsZRSjcJNh
+	 d9R87W2/4EheQ==
+Message-ID: <sashiko-outbox-208675@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: example-schema: Show example of
+ dependentRequired
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111090449.53511-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261111090449.53511-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 09:14:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,68 +59,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com> <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com> <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
-Subject: Re: [PATCH v4 01/13] dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGDn_VIO_DP_{TX,OTHER}
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-To: Krzysztof Kozlowski <krzk@kernel.org>, Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Wed, 11 Nov 2026 18:14:08 +0900
-Message-ID: <179438844820.272237.18262716067322018404@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
 
-Quoting Krzysztof Kozlowski (2026-11-10 18:30:50)
-> On Mon, Nov 09, 2026 at 10:34:22PM +0900, Paul Elder wrote:
-> > Add the CPG_SGDn_VIO_DP_TX and CPG_SGDn_VIO_DP_OTHER clocks that are
-> > used by FCPV, VSP, VCON, and DPTX cores.
-> >=20
-> > It should be noted that there is likely a discrepancy regarding the
-> > clocks. In practice it ought not to be an issue as all the clocks derive
-> > from the same SGD1_VIO_MAIN clock and none of them are programmable or
-> > gateable.
-> >=20
-> > According to the datasheet, the FCPV[BID] and VSPD cores use
-> > SGD*_VIO_DP_TX=CF=86 while the VSP[BI] cores use SGD*_VIO_DP_OTHER=CF=
-=86.
-> > However, educated guessing suggests that IP cores in the same pipeline
-> > should be using the same clocks:
-> > - FCPV[BI] -> VSP[BI]:                  SGD*_VIO_DP_OTHER=CF=86
-> > - FCPVD -> VSPD -> VCON -> DPTX:        SGD*_VIO_DP_TX=CF=86
-> >=20
-> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> >=20
-> > ---
-> > Changes in v4:
-> > - Add all the clocks
-> > - remove DNI
->=20
-> What is DNI?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: example-schema: conflicting and duplicate
+  dependentRequired example
+--
 
-Do not integrate. Most of the patches here were DNI in previous versions
-because they depended on a lot of downstream things, but now those dependen=
-cies
-are in the process of upstreaming so these can graduate from DNI status.
+commit a3f4513191420436a3b3975020d020b961833f59
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
->=20
-> What do you expect from us on this patchset?
+dt-bindings: example-schema: Show example of dependentRequired
 
-Reviews...?
+This commit adds a dependentRequired example to example-schema.yaml to
+document the preferred way to express conditional property requirements.
 
-Although now that you've pointed it out the extended explanation about the
-clocks probably belong in the patch adding the dt nodes and not here. I'll =
-move
-it over in the next version. We really only need the first paragraph for th=
-is
-patch specifically.
+> diff --git a/Documentation/devicetree/bindings/example-schema.yaml b/Docu=
+mentation/devicetree/bindings/example-schema.yaml
+> index b04f3cc4312c0..0c78eda67a2e6 100644
+> --- a/Documentation/devicetree/bindings/example-schema.yaml
+> +++ b/Documentation/devicetree/bindings/example-schema.yaml
+> @@ -217,6 +217,14 @@ required:
+>    - interrupts
+>    - interrupt-controller
+> =20
+> +# Properties might be required only if some other property is present.
+> +# dependentRequired is a shorter and preferred way to express this, inst=
+ead of
+> +# if:then: block.
+> +dependentRequired:
+> +  # foo-gpios is not a required property, but if present, then foo-suppl=
+y must
+> +  # be provided as well.
+> +  foo-gpios: [ foo-supply ]
 
+[Severity: Low]
+Does requiring foo-supply when foo-gpios is present conflict with the allOf
+conditional block right below?
 
-Thanks,
+Documentation/devicetree/bindings/example-schema.yaml:allOf:
+    then:
+      required:
+        - foo-supply
+    else:
+      # If otherwise the property is not allowed:
+      properties:
+        foo-supply: false
 
-Paul
+That block already makes foo-supply unconditionally required on
+vendor,soc2-ip and forbids foo-supply on all other compatibles, which makes
+it impossible to specify foo-gpios on any compatible other than
+vendor,soc2-ip.
 
->=20
-> Best regards,
-> Krzysztof
->
+Also, should this replace the existing dependencies block just above
+required (and the comment in allOf referring to dependencies) rather than
+leaving two top-level keywords in the example schema that demonstrate the
+same construct?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111090449.5351=
+1-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
