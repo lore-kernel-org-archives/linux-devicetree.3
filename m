@@ -1,111 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392739;
-	b=O6e76S7v9+bGs6vfUzYIpV0gIU6QaRoBA13HFaoOv3rIURoCLsavfV22VpEDAhwkgqUs
-	 KT8QkVRm9y9daYRW2L8PfsXz4e3cSu3wTmKDOu0sq6yXALn8/EdyFNooW6+MHvnhp6dtn
-	 U5a81bSuJ4zsgNa26qznsvnIa4cjLyYJUhu7a6Ub8727wmE9beYtNl0mDKvFVgWgvbQ7O
-	 HDM6kCVAPmnGu0EaYTWxkc7UkcvzJsk4K8p9mb3e9NQaY1R2MW+7B07mqcsaG1tw82AYu
-	 JALhFVkNldwWI6g3gwbBT4PKPrWZPGor4RgOdinUdj6pu/zIV/lQWBQZUWfVHfhzhTQ==
+	t=1794392830;
+	b=F5CPpDEkTVXe+Nfs5JjHqIIOefmsm8g8hAGVuNnmDD1nsslocbb0Xtk6KF2l8Sf9hvH/
+	 UgxOHWRkxvfOqYfAVhcmvTzOPX4Sz4G+0tcj5KFcfUaF+GqK0EvhTPmgJr/7i9YPrCf8s
+	 LllimgLb3xZ2LtXYub7bHfsUPrdkzmrVtemk52wyz+6iYktDRwW/JqGrSe0JfFEPA5Z51
+	 nlKasFnRtU1dbzkdfpcIsZxW7Ag6ZMF90/hHeYyvuabCFcQZg06zy9qGadYpa1bOSxKKC
+	 wizd7OY52UZtSTJ/P1UvPo5w1czsvqIe2UAufNFGczSexAKV6mXUo6O9iuai2WdyO2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392739;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WCGh2v7nU1b/qpgNrVkksi8LEcAJjTlz9SScJQHog1U=;
-	b=p9NFA6eD3bgLsAi9/M79sKrCrdpGKdN5Pf3gb9q1klBBXcfjMZeem+l+jJXINb77/1xR
-	 xeuEhb9nsvKw5/1okvsL7h0z+0FHqURYiPPTADPmHrJoBkWIRQZv1UaO3ntf7db3W3T6O
-	 Wsj5WfqZYhV81v8qI0dbf9q/VHIo+fGUCxQCOvVgMEbol0Q1KUbXn+qGthaYTPLHMR3D0
-	 5H1monWDDi43VCB2XfQjhq8KjEJMkxiPsuBr+sRn4JLIe+a6Ar09En6OzPfWiE71sYxw0
-	 lGFP43vN3OZ5cGuPLrerf/QW6gB2oq0evD0Ry3IX9tmP5eQHjxYJlBoMv/wYkkQoVTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392830;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
+	b=tB4IHVADGL7AI18jvXiulLVpx5kNdn2rU4T/BKGVpAYBabdZeZ+unsxKVN7Gxw1PB3hH
+	 wC1WJx6BHOCHvtuMbGcdrT8l27qG/7vFlqiaROd0GjDcxpeXkokRzqYAS4EXvr06zYdBr
+	 zxVE9O1vEf4b/U5SaRoWQsvTtMTp4OzQU7b/Ium3FKAZpjgnvE2JVtabbLDg7Ro869Kum
+	 k3y2ro5Sqg7KFZPiRgTRRLV8J0jUQY+Ntp5I15QYaIjhyQYXcnzbu2W6yZ4zTmJeCXmEE
+	 tfMA9B7Ii9Mz8n0bB+stTKxFz9BbjA4lgLxFWmQvkuq5LGSWNwXnGy3ygAKKayrF8LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mb3uhiUC;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="v/2A/JDp";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="v/2A/JDp";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747D0606A32A
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:25:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 747D0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27161606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27161606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mb3uhiUC
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4b467581b98so27573715e9.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 02:25:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794392738; x=1794997538; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WCGh2v7nU1b/qpgNrVkksi8LEcAJjTlz9SScJQHog1U=;
-        b=Mb3uhiUCOo+9OL8nkk0DPqlbHMU+U3YfPJtQRGohaqBLQ8OevIfv8dsETu4ueSqwRn
-         NFUTwQnpCyUxKUDcsxzqJiYueO55nV4pkpQgYg9LUK5WPus9n/ERdDgHae8RQ7j2Dw+4
-         fM3ibr2Y6ts1e/OTqbgJiTQW3L8WDSaeJuxScEHyWMzPN+bGBiq2tlQqZ+g6LQEpKD58
-         mnmah5jGdWJ/FHCGptkaUokAM2nmjVjDMlQqXY1Y0+QNVEBolaI9RZeQ+wAs3afJIVDJ
-         0j7wdyVZa4FS6RKopL2kvM92RArS1Tu/5W/MXYkBtd4iocmh7ndrHYxmSyr8Mi6yyFzr
-         +H+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794392738; x=1794997538;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WCGh2v7nU1b/qpgNrVkksi8LEcAJjTlz9SScJQHog1U=;
-        b=CWEONjtZjqJhmJsJr+kTPKBK3B0vVNGD+6HhjG12HB1/zDbuS2OKIL10YUg98paeUH
-         iJuNg3DtOwvibv6CWiUtkS5nwqej8lMw7+AhaiU7tfYbnvXISAJ65k1/rafFpuBf3BB7
-         WZgn19+EeQRmyMLK1xXW+czyzb3SuwQjOraAfWGLwA+s5CFz7/mY/c5+YX1TqFWq35FG
-         Mry/XRhpjcp1wq98iazNclwPHsvn87yQxf894CRapSg4+odvwVnYi2fTbCcdaD6eSIpR
-         Z09jGzx/0fnW5V0oEYx5mK1OHbWdov+Q2GM2NICiieIZOwR75YS7aad2MIPRj8c9i3Qn
-         5YLg==
-X-Forwarded-Encrypted: i=1; AL+hErFXXccIV9u55IaFX6hF0MLqj3gz4J6dj1H92XxMHVD58IcKMmFj7a06GhhG2/J0jmuV3RTk3ePG0sJb@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KDHsXfWER/n6h7xLg1m39BuV5rT9igkUDn5VAiPy2edYcvp+u
-	Newu3StOjjXulCzCCE/5Z2fNM6PpAsbe14bXq9D0v/o01EXn7reSqIg+
-X-Gm-Gg: AYBFou2UR9xOjm+KM9u6ISOp4MGXGW1OZDJf6SD16U7QieYnuqXDMZEKgccinRIHS4F
-	qXTm765JFOnTVSUKMw4a+Tt2McVpW0gC6Tb6OMAnVzsNkJaKeDY3HKM4QPlZAJ7iQEL7y4+YvSy
-	R3RaeGQoi6XCRs6bDEymqUMJgfVUwWX5VRHoJOJlguafpnQSSDfRf+XixQ6oZkK7qLuZQ/f27pP
-	tGb/Y5MtBFLEfSBIVpOktBAuEf09ud8rQ1bKE9UlTKtPHNg/01+8bFgF3HYUnUccBwH5/Jet/Mw
-	O3KDVg7qgeP+PwC4vxItYOWEOdroVOtLpe8uBLjOVALkFC8oLSESXFw6NEAaxvO4tuqn4kDS2fE
-	slRta92Rabh9weRvgEEfALY/qRt0imp/ViIYWd9IsbPBqO+Bb2lU39ORCdP7MsAjBCbzhJ76/w5
-	rRjwKt2cJUTOd/KMzCDAFDp6zvZygWACBBs8pCa4L1SMYL75Bo7ChvOktT+6o0q2l3JYEJspnuU
-	D3Zv7/mZAIYis5G1bLrn0TX/kabYLN2DxUzuKaS30XvlFv2ootdAIQPRNTLUSPr7jpQMNSRDIhh
-	EaNtEJBv5qWozu6Ktq62W9esynQn2c8SaBKpai6Dj9LopgkWvS/wUuXda88eqtWwcFU=
-X-Received: by 2002:a05:600c:4f14:b0:4a6:44b:2593 with SMTP id 5b1f17b1804b1-4ba093b5ec4mr41235955e9.29.1794392737707;
-        Wed, 11 Nov 2026 02:25:37 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm8610917f8f.14.2026.11.11.02.25.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:25:37 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:25:35 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, Andy
- Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel
- Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan
- Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>, Linus Walleij
- <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] stddef: Add const_cast()
-Message-ID: <20261111102535.434c2eee@pumpkin>
-In-Reply-To: <2bf5cf7baad87b5b7b7f833df390596a033fd6f6.1794323750.git.alx@kernel.org>
-References: <cover.1794323750.git.alx@kernel.org>
-	<2bf5cf7baad87b5b7b7f833df390596a033fd6f6.1794323750.git.alx@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v/2A/JDp;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v/2A/JDp
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2F2F11F7C3;
+	Wed, 11 Nov 2026 10:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794392828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
+	b=EgAT+hwjNOsx9MDe7xraetZiI+qq1lg648mKL1JXrck+qckY6QrdB4G1p145Fw1ve7D+59
+	EzzK89hmmlOuadCTJzJERyReak4apecW8od+CLNQlZouAOVe7bELtmDfd6L0RRazt2MUU6
+	tDO3zQ8c4t8Lm7Hms1gbsUunTvRDgqY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794392828;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
+	b=v/2A/JDpOAbQP80BDhC9rP3izdJApRnWEOIGnQmzvChs/ba4EwWfLJRNunmjZcVIlkTTrL
+	e3BLe9cftjFrFvCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794392828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
+	b=EgAT+hwjNOsx9MDe7xraetZiI+qq1lg648mKL1JXrck+qckY6QrdB4G1p145Fw1ve7D+59
+	EzzK89hmmlOuadCTJzJERyReak4apecW8od+CLNQlZouAOVe7bELtmDfd6L0RRazt2MUU6
+	tDO3zQ8c4t8Lm7Hms1gbsUunTvRDgqY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794392828;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
+	b=v/2A/JDpOAbQP80BDhC9rP3izdJApRnWEOIGnQmzvChs/ba4EwWfLJRNunmjZcVIlkTTrL
+	e3BLe9cftjFrFvCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6D31134E5;
+	Wed, 11 Nov 2026 10:27:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Zoh0GftC9GpCEwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 10:27:07 +0000
+Message-ID: <cba017db-db33-429f-a837-766200ec16ec@suse.de>
+Date: Wed, 11 Nov 2026 11:27:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,52 +106,135 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP
+ GPU)
+To: Leander Kieweg <kieweg.leander@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+References: <20261011154556.155831-1-kieweg.leander@gmail.com>
+ <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
+ <f06459fd-616b-4810-a8f9-cb4df2fcbd8f@suse.de>
+ <CAMwcS0ii+=5LvgeFRmMkQKUm9oReQj=-t7vZ5uxCrLGi=jzvnQ@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAMwcS0ii+=5LvgeFRmMkQKUm9oReQj=-t7vZ5uxCrLGi=jzvnQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,gmail.com,ffwll.ch,linux.intel.com,kernel.org,baylibre.com];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -11.79
 
-On Tue, 10 Nov 2026 16:33:40 +0100
-Alejandro Colomar <alx@kernel.org> wrote:
+Hi
 
-> This macro serves to cast const away without risking unwanted
-> conversions due to mistakes in the cast.
-> 
-> It's similar to C++'s const_cast(), but it is more restrictive: it can
-> only cast away 'const', and not arbitrary qualifiers.
-> 
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  include/linux/stddef.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/include/linux/stddef.h b/include/linux/stddef.h
-> index e1851c50c89b..d79a81406b78 100644
-> --- a/include/linux/stddef.h
-> +++ b/include/linux/stddef.h
-> @@ -194,4 +194,16 @@ enum {
->  #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
->  	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
->  
-> +/**
-> + * const_cast() - Drop const in the left-most derivation of a pointer
-> + *
-> + * @T: Type for the cast.
-> + * @p: Pointer to be casted.
-> + *
-> + * If @p is of type const @T, then it is casted to @T.
-> + * Otherwise, @p is returned without any casts.
-> + * This avoids mistakes that change anything other than 'const' in a cast.
-> + */
-> +#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p))
+Am 10.11.26 um 18:28 schrieb Leander Kieweg:
+>> Oh, I thought you wanted to send a v7. :)
+>>
+>> There's nothing blocking it, I think. I'll merged the driver in soon.
+> Hi Thomas,
+>
+> thank you for the review and for merging it!
 
-Should it be de_const_cast(), or just de_const().
-It is a shame you need to specify the type, but why not:
-	_Generic(p, T: p, const T: (T)(p))
-so that you get a compile time error from the _Generic() if the type
-is wrong.
+There's was bitrot in there.
 
-David
+   CC [M]  drivers/gpu/drm/tiny/glandagpu.o
+/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:293:10: 
+error: »const struct drm_crtc_funcs« hat kein Element namens »reset«
+   293 |         .reset = drm_atomic_helper_crtc_reset,
+       |          ^~~~~
+/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:293:18: 
+error: »drm_atomic_helper_crtc_reset« ist hier (außerhalb einer 
+Funktion) nicht deklariert; meinten Sie »drm_atomic_helper_check_modeset«?
+   293 |         .reset = drm_atomic_helper_crtc_reset,
+       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       |                  drm_atomic_helper_check_modeset
+/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:317:10: 
+error: »const struct drm_connector_funcs« hat kein Element namens »reset«
+   317 |         .reset = drm_atomic_helper_connector_reset,
+       |          ^~~~~
+/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:317:18: 
+error: »drm_atomic_helper_connector_reset« ist hier (außerhalb einer 
+Funktion) nicht deklariert; meinten Sie 
+»drm_atomic_helper_connector_tv_check«?
+   317 |         .reset = drm_atomic_helper_connector_reset,
+       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       |                  drm_atomic_helper_connector_tv_check
 
 
-> +
->  #endif
+The reset callbacks got replaced by atomic_create_state plus default 
+implementation. I've fixed the patch before merging it.
+
+>
+> After Christmas I will submit the QEMU patch to get the official
+> device ID. Then I will send a follow-up kernel patch to replace the
+> placeholder.
+
+Sure.
+
+Best regards
+Thomas
+
+>
+> Best regards,
+> Leander
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
