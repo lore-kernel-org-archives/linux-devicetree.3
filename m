@@ -1,57 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418021;
-	b=2xHLJ29H8E4L99+Sn7VQWabQ/ruzR9lArbhkwdnelghv9PNdD6IZODKVAa8Xj5VCXl8Y
-	 aMenGFRgJOaXpZAWrU3L1JcmJAckMVxJ1ujtR+wL/uwu4FgwPYcHTzTzI1Sj6PiMt+X6+
-	 mTYN4kBExRlxPpBkcnsqaDPrE98l8y/dYtkPGjUEbwJYn2HSOEd2fgPoE2HkjTajQcMLh
-	 fdiAwMORtKa8EkhHfVNXb8GbkCglBQe680f53Fi7mhSj+s1Lv1rPhkP2a8nAJcaliCzCP
-	 LwaBh0fmV0R9VB6apfyZHfvXvXRW2CLzDEExtOMiJp6Ezzs3wqFutKCqdw9HK2OG8ow==
+	t=1794418042;
+	b=z4MKBYlbgqrRP9qv2bqE1YIIcuZZd6QOFsU6BsycMZGRz+srg+I+5LBHGRbXqVtwvUOI
+	 JXQi/MpUXK3RsS0lgi6/X/khY8NCeEV+3ejWd6yxNGAw9jnIVZ/bOSFBvjFC09CGWuKk4
+	 C6HGOvpPpCXTu4JGpV7mAzYhd2wVYAqUVTyPok9yeOlXqI3wEBvwtMA7XfyZ4KP+gI2Ox
+	 YD+mnZ+9Eqm5Hrhs/81GpwJpk14DiTNUWozveD70aUezL1zd9VN9KKo3MLCQA4RZIOqEV
+	 8CZTuMHh4Mz1x+S8D4OLxc2Jh1q3gLLB1OEvFwEs9JKloXfr/BNNxAFa+miNlvMmbCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418021;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NCphbdEQB+/YvL+7+AdHBChftpWMXAaKtz8ipUStWgk=;
-	b=Mq1ORDPKuTE5ybxqCgJZKwCl424/syAJqKP7bwTEOnfXsr2PFeWzwqOaTEy6s76x53yQ
-	 j2W8JYE79lJWtmmxrYzzpTGAy0UCGnTw7YfgNRnm9PBViVAMtVQzcTTJrgR5JXwmJG18z
-	 GriVI9YgjOjdlipnubE7quxT6DzxmO4oRNSBg3zNEjdSZiu/5HmH2ma6QM6vDZiQEVxRt
-	 CGHONTA0BxLR/odSCLXevNGmBQ3F3QJ42qMYR5V80tv3B/XrCOtdYkuzO59SUZ1Cjd/BI
-	 sofkY3iP7enROyoHxnEcdlfuDsJCpgnjlmqT9emSwM/vNecAIkNhPsBzT81zdTooBKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418042;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=drt6bFkBv178cJO+P7WExaPrMxk8Yq5UNXKDoei1MCQ=;
+	b=AgWM8As9GtCt9WPDfOYRg/tjads52vYKT6mJflRNn5zAhu0AzrV14h5J5Xa8v/wIGUzG
+	 FbyIPLmD+3Ev2+rN5yKOi9wLKGSczWSm5BA0SdpVKfDHHygyFtHe2QsS2/CFlibn4fdaV
+	 S4Qk19nIOrvphw6Nroh0BStn8SrJRksgNhQKsxZweS6ReaE/JWR/7SBDpIlDR0UNwApSG
+	 jYSARdKY5menLbJg/bNKoP+6tyYf8Lvc0YNHDIWepa5uV9Bc6esQnFZjVPdPoh850pNZ9
+	 395dMeiCQK2L5TWd82RVfxuof0mXk0nW7GzAeC0el7ql6bnwVy16Cf2B0uNxM8R7tSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyBxCrLj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYFsVGf4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E88606A321;
-	Wed, 11 Nov 2026 17:27:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A76606A321;
+	Wed, 11 Nov 2026 17:27:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyBxCrLj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4AF1F00A05;
-	Wed, 11 Nov 2026 17:27:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYFsVGf4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2C31F00A05;
+	Wed, 11 Nov 2026 17:27:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418021;
-	bh=NCphbdEQB+/YvL+7+AdHBChftpWMXAaKtz8ipUStWgk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OyBxCrLjArNbr4B+NpYYsz+tWD1e6ppJc+J0F19chIr/kGq034wStsBobYJpiccWM
-	 eDOOiJFcrceUcnpIgeu0BmxpJkkS5quFBnq1zIPwGwE68Ge6/Zj9Cz2+8suo2eZNmO
-	 a72A3Lqa251ImDhwzHqMRgqhXXkEwOHDEG2EsgmFp+fAljI2SXVIsgAhZd9vrhOIUN
-	 atVMt8oSOGy4UHny86DtAyLsCeY/K//fp2xlouXHIS8Z6gUlPoE2HCe8FfKQ1SEj+X
-	 WYC/0FYSfI2NTAvz8x8MH7HKFwTX+m1/6Pxf7SI5RmnA4G7UzbvpEd98+Ald2FIUvv
-	 qAHGYtfzQv1bA==
-Message-ID: <sashiko-outbox-209409@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] regulator: pm8008: Add mode voting support for
- PM8010
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261111-pm8010_i2c_support-v4-3-4549cab1c8e4@oss.qualcomm.com>
-References: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
- <20261111-pm8010_i2c_support-v4-3-4549cab1c8e4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 17:27:00 +0000
+	s=k20260515; t=1794418042;
+	bh=drt6bFkBv178cJO+P7WExaPrMxk8Yq5UNXKDoei1MCQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cYFsVGf4NBVdTKN4CbCW5yQsVh8gDenbOHLx1KBypUSEqU7bmrPhJz3nlaa60mAL8
+	 CWnvYbm4MLk72SqpzKATlBXMmGJBKRhVkC5JMhQDDZcq/zuxxdRRpsn088tk4jQ51X
+	 +mOmOvtn3um/6WTGbCnj7HlAQhdSqlfG95beSIbW5SLG7GvBPMA7+39X0ikcq4ScTP
+	 NS0o0NpQ/jhHrrFoFO8VQmi0O+rb6DHPF7/mvNeTb5KIFEVhBlQwMJjKFtP45jOloi
+	 ktXFnPbcKZLWR+Dne2e6Aoawl4S5R93oNt9BtWVvadJO9k5FSBcQfnAQ6wavJdJlvd
+	 /x5etHOT3ZqlQ==
+Date: Wed, 11 Nov 2026 11:27:20 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Mahadevan <quic_mahap@quicinc.com>,
+	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Danila Tikhonov <danila@mainlining.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Del Regno <angelogioacchino.delregno@somainline.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Robert Foss <rfoss@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+	Richard Acayan <mailingradian@gmail.com>,
+	devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, linux-kernel@vger.kernel.org,
+	David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	Krishna Manikandan <quic_mkrishn@quicinc.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	freedreno@lists.freedesktop.org,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH 3/3] dt-bindings: display/msm: Require DSI graph endpoint
+Message-ID: <179441783226.4120015.12174944636473780529.robh@kernel.org>
+References: <20261110-display-msm-of-graph-v1-0-0f3106f817b4@oss.qualcomm.com>
+ <20261110-display-msm-of-graph-v1-3-0f3106f817b4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,66 +82,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-display-msm-of-graph-v1-3-0f3106f817b4@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] regulator: pm8008: wrong hpm_min_load_uA for PM8010 L1/L2 in
-  pm8010_reg_data
---
 
-commit e894320c5a690e879a2556e289265d1ae5f7176f
-Author: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+On Tue, 10 Nov 2026 13:57:44 +0100, Krzysztof Kozlowski wrote:
+> Technically, DSI controllers do not need OF graphs with endpoint to the
+> panel and could rely directly on their child node (when panel is the
+> child of DSI).
+> 
+> However Linux Qualcomm MSM DRM DSI driver never implemented such
+> approach and it requires a valid graph endpoint pointing to the panel.
+> If it is missing, the drivers will silently accept such DTS in
+> dsi_host_parse_dt(), but later fail on dsi_host_attach() because number
+> of lanes is not initialized.  The number of lanes is initialized to safe
+> default only when there is a valid endpoint which is missing data-lanes.
+> 
+> Extend the bindings to validate existing DTS to match expected ABI.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-controller-main.yaml      | 6 ++++++
+>  .../devicetree/bindings/display/msm/qcom,milos-mdss.yaml          | 1 +
+>  .../devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml        | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml        | 1 +
+>  .../devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml        | 4 +++-
+>  .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml        | 8 ++++++--
+>  .../devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml       | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml        | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml         | 1 +
+>  .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml         | 2 ++
+>  .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml         | 1 +
+>  25 files changed, 48 insertions(+), 3 deletions(-)
+> 
 
-regulator: pm8008: Add mode voting support for PM8010
+Please don't apply this before the .dts changes. I'm tired of chasing 
+down transcient warnings when only half the ABI break is applied.
 
-This commit adds set_mode, get_mode, and get_optimum_mode support for
-PM8010 LDO1 and LDO2 in the pm8008 regulator driver.
-
-> diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulato=
-r/qcom-pm8008-regulator.c
-> index 0ea4ac016dc22..395d5582f6af0 100644
-> --- a/drivers/regulator/qcom-pm8008-regulator.c
-> +++ b/drivers/regulator/qcom-pm8008-regulator.c
-
-[ ... ]
-
-> @@ -84,9 +97,10 @@ static const struct pm8008_regulator_data pm8008_reg_d=
-ata[] =3D {
->  	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 200000, pm8008_pldo_range=
-s),
->  };
-> =20
-> +/* LPM setting is supported for only N-type LDOs of PM8010 (L1 and L2) */
->  static const struct pm8008_regulator_data pm8010_reg_data[] =3D {
-> -	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_range=
-s),
-> -	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_range=
-s),
-> +	PM8010_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_range=
-s, 100000),
-> +	PM8010_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_range=
-s, 100000),
-
-[Severity: Medium]
-Should hpm_min_load_uA for ldo1 and ldo2 in pm8010_reg_data be 30000
-instead of 100000?
-
-In drivers/regulator/qcom-rpmh-regulator.c, pm8010_vreg_data defines the
-same PM8010 LDO1 and LDO2 regulators using pmic5_nldo502, which sets
-hpm_min_load_uA to 30000 (30 mA):
-
-drivers/regulator/qcom-rpmh-regulator.c:pmic5_nldo502 {
-    ...
-	.hpm_min_load_uA =3D 30000,
-	.pmic_mode_map =3D pmic_mode_map_pmic5_ldo,
-    ...
-}
-
-With hpm_min_load_uA set to 100000, pm8010_regulator_get_optimum_mode()
-keeps LDO1 and LDO2 in REGULATOR_MODE_IDLE (LDO_MODE_LPM) when consumers
-request loads between 30000 uA and 99999 uA via regulator_set_load(),
-which can cause output droop or brownout under moderate loads.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-pm8010_i2c=
-_support-v4-0-4549cab1c8e4@oss.qualcomm.com?part=3D3
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
