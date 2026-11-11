@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794428631;
-	b=bO7t70YlRYO+0Xyv+qFEaJDdLYn8Pn1SbOMbdxFnhDb1QJNd2l/5AAZklu/vBJFfMKZo
-	 z2+l9pgXUpWGr3j+JjBT1OnHvEYWMsbGhkueaLL+mvt1c4x+J+ntp/PXxHXkHSxu/z+6f
-	 2+Trl5GnykzYzTltT8ScGf9BAx0yVtGJwT2N7CjRDdjmPyYGDlrEz2dhTwvTs0jrNSiUV
-	 sZctQPLjiw6kNyfJ25fFJDvrtRk/B+3udKIDjVzacPQ8oOfAwQMDmuu7YwQK63bLDJ4p+
-	 B9MV6jdogPn8zYEVDr6AoiB5H70Zs4Z/NabKJ39G1JqBAgiNx8ycXcEyGEYHhg1YQKw==
+	b=wYQB1/CkewG630hifehyoFMgfGMY8EQL3b3dKDzc1h8t7Zk6BYUb+7jRQ2n1a7o+VoiM
+	 DU6kTPzEnt4WGZKjQp8jV+t9U5/FWuj93r9xLgXhaPMTsJi/Xm3zCc62QsKRpjXaCTQH7
+	 XjtYOAfCqyWLWfFrCIg9CfLQXz39FX8dlIyk8D5F+HTgMjgjQF08USfBMoE8O01Ns4bjV
+	 rHIHu8WGntNKaCJhSmM6OmG13w55wbCVOUa8XsNn5sramVhbvH9DGBWMnthHFlGKhIQT2
+	 WJva7AzHLLVBwbPf/GqlbJKffxuxz9KhC3c+QJ0dwrmnpgeYTF5L6stFVsu7CiY+Dhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794428631;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
-	b=vHldQ1eBUriDPg0ahvi0Nsvjkhfm9obj+vUAlIwM3ZzQJ0E/R/TDQRKMmMxCVg9dplwk
-	 yGcFRYx9nJKQ4jAqiozpwTCu1dpDlxS/coYr/UpLcvulKkLtITNH3DCvM7SxEXX+ijAPz
-	 PVKx4X8RSdOkGeBRkc0K2xZzIfT30xiiVjkSqN9mlX0UMqletjYHViD0g9Zo1LmwR/tkS
-	 7qIU+mhFf4xoSpwO/mgM6M05ReBMa0vUgTEDg+REA3DSHgHr7aw1wWvuXpFhaisKnjQJ9
-	 hIzHRpk9zfEBLhiFiSLeXKqhWp/9zsaV34MEgQFZl9fVlanywMVrV9D6aiFfM9XDfRg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/nAJpmYdLSgdSm/NN0lcHuxpyLL5jp+OxMh8y+0EDcs=;
+	b=h+lRl387Mk0/fGiWKWbjpAYOYhGXOXd8moG07FPaHUzA4yTYhzquXURkFLhKxXo40Xxa
+	 uo3CBSoopmE4mROhDOs23LT8fbuESYdru2tmv8/Th/XEt/u3Zu7Q4u5qcbbCLGngnr8sS
+	 iPYle9Fmf3OMtJk8UhW015Wx7k91zIUjokUBiv0NFj0flEICwQ8aqcps6f9iW6e8/CQ1q
+	 jo57N3+npMCvUKbsisQomuFokLulTcsjr/639I9B765IPDw6feCyqPpmrVAk4gWEaCfDC
+	 GNOF1FMntum5uJvA7qUjN8BKiysCsCxHvzVVnJh6mGUaIHwA5111i2OvhWczyqJNkiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvVQJW16;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jq7Tj9Tc;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B29606A31C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67B29606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C604606A335
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:23:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C604606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvVQJW16
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so2774741f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:23:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jq7Tj9Tc
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48fd2e38825so2153644f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:23:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794428629; x=1795033429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
-        b=zvVQJW169YCl2FNv5XPTZUnB12yoJm+4jxM0NiJnDOVIPtAqUg6eYQ3foS1EnyNukP
-         eTcWw99nUrY/yYWpegdwesAg5R+XcMpkUL60Gg3+8857AfWtcNZSnd3iNlAlH45m1k9R
-         gmDy2K5k0Rik78HAIafesPAcgbGe1B52O4B7tSqGymO+tCLWGx/b+3qGo6v8aVAM4yE+
-         7NP79w2BJqR6HXVJ4tZ9cG7DfXf/F1JqsxwhmIG1lsXJvO+zhcENxKFAUo3/6l8AMaDC
-         uybUfHV2d+yJp9sf/PP0Rr/bJgRlZ0dTT1944Xg22EPxn+fUqcMu9uM8h6qEAAN+SxNO
-         04ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794428629; x=1795033429;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794428630; x=1795033430; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
-        b=b7e54+U/C9HMjSBBgq+OmwiUyiMxf2X8R+dEVWaG4VVIGQvFxd/e5cSy71JcG6isp9
-         85GbyuLTSNN2DbKNfkxM9N6tbY4Q/vRBipfKTPnsK50sxjOFDk33BYiDRWFy5Ctkj8je
-         l4VoYeMuzOMJtV7myfHV+Vy4k93oY/TjYFB6FPIdGPy9shVA8/KiXvo5YD76zWjHsc2K
-         +fj1lcAbdzZTEz57RExeO3awL/QwNUs8bPN3rV/YRuDRIHy7d2b/ZCVW0E8rPP/YcgHS
-         i7PocpYSGSkpq2Zc+SupiWWXEJzxG4KJKzAzKtKT13q2xvkQPKk40DDl1C74hkZFNonD
-         jGGA==
-X-Forwarded-Encrypted: i=1; AL+hErEvyW8Tor07com79NMeScwaQv7Lw1N9ZmRH6IkNWN8uCRqrDyqTFewjLIuQbiTXoRCj/en7PUzwlDPl@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HcFXxQUVVslcvrYCHPo9+FYDR1XMagmUsBktYGQaC7HNrDz6r
-	FGVXLmavIcGXRL6PzvdIyS3MMqDUDYKL4yMsQGX9CUZH+q81trksCQWZ
-X-Gm-Gg: AYBFou2/8EVfJXRijbdO9zxAvoqPZ4ojB33ILwx0Z3Z4ino4yMNPfIhWsterzkTulw9
-	BszKhchI4oOkyluOC3ev0xI1INRSi9SbuDGkBGbpz/BWts963XGTNkeeHwL0g1IBTvD6S3WYcj2
-	3iVQJ1kP4TwDzwrOmoM7U3CwwfjR98XP4fUqqQ17tCbZpsBG42nMZ3PXTQj9uuT08dFgcdNEl4f
-	4bvfjoZnC9S8KXVTt6ugLsdltyFD/RBOw3jyogXvL0gnZX2xNb78265V/XZZ3fpwmCOSaXmT+4A
-	MZPJTkJevAQyiFc1eZh4HSKvf2M2s77lajTCR61CEfC+vv+CSRuyRU+rkfW3yXgUgb3K7qVpyYR
-	rNW5irVc8s7vKJP9wYWrGgEh5L5dCnOhohV5yWPrItpPpkBMI+XJocAtH10D4KyGBUZUkCT87uy
-	ZGoE9UAwVSY4/tLIzH7V+l/avxyKYtk5345pjjwkuwMKZlbKbuw2Z4NMiAFI8LtE8TErf/jN4if
-	4QLgGzjaUaKNQKEoOOJRai5hQcEhkLU/tcgyDYNSbQcV2jBmqP/GB5u8Zbr/4ni5pmnGhgGqnfX
-	WZZnSfhyfnoqKp6TAVg8/wWlv5mgAjcFE/DHbMKR4AS/SSxZFFZC5um+YaXfErfn4skGvZsFD4T
-	pb8fuGaVQtnfynQ5rP6Qu6cRVHpyOlfAliyBG9YzpAs7vwvBDlZ4W7rE=
-X-Received: by 2002:a05:6000:611:b0:48b:9ed:b81f with SMTP id ffacd0b85a97d-499c89825fdmr6554563f8f.10.1794428628387;
-        Wed, 11 Nov 2026 12:23:48 -0800 (PST)
+        bh=/nAJpmYdLSgdSm/NN0lcHuxpyLL5jp+OxMh8y+0EDcs=;
+        b=jq7Tj9TcQUnWPrYvokOb+rKU4VzAuYMv9fm9krXCNvfKJBIuthFdJiY9BhF76o+la8
+         q8/pQIgdA95MBvSV9IHXQrhoPEQe8mPM3WVaCrmCeXTJ3wH8iBgVPzXdZ4cTYvYGgNtf
+         d8H1rzBZ7Qz3cn8t7CTiZDf9KLozplXpxlWRGjeNl2W0C1u2xXN476PcA6K9l7Vmge1+
+         rzxWgVYS4hJATp8DiCRfISrjlzvN6UnOfnDllYEpBYendtCmKP3zHTeDAPIxKTgtTheN
+         HNUgIXkDwZZyxxDW08vbdoYRN7HOmKj4j2gsUKjcp2M5WZCa5Gsuqt7tyJBYQw7JdKUg
+         C4AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794428630; x=1795033430;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/nAJpmYdLSgdSm/NN0lcHuxpyLL5jp+OxMh8y+0EDcs=;
+        b=kOZYyvxmF7O6lPavJfk2k4AxjNA3L8tVpBX2q2fmU04GJJmIJW+ssqOYMI0jN0Qmll
+         xtXyopsB5YIfFwtFj3tDptpioA9Z67BUbQB5qNMm+4HWeK1YewSnF3pVbRWj5V2fOj7G
+         nxMIFbh6kVCup9hHVrqqa0uSwnpMuMUfVBvm7pP0OcvRcphymypkbBJYgNr51OcXgf1L
+         BTG9cPvWgIepjEKvjREyDN/e33CbmGADMmw3u6UZ+6Vou62bYsnhjose+xfh8lpFgBLX
+         g+e9+ZezBOII9YfQYCiuhXn37dNbTVclGbwnuZp0jNkLAAO+tdceGShd2k77gsgagdIW
+         mb4w==
+X-Forwarded-Encrypted: i=1; AL+hErHZPB24KS84/wCsbEWjhBXbFfiU76naDt+BmiCQC7XZzfIbg6qQhymYzbZkX1Wq5UJ74kK/vESJnnW8@vger.kernel.org
+X-Gm-Message-State: APuU4Z9L2759AYLqficGmV0sB/99+lUMChx701U92qb9T5bPkZBJ5sgo
+	4OBmAgJzaB41jaS2Wko00F+HLHN/5LuOEuGfNXz8MqJAqH7B3gnrZX9i
+X-Gm-Gg: AYBFou2D+OZsHld4aUUC7fedo3Qfgd0aoREIA/7ViRH/oc4xBhAB3shzSf+Q93Wh4l2
+	SaPdsSDUl9noS+P71rcgFcFpx3FWxpAK8kyGgbWcejIaG1QcVcDVlKjdo/bCax4jrlWH7VbdtGG
+	Pj9wkPKpGjMINx5mwS6Q9S6MmX8H6ENTrMjLPUXqU9NMX+SlSjVqcwMziP8R/S4KIoxatxUcJcS
+	ba0TzNCXofB8IBN+oocCPEioWLLFRY6nnj6nKFYmQ5ia0PEgcDSIALSj4/DH+9NnSv6P1MTOIAY
+	k4REgezzNCE+r0Mw0kQxHXmLci7RFpqwhCWLi5Tt1ZbQ30AXJuuukX042OrCn3Uap/f8zM4TFXr
+	fkkM4rdEblC4UpW8Ni8tBa3P8vbj67Zz9xg0hgIXKWOwmZ5Yw8papObBzO9faNN2avRBP7X8jb1
+	RPWJBIdK3XgsHoTd2v8m5O+mvmn0OtXXmH0j5zJFKGBDyZ2sOZpL5OSr0XpAy/CDen052/zqu5G
+	ZdDSfO4XOAlDwwZmXhIxK52FOyDM9tICSjeGWRL0lBM051rxYkkjSinZCJdb9UsZmZFou2WFxvy
+	kQuLvQGgOEDRbLUwh4UuE7sU8RWyhQ4RFBKuD8CcQoa9pMolcYVEHWVm8u1cm1JDkTx3wI4K3Gv
+	t8jnkVBldqVUEIzhQgIV75JRlSrlGH+o6POt5qqJXLkKy7v+vJyajypc=
+X-Received: by 2002:a05:6000:40e1:b0:48d:ed0a:e064 with SMTP id ffacd0b85a97d-499c64fd304mr6044596f8f.24.1794428629757;
+        Wed, 11 Nov 2026 12:23:49 -0800 (PST)
 Received: from Lord-Beerus.station ([93.146.104.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c990sm12079305f8f.3.2026.11.11.12.23.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c990sm12079305f8f.3.2026.11.11.12.23.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:23:47 -0800 (PST)
+        Wed, 11 Nov 2026 12:23:49 -0800 (PST)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: Frank Li <Frank.Li@nxp.com>,
@@ -103,10 +104,12 @@ Cc: pierluigi.p@variscite.com,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>,
 	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
 	Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Subject: [PATCH v2 0/3] Add support for Variscite VAR-SMARC-MX8M-PLUS and Echo board
-Date: Wed, 11 Nov 2026 21:23:09 +0100
-Message-ID: <cover.1794420001.git.stefano.r@variscite.com>
+Subject: [PATCH v2 1/3] dt-bindings: arm: fsl: Add Variscite VAR-SMARC-MX8M Plus
+Date: Wed, 11 Nov 2026 21:23:10 +0100
+Message-ID: <b8f4c61c0171ed19c8fb60b702e4fd2e2c9d7b95.1794420001.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1794420001.git.stefano.r@variscite.com>
+References: <cover.1794420001.git.stefano.r@variscite.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,37 +121,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series adds support for the Variscite VAR-SMARC-MX8M-PLUS
-system on module and the Echo carrier board.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-The series includes:
-- Device tree bindings for the module and carrier board
-- SOM device tree with on-module peripherals
-- Echo carrier board device tree with board-specific features
+Add compatible strings for the Variscite VAR-SMARC-MX8M Plus module
+and its Echo development board.
 
-The implementation follows the standard SOM + carrier board pattern
-where the SOM dtsi contains only peripherals mounted on the module,
-while carrier-specific interfaces are enabled in the board dts.
-
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
 v1->v2:
- - Remove the unused ft5x06_ts label from the Echo touchscreen node.
- - Add uart-has-rtscts to UART1 on the Echo board.
+ - No changes.
 
-Stefano Radaelli (3):
-  dt-bindings: arm: fsl: Add Variscite VAR-SMARC-MX8M Plus
-  arm64: dts: freescale: Add support for Variscite VAR-SMARC-MX8M-PLUS
-  arm64: dts: imx8mp-var-smarc: Add support for Variscite Echo board
+ Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- .../devicetree/bindings/arm/fsl.yaml          |   6 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx8mp-var-smarc-echo.dts   | 648 ++++++++++++++++++
- .../boot/dts/freescale/imx8mp-var-smarc.dtsi  | 640 +++++++++++++++++
- 4 files changed, 1295 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc.dtsi
-
-
-base-commit: a62533fb6362e6424a7bb4ecd4b5afe1a3355849
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index d0126f54b387..397e1cae92d2 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1354,6 +1354,12 @@ properties:
+           - const: variscite,var-dart-mx8mp # Variscite DART-MX8MP SOM
+           - const: fsl,imx8mp
+ 
++      - description: Variscite VAR-SMARC-MX8M Plus based boards
++        items:
++          - const: variscite,var-smarc-mx8mp-echo
++          - const: variscite,var-smarc-mx8mp
++          - const: fsl,imx8mp
++
+       - description: Variscite VAR-SOM-MX8M Plus based boards
+         items:
+           - const: variscite,var-som-mx8mp-symphony
 -- 
 2.47.3
 
