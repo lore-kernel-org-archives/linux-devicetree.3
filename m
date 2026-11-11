@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402258;
-	b=lzMq1Xcs4ltNvQ//rJRX0AuiQTpvMzZeiP38mp6BY30pVyKA+G+j8iD9s1NaBUoo8qS4
-	 8deZ8k9Ei98lwKkw+8VZSL0PiesUStJPoeYoffC7z31q+aP4ywY310EbjCFxUMV9Hb5Ow
-	 xLM2s9JwBZ9iFvgKiYpnTp+5qghy3JSAjO6PvuDVx9reKD3+Y1MLgEg+kNFlOQSXqeaC0
-	 iiFzalvqRUX2d+ECOPtSAW19bwefDopqHEYsko1HQH4B6kHfWLpbCQKDLbKKLQJ48CfL2
-	 rItABg0DDd21jqomr4JCIBW4CB2F3qoTCHz266gA0hOmRQG3cBRsqz/bo/r2T6WV0IQ==
+	t=1794402309;
+	b=TaRQDuTs406VyarfV1el1ikhbl5V6H4fMjUvrn+1zQC9WXmamj3G04nXsElbXkFVG8Oa
+	 3u+ZLfNp2tXyLHQH4blqF334RibFkSQaZLA5bGioUSFAd25Z/6aQ0bed1J5rsAv8Dwlb7
+	 QAMwJ9pA/uq6evJU+6kIQJJWqLOD02HlUcm5ZXq4utnRaTWudXrRIihFuxjLJAsx4Cz++
+	 G4fCjhs4gZYKVQPMJlkI+KxlfhYdWwwVKuVaAyF3Gih5+RQbF4ZC4URkxC5vnXwasbjyz
+	 yASgf5AMs80L65wsvSlhCmMyyHmCJR5uLxLnV1OHmDBJ8zb+IPTa91YzogFDYxCUxLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402258;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
-	b=LC7jHtcTSvCsTxi5t5mhA8HPTxJ6DbEoqn+Y3FdGHrLMT2yPmRn0G/H6PMmXDOcHqD4F
-	 D8JpY1a0VwUJ5c0RryM0owEQkLU3nJlkaGffA52WSwLovsMvW5g8F3POXT1Smz2CTQ/Ou
-	 n8R4xhV4wC7qciy/nvISYjjRqaPzxNLp1wftEpfLjw22EPh+1ACA4lTOZDmBPA5QK7QSm
-	 Tj+FROltY9W7bxKe38vNhNoUNH1FqpsB0Zx9YcqfBFFGzqLW4dRG2/fBaR7IfYK5L/wfj
-	 An12K/WARqXIBY+GUtbb//DZCbFCapwtZqhen4NSkNPv/VCRtdgzLPLVQxuTLcgukHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402309;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
+	b=cjv8FSlF1iUJV2vPnOQ30P6mTO5gVDpe48FzL8yZzVlP7bjf35pCeFTKOp60x5WsM+rf
+	 IlRaZc0XOjTONC1UzP1BSKHnLFeKN/FNnGg6FkoirzVQs9gsc3j0P//5JTkv0GkXfV6iB
+	 s7StEFHWb3l5ieLP6gSdKDjm85xg8BkvOG2YWOvEbMLMXNtILEWzkn6RkdNlwSovt9VkY
+	 1zrRvTg+pLhBFns4Lo2cCWuKuXttm6OQRrB7AbXNjKoroTJoybntjgyt77wU92KXp6dAA
+	 bBtwStbpcxR71fdkrrGO1Fd6/soQx+5Gnn3USMPwkS0ZbmCKFHaYE9v2zN8x6bmlM6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJRvG4u6;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A927606A886;
-	Wed, 11 Nov 2026 13:04:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A927606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFDB606A332
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFDB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4A70F5C4E0;
-	Wed, 11 Nov 2026 13:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794402255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
-	b=DtZI6Reur2+aCCjHwohRzTX/jLFEtllaTu/GZ3Wb7fb5a0KCUQplnUpIsIy4XOZeS3mgmF
-	SJdeMdV2GkgeSvy25qEK8DxAk/SQAq/AkgH9r2+XFb/HL86bVD35DJQn+uonwCCtC4fU10
-	yjP+aq+CEMk2AnA6kNTAn6PhmDxihq8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794402255;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
-	b=B99jS6Jf/Ym/k/J5HtVXOw06J0NYUWt1DlgTasENiCFMSag9Sbp2dZcPkTVPmrf7mfK/77
-	I01KAjdzSWPUBjAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794402255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
-	b=DtZI6Reur2+aCCjHwohRzTX/jLFEtllaTu/GZ3Wb7fb5a0KCUQplnUpIsIy4XOZeS3mgmF
-	SJdeMdV2GkgeSvy25qEK8DxAk/SQAq/AkgH9r2+XFb/HL86bVD35DJQn+uonwCCtC4fU10
-	yjP+aq+CEMk2AnA6kNTAn6PhmDxihq8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794402255;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
-	b=B99jS6Jf/Ym/k/J5HtVXOw06J0NYUWt1DlgTasENiCFMSag9Sbp2dZcPkTVPmrf7mfK/77
-	I01KAjdzSWPUBjAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 566151339F;
-	Wed, 11 Nov 2026 13:04:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uVx7A81n9GoAOAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:04:13 +0000
-Message-ID: <a23d9d70-a2e1-49a9-a590-3a3c035d5f1b@suse.de>
-Date: Wed, 11 Nov 2026 14:04:12 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJRvG4u6
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdd9e925075so469833a12.0
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:05:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794402309; x=1795007109; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
+        b=GJRvG4u6JmnxyKRunZJMpN5W0/I5srjqR/vnnk+FNmYkMf8T9fU3sM+5nfcCjaaJh9
+         APVO577+MOvBRkZfYP35NuRjmVjLZcr3IwUa4CQfzVsXD2+ZxN/COcGckwERwXG5QUS+
+         BsQIHbWdILe0Ew7RUOZaCvEPNl630qLxkdeczLRrHwzPAGvrcuSyHddvuNUEo1wLGwMS
+         08MdvMAxLF0JXzK34p9PG16iNsIx301LkCJu1xPa3OD3G3FrjWUg00krj22i3ncGa/nX
+         gYYgw8IbMyyt4R+S7OU73LTMewRyXAYJa58yKsjWmQ+R3X1pf07FkulvHFurQCo5Vspo
+         g/0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402309; x=1795007109;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
+        b=UR4Ncdb3bfwdY5uE8mC4RtzSlnDMcLBF2576KWOXEjtKLFngGrMbNcemrtygT4YiDw
+         u7+hFzHJaEy3KRKKkdZ2rXmyuuqLw5DUWaHx4ssDsPpIFTRPeUmnif8KFzrmDdvDAxda
+         YStYYiFLZaKzrktgEXW7WkBzRbuMJrUCZJ/uKEAZqCO05mB3QbHJ9GNlEr7tpLAxqRAc
+         ffbjLB3gVCajAb37oyNmR4/dJYil/j465C/qm3hTpfvwte3gJdfOUo7dG+COiShEZBrh
+         PtNu5dwc7+5O+QhYrytfxqXh5SHtzIAYPwMqUtGV5NiQC5bSwTc/7CTO3RDA9P/a6VaW
+         bJuA==
+X-Forwarded-Encrypted: i=1; AL+hErEnJBRsH6W8AFfD3EU7b7sU8q7E/SGIkC+JeFj0FVvFCqRtTWlNmyQUEwFb4PbUNY4wmB3ltz1KHH+v@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Bp8iKIgErIlwAbMS3KmD9LQb9u6/8g/RrjNjHmp6pv95bvJQ+
+	CZpNJg/ApjQvPmEFRylFo2rE+RaurR+Mhn2QhBxG2OmGH+Ls/9L2TIUY
+X-Gm-Gg: AYBFou14uYWtDOtrBYUIExlFq2kDg4eqaAaKavzOqDJh5IXujlqV3P1ZopzOUvxGljY
+	5JqDdM0oQgiQ/URILXqlKRhnKfc3PU+R7Wlvs5AMC9VMD1IUH6xtrBefI5N0viBQUXw4efrHcai
+	ha6zy0MJCTH86c+ZypstXorljHNFK+nZrO0CfG/gJrLET78p0G+m0YlQSNhm+NlhxEEJYBJxfQ3
+	ZuaYm/jfsKnUxFXBVva9qdM7jYJKT/oM44FoCGemCscO0/1JlV4XBAHYPnHajTzVVJidzegxNrT
+	yfAtDk0R9koftnVVW4D7IdjDfwygvN407s2EWI0S6gTVTUG5S3f5yv1LmhMKNhNNaK55+jGJR2j
+	J+7G5ID+YLVix6yNka4Q5eszDSpWcfS31u45l4zICFZl6LYlxtWy96gTDvwGtWZZkYysn1NBZUo
+	2ClF9PzwdV9/GN6xjo4rnsWdFgjkrfzN+B3RY7TO18PNqRMcBIl+rSq39+mBd3I/EuKWhfMLQ8m
+	5x7Pp9EtuIPPVcAEvgTIns2LWUuQHq9ZUHz5jEgvLKmWNjDgNiNWZ8pQkOLh3WBqqcym39cs++5
+	DJ0slcq4FgiZ8ADiAHysyX4w4e9t80Rdh1aCmwsT1+TyHZKv4BZJYIA=
+X-Received: by 2002:a17:90b:1c02:b0:3a8:13d6:f740 with SMTP id 98e67ed59e1d1-3b182eabbd9mr2501115a91.22.1794402308782;
+        Wed, 11 Nov 2026 05:05:08 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7fc2dsm4448216a91.13.2026.11.11.05.05.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:05:07 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: yin.li@oss.qualcomm.com
+Cc: sdonthineni@nvidia.com,
+	james.morse@arm.com,
+	robh@kernel.org,
+	ben.horgan@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: Re: [PATCH v5 6/7] arm_mpam: Add support for memory controller MSC on DT platforms
+Date: Wed, 11 Nov 2026 21:04:57 +0800
+Message-Id: <20261111130457.4143667-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <f8911f68-ee78-4eb2-b7e5-1e879224091d@oss.qualcomm.com>
+References: <20261109-mpam-resctrl-dt-knp-support-v5-6-150335a79381@oss.qualcomm.com> <f8911f68-ee78-4eb2-b7e5-1e879224091d@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,280 +103,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/15] fbdev: efifb: move the BMP headers to
- <video/bmp.h>
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-4-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261027135342.2003632-4-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[dt];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	R_RATELIMIT(0.00)[to_ip_from(RL9smr3mp78sgfo6am5n6ykess)];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.79
 
+Hi Yin,
 
+Happy to share more details.
 
-Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
-> The DRM splash client parses the same BMP headers as efifb. Rather than
-> keep a second copy of the structures, move them to include/video/bmp.h
-> with the magic number.
->
-> BMP is little endian whatever the CPU, so the header gives the fields
-> as __le16 and __le32, and efifb now reads them with
-> get_unaligned_le16() and get_unaligned_le32(). Width and height are
-> read signed, as the format has them. No change on the little endian
-> systems EFI runs on.
->
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+1. Our SoC is an automotive-grade platform with an MPAM 1.1
+compliant MSC on the DDR egress path for system-wide
+bandwidth QoS.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+2. The typical scenario is preventing memory-bandwidth-sensitive
+workloads from saturating DDR: isolating bandwidth between
+infotainment and ADAS domains, and preventing background
+services from starving latency-critical workloads.
 
-> ---
->
-> Notes:
->      TODO for the efifb maintainers, not changed here so that this patch
->      only moves the headers: the bound check
->      
->      	if ((bitmap_offset + bmp_pitch * bmp_height) > bgrt_image_size)
->      
->      is done in u32 and can wrap with a crafted BGRT image, for instance
->      with a bitmap_offset close to 4 GiB, and so can round_up(3 * bmp_width,
->      4) and the product with a huge width; image_offset_x + bmp_width against
->      lfb_width is a u32 sum too. efifb_copy_bmp() would then read outside the
->      mapped image. The DRM splash client checks the same headers with
->      check_add_overflow() and check_mul_overflow(). I can send a separate fix
->      if wanted.
->
->   drivers/video/fbdev/efifb.c | 49 ++++++++++++++-----------------------
->   include/video/bmp.h         | 40 ++++++++++++++++++++++++++++++
->   2 files changed, 58 insertions(+), 31 deletions(-)
->   create mode 100644 include/video/bmp.h
->
-> diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-> index 3411be06d3e6..fd348a72f780 100644
-> --- a/drivers/video/fbdev/efifb.c
-> +++ b/drivers/video/fbdev/efifb.c
-> @@ -16,32 +16,13 @@
->   #include <linux/platform_device.h>
->   #include <linux/printk.h>
->   #include <linux/sysfb.h>
-> +#include <linux/unaligned.h>
-> +#include <video/bmp.h>
->   #include <video/vga.h>
->   #include <asm/efi.h>
->   #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
->   #include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
->   
-> -struct bmp_file_header {
-> -	u16 id;
-> -	u32 file_size;
-> -	u32 reserved;
-> -	u32 bitmap_offset;
-> -} __packed;
-> -
-> -struct bmp_dib_header {
-> -	u32 dib_header_size;
-> -	s32 width;
-> -	s32 height;
-> -	u16 planes;
-> -	u16 bpp;
-> -	u32 compression;
-> -	u32 bitmap_size;
-> -	u32 horz_resolution;
-> -	u32 vert_resolution;
-> -	u32 colors_used;
-> -	u32 colors_important;
-> -} __packed;
-> -
->   static bool use_bgrt = true;
->   static bool request_mem_succeeded = false;
->   static u64 mem_flags = EFI_MEMORY_WC | EFI_MEMORY_UC;
-> @@ -145,9 +126,10 @@ static bool efifb_bgrt_sanity_check(const struct screen_info *si, u32 bmp_width)
->   
->   static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_info *si)
->   {
-> -	u32 bmp_width, bmp_height, bmp_pitch, dst_x, y, src_y;
-> +	u32 bmp_width, bmp_height, bmp_pitch, bitmap_offset, dst_x, y, src_y;
->   	struct bmp_file_header *file_header;
->   	struct bmp_dib_header *dib_header;
-> +	s32 width, height;
->   	void *bgrt_image = NULL;
->   	u8 *dst = info->screen_base;
->   
-> @@ -186,20 +168,25 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
->   		goto error;
->   
->   	file_header = bgrt_image;
-> -	if (file_header->id != 0x4d42 || file_header->reserved != 0)
-> +	if (get_unaligned_le16(&file_header->id) != BMP_FILE_MAGIC_ID ||
-> +	    get_unaligned_le32(&file_header->reserved) != 0)
->   		goto error;
-> +	bitmap_offset = get_unaligned_le32(&file_header->bitmap_offset);
->   
->   	dib_header = bgrt_image + sizeof(*file_header);
-> -	if (dib_header->dib_header_size != 40 || dib_header->width < 0 ||
-> -	    dib_header->planes != 1 || dib_header->bpp != 24 ||
-> -	    dib_header->compression != 0)
-> +	width = get_unaligned_le32(&dib_header->width);
-> +	height = get_unaligned_le32(&dib_header->height);
-> +	if (get_unaligned_le32(&dib_header->dib_header_size) != 40 ||
-> +	    width < 0 || get_unaligned_le16(&dib_header->planes) != 1 ||
-> +	    get_unaligned_le16(&dib_header->bpp) != 24 ||
-> +	    get_unaligned_le32(&dib_header->compression) != 0)
->   		goto error;
->   
-> -	bmp_width = dib_header->width;
-> -	bmp_height = abs(dib_header->height);
-> +	bmp_width = width;
-> +	bmp_height = abs(height);
->   	bmp_pitch = round_up(3 * bmp_width, 4);
->   
-> -	if ((file_header->bitmap_offset + bmp_pitch * bmp_height) >
-> +	if ((bitmap_offset + bmp_pitch * bmp_height) >
->   				bgrt_image_size)
->   		goto error;
->   
-> @@ -222,12 +209,12 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
->   
->   		src_y = y - bgrt_tab.image_offset_y;
->   		/* Positive header height means upside down row order */
-> -		if (dib_header->height > 0)
-> +		if (height > 0)
->   			src_y = (bmp_height - 1) - src_y;
->   
->   		memset(dst, 0, bgrt_tab.image_offset_x * 4);
->   		dst_x = bgrt_tab.image_offset_x;
-> -		efifb_copy_bmp(bgrt_image + file_header->bitmap_offset +
-> +		efifb_copy_bmp(bgrt_image + bitmap_offset +
->   					    src_y * bmp_pitch,
->   			       (u32 *)dst + dst_x, bmp_width, si);
->   		dst_x += bmp_width;
-> diff --git a/include/video/bmp.h b/include/video/bmp.h
-> new file mode 100644
-> index 000000000000..8aa249f2302f
-> --- /dev/null
-> +++ b/include/video/bmp.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _VIDEO_BMP_H
-> +#define _VIDEO_BMP_H
-> +
-> +#include <linux/types.h>
-> +
-> +/* "BM", the first two bytes of a BMP file */
-> +#define BMP_FILE_MAGIC_ID 0x4d42
-> +
-> +/*
-> + * The headers at the start of a BMP file. Every field is little endian,
-> + * whatever the CPU, and the headers need not be aligned in memory: read them
-> + * with get_unaligned_le16() and get_unaligned_le32().
-> + */
-> +struct bmp_file_header {
-> +	__le16 id;
-> +	__le32 file_size;
-> +	__le32 reserved;
-> +	__le32 bitmap_offset;
-> +} __packed;
-> +
-> +/*
-> + * BITMAPINFOHEADER. Width and height are signed: a negative width means
-> + * nothing, and a negative height that the rows go top to bottom.
-> + */
-> +struct bmp_dib_header {
-> +	__le32 dib_header_size;
-> +	__le32 width;
-> +	__le32 height;
-> +	__le16 planes;
-> +	__le16 bpp;
-> +	__le32 compression;
-> +	__le32 bitmap_size;
-> +	__le32 horz_resolution;
-> +	__le32 vert_resolution;
-> +	__le32 colors_used;
-> +	__le32 colors_important;
-> +} __packed;
-> +
-> +#endif /* _VIDEO_BMP_H */
+3. We verified on v5 (with the top-level memory controller MSC
+node as a direct child of the root):
+   - MSC probe from DT (dmesg: MPAM enabled)
+   - resctrl mount with L3/MB/L3_MON resources
+   - MB allocation through schemata writes
+   - Dynamic throttle change while traffic is running
+   - MBWU monitoring (mbm_total_bytes)
+   - Monitor assignment across multiple groups
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+Usage log showing the memory controller MSC working through
+resctrl on our board:
 
+    root@hobot:~# mkdir /sys/fs/resctrl/group1
+    root@hobot:~# echo "MB:0=50" > /sys/fs/resctrl/group1/schemata
+    root@hobot:~# cat /sys/fs/resctrl/group1/schemata
+        MB:0=50
+        L3:0=ff
 
+    root@hobot:~# my_app &
+    root@hobot:~# echo $! > /sys/fs/resctrl/group1/tasks
+    root@hobot:~# cat /sys/fs/resctrl/group1/mon_data/mon_L3_00/mbm_total_bytes
+    1314
+
+    # Dynamic throttle change while workload is running:
+    root@hobot:~# cat /sys/fs/resctrl/schemata
+        MB:0=100
+        L3:0=ff
+    root@hobot:~# echo "MB:0=20" > /sys/fs/resctrl/schemata
+    root@hobot:~# echo "MB:0=100" > /sys/fs/resctrl/schemata
+    root@hobot:~# cat /sys/fs/resctrl/schemata
+        MB:0=100
+        L3:0=ff
+
+The bandwidth throttling takes effect immediately on schemata
+writes - verified by observing the DDR bandwidth counter drop
+and recover in sync with the throttle level changes.
+
+Thanks,
+Ping
