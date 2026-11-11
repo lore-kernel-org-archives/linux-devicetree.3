@@ -1,101 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794395893;
-	b=3tD6vJL3UHwkK7tAspBKXf4UnK2nvE0P49C2D6JZEo1LwJk1cNNpVw9V26xQhsNWos9+
-	 ySa5qNJb+v6A/L3C+aBeJE4GjFcJDTDjTTsFo21JHBNPfqd3S/+IS+CC3PcePWhSUX8Ke
-	 IN0e/YjmUxScb1f3HurVdvvYerg716SGTpqMXZflY2WvAVKE7BSe5AyLQJyoCVCNWnluo
-	 kSkpGyQN7gJWQ4h1KMotFUk+uuPxNvQxYA2boAoi7QjlS9fp9la/xcakQDjK9nRrMbv6Y
-	 Jmjfpm4vBIqgpp7HlpCkJfxCl1sG3hrKFFJvfdyh6poe3T9ANQQsDcRSjcnU+vMwLgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395893;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-	b=5psE31nDVmDpXSEYTJDeVihVhlQPWczGm9vTSvgkNFfbqTgOjUFCzlg7P8G4UUULVQ18
-	 2uuIsWr5Rid3Wdqp1AzhuRS9NIWnBCY/3go8YoMkcxV2Z2KPoKPCyOzyJyMRCVjGDuBO3
-	 QNSIh0TI9pkbAwO1msgfF0CX/CxJ36JXT79qkXGwDoJI7Zsg48ORTjwcy9qIVkp6pSaNQ
-	 72fWgLu8o6iLdev/fdnBCEiBjepPeEB/yjN6JutVZ5q+ypvus238NT/VBsbCHlBlzUJv5
-	 t1lI2WOJ1rLSRMvWPlGydbxQP0sroZMXbZ4JQ8ZFjMhgImwsLYXm106FN5plDI04TEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1dKiKMF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794396131;
+	b=kOYJByP5Fug18XZqtQ9Sm8mDJAokDYIkvOXAeHocODNvvTnlSWBKaSDXjxrZJUENrMQz
+	 cwY1JWD0HIpm39ae0ehs+kBLg3iYmDDnujhmBp8NerbthygAGNRyjmXy8mQVANa1eGvNq
+	 yRAOcUBVnYP4qn9Dz+y/miqGv9psA7wLlC1saS4RSo+PYJelFpLmzToKy/VmF7thC2Z8N
+	 XUrCisEYo8tdkq7yTCmJll82XWImoYtLSFB0yC2IMP92igYeVR6BdOalNsn5RCKDot/bv
+	 Mt6u0sRXGOPuR1Jh1MOAzBtn1zgvKJhofBsBoOXqBNbpfUIUkoAcCDUd/jSJSXl915A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396131;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
+	b=NmoDj7BjrWdXr1Um9QUVwXn+CVLaNe85wF0zGK/poFzT8iZkdrbD9WSUGwvV6IE/DA/Z
+	 ZXobxm/P6RrmBFph0uSHtksl4c+txed8J62/GFdOGMTGSPzCmJA7hkLOn5iplQg8gb1x4
+	 AmRECBSL9rcRwSzvHe+I7up4dzpnY5Ne6Wchr5oUFipam6YIY486FwUtWuWBQKkunaAtj
+	 FtSJthwW0FCiFAGAThp1iQFOV5XoULwmop+7eLBRN7cH97reXv8o2Zbrp2RSAYw6+Ij1U
+	 b+11fTokLrLV71qbmqHqy8YM/393khI8QeGdiYiWJFjYSCtfAZGabtfH7Cs8FZpHh5Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC82606A324
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFC82606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEE4606A324;
+	Wed, 11 Nov 2026 11:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1dKiKMF
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36f8cdd30beso5257535eec.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:18:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794395892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KXeV/6A636dfRmc6Lcghq+vX+FbQKEeiH1tGxLjN/WT0ziHvDA3i2lc1oPnVOlr5uH
-         KpNapIC4iPdV3goIlrJZgvjwRdMS9YnrYljQpw5qFpORgE05Tf1BoigLhBu5LYC60vpL
-         pKTOrilxtBIwHfc0k7NzcQIlKhFpC6lX7/dcIo+MlGXhsgrsgPghCyvLl+j7ln3JW+3U
-         ZmYr5Vz9PdCGoYhREJyqyp3WjBuVWyXGJU+45pnV4rdXPWNgv5Gn5xogVKfubPedv1mu
-         pbcCJwL1lM/gXb6as4MJdtzCy/72S66UjfJq+Dt0+/E8Tq1hfToHEA0XYptnoDYooyUC
-         qo4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        fh=i78u0FIDPWzgxRZHg0uMC7NDJPjLI0fFQKpONriRQ3E=;
-        b=Rfcaf1T8UMe2O9krHmRsiw9fybUHboeBPyMXXVT4iknQb95bRw+AhpMT6lR/l5Vgmh
-         f/WdnTTkyAGckRBhgnZKW2hy+bZpmt2tcfhwilhdegp86liAoSZ5RC69S1t6MRpaYh8o
-         TMersBHrWPeFwNgkAid4vZeV6CKBBWmFxnaok/x+fE44nemIREfSECTEtdKC7VAlULtK
-         wodreih50enX7mXBUlk0CAc+ZQ2xgsNWxTqbKyGgqYwSUijlzMKr51W+FSMT0390Z3Xw
-         NuTBnk3GjYmhjny4rnO1Z0VjVkCSHo+/AYBuKRo1Fq9jU4UO2lH4Fcjn8TdDjLNLG9DB
-         9QPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794395892; x=1795000692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        b=F1dKiKMF4VJajRFj0nHNImoDhIUp8W9AWsqwjUNVel+BFQjyDQmyuTVu/c4p+Nr2QE
-         7GUJznGwWgwagJDi+zaKjBM2+70O7Z17rGubc1sag41BoblWWRgDyB8IYE54sC9joJFh
-         fsu55pggmsU8lE6RGjMwRFWbKkT1QYx2wetE4yKjWffmSRYfD2ekBOwW1ZeKnPykNnCC
-         4K/Dwrjd45d170g1jscSUYj+wI6H26nwwYP1yX/PkIYSw8wsiuEDYez3uO4tNEYjr7mR
-         rbGxhKiq5f/Y/Kjom2fy1knuvLGAvdVS7+Mh03iimoiLj78422wBEurEl3iOKv61qrUk
-         T3bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395892; x=1795000692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        b=Qm+TwLu4btk10ZKFo7QHLVadYNAK09vS39NY8bNkklJFG5tQJdvaDi2XB3AhYcNB6s
-         EHtXmciZYZTeTqlR0KFEHhL7cMUkK47xi31eSwWjzHmcKq9oyhqs/SN1CWgsS1M0Ujjb
-         WTp++txgMky+2ZeVEZ8isW+9SXB80z+0marzShHjn5RQ+B3Ih9XLWPMwXrKzirawNK0n
-         KjisU2TPG8ve6XckrnhMZKixK2WEFb5t9mBM7jxyJHxDoKqt/tIzlboFCzSpqHr2c2WJ
-         ORXaWCOC2/oDmdgmQjsNhrUNN82aU9NjBG2XxzL1EKwMZME9O+FtsCX79mLaIjxuqjE/
-         2D7A==
-X-Forwarded-Encrypted: i=1; AL+hErHf2f25lmjsL9o4CHKTxQbZExDqri+j3UECpFX+D7FJ9Gvp/1WdnFjNYb+ij09S/qstJEAPNb3q9rKH@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hLmZnlVJDpjEiWowV7eOm3H3nL8PkzGZtvRBCsUEMHSZvO/mg
-	AEB7bNiqLE1NhUsXpNmRNZBPnvDbXMg5piJE6fAk+4IKe8yY2kSTofw3KUYk7clmwjUrln7RM7Q
-	IZ3NS5GKUtSMrkSblfMLksbOrpuc41Bw=
-X-Gm-Gg: AYBFou3mFpEoAMRxT6RuzEIkgP4PKVNvJCdvRng+qHz6rS8aK8LeCyPFxzlAOC1+CDX
-	KeMzurUGl+b1Is2+HHejbNa3JNFyGdkgxGhPmW6YgwNfp51tRilhnC5ectSV1Y3S0QGCwld9BTd
-	XUjgqt4VFdHBR6mUGdSbj/u27X0J6YSv8hI/j32qA5vmlBrerF5NnqZkb1jCXBAnmNLeB/gA/Li
-	9MJ2FJl6eOvlNzeAHW5tce6Ah5+wh084w1HRAjGiryz1nXOA7OzV04Mipe29KdZR+G6cS5v0R3f
-	fk53L01ZuOE4A9xob6T7E9hhwzMIi3dp5XxXrqtU4+KSztziztft08WNeKBBP2pYnykWq2gbM/g
-	gZI03cVrKrpahmqO7rJayOXK3WHrvqQQuTs5X6fPIc4MPQPKLC/2dSbRi/IRwmI4+uv3FHrTbK8
-	qHvbIYjbO5s7HdooRzzbxDX3MaEsq9dg==
-X-Received: by 2002:a05:7300:d942:b0:375:50d9:474e with SMTP id
- 5a478bee46e88-3768366a40amr2582746eec.4.1794395891501; Wed, 11 Nov 2026
- 03:18:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF76F1F00A05;
+	Wed, 11 Nov 2026 11:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794396131;
+	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l5iahbXVODhXP5BYaVz3lVdaFKAxPbIAV3hq96sXjhxKI9HOoR2/3E6F8yc6p2lnn
+	 WYOV4BO44d1ftIV1pYZaZ3P7x+X/K2hOfbck3hrxOLF7+DjUwkP1dkVZwOTp5bdgG/
+	 0sA2Mynj4aVVQBX02rcqTENjrjW6h1cFMupMrd/VGuNMR4fGbbJcQi3AXAHtjHVf1/
+	 R1xIHOd1CRUUf0iqhEH6Io8GPTn2iXxZ6MYFs44afGFgnuAJUfVFUAkbbw8wWdoxMh
+	 HWHJFOAMcvVoy7TPU9c2M72++kukupwo9oRI6P9ZjxkO/HHrCoWN2dajaitGrzKiKw
+	 BW28RKsWw6/CQ==
+Date: Wed, 11 Nov 2026 12:22:08 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: John Crispin <john@phrozen.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org, lei.dong@airoha.com,
+	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH 1/7] pinctrl: airoha: make gpio register layout per SoC
+Message-ID: <avRP4MTHKRkP00oh@lore-desk>
+References: <20261110173941.301478-1-john@phrozen.org>
+ <20261110173941.301478-2-john@phrozen.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,106 +70,233 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 11 Nov 2026 13:18:00 +0200
-X-Gm-Features: AclHuK-O2dC4RAUcsZW-78NPaZ5DVC69K9fHpFDz6S6p3zKh72SRrQsMpZxuDAU
-Message-ID: <CAPVz0n0-jBU3jnDsA4FmAkiF22Bqba=87_VRU3P1H2dzHHbteA@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Selvaraj <jo@jsfamily.in>, Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Michael Trimarchi <michael@amarulasolutions.com>, 
-	Michael Tretter <m.tretter@pengutronix.de>, Cristian Cozzolino <cristian_ci@protonmail.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Ryan Brue <ryanbrue.dev@gmail.com>, 
-	Nickolay Goppen <setotau@mainlining.org>, Robert Chiras <robert.chiras@nxp.com>, 
-	Alexander Koskovich <akoskovich@pm.me>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Chris Morgan <macromorgan@hotmail.com>, Barnabas Czeman <barnabas.czeman@mainlining.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Arpit Saini <arpit.saini@oss.qualcomm.com>, Michael Walle <mwalle@kernel.org>, 
-	Ritesh Kumar <quic_riteshk@quicinc.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Danila Tikhonov <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>, 
-	Michael Srba <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>, 
-	Alexandre Mergnat <amergnat@baylibre.com>, Alexander Baransky <sanyapilot496@gmail.com>, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Romain TISSERAND <romain.tisserand@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WqyvA75ADRGpy4XY"
+Content-Disposition: inline
+In-Reply-To: <20261110173941.301478-2-john@phrozen.org>
+
+--WqyvA75ADRGpy4XY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D1=80, 11 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:0=
-3 Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> DSI panels can be placed under DSI bus directly and many Linux DRM
-> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> such panel and DRM driver does not use OF graph to configure lanes.  The
-> affected here Linux panel drivers do not use OF graph, either.
->
-> Requiring graph port for such panels is tying the binding to one
-> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
-> requires the port.  The port is not needed for the hardware to operate
-> and for some of the Linux drivers, so it should be optional.
->
-> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> ---
->
-> Remaining one Ilitek is fixed in:
-> https://lore.kernel.org/all/20261109160706.2272332-2-romain.tisserand@gma=
-il.com/
-> ---
->  .../devicetree/bindings/display/panel/anbernic,td4310.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/boe,td4320.yaml  | 1 -
->  .../devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml      | 1 -
->  Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml | 1 -
->  .../devicetree/bindings/display/panel/elida,kd35t133.yaml        | 1 -
->  .../bindings/display/panel/feiyang,fy07024di26a30d.yaml          | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112a.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112b.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx8394.yaml          | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml       | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9805.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml  | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt35532.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672a.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672e.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt37801.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt51021.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67191.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67200.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm69220.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm692e5.yaml       | 1 -
->  .../devicetree/bindings/display/panel/renesas,r61307.yaml        | 1 -
->  .../devicetree/bindings/display/panel/renesas,r69328.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ronbo,rb070d30.yaml        | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams581vf01.yaml    | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams639rq08.yaml    | 1 -
->  .../bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml       | 1 -
->  .../devicetree/bindings/display/panel/samsung,sofef01-m.yaml     | 1 -
->  .../devicetree/bindings/display/panel/sony,td4353-jdi.yaml       | 1 -
->  .../bindings/display/panel/sony,tulip-truly-nt35521.yaml         | 1 -
->  .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml | 1 -
->  .../devicetree/bindings/display/panel/synaptics,r63353.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,g2647fb105.yaml   | 1 -
->  .../devicetree/bindings/display/panel/visionox,r66451.yaml       | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm69299.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm692e5.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml     | 1 -
->  .../devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml    | 1 -
->  39 files changed, 39 deletions(-)
->
+> The GPIO register layout is fixed to 64 pins in two 32 pin banks and
+> four 16 pin direction banks. Every SoC uses the single static
+> airoha_gpiochip_regs and the compile time AIROHA_NUM_PINS.
+>=20
+> Move the layout into the match data. The gpiochip register table
+> carries its own pin count, and the five existing SoCs point at the
+> shared 64 pin table.
+>=20
+> No functional change for the existing SoCs.
+>=20
+> Signed-off-by: John Crispin <john@phrozen.org>
 
-Thanks!
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com> # for renesas
-r61307 and r69328
+> ---
+>  drivers/pinctrl/airoha/airoha-common.h  |  6 +++++-
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++------
+>  drivers/pinctrl/airoha/pinctrl-an7563.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-an7581.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-an7583.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-en7523.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-en7528.c |  1 +
+>  7 files changed, 18 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
+oha/airoha-common.h
+> index 16f7abcdfb83..850e733db15a 100644
+> --- a/drivers/pinctrl/airoha/airoha-common.h
+> +++ b/drivers/pinctrl/airoha/airoha-common.h
+> @@ -89,6 +89,7 @@ struct airoha_pinctrl_conf {
+>  };
+> =20
+>  struct airoha_gpiochip_regs {
+> +	unsigned int ngpio;
+>  	/* gpio */
+>  	const u32 *data;
+>  	const u32 *dir;
+> @@ -99,6 +100,8 @@ struct airoha_gpiochip_regs {
+>  	const u32 *edge;
+>  };
+> =20
+> +extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
+> +
+>  struct airoha_pinctrl_confs_info {
+>  	const struct airoha_pinctrl_conf *confs;
+>  	unsigned int num_confs;
+> @@ -126,7 +129,7 @@ struct airoha_pinctrl {
+>  	struct regmap *regmap;
+> =20
+>  	struct gpio_chip gpiochip;
+> -	struct airoha_gpiochip_regs *gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs;
+>  	unsigned int num_irq_pins;
+>  };
+> =20
+> @@ -134,6 +137,7 @@ struct airoha_pinctrl_match_data {
+>  	const char *chip_scu_compatible;
+>  	const char *pinctrl_name;
+>  	struct module *pinctrl_owner;
+> +	const struct airoha_gpiochip_regs *gpio_regs;
+>  	const struct pinctrl_pin_desc *pins;
+>  	const unsigned int num_pins;
+>  	const struct pingroup *grps;
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index 52a768c859b7..b50108826d8d 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -94,7 +94,8 @@ static const u32 irq_edge_regs[] =3D {
+>  	REG_GPIO_INT_EDGE3
+>  };
+> =20
+> -static struct airoha_gpiochip_regs airoha_gpiochip_regs =3D {
+> +const struct airoha_gpiochip_regs airoha_gpiochip_regs_64 =3D {
+> +	.ngpio =3D AIROHA_NUM_PINS,
+>  	.data =3D gpio_data_regs,
+>  	.dir =3D gpio_dir_regs,
+>  	.out =3D gpio_out_regs,
+> @@ -102,6 +103,7 @@ static struct airoha_gpiochip_regs airoha_gpiochip_re=
+gs =3D {
+>  	.level =3D irq_level_regs,
+>  	.edge =3D irq_edge_regs,
+>  };
+> +EXPORT_SYMBOL_GPL(airoha_gpiochip_regs_64);
+> =20
+>  static int airoha_convert_pin_to_reg_offset(struct pinctrl_dev *pctrl_de=
+v,
+>  					    struct pinctrl_gpio_range *range,
+> @@ -207,7 +209,7 @@ static void airoha_irq_unmask(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> @@ -244,7 +246,7 @@ static void airoha_irq_mask(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> @@ -261,7 +263,7 @@ static void airoha_irq_ack(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_PIN_BANK_SIZE;
+>  	u8 index =3D data->hwirq / AIROHA_PIN_BANK_SIZE;
+> =20
+> @@ -379,7 +381,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_=
+pinctrl *pinctrl,
+>  	gc->set =3D airoha_gpio_set;
+>  	gc->get =3D airoha_gpio_get;
+>  	gc->base =3D -1;
+> -	gc->ngpio =3D AIROHA_NUM_PINS;
+> +	gc->ngpio =3D pinctrl->gpio_regs->ngpio;
+> =20
+>  	girq->default_type =3D IRQ_TYPE_NONE;
+>  	girq->handler =3D handle_bad_irq;
+> @@ -831,7 +833,7 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
+>  	pinctrl->desc.pins =3D data->pins;
+>  	pinctrl->desc.npins =3D data->num_pins;
+> =20
+> -	pinctrl->gpio_regs =3D &airoha_gpiochip_regs;
+> +	pinctrl->gpio_regs =3D data->gpio_regs;
+> =20
+>  	err =3D devm_pinctrl_register_and_init(dev, &pinctrl->desc,
+>  					     pinctrl, &pinctrl->ctrl);
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7563.c
+> index f011c6c9ccce..6a2a307807e3 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7563.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
+> @@ -1063,6 +1063,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7581.c
+> index bfb777594811..6bec1d44b8a0 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7581.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
+> @@ -1435,6 +1435,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
+> index 1cd0f442ddc1..2689bbd9ebba 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
+> @@ -1465,6 +1465,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7523.c
+> index b0c5e60f0aeb..1589acef683f 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-en7523.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+> @@ -1107,6 +1107,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7523-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7528.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7528.c
+> index f6c8f834421f..9854e9530219 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-en7528.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7528.c
+> @@ -1155,6 +1155,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "econet,en7528-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> --=20
+> 2.34.1
+>=20
+
+--WqyvA75ADRGpy4XY
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavRP4AAKCRA6cBh0uS2t
+rDPBAPwN08fBuOv0LvZ5GSpm3nNQBDO/6ajcZnEG7ZqY1ifYrAEAz42H7L6jUwuY
+Lj4bMSvEqOwOxZTxPFWF6i03FlMFWwE=
+=7ilg
+-----END PGP SIGNATURE-----
+
+--WqyvA75ADRGpy4XY--
