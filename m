@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389925;
-	b=yQpZ6njmdsnZ01gtqwjEjvo4OIlxDo6hre7oKCHnzsahQt9BsqlBmv7fBS0aacyQr08n
-	 zaGactsVmYnrx8kwaMdWtJ0kPkJDUQci/MK86MJHLC5v7etMgaWL3vTWEikK+NNJzESGl
-	 X8izxl1WpoFliZ/Sj4sne/1u6CWs20IHJj5M70Qb58RPDB3mcNrSSJwqU98+cPkxDO7At
-	 rzjTf2o03dNvRwPSdJINIyhEypsCPi94BP/pV9CSIzowXCcI1W7nJV0j4DIDnK/kTm1/F
-	 W4oDrztaAa36ALyfQX2R+XmV1vjT+4WS3lq/Lqr+kuK1sDaP7sdzZzO+Rxs+ZhKl4WA==
+	t=1794389995;
+	b=eBJ/TkLit1E+Sa08Htlh7huamFKw8n2hk841Lzam3D9Ya9BkwsYphYkm+D/PHbY0Ho67
+	 rqKNYw633NVNxLIuoI1f+Cc18txP4K5KPLume4n1ZDStnJIx9F8gXVsdUfWUYy7UNkH8J
+	 KikDMkMpAel8uNijV70SU3Ioy7zITojNucdwhzCDmndzjpBax1XchZvSakdZXTF6WAQRb
+	 2dpXbc6hw0VQueQbaeOhMMw7f79nx7jyxfXqmNbgK1jMqqXwscTYshXYs+ZdWWALB17JZ
+	 /xu3xhHR2CarR04snJSThoHEu555pbwJ+DY1iYxDDnh6+aTTPypuuIx4ytk/pOw0Emw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389925;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=evTFQd8KFFfK85qF/XVx3wpXRyON7mQEeVEtW4PbUkQ=;
-	b=bAIi2pmVokmAgeE982MpHaqdk2rEcu2FblcMDlDIkpdIZsELrezc7s/3uy/Fnc2RXE0y
-	 gBAi8//8qLjCNAoIZsRQ52wCOnVvA6s9DiDUxDxDOM3ZkL2DmCwi+EWifcr42cXSY1Nvp
-	 QBeuSuSBeIKHGWd72IkYXoghowjbNA3QAvHIh/um0yjU5jVuVdy7rSom/bHrQG+GeIecf
-	 di6046TwUqsyzRpdBL9VexvKWGVOF3GdjIksSkLV0ZZlKpPWsyf7vEq0dBDB6EQz3mEJP
-	 S44PKJZHli7ccGWNcHfxupAbAyEszkQx0w2mfITzUkSoZsKOZ8K2+CG/H6CjASMBJnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389995;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=l7FQMS58GCdWz2frTF6MPWJY08KR+5o+y8rdnEYzchE=;
+	b=1SZg3SpK9RmiLYUieEgcIXViw6P5402IlLISBn1ssEb0jC12adGsSmUe189JiD9Sky+W
+	 yrRg4Ttc+5PEEnz7NL9390heK+tZWGrn5/wQ3tyJeXtJWhfktZTff85RTK+f/SMBwe964
+	 sAFg7GcwTXYtkihBrcIUdk5wIomHIoFKmCuSwjeCm94pptn8+TlHq5l928jtZs5pDQi4m
+	 aCTv2mOwt428caM4gbAWtTcxsLXDG//aQuonskYhGCIqBAlgiwDVko412DiWAHOIdY92N
+	 XzEQDQP6c6JNAFOZ0Nk3HkA0IPpSgBj9XtyL/wd3MM0zXcmIEJknjuy5vUTcsWuUNkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPHTJbxD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C52E60A2604;
-	Wed, 11 Nov 2026 09:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPHTJbxD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B221F00A05;
-	Wed, 11 Nov 2026 09:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794389925;
-	bh=evTFQd8KFFfK85qF/XVx3wpXRyON7mQEeVEtW4PbUkQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FPHTJbxD90J8ufz1Ax/ppdE1PrjUP7n8fcruVO/+RR7PvOwEjjVmUOtTlYsWgCKib
-	 5hwRA3j157G9w06xYd4auHKCVZSQmwPRacJ8jjGL3bM7V0BleGKxDBTtdwOSibMIpR
-	 g0wewuUvKL8TOohrM0IyHHriKliF9vve3HT9lR2dvrxCCc3zSGziItaa934EcbXm7q
-	 Ccno+ERhGcLV7XlOjII7gtq90PZucYpyI5eYe5Iv/Yl8zeATXXED+sTZKiRLypzQ48
-	 aN8FInxoGvKdQb3Gm7h1q5h58oiiW9/eh/4alD0Z+UukpNyxLZLThRNlXZCpa/m3/n
-	 TZRIkphodVV9Q==
-Message-ID: <sashiko-outbox-208708@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/8] ARM: dts: imx: Use minimum NAND ECC strength on
- BSH boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Haoning Cheng" <Haoning.CHENG@cn.bosch.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261111-add-bsh-smm-m2-v3-2-4abdf10e9a7f@cn.bosch.com>
-References: <20261111-add-bsh-smm-m2-v3-0-4abdf10e9a7f@cn.bosch.com>
- <20261111-add-bsh-smm-m2-v3-2-4abdf10e9a7f@cn.bosch.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 09:38:44 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F73606A337;
+	Wed, 11 Nov 2026 09:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2F73606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1401:33fc:b262:f9a8:847e:6650] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xR4nz-001U9u-0y;
+	Wed, 11 Nov 2026 10:39:47 +0100
+From: John Crispin <john@phrozen.org>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH 1/2] dt-bindings: i2c: mt7621: add Airoha AN7589
+Date: Wed, 11 Nov 2026 10:39:40 +0100
+Message-Id: <20261111093941.691801-2-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111093941.691801-1-john@phrozen.org>
+References: <20261111093941.691801-1-john@phrozen.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,66 +69,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] ARM: dts: imx: unjustified incompatible NAND ECC layout
-  change on BSH boards
---
+The Airoha AN7589 carries the MT7621 I2C controller with a second
+control register holding a wider clock divider. Give it a compatible of
+its own so the driver can tell the variants apart.
 
-commit 1e6153dffd8fb43d1ff6ef7ef9b632628cf01234
-Author: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+ .../devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml      | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-ARM: dts: imx: Use minimum NAND ECC strength on BSH boards
+diff --git a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+index 118ec00fc190..28659bdd72f5 100644
+--- a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+@@ -9,12 +9,18 @@ maintainers:
+ 
+ title: Mediatek MT7621/MT7628 I2C master controller
+ 
++description:
++  The same controller is used on Airoha SoCs. The AN7589 variant adds a
++  second control register with a wider clock divider.
++
+ allOf:
+   - $ref: /schemas/i2c/i2c-controller.yaml#
+ 
+ properties:
+   compatible:
+-    const: mediatek,mt7621-i2c
++    enum:
++      - airoha,an7589-i2c
++      - mediatek,mt7621-i2c
+ 
+   reg:
+     maxItems: 1
+-- 
+2.34.1
 
-This commit enables the fsl,use-minimum-ecc property on the GPMI NAND
-controllers for the BSH SMM-M2 and SMM-S2 boards.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts b/arch/arm/=
-boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> index 2d9f495660c9a..aac211a9f9ebd 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> @@ -26,6 +26,7 @@ &gpmi {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pinctrl_gpmi_nand>;
->  	nand-on-flash-bbt;
-> +	fsl,use-minimum-ecc;
->  	status =3D "okay";
->  };
-> =20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts b/arch/a=
-rm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-> index 11a1ba5bfdb7e..df11f81ac50c1 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-> @@ -21,6 +21,7 @@ memory@40000000 {
->  &gpmi {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pinctrl_gpmi_nand>;
-> +	fsl,use-minimum-ecc;
->  	status =3D "okay";
->  };
-
-[Severity: Medium]
-Does adding fsl,use-minimum-ecc to these existing boards break
-compatibility with NAND flash already formatted using the mainline device
-trees?
-
-In common_nfc_set_geometry(), enabling fsl,use-minimum-ecc switches the
-controller from legacy_set_geometry(), which maximizes ECC strength across
-the OOB area, to set_geometry_by_ecc_info() using the chip's minimum ECC
-requirements.  Because the GPMI BCH layout interleaves data and ECC parity
-bits across the page and derives the bad-block marker offsets from the ECC
-strength, this changes the physical on-flash layout and makes existing
-NAND partitions, UBI volumes, and on-flash bad block tables unreadable
-with -EBADMSG.
-
-If this change is intentional (for example, to match the ECC geometry used
-by the bootloader and flashing tools), could the commit message explain why
-the incompatible layout change is needed and how existing devices are
-affected?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-add-bsh-sm=
-m-m2-v3-0-4abdf10e9a7f@cn.bosch.com?part=3D2
