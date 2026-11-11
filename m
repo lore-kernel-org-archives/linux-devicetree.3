@@ -1,163 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419759;
-	b=wOBeQ3/X6Hf+oq/Ojmowcw9zbIaq7kqhQ0iY7UCoiHigJGgi8/e1pL9gYpcBMqbkhz74
-	 BtLTIKHPvaYVZ6GHOvet++NU2tJwUooqPS0mU4IBHGZwbflqR8FoKXK38Fp8pZf5pa3nP
-	 BlT5/v0kNRxSOXm9I+jfZ7Tzk+kdTvWPjk7kH6yVLfECioWYoIdGFV7BMVbNHkVihy7RG
-	 vt3GTw4oH3Bf678T3bzFQZhq3pfkZ0jaAVd3nNkWsp8dHmDs2LP4/ID/932cp61WRyoyj
-	 To5HyK+ZK5AitwLyOh6vJLH3cBEyTl0pca6mrF4/Z8pw2RHMpYvAlUoAYwq2uWRl9XQ==
+	t=1794419837;
+	b=bPV2KuebB5aNrtue7hnwrETIJsEmz0+SoaUTsOY1/MgVkyD9NpYxvkm7k9ybtUeZZKUe
+	 NWxm3NQzQml6MsZ7HcRPM1ZPOb/BFO/CDJTCOGQPkTaeBrT9Oci3TFIomoRY8TJgD+EsF
+	 W4Z3/qzBiy11fvoVW8syUgFjndrY2eRxX+TJlTm9nadJvGCB17L+OPVV9g0E5YwqgLRFJ
+	 6PSvQZmH0X8wo+0uXnYWndszBYj158ic4eUpxzgUFalWurOWWQthH44eZTJLKPX7YJT41
+	 LjHcIcGu3xvj/ryHIk3Hb8oe/HfEypnWAU02cLvamRB10gUiuUPH2idUxlB5PsykPNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419759;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
-	b=3Vj9K+XBGOR9+OPn3FPhSrQDy2NpkHD+bKD54wnyZnjFd7dPJ1QcTpeol+wi9LQGbbTu
-	 SD9xK1UywApnSthVovI4WzqeHqDIxJoUwxVwVYAQBrg51mF6GMvgjlnXE9O5vFj5B6xjp
-	 oCVm3Kuqe5I9Xfz8AZYYZB5nprxblLNwVXf8MiF9xLRlLoCBVpDzgcQrqB/LyALMSSJNB
-	 U64T1ZfpbGgU4Czgb16Gif03akPne1kjTySbdFCCQ/eFdGSs2SBR1g+cAJ6S8bBpLpRDu
-	 hco0KjU549mKSv6lLgkfkFtXkJQBRggJqkh+rLwonsNE4KMb/uR7u3gwx9qGfMVQ2ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419837;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kwT0u5BAmkTPt3ThPVhZPhsxaRduDfRnorrPaCLdPFc=;
+	b=NwyxgUOvZjdjQB1oU497JErg+HlX1ndN0s7hgBRtkofOEQIFNk0EgLQ5mVeaRHuB7PhW
+	 M7eJXri79cBmlrsLXFmTQ4wlw8P+f7Cg+1q5qKyzR85UhNVtNlPzY3Gr3WA9I+hKk5hWE
+	 /yb7UA5pYYs/cftJsPKdD1YD63NuauYKRkeGjicLnFQEWGz0OX47J4gGTpP0lGsG/gZr+
+	 RvrhNDolFY6py78zwJG0QLmI/DtTj391Thy9AEzeVFHAepOPAQ3Y+SwTL16VLP+8+v2RI
+	 9ZBeGfnQz64YKO20JyFUVAsvjbpvkRMqABEa+uZ19TjRpgARtZFow9pWlyc2pMR3nAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAdejHGq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F322606A89E
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F322606A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C68C606A326;
+	Wed, 11 Nov 2026 17:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABHt8CI3989209
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bJecVvbaLRg2W6zbI4pyRP6H
-	L0WXZDqT9D9QDN12sBo=; b=Nf80FLcf101GVkP6snltycki0xll/7xnV/48Ns50
-	Pn6JfTrg5JJI2qyOCN5xgr6MgSFczD7Y78XlCL3jIea8P1Xhh32LyLJe3wInvZ5W
-	IoBF9gMqaKu6WfXFiG0hsKvYk1HUu/4ABEG56i7QAtoSu5pkiarIMP3/9HEzhVjZ
-	iE7yEX5Ahv6Fk2ha8iMdMXVZbLQ9f3/2riTMHkiphllQzfTEqiLN3xU3cmRPjuLm
-	XHa8GcBgecjsP6Ugl9pRzAoAHB/weWDvkGNcufrEguH6EAIAfiguFFGFKYHH3WG6
-	QoYEs/L4UjwcROyMJeUwO4A4Dld+tDUrhgK87F8iYCYShg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u8wud-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f32050e72so834806685a.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:55:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794419757; x=1795024557; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
-        b=P9Hb+CWMVDhKK7pOlP2nHUQjXJEjxbwn8TnzzgBdC5ja2GMgzxBBu1XI9z2GGtpsoi
-         dmV/EXZOh6sI9L3o1onJgVF30VXQISBh57YekSQa6DF6Z77YAD0gpRusxXXJp2xt+NOd
-         keId8l45sdS2FehE9PcM82tMnPAe/P3nQAJ9XrTyJmzl0vflR08+xE6MLk1Patl+HyHN
-         m1cQFzWZoEgNR6Yz5U93OUur+qTCoAZGNtWjX5yL8WklzeAOS3/+JOSgA+Us2h0Xi8tF
-         9WSm4UkSkyZUykcaxmpDUDaUOFvp97RhEaAqSfjJZHuIO8NC1e3CL+w72zKx0EVjNrDt
-         bSFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419757; x=1795024557;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
-        b=irqNXvPkHmbjQOzVmCnOdAp9KPxYi9jiRbJpfiTWvm52UlFLTCdt+jxGIO7yHaf8er
-         pXaZKs3XhXPvmoO7njncamJ6dJK3miXamQb5GhJCcByRyij0hqfhiexMZKmTfy+GbegK
-         LZNluPIva2WyTXFEIe+b6OFwPHn/6eeFVuhQMeu0TNu3esaXnrPGwp3Z9tTUFhM/8bIV
-         HlXB0TTYVxriu3u1h+/zrrub4NIb/7gDxqCrJ6yxPVVhFMmt6CV4jcIny3vgUCcybKGv
-         YUS9Kgdbpsl1kq5fTOuw9Z4m+K/TI5BleRgEIsUFomGezv2MTFsWouHwPr3wVB3H5k7p
-         gTig==
-X-Forwarded-Encrypted: i=1; AL+hErEXmne8xTlm+385Vcv86ga28aBBeRYmbdD+ZsUOILgM8+wOfSK2jXaWM03zZFXzU5EPdEslYqtTYE0s@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BgwIvxhMw2vcVqp3VqDBX6RIX63O6rpvlM5F36LHYJeSp9dDR
-	ae21TeaPN5JwJb4ZvrReAIuqRQVb35WBQyQifBVgijuZTuhc0vswXFvBOIPCMVdkKwvii0a4F1X
-	eFFWuYcb5FAdRiF34uh8zjvWBhU6WrQRVOnIHkg61Vlrup36c8H9jpP5W2AGpHzAF
-X-Gm-Gg: AYBFou3S0GOR9/Nn9XqIVGLFX9DiYpCgsm8/gTf1kQXvHp3aGcyDsqs4B9Kn8rSIQPJ
-	3Z0SkikZPcz3faJDCMOU9LI6K74jEo6UHTOFIC722ZSLWifCxoYo22V0XgcHUPpPG/SCevs7xgO
-	S0WmUXarK4qODO8hubIh+MVRDdROkrE/hxSLo54cNw1wE1HXzqL6NVTwcUWDEKOvvKv5G/Sh4q8
-	FlRdngpM7DSFwtNZ5kralulrRbVroHfTs/6ai8ttuMMBj2ji0oY0tBgBDJldevodip8N1T8qOXX
-	zuCAq2dTN9skhVnriJ5gwdGSjOCiMWenZFIpRnYePh1nmYBZiL+eVVgc02WXZ22Xh9dgqOHeR5E
-	3Ds1DGHXi/hp7S1yfjYMigTUdalSvsiPXFuDjAmI+1BiWYMMUPq1JPs2FZC5MLTviEcxASNelNY
-	bnBWkxhk+up7JHpNOjZKpPB7k6gF6CjlMFFh7K0CQBeCjEsFBfXaCxCMKywH8sAg==
-X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485343085a.78.1794419757335;
-        Wed, 11 Nov 2026 09:55:57 -0800 (PST)
-X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485336585a.78.1794419756700;
-        Wed, 11 Nov 2026 09:55:56 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae177150c8sm4479411fa.40.2026.11.11.09.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:55:54 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:55:52 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
-        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Michael Trimarchi <michael@amarulasolutions.com>,
-        Michael Tretter <m.tretter@pengutronix.de>,
-        Cristian Cozzolino <cristian_ci@protonmail.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Ryan Brue <ryanbrue.dev@gmail.com>,
-        Nickolay Goppen <setotau@mainlining.org>,
-        Robert Chiras <robert.chiras@nxp.com>,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Chris Morgan <macromorgan@hotmail.com>,
-        Barnabas Czeman <barnabas.czeman@mainlining.org>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Arpit Saini <arpit.saini@oss.qualcomm.com>,
-        Michael Walle <mwalle@kernel.org>,
-        Ritesh Kumar <quic_riteshk@quicinc.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Svyatoslav Ryhel <clamor95@gmail.com>,
-        Danila Tikhonov <danila@mainlining.org>,
-        Jens Reidel <adrian@travitia.xyz>,
-        Michael Srba <Michael.Srba@seznam.cz>,
-        Shawn Guo <shawn.guo@linaro.org>,
-        Alexandre Mergnat <amergnat@baylibre.com>,
-        Alexander Baransky <sanyapilot496@gmail.com>,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-        Romain TISSERAND <romain.tisserand@gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
- optional
-Message-ID: <dki5db5xizrwwijmjbnbx7irg6if24l7punctr2wx35j4toi5c@4rip7azwzt2k>
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
- <avRM_GhtR8vMdTO4@houat>
- <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
- <43373a9e-9ff3-4641-b961-b63f4de21cb9@oss.qualcomm.com>
- <oubzclitudtqiv64wvg5lvxvbhuffxmc5bgbsdz4ou24pfhbb4@decarhvjzl2a>
- <0f2c0eae-ed05-41a2-8688-e4b6fe1b7ff3@oss.qualcomm.com>
- <avRy_D6MTK5u01_9@houat>
- <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAdejHGq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD931F00A05;
+	Wed, 11 Nov 2026 17:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794419837;
+	bh=kwT0u5BAmkTPt3ThPVhZPhsxaRduDfRnorrPaCLdPFc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CAdejHGqUulxp0qdb7r0tU9CVuVMOc04YlDJHAd5ArRPfnNwFT+Kw98CN2JK1bbDE
+	 oqowJvIeOBgne8SOCSRh6p7ndaNuYtYj6VuZcZg2G2Y1fjasfDySwKg14dvbWKhGY2
+	 ClZKSCiFWwnERKLTFkiBuQPd1vj4ElEEQWIVrTaL7S3WZzPSY/FGj92TDFhGnsGSx6
+	 EUL2e8G08O4Ku4BOLoOBzAfKT8sAdX0Dz1W9kWo31ar3zGHGt+rwvIB4z7eHiKLrMj
+	 q5NHO/JiihqXfStg5gPL7rP38rj1VwWdTXM9u9CwMNnnT85jfzVGD/W/E8Hva+YG5F
+	 Il9uZmgYCRaXw==
+Date: Wed, 11 Nov 2026 17:57:12 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>,
+	Pratyush Yadav <p.yadav@ti.com>,
+	Parshuram Thombare <pthombar@cadence.com>,
+	Konrad Kociolek <konrad@cadence.com>,
+	Mark Brown <broonie@kernel.org>, Jayshri Pawar <jpawar@cadence.com>
+Subject: Re: [PATCH v2 3/8] spi: dt-bindings: cdns,xspi: add clocks and resets
+Message-ID: <20261111-subwoofer-ditzy-a1f2ec454df6@spud>
+References: <20261111-xspi-cadence-add-acmd-v2-0-d339046ada8b@analog.com>
+ <20261111-xspi-cadence-add-acmd-v2-3-d339046ada8b@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -167,86 +65,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JcbSWxQXZHqmfkbK"
+Content-Disposition: inline
+In-Reply-To: <20261111-xspi-cadence-add-acmd-v2-3-d339046ada8b@analog.com>
+
+--JcbSWxQXZHqmfkbK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX3cZ/BMZiOWXC
- uMrGOl148Qqg+AEflQgdOArGYqIAOHIfPMJ3C4xnErm9OvHCNFWi7lXtl1Uo+xDHQkHkt1NRv2s
- H6gHledFR0fsViFCak/IkEvSDqXHJno=
-X-Proofpoint-GUID: p91BVOLM_C66RP7ozTDmx4ZNKTcvsfML
-X-Proofpoint-ORIG-GUID: p91BVOLM_C66RP7ozTDmx4ZNKTcvsfML
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX1zukjXivd/ZX
- NF6l+wzRe8D9ZGG7ZWK1Qa7I7w1mBwqmyUkS6wI/7CwJp7ooMh20XVG5O7182LJbrlj8eYCSzSg
- ymkheVo4WddWWjSO5ZQsvvjZOYvyRiy35UsxOujJ4YX+dzCHZGuimzQR5EzoWJoQao08Du19W7v
- 1xdFLHgyQT0lV4Yoiuj00drITZqj4PwjKUbRrVl8zMHGrJXkL5depOGg5e96kl+G8Xb+PVWxL49
- wQtVKa7w+slXwDGd9Ddf0z2baoB4qeJsOZua6Pe6ja2ALJ2CJ3VPwlBvv6KDa0DZcb7Ue+lf7NV
- w1dFmT9ZWEKId0vSeUXCORY1Ad42p7z229JBqGAwvm3YmW3A0UKJ5/WQ8ryCNwOorTkS15gV/2T
- CmtZndybNe8wBzqdCdJzlGxaRap7kG09WbDLcYG0QkKkjI57f1aZuXL3I0WTcJHZxxfOtla2seb
- S3RYNLzdRejgTRPcPaA==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af4ac2e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=b1Xqci6IJw76lUnxh3wA:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110071
 
-On Wed, Nov 11, 2026 at 02:54:54PM +0100, Krzysztof Kozlowski wrote:
-> On 11/11/2026 14:52, Maxime Ripard wrote:
-> > On Wed, Nov 11, 2026 at 01:44:23PM +0100, Krzysztof Kozlowski wrote:
-> >> On 11/11/2026 13:37, Dmitry Baryshkov wrote:
-> >>> On Wed, Nov 11, 2026 at 01:31:39PM +0100, Krzysztof Kozlowski wrote:
-> >>>> On 11/11/2026 13:30, Krzysztof Kozlowski wrote:
-> >>>>> On 11/11/2026 12:13, Maxime Ripard wrote:
-> >>>>>> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
-> >>>>>>> DSI panels can be placed under DSI bus directly and many Linux DRM
-> >>>>>>> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> >>>>>>> such panel and DRM driver does not use OF graph to configure lanes.
-> >>>>>>
-> >>>>>> That's not true. We do use the endpoints to configure the lanes through
-> >>>>>> the data-lanes property. See drm_of_get_data_lanes*
-> >>>>>
-> >>>>> Some drivers use endpoints, some not. As discussed on other thread,
-> >>>>> there are more than which do not.
-> >>>>
-> >>>> "there are more than one which do not."
-> >>>
-> >>> Which means that those should be fixed. We have legacy cases where the
-> >>> drivers assumed that, but we should not target legacy.
-> >>
-> >> These legacy drivers work fine for 10 or 15 years, like Exynos.
-> >>
-> >> You can improve them, for sure, but if no one does that then requiring a
-> >> graph is a mistake there, from the panel point of view.
-> > 
-> > At the very least the commit log needs some work then, because the
-> > situation you describe in it is simply wrong, and quite different to the
-> > situation you then described.
-> 
-> 
-> Commit msg said:
-> "many Linux DRM drivers will work fine with it"
-> 
-> So many->some? Is this the only problem? What else is not described in
-> commit msg?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-The commit message points out that a minority of drivers use and require
-the port, while majority of the drivers don't. I think up to now only
-the Exynos and sunXi were mentioned. From my point of view, it would be
-better to change corresponding DSI host bindings to allow port bindings
-and then define the OF graph connecting DSI host to DSI panel (which
-might be done gradually, etc.) even if the OF graph is not used nowadays
-by those drivers instead of providing a false signal that it's okay to
-have DSI links without OF graph connection. It's not future-proof and
-not okay, especially for the new designs.
+--JcbSWxQXZHqmfkbK
+Content-Type: application/pgp-signature; name=signature.asc
 
--- 
-With best wishes
-Dmitry
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavSseAAKCRB4tDGHoIJi
+0hNOAQDmw0rBJLFjv2GrivAWAcL647h23IM2Cz4GwU/kDTkP3gD+NAcCkPcpYaEN
+Dc6ECPHHPnSAYDrOzc6+4FvbilP+qQg=
+=crf0
+-----END PGP SIGNATURE-----
+
+--JcbSWxQXZHqmfkbK--
