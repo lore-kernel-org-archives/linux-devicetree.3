@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386033;
-	b=doFU2cJPJn2Q73kWczhJ4sw+dXBli1GwJMVL2PTUjFo2s5n1ApgkyjDfMdb+7GCsFxco
-	 l6DmanExYSrT+H/VSFOZcbsYdz9ctgkfUdwrrFKoGqp8Ub0CuEYLonQ6xhgf3qwHTkAtm
-	 xSl/WKqK2LFjqNCU5iMrB14PZv74f5CUm+Na9vWDryf+5kJI3y8lSKtcLSv9WTKyH4ZAy
-	 7vKKdZ5NjfxSUwjQ6wqsfCdAwAa/lM58H7TiHmThP+FEDE25Hw7lsNeZyELgiZAEIAgTw
-	 /TFFCklfKkwhbG1m19dra1e6Nb+GfQDyEkzFTmi/HLLlCpNZIQq8tI8KHOOfUxJ31ZA==
+	t=1794386163;
+	b=5MDFywhB0XNIGt7FUwDY/x++G2Rzl7FnXicrAr3IHrPDunzNfbwWG7LQrqVRHouRUwIt
+	 8DW/4lLTQJtABF4dfFsATQYn+pa8CLTZvGcmNRtq1wxV+hjn7/bH0QdWS4YoDPNrQQ2Qb
+	 EN9rNjI+MzE/oZLWCjSbvIE57pYAo+mvwV/9MLDN0VWmtXNfFuVOoldGDMWSFAocN5+lK
+	 5ZkE9jVWOLLApPgZceb/kuuRtCAajaWRP6rvU356l3ntld/fcnmuK6V3JfvNN/rGIF7/k
+	 fliBFnogl5CUHKpxh+0P6kvQj20qLPK7l8JHO8SNyDEvarHtNQ15XcaV6h4eq1UdPCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386033;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Aweo+tJhnL86UrvNv/J+OCTFK4mXOMODVZ4r79O8PEc=;
-	b=sbW+KJgKewiATYCJdueqKoDnrvfJv2AEzsc1+p34hMzZp8dyp6L5C0N01M+h3e1G4R6L
-	 wYEpwcbZCNAxhnG+NJtxl9ankmy3Vf+Xj3lfhpmc3/zDQt3dqkDcasKPG1/ldlrPq3CXX
-	 ohh/mGtTHeoeauLWKmCiHQngqqeHHlX9lr12iigejvuQvFKXpNsxrIWs02z4o1ruZLvrc
-	 9LnEGjyK/XhRGoYeOZSaH4C1g0NTdmEqBxbIv2Z5ZXgIv0O2+B2NVI52o81veCAYm3Knf
-	 ezn8OFXO2vSUpHXNnwcrwJl2z0vg08JbqwvxFh6fk9IslVRPyjEGP4NHABM2pQ8OqiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386163;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1HIxbApyiQowjnqXKzbDN9ZBPxizvL+h7XM8y3qOXtg=;
+	b=VrRISIAxaFP602Pt9Gb5GKnIV7DSTpKrreAjYeduXuu3n6Z7CDIasvPsNzj6tTJ9M/tp
+	 /dVDHbAiR52Yc7fbSvo9PzYYZMdXikJNu02VCWbw76xb1jDS+N0cB23FtCS7dWSCk8ZkG
+	 KAsIuooKOZeHCeu+STOGmZhVuyH8t7nIhamiN6A6EMa/HtTK6rP/T+tcjPPqg6ZmSaX5/
+	 NKGvGC+GkiCQSybaRCYJLFfGXBnh/7qGJiys48JDaBxOdUFQDoYMEaA+DOJDV6rEh7L6I
+	 o6pHkA4Osf1CavWCrOUjRr1ft1kN2dF0mDTHImbiMHBvVQzqCAGSgm5KagPWM6UlQvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJeIE03A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g41N13ax;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEF6606A31C;
-	Wed, 11 Nov 2026 08:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D389E606A320;
+	Wed, 11 Nov 2026 08:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJeIE03A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C4E1F00A05;
-	Wed, 11 Nov 2026 08:33:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g41N13ax
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16EA11F00A05;
+	Wed, 11 Nov 2026 08:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794386033;
-	bh=Aweo+tJhnL86UrvNv/J+OCTFK4mXOMODVZ4r79O8PEc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KJeIE03Av3oZr42uMj+iPjbWDhzQQPdej1CmLdjdS6t4J1M2bWAufKUcozM+lxlob
-	 IWBfoLCBvg4+8n5gIqzqgEpVxgT1/BVLzDp6vOWkYLVVfo9redgQOtLRTphLKVZ3D8
-	 KacPrhj23LrGa/p0N4QRmixtJdb6PxgQ+bCu2zVIY5oh4fPGk12WCMx8mWBzR10lOo
-	 a2pRxXGtLlLTHAa3J85Gu459y8bwMtfKFmc7S6md42pfk0wmpP0u6+fMjVhf0ScdEt
-	 P+VdgTkjeM8rrv2PJ0Y7rnEvHg/VTf2V7uELk3tG0WesoIYA0OxTnKmtRQNEM7T+Yy
-	 enjTa0vMYP+3A==
-Date: Wed, 11 Nov 2026 09:33:49 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
-	Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 08/28] dt-bindings: gpu: mali-gen5-am: Add Mali
- 5th-Gen AM schema
-Message-ID: <20261111-accelerated-pretty-spoonbill-0afdcc@quoll>
-References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-9-karunika.choo@arm.com>
+	s=k20260515; t=1794386163;
+	bh=1HIxbApyiQowjnqXKzbDN9ZBPxizvL+h7XM8y3qOXtg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g41N13ax7LWYuSiy2cZUZ5g76BmT9hEApXcB9HVrLpffGlmWxGZCPNPHnkvOKQvjY
+	 7LIhW4QAwCs9abDs4rnlFVDTPZGFItf3dovagjVz5eUErxzyVHRYu2Jg1BrugRWM/X
+	 kzreTQFuLN6HDP98JpTy9fCTttDNBRg3dviLK0kiA9nmw1b48FvwrokOe81mDBga5C
+	 KpA6RwAoB3zZVVKGf71ztYv2iG9LpYBH+M7F+eIL0LlzVe7xFsSRpsWugtBaGY6tGH
+	 eNLKxNEWx3dBwE/CPiGdwslx5UfFsOd52GgLryNjnau1ZuxazRTfGpw76tWTqZlxu8
+	 BzPWv0cFGQIbw==
+Message-ID: <sashiko-outbox-208621@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] arm64: dts: freescale: Add support for
+ bytesatwork i.MX93
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frank Obergfell" <frank.obergfell@bytesatwork.ch>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
+References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+ <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 08:36:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,64 +60,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110153907.3241978-9-karunika.choo@arm.com>
 
-On Tue, Nov 10, 2026 at 03:38:29PM +0000, Karunika Choo wrote:
-> Add a separate device-tree schema for Mali 5th-Gen AM GPUs.
-> 
-> AM_GOVERNOR controls GPU frequency. The GPU node does not accept OPP,
-> cooling or GPU supply properties.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
-> ---
-> v2:
-> - Move arm,mali-gen5-am support from arm,mali-valhall-csf.yaml to a
->   separate arm,mali-gen5-am.yaml schema.
-> - Move the AM GPU example to the new schema and add the interrupt
->   binding headers.
-> - Add the new schema to the Panthor MAINTAINERS entry.
-> 
->  .../bindings/gpu/arm,mali-gen5-am.yaml        | 90 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 91 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: freescale: imx93-bytedevkit: unused backlight-lvds
+  left enabled
+--
+
+commit c60831b496cfd3af119e905c5fcb49dc6905f857
+Author: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+
+arm64: dts: freescale: Add support for bytesatwork i.MX93
+
+This commit adds device tree files for the bytesatwork i.MX93 byteENGINE
+OSM module and the byteDEVKIT board.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts b/arch/ar=
+m64/boot/dts/freescale/imx93-bytedevkit.dts
 > new file mode 100644
-> index 0000000000000..6349888e1ae2a
+> index 0000000000000..cb5d17c8444c3
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> @@ -0,0 +1,90 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Mali 5th Gen AM GPU
-> +
-> +maintainers:
-> +  - Liviu Dudau <liviu.dudau@arm.com>
-> +  - Boris Brezillon <boris.brezillon@collabora.com>
-> +
-> +properties:
-> +  $nodename:
-> +    pattern: '^gpu@[a-f0-9]+$'
+> +++ b/arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
 
-Same comments as last time.
+[ ... ]
 
-> +
-> +  compatible:
-> +    const: arm,mali-gen5-am
+> +	lcd_bl: backlight-lvds {
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_lvds_backlight>;
+> +		compatible =3D "gpio-backlight";
+> +		gpios =3D <&gpio2 26 GPIO_ACTIVE_HIGH>;
+> +		default-on;
+> +	};
 
-Same comments as last time. Seems like you just ignore review, so I will
-finish here.
+[Severity: Low]
+Should backlight-lvds be disabled or removed while the LVDS display
+pipeline and touch controller on lpi2c1 are disabled?  With default-on set
+and no panel referencing &lcd_bl, gpio_backlight_probe() registers an
+unused backlight device and drives GPIO2_IO26 high at boot even though
+only the MIPI DSI panel is active.
 
-Respond to review. Dropping from DT patchwork.
-
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111081150.9502=
+72-1-frank.obergfell@bytesatwork.ch?part=3D5
