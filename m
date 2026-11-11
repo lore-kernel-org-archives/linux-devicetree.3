@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794403902;
-	b=cMPNOKjCRwGfp6MipJe6a7/qo8DM1PuuopO0m9GCj5Op4ncLmhdT8cKUmnPmYLDTznVk
-	 PSJGox/J0G6qWdR9rr0AKizQUMu/8EYTOFYbLUlOUm6ipniYGQfkpJlGq6zZW6ZJpNkGU
-	 I/S+E3POuegeSNRCxBUI+TsGpglPR8GC6RWH2ufi0zUHtuYUYHj08YO3GrPK2jSTJDY4R
-	 W8XdfIXLYvGfBJLym3N+LkjyEr9COzyVv7ibgkvTUarUDOUeUnxaGt0YFHcMGlWBm3bpF
-	 kWLTuDtMBoYyFWhaxJIQOePYPH5E0hSxpGI+DYJgyh4MshtoovRbfgZ0Zv1a3D2TZOQ==
+	b=1QYbFCBw2C+SsmLBByyGKZURtDhs66C4esa9AvU72GUNcvDsxWMec8QsspHE/CKQuGuc
+	 dbP7phMC+diZvQCpOhbC2jHB8S22jMcqTGR6/YRlfyub3jUIpApOAc/tZxW4AE0nhUoy0
+	 OutAyi5ztLCy0Z1HwShtNEQ8vn2OlMKJDEcn4r7ONjjFiVH2zcQFk7arJU5f7tc01c1nF
+	 0bqicqj+7ldQ3tJNKqmqliQdUcMBC0QzCuqRDPV9byNEmBTT5EaIGZLr8cMddjtOXuRxp
+	 VrmvtQIl6Jw8UGGBz8ka6peQgfej25v12aamfr2ypoxLcHcSvkIGq38J22MeSlQrA5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794403902;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
-	b=wIT9x9MAmP8C3KxYty1p2UNJeq+yBZYzgvmLtJwXbOxCUf9yv52Wega91m1ySM4kACMv
-	 d3tqBtrANR2b08UwPrTW/5SPB5IWpFeYVyCXXM8x4Me+/Gtv6Zm46WMhf/nVuDEL8JBtc
-	 dzSeQUISCf3KZseGZ6zlUUMnHBFpeB9i1MaI4LzcMGWnVohCjIrglYaD2De1eicnzy65Z
-	 twebB0WtmoTSPYiTXLHfBJtMbstBbNZsABRB0+m4XWgkvyl6WQgrHGup1KXndpoDNuJ8U
-	 3V9mNlGncaD863wAIrUHPfE3iFfIKSpRVxWrCnejefAfXlCoDpaG8yUz/TBy5UkbT8g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=H0L8NY5KvCN7Y6Y0k6z0RIGpvtUytxSeGPbkleqES2c=;
+	b=atssFlGLYPjqoKaHeELNYE37M0Pi+toe87DdLwRSZqHP4yqPfTGWDFFpewum/ZDlQ8dH
+	 838esyYU50c3akjn2RIi/LV4M5+k7Ohi/pyd/DaZT6k5aaiamgVCJR9mnAB8payrsb3ZB
+	 fkepVsbBKn9svqVL67g9sSAPHh3D8YT+7O9QHUudaq53ZU7h+oehw0kb7cy7UqVvs8OaZ
+	 IWBrHc+iA5zWeEc+DQ0iDhmb7U+UiNzOvGYVExuFSN+2rzorZAhWGhZ/NKrP4aOGyzi+4
+	 9wmdCmRJex7AaBZYIo86ovY4nUjxxZEj/EIrPOyU2js/KRMmvacF6HmOGxZCYkRlp3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=bytesatwork.ch;
 	spf=pass smtp.mailfrom=bytesatwork.ch;
-	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o6IVK7s7;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vvwbhrmx;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B07606A32D
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B07606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83720606A326
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:31:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83720606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o6IVK7s7
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso1415614f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:31:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vvwbhrmx
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a215e64962so35706155e9.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:31:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403900; x=1795008700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
-        b=o6IVK7s7b0bKyMHvyshYiXsxa4OKgZ9tjNrNl50dXKdePI3A0Pqk0JlPrxyl+is6Ty
-         KW2014oGSpgL139lUwhwe5HBOfkABYE1UHDIpS4NtxLArWKgYhhPBkB+/eY7CAfollHA
-         GtkQhQnDFq1RM8XuYi5Nk62gPwBi5nm0kUwJm6QbXC4WeXrmJazZiQett8rwlPgmjs/v
-         cSm00MbIZkLg1I4XamB4aa3+WhjXv/4JpCIOZgfzRN6+CvTZFQsrhrDf8PrXEp+160tD
-         WsBeElXsvNx8PjPdkTrlvHHcntBw7C94K3LtMlQ3o61DSGt1MRIv9uVuVa3uyW9xyFWC
-         VGiw==
+        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403899; x=1795008699; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0L8NY5KvCN7Y6Y0k6z0RIGpvtUytxSeGPbkleqES2c=;
+        b=Vvwbhrmx8Qa4L9mk5Xgmt8QUYEXWoqRoofsxkGWcYrENndglPL95VqaebTdaEx2p2u
+         Y9tDrEaz4Z83KsWdJyf7R3A4upA3r3lcU0iHv9y2a1RWA2XVcVmebcCA0UTJsbHwajuF
+         UB7rsWzLItAC4OqMiuLJay9ZDDHlxusgy++6QLMIM3gWvJ35DFfwh5cfyXZ1r3/7UVSL
+         Y7Kr/ep9HPcI/gFQ2SAy7ah10GiEvPOFmsv2/sdM/NtmnMZz/gY76v3JQZBMNdVL8X0c
+         ObEV7GCbyR9P2VgToSvC2hSSgkWC+NxtwaKXFgV/VhZtCsLeDGRtjKTWIw0hlUAGloI1
+         zXTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403900; x=1795008700;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
-        b=D+KYW+ccKUuKuw7OKtBJODxcG/oYE3lM04ZLMjT7b+BvTNf4iZYZjDZyagdilnnMR3
-         55CPZxgTjHVW58AFR+IJdJ1ObINMC+BUhrtajGI7vyg0VNGDpOBix+Oo9+GFXvFkHrJu
-         OVtr+xzyuRhE74fvR3M5zMaTDWRW8H+sNMVVnCh3/TxCUvavNtqBmPTUMFlYGGFr8+UL
-         8d9j+jOItMW9Vkhf5vwlTiOWFUlwPjqzC5r3gHi0suQmbqM7z2HzCDqtN8AcZKVhkawy
-         Gc3LLNc5dWAj425yXq+IO8qBqm9fiQsM5knwVdMv2KQijtHE2pEuof1D3bnuoBs0NIBB
-         UKQQ==
-X-Forwarded-Encrypted: i=1; AL+hErEIpxtSZmIuRyTC+VEAkqOvOS3iv76uw+zPtQUHIC07VPSMgJrKf73Hn9wgfUpuxsr4NJikgzAER3mK@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tacloNKcdFm90tOYQU3WmZsQdj55n5FGnmrvk8j9iQGKCF/Xb
-	YAOwJv1vJKFRYgdPC346OQUwVuiQC2im2q0dlCPe+rTgCUuQsy3TAUr8awkPXFboGpg=
-X-Gm-Gg: AYBFou2FbgoFEUvOp5k0flv7QSMEO5fEwQrOM1BprcbljnrhPR1DRrwUAqLri3vd1bZ
-	26d4IPRCqjaiFMIoLQn92UyhCEBZCcMDjLUCjbL5XUx2m2JMrr1zkcYGBR78gZoJwowACO9sQFH
-	0DCJzc0q4AhJ7vkVrSckxcuunSPT50HbSCHnsWmTowq0TZV7BsgraRRJuoQpiKwlRBoZga1CRx5
-	rA1hWusDEfo8s9JjkIPi3oRr672F6QZS95aWcY5GjQtGTPbkT0LWhUc9wWGOpe48qo9VreHw9Qv
-	jzpTEai81hBiPpYKgD8VwmWh53nLOWAI/BPmiBuyWLgFbFc1SrEmX2akcqCfIUflHSHLmG3dLXT
-	2lhpJBioasiLbydV3yWW8sKDFoN4Aa3fU6po6XeEVYGUCnVUogBH5rADgYLmA7Jc5fWya8ZdKVq
-	zsZI06U3J6ayQJ3R9y3N66Ha8mRGJuXBVppfNvDLbA3mjSdUm8uyhj0JYvCTmQJ5HNEBb7wOq97
-	up9UG/oWV4X2SKa490NbzHaThmSN1WYopZKXVqS0ZqzlIKNfTFFrTasrllBSsrVUnHsmx9Rr1gs
-	xJPVPc1TbugOA86NRPs80fJMtq0EGznGyVG/qTdNZJu4mlDnSB3tabPCmFwzQjaVQSVgqj9/9Et
-	cxikwRxqolw==
-X-Received: by 2002:a5d:5f47:0:b0:493:690c:8364 with SMTP id ffacd0b85a97d-499c3ba0637mr4190729f8f.3.1794403900138;
-        Wed, 11 Nov 2026 05:31:40 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794403899; x=1795008699;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H0L8NY5KvCN7Y6Y0k6z0RIGpvtUytxSeGPbkleqES2c=;
+        b=l09CKX/t5V6gWazB1lw3wF9ac2R0dJ/AjntMes50kajdPypr6iCHp107FAyaWBmjZC
+         xpGXa/cBhZdYHZEm5e41o4HyIeJAgSklA8bIx6MzAInIEB8kT+TGCsd3UWXvfS/1sv/5
+         QIme+PsmVCF5QtdcKjGmDSRS0EpHjiFKW9y6gSZBNQFRSc8bag6ZkqJpO6ElFffdrA+5
+         SLXmkore5s+bs1DEoahhBbd/a7l0ppGTF4NdK9oLAxvFGUle3Okik1SyoXg8zw36213X
+         T9OkMapIXFAqknshgu3VqtT02ji3kUWr3JnHBZSlQn93+jj84XX4mpFngUeSUjIRQJng
+         QSVQ==
+X-Forwarded-Encrypted: i=1; AL+hErGdv+w9unUXfus+IG7Ozy6XDdTKSjDIPN+cQB9L7VoylapXIr/cSbyS8mD7PxEtatp1VCwfsWOkunit@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yDA661MoR2Mbz3ou+WO08p69RsQTolFDACXMKy1yr4xk+D2y0
+	gHoYP9xOJl0uY0DzPJoiD4zIdV45SeCEAH+VovP3x36g1MpXONzZ+zXjicemC5rZu/M=
+X-Gm-Gg: AYBFou30G2mrvyVcpetPJzDPlBqsGVzBldBAuFVa+wVggbf5d13m2Tm/Hchjpw+drCL
+	P0yazDif6PtoGk+rLxk+lQhx/IFbcgUawZ3Lb36X3p5vCgj59sBHHyQg38QrjL7swjBHlLVKT42
+	yY1ZDOXkmKSvPt/1+08NkI4HP4lN7TzZCgOnskKuKsslBejpz+BPNb1EzlXydnwVIJFhzYoRY3y
+	RxNAkHwjCxFHsqNt92zdKv+wXe73GS1QWuxRbBkrK4mfQBB/u7WiHa3y4LpyK/AOOvjgSjGOUU0
+	tRozGXf+uV2zfjE0yuMAxT7v/OKR1f8WPqE0eCHqE8ht7Daek3Rsa4OTlF9SJ83kyXuoAG7kUOB
+	tWAkIrvBY62C1+IltXf/bYXxHuPbcSS//RkDosx8iWLMNQ9kPXkz7DXnHd+lI/bsYtksQlYZci8
+	WWXy9AbBsLj2swdr2660/IgnkwHyG+BuU9i/iTm1Ty1oiFjv9sZVpcoxtI3ZCc8RxtPZdK9LS4d
+	k/wG0ZfOnzM7elamSLcxWhAqVzbAyZq8SGKMyxcKLnmKX9O0Izxb6gnBUTX6GEt3yKJHxGEGOkQ
+	IKODh4xcCBQwNruhh3YAkIIyvwPgIYyYuPaB0TAvb/noB4XN5DbhvQ2PHs6UdgItMQIG73snHJO
+	nnxNpX10skw==
+X-Received: by 2002:a05:600c:6214:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4ba0939815cmr42149525e9.34.1794403898734;
+        Wed, 11 Nov 2026 05:31:38 -0800 (PST)
 Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net. [83.150.40.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:31:39 -0800 (PST)
+        Wed, 11 Nov 2026 05:31:37 -0800 (PST)
 From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -98,14 +97,11 @@ Cc: Daniel Baluta <daniel.baluta@nxp.com>,
 	devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH v3 1/5] dt-bindings: display: panel: ilitek,ili9806e: Add Youritech et050fw01-kt
-Date: Wed, 11 Nov 2026 14:31:15 +0100
-Message-ID: <20261111133119.1063210-2-frank.obergfell@bytesatwork.ch>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/5] arm64: dts: freescale: Add support for bytesatwork byteDEVKIT i.MX93
+Date: Wed, 11 Nov 2026 14:31:14 +0100
+Message-ID: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
-References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,45 +113,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the vendor prefix for Shenzhen Youritech Co., Ltd. and add the
-compatible string for the Youritech et050fw01-kt panel.
+This series introduces support for the bytesatwork byteENGINE i.MX93
+System on Module (SoM) and the carrier board byteDEVKIT.
+It also adds display support for the integrated Youritech et050fw01-kt
+MIPI-DSI panel by extending the existing ILI9806E panel driver.
 
-The Youritech et050fw01-kt is a 480x854 MIPI-DSI LCD panel with
-physical dimensions of 68 mm x 122 mm, driven by an Ilitek ILI9806E
-display controller.
+Changes in v3:
+- Patches 1 & 4:
+  - Added Reviewed-by tag from Daniel Baluta.
+- Patch 5:
+  - Added imx mailing list (imx@lists.linux.dev) to MAINTAINERS entry.
+  - Moved controller activation (&lpi2c2, &mu1, &mu2, &usdhc1, &wdog3) from
+    imx93-byteengine.dtsi to imx93-bytedevkit.dts.
+  - Removed unused LVDS backlight (lcd_bl), disabled lpi2c1 node, and unused
+    LVDS pinctrl groups.
+- Patches 2 & 3:
+  - No changes.
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
----
- .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml      | 1 +
- Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
- 2 files changed, 3 insertions(+)
+Changes in v2:
+- Patch 1:
+  - Use specific panel part number (youritech,et050fw01-kt) instead of generic controller name.
+  - Elaborate commit message with vendor description, panel resolution and dimensions.
+- Patch 2:
+  - Update compatible string and function names to match youritech,et050fw01-kt.
+  - Fix commit subject formatting and commit message.
+- Patch 3:
+  - No changes.
+- Patch 4:
+  - Drop standalone SoM compatible entry from fsl.yaml (only bootable board combinations allowed).
+  - Fix typo in commit message ("byteDEVKIT carrier board").
+- Patch 5:
+  - Update panel compatible string to youritech,et050fw01-kt.
+  - Invert GT911 GPIO polarity to GPIO_ACTIVE_HIGH to fix address strapping and reset.
+  - Assign pinctrl_usb2 to reg_usb2_vbus and add vbus-supply to usbotg2.
+  - Add disable-over-current to usbotg1 and usbotg2.
+  - Move panel reset GPIO into dedicated pinctrl_panel_reset group on panel@0.
+  - Standardize Ethernet PHY node names to ethernet-phy@... and use tx-fifo-depth.
+  - Replace underscores in pinctrl node names with hyphens.
+  - Rename tca6418e node to generic gpio@34.
+  - Consolidate devkit devicetrees into single imx93-bytedevkit.dts.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-index 2080d9e0ffac..c2e442c20c0c 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-@@ -19,6 +19,7 @@ properties:
-           - densitron,dmt028vghmcmi-1d
-           - ortustech,com35h3p70ulc
-           - rocktech,rk050hr345-ct106a
-+          - youritech,et050fw01-kt
-       - const: ilitek,ili9806e
- 
-   reg:
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..ac2f54adde73 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1979,6 +1979,8 @@ patternProperties:
-     description: YSH & ATIL
-   "^yones-toptech,.*":
-     description: Yones Toptech Co., Ltd.
-+  "^youritech,.*":
-+    description: Shenzhen Youritech Co., Ltd.
-   "^youyeetoo,.*":
-     description: Hong Kong Cybodev Tech Limited (youyeetoo)
-   "^ys,.*":
--- 
-2.47.3
+Frank Obergfell (5):
+  dt-bindings: display: panel: ilitek,ili9806e: Add Youritech et050fw01-kt
+  drm/panel: ilitek-ili9806e: Add support for Youritech et050fw01-kt panel
+  arm64: dts: freescale: imx93: Add MIPI DSI controller node
+  dt-bindings: arm: fsl: Add byteENGINE i.MX93 platforms
+  arm64: dts: freescale: Add support for bytesatwork i.MX93
 
+ Documentation/devicetree/bindings/arm/fsl.yaml                |   7 +
+ .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml    |   1 +
+ Documentation/devicetree/bindings/vendor-prefixes.yaml        |   4 +
+ MAINTAINERS                                                   |   8 +
+ arch/arm64/boot/dts/freescale/Makefile                        |   1 +
+ arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts            | 415 ++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi           | 185 +++++++++
+ arch/arm64/boot/dts/freescale/imx93.dtsi                      |  34 ++
+ drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c            |   4 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c             | 158 ++++++
+ 10 files changed, 816 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
