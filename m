@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794429438;
-	b=Fnm8OsKZjmidO1Gf9L9vNpj4uNszlriyYPNBCxx1JkP0zt2HGVf+m0K5NLUcZhlpmJNm
-	 obmOVAH2un6zjcwNqMDE0VlirYx4qcJQWkyDelswHl+fmdkxcDEEBMDYBWYeOUwWsHlfZ
-	 8MBzU/Y8De+/qaBYyxyfyKw+Rtry2Aa4q4yNL/jGHmrtjhh8f4YLjL1BIYfH5HtHrCZMR
-	 J3xxPUovu6DKrRESlWv8qPIONPG30bTh9X90J6wNChjZm/uRu+x3UsKVjjsmMQzvQW4nC
-	 smrY4NuU6F31CPwXhRUH4v9IYKo13bXbPxOGH8O17obgxAeJ/D0qYG258Az6n/JNWKw==
+	t=1794429806;
+	b=On6yGLn7llKN4Fdeh+HajBYufbAwEC+YA45GeLetj4Vk2YauM9xgfNV/E26v3F4w00XM
+	 heb+0QpV2wzi1SXWkHGS5GAZwaMcUGoyoPJkYXZdaMfIcUbRdGb/PCLMc1pa6hcKF4zpR
+	 gygZGm52y4MUGsQ5c5raVybHNymkCCyiOhlkPbx8X9yW2o0b7DKYPNqdLN5ZMxpKTFItL
+	 jKas8d9tpgqojH7+wSN3j+Vj9g1i1dTRy1XxZk/b6Aic9jy8q0llwPqjx6WcqoCS3UWZp
+	 5iF8ARsgmq2aegT/W4Ib9GQso7597+WClZQOX/WKfTfydaZX4eMS6azKEdpf34sDjng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794429438;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
-	b=oxztvx1ufomh+WO1FbDYXQuZqBB9LvQwIvCJnkli7oafKRwgJbjVjttjiEamB7pGRDtT
-	 BYkJ6fIP2ShQc08kWDm6K24wBL7s4O/c7wdKAxk5CBsjVU2x9jRm3RioFASXfu3fi/YyO
-	 5PjUhdJ9b/tudwgQZcE5Q2+YZt1KjdlC0urSb+ttZv8OeTia170/DyHHz61zyIsq8pE7z
-	 R34sc2k014quU4UfoUrkaz+No2/D9WySzn84pfyh6dczBc04TAzxdpem2euAZlTUeuyru
-	 u+kOl1/ejErEnKWHnEIRn/gzpdsOjBnwT53Kbg4ZdB6mNY6w73dEviKbdcMqjfJoXSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794429806;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=YkiuKwTzFaKxocYqHbZJaiH6LJSy5oJp9dJAcEhaIF0=;
+	b=C1geta5v4tnpamtMVQEzyxHyXVJBSK1vpfgHuudaNSJgL4MTyOEP3eauDHcJ4D2k42nz
+	 W2cIDbDRWAaaQha5txn05l2WN10/QYkEaciCWhG7OZDF5TABVpyWz94IZOWGyqqT0jFLY
+	 NdBG1MTWh4Bq6znvvDzw8N4OvJgs0H+b9l16FsfpLdf2Ls1gEU9V+mHA0543UMCFgE6eh
+	 Oh25tldA3WcoSMQhz5ZsMZufyqMwH8FplMLf/rZ4ioAGyfYGlnwH07h3pmco8HzGUfKTX
+	 17295J21ZnMFEQDYpt+x6RL1B4TpoijUx9zQA2uHRAQyHdgUDmJcFzzXBtaaCVBdQAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u390TekB;
-	arc=none smtp.remote-ip=209.85.217.53
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A959A606A893
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:37:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A959A606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nwawK37F;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1982B606A326;
+	Wed, 11 Nov 2026 20:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1982B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u390TekB
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cc53938a8fso2348185137.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:37:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794429436; x=1795034236; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
-        b=u390TekBVOfsU6W92eCR8uqDX2HypR25ULdF80ML6iI5BUW33r6LwCBOmETUxO1ELg
-         AmtrPje948ANJC6h0pSNnjl//jUMc/qIU+dMU4AwjJoyHMsNf0g1/Grpt2t1aC6x2Hec
-         IN1fxq6xwQ2GSKWrvW4dVFrGkbx4nyeccEUzGdmeQUKhJFRg5LZU9jgmABBzn6+4OhWf
-         EdVV1y/OuMk7fKK8JoIlb6yUpGukWYzEFsuiM03AObf3A/0kqOKsD6mlgoC24rMz6sfw
-         YaDUUe+Zqks+JxPoFYlIrudMHJ2ZghNF/rA40HlanyZ4ewxYSq+olrGAKUsrEhr450Ke
-         +nWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794429436; x=1795034236;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
-        b=asqeSoB5qhWWrIE91INT7adgJkDOcYJ0z1b5WpPjwycIz4oC1C0MLy9uwCsBuwmeJD
-         JVN/BXsPvM7v7iURqtLcBKcgdsV0XErMpVfhnRB4fxjEOYYCwz8Mn2ExTxDLNb8KF8Jr
-         /ElJoD95VoCo2zsi92aNPqjtnqOgtBreAUhvwnd3g8Zo+YylpIWorLx5C/1C3hSVg0jO
-         2ysJdfvUnMHOJgf85FAre2e5wALgnCjHNCKeR+1c9ilY1jlhS453ccwjdJ/oYo/aFTTU
-         OsulYu9aukNu7kWuoPc1kNC9UwdjvIoRPvOif8CHlZHcfzh/J8IIv9Gv9sWQ4lsphSHw
-         fh/g==
-X-Forwarded-Encrypted: i=1; AL+hErEbabuUtFYEcIpojYY8GJvE8ARsU9meuH+FT1wAxxgZhwoP/siO3/DEb+XRggSNczvb2aQFnWOo+MpV@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CEOBEBJXF2r5PwQhpnQTLoJl7AWt+H2TOyN80cCxO2i5dmis5
-	cyfLmKM5NR/+6FyDcGn7sTN8fdhIkxyoAs5+C55A//G9mZMe7kU0LJvsh07veA==
-X-Gm-Gg: AYBFou2nqcpx7+ktSRVOwLbUzSq2eyl5GbsLZ8mXOrA6dt633jxItPN5O39fG+BMOxT
-	dr+JX7KPvPzhn8FXcjaZ9oPQZMoMLT5kxsw+VI6P1921E1hrkmwJFvYML4SYaEZfKPGgtj/eGqC
-	Zqno9Px+5RJlNxkLbPvkH/2zzbNFHd2fPEcV5aG1wtZmwWPqi0M3yRqKr2oAuwhU/I6slp+5Zvy
-	6Qko76rY88IwKCsiuxDpSn/O5H/KUYQvrvSRKRLEOD9t0pXGLl2HJ7XnHo0risjhMtNwPBA2/ze
-	80mU63SrQbUfJEwbyj9g26cruFagsw7xxqY9dbAAUHSew8W5w9hA0tQjOBZDSYaiCadglD58/zM
-	YiUVhsfBnlwQfRMb3/SYIhWbExMLBbROF85S3PkCl2F4AMgqGbKfJWLpPTyr7Gt3ma+mOqitfEc
-	MlmFo9sHVo6ObzFRtx0iiRd495BmiTtGMVORvcI/66XEdhnHrPADDSSuoDoyT+O/Ze/ftufqVKZ
-	G9kAwxMyOlYr4WbHGKY4lw5xEHPdrNiYoA8VUdbhhGILE3j2HM/x6PvuOtUtbuQUbSR4/WWx+hG
-	Lmrk2v/Ql7oEdkoqoA0qHGhCxGxc7M4oMuj5+/kjs6deNG1mzxZmtLaSoOnyLpxMp2ZBsCMs6Md
-	NGs/iM3UMLxICN4oHJd5img==
-X-Received: by 2002:a05:6102:3585:b0:7c3:2f13:d905 with SMTP id ada2fe7eead31-7d4eff7be7dmr1694934137.3.1794429436467;
-        Wed, 11 Nov 2026 12:37:16 -0800 (PST)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a803:1afe:5307:7968:510:1cbd])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d62241eca6sm1564816137.11.2026.11.11.12.37.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:37:15 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: p.zabel@pengutronix.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v3] dt-bindings: display: imx: Describe legacy display nodes
-Date: Wed, 11 Nov 2026 17:36:56 -0300
-Message-ID: <20261111203656.725823-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nwawK37F
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 41A64153B;
+	Wed, 11 Nov 2026 12:43:22 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D12223F85F;
+	Wed, 11 Nov 2026 12:43:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794429805; bh=mx3VbQ9/b7aZO8Gcx1adUQM+AmPwFj6BLz1d9u/uU8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nwawK37Fkk3B1Dd8xpjDH02kguU+B9x/ZRaD5YNvyMo74wCWalB0GpoJEeLPKJE86
+	 31HnfzhNse3dMDQrgcPdcaEiu7fOuN33UNqHb/5GPmekgyGPYeGmqNaT+5QEIdipZn
+	 FwgeBshyJewJ+AFuAZMFCFOSPHuewTnmyAlPLNyA=
+Date: Wed, 11 Nov 2026 20:43:22 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Jie Gan <jie.gan@oss.qualcomm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+Message-ID: <20261111204322.GH9176@e132581.arm.com>
+References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+ <20261110154643.GA4159803-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,113 +77,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110154643.GA4159803-robh@kernel.org>
 
-Legacy i.MX LCD display nodes have no schema, leaving their properties
-unvalidated and causing dt-core.yaml warnings for fsl,pcr on several
-i.MX25 and i.MX27 boards:
+On Tue, Nov 10, 2026 at 09:46:43AM -0600, Rob Herring wrote:
+> On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
+> > The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
+> > two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+> > forces the device onto the AMBA bus, where the driver must read the
+> > peripheral ID from the device registers during probe. On several QCOM
+> > platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+> > never probes and its trace path is unavailable.
+> 
+> But it works fine on some platforms? We have a property to override the 
+> peripheral-ID which would solve your issue. That would be much simpler 
+> and avoid the ABI break on any of the working platforms.
 
-  imx27-phytec-phycard-s-rdk.dtb: display: fsl,pcr:
-  b'\xf0\xc8\x80\x80' is not of type
-  'object', 'integer', 'array', 'boolean', 'null'
+Looking back at the earlier discussion [1], Jie in v2 already proposed
+"arm,primecell-periphid". Questions about AMBA IDs and ATID handling got
+mixed together. The series later moved towards platform-device probing,
+then became current shape.
 
-Add a display schema selected by the presence of fsl,pcr. Describe the
-panel model, framebuffer pixel depth, interface width and LCDC settings,
-and reference panel-common.yaml for common panel properties and display
-timings. Reject properties not covered by these definitions.
+Hope we make the right decision on arm,primecell-periphid this time.
 
-Keep the LCD controller schema limited to controller properties.
+Anyway, I'd like to apologise to Jie for all the back and forth.
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-Changes since v2:
-- Add a separate display-node schema selected by the presence of fsl,pcr. (Rob)
-- Describe model, bits-per-pixel, bus-width and fsl,aus-mode, and reference panel-common.yaml.
-- Reject unknown display properties with unevaluatedProperties: false.
+Thanks,
+Leo
 
- .../display/imx/fsl,imx-fb-display.yaml       | 73 +++++++++++++++++++
- 1 file changed, 73 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-new file mode 100644
-index 000000000000..72e567b9ed98
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/imx/fsl,imx-fb-display.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Freescale i.MX framebuffer display
-+
-+maintainers:
-+  - Fabio Estevam <festevam@gmail.com>
-+
-+description:
-+  Legacy display nodes referenced by the display property of the i.MX
-+  LCD controller describe the panel and its interface configuration.
-+
-+select:
-+  required:
-+    - fsl,pcr
-+
-+allOf:
-+  - $ref: /schemas/display/panel/panel-common.yaml#
-+
-+properties:
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Display panel model name.
-+
-+  bits-per-pixel:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of bits per pixel in the framebuffer.
-+
-+  bus-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of data lines connected to the panel.
-+
-+  fsl,pcr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: LCDC Panel Configuration Register value.
-+
-+  fsl,aus-mode:
-+    type: boolean
-+    description: Enable AUS mode on i.MX21 and later LCD controllers.
-+
-+required:
-+  - bits-per-pixel
-+  - display-timings
-+  - fsl,pcr
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    display {
-+        model = "Primeview-PD050VL1";
-+        bits-per-pixel = <16>;
-+        fsl,pcr = <0xf0c88080>;
-+
-+        display-timings {
-+            native-mode = <&timing0>;
-+
-+            timing0: timing0 {
-+                hactive = <640>;
-+                vactive = <480>;
-+                hback-porch = <112>;
-+                hfront-porch = <36>;
-+                hsync-len = <32>;
-+                vback-porch = <33>;
-+                vfront-porch = <33>;
-+                vsync-len = <2>;
-+                clock-frequency = <25000000>;
-+            };
-+        };
-+    };
--- 
-2.43.0
-
+[1] https://lore.kernel.org/linux-arm-kernel/9432df20-08bf-4134-b4b9-e6b5d618af81@oss.qualcomm.com/
