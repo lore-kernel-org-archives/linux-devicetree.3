@@ -1,47 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392895;
-	b=Ld/5k3T7sSlx2h7DWpOeeHHBgPKi7sO6zhTwlz+ERnluXaIj1QrrkFa4qrnebJxJNIOp
-	 6YUdBo4gALtEl48ko1MtQEiTIItJ/QxqRHP4asQkPSJfN2qMTvPt6MbhdUmuwpBISrRXP
-	 6C2tHPkhCoTn36RS3iuC71SXAtGn7Sgddn1yMZJSqInTaRv1tygy/YzAmOQbbPc+O3RTS
-	 zHhZH4WI8ZCyOMXSc20HJsXg+H/aKAiE58BrCzBq1bCuG6gYk0zvQESRSnbAYcmYKl4vo
-	 rI2ClYvtnyJpj6lZgtcrIiZe4E/4uGe8en37JwgwzbBdfDBTtLoakkOJAabdFsXBL5Q==
+	t=1794392921;
+	b=llHA8zuROzCCxIss+J1eWsfI8KwswIxsBBBbCRNKv37e6/ylwkAw4O6utA7yuDB5YU7a
+	 tbjn4R6wm0PcPf5zcs0buGQ/9UnlCS7t5HzPobxz8nw2gtma2gesD0x7Vrw1Qo4AcqKlj
+	 yaZJK5A5N3cnojopXQj4ErF/6UUrYYIJ+Wt6XsQvRD1uenuQNRlnBsWnfXk4seVf7yl1x
+	 NNmHoCCECIB6ldBPPwMn/J7+74LrENNgvI6dUkFnRnWTNg4j9NmgB42W5px1S6FS+q09r
+	 /Z6zIbcJ21otbVwtHeJFX7NJo3PcXr3UZ3YXA6u0Q9uI0vUqFjtgxyWthQxQjtfROaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392895;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pffzYjLc24zLkwM750JTE8R2tBDNVqjTU9V9Vefp1ME=;
-	b=MBd76xcBleyjW6Nan58+J3Js/9P7HFu9wvqZsyj2JjN7+C6hS2h18Q8r3Yc25WN1GpXK
-	 gDP+zLBhb5f9kvN7KQIyPsC/vTXAL5garDsWaVYsv/zBSrZ49zu7n+GvQ7trm7MwhF5QT
-	 vUtd398wXnOOvoEhcaOHALa+fPu718Vhqwn4+52cMjgyjtAmTDm5D7y3VUyFyX+Hp3nz+
-	 zEjUpekXr2MdFAsK63pv10pl4QGfpIJ9J6FxQkFYjKYMh2xbZYB1YQrKHF/fpBiM1t1tP
-	 2eOGSItYrFtFzib0z9z580tnbiWkb2kAr8pbosoSb4SdqlPJS26msW2ac8MtWheMQ5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392921;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
+	b=Vbfe+bHvvNdwunDODgeT+VrMtprk0k352IrgZtA5N6WOs3jJVr/z0I4NsxKlAOPIJw0h
+	 B5sP1+Vfq/wOF2BbCwQV3EHwzRHUYZSSI739iurBoeLQhtOLrnjZeKzLVzIj3iNBBaxmH
+	 +ZA7CaB0Le6NkQgn3wOyFr0chXBiCgjW03P1EOg7PG+iBpZwYzqM5YmSETn5AGjieQ92C
+	 I3hI40NHYQfD8ohlwvOBdQq4mKNrfvLhFmKw1D9H02kaPSd6F7pZop9bxBL0ZczpXS86Y
+	 ePKRbpDmlQShQcREgznLmVx/qBysDaQIgkZGeCwAn3qqdEaz+ugySioJM9So0qcJrQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZeAi18VV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWDbBcPl;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCE0606A89A;
-	Wed, 11 Nov 2026 10:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF7F606A33D
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF7F606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZeAi18VV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5CC1F00A05;
-	Wed, 11 Nov 2026 10:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794392895;
-	bh=pffzYjLc24zLkwM750JTE8R2tBDNVqjTU9V9Vefp1ME=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZeAi18VVLJ89QheHEsiQjTnP8iCg6V2rf6LvWg5a0h7xltizH6zWe5sg86ldUby96
-	 dIA+Ygwf4Ik4Uj9AGqGdIivaJ4KZeaFIZ6XOt48WTXojFL6vkpJMCJExDlp/IoAMpK
-	 E6V0u9tUsJGDBJWo4xyZvsXHb3SZ2wXLE9DyxW10QTozVGGsIKFk/kzmoU/5k0dEHo
-	 nnV7kUpe9qLry6Wo1759xeBLlT86qbm2X+nOBHXp6XFRLJrqCa1K7grlJeughGRBic
-	 YVReqvSAOf4ENAQRqy3fRFh3C0e8um2R/Md4BjL5NTpJii+DJVUFb3I+v/6cC5iOkL
-	 ZforpNeZjRvPA==
-Message-ID: <5398114b-538c-4e7a-9b36-35029f301630@kernel.org>
-Date: Wed, 11 Nov 2026 11:28:06 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWDbBcPl
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-498f5fa5103so801202f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 02:28:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794392918; x=1794997718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
+        b=zWDbBcPlqS1AC19c/HKVJJivTF+W3QDFDNQtIKOvb3hEChlZ4gd3uHJGRCqzbATgi+
+         4WA95HRAW2CM31vuAQddh7JXzptPeou2EnYnKEFZGeKj3eOKR3tQjEXWHFnPKbtomdzT
+         qYebL4M08+kzm+fecTEfuUPhgT3cf2mQl38aA0zBrA/RVjVllPMR7+CI+ypkaVRyCVHv
+         JyASfAk8iIqtIvzNX4yFl994GJnBbETlTTUETK2oIjy7wEOHZ2MHdtCi1gKcVIEdxh/5
+         IXw9112LmYt355Rq2qfFzl+8sFHcxLKC9TnUDf617SM9jDHfoqgOW4LLz/zDpS2v6VsY
+         vYrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392918; x=1794997718;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
+        b=2O7EYFYyajWaZyBFhFRz6pmO0BOKRMLFsdHnGUd/ed/u4CCqBu/QlTZr2lfF3ja0zj
+         faYuy0mg0TtjkEEV/3rQR8aFx0O2le+VHryUcQ+0XoFFVwJzWRDu/TAJIC1Yfq6KcCbr
+         01qqzeh1gTguex8O1FS+JBZGCe02KEwnYp8/N4tpP0c93pmiGB0tTuTfhb0ZJgiozuk7
+         m86TB2c8MPBS4w6vduN3NrMRXmOCKfaux2R9oq7IEuDl8iXI0lnuLFTEW0wp5nSj7cu6
+         njFD+LvBRcJF+UKxJ+cyauRGrVBs9ZJmHydteJg9I5e0kcQ5/IevnngKnFHLAj/oXfp6
+         ER6Q==
+X-Forwarded-Encrypted: i=1; AL+hErEkFCp9IpsXQZY+QHzILyO8aeqMmWP1f7xKaASMAqPWmo5N7sUTF+pSsGcMBGINBoxeIrFA6sy8aq3b@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qWlpvxvdrEnXWN2a7/BbuwfPtRjYrZvviHiQlynD5Wb+6q/n/
+	t5torRKjoYh+kdlVe3XYr3vO47rnec16kwJAppNVmrKCUX6o1BF193PQ
+X-Gm-Gg: AYBFou1tUhR9MGvmCsSFIENI8Lu7bpUgFKM8/0D3ukq6d1MWNobi6NVrMzrGphWguvI
+	pvAZ5pcAFHF2jgb5HIknwgmjbhz44zJOqB8L8sQyds8hOUF4R5smZuNt7s3xWL2i21wKBQxDxbW
+	2dI7A8neUmlY/6LC5XkIZRoOcRFrYxb5olfrX9qgH5Ff245Bq79Dj/F9dLCC6BuuuC/04p5p0zB
+	NckzxepVH/YJSakc1cmhQs1fneAJgrz3cME78Uzi6e4pY8QveRbabiTgEdZ02GByELn1smrxIl2
+	GI3Y015rLoQ8G3Dvgr5EWpQhtBYo0piCNpZya+b/wrGCOrzWwdyUtHIOQRdX5xeWoIroSmkdphq
+	0GIXq5gnkjfIxc1He3Db0V/a2+b2f8lkPeH+YAVvY4qogAxQkXOE6Gp4fSS9+DbfNuUA/WL2sJg
+	bTv/x2Ylwx4rMqSM/t+lARTQPYBEKbZ5fJdEzDYvwrobXYV4InfliOZ78K/tGTJ8F/guu8olRja
+	IacgnwbiRmMnLpA7Cl8omH41BZZxxJ0FkzKkFhNlYPHhE630P5r0tMudAbtlEJzQAOCejhy4LdJ
+	FS6JRHzNMyGaJJxLqrRtQiMXHhe2e9A5XAFSGCXfsnNGV8sPqMAKFYXlV3/Ktj8LKA==
+X-Received: by 2002:a5d:5f47:0:b0:48d:ef7a:e59f with SMTP id ffacd0b85a97d-499c75528cdmr3034821f8f.17.1794392918442;
+        Wed, 11 Nov 2026 02:28:38 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f674fsm10337668f8f.33.2026.11.11.02.28.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:28:37 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:28:36 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Joe Perches <joe@perches.com>, Alejandro Colomar <alx@kernel.org>,
+ linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, Andy
+ Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel
+ Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees
+ Cook <kees@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
+ Torvalds <torvalds@linux-foundation.org>, Linus Walleij
+ <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
+Message-ID: <20261111102836.759ec121@pumpkin>
+In-Reply-To: <avOn57pfHntiwcaD@devuan>
+References: <cover.1794323750.git.alx@kernel.org>
+	<35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+	<64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
+	<avOn57pfHntiwcaD@devuan>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,110 +118,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488: make
- the port optional
-To: Icenowy Zheng <uwu@icenowy.me>,
- Romain TISSERAND <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
- <20261109160706.2272332-2-romain.tisserand@gmail.com>
- <20261110-comical-adder-from-saturn-8c8fbb@quoll>
- <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 11:26, Icenowy Zheng wrote:
-> 在 2026-11-10二的 13:00 +0100，Krzysztof Kozlowski写道：
->> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
->>> The panel is a MIPI-DSI peripheral, a child node of its DSI host,
->>> and the
->>> driver does not use a graph port. A port is only needed when the
->>> host
->>> links its panel through the graph; other DSI hosts, such as the
->>> Allwinner
->>> sun6i-a31-mipi-dsi one, link the child node and have no output port
->>> to
->>> point at. The PinePhone panel is described that way on the same
->>> host,
->>> without a port.
->>>
->>> Keep the port allowed (panel-common) but no longer required, as for
->>> other
->>> DSI panels such as ilitek,ili9881c.
->>
->> ilitek,ili7807s and a few others have the same and it is confusing.
->> The
->> port should be required when this is connected over SPI or I2C, but
->> not
->> for MIPI DSI. I think that for MIPI DSI port is meaningless so
->> actually
->> incorrect.
+On Wed, 11 Nov 2026 00:27:28 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+
+> Hi Joe,
 > 
-> I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
-> dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
-> even if it's the child node of the DSI controller.
+> > Date: 2026-11-10 08:32:41-0800
+> > From: Joe Perches <joe@perches.com>
+> >
+> > On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
+> > 
+> > no commit description on proposed patch  
 > 
-> Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
-> pro.dts .
+> There isn't much to say, but I'll add something (the explanation of why
+> the parentheses are needed around the function name, for example).
+> 
+> > > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > > ---
+> > >  include/linux/string.h | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/include/linux/string.h b/include/linux/string.h
+> > > index 9e59f9697c9e..55ca4cb5122c 100644
+> > > --- a/include/linux/string.h
+> > > +++ b/include/linux/string.h
+> > > @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, const void *src, size_t count,
+> > >   * *  @s+strlen(@prefix) if @s starts with @prefix
+> > >   * *  NULL if @s does not start with @prefix
+> > >   */
+> > > -static inline char *strprefix(const char *s, const char *prefix)
+> > > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
+> > > +
+> > > +static inline char *(strprefix)(const char *s, const char *prefix)  
+> > 
+> > Why introduce a new coding style?  
+> 
+> It's not style; the parentheses are technically needed to avoid macro
+> expansion, since the macro has the same name as the function.
+> 
+> Alternatively, I could rename the function to __strprefix().
+
+Or put the #define after the function definition.
+
+David
+
+> 
+> 
+> Have a lovely night!
+> Alex
 > 
 
-Yes, the same for Qualcomm. So I actually wonder who needs the change here.
-
-Best regards,
-Krzysztof
