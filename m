@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.132
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794393602;
-	b=toX55UjfDMr/TzO8I6Jr+04gnZeXD86HDDPE67FkmuPv2YiOedbexGfpsOpl7r8NSvdj
-	 VLHJoW0cbSni5Xj06dtJsOR63sApOmyYFHtrwOXTYqbhwCIMDK9EOe87M98oDkB0mCurx
-	 ruyiC3aARkE9l/lCT9EL0NqzWYvwY7IJegf4lN8DvM7YCaKQQsvxLt302eq3uOlzjcmyY
-	 QtjYZsMXFqv5sWL1UdtJDG5PNJN1hr/wwRxQrAcMC42Kwpi3pPgYz+6pv9rm9sOp2oL7D
-	 AQdbNp2ERhvcjS3QX70LEYqKxKNS7qoGU0vakL7Uq/1dU2mgyfLCTxS5kQ3Xd8WdT7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393602;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5dU63iyK2TdlVk8neNqkJILw/3rQx/WMk4I9zLgIavw=;
-	b=giDpZT0VV7k1rd4Xo8EmdlGh2IoFiKZmOdvvMWkVZsK5MMLsZcY4FoW7jllUWH4gqOLN
-	 z2U1T5jAHb8lRXXPq3SsZ9dPfBzn7SajNbGbhsScjEk2ImQyBdq4qTkRwAQHOAh4ldEQQ
-	 iCrz9KqGC0dHqtHt1gR40ZyUv+YHdGeQpf1BHX//3ZD38kHb/MB6/+jCrLODN1GyN61wx
-	 /bPbd0/U/mzzAI2/M+4R99qXpyfl8ws09Q+SbRNPn5IvOVzwEr+TXo24k8wWR6qRmE8IG
-	 c8Z7OwYiGPpiRw1Bgd8ts7DI5K/844I5qYjuB2i578e/vjWbc2xKC8KBeWXSfRpmKoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.132
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023132.outbound.protection.outlook.com [52.101.127.132])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794393696;
+	b=yhJ53BZ8l9bCU6v/NTOhUNOy4BmFK58C/X9tRmNfvxSmxkE3iYN5rtC26aMbwgIf8ifA
+	 eOP3dz/TW3aZIJnx7xC0c2NJuEfEOFYtFwWgXbZRmozDn/9juJPrHjfb2sIw80QlVlqUh
+	 6eX3Jb3Q/o7zqih31NT3MlFEd8IYYRHWXXsf5CAZqDPTX6XSaUVHffangWFP6nsGVHd8l
+	 XCU5rRXTvjtR9Qhp1SLlVTV8gxSAafXZvbBYtmoBmH/AICvpyrf1D//cAiZHzPKxDR3St
+	 KuygQE1W4v4LLcQWsY7zHEfFB+6KmwiVGvh9vD1rTk/toE2f5Qp6gR0d1GN2UQ0Tm7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393696;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3cM1z8a0X6nc9PgiDAOqA50i4AQh48fjeYUT7jpup6c=;
+	b=M//f172/wNRgJrzvQCIN9vTwiVrTMKNhX65VE0UdTY9ADdot7znO2W4O5AIx0wlOqakg
+	 ucevA6HEVNcLt6MFyOUR5ZZyrNTiU4YRI/MVJx5I0P/Jjtgp/HTbZqPfk4nYZhoP7Hq14
+	 yo13CAuOtVQibK5ezApPvYewB/HatjDs10TZrj1SH4uP0BpyDGf03dGLi6HMjJVpS+8GC
+	 vZPa9s1fdFecHChTJSjpC44JQtfvVuvWS4wwF332ftldq7n91iCmJu+/9R20PYCsKClQF
+	 yknb8RFcFVThDO4ne/RMQJeJQVtj5ybbxLODqlsqu2zusEpBm5yoQ+RTovl0eU96b6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGZtQkxk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD75606A321;
-	Wed, 11 Nov 2026 10:40:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCD75606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPIy8Q3iVrImABOuZZF695GXPDxwjhglQGpSr7OvKg48PMPRgN41XLw8ze9Ki517N0LAS8E7aOuY5umx3s4RecTTWqMURyibP3wUP5tNRTNgrXSHDJz/y5fuFpn1fRg7wgzpXwUFVv/J/fE5k1DaIQpIzr54pAf5BVTNglyooXwxUqJXn++nG9prOu4vsztt7HGQ5RqeviooBL329t+y2BliarbfHOS8ZBOtcPKwA8EIYAIVazcxSF0q3uMo4FG3z/GaZE8zFEnZgbpkYzfseECpnI9Yl9ePD7NMNfq9vvxvAKYp+uqax+76Z2lAHOnRz3AivhWR56idOxbErNu9Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5dU63iyK2TdlVk8neNqkJILw/3rQx/WMk4I9zLgIavw=;
- b=KlgAzMSQc1T0cSMr5gTc7ayB2fMJnNh/M5YdX7WduxI03ichGUCKnyC298/nQLfWL5BzJDrIYCrNFHouagqmMJSuO1nln/b8S9N7+ghrLTnLEwUfqE8nL+0/A3JjZ83fWSZOzP4t1lLxBzUBS30yULUvwps54X1/2tlfMslBBFt5ZQ53X2h197d8JlFr/0u33eiPZ5uS6tMCBafwjWmHXr5/xNlYl7qAYjShOGu3KhhxS0M47RWTDHv98n7dZqEoGZ+USrRksVN03MEaZKR846U8KPPeOxo6aKH8G7ltGSY7V5kgvpm2LSwY+jz3GeNW3Chzm6QnwVmPEMDHsR/lGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR04CA0003.apcprd04.prod.outlook.com (2603:1096:4:197::23)
- by JH0PR06MB7295.apcprd06.prod.outlook.com (2603:1096:990:a9::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Wed, 11 Nov
- 2026 10:39:57 +0000
-Received: from SG2PEPF000B66CE.apcprd03.prod.outlook.com
- (2603:1096:4:197:cafe::30) by SI2PR04CA0003.outlook.office365.com
- (2603:1096:4:197::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 10:39:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CE.mail.protection.outlook.com (10.167.240.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 10:39:56 +0000
-Received: from cix (unknown [172.18.64.61])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 239674102E74;
-	Wed, 11 Nov 2026 18:39:55 +0800 (CST)
-From: joakim.zhang@cixtech.com
-To: tiwai@suse.de,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: cix-kernel-upstream@cixtech.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: [PATCH] ALSA: hda: dt-bindings: cix: add hda dma memory-region
-Date: Wed, 11 Nov 2026 18:39:24 +0800
-Message-ID: <20261111103924.3395516-1-joakim.zhang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22772606A321;
+	Wed, 11 Nov 2026 10:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGZtQkxk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0981F00A05;
+	Wed, 11 Nov 2026 10:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794393695;
+	bh=3cM1z8a0X6nc9PgiDAOqA50i4AQh48fjeYUT7jpup6c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OGZtQkxkSA2kXBbABgd2IJUW7BUgrL2BVDJUBHI9aIJa+n6/99feZ4jFeHtBA0PXh
+	 hWdYiW1VxCD0mECkAH48DJ85fdEtvaMKTRp8xfYeTb3HUt3zTpi/JIb3IAfBwLgNgG
+	 x3PFYB3Iqm6rm7RkC0Bx61wBVm/amVU8wo/d/SOruSJOAqYnnDrjMlbB9ivv0ZMaZH
+	 frpWb09taBzdSyU4266vPthsBZ21plgVW87b2wy3WLdvulQnHydUCCNS3zp8okSFI9
+	 o2WJA7W/C2oVmH9XNnKjy9iaZXTP1sMqsRrb5hE3Sc5slEpYVLiM0hu7KlX1dnFFQb
+	 /AK1rO0pZCQhA==
+Message-ID: <05a92dfc-c74f-46a3-ba44-60f7ef1c1a54@kernel.org>
+Date: Wed, 11 Nov 2026 11:41:28 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,73 +51,138 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CE:EE_|JH0PR06MB7295:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 5d0a490e-7db4-4882-475d-08df3fe0210f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|7416014|23010399003|1800799024|82310400026|10067099003|261026121527099003|261026140227099003|56012099006|261102123227099003|261022113327099003|261009223027099003|261022075727099003|261021123027099003|261028144727099003|261022105027099003|261021121427099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	iy5/a4pXvnjUB1h89oNS1nDoawaOVoDjFCkZhdbONY9eTo2Hk3JH9pvGjpTWUOPRqPtxCrXl7M+XglbIhFCEt3ZfK4PqbJXLBHczRDEqrYc0gWEhLzVS1Hd/C3Y2vHR1nzJ5RM9nBzTYaNGhddXFb3a6v0tmfKt3Gy5+ZEsTFplwvJbxdQ4eoyB4QPWGT1YxQZgZ+7+MJnGoq3/50nwV63+aTa0JvSTRB0E2HYwYRKF6AWwS1Go+uxW/MmOonM81Z5Ka7IpVTcz7hlY7f5+/nluJAA7ZdDHpX8FFHp0qnR+Mf/yb+LMZyjnz4fIGqqhBM7Kkub0PRajyolDAN0+s6cVteudhqDr5vaSjE2KWyh0MJf2mMPrTEBMgA1p6gqO88raIXfvHRssZx4FMxTeVti60mrgVumqFwdYCUuWtSk3hkMmGcB2XmWXgPOnkea2h3x1jVOBEyANRkPAbznLg1ELo1jVU8Q0B+VY3EWm1j7wK99tNv77zvDc+IFU9/blSmv3UxBO2RhTCEb55XBC9mm/otRgDmDmV+AiXcEdtXLwDdWJKOJUZePw/3zUGZDO0dl25i8vOvH6zw0cN9o2jBOO4UdLoolSbzpS+XRwCsX4jMkSzQOIHJFQymPhn15qN+fVDwUS+L1Wtv+Q9oAdoRC4FN8qm/Yu6euAIIMsNySWlLAOA30Hty2sWHn4kQIUv5XBSgzdgbEs2BGrPz2ZY1w==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(7416014)(23010399003)(1800799024)(82310400026)(10067099003)(261026121527099003)(261026140227099003)(56012099006)(261102123227099003)(261022113327099003)(261009223027099003)(261022075727099003)(261021123027099003)(261028144727099003)(261022105027099003)(261021121427099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	v57NzvjQwG7RygBZ67M3639krswWEvkHKdwcBKyzYtm9f0OKR/JmD92KeRQfQzt4ozhpozR9fLWj1pI24S5c+mnIrRAxoLtBjWR38qUl8ZkpU61G34n9osRAEIbwRBgIAceBMYtK0c2iGr1chl85Vp9rz/hAHjtJm0jXYED42lESl0f7Rjelwg7v1KhdPwNI0bpA5MzBnZcM/i+XXvXuDI/mv6mRutukVOt+gxW1x2Bgbx+RhQ7taMOtWNMfw67pK/PZVUDx6ESzLXRJNhZYVMfrc/xxRBQnG8ANAgG1e7vhaTlOw/Kd0RJWIRjEsrK5IAPu4pXUeHHzJ+JhFundknP/8egsYVn1dpwwrKOLfAjdkLjBRUoc//dDpF+Yma/nN6mkv+TxV1gQ2gJC6VB8RbImG49JgRk6+c4iYP6ztvcFA+71Zv5UG3LN/nFLgU7+
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:39:56.7881
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d0a490e-7db4-4882-475d-08df3fe0210f
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CE.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB7295
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/28] dt-bindings: gpu: mali-gen5-am: Add Mali 5th-Gen
+ AM schema
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-9-karunika.choo@arm.com>
+ <20261111-accelerated-pretty-spoonbill-0afdcc@quoll>
+ <3a63f0dc-9939-4c9f-8050-303cdcaad2d5@arm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <3a63f0dc-9939-4c9f-8050-303cdcaad2d5@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Joakim Zhang <joakim.zhang@cixtech.com>
+On 11/11/2026 11:32, Karunika Choo wrote:
+> On 11/11/2026 08:33, Krzysztof Kozlowski wrote:
+>> On Tue, Nov 10, 2026 at 03:38:29PM +0000, Karunika Choo wrote:
+>>> Add a separate device-tree schema for Mali 5th-Gen AM GPUs.
+>>>
+>>> AM_GOVERNOR controls GPU frequency. The GPU node does not accept OPP,
+>>> cooling or GPU supply properties.
+>>>
+>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>> ---
+>>> v2:
+>>> - Move arm,mali-gen5-am support from arm,mali-valhall-csf.yaml to a
+>>>   separate arm,mali-gen5-am.yaml schema.
+>>> - Move the AM GPU example to the new schema and add the interrupt
+>>>   binding headers.
+>>> - Add the new schema to the Panthor MAINTAINERS entry.
+>>>
+>>>  .../bindings/gpu/arm,mali-gen5-am.yaml        | 90 +++++++++++++++++++
+>>>  MAINTAINERS                                   |  1 +
+>>>  2 files changed, 91 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+>>> new file mode 100644
+>>> index 0000000000000..6349888e1ae2a
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+>>> @@ -0,0 +1,90 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: ARM Mali 5th Gen AM GPU
+>>> +
+>>> +maintainers:
+>>> +  - Liviu Dudau <liviu.dudau@arm.com>
+>>> +  - Boris Brezillon <boris.brezillon@collabora.com>
+>>> +
+>>> +properties:
+>>> +  $nodename:
+>>> +    pattern: '^gpu@[a-f0-9]+$'
+>>
+>> Same comments as last time.
+> 
+> Sorry, do you mean that 'gpu' not generic enough?
 
-Document the reserved memory region used for IPBLOQ HDA DMA buffers,
-since the memory accessed by HDA DMA has certain limitations.
+I asked to drop the node name completely.
 
-The property is optional: the controller driver falls back to system
-memory when it is absent, but the limited region should be used when
-the platform provides one.
+> 
+>>> +
+>>> +  compatible:
+>>> +    const: arm,mali-gen5-am
+>>
+>> Same comments as last time. Seems like you just ignore review, so I will
+>> finish here.
+>>
+> 
+> Hi, we are trying to provide initial support for v15. The vendor 
+> identifiers will be added once there is an available device.
+> 
 
-Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
----
- .../devicetree/bindings/sound/cix,sky1-ipbloq-hda.yaml    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+So how can this initial support be run? Which board has it? I received
+only three patches of entire thread, but if there was DTS I would be
+cc-ed. I can't find such patch.
 
-diff --git a/Documentation/devicetree/bindings/sound/cix,sky1-ipbloq-hda.yaml b/Documentation/devicetree/bindings/sound/cix,sky1-ipbloq-hda.yaml
-index 02ac5f1aa926..045e1a517f6f 100644
---- a/Documentation/devicetree/bindings/sound/cix,sky1-ipbloq-hda.yaml
-+++ b/Documentation/devicetree/bindings/sound/cix,sky1-ipbloq-hda.yaml
-@@ -36,6 +36,13 @@ properties:
-   resets:
-     maxItems: 1
- 
-+  memory-region:
-+    maxItems: 1
-+    description: |
-+      Reserved memory region used for HDA DMA buffers. The property is
-+      optional; the controller driver falls back to system memory when
-+      it is absent.
-+
- required:
-   - compatible
-   - reg
-@@ -59,4 +66,5 @@ examples:
-         clock-names = "ipg", "per";
-         resets = <&audss_rst 14>;
-         model = "CIX SKY1 EVB HDA";
-+        memory-region = <&audio_alsa_hda>;
-     };
--- 
-2.50.1
-
+Best regards,
+Krzysztof
