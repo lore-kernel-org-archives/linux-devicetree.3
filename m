@@ -1,68 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392097;
-	b=F6cG2cBNvAPYXbTarcUe/qazOH/MH63CejbkQm0oUb0h7A6ijYPkQRa4TJCr1e62UFZP
-	 sn6bRBqA6Bac8Je1bZsUOir5bBEyuWWwUIkHcPp/g/gBFmZdZj3UwWWMAL+zPCPYLfEv9
-	 WrBmAh8T3VNaRkr8dKYpEXFfKJuJO+eOecUd878lxzYuVWndPKNN39gYX9UvgI4tlHYcv
-	 yMg/SgLvo8XVuix6rngDObSo4jeJ0kzmb0EUS50J0Ds59lMU5EJxY1ev7V1sPvnIDCWtm
-	 zYyZojSeP0XdGkkt9bby9fu3l2sadS/c2QV29aBS2swj3gDakD+4LCzlqvl1jwpg61A==
+	t=1794392232;
+	b=pRIIvaNzJg357SHNwt6KGHOzKn1PWX8QtaxCIanTwYSjkeZa0epp1IPrTUuzrp8PEMUj
+	 YBhIINCNzRoU/SdNlyHnJOO4MpdqchhP78ld18J+xC+qUXCU4CxI9CWV0wZcCdFMg7PNr
+	 ypJ6yl4oRf4+aScc7PSVxHoRA24I1Xq9i/bcAZ9CmJMSOvchrQnpB9s8Xl9oTrgpkRynC
+	 PSkgaZwLRrPHuRDv4bbz/eYVT20ksJiBJ/xs18ZnyNoKxL8tusV+Ozj7deEBhDmdexPTV
+	 8VYlsmtc/wAE2qnlOlM69szazICGpDHrNwE/sgvMZGR72rwE/SLPSM598saCjX39FDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392097;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lp+t3hRjxL5IFyviaZjgCI7gTo2Zcgy+Stw2L1SIlYc=;
-	b=05R9nIoxHyiYyG2VXiOr8vasPZ5imHlL5614bJUDOAX/fj71k/XoE5oAWeP7wjYmTBIr
-	 aIJDLWsWBui3TGercAg9TNeAjVpC05UmO+QnTVHplSxn00u4Z24wvfuEtYMWv3bHukHGx
-	 deKJPhNrypamPT9UZqupgz4CEck2QblpG3Ljrr7Q82+4OcSZcJQwROTA4rTL6/ofu0mm6
-	 GWw6Kix8zgn4nXQ3wsD+7M5TrEcpbMbhJMO81myZcGCt2HMZmo1BFbFgBa98BmhtxjpGi
-	 2wD63amjs5J3i7jZ6xOYPn/b7XQlcDOnCHZWrZFS+z6kyJGGXpcpDEohnsVB/cn+BNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392232;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=N/X7j8m9JuRsdMto75QMtxa5SQ+n1wl38wZeDHSpd9Q=;
+	b=hhGByWhLhWihCUWBb29yZ7vReOdfGx3vFUh1+/gERvoEWh2gtxwWAQSmDNSq/mp1PBS6
+	 xQHnCl3+iIjB8D46DuG85n9v4vmYJ/XBHE1P8Ma7s5ollxZLeS7rWluFubDhPzfd0qTH5
+	 LpDR1Bl1YCgLm6nmFvG9Bs/QFjTZzxRWKXVj+In93+uOqWvDM1OHZovq/5IMgTg7yZX/k
+	 F3suRGjHzZpJ6kwbDlqbwhB5kFoyCk6DBSmkNi96QN043SUIYfM4yx3hssPQPwCrtgudD
+	 WUWNKlDQ/cUKxgP5xJ96LVU/Avzf5MWIGOf1lXovPpcw8GdUr7xiHeQAT+dOq2trvzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=W3eeflAR;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hm9lgrJn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C7F606A337
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5C7F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D41B606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=W3eeflAR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=lp+t
-	3hRjxL5IFyviaZjgCI7gTo2Zcgy+Stw2L1SIlYc=; b=W3eeflARskWQiVTIXBlj
-	28P69SPEnCj5IW0/mTi68CZanbLA6BWZU9u8x6veYMkwvNglY213Ub6N5LWthoPM
-	Ka/T+TUU5e/xq0gj/KYkSdo3fx1rwiuPm9S/TmzcBUDqonliVVTkelowKKsXUmpc
-	uDmTKAJnv616MP2/YeTT7OutnKjw9iWiA4lPI8AXzlkUfiA7xvemItsnYnef/q9a
-	vAZ2XGOA/g+WyknOkdv0B9tIMRZPOZyhlKkE0lxx/JIzJq+5nikrT7aG+JMbUCJi
-	BXHGmkD421FGmDOp0QM141NXGGvKqYkDhIvAi8+f/lzv0vkkV3zWEVfw0TXyPSB8
-	Ig==
-Received: (qmail 565967 invoked from network); 11 Nov 2026 11:14:54 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:14:54 +0100
-X-UD-Smtp-Session: l3s3148p1@FdJdd/1fDrQujnun
-Date: Wed, 11 Nov 2026 11:14:54 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hm9lgrJn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2941F00A05;
+	Wed, 11 Nov 2026 10:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794392231;
+	bh=N/X7j8m9JuRsdMto75QMtxa5SQ+n1wl38wZeDHSpd9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hm9lgrJnhDRUGoFi9cz6Cs7YbLNl3qS4sjTyjUUCdfvvtot7z0DKZlJA0KH6vBLsk
+	 FqFBhbXAMC6cefKkcP8uLtPIMle6wwHLxz1dTEps3g2F+yDKxhTWTCgTI461h0SSOv
+	 jx5cYWvaP/uwOaAOkofdOUfvrq4bRS5XF6nqMSRId6NKR4PRfr5+VUEeO+YeETtv/N
+	 01gnvNodReMLV3vyUf9NJiCMNTW+M29gGH2uIjoS5Sjabb+onrLnvbiJf+PcXAWGeD
+	 1PguTNHVD1CWUPFu6zig0vbBoMUCz47mXpNfzMzxQ+koodD/F1uvpG1ViicxafInyK
+	 hqhc5GuU3qh0g==
+Date: Wed, 11 Nov 2026 10:17:05 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, junhui.liu@pigmoral.tech,
+	aleksa.paunovic@htecgroup.com, chen.wang@linux.dev, dlan@kernel.org,
+	guoren@kernel.org, Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 06/11] mmc: renesas_sdhi: Make clock divider mask
- configurable
-Message-ID: <avRAHpFcXIAStJpE@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-6-57f16691c2ed@bp.renesas.com>
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@kernel.org>,
+	Drew Fustini <fustini@kernel.org>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer
+ bindings
+Message-ID: <20261111-paralyze-ellipse-dfc194dbe39f@spud>
+References: <20261109051050.105623-1-joel@jms.id.au>
+ <20261109051050.105623-5-joel@jms.id.au>
+ <20261109-jester-zestfully-a664203cfbd1@spud>
+ <CACPK8XcnPb9oMQq4YpNFG+RznroP-647E-_O5j84OW_YQ7P=9Q@mail.gmail.com>
+ <avQFhoMuUGhASMla@inochi.infowork>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,49 +73,208 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YRG0+FJlDArByPdA"
+	protocol="application/pgp-signature"; boundary="Sue3xVkYI4vJFlWk"
 Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-6-57f16691c2ed@bp.renesas.com>
+In-Reply-To: <avQFhoMuUGhASMla@inochi.infowork>
 
---YRG0+FJlDArByPdA
+--Sue3xVkYI4vJFlWk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 12:51:23PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Add a clk_div_mask field to renesas_sdhi_of_data and tmio_mmc_data
-> so each SoC can specify its own divider mask instead of the
-> hardcoded CLK_CTL_DIV_MASK used in renesas_sdhi_set_clock().
->=20
-> Default to CLK_CTL_DIV_MASK at probe time when unset.
-> This lets RZ/G3L, which has a wider divider field, reuse the same
-> clock-setting code.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
++CC Aleska,
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Wed, Nov 11, 2026 at 02:21:44PM +0800, Inochi Amaoto wrote:
+> On Wed, Nov 11, 2026 at 03:34:26PM +1030, Joel Stanley wrote:
+> > +cc people who might know more about the various hardware this binding =
+supports.
+> >=20
+> > On Tue, 10 Nov 2026 at 05:59, Conor Dooley <conor@kernel.org> wrote:
+> > > > +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.y=
+aml
+> >=20
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    items:
+> > > > +      - enum:
+> > > > +          - tenstorrent,atlantis-aclint-mtimer
+> > > > +      - const: riscv,aclint-mtimer
+> > >
+> > > So, what are we doing about thead,c900-aclint-mtimer.yaml?
+> >=20
+> > Once we agree on this binding, I planned to submit a change to bring
+> > over the devices that implement the common binding. I can do that up
+> > front instead.
+> >=20
+> > >
+> > > > +
+> > > > +  reg:
+> > > > +    items:
+> > > > +      - description: mtime register
+> > > > +      - description: mtimecmp registers
+> > >
+> > > For example, I note that you have mtime and mtimecmp in the opposite
+> > > order to how the mips folks have had to add the mtime region to that
+> > > file:
+> > > https://lore.kernel.org/all/20261103-p8700-dts-v2-6-3ac5d49f2c37@htec=
+group.com/
+> >=20
+> > This is the order OpenSBI has used since v1.0, when support was added
+> > about five years ago. It reads mtime followed by mtimecmp when there
+> > are no reg-names:
+> >=20
+> >  https://github.com/riscv-software-src/opensbi/blob/v1.9/lib/utils/time=
+r/fdt_timer_mtimer.c#L79
+> >=20
+> > QEMU also generates a dt with mtime followed by mtimecmp, and without r=
+eg-names.
+> >=20
+> > The MIPS ordering works because it specifies reg-names. OpenSBI uses
+> > reg-names to parse the reg property so it would continue working, but
+> > u-boot takes index 0 as mtime and ignores reg-names.
+> >=20
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: mtime
+> > > > +      - const: mtimecmp
+> > > > +
+> > > > +  interrupts-extended:
+> > > > +    minItems: 1
+> > > > +    maxItems: 4095
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - reg
+> > >
+> > > You've also not made reg-names or interrupts-extended required.
+> >=20
+> > That was intentional. A mtimer device without harts attached won't
+> > have interrupts (opensbi supports this), but I haven't come across a
+> > system that uses it this way. I have no preference here, what do you
+> > think?
+> >=20
+>=20
+> I think reg-names is required. The spec archive does not requrire the core
+> implement both MTIME and MTIMECMP. So using reg-name will let the DT pars=
+er
+> does not reply on the order and leave the room for MTIMECMP only devices.
+>=20
+> interrupts-extended should also be required, it is kind of weird for=20
+> a zero-interrupt timer.
+>=20
+> > > I think we should swap the regs around and make these two required at=
+ a
+> > > minimum, but also "initialise" this file by renaming the existing fil=
+e.
+> >=20
+> > Bringing over the other devices sounds like a good idea to me. And I
+> > appreciate the spelling.
+> >=20
+> > The nuclei/anlogic boards document mtime[1] support:
+> >=20
+> >  - nuclei,ux900-aclint-mtimer
+> >  - anlogic,dr1v90-aclint-mtimer
+> >=20
+> > K3 has a mtime register (at 0xf181bff8, by experimentation on hardware):
+> >=20
+> >  - spacemit,k3-aclint-mtimer
+> >=20
+> > MIPS has it, as per their patch[2]:
+> >=20
+> >  - gf,mips-p8700-aclint-mtimer
+> >=20
+> > Note that MIPS have mips,p8700-aclint-mtimer in opensbi.
 
+/sigh. Aleksa, can we sort this out please as part of whatever revision
+is made to the mtimer patch in your series?
 
---YRG0+FJlDArByPdA
+> >=20
+> > T-Head has no mtime[3], just a set of mtimecmp registers. Sophgo are
+> > unknown, can we assume it is the same design as T-Head?
+> >=20
+> >  - thead,c900-aclint-mtimer
+> >  - sophgo,sg2042-aclint-mtimer
+> >  - sophgo,sg2044-aclint-mtimer
+> >=20
+>=20
+> For T-HEAD, IIRC all the design share the same layout. C9XX use the same
+> layout for both C906/C910/C920. Sophgo is just a SoC vendor, not the
+> core vendor.
+>=20
+> > There are two options for T-Head:
+> >=20
+> > 1) Leave it in its own binding, because it doesn't have mtime registers.
+> >=20
+> > 2) Use this binding with an optional reg property for the mtime
+> > region, which means putting the optional part last.
+> >=20
+> > If we go with 1 we can preserve the mtime, mtimecmp ordering, matching
+> > u-boot, opensbi, qemu. If we go with 2 we put mtime last and make
+> > reg-names required.
+> >=20
+> > The current K3 and Anlogic current device trees would need an update
+> > to their reg property to describe mtime when adding the riscv
+> > compatible.
+> >=20
+> > I lean towards 1 because it reduces churn in firmware.
+> >=20
+>=20
+> I prefer 2. as the ACLINT is designed for modularity, it should=20
+> tolerate one that does not have MTIME.
+
+I think we need to make reg-names mandatory and permit free ordering of
+the reg entries and make reg-names mandatory.
+QEMU will need to be changed to add reg-names and U-Boot changed to use
+reg-names - I think neither should be controversial, since no hardware
+actually implementing this device follows the qemu/opensbi ordering.
+
+Maybe the right thing to do is:
+| items:
+|  - enum [mtime, mtimecmp]
+|  - const: mtimecmp
+which forces mtime to be first when there are two items, not really
+problematic given there's currently no devices with two with a binding
+that need modification given the mips thing is not yet merged so we can
+update it to be like this.
+
+Maybe for safety we abstain from retrofitting riscv,aclint-mtimer to the
+existing devices (although I still think they should be merged into one
+file) so that they don't run into U-Boot failures.
+
+Cheers,
+Conor.
+
+>=20
+> > > My ~assumption~hope is that all of the devices in that file have
+> > > implemented the aclint spec at the -rc1 revision that we're citing he=
+re.
+> >=20
+> > (-rc4). Yep, we can move the majority of the compatibles into this
+> > binding. The T-Head family might be the exception.
+> >=20
+> > Cheers,
+> >=20
+> > Joel
+> >=20
+> > [1] https://doc.nucleisys.com/nuclei_spec/isa/timer.html
+> > [2] https://lore.kernel.org/all/20261103-p8700-dts-v2-6-3ac5d49f2c37@ht=
+ecgroup.com/
+> > [3] https://lore.kernel.org/all/IA1PR20MB4953D36ABE26822B62415500BBBBA@=
+IA1PR20MB4953.namprd20.prod.outlook.com/
+>=20
+> Regards,
+> Inochi
+
+--Sue3xVkYI4vJFlWk
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0QB4ACgkQFA3kzBSg
-Kbbg8g/8D7xNXyQjqyFx4RqHuX+IddyMKkIytq3+COoau4CUejcf+eSMuqflgFcb
-foDKzXOqbaiAkbQ3XPiU3BQ37kZTAtu69uhXXK8zKtqXcVhwDE9808s15Q+qrXz4
-47I6Uemj/7fwj2+MstmTOW7ANwQZwZcSAf/tEMVUUWLQyRlSNkW1Dy+cx+BaQTYE
-+o+b0DUbeRnqdsQL4kRuHwbgCBv4iHKuFJE2UeL5MMdIgLYSKa3QzD6oHAQ1LZxE
-Wtxg4hc2IoNyZ7VDEMrokSsx4znNk+QjYpOBKrjtps6QP0rek0MRMRwKUb5Uezz8
-Oe3OLiqCojmdx9vwhZSvShcW1g8JTyWZc8DXyz57i3sVxqtG+t22xX4YXT4AAiLV
-Xdy+6EpPEJchO1rNnxJ5c8ks5pb7atFX4dzOgXuMhODUGzmXWCcUL3TvUp8LTcqN
-Q+zE1/ck1qjfpqHydF4U7qKo9dZ0muiI2a7lnpK5h7sjHimO7rIwmZ0u0pxgfYmk
-tLxPDcveKbvJMS65uFHobqe11Qqz6ApxH7RhM4PWhNvehGuv8RlHEj8+mH0RvEC9
-4pPcinB4Oqp1TZymO3DK9GJC9guCfYCk1+AFF2Ij5/8p120aLdI0gcNhgozVkvB7
-2pXT5f+WBP2V82GRoDxaxIvbrksdN2rIsgWfBuawj5IL42rpJvY=
-=76PA
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavRAoQAKCRB4tDGHoIJi
+0gTXAP9ELbYxeOwSmQohVlFcT3ty4svQ4li+2LpJo6wg/0mqAAD/VLFPXq8qG4/K
+wTCOmvyzoyRqXEQLNe3VztCWsfTswAg=
+=yCLK
 -----END PGP SIGNATURE-----
 
---YRG0+FJlDArByPdA--
+--Sue3xVkYI4vJFlWk--
