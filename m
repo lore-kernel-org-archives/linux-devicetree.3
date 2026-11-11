@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405908;
-	b=nrJ0w5HohaVP9FCgjFrWMsbrdiCakKP4tZEWnBKVjLivWKfdf7y3NMXP6xAYvHz/9qsR
-	 vsopXJekuUr8WIfZTMK6tQbRrJM6muhr+gAeVjJerRyckiN+jRkyi2dHyC8IJ5uDsQ+HU
-	 dLuEAQaz1js1aNfGO8XsbdakzgoHzAaQDCiXFZj8E3LWVmJZ6j+SwXzwHp+XuGhF4pVVv
-	 YcHxkyucGvr2wx1k4ENNxJp2bGVbEZrnlSQn1jmjn50ARQz3ptJMahcRsfP34V9qXpnXy
-	 oQgN/X8reXP4Plb4s0jI4/AT+PoW63leLRa1hawe6uvLYn6smcZ2Bi3zgiD4Kx1wELw==
+	t=1794405964;
+	b=hQ+UCGfbsziZKzvGbUGvR4pFUfARYARJJnSwDhuedONwVaNjLCF9E+l0yBSKbbno5sS3
+	 y7Ac581KgiKJnZo5S9vapN5+8YJ+kbgMfYZ9BjGGHVCvwCZ3kszDBUu+FdCwy9U1w8MFm
+	 ks0ImRIQ4WYwnrI2gh51q9kz3jgTH4/dHJC0q5vokR5DiLKyJ5nQ0TqxcZ+AEUeu0Jwjt
+	 yu12XzAFUdl+8zS2g6RCMDhSogQ8IIcmzYIOYPz8ElU2dr5drEGl4fBkjOPiW8f6Gv9sI
+	 piaMx7Md+LWrUd5GK5yrCJRhmNf6crpP+hO3dTgpvqmmnuunKWcWit8kiY8XaFWA64w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405908;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=dMVjouUzlrMgpNrx39+0TONjSPVxOpIOUimAbYCMEv8=;
-	b=Unu0lJE5DUtIPOd5MRcE5ADkC+FZL+2MkUv25gHJ+O9bHVK/WmewvEwdpnZahVWmCOc5
-	 uQ5NUEjZXBjq+FkjaiM/GxqZArNfhgB1aPbOw8rbT+9IIHX7V3oLCv8VFWTwixKUcwFqN
-	 ctiFaIdNPBY9F3uZMBnDX5i808/wUJ1dk0NeSPz1KWYDXuyLa2skY5hYjbxVrrh2dcAfb
-	 F7U+Xty6fHYsAzUdJuvAp0YXl6BFSuzz9TrDUxX2pjC98H5r0vdgtRnaghnvhlqCQNd7P
-	 nzwRStzy0Uu3zNOWIhByLzuoqCpFG7hPWycId7nrz//+7ki68fcgXiruLiWHszPSLow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405964;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=D4TyS8Y/WDY8hnQj6Eru7ypWQX8YAwLUlx6lvcYGC28=;
+	b=sdQUbH4AO2NPa2YFnGIly1zIbyetAatIrlteKJE9L6KnI0PwqvAWQFZXcmS9KaSwoIfQ
+	 Q4/LvfNYK4BPWqEdIooQk4JOMBPZ4Vb7yBpmduNWq2pG+IBFOSvhyXB2riSObL033mrMj
+	 aX2yZ1jr47OTbOgbQDFA493QyJgGMgGzF14mGu/xbybgVHn/5RdzZo8rpAvGLj8V9ETKD
+	 yE28qee3MlmXUIQoewSoRVEfxFFU4BkhvdmVMFQse1T0WV553PKcWwoWijWmLKwiA5w10
+	 zsv63JeTPitUh4LlQQyUtmb7aGyvUB2EYS/elqIjqrxgGiyni5vWjsrXLJQQTYXukvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lGUb2FYK;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeeEJ3tE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA70606A324;
-	Wed, 11 Nov 2026 14:05:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA70606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A59606A321;
+	Wed, 11 Nov 2026 14:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lGUb2FYK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794405908; x=1825941908;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RjhR0GWgOac4DoIlu+EJPS0Wj64t3lFbbPAIZhDjKtU=;
-  b=lGUb2FYKvqsGVpi2DVWMFwPsiJZIg2iJctkfNTXtn+dK41cH3MEFvbo+
-   UA4rdNXUybt/aR41tc/4TE8OnjnOhLL9eMqfyxn1iVAMrTm5Mo6vhvzZI
-   zowKAL0534UreBF9olICvO+6SJyCxLGxY+ZCnqepZ385bkjp87edxaIpo
-   Aj9NzLBpFOj+hH0dUJKwofTYMfSgRI65Bg+MhgulAZGtnIg/5GuyqzA0X
-   U8wemfH4hkLtQZbiAOiIDGwhxChBFq6dNvfrAordfi62syMedGHabTZbG
-   IzEoRLV77EYtVeehyUc2zPFDc/6uWkZxt43v0jhLReazeOKA/Gu+6fon7
-   w==;
-X-CSE-ConnectionGUID: WRv9VspARS2HSxx64lzP+A==
-X-CSE-MsgGUID: XuQ/ggAgQsCUQvdQShpAzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3077185"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3077185"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:05:08 -0800
-X-CSE-ConnectionGUID: qlLm7GuhQQqzaOZ4ZNWGnQ==
-X-CSE-MsgGUID: ySqjelIxTcy+TS5B6Q3oUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="10296625"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:05:03 -0800
-Date: Wed, 11 Nov 2026 16:05:01 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: cwweng.linux@gmail.com, andy@kernel.org, conor+dt@kernel.org,
-	cwweng@nuvoton.com, devicetree@vger.kernel.org,
-	dlechner@baylibre.com, jic23@kernel.org, krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nuno.sa@analog.com, robh@kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <avR2DaxSJJwpnWP9@ashevche-desk.local>
-References: <20261104091136.151269-3-cwweng.linux@gmail.com>
- <SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeeEJ3tE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0181F00A05;
+	Wed, 11 Nov 2026 14:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794405964;
+	bh=D4TyS8Y/WDY8hnQj6Eru7ypWQX8YAwLUlx6lvcYGC28=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GeeEJ3tE/SLhG3VhWmb7uv2qB3C+Dn0sr8Yjodk7DcTDO4Y+WeaupFBIFPjcwY0j6
+	 bv7r2Gl+wP5Bd0Wbk8++EzJCAyyqzBXn93eTtsEBLF7eYviqPP9sOi/QG8p4hH5KM9
+	 K4YU0WiE1AfW2qnkqe3nQWqrnwsYyIvHSPUbgRHXtmebK9YNsUoZwvmll5h0E6hKd3
+	 9GofRdtqSCV3KYbGR0PTkG+XzIMnQ4pBpWAbtdsBGttzC4IJMgwKsuJR2lhJqLtpH+
+	 5S6daLwTrjofDj2FUKRIiXQqN5fjKm65RrxRQNR+u/t5ckcHTvUxsr0DDKgIhzoVbv
+	 MfHGtuXW70l3Q==
+Date: Wed, 11 Nov 2026 08:06:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH net-next] dt-bindings: net: Convert HiSilicon GMAC v1/2
+ to DT schema
+Message-ID: <20261111140600.GA1476246-robh@kernel.org>
+References: <20261109191641.653847-3-robh@kernel.org>
+ <sashiko-outbox-207650@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,36 +59,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <sashiko-outbox-207650@kernel.org>
 
-On Tue, Nov 10, 2026 at 08:08:03PM -0600, Victor Chernyakin wrote:
-
-...
-
-> > +	if (!num_channels)
-> > +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> > +
-> > +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> > +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-> > +
-> > +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-> > +				sizeof(*channels), GFP_KERNEL);
+On Tue, Nov 10, 2026 at 07:17:28PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] dt-bindings: net: hisilicon,hisi-gmac-v1.yaml omits
+>   hisilicon,hi3516a-gmac
+> --
 > 
-> Couldn't size_add() just be regular +?
-> (Question to Andy who originally suggested it)
-> We've just checked that num_channels is small and won't overflow.
+> commit ab6f211d13f9c7a3f51fb6e0f45f7089669c73d4
+> Author: Rob Herring (Arm) <robh@kernel.org>
+> 
+> dt-bindings: net: Convert HiSilicon GMAC v1/2 to DT schema
+> 
+> This commit converts the HiSilicon GMAC v1/2 binding from text to DT schema
+> format and relaxes the node name pattern in mdio.yaml to allow ethernet
+> controller nodes that directly contain an MDIO bus.
+> 
+> > diff --git a/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+> > new file mode 100644
+> > index 0000000000000..89ed6ab1905e1
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+> > @@ -0,0 +1,96 @@
+> 
+> [ ... ]
+> 
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - const: hisilicon,hix5hd2-gmac
+> > +          - const: hisilicon,hisi-gmac-v1
+> > +      - items:
+> > +          - const: hisilicon,hi3798cv200-gmac
+> > +          - const: hisilicon,hisi-gmac-v2
+> 
+> [Severity: Low]
+> Should the v2 compatible entry also allow "hisilicon,hi3516a-gmac" via an
+> enum alongside "hisilicon,hi3798cv200-gmac"?
+> 
+> The removed text binding documented "hisilicon,hi3516a-gmac" as a v2 SoC
+> compatible string, and hix5hd2_of_match[] in
+> drivers/net/ethernet/hisilicon/hix5hd2_gmac.c still matches it, so omitting
+> it leaves that compatible string undocumented for dt_compatible_check and
+> breaks schema validation for hi3516a GMAC nodes.
 
-While that's true, the other aspect(s) of this is in play. Namely we want to
-have the same pattern over the kernel that makes code robust (tomorrow some
-cases can be modified unnoticed with opening such an issue again) along with
-the potential of finding those patterns and update in case of mass-updates
-of low-level API, and I have heard for the matter of fact that devm_*alloc*()
-are in the plans to move to something like k*alloc_obj*() or k*alloc_flex().
+No, the above matches actual users and the .txt binding was not precise.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Rob
