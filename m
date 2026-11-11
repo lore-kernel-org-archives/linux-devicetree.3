@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386904;
-	b=fRAO7N5WZIKB+oHMTqC6mxwvLBH44bVIcXlVM4RFFGW1WOmepVpYUrkmgXvt2b1FAhjT
-	 EGKSyTCgz2gVtGl99rtnm2uLR5O0ZG6HuwepsWwzBTQ1MH6WpeQqBnqSqC5Ro/NkPfb6Q
-	 kkkFu/sSzWWDFzEfzxz5vunUT1PHlhVDWhUfge5nHLUXm7qK7mCJ7bV0QFVgUqbmLUOVq
-	 xcSC/p1K6dBTLHd/eE6c4U7YUyohIgIhR3Cgugj7rujM2SY3OseWs0tKAPAuKiDP+zFLZ
-	 w/Eqgi8dJa+7UuuOto2ZWM+pdOlXNQLi+y6iwzg1SQ/VAutAHwKA+isbucsB0lJD2cw==
+	t=1794386956;
+	b=ioCASx8tKaPPIz343GQKXhNwZa5H8fE/pS83ye+E1DE5eOil4cnJylk/MMSbpeIwlMFf
+	 RQ1PwPFCrQZ+TjXj53voOh9QmUeW/EHgx+M+P2qq6D8ZGBSo7TUO2W6Xf6+T7/PrjIVXt
+	 zPOsXsoh+j50xxymlS226nNfDQ/9zurkOT52i0b5mMeWmuU9qbV+zCHFuRMw0CZ81WQ7P
+	 q1ybnARb117FT6OvOzaJouwsM8aKzZJBj1j0r+rOXkehCVBsheqWC3yxgSWcd1S5Sk+1F
+	 +kUuiyTiFdPLorYgAdvo88sBU7U+5yJze6OSqZ7d/fQ521eYN+7KIQhURMYTJHghj2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386904;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386956;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L03Xks0F4JS44tFcmr8wV8P5pEKbbPBkcDezNiRJeVU=;
-	b=5rRKUmvPPoZ9aDU91l5o0U/xmVA574e0Hez4CF05+ezIJk7CPXMaB3cbe4pNue6mPnnW
-	 gloewjhjXKgBhwkyOalcl5jRS0i5E7QTOqoxpRP8I0vN9OC0BaGRen3UXGdJix6FCwzAE
-	 xt6Er3QznNoMnZJkKYFiVA/YoymRX19fWz3LHAsfc/pZKNYuRWGtsFhpYDdqyQ61QMgjb
-	 WaQ2aFIGdz1dFuw5UkXA6TilsoZwDST0xRKE+w9QlMpoqkcquA2uMz17EI+vFw0UU+9al
-	 12oFwO8WPa39CPwPiLuO4BUYKYKM3UlGKX4xDlK1Y1JfgvAnR4wazx0b0mzGUKI+uCQ==
+	bh=CRn3mVE0RkwOGkFOvF+BIusmbUtnKuihvtdJFqK68Sc=;
+	b=5PvcyQgkI/wRatnOsF1iWko5vRgFWMsxjqj1U+gsMPxKHb04tfWcoDKhVL0JJ2jcLpcG
+	 Fsn9RSWh9ExFGHHo4yC2HTokjDBmGqu7WPdXlhr8mXXuBVnCMhfx/tP/NSIXo4xo2fjwk
+	 EbQulgguOIwU1m734VHfWltnkpCVI0epWl2v/JgMVSwU5nly9QGTtd/+v3hd6gqTaUzqZ
+	 D91jnJo0tl8m3JFDu/uHw+XtbzFFIR2nrGgdg4aaZMJIwRLLTQywLS7NuvjSA+b7DSCHA
+	 Dc/Doj/vKaQbc9chH+9wxxxq+cxhNAS+ugZeQ5yA4wRVLPDQvasFYg6PvMq7rvdibow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abnqDfH0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KY/1D89+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7E8606A31C;
-	Wed, 11 Nov 2026 08:48:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306A0606A321;
+	Wed, 11 Nov 2026 08:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abnqDfH0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CFD1F00A06;
-	Wed, 11 Nov 2026 08:48:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY/1D89+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28B1F00A06;
+	Wed, 11 Nov 2026 08:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794386904;
-	bh=L03Xks0F4JS44tFcmr8wV8P5pEKbbPBkcDezNiRJeVU=;
+	s=k20260515; t=1794386955;
+	bh=CRn3mVE0RkwOGkFOvF+BIusmbUtnKuihvtdJFqK68Sc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=abnqDfH0odENuQHiaCZy7paRwa0bh3EZqXIfvDlZdaqqf6DaMa3EyZMeRYHi/E0M9
-	 KzVY164E6utc/FuZf/GxmEI4+qmIfzV2Yj5RDd/mD4082LUqbi8s4DjsGqiFmAIkqT
-	 Cilk+iwvNuAnFlsEj+I+kZ/BFfIuYGsAnUGB1yQV5FvR7d64ldlEsfPSbPsfxDXUKr
-	 ncQ58hUMKSE1n1ei56aoNzRbf4GsNWEqfc3S00syujMM6S4X1AP6jS4rLLZEHyVJlC
-	 Td+RY8rsJUpNA/YZ5NAYeUqELvuddCA7jgMOQVvFvlGLPCIulexQL7XVjScGyGyc7B
-	 1EmRAmFPSXCNA==
-Date: Wed, 11 Nov 2026 09:48:20 +0100
+	b=KY/1D89+QkqCYw3Yzl+Nh77q+0zMCNzd5WQU8wj0j4yntRlLYsK1A1Z5uiK9il6q0
+	 r4bxjFfBh7pzE9w16ugNPumvEXQOf6y3flgo2i1QVZ5JKc3yhnuW85bC567qiWPcK/
+	 U+4zjMT4iS1N1e0e7QSz6M8mwbH3urnrwe+HlcDZj6lCnHE/AhdIK4A4UgYTob1ueS
+	 84LjyzxBVPN79JLY0tnCxYA1DHfT6Oj2gpaLGwJl/Jvcm0TCi/35PA9G7y1R0q8EW8
+	 MdVS/EKA5GMtQ7esG8l94oNHpEdNlV1sYeb7pArsH3SR/+FRdq33bHhUN9dSriLUh0
+	 /h0OA+tA03HUQ==
+Date: Wed, 11 Nov 2026 09:49:12 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hongliang Yang <hongliang.yang@cixtech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, 
-	Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Gary Yang <Gary.Yang@cixtech.com>, 
-	Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Message-ID: <20261111-fictional-vigilant-serval-eea5bd@quoll>
-References: <20261106101210.1059256-1-hongliang.yang@cixtech.com>
- <20261106101210.1059256-2-hongliang.yang@cixtech.com>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
+	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <20261111-placid-tall-dingo-a6e31a@quoll>
+References: <20261110130515.45819-1-azuddinadam@gmail.com>
+ <20261110130515.45819-2-azuddinadam@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,39 +63,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106101210.1059256-2-hongliang.yang@cixtech.com>
+In-Reply-To: <20261110130515.45819-2-azuddinadam@gmail.com>
 
-On Fri, Nov 06, 2026 at 06:12:09PM +0800, Hongliang Yang wrote:
-> Add device tree binding for the CIX Sky1 Cadence USBSSP controller.
-> Each instance wraps one of the two USB3 Type-A DRD controllers of the
-> SoC and owns a register range in the USB30 Type-A DRD RCSU block at
-> 0x091c0000:
+On Tue, Nov 10, 2026 at 09:05:13PM +0800, Adam Azuddin wrote:
+> The RA8875 is an SPI-connected TFT display controller by RAiO
+> Technology Inc. It supports display resolutions of up to 800x480.
 > 
->   offset  register       contents                       controller
->   0x0300  STRAP_PIN0     stream ID (SID/SSID)           USB4
->   0x0304  STRAP_PIN1     stream ID (SID/SSID)           USB5
->   0x030c  STRAP_PIN3     clock enables, ctrl and PHYs   USB4, USB5
->   0x0314  STRAP_PIN5     awcache[3:0], arcache[7:4]     USB4
->   0x0324  STRAP_PIN9     awcache[3:0], arcache[7:4]     USB5
->   0x0328  STRAP_PIN10    USB2 PLL controls              USB4
->   0x0400  STRAP_STATUS0  AXI clock enable/valid/req     USB4
->   0x0410  STRAP_STATUS4  AXI clock enable/valid/req     USB5
-> 
-> Controller 0 of the block is used by USB4, controller 1 is used by
-> USB5. The range of each instance starts at its own AXI cache attribute
-> strap register and ends after its own AXI clock status register, so the
-> two ranges overlap: the strap and status registers of the two
-> controllers are interleaved in the block.
-> 
-> The Cadence USBSSP core itself is described by a child node at its own
-> address. Mode strap controls are programmed through the Sky1 S5 system
-> controller referenced by the cix,usb-syscon phandle, whose arguments
-> give the register offset and the bit position of the strap field.
-> 
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+> Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 > ---
+>  .../bindings/display/panel/raio,ra8875.yaml   | 86 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 88 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
 
-Unanswered comments from Sashiko, dropping from DT Patchwork.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
