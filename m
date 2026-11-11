@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794417678;
-	b=v5E95/sBH+5mGUQPHKaE9YHBnEH9Zkqu/MiLdWY7grHLr4OEQqo6vfAYRrrdSgkopbSD
-	 adeh4QoX9vRea0d7mRTl3rLs0jIWay2SSuBTiVR95+Kk6qdgqcxWoxgpYM8dlnDqnuyXn
-	 K49EQSetmbq2cRoRN/K/bHS7SlrtyZcTWUj5xExjjgCVRZJvODa+w5YOj7z8SEGrtIDYf
-	 gHBrY7BnLsqFeLdzsay5gflyIUGBkMNFp2BYLsLvXXjFn9nnaDamR8rQYu7eXYzZr2OZm
-	 yQq4yIMj7qkST9DHo/1hgJtcL43Cz8XrQ0BMGT/5vJza9R8JFt6gca1U1kwlVBVHZ1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417678;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sSN1kP1CaB/8fsbefXa3LnME1K/Rku67T2K9S2tGPbU=;
-	b=sEzSRFzNGQVKa6GCrJHP7s/LxGwpuAnBoB8nro++GHggv3vOLp0hik3LSTukqhf5xNZS
-	 tt8wOkYNFaEZV4TijJKWnvd05UAlax6veJEd8IZP8un9VwNJtdDIOM7tHU3gIpkGHcWQT
-	 EidYsHEpgEXpouJfDE+xgxwYYZYa0HVCGERY/DXJNWeMamnSH1V5FiNVgXk6jltpSjka9
-	 qkFScVz+6tBrQidUTsMmUKedSYTrHg3OrCPK08iNLQuZTwGEsxmVm5tOl9HYWNgFTxhi3
-	 hHhjV+jpC+06HuUMzg2MjHZKdmTRB71eRn1QvRpGT0P00vcaM/V2C3YT/cnenclhgFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mZkYx05t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794418021;
+	b=2xHLJ29H8E4L99+Sn7VQWabQ/ruzR9lArbhkwdnelghv9PNdD6IZODKVAa8Xj5VCXl8Y
+	 aMenGFRgJOaXpZAWrU3L1JcmJAckMVxJ1ujtR+wL/uwu4FgwPYcHTzTzI1Sj6PiMt+X6+
+	 mTYN4kBExRlxPpBkcnsqaDPrE98l8y/dYtkPGjUEbwJYn2HSOEd2fgPoE2HkjTajQcMLh
+	 fdiAwMORtKa8EkhHfVNXb8GbkCglBQe680f53Fi7mhSj+s1Lv1rPhkP2a8nAJcaliCzCP
+	 LwaBh0fmV0R9VB6apfyZHfvXvXRW2CLzDEExtOMiJp6Ezzs3wqFutKCqdw9HK2OG8ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418021;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NCphbdEQB+/YvL+7+AdHBChftpWMXAaKtz8ipUStWgk=;
+	b=Mq1ORDPKuTE5ybxqCgJZKwCl424/syAJqKP7bwTEOnfXsr2PFeWzwqOaTEy6s76x53yQ
+	 j2W8JYE79lJWtmmxrYzzpTGAy0UCGnTw7YfgNRnm9PBViVAMtVQzcTTJrgR5JXwmJG18z
+	 GriVI9YgjOjdlipnubE7quxT6DzxmO4oRNSBg3zNEjdSZiu/5HmH2ma6QM6vDZiQEVxRt
+	 CGHONTA0BxLR/odSCLXevNGmBQ3F3QJ42qMYR5V80tv3B/XrCOtdYkuzO59SUZ1Cjd/BI
+	 sofkY3iP7enROyoHxnEcdlfuDsJCpgnjlmqT9emSwM/vNecAIkNhPsBzT81zdTooBKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyBxCrLj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2727606A893;
-	Wed, 11 Nov 2026 17:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2727606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E88606A321;
+	Wed, 11 Nov 2026 17:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mZkYx05t
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O2zEJwOnCW403iD9v/gOg4+ADwoJdPnslg8hKah94UEMyNWlOVK8Ug/+L/o2L+f75coQoLx1Ia6wNe2VX00D9YmFmNOLz5ZIj4y1iSWMVEzTEZ8GMDgjKOkQAdtQSmTJAwcLrJskxbtgbl14CKVf3bNFiyvEAbFqN6OtxCE2bI9moZuwxkMPEsHAFt35JlD88m+vRMh7pBBfE7XRo62YiPJ5nhg6e615fzo/ZYxDh9yWIJ605n13T5FkEGFYTpHWo3xQvvB8lUI9M1wyM8/AzPPgciq+CWHpthdejO1Hn0g6//nTIUH3dkMJNDd7QxsX3kKRaYP2A1sEBHU4iNTXiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sSN1kP1CaB/8fsbefXa3LnME1K/Rku67T2K9S2tGPbU=;
- b=TT/nTzaDMhHCGKNbTPrrT5dJes5UmirpIvUwVtUCUr37GhJWKCqKEMydBy5L/hoMa+20dCtobIm5k1GcMkIEmbvpBX4f5M7msRH9Ke6VacchwW1Iu4rs+mCTAC/4zbB99jza/MAbmF8l1jm8mGv95XDt05XkLh3IOSvdqqrdMZfSdQYFREA3R3/s252UI2tn8HODQd22G5NXbejF7HLMgoTNlfImGS5pZgCPEbWHIUhFkxWkPmxWFy+88OOUZZU2O/n6bxPlL4y6eg7xbUv2d/rk07WVq59HEgolwrJozVobonUWLlhvdmZs5gjaVt22iqqomMUVJfhjLauD3ZP62A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sSN1kP1CaB/8fsbefXa3LnME1K/Rku67T2K9S2tGPbU=;
- b=mZkYx05tXx0ocFh/hzGU62jN8eJTmG+WlYOU8AVzSfOK1exaQx/BK8UCd6LUU5H0+f6bJQAlKrBAAQJMchujHwyW7p2uLcHRb3eloJ92GhwTLiPaGC4vi2qpGYSuQZu70gisNovH0lznx9qbu7WUVDZ8vc2M7W2F9yxwJ/S2CunrO3aT6kXbkQpPhw+hVdVRVJCSwEEtJUWJUigZkhCgb+exuThgaDZpS9zgMfx4mSgf5lFXG5pN6RB7vxMKexQsOFqjTcMGP34abiV8qgEG4Q59RxUZv2OKilHOoH8uUvLkeyEZDNAraL/QUHiEKVIx2Lj2/dPWhYAXvnk0zehi/w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA4PR04MB9245.eurprd04.prod.outlook.com (2603:10a6:102:2a0::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 17:21:13 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 17:21:13 +0000
-Date: Wed, 11 Nov 2026 12:21:04 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, tbevis@amazon.com,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 7/9] i3c: mipi-i3c-hci: Program AST2700 IBI
- termination threshold
-Message-ID: <avSkAIS82rYaLZvH@lizhi-Precision-Tower-5810>
-References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
- <20261111-b4-i3c-hci-ast2700-v2-7-4d8fff5c5196@aspeedtech.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-7-4d8fff5c5196@aspeedtech.com>
-X-ClientProxiedBy: PH0PR07CA0034.namprd07.prod.outlook.com
- (2603:10b6:510:e::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyBxCrLj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4AF1F00A05;
+	Wed, 11 Nov 2026 17:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794418021;
+	bh=NCphbdEQB+/YvL+7+AdHBChftpWMXAaKtz8ipUStWgk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OyBxCrLjArNbr4B+NpYYsz+tWD1e6ppJc+J0F19chIr/kGq034wStsBobYJpiccWM
+	 eDOOiJFcrceUcnpIgeu0BmxpJkkS5quFBnq1zIPwGwE68Ge6/Zj9Cz2+8suo2eZNmO
+	 a72A3Lqa251ImDhwzHqMRgqhXXkEwOHDEG2EsgmFp+fAljI2SXVIsgAhZd9vrhOIUN
+	 atVMt8oSOGy4UHny86DtAyLsCeY/K//fp2xlouXHIS8Z6gUlPoE2HCe8FfKQ1SEj+X
+	 WYC/0FYSfI2NTAvz8x8MH7HKFwTX+m1/6Pxf7SI5RmnA4G7UzbvpEd98+Ald2FIUvv
+	 qAHGYtfzQv1bA==
+Message-ID: <sashiko-outbox-209409@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] regulator: pm8008: Add mode voting support for
+ PM8010
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261111-pm8010_i2c_support-v4-3-4549cab1c8e4@oss.qualcomm.com>
+References: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
+ <20261111-pm8010_i2c_support-v4-3-4549cab1c8e4@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 17:27:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,79 +60,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA4PR04MB9245:EE_
-X-MS-Office365-Filtering-Correlation-Id: 404362aa-3071-4570-18a1-08df40182fe9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|19092799006|10067099003|11063799006|4143699003|56012099006|261009223027099003|261026140227099003|261022105027099003|261028144727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3g19CCq/+e0b2Qhspua5XJVgHxebLGPOTvuhKo9kr5RlIWieOu5U+ajlCqRwSLa9nBXPDL26Gu8OyA9ZGddi3tkmbJ8tQ1SFXdFafuBHmyzJE3pGKIWdRpqBhw3CAuxfgPk7QqRFiL4vh6upPAw8iqR1W+eQLjqmJWbvel259KQ2OBGlruCLHXKPDxiAgyqcgSzw9iyZFE6qEyBdACUXYZltjx7vBAUezI72kO31osu27dk5SAWzkRb6sncFZki5KBHj/f8F3cSrIohhDmzxa6lBfDt/HfIlIdq1kJnjcgEkKOJJf9sjHeBWQuFrHbR5tqWpagTA4+3Qsp66kRe4yTubuUD7FRlWQoyjGpJMIeLc3f4F+dnUgGZxl8uOnwMXMQRHUNIUTTUFZ7CRXkJJWuFQL/ocOv9Lap6IGgDm+tDdqQz4WY0zsu1iMQ5eEt367hrjKTs/FDJjXLi1sej7HzRG7p9bMPU94WGlxExFou/3fmfTdkVDWDwGKSjRNdASJIV0lHHfujc4em+OFQ5p9YHtXDjpmkuT/eW5rmPy0fAUOAHWdfQ7vIvg9BY3yEyDpDXoxN6ZpeN0H4mLMWya7QeF3k5ZMucL7TpGoFUonKFObBysk64o153PbKhOFJPO665EYs034OQcCsDfT57w1XO1jcMhktUSssERzIUfswc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026140227099003)(261022105027099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MCC/RWgLfTFmmnwytkA74lkPf1RkII28LzXPpZy1cqry+LTwBCQP8FgXVeYW?=
- =?us-ascii?Q?uNp82zQZmHSQRDoDW7AiMCAlN0PPS7SqVOiQU9bWVa/qI4v25D+cJyC/knRC?=
- =?us-ascii?Q?9Iq7DVbb7SR/UeZd+F3VqF+XdUIxPdUKUGq8TDp64TSjqmeeJ1qX8t5LBeZ5?=
- =?us-ascii?Q?jaR3MJ9LbdJMzIhPM4z0SMraw5D+jaYKgMAiSM+GKDsyJFCM/f05aFpUzhzG?=
- =?us-ascii?Q?IyWdOcehyICCLIFfq+Q6d8f7oOtwcN/WSKSjSI0u5MovRkFDQJo8pmRhb3Nr?=
- =?us-ascii?Q?HKiN8s0MWZvShbxoHSBBI5QubmB1DiDVjIkwaZRflt3YWhxK7zfzDLg21jWq?=
- =?us-ascii?Q?lKtXhDN3bs3oDzA33P1pMKrdKzcfVRy3AfwX+IFw+uszCzLmx0vD1GEVfXZw?=
- =?us-ascii?Q?6x8ILTf0ik4GPGMKTDA5KH8MjFj+BKoH51QCI952VAR9R0EfIle0iAkh6eHg?=
- =?us-ascii?Q?Du0pMfJpH58ciZrYk4KY343oTIz1+LYnLGZOPyF8eYhU3JHQsqRcOUIc8rgP?=
- =?us-ascii?Q?EuZLBvG1zUt+z6D/aaTXlXWrv1bUveoJXqurzk1xiyU4WeKq0PfTawIs533e?=
- =?us-ascii?Q?sAAV7avkTXk++NyGkJxmOew29HeKGgobBt2XENYfTtYJsX21yPqzKr2nXzVe?=
- =?us-ascii?Q?Wowym0Fn0skG0alyy6A8+CU/bdS8h3mkss1UY44LgxTkXVxSnTqGnLSqWPmm?=
- =?us-ascii?Q?9uKxxisQQRjMGvADJ36mR4WLnG3fc2szKh4UsnMAVm5cyVScyBJspJZZzBZ2?=
- =?us-ascii?Q?Gyo5jFPoRw3xCmKRzf3sD7bKGrKweHGVLLIjEAziF1/m4IMruLmJYxd9ZOLs?=
- =?us-ascii?Q?sHmSCnYX6lsE1y5OVgDCnfHL81NWnR2gFT8AWeVFEkW8q43kvna/KjMwW/9m?=
- =?us-ascii?Q?Qqoxt+2qquNpbTZRhSLUCo8RQsfBO4Khy0M1fXhoIon5+jFQxDGJPxIwmjPz?=
- =?us-ascii?Q?6l2cyUf4L5Y/uD3eshG3E8UqaPnIQxFwSRHpOR7bM8HzeqYWtgtJ8gR821Uy?=
- =?us-ascii?Q?ExuoxMw4Ii4jPKfmwAmp8efBJ+mQ4iJwXHBnK1LPeVmBDC6fzpJ6TD/6WLkw?=
- =?us-ascii?Q?Hil0b2rrVPmC/pg1s1+h7HyKCSFw+hYggjj1BvxuTVe4Ldx7Dk73WumQV1/u?=
- =?us-ascii?Q?nw6nuadMQm2NUViBtp95DHPb6EisNDz6yToim4CialYDaF+ci5uQQV4Cg1qG?=
- =?us-ascii?Q?Efkq9U26kXTlhwt5LhMEMrERKFU5HAH3OvKHsV4C2FKQf2/t3gQpJvorFlxW?=
- =?us-ascii?Q?cnBtY8ktfhftDjrqo057IVXj1OpPS1IiFcVL9cMsG4MWmc/OyRlfiB3v6jhv?=
- =?us-ascii?Q?v5r7KwbLEzDEe761sGmIHoAI4IZvypKu1fbfgJcf5FRM2Z2zN29IKAMnplKo?=
- =?us-ascii?Q?pOyu437+jbwLTO6rl3nLoLzypjZZ3I0onu0TDhfzlqzsxhdAqMZg61zRn0xa?=
- =?us-ascii?Q?LbTbX8UIYiEHR0TvKD7+c9Fi7E8HWYg+s+6I+T7i2Bs6onjIrzFzB7ITPWmI?=
- =?us-ascii?Q?SX/cMi8uCZZXBKIK+lm0nNh0eoPHr+fK4Y4xffpeySDdFDNbuvkL+Ml9UNjz?=
- =?us-ascii?Q?J5Ad9VY3IhdB4e+awLn1p/9OM4eKD4465nFHGJoGXV5IYBiRxJ3Oe7s5DKb6?=
- =?us-ascii?Q?9DjazYuLRQ3BYEnnTY/ZtnW296oAp0XtvzZLaGYodXeUYJ1sQoQ2N9XYIXC8?=
- =?us-ascii?Q?XB/Mtj79OMheUaz95gyTX27hJVrZfY/Oqua6YHfZ8gOZZNtFq3KeoypuQgMn?=
- =?us-ascii?Q?hp7oCTDU43UBX3CZN5yWoeVJ2p8frEJMtbmLiuJRIuiG/JunYg2h?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 404362aa-3071-4570-18a1-08df40182fe9
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:21:13.7740
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jit8HfNwpb8plgWk6IRLYMdtggZZzxJdAHXXmKaq0qj8d9LwvNvJdiTueV29lsBQyhq7NuUV3Kc0XE6qsUrN9AxM59xlZt98qfdafhNtTl4NtYcVEyBIJNroKX9fyJMo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9245
 
-On Wed, Nov 11, 2026 at 11:16:35AM +0800, Billy Tsai wrote:
-> For an IBI with payload, it's normally the device that decides when to
-> stop sending payload bytes. A misbehaving device that never terminates
-> can leave the controller stuck waiting on the transfer. AST2700 has an
-> in-house IBI payload length threshold that, once enabled, forces
-> termination once the received payload reaches it.
->
-> When payload IBIs are requested, grow the AST2700 termination
-> threshold to at least the requested payload length and enable
-> termination on that value. The register is controller-wide while IBI
-> requests for different devices can run in parallel, so the
-> read-modify-write is serialized under the controller lock. Gate this
-> behind HCI_QUIRK_IBI_PAYLOAD_THLD; controllers without the quirk keep
-> the existing behavior.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] regulator: pm8008: wrong hpm_min_load_uA for PM8010 L1/L2 in
+  pm8010_reg_data
+--
 
-what's happen if device A have payload 4 bytes and device B have payload
-8 bytes, you set payload thld to 8. if device A raise IBI, what's happen
-if device have not sent out earily termniate?
+commit e894320c5a690e879a2556e289265d1ae5f7176f
+Author: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 
-Frank
+regulator: pm8008: Add mode voting support for PM8010
+
+This commit adds set_mode, get_mode, and get_optimum_mode support for
+PM8010 LDO1 and LDO2 in the pm8008 regulator driver.
+
+> diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulato=
+r/qcom-pm8008-regulator.c
+> index 0ea4ac016dc22..395d5582f6af0 100644
+> --- a/drivers/regulator/qcom-pm8008-regulator.c
+> +++ b/drivers/regulator/qcom-pm8008-regulator.c
+
+[ ... ]
+
+> @@ -84,9 +97,10 @@ static const struct pm8008_regulator_data pm8008_reg_d=
+ata[] =3D {
+>  	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 200000, pm8008_pldo_range=
+s),
+>  };
+> =20
+> +/* LPM setting is supported for only N-type LDOs of PM8010 (L1 and L2) */
+>  static const struct pm8008_regulator_data pm8010_reg_data[] =3D {
+> -	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_range=
+s),
+> -	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_range=
+s),
+> +	PM8010_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_range=
+s, 100000),
+> +	PM8010_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_range=
+s, 100000),
+
+[Severity: Medium]
+Should hpm_min_load_uA for ldo1 and ldo2 in pm8010_reg_data be 30000
+instead of 100000?
+
+In drivers/regulator/qcom-rpmh-regulator.c, pm8010_vreg_data defines the
+same PM8010 LDO1 and LDO2 regulators using pmic5_nldo502, which sets
+hpm_min_load_uA to 30000 (30 mA):
+
+drivers/regulator/qcom-rpmh-regulator.c:pmic5_nldo502 {
+    ...
+	.hpm_min_load_uA =3D 30000,
+	.pmic_mode_map =3D pmic_mode_map_pmic5_ldo,
+    ...
+}
+
+With hpm_min_load_uA set to 100000, pm8010_regulator_get_optimum_mode()
+keeps LDO1 and LDO2 in REGULATOR_MODE_IDLE (LDO_MODE_LPM) when consumers
+request loads between 30000 uA and 99999 uA via regulator_set_load(),
+which can cause output droop or brownout under moderate loads.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-pm8010_i2c=
+_support-v4-0-4549cab1c8e4@oss.qualcomm.com?part=3D3
