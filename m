@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395447;
-	b=hvOjjlpEK0Yt9rlGwr2P1NbGMQi/Kk5L3DngKAZn9GCM9/3sJ1cXjVCypS8l3PIrqYQf
-	 WJ/BoawKPk3FvSH4+TYhJFugDQ62HIylRscSB8t064gW0yoEwZ0CBOANmoHAtsH6wccwa
-	 Ba7R9HfYDsnGRaem8MzCFWQpaCDFTfRYjiN2I+13F6l/guaDCV1rX8bt/wU9JCBH4I4+C
-	 nRt+94kigeh1KbTVL5SMzQs4XqBY+8hA7a8f1c5gMZFZmArNA89qFgI1R+Ti0dO0cd6TN
-	 67YscsEXq65LPdMlkwuxrrG2zbN2VbmxLPuPDnXz5FSGSKP1UZFfZyG1g5IHID2xHtA==
+	t=1794395489;
+	b=0fJNgoHoqnF8yUR1r8nfSEkdeGeDceFx3HO4V87ZMik5Z0Lpo+shbjBHagRn37JGSoJd
+	 3/v8S25Zm5mYiEk++JSRxsJJjFSZsEr5S3FY3loMZx46iVwZaHAFFGfiFXHjbuYHgugzU
+	 25Xajmdiepg6XjtCTSysIsLrYq1QJCUqPMpqFyATnCnubetBVfBpnXmdWakHJ1b8fILnc
+	 IovPQXLHJRy1I/1lV3B5s1omYnKERzTvBzQp2WbF24cXA6+tXlu2kymW8tSem/PZIhmiU
+	 RECsOOVuHFgP3baS5jz7pvq213ldMuStq5K0xOnI3OgQK5jR8LDJaGxPB9A2CSaIL5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395447;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pLhx0B7rZp8JjL6NJ1Ii8OSP29Jgl2dZGv2AwdDNFQo=;
-	b=4Gk2NwT8SODxuUTnEc9JjGMD+MYYdOeYXeXTqE9X6A4+ogQPdoN76k3rwTI6njNUUWM3
-	 vuMjBzsFc2WeReR+tk5+OZFPzsat0D7qksTyjWKxyO07/KeM+BQ2K+HBqQubrtPWyztq4
-	 mZmDJOwVxMEMhR0PsCqFaLe++R8wNCt95Gd/RB+Pf5hecLgapLnuOnSdJGmz/hhyOxgZ1
-	 53FdQ8V1jNKejni4gd/WrxUdGEN2mbpPBs2yJsXD4p36xrJqIaUV+tiyDJMnt8m1KCqeB
-	 b5aXyD+e2x4WVV4pXjcgx/ptSNcUI1iSFlE6MwnR9ZXUvjUAejwyQI9Ewo0p/UJCzUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395489;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=lr27f7oJOgQb2Rbu6eqCK5yXG1BOvy4SNYG5xsOyD3U=;
+	b=mId28QHMHI+bfVPZQPLOfLUsaKuaXZLCO6FQdUk9om7FYiydduUDXVX9Pjg2D4ZOSmZP
+	 4zQPgIPqbr3JKDAUD3UywOuQ8yGRbfTEyRg48N+kEaaR5KdKnM0+VwZdYK6s9ssq1Bl4u
+	 9srWmQmYPutb8Li5H2JVvvjZ5je0/e2HdSPWi5KJP8GObHRUTqSaEYw1GP3JUgps/7YTA
+	 iCp+uunj7AgyARNWDM9NWh+804jsGsTq1MmrfrhMtG+KCI3ec5sWb+5XAc/DAFmLlLcno
+	 KA4KpJbh3hVVNzSeqHAH9uD3Ei6MJqEHG4JhlP8VX37F5SEpEmeMqk1W0LrF5wFVLdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lE7VM1/5";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHTk5BqP;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F47E606B40F
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7907606A8B9;
+	Wed, 11 Nov 2026 11:11:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7907606A8B9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lE7VM1/5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80651F00A05;
-	Wed, 11 Nov 2026 11:10:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794395447;
-	bh=pLhx0B7rZp8JjL6NJ1Ii8OSP29Jgl2dZGv2AwdDNFQo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lE7VM1/57TRlXJ4WhNqXBNSixDkdrUfis8/oB9BFszCVq3YVtu62MnpI7pqrzUeXH
-	 zBrMM/DkB82x9aIpuyQniPYixko5JBgzd6QEbV5eamGTtLGXRvXAfv8cNHUvAAtoHG
-	 KukztDUfvDUcZYOVusougknME6uzg5vb7YBdt4VbQccS3+dpeHx6CRLXW5gQBOS8Op
-	 ArgplQvts5LgwSLhnP1hTjoQKwYQ6EbGZNuUxrf8/Mlykm2lBjYh8pyHjayPsOc/mH
-	 xLPHOR9uRAGHiUZIlSsd7wSOKZU2y3tJ/rGWarsLHuK7v+hp0rZSB2NuBkbvFmd4t8
-	 piSf2PlmumcKg==
-Message-ID: <sashiko-outbox-208855@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
- optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 11:10:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHTk5BqP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=lr27f7oJOgQb2Rbu6eqCK5yXG1BOvy4SNYG5xsOyD3U=; 
+	b=DHTk5BqPIS82AKb1pcL16kDUbK2KBPoeXMbdrMy2z67kgxaWGeMhO43EAKF6tHis+aocHRkLDqN
+	wZ4M2UwhBSSpyDT30V2eHdc8DO+QKUA/IAOGUNd3HEpbPf1nUKNrbq8zhvYC+wiFtsiUqQImsCzqt
+	6c9uOBVshZWFoEtZgVBLPbT6WZHZpvdyZOBE714tgju7blsp5bdHEoDa20NU+nRuiGNg4khlL7+8l
+	InUzDcnBnnH35PJjSWUQ2TERuDCpBIk2hniZqlgMRbKcAphk+nVxzpXJGOk4dLGW9aRVmW3bPz1qw
+	2OdlaZrzAGvkloTviGFPulBTnLvTWAHH01zQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR6Ef-0000000DmQb-1R1U;
+	Wed, 11 Nov 2026 19:11:26 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:11:25 +0800
+Date: Wed, 11 Nov 2026 19:11:25 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ IPQ5210, IPQ5424 and IPQ9650
+Message-ID: <avRNXY5Hxbjw5Szi@gondor.apana.org.au>
+References: <20261021-ice-v2-1-3dfa8f343ceb@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,47 +71,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-ice-v2-1-3dfa8f343ceb@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: display: panel: ilitek,ili9806e: port made optional
-  for SPI panel
---
+On Wed, Oct 21, 2026 at 11:19:44AM +0530, Varadarajan Narayanan wrote:
+> Document the Inline Crypto Engine compatibles for the Qualcomm IPQ5210,
+> IPQ5424 and IPQ9650 SoCs.
+> 
+> Separate the power-domains requirement from the two-clock requirement.
+> IPQ5210/IPQ5424/IPQ9650 require two clocks but intentionally do not require
+> power-domains because they have no RPM.
+> 
+> Preserve the existing requirements for other platforms.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Fix sort order in the !power-domains block
+> - Pick R-b Krzysztof
+> - Link to v1: https://lore.kernel.org/r/20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com
+> ---
+>  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 27 +++++++++++++++++++++-
+>  1 file changed, 26 insertions(+), 1 deletion(-)
 
-commit 2dd7afd9762ebccda9424fc16917d18216458223
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-dt-bindings: display: panel: Make DSI panels port optional
-
-This commit removes the port property from the required list in 39 DSI
-panel Device Tree bindings so that panels placed directly under a DSI bus
-node do not have to specify an OF graph port.
-
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili98=
-06e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.=
-yaml
-> index 2080d9e0ffac4..9a2602ddd9060 100644
-> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-> @@ -33,7 +33,6 @@ required:
->    - vdd-supply
->    - reset-gpios
->    - backlight
-> -  - port
-> =20
->  if:
->    properties:
-
-[Severity: Low]
-Should port remain required in the conditional then branch for
-rocktech,rk050hr345-ct106a?
-
-While densitron,dmt028vghmcmi-1d and ortustech,com35h3p70ulc are MIPI-DSI
-panels, rocktech,rk050hr345-ct106a is an SPI-controlled DPI/RGB panel
-(driven by panel-ilitek-ili9806e-spi.c with DRM_MODE_CONNECTOR_DPI).
-Because it sits under an SPI controller node, the RGB display controller
-still needs the OF graph port to link to the panel.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111110338.8171=
-7-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
