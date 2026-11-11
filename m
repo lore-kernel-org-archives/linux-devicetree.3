@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794377452;
-	b=lY9vroBhe5hWuqNtfPgZt8C8/4NROfiimaOcxN5ykppiP7K5xi3pthZKF0nAnlb8DyaJ
-	 2OyBjIyfcS0AGomJIAfIihEWX36Wq/GlllUXUQNHKVQrYdeqvs90aQHPu3mpm/Anx0iXA
-	 N6fAAbcSeIA6mAUA8uU3Ixn/pAphIFSA+msn7QON4yVw4qK0/ROeOvCb7EvpdSwfSnKId
-	 XCIRB3BHaGX4Gc/OUSMvL6YeVusA7HaxRafM2JEMkCKKqUfR8bOz51N/zXlro93eWR+lU
-	 TjA6uWYllQCTOXCUxUpkRr0b3p5Z++R2xLO9QVWzEybzWsTHGSC1EvXbvvTON9oxEPA==
+	t=1794377455;
+	b=JbLo5N2bX++ZKq5O+hniPUumfK46yta2MJ6WnwDk9Q/NAUNps3lgB/tbq57m8YnwwQ4y
+	 D1belo0uS/1/KTDjcruS1VRzCk0FQECAGr6BZHF0ntK5kl61tbdRblGZgBMDsyvCReyaw
+	 dEVmXainQHDa2tZFWoWdbbt1Hm96zo96MX3SZGQ9+dIr3hNC+UPt/DfCJ9xe4eCW0gKog
+	 HMfcwmoyFkrXPwePkEL004Bh/sOyoCBnv+jUVqkVpBI9gyTPrgPCTEsi5NV2gtpQElwNf
+	 L343tU/6BWuofSzT1JRbJLDZGs+Pie9BTQ77thsX+r4LnEVzEn7cf5bE5frneKJ2cUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377452;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377455;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=tf9jlObbsd4CIoq6s2RKk4rWo7jBbta2pgzbHELu6Xk=;
-	b=il8+YM3ZFV4TZCm0ELPRJY+PK9KhsQP8D+HAuUZ+OfFploHMaDzjKf8l9b7oyms6KXl/
-	 zWop5qiDz4eGbnTTARkjyD5Vxl8Mq5XNf0WVCgSjJzqw25OWucVOWDGFPg9mNRavGQ5EG
-	 cLdn2zpikYBpaSZKh7pq0tLn/RaXBQOLPT2EwONL1Nv1njBhYyZapKavOmJWEbM5ojk9Q
-	 EezTCy0ouHBTvUU6K+HRCEKPKca9/KVMAinmid5iJmMwAU8BGUOv72CjJJjXnAtfvAmBY
-	 GhF1w7QYGY9w3wlZ2OsMYSzMDX/fgTZ6oaqXuVMLCnAF/32Ybhm5mwGEyI5/bGVhKHQ==
+	bh=adTF7M2gMHj7eJOUoZHUfGntqMgezvSTHYPTjsdEjag=;
+	b=4QdiTeyzSe0IvCN4zlJOsC+NJWHIWx6f+oZnCEH43uD1CV+S7TXHkxj2EcHNmzVF6qa3
+	 /UnsOBAm97afPpe5dtiPMy4UILV6LqQbngx/tk71H4u7qTvWehGZHEaYaSgkZYQWOMxD4
+	 LJOi3OUaIsQDt1JSIeyGqqZIqfLnX4x2nM1RpWBuD0yHZPl3IfotftoIFVp4Zuw2Cvya8
+	 KbV4p7WTEg6q+k1m7dt0mJ/Mup+d/GyxfsjTQOnnLKFjsvdBrKigLlArQ7SV3+Q+Q7F5f
+	 N64rfpw3dXoYv2rSU+TuHcPwpM1VIBD+PT7Ckz5c1RRDmdh6Tuw1ZFYYobdpdnUosDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0u4vCs+J;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S6e40DwZ;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407F860A261C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 407F860A261C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0975360A2625
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0975360A2625
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0u4vCs+J
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ed06b725fdso21145215ad.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 22:10:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S6e40DwZ
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso1111361a12.3
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 22:10:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794377451; x=1794982251; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794377454; x=1794982254; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tf9jlObbsd4CIoq6s2RKk4rWo7jBbta2pgzbHELu6Xk=;
-        b=0u4vCs+JCzyr8wiUZvILWNHoTkZXbBfvQXbweey8CcFtdSsW4P8nSI9I8K7Cut71as
-         z6vz6jSNd0M+x+kp6PoZmARLNZljGXOB7Ez0EzCQPllHfjVv7LtIfAAFP+pjgwy0WW7e
-         R6L6oifOYOupThXs8qUKBZLghGoxzUdtsH2r6oXBKmV+oaofWaUNGjxytGg3x4/9y0zN
-         ki4Oc4MaIBxGnuYGht3j12RLkKM30/qJ8Td7aSOp6I+l4UksqAKjMPMBGACGOTnCE655
-         T4ajkca6L/AqWj+Vr+34qTTEnL07z/6t3fApMgZls4THz0advR0yccanzn2eAAD+i+qt
-         ZDmQ==
+        bh=adTF7M2gMHj7eJOUoZHUfGntqMgezvSTHYPTjsdEjag=;
+        b=S6e40DwZvBCO0GbODW1XBQuJZ/WBGA3yYbGNklf+dwxcqnKhdg0NvTCzlAKhoEqFA4
+         ogE+xzPC6h6ENz3xFYpdYRMqSNF6TXW8UP0l5DlKOssRfdzZvpw6Mz3kHIvEsT0OIJdg
+         OByZW8qeQxjwdqcGBRwQJgm3kpKAiuuIXmzghOG+00Zjxp5YG/CUc9KsAMSHbAwQF/a8
+         LCPYgi8XVEZZazWGDtzRswF7fzBRR4BatWZ7f72eI94e8SBWEAIxtZUgckGqNWzlQmUg
+         BisVZQ05drgoOQewG76GRY7L9hdluqqfsJXOpeMjeVIaYVznPxEbm0JTAceJYYSRgwaI
+         pQ6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794377451; x=1794982251;
+        d=1e100.net; s=20260707; t=1794377454; x=1794982254;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tf9jlObbsd4CIoq6s2RKk4rWo7jBbta2pgzbHELu6Xk=;
-        b=xP6e1mtzSeDPY2n/hsGwciorLHn/uC7gevT0zmf3qsDBPXuRFc8CyAWJoCuCt8oC/M
-         V0p00bDpJsQv8ye/WYtOpHlYnw9aVcret6ZcwIYlLsDMLSdr0Htmb2bMkgrKRohOBx7t
-         0Af6W1rst24gMFBoZgxEib87yUXU3m6PjWRbcXOto6JkC7DSVEueeM7IqL1byfgo4YaJ
-         vE03+p1SCMm/BH5TQpPjZLNza80kXfYUJqQ4ytEglfX9kpDroc9Jb0KHNvraQfh8GWPC
-         OGnXxPNwrENSPsdcDRQUkO5ErFPwHKfnGHzH0BGxZds6KRpp0JZ0OOZMk6lwsRLkRp3O
-         hpag==
-X-Gm-Message-State: APuU4Z/sNP3j2RXyBMcAEoCzRkXhI+C999lLPWeR0TGw+9xVs2BZN6Gr
-	P7AuRcbPT0SAZ/yFSNbkUwjGDa7meKdViJmNmRfpQZdnGAIIEJccfeoz
-X-Gm-Gg: AYBFou105X9858rz/a70ox6D7WDho9S4TdQ059EOCe7klghHHvUN7muUdO3wDMB8g8f
-	V1PMeCibnU2ClWiLdnRIDBhBiTEW1RbImr/l23Sah4ani/x+1q9iDv7wMkQk1bhyZ1PqpGFvUe6
-	EmJU7sXpnafK2ulp5/U0Y3YyubPfyTBAYIMYdWD88shNCPkRSSJBMArm6wgziE7aPTjwk1xX6Ou
-	p3P700PSUGxaEeDB12QehfJG41ccwTNVoxwlYLE4VVYG6yO0o+vd1YPgoWtPfnIZqfhHTbkqg5B
-	gUMDumMYHYMjJCPE32mfHHou/OxttNpC2GCZ4C4ORH8A5Ay1trYGWVBqr3wS2R4ZLpVdUeofRD/
-	FdX3g4MZ4fS4st5VLfsQ2WK7Wfvs7zIAjAFuVOb+bKyuCM+JnIJWIdDPWJn/71oPGICTUg7852f
-	ahbQpFEtbTzvc/P+CmumMMsWHPyGFdN2p/b3ln2kYqgrYLQotzbhTNS295em/zChAHpZXN+T06+
-	I8pf3/BYtx4hEa6Z7xsflQw+veebr551APGWFK06nOT0g5dFKAmkZwYTgvMDM7HOl2gJ7OP5GlB
-	sOXKkbfMUFazm9JngyhVZW/KtgT9R1R+x/aIH3JPj8YYGBfTMGznIkkn6MI+e4iUE9j6
-X-Received: by 2002:a17:90b:3e85:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3b182f91c63mr1169003a91.37.1794377451297;
-        Tue, 10 Nov 2026 22:10:51 -0800 (PST)
+        bh=adTF7M2gMHj7eJOUoZHUfGntqMgezvSTHYPTjsdEjag=;
+        b=BMAtGCkZNM06RWhVshvEfXvmGGVp7aO+yny+cb1JAqERe92YkWLarObobYgTryU2pT
+         GOaq8DauD0phMIGd5kYO4r8Vl1hiMilH6is76jG3HaSxSvwh8mqr7YOVrh4teUN+WnVH
+         jo6a8TEjoOtEc5Bvcru4vZx3qeEcCZedaoKwxSC3NwXJSm3keLnX004fD4QGfguNkDa8
+         EpROnHWNKg+3T6sSwTPtSCRlksr47SH3IsITGe+7UrPUq62/LSziHHB676gbIHYDyTCa
+         oymMuiD1noETuuZSNej3+rpDagxZPYd9khDIX4hSHjMNHtUIMVxsszTXBxhwdwoVC6iT
+         ewnw==
+X-Gm-Message-State: APuU4Z8TrmumhbBTlMOLMES6RrL1vgE5ZVXaztm/19+hm1+glCgghn52
+	Z6wlSn9+pzoh+sIpbLQDsYmm9WIEvbcVdV99kaKAM/J1EQsn2/3vKgkK
+X-Gm-Gg: AYBFou2Uzj1aYqIkXlpXPMuSGs1qvV4ffjVpDF5e5aNUP52L8my+0WPmhm33wdFlfYj
+	QqW6GizDaedf1QQj2qpGlFlC1WFEnnsxsflZmXnFczewgba1PHj2u8glEDmNGfzMvRbbe8YptMe
+	f1edgsu+Uy7RWw4spnTU+Hu7hyI26/RkEKOxLFAatDhZp24/gdowgaEO5gshtpdKcoISwepun1I
+	7MfD+4EZpsU/LIAQ8o3SsQBRwg+JMOAsjZsAQF+Qh2sW5zmj0XRVQoMouQo3qJLFocPQ1E6Q/ns
+	/0tH356Bw8WLuwNYxqTTyaVSWq8sqVWL5mYBUl04zrSHz2HvNjfYcyamauytvmO/2IjXI1M7BVk
+	ONbTcIlGimeo5GIngTqMOlKR6MLUhJUhyUEqAILf9awkqr3TGFNS7HVlXJfNkWZ+mInHPtIt2Ak
+	Gm2YNr4VUJ512ZKcg4Oi7WYMBZTTsNZp399CJp6tUJsn9MnzqeTaMgSGqlbcIRiKyEUVqBaMkYa
+	cIG/nALeoAHQEahEgzMgTRN6k6R1YhFcPiaEK8gQlz1qFSZWOcA56Ff9EHY+99lFypIhF3PaljV
+	QV/nGmzfxDaYzzYJFsmAmBm+2XiRfSbL+uV2yIM8wnbwFAJFBUIu01HaiW/HKreWcSJX
+X-Received: by 2002:a17:90b:5910:b0:3ac:9d26:5532 with SMTP id 98e67ed59e1d1-3b182e12787mr1641552a91.3.1794377454347;
+        Tue, 10 Nov 2026 22:10:54 -0800 (PST)
 Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7e8b1sm2978557a91.12.2026.11.10.22.10.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7e8b1sm2978557a91.12.2026.11.10.22.10.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:10:50 -0800 (PST)
+        Tue, 10 Nov 2026 22:10:53 -0800 (PST)
 From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 11 Nov 2026 14:14:44 +0800
-Subject: [PATCH v2 3/5] ARM: dts: aspeed: ventura2: Name the COMe presence
- GPIO
+Date: Wed, 11 Nov 2026 14:14:45 +0800
+Subject: [PATCH v2 4/5] ARM: dts: aspeed: ventura2: Name the USB-UART
+ bridge reset GPIOs
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ventura2-dts-update-v2-3-bce5b5dafc1f@gmail.com>
+Message-Id: <20261111-ventura2-dts-update-v2-4-bce5b5dafc1f@gmail.com>
 References: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
 In-Reply-To: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -106,50 +106,43 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
  Kyle Hsieh <kylehsieh1995@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1009;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1037;
  i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=JUNGHAUf0IQHmc6IEwFOoWoV3n/zRCC0p3wp8n0F++I=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq9Af1293/fjBxZT8qUQ7Ck1LzVeXz+XG4VA8iq
- w/9bLeZK7aJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavQH9QAKCRClg0K3CVbE
- gd/HCAC29OQHvHu3hEGDxLtfZftWnVo9wSObeWfAYbo8H0gxB9xNgPeWCZdlnrbWJaoQW8iLJeJ
- nPbdsyxL3kL2h5sYjLFrZnPBxHUwI+LfYDHG6DgjdoKan1x0CxAWR72tkxv0/IVQBNmPl6DQajn
- KKjvIhtdPdU881ZSuBaOyTGfRpRImiTZbyqsZxsiAxhZMFWIAn/H1qOgkwVwnMWwJSBGMeW8j6E
- J1ox//pkKu2LZFkjIBRIC+LvdPkEd6r/wWDSJz7gcync1njgf3+fn/IfKkjVahhjIYguBFTnmY/
- eCea8i+6hU5+CkSU+JgM7oINoUxLzE4XfqQxXTyYAWnErhL3
+ bh=uxlzFpBewTlOUpIvaHC+sQHRHy1iC/2nchos0sKDaSA=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq9Af1Y75M000yKvj+EmMiYb+D2UqM+Gjo5QTY+
+ aYZCRbqbnKJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavQH9QAKCRClg0K3CVbE
+ gVrfCACO+o3U98bHLfj9ft+SUDV7IbCt3mftqCSoznSCfIaMiRMu1dIttWlQN2p/TX6BzUrsEcK
+ ax4g91upkLZ/tHwX0pDAHawfcgNbviAQsmglRgvCNxhlk5ZvzQgAYqrDAzZkj/oxX4hx8yrPimE
+ UJTsTTFHDLqBAVOGQ5pcPvnnW/j7NM+lOctLzK6kdFPWb7fedDRM10xaj9es9NJLMrx5LNONiD8
+ TRq/DBbh4x2C5EOhPo9nfdKuvOsl1JqZo4i7J84arpRwXTVzAMGjlyQgpr6vr5mqd0RPCSd8CaL
+ 8xUw8eJFejqLyk0H2J2K0Hd4AtvI/XZknibcG3HHZD9vUdNz
 X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
  fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-Line 9 of the PCA9555 at address 0x23 on I2C bus 3 is the presence
-detect of the optional COM Express module. Name it PRSNT_COME_N so
-userspace can determine whether the module is present.
+Lines 2-4 of the PCA9555 at address 0x20 on I2C bus 6 drive the reset
+of the three USB-to-UART bridges. Name them RST_FT4232_{1,2,3}_BMC_N_R
+after the schematic nets so userspace can reset the bridges.
 
 Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
 ---
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-index 21c40dd4bb84..c683ac19aba3 100644
+index c683ac19aba3..a5e6cc94b280 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-@@ -625,6 +625,17 @@ gpio@23 {
- 		reg = <0x23>;
- 		#gpio-cells = <2>;
- 		gpio-controller;
-+
-+		gpio-line-names =
-+			"", "",
-+			"", "",
-+			"", "",
-+			"", "",
-+			"", "PRSNT_COME_N",
-+			"", "",
-+			"", "",
-+			"", "";
-+
- 		interrupt-parent = <&io_expander7>;
- 		interrupts = <6 IRQ_TYPE_LEVEL_LOW>;
- 	};
+@@ -1937,8 +1937,8 @@ gpio@20 {
+ 
+ 		gpio-line-names =
+ 			"", "",
+-			"", "",
+-			"", "PRSNT_FANBP_0_PWR_N",
++			"RST_FT4232_1_BMC_N_R", "RST_FT4232_2_BMC_N_R",
++			"RST_FT4232_3_BMC_N_R", "PRSNT_FANBP_0_PWR_N",
+ 			"PRSNT_FANBP_0_SIG_N", "PRSNT_POE_PWR_N",
+ 			"PRSNT_POE_SIG_N", "",
+ 			"PWRGD_P3V3_ISO_POE_BMC_R", "",
 
 -- 
 2.34.1
