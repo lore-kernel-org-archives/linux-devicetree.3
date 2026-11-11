@@ -1,66 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794358055;
-	b=xsejZGII/ZXwIaf2cmNd761wpyJTxiXe400Mz+vn+NyJDFNh6HzeTXEWD0+P4sgl5DBY
-	 5k9EZ9MsHU99fOBciPQ57tuRsplxRkVuBQKvTHsSEX+cDDYJQCy94UGR53IGljmRDrFwp
-	 F2hua3giugLvQrrL7fqqx/SGtq0h9LlzE+q5mfaPKxbKaBMRh0DoOt1dMNHi38Dh8dXcs
-	 1VRs+6mFCQ9B26vw/C3ii7rVLBwbsqR2ynU4VhiZchmjpO21BNYqd3zqZguRNPnPynf2j
-	 ikYQmTvGdHsBUqGvmmj9NOlmE3VS1tNFFO0cq5/hTR+8r+y4tQas2g5D5L1GYfvk84Q==
+	t=1794358214;
+	b=39XQItAJ/ka/ZnAyCyIMp23FZPWeiRYjsZb/3BIm1qnutVkUCNdWrYx30Xwlgpz2+HaI
+	 +AWZ54Q7gWnPQ4YNjEKUs3roile7B127uoLECs9r3gN0EuBFbO3Zi8V8lt9P7cQwIFSFe
+	 rfSWOoPUOYovSki+sEdiZ92lJg1r6NECJC4Re2MBItFEsZhSAg0B1WeNWMC+mnvw9EO38
+	 of6aVxUTafCJ9bWZOtHdvM2uIs7Okm2XUNtJ53RYJhfqlSRVXozU4ajL3XlOuQAR2UuHA
+	 GkMKrl4sYoz07pgsIazou9BJPsdENou8G/sGQCsAM5nDgpDOo6zp3RHWpXmfEiZ69sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794358055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
-	b=iPD2EsVQqci55+asIrG7wc0aHY9gXdaac8eZNCqZXTlzEazVNyWuJE5zCiqHmmcvN4gb
-	 RhpKJI5trsNKfGOrpaFPNbxb12xnX98PAXGqkQWqJvW+OZzTPr1Vy30Hz6kPrc0NCX7fh
-	 o2XcMxwjqocye9lV8m8tKG0JcJQ/SA6upgOgUORwH+l7BDNfyKgEbcaYo/RZEY8nQp5Gx
-	 +IVHsrGOwG3iDkC7GZ4eOMrsEk8ZXnSEIvRPV2jOrN7TBbqJI6ldby8Fupr5oSImAOxpX
-	 FQcHBvbsfS1Rf/RF7ui0e6W7dwJmlHXJ7+btj7gEBGMI+nCVPO7Q+VKN8Q9JVew1W8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794358214;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=TXETTPPRVF+HNiL1JDfhK3+Odg9X5L0s6YqExft/M58=;
+	b=c9RifpvegEshkiqlfdzfZ8A5r5rUe1Rcis+ashOf/NZQjSJh/qBitt4Q3H7ciO1XFFLs
+	 4Dn6TWSeOtxZiFxD7men/5oNtWHPx3VB1IWZgQ4nvGCQ0dMYABS+cOjpQpLr+R3xShgIt
+	 dsghUM6Lqa18boaDQV82/5+utJ6RbDdZzdBcuP33nNNztr28rUq/85tO3iRup5U4c1ptK
+	 Tpai8+tw62D/falFDVMy3n1Y8m2Q01vyX93YP8JiWALFm3deTZYHDXDXS/xNfkZLG8EgV
+	 Ky2y4k7SrjsAaGEsbZl1A+/6iQezb4q8pxqgH/uoqFVCmUedY3MowjJQcDTodiSbayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aLsL/HDI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73E8606A320;
-	Wed, 11 Nov 2026 00:47:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5618C606A33E;
+	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C640F1F0089F;
-	Wed, 11 Nov 2026 00:47:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLsL/HDI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3141F0093C;
+	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794358055;
-	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WM6outSpn9srJTdlP80y9RSw+u+bI42TfmY8rOxOBIBFkH2+zZ9al2xsJVdmy2cKl
-	 MU0sSVdkBnD02MA/xy1279U/64ZTOQ4czNbbyMLWZZz6mk5iD1a00QVM2VmPwTOUbR
-	 ZF1xG1Tzzcmt2RmGYjSb18XhJrWbgrPDExiDFLorRcZx6DeOW5OE7FSJP6jYufwJXw
-	 IVx86JI0jYvZJZBpCqJH0hwDyURY2yqHYhIUVsQA87yxjwhfNWkXmBZK7kIu4Z5J5h
-	 pQygmpBw2U6W/sPza04838xo9erGSx0ACqeDpjESbKDNSIj/Lr51MqBwjaqYz16EIn
-	 Zbdp9el4fJtzw==
-Date: Wed, 11 Nov 2026 00:47:32 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device
- node
-Message-ID: <20261111004732-GKB2005@kernel.org>
-References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
- <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
+	s=k20260515; t=1794358214;
+	bh=TXETTPPRVF+HNiL1JDfhK3+Odg9X5L0s6YqExft/M58=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=aLsL/HDIZvha5C4UASbyS/8/oVMaiH7y+qfKFJsCXtFfgjRBqu3k2mhnpw7CSVusn
+	 DTLKMNvUdumkNdWSdIPTi19z3ZAdWJn8gnmMxSSzO+4tuHGlP6VnlMU92IQYtu8Wz4
+	 o5PRmVcXER7KBkqzTmNj8ZMUgxv5RXbL6NFLEhj8IWyg3FaMA5gBMU6F4QhTFHkgpo
+	 du8WqP2QFNMfCCzPxMFSFja8O3s/U4IsCxTJ0xLjd9I2KvTdZKWCEy0maVEaYMhcw2
+	 AxESCG0UX5+WvHOh1Ms2i8fjr2djtyyLYDiu3SZ+XUG7dnTZfdUuVumad1sLn+jJwP
+	 wjZY5as0LwZrg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2108E39E8A55;
+	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,81 +53,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] dt-bindings: net: add Realtek RTL8125 PCIe
+ Ethernet
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179435821267.142717.8246984206000823163.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 00:50:12 +0000
+References: 
+ <20261109-dt-bindings-net-realtek-rtl8125-v1-1-cff4b8a8be66@pardini.net>
+In-Reply-To: 
+ <20261109-dt-bindings-net-realtek-rtl8125-v1-1-cff4b8a8be66@pardini.net>
+To: Ricardo Pardini <ricardo@pardini.net>
+Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
+ sebastian.reichel@collabora.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
 
-Hi Iker,
+Hello:
 
-You could drop "RFC" prefix next time..
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-This patch generally looks good, while note that it has to
-wait for power domain to be kicked in
-
-On 20:56 Thu 15 Oct     , Iker Pedrosa wrote:
-> Add device tree node for the Imagination Technologies PowerVR Rogue GPU
-      ~~~~~~~~~~~~~~~~~~~~ drop, it's redundant and obvious
-
-> (BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
+On Mon, 09 Nov 2026 02:53:47 +0100 you wrote:
+> From: Ricardo Pardini <ricardo@pardini.net>
 > 
-> The GPU is located at address 0xcac00000 and uses:
-          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        drop, too much detail and not really worth mention in commit message
+> Add a binding for fixed/soldered Realtek RTL8125 PCIe Ethernet
+> controller. As a PCIe device, its "pci10ec,8125" compatible is the
+> Open Firmware spelling auto-derived from its PCI-SIG vendor/device IDs
+> and is already covered by the generic dtschema pci-device.yaml. The
+> compatible itself therefore needs no binding to be valid.
+> 
+> [...]
 
-> - CLK_GPU for core clock from APMU controller
-> - RESET_GPU for reset control from APMU controller
-> - K1_PMDOMAIN_GPU for power management from syscon_apmu provider
-> - IRQ 75 for interrupt handling
-> 
-..
-> Disabled by default; boards enable it individually.
-> 
-As GPU is integrated within SoC, I'd rather see it enabled by default,
-so will not only one specific board befenit from this patch,
-besides, I see no reason why people should disable it by default?
+Here is the summary with links:
+  - [net-next] dt-bindings: net: add Realtek RTL8125 PCIe Ethernet
+    https://git.kernel.org/netdev/net-next/c/711c458f6f34
 
-> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k1.dtsi | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> index 3fabfd34114b..82cade2f76fe 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -5,6 +5,7 @@
->  
->  #include <dt-bindings/clock/spacemit,k1-syscon.h>
->  #include <dt-bindings/phy/phy.h>
-> +#include <dt-bindings/power/spacemit,k1-power.h>
->  
->  #include "k1-pdma.h"
->  
-> @@ -1119,6 +1120,17 @@ multimedia-bus {
->  			#size-cells = <2>;
->  			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
->  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
-> +
-> +			gpu: gpu@cac00000 {
-> +				compatible = "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue";
-> +				reg = <0x0 0xcac00000 0x0 0x80000>;
-> +				interrupts = <75>;
-> +				clocks = <&syscon_apmu CLK_GPU>;
-> +				clock-names = "core";
-> +				resets = <&syscon_apmu RESET_GPU>;
-> +				power-domains = <&syscon_apmu K1_PMDOMAIN_GPU>;
-..
-> +				status = "disabled";
-as if agree with above comment, drop this line and patch [2/2]
-
-> +			};
->  		};
->  
->  		network-bus {
-> 
-> -- 
-> 2.56.0
-> 
-
+You are awesome, thank you!
 -- 
-Yixun Lan (dlan)
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
