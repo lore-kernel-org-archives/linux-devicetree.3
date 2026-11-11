@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391629;
-	b=ysgr5xdc/NTQORdekl2FN5MJ8DECQYz/akFa1ZxFW1xn4vUgyAHgbVGqDMDZ+6XIfXnH
-	 izaB9heOcfp/l2ZPGJvMj9ST29pzsV403CxjURbqHG+V7QPZIxXc3mE9ViuzSf4WKprc/
-	 t7wa4D5kirq30L2S16cSSZ0S41v1mXdiQcYfkRx/K2RsMtJs/DS5u1VsDfKgwRZTX3mEi
-	 PLd6lsu5NU9vy+q5qfQvuAPffZwAGgZZovFnCzZLJS/WcFMRgo6c8QTHRHELM1QFpe2jS
-	 y7wNx2YMy1vIjdkWeBUzypgosAH/QILizw/5BnOFf4YhDQ+igyme//QzlCubHDZYAUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391629;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uxZnvepp6CMTyAQzCft/l3P80dC4U8HDCpbqhXxVogk=;
-	b=0I1weFPJNIuXUJsBrXstYa0PMumG7jj5rCokYS3xGd31TIwqJMW92sGFuBHLaQzQ/hk/
-	 k43zjTcoqOYWJi3ZBVniGr+dxOWbmxbflfXaNXwrSKbQcriU86Y/WBw+5rSj9Jv//cUTY
-	 phCMb+umeuCWSshY79/hfFkhMUTMM0amcMV85cNuEv0MC3Qc3uRQOcrxBEufyQIUPAq3y
-	 Z60Ke+AcuN6TvAxu0x+2Jo5EgDq0CO27HBAcJf1D5YUYn3/ikmQ4689UZBkloPArQ8/bg
-	 8PY8ppy0tz+dF0DwUGAgsYKtwuPhH3De6oCdyKxiTaH8flboD5Tw8IBOHIw5n8wLIwg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=PkayZSoz;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794391866;
+	b=TQtEfizjEoxhA0uKzyntBIAJ+YtCEpMGI3vd6bmdokS7ITqm05KiB2YtDQWMZaWui+XP
+	 rd298rGMxHivQh8vNjpQUGd5WVT8V9QBNGBc3ak2MhJv8sGwBV8bboEmUx/4/GY89MR+k
+	 oSD23/RydL8xoF23xRTPvhp/HDnXbCPTaht4YFs9YOk6kQnETSYNi3TpT433TsLygbyZO
+	 7xV8OL/9sfSW/9rxVsmfcHaJikxVNtjpu/1TG/RLimc834XXSAJtWKymFWUyIBkQtJavM
+	 aLX0l+TVZmxoE77z3Oj0RDEYxJ3uARug4Zh2yAL6wtpXBroqJ4JuavPiQfBHB3nXn1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391866;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RcxfDSekYHt6ucBS4YdOO2qZxKQfdCAsVFgrNT1LI9s=;
+	b=dbXNJcZ/b+RkYNpqPSGfck2yqzsaS81lujCFDj+WFrLbpPGm+O0I3bQ5C5vTD6Aiz7uA
+	 Xy4Sb1E+gxb3VO3mfKVmTKrqr1oD7zFi1PkRBP+u41UOPmy1TC494SNaA7mBuv/oveNJy
+	 RJE5U7rgY8hNkyL+mYjZm0mCBSCiBQxBXRT1Efmes20Tohx8D4S7I5NEzkmKOJbBfgpro
+	 9dyT+A3LBqu/gJJgJzVBc2axX/jf0tyw9jsHH6lI5q3DufzAKh4VuWjWYKExDySUuHoG8
+	 6HM74UmCGvTUYLxjEwobm8lwvADio92AhrGsYJqyEK2CMLy1d4UzW8/eXRPvpPUp/hw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgrQVlaJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5366606A88E;
+	Wed, 11 Nov 2026 10:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgrQVlaJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794391865;
+	b=NRrPwUb+hEfsHNApSSTlIrSnCZ76g6m8JLfAF+0E7O+eCvfQftHM2pXbeD2iYFYCV2DX
+	 Jn74YGtiBfuTymdrLWVPdskSvmY/uoiw8eaI1Ad72vynrWnYc9SXBifhk44GFI7VGFqdF
+	 7+5qtqVsTioQDHSKtsJu5PQvKSuS9ASkwixQQprp4Ne/lVfzdooIEZ9tmTgxT3iDnjHTu
+	 HrFJ02MiuM98BKt0Xu8VsAQ0c6AjnozmsRuyCrSNw8fZm8jSglrI5J86rxntaM24TbJoF
+	 tDyvhri+UIkqabwGw7SnSSAYGg6xKYvnar1Vo66GzZCy/kUPuPH4DL7zKK4d+JxLjpQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794391865;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RcxfDSekYHt6ucBS4YdOO2qZxKQfdCAsVFgrNT1LI9s=;
+	b=Ik3rLtaMdvKf+3hkRbLQ1rJwyTuxBO1oLqgmAW5fYvI3bo6HUE9U4Q65zfZeC5ZvwA91
+	 Z+6ThdhjcTG0Au5wK5DnzbF77XkqeBHR5g+bam4t9WBA+4sHjeQSSQioxTX/cqftGw9/Z
+	 KJdV7MznbsnzDuu7XOwJyg2DarI5qlIaxZrnZe+VrCBKdwCCidLBmXO/CZITixtyQiq5/
+	 GlmlrieCwyfSJ+pK8ZoD42MO+Gwczh4+sr8xsTbe3/AUnu9Jcbyin8K/vawyUMZgLHOw6
+	 CMSOJ4YGp+BvOx7z2xtR07aFXiwZoS7k8YDgrX3mvf+U3b1j/Uyx3HYKKctY+ps175w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA044606A324
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:07:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA044606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=PkayZSoz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=uxZn
-	vepp6CMTyAQzCft/l3P80dC4U8HDCpbqhXxVogk=; b=PkayZSoz0Yfvrg8A4nVp
-	y2sD11cFcE+/jq2e41+na8Uosyr/Oc4uG8mR9M4oXsf2ztA5l4TLDGlUBZsz5kOS
-	NLhAQZOcr+JnL8b8XM4pWPYyczh+yorEIUjS+RA8JpBQ/Sr0dvWtE05mafQIOLdG
-	fmP/rnoa1g98NMJb1zAfbZnqNv1mdTl5R6D2+jY5s2rwRd/hlgBws9C/lQDn3X6P
-	qRH8OuH3Lxh75aBGQDb27642NWK2Ro3ALFxJmAwIn6z5LoYpxC5Tvey3ycUJb8zE
-	4aMW8WfuaEWAIkSO7/Sl1X/C2Eej0PzlKXc8wqdsxX31yLJi/sPTm2+2ulnYftB1
-	fQ==
-Received: (qmail 562499 invoked from network); 11 Nov 2026 11:07:04 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:07:04 +0100
-X-UD-Smtp-Session: l3s3148p1@NOlfW/1fctEujnun
-Date: Wed, 11 Nov 2026 11:07:04 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 03/11] mmc: renesas_sdhi: Add clk_mask to support
- wider clock dividers
-Message-ID: <avQ-SIf0ZEsr51SB@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-3-57f16691c2ed@bp.renesas.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 832691F00A08;
+	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391865;
+	bh=RcxfDSekYHt6ucBS4YdOO2qZxKQfdCAsVFgrNT1LI9s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LgrQVlaJl+zjHbwifuApc0KRvamezgVPcV6pqtXrii/Cmdn4prknk2e6DAYLBeBc4
+	 X3dCTNoMj6HDm/qWMZoEC0/QksoZhOgiHed98g7Zs/WWdqWFUNJ5dYsFmGIGC3Th3Q
+	 odkYL9+lgDm3V62fE9jBIGCVAMCBYSvnmaSHerO5vZ2VVR51gtyniAkyICZI4/lhXp
+	 01OzsWfRer0RRCaFFPbPd2/iWr8wZh1SFdQB54fXCPAoqBc+T82LDW4d9+peswgtmC
+	 6b2VVdzBV/a0uVzJVmkBI6o4TglCV/GBu+JlaWbuJEf0sloI03zC/62put5yGkmgW7
+	 fQyD7xoPbXIIA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 06C1848F37;
+	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Wed, 11 Nov 2026 11:10:58 +0100
+Subject: [PATCH 3/6] memory: tegra114-emc: Always restore the
+ auto-calibration interval
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,60 +83,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uChG5fgUX4xJiPFz"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-3-57f16691c2ed@bp.renesas.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-upstream-emc-t114-v1-3-54d9e1bceb6a@tsv-stahl-riesa.de>
+References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=2143;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=TAnBAqYy7A55BHTS5zRoiWh6peV/YQug5wzY/XpzP7U=;
+ b=3bGYVrsXMzw14FnvFfHSX/wK6/A6Ih2qMJmxlqJ4s8ey7rwdjmEj/OqYyDMe94ALBtxWVK5Bx
+ Ms/t3MLnUf3BWPIanBMyhLDk5EHYXlPtz9oZ85nCA6+QS7HtVc2V7ub
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
+Content-Transfer-Encoding: 7bit
 
---uChG5fgUX4xJiPFz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-On Wed, Oct 28, 2026 at 12:51:20PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> The clock divider on the RZ/G3L SoC is 11 bits wide, which needs a
-> clock mask of 0x200000200 in renesas_sdhi_set_clock() instead of the
-> hardcoded 0x80000080 used so far.
->=20
-> Add a u64 clk_mask field to struct renesas_sdhi_of_data and struct
-> tmio_mmc_data so SoC-specific match data can supply its own mask, and
-> widen the clk and clock variables in renesas_sdhi_set_clock() from
-> u32 to u64 to hold it.
->=20
-> While at it, clamp the initial clock value to a minimum of 1. If
-> actual_clock / 512 evaluates to 0, the loop condition
-> "new_clock + clk_margin >=3D (clock << 1)" is always true, and the
-> loop never terminates.
->=20
-> In probe, copy clk_mask from the OF data and fall back to
-> SDHI_CLK_MASK_DEFAULT when none is provided, so existing
-> SoCs keep their current behaviour.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+tegra114_emc_prepare_timing_change() disables pad auto-calibration for
+every clock change by writing 0 to EMC_AUTO_CAL_INTERVAL. The interval
+is only written back if EMC_CTT_TERM_CTRL differs between the old and
+the new timing, which is not the case with the usual tables, so after
+the first rate change auto-calibration stays off for good. Read back on
+a Tegra Note 7 (P1640) after a few rate changes, EMC_AUTO_CAL_INTERVAL
+is 0 and EMC_AUTO_CAL_STATUS no longer changes.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+The Tegra124 driver this code is based on writes the interval back
+unconditionally for DDR3 as part of its BGBIAS handling, which was left
+out for Tegra114. The downstream Tegra114 driver (tegra11_emc.c,
+rel-tegranote-r8) also restores it after every clock change.
+
+Restore the interval unconditionally.
+
+Fixes: dce208b5405f ("memory: tegra: Add Tegra114 EMC driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+ drivers/memory/tegra/tegra114-emc.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/memory/tegra/tegra114-emc.c b/drivers/memory/tegra/tegra114-emc.c
+index 6ec1bb2c3ed0..9de3f2e728ea 100644
+--- a/drivers/memory/tegra/tegra114-emc.c
++++ b/drivers/memory/tegra/tegra114-emc.c
+@@ -706,7 +706,6 @@ static void tegra114_emc_complete_timing_change(struct tegra_emc *emc,
+ 						unsigned long rate)
+ {
+ 	struct emc_timing *timing = tegra114_emc_find_timing(emc, rate);
+-	struct emc_timing *last = &emc->last_timing;
+ 
+ 	if (!timing)
+ 		return;
+@@ -714,10 +713,9 @@ static void tegra114_emc_complete_timing_change(struct tegra_emc *emc,
+ 	/* Wait until the state machine has settled */
+ 	emc_seq_wait_clkchange(emc);
+ 
+-	/* Restore AUTO_CAL */
+-	if (timing->emc_ctt_term_ctrl != last->emc_ctt_term_ctrl)
+-		writel(timing->emc_auto_cal_interval,
+-		       emc->regs + EMC_AUTO_CAL_INTERVAL);
++	/* Restore AUTO_CAL, it was disabled for the clock change */
++	writel(timing->emc_auto_cal_interval,
++	       emc->regs + EMC_AUTO_CAL_INTERVAL);
+ 
+ 	/* Restore dynamic self-refresh */
+ 	if (timing->emc_cfg & EMC_CFG_PWR_MASK)
+
+-- 
+2.56.0
 
 
---uChG5fgUX4xJiPFz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0PkgACgkQFA3kzBSg
-KbbQ9BAAr/nzYNQcsD9ViDt2WEyB8HC2BkiqBKr+lWZFEoMfXyN1XK1vdG+PajX5
-7Zd/EleQZMTitOfetXGFjLfNo/hfo0Nf4GoPmPVkiJmTZSSAMETQi2bQoAJFIoHH
-csuGrBpNyFJPolnw3O440kP3B1DdIq8GKboWhrN0QfP1x3UvtrNLUf0gCRsaGxuq
-8gd5fSCCx6RL3+5JvdWCbQq62tggRnANfQ8yaQ7lGH9tS6HZJ76qpk/W1a/RhSZW
-uymCHgnsA1JcAvFnaAohmKvRVP/XjS354sHn40uNoWGshcheyeGvPUhjHOYjzRrP
-0BYt35kJHapOxyEfNAvZS3LphSUouF6NSmRjmZKWx6dKp+6hJG+fONXWSoXWlyHZ
-dy2t5X0wmFxlX7CZXTMJgTG2aTn8pFDqHJiyvbW1nClJO73WTxpX3+QX4vq3Z/e1
-Mc6xNmSA6xgaO68t5Wp4cEA8Szqt9jA8f0yew8/e0h36ehjThi/u0/tihyo5Fjuz
-oIohntq3U3sBDoV/oyB3P1YGHwSjPSt8kNxHqecahSII7rMhFaOm+AxshCM7cfGT
-1EnRLrV+5McHsXpc93DUH9bqoFk1Yr8b+2/V3KLcSvEUgJQYc6W0fHCmcJdF/suX
-U902TD191MX6r+YFZtJCkxuNmR5LWlTVaCtI/vnq8z9wLqwrgAE=
-=1p21
------END PGP SIGNATURE-----
-
---uChG5fgUX4xJiPFz--
