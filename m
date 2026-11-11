@@ -1,65 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428294;
-	b=vEqbOAOzmQV4BPqsUJPDYe2FTaN2rswqBV7bzgKpkkiTmPJp/9ayLcvNbmgTRiNNhE1Z
-	 MAyQ5gsFGHOAU+Cu1iK1Nw/BGyq8hLYnz9c0wQEd7dyOMgrEGDPsckSSWoKzuFrvV93k0
-	 rDNdd6gPM+R5L4hQ6FN+YSDyKMAE2BycCONLzRFUNJBCXTkFPQw9siI0k14FlTRppGHTK
-	 ScGMWjpwNYQcf7hfohVmnbvOQH4ZF9aFVLhiEHdCjEYxayFWQQA72eaPnvGGuTqVGSKbV
-	 9JNcPl8jOdNyqGTfaafmDkkuY0aYOLEBoFJdvoGPTiJ487RNngl1G+dWDjMmLiF1kXA==
+	t=1794428631;
+	b=bO7t70YlRYO+0Xyv+qFEaJDdLYn8Pn1SbOMbdxFnhDb1QJNd2l/5AAZklu/vBJFfMKZo
+	 z2+l9pgXUpWGr3j+JjBT1OnHvEYWMsbGhkueaLL+mvt1c4x+J+ntp/PXxHXkHSxu/z+6f
+	 2+Trl5GnykzYzTltT8ScGf9BAx0yVtGJwT2N7CjRDdjmPyYGDlrEz2dhTwvTs0jrNSiUV
+	 sZctQPLjiw6kNyfJ25fFJDvrtRk/B+3udKIDjVzacPQ8oOfAwQMDmuu7YwQK63bLDJ4p+
+	 B9MV6jdogPn8zYEVDr6AoiB5H70Zs4Z/NabKJ39G1JqBAgiNx8ycXcEyGEYHhg1YQKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428294;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Els3/l9AGCSjcC7efz1j19ntkOAQMAY8UI2QWizsyMU=;
-	b=R/w0ioztyeTGpw+iH81efs75Gr11u1T7FTX/D4R6WRKdGM/r/Lxg5Fn4aF4IZS9cakik
-	 DWqOto5Gp03qWXLqEHRnpMTRtsBGWSz89HDyRYoJ9xuP2WV9FqSRq7viKIsGFf/EpxS4Z
-	 hjPDdD8lKrC6iJVYfIaxD6a1FIO+FYYj5AtX16tBYNuzTprcLRCCMugChIX/nWtvfivnp
-	 tZBhoB41xazDU0K2euchANBodL1Tt5oFBtHeIbu/RTJI3ALUGL5Vel1Q2BwC9Tdx7aDwy
-	 jJGol60jVPU70+ZPu1+xO9lbm1bWjibvr0Qg6k3Rv2fYZ+LNhNjvWu+crD/fXZxQL5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428631;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
+	b=vHldQ1eBUriDPg0ahvi0Nsvjkhfm9obj+vUAlIwM3ZzQJ0E/R/TDQRKMmMxCVg9dplwk
+	 yGcFRYx9nJKQ4jAqiozpwTCu1dpDlxS/coYr/UpLcvulKkLtITNH3DCvM7SxEXX+ijAPz
+	 PVKx4X8RSdOkGeBRkc0K2xZzIfT30xiiVjkSqN9mlX0UMqletjYHViD0g9Zo1LmwR/tkS
+	 7qIU+mhFf4xoSpwO/mgM6M05ReBMa0vUgTEDg+REA3DSHgHr7aw1wWvuXpFhaisKnjQJ9
+	 hIzHRpk9zfEBLhiFiSLeXKqhWp/9zsaV34MEgQFZl9fVlanywMVrV9D6aiFfM9XDfRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nLI3/DNW";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvVQJW16;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAF3606A321;
-	Wed, 11 Nov 2026 20:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B29606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67B29606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nLI3/DNW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5FC1F00A05;
-	Wed, 11 Nov 2026 20:18:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428293;
-	bh=Els3/l9AGCSjcC7efz1j19ntkOAQMAY8UI2QWizsyMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nLI3/DNWdeV0x1vHF44IGq1ZgW1d12PIIB+PI2iGWrUtJREN6UWn50o5jtAKDZHAP
-	 VGvfhxb5Y89pzBf6edS//7RnKRcqZRrMIYW7a1vY5srKD0JLCv3IfAUSt2JBhKSiFE
-	 kvMBGL71p1wRbe5uOqiV+7JcSYZOmAsLDhU2/AcyuoDWcu5WOegiWpyeWiCUyAGPrV
-	 GbUnZqgqkhG+L6a8A/qLfBXYEhL5XdQ5lCXIvca5JL4WgtWLqQSNJstSHEKd+7NZ0S
-	 /vEOx3OgGLn3Zpky4EquBRs3HjuxoWtbaPgQ7k31pOA+ekt+GnkTDLtexOAModBNgp
-	 4e2OsXagqP1xA==
-Date: Wed, 11 Nov 2026 21:18:05 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] stddef: Add const_cast()
-Message-ID: <avTMrylZawfodg_A@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvVQJW16
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so2774741f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:23:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794428629; x=1795033429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
+        b=zvVQJW169YCl2FNv5XPTZUnB12yoJm+4jxM0NiJnDOVIPtAqUg6eYQ3foS1EnyNukP
+         eTcWw99nUrY/yYWpegdwesAg5R+XcMpkUL60Gg3+8857AfWtcNZSnd3iNlAlH45m1k9R
+         gmDy2K5k0Rik78HAIafesPAcgbGe1B52O4B7tSqGymO+tCLWGx/b+3qGo6v8aVAM4yE+
+         7NP79w2BJqR6HXVJ4tZ9cG7DfXf/F1JqsxwhmIG1lsXJvO+zhcENxKFAUo3/6l8AMaDC
+         uybUfHV2d+yJp9sf/PP0Rr/bJgRlZ0dTT1944Xg22EPxn+fUqcMu9uM8h6qEAAN+SxNO
+         04ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794428629; x=1795033429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+AG2VBeEI7A1GoTfdc+gJ/lg1MNn0HShTrdncYJaegA=;
+        b=b7e54+U/C9HMjSBBgq+OmwiUyiMxf2X8R+dEVWaG4VVIGQvFxd/e5cSy71JcG6isp9
+         85GbyuLTSNN2DbKNfkxM9N6tbY4Q/vRBipfKTPnsK50sxjOFDk33BYiDRWFy5Ctkj8je
+         l4VoYeMuzOMJtV7myfHV+Vy4k93oY/TjYFB6FPIdGPy9shVA8/KiXvo5YD76zWjHsc2K
+         +fj1lcAbdzZTEz57RExeO3awL/QwNUs8bPN3rV/YRuDRIHy7d2b/ZCVW0E8rPP/YcgHS
+         i7PocpYSGSkpq2Zc+SupiWWXEJzxG4KJKzAzKtKT13q2xvkQPKk40DDl1C74hkZFNonD
+         jGGA==
+X-Forwarded-Encrypted: i=1; AL+hErEvyW8Tor07com79NMeScwaQv7Lw1N9ZmRH6IkNWN8uCRqrDyqTFewjLIuQbiTXoRCj/en7PUzwlDPl@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HcFXxQUVVslcvrYCHPo9+FYDR1XMagmUsBktYGQaC7HNrDz6r
+	FGVXLmavIcGXRL6PzvdIyS3MMqDUDYKL4yMsQGX9CUZH+q81trksCQWZ
+X-Gm-Gg: AYBFou2/8EVfJXRijbdO9zxAvoqPZ4ojB33ILwx0Z3Z4ino4yMNPfIhWsterzkTulw9
+	BszKhchI4oOkyluOC3ev0xI1INRSi9SbuDGkBGbpz/BWts963XGTNkeeHwL0g1IBTvD6S3WYcj2
+	3iVQJ1kP4TwDzwrOmoM7U3CwwfjR98XP4fUqqQ17tCbZpsBG42nMZ3PXTQj9uuT08dFgcdNEl4f
+	4bvfjoZnC9S8KXVTt6ugLsdltyFD/RBOw3jyogXvL0gnZX2xNb78265V/XZZ3fpwmCOSaXmT+4A
+	MZPJTkJevAQyiFc1eZh4HSKvf2M2s77lajTCR61CEfC+vv+CSRuyRU+rkfW3yXgUgb3K7qVpyYR
+	rNW5irVc8s7vKJP9wYWrGgEh5L5dCnOhohV5yWPrItpPpkBMI+XJocAtH10D4KyGBUZUkCT87uy
+	ZGoE9UAwVSY4/tLIzH7V+l/avxyKYtk5345pjjwkuwMKZlbKbuw2Z4NMiAFI8LtE8TErf/jN4if
+	4QLgGzjaUaKNQKEoOOJRai5hQcEhkLU/tcgyDYNSbQcV2jBmqP/GB5u8Zbr/4ni5pmnGhgGqnfX
+	WZZnSfhyfnoqKp6TAVg8/wWlv5mgAjcFE/DHbMKR4AS/SSxZFFZC5um+YaXfErfn4skGvZsFD4T
+	pb8fuGaVQtnfynQ5rP6Qu6cRVHpyOlfAliyBG9YzpAs7vwvBDlZ4W7rE=
+X-Received: by 2002:a05:6000:611:b0:48b:9ed:b81f with SMTP id ffacd0b85a97d-499c89825fdmr6554563f8f.10.1794428628387;
+        Wed, 11 Nov 2026 12:23:48 -0800 (PST)
+Received: from Lord-Beerus.station ([93.146.104.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c990sm12079305f8f.3.2026.11.11.12.23.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 12:23:47 -0800 (PST)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: [PATCH v2 0/3] Add support for Variscite VAR-SMARC-MX8M-PLUS and Echo board
+Date: Wed, 11 Nov 2026 21:23:09 +0100
+Message-ID: <cover.1794420001.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,128 +116,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wqjyunsqqp33uwdl"
-Content-Disposition: inline
-In-Reply-To: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
+
+This patch series adds support for the Variscite VAR-SMARC-MX8M-PLUS
+system on module and the Echo carrier board.
+
+The series includes:
+- Device tree bindings for the module and carrier board
+- SOM device tree with on-module peripherals
+- Echo carrier board device tree with board-specific features
+
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
+
+v1->v2:
+ - Remove the unused ft5x06_ts label from the Echo touchscreen node.
+ - Add uart-has-rtscts to UART1 on the Echo board.
+
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: Add Variscite VAR-SMARC-MX8M Plus
+  arm64: dts: freescale: Add support for Variscite VAR-SMARC-MX8M-PLUS
+  arm64: dts: imx8mp-var-smarc: Add support for Variscite Echo board
+
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8mp-var-smarc-echo.dts   | 648 ++++++++++++++++++
+ .../boot/dts/freescale/imx8mp-var-smarc.dtsi  | 640 +++++++++++++++++
+ 4 files changed, 1295 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc.dtsi
 
 
---wqjyunsqqp33uwdl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] stddef: Add const_cast()
-Message-ID: <avTMrylZawfodg_A@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+base-commit: a62533fb6362e6424a7bb4ecd4b5afe1a3355849
+-- 
+2.47.3
 
-Hi David,
-
-> Date: 2026-11-11 20:55:39+0100
-> From: Alejandro Colomar <alx@kernel.org>
->
-> This macro serves to cast const away without risking unwanted
-> conversions due to mistakes in the cast.
->=20
-> It's similar to C++'s const_cast(), but it is more restrictive: it can
-> only cast away 'const', and not arbitrary qualifiers.
->=20
-> David made it a bit more robust.
->=20
-> Link: https://lore.kernel.org/linux-hardening/20261111102535.434c2eee@pum=
-pkin/
-> Co-developed-by: David Laight <david.laight.linux@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  include/linux/stddef.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->=20
-> diff --git a/include/linux/stddef.h b/include/linux/stddef.h
-> index e1851c50c89b..5201d71db387 100644
-> --- a/include/linux/stddef.h
-> +++ b/include/linux/stddef.h
-> @@ -194,4 +194,16 @@ enum {
->  #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
->  	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
-> =20
-> +/**
-> + * const_cast() - At most, drop const in the left-most derivation of a p=
-ointer
-> + *
-> + * @T: Type for the cast.
-> + * @p: Pointer to be casted.
-> + *
-> + * If @p is of type const @T, then it is casted to @T.
-> + * If @p is of type @T, then it is returned without any casts.
-> + * This avoids mistakes that change anything other than 'const' in a cas=
-t.
-> + */
-> +#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
-
-Ouch!  I _thought_ I had built with this already, but I might have done
-something wrong.  Trying to build now, it fails to compile.  Which
-reminds me why I used 'default:' in the first place: when T is the same
-type as const T, this fails to build, because _Generic() can't have two
-identical selectors.
-
-So, indeed, we need default:.  It's not a big problem, because since
-the type T is already validated by the function itself: it T is not
-something that can be passed to strprefix()'s first parameter, it will
-fail to compile.
-
-So, I'll revert this in v5.
-
-
-Have a lovely night!
-Alex
-
-> +
->  #endif
-> --=20
-> 2.55.0
->=20
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---wqjyunsqqp33uwdl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0zXcACgkQ64mZXMKQ
-wqkGUA/+OaiDbeJU30QN+XXhjq4wsZoadkGM+HONKlcYIvwd1wpZCXvTexjqEAiu
-rBOd45EWU9TJmFtZfv0ss7JTAc5xMLd7aFuqjFWXUQeb0xlMmHyb1RyU8wEHf2TP
-b9l8iEe2F0wpccRV30rYPspU28euHBBwvIVQaoWRFNztin3JDGFM76O8OPXI4ySP
-oErRSC5piw6pB1fLLy0YfyobN4qkzm9TU6qjnz8W+LUWE2lLq3L2AyRwth6oE/5E
-Y3l1kVzSJFuyvlf2pFUxGsNTt0GyHP0UD3tRB0uSJkg/VKOCPChJPXNZiM8IERPU
-EH8hK4TivyOOgfEl6M35wtjASXP3TUtZqIajnGuVKIDCb1lq/s5nZGJavY5G9NCQ
-NCN5azwflC5oLRU+4gVaTaoXGRq06ZPZYTpMlR6qcHQAhexT+K1/MJXmCDiRpD2f
-T4HSIzb2y/3jZW48Ac+5miIOz/AJn3/kq7yu0VvSwmYqBMDqouuPYaOyD7v1CvPW
-CT/T3+VPGXsYTAgyZ/4bj4noo33Rr0K1SgBQcwrgtbKOSbCyCf3wny0cFngFZeEj
-cm0nPs5WLLhnD6aDNwvrPKRN0U6r5Dkqp/BDgQqqkIr+nDlauvmgPYboFufrkQs/
-bKfX7UNnK9v+T1LTE3qorD8tPCCSYtCabBda3K3CYLRCkdw3kic=
-=i3+x
------END PGP SIGNATURE-----
-
---wqjyunsqqp33uwdl--
