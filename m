@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794402915;
-	b=dNuV1FznviP1JmcBKZhK9C+uMG0TU6iHwzG7lheiwQiJgbM5Ehg/KSMDH0no14B528SM
-	 aYJ4kOc4ABt2OzYfLLs3tEjuKtfGtO6w62qLKBCRzmon4HklMO/uYK6T7E/T/u6bC+snW
-	 enBvB8SqwV7HFW6Ouf7jMLqYtvyvSqjYjF9juta84Bn7Cz/TtGq+aIjtGpA8J0iHF3TU6
-	 gzPoYa0Kfts308nFpvwJWRHPedWsVx33Y34FI3DyOMqWuGuxM1y3K+kDwMUxDAyMblgqw
-	 d2drdCk72r1TfhdvPx+Fp2lvh2tIC39aG08x2SVb9Q7mXqzLE8MpxKtNVaTHLM3Wh9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402915;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=;
-	b=YVTfxDKhKMRX+ez4WZSSFZukPTHsykZZSrqaUzQ3ARsoHd/gsbMdF+zXEmx+ab/NpOzm
-	 fxRzoE4XkguZNdDR0iucF+cCA/t+YYSdwvIKHVAZjlX/Bvs7prcLQPaZsTSEW/ctuRMj8
-	 Z+CS0rT17Sz/gH8ENTdryfc4REGqWLZddtQYiNezM8n5SmhyKrzghcTORRMGcgfsGQpjH
-	 FbMveeO0eSgc2gR+dgryId+lGePxj9Ca6VmZpPy/ZFGaUTuOXngc7Uz9EK0gV4aYuCymz
-	 fQp0PEmLoNNONfBn3L3WUB7uzsK7oF1dLARoWzW+3bML9fFNkGN9Escn0Jl/uJUe67Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FMEwYNIu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794402985;
+	b=kQDEUsioD6sMA6heFfND2QMvYEbBO+svHLsPU4Mt8yeU+8ZACUIws7YLI0P9LXGtYdNV
+	 TFtWCdGJL2wpmvISeSOCRvjDHxiehUK51+WulEqTHL3CQpKz/8exheMPL61PJie1vptMG
+	 LHdm4rt9rnDqZilMLAQ4zJNrBnqHjk2rWtAEsY0zbAuDeRPwg5Z5CNfC8vgboQ8XW/hsK
+	 e3Fwhj8+NfJmHRdYkgzv3BhPZTkGRcx42sRLB/PSIPMOoQEu3mhzLO5Qgs6SMi0jFHzBW
+	 5VvMr6Sa58vH4kVHywu8mLpBMRVCXFf+v8x5zz1lozR5tRCCJXpBLVCGPkvVqUDfwjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402985;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=b0UxaG1/FkKkNPrwvDU6OdfngZmWZ4czIDsyvXxNFY0=;
+	b=GHLyFadJRhxaeMcx3rC48PhsTif6NAaEkeAOrBWZeGNCvMhpeVvIh9X8TKx9ybbjpriZ
+	 9aPYsnuSrhe3X/RUedCLMpVflfirCLAyYeXU7Yd0uuviZ39AXY9z/+KB082kMtVK4EIJ5
+	 FyGjGcxWPWZesUBu87x3GMARDzVE0BMPcYanzOHvSDpR0f2MK0LslOHo1bSrsrJmFnV2k
+	 R49TkiIMv7uNigiFAFmxlLxqTJOaG4azCJyAVcoyahWc2iV+05ZbckK0j6L72LHSHkEG1
+	 0RlrJGUwYl4fGJPcJ0Qf7gnPfT8jE0j9kjIKi4qG8XEFbfhi0yK7e6XcoK4PQ1sCxug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSplXX3y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CA9606A32A;
-	Wed, 11 Nov 2026 13:15:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CA9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B131B606A324;
+	Wed, 11 Nov 2026 13:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FMEwYNIu
-ARC-Seal: i=1; a=rsa-sha256; t=1794402893; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JiuYMiq8RBihKialjLq+csYOnvm3N2aGmzrVaPUdaxvEAGDkPBxmVCOfFs6FTNdvs8DMSwCszTFIdhdlyLUUjeS26WRTtCiigVfvezJ7wMJznjlUe7a8t6wr1kPUUs015VeOrMosw9xKCVyMwUCPpIjkGCXqL2Ot9fUlRjdgWVc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794402893; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=; 
-	b=WRC+mpP8UxmcLQ1/dFMf2anla6V/WKnVGXjxsW26lk3jCxzb2C2+RqLA9gctpu47GQRLxQLQx64tr2k7UMhLCDw9aylRuEcnuS5Xf4H1hsxe+ZxFTlpdVleg5//DbNRHXvPbN8PU8vt2EmyC2bcrIKl+W2RHLBh209w0PAZE5kM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=FMEwYNIu/lXOWYXTUwtQ/tATog2J9nKcRKlIZJh9KEmvFKR2PTUyfW8pVrU6YcesQub3HJNv2LjrsIdGY69Xe230rVICykok7XU6GTYZlbnteedow490LMElkus7ZqD+P2Z4yAeFoUvm1KBK2XQEncus9AyCZTTzjp030n1C6X0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179440289194724.462775649189325;
-	Wed, 11 Nov 2026 05:14:51 -0800 (PST)
-Message-ID: <6fbe6fed-3ed4-4f87-a92b-dbd01e1674d3@collabora.com>
-Date: Wed, 11 Nov 2026 14:14:47 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSplXX3y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008D91F00A05;
+	Wed, 11 Nov 2026 13:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402985;
+	bh=b0UxaG1/FkKkNPrwvDU6OdfngZmWZ4czIDsyvXxNFY0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FSplXX3yiDha+3kgcyAPiK/WX97psoAKQI4fsfDm/jDCFfG2zYSTn0JzsaNPmMYcq
+	 AnorE54dT03XCTTSrHHHU/hazqFypRZXqpnv2CK5HEE3s/KzSK5GS2rau/FxxBJmjZ
+	 LiXzSHdfi4U1o6Wkd0p83owpAJBXdp8c96xvdCUQiBlsz30iY8qVS/DPYrg6iB8RKq
+	 ihVP9Iyz2IYLAZ8oBy4SoZb75VZJO+d6xzRkohnYSkrK306rVvEmgZ0JY5iNzmy0c2
+	 YBOmFHbFBu+8wo7B4sF+iEZmH8nzYAx8CC2soP8F0x6E+eNwK7KgsxFxfYKrn98/TL
+	 w5yraN/6nFM8Q==
+Message-ID: <sashiko-outbox-209052@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/7] serial: core: Power the line transceiver with the
+ port
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
+Cc: linux-serial@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111-serial-transceiver-supply-v1-4-40bad0f912f2@vaisala.com>
+References: <20261111-serial-transceiver-supply-v1-0-40bad0f912f2@vaisala.com>
+ <20261111-serial-transceiver-supply-v1-4-40bad0f912f2@vaisala.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 13:16:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,102 +60,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/9] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Jason,
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 2 related pre-existing issues it does not
+introduce:
+- [Critical] serial: core: use-after-free in uart_line_info() [1]
+- [Critical] serial: core: dangling pointer in
+  serial_core_add_one_port() [2]
+--
 
-Thanks for the patch!
+commit 54c2531a6ac957209b731d5dba93f7f0ba6a052f
+Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-On 11/10/26 09:18, Jason Yang wrote:
-> The APB reset and the BIAS references have to be treated as block-level
-> [1]: both the transmitter and the receiver need them, and they only have
-> to be programmed once. They are programmed from the transmitter's
-> power-on path today.
-> 
-> A later change registers one struct phy for each of them, and a second
-> consumer coming up would then reset the block underneath a PHY that is
-> already running.
-> 
-> Program them from runtime resume instead, where whichever of the two
-> comes up first brings the block up and a second one no longer resets it.
-> 
-> This puts the BIAS writes ahead of the per-PHY reset assert, where the
-> TRM's worked example has them after [1]. That is safe: neither M_RESETN
-> nor S_RESETN covers the BIAS registers, and the values written are those
-> registers' reset defaults.
-> 
-> [1] RK3588 TRM: sections 22.4.1 (address map), 22.4.2 (reset values),
->     22.6.1.2 (reset) and 22.6.4.1 (D-PHY transmitter start-up)
-> 
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
+serial: core: Power the line transceiver with the port
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+This commit requests the optional transceiver-enable GPIO and startup delay
+for a serial port and toggles the transceiver power alongside the port in
+uart_change_pm().
 
-Best regards,
-Michael
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
+_core.c
+> index 6c0a6d9dcb851..d36bffaa100b8 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
 
-> ---
->  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index 7a009d87a665..d6acc3e2d448 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> @@ -1346,7 +1346,6 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
->  
->  	reset_control_assert(samsung->m_phy_rst);
->  
-> -	samsung_mipi_dcphy_bias_block_enable(samsung);
->  	samsung_mipi_dcphy_pll_configure(samsung);
->  	samsung_mipi_dphy_clk_lane_timing_init(samsung);
->  	samsung_mipi_dphy_data_lane_timing_init(samsung);
-> @@ -1373,10 +1372,6 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
->  {
->  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
->  
-> -	reset_control_assert(samsung->apb_rst);
-> -	udelay(1);
-> -	reset_control_deassert(samsung->apb_rst);
-> -
->  	switch (samsung->type) {
->  	case PHY_TYPE_DPHY:
->  		return samsung_mipi_dphy_power_on(samsung);
-> @@ -1667,6 +1662,12 @@ static __maybe_unused int samsung_mipi_dcphy_runtime_resume(struct device *dev)
->  		return ret;
+[ ... ]
+
+> @@ -3282,6 +3310,12 @@ static void serial_core_remove_one_port(struct uar=
+t_driver *drv,
+> =20
+>  		if (tty_port_initialized(port))
+>  			uart_shutdown(NULL, state);
+> +
+> +		/* Only a console port is still powered here */
+> +		if (uport->transceiver_enable_gpio &&
+> +		    state->pm_state =3D=3D UART_PM_STATE_ON)
+> +			uart_change_pm(state, UART_PM_STATE_OFF);
+> +		uport->transceiver_enable_gpio =3D NULL;
 >  	}
->  
-> +	reset_control_assert(samsung->apb_rst);
-> +	udelay(1);
-> +	reset_control_deassert(samsung->apb_rst);
-> +
-> +	samsung_mipi_dcphy_bias_block_enable(samsung);
-> +
->  	return 0;
->  }
->  
-> 
 
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can uart_line_info() race
+with serial_core_remove_one_port() and cause a use-after-free [1]?
+
+serial_core_remove_one_port() drops port->mutex at the end of this block and
+calls uport->ops->release_port(uport) before setting uport->type to
+PORT_UNKNOWN:
+
+CPU0                              CPU1
+serial_core_remove_one_port()
+  // drops port->mutex
+  uport->ops->release_port(uport)
+                                  uart_line_info()
+                                    guard(mutex)(&port->mutex)
+                                    if (uport->type =3D=3D PORT_UNKNOWN)
+                                      return;
+                                    uport->ops->get_mctrl(uport)  <-- use-a=
+fter-free
+  uport->type =3D PORT_UNKNOWN
+
+A concurrent read of /proc/tty/driver/serial sees uport->type !=3D PORT_UNK=
+NOWN
+and invokes get_mctrl() on unmapped IO resources.
+
+[ ... ]
+
+> @@ -3409,6 +3453,14 @@ int serial_core_register_port(struct uart_driver *=
+drv, struct uart_port *port)
+>  err_unregister_ctrl_dev:
+>  	serial_base_ctrl_device_remove(new_ctrl_dev);
+> =20
+> +err_put_transceiver:
+> +	/* The port may be registered again: forget the GPIO */
+> +	if (core_transceiver && port->transceiver_enable_gpio) {
+> +		devm_gpiod_put(port->dev, port->transceiver_enable_gpio);
+> +		port->transceiver_enable_gpio =3D NULL;
+> +		port->transceiver_startup_delay_us =3D 0;
+> +	}
+> +
+>  	return ret;
+>  }
+
+[Severity: Critical]
+This problem wasn't introduced by this patch, but does
+serial_core_add_one_port() leave a dangling pointer in uport->name when
+allocating uport->tty_groups fails [2]?
+
+drivers/tty/serial/serial_core.c:serial_core_add_one_port() {
+	...
+	uport->tty_groups =3D kzalloc_objs(*uport->tty_groups, 3);
+	if (!uport->tty_groups) {
+		kfree(uport->name);
+		return -ENOMEM;
+	}
+	...
+}
+
+Because the caller owns uport across registration failure, leaving the freed
+pointer in uport->name can lead to a use-after-free or double free during
+driver cleanup or a subsequent registration retry.
+
+[1] https://sashiko.dev/#/bug/linux-dccfb530-78ab-4c75-b86c-353ac639e159
+[2] https://sashiko.dev/#/bug/linux-4946dfed-5de8-46a5-b799-8b71897faf37
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-serial-tra=
+nsceiver-supply-v1-0-40bad0f912f2@vaisala.com?part=3D4
