@@ -1,56 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364837;
-	b=489SFsAM/uE6ZbHEFuvgCNaMdKNdIO2x18JBdjpwKJxyxv/OVPJuNU7MT17o0mhDHAsE
-	 4PZ6sPxsCDQtN7AI+w573I3w8JY4+ynMR0o/uPGVuyuA8scxfNrx3cx5RwuauFXsFZEPk
-	 FQg5f0PrqWW+mvPYmk9q2NGJopn7553Iw4N/4K8OoV5ZrmBR8DbIrsKVNOyDohlsGDeZ7
-	 RkD2ztd3AgZ3IcDFtKZgB8+kHtVj9AVLkpE2bqg1ZQEuIW44ypWVulnvkLga5Zeg3EWOa
-	 HxvnLjsgMaF6XGG2CV02dV5e5sXPXHtr/+q7ucH7hk9eB3ln0O3qu8yLiBdGgU6roxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364837;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ETOZuADHJB+xSe608WoJDHszrcZCBL9xpYPk4eLTpAc=;
-	b=VDfB28tKP09b5HhJlDgC1s6PveLU4cxcfg5fd+GgRq/I9flaAyTfvGI4ycxgvYl9Q78R
-	 +b8lxe3BkBKIb5jcvcaNTCvH84+9Kn8Hp4TQiKz0njhEWqiq84JaS2EWSVrAxF8fr3nf+
-	 EP0/H5BqNeI/6UlduW9VgTr1wa60Flugj5rGIpwYJVJ+IXX4l98KYJ6czYm0aGv3FfVWJ
-	 Wf8cgY+FJhccFqcJRFgF1+S8i0Ac05CL2CBRQ90/iTmASW0p72A9almhD+icoJvhSk/22
-	 hCXYdBWR3ajZ9DWBSShjSUzarzh2Nbni57FVcYUqeTBYfEuK3VxTTta7yf4rYTWJjgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJB3wZM0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794365070;
+	b=y2hewbUoB//9xQ/Wgi8gFQ8RCDuSApfDaexvjSXJKl5nInJrJQFJ9Qr5Q+tTyysrUub7
+	 sVhz7nCtIaSIgwZBDOVgrrWkt9OkZE3gPMtCS1Ly39TxSUxWoZZx9lZbAbOMNEBHghtgd
+	 fbxbwvF0ffTfX5yPpA0Jq8uR4du6P6/LUWNE8wt4dzl4z76ccuY4937fpIVXZjAffJIpB
+	 NEJpbWsWXfBzDmmN10nx/mfzv0m9grymXt8DjzeoA8b5vwgkFjCIi99vYAbVTBOyx/IZy
+	 iKoUrMZSrpF5EM60TEwcxwlUxX97Kptwnfu+ROBkEApK8d93I70szeWg9H/7c+qHTEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365070;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5n3LJzBuDRTsiHMyGjXF19fxzf+jI5bxJApPMeXD9As=;
+	b=Sz+B+YyLzKZ9N2kvnLSzWXgtoPN2WLmKacyJJOprm28b65feNBNYgo6Q92md9hq9FWYl
+	 lgXRS7CDlq8+D+OYZhi5yFelS5sCxkk5hy7CT9KpZbmMv5tLg3eTaSD1ezzbAZMPF6M5L
+	 2zjRSAlsGKnMjWG5wpfbT+j2ey2PdJ14B6mnEN26KRhpf1zSqJ1/bkEU+Uxvl/uJCo5Ao
+	 KoI6LBl3F9rUXAjUb07lggYcQCR46TQrF0+ra41v4ZOZa3UA3aK6qVn1b0FbvyJuh//HC
+	 m6rbMZXcAFgCtJQOw/eAIDfJiiRVdvP550yc3m8oh0FFnA9X7Mocs+NTppwtCl0JWfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b="a5zUDqL/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.139
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022139.outbound.protection.outlook.com [40.107.75.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C67606A33C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 02:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F8F606A31C;
+	Wed, 11 Nov 2026 02:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70F8F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJB3wZM0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDCD1F00A0C;
-	Wed, 11 Nov 2026 02:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794364837;
-	bh=ETOZuADHJB+xSe608WoJDHszrcZCBL9xpYPk4eLTpAc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eJB3wZM0iLIiHo3mRwVvXBTJBwWCfPelmHkfyKUMSwPu8LX1AWfYny+zsGjIU+HN4
-	 lz+i0df+uddulf5ywAtiZ7ygUIj6DyPtqvqeH31/AhLFb29lTiKedmoitzbq9WNSaU
-	 50Mo4O/NWEhUG32PEXh1ErsaHDNp0vWJYvz37kdjjpeDEu7jcf0pJvhWtuAlcWNesy
-	 06IiXRf2BOLOzz2YwropdKMpv7v2kXTAQqCoRfMbJJNIXO67kuYJseYa4DGtQe8sAk
-	 sCx+tiAplU6o1Ot5YBzFrH64H5mPnzo8ecsI7PaK5/lg7TBNW4F4i1o56BDXK6RjEK
-	 Pp7zecDeTfpgw==
-Message-ID: <sashiko-outbox-208105@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aniket Limaye" <a-limaye@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261111-tda54-upstream-i2c-v5-2-280a4a779b24@ti.com>
-References: <20261111-tda54-upstream-i2c-v5-0-280a4a779b24@ti.com>
- <20261111-tda54-upstream-i2c-v5-2-280a4a779b24@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 02:40:36 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=a5zUDqL/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wLmIYT264DUrwZqgVoLJeTF3QlywzAXwwYOA0JWHuquUSu5rtcmZokRm+RIqJkLEbpcsx98ifKoxjiMzsXih1XAcAGlGaeh3oqfijm+M9KByNf/aCKwxaDSlsSCW5EnZxvG/ypXE2tpeR/hN2CE9ZCtK4uDKwShaWSR/TZ7jl8MWGnqYK0DqTA+HWb7LS9WmbsCUp7ccUGuJoHqC1OBAqIzC8m9L3Z4LufO7GeQwUlinbQ0XWZHLwSFqbWZUagvdq3Hs+tFU9n9Q148XpH4t/TQ6MfmIBjg/KcIJ2I23L5suRSk9Eu01brqPlTWWbrQGwSYib366zrrU8MzlulhPhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5n3LJzBuDRTsiHMyGjXF19fxzf+jI5bxJApPMeXD9As=;
+ b=Bx5x88mAG5/EiT79Wu5H+CcwASFHZa+hJopTb5A+zA6iDzJL5Nl+Kf3ehXJC/kYxi5pCmOHjDk6SwurUu3W+9WrG1Gs8UrM5Y8ADZCL7rdjXikPs6N+pyelWGj4LO0Yu5ql79nwZTPwSJ5QFc/mBha3lDj/57tYthaOvDzE5YZjTt2RVJnDSIJquRCKcMp5n1MAz7lVkRvOiwv0FB7UxJ8QojmYGlIH4r7nw0jCRz87FbtUKcW42stSUXXUh9IQocfcfPowDDcMnWQgNOFiNcNtG6NuRnOj8J1ZD6VzaDzJo83wJrVwXMuksYUtdvDthcqcwfNeLUppBcwLjWIc3/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5n3LJzBuDRTsiHMyGjXF19fxzf+jI5bxJApPMeXD9As=;
+ b=a5zUDqL/SPNlJTC48Oh5xFY0TLEGKkkajKbkkEFOmsu3JPkzExUU8UOSKYAYqJw0J1d5Kynz5bm3xS3ZeygicjKtZ5fHaF9Bw0eNnjqzL8shLFGqu+5sqaT57pRSErwFFDvKxZwn7lkkn4lZedRrxgnJx7NsTNVg4/LEOaEdn+J+XjCd/wniTPsJ5+j6MeUuRfDdtm1NiONymRtFSbhXxmaCowOtBhrKpq/cThrkadurLyN+rQAS9VvvVIefm1yIG7gSDPAiHDupBl7e6TQo9bQnP8UdDggzygSXGcwZ5KhoTdSA10OBl09NR547pgIh+5VNVIScfHTK3YRhPsaH2Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ by SEYPR03MB8479.apcprd03.prod.outlook.com (2603:1096:101:20b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 02:44:25 +0000
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 02:44:25 +0000
+Message-ID: <18a7edd2-354a-454b-8f9c-d66fbb0819ee@amlogic.com>
+Date: Wed, 11 Nov 2026 10:44:21 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] pwm: meson: use bulk API for per-channel clocks
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Alexandre Mergnat <amergnat@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org
+References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
+ <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
+ <178879456435.2256446.2005394820666057840.b4-review@b4>
+ <ap8FuWnIRVgcP98G@monoceros>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <ap8FuWnIRVgcP98G@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SE2P216CA0128.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c7::15) To TYZPR03MB6896.apcprd03.prod.outlook.com
+ (2603:1096:400:289::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,245 +106,147 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEYPR03MB8479:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40ad3f2e-2875-455e-6e87-08df3f9db267
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|11063799006|4143699003|261026140227099003|261021121427099003|261022075727099003|261009223027099003|261102123227099003|261026121527099003|56012099006|261022105027099003|261028144727099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yxEVFKLHu/tNVzB7EQncakc6HToYJ4h6wVp6gwQSs3tpLRoiJHfiU/dZRQyLQwaVxOyh1WLzCUbHY3vRKYxK3bj1O98Z+3U8wOB8/GMby/v1K9ESaJF8jAekPsi63l6jnx2Z38ek08mEIPbb/Pp6WACGImQq4c9kZ+fnVV/52BW1uHMAqsuwSn1CqDNGTj82+ekAZboCyVLQXhXEwIkcz0g9E939sgVnOMrsR5/XLWG0qLcErGlMfqWdVF2e/3OnkHIrdrPlWrZ/q6OdseqS8ypkY8IT+e4smY1sjnILZ7fsA5nSLiYIdHNDEFIhaUk6Kv26mfZeQN4XPOYkFfhS0Z2mjaTh5HWLAW5nlVBJmCP+qjsBy+C0nTeKaVOhkG1I96qPOrZ13rjvDvDh0QXtUoGna7P3gzgBzlEAht6Kbd1LFRZGfvwKj1Scv+KuVjRunfveESSFfF0M8kTn7P3g7GbRr6DicbzwzL0+TDVEhVafktcUAAU9GvpuWz35i6KGFYu1okyCYqfgjcN2KhzyoP6Aym9/LdLVDgKClxgocQLYt8kBNBINtNQd7v1iEqpbLT9s1wWNU8zJT4k9u3wHAdyGA2byzaWpvODUTmw+MXVeDXZS5y1TKVo5Kjw+g/YIF2LudbdPG4TZ/Oseptu39/exNDCDo/5lf77nIXWpfHg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(11063799006)(4143699003)(261026140227099003)(261021121427099003)(261022075727099003)(261009223027099003)(261102123227099003)(261026121527099003)(56012099006)(261022105027099003)(261028144727099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SzhEQktrb3RhT0lHeXgyRHlqOHk1WVhoOC9ITk1sWkNha2RJZEt1TWRlRkdp?=
+ =?utf-8?B?dWpzNFkvVlBEYXVQZU1hd3g4am5ibGFDd0gwRldUR2dDR1NkTDVhVnB3aHYv?=
+ =?utf-8?B?NCtyUmRUM0tlUDQ3QlBvTy9XQmNmcXJXZWhZQ0tsdDVzL2pJYW10Yll4bi92?=
+ =?utf-8?B?bTBLNURjYzI5ZDRQN0pZcEwxK25iSnRBSyttMVFmOVB4TXI2Tm9wMkJ5eUw0?=
+ =?utf-8?B?RHRCNWIrY04wZm81VXJIUVc2V0lCUTZIeHIrbnlTL3pUTXFML2tISUU3bG1p?=
+ =?utf-8?B?WHczekhtOU11Y2RrcmQyMUxlWGFyRHFTaHB0NVo5MHVoV3MySmxia24xVmdt?=
+ =?utf-8?B?WVJJVGNlbWFTdlJScTBhRDhxV21PREpqZ3V5a2VKVW0vQ2FtTnlpaVAyVmdn?=
+ =?utf-8?B?WWk5ZXNjRHhZRG1pb2x6OEMybVJTd1oxL2Vod1B3K0o2RTNrMHVyQnRBakpy?=
+ =?utf-8?B?ZGxWVjhyYjg3T25ZVkYwNU13aTlNcVE3a2o0czZYdkVZTlV1YWttQlNjQlhm?=
+ =?utf-8?B?VVZvRG0rZGRiNE9KV0xEZVZ1bW1oZGsrbXI4cmkzeGlaQ1BNRC9TdzZESWo5?=
+ =?utf-8?B?SXhHYTFLVC82ZnlWQndQOUdrenliNGJBcVFJbVpFeThYNnduZktXbW9TdmtT?=
+ =?utf-8?B?TVVtVURpVkF1K1B6MFVvbWxIa0ZoeHUvK2tDbi9PMUVQM1kwaTJsS3I5ODkv?=
+ =?utf-8?B?TFpKQ3JYNEFHZ1h1Qk85VEpNNWpsWnJwa2VRQ05ZcTM5TElZVDBHMUEwTXFo?=
+ =?utf-8?B?STZnbW8xeGh4NmFRRDBmYnkyQUsvdXVaZmE2NDlVMCtjaTBTU2Y5cUJwWFNa?=
+ =?utf-8?B?b09BamhScUhTK3ZteWd5M0JjY1lMalh6ZzkwL0Z1SzR2Yk4zMW95OEdEODhZ?=
+ =?utf-8?B?NG92QytlWmROOXBDMUdMZzVvdU9RSDk3RlE4cG5QdWhzdUYzZEEyQjJ4YTdy?=
+ =?utf-8?B?d3REUU1XcS9NYmVNd2VWQk4yUUhtSnBFK2twU3JNYytkK3AxVDJ2djNiOExs?=
+ =?utf-8?B?STcwSTZFOVVsT2hZbmVUZ0xUa1JlTExDTEduTmttYzV6RDJrRjZSekVUMHMv?=
+ =?utf-8?B?N0JmTTgyNHdyZUhBaklmeW1pbm5QelJNL0NHY0tvOFZ3OG44MWNhZjFRY2pN?=
+ =?utf-8?B?WU95Q3lvZnUvbGtCb0hFMFZ0ZlUxenpzdWY3Z00xRkZGOG1BcUYvRUQ2eUxa?=
+ =?utf-8?B?NU5QbXAvQXZkTU1JUlhKRXpaTStIaWtwd3RJd0lUZTFaUlMrdmx6RXdhOHpP?=
+ =?utf-8?B?cFlOY29ETVBjcGhWQ29Fc3ZjL2NRbXNlTGtvRkJMcDJHM0RURS9RNGVjNld6?=
+ =?utf-8?B?NWZxU2UvUkR6UW5qZTZvRGdtRVdNS2lIZnNxK3JDSkZxdEF0Yk9TeWhjUSt5?=
+ =?utf-8?B?OFhPaFlZUktFQlg5dnhXQ1kxcHl2OEpvOWNTY1hQM0UxdCtTY0MweHJTMVlP?=
+ =?utf-8?B?UnROb1NmaC9nM0pKVTBYNlVDbEhlUkZWaTE0c21sQ3U1SFdaSjAxejdTQXpn?=
+ =?utf-8?B?NnRUalM0ZnhldFRnZHdZV29UbGZkbWdUei9xS0VMTFRJUVdNbDdicGI4NkVU?=
+ =?utf-8?B?SHdMQ3ZaMUI3dVpkd0RaMUZvSjExcDhtMDhHNVJEMEZFS2FBYWQ0cm9CS05o?=
+ =?utf-8?B?enNmN29OQnpCd0Qra2g1ZWNGeVJmd1pYek9LTWVVRDM1YU8xd1FrZFlqQ05v?=
+ =?utf-8?B?aGNzdU90cGtIaG9LYmhrTTdtSHVCaGpoWkFMenFNK3BhelFzdGpVcHJROEQ4?=
+ =?utf-8?B?UzY1eGt3SmVBcXpJOXBDRllHelpmZW41YytvRnZyNmNNMW1xK0xuY0hNbkNF?=
+ =?utf-8?B?ampGdEo1VmNhYjRwMm9MeU5QbTc1QnNuNTRYSmlMQlhKbFc1V2U3UUxZQ0kr?=
+ =?utf-8?B?eEcwUTFyRWFvd2NYMmN0QS9QdUVRUjFmREhhbUdWQnVvNFdUc2dYdWJpSllF?=
+ =?utf-8?B?bVkySDF2MzdQcFBoUnltTkRCWk5XRlpqVml3RkpsQWZZczhZQnZRWGZteW8y?=
+ =?utf-8?B?NTBuM1cxTyt6eHNUMy81Sll6di9EWmpsS0dsdTR2L0tUaHRVSWU2Mm44VVox?=
+ =?utf-8?B?R295U25NMXFZQmI0SlFSaHRyeGNvQXNKQ3pnc3p2U2FJVHRvK3JZVzhWZy92?=
+ =?utf-8?B?akNDbUg4YWdTcXNNL1VYcmZIdjUyOWIrOHFTeUxJQ3RkMmxoMWR1VEJKN0xM?=
+ =?utf-8?B?aFFGbDNZNkVjeXhLYk4vQll4YW9qR3FuSGx6M1IvSlBiR2c4TnBvdEFadmhP?=
+ =?utf-8?B?eXlpRHkxUzkyM2RRdzZERGJuV2NFTjhjNXZEUEV5T09LLzdxMytuYThPNDJj?=
+ =?utf-8?B?Y3hCSjE1RXJQdENmb3ZIOXEwbTdpV21NUnRQZTJNQkcyNHFsWFhLUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40ad3f2e-2875-455e-6e87-08df3f9db267
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 02:44:24.9635
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iZOTWGZxKREmvXjiwFTFSxZxJph+5Ix4Ur1eKeaETgKj7bMrDR9EL5JB9qagZ3Xshyl3ut792D6DGkdOmvTFB88Um7Koh/NmUirS1Sb6SGo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB8479
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] i2c: dwc-adv: pre-queued reads in dwc_adv_i2c_xfer_msg() hang
-  block reads
-- [High] i2c: dwc-adv: broken STOP_DET handling in
-  dwc_adv_i2c_process_transfer()
---
+Hi Uwe,
+    Thanks for your review.
 
-commit 661b42138a542f38b7cf29c492367e656df39940
-Author: Aniket Limaye <a-limaye@ti.com>
+On 2026/9/8 02:44, Uwe Kleine-König wrote:
+> 
+> Hello,
+> 
+> On Mon, Sep 07, 2026 at 05:22:44PM +0200, Alexandre Mergnat wrote:
+>>> The S4 PWM driver currently gets each channel clock individually with
+>>> of_clk_get() and uses a custom cleanup action to release the clocks.
+>>>
+>>> Use devm_clk_bulk_get_all() instead to retrieve all per-channel clocks
+>>> at once. Verify that the number of clocks matches the number of PWM
+>>> channels and assign each clock to its corresponding channel.
+>>>
+>>> This also allows the per-channel clock initialization code to be shared
+>>> by Meson PWM variants using one clock per channel.
+>>>
+>>> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
+>>>
+>>> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
+>>> index 22cefc6d5dd0..6f151464d7cc 100644
+>>> --- a/drivers/pwm/pwm-meson.c
+>>> +++ b/drivers/pwm/pwm-meson.c
+>>> @@ -497,33 +497,25 @@ static int meson_pwm_init_channels_meson8b_v2(struct pwm_chip *chip)
+>>>   	return meson_pwm_init_clocks_meson8b(chip, mux_parent_data);
+>>>   }
+>>>   
+>>> -static void meson_pwm_s4_put_clk(void *data)
+>>> -{
+>>> -	struct clk *clk = data;
+>>> -
+>>> -	clk_put(clk);
+>>> -}
+>>> -
+>>> -static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
+>>> +static int meson_pwm_init_channels_per_channel_clk(struct pwm_chip *chip)
+>>>   {
+>>>   	struct device *dev = pwmchip_parent(chip);
+>>> -	struct device_node *np = dev->of_node;
+>>>   	struct meson_pwm *meson = to_meson_pwm(chip);
+>>> -	int i, ret;
+>>> +	struct clk_bulk_data *clks;
+>>> +	unsigned int i;
+>>> +	int num;
+>>>   
+>>> -	for (i = 0; i < chip->npwm; i++) {
+>>> -		meson->channels[i].clk = of_clk_get(np, i);
+>>> -		if (IS_ERR(meson->channels[i].clk))
+>>> -			return dev_err_probe(dev,
+>>> -					     PTR_ERR(meson->channels[i].clk),
+>>> -					     "Failed to get clk\n");
+>>> -
+>>> -		ret = devm_add_action_or_reset(dev, meson_pwm_s4_put_clk,
+>>> -					       meson->channels[i].clk);
+>>> -		if (ret)
+>>> -			return dev_err_probe(dev, ret,
+>>> -					     "Failed to add clk_put action\n");
+>>> -	}
+>>> +	num = devm_clk_bulk_get_all(dev, &clks);
+>>> +	if (num < 0)
+>>> +		return dev_err_probe(dev, num, "Failed to get clocks\n");
+>>> +
+>>> +	if (num != chip->npwm)
+>>> +		return dev_err_probe(dev, -EINVAL,
+>>> +				"expected %u clocks, got %d\n",
+>> Small style nit: the continuation arguments are not aligned with the open
+>> parenthesis, whereas the dev_err_probe() just above and the rest of the driver
+>> do align them. Can you fix it please ?
+> No need to resend for that, I can fix that up while applying (after
+> checking I don't have further concerns).
+> 
+> Thanks Alex for your review!
+> 
 
-i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
+Is there anything else I need to do before this patch can be merged?
 
-This commit adds a platform driver for the Synopsys Advanced I2C
-(DWC_i2c) controller in controller mode, discovering per-block register
-offsets at runtime via the block header chain.
-
-> diff --git a/drivers/i2c/busses/i2c-dwc-adv.c b/drivers/i2c/busses/i2c-dw=
-c-adv.c
-> new file mode 100644
-> index 0000000000000..990026e09bdce
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-dwc-adv.c
-
-[ ... ]
-
-> +static void dwc_adv_i2c_xfer_msg(struct dwc_adv_i2c_dev *dev)
-> +{
-> +	struct i2c_msg *msgs =3D dev->msgs;
-> +	u32 intr_mask =3D DWC_ADV_I2C_CTRLR_INTR_MASK;
-> +	int tx_limit, rx_limit;
-> +	u32 buf_len =3D dev->tx_buf_len;
-> +	u8 *buf =3D dev->tx_buf;
-> +	u32 cmd;
-> +	int rx_tl;
-> +
-> +	for (; dev->msg_write_idx < dev->msgs_num; dev->msg_write_idx++) {
-> +		u32 flags =3D msgs[dev->msg_write_idx].flags;
-> +
-> +		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS)) {
-> +			buf =3D msgs[dev->msg_write_idx].buf;
-> +			buf_len =3D msgs[dev->msg_write_idx].len;
-> +		}
-> +
-> +		tx_limit =3D dev->tx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.txfl=
-r);
-> +		rx_limit =3D dev->rx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.rxfl=
-r);
-> +
-> +		while (buf_len > 0 && tx_limit > 0 && rx_limit > 0) {
-> +			/* Avoid rx buffer overrun */
-> +			if ((flags & I2C_M_RD) &&
-> +			    dev->rx_outstanding >=3D dev->rx_fifo_depth)
-> +				break;
-> +
-> +			cmd =3D 0;
-> +
-> +			/*
-> +			 * The bus is held while the TX FIFO is empty unless
-> +			 * STOP is requested in IC_DATA_CMD, so always set it
-> +			 * on the last byte of the last message.
-> +			 *
-> +			 * i2c-core always sets the buffer length of
-> +			 * I2C_FUNC_SMBUS_BLOCK_DATA to 1. The length will be
-> +			 * adjusted when receiving the first byte. Thus we
-> +			 * can't stop the transaction here.
-> +			 */
-> +			if (dev->msg_write_idx =3D=3D dev->msgs_num - 1 &&
-> +			    buf_len =3D=3D 1 && !(flags & I2C_M_RECV_LEN))
-> +				cmd |=3D DWC_ADV_I2C_DATA_CMD_STOP;
-> +
-> +			/*
-> +			 * A RESTART is only issued automatically when the
-> +			 * direction changes. Request it explicitly at the
-> +			 * start of each following message.
-> +			 */
-> +			if (dev->need_restart) {
-> +				cmd |=3D DWC_ADV_I2C_DATA_CMD_RESTART;
-> +				dev->need_restart =3D false;
-> +			}
-> +
-> +			if (msgs[dev->msg_write_idx].flags & I2C_M_RD) {
-> +				dwc_adv_reg_write(dev, dev->regs.data_cmd,
-> +						  cmd | DWC_ADV_I2C_DATA_CMD_READ);
-> +				rx_limit--;
-> +				dev->rx_outstanding++;
-> +			} else {
-> +				dwc_adv_reg_write(dev, dev->regs.data_cmd, cmd | *buf++);
-> +			}
-> +			tx_limit--;
-> +			buf_len--;
-> +		}
-> +
-> +		dev->tx_buf =3D buf;
-> +		dev->tx_buf_len =3D buf_len;
-> +
-> +		if (buf_len > 0) {
-> +			dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
-> +			break;
-> +		}
-> +
-> +		/*
-> +		 * Because we don't know the buffer length in the
-> +		 * I2C_FUNC_SMBUS_BLOCK_DATA case, we can't stop the
-> +		 * transaction here. Also disable the TX_EMPTY IRQ while
-> +		 * waiting for the data length byte to avoid a flood of
-> +		 * bogus interrupts.
-> +		 */
-> +		if (flags & I2C_M_RECV_LEN) {
-> +			dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
-> +			intr_mask &=3D ~DWC_ADV_I2C_INTR_TX_EMPTY;
-> +			break;
-> +		}
-
-[Severity: High]
-Does dwc_adv_i2c_xfer_msg() pre-queue multiple read commands when an
-I2C_M_RECV_LEN message starts with len > 1?
-
-In i2c_smbus_xfer_emulated(), enabling I2C_CLIENT_PEC increments
-msg[1].len from 1 to 2 before starting an SMBus block read:
-
-drivers/i2c/i2c-core-smbus.c:i2c_smbus_xfer_emulated() {
-    ...
-	if (read_write =3D=3D I2C_SMBUS_READ)
-		msg[1].len +=3D 1;	/* Until we know the true length */
-    ...
-}
-
-Unlike i2c_dw_xfer_msg(), the loop in dwc_adv_i2c_xfer_msg() does not
-break after queuing the single length-byte read when I2C_M_RECV_LEN is
-set.  When initial len > 1, it queues multiple read commands without
-DWC_ADV_I2C_DATA_CMD_STOP and raises dev->rx_outstanding >=3D 2, which sets
-regs.rx_tl >=3D 1 so RX_FULL does not fire when the length byte arrives.
-Once dwc_adv_i2c_recv_len() runs, if the total message length is less
-than or equal to the already queued dev->rx_outstanding (such as when the
-target returns an invalid block length clamped to count =3D 1, or when
-I2C_RDWR passes a larger initial len), dev->tx_buf_len becomes 0 and no
-final read command with DWC_ADV_I2C_DATA_CMD_STOP is ever queued, hanging
-the bus until the transfer times out.
-
-Also, checking buf_len > 0 before flags & I2C_M_RECV_LEN means that
-breaking out of the loop after queuing only the first byte of a message
-with initial len > 1 skips masking DWC_ADV_I2C_INTR_TX_EMPTY.
-
-[ ... ]
-
-> +static u32 dwc_adv_i2c_read_clear_intrbits(struct dwc_adv_i2c_dev *dev)
-> +{
-> +	u32 stat =3D dwc_adv_reg_read(dev, dev->regs.intr_stat);
-> +
-> +	if (stat & DWC_ADV_I2C_INTR_RX_UNDER)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_UNDER);
-> +	if (stat & DWC_ADV_I2C_INTR_RX_OVER)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_OVER);
-> +	if (stat & DWC_ADV_I2C_INTR_TX_OVER)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_OVER);
-> +	if (stat & DWC_ADV_I2C_INTR_RD_REQ)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RD_REQ);
-> +	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
-> +		dev->abort_source =3D dwc_adv_reg_read(dev, dev->regs.tx_abrt_source);
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_ABRT);
-> +	}
-> +	if (stat & DWC_ADV_I2C_INTR_RX_DONE)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_DONE);
-> +	if (stat & DWC_ADV_I2C_INTR_ACTIVITY)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_ACTIVITY);
-> +	if (stat & DWC_ADV_I2C_INTR_STOP_DET &&
-> +	    (dev->rx_outstanding =3D=3D 0 || (stat & DWC_ADV_I2C_INTR_RX_FULL)))
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_STOP_DET);
-> +	if (stat & DWC_ADV_I2C_INTR_START_DET)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_START_DET);
-> +	if (stat & DWC_ADV_I2C_INTR_GEN_CALL)
-> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_GEN_CALL);
-> +
-> +	return stat;
-> +}
-> +
-> +static void dwc_adv_i2c_process_transfer(struct dwc_adv_i2c_dev *dev, u3=
-2 stat)
-> +{
-> +	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
-> +		/* TX_ABRT flushes the TX/RX FIFOs, nothing left to process */
-> +		dev->cmd_err |=3D DWC_ADV_I2C_INTR_TX_ABRT;
-> +		dev->status &=3D ~DWC_ADV_I2C_STATUS_SW_MASK;
-> +		dev->rx_outstanding =3D 0;
-> +		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
-> +		goto tx_aborted;
-> +	}
-> +
-> +	if (stat & DWC_ADV_I2C_INTR_RX_FULL) {
-> +		dwc_adv_i2c_read(dev);
-> +		/* Re-evaluate RX_TL and TX_EMPTY for the reads still pending */
-> +		stat |=3D DWC_ADV_I2C_INTR_TX_EMPTY;
-> +	}
-> +
-> +	if (stat & DWC_ADV_I2C_INTR_TX_EMPTY)
-> +		dwc_adv_i2c_xfer_msg(dev);
-> +
-> +	/* A STOP in the middle of a read or write is an error */
-> +	if ((stat & DWC_ADV_I2C_INTR_STOP_DET) &&
-> +	    (dev->status & (DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS |
-> +			     DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS))) {
-> +		dev_err(dev->dev, "spurious STOP, status 0x%x\n", dev->status);
-> +		dev->rx_outstanding =3D 0;
-> +		dev->msg_err =3D -EIO;
-> +	}
-> +
-> +tx_aborted:
-> +	if (((stat & (DWC_ADV_I2C_INTR_TX_ABRT | DWC_ADV_I2C_INTR_STOP_DET)) ||
-> +	     dev->msg_err) && dev->rx_outstanding =3D=3D 0)
-> +		complete(&dev->cmd_complete);
-> +}
-
-[Severity: High]
-Can dwc_adv_i2c_process_transfer() falsely abort a multi-batch read with
--EIO and leave DWC_ADV_I2C_INTR_STOP_DET unacknowledged when STOP_DET
-arrives before the final RX_FULL?
-
-dwc_adv_i2c_read_clear_intrbits() skips clearing DWC_ADV_I2C_INTR_STOP_DET
-when dev->rx_outstanding > 0 and DWC_ADV_I2C_INTR_RX_FULL is not set, but
-still returns stat with DWC_ADV_I2C_INTR_STOP_DET set.  On any read that
-takes more than one RX_FULL interrupt (such as a read larger than
-rx_fifo_depth / 2 or an I2C_M_RECV_LEN block read), the earlier
-dwc_adv_i2c_read() leaves DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS set in
-dev->status.  If STOP_DET then fires before the final RX_FULL,
-dwc_adv_i2c_process_transfer() treats it as a spurious STOP, zeroes
-dev->rx_outstanding, sets dev->msg_err =3D -EIO, and completes
-dev->cmd_complete without draining the RX FIFO.
-
-Because dev->msg_err is set after dwc_adv_i2c_xfer_msg() has already run,
-the if (dev->msg_err) intr_mask =3D 0; check in dwc_adv_i2c_xfer_msg() is
-also bypassed on that interrupt, leaving interrupts unmasked and STOP_DET
-asserted in hardware.  Similarly, if a premature STOP occurs during a
-single-batch read after all read commands were queued (so neither
-SW_WRITE_IN_PROGRESS nor SW_READ_IN_PROGRESS is set while
-dev->rx_outstanding > 0 and RX_FULL is clear), STOP_DET is neither cleared
-nor masked, causing an interrupt storm.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-tda54-upst=
-ream-i2c-v5-0-280a4a779b24@ti.com?part=3D2
+> Best regards
+> Uwe
