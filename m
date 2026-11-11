@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395489;
-	b=0fJNgoHoqnF8yUR1r8nfSEkdeGeDceFx3HO4V87ZMik5Z0Lpo+shbjBHagRn37JGSoJd
-	 3/v8S25Zm5mYiEk++JSRxsJJjFSZsEr5S3FY3loMZx46iVwZaHAFFGfiFXHjbuYHgugzU
-	 25Xajmdiepg6XjtCTSysIsLrYq1QJCUqPMpqFyATnCnubetBVfBpnXmdWakHJ1b8fILnc
-	 IovPQXLHJRy1I/1lV3B5s1omYnKERzTvBzQp2WbF24cXA6+tXlu2kymW8tSem/PZIhmiU
-	 RECsOOVuHFgP3baS5jz7pvq213ldMuStq5K0xOnI3OgQK5jR8LDJaGxPB9A2CSaIL5g==
+	t=1794395498;
+	b=157E9mkVrDyXMOsTV29pW3Tmq6G3cT/a3/HEfBcyaXn+CqOckC+X54yZIWkwHeciMqNj
+	 pO4Y1mKElWYrvdUIWjt5kZ1dDq498oSKktQgjEJAP2fd7uMRtyyM9fuMVAEyO5Sfcgldw
+	 z31bHdsUnJrdKn1sr2VoA+MDkEKJBUyDuKPmFblm3L0xzv4fqAOZExBgM09h8JGDviFEY
+	 lim2Qk7Gy/ErhJyJLROhvJRzQtEH3wK5izolSPDWl/mzrHNgS1kYVzbG1tiV0Z7Bg8CQd
+	 H1oyNcniWG13IpeReDhGkZ931jqVLzydDGR45jTtjYIxflFpjfk96gbDBlxl6d3mysQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395489;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lr27f7oJOgQb2Rbu6eqCK5yXG1BOvy4SNYG5xsOyD3U=;
-	b=mId28QHMHI+bfVPZQPLOfLUsaKuaXZLCO6FQdUk9om7FYiydduUDXVX9Pjg2D4ZOSmZP
-	 4zQPgIPqbr3JKDAUD3UywOuQ8yGRbfTEyRg48N+kEaaR5KdKnM0+VwZdYK6s9ssq1Bl4u
-	 9srWmQmYPutb8Li5H2JVvvjZ5je0/e2HdSPWi5KJP8GObHRUTqSaEYw1GP3JUgps/7YTA
-	 iCp+uunj7AgyARNWDM9NWh+804jsGsTq1MmrfrhMtG+KCI3ec5sWb+5XAc/DAFmLlLcno
-	 KA4KpJbh3hVVNzSeqHAH9uD3Ei6MJqEHG4JhlP8VX37F5SEpEmeMqk1W0LrF5wFVLdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395498;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=EI9+1Pe94rNtVU2rxTjoVk3Y5vhG9a5UQwsxZ4gexcc=;
+	b=XXTryxnOoRJLkW8US1jEQOMBZUQpGCOddQj/NOX52J83bkjCys7WlyyMJhKT3UE2OMQG
+	 sWGuvHdAD9YX9heB+vFOMGXztk+9WHoP2UKaYoeI0IoTHnuoVgx75zlturWY0+I/hRrTw
+	 uPDuw8FBei1BgpHKXf4cQ+ZHCYRnpyCfm1zWk5sApnrNNV+MXdCmvl5cajdDbB+eKiJcy
+	 NPuPBNTZ4qurxJFSWxMppVp3RjotP6Xd5vknul16zwv+Ivk7V8DXCwxkDl/J4bNHNah7I
+	 mDelVBng/ZdTwCMQt9sXumkp/hYRjuG739cVbl1lJBJ0mtFWUGLp7RXG5o4XVpODqTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHTk5BqP;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xvs7ZD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7907606A8B9;
-	Wed, 11 Nov 2026 11:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7907606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862EF606A886;
+	Wed, 11 Nov 2026 11:11:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHTk5BqP
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=lr27f7oJOgQb2Rbu6eqCK5yXG1BOvy4SNYG5xsOyD3U=; 
-	b=DHTk5BqPIS82AKb1pcL16kDUbK2KBPoeXMbdrMy2z67kgxaWGeMhO43EAKF6tHis+aocHRkLDqN
-	wZ4M2UwhBSSpyDT30V2eHdc8DO+QKUA/IAOGUNd3HEpbPf1nUKNrbq8zhvYC+wiFtsiUqQImsCzqt
-	6c9uOBVshZWFoEtZgVBLPbT6WZHZpvdyZOBE714tgju7blsp5bdHEoDa20NU+nRuiGNg4khlL7+8l
-	InUzDcnBnnH35PJjSWUQ2TERuDCpBIk2hniZqlgMRbKcAphk+nVxzpXJGOk4dLGW9aRVmW3bPz1qw
-	2OdlaZrzAGvkloTviGFPulBTnLvTWAHH01zQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xR6Ef-0000000DmQb-1R1U;
-	Wed, 11 Nov 2026 19:11:26 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:11:25 +0800
-Date: Wed, 11 Nov 2026 19:11:25 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
- IPQ5210, IPQ5424 and IPQ9650
-Message-ID: <avRNXY5Hxbjw5Szi@gondor.apana.org.au>
-References: <20261021-ice-v2-1-3dfa8f343ceb@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xvs7ZD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C8E1F00A06;
+	Wed, 11 Nov 2026 11:11:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794395498;
+	bh=EI9+1Pe94rNtVU2rxTjoVk3Y5vhG9a5UQwsxZ4gexcc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d7Xvs7ZDxNVnMJ0ZIIycs9v/TtpvkBrWaObuv4N6qSqAPR5r6UweMDwMd787l00r7
+	 UBEB54efQFJZ0OeEtll2xBMzGeK2b6y5zV7sooKArSlAZUB0krGwenBklUYIXtzf/a
+	 ALFNb24trK525Mp7YMlfQd4Y1SCJ8X9SHDfKLGStpDF1xRF+x/ZvNMU/7P+Ok6gH3+
+	 /Rw4YZEUFab8vHApcPnowwD57USqV6tgSNzJRVq+5fDfrMkojY323tL6V75CJiBbcl
+	 8fQgPjVGQDVTAdlj0Inwp0cakMz18+YHuKohjDlVXpk1lyK9X1kaN3XA0zb6mCTTjK
+	 FLPxvjgRtfezg==
+Message-ID: <sashiko-outbox-208856@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/7] dt-bindings: soc: Describe the BCM6846 Power
+ Management Bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
+References: <20261111-xg6846b-bcmbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org>
+ <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 11:11:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,34 +60,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-ice-v2-1-3dfa8f343ceb@oss.qualcomm.com>
 
-On Wed, Oct 21, 2026 at 11:19:44AM +0530, Varadarajan Narayanan wrote:
-> Document the Inline Crypto Engine compatibles for the Qualcomm IPQ5210,
-> IPQ5424 and IPQ9650 SoCs.
-> 
-> Separate the power-domains requirement from the two-clock requirement.
-> IPQ5210/IPQ5424/IPQ9650 require two clocks but intentionally do not require
-> power-domains because they have no RPM.
-> 
-> Preserve the existing requirements for other platforms.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Fix sort order in the !power-domains block
-> - Pick R-b Krzysztof
-> - Link to v1: https://lore.kernel.org/r/20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com
-> ---
->  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 27 +++++++++++++++++++++-
->  1 file changed, 26 insertions(+), 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: soc: bcm6846-pmb: child nodes split single PMB
+  by Linux subsystem
+--
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+commit 6235ca071e36f4e363a6b36688dc2c4a38089eb7
+Author: Linus Walleij <linusw@kernel.org>
+
+dt-bindings: soc: Describe the BCM6846 Power Management Bus
+
+This commit adds Devicetree binding schemas and header constants for the
+Broadcom BCM6846 Power Management Bus (PMB) and its clock, power, reset,
+and PVTMON child controllers.
+
+> diff --git a/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.y=
+aml b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+> new file mode 100644
+> index 0000000000000..9782a27ff0759
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+
+[ ... ]
+
+> +  Child nodes describe independent hardware blocks accessed over the PMB.
+> +  These provide global resources and even resources for each other.
+> +
+> +properties:
+> +  compatible:
+> +    const: brcm,bcm6846-pmb
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: PMB configuration, keyhole and address mapping registers
+> +
+> +  power-controller:
+> +    type: object
+> +    $ref: /schemas/power/brcm,bcm6846-pmb-power.yaml#
+> +
+> +  clock-controller:
+> +    type: object
+> +    $ref: /schemas/clock/brcm,bcm6846-pmb-clock.yaml#
+> +
+> +  reset-controller:
+> +    type: object
+> +    $ref: /schemas/reset/brcm,bcm6846-pmb-reset.yaml#
+> +
+> +  hwmon:
+> +    type: object
+> +    $ref: /schemas/hwmon/brcm,bcm6846-pmb-pvtmon.yaml#
+
+[Severity: Medium]
+As reported by Philipp Zabel on RFC [1], should #clock-cells,
+#power-domain-cells, #reset-cells, #thermal-sensor-cells, and the
+reference clock be placed directly on the brcm,bcm6846-pmb node instead
+of requiring four address-less child nodes?
+
+The child nodes have no hardware address space of their own and partition
+the PMB keyhole interface by Linux subsystem rather than independent
+hardware blocks, encoding the Linux MFD driver split into the Devicetree
+ABI.  In the driver patches in this series, power-controller,
+clock-controller, and reset-controller all access the same BPCM slave
+devices through the parent regmap, with power-controller and
+clock-controller modifying different bitfields of the same 32-bit BPCM
+zone control words (offset 32 + zone * 8).  Similarly, the clocks and
+resets properties on the hwmon child node (BCM6846_CLK_PVTMON and
+BCM6846_RESET_PVTMON) toggle bits 12:8, 2, and 0 of PVTMON's own
+PVTMON_CONFIG register (bus 1, device 6, word 17).
+
+The Linux driver for brcm,bcm6846-pmb can still instantiate child
+platform or auxiliary devices internally while exposing the provider cells
+on the parent PMB node.
+
+[1] https://lore.kernel.org/r/f1c24a603964302ec1462b1cea790a2a7079fb3d.came=
+l@pengutronix.de
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-xg6846b-bc=
+mbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org?part=3D1
