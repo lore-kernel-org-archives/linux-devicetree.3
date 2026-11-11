@@ -1,60 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.83.160
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378847;
-	b=Wd4IrjR1e7CIEYqGuqeBZl1aSt5pmtqN8hHRdNuCmPMLLAAbmp7oshEbnAKXb52FHd+E
-	 SAZzq8f4H0DLtBYsE4zHwJXJb8chPGHaRZFWli/oax64RPuI0o6Q/WsUX+a/urdaQhSRh
-	 XH8c7HNCaZlVa6QvOHETaHso1paZk8xcvu1S2MIIDypmcAdidd+gfL+A3NI/Tb3EgHzpd
-	 HDtEluUHNfVrcPK1NAVMPmG9fwzmS7nH5XZLqHwg72maI3OJSa5CD5/YmCBjzUSa+PlCt
-	 zn5iAfQpI2suqOfJmbq1i22syhsIav+EahkD5q4rfNgDHPJi4WEWd+y2286vNlxcApg==
+	t=1794380048;
+	b=syjqUhOFsvnGiokZY2eITSAc8UsfBF2h5nenPFJFkP3wKWP53/M+krx/1UaadPmeVCF9
+	 a/vHk4U0gD5gKDhVWdMjNbiK4cENf5s6QCx7xrOjdrnzJJqhePMR+xTIYoztvHTwGS/On
+	 tIbfMQLrgElkHBDiWW0nmB3VBNtPvPJ5l9zi60loYLt2YbiaKt0B1SrWTdScWkXW5mnq/
+	 KsuCf1koUnVU5bcP4h3mU0yHRU2fo8TR966Xeq9CFKF9+h5zAJGxO1hpgCH8XZaWLkFLt
+	 GLmLFeXPiCX+3w/Uhl30xFC+0hqX0MBRpVDZ2zIBZdo7rCc1M6iaqVSe3x9EvP2Q+1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378847;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Wf/iTe9pX4L/jZu7Xph7OgCfAvGN68jDjp1bp7bfRVM=;
-	b=oi5Ou06fLVQiOcpBsl1JlB6BojiJOQcODHWO3RyfNhf3B441S6XW8DFbaVSyH6alcr4X
-	 pc762TLwu/kE+a7JNr0YeHmSRVpofBsOPZ/yXD7CDGXcCjy5kjhjPOB+1IQZ1Zl7Jbv61
-	 F3mX6udDmXldHfmC2tJhJMGBGZgBZZwFfPSwgppGUXm+f44bELNOQKcH78b0zVx+VPZ2f
-	 Y0dS5AbO8wq8XgN6Oomw6MM22tYZtiePR4Ezb+jGQmWhAOEHZKfNAfvC9ohHTVEEzz8ab
-	 ZrmJ4Ld7gcuQ6FRFXVwT0/D7DPxsl9uSExI66zG0RuaRLLjZuYHtYmfjo1XRR7W+KPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380048;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=GkcCvQ0Cm1Qyej4YW35+cOV6C99poT4s5onAksaynHE=;
+	b=ohAMovsB0ybHi+y3CZNiXmWLaJ0PZsOGYxqCQvIlTkCLDfeqHVezZUYnzP0bF0voDa4D
+	 G6AyOBCnOcdx6wDDpYZlilXm/AwMd+luKg1V/D+96MuNElDNiQnds+5inbAoTuKh81RXH
+	 AUPjTW47EUqZDvffA7Crig3KAclXG/JMwwiLa1R3BraTWGqIjaGkVzBzIp+CvoJi4yl5t
+	 OLX8bkZ10F1t+OR3F8OwuoqLyfJRN5X8TGWuTjPjudHMthjyW7rtaB67MGERGEdaYCUp4
+	 JTPaNsxfz+wb2KYawWGbrV+pgyHMLBHjI7Zeg0Jn7yHGz8cd3hKm+uMD7u4HN91ALlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QLoCwMfp;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ZXmX7RJK;
+	arc=none smtp.remote-ip=156.224.83.160
+Received: from mail-m83160.xmail.ntesmail.com (mail-m83160.xmail.ntesmail.com [156.224.83.160])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EEA606A321;
-	Wed, 11 Nov 2026 06:34:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8EEA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0350606A321;
+	Wed, 11 Nov 2026 06:54:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0350606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QLoCwMfp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794378844; x=1794638044;
-	bh=Wf/iTe9pX4L/jZu7Xph7OgCfAvGN68jDjp1bp7bfRVM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QLoCwMfpM9LRKb7MQE1nR0jsr3FKwsjAJJkDEmpXH44Yp5YJOABhzzW3CHtCNEaxr
-	 M2875Gh7Sx4tQAAOZU1FrTb+IrXDBPLfWD/z7wdiYxd/uzq8cFTdfEC66ujV7SKLc2
-	 SJqxOLHWIvRDPxXIY07N8wJOwHOoscmtuqBkmN5Kk/jlgO7Hz11raFiVWXxncDDP/g
-	 gUHDa88w3i4fJRcRem6mbb3Q+N1EUfm8GZW2ZVn4WX1wnySRlcV/OYDN0if3i0GOHx
-	 2wTCzKge9lrmtZfNXFtP1a5Y71fJBWIwth8rhIhAa6yV22ZLXgDigU+0uLJcTjTN5R
-	 bX3p7Kujc/RWA==
-Date: Wed, 11 Nov 2026 06:33:57 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/6] platform/x86: int3472: Map the VD55G0 supplies to "vddio" and "vana"
-Message-ID: <20261111063351.96951-1-lsa.uz@pm.me>
-In-Reply-To: <20261110195454.48176-4-lsa.uz@pm.me>
-References: <20261110195454.48176-1-lsa.uz@pm.me> <20261110195454.48176-4-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 6879e178a9ed61d0489c95e0d779dae40845883f
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ZXmX7RJK
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 544548e9e;
+	Wed, 11 Nov 2026 14:53:54 +0800 (GMT+08:00)
+Message-ID: <21a44f7b-e33c-4feb-a6ba-6d08bc796606@rock-chips.com>
+Date: Wed, 11 Nov 2026 14:53:52 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,21 +48,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ "finley.xiao" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
+ the RK3588 PCIe SMMU
+To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Niklas Cassel <cassel@kernel.org>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c962725603a4kunmb3379dd7965f5
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0pJVh0aGUJMSE5CQk5OHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ZXmX7RJKYwKpIGWxpcLGSdUNUfljyXvYiUtUbnsd6Phb8U97ZPSlESLvBbJzV8hWLtqOLLINOhn9P6waG42+wYWblD1kQZXqhbC50WlpggnfPocO8Xuj/NTbo3b2d0qqYsy7f9rFLq9MUTPEl7lBAdF+V7UrJIHQskw2aZytPko=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=GkcCvQ0Cm1Qyej4YW35+cOV6C99poT4s5onAksaynHE=;
+	h=date:mime-version:subject:message-id:from;
 
-This patch is on v7.4-rc1. On media-committers next it needs a change:
-Hans's series, applied there on 11-10, renames type 0x10 to
-INT3472_GPIO_TYPE_AVDD, and INT3472_GPIO_TYPE_DOVDD is now 0x0f:
-https://lore.kernel.org/all/20261020142243.25072-1-johannes.goede@oss.qualc=
-omm.com/
+Hi Arun
 
-The patch still applies and builds there, but its "vana" entry then
-matches 0x0f. Tested on the Surface Pro 11 with int3472 from next: as
-posted, the sensor's 0x10 line becomes "avdd", vana is a dummy, and
-probe fails with -121. With the entry on INT3472_GPIO_TYPE_AVDD, the
-sensor gets vana and vddio, binds and streams.
+在 2026/11/10 星期二 15:11, Arun Iyengar via B4 Relay 写道:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> The MMU-600 for the PCIe controllers (mmu600_pcie) is enabled for every
+> RK3588 board, but its node does not describe that it lives in
+> RK3588_PD_PCIE. It only works today because TF-A leaves the domain on at
+> boot and, on most boards, an enabled PCIe controller holds it on later.
+> 
+> On a board that disables all PCIe controllers using that domain (the
+> Orange Pi 5 with its M.2 slot in SATA mode is one), genpd powers
+> PD_PCIE off as unused after boot while arm-smmu-v3 is still bound. Then
+> at reboot arm_smmu_device_shutdown() writes CR0 and polls CR0ACK on the
+> unpowered block, which stalls the bus: the kernel never reaches
+> "reboot: Restarting system" and the board only comes back once the
+> watchdog fires.
+> 
+> Describe the power domain, so genpd keeps it on for as long as the SMMU
+> is bound.
+> 
+> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU on the rk3588 SoC")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>   arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> index aa69fd3793fd..bcd342c025c9 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
+>   			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
+>   		interrupt-names = "eventq", "gerror", "priq", "cmdq-sync";
+>   		#iommu-cells = <1>;
+> +		power-domains = <&power RK3588_PD_PCIE>;
 
-v5 will be on next with that change, and its commit message will simply
-say that int3472 calls type 0x10 AVDD.
+As RK3588 TRM Table 7.1 desribes, both of mmu600_pcie and
+mmu600_php live under PD_PHP.
+
+>   	};
+>   
+>   	mmu600_php: iommu@fcb00000 {
+> 
 
