@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794377505;
-	b=JxpxYo+XooSeFpm8tuw9szwRKRBLbnieMnmoXSmISCbnMvNq+rh7CX66QwJmWXsjw7ML
-	 /7GpORefpxfuV63PLSGX7mIEe23c6RwrdU7E6/jwhNe7Tcwoicxq2QXLhF+ywt91SPfIH
-	 /9fZSRDrLRZQp5zhf5ALog0rg304TfnKzqp6psyIUdjUqI1PvKUJ3rrdfXHyOVI3rKIc+
-	 IW8E3SPKEWzQMH6znNoHcMEP3gEgAomz1PjgNJBM9Sqm6DOXuAHzBYHIHTbJI2dRPleOG
-	 lj4AjeUES2+ObWlbd9NDemUq3hTXAIPTqVit3Y9kGTXZOPfkMHX4VzZDnYBEVQ0he5A==
+	t=1794377828;
+	b=3nDIoqupbybr3pYNaMWbu8pFIQiqwApgYEtKq421BQHDDbxzA32AMdja8r2Hor7l11dE
+	 veNirhGCeSTNNMto8zXC0tAsmLGtPFz64EjD6nr9rRH0rybbCGCWumsQaicfMbLMotVPO
+	 bJzmuaHrx41R4jHpW6scKKP3euphZtJw3eEt5BytNeGGgWJhe8PmoD4QzLSXfcGh0/MfI
+	 F//20hgFCU1srWyeBT8gK8TnRFB9hrB8k0bkYiOdPEr0C977uqbkOXR7bjhHtgyfcIsw9
+	 NSocKTHxpIYZNYoyVQKc5vjjmJN4XslOgLxUKF6MHQeIgQ/2OxXCllmy7Cxel4A0kCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377828;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6cU1bK+8ZDmix42zLdKvN0bdMM28L3RMkRnrpvPlPos=;
-	b=c2JArcEikhyXq2HWsauyVF+g3Fs6JU/8PwfvHeLi7MAOMB4fgI+YpPQIIGNAQmNWdm1G
-	 tMFUbzSvJXDV3vQV+vFT2qK8XZXrZWS9x8OCe0Eeb6V3vycj9kcEUAYWLxirBD7W3/GNC
-	 GvQoP/LklBtkU6lv9xcxc/wWffiqG63wOP8idZqnRhf8PCy7qPaC02zvQXfNPc9pTiaDX
-	 qGTtrTEVr+zWrVYCpeK/XvlKJ31EgAVeFLYsxgR5Rp404InS732Pgt9BEeO0ADrkDsA4n
-	 FhBEvg6C0+qLgNJjJEqedegyIaTGJyO2Uhzjl5dfCKpIjUAps5VJXa8b2dHfwxzIYLA==
+	bh=25+PS3jeQ3+Byu1PiL0gfnCwGzqf8CViIRDcQ03VcGs=;
+	b=naE0/b7QHnULdboP7F0lNA4VMJRXRl8MCd5Th2TY53jSUDbNM5+HXZIjMO6B+fGMrwLR
+	 OYv996wAIIHEgId1l3AZbdCaSa4Z96BIOKWJ+wlSp9FysL514mdx3eNbD5azy4/xZHuM2
+	 AASDlkMo8F4mas5ruXeZ7S5y5LdYILpEuaYhrU7TP+IWQf3sI6AZMTp4z+9LIsymARdve
+	 ydizl31D56+qYF1vJbFTFAs7gFA43ZkEA7cTtDGvgrg/BlUvnb0kbx1R09miq5oVEOs/4
+	 FMIlWyl5LOQYCh+e27fE6JO1xMG4dk9u8IEMqhbsaFqSlGYK37LQSzQ4xJZaxYG9q+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i7w+u4A/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0qblSyp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BB0606A31C;
-	Wed, 11 Nov 2026 06:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A93606A320
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7w+u4A/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9A31F00A06;
-	Wed, 11 Nov 2026 06:11:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0qblSyp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89DD1F00A05;
+	Wed, 11 Nov 2026 06:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794377504;
-	bh=6cU1bK+8ZDmix42zLdKvN0bdMM28L3RMkRnrpvPlPos=;
+	s=k20260515; t=1794377828;
+	bh=25+PS3jeQ3+Byu1PiL0gfnCwGzqf8CViIRDcQ03VcGs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i7w+u4A/xPCnfsV+C50VtCECam+Ql7CRhguoOMml2mHC+wc6+eae/q5Tt8qihYjnQ
-	 SMAvtbYtsCbidGoUFHMhJBC95awBpfQ/z/w8VQHtMovpdsVQI5/FRsspkBUkPXm9KA
-	 HmWfZbNZ4CLus44PDzK16RAPnUaByWdpFiJ+Szk0pcu17lr7fjhe3EqJesqdKOsPii
-	 Jjy9+UgbzUVJzm20tKkmM1/mhfGNSAX9EY65rXq98Gybh9pA4aWokrK7r+EVBXov35
-	 Cot9DXATYmyDssVzemZmUEWJ7yhia1txBOpFk756OpUSCfFbCX7oiJUlC7berCCT0N
-	 QJxbOtU8OhHNg==
-Message-ID: <sashiko-outbox-208395@kernel.org>
+	b=V0qblSyptQWVSgyYZsf5O6DWxF+6/PgLIyTpJ7fHe59w1PrMcyzljWYJWnq/Y56zv
+	 11i5P0vxFZvyl9tN1Efhn6PVDc3un8ifIiOr9tQWrbftwTU+GtACZsuYVoL0MrPWU9
+	 wduKT66L+k+dsBNHY8A9SEkwFOyGoXzWDV3bKcHE4Uo+Z3F9mDD/fp45p8QWEY/FIA
+	 WShwD8JrsArE01CacFMwWyR9GJ/igYw5VLaJYpmP/rHXn8Bhj1bSsQOiRfAE/+YRi6
+	 wDXbKBipGOYvvGZNdGaPE50rTEqw0E1rEdPCIlxUot6nK0CqfD920AN3+pXi65MrVG
+	 1huhm9HWSRcQw==
+Message-ID: <sashiko-outbox-208423@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] arm64: dts: allwinner: orangepi-zero2: Add i2c
- aliases
+Subject: Re: [PATCH v2 1/5] ARM: dts: aspeed: ventura2: Add LTC2305 ADCs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261111-h616-zero2-dt-v2-8-88d8030fc975@gmail.com>
-References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
- <20261111-h616-zero2-dt-v2-8-88d8030fc975@gmail.com>
+To: "Kyle Hsieh" <kylehsieh1995@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111-ventura2-dts-update-v2-1-bce5b5dafc1f@gmail.com>
+References: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
+ <20261111-ventura2-dts-update-v2-1-bce5b5dafc1f@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 06:11:43 +0000
+Date: Wed, 11 Nov 2026 06:17:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,53 +62,63 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] arm64: dts: allwinner: aliases for disabled and unusable I2C
-  buses
+- [Low] ARM: dts: aspeed: ventura2: missing vref-supply violates
+  lltc,ltc2497.yaml
 --
 
-commit ba431251208e1b9ebd8e19b71da4c12196e7c374
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+commit caeadf546c0d6980ef4365a1de76028a3b8cfe39
+Author: Kyle Hsieh <kylehsieh1995@gmail.com>
 
-arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
+ARM: dts: aspeed: ventura2: Add LTC2305 ADCs
 
-This commit adds i2c0 through i2c5 aliases for the SoC TWI controllers in
-the Orange Pi Zero2 board device tree.
+This commit adds three lltc,ltc2305 adc nodes to the ventura2 devicetree and
+wires the i2c3 channels into iio-hwmon.
 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts=
- b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> index d5d39bac59155..98fc83291dc83 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> @@ -12,6 +12,15 @@
->  / {
->  	model =3D "OrangePi Zero2";
->  	compatible =3D "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/=
+arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> index f3dbdece30767..50e652cc37a17 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+
+[ ... ]
+
+> @@ -392,6 +393,12 @@ i2c0mux0ch2: i2c@2 {
+>  			reg =3D <2>;
+>  			#address-cells =3D <1>;
+>  			#size-cells =3D <0>;
 > +
-> +	aliases {
-> +		i2c0 =3D &i2c0;
-> +		i2c1 =3D &i2c1;
-> +		i2c2 =3D &i2c2;
-> +		i2c3 =3D &i2c3;
-> +		i2c4 =3D &i2c4;
-> +		i2c5 =3D &r_i2c;
+> +			adc@8 {
+> +				compatible =3D "lltc,ltc2305";
+> +				reg =3D <0x08>;
+> +				#io-channel-cells =3D <1>;
+> +			};
+>  		};
+> =20
+>  		i2c0mux0ch3: i2c@3 {
+> @@ -583,6 +590,18 @@ &i2c3 {
+> =20
+>  	status =3D "okay";
+> =20
+> +	adc_op_fb1: adc@8 {
+> +		compatible =3D "lltc,ltc2305";
+> +		reg =3D <0x08>;
+> +		#io-channel-cells =3D <1>;
 > +	};
->  };
+> +
+> +	adc_op_fb2: adc@9 {
+> +		compatible =3D "lltc,ltc2305";
+> +		reg =3D <0x09>;
+> +		#io-channel-cells =3D <1>;
+> +	};
 
 [Severity: Low]
-As reported by Jernej =C5=A0krabec on v1 [1], should these i2c aliases live=
- in
-overlays rather than the base board DT, especially since all six
-controllers are disabled here and three of them conflict with enabled
-on-board peripherals?
-
-In particular, r_i2c (i2c5) only routes to PL0 and PL1, which this board
-already uses for r_rsb to talk to the AXP305 PMIC.  Likewise, the external
-pin options for i2c0 (PI5/PI6) and i2c1 (PH0/PH1 or PI7/PI8) conflict with
-the enabled emac0 (ext_rgmii_pins) and uart0 (uart0_ph_pins) nodes in
-sun50i-h616-orangepi-zero.dtsi.
-
-[1] https://lore.kernel.org/r/ekjxzCRpRcWPwcDw_lDV4g@gmail.com
+Will omitting vref-supply on these lltc,ltc2305 nodes cause dtbs_check to
+fail?  Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml lists
+vref-supply under required unconditionally, so the binding schema needs to
+make vref-supply optional for lltc,ltc2305 and lltc,ltc2309 before omitting=
+ it
+here.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-h616-zero2=
--dt-v2-0-88d8030fc975@gmail.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-ventura2-d=
+ts-update-v2-0-bce5b5dafc1f@gmail.com?part=3D1
