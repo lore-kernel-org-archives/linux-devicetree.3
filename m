@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421207;
-	b=EX1T2gQwkrtERT4VcUa+K03hupbsZT+BwzVP064v6LL/ItovCFGj0o7lmJI7Wq9QX936
-	 PcusbNx6JEV2Eu5sTNLX2Q4Zbq9XCqFDo+cjGRDSssRGW3ZthKZP/MJeba/HfUsgjp5TT
-	 EU0tQUN+6vDfAca+X5K8nxNxYD7E82CNdi5/zKOWYswuBuWUkpmCpp3X6SZ3z+JSbvx4O
-	 qPjJ8YsoEACzTFK2wXZ0tIGMjP/a4uV90jNI6oEHCt3rfp4G1B06CZ01+bI3v29v0jmL7
-	 JHGuMk4Vw0mDVf5CzE4RqJQI9K2WPsFvoxheT9bcMYdqdd673t+lCh+GglCo9h2UcQA==
+	t=1794421208;
+	b=QuR2+XTkZUzQGjtOuc7QPSudQLxInQdHlHXjkevogsMH3UtW5mpQRK6NEbjXmtw45OG0
+	 vR5oYmriMEVWNydtlLzQWQMqcEM9tmTmDDnn1YUhlNB+fVB/Zquug1eyv2je5INVfr0R2
+	 5pV12/TJVJAvtHXwq5SH0rplGdyUEXq5t8yF6+x+lL3AeTn+OsYgWghlZABAt2MSZwVe7
+	 MlMG3i0rfEMY1Uoe/RvO5ZUKShJhME8hGEjyrjKEEew20gtYdpd/Ovb/h1tRD1LkevpKe
+	 5rW18JBeL6x8b9P7XG0w/VX9aOWtBRnKPl6NNAER+C8Ro5brguggcD5SnSiQARmpXEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=0m/VREGa9z/FqTFoaBxjG4HTMPo9NTrNhMinLMVIAr8=;
-	b=kdwNCfxgFiEJH9phjX/ao0VzuO4JZjlobGTdJyLN60APisszdV3fBXR/tE//axRESjEX
-	 1IOWItX/RH02Oq7vFhkt1bGNCHL4zlKwH0Wb1c59g79+pb1cipqCHRc2RDMgVgJRT1hHi
-	 n2znjHnPnj4hZ2imfn/at10Cyn4LZ7kOdjATZwUXpBmLlE7seTJ2A6rYgE0K3LB+S4TEM
-	 Eir78WVUQ0UwxUfJSNo3kS1knW1cWstsxWkXt8A6+TuCK/rvv7xqmJNF14hq9aAhjlzGJ
-	 afbSRIo3yxNZ9Z4jBMy8m9bMmhwCyNu9V5I0PAvHMJiq5lRh87ggpG1whbm8A634y7w==
+	bh=z0f4UdFcdCIjne4UCGJfkh/TdN8nWfrGk1TSR9G6FV0=;
+	b=2I/+kbMPSnPFpvMqeBgOjQF7rw9+36q3ppu18Nxz3TtPqDo410tRWtvd/Vl8kHkMBhpo
+	 bSsMOhrzAKYykUe1mUAvqnYCSThNX+yo9Gbbh/wCXLc1r4ZdsBNdqC2LGBiMJkPkF2VOJ
+	 l8761raTSpMdxBx8c0ES1zth/78NBWC/Xb8TvA8l5jVRrba7QJMZMhT/h6o2uTNKsVNrz
+	 VoEr0xPW5CtntMTuuFZIJUbwY8SOyY4z2vz4YYq4yHTZsSvOQWyNobitlcwidNF6K2DwU
+	 SMXVmNjAO4QH4xsDgAMDDRE6yjojWRcyckr3k+CU97WHQmv/Upqzg6Jy5odHZtCtWxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pfeLOBSy;
-	arc=none smtp.remote-ip=74.125.231.134
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTBHA3pl;
+	arc=none smtp.remote-ip=74.125.231.135
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4E960A3834
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 18:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C4E960A3834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B13606C158
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 18:20:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B13606C158
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pfeLOBSy
-Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8217177c5daso809440a34.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:20:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTBHA3pl
+Received: by mail-oo2-f7.google.com with SMTP id 46e09a7af769-8210db80578so972916a34.0
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:20:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794421206; x=1795026006; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794421207; x=1795026007; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0m/VREGa9z/FqTFoaBxjG4HTMPo9NTrNhMinLMVIAr8=;
-        b=pfeLOBSyC8Skrs40RTqXfqgkV77B9qOEZ9frWkWxMmeMdOuOsPQlC3pydtxtH8VLsM
-         MHrAEogcgF1eQXZQbb2Md2IAHpw4RABIjE5VJL/NCQwmHuQOd9iaRPYcKIAkOwPMlyMT
-         jv88Mv0W5SrWMwn4nfWxb/2VFrqIVa0Aq8SijLvMS+Ar43/8Pj0DhBd0kEVifvKIAMnX
-         qA0mjAL7Td1Bx6pFDNJJIMZ5AVSgjUw+YtClhdpyLWCnaRMjS0YnOTQmkAhVoph9x1rG
-         hErt89VXRk25HoTS5QOSl2rp4s5E6QTiQd6uXZfzflcy7q6Db95UqNYAW9Z6WyqbJgRP
-         oECQ==
+        bh=z0f4UdFcdCIjne4UCGJfkh/TdN8nWfrGk1TSR9G6FV0=;
+        b=tTBHA3plg7MYpilVcusOj/T9AMJU6VER7fHCaRxJ8q3rRbVD7V5G/ydZMKPlZD84UC
+         UBtXknwwLUP0xzE4/IiJGmmw4UcbUOumGA05svrri8wgWhw6NFI+9t1Q+pNseFqa4W3j
+         MJC+GVvqdkaodyeE2Nf5tMcsEKWujpGmgeFUeHl+7DuFgOCUKxHHbpGaJXRSZ3vRZwg7
+         E604n6zsxQnoR+s5jt9hM7D1oP+ioCMs0mOK/lUDgD2oQS880BKF5hqkCBLUqKlTYeQc
+         Jn3O4mZWjRCWAH/D6rwmpDG9LADy8eEDMWvhuJVbgq0Jig2k/olibuCwVbdDCn4ea2OO
+         c1MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794421206; x=1795026006;
+        d=1e100.net; s=20260707; t=1794421207; x=1795026007;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0m/VREGa9z/FqTFoaBxjG4HTMPo9NTrNhMinLMVIAr8=;
-        b=veAM7tzPByFsL4YHmzyVxC/R7b8Qxw5e4Ih3FDHrKPrH2g4X+sjEP0viHHafm42InH
-         P3CNZgHUDk7CTETgWEuf6/EP9A6VO2wpYkUSpM0jV1gVwIJVaxs4sJ6CY552hAw26Ni9
-         DAjpwTRPB7wl9WJHpwaPqqXoHyOrpPsy2rwIDPhkJC9c68k7FcSCqlC0GlA7awOst/tS
-         gvCy9MZaiyOouGaVNxc2nUqvUcM1c1SiMcEKPHMUZ1nH8xPWtlsyr1XfI2asqi3SAoBb
-         nrKoniDjwljc1sDxWpjGt88+ROWqu6SvtdcCPYnm4p47531cUWnFQyqZw8Cfd/3wxkhS
-         0+wQ==
-X-Gm-Message-State: APuU4Z+cj1Rpiv4ayr7xghg6G63aR+NcrCxWKZBm+bgMtzBbgcZn0Jaf
-	Q8xls3CFnXy5HUOnIZOPLTPZvZJxKWnAZ67F8VvmSm8FL/zXOLqQijTr
-X-Gm-Gg: AYBFou0/cRCFoIprbY814yyLeJ9Nn5cB9W1DcAZ4DhxynFKsw8e8a7tQgfoa3LCaP+5
-	IRlXrpPCSrxLQP8Fv7rfMA8RqP0/JTUf/wdG3Mlzy6gIVv1b7ve1XnXLxbAiuLOSKM67BooYVmZ
-	w1+JXhGJO9xXmPPshvwMZSxeenVAFBHtWS3jh7DwFy34E88e56eG8/gaSiMjbqcguc5ThZcp/1/
-	E++RteujHYggNtyMnkqICCZoDmLL9clsbj9muX0oLl6h0A7f6nn8AMvAojgO3NbbXK6UrvAb+/w
-	IeAPjtL1f1/lkwAc9pJtDP+XWNmyx/E/XiGa4f//f0KESWSSuISVPSLPgapRl0KGEqtgwP7paXa
-	YiNen8mE8kiFHVp4y/g5HgBfYVghLqTzXyJ2MGBI+YK1q2fIt8ExFutyHiBoLVkHBLNtdmMXcWp
-	qtdIwtgdCDTc2AONko2YOs9db1N0Nveat/hHgDQ/ZhdSg/6GOsSFfFN/IQcISx1wRWUBv+cH92x
-	f+f+3OaBu+AsIdpn9Quuy6Osf+B+wt7QEjzXUmA7ZhwGcTColXAGGRHtiR5j8igvekUlAvqEdvG
-	GclUCJvclriNyLU4tpPgwXGHigjJhp31DAGY/ZdGskCJgtwesbXCpYlW3R8W3fkxl+roJ+VIEep
-	GyoykXgX57BFqzu7MrbQ=
-X-Received: by 2002:a05:6830:82f5:b0:81f:138e:77a0 with SMTP id 46e09a7af769-860f29becb1mr2821997a34.24.1794421201164;
-        Wed, 11 Nov 2026 10:20:01 -0800 (PST)
+        bh=z0f4UdFcdCIjne4UCGJfkh/TdN8nWfrGk1TSR9G6FV0=;
+        b=kRVvnoC+/u+5Awzd59EHXqeuyGIY3Fv51qFVa3NE48vRYfAS6BQNmTZblC9dqprLUj
+         B9QC5lolOEz8TkslB35AP5GG4PIAxeYNOB5t7iHCjEVU7X56w1LmRovG18y4GsmU8QU5
+         VcioyqFBE5AM1gmQRtOHDtc7u1VeYdP73VKICCkv/CtzKzc45sQh56D9FvABGBXPBajF
+         K8TQJJTbM08isdx1UX5tTTegy93wBPHKQEQ49k3YQ+AUFKHmEImx2OVFltn0x+Fje1bG
+         kGkrcpg+CbSzZoevOeoiX8p7wLjIJ7c8mC0j2jGDcWgIT2WcRlsmQxeFXFxqw5uTWgdg
+         /a3g==
+X-Gm-Message-State: APuU4Z+b06McyZx9Lqr/DMix+7qeW7nJ3vrGooB1SS7nIduvFAofVgTW
+	4gj3eJ5IGaab0/AGtPv5RCVTNbefkrlKMv+HT0z7pfmLmKDhb5FQgj8l
+X-Gm-Gg: AYBFou3Zo0aXsYuMHWRx9uVpF5SmAC1UISy3u8qiIOIh5+UNKHdKiqrghqZuOSyOY8F
+	59DpAuGw0j1q3LRtuMpU0F4Rj7R9kUZATKr4GL2dBYdyTYWKBJ6Rjb3clMjcsltA3teJvCXUkQb
+	szQ8TygeygWGbWLhuLGcnsXpAT2jqRk1sJpbvrqoUQqJ1mGxYC8/tZzVJ7ada6RGkhnl+sZFJ5g
+	pR3sSYXqALh+rGmHcyhg8TjRU8ekSKkRsea+YIbBE1Uefl6ZRSNXXNjG3oxamY8g9C/IJeALL4r
+	kUmhRe1x3QSNttqNFpWYnIdRcDJOYnLRXgvonKpOm7S7EUt17XbdcS7TDcG2AT7mDelv8wGJ6lE
+	P7KnfR2uXBuNGazBD/1zODrkTGGaRwiS2rhTXdR9vQZA6tiU7184pgfgKbGnJjOtGX21l0R4bZZ
+	wL92b/UmqU6DVIgJ6i6cecmtDzdx40JkXEQ1DjyXZsGXQOrA4kiZgi1jyIVfCBtPBVcSFUu3q4g
+	+BWgynQsfsT3DAw6tI2bnXOF+Ad0MCdyOm0L32FHzHV9K5LTyxD8c19Nt5s49+cH86njSfW210K
+	y6Hv1ImAELN2NcRFox0Hi4aRz3uGnIM+M219ohZTUUHU/Xe6Xhx947twmHgSbz4bWMD6Mhw6Fgy
+	cCHFGFV6g2iM4Lchre4T3pu/OhcyUswVvJ9FQxkoVUQ==
+X-Received: by 2002:a05:6830:441e:b0:822:b69c:ff69 with SMTP id 46e09a7af769-860f28de64cmr2729842a34.21.1794421202523;
+        Wed, 11 Nov 2026 10:20:02 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcb5f847sm4824708a34.8.2026.11.11.10.20.00
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcb5f847sm4824708a34.8.2026.11.11.10.20.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 10:20:00 -0800 (PST)
+        Wed, 11 Nov 2026 10:20:02 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 11 Nov 2026 12:19:50 -0600
-Subject: [PATCH 1/5] dt-bindings: arm: mediatek: Add MT8173 Amazon suez
+Date: Wed, 11 Nov 2026 12:19:51 -0600
+Subject: [PATCH 2/5] arm64: dts: mediatek: Add MT8173 Amazon suez
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-1-77b47cdea702@gmail.com>
+Message-Id: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-2-77b47cdea702@gmail.com>
 References: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com>
 In-Reply-To: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -108,34 +108,725 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794421198; l=812;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794421198; l=18179;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=q/RYeDFXlfWlE6oZcVVafzIBFTm9F3BkNBjT9jB33RE=;
- b=x1Et7idrLHXZV+S4OxZLI4XDrcm2EokNWm4td8JQSrDbabjEZZh8QQe1wekR71n/tjIyRyHZ5
- J5k1ccNSbhvDk86usV1plzGF6cGevU4Gd2qKFkZP1KKaNdYAsVILbN4
+ bh=hCf0Jfx8ZicMF1WTD0P/zCRw3DvlUgDhQImb5eIckQ0=;
+ b=RY9o7ybffNTQKDMVPTpRLshVcJJMO0tdVsbaThAPYQbdI2oK4R43TV67pIs3N7uh8RR9elNfI
+ SLIrYBKrJrABHN2ewRW7Dpz8FQL7HPKV9y4Jv/hmHKJ/8xqPW7hrEIv
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Add an entry for the MT8173 based Amazon Fire HD 10 (2017) tablet,
-codename suez.
+Add a device tree for the Amazon Fire HD 10 (2017), codename suez, an
+MT8173 tablet with an MT6397 PMIC and 2 GiB of RAM.
+
+This supports the eMMC, the microSD slot, the micro-B port as a USB
+peripheral, the panel and its backlight, the touchscreen, the
+accelerometer, the light sensor, the charger, the lid switch, the power
+key, CPU frequency scaling and the board's skin thermistors.
+
+The board needs a PSCI 1.0 firmware, such as upstream TF-A. The stock
+BL31's CPU_ON never powers on the secondary cores.
 
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/mediatek/Makefile              |   1 +
+ .../arm64/boot/dts/mediatek/mt8173-amazon-suez.dts | 676 +++++++++++++++++++++
+ 2 files changed, 677 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
-index 180e6e4948e7..26f096587631 100644
---- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-+++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-@@ -157,6 +157,7 @@ properties:
-           - const: mediatek,mt8173
-       - items:
-           - enum:
-+              - amazon,suez
-               - mediatek,mt8173-evb
-           - const: mediatek,mt8173
-       - description: Google Burnet (HP Chromebook x360 11MK G3 EE)
+diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/mediatek/Makefile
+index a86fb313b1a9..ec85d7c49d0d 100644
+--- a/arch/arm64/boot/dts/mediatek/Makefile
++++ b/arch/arm64/boot/dts/mediatek/Makefile
+@@ -93,6 +93,7 @@ mt7988a-bananapi-bpi-r4-pro-8x-sd-cn18-dtbs := \
+ 	mt7988a-bananapi-bpi-r4-pro-cn18.dtbo
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt7988a-bananapi-bpi-r4-pro-8x-sd-cn18.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8167-pumpkin.dtb
++dtb-$(CONFIG_ARCH_MEDIATEK) += mt8173-amazon-suez.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8173-elm.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8173-elm-hana.dtb
+ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8173-elm-hana-rev7.dtb
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts b/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts
+new file mode 100644
+index 000000000000..6fd7777eb491
+--- /dev/null
++++ b/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts
+@@ -0,0 +1,676 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (c) 2026 Ryan Brue <ryanbrue.dev@gmail.com>
++ */
++
++/dts-v1/;
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include "mt8173.dtsi"
++
++/ {
++	model = "Amazon Fire HD 10 (2017)";
++	chassis-type = "tablet";
++	compatible = "amazon,suez", "mediatek,mt8173";
++
++	aliases {
++		mmc0 = &mmc0;
++		mmc1 = &mmc1;
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:921600n8";
++	};
++
++	lid-switch {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&hall_pins>;
++
++		switch-lid {
++			label = "hall-effect-sensor";
++			gpios = <&pio 124 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			debounce-interval = <20>;
++		};
++	};
++
++	memory@40000000 {
++		device_type = "memory";
++		reg = <0 0x40000000 0 0x80000000>;
++	};
++
++	backlight_enable: regulator-backlight-enable {
++		compatible = "regulator-fixed";
++		regulator-name = "backlight_enable";
++		gpio = <&mt6397pin 14 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		ramoops@90000000 {
++			compatible = "ramoops";
++			reg = <0 0x90000000 0 0x80000>;
++			console-size = <0x40000>;
++			record-size = <0x8000>;
++			ftrace-size = <0x20000>;
++		};
++	};
++
++	/* Board skin thermistors: 10 kOhm NTCs under 39 kOhm pull-ups to 1.8 V */
++	thermistor-0 {
++		compatible = "murata,ncp15xh103";
++		io-channels = <&auxadc 0>;
++		pullup-uv = <1800000>;
++		pullup-ohm = <39000>;
++		pulldown-ohm = <0>;
++	};
++
++	thermistor-1 {
++		compatible = "murata,ncp15xh103";
++		io-channels = <&auxadc 1>;
++		pullup-uv = <1800000>;
++		pullup-ohm = <39000>;
++		pulldown-ohm = <0>;
++	};
++
++	thermistor-2 {
++		compatible = "murata,ncp15xh103";
++		io-channels = <&auxadc 12>;
++		pullup-uv = <1800000>;
++		pullup-ohm = <39000>;
++		pulldown-ohm = <0>;
++	};
++};
++
++&cpu0 {
++	proc-supply = <&mt6397_vpca15_reg>;
++};
++
++&cpu1 {
++	proc-supply = <&mt6397_vpca15_reg>;
++};
++
++&cpu2 {
++	proc-supply = <&mt6311_vcpu_reg>;
++	sram-supply = <&mt6397_vsramca7_reg>;
++};
++
++&cpu3 {
++	proc-supply = <&mt6311_vcpu_reg>;
++	sram-supply = <&mt6397_vsramca7_reg>;
++};
++
++&dsi0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	panel@0 {
++		compatible = "boe,tv101wum-nm0", "novatek,nt51021";
++		reg = <0>;
++		vdd-supply = <&mt6397_vgp6_reg>;
++		avdd-supply = <&mt6397_vgp6_reg>;
++		havdd-supply = <&mt6397_vgp6_reg>;
++		reset-gpios = <&pio 105 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&panel_pins>;
++		backlight = <&backlight_lcd>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&dsi0_out>;
++			};
++		};
++	};
++
++	port {
++		dsi0_out: endpoint {
++			remote-endpoint = <&panel_in>;
++		};
++	};
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	touchscreen@38 {
++		compatible = "evervision,ev-ft5726";
++		reg = <0x38>;
++		interrupts-extended = <&pio 14 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&mt6397pin 12 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&touch_pins>;
++		vcc-supply = <&mt6397_vgp3_reg>;
++		iovcc-supply = <&mt6397_vgp4_reg>;
++		touchscreen-size-x = <1200>;
++		touchscreen-size-y = <1920>;
++	};
++};
++
++&i2c1 {
++	mediatek,use-push-pull;
++	status = "okay";
++
++	mt6311: pmic@6b {
++		compatible = "mediatek,mt6311-regulator";
++		reg = <0x6b>;
++
++		regulators {
++			mt6311_vcpu_reg: VDVFS {
++				regulator-name = "VDVFS";
++				regulator-min-microvolt = <600000>;
++				regulator-max-microvolt = <1393750>;
++				regulator-ramp-delay = <10000>;
++				regulator-always-on;
++			};
++		};
++	};
++};
++
++&i2c2 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	accelerometer@18 {
++		compatible = "bosch,bma253";
++		reg = <0x18>;
++		mount-matrix = "0", "-1", "0",
++			       "-1", "0", "0",
++			       "0", "0", "-1";
++	};
++};
++
++&i2c3 {
++	status = "okay";
++
++	bq24297: charger@6b {
++		compatible = "ti,bq24297";
++		reg = <0x6b>;
++		interrupts-extended = <&pio 9 IRQ_TYPE_EDGE_FALLING>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&charger_pins>;
++		omit-battery-class;
++	};
++};
++
++&i2c4 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	backlight_lcd: backlight@2c {
++		compatible = "ti,lp8557";
++		reg = <0x2c>;
++		enable-supply = <&backlight_enable>;
++		dev-ctrl = /bits/ 8 <0x47>;
++		init-brt = /bits/ 8 <0x64>;
++
++		/* In the order the vendor kernel writes them */
++		rom-14h {
++			rom-addr = /bits/ 8 <0x14>;
++			rom-val = /bits/ 8 <0x0f>;
++		};
++
++		rom-13h {
++			rom-addr = /bits/ 8 <0x13>;
++			rom-val = /bits/ 8 <0x01>;
++		};
++
++		rom-11h {
++			rom-addr = /bits/ 8 <0x11>;
++			rom-val = /bits/ 8 <0x06>;
++		};
++
++		rom-12h {
++			rom-addr = /bits/ 8 <0x12>;
++			rom-val = /bits/ 8 <0x2b>;
++		};
++
++		rom-15h {
++			rom-addr = /bits/ 8 <0x15>;
++			rom-val = /bits/ 8 <0x42>;
++		};
++
++		rom-16h {
++			rom-addr = /bits/ 8 <0x16>;
++			rom-val = /bits/ 8 <0xe0>;
++		};
++	};
++
++	light-sensor@23 {
++		compatible = "liteon,ltr559";
++		reg = <0x23>;
++	};
++};
++
++/* Consumes the VPU, which is disabled below */
++&mdp_rdma0 {
++	status = "disabled";
++};
++
++&mfg_async {
++	domain-supply = <&mt6397_vgpu_reg>;
++};
++
++&mipi_tx0 {
++	status = "okay";
++};
++
++&mmc0 {
++	pinctrl-names = "default", "state_uhs";
++	pinctrl-0 = <&mmc0_pins_default>;
++	pinctrl-1 = <&mmc0_pins_uhs>;
++	bus-width = <8>;
++	max-frequency = <200000000>;
++	cap-mmc-highspeed;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	hs400-ds-delay = <0x14015>;
++	cap-mmc-hw-reset;
++	non-removable;
++	mediatek,hs200-cmd-int-delay = <30>;
++	mediatek,hs400-cmd-int-delay = <14>;
++	mediatek,hs400-cmd-resp-sel-rising;
++	vmmc-supply = <&mt6397_vemc_3v3_reg>;
++	vqmmc-supply = <&mt6397_vio18_reg>;
++	/* HS200 tuning fails on the default MSDC50_0 parent */
++	assigned-clocks = <&topckgen CLK_TOP_MSDC50_0_SEL>;
++	assigned-clock-parents = <&topckgen CLK_TOP_MSDCPLL_D2>;
++	status = "okay";
++};
++
++&mmc1 {
++	pinctrl-names = "default", "state_uhs";
++	pinctrl-0 = <&mmc1_pins_default>;
++	pinctrl-1 = <&mmc1_pins_uhs>;
++	bus-width = <4>;
++	max-frequency = <200000000>;
++	cap-sd-highspeed;
++	sd-uhs-sdr50;
++	sd-uhs-sdr104;
++	cd-gpios = <&pio 1 GPIO_ACTIVE_HIGH>;
++	vmmc-supply = <&mt6397_vmch_reg>;
++	vqmmc-supply = <&mt6397_vmc_reg>;
++	mediatek,hs200-cmd-int-delay = <4>;
++	status = "okay";
++};
++
++&pio {
++	charger_pins: charger-pins {
++		pins-int {
++			pinmux = <MT8173_PIN_9_EINT9__FUNC_GPIO9>;
++			input-enable;
++			bias-pull-up;
++		};
++	};
++
++	hall_pins: hall-pins {
++		pins-hall {
++			pinmux = <MT8173_PIN_124_KPCOL2__FUNC_GPIO124>;
++			input-enable;
++			bias-pull-up;
++		};
++	};
++
++	mmc0_pins_default: mmc0-default-pins {
++		pins-cmd-dat {
++			pinmux = <MT8173_PIN_57_MSDC0_DAT0__FUNC_MSDC0_DAT0>,
++				 <MT8173_PIN_58_MSDC0_DAT1__FUNC_MSDC0_DAT1>,
++				 <MT8173_PIN_59_MSDC0_DAT2__FUNC_MSDC0_DAT2>,
++				 <MT8173_PIN_60_MSDC0_DAT3__FUNC_MSDC0_DAT3>,
++				 <MT8173_PIN_61_MSDC0_DAT4__FUNC_MSDC0_DAT4>,
++				 <MT8173_PIN_62_MSDC0_DAT5__FUNC_MSDC0_DAT5>,
++				 <MT8173_PIN_63_MSDC0_DAT6__FUNC_MSDC0_DAT6>,
++				 <MT8173_PIN_64_MSDC0_DAT7__FUNC_MSDC0_DAT7>,
++				 <MT8173_PIN_66_MSDC0_CMD__FUNC_MSDC0_CMD>;
++			input-enable;
++			bias-pull-up;
++		};
++
++		pins-clk {
++			pinmux = <MT8173_PIN_65_MSDC0_CLK__FUNC_MSDC0_CLK>;
++			bias-pull-down;
++		};
++
++		pins-rst {
++			pinmux = <MT8173_PIN_68_MSDC0_RST___FUNC_MSDC0_RSTB>;
++			bias-pull-up;
++		};
++	};
++
++	mmc0_pins_uhs: mmc0-uhs-pins {
++		pins-cmd-dat {
++			pinmux = <MT8173_PIN_57_MSDC0_DAT0__FUNC_MSDC0_DAT0>,
++				 <MT8173_PIN_58_MSDC0_DAT1__FUNC_MSDC0_DAT1>,
++				 <MT8173_PIN_59_MSDC0_DAT2__FUNC_MSDC0_DAT2>,
++				 <MT8173_PIN_60_MSDC0_DAT3__FUNC_MSDC0_DAT3>,
++				 <MT8173_PIN_61_MSDC0_DAT4__FUNC_MSDC0_DAT4>,
++				 <MT8173_PIN_62_MSDC0_DAT5__FUNC_MSDC0_DAT5>,
++				 <MT8173_PIN_63_MSDC0_DAT6__FUNC_MSDC0_DAT6>,
++				 <MT8173_PIN_64_MSDC0_DAT7__FUNC_MSDC0_DAT7>,
++				 <MT8173_PIN_66_MSDC0_CMD__FUNC_MSDC0_CMD>;
++			input-enable;
++			drive-strength = <6>;
++			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
++		};
++
++		pins-clk {
++			pinmux = <MT8173_PIN_65_MSDC0_CLK__FUNC_MSDC0_CLK>;
++			drive-strength = <6>;
++			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
++		};
++
++		pins-ds {
++			pinmux = <MT8173_PIN_67_MSDC0_DSL__FUNC_MSDC0_DSL>;
++			drive-strength = <8>;
++			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
++		};
++
++		pins-rst {
++			pinmux = <MT8173_PIN_68_MSDC0_RST___FUNC_MSDC0_RSTB>;
++			bias-pull-up;
++		};
++	};
++
++	mmc1_pins_default: mmc1-default-pins {
++		pins-cmd-dat {
++			pinmux = <MT8173_PIN_73_MSDC1_DAT0__FUNC_MSDC1_DAT0>,
++				 <MT8173_PIN_74_MSDC1_DAT1__FUNC_MSDC1_DAT1>,
++				 <MT8173_PIN_75_MSDC1_DAT2__FUNC_MSDC1_DAT2>,
++				 <MT8173_PIN_76_MSDC1_DAT3__FUNC_MSDC1_DAT3>,
++				 <MT8173_PIN_78_MSDC1_CMD__FUNC_MSDC1_CMD>;
++			input-enable;
++			drive-strength = <4>;
++			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
++		};
++
++		pins-clk {
++			pinmux = <MT8173_PIN_77_MSDC1_CLK__FUNC_MSDC1_CLK>;
++			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
++			drive-strength = <4>;
++		};
++
++		/* Pulled up so that an empty slot, which grounds it, reads low. */
++		pins-insert {
++			pinmux = <MT8173_PIN_1_EINT1__FUNC_GPIO1>;
++			bias-pull-up;
++		};
++	};
++
++	mmc1_pins_uhs: mmc1-uhs-pins {
++		pins-cmd-dat {
++			pinmux = <MT8173_PIN_73_MSDC1_DAT0__FUNC_MSDC1_DAT0>,
++				 <MT8173_PIN_74_MSDC1_DAT1__FUNC_MSDC1_DAT1>,
++				 <MT8173_PIN_75_MSDC1_DAT2__FUNC_MSDC1_DAT2>,
++				 <MT8173_PIN_76_MSDC1_DAT3__FUNC_MSDC1_DAT3>,
++				 <MT8173_PIN_78_MSDC1_CMD__FUNC_MSDC1_CMD>;
++			input-enable;
++			drive-strength = <10>;
++			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
++		};
++
++		pins-clk {
++			pinmux = <MT8173_PIN_77_MSDC1_CLK__FUNC_MSDC1_CLK>;
++			drive-strength = <10>;
++			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
++		};
++	};
++
++	panel_pins: panel-pins {
++		pins-reset {
++			pinmux = <MT8173_PIN_105_MSDC2_CMD__FUNC_GPIO105>;
++			bias-disable;
++		};
++	};
++
++	touch_pins: touch-pins {
++		pins-int {
++			pinmux = <MT8173_PIN_14_EINT14__FUNC_GPIO14>;
++			input-enable;
++			bias-disable;
++		};
++	};
++};
++
++/* DISP_PWM is on the main display path, although the backlight is on I2C */
++&pwm0 {
++	status = "okay";
++};
++
++&pwrap {
++	pmic: pmic {
++		compatible = "mediatek,mt6397";
++		interrupts-extended = <&pio 5 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-controller;
++		#interrupt-cells = <2>;
++
++		mt6397rtc: rtc {
++			compatible = "mediatek,mt6397-rtc";
++		};
++
++		mt6397clk: clocks {
++			compatible = "mediatek,mt6397-clk";
++			#clock-cells = <1>;
++		};
++
++		mt6397pin: pinctrl {
++			compatible = "mediatek,mt6397-pinctrl";
++			gpio-controller;
++			#gpio-cells = <2>;
++		};
++
++		mt6397keys: keys {
++			compatible = "mediatek,mt6397-keys";
++			mediatek,long-press-mode = <1>;
++			power-off-time-sec = <0>;
++
++			power {
++				linux,keycodes = <KEY_POWER>;
++				wakeup-source;
++			};
++		};
++
++		regulators {
++			compatible = "mediatek,mt6397-regulator";
++
++			mt6397_vpca15_reg: buck_vpca15 {
++				regulator-name = "vpca15";
++				regulator-min-microvolt = < 725000>;
++				regulator-max-microvolt = <1125000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			mt6397_vpca7_reg: buck_vpca7 {
++				regulator-name = "vpca7";
++				regulator-min-microvolt = < 700000>;
++				regulator-max-microvolt = <1350000>;
++				regulator-ramp-delay = <12500>;
++				regulator-enable-ramp-delay = <115>;
++			};
++
++			mt6397_vsramca15_reg: buck_vsramca15 {
++				regulator-name = "vsramca15";
++				regulator-min-microvolt = < 931250>;
++				regulator-max-microvolt = <1150000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			/* The A72 cluster's Vsram despite the name; cpufreq couples the pair. */
++			mt6397_vsramca7_reg: buck_vsramca7 {
++				regulator-name = "vsramca7";
++				regulator-min-microvolt = < 931250>;
++				regulator-max-microvolt = <1150000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			mt6397_vcore_reg: buck_vcore {
++				regulator-name = "vcore";
++				regulator-min-microvolt = < 700000>;
++				regulator-max-microvolt = <1125000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			/* 150 us per suez_evt/dvt, not the 115 us of evb and elm. */
++			mt6397_vgpu_reg: buck_vgpu {
++				regulator-name = "vgpu";
++				regulator-min-microvolt = < 700000>;
++				regulator-max-microvolt = <1350000>;
++				regulator-ramp-delay = <12500>;
++				regulator-enable-ramp-delay = <150>;
++			};
++
++			mt6397_vdrm_reg: buck_vdrm {
++				regulator-name = "vdrm";
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <1300000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			mt6397_vio18_reg: buck_vio18 {
++				regulator-name = "vio18";
++				regulator-min-microvolt = <1620000>;
++				regulator-max-microvolt = <1980000>;
++				regulator-ramp-delay = <12500>;
++				regulator-always-on;
++			};
++
++			mt6397_vtcxo_reg: ldo_vtcxo {
++				regulator-name = "vtcxo";
++				regulator-always-on;
++			};
++
++			mt6397_va28_reg: ldo_va28 {
++				regulator-name = "va28";
++				regulator-always-on;
++			};
++
++			mt6397_vcama_reg: ldo_vcama {
++				regulator-name = "vcama";
++				regulator-min-microvolt = <1500000>;
++				regulator-max-microvolt = <2800000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vio28_reg: ldo_vio28 {
++				regulator-name = "vio28";
++				regulator-always-on;
++			};
++
++			mt6397_vusb_reg: ldo_vusb {
++				regulator-name = "vusb";
++			};
++
++			mt6397_vmc_reg: ldo_vmc {
++				regulator-name = "vmc";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vmch_reg: ldo_vmch {
++				regulator-name = "vmch";
++				regulator-min-microvolt = <3000000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vemc_3v3_reg: ldo_vemc3v3 {
++				regulator-name = "vemc_3v3";
++				regulator-min-microvolt = <3000000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vgp1_reg: ldo_vgp1 {
++				regulator-name = "vcamd";
++				regulator-min-microvolt = <1220000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <240>;
++			};
++
++			mt6397_vgp2_reg: ldo_vgp2 {
++				regulator-name = "vcamio";
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vgp3_reg: ldo_vgp3 {
++				regulator-name = "vcamaf";
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vgp4_reg: ldo_vgp4 {
++				regulator-name = "vgp4";
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vgp5_reg: ldo_vgp5 {
++				regulator-name = "vgp5";
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <3000000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vgp6_reg: ldo_vgp6 {
++				regulator-name = "vgp6";
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++
++			mt6397_vibr_reg: ldo_vibr {
++				regulator-name = "vibr";
++				regulator-min-microvolt = <1300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-enable-ramp-delay = <218>;
++			};
++		};
++	};
++};
++
++/* The micro-B port is also the charger input */
++&ssusb {
++	vusb33-supply = <&mt6397_vusb_reg>;
++	dr_mode = "peripheral";
++	maximum-speed = "high-speed";
++	status = "okay";
++};
++
++&uart0 {
++	status = "okay";
++};
++
++/* Consumes the VPU, which is disabled below */
++&vcodec_dec {
++	status = "disabled";
++};
++
++&vcodec_enc_avc {
++	status = "disabled";
++};
++
++&vcodec_enc_vp8 {
++	status = "disabled";
++};
++
++/* Its firmware never starts here, and its suspend then fails every system suspend */
++&vpu {
++	status = "disabled";
++};
 
 -- 
 2.56.0
