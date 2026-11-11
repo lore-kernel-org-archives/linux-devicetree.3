@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401686;
-	b=ygWzV/bNlOmUDmKJiYttMdU458d//Bwia+7SxirJowLBsiIQlcK9e5as6EwvMq2zFyqZ
-	 0CCJTPvccPnFS2Vg9oz6gq7XoaeUPWdFF/YM1m+3VdPVaXfLsOB0Q/UoTEKmodjx2tCwO
-	 qN6YnldB945Df8v2JJ/Eji5YErgcP2Cds3PnT9q+BbY2MJd0vaeqdxp36Q4NbaPWYVkLc
-	 PcZHNcN/CgHdIKf3+z8ceB3jti7vyAgGRrcBMM7OcIMkGoYGmYKGwHnf8PRetR+8lG7PQ
-	 ALJB4q1+Dc9LqGZUP9IVRBnKg9kWjQ4JgWkPLFJ9+SdfUeChh6y90ZvQDuDsctEeXYw==
+	t=1794401946;
+	b=xHfSokhs6P9D8gm4E5yCQiXdAhhlbnc+jyvcaMESaZjn2kBzYlRn1bmQ0ZLIxkGbp71G
+	 XXZ1GE3nVNe15gllLlb13rxgnrp5H2DI91UiKAj+F5z1Ir206tjaDoc2IiCxRuzcs7ue1
+	 eQdqKRkknnS0ZtW5JmD1qoqsd2jp/pOf7B1ljDw0723GB9Xa9zKdNSWIRg8Jl5laHUXmm
+	 6V6Tjy9qeMzM2Qt5H6UNXaFzQLEjBfHiLJF8mJ90ThRoHHmsv1HMST7q9R1Ct664Zwr1X
+	 f3a0sGXSn420qJ4GOqUQ2dQm56S7YFvBHqVTxRorh6TPyXrlr+iyToOkIfoLoXltTGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401686;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Kutl9pjsMR5YgX8beF0lS5PZuVFUbRflFXgsgOe5LY8=;
-	b=ICWe8wbM7SQtFsT1ToCG2uum5hjp1+Yd2sWRqR9qIqSN5oIp3TFYQoORi1QGMXcKF71o
-	 vFIM1dWjcNR38I/sQNiv+Qiu+i2rWeVdYm2YoKkQHtOqvmHsYjYu/TbXT81Qp6k2W8iOO
-	 ydBXPAgQsNJ63X4p0x1yKFXY8i/mGuzUhq1d1WdWDOjCcFsfGC14UZfK/xQBvp3ToApC+
-	 q0lPjybJB6lEjNb0gBpCK9zRd94Q8MqeTV7uf0yrvc0FH1rTYb/KBCl5EjXo2g4tTgSI1
-	 ebo+yozVMAg8PcPW19BbSSTvWlVv7gfhukKoHWQkS0TqRqP7ryq/oZtMvCp2Wj8254g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401946;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IFNXUO9Jr7TJnTM4pI8+RXJ3qfoW4xa5qsBB8IRLyHY=;
+	b=KJCwqHdXIfuW9RSZ3omaB95cLS/T2OUqHPEhYbAwyt5IDDnGPNvaCZvhKRzTA+UiAXL5
+	 W5DNjRpvYdoBMgydZSm1xE1aXtOf9kXLN9OBP4gMOoKPnvqcgtXR1MxpGqZJ4AkA9E/jf
+	 Dqj/p4Gy+c941T/3zZx4WO23V0ZSSoRrEdPlCyM1J4Ds1usZKPminrI5Qwd9NDDZQR9LP
+	 iL5RzXcC9rQwxbBzmtd4Sxm6K58hWEX3PrUtkC9dnlLCQTPcgQrOG6NGjqEjih0E6BEBJ
+	 VuORAk8OcfKqiLLN4ImDT2LDa4ZxVYlOJl/MfDKGXIRGljd9y34ZqYPJf7luBDDkqfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2eXXL68;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AEF606A321
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:54:46 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7910F60A2614;
+	Wed, 11 Nov 2026 12:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7910F60A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2eXXL68
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F28E1F00A05;
-	Wed, 11 Nov 2026 12:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401686;
-	bh=Kutl9pjsMR5YgX8beF0lS5PZuVFUbRflFXgsgOe5LY8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J2eXXL68dpDitCXiUsA89VE+EcZBbze5r3RIYdZJiU/jbJChaRNMQJKODL0C9BApP
-	 SdfmqNvs4xXq5YoGKqFk6fJWD8OornAd9bJ4UIMSqDpj0/uCBfltzlw69YbthiDKY7
-	 Swfitex9nSZjHHs8P2477OsUQlO4EVOpG1UAZIPFeoA5jcjOTm9Xf4Fs/FWQvZEpVt
-	 VdHE3eJhBI6mFGbJ7ekBpHJ0sDwmpK2+IIuCtkJWgaFLURjCRkbDSjAKneXUIE5MvG
-	 cJWOY05C7MHOtGlcTXSD1cyZBX52dsdubnSQXnFCoCOEfdBgAIxlCu4DppvGAKyqnA
-	 fz41VwR7RIDWQ==
-Message-ID: <sashiko-outbox-209024@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm7225: Add Samsung Galaxy Tab
- S7 FE LTE
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishal Balasubramanian" <vishal.bala.nps@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261111-master-v2-2-5eb864e9f38d@gmail.com>
-References: <20261111-master-v2-0-5eb864e9f38d@gmail.com>
- <20261111-master-v2-2-5eb864e9f38d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 12:54:45 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97E801576;
+	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9DE83F632;
+	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794401943; bh=Cdy/qokJ1H5l2i4X0IPSgmP/Ge5RQRh04NlGw7FyG/U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=C0DwQSOzO2O5bcR3VXJlOpuuJ9TPGqBenmbf9NmpLIwifpTSmMIcrDyG/aS3Od6UW
+	 IzrdOYaRBSikSpe8Z2mfLYIo5U7T/YAlenp3b3uPY1XJX0TrjklvzbGzlUVHjHpv7U
+	 2qWTdIvBOwzT18Unl4VGC1N3sZHgfGpA5pC2leiY=
+Message-ID: <14c0956c-904e-4a6a-98a0-882514d77b08@arm.com>
+Date: Wed, 11 Nov 2026 12:58:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,54 +52,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+To: Rob Herring <robh@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+ Leo Yan <leo.yan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+ <20261110154643.GA4159803-robh@kernel.org>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261110154643.GA4159803-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: sm7225-samsung-gts7xllite: missing display
-  clocks in simple-framebuffer
---
+On 10/11/2026 15:46, Rob Herring wrote:
+> On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
+>> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
+>> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+>> forces the device onto the AMBA bus, where the driver must read the
+>> peripheral ID from the device registers during probe. On several QCOM
+>> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+>> never probes and its trace path is unavailable.
+> 
+> But it works fine on some platforms? We have a property to override the
+> peripheral-ID which would solve your issue. That would be much simpler
+> and avoid the ABI break on any of the working platforms.
 
-commit 048a3dda70bddbbbba376b3ae7c313748689b1cb
-Author: Vishal Balasubramanian <vishal.bala.nps@gmail.com>
+That is true ! Sorry, I didn't think of the quirk.
 
-arm64: dts: qcom: sm7225: Add Samsung Galaxy Tab S7 FE LTE
+> 
+> But this is already applied and it's not any platform I use, so I don't
+> really care.
 
-This commit adds initial Device Tree support for the Samsung Galaxy Tab S7
-FE LTE (SM-T735) based on the Qualcomm SM7225 SoC.
+I am happy to revert these changes and let the DTS be fixed.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7225-samsung-gts7xllite.dts b/arc=
-h/arm64/boot/dts/qcom/sm7225-samsung-gts7xllite.dts
-> new file mode 100644
-> index 0000000000000..e472e3016cb9e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7225-samsung-gts7xllite.dts
-> @@ -0,0 +1,586 @@
+Cheers
+Suzuki
 
-[ ... ]
 
-> +	chosen {
-> +		framebuffer0: framebuffer {
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&cont_splash_memory>;
-> +			width =3D <1600>;
-> +			height =3D <2560>;
-> +			stride =3D <(1600 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +		};
-> +	};
+> 
+> Rob
 
-[Severity: Medium]
-Does framebuffer0 need a clocks property (such as <&gcc GCC_DISP_AXI_CLK>)
-to keep the display clocks enabled?
-
-Because dispcc and mdss are disabled on this board, no enabled node claims
-gcc_disp_axi_clk or gcc_disp_gpll0_clk.  Unlike gcc_disp_ahb_clk and
-gcc_disp_cc_xo_clk, these clocks are registered in
-drivers/clk/qcom/gcc-sm6350.c without CLK_IS_CRITICAL, so
-clk_disable_unused() will gate them off during boot while the display is
-scanning out cont_splash_memory, killing framebuffer output or hanging the
-bus.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-master-v2-=
-0-5eb864e9f38d@gmail.com?part=3D2
