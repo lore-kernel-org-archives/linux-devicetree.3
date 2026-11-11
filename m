@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367381;
-	b=TbJ/YvoB+04WgF5spud5Mosfgs6H0hu9jZmvRRYbgPvkCaWAUWymLtDmeuBUNuRUc62B
-	 9e4CdSfXklMw9hlkydFH/Syt+ZuqcEd/IQ6CWzDJ/1GN///EHuQQ2fkbjvY2y0Jm9kwTR
-	 GD3Ro8+85cB8K8/QdChk1pjvTAjUePuDW0uYoHbX+TviA2trG7XmDnkWiyai30qp+jvcr
-	 Svr8pQNwmYQcPxLeKQsvkrLa5AwQk2oLMnj8e4o56OCN6PTSijX2gdrS/u5FIAvUoou1D
-	 0KDmYQkjgEkA5EIo3Si0KVpAuSwGKHy5YuMZK2Bx6zS1dFieCzHILMzcsIdUtnw441w==
+	t=1794367388;
+	b=2a9OYccsT5zvMPEp7Ydi9ZGekKaWLfvGhQ7CKk1BKKOksTue3Nl8bGcVZCNOHotdndpo
+	 ETPBmazPrqQFXKrfHTKRswNmNEBNGcdcoRrgaI+HDd2pKj0CtM+gltYcQrgozKihTTDa9
+	 9TJM5BzvbHXgq1dgSzpV0QlEYPGDEVSB+Uwb6Oo9sFHEcsY+K72vzkSzZyIM/v61D97+3
+	 A45jMn485X6HFDiVKvYw3BTlBtB9l9kiyRmXMf6DNHYYWh2jHbJ3WY+v/gT9NPu/FGdQA
+	 G+0ag417C2pJVhXpSX4pr3gxFoTGPr9WBVQ0N84ASIo7St2GVVIcXxUQUdYAjlZO1QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367381;
-	h=DMARC-Filter:DKIM-Signature:User-Agent:X-Lms-Return-Path:To:Date:
-	 Mime-Version:Received:Content-Transfer-Encoding:Cc:From:Content-Type:
-	 Subject:Message-Id:X-Original-From:References:In-Reply-To;
-	bh=cwlQpXqaLUwHvZtTs8DVVBeTiYBaieNwyzTfHe3g38c=;
-	b=3mrjDobkCbTfxJV+i5ttn8kQ2QLUefjHiDgeLvuAgTr7eN4HuCsZ2KvZ3EnM03LV91ne
-	 z4xI5D11x0WtmKyFKm82OVWa+MC/KMsBzNdOsLY5fbcwQ1K9ZIvxEkQEQuGAPwaYCrZwO
-	 M5vGCDn0t+h6mtPWD9dhxys7AkkRc2jbdiviaHTVC0N1b/JOM+crC9oldsD1prtPU5WO0
-	 GliNpnJH885rspwYmjU38D7Y5w9iDAh5+WZ1ojS4bVquSBUFMiUpvKovSPrxatBbE+Kpw
-	 tUacXGFCOyv5PM7YJquTwZq3qXvcMvh/WTKzUDWNo1zatSKuRruJn3ed5ErHLCP3iJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367388;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8QjKzR1VguJw8D/MKsLYUOGbt7zIGd8HDj92xIUMoGk=;
+	b=ScnSWN/DcdmyYQpQIgfksMVdnYVDWhkqz/2b5JUJik5MHkYgDkPiRr7Pg4NKeKTPXxrb
+	 CcovwUDKnjkbIa0XpwyvQrqFKsMFR3/7iV7X8fo7HaavzWSKemec3Y8OlY0jKmmv9UzYy
+	 tyVbidzgev4U3RKOtnsjA9SQdY1DLMMqqOfSYAXqqxY0UG4YnSBapa9XqJW1kXFYhadxS
+	 k9OyPEPTw6GweZ4a99t3wbgrWt5iKNJnkYB7MrAdwloMQGVOfrl0BnFNqRoHjfEXDPF4I
+	 kgiT+XSffTdTEnbW0irlD8qFpuXUyeH02pEmaJGm9R3vD4RcbG4stC93LUFo2QERNoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cipunited.com;
-	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=QdU2PjN+;
-	arc=none smtp.remote-ip=209.127.231.50
-Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Luxxnqso;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF73606A324
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF73606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725B4606A333
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:23:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=QdU2PjN+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794367374;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=cwlQpXqaLUwHvZtTs8DVVBeTiYBaieNwyzTfHe3g38c=;
- b=QdU2PjN+S8MHyDoR8BoIIAvVmAtOsi8yx0EEPS4BkrbIqArHI0gSgae+o14zTNcsbmpG5H
- /Csdzuo+Izi/Verz7pp/S5R6kx6kzDGfOV6WaySoPq2zDWt3GVjltOq3CXwCj6Tsxkp0C6
- XsceqzKhlqwNXqfLD99X8mSwVaVQ6BiMDz8Q2bpGV3fl16+Quzlog6Kb79V2k1MlgMV98b
- sgI4dTeE0yVi6bDoxbnRpQm8+w9+6fZjbyRy1K4MYWzLvbtZPCYl1uZipL88OdzdkaIDVe
- 5irPPHFNWgpECodUkwmOuivz42dCQxJeXbUgFer3cWijbByB43QGc2AMHOUyzw==
-User-Agent: Evolution 3.62.1-3
-X-Lms-Return-Path: <lba+26af3df8c+79df59+vger.kernel.org+rongrong@oss.cipunited.com>
-To: "Conor Dooley" <conor@kernel.org>
-Date: Wed, 11 Nov 2026 11:17:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Luxxnqso
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ADFB1F0089F;
+	Wed, 11 Nov 2026 03:23:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794367388;
+	bh=8QjKzR1VguJw8D/MKsLYUOGbt7zIGd8HDj92xIUMoGk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LuxxnqsoZ7zHyXAvgGxiXaEeQuRtsZHdqDn8Z7nA9gn1KSYOuj+XR1djPT7D5jhYE
+	 eTepCO8zhEStyQXppLXih70DR6usI53+0gjIWI1pY/aHgkkA9NcHS+A5u4a0yqq26U
+	 BNinVqcmHQBQqI7D/doXhnin4m8LNdgOtHxLfrJBUwyvba788kEABuQDkTUX3d46dc
+	 rbCURUKQR7Pjx5Nbz39LMP4EtqMwGAxxz4zw4fAkqBzZJhYALHRN5BUO2zzz2yTHFo
+	 rEUMT0LmaGRSCj0Z2PoM4TCsC6AV8QwXheP8xQ4sGg+1OM9lPbUn7IsmWJZTHMBjis
+	 CnO0YZW/zQV+w==
+Message-ID: <sashiko-outbox-208174@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Yang" <hongliang.yang@cixtech.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261111030937.2954646-2-hongliang.yang@cixtech.com>
+References: <20261111030937.2954646-1-hongliang.yang@cixtech.com>
+ <20261111030937.2954646-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 03:23:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,125 +59,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from [192.168.8.156] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Wed, 11 Nov 2026 11:22:51 +0800
-Content-Transfer-Encoding: 7bit
-Cc: "Rong Zhang" <i@rong.moe>, "Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, 
-	"Yao Zi" <me@ziyao.cc>, "Icenowy Zheng" <uwu@icenowy.me>, 
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
-	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH 1/4] dt-bindings: watchdog: loongson,ls1x-wdt: Add ls7a-wdt compatible
-Message-Id: <227eb9a3dd5c1cb1af4cfbf2c94f30db1755a5d6.camel@oss.cipunited.com>
-X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com> <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com> <20261110-barterer-pandemic-e4c658cac7c4@spud>
-In-Reply-To: <20261110-barterer-pandemic-e4c658cac7c4@spud>
 
-Hi Conor,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: phy: cix,sky1-usb3-phy uses #phy-cells =3D 0 for
+  two-lane PHY
+--
 
-Thanks for the review.
+commit 2ddbb23ac4fa77b6667ad1996ba778aaeb0d7a6c
+Author: Hongliang Yang <hongliang.yang@cixtech.com>
 
-On Tue, 2026-11-10 at 18:58 +0000, Conor Dooley wrote:
-> On Tue, Nov 10, 2026 at 03:02:30PM +0800, Rong Zhang wrote:
-> > The Loongson-7A has a watchdog, which is similar to Loongson 2K0300,
-> > except that it has no clock controller.
-> 
-> I find this hard to believe, the device seems to be getting a clock from
-> somewhere that the clock-frequency property is providing the rate of.
+dt-bindings: phy: Add CIX Sky1 USB3 PHY
 
-I must be losing my mind when I wrote this. My thought was "software
-cannot control the clock" but my finger typed "no clock controller".
+This commit adds the Device Tree binding schema for the CIX Sky1 USB3
+SuperSpeed PHY.
 
-> 
-> Why is that clock not represented in devicetree?
+> diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml=
+ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> new file mode 100644
+> index 0000000000000..205140bf84e7c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> @@ -0,0 +1,78 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 USB3 PHY
+> +
+> +maintainers:
+> +  - Hongliang Yang <hongliang.yang@cixtech.com>
+> +
+> +description: |
+> +  The CIX Sky1 USB3 PHY provides the SuperSpeed lanes of the USB3 Type-A
+> +  ports of the SoC.
+> +
+> +  Both lanes are programmed through one register block and share the
+> +  same clocks and resets, so the node is a single PHY provider with
+> +  #phy-cells =3D <0> that all consumers reference. The driver reference
+> +  counts phy_init() and phy_exit(), so the block is set up once for all
+> +  its consumers.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usb3-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 0
 
-I will add a fixed-clock node in v2.
+[Severity: Low]
+As reported by Krzysztof Kozlowski on v6 [1], should #phy-cells be 1 so
+that each USB3 controller consumer node can specify which of the two PHY
+lanes it is wired to?
 
-> 
-> Confused,
-> Conor.
+The hardware block contains two independent SuperSpeed lanes with separate
+per-lane register sets and lane-disable controls serving two distinct USB3
+controllers. Constraining #phy-cells to 0 omits which controller connects
+to which lane from the Device Tree ABI, preventing per-lane control,
+power management, or tuning without breaking the binding.
 
-Sorry for the confusion.
+In addition, the description justifies #phy-cells =3D <0> by citing Linux
+driver reference counting of phy_init() and phy_exit(), whereas bindings
+should describe the hardware rather than driver implementation details.
 
-Thanks,
-Rong
+[1] https://lore.kernel.org/r/20261105-kind-macaque-of-enhancement-ee0365@q=
+uoll
 
-> 
-> > 
-> > Add "loongson,ls7a-wdt" compatible as well as a conditionally required
-> > field clock-frequency.
-> > 
-> > Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> > ---
-> >  .../bindings/watchdog/loongson,ls1x-wdt.yaml       | 31 +++++++++++++++++++++-
-> >  1 file changed, 30 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > index 50a9b468c4a3..cb93e9578f82 100644
-> > --- a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > +++ b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > @@ -18,6 +18,7 @@ properties:
-> >        - loongson,ls1b-wdt
-> >        - loongson,ls1c-wdt
-> >        - loongson,ls2k0300-wdt
-> > +      - loongson,ls7a-wdt
-> >  
-> >    reg:
-> >      maxItems: 1
-> > @@ -25,13 +26,34 @@ properties:
-> >    clocks:
-> >      maxItems: 1
-> >  
-> > +  clock-frequency:
-> > +    description: Frequency of clock in Hz
-> > +
-> >  required:
-> >    - compatible
-> >    - reg
-> > -  - clocks
-> >  
-> >  unevaluatedProperties: false
-> >  
-> > +if:
-> > +  properties:
-> > +    compatible:
-> > +      contains:
-> > +        enum:
-> > +          - loongson,ls7a-wdt
-> > +
-> > +then:
-> > +  properties:
-> > +    clocks: false
-> > +  required:
-> > +    - clock-frequency
-> > +
-> > +else:
-> > +  properties:
-> > +    clock-frequency: false
-> > +  required:
-> > +    - clocks
-> > +
-> >  examples:
-> >    - |
-> >      #include <dt-bindings/clock/loongson,ls1x-clk.h>
-> > @@ -41,3 +63,10 @@ examples:
-> >  
-> >          clocks = <&clkc LS1X_CLKID_APB>;
-> >      };
-> > +
-> > +  - |
-> > +    watchdog@100d0030 {
-> > +        compatible = "loongson,ls7a-wdt";
-> > +        reg = <0x100d0030 0xc>;
-> > +        clock-frequency = <50000000>;
-> > +    };
-> > 
-> > -- 
-> > 2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111030937.2954=
+646-1-hongliang.yang@cixtech.com?part=3D1
