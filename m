@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395498;
-	b=157E9mkVrDyXMOsTV29pW3Tmq6G3cT/a3/HEfBcyaXn+CqOckC+X54yZIWkwHeciMqNj
-	 pO4Y1mKElWYrvdUIWjt5kZ1dDq498oSKktQgjEJAP2fd7uMRtyyM9fuMVAEyO5Sfcgldw
-	 z31bHdsUnJrdKn1sr2VoA+MDkEKJBUyDuKPmFblm3L0xzv4fqAOZExBgM09h8JGDviFEY
-	 lim2Qk7Gy/ErhJyJLROhvJRzQtEH3wK5izolSPDWl/mzrHNgS1kYVzbG1tiV0Z7Bg8CQd
-	 H1oyNcniWG13IpeReDhGkZ931jqVLzydDGR45jTtjYIxflFpjfk96gbDBlxl6d3mysQ==
+	t=1794395500;
+	b=hboMd374YrEFsty9tsVXzi5B/Gs+2JvkJxSTn2tWthr2IPAk1Yy5yvGw3yO8u1Ekwqmh
+	 Vu0RLPOnJsubVfS72j1FUeKE5544iYMjY0vlzIh49KNcCHOWMz/GWtgF8Mtu33T7P6d0W
+	 DJtNKNhGZ8f3KnvBe2R0ylYyuLi9WGiS/YQ5ASRqQ6lv6LFR7xHhnaT2HqDKKCIVr4j8o
+	 6CoSIUjXnWj9Tj41ksTJHNcc2CuMia5uHCHJlGMBjAd8x6ugLSO3U7ObCHivfo/0jVXJ6
+	 0pJjAAzcczcHF9nwMdaK87pqz3Ofs6eKCp6T/Ygr1cBZik2j56YQhAOgqrzv1bok0wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395498;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EI9+1Pe94rNtVU2rxTjoVk3Y5vhG9a5UQwsxZ4gexcc=;
-	b=XXTryxnOoRJLkW8US1jEQOMBZUQpGCOddQj/NOX52J83bkjCys7WlyyMJhKT3UE2OMQG
-	 sWGuvHdAD9YX9heB+vFOMGXztk+9WHoP2UKaYoeI0IoTHnuoVgx75zlturWY0+I/hRrTw
-	 uPDuw8FBei1BgpHKXf4cQ+ZHCYRnpyCfm1zWk5sApnrNNV+MXdCmvl5cajdDbB+eKiJcy
-	 NPuPBNTZ4qurxJFSWxMppVp3RjotP6Xd5vknul16zwv+Ivk7V8DXCwxkDl/J4bNHNah7I
-	 mDelVBng/ZdTwCMQt9sXumkp/hYRjuG739cVbl1lJBJ0mtFWUGLp7RXG5o4XVpODqTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395500;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=oHc+4wiOP77Y6rdhUER6E6O/YlekIux0worEr8HMXOU=;
+	b=oO8spDu/+rRrn/wqE1/2NZ8cZp0+d4VYENJZ2brrDLBDlk20nxZswvYqgBcC4bcS/tMt
+	 3dm2lfUsmHI4W96qQIq/UVLn5GB/XM0Eqaf/w+IMa3OATKJni8265/4D8ThO76fA7H7rV
+	 vY/oQ2WzP68XPILidfGy+bKr9/C4nr073mvbSakSci0uGtrJ8RsBv+rq8FMjZR+W8YvrV
+	 K/PMZjmbQvlr6otTfPNZylew2TdNHtfGOiisCOzkNvWDNtkGP4hywsW3kks5FmjxBznZ0
+	 ozAutjxS9T7vVWHAQu25mjRPDr5471Ru6reoREYkI22E4MFWJ6ehn6sEUfhdgkuqyIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xvs7ZD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862EF606A886;
-	Wed, 11 Nov 2026 11:11:38 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=op9squEQ;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECC40606B40E;
+	Wed, 11 Nov 2026 11:11:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC40606B40E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xvs7ZD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C8E1F00A06;
-	Wed, 11 Nov 2026 11:11:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794395498;
-	bh=EI9+1Pe94rNtVU2rxTjoVk3Y5vhG9a5UQwsxZ4gexcc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d7Xvs7ZDxNVnMJ0ZIIycs9v/TtpvkBrWaObuv4N6qSqAPR5r6UweMDwMd787l00r7
-	 UBEB54efQFJZ0OeEtll2xBMzGeK2b6y5zV7sooKArSlAZUB0krGwenBklUYIXtzf/a
-	 ALFNb24trK525Mp7YMlfQd4Y1SCJ8X9SHDfKLGStpDF1xRF+x/ZvNMU/7P+Ok6gH3+
-	 /Rw4YZEUFab8vHApcPnowwD57USqV6tgSNzJRVq+5fDfrMkojY323tL6V75CJiBbcl
-	 8fQgPjVGQDVTAdlj0Inwp0cakMz18+YHuKohjDlVXpk1lyK9X1kaN3XA0zb6mCTTjK
-	 FLPxvjgRtfezg==
-Message-ID: <sashiko-outbox-208856@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/7] dt-bindings: soc: Describe the BCM6846 Power
- Management Bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
-References: <20261111-xg6846b-bcmbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org>
- <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 11:11:37 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=op9squEQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=oHc+4wiOP77Y6rdhUER6E6O/YlekIux0wo
+	rEr8HMXOU=; b=op9squEQ2EvmNXUcq/zC+JBgpfGs5S+OxKn/EvnDrbjRauwayv
+	b79cdmlHmHLC/1QtqnyZ72MZicPlyLhD7O9Af+/xk33dY9w6cYo6Pv2sLXYl5DM5
+	EYbuSvjwk5NZ8wKQVEz2dw/nLEjlr7W5od3EmmGa/XVrAUTQ9+OjD+fWY=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.178.45])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3QEVkTfRqfLWsAA--.2531S3;
+	Wed, 11 Nov 2026 19:11:33 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v10 1/2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+Date: Wed, 11 Nov 2026 19:11:31 +0800
+Message-ID: <20261111111132.1296892-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,83 +64,174 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgC3QEVkTfRqfLWsAA--.2531S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrZF1kpF
+	Z8GrsFkFs5Cr1xGw4xK3W8u3W3KF1rArn5Ar1UC348Kan0qFnaqr9Ikw15Za4Fyw48GFWa
+	yryDZF47J3WrZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
+	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
+	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20x
+	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
+	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
+	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
+	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bouciUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREIB2rzcNlJ1wBJs4
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: soc: bcm6846-pmb: child nodes split single PMB
-  by Linux subsystem
---
+The WL2868C is an I2C-controlled camera power management IC from Will
+Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
+from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
+VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
+3.544 V. All outputs are programmable in 8 mV steps and are gated by
+per-output enable bits with a chip-wide SYS_EN master. The chip also
+exposes an optional active-low RST_N input.
 
-commit 6235ca071e36f4e363a6b36688dc2c4a38089eb7
-Author: Linus Walleij <linusw@kernel.org>
+VIN7 and VSYS are both inputs of the internal control logic, which is
+powered from the higher of the two voltages, so a device tree has to
+describe at least one of them. The remaining inputs only feed LDOs, so
+they stay optional: an input can be left unconnected when the outputs it
+feeds are unused on a given board.
 
-dt-bindings: soc: Describe the BCM6846 Power Management Bus
+The example enables ldo1, which is fed from VIN12, so it also describes
+vin12-supply; the binding says an input may only be left out when the
+outputs it feeds are unused on a given board.
 
-This commit adds Devicetree binding schemas and header constants for the
-Broadcom BCM6846 Power Management Bus (PMB) and its clock, power, reset,
-and PVTMON child controllers.
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ .../bindings/regulator/willsemi,wl2868c.yaml  | 99 +++++++++++++++++++
+ MAINTAINERS                                   |  6 ++
+ 2 files changed, 105 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
 
-> diff --git a/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.y=
-aml b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
-> new file mode 100644
-> index 0000000000000..9782a27ff0759
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+new file mode 100644
+index 000000000..972813fbd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+@@ -0,0 +1,99 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Will Semiconductor WL2868C camera power management IC
++
++maintainers:
++  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++
++description: >
++  The WL2868C is a camera power management IC with seven programmable LDOs.
++  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
++  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
++  3.544 V. All outputs are programmable in 8 mV steps.
++
++  VIN7 and VSYS feed the internal control logic, which is powered from the
++  higher of the two, so at least one of them has to be connected. The other
++  inputs only feed LDOs, so an input may be left unconnected on a board that
++  does not use the outputs it feeds, which is why they are not mandatory.
++
++properties:
++  compatible:
++    const: willsemi,wl2868c
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: Active-low RST_N input.
++
++  vin12-supply:
++    description: Input supply for LDO1 and LDO2.
++
++  vin34-supply:
++    description: Input supply for LDO3 and LDO4.
++
++  vin5-supply:
++    description: Input supply for LDO5.
++
++  vin6-supply:
++    description: Input supply for LDO6.
++
++  vin7-supply:
++    description: >
++      Input supply for LDO7 and one of the two supplies of the internal
++      control logic.
++
++  vsys-supply:
++    description: >
++      System supply, the other supply of the internal control logic. The
++      control logic is powered from the higher of VIN7 and VSYS.
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      "^ldo[1-7]$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - regulators
++
++anyOf:
++  - required:
++      - vin7-supply
++  - required:
++      - vsys-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@2f {
++            compatible = "willsemi,wl2868c";
++            reg = <0x2f>;
++            vsys-supply = <&vreg_vsys>;
++            vin12-supply = <&vreg_vin12>;
++
++            regulators {
++                ldo1 {
++                    regulator-max-microvolt = <1128000>;
++                    regulator-min-microvolt = <1128000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f82..435beaf95 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29058,6 +29058,12 @@ L:	linux-input@vger.kernel.org
+ S:	Maintained
+ F:	drivers/hid/hid-wiimote*
+ 
++WILLSEMI WL2868C CAMERA PMIC
++M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++L:	linux-kernel@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
++
+ WILOCITY WIL6210 WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ S:	Orphan
+-- 
+2.53.0
 
-[ ... ]
-
-> +  Child nodes describe independent hardware blocks accessed over the PMB.
-> +  These provide global resources and even resources for each other.
-> +
-> +properties:
-> +  compatible:
-> +    const: brcm,bcm6846-pmb
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: PMB configuration, keyhole and address mapping registers
-> +
-> +  power-controller:
-> +    type: object
-> +    $ref: /schemas/power/brcm,bcm6846-pmb-power.yaml#
-> +
-> +  clock-controller:
-> +    type: object
-> +    $ref: /schemas/clock/brcm,bcm6846-pmb-clock.yaml#
-> +
-> +  reset-controller:
-> +    type: object
-> +    $ref: /schemas/reset/brcm,bcm6846-pmb-reset.yaml#
-> +
-> +  hwmon:
-> +    type: object
-> +    $ref: /schemas/hwmon/brcm,bcm6846-pmb-pvtmon.yaml#
-
-[Severity: Medium]
-As reported by Philipp Zabel on RFC [1], should #clock-cells,
-#power-domain-cells, #reset-cells, #thermal-sensor-cells, and the
-reference clock be placed directly on the brcm,bcm6846-pmb node instead
-of requiring four address-less child nodes?
-
-The child nodes have no hardware address space of their own and partition
-the PMB keyhole interface by Linux subsystem rather than independent
-hardware blocks, encoding the Linux MFD driver split into the Devicetree
-ABI.  In the driver patches in this series, power-controller,
-clock-controller, and reset-controller all access the same BPCM slave
-devices through the parent regmap, with power-controller and
-clock-controller modifying different bitfields of the same 32-bit BPCM
-zone control words (offset 32 + zone * 8).  Similarly, the clocks and
-resets properties on the hwmon child node (BCM6846_CLK_PVTMON and
-BCM6846_RESET_PVTMON) toggle bits 12:8, 2, and 0 of PVTMON's own
-PVTMON_CONFIG register (bus 1, device 6, word 17).
-
-The Linux driver for brcm,bcm6846-pmb can still instantiate child
-platform or auxiliary devices internally while exposing the provider cells
-on the parent PMB node.
-
-[1] https://lore.kernel.org/r/f1c24a603964302ec1462b1cea790a2a7079fb3d.came=
-l@pengutronix.de
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-xg6846b-bc=
-mbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org?part=3D1
