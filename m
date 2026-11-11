@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402309;
-	b=TaRQDuTs406VyarfV1el1ikhbl5V6H4fMjUvrn+1zQC9WXmamj3G04nXsElbXkFVG8Oa
-	 3u+ZLfNp2tXyLHQH4blqF334RibFkSQaZLA5bGioUSFAd25Z/6aQ0bed1J5rsAv8Dwlb7
-	 QAMwJ9pA/uq6evJU+6kIQJJWqLOD02HlUcm5ZXq4utnRaTWudXrRIihFuxjLJAsx4Cz++
-	 G4fCjhs4gZYKVQPMJlkI+KxlfhYdWwwVKuVaAyF3Gih5+RQbF4ZC4URkxC5vnXwasbjyz
-	 yASgf5AMs80L65wsvSlhCmMyyHmCJR5uLxLnV1OHmDBJ8zb+IPTa91YzogFDYxCUxLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402309;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
-	b=cjv8FSlF1iUJV2vPnOQ30P6mTO5gVDpe48FzL8yZzVlP7bjf35pCeFTKOp60x5WsM+rf
-	 IlRaZc0XOjTONC1UzP1BSKHnLFeKN/FNnGg6FkoirzVQs9gsc3j0P//5JTkv0GkXfV6iB
-	 s7StEFHWb3l5ieLP6gSdKDjm85xg8BkvOG2YWOvEbMLMXNtILEWzkn6RkdNlwSovt9VkY
-	 1zrRvTg+pLhBFns4Lo2cCWuKuXttm6OQRrB7AbXNjKoroTJoybntjgyt77wU92KXp6dAA
-	 bBtwStbpcxR71fdkrrGO1Fd6/soQx+5Gnn3USMPwkS0ZbmCKFHaYE9v2zN8x6bmlM6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJRvG4u6;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794402350;
+	b=qrCbIB2DIftIG5oDS5Wm3snXVRuN/SfGCd2c2Z2MqYjcEbHc71R2n111h70Gy4jCMrrA
+	 dtTLVb2FhdVIGlLcbeI2uFPglIKxbbrjqAqvwdIwJ20QeFJ21uoyUTd6aN+ubeI0zhTA4
+	 lQxZCvCipF8h82exj2LtKZTyKrqgDfMrpVYjbVOxKZ9JglCm/8L295LpVi6PySipMgbZG
+	 pSKYsTMeFrYsYPEMQzYFDetyfAgAoeP9t4I051roiSotdW6F6s/1eKXQWNqSu07PCmfdQ
+	 heXCv6FJjcXzVeEgOjGIN4zPzBnZGTvlxXsMliuqBnir7j82cfaGUPcPEHZpSOL3Oaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402350;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=;
+	b=sqbN7GfJrabR7Z7AtX7cDzasEg2qFeZu7NcQACI62bWcchKuRyK9T3llJpRdEis4bSBd
+	 /0VbduSNbaomhP4Sev/DonbYaRK+8LecLph2J0oekWgelFxdnKRtJwGgovGG4m755yYzF
+	 oPDg6k2Pi+XfgM5tpbOxhi6HnBhqy6v3Mw+JSvG4oW6UrPcwJg6esRwmo/5F2cusb/HNy
+	 BSI0ePuAt1dYQ9qaJ+qderHhcBxddpGnnqa1eHAsfZBTiQlOIBIcLhmT9Q5GagHO+tcoN
+	 tCp2MjqwNeKrKH3L8Mb068RLeArkremm6NakVdjT7AXL9/C1EaSR9bpGwqaYwXxRcPA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=L5b5U28A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFDB606A332
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFDB606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD576606A331;
+	Wed, 11 Nov 2026 13:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD576606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJRvG4u6
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdd9e925075so469833a12.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:05:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794402309; x=1795007109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
-        b=GJRvG4u6JmnxyKRunZJMpN5W0/I5srjqR/vnnk+FNmYkMf8T9fU3sM+5nfcCjaaJh9
-         APVO577+MOvBRkZfYP35NuRjmVjLZcr3IwUa4CQfzVsXD2+ZxN/COcGckwERwXG5QUS+
-         BsQIHbWdILe0Ew7RUOZaCvEPNl630qLxkdeczLRrHwzPAGvrcuSyHddvuNUEo1wLGwMS
-         08MdvMAxLF0JXzK34p9PG16iNsIx301LkCJu1xPa3OD3G3FrjWUg00krj22i3ncGa/nX
-         gYYgw8IbMyyt4R+S7OU73LTMewRyXAYJa58yKsjWmQ+R3X1pf07FkulvHFurQCo5Vspo
-         g/0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794402309; x=1795007109;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bABV6fQnxTbYBuOpfvxRsB4J5GPWk4qJ30CGSqwapjk=;
-        b=UR4Ncdb3bfwdY5uE8mC4RtzSlnDMcLBF2576KWOXEjtKLFngGrMbNcemrtygT4YiDw
-         u7+hFzHJaEy3KRKKkdZ2rXmyuuqLw5DUWaHx4ssDsPpIFTRPeUmnif8KFzrmDdvDAxda
-         YStYYiFLZaKzrktgEXW7WkBzRbuMJrUCZJ/uKEAZqCO05mB3QbHJ9GNlEr7tpLAxqRAc
-         ffbjLB3gVCajAb37oyNmR4/dJYil/j465C/qm3hTpfvwte3gJdfOUo7dG+COiShEZBrh
-         PtNu5dwc7+5O+QhYrytfxqXh5SHtzIAYPwMqUtGV5NiQC5bSwTc/7CTO3RDA9P/a6VaW
-         bJuA==
-X-Forwarded-Encrypted: i=1; AL+hErEnJBRsH6W8AFfD3EU7b7sU8q7E/SGIkC+JeFj0FVvFCqRtTWlNmyQUEwFb4PbUNY4wmB3ltz1KHH+v@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Bp8iKIgErIlwAbMS3KmD9LQb9u6/8g/RrjNjHmp6pv95bvJQ+
-	CZpNJg/ApjQvPmEFRylFo2rE+RaurR+Mhn2QhBxG2OmGH+Ls/9L2TIUY
-X-Gm-Gg: AYBFou14uYWtDOtrBYUIExlFq2kDg4eqaAaKavzOqDJh5IXujlqV3P1ZopzOUvxGljY
-	5JqDdM0oQgiQ/URILXqlKRhnKfc3PU+R7Wlvs5AMC9VMD1IUH6xtrBefI5N0viBQUXw4efrHcai
-	ha6zy0MJCTH86c+ZypstXorljHNFK+nZrO0CfG/gJrLET78p0G+m0YlQSNhm+NlhxEEJYBJxfQ3
-	ZuaYm/jfsKnUxFXBVva9qdM7jYJKT/oM44FoCGemCscO0/1JlV4XBAHYPnHajTzVVJidzegxNrT
-	yfAtDk0R9koftnVVW4D7IdjDfwygvN407s2EWI0S6gTVTUG5S3f5yv1LmhMKNhNNaK55+jGJR2j
-	J+7G5ID+YLVix6yNka4Q5eszDSpWcfS31u45l4zICFZl6LYlxtWy96gTDvwGtWZZkYysn1NBZUo
-	2ClF9PzwdV9/GN6xjo4rnsWdFgjkrfzN+B3RY7TO18PNqRMcBIl+rSq39+mBd3I/EuKWhfMLQ8m
-	5x7Pp9EtuIPPVcAEvgTIns2LWUuQHq9ZUHz5jEgvLKmWNjDgNiNWZ8pQkOLh3WBqqcym39cs++5
-	DJ0slcq4FgiZ8ADiAHysyX4w4e9t80Rdh1aCmwsT1+TyHZKv4BZJYIA=
-X-Received: by 2002:a17:90b:1c02:b0:3a8:13d6:f740 with SMTP id 98e67ed59e1d1-3b182eabbd9mr2501115a91.22.1794402308782;
-        Wed, 11 Nov 2026 05:05:08 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7fc2dsm4448216a91.13.2026.11.11.05.05.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:05:07 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: yin.li@oss.qualcomm.com
-Cc: sdonthineni@nvidia.com,
-	james.morse@arm.com,
-	robh@kernel.org,
-	ben.horgan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: Re: [PATCH v5 6/7] arm_mpam: Add support for memory controller MSC on DT platforms
-Date: Wed, 11 Nov 2026 21:04:57 +0800
-Message-Id: <20261111130457.4143667-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <f8911f68-ee78-4eb2-b7e5-1e879224091d@oss.qualcomm.com>
-References: <20261109-mpam-resctrl-dt-knp-support-v5-6-150335a79381@oss.qualcomm.com> <f8911f68-ee78-4eb2-b7e5-1e879224091d@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=L5b5U28A
+ARC-Seal: i=1; a=rsa-sha256; t=1794402324; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jdjmGwIHKro4sEJif9BOEN84OIIJnIpTUfWL4IgyG3hNZ9ynPIxp+PLHYNTd+eUvTiHpLU9jBXZJJYHBPskKp+LIErnN4QLikWo1e2HfTLerMdtdq6F/7HoHmxU7IkoL1/HmYUrJP3Syy0754XuDkkj9yV1VDk1dxTWTOh+T4YE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794402324; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=; 
+	b=avmH6+Mwod4rZA5f1Erj0TgAqFETT2e+UE9vz4F364NrRB7zmR1/Tk5rNF2wWsy0Bxgj1tdK+ZDlWjxLujjBeXUfEitdwgBxZglJ54M8LJtn3V7/DNVz4/s0zGgx2iwSauOuv8uOdrFQQQu5j5BaKt9lOp4VXoZROHQvlQcvvFE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=L5b5U28A4NnyzChU9vvcpDypOIl+HM5LVyHk00mWLK9GuK87Y+At9JjkgTd3+MSW9tE7QYSzcT6zrxDPeYUTT2WWzo4UDKwOxbv00R9RZYpSAqHBErqJbIXaLpaYwg06W1o30gksPepsiPLK6SARaTy6UdvNJEIaynl74O7nC6o=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=a6hsDgNTzykSL2abXXUyNJ0Ke8prVJlKInMZl5L7jgY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794402322616938.5574111886522;
+	Wed, 11 Nov 2026 05:05:22 -0800 (PST)
+Message-ID: <9e8aaf6f-6899-4d60-a2f1-be11d3923dc7@collabora.com>
+Date: Wed, 11 Nov 2026 14:05:16 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,57 +58,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/9] phy: rockchip-samsung-dcphy: Always write the
+ rate-dependent registers
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-4-d681ba20b36a@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261110-dcphy-rx-v1-v6-4-d681ba20b36a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi Yin,
+Hi Jason,
 
-Happy to share more details.
+Thanks for the patch!
 
-1. Our SoC is an automotive-grade platform with an MPAM 1.1
-compliant MSC on the DDR egress path for system-wide
-bandwidth QoS.
+On 11/10/26 09:18, Jason Yang wrote:
+> The lane timing init functions write DPHY_MC_ANA_CON1, the four data
+> lane ANA_CON1 registers and DPHY_MC_DESKEW_CON0 only above a data
+> rate threshold, and the registers have to be zero below it [1].
+> 
+> Today the APB reset at the start of every power_on provides the zero.
+> 
+> A later change moves that reset to runtime resume, so a power_on at a
+> lower rate after a higher one would keep the old values.
+> 
+> Write the registers on every power_on, with zero below the threshold.
+> 
+> [1] RK3588 TRM: sections 22.4.2 (reset values) and 22.4.3
+>     (DPHY_MC_ANA_CON1, DPHY_MC_DESKEW_CON0)
+> 
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
 
-2. The typical scenario is preventing memory-bandwidth-sensitive
-workloads from saturating DDR: isolating bandwidth between
-infotainment and ADAS domains, and preventing background
-services from starving latency-critical workloads.
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-3. We verified on v5 (with the top-level memory controller MSC
-node as a direct child of the root):
-   - MSC probe from DT (dmesg: MPAM enabled)
-   - resctrl mount with L3/MB/L3_MON resources
-   - MB allocation through schemata writes
-   - Dynamic throttle change while traffic is running
-   - MBWU monitoring (mbm_total_bytes)
-   - Monitor assignment across multiple groups
+Best regards,
+Michael
 
-Usage log showing the memory controller MSC working through
-resctrl on our board:
+> ---
+>  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 24 +++++++++++++++--------
+>  1 file changed, 16 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> index ce1bc62497c5..7a009d87a665 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> @@ -1228,7 +1228,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+>  	regmap_write(samsung->regmap, DPHY_MC_ANA_CON0, val);
+>  
+>  	if (lane_hs_rate >= 4500)
+> -		regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, 0x0001);
+> +		val = 0x0001;
+> +	else
+> +		val = 0;
+> +	regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, val);
+>  
+>  	val = 0;
+>  	/*
+> @@ -1259,7 +1262,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+>  	 * under 1.5Gbps or equal to 1.5Gbps.
+>  	 */
+>  	if (lane_hs_rate > 1500)
+> -		regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, 0x9cb1);
+> +		val = 0x9cb1;
+> +	else
+> +		val = 0;
+> +	regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, val);
+>  }
+>  
+>  static void
+> @@ -1284,12 +1290,14 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+>  	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON0, val);
+>  	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON0, val);
+>  
+> -	if (lane_hs_rate >= 4500) {
+> -		regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, 0x0001);
+> -		regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, 0x0001);
+> -		regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, 0x0001);
+> -		regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, 0x0001);
+> -	}
+> +	if (lane_hs_rate >= 4500)
+> +		val = 0x0001;
+> +	else
+> +		val = 0;
+> +	regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, val);
+> +	regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, val);
+> +	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, val);
+> +	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, val);
+>  
+>  	val = 0;
+>  	/*
+> 
 
-    root@hobot:~# mkdir /sys/fs/resctrl/group1
-    root@hobot:~# echo "MB:0=50" > /sys/fs/resctrl/group1/schemata
-    root@hobot:~# cat /sys/fs/resctrl/group1/schemata
-        MB:0=50
-        L3:0=ff
-
-    root@hobot:~# my_app &
-    root@hobot:~# echo $! > /sys/fs/resctrl/group1/tasks
-    root@hobot:~# cat /sys/fs/resctrl/group1/mon_data/mon_L3_00/mbm_total_bytes
-    1314
-
-    # Dynamic throttle change while workload is running:
-    root@hobot:~# cat /sys/fs/resctrl/schemata
-        MB:0=100
-        L3:0=ff
-    root@hobot:~# echo "MB:0=20" > /sys/fs/resctrl/schemata
-    root@hobot:~# echo "MB:0=100" > /sys/fs/resctrl/schemata
-    root@hobot:~# cat /sys/fs/resctrl/schemata
-        MB:0=100
-        L3:0=ff
-
-The bandwidth throttling takes effect immediately on schemata
-writes - verified by observing the DDR bandwidth counter drop
-and recover in sync with the throttle level changes.
-
-Thanks,
-Ping
