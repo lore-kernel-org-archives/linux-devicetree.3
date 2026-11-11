@@ -1,80 +1,163 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794419698;
-	b=Px6ciBOhVIxxP0+vM1+ZwXqJmFK9/SVIlcym5cnY7wPyyLEWcfP37k7HQN4pNFWqQ4T7
-	 3h+N22PYJED7FMiPrxNQ9+ucwAxL66rEBFLyMZH/8K23wfM3LjE2vkc5P+GZi9RveFH/5
-	 hbnQl2hO1WDdhkyqg69+BsNKW6GrwbMIUt/pqpLN+h/+kq7BgejntiPPRG+/qRI+AM4lt
-	 Sb5E6eEQ6nNbYYuwi/wuYWhtwEoaO6o+F/15vdkaWIO3Qj6JFhVhKwQvR6IzNdMmVx3Lc
-	 Pp3E6E84tG2wlnW1x8OPLT8Lv+7GxLX1foGs95X8upU5qZY+QPVWrF/K76yEarEgTYg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419698;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=2/e0Lvd7Sqz3iHPXMWwA53veJ/X35GUDoRLhWv/Rf1o=;
-	b=u1R0MmErNsCZIAdpnN9eCF7atBMNgD34GSQk2nvaKkSyrydYRm5rQIvBRFbXjqAbTAa+
-	 EioiBueJiIFAVAi+u7zO6/XnAU2ZJLgn0P8WcuKppwhJV2eDAovkLn8/Agyno9lerN641
-	 jYnqr2R5qNInfoQTmQBdPlsnoxYCNDOcc3ZtpOKXE18g6AtHUJN3ie1nMfkhMz4Zn1hbY
-	 N3ZuWI3RrStf4L8iLw9lf9nolSPisnsVQbFA9nXJzuCKAv/O1duhNJYRaxB3XaoF8ub9C
-	 YDZXgbH3GbF5K6xfq+iOIBBTHONPoPwgOV709kWFcLEv+bH1amZnhdWOcH3gw+EKmwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVYcTEyV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCD3606A31C;
-	Wed, 11 Nov 2026 17:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVYcTEyV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794419697;
-	b=RlFLmbCUi2GT3o1c/j140nniBQSfKc1SB2bJcVDYGyOCPUR3SyQNa4VhFphd37rYMMy9
-	 NGiIEWclB9sjWBwouOjh5PRwXHStKlpvHo8rYXFOg5IViVytFXtCnXmPuLijUEKM9gw+S
-	 P2cyGmm6E4/S0c5FEVEbDBYnIfkJLco04ywbU0d6IvGyi44zl9O5i5f0oKCxfTYIjk5rE
-	 razNbjZlRlBks5RQinxCsgzRLH4siBr1K0/AUWsGk1TX8+bZYGeelT1geUUMqnFc3siy4
-	 czxu8j0ar/T+FvvEXQgKO5+IsdQe9ZRlcdirOJAs6lHPq2GSF53ehxLl4QsD6mqbCXg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794419697;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=2/e0Lvd7Sqz3iHPXMWwA53veJ/X35GUDoRLhWv/Rf1o=;
-	b=t1ngS1c40tAmd7yAKy/EMhEoAR9mB1pblb1URTwWa/8s81Ux0C75UAq4Rmn0+VFxHFnL
-	 7Bl79rRu6m3XaZI0dtAB3l7FG/aHugsQL9Qv/pkA086SbgjQRmek3k1DZV1uDYRtVDC6n
-	 s3tKkZ0CR+/R8+i2FD0s30AQQWA27qGRDwKkuSQsGSAEAoapi8GXkYgO54eajENR4jTiI
-	 VwhLhfiw/mE91NffuBx+PTjG8A7TvnyAXxnm2K8KEMfFQ/7q0YFA7GAb2YPMeGujULScQ
-	 89qzy3VEcPc1Xz1jyMVMgHGk9IZ8p0bIzU8bbSFtDZSlYK5BOoyPa4jsmuizVaZaiRA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794419759;
+	b=wOBeQ3/X6Hf+oq/Ojmowcw9zbIaq7kqhQ0iY7UCoiHigJGgi8/e1pL9gYpcBMqbkhz74
+	 BtLTIKHPvaYVZ6GHOvet++NU2tJwUooqPS0mU4IBHGZwbflqR8FoKXK38Fp8pZf5pa3nP
+	 BlT5/v0kNRxSOXm9I+jfZ7Tzk+kdTvWPjk7kH6yVLfECioWYoIdGFV7BMVbNHkVihy7RG
+	 vt3GTw4oH3Bf678T3bzFQZhq3pfkZ0jaAVd3nNkWsp8dHmDs2LP4/ID/932cp61WRyoyj
+	 To5HyK+ZK5AitwLyOh6vJLH3cBEyTl0pca6mrF4/Z8pw2RHMpYvAlUoAYwq2uWRl9XQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419759;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+	b=3Vj9K+XBGOR9+OPn3FPhSrQDy2NpkHD+bKD54wnyZnjFd7dPJ1QcTpeol+wi9LQGbbTu
+	 SD9xK1UywApnSthVovI4WzqeHqDIxJoUwxVwVYAQBrg51mF6GMvgjlnXE9O5vFj5B6xjp
+	 oCVm3Kuqe5I9Xfz8AZYYZB5nprxblLNwVXf8MiF9xLRlLoCBVpDzgcQrqB/LyALMSSJNB
+	 U64T1ZfpbGgU4Czgb16Gif03akPne1kjTySbdFCCQ/eFdGSs2SBR1g+cAJ6S8bBpLpRDu
+	 hco0KjU549mKSv6lLgkfkFtXkJQBRggJqkh+rLwonsNE4KMb/uR7u3gwx9qGfMVQ2ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4CABA1F00A05;
-	Wed, 11 Nov 2026 17:54:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419697;
-	bh=2/e0Lvd7Sqz3iHPXMWwA53veJ/X35GUDoRLhWv/Rf1o=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=XVYcTEyV00BY14+qs++vccbk07bfewEa/mBTOu/Z07zyTlEewUymdpr7Y/HNIGrDy
-	 tgJlYNLuQJ9YPUXvhUUALjP+UBGfgT6k6+FgU/k2/BOH+UhUuV1oeuEORSM7lp+5Se
-	 r3wMgWIV2lM/BhSIRjdeTODsxuENdi8RL6YK60bJurxBYRlgJozOLwK7FXLrlbFxnp
-	 FpZUWPvNctIFJwk11SQRQ6trII+XwtjbPrReqynzHcHjEH/W4K00zYuehyYssvj9Wr
-	 GGv9eq8Eaeb3cFxziTsgQVdZUaQM7F4EA+cfIlzMpLC7jUiujL/I8z/eRvMgkFtnY6
-	 oCqyDa04Zcphg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CB8B84906D;
-	Wed, 11 Nov 2026 17:54:56 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Subject: [PATCH v4 0/3] arm64: dts: qcom: sm8150: Add standalone ICE node
- for UFS
-Date: Wed, 11 Nov 2026 17:53:20 +0000
-Message-Id: <20261111-sm8150-ice-rfc-v4-0-0311eac35609@andrewgigena.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F322606A89E
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F322606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABHt8CI3989209
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=bJecVvbaLRg2W6zbI4pyRP6H
+	L0WXZDqT9D9QDN12sBo=; b=Nf80FLcf101GVkP6snltycki0xll/7xnV/48Ns50
+	Pn6JfTrg5JJI2qyOCN5xgr6MgSFczD7Y78XlCL3jIea8P1Xhh32LyLJe3wInvZ5W
+	IoBF9gMqaKu6WfXFiG0hsKvYk1HUu/4ABEG56i7QAtoSu5pkiarIMP3/9HEzhVjZ
+	iE7yEX5Ahv6Fk2ha8iMdMXVZbLQ9f3/2riTMHkiphllQzfTEqiLN3xU3cmRPjuLm
+	XHa8GcBgecjsP6Ugl9pRzAoAHB/weWDvkGNcufrEguH6EAIAfiguFFGFKYHH3WG6
+	QoYEs/L4UjwcROyMJeUwO4A4Dld+tDUrhgK87F8iYCYShg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u8wud-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f32050e72so834806685a.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 09:55:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794419757; x=1795024557; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+        b=P9Hb+CWMVDhKK7pOlP2nHUQjXJEjxbwn8TnzzgBdC5ja2GMgzxBBu1XI9z2GGtpsoi
+         dmV/EXZOh6sI9L3o1onJgVF30VXQISBh57YekSQa6DF6Z77YAD0gpRusxXXJp2xt+NOd
+         keId8l45sdS2FehE9PcM82tMnPAe/P3nQAJ9XrTyJmzl0vflR08+xE6MLk1Patl+HyHN
+         m1cQFzWZoEgNR6Yz5U93OUur+qTCoAZGNtWjX5yL8WklzeAOS3/+JOSgA+Us2h0Xi8tF
+         9WSm4UkSkyZUykcaxmpDUDaUOFvp97RhEaAqSfjJZHuIO8NC1e3CL+w72zKx0EVjNrDt
+         bSFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794419757; x=1795024557;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+        b=irqNXvPkHmbjQOzVmCnOdAp9KPxYi9jiRbJpfiTWvm52UlFLTCdt+jxGIO7yHaf8er
+         pXaZKs3XhXPvmoO7njncamJ6dJK3miXamQb5GhJCcByRyij0hqfhiexMZKmTfy+GbegK
+         LZNluPIva2WyTXFEIe+b6OFwPHn/6eeFVuhQMeu0TNu3esaXnrPGwp3Z9tTUFhM/8bIV
+         HlXB0TTYVxriu3u1h+/zrrub4NIb/7gDxqCrJ6yxPVVhFMmt6CV4jcIny3vgUCcybKGv
+         YUS9Kgdbpsl1kq5fTOuw9Z4m+K/TI5BleRgEIsUFomGezv2MTFsWouHwPr3wVB3H5k7p
+         gTig==
+X-Forwarded-Encrypted: i=1; AL+hErEXmne8xTlm+385Vcv86ga28aBBeRYmbdD+ZsUOILgM8+wOfSK2jXaWM03zZFXzU5EPdEslYqtTYE0s@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BgwIvxhMw2vcVqp3VqDBX6RIX63O6rpvlM5F36LHYJeSp9dDR
+	ae21TeaPN5JwJb4ZvrReAIuqRQVb35WBQyQifBVgijuZTuhc0vswXFvBOIPCMVdkKwvii0a4F1X
+	eFFWuYcb5FAdRiF34uh8zjvWBhU6WrQRVOnIHkg61Vlrup36c8H9jpP5W2AGpHzAF
+X-Gm-Gg: AYBFou3S0GOR9/Nn9XqIVGLFX9DiYpCgsm8/gTf1kQXvHp3aGcyDsqs4B9Kn8rSIQPJ
+	3Z0SkikZPcz3faJDCMOU9LI6K74jEo6UHTOFIC722ZSLWifCxoYo22V0XgcHUPpPG/SCevs7xgO
+	S0WmUXarK4qODO8hubIh+MVRDdROkrE/hxSLo54cNw1wE1HXzqL6NVTwcUWDEKOvvKv5G/Sh4q8
+	FlRdngpM7DSFwtNZ5kralulrRbVroHfTs/6ai8ttuMMBj2ji0oY0tBgBDJldevodip8N1T8qOXX
+	zuCAq2dTN9skhVnriJ5gwdGSjOCiMWenZFIpRnYePh1nmYBZiL+eVVgc02WXZ22Xh9dgqOHeR5E
+	3Ds1DGHXi/hp7S1yfjYMigTUdalSvsiPXFuDjAmI+1BiWYMMUPq1JPs2FZC5MLTviEcxASNelNY
+	bnBWkxhk+up7JHpNOjZKpPB7k6gF6CjlMFFh7K0CQBeCjEsFBfXaCxCMKywH8sAg==
+X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485343085a.78.1794419757335;
+        Wed, 11 Nov 2026 09:55:57 -0800 (PST)
+X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485336585a.78.1794419756700;
+        Wed, 11 Nov 2026 09:55:56 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae177150c8sm4479411fa.40.2026.11.11.09.55.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:55:54 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:55:52 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
+        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Michael Trimarchi <michael@amarulasolutions.com>,
+        Michael Tretter <m.tretter@pengutronix.de>,
+        Cristian Cozzolino <cristian_ci@protonmail.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Ryan Brue <ryanbrue.dev@gmail.com>,
+        Nickolay Goppen <setotau@mainlining.org>,
+        Robert Chiras <robert.chiras@nxp.com>,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Chris Morgan <macromorgan@hotmail.com>,
+        Barnabas Czeman <barnabas.czeman@mainlining.org>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        Michael Walle <mwalle@kernel.org>,
+        Ritesh Kumar <quic_riteshk@quicinc.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Svyatoslav Ryhel <clamor95@gmail.com>,
+        Danila Tikhonov <danila@mainlining.org>,
+        Jens Reidel <adrian@travitia.xyz>,
+        Michael Srba <Michael.Srba@seznam.cz>,
+        Shawn Guo <shawn.guo@linaro.org>,
+        Alexandre Mergnat <amergnat@baylibre.com>,
+        Alexander Baransky <sanyapilot496@gmail.com>,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        Romain TISSERAND <romain.tisserand@gmail.com>
+Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
+ optional
+Message-ID: <dki5db5xizrwwijmjbnbx7irg6if24l7punctr2wx35j4toi5c@4rip7azwzt2k>
+References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avRM_GhtR8vMdTO4@houat>
+ <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
+ <43373a9e-9ff3-4641-b961-b63f4de21cb9@oss.qualcomm.com>
+ <oubzclitudtqiv64wvg5lvxvbhuffxmc5bgbsdz4ou24pfhbb4@decarhvjzl2a>
+ <0f2c0eae-ed05-41a2-8688-e4b6fe1b7ff3@oss.qualcomm.com>
+ <avRy_D6MTK5u01_9@houat>
+ <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,86 +167,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NzQ6CMBAE4FcxPVuzLZQfT76H8UC3C9REMC1WD
- eHdLXgxUTxOMvPNyDw5S57tNyNzFKy3fRdDut0wbKuuIW5NzEyCzISAlPtLIRRwi8RdjRx0qiV
- CoqgAFkdXR7V9LODx9M7+ps+Ew6zMjdb6oXfP5TGIubeKB8GBqzzJdYaSEOFQdcbRvbENddXOU
- GDzR5D/FRkVk5W51kgg82JFST4UIb6UJCp1aVRVQFZjqX4o0zS9AJRozkJRAQAA
-X-Change-ID: 20261104-sm8150-ice-rfc-0b4b2c035e80
-To: Abel Vesa <abelvesa@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794419696; l=1891;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=ToMZN0TBCRPcQcR7ja+7EuF65OVoNHPNyts1YrPHW3E=;
- b=xdt1PgjbVpCJks9hfSRRbhxiZnBh2Ei4/7a75ITpnTDZzb2Ts2bJ/VHHmDyqoCR1pFF8MjdCE
- PvyQdHlDBFBCiRg8wcnEPRR7c4dZznU90qrNZhUIEpOmrsyv9wRWanL
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX3cZ/BMZiOWXC
+ uMrGOl148Qqg+AEflQgdOArGYqIAOHIfPMJ3C4xnErm9OvHCNFWi7lXtl1Uo+xDHQkHkt1NRv2s
+ H6gHledFR0fsViFCak/IkEvSDqXHJno=
+X-Proofpoint-GUID: p91BVOLM_C66RP7ozTDmx4ZNKTcvsfML
+X-Proofpoint-ORIG-GUID: p91BVOLM_C66RP7ozTDmx4ZNKTcvsfML
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX1zukjXivd/ZX
+ NF6l+wzRe8D9ZGG7ZWK1Qa7I7w1mBwqmyUkS6wI/7CwJp7ooMh20XVG5O7182LJbrlj8eYCSzSg
+ ymkheVo4WddWWjSO5ZQsvvjZOYvyRiy35UsxOujJ4YX+dzCHZGuimzQR5EzoWJoQao08Du19W7v
+ 1xdFLHgyQT0lV4Yoiuj00drITZqj4PwjKUbRrVl8zMHGrJXkL5depOGg5e96kl+G8Xb+PVWxL49
+ wQtVKa7w+slXwDGd9Ddf0z2baoB4qeJsOZua6Pe6ja2ALJ2CJ3VPwlBvv6KDa0DZcb7Ue+lf7NV
+ w1dFmT9ZWEKId0vSeUXCORY1Ad42p7z229JBqGAwvm3YmW3A0UKJ5/WQ8ryCNwOorTkS15gV/2T
+ CmtZndybNe8wBzqdCdJzlGxaRap7kG09WbDLcYG0QkKkjI57f1aZuXL3I0WTcJHZxxfOtla2seb
+ S3RYNLzdRejgTRPcPaA==
+X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af4ac2e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=b1Xqci6IJw76lUnxh3wA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110071
 
-Hi everyone,
+On Wed, Nov 11, 2026 at 02:54:54PM +0100, Krzysztof Kozlowski wrote:
+> On 11/11/2026 14:52, Maxime Ripard wrote:
+> > On Wed, Nov 11, 2026 at 01:44:23PM +0100, Krzysztof Kozlowski wrote:
+> >> On 11/11/2026 13:37, Dmitry Baryshkov wrote:
+> >>> On Wed, Nov 11, 2026 at 01:31:39PM +0100, Krzysztof Kozlowski wrote:
+> >>>> On 11/11/2026 13:30, Krzysztof Kozlowski wrote:
+> >>>>> On 11/11/2026 12:13, Maxime Ripard wrote:
+> >>>>>> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
+> >>>>>>> DSI panels can be placed under DSI bus directly and many Linux DRM
+> >>>>>>> drivers will work fine with it: mipi_dsi_host_register() adds device for
+> >>>>>>> such panel and DRM driver does not use OF graph to configure lanes.
+> >>>>>>
+> >>>>>> That's not true. We do use the endpoints to configure the lanes through
+> >>>>>> the data-lanes property. See drm_of_get_data_lanes*
+> >>>>>
+> >>>>> Some drivers use endpoints, some not. As discussed on other thread,
+> >>>>> there are more than which do not.
+> >>>>
+> >>>> "there are more than one which do not."
+> >>>
+> >>> Which means that those should be fixed. We have legacy cases where the
+> >>> drivers assumed that, but we should not target legacy.
+> >>
+> >> These legacy drivers work fine for 10 or 15 years, like Exynos.
+> >>
+> >> You can improve them, for sure, but if no one does that then requiring a
+> >> graph is a mistake there, from the panel point of view.
+> > 
+> > At the very least the commit log needs some work then, because the
+> > situation you describe in it is simply wrong, and quite different to the
+> > situation you then described.
+> 
+> 
+> Commit msg said:
+> "many Linux DRM drivers will work fine with it"
+> 
+> So many->some? Is this the only problem? What else is not described in
+> commit msg?
 
-This series adds standalone ICE support to SM8150 (Snapdragon 855),
-matching newer Qualcomm platforms.
+The commit message points out that a minority of drivers use and require
+the port, while majority of the drivers don't. I think up to now only
+the Exynos and sunXi were mentioned. From my point of view, it would be
+better to change corresponding DSI host bindings to allow port bindings
+and then define the OF graph connecting DSI host to DSI panel (which
+might be done gradually, etc.) even if the OF graph is not used nowadays
+by those drivers instead of providing a false signal that it's okay to
+have DSI links without OF graph connection. It's not future-proof and
+not okay, especially for the new designs.
 
-Patch 1 documents the sm8150 ICE compatible.
-Patch 2 moves sm8150-ufshc to the standalone-ICE UFS binding.
-Patch 3 converts the UFS node to use a dedicated ICE node.
-
-Tested on a Google Pixel 4 (google-flame): AES-256-XTS advertised,
-ext4 encryption supported, ICE self-test passes.
-
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-
-Changes in v4:
-- Add Krzysztof's Reviewed-by to patch 1.
-- Document the transient dtbs_check warning for embedded-ICE DTs and why
-  it has no practical impact (patch 2).
-- Link to v3: https://patch.msgid.link/20261111-sm8150-ice-rfc-v3-0-f9d5a806fc95@andrewgigena.dev
-
-Changes in v3:
-- Split bindings into two commits (compatible + standalone-ICE move).
-- Drop author Tested-by from DTS patch.
-- Link to v2: https://patch.msgid.link/20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev
-
-Changes in v2:
-- Move sm8150-ufshc to the standalone-ICE binding.
-- Keep the ICE compatible sorted.
-- Link to v1: https://patch.msgid.link/20261104-sm8150-ice-rfc-v1-0-5737b6c2ecc0@andrewgigena.dev
-
----
-Andrew Gigena (3):
-      dt-bindings: crypto: ice: document sm8150 compatible
-      dt-bindings: ufs: qcom: classify sm8150-ufshc as standalone ICE
-      arm64: dts: qcom: sm8150: use standalone ICE for UFS
-
- .../bindings/crypto/qcom,inline-crypto-engine.yaml |  1 +
- .../devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml |  2 ++
- .../devicetree/bindings/ufs/qcom,ufs.yaml          | 11 ++++------
- arch/arm64/boot/dts/qcom/sm8150.dtsi               | 25 ++++++++++++++--------
- 4 files changed, 23 insertions(+), 16 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-sm8150-ice-rfc-0b4b2c035e80
-
-Best regards,
---  
-Andrew Gigena <mail@andrewgigena.dev>
-
-
+-- 
+With best wishes
+Dmitry
