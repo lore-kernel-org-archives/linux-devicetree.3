@@ -1,91 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794432566;
-	b=33GsK0wlnJyx6KeJ5hHOn5u7Ilzj+xJNl93fl0JOFebEdV4D/jqyakadaQUeI7JNN/VA
-	 wxmbs1xCco4utxfaUGIvxVsuaAZYxR8YIMvfNm2EkO/GVmBgtmDVPHwe9GCcU8mu/VDD6
-	 Ao8XDehFAUuVstKocNTw2+DogQ8MJ3GBefjjOdalC2vFR5gyXijtVoVKhIps2JkXcLJkH
-	 KvxGb620/ULIzISRneAcffT1e1M0ObrM5x9+8AISc/yQlrPhxgAzAHuC/JDSliRMZyPJR
-	 pP/26oUgP/mAM1na1GD/dGXsphw+A04qizNuAPFmSa+2JCR5J2800LRhdaQmBLn4e9w==
+	t=1794433436;
+	b=hUQAK4EeRskg/4hg7bqPVAVG5J21Li7LLBdKhO0teXnxaim1S2CqPrVeqvgxH3N3Q3no
+	 +3MRbeYn+DUkrR9RaJXwUci1wREcOQORGZe1aAhNFm6grq14TTgizHF8BiDTwIm+eQxW4
+	 9Tte7ebktSTbVtbt8sPQsrelgKT23nGA1g8rop9g8iFqgvtNvz4krnGbw7PnsXYtwBXxG
+	 jzfezU+JiIGKtXs5P4pVp04BaPddIrVN80anSqL/rpVqXs/QF7EadY5nU/lLjfFAXfSI8
+	 tb/7MTk0KuOuvWx+IRo3ULK/RhoNHuLxxqRgLDDtMlS1U9L6W+PEfGBKA5WZP+gkkDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794432566;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-	b=ZJuvr9m9AWrdk2gahGaxD8Z3ul0+PhOIaAFnjxPWHks9oE1m+G9mSULFDvhpPW3UfqV6
-	 pbsVQYr+6+4CB1YiNVZ23l5oVGv2NXYJaLzk1xhzD6Y0exy/zrmAbnIjGVD2GoVV9vwCm
-	 0dfqMGeVTqhes5GRitCxmQpMK5qGXi/XwZJnc+s+aWZkm0AF/QA4IACYn0BAqkxf50ISn
-	 7EAB0aK45pgHM7XmGFn6KfTeFlOTnGn1ka7EFlbpjSZ19R6ot2ZgbtSscgxjyzxixyWLo
-	 p1K6mVE+UrRt7on6dN0E9q5Rtiiou5EoMzqswAxit9Pxt2Li1h0H7vvY8AvgQ17ex9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433436;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Q/j6WirJUN5GZuo8ESQMe2tD96p/TfxN7ERvmMa2eZg=;
+	b=pi6PyvcjsDRyFJE1C6n+NJK0qxaQrTq6Nc+M1VKNbeEgAYJMYc6VkgQw1wJCPKdCGjuD
+	 sVhtKVnYxyThH/nZm5VDG47wiAVVQY/DnNRddF3OKYRNaZYPlO/2C4pGvGoTD3PFw/0kn
+	 LkhE+eX8XhvkIY3erskOLmpa44SUtpF8QByvKUmeWfcbCbvSmryUydGmlzvXsRDByfSo8
+	 pfVmx615oQoGGohviwa80I09kFu8ZIW4fPHv47Ec8hIKW/eRZRtEa7zX96Sqd9sh/Uyfk
+	 JoYe5GAkS0niPjv6eivwvrztXsPrEP2vJFFkb3ilEfYMsqAMp3qb6x7taZB+K+52jpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQvEdYk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D54606A324
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 21:29:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D54606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74D1606A326;
+	Wed, 11 Nov 2026 21:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc147d86bebso152253a12.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:29:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794432565; x=1795037365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-        b=DTLKRFfnZ9XydDu38dZPgAw6wPK7MFh60q2ondkRQNEHwW79dfA9HkFUIRmzK3Y5Oi
-         PGm+TIDXm2T6nMkuod/Zpsn9U1PNw8FKBL85KrUaX8EVrwLELcWAbre/q1Hucbt8EJg1
-         YRYeVWyY2WiyNt2rNckOeXwp+t7pd+Snfm0CLYczNrA7Uu7DyzQxn3Y/EkaUbyGU3LEe
-         wl8jsQ0QL6yg2J84yiAQBEHwYePRMvZbBKRO6KPBcR6SrlTRXzFfx7kO0UfTzBpWPQUE
-         DGVV1JX9fPru0sahKe0OJzSofVJOhOqMrNPYPTAH3IimnCbhWTX7J600ensH0AqcjZaf
-         71PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794432565; x=1795037365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-        b=dSibM5qpXPtjSUkSc6dm3kecOSH58s/1PboTvf/Yn0/g4Djfc+TldmXeNFavFqkaBS
-         gknk5GOknDG4LMWdUS0TNnfoDIoS+BPIQtM/VJ9WVDLDAm8tSSSggP+j3N1wdis8ozbr
-         9wp8lh2APx5h6DuIYOq/y/JZCymrt1I/GZu9+vgIiL4T+GtWOKm6rRPIMVktvr77kdNg
-         KALcKXf3pggdpN5iCk1PocyGbrzh3hx8yv6OQwLa5rM7HgvcnqzvWv4sl6o4PPqn3wxK
-         oKKW/5tUC8F1tdCx4Vj756nhKaYM9bFsGZT5KdSa44PpWSNVRhSB4XXsVnW4g3HhPcLp
-         kJ8Q==
-X-Gm-Message-State: APuU4Z/na9unAVKjypw8ZmvVHHQTAAaqtNietM+w4UfhPQ11rcDlVpWV
-	9XreuHEtBXMUt1+XmHLhmlz5gGNaESXNOy04zD1B8W/3B/Mrw5kUoD9naRR1/Cjw
-X-Gm-Gg: AYBFou0pyFETHhDoDzpV+j/icfJ2OMsBRqRdYJRT2VQumFBGcx2AfeBohjM+ZLMTpsc
-	ekDoEWhQF35oOcOEvufZ4HQBgw1X2MV0Q/bTIu5cB1K4T2R8NKANqOkD+yuqNuFhlgjwNzL5d5D
-	jGBpY0mYsLCtGC0xvBTS1GjfFeAtX1SEckK3XQo7NTXNC6zVxZ1+dn17FxfPePjtcQCDtVMHmMq
-	vaNyqQ034tGYie1iJNpD/kT5Ua1otk6ot/V9MN8yuqmHZA+2IcVm4XUY/x7/wPBbOw9Zwnb9FJz
-	WBLKSAAyt5dCqmF1ALFCJ/jdhyWY3Qt60RrtNKtrUF0eGaPzT9lVG1D/KlIJ4SxiTa6+dAHFjhb
-	ZfGEW1CQjS40hgECRgEoQWw5VZijoy1RQyZ/pHwwBOVcBfH2StmJOA8sf4WguxmasJ4Ti4AWZx5
-	7zlAK9aa5dYfQJ0Cn5YbMC7N7lJ1Lq6gLpNI066OGypgFJRVCG+bzX6bLC08Z8f20a2rTe245W9
-	bV5bCuIUlCQT2d93R+2w/IM3XKuKVsPGmewdNN7eWVIYZmuXaS6QhNzz+Ty3T+wHVifJkve5OQD
-	kbmcSCRhFBGKCYsv28BIQrU6mu1x7cU=
-X-Received: by 2002:a17:90b:54d0:b0:3ac:b3c7:de04 with SMTP id 98e67ed59e1d1-3b197ccc66bmr418449a91.34.1794432564906;
-        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
-Received: from fedora.lan ([172.219.65.15])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182e0ecd3sm2310465a91.3.2026.11.11.13.29.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
-From: Artem Novak <artem122novak@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
-Date: Wed, 11 Nov 2026 15:29:21 -0600
-Message-ID: <20261111212921.290857-1-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQvEdYk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D511F00A05;
+	Wed, 11 Nov 2026 21:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794433435;
+	bh=Q/j6WirJUN5GZuo8ESQMe2tD96p/TfxN7ERvmMa2eZg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=anQvEdYkNx+yEjmg+V13ijEuuDvDLl2UD2AgfEmTfm6mrTUhTNgIPo6VWptfZVlgT
+	 io4xS6t8j0Zd98bRTxtBPT/ivT2WpmUieGLMXy3GFjCRCLnrPBnF52o5FoaYLT7b2C
+	 tikStScHVK0FzHyxyUn6SEY7PnxaKd8wX13BjK0NPOEhFUrzQ4DfHKWTFmANW/Dao/
+	 S27el57DnU++jrW4msHfqyCg6fCw//qdV8E30Cj/O8FtUHRUAIh2MmNaR6DvezVOTh
+	 I7yZIwwYYKTp3K+fOlTha2rts0iTWjBrpeWZtuCe/faspPExQgW18grnDLhwlktaIo
+	 zlbIVgM6DsAVw==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,32 +49,173 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/4] clk: ingenic: Add Ingenic X1600 CGU clock driver
+ support
+From: Brian Masney <masneyb@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com, 
+ Paul Boddie <paul@boddie.org.uk>, Brian Masney <masneyb@kernel.org>
+In-Reply-To: <50983be55e467076e83e3ffc37b30fc4e5648e15.1792955907.git.hns@goldelico.com>
+References: <cover.1792955907.git.hns@goldelico.com>
+ <50983be55e467076e83e3ffc37b30fc4e5648e15.1792955907.git.hns@goldelico.com>
+Date: Wed, 11 Nov 2026 16:43:44 -0500
+Message-Id: <179443342468.1143992.1536494507903693852.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5629; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=zYx5gEDCYfb/4k5A01V/xuE63SeQKUuL1sqAIc16+yk=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+PJx42tf5qd/MXlPW5fXv7n+bUreDwUZk3bqfxoy/D
+ K38Ve/JdJSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjARmRJGhs7pbQVen9nF+949
+ KLi7yZyB4ZaPsN//t19+LnplIHJXr5WRoV1CcVaAhsCN6cKfyh08Ln+VCrZ9cCSaX77x8rT1mmI
+ nOAE=
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
-registry.
+> Introduce clock driver support for the Clock Generation Unit (CGU)
+> found in the Ingenic X1600 SoC.
+> 
+> To support the X1600 platform, update the common Ingenic CGU core
+> framework to accommodate a secondary post-VCO divider (OD1) within
+> the PLL configuration registers. Additionally, prevent a NULL pointer
+> dereference in the rate determination path by properly supplying the
+> secondary divider tracking during PLL calculation calls.
+> 
+> Implement custom handling for the I2S clocks on the X1600. Since
+> complex compound hardware dividers are not yet natively supported by the
+> core framework, explicit M-divider (mdiv) and N/D-divider (nddiv)
+> structures are introduced to describe these specialized fields. This
+> avoids a compilation failure and enables a stable, though limited,
+> division encoding suitable for current needs.
+> 
+> Furthermore, this patch:
+> - Fixes the gating of the I2S0 and I2S1 clocks, matching the control
+>   bit behavior which functions as a clock enable flag.
+> - Introduces the custom OTG PHY clock operations and initialisation
+>   routines utilizing the hardware's OPCR registers.
+> - Registers the independent I2S0 RX and TX gate clocks employed by the
+>   X1600 peripheral block.
 
-This prefix will be used by upcoming Devicetree bindings for
-Casio calculator hardware.
+Just from reading the commit message this patch needs to be split up
+further into several smaller patches to make it easier to review.
+Ideally try to make the different bullet points separate patches.
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+> Tested successfully on the LX16 (X1600) boards and CI20 (JZ4780) to
+> not interefere.
+> 
+> Checkpatch complains about not 4 lines of help paragraph but the
+> style is the same as for the other machines. It also recommends
+> using 'unsigned int' for the new struct ingenic_cgu_mdiv_info
+> and struct ingenic_cgu_nddiv_info but this follows the style 'unsigned'
+> of all other structs in cgu.h. Finally it complains about the empty
+> line between struct ingenic_cgu_clk_info x1600_cgu_clocks[] = {
+> and the comment. But I think it is more readable this way.
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..f05475072eec 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -303,6 +303,8 @@ patternProperties:
-     description: Capella Microsystems, Inc
-   "^cascoda,.*":
-     description: Cascoda, Ltd.
-+  "^casio,.*":
-+    description: Casio Computer Co., Ltd.
-   "^catalyst,.*":
-     description: Catalyst Semiconductor, Inc.
-   "^cavium,.*":
+The checkpatch note can go below the --- below.
+
+> 
+> Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+> ---
+>  drivers/clk/ingenic/Kconfig     |  10 +
+>  drivers/clk/ingenic/Makefile    |   1 +
+>  drivers/clk/ingenic/cgu.c       | 150 +++++++---
+>  drivers/clk/ingenic/cgu.h       |  42 ++-
+>  drivers/clk/ingenic/x1600-cgu.c | 476 ++++++++++++++++++++++++++++++++
+>  5 files changed, 646 insertions(+), 33 deletions(-)
+>  create mode 100644 drivers/clk/ingenic/x1600-cgu.c
+>
+> diff --git a/drivers/clk/ingenic/Kconfig b/drivers/clk/ingenic/Kconfig
+> index f80ac4f2992b..9b8b00c9e6d1 100644
+> --- a/drivers/clk/ingenic/Kconfig
+> +++ b/drivers/clk/ingenic/Kconfig
+> @@ -75,6 +75,16 @@ config INGENIC_CGU_X1000
+>  
+>  	  If building for a X1000 SoC, you want to say Y here.
+>  
+> +config INGENIC_CGU_X1600
+> +	bool "Ingenic X1600 CGU driver"
+> +	default MACH_X1600
+> +	select INGENIC_CGU_COMMON
+> +	help
+> +	  Support the clocks provided by the CGU hardware on Ingenic X1600
+> +	  and compatible SoCs.
+> +
+> +	  If building for a X1600 SoC, you want to say Y here.
+> +
+>  config INGENIC_CGU_X1830
+>  	bool "Ingenic X1830 CGU driver"
+>  	default MACH_X1830
+> diff --git a/drivers/clk/ingenic/Makefile b/drivers/clk/ingenic/Makefile
+> index 81d8e23c2636..7e93e0893abe 100644
+> --- a/drivers/clk/ingenic/Makefile
+> +++ b/drivers/clk/ingenic/Makefile
+> @@ -7,5 +7,6 @@ obj-$(CONFIG_INGENIC_CGU_JZ4760)	+= jz4760-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_JZ4770)	+= jz4770-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_JZ4780)	+= jz4780-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_X1000)		+= x1000-cgu.o
+> +obj-$(CONFIG_INGENIC_CGU_X1600)		+= x1600-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_X1830)		+= x1830-cgu.o
+>  obj-$(CONFIG_INGENIC_TCU_CLK)		+= tcu.o
+> diff --git a/drivers/clk/ingenic/cgu.c b/drivers/clk/ingenic/cgu.c
+> index ad223aa20e8d..c4fbee32c3b9 100644
+> --- a/drivers/clk/ingenic/cgu.c
+> +++ b/drivers/clk/ingenic/cgu.c
+> @@ -4,6 +4,7 @@
+>   *
+>   * Copyright (c) 2013-2015 Imagination Technologies
+>   * Author: Paul Burton <paul.burton@mips.com>
+> + * Copyright (c) 2023, 2024 Paul Boddie <paul@boddie.org.uk>
+>   */
+>  
+>  #include <linux/bitops.h>
+> @@ -76,6 +77,40 @@ ingenic_cgu_gate_set(struct ingenic_cgu *cgu,
+>   * PLL operations
+>   */
+>  
+> +static unsigned
+> +ingenic_pll_recalc_rate_od(u32 ctl, u8 od_shift, u8 od_bits, u8 od_max,
+> +			   const s8 *od_encoding)
+> +{
+> +	unsigned int od, od_enc = 0;
+> +
+> +	if (od_bits > 0) {
+> +		od_enc = ctl >> od_shift;
+> +		od_enc &= GENMASK(od_bits - 1, 0);
+> +	}
+> +
+> +	/*
+> +	 * Use the encoding table if indicated. Otherwise, use the value
+> +	 * directly, interpreting an encoded value of zero as a divider
+> +	 * value of one.
+> +	 */
+> +	if (od_encoding) {
+> +		for (od = 0; od < od_max; od++)
+> +			if (od_encoding[od] == od_enc)
+> +				break;
+> +		od++;
+
+So if the entry is not found, then od will be set to od_max + 1, and it
+will pass through the warning checks.
+
+I started to look through the rest of the driver but I stopped because
+there's just too many unrelated changes here. This needs to be split up
+further into separate patches to make it easier to review. If your
+commit message has the word 'and' then that's a hint that you may want
+to consider splitting it up further.
+
+Also be sure to go through all of the feedback from Sashiko.
+
+Brian
+
 -- 
-2.56.0
-
+Brian Masney <masneyb@kernel.org>
