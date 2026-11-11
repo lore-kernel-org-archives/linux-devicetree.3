@@ -1,64 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427058;
-	b=dW5Mrd0ZzMEjUUtlYVl5Yq1BUu8thvIIqS97RcFl73+FuRcatf0l5GEpmw/cXfYAd6gR
-	 wPNOF4KwQmVXy43GQg4UBZuPyU+EK9jrV5NtqMscvdG/IXo5DttrPKYJZouXUIk03R77D
-	 I64YVT75g/eqdtrJzxhioNXospJeXlp8nC8d/JEjsS5uP62sxprokCPtW4fqa0hxHUhoW
-	 0+STXo1xtXuY6kIkqkDe8CQjPnX6wea+42qfjQmmpJyJvvKQPOxE3xRa8hOlkpd2GYMea
-	 ljw3jdu5C4CFkakaTd7LDA3kI7rDCsHnf7EErlK1N587kWlgXevJac+6ODj22U3y2Cw==
+	t=1794427231;
+	b=NEb6AZgfNUNTWo4FcMbS0KeZ+XdW2Udk1kkX3nV4zW0wRAokUE5dSdywFPXqXVcXgD5C
+	 pe2JDTrhErxOOG6aoXKK2NDRqWNrEOMfGNuj8gEhJOZozYRCzOdPSn9hF0TtqPxRkyldA
+	 1Ix9h4NJdEJ3ThUNj9ifqMt1FPShOv3wtMBO0NhtRP00XrSf484BcOnBYxISNBMIYsfK5
+	 qtWIDYMhfHpXkpZLiLPJwEl9fypPYzFbt8O5RdKXZrmWNgJuKTLC84IlvBjpw+MQM7be+
+	 E//pt3WORQ8gNFhSnet7kV2ixeizFEko0IcRqWG8bq40FssnmN0JtykMm+6L4EXIABg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427058;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QWBWav1cp1GKn3RCOV39/sy+/mqjj3e4l5sc6Ipflxw=;
-	b=x0vkktVt3fa8el8XYai3PGC7MOunJNwPjQBpzrGgLFI21ejYtabDvLJPphTI2a7mqaol
-	 jGQBHhpVmlU2Q0z8e6cL8Aju2YpWarPOdlxlYbeVD9UKTmAK8bdMtNSJ+HGMRK7dwsKAB
-	 XM88/9Kp4rQ6kfZmwsCH/GLb+LsB3UCPSiWC63PmzSjL8lZ7s6X1u5PiW+92ct9zFw7j/
-	 YA6eFDhfIcL9BPJ7LttiP/X3ybWPEvyTT17j4zYgZGiyKOeQultdN5484/ceubIkXQlDI
-	 T48VdLtePrF+67AsOaqBmemogNH17uqNWWCjKSnla4RMp5jTVQP5USewxQAClB+rZMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427231;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+	b=KghXiKW6hG41vzxKBQogBnOhlJVcCFWU9El0SFMnSoTkvtrv2jQiSztRSUzCRUgl6bP0
+	 69pA6lP0XF6fW2JSTDs0GW1IkBsoyn/YtoVOMlGqYw8kWfoh1FYEUcwlw6AteooQQ+H4j
+	 SvF4BzaPt2oeHWL3rjyArXEK4HTgS3nJo3GxZuQjKQtm6Uwke9qqdqZwJaYBnNXreP58e
+	 jUlj7kL6n4M81K6NK6Ug25uzkUjoac6n050UE6CSm2g2aRTZgM7af6aEUYeTTeJCHn1nm
+	 ANzd5DUGItSB91ytEGirGN6ggR+2FS/XmQVgA5CKIofm1irhzTJinHNUJmzUlVBDJFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWqivWmr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj;
+	arc=none smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE565606A31C;
-	Wed, 11 Nov 2026 19:57:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB1B606A321
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:00:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB1B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWqivWmr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD4A1F00A05;
-	Wed, 11 Nov 2026 19:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794427058;
-	bh=QWBWav1cp1GKn3RCOV39/sy+/mqjj3e4l5sc6Ipflxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UWqivWmrkbKzsiRjycnRaUXRmPS6cQD99O9eWIpZznd6Hc8LQBxNGmjimWWvLEi9D
-	 OYVmXpoeXfZG4Nu721aa0F+r5u/9xBqd5k8ldxq4f0O2yLia2F0kZpJcmonuqTW4NT
-	 pqa+eksNtrOQtwJ5wgKfkZrpfUywc7hAg1H0HLRqwRLPmF1e0lYQMNlCSch2dRtdSj
-	 VNhcNcAV8ZLXRwlb1j1f+2ArJaehGkXR//BAkTZB0OuCsFij7H5sPzvtn5nDSK7h1h
-	 kpDRF6v9x0jkdfc2MSNrL2NXHo3jUcM8ZoyhVd7ztBHRArBuTigK6/Qb0yUoBbDa7b
-	 Lypa2riHNLRbg==
-Date: Wed, 11 Nov 2026 20:57:30 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
-Message-ID: <avTIWshl9klX0obF@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c07c7306e1so2985141e87.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:00:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794427230; x=1795032030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+        b=ICpsNtDjl8RpGDWPxeboydSu/EEH2dc3F1U/ihmVr5TvqmB9GXzkPDgrSdb4pTybmq
+         rSXYND5og4GcBCQzlUFJdJ7g1a0Wg25xXHOc0oR5VBOQCimogGtybB77X2IzzJAL4QCY
+         u/rPxDk7NZAtRuT5zgOxildkgI8fjUqWbzfA8BpS1lDpmeugNImYN4GZjcm5G/yE5pEa
+         Bmh8Ui1PeSQVZNNz0MEFnx4+oVTDI3tlGl04FCJBhH39Bt9Bpi3W0D18XWQJ6YEjdkdF
+         oF1V2Lh3uJOAsQow9V6jQCoClk4BzSTaL6w3T4gVUiqgEkTBavTQWVWq12QqWIUd5r1n
+         sSSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794427230; x=1795032030;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+        b=F/qB9ng6QZ2zi4AuAZ4wnIo2y/H5L29TULto8G0MR+grmuJp95Na7EoILKQ1H4kOoZ
+         oWuxEL5hhmAyvm6S7Y70EPYp6Q97EE1d1fZjNJhWa4t9JnxZbsYvAUsILQOaEPaenpl/
+         FGq6PJhFO+Cs+O3fYeZ65NOrg/ny/Po0NQrOVK6eW44fpVD/Xj1WQNsD4oDJ4t7m04QS
+         RV3aI9nDjDoJLg8iCkclnAb6O/I0/B48c0lXXRGN7XPe/U0LccuiVmJZWnbzYG9mYKIb
+         jismOBg9FcJtmD2l7HFAJtqcbOcjazpu2uKV7HJrt1PPHCoACw6NTBn7RufppZ0u28Gf
+         JdTA==
+X-Forwarded-Encrypted: i=1; AL+hErFwNw2+a4RDINVYYzHhUxvQz+AS0aBecQXoEvfhizIoElV6Zr+9d0McwaIdrTTD+5dqyTuLEZO5PXlc@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gf5CQ+pYKiSLqofFbtgm4pipSHibngW40SlGK11+zgVT0If4X
+	IxOIZ/Gx29aevX3OerWqbZfl3AAdiH+rXKtTAFGSOwhIdzBqPfDe04Mn
+X-Gm-Gg: AYBFou1eVCGgqMQb/NMY4PPRaT+hhtjq5EX1lpaqdk/VIoVotDhmXXWQx8FjnEhcAGA
+	WR7SPldAVbZ+qu1pRChZlISgR/dIEmVAsf6rR3mqCgUsW76eLJJ4nAb5QkyO0dT6RKx+mN4N6UN
+	i0DyCwLUzgv5/DAnLuDgan/+z9ztpJ7lWoZwthRC8AQsaEUgQkayAoswOc5E3unSktP9j0hLN+8
+	6kqvBxGueicmXzpjC7euP20HXxzivbNshQbNh3Ih6YpEiH/fASIzotffneZJosb83QjOOnbyEnr
+	lCPSvVsDtQy6dykCAMZLDx/t1hvyhsEocQkR19uHuhsHQjvAAMb/HZuQVpS7L2x4zBIK1+jg/Hz
+	nIxjwptahcQj13FxYVcC72JEliNlFWcOifvhEaH0B+wgZbNh2zuAPZ39YEpljqjMmtLOwhj9m1i
+	ghnB93KS5oz+DcHbjdmaPfAjevoyqXUQU7F7rM8fyQw9Eb8FMED58qHkmUZCjSeHbVGKttJw6uC
+	GM0zMbk8ptpZXpNS8khcIuXsKQaHsH3NIaddU02i+VYywtVtPzU9R4jfMj4K7WDy32RRNnRm0+Q
+	yTi/xMTbvO5Y63xSwMsVyyNf/H35YSXmS+89aLcclns69HqMvPkVIHrojtsMI4T2AKr0bk6VUuZ
+	iGdazIXzy9fqrsV9NEw+43XqlEHqlQkmtEms1
+X-Received: by 2002:a05:6512:b8e:b0:5c1:5cce:7f1d with SMTP id 2adb3069b0e04-5c15d58a87amr1050525e87.9.1794427229586;
+        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
+Received: from yantra.. (nekmmqtce067ylb1za0-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5558:447:baa4:a7d8])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157bbe89csm1102957e87.81.2026.11.11.12.00.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
+Date: Wed, 11 Nov 2026 22:00:25 +0200
+Message-ID: <20261111200025.38344-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-208073@kernel.org>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com> <20261110154254.39092-3-zoone.rupert@gmail.com> <sashiko-outbox-208073@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,368 +108,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="67pbkwc2bccukozj"
-Content-Disposition: inline
-In-Reply-To: <cover.1794425425.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+On Wed, 11 Nov 2026 02:15:48 +0000
+sashiko-bot@kernel.org wrote:
 
---67pbkwc2bccukozj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
-Message-ID: <avTIWshl9klX0obF@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1794425425.git.alx@kernel.org>
+> Should dps310_fill_channels() read pressure first and use
+> dps310_refresh_temp_locked() like dps310_read_pressure_value() does?
 
-> Date: 2026-11-11 20:55:07+0100
-> From: Alejandro Colomar <alx@kernel.org>
->
-> Hi!
->=20
-> str_has_prefix() is based on sizes and lengths, which means it must
-> overload the valid length 0 to mean not found.  This is a typical
-> consequence of choosing to design an API around sizes and lengths, and
-> vanishes when moving to pointer-based similar APIs.
->=20
-> According to its author (Steven R.), str_has_prefix() was never meant to
-> accept an empty prefix, but that's not documented, and there's no
-> obvious reason why that would be acceptable for a generic string
-> function (as opposed to a function very specific to its original use).
-> Anyway, as suggested by Steven, I've added a WARN_ON_ONCE() to catch
-> such uses, and also added documentation stating this limitation.
->=20
-> Users of strings need a function whose behavior extends naturally to the
-> empty string, and we can do better, by returning a pointer.  And indeed,
-> users have ended up using str_has_prefix() with empty prefix, expecting
-> it to work (as is natural of a generic string API).
->=20
-> This patch set adds strprefix(), deprecates str_has_prefix(), and uses
-> strprefix() in one place to fix a bug reported by Bartosz.
->=20
-> We can later work on replacing the other uses of str_has_prefix(), which
-> might hide similar bugs.
->=20
-> This patch set also adds infrastructure to make string functions return
-> a pointer that is as qualified as the input pointer.
->=20
-> Changes in v4
-> ~~~~~~~~~~~~~
->=20
-> -  [1/6]
->    -  Remove deprecation notice.  [Steve]
->    -  Move documentation of str_has_prefix() to strprefix().  [Steve]
->    -  Document str_has_prefix() by comparing it to strprefix().
->    -  Match parameters in documentation and code.
-> -  [2/6]
->    -  Add WARN_ON_ONCE() to str_has_prefix().  [Steve]
->    -  Document limitation of str_has_prefix().
-> -  [3/6]  -- no changes --
-> -  [4/6]
->    -  Document that it might drop const, but doesn't need to.
->    -  Make const_cast() more robust, by replacing 'default:'
->       with 'T:'.  [David]
-> -  [5/6] =20
->    -  Replace [0] array notation with * pointer notation, to silence
->       spurious -Wpointer-arith diagnostic.  I wouldn't have changed
->       anything if it weren't nontrivial, because that diagnostic is not
->       part of -Wall -Wextra, and is also not too important, but since
->       the solution was trivial, I'm fine with it.  TBH, I prefered [0],
->       but I can live with *.  [sashiko]
-> -  [6/6]
->    -  Define the macro after the function, to avoid wrapping the
->       function name in parentheses.  [Joe, David]
->    -  Document why we need CQChar_of() --the simpler typeof()-- is not
->       good enough.  [David]
->    -  Change the function to return non-const.  const_cast() can't add
->       const, it only removes it; thus, we must have it always in the
->       function, and then have const_cast() drop it conditionally.  This
->       also removes a cast.  [sashiko]
->=20
-> I didn't apply some changes requested by reviewers:
->=20
-> -  I didn't rename const_cast(), since I'm not convinced about the
->    suggested alternatives being better.  And after all, a cast is only
->    needed for dropping const, but never for adding it (because it adds
->    implicitly), so a const_cast() obviously implies that const might be
->    dropped.
->=20
-> See range-diff below.
->=20
-> Testing
-> ~~~~~~~
->=20
-> I haven't changed the implementation of the function meaningfully, so
-> haven't re-run tests.  Since the changes since v2 are only about type
-> safety and diagnostics, I have built again with 'allmodconfig', just to
-> make sure it still compiles.
+Yes. The wait came with the triggered buffer support, so it is older
+than this patch and holds any trigger faster than temperature to the
+temperature rate. Fixed on its own:
 
-Ouch!  It seems I had built before adding WARN_ON_ONCE(), not after.
-I just saw a compiler error in a background terminal after hitting send.
+https://lore.kernel.org/linux-iio/20261111195118.36853-1-zoone.rupert@gmail.com/
 
-	$ make=20
-	  DESCEND objtool
-	  CC      arch/x86/purgatory/sha256.o
-	In file included from ./include/crypto/sha2.h:10,
-			 from lib/crypto/sha256.c:13:
-	./include/linux/string.h: In function =E2=80=98str_has_prefix=E2=80=99:
-	./include/linux/string.h:619:9: error: implicit declaration of function =
-=E2=80=98WARN_ON_ONCE=E2=80=99 [-Wimplicit-function-declaration]
-	  619 |         WARN_ON_ONCE(len =3D=3D 0);
-	      |         ^~~~~~~~~~~~
-	make[4]: *** [arch/x86/purgatory/Makefile:12: arch/x86/purgatory/sha256.o]=
- Error 1
-	make[3]: *** [scripts/Makefile.build:572: arch/x86/purgatory] Error 2
-	make[2]: *** [scripts/Makefile.build:572: arch/x86] Error 2
-	make[1]: *** [/srv/alx/src/linux/linux/master/Makefile:2244: .] Error 2
-	make: *** [Makefile:248: __sub-make] Error 2
+With the fix, this trigger keeps up at 8 and 32 Hz with temperature at
+1 Hz. I'll mention it in v2.
 
-Will fix that for v5, and fully test again.
-
-
-Cheers,
-Alex
-
->=20
-> Alejandro Colomar (6):
->   string: Add strprefix(), and deprecate str_has_prefix()
->   string: Warn if the prefix is the empty string
->   device property: Fix fwnode_name_eq() for empty node names
->   stddef: Add const_cast()
->   string: Add [C]QChar_of() and QVoid_of()
->   string: Make strprefix() const-qualifier-generic
->=20
->  drivers/base/property.c  |  5 +---
->  include/linux/stddef.h   | 12 ++++++++
->  include/linux/string.h   | 62 +++++++++++++++++++++++++++++++++++++---
->  lib/tests/string_kunit.c |  9 ++++++
->  4 files changed, 80 insertions(+), 8 deletions(-)
->=20
-> Range-diff against v3:
-> 1:  556766412884 ! 1:  a74fabd985a8 string: Add strprefix(), and deprecat=
-e str_has_prefix()
->     @@ Commit message
->     =20
->          We'll slowly migrate existing code from str_has_prefix() to strp=
-refix().
->     =20
->     -    Copy the description from str_has_prefix().
->     +    Move the description from str_has_prefix(), and describe
->     +    str_has_prefix() by comparing it to strprefix().
->     =20
->          Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->          Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-fo=
-r-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
->     @@ Commit message
->     =20
->       ## include/linux/string.h ##
->      @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t de=
-st_len, const void *src, size_t count,
->     + 	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
->       })
->      =20
->     - /**
->     -- * str_has_prefix - Test if a string has a given prefix
->     -- * @str: The string to test
->     -- * @prefix: The string to see if @str starts with
->     ++/**
->      + * strprefix - string prefix
->      + * @s: The string to be tested
->      + * @prefix: The string to see if @s starts with
->     -  *
->     -  * A common way to test a prefix of a string is to do:
->     -  *  strncmp(str, prefix, sizeof(prefix) - 1)
->     -  *
->     -  * But this can lead to bugs due to typos, or if prefix is a pointer
->     -- * and not a constant. Instead use str_has_prefix().
->     -+ * and not a constant. Instead use strprefix().
->     ++ *
->     ++ * A common way to test a prefix of a string is to do:
->     ++ *  strncmp(s, prefix, sizeof(prefix) - 1)
->     ++ *
->     ++ * But this can lead to bugs due to typos, or if prefix is a pointer
->     ++ * and not a constant.  Instead use strprefix().
->      + *
->      + * Returns:
->      + * *  @s+strlen(@prefix) if @s starts with @prefix
->     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t des=
-t_len, const v
->      +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
->      +}
->      +
->     -+/**
->     -+ * str_has_prefix - Test if a string has a given prefix
->     -+ * @str: The string to test
->     -+ * @prefix: The string to see if @str starts with
->     -+ *
->     -+ * DEPRECATED: Use strprefix()
->     -+ *
->     -+ * A common way to test a prefix of a string is to do:
->     -+ *  strncmp(str, prefix, sizeof(prefix) - 1)
->     -+ *
->     -+ * But this can lead to bugs due to typos, or if prefix is a pointer
->     -+ * and not a constant. Instead use strprefix().
->     + /**
->     +  * str_has_prefix - Test if a string has a given prefix
->     +  * @str: The string to test
->     +  * @prefix: The string to see if @str starts with
->     +  *
->     +- * A common way to test a prefix of a string is to do:
->     +- *  strncmp(str, prefix, sizeof(prefix) - 1)
->     +- *
->     +- * But this can lead to bugs due to typos, or if prefix is a pointer
->     +- * and not a constant. Instead use str_has_prefix().
->     ++ * This is similar to strprefix(), but returns an offset instead of
->     ++ * a pointer.
->        *
->        * Returns:
->        * * strlen(@prefix) if @str starts with @prefix
-> -:  ------------ > 2:  cd09427148a0 string: Warn if the prefix is the emp=
-ty string
-> 2:  eed085c85f36 =3D 3:  0058b60f662c device property: Fix fwnode_name_eq=
-() for empty node names
-> 3:  2bf5cf7baad8 ! 4:  ce623fe0432b stddef: Add const_cast()
->     @@ Commit message
->          It's similar to C++'s const_cast(), but it is more restrictive: =
-it can
->          only cast away 'const', and not arbitrary qualifiers.
->     =20
->     +    David made it a bit more robust.
->     +
->     +    Link: https://lore.kernel.org/linux-hardening/20261111102535.434=
-c2eee@pumpkin/
->     +    Co-developed-by: David Laight <david.laight.linux@gmail.com>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## include/linux/stddef.h ##
->     @@ include/linux/stddef.h: enum {
->       	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
->      =20
->      +/**
->     -+ * const_cast() - Drop const in the left-most derivation of a point=
-er
->     ++ * const_cast() - At most, drop const in the left-most derivation o=
-f a pointer
->      + *
->      + * @T: Type for the cast.
->      + * @p: Pointer to be casted.
->      + *
->      + * If @p is of type const @T, then it is casted to @T.
->     -+ * Otherwise, @p is returned without any casts.
->     ++ * If @p is of type @T, then it is returned without any casts.
->      + * This avoids mistakes that change anything other than 'const' in =
-a cast.
->      + */
->     -+#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p=
-))
->     ++#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
->      +
->       #endif
-> 4:  415453a31ebf ! 5:  206d2045abcf string: Add [C]QChar_of() and QVoid_o=
-f()
->     @@ include/linux/string.h
->      + * This macro produces the type name 'void',
->      + * qualified with any qualifiers present in the element of @p.
->      + */
->     -+#define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
->     ++#define QVoid_of(p)       typeof(*(__QVoidptr_of(p)){0})
->      +#define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
->      +
->      +/**
-> 5:  35bf6672f84f ! 6:  69d1792e5edf string: Make strprefix() const-qualif=
-ier-generic
->     @@ Metadata
->       ## Commit message ##
->          string: Make strprefix() const-qualifier-generic
->     =20
->     +    Add a macro of the same name, which returns a pointer that is
->     +    const-qualified iff the input string is const-qualified.  The re=
-turn
->     +    type is a possibly-const-qualified pointer to char, even if the =
-input
->     +    is a possibly-const-qualified pointer to void, which is why we r=
-equire
->     +    the CQChar_of() macro.
->     +
->     +    The function now needs to return 'const char *', because const_c=
-ast()
->     +    can only drop const, but never add it.
->     +
->          Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
->     +    Cc: Joe Perches <joe@perches.com>
->     +    Cc: David Laight <david.laight.linux@gmail.com>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## include/linux/string.h ##
->     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t des=
-t_len, const v
->        * *  NULL if @s does not start with @prefix
->        */
->      -static inline char *strprefix(const char *s, const char *prefix)
->     -+#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, =
-pfx))
->     -+
->     -+static inline char *(strprefix)(const char *s, const char *prefix)
->     ++static inline const char *strprefix(const char *s, const char *pref=
-ix)
->       {
->         size_t len =3D strlen(prefix);
->     -   return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
->     +-  return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
->     ++  return strncmp(s, prefix, len) =3D=3D 0 ? s + len : NULL;
->     + }
->     ++#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, =
-pfx))
->     +=20
->     + /**
->     +  * str_has_prefix - Test if a string has a given prefix
->=20
-> --=20
-> 2.55.0
->=20
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---67pbkwc2bccukozj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0yKoACgkQ64mZXMKQ
-wqk6OQ//fvLw+hv6dBfrCvd1p5QemKtJEuczYppccITn2BPjI3zTJOyh6inDRYak
-MbUyJ+o66Z8l7Vmnt4IZ1bCI0i6V41C+loT03Z13xvS/9fiWMoahzaTmfk/rdArT
-zbGWu5QcJCMBvv02y1P0vx2K4yzq9j4Q44nLgCl68O0XXgXWA7BxwFrlSbKTzwcV
-sjmc3zHlohYfhhDK+8pr7uPO92hWdoxe3prZb3usQNhiLoB05Jp2nU9y3F6yZOCo
-WlcyrujpzHznTEQoKBnNpPvOFWSkm0ADyilcAmfmzW7RQaMb5eq/6hww6AOj3fBg
-vyyUB8S578Z6SDiF+9aaB20pvk/X3PTa3On2L6GQk/OlHljiXpc1xjJnD6WMjwMf
-/eZXPjT42wyW37hP2zOp1sppIgcxkczBfPmBlHKALJGZ58uLprwdOxNXqR4f8TGF
-hdc1fyVO7dGJdLwA2TpYQssK5Yykf1a7J4/Q2pqdXqqLIxygHvM+YA3fnj7SHcVK
-52gualgVZXADHUMCTwaJFvS8HA9RYWBNMmCuoOdnSIjW1dgkLd4LAMvnstjohVhN
-XEeqFwnA87P8KeQFn5kjfrLc+XAN7x7SRIk8/d0o/NGy+8yHEchUpuQCnIO07hWy
-u82hwKQUJ1+ITup9imAYd9jns/pOYyePXUAd/pwb7O0dQNhj4Bs=
-=6klB
------END PGP SIGNATURE-----
-
---67pbkwc2bccukozj--
+Rupesh
