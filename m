@@ -1,120 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398992;
-	b=VmWDJFQMEVUbXdr88krjAtgrbQg+nFceIx605Ylldm74QwrsW+Pj8/3r/niBi5rSOVoN
-	 wz090yQ+NAzPpPWBTBbQuWwI0r8e85TnFY0jvafC1DLI/BLDWUdGc4+bI002qCVXEew+0
-	 PaCfrLDg/yDRr9BDnIC7Zeo3WSq7PxrnabEhaSNrSWiAIaDIJ5bHEoTN+t9ATVaefAA0W
-	 z58s9AdNkOMbtqQJHesdehU5ad0pxwJkcmmmi3n73AAiamZSDOX1DSHbJjB1gWSOceGao
-	 bP6Dbw8o10KkkXMsXAWADOo86DijQaxpkwnsgk5hwy/6tYq305bk0huTKsNLxkqI+Cw==
+	t=1794398994;
+	b=qiQWm/9XY7fcK1LBvcjkjYg9oxMKGWSCjnMOg1qlJ7Xi4JrIq8vO0QSNANnUpGn3eFe0
+	 b/wdmPUiX73OgYiGo8wx6H4W5w3/CMwX19O/oc9fHYzr4IzpcT8YOAv+WrYkkLdlGCqfR
+	 0DwNTrHkUFiaRE1FKX1FmouVwJAgrKdKFCMN/kN7+PP/Gxu7p+jOgZA8MIJaJyBwOhSml
+	 gZzqEEbruSfw+v5WBRQRf48smDdwBrJ88DXSp0qU7bPIqAm3qCpocuDxzp27KIrSPtR/v
+	 I9YjxWLOyfhA1l/BEHKNISwVn21yaEGuDZvxNrTjIjr/XgyIu96JBYLR/Huo7Y0nIxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398994;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=8kDTQyiKQOfIkOGO/u8mg2T8m6Y6HEmmU0F0HKV40UE=;
-	b=Pql9PDWv49ZSqIm9F/7nKYRoowJmggXj21661tEhDUUDRGGmeP35cDuJ9HltWN25H/Nv
-	 ov2ZYZA4q5e9WKE78y25kIhX2bumTPrb469IEIpXByAWR0Jy3C+SPVPHzDPDNhH7nZFQD
-	 KwKMOEBSM0aY8Q7Fafc8BHQ+ozxm+1MWcy3bmwtxj8RYaYo5YD+0XYFX45tpnGd6i/K5U
-	 Ilrupbi2iztlqPohKzl5gZhtLAQTad1czX+4uJl+IIHBVtaAvD6jHGgAijP9a9bTMpOq9
-	 xV88RzpmPx7dViIEZWOzvry8a1nMW1tXO0QCckzaAdAyK7t40p7pKoTMQZtaNCT3CIA==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
+	b=d0aHSsVjHihenWgAAhhKePNqiXzCIUVJ4gLWqZ5yL9H0ZBsq9krZX3HTERrKnX9s01A5
+	 b4UGWTg9oLQU75eQ7I2qJ9J5mcwL5RAchKiptgqk0IUO414BGhm1T2zNIwXyKKJOevREv
+	 9KXxEU7ad26D5S4hbTN+aCWEOZyNwnFVbsCZN06Xr/g2UFQPKFlc1D6xOKXDH7H+S7U3N
+	 Ft1C7IG+OiaBDv2DEeHAQhO4mUizptibuRMlDTAz3dfy6jQxbYpOktO96LVRsl61UNf+a
+	 OJA/8lKVlqzy/7HayewuDK5sNdx6B9qGDj3KxUVYbzrvPUHHHBO7+UC9fajW9qDf72A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k5TWTw6+;
-	arc=none smtp.remote-ip=209.85.167.182
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NzQgpPq3;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038B060A2602
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 038B060A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE6F606A893
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE6F606A893
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k5TWTw6+
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-539a57a0b1fso1188620b6e.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 04:09:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NzQgpPq3
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-82380b0f55dso1405987a34.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 04:09:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794398991; x=1795003791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
+        d=gmail.com; s=20260707; t=1794398993; x=1795003793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8kDTQyiKQOfIkOGO/u8mg2T8m6Y6HEmmU0F0HKV40UE=;
-        b=k5TWTw6+QRchA1PQTS6oYaZ4PuODw3xmmgrU9JTcYXc6nGWjpHL8uSg68S7qe7XTz2
-         oeqEBJrUspxe+o629HHec6dg4bPIG+7wI9+glwyPUFF/iYZxZjTqTO9QxjbzGSOjSONZ
-         FEjhF/qIMBX10Evv376qVg5lfidCBavTyDN0E5tbzevNXotJVr33CrDxQ5FNkACBc/Y1
-         YXS/V0hJ6xz/e7KW2Dh5fsxDh14z4P7rhUrBnYunE/EF2M3y3pNUwpbMvxh40VwgBsCH
-         CoyQuMqM1hyxsDn9wzJFA0cbjJKL9dsJRW1fIKpN1mNhQvI9PpYTrdPdKe0qq2X+aJiX
-         QzRA==
+        bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
+        b=NzQgpPq3wUl1i3FkFxZ5E4mkj9nQ/Kty6du7nwjR+DbkrZWWhFf9Am+gxOfno3pmNC
+         ufRqkQsZs2L9PePy2dgVEohJv2/tffYzvJ/Zka7wR7NRp74XVmgCIRmBAdJPrRXNaGJ6
+         wHXIdlqyE/z575W3jia2OhOzq8f+qxTdyfC0OIcHD5/VkKgv5d/9oDy2qFhdNnoTkxDB
+         YeJLeZANeJI7zdDDTkGT4v8SQUu8U0kDIrwzSd0QLGaKdEtw7sPZTU5yplO2Tzizcp+E
+         BfixZzdaZjdOB4e2BmuJ6UkTHTtUrcwmWZXZuYeDZwOExXSw7yC7bPCQkhxbB97OXVGB
+         gRdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794398991; x=1795003791;
-        h=content-transfer-encoding:mime-version:content-type:references
+        d=1e100.net; s=20260707; t=1794398993; x=1795003793;
+        h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8kDTQyiKQOfIkOGO/u8mg2T8m6Y6HEmmU0F0HKV40UE=;
-        b=zh2WkO7Um+WGkNFyXnmNdYBhKYYfggxbcKuca0pqTmLz2YA/ShuB7OggKExcph0lUK
-         Zeg+sbnP2x2zCzLfbf0EtAwPMRPijqmGds5Q7wKwZL2rxFcRPZXRoOYYzwYvPIIZp0kw
-         OjZghp4VKh2+bUfwhqTRvLilUwHPMEHrK9wlmcMTIIS6Hs8tuuibl4Mg/SmBMrzJQ7TJ
-         WezOxMx7xr2sX/9NX8rmd+duzF/AWGQauxdk/WDYRz8aOZ/vxrwx+bt4yR8+NeT4JYgM
-         oR96s/uAtcsahW0xiMwn15ATOCkQANgiKhxd4j3usx0yrdNuLlJu9i3/oUC9CbCKb1L9
-         aF4g==
-X-Forwarded-Encrypted: i=1; AL+hErHzyH4nI+EP89a/kG7vvmLtlwvkt0K0TGhlqfy4hVl5JBGNoQCbMO/j4fDW5QpQ8Ui/PQEqxyngEhFX@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M41Om5Zls+13GENEo815TFIk8OwFgUCYYYbQ7pKqzgVhBP8p8
-	RrNk29OmIA76gfaxtK4JjqcSeHs9MywlIx8jbK5QzIx/HuJZn9ConPSY
-X-Gm-Gg: AYBFou01vpiEq5lDBSWkT2LZ3Avf5ddNYNRGU6e/9oGr/q6bY3CtNi+RUbsdD6tl4pA
-	ZXakL+w/6/YN31sVE4D+oHmHMrDt9TV83Pio3GkbJP9LyfvFG1MI2SzrBjQZaloJx73+g/OwlvZ
-	JbOw4uec2CEuLotQ/1/zkRhVbiVu3vn3HHMfBAkISSczEFfAdw7YNGrSsxIzCrA0BNq+8fOn0zC
-	JiXHs3uf0spcIbE9mhYR9cuwmaIRDMlgvgRs10AmS9A2SBfpa57aCo7yz8n0Z95m5J7O9r5Lx40
-	YbbE95bKeIZGnXh0Y2L+oZ05UPtSbxxmAmZh1ho5nSIyZyngZGuIS3a9/KaRy1STFa94/Sk6x1G
-	tkhyBkx9YegD+D01kguiuJbDJpxhNasBdFXmN/+ekq+PrsVnurWAAXFFSOj6P2Uhz911IBWK7jU
-	TkXRkKrFGJSMaxfjG3uvw9FOo7oXTVVoaU0suZGPiqZ5lo24ZN/AoX1uJFBY0uYil52v6+9H9xG
-	YSCsx/ugFkJvZbolJvDGib5KXlfsHCBtTIiFH9MwDMfxi9WFD+nhbIXk0eF89+BiV3B50lrt9va
-	1uvHUDsH0Xus8Zz0ylL5vD6K8wJWHh3gPUbl3rd3wc0s0Le/tyHC/DTtIqPDx5FXzyXrYw9JOGS
-	OZvoe
-X-Received: by 2002:a05:6808:244f:b0:53b:1d13:dffd with SMTP id 5614622812f47-56b92c464dcmr1457460b6e.7.1794398990670;
-        Wed, 11 Nov 2026 04:09:50 -0800 (PST)
+        bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
+        b=LhpRnj6NfhN4PUrk3m3vQKFjenb2OVBdOP+7+qeteAMObccgsCOD31JHDHA9V7oGTT
+         /WBYUFWIpQbzi93AXV5k8UON2nk9hjW2hWvNf+Z8cILtEQE5Lq4cbW2CTYnulGdh13Ht
+         CC6358067gbjc7SmRIjV96yDAzdjOoJWO3XO3K68Q3dhONGK+dAcuwSGDO5QB+6DdbPq
+         dj98dB1IdlE/vcfbH1NYe5xtOlSn8dU6VrJMnNWWfRigdH1VTIHj53i+JVlXU8I47ggk
+         +Do1aJ1tKIcEc8O4ChGYfCdn7CMdY9fuNCqBkJVrWqgRZ509pd4Tt8MKnt3YggQ/Zj6e
+         Ez0A==
+X-Forwarded-Encrypted: i=1; AL+hErFrF4b3L9azEU9MquReth1a1KzJsCgNbE2NNNlGMmsRU99TaIaWbvTrrrgR+/8BnidGeZ8EwDPiC25o@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ELbiIfTMpozyhSms4mxo+p4g4PAADvAc9bOwzBwiZyoGtebtB
+	Viq9ZPHiMUTrVHY0aWIwhbhX8y2RA79bmOf/Zwr6EocKU5en2PDCQVE0
+X-Gm-Gg: AYBFou1JW0yhFT3Zop7cku7Gtd3b6wvCgpIK0gWqr77lKtLsV+3j8O7KbIZzWfv7zsW
+	DLmTyk4zpfz+AYih/9kU0ov16L4xw2VrVh86WBVwBKm2hv6uFLJ//XCQDRFHXsOFCRYH2RVyNZx
+	7OY327kV5Ta2yaonzaXIP01d9y7h16mge0HKqFLFBuKktLyJECK/5x+2GfduoxmecFEVSV0T0WY
+	cqmuMzjklQtwxS8kSzCNidY+fHyX3R3tDppaCJ/F21BrXJNn+K14Gb1NhjEdZXnoB4eTYtL3TJG
+	lAUOBS7G/qNGp9r7ceFzECwBf0SuHL8ueFY4PApesQWQy3La02JgpnJwQV/PTBboSrBPcutuMoQ
+	IhtDNi/Vr6wxcS6YnXFTLkRUP9itdrRe4Tj575y4LlGT/zIc864+u2rjy+RHq/rMPqJQoU7Itoy
+	AhZTSJNjy0aUSdw+mvMqT6Ck9bd61B2+LdoHQ840R0rkgcYRJfPtjZY2uqccZvCtt130Fp/zawz
+	V4ncvxKVx3YGTZnRIMOonI9EeXuu3foLaPLNBcz9f1ScRyFEeax3siaG9+kQmFY1oHVc/SKxKtU
+	+tJ6YLixzKJEZ7jyJ+zcvOnHCJBcVRiruAj81ic8znXNNY1pFV15Ejxj0nvVSyBkWaBlhcRxMLY
+	whp8ax3dx47qoucb3blAbPnhh4A==
+X-Received: by 2002:a05:6830:25c6:b0:829:8a9b:de79 with SMTP id 46e09a7af769-860f268b747mr1620889a34.4.1794398993361;
+        Wed, 11 Nov 2026 04:09:53 -0800 (PST)
 Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm4958534b6e.3.2026.11.11.04.09.49
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dc85a9e8sm4218356a34.0.2026.11.11.04.09.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:09:50 -0800 (PST)
+        Wed, 11 Nov 2026 04:09:52 -0800 (PST)
 From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: junhui.liu@pigmoral.tech
-Cc: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org,
+To: andre.przywara@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: Maxime Ripard <mripard@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	netdev@vger.kernel.org,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
 	Jerome Brunet <jbrunet@baylibre.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Norman Herms <dockseed@proton.me>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Subject: Re: [PATCH v6 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-Date: Wed, 11 Nov 2026 07:09:48 -0500
-Message-ID: <20261110-a733-fwclk-junhui-reply@gmail.com>
+	Pablo Mazzini <pmazzini@gmail.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	Alexander Sverdlin <alex@sverdlin.org>,
+	Jun Yan <jerrysteve1101@gmail.com>,
+	Lukas Schmid <lukas.schmid@netcube.li>
+Subject: Re: [PATCH v3 0/3] arm64: dts: allwinner: add A733/Cubie A7S support
+Date: Wed, 11 Nov 2026 07:09:50 -0500
+Message-ID: <20261110-a7s-dt-v3-deps-reply@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DMQEUUHANG74.30N8VT6UGHO0M@pigmoral.tech>
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-3-ae8178fce7e8@pigmoral.tech> <20261103-a733-ccu-v6-fw-clocks@gmail.com> <DMQEUUHANG74.30N8VT6UGHO0M@pigmoral.tech>
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <cover.1794227241.git.enzo.adriano.code@gmail.com>
+References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,45 +115,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 8bit
 
-Hi Junhui,
+> [4] A733 8250_dw v2, patches 2-4:
+> https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
 
-> I'd prefer not to mark these clocks as critical just for the vendor
-> firmware. You can see my reply in v5:
+Correction: the runtime dependency is patches 1-4, the complete posted v2
+series. Patch 2/4 needs context introduced by 1/4, which is absent from
+v7.4-rc1 and the checked tty-next and next-20261109 snapshots; all four
+applied cleanly together.
 
-I agree that native PSCI and a future OR100 Crust port are separate from
-the vendor SCP on E902, and that future E902 remoteproc/mailbox drivers
-should own these clocks. Vinicius's native-PSCI reboot report used locally
-modified TF-A on A7Z [1]. Upstream TF-A still has no A733 target; its port
-is under review [2]. The immediate problem is that the new CCU's
-unused-clock cleanup breaks reboot with the firmware these boards ship.
+AXP318W PMIC v8 5/5 also needs a context-only change on v7.4-rc1 from
+sizeof(*desc) to sizeof(*new_desc), introduced by b53a09c957b68.
+After IRQ-bank v3, pinctrl voltage-mode v3 needs its hunk context adjusted
+to the IRQ-bank map; its voltage-mode change is unchanged.
+The older clock helpers are already in v7.4-rc1; no other input adaptation
+was needed, and DT v3 itself applied with ordinary git am.
 
-On one Cubie A7S, RAM-booting v7.4-rc1 + CCU v6 + DT v3 and its dependencies
-with vendor boot0/BL31/SCP/U-Boot and no clk_ignore_unused, the run without
-critical flags stalled at reboot -f. With only bus-r-riscv and bus-r-msgbox
-critical, two warm reboots returned to vendor Linux while r-timer0,
-bus-r-timer and bus-msgbox0 were 0/0 (enable/prepare); five flags also passed
-once.
+> Untested: boot with pinctrl v3, card writes, hotplug, 1.8 V switching,
 
-> Since you've already submitted a separate patch adding these critical
-> flags, I'll leave that to you.
-
-I will narrow my separate patch [3] to bus-r-riscv and bus-r-msgbox.
-Chen-Yu, Jernej, Samuel: would you take these two flags as a separate patch
-until E902/mailbox drivers can own the clocks? There is precedent in A523
-bus-r-cpucfg (1dba74abf3e2) and Meson AXG fclk_div3, kept critical for SCPI
-firmware until the driver claims its clocks and a handoff exists
-(drivers/clk/meson/axg.c).
-
-I have not tested power-off, suspend, either flag alone on A7S, or other
-boards or firmware; Vinicius found either flag alone insufficient on A7Z
-with vendor BL31 [4].
-
-[1] https://lore.kernel.org/r/20261011200153.575096-1-vinicius.eduardo.pedrosa@gmail.com
-[2] https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/55200
-[3] https://lore.kernel.org/r/20261031020640-263f7b05-a7s-clock@gmail.com
-[4] https://lore.kernel.org/r/20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com
+DT v3 with pinctrl v3 reached an initramfs shell on one Cubie A7S with
+vendor firmware. In these boots, warm reboot returned to vendor Linux only
+with bus-r-riscv and bus-r-msgbox marked critical (firmware-clock patch [5]).
+No card-write, hotplug, 1.8 V switching or other functional coverage was
+added, and no new schema check was run.
 
 Thanks,
 Enzo
