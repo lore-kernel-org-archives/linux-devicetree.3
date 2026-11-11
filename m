@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428105;
-	b=fm3oF4DJxIjOpnTpbnJ99QnuotZWXGbhdWN7yoWMvj55Fek4fDPnH1egoB0It7wZ9fcI
-	 k+kzpPi0Wg++p1gZHQyIANy5vi6684QDDJxEO305Jd7vUn/n7ija5vmiIr0f9aKToAib/
-	 DIaQXb24YDS89ytLZI2HVjPLD3PbEmIKp+x9eAcXgFzoxR5Ga0brpkmOaOxlPvtiDnEQP
-	 si1ZyaihGD1Dvf6qmGepdjHj0eTcjlU8LFWjloFUEIDtppJxdpIJSvvElyWhAM6NMyAoO
-	 up59eloTzttozjJm67wy6zHumQ9NxviG3F/UTq1eFKpVasAC1xpz+KB7Xdk+5WJRdNQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428105;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wjqQbn4a+7dcLaWn2FPIKO3ZJVxZraaaMz1re4KgK1A=;
-	b=kCbrw/lRxGsUJOI9f+WNRgZ2GSLaJ/Nenu+RWJnYjZlED1aakdNSezzWRUY/fhhcNq6F
-	 n98CZkVvKAqTRSNDkBTwTofLxMCsCK87OptY4rqSW8TGBIcclf32aNj7Ot5Vcpj2qia5k
-	 LRGpC5JAC81mGZuOQ+e9VR67dAdGIMo1XlkLJ9Lb1Qh+tzSQPSfXe0OCuheAZCkrqHB0L
-	 PEIp2Aw2+alY+mu+tdyREwOZO6QTcrQecxUK5Wu3uwdOM/uTQhpwrSVs/r7ChPckFA0Q8
-	 ovgTkk0pMMBoDII9/o6VasPLUa7al4X4sk3WnJzrJVLA384n2k+W9XkMfBstJvQDy3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6emHhNX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794428120;
+	b=PyeiHtocxx85Zvup40rHRJS0Vdz+oAWwWluUWmdeXX8SsSTnHBfgPO2pRf2g9UkzRA62
+	 I5jjYoMvqbSuR07u1PRe1873MElRZrSOQ+8Ceio4bGqTsaQe8k7bU0+TPJuj32LR0BoBk
+	 cY5CIJe3kaYeZ7Z7EhJnDLeYrGL03ge8UeSvpLeGwGyLdpWAbyO53r5eO6W5aSQ+diqZm
+	 /vd7yUUrX8tdaXEgtfu5p+xCNKFUTMdbmRprxmyUkaPYZc5GYxkmNWteLY4gqt2OW6ClI
+	 3jK9eq20JSTofeVzNKvV5Eif7oaf5twV6yb2oFdy+YLGrORSARp4llPADjE5w6mvfSg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428120;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XmHa+ZCqDWyS+5epYzHHmaI7iRC9gZC9M7WLrKl+6IQ=;
+	b=Qg8FaTy4EZ4eMQ9gu3gSXs1tPDufIvewxbiBQTFUODQPQsSlj5wP6BkqZbI6hS3Gp6hN
+	 UDqPWkQMsc1lj3o+d9fcmNPkbzIap9UUngdBXn3vQUX36gUqpw74IeweLaJTjm16YXFMh
+	 gFSIMBkMKTwOqGNTbXP7ftonUM7GLaPDS0RFzi7zF9SpfkPxXzGT+CGc5wIpaRMg/1bni
+	 uau81OJYEUUMhA3tns4Y0nFncQDRMnQP3mizi1ui6Aju2KJhTbVjMUbhRzZg9SIwjK+eH
+	 TIhm2+SsaO8dpoYxdDKUoABq27XsSvub9lofZV1vWIyb8TMu7ekZjuP+Gxlw94pbRtQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iQqhYlpi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD9D606A31C;
-	Wed, 11 Nov 2026 20:15:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09CC606A324
+	for <Devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:15:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C09CC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6emHhNX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D291F00A05;
-	Wed, 11 Nov 2026 20:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428105;
-	bh=wjqQbn4a+7dcLaWn2FPIKO3ZJVxZraaaMz1re4KgK1A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d6emHhNXgvYwUNGnqFeGgL8AgXDYL/Y2EDDSIF/ZdjHHD6TBHjdsWiQTLaJ5vsKQH
-	 wL9RFXZtDjERN/VWDmJJ/SAZ1CwO3aj7BcJQR+4a8W2YKpIMiHpGRLZkZ9sH3Wpv1u
-	 fKp2NtemAoNvjEF0q3Ss4Ziee/scbDOYDHXVnqyefSPlxvMjSE62kDxGSQ3t3JdWzV
-	 r66naiu7Bri47E8sJ81TFJwlQcnv2vzXX3S2G31sZpingVc5wbgs940NpOvNTcJJz2
-	 /ooou7aDsNj0nabk5/t03MmPsrYL0qZOwMAKoTlgBTC5lBVFsizgo67PA2iWJ4uSw/
-	 XV0AHP3hmrVEg==
-Message-ID: <sashiko-outbox-209624@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alejandro Colomar" <alx@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
-References: <cover.1794425425.git.alx@kernel.org>
- <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 20:15:04 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iQqhYlpi
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4c9abc1824so503391966b.1
+        for <Devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:15:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794428118; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V/16bPH4dEdv5FGlEc4+sXSFYBe4K9iW1CePZzZrkgpmUg040QUcwjjbgOAcm72x0T
+         VF+oE4QgFCo1COuupZKxk/194zh2uR7sKJ2HtFRkRxuQQ+VZgFs4hYxdSSYVoFkmO/xP
+         Edzc1qeOxZfaieuIZE5/5Jr94S1zb1INsEXLVkXfqYwP+Qv9mWVUWOw5x7TR8hBKMO0Z
+         t6589npDAkfxt2goOHo/FxOFaJ9LFyE35tIcC/r/GdUWWuLcmWY1AwLJIOqpHdixfQs0
+         acbRT8s/fs9iki9UeLaDx8MPphwwamk5GnGWWjQYtILuRqR2TxJa5+isEKWZ9ybXJZNR
+         M+fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XmHa+ZCqDWyS+5epYzHHmaI7iRC9gZC9M7WLrKl+6IQ=;
+        fh=8shIwSz3xaDtH76739WBKV1wl19kWOsFffT5YW8PglM=;
+        b=qDhUGL5u8dYPUqAgqcxkbSV78iFxt/B8RB6AAB5fhqjfd71yyacUb8gjtdrrs+oK0E
+         YplEPVylGBV6aNcSzN3u9D7OBrHqDzJq1MdgsJyOSJqZx0KWMrBeMlu0ZhLTbM9W9b2M
+         XGtIb7UNSEqBGTJ3nVC/S89Vcvy7ZqjayDNSooDULNy/cP1LIexq7UF2s0ATJ+gLnUYv
+         POcWsxIeaL0Grp/Ev5NdjzXzQdNF1UIOZLKQkJJ2s1q01V6SQlkoNWRc0oM9an/4RA7w
+         iQf+5abgbCzaQ9MEmW4wpPR/kM43/svoIyjmR/2DdSrG5AGI1N8UD9jH5xxz2SFygzDC
+         BZRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794428118; x=1795032918; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XmHa+ZCqDWyS+5epYzHHmaI7iRC9gZC9M7WLrKl+6IQ=;
+        b=iQqhYlpiDzFnw6ASBEjBccgiaVPkZLP1FAaSdtAEVe5kR3uRwNmNV1nIdylZJvsqlT
+         G01QdTGkMev8XoSkokAVURNlnVoMEgNCcVOBxXWGIgQnskIgoJAoZT7LNXfrWtBHsnfb
+         pLw5xoVF25+2rFnQpLCVi7mdFLVBUyDPoA0zI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794428118; x=1795032918;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XmHa+ZCqDWyS+5epYzHHmaI7iRC9gZC9M7WLrKl+6IQ=;
+        b=qgPbOl+ogpn9mgXG8hjX/lH+KVRzdmjfpEKgoTWah/SFa+O3JImmEtQbph7V2HMZXq
+         OVKYXGJMhUCWezkCTf4mXW4Us6eTsKrngjPtGcviT9b0HbgXc6jTPGar4RTryMxzf1kF
+         NLg53EW5EHUxjOnGYMt0oM+lNy9xAtHbN2TA02DuXFXUIJ/+SqHBdEfJpu6BO9CZjX3R
+         tjaodWFxvNzCPEWWzs9m398/fKE1OlfwzeeVT0ihB7zUoNH+wCHeHBR/9INIj2gi+8Cc
+         VdzqP1OgM6zFq2Iyvby6z5i8LyzMlg+C+y69ehObgDPaYCcn8r4MSz3wUnA4enPyh0+4
+         ZUHg==
+X-Forwarded-Encrypted: i=1; AL+hErGdpC0Z6GS6xL60aeKBF0GPsibfiuv27ESiTdLc75T7GyfWvsA8QWvcQP77XRASl3rnVrvF76thWsYb@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AkHUhIiUnudd9VrDD8PqmwX6O8J7jhCqQTYzhRoQiGLuF7wlF
+	BftxPOL06fM+95soB/lc3TBtnDObQ7yOMm7a8iXIIe1/Z/B/4GJ+hE9BPeRR4YhPQmPF3uWYD5W
+	Is0uZQAapc3h+prc0b4haCCqmXIEz0Za95hy3UYbw
+X-Gm-Gg: AYBFou03gcsaoMW5snEZjy71XsrkpGBQOE7eDrK+QEXghxI49V8vqumlEs3eNjv+mvm
+	/i17QgeWsTu0Q0bZMUbEb9lD5h6jjIZUkLBFUsCgTl+8/Z5ZurnkjoJVU4x8Ao+Sm44uwHYE8II
+	GNjAbMY7WCu2JjSjYS9YYRhTmSZONzH5OXtO/NjBDiUUcrc0eEChh82t1qvylRybT4Bb3khC0hB
+	PA2IzBNNCK23S81nE9DNldrNYCXxFmGY82xK+DwImrrQTI0oalporpEtCXvLC3pyPV6jwjbxvXI
+	vinO5xiVJQYdMXrC/vMCQRGg1iffm252W4/4vSYFivad/hGE+pE/iR3wf2dzx2vgr39SJeqgYnv
+	GnelGXAO2ijAAXUNqKrSTnmPqjRZ9/LygXSuo/MfuAsfoI55fGfVymSrCb+9bUMKpJROgU8Ee1c
+	VTiLCSI9Su2+nhbJKK9MOUCCXCx6oAjuGwr7HMNIW0PS76Ub5H
+X-Received: by 2002:a17:907:9454:b0:c31:8cfe:9a25 with SMTP id
+ a640c23a62f3a-c5066a82a5emr284901466b.9.1794428118138; Wed, 11 Nov 2026
+ 12:15:18 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,59 +100,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-8-dianders@chromium.org> <CAFLszTgY5oOMYQjsk2sg-8w88uKq2hOqEiF4o5iAi5pMC8TZGw@mail.gmail.com>
+ <CAD=FV=V3CMALQsKUc-jDzvsH45y_h4hNxtjYXxaHOwyCsZ3s7Q@mail.gmail.com> <avPZeSgU8ABix34f@gractus.seuss>
+In-Reply-To: <avPZeSgU8ABix34f@gractus.seuss>
+From: Simon Glass <sjg@chromium.org>
+Date: Wed, 11 Nov 2026 20:15:06 +0000
+X-Gm-Features: AclHuK-kOq9TFXAlofL_aQgLmTwNgVeU9jF5L7666dJWRKAUQkobhjJQaDq30ws
+Message-ID: <CAFLszTiUYv2rx2OzvLR6UyO-uoya0WthPsr+oohQtCa+_itZsw@mail.gmail.com>
+Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree representation
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Doug Anderson <dianders@chromium.org>, Devicetree-compiler@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, Julius Werner <jwerner@chromium.org>, 
+	Brian Norris <briannorris@chromium.org>, linux-kernel@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] string: missing linux/bug.h include for WARN_ON_ONCE() in
-  str_has_prefix()
---
+Hi,
 
-commit 544547ef558a49b7dbb876a077fff7f7bedc8b0c
-Author: Alejandro Colomar <alx@kernel.org>
+On Tue, 10 Nov 2026 at 21:16, David Gibson <david@gibson.dropbear.id.au> wrote:
+>
+> On Fri, Nov 06, 2026 at 06:43:18PM -0800, Doug Anderson wrote:
+> > Hi Simon,
+> >
+> > On Wed, Nov 4, 2026 at 6:08 AM Simon Glass <sjg@chromium.org> wrote:
+> > >
+> > > Hi Doug,
+> > >
+> > > On Sun, Nov 1, 2026 at 4:02 PM Douglas Anderson <dianders@chromium.org> wrote:
+> > > >
+> > > > Add `devicetree.py` providing `DeviceTree`, a non-flattened in-memory
+> > > > representation of a devicetree node and its subtree:
+> > >
+> > > Please can you start with the motivation, i.e. why a live tree is
+> > > needed and what will use it? The list below mostly repeats the
+> > > docstrings.
+> >
+> > Makes sense. In my draft v4 I've updated the commit message to lead
+> > with the motivation and condensed the summary so it doesn't repeat the
+> > docstrings:
+> >
+> >     `pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flattened
+> >     device tree blobs, where inserting or deleting nodes and properties
+> >     shifts subsequent node offsets. That works well for in-place queries and
+> >     localized edits, but makes multi-tree comparison, structural diffing,
+> >     and bottom-up tree construction (as needed by the upcoming `fdtfactor`
+> >     tool) awkward and error-prone.
+> >
+> >     Add `pylibfdt/devicetree.py` providing `DeviceTree`, an in-memory live
+> >     tree representation where each node holds `props` (a dict mapping
+> >     property name to `libfdt.Property`) and `children` (a dict mapping child
+> >     node name to child `DeviceTree`), along with `unflatten()` and
+> >     `flatten()` to convert between `FdtRo`/`Fdt` blobs and live trees, and
+> >     helpers for path lookup, node creation, and pre-order traversal.
+> >
+> >     Add unit tests in `tests/devicetree_tests.py` covering `DeviceTree`
+> >     round-tripping, subtree unflattening, duplicate-name and corrupt-tree
+> >     rejection, and navigation helpers.
+> >
+> > > > diff --git a/devicetree.py b/devicetree.py
+> > > > new file mode 100644
+> > > > index 0000000..f81b8fc
+> > > > --- /dev/null
+> > > > +++ b/devicetree.py
+> > > > @@ -0,0 +1,226 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
+> > > > +"""devicetree - Non-flattened in-memory device tree representation in Python."""
+> > >
+> > > I'd forgotten about this but PyPI has Zephyr's python-devicetree
+> > > [1][2], which installs a top-level 'devicetree' package.
+> > >
+> > > I'm not sure what to suggest. Would libfdt_devicetree be too awful?
+> >
+> > Right. I'm OK with libfdt_devicetree. David: do you have any
+> > objections?
+>
+> Don't love it, but can't quickly think of a better option.
 
-string: Warn if the prefix is the empty string
+Would libfdt_tree be better?
 
-This commit adds a WARN_ON_ONCE() check to str_has_prefix() and documents
-that passing an empty prefix string is unsupported.
+BTW we might be able to change pylibfdt to package (and even call it
+libfdt on PyPi), iwc perhaps libfdt.devicetree might make sense, down
+the track.
 
-Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop=
--v1-1-6e28fe1c72c4@oss.qualcomm.com/
-
-> diff --git a/include/linux/string.h b/include/linux/string.h
-> index ec6ca50599fed..8e6b78c6196a7 100644
-> --- a/include/linux/string.h
-> +++ b/include/linux/string.h
-> @@ -561,6 +561,10 @@ static inline char *strprefix(const char *s, const c=
-har *prefix)
->   * This is similar to strprefix(), but returns an offset instead of
->   * a pointer.
->   *
-> + * Unlike for strprefix(), if the prefix is an empty string, the
-> + * behavior is undefined.  If you need to support arbitrary prefixes,
-> + * use strprefix().
-> + *
->   * Returns:
->   * * strlen(@prefix) if @str starts with @prefix
->   * * 0 if @str does not start with @prefix
-> @@ -568,6 +572,7 @@ static inline char *strprefix(const char *s, const ch=
-ar *prefix)
->  static __always_inline size_t str_has_prefix(const char *str, const char=
- *prefix)
->  {
->  	size_t len =3D strlen(prefix);
-> +	WARN_ON_ONCE(len =3D=3D 0);
-
-[Severity: High]
-Does include/linux/string.h need to include linux/bug.h for WARN_ON_ONCE()?
-
-Currently, include/linux/string.h only pulls in linux/bug.h transitively
-through linux/fortify-string.h when CONFIG_FORTIFY_SOURCE is enabled and
-__NO_FORTIFY is not defined. Because str_has_prefix() is an inline function
-rather than a macro, translation units that include linux/string.h without
-linux/bug.h (such as arch/x86/lib/string_32.c with __NO_FORTIFY, or
-lib/net_utils.c when CONFIG_FORTIFY_SOURCE is disabled) fail to build with
-an implicit declaration of WARN_ON_ONCE().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794425425.gi=
-t.alx@kernel.org?part=3D2
+Regards,
+Simon
