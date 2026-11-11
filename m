@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794412976;
-	b=EiqTOvGgRabsfPwnTTjEX+gW7vyP8Lv9yWGcBCoyJMLjQqQbPigDBY8KiLDpR7qTjXXu
-	 E7fq/WuBkPHm7/b/Zta05Zm9J9OTut4xvgeXVzWKkwew/kxjAqp6I9ZU3kxzz3YVuXJ80
-	 NSnT+ID+4WyYq1KI5yGGYD6j5yN1hqMb5WZ7goF5I79hQXsEDT8SqMFehLmgMETWuc0be
-	 aCC9md8yV96vEdkT/LJ7zdXqCtS8VyBqP4tNeesSybjs+EjSiMMz4NbYMHj8xOiIRaCwo
-	 vWcz9Y+2fEbEuU9hBVfgePcYbY08ApbqwQ/bs3dm7Nkjw76d35FRibdL3XaguDeiQRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412976;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1MTb6+K+DiWbXH5syUxf48Q0aYKAf9KtSh4KBDlK36M=;
-	b=3fBTrGtaLDOuWCATFz8wkvgKk28gSbisXsiVxf+EpbZV2rE/xEFOXcL/mKzPEnu3VfP9
-	 A+MXB3ajk/8d9cc9E9KGD2ihpDTvplnV7vAhf2t7sgckjjcD9ilV3p9ESt6aBlMTOo1jt
-	 1n5FcDH3qv1BmkHGsWwX/hcjg7w1W+gYtWb2rltO1vyO5/kx6iRcUpnwYtTBrvFYADtgN
-	 TkLTQLcFucBxKKF/83qDGCtEV5K/vlyRKY0Nm6NF9hfcNdiFkWqLPZFlMljsgLFLw4TJl
-	 qc8diu7jMDJlH4KI4rpVu0iG74f/BgO3YU3YUnZNzHIEzCXh6Kfl8lnMvL/kc4tz5Gw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKJ9UTQl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794413572;
+	b=ZpKWr/S2BvhwO9vuPBIGx3KzIXio5XP/vBnyBGHPBke3HDWaz11whpKM3Kg/66LYD0gS
+	 B0uaiErOT8+4MQH6bDK5r5tVrLbaIeMf6FZpkZ3cKolrO3fsg+RBqg8j3qli0DaZEdv+E
+	 ISOtaMj3hSX+4NCMvYyctvyk1pPx7mbvSz/ic4MbV4jJr0lWB4Rh5GhMct7B7/udHYNUx
+	 FbESK6YtlzY63zPE3q/ZYrH9jQyNZZ4Q7LrniBtUrAFZZ6TJXj+GyrE1B67a78t11b8t8
+	 4Kd3r55Sz5uY5tTECk0+JL3mnjBfILfCQEkyHCRNymwkFnVuYJKqIf0d/D1RCr4uxiw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413572;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sc9351bx1zjr+g+v0BgDeETe9fz3Iu4MVnFI+1Xd+Dw=;
+	b=gAEsa2cXNfL+cZRvmRu0+ikaMX5gNTEQPlxaUlOD0pVHRE2UhzJIHMfpsmey4y1HSQG9
+	 uROcf2fSffXdqFKqqgSKnGRA18KqUcuBIyJgOqcg1rcf6x0+/KNmV8M+IYZIEQ1wlGqHz
+	 BNs1n4qAoZt0w9h8mLYCMb/OyB/vMXlarwVl151IVEoTt6okOOVgJMcg/wanYAyFU/rEZ
+	 909xuddIjkkbY7Of09jDN4ctaFQbN6ZM8nfmbn4CCxwXlqutH0jyXHrlqzDhZaIyiqTu9
+	 WRw7hs5/ccvQ/EqY/MDU7IRHIaAU84ONJSxwnsLEsuv6YA+xI/YYBZmXcUzksqWXikw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXHf3Tyl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66FD606A32A
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 16:02:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A66FD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84308606A32D
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 16:12:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKJ9UTQl
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-679a2b5fe87so4022254d50.3
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:02:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794412975; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CbM3glI78hUXOR0MZMGXAhA/PZu83/8Xv+BoiMgnpjko3x8aReIk3UUkO4C9oSWZST
-         uKoEvcnP2Jwil1Ibd2Bvp+/SLjIKVk9OjNZxnnp4rJEnr6nFHtWAI/JuWZGsCPkw1Z+j
-         n5ovy2nEPr0letDeZs66HQaiXKpzJnQe+CUMhFQ42zerv6D2WqYYXpNtGFu00fZB5Gzd
-         XR9MG4k+yr46bW+DO3771wEwPdAKmF+74k+BMpTKPvUM+bP59JoOlIF02aYEStl4uQ+v
-         yGds4OnRw+fFF1wGuzU21owQuvbAEnFOJTr79RXDZeJ74EOxJzWZzamIGykUn+W5Ml4J
-         VZqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1MTb6+K+DiWbXH5syUxf48Q0aYKAf9KtSh4KBDlK36M=;
-        fh=DMa887qyiu2AfPYYxlCBaJc8i7JsjQWq9Yb/QsFkjCM=;
-        b=IILRpxVkEv3iliPsjL5c3VvRdpLU9LlCZhEFgfKI4s/mnahwX9erxqj1LifbFYBMZs
-         730ByDsdmeMAkG/okEWdJoOAE0HtvYEo5OOXRfmvNz+BJrOW2TmeQi7CDPheqbWgsvbd
-         nOyp/83Q1DYM2lTOlk6cApd3fiyS2oLF0avj98SvK9OpV4eiQxxze6rtR7MszL8Ndv1M
-         c6ApCB1PoydxMY3tui11sIBp8wzornPr73fNjptojoC7TYJFnDrtzkuBk5RqVcLa702O
-         ZaXrOtwP931vgPiez1JunMVnIgn/A8B600VYqF+/EXYQvdhJ3ykMGLvclBLG2utcvGyB
-         MgZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794412975; x=1795017775; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1MTb6+K+DiWbXH5syUxf48Q0aYKAf9KtSh4KBDlK36M=;
-        b=FKJ9UTQlkrpHd8aeGx0d+LfMWpdS3QS9TXfFNCiStn36JKFVzAHmMK4DgPyjQLCbxe
-         4Yy85tuKfsUxjhpsot4j2CyPm3bwTG7QcrgIW9oNa+8BJQfCzFg5VnxmLS7y6oJvgBfn
-         VaQKBuTMK21izUqJTD5060QhtlStG7L2P83NhZ6t3CLaktB0l0oYDHStXijKSIMgJ940
-         5DTHy5VKDa181kLWtuC7tm//wjmNVhoLdo8diOMuOIxd4PSR83PPwqHIsOHuNfJ/VD9K
-         IQDRdXrELU4dQZOw81p+yE3KAeHqlrCgocrjVYrPYM/pxE9xgbYVSFnE9YchtIdy4j17
-         lnoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412975; x=1795017775;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1MTb6+K+DiWbXH5syUxf48Q0aYKAf9KtSh4KBDlK36M=;
-        b=rCaGVKAxfXiw7BauVCxWoK7bPQwpm0ghAcMFlwBXXKNUTefEJhLLPWKRrAxT6v5k1h
-         LuyH2yJims0youSMwyvtSOUtR2dQuCR7A0zvLIOk+0HUQvwHTqozRnGme5qErNC3q6yx
-         nHfpE4+pAes1xjQ6ekTZsrIhUsc8UNM9xC5/7HwqXFOl5TMQIb9AtvSQkGAJqy+8JciP
-         Si3hw25JMyNJuGz4tDjrClRjGTsRyO3iO+4ljFLiuMZZwrhdkNfDyOszJQEA6GlXqCgN
-         PBEEF3W3iOEOvf3OWG7pmTN+SqTcH6Os66yhdJX2ycfE4oJ7A1Bs/0PSDAeh4uRE3Bv5
-         zuSA==
-X-Forwarded-Encrypted: i=1; AL+hErHmsT30ufh7s1ONujeh1UiMKU8LdYy3V7rNyY9daECJcNfb/isiRObSgc+4YeMA+Y58wQr+ztzmSwDz@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bgOovhig7togVeAVx8m5eVIzX8A5f+Tj5ivhooo2Bwaj5U2Zo
-	LYW2ZLzI0A0O3iGp6SpDe616QY0AhKODUzlnWI1Ffb5W5B1v9mG8ZpK1xib7trj2/9siO3eVmzR
-	QBnj2DBEqOZAYS5xK6XwH99bVKW0/A9k=
-X-Gm-Gg: AYBFou3yRPHxbSahbY+TYs6uGT20nA2dNzXaUBkmOqRCXis1SjqpRIC6QFgDPD/Hq22
-	goePX8JnKHj5v1SDWphVkJ/0TGhbO7ePx18rOf7A7bEoLX/fqqyUmCDJ94qGUblhge0o9mwgzrd
-	WeyTwhm+6jQMZzZ07xyUfD/z8X1T7SEeWHbPG9WQd13Codh8JnPnE7NJ1AFwG/NscwuEIjrZ3q2
-	4LGlaRaxdfQQgF5kPm6TyJXH8qOWQMgw4OqTqrjzYUpIMbK+KG5jNI+zh9VcpCezl+E+qE644kP
-	PNyhPmPM5vNkL5SNhYfq923e0b7r6aKeJFvQqffkoRqvqalhvdUJYSyYuwyqT5yKlxka+1MhylG
-	SJa8BuBjALVqHX2HlbEe05BwT26owK9BTYL9+RbfAVrx6NdkW74l+PPQGJmew/YRFxJUqdg==
-X-Received: by 2002:a05:690e:169b:b0:67c:33d9:7927 with SMTP id
- 956f58d0204a3-67c67cb7cd5mr1503453d50.12.1794412974424; Wed, 11 Nov 2026
- 08:02:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXHf3Tyl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB81D1F00A05;
+	Wed, 11 Nov 2026 16:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794413572;
+	bh=sc9351bx1zjr+g+v0BgDeETe9fz3Iu4MVnFI+1Xd+Dw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UXHf3TylJVBytkYrm6LM9xDxLDmhhaG5Yw/PjRssk6Ivli2thWvK5Hqnus1nTLpiC
+	 AQb04RDAFV79b7nIHGHowcqfOa1bulzNCLt0hpcIOcZBAlSVRMCltZ8qNyhOLbQpJF
+	 VRcQd8NYfOA+6eg3kHagKaaF4F0XfAJ1bHW8CGWEGVJ35vvkbk+W7X6AqQdEYB4FwJ
+	 7zz9h/3GhHqUI3Ya7UNTje/MU+EpQIg83M2EClG7KedEPBkf9GeIPzO5sWnTHGH/wh
+	 8sKXem+7zZAZuceKaPGMCJJd1w1VgGqkzr/daQ/YVlXR77YTp61z7vBmkBSTLJ/T4J
+	 zj1Lr1pFBtBZA==
+Message-ID: <sashiko-outbox-209263@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Asdlerto Korry" <korryasdlerto@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com>
+References: <20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>
+ <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 16:12:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,39 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261107-lm3630a-led-max-microamp-v1-0-ec9e441d9b2c@gmail.com>
- <20261107-lm3630a-led-max-microamp-v1-1-ec9e441d9b2c@gmail.com> <20261111-cute-impetuous-otter-0d70c2@quoll>
-In-Reply-To: <20261111-cute-impetuous-otter-0d70c2@quoll>
-From: Michiel van Beers <michielvanbeers@gmail.com>
-Date: Wed, 11 Nov 2026 17:02:42 +0100
-X-Gm-Features: AclHuK-qKY6zTrJn_1i0uQfpLRmaZpJ8hHHbOyKs16JHL3o_cT2giJuDjxuxfRc
-Message-ID: <CALcvxfH8N554Pn3uN+cms5zuq+LPGj4rnV39-5G3G9yzhXTfgg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: backlight: lm3630a: Add led-max-microamp
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
-	Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
-> On Sat, Nov 07, 2026 at 01:13:54PM +0100, Michiel van Beers wrote:
-> > [...]
-> > @@ -77,6 +77,14 @@ patternProperties:
-> >          minimum: 0
-> >          maximum: 255
-> >
->
-> I do not see in this node reference to LEDs common.yaml. You need it for
-> any common properties.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] power: supply: sm5714: missing MODULE_IMPORT_NS() for
+  IIO_CONSUMER
+- [Medium] power: supply: sm5714: NULL deref on fg->psy in
+  sm5714_fg_get_status()
+--
 
-Thanks, I'll add the reference to leds/common.yaml in v2.
+commit f1f865d4819006729764f420d2f1ef002104e726
+Author: Asdlerto Korry <korryasdlerto@gmail.com>
 
-Warm regards,
-Michiel
+power: supply: Add Silicon Mitus SM5714 fuel gauge driver
+
+This commit adds a power supply driver for the Silicon Mitus SM5714 fuel
+gauge, reading state of charge, voltage, current, and temperature over I2C
+and an optional thermistor IIO channel.
+
+> diff --git a/drivers/power/supply/sm5714_fuel_gauge.c b/drivers/power/sup=
+ply/sm5714_fuel_gauge.c
+> new file mode 100644
+> index 0000000000000..531583fb211bb
+> --- /dev/null
+> +++ b/drivers/power/supply/sm5714_fuel_gauge.c
+
+[ ... ]
+
+> +static int sm5714_fg_get_status(struct sm5714_fg *fg, int *status)
+> +{
+> +	unsigned int aux, soc;
+> +	int ma, ret;
+> +
+> +	ret =3D regmap_read(fg->regmap, SM5714_FG_REG_AUX_STAT, &aux);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D sm5714_fg_read_sram(fg, SM5714_FG_SRAM_SOC, &soc);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D sm5714_fg_get_current_ma(fg, SM5714_FG_SRAM_CURRENT_AVG, &ma);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* the charger stops after top-off while the adapter stays connected */
+> +	if (!(aux & SM5714_FG_AUX_STAT_CHG_ON) && power_supply_am_i_supplied(fg=
+->psy) <=3D 0)
+> +		*status =3D POWER_SUPPLY_STATUS_DISCHARGING;
+> +	else if (sm5714_fg_soc_permille(soc) >=3D 990)
+> +		*status =3D POWER_SUPPLY_STATUS_FULL;
+> +	else if (ma > 0)
+> +		*status =3D POWER_SUPPLY_STATUS_CHARGING;
+> +	else
+> +		*status =3D POWER_SUPPLY_STATUS_NOT_CHARGING;
+> +
+> +	return 0;
+> +}
+> +
+> +static int sm5714_fg_get_property(struct power_supply *psy,
+> +				  enum power_supply_property psp,
+> +				  union power_supply_propval *val)
+> +{
+> +	struct sm5714_fg *fg =3D power_supply_get_drvdata(psy);
+> +	unsigned int raw;
+> +	int ret;
+> +
+> +	switch (psp) {
+> +	case POWER_SUPPLY_PROP_STATUS:
+> +		return sm5714_fg_get_status(fg, &val->intval);
+
+[Severity: Medium]
+Can sm5714_fg_get_status() pass a NULL fg->psy to
+power_supply_am_i_supplied()?
+
+__power_supply_register() exposes the sysfs attributes and increments
+psy->use_cnt before devm_power_supply_register() returns and assigns
+fg->psy in sm5714_fg_probe():
+
+CPU0                              CPU1
+sm5714_fg_probe()
+  devm_power_supply_register()
+    __power_supply_register()
+      device_add()
+      atomic_inc(&psy->use_cnt)
+                                  power_supply_show_property()
+                                    sm5714_fg_get_property(psy, ...)
+                                      sm5714_fg_get_status(fg, ...)
+                                        power_supply_am_i_supplied(fg->psy)
+                                          ...
+                                          __power_supply_is_supplied_by()
+                                            supply->supplied_from
+                                            <-- NULL pointer dereference
+  fg->psy =3D ...
+
+Passing psy from sm5714_fg_get_property() into sm5714_fg_get_status()
+would avoid reading fg->psy before it is initialized.
+
+[ ... ]
+
+> +MODULE_AUTHOR("Asdlerto Korry <korryasdlerto@gmail.com>");
+> +MODULE_DESCRIPTION("Silicon Mitus SM5714 fuel gauge driver");
+> +MODULE_LICENSE("GPL");
+
+[Severity: High]
+Does building this driver with CONFIG_BATTERY_SM5714=3Dm fail in modpost due
+to a missing MODULE_IMPORT_NS("IIO_CONSUMER")?  devm_iio_channel_get() and
+iio_read_channel_processed() are exported in the IIO_CONSUMER symbol
+namespace.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-sm5714-fue=
+l-gauge-v1-0-b9d163fff6ff@gmail.com?part=3D2
