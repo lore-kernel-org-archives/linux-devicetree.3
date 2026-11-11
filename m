@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794377458;
-	b=bVXnF3WMinUn7EQWTq1ASpEdKyS6ZCiJYwmSLyA/hl0Nl1qBDYSZsLP/TVCTHKpD1vEj
-	 f/phX9i2kFBuLmEoDCG6HLOLuo/y2zt08/EEaMmPzMBjM7jswggPJF5NtrBg325wf/84K
-	 dyFEMzeVBsiItBnYopASJzowlJx6U5x6ACgTue+yJdyxj4dMDgh8NLtL3D/BC2DhexIdg
-	 WWh08TY/REzjVAWLnu0BJ20qRgmAMoHOUnD+pLo3B3Jq46VZnwMhdxmNuzoxs2MCsjBXa
-	 2xESb0YXOGp5pOnr0O+b8mZqgO0kPGd9asFfjvqOu4MpD9Z86ixCdujVwBE2WPclJEg==
+	t=1794377505;
+	b=JxpxYo+XooSeFpm8tuw9szwRKRBLbnieMnmoXSmISCbnMvNq+rh7CX66QwJmWXsjw7ML
+	 /7GpORefpxfuV63PLSGX7mIEe23c6RwrdU7E6/jwhNe7Tcwoicxq2QXLhF+ywt91SPfIH
+	 /9fZSRDrLRZQp5zhf5ALog0rg304TfnKzqp6psyIUdjUqI1PvKUJ3rrdfXHyOVI3rKIc+
+	 IW8E3SPKEWzQMH6znNoHcMEP3gEgAomz1PjgNJBM9Sqm6DOXuAHzBYHIHTbJI2dRPleOG
+	 lj4AjeUES2+ObWlbd9NDemUq3hTXAIPTqVit3Y9kGTXZOPfkMHX4VzZDnYBEVQ0he5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377458;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=fK4euQL/sXyPal5+J+hrdUFIpsb4ZufsR9tCvoLGNPE=;
-	b=KOuv8bMizAukl6+yjL3VtckXCi0nePjnl2YcAt0JZyZiWqoxvzWyU0sAQqQywjcw7j/l
-	 68X+7TqSnMA6f+O2R+tsqPkl71AXMJZJXIjGZ6WLZXftLzgT4/EBTGMLlNX/2tZCKjYZ0
-	 mDmz/ybMeUgSArEeHC2cYSaUvxp/y5dTc/eE+fYVEry5JQO5rLjdMEBuPglkA2sCT9Km5
-	 qX+j2+iAE2Qxz+DJ8QBnxgGcLdKFUZadv3XLwDnXgOGIbJWHx800QQb5mPd1/fWOZ0ef3
-	 Ghzu9c/Cl6fM++oZOtzSRsIcFh27MEBg+RmIfeOGz7XkPvX3efZNQ+8hGctDSDpIBuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377505;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6cU1bK+8ZDmix42zLdKvN0bdMM28L3RMkRnrpvPlPos=;
+	b=c2JArcEikhyXq2HWsauyVF+g3Fs6JU/8PwfvHeLi7MAOMB4fgI+YpPQIIGNAQmNWdm1G
+	 tMFUbzSvJXDV3vQV+vFT2qK8XZXrZWS9x8OCe0Eeb6V3vycj9kcEUAYWLxirBD7W3/GNC
+	 GvQoP/LklBtkU6lv9xcxc/wWffiqG63wOP8idZqnRhf8PCy7qPaC02zvQXfNPc9pTiaDX
+	 qGTtrTEVr+zWrVYCpeK/XvlKJ31EgAVeFLYsxgR5Rp404InS732Pgt9BEeO0ADrkDsA4n
+	 FhBEvg6C0+qLgNJjJEqedegyIaTGJyO2Uhzjl5dfCKpIjUAps5VJXa8b2dHfwxzIYLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMXffora;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i7w+u4A/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113B260A2633
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:10:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113B260A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BB0606A31C;
+	Wed, 11 Nov 2026 06:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMXffora
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1313946a12.1
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 22:10:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794377457; x=1794982257; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fK4euQL/sXyPal5+J+hrdUFIpsb4ZufsR9tCvoLGNPE=;
-        b=DMXfforaP70umyE3P04GZoti074NwGxMlo9cq8jyCjiDHk9VqMDQ5hBN4cf68KK4qc
-         f7AYVrDUwk3X7XyxBxwOBC2RL96daNd3d5LrNoLT4siBnXYbhH7MceJakAvlK1O4c86I
-         oMsWYho0nCKS0jdXLdMcKm1TyLIs3OLxdW53KmHJtbncdP+SbuEWGolgQwy51pZkga5H
-         p5r6bUSM10QOjdCPC3Vv7ijFu3+Zwwzy6pLa76aT/W+ifbk7a/VENFonw8SeGFQaf0Wp
-         kXh2DuiS7MkkZYnYPZ7Ab8sJRwvQlFrkvT92VwPbYLiG8KS/UtWeQ1fdIWFBDY7VxqIi
-         DGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794377457; x=1794982257;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fK4euQL/sXyPal5+J+hrdUFIpsb4ZufsR9tCvoLGNPE=;
-        b=y5by4YOGH/Oo+aQxOwgKgarGGzjyg2jmBqlfbtwZOsig8Nblw9No5wolg98AZIyHv6
-         h3NBDDb221hV8gFuZ2KNUapALr+oMDx3Nj5SiVVEb0g+EN6xDMMJ+msLGeq6vFeXCZwh
-         kjyBWR74gAhzEqg1fCWhI3piDlGIwAaxCKpFR4w2FWbzwoXzeaRBLU2PQoGJmLApg06a
-         i+lMoH5AlM2RJgn4D4Jv6Rb541ikvKRrZzy5nk45aPAc9idlUd04r0xTZ3a7jaoxQtyz
-         iouvrM5sJjbg1hDs87wgzBlJvAKQnQRIJw+QDKjTQDa5Gp0QJQ7v/wm3yGabEtf8FCu+
-         3Rlw==
-X-Gm-Message-State: APuU4Z8F4yadrRtehMah+2O6Nz27NeMoFxBh0+uKmMcMsicg7V9loTkq
-	oFs1WGslj/p0+y7MQ9VfqFZrmo/73twdcMpc1fwvR1tdCuQkO5Eo+0xL
-X-Gm-Gg: AYBFou1pBP8oCkaMwoTFvzHud1kXa2b9Zdn/lTT/vo+lAWSNWAu4CSJUEUG8jiq3vIv
-	3CM2J3jap5S/7C0ptlqJ3YPXpRE2vk/mG+ij2KrQF6Tdvifaj78dMgYiZWcZKDZqn48NQZiO8Rs
-	VhAplnPYX7dPInnznHXM01huPkhkDF5wfzZ3GgSTr9+tGAaoddu6s6bmt3jBggVab8Z7/Coa6tR
-	B4yFPN07SI+fFHGyziWDUaPkNl+bm80XhXrTd9aNkhVD1Jvfc5yPjk/bmgypJ1x2YKUwzHhrvWZ
-	j2Ki4sdOy0hrUGgNhjiwy9e9N5aV5vfVMDup1cp87HaK0BJLiaTn07RvLE03VuZN/UaJL7eN3QC
-	e1SEQth17VeCZzQCnfSo6MSFutx4re31Wrtlhk4EPppEAW7aLQj4SCWI8knNVzXpbIX2WWELe3b
-	vaGOyzEj3MhS6132SZd4/M9ikAHdxZCu02eGP8zwdIA72VA9MCblJ/yyMBZ21lj7LrWgFavJTI+
-	Eoj6yHzcn2/rGPfuO4G+lCLnUu1osaAUd5Dqtrow9Xs3/k8LszFHWtqiDRMpIG2IGHgn+v7b9an
-	7aZ4fTuVYeMkKhQ4Zsj/zeQ6x/hb+NASl76qFmZGDX3mpaGmibh/B4zvGwHc8eZW/PwH
-X-Received: by 2002:a17:90b:2e46:b0:3ac:aa8d:19eb with SMTP id 98e67ed59e1d1-3b182e0f256mr1318971a91.3.1794377457428;
-        Tue, 10 Nov 2026 22:10:57 -0800 (PST)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7e8b1sm2978557a91.12.2026.11.10.22.10.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:10:56 -0800 (PST)
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 11 Nov 2026 14:14:46 +0800
-Subject: [PATCH v2 5/5] ARM: dts: aspeed: ventura2: Name the 88E1512 PHY
- reset GPIO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7w+u4A/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9A31F00A06;
+	Wed, 11 Nov 2026 06:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794377504;
+	bh=6cU1bK+8ZDmix42zLdKvN0bdMM28L3RMkRnrpvPlPos=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i7w+u4A/xPCnfsV+C50VtCECam+Ql7CRhguoOMml2mHC+wc6+eae/q5Tt8qihYjnQ
+	 SMAvtbYtsCbidGoUFHMhJBC95awBpfQ/z/w8VQHtMovpdsVQI5/FRsspkBUkPXm9KA
+	 HmWfZbNZ4CLus44PDzK16RAPnUaByWdpFiJ+Szk0pcu17lr7fjhe3EqJesqdKOsPii
+	 Jjy9+UgbzUVJzm20tKkmM1/mhfGNSAX9EY65rXq98Gybh9pA4aWokrK7r+EVBXov35
+	 Cot9DXATYmyDssVzemZmUEWJ7yhia1txBOpFk756OpUSCfFbCX7oiJUlC7berCCT0N
+	 QJxbOtU8OhHNg==
+Message-ID: <sashiko-outbox-208395@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 8/8] arm64: dts: allwinner: orangepi-zero2: Add i2c
+ aliases
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Arun Iyengar" <aiyengar1990@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111-h616-zero2-dt-v2-8-88d8030fc975@gmail.com>
+References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
+ <20261111-h616-zero2-dt-v2-8-88d8030fc975@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 06:11:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,57 +60,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ventura2-dts-update-v2-5-bce5b5dafc1f@gmail.com>
-References: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
-In-Reply-To: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Kyle Hsieh <kylehsieh1995@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=993;
- i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=xxMp1/Ez1x0+u4gEwcM37HZ9S+6j5lTG4LB8OtJfTVM=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq9Af26OzcycIkzFNsHXF4FJMNd5XIH5LUASwIA
- 6mD6yK5pEWJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavQH9gAKCRClg0K3CVbE
- gTq3B/9YCHNGgux2LFrmmQhjhNtjCf3sYPpiQCl+wbB3hl5P18p1+BE5tmoWffF8zEbIEKFp1Hv
- Muo+kaAZc6Thx/QsJRcIw9MOsWo1b1WSIBjmYzbdc3uw5wB4s3hdzNqxyZVfKShvw6+238sUSyh
- QLYHpqe7rTQJprLHTtyA9qKJ7EYSckZwx/D7VkPys1Cn3AveHyIChLsITJ/cmhKUFI6bTMTt+J/
- O1SAOCk4wMJHgCLjMaTptjyC22H+MA61k8WCHvULsm3WWZAz1zWZIOh9hdBF/tegK/YTW29XOY3
- K8jE3xCp+6coF8UfdN3+njmgO2NoCDOoUYBXeOpg5lxz76Em
-X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
- fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-Line 10 of the PCA9555 at address 0x67 on I2C bus 10 drives the reset
-of the Marvell 88E1512 PHY. Name it FPGA_RST_88E1512_PLD after the
-schematic net so userspace can reset the PHY during network bring-up.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: allwinner: aliases for disabled and unusable I2C
+  buses
+--
 
-Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit ba431251208e1b9ebd8e19b71da4c12196e7c374
+Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-index a5e6cc94b280..aa83233f1710 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-@@ -2486,7 +2486,7 @@ gpio@67 {
- 			"FPGA_TRAY37_PWRGD_BUF_R", "FPGA_TRAY38_PWRGD_BUF_R",
- 			"FPGA_TRAY39_PWRGD_BUF_R", "FPGA_TRAY40_PWRGD_BUF_R",
- 			"FPGA_ISO_CARRIER_BOARD_PWR_OK", "FPGA_UART_MUX_SEL",
--			"", "",
-+			"FPGA_RST_88E1512_PLD", "",
- 			"", "",
- 			"", "";
- 	};
+arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
 
--- 
-2.34.1
+This commit adds i2c0 through i2c5 aliases for the SoC TWI controllers in
+the Orange Pi Zero2 board device tree.
 
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts=
+ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> index d5d39bac59155..98fc83291dc83 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> @@ -12,6 +12,15 @@
+>  / {
+>  	model =3D "OrangePi Zero2";
+>  	compatible =3D "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
+> +
+> +	aliases {
+> +		i2c0 =3D &i2c0;
+> +		i2c1 =3D &i2c1;
+> +		i2c2 =3D &i2c2;
+> +		i2c3 =3D &i2c3;
+> +		i2c4 =3D &i2c4;
+> +		i2c5 =3D &r_i2c;
+> +	};
+>  };
+
+[Severity: Low]
+As reported by Jernej =C5=A0krabec on v1 [1], should these i2c aliases live=
+ in
+overlays rather than the base board DT, especially since all six
+controllers are disabled here and three of them conflict with enabled
+on-board peripherals?
+
+In particular, r_i2c (i2c5) only routes to PL0 and PL1, which this board
+already uses for r_rsb to talk to the AXP305 PMIC.  Likewise, the external
+pin options for i2c0 (PI5/PI6) and i2c1 (PH0/PH1 or PI7/PI8) conflict with
+the enabled emac0 (ext_rgmii_pins) and uart0 (uart0_ph_pins) nodes in
+sun50i-h616-orangepi-zero.dtsi.
+
+[1] https://lore.kernel.org/r/ekjxzCRpRcWPwcDw_lDV4g@gmail.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-h616-zero2=
+-dt-v2-0-88d8030fc975@gmail.com?part=3D8
