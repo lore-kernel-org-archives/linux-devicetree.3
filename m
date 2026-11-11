@@ -1,79 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418884;
-	b=2ptDdvapp+BvaJ8iKPg66ICWDZq8GW8tfJSeslG8XLiQUcg2JLoZrcgedEEYCJb6C/Um
-	 3tHyN+olsFAPXY/AkEttSWULWsfJa8a1P1Y4bvnif4qW3EDvOuu8Ck8mU5mCDcOmZD7bp
-	 cfhoaDhQHK5VhmW0Y4lY4mombqUFlaaLddw4hMtHa/xwXQIfWY/ZwYql6I6fjsWby2Qx7
-	 lt8qIAguEjaPRn6gXnZHXhzbpjELOkLhVwdf9devQPwNEdlJorFJiMZUBOE4tFBa74PiI
-	 afePT6VXTTR9QhGVNC7ruHOXfKFuv0qSdIcIorjAgIKJTzerZlRB7XZ+M4N/VhdECog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418884;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	b=45CJD6KhxJWxgGhSYVRBjTf/IvY3xWuub9tk2hbS11EVhS1GoeBfTaZAvLjvGHgm4+eN
-	 Xx5fM0NKVsrkflMES/+kYKR9XIhx9DjRJC1aFdPpoOkBo+9GMfbJkORoZ9IexkeSd9oAS
-	 eHztzqVUVeEyQUJx+mzeusnt4c18+aBYe2ofnL03O/dkaMVBMhia/luSNByvCS/CeHbit
-	 yX6V40nxrKxfSHAwlYontzW8a3fVqkP/bDMpqbUjgo7cY9Am8TgP3hT5ako64o+80ZX/6
-	 tpRFy2sXZzwu2L85DN6WMwcw8qu84Z3xzoFRfuGDesXlobJL8f5ZeM5M6p0X/AU7H0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794418968;
+	b=x5Q7Us+XA4bPYU/T9RWkDHOtg0TWFO9qTx/jYMpEB8gQwaMURXk8TfcbiZsbO5NQia1x
+	 gK34vXrO58dWySBfP0pVIB0P5BKnO5epm07r1NzH5YlwOVfO1Y9UGx6Hva9z7wYtP4R4M
+	 z/yXgknhH2vIpUVgDV+epUUM1PrEK1SPqmOb/HCBBXqhAsIgjABD4pxXIVr7oILJPd68/
+	 A6zo8LYCE77GAKT2ozACg673DS7u97gI28y09/5errz1zmxCDOP+VDu/nnxGIMwhUg19K
+	 6ugU8K1laKywJn1iIlgz+3UFnhqIE5MZeeRrgTYmAZFeUJsX0D8JziaYit1Xlz7Qg/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418968;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=FAwXsGMxHewPWPm6WxGQCA3dKCUew19FpLp3l0TW3t0=;
+	b=iprvQ/PaqkIIY4umw0g9BMd/+Yn7H6Xx1V4ajlp3eS2Qjr16P5gS7jEaIZ0ra3YMDkOD
+	 R5inAqtgxCT0ZyNBv+FMPHa3IE6HSAurwFjsJU4AwTKsMB0b9rUt8hFA82dmqk7VYwxBg
+	 O//CWAe8SmyVg/LZeg4Lz4v86QWPZIrxi8HdtTLzD0Yo8fjStv1mZZ4Lr9zTIu+PbQwKp
+	 Wc3+rNdqJ4bZs4N4mbEV9SlXJjOsD/3Z2CHyTtNhznOXLWz8h7RcmbMwXhpnERSkEDwoV
+	 +cDvAExNZV1LmeweOYAcu4+RDJx73syAOstLj0WcVrPKBLbX1eU1VILo6rZ1i70aAgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O97vrQG/";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B473F606A336;
-	Wed, 11 Nov 2026 17:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F65606A327;
+	Wed, 11 Nov 2026 17:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794418884;
-	b=xhzNzV2UkXnlPGQ4SJ6EdZJ2YPXawxG2gcxhBektv2evUWe153OXNAX98LENKAEHo4P6
-	 gTt884JL1KjfJoi4ejBndRUv0slZ+vTMU/p66nodqhxFe7x/hjb6Pk/xm6eK1MRppmAfC
-	 TNbEOVQdHSOWQ7IVv6UOMfAKg1e1bwBn+sXdGel/VLF1JvGheC/jf2SQFTuLI6CR0upF9
-	 b5WMuZ7kkKj4FXhFeouZ7z91CPwQAtrrZ4wZ4U9qWEKpi5STWT37fVn6s91RZcCmhgjAB
-	 jDsrU8ESHhK6qUBujMtfuQ/wfAQRwL2GrVDM0qTLsNqHucl0XQMoiVDBERQTeOsC4rQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794418884;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	b=d9+r8zH28lIT3sBQxbsLAD6QBVRXIo23F+9/NNDH6r1pPxrt+wBG1/GDDcMr6BzesVne
-	 ErCAr6zC8EZnDNODYZMfHBrkv1MT8HyCvrYlgEEN0DPa5dsjWuHKxEYMBXdlFrNhgd/+B
-	 ni5+Z3/UtyboJmjmY0qnmv17/Q3te2kSCY4XRm/lj8+KZHkxBDbBWaIxXPZc0qfKjVojl
-	 pqVvTz4I+kv4f2/AWXpSyIG1qgOO22qLoTSMYWFOO2DV6CFY/gyucit38MTznIzJeFWHb
-	 tPyKXag8vcW6TjbAUt5R+aRRuChm7+7dE5BkP/gRcmsGrrGW9VVI/bEFy1EhyKS8Vvw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4CE781F00A09;
-	Wed, 11 Nov 2026 17:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O97vrQG/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6491F00A08;
+	Wed, 11 Nov 2026 17:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418884;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=gW07Njt9Fusg8OMyKJedlVxNYQVXX2CQzIaW0jzuxI6A/W06afiILkz5ESyBhUXXa
-	 0DYRW3agPpIIOBFTWUuMR1yiSRNGRSbdTLPK0US10/OjfmSE7vpkW/OCFmoldpTFO/
-	 znraoZKHUcd183u97uZvToBDAkj6Ft0ISONnDyMu3+IY/Ux7MXvCHNBluhx2UseeTp
-	 dEeeHXy6OposlV+9+yshcTqczOoNZ5HYgOoBdRgPRiXTcdGg0JihQq+HgJ0fiEGwwB
-	 1xlkYj3Wel/rcRKt2aY36AyYtTNlUSgck4W+OZ/r3LeUg1yholo/bTBeHKwPmZzMlY
-	 7uLjuUFb1EopQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9525149061;
-	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v7 0/2] Speakers for Pixel 3 / 3 XL
-Date: Wed, 11 Nov 2026 18:41:19 +0100
-Message-Id: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
+	s=k20260515; t=1794418968;
+	bh=FAwXsGMxHewPWPm6WxGQCA3dKCUew19FpLp3l0TW3t0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=O97vrQG/2rvL6wugfknCIb/X50x2KeSwNnnmRtxyvW4y5zZwE2/p0wcWGzkAdkTgj
+	 nddDPPX6II5KbVL0oaYNVCFQC0F6KNc8V+mgdJIT0Y6QoBYTiqn9Rfa3xZb6U5yD6P
+	 PPcKy9rxAnrGCy8/mc5oXs24aXfj0x4iwJ4hw1bEPLWyfm5LL8oWq4z0Jz5mpBFgY+
+	 6bghjaKQ8thHSBS1oBY4duu7U2Ug6V4JDLBYP1qRLEDMVuiWRrV5Q2Nd6fYEkIEfaF
+	 fJx1pMPs078aXhm/XgMz/QN1jzoKQ3OfN8hzd8pNEeOuFnpL0BQJWqSqVDwHS5yIY4
+	 3WtALMA/vKyzw==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,140 +51,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Py27DIBAF0F+JWJcKGMDQVf+j6oLH0CBVcYIdl
- If878WN1NhedHkHnTvDnQxYMg7kbXcnBWsecn9ooXvZkbB3hy+kObZMBBOaaQ70mC/4DdSdY+6
- pjz55adEw6Egjx4Kpvc91H5+PXPB0bq3jc7jPw9iX6+/Kyufpo71jat1eOWUUvNYJwCib+Hu+5
- PE13MhcU8WTWrY5rIpGuyAERsuVsBsKCyrkhkKjKjItNUvBOLum8j8qGzXKq8gBnFO4pmpJt39
- V88EpeRDBGubTmuo/yhnXG6ob5TwYI6Xx4Bdbp2n6AUTZpIbiAQAA
-X-Change-ID: 20260613-pixel3-audio-bdbfb49e8037
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3488; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=reyRd4l1Oh4ajFZmaaOwLVE50anXb8RwYNR93+iRoag=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq9KjBbezIplsv8LDE+sCR+2qh6J8tl6L5Pzemk
- id3lNTlbBeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavSowQAKCRBgAj/E00kg
- cqT/D/wNbkhzbY0XtcRIFnJYf3bSS8AyERfjToVHhnn7bM0DLR3fSo0HrxukEWB+i7clWq8Lb6i
- FgCm+fI1pUMuwe8ZLXjpZNDDgR8CvX3FSnZY2RjUqNoi5CSra5nxIF/LOik7/xWSz5y/NuFlQ0S
- OvHUY6g0PNSdfPt6/VWHjjGlP8QAKK2JEGZ8upRroVmbjHPVZwL19FLU/OdhCrsr2Nf4ocHhX4N
- GFl3c6m1wFR1a6WWzEXhSWC+C+WKHJ0ju48non4hOWluMbQyVJvRO9FyCKWfRQC9bNrIolF3jJU
- sJvS72xe6gM9ELiHRc4/el0aT7O+r1ee5/gevckuvXi/ipGfaD4Dvv/IRuE30sx6WIItAbvlTek
- aW+cuDjrf4k9qvr5bbfDQdLYHg+d32wkS5J/jNEcGvh0MjMmeQoeFVMxF/0ODpZssqFb7+oobzq
- 6gDdGv2cz7VIo8AGJyEl5L97uD+Nn5pxvnQt66TcKY1CMHxMLjVfGCHnUUz+vCoC4VmgxpfOOTE
- 0egNU/piFaNz38LTC0Wl5Bn2tAFGiexmziKTKxTD+WdenQ2eKoeGWXgpse56mbEhH+QRkl93r0E
- F4OsDVrYMEHULmV+wq1gyaKiypr+wPFCrJohqwVVWRGLClI9dzQJr/hgo+CFotmOV/kB+Av0Nbi
- 6L6Bg8eep6sNESg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Subject: Re: [PATCH v10 2/2] regulator: willsemi,wl2868c: add the WL2868C
+ camera PMIC driver
+From: Mark Brown <broonie@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+In-Reply-To: <20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>
+Date: Wed, 11 Nov 2026 17:42:43 +0000
+Message-Id: <179441896388.393238.285161772971892952.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1227; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=7YllnNRI6qnMQEWy4tOJG2q5XI4ahkNJN+Tm3AlIwf8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+rBTRm7//Y+TNsENzIr7+97UqtO17xK2w5+Cii9neL
+ o+ml1trd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiFc8Y/umUirqwm317Vbyq
+ aNn0fzzCxx1qrm6wmW78reHknb5JlxMY/ulVacebG79sTHnZ7JH/LOo589IKB5lnPy+4q+b8Uvd
+ 0YgEA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This series address:
+> The WL2868C is an I2C camera power management IC with seven LDOs.
+> LDO1 and LDO2 are fed from VIN12 and cover 0.496 V to 1.512 V with a
+> 7-bit voltage selector; LDO3 and LDO4 share VIN34, and LDO5 to LDO7
+> have one input each, covering 1.504 V to 3.544 V with an 8-bit
+> selector. All outputs step by 8 mV.
 
---- merged
-0. demistify the hex to BIT() macro and add left/right rx spk
-1. most likely wrongly set DSP_B in sdm845.c
-   my guess this is because TDM was never used in the mainline with
-   sdm845
-2. applying correct mask to left/right speaker for the TDM in sdm845.c,
-   so both speakers can work simultaneusly
-3. setting sysclk at startups, which some codecs need (such as cs35l36)
-4. setting proper tdm slot in the cs35l36 driver
---- remains:
-5. device-tree wiring for Pixel 3 / 3 XL speakers
-6. same for microphone.
+> +	/*
+> +	 * Seed the tracked set with the outputs the firmware left enabled, so
+> +	 * that the first enable() or disable() of any output preserves them.
+> +	 * SYS_EN gates the whole chip: while it is clear no output is up, the
+> +	 * per-LDO bits are only presets and is_enabled() reports every output
+> +	 * as off. Seeding them in that state would make the first enable() of
+> +	 * any single output switch all the presets on.
+> +	 */
+> +	ret = regmap_read(config.regmap, WL2868C_LDO_ENABLE, &value);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read the enable register\n");
+> +
+> +	if (value & WL2868C_SYS_ENABLE)
+> +		chip->enabled = value & WL2868C_LDO_ENABLE_MASK;
 
-As per previous discussion not seding patch removing the "Input Mux"
-which now interferes with TDM callback. If wanted, I can send it as a
-follow-up.
+Should the driver not also override the LDOx_SEQ registers to make sure
+we have software control of them, or hide the enable/disable ops if
+they're non-zero?
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v7:
-- Edited swm node disable comment.
-- Rebased on top of next-20261110 (small conflict resolved).
-- Link to v6: https://patch.msgid.link/20261016-pixel3-audio-v6-0-11c88448b3be@ixit.cz
-
-Changes in v6:
-- Everything expect device-tree changes got merged. Rebased on top of
-  latest next-20261016.
-- Link to v5: https://patch.msgid.link/20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz
-
-Changes in v5:
-- Dropped
-  `slimbus: qcom-ngd-ctrl: Remove data channels on stream disable`
-  in favor of now merged
-  `slimbus: qcom-ngd-ctrl: Implement disable_stream callback`
-- Applied R-bs.
-- Small clarifications in the commit messages and comments blocks.
-- Link to v4: https://patch.msgid.link/20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz
-
-Changes in v4:
-- Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
-- Link to v3: https://patch.msgid.link/20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz
-
-Changes in v3:
-- De-RFC, applied Reviewed-by tag.
-- Link to v2: https://patch.msgid.link/20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz
-
-Changes in v2:
-- Device-tree name sorting, with exception keeping mm1-dai-link in it's
-  place. (Konrad)
-- Make set_tdm_slot cleaner and less leveled. (Konrad)
-- Added TDM MIC defines in sdm845.c.
-  Should we in capture use speaker mask?
-- Renamed model from 'Google Pixel 3' to 'blueline', I would love to
-  hear feedback on this one.
-- Link to v1: https://lore.kernel.org/r/20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz
-
-To: Srinivas Kandagatla <srini@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: David Rhodes <david.rhodes@cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: patches@opensource.cirrus.com
-Cc: devicetree@vger.kernel.org
-
----
-David Heidelberg (2):
-      arm64: dts: qcom: sdm845-google: Add basic audio support
-      arm64: dts: qcom: sdm845-google: Add WCD9340 codec and microphone capture
-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 188 ++++++++++++++++++++-
- 1 file changed, 186 insertions(+), 2 deletions(-)
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20260613-pixel3-audio-bdbfb49e8037
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+-- 
+Mark Brown <broonie@kernel.org>
