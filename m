@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.136
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794385646;
-	b=e5Rw/7WlEtLimtS+lhrbOsyDSPVSuX49V/WBsZae8To22Jj8UC6YDIls7hS+xMbaREHi
-	 HHNfgiLXfIoLtWD7aSzojpKMrojrBO00GGTwr7hYjy7iMqozmMcZGyKe/7WFufN8FAHR5
-	 0xvh5mpoD/T3flP+G5gnXcTybBR88x5qolSRxZOeC0Tcoqrf54wBA1aWVoioipHrTAn8E
-	 30xwt06scJxOLbFAfnKPh7ezuHMa7ZPH4BOD91qQi/Bqfj/EFTG1qjQhbewlSCC9hhOuY
-	 zKryx/nDJW1Os5pw7WgKOtq7katXLfQRK7jn25XyLSZmDKkM8l1XNbS1KsU9yTZ/e8A==
+	t=1794385655;
+	b=3e6QKrXVvHS0wuYaTf9en9tND7FIIjHiKXD5jwKuu+CbNyH75iKHGJOPrJ0vtMM3nB3t
+	 aoct60MWiKOS4eafWED9nRzkAqFImxwa55Y9FKYalXRry1rTvb5y53aTkz1A56BpKUY9g
+	 yWiRRay3GjCey+gs/lYyOWxVnTxodjq/akDut89jqAwk9dl7Nbbo8eyeUKFU2qM89dLF/
+	 Ub0rTNJCuDeEY7qi7GC5i2U+uLlfwTI+LxraqXsz2OuV4tMUNg5OJYJP7aJzTC/dirlAN
+	 VHUwXBJNaGhfo45a2qSrMKyCRgWcqs3oK2yEzBAKxQCxMNXB/EX63mel/j3UGiXWazg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385646;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mTfgj2CmwI0zwXIIcxpk9MzLpnvv+ScbPhRUi9Au4K0=;
-	b=hWC4LXkYgDvTiNnq7BC1YRyYAUZQOiWpRk9HA7JB+V1iurqHncGYU6w6+T14wJhJqf4G
-	 Zte2oovgazf4xgmJk9KBQ9LBhZgZRRxJ18IeI/qQ+XV0FKc2oqsUTujj/Jd2GP2vAiwpf
-	 p76RnxNtfcsPQf3t7snF67wh0ZPBrF+3EQQKhxehLZ0a+TkYsmKX/YsTfVjOXRqdwPKCN
-	 wtF2LXXtzVjcp8V8h6wO3iYP6rnQ+8K0y3jqTHU1hjagaY5aJVBTBX4DT2mTUL5WKv6jR
-	 f2jQRT6wZkcB0RSrF+S78W4J/cHkdtpLJ/fQpT1PwpxJLBTotAUnWNpRp3dtdic2xLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385655;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=S/s28zKC6xcxr0kfKxjeMoI3STbQfIuzp4nZ9RWzGuk=;
+	b=CUlYLP7ZXQFP3jp8rJw6+S75R0//3AP31DFZbjbLoHwJpc7RGVRa8gUxmyvO1JYwVmAG
+	 IR/LwHs5MTHXVPTkmWyC3dGgmnAMyKnbepJjTxouvKN4874rQ4pdU/gu27YEsJy2oXVrt
+	 KyUDz3GJ7M1iSi/gqK7erR4zwY5NGzGO6j3asOCOgfMeBnCQGA+jsOKn8OrG4KeAzdoay
+	 J6Vc2CSJKKxKG32vvNd9oV1afqMO8GfJk8bETFoziiQXErHOIwjTX1gkeSR8myryjJs+/
+	 Tc5d5BhCj4keNKOBWEEBIxsm2epXR22CCwuqvwoOrAAl7/TEaU7wsAJHQrq62W6ETiQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.136
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022136.outbound.protection.outlook.com [40.107.75.136])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLpwvzm+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F112B606A327;
-	Wed, 11 Nov 2026 08:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F112B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TGJ5ZoBiFUwR1R/m1MLm0WyPnFyQ3SP6TnDFZ0sao4LaRJpUUtoNtj3rVcmDpoJebqq9abwlMd6Kgzz/Fb7QN3JwKS+qSfcDtdZGTaNTXCIGOme5iv9hggXsQkap2XA9djGBu+zOJzKQCMkq2vzWtaY7ldG+Bbjc8UlK8ZiDFauPCW7JX2uuQHljkLJ1Ja9ZZX2GbtTbCh1fZRt2h27ouw3eJc67+Pva1AKxwFp0jVvjxsr4zhEBJyF08P+nzdPCKVAYjwLRVTl4baqDze9DyB5WxX+TbYKwevK9fHMx2XdAgSI60TnbrRjPh3dQQS9rzWa2c3DLxegbU37g24EZwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mTfgj2CmwI0zwXIIcxpk9MzLpnvv+ScbPhRUi9Au4K0=;
- b=KTghf0+UK7NUoCP6LgrCLIuYjb749FSyXUe1CWO1x+iepkPMGZ5maEaKuK5OONmBRjpF97d7xdJSTL6wk3sOevqTOuIixzee+sbhGzBJjlXi9aq4PTuBLU7T0HY73YYmDGKdlH/KDLZyxk0adjb/hRrEM6Bg0orIc0A5O2HrqXme8izZ6TxtcTPOB7qhXYBZlfgGkmGpm/N6uYSoMw4cO62sDBGqDRoaLhgNUH0c8jBF13h8swm4UBoWUyKa5I13MPMywI6Z7QZnKlWCjhdSM8YyYxRh2Q8NTVryDfQDiyW1BHvuDPqXSpNgxKnWsBL7a13Lv5CwyrCGip5kSSom0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0040.apcprd02.prod.outlook.com (2603:1096:4:196::6) by
- KL1PR06MB6347.apcprd06.prod.outlook.com (2603:1096:820:ce::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.8; Wed, 11 Nov 2026 08:27:21 +0000
-Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
- (2603:1096:4:196:cafe::9) by SI2PR02CA0040.outlook.office365.com
- (2603:1096:4:196::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 08:27:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 08:27:20 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CA6174102E65;
-	Wed, 11 Nov 2026 16:27:18 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Gary Yang <Gary.Yang@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v6 1/3] dt-bindings: phy: Add CIX Sky1 USB3 PHY
-Date: Wed, 11 Nov 2026 16:27:17 +0800
-Message-ID: <20261111082718.3425848-1-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <66d48a6d-00c8-42fc-889d-d0901c8d85a6@kernel.org>
-References: <20261105011751.4058411-1-hongliang.yang@cixtech.com> <20261105011751.4058411-2-hongliang.yang@cixtech.com> <20261105-kind-macaque-of-enhancement-ee0365@quoll> <20261111030926.2954510-1-hongliang.yang@cixtech.com> <66d48a6d-00c8-42fc-889d-d0901c8d85a6@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF2760A2601;
+	Wed, 11 Nov 2026 08:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLpwvzm+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794385654;
+	b=KqXvtsnq2CQF5yp03TYqw+JM24iFUh0yuYlYeMdtU9QV4MKbEr0WRJ+e9RElOhqDTWzt
+	 SFCCGtSm2OGrBloLamv7zv1Uh/d0sAZTLP5Qd1zkKQlSxD0wWgZiw8IR2IJ/7QToTNXuI
+	 v3bF4RO7cUbufiheVy9piXOIl1+5aDqYxTV3it+n8OWtiSwMnALS/Xn9xK0lhjRDYYH7/
+	 jNiXsQ5jiEyVxEVcY4nVpwtbobBX9inrMb7Z2Od3BWHaPpY9Kih+HvWYfjfE8twBSvBYm
+	 E4ZgShKUttG0DGRC92ZQSbSJx57gtR3BqnlxXss2rnsIT8ZsgVSHy14186g2J8BOKEg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794385654;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=S/s28zKC6xcxr0kfKxjeMoI3STbQfIuzp4nZ9RWzGuk=;
+	b=EVuMMuFuBIi1a5vRKxSGAd1oSzZZ+xDG0VStT2oYRZ8+HYoc8hvGFtdoBZ0zFlD0Sp7Y
+	 d9+4KbWiF1F2RDvOn89d9cuzr1N2KvZL9nXmzUPr6M1GqEaoh50ZLJZNW+I9KOuLsbWur
+	 U863UO23FPGwMRE+USr22ntja00hefFQdrdt5pBvsw2is9OqKuDtWASm40MMznFKOhhqA
+	 VRrLkjJiFl0v7UiBq6I4kzehLb268T9TykXC++OfiqRChWQsVmFV5aO3Aqj6iZqeXru2e
+	 tpRbupBpWum1qbW0VBYK6OaDgQeFnF//Q9gSFxdfdeIVH3GAZELP7I5dLTSU5S4twYw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F2C01F00A09;
+	Wed, 11 Nov 2026 08:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385654;
+	bh=S/s28zKC6xcxr0kfKxjeMoI3STbQfIuzp4nZ9RWzGuk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=CLpwvzm+HtYRmUT1NgGzwlYkGJFn+dbBciEz8i2nQLutGRlIO2jDaTi01S3h9G06C
+	 g4ra4r7B0lXYl6PJ9rH49ZJd5oFkMKqAGEyIsdewwBA2ZwvKMm9nKwLyo5DuHs66E2
+	 fL4mw3lGY+bU+UMYlrHyn0CshHitCNzjdZ2asJS7/pnyf6TczTutCVx48kuxZv5wgm
+	 4vEFDIbItijgS+KLVXgBhTJ04RIsfZa35II9aky79BGbl+FQP+6aylHu0v7R94TZLf
+	 BD0oYtmqxLde8bTB8hHkYjPc0Eeer/GcOfpsXcJPYH4sbrWHSpfSyYs+j6gInrwsUY
+	 dA07uXqiL82qg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F0A0B48E9F;
+	Wed, 11 Nov 2026 08:27:32 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Wed, 11 Nov 2026 03:27:15 -0500
+Subject: [PATCH v2 1/4] dt-bindings: mips: Add Siflower SF19A2890 based
+ boards
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,52 +83,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|KL1PR06MB6347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6eeedfb3-4d62-47af-83e5-08df3fcd9b02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|36860700016|1800799024|82310400026|5023799004|56012099006|4143699003|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261026140227099003|261028144727099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	kkKQth1kxVxQyY99IozGlLtTx+y5pk4Tp/BZQjtqVDbQJq19Cl29xsTUJ9bo9fIeaexv96/1ACE38JEEJKzUqZ7l2Kc0MItB82DiA776tDvGYjGSAigmxxmjCVXzEwv7x61W16CdD8bImS67LplLJdDiLlLh4Z6cfA2UcAOzwr0uCjV+d33kMQvEZa/SuSQM4iD4ZVIRkeTTNvcJ2NgY3qVQXxRU0k1bHZ+jtgwWGexgfH03ZVUgUPlY6Qvz0es4RgriNgjPxdnJ43sB+rzNBErwACoA3vOopBDQXOy+CE8BGKSHCvz7OUvS1nqNsaTygcDZKX0Ak1Oj9Yg7UUvkmLJyWPOOTSCsS0Hyrrm64S5peTF1OYfeQzCnlnezuBCR/y7f8PfvsXtyP/DbV45doweg4MDA56Q6KOulx5NGmbTs+U02yhKhYGv/ee/uZqPb3I4/cljrYfryPEz2FCKpzJ8rmklucYmu5Cwejb7uEBIfx3bfvMX71sRNTy838ssA0AP2iJ6s+gRjWQI6Px9hiopUkIHY9xyd8kGmnrPLrDFJyRT/EhO9V7fRuKTAwthGdP2sG5WyMHMqg19YDPozsJvIB9JzjpMvsRCLZPVD6ACtQS/b7eK6lE8oYfzgTvbMiIfrAlGdCkgYV/AF4xCB3KnayaUomoCQhjbd0E26XbvPKU0UhUlPshhVXlKeGZ3fovvkXr5/HstVkU7Owy0MWQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(5023799004)(56012099006)(4143699003)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4MVDXGSkPeew5wYd7G/TmMu88KuIxtyV5XmFzgeqBU3DzJHiLx3dnwsQEAzYQTsHHOMP9SRvoRMHinTk5g0aTrlkWjfiXsQmCjIU0QgmhNVbnDCmHyKbftILA+X7E9mlMzGPW7yarKGMr/3TxoYwrtFNfy6fln6pi/Ra6zm3SuneUYa4jQ4sHijTUkDTSZDXJsbYMZXMJZZDFpWF0BBAI6RUCQ27MPYlX407TpPEZvOOnNDkFshqvsds950VaoPnFaWrYi17XvUa9bqkkJav3j5IeFMOuuj1JMYLZa+3/Dl+f1LHcI/Y4Sxsx8LgUWYEnDrShHoLG7tTg5tmC8APeZzIWiTpZ9UMgMd/CUJncCvYtdcqTlHGhlAklkQio3jEc7ZxkEH7dhhd4c01l9B8ul4zW9FGU13TxJJpT0/o0Ca3u1Fq48jahfjMoQntm5o9
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:27:20.5637
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eeedfb3-4d62-47af-83e5-08df3fcd9b02
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CB.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6347
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-sf19a2890-mips-v2-1-36730fa4f5a6@telaak.dev>
+References: <20261111-sf19a2890-mips-v2-0-36730fa4f5a6@telaak.dev>
+In-Reply-To: <20261111-sf19a2890-mips-v2-0-36730fa4f5a6@telaak.dev>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Burton <paulburton@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794385652; l=1790;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=OJIfjvntJEidxFP5868AVEMpXF93c+J2djXrcnoJSGI=;
+ b=DqSD4UneyGa3ETBdesCJcKE3tvHGtKtPGwRZiCznN7pDZy87/hlF3OSBY73UvMrBp2a0fQIlo
+ uJI2xm1oyDTBA8q0y+sFGsGFf2Pe/tbPrJH3gT7Ta1B7dWBgP0hyUPv
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-> This clearly shows two phys - each node with cell=0, means each having
-> one phy. Two nodes, so two phys.
+From: Joseph Telaak <joseph@telaak.dev>
 
-Right, v5 made two phy objects. That was the bug: they were the same
-PHY.
+The SF19A2890 is a MIPS interAptiv SoC from Siflower (two cores, two
+VPEs each) for home routers. Document its compatible and the first
+board using it, the GL.iNet GL-SFT1200 ("Opal") travel router.
 
-The block has two lanes, one per Type-A port: USB4 uses one lane, USB5
-the other. Both lanes are programmed through the same register block,
-with the same clocks, the same resets and the same init sequence. In v5
-the driver created one phy object per child node and gave both the same
-drvdata, so the second object programmed exactly the same registers as
-the first; the only difference between them was the of_node they were
-registered with.
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ .../devicetree/bindings/mips/siflower.yaml         | 26 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++++++
+ 2 files changed, 33 insertions(+)
 
-v6 removes that duplicate. One phy object remains; both lanes are still
-programmed by the same init sequence, and both Type-A controllers still
-get a working PHY. Nothing was dropped.
+diff --git a/Documentation/devicetree/bindings/mips/siflower.yaml b/Documentation/devicetree/bindings/mips/siflower.yaml
+new file mode 100644
+index 000000000000..33110f742cb7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mips/siflower.yaml
+@@ -0,0 +1,26 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mips/siflower.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Siflower MIPS SoCs
++
++maintainers:
++  - Joseph Telaak <joseph@telaak.dev>
++
++properties:
++  $nodename:
++    const: '/'
++
++  compatible:
++    oneOf:
++      - description: Boards with the Siflower SF19A2890 SoC
++        items:
++          - enum:
++              - glinet,gl-sft1200
++          - const: siflower,sf19a2890
++
++additionalProperties: true
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..7fb18c2d6959 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25698,6 +25698,13 @@ N:	sifive
+ K:	fu[57]40
+ K:	[^@]sifive
+ 
++SIFLOWER SF19A2890 SOC SUPPORT
++M:	Joseph Telaak <joseph@telaak.dev>
++L:	linux-mips@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/mips/siflower.yaml
++N:	sf19a2890
++
+ SILEAD TOUCHSCREEN DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	linux-input@vger.kernel.org
 
-Best regards,
-Hongliang Yang
+-- 
+Git-155)
+
+
