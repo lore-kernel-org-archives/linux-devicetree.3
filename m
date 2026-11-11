@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.133
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391209;
-	b=cRCKjtPIrgoVEfz69wNY5eF3Tj3d0/kpNSggW93qnpG/q0vFomKuSk32MKdw7a8sNa4p
-	 djpVNyR8WP/Vt7AlekYJMIihR/eUt1lRNMULmwM+QMw3HU0e2VwFgaVpWuE3te66PLfcf
-	 JEQFU2JpfpTD7ol9O13sYK9xPi6vYiVWvgkUQ86SlK9BbNel88dmyeXnmjQ+osJ8dCQEn
-	 84TpRTP9kHU8jXbZhDFv+MssMfLXcagdMNWZQ6gHBY8hgVK85P4QB8T6sk/1H7iPs+ev9
-	 9Rjdh26El0+T+FAJCo54lUuGTP+fhVGzcc4U5iQNN2dA5VTU3sccC+oB83EIIT0B6TQ==
+	t=1794391254;
+	b=Uyis3/zO3MgacjPMFyNha+Xn9Y7qAM4g+tAUTK1BB6+8YAWSCXiZ/buRwahW41XdBqAs
+	 M1w1EqSKKcQNs8Kd1Z06NF+e3RZiJStfIZH/gyVfrY1RB8fh3um3lyC6O/nFPqD+RQaSy
+	 qwfUb6OG2DVa+6KdSGRnZ1CdZFKe7DI5EEWNGHODnWtDB8M45tbiRQ1N8DQMT/YYDE3yz
+	 nSYQMggsbRvjVwclQUgX5eQU7Y8YqwlUEEljc036O5iUUbAxwwPeLDzNvFzyEdv+xs/+r
+	 T7C7fDHAbOhfKX7SqdcUiHUCgtGzjvKgSncGODIUp3tpVvy/AtpK2M/j2XWJyPyk/nQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391209;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=tfQEiEpyUG9H1Q6bEwLdcxfuZJ7yClGMga9Onbudq/Q=;
-	b=m99UfNPYUDMH+mYsDCE5nucWThcPqVTtI3n5N9Kvi+7ya0viooD9IIAedJlFDoxaH4yM
-	 3QgDtcgyKbHzpJyO1EarSvYFGoPvQqsJZ5rz+Og6IdP8ZUI5+HS1fQPY25WW+Wbggm9AP
-	 Ppm1lco3BO/TV9FpGXo/qGuZD/hBYW+jc3MOQTNsQVIYNB2xqYzKPgveV1xN01mSLTB7D
-	 7MfCpyP8m3gCR+g1MTE52v3ph4VSmI1mrQEqrKFq7U3SAkinKapzL+g/HIEADCNr7xf9H
-	 yTMDaKLGs6q8F41pTrQJmvW+yQwe9N3FDAoDyubB9YMpegWrGY9a5CMT9qUc79/EYjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391254;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XYI6sfHAFTQB+81aBOW/oYbOaXKiK9idXGwkek2Kd9c=;
+	b=scT9xQbVVP/GoBxXVZ/DRY1kKl/9EUSFBDqMmKjuYw5WGkB+lfY9JMxznA/EnarF2UYU
+	 98uI7CdR/a0IqwpMe8s2agKm/CZ3C9/ZPyCo2B2Q2cSCtjukHXCsmTd9XKieeeR/zmf/N
+	 +/kduH6uGn1d1DZTf04gCuY67s190O/BkakoCQImHwuH0Gki7K8ltZr4ErFnhidA7pPdv
+	 8OimJpqAPnWn45iWz6T+zEEAz7lStTWhOOdE8AcRLzW+J3gt5RsbjBPjWSkp7Ymz2oMTC
+	 9N8za1kF4EDkAUwHIIhMakVz70JkmUTgkB7f5LUh+lrIKcJ+NtULBKGUG7v2JIO2GXQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlETi7LG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.133
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023133.outbound.protection.outlook.com [40.107.44.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E86606A335;
-	Wed, 11 Nov 2026 10:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlETi7LG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794391209;
-	b=A768J8fS7FUtav5cOht9VtSxQAkbJI2MfmBaNHwU60FYgs44KZ+qALSPfvDwDdHb41OH
-	 oj6MnPJxdaUUE0WJwFOl7wAf6r03Ao2TTviZeuP73mfHSJk7h6NOsSUp5r1KE8uTB1y2z
-	 d78Zeo0YaPxn3hwbl7egdIC9oOx8q6apEpu+ro4KPR+xd9fb9ZWsCEihKQFGJY69skNcK
-	 wPneVe+a0NjZ5i6wVkD7Vxar5oIInHLjWVDR84ZBUDQmWGXZ0f2iFi62hBZybqgb+Pxdx
-	 kGcFrn6+cFcZ2S862jVs0XD2NonPHH7PpcCAox5QA7o6EmZJ+7tOS/rrkPi+Zm/3/tg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794391209;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=tfQEiEpyUG9H1Q6bEwLdcxfuZJ7yClGMga9Onbudq/Q=;
-	b=G9LTSAFYOTr0UPUQCkC3HX8WnMG6JNouo2Zww9dmLTX6OP0hDngbsy2S0M1sDs71JRjq
-	 nBhlHFPg9Czg94Qkcz1CAl2FSoI9VTsWnUcEqH/DO/vYLl0jgk74e+EH5mj+gMZwiJouT
-	 MB/KS8mQk5x+J/W6Xm39ce/jiS0MNUMgsOrh8nB+Q+UN3SFlCNUoA16bXSMUEz8H1stq/
-	 VcEEy6KXa06c1ByXRscj+x6ZsASEAPuqd2vbIBCtJCvN0Qett1B9vTmEKk90wKCUU0430
-	 2o0aBOmYCGZFUBlu9LHbXRolIr2m9MgzZ1i+6mqTtWxy8+vwNyoBI+wTccd7EwwBT4w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7AF841F00A05;
-	Wed, 11 Nov 2026 10:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391209;
-	bh=tfQEiEpyUG9H1Q6bEwLdcxfuZJ7yClGMga9Onbudq/Q=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=YlETi7LGoakdQd7iAKfwDNkvgSeEvm39zkaOXSazUbU120ty9lpisxqzHy7QIbWrs
-	 t3hXJaFg6CjsR+gMBEE59TKUAcbKln2wCrMttBmJSf4SrNWgPzP0VynhTbVVDuS9vh
-	 xY/9UicLYF9Ab0ZVb02Kq5Y2/MgKIk9Dlfet/WkFp6KAydFwCZQaspeqkDFj5zZEGw
-	 zGY7I9NmhCqegYcvYZur0EB8MIP9w0yOBE+kioE6ocQnmnLIhV4HvGilNo3iSAW+Bp
-	 PLMTl9hnU1OB1+yvP21x6h8Mqw7ZerEs7KOwuu+22ivc79Xo6lOGMkhL4CT6EyVI4a
-	 B4/446bKbDYnw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C5CD548F21;
-	Wed, 11 Nov 2026 10:00:07 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Subject: [PATCH net-next v2 0/2] net: stmmac: Add RK3572 support
-Date: Wed, 11 Nov 2026 17:56:27 +0800
-Message-Id: <20261111-add-board-ok3572-c-net-v2-0-304466394970@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2420606A336;
+	Wed, 11 Nov 2026 10:00:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2420606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XI076ZQ0LxdAt9SRFIqYML2JqxbxstWw+6tXcSHKcZPOHM6Ols5K1Qv2Q9QlBPC7jx+6ES6eoQIemK7wK7endyjRfXi1jrNZVI1bXBU2imVNvvTISPM9GEruZYmyqhx0/qajZQQJFHlhwwRbNvcaJBt76lpJ6XGX5vOuWRq5519zvY+7Tx5sQKQonzNJIxPKhZRKkOFnJSNrXNugD45uoXQckv3l/sTHByS2Z5YGQOui+2rsL0FlhPz45tW/VxqHCVsmBf7l/oyNNBDqff8WWeLN4iWfKJNYkYFUTNiGpIi4cA9wnxb/wA4/a+W4Iwmq8TAqQuZJLQXY1JywG40izQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XYI6sfHAFTQB+81aBOW/oYbOaXKiK9idXGwkek2Kd9c=;
+ b=RctbGz/TXSGTgjrgdJBmei0SkKJA/4ntoXRuA2dKLw7LOlZ7n8Z6cv5iHythBZD58sXXeqgN5kg7dS0X3dvSlNySR1EoPwr+TvO1cBk3oyBSXtmqSkDp53xQj96MQXRsT7WmadSkMMauTEC75SQOlmGcqVjwjqf9lYpehFFBoQf7tqXLU3VdmxuID1LBfC7Z1QGLmj00C/v99axY2jWNTlPguZaPoeQgetaNzNX3hyBwqQXhe144g2Nw0dlpE13nByDpmcuyIaSRwapBeh6gC18+DG10RE8MDHy4ovMRa4oJGdtolLl8QdTE6fxRTl5Iu7pIAWL/w0IX9rOui2Vw4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI3PR03CA0006.apcprd03.prod.outlook.com (2603:1096:4:297::8) by
+ TY0PR06MB5427.apcprd06.prod.outlook.com (2603:1096:400:218::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 10:00:42 +0000
+Received: from SG1PEPF000082E6.apcprd02.prod.outlook.com
+ (2603:1096:4:297:cafe::13) by SI3PR03CA0006.outlook.office365.com
+ (2603:1096:4:297::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 10:00:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E6.mail.protection.outlook.com (10.167.240.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 10:00:40 +0000
+Received: from [127.0.1.1] (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id BA2EA4102E65;
+	Wed, 11 Nov 2026 18:00:39 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+ Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Gary Yang <Gary.Yang@cixtech.com>,
+ Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Date: Wed, 11 Nov 2026 18:00:38 +0800
+Message-ID: <1794391238.309976-1-hongliang.yang@cixtech.com>
+In-Reply-To: <20261111-fictional-vigilant-serval-eea5bd@quoll>
+References: <20261106101210.1059256-1-hongliang.yang@cixtech.com>
+ <20261106101210.1059256-2-hongliang.yang@cixtech.com>
+ <20261111-fictional-vigilant-serval-eea5bd@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,150 +106,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMs79GoC/21OSw6CMBS8Cnlrn2kLFeLKexgWpX1INVJpK8EQ7
- m6pW2c3me8KgbylAOdiBU+zDdaNiYhDAXpQ443QmsRBMHHiCaiMwc4pb9A9SlkL1DhSxMpUsml
- qLWvZQwq/PPV2ycVX2A0jLRHanxLe3Z103Ht372BDdP6TP8w8J/IcE+Lf3MyRIetYbxqpSk50m
- aajdk9ot237AhfmFtvRAAAA
-X-Change-ID: 20261111-add-board-ok3572-c-net-4d45887c575f
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- David Wu <david.wu@rock-chips.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Cunhao Lu <1579567540@qq.com>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391206; l=3935;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=K69TUjKEVvwLt+A2dEQmzVRxyynd7Q6ASArcWjYZ8Ow=;
- b=iWMCDziMHq9PHDs9pkj3AGsiac09NXX9JxnXzzIDdd6jJFbdxLqH/t0+I9u25cqMGcFrOO3TR
- tXm+7pKJlSaB0dRB0j+gOdK8j+2sPX3HnuVXhu5UnDCkKDVnpnJ208y
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E6:EE_|TY0PR06MB5427:EE_
+X-MS-Office365-Filtering-Correlation-Id: f89a75b7-0e80-4b0b-9060-08df3fdaa4cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|7416014|22082099003|18002099003|10067099003|56012099006|4143699003|261028144727099003|261021121427099003|261026140227099003|261021123027099003|261022105027099003|261026121527099003|261102123227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	eKkn0XuRXchmLVnedhSqmaCPmMKqw3j0uM1V/Haw/nfyPVnlZ5qpgcZCZ+xlBiUdv/d9MxQjpQvL1buirCM7T2TyOLFgwC+E9gzbeM6Yrl/k6FGS1fCTuII7OgJ6FRj7k7NfBQtV0tiZszimw5RnlTZD5n+bOc09c+5cNIQdK3/Fv3AV86W7+fkNtJshATBGQJsoFfNl5JhhG/BWKUHHsnqjJmeV+X7JBY6AsWjaa7Wgmkw6AH1YKn6ReCXXiqSh7dISqGN2Ik0OR9PxonnVZUmHkMRJUBw42ftvwSzLfSODV8JFNYEAOZAK/bpNlrI2IaoVsPdoAzwD+QO+D51iGqOnZyTuu6XxBXWNrav/tPEsaO/Wz2GhOO6tKtPJQbLo5YE5p6CqGui1L3uiqa1lQb8rOzOr/gyGDMLOd0fHGcXj1yIRxrSWzNuXZj8makLFWgUPy41SbndIVhzAGRx1ocDFiVi5jLBkCpJIZHIL8gH0kplmOrl78kt7K4BM25DlXbOrXB8KFMe0XN/a5QrTkpXOqMyhTPkmsG+HKqkO757DzuCSIlPPiSNqNxXVOCU9v6qjXSaqgAM3QwZGirRYbQ13XytfdkHToUzOQVdpA97Sy/zb/+n0C3d0MsjONlwlNYN1jxZntJvHGE3AKmYpN076qz0gshnaEcVguFaAm3bu5BDUScNlL+tAxryVK3y6gX1Lz7scF5xsNz2l5US2cg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003)(261022105027099003)(261026121527099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AljSyohj8aXiqrNuukx47QSMrYRBc1Uc6y23+E6aHxJPkxN92J+8qKSV/VZ0N44VxBSajtAd/YnVMbu4U4XpFFKp72gVlu6jq1F1TUYMZJbvYUFz1RadnCAAAJBLx1JaUZPmYp9Z5VNbjGpAxkS20YNf8F0Kw3KeXNf5gu2Et87azCIntS0ODywT+XUk/xXj3WKrPph64y1BZhkPxLEv/ea/oLtGznS3lG4BzFGk7ZUatwH9JwUAUY2SxJ3Y0aPdCxyZr2zNkcHGXcnIAlSr1CGDTEVR/wpo5UqtBZiK83FOhjZBzsI+gax9hp4iFkstLJfXqyHREJERjs24TWGked+gyjtAIZfOJ2tmHrTr8RUqK3lG7WOrqa11La0Lbt1SauJEPiTZ/sClZITYa68W3xb2aonrj++s+Iry498LL7zqxKlskYpHbBbh8rzuBtnp
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:00:40.8212
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f89a75b7-0e80-4b0b-9060-08df3fdaa4cb
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E6.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5427
 
-This is one of the subsystem submissions for RK3572 support.
+> Unanswered comments from Sashiko, dropping from DT Patchwork.
 
-This series adds the RK3572 GMAC bindings and support for both Ethernet
-controllers in the Rockchip stmmac glue driver. It provides RGMII and
-RMII mode and clock control, together with RGMII delay configuration.
+They sat for five days, that is on me. I am answering both reviews in
+separate mails; this one is about the binding only.
 
-The RK3572 SoC has eight CPU cores: two Cortex-A73 cores and six
-Cortex-A53 cores. It also integrates an Arm Mali-G310V2 MC1 GPU.
-The OK3572-C board provides two Gigabit Ethernet ports, three USB3 Type-A
-ports, a Type-C dual-role port, eMMC, microSD, and UART.
+On the overlapping reg windows: the USB30 Type-A DRD RCSU block at
+0x091c0000 holds the straps of the two controllers and of their PHYs,
+interleaved:
 
-Testing was performed with Debian 13 minimal and Linux 7.3 on the
-OK3572-C with the FET3572-C module.
+  0x300  STRAP_PIN0     stream ID           USB4
+  0x304  STRAP_PIN1     stream ID           USB5
+  0x30c  STRAP_PIN3     clock enables       USB4, USB5
+  0x314  STRAP_PIN5     awcache/arcache     USB4
+  0x324  STRAP_PIN9     awcache/arcache     USB5
+  0x328  STRAP_PIN10    USB2 PLL            USB4
+  0x400  STRAP_STATUS0  AXI clock state     USB4
+  0x410  STRAP_STATUS4  AXI clock state     USB5
 
-Passed functionality:
+USB4 needs 0x314 and 0x400, USB5 needs 0x324 and 0x410, and 0x324 falls
+between 0x314 and 0x400. There is no contiguous window that covers the
+registers of one controller without also covering a register of the
+other, so the overlap is what the hardware looks like, not a shortcut.
+reg describes the window of the block that this instance's glue lives
+in, and the instance only touches two words of it: the AXI cache
+attribute at res->start and the AXI clock status at res->start + 0xec.
 
-- SD and eMMC complete the firmware, kernel, and root filesystem
-  boot chain.
-- UART console works at 1500000 baud.
-- SD read/write and data persistence checks pass.
-- All eight CPUs start; CPU frequency scaling and hotplug checks pass.
-- Both Ethernet ports obtain IPv4 addresses and pass bidirectional file
-  transfers.
-- All three Type-A ports pass USB2 and USB3 enumeration, data transfers,
-  and reconnect persistence checks.
-- Type-C host and device modes pass in both plug orientations. Physical
-  reconnects correctly select the expected device, host, and device roles
-  in sequence.
+The driver maps that window with devm_ioremap() rather than
+devm_platform_ioremap_resource(), so no memory region is requested and
+the second instance cannot fail with -EBUSY on the first one. That is
+deliberate, and it is why Sashiko's failure mode does not happen here.
 
-Stability:
+I did look for a shape without the overlap:
 
-- Repeated cold and software reboots complete on SD and eMMC without data
-  integrity failures.
-- A combined CPU, memory, network, SD, and USB3 stress test completes
-  without a crash, lockup, CPU offline event, or thermal shutdown.
-- Ethernet error and drop counters do not increase during bidirectional
-  network tests.
+- syscon for the block: you already rejected that in v4 - "If you have
+  here MMIO for some glue over IP block, then it is unlikely to be a
+  syscon." I agree, this is USB glue, not a miscellaneous register set.
 
-Build and checks:
+- a container node with the two controllers as children and their index
+  in the block as reg: of_platform_default_populate() only descends into
+  simple-bus, simple-mfd and isa nodes, and a container with no driver
+  would never have its children instantiated.
 
-- The kernel, modules, and board DTB build successfully.
-- The series passes checkpatch with --strict.
+So v8 keeps the v7 shape. I have it ready and am not posting it before
+you answer this, so that the next version is final on this point. If you
+think the overlap should not be described this way, please tell me which
+shape you want and I will send that instead.
 
-Untested hardware and paths:
-
-- NPU
-- PCIe
-- GPU, video output, and audio
-- Other low-speed external interfaces
-
-Some files in this series are derived from the Forlinx OK3572-C BSP
-Alpha1. Thanks to Forlinx for their support.
-
-AI assistance:
-
-- Codex / DeepSeek V4.1 Flash were used for:
-  - Reviewing and adjusting code style to follow community conventions
-  - Automating tests
-  - Collecting data
-
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-Changes in v2:
-- Split the original RK3572 support series by subsystem.
-- Add rockchip,rk3572-gmac to the shared Synopsys compatible list in
-  snps,dwmac.yaml.
-- Link to v1:
-  https://patch.msgid.link/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com
-
----
-Raw dmesg: see the v1 cover letter.
-
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-To: David Wu <david.wu@rock-chips.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-To: Jose Abreu <joabreu@synopsys.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-
----
-Cunhao Lu (2):
-      dt-bindings: net: rockchip-dwmac: Add RK3572
-      net: stmmac: dwmac-rk: Add RK3572 support
-
- .../devicetree/bindings/net/rockchip-dwmac.yaml    |  3 ++
- .../devicetree/bindings/net/snps,dwmac.yaml        |  1 +
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     | 53 ++++++++++++++++++++++
- 3 files changed, 57 insertions(+)
----
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-change-id: 20261111-add-board-ok3572-c-net-4d45887c575f
+The other Sashiko findings are driver bugs and are fixed in v8; they
+will be answered in the other thread. The PHY series is unchanged.
 
 Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
-
+Hongliang Yang
