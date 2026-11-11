@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426032;
-	b=Qzx3y9a3m1PsTuwZaiduPmcT8b11MPQDQOdY9KWlRRcYQMRMZmcSeMhrfsoHCJVToETo
-	 8iMvGEQl6rSy69BLB7cl+7XHKrtPb8eCNxeRoPCHjK6wOoW8HZRBeRr1moU49qzR04/7W
-	 xxXtz8hryXLQmVJ96wiadrNY33rp8i9ZmxTAPkDeieEVtGDkLQecC6vNC4sLrKnY4qHRa
-	 hWDMLJ5GjGQHt+PqS41KUmMqIGw6TpGNentopXE93mNShBLhxIhJl5L66FHsSGmxzsUnU
-	 H2eyE0ht36cZxaSvMkfs4zMGdlriMR6S9dTsRjO2XLI+QNq08CXEmuHR0nsrDwUil8Q==
+	t=1794426028;
+	b=NNBaqNzXNJ50Qc3GNtePcb8uStFfZEl8vvzVtEDUPtFMmKaoi0cFXMZD3R9I3DpdFZ3F
+	 imrfFmzSMPi2Sb7DoMwJMf43liOTVC8dToD7d1q51ZIjAovSVIvJrCtfV+RTbuQpOiIBO
+	 S8A8dmljcFAx+/tOgVftUl6ud7W8sm9FjGZOp7UmRuBlBnaOcZZdioa5kQLe1oI0r6D04
+	 Yh22nOm4SdVCcfiF3UDbuJQmNECPvivap2fZw4ZSz30rcSVLteirb+YjizhBwCLOC9QD5
+	 ksTTsbAQ515LTeUnTyg9nAlGd/ASVTEC445CJJHSJaM9BIUYC+FZzRseFXnp9vdqEQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426028;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=JLHMNIGX8tDW4EPIddI7SD0KvLCdeVVUDiw+ZKX10Wk=;
-	b=kTfond67TWEDpjxSez5gysIZYE+Ejnjn/p6hDCtZ+djIP4mUcEjt+IV6Dxm3bArA2nom
-	 8/ixpGlS37RB9PPw3vAkE9Bg7fBYoyO4ZLMjwpeCvTfd+rNh4qSf811v6qAgpoM8HLDZx
-	 i/Vux7QzBwfmKdc6d9comvpOhm8HAynIcd58rdDKOYq0CK7OSh+eZbswWlAEdHqvjukg3
-	 W+DK98iWMfAY8apk0pMV3Kx0ZvjQVHuN7hvYvgd5rCpG44DJ3RmpSNSIqsAwNPZd/ZPuA
-	 JPkMI0JkoVlMMXUwdUYkBjE3BGw+cYtqzycoR/C+lc1Dy1Yof/o1bBvH/UXbac4nNtQ==
+	bh=WbtZfz6Ubs4QUtks6beIlGcmS0Vsf5BKmpwpM07CG88=;
+	b=vGqj2hEgM+tU0xgHCgT+LfpfZrKF9OlWhwBySbIn+XDLy+lLK8Dny0Qe+dUzsjkgrSPB
+	 QnRXQaQvU73yflkpz8p5f4LYTGvR28yM+f8mecYyd3IBXFBqp9qjVJGNoPaeEnuO8bfug
+	 kxm/hVrlIebjbC5cz0aH+0hKRqJCL6C2oMkO1HyBn9+LgPIxSAKEM7mfKbi6y8c9OPLkc
+	 E81pJYYIcz46sKljeiH102xaVcRce65S7IBhYb1jau184hzUtc5pREZ/vUQf+BeQJGaqv
+	 Dhc/PrRWDAafw6/IEflEg4RSgh8yYaXVXmdM2lBR/lqV8ItLqZDWR81kq7stzjL1spQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tn0Ccn88;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f/31b13/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B880E60A261A;
-	Wed, 11 Nov 2026 19:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219B760A2633;
+	Wed, 11 Nov 2026 19:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tn0Ccn88
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3209A1F00A09;
-	Wed, 11 Nov 2026 19:40:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/31b13/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 716FE1F00A12;
+	Wed, 11 Nov 2026 19:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794426032;
-	bh=JLHMNIGX8tDW4EPIddI7SD0KvLCdeVVUDiw+ZKX10Wk=;
+	s=k20260515; t=1794426027;
+	bh=WbtZfz6Ubs4QUtks6beIlGcmS0Vsf5BKmpwpM07CG88=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Tn0Ccn88e/tw8YiYx6XcN3fnJM2YLTmRibl4bwr3mJ+4ZJwX+3Vh2+1EBk/06AMvB
-	 TU+WFLUwJbywyTwut6ysrR4ALBALhN9DWMIE1kQCAilAIPbiBjwGTrDZkGF8WwP6Z1
-	 L+9xEyxc0de1cBcLXKJNDeqpumsYsJPMRIahEuZQsmlBjGI6FeYKT4PJkgbu8olgYJ
-	 PB7YR0E9PvHx7BZoTl3+eGzgme03RvS9ngDvZspfGoCiIm3/O75ydAeXvWgw5NBFXi
-	 Jn4zLfUjDmPDl/uFflUbk6baUFZnP5zpp5/qZ1qeaoAxf9ObO5soB49TX+ZqCqa1Kj
-	 y09RLybBG5wtQ==
+	b=f/31b13/R2FZtZ3q3vCquxU8orHm4wVVI0X8E56yMA3CQEIc+kH7d4A0NUK9BNxaS
+	 QoeIb4qVIykPid6hoIlw4UTfIHgg0A6XTriG4KKnEncXHo9C9G0X4h30g92n/MVFNE
+	 sqDEHs42KCSQ9zwuaYmcTvbC1sJwb46q/jBmh0B01mNxKGxgKGVD8ba7fntVJ7eCU6
+	 4xqrSQfWK/pEaVkiAh9H8DGXvLG/sP4ajzc7ZmAibipos1cXcct+uw+3aF53CIZVpE
+	 zmEKG2a9i6Ab3bUVAL3YZT6Ae83y5yad01tNTdsmh4p8S4O/omJy/HpI8OCB6pHGpm
+	 9c8QNMonOI7HQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 13:40:15 -0600
-Subject: [PATCH 05/12] arm64: dts: hisilicon: Drop HiKey DSI endpoint
- unit-address
+Date: Wed, 11 Nov 2026 13:40:11 -0600
+Subject: [PATCH 01/12] dt-bindings: mfd: syscon: Add HiSilicon register
+ bank compatibles
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-hisi-v1-5-6c9f5f80716c@kernel.org>
+Message-Id: <20261111-dtbs-hisi-v1-1-6c9f5f80716c@kernel.org>
 References: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
 In-Reply-To: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -65,27 +65,33 @@ Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.16-dev
 
-Rename the DSI output child from endpoint@0 to endpoint because the
-node has no reg property.
+Several HiSilicon syscon blocks are missing specific compatibles. Add
+compatibles for the Hi6220 media NOC ADE, HIP06/HIP07 SerDes control,
+and HIP07 DSA CPLD register banks accessed through syscon references.
+The names are based on the label names in the .dts files.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts b/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts
-index 5f31569cf494..25ff7d7dc176 100644
---- a/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts
-+++ b/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts
-@@ -300,7 +300,7 @@ ports {
- 		port@1 {
- 			reg = <1>;
- 
--			dsi_out0: endpoint@0 {
-+			dsi_out0: endpoint {
- 				remote-endpoint = <&adv7533_in>;
- 			};
- 		};
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index dae706ca7642..1e2a46ac2e3a 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -69,8 +69,12 @@ properties:
+               - fsl,vf610-anatop
+               - fsl,vf610-mscm-cpucfg
+               - hisilicon,dsa-subctrl
++              - hisilicon,hi6220-medianoc-ade
+               - hisilicon,hi6220-sramctrl
+               - hisilicon,hip04-ppe
++              - hisilicon,hip06-serdes-ctrl
++              - hisilicon,hip07-dsa-cpld
++              - hisilicon,hip07-serdes-ctrl
+               - hisilicon,pcie-sas-subctrl
+               - hisilicon,peri-subctrl
+               - hpe,gxp-sysreg
 
 -- 
 2.53.0
