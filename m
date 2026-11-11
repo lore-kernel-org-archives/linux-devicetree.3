@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794414162;
-	b=rzHUzNTXP9iDIQfJTFOu5kNJQO1FNPx55jQ3mkS5VVJjRYyf9jfHkd3UqYa7y3x8xBrx
-	 8FbebZltxHrS1d4eDWbohMEHzALNtU5CJpSh/qd+AFl6/0XaN4r/gtDIUNUF6sj+KYcZA
-	 ceRARNZKFJvzlT54u/2NIfbRY7Lb5KIvwjKtYeKX78TymyvjDLJgOkauUvLDIdwpj8N6E
-	 8mXWH4xliVcpkeTjDEmpJ95YQLcrSSuOVGrbWmcqMRFFjU1pYy/3sy0KoDKI9cTgrvB5D
-	 3qM/gE3rCiDZLUYRkAUN3rQWz3FzAJOPI8SU23kRjQds0XcFhk+08WfsvY6xCbnXcWQ==
+	t=1794414486;
+	b=5rVAkRWG3M6LK2J4Ye3mlnmZiq+S+w/kOHlk+vhXmqX0sBSfLEB5aMI6+lgYdAzQ+LkG
+	 Sr1bl0JtG4zVN7PSlgBvaxZiQXQ/Uhl81mVBQOrJcnFf36+gIK2PP6JlJMwy45Qx+W11o
+	 nFXntAGmP8Jt8qpWBqTvZnIlhi/whh0RQmwjYcj/uUCTLbmpYsQMjmOUFAUBOMuuzEoQq
+	 qYmnMhFu4nT3YQ1268lmut8JHBsgPV7T3P2c7rL53M78o1RWH2apUWbhJvTgBojT7L+kx
+	 N0qW9gQmt11eMPX4FRR0TWJOOnbOF0jMZL/YyOubNMYeOOC8MuLjmluzLuVIoSyru+w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414162;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
-	b=ZitHnOX9rsb+1h/AkpCmkYDUi4TLWxI+ArLLcAXhfVOb5PK9SZe7Tqu78ejATB8fduk0
-	 GdPqpcSgdBsQxXxzYVxtgKsSkrjIpduNaCXb1oor6InDhyvBVrqEUrJnD/QFJ70YecFzi
-	 Oie4w8ODRmrT6N9OzCT21r6KlA+zDLtghazvVIQ/IiRpCIrbDw4fP8LI9npkXpsCmgxri
-	 IwwKXJ8Tt0qVeq5dJ+XQXH3zGL3bobXyl2CcvxItzTht6EQJnoAqUkgqeQk4Hm75j0aCt
-	 xxm1zyXlvs7YRX+y13MP8ZWbnIPPte1UsIrP0JBb2RtaioFIvm/oCppDdUnSmwmRpSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414486;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ybLOGaA1nN6cBj/Hon0/pxOTuN9BCR4YiCDi/L8J89I=;
+	b=Yq8SdIFE/Z2bh+AL52BfuPVv4molOxcENKdAlot36egia9VrWuF6PgrbmOuqxGKvpG48
+	 K2C1m+WoFSeVt0Qe7VlUw5sIWUobcTZ8FKfgD8wYzvNnQu5cWdYLNc41JaZqYDPbwDvkB
+	 h2AWBloAgtYVFpfzaXSIfpyECtYZqvdj0irdsez4eACOP4LV8aa+3kQGcVXJhogjvpYWH
+	 mU48JxiVUfAGtVkmzPKK/ZA5CmuwBtBC6hXuH1oo4hrvCF0hM/WwggNKhr6GY7s3EEfTB
+	 /EE5J/C5rLfTb7F8HZ1Ho5fur6WkoCCfWDnZhPLdagguTsQ+CGK7iTxKuHfU1aAMZEw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jU+F7Kaa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MTP3fi0j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.20
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013020.outbound.protection.outlook.com [52.101.72.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F2E606A89E;
-	Wed, 11 Nov 2026 16:22:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC42A606A335;
+	Wed, 11 Nov 2026 16:28:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC42A606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jU+F7Kaa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794414162;
-	b=Wc1827rM0dE6gqjVcU5W0JlEUv8F0VWRlE/5bM8vtX0lIyURQITLJoNO56RBW7lJoul6
-	 AWt04WfZckpTuQJbN6kQY3jIfqXXOkmLPFh6ayYQjKp55WH6fyhfHc9w4DvXS/S33cTBN
-	 RnCb0T7bZTHwxZZIO+GwAOMw3MfejTlZruBtr61O2mLR4Blw1XcFhdXorZW76EDhGUOVc
-	 dYToIPTvLvEUYQVcD1uB8w48TssCNjrZqnCqFUMhF4juiTMAF8XkuFuMYpHHEzrDfmnv6
-	 9Zg0gOGsTUOtrkbj9qlwuo+CaOopfdVxu5TwGLv6bh6hZRGiLidlaPsfVZgQEK/sjGg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794414162;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
-	b=XE2gK+yliRaOvS3BJXGc99zEuLDoCzt2hnx0QNMYb+EzZSvZbemEW+dRtJ6tdZChRcun
-	 vpo6+7a0DR5grPcldfAAO/uKW73hWFjvi3hropPBL6gspyGBruUwkniqhS/S8JIuHWswc
-	 qICb9b9dhH162brJG3AR8tDO6fTmJwDLs4+sH6q5CjZ8nRldeLi1wlBHcLMg8wf+Myq2U
-	 JzUVpxq4WxHmEwDzFq9lqgl27w+KrvfuRlbhbJwOXCDNhAp4AoyMTDFyFsQo56xEeDV2i
-	 GgB2Fq4ZfOo+ljcg624j3C/y32Uiu/mmNj4mjZdxaLH/BVzuVGV0ecIhYaY74I4+bTw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4EAEE1F00A08;
-	Wed, 11 Nov 2026 16:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414162;
-	bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jU+F7KaaRh7E+Cv8AFgcL11n55WHRcQyTjVzt9KhFCxztvLncfpQC2a+q49Z21F2B
-	 HQCRUsYAMOfg84P+hkEQHPKm9Ws7G5ikIb6vSFZOnIz8agCoiHoKH00d3F5fdcfYE/
-	 mTXpNplWKNHst9zFmGsJQ3ZwzWwPwzCrjnwgil6rGWlqankG7/II+EP0rJfWsXtVXs
-	 HJlQmPiRfkTMsT7hGTzQNUBC488mTLo04JvNXXsqUmJsC+Pl/feo9ZjPe1/Whzra5R
-	 PVpe8UE0UjSH6NndP91xHnAotjObGY+1QiOuN3zeDsiYyGCodOiRoAJGtIGgVT//X8
-	 NsAbtpvFgnG1w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CEE3549037;
-	Wed, 11 Nov 2026 16:22:40 +0000 (UTC)
-From: Michiel van Beers via B4 Relay <devnull+michielvanbeers.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 17:21:42 +0100
-Subject: [PATCH v2 2/2] backlight: lm3630a: Allow setting the full-scale
- current per bank
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MTP3fi0j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=quq8FPWuH13EVK+mE1tiQZFQmd8JlMdMdQ36thteUKleGnaGF/SlJ/jcB4OekHRyHyGfFhXPVmQgvH7dm3gWIvCbe4RDZuAp/Bh0bhYAMYLLdK/Nz0AYiX3uH+GbXKE5S7twL/SfTQyw8Gypog28kbMACI2tJIGRT/32tdZ6EQGd1caX5/r4lOEZEcxroz6C40TRBzhboFYcFSQAIfuPP8m8Z8C6y76Wz292VYocDQtvlIYAfisgVBaSlu9O4L79YYJdiKBtIOnCcBtkQC/xk4/ft+PbNun9GkjF8fhsElnsXOZonfAg6L5q49OwHz7w6xJy7MDRk+A4YsGHrr0SdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ybLOGaA1nN6cBj/Hon0/pxOTuN9BCR4YiCDi/L8J89I=;
+ b=tC/osCaIoavxbXyzzOduPqgGXnVoZz1f5up/0xgBvT9E2Z0CCrN62DFU0v2WSOYeZcM4N/gYtAIea3pUHxIEYxRC7BjXOKbhhJkY/EO8y+Ad/CfdZZp6G/Qx1cZKL2zzcNkFb5GEdAzZZ7DHrPD52XMoPE7kU9iyQGsnTF5nq0H7jUd8cxhNWmlWlaW+BeDQ4DAczdrSDMk2VVsxU0Jm6tZKUeapNfBLa8Fg7ilLEXjwfr2Izi7c/z8xvJIcDsT6rkwXIusPHdXs+32sYkWZdrWZNmd3bwFd6m9Q2OxFUefOwK+3dt7l3tPp6asuS1UCfRo7tAu/XLecc5EoqkFEVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ybLOGaA1nN6cBj/Hon0/pxOTuN9BCR4YiCDi/L8J89I=;
+ b=MTP3fi0j7Rq9MM7imje2YQTXEF3kJ9dpfNUjgKArnqF27kIMEeNNH9FVypLZcwJ27NRud8T0txWzL9SZpPQq222kJ5yxl+dpHHZSccxkKp77lv8WZNVpjGIyGDuDIgM38VNZV1p6ObwVtNYURC83kOYZQBqdO9FhQU5megAogL2gk1vKB9azgLCB9Jm5T6Q4uvWn3f/dN9T1MMkh+dNLvPkyfItej2K+CYCTxjDPlkWlh4ughwqS4Sn+XpAamD2euLzYlgjv+Z9Ab1DLU+NLpAErgDY7CDA7RPrq5XBbY+vwAq73TguRXcWeZtSw/3BuNkwTrWHHizcxYu0tv0eVxA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB519196.eurprd04.prod.outlook.com (2603:10a6:150:395::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 16:28:02 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 16:28:01 +0000
+Date: Wed, 11 Nov 2026 11:27:51 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rob Herring <robh@kernel.org>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>,
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v3 01/11] dt-bindings: gpio: vf610: fix clock
+ requirements per SoC
+Message-ID: <avSXh92mu8jd2kMG@lizhi-Precision-Tower-5810>
+References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com>
+ <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
+ <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+X-ClientProxiedBy: PH7P220CA0134.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::34) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,155 +110,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-lm3630a-led-max-microamp-v2-2-aff11756e7be@gmail.com>
-References: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
-In-Reply-To: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Michiel van Beers <michielvanbeers@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414160; l=4765;
- i=michielvanbeers@gmail.com; s=20261107; h=from:subject:message-id;
- bh=YrzYv6G6kHsv+ddU+T8TW/TH8CUbRepEUJYvTRcaRMI=;
- b=JVfzfKGbjd7roYgiWd7DpAOH1JdyHKa09w8DtY57g5BGiqeHo0T4K+KllY8o3TX+XGepDjRSV
- ultsVhs2ntNDpOEr2bfDmLKeRGCaBKVCyz7Khhxji248h3hmSyWNWjy
-X-Developer-Key: i=michielvanbeers@gmail.com; a=ed25519;
- pk=C+lOje7u3+2x3o2NLMXrwz2veP2++eXfIi9MtYsUo4k=
-X-Endpoint-Received: by B4 Relay for michielvanbeers@gmail.com/20261107
- with auth_id=1444
-X-Original-From: Michiel van Beers <michielvanbeers@gmail.com>
-Reply-To: michielvanbeers@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB519196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13e8cea4-95e1-4951-6090-08df4010c140
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|23010399003|7416014|1800799024|366016|22082099003|18002099003|3023799007|11063799006|4143699003|56012099006|261009223027099003|261102123227099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	tvfEu0gUjXLvNAiMj9ICxBx2729GKBgKi7UnRVmhAmKRVKz52tVa0NpSqejjShEK+vHFEE44BRpMdw3kFA82ezczYNUcSpkYDFiOjnr6ppRkL54NGL0VU3PN9ri8OjYrAr7runVtk+Q9NLiwOB25uuG2xg2vwvgjEXZoHg//TYK2o0hIMTW6Md7mfp5jjYAapnL6jw3U6I6NV4IiQVQpROUIt3YwOj2fTLelobGCToKOBKWWFMA8uactHwteOOUiMiteFcYTHNPYVJhG2c3CSI/O7NS15FHB6V/VIWQkAYGKaOe/IytWoIgZaqcvn38J8LWIBHyWzkJU1HFH/ji43tHKmfeUXVu7Fj7E9E5kOtfTU8ZfPO0KuOz0foo5eH7VZqi2nAV1DWL1XR4wvmnEW1QaXkW4Mg2r7JnZ15HQTEyzHkpDL+gtS91Cblh/wtoEtas2uMu3exa4cOFuxmbHSopmpQSSI4xWIGmkUyV91m6BVbOp6ERC63rTvRUt8mRceIlx5kmNdXo0ZXegnTn/BkRDWXa8DvZAZnrojpt9BTEYihNuiXr160TA6OGgiSewFzAhxQ3LFu2ujwjp7GSa0nN5JHIDIugUbPUpVLd3EThBApW8ydz67D3pnKpMpLknJr0ZwKS/2aScCUst23mQM7zhQUjBXfLgE31EQi2z0gg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(7416014)(1800799024)(366016)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(56012099006)(261009223027099003)(261102123227099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWZ6TWYzbXlGWmxQY3A2VHM2NTNQYi9WM1VjRnU0aVlpbmw2MDBuRVJiRnBz?=
+ =?utf-8?B?M3QrcmpUamdDMnFSQVd0d09OL2IyR0dLWnZrTDgvTGtzb2xvelhBRXpJRnVI?=
+ =?utf-8?B?V2ZTUmlONjAweStncjNiaEtLaHFHZnY5MkNhZ0FUSGNUMnh1RDZLS3dzemtQ?=
+ =?utf-8?B?dkdSaDd0NDlyNUdLc2VwVFVpNnlPRVprVXEyZnJkcGQ5SWJsa1hscnRLNk9O?=
+ =?utf-8?B?V0s2NENHU3BqSjdIMXhqQXBaN0M1V0ROaFd0WTU5eURDNVVqczRVaUpCQmMx?=
+ =?utf-8?B?aUlMMnNDSjQ1eFlSMHFsWllWSEovN3NJdEQrWU5iMHZtek0yYjdRb05tSWdY?=
+ =?utf-8?B?Nk4xV00ycFZOUzdId0oyaTNqdlNDOEpoc0RSV3pFRFhNTHh0a0RLOUJNWFBN?=
+ =?utf-8?B?RUV2dDUwMkhZUStKWmlJYmlqR084UlMwVm9UTEhoWU8xUk5IVWIrMUFqWjR1?=
+ =?utf-8?B?UGJ1MG9kR0Z3a0JVZkVWd0sza3YwY3RTUStvNmErblp1S2lEdGxxT2ZNZ0xz?=
+ =?utf-8?B?OFZLaE0vUm5LaDB6TFRzYThZbCtYZFlxaFBhY2NQVmlyWWFRQ0pEVHIya0Rv?=
+ =?utf-8?B?VkFXeGdPSUhKYktMc0VKVDJQWUQzVSttRzRVTlBIT1M2SmNUK2psdmQwSnFv?=
+ =?utf-8?B?a1FsZE5lSzg5UENIS2lDaVAwbkl2YmMvVkhvZkhQbElOL0syc0JYVVZ3ekJa?=
+ =?utf-8?B?SisrVFpjMEZiWkY4ZThlbHZhUXlaNTZwa1dwaWVTRnd1NWZRaW4rTTNzbDU3?=
+ =?utf-8?B?dUtDS2RBcUtmSmtIK0gwVDQyMTRNRmJRaVBnL1Z5VThGZjVWbW9oTU9rU081?=
+ =?utf-8?B?anFLaFBGaVBoc0tReUc5aTgvSXcvbVhXb0preU94WDNLbEpXYTdvWUZtVEpD?=
+ =?utf-8?B?Y3RkU25SdXZSNGZWc0JLMHVrWWo0SFIyNFpXNi8zaEpVakUwMXZhcVVtTHJw?=
+ =?utf-8?B?dkpYME1PeXdaNzhUMmE5LzZleWl5VVltcTN1VndhWVpBeTl5WWgrbHFQdkFn?=
+ =?utf-8?B?N1FQN1R1d3lpd1pITEl5dmNrTlNHMGdsclphaDBkaC9vVklGT2d6TmV0ZHRY?=
+ =?utf-8?B?d0lKV0VnOXJSRnFqOExKZEp0ak94WUY0bk8rZGR6N3V0eDl3K3dCbENBN0dF?=
+ =?utf-8?B?YmR5ZHJBalpmOHE3U1pBZGRPNWN4YlNzY1RKeDZSeXZyYmZlWkx0cEZsQ3l5?=
+ =?utf-8?B?Q2VTdXFEWTU2NzhFcmo1djhqaDl2ZEN2RG10Y3ZaV1k4U0hzUHFUR2pEWHpM?=
+ =?utf-8?B?eUExVW1YVHU1ZHl0NURYTnNZdlhHQ1ZUcGd1dWVaWk8vam5LMjRYUzBHdVRa?=
+ =?utf-8?B?OE1qZWE0VW1zZXF1YXBkZXBQYUFzc1I2SUFpeW1lbE1IeVRPbVlIeFlMVUlK?=
+ =?utf-8?B?SjBxdDgxZWpYNE93ZlVsVE13SThHWVRielRFbXdWRXYzcTRyQ1BYc0szMG5S?=
+ =?utf-8?B?eTl0UFFJQjhpRDl1amdYcGpOVElrM2xLV2l3ZjdYY3NlYWlDOG1SVEcrYUpI?=
+ =?utf-8?B?NnYyeUt2b1l4WUh2UGhVYTIxVmhNV21jd2t0NE1UbWUza3QwUFdGMlpTQ2lR?=
+ =?utf-8?B?RS9CbFJPUEIwQmZQeWRtTGJ4bHhvalowdlA0c3BxSDJhWGlDWDZubmcrdURB?=
+ =?utf-8?B?MGl6dEpLQVV4bWhGODVDMEZ5TUVidGNYSENyejVocmRUZUNGTVQrbnhKVC9N?=
+ =?utf-8?B?aWhvWmJvNkNOVDdCYUNmZG9SZko1MElFeWVQUnhVb2RQTWplSElpL0ViMUZw?=
+ =?utf-8?B?dGJCdy8ybVArYkRTbElmanRnS2JZazBsREw1b3lNWk9NcFpMd0ptMS9PYmtr?=
+ =?utf-8?B?UGQrRUI4VU5nNElmL0t6b2tZeXhMNGNXbW9ud2kyOGxXNjBONTVOY0toWGdJ?=
+ =?utf-8?B?L1djU25qZmhTRElwdkZ4d05kOU5mZUVmbE55ajU1R2ZBYWVqa2JxSS9lTVA5?=
+ =?utf-8?B?c1BQVHdNTmdRTG9zYkFPbGRlRUtXTEtvK3IzaHJaaHNVZFcyd0lZbGZjSEw1?=
+ =?utf-8?B?OUJBc2NIdlgwSFI3a2xxWXhsQVJTMVpnUWY3a1JEZHlIV0daT1pmc01lWVVC?=
+ =?utf-8?B?MU1IbDJXZlNuMWUwMHN3dkVUNHpHOStHTzl2ZjM5dkp2bU5MZ21yajZaOS9v?=
+ =?utf-8?B?ZzFYdzVNcmtTSEdHUDhRWEJFdDY1b0JvNDJRWmd0SzV3TjJGYmJ5cmE5MTJv?=
+ =?utf-8?B?S3B6MExhY0VuZ3lLanBIdUJaYVRELzE3WFp5THJlc1BFN1BmM3I0YjVYUkwv?=
+ =?utf-8?B?cWhQaHEzV2J2UGwrN3FGUUVxbkl6ZE9DUFZZeEZtanFNU3FwbFFkTkRNRzhN?=
+ =?utf-8?B?eXNPYldnaGxKRmsrUDRpbDFRd25CVWpCRXk3a1h2SFd3L2RpSDdsQVN4NnZq?=
+ =?utf-8?Q?Zg5WuJm6FuwKxNcUwgzRSKhtpPa/UuLnQ0ewW?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13e8cea4-95e1-4951-6090-08df4010c140
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 16:28:01.6675
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N7wUHns1tSwa7zxKvgVJG4jI2qjBJaWOExbwueZBK1tekWBHD+JVFvlug9HkEhu8U0/f8apgvBVH2Ez3YiUiH8cUaGjf/jARMc8Yzr3lJqM7wQlTqjqqn17CmymMH/1x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB519196
 
-From: Michiel van Beers <michielvanbeers@gmail.com>
+On Wed, Nov 11, 2026 at 08:35:04AM -0600, Rob Herring wrote:
+> On Wed, Nov 4, 2026 at 9:56 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
+> >
+> > From: Peng Fan <peng.fan@nxp.com>
+> >
+> > The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
+> > while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
+> > a single "gpio" clock. The VF610 controller has no gateable clocks,
+> > so force clocks and clock-names false.
+> >
+> > Fixes: c61d8b5791ab ("dt-bindings: gpio: gpio-vf610: Add imx8ulp compatible string")
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > ---
+> >  .../devicetree/bindings/gpio/gpio-vf610.yaml       | 41 ++++++++++++++++++++++
+> >  1 file changed, 41 insertions(+)
+>
+> Now a bunch of warnings in linux-next. Breaking binding changes like
+> this need to be applied with the .dts changes.
+>
+> arch/arm64/boot/dts/freescale:952:50
+>    Schema warnings:50
+>      60 gpio@47400000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
 
-The driver always programs the full-scale current of both control banks
-to the maximum of 28.25 mA (code 0x1F). Boards whose LED strings are
-rated for less have no way to lower it.
+I will apply dts change.
 
-Read the optional led-max-microamp property of each led@ node and
-program the full-scale current register of that bank with the matching
-code, I_FS = 5 mA + code * 0.75 mA (datasheet SNVS974B, 7.3.1.11). The
-code is rounded down, so the current never exceeds the requested value.
-Values outside 5000 to 28250 uA are rejected with -EINVAL.
-
-Without the property the driver still programs 0x1F, so existing boards
-are unaffected.
-
-Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
----
-checkpatch --strict reports errors on the two new kernel-doc lines in
-lm3630a_bl.h; the hunk does not include the comment delimiters. With
--U15 it is clean.
----
- drivers/video/backlight/lm3630a_bl.c     | 40 ++++++++++++++++++++++++++++----
- include/linux/platform_data/lm3630a_bl.h |  4 ++++
- 2 files changed, 40 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 8ef8163c7fef..1189011bb89d 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -80,6 +80,25 @@ static int lm3630a_update(struct lm3630a_chip *pchip,
- 	return regmap_update_bits(pchip->regmap, reg, mask, data);
- }
- 
-+/*
-+ * Full-scale current register code: I = 5 mA + code * 0.75 mA, code 0..31
-+ * (datasheet SNVS974B, 7.3.1.11). Rounds down, so the result never exceeds
-+ * the requested current. 0 means "not set" and keeps the chip default 0x1F.
-+ */
-+#define LM3630A_FS_CURRENT_MIN_UA	5000
-+#define LM3630A_FS_CURRENT_STEP_UA	750
-+#define LM3630A_FS_CURRENT_MAX_UA	28250
-+#define LM3630A_FS_CURRENT_MAX_CODE	0x1F
-+
-+static unsigned int lm3630a_fs_current_code(unsigned int microamp)
-+{
-+	if (!microamp)
-+		return LM3630A_FS_CURRENT_MAX_CODE;
-+
-+	return (microamp - LM3630A_FS_CURRENT_MIN_UA) /
-+	       LM3630A_FS_CURRENT_STEP_UA;
-+}
-+
- /* initialize chip */
- static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- {
-@@ -93,10 +112,12 @@ static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- 	rval |= lm3630a_update(pchip, REG_CONFIG, 0x07, pdata->pwm_ctrl);
- 	/* set boost control */
- 	rval |= lm3630a_write(pchip, REG_BOOST, 0x38);
--	/* set current A */
--	rval |= lm3630a_update(pchip, REG_I_A, 0x1F, 0x1F);
--	/* set current B */
--	rval |= lm3630a_write(pchip, REG_I_B, 0x1F);
-+	/* set full-scale current A */
-+	rval |= lm3630a_update(pchip, REG_I_A, 0x1F,
-+			lm3630a_fs_current_code(pdata->leda_max_microamp));
-+	/* set full-scale current B */
-+	rval |= lm3630a_write(pchip, REG_I_B,
-+			lm3630a_fs_current_code(pdata->ledb_max_microamp));
- 	/* set control */
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x14, pdata->leda_ctrl);
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x0B, pdata->ledb_ctrl);
-@@ -472,6 +493,17 @@ static int lm3630a_parse_bank(struct lm3630a_platform_data *pdata,
- 			pdata->leda_max_brt = val;
- 	}
- 
-+	ret = fwnode_property_read_u32(node, "led-max-microamp", &val);
-+	if (!ret) {
-+		if (val < LM3630A_FS_CURRENT_MIN_UA ||
-+		    val > LM3630A_FS_CURRENT_MAX_UA)
-+			return -EINVAL;
-+		if (bank)
-+			pdata->ledb_max_microamp = val;
-+		else
-+			pdata->leda_max_microamp = val;
-+	}
-+
- 	return 0;
- }
- 
-diff --git a/include/linux/platform_data/lm3630a_bl.h b/include/linux/platform_data/lm3630a_bl.h
-index 530be9318711..43383c476c09 100644
---- a/include/linux/platform_data/lm3630a_bl.h
-+++ b/include/linux/platform_data/lm3630a_bl.h
-@@ -37,10 +37,12 @@ enum lm3630a_ledb_ctrl {
-  *@leda_label    : optional led a label.
-  *@leda_init_brt : led a init brightness. 4~255
-  *@leda_max_brt  : led a max brightness.  4~255
-+ *@leda_max_microamp : led a full-scale current, 5000~28250 uA (0: default)
-  *@leda_ctrl     : led a disable, enable linear, enable exponential
-  *@ledb_label    : optional led b label.
-  *@ledb_init_brt : led b init brightness. 4~255
-  *@ledb_max_brt  : led b max brightness.  4~255
-+ *@ledb_max_microamp : led b full-scale current, 5000~28250 uA (0: default)
-  *@ledb_ctrl     : led b disable, enable linear, enable exponential
-  *@pwm_period    : pwm period
-  *@pwm_ctrl      : pwm disable, bank a or b, active high or low
-@@ -51,11 +53,13 @@ struct lm3630a_platform_data {
- 	const char *leda_label;
- 	int leda_init_brt;
- 	int leda_max_brt;
-+	unsigned int leda_max_microamp;
- 	enum lm3630a_leda_ctrl leda_ctrl;
- 	/* led b config. */
- 	const char *ledb_label;
- 	int ledb_init_brt;
- 	int ledb_max_brt;
-+	unsigned int ledb_max_microamp;
- 	enum lm3630a_ledb_ctrl ledb_ctrl;
- 	/* pwm config. */
- 	unsigned int pwm_period;
-
--- 
-2.43.0
-
-
+Frank
