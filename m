@@ -1,54 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356876;
-	b=D0iobn8vR2TeJH02e9xnin2w3UeFtMaAYTl0+xrox3pwnTP/6Nb1OLq6qDcswPajI0St
-	 LdEiv2kIq5qONSmsf1hJReHn2fZbvrMzAOywt7n187I1sDyJaVK4oatYycNlbXKNHxxWf
-	 lCfT8B/GXDeSXnnoeG2NQZyqWC5AQryiE13YWxMDAQnpml4cmLZaHq1uP3F2lDc/jZ1Y+
-	 D56HAJsB+J+HK1YXNRSamiyW+TIyuKQXd6B51uV3xdD8g+MpD0iIwpA9T99uBERvHrS8B
-	 RQyGKDvqjmXG+m9nh2a0tM3K1btCSjrzadPL1v8Xo/4zznQef0PSdnTxAnyp1iSwxJg==
+	t=1794358055;
+	b=xsejZGII/ZXwIaf2cmNd761wpyJTxiXe400Mz+vn+NyJDFNh6HzeTXEWD0+P4sgl5DBY
+	 5k9EZ9MsHU99fOBciPQ57tuRsplxRkVuBQKvTHsSEX+cDDYJQCy94UGR53IGljmRDrFwp
+	 F2hua3giugLvQrrL7fqqx/SGtq0h9LlzE+q5mfaPKxbKaBMRh0DoOt1dMNHi38Dh8dXcs
+	 1VRs+6mFCQ9B26vw/C3ii7rVLBwbsqR2ynU4VhiZchmjpO21BNYqd3zqZguRNPnPynf2j
+	 ikYQmTvGdHsBUqGvmmj9NOlmE3VS1tNFFO0cq5/hTR+8r+y4tQas2g5D5L1GYfvk84Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794358055;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QxouRG1KYEdTCRqc89wWZcbxBTtvnYZZATf1L46tV18=;
-	b=QO6cr19zL1l9huGhxiRGNC4gvOzGIXArkAk/dksD8sS9o1to1cX4FBcrZa8tov6v8jU5
-	 fZ4btRSK+bxNwkKkIsJSWJ/kEGplQsonV2EPd4U1HKHc1SgaGGuTzWP1yH+QrdgbCCspy
-	 5QRmTDVwJvHZSH/RG2fQgBM1y/6JhV1TDld+UV56S/xs7zY8i+zOrlkcTQZIykeVHlown
-	 fh1D+FK0krh3myNEb4aSKg09iDqRQUMROfzB5/6tT9PcJEGOyyW73bG6Ahe6gdVKCHDrK
-	 FMHd8eGXPb7ya8fE+QKe6KeiIe2NAzm3GaHbnB7y5q9Uz3Pqu6CymHOlSPJeuiOnq/w==
+	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
+	b=iPD2EsVQqci55+asIrG7wc0aHY9gXdaac8eZNCqZXTlzEazVNyWuJE5zCiqHmmcvN4gb
+	 RhpKJI5trsNKfGOrpaFPNbxb12xnX98PAXGqkQWqJvW+OZzTPr1Vy30Hz6kPrc0NCX7fh
+	 o2XcMxwjqocye9lV8m8tKG0JcJQ/SA6upgOgUORwH+l7BDNfyKgEbcaYo/RZEY8nQp5Gx
+	 +IVHsrGOwG3iDkC7GZ4eOMrsEk8ZXnSEIvRPV2jOrN7TBbqJI6ldby8Fupr5oSImAOxpX
+	 FQcHBvbsfS1Rf/RF7ui0e6W7dwJmlHXJ7+btj7gEBGMI+nCVPO7Q+VKN8Q9JVew1W8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8yNWGFP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E190606A31C;
-	Wed, 11 Nov 2026 00:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73E8606A320;
+	Wed, 11 Nov 2026 00:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8yNWGFP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA5E1F0089F;
-	Wed, 11 Nov 2026 00:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C640F1F0089F;
+	Wed, 11 Nov 2026 00:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356875;
-	bh=QxouRG1KYEdTCRqc89wWZcbxBTtvnYZZATf1L46tV18=;
+	s=k20260515; t=1794358055;
+	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i8yNWGFPsUq6WxBEAz4FCU2EgZSv4uWyeQZsCObLRbazsnyDmOcF1yc/xdRjS/kX2
-	 +aTWhv0gs8ERKg471ZEJ0l/ZyvIvJBWElC9dEY/eUmkZkBJjRCZZG1Bf0aOey/4No7
-	 +U6MDol+Oxxiw2066UxjBzAHIz4ygPERr8KaeHYvZUKJYjU1kfABuQeSL16Yimwx1a
-	 3KW4ThZSGtowi0pd1ZB9dAlyVTuHnRPge1cRlmq+NrSyMqsiTM8pl44F6KuxdjtVKr
-	 B1/o8MkyncXJTdwOi/ApjNRTruuMi75IUoGC864GRcwyP0KSX3ylN19533FZiLqRKB
-	 mKr/zRFclEPIg==
-Date: Wed, 11 Nov 2026 01:27:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avOw9gLozCslpK_D@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <sashiko-outbox-207284@kernel.org>
+	b=WM6outSpn9srJTdlP80y9RSw+u+bI42TfmY8rOxOBIBFkH2+zZ9al2xsJVdmy2cKl
+	 MU0sSVdkBnD02MA/xy1279U/64ZTOQ4czNbbyMLWZZz6mk5iD1a00QVM2VmPwTOUbR
+	 ZF1xG1Tzzcmt2RmGYjSb18XhJrWbgrPDExiDFLorRcZx6DeOW5OE7FSJP6jYufwJXw
+	 IVx86JI0jYvZJZBpCqJH0hwDyURY2yqHYhIUVsQA87yxjwhfNWkXmBZK7kIu4Z5J5h
+	 pQygmpBw2U6W/sPza04838xo9erGSx0ACqeDpjESbKDNSIj/Lr51MqBwjaqYz16EIn
+	 Zbdp9el4fJtzw==
+Date: Wed, 11 Nov 2026 00:47:32 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device
+ node
+Message-ID: <20261111004732-GKB2005@kernel.org>
+References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+ <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,179 +70,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="khawwxmlw3jv7fmk"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-207284@kernel.org>
+In-Reply-To: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
 
+Hi Iker,
 
---khawwxmlw3jv7fmk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avOw9gLozCslpK_D@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <sashiko-outbox-207284@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <sashiko-outbox-207284@kernel.org>
+You could drop "RFC" prefix next time..
 
-> Date: 2026-11-10 15:44:36+0000
-> From: sashiko-bot@kernel.org
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] string: strprefix() breaks Clang builds via void * subscript in
->   QVoid_of()
+This patch generally looks good, while note that it has to
+wait for power domain to be kicked in
 
-This seems nonsense; already replied to in the review of 4/5.
+On 20:56 Thu 15 Oct     , Iker Pedrosa wrote:
+> Add device tree node for the Imagination Technologies PowerVR Rogue GPU
+      ~~~~~~~~~~~~~~~~~~~~ drop, it's redundant and obvious
 
-> - [Medium] string: strprefix() always returns char * due to non-const
->   (strprefix)()
+> (BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
+> 
+> The GPU is located at address 0xcac00000 and uses:
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        drop, too much detail and not really worth mention in commit message
 
-Hmmm.  Fixed for v4.
+> - CLK_GPU for core clock from APMU controller
+> - RESET_GPU for reset control from APMU controller
+> - K1_PMDOMAIN_GPU for power management from syscon_apmu provider
+> - IRQ 75 for interrupt handling
+> 
+..
+> Disabled by default; boards enable it individually.
+> 
+As GPU is integrated within SoC, I'd rather see it enabled by default,
+so will not only one specific board befenit from this patch,
+besides, I see no reason why people should disable it by default?
 
-> - [Low] string: strprefix() macro parameter pfx mismatches @prefix
->   kernel-doc
+> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1.dtsi | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> index 3fabfd34114b..82cade2f76fe 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> @@ -5,6 +5,7 @@
+>  
+>  #include <dt-bindings/clock/spacemit,k1-syscon.h>
+>  #include <dt-bindings/phy/phy.h>
+> +#include <dt-bindings/power/spacemit,k1-power.h>
+>  
+>  #include "k1-pdma.h"
+>  
+> @@ -1119,6 +1120,17 @@ multimedia-bus {
+>  			#size-cells = <2>;
+>  			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
+>  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
+> +
+> +			gpu: gpu@cac00000 {
+> +				compatible = "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue";
+> +				reg = <0x0 0xcac00000 0x0 0x80000>;
+> +				interrupts = <75>;
+> +				clocks = <&syscon_apmu CLK_GPU>;
+> +				clock-names = "core";
+> +				resets = <&syscon_apmu RESET_GPU>;
+> +				power-domains = <&syscon_apmu K1_PMDOMAIN_GPU>;
+..
+> +				status = "disabled";
+as if agree with above comment, drop this line and patch [2/2]
 
-Hmmm.  Fixed for v4.
+> +			};
+>  		};
+>  
+>  		network-bus {
+> 
+> -- 
+> 2.56.0
+> 
 
-> --
->=20
-> commit f882ec908122ee0c3f780648b859ed41700664d0
-> Author: Alejandro Colomar <alx@kernel.org>
->=20
-> string: Make strprefix() const-qualifier-generic
->=20
-> This commit wraps strprefix() in a const_cast(CQChar_of(s) *, ...) macro =
-so
-> that its return type preserves the const qualifier of its first argument.
->=20
-> > diff --git a/include/linux/string.h b/include/linux/string.h
-> > index cb096e9eb9835..3e8a0537b86bb 100644
-> > --- a/include/linux/string.h
-> > +++ b/include/linux/string.h
-> > @@ -577,7 +577,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
-nst void *src, size_t count,
-> >   * *  @s+strlen(@prefix) if @s starts with @prefix
-> >   * *  NULL if @s does not start with @prefix
-> >   */
-> > -static inline char *strprefix(const char *s, const char *prefix)
-> > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx=
-))
->=20
-> [Severity: High]
-> Does expanding CQChar_of(s) here break Clang builds (make LLVM=3D1)?
-
-I can't even seem to build with LLVM=3D1, so can't reproduce, but as said
-in the other subthread (4/5), this makes no sense.  Clang accepts this
-code just fine.
-
-> CQChar_of(s) expands to QChar_of(const, s), which expands QVoid_of(s):
->=20
-> include/linux/string.h:
-> #define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
-> #define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
->=20
-> Because __QVoidptr_of(p) is void * or const void *, applying the [0] array
-> subscript operator to it fails to compile under Clang ("error: subscript =
-of a
-> pointer to void") in every translation unit that calls strprefix(), such =
-as
-> drivers/base/property.c, and triggers -Wpointer-arith under W=3D3 in GCC.
-
-Hmmmm, I see why it says Clang may not compile.  For that to happen, one
-needs to enable non-usual diagnostics.
-
-	alx@devuan:~/tmp$ cat const.c=20
-	#include <stddef.h>
-
-	#define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
-	#define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
-
-	int
-	main(void)
-	{
-		const void  *p;
-		QVoid_of(p) *q;  // const void *
-	}
-	alx@devuan:~/tmp$ gcc -Wall -Wextra -Wpointer-arith -Wno-unused const.c=20
-	const.c: In function =E2=80=98main=E2=80=99:
-	const.c:3:55: warning: pointer of type =E2=80=98void *=E2=80=99 used in ar=
-ithmetic [-Wpointer-arith]
-	    3 | #define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
-	      |                                                       ^
-	const.c:10:9: note: in expansion of macro =E2=80=98QVoid_of=E2=80=99
-	   10 |         QVoid_of(p) *q;  // const void *
-	      |         ^~~~~~~~
-
-I think this diagnostic isn't very useful, which is why it isn't in
--Wall -Wextra.
-
-> [Severity: Low]
-> Does naming the macro parameter pfx instead of prefix cause scripts/kerne=
-l-doc
-> warnings?  The kernel-doc comment immediately above documents @prefix, and
-> scripts/kernel-doc binds that comment to the macro definition that follow=
-s it.
-
-Solved.
-
-> > +
-> > +static inline char *(strprefix)(const char *s, const char *prefix)
-> >  {
-> >  	size_t len =3D strlen(prefix);
-> >  	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
->=20
-> [Severity: Medium]
-> Does strprefix(s, pfx) still unconditionally return char * even when s is
-> const char *?
->=20
-> include/linux/stddef.h:
-> #define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p))
->=20
-> In const_cast(CQChar_of(s) *, strprefix(s, pfx)), the first _Generic
-> association is const CQChar_of(s) *, which is const char *.  Because the
-> underlying (strprefix)() function returns char *, the controlling express=
-ion
-> never matches const char * and always selects the default branch, returni=
-ng
-> an unqualified char * and stripping const from read-only strings.  Should
-> (strprefix)() return const char * and avoid casting s to char *?
-
-Solved.
-
->=20
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794323750.=
-git.alx@kernel.org?part=3D5
-
---=20
-<https://www.alejandro-colomar.es>
-
---khawwxmlw3jv7fmk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrztogACgkQ64mZXMKQ
-wqkDsA//TrX0eaNU2ZrsuPHyztzNkL4tyerQqWmXJ1YWMYONjTmVggnDol7/6kmz
-FuwHqMDUIuhLuDyuUlKREO075UEFaqh4CgaONl79PE8TGgqfgh+mD5M1aKgpWyjx
-efmJutiWmQrwUrXdq7s0o2hjKrWFmDS7Fakren6/asWJiUmjw8Gud6eFyUGCcT7V
-i9JuoWRn5ZtmbNhqwMDVKRXWzluHEz88Vu06VC1DHyW71r8zpcSKIh8z/vY92ZCS
-S6JS9hLzto2pNp9sRtZSedpJVCUyPN3V4pXVztFJzkBnJNzVrkVKMU8zme/mVjoJ
-LIq+nv1tZHqsux9yTPWSP+r86YEuVJoF3xyZrtaTVEffX7jGxYpZAwtRVH+Op2cn
-nXyWfZvQW4kHk1XghRN6oiidLarQgL2SxPndIvzLnW7SHtpwyoQ9lD4nONGvW0ho
-0+U3IX+1N7wPYbI0NigZGUxM9h1kVNfWnEU82K1raV7boQ1HP41PxhxrsOnRt22l
-/M8UABw1395cOvD9HUUYuN4n24U/S2JPL0fJJVK2z8xaU4qMMHqZW4dDFiYKmbxu
-cXaSw5HnmZ+JZiaJr7gvtF9SMCRtDx36Mu2gr04K6KQ2rVGgO+S5AI6aPMIYZAq+
-0vrsXL31Fz6f3EHD9rhGpcNdUus7vsgf4oVSg3cuywAv4zpOZvI=
-=JswK
------END PGP SIGNATURE-----
-
---khawwxmlw3jv7fmk--
+-- 
+Yixun Lan (dlan)
