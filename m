@@ -1,102 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.74
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794377053;
-	b=Q6uIMUn52d090YxOr/7Kz8Qlar2ryrr3rvbsqJ4JjlgbAmCI6eIadun3miT1uNulSjvw
-	 6ih18UR/43Tb6sAeS18Ru7mKIxkZJlIBtHdycjdjj2usYkRgfkp1v28Smtw9dZ9yxjvS3
-	 3RsLY+xABL37SS8xoo9u1D9JTMxvGpzaoyI165rSEXwJW5WWSiR+joxp/XU98LL4MalWR
-	 sF9gfJ0T6dg54PYn9E0VWaQB/iH5JfwIrsmfumNe9K2y8hv09nbirUy5uOvC54QtEf1n0
-	 bRzrKTVFBIT/RKmt4zqCLeIFjjeJlHUz9wWuJVGoidWMEhzGhAWch5XJKwvseoIq+ww==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377053;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
-	b=EcAMsydCuTUZVVwcqu8I+grqhttk3X8qPq7fSHbTPb7vTNWEs3pLGsNIhsbTQLE4c2n3
-	 4km5dmlrCDTYtmb91m+ASq+xpecsRYk+G28mTx6XrLmgDiWETdU6EvhJg+5NGfJYZkJ7J
-	 A4qkSC+aWhQ4axB+BGPWzNqmPhAyNX1wv418ggV2kzxIXhvD9Sr0Js8URTm3CzCkUIbbO
-	 0FHG3cb2cqG+g/rODQpSRqBOrMhFxUxmfJ3WTi0IdpuX6Zge63663F4khAnJZpuoR/YZV
-	 wBQV/WjsqDxpKOzVEG7RdRDwS+CbiQWEunaUldwaZunscLV/EzArk6Vkm7uXu/IRv/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=cU0PSkVp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.74
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022074.outbound.protection.outlook.com [40.107.75.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794377443;
+	b=KqzNh2PADOJiLdeC2SXUnGtqjlkb1yttxnK7fWuNp4DMqwuuKbDVNBPQkJn5maFbn+5W
+	 ewCDwMozMMgx/LZt1P9E9pveDAG9NOM+RCi0xho7Gw+Rl65AndDq97Eodk8Y6aslt7dwn
+	 zKbFqjHZ6iP9znvIN666mngJD+Ty5wPRGNR7Hny+FWBY3UmxD8329CJIEIc7sjAqM3jc5
+	 Tm7agF86Sv8FXhb4Irlli0WACRhCKmBTwxZ8O72VMPQT6yxosVLFw8If3jesy4JcR5V3J
+	 JyeazU4cslioNwnhFeBAIfzjJkD7bBfXQ2Q9TlPd/ePuEEjIECljZhqbPdGNm3QuAhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377443;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=6ru8G+wIXDhbYzwCyjB0a3S3bJNBpEm6tGNjXeNvjrU=;
+	b=ZU6D2j8I5PAUnk/FSIcJ8cTvE1yYz6bpWIQbryAN0ONxra/OtZk/tLSO5++FPLKwR0/y
+	 vKqlCp9nh41S3uavtF32Qw2C+rHi7CaiLdOjqZ6bh50NLhwi3VXqkJPg4+IbCULuS8hrk
+	 SUtWtRPWgHwIQZ1YlM8v7kl9RYiLd8dZm3ydrG8lkMuFR/Pl7tmb5acaoRKsZ6SwMJcfS
+	 7u/GQ/ZeqQvl4iHahsH3+2wOUNEcQnwnK6yLO/zsahkOPEs7od985CGGZzqp3ilisdZhd
+	 Lq8gOVScj4dNTBZxsVVVcGDEYcfNKEUwDnkxxfQy+TVSCIepq/OpfgP2xwUzr60LRDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nMPUkZWx;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607B7606A33A;
-	Wed, 11 Nov 2026 06:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 607B7606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA2A606A320
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 06:10:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA2A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=cU0PSkVp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PFh64LTOcwIOy4NU6AKkbscKqpfPZDHvU95OM2VmGiyRf5nzeKLaF7jrgQv0bBlA6UlhIhwriDxxa8GCs66JSKzFZ2TNqFTyF119/rRpJSemOgWXO2RTg6PA7yp54kZ8XJzy0PBEY2VOT2JZC9D/GP33TuzoFaHXTgzme8q1wBy904mZBEiin3e1qcrWSsodhBXTTRxhUIfGaqxEjxrIqqoY0xBq5x4y9FQe8rm0IhZXoyoSxgCRBY3O95KzsvL02AEc95gkw9sqeQTO/yy6gOPrPGhdejpY7WtA1Hr+S4ScKFO/kK9TrVQnsvd0b21XF2ydRroDd2mbh11TmnekSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
- b=IxAe9j4BB9Ip1ODWMv4IYl25SWJnhimrRb5MWrC3Tae+dyzh1LsqmVjgfgoQTUzImdK54pViyoidRkFexhAK7ZXpXrXe+u6vnFKYrDw01OYVo9ENuApslCHVKPvJ3O5cpQTY3XnCqC0fIqnSrx1suhDaAB5Hlbuk8mR481yYWNz8W6c0NeGH4Z9nF7ci6EbOhGNRK83LSU8eT70ONswEiPuZ8J/r0OcSKLYUmWr0dGb4t6dv436RLwhBBRv8kr63ZfgDyhfKw0K19161Oj8bEy5WGdrl/1CKgrzxxdIMfgLix9VOUzKAvJ92mbdOBhC7+Yw8KEyyQp14z7YpboNwFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
- b=cU0PSkVpxepf/MaM+dT1oKLhcTYEAKthTNxqRx+9UPPJ6Es57PgfYr9sr8Mduf8fB/qUHE99UHtUj08mIXsApychHC6l+Ye4QTtSeud9nH/e/EGZA5Z+5TpipsGybvhkEcev7p2Z599lz328m/0nJoiVjkvROgVMSIhR1/cR7/7gFTJUF2XSjnetk8wjH4HGeURUh4MlPpxyw70eNY7OlpEY6Czr927HlIVea7IMek14PO4LOwlIou403G2QK01CW4G9Z+5QNo77+da+6uuJqGhjS71mP9cArbi16De/pl5Z+4ZIF0wIpY2qgxR/saskTR1PF/HZSpNe4vpsWAdIjg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by KL1PR03MB8305.apcprd03.prod.outlook.com (2603:1096:820:115::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 06:04:07 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 06:04:07 +0000
-Message-ID: <0b49c0b3-1089-47a6-8020-8aa0fab0cf30@amlogic.com>
-Date: Wed, 11 Nov 2026 14:04:01 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: amlogic: a9: Add power domain controller
- node
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jianxin Pan <jianxin.pan@amlogic.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260722-a9-pm-v1-0-1fe20a44bf2d@amlogic.com>
- <20260722-a9-pm-v1-3-1fe20a44bf2d@amlogic.com>
- <9dffc605-2ab6-42b4-a7f9-565bc16d8c07@linaro.org>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <9dffc605-2ab6-42b4-a7f9-565bc16d8c07@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2P153CA0012.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::15) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nMPUkZWx
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so1674926a91.1
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 22:10:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794377442; x=1794982242; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6ru8G+wIXDhbYzwCyjB0a3S3bJNBpEm6tGNjXeNvjrU=;
+        b=nMPUkZWxTXOw3JvzBF3NOnXBuyHMY3sloUSrbI6h+JLFERmOtcFqAtMKbpwYblcJcm
+         oL/1QsD7DVNXt4mceTAqqWgcUAOKKD0EL1O4l0tTv3jjBekPQPgsDC+A5dgN6sP8D2qQ
+         c9JQHjN/cxswWAjnNY6/f3ynMQp+toEx/vI1Wy6EvO1AN0XR2+hM3dnkdR+UIFktf/KL
+         IpkYiT4oREZ1Q0pYri2nqrU61eqCaVAPQQ4Nej3YMzXfN7SOlHmxTc9SCs1iPvye5xuD
+         BzajfxnMjYbXO/meJP2EOfRWVw0DAgjQyfHyXztlVPZvRwqRy9ySrg831xsmIHKN8mhh
+         YraA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794377442; x=1794982242;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6ru8G+wIXDhbYzwCyjB0a3S3bJNBpEm6tGNjXeNvjrU=;
+        b=Zox3jgPsOkK6ZloTQZUKSy6us4HJf3sVLoYUgDAMBNXY3gNYiiG+QEwd4r7v0y14bg
+         o+uFT7qwlKAV3BeU1N1+dRf6uz70nXEKpOrVWLSbTNo+ywcN5mlmXkZV+mTUvwfK2G82
+         EX9efosgPRk3nzz9SrWn8qpNQkJQjV5Cjm74SBtCh59o5rONSHKw5LiK41wBAGniQmL9
+         6ZquKafd1GvSl5+5ygffj01epTMUT5GS57X8ZoXIwFdtm8K8vXU2R45ArN2U3qXhcVoC
+         b5QVKZ5VuFPWFUalOZ96xLGXwSQw38NK8Xhh1VeEpHZYk1Mp405U2gaewmCXRPgwoOOK
+         VCiw==
+X-Gm-Message-State: APuU4Z+cUHLvtTr12hcpASf5jyKGZPqdT/UnqdFeXqunGat6Qc4JhAvj
+	beQMSF3lKdDNZf91RWWVCLFB5K/sZ9rAjRQx0o5QlXuVN87tCs/ayWUbZNBmqQ==
+X-Gm-Gg: AYBFou3N8EgwpL0FuyfrZFDqAEI7xFd8SfVxJeRRUfdMQJ9a5WcSb2LosUz3dJDJWMw
+	hq4R/L6akJaY2LxkqWuEEdgWS7IzS6rPeOT99zWYW+gMqa65dgaO2WNwx5bZgi2y728gJ/Je05N
+	qhR/FcH/Rxp7gYJJGjV7f0Cr8Fs2YQtIOik+GmLxp4nRVEHtzkskM8wRxlYmXny0ueXlXfABrWb
+	mtFIAfSPJtqQsuEX2fB6079FuHx9gT8JeMbpCgfxL7Tb0gpJsYM924T49j/Qg5lXSoI3+b13d3q
+	cfP8ZXMCK7H8PrIyrG59N7RGQbYhIvLYv63a4xC/PFSO/4BA5SWANSAh8ltNvwjNX4ce/13MsWP
+	y3w6Go99n9dldU+424F9qZUjy+1DIwSYEVdInSys+h2rQkG0qfR8494NRxtaBuxFNcluXdnE367
+	6vpsrM71ZBsRrKNc7hU3y1EaWJI5NLqnPtyKgq3L0pmogSBs3nQAEQV6W7k+fzLxrFWOiO/rro2
+	f0G+Wo5PAF1InWuUey7QYlrLgBTD0yPP8JyzLzF9C9+ZlelNRb4PYMhRHnULSMRIdco11d2J1N7
+	nB73r73bdN7sLDvw8nnbxpJ4278q2ObO4F0gjq/5f2nj0bv9JnyDfUtH16L9TzYCRNLN
+X-Received: by 2002:a17:90b:518b:b0:3b0:e388:d9da with SMTP id 98e67ed59e1d1-3b182f28620mr1681142a91.29.1794377442187;
+        Tue, 10 Nov 2026 22:10:42 -0800 (PST)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db7e8b1sm2978557a91.12.2026.11.10.22.10.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:10:41 -0800 (PST)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v2 0/5] ARM: dts: aspeed: ventura2: Add ADCs and GPIO line
+ names
+Date: Wed, 11 Nov 2026 14:14:41 +0800
+Message-Id: <20261111-ventura2-dts-update-v2-0-bce5b5dafc1f@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,122 +92,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|KL1PR03MB8305:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff0caab8-4fec-4b7f-1886-08df3fb998b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|10067099003|11063799006|4143699003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|56012099006|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	T6Rcc8/kr9J9ovd5b0vqY1p3WFoCcwt2rc0Hv7kzr3JNGSKN4+IeGZnfAO+KTzwEXhC2FhAl7zjpPi1nWB2+hMGhFSuassJ5DU/GlMxs9oRE4r7FrxkDW+KmuP+jdDskLElpC/zodChd6VpDyYMAf0sBXR9V7Vf1KVnLzkqRRNdDmHHQrcLd8kgHjGgFQCYf0iat4VnrB4Jq3kWqkaXJsS8FwouFjqI8GgO/JeteWYpegmjXld4aARmKJEdprnpB9IdkCdSy8Ihn4OElyQ/r9V+6V7zwgZ0jFJjMaDtxQ35AA9PF0iORBYjFeTYP6uXIi44Wum1ebbNfxdHVBrJs/GgB2sXK9I3sMu9aO8mGzPA/fLN4iDMWMGehXYLaNoTdbdEh2ueDeP2Mo2q3dI4STD5jorFM1efXB8Gok+9BdWI6zXL5VhlFZoXff263x1SLyyQ0IQjf9PEVXoGTVNig0PLlZylBmK3CJ4yDfU0IvPjWUCkr0FkByy7z02PDE3Nvtftht8de6535E6JP1wjNHPpHa9iK+gwLFKjgl4T209/Z9qZM3fYdwBC8feOW+CiQroBvXwRA1a3cMRbGsTzTvbZoNVxxItN+VsFTZJ+QiqCLNbpkCNNtZIuYCYoJtCzjPFOqKuwlABjAd0OA9tN0/A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(56012099006)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WjNCa0JlNmxVOGdnNFRuT0oycVFHcW5KUWc2ZEJ4ZTgzaXp4NEEvNndpVDdO?=
- =?utf-8?B?K0tFZXhESWJpaXpBMjlKYlFZSzl0bHhkakJ6dlJ6ODdCdTJvTjFDNmlYakdz?=
- =?utf-8?B?aU1GS1QwVnBKU1AxSStvR0gvZTB4aGh3U2I4NXhCdWF5bzE2WjltWTkzc2V3?=
- =?utf-8?B?YVdORXV1L2F4dnRnNld0R1d2VGpwcFU1ZXVQTEt4SHlIdnlya25EczhSaG1W?=
- =?utf-8?B?Q1NCMjVSZ2NBdWF1UFZyWlc2RlNGNVlkK0RGNVkvY3hsRWU2NFpud2hqRk9i?=
- =?utf-8?B?M1A1M0JiU0F5MjF6OHkvTnYxSTE3MHRuaUU0SjNTbFNXT0dqbEFoUnpXOHRt?=
- =?utf-8?B?VjBSdktYMnpOcTZuVzNQQ0plVXE2N1ZPK3czbGVleTRRdnhXWnRGdC9ZMzl6?=
- =?utf-8?B?WWdvOW5aclFmTEk5Nk1lVmxuUkpPdmdFOVRDamp3dmlIRnJUQjZ1dTV2cngy?=
- =?utf-8?B?NS9ELzNSVGNuOTBBcTRtN0lweVFaeWNOT0RMK3N0SFBTNmhEWTcraTU4UW1x?=
- =?utf-8?B?Y3dGeDhVQTJseGQ4QXEwWkQ0NWs0SlpSUXZkY0daY1pOSjNYcmRmd2xrbmRx?=
- =?utf-8?B?VEVQTTQyTlFnMjRQd29GWmdlVzJIUTFvNlc0a1FQcS9rWFFBNTFPSnpLYWNr?=
- =?utf-8?B?YVorQ2dGZ0QycTUxdmpiVHM3TkR2Q1hXdnF3a2Qwb1UvZ2FhQ0RScVFrRnZq?=
- =?utf-8?B?M2VrSk4xTnR3Q2JIZHc5VXhrQytsQ1kvSkNCVWhEbTNtRXFQQnVFcFY5bTIx?=
- =?utf-8?B?aHIwVTBBR1VmS0pGa0h6TmNSaG56TGpGSXkrQ3Q5bHpUSDVQRXJZMzl3N2g4?=
- =?utf-8?B?eHluNFh3cjYyc2ptSW1wQ29TQ0tXZ0theU01VUJLam9uaFNMdjFBWDd2SmtE?=
- =?utf-8?B?WkJ4cGEzU2hwb1M1VWJ1bU4yVDUybmxhWWFoTnRRODBhNEFvV2lkRHdWQTd1?=
- =?utf-8?B?angwZkl1eHJ1WjZ0ZkFIMlc5VVlNUWE4SFlZS2F5Vkc2VXhVc0hWYmVrczJx?=
- =?utf-8?B?VjZXbkdDWG95T2VnRzBaSU9zRU01M0YwMEtpaW0zNmxHZkJwb2QzcG5NamdK?=
- =?utf-8?B?aWx1ejRKdE4xTGh6YTZaZHU1MXd0S2kzYzdWNVJsSTZvUldBTjdJRTV2N08z?=
- =?utf-8?B?RUs2SGlpbDUzTytmN0hmQy9XblZzdmhBeFRPUEEyMVBDdCtvd3FSVFk5amVR?=
- =?utf-8?B?MFp4ckdhbjBGRFhxUkFWZ1dJbXcwZ3FteklaeXBxZ3lCRHlFekhvNEZLYlFS?=
- =?utf-8?B?TzlKZjJCdUhIZTdLM1JwMWhDMU9FK1FJRGVCSXVsNTczeXFqbkhWMWttU0lr?=
- =?utf-8?B?NjQrZDloeHNyU2pQRm0vNHpHU2psMFlBTktzZ3FMN3RXaUZ6T3RxMElPMkRF?=
- =?utf-8?B?SStJWkI1YmZBUmw4UVlKODQ0azIwQ0tJZk9vRzhsSm1zMG5OQmsyQ2gwc1Vh?=
- =?utf-8?B?Q1hnOTEyOW00eTFjTVJnL0p1MGE2MDZseklTZlFKKy9IZWxqMG5ibnJDblU0?=
- =?utf-8?B?SkJ6S0YydFNlNk5NZWhjWDRIVWMvSzNYd2xKSkxySlhpU3JLRzB1cHFMSlhX?=
- =?utf-8?B?QWRMV042RWZvVHJLRk9zSWNhb1VLakttcjhjUjJMeFRZRTh5djBIRWZPUkp6?=
- =?utf-8?B?RENMcW5GRnc4VXZiSThIbHllTXRCNiszV2w1TUpQcWk1WHQxdHFMZ0VmcnJk?=
- =?utf-8?B?Qlo1VjVBV3BIcTdoOE95d2RNU2lxZXJBV0FqZ1plSG8rZU0rUHhxdE16QWd4?=
- =?utf-8?B?RkVxZ1cvTFIvVzhHVTlaS3ZuNmlpNFEySHZhL1hzcExlTFJSM25FMmhwU080?=
- =?utf-8?B?cG1xN3hvdXQ1THk4SDNRMDhLT1owR2xzNlFQRUtNbHFuekg1UlU1TzVidHlk?=
- =?utf-8?B?VFJnaHhXaVFCSGpsZmlSMzBIZmJQbTg1SmQ5dFMreDZFWnFWMjFvOWhkRTM2?=
- =?utf-8?B?VDFNMk96Qit1QWJCZkxrS2tDWGVKWjhhQU1jQW4zOXVCV3FXMVBtN2E1My82?=
- =?utf-8?B?azZFUmVNYndUNDl3NGV5WVpCbmUwNEdhdm9OcTlhejRRUWlxYWo3RlkrckE0?=
- =?utf-8?B?SEhGWU9acUFaRndFV25FL3lObmkvVkZsY0tVK2ltSnUzL0ZtcFZNSFZlOVg0?=
- =?utf-8?B?OVd1TGZ4QlM4RGh4UW5hdjFWZ1NzM0U5TUdrR3h3cWxVQ1pTWElNR3UrdlJz?=
- =?utf-8?B?N3ZxZGZ6UE44WWJtN1htL1kyZExkb2gvRWRnSlBQbHAxeFZUeWFSWmErdVhC?=
- =?utf-8?B?dTVKdEdjTHZudVU4aWlKak9pNU5ScnA3cEZwa214NHBCcXNEd3cxY25tU2pI?=
- =?utf-8?B?OE9PcVR4OEdEZGkvRnJsa3g1T0RpOVVwcXBna2VZREh3VmlrbjRjdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff0caab8-4fec-4b7f-1886-08df3fb998b2
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 06:04:07.4582
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oxcHcjNqoWQGZU5cMlxIzQ3AT5UMAzZ480EfczdDE13y4jqsWNCbuMPClw3samwt8rDcKtOz4T/rEDrpkX1spWeySDN5TK3lJG+9TiwoeFk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8305
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANEH9GoC/32NSwrDMAwFrxK0ropsSPpZ9R4lC9tREkHzwXZMS
+ /Dd6+YAXc7Am7dDYC8c4F7t4DlJkGUuoE8VuNHMA6N0hUGTbpSiBhPPcfNGYxcDbmtnImNPZB3
+ Viqy2UJar517eR/XZFh4lxMV/jpOkfvZ/LykktHSt2fHN9vXlMUxGXme3TNDmnL8eIuWptgAAA
+ A==
+X-Change-ID: 20261106-ventura2-dts-update-f00bc0510b2b
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Kyle Hsieh <kylehsieh1995@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1602;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=UzoFWGQnfmpYqsdMkcV1qb1KoSKhE64W4DhfwwxJNuk=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq9Af0PHWv50dwK50Uy1itNGP7amluCEuos33IJ
+ m8+J887J8iJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavQH9AAKCRClg0K3CVbE
+ gZRhB/0S77Vr9H7trUM/qwYjhEcN9EtmC6SAmi4fnIDqkTAG+l3Eqye63n8IOtLe7b48MdNSsbl
+ qifRmlBhCqswPil5JAdCsOEW9nST16A+6pZEiO0jU5TZoivNh/VZbGrdMnHPKV8N6T/ZgL9Fs0X
+ V82DdR1/gQ+yJ83UbiQIQeZuC51KwIenWTQEWWqszLtDl3FIO3CqmuWA4JF/S31uVEfd3cgwWn1
+ fIGjKtlB36OGnqOG3ljRqPEsEb4YR+ItMMaQWXB2xIYDcCTA92fICinPRGiIX65S2hZffCOMuWp
+ 4qP+FkignX2Q2cWH0lhE539UmhWlBfqIMqOOvz8IxtCe9oHu
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-Hi Neil,
+This series adds hardware description that the Ventura2 devicetree
+applied from v10 [1] left out. Patches 1-2 add the LTC2305 and ADS1015
+ADCs. Patches 3-5 name GPIO lines that userspace uses to detect the
+COMe module and to reset the USB-UART bridges and the 88E1512 PHY.
 
-On 2026/7/28 16:34, Neil Armstrong wrote:
-> On 7/22/26 10:39, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->>
->> Add power domain controller node for Amlogic A9 SoC.
->>
->> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->> ---
->>   arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi 
->> b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> index b0e0fadeed82..3652b2034c96 100644
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> @@ -7,6 +7,7 @@
->>   #include <dt-bindings/interrupt-controller/arm-gic.h>
->>   #include <dt-bindings/gpio/gpio.h>
->>   #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
->> +#include <dt-bindings/power/amlogic,a9-pwrc.h>
->>
->>   / {
->>       interrupt-parent = <&gic>;
->> @@ -72,6 +73,15 @@ cpu7: cpu@700 {
->>               };
->>       };
->>
->> +     sm: secure-monitor {
->> +             compatible = "amlogic,meson-gxbb-sm";
->> +
->> +             pwrc: power-controller {
->> +                     compatible = "amlogic,a9-pwrc";
->> +                     #power-domain-cells = <1>;
->> +             };
->> +     };
->> +
->>       timer {
->>               compatible = "arm,armv8-timer";
->>               interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
->>
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
+The LTC2305 ADCs use their internal reference and describe no
+vref-supply, so patch 1 depends on [2]; without it, dtbs_check reports
+a missing vref-supply.
 
-The DT binding and driver patches have already been merged.
-Just wondering if there is anything else needed for the DTS patch to be 
-merged.
+[1] https://lore.kernel.org/r/20261016-ventura2_initial_dts-v10-0-a546659a084b@gmail.com
+[2] https://lore.kernel.org/linux-iio/20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com/
 
-Thanks!
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v2:
+- Added the ADS1015 ADC (patch 2) and the 88E1512 PHY reset GPIO name
+  (patch 5).
+- Reworked the cover letter. (Andrew)
+- Linked the dt-bindings dependency.
+- Link to v1: https://lore.kernel.org/r/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com
 
-> Thanks,
-> Neil
+---
+Kyle Hsieh (5):
+      ARM: dts: aspeed: ventura2: Add LTC2305 ADCs
+      ARM: dts: aspeed: ventura2: Add ADS1015 ADC
+      ARM: dts: aspeed: ventura2: Name the COMe presence GPIO
+      ARM: dts: aspeed: ventura2: Name the USB-UART bridge reset GPIOs
+      ARM: dts: aspeed: ventura2: Name the 88E1512 PHY reset GPIO
+
+ .../dts/aspeed/aspeed-bmc-facebook-ventura2.dts    | 45 ++++++++++++++++++++--
+ 1 file changed, 41 insertions(+), 4 deletions(-)
+---
+base-commit: f4dcbba2ec358f7079daddcda7594dad9746326a
+change-id: 20261106-ventura2-dts-update-f00bc0510b2b
+
+Best regards,
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
+
