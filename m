@@ -1,55 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390770;
-	b=ZlDXBm1fD8bdvGT5179cXeVGKC9XXxIj9JDY2KGJQIyagKzr1KCY5wIh3/x6ojQPVe6G
-	 ir9Taz8/6/SIH6+bYgQBXrh5zgNgSLl0QlJtIltQ70UgdEJRPUKCRzfZXtiNS2rMb7YKz
-	 RqJ9X+9Id12V/U69foQbHvpI53x4868ekK5P5xpip0JF4Kanh1alsVzsU/ZWLJDEvtlaA
-	 mb/rGXI9TC4/qNhq08Mel/uEm1RLbiLftEegVe6MNZgZLykSx4dKV5Nj879OoKtczUrLv
-	 LYCXTo57d9zBpPmirX8rMmIxwg0zZ8JAaLgugm3qIVTqUOeGt87oFGQUo9Jua9HqHwg==
+	t=1794390821;
+	b=Gv/kBhunH2s0eqdR5qEcrSOA9xxyGxsGHy8ZNjAmHDOxQiOXOkacEcz0gTOKWOuASLjz
+	 osbYXHoeG8oZc+inq2W6wu5mYjRjT3y6wxhv51CTavYMFJgHfrP+YowWluXIDV4fUoOqV
+	 mz4VtrTylhcgVQpT5lLqQjXS/xB2JSwqlfyOFqtAPlDKPmAqcaGTiuTfJshOX4KAZHU8T
+	 JTrt9hYQd76uidx9LSYZDlARbIunjIwv2cneL5kDuaki0PpNBBpSzPdSL+iJ/265Y+wCi
+	 Xqil6mYE8gtcz756tkVl/uIU9GFAm5Z9aNXESgWC4ke1a/S40d5AKuiRkoZo2VqZCMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390770;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=GWi9Mrn0MCeiOZQc5+4kfVX0EHtk3DfuQOjdPxmcFTQ=;
-	b=sju/4ZVVIBYq+z4DKEcrFIFgaXRJlJFsQuUxuf58S/Mf0GG79wtaYBnKtS1j4AW4dR5p
-	 zgQbV5+9vCY0h6wlVcluWqRj6zBNLLM4SY4pPKKUAFt+hGs8TPRN3aUydUEJCsRddTjIW
-	 KDsuefARekHkD0XO9wAUZGH/nWwBUAglMquGEj4Nxl09BzTJPWnrIO6d5RaSQ8L7rtfeE
-	 xWjTwa7VMc+8831L6l+vhv/3846o2RQATA5OxB6jTK8tzcsO6zj10peEX1UvEkHSuqB2O
-	 Q2JRmOCUlIkHmyodZO34nRSTyw14YfkCPO8y86mBEqGMszR85HprB44TmPXAh7swGLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390821;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=rOYijy98RgI2qIIiyL+QLiDNYX9ODiA3qXMCnsWdXVU=;
+	b=lpVan8fj6OaYhRbZWuPcunHI0BSP9CyCM1ey5Nx9g2Wfz8RzqvPr/7IJyusOf4YYjYO3
+	 AM87iTYix/8REfeXCbR1TYwEv+gmO6PKLELHGgx7mHVezBpGFDHotOd6lN9Q13wCLpo26
+	 81oxQwOTOB/FsSJHYbQoL3btxhi/OdSE268czgZQhvNdX8SrrfoVnzamwBtvGbl1Qfoyc
+	 SY3MnurSVXizICXfJ3+j5+B3Mn9BgOVBZA12/T2O0sfjWgrTsoXWYllqbQHEVYH4wiZMT
+	 Fj/ODmcPvq22+BVNZ4zYsO0zgK32uOOJK47TZcseF/mDInhX6Wyme7uMyZR7WvXl/MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=f7+rYJlO;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=28SzyvUr;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC9C606A33D;
-	Wed, 11 Nov 2026 09:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DC9C606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB78F606A324;
+	Wed, 11 Nov 2026 09:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB78F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=f7+rYJlO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794390708;
-	bh=GWi9Mrn0MCeiOZQc5+4kfVX0EHtk3DfuQOjdPxmcFTQ=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=f7+rYJlOFA26NTV0INBR35r0W21EOZe4WDucyr825KEFuCV1tXwNLgeCkfWBesNgj
-	 OaP0KKJUiu4Y5UgsgNJIIHnyZg15a2FiSX87V5z2Fa4vZHpf+1ST88QJDW5t4++MNa
-	 6KJlGjyANok5Rh/+YwWbgVe9TB7mE4viCdr8qmhs=
-X-QQ-mid: esmtpgz16t1794390706t35ab9cf1
-X-QQ-Originating-IP: 7/3GNwEBAt+0SADWshzJh1j73v8R28IgqdTX80eo1hM=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 11 Nov 2026 17:51:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6762194668848470308
-EX-QQ-RecipientCnt: 20
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=28SzyvUr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=rOYijy98RgI2qIIiyL+QLiDNYX9ODiA3qXMCnsWdXVU=; b=28SzyvUrJWEKkHHZXCa1oDz4JF
+	PlSX5euAAMQyENwudCVR6cTty+VH1jG/mgo73RBjbiZivnZXrK+AHWj4VHdAF7otI7kK0Ynp2wXix
+	WRr27PFPkEjrC5iXrkptO3jjbv/C5C4O6OsdamoQ/Zew2t5ZPng/9RL6GZtaX0pN5yybStTSI/Wni
+	VkuKQaOUKYWbYnyU/Mdd2eaVbg0rSr+BKaCuckVeOyYGhiGO/sF2AJtcyfDT4SKsWXQf44zSah16c
+	onKYsT1a7e5TG2rx/E6cxZ/NNmWFX9JRutQCBH8O6CmfwPXX/5a1UWBneR8+DnlP7+TH4FMCM/KdP
+	3HqbLhtg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Shawn Lin <shawn.lin@rock-chips.com>
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
+Subject:
+ Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the RK3588 PCIe
+ SMMU
+Date: Wed, 11 Nov 2026 10:53:28 +0100
+Message-ID: <9_7qTfdNSViwtNUGq9D13w@sntech.de>
+In-Reply-To: <ea8fa04c-4a8c-4c55-b4fa-f37d74267e93@rock-chips.com>
+References:
+ <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <10924894.NyiUUSuA9g@diego>
+ <ea8fa04c-4a8c-4c55-b4fa-f37d74267e93@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,86 +70,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=25e53c27b1c6852924479b566cbfa263ebbd1c7ea96f00b6a8984ab5ea2b;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 11 Nov 2026 09:51:42 +0000
-Message-Id: <DMSAF0L4F8ZU.1R534QOL67WB5@linux.spacemit.com>
-Cc: "Vasily Khoruzhick" <anarsoul@gmail.com>, "Alistair Francis"
- <alistair@alistair23.me>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, <linux-bluetooth@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Conor Dooley"
- <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: net: bluetooth: realtek: Add
- RTL8852BS
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: =?utf-8?q?Fr=C3=A9d=C3=A9ric_Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- "Marcel Holtmann" <marcel@holtmann.org>, "Luiz Augusto von Dentz"
- <luiz.dentz@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Yixun Lan" <dlan@kernel.org>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261111094557.443481-1-frederic.mahe@cirad.fr>
- <20261111094557.443481-2-frederic.mahe@cirad.fr>
-In-Reply-To: <20261111094557.443481-2-frederic.mahe@cirad.fr>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M83iEva+1QDBUBgdA7sSAtJcG3q5n/Zygl/jupVTurhnL4J4aBVtHSbE
-	icNuHZVnyuKnrEe8xPNF8sjgyZtuyeDzcEZ0hebOWObGvoTG9OgrMG778xKPKL464aFiRux
-	IoBuUmmOSZ47LZHGIvkdvdLuv/rQIBu4xw02iNIWRy1cnMppQSIwZZ4ZRY8wKZkln4iqDWX
-	j3EK6Gjio29t3T9V55wvT62Q3dcppbiGhQ5g44W+URE0piS3QJVakXdZ9IH8r5gv0VlqKzQ
-	kyby+dpDxy40j4+DuVLlkisrw0Vn/wfDU2KbpEGcfpqJKP5RGUlv4OH01bbE5uOETUpUMuI
-	EIgLK+Y9kPim3QQvXhdUXZZXDp64ttK1z+QnL6wXae6oWhCz4BAkPZN57kn3kXElG3Z5Lfi
-	rNkwe2B2/cVaVQZUuqyz7Pt2yEg+XGao8C3E2sLI9g3zAX1G1gtcFIe4df4Yaw4IetWg7PN
-	oQnbYjygK3OOWeLitGY2nFnSstepc7C6UArtns4XlkeMGYzMEReFmKxQ6bM1zHuV/xAtl2N
-	E2qu08efNj4RAF74CDMQdD2iTH+EuY/9pgEnWJsiJIaSytGzDmLaix6II1226hB5oF6M8Qz
-	Zb2moevaDdTHMv+Ljb/4S8hc/ghEHx3u6iH6HcsD3fR1ANAx9Vd4K88Novrk1SCm0W+vin8
-	7Cl6itjMSB/3BhNmf1bOXIwpTpI2C0yMacu1eNYB8CpqBcK07MUdI2MrV8Gvh6JdOQysqM0
-	3hlHx9YBAZG8rGrvPfMMBQYS6r8h7dw8mcfZH1Qz1ZFEDpYxDrfLnOuCrWN7XEwbypZEWB6
-	S1/xIx3e0tuB6AsahnqXkRSha5KyjF48t2jwVtrybsMPqopnEYHeab8UWQGI3/ruPg9yV6v
-	VrdJFnNTSscLXfeFgfd1Yz3W8KoDGH2Fc8tVwJaSI2IQZpyfhnschD5K3sS7qK0PbgZBU7V
-	w+HghMIBs+cugiPWEMd/z35Ril+6DUv45ePwEHq+l7vwjo97Vx9/+p3n0hRYpgquNxeP267
-	dNzhlDCNG3wEHwZyPMcjgIyvZUFIz154GfvRnU5l8JrkgapwK5vHpGte+tg+KhckvmmLhwh
-	A==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
-
---25e53c27b1c6852924479b566cbfa263ebbd1c7ea96f00b6a8984ab5ea2b
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 
-On Wed Nov 11, 2026 at 9:45 AM GMT, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
-> The RTL8852BS is a Wi-Fi 6 + Bluetooth 5.2 chip with Wi-Fi on SDIO
-> and Bluetooth on UART (H5). Its Bluetooth part works with the
-> RTL8822CS driver data, so use realtek,rtl8822cs-bt as fallback.
->
-> This patch was prepared with the help of an AI assistant (Claude),
-> which also ran the tests.
->
-> Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Reviewed-by: Alistair Francis <alistair@alistair23.me>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Am Mittwoch, 11. November 2026, 09:02:30 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Shawn Lin:
+> Hi Heiko
+>=20
+> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 16:49, Heiko St=C3=BCbne=
+r =E5=86=99=E9=81=93:
+> > Am Dienstag, 10. November 2026, 09:40:44 Mitteleurop=C3=A4ische Normalz=
+eit schrieb Shawn Lin:
+> >> Cc: Simon and Finley
+> >>
+> >> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 15:11, Arun Iyengar v=
+ia B4 Relay =E5=86=99=E9=81=93:
+> >>> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
+> >>> (mmu600_pcie) is enabled for every RK3588 board, but its node describ=
+es
+> >>> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
+> >>> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which =
+is
+> >>> why nobody noticed: on a board that enables no PCIe controller in that
+> >>> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
+> >>> board without PCIe), genpd powers the domain off and the clock framew=
+ork
+> >>> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
+> >>> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0AC=
+K on
+> >>> the dead block, the interconnect stalls, "reboot: Restarting system" =
+is
+> >>> never reached and the board only comes back ~90 s later when the
+> >>> watchdog fires.
+> >=20
+> > We have a work-around for that in some boards, manually disabling the
+> > smmu until now. As the SMMU is part of the SoC and always present
+> > the general DT practice is to have it always enabled, as it does not
+> > depend on the actual board design.
+> >=20
+> > Hence we end up in the situation described above.
+> >=20
+>=20
+> I notice that mmu600_php is disabled in rk3588-base.dtsi. If describing
+> the SMMU that way is incorrect, should we enable mmu600_php as well? I'm
+> asking because I see a different picture in the RK3588 TRM: both
+> mmu600_php and mmu600_pcie reside under PD_PHP, not PD_PCIE. Therefore,
+> even without any PCIe controller enabled, PD_PHP should remain powered
+> on (it is never added in rk3588-base.dtsi, so it should be outside the
+> kernel=E2=80=99s scope). How does the original problem occur in that case?
+
+The original problem is the smmu probing (probably during boot when
+everything is still powered), not doing anything with it and on shutdown
+the smmu driver wanting to access the smmu registers and thus ending
+in a hang.
+
+So the problem is not necessarily the power-domain, but can also be
+the clocks getting turned off during clk_disable_unused.
 
 
---=20
-Troy Mitchell
+As for not disabling it, the case is also the some for things like the
+video-encoders - they are also present all the time, so we don't have
+devicetree wiggling for them.
+
+The fully correct thing would be, power-domain + clock handling
+and adding runtime-pm to the smmu for when it is not in use.
+So this would then not require any special thinking
+
+And yes, I think the other smmu should also use the same handling.
+
+@Arun care to also add a runtime-pm patch? :-)
 
 
---25e53c27b1c6852924479b566cbfa263ebbd1c7ea96f00b6a8984ab5ea2b
-Content-Type: application/pgp-signature; name="signature.asc"
+Heiko
 
------BEGIN PGP SIGNATURE-----
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavQ6riEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+JWwEAo3AjrXyZm7p4
-9ZEUTYiTXAsJq4AVvELJfl2OA3dhFlYBAOWsMtFYDasIhrqeWg8qqk6/Kagb+qd1
-IfEbAOyLKHIJ
-=CYdm
------END PGP SIGNATURE-----
-
---25e53c27b1c6852924479b566cbfa263ebbd1c7ea96f00b6a8984ab5ea2b--
