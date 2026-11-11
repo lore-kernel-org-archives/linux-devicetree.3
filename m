@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.122
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.139
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794366562;
-	b=sNbP7siOhKe2eMhGkTbSuCnLxVxgIrGoE/R1if7PzwHPNOHxkP5gPTmtKH+rjEGQ8t17
-	 lOjUtmT3QH2dIx/SPddoXkCI6WzY493ytxjzOc8N6Na/OSmaK88m+RHohb7fIYE6ZRLa0
-	 z4QqJtetoQkMTS4ROQdOnozW3PFtMZIGjgNK+mJjEPBid+q6UUa6CdzzwYmJ17Qg9maX8
-	 fugbwHzJXgRbzqoKbOxgXsDokr66qoTL53cJ1cQ/PLRhEINxZRMCRLT/SqHo/CxioBa02
-	 9HbBQmiuybQRCn5HooM2iRr0ZlIa0GEE3G1e/oxhhPDSYpacqT2Gr96fNKrUrbrn+wQ==
+	t=1794366573;
+	b=bSEdBp2aqbpt3Dbgwfbw8ike0MhZK/J2iVY9S0EC952C9HZWarjvjsQC0wXmEj+sPZ3f
+	 wXS2VJHKF2NU1lR7aPWd4JN3QjRcfvcLxtW8bd8De+dNYyQA8kFXtM41fmXRfNeIVcZ+p
+	 ad4bj5mVcFbX5zB7IA3wA0rI3Egb0lRu77T5W6BWKyan/lttj4/gJuNwKQnRjSheD7/dg
+	 HUslszdDOPLVMYUMAgng7//e0uTEXLbxK8/6JtFo/GRv4eMLYMkUXf2B+cqTuFM0gcQdZ
+	 sdtzvCxrfs12lCIMKQeW5OlFteC5DETijz3mm2DCgrYVk4CujRG8XisRoctBiyaFcpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366573;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
@@ -25,46 +25,46 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GyCibCE3AGxRDMG6Bz/W/z+0Uxg23s7Lb0U2X1cmJuE=;
-	b=yiu5grGHJFDTvWn+tjHJzA71pSMiQ0HytFCuzIsLEuanAuXpGpWoEivhDsYl32Hzp5hw
-	 nm+gwdbUx2su8Fhd/Bohs/Zx4l6farQ7bTIMies9McHwQJjjKwckCSU0EgqvQY+zCxkQN
-	 tyegW+CzJ1i2bfH8d5WBHlpqQO2Xk565DEqI+N6TIzczLju98bijwea1UuHudOso8uv9x
-	 ehQ3RsQluaEvctJWWXz2DZTVh1lpJDp3zIDnilMygGiy+6GRz1d+5Gm7nwNmRqj3pkePs
-	 wlxIyb9zk/9CgK5aofO2BbUDRR7BPptCCa3FGWxz/xP1Rjf/30k9+xKMZeCee48cNig==
+	bh=GU7PuEV6UJ6h7XJlVJfjR80y3IBTT2vgKBTYoc0dI7M=;
+	b=HhWCOu3UC3xNNFbWq4Ow5vY8AshgxX1BZ7U9xLYmmGxrRoIOanOultQtbm6X69X7QE+n
+	 J53ha5iO+PI8k15Aj9/REKlfE7NkczZMstq7BNPRO951TfASMD2J9wSvmHckTw22kGcJ1
+	 LZysW12vNtOCgFng1i9JQric1tYMsb0iZZZPIx5wN6Kh+F+BDKWyA0uxkt3fxBAZ90fe3
+	 15W6XpcaF8koN9aZyHvOeTbajGbNcPNk0z0E+UDGYyYHfdOFq6dY9QU0XBFOQJaRSkyai
+	 xOmNpQ0caBKhYvygMVNE++jFBv0vjzbHnycoB/h0FMDJeYdlCMuSvbmkWamMSDEYX0A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.122
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022122.outbound.protection.outlook.com [40.107.75.122])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.139
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022139.outbound.protection.outlook.com [40.107.75.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4988606A31C;
-	Wed, 11 Nov 2026 03:09:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4988606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03557606A332;
+	Wed, 11 Nov 2026 03:09:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03557606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JnvYnQEc/K1yy5jn2kHAU3Wm5BexrPruccSQ1wahbT81V7D7MwH8yaViHJihD2E99PppuIJAidxJM3l4vjHL3+fr5Dy70EKCFOMH/cZuJRJICm+gzvMrFbxsNnLnisnahApkovqgPnCug5pvQ9W3zTzT6DPdwO3Ql3UxJqiIeSK4Xi/pZ8DfH+Qpej5BOxP4sFqhpzItBS8BbDbbGmQWKvkHxQRSde9abrsBm91HDs7s9H9y0Wf9H4zXqqnfgHKMXM09UrIKbsSQx+B6qrNs3ZWnJqde/drx9uTvQa2QnFoAR6JEvJ1qC+Ggf8GA9QRUVvVW7FK/VM2WtjSjj917Sw==
+ b=rVLwmg6ebfKUVPm4aF4gqB++y1MYU3SZaKMbkwVAFakHPVSDUD34iWSF7J2FHr1mvM/sW+JQ86qtcvu6bO7YgtNRzIc7W5m87myCEuQ473fALqILDRSBkZzKKe0ZBa1eQuEau7e6HT0mue+ThFjnAYPPSyECjslhlieu3lq+dFC4a0FMpJ904MEN+OCmRvgZH+vRbwUYvnq3tMAqKDZD2VGxKiI7mCW0Uc3gwB5fU9V/ZRDAA4oJtMm+lFwAhhS6gOZQJrELvuAjXHzyraSxfLRU3RZwPTWpsIdnXIOu5aT3lDZsbzkoqfAnZq2kmQ3haqjSCj79ebEiENXWWAnEiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GyCibCE3AGxRDMG6Bz/W/z+0Uxg23s7Lb0U2X1cmJuE=;
- b=sEDxwoinJOFcEjDVWrg4J7HmSpUgPS9hJuFRkCbnV8zA3EL4t5ejvq59oZV1N1GVozMYXvxpQsm/VGVj4miAZoxOU9TAcYClZxT4kXoxvQhtH85472HxPudE03jFfHqVQrPCk0UFfUec3BHvoLnf2ID/wq+JZNGzoYr0nWkwCDv95bjkiiy8fZqA1g6tuRmcAbVxIPfM7lyX+kjVbvLB5HIRXouklaZtp7oPLhmxxUv83KDkg586ScVbmZMr5ufoIEhShDedmks3K+kIToOYrWedEmnx5tbHIxgfEPWYjPRWnxC6ebGpTmX5PoVdDJhfA+te8+uhodCCYG5njTRYuQ==
+ bh=GU7PuEV6UJ6h7XJlVJfjR80y3IBTT2vgKBTYoc0dI7M=;
+ b=uZAUO1MhC2FL9xhbZUFZO7mY73bd0wL3jjtHITxaHXThEDtyakdXzfkekWCBn7hy9gNJVWVLOvYF7/+JgS+NBhsdz74u2e5cHzza/QYnMEVEyJPyV7vLp5Stpwwpmdhp2KSBajIBXTF+cEVS7Rkk9bk9E3P+gqDkhmeaYWLC6AYIvonLZn1BNK0zOBybIsqeDkkCPT+F2EUXMDkPFnBhjF0f34VSlUQlVTJ24tGSpNMNpBenFcQDjtgeb2hrJ4SyfxTWoBbXoVVYY+hh627WlmtE/CkMpYdZCdftWaZWpFZ46Ky+sYNZ0sGUIKg68PL0NsvSKyWUfrQ1SvQrvjgBpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
 Received: from PS2PR02CA0039.apcprd02.prod.outlook.com (2603:1096:300:59::27)
- by JH0PR06MB6438.apcprd06.prod.outlook.com (2603:1096:990:2c::8) with
+ by JH0PR06MB7107.apcprd06.prod.outlook.com (2603:1096:990:9b::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Wed, 11 Nov
- 2026 03:09:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Wed, 11 Nov
+ 2026 03:09:29 +0000
 Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
- (2603:1096:300:59:cafe::70) by PS2PR02CA0039.outlook.office365.com
+ (2603:1096:300:59:cafe::a) by PS2PR02CA0039.outlook.office365.com
  (2603:1096:300:59::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 03:09:16 +0000
+ Nov 2026 03:09:29 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
  header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
@@ -74,10 +74,10 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
  OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:09:15 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:09:28 +0000
 Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A8FC740920E1;
-	Wed, 11 Nov 2026 11:09:14 +0800 (CST)
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 05EC94102E64;
+	Wed, 11 Nov 2026 11:09:26 +0800 (CST)
 From: Hongliang Yang <hongliang.yang@cixtech.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
@@ -95,12 +95,12 @@ Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v6 0/3] phy: Add CIX Sky1 USB3 PHY support
-Date: Wed, 11 Nov 2026 11:09:14 +0800
-Message-ID: <20261111030914.2954368-1-hongliang.yang@cixtech.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Date: Wed, 11 Nov 2026 11:09:26 +0800
+Message-ID: <20261111030926.2954510-1-hongliang.yang@cixtech.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261105-illegal-fervent-swift-3c05c2@quoll>
-References: <20261105011751.4058411-1-hongliang.yang@cixtech.com> <20261105-illegal-fervent-swift-3c05c2@quoll>
+In-Reply-To: <20261105-kind-macaque-of-enhancement-ee0365@quoll>
+References: <20261105011751.4058411-1-hongliang.yang@cixtech.com> <20261105011751.4058411-2-hongliang.yang@cixtech.com> <20261105-kind-macaque-of-enhancement-ee0365@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,53 +114,95 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|JH0PR06MB6438:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7e4eead-25d2-4de0-5c76-08df3fa12ba0
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|JH0PR06MB7107:EE_
+X-MS-Office365-Filtering-Correlation-Id: b990774f-6738-4bd6-7220-08df3fa13320
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|23010399003|1800799024|82310400026|10067099003|4143699003|261022105027099003|261021121427099003|261026140227099003|261028144727099003|56012099006|261102123227099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|23010399003|6133799003|22082099003|18002099003|10067099003|4143699003|5023799004|261028144727099003|261102123227099003|261022105027099003|261021121427099003|261009223027099003|261026140227099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	SsIPt8B8K21f40Y8J9oPJmP4mvNpP5GZefo1HRUKbFy+EG4OfnMLZOoXrbAg3EVEy/qsXhhz8kG5nnKukXk8wJo5g4maERArt///Sz3Lkv1KU6nR0iXYNYM/kDvBJ5zOnzl5dfUIZQpD09T7eWc0wgDMKv79WnUqIbhWzGK92nIEPowz22Bejp3tGUUjRosSJ8p3c3bW2gaTzaFSZfIXTIzE5WRBbCgmenNcvc1gWoyhzn7/MRr6JpoCJIUPrfTrm1KSwlQoOQMadointazOLyT+6W7Bx9KvZbc9GC98TypkHCJ27Y9V1Yxe62UoEKn0JdiLVvcHYoVyYtkZShOiaXyy3maSVmrUEU1vZtQ84ZZbUy2x1Wwqk9wHqV05y1zCyV7ZKOgT1edkMWk/XxzIzcyegVwwbDSJLWktFyyfDDSPeYeLWTQuEx+10WSyNQND9E5ZHRP9Fa9UIqY+TFk6VL/vZ08slvk+GxpMm/5pn8h0n87vVRRO/FnEXb+X+y24F3Yxpl8Pl0Sjp7YZSdNUTA6t1P90NeJzoFWsC4xzh6fs/PTnAqpZleQDrP1KRsS9jPx5GlLMYrDzQa8XDZRE8QhwpIuC5vNwRTpn/B3RldelxWf0L0Qgfi0vwBiZve9AebZUIJ1mtKwM38DgAz/fjYIkV17VUADZbhsspC1cHhsK4l0VJsxjsqCdjSD+6I80gq8ovAsPchnCi7OVLfjRPw==
+	PoN4e/MHAauhsvrQT7UOKqn7S7o4QX4uQIOJaROaYcJcXmkeUyQlIAj/zX8NFGXSWe2Te3yspSmh3BQ4e9GqaVH6eWl9uLfQLCHS+qoRJK+jNEd7KgHKSG0s9Vgm0kZyqr5Z5gjaYzaQyABd7p8N2PBS4y/BTWPtk3HFAygoSmqrM1iV6adK8m+/e3ljnnvBsVjTRPbz/qaL9Z+sMQWMAxAOpf4o35AWfWSd7F8z1SeiyYJjfH6Gw5G+dGHqzyCNjAwUsNcYVyyurbpecmfXDIWju3GuRkZTHNyfo3W8NmCrAHhrIaUKzmrectPYmomHRo9GFoaJwehKte1G2XqaFT2z5Tje9brhMf8yT83zlxNAdvfB2SacreRZOSdUi3e15k6KVhe8SrhNchh0L2CN4TCiNaieDOO67Naq2qh9RyyV4uFsnK8Qm1/mIcMHCdGH7eoosZU+SswLwXECB1if/s02S9beBEC2tGpm0MeajpqYcH9ZB9wiPZSwt8jv5XmAjapZSv+T2fi4T+TljUSxQlcJAu+6RM9pg1bD93OZQn1t8yjwr9XaK2f550TrJHxA+frU2hlXtXRlPMUk11FCOv/nG5bzFBIq4WS46ZDixv9bWFDUAyP288Tmz3H2jMKdZME5z/mhaNepsL27vn19CHd2SC2c/o2QPcBJDw0X5fEkn+Hkn/T96GS4dZ24x7mL
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(4143699003)(261022105027099003)(261021121427099003)(261026140227099003)(261028144727099003)(56012099006)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(5023799004)(261028144727099003)(261102123227099003)(261022105027099003)(261021121427099003)(261009223027099003)(261026140227099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	GRnKAs6Ww2b1v68P1p1YcH4EQALSeJ3YigdJvlCDIegkJ23nSFLvaSMETclsbdmSx7SjVmI4qfwnuQHNUgUnMQixfO1W9jnD2WzAzP8hps0Sx4bGFs4tY13wDssypDIFD3Kegvjfk3zB7KWquH6ZxsMwt4rhAK/V6W2EZu+ONI2I/Hmf8bVG/3Cge9g1UTuJuFrSq9ICa4zzgcC6BtT12ggj8DTCaUmIIRDxC1Jg3bbtAHzOwZBGB+q68y0aLgQZ6hWXue4g0tpjTAAW25t+RiNZHeIgOXfb63elHYiYJHiiY/71XZHJNPeRQ7gaAaiyuxxI6uDLGbUq0pL4Mc1MH4EvFxh68pIvra/WNAnYEFdLvutyvfVNz5D9hJJqs7PQh51Ce9VFXqp8zfmHH7BvUzCV5w2UF9m/ZupxgjCWQ7q7EXzhJinnxqfaCIKXNLpG
+	wHOmJBbS6t1mMS3exJlfsgeczcAgDThbLG/sdGaZnd5hYM1Vao9b5IAgYCRUZKPHNmnqo/AlpjlbqTZdc3RjhEjlM9PqSAsVDyF08XrdSI4l3fwl7L2ArgDYLq/E5tOu4Ky+behlx4oOvwx+CsZcPqw92A4Qn7tlzjtsxpkR0t3MbsSjNSDxbP7pTnKh2QyWWgGASKo1fOE1qugDDe1y/BueHr05o3h+NyzPaJlLAW/hWbsuqa0slh1mBQWaB4/2PKinlDkEfWQY76FQwwPBliahLMKxldEaY4UwaGWPW9CDd7p8JnNtsbd94dyyklXs9LZ431OJhSRMf67HMsXWakQ2YUcGBy8ZbCsT2yklAnombenXwv+IIOz5NjmK32rrUNrfrfPKLgEucBiUDgkV9oBtvx1cAWHNLOFFC8GJ3Ls1TCfbSEIE38sT94BVNtcY
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:09:15.8758
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:09:28.5936
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7e4eead-25d2-4de0-5c76-08df3fa12ba0
+X-MS-Exchange-CrossTenant-Network-Message-Id: b990774f-6738-4bd6-7220-08df3fa13320
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	OSA0EPF000000CA.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6438
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB7107
 
-> > Corrected the mail sender name: v5 was sent with a non-ASCII
-> > display name in the From header, v6 uses the plain ASCII name
-> > that matches the Signed-off-by.
->
-> No, you did not.
+> So previously you had two phys, now you have only one. Confusing. Where
+> did the second phy go?
 
-You are right, I did not, and the changelog claim was wrong. The From
-of the v6 PHY series still carried the non-ASCII display name:
+The second PHY did not go anywhere. It is the second lane of the same
+block, and it has no resources of its own.
 
-	From: Hongliang Yang (杨宏亮) <hongliang.yang@cixtech.com>
+v5 described one child node per lane:
 
-The mail system rewrites the display name of outgoing mail from the
-account name, so the change did not survive the trip to the list, and I
-wrote the changelog entry before checking what actually arrived.
+	usb-phy@9210000 {
+		...
+		usb-port@0 {
+			reg = <0>;
+			#phy-cells = <0>;
+		};
 
-It is fixed now. The USBSSP controller v7 series, sent on Nov 6, arrived
-with
+		usb-port@1 {
+			reg = <1>;
+			#phy-cells = <0>;
+		};
+	};
 
-	From: Hongliang Yang <hongliang.yang@cixtech.com>
+Those child nodes had no register range, clocks or resets of their own;
+everything they described belongs to the parent. Both lanes are
+programmed through the same register block, with the same clocks and
+resets, and by the same initialization sequence, so a consumer has
+nothing to configure per lane. The two children only mirrored the two
+controllers.
 
-and the PHY v7 series will be sent the same way. I will check the
-archived copy of the outgoing mail before claiming it again.
+v6 makes the parent the provider, with #phy-cells = <0>, and both
+controllers reference the same phandle:
+
+	usb3_phy4: usb-phy@9210000 {
+		compatible = "cix,sky1-usb3-phy";
+		reg = <0x9210000 0x40000>;
+		clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
+			 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
+		clock-names = "apb", "ref";
+		resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
+			 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
+		reset-names = "core", "apb";
+		#phy-cells = <0>;
+	};
+
+	&usb4 {
+		phys = <&usb3_phy4>;
+		phy-names = "cdns3,usb3-phy";
+	};
+
+	&usb5 {
+		phys = <&usb3_phy4>;
+		phy-names = "cdns3,usb3-phy";
+	};
+
+The driver reference counts phy_init() and phy_exit(), so the block is
+initialized once, when the first consumer comes up, and stays powered
+while any of the two is active.
+
+The v6 changelog only said that the per-port child nodes were dropped and
+did not say why, which is what made the change look like a PHY had gone
+missing. The binding description and the commit message of v7 state the
+reason, and I will resend the series with that.
+
+Also, the example in the USBSSP binding still referenced two phandles in
+the v5 form, which did not help; that is fixed in the USB series.
 
 Best regards,
 Hongliang Yang
