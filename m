@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439807;
-	b=bDTvXOX9ZELrSCwRw5gRUoXv9F03c9oTrmu1OxnGq4olMlYuPChn1hQd7VS2aT6Yf2Wy
-	 y6X+nUOcFS47SvZFFzLjKt1+At2uPanEKNr5Bon6i2IdAwwQlNJhBaECEFEykEHRSLNbR
-	 SUyQM6jvQXqJ/LPnXTdz7RUHn/MH3hB+kvlobdOcRow2xj9PXVSnnbXA9y0/0oRVx3+IN
-	 BAe9GM61u+MUnI/9diqlGOU2hMwCAo9O8B01m8JIXwltjIZyzolq4Q6h+iKC5WELPHdfC
-	 gXUwmino7hdf2e2FeD+8b2pQvzGV1E7Nq/rHj9njkPv3laU4Ge7dxE1+9QkFqE6JVOg==
+	t=1794441242;
+	b=tn89UhZHnVAu4/1ex8wv2+sWFtCsxAEgTXyYJwC7tg+Aq2VgA+V6KKCrhRe7P/O8xDnR
+	 mfutK/f5CMTPWTzqmgysmrFNYUHtqU7XlbeCbktnsmom1jtE4UVNv0di0c/38XbOJZ12v
+	 0I2f2fciGSTMlHMG/8TjcMDaJNNVHtWlMJ/hmhC5WHXlB5b35HQIAcgUW2Cc7ZGKIXVUu
+	 SQE1N6bey1u6u5b1+mXuu7t/tAB222o8WzwE4p4ANhQymGQ+B59slxNUWAoalKUWvE/bd
+	 3sk5/YgtiJi73MCbR+jpk/4dqc+mGRQR+PaB7smX7x8AKjqjRc9ss6c4sYmH+dMkB+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439807;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
-	b=xhMwnuTGkA/U36qzqZP/H/7GNgXO7DZ7furDs7MYSdz/SndaQn/hcXZGy4DfrXt2+eoo
-	 6qqyLDV5BCi5DRfY246k8H6Tt6Sz/o6XnVWIy4W0ZLAeS7rY/dfSRcfsc1u39wfWp0YTt
-	 6C9PxVI36N7k+oxRnPgMqa4f3GBOzGsrJdXgnk9l1ApaCgFaVeLllzJquoqotXQEXZ5xl
-	 jgUTJCN2yLifCLxE96FsPPD7iWgn5UOQEW/X6mZYNpB+jOfaA4PrrBY/q572aLYFXpWy2
-	 Zix4B8/7LsouCN+m5qjnEcPsKIqzNoGMKeBJN2Ds46feLic0TfnW2uFG+Xg9dyd4XiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441242;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=87cjur00E5X3W55oKhkJKGbBj84maKnMOGWtMkcOS4o=;
+	b=ioeYXfYFbBvbdacD9fpySHbKtbHP4kmm+3jzy813rC/IkZ6YuUZ7WhOtRiNbhtWXefqi
+	 2qWnk5F8uidj3pe3yGa8aB1k3jmjlQWReqTNMB3DcGEQW9LXa3rzev3WocEqpOf7a1U7y
+	 oCGYD/xtf/ebfErRUNJEcalXSuqhO4Powvz6NvMgam+sKLtuqkkQWX6txn0th7Fjfl9Vq
+	 GEJ/bCUvYG0yDU7jL+DJzIlBsdoh9VwTwEIuCDkckKSltXeID+E9eLirKJejbyfK0rinC
+	 dSFx4eouEZ6hZFKyN6iBlyLhaZs6wn5iTK8jwo1eJ+bCPZrwYbPz9YJ/r/rfCTQ8EjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy;
+	arc=none smtp.remote-ip=91.218.175.197
+Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5797606A326;
-	Wed, 11 Nov 2026 23:30:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5797606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED09606A32E
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 23:54:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ED09606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794439799;
-	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KD+N4m3FafpulELFLuXVw9qA2sr62kqjZns89QS9ygPOv1uZ3Vt23iID59FR9yobW
-	 mXLcnCqeJXqjnuwkx3u5k5yfMVCSahFMzu7cjYe1WBBMdryWAlcIhe6EmViHIozTov
-	 jFZ1X7gUWke2ocIFRWQtMBBZChLgvJhg8cqNOLz26uy3ticSXZk2LNWiyavGR2YNg0
-	 jXKd4bklxKqKdmWlik5SxLDO5xidJ4pupeTmBrqs+fKBCJkPAo5Kjzb0XNbmkHKr6k
-	 Vdb476ZIPgAULgRS/7Jwt1Bzj/sTUfZc3fJUV+LeO2fTr06UqmsMUh1FKQ8nS899if
-	 H5eUI0c0Xz1jA==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 9EE65704C1;
-	Thu, 12 Nov 2026 07:29:57 +0800 (AWST)
-Message-ID: <42bb0b817905637239c16b94a562254cd0e6a644.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Jacky Huang <jackyhuang@nvidia.com>
-Cc: joel@jms.id.au, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, 	ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com,
- devicetree@vger.kernel.org, 	linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Date: Thu, 12 Nov 2026 09:59:56 +1030
-In-Reply-To: <179438627442.2016371.12057101111349178921@nvidia.com>
-References: 
-	<91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
-	 <179438627442.2016371.12057101111349178921@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794441239; v=1; x=1795046039;
+ b=MFIMZRdywKCI6l0qgNg7CrqHrpd1JO14Odr6OWuKiMpdI11ARFy1q2E0fIDPpmVZd2ovCpAo
+ +deM9n4gDfu8wcJ2TDg6Aefp/7x5dg7QS7oXWIgfB9YByn7lAHYnTN3c9R/lZXYgsuEAqpzJSkt
+ XOo2G0hrlF+Q99DzRQ3V2BH9SRGJ7L1Hjkjvud+NjKzd/mjTDdf29DYYny0+XcrU2wvMD3urQOR
+ CdDhMkgitpYFEZgvSc1bno5fmI8O0caLnl0qQ6/sUkf4qM5ecyqpM/Yp6rkKlpoQc22WjkoYAZI
+ uCxIPBg1gxOPShMdkmqtHcnhDsVHPc0bVnTGVLA5fKCPg==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 309c136bc5822c4b;
+	Wed, 11 Nov 2026 23:53:59 +0000
+X-Mizu-Trace-ID: 309c136bc5822c4b
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Wed, 11 Nov 2026 16:53:46 -0700
+Subject: [PATCH] arm64: dts: qcom: sdm845-lg-judyln: Drop qcom,te-source
+ property
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,29 +62,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-judyln-panel-glitch-fix-v1-1-ecee1f0a1b30@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QpAQBBFf0XzbMoQyq/IA7uD0ba0i0j+3eS8n
+ VP3PhA5CEdokgcCnxJl9SqUJmDm3k+MYtUhz/KKFFwOezuPW+/Z4eRkNzOOciHVFWUDUUmFAV1
+ vgTX/z233vh9L40R8aQAAAA==
+X-Change-ID: 20261111-judyln-panel-glitch-fix-17610b11513c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Amir Dahan <system64fumo@tuta.io>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ David Heidelberg <david@ixit.cz>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794441235; l=960;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
+ b=tp2/BeRNN4TEd6J9sKaOCcnJ3bw9h2fG4R7tvxJ5zcB0Hg9+KlfKB89nEHOTab99vZ4dJDSyL
+ lmP5FH9qRWxBxWknBvPcxnU53S+jCZqsaNOpOMQq4Pq8o/U8hihjxjx
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-On Wed, 2026-11-11 at 17:32 +0800, Jacky Huang wrote:
-> Hi Andrew,
->=20
-> Thanks for taking the time to review this.
->=20
-> > Can you please expand the description of the platform? Why was it
-> > designed and built? What's its purpose?
->=20
-> The NVIDIA MGX Vera C2 is a Vera CPU-based server platform. I will
-> expand the description in v3 to clarify its purpose.
+It was introduced without proper verification, and causes
+graphical glitches on the display. Discovered by bisecting.
 
-Thanks. Just to make sure we're on the same page, I feel stating that
-'NVIDIA MGX Vera C2' is 'Vera-based' doesn't add any new information as
-it's already in the name. Describing the purpose would give better
-insight.
+Fixes: c6c66aa3ef33 ("arm64: dts: qcom: sdm845-lg-judyln: Add display panel")
 
-I'm after a helpful description in the commit message for the purpose
-of summarising the content of the branch when I do a pull-request. 'Add
-support for more platforms' doesn't really cut it there.
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-If the platform is described on the web by e.g. marketing material,
-please include the link.
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 349faa123ff1..e54e46a1a6dd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -111,7 +111,6 @@ &mdss_dsi0_phy {
+ &mdss_dsi0_out {
+ 	data-lanes = <0 1 2 3>;
+ 	remote-endpoint = <&panel_in>;
+-	qcom,te-source = "mdp_vsync_e";
+ };
+ 
+ &ibb {
 
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261111-judyln-panel-glitch-fix-17610b11513c
 
-Andrew
+Best regards,
+-- 
+Paul Sajna <sajattack@postmarketos.org>
+
