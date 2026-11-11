@@ -1,99 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.114
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794402049;
-	b=uQdwjFZG5So7fQ5Hb7gPx4/nlnOw4/2enYtnRd1UNWb70bsACHR79Zw+lRoo4kDrJFDd
-	 IcELM3ZyFb8k/QdoP/UuYSKPQ6mxim3xD+kK5+H48RoUyW2mPEvibvzSIzszFDbu4k1LH
-	 IoKMm1NpHtAMFCgGvPOMpZ763bCJpeV8MP0TTE4WoDs60lq7DSuSNt4ixJ0GC1HC8eJtt
-	 bzwuJyJliBExHgP87O4JU/cIt6yEYovniX3t3p0kA3I5ldmeNpm7x9n/BxP4fLmFjiyc6
-	 qClU1Xoppqag+Eks8lv8lrC7V+FurVx9ucFnbVq7kRHvOPBbB8e5FafhPTsKoSL5uEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402049;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iORx3w5FkLYMo5FmpEuyNzVrPoVAC1WcY+wYqaiaaH8=;
-	b=kOAF8VWpzciGa5B89eAS5x2GOE9CwANG/XRUAc4yYkYMdjk3ucJKcW0wji+NKvPceEJl
-	 x85y2ce4l3knI8L7PqZlbLqGMh5NprLrI9+Fewiiqi1110u8CdJqCjuoFo+dVA9Z4r4ZT
-	 XwQzd90IZtaCVESBUUt4J+fB2D2IPDTkQGkDjsvpxg6uh2hiWQ3xfFEI4eXvwN5Jj3wIj
-	 Ztoh76NZj5UOdnfTfynazOQm2EN8O+J9t5UrSVaxF/L8O2VulzwwmzPU+aH0qgBUuVJU6
-	 h/7yVa4IsWNp68TgXQe2LVMUDMQkJY/W5c7xzna0Uk46C//6RomByJDCXiIK/YLfIsA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.114
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022114.outbound.protection.outlook.com [40.107.75.114])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794402102;
+	b=wti6zT+ypIGUHDz9UIqYfodJ7KiE6bUIGne9p9XBJ+QO+4GNHQvqJDyb5d1wulUvo3nS
+	 zbDsdpbOAQxTIpDQ5MwRnu5rWEGE61PUIuaO4mJJCgGPM51jXvk+dQnTAx2GuJeyZF4yL
+	 AAluxSq7Ap5UIrVLdXGn6JK+d/rI+/ClsEJrXcYr+TsZvxrcQO3f4SFokycYze8lbcYes
+	 xDUvqch801ElM4HUrMivgd4Ur7f2ANekDKrmjNDVZvtDDLLg4QzxQd3LA/kkXc0aUt6o7
+	 7kh9B7fXEhnVZovTGpcexgi1m8BQ0OBzI5BbDljDFvO2bUhorFEm/iXGPgpM086vArA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402102;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+	b=R9FUprVSih39SJu3VfsSIYxk8ecxSBm/iUfaSBkyMPDmYNTOhhskxTguWwpBlUNkelbS
+	 HEtvHtmk9iJApqgoaB/6taMCl8ZAVJN9J5G2Vf8XOsknSQlXRQTQnUtl4UWFLYNlEaP5n
+	 Fbn1LAiJKiR/04vq1drRS7zKRIQPo09nPLOK8BCD0kCLgceYKSseyOtJSdj6KtU0XXkmO
+	 ixOhndfj4ftSGaeOnvT3unVugMfGI+a7d4GqMNXm+uKKT/ln3dSpsB3ndUgqbksmNM1wV
+	 zgom0f44cple12JZDIs4FcjuNC+9/GyaZ8P59z2/w0zS7lKcJWVJgriBa3JzgkuA0Sw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066AC606A32E;
-	Wed, 11 Nov 2026 13:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 066AC606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NUkkZmtpLoz5DRJhCkOhmR3Jen7fBaA1wVYajG6hMe5XlUyKbq3QVzXwvOaSSLLMmI9iaUDioUDmg3MwOazuLEktDZZr43yXP29ZEvej87ePdEck9za2wLxfDE22kLCQdhVza7CNxx7KhmreaaMZG+yWgTAm0D1aBWnzhxdUVayHt6Gua74i2kourRxofvj22V7cWX8j2pSViYHRlDawxcnbEiMqr6nFkjcAEMexA7FHxAf9qy+AMbPRTR3OcPZJmvZi2Kzg1PzqLn29oan1DAnv7fvbsQGkkQcwz9pJjKchJbxdCEybO7aI4foESWFmDT1rfmWRQu4BOand9QSRkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iORx3w5FkLYMo5FmpEuyNzVrPoVAC1WcY+wYqaiaaH8=;
- b=Jc8JkaiqeHWWeBAEnYpgpIwIN/kNSmrdnz6yDBmXVu/8ULzOeIkjzhFur8J0IEHIYG+JN7eI0d8Scanb6/TxImN3SVwQF+n8fZvn/6CJSJmjQ/H1o9Rkta+Ijw2jLinJ/HujWuaI8e34syfedGYFJWpK1J5dgfhGT26c00MTeFkIvf8seSJmfmZqBvTmjvA1TnqCFUpQF/ofAguFjd4Jo2/Sm9/a6f+bLL5djXVCbaQTq3Stn1Lhe3LXOva1bqe6SGy8V7u/LYEVpkCz5+59PDnKfQDGng93cLMKgfBbpa1uWZrFhx50KRhoV25nhX65Kt36b2l4DDmTJHRTHKKUaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYCP286CA0223.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:3c5::11)
- by TY8PR06MB9294.apcprd06.prod.outlook.com (2603:1096:405:3a8::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 13:00:42 +0000
-Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
- (2603:1096:400:3c5:cafe::6e) by TYCP286CA0223.outlook.office365.com
- (2603:1096:400:3c5::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 13:00:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 13:00:37 +0000
-Received: from cix (unknown [172.16.64.42])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 253DD4102E73;
-	Wed, 11 Nov 2026 21:00:36 +0800 (CST)
-Date: Wed, 11 Nov 2026 21:00:35 +0800
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gary.yang@cixtech.com,
-	fugang.duan@cixtech.com, daniel.almeida@collabora.com,
-	aliceryhl@google.com, p.zabel@pengutronix.de,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
-	robin.wang@cixtech.com
-Subject: Re: [PATCH v2 2/3] drm/panthor: Add initial support for CIX Sky1
-Message-ID: <avRm82TLBe6I6LAD@cix>
-References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
- <20261109120902.125242-3-cunyuan.liu@cixtech.com>
- <avLsAlL048MtIX4x@e142607>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF69606A339
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF69606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZ8Df2338385
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fNNA5DINfFRpf2eORoYgUUVl
+	bLJUUgtkmYcnEbAYKiY=; b=p6q+meWfh8pxTAsOPcNqXBXxXBRbH+GJDC4uiwKA
+	LJ5hYTCU3/k1FKYji7ugZnbHErDA5WuhE5KzDaz8lgoup47Kf0aitPgAEw3rW0lp
+	tMtswTpUYDD8q4tClQtiOBprE7ZUy4pXagV9SgI+lMAfwYQfVHVebO5KPPIcUnid
+	chmnqaobA7mVsL+v/gdx+NJL5U1KFoj9M4mB1lr2ZMcQaWN29IzteadEmIgwVhrK
+	EIpAcU2xW1xN36ygYXdO+5SKN19CrB5t79dsRs5D885Pvk1tYO8MeB2FCyVs7Qv2
+	wejjCK8v+qWke5jhjykBYz7/jQCHfyyuSVzlG19XahwgNg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmapby-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5ece3cd5a00so2423217e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 05:01:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794402099; x=1795006899; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=ahN0AjmkD63PvVgeHmTW9R+4V623g7CKUjFoxTx/rILg6XoSPLCx7vdHPmEiblcs9+
+         OXFKV7KwAzlj2DLe0CbFaW5Bl+jini2AbY9yNuUlleNQsjl8UoD/rLmNakZWu011wDRz
+         38XM8LokSGsfwigtXiC7FcGwIKOc7I2XZxri8d7jzBWcGK4gC/ypzwPsIgP4XWflydYe
+         RvqfloJW/9ugMzKTVIOYs+R/w5gem1fhgrJt9duQl6Q62scnAmDmH8VUXAEEpO75agNy
+         j8BI4XUxTGkuy4yAazi5PoyFxyec5jlQglS9mkW6IXcVyjrruY5FmAnPRdATuGlT8Bjm
+         HNiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402099; x=1795006899;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=vci0irdbyggtDysBPbrUXn2u2XjsYDlw8K/Gp7Q8TJlaNT3U9tEBWoYa8UvChDuRDy
+         RhWfhFayVlJF0Dinyinq4+SK7UkhquETs8qxLmEq1VAc+Kdy1MJCyaCUj1CdH0GAjw+j
+         4AN/mQJqcjVt4AjtOPNO5kJP5W22R7kqYW8FmkiRJmh1iKQWd/kH5wPBElYYmDUsFvRC
+         AEDg/5LWZcM5CWowXEDNZGKeZYYoePmYP6hs+pig/jzPSKrLmc8Hc4DuTTgcMmSsZ5uZ
+         OiQvJITMFAkv0qwb3fCAlAY8DLyD/XrDVyaFdYWx63hS2BzjM/i7cwo3pG1LE6RY3Z99
+         bDSA==
+X-Forwarded-Encrypted: i=1; AL+hErGAdJCBoR62qkB6rbxMC8uXiqhbkXxsAPeO4BVxKLT5nqXdjACQX4cOa5xzca5q6Fps2vyoTWXOelOy@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5BXaFdAfJSHb+9aBmCwtfTjRDyGYRONgccF45DXw55XF6CUO8
+	gEJtALGgK2RmUdZexBIQZfY0lUQmaIlae5s0dPTc4pY0ro3d8wx+kQ1znnblF4Ra0oG+Gwd9Exy
+	UyGHX/G0fRe9GyqofCB3y6X5IjDzeKDZd/vpmyqraS7ef8YpS9e58/Y06VZn0UtCP
+X-Gm-Gg: AYBFou12bdVzhd8C+qKaYgb0msuor/t5fuenwWyGUqSruxYn9PSR25A9aijzm5PwGSb
+	vwQHRtpkv7FD2SlTfL1ds/TpOQuP/2FZr4WlGM1Q1JYjn0QkxF0qDqOIxFnfPU0mW9VtvPQ+3Kt
+	TDy79vtcJLwOdTnXslYgrUaYmGKRNLXvZs4vMMnEnHVYMNUrCXpz2jZOLLUzrW2wQUB9zjll3Rl
+	w3Mh9vRm6uFxwE37Px5SdJzBdGLtJd4KqmkP92g1G9/yqQ4+alX+gFxV5LV7kkzgxOqOPv7TXIP
+	MPj17h8+tbZnxaGbsrY4a4kucIlRiyq1AV9EHONCDStK6hByRg8J8xDYeGDLp4mptKrqUZ1LSx/
+	xthBX2mMJnZuEqtooNZYVy7BjCOySOhgRYz66lBBqkUBIlgfAEeFsyAMTkXFsg10/FxaY0wCV7h
+	aKA6UOLD7VKZE22lRTbhKYbTpQpshnLjoohKWZEA0cQpz1qO4z9QNH+MLT1VGR5Q==
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672587e0c.8.1794402098897;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672510e0c.8.1794402098347;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157b7a657sm947505e87.11.2026.11.11.05.01.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:01:37 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:01:35 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Vasant Hegde <vasant.hegde@amd.com>,
+        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        Lu Baolu <baolu.lu@linux.intel.com>,
+        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+        Eric Auger <eric.auger@redhat.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Joerg Roedel <jroedel@suse.de>,
+        Srinath Mannam <srinath.mannam@broadcom.com>,
+        Oza Pawandeep <quic_poza@quicinc.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, kvm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/5] of_iommu: add support for "iommu-ranges"
+Message-ID: <h7j7lyl6d67xfdw3gyabfngpurumbqd6fkcvuhyi4juashcx5r@egybwhfdaonn>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,173 +141,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avLsAlL048MtIX4x@e142607>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|TY8PR06MB9294:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1058a81c-8b23-406c-cc4c-08df3ff3c821
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|36860700016|82310400026|261026140227099003|4143699003|261009223027099003|261102123227099003|261028144727099003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|18002099003|22082099003|3023799007|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	fDcTr1lDRK66cXs8/fcaA4kToAqxka9eA2MuAgDYbdJiPgSi73dkh0p+VmrEB2Jtrvt9EeQ//y1qE/RHWrW6Lcj61ug5tHJitPec0IXpU6KCYVNSkGix+SBPa9zCYrtFm/sQS3AMTK5gegekNqhSccuI1+nYy7SgO5LeHuYsx4YnQD8lPInI3v4iq/YCMSCKqfeDMqVqVL7aXPRrF8Js4UPsePy5wlTpIV5oAZTX/dPjuRFDcAPSzCrzmnIygfuzf6eKCIaUBsLdKT0zw6ZJ62s4tvdUOBQriL4Oyy7IwmaviHvOhrd6XvIJJd+hJmLKWKBkTXrTfddLc5lNQ1D5CgFitsgxb0ZwIXivhzbzz1bJLRWsuNLGvjbAZb2f5Caf/KTAo+01sdkuN4PcvixjogsipRqp2LWPLKu26Oo2r4K+pfZzpoZXSA5md/yn4bPYxN+A2BdfoiPYeuR4whgo9CIE4Vi5GTLpNA06+iPprb7VY9/kxwB1tkbJmYYCYcr02hfDZWGpd3AHWw4Mx5Sw8KWhOEoLg/91tnrQrBAZDaN+2Z5O7q+rQo/w89P80ED2j3AJF6dqWxx15oEheFYq/YZAjHr6Lx5P6hBH12MB4bWq0H2xISsDP+NV+vuxBox4NrVhgQwUXPvyjCMMuCiD/9hZhhkOmwLv56LAzxSEGWz7XdCz+EUOyRQ+SID0tfYhqpPElZ4DXEwNghrffuMa5w==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(36860700016)(82310400026)(261026140227099003)(4143699003)(261009223027099003)(261102123227099003)(261028144727099003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(18002099003)(22082099003)(3023799007)(6133799003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RoREtYnLJUtQStPBchIxbhzgggkF684xAmSz+SPqrDYoIWgMlvhoLoahvtcrymKTmvqYxosjTT0A1mPMD5updFA1fUG2EIHQQObcVRIf55MtDNd1Ue939aA7K1PZE6Gh+cjGgN1acUoM9VHHmFTBhyJ2Vm0IA1dxdsYMU+QhBb/Ol4nEiOUGw9BYSTb+AG8DJqDj8Aa9ZK39YwYgpaKevX0lyvJGrZfJA+1pv4CHSBP/898fV8T93KmVsiHviZvCCbL7vYPsk0QF1gxWV4KP4/zUCqGbhZKQehs8ge9r3uuIGyfgPehRR820m+XFe6U+O/AVazTIX6yEOKkDfxkXZ/bPRq3JgL+ra1IVMgVgRUYQwql8wskNWUBWFx8QDYMreQUGxJi3GiST2fhVHRvQhCe8t9MeIXtqKGD7szLKb8m67HJboacyPtnmQDerCnHk
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:00:37.3748
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1058a81c-8b23-406c-cc4c-08df3ff3c821
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB83.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY8PR06MB9294
+In-Reply-To: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 938ebhw40EDvhzSfm3xUlFZgryDpIVjj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfXyXOtMDxpjsvs
+ wNa8z4Wgt/Su3ZvW8mETKF6Q/DhhBuoTX2qq62p+Epht8MISEOjxwLQrSER2ebepBBwLIx7QR2A
+ tkH5EPnoWPNSMICLuC1kSQmGcdy4rAA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfXwMyz0+cQFuPB
+ vhhxksfvjBG30izofTvCW+cy6lvJ3Ey8zA05BixxWRzJf2noz2SvIb5ZyQsFWlt8O/4zZIQ/Omd
+ NsXdWo3vXQ8B3RnxjeoInRiNwcQiRfobTBNRHawftLI+kqKETowKoC4ukdwE8p4yYIi7Bb6pJ0Q
+ g+And89BKms99if8lsnnW+wg2kmD0o32vytk5SsAqs1xFiq4reDiD8Z5a7OubWr1t7dd7Y3X4jA
+ U61EBNdPqzxOq3Pi5l9/xkSCmWpRrfRgIOzYFjl81bb1+5vQqDfP/0Z0uutGHqnvHMnBbdtcZ7R
+ llBNa322xz2DSK74eREJ+sBWjVvZlYRiPnZ1gOHKnL4b52QbTlQ8yVv/I3Z4SLxmauFJnY9Kq6o
+ k1A5RCLrc/XsNHvNdw8CactIbL3kl6DwWtJROSR3IhOtvTUI924ljt5EnYlmSeATe3wiRB54od0
+ dUNOOU+V+ydg/5XRNBw==
+X-Proofpoint-GUID: 938ebhw40EDvhzSfm3xUlFZgryDpIVjj
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af46734 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ycv8Z8E-TvjlFfbjzzEA:9 a=CjuIK1q_8ugA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110051
 
-Hi Liviu,
-
-Thanks for your review.
-
-On 2026-11-10 10:03:46 +0000, Liviu Dudau wrote:
-> > The GPU on CIX Sky1 needs an external reset before the driver first
-> > accesses the hardware. Without this reset, the GPU hardware cannot be
-> > accessed correctly. Acquire an optional exclusive reset for all platforms
-> > and apply it after enabling the clocks during initial probe. Platforms
-> > without a reset keep working through the reset framework NULL handling.
+On Fri, Nov 06, 2026 at 10:44:23PM +0530, Vikash Garodia wrote:
+> The series adds support for recently introduced property 
+> "iommu-ranges". It adds the required checks to error out for cases 
+> which are not following the schema definition.
 > 
-> Adding support for an external reset should be separate from the enablement
-> of Sky1 GPU.
-
-I will move the external reset support into a separate patch.
-
-> >
-> > Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
-> > rendering results are displayed incorrectly.
+> Iommu-ranges was defined in schema with this PR
+> https://github.com/devicetree-org/dt-schema/pull/207
 > 
-> Adding support for SYSC_ALLOC should be a separate patch. It can be used
-> by other SoCs as well, not just Sky1.
-
-I will also move the SYSC_ALLOC support into a separate patch.
-
-> >
-> > Keep the clock settings provided by the PM firmware. This first version
-> > does not read OPPs or enable devfreq. It does not register a GPU cooling
-> > device.
+> The patch series is being posted as revision v6, since the patches 
+> were initially part of the media series [1]. The patches are moved out 
+> to get review comments from iommu reviewers, which was otherwise looking 
+> as a media series. Happy to move this back to media series if anyone have 
+> any concerns. 
+> [1] 
+> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com/
 > 
-> This looks like a stop gap measure. What is your plan here? When do you
-> think you might be able to provide OPP and devfreq support and what is
-> the hold up?
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
 
-The PM firmware already provides GPU performance states through SCMI.
-However, some states describe both a clock frequency and a shader-core
-configuration.
+FWIW these changes are also required for the DCP display controller to
+work on Qualcomm platforms...
 
-For example, the vendor driver interprets levels 72 and 216, exposed
-as nominal 72 MHz and 216 MHz OPPs, as 350 MHz with two and six shader
-cores. They are not actual clock rates of 72 MHz and 216 MHz.
-
-Importing the firmware OPP table alone is therefore not enough.
-Panthor also needs to distinguish these performance values from the
-actual clock rates and safely change the shader-core configuration
-during performance-state transitions.
-
-I plan to implement and validate this in a separate patch series.
-I do not yet have a firm submission date.
-
-> > --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> > @@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
-> >
-> >       ptdev->devfreq = pdevfreq;
-> >
-> > +     /* Keep the firmware clock settings until Sky1 devfreq is supported. */
-> > +     if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-> > +             ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-> > +             return 0;
-> > +     }
-> 
-> This should not be in the driver. If you want to have a fixed frequency just use a fixed
-> clock provider, or make the clock provider query the firmware for the value.
-
-Sky1 already uses the SCMI clock provider to query the actual clock
-rate and control clock enable and disable through the PM firmware.
-
-I tested removing the skip_devfreq early return while keeping the
-SCMI clocks. The driver correctly read the core clock as 900 MHz,
-but probe failed because the normal initialization path requires an
-OPP table. Changing to a fixed-clock provider alone would still leave
-this issue.
-
-I have now tried the approach used by Panfrost: if adding the OPP
-table returns -ENODEV, continue without devfreq. Other errors are
-still returned:
-
-  ret = devm_pm_opp_of_add_table(dev);
-  if (ret == -ENODEV) {
-    /* Keep the clock provider's rate when no OPP table is present. */
-    ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-    return 0;
-  }
-  if (ret)
-    return ret;
-
-The current frequency is read from the clock provider, and the
-Sky1-specific skip_devfreq flag is removed.
-
-This passed probe, rendering, runtime suspend/resume and module
-reload tests on Orion O6. Would this generic no-OPP approach be
-acceptable for the initial support?
-
-> >
-> > diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> > index dc8d0191aef4..4d7b1230cd7b 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> > @@ -1872,12 +1872,26 @@ static struct attribute *panthor_attrs[] = {
-> >
-> >  ATTRIBUTE_GROUPS(panthor);
-> >
-> > +static const struct panthor_sysc_config sysc_config_cix_sky1 = {
-> > +     /* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
-> > +     .alloc = {
-> > +             0x00230000, 0x00000023, 0x00000000, 0x00000000,
-> > +             0x00523222, 0x00523200, 0x00000022, 0x00000032,
-> > +     },
-> > +};
-> 
-> These should not be in the driver but in the device tree bindings. If you extract
-> the system cache code into a separate patch we can have a proper discussion there.
-
-I will move the eight SYSC_ALLOC values into a DT property, such as
-arm,sysc-alloc, and submit the system-cache support as a separate patch.
-
-> >
-> > +static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
-> > +{
-> > +     const struct panthor_sysc_config *config;
-> > +     unsigned int i;
-> > +
-> > +     if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
-> > +             return;
-> > +
-> > +     config = ptdev->soc_data->sysc_config;
-> > +     for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
-> > +             gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
-> 
-> This will crash for arch10 GPUs. I know that you're relying here on soc_data not having
-> the fields filled in, but if we move the sysc_config data to being provided by DT, we
-> need to check here.
-
-I will add an architecture check to reject the configuration on
-arch10 GPUs before accessing SYSC_ALLOC. I will also guard the
-register-write function.
-
-I will wait for your feedback on the no-OPP approach before sending v3.
-
-Best regards,
-Cunyuan
+-- 
+With best wishes
+Dmitry
