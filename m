@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427231;
-	b=NEb6AZgfNUNTWo4FcMbS0KeZ+XdW2Udk1kkX3nV4zW0wRAokUE5dSdywFPXqXVcXgD5C
-	 pe2JDTrhErxOOG6aoXKK2NDRqWNrEOMfGNuj8gEhJOZozYRCzOdPSn9hF0TtqPxRkyldA
-	 1Ix9h4NJdEJ3ThUNj9ifqMt1FPShOv3wtMBO0NhtRP00XrSf484BcOnBYxISNBMIYsfK5
-	 qtWIDYMhfHpXkpZLiLPJwEl9fypPYzFbt8O5RdKXZrmWNgJuKTLC84IlvBjpw+MQM7be+
-	 E//pt3WORQ8gNFhSnet7kV2ixeizFEko0IcRqWG8bq40FssnmN0JtykMm+6L4EXIABg==
+	t=1794427442;
+	b=lMGz6NsZ8QbhOJkAnSeT/Avf7C8C8LhYf9S/sSeALIjL1b73kNjszUkS+k8QoSMddtMc
+	 gv1VHgShoekO4QznAQorFpsRKX9iHEExFIfejADp4NZMLcAcpc3ffw+VmszJQ/8RUGKpN
+	 L0UAnxP0pMwfFt0P2nUjCgPSoUuHRJj+RRU5AD9YcndfyMhI4dS19QzYN4PIoGMalX8fz
+	 dkwxwZjlLxaCfmAIjES+0XX5n84gefoubpbl+dcHKHxQRMxaiCrN0Uqsl1ZIYbr5IW3yD
+	 5sReuwwBzKEGl7l+w7HMbzrcZxg0Vwncz90P3jHKmW8UI6NgWxEpJ4UbjdJmrPuYwIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427442;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
-	b=KghXiKW6hG41vzxKBQogBnOhlJVcCFWU9El0SFMnSoTkvtrv2jQiSztRSUzCRUgl6bP0
-	 69pA6lP0XF6fW2JSTDs0GW1IkBsoyn/YtoVOMlGqYw8kWfoh1FYEUcwlw6AteooQQ+H4j
-	 SvF4BzaPt2oeHWL3rjyArXEK4HTgS3nJo3GxZuQjKQtm6Uwke9qqdqZwJaYBnNXreP58e
-	 jUlj7kL6n4M81K6NK6Ug25uzkUjoac6n050UE6CSm2g2aRTZgM7af6aEUYeTTeJCHn1nm
-	 ANzd5DUGItSB91ytEGirGN6ggR+2FS/XmQVgA5CKIofm1irhzTJinHNUJmzUlVBDJFg==
+	bh=6rcAYmO2qRHUGdCNLnQyV9a37qWMtLhxA0AKMVNF0QU=;
+	b=W4/VcPrkfcUP+c+CG8sF/eH2kWqFRpJ2NITg5f175UYmzIG7T/vEtLZT/L//Glzcadvu
+	 zOE1cXAODC6nP448P83AXAJTiThu7qrg+LFEKgWPgWPdU8UA/GOS59koduZKv61Jh68lk
+	 jtw5399ivKNgjVzUC42/oR8XpN+0VJ3c+jbmYdR9uJWLcfbF8px/zI88F4wPwdWni7j/2
+	 uIfLl5av963JMDzA8TU8ylf0pEy3MHCs6FkFXnJIdZxQmZZQm31aXZEjapPrebSbFnDMj
+	 7/1rF8GJQaAz2WJOqqAqYNdg2RCJ1SM+46FKSJCYrbpvMWgTcGwYPBxAeP0odz98Hug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zugu79aa;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB1B606A321
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:00:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB1B606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE497606A321
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 20:04:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE497606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c07c7306e1so2985141e87.1
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:00:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zugu79aa
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3704d30b84fso4503283eec.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:04:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794427230; x=1795032030; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794427441; x=1795032241; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
-        b=ICpsNtDjl8RpGDWPxeboydSu/EEH2dc3F1U/ihmVr5TvqmB9GXzkPDgrSdb4pTybmq
-         rSXYND5og4GcBCQzlUFJdJ7g1a0Wg25xXHOc0oR5VBOQCimogGtybB77X2IzzJAL4QCY
-         u/rPxDk7NZAtRuT5zgOxildkgI8fjUqWbzfA8BpS1lDpmeugNImYN4GZjcm5G/yE5pEa
-         Bmh8Ui1PeSQVZNNz0MEFnx4+oVTDI3tlGl04FCJBhH39Bt9Bpi3W0D18XWQJ6YEjdkdF
-         oF1V2Lh3uJOAsQow9V6jQCoClk4BzSTaL6w3T4gVUiqgEkTBavTQWVWq12QqWIUd5r1n
-         sSSA==
+        bh=6rcAYmO2qRHUGdCNLnQyV9a37qWMtLhxA0AKMVNF0QU=;
+        b=zugu79aaBztU/JB/0/i/jqbfCJ7mv+7un6V296+ptLLqHjoNzbL3712fxicZrxzNYb
+         jgPTQI8yspdrNlDBFW45xKAx5v3ZcLoHeRd0G28/uvmaJ+FQI9Q/V0Cl/XWYW55Pe/qA
+         afLrPj26oqRcsF2gNknTXCB90H1+WLbqscEN86OtcU2/YnEO7yfVsmf8HvTSc5hVzHv5
+         OVSD7pigMcFSmYKNwtl0sAsfU5pgaAhHoNnM5/F2u5RkZzVpHHWgYIcRuzn7dZypJKqh
+         zP+yFTaW2vvUunbj4av6KC8J8lVtgNa3lRab2dWtVtqB2n3ct+S4raNrjcb28lSCdYEA
+         pmKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794427230; x=1795032030;
+        d=1e100.net; s=20260707; t=1794427441; x=1795032241;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
-        b=F/qB9ng6QZ2zi4AuAZ4wnIo2y/H5L29TULto8G0MR+grmuJp95Na7EoILKQ1H4kOoZ
-         oWuxEL5hhmAyvm6S7Y70EPYp6Q97EE1d1fZjNJhWa4t9JnxZbsYvAUsILQOaEPaenpl/
-         FGq6PJhFO+Cs+O3fYeZ65NOrg/ny/Po0NQrOVK6eW44fpVD/Xj1WQNsD4oDJ4t7m04QS
-         RV3aI9nDjDoJLg8iCkclnAb6O/I0/B48c0lXXRGN7XPe/U0LccuiVmJZWnbzYG9mYKIb
-         jismOBg9FcJtmD2l7HFAJtqcbOcjazpu2uKV7HJrt1PPHCoACw6NTBn7RufppZ0u28Gf
-         JdTA==
-X-Forwarded-Encrypted: i=1; AL+hErFwNw2+a4RDINVYYzHhUxvQz+AS0aBecQXoEvfhizIoElV6Zr+9d0McwaIdrTTD+5dqyTuLEZO5PXlc@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gf5CQ+pYKiSLqofFbtgm4pipSHibngW40SlGK11+zgVT0If4X
-	IxOIZ/Gx29aevX3OerWqbZfl3AAdiH+rXKtTAFGSOwhIdzBqPfDe04Mn
-X-Gm-Gg: AYBFou1eVCGgqMQb/NMY4PPRaT+hhtjq5EX1lpaqdk/VIoVotDhmXXWQx8FjnEhcAGA
-	WR7SPldAVbZ+qu1pRChZlISgR/dIEmVAsf6rR3mqCgUsW76eLJJ4nAb5QkyO0dT6RKx+mN4N6UN
-	i0DyCwLUzgv5/DAnLuDgan/+z9ztpJ7lWoZwthRC8AQsaEUgQkayAoswOc5E3unSktP9j0hLN+8
-	6kqvBxGueicmXzpjC7euP20HXxzivbNshQbNh3Ih6YpEiH/fASIzotffneZJosb83QjOOnbyEnr
-	lCPSvVsDtQy6dykCAMZLDx/t1hvyhsEocQkR19uHuhsHQjvAAMb/HZuQVpS7L2x4zBIK1+jg/Hz
-	nIxjwptahcQj13FxYVcC72JEliNlFWcOifvhEaH0B+wgZbNh2zuAPZ39YEpljqjMmtLOwhj9m1i
-	ghnB93KS5oz+DcHbjdmaPfAjevoyqXUQU7F7rM8fyQw9Eb8FMED58qHkmUZCjSeHbVGKttJw6uC
-	GM0zMbk8ptpZXpNS8khcIuXsKQaHsH3NIaddU02i+VYywtVtPzU9R4jfMj4K7WDy32RRNnRm0+Q
-	yTi/xMTbvO5Y63xSwMsVyyNf/H35YSXmS+89aLcclns69HqMvPkVIHrojtsMI4T2AKr0bk6VUuZ
-	iGdazIXzy9fqrsV9NEw+43XqlEHqlQkmtEms1
-X-Received: by 2002:a05:6512:b8e:b0:5c1:5cce:7f1d with SMTP id 2adb3069b0e04-5c15d58a87amr1050525e87.9.1794427229586;
-        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
-Received: from yantra.. (nekmmqtce067ylb1za0-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5558:447:baa4:a7d8])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157bbe89csm1102957e87.81.2026.11.11.12.00.28
+        bh=6rcAYmO2qRHUGdCNLnQyV9a37qWMtLhxA0AKMVNF0QU=;
+        b=gB6+TY7UgzjxMjPkvwKzw2PQAsXppcDPdpMyFC4WkVoFH9z59MJlIHE2qMOJi6NmTQ
+         +Fzlsxdm3iMEXfhyfVIwsZjO1hRzI/b/LCXm/p51xLkNS32JziegA4E4rNAhWNflJdKM
+         As1S/DdpvK8NTZitrDSTvtIkLUA0xXGCZ03jMgcsGmhnV4lYD2rrf4sYbVhbLgwEeUtw
+         pBXXq7XBRUEKM3f853TNfWVWxGrLqDCke2WPyOxwsFue21lhWtWIViDAh48cSeAi000P
+         qpB+fC1ZdGlFzboNhl3BMd0oU9fu4ykLKihCNDoC8N7fe8F1T17auXqHjBHg5hndV6/w
+         MKTw==
+X-Forwarded-Encrypted: i=1; AL+hErFxTvg0gaszceABfQpRG0K/RdHa42MSAramjOkGdHKT7KNz046WhGelC3YZBQR6O7sgwaaMQMLOVwcj@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SO7LQE+lGwScp9A2KKzNyWmWVwlQSLrrZvk26YXJMhXqYmfM/
+	7H7mSTPRr6SNzXh4ILmqdqdkpTLBQAPhisApLnd+tWXejaIMNGWVrpnK
+X-Gm-Gg: AYBFou2TCrSYCKHpYLmvMp4bPLq0fuDXkwN8lWjBwvE7v4FXLwgSeLa/Q2mbZoMJ5+H
+	PIz2gbY182VjytWW1aWsQbir43QF2e53pPb4dLxM7tOJNqgYk8c+iUPQUsal7nOejTdAJJuLiPY
+	oGBUJDUGUNfW8y03JiZ1J1R/D1tphwtWJ6QsfudkGO3P3g8e3uXbUDGGP6AxST3PVE4hYrIgF2M
+	2+0Ix4I6FO+TYtCIoJXg89VlZqfV06wL0qPFkg3rdD0jJjZfGj0Q99ar2/hRF+9jlF7BLipAus6
+	nGa5rxOYGvAwP2HuAya5M28p8fuBQeffATNZyWHRia0PIB6qQAkCaWRWFSJg5rUFNXhT48KbtTv
+	agKYErobQMXm0UbwpKh4hG1UKlki4N/ZsCRQnRgw2Wx10XGuOJxc8rtasL4NDEwVkUIRksxHsa6
+	vry2mA5z5f+rLNG4XHyERqTziBCK7SsypzUpbZTI6M35XQqzLTmWI/2NDeAHK3C4yrcRU2Ruheb
+	nYQDlNsI8FyhcrL7m4WLJN6l+kIByIyEMNR76aUPkjiDQsEdoVXFUPAaUhPglZJqC771AnuJr6U
+	Y/MD45HcsSf+5Jq8tnJhIkhScc2tnyA=
+X-Received: by 2002:a05:7300:bf91:b0:372:fa14:8b6c with SMTP id 5a478bee46e88-37685d7532amr4114764eec.19.1794427441021;
+        Wed, 11 Nov 2026 12:04:01 -0800 (PST)
+Received: from debian.lan ([121.101.132.16])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9d78sm20104476eec.25.2026.11.11.12.03.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
+        Wed, 11 Nov 2026 12:04:00 -0800 (PST)
+From: Amir Hanip <killdeath104@gmail.com>
+To: barnabas.czeman@mainlining.org
+Cc: a39skl@gmail.com,
+	abelvesa@kernel.org,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: Re: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
-Date: Wed, 11 Nov 2026 22:00:25 +0200
-Message-ID: <20261111200025.38344-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-208073@kernel.org>
-References: <20261110154254.39092-1-zoone.rupert@gmail.com> <20261110154254.39092-3-zoone.rupert@gmail.com> <sashiko-outbox-208073@kernel.org>
+	robh@kernel.org
+Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: sm6115-xiaomi-lemon: Split out a common dtsi
+Date: Thu, 12 Nov 2026 03:03:49 +0700
+Message-ID: <20261111200349.6588-1-killdeath104@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <daea291c5b5d3b1ff87bbeaac4b08083@mainlining.org>
+References: <daea291c5b5d3b1ff87bbeaac4b08083@mainlining.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,19 +108,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 02:15:48 +0000
-sashiko-bot@kernel.org wrote:
+On 2026-11-07 19:26, Barnabas Czeman wrote:
+> You should not override rpm_request node here, you can use the labels
+> from the common to change the ranges like:
+> &pm6125_s7 {
+>     regulator-min-microvolt = <1280000>;
+>     regulator-max-microvolt = <2080000>;
+> };
+> [...]
+> Please add the missing regulators.
 
-> Should dps310_fill_channels() read pressure first and use
-> dps310_refresh_temp_locked() like dps310_read_pressure_value() does?
+Hi Barnabas,
 
-Yes. The wait came with the triggered buffer support, so it is older
-than this patch and holds any trigger faster than temperature to the
-temperature rate. Fixed on its own:
+Thanks, understood. In v4 the common dtsi will define all the PM6125
+regulators with their labels, and lemon and citrus will only change
+the ranges that differ through those labels, without overriding
+rpm_requests. I assume that by the missing regulators you mean the
+ones that lemon.dts still defines (s7, l5, l7, l11, l17, l18, l22 and
+l24). Is that right?
 
-https://lore.kernel.org/linux-iio/20261111195118.36853-1-zoone.rupert@gmail.com/
+About your previous mail: thanks for the dumps. In v4 I will move the
+ADSP and GPU carve-outs to the common dtsi with the values from your
+MIUI dump (ADSP 0x53800000/0x2200000, GPU 0x55a15000/0x2000), as a
+separate patch from the pure split, so it can be reviewed on its own.
+It changes lemon's compiled DT: the ADSP region shrinks by 4 MiB and
+the GPU region moves away from 0xfa400000.
 
-With the fix, this trigger keeps up at 8 and 32 Hz with temperature at
-1 Hz. I'll mention it in v2.
+I can only test citrus. Would you, or Adam, be able to test the lemon
+patches in v4? A Tested-by would help a lot.
 
-Rupesh
+Sashiko points out that WiFi bypasses the wcn3950-pmu regulators.
+WiFi works on citrus as is, but I will route its supplies through
+vreg_pmu_xo/rf/ch0 like qrb2210-rb1 does and test it before v4.
+
+Thanks,
+Amir
