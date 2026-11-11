@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396131;
-	b=kOYJByP5Fug18XZqtQ9Sm8mDJAokDYIkvOXAeHocODNvvTnlSWBKaSDXjxrZJUENrMQz
-	 cwY1JWD0HIpm39ae0ehs+kBLg3iYmDDnujhmBp8NerbthygAGNRyjmXy8mQVANa1eGvNq
-	 yRAOcUBVnYP4qn9Dz+y/miqGv9psA7wLlC1saS4RSo+PYJelFpLmzToKy/VmF7thC2Z8N
-	 XUrCisEYo8tdkq7yTCmJll82XWImoYtLSFB0yC2IMP92igYeVR6BdOalNsn5RCKDot/bv
-	 Mt6u0sRXGOPuR1Jh1MOAzBtn1zgvKJhofBsBoOXqBNbpfUIUkoAcCDUd/jSJSXl915A==
+	t=1794396261;
+	b=PhhuQk4mG9PCNsK7RZH6ETz7j/eSx9+hCs17szaIIRQJEtDHL3pmgnQ/dV8o5OdcKuAX
+	 h2eRdXg5Ap8Gxy+pYKo+MRWAVkRHcDR1hGJWkZYTBeZZiB7O0hxSwmcTGu6c+rYfbUb21
+	 TCybuu20aYa7jY2z8FdhA5vKgCyoM5dAXpEBYE86YAb1OIe3Og39+fkJec51pZPdINIoQ
+	 7JDA3wSvugjXZWAMvT5FQWHGMZAnT4Gz7tjoGiIm8btzAlnGWOyHWV/p023rutkpfu5vp
+	 txtTLzCyX3iWRY8+gvWDLCUsMcMjOwTTYKksZZ/OciDd4OAJuUFm7fwgTE8F3gkRRFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396131;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
-	b=NmoDj7BjrWdXr1Um9QUVwXn+CVLaNe85wF0zGK/poFzT8iZkdrbD9WSUGwvV6IE/DA/Z
-	 ZXobxm/P6RrmBFph0uSHtksl4c+txed8J62/GFdOGMTGSPzCmJA7hkLOn5iplQg8gb1x4
-	 AmRECBSL9rcRwSzvHe+I7up4dzpnY5Ne6Wchr5oUFipam6YIY486FwUtWuWBQKkunaAtj
-	 FtSJthwW0FCiFAGAThp1iQFOV5XoULwmop+7eLBRN7cH97reXv8o2Zbrp2RSAYw6+Ij1U
-	 b+11fTokLrLV71qbmqHqy8YM/393khI8QeGdiYiWJFjYSCtfAZGabtfH7Cs8FZpHh5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396261;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=TyC5RG/xS6ek+VZLhU7M9QAvgJKCmjqZswCm4LBfDrM=;
+	b=S98nPYdD9MCXvrel0V6WXsIV/b2zpcXZM/1A7HaBXGQpjIgJ9QjTK/AMr/WWP2c0Jmb6
+	 x/HO6oertr1kEB1MNtto6LU6FxfB/DURtQNlejO95RiNrOKqyxiItp+WQr7mNXX0GFeH9
+	 /5s1yIXOVmYHJjHbn84ENtkiCnUIwv4d1I452OO9ugkLrDyyGaB9YZ1ZErw7PDpA+mdhX
+	 xncAfqgT4/S0s6jJ+gdVX3HFD14uWaFaGy9gplxlu4VIdcQ0jQLUOqd1RqgRobsrtVtnd
+	 mL1IkdZGbv6t9yZEvT6firkP/IqOOivu/11kpnZysL59AFhBLwTc2CfjrkfKTysQFZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="AQ5+E/2N";
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEE4606A324;
-	Wed, 11 Nov 2026 11:22:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A44606A327
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6A44606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF76F1F00A05;
-	Wed, 11 Nov 2026 11:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794396131;
-	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l5iahbXVODhXP5BYaVz3lVdaFKAxPbIAV3hq96sXjhxKI9HOoR2/3E6F8yc6p2lnn
-	 WYOV4BO44d1ftIV1pYZaZ3P7x+X/K2hOfbck3hrxOLF7+DjUwkP1dkVZwOTp5bdgG/
-	 0sA2Mynj4aVVQBX02rcqTENjrjW6h1cFMupMrd/VGuNMR4fGbbJcQi3AXAHtjHVf1/
-	 R1xIHOd1CRUUf0iqhEH6Io8GPTn2iXxZ6MYFs44afGFgnuAJUfVFUAkbbw8wWdoxMh
-	 HWHJFOAMcvVoy7TPU9c2M72++kukupwo9oRI6P9ZjxkO/HHrCoWN2dajaitGrzKiKw
-	 BW28RKsWw6/CQ==
-Date: Wed, 11 Nov 2026 12:22:08 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: John Crispin <john@phrozen.org>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AQ5+E/2N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=TyC5
+	RG/xS6ek+VZLhU7M9QAvgJKCmjqZswCm4LBfDrM=; b=AQ5+E/2NMJbces3nNLB7
+	Dhp+waLJGw1j50cO1JBzfY4d1iIDKC9tJdVFKJFRKAbN6RpKi235h/eVd1rCzcpk
+	9pGbHjrWplc5sEuTwWsFZvbx+0IrBTSZBEVa4wWQkn8IKuw4lwDFlbbzJKKEHA+P
+	gtPA53DgA/519DujpqPJx3D77/mfkho2wV/cIaz6i21QeWap/p4wkpRko/YtDZD0
+	jlD2Gqz50Gi492U+ui3ZbtI0Yj888QDdhfWpR8hra68pZ5sgN16tmCw+k+pRjVy6
+	wcvffTVy4yRWJPmGq3TNnhb5YjZ7kX3yYUVO+6/coo/pggt8mincU8ji9Xf7PC89
+	Rg==
+Received: (qmail 590099 invoked from network); 11 Nov 2026 12:24:15 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 12:24:15 +0100
+X-UD-Smtp-Session: l3s3148p1@cp1bb/5fSuEujnun
+Date: Wed, 11 Nov 2026 12:24:14 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Ahmed Naseef <naseefkm@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org, lei.dong@airoha.com,
-	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	mfd@lists.linux.dev,
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
-	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: Re: [PATCH 1/7] pinctrl: airoha: make gpio register layout per SoC
-Message-ID: <avRP4MTHKRkP00oh@lore-desk>
-References: <20261110173941.301478-1-john@phrozen.org>
- <20261110173941.301478-2-john@phrozen.org>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v25 11/11] mmc: renesas_sdhi: Add RZ/G3L SDHI support
+Message-ID: <avRQWlS4DsBDU5c5@shikoro>
+References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+ <20261028-rzg3l_sdhi-v25-11-57f16691c2ed@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,232 +72,56 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WqyvA75ADRGpy4XY"
+	protocol="application/pgp-signature"; boundary="TDYaANhAGqmkt0P2"
 Content-Disposition: inline
-In-Reply-To: <20261110173941.301478-2-john@phrozen.org>
+In-Reply-To: <20261028-rzg3l_sdhi-v25-11-57f16691c2ed@bp.renesas.com>
 
---WqyvA75ADRGpy4XY
+--TDYaANhAGqmkt0P2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-> The GPIO register layout is fixed to 64 pins in two 32 pin banks and
-> four 16 pin direction banks. Every SoC uses the single static
-> airoha_gpiochip_regs and the compile time AIROHA_NUM_PINS.
+On Wed, Oct 28, 2026 at 12:51:28PM +0000, Biju Das wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> Move the layout into the match data. The gpiochip register table
-> carries its own pin count, and the five existing SoCs point at the
-> shared 64 pin table.
+> The RZ/G3L SDHI is close to existing variants but differs in three
+> ways the driver can't handle today:
 >=20
-> No functional change for the existing SoCs.
+> - It has an 11-bit clock divider. The upper bits live in CLK_CTL
+>   bits [17:16], so the register must be written with a 32-bit access
+>   on this SoC.
+> - Tuning needs a second HW adjustment register (HWADJ2), programmed
+>   together with TMPPORT2.
+> - HWADJ4 must be cleared when tuning starts.
 >=20
-> Signed-off-by: John Crispin <john@phrozen.org>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-> ---
->  drivers/pinctrl/airoha/airoha-common.h  |  6 +++++-
->  drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++------
->  drivers/pinctrl/airoha/pinctrl-an7563.c |  1 +
->  drivers/pinctrl/airoha/pinctrl-an7581.c |  1 +
->  drivers/pinctrl/airoha/pinctrl-an7583.c |  1 +
->  drivers/pinctrl/airoha/pinctrl-en7523.c |  1 +
->  drivers/pinctrl/airoha/pinctrl-en7528.c |  1 +
->  7 files changed, 18 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
-oha/airoha-common.h
-> index 16f7abcdfb83..850e733db15a 100644
-> --- a/drivers/pinctrl/airoha/airoha-common.h
-> +++ b/drivers/pinctrl/airoha/airoha-common.h
-> @@ -89,6 +89,7 @@ struct airoha_pinctrl_conf {
->  };
-> =20
->  struct airoha_gpiochip_regs {
-> +	unsigned int ngpio;
->  	/* gpio */
->  	const u32 *data;
->  	const u32 *dir;
-> @@ -99,6 +100,8 @@ struct airoha_gpiochip_regs {
->  	const u32 *edge;
->  };
-> =20
-> +extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
-> +
->  struct airoha_pinctrl_confs_info {
->  	const struct airoha_pinctrl_conf *confs;
->  	unsigned int num_confs;
-> @@ -126,7 +129,7 @@ struct airoha_pinctrl {
->  	struct regmap *regmap;
-> =20
->  	struct gpio_chip gpiochip;
-> -	struct airoha_gpiochip_regs *gpio_regs;
-> +	const struct airoha_gpiochip_regs *gpio_regs;
->  	unsigned int num_irq_pins;
->  };
-> =20
-> @@ -134,6 +137,7 @@ struct airoha_pinctrl_match_data {
->  	const char *chip_scu_compatible;
->  	const char *pinctrl_name;
->  	struct module *pinctrl_owner;
-> +	const struct airoha_gpiochip_regs *gpio_regs;
->  	const struct pinctrl_pin_desc *pins;
->  	const unsigned int num_pins;
->  	const struct pingroup *grps;
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 52a768c859b7..b50108826d8d 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -94,7 +94,8 @@ static const u32 irq_edge_regs[] =3D {
->  	REG_GPIO_INT_EDGE3
->  };
-> =20
-> -static struct airoha_gpiochip_regs airoha_gpiochip_regs =3D {
-> +const struct airoha_gpiochip_regs airoha_gpiochip_regs_64 =3D {
-> +	.ngpio =3D AIROHA_NUM_PINS,
->  	.data =3D gpio_data_regs,
->  	.dir =3D gpio_dir_regs,
->  	.out =3D gpio_out_regs,
-> @@ -102,6 +103,7 @@ static struct airoha_gpiochip_regs airoha_gpiochip_re=
-gs =3D {
->  	.level =3D irq_level_regs,
->  	.edge =3D irq_edge_regs,
->  };
-> +EXPORT_SYMBOL_GPL(airoha_gpiochip_regs_64);
-> =20
->  static int airoha_convert_pin_to_reg_offset(struct pinctrl_dev *pctrl_de=
-v,
->  					    struct pinctrl_gpio_range *range,
-> @@ -207,7 +209,7 @@ static void airoha_irq_unmask(struct irq_data *data)
->  {
->  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
->  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
-> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
-> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
->  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
-> @@ -244,7 +246,7 @@ static void airoha_irq_mask(struct irq_data *data)
->  {
->  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
->  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
-> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
-> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
->  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
-> @@ -261,7 +263,7 @@ static void airoha_irq_ack(struct irq_data *data)
->  {
->  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
->  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
-> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
-> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
->  	u8 offset =3D data->hwirq % AIROHA_PIN_BANK_SIZE;
->  	u8 index =3D data->hwirq / AIROHA_PIN_BANK_SIZE;
-> =20
-> @@ -379,7 +381,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_=
-pinctrl *pinctrl,
->  	gc->set =3D airoha_gpio_set;
->  	gc->get =3D airoha_gpio_get;
->  	gc->base =3D -1;
-> -	gc->ngpio =3D AIROHA_NUM_PINS;
-> +	gc->ngpio =3D pinctrl->gpio_regs->ngpio;
-> =20
->  	girq->default_type =3D IRQ_TYPE_NONE;
->  	girq->handler =3D handle_bad_irq;
-> @@ -831,7 +833,7 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
->  	pinctrl->desc.pins =3D data->pins;
->  	pinctrl->desc.npins =3D data->num_pins;
-> =20
-> -	pinctrl->gpio_regs =3D &airoha_gpiochip_regs;
-> +	pinctrl->gpio_regs =3D data->gpio_regs;
-> =20
->  	err =3D devm_pinctrl_register_and_init(dev, &pinctrl->desc,
->  					     pinctrl, &pinctrl->ctrl);
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7563.c
-> index f011c6c9ccce..6a2a307807e3 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-an7563.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
-> @@ -1063,6 +1063,7 @@ static const struct airoha_pinctrl_match_data pinct=
-rl_match_data =3D {
->  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
->  	.pins =3D pinctrl_pins,
->  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
->  	.grps =3D pinctrl_groups,
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7581.c
-> index bfb777594811..6bec1d44b8a0 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-an7581.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
-> @@ -1435,6 +1435,7 @@ static const struct airoha_pinctrl_match_data pinct=
-rl_match_data =3D {
->  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
->  	.pins =3D pinctrl_pins,
->  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
->  	.grps =3D pinctrl_groups,
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7583.c
-> index 1cd0f442ddc1..2689bbd9ebba 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
-> @@ -1465,6 +1465,7 @@ static const struct airoha_pinctrl_match_data pinct=
-rl_match_data =3D {
->  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
->  	.pins =3D pinctrl_pins,
->  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
->  	.grps =3D pinctrl_groups,
-> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
-roha/pinctrl-en7523.c
-> index b0c5e60f0aeb..1589acef683f 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-en7523.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
-> @@ -1107,6 +1107,7 @@ static const struct airoha_pinctrl_match_data pinct=
-rl_match_data =3D {
->  	.chip_scu_compatible =3D "airoha,en7523-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
->  	.pins =3D pinctrl_pins,
->  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
->  	.grps =3D pinctrl_groups,
-> diff --git a/drivers/pinctrl/airoha/pinctrl-en7528.c b/drivers/pinctrl/ai=
-roha/pinctrl-en7528.c
-> index f6c8f834421f..9854e9530219 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-en7528.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-en7528.c
-> @@ -1155,6 +1155,7 @@ static const struct airoha_pinctrl_match_data pinct=
-rl_match_data =3D {
->  	.chip_scu_compatible =3D "econet,en7528-chip-scu",
->  	.pinctrl_name =3D KBUILD_MODNAME,
->  	.pinctrl_owner =3D THIS_MODULE,
-> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
->  	.pins =3D pinctrl_pins,
->  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
->  	.grps =3D pinctrl_groups,
-> --=20
-> 2.34.1
->=20
+I like the renesas_sdhi_sclken() helper.
 
---WqyvA75ADRGpy4XY
+All review done, congrats! I will run some tests on R-Car hardware in
+a few minutes.
+
+
+--TDYaANhAGqmkt0P2
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavRP4AAKCRA6cBh0uS2t
-rDPBAPwN08fBuOv0LvZ5GSpm3nNQBDO/6ajcZnEG7ZqY1ifYrAEAz42H7L6jUwuY
-Lj4bMSvEqOwOxZTxPFWF6i03FlMFWwE=
-=7ilg
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0UFoACgkQFA3kzBSg
+KbZXxA//VK0YsuDvIDhInLV9TiDuTr0cVWSPldJlUM9iuRmA4Aaq7btGKrKPziBE
+4r7tGKTpARWrO1binEIwkZtBwBNCKWG59Vrn9WXV59LZ0mGu877aoyuCaNFvsDVo
+TB3Slnt1jbp4c3zwk4XpRz84MNoxunbl4x6eIic7reJjpqGcOf4XRjQa1eNIQeTc
+yAHuO9llw/AkfoAl2FGt7woiHcw5PQ0Nzi+BjZe8/PY6zbZPmmk326GasGsQbhaE
+bScvVPSlhs/mgVDvEje0Q4qRyQNU2lOCSUAeW6HdXwTe9/JzB9wZALSOfXHLOX8l
+imr16uKsiEimAS7C2dj6WioQoS2po/xN7dAhw+iqLRjiTGYBIuYAmv6aXSFm+eRH
+zXj4Qo/gWILrUbvrTl0aC3saHyB6OjyYONvYalVF+jg18PxllDcUUhQlP6FS0oE5
+UtoPMD6t7oYJe2ysfA4osTQrSu/KJMOK4Q9eNwLtraGcdadkkCTqMs2Lc7EscUVL
+YWvK1mf2ZKxcDki5KsxlYKvg5GGQwaFLNtUzk3DxuYEzMcCcs6f7Huk2nIY6HkJz
+LcthyifcBJDf641GeVdVU5Y9m9euxU7/SHwqAuMUWc02nGH4Z4vHQOodV7LgRxk/
+bVZ5ZUUj7C3w2XRTItAl2dAwEKJ4FW+v/1mA9GaN11RSK/R0ebU=
+=bwTq
 -----END PGP SIGNATURE-----
 
---WqyvA75ADRGpy4XY--
+--TDYaANhAGqmkt0P2--
