@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381822;
-	b=SA7FwC+GGMnqCr54WfkClDZg312XHkdG4zGc/NjFm9xWFOLK5vksCpbTV0PtJknKp9P9
-	 nLwnZwFI01WDVRGrEJFYLTrhqTrZD7toDvvwnEXSvlqvnE5U1uf08iHr8JuSMsziGFrvQ
-	 qbvGElozMbUqj+aS8YoSTpAxttqOW/bmnoPiKzkXRmXYJGqzkmWfOM5ysQcJ4bV+wfikn
-	 dXYpysEA+QQUyk1JGiXv4G3K6HEQxcP8bUvJZGSnQ614759ViNl73GKzQ7TEJAKNwq2Iy
-	 x7Q2yWC42Yif1wfUSowl4PSulDgFe6UT4fdt4A41TUiXa90ClRha28txAXjOljNZLCg==
+	t=1794381823;
+	b=YYGDl0b55wTkY46TKYZbMNeVcv1HSuWgrcobwjUXhTI7RlRjiC1qUb+ykXGQnPxc9z0M
+	 V8MrJbJhcK4XQh16l9QZAQ1LYlnprcVNyfCKXKGQzcPYQ4AwQmCBXHqVpy79ZzXX7uK1C
+	 zuFJcs04RtnMeDe1HFc50qzGtpur5O7jKG2xsAE7qQtnOuOkJemyqu4lMplh7hWpDABrQ
+	 Q4acP+AjNbsGeVk+R0bMN7/eBstjnb3AcDbKcyYHxYbXP6Z7KHcFwk+4AlvsQcpLszJlO
+	 +cxd3/uBIy3OvcS8r9+5hY9MNbi5ZGd0+H42h83F0M7dIF8uIqyD2D0Z4GKqEJWDZFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381822;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381823;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=iEpP3CognlI+wajhdY+ZVk4us5V7g05bmY5GziTKEtxXq4tzhGncbu+dRlkTK73BSj5N
-	 1R7AXjL4PA0SIIaIE9MlUGE/DNRfwh+d2E754YF0jW8N5moPT8yvQvNIHX6PSJW2J+uEf
-	 jbHQKQAGS+vzaX837j2AXg6EmBXwnV43oLp5g+mXKBFED9m3kHAcSG65PfSKc+vwhbsuZ
-	 MDKzM1SMmWffCajtD4Fff4njmPsDGLe8yBBhXpTA6jM+4vTVPHj70XvKh7ZGHJ8jpYnyP
-	 4Ay3WCA5TL+TXvm2uZlgmIB7iAGK1PxjwkM/+WaulwsYfwGEPa7Mpr563xNmjt6RJnw==
+	bh=TJKemrzXK1q+mQp0AASaxKgzFL0wc+OvZ98MS05tDK0=;
+	b=NFxyUcdgLPS5SxinzGuU1/gOUtY02ilbwMFqb1fZ79YBHWN5PK9qrbrSmD5ZRV3wp+PY
+	 BSBpmtLInzg3HsVL3vlboe3aYHVfpaHLW6A9xP2iJlNZnhgNFAPP/ibVIBjscqga9z5/w
+	 lsdPJEhrOC0YlTj97N4R5kzyptL3/6QhCU6bFlF2PDU15hW2RXh2/rSNkeH633gUGG4rV
+	 Lwin2C9IMmihmnDiPyj1ASiB97HXV1SU70K2f826lOla8re33sO4awVUohWVmQASSLmhX
+	 120HYr2xcjth+MnW/o3/g1ImQC0eY2Po/QzPwiWlzSuYHmfx5XeDhs6JOqOc34UHafw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kuLfAJkP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ePjsRSkF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACoTvRkP;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=gVF9Q0bq;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23479606A332;
-	Wed, 11 Nov 2026 07:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23479606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E612F60A2626;
+	Wed, 11 Nov 2026 07:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E612F60A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kuLfAJkP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ePjsRSkF
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACoTvRkP;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=gVF9Q0bq
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794381814;
+	s=2020; t=1794381815;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=kuLfAJkP0gsNtn3Z6A988FxHafmPB+TViVsGbc3lr5avA5bUreW+SahBqiUKrxtx/VNJxv
-	GbiQwvg36B9KFyWhc9FWgNUMJjcWe+tdXdqZtvE9Jscfl8pPhQrrr2hTMEcTdOO+2xdBa3
-	lsz7jy3STxgdKBnUjqZOkHKmYGkyw6Pd092OWBFGp0IOHsulff+E/fo0cSTvQbGyzxrYC2
-	m/h9sQkEyTSgt6lYP/NdZ+eer+G3wQeZvru2rZYsq5HbcUvfqdFOM+V+xyVaqcgbAhlVIj
-	sWIWuBYSU+SCtIrzcKVXQjPoBFoy5l0/zRG4reiA5h+td42H1dW2Bw1BPLOBjw==
+	bh=TJKemrzXK1q+mQp0AASaxKgzFL0wc+OvZ98MS05tDK0=;
+	b=ACoTvRkPpfs7xIrP+D4ZLkQrLsfjldsKelN0diMl8+BrrwbTRYOaJJARb4oRQMOVZ6YBRB
+	ZkqU+dvJ+787N9NFgaEOjuYcDHZoqGFzjSsz1j2ITrmBpOKJtkEL37p0XaBBURMXOdezVS
+	2Uz7O2VFrAMKjm8uIOwYS1DznQhPPXrguK5ZcVFW29EIJReniXn0lABWowbqDiJmwkBTxW
+	CoJlSJJKfcpz+vsHqdk73FWw4T8EFwq8bkP6iG+SLsSe3OpBKomt7EolDHms8Sz4IL9YiF
+	mXEUMrGfgV9oEnxrIoSZYz1O7h7CpdVSyi6g5n4rsyDADFLNTWvJEeD2MJNxEQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794381814;
+	s=2020e; t=1794381815;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=ePjsRSkF/LE+MhBArVJMoEdOoZhQXlvfnHFREo0Zx+RXxdPnGtsdcuNQP5LJ8baZzu30Ep
-	1ZFUKcQZ0Lryn3BA==
-Date: Wed, 11 Nov 2026 08:23:26 +0100
-Subject: [PATCH v9 04/12] dt-bindings: raspberrypi,bcm2835-firmware: Add
- bcm2712-firmware compatible
+	bh=TJKemrzXK1q+mQp0AASaxKgzFL0wc+OvZ98MS05tDK0=;
+	b=gVF9Q0bqMAHtZCL5dRFb7SzgVPtqnSKmPn2L+jqdjR89verNORnANQyh1PXTCJKQbS5DBu
+	5N9mLwuQFPmuYTCQ==
+Date: Wed, 11 Nov 2026 08:23:30 +0100
+Subject: [PATCH v9 08/12] dt-bindings: raspberrypi,bcm2835-firmware: Drop
+ unnecessary select
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-rpi-otp-driver-v9-4-0a7292a7a5b4@linutronix.de>
+Message-Id: <20261111-rpi-otp-driver-v9-8-0a7292a7a5b4@linutronix.de>
 References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
 In-Reply-To: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -88,46 +88,44 @@ Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-hardening@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
  Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381812; l=1250;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381812; l=1090;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=EPoKq3QiduWfDNRfSZpcKzyFT7JcryXbpPaWX1U5Tl4=;
- b=DrByEdhV8zbr0hsjGh1FHda8VbLUW2g8up/IDit7EAzND9CFTGNiQrC0HUlqf0wm7ibhS6yCt
- 1bASqxihnqRBlLZynEnIbDIOWoZHFAwpzwVYlAPWANDBf45oO/j5c1n
+ bh=Racxfoc4BFZdJxwpm7i43GQXuCiRduffKpGtvxfjlFg=;
+ b=MnSwqvJMraMg7g81/Y5EW5f8I+lpXaxjypKjVPzqx1wyWRylzGKT+gH+XCv/ip7p4csEuBFMR
+ Wt/XN83z1KzDObI50PELd5KbZfH9lwhnKPYKXZkJ7XRkgPnOK4YPd4s
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Add a compatible string for the bcm2712 firmware. The bcm2712-firmware
-is compatible with the bcm2835-firmware so allow the bcm2835-firmware as
-fallback.
+The "select" in schema is not necessary anymore since dtschema drops
+simple-mfd when constructing the select/filter query for schemas with
+compatibles.
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml        | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml           | 9 ---------
+ 1 file changed, 9 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
-index dc71fd57834e8..9519157006b65 100644
+index 9519157006b65..02b5b9b480756 100644
 --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
 +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
-@@ -21,9 +21,14 @@ select:
+@@ -10,15 +10,6 @@ maintainers:
+   - Eric Anholt <eric@anholt.net>
+   - Stefan Wahren <wahrenst@gmx.net>
  
+-select:
+-  properties:
+-    compatible:
+-      contains:
+-        const: raspberrypi,bcm2835-firmware
+-
+-  required:
+-    - compatible
+-
  properties:
    compatible:
--    items:
--      - const: raspberrypi,bcm2835-firmware
--      - const: simple-mfd
-+    oneOf:
-+      - items:
-+          - const: raspberrypi,bcm2835-firmware
-+          - const: simple-mfd
-+      - items:
-+          - const: raspberrypi,bcm2712-firmware
-+          - const: raspberrypi,bcm2835-firmware
-+          - const: simple-mfd
- 
-   mboxes:
-     maxItems: 1
+     oneOf:
 
 -- 
 2.47.3
