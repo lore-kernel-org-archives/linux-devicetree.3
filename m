@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418081;
-	b=WHN1yZCdqjWG8tmn4SdvtCp38E0ZshaHP2amYAPDWnQV3PzbFfqPoPmUfOiSjffUtWdv
-	 RWRfgMJ3uQH7jm89QIh/6Bawe+f+aJ62mEWCrHKM4hO5l71213325FlQb6OM5Qn7wfrWz
-	 GJfdyI2ohSMBVaDDOf66wYs3XhNixx6FPZfnEykl+ls4ihbdsbJVp4hKi+9+0z4wMLWbG
-	 kbRXNvfT2B86RvzeYZ2UFiyBl3UV4me9LAMR+A+Usq8UxL+gahg4qXTJ93XDGbCAzqixl
-	 BN3Y++r/txIkcKnXJOINWAfp7ZCmNa+uJ9spskMZxfDMXC0fF+lsryJOZQgvrrhjELQ==
+	t=1794418136;
+	b=PlE/NdXFxseV99WVS8AMz0/sIbJ8fchvWvb+tiNyBkSlxtIrQAJ9IyRvjoW4Owu4OSiX
+	 MNVovhwmgjb51HTDtXG/X29k5tOaFe+0kldQOsNcmPO8Lg96/zrbeSDOnRH401m0MzKQc
+	 xhAngG5gDh48kKacZdJoB2n/VXqOHnBelLJ+KkwFtgWY+eWYkk+dnR36W3iv6p7/C7zes
+	 PFGdhNHEjpX6ohK8y2F4d/tPNe6oBjbLsuKBCDHdQl/tFSBVua+XiD19MtO4QjQPSBQFc
+	 KvlQIcWjajtx1lRHD30G5yAz0t6I3bm30dU1oLarlsOOITurmgbETTi+8kH6iyMSf2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418136;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=57R6AFZNjX3IvkWqFL/eA5eFodZe26hJrX2j6VH/P2I=;
-	b=LntbQujlpS5WsjkWLbLrjoGi3M6tF229/+ajt05ayTvbo2N7rkWvChjGocbD7zt1rHjA
-	 tnje+EzIvt7UOaGvfaTLa0BVDqBTctI7QY2BUtAdb9fGuQwynHFcKd3yDjZCJ/0/0r8op
-	 UT5GBTmLqhrZ1kv/S+djTNPSPn4y+Rzv1zgxkZqMz12KSqZBp9QECNvkp66NVijXZcs4A
-	 3XRMUgX5JK8pYqec4MNWow3AMAxhrVCbiKOgjo8x3DGrLYhtV6c8t9hz5MeCMEryO8qof
-	 fCj0AsXiJmzheNZctzBGJxgMi+TP9Pi0EUFWk0GNeFOctjCjgJ7rQ7Ru369hrFdkd1w==
+	bh=3HCV4LJv2AVzsWB+kwgBRgWI3i8ILQRpBf09pPR9Xm8=;
+	b=IC9bxF2v4Vvgq7b2+jKt/hCB4QOKfDdFUy7LYXHU5YWdR+QE6AEB8QrLr5/ppwulSKiP
+	 tDiR1Bfx1YvmzZRLIJ7nkdGnyZ1iiYupbSa8z6PFMln+ux31AlxdpvCO9fvjJT0J9qQcy
+	 Zwua7mB2SHdq78pAX3YiAC6zAJN8I/M1hYx9kDNQ1nYoWI1MhF/BTY3ZJC9iBnxP6SsKI
+	 QJMxolYrTwQaIUKMxgDF0eL9OQoFp6Nzrmah/SylWqAsjQh6+Rcz0ukA5uOkx1aVwUA5O
+	 ppaJKTlmUjhwl5oCnHn7TTe7jeFD+B0Q8IIgsD1roFPNNMODR85sHD5n/MwmbSS1ZUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/yvgPWr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGEB8wFQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51696606A8AC;
-	Wed, 11 Nov 2026 17:28:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A331606A31C;
+	Wed, 11 Nov 2026 17:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/yvgPWr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93F21F00A06;
-	Wed, 11 Nov 2026 17:28:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGEB8wFQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DFE01F00A05;
+	Wed, 11 Nov 2026 17:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418081;
-	bh=57R6AFZNjX3IvkWqFL/eA5eFodZe26hJrX2j6VH/P2I=;
+	s=k20260515; t=1794418135;
+	bh=3HCV4LJv2AVzsWB+kwgBRgWI3i8ILQRpBf09pPR9Xm8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j/yvgPWrbwE0QZSqkKi6PQOZnzLCWCFLZZojRWPSDLZdX7ipzVj9jUlLsyJjhO9QG
-	 10J81aP+p0nwG/1IjCGKn4KYhAtxoowQsmtBFcgDr+YKJ6fRhfDUXVhCYIoA6Q/NNB
-	 8g6LpMZJJvQdxFJYlp2uxkfOqGZzxEhbtyqiIGgXEuqLOIWGQhHedR+UJZiOyM7/9m
-	 D+2lKu++l1YtgVEOmMNeJvpIgRrD+Xqv1CaOq1tl5PMX9Cm9A6a9ozTZS89xvR56MR
-	 iKxZRjweZauAm4ZXdkc8PSYIm3EfzbSfpkCbnP1XztxwYy+S/j3ar7mujy2TwTm3vw
-	 HdlAkAIui6Bvg==
-Date: Wed, 11 Nov 2026 11:27:58 -0600
+	b=nGEB8wFQlpOe1I0vAagDziQFO9M32px5i9X5lV4REEG9Wf3VZrUJV9IfrPevqM82V
+	 1bNKjtnJ3veYMhvrIhxCjJi6AojkypfGVdkv5tEeaL9uGZshLwFDfmlH5RcpwDL6Gg
+	 2dlzsHrx+2hK3/eLTmVYDCJpwpUw01+v8VOuKUtPyDLs2Rdo6yzyxzNIixNXqVVqrU
+	 mkSysvwYrXsUvw85uZYBMrl/YnQpctjPNnE7FzID3pCUuRzfMjSG+ASak4R1n7nVba
+	 LQEXsB1VwV4A45eeUVMwqBK9wtaJfiD/aOyEoIuQ+ZsOl1sZNgV+bHneN57aU+0Boe
+	 Qy+qYeSiEGWow==
+Date: Wed, 11 Nov 2026 11:28:53 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: linux-i2c@vger.kernel.org, Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	devicetree@vger.kernel.org,
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Masahiro Yamada <yamada.masahiro@socionext.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Jesper Nilsson <jesper.nilsson@axis.com>,
+	linux-renesas-soc@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	Magnus Damm <magnus.damm@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Subject: Re: [PATCH] MAINTAINERS: Update I2C Designware driver maintainer
-Message-ID: <179441807837.73144.5244188045735801589.robh@kernel.org>
-References: <20261111122808.1302491-1-mika.westerberg@linux.intel.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Lars Persson <lars.persson@axis.com>
+Subject: Re: [PATCH] mmc: usdhi6rol0: remove driver
+Message-ID: <179441813237.77314.18160854241358046037.robh@kernel.org>
+References: <20261111123548.10571-2-wsa+renesas@sang-engineering.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,20 +66,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111122808.1302491-1-mika.westerberg@linux.intel.com>
+In-Reply-To: <20261111123548.10571-2-wsa+renesas@sang-engineering.com>
 
 
-On Wed, 11 Nov 2026 13:28:08 +0100, Mika Westerberg wrote:
-> My @linux.intel.com address will be going away soon and I won't have
-> access to the Synopsys datasheets anymore. Heikki kindly agreed to take
-> over this driver.
+On Wed, 11 Nov 2026 13:34:52 +0100, Wolfram Sang wrote:
+> In 2019, Yamada-san already tried to delete this driver because no user
+> was known. Lars revealed that it was used on Axis ARM32 Artpec-6 chips
+> which they planned to use for another 5 years[1]. We agreed that this
+> driver should be merged into the main SDHI driver and, for the time
+> being, added a MAINTAINERS entry to make the connection to Axis.
 > 
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+> Now, in 2026, the 5 years are more than over, and the merge to the main
+> driver did not happen. Nor an addition of a SDHI device node to the only
+> Artpec-6 DTS file. So, regarding upstream, this driver is still unused.
+> To remove maintenance burden, let's remove it for good.
+> 
+> [1] https://lore.kernel.org/r/CADnJP=sg1Kp=TAvUD-ofQje9Y6mWWE_ZnQM_eB85uw3z6PHrVQ@mail.gmail.com
+> 
+> Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+> [wsa: rebased, bring commit msg into 2026]
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Cc: Jesper Nilsson <jesper.nilsson@axis.com>
+> Cc: Lars Persson <lars.persson@axis.com>
 > ---
->  Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml | 2 +-
->  MAINTAINERS                                                    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> Jesper, Lars: please speak up if you disagree.
+> 
+>  .../devicetree/bindings/mmc/usdhi6rol0.txt    |   39 -
+>  MAINTAINERS                                   |    1 -
+>  drivers/mmc/host/Kconfig                      |    7 -
+>  drivers/mmc/host/Makefile                     |    1 -
+>  drivers/mmc/host/usdhi6rol0.c                 | 1904 -----------------
+>  5 files changed, 1952 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/mmc/usdhi6rol0.txt
+>  delete mode 100644 drivers/mmc/host/usdhi6rol0.c
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
