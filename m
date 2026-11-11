@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794376809;
-	b=Cx3/oyzpCrxMdyuZy5Zhj4v++AFhsYi5CKA7Mz2Gq+W4DHtuIYtphfOCAOVK3DIltjVL
-	 0bQmHeL7bLu2p6/2E4SWYI6pl7LL5cXXmynq2/YXCqppXn7aq1cXDux7OcjqZA/sVjyhY
-	 /tzhJEm+WMzTW/AuTsOuUVWEyJK1KCdgPWRbac9FZa/UiUgTDWXqg6+cfGv+kEcqgcF/n
-	 05dCUkKgOkGz6itgqN3omb6xfeXMgpxuZJyfD3c9va1H3NTp/YIZtbZGx96bjd2lk9K4w
-	 2Hn5ASzGe6Z+vfLRGSiQNBYzU3PwrIlF7A/yZridXY6g2ypVCCWP+iBxa/IVxdGcKZg==
+	t=1794376811;
+	b=YW0iXRsjqblsgAXpK/oah64wSzd2ym2Oq4SXS83Cd+9jhcqL3huVuKjr3uhzSwnMCy/6
+	 iCNewt8Gt4TFpEFoIvjq/iumU65Dn3s3XuzFt0IziMgLczfUe4qas1z48ZNXx2jLsGw4G
+	 KJ0ea3D9Fg3ZLzGghDprO9QuuSoj/fM5SYGaWX/Jdz/B3WNYKAM1IIW/1RNtTN2glxUJh
+	 4qNB8ufTHGtWWBziQg8VHAQbzFw55StzCE6yTKPj8CudD/WTTX0jzlkLEADmce2n5Yaid
+	 41epEIY22HW6jX8DZxR6r8H2Ky/ZhdP/xElgC0wNHWgYyUSzH6GTR+9MFFDi2zxIYcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376811;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
-	b=nV/T61LJ6v0sO6bwAdioyl0aDLzD9jmUqQ46x7V0lPRzVjLkEfU/O9gXfR7Fx8bAxtuf
-	 i2CFQGnM/jVy1EAyAnsLsRxhiz/6T7dlZ1Fo2IG1mmQm87T+Wt525lhuKx1RN+7IHkYRe
-	 zgfRdZCcwdHC2Ohg7itEP1bbRvKKu3t1D9wp8dFvWGp9ZangPLoV24/eWIJtl344Rnkv4
-	 wF9fs3C9AuuWW3zwGYo8176UzbVisjnZ11VaGrdWpj7fsOV5I6tZiRO2XumPsLHRorl5w
-	 /0GgsNYljC8Phin7Mij9cvVTqIyMiDKijw/YK4wjTb9edbYAvL7RztEuD0CJ56oFVZw==
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
+	b=KPQ4B0RWfJkVV1aR4SMo+gcPf6gucObWpRSoFL2L+UH5+WvlmqPgeq95v8olSpFg5qOj
+	 1uENWSPZ8twHb3WN1ZAhxlcJtxwddvkN7tIkfazFafGzWqmBI8Pzvak/+hDybBdcOMF2a
+	 MuNgCTQPrXr+0ANr1N1yec/Bma1tolb+mUBqKcDkEBIdmuYkWP2VT7Q6LbUhTKYW9OToR
+	 rdH0pmm8UJmoFlkK9fttAgg6oOgKI1ZFunNSISUIvE/aIPCRa1Y7n5gRTQX20Stcv862H
+	 UlbcIrBDznBndUV5W/N1jowR60gzCmKAwdWWdedDMfS1vUZj0ypaenP1s0atOR99iqA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTTujsHJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB435606A339;
-	Wed, 11 Nov 2026 06:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B84960A2620;
+	Wed, 11 Nov 2026 06:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTTujsHJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794376808;
-	b=RSBs5xilHiZe/i0r0XLG/G5mgiRUJ5HlxvgWXvAqVOvKYO2ceAdcwHIA2q2VXOWC/DvG
-	 NI/ct1vO2vdXcZmeTkr2N21T+Uo+3H6g+WvsQfNDC/V95czagrH+A+yta30bE8GoVOoyd
-	 vQcUNsxkahGqFCSfeJfSY2q1nPAmlr54n7uuAJ3mMhQemoEUpQnjnDzW+kqFsP5C4bE2z
-	 2XEDPIvq76H8bhVIsOru3+tnInXsAlSVqY5m8LyHBnwUBIKvWXAxZrU0PRwaOVTJnrTjg
-	 NCMt3xsKWTi6BLAxbFtFoTcLr2XY876KPJAUh00H1EkP6Mzy1mkGRidcbgtKC22s8cg==
+	t=1794376811;
+	b=JExD8vrHyAeABQvsNNWzApJ0FaqO43y6CFl00nx99KAEuLDLEggSNqS4WVIIIdxxC+fl
+	 M0aZjp7S4luZ9u+BjZZem8pXjYH5lcpEFaWYS2EqaXdyZ4/ck9NDNb75pfQe2qL02p9lX
+	 CkUHZVQ0FRtjKvJIPbBp5EtfMGO04asAERusTFAgkcd8IUyRwchP68Bes2lg+aaWtivXC
+	 ZNgL/5Ua/xe/RpujUX0B9mlSOJsGcgMh01bn9lhYft7epk9gmINH3PvMbGcGgjtl9nHrd
+	 gmiMR2BbQc5efIaUtxH5+qckaLnN8DRqTf5FrEAYdRM9Ss7+DsFr7VCSSS3La/UvBjw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794376808;
+	c=relaxed/relaxed; t=1794376811;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
-	b=Mp2h4iSvMPDO/RMOy+0/50PFgHifPu4qpizzPC46X0NTqXkWL50sTwfcmOpjGl4m+CJF
-	 XGjR8wpqI6UUNWbwGqGtMkEwNi0kpO0pemnhciOXbAJqRV5yxdZja4BADN+tl/siNcRmY
-	 YZ539Kg+g4VT70FDq4htxQaETeHLRm1ptxMuxBuL0lUJ7ex7P3hwEEctij9+TO1AQeVok
-	 TSpitr/3H6VeVjWLLLHc7m3fcqLoShp13IatENqUNfvcmTyP33tOVLsPFHLMgPALrwWrl
-	 cH8Ep7wobpGGYOZHmvszGXQ7xnS/L6LDMHqvicm/SYuhmVjBwCh67YhSuh4zZHaDJFg==
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
+	b=bxObUZjZhH8ALlT2lsBdzDIRE5ohZy6YD1mJpt7FsK31MRT3TmQyqUSqrfrOnoDhBwVa
+	 IyE2ZVsk6IHGOVMxwpfqLivmvZAGlQ+P/OrcAefRP3lXaO5WfdqiKp03zMxstrqX6cpXM
+	 2xOV8lhFLN6Te3ydMlrhom9SUsPBBDLJKFZ7VWFs4ITBUQkzAW21EHKLeVb4MIKmB+Kjf
+	 N0MOCcAagI3cFUTUaAGA2YLvpQZxS7XWZf2SWE3Au9OTP08OSNkfDfQrfMUQauEKM+LIT
+	 pa7F6Zp2xmUGGUJM9JiG446CR5yoEc++Ju2H2bw+DqF+xReqa7u6EjV461NJrJom8jA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2F8DF1F00A05;
+	by smtp.kernel.org (Postfix) with ESMTPS id 4E07B1F00A09;
 	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794376808;
-	bh=1qmmBTGs9JqDhg2KV5f+IlYN+JpILY0qcFVik6CVIpo=;
+	s=k20260515; t=1794376811;
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mTTujsHJtf4wo/9qI+97XbkrWJr4XIleYmHbkKnbIri6upwxPa5ElQ1+hBIVpOxAB
-	 ebMlW2QC7kJtfNJ6zXedHfwFgLVEv9sxd9UfVFEnkdLG/T9rIfufh3kDQTysocIsnV
-	 YP+ad6szAAWKjJNSMIeOKJQLpJRHc/Wp0OTySuCf1x3XOrGad+JTtSEnIlVRJ58eoT
-	 ttQ50hFGnKfnyb8QzF+HVXHHe/9ruH9Seu0+396mquNzarnvQTl7XBJlV3bRUJ3fzE
-	 HyYIFvIZZnWMQw8QBp7Noro2+cUGkPA+BxJGKRU4O/Cq0I1BaYIshD4MPfDkYQiLNE
-	 xaXcTheF2U8lQ==
+	b=jVdUetIP/savyPraFV3uYjtXAhj9ATEKgTc3cekFAQOK0RBzMDzRgermNgFYcIxDa
+	 T3qTxgQoNgELJrSNtzvs7IQQj+mlloxmGTyV2RELQMWlX1s76ImgwamBIm4IGdKuiy
+	 bwa859gXF8qtJ1sOrbmXIHpaqdI59Ut4YaskvE/Ss4xizfVmuuN0pgJS7mV7xyDV7n
+	 IBxpeywMw1xEOL9Uugt2RPHS/+WNO7gRQFzpmQ33Nt8e0Zm6Q5yDGKtm2y6WnE+6hY
+	 1Z/Pdq0LF73yVjbZop3ssShC2m3IC4i/bP+uDnwSyxPXCeG+wUDbfxkYtI9ik8MTXI
+	 BlfFbM/LyX1fg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A4D0848DDB;
+	by lkml.kernel.org (Postfix) with ESMTP id C845E48DE2;
 	Wed, 11 Nov 2026 06:00:07 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 06:00:07 +0000
-Subject: [PATCH v2 1/8] arm64: dts: allwinner: h616: Cover the codec RAMP
- register
+Date: Wed, 11 Nov 2026 06:00:09 +0000
+Subject: [PATCH v2 3/8] arm64: dts: allwinner: h616: Add GPU OPP table
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-h616-zero2-dt-v2-1-88d8030fc975@gmail.com>
+Message-Id: <20261111-h616-zero2-dt-v2-3-88d8030fc975@gmail.com>
 References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
 In-Reply-To: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -96,11 +95,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=1252;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=2569;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=BSR+K6Y2s3B1U4tlKARegXXjsMuZ0Bl9ncjh06Y7t+g=;
- b=NDlrnKc/h1AS5iFoQAkz7jUnVgC/2x7mhMyCCIwtF8u/92Q5tpWsWp9vt0qa3fjW2MQrC6fgN
- IekD6SeMC4TAyQX1cmo5Ued7idQR5sfk1v0cHbALV6wmfUD0dAVH8I5
+ bh=lGUm88hkiiCwsS06lh6tLUaHZIc5LqI3MybFyqamLeE=;
+ b=xEKB4Lxds9YjAC84e9tRqBGpiqU7fynFWhfPxxDTvlTwyA7O7OdVtCL01VJKXissGbeXUJ8Hx
+ WplS3IBcC8oD0wT1neISMHPFnTS+AwDztx0a0fuouYNDKwxfkYqZHPF
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,33 +110,92 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The codec node maps 0x31c bytes, but the H616 codec has its DAC
-RAMP control register at offset 0x31c (H616 user manual v1.0,
-section 8.4.6.56), and the sun4i-codec driver uses it: the H616
-regmap has max_register = SUN50I_H616_DAC_AC_RAMP_REG (0x31c). The
-access only works because ioremap() rounds the mapping up to a page.
+Add the operating points of the H616/H618 Mali-G31, so that boards can
+enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
+950 mV. The table is the one of the vendor images (as recovered from a
+KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
+it uses <target target max> voltage triplets with a common 990 mV
+maximum: a board whose GPU supply cannot reach an OPP's target voltage
+loses that OPP, while a board whose supply minimum is above the target
+of the lower OPPs keeps them, as their [target, max] range still
+overlaps the supply's range.
 
-Grow the region to 0x320 bytes so that it covers the register.
+Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
+boards include once their GPU supply is described.
 
-Fixes: 3eef85034c96 ("arm64: dts: allwinner: h616: Add audio codec node")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index e4e0b999473e..68bd6137c316 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -806,7 +806,7 @@ spdif: spdif@5093000 {
- 		codec: codec@5096000 {
- 			#sound-dai-cells = <0>;
- 			compatible = "allwinner,sun50i-h616-codec";
--			reg = <0x05096000 0x31c>;
-+			reg = <0x05096000 0x320>;
- 			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&ccu CLK_BUS_AUDIO_CODEC>,
- 				 <&ccu CLK_AUDIO_CODEC_1X>;
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+new file mode 100644
+index 000000000000..18989d11c832
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
++
++/ {
++	gpu_opp_table: opp-table-gpu {
++		compatible = "operating-points-v2";
++
++		opp-306000000 {
++			opp-hz = /bits/ 64 <306000000>;
++			opp-microvolt = <810000 810000 990000>;
++		};
++
++		opp-336000000 {
++			opp-hz = /bits/ 64 <336000000>;
++			opp-microvolt = <810000 810000 990000>;
++		};
++
++		opp-360000000 {
++			opp-hz = /bits/ 64 <360000000>;
++			opp-microvolt = <820000 820000 990000>;
++		};
++
++		opp-384000000 {
++			opp-hz = /bits/ 64 <384000000>;
++			opp-microvolt = <830000 830000 990000>;
++		};
++
++		opp-420000000 {
++			opp-hz = /bits/ 64 <420000000>;
++			opp-microvolt = <850000 850000 990000>;
++		};
++
++		opp-456000000 {
++			opp-hz = /bits/ 64 <456000000>;
++			opp-microvolt = <870000 870000 990000>;
++		};
++
++		opp-504000000 {
++			opp-hz = /bits/ 64 <504000000>;
++			opp-microvolt = <890000 890000 990000>;
++		};
++
++		opp-540000000 {
++			opp-hz = /bits/ 64 <540000000>;
++			opp-microvolt = <910000 910000 990000>;
++		};
++
++		opp-576000000 {
++			opp-hz = /bits/ 64 <576000000>;
++			opp-microvolt = <930000 930000 990000>;
++		};
++
++		opp-600000000 {
++			opp-hz = /bits/ 64 <600000000>;
++			opp-microvolt = <950000 950000 990000>;
++		};
++	};
++};
++
++&gpu {
++	operating-points-v2 = <&gpu_opp_table>;
++};
 
 -- 
 2.55.0
