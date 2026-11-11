@@ -1,110 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400308;
-	b=M6KagsJDyxz4tcXwZY3VS0TX+7DrkY9DyTc/d7Ga045gFmSyENAwB31Gqe08R28iMT25
-	 8tqB8sppQ3QYMcNUgPeYkFjc/fE/knSa05zZ5tkHqx0ZM+TB3Oku+akc6NYqmtYELKSiG
-	 Wwbp9aY3hiXcbGMQOQQC6SB+KcadNEekP/ZL1REcqbzBgb6U8WAeY/B3f0Jtxlhb3sgU/
-	 M6ZU0KiBPFL3aSmW2b2hKC8VYXmwYuyfx8htH82utqxOA5PGl+25pc/dP5RzSCET5YQvW
-	 Og39mqDi3NygoBWO9woXrxiMhLWc0suwRg9BefBLPLCXVRR8gzjMk5wC6pTNx3y0UjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400308;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=HYqCJGzgAv646u429yCqw4YAZhdaQondpXuCRwFFu90=;
-	b=pmMt8hD2Eg8w9PlCzf4sEqa+0XRUPf5AGNVXwSnPj1x1THW94wT3ASrsz/8qoixwwePX
-	 fPIMVNv4oyO+t+eZ9gbduCsUyVY5bRxuvaJuA8VcuArLjG/DSr+zWsvCzj26tqkqWuhRE
-	 sZNHR01VaCtoeeVQw7akaOGFsn6fZGXsXipe4u4G61TPuibEnChxZYoSdXF7cSQFRrvfE
-	 z9tBE5DjA7tMDZRFyH012Rv9Tw2+Rq4zueWm+mBSCX4VV2K7PXl+igc9JzwGXJ1AAPS9j
-	 mG8HXWxqh1uEMNHULj1qtIQ1GUtmh645521peeXMZTlGgfBBZOk39NH84jmbLoV2V7Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M+fYDss+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XFLc9Uzj;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794400393;
+	b=xD4v0kWr9Az1DhIP82ZyVqApzfUFOzey84KbDbO/4zYwvaxwAyqhCk5AI8SRoEXslsx4
+	 CBl2icWNw9NOZ2ojrXa8JIX1KlC7uKzTXzTka8S7fosQrSAMVBt4erH4GIG00mQvprOIv
+	 GqH82UriihEhIXH0V84V2jkuOVmaRo4lrFfSP2G6M1Rq5TEiKOvk0oBSegcazPKRoA+t0
+	 dnbr0OEA4xNipzDrsaNLojygQR0wXljD1A+sgpKc/LDH6MrGnp+Oco1hNpcBzuG95uBxR
+	 fLPj8EkB7y6KbESlCwPDMZPWcm7WPI82Psq27HeCe+cmMWMISrkbXB3GOQN3zTdEhcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400393;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=9zO+640/KHWsaMaqBoO79/jSoXhkI8QCCTxXofbivUQ=;
+	b=ElNkgsgEc599f7ZLwp3kKUcfODujbzwkMopHycM63drwvBq2wweUECTL3JCmnmzx4gN7
+	 RLHPpggRdCwm+qZQcDsqvRYmH3HnWGJs8u4ECnojtFyuEmBSlnhmlBMphAMviTrg96yYL
+	 8SRdq+U0DoB/8W4wv4JSgKpQtYWW+a8muP6cu23Pseb/cW5g+PcBxeyyPKatsqQbm71Ow
+	 yH2sIbOY1H20I9pi9IZ+nrGoJ83fyEt8mKOyCeHq3bMvLD5mmRyXkL1Kb7gze0xR/aeDo
+	 dg0MEwV5ASP0a2Zkyu8dZBA/96zfig3cD8TbXmnVM9aw6/52Mz+IQWnBjebw0Z7zTHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=MyoCTRFh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A1F606A324
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5A1F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494E8606A321;
+	Wed, 11 Nov 2026 12:33:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494E8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M+fYDss+;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XFLc9Uzj
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCPrLt2266894
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:31:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HYqCJGzgAv646u429yCqw4YAZhdaQondpXuCRwFFu90=; b=M+fYDss+XW4jSr8y
-	zRCACHgf54Tzk75tMzpDYfNl9Dy4PPZIf7DnKhHSB2HhViYPzPyEqllRWe1AaHBM
-	AGi6HGO1425ISVleGuGzGEdpez7TuZAPuKvNWPUt5vI/2GI7Wd/9rB/mu0QBkzYv
-	pgDOR7sgNNgoNClMBBACIXYQ2cdFP2r0hQP3UXUQuLnZlrTBN7FeROainvJLALb3
-	PgY9sM5ccD2nGqKC9d91wjPJNlTrBsxb0PWK+FKfhUiIP6/QpKjhp9VXZXvv44Ll
-	nTnTHOOJXPJvLFVvOFRxvWFVgZjeTrymTgceT1hO3F94g+1eklrWHBGEE4EX5AxZ
-	A+urLQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvksm95jk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 12:31:46 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ecb636b587so817886e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 04:31:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794400306; x=1795005106; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HYqCJGzgAv646u429yCqw4YAZhdaQondpXuCRwFFu90=;
-        b=XFLc9UzjaqOf8+lsKnpUyi9rOexLRT1S28FeOUDeFbSfr9iiKSSQZFc2sNRSs4GSY3
-         Ke4B0WxQBFA637C+iDK5w+WURlA4t+x9pWBcdMBwp8pR0WN9WQTuGjv/ZecreSgnFUNR
-         OjagcxxoBdpqGPCI8RmSz4nO4PU4E1JF0XKO5xxneJnYpkjGyB4BniuWth/MFLgwieyc
-         BcutDwXQumiPAOUz6tF4H5tD6kMM10b6KSUgp5R9RK56Ju+Dif6ZQQP95Zokcx7mbXKm
-         0p9oTiPHNIB81khz+JOxF2sV19aHm6G/oYAuN/8HQzLgJ/2LEb39Ow/pYpohKEK99i6c
-         KJyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794400306; x=1795005106;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HYqCJGzgAv646u429yCqw4YAZhdaQondpXuCRwFFu90=;
-        b=FwINzsOuSqmwzlzR6TsjF2FhQLpn+Q9w89uh02v5NbCw1UK30uHbvNQiu6RDftdj44
-         pqQP1QSbT5+NelRPjmdGTnWe9IY14Yg7ByJGRuiPr62ygyaH2Pwt/r7DDgj+7IONwQRm
-         i83YL0hZ29KukLYyG2jhpuyPAHV3gJNbzpdBsXrVJga88yAIYt1MJQaxLooN7CgYHK4L
-         pbtTe5pCNJCbNQ3CEPaAlqoVYN6J12Cdo4vic7CJi/Edl7JUfCkn3B/PDbM/7g0eLBLn
-         4uH0G7EMpVOLDwKoyMKZHG8i+GMEarXf1Rzhn/zyUvPb+DjYopl+cbGAeURAW5OGksDA
-         BJNw==
-X-Forwarded-Encrypted: i=1; AL+hErFgmzLxSR+mfpensG96k0Csiu//+52soK71yxWfZBWZfZ2RtP4e1eNBFDRoB41eaZhOjwURrSI8ovBe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+16ZOGHNRrVbgIbOH1M4O272UbKXTADydZaE8zJ80sd+tEM813
-	XE3f2nkRuNz/h8tvmANlBNDINh1q9FZtb8Hmep7qBUis1bkkYKQXDCQm40rxhwLngwz3T4oZ9Nb
-	LN89crL8hvcLjp8B4m/21PYiW0Qm9wwh/EBB4HXbBLXxvS9W+WKBg5+FFB2RImuJb
-X-Gm-Gg: AYBFou1+VRRlYbFUDazYL9+8PbFzoOyjKOahJtz7BrWivSekuXfwosyDEBR5vycWaZY
-	0ynZcw1ZZL5FfYfYL77nbCrCWWgwmyhz9jtFq0t9sxbRyW4AcN8mQio7M9rTyBhPEJLVx/OROOA
-	l1p/rvtI9eJUK5rPsYyqNJ7P4kMO9kIPwx35wR4DNLfUsNSayp6Suvb6DfdWiS32JG1UA2xK/X0
-	P3EjiWtGJYPjyFTqmvi3H0kkaNEDCkuSaWqsQUWHNnuFV0b4yuhSjSLFB6ks/FGh2i52MKnouvE
-	j9AsxBHhXp61u6gP9mAS1b3ZUTkNDjZqxKGdmKYyxRkXPk5ugfEEHdyABb1csV4O3++m497ezL5
-	Yluikh8An01kB6wTx5VmxUpUSAGLVp4ia4QJxmQUU3s4lCOvKqnXtiHFiPuNleSNW4VY+9278J5
-	Q=
-X-Received: by 2002:a05:6122:4317:b0:5ea:e196:272d with SMTP id 71dfb90a1353d-5ee1c3db8d2mr575840e0c.6.1794400305574;
-        Wed, 11 Nov 2026 04:31:45 -0800 (PST)
-X-Received: by 2002:a05:6122:4317:b0:5ea:e196:272d with SMTP id 71dfb90a1353d-5ee1c3db8d2mr575799e0c.6.1794400305032;
-        Wed, 11 Nov 2026 04:31:45 -0800 (PST)
-Received: from [192.168.1.110] ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c2793sm10687527f8f.45.2026.11.11.04.31.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 04:31:43 -0800 (PST)
-Message-ID: <43373a9e-9ff3-4641-b961-b63f4de21cb9@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 13:31:39 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=MyoCTRFh
+ARC-Seal: i=1; a=rsa-sha256; t=1794400367; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Q+/kXTvFvW8+6LUt5EGKXvW9TPMsc6/DJmfXPJOXdwOr+AJk4S4cdMzVu/2ngkfl47CYQ8gsSqEqMQyXVJ6Kl7+x4/xIRhFQzaMSk1NuiJ6wbOq0iqNKrVLYdfigDib0sY8aybqfAg57c1euVFEhRMaxkpQrOXcgimzhsh28PYA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794400367; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9zO+640/KHWsaMaqBoO79/jSoXhkI8QCCTxXofbivUQ=; 
+	b=XloUxi06PsdEqOPrOlQR7VPh1f5atSlAimk44HiMMAkjm5loG7u85cLUz0YGa7tKj+thHZFJspLPV0PUhwuC+kTx4MkLt+0vnHXm7j4h59ralZ0We0qyvWJqwxhWVzzLqa3cyp2FsJvbQwzmeb3VKiiLovb3xTQfbbExJvj0ynU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=MyoCTRFhTyf8w/NUxmE8FnZuSjD2lwiy0FGPrX4bUQk92LBPvq/L72qvVISZoCVbjvKl4AJaMsqVWgREXSsYBRlp7upzTZ5VeeE3cdk7yNvSo9SkuHJ05hSBY0BCy3+/ySPK44w013FGJ3aXCxzvlej4rwZG/oOfdWWtvCAWEjc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=9zO+640/KHWsaMaqBoO79/jSoXhkI8QCCTxXofbivUQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794400365749801.6617129785609;
+	Wed, 11 Nov 2026 04:32:45 -0800 (PST)
+Message-ID: <cb2a2451-149f-44d5-aea3-e050673422e4@collabora.com>
+Date: Wed, 11 Nov 2026 13:32:40 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,125 +59,168 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
- optional
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
-        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Michael Trimarchi <michael@amarulasolutions.com>,
-        Michael Tretter <m.tretter@pengutronix.de>,
-        Cristian Cozzolino <cristian_ci@protonmail.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Ryan Brue <ryanbrue.dev@gmail.com>,
-        Nickolay Goppen <setotau@mainlining.org>,
-        Robert Chiras <robert.chiras@nxp.com>,
-        Alexander Koskovich
- <akoskovich@pm.me>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Chris Morgan <macromorgan@hotmail.com>,
-        Barnabas Czeman <barnabas.czeman@mainlining.org>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Arpit Saini <arpit.saini@oss.qualcomm.com>,
-        Michael Walle
- <mwalle@kernel.org>,
-        Ritesh Kumar <quic_riteshk@quicinc.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Svyatoslav Ryhel
- <clamor95@gmail.com>,
-        Danila Tikhonov <danila@mainlining.org>,
-        Jens Reidel <adrian@travitia.xyz>,
-        Michael Srba <Michael.Srba@seznam.cz>,
-        Shawn Guo <shawn.guo@linaro.org>,
-        Alexandre Mergnat <amergnat@baylibre.com>,
-        Alexander Baransky <sanyapilot496@gmail.com>,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-        Romain TISSERAND <romain.tisserand@gmail.com>
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
- <avRM_GhtR8vMdTO4@houat>
- <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
+Subject: Re: [PATCH v6 9/9] arm64: dts: rockchip: add the dcphy mipi csi-2
+ receiver nodes to rk3588
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-9-d681ba20b36a@gmail.com>
 Content-Language: en-US
-In-Reply-To: <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261110-dcphy-rx-v1-v6-9-d681ba20b36a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: OJoXRjADjeH5Knk8-mQhuBCgfJpvN67R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0OSBTYWx0ZWRfX16yrKIdewO22
- 9OhnZj1Q30lsRX2bj8kCoWKl6RjyA2BLMvJxBwQDShpOhicsIZmd2DuzuqeNbUUGOgwlaKEZg86
- 43uryKPMB/fcLz1sSAM6lB0DhbJaNUQAFHlXegdTZLo18vH/kylIktJ0EkE+oeF1oG6+RF7FoB5
- stALN86DvYAKnxuBsBgsZfGqm5iKmEaWezRfpYRiSr55jP6pXIi5Ue/r9CakyVnh4Izxh0+QiDr
- jzKZlnrd1XvrzgLNHC/ZTDcgFwebyCF1fSONkqSs4gvNN8zFOmteNlfINk5UqNBL5uO0qel6kQZ
- Q602Qfp4kEIQS3sOD4A0AcxbGaz+Ai82lQbE1v8xIwbWzqzy4WboRfnWmJGFcTmZaYqmThlfb1q
- 6DplCSdEINBRSP5CE9A3abKkSxIUozTvziVBoMk8GLYuTWDRKXZAMae6YylhhOvWMvYMyDGlmvP
- IGozKtLGsFO0ql0FXrg==
-X-Proofpoint-ORIG-GUID: OJoXRjADjeH5Knk8-mQhuBCgfJpvN67R
-X-Authority-Analysis: v=2.4 cv=O9isLx9W c=1 sm=1 tr=0 ts=6af46032 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=P0j__KAnszyX0y2xDOYA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0OSBTYWx0ZWRfX+WBHiY+jgyaC
- qz935Un0SPDRBy2zYHb6fgCXALbAq53Q/7qFtuclXW3rwJ7qOdgcbAoyMUVfENpyx6xkUgviRLw
- XgcWWfUrgjszY2p4z/bg2IYswKegDgY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110049
+X-ZohoMailClient: External
 
-On 11/11/2026 13:30, Krzysztof Kozlowski wrote:
-> On 11/11/2026 12:13, Maxime Ripard wrote:
->> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
->>> DSI panels can be placed under DSI bus directly and many Linux DRM
->>> drivers will work fine with it: mipi_dsi_host_register() adds device for
->>> such panel and DRM driver does not use OF graph to configure lanes.
->>
->> That's not true. We do use the endpoints to configure the lanes through
->> the data-lanes property. See drm_of_get_data_lanes*
-> 
-> Some drivers use endpoints, some not. As discussed on other thread,
-> there are more than which do not.
+Hi Jason,
 
-"there are more than one which do not."
+On 11/10/26 09:18, Jason Yang wrote:
+> The MIPI0 and MIPI1 receiver units are connected to MIPI DCPHY0 and
+> MIPI DCPHY1, whose receiver side is now supported. Add the two nodes and
+> wire them to the VICAP ports.
+> 
+> The dsi nodes keep <&mipidcphy0 PHY_TYPE_DPHY>, the only value the
+> binding had before the PHY receiver was added. PHY_TYPE_DPHY still
+> selects the PHY transmitter in D-PHY mode. The csi nodes use the new
+> PHY_DIRECTION_RX from the dt-bindings header. Neither phy node needs
+> phy-type: the DSI host and the CSI-2 host both run the block in D-PHY
+> mode, the default.
+> 
+> There is an ABI break if the dsi and csi nodes use the new cell values:
+> an older kernel ignores phy-type and takes any cell value as the mode of
+> the block. A DSI node with PHY_DIRECTION_TX then gets no display, and a
+> CSI-2 node with PHY_DIRECTION_RX gets no camera.
+> 
+> To keep the ABI break small, the dsi nodes keep PHY_TYPE_DPHY, which
+> older and newer kernels both accept. With the csi nodes disabled, the
+> display therefore keeps working on either kernel.
+> 
+> The csi nodes have no older value to keep and have to use
+> PHY_DIRECTION_RX. Enabling csi0 or csi1 therefore needs a PHY driver
+> with receiver support. Since v7.0, a CSI-2 host driver probes the csi
+> nodes. An older PHY driver then gives the CSI-2 host the PHY transmitter
+> that drives the display. The camera gets no frames, and the display can
+> stop working as well.
 
-> 
->>
->>> The affected here Linux panel drivers do not use OF graph, either.
->>>
->>> Requiring graph port for such panels is tying the binding to one
->>> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
->>> requires the port.  The port is not needed for the hardware to operate
->>> and for some of the Linux drivers, so it should be optional.
->>>
->>> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
->>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>
->> DSI busses can handle multiple devices, and multiple data types. If we
->> were to drop the port node, how does the upstream video device know
->> which device it should send its video output to?
->>
-> 
-> We do not drop the port node, who suggested that?
-> 
-> You do get, that we are not talking about the DSI host, but the panel?
+I think you can restrict the patch description to what the patch
+actually does.
+
+This patch modifies the device tree in a perfectly valid way as set out
+in the DT bindings. Any breakage or disadvantage of the approach therein
+should be discussed there.
+
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+
+But apart from that this LGTM!
+
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
 Best regards,
-Krzysztof
+Michael
+
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 68 +++++++++++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> index aa69fd3793fd..c7174c2f15c3 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -1516,10 +1516,18 @@ vicap_dvp: port@0 {
+>  
+>  			vicap_mipi0: port@1 {
+>  				reg = <0x1>;
+> +
+> +				vicap_mipi0_input: endpoint {
+> +					remote-endpoint = <&csi0_output>;
+> +				};
+>  			};
+>  
+>  			vicap_mipi1: port@2 {
+>  				reg = <0x2>;
+> +
+> +				vicap_mipi1_input: endpoint {
+> +					remote-endpoint = <&csi1_output>;
+> +				};
+>  			};
+>  
+>  			vicap_mipi2: port@3 {
+> @@ -1568,6 +1576,66 @@ vicap_mmu: iommu@fdce0800 {
+>  		status = "disabled";
+>  	};
+>  
+> +	csi0: csi@fdd10000 {
+> +		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+> +		reg = <0x0 0xfdd10000 0x0 0x10000>;
+> +		interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>,
+> +			     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH 0>;
+> +		interrupt-names = "err1", "err2";
+> +		clocks = <&cru PCLK_CSI_HOST_0>;
+> +		phys = <&mipidcphy0 PHY_DIRECTION_RX>;
+> +		power-domains = <&power RK3588_PD_VI>;
+> +		resets = <&cru SRST_P_CSI_HOST_0>;
+> +		status = "disabled";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			csi0_in: port@0 {
+> +				reg = <0>;
+> +			};
+> +
+> +			csi0_out: port@1 {
+> +				reg = <1>;
+> +
+> +				csi0_output: endpoint {
+> +					remote-endpoint = <&vicap_mipi0_input>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	csi1: csi@fdd20000 {
+> +		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+> +		reg = <0x0 0xfdd20000 0x0 0x10000>;
+> +		interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH 0>,
+> +			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>;
+> +		interrupt-names = "err1", "err2";
+> +		clocks = <&cru PCLK_CSI_HOST_1>;
+> +		phys = <&mipidcphy1 PHY_DIRECTION_RX>;
+> +		power-domains = <&power RK3588_PD_VI>;
+> +		resets = <&cru SRST_P_CSI_HOST_1>;
+> +		status = "disabled";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			csi1_in: port@0 {
+> +				reg = <0>;
+> +			};
+> +
+> +			csi1_out: port@1 {
+> +				reg = <1>;
+> +
+> +				csi1_output: endpoint {
+> +					remote-endpoint = <&vicap_mipi1_input>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+>  	csi2: csi@fdd30000 {
+>  		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+>  		reg = <0x0 0xfdd30000 0x0 0x10000>;
+> 
+
