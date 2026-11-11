@@ -1,62 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421815;
-	b=mXbzPRJOgcEBnQkbWSKYpw6SUTgf4Ym8jw+WCWrE4XxRI92aP+vD5saqOfrembf0szHr
-	 XeRnDIEsB3zzcaYkyWJL4jkpjX+yyV+1YL5VyZUszlXRp4anKe/9wRTSd+CJPuPgrpsfh
-	 w/yMAP/GB18xLYsSmSGHSHgO4mEPzCQYY8JDk4snHObWbXkH2xcjsFeF8p8eeeGhE6An+
-	 wlXqj1I1DomeuiW/dmivVcLt8DfkWm8xT48q8gBxA/I4sW312esBoi+RMsQ4Q7m7DGFgN
-	 P2zj/JPFqTZtdJfsx73vUerce+icN4TVGl7iXjzfvBv6O8fUyMCaexJSkZr+iYx7kxQ==
+	t=1794422508;
+	b=5JQnFoE6iTeyaaEHNmDW5UmXCIKsBsIt0srsJuQkD1GKtTKSlGG3/xqEcLTd18n4wSJu
+	 A8lCdceqd2lA5lep0FvrVu/bBHje4v/WQsFBVT9QkUDtKinz07/tNSCP84A6v+uMsmrTS
+	 Guy5rD/2LZDYeHTxiMzJJmhrqUdC/RDEICBwY8zbclQJ6yNDcK32yV9RC6HAwCjOo3R2d
+	 z41CxGT+i02NPuMlOlAQm//2ja2yzIt8d75kUwmHRO+FwexEU63a3t+fAEwZsZqvm2uz3
+	 cVUnlhFpCGgOaZAlerxFo2ZVRdtzHzD4c7rPwudbGrJ3vdfeA5f84yfb2CNLkVvm0JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421815;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EuOa60Ku4o0cUd0PWdN0468HJGiEY7AKoqQ4rnmYJQ8=;
-	b=ui48spxjTSsZUYSh0od1pab1CS7xQ6+3BLMZ8RrHpJ0G0zSDUA6pIzUiigb+zm1Nbn4H
-	 lASuajUP1S7LFaj+SUGFofBlI02aTWH4XNEINfUklNcDVaYvgrmr4QP2oPTMYXLQMK7/+
-	 qx2jCejOksepdQopQff4tAnwpsE+DoXzHo8PqcNo6XZFy/YLRfnIyum9CKpwFwYFVJxvp
-	 TYWc1lfEtQZULMLknXwlavZxR9OgDEuDu/vQPDNIlyLsFLrnJhAW0SF9QbWKNM9m5Tzlp
-	 V07MBXRvC8+gUEjnzUDOaoJf/T2z9eNKJWCUalz31B1G9PotvXOO9RpwZtBPkYzeeWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422508;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Jg/KTHFOBtwtde44/snwUiVpXPFhDH7Xp3dRiaUBRFU=;
+	b=qALOG8uH8uMEklftwAS/adLT8mHA8doReb79hvHiZD6GWMcKyVAm3DdR9uGPdTh/fXPu
+	 Mbj4aSYnV5lCaZ5L4NyLleNgXQPkQxZSdjdbwoBsh8UoiWxVFswLOapF3cYKzzY7qjH8M
+	 b0POACAE5P+8H9rL/ZxxFyxjJs64HdsGpRDY0CaFUSa2wNLZAYKNe8A0k1lsSk1z48uU+
+	 wuuBbrLx0k7vWJ0gV/qxDP50HHLuUdZkoHNoq7XtN6ctEnkIaQlaUCVDbuQEQF0SAWDeM
+	 /zyAfN2NO411kcDUHnWUEMMCl4PjPG4N+a0OF1MZme9fKaXILVotDUZIOevkC7HVcQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPx9s7Ow;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aozHOBGU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hoYbTMm5;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B83606A32D;
-	Wed, 11 Nov 2026 18:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58ED606A324
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 18:41:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B58ED606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPx9s7Ow
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856D21F00A05;
-	Wed, 11 Nov 2026 18:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421815;
-	bh=EuOa60Ku4o0cUd0PWdN0468HJGiEY7AKoqQ4rnmYJQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SPx9s7OwRiIFM+qJTSyTwrhGtWShlmwnbqfXQGGpqpBUKbUD8Q+wBxTeCw7HTdClO
-	 RqtBDI2kKoIpVd9mRuufBN/Rz3Bt3SBZsUWw/kpXRhvVcwAUvc0AS/Z0sR9rMJi7CC
-	 6ECr5Ib07OcRIY1NIKK1FG+GTAsYyZaiRXA3luJLIYVbJK9pbiSaeuwlEZb3knVyFZ
-	 SqZBA1P4KucdSPTSQimEcOVX/0/UFUraigd6bbdkcetF359pY5E6LRxf/WGEehwENm
-	 rKJ4esyOrV1iFIxvVP1it2MgFUPPnQLSRou3Sy2aOabNUANZTcscl15UZQB49PlQok
-	 vNVFNnxxQ3Y1A==
-Date: Wed, 11 Nov 2026 18:30:10 +0000
-From: Conor Dooley <conor@kernel.org>
-To: joseph@telaak.dev
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: clock: Add Siflower SF19A2890
- peripheral clock/reset managers
-Message-ID: <20261111-roving-untrimmed-5148dcf08b9d@spud>
-References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
- <20261111-sf19a2890-sysm-v2-3-d2fcb723e4f1@telaak.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aozHOBGU;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hoYbTMm5
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABIZ5Qm1490695
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 18:41:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Jg/KTHFOBtwtde44/snwUiVpXPFhDH7Xp3d
+	RiaUBRFU=; b=aozHOBGUpotbI5H45FA16Ct8GPJHKSwuKE9emudKv2Fqyhuy9xo
+	1sTXNLDwL511IwuQDNAe2qeq62JpCv6l9K2hMKOwy4MZozPaVODHmrQdnx34nFcv
+	4G+4kszy4GUuf+iyHgaGRkEIiq7Xh82aT4Fax0La/bnLJ3WXavxCJ991n/sc230x
+	gmYnl2Y83JDAD0fprztPs0Nyqbelz+p4wbmhQ+YFTL5IWBuk9miegFpk8vwK9eU/
+	8AdbRfa0nWOC/2CZ3ohDb9IAJwBMsLVyQj0wMUiMmXmMNHGhUsXbf0dlE6Kf+JO0
+	+NPMUScWkU8XerJEXCmOA6Nw+sb0qPTvmvg==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1r1x4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 18:41:46 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99b715e4f44so1327690241.0
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:41:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794422506; x=1795027306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jg/KTHFOBtwtde44/snwUiVpXPFhDH7Xp3dRiaUBRFU=;
+        b=hoYbTMm51oHrqKLO+zbQSVvbViGj3bYiCLYYruxQIJBF67ttZIs5I2On6Qxz95K1CX
+         Hh7fwHXoKt2OKRcNs8slKqSs2nESSJOxYMYnDjkb7rVPKydy93WkfL9ZljlTf22CYajj
+         yMhk8KTNZIS5DEcktXXijnPBRlAOe9zW5gViZGQwW5AgSAeH+dMDdnxMpDkk3KBUHTYR
+         xGAIB6Bk/L5DbkMryiuzpKqSrkzePl0yBF6aCPCHN81ZywpjeXlKvfJG3xW9AHT7e6ic
+         KciCXch19v8r05dVuI9Uyh4p8ekKGut6ZrYrJWBBZCVBGOks2ultHnejf13InBZZimws
+         yP9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794422506; x=1795027306;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jg/KTHFOBtwtde44/snwUiVpXPFhDH7Xp3dRiaUBRFU=;
+        b=nrXpZiVkBNzoKCYpoSnh/QuDp3c8TPj67rxjdQFOCwjLMV0wEa9fzmaClS2gxtfA2b
+         /FjRltnZrNNMlUTfD7AXlC9uG6ZJkWp0TRFdbBUu9gRdC+WQgUxOh0JXowiXMRhMj8oA
+         sSn1r36dj9/UtuWzwE+SEyMXoahFozHX1WpC6bGJn4zO5EK6CRDGzLZ8IFk3IJh/0h2y
+         2kDH7KqsnJf+Vz5rI6hrC8aRd9gcj8/lWo7ZiF4TXudVFWGJDk8m9sFwsxQmKrYIWNRb
+         hoYTec6DrsGbQAWIbYinQCv0/YRsonAZYwfu7jZE56XvqpMX+0BD7WNdsDi2RbrC2CgY
+         sMuA==
+X-Forwarded-Encrypted: i=1; AL+hErE+ASw8dtLBLyOUdUjMm0xAFF7j36qwVrjyieMfinjF6yudIdfLOjefNrRYstjffsB9LdIMlWA+KZO1@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pFMtlC2IFOzodQKWoM9+LjYB7L74ZwnIY/x0RZCihUBBtwUZ6
+	gxDBJFtHNvaXryM47vnZ0akTYVI244J3yP1TyB9cikGNWHhvh6F4RnYsAoOxOfUZS+7t+MLWZN6
+	u3Vp2HBeDdglDwXfBZiattq95svva3Hl/+2d49jDm3NOyxj9MojCbP7NeMCY4ncBU
+X-Gm-Gg: AYBFou0Y+y1ncv6iCP+YedtiHK6sr5hAOreEY8u8GU+EzGOq2G3Fb5+xEjfcQvPcnV+
+	yzMZm3fzzO9RsKujDCt/DwRmdEw3iAjqPDhedEDGkMiWvJRPFV2ss10Q+VKvXbECzZkFS/vzBuf
+	uyPOlA+ovUO1DtrCnR3rA4DuPLTdJ4j0ZlSxI61kzN+rLX/VtVd/uQtttMKMOTmVGrbHwaRlZKt
+	ckL126QBG497WTLvDwucmNWtKbFb/1Un8Ksvntu/Ktlfeld1LSB8bvYb5kpqFeOZYoOFQ6qsenK
+	epspO+hyhO9OF4THOip/8T5kTFAFPAcEKYUgNmhVR7ZTqvDkIV5vc5rOkTXVRZHrNrIpQeW3Jjx
+	xk17pisq1XDUispRvsl5aSkCu871uuEZ5dbTUJLqDvqNm1QOovzf3SVZjxKermA==
+X-Received: by 2002:a05:6102:160b:b0:7cc:174b:f7bc with SMTP id ada2fe7eead31-7d4fb28a79emr1229655137.15.1794422505618;
+        Wed, 11 Nov 2026 10:41:45 -0800 (PST)
+X-Received: by 2002:a05:6102:160b:b0:7cc:174b:f7bc with SMTP id ada2fe7eead31-7d4fb28a79emr1229645137.15.1794422505132;
+        Wed, 11 Nov 2026 10:41:45 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm7705105e9.10.2026.11.11.10.41.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 10:41:43 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3] dt-bindings: example-schema: Show example of dependentRequired and dependentSchemas
+Date: Wed, 11 Nov 2026 19:41:40 +0100
+Message-ID: <20261111184139.205114-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,349 +117,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FWXTyTnJg+Xe1HHP"
-Content-Disposition: inline
-In-Reply-To: <20261111-sf19a2890-sysm-v2-3-d2fcb723e4f1@telaak.dev>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2884; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=gyLLVdP+Ex8SA/ryo3pBJ0ZHnPJrA+/PevPf700KBjQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9LbjqHENkruDW1hjWni3IK1CvXaIsF8NN/joL
+ JyAgqVlpHmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavS24wAKCRDBN2bmhouD
+ 15dzD/9I9mzq+MaPTvPb/PJz7fBrPUS9ipgdI6QddKep4z/xAw54j1RHuxgkOmqBLwDgfB6C6g+
+ sED27F9gA5DM1L7D4kOnYEDx4bt7sQ05tfvh7slEMZKDk9fc4FEdo54R163O/jP9PRj0c4jri6D
+ qRQq8TKFs/B/F68nv/qkjNtxeB3qQMtl0PaEAiACOUzvQNOI8A6e61l4PDxs8fgZcfadCiKBeyy
+ RBPtqUZ4fLmGrjpQka34i8rXegFUwYRUNn0gBQXsFOWt1x9AxZbB1uwnyGnL2lLjvJb5UU+np34
+ S/BMvk0YCyRHzx4PrfVdk8zkToVZ4xx0a5mDatFdoXWQZqyyRouWfdEKBQ4xOuwofnv2EFlQuOV
+ u4V/E9GZ/5rSd5F+Zp+jvpEvrnUkx40uedrh6B+QN/tLMSCus72cGih3dGqPmHJLQoiYRNNBnpg
+ 4+MlA20g7FvcUsjTIj9gRsraFyCFGSrWfyzhAlh22RxXdXoTTznp2dk4VTvmVvHGe/vp3tjXKe7
+ TqvYcT9SX9Sdck1pYRebMuW/zM2KOvD7jvD9fD2WIhsH2730aXx+MRFKB4U8HQyjiTvJi7x49YP
+ 1/B2Uq+QPB8H7wM2U/5zXU/v23DzqoYi+QiUdr+xyOyRT0MpUvskP5SW6mqKR7SLlSCH9GX9PY+ vgORrqLhGDw+xhA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af4b6ea cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=3XJjmg7gPLNQuPhX6QIA:9 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: w6Ke1rPy7pGhmsdvy8lI-kFwBMne_xxG
+X-Proofpoint-ORIG-GUID: w6Ke1rPy7pGhmsdvy8lI-kFwBMne_xxG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3NCBTYWx0ZWRfX0xtfSUK/Rf3J
+ iHOu13DHLxFoGa//MhpYeXfUAkKkFNcSWm+SyoEfu/kX/t2utRpKruXsQPcCU04taD3JmhmwxOu
+ Rz6C63yv6g3c2f5Q58WVweXnXYA4kK75A8cQ1ioVYlX84VZhfvWQ9r7S0IrRtnxRALQiOVh0h0p
+ PqBV+YmBBDUi5lqPMW1LOonlVWR1KggrSVYGBN3LCNXEdsGlcaCbjHwwzs4lLYuE84vOIOTlcdH
+ abq2ZMcWlRxqEJ7S8bT7uSKwYF6TxEtkRunBGV+Gm5wm/OPfZeAUmldtLtiEVeSoU1p9EPljgcZ
+ x6gw0gtSHAkAXwFaNOwL4B/nyISHNBMdkw6EGV6G+qtF1OilNhkEd1YR3oK6chiDiaE+yg5YXOn
+ PwPFDC1/e9IVg92J8aQgREfOBlkCQISrMZEWj8cQsTbxwhAedRftkdZjVUba2ZPj6SEJyOy0+R2
+ SlAqLds/10a3x6nnccg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3NCBTYWx0ZWRfX+WNajqRAtGvl
+ u2AgjCjna8CJjKB1SdToAkoms2pgc0kHCiCQQ9EDVZp9s6Uff7nddigHgIZ231IBKtg0MvJFULV
+ SmYS++smvXGkqjM1Af6uXNKLJU5Ixow=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110074
 
---FWXTyTnJg+Xe1HHP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Document example usage of dependentRequired, a shorter and preferred
+form of conditional property requirement over dependencies and
+if:then: block, and dependentSchemas replacing the if:required:then:.
 
-On Wed, Nov 11, 2026 at 03:19:02AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Joseph Telaak <joseph@telaak.dev>
->=20
-> Each peripheral block of the Siflower SF19A2890 has a clock and reset
-> manager of its own, with a reset register, a clock gate register and a
-> bus output enable. The blocks differ in which gate and reset bits they
-> use, so each has its own compatible, and clock N of a manager is its
-> input clock N, gated. The header names the clocks and resets of each
-> manager, since their meaning depends on the manager.
->=20
-> Based on Chuanhong Guo's binding, which described every block with one
-> compatible and its bit layout in properties.
->=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Place both after the "required:" list.
 
-This looks a bit messy with all the different clocks, but I don't think
-there's any value in breaking it out to 17 individual files nor is there
-anything common really to try to combine conditions etc.
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Cheers,
-Conor.
+---
 
-> ---
->  .../clock/siflower,sf19a2890-periph-crm.yaml       | 166 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   2 +
->  .../clock/siflower,sf19a2890-periph-crm.h          |  87 +++++++++++
->  3 files changed, 255 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-p=
-eriph-crm.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890=
--periph-crm.yaml
-> new file mode 100644
-> index 000000000000..f464cfffb2a2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-c=
-rm.yaml
-> @@ -0,0 +1,166 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-periph-crm.y=
-aml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Siflower SF19A2890 peripheral clock and reset manager
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description: |
-> +  Each peripheral, or group of peripherals, of the Siflower SF19A2890 has
-> +  a clock and reset manager of its own: a reset register, a clock gate
-> +  register, and a bus output enable that the peripherals need as well as
-> +  their clocks to answer bus requests.
-> +
-> +  Clock N of the manager is input clock N, gated. The clocks and resets =
-of
-> +  each manager are defined in
-> +  include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - siflower,sf19a2890-gmac-crm
-> +      - siflower,sf19a2890-gpio-crm
-> +      - siflower,sf19a2890-i2c-crm
-> +      - siflower,sf19a2890-pwm-crm
-> +      - siflower,sf19a2890-rf-crm
-> +      - siflower,sf19a2890-spi-crm
-> +      - siflower,sf19a2890-timer-crm
-> +      - siflower,sf19a2890-uart-crm
-> +      - siflower,sf19a2890-usb-crm
-> +      - siflower,sf19a2890-wdt-crm
-> +      - siflower,sf19a2890-wlan24-crm
-> +      - siflower,sf19a2890-wlan5-crm
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 6
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-gmac-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GMAC bus clock
-> +            - description: GMAC register clock
-> +            - description: RGMII transmit reference clock
-> +            - description: Timestamp unit clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-wlan24-crm
-> +              - siflower,sf19a2890-wlan5-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: AXI slave clock
-> +            - description: AXI master clock
-> +            - description: Radio platform clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-rf-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Test clock
-> +            - description: AXI slave clock
-> +            - description: Boot clock
-> +            - description: Low-power clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-usb-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: USB controller clock
-> +            - description: AXI master clock
-> +            - description: USB PHY reference clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-spi-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: APB clock
-> +            - description: SSP clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-uart-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: UART0 APB clock
-> +            - description: UART1 APB clock
-> +            - description: UART2 APB clock
-> +            - description: UART0 clock
-> +            - description: UART1 clock
-> +            - description: UART2 clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-gpio-crm
-> +              - siflower,sf19a2890-i2c-crm
-> +              - siflower,sf19a2890-pwm-crm
-> +              - siflower,sf19a2890-timer-crm
-> +              - siflower,sf19a2890-wdt-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/siflower,sf19a2890-clk.h>
-> +
-> +    clock-controller@19e24c00 {
-> +        compatible =3D "siflower,sf19a2890-uart-crm";
-> +        reg =3D <0x19e24c00 0x10>;
-> +        clocks =3D <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-> +                 <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-> +                 <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index de087d1c255d..47a3a72a5d08 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25703,8 +25703,10 @@ M:	Joseph Telaak <joseph@telaak.dev>
->  L:	linux-clk@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
-> +F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm=
-=2Eyaml
->  F:	drivers/clk/siflower/clk-sf19a2890.c
->  F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
-> +F:	include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> =20
->  SILEAD TOUCHSCREEN DRIVER
->  M:	Hans de Goede <hansg@kernel.org>
-> diff --git a/include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h b/=
-include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> new file mode 100644
-> index 000000000000..1cf54761fe72
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> @@ -0,0 +1,87 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H
-> +#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H
-> +
-> +/* siflower,sf19a2890-gmac-crm */
-> +#define CLK_GMAC_BUS		0
-> +#define CLK_GMAC_REG		1
-> +#define CLK_GMAC_TX_REF		2
-> +#define CLK_GMAC_TSU		3
-> +
-> +#define RST_GMAC		0
-> +
-> +/* siflower,sf19a2890-gpio-crm */
-> +#define CLK_GPIO		0
-> +
-> +#define RST_GPIO		0
-> +
-> +/* siflower,sf19a2890-i2c-crm */
-> +#define CLK_I2C			0
-> +
-> +#define RST_I2C			0
-> +
-> +/* siflower,sf19a2890-pwm-crm */
-> +#define CLK_PWM			0
-> +
-> +#define RST_PWM			0
-> +
-> +/* siflower,sf19a2890-rf-crm */
-> +#define CLK_RF_TEST		0
-> +#define CLK_RF_AXIS		1
-> +#define CLK_RF_BOOT		2
-> +#define CLK_RF_LP		3
-> +
-> +#define RST_RF			0
-> +
-> +/* siflower,sf19a2890-spi-crm */
-> +#define CLK_SPI_APB		0
-> +#define CLK_SPI_SSP		1
-> +
-> +#define RST_SPI			0
-> +
-> +/* siflower,sf19a2890-timer-crm */
-> +#define CLK_TIMER		0
-> +
-> +#define RST_TIMER		0
-> +
-> +/* siflower,sf19a2890-uart-crm */
-> +#define CLK_UART0_APB		0
-> +#define CLK_UART1_APB		1
-> +#define CLK_UART2_APB		2
-> +#define CLK_UART0		3
-> +#define CLK_UART1		4
-> +#define CLK_UART2		5
-> +
-> +#define RST_UART0		0
-> +#define RST_UART1		1
-> +#define RST_UART2		2
-> +
-> +/* siflower,sf19a2890-usb-crm */
-> +#define CLK_USB			0
-> +#define CLK_USB_AXIM		1
-> +#define CLK_USB_PHY_REF		2
-> +
-> +#define RST_USB			0
-> +#define RST_USB_PHY_POR		1
-> +#define RST_USB_PHY		2
-> +
-> +/* siflower,sf19a2890-wdt-crm */
-> +#define CLK_WDT			0
-> +
-> +#define RST_WDT			0
-> +
-> +/* siflower,sf19a2890-wlan24-crm */
-> +#define CLK_WLAN24_AXIS		0
-> +#define CLK_WLAN24_AXIM		1
-> +#define CLK_WLAN24_PLF		2
-> +
-> +#define RST_WLAN24		0
-> +
-> +/* siflower,sf19a2890-wlan5-crm */
-> +#define CLK_WLAN5_AXIS		0
-> +#define CLK_WLAN5_AXIM		1
-> +#define CLK_WLAN5_PLF		2
-> +
-> +#define RST_WLAN5		0
-> +
-> +#endif /* __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H */
->=20
-> --=20
-> Git-155)
->=20
->=20
+Changes in v3:
+1. Replace existing dependencies and add dependentSchemas
 
---FWXTyTnJg+Xe1HHP
-Content-Type: application/pgp-signature; name=signature.asc
+Changes in v2:
+1. Use clocks/clock-names in the dependentRequired, to avoid conflict
+   with existing foo-supply constraint.
+---
+ .../devicetree/bindings/example-schema.yaml   | 33 ++++++++++---------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/Documentation/devicetree/bindings/example-schema.yaml b/Documentation/devicetree/bindings/example-schema.yaml
+index b04f3cc4312c..801677a13755 100644
+--- a/Documentation/devicetree/bindings/example-schema.yaml
++++ b/Documentation/devicetree/bindings/example-schema.yaml
+@@ -202,8 +202,17 @@ properties:
+       compatible:
+         const: vendor,sub-device
+ 
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-controller
++
+ # Describe the relationship between different properties
+-dependencies:
++# Properties might be required only if some other property is present.
++# dependentRequired is a shorter and preferred way to express this, instead of
++# "dependencies" and if:then: block.
++dependentRequired:
+   # 'vendor,bool-property' is only allowed when 'vendor,string-array-property'
+   # is present
+   vendor,bool-property: [ 'vendor,string-array-property' ]
+@@ -211,11 +220,14 @@ dependencies:
+   # must be present or none of them.
+   vendor,string-array-property: [ 'vendor,bool-property' ]
+ 
+-required:
+-  - compatible
+-  - reg
+-  - interrupts
+-  - interrupt-controller
++# When given property is present, entire object must also validate against subschema.
++dependentSchemas:
++  vendor,bool-property:
++    # If vendor,bool-property is present, the vendor,int-property accepts smaller
++    # set of values
++    properties:
++      vendor,int-property:
++        enum: [2, 4, 6]
+ 
+ # if/then schema can be used to handle conditions on a property affecting
+ # another property. A typical case is a specific 'compatible' value changes the
+@@ -238,15 +250,6 @@ allOf:
+       # If otherwise the property is not allowed:
+       properties:
+         foo-supply: false
+-  # Altering schema depending on presence of properties is usually done by
+-  # dependencies (see above), however some adjustments might require if:
+-  - if:
+-      required:
+-        - vendor,bool-property
+-    then:
+-      properties:
+-        vendor,int-property:
+-          enum: [2, 4, 6]
+ 
+ # Ideally, the schema should have this line otherwise any other properties
+ # present are allowed. There's a few common properties such as 'status' and
+-- 
+2.53.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavS0MgAKCRB4tDGHoIJi
-0iMjAQD6GsZJXeGSpIxaL15f7l00mbgyl5Irzb8iW+6YCoPj8QEA/8tUgwNMJoi1
-/rbE+PDjq1qeiHvcr/ibveKYvszCkgU=
-=N8sr
------END PGP SIGNATURE-----
-
---FWXTyTnJg+Xe1HHP--
