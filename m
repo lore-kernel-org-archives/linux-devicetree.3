@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398732;
-	b=rCUtt9I0s9/2mmDPyrE36Wr6vQ7IcRFfKt/LkxLvxvdCBymu0+/17uSiWgDiZB2Dr2hT
-	 wYH/xDghO7+Og8IFir4YDiPPOPteIho1ZRdwFbOaCqsQ8+2e/oWTtNierAH/sZ6mbT2PV
-	 HyzNmzr2GTCNjCy9BQYCsJZ/EIaS2xiomMnf8ZhRf4erCLwalASpp3lQM/ZKrbkdlw32g
-	 O/Vte6Qp3QX7lp5jBGXZUIiWnGodxNl0YjiUw6uM9OO/us7OAUSJ+HaXEjE7GV/i1tU5r
-	 yeMkKIPH1awcWlVxoh7rgyiw3RvSGRGLj6L8r0Vv4nQzYCYoS5GOpSaraffiBLlEV7Q==
+	t=1794398829;
+	b=3wQn1FaJaA0Ll6tcmWZgOlIGRdP7xaMZBcdj40yTuxccvA1wkKQXrV9mx2naSlfeAGM9
+	 82moyKA1NWQ42ViqDNj2/CYSdTIp9Kx23RjluYwKT/7HLipu19SbxeInFu3U89Go6JCA0
+	 8rycY780WeIJDAjLRX6lzhTLgW821bYJKMHYnIABpRPO1W5SxqEZAdisbxvkZtbyfXyOH
+	 CnpWrbz78FRR441Exm1R6fTX6HA06uK38puHjGRTTdKGj5zQxcPKF05xNAKKFPOkFabF3
+	 QWh8RoPQ3f/LOysKdtlzSvDSfNbv9kmI9rH3WVcJhiYWS25cnkEmvVX/G2trSGktDYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398732;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398829;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RB+v9kGjAfTy79oHEdctUyXDIbX8iDLKp/kTF8WJwCk=;
-	b=2brXCbqVz5d4Wx2xzgH4W8MBa944AEcadx92GFRElewLxvGRsasA60xSEc4U/Y7HruLu
-	 oAqdbBOI7Y1Y0TckMCdo0WHdaqmwRd4MmMltjXhy/7IpH1mLneOMw7I47+aitUZKanvbD
-	 F5m1dm6ajAl+KO9N8WXPZ9pMfJE6DN1JJb+32x1m72ed/4OFFLnUgStfRaUSQBUHSPOZu
-	 OrQcDTfKukmC7iOLJ+IVhhIaJtcbz/DtxVa6lJ1nJFjBlzPX+oGS279X137Q/fkvy/Z2V
-	 mx0sPEyjkVU5hpog4ZJmRgAZmXmDAsmEWLewsNULyIWL4CUbZgnF6AlYaSg1q3ZSjIg==
+	bh=5fUNPrhOKvJLMYas2fRW7JSnSgbzO0rAbfRdjqJkRIg=;
+	b=DQjmIXnNTfSJM6O/20v+wKJyCKrG4N4JfTUyyqCLeq1UM1o8HwiPfqsg4i0ZN+s4VKH1
+	 GoN90eo83aOtpl10orX4vzYh462V8zzB+xLzyGbfjos3CIFd49D8Y6reW+obUMvyB0ZTg
+	 JIU+kJ89ZKawV89/zwRafQbt/6zjCiLOQMH0vRnZo4baqrm8tI/eDHsvq2VIM/g4A3Uxq
+	 AmEG52OCqrGWnX/Z5hGPOb/53jXS0PrTTG3eaXrgqFrOokzxbhQZGftO474bnC7SwOnIm
+	 WoC+Fl/Qa4eCIIoi0nqkjDTJqaarxNEFLHAL03HsbUV6vT3yhf/AnjGhlsqtws/QXgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADtVhjp3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzjYbcow;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4498606A31C;
-	Wed, 11 Nov 2026 12:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23447606A321;
+	Wed, 11 Nov 2026 12:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADtVhjp3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0D41F00A05;
-	Wed, 11 Nov 2026 12:05:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzjYbcow
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48751F00A06;
+	Wed, 11 Nov 2026 12:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794398732;
-	bh=RB+v9kGjAfTy79oHEdctUyXDIbX8iDLKp/kTF8WJwCk=;
+	s=k20260515; t=1794398828;
+	bh=5fUNPrhOKvJLMYas2fRW7JSnSgbzO0rAbfRdjqJkRIg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ADtVhjp3pHegy9yFpy9X3VTLPr5TaYXbBpyU+LE3G4y+F4EJwGtEgCrHWUr61W1aA
-	 ZS4v/Bnvyv+dmw8W/CUUTzfyGEra1vXaRrROSAgnY4IMMbTGTF1Q2aH6oGAOdlYrmZ
-	 iEUz/geYKs2t11+3NWMkrOYMN3LDHZTfl1bFJ4nsRVoVeDHidgGID8PuEb78Fq+9o9
-	 W7N8APrupvJWcP2lWYBtsj3mTaRJMv2zxx3CgV5/cFBG2F8bhZRoN+aHlR205I5Lsh
-	 esYx7M1Gf6ZM8Yy65S/TLaEpBHo0KiifIa7bCISx1blx/AGMMYKRrDmkNV+m05Dn06
-	 St34G20a7qUbQ==
-Date: Wed, 11 Nov 2026 13:05:28 +0100
+	b=YzjYbcowNnBxk4Pnp+DdrgXvzLjtsn6j+DUYyM9C5J1uy0DCtPcgOzTYtdCP4qyP0
+	 Cm+0h8p/iF3r4inmBkczdy/y6/WzLlScbYaWurBkx/FUS9fYMRZ3YFRLA8zQ1M+fGD
+	 vqZhCY1OvRmPUV+9+/DD25aF33GYfWyJyYMLnrt2AH9OjRBKqAxacqorwCrvHfjSrT
+	 iZ/JmMGp7Miphz9cbR/PYdmyJweY2m1PW7J0rVwcScdFvi/kTP/6pXMZvOTEE/4bcZ
+	 gR2L07BZLp4xU9HMHi4LYrfLcPhSocMm7FHw7PeppX7HtCcqKQjp5PKuK+duMR9BMV
+	 yui17QjDUPz+Q==
+Date: Wed, 11 Nov 2026 13:07:05 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christopher de Guzman <christopher.deguzman@analog.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: hwmon: ltc2978: Add support for
- LT7175 and LT7176P
-Message-ID: <20261111-amazing-saluki-of-bloom-b6ceaf@quoll>
-References: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
- <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org, 
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-iio@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] dt-bindings: mfd: mxs-lradc: Fix interrupt order
+Message-ID: <20261111-noisy-antique-potoo-2b2dc0@quoll>
+References: <20261110141934.42490-1-festevam@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,16 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
+In-Reply-To: <20261110141934.42490-1-festevam@gmail.com>
 
-On Tue, Nov 10, 2026 at 06:00:40PM +0800, Christopher de Guzman wrote:
-> Document the compatible strings for the LT7175 and LT7176P PMBus buck
-> regulators supported by the ltc2978 driver.
+On Tue, Nov 10, 2026 at 11:19:33AM -0300, Fabio Estevam wrote:
+> The interrupt descriptions added during the conversion to YAML do not
+> match the ICOLL source numbers used by the existing DTS files.
 > 
-> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
-> ---
->  Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> For i.MX23, Table 5-1 of the reference manual maps source 36 to touch
+> detection and sources 37 through 44 to channels 0 through 7. imx23.dtsi
+> lists these sources in that order.
+> 
+> For i.MX28, Table 5-1 maps source 10 to touch detection, sources 14 and
+> 15 to the threshold interrupts, sources 16 through 23 to channels 0
+> through 7, and sources 24 and 25 to buttons 0 and 1. imx28.dtsi also
+> lists these sources in that order.
+> 
+> Reorder the schema descriptions to match the hardware documentation and
+> the existing DT ABI.
+> 
+> Fixes: 009528b5aa13 ("dt-bindings: mfd: convert mxs-lradc bindings to json-schema")
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
