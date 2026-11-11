@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418883;
-	b=fBe5jct9DVIne9tRc0HSrBjBXx8OpdFWsp8s3npIn46cPi9P9iDgf2VqsSJ8F9Er/RUf
-	 q1Bgo8hWMcZkaRys8BcgQzFSmrX1qbquetOt1PdRPx4QDcl7per2B51mY579tdoYtVuwG
-	 9Oyw40oYXHiR8gQ3W1esNCu7LAdD5k/DDzIXs0HWBfKWpuPI8vDW2kpoTzVBIYorAh8YP
-	 E/asN/3YqEvCrtVP5KZFo9ZQUxI/il4YKw8jfN+qFLCglkabqjGKGEBtgPrNIPcMxXo45
-	 s41iSFpgSilOPCMtTEQufUyOgemOY+F3KLQxvBJfLkqQNRUQ9ZLOSB818vuHM9P/Xjg==
+	t=1794418884;
+	b=2ptDdvapp+BvaJ8iKPg66ICWDZq8GW8tfJSeslG8XLiQUcg2JLoZrcgedEEYCJb6C/Um
+	 3tHyN+olsFAPXY/AkEttSWULWsfJa8a1P1Y4bvnif4qW3EDvOuu8Ck8mU5mCDcOmZD7bp
+	 cfhoaDhQHK5VhmW0Y4lY4mombqUFlaaLddw4hMtHa/xwXQIfWY/ZwYql6I6fjsWby2Qx7
+	 lt8qIAguEjaPRn6gXnZHXhzbpjELOkLhVwdf9devQPwNEdlJorFJiMZUBOE4tFBa74PiI
+	 afePT6VXTTR9QhGVNC7ruHOXfKFuv0qSdIcIorjAgIKJTzerZlRB7XZ+M4N/VhdECog==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418883;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
-	b=MGw7bVXEur1w4oFvMyEW3DHHQDUFQPbRtdm2MZTP5jm+MwWIIlDWziscgRLYGq8VyfUc
-	 ejXZIENJvSI5NU/7TGLlMv9GVFoNlN/Nj2//n276sTBJ4iRm/KxFKc3BdAGBgpoBfEUEL
-	 q5fH/Qh8JDXaWOqzdPQ6llUars+jaDrNFzsUHH++xiUddCK1bcaCGgAIh7yAxmaLCB5YW
-	 Zu1JKxxNME5nW0ZtYw8j4aOymfYgAyLRM9Vg6JUCAdvF99roCU0bi0D99nhgtpXkC1nQL
-	 AVyCGrtCS4HX+VAyFPVpekTj1i3yBlLIX3z6nQ2fVJ9LqosDbkEGr8SnMZ5k6INz8MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418884;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
+	b=45CJD6KhxJWxgGhSYVRBjTf/IvY3xWuub9tk2hbS11EVhS1GoeBfTaZAvLjvGHgm4+eN
+	 Xx5fM0NKVsrkflMES/+kYKR9XIhx9DjRJC1aFdPpoOkBo+9GMfbJkORoZ9IexkeSd9oAS
+	 eHztzqVUVeEyQUJx+mzeusnt4c18+aBYe2ofnL03O/dkaMVBMhia/luSNByvCS/CeHbit
+	 yX6V40nxrKxfSHAwlYontzW8a3fVqkP/bDMpqbUjgo7cY9Am8TgP3hT5ako64o+80ZX/6
+	 tpRFy2sXZzwu2L85DN6WMwcw8qu84Z3xzoFRfuGDesXlobJL8f5ZeM5M6p0X/AU7H0A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC99606A326;
-	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC99606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B473F606A336;
+	Wed, 11 Nov 2026 17:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDLTHc+X0L6ew/FNt24cDJ2em1vg+J/ZPctwY8GYcR72ZtwPw605Js+LTohUH6dmOjsBBGAGziE0oUS8D2IrNg5DnKRlV5+nyk5wSq6BnrPpI7zdp/66iHGyK0L3B0ZfIL+aCIKO5U/H4zy647WKMG4+uoNWcXf8FolLoskAE7qMIdP5cShFZ8qG9GAIfZIUzsjPJkK9rxezed0RVOvqYjofwTDEX8YWlj3UU0882KVU9aGpMTSJI6QlTZ1l9wNXtxOVdEnc6IYNq3EEWjM1+oCER2ai6OuzGlBzyoqfjhlrkZw37scO98rMKEDvAXlDA8G5HN5P8rUZkul9CyaJCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
- b=OsqEJBh40wMP1V8eKdNbEHXKpLecNWn0mgiuaVfk1PMp2iXyghe7WSML9LYV53W4BxRknu8OeueQDGc0a1c1MOgwtqWu0vishlvAfF+UBVttWo4QKzlvvOom5GL9DhZf/TxS001h6T5xVRoTOegQ8a6+zINJTV8Xgn+6ywJfPysdUu18ZqV2OBUcnSteLyasMGNrd3s8DPSJaVtSAbTB4+44hnUEw4+3Cs0rI/iAJ9tSlf0ruBpByXLLNfiWvEOXHwv2sxvBvdXXqfM2jWN/govwVhw+phHoAl0JxBTyrR+krJWwrOfYjztBoomn99OdOfw7Hd7vd17an2A0wpki8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
- b=p2U4fYQ2EjYxEz9szbtC2t7CPpU7dwwYjx7jerpHv8jAlYKNBnmlr9Iu396P/EByw4bW2yDVH9ZH8pGmOjDGjOlIIATR38bag42FEXlBuMiiPv4OdtDXyN97/kUblh8vZ93r47RcT7ZqpZm/I0nv9Zw1DceRu3KbZnoOvPKSnwBiEhZ62BaOXdQE1XtMDX5QWGAMcVvT9x3C82Cc712Q3yczjBjjkBg/tiTlxgGBmD4m8NaKCdrzZAG8mC7takDJhXqFQfsn7K5kWLzpYYyitKzrHPW2DBFg1cYjq3w8pb4jhxc+92ala/L5J0KkB4waFeCdz21Il+uTXvbx/h56DA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM0PR04MB949883.eurprd04.prod.outlook.com (2603:10a6:20b:7fe::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 17:41:19 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 17:41:19 +0000
-Date: Wed, 11 Nov 2026 11:41:07 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v5 4/7] dmaengine: move channel devices to the DMA
- channel bus
-Message-ID: <avSos6SCYMYZrwX3@SMW015318>
-References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
- <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
-X-ClientProxiedBy: PH8PR02CA0032.namprd02.prod.outlook.com
- (2603:10b6:510:2da::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794418884;
+	b=xhzNzV2UkXnlPGQ4SJ6EdZJ2YPXawxG2gcxhBektv2evUWe153OXNAX98LENKAEHo4P6
+	 gTt884JL1KjfJoi4ejBndRUv0slZ+vTMU/p66nodqhxFe7x/hjb6Pk/xm6eK1MRppmAfC
+	 TNbEOVQdHSOWQ7IVv6UOMfAKg1e1bwBn+sXdGel/VLF1JvGheC/jf2SQFTuLI6CR0upF9
+	 b5WMuZ7kkKj4FXhFeouZ7z91CPwQAtrrZ4wZ4U9qWEKpi5STWT37fVn6s91RZcCmhgjAB
+	 jDsrU8ESHhK6qUBujMtfuQ/wfAQRwL2GrVDM0qTLsNqHucl0XQMoiVDBERQTeOsC4rQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794418884;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
+	b=d9+r8zH28lIT3sBQxbsLAD6QBVRXIo23F+9/NNDH6r1pPxrt+wBG1/GDDcMr6BzesVne
+	 ErCAr6zC8EZnDNODYZMfHBrkv1MT8HyCvrYlgEEN0DPa5dsjWuHKxEYMBXdlFrNhgd/+B
+	 ni5+Z3/UtyboJmjmY0qnmv17/Q3te2kSCY4XRm/lj8+KZHkxBDbBWaIxXPZc0qfKjVojl
+	 pqVvTz4I+kv4f2/AWXpSyIG1qgOO22qLoTSMYWFOO2DV6CFY/gyucit38MTznIzJeFWHb
+	 tPyKXag8vcW6TjbAUt5R+aRRuChm7+7dE5BkP/gRcmsGrrGW9VVI/bEFy1EhyKS8Vvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4CE781F00A09;
+	Wed, 11 Nov 2026 17:41:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794418884;
+	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=gW07Njt9Fusg8OMyKJedlVxNYQVXX2CQzIaW0jzuxI6A/W06afiILkz5ESyBhUXXa
+	 0DYRW3agPpIIOBFTWUuMR1yiSRNGRSbdTLPK0US10/OjfmSE7vpkW/OCFmoldpTFO/
+	 znraoZKHUcd183u97uZvToBDAkj6Ft0ISONnDyMu3+IY/Ux7MXvCHNBluhx2UseeTp
+	 dEeeHXy6OposlV+9+yshcTqczOoNZ5HYgOoBdRgPRiXTcdGg0JihQq+HgJ0fiEGwwB
+	 1xlkYj3Wel/rcRKt2aY36AyYtTNlUSgck4W+OZ/r3LeUg1yholo/bTBeHKwPmZzMlY
+	 7uLjuUFb1EopQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9525149061;
+	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v7 0/2] Speakers for Pixel 3 / 3 XL
+Date: Wed, 11 Nov 2026 18:41:19 +0100
+Message-Id: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,198 +83,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB949883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|376014|7416014|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|4143699003|11063799006|261021123027099003|56012099006|10067099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	ZP6Ib/GPJKO8EWD6Vw3iZH+eiz8iWx8dDG27xKAxZgyi+algbJgzOzg3qb6pTFalozBtZPQZ7hyv6zGa7J9jmB/+wzW6Y1A6Hu+cJA6uDOLyqWARiKP+j6W0JaXaSuWWVN2X/7qWAgKPC+SacqqlYNFFmh5decQGwIiE5MikOZzYnKhBdCn/yaCr2gxDRsVgcfcZDgNlrMzAJDwh/rNEwDuacdVeXX/wj/7ihdkV1SpDfAyfGHxkyGxQwTvW7RcBqwQ7RNk0r6BJc1QxPHvvkLmoEqbxXO1vKyfdzk8OPZvdVzwV6k9taKusRKU0YIzx1RpXlwZWH1q3uQAPoAoe/s3tSBycziprFHqbsCs+FfZiqz+P4f37GSChn9VTkwLiirfM3DgdUKxHHaR0cQbTxAiaDXsWOz1zTmQLylNPwkkm2t34Evz9HCKcm4LEY5jfWbQGPzuwt1VktvOVmQs/YjHovMWuzHgtlyu/q+fDAKmx62oHBQf58KmbUbWmqvisICSFAossW0ZBswlekHiwKS+dfrenHRnKS9XkLtPIK6qQdxInxDfh4156WN7RW2XZ+5hF243lKY3UFfEbcgANuMIQ213a6yLgbsINg0fo7M37fPSVuXIbIm93XegBkz6wR+Ll2zrqN/uH6ZyGXHLdEo5cFIUr4YfrsgvpZW/ibPc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(376014)(7416014)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(4143699003)(11063799006)(261021123027099003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RIQUG3Ph2UH352Jdwnwq1Ee+Dz2v6CAhwPPNnlcf7EnfslmlxnwsM/dyuc2m?=
- =?us-ascii?Q?vhAS92wSNDcjo3vYQlw+pDVr4rWMI87J8RqtLyTXNJ6mD+845hJxejIV66/c?=
- =?us-ascii?Q?mgu2t7VxqxSHZBE+U0fPBMDtdVDnUPC8wbysgstLJfU5/Pq/qEZ3t2ko2yhZ?=
- =?us-ascii?Q?yDOr+/8kHRxwu1JUfqmqTrQtM77gr0fvcJ1rLfrgE6LMkqv19xsIbcsA7ZTQ?=
- =?us-ascii?Q?+17DgtdFLKxW3TlTEw3UmqQLxh7iagNJip+nlurxIYVmSO9XQD8Kk3c2O5CC?=
- =?us-ascii?Q?p/8hHwgeg41hXpJXdXRQfn46k4weubRGzBf2am+KJIQqsrPwOmLG2/zcHRVX?=
- =?us-ascii?Q?m7qKxjWj0pkX3QfRq/ppHlE+1WSp2V4teB8YZ2+lUiCyHGHcEnS5bhgviKr3?=
- =?us-ascii?Q?LSqALXt813w5oFEc+rEyvzHr0EOncMFY0nsffhJ9SsFDwXi1yQM10aajgFHn?=
- =?us-ascii?Q?y8sQ9l4IctyELvFb5NfXaAt9rtCvvYpgu8kRbxLABkXsTgbYibyLz6qChxcW?=
- =?us-ascii?Q?EicWb82thSCuV4VIK78I4qsLj7bPntn8/LvtzO6vE2tYjOJchg64eYL+WKad?=
- =?us-ascii?Q?7IKMNs+IXLMHi6igrYdz6eEkY/0i1edLMXQhbwEST2UvoeJEl2cb47tFN4lb?=
- =?us-ascii?Q?hWEld8UfFLdPyni+nzLYckKyjysqSVJaAHr4rW6W8Jw8dCO1dKAtwiC9T3ae?=
- =?us-ascii?Q?qDOZ5iAMIzmuVlxfjvkSYf3VZlFkfIJjj5rWKdEbhnFPj/t1r8ovcVNRACmS?=
- =?us-ascii?Q?KlLKjRo9qVaL0ZflnvlumvM8y8zSiXzQapESOoR1ppeoX+a45g5CfAfakj1k?=
- =?us-ascii?Q?yKWxURLSqbVwIXido4trZ7Rfd0ZjUIt3yppBjtsy2Y/7JQOwaYXvezmC3mh3?=
- =?us-ascii?Q?NdL7tVXG/+UWtLt+RdOH29Mi2JU3gDpaL7n6JqEabGbYcaB/45rug3YCQswJ?=
- =?us-ascii?Q?me7pDqxlOrgIZBOnhOOTOho4kK/YrAa7U6YkCIKFvrZb6nrzqdwQrW4/pbMB?=
- =?us-ascii?Q?i4co/j/hu7Y1TL5OkbqVGP3OaVfeFCid1UPsMNx8cOZc0gi2ahnOXlaV0iko?=
- =?us-ascii?Q?ODUv3d0c4m7zvoo31fcgXNEscsPdjubJ9SE3qAtpqBPmxtD4pv/jZBbB5ZaJ?=
- =?us-ascii?Q?SMkSDk21+The0NsM2Dcoj7IShPvfPF+jcc8AYAuHOezaa7M7kOEkZVYiuIbW?=
- =?us-ascii?Q?b7ZMnuEheg/3ez676jFicAZ3av+vLySOU79n18smFJg7eQ/jyJThxk4ScUXY?=
- =?us-ascii?Q?gG9rZQyPmv5lSBCXGoibQVbL70HalduqQu3Y8RRP8dqw6TlRdvTdhYoHUR7m?=
- =?us-ascii?Q?MVdcfBrYSt5lOXAcsLceFY6hI24brgzExZY9ccLSBsA/jvkydzyPW0+qU6Fd?=
- =?us-ascii?Q?Bhxt3r+MumCAZz1lYSW7eWPyn/TrEvV28N7nSSQn14+Rom4FYYbwaCe51nN+?=
- =?us-ascii?Q?VyE9Hdd3xx2USYySlfnYB/xgQLNOh46ziL97EHeuyQKD8+9gzWIod+jRZdiC?=
- =?us-ascii?Q?Us34RCOlq6+Q9eD5VyXdDQ8v7qkQtEFes/jTQYfjC38XmaB2O1iWfFxawKMa?=
- =?us-ascii?Q?sog6n69zfokO4GFYyMu+YL2ZtZ4K7aeYwqFCy7c9JSNfcC0OXAofhgflUOFG?=
- =?us-ascii?Q?Hhh9cZlcl9OCtRRWraDZBl6LN9VQhNKSG+CKH7obCYm6m4zClDhW6MeAUSzp?=
- =?us-ascii?Q?GxIM9DDS5oKzCPcvxKbLyWrFyLujvMv4v92h7LxqDbEYuzWyXb06M+NNc0Pk?=
- =?us-ascii?Q?AZq8D0QcvziHdSLsVB2MESLbnwTNaaXuwI7SjpB1z3MsWHMV1BjA?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:41:19.6983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UOz8qB9mgaQ7cRWpO6aQjQAEAwTxwmdfAg7ngxwIs/Tdcau6A9XaqOQ6atsSS3ZeSUsSoCrzaSi1ZNHFXY5UgE2PQa7MYh/mDxZgWXDcRdV9bJjfrZGbeZl6JcYVN9I5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB949883
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Py27DIBAF0F+JWJcKGMDQVf+j6oLH0CBVcYIdl
+ If878WN1NhedHkHnTvDnQxYMg7kbXcnBWsecn9ooXvZkbB3hy+kObZMBBOaaQ70mC/4DdSdY+6
+ pjz55adEw6Egjx4Kpvc91H5+PXPB0bq3jc7jPw9iX6+/Kyufpo71jat1eOWUUvNYJwCib+Hu+5
+ PE13MhcU8WTWrY5rIpGuyAERsuVsBsKCyrkhkKjKjItNUvBOLum8j8qGzXKq8gBnFO4pmpJt39
+ V88EpeRDBGubTmuo/yhnXG6ob5TwYI6Xx4Bdbp2n6AUTZpIbiAQAA
+X-Change-ID: 20260613-pixel3-audio-bdbfb49e8037
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3488; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=reyRd4l1Oh4ajFZmaaOwLVE50anXb8RwYNR93+iRoag=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq9KjBbezIplsv8LDE+sCR+2qh6J8tl6L5Pzemk
+ id3lNTlbBeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavSowQAKCRBgAj/E00kg
+ cqT/D/wNbkhzbY0XtcRIFnJYf3bSS8AyERfjToVHhnn7bM0DLR3fSo0HrxukEWB+i7clWq8Lb6i
+ FgCm+fI1pUMuwe8ZLXjpZNDDgR8CvX3FSnZY2RjUqNoi5CSra5nxIF/LOik7/xWSz5y/NuFlQ0S
+ OvHUY6g0PNSdfPt6/VWHjjGlP8QAKK2JEGZ8upRroVmbjHPVZwL19FLU/OdhCrsr2Nf4ocHhX4N
+ GFl3c6m1wFR1a6WWzEXhSWC+C+WKHJ0ju48non4hOWluMbQyVJvRO9FyCKWfRQC9bNrIolF3jJU
+ sJvS72xe6gM9ELiHRc4/el0aT7O+r1ee5/gevckuvXi/ipGfaD4Dvv/IRuE30sx6WIItAbvlTek
+ aW+cuDjrf4k9qvr5bbfDQdLYHg+d32wkS5J/jNEcGvh0MjMmeQoeFVMxF/0ODpZssqFb7+oobzq
+ 6gDdGv2cz7VIo8AGJyEl5L97uD+Nn5pxvnQt66TcKY1CMHxMLjVfGCHnUUz+vCoC4VmgxpfOOTE
+ 0egNU/piFaNz38LTC0Wl5Bn2tAFGiexmziKTKxTD+WdenQ2eKoeGWXgpse56mbEhH+QRkl93r0E
+ F4OsDVrYMEHULmV+wq1gyaKiypr+wPFCrJohqwVVWRGLClI9dzQJr/hgo+CFotmOV/kB+Av0Nbi
+ 6L6Bg8eep6sNESg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, Nov 11, 2026 at 09:47:32PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Register each dma_chan_dev on dma_chan_bus_type before device_register()
-> and make it a bus device instead of a class device. Setting the bus
-> before registration lets bus_add_device() take the bus subsystem
-> reference, so the matching bus_remove_device() calls drop references that
-> were actually acquired. Attach dma_dev_groups to the bus and set the
-> device release callback directly.
->
-> Keep the existing /sys/class/dma interface by registering a class_compat
-> named "dma" and creating a link for each channel device. The channel
-> devices now live on the DMA bus, while /sys/class/dma/dmaNchanM remains
-> available to userspace.
->
-> The bus is named "dma-chan" rather than "dma" to avoid colliding with the
+This series address:
 
-dmaengine-chan
+--- merged
+0. demistify the hex to BIT() macro and add left/right rx spk
+1. most likely wrongly set DSP_B in sdm845.c
+   my guess this is because TDM was never used in the mainline with
+   sdm845
+2. applying correct mask to left/right speaker for the TDM in sdm845.c,
+   so both speakers can work simultaneusly
+3. setting sysclk at startups, which some codecs need (such as cs35l36)
+4. setting proper tdm slot in the cs35l36 driver
+--- remains:
+5. device-tree wiring for Pixel 3 / 3 XL speakers
+6. same for microphone.
 
-> SuperH DMA bus, which is also named "dma" and is registered later from a
-> postcore_initcall. As a result the device's uevent SUBSYSTEM and
-> "subsystem" link use "dma-chan", while /sys/class/dma is unchanged.
->
-> Remove the post-registration dev->bus assignment from the Tegra GPC DMA
-> driver. Leaving it in place would overwrite the bus selected by the DMA
-> engine core and reintroduce the reference imbalance.
->
-> The DMA channel bus match callback never matches, so no driver can bind
-> to these channel devices.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/dma/dmaengine.c        | 27 +++++++++++++++++----------
->  drivers/dma/tegra186-gpc-dma.c |  1 -
->  2 files changed, 17 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-> index 9a9d54d8f7c6..36f5a12641cd 100644
-> --- a/drivers/dma/dmaengine.c
-> +++ b/drivers/dma/dmaengine.c
-> @@ -239,11 +239,7 @@ static void chan_dev_release(struct device *dev)
->  	kfree(chan_dev);
->  }
->
-> -static struct class dma_devclass = {
-> -	.name		= "dma",
-> -	.dev_groups	= dma_dev_groups,
-> -	.dev_release	= chan_dev_release,
-> -};
-> +static struct class_compat *dma_chan_class;
->
->  /* --- client and device registration --- */
->
-> @@ -1115,8 +1111,9 @@ static int __dma_async_device_channel_register(struct dma_device *device,
->  		goto err_free_dev;
->  	}
->
-> -	dmaengine_chan_dev(chan)->class = &dma_devclass;
->  	dmaengine_chan_dev(chan)->parent = device->dev;
-> +	dmaengine_chan_dev(chan)->bus = &dma_chan_bus_type;
-> +	dmaengine_chan_dev(chan)->release = chan_dev_release;
->  	chan->chan_dev->chan = chan;
->  	chan->chan_dev->dev_id = device->dev_id;
->  	spin_lock_init(&chan->lock);
-> @@ -1128,6 +1125,11 @@ static int __dma_async_device_channel_register(struct dma_device *device,
->  	rc = device_register(dmaengine_chan_dev(chan));
->  	if (rc)
->  		goto err_out_ida;
-> +
-> +	rc = class_compat_create_link(dma_chan_class, dmaengine_chan_dev(chan));
-> +	if (rc)
-> +		dev_warn(device->dev, "Failed to create compatibility class link\n");
-> +
->  	chan->client_count = 0;
->  	device->chancnt++;
->
-> @@ -1172,6 +1174,7 @@ static void __dma_async_device_channel_unregister(struct dma_device *device,
->  	chan->chan_dev->chan = NULL;
->  	mutex_unlock(&dma_list_mutex);
->  	ida_free(&device->chan_ida, chan->chan_id);
-> +	class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
->  	device_unregister(dmaengine_chan_dev(chan));
->  	free_percpu(chan->local);
->  }
-> @@ -1306,6 +1309,7 @@ int dma_async_device_register(struct dma_device *device)
->  		mutex_lock(&dma_list_mutex);
->  		chan->chan_dev->chan = NULL;
->  		mutex_unlock(&dma_list_mutex);
-> +		class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
->  		device_unregister(dmaengine_chan_dev(chan));
->  		free_percpu(chan->local);
->  	}
-> @@ -1650,8 +1654,9 @@ static int dma_chan_bus_match(struct device *dev,
->  }
->
->  const struct bus_type dma_chan_bus_type = {
-> -	.name  = "dma-chan",
-> -	.match = dma_chan_bus_match,
-> +	.name		= "dma-chan",
-> +	.match		= dma_chan_bus_match,
+As per previous discussion not seding patch removing the "Input Mux"
+which now interferes with TDM callback. If wanted, I can send it as a
+follow-up.
 
-don't change format, origial code style is correct.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v7:
+- Edited swm node disable comment.
+- Rebased on top of next-20261110 (small conflict resolved).
+- Link to v6: https://patch.msgid.link/20261016-pixel3-audio-v6-0-11c88448b3be@ixit.cz
+
+Changes in v6:
+- Everything expect device-tree changes got merged. Rebased on top of
+  latest next-20261016.
+- Link to v5: https://patch.msgid.link/20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz
+
+Changes in v5:
+- Dropped
+  `slimbus: qcom-ngd-ctrl: Remove data channels on stream disable`
+  in favor of now merged
+  `slimbus: qcom-ngd-ctrl: Implement disable_stream callback`
+- Applied R-bs.
+- Small clarifications in the commit messages and comments blocks.
+- Link to v4: https://patch.msgid.link/20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz
+
+Changes in v4:
+- Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
+- Link to v3: https://patch.msgid.link/20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz
+
+Changes in v3:
+- De-RFC, applied Reviewed-by tag.
+- Link to v2: https://patch.msgid.link/20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz
+
+Changes in v2:
+- Device-tree name sorting, with exception keeping mm1-dai-link in it's
+  place. (Konrad)
+- Make set_tdm_slot cleaner and less leveled. (Konrad)
+- Added TDM MIC defines in sdm845.c.
+  Should we in capture use speaker mask?
+- Renamed model from 'Google Pixel 3' to 'blueline', I would love to
+  hear feedback on this one.
+- Link to v1: https://lore.kernel.org/r/20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz
+
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: David Rhodes <david.rhodes@cirrus.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+Cc: devicetree@vger.kernel.org
+
+---
+David Heidelberg (2):
+      arm64: dts: qcom: sdm845-google: Add basic audio support
+      arm64: dts: qcom: sdm845-google: Add WCD9340 codec and microphone capture
+
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 188 ++++++++++++++++++++-
+ 1 file changed, 186 insertions(+), 2 deletions(-)
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20260613-pixel3-audio-bdbfb49e8037
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
-Frank
-
-> +	.dev_groups	= dma_dev_groups,
->  };
->
->  static int __init dma_bus_init(void)
-> @@ -1665,9 +1670,11 @@ static int __init dma_bus_init(void)
->  	if (err)
->  		goto err_destroy_unmap_pool;
->
-> -	err = class_register(&dma_devclass);
-> -	if (err)
-> +	dma_chan_class = class_compat_register("dma");
-> +	if (!dma_chan_class) {
-> +		err = -ENOMEM;
->  		goto err_unregister_bus;
-> +	}
->
->  	dmaengine_debugfs_init();
->  	return 0;
-> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-> index ec12b7288b43..93b136f875d4 100644
-> --- a/drivers/dma/tegra186-gpc-dma.c
-> +++ b/drivers/dma/tegra186-gpc-dma.c
-> @@ -1540,7 +1540,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  		tdc = to_tegra_dma_chan(chan);
->
->  		if (use_iommu_map) {
-> -			chdev->bus = pdev->dev.bus;
->  			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
->
->  			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
->
-> --
-> 2.34.1
->
