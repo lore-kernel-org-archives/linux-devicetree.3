@@ -1,70 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416734;
-	b=DSSnfoc6SEyT1hl/V7J8KO+orlZySlBJwtSIJ1m3LwmIMWdCaj5DqTQFmQW4HtVj4iq1
-	 kKQRSzzszFygVHDYIzVJqkg+uGBIpom1VWJMx0iIlxXAl/lPSVB17dCvtW0MBePlI70c+
-	 leleMjjZ2G3DQ77xDoyRd+2d6N/xDX7XROGQ3wJNwvwp7ni41BikiRkCJWNuYGfl8crSV
-	 EcRGcyplD7aTiA9KpWfQ3DmiQ735dRMpX4BZdzB6LEQph1LB+//w6JQ/0Qtv6DgOXA2B+
-	 CLO7QGbihugxFSn/j6GAEC7BJeLT/UMdsgSTimBSPQtuVxmVaBOrZ56FiQzZCfs75eA==
+	t=1794417025;
+	b=KIkmh+dOvHCQnR6HGa01q7ZHuoylf6sErwfa2hF4+bxu/hILffLJczr8/glUtUgV+8Ae
+	 Rs83bYg+XCP7pvX3cbw/IQXOUGbNOjqfnkhOoj54xXMv4GFDR8lipxG1zha0uq0zElb5D
+	 coIqjjOu/55hl4mLVFR0xFuKg8tVjuUBfTajAIq1Yv8/l3i3fDCb7M5RiSkfb4P1Q3Yms
+	 JfnmDZvb9wjCCEmIWpI8VEbSbXwxduPS/BdVP8eJATdf2DAjkINdqk8FuSzeiN6lBCnMR
+	 7DjSX1i1XZbsRhsRZziH5Kkp5T/fa5Sos8y2lk+5Vcq+NQ3zVcgEpXqNJBy7t2z7ixA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416734;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BIjsyfCAMtV7iYJZyUQnR/qSWRidGT61sCTUErFE8Y0=;
-	b=1zOX1qmL8b6u3f+fxfiyASfpjNkJSRGt2jUobWLcOsrOQ1RL+LnlMnhNsOfMxhfpe23K
-	 bBnvnEqxrnBeRqdm3DXzI8YpfEqrIJSQ+UjHH2VIveShCWE+v8AuguuDxHqjJ93gILIx8
-	 g5tKBq6LiemoEQ7st4x5SxgdiaN2MAYy8UClo+V0E5LYaXMISM+P5SVOGPsaKIgfP4qZf
-	 OBSJoaOj3OLTT65ke1MvziQHjUT+lvbtE6yd1ycjXQdm7iz7Bq8tGb+4OfryM/HeLW06b
-	 gX3CCJZmMxWgfEMp2OMszzXZw2H71449WTlVEjK4RuUp32F/N1cG/blGEyMcs6PstqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417025;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Y7ij57NuwX8Ftb+4EjSLorQrBLofQzj0MU9Iha/PVcs=;
+	b=0IarwkfpD39ebp3OYu7WTVNiie0TjK2mU115N+u+h7xk+F/yry9PwLUdOKcnpSV5jw3D
+	 7mI1x3PqCp2UQYKOa/CNX+V62cjWXmyvn/0rzJRD5Ok9h4XF8wtzvVmQh91cOAkSZnjJC
+	 qociPZYWCGXYjGoPA9GqzHFDf1+usZ8ab3Uw9gK66el08xzUZwOjCSdmbod+Vbz8zHR9x
+	 60ywze7JU3hvjp3LPWkYRKXCmBtA3/evX232gL1tKea2hOirpjpj4zvqqecPAfYIreJ6w
+	 AIVJU+GQ4D/XlzsyvB5MFLNcy/VN5qN2TYdtjhthWRGVpmGYjd7leQNB/7TVbfNswJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8NDL01K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4O3ODJN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6084660A2600;
-	Wed, 11 Nov 2026 17:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F58606A324
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 17:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8NDL01K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C233A1F00A07;
-	Wed, 11 Nov 2026 17:05:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4O3ODJN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08681F00A0C;
+	Wed, 11 Nov 2026 17:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416734;
-	bh=BIjsyfCAMtV7iYJZyUQnR/qSWRidGT61sCTUErFE8Y0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J8NDL01KzKueCRrzIThmTcCU88ocXYyn4+kkLuTyba7c3VtJ14dFSHV8Fh1TqJVAU
-	 FnEf3wgOPWM65xQN8GRR3PwDt5YApemSB1gz97EsPmL57pyi8zpjf3fJD+V+2PrzV2
-	 PIVbUCJBFHML12Wozi5frrxK58PL/CPqMvJAzWiOixfvza7MrqYJRB/vRYkW+LBnb9
-	 Pt2p4ITMbclSYQl4lleawgEnm5AdyBkvOW34tu8RR7b+wGPVO4dRywdX6yk/Z0VgSL
-	 GFMyhxHgDiq+7QEeTAfQkhgTXutpxLur+Yye1yTuTLQfkIOvN0Q/eO3j7XCQIPxrqE
-	 +JL7oz0bTFKaA==
-Date: Wed, 11 Nov 2026 11:05:31 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Anand Gore <anand.gore@broadcom.com>, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	William Zhang <william.zhang@broadcom.com>, mfd@lists.linux.dev,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-arm-kernel@lists.infradead.org, Lee Jones <lee@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Kursad Oney <kursad.oney@broadcom.com>, linux-pm@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH v4 1/7] dt-bindings: soc: Describe the BCM6846 Power
- Management Bus
-Message-ID: <179441673078.3717632.4630154111518612765.robh@kernel.org>
-References: <20261111-xg6846b-bcmbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org>
- <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
+	s=k20260515; t=1794417025;
+	bh=Y7ij57NuwX8Ftb+4EjSLorQrBLofQzj0MU9Iha/PVcs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y4O3ODJNHMTP1fkYTqhrxKc2krie1Ptev2VoGnphEqrWu6M8BxB7UsVabwgtioyA6
+	 bJvbXWbjV/l6nwL6LC+KlfueDoWnD1xerikDSgnmj+7QPjwDs6zatTX6S2kq+a6mu9
+	 fzOf2DABMgqz6aVwrlJCo7fXrCJ9bI55HM4H1x23r7HnvtXyHrohvfZTcuENjxd8uH
+	 qx7ssWEjGVaui7pUnvPJ5BieqiG32B5glfoQjZ2Gb92nJzUAo3Knns6kIvZWyXDMUm
+	 pFgZTIeZUExxacK648XzWLFl/MKAcGpbggVOoipgQ3oszkcI1+VlDmnonubXZ7H2By
+	 g+WR0InTeWAQw==
+Message-ID: <sashiko-outbox-209381@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
+ board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pufan Jin" <cyan2254650260@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111162917.97532-3-cyan2254650260@gmail.com>
+References: <20261111162917.97532-1-cyan2254650260@gmail.com>
+ <20261111162917.97532-3-cyan2254650260@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 17:10:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,38 +60,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-xg6846b-bcmbca-xrdp-reset-v4-1-17035a5e8ad2@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] ARM: dts: zynq: unaddressed mdio child in gem0 triggers dtc W=3D1
+  warning
+--
 
-On Wed, 11 Nov 2026 12:00:42 +0100, Linus Walleij wrote:
-> The third generation Power Management Controller (PMC3) accesses SoC
-> block control and reset registers through the Power Management Bus
-> (PMB). Describe the BCM6846 PMB and its child controllers.
-> 
-> Add bindings for the power, clock, reset and PVTMON child controllers,
-> and headers defining their clock, reset and power-domain IDs. Include
-> the combined XRDP, Runner and WAN power domain and the zero-cell PVTMON
-> thermal sensor.
-> 
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-> I considered even just using the PMB but the PMC has more stuff and
-> it seems natural to let it live in a simple-mfd node.
-> ---
->  .../bindings/clock/brcm,bcm6846-pmb-clock.yaml     | 39 ++++++++++
->  .../bindings/hwmon/brcm,bcm6846-pmb-pvtmon.yaml    | 42 ++++++++++
->  .../bindings/power/brcm,bcm6846-pmb-power.yaml     | 44 +++++++++++
->  .../bindings/reset/brcm,bcm6846-pmb-reset.yaml     | 31 ++++++++
->  .../bindings/soc/bcm/brcm,bcm6846-pmb.yaml         | 90 ++++++++++++++++++++++
->  MAINTAINERS                                        | 12 +++
->  include/dt-bindings/clock/brcm,bcm6846-pmb.h       | 42 ++++++++++
->  include/dt-bindings/power/brcm,bcm6846-pmb.h       | 12 +++
->  include/dt-bindings/reset/brcm,bcm6846-pmb.h       | 11 +++
->  9 files changed, 323 insertions(+)
-> 
+commit 3898a396db65d191993e3c2e496f86fb25c55e4f
+Author: Pufan Jin <cyan2254650260@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+ARM: dts: zynq: Add ALINX AX7Z020B development board
 
+This commit adds devicetree support for the ALINX AC7Z020 system on module
+and the ALINX AX7Z020B development board.
+
+Link: https://www.alinx.com/
+
+> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/=
+boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+> new file mode 100644
+> index 0000000000000..472d9fcaafa69
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+
+[ ... ]
+
+> +&gem0 {
+> +	status =3D "okay";
+> +	phy-mode =3D "rgmii-id";
+> +	phy-handle =3D <&ethernet_phy>;
+> +
+> +	mdio {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		ethernet_phy: ethernet-phy@1 {
+> +			reg =3D <1>;
+
+[Severity: Low]
+Does wrapping ethernet-phy@1 in an unaddressed mdio node trigger a dtc
+avoid_unnecessary_addr_size warning when building with W=3D1?
+
+gem0 in zynq-7000.dtsi defines #address-cells and #size-cells, so dtc warns
+when its only direct child has no reg or ranges property.  Placing
+ethernet-phy@1 directly under &gem0, as other Zynq-7000 boards do, or
+deleting #address-cells and #size-cells on &gem0 avoids the warning.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111162917.9753=
+2-1-cyan2254650260@gmail.com?part=3D2
