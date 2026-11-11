@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413803;
-	b=iZBHH+uhx73SWQOsTUTPTEntHabqCioNPl2Z7WZuxw7PUac/YCqif4RNGrE3FqWq7Rxl
-	 kj/5A4yP8uGF4LkBe6dQdqSwceYnDc9KPeX+Jsx0C8N1SN0jiH6ExMOFUHyFenXYdEekq
-	 rhRagEh2Nw5yUiUBTDLxdGCuz51bOtJh8pRdUDvU3wHJwWZU6J6DfIBA06VR4RDQtThwA
-	 yp20Zw+bkZT0to7simOa1ES9XpLksoFJ8mKqjiWLnBC7AhMOAIr+PTwxzSbArbAIXmZml
-	 69eZrwIS4xVXnN+FDIF4+c5N6OdllIJ6xk92JESpvPkbWqazkXA20AYM2Oy4lqmleLA==
+	t=1794413996;
+	b=A9eXsQw9jlt+g6/2zKg2dOFekQAV2++eFJSz2yuXe0mxR36n3Ju2T8Pgimiz93c6aiL1
+	 dwlEAqi/96RSlwyY1mMgJqEvwSTmZIBNXZXTfABkINZsin+jGsF/hbNkZz+4+vI2a8jBd
+	 06QhYgq6iN6H/007pzEIYPvmhDFJ/NrlbM01RMxcC+wDaZJs1XtpDWurJA8r5b8BRaoaq
+	 JaqWlh42+blNLrWuJclq0vNsK/uaM/UXfWaoGh23nQ8tZimIZzASGBNR6nO4rgzOZDfRU
+	 mZC0d6NomN9QZ4cSrALvYmwXRjarhEYi/H9vvRcxGVfDzOXuWZ05elZax5T9nGS/adQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413803;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
-	b=B2MlaC55kFa2VJlvprpgZGoUOJUSx16yfCe+UzrMTMxSJWWaqDsitiE2yKNxfJEe6XIX
-	 HqLXYJIKLoD832fngjrF4iDLyVei/f9eYGNZXUZ+l9hmho7WqAnuXIer0jfIOAyYb7Q1c
-	 Ot86pa6b6OaSTZNnlve3FyNz1VRjpZ9HX9+xG5OZj/fw0WC5VvuJ7yViEj8J+uxymjTN1
-	 /4bO+KqHtAbfd/MuULNbKz3vhmXjEI9PmHi6bQef+8EZZ+fxI4o0dKWy52LXtgRXOHQVk
-	 14QZduaq9mdPm6/pJzjq34cB0KCYRExSfsYUcmK8BmVu3iCpRucH62aLFUBkpjEoJyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413996;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=44DfV0bL6HPYkPp0Ecl6fd5OA178t8+1rLF7XPfImuM=;
+	b=iqHFfnppYEr8UmR86oWuyGpxRmMkg7hWyhlLE3nj/559CC72cheXk2UFEh3q+/kYCBqn
+	 noQtyAXvfvOIWO1QTpXsFIAg49dq02PMm3ixiA7JmJDxn5+T7Foz1L1pD8OdQKcwDovdL
+	 o3/Id4Cdgb9f40CFLid+6Xlkz7weQb3Tv03GnCoNoi5j7RxYkNIcTS4QApCKEO4WNSBi2
+	 yRC6tqIB1zutpz6quhQbUA0VXFfMWRb8uqsy5UoBHWZpaoRKbrR9QhiL1HmCNIKSORo5x
+	 EhliGhNepCntpvFZIFVsc+Iai9Y+bLXAT/VIIlRAWog/zVIF+3lKV1VDAgs0bfRumOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sartura.hr;
-	spf=pass smtp.mailfrom=sartura.hr;
-	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b="CVimmv9/";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfdm5A7h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4B8606A8A9
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 16:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4B8606A8A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C9760A2631;
+	Wed, 11 Nov 2026 16:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=CVimmv9/
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so23431825e9.2
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:16:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1794413801; x=1795018601; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
-        b=CVimmv9/YyZU6AJwXGaip7fVyORgOVY9vHCD0+v9Wsq2yB1Mgho/tn/ThCTYFKNijG
-         oV0p33U2a1daomR19trtTfpeUBCWvFTNi4+juWIcEu4kjy3hQ9AurAVAfbuEBQh0qie/
-         3g0dDnORCF42d1HF4U+O4bx10ZDDeqbDtc/+bNWE68IhE2Dw1dB90XPgmcbClpwLelqw
-         se75rKSVFNADxNyHo4nwo2YKPPUlO+TizaKYzva+wrIt2vlopEERzC2WC/Aw3fVFU8v2
-         f5ctqoTruT+DUYX7023GtjqCUtLnlcE4np1oDxg3RJpbzwn9cw5iwvdZ6MdDjer2XkYF
-         afYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794413801; x=1795018601;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
-        b=dwwQMOBRXXTwJU6eazW77yvdRQdCeCH2btoAXWcVJlBXcaOG0sDK4cEHJCitBnHQVB
-         QidM3KwvTiRodXzpB6uTs4Fz42qH7bwYIsFeZeWLYUnH9YfchQ541m6NGENcPcPU23+s
-         voz8YdE69ZT74TbPGPoSNCqobBEhg/DDYpNPRVs59X27H24kBDcV4X2ClA2Ykr8Y+E3h
-         nx61QMklhKYKE8T9Z7Bz/H0f7+lRcve5IvPcGnfgRBA9u2TYDQ3PgwrweU1d33z2eSGn
-         LemXKOxIeU7JaX+JLScgauKyRObd1KSPjtcNq1rQdM4CzPDs9Z455PiEq8pUzG2h0cg0
-         XuCg==
-X-Forwarded-Encrypted: i=1; AL+hErGJqOklD6ayYFL1Tp55DsU7aYRdv6Awi7OwLif8CJWpaeOeggUsdDnu+fqbcUuaAAktuqSGIz0rQGtA@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BONx7i/wePyNYe2qjJVI3bbmI+KkYPc8F3El+EbOFys59E9GR
-	ApaK4xgvh/1tyizvBZSryHCjH9xHhqUSggOmkJ8vX9SdawdLrDcjhEIqLVRR/8JSHrU=
-X-Gm-Gg: AYBFou0LyuxjHPOIzK8OcJonPvX7iDU7icYifpFRv5jYe6vu0yw/K46I7tGp6lS33p0
-	wf5bx+AZ+rLeMfnDWAmncZjZLEcq+b2diOWQVjyC72AROXx5Wg3jg4O1WMeUY5xOzxW0jXf7SW8
-	UiU94rnMMTDPCJcPFSj/E+4pPPjGvWCIitX8cklnNvutFTdFiVFIPvp6VWpMCgT2KJ8dLLA7I3P
-	m6kAS1TB7eFo2LatIAHbDX2Xq55xi3+Pg/OSVPd3NQpxaGr3c1/E27KZCg2mtSh/0B/FYPu7oiO
-	AQf+WuhrHWhco8WhAw4uf92VA4VnlzcG/S8BqM3KBQuG07emmCJW9namBuJ7qnXG2Y87RFVNvt8
-	TbrUOiE5XP6vdRVJWP9HHdLQzvv/QGwrxgK7qp3j2EFRwlCzGCln41B9den5xTZfluGbyVdADvg
-	Th9wfVNW1yRRNYvNnuNQZ+IQmP9tESdUxHgXTXQFKl0iYN50LXQyAW58Kn5SlN0UzyBGGEA/wor
-	DU0ry79cRbo70TYthvyIh7RSgEGYHSFM8PWTmFQYcahuNKp5RBSU5Uqd9KQGuM0HaVgKFgrXFjX
-	bxDuFZyZQlz7aHTn56/GUGYcLrqSwrCIdXVE8LLNSuT9wZiho9F70ueS06PSBb12AHMKAJDboX/
-	SnDbHOu3mzBqCGVWcbuT0F/fhM/rULL/bPBf6i2QRfOC/Ttm4MVxolMzrfUIOLq52Am1D2OKkgJ
-	87CSY/rOV5sZedXbu7udmNWXUQg0aOCiRYMNy1/H4fqlDL
-X-Received: by 2002:a05:600c:1986:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4ba09379b69mr50759305e9.8.1794413801590;
-        Wed, 11 Nov 2026 08:16:41 -0800 (PST)
-Received: from threadripper-fedora-workstation (d-zg1-240.globalnet.hr. [213.149.36.254])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c52fd01sm8374925e9.4.2026.11.11.08.16.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:16:39 -0800 (PST)
-From: Robert Marko <robert.marko@sartura.hr>
-To: linux@roeck-us.net,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	nicolas.ferre@microchip.com,
-	claudiu.beznea@tuxon.dev,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: luka.perkov@sartura.hr,
-	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v3 4/4] arm64: dts: microchip: lan969x: add fan controller
-Date: Wed, 11 Nov 2026 17:12:48 +0100
-Message-ID: <20261111161619.232141-4-robert.marko@sartura.hr>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111161619.232141-1-robert.marko@sartura.hr>
-References: <20261111161619.232141-1-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfdm5A7h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44471F00A06;
+	Wed, 11 Nov 2026 16:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794413996;
+	bh=44DfV0bL6HPYkPp0Ecl6fd5OA178t8+1rLF7XPfImuM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mfdm5A7hJTz/OLhPk7a/A6xxBAGkInGaTECbYA1+4nh07RbKH900tnmi/4RGbIRze
+	 iOqonH/hUJCLKzPRxGnckwjZQi9VpFEIn1+jSeUhDjcV8MClHAlsn0kY9E+KAfGAzb
+	 N3mPrnbA3YMG97uzBLieJxwqLGOXD0lOgtbsWBBs+5yuwJiG9Abvc3XKEx22ZFiz7r
+	 AIbq7i8/af2+L+3TxRiRhKDDhRhWqmNkTegI13JN4WyQfR3yifYZVfMF3nq1pSkK9J
+	 WioB1LY0L1Yeih4BdPe5FErB6zDv5M58dlQZqOxH9otBIt0RHP6ZJcxgPxwuztRr35
+	 eYQ/g+U6y+pEA==
+Message-ID: <c724e3c3-7acc-4c3e-8410-426c7ca6cf19@kernel.org>
+Date: Wed, 11 Nov 2026 17:19:50 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,68 +51,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/15] dt-bindings: nvme: apple: Add apple,t8142-nvme-ans2
+ compatible
+To: Yureka <yureka@cyberchaos.dev>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, iommu@lists.linux.dev
+References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
+ <20261106-apple-dts-m4-m5-nvme-v1-3-22f4827b4ece@cyberchaos.dev>
+ <20261111-comical-quaint-turaco-e8c1c2@quoll>
+ <fb7b4ede-a325-4c5e-a37d-fe3cc7a92f87@cyberchaos.dev>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <fb7b4ede-a325-4c5e-a37d-fe3cc7a92f87@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-LAN969x provides a PWM fan output and tachometer input in a register
-block separate from the temperature sensor. Describe it as its own
-fan-controller node and keep the temperature sensor compatible.
 
-Connect the EV23X71A fan to the controller and route its pins. Use a
-25 kHz normal-polarity PWM for the board low-side FET. Set cooling
-levels so the fan starts at full speed.
 
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
----
-Changes in v3:
-- No DTS changes; renumber from 6/6 to 4/4.
+On 11/11/26 15:32, Yureka wrote:
+> On 11/11/26 13:46, Krzysztof Kozlowski wrote:
+>> On Fri, Nov 06, 2026 at 10:04:12PM +0100, Yureka Lilian wrote:
+>>> "apple,t8142-nvme-ans2" on the Apple M5 SoC is compatible with
+>>> "apple,t8132-nvme-ans2" so add its per-SoC compatible.
+>>>
+>>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>>> ---
+>>>   Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>> Squash all nvmem patches. Don't add compatibles one by one.
+>>
+>> Best regards,
+>> Krzysztof
+>
+>
+> Hello Krzysztof,
+>
+>
+> (replying to all three of your emails here)
+>
+> thanks for your feedback! I did run `b4 prep --check` and `make 
+> dtbs_check` before sending and it passed without warnings on all 15 
+> patches of this series. I will now also run `checkpatch.pl --strict` 
+> as you suggested.
+>
+> For v2, I will make one commit per type of dt-binding, so 
+> "dt-bindings: nvme: apple: Add t6040,t8140,t8142", and then "mailbox: 
+> apple,mailbox: Add t8132,t6040,t8140,t8142", etc., ok or do you have 
+> another suggested grouping?
+>
+> > Please stop inflating this. You are only making it difficult to 
+> review your work.
+>
+> It would be appreciated if you can tell me clearly what is expected, 
+> as this statement is not actually telling me what is inflated / wrong.
+I think you already understood it: Just one commit for SART, one for 
+NVMe, and one for the mailbox bindings that each add all new compatibles 
+at once because the hardware (likely) didn't change and there's no need 
+to explain what's different from the previous generation.
 
-Changes in v2:
-- Split the fan controller from the temperature node.
-- Add the EV23X71A fan child with board-specific PWM and cooling levels.
 
- arch/arm64/boot/dts/microchip/lan9691.dtsi         | 7 +++++++
- arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 8 +++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-index 52c22dd1a15d5..039c2014aa341 100644
---- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
-+++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-@@ -522,6 +522,13 @@ sgpio_out: gpio@1 {
- 			};
- 		};
- 
-+		fanctrl: fan-controller@e2010348 {
-+			compatible = "microchip,lan9691-fan";
-+			reg = <0xe2010348 0xc>;
-+			clocks = <&fx100_clk>;
-+			#pwm-cells = <2>;
-+		};
-+
- 		tmon: hwmon@e2020100 {
- 			compatible = "microchip,lan9691-temp", "microchip,sparx5-temp";
- 			reg = <0xe2020100 0xc>;
-diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-index abb21a8bace9e..3cbe5beebce1d 100644
---- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-+++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-@@ -775,9 +775,15 @@ port29: port@29 {
- 	};
- };
- 
--&tmon {
-+&fanctrl {
- 	pinctrl-0 = <&fan_pins>;
- 	pinctrl-names = "default";
-+
-+	fan {
-+		pwms = <&fanctrl 40000 0>;
-+		cooling-levels = <0 128 192 255>;
-+		#cooling-cells = <2>;
-+	};
- };
- 
- &usart0 {
--- 
-2.56.0
+Sven
+
 
