@@ -1,67 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411055;
-	b=bq4Yy02YG9g/o9adewNCXkz/nBBvl70N4iTCb3zQ9J3/AqsjtfwKTjkg/dl/xrDF8adC
-	 WpNNGzdm1POt1DFCbV1Q1cvUPWzJjDf0MBV0mDkCv59sSSxBSXN7Z4ngXZ5DF9ca7EIAQ
-	 94JeFVHPLeVU2KVnC8nPDnmtVTmE7stSIOF60IuYDuxQDvsOaNaGrWun9zKLlrxV5x9D/
-	 sAtzTEKgmcGK8fgOFCGLzUFkOjZO6PIu6ybKHaDelOqRFw6ttSeZOm4B4vGzDi3o2r3Oj
-	 GsZ1uvxFjsQyqFeWj/98ATarxPpq1Bx2L/MYcWNvQ06VvTZ6XbTujRg3pnknDvV2bFA==
+	t=1794411167;
+	b=OKjP9N8kJ/3ZRzia+h9SYUt4OcEqjJz8dFE//0tcChPdDWCiRKo+MfN5AMUTJBT3VI2G
+	 rpR/58skJ32hr10t+2bItB6ob7Bhe98mSAglaVNpVVpBoAPF79odqG15Y1C8FgkrOpuTe
+	 IQhrZxB8aCXBoTkwGjWc3JbCICpY/kX8mIPfmwvqZZGSP5TodNcihGLaZ+xtrb7986Spd
+	 8OVKhnkvoOq1SLhuZCIiBwbVEHMY/ujc3Ls2bH+hTpbtj1EKIOjucG3nBAH8UqqsvfbRs
+	 fk/QVeONgV46smq445f+nTc25XPKE0r0lk16eJsX5UavrcgHE/fDUSUGNI5pRrliIAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2qK2aGIye1HX+d13MbJVaOFMfu42XDmA8K7eVHsgcko=;
-	b=yVnoupEbtzGLMTR8F+UP6rgCOZsBtcR4ZPxBDfp0nTe/glQPtcyAC076vMIAHnRwiwlb
-	 fiQoQC1yOblvDW2F8XF83OxSH17M6KdWUtIYh7QtAg5mVUCHRej+0hV9DgaBFQKGRS1eK
-	 bLW20U9i3Un/O7OBFPmnD0TtGi7yhtEi/wAYNCAyVFNKNxNbbr/7Lk9jTk5+sbxRNlM6h
-	 4nVoLiQ8zbt/nHFYgSVsxBdUuT4dAYhbBxRCxpauDkaxH+m+bqNRPRZEbXo+VEd6puT7h
-	 T2P4wDEry7NWukW6O9ipFUz/bVoqHoIJHLlVuXK65KjBmhUGYCsrcfO7CpzjxJqm9IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411167;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=oW2oePIVMpvmgLR7kolZOXxODPLhfbq5G4G/DPiGFWt/uh3OYfazvpwyaJ/Mp4RTv5qY
+	 unxnetygms9an71WqqmGWChUQ0cU4xyqV4Ep2BrFCyeM2qYwAREVeK9Q4Y6/tgdQbbLq7
+	 r3nJx2AQYXWgDThmFlvyTvvVHr2Xu/WM4o3w6VKscwQ0lHUXzQ5iARcZJQez50WTa8J1D
+	 gNEMrHVsaKb2WP8C/z6ATIhSPVSG9DX4+a3hvTq/a5+FVwU0ocvL5NlRXtmzi/uynaUVf
+	 4sJrCWavy0b20OSEj81Rb9J6jddkeCM0tXKOVHtBCDRu8WwhEa6CKSCgCHJu9shE2pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZceZ+7Nr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64C7606A321;
-	Wed, 11 Nov 2026 15:30:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A5E606A324;
+	Wed, 11 Nov 2026 15:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84A5E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZceZ+7Nr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 161A11F00A05;
-	Wed, 11 Nov 2026 15:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411055;
-	bh=2qK2aGIye1HX+d13MbJVaOFMfu42XDmA8K7eVHsgcko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZceZ+7NrP14MGcOiFM03sWRRXENDOZXhRkrZ4/QNcwj0xgc1F2yz+EKuOVWVsLofE
-	 u0OHQ8NXUqLQ7+yp1A6dFg68NjW6YMDNv3IeeCbWh5CiU1Tz9xHU5zG9U03lSQiORd
-	 KJw2bdKFd96en/Ce4PI72efbnUG+P3uu9IrQO0ebQ0TQC1puayuZbQVxlDKOt0YmPF
-	 MQnqVaIXvvxEWhqoeQyNCRlEN6SJVxpi65+6a65b+dsrtXNiXMStsIYpTIMxMXoo00
-	 d8lX5ioZrmSNmSC0zdXs5BEYxoAz3VnWjm5ueWZPbzPUopJxulr4J++5L1VROtFWwk
-	 i0z027nC4re2A==
-Date: Wed, 11 Nov 2026 09:30:49 -0600
-From: Rob Herring <robh@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
-	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v9 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
-Message-ID: <20261111153049.GA2640564-robh@kernel.org>
-References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
- <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
- <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AA9C721EA8;
+	Wed, 11 Nov 2026 15:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
+	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
+	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794411164;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
+	2y6hNGeoeptzqlBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
+	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
+	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794411164;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
+	2y6hNGeoeptzqlBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DB441339F;
+	Wed, 11 Nov 2026 15:32:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id oBajMZuK9Go7UQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 15:32:43 +0000
+Message-ID: <57163572-846b-476d-9a90-f28d82598eec@suse.de>
+Date: Wed, 11 Nov 2026 16:32:43 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,38 +106,124 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
+ simple-framebuffer
+To: Hans de Goede <hansg@kernel.org>, Sebastian Raase <linux@sraa.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
+References: <cover.1793758480.git.linux@sraa.de>
+ <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[dt];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -11.79
 
-On Wed, Nov 11, 2026 at 09:14:32AM +0100, Gregor Herburger wrote:
-> On Wed, Nov 11, 2026 at 09:02:19AM +0100, Krzysztof Kozlowski wrote:
-> > On 11/11/2026 08:23, Gregor Herburger wrote:
-> > > Hi,
-> > > 
-> > > This series adds support for the Raspberry Pis OTP registers. The
-> > > Raspberry Pi has one or more OTP regions. These registers are accessible
-> > > through the firmware. Add a driver for it and add updates the devicetree
-> > > for the Raspberry Pi 5.
-> > > 
-> > > ---
-> > > Changes in v9:
-> > > - Fix sashiko comment and use fwbuf->count instead of bytes in memcpy
-> > > - Link to v8: https://patch.msgid.link/20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de
-> > > 
-> > 
-> > Big series sent three times within last 24 h. Please slow down and give
-> > people chance to review your work.
-> I sent v7 with a missing commit and based on an wrong commit so Sashiko could
-> not apply the series. Sashiko found an issue in v8 so I tried to fix it in v9.
-> 
-> I have the impression people are not reviewing stuff as long as sashiko has
-> issues. So I wanted to fix those things quick.
+Hi
 
-Like many things, depends on the maintainer...
+Am 11.11.26 um 12:15 schrieb Hans de Goede:
+> Hi Sebastian,
+>
+> On 4-Nov-26 03:34, Sebastian Raase wrote:
+>> This patch series adds support for monochrome framebuffers (1 bpp, packed-pixel)
+>> to simple-framebuffer.
+>>
+>> Monochrome framebuffers require far less video memory and bandwidth than
+>> 16bpp or 32bpp framebuffers, making them useful for small devices or FPGA
+>> implementations.
+> Thank you for your patch-series and I see that Helge has just
+> applied this to the fbdev tree.
+>
+> Have you considered also extending the simpledrm driver to also
+> support these monochrome formats there ?
+>
+> Most Linux distributions now a days have switched from using simplefb
+> to using simpledrm.
+>
+> But I must admit I've no idea how well the drm subsys / kernel-mode-
+> setting API handles monochrome formats.
 
-sashiko found something on every patch? I only look at the binding 
-patches, so it is not going to matter to me if sashiko points out issues 
-on driver patches. Vice-versa is probably true too.
+Only kind of. We either support it natively if the compositor can handle 
+it, or we convert from XRGB8888 to the internal pixel format. But our 
+helpers for converting pixel formats expect 8-bit per pixel at a 
+minimum. All the drivers with lower pixel size do some kind of 
+workaround. I'd love to see better support, but had no time to work on it.
 
-Rob
+Best regards
+Thomas
+
+
+>
+> Regards,
+>
+> Hans
+>
+>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
