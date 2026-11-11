@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794392835;
-	b=JyzHUTXzqO0lVJufEUHlhblAA3YYncTzqdf2Hjh8T0vzyWiQB0Fqizb0ppucEX68ZRmM
-	 0rN1RZKJaboJd4gMfAXo24UNjzmQfr9lzc+WUpy1hJKf1FwXwqsq+qYvRAAbEN7dcRMbu
-	 1vcxfrcCvitQ8oh3pWp5mYuuA08td8iRNedlLwCneSk8RYoDNP9F+DKvC1lq7lMWNNSU8
-	 isOAmPdAKpGXiPS6L/gIlGu4Ne+xTKN9Hbh5YMAw8vukfRSWMB5gBdSt75B/hwlYAnsvN
-	 Ug41yDNclS8w1y7VXJaxY5hZzmR+MJ19DkXf6nmBp0zuFP1bHL7vtDWHOuXb1JPUMOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392835;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=;
-	b=gLwGHUmIdx4rsxdwpWsHCLUOuTPDFbdjVzEQBu/BcKbe8FBsCJZ7MNOgX+BAiJ/3SrEK
-	 eM7g1o+kCYKb/COglKFsxnoYqanOkJfG65IjjpZSXuGa2VhgZFQob5+K+Dems6AbTv50c
-	 8ZZx6E3bTBzfNjHjcO85fw0fhhzL3NIEuU9uK4QpQnqYsHFeXw8rZ61/7l8EFXsiMfd2q
-	 /OiDiAYDFcTf/bc9mrMiYD5bDQa1Fkpf7mVfShqgKyTZmeM1icPsfZklL9c6Hua/tOsbB
-	 cOPtkdrgfrYXON4YuLOgxJe9GS5Z/wERGEs3d7wtX/3gy+06tDY3kZMX+X8Z1CiUYgw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794392894;
+	b=iJWYFu25nVF+ab6VhTrxFgILhVzDcZwF0ZEGr9f+bomjQNMDNqeBBo3vn1MW8qwgKNCr
+	 j7kI9kNgdM96akaaLZa8DhiuZ4JyIFuEYnfysOU3n32unIJEfctgmZHFHx+t5mlVQzVnL
+	 wAPb985q3btCa/gA+jBL65UGyYT1GMgqEBXCLlRlMeLBHBqJi/Cr4zrZU7l6/CaYomibb
+	 op3EvzgIJZlgq4rIjVTRtDg2PQGZjuN5/GONJAXTTWv6aQbj1CVQsuktlq2SI0c300RIn
+	 W4Jgev/u0JWW+Jto9dmpVczMCXaiXpsu42YjwGBY9kPa1hZvBjvzrviW/kBVQsL/CtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392894;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UFoLO/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=;
+	b=mvt1OCUQiqDmF45u1gPklgnYnm4FadWF5jO9KzJWCOgdWsTalTBUCGF/lmkhA8exhvWX
+	 CyVjGhW4M51CkjXD+ozxZVyN6S8PZQHmK4ys6TNT/ig52yaX0xJANS43CZ5NjrU9My2Jr
+	 9u2Fl7etJmJyxs0cEPH/mdXt78oKJoE5xoMBLYt9rI+R4jBDH7cenxtT1AVNfjZ8Y7n+S
+	 arMPMa7TGI8+BOVqo46SUVhWAzhrZIGb5g+CN9DoENVr/LszgA52QQL8OU6yXoZX5Ew2G
+	 TwSQpNaEVJxx6LtX8XJT9JTTSIla7oSjgVt7qW71TzBxeSzXprIXrJKy8Do+PJX/dMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC1E606A31C;
-	Wed, 11 Nov 2026 10:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FC1E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A3B606A331
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:28:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24A3B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi
-ARC-Seal: i=1; a=rsa-sha256; t=1794392820; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=X/HX67F92GhFRj7qyinZmwx/H96yrqVKh3qzZ20sgUcU7Bq1EzlL4LwKbanj16DaHIeAsfl1B+qcOUKXcizeVDto7mVnyPeb9dgTMese2SySaXW1ka1t9lhlN5Y+3CSRxekdfQgYz+oHyMlLSu0jRqR//hXS8AZbXWHAvWjoI0M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794392820; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; 
-	b=fwDqvphywJ3uYhLeRoF5hlcNDhVwtmYKj+nvlJei0yPlkZDg9A4tiAZKXH69aS5hneBpcZfV9cMpkqr9nOp23zSTyrLLRrN8YEby+YjzvNa3APgIz0pqTH/UC1hjuQV87+GimXIrKW594bKrR5Vbi3pkoloHftpi0cIplmKMhfc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=J9OSvhXiOr8lL3EQgkc/e/NNi3TnxQ3XlcIW5iQ8G8O4YIpzmpfsofd64NZF96sK6sewXhziyjoWP4mrKydKsJxgtjUpg2plbX4qatreUxLCiOELTmxBkVvc01H9QyYa6GM54yi/P/dU+zcWbFQIIN633UnCFgJ4GRxBmIgIc3mpxEXXdNxdsf74Nvk+CH7nUy6EL5EwtTsi9ih7WxFgsjBDvLUaN3jnfb+Vxy/NmmLDgKgqeJEk11+N8VYRGRJRlQMUh/809aREBoWNb3QBbvydxClqopz9L0FHDHbTFBwP/IGHUIFYf/LnxVdk2xdAxDAeih67xe8Q+Pa5XczMgw==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794392818762580.4241612026577;
-	Wed, 11 Nov 2026 02:26:58 -0800 (PST)
-Message-ID: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488:
- make the port optional
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Romain TISSERAND
-	 <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-Date: Wed, 11 Nov 2026 18:26:51 +0800
-In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
-	 <20261109160706.2272332-2-romain.tisserand@gmail.com>
-	 <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=UFoL
+	O/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=; b=ahJkmHjcaauoFZIGscNZ
+	Rb0iiLRERHmHMIMp3HT6/ZOz81NXw6AWqSN0g+LY4KAq6ewLqYhHBqKrv9+u541o
+	yIkalt90fhUtR6dhzV1pzfy6eZbd/pn29p+R/q2WhJjtwN66bfCafCI46pQOtFE9
+	1ii+/C3ijdeR8RUwiFgYys16LiDuUVtk1LEiNqqtXk7pZjrHbBug2OpSUvbH58yp
+	wdv8BlL13ybvDFUs3NVhM0FZnO6Kwbcmmj2MxvhfGqMz7cXg20D1cUX0MxEaoBox
+	s36BG5sYjQ9Trepqssd7alH8EaC2H5wfQ2RCxaH4EkODjog48ynOxKvk/YTv5sLJ
+	Lg==
+Received: (qmail 570348 invoked from network); 11 Nov 2026 11:28:10 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:28:10 +0100
+X-UD-Smtp-Session: l3s3148p1@2aLUpv1fHsAujnun
+Date: Wed, 11 Nov 2026 11:28:10 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v25 07/11] mmc: renesas_sdhi: Add tuning delay support
+ for RZ/G2L
+Message-ID: <avRDOl1O5eXkbX6V@shikoro>
+References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+ <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,59 +72,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LxrXcrfTQN6mcX3w"
+Content-Disposition: inline
+In-Reply-To: <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
 
-=E5=9C=A8 2026-11-10=E4=BA=8C=E7=9A=84 13:00 +0100=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
-> > The panel is a MIPI-DSI peripheral, a child node of its DSI host,
-> > and the
-> > driver does not use a graph port. A port is only needed when the
-> > host
-> > links its panel through the graph; other DSI hosts, such as the
-> > Allwinner
-> > sun6i-a31-mipi-dsi one, link the child node and have no output port
-> > to
-> > point at. The PinePhone panel is described that way on the same
-> > host,
-> > without a port.
-> >=20
-> > Keep the port allowed (panel-common) but no longer required, as for
-> > other
-> > DSI panels such as ilitek,ili9881c.
->=20
-> ilitek,ili7807s and a few others have the same and it is confusing.
-> The
-> port should be required when this is connected over SPI or I2C, but
-> not
-> for MIPI DSI. I think that for MIPI DSI port is meaningless so
-> actually
-> incorrect.
+--LxrXcrfTQN6mcX3w
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
-dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
-even if it's the child node of the DSI controller.
+On Wed, Oct 28, 2026 at 12:51:24PM +0000, Biju Das wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G2L and later SoCs (RZ/V2M and RZ/G3E) need a hardware adjustment
+> delay written to SCC_TMPPORT2 on signal-voltage switch during
+> tuning: 0x1 for 1.8V, 0x0 for 3.3V.
+>=20
+> Add a TMIO_MMC_TUNING_DELAY flag and
+> renesas_sdhi_set_hw_adjustment_delay(), called from
+> renesas_sdhi_start_signal_voltage_switch() after the regulator is
+> set, and reset SCC_TMPPORT2 to 0 at the start of
+> renesas_sdhi_execute_tuning() when the flag is set and tap_num =3D=3D 8.
+>=20
+> Add a dedicated of_data_rz_g2l descriptor with this flag and switch
+> of_rzg2l_compatible to use it instead of the generic R-Car Gen3
+> descriptor.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
-pro.dts .
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Thanks,
-Icenowy
 
->=20
-> Why was it added in the first place?
->=20
-> >=20
-> > Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
-> > Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> > ---
-> > =C2=A0.../devicetree/bindings/display/panel/ilitek,ili9488.yaml=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
-> > 1 -
-> > =C2=A01 file changed, 1 deletion(-)
->=20
-> Reviewed-by: Krzysztof Kozlowski
-> <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> Best regards,
-> Krzysztof
+--LxrXcrfTQN6mcX3w
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0QzoACgkQFA3kzBSg
+KbYHwg//WaJ+AmtoO2sQG9kq3fSF0VqC8Jm2BspR4uJuGYm99ZXjEaqMBLjEOEK4
+O4kyFkT8fZdpL27J6FWySQTJo2tu8io+0xSVOGdJqH/HRp+W4/zhzPxcNXmoBJh0
+vn4I1liUsdaluoxMoXM7jgdvHSrHssRoFJXWESE+bl+k6JFulNvRR5TYcbH44DYY
+xu1+YFSkI+hgGrRP8ifr7hsjhDdlJMtxsYykU6Lm2TPjMsUNsoR59WdbNWX2TnHi
+rKlMgNfvum8qxcJ8//KMDijp9QEorxccH6QAGe8hJ1eyBK7Eurvv9Hf6J4y3jdSn
+ZK/4lWQaHsmCZUCP9sZ3yfGheTzq5aMW78r3NfvA+mFZKA++Sm67eiaHeVaYBLdi
+DP+ZuuIpZJBlzkyb+P/KBLp/yQCRjV6OMMEu9c9RKI3NpvGEFlTZaFHlGKmsVFMn
+BpFALILwgxxzjqS8/7MSU0vJTxOhtvYsjX2s2iB3b9NcyiSakitPkIz2LBsJrt6y
+MCgIQrI16zhWMY+FfYMsB1OdWNIJoONWZB1etrF/YElHs2vNC3OvzxNDfdGlESN6
+GIzuC2e8v/3xI7YNyDYdF0H2f6tObUNKIIVNaIYaSzwAs0Jodn1OISlatE0qxxW6
+AG9xqVNIGaQ2ZfIlUOE4VEp4j4fn9ZjnjUpf/9eGb/FyYcjXZsI=
+=tmOV
+-----END PGP SIGNATURE-----
+
+--LxrXcrfTQN6mcX3w--
