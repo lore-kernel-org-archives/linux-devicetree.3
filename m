@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425919;
-	b=0Dhbuxj3/8zSaDWNOnS9KYvukzNvw4TFCyjB7O6o+FohyuvSw+4i5BJvw3U2oH50a2Ho
-	 NxtKkTY++YC794f6uJrM1OT/4cFjwIYhocWz7rnrQu2E4Z+ypKfsLv8jZCAqHNCQx/WZI
-	 Yhc952cHbB/8j3EqeAAKEuO3wtRilpkLmCpzmMdPjnaKGmsJDtfzPtzn50OfSJXef4dpV
-	 CTqhrh/CPpzmERyq0pG6XNeS5hDELYH/q+znEev19nk9gnmwjsZ09TDOvvSWWTMKsMEWI
-	 xrssFXHss7ajn3FEyPpHey8geHmCeSbVas0B2WUzaKE35eWVN/0eFkuwMNbt7HR0cJA==
+	t=1794426019;
+	b=yom7XJuLXORjbmQCz9oeSVEm0TiMsbpG7amusP7IK2114KqfSpb9Fv7MC+Uf6vCZ8G1x
+	 Lc8w3WK57MDkG98ExRB7lFpi9ZfBjr0vC9RxriPE9KWgOPAZy7UwPH2G2AzVzHYFuGStt
+	 SEow8Gl9VTkq7McuFjRsrk4J/+Mxfd6W2LIelX1QpIEjLB8+LTHtPw+Wgx65RTYrw8GeU
+	 kWuknBwy8MuJyQHylp5nwEXiQox/bK/AvCWw+x6LSRBfzb3SLYgAEj1dQW/jXotHMvpOw
+	 q4Gi+sAVnjdoQ89IhU1bTei3CmhJgYn+hieFms1+e145jMT4tjxjeBd9OeJsgoa27iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UgemrjOaWZ2A85yJM6JRsBPML8uCzY9gPVtlKFZpxk4=;
-	b=iGRoKjQyWECuPR9plT7/HaFBjqjyKaLk9egEvXvV9HT2zvRlScwETq2zbwUMPhAW8fJh
-	 5JEqmAIiZkNQ6xlZT8N1jmz5enek7GScJl4x7UEROiDbHADG1n/nGPzjaf4bajCjU3JJm
-	 E1MwO4c5QhTlFNb+9coaR1rqrLf7LlVcIRzNEirblvPVTbqL8AHMGNNfEhv9JVOtwcUnd
-	 R+SiXfG/+E0GKbIaELscxv8KzBVT0ujmGiFQlUTZUoYUCYU4U3H7VkA9U3wDtRJhGxk4c
-	 pUXSLO/PvxcrZq4wG5W80MhW26F3dEr1NncJ/pJ91lK/y2CDSRzIxEbcczWY8PHJxRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426019;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=WXrjfOZ4gvp3OJDwPgDdVpkcS64EwyB9cy66b0IxTFs=;
+	b=aC+QXuOpE3/SoJoB6IoKV5w/c4dMC3E2hhvzI4+0xIzTA/KZGI5kl0lYRnfiWmvyo/xa
+	 tOLnu5bw4J0Z5OBjbdoMu1sLUsZ6gyYNRYUv4Sfka5hpLlhMg0WPeTZcgq5BCbcQBMpwI
+	 Owpyyucsp3CYAjHVrjMpDEaR+sjku4yBRuo2UTBIkibvvm9wtksgGhNf1OUaPyrkNxnal
+	 Br7d+qq28zhKEctHWTTFoCZtjuK+ePwI432PmrhoT19i5t9zuWwjrSNPMzCRGN+X1BrUm
+	 UJmjFV010Kl/Q+Xgi4D+OTACzrUuBfLVplOhjeCanZTq3jrCO4eqpYzym1uulP/Vclg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzjwIu+3;
-	arc=none smtp.remote-ip=74.125.231.136
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ36mWcE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2694F606A327
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 19:38:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2694F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E6C606A335;
+	Wed, 11 Nov 2026 19:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzjwIu+3
-Received: by mail-oo2-f8.google.com with SMTP id 46e09a7af769-860f0ac44a9so484854a34.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:38:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794425918; x=1795030718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UgemrjOaWZ2A85yJM6JRsBPML8uCzY9gPVtlKFZpxk4=;
-        b=IzjwIu+3f1t5K1bR2rw8Mb5KZmw0vFtUOL59nANWu7+867ENtdNEXbD/XA8Z2DyuwJ
-         cNCBOjI/QBahzViGurtDbwMt6XC5A6c4BKOXCfTo5FqNBd7MCLSM1oXJu4ssEmwbjiVa
-         fVroBG4FF1U3HwPvSKLRmg37nLijCfKiJmExZeywUOKowNIiyRsfz9wnof2ZzFAlv9fP
-         Zb1gaBr6CzLTEFRihhGb34MfvWCuOdOWv2tBZG0CKEWhK8oCP3Z4816MxSECh+iqm07J
-         3GFwtqf+LU/Ibzn4/NEzbEVQsOSh1DdnIak4lsr0ZujR8XzJF8+NX133PfwlNoExtpkl
-         V/IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794425918; x=1795030718;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UgemrjOaWZ2A85yJM6JRsBPML8uCzY9gPVtlKFZpxk4=;
-        b=J3G3NJ6IkbUeZbqBThxdsReDDxCT5DB1YWNekaRlFsDoD+i2mVcNjjEEbl1gfa1cav
-         6/P0zOjanDwbJDF2W4ytz9jRiBdpSsPNPxh9zRz9iv/L5yNbfwd6WYBVgvv/X626mwQR
-         6j8bYRwGyXI35maPQKPUnlz2wRvjcptUvlM0/R2/JK4U4fh1fr6icZHzOraAJCMhZGFg
-         +2l1jOwL+ydZe64iVZSXyVtP8Dcn97gs0iWmxAKN0xqWf5dW8lhpv9fuUD/yasjEP9Jw
-         zPumIQv4GnRDR8R5CSORpQeqpO4v435o/Q1YsUpiwnYpmXoy4st1xJJqghBCd/3siEPT
-         ZDMw==
-X-Gm-Message-State: APuU4Z8I7iyF26r62KzUTqoBEXD/+CIo7MCHBhZrkAVQfWeXJRVPA6ft
-	08KURpYN07dp7w4pHVBrg2udXBhHfKqeGcNRAqpx54ndsIoBFyc41rgv
-X-Gm-Gg: AYBFou3APlpPyj7KTWIRwnT2182m1Y/BAQ3cZA5z9Urp8YCLzOYDXTxGonqioFzyA6E
-	ooZ39Ww+AaldpUyB7S5c6LEOM5g+Ky7DdMMy3juStm8IJdXkNlJSR1OC3NGksIqxH7K1eWFLIl8
-	AnAuE1UkoL8qABw09LavUKnjcbDcEA4wU+voSSIhlA3XByspZruCsXgPgCVs/we5O+WruLwV32T
-	RlGhr1x12KGrU647Baz66AiXSHJQ8AjUFqHfrrUD5jmwHTqokEQdpeDcp5OZm+fCzrOjoVNpFYC
-	m+bx0qSqE+/iuRreOeGjYC0RpwEshITxDQ4ZY9oFvPa1xgFJuBRhh8GhaGnYZjbYnWqsSSHwEp5
-	ytIWLXLZoPWkFHOl9/Y2Y42/b/smbC5ao0rZHA+A4PkTONqqEJbRP/MZLNIYomrIYJmKOkNUpeu
-	QW8z0HChPe0KudZ7cUmfqgXlXRJpAVVch+LL8kbZbTRGb3WppoNO5ls7v1Mp7uRnThD5hXuQbd8
-	gBnuClRmwDDwhagnJjmQpG0HUiRBK0tTyikwsa5Y1SXO+irQCs/DSQ85L8VDxMnCAxztvlopvvu
-	Sha5MINMZcvZwXE+vPhRSvlD5rebV3oUpWrfTcdco/tp2K5Uxkkc7nw3UUUdQsz7ydjwls4C65t
-	FmkCknK4dxF19EwlPOdc=
-X-Received: by 2002:a05:6830:640d:b0:85d:502e:a26a with SMTP id 46e09a7af769-860f2848713mr3424226a34.14.1794425917990;
-        Wed, 11 Nov 2026 11:38:37 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcb5f7b4sm5098512a34.4.2026.11.11.11.38.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 11:38:37 -0800 (PST)
-Message-ID: <8e18dc61-4d6c-4da7-bd06-d547afc5c545@gmail.com>
-Date: Wed, 11 Nov 2026 13:38:36 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ36mWcE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD7E1F00A05;
+	Wed, 11 Nov 2026 19:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794426019;
+	bh=WXrjfOZ4gvp3OJDwPgDdVpkcS64EwyB9cy66b0IxTFs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=SJ36mWcEMXVH0JYNMl9AizIREo7Z1QQxNFLaxAGkTl2AbXMgjAKzdBAY0qqzkGMhR
+	 yoQk1t3a/CQmp/Y+a5E9MsKu13mDny5vj05C6lc8iYrZTvzQk0L+ohc5UXB0/iymG+
+	 kWmC9aYhI+HtkgNtiiADlIm/fhIE4LSC1TBD+BiR2rmwr9hJVopnFnuGAnMztcdYb+
+	 raEX+3hPpaIqy2/cZGaF9YqGInzuv5ZZXFpczzcjMnmxI7y8+0BU7Yz54RZtdUVdPP
+	 NEZuJFlflI6DSSHRte0ozs1j08jwFINydc08SGF5zedsW2m6hk/NXZemhio3Htzt3k
+	 bEntExIZ+bOag==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210BA38003BF;
+	Wed, 11 Nov 2026 19:40:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,38 +53,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: mediatek: mt8173-amazon-suez: Enable the
- volume keys
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com>
- <20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-4-77b47cdea702@gmail.com>
- <sashiko-outbox-209564@kernel.org>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <sashiko-outbox-209564@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 0/2] Use platform Bluetooth addresses on Broadcom UART
+ controllers
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179442601766.1604530.10253398492524205694.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 19:40:17 +0000
+References: <20261110-brcm-bcmbt-mac-v1-0-c68003a06f64@kernel.org>
+In-Reply-To: <20261110-brcm-bcmbt-mac-v1-0-c68003a06f64@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-bluetooth@vger.kernel.org,
+ devicetree@vger.kernel.org
+
+Hello:
+
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+
+On Tue, 10 Nov 2026 11:45:25 +0100 you wrote:
+> Allow local-bd-address through the common Bluetooth controller binding,
+> including its six-byte little-endian representation.
+> 
+> Enable the existing HCI core property.
+> 
+> Absent, unreadable and all-zero properties preserve the existing setup
+> path.
+> 
+> [...]
+
+Here is the summary with links:
+  - [1/2] dt-bindings: bluetooth: brcm: Allow a platform BD address
+    https://git.kernel.org/bluetooth/bluetooth-next/c/05ad7f2dee07
+  - [2/2] Bluetooth: hci_bcm: Prefer a valid platform BD address
+    https://git.kernel.org/bluetooth/bluetooth-next/c/afafcb373fd0
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-
-On 11/11/26 1:31 PM, sashiko-bot@kernel.org wrote:
-> [Severity: Low]
-> Does enabling &keyboard cause make dtbs_check to fail on
-> mt8173-amazon-suez.dtb?
->
-> In arch/arm64/boot/dts/mediatek/mt8173.dtsi, keyboard@10010000 uses
-> compatible = "mediatek,mt8173-keypad", "mediatek,mt6779-keypad", but
-> Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml does not
-> list mediatek,mt8173-keypad in its compatible enum.
-
-Same issue as [1]. The binding has been applied to input, but since the 
-mailing list patch doesn't apply to v7.4-rc2 cleanly, I didn't add it as 
-a prerequisite.
-
-[1] 
-https://lore.kernel.org/all/b005af5b-96a3-47da-b53d-5dd034b6d56b@gmail.com/
-
-Best Regards,
-Ryan Brue
