@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363165;
-	b=VKAJHyUg74libFE/G7lxSLRWzsugE7MJYW4q3c5uSO3KZz51taTX4M9Zk5fiJCMAfAuK
-	 uUNWV2Car4ekwINkhGn3ByTTUyHQkMMrTU3ULulA0SKSglxEWt2MJskotIrnrS7qWWvvA
-	 mrhTpCqeoNOgoJRZgbjmdZrb7gj2/fVk3Yzy7tqc5dmCIZQIPVqqNgcASgkp5bhAD5uAT
-	 MD3aw22gGbvHy+a9BENwiUB2NLLr3HE/KHa3gQNC3bmXPVOUh/TvVGzDlYM4koppKUvW1
-	 MTUVHoV0DYP2XNPTrQTrcR6mVO2ZdokI31wjQEnbbtLuylSuceC3XZ28JoZt2hUCqBw==
+	t=1794363349;
+	b=YlYsN5SAQLiu28ckdBq7WJwGAYihW2t/uFJ4gb0YIh5kY0UmYUjGIavyysVMEz1RdhZm
+	 gPtGhrXAB+YX0eYrak20NkEhLATp1ROxyNBGHRmpjKVAVvycVIf9U4ilEP18MT+WaBfYO
+	 iesCDNFbdyRsLMgZhKQEdSWeuOLf5Jvcxes7+/UZbW9gCi2RLkxKIllLOx5bhUDyeqiJ0
+	 3zpIlXu3oLsJSSTb4ItXX0SffdLNrsl0lnri/+WnlRvg98UCTdPtY/LfXO64df0G1oSn2
+	 cY7FF5Mf98wNVTm7AjgHL3J/hLF6DEGzbZX9Pejsl6dAWYuaWzKDsgr6lPM/24HJ0CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363165;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=DuqYtNneUEuH9evPuapHLCBL5pEX/5BkjSDOaIOKRgs=;
-	b=mVVJCksXnJ/t2PeypLEqkY6W2Cug04EO1ZVecWCIPDvrw5GFlooTkTSAdEWyftVeELCN
-	 IukppRhD7aXS4R/+J0Z50zQHnQ06IvRFkwobZK2NQci8RzYpayLuLjs1/Bb68CZhNr+gy
-	 Mzs0eW5ABe0I4ua/MsAK4vvDvuPC/mZ79ypNqv/u77XicZziOlD/NOrPjzfZTRyN6St9W
-	 1sglvZqeN3wucsI0oD86HsSJVZe9iNc+JDYhwYk6Ml0XI5nQ4a1Hi0bP7ha9aMH+pOYQU
-	 KoYt3L43pMyrCGlGiH2G0xgIo97zLHAqJ9NyJvT6zkmPO0hViRafDxP+DAW+CNe5kVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363349;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7vpnYKecBheIRqGYAUltSOZHBVUrY1j9/g7IBPpgnCU=;
+	b=tDRZPatXL3wDBvw1SBxrsX3A9QaCvI0TSa91YBbKZLmRCf2lQIpTroAJmvr3qAEwKYeT
+	 u9t7ejhxOziBpdoaeKeCahuMDiqMURC1IUrx/SeHnPUY0+61kBiXvMwRSamWzMfV7igXM
+	 Ji5MGpkr0jZjS9lKjE7oKSxUVq8gKv7dT3P+vXxsO3dyk6lAtixeVQ+Py6b5wwGktYqPt
+	 9lrTfU10NC+lXa93C4Npkfd+YM1yhO84U8o106rQjO+QbhXZqfptYotGSbzS+Jk1nSDWZ
+	 FXQU1Krv4uG4LO9CnhzGVvxMWJkkqgK8ou3s5oKl7qSl3NuNUYqiKvQ+In5A5ZfAz3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=UWgDXJNq;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NNL3KtIX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE189606A31C;
-	Wed, 11 Nov 2026 02:12:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE189606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A735606A31C
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 02:15:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=UWgDXJNq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DuqYtNneUEuH9evPuapHLCBL5pEX/5BkjSDOaIOKRgs=; b=UWgDXJNqXBh/YLE2LI9GNZiocG
-	c6UK7T6Q9IcIIj2LbSO7d6OKp/KBBFzGh3zomvFgO2F7bIGLlylRTiBMEqiIWmGLzWsa6XtM58Jce
-	I90WnPA63oR6I7RURgkzBxntuZ7iNGXqdjZ24pNFh7J81WjQgG6gTUJOuWf1i3D+/nYM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQxpH-00Fd71-03; Wed, 11 Nov 2026 03:12:39 +0100
-Date: Wed, 11 Nov 2026 03:12:38 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org, linux-can@vger.kernel.org,
-	linux-phy@lists.infradead.org
-Subject: Re: [PATCH 5/5] ARM: mxs: add EVAchargeSE board support
-Message-ID: <61d1cb97-5c8e-45f1-8c01-1745e768e4e4@lunn.ch>
-References: <20261106230746.21954-1-wahrenst@gmx.net>
- <20261106230746.21954-6-wahrenst@gmx.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NNL3KtIX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61D91F0089F;
+	Wed, 11 Nov 2026 02:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794363348;
+	bh=7vpnYKecBheIRqGYAUltSOZHBVUrY1j9/g7IBPpgnCU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NNL3KtIXLtooiGU7HgvybrkhHDSbmXvXEXWfAqNClicZFN2h0uhRmczqSLwOotdrf
+	 SaklFBBdXxUblj3mnofg/g8KXGB5vMaEmwqyV1RLsbEQN1ictLs/uTL+dfC3NDwwAz
+	 8GoyiwOUtHnA3eWeBO9sZu38JWmviGEGsLm5fKXz++i1aEFDUAiwMj20pYMSNrULyC
+	 I6HuLOxaWNV1qlfs7SZgYo63KROBlpQxJGxZu+m+cMfC47IMyJ3sxIM+/DbsMUz0/w
+	 mlhzhAE/zsHfa66KrvgjgVu6MnbX5j5Tq8GuFCXkrm9K/n8S3PwTF7/bOpb62m3csA
+	 Mx19tg6N9tRaA==
+Message-ID: <sashiko-outbox-208073@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rupesh Majhi" <zoone.rupert@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261110154254.39092-3-zoone.rupert@gmail.com>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com>
+ <20261110154254.39092-3-zoone.rupert@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 02:15:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,22 +59,116 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106230746.21954-6-wahrenst@gmx.net>
 
- +	mdio {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] iio: pressure: dps310: blocking temp wait in
+  dps310_fill_channels() on IRQ
+--
+
+commit f0cb91c380b85ec52615026366938a6f2c5145ae
+Author: Rupesh Majhi <zoone.rupert@gmail.com>
+
+iio: pressure: dps310: add a data-ready trigger
+
+This commit registers an IIO trigger backed by the DPS310 pressure
+data-ready interrupt on SDO and uses the interrupt timestamp when
+capturing scans with the device's own trigger.
+
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index 5cee23986f307..76738360e528e 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
+
+[ ... ]
+
+> @@ -1375,6 +1391,7 @@ static irqreturn_t dps310_trigger_handler(int irq, =
+void *p)
+>  		s32 channels[2];
+>  		aligned_s64 timestamp;
+>  	} scan =3D { };
+> +	s64 timestamp;
+>  	int rc;
+> =20
+>  	mutex_lock(&data->lock);
+> @@ -1383,7 +1400,12 @@ static irqreturn_t dps310_trigger_handler(int irq,=
+ void *p)
+>  	if (rc)
+>  		goto err;
+> =20
+> -	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), iio_get_time_ns(i=
+io));
+> +	if (iio_trigger_using_own(iio))
+> +		timestamp =3D data->irq_timestamp;
+> +	else
+> +		timestamp =3D iio_get_time_ns(iio);
 > +
-> +		ethphy: ethernet-phy@0 {
-> +			compatible = "ethernet-phy-ieee802.3-c22";
-> +			reg = <0>;
-> +			clocks = <&clks 64>; /* enet_out */
-> +			interrupt-parent = <&gpio4>;
-> +			interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
+> +	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), timestamp);
+> =20
+>  err:
+>  	iio_trigger_notify_done(iio->trig);
+> @@ -1391,6 +1413,97 @@ static irqreturn_t dps310_trigger_handler(int irq,=
+ void *p)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +static irqreturn_t dps310_irq_handler(int irq, void *private)
+> +{
+> +	struct dps310_data *data =3D private;
+> +
+> +	data->irq_timestamp =3D iio_get_time_ns(data->iio);
+> +
+> +	return IRQ_WAKE_THREAD;
+> +}
+> +
+> +static irqreturn_t dps310_irq_thread(int irq, void *private)
+> +{
+> +	struct dps310_data *data =3D private;
+> +	unsigned int status;
+> +
+> +	if (regmap_read(data->regmap, DPS310_INT_STS, &status))
+> +		return IRQ_NONE;
+> +
+> +	if (!(status & DPS310_INT_STS_PRS))
+> +		return IRQ_NONE;
+> +
+> +	iio_trigger_poll_nested(data->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
 
-PHY interrupts are pretty much always level, not edge.
+[Severity: High]
+When the pressure sampling rate is higher than the temperature rate (for
+example, any pressure rate above the 1 Hz default temperature rate), does
+dps310_trigger_handler() block waiting for the next temperature conversion
+before reading the pressure sample that fired DPS310_INT_PRS?
 
-	Andrew
+dps310_irq_thread() clears DPS310_INT_STS and calls
+iio_trigger_poll_nested() -> dps310_trigger_handler() ->
+dps310_fill_channels():
+
+drivers/iio/pressure/dps310.c:dps310_fill_channels() {
+	/* Compensation needs a temperature, so it is sampled either way */
+	rc =3D dps310_read_temp_raw_locked(data);
+	if (rc)
+		return rc;
+    ...
+	if (test_bit(DPS310_SCAN_PRESSURE, scan_mask)) {
+		rc =3D dps310_read_pres_raw_locked(data);
+
+Reading DPS310_TMP_BASE clears DPS310_TMP_RDY, so on the next pressure
+interrupt dps310_read_temp_raw_locked() sleeps until another temperature
+measurement finishes.  While it sleeps, pressure capture is throttled to
+the temperature rate, new pressure conversions overwrite DPS310_PRS_B0..B2
+so the newer sample is pushed with the earlier data->irq_timestamp, and
+DPS310_INT_STS_PRS is re-latched without being cleared by
+dps310_read_pres_raw_locked() (leaving SDO asserted, which causes an
+immediate spurious interrupt on level-triggered IRQs or stalls
+edge-triggered IRQs).
+
+Should dps310_fill_channels() read pressure first and use
+dps310_refresh_temp_locked() like dps310_read_pressure_value() does?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110154254.3909=
+2-1-zoone.rupert@gmail.com?part=3D2
