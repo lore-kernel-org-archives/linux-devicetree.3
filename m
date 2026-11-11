@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794392980;
-	b=u5z36vzsNmQyJpJYyxX7+qk5aS7tkyX+Kq+5+li+5q9vLKu+u1ZU6LATm9PE3bI8ju1c
-	 zFexzrESjNdpguEhiYHPiZtTWv7Xn0BEjWjyIInS1RmDBEWbDt3D3m3cEZuiFWyd3QVp0
-	 lTYUy3yR99wlERVFv8Q5dnDqWen/75sL8FYfDpFnN+duALkXEKPE+gocXx7UtUF+FirQT
-	 K34sa5NtDGGmU8Yv2kS/KcWd+UQEF/1S4aE9ESagFLDhmyHZ/5OzAzF601ZWOVZuiK3XG
-	 uCFbSz40ZjfzO0whdae9LQlpKFzuScKjfrbiNojViFshzSLTqObVrTIhHfJnXyC4lqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392980;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=;
-	b=4baDXkAS6Q+bPgOhDCe5lGB3b+aGvDdV7OPOkj75vOgC840Uegi+qcL3WqukpMILOE8O
-	 LN1lWr4U9uJ0kIgDguWqDjGrv8Mq2VUvbsoTpVJ5r2U4WyzRrbyAU31/TJ/gY1ccWrFxW
-	 R5jco2D2d45v7H80lSqa4Rm3NWHjznHv/mRJcTWYjwgb1zGxy/3C4BdzWBSE6PLEr5GSR
-	 zLkWIz+0uPG1HczKipdCebgYp1Huw0tBkXhFgbEuiXhmANF+DtSWuwwPKjFPUGdPA6g77
-	 q/pDBNQGDmTSFC/AZgHGsg5zAv9p6KfMqz4qigblwj3+pAPBQuwBK5pvXRJ5aQGgAFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AoD3nHzP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794393181;
+	b=heT2lwgmVFwKV4Ylkfae1yLej88Av0FeekP+tm5oZ4CbcVx/OdEflr7tcTZTGq+DorC/
+	 RZSXxbCYwEboUyh/jO3Sa7mBegYMrjj+k2pTJEFx5OfAtT0vtNM5rVAAgNbnqa1s9AMiN
+	 9cGF6+QZ+g965r0VRQxfKeC1RRD5hO8mOOF1ZV341WhzS1Ylo2ra5/l1+GsODS5dxOsO+
+	 D2wlwOxOzwi+1oD7kl31Uq28NIWU661TL3MZVsPEg4nUnFZ+N7nuwTmpZqoIRhphzS+pW
+	 i9E56lehdqAmE+ERUFz6QMz3qEutINV9sNwUAZnuf8Z/w4tHqMDsnLb1KqyuQFzagAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393181;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=1a2CtR8JxmoelHHjl5muP6NMwoul1o/ElRxIx5HOCyM=;
+	b=U9e16pVIO35kmINYCtuSAcXGWV70VvU2NKJU8vqTWr+t8I6Devw5MGKitqA9bXj5rYRS
+	 3x7K5/ErPQ1mmlBCm4M2VWcPH8j47E0kOu2Y9AGm1WtLgir+rZuhPrlpb9MUol7vUJ2ou
+	 6hphT0fMTJ+d218dqJgcE2He7pQguc47XYN3Bin7uQzX6CngTUlalmEryxZJ50HMp15WL
+	 kn0+UEsxK2EqpkEw/TPCgUSZbMhqs70Gmm8VmBgWi2l9rqDONYRPfD3K3d+hMRh96pvdB
+	 gfx9cnwEUqfSGZb48aA78WotJvvYqNGTTkErObTUhIhKi/0HlKhP1vb5iPtDWBCLAsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="VK9/tqch";
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E024606A31C;
-	Wed, 11 Nov 2026 10:29:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E024606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C1F606A33E
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 10:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C1F606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AoD3nHzP
-ARC-Seal: i=1; a=rsa-sha256; t=1794392956; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JTe5DoX4QFDA1xlPbGZSB+3f0P5QxcTRBjZeKv4QyppbcQWFYomOXtmOhbJ5/7eWPkl4gHGAqw73VR+bcZDZ2Zw8OjLS9Nd3fOj4xuJUEL8IeFkcToP+m4oYbB6tFU7tu/1hHYNHek1IdSqlydeFRGe4ojYU1GYgl8m84oU2H1s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794392956; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=; 
-	b=kLNcBvXSZrMN1elJw3mrcslxlwsDBilJJtF8zRGBe08bqp+tfun9Q6WnGnNjtzZ457JezUXauhcz7mLEeqYfdiTHxC55u84W6HkiMb3+GTAUtoPAPIIlIziaKoXGX3hcINdYTFryxcfm0FG6jN5CPHDcURmPd2WDO88dbXQsHwM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=AoD3nHzP+3PjVMejUKvFVKHMzU3OiYbWy/ZL3CVykrmGsEZBu5qdqjSmtElRKQxat9FbOP/NKZsD1BG+TSk4in1TBCLy9K8uNEo4pyO0IKPNree/TEE8k33cqKiOpYwk3AEDNoqof5c2KjeLMZuqZ8PlBGD6J/lA0lYkIim64Mw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794392952987100.75485625514011;
-	Wed, 11 Nov 2026 02:29:12 -0800 (PST)
-Message-ID: <9b5f5fc4-5fa8-411c-98fd-8655f208e00e@collabora.com>
-Date: Wed, 11 Nov 2026 11:29:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=VK9/tqch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=1a2C
+	tR8JxmoelHHjl5muP6NMwoul1o/ElRxIx5HOCyM=; b=VK9/tqchzYbevShFFs4t
+	vRv5K6tQ7keH5esVT5gvjrKx775hI/lXDEuJILdkExehah63twdJNV50r9FgtAaP
+	zjjrGt+DQakgMuY6YcZmC2dBI5BJi6ItQEPvICrYGGmGVIblyG9jX03zviViOEyv
+	0KiHoR04Hrlj7zQPrCIzAwn4T9GUdIbXefhZtHEsio3gms7KQmPbhjpDuDrdcwqj
+	Y96SM/Bklorg5rks3w/KwlrU+SXKqamFud14fLZMHs1qE1nSCkdQ9TJ6ZN2Jwn6z
+	x+NVppAIL5g2PPGjDK35h2Se5Di7Q6VevRxZJyfpTNKFuSiMnOohqdZZRwYcyKbb
+	kQ==
+Received: (qmail 571814 invoked from network); 11 Nov 2026 11:32:57 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:32:57 +0100
+X-UD-Smtp-Session: l3s3148p1@sAXwt/1f6JIujnun
+Date: Wed, 11 Nov 2026 11:32:57 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v25 08/11] mmc: renesas_sdhi: Add
+ TMIO_MMC_INTERNAL_DIVIDER flag
+Message-ID: <avREVcauIMrumfiY@shikoro>
+References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+ <20261028-rzg3l_sdhi-v25-8-57f16691c2ed@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,73 +72,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/9] dt-bindings: phy: Add PHY_DIRECTION_TX/RX
- definitions
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-1-d681ba20b36a@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-1-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KWbUZnbI0l9JpoUn"
+Content-Disposition: inline
+In-Reply-To: <20261028-rzg3l_sdhi-v25-8-57f16691c2ed@bp.renesas.com>
 
-Hi Jason,
+--KWbUZnbI0l9JpoUn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the patch.
+On Wed, Oct 28, 2026 at 12:51:25PM +0000, Biju Das wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G3L has a fixed internal /2 clock divider active in all bus
+> timing modes except HS400, where the divider is bypassed. Add a
+> TMIO_MMC_INTERNAL_DIVIDER flag to mark controllers with this
+> divider.
+>=20
+> Add renesas_sdhi_clk_get_rate() to fold the /2 division into the
+> reported clock rate when the flag is set, and use it in
+> renesas_sdhi_clk_update() in place of clk_get_rate(). HS400 is not
+> yet supported in software for this SoC. Adjust clkh_shift for the
+> internal divider case.
+>=20
+> No existing platform sets this flag, so this is infrastructure only,
+> with no functional change for current SoCs.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-On 11/10/26 09:18, Jason Yang wrote:
-> A MIPI D-PHY or C-PHY can be a transmitter or a receiver. Some PHY
-> blocks have one of each and can use them at the same time, so one PHY
-> node offers two PHYs. The existing cell, PHY_TYPE_DPHY or
-> PHY_TYPE_CPHY, selects the mode of the whole block, not one of the two
-> PHYs.
-> 
-> Add PHY_DIRECTION_TX and PHY_DIRECTION_RX for a cell that selects the
-> transmitter or the receiver. The first user is the Rockchip RK3588 MIPI
-> DC-PHY, where the transmitter serves a DSI host and the receiver a CSI-2
-> host.
-> 
-> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> Link: https://lore.kernel.org/r/7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+> +	/*
+> +	 * The clock driver may not know the maximum working frequency, so it
+> +	 * should come from the 'max-frequency' property. If it is missing,
+> +	 * assume the current rate is the maximum. SoCs with an internal
+> +	 * divider can't do that, because the current rate is not
+> +	 * meaningful for them, so the property is mandatory there.
+> +	 */
 
-Best regards,
-Michael
+Good description!
 
-> ---
->  include/dt-bindings/phy/phy.h | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
-> index 979b5dfd8353..9ead74d9a172 100644
-> --- a/include/dt-bindings/phy/phy.h
-> +++ b/include/dt-bindings/phy/phy.h
-> @@ -29,4 +29,7 @@
->  #define PHY_POL_INVERT		1
->  #define PHY_POL_AUTO		2
->  
-> +#define PHY_DIRECTION_TX	0
-> +#define PHY_DIRECTION_RX	1
-> +
->  #endif /* _DT_BINDINGS_PHY */
-> 
 
+--KWbUZnbI0l9JpoUn
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0RFUACgkQFA3kzBSg
+KbZ8IQ/+JQDoXdLga1QEmjWuNKg5MxFaXkOMhDHYzcYkviBTerkDsT8bwVkLmwXY
+qPvHmkekBwsj8sonpNklm13HMg/rUJ3i1OWyilgQtHZxsnW5HilA6/99/kmRvFhQ
+vS/oz7c3tufBKq9EuAkwWcbrQGpqkJJ79ZQ3rBfXVunM42w2Kw1dO+ORCm4WJbZQ
+COmfTzOn61y4cpA2RhblEeQzN5yMIZTmI6KWZdu3zGG5Hwf1PPWRT7UEEGY6iO7e
+IqAzReu5hUcDEkpnSFE3g++BRdf97bwPuvJLOCNhsyK31ioG/zk9CS2SBDpEF8mD
+f71+/caM9Jds4k0qIya/l2yQuhSCyL8F3gxkd+5EzfKG8Gc6B3ZNL4JgzywbZKAH
++Szwt60da6ETz6oY6mb9Ml1/rbNsvld23+ZakxtnVWCUS0Qe2oodvKUGW3+5RtC7
+pzXoSg5MCFDAGQxfVqbwXK5z+5cMV/aArVLNrX/3ZDKU4tFbzRX2JA0Ngy9kCIKj
+ZMP6O9K/TfCrYxhDd63/jx57fY9M01IQcJ/OxCjIHnfWnRgo3a9jtavV0OtT/dLD
+RR+Kt/ehVCtjEcOggh9NTUBu9cEJ21/GQ5pciIpikvUIzHRPWinrkSyCo5oNfvwf
+B7QSUJBLG/xM1gHzX+k9qGGoyPPuNZ7OVU2MXjJeDOpHUsba848=
+=QL25
+-----END PGP SIGNATURE-----
+
+--KWbUZnbI0l9JpoUn--
