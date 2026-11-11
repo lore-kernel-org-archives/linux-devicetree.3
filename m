@@ -1,118 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368897;
-	b=QIqda9y59HqRHHx67nbrjgSCN+3+XgLib9/AGq5WhA2cJ4ZeFGa3jh7CyymZGrmIPU7a
-	 9n2HRgQEQe0MRaDqE5hXrZ0GOYGvOSx2oCRhpIioRkewFpyTguPYv7TK2iZgnNtSvfFPd
-	 hiakE5bN+SQiGJRivAN/VcmjrqV/ZeW2gk62AY7YtGWgCSkg8hnrLsJj9abDu9XyAgnuh
-	 sS3o0JbXeAzZaiRH3el9lieXOxnKCB5JwLm9j7MmS/mEoJZES5TlZxvwOQZsI3mYMJPhO
-	 yZT+N87hAzDCJTshrEIkBynw2Ggv+kJupZDOVGLNVpLYPzualVwdQX8BUzbH9VtyInA==
+	t=1794369467;
+	b=GEjfU6elhaP2odTMyIZaYO1zXBeg5doCak9c1mTXSRqHUIb2VKKfNOG7Mt1xN0/sNayj
+	 tkJ+jc1e4RThR5KiDgDfolY1QjudTL62LxkWtZsOWRqI0CZqWA1N8un7LfaXw/YHbEww1
+	 D3Ae7ljlpaLKidMEcsG5DoWygC9TUOdWztP7hiyuHbIPOXGuaqMwuWYENeRduBDfPRB8L
+	 4o89LIrgAcnq25hBpWe+In1K8sWGkJaYxyImwbKd4YiFdqAjedLqgzVlRvXni7nqDz+0+
+	 LPZJPM03efyLJ0tumgP570DiwzZvoMU+3cmguQW+ryVpKNQFdtxs00LhfXOamkdIaKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368897;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Y+gDBNf49rkgosutsknPz5W/PScX4B9MIdqzXnISpRk=;
-	b=iXuLv0kNVSlmCbpE4cuFvC0ejm6hfeBmBVMlk0/0pV4z2nqrQ1gvzDF7k9NroIiLx+ZL
-	 knzNOxiEdUyc7xZtJCWI7e42L/QSm7yrMVmDAPIQhOxI9+j91azlg2T0gRM9vO20KTnTx
-	 68gJSBFpaQFEDMDvT1SbKdNnkqze7xnUr+S9e85KhJxuyIuluE9tgz6jNbmZ0nxw0mQsE
-	 ZnRG7E+aAPJsW9Bv7nEu0zreQS2Xfb8QC1ITwJd2Li4TlIjEnzpe4KzAn/Xi+jqB1vmv8
-	 js0RAexdz7p8u5KGWwj+UU2HOWfTP/7OiSSeLECIJfwbWp5rmmsvZmzhnQTsQnTZgSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794369467;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:X-Mailer:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=IKem5FgakdEdIB35uZKqr8p4QZdIHzHf8aQ2aoNr2TM=;
+	b=EDsc+C2KGzdK7prUzbAGuM9SnuRy7p3XQ6t7LJ+Mpi4/rnFICs9kVbQePgkl+yISXNfr
+	 mNFw7d9p9hLWxkMsQvdcPW7ELjLENqd7T7VtYfa9Zsk3cgsWYErZdLqsXvTXmZDm7pJEy
+	 NgJGOE3b0Pr1kZHw0QBv180TtgeiORvmStjChe8ndchRNrf0e4Bd6/1j8Wn3DvdQfUZoS
+	 lJ5C5SsSFEF7X15yRehxoAcbUatB7NG1ed67dRygTxyEhP87gsMmBvSTQaZ1ZdLWCzHba
+	 V9CC9+ygM3KSg9wIoRJ2g4dmDZmK3d5cELVwk6y7/mq2srvKBYipa8xZmiclAVqonBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Z6/HxJB8";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RpXO46+A;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1AA606A31C
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:48:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF1AA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=hpTCFZFm;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9709606A320;
+	Wed, 11 Nov 2026 03:57:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9709606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z6/HxJB8;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RpXO46+A
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB1t2TU4167570
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:48:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Y+gDBNf49rkgosutsknPz5W/PScX4B9MIdq
-	zXnISpRk=; b=Z6/HxJB8CeO3hDq5RjUpJw3BHW73HQ+mvupRxnMpI0ECfEzaKf3
-	6tnWmRJeQay2o+pZ9yYCP/ERRebUzVT8fE+uWTtpW/fcQtNu/OjKNDN9Aycgeylv
-	eX8WT+izI2q/mVtiNE4+ykK/VveDiUbf7RXIAeF81kkqCKSOyRIcdfdF/AeGBfQz
-	jgAvHwxhEk6bBmJTHjKS0wlWihBCWYG1IPuHchBdYQ4HiO548Dj4izOCUynm2qB4
-	E3SzfGRzLO2rgJ0wUBii7IGCsfBr3pXxwgW5/fdW2FeJxT6erm/8TRObFQ6sHwZD
-	+nxTgAG9rMaj2IEotuC/YDxif382UeyOjAQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4c5vn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 03:48:15 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33713e5e6daso3499387eec.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 19:48:15 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=hpTCFZFm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794368895; x=1794973695; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y+gDBNf49rkgosutsknPz5W/PScX4B9MIdqzXnISpRk=;
-        b=RpXO46+AKeaq3sOFob1lc2ggdMtty/nTnv1gtCShI9Hd1MozF1Svj5wj1xKyObXeQK
-         1V2pa0qH5J2KiXJ+yqmPy8EsIdwcdThxehsgZCPQuDiAtRYJ84OksXq29Y/f1I6UfD2t
-         vVIuSaLHFRe7S6zJZLtZJ3OybSQZYpfieMSeOTVxbpQpVRNopVy9rtJinpHutkugbkZK
-         dlvaBckHrqm4Za2ScwL7Zw3fsJJAJVK3EydF9Lp9X+bEKQTP8+nmgz49obQoXk24yI0T
-         O7GysHJoSa1ICwcEE+Sa48Q8L6yTCQQ3SlZYTM8+nFN5BzFr0x2Tfn7phToXlP67VWwM
-         LtqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794368895; x=1794973695;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y+gDBNf49rkgosutsknPz5W/PScX4B9MIdqzXnISpRk=;
-        b=uU2WgBsSmA3UvdunXczGG6o7NwN2Y2h2tdmzdt9NcIZJL8vclA0U1aT3t1pQCM1Qmm
-         JXn+Vi6z7dQwNO9O1fwsVzgR6B0vSV3vecLFdlIAItaLCPCf0AMq0repYlAm1p6vytN9
-         G+RaBTgxGnmp+ndfzrmIPJj4EFoK4odpzZRuGMwD0OEgjMLOjJ8htLzOlqo6S5Ha/iUv
-         111PhxD6ZJejZmJU/QrhqtuPglhw9Dw7oBoLOGtNdHKI41c2q66QhjkKxJEyfmW4aQ0M
-         xAZnwtoF4athmiGBBF++SFRENaUpzu5yhNJ/GFWUuSxBS+Qk1/ODONeSMFRlgkIHYSKQ
-         dxXw==
-X-Forwarded-Encrypted: i=1; AL+hErE2fs55pZEYCQeW5PUVoLpLQNtAg6+oyfA+ublRAywvWYqHrIF7vG23KDQMGU2M2XaXXhg2cW1Hwsc6@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6diBdSbQ03nH7Dz55LSde0kWgk+xx/G+8/KzcgbVRdgjeoojj
-	pzDY0Y7yE7izihM2vYJnvm6wu0vieLqi5I9xKjOLVB2VoWS7DFx5IdxXthSp4YtuRSJyuBjHtQ4
-	qGFX+glE2pSdoEe695DZdf5PQPgn6Gx9QFv93ziDWot2QhQ/RkyZJHCEH51MA9/1e
-X-Gm-Gg: AYBFou0hBjEi0CuGBgb9/U/L+kNY2iek2X77BpHYfGP1YONxh1VRISJE1XAWpYqQQ7C
-	fnT3EwjbnlPH12msSiP5j1efuX0VoaUGp9wS9VE+sIvLVGZ7Sdd+5SZHCFRL0ah4tvMUgs6aED4
-	03LITKFn1rH9lOM7B8mWsCnz3/NE3KgAz1rlwtFCw+UeIVX/aahAm/NaDzF4BQ6jc3Vb5qh3BgW
-	9YuNCTulnDU/aXLVdSPJMM718hjpE6SbknSNOHjWNUgIZZiS1IttfogvM5aKHz7y9LsfnDd83ml
-	Dqp1i6E2aDeWnbf3zCmucfMv7gkZUxKIlX6ZzGbW8OeWK+vbzhkXKQU7slXpth8BKdMSsB6nnyo
-	BZD+CKluTiTgW3EwqMA1OwB5mKEmLxmbWXBIhEbnXkOTOM11Uvja6t6U+1X43krouh9kyFxbxlW
-	h6ndOyK27KEEnPWMPk99WdSWAjJ1ZsOkHP
-X-Received: by 2002:a05:693c:87cf:20b0:376:77e6:a66 with SMTP id 5a478bee46e88-37685d7371bmr1915853eec.16.1794368894761;
-        Tue, 10 Nov 2026 19:48:14 -0800 (PST)
-X-Received: by 2002:a05:693c:87cf:20b0:376:77e6:a66 with SMTP id 5a478bee46e88-37685d7371bmr1915822eec.16.1794368894068;
-        Tue, 10 Nov 2026 19:48:14 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751d9f135asm11286054eec.2.2026.11.10.19.48.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 19:48:13 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: nord: Sort adreno_smmu_0 node by unit address
-Date: Wed, 11 Nov 2026 11:47:56 +0800
-Message-ID: <20261111034756.3632469-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=IKem5FgakdEdIB35uZKqr8p4QZdIHzHf8a
+	Q2aoNr2TM=; b=hpTCFZFmsVcI48DJHG3Ti4yS3l+4PAcOIpM0hTN0P7ENRjVv8E
+	bAGtAGaWlT2xNOnGFFJdNAa1dX4GrhkSB9sFC7A10vLRnjuru5a9YHS68bDTqq8P
+	mXKHeMFzF1NKaC+k0ahANnkK8wY4tS9QD3S8l0o1RDELaax5rYYkOUBtc=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.178.45])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3bjOr5_NqEWipAA--.175S2;
+	Wed, 11 Nov 2026 11:57:32 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] arm64: dts: qcom: sm8750: mark the ADSP fastrpc node as non-secure domain
+Date: Wed, 11 Nov 2026 11:57:31 +0800
+Message-ID: <20261111035731.940893-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,136 +65,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Mailer: git-send-email
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAxNCBTYWx0ZWRfX/Oz3/sGomw0r
- Xs2VAyikyZZ0pQYWrS1yW9U8p5iOL7pzcG0fEQVscEBSdmJCuS/Daf/RxKURt1eFQ04ZOAGKBcE
- OCCag/ityS/fHPbEu7c1vm79HP45ag+tGZQJHEedYq9NOzWZnu0gnFLB7qeVUFd0q5K6oXAnNu0
- Ez59Vn9w+dpCeB+kHdcnvw2qh/kPiZpRMdHD+P/quMws8DwSJWUiRAZviiZOdMMlounqiRwsc/9
- 5ZsQBh89vQ0wTHPgvJCNrOQY++GTZjmV9WiNxO4ayVlcGdcuWwFBGX/42bV14Cb5v72ff5hJaSP
- DxOzI0DEte0wFEb5kCfj2kpkQ5KAIs+av2tOCo1JhrsnPLCk1AXl/1kMyZdThwq3Ogt+EN5puIU
- Gupqy02JI/Gif3RjMRFzstVy5RRZv2UFtAA/G/PhRt0VCG/QixD9i9YFvZATni5fHC7e40KNpqZ
- CZ0HuBw9quR+ECgdSaw==
-X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af3e57f cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=iDbv_3reLaKZJHcXULIA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAxNCBTYWx0ZWRfX55Iv6pzkWJBK
- /f56JoYR4Bah0Td+c/2bz3vVZooAosoq2KrFkIn6c1SV6MvAChQpi0iKKIiTc6xo5wDS25U2S+7
- Iyxdgv0xXhMznoZ2XPk7xNmSxmCHdSM=
-X-Proofpoint-GUID: sXG9K-tH0ydnBngbTk8skityQyqedbJL
-X-Proofpoint-ORIG-GUID: sXG9K-tH0ydnBngbTk8skityQyqedbJL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110014
+X-CM-TRANSID:3pYKCgD3bjOr5_NqEWipAA--.175S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cry3Ww15Jry5Ww4DGFWktFb_yoW5Jry5pF
+	4rCwsrWF4kKF1Fq3yjgFy0ga1Fvan8JFWUGr1DJ34ay3Z09r9xAr1ftwsagayUJr4rCw4a
+	vw4aqrW8ZF1UXa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkab7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jeT5dUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREIB2rzcNkj9AAGs+
 
-The adreno_smmu_0 node at 0x3da0000 was placed after ipcc0 at 0x9007000,
-breaking the unit address ordering of nodes under /soc.
+On SM8750 the ADSP fastrpc instance used by the sensor core (and by the
+other non-secure ADSP users) is the one the firmware exposes as
+non-secure; the CDSP fastrpc node already carries
+"qcom,non-secure-domain", the ADSP one does not.  With the fastrpc driver
+keying the secure/non-secure split off that property, the ADSP only
+instantiates /dev/fastrpc-adsp-secure and userspace never gets
+/dev/fastrpc-adsp, so libssc/hexagonrpcd cannot attach to the sensor PD
+(qrtr service 400) and iio-sensor-proxy reports no sensors at all.
 
-Move it between syscon@1f60000 and remoteproc@4c00000.
+Observed on the Lenovo Legion Tab Y700 Gen4 (TB322FC), which is SM8750
+based: without this property /dev/fastrpc-adsp never appears and
+iio-sensor-proxy exposes neither accelerometer, ambient light nor
+proximity; with it, qrtr shows the "Snapdragon Sensor Core service"
+(id 400) and all three sensor types report as available.  The change is
+one property on one node, matching what the CDSP node already does.
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Tested with `make CHECK_DTBS=y qcom/sm8750-mtp.dtb` (no new warnings; the
+single avoid_unnecessary_addr_size warning on dsi@ae96000 is present
+before and after).
+
+*** AI-assistance disclosure ***
+This patch and its commit message were prepared with the help of an LLM
+coding assistant.  The author reviewed the change line by line, ran the
+checks quoted above on his own hardware and takes full responsibility
+for the content.
+
+Fixes: be9d54c35312 ("arm64: dts: qcom: sm8750: add ADSP fastrpc-compute-cb nodes")
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- arch/arm64/boot/dts/qcom/nord.dtsi | 74 +++++++++++++++---------------
- 1 file changed, 37 insertions(+), 37 deletions(-)
+v3: move the changelog below the --- line, use a 12-character Fixes hash and
+    place the new property after memory-region, as requested in review.
+v2: add the Fixes tag requested in the sashiko review
+    (<sashiko-outbox-202531@kernel.org>).  The diff is unchanged from v1.
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index 617e5312f4c4..4f422f9e39c7 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -1712,6 +1712,43 @@ tcsr: syscon@1f60000 {
- 			reg = <0x0 0x01f60000 0x0 0xa0000>;
- 		};
- 
-+		adreno_smmu_0: iommu@3da0000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,adreno-smmu",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x03da0000 0x0 0x40000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			interrupts = <GIC_SPI 674 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 476 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 574 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 575 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 576 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 577 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 660 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 662 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 665 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 666 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 667 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 669 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 670 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 700 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-coherent;
-+		};
-+
- 		remoteproc_adsp: remoteproc@4c00000 {
- 			compatible = "qcom,nord-adsp-pas";
- 			reg = <0x0 0x04c00000 0x0 0x10000>;
-@@ -1812,43 +1849,6 @@ ipcc0: mailbox@9007000 {
- 			#mbox-cells = <2>;
- 		};
- 
--		adreno_smmu_0: iommu@3da0000 {
--			compatible = "qcom,nord-smmu-500",
--				     "qcom,adreno-smmu",
--				     "qcom,smmu-500",
--				     "arm,mmu-500";
--			reg = <0x0 0x03da0000 0x0 0x40000>;
--			#iommu-cells = <2>;
--			#global-interrupts = <1>;
--			interrupts = <GIC_SPI 674 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 476 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 574 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 575 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 576 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 577 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 660 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 662 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 665 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 666 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 667 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 669 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 670 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 700 IRQ_TYPE_LEVEL_HIGH>;
--			dma-coherent;
--		};
--
- 		adreno_smmu_1: iommu@98a0000 {
- 			compatible = "qcom,nord-smmu-500",
- 				     "qcom,adreno-smmu",
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index cf947acc57..9302481b11 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -2571,6 +2571,7 @@ fastrpc {
+ 					compatible = "qcom,fastrpc";
+ 					qcom,glink-channels = "fastrpcglink-apps-dsp";
+ 					label = "adsp";
+ 					memory-region = <&adsp_rpc_remote_heap_mem>;
++					qcom,non-secure-domain;
+ 					qcom,vmids = <QCOM_SCM_VMID_LPASS
+ 						      QCOM_SCM_VMID_ADSP_HEAP>;
 -- 
-2.43.0
+2.53.0
 
