@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384789;
-	b=j/XFr+PNd0X4HKY2hIYw+FYlmtTwRcrnC9v7ZScvJXlUVfkLc86SD+AaMQCvtcTaVLAR
-	 E6OTG2ZuhAQ5Y2ZlIzRVi+cInKYTf0v9rXhTlYmR90EfSARH+OeILPwq3n9xOfQkro0iX
-	 nYC9fdFgSSjnmaqxQbfbGF9tdHhf2DZJNK91LQs0gxiGMWQCvm2fAVLEyKHh0+cpc7wpU
-	 0sbUfpUNGRHriLjkJT1WrdDBrW9Tww4CduT1dHSgn7Xzc+BLIVFJlR3KA/Wi687p54ePj
-	 z4daco4SId0tH0j8sTZ/ENYOH5+qrlCj+zeD5a2DJSHq+VZCMS9gDR/NwANrshkxzVg==
+	t=1794384790;
+	b=ow6KRsU3LO84GK2XPkSSYujJPVe0HTzspJI0BRyND3S3RzS9uss77M4C7q2EdQpEKH7Z
+	 nrNKWyejXLHIvr54BNSY1oRLBd/wm7k9MvedkExo4XwAKnRYiv7SJRcrG0F4qws3IYLUJ
+	 XolkQVWLHdRWHsVLV2faplb46B7q3fDeaIUaEtM0ZWYtNmFuRQDiS+EaJfF891VEXY5an
+	 Jk/k9a27qjMv8rgudCsIL095z2aHFMCfLCi+V/li9Oy7uC3sCAR7NwnFq2aikZ3aj6E++
+	 +p7+nfpTiCs/ZPttuSuLlICkAdoOFN5PK47mDLG2WLZLQvngn9RPAdjtgUNEunCbb0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384790;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6d9NY4/sGebTASwnIbgSwLkcj0rsBaL9wxhXAF9kunQ=;
-	b=F9Tauv3P1q0bsKCpc8CxHsPIOiwv1CvNa/MGnWjqaq2Kj0q8g0pFoWKFqpLj51CddnbR
-	 PRAUqZas86n4pD5dGKuk7cQGuGxyiku2SO6obU9/L3tepCnKQzImnd0LmRncg3E1NU2kr
-	 cU4WVxUvELJqOnWVXuqRnrjSIYjf2Lx4xcn/Ps0u+G5y3lAeOXavO0CKHkozpsrflCnfS
-	 LVMhZNfwc5OfCvM6nLN5s09wfQ30W8dPpUjox1P37efzU9C1G1bMTLp9shRhQb5ehQXHM
-	 fDIJnnF/jodLLbZoZS72qs5Mja3RvTN9RaSNO5SXtr0arrT652Pg3cgPb+ecz4qzCsA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=y2y9kbz82lKQZudwoFQR8NgKli+kQJ6rKGK4CSSNZVM=;
+	b=WSArbA3v1sZoXlz406ZE7FhlvOwKrJyqDEwSwxJ/UAP1TDi6ZleGHpq03lfu137UIiCA
+	 DDTw7APwkuRDkDD5iUuZlPTfZs2QANP9AFuejrw/ImtiYV41LpxtqfhhhbtD34sjXgZM2
+	 0mR8pzTPYVTJgggIQfaOWZj5wfUaT8o4ZcnfmIJKtqK0THpT04SRMtyjxcyz6pxT/2HFh
+	 LWmb9Z3L9ZgqvUT73Vn4ho9/Vhdb2SsAK45KTMF0YzjFE4482fBc24dbfDPaLMMvdxVXX
+	 rEPYxMlU/K2IDnC3uxZUpHE4Zr6RExU/nR+3WOhITLeBqX8GJEfr2k4cyak/Z78W9ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=bytesatwork.ch;
 	spf=pass smtp.mailfrom=bytesatwork.ch;
-	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=W7W7gQZe;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bgcSh7za;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D145606A320
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D145606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C65606A326
+	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 08:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C65606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytesatwork.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=W7W7gQZe
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so30923105e9.0
-        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 00:13:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bgcSh7za
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so26487215e9.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 00:13:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794384786; x=1794989586; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6d9NY4/sGebTASwnIbgSwLkcj0rsBaL9wxhXAF9kunQ=;
-        b=W7W7gQZehSxwutldfgIWtGbi91FuCNPbLxVzT8JuXWUrgGR27Tx7jNB+qaa9smDctL
-         dwsnNfGMWtnvf3TQ/MWBAkDBWHGC2g1tbHohVXrpxZ92X4xYD1tcTWQfqf4n8l8i4gbc
-         LoDr0BCEaJvsS8fkdzjEy07gyEO4KnF7XH36jPLE4Zo16FtU8Od9E0nWTEpxmug2yNmu
-         IDR12P4xdA5sHGBbWotJX5+EqH11ojjDR5N+oRG2Du3W2YgjzqV4KzIXR9MEHTfjZ6t0
-         hNsCcCXOG8o1IaoM538yBmv8VH0JDKoS8TnmnoutijCFdSxq7wZ6xlFCbAHCRYrwLvJU
-         ZfSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384786; x=1794989586;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794384787; x=1794989587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6d9NY4/sGebTASwnIbgSwLkcj0rsBaL9wxhXAF9kunQ=;
-        b=M2g9rUiGjgQdwS6suXFZ5MA0dA63UGGr/vLwSUJIPg7S+uw0myeVg4w2I04N8na4fr
-         UEkzqC1ZoPewdhiatBtITfxdq2tpD22owdCOM76j2FsauBaEzgybj2/qgKFdaB/2Wj0S
-         z5RrGYc4pUoxg31YJZoD94gDA7TwXZRTi6ryS41cC2AesxnBY/XJCVyuGg7F+wnCnrrZ
-         jRihvJYaQJErdevxC3PcPix+AkrUw3yL0DONNlpdqGSDPzN3uJ/d2zWusAh06yMCbcgv
-         24NUUsI33Jxwlxx7JduZYw2NnjNfYlKU/Bmm2XtFEzReYgljyoz74xT5C+U8HhZhjkg/
-         dU8g==
-X-Forwarded-Encrypted: i=1; AL+hErHZgwHOSJ9JKRqH2yydsa63eBBVI2pVjG0VUnYuzfrdXNJju9rD3M2K8pmQgLEA4qmlHg5s6YXWMcBb@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ggac9nHJ850grV/Pm3lfYWS5b45HBVP4Ch+jSp+kr8P2dEe5n
-	7Bs75sSuE6x73vL0r4eRUX3hyHJeNP98Kn799VX95oHbGYfLntNEYv1Fb75tDm+QYA8=
-X-Gm-Gg: AYBFou20rISaj4jvFORZa93aJyWBYV1x2nHZivNkAgGD4US8AocrsN1kG27FMYA04dn
-	oxadgP6HjBFzIxXN1j5J7ALX+ZYo5K6cykmDxeXWk9U+abqr4pK8h9pKzaFR4yaG7sn3Wn46bwK
-	uTEKT6OU6e8LpUvyuEUoOkmpwC1nAEHxnyK8nHU/9Nv1aBvu+PX9Mad/Ubm0bX4iycCqodxFpk9
-	NNOMel0u/77XYwq6TP5HD9/5vcXkhZjD4b2+GDDecC/tfbT0einDMkK4CN2Wc0RIkEpNMi7srDh
-	YkEjrl7XxvOpo61AHiJ97c6A9IDMsc1jDsTA4jf6lXzRWO7BexbFLjXxiDojc/IzsH4+7pFEBHO
-	SMwD/HCRNpXjzhorBiMqZOyI9CD+nH5VQNN4PpY2hai/EuOwbOqCPLkrFOtrmLa20scZswXHMUT
-	RVcRSbu08i2vIwMDO3dge2JZFdk3U97UIAukFycU3wmQ2paQijL2QkB+VbzujabYvKma1AJjsOw
-	7X2FQSb807RvXi5A96E1VBa9ovCEu2YbXo1MRHHgHasNYCYhxxsPXE0EHAwQguPCceIu4FVnQUR
-	Hesk5DMXYmZmlutJIX3AT+ndA3d0hnqU+2oC5b3Udav2DYbvbLeS6k1/2VyW3hyB0O4r2fpHk5d
-	606iFSaERQQ==
-X-Received: by 2002:a05:600c:6214:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4ba0939815cmr24681275e9.34.1794384786446;
-        Wed, 11 Nov 2026 00:13:06 -0800 (PST)
+        bh=y2y9kbz82lKQZudwoFQR8NgKli+kQJ6rKGK4CSSNZVM=;
+        b=bgcSh7zaemWNqvGsnUytQTeqNBNJWJnjKvT5yvOOlcsQPt0cESasUROagaGxfSNfa9
+         hDSRRussF5dslkxMQeM8k9y05np2GLO0qn3jYfs4COa7Lq1V8NuXcTIvRCYWNUOFlLrj
+         xeEKc+K1J0Zqiq2VkK4v8sk+QobaQasQWySYPjUfR7wgX0agAMPNtQrhsJCXV2MbPo3N
+         ur0mV6a0ycLJKCIdclExajsbDV5iODCqFy0hHDXjmlHPRaI0D8l6cs2PkygYfuIpvJwc
+         z9qkd/gZL87hDHn8sqAS9AoOnpyCzJLecaAZnfLMznML3wCW/bTBzo2e6GfHfD0ZsDjj
+         KYig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794384787; x=1794989587;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y2y9kbz82lKQZudwoFQR8NgKli+kQJ6rKGK4CSSNZVM=;
+        b=UR7SvsZThvDNpsBQGZAWPUixdFgByuOjYfoBr5pdK4E8uEThqoYMYO45PDHpeA13CN
+         6rH+fq/DHjCDUnQAwI8OZQQyr/S9m/7+ZIgSr9wepDFqmjmdYg0W64dBdsVTmkOqu0Vg
+         c/WikkFzP9x/q6f5Yp295zig8TFx2var/wx7RSvgsQnVtS8D7R0mY8Yt0wvg8or7K+qw
+         PzSuH2K7kiPweD0bDzLiJUnoMJvPxzQMXVvDXGE9e7hFLdk4iw9C+pJqcTV/vaog7K2I
+         mvLeZhdPxAOOc6k82wcsMUZrrzhH2EJIhUI/101SHUVRpIj9jI6tNDi/JlLHc2cpCrsF
+         L/sQ==
+X-Forwarded-Encrypted: i=1; AL+hErGkSQ5cpYNfGsREkWmX2+dgC7UOD3heTGWDPMz+GRkzeYxTfVC49O71ksMlz/qoLsxG1+0zz6rNjhCt@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/zVVpBQ8RpdoHh4fC4wUzFbs+7Ynmc7ExBJmATzXvSZsCl3O0
+	Vo3pTwTdUiUd3Qvh6T1TMqjo1rT68+o1+jaEPyKuNSuHC0iTFmCv+udhpONX/1d5/vM=
+X-Gm-Gg: AYBFou3l6I2bP42DupZa4pw9sfyAzsUUEIDNbXz2+5J+HD91c5rLZ++U2ZPwAPSl2OC
+	onOuFU2wEa6OvMFKMaJyWHbplnL8EioW2T11OBCE+2POE9l3wx8NOaur8eYBjv2+MmTEEA/i/Eb
+	xqZ9n5AnwDWWDx9AX3Wiws5+VdFOFsArx1Aum3peULNASZpz53AVvbgb1isSFdusRKwvKLTeVer
+	nzCcszsTldZc5IPYJJh4m+F4pbCH5sSZqODbPcFlny7DoI9a2u0OQs0abjjSUXJynhkFS0MiJz2
+	6URtVgRitPVxo+rVU/zIILOP2tCmxBkDKsMxed0zft+VkukM7SR2I5fT+6RDH8M6EaRAHYehfh3
+	d6LbFTkJNKR3tEenLvSAhvlADcRaDCezB1ooTurSgekald5unIukdV1nVL9f+Yse0SwLV6ofySJ
+	se3zmRKJtKIZqd+9HgogBCM1rV5JOfdcGT5VKcFEIg6+sCX1B9lSQuBfydrKtevOlWoJneyCEZU
+	cSd74HRMGhpmZPA8sjXCn2F3LCfADMUS7+02DC9rtXhaoTl/hWRGo1OMWSuy+n79v8N2nN2FMOg
+	tZsQVzZP1cwOpnUgbQRAFiTjm/ThQfsP83CNCfUhRniG2eqeSyoHnbYakxHw5nD6g8WVlRK2Ia4
+	65DchhygQqQ==
+X-Received: by 2002:a05:600c:4f46:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4ba0937bce8mr32273765e9.28.1794384787479;
+        Wed, 11 Nov 2026 00:13:07 -0800 (PST)
 Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net. [83.150.40.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02242bd9sm113233815e9.15.2026.11.11.00.13.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02242bd9sm113233815e9.15.2026.11.11.00.13.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:13:05 -0800 (PST)
+        Wed, 11 Nov 2026 00:13:07 -0800 (PST)
 From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -96,11 +97,14 @@ Cc: Jessica Zhang <jesszhan0024@gmail.com>,
 	devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/5] arm64: dts: freescale: Add support for bytesatwork byteDEVKIT i.MX93
-Date: Wed, 11 Nov 2026 09:11:45 +0100
-Message-ID: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+	linux-kernel@vger.kernel.org,
+	Frank Obergfell <frank.obergfell@bytesatwork.ch>
+Subject: [PATCH v2 1/5] dt-bindings: display: panel: ilitek,ili9806e: Add Youritech et050fw01-kt
+Date: Wed, 11 Nov 2026 09:11:46 +0100
+Message-ID: <20261111081150.950272-2-frank.obergfell@bytesatwork.ch>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,51 +116,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series introduces support for the bytesatwork byteENGINE i.MX93
-System on Module (SoM) and the carrier board byteDEVKIT.
-It also adds display support for the integrated Youritech et050fw01-kt
-MIPI-DSI panel by extending the existing ILI9806E panel driver.
+Document the vendor prefix for Shenzhen Youritech Co., Ltd. and add the
+compatible string for the Youritech et050fw01-kt panel.
 
-Changes in v2:
-- Patch 1:
-  - Use specific panel part number (youritech,et050fw01-kt) instead of generic controller name.
-  - Elaborate commit message with vendor description, panel resolution and dimensions.
-- Patch 2:
-  - Update compatible string and function names to match youritech,et050fw01-kt.
-  - Fix commit subject formatting and commit message.
-- Patch 3:
-  - No changes.
-- Patch 4:
-  - Drop standalone SoM compatible entry from fsl.yaml (only bootable board combinations allowed).
-  - Fix typo in commit message ("byteDEVKIT carrier board").
-- Patch 5:
-  - Update panel compatible string to youritech,et050fw01-kt.
-  - Invert GT911 GPIO polarity to GPIO_ACTIVE_HIGH to fix address strapping and reset.
-  - Assign pinctrl_usb2 to reg_usb2_vbus and add vbus-supply to usbotg2.
-  - Add disable-over-current to usbotg1 and usbotg2.
-  - Move panel reset GPIO into dedicated pinctrl_panel_reset group on panel@0.
-  - Standardize Ethernet PHY node names to ethernet-phy@... and use tx-fifo-depth.
-  - Replace underscores in pinctrl node names with hyphens.
-  - Rename tca6418e node to generic gpio@34.
-  - Consolidate devkit devicetrees into single imx93-bytedevkit.dts.
+The Youritech et050fw01-kt is a 480x854 MIPI-DSI LCD panel with
+physical dimensions of 68 mm x 122 mm, driven by an Ilitek ILI9806E
+display controller.
 
-Frank Obergfell (5):
-  dt-bindings: display: panel: ilitek,ili9806e: Add Youritech et050fw01-kt
-  drm/panel: ilitek-ili9806e: Add support for Youritech et050fw01-kt panel
-  arm64: dts: freescale: imx93: Add MIPI DSI controller node
-  dt-bindings: arm: fsl: Add byteENGINE i.MX93 platforms
-  arm64: dts: freescale: Add support for bytesatwork i.MX93
+Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+---
+ .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml      | 1 +
+ Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
+ 2 files changed, 3 insertions(+)
 
- Documentation/devicetree/bindings/arm/fsl.yaml                |   7 +
- .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml    |   1 +
- Documentation/devicetree/bindings/vendor-prefixes.yaml        |   4 +
- MAINTAINERS                                                   |   7 +
- arch/arm64/boot/dts/freescale/Makefile                        |   1 +
- arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts            | 449 ++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi           | 199 ++++++++
- arch/arm64/boot/dts/freescale/imx93.dtsi                      |  34 ++
- drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c            |   4 +-
- drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c             | 158 ++++++
- 10 files changed, 863 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+index 2080d9e0ffac..c2e442c20c0c 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+@@ -19,6 +19,7 @@ properties:
+           - densitron,dmt028vghmcmi-1d
+           - ortustech,com35h3p70ulc
+           - rocktech,rk050hr345-ct106a
++          - youritech,et050fw01-kt
+       - const: ilitek,ili9806e
+ 
+   reg:
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..ac2f54adde73 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1979,6 +1979,8 @@ patternProperties:
+     description: YSH & ATIL
+   "^yones-toptech,.*":
+     description: Yones Toptech Co., Ltd.
++  "^youritech,.*":
++    description: Shenzhen Youritech Co., Ltd.
+   "^youyeetoo,.*":
+     description: Hong Kong Cybodev Tech Limited (youyeetoo)
+   "^ys,.*":
+-- 
+2.47.3
+
