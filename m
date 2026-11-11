@@ -1,46 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390540;
-	b=VVifGigWTsUe77pMMfQHOFLtnrE6SJ+eRcRTLRihzWcHUY3ONihiKt8MkE0Cmgr/S5M/
-	 +JwlUUqkKpnFIGGZlmXE+N7Cslz4zD6jrZUbNsfZJeYyFAnohr5BbF0x3aiz+pJmVAO2w
-	 4BX6Zr6fVQH8nJHHfkGWbvJMFNZokV39xdBn7zKvhr08CvZmiCFaADz7SneFJlAnFvdT8
-	 ov4w0RNFTylmGeD4up0Eoy7gpgbsJMRfdCeR+sjtVPMMvgkHDpms6FEiOHIxvUYEPfdCi
-	 8A4pJNnU69Z5KeSAm0j2TcMgVQcKz2mAcoo4pIwU/GLhaH4kHH0Aq7Mqk1rUTA5qUNQ==
+	t=1794390630;
+	b=jI3vMp8w6dGLfw5JmYJVKuGTLY66uqRZaur73lqwBsBz0mxDXSyY59upa7pYK76wkhDU
+	 B7vY+87JM/z0xtvyV8f8z9JVVZM6NpCLm7siGUwLBDPU+dY8ebsd+MI7OX4Kkj9hlPRw1
+	 +/ba6hs5t9IytNTif9Xx6MXbYvt51ee/2dp7mTRDzzKfOjJNOkFtsyrD0l5xm6VPR9tuZ
+	 XiHz2tM+f/qnvB4PND+FPsobSB7g/bPATGPU2bx6PwqGGCtJd3JPPLblvrFH3h6xpCj9y
+	 hzkMoAArk6Y4whLbdzkkaN+IhXwTygvbR4C+0Cy02i3qcM+PJDitVcSUdCwujheWokA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390540;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=xJpl9h/MzQlpcaQsEK0zyQehtU4pMzO61s1fxmJsrqM=;
-	b=M9Ze7/WszLyd6VTQVxM8uTY3Au5RtJASak2uwP2I94RCnmR/mv5cowwZPsaSWBGgvrp3
-	 4l5gqV/2OCer8VBJQj+XllJUmIEWEWZqvlDlPuOLJnvEIHuGiDwN2dglHvQ/Fqwwn2095
-	 dm801HxGXcoRBW/s7F5SdSkf6H1FusDQyKPaxdTcjcDH0Yta378Hq8oqkx4Zw9CLlCB6o
-	 kS2LoLGiFcF4UHj3dDjSSiRRBFnt3IOz0Iq/oQ4fqp0ho/eEb5KOQ4DER903QMqPoHKwx
-	 oUPegy8ETxSlPnCRM7fkkLADPf/oKHLMq7U+rB2Br490qT8J7Z+/02TFRoZJXOy6tww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390630;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eLu1xb+NMDTuiY/+RyWofsl80izFbG+riI3quVrTUhk=;
+	b=421X3bl4N8+0fy9YznBSCO08Ug/M0P5AZuvqRPE/jXXzYkiKV6qUhp5tueEIWAhZvoVI
+	 q4zokT8Es8uF9dHtL8Lh70cz5OfWueWK3y/SbUEz5lf8fcxRS48VgzFeIruz4IH/6oFLp
+	 YIrITNez2FWWgH9j6ZuB4WmfD4XbpFP5OcDOWbj1RlmIrfnup1qV8m1AO3lwnzqSwSnK8
+	 /YCzuu2sNqDhSjk9+FhFuDOiMM+sstZdnTry1H4IxTvBFuYMKp6NBoO7yGJXJiXiLNyze
+	 y3q1iZtyGU4YJMUnLFwH3xGGGrhrlfoVmsBBNfh1eCATQ57EXopjpzEqNpdn1Nc1Tcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auroraos.dev;
-	spf=pass smtp.mailfrom=auroraos.dev;
-	arc=none smtp.remote-ip=95.181.193.9
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=NmOYxAAT;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55952606A321;
-	Wed, 11 Nov 2026 09:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55952606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from pc.omp.ru (77.37.240.142) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 11 Nov
- 2026 12:48:58 +0300
-From: Georgiy Osokin <g.osokin@auroraos.dev>
-To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH 5.15.y] of/fdt: Ignore disabled memory nodes
-Date: Wed, 11 Nov 2026 12:48:37 +0300
-Message-ID: <20261111094837.601200-1-g.osokin@auroraos.dev>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDAA606A324;
+	Wed, 11 Nov 2026 09:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DDAA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=NmOYxAAT
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id CC9EC20DCBFB;
+	Wed, 11 Nov 2026 10:50:28 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id AC12F20D7CEE;
+	Wed, 11 Nov 2026 10:50:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr AC12F20D7CEE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794390628;
+	bh=eLu1xb+NMDTuiY/+RyWofsl80izFbG+riI3quVrTUhk=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=NmOYxAATRQROalXzPOcW+uo9n+nMssOvmsRkXb0DAVG3l/l0deKnvWFOACnKun5VG
+	 48J8nouprXrwEg1afhWvj/9D+eI20LY3aQmvTWNmruMmpkozUBvDamHHra9VtgSVoJ
+	 Z+IKjNMmcbGLDdNvpe/uvkrz8jEbm/y0yeCVwLBuq7ovTQ/oOWk6mui6WSO8YE10Qt
+	 PsNiEe21xUaobr0BRokPdcuPsNKgXW5ULRVE0w84Bjj/dgyUjHIQuwXlzJhpAYnHJw
+	 jyZeN5EWurSkn9nHLb5SJ/8rKTTV32s5DQmViMYK5+9MuxZfMlz0WJbATC/e4+PspZ
+	 6YVCKjtIUDOpQ==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id le9kw9Hd74oC; Wed, 11 Nov 2026 10:50:28 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id 932AA20DCBFB;
+	Wed, 11 Nov 2026 10:50:27 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Vasily Khoruzhick <anarsoul@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-bluetooth@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: enable Bluetooth on BPI-F3
+Date: Wed, 11 Nov 2026 10:50:01 +0100
+Message-ID: <20261111095001.444031-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <DMRED3CXA5IJ.3FLQ7UFUTN0R9@linux.spacemit.com>
+References: <20261110074607.363918-3-frederic.mahe@cirad.fr> <DMRED3CXA5IJ.3FLQ7UFUTN0R9@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,96 +92,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Andre Przywara <andre.przywara@arm.com>
+On Tue, Nov 10, 2026 at 08:44:36AM +0000, Troy Mitchell wrote:
+> Please add CLK_SLOW_UART2 to assigned-clocks and set it explicitly:
+>
+> 	assigned-clock-rates =3D <0>, <48000000>;
 
-commit df5cd369876114f91f9ae60658fea80acfb15890 upstream.
+Thanks, done in v2:
+https://lore.kernel.org/r/20261111094557.443481-1-frederic.mahe@cirad.fr
 
-When we boot a machine using a devicetree, the generic DT code goes
-through all nodes with a 'device_type = "memory"' property, and collects
-all memory banks mentioned there. However it does not check for the
-status property, so any nodes which are explicitly "disabled" will still
-be added as a memblock.
-This ends up badly for QEMU, when booting with secure firmware on
-arm/arm64 machines, because QEMU adds a node describing secure-only
-memory:
-===================
-	secram@e000000 {
-		secure-status = "okay";
-		status = "disabled";
-		reg = <0x00 0xe000000 0x00 0x1000000>;
-		device_type = "memory";
-	};
-===================
+I checked that the rate is really applied: with 24 MHz in the DT,
+slow_uart2 runs at 24 MHz; with 48 MHz, Bluetooth works as before.
 
-The kernel will eventually use that memory block (which is located below
-the main DRAM bank), but accesses to that will be answered with an
-SError:
-===================
-[    0.000000] Internal error: synchronous external abort: 96000050 [#1] PREEMPT SMP
-[    0.000000] Modules linked in:
-[    0.000000] CPU: 0 PID: 0 Comm: swapper Not tainted 5.18.0-rc6-00014-g10c8acb8b679 #524
-[    0.000000] Hardware name: linux,dummy-virt (DT)
-[    0.000000] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[    0.000000] pc : new_slab+0x190/0x340
-[    0.000000] lr : new_slab+0x184/0x340
-[    0.000000] sp : ffff80000a4b3d10
-....
-==================
-The actual crash location and call stack will be somewhat random, and
-depend on the specific allocation of that physical memory range.
-
-As the DT spec[1] explicitly mentions standard properties, add a simple
-check to skip over disabled memory nodes, so that we only use memory
-that is meant for non-secure code to use.
-
-That fixes booting a QEMU arm64 VM with EL3 enabled ("secure=on"), when
-not using UEFI. In this case the QEMU generated DT will be handed on
-to the kernel, which will see the secram node.
-This issue is reproducible when using TF-A together with U-Boot as
-firmware, then booting with the "booti" command.
-
-When using U-Boot as an UEFI provider, the code there [2] explicitly
-filters for disabled nodes when generating the UEFI memory map, so we
-are safe.
-EDK/2 only reads the first bank of the first DT memory node [3] to learn
-about memory, so we got lucky there.
-
-[1] https://github.com/devicetree-org/devicetree-specification/blob/main/source/chapter3-devicenodes.rst#memory-node (after the table)
-[2] https://source.denx.de/u-boot/u-boot/-/blob/master/lib/fdtdec.c#L1061-1063
-[3] https://github.com/tianocore/edk2/blob/master/ArmVirtPkg/PrePi/FdtParser.c
-
-Reported-by: Ross Burton <ross.burton@arm.com>
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Signed-off-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20220517101410.3493781-1-andre.przywara@arm.com
-[ Georgiy: 5.15 lacks commit 1f012283e936 ("of/fdt: Rework
-  early_init_dt_scan_memory() to call directly"), so the function still
-  handles one node per of_scan_flat_dt() call: return 0 instead of
-  continue and use initial_boot_params instead of the local fdt. ]
-Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
----
- drivers/of/fdt.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 338171c978cc..342fdea26380 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1102,6 +1102,9 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
- 	if (type == NULL || strcmp(type, "memory") != 0)
- 		return 0;
- 
-+	if (!of_fdt_device_is_available(initial_boot_params, node))
-+		return 0;
-+
- 	reg = of_get_flat_dt_prop(node, "linux,usable-memory", &l);
- 	if (reg == NULL)
- 		reg = of_get_flat_dt_prop(node, "reg", &l);
--- 
-2.54.0
-
+Fr=C3=A9d=C3=A9ric
