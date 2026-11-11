@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401946;
-	b=xHfSokhs6P9D8gm4E5yCQiXdAhhlbnc+jyvcaMESaZjn2kBzYlRn1bmQ0ZLIxkGbp71G
-	 XXZ1GE3nVNe15gllLlb13rxgnrp5H2DI91UiKAj+F5z1Ir206tjaDoc2IiCxRuzcs7ue1
-	 eQdqKRkknnS0ZtW5JmD1qoqsd2jp/pOf7B1ljDw0723GB9Xa9zKdNSWIRg8Jl5laHUXmm
-	 6V6Tjy9qeMzM2Qt5H6UNXaFzQLEjBfHiLJF8mJ90ThRoHHmsv1HMST7q9R1Ct664Zwr1X
-	 f3a0sGXSn420qJ4GOqUQ2dQm56S7YFvBHqVTxRorh6TPyXrlr+iyToOkIfoLoXltTGA==
+	t=1794402025;
+	b=Fhb7x/w9kgwTJWVdhoukISvw/cjXx26DyfVJB4bjOJiNuojoUakviS8Km+zcEh3ifBUh
+	 a9UMy9n5/+aHKame06ojyRYHXqvkjadIvVdZGhVaUms2VZlxqPmd6r8VP/eQXJgquXZ2y
+	 CYYL7VrAaeycNPKoInFeYpHCEuyRYypJOg7LXx65gGqXI2aBPOQ5cU4cQyQWzO6X70jcR
+	 kJkpbJ3ZTUI8S9yapIDDrd4ccykoLhyMLDm3F98q3PVPZFN2RcEpPxEC5pZyincee7wW0
+	 dG3qrYqKRz8HjXsHkqZqhKrRnbM/6MwjzyIZ6n9LkxDlCz0h8J3792FARnPBrYaR9sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401946;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IFNXUO9Jr7TJnTM4pI8+RXJ3qfoW4xa5qsBB8IRLyHY=;
-	b=KJCwqHdXIfuW9RSZ3omaB95cLS/T2OUqHPEhYbAwyt5IDDnGPNvaCZvhKRzTA+UiAXL5
-	 W5DNjRpvYdoBMgydZSm1xE1aXtOf9kXLN9OBP4gMOoKPnvqcgtXR1MxpGqZJ4AkA9E/jf
-	 Dqj/p4Gy+c941T/3zZx4WO23V0ZSSoRrEdPlCyM1J4Ds1usZKPminrI5Qwd9NDDZQR9LP
-	 iL5RzXcC9rQwxbBzmtd4Sxm6K58hWEX3PrUtkC9dnlLCQTPcgQrOG6NGjqEjih0E6BEBJ
-	 VuORAk8OcfKqiLLN4ImDT2LDa4ZxVYlOJl/MfDKGXIRGljd9y34ZqYPJf7luBDDkqfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402025;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7mgWr1pZb7yNWIt4OPiuVc2e09ECAvShm7sgjMRNlNQ=;
+	b=zmCL+63575eNnobjDyioixK9fh2WlqRu3fTGnCjhvolymOJ89QOICcvgxwEggFxupQrf
+	 DtJwdgBDByWgSHdwmZ2qFrIxj+Xenxs3lD22NfQGFFrqzFBAHCmQqlNAKtBcqoDh+xIoJ
+	 j4PQuv0yc/lgUpf9B2c2V8pkSsPrRoSCZ6B0lI32cb2Y/BApjr26rWAGQVos12S2XT9/X
+	 DB4M8i34EgWohUBESFdl1rPcXbOfuCHGM2kq2DPRHL7jZnJHzbDEISb0ZoEL/o5XahLrn
+	 qyoQxAq0nDsO49z4EUcwmFnPkGNoeg0PFQLKl1+X2aMHMDeQFKxQauAhEbCybRUtMWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7910F60A2614;
-	Wed, 11 Nov 2026 12:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7910F60A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fo3Hj1SD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC690606A327;
+	Wed, 11 Nov 2026 13:00:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97E801576;
-	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9DE83F632;
-	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794401943; bh=Cdy/qokJ1H5l2i4X0IPSgmP/Ge5RQRh04NlGw7FyG/U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=C0DwQSOzO2O5bcR3VXJlOpuuJ9TPGqBenmbf9NmpLIwifpTSmMIcrDyG/aS3Od6UW
-	 IzrdOYaRBSikSpe8Z2mfLYIo5U7T/YAlenp3b3uPY1XJX0TrjklvzbGzlUVHjHpv7U
-	 2qWTdIvBOwzT18Unl4VGC1N3sZHgfGpA5pC2leiY=
-Message-ID: <14c0956c-904e-4a6a-98a0-882514d77b08@arm.com>
-Date: Wed, 11 Nov 2026 12:58:59 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fo3Hj1SD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9DF1F00A05;
+	Wed, 11 Nov 2026 13:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402025;
+	bh=7mgWr1pZb7yNWIt4OPiuVc2e09ECAvShm7sgjMRNlNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fo3Hj1SDwn8RxIMwTVvbptNy74Dg9lfDShmeUDHRK0LWAKBI2JcdNsKcsfM2LBoqm
+	 VJh1Z3JR89/h1hzLWgtwWb1n53WOD9pFD2QenXg9lh+xAmwDA/Sj1SCV25W9gXLJdo
+	 H9iaIsuEwP1pzEpJKwggSUat4m9tiiXDGad6u6M6viXklRc2PllfoGwk53NnX5F8YW
+	 FNIV9xSdC7eamI8fVGkuG2Puw4mfgk6ZiVLWeDNTaZughW+kM882xvCVeRiE2sDS2P
+	 upODuQhTU5gmaoxSUFXNYRN0OEsREreowqmDcfsTmFwf3B/akJA4qw2rU5fMnE0oqF
+	 XUAzPuZboR7OQ==
+Date: Wed, 11 Nov 2026 14:00:21 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rui Cao <i@udp0.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: arm: mediatek: Add MT6833 and the
+ Xiaomi Redmi Note 13 5G
+Message-ID: <20261111-manipulative-fulmar-of-lightning-34bee8@quoll>
+References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
+ <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,56 +64,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
- platforms
-To: Rob Herring <robh@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
- Leo Yan <leo.yan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
- <20261110154643.GA4159803-robh@kernel.org>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261110154643.GA4159803-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
 
-On 10/11/2026 15:46, Rob Herring wrote:
-> On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
->> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
->> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
->> forces the device onto the AMBA bus, where the driver must read the
->> peripheral ID from the device registers during probe. On several QCOM
->> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
->> never probes and its trace path is unavailable.
+On Sat, Nov 07, 2026 at 08:21:58PM +0800, Rui Cao wrote:
+> Add MediaTek's MT6833 (Dimensity 700) and the Xiaomi Redmi Note 13 5G,
+> codenamed gold, which is built on it.
 > 
-> But it works fine on some platforms? We have a property to override the
-> peripheral-ID which would solve your issue. That would be much simpler
-> and avoid the ABI break on any of the working platforms.
+> Signed-off-by: Rui Cao <i@udp0.com>
+> ---
+>  Documentation/devicetree/bindings/arm/mediatek.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 
-That is true ! Sorry, I didn't think of the quirk.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> 
-> But this is already applied and it's not any platform I use, so I don't
-> really care.
-
-I am happy to revert these changes and let the DTS be fixed.
-
-Cheers
-Suzuki
-
-
-> 
-> Rob
+Best regards,
+Krzysztof
 
