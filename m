@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436999;
-	b=lMQH5KqGWxqLlcUJtiatmRcu9sN7cUvNlfJ0wiUXIG5eP2dp5Tl/5d1NIUBqxyM+QJ7F
-	 Ztvzq56JwlfT51tfU/J4K4FrXoq7l6I1d/teyCVBuhNX5tkz9aEw2U0CIbfnDyMNSa0UT
-	 D6tZ5Y7zQJjYHbGLpWLCAtQS2mNtxtygHnHWwCRVloY0JPU6Tt1tdq1TO3fDJJhZZQz+c
-	 utRKqpejYBmX76cH6oMslxMMTAYEl+aX8oKJ9WZ+rl+2pyMMwNb+K/49GHHGwvQMjUxSk
-	 54ijtio0eQU5E1JespHTNdBQAMxZ4pe2kpn9gZ4WL5/vJTMO1+OhIBqNowoDBZzkSpA==
+	t=1794437006;
+	b=UzwZUFNdIfxFYTcnAlG7TX/iMN/rNh6Ddo4jV7cNBLoANg6fgkVDEdC6vAiRu+BcdITa
+	 ap8UPSOqwt+n+N+r+kwLbO9+viJzTdHVvj9NE67KjBbA/G+3btOQa3eI5IkgDwBpU7gpz
+	 KBa2yZ4sXZYRZTSWcfIKfQ7M9bnV5BldkKd/xAnMh57L1e3ywUl9w8w5E8XuSg1JATA+B
+	 u/5oNGFKUQNghgROAva650h6D0RrhgXkAe3dsrQXljvjdu78LkxgZb/AWJ0uoG/F7tWLX
+	 BQgWOdSME0vLRUhJTDGOuU5drb3ZN+PwUzjdxN+3caFDg9vATgVaclSNBr7iRpciYww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437006;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=qPjiFEL/KvMKPxsB3qj3BGsroSuozksKUttzqOJzzek=;
-	b=sdzo6Cg6e3n7jugC92HfR4z66/T0UzQut31gLyTE9PAPiMfg/g583IjC7W7d/Hs73HoI
-	 bpKO0dlUZn+F8fnjRzOr+/q17Lx1FW1BR+gl6+FQtxF5094voKuDHhyQEHzgDcubaMxcu
-	 6m7rtRbTjCkod62tSp2S1P1lsta+cwEPFG8hjkvMXSI2dtHcR1CYZEY9I03hKR8LRgx5F
-	 jlVno8/7TSbj1EO1tm1l6OrQCqIzlD8OKcqi6q/s4dd0OYrrdetLq/iSUXJRetNPgsZ0u
-	 kS8WX10zznAsOIyJhgShJ86yCf6zVvCYUxwKJ853jfx/0Vc6o/g+zXwg2ISeJPXan6A==
+	bh=cX/Tp5audNOVGhUTi+88u7YfX7Lqy3DYIOIRzLRbeyY=;
+	b=bVvVV+EU9fd9LQDReuk8RNwdKrUqEbAToG9UFYaWVd8qzuhZvucXASqJzN7O+nXYeZdK
+	 OWR5o3kdMhe/6oFhjynqijQEDD6CVbay0jwRNnvCgvMkHj3eo24U+dp6OnK/QB210Dn6N
+	 95jFD0WxNotn+3Rp24GlML0I2QsWSl0Pw728gLYB4fKNOAFGYenXOz68IZHdRJJeI7KPE
+	 qTlQnnYLJG6G4qN1PuwRUiBty1SWPq23TQ8Sym8Wokwlp3/PBwK8INsvkAaJyVo5GsTiY
+	 mvYP2/zS23k3nxWbqdpDFAZOO+yEL1b9BW9/pXTbq694+iGCOxof4Kj/628nnB7pf9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=We1CzFn3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buUpJwfg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE3560A5BDD;
-	Wed, 11 Nov 2026 22:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16CA60A6F74;
+	Wed, 11 Nov 2026 22:43:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=We1CzFn3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C88E1F00A05;
-	Wed, 11 Nov 2026 22:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buUpJwfg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D25E1F00A06;
+	Wed, 11 Nov 2026 22:43:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794436998;
-	bh=qPjiFEL/KvMKPxsB3qj3BGsroSuozksKUttzqOJzzek=;
+	s=k20260515; t=1794437005;
+	bh=cX/Tp5audNOVGhUTi+88u7YfX7Lqy3DYIOIRzLRbeyY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=We1CzFn3BL1WrJhdH9qzHLb1osxrR7Ct1iNxIYzDWZ/5LIppsoV0zRmk9Vw6zvt5M
-	 9B0wrQDl/VUlIX/E7EQlpHfc3yBPnzo2ndFSBRiHUuLe2nx1WMW7cS5n8FwXeVdVt2
-	 hF0sxfNCb9T0f7a9DM5fYEFW5I2gVrVRJmWQabtcm2geLxrgs9Z4BJXDOvo+Gwx5J8
-	 3v6E8q84gWWZzZJ06kf9JGpKiUqSNlDft1dZ3MQfhTlT3v0HZ7XlN6lsz0ExmSbtcm
-	 JN851I8IIMXrXSMBMxvTv8MUD1Dirp2BsJrEcCzcVMKJjpPr91hf+tnZKCzc7Ai8ON
-	 4k0uOIhfj5qpQ==
+	b=buUpJwfgTYkO2rE+o86IT2/I+go5KxcIEK5OFkI5mIqdAWhG0kDrMe8TzKEWNWQAQ
+	 Sb9qv+WZH0H9h1N0aGnNZMYa/pXxFL00OWoytbDOe9uieJr1wXS5Dmoyi1l399+KJf
+	 XTfzvvmuoLASW+nOPknvvpTg/l0fTb8nHEBji1tRn+//ZPoiddA7aWEjtO3CjHvPOW
+	 jMDY8xvAXX8Ub3WvMZXdAvaOv05kHT/Mkea61tHwBDpTt7S4DkHdVWa9xpTdSEOmW0
+	 Uus4porQjBSWgoZoM5ODpN2S1WHLKIr3OH4eGoGcHX7JE/6WNNNWVL7m1rHEfr+pcu
+	 4cfBdWCQooe5Q==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 16:43:01 -0600
-Subject: [PATCH 4/9] arm64: dts: marvell: Drop SPI max frequency
+Date: Wed, 11 Nov 2026 16:43:05 -0600
+Subject: [PATCH 8/9] arm64: dts: marvell: cn9131-cf-solidwan: Drop
+ st,m41t80 reset-gpios
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-marvell-v1-4-938788aff3ae@kernel.org>
+Message-Id: <20261111-dtbs-marvell-v1-8-938788aff3ae@kernel.org>
 References: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
 In-Reply-To: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -65,29 +66,26 @@ Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.16-dev
 
-Remove spi-max-frequency from the CP0 SPI controller node on the
-CN9130 SolidRun SOM. The property belongs on SPI devices, and the
-flash child already has its own maximum frequency. Plus, pretty
-sure 1.8GHz is not a possible SPI bus frequency.
+The part has no reset line nor does the Linux driver handle the property,
+so drop it.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+ arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi b/arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi
-index f95202decfce..7200f72b934f 100644
---- a/arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi
-+++ b/arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi
-@@ -106,8 +106,6 @@ &cp0_spi1 {
- 	status = "okay";
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&cp0_spi1_pins>;
--	/* max speed limited by a mux */
--	spi-max-frequency = <1800000000>;
+diff --git a/arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts b/arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts
+index b6aeba7d0a61..0b079e1428bf 100644
+--- a/arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts
++++ b/arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts
+@@ -252,7 +252,6 @@ carrier_rtc: rtc@68 {
+ 		pinctrl-names = "default";
+ 		interrupt-parent = <&cp1_gpio1>;
+ 		interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+-		reset-gpios = <&cp1_gpio1 13 GPIO_ACTIVE_LOW>;
+ 	};
+ };
  
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
 
 -- 
 2.53.0
