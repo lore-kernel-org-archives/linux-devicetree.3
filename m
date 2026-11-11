@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794415834;
-	b=fN9CtqcmmsUM3kqr7c9LVGLl0PR9shR08XNVeq2qC2waqP3PntwMTEjY5oIBsebjpHyw
-	 xfGE3tTVr1qgszIYJHPguPW11DA2HLbwuGul5jZrKrU8XDwrDoLFAnR5JeXvdQ0xwnb1I
-	 gO0hu2eGq4QFJlOwZ8v54z1GSzf25dENJSO7pg4N/aDAD4W3q0MRqqnmCi3hVs6uGYboO
-	 INs0YK4QydxquFB4wZl2J7briOb2gezBLx0rNfDfeFastGyE3fgdaxUKoIhnwgPovsG1r
-	 WZcJaFBMU3YMfOJmOYz0dXlik5JjUYODOxFUKgJvNG/C90RcDn1aqV4eImYxytyqadw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415834;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
-	b=Ij/N8o/0tRan8jJ7taYoI1vSzKTyzoYyAvFVmyi9QLsa0ylUVE8Qd/yQAulydG22Ia1F
-	 jkLdBVQWVeQtEGEeZ02TW9dnBnD0PU+w6bfIDy+iNsQLvdLS5cioMqw0N0WKXxmnq1DD/
-	 T5Ulps5bDGVfHyeIOEZySc46dZLeiyI59yC3/DPru6nOFOkXA/4LgzE48/xCbUQXYW2v3
-	 85YV4iosCk7JAhGgqN04JF4W6D6tIbvtyOdWN05XdQe73XJp3MNxhScFtJt6YTAaePNXJ
-	 JlOLg5vsd/rc91Py1VhKe/lFdcdcCbCae9sclbuiNY3HkanLinNmFpyRCr3bFZbgiZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="CJRYa/Po";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.12
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794415884;
+	b=tJ28sZkONNtQJG12PmLqtwwaAnyEUGnxT16yelK2oJxCqLcisnQtCJUpGVy7HPTOVz+P
+	 fyvyy4Bo4xCL/3sU+R+BHGpMyCcXTe5J2mEUec6XVb8n28+bjmyf2KmVwb3GaSFBtaSLP
+	 aaeVCif2dRv7zHdb+QXqYISXLSM+hWss4FUurNLnCLMmi3LNLgwH/pj14UBg/4lcFngs7
+	 6g2LxLY6uy9efMWK4IotNhYNsOL5mh3MrgsgguFQa8DQE+D7I4TwgNkDcTsqMlsMuhhob
+	 URyOEPSZOV6Ikuk1bkyHKIvXFcO5Yr8zRRCxvIg+AfC5VYrcRlmD58MTdTWmCRgN58g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415884;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=BXhud/AUQ85lkv471QOBwvOmA53AitNKT5dvd8MAWHo=;
+	b=UYUH3VEcxcUvZH9cL/ttDqNZ6+sT+OZV70yRqu8b4I+sKNY75QWlSCj0LU8P3rxSczLL
+	 ns+A2Eu2AfYY8CRlBL5LrmUsxCs0lLeUmxseQxeZRB+waDYbybTGFI/3M3ZKc8T5EG1Al
+	 nSr1sr116AsMDz2C8JLvmtv6VQs7DW/+Xs6L9/Lse7oKE+jWT6Ks0/2CbEUfH8usgRiBt
+	 mKx0Sx9A14fuC7BhTPhRjNQoPajaDaLhEVTEr2plN5DxZ8HoMpG6jmg/NzMveqJQGicHQ
+	 ZnQazNFgGIVF9rAS4s0uQC3DNkeA/dASQvQNaky2I1FlGiGvSkUbr0pLtoFqSa/59Og==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E89606A324;
-	Wed, 11 Nov 2026 16:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9E89606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CJRYa/Po
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UZm2sKic8UttRCL0SChy/SugyFelrL4k6AuBOGrMSMYQwJ3iMZVHO/Tjhhl0akdlKLTbFMT0aCk59wIBGV9yl4417x/XnWecHhe4Ne6H8VZcUtxXUHGIDi5ZqDhVmkGp5UBy24a5YXnG2JhDdxtidrC8vxZJHyLwomV9eXsxYjxi9MBtwLtV2dUy1I/Ck6s7DSZRduPoB3OXhDx5sS8I2t0M60Em9Bd4Uq/HzUqMLvVcnat1ArytH/gKiml1Y8CPRnq7Oa2h1rxZKUJJxNDPCNt8HV94h5bFKsXtIaYP9Uigbn2uBNaFkQXDmOiWKdRRovOa2GQl+6y7e6CUw4D/Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
- b=bbJDUDD38OLnufTTu6m7ZBe7cOqub5BvSHfN41yCPs0ld89+MEFBeMtNHjPqMARStVrvmr8n+ZBmTXi1P3ZuHmBSDHlDCf9GuVimZXBhhGeKZM4ECUIvDfECWRFivePiH6+0NT/TMafkbRl2Fsil8mg4B0SFFMnrDEpreKFxbr+MiAFtKRm99KB2BF30GG0XfmSeWsGRMkR/TNsXIAjhmxUQJg7Sn5AMYoi+kpTGojD03Hg8ynqJJdDLiqc0C3QUN1AGDED01b3xk8c9ksiuEhS428bZliZuJmLiz48f2MfGhYyt2tLYG7h+NvLRgjOsalgeI/EqOAbZfx/zvx9o8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
- b=CJRYa/PoDnEK26VM0d9J30vADR/NAiV3n7jtO7DsO4i0uEt9CuhSWGdck8cfWltljFuC9A/os7Xb7Bk/H+MO8zNgaSAhBmgib/XffzmUFmDIeOIAcvqsBLIf7+DeAex00vKuhsUGuGf9ugN7mu/8sGUhCOPU6e2esA/SP2s4Iby1AULEGVlHVhiNU+N9E/1KUE3oT67GnXDlIetvVra8Z7ZLSWdWquAU4DdGtwXm34Ze9hBlvm+1F7QRTh5bSkeJkN04fRwSqNEVb4AjTInPXQSjmm6S5s29ph0ijAuPwZWjRuTQDSalm/Zfg3h1SB2V0yUT2+auvWA99qAnQ7ry8Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB8379.eurprd04.prod.outlook.com (2603:10a6:10:241::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 16:50:30 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 16:50:29 +0000
-Date: Wed, 11 Nov 2026 11:50:22 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, tbevis@amazon.com,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA72B606A33E;
+	Wed, 11 Nov 2026 16:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA72B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <93e271bb46944ea887722fa2296efa26f4ce2c58.camel@crapouillou.net>
+Subject: Re: [PATCH v4 5/5] drm/panel: Add the HiBy LG35583
+From: Paul Cercueil <paul@crapouillou.net>
+To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, Thomas
+ Petazzoni	 <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ 	devicetree@vger.kernel.org, linux-mips@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/9] dt-bindings: i3c: Document generic bus timing
- properties
-Message-ID: <avSczhZGS9cCcNSu@lizhi-Precision-Tower-5810>
-References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
- <20261111-b4-i3c-hci-ast2700-v2-1-4d8fff5c5196@aspeedtech.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-1-4d8fff5c5196@aspeedtech.com>
-X-ClientProxiedBy: DS7PR03CA0119.namprd03.prod.outlook.com
- (2603:10b6:5:3b7::34) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+Date: Wed, 11 Nov 2026 17:51:16 +0100
+In-Reply-To: <20261109174640.96951-6-olivier@mgcrea.io>
+References: <20261109174640.96951-1-olivier@mgcrea.io>
+	 <20261109174640.96951-6-olivier@mgcrea.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,154 +58,460 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB8379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d53db86-b58c-4362-5675-08df4013e4d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|22082099003|18002099003|261009223027099003|3023799007|11063799006|4143699003|56012099006|261028144727099003|261102123227099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	AKpj/MhLO/Xla+SgHmOliGOSmtR64MQvGHAdn1LISVxH4TtFrz+vFtsdTK0wq8frF96ebHqIxirig+tZY2kVivBhpLCdXv1GNMe3ByU/9xVHSRc7DlTIb/7jDovBCiXPvKvpSx5PWW/jx1Q5KkrH1+rqPbShOtfav8EmGjkzJ3Hr4tDykTFSIH4P8GI43qFeFkExzXhwEo8MCUn2fPH/SDcQBLN90vRk/X4ZmK0ZzxjAjqoeRgyHIfDobYbEUIWwDBJ2+QvC7jTkol2fZTuV+tSX06iESKqeG+gmVsIlwT2fHBwVm0S4okAPsAYlXIs6kVcI4ijhIDYLjeBuStpDRR21huhsKXh837hEFLv9gPzZF0VByLkUJFaHoMvNc+siWpC3TemiorrMH8QMFdQ6nVaJnHgYCp6Hgv1Rjf/jiOMIUHULhbvg1g8nCEqn93/BKUDH+efqoH9CFnckMHWjt+LtyDPIAtHBG0yN0yTJeXT9rWHHHSHhcvvENQmEBSNOY9gaUbOyFexfi4vAMY2T8BRn8aPM9Q3jcV6JA7Z6FG/HamP/SoNRBazcRzcWhLEDBafQJJGVSoGgb8bPuRZ2SRlVuGUrsS8RSLOl+Kz4TN/Fbq4E6jox1ajWTYYF+Zd0YZ+lsXJfM3BwdNUd8rhHJTzdWcWMnMf0esuNm2LeT2c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(11063799006)(4143699003)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9GWnyXibWy0s0KHsl+iGoPsXXZWjN9xGtM9plB8QWbNy7vL/OgPQSA5bFJRH?=
- =?us-ascii?Q?4C2iGuSlab9RX913Jti0otfJufynzPfCsh99q+oXGQR77r8WN/8OCFjR0wa+?=
- =?us-ascii?Q?0GqHRVulGFvw/AFEjAFce3n7+uEzZPv4DiZlLgMQ0f67LqF89EToTVPVwmK7?=
- =?us-ascii?Q?NUDe3XVV/D8ClkwKG5xnESh4b7jTKsAddv6+k70beL2fuNHg1iw15Z6ZhEba?=
- =?us-ascii?Q?TXcSbuh2VrGatVwZ6mxbMbJW/XA8wKM4luddObnyNRxxgyt6miY7qmTW4ofU?=
- =?us-ascii?Q?mOkI7SUQr9lD+fthTmCXRtqZxXMXXE0X09AKtX3Kfipz9fQVsn8EjgpzasWW?=
- =?us-ascii?Q?YwfeFJaGQar6wlDI3Uwy1AMW9CVjqejWdmMU11+0Q87/e9lhSf1NJyzL0yPP?=
- =?us-ascii?Q?X/+khhKpBy5/mS2zGhHpOhPBoveqv7HZg3yB3Lna4uLaoRR0lS4sy7My4IP+?=
- =?us-ascii?Q?YG/oeB3vrXdxRZrzh2ue/qYyDXG9UUMB8mBlzeRwwi3q7Nel7quimThdgOVg?=
- =?us-ascii?Q?Sl1DViDNJXrDf5gnUW/wD+9A2TgBIELzmDGRAtq16820G6M3Mwyah/qsNnHj?=
- =?us-ascii?Q?be2qgmhmYOsRT8BSxVzs1tuzrGWN9BX/MGPMVssPxFFQ2dZ+zo/natdgziJ/?=
- =?us-ascii?Q?fJ0PBFbfgirnli7j+6wyX+RPpcglN5P6a0amdBPELVf/dRHc3wGIY3m7+X6k?=
- =?us-ascii?Q?v0qSBaLCDCizsHUiRc3x6HSqmRqSguXlyH62Yvblhli9CEtdmwp6008yekzB?=
- =?us-ascii?Q?3kM+xYs1vp4wyeR91WEKyBi36uebsBagZJGf5xbjxYzoZ8BTzDBAAWhI1rPd?=
- =?us-ascii?Q?hYTc5uwlJhL6ntDJarz0gGVW+sQBgUEyFOoGBzvw2ciEL9w3JEqczIbyQRhJ?=
- =?us-ascii?Q?3KIzI55AAJoXKjQ10qicrWq/9Ijj5wEuT28sTGPsOmBcLSCu/bZ20PHrvd2m?=
- =?us-ascii?Q?C31cSTKeCCs+i1hCHnMy4IGW4YNKO8hThJMNbc8u4F6Ib9BH2EjwKT0B2TbB?=
- =?us-ascii?Q?FblbnUx1pc/uet4vYL73dDfoiyt7z/gmy621TKisZFb34/NWSue0l7OJ0fws?=
- =?us-ascii?Q?vCVlBLESCRhxf+zykyDETgaQ7InnC7f8FqUyCQ0rbzmev1iDG+tn+3TwfsPt?=
- =?us-ascii?Q?Kohl2PSHDH+ekgUJlm4TAsp15QkOps71A+cvWK0yzRYo5UavN5C1ZUx92Sg0?=
- =?us-ascii?Q?Rvc0PdTg78DSgNm1ef+eLw8m3r1+Y9/s0tIyD3tb5Wci8u/KIPwxbgENght+?=
- =?us-ascii?Q?sizMHfJvm00FyKEsvF/l3PM3KtFXPmj6coGfjdiRAPTDwHH8h3XAhYbLub9/?=
- =?us-ascii?Q?YXKE/Ff6D3WWUkN4ZCf/RoPQwr1sjaSMWr/EL6WiKuZMns1RcI6QCuKFEkNB?=
- =?us-ascii?Q?Xzcn9VdZapPADn1tWaqpmjOjpuhtf62TZpdG5jBEwIagr/ccqj7KakCwp/hS?=
- =?us-ascii?Q?7OgNohqPpDUm2z1DLG2TIIviyWViLJLd8GOhP8XHB6iIZn6Ny8Dq4EwonE0d?=
- =?us-ascii?Q?lq0rMHAgIsGfRdj5OktbC0RarfpG/e4Tt+tp7EMdVNjot2RPCH7qY0KwkX/c?=
- =?us-ascii?Q?FjUC0pvndnti82b+/eCeUGaKYPKtPEI+zHZbsMuYKHQWYcClTy9U34Z5DahS?=
- =?us-ascii?Q?W52JhEQa57lUT01eAWTRG8DUUwWBNPlgm8eFuAdYem1DP7CNxPUsiX4rxrTK?=
- =?us-ascii?Q?eZo/ilXjBVk84tXK3hk6uWFYIJ9fE+JTcG3+tPXmixPmlkIR9CTztBJr5lvI?=
- =?us-ascii?Q?zhtbtp/o27s8Rl+3SzJnZ5ds8Ug/l7MI+zBG9C6StaXqWYhRCZMK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d53db86-b58c-4362-5675-08df4013e4d2
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 16:50:29.8540
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 38iLylBEaCBpHuEVRuSOAZpMfQo5tubd2PmZgpU4w9Yzhvkiet60V9LuthNfhD06CDuzulRGlQZzZ/Cko2i+7Vh/noQVSlb2l0dRX/54oRJKr3D7CRI/apCY1E8lNEC0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8379
 
-On Wed, Nov 11, 2026 at 11:16:29AM +0800, Billy Tsai wrote:
-> The push-pull and open-drain SCL periods, push-pull SDA output hold
-> time, and the tCAS/tCBP periods around START and STOP conditions are
-> normally derived from i3c-scl-hz, but board-level trace length,
-> pull-up strength and capacitive loading can require different values
-> than what that derivation produces for a given board.
->
-> Document properties to override each of these independently, naming
-> them after the MIPI I3C Basic Specification v1.1.1 timing parameters
-> they adjust:
->
->  - i3c-pp-scl-high-period-ns, i3c-pp-scl-low-period-ns
->    tHIGH, tLOW: Table 87 (I3C Push-Pull Timing Parameters)
->
->  - i3c-od-scl-high-period-ns, i3c-od-scl-low-period-ns
->    tHIGH, tLOW_OD: Table 86 (I3C Open Drain Timing Parameters)
->
->  - i3c-pp-sda-hold-ns
->    tHD_PP: Table 87 (I3C Push-Pull Timing Parameters)
->
->  - i3c-cas-period-ns, i3c-cbp-period-ns
->    tCAS, tCBP: Table 86, Figures 144/145 (I3C Open Drain Timing
->    Parameters). These carry the protocol minima as constraints.
->
->  - i3c-sr-p-scl-low-period-ns
->    The SCL low period held while a Controller stalls the clock in
->    the T-Bit phase before a STOP or repeated START, per Section
->    5.1.2.5 "Controller Clock Stalling" (Figures 19 and 20). The
->    specification describes this requirement qualitatively and does
->    not assign it a dedicated timing symbol, unlike the other
->    properties above.
->
-> Any property left out keeps the derived default.
->
-> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Hi Olivier,
+
+Le lundi 09 novembre 2026 =C3=A0 18:46 +0100, Olivier Louvignes a =C3=A9cri=
+t=C2=A0:
+> The 480x800 parallel RGB panel of the HiBy R1. It is set up over a 3-wire
+> SPI bus with 16-bit words, each carrying a register address byte or a
+> data byte, which no existing panel driver speaks. The set-up sequence is
+> the vendor kernel's; prepare sends it up to sleep-out, and enable and
+> disable switch the display on and off. It asks for BGR666: in RGB order t=
+he
+> R1 shows red and blue swapped.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
->  Documentation/devicetree/bindings/i3c/i3c.yaml | 86 ++++++++++++++++++++++++++
->  1 file changed, 86 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> index 5603f2e7807d..30f65fd1afa7 100644
-> --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> @@ -57,6 +57,82 @@ properties:
->
->        May not be supported by all controllers.
->
-> +  i3c-pp-scl-high-period-ns:
-> +    description: |
-
-Needn't |
-
-> +      Push-pull SCL high period override, in nanoseconds (tHIGH, MIPI
-> +      I3C Basic Specification v1.1.1 Table 87). When undefined, the
-> +      value is derived from i3c-scl-hz.
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/panel/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +
+> =C2=A0drivers/gpu/drm/panel/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/panel/panel-hiby-lg35583.c | 342 ++++++++++++++++++=
++++
+> =C2=A04 files changed, 354 insertions(+)
+> =C2=A0create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ddc559cac674..062270232344 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8350,6 +8350,7 @@ DRM DRIVER FOR HIBY LG35583 PANEL
+> =C2=A0M:	Olivier Louvignes <olivier@mgcrea.io>
+> =C2=A0S:	Maintained
+> =C2=A0F:	Documentation/devicetree/bindings/display/panel/hiby,lg35583.yam=
+l
+> +F:	drivers/gpu/drm/panel/panel-hiby-lg35583.c
+> =C2=A0
+> =C2=A0DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
+> =C2=A0M:	Ondrej Jirman <megi@xff.cz>
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfi=
+g
+> index 26ffa2378f55..79528ff0100a 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -209,6 +209,16 @@ config DRM_PANEL_LVDS
+> =C2=A0	=C2=A0 handling of power supplies or control signals. It implement=
+s
+> automatic
+> =C2=A0	=C2=A0 backlight handling if the panel is attached to a backlight
+> controller.
+> =C2=A0
+> +config DRM_PANEL_HIBY_LG35583
+> +	tristate "HiBy LG35583 RGB/SPI panel"
+> +	depends on OF && SPI
+> +	help
+> +	=C2=A0 Say Y here if you want to enable support for the LG35583, the
+> +	=C2=A0 480x800 parallel RGB panel of the HiBy R1 digital audio player,
+> +	=C2=A0 which is set up over a 3-wire SPI bus.
 > +
-> +      May not be supported by all controllers.
-
-Add
-
-    minimum:
-    maximum:
-
-to restrict validate rang.
-
+> +	=C2=A0 To compile this driver as a module, choose M here.
 > +
-...
->      type: boolean
->      description: |
-> @@ -67,6 +143,16 @@ required:
->    - "#address-cells"
->    - "#size-cells"
->
-> +dependencies:
-> +  i3c-pp-scl-high-period-ns:
-> +    - i3c-pp-scl-low-period-ns
-> +  i3c-pp-scl-low-period-ns:
-> +    - i3c-pp-scl-high-period-ns
-> +  i3c-od-scl-high-period-ns:
-> +    - i3c-od-scl-low-period-ns
-> +  i3c-od-scl-low-period-ns:
-> +    - i3c-od-scl-high-period-ns
+> =C2=A0config DRM_PANEL_HIMAX_HX8279
+> =C2=A0	tristate "Himax HX8279-based panels"
+> =C2=A0	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makef=
+ile
+> index 365f2e73f6b4..9f5cacfaba29 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -21,6 +21,7 @@ obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) +=3D panel-elida=
+-
+> kd35t133.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) +=3D panel-feixin-k101-=
+im2ba02.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) +=3D panel-feiyang-
+> fy07024di26a30d.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) +=3D panel-focaltech-ota=
+7290b.o
+> +obj-$(CONFIG_DRM_PANEL_HIBY_LG35583) +=3D panel-hiby-lg35583.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) +=3D panel-himax-hx8279.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) +=3D panel-himax-hx83102.o
+> =C2=A0obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) +=3D panel-himax-hx83112a.o
+> diff --git a/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+> b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+> new file mode 100644
+> index 000000000000..9189c7c19665
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+> @@ -0,0 +1,342 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * The LG35583 panel of the HiBy R1
+> + *
+> + * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
+> + *
+> + * A 480x800 parallel RGB panel, set up over a 3-wire SPI bus with 16-bi=
+t
+> + * words: 0x20 and a register's high byte, 0x00 and its low byte, then 0=
+x40
+> + * and each data byte. HiBy calls it the LG35583; its controller is not
+> + * identified. The set-up sequence is the one the vendor kernel sends.
+> + */
 > +
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +
+> +#define LG35583_ADDR_HI		0x2000
+> +#define LG35583_ADDR_LO		0x0000
+> +#define LG35583_DATA		0x4000
+> +
+> +#define LG35583_SLPIN		0x1000
+> +#define LG35583_SLPOUT		0x1100
+> +#define LG35583_DISPOFF		0x2800
+> +#define LG35583_DISPON		0x2900
+> +#define LG35583_RAMWR		0x2c00
+> +
+> +struct lg35583_write {
+> +	u16 reg;	/* 0: wait val milliseconds */
+> +	s16 val;	/* -1: no data */
+> +};
+> +
+> +#define REG(r, v)	{ (r), (v) }
+> +#define CMD(r)		{ (r), -1 }
+> +#define DELAY(ms)	{ 0, (ms) }
+> +
+> +static const struct lg35583_write lg35583_init[] =3D {
+> +	REG(0xb100, 0x06), REG(0xb101, 0x01), REG(0xb102, 0x54),
+> +	REG(0xb104, 0x07), REG(0xb105, 0x06), REG(0xb106, 0x06),
+> +	REG(0xb107, 0x4a), REG(0xb108, 0x21), REG(0xb109, 0x08),
+> +	REG(0xf101, 0xc0), REG(0xf103, 0x01),
+> +	DELAY(5),
+> +	REG(0xb400, 0x01), REG(0xb600, 0x10),
+> +	REG(0x3a00, 0x77), REG(0x3b00, 0x03), REG(0x5e04, 0x02),
+> +	REG(0x3600, 0x08),
+> +	DELAY(5),
+> +	/* Gamma */
+> +	REG(0xe000, 0x00), REG(0xe001, 0x2f), REG(0xe002, 0x3f),
+> +	REG(0xe003, 0x1f), REG(0xe004, 0x21), REG(0xe005, 0x2c),
+> +	REG(0xe006, 0x2c), REG(0xe007, 0x61), REG(0xe008, 0x1c),
+> +	REG(0xe009, 0x18), REG(0xe00a, 0xbc), REG(0xe00b, 0x27),
+> +	REG(0xe00c, 0x59), REG(0xe00d, 0x6a), REG(0xe00e, 0xbb),
+> +	REG(0xe00f, 0xbe), REG(0xe010, 0x3e), REG(0xe011, 0x48),
+> +	REG(0xe100, 0x00), REG(0xe101, 0x32), REG(0xe102, 0x45),
+> +	REG(0xe103, 0x26), REG(0xe104, 0x21), REG(0xe105, 0x2c),
+> +	REG(0xe106, 0x5c), REG(0xe107, 0x63), REG(0xe108, 0x1c),
+> +	REG(0xe109, 0x19), REG(0xe10a, 0xd3), REG(0xe10b, 0x28),
+> +	REG(0xe10c, 0x59), REG(0xe10d, 0x6b), REG(0xe10e, 0xdb),
+> +	REG(0xe10f, 0xde), REG(0xe110, 0x5f), REG(0xe111, 0x6b),
+> +	REG(0xe200, 0x7f), REG(0xe201, 0x7d), REG(0xe202, 0x86),
+> +	REG(0xe203, 0x89), REG(0xe204, 0x10), REG(0xe205, 0x1e),
+> +	REG(0xe206, 0x41), REG(0xe207, 0x77), REG(0xe208, 0x0d),
+> +	REG(0xe209, 0x1d), REG(0xe20a, 0xc8), REG(0xe20b, 0x30),
+> +	REG(0xe20c, 0x5f), REG(0xe20d, 0x71), REG(0xe20e, 0xc3),
+> +	REG(0xe20f, 0xbe), REG(0xe210, 0x3e), REG(0xe211, 0x48),
+> +	REG(0xe300, 0x7f), REG(0xe301, 0x7f), REG(0xe302, 0x86),
+> +	REG(0xe303, 0x93), REG(0xe304, 0x10), REG(0xe305, 0x1e),
+> +	REG(0xe306, 0x41), REG(0xe307, 0x89), REG(0xe308, 0x0d),
+> +	REG(0xe309, 0x1d), REG(0xe30a, 0xe0), REG(0xe30b, 0x30),
+> +	REG(0xe30c, 0x5f), REG(0xe30d, 0x70), REG(0xe30e, 0xe4),
+> +	REG(0xe30f, 0xdf), REG(0xe310, 0x5f), REG(0xe311, 0x6b),
+> +	REG(0xe400, 0x00), REG(0xe401, 0x43), REG(0xe402, 0x6f),
+> +	REG(0xe403, 0x60), REG(0xe404, 0x21), REG(0xe405, 0x2c),
+> +	REG(0xe406, 0x5a), REG(0xe407, 0x6d), REG(0xe408, 0x1c),
+> +	REG(0xe409, 0x18), REG(0xe40a, 0xc6), REG(0xe40b, 0x27),
+> +	REG(0xe40c, 0x59), REG(0xe40d, 0x6a), REG(0xe40e, 0xbb),
+> +	REG(0xe40f, 0xbe), REG(0xe410, 0x3e), REG(0xe411, 0x48),
+> +	REG(0xe500, 0x00), REG(0xe501, 0x46), REG(0xe502, 0x75),
+> +	REG(0xe503, 0x67), REG(0xe504, 0x21), REG(0xe505, 0x2c),
+> +	REG(0xe506, 0x5a), REG(0xe507, 0x7e), REG(0xe508, 0x1c),
+> +	REG(0xe509, 0x19), REG(0xe50a, 0xdd), REG(0xe50b, 0x28),
+> +	REG(0xe50c, 0x59), REG(0xe50d, 0x6b), REG(0xe50e, 0xdb),
+> +	REG(0xe50f, 0xde), REG(0xe510, 0x5f), REG(0xe511, 0x6b),
+> +	DELAY(5),
+> +	REG(0xc200, 0x70), REG(0xc202, 0x70), REG(0xc203, 0x44),
+> +	DELAY(20),
+> +	REG(0xc200, 0x51), REG(0xc201, 0x06), REG(0xc202, 0x51),
+> +	REG(0xc203, 0x66),
+> +	DELAY(20),
+> +	REG(0xc100, 0x45),
+> +	DELAY(5),
+> +	REG(0xc700, 0x46), REG(0xc000, 0xa3), REG(0xc002, 0x8a),
+> +	DELAY(5),
+> +	CMD(LG35583_SLPOUT),
+> +	DELAY(130),
+> +};
+> +
+> +struct lg35583 {
+> +	struct drm_panel panel;
+> +	struct spi_device *spi;
+> +	struct gpio_desc *reset;
+> +	struct regulator *vcc;
+> +	struct regulator *vccio;
+> +};
+> +
+> +static const struct drm_display_mode lg35583_mode =3D {
+> +	.clock =3D 28000,
+> +	.hdisplay =3D 480,
+> +	.hsync_start =3D 480 + 24,
+> +	.hsync_end =3D 480 + 24 + 24,
+> +	.htotal =3D 480 + 24 + 24 + 24,
+> +	.vdisplay =3D 800,
+> +	.vsync_start =3D 800 + 14,
+> +	.vsync_end =3D 800 + 14 + 5,
+> +	.vtotal =3D 800 + 14 + 5 + 8,
+> +	.flags =3D DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
+> +	.type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
 
-why need these dependencies? Suppose it should be default value if not
-existing.
+FYI:
+28 MHz / ((480+24+24+24)*(800+14+5+8)) that's ~61.34 Hz, if your input cloc=
+k is
+a perfect 28 MHz you could have (.htotal =3D .hsync_end + 14) and (.vtotal =
+=3D
+.vsync_end =3D .vsync_end + 42) and get 60.001 Hz.
 
-Frank
+Cheers,
+-Paul
 
->  patternProperties:
->    "@[0-9a-f]+$":
->      type: object
->
-> --
-> 2.34.1
->
+> +};
+> +
+> +static struct lg35583 *to_lg35583(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct lg35583, panel);
+> +}
+> +
+> +static int lg35583_word(struct lg35583 *ctx, u16 word)
+> +{
+> +	/* Copied to a DMA-safe buffer. */
+> +	return spi_write_then_read(ctx->spi, &word, sizeof(word), NULL, 0);
+> +}
+> +
+> +static int lg35583_cmd(struct lg35583 *ctx, u16 reg)
+> +{
+> +	int ret;
+> +
+> +	ret =3D lg35583_word(ctx, LG35583_ADDR_HI | (reg >> 8));
+> +	if (ret)
+> +		return ret;
+> +	return lg35583_word(ctx, LG35583_ADDR_LO | (reg & 0xff));
+> +}
+> +
+> +static int lg35583_write(struct lg35583 *ctx, const struct lg35583_write=
+ *w)
+> +{
+> +	int ret;
+> +
+> +	if (!w->reg) {
+> +		msleep(w->val);
+> +		return 0;
+> +	}
+> +
+> +	ret =3D lg35583_cmd(ctx, w->reg);
+> +	if (ret || w->val < 0)
+> +		return ret;
+> +	return lg35583_word(ctx, LG35583_DATA | w->val);
+> +}
+> +
+> +static int lg35583_prepare(struct drm_panel *panel)
+> +{
+> +	struct lg35583 *ctx =3D to_lg35583(panel);
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	ret =3D regulator_enable(ctx->vccio);
+> +	if (ret)
+> +		return ret;
+> +	usleep_range(5000, 6000);
+> +
+> +	ret =3D regulator_enable(ctx->vcc);
+> +	if (ret)
+> +		goto err_vccio;
+> +	usleep_range(5000, 6000);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset, 0);
+> +	usleep_range(5000, 6000);
+> +	gpiod_set_value_cansleep(ctx->reset, 1);
+> +	msleep(50);
+> +	gpiod_set_value_cansleep(ctx->reset, 0);
+> +	msleep(30);
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(lg35583_init); i++) {
+> +		ret =3D lg35583_write(ctx, &lg35583_init[i]);
+> +		if (ret) {
+> +			dev_err(panel->dev, "Unable to set up the panel:
+> %d\n", ret);
+> +			goto err_vcc;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +err_vcc:
+> +	gpiod_set_value_cansleep(ctx->reset, 1);
+> +	regulator_disable(ctx->vcc);
+> +err_vccio:
+> +	regulator_disable(ctx->vccio);
+> +	return ret;
+> +}
+> +
+> +static int lg35583_enable(struct drm_panel *panel)
+> +{
+> +	struct lg35583 *ctx =3D to_lg35583(panel);
+> +	int ret;
+> +
+> +	ret =3D lg35583_cmd(ctx, LG35583_DISPON);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return lg35583_cmd(ctx, LG35583_RAMWR);
+> +}
+> +
+> +static int lg35583_disable(struct drm_panel *panel)
+> +{
+> +	struct lg35583 *ctx =3D to_lg35583(panel);
+> +	int ret;
+> +
+> +	ret =3D lg35583_cmd(ctx, LG35583_DISPOFF);
+> +	usleep_range(5000, 6000);
+> +	return ret;
+> +}
+> +
+> +static int lg35583_unprepare(struct drm_panel *panel)
+> +{
+> +	struct lg35583 *ctx =3D to_lg35583(panel);
+> +
+> +	lg35583_cmd(ctx, LG35583_SLPIN);
+> +	usleep_range(5000, 6000);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset, 1);
+> +	regulator_disable(ctx->vcc);
+> +	regulator_disable(ctx->vccio);
+> +	return 0;
+> +}
+> +
+> +static int lg35583_get_modes(struct drm_panel *panel, struct drm_connect=
+or
+> *connector)
+> +{
+> +	/* Red and blue are swapped on the R1 without it. */
+> +	static const u32 bus_format =3D MEDIA_BUS_FMT_BGR666_1X18;
+> +	struct drm_display_mode *mode;
+> +
+> +	mode =3D drm_mode_duplicate(connector->dev, &lg35583_mode);
+> +	if (!mode)
+> +		return -ENOMEM;
+> +
+> +	drm_mode_set_name(mode);
+> +	drm_mode_probed_add(connector, mode);
+> +
+> +	connector->display_info.bpc =3D 6;
+> +	connector->display_info.bus_flags =3D DRM_BUS_FLAG_DE_HIGH |
+> +					=C2=A0=C2=A0=C2=A0
+> DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
+> +	drm_display_info_set_bus_formats(&connector->display_info,
+> &bus_format, 1);
+> +
+> +	return 1;
+> +}
+> +
+> +static const struct drm_panel_funcs lg35583_funcs =3D {
+> +	.prepare =3D lg35583_prepare,
+> +	.enable =3D lg35583_enable,
+> +	.disable =3D lg35583_disable,
+> +	.unprepare =3D lg35583_unprepare,
+> +	.get_modes =3D lg35583_get_modes,
+> +};
+> +
+> +static int lg35583_probe(struct spi_device *spi)
+> +{
+> +	struct device *dev =3D &spi->dev;
+> +	struct lg35583 *ctx;
+> +	int ret;
+> +
+> +	ctx =3D devm_drm_panel_alloc(dev, struct lg35583, panel,
+> &lg35583_funcs,
+> +				=C2=A0=C2=A0 DRM_MODE_CONNECTOR_DPI);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	ctx->spi =3D spi;
+> +	spi_set_drvdata(spi, ctx);
+> +
+> +	spi->bits_per_word =3D 16;
+> +	ret =3D spi_setup(spi);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Unable to set up SPI\n");
+> +
+> +	ctx->vcc =3D devm_regulator_get(dev, "vcc");
+> +	if (IS_ERR(ctx->vcc))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->vcc), "Unable to get
+> vcc\n");
+> +
+> +	ctx->vccio =3D devm_regulator_get(dev, "vccio");
+> +	if (IS_ERR(ctx->vccio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->vccio), "Unable to get
+> vccio\n");
+> +
+> +	/*
+> +	 * Deasserted, which keeps a panel the boot loader left on as it is,
+> but
+> +	 * as an output: after a reset the pin is an input, and prepare's
+> reset
+> +	 * pulse would never reach the panel.
+> +	 */
+> +	ctx->reset =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset), "Unable to get
+> reset\n");
+> +
+> +	ret =3D drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_panel_add(&ctx->panel);
+> +	return 0;
+> +}
+> +
+> +static void lg35583_remove(struct spi_device *spi)
+> +{
+> +	struct lg35583 *ctx =3D spi_get_drvdata(spi);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
+> +
+> +static const struct of_device_id lg35583_of_match[] =3D {
+> +	{ .compatible =3D "hiby,lg35583" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, lg35583_of_match);
+> +
+> +static const struct spi_device_id lg35583_ids[] =3D {
+> +	{ "lg35583" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, lg35583_ids);
+> +
+> +static struct spi_driver lg35583_driver =3D {
+> +	.probe =3D lg35583_probe,
+> +	.remove =3D lg35583_remove,
+> +	.id_table =3D lg35583_ids,
+> +	.driver =3D {
+> +		.name =3D "panel-hiby-lg35583",
+> +		.of_match_table =3D lg35583_of_match,
+> +	},
+> +};
+> +module_spi_driver(lg35583_driver);
+> +
+> +MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
+> +MODULE_DESCRIPTION("HiBy R1 LG35583 panel driver");
+> +MODULE_LICENSE("GPL");
