@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397717;
-	b=5GiPq5sWRap7OMuv9M9eG7fgKB2/H+bAcWw1MlbAsc0pZaJwJtlmOKforXWT9wUkA/IC
-	 fe6I4EPKpq+vd1fyqFKFr7sVT3dZePOoPrVX6e3Roi/kLOFlXKUWUseSPfOGNxEgOl4ge
-	 BaePO6oDJJ2D0/IpXY4VkLSpKF/KFgJGtuFCphOY67pjr4t16Tnz8+hHJx1q3fT5cSOmO
-	 LdPc6mYz8goRuH/Yt7LO991NSf5eK2U52wqVmOfZNr8QhlF6ZK+m0pDtxv6wrkOrCoL5G
-	 VwJJzOifRrHtjUQNZpj9glN0CyLEiDl4/jQHcS6D5oz/9fg1LOb5u0hZuKF4iGv475g==
+	t=1794397848;
+	b=UxGejGmE93yFS/9ITNOdeQwlWYK4+ma43ngFLu6UyNOSSf4HvL1p4h+BQt6W1Atkmi1y
+	 ZtVNuvYWgIoYj3KTXimVaJbcjlHBckmO/06j+C06cRQMC2C97atJgGMGrb+VNbhMAs/vt
+	 so+WnkaUANEp8LySAF3eqa0QMOBYGi5iECzJurR0PBMCIV9nxfyhwSsHdibTnbL4YfDvK
+	 RjdIFVScYcy9z9AWq3TMMlfDkgehaovq4pENYPbfkh8TWrKC8VxH4PT1TlUwh0o+Y3TNP
+	 iJbfV8CGehky7b5PbtZoKw3LStvl3jvM0UtZBrY15ta6Tvp8fMmqyxAy0pD0dO6vRuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397717;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=CY7wMtMqvjq9EHixuVLhnrITTo0ITK/tiq+5GxWmBNk=;
-	b=LhvCcL7I6RaD3H1w9RHL/617QmhEdeAxffs3hdi1xpcO/+YPnMRWEzlr14bD7QOq6YDe
-	 TrbRIZxc2MjKc3izjiQhsCUthxj2G9cEUp2lilWD96YUzVML5E3bTeVsifC98Iw57Rbuz
-	 8/zSfUeAWNk+hs35kkQcLfJrNuZDelA+UTnqBo/elxRQalZpy/UU6O3OnFY28diWGmflZ
-	 tYBFrlCfU/1xsO8ew64lVWRmgl96/TV94A94iAro8IWUtcYjPMPrD4zfOcBIbuNsYjCWN
-	 zIaFambZMp1JIXogfMuUb7x7XbIM2JxUXSHttEI/wqUZuCndg1Szg6yDKKFyn4I2onw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397848;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5O6uEkwqbq2fchp+ArnsCj3nowVYo7bwCNAKKZU//mM=;
+	b=dVUXNMI9ZZaPSaOg4F60Yd6DEyQXfscBZ0rvsEoozyunUvqSvGZgUTwQ+L4PGunytIfU
+	 Y6YkK5+RtsSs8wZV9mfRR4fJYrynWd76WqXexHXgQG2vo1A6BXQqw0E+KzSymx8GDDfDW
+	 S0Sabm9b2BEYQ7Etj5Hm6+H5wbM6+gV1DE2TcV02dJupOafQSpcQmiy9R+LKebpqLEo5h
+	 JuMORbYknqlUXEC/V1uFr1zYYizsdXDw5SW6X4zu90w/J15nhzEv6V/azNTeDx5HANw6L
+	 mESGV99DYp04Cd1O2qAemm9AACzeeOcl+wA68QQcF8snmI2jHtQLIU4FHHIQ/EbwbOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=JG5z7lvi;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UA0wSpox;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB49D606A321
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 11:48:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB49D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E96606A330;
+	Wed, 11 Nov 2026 11:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=JG5z7lvi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=CY7w
-	MtMqvjq9EHixuVLhnrITTo0ITK/tiq+5GxWmBNk=; b=JG5z7lvimNrZx0mVLYWX
-	Y/hRCe4vE08yRzmZooYP5BVrsXBlTIVBCVTPMUThB+EiNu3cFH5QIAWbGKMUC064
-	lfyev7DOU2igxxI1PsXfF1IFJ1SGuovoEq2rBXEBmb+H/KRfiqDjIBjpvD4N114/
-	qIXiwIrajtPQm1UAlGN+P+pQBwU9CBB8teED/hhQRJKizk3XdrxpIzz3k73aSTzP
-	6EKMvDQislrw6QSfxhW3O4biFsHQChx+GtvjRGQsYBLVRW7Hu9QQf7bScpBBqQTf
-	v1sQ7nEaewtTGvK2M3u2Cb4yxN+Drq55/ShQM9chiR/8jqVkrghEtQFvcERqiov0
-	Nw==
-Received: (qmail 597096 invoked from network); 11 Nov 2026 12:48:33 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 12:48:33 +0100
-X-UD-Smtp-Session: l3s3148p1@TrFJxv5f3Ioujnun
-Date: Wed, 11 Nov 2026 12:48:33 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v25 00/11] Add Renesas RZ/G3L SD/eMMC support
-Message-ID: <avRWDN43k3LcFVRa@ninjato>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UA0wSpox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509CC1F00A07;
+	Wed, 11 Nov 2026 11:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794397847;
+	bh=5O6uEkwqbq2fchp+ArnsCj3nowVYo7bwCNAKKZU//mM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UA0wSpoxfq/dvcDQg24p5m5S4alowT3RFr4O6tm68vpQ4Yj7rXqC3hm4865svhD0R
+	 xLHzAcoC3mCC1ObXBo4wJmnc+Q1SzG/jVZiI3/0dtPrZbKfw7HDpf0xshk/uq0sgXp
+	 X34Jo0jJz9y6h9TF6lcRk0BHWijerMJHYdVNGn2Zg6maMWyO6Ram0sAnOtIQTg3h8y
+	 XOap1jDwBlxhRll61ShkGe0TaEvscSGHWS/00cdrSXmYcX0DZUqn1HpHD2jXTerusd
+	 zUJ8NSwvxJt8qZZDWq6uthszRnqDf9Wott8njcrSfEIUfXVsO+oLO+aNfEY05ZiVt1
+	 ii4HvwQ47FD3A==
+Date: Wed, 11 Nov 2026 12:50:44 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Andrew Gigena <mail@andrewgigena.dev>
+Cc: Abel Vesa <abelvesa@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: crypto: ice: document sm8150
+ compatible
+Message-ID: <20261111-blue-barnacle-of-awe-2d9a9d@quoll>
+References: <20261111-sm8150-ice-rfc-v3-0-f9d5a806fc95@andrewgigena.dev>
+ <20261111-sm8150-ice-rfc-v3-1-f9d5a806fc95@andrewgigena.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,63 +65,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A8I0l+X9w89eWS8f"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+In-Reply-To: <20261111-sm8150-ice-rfc-v3-1-f9d5a806fc95@andrewgigena.dev>
 
---A8I0l+X9w89eWS8f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Nov 11, 2026 at 04:17:49AM +0000, Andrew Gigena wrote:
+> SM8150 uses a standalone ICE node, so its compatible must be listed.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-On Wed, Oct 28, 2026 at 12:51:17PM +0000, Biju Das wrote:
-> Hi All,
->=20
-> The Renesas RZ/G3L SoC has:
->=20
-> Channel 0 supports SD and eMMC (including HS400/HS400ES).
-> Channel 1 supports SD and eMMC (except for HS400).
-> Channel 2 supports SD.
->=20
-> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does
-> not support IOVS and PWEN in the SDHI register (no internal regulator),
-> unlike SD1 and SD2. It has an internal divider for all modes except HS400.
-> It also has a 2048-bit divider compared to 512 on others. Moreover
-> RZ/G3L supports HS400 enhanced strobe mode.
->=20
-> This patch series support all modes except HS400. HS400 support will be
-> added later.
->=20
-> This patch series tested on smarc-rz{v2l,g2l,g2lc,g2ul,g3s,g3l,g3e},
-> rz{v2h,t2h}-evk and hihope-rz{g2h,g2m,g2n} boards
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Tested with a Renesas Salvator-XS board (R-Car M3N). I don't see bugs or
-performance regressions. I think the series is good to go!
+Best regards,
+Krzysztof
 
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-Thank you!
-
-
---A8I0l+X9w89eWS8f
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0VgwACgkQFA3kzBSg
-KbbhKg//WgV01398alqqFtiGlZ6zl9AbafPAbhuQ+yMTZS8WnX6z9Dq3f4jW2WRP
-1O/VtUbduz0PZCw65b2UvGZxeEfO04heW+HfKWlCFUrZtmqSmJ5XHCo3Fb26+cYo
-+D+fe+arXT1zRdLKQOTzeCk8tJz8UNKBZjpqJLLjoT5l1O+PJgr93YusJ+KlV4JR
-EarER4dx2dusqyblPigbqRJO2RBQ0c1UVj2981HpCh6sSJ/LOk5vbus4S6GL2SIp
-6+eevkHM2Z6DM00L86CNtAdWVW8A4EEhZMa1ui0yLCbaDz51k3WG4GRvoj9wBLfL
-hKZgSNc7W07WAOvVtizVpZvqoEUIFevewZMnjtdY5lg2OAQxISgMfCEIy/dRd4jJ
-QOJoGD5ZCTTYS5C1X4g4RPrOaxVlxKq8xSQIaNToXPd9klXPZr9VniGtp7f5QKEw
-5vEw16bdb/OTAtNv/jHJ4p+K2gd60Rz8hDq0JufFzORO2RCF8fpk14auNM+yogSk
-I9BlPtrpeaEot4QbQ79I5Lb2IWX3r7cISc/Ae/Bs77NgU7AM3QksnONy9ACl8aqj
-w1z8Pr14rEFLpsxMqTvgmbrtYYGHU9baZ4tqDZvGPoRjQxZZai2T7cYfykbxI1oO
-EDlt4JcK4UWnkMlGTGD3ETbZnJq36IaRvZpRYJ9/n5I3iAzHtzk=
-=3Hq2
------END PGP SIGNATURE-----
-
---A8I0l+X9w89eWS8f--
