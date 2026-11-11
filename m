@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794355145;
-	b=zRrB+ZXsNpoe7iS/dEZoyiM97i48/gqOZKIMEijsTWmI98itFcqLQKnZPVq/5NzjpcbT
-	 3qJyuhzbv1avC/HMxuzR24FBujt8JiunVEU62OVuWGuJGDSH9lUDSfswGG8gyX4ygJ3rs
-	 q6hNiN4AlNP9wFP9EOvz7FyFczAxyfRRNbwGg6ogAH8UqzQwKKE+S8PYwLCxttdSc34bw
-	 ib7h2MRCv98AX7Dz5lirwV3Mks8xEYnFn1jIAyex//pJfL/pTJOld+ypln7Gdj+Wh0x42
-	 rR9ta2OpCTzXsp4HfdleYqW4IoQjKnL+daWTZ/Z15ohWwxhZlNCshopHeNb9165kg6Q==
+	t=1794355249;
+	b=0oyX9PmtMMCjoJuKaaKCJ9ztiDvLFzYdQmEM4poz8d+EfZXStRF1rcGNeaZub6zEfSWc
+	 gvv01Dd3gdizTSKXe+FXd3A1WptnsRPfNBH+tuPHLSwdAocRtkQGDTyG/QPidoKKGQPdI
+	 ZKDn/KKVYlRK+QPeXB7CDMAckabR026yFTHlfrXcFhUQ860ogyezBrdHO4v5aeprqnm12
+	 li4QVeZjUyB+RC727+ifSpietJE7nAAHY7fTRv3E45B8x5cIlqwohaz8xlPphxilbHQ2z
+	 4BMrk8AMtfWHb9So8QQVIfzTPYAY9tsUlJuCxndyTR4kLBciAeIP/W1Mp1m/UHHom2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794355145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794355249;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gTjQQ0hv6nEnHTZSzSTYgIUZrrKlVjfKW7eaOQ1C+N4=;
-	b=p/mT6zfO6FI5BL9hhjq856CGAtnU+NXvqz//oqHoB4HGhk695GTnvbraxxZ7pIr8xOes
-	 IgxMci50hnJaCPIws7aEW/dEdRbMi3NJsDueO25ANAMAEPVHSp2ASYiDQCh2cC+TK6p3v
-	 /GcHlFbtXd2rIK+KVKGpUK263LXmAz2uqixFndvpmIfI+uftyx/torLry9O2eGaGV2lsE
-	 ZAeMaFKC69lqdHyDGn/k7zJj7HADOHPd+7jfq0IW4dJXNh3PCTU7OvS0HTmTrWv/5UAzN
-	 rLRym34nVh7NlMb0KIPbAqH+uKcVIgV2iSDsl+r0er13cUNPmAKFQAWtjTq74TBwkxw==
+	bh=gIaEn4TkrtnmKkUOxyudDKWr3AzVet9RtUDZifhF1qA=;
+	b=1E3ANdVK9y1ZERnt4SQHnFL2SqcEdM5pN+hFeb5hr7GycUHfGQpTQweVXPtpcG4P1aSj
+	 5vs8ZkIFCf5N2YS3b1PKhI21g9sWxy70XZcOP6ZXcq4cndJYGqdWSyO3+/Lq1w2MeB0ti
+	 Sgg2wnI5vA7PnLWzZxIKYNv+fWo6ubl4Ru7oCZG9x6fJvPaMV6+YoxB8fPKTGldfqgNJ5
+	 WM8teLOmAvWjlcmwyF3XtUXrvIZz29hVYa7hn8B+LJ3PPgynSX0hr9W2BFdRfqtre+s6b
+	 Ds+FhoJ+xvNeqd85doOLHblS8tb5sMtDDPq6oRik3L9HcGxDh84dvSF0Z9PcqcFUabQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R2E9AEZm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4962yNZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C3E606A31C;
-	Tue, 10 Nov 2026 23:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7A5606A31C;
+	Wed, 11 Nov 2026 00:00:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R2E9AEZm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C671F0093C;
-	Tue, 10 Nov 2026 23:59:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4962yNZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9E71F0089F;
+	Wed, 11 Nov 2026 00:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794355145;
-	bh=gTjQQ0hv6nEnHTZSzSTYgIUZrrKlVjfKW7eaOQ1C+N4=;
+	s=k20260515; t=1794355249;
+	bh=gIaEn4TkrtnmKkUOxyudDKWr3AzVet9RtUDZifhF1qA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R2E9AEZmd/UYIFVTACDAv4IwZhE8LtxeC9vvHLirSTrOHNzlvUKsI2o/PwyiVd9Bd
-	 FNsfRNBpPiTtJ8SaH4vVPIgKIEiFY7B0gxaixTfErdtZI90Fc+MBZmeSTZs8sNxe7H
-	 knL4BPFOOiEZpW+aOyFIKkQi9Ek32gvdAdW7Zv75wzgsqLeVPZY9LKcIhbSAa6Yh+7
-	 Lc+r2wiR/GITJ8x+CirpOliWeFnaGoQpHMyXO3Mik/Vyrwj7bLzxnt6fGkNcZW3eGI
-	 iV5tzoS3/eZsO0fNYAqoflLcriYEk0bBLdRLeOuwkcJ26s7QjJol9kEV55Ibx61HB3
-	 6YPFHHw978HDg==
-Message-ID: <sashiko-outbox-207987@kernel.org>
+	b=I4962yNZxEVTRAMSDgGkLVpbQTOT+GUQmTr2UYyg3nuAFZaeEmdJbMOjw6nejTWnD
+	 djgaEJT7slTJpJm27nZucRfL9tNOE+mu4STEl6SzVo88w79OXWH9LquVkZaAQQ4y0q
+	 lXPNP/8+MuLQBoadxGpRTx47ozno370Q2m8LVybd5Cmr/DLJEBs78PbK9E60oAIvaV
+	 WDjDMePAUSttoiWJrWlXRT3WuBmT4qXKJmT4y34GyULmS2Ey0F1EVaHVTMELIR4nka
+	 zOGSoP6o70FqSlakDLA4YL13rwJRIHFTN+bqO5yrCYTFWtEi4DOFrCWUszNEui5CeU
+	 xVLuR9C4IREHQ==
+Message-ID: <sashiko-outbox-207989@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] usb: typec: add CIX Type-C PD controller driver
+Subject: Re: [PATCH v3 3/3] arm64: dts: allwinner: add Radxa Cubie A7S board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gary Yang" <gary.yang@cixtech.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261110051723.434009-3-gary.yang@cixtech.com>
-References: <20261110051723.434009-1-gary.yang@cixtech.com>
- <20261110051723.434009-3-gary.yang@cixtech.com>
+To: "Enzo Adriano" <enzo.adriano.code@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <0fe5938e04cc8a5af3825a0e01bd07b626a15b46.1794227241.git.enzo.adriano.code@gmail.com>
+References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
+ <0fe5938e04cc8a5af3825a0e01bd07b626a15b46.1794227241.git.enzo.adriano.code@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 23:59:04 +0000
+Date: Wed, 11 Nov 2026 00:00:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,181 +62,151 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [Medium] usb: typec: cix_pd: missing IRQ disable across system suspend
-  and resume
-- [Medium] usb: typec: cix_pd: unserialized mux state changes via
-  partner_altmode()
-- [Medium] usb: typec: cix_pd: unconditional IRQ_HANDLED in
-  cix_pd_irq_handle()
+- [High] arm64: dts: allwinner: cubie-a7s DTB build fails on missing
+  A733 CCU headers
+- [High] arm64: dts: allwinner: unsupported x-powers,axp318w PMIC blocks
+  consumer probe
+- [High] arm64: dts: allwinner: cubie-a7s sets 1.8V vcc-pf-supply for
+  3.3V-only mmc0
 --
 
-commit 02feb7b4ab5ba21a4874114738a3f180152e2832
-Author: Gary Yang <gary.yang@cixtech.com>
+commit 572e2012767dbd5d4ea9dfb9c1da49853b19d780
+Author: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-usb: typec: add CIX Type-C PD controller driver
+arm64: dts: allwinner: add Radxa Cubie A7S board
 
-This commit adds an I2C driver for the CIX Type-C PD controller (Realtek
-RTS5453H) to report port status, orientation, USB data role, and
-DisplayPort alternate mode state to the Type-C framework.
+This commit adds the device tree for the Radxa Cubie A7S board based on the
+Allwinner A733 SoC, enabling UART0, the AXP318W PMIC, and MMC0, and wires it
+into the sunxi DTB build.
 
-> diff --git a/drivers/usb/typec/cix_pd.c b/drivers/usb/typec/cix_pd.c
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index d1f768dd6461d..792152525b433 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -68,3 +68,4 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-a527-cubie-a5e.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-h728-x96qpro+.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-t527-avaota-a1.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun55i-t527-orangepi-4a.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun60i-a733-cubie-a7s.dtb
+
+[Severity: High]
+Does adding sun60i-a733-cubie-a7s.dtb to dtb-$(CONFIG_ARCH_SUNXI) break the
+DTB build?
+
+sun60i-a733-cubie-a7s.dts includes sun60i-a733.dtsi and references
+CLK_BUS_R_RTC and CLK_R_AHB in the &rtc node, and sun60i-a733.dtsi includes:
+
+arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi {
+	#include <dt-bindings/clock/allwinner,sun60i-a733-ccu.h>
+	#include <dt-bindings/clock/allwinner,sun60i-a733-r-ccu.h>
+	#include <dt-bindings/interrupt-controller/arm-gic.h>
+	#include <dt-bindings/reset/allwinner,sun60i-a733-ccu.h>
+	#include <dt-bindings/reset/allwinner,sun60i-a733-r-ccu.h>
+}
+
+None of those four A733 clock and reset binding headers exist in
+include/dt-bindings/, so compiling dtbs with CONFIG_ARCH_SUNXI enabled fails
+at the preprocessor stage.  In addition, there are no in-tree drivers for
+allwinner,sun60i-a733-ccu or allwinner,sun60i-a733-r-ccu to provide clocks =
+and
+resets at runtime.
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts b/ar=
+ch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
 > new file mode 100644
-> index 0000000000000..5a7a3efd3ac12
+> index 0000000000000..341c24360ce29
 > --- /dev/null
-> +++ b/drivers/usb/typec/cix_pd.c
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7s.dts
 
 [ ... ]
 
-> +		if (typec->partner && dp && !typec->partner_altmode) {
-> +			typec->partner_altmode =3D
-> +				typec_partner_register_altmode(typec->partner,
-> +							       &cix_pd_dp_partner_altmode);
-> +			if (IS_ERR(typec->partner_altmode)) {
-> +				dev_err(typec->dev,
-> +					"typec port(%d): failed to register DP altmode: %ld\n",
-> +					typec->id,
-> +					PTR_ERR(typec->partner_altmode));
-> +				typec->partner_altmode =3D NULL;
-> +			} else {
-> +				typec_altmode_update_active(typec->partner_altmode,
-> +							    true);
-> +			}
-> +		}
-
-[Severity: Medium]
-Can dp_altmode_driver reconfigure the shared Type-C mux behind cix_pd's
-back when bound to typec->partner_altmode?
-
-cix_pd_init_ports() registers typec->port_altmode with USB_TYPEC_DP_SID
-without setting typec_altmode_ops, which gives port_altmode its own handle
-to the platform Type-C mux.  When dp_altmode_driver binds to
-typec->partner_altmode, writing to sysfs displayport/configuration or
-unbinding dp_altmode_driver calls typec_altmode_notify() or
-typec_altmode_set_state(), switching the physical mux to TYPEC_STATE_USB or
-TYPEC_STATE_SAFE outside rts->lock while leaving typec->mode stale at
-TYPEC_DP_STATE_D/E.
-
-In addition, calling typec_altmode_update_active(typec->partner_altmode,
-true) immediately after registration runs before a modular
-typec_displayport driver finishes binding, so try_module_get() is skipped
-while the disconnect path still calls module_put() on the bound driver.
-
-[ ... ]
-
-> +static int cix_pd_event_handler(struct cix_pd *rts, u8 clear_irq, bool f=
-orce)
-> +{
-> +	int ret, err =3D 0;
-> +	u8 data_control[3] =3D {0};
+> +&mmc0 {
+> +	bus-width =3D <4>;
+> +	cap-sd-highspeed;
+> +	cd-gpios =3D <&pio 5 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+> +	disable-wp;
+> +	max-frequency =3D <50000000>;
+> +	no-1-8-v;
+> +	vmmc-supply =3D <&reg_swout2>;
+> +	/* The 3.3 V path uses VCC-IO; no Port F voltage switching yet. */
+> +	vqmmc-supply =3D <&reg_swout2>;
+> +	status =3D "okay";
+> +};
 > +
-> +	mutex_lock(&rts->lock);
-> +	if (clear_irq) {
-> +		data_control[0] =3D 2;
-> +		data_control[1] =3D I2C_INT_ACK_BIT;
-> +		data_control[2] =3D 0;
+> +&osc {
+> +	clock-frequency =3D <26000000>;
+> +};
 > +
-> +		ret =3D cix_pd_block_write(rts, RTS_DATA_CONTROL, data_control, 3);
-> +		if (ret)
-> +			goto i2c_err;
-> +	}
+> +&pio {
+> +	vcc-pb-supply =3D <&reg_swout2>;
+> +	vcc-pc-supply =3D <&reg_cldo5>;
+> +	vcc-pd-supply =3D <&reg_swout1>;
+> +	vcc-pe-supply =3D <&reg_bldo1>;
+> +	vcc-pf-supply =3D <&reg_cldo5>;
+
+[Severity: High]
+Will setting vcc-pf-supply =3D <&reg_cldo5> configure Port F's IO bias for =
+1.8 V
+while &mmc0 operates at 3.3 V?
+
+&mmc0 uses Port F pins (PF0-PF6) with no-1-8-v and vqmmc-supply =3D
+<&reg_swout2> for 3.3 V signaling, whereas reg_cldo5 is fixed at 1800000 uV.
+When mmc0 requests its pins, sunxi_pmx_request() ->
+sunxi_pinctrl_set_io_bias_cfg() reads the voltage of vcc-pf-supply and
+programs the bank's PIO_POW_MOD_SEL bit for 1.8 V whenever uV <=3D 1800000,
+mismatching the 3.3 V SD signaling path.  Pointing vcc-pf-supply at the 3.3=
+ V
+supply (&reg_swout2, with a defined 3.3 V voltage or parent supply) would k=
+eep
+Port F's bias configuration aligned with 3.3 V signaling.
+
+> +	vcc-pg-supply =3D <&reg_aldo1>;
+> +	vcc-ph-supply =3D <&reg_swout2>;
+> +	vcc-pj-supply =3D <&reg_swout1>;
+> +	vcc-pk-supply =3D <&reg_bldo1>;
+> +};
 > +
-> +	ret =3D cix_pd_block_read(rts, RTS_DATA_STATUS, rts->data_status, 6);
-> +	if (ret)
-> +		goto i2c_err;
-
-[ ... ]
-
-> +static irqreturn_t cix_pd_irq_handle(int irq, void *data)
-> +{
-> +	struct cix_pd *rts =3D data;
+> +&r_i2c0 {
+> +	status =3D "okay";
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&r_i2c0_pl_pins>;
 > +
-> +	if (cix_pd_event_handler(rts, 1, false) =3D=3D -ESHUTDOWN)
-> +		return IRQ_NONE;
+> +	axp318w: pmic@36 {
+> +		compatible =3D "x-powers,axp318w";
+> +		reg =3D <0x36>;
+> +		interrupt-parent =3D <&nmi_intc>;
+> +		interrupts =3D <0 IRQ_TYPE_LEVEL_LOW>;
+> +		interrupt-controller;
+> +		#interrupt-cells =3D <1>;
 > +
-> +	return IRQ_HANDLED;
-> +}
+> +		aldo156in-supply =3D <&reg_ps>;
+> +		aldo234in-supply =3D <&reg_aldo1>;
+> +		bldoin-supply =3D <&reg_ldo_input>;
+> +		cldoin-supply =3D <&reg_ldo_input>;
+> +		dldoin-supply =3D <&reg_ps>;
+> +		eldoin-supply =3D <&reg_dcdc9>;
+> +		ips-supply =3D <&reg_ps>;
+> +		vin19-supply =3D <&reg_ps>;
+> +		vin23-supply =3D <&reg_ps>;
+> +		vin45-supply =3D <&reg_ps>;
+> +		vin678-supply =3D <&reg_ps>;
 
-[Severity: Medium]
-Does cix_pd_irq_handle() returning IRQ_HANDLED unconditionally prevent the
-IRQ core from detecting a stuck shared level-triggered interrupt line?
+[Severity: High]
+Does axp318w prevent &pio, &uart0, and &mmc0 from probing because
+"x-powers,axp318w" has no in-tree driver or DT binding?
 
-cix_pd_event_handler() acknowledges I2C_INT_ACK_BIT and returns 0 without
-checking whether this controller instance actually asserted the interrupt.
-If a sibling controller sharing the line holds the level-triggered IRQ
-asserted while not yet probed, while probe-deferred in cix_pd_init_ports()
-(which runs before cix_pd_probe() acknowledges pre-existing interrupts), or
-while unresponsive over I2C, any healthy bound instance on the same IRQ
-line still returns IRQ_HANDLED on every pass, causing an unbounded IRQ
-thread loop and I2C bus storm instead of letting note_interrupt() disable
-the stuck line.
-
-[ ... ]
-
-> +static int __maybe_unused cix_pd_suspend(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
-> +	int ret;
-> +
-> +	if (client->irq > 0 && device_may_wakeup(dev)) {
-> +		mutex_lock(&rts->irq_lock);
-> +		if (!rts->wake_enabled) {
-> +			ret =3D enable_irq_wake(client->irq);
-> +			if (ret)
-> +				dev_err(dev, "failed to enable IRQ wake: %d\n",
-> +					ret);
-> +			else
-> +				rts->wake_enabled =3D true;
-> +		}
-> +		mutex_unlock(&rts->irq_lock);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused cix_pd_resume(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct cix_pd *rts =3D i2c_get_clientdata(client);
-> +	int ret;
-> +
-> +	mutex_lock(&rts->irq_lock);
-> +	if (rts->wake_enabled) {
-> +		disable_irq_wake(client->irq);
-> +		rts->wake_enabled =3D false;
-> +	}
-> +	mutex_unlock(&rts->irq_lock);
-> +
-> +	/* Force the USB role to be reprogrammed after system resume. */
-> +	ret =3D cix_pd_event_handler(rts, 0, true);
-
-[Severity: Medium]
-Can cix_pd_irq_handle() run while the parent I2C adapter is still suspended
-during system sleep transitions?
-
-cix_pd_suspend() does not call disable_irq(client->irq), so the interrupt
-remains enabled during dpm_suspend_late() after runtime PM is disabled on
-the parent I2C controller, and resume_device_irqs() unmasks it at the end
-of dpm_resume_noirq() before dpm_resume_early() and dpm_resume() resume the
-I2C controller, USB role switch, and Type-C mux:
-
-dpm_resume_noirq()
-  resume_device_irqs()
-    <threaded IRQ>
-      cix_pd_irq_handle()
-        cix_pd_event_handler()
-          cix_pd_block_write()  <-- I2C adapter still suspended
-dpm_resume_early()
-  device_resume_early()         <-- I2C adapter runtime PM re-enabled here
-dpm_resume()
-  cix_pd_resume()
-
-When the I2C transfer fails, cix_pd_event_handler() returns -ESHUTDOWN
-without acknowledging the level-triggered interrupt in RTS_DATA_CONTROL,
-leaving the line asserted so it repeatedly re-fires.  In addition,
-cix_pd_resume() calls cix_pd_event_handler(rts, 0, true), which clears
-HPD_IRQ via HPD_IRQ_ACK without writing I2C_INT_ACK_BIT.
+Neither drivers/mfd/axp20x*.c, drivers/regulator/axp20x-regulator.c, nor
+Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml supports
+"x-powers,axp318w" (or its grouped input supplies and swout1/swout2/dcdc8/d=
+cdc9
+regulators).  Because &pio, &r_pio, and &mmc0 reference child regulator nod=
+es
+under axp318w, of_regulator_dev_lookup() finds the DT nodes without registe=
+red
+regulator devices and returns -EPROBE_DEFER, causing sunxi_pmx_request() for
+uart0 and mmc0 as well as mmc_regulator_get_supply() to defer indefinitely.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110051723.4340=
-09-1-gary.yang@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794227241.gi=
+t.enzo.adriano.code@gmail.com?part=3D3
