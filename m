@@ -1,125 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794382309;
-	b=DIUAVtimeoKyJcfbzc7tLbb+FYFFP4YbZt9E6VussIaGayUmd1fC4XrIqeWDqV/YMBWt
-	 Oya49hOK0/b0qAQYJ9tGeT2YmQU9BtvfSBOHaKrCL+jRHypHMyPGMoNhukDMHGC+GaAM8
-	 hTx67zSFs9dFjy/YUL9ue/aXI6AcW2oh0K+aAYL/6j2XWhhuM9vHvtm3xFR9AUYjJkETm
-	 HnV6+py6xEj+GsRLUr4Dii4h9dDDpgnx2iKIv7VRtYtMVpaAnVRzUj2BK8cqm6BSPsIU/
-	 J6uL5OHcXVuQFQRkiJ7V0l89p90vCAATZAaFivCoRJjcCtzMvtLNi7B8ObaYfSUVDfA==
+	b=Ma49QpDpswM/gojO/6EctPj2/TzsATlQbzmyBioUhd6HcIDq0oHmvEu8bh4hqbDSi2H2
+	 NGvMKVsJMVBQF1HIpRqXwZDLGc9X2spR1tAK524kSD/HRd6tidKZ1jGFATbnqIkL1yZ+X
+	 759RpKzQCF/cCxO9eVkTNE2vMzoCxP6GYi8/z5AAf3tjEBw6RS2plK/p0zgjBraQbn+jW
+	 c4Ct7jDz5/q25RJ3N7FfWdzCmPtiG1g6zXPh4AyTWboOJh/SUNKGG2XAMU7MGGm8pghw6
+	 yc6/ZAkxLc/CNOOdJ8AplXStB5bhAB5tOY5rQCA715t8k5jqLWRieUh7naGUEc3Kk0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794382309;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NcNvvo3woIB0oWQpL6j7la8H5u0j7QZwDyKdlDHI+3g=;
-	b=WjgGmy5EI7BKdJKNoJpPlvFmH9poYYZ72bjbCUCsd0d1SwgvkxVc6MvSai3ugZEgzB0f
-	 2nb1tHEwVkU4nY25G+kexV4jZJT4RqPSCViqBjJmmanAM2ZsmMwoLJOq7NN5+9Ein669y
-	 zQ/pN4Rqyz7uPlQ1eC66ueDlxjj88XYZFaXIjCH4I74kI+trGZ2+PqyVuxyDNQDbtm0qv
-	 peeKMsU0GFmH/BTzxSKbnFd57xgGluul3XIxvlaeXTRG1HzSkZgvkiz4VTguJTV+RNAgO
-	 acalzrZh9swX0mBk+8YE71HI2ugmfWZ1swnLjqxKnFVtLxea2/eGBooLSOZzUwDvwdQ==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=X72fT8j3aTk48j/y0v4w7hMGoPZwDLH0NPKuxge34uQ=;
+	b=2MXCE1f6/dOwDzRdF8PRC9UiVbXNTdkw/R4LPN5TGTC/OmLpeLg0OK2yAX4xrSUtZEST
+	 fhahAxpm1jzjs7f/2Vr2gjjHtyKeBv47ZYaajJsRBVSKZzcB/H1KZmrEwPzVTJymckTnr
+	 BlNFzRIBBTUi4+7vV5PkdwfqneXZDWg1I9ymNRYRDdxABJ9mNnQhPJc/QSI607BZfbXe1
+	 wdwBgAdxtmnnpItX2trosL0ffbY9UPcm1OSusnv6izDiZ5URl7As4D6Hrkx5NDD8lWFN8
+	 6ZkZia6UDHVuB841YFAMO6S0I3gu77afxikaL+48b3ok41+O04JLHJ91+fZrgADWFNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zn2bEpI4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U8x6uAjR;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RfUUt5q/";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F63C60A261E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B108960A2620
 	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 07:31:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F63C60A261E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B108960A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zn2bEpI4;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U8x6uAjR
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KO7H2021256
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 07:31:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=NcNvvo3woIB
-	0oWQpL6j7la8H5u0j7QZwDyKdlDHI+3g=; b=Zn2bEpI4cWALr6LQdp3Thd+FyIg
-	3kSdtDhN2872o9bSZR8npyUQ7pu2BpRIwiVsRELHSGHHin/yuC5xWk7br6wAGBuq
-	YOwscxtgnnV1leLBCez48H9tsc5VMJb22MNPMeg1nphxenla64OLjzG/PfAkzLuj
-	RNJ2JXEFpGOCRr1KQy3TU9gRY3OxiX4e7ltLWF1//Oz0nYYfZpPXHI7nTMAKGpFi
-	CDb+bN+aT3K7FHStQyv6yS9dS7cvrcuaOcHOonjWza5BEeBQw+XaHAWYNC53M0kX
-	ucwfJbB4IrQFsGCEbzVvvj0rZvFvaFKVZXxZhXAn5zwQ3UqxjkuEJV367kg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv4pvbs1r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 07:31:47 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36ecd5db581so5078018eec.0
-        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:31:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RfUUt5q/
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso5924735eec.0
+        for <devicetree@vger.kernel.org>; Tue, 10 Nov 2026 23:31:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794382306; x=1794987106; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794382308; x=1794987108; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NcNvvo3woIB0oWQpL6j7la8H5u0j7QZwDyKdlDHI+3g=;
-        b=U8x6uAjREAhHBFnsN5Vn2JuBnnGMYjUC4cPcZ5sUQl4h9y1pVxyKA43QXQ9VIwyqum
-         rHEqlcVnRYYfMHCNFPriAlWgyLCBYN6u+hUJwIqW09Dqxmx1kl846C8Tmy3uMv/RufpZ
-         9C2oC6DA7qT4zrVNNXZ+MQ29fq2o4ob6qE6uimByY+zwgJZGmPuycev95iH3xJAOVFUz
-         w/12+MMcgitx3MMVfjilfaap+u6t3uxXzre0g24+QVXMnbUvmvTmiSiIunFZGJchQbGI
-         5zAo4kn5MjAp2Io+SMyS7kMAnhLXbyTlBRHAisFHnh2r15dw3A+aLXLuLMdjTqd74CK9
-         abHA==
+        bh=X72fT8j3aTk48j/y0v4w7hMGoPZwDLH0NPKuxge34uQ=;
+        b=RfUUt5q/D7/C3thNae+CWtR0BgB7jbfkU8p7uK0ciZpMW9MmyXBEtJ+8RpQXZe8ci+
+         Ufykdt5aNVwpeQtFjWQIGP1kG0lvTe7jEwUWXRMQTgIALXnZl1DkwDVg+YKiE4e8c4qc
+         PybinaSOcsvmrJ4sgcuB82pTXOEwThfFTCmjpLqesHbOUKvA3g46zy4imxtCacktBZMh
+         KjleZ7pNPIwYC00GHxXs8y9lNlpmEUNJe7n4+pVpBHPvW8QcqupGTWKAppX2DKQPXvfv
+         y/oNd7Qkl3GlnYN6QqOZzoaRZLHbb2929Qhy4fMdKGRoeenisxRCkP3UCq8tc4DXGHf8
+         lmvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794382306; x=1794987106;
+        d=1e100.net; s=20260707; t=1794382308; x=1794987108;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NcNvvo3woIB0oWQpL6j7la8H5u0j7QZwDyKdlDHI+3g=;
-        b=S2i/osjCkiYDqd4eng8JFJBDwcsD1Q87L0c8lQkfTpUjS0kQIiml1Io9QDgqJvJZsq
-         1qizDclTNlKWE+jAeIpJnrJ+sfw1ktnc9iZowQj4rO08ZL8YQHTD9jnec4+F7lgid1uB
-         GxO3WDCPBADQIe8tGmMwJaU9V86WBY3oZ2XpNhlkYGgoDBYcpX2eDjVJKZscOYzrm8f+
-         y98XaBu4PRTOfi9WYCVCxcpE1xtPbloBReBknnFVhQVVe4KCYxbDkmDRPqXJuS0wrgVq
-         GTP/Z/tKVveUrKwXiXRDN9vxhynNwYFtLINpIljXh8vYlwyXBOIZHs2BOCO4HGfk9GCI
-         o/Rw==
-X-Forwarded-Encrypted: i=1; AL+hErGw5HTdReQgf44U456F5U4OZwSVMKOwwP4cU7KjE2DenASjNiZxX1rMAD2j8qsKusUcaUqmAqsOLbY9@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TGu36NO3ENQyxhmoIOqVWOi/OWn3ikfAk6gnIc2ES4QDEMPcD
-	mQUXoy2Ar+CQq3n+dcO3/JldaMJOwg84MszRmL7I8hf6GMjO1cqC9wvZ7CVk05npsx2ALjyXIFn
-	t4X2j3FnTMYrFKyyeOwC9DnMrxxY+94E72wwzp9ISb5dBzng5AEX3weN4avbgpQZiiqSTxGTd
-X-Gm-Gg: AYBFou1pZzLZo8oltR0ra7Ps2SXtgiAbyQBeJVB0IdQEr8gbtIy0Mcl/ONnoqO+Lpot
-	QI81M2WJVBX9Ykk+A7rmABF9n/Mu/69L5CnpBybrE3Edp2AP0aii+pJxRW2sj1a1gwDF4aVMyyo
-	82gjjlynCAx9zS1WCERuvf8JLaIguhmjv0ALmNFJH9kLDZd7EiW994+JGCewu/wBsMmn6sVGj87
-	6w+d9XZIlW2eUAY9q3tkkCjExMMbD/fItJhLfWa2hcWzx4XUJaV5jBhAQm+3FgJny7KrAraFOrG
-	QhBS77BUs8ikU8/STuicY8MLL7xlCwv590wSnEAOfkpXw0KTH2BYjfIirhJlW37kbWOcXOzOR6E
-	3k+cXAkvM3mZEH1u8lIAYQBz2Ax504gUsSmHABlrczbKCWrSURwnYOaAso0RWgGSAu181NX31/b
-	5UqqkTQs1U26qUZbGWk+zxvaiZwE/eiKLg
-X-Received: by 2002:a05:7022:d99:b0:163:a197:722d with SMTP id a92af1059eb24-1b3c023c7e7mr1663361c88.4.1794382306249;
-        Tue, 10 Nov 2026 23:31:46 -0800 (PST)
-X-Received: by 2002:a05:7022:d99:b0:163:a197:722d with SMTP id a92af1059eb24-1b3c023c7e7mr1663332c88.4.1794382305578;
-        Tue, 10 Nov 2026 23:31:45 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm27220027c88.10.2026.11.10.23.31.41
+        bh=X72fT8j3aTk48j/y0v4w7hMGoPZwDLH0NPKuxge34uQ=;
+        b=CrhBy0DqLytlH24eNLgPkO+KbzDiuFIHFzRs23PrnpLHqtVJRNtCQb63PK+H2vbhun
+         CYAmYPaXKcdRNsDBU8k1NLksFZavR4SOmT4bh/Ic7uZ72X5Knk1K1n5xHG2HCmnINzaI
+         G5/vKOWcIPPVreKeKtAbI8iwTxEg+hXBKWEo3478YKilBcm1f/I2Mlovg6oHvRNbmoOx
+         xYpYS7iVYumROQrA+1Zp7PCTLxTrsYAjkA8Dgt21Qiu3Qx0QRh6ea6sXbUxdSE2UAMGd
+         /a5scctqzZs1K4OKttiiHGYsWW8QLwwXNtCmxtSXMAngx2KK5QWEoIpw4CuDQpm5bKZY
+         BiUQ==
+X-Forwarded-Encrypted: i=1; AL+hErGBRaTll4tOJIT0eoBFwkIC2042xsIoHZ3iX4kV71bxnFROU+ZkkzbU86EfqpxjVQDKmPpvG0xkKv//@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Bf6du39hJjWCS73KYzAI8AvCVZmxfhH6Cp8YNIOQ+mvVjdEuk
+	nqjuTEyyU4Hkfl1fq9b1h5tmc+arucgf6GL8s11kNDvxmEe1NE3nwxcd
+X-Gm-Gg: AYBFou25LtzDbiWtpYaOyqX4nUvzX62rnqpGGaT8cuDX6c/q0i+Ks8CYoS0xt2gy5d5
+	Fh9J3pPTHUr8tSTzkF0Ma/nFuQjrkIzNFq+H3AEs+wP9IGhTejBbKPhP4LOVp+iVx8pw5cADiPj
+	OelFOz+04FrjkMO0gWWSK6tSav9MgKlQif5DI5aGONq2dbXPTuIcNKXIa37vnGEC0A4RmTDVm4c
+	P68AZgUOIT/JNUVNgalKrndQFqtGEpG9AuolligA18Up8mQWkec1+ibTvBM0rqnlHrjZOSTLbP2
+	UwHmQ2nJgd0AewITJxBmBsKTsMdz0V5KZKhL9fJov7AQ3xZO/DyzsBB9gBKoZ3O2BtFoabw+WWp
+	uR0RB9IoJb1R8i5bJ6N8EGAkJ7g40QMTHIGmqHNYSyMu2Gv/HQFxe4+ZyLJDm5/53kNc8U+AHlA
+	RqYT/WYX2UYYk8xRBfBFftKyfazNq2q5YOPgWnbSqvnnrfDSNUdqfIGxMNgRmaolJyFzaxDjmAH
+	U7xJ2mbM2Kmvv3R6aKVDd1jSF1FKVlMCPy7+QxkC4suGOsqWkvyBsDeO31rUJjwPcbxPJk23oUE
+	C7RDUbULDRqo7a+nipNxP7mqpLg0qZVtqRlWRKlb+EVlnF/tFDbirVVK0cnm2yOew8Kunjxtg2j
+	a9aJ0iL+n8yCXQXXzIg==
+X-Received: by 2002:a05:7300:d198:b0:375:f17a:d691 with SMTP id 5a478bee46e88-37686859024mr1969808eec.38.1794382307362;
+        Tue, 10 Nov 2026 23:31:47 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe32276sm12640655eec.8.2026.11.10.23.31.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:31:45 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3 2/5] arm64: dts: qcom: nord: Add gpr node
-Date: Wed, 11 Nov 2026 15:31:18 +0800
-Message-ID: <20261111073121.3707030-3-shengchao.guo@oss.qualcomm.com>
+        Tue, 10 Nov 2026 23:31:46 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Hui-Ping Chen <hpchen0nvt@gmail.com>,
+	Joey Lu <yclu4@nuvoton.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v9 1/4] dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend for dual-port and OTG
+Date: Wed, 11 Nov 2026 15:31:34 +0800
+Message-ID: <20261111073137.381966-2-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111073121.3707030-1-shengchao.guo@oss.qualcomm.com>
-References: <20261111073121.3707030-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261111073137.381966-1-a0987203069@gmail.com>
+References: <20261111073137.381966-1-a0987203069@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,107 +114,105 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=XqZvqlF9 c=1 sm=1 tr=0 ts=6af419e3 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=LQeRsTducJ9VbTWhBPQA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: rgtmLxkItWa3kKxFi2zIu4YB68J9ima3
-X-Proofpoint-GUID: rgtmLxkItWa3kKxFi2zIu4YB68J9ima3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX+ntsSA/V+Hrs
- 7jsGzsXIqCz4o2tm4UPb6fpEEtLrOX8v9foCm4OyFBqX5GPg3mjg/7qyg7/7ChLrAHsDl0S6FgI
- ThdF+TYazryggrzxb4UUBpSDkO/q8yM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfXzbYxKxwDBqPm
- 2lmWQw5crdixMsbQ29m7gn3vyygikxowfnUoXjsr5EwIEWwsgLXXl+PdoA9VDeLgim/T4CbMyXP
- Vfy/zsk8T6CY6rZpdY2eh1/1b2yoiQIx/zcI5a8PwIuUN9JPIz8SiDGZ76mLm2v927irKvcvcfB
- z9Ef+0iRlpDPmtD8OGEGB+By16bIq/Y2ti2Ly+n7BREeMwceH4U37HY1VtVbngajAZR+5ahWDYs
- 6Z+T+bVGKS+J6TWwR4aXRi2pDZI1pfWqTb/0yj6QSDSzgU4x0fJKW+pucgooPdsoLegJ3MX5Vvw
- we5ut1YKXfAc8SozhlZheCNmzhVHahAbS/p05kHgSwSuR+D1vs+2UshGcxeCBexnhtWEvjdLRgH
- V/uyQkxxe6ZwGNUGSfTMXysgDgKeNV4GPEjJ6IAM+ZPCsaUQ+fyijDRd12m4Xel2Y7AGiqIRzCz
- 7+qiHvK6KShIcxIcjGQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110029
 
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+The MA35D1 exposes two USB PHY ports (PHY0 and PHY1) managed by the
+same hardware block (USBPMISCR register in the system-management syscon).
+PHY0 is shared between the DWC2 gadget controller and EHCI0/OHCI0
+through an automatic hardware mux that follows the USB ID pin; PHY1 is
+dedicated to EHCI1/OHCI1.  Because both ports share the same register
+topology a single binding and driver should cover both.
 
-Add the GPR (Generic Packet Router) node to the Nord SoC DTSI along
-with the APM (Audio Process Manager) and PRM (Proxy Resource Manager)
-audio services. These nodes are required by the Q6APM audio stack to
-route audio packets between the application processor and the DSP.
+Changing '#phy-cells' from const: 0 to enum: [0, 1] lets consumers name
+the port they need while preserving backward compatibility: boards already
+using '#phy-cells = <0>' continue to validate and function unchanged.
 
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The two new optional properties:
+  - nuvoton,rcalcode: the resistor calibration trim code is determined at
+    board design time to match the PCB trace impedance.  Both PHY0 and
+    PHY1 values must be supplied together when the property is present.
+  - nuvoton,oc-active-high: the over-current detect polarity depends on
+    the choice of VBUS power switch.
+
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord.dtsi | 40 ++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ .../bindings/phy/nuvoton,ma35d1-usb2-phy.yaml | 44 ++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index 617e5312f4c4..c17a8a83e371 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -6,6 +6,7 @@
- #include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/mailbox/qcom-ipcc.h>
-+#include <dt-bindings/soc/qcom,gpr.h>
+diff --git a/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml b/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
+index fff858c909a0..1bd22dd0e5fc 100644
+--- a/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
+@@ -8,6 +8,18 @@ title: Nuvoton MA35D1 USB2 phy
  
- #include "nord-ipcc.h"
+ maintainers:
+   - Hui-Ping Chen <hpchen0nvt@gmail.com>
++  - Joey Lu <yclu4@nuvoton.com>
++
++description:
++  USB 2.0 PHY for the Nuvoton MA35D1 SoC. The PHY node is a standalone
++  platform device that accesses the USB PHY control registers inside the
++  system-management syscon block via the nuvoton,sys phandle.
++
++  PHY0 is the OTG port whose signals are routed to either the DWC2 gadget
++  controller or the EHCI0/OHCI0 host controller by a hardware mux that
++  follows the USB ID pin automatically.
++
++  PHY1 is a dedicated host-only port used by EHCI1/OHCI1.
  
-@@ -1799,6 +1800,45 @@ compute-cb@6 {
- 						dma-coherent;
- 					};
- 				};
-+
-+				gpr {
-+					compatible = "qcom,gpr";
-+					qcom,glink-channels = "adsp_apps";
-+					qcom,domain = <GPR_DOMAIN_ID_ADSP>;
-+					qcom,intents = <512 20>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					q6apm: service@1 {
-+						compatible = "qcom,q6apm";
-+						reg = <GPR_APM_MODULE_IID>;
-+						#sound-dai-cells = <0>;
-+						qcom,protection-domain = "avs/audio",
-+									 "msm/adsp/audio_pd";
-+
-+						q6apmbedai: bedais {
-+							compatible = "qcom,q6apm-lpass-dais";
-+							#sound-dai-cells = <1>;
-+						};
-+
-+						q6apmdai: dais {
-+							compatible = "qcom,q6apm-dais";
-+							iommus = <&apps_smmu_0 0x09e1 0x0400>;
-+						};
-+					};
-+
-+					q6prm: service@2 {
-+						compatible = "qcom,q6prm";
-+						reg = <GPR_PRM_MODULE_IID>;
-+						qcom,protection-domain = "avs/audio",
-+									 "msm/adsp/audio_pd";
-+
-+						q6prmcc: clock-controller {
-+							compatible = "qcom,q6prm-lpass-clocks";
-+							#clock-cells = <2>;
-+						};
-+					};
-+				};
- 			};
- 		};
+ properties:
+   compatible:
+@@ -15,7 +27,12 @@ properties:
+       - nuvoton,ma35d1-usb2-phy
  
+   "#phy-cells":
+-    const: 0
++    enum: [0, 1]
++    description:
++      When 0, the node exposes PHY0 only and consumers reference it
++      with no cell argument. When 1, the single cell selects the port,
++      with 0 for the OTG port (USB0, shared with DWC2 gadget controller)
++      and 1 for the host-only port (USB1).
+ 
+   clocks:
+     maxItems: 1
+@@ -23,7 +40,29 @@ properties:
+   nuvoton,sys:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+-      phandle to syscon for checking the PHY clock status.
++      Phandle to the system-management syscon node providing access to the
++      USB PHY control registers.
++
++  nuvoton,rcalcode:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 2
++    maxItems: 2
++    items:
++      minimum: 0
++      maximum: 15
++    description:
++      Resistor calibration trim codes for PHY0 and PHY1 respectively.
++      Each 4-bit value is written to the RCALCODE field in USBPMISCR and
++      adjusts the PHY's internal termination resistance. Both entries must
++      be supplied when this property is present; when absent the hardware
++      reset default is used for each port.
++
++  nuvoton,oc-active-high:
++    type: boolean
++    description:
++      When present, the over-current detect input from the VBUS power switch
++      is treated as active-high. The default (property absent) is active-low.
++      This setting is shared by both USB host ports.
+ 
+ required:
+   - compatible
+@@ -42,4 +81,5 @@ examples:
+         clocks = <&clk USBD_GATE>;
+         nuvoton,sys = <&sys>;
+         #phy-cells = <0>;
++        nuvoton,rcalcode = <7 7>;
+     };
 -- 
 2.43.0
 
