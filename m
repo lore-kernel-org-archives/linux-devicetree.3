@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510520;
-	b=U9NVzeBjYp30c/Hqf6im1Y5UyJdAapgKE4eMl0gKFW2g/kw3sUKYhVHWDV6ExMjaAztG
-	 wCVqz5hXZvDEVwcgAE1fkNZdLxC1lUol1RtkXzdJ5txGc/YGwbzGxw2xE8j+bKzEk/pav
-	 EnjyYTaso2EB9asBlu4lDRV2Asr538esM2nOLwjwal0Q5Bg/bw0i9rJfyXqoua4VT/qUG
-	 5/lEn6joBsgm2FsujSKKva3/Tu+kXrAWmHHnZ0OFNlEvf4rrwQC1pH7mjw2LqZgzNd89W
-	 XalII8vVE1KwhazS1eyS5eCvPz3AW7jJ66nWLS+pQO9xUhPmpxUoYgcKyt/uKXf49vg==
+	t=1794510552;
+	b=f3C59enx2DQTXxPZMH8aI3K2W8srNNlf9BjaQobCTYlxl/j+2kAas5OKbegRBa/JdPa4
+	 ORZLfqTDSzfuNsqDcfy4Fc8lpUV9BQjosNWsd/zNqUL1av2eMjlqlCCq46yesEBm8g7Iv
+	 ohamMFw5jytQlC5IMysQLk7eAUz0uBPg5mRKFr3kbmHrTARh+1CATNXQnB4jVpdxvBuxZ
+	 LyRJFk8nm17C5a0cgmvQSYR6CjwJe8zXILjR0fXQX+RubzrR17xIqBJZW/FJ2ku1091LQ
+	 22Kuasq2yjgWp+UMmmkWdVE5n5rHKU5DMZVI6KCOP3ZO6aO6O8DKVlCXXvCH3IUfuHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510552;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iiSaMQzOzhlwg5YfP0vJhzy1vsAuPmG0Wiwm7O7S3bA=;
-	b=IHVa/pp9ngF3yraFDaubj/DSR7trkI+SLnvDOTfCL3U7s0Nq9fkT4Xs+2yDv91w7q3oo
-	 GrFhN0fWy1Vr8eDXiA7LtHWAH5Np4a4zwcAiRz4BVzKL3ZxQhOeUSZjKJhRunAV1nB6b0
-	 7wksCLnKwv8DHCe7mudFcxZVKA54UDvKvBV8BpjIlb61qeC3vGU16ituqRkMXSalV30Fa
-	 su5QW1UqOAVr1srOgFz39uhUj62nbdUxguIcbdHLiP4PD0fs/OujqjYTP5x9VPOm7l0Vv
-	 JPAmXqYyRyaq4VO1UyZQaxcru22Y7zt7urEgPC5Opjn2OeiQWl7lasKdEaCIBBeKXTA==
+	bh=y2xPM2XVCT64KK0CDfSnJ9WlN5sUY0jq77ETjPOo0NU=;
+	b=YwSP4cqzkMrTIaYf6QybhP61KYPHzeknWVc9eiXn7V69k09TFqJ9DJIShIXcU2Tb9E9K
+	 BHErzjcLz9jvaSLjTDikJx0Zt93F3aJGOIjx2EzomcVgDG6ba3ci426wWQ2Gg77nrZ9xT
+	 B1aS8PQV8DUmV4JYq1Ubu4Q+ptdjEcisyUoh6ZF92HE8W2QNbkXrBpWYZd5wTCkP2INTf
+	 7CbRIluUsrCQQmNgmXeBxytxWqUG8jRBd2/MDqKaCJmAT/nCk6Y7xw5IdsZswkZ4VRFag
+	 WqdtHuyeyiI1pzyJ8C8oC1Y6OJmNshOEpI8Bm7CcJaZ/XmfZqF46ywbww0Ax7yAScxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ix0GeQnL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbijF8gl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A760606A31C
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 19:08:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1292A606A32D
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 19:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ix0GeQnL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1821F000C4;
-	Thu, 12 Nov 2026 19:08:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbijF8gl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805A51F000C4;
+	Thu, 12 Nov 2026 19:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794510520;
-	bh=iiSaMQzOzhlwg5YfP0vJhzy1vsAuPmG0Wiwm7O7S3bA=;
+	s=k20260515; t=1794510551;
+	bh=y2xPM2XVCT64KK0CDfSnJ9WlN5sUY0jq77ETjPOo0NU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ix0GeQnLDCFIULxsluyCb1CGHMKk/WcoVDEEUCCtDJxvCLBUzcsYSHs3CjTvz0wtP
-	 2utPRZGX6Q/yKzoudmBtHga/piYLmh0eN/NA8nBoiHuLwPYrQ92uqMbUp80sjV5C8N
-	 c0U5UL0mhOf9OqqMV4hVeAqYvo5fwlyd3WFBupv0Tq8qW/YRiHCFgf8yJZz3En9/2y
-	 QMvqWpVdrsko8RfxPHg5ymb4TcIq7nDEh+K2OAkqP4LYEEzVwOwVowtPv9QE76VDyo
-	 mVEOnbnu7pEw0BT5736AGqlxL/FHhwNElbn/KrHLOBGaw+3G/y+ptqnQaytr00iEQ2
-	 H4y2kqTDkRggA==
-Message-ID: <sashiko-outbox-211745@kernel.org>
+	b=SbijF8gli4P2zbxeZA22aZoV+Qg26/AZ/5r9huWwuRaKa8+tGm4LMGmC9rnFwyiEY
+	 /TEihGUTabniWQMzGVoyO9QOECNq3FDSa3j/Guud7CtkCTedGxfXGFPXKSneb9M65D
+	 IRr3+wXJ6dpeaKDLuMk51FDcdaD6Z0mDFD1vQq/OnBxSP5reSCSgwjP7aFyEgd4bm4
+	 hycw/q6bLSU79kEdeK2U5MjYyvuj9cLwLYuWDu4GwWrwo9GN/1h6hQcp6+M1Igc2Ox
+	 HuN/pEmvItFUtzB5xWGBT3cEgtGNmTgOHqWMq5272ZvLmlhrsPXsY+W035i0s8DTPR
+	 Gh6GdZGKDWctQ==
+Message-ID: <sashiko-outbox-211747@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] i2c: mt7621: add support for Airoha AN7589
+Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Crispin" <john@phrozen.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261112185820.1315718-4-john@phrozen.org>
-References: <20261112185820.1315718-1-john@phrozen.org>
- <20261112185820.1315718-4-john@phrozen.org>
+To: "Biju Das" <biju.das.au@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261112-sdhi_rzg3l-v1-3-ca30b209615d@bp.renesas.com>
+References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com>
+ <20261112-sdhi_rzg3l-v1-3-ca30b209615d@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 19:08:39 +0000
+Date: Thu, 12 Nov 2026 19:09:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,57 +62,134 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] i2c: mt7621: unsigned underflow in mtk_i2c_init() divider
-  clamp()
+- [Medium] arm64: dts: renesas: rzg3l-smarc-som: no-op UHS pinctrl
+  switch on sdhi2
 --
 
-commit 36029923d9708d51405f55c0dcd224ddc5b82105
-Author: John Crispin <john@phrozen.org>
+commit fa36790e3b28d4844cd7f51756a420dcdb4538ff
+Author: Biju Das <biju.das.jz@bp.renesas.com>
 
-i2c: mt7621: add support for Airoha AN7589
+arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
 
-This commit adds match data to i2c-mt7621 to support the Airoha AN7589
-variant, which uses an extended 16-bit clock divider in SM0CTL2 and
-disables SCL stretching.
+This commit adds pin control and device tree nodes to enable SDHI2 on the
+RZ/G3L SMARC EVK platform when the SW_SD2_EN macro is set.
 
-> diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7=
-621.c
-> index 7a31cc8b89ce0..4a6504df0bc18 100644
-> --- a/drivers/i2c/busses/i2c-mt7621.c
-> +++ b/drivers/i2c/busses/i2c-mt7621.c
+> diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm6=
+4/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> index f6f4eed9a2ea6..e8fc9cddf288f 100644
+> --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+
 [ ... ]
-> @@ -262,11 +296,16 @@ MODULE_DEVICE_TABLE(of, i2c_mtk_dt_ids);
-> =20
->  static void mtk_i2c_init(struct mtk_i2c *i2c)
->  {
-> -	i2c->clk_div =3D clk_get_rate(i2c->clk) / i2c->bus_freq - 1;
-> -	if (i2c->clk_div < 99)
-> -		i2c->clk_div =3D 99;
-> -	if (i2c->clk_div > SM0CTL0_CLK_DIV_MAX)
-> -		i2c->clk_div =3D SM0CTL0_CLK_DIV_MAX;
-> +	unsigned long rate =3D clk_get_rate(i2c->clk);
-> +	unsigned long div_min =3D 99;
-> +	unsigned long div_max =3D SM0CTL0_CLK_DIV_MAX;
+
+> @@ -330,6 +331,74 @@ sd0-data {
+>  			power-source =3D <1800>;
+>  		};
+>  	};
 > +
-> +	if (i2c->soc->ext_clk_div) {
-> +		div_min =3D rate / I2C_MAX_FAST_MODE_PLUS_FREQ - 1;
-> +		div_max =3D FIELD_MAX(SM0CTL2_CLK_DIV_EXT);
-> +	}
+> +	sdhi2_pins: sd2 {
+> +		sd2-cd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
+> +		};
 > +
-> +	i2c->clk_div =3D clamp(rate / i2c->bus_freq - 1, div_min, div_max);
+> +		sd2-clk {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
+> +			power-source =3D <3300>;
+> +		};
+> +
+> +		sd2-cmd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
+> +			input-enable;
+> +			power-source =3D <3300>;
+> +		};
+> +
+> +		sd2-data {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
+> +				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
+> +				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
+> +				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
+> +			input-enable;
+> +			power-source =3D <3300>;
+> +		};
+> +
+> +		sd2-iovs {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
+> +		};
+> +
+> +		sd2-pwen {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
+> +		};
+> +	};
+> +
+> +	sdhi2_pins_uhs: sd2-uhs {
+> +		sd2-cd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
+> +		};
+> +
+> +		sd2-clk {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
+> +			power-source =3D <1800>;
+> +		};
+> +
+> +		sd2-cmd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
+> +			input-enable;
+> +			power-source =3D <1800>;
+> +		};
+> +
+> +		sd2-data {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
+> +				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
+> +				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
+> +				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
+> +			input-enable;
+> +			power-source =3D <1800>;
+> +		};
+> +
+> +		sd2-iovs {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
+> +		};
+> +
+> +		sd2-pwen {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
+> +		};
+> +	};
+>  };
 
 [Severity: Medium]
-Can div_min and rate / i2c->bus_freq - 1 underflow unsigned long here?
+Does switching sdhi2 between sdhi2_pins and sdhi2_pins_uhs write any hardwa=
+re
+pinctrl registers for the sd2 pins?
 
-When CONFIG_HAVE_CLK is disabled (which is reachable via COMPILE_TEST),
-clk_get_rate() returns 0, so div_min folds to ULONG_MAX while div_max is
-0xffff.  That trips the BUILD_BUG_ON_MSG(statically_true(ulo > uhi)) check
-inside clamp().
+sdhi2_pins and sdhi2_pins_uhs differ only by power-source (<3300> vs <1800>=
+),
+and neither specifies drive-strength-microamp. In r9a08g046_variable_pin_cf=
+g,
+those pins use software power-source tracking instead of a hardware
+power-output-control register:
 
-At runtime, if rate is smaller than I2C_MAX_FAST_MODE_PLUS_FREQ or
-i2c->bus_freq, the unsigned subtraction also wraps to ULONG_MAX and
-clamps i2c->clk_div to div_max instead of the minimum divider.
+drivers/pinctrl/renesas/pinctrl-rzg2l.c:r9a08g046_variable_pin_cfg[] =3D {
+    ...
+	RZG2L_VARIABLE_PIN_CFG_PACK(RZG3L_PH, 0, RZG3L_MPXED_PIN_FUNCS(B)),
+	RZG2L_VARIABLE_PIN_CFG_PACK(RZG3L_PH, 1, RZG3L_MPXED_PIN_FUNCS(B) | PIN_CF=
+G_IEN),
+    ...
+};
+
+drivers/pinctrl/renesas/pinctrl-rzg2l.c:rzg2l_set_power_source() {
+    ...
+	if (caps & PIN_CFG_SOFT_PS) {
+		pctrl->settings[pin].power_source =3D ps;
+		return 0;
+	}
+    ...
+}
+
+When renesas_sdhi_start_signal_voltage_switch() selects state_uhs,
+rzg2l_set_power_source() only updates pctrl->settings[pin].power_source in
+memory and returns 0 without writing any pinctrl register while the internal
+regulator switches the external signal voltage.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112185820.1315=
-718-1-john@phrozen.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-sdhi_rzg3l=
+-v1-0-ca30b209615d@bp.renesas.com?part=3D3
