@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794518080;
-	b=z7TF1fAHlj3gO5NrwhX1N0ra+p6loqoXFoUZCQGaJ5WYVXqLE1eJO1nptX/x0DeONCCt
-	 KuhlK7bHCBt8f8HQqGmNXyA6pOX7Q+M1SEjvOwZmWky5es3wH4OR9MveFLEP4P0jnspGl
-	 NyH99YKnPAkVS3q71qUc4S1d87XFmlttn9vzhaRYOlpQNPJ5InjtppE8LORJBi6s4Bg/U
-	 XU+2UheuAzjyAXDcq7QG1XDY97rRM4/asolfOuvXvecLF+0exCwdNKmJLxoXSDHTrK+Tr
-	 uo1UWoXGCYfHXHcoXToZSAY1XfDkO5YaPnhU8vtRfc2yFmDHUMLCy/LSIBTi17pyEdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518080;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TR0QQFyoAiD893Ky6AW4pYiB5WMlI1Y5GEI+ntijvyg=;
-	b=ZeSHMiGTSa1s65HgioRKusQdCPC9PiIe5aXdST22mwCQmTdyb3NiZftP5acDeQXxgVvU
-	 LJwo3Fcy1312DGKX2OGHfHRTJx7No6KvW6bq2WbjafAzPSmWFyYO7r9O9eB5ri+JV09TZ
-	 UHL5QUcdBfTlc8CBVAq9ehIMCprIqcOk5e7CFp1AeCRn9AeHJqZlY4a/OmBdczZllf7hO
-	 +wkFuIr1plxwweihFeY4KyRtoBRvsNra9Yve0V5osembV6GrHoSyJtgq6nBQXKV1bJCcF
-	 hF+r5JenVBrNx/X7mpl7dWy0WNLHCgRznEkuhTsxtuI656khBbwhHgzsSFWAA5+kFpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qELu4JUo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013022.outbound.protection.outlook.com [40.107.159.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794518264;
+	b=nlHCPn3yNEK/HwXWmBsytTy66BXgLefLuQjHiFRBLWyinQq32PemAV9L2TsLjryh8Q0C
+	 KsMQKSyX8+fVUTScVyPouZ6wu4e9c1EMzt8lprPOWDSyUjy1A/RLrUrrblKbuJ3hlN2Zk
+	 /X78AXG1ss0A1nUOvJSQK6AF5hE3VB/wDtNmTSX26nzybEgj+i9OJoiia0E+DMU+bw5+T
+	 5eCsDnkJb/0BovgRHKbBQh7/I7aRJrN6AlOFGdiYJNfo5/ii3/ka4nXYJoRPtIssZH3L9
+	 HDiF46+BRNqvx53+wp43UvxgO3co7CPqyVNJFu2ZshlaEfz6VcMd2imrdjpFd/hBWAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518264;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=45Y4sZ8sS5eeWt0uYYzHFHzHlhbwxoDgGS6j5RpQTOU=;
+	b=AWsY3aiOKn+9Y7W7Y7qf4X4SuY9n8ZOa6VJdaX/Lv1Nmn16d0uZNioTgD6Q4z6Q62dPR
+	 nhBXslX/p2REF+Z/MHQyeoSuCekw+7FirczWH6ig2u+aFzv4nw+H/Pad/o0wTbt35D8Go
+	 ykyaZNONgiht91O14kBrIBQ2N0oXIujek21qAQc9+3r2MNY78vCkYfRUOwBi31Vodv/8Q
+	 mFAb83svPIuKUsmT002S8P+27C9OjcMWT4WbsnpYbvLb6OgNQBIaTzc9V4ZDWxEnp8TVT
+	 W74NKngmT+BJZD3xqRPyn8ff7Y5eJk4FgZxlUUh5IOH1TYVm72apMaLBWhewW4X29Og==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLlG04Ml;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0E8606A31C;
-	Thu, 12 Nov 2026 21:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B0E8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB16606A31C;
+	Thu, 12 Nov 2026 21:17:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qELu4JUo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AcaPcqB13MsygtU7W5Vk+ck/DrbOJ11SJxWAAJvO5cSOYQBqMNNSoGD3jHQzTv18u8dQASUlxczwdemCENalYvJ9Z+IKak+yiZPx8pPlSHeCV57goLvWpmCT2a92VVoVy3W9MW4KI26Vy5Tiy5lLBPUpuz6k2xkXF0d+6962V/E8wp+9aXRjT07o1mmHCQuuEg+rYVo6lZVQEcSsxCPckTWfxfbCsH0LOyp+RcfDVBZ1IGPWQKEmgyEEFyLLNRg+rB94quDdJeRghzhs7K9R5KY4gqj1KwbYsMo8JuCfZRCWemHm8btJMRmojLpaw5oet4jYSugN1mqHyKsxFKZHGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TR0QQFyoAiD893Ky6AW4pYiB5WMlI1Y5GEI+ntijvyg=;
- b=aAKr9xDIBw3cQEn9oU21xTEKiR9G0G8zrJ4wegXjbbf2T629wU/+Di3AzXXU/4wibmLVmQPX99odnCkpRnFIPlCKTZocr5CyErf6PBmuqKF6wtFzK1SDJqjYGCi4X20KqMqCPTWZ4+kr1nMfE5sXTRjxRC43m0xkCl4Vb8XKbSMY0RsSKmRfXEzgusNLZjVyipTuaUq2Fq7OyfeK4CPM20TcxHiqx0ycoqT4nigWsgJp+vR/DjkCDqAjkMXNsmhvqAPdcuwW8YnZwpJWF2lL+ACpDdTBJF7vfDpJAm8Ht6R3lZbTEjp+fRds2VnTim3JC5mzyKNSTiFhDgUNZBTQ8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TR0QQFyoAiD893Ky6AW4pYiB5WMlI1Y5GEI+ntijvyg=;
- b=qELu4JUoQRv8C7e85LiKBTijrG1w+ouoNVZlZihwlag2hGc+/85rojvPhcl5Iigk72V1k94kJ13zR/l4NAIFkIuveMFbbHwOhK14ya0DVK/hhO2744xdYyEdfdDzBjb0stjk/xnXqNsNfyooGkKLwqu8d2Eb9Jn2Lf4d4AvPqJGNgvbBIR4LAVrfNvtJBji8VO4pJrnTJOsewReba4BMZ8FH2Fa3OE8GCg7zBQNTE02YBja6mnXnbcVVxgIzevUt5OidtGhIAtCk8qVPHtG6vL7Ep+RHWuRuyCsmXPn/RFEMzycUfwDX5CYFMjz6nQOSpnooRwjn6P7PMA6e+3522g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB10180.eurprd04.prod.outlook.com (2603:10a6:102:45d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 21:14:36 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 21:14:36 +0000
-Date: Thu, 12 Nov 2026 15:13:58 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Sheetal <sheetal@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLlG04Ml
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263BD1F000C4;
+	Thu, 12 Nov 2026 21:17:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794518264;
+	bh=45Y4sZ8sS5eeWt0uYYzHFHzHlhbwxoDgGS6j5RpQTOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WLlG04MlmUjhkGqlKpaKSwrJEXJiamorc0v8bqdu2OLyMgB0lmtLcpgTVYfKp4PEI
+	 deCt0pBWPSR8Db8394ehRIJhRRnQJepzq2wU9DCDPF54F9+SEqEidxGtjgrgkuHSHR
+	 aBXw8dF5rRPB5OuapSpmVMcwaQqc/TReIr6zOGHdjTJUsX5aYyqgQs8KmKWpbA05yg
+	 twkSIsPySPZomL7Je7Pl2N5BDDy9/w6NF4K6+0LzCB/I/c80co5TwuEnIZGBhSnP40
+	 SaJdG2x6YtAy7zlpsWpAEXB/jZmVZ9wGlZsLMmwcX7VMgy2o7fn+MuJy06Y4jXFgt7
+	 zLNbo3pIesXIQ==
+Date: Thu, 12 Nov 2026 15:17:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Anupama Kunkulagunta <akunkulagunt@nvidia.com>
-Subject: Re: [PATCH 3/3] dmaengine: tegra210-adma: Add Tegra268 support
-Message-ID: <avYsFsaNj_1_sb2z@SMW015318>
-References: <20261104110932.1097294-1-sheetal@nvidia.com>
- <20261104110932.1097294-4-sheetal@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104110932.1097294-4-sheetal@nvidia.com>
-X-ClientProxiedBy: PA7P264CA0540.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:3db::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+Message-ID: <20261112211741.GA279944-robh@kernel.org>
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram>
+ <20261112125346.GA3821108-robh@kernel.org>
+ <avX9Qrcapcnutdgh@baldur>
+ <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+ <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,180 +69,168 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB10180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5036670b-7e09-4227-df3c-08df4101f47b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|7416014|376014|23010399003|22082099003|18002099003|6133799003|4143699003|11063799006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261022075727099003|261022113327099003|261022105027099003|261021121427099003|56012099006|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	jYrYfAbksqyHsuGibdJmO72jQeD8UY8YKGmdk1Aj7TURjYO1KnX6OQEoIYH14ihcY30v+HLUs/M75ETjhiyCYaE3yx9+/+WHsVY8oMn2F/2inTMtaM1mTXbHG7fzJdbOqnaYJdb621OILTLEJTcHflNlQyEpegHRst7Qi1k45kuQsTlMCvYYg6UZVqjqViLd4nI7zop5T3TTxvwypOLS8jV0QQ0PVKnPZhLBshpcUzLKqKMNPDQiA6B58s4sbiaqFHGBtjxAjG1Cw2B2wXJ0LixR/UT79ASJ7qO2dhdZTB7imBiMW5uWtVAH9p+d83BSeKET7oiiYWVteb5znzhIq9Aj0eYP+J/nDGntctIx91FWGxH5xhtszc/e5yK40mum9lF7H+K4ikce+JJAkZTsByU5WLkEVkCmnioumZw5YKHqMfBzShS21yBddCICH58P8w2gM1eZyzmBHAa/60r9T/mdU+EVxk58RAJK1WPk3o7EVMTKOZfyK+Y0SvIP9Uw8KH7r9xM7nnkHuZuv4ZpcKqRSHyPTaqvNaooKXxf5UXhUKUx1Lz4o/WtNqOHq+vpD3NsS6C57btGki1IA37VmcTXm5Fo8fDsFwYuONkhPST1019cJvAeD8cO4093NQ7zVKoMQJj8IslWrzFNthd9KNDQYHtVYeV6NPpsojNDL/sQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(7416014)(376014)(23010399003)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261022075727099003)(261022113327099003)(261022105027099003)(261021121427099003)(56012099006)(261021123027099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sB87MscMxJRMyAHGxmRgvtD1LfvlbgArAtJ4uhIJEqPM/bXyTclmFKYpsvy1?=
- =?us-ascii?Q?ZA4W1UU7b/O05me34ghy6M2j7eNM28JAi5kWxrjr2lKGm6URI02ngbA4p3ZU?=
- =?us-ascii?Q?Uklmcv8+Harud8zptPqiM3xpPrnUKPZzOTZqQhsz9hzteqrl9B+l7T3vFk7B?=
- =?us-ascii?Q?ha5N+Q2yVldaojKdvbsQmN207iSpmmkPzBacJnxX7ObKih7v35TtEwU0L5pY?=
- =?us-ascii?Q?TKDVeuwEmfIsEXPoAQfThEu4zWtOc3o8d74LRGIoqtkFQTvTG5U/BtgAgyAu?=
- =?us-ascii?Q?K969HVJmiPnVisTMZQKIfGJ5ixuEGx48e9edpXHYFyG94vS84/2LQ1l8m0i1?=
- =?us-ascii?Q?WSj3Aj9Rluer9CNOL8SLy7uSCf9st51nqAXdmCSKC7j/drk9j4cB8vPoTUqZ?=
- =?us-ascii?Q?Iuu5IdUbyjLaJA6uu/k2eFsP2h77M1nTsSkmLcQBU4daqJzrysrNYwjwon15?=
- =?us-ascii?Q?2+4Elw7dgXwVPbDOLiK4T9Q9xliuhO5KfdcYq64/smWbb7L8YoaXUMGIrg3t?=
- =?us-ascii?Q?jpYLUJKcU+k+GBHSpmIBf2pRU/v6rqi4J/6cUDNdiYwugZf25iFrDTeqK4zW?=
- =?us-ascii?Q?M6rE8peygbbCvg+WPnl4JuX0FmPmIAxVN3D/F7cUYiebuGCds3+8zOi9mMXc?=
- =?us-ascii?Q?x8DyArwY8pabDav8M9RskJBNCdZPNimHH1L50/w5u8CYm7ct/P5vw18GLfQ2?=
- =?us-ascii?Q?q3J4jTvcIvqEphbqOKctUOrzEuwvBw1l3esefGmeoLWmEV+UgV4KLqFeIx88?=
- =?us-ascii?Q?4nbbU9BlC/fV9cOyYJ4njRtIC35UuV4rxD+5fc2SIfn//xV42kX2ZVHrJC1B?=
- =?us-ascii?Q?tg+0O5t1sHvSiA2u9fm2igq9ufkrtDCFMaZgsUpGsqwUuEbkN++Em9AMJZzk?=
- =?us-ascii?Q?XV40SwKx+D7GSbKfIFY64a4Mx2BBIPCBPBkf1vWoN1cq5yWDhAeyWF25IKGv?=
- =?us-ascii?Q?tSjfBnApMmC2r3H9r27pPd2Qds+JkZrSrkp8AU/tYUXalUK3ZfVi9FPNCB0b?=
- =?us-ascii?Q?s0jSIH65+qCF/jPilQGmqPh0b+P50eJAT1ynt1lqeZFI2X1WVJSKZazfhxBD?=
- =?us-ascii?Q?so3J5osiHYjyiOI9BCVBoxgr7cxrWudVqqbQDUYzpLVC1XK2dFE+9ICqq1PV?=
- =?us-ascii?Q?NhfIt0Y+Xge3KNXL/OxVAcXB5BNzPyIs4rpXeXoLLSaxn38MGYk04KeYP3un?=
- =?us-ascii?Q?JYjBZbgLOI6l4R61WM0Y1Cm65qhKiflu0Vt3Hk8g4VAW+KCMQlGrnAWEDkuY?=
- =?us-ascii?Q?JyvIN31lA/Xf0aBTpeBzZfrPye6PRxCTT/E11AgsIRxhoVX0mNpAjrVhpvvy?=
- =?us-ascii?Q?jgPdNziX+wRARUiJAyoujEDo0f6FSnnRk1cBewmCsFG4J7QTkYCmRo969OFg?=
- =?us-ascii?Q?GlMQyVMyKiqCZJzXxVz7uvVgEfa1iJuQOMlPEpkNL9vw8NA89Pbs3OKolMA5?=
- =?us-ascii?Q?qtygYpHJLDB4/4uFPsXZahyaDAKteU+mZVGa+PNtzkwKJdba/MX89KcApOm1?=
- =?us-ascii?Q?475vRBEZ04jcCntNQB98aGVk2YueGFeHDXO1mqDPLqKroBEV49V6eob7VWjA?=
- =?us-ascii?Q?Ou7+xqyBinFqp5GauOvuTHbL7E1XkR4Bau5S3P/VrSZDyEb68zFfmBYC9dML?=
- =?us-ascii?Q?eoqkyObddQK4ceCZNX0tZ/EbIqb/BRPqsw9/IbV9ognm3N+xaENdBBk2ENaE?=
- =?us-ascii?Q?/EBFZGzasMM51Nn1wHHPwaNWPzIo+h8ys4m8fj7c3RXi0vYjF3bc8TvfqvVc?=
- =?us-ascii?Q?q8haK0lEwpXL7axMSmTk5rLy9fKaZJypi0tNQdsgXEqxOBRmQLGY?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5036670b-7e09-4227-df3c-08df4101f47b
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 21:14:36.4361
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5axEwYADBzpgiDm4xB7/Br+x6ypEWqsg+Pl6prB4hZpe2aYJ7nOuFYqus5L4LYDyuHhvEUrmEmnIliU8HHi21a8WKmFs08/hcgNd6//dU1phSWamPvsyoso4lOZzLmTs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10180
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
 
-On Wed, Nov 04, 2026 at 11:09:32AM +0000, Sheetal wrote:
-> [You don't often get email from sheetal@nvidia.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> From: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
->
-> Tegra268 has 10 bidirectional ADMA channels to support the five RX and
-> five TX ADMA interfaces exposed by the audio processing engine (APE).
-> Only DMA request IDs 1 through 5 are valid for this device. Set
-> nr_channels to 10 and ch_req_max to 5 to match these limits.
->
-> Reuse the Tegra264 register layout and page configuration helper.
-> Derive the channel and request masks from the SoC data so the helper
-> handles both devices while preserving the existing Tegra264 register
-> values. Keep request bit 0 set, as in the Tegra264 programming.
->
-> Add the Tegra268 compatible and SoC data, including its six ADMA pages
-> and uniform FIFO size.
->
-> Signed-off-by: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
-> Signed-off-by: Sheetal <sheetal@nvidia.com>
-> ---
+On Thu, Nov 12, 2026 at 09:13:03PM +0100, Krzysztof Kozlowski wrote:
+> On 12/11/2026 20:22, Rob Herring wrote:
+> > On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
+> 
+> 
+> (replying only to parts of the message)
+> 
+> 
+> > 
+> >>> Can the QCom folks stop doing that! Coordinate applying the series or
+> >>> take the binding and dts changes in 1 tree.
+> >>
+> >> I assume you're referring to "QCom folks" in the sense "any maintainer
+> >> touching a binding change related to a qcom platform"?
+> > 
+> > No, primarily you and the submitter I guess. Submitters should be
+> > aware of dependencies in their series and suggest how things are
+> > merged. Otherwise, it falls on you to care that warnings are getting
+> > introduced.
+> 
+> We all have been swamped with patches and Qualcomm have been probably
+> the busiest arm64 platform for months now.
+> 
+> for i in arch/arm64/boot/dts/* ; do echo "${i}:$(git log --no-merges
+> --oneline v7.0..v7.4-rc1 -- $i | wc -l)" ; done
+> 
+> qcom: 1016
+> freescale: 485
+> renesas: 215
+> 
+> Qualcomm SoC got one more maintainer, so there is catching up, but
+> probably not enough.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Good thing QCom hired half of Linaro...
 
->  drivers/dma/tegra210-adma.c | 49 +++++++++++++++++++++++++++++++------
->  1 file changed, 42 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/dma/tegra210-adma.c b/drivers/dma/tegra210-adma.c
-> index 293a1119e07a..2d9dd41141cd 100644
-> --- a/drivers/dma/tegra210-adma.c
-> +++ b/drivers/dma/tegra210-adma.c
-> @@ -5,6 +5,7 @@
->   * Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
->   */
->
-> +#include <linux/bits.h>
->  #include <linux/clk.h>
->  #include <linux/iopoll.h>
->  #include <linux/module.h>
-> @@ -279,6 +280,8 @@ static void tegra186_adma_global_page_config(struct tegra_adma *tdma)
->  static void tegra264_adma_global_page_config(struct tegra_adma *tdma)
->  {
->         u32 global_page_offset = tdma->ch_page_no * TEGRA264_ADMA_GLOBAL_PAGE_OFFSET;
-> +       u64 ch_mask = GENMASK_ULL(tdma->cdata->nr_channels - 1, 0);
-> +       u64 req_mask = GENMASK_ULL(tdma->cdata->ch_req_max, 0);
->
->         /* If the default page (page1) is not used, then clear page1 registers */
->         if (tdma->ch_page_no) {
-> @@ -291,12 +294,18 @@ static void tegra264_adma_global_page_config(struct tegra_adma *tdma)
->         }
->
->         /* Program global registers for selected page */
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_CHGRP_0 + global_page_offset, 0xffffffff);
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_CHGRP_1 + global_page_offset, 0xffffffff);
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_RX_REQ_0 + global_page_offset, 0xffffffff);
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_RX_REQ_1 + global_page_offset, 0x1);
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_TX_REQ_0 + global_page_offset, 0xffffffff);
-> -       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_TX_REQ_1 + global_page_offset, 0x1);
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_CHGRP_0 + global_page_offset,
-> +                  lower_32_bits(ch_mask));
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_CHGRP_1 + global_page_offset,
-> +                  upper_32_bits(ch_mask));
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_RX_REQ_0 + global_page_offset,
-> +                  lower_32_bits(req_mask));
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_RX_REQ_1 + global_page_offset,
-> +                  upper_32_bits(req_mask));
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_TX_REQ_0 + global_page_offset,
-> +                  lower_32_bits(req_mask));
-> +       tdma_write(tdma, TEGRA264_ADMA_GLOBAL_PAGE_TX_REQ_1 + global_page_offset,
-> +                  upper_32_bits(req_mask));
->  }
->
->  static int tegra_adma_init(struct tegra_adma *tdma)
-> @@ -727,7 +736,7 @@ static int tegra_adma_set_xfer_params(struct tegra_adma_chan *tdc,
->          *
->          * ADMA FIFO size is set as per below (based on default ADMAIF channel
->          * FIFO sizes):
-> -        * For Tegra264:
-> +        * For Tegra264 and Tegra268:
->          *    fifo_size = ch_fifo_size
->          * For devices prior to Tegra264:
->          *    fifo_size = 0x2 (sreq_index > sreq_index_offset)
-> @@ -1035,10 +1044,36 @@ static const struct tegra_adma_chip_data tegra264_chip_data = {
->         .set_global_pg_config   = tegra264_adma_global_page_config,
->  };
->
-> +static const struct tegra_adma_chip_data tegra268_chip_data = {
-> +       .adma_get_burst_config  = tegra186_adma_get_burst_config,
-> +       .global_reg_offset      = 0,
-> +       .global_int_clear       = 0x800c,
-> +       .global_ch_fifo_base    = ADMA_GLOBAL_CH_FIFO_CTRL,
-> +       .global_ch_config_base  = ADMA_GLOBAL_CH_CONFIG,
-> +       .ch_req_tx_shift        = 26,
-> +       .ch_req_rx_shift        = 20,
-> +       .ch_dir_shift           = 10,
-> +       .ch_mode_shift          = 7,
-> +       .ch_base_offset         = 0x10000,
-> +       .ch_tc_offset_diff      = 4,
-> +       .ch_config              = ADMA_GLOBAL_CH_CONFIG_WEIGHT_FOR_WRR(1) |
-> +                                 ADMA_GLOBAL_CH_CONFIG_OUTSTANDING_REQS(8),
-> +       .ch_req_mask            = 0x3f,
-> +       .ch_dir_mask            = 7,
-> +       .ch_req_max             = 5,
-> +       .ch_reg_size            = 0x100,
-> +       .nr_channels            = 10,
-> +       .ch_fifo_size_mask      = 0x7f,
-> +       .ch_fifo_size           = 5,
-> +       .max_page               = 6,
-> +       .set_global_pg_config   = tegra264_adma_global_page_config,
-> +};
-> +
->  static const struct of_device_id tegra_adma_of_match[] = {
->         { .compatible = "nvidia,tegra210-adma", .data = &tegra210_chip_data },
->         { .compatible = "nvidia,tegra186-adma", .data = &tegra186_chip_data },
->         { .compatible = "nvidia,tegra264-adma", .data = &tegra264_chip_data },
-> +       { .compatible = "nvidia,tegra268-adma", .data = &tegra268_chip_data },
->         { },
->  };
->  MODULE_DEVICE_TABLE(of, tegra_adma_of_match);
-> --
-> 2.43.0
->
+> > I would not care so much when there are transient warnings in next,
+> > but I don't want to be the one chasing them down. But AFAICT, it's
+> > always me. No one beats me to it and I'm not all that fast in
+> > noticing. I just compare all the warnings by platform for Linus vs.
+> > next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
+> > for things moving in the right direction. Of course this is all after
+> > applying which isn't ideal.
+> 
+> FWIW, I do test all Samsung ones and I look only at some of Qualcomm
+> boards, because there were just too many warnings to have a clean
+> dtbs_check for qcom. I do report them to Bjorn/Konrad [1], but that's
+> indeed only subset of entire qcom ecosystem. I know that a few other SoC
+> platforms keep track (TI at least).
+
+The too many warnings excuse is about to run out.
+
+Here's Linus's tree ATM for qcom (I'd list next, but warnings have gone 
+up):
+
+     12 syscon@9a10000 (syscon): compatible: ["syscon"] has less than 2 items
+
+https://lore.kernel.org/all/20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org/
+
+      5 usb@6af8800 (qcom,msm8996-dwc3): Additional properties are not allowed ('extcon' was unexpected)
+      2 usb@76f8800 (qcom,msm8996-dwc3): Additional properties are not allowed ('extcon' was unexpected)
+
+In the wrong spot or needs to be added to the binding?
+
+      2 touchscreen@2c (syna,rmi4-i2c): Unevaluated properties are not allowed ('incell-supply' was unexpected)
+
+https://lore.kernel.org/all/20260921232738.3135429-1-robh@kernel.org/
+
+But seems to be a hack, so?
+
+      2 panel@0 (jdi,fhd-r63452): "power-supply" is a required property
+
+???
+
+      3 phy@7411000 (qcom,msm8996-qusb2-phy): "vdd-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdd-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-pll-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
+
+https://lore.kernel.org/all/20261112192345.3962577-1-robh@kernel.org/
+
+      1 panel@0 (lg,sw49410-lh609qh1): Unevaluated properties are not allowed ('reg', 'vsn-supply', 'vsp-supply' were unexpected)
+      1 panel@0 (lg,sw49410-lh609qh1): "power-supply" is a required property
+      1 panel@0 (lg,sw49410-lh609qh1): compatible: ["lg,sw49410-lh609qh1","lg,sw49410"] has more than 1 item
+      1 panel@0 (lg,sw49410-lh609qh1): compatible:0: "lg,sw49410-lh609qh1" is not one of "ampire,am-1280800n3tzqw-t00h", "ampire,am-1280800w8tzqw-t00h" or 178 other candidates
+
+https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
+
+      1 panel@0 (flipkart,rimob-panel-nt35532-cs): compatible: ["flipkart,rimob-panel-nt35532-cs"] has less than 2 items
+
+Fixed in next
+
+   Undocumented compatibles:3
+     'jdi,fhd-nt35596s'
+
+https://lore.kernel.org/all/20260921232609.3130272-1-robh@kernel.org/
+
+But probably belongs in this:
+
+https://lore.kernel.org/all/20261011-nt36672a-panels-v3-3-9ea238627f8a@minlexx.ru/
+
+     'lg,sw49410-lh609qh1', 'lg,sw49410'
+
+See above
+
+     'qcom,ipq6018-wcss-pil'
+
+Fixed in next
+
+
+So 3 unique warnings left without fixes in flight.
+
+> 
+> [1] https://krzk.eu/#/builders/102
+> 
+> 
+> > 
+> >> Do you have some CI/guidance/tooling for Vinod (and other subsystem
+> >> maintainers) to perform system-wide DT-validation when considering
+> >> merging a binding change?
+> > 
+> > This one is an ABI break because it adds new required properties. I do
+> > have some tooling that looks for ABI changes, but haven't committed it
+> 
+> because I haven't figured out the best way to deploy it. I think for
+> > anything that is an ABI change, the binding and dts files need to go
+> > in together.
+> > 
+> > I think it is time to reconsider the default of bindings go in with
+> > the driver. That works okay for new bindings as long as the platform
+> > maintainer doesn't take .dts changes before bindings land (also an
+> > issue). However, for cases like this, we need the opposite order. We
+> > need to figure something out because this is only going to be more of
+> > an issue as we get to warning free (and we are close).
+> 
+> We have been talking about this for some time and recent consensus was
+> that SoC maintainers can freely take such bindings when driver subsystem
+> maintainers lag behind. The case here is a bit opposite - driver
+> subsystem was before SoC.
+> 
+> So let's change the generic recommendation/policy? Whenever patchset
+> touches bindings and DTS, and the bindings do not need any driver
+> updates like they add only front-specific compatibles, the SoC should
+> take entire set?
+
+Yes. Platforms that are warning free already do that.
+
+I also think we (the DT maintainers) need to get stricter on handling of 
+adding or removing required properties. For adding required, delay the 
+binding change a cycle (or after dts is in next). For dropping required, 
+delay the dts change a cycle (or after binding is in next). That's 
+probably too much for any maintainer to check other than DT maintainers. 
+Or maybe add this to sashiko prompts...
+
+Rob
