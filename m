@@ -1,68 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794526458;
-	b=Tytx7d3Yza7OUj5P2k/fi28JVs9Nc0rHLheodzM7+UMlNjZSBQw4CXky9IeiVRHFlvBq
-	 NIPU0fIcOW+sFzXdXsmU2rSqX965vjkdhqCtGXCEyJvUVcIz5JUP2eW2v+M9BkKaSAz/W
-	 69vrLgBWYBTxyKlwYNId+EKsbLvXM8NZoCym8lnEPmqACmBmbGz7CVdsVhO0GBDL7jtHH
-	 ChlYevMJRk1dZA9LQ5AMavpQsOz+7pubQsanlax9Uq+pIoKAccRELX9aOUDtVWkC53e8I
-	 um+05yyiUfgZzQ3PKRX3QZuIaAyyyN+w+L8sWblMOV88zKmtFf0OEKudxAF/TeV1iRw==
+	t=1794526870;
+	b=vBamdlF8Xh0bncrPLdYPiSnB7+BkMK+sFqMiJb2SwOmq4fvCWKEIbNBZH8gZuUFEALQ6
+	 mRz3Kqw+ld7778DZMjJMZwTBrAoILlDw4jt9w3IfXhHCt/JMQUw5sPyOYOJUzV6xqcwfa
+	 TRVDfssCznvV5cz2ZCPXq+caLtdkWfngNdRLwTHx5y5CGxCn4lMgQFvrsGOY5a/QSBAmf
+	 kkl2C2qeQVeg+I5wm2yM4xO9gAG7HqTY/3v0wCbg/oV7DtWa2hcAKQg1tdnBjAa4gRzQG
+	 MRHOn2NrifvhvMRweZteuJKAojFc0Kz8U3cFBnSTc59gEe5vWjnucYHtgPTYXCCoRKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794526458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794526870;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Sh9ZL6OASL7x6o547mKhzUESIR8P4jSUl+e/976Cyns=;
-	b=qXR7cdpLdJS1UT1uzhx71sJwTLyUqECN/pYzyAbxBAg02NzXDpweq1Gy61mPGerzS3hZ
-	 en0nZbm338zl/Gc+yFZXtpEWetEX7Cqk9NfUOAPxhNn8z8eDp/P86aryNQkMsHtCo0gLr
-	 gOWc2RX+6NOJ5mRemQ+9KZ7HGMOd7i2xOwBrinupvmUvgjfOOF2tic36vuzC2TmVbYk/H
-	 pGypxudzhzA6XMVYfMWP9Y0DmkI+U4TY6UE81FBAvKN/6lBiAmufuV/8Ar+bv3UN2xyLH
-	 bmjKe0Tw5PYQX3iUejLlWI0xBoTC7ptm3VVU8axpJxBthC3m72HSUqcJkY3Zue8Ev8g==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=L5KWhhbeBXZKmzDTgoYpamBPxic157lvyeKhXzre0Ig=;
+	b=sI55IzJpaIAxX8Uxp5ccO95IwHh7MGqIJ68z4q6PXjILje4iWJu2aYrJTwLpQj/jtWvA
+	 76AfQgsgpd25FKF/mGuahv2z/P9Kwj8JfmFcLsIR8CneCXFls/MHe+LaxfAwswFYMFYbQ
+	 7F52pVE7v+B+2DuR1H0oaQyA4cnUXHDjD5zc0qEchf+eAh7caCw4BIbxTgXZ8xFq5GG+t
+	 TWLboF/nhox0Dfy9sNNpxjqXFHPoC6jp2mRKLaQIBubw8dfnXQOYnuhOBkiTQ2kHrUnxL
+	 xbFRS0Qt1SszSqmrKbUWLxNis48sVJxL30WIv9Cd1SSPOUyXu6kIkbzM+fkkY1Wxeyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZeYvC5t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W29hfTdP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AE1606A31C;
-	Thu, 12 Nov 2026 23:34:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF130606A31C;
+	Thu, 12 Nov 2026 23:41:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZeYvC5t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D441F000C4;
-	Thu, 12 Nov 2026 23:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W29hfTdP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63AD1F000C4;
+	Thu, 12 Nov 2026 23:41:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794526457;
-	bh=Sh9ZL6OASL7x6o547mKhzUESIR8P4jSUl+e/976Cyns=;
+	s=k20260515; t=1794526870;
+	bh=L5KWhhbeBXZKmzDTgoYpamBPxic157lvyeKhXzre0Ig=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eZeYvC5tgpej/tohuXCQuUmLwb0rAaRU9EozOQnEs0zGx/L0817OmWOhtNy/H2Hgc
-	 0MfxQE9QBEEs5bpqbYRifBr9wPavBop5WvEdWu2LimnHfzL0JdBa9uCkSucNqQfbtg
-	 Lb1dZYUvZ/DCxIIUZXvZxY7f7WYL+MyBjIXEsXPEp+kaM5PgvBYN/ffV87gUGMBSf3
-	 GM4oF+xy7ZebBFbdzzcrClFKrZns5XTxmSuN9XJLDXGLjpxoKHxugnIw6IqgvJFqji
-	 GusLrXXxjfJSqQolEghxECt4DcSTUy0xLsukjkUXMr6usfy1YnrBz67PJkt3oh0zhB
-	 osRcK7ecH4D+g==
-Date: Fri, 13 Nov 2026 00:34:09 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/6] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <avZLqUuq1OApg_MS@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <a74fabd985a874da7556ae1601053b4bcc100f13.1794425425.git.alx@kernel.org>
- <20261112223107.3a9efb85@pumpkin>
+	b=W29hfTdPUcxSvyo08U23g3NvUtFivFYvlzc0Py6OZucOa83R/tuav9t+TdGtAAARk
+	 reXr2Q5kcw7LL1IwvHQm4MT5fLAiZqo0NYdxubIEjdTcs/8FslIPdvk2uoVTNhBgDh
+	 7I7BMv8eMfN8IoBAqi+0HuotB/sEd3AUA7L9ffjVIyCGJsMDVFb511iNraW//HTrSm
+	 cJ/6lgvQBMSJusEmPBA2EYy/q2Uc+k+GzjnGeg5uGdrTJzaTVelWk0Q7uedEwyZA4t
+	 6NMyuDs14WDrvP+tYZpYOZOXUZCYAiZny7uesuyeHPMNVShQphNDqKxBZqw9GibMaI
+	 pc994UM+wz30w==
+Date: Thu, 12 Nov 2026 17:41:06 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+Message-ID: <avYyrAKAQs6pHNbh@baldur>
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram>
+ <20261112125346.GA3821108-robh@kernel.org>
+ <avX9Qrcapcnutdgh@baldur>
+ <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,164 +65,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="old5g3x2i3efn55u"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112223107.3a9efb85@pumpkin>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
 
+On Thu, Nov 12, 2026 at 01:22:16PM -0600, Rob Herring wrote:
+> On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
+> >
+> > On Thu, Nov 12, 2026 at 06:53:46AM -0600, Rob Herring wrote:
+> > > +Konrad
+> > >
+> > > On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
+> > > > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
+> > > > > For the QUSB2 PHY binding, keep the three regulator supplies required
+> > > > > except for legacy IPQ6018 nodes that do not describe the board rails.
+> > > > >
+> > > > > This relaxes the requirements for the IPQ5210 as well as if it is
+> > > > > compatible with IPQ6018, then it shouldn't have more required
+> > > > > properties either.
+> > > >
+> > > > Hey Rob,
+> > > >
+> > > > This fails for phy/next I see vdd-supply has been moved around..
+> > >
+> > > The change in question[1] should not be applied until the .dts changes
+> > > in the series are applied. It introduces a bunch of warnings.
+> >
+> > I don't understand. The change you present here relates to ipq5210 and
+> > ipq6018.
+> >
+> > That change doesn't touch these two IPQs, so what are you suggesting?
+> > Are we talking about the same warnings?
+> 
+> This is what I get with phy-next because it has the binding change
+> from [1], but not the .dts changes in the series:
+> 
+> arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
+> (qcom,msm8996-qusb2-phy): "power-domains" is a required property
+>         from schema $id:
+> http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
+> arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
+> (qcom,msm8996-qusb2-phy): "required-opps" is a required property
+>         from schema $id:
+> http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
+> 
+> (and then duplicated for every 8996 board).
+> 
 
---old5g3x2i3efn55u
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/6] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <avZLqUuq1OApg_MS@devuan>
-References: <cover.1794425425.git.alx@kernel.org>
- <a74fabd985a874da7556ae1601053b4bcc100f13.1794425425.git.alx@kernel.org>
- <20261112223107.3a9efb85@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261112223107.3a9efb85@pumpkin>
+Good, then we're aligned. These 18 warnings are resolved in my tree, so
+they should drop again in the next linux-next.
 
-Hi David,
+> > > Can the QCom folks stop doing that! Coordinate applying the series or
+> > > take the binding and dts changes in 1 tree.
+> >
+> > I assume you're referring to "QCom folks" in the sense "any maintainer
+> > touching a binding change related to a qcom platform"?
+> 
+> No, primarily you and the submitter I guess. Submitters should be
+> aware of dependencies in their series and suggest how things are
+> merged. Otherwise, it falls on you to care that warnings are getting
+> introduced.
+> 
 
-> Date: 2026-11-12 22:31:07+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-[...]
-> > +static inline char *strprefix(const char *s, const char *prefix)
-> > +{
-> > +	size_t len =3D strlen(prefix);
-> > +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
-> > +}
->=20
-> I suspect this would be better as a real function.
+I currently do catch these things while applying dts changes, and I've
+recently cooked a dashboard to track the overall state of mainline and
+linux-next, but I don't have any solution to catch things prior to merge
+- or a good solution for catching regressions coming from binding
+changes prior to them being merged.
 
-You mean better for performance?
+> I would not care so much when there are transient warnings in next,
+> but I don't want to be the one chasing them down. But AFAICT, it's
+> always me. No one beats me to it and I'm not all that fast in
+> noticing. I just compare all the warnings by platform for Linus vs.
+> next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
+> for things moving in the right direction.
 
-> Possibly even just a simple loop rather than based on calls to
-> both strlen and strncmp().
-> (Even if the strelen() is mostly a compile-time constant.)
->=20
-> Something like:
-> #undef strprefix // Or put it the name in ()
-> const char *strprefix(const char *s, const char *prefix)
-> {
-> 	do {
-> 		if (!*s)
-> 			return *p ? NULL : s;
-> 	} while (*s++ =3D=3D *p++);
-> 	return p[-1] ? NULL : s - 1;
-> }
+I'll try to wire something up to catch these faster. At least until this
+regression things has been fairly stable for a while now...
 
-I don't know.  In user space, I expect strncmp(3)+strlen(3) might be
-better due to being super-optimized by glibc, and making it easier for
-the compiler to understand the code.
+> Of course this is all after applying which isn't ideal.
+> 
 
-Here, I'm not an expert about such micro-optimizations.
+Thanks to the --cache-dir and --json support it's a bit more convenient
+to catch things during the merge, but the CPU-power needed for a
+system-wide sanity check remains a concern.
 
-I personally prefer leaving it with the calls to strncmp(3)+strlen(3),
-which is safer (the manual loop with byte operations is full of
-opportunities for off-by-one bugs), and more readable, and leave it up
-to anyone who wants to optimize it to do that later in a separate patch.
+I would prefer to catch more issues prior to touching the patches, but
+so far my efforts there has run into issues as contributors keep sending
+things with loose dependencies.
 
-Also, having it inline might help optimize further than what a loop can
-do, because the strlen(3) call will be entirely optimized out in many
-cases.
+> > Do you have some CI/guidance/tooling for Vinod (and other subsystem
+> > maintainers) to perform system-wide DT-validation when considering
+> > merging a binding change?
+> 
+> This one is an ABI break because it adds new required properties. I do
+> have some tooling that looks for ABI changes, but haven't committed it
+> because I haven't figured out the best way to deploy it. I think for
+> anything that is an ABI change, the binding and dts files need to go
+> in together.
+> 
 
+After a second look, that would have made more sense, since the driver
+changes wasn't related to the binding change after all...
 
-Have a lovely night!
-Alex
+> I think it is time to reconsider the default of bindings go in with
+> the driver. That works okay for new bindings as long as the platform
+> maintainer doesn't take .dts changes before bindings land (also an
+> issue). However, for cases like this, we need the opposite order. We
+> need to figure something out because this is only going to be more of
+> an issue as we get to warning free (and we are close).
+> 
 
-> And in the header:
-> const char *strprefix(const char *s, const char *prefix);
-> #define strprefix(s, p) ((typeof(s))strprefix(s, p))
->=20
-> David
->=20
-> > +
-> >  /**
-> >   * str_has_prefix - Test if a string has a given prefix
-> >   * @str: The string to test
-> >   * @prefix: The string to see if @str starts with
-> >   *
-> > - * A common way to test a prefix of a string is to do:
-> > - *  strncmp(str, prefix, sizeof(prefix) - 1)
-> > - *
-> > - * But this can lead to bugs due to typos, or if prefix is a pointer
-> > - * and not a constant. Instead use str_has_prefix().
-> > + * This is similar to strprefix(), but returns an offset instead of
-> > + * a pointer.
-> >   *
-> >   * Returns:
-> >   * * strlen(@prefix) if @str starts with @prefix
-> > diff --git a/lib/tests/string_kunit.c b/lib/tests/string_kunit.c
-> > index 0819ace5b027..73d2614b1474 100644
-> > --- a/lib/tests/string_kunit.c
-> > +++ b/lib/tests/string_kunit.c
-> > @@ -287,6 +287,14 @@ static void string_test_strspn(struct kunit *test)
-> >  	}
-> >  }
-> > =20
-> > +static void string_test_strprefix(struct kunit *test)
-> > +{
-> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", "foo"), "bar"));
-> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", ""), "foobar"));
-> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", "foobar"), ""));
-> > +	KUNIT_ASSERT_NULL(test, strprefix("foobar", "bar"));
-> > +}
-> > +
-> >  static char strcmp_buffer1[STRCMP_LARGE_BUF_LEN];
-> >  static char strcmp_buffer2[STRCMP_LARGE_BUF_LEN];
-> > =20
-> > @@ -891,6 +899,7 @@ static struct kunit_case string_test_cases[] =3D {
-> >  	KUNIT_CASE(string_test_strnchr),
-> >  	KUNIT_CASE(string_test_strrchr),
-> >  	KUNIT_CASE(string_test_strspn),
-> > +	KUNIT_CASE(string_test_strprefix),
-> >  	KUNIT_CASE(string_test_strcmp),
-> >  	KUNIT_CASE(string_test_strcmp_long_strings),
-> >  	KUNIT_CASE(string_test_strncmp),
->=20
+There's also the ever growing number of small incremental changes to
+bindings, where subsystem maintainers leave the binding changes to me.
 
---=20
-<https://www.alejandro-colomar.es>
+But then there's also the many changes where the driver patches depend
+on the binding changes. Not sure how to structure this and keep the
+velocity up.
 
---old5g3x2i3efn55u
-Content-Type: application/pgp-signature; name="signature.asc"
+> > I unfortunately only spotted the one-way dependency when glancing at the
+> > seris and thereby ignored the dts patches waiting for the binding to be
+> > merged.
+> >
+> > > Given the patch series is 2+ months old, I'd be surprised if the rest
+> > > gets applied.
+> >
+> > I've applied the two dts changes today, and they do resolve a number of
+> > warnings - presumably the ones that you're talking about, but I don't
+> > think the ones that this patch aim to fix?
+> 
+> Other than the warnings it introduces, the [1] series fixes this one warning;
+> 
+>       3 phy@7411000 (qcom,msm8996-qusb2-phy): "vdd-supply" is a
+> required property
+> 
+> 
+> > > This patch OTOH fixes warnings.
+> > >
+> >
+> > What warnings? Can you please provide actionable context when you're
+> > pointing out these issues.
+> >
+> > Is it the three "'x-supply' is a required property" warnings from
+> > ipq6018-cp01-c1.dtb? It seems unlikely that there's one chip that
+> > doesn't depend on those supplies.
+> 
+> Of your 20 unique warnings, it's these 10:
+> 
+>       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdd-supply" is a required property
+>       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-pll-supply" is a
+> required property
+>       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-phy-dpdm-supply" is
+> a required property
+>       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+>       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
+> required property
+>       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
+> a required property
+>       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+>       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
+> required property
+>       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
+> a required property
+> 
 
------BEGIN PGP SIGNATURE-----
+I'd prefer to actually populate those, I'll take another pass to see if
+I can find documentation/schematics to resolve them.
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2TOUACgkQ64mZXMKQ
-wqmDQQ//Yu41xZyNKzxBSm8wsuEig7agWdonWXyNMq+1QZQ5OJ48m5pcEOuKSnEY
-Owih2vpT5IAvOSQNaznvvzDrzmVSqoleMLnqaKAgW0qUKAX9jDJM0jGC07/VTKuM
-dojm2fut1khwmig4txxRNT5hghgko3coLs2fsi/oGGoUlV42ixlxc1HYCu5N01mk
-vvXh4WfRtyKUXf52s5/tC2fB79yYmW8S8rv7JWwmJRMHw0DhCdgWtUvdDwJjNRdx
-02dQChGkKhl8OZiSdvwZ4RF7BqA1K4ruDeCSlFdcRFv/X+oWvaaqdiH5Yzp86hek
-RVOAem+ztCvkXDyxKCDuGgCwW0cOw6M8Jsi8hlzksic9FkVoNO+qLCoyoZB870n6
-APwXUwt1ah0zFi8K3JiMpI9KqGTsbqrKd0xZmtZ94ogAZWlCowalsfGjuXD/6sZU
-Fo1fSm/crDdVzBTM8Ouch+sX+q+ouwxo9WQ00mr4K6T4O42L9RR8Lk2mHT5UQGnU
-Martjy+ZhTcGfqiQ0rY1m+Q1c30pmuAonlkaKKZEO+Bi/l8cQqRCpqVGi9tzBnYh
-m2V7MN1OllP7+C+Ne4EyDGHmvui//9AYI63NxnBrtnPnPcb9iRtUc+csRz6ItwNP
-gCUutAEaPAFg5814l0JSidCzPyAmxxHUt8vULfUMt18UnwV/+uA=
-=GnGK
------END PGP SIGNATURE-----
+Regards,
+Bjorn
 
---old5g3x2i3efn55u--
+> Rob
+> 
+> > > [1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
+> 
+> [2] https://gitlab.com/robherring/ci-jobs
+> 
