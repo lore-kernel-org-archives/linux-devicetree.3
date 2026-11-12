@@ -1,113 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472351;
-	b=oDIiClaPLQiFC77YtTJy5bMa1adI4M7MGW4F8WXv+UTEhAHsGgr4ztxgx69AQGo+R2Uu
-	 0oXR9Mf2aCvPpmOrmSEFmbE0/zqitUGKqYzPP9E8bKm5fm4c+XBliO2YHTFf4/4SKC92A
-	 iwCdpAvhdFDG58MV5PQrJVjuOUZrK26MB2QaXrWQVKItcpxgxpccPlnfW1NRRYeTemif6
-	 34BH4oKpBNtMNIqaheJtVz7oaIJVqLsAl82XQ+179uiOpZnq1EFPOBFGZLNReJBrjybro
-	 TBx6MjXALxfqWDoJy9kxSFGCXx06nVEX9g1h1N63R6LuqR5HdlHeseJzI7/8tIQ31CQ==
+	t=1794472357;
+	b=yK7i7Jwl8a3S/g6IRZ/WsYzSZve5sd0u93g7Uh1UxbW6uDX/CYPvjZtp811yP//MorIn
+	 vVU/H7wyfPKlzrWmqPnJcCtW+slwQEvbpnjLyjWvuQJ627tJLAzrHbYy9ZKClG8ltg3cx
+	 VSzS51cxP0RnJtMeeSQ2vK4shs3RZYHdpWiYbREhz+sGdLcbIKah5Plm+xLlqnhDZp89e
+	 m8Aw25rCt9OaOiGrm3cUqHh8eNLcTnKYJVjKO13PcJULk1/dZK6L0LnPbpXs+sSKT8eq3
+	 ewsb2euDP4uFd1EknGxjkaek4yiSppyJba3QEzkdPAaOqgf5mFv66+4zPU64qD7+SGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472351;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=HqKauYN4nYFvfrYHZN5AaX3xFfqq8PfM01eE8hOHnT8=;
-	b=PFHAbKuYvdp4Z9emRE8MV586a/K4Rltp/fH+41b5QyIx2hr9YO/8WUWLGxUDSICUORlj
-	 wZ889e0WDsomt1iAq9xAiFIDaRFI5arMG7Y7gt+mjFIIflcr/i/fSdPnNgas5MH3BZHrh
-	 NFlH7k1bkib4oMy7DExbwtHb3f8Mkqp/stbso9zfVL1iB5uRVy9hedDWpfR8rRRhonPyZ
-	 q+wDm0XVFypjqeqCqcva9tmhtLvi/EiodoT+9UdBrR6LqzIXoGEaTLvCWt7D/WBovH6cf
-	 K5CnREkoKAW3blbfDNSiMfutlTtFreEC+eND9Q7zIrrXQfGymDJAXKj6ANsdV9dea3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472357;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
+	b=lcMeBirAYTmR15kDJZ0TZTPVjYDe7b8necInp36oZsM1vjldmpAyzj8JvyBU5H25XBKT
+	 2nkCKfEbHmyJPT8GugrxXqK5Nqw0KUrm8Z1kQmNfsIVrbutxJYgT+HZlh7S2MGCvQcTVa
+	 88hkSjUueqwh4Xdzs18og6mSSjiQAiPmECjhHzoofc6YzxY4t+eTgW2yJQBoBjcsBFuQU
+	 6ZJ5MNzJBanZb+43cm3dncQ/dJCim5hbpazEYv63C50SmlFIf7/70eq9EG/CaGLd2Nhpj
+	 HYm+6EGsiajdvmKC40Gjpq4Qm7IDkdXlEAb4z5/bttrg7tVxkDnHYXjWD3kQ16r4vYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k9Iftrr8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="HU09p/zQ";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fr1Wwv/B";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F9760A2619
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F9760A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0F460A3809;
+	Thu, 12 Nov 2026 08:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k9Iftrr8;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HU09p/zQ
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZhYM3813251
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:32:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HqKauYN4nYFvfrYHZN5AaX3xFfqq8PfM01eE8hOHnT8=; b=k9Iftrr8S/3KqYgm
-	wmIq9ZLs3f7XOGvc5UgbHulW5ZWkPDV0byyDU+/QSnmBiJKElbdbJqVARzC4zcB3
-	HOk/+fVqf4wMB0N5UpLlrbtojhgI1FveXZLeH5YucY/ZyzdzRK709zxm7JnsgTdY
-	c9baOQMfRVkFPyfBFWQp3+HO6/4afvBjifCckxY1InLPiet421krTutcCvtVy7ms
-	OQrtK8PRrDbjZn46oH+4cT6mHlmr2/5QMRhFcPxXKlXLFOgnm2uozC4aMGyrfQwy
-	VlNR+u1F8rsg4Mr7nA4hVXYkQPM/CiH0KfzMFWZ+2KE2jo5iesPrpSb8w53NFaW9
-	Qp+9iA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvvw0jy5u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:32:29 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b0c7ab2427so3397182a91.1
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 00:32:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794472349; x=1795077149; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HqKauYN4nYFvfrYHZN5AaX3xFfqq8PfM01eE8hOHnT8=;
-        b=HU09p/zQl23M6uIGurpJDGHGrxqse//H3bCZee5kPTRnqT6ybpRVxJzWh6PtcRlicb
-         9Dmo78NYkcEiHTS8CxL5p3aywTUKN+E3lIyRMERuWsH0i97ounCxO2C7ykkuy9e/dojf
-         SLxOLw5GJdaxA/yVd129zb8+foVffps/G4Lw6RwppRDmPERKdRxzowjQsf7MrEH5G6Un
-         mPIjjCXllNeqFGA1HyTOwTt8PO0QZmpT+QDXsPi3S6sQdub4aWhgv4XavNl7Otxlmn7y
-         TiZa5lKEOB221UiubJlkeYnBPW78s0ZaqoYFr0R6LQ8uMbrqjOB/8QU2jSI2AZjP6u7N
-         gidQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472349; x=1795077149;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HqKauYN4nYFvfrYHZN5AaX3xFfqq8PfM01eE8hOHnT8=;
-        b=Yk+psKOteV8+XFqQhGiJ3sVpWIkNxPGqalxENbVWxL0AY+cl3+mrMtKKk+NfQtInmP
-         uhtugjaA3YYplwl+aB7u2vpaABmPG9FZvf9AmEh3qMFMNV/wwQBpPviEP1X5Id9fZlb5
-         WNLHwO4x5sNOeGhVK1MKPbMxVRvpEw5Zqac/zfxg0TEYlAslAAzILgFH7+vbRgDjXSCS
-         Q/77F3h5uxDxb9hzE8W2o7c+k6GNwG26CJ+hnvumzLQi2J2LKTV7TggpDuH7C6qfWKqG
-         2IkKqDyFryjE/yWmejz+1/ADdVb7AwXlMkK+QxAcUHEQ+dN/VocNR5z9DqTo1cfGr5mq
-         neHg==
-X-Forwarded-Encrypted: i=1; AL+hErHvQwl1cZym6gJoijBWHdn3hD2g0m9/YZy0ka492XHmbySkQ81Gi3DEKSYzYQjKDnHOeiLuoiA5ztcG@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TCmKTG/0CxoTnEccMEubQVzPM7lyKvQVICr2GxbqWpagJ0v4v
-	z287z+/vsWYw7Vl8tT3I+avO/KLvQuq0gxK/i4DXhTJqufkU7UBf044RfViHXJqernnkz11ABfh
-	4X+fHjRAa+TkI9Fv7dlbO7ZKFBWLup/s7L+n+XRgsbXLgf9Ymtc3oWNXn06Krt3QF
-X-Gm-Gg: AYBFou0ob4cLPJCh85YQLUz1dvn4cV1kLSImL5HenJjvltncAcBEupPUx/4sov5qILM
-	d7dZVohxIb9XCbFwh2lQJG3TH6py6IHrtpC5hpTvKKAJUQDA6922sU5dKXT13iL27SkeBYFHsD4
-	IH/ocZKAKIti83ohijH+IKOFJnn+GGPA4YrRv/dTljSAZp+wzgRTm5qpfpcMlgFdlA8MzaZPBEa
-	zZukj9gFg3cBcyNjVHCjkUclKenJatMKku+/ksv7AOGXPaBYdmte409kGVufqFyMIgD1tCWjyJw
-	4mC2GKWu4zQSa2QkyC7d/XmrTarCbYbXNQJ/hwGcYoxaLmNSU48XVaCFZpx2XK5wVwEH9MunaeS
-	Z0889neQQbY4zDYdI8IE1XUH9IqcYAIPG1lIR2pOUFkyjTAg3gYqkSn84wv6/r6CKSb4il3j4nb
-	jL08My47ENnMpZ3rZ+FpMi/N9Lhn2x3E3u0HKb8uasztz4eVaCkBGF8HGBOw4lF3m4m5xGtYNTg
-	A==
-X-Received: by 2002:a17:90b:17c8:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3b182f8ba81mr4532453a91.65.1794472348635;
-        Thu, 12 Nov 2026 00:32:28 -0800 (PST)
-X-Received: by 2002:a17:90b:17c8:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3b182f8ba81mr4532415a91.65.1794472348126;
-        Thu, 12 Nov 2026 00:32:28 -0800 (PST)
-Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm3518029a91.3.2026.11.12.00.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:32:27 -0800 (PST)
-From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 14:02:15 +0530
-Subject: [PATCH ath-next 01/15] dt-bindings: net: wireless: add ath12k wifi
- device QCN9575
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr1Wwv/B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355B61F00A05;
+	Thu, 12 Nov 2026 08:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794472356;
+	bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fr1Wwv/BrXzj64byfXP+wi/q7J8Ic+yvuVCa7DL01i5CP9FiwrJP0C0kIMzIsd5kG
+	 bg0Y2dhVW/msaXhNH6nGRtql7prJ6Taz9/A8ZnGNPAe7ZPEO47cA9BLgd99Kc/Y49M
+	 iHsrQo4gQWYLkMuCMU/O5oINvGG96EWnkGxw42KFw8t4MELXgTG/yvIVPccYBKpq+4
+	 8YFJucjcj3LzLyQyUht1aI1GUsc0tWWET/PVTY72LbZHnoP/xHEragG25uo3HBBzKs
+	 1rIN36widjK1U9+MzLLwsSepSWPR4DuUP0Tj3vDDi4EoRNoT/kRt1fRWoQiRUPvCNe
+	 OOxejcXQaaXvg==
+Message-ID: <3c6fd46a-8666-408d-8866-f2bb1f293c05@kernel.org>
+Date: Thu, 12 Nov 2026 09:32:29 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,94 +51,275 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/28] dt-bindings: gpu: panthor: Document AM system
+ bindings
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-12-karunika.choo@arm.com>
+ <20261111-grumpy-carp-of-superiority-eddeb9@quoll>
+ <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-wifi8_qcn9575_bringup-v1-1-3f30fbc2bb69@oss.qualcomm.com>
-References: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
-In-Reply-To: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        llvm@lists.linux.dev,
-        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: CjC2aYG1kWgtjwMkG0Ru8doeQDdsOS_r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX8Z6vd/H7u2Gg
- Tw7XI4IVio3TiQiz/gYtdMOVYezy0MaHH+RB8vBfmPWPGjdaolRHuF34SMbpQO2nGwO9yf2Hikv
- 2MZiRiINuHQnZSpPWrWVVNe73XynNUFsFGtdEMXtImhUWxdTjuBkLR5fY31x+m07anwkawr+sew
- pWO26unW5IKmwDywS3vEvQiqR4WrOmYO/I+hhbEWcCWEIp3pNdVOuQof0W13UQY+IdA8CEtJwVd
- e2c1hZ/iQGt8cVBg3A4oYryO10CjJ5oROgf3XnUjgxgysXo/aojRMzT7JWBf+ybhLy/q2TeODzt
- TlbSipfVepjlRYjLZWo39g2H0kdkxXtXyKZT0OLae6xHpfzX812HivlAWklhQX3TrHFNUls9bGR
- TEOUMnKP4dFhOprKkUJiGGhGNBtQr37S3P/kIEIiPMOFRinhbCSFxfzJw4HjTdf3M6+2chdEynZ
- JJHMoh5R6H29ZMwC1ug==
-X-Proofpoint-ORIG-GUID: CjC2aYG1kWgtjwMkG0Ru8doeQDdsOS_r
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX6M0Ulpv4aYnH
- /L/7HZgOfWj0OQYtaXCm1nFdkYJkW9WMpMsqn78VPBfY9pYlBQizu7/+q+48m39wN+uNDEZMtEI
- TsWUNFTsBrNOBdIfShaNzHSuFJTwNE8=
-X-Authority-Analysis: v=2.4 cv=ct8OAF4i c=1 sm=1 tr=0 ts=6af5799d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=cIo56A7EWjM9ht75lhUA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1011 phishscore=0 bulkscore=0
- malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120033
 
-Add the device-tree bindings for the ATH12K IEEE 802.11bn wifi device
-QCN9575.
+On 11/11/2026 11:43, Karunika Choo wrote:
+> On 11/11/2026 08:29, Krzysztof Kozlowski wrote:
+>> On Tue, Nov 10, 2026 at 03:38:32PM +0000, Karunika Choo wrote:
+>>> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control and
+>>> the AM_ASSIGN block for HW resource assignment outside the GPU
+>>> job submission register window.
+>>>
+>>> Document the system node compatible, register and interrupt resources,
+>>> GPU clock, and assignment properties for HW resource assignment.
+>>>
+>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>> ---
+>>> v2:
+>>> - Add an optional AM_ASSIGN register range. Require this range when the
+>>>   assignments node is present.
+>>> - Describe resource-group assignments for AXI buses, partitions, slices
+>>>   and access windows on partition-capable GPUs.
+>>> - Allow gpu-arbitration child nodes and the #address-cells, #size-cells
+>>>   and ranges properties.
+>>> - Remove the panthor-system node-name restriction.
+>>> - Remove gpu-supply from the schema and example.
+>>> - Add an example with assignments for partition-capable GPU with four
+>>>   resource groups.
+>>> - Move the MAINTAINERS update to the GPU schema patch.
+>>>
+>>>  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 196 ++++++++++++++++++
+>>>  1 file changed, 196 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>> new file mode 100644
+>>> index 0000000000000..9e0477b8b723a
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>> @@ -0,0 +1,196 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +# Copyright 2026 ARM Limited. All rights reserved.
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: ARM Mali 5th-Gen GPU System Device
+>>> +
+>>> +maintainers:
+>>> +  - Liviu Dudau <liviu.dudau@arm.com>
+>>> +  - Boris Brezillon <boris.brezillon@collabora.com>
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    items:
+>>> +      - const: arm,mali-gen5-am-system
+>>> +
+>>> +  reg:
+>>> +    minItems: 1
+>>> +    maxItems: 2
+>>
+>> Why is this flexible? There is no description in the binding which would
+>> explain oddities in choices of hardware representation.
+> 
+> I will restore the description that was previously asked to be dropped.
 
-Signed-off-by: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
----
- .../devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml        | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Hm, let me open the cover letter to find lore link to previous
+discussion and check... ah wait, no cover letter!
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-index fa64c8aa56f5..dcb846258e47 100644
---- a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-+++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--# Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
- %YAML 1.2
- ---
- $id: http://devicetree.org/schemas/net/wireless/qcom,ath12k-wsi.yaml#
-@@ -11,10 +11,10 @@ maintainers:
-   - Jeff Johnson <jjohnson@kernel.org>
- 
- description: |
--  Qualcomm Technologies IEEE 802.11be PCIe devices with WSI interface.
-+  Qualcomm Technologies IEEE 802.11 PCIe devices with WSI interface.
- 
--  The ath12k devices (QCN9274) feature WSI support. WSI stands for
--  WLAN Serial Interface. It is used for the exchange of specific
-+  Some ath12k devices (QCN9274 and QCN9575) feature WSI support. WSI stands
-+  for WLAN Serial Interface. It is used for the exchange of specific
-   control information across radios based on the doorbell mechanism.
-   This WSI connection is essential to exchange control information
-   among these devices.
-@@ -48,6 +48,7 @@ properties:
-   compatible:
-     enum:
-       - pci17cb,1109  # QCN9274
-+      - pci17cb,1113  # QCN9575
- 
-   reg:
-     maxItems: 1
+> 
+>>> +
+>>> +  reg-names:
+>>> +    minItems: 1
+>>> +    items:
+>>> +      - const: system
+>>> +      - const: assign
+>>> +
+>>> +  interrupts:
+>>> +    maxItems: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +
+>>> +  dma-coherent: true
+>>> +
+>>> +  "#address-cells": true
+>>> +
+>>> +  "#size-cells": true
+>>
+>> Both need to be const or enum.
+>>
+>>> +
+>>> +  ranges: true
+>>> +
+>>> +  assignments:
+>>
+>> Do not mix nodes with and without bus addressing. That's mess.
+> 
+> Hi, I was asked to use a more generic DT such that should the
 
--- 
-2.34.1
+By whom?
 
+> hardware registers change in the future we can still retain
+> some compatibility. Is it necessarily a problem?
+
+Bindings are not generic, but specific.
+
+...
+
+>>> +patternProperties:
+>>> +  '^gpu-arbitration@[a-f0-9]+$':
+>>> +    $ref: arm,mali-gen5-am-arbitration.yaml#
+>>
+>> There is no such file. You did not really test it.
+> 
+> Sorry, this was included from a later patch that
+> introduces this file. I will move it there in v3.
+> 
+>>
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - reg-names
+>>> +  - interrupts
+>>> +  - clocks
+>>> +
+>>> +additionalProperties: false
+>>
+>> This goes after allOf: block.
+>>
+>>> +
+>>> +allOf:
+>>> +  - if:
+>>> +      required:
+>>> +        - assignments
+>>> +    then:
+>>> +      properties:
+>>> +        reg:
+>>> +          minItems: 2
+>>> +        reg-names:
+>>> +          minItems: 2
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +
+>>> +    gpu-system@68000000 {
+>>> +      compatible = "arm,mali-gen5-am-system";
+>>> +      reg = <0x68000000 0x10000>;
+>>> +      reg-names = "system";
+>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>> +      clocks = <&mali_gpu_clk>;
+>>> +    };
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +
+>>> +    gpu-system@68000000 {
+>>> +      compatible = "arm,mali-gen5-am-system";
+>>> +      reg = <0x68000000 0x10000>, <0x68010000 0x10000>;
+>>> +      reg-names = "system", "assign";
+>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>> +      clocks = <&mali_gpu_clk>;
+>>> +
+>>> +      assignments {
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +
+>>> +        resource-group@0 {
+>>> +          reg = <0>;
+>>> +          arm,axi-bus = <0>;
+>>> +          arm,partition-mask = <0x1>;
+>>> +          arm,slice-mask = <0x3>;
+>>> +          arm,access-window-mask = <0xf>;
+>>> +        };
+>>> +
+>>> +        resource-group@1 {
+>>> +          reg = <1>;
+>>> +          arm,axi-bus = <0>;
+>>> +          arm,partition-mask = <0x2>;
+>>> +          arm,slice-mask = <0xc>;
+>>> +          arm,access-window-mask = <0xf0>;
+>>> +        };
+>>> +
+>>> +        resource-group@2 {
+>>> +          reg = <2>;
+>>> +          arm,axi-bus = <1>;
+>>> +          arm,partition-mask = <0x4>;
+>>> +          arm,slice-mask = <0x30>;
+>>> +          arm,access-window-mask = <0xf00>;
+>>> +        };
+>>> +
+>>> +        resource-group@3 {
+>>> +          reg = <3>;
+>>> +          arm,axi-bus = <1>;
+>>> +          arm,partition-mask = <0x8>;
+>>> +          arm,slice-mask = <0xc0>;
+>>> +          arm,access-window-mask = <0xf000>;
+>>> +        };
+>>
+>> Your example is incomplete.
+> 
+> Could you clarify what specifically is missing?
+
+ll the properties you added in the binding.
+
+Best regards,
+Krzysztof
