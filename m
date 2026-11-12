@@ -1,112 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476047;
-	b=mFcorw/U6p3koIv+JEveH437Tdwa+iKmms10e4M5XVhQYQy8tCG27UhIb+p8q1v0ucA6
-	 cmClUH06Zsk9ueNen3fLWdOkSAhLXEIA/plVcja/6xwy4tqIda2Py1UZlW2ql3ubz6RAQ
-	 CVgXsYWIEUbePdrFrsSkD+Yke4pvtffWDNkaLUArBaJzK1+aEHsvwZ9c4tTbWt8MqlGHC
-	 zck3YdPC7tUZ6bihqnlyfJZ76yUbnzi9nWjS/+6j7m/kTHyOMZmA0lz3vWepvDG6xXtnD
-	 5tRnc9GOVmeAS0oiFRD/cYvR/Dmow7dRtCUlm/mzEEcIHqMFy+L6kgfzNf3B558wpFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476047;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ZEMqREsfmPbH/k7JgWoRxNTtP7MVL9uGc2qOxQ8K0XM=;
-	b=1rCLBNWkv0ihMyuXx4w2VI0Gwc3EPCBmliztnXAWysI/xykYfxWatAcztfkgQ6N6MgyX
-	 BW0w/xsyr+nOeYrDSDy3lkbVZUR3w/8PsK6CGZQ+W08//kYJ0xAHWBIDStHcC3ua/A4kM
-	 /PMimMbc5XyOyG3X6jZfysprvDW7k54nb0RJmFr69Muq+Nu6puhFQ1hP+cmIEtzJPAwpd
-	 LQivLBi/nZo3cwbR2YzSSqpJwBXopT+qHYDkLbC59Y+fHeyz6TZKMNvrqFlyoYiHtsYpq
-	 XYqNQHeT8l0Mm7Svc1msdhquMbgwvWwcwxklc/QxhYWJWmCpINxR/UIxX3xYD3/wtJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jLYxMoQm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R26FPh3h;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794476063;
+	b=tRhL8Yu3/VHbjbIeI3DLPDVVN7UrZlXUpvKoqzb/Gnh+hYBlvGaDGaNf7scCFq/K8h1b
+	 Hyvv/MM/vwHWH5gh0CSMTV9RnAkuGi+5croM5j/8itMYI7jxwe2byrF5mYZ5NDNCX/BW8
+	 bR1h3fbKTIPfXt9UTRL+UVr9nSa27wq/k/8d5AnCWiWRtfcDs+P2nRBHfpHDw3iAWenKC
+	 Jdv8NwE3Xfj5mMc4MQlbdmaSpRvJ/URxy1NyyafbAIK+1WJrBRoPcgRBmPXKWa+lV1kKG
+	 Xa+SSIHTNJgBp736FzQEyxk5aBmy2/9dA1fsH69+5d2A98ZrEa6cRO3RhaS02CLngDQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476063;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=0mwJLfkCKM4Ex+W3HdtHCenUOHq2LFEypD9rBYF7gtE=;
+	b=bzzoCPKX6sXcOdnXuL/G9UB5uuXMfJ+xHZZsQnAge5SaXEXOhnOdj1dt946T+RycJRxt
+	 cBWY8mVZmnTuaeEUBaiCrGpdGo5ff03XoTkdyMBgKTvlPyVoAHlQChnblaUhvzCkxXXg2
+	 D8oYYEpI9boJSS1OVb8sDEucbznIrxLh3i4PgVCFHOjwV4l2Rr0YxmsR13ofelg9iLDTi
+	 PpyYEKXhznao9Yq+TH5TAiYvgDYsSGIvZSVKJo0a7I3xEN6LydDcRP+kAbyeH12nxZJp7
+	 Wo1iH/T5zEnG014jWsS85szyRXjqqV04rdLBx070RYBHk26QcLt8U5tZgm9jVTLgRkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bsf0A2Om;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31E9606A32A
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:34:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31E9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB63606A321;
+	Thu, 12 Nov 2026 09:34:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB63606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jLYxMoQm;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R26FPh3h
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC5481w3477432
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:34:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZEMqREsfmPbH/k7JgWoRxNTtP7MVL9uGc2qOxQ8K0XM=; b=jLYxMoQmys93uE7j
-	CuWvYbYPmrj1sUfJWh0gLR2ORgt4gpxUk5c2z5SxMWrfjZpHBYvqE2HA5VtTiqP0
-	mgYQ37Xgum14mCK2xt/o3GtqLbxHRajXPrsMLXf4n0V/jj6Q/rwlaYcgsvYbOdph
-	yObZEvvyhxFU1Q584JHKgmQtXflw75gAe3PKjP8ouo/TOcJOXwRMUiS03cU7ympL
-	vdbf6ZHotCbqONNVn4oM3XYS2pNTrKdutcgBsNa47JkvgxN/qgD9uRG53SsFkJFF
-	uIj02i+OFMCK9Z0TDa4J3hKi9eGNe6+vYuBhOvcRhathKOQKM6qHiGw0msgn5OY5
-	g/lTYw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6yugx3h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:34:05 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b08aee6b3eso3695020a91.3
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:34:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794476045; x=1795080845; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZEMqREsfmPbH/k7JgWoRxNTtP7MVL9uGc2qOxQ8K0XM=;
-        b=R26FPh3hTODMjYe5LsIcwKRaYEOBRhFtXo4LLszzfjd4FyuMnVcoXYLnE2Hy4gXtdG
-         0B7g5eSGb1YIE9Tojms3sGyIDUYK1Er2VsFWq5E2VOCHJsNQA4cjJdSMqPnqS1PkWayr
-         d6SNBkFY0IVl4efDzkSYtzt3HlJrsE+8ihCsk7/12FAdyqCt7EnS1unf+V+ooWl0vhEF
-         eB79NCjyjB50L+7/crLkY4PolkxLckrr2hAoc68Dplwv1WGyWv7JTnpwAXG2nYBgEbIc
-         UtSgItyIgZOOI6NR4Ol7KNaJTwZe/w0IxfXEJACODxZRKeKoFfumTxH7uFy04mJsKHgf
-         bJMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476045; x=1795080845;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZEMqREsfmPbH/k7JgWoRxNTtP7MVL9uGc2qOxQ8K0XM=;
-        b=FwjTSDCBooI20h21Uv7pFlzmlKdyAiQ/fTZbwMexkeYAUY0adsMnTNMm4fFmW5TuuW
-         fyaJ6qkJbgariafqo3ZJG62oplp8r75qNKfE50B5Net2bxNFNGU7flgtb1D0/4ywAziO
-         LmgCtHvpfK8vD1zyN3VQ5qlzkFCCdxI+8j+gUNQPvXfXIg3SBhyaVZL9yeLg4Wr4J4AH
-         +kYQysbbeEOXXADlDVhNp6oRvuVud6ymypsyQseoMntyLhFv1WnH/X4XCw57LgMhGR5c
-         XHaSCIfa4gS5Oj3Zrqc9tj/9ogqkFIIPSOvHnxrEsSSCZzhxYPSdWf6DxzLQBhZ6Aezy
-         bjtQ==
-X-Forwarded-Encrypted: i=1; AL+hErGilUCUfzkSFTK8aS5EQUTVbYqEkwrU03OBo5xvgTnaFnUcCuZ5LzvH7TVNuOCAyYlm5iFwRpjy/VKN@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yaNd8m66r4h1uqjQeTM1bOAjtTBxyXRl60Mq51xNrs1B/arUk
-	q5PnU32sC/94BYCSYxfasngF0eQ0H2bEw+KrzXoDa31djkdS0hDluwhcUytwjASUQD44QPODyz/
-	nao30Wag87krYmFiox82l375sEY3kl6KaH1JL41HmZ3yiwBkgQbeUorYZPoOKv3Ix
-X-Gm-Gg: AYBFou14KZ1ZTfO94B9lM6jKnoj97AFgknJPeu7YxlDucn/6TzU8ftLIFCUXJWDlRkG
-	Rc1i5a71htzmGg4yYtvOW86XOftx5ETgCW5lAIbo/Sn1AHPIdeZiJukUp/H9vCILdAYSPcIYmjd
-	x82kLRh93x6VFuimUvRnxXFINrfphSs0lmFARvAdL63cC5q22vM1lqBEcMw9kOQM1WNbhuvRagA
-	1M/Cdgj63BLC65cH4tky6Y7UjPiA8C/UjWFJ5585zHC3of0uq3jBlPeDSxFZRsnaVm9FSM37pU0
-	qnD57fjE3iD8LVGq4H6bWhG3TYbIYSoLlYmydkNeqyS6igUK+atICblTDhpYGwQFPFKTgkI/8VJ
-	QufIIvNQdaiFU9Y0ifGjbPp4uf7mv9/zGjjcQgK8MtXyjUTiBUNxykpRUsfKBV17i+QscfIEPXa
-	w4dw==
-X-Received: by 2002:a17:90b:2f4e:b0:3ac:9176:e82b with SMTP id 98e67ed59e1d1-3b182f42c74mr4784650a91.54.1794476045139;
-        Thu, 12 Nov 2026 01:34:05 -0800 (PST)
-X-Received: by 2002:a17:90b:2f4e:b0:3ac:9176:e82b with SMTP id 98e67ed59e1d1-3b182f42c74mr4784628a91.54.1794476044726;
-        Thu, 12 Nov 2026 01:34:04 -0800 (PST)
-Received: from [10.217.216.70] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c9d7c1sm3881186a91.17.2026.11.12.01.33.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:34:04 -0800 (PST)
-Message-ID: <d2315dad-ecf5-4838-bbc5-663fc2d3c75b@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 15:03:57 +0530
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bsf0A2Om
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3C4902006B6;
+	Thu, 12 Nov 2026 10:34:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794476059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0mwJLfkCKM4Ex+W3HdtHCenUOHq2LFEypD9rBYF7gtE=;
+	b=bsf0A2OmIo4OBsbuBshB9FsFX+F+TlhG4Gz8KkGEF7/js8khUKc4FI8vayYVMoucxWt5Ko
+	OSe+42Jyd2PWyVH14xSLE5tWctlwWI5lrWBCo5sVnzIa3vqW/dtMAY0RyiDUO8i/jjLGIB
+	rTcVhWyyHueMksggRKGjb8Cr4pbO1YxIH/y+dZvjDMm7W+Qm3sqsTriUtrJMghd7MJCHk5
+	9HJ6ZUCw88gRvuW7vDyRAh/pvFXC5HcfyH0ls0VClY/szhjbvXmhugdmUTqMatmHWMdE9W
+	y3/CQfAD6KLC5jJyhVhVlEiuSEJZO14inIkgiocsGmop7a13sSD3yfXA2gUL5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794476059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0mwJLfkCKM4Ex+W3HdtHCenUOHq2LFEypD9rBYF7gtE=;
+	b=M1xp41demAYY1JUSaNTDwVYwai2XVErtg/5rY82QD66dsMfcSGVvcCGvdnK1iCTS4vsuRG
+	0g2v+8SS/0o8UoYCYk4xTCd5HOZhs7G74GoSjhGboBY3rzaGKEr3igoER60lWq3YBfoems
+	LC6yAO0ULo8LzWZsukM9Hfvoj9OYWwoJaWA+NTXYcl2uX4hY0dFY/ZBg0d9MaEiiCTRzCS
+	WGYlJ8lBDVHFlCuhMbSNgorxvZ/OhfmoN86+PsX8fdMbJnstsGZd+Ca6WKIl1hV96V4LEU
+	NmPE57+T7tHrO47mYGqt8S24mu98zwfwpoWHHg5dL/1/8TUsOewL3/Cb5maPCQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794476059; a=rsa-sha256;
+	cv=none;
+	b=JXsBro+kIRWK2d9mYT2oon7XgCLOHsT+5BFR9eephMZg2hha8kNBOPeJWpw/6AarlhCBt+
+	PJrwDM+U2obtY0XoH/w7g4ENdE2YDw7jVCTptfy/a1LhoUx6rG3ZiQ+G63LBeTtEYG7fDU
+	NvmPdTX53nmIGlamlP85Yax6nEF8asBfcpSAUqu7HQk1l3SMf8p5m9JX2xROYoo7NZjUIN
+	lE5zbpyKrmZf1Bu8ZfUdAF4C4leSAajMcBpTbZcLpJKvubWThEvrl0is7gYnqYOcvTj7ZA
+	OgcjgU2kSIIxU82R9kn7HZhGHq0+CPOFK9i4vzE3lmJzR63DvKZJtZ2qefqh6w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <65b603d24fa606b075a81b4e2211863a52c51d3e.camel@pengutronix.de>
+Subject: Re: [PATCH v2 4/4] clk: siflower: Add SF19A2890 peripheral clock
+ and reset manager driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chuanhong Guo	 <gch981213@gmail.com>, Yao Zi
+ <me@ziyao.cc>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
+ <u.kleine-koenig@baylibre.com>, linux-mips@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 10:34:19 +0100
+In-Reply-To: <CAPY4CJ5_Qa2vf7_GiFU-T92HDkA3mdY_x2Dt5DXZ5dMfS-oUwQ@mail.gmail.com>
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+	 <20261111-sf19a2890-sysm-v2-4-d2fcb723e4f1@telaak.dev>
+	 <d59f52d1466c515f574be1e9eb127ca3e43d155b.camel@pengutronix.de>
+	 <CAPY4CJ5_Qa2vf7_GiFU-T92HDkA3mdY_x2Dt5DXZ5dMfS-oUwQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,92 +102,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/10] arm64: dts: qcom: nord: Add support for TSCSS
- node
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
- <20261108-tscss-v2-10-d5f575010427@oss.qualcomm.com>
- <avGHpvYV2Q6T3vwd@QCOM-aGQu4IUr3Y>
-Content-Language: en-US
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-In-Reply-To: <avGHpvYV2Q6T3vwd@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: qfkmgpDl5SVnG3yjdSGkSn7QSeHl1m8p
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX2efWopNoPeN2
- WJvydgxdFlgy0OIkutn4sfkELNtpvcw+SZc3TMe+f3NG4KHJ20JZza1ScEwgRQmfyGI3PBNHHc7
- FGBgOyyAdOk/aJWRUnpg8aezJgwaiLo=
-X-Proofpoint-ORIG-GUID: qfkmgpDl5SVnG3yjdSGkSn7QSeHl1m8p
-X-Authority-Analysis: v=2.4 cv=d49gWhjE c=1 sm=1 tr=0 ts=6af5880d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=_qMGny95FC9WgreSDIcA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX5daH3J7WiAQ0
- RaigqDTGgy62lrReXBQElvs1IRWUJfnd/ol+tv39zVb8qpqP8NFU4N6tWQyk+RQg5Ckdl5x7pE6
- dPUw2/SdhdPBgOf+eSWyhxp+1xEaLS+dnXv1YNITvRr350CsEdoOumsFAL4EahP6I9FyVd+7oSv
- Ku2tia9CwBGb/hlj2ebW2nwDZGIJylCq1tJDaO9foXALw06CYkkKhdQ5fm9FgpLgICTdZeJJ5bE
- d/u4ZzgBSx9/L13jXR4wQiYnGZ5oluGEulnyvQv0lPxLRxHZTZm4I9yhgpuBjykW9fnx0siNeDM
- QFxnNuI4Ja2hfmEQdOQgNwAvwQ6H0QLjYmhyoeyL/YTzdP+IG7TmeSRDb81Yi9DCRNJ4I1J5tlS
- aMDN60rhi5A5OhJIe+FALjhaI9nsLXOy785Teau8wU1HsXhmd85ZGz4MZs5sPd/vL1OCFt8K0As
- rCr8vm/ZqG/9AwtLsfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120037
 
+On Mi, 2026-11-11 at 14:08 -0500, Joseph Telaak wrote:
+> On Wed, Nov 11, 2026 at 10:56:47AM +0100, Philipp Zabel wrote:
+> > > + spin_lock_irqsave(&crm->lock, flags);
+> >=20
+> > Could be simplified with guard(spinlock)(&crm->lock);
+>=20
+> Will do in v3, as guard(spinlock_irqsave)(), since the clock gates take
+> the same lock from clk_enable(), which can run in interrupt context. I'll
+> convert the gate enable and disable paths as well.
+>=20
+> > > +static const u32 sf19a2890_usb_resets[] =3D {
+> > > + [RST_USB] =3D GENMASK(2, 0),
+> >=20
+> > Do these three bits control separate reset lines?
+> > Does the hardware require them to be changed together?
+>=20
+> Yes, they are separate lines, one per clock domain of the DWC2
+> controller. Bit 0 matches the controller's gate and bit 2 its AXI
+> master's (usb_axim). Bit 1 has no gate, so it is probably the PHY clock
+> domain, whose clock comes from the PHY rather than from this block.
+>=20
+> There is no public documentation for this block. Chuanhong explained in
+> v1 that the lines of one IP's clock domains have to be asserted together
+> [1], the same as the GMAC's.
 
+Ah, I got confused by the commit message, which to me looked like the
+bus lockup issue is limited to GMAC.
 
-On 09-11-2026 02:13 pm, Shawn Guo wrote:
-> On Sun, Nov 08, 2026 at 06:48:31PM +0530, Imran Shaik wrote:
->> Add Timestamp Counter Subsystem (TSCSS) node support on Qualcomm Nord
->> SoCs.
->>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 14 ++++++++++++++
->>   1 file changed, 14 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> index 1ab7d9bc3cfe..1d5f27336f73 100644
->> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> @@ -736,6 +736,20 @@ pcie_data_inbound: interconnect@1c00000 {
->>   		qcom,bcm-voters = <&apps_bcm_voter>;
->>   	};
->>   
->> +	ptp@1c80000 {
->> +		compatible = "qcom,nord-tscss";
->> +		reg = <0x0 0x01c80000 0x0 0x2000>;
->> +		reg-names = "tsc";
-> 
-> The node should probably go to nord.dtsi with nord-embedded.dtsi
-> supplementing Embedded specific resources like clocks.
-> 
+> The dwc2 binding also takes a single reset for the controller.
 
-Sure, I will check and move this node to nord.dtsi in next series.
+That is irrelevant from my PoV, the binding could be insufficient for
+this integration.
 
-Thanks,
-Imran
+>=20
+> > > +static const u32 sf19a2890_uart_resets[] =3D {
+> > > + [RST_UART0] =3D BIT(0) | BIT(4),
+> > > + [RST_UART1] =3D BIT(1) | BIT(5),
+> > > + [RST_UART2] =3D BIT(2) | BIT(6),
+> >=20
+> > Same question as above.
+>=20
+> Yes, they are separate. Going by the gates at the same bit positions,
+> bits 0-2 are the UARTs' APB resets (PRESETn) and bits 4-6 their UART
+> clock domain resets (nUARTRST). The PL011 TRM (DDI 0183, section 2.4.1)
+> says the reset controller must use PRESETn to assert nUARTRST. This block
+> leaves both to software, so the driver asserts them together. The pl011
+> binding also allows a single reset.
+>=20
+> The same goes for the other two groups. The SPI block's bits 4 and 5 are
+> the PL022's PRESETn and nSSPRST, which its TRM (DDI 0194) ties together i=
+n
+> the same way. The WLAN blocks' bits 0-2 match their AXI slave, AXI master
+> and platform gates.
+>=20
+> v3 will explain each multi-bit group in the commit message, not just the
+> GMAC's.
+
+Please do. With that,
+
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
