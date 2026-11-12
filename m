@@ -1,66 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474251;
-	b=jd7pXSX4HgI4dMxwqV217jLLA/MNda2PuZ4QhwjN66x6kbGHxeurPP6aeyxUPAM1aIZh
-	 9cpxd+RCsuD7MmT+5bCOgGcX37QFOYL1dxfCyCTBLRJ+benNhom2lH5gS8fysap0KXCqa
-	 I+1UNQ72V+d0ZpeSZLewshgl9p6gYmqs4rBudmf5i1c3VxzJ5f/KGhRja4FFsSajsKTyd
-	 pKThviVns/qy0Ha5+wq18lRJQiVf3FTRzbrVGNv4M4zdT4f7t12jSN5y3Dqsh4aRgm8O8
-	 HZnb+e8dXhL0JilSkhFlrRO89Xtazev9b1e8fNFUe+3Hbdj49oXBmVWEPVlKRvpyl4Q==
+	t=1794474262;
+	b=lEz/LZDhRerxt3rSURZudVm8XOvfFYHVh4m3blZdy5rpo4uZUZyY1982DAqmo8XFv+/4
+	 rg7pPZVV0/sk0sO+AaG0e68OhHpTpjo05MNZZ+CyJfE7rldSHeKP7AO6RNIoUo/nz324/
+	 Ou2hf+/bToVwS4+O60W50LuNexntEj4wOaCo9E3BA3cGMQktyVfZa9+eJTWQAo3psz1Hs
+	 ZZx39bNQTdLkzlh5+Y9gUeC/z5KVHplnUAw8KsWZYMmjNux4k1wZvAN3nkKdFGZQLTW+x
+	 uzJ9PMAvTYEqzHLoNK4XyqWxeAVAgMHDbNoDr8GyWcHPW64f6UGUDW9+9ROt8N9Nbow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474262;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=ljiqR7CXOmCffMfAyj2PLXWgzNEpnp3l1Lu8bty1Q/E=;
-	b=TgE/TjLkBviY5gnZVKtPDYdMBdXhjKI5YfqFOlvv0xlJrSnvSYJqawjpH2K5wpkiA/qu
-	 oQ9B9pA6ZZwm9KiGT0a3ykfU7dA6jX8xLM8g7NmTtDyRLCZwL0wPEfaW9dJ94G6EWSJQx
-	 ONiOCm0VDRi6c6reCRzhwLup/lxXCcqP/wXZJT9jGdIaFQKQ+uj9+RlWBjmepAV2Tq/jQ
-	 j6owNeX7to54Yre82W/3oyGz08PFz19BXy10QMeel6jM/u4rWISZgKhsn9sEzEKgyo/lf
-	 mEunCNh0qW1n/2o8K84n9/inZQJuAPeBnlv6IiJZobJfHNbVM3/kmrU0g6RLCDB9DNg==
+	bh=KvjfimEyLHv2EirF4hxY1Tnpe8ctO+qjqheXOxDIlHc=;
+	b=I2hXV1xPoriDCdNB+sz8YINGmJ0g/mkCyhHbXx25v1curcjql1ti1eMCCx02TXPFUqla
+	 Gn0YkLzXiOLmDfcfkrYfO+F+kGa+xd0xEC48koxO2otUcDhTVlU/U3eVr76hidnD2cCd7
+	 KkHmYmVZUlcKbUVJJmHJNifwBfnXMVRsMWd8LfxOyQ5qRqXe1FZtYb9ZdSLZ5pU5Gh1Hr
+	 GvV5NfSvudDINUXTJkUR+qvCQ/VJbCWL4ZVT8/sO7N+7tQkGGCvZOSAi65QTKXxWmUNls
+	 dZUUsHA7EYLuEFIjHmNt3zKbWNSK3QoMsqvJiuEhh8i34Q5Olwjf7MnzT+R1BakawxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EozQfOTj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xh/00Dby";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEC260A2635;
-	Thu, 12 Nov 2026 09:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3535B60A2609;
+	Thu, 12 Nov 2026 09:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EozQfOTj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314101F00A06;
-	Thu, 12 Nov 2026 09:04:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xh/00Dby
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68EEC1F00A06;
+	Thu, 12 Nov 2026 09:04:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474250;
-	bh=ljiqR7CXOmCffMfAyj2PLXWgzNEpnp3l1Lu8bty1Q/E=;
+	s=k20260515; t=1794474261;
+	bh=KvjfimEyLHv2EirF4hxY1Tnpe8ctO+qjqheXOxDIlHc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EozQfOTjVmzweoSiPK+IK0UJ1RM4s5peQjOU/H5FgoZQXA9gGXd85GYX0x0EGprma
-	 snIKdrlhldI58Qkekg4f4g/9Amk/nqtZBGZI5Omm6cj7uum2Bf2D3fLXeWaU1Gh97/
-	 g+1LwLC53n19ndYRRCkVEPfyJ4JGKnRv7+9Z+R9ChX9SCKL6N/lzNvhKxRPyCWvG0K
-	 2Kcf+HJY7tI4A4sPr9SnhPNIlYa+aeeyMGeAW/KUqRp3LP3pRqxzshZIkhgskWSOch
-	 2YNnOFrkl6myPxtX0qYo1gyye2ci+e3UdgGpOJ0jDZj4ia5nEODp0z410ab3Ys0xVe
-	 fLIotZijk4rMg==
+	b=Xh/00DbyGSPtH3AcAgDIbB6mH8hRoXnAqFcuJ0aNnnBt0TqsFFvW4x3C6dSUJZulv
+	 UWqpPILLKTcuaSHZixG4U/3tGxXz3t7ImHDBLzrX2p/PxL8xWFqro/18kaa47AjRjr
+	 WH6qd05T/Qc2zKc4keC1gCv1yvgwpLTYFeTCMljPY+2p1LqmXGvcLXqenx1mxcnQxJ
+	 wEF992NpJC2yjHQmTRhqTK8eSk+/MWu7Okl6XMXdjlzDpAIG/htb7rRSKoUv0Ziwbp
+	 M/3o0GcCeWEqPiz5OhQAkug6vGzwM/VLpW2Bluf9boq2BselPi+615IomkmsQiVkbf
+	 UP/Ia+MOml/hg==
 From: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
- Iskren Chernev <me@iskren.info>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
+ Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Philipp Zabel <pza@pengutronix.de>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-In-Reply-To: <20260903-topic-8996_61x5_qusb2phy-v2-0-4c3f980a4560@oss.qualcomm.com>
-References: <20260903-topic-8996_61x5_qusb2phy-v2-0-4c3f980a4560@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/5] Fix up QUSB2 PHY description for
- MSM8996/SM61[12]5
-Message-Id: <179447424584.428303.562761985654321627.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 14:34:05 +0530
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+In-Reply-To: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
+References: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/6] Add support for USB phys in IPQ9650
+Message-Id: <179447425706.428303.118653133364281959.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 14:34:17 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,24 +72,31 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Thu, 03 Sep 2026 16:25:27 +0200, Konrad Dybcio wrote:
-> The MSM8996 QUSB2PHY was not being guaranteed a power source.
-> The SM6125's QUSB2PHY was believed to be idential as the 96 one. It
-> wasn't. This series tackles that, freeing us of some dt checker
-> errors about vdd-supply not found on MSM8996 boards.
-> 
-> Compile-tested only, but docs confirm my findings..
+On Fri, 09 Oct 2026 10:19:54 +0530, Varadarajan Narayanan wrote:
+> This series
+>  - Adds dt-bindings and driver changes for the high speed and super speed
+>    phys in IPQ9650.
+>  - IPQ9650 specific init tables to QMP super speed phy driver.
+>  - The Femto high speed phy driver is refactored to accomodate differences
+>    in the init sequences between SoCs first and then support for IPQ9650 is
+>    included.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/5] dt-bindings: phy: qcom,qusb2: Straighten out SM6125 and MSM8996
-      commit: 881cf66d7d011477cd119774e0903d2e36a506ef
-[2/5] phy: qcom-qusb2: Fix SM6115 init sequence
-      commit: 2f8316ab844adb8f172984216c72506ccba92ea7
-[3/5] phy: qcom-qusb2: Remove _SHIFT defines
-      commit: 54d32f138fc44efb0a41fa388f238ea1f2fe5760
+[1/6] dt-bindings: phy: qcom,qmp-usb: Add IPQ9650 USB3 PHY
+      commit: 883412a4d4fb3267851de3d5d534980d65251ffd
+[2/6] dt-bindings: phy: qcom,usb-snps-femto-v2: Add IPQ9650 compatible
+      commit: f899f404be9a178b3df15edaa2b33a20dd99ae18
+[3/6] phy: qcom: qmp-usb: Add IPQ9650 USB3 PHY configuration
+      commit: a8361bb39e2502aa9edaed126f01e02cd57c45ef
+[4/6] phy: qcom: snps-femto-v2: Fix order of arguments to qcom_snps_hsphy_write_mask
+      commit: 029a4a78d07a4b133777cff2acc404ad858f3aef
+[5/6] phy: qcom: snps-femto-v2: Move PHY init registers to config tables
+      commit: 8238577c08eadbf38313d0240551c12582884014
+[6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
+      commit: bd2ef9cf141344e31caa50dd3ef46772df7d9b66
 
 Best regards,
 -- 
