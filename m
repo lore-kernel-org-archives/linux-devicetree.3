@@ -1,47 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494246;
-	b=JWV492kKg4INTjmWCWW1J+CcQSp/iaUVUiDgZQp/buw/Qae44qe97ZfzXEp48eJZ6s56
-	 6bG8Iqc0pLT6BvqtsZ15ZnwiGHAKTgIhwLDmzgwR2alN1tL5nYv0Vp1gZG1Uk5u+l6U/z
-	 BmtdFab2e9kqvt6d2098vQdx+Od5NeubCq4k/a1WkgOiJugYSTVtKO/fupmKG0m/1g8A4
-	 23Lk76S0UX6mkoadWbP012dA8VzdmvcMX6Y7zJoyHtiE6ps8pL4mcgO31DmqiIYLUZXl0
-	 AzDNKH4weSXjzWoeiCCOtpZmeqL7iemKlvu6S804x9FZ1kl1PE8OGWsKi06RQF3iVGg==
+	t=1794494288;
+	b=JSTJmXsSow+VXu8VeoC8fwdfG/a/zVLeIFn5YmVd0mHwr8pagjSAd4rJ53LWilVO2/tv
+	 IELUsSPJ+f3cOv7zWW7NtOG7OIcq/MSz+G56185ym5dYyK7vv/MJzztN1hGdXnk0eMMMU
+	 6XCWq01N8evvrcGvaq9RxiXsSZVjTNb1qPvzbZEXURdoFp9IFBxJApVg7LAcD2fZRNdDa
+	 FZqi0tmG1E54nFEQlRbMBr13kxIsYs1l97Yaug5pbxTTnDwIH6DfEiQx1r9bVlqxTurHQ
+	 0MVrIUwWVpYEoGtv8ipp75Zt+C1SxRrsNZ8iZeHc01IlGVHO+nlXtdr+1z46ss09C/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494246;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=z2wEI5VEe25LD61er33lq8AWRCY5Xe94AmrzUGTJZcI=;
-	b=AcV4enM6u7UhPptKpKD/+NFSDhrZljza+wN9jgeEnlwu4OZoYHf4ld4NXNZHkqBbOwDF
-	 j/wgEKHp5cYbAocKputdpLjAh6CEyQk/9I6WWutOrgnDz5Xw3/EQaxeb2bIZaR3MAsQ+f
-	 t1YoYREC/+czAxyTaMAmFKa5S8ONwqAX4xevSyXl3+nyS4OT9Gq8Qq/x8o5s/KvQ2zWxX
-	 +r6FZ97TZ+3zPAah2o+D8XTpm7eUnp6qBAEhGWKspZCvMexo1g/KVau1kjEsObqxVtBLF
-	 85tWCQ3WFeKuve2UMdPDXn7yx2ufRxXo0fq2YVAEYk+Kc+r9fO/+pUoTP6L3W3F3kxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Y2IsT0Jg+TbimKFRjyF/8T2AxcX0fGduIv2EOCoI08Y=;
+	b=fqFrh1Br3YbJv+41xVWxb00/xFBFL1qPl+HJiQZgh6uwbedhhfmvtds+3WXd4Hwlfp2+
+	 XWlVyf/O73TD/DcIz3Q/MLhL0wX6nxk/8xEblYEvVSoN+JLvqfjkq3NY00F6a87zSC60Q
+	 hqD0bnyhvL1qPRTBdWCIRmSi4cAHnuyvSJdJ8HFdUZxX4s0AyDaauGQZB/cX9E8cAqlgu
+	 q/Ocr5zPic+7hykk+QzdTb7Z2vUx8WwG5jGyoomuA1S8IELp9v2XMK0ZjpyjN8DOiL8Uf
+	 nWiHRYB4UTdv+yy6UyW2QbY+mtUyERS/rri5abGZH0CQAQmrDJWolh78wBoMcxtH7nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYMbnKSu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UgbpnkMj;
+	arc=none smtp.remote-ip=209.85.217.46
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8A8606A31C;
-	Thu, 12 Nov 2026 14:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8034606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 14:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8034606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYMbnKSu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362801F00A07;
-	Thu, 12 Nov 2026 14:37:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794494246;
-	bh=z2wEI5VEe25LD61er33lq8AWRCY5Xe94AmrzUGTJZcI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SYMbnKSuEfDMxKBAUwscloPGrwixWMu0n2RND2uSvO86HoO/Mv1cEzOR1ANj49F6c
-	 jEZhCLcPrSExqFYx+aIa75j7uiJCwZmqfZj65RefavpeaEO8zGtudj+f2xOuzwDZ0l
-	 EqVWxWM41w6Il6bZwZL3hHP9AUyAQAYbWyPWdOhRE5uPkWSNK7E0Krrt7g2e1xJD5f
-	 TmM6IwjkLx+UQl/NsmE9gYZkI1cktRgZMQolMcfsoauPPj63YSp1JKchfDMQ/+33jf
-	 U65VEw/dvDA9OyhcNbewdpimey0vzO84+xil/PxP6x9TliZzjShL85SRgNKioLKWGv
-	 rK7QSouHDIVmg==
-Message-ID: <e533b135-7874-4441-a42c-d1f310043073@kernel.org>
-Date: Thu, 12 Nov 2026 15:37:19 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UgbpnkMj
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7d2dbe5c4b0so1465796137.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 06:38:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794494287; x=1795099087; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y2IsT0Jg+TbimKFRjyF/8T2AxcX0fGduIv2EOCoI08Y=;
+        b=UgbpnkMjKp/P9v1pdxKcUUylD2QK9AZ17IJVx+9nruvrpjN5xy59QGzuFP0jV73QD9
+         5BPj0g/gNUqfS8JgeXuUo/DpDfuo0tP0pYIrVXkmwOnGK36eKtRN8kVGcNWpQMgoVgkm
+         UiZ3ABIB6hoJw9mCRUzTCsbyRrFqAvB1eRDFIq0+X0UvGY8mqW91V+9eHEzlFR3YMPQC
+         emoZr4VkA9Z33y7C6FtEC4INiloypFQGtxRthzfr6t7cXpR45HyxurlkvpG3wjHB/XDK
+         DvMH60oy5H/yXwyU2GPl5gl9tGgshH5hLpWOICgd3Qw5A8LIvj60ImIKDq0y20g/341g
+         vASA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794494287; x=1795099087;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y2IsT0Jg+TbimKFRjyF/8T2AxcX0fGduIv2EOCoI08Y=;
+        b=L3qH8W6zZZqXPmXlQrYoKY0u/wsPBEw14xYfPxWBTh1+RO9m3nNiTzxJeQ1tWJaw0P
+         PJgqOdi+6a5ptJIp4NrGMMrjX07sGFQ6Y6R+DDNDULiy/LUQtmUJWZiWj9w9SLiceRPD
+         2jy447QFUhxgsNC1597NBicQKMGB2Ed926A8tky/0+K49MwL0CYtYEBtHJoFwsfwN5t9
+         nTuLVtGKX39zrMGzWr5Mw01UNKtphs6JyV3dK2JqRCVfAFmh9IAD3e78OC+jzT16ih0U
+         1FZd90GS5og91mx3Ov6UU4eIKOqoZzhDvs5o1gL2U8jVs2Gr0EwXOl2BFctOkuBKYCRd
+         IOIg==
+X-Gm-Message-State: APuU4Z/lTFZqTK9ozLgirx8zHAdcMeb3gPX17NmgqttZVBhwILBfPbPb
+	eMOJexKCTBpZQE/tb5svUdFY55nzatOJ4Ji503K1MRAk/bXwiE3AWrRm
+X-Gm-Gg: AYBFou0CHdMqx9dQWOfiiN80PkN8bEFwainOPiLe9ELywVnekA3GBjIcH7Ed+CTtJDh
+	VzjV89WKVUay3B1JcLO0B1wu7ntssqRLWdSGVd3IwBlaz7dJ5epeRQoiGCDBRixHW9fQG1RIdXa
+	8UPLMYBGG7MbTA9RUL9WfBUYNsRYSWsWN6UPudHGBPESnoey06yAv8xj6IEJvrbMxCUlvHw3+z1
+	AxEqbfwWJl6BcUCPT5sR52cc6xNOGOuhV1euE4exrINE/vf1ly7iMVhuFpjr0i5P/niDURuHubh
+	jT/0isMfhDpDrfUDoWfzh9/LlBoWlSPfymwKutQjc+NLgI1/QlvlbqaX4h+ryG6vZawtojIzkV3
+	vA0rlPva9zMlWLDx9ND1qm2fpM2HhO4vGneNuVH/5a/TLZW/GV3vCLXL6Ir6aEeXKJjySZwWZ7o
+	20r8ifxi26g/NHXfUPc31dvrmICznvs94/Uh361NOPtDQjN/huwuLq7qAPbKQLcItfrk5Q7iHxu
+	AfnlL1fuRrggL7VuWCeLBdme8NcjtD84CbngleNzadogYgxaFS35OI1d1JKTF70dSBJTvHvn3lK
+	My7H9mggbr2neepPzs+ee+rG9Bc0tveZiA==
+X-Received: by 2002:a05:6102:149a:b0:7d2:d194:3de6 with SMTP id ada2fe7eead31-7d5061175femr2125294137.35.1794494286681;
+        Thu, 12 Nov 2026 06:38:06 -0800 (PST)
+Received: from [127.0.1.1] ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe12dsm5177230241.5.2026.11.12.06.38.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:38:06 -0800 (PST)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH 0/3] Add Lotus Carrier Board with Aquila iMX95
+Date: Thu, 12 Nov 2026 11:37:32 -0300
+Message-Id: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,123 +90,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
- <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
- <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
- <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
- <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
- <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
- <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
- <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
- <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
- <qKk3s6LA2dFNbAVvrsOlf17dn6zizSiyVMf1rJNQOvkvLGxswT_81cDlITq0atMX71Sw0VZu6u9WHK0fS1bzIQ==@protonmail.internalid>
- <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
- <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
- <CAFEp6-0keBgVWbBPCghkxMQAQeLeOHW8By7sQrqhjSGtJaZmEw@mail.gmail.com>
- <5e0f4424-7194-413a-af7c-f6e74d07392b@oss.qualcomm.com>
- <3cb96b5b-d061-4f0d-919b-09c6f336e453@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <3cb96b5b-d061-4f0d-919b-09c6f336e453@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACzP9WoC/x3MQQqEMAxA0atI1hNoSu3Cq8gsokYNFJ1pVITi3
+ afM8i3+L2CSVQy6pkCWS033rYJeDYwrb4ugTtXgnY9ELuAQ8CLk76mJMe3HaTgdg6Fzo5fQMnG
+ MUOtPllnv/7l/P88PWp6GYmkAAAA=
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794494281; l=1750;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=Fyhoh2gvGk3Ft2hHZ7zQnpX2e5GJIorXgz24xXGeA8c=;
+ b=wJ/LS0jpHT8LcyyR5TSXkc6mSkonP1SS8IhsBv4qtGJ5gdoAYFflJJigSL5SExYpGh6YgMZ1U
+ yfhxpkJMDaqDqYK8caPbJ0/huMKaV14HbWGQ3RhMaeUGivztiMEcHxk
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-On 12/11/2026 15:22, Nihal Kumar Gupta wrote:
-> 
-> 
-> On 09-11-2026 11:35, Nihal Kumar Gupta wrote:
->>> So yes, we could argue that the port ID itself has no inherent
->>> meaning, but it acquires meaning through the convention we define,
->>> since we still need a way to map DT ports to CAMSS input IDs. What is
->>> really changing here is the convention used to describe that mapping.
->>> So, for Hamoa, ports { 0, 1, 2, 3 } would map to CAMSS PHY inputs { 0,
->>> 1, 2, 4 }, while for Glymur, ports { 0, 1, 2 } would map to CAMSS PHY
->>> inputs { 0, 1, 4 }.
->>>
->> Thanks Loic, Bryan, Krzysztof and Vladimir for the discussion.
->>
->> Krzysztof, understood on the DT binding concern. I should have got clear DT
->> maintainer agreement before proposing a binding semantic change, and I will
->> keep that in mind for future changes.
->>
->> Based on the discussion, I agree that for standalone PHY CAMSS DT input ports
->> should be logical and linear. For Glymur, that means using ports@0-2 { 0, 1, 2 },
->> and keep the mapping to hardware PHY indices { 0, 1, 4 } inside the driver.
->>
->> Krzysztof, does this direction sound aligned to you? If yes, I will respin
->> accordingly and make sure the commit message documents the logical-port to
->> hardware-PHY mapping clearly.
->>
-> 
-> Krzysztof, the Glymur CAMSS binding is already merged, but no upstream
-> DTS consumes it yet. The current example uses port@3 for CSIPHY4.
-> 
-> For the binding, would you prefer keeping the existing "^port@[0-3]$"
-> range, or tightening it to "^port@[0-2]$" and using logical ports
-> port@0, port@1 and port@2 in the example?
-> 
+This patch series adds support for the Lotus Carrier Board with the
+Toradex Aquila iMX95 SoM. Lotus is a carrier board for the Aquila family
+featuring a small form factor (Nano-ITX 120mm x 120mm) and built for
+volume production.
 
-Just explain in commit msg there is no port@3, because there are only
-three phys.
+The board features:
+
+- 1x 1Gbit/s Ethernet
+- 1x 10Gbit/s SFP+ cage
+- 2x RS-485 (Isolated and Non-Isolated)
+- 4x CAN (3x Non-Isolated, 1x Isolated)
+- 3x isolated digital I/O
+- 1x CSI
+- 1x DSI
+- 1x TPM 2.0 chip
+- 1x microSD slot
+- 1x USB-C DRP
+- 1x USB 3 hub
+- DisplayPort through a Mini DP connector
+- A mini PCIe slot with USB / SIM card connector for a modem
+
+Additionally, this series adds pinctrl groups to the Aquila iMX95 SoM
+dtsi, muxing the I2S_1 and PWM_4_DP pins to their GPIO functions. On
+Lotus, these pins carry the SFP+ low-speed control and status signals
+and the isolated digital I/O readback signals.
+
+Link: https://www.toradex.com/products/carrier-board/lotus
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+Leonardo Costa (3):
+      dt-bindings: arm: fsl: Add Aquila iMX95 with Lotus board
+      arm64: dts: freescale: imx95-aquila: Add GPIO pingroups for the Lotus Carrier Board
+      arm64: dts: freescale: imx95-aquila: Add Lotus Carrier Board
+
+ Documentation/devicetree/bindings/arm/fsl.yaml     |   1 +
+ arch/arm64/boot/dts/freescale/Makefile             |   1 +
+ .../boot/dts/freescale/imx95-aquila-lotus.dts      | 365 +++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi    |  61 +++-
+ 4 files changed, 422 insertions(+), 6 deletions(-)
+---
+base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
+change-id: 20261104-b4-v1-aquila-lotus-dtbs-00c2e45a1a66
 
 Best regards,
-Krzysztof
+-- 
+Leonardo Costa <leonardo.costa@toradex.com>
+
