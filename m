@@ -1,67 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492229;
-	b=oG4l2WKn5ypyXEp4wCgPUmXfhx0f8qu58aqZB0yU2jVLcL+3a6mzB/RoyMSuOnLG1uTB
-	 uk6zBSDYdaAnbEcF2h7IjCJlVnuCl8KDWNAI7GTb9pLLQEfLizixBiaG3AlqOJjimiBN6
-	 dAULwZ0IsWBzUdUkDAFM/ATEDFQmZyb4tczSTEWQEGsEGg8qKHcK0LwClN5BopOKMgR7R
-	 SGrUbg3oYf4qk1GDZ4n75hE4AvW2M50LFHjVQMYfvbmtOkHqbaL2e8sgP7lpKK/GcTwCu
-	 H//na6IW7Q1Wa5UfnumtKjj6umus+nlVVTMV9qdmoLSMayrSM7Lon/Se5NzS/P/Hz4w==
+	t=1794492266;
+	b=nAcYzA1vAEKt8X9xHOztyqT0dpgya8u+WiJYatLvqhqpHd3WXHCMFsY1ovC+Bs9axcYB
+	 hFY41INFkUuwfleFAW3f4GkJtUmZ413FxkzgKp1mjXQ88uwzFxIhz45Up77fXTeR3J2ck
+	 o5TeOf6RLWA0HNTv1/bcpncAtVeMbk3SGinUDdX561ecnsbqkSfpAK0T+cDwm72OQAWTS
+	 oJRlpAOmj9LFZOOya8tVhW9RRVHtYGQv4/DNnpZFA4smSp2iWn0i8dnSls5jmnntCi+gY
+	 XiEw+B6FAxe9cCE9hoaaaO7RkuGavVjnGl+gPmdZXpfRhYPw5gBhOe5ecQlbqK78iZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492229;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m4qjcb8gdZJwkaxEoXzAOBIqfyt8ugrUmG3Eiv5qTnQ=;
-	b=mKeJDUu0riPuseDThNiigMcurjtF5t50ZtEQxtRoS8xre5b7MRrCsI0SwjAcLZnHWRDL
-	 7jJiUfduU17h7PhrpE3eXfoHKCFfqtfgYSmTaz4heIZPTz/g9icILrqads1RdHuPMCU8W
-	 gMJzWd7kS31+yEWcgTsnbbOgBGmiWlb+azfO0y+2Hm2qq3uyrpVxN1+mQ/IBz068V84+w
-	 q4j5wJCpcL/VOfRK/6fiuAcKZoMAW1TG5aLevQOdM+1bR7WibcU07bDs9CfXlbDAM8Z/J
-	 Ak2lt2c9W7tXguolAfWznMDCQN1pDA0UHXi0XyN+iUu50gbZiSxk1sETriE+UCef4ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492266;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=o4e6DKn8it+1Rse/95SmihcJknRsQkvOnDfeAvHPjno=;
+	b=oeJQIVkaNLmsrhe8g5cl7tYJOgB26vjxA6jNSu3OjlXuw9ReP6irgWch+wFXg11FlOym
+	 0z5R9SXagZKG9Q5b6LhkukUSYSiIbNuwSLbwzggWUVeEnjJtgc+Dc+MEw9QPdbCzyYNWa
+	 Co5gRNpOW5Qc9kDinrlib5PFvWqpk/zpeGpQ98kHye0zMI6CaaBcc5o2fgI8y6Rx605Ka
+	 qEVtg55Zm5PDIN9ADKSj6jGSR2Llb5cQlUHVxL0zBBptUoVtyThqZk1R6QiMr3yZXKQ89
+	 bxABfryKWgrTq5xXHF6Py8jtpP8omdtos9Ep8K9gZQJE7dpY8UPcqoZTuZCI52cUWUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g16WEPmL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SC7wFltQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C3260A261C;
-	Thu, 12 Nov 2026 14:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFCB60A3838;
+	Thu, 12 Nov 2026 14:04:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g16WEPmL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495D01F00A05;
-	Thu, 12 Nov 2026 14:03:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SC7wFltQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AEFF1F00A05;
+	Thu, 12 Nov 2026 14:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492229;
-	bh=m4qjcb8gdZJwkaxEoXzAOBIqfyt8ugrUmG3Eiv5qTnQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g16WEPmLJh2qfr1y0FgQLLw3UDj+I8Xs57kLoCCMeud5BUl5MzWwBLwMzXZO3Dtrt
-	 Kp5UWBp/duCls8fuuCh011u2HBXX6esYppxVKEt45L9eStIrRL7Rf0kpHTZeGEy/iS
-	 SEy/JvO10r/qLQ6VvxOVNHjIpPMj2ttl+zR1zpykqEVjD0fo43ybVmC7fkRT/aS1pY
-	 Au9dRXTw4Fexd+5rBiWz4zo7cHPOIqACnpdMVOYCeoZDxThBgHobl2L+9BbT1xNqgd
-	 ZFaM/tUt6BBetfGfopq1EOkI9MPfHfLeUeWn3lXZsGwBkc0NyM0j+fVAyItEUiL4Qg
-	 UOT4O6qRePA4A==
-Date: Thu, 12 Nov 2026 19:33:43 +0530
+	s=k20260515; t=1794492266;
+	bh=o4e6DKn8it+1Rse/95SmihcJknRsQkvOnDfeAvHPjno=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SC7wFltQpC0qBvf+HrMVnoSiX9K/cUcaMV+YboznfByvgaonrFSS3vntGSYRB/tae
+	 bdo4I+j5s1PugdHuoTkacVr60PsW5iNQxMKss2YHFRsBz4d5uS4d2/8TViTRO2LySj
+	 CdQsKYyR+cuC7LOly4VolHyFn9PWLHcDQquWPDbXpgy5iytHTeA41eOmXL3BVua1zu
+	 oL1LuPCC+9hFMobz+GT0dyigZiMka2J22dh/k+QG1rZoxYkVt9jzx+tMsTfUqu+K1n
+	 W/FThAXAuhZfwfV0VKLshZ2lI1QYRh12sIv4kdEhHLopuqeAipri3PDbii2mp8hWxq
+	 Zn2eL6n05G3Uw==
 From: Vinod Koul <vkoul@kernel.org>
-To: Aiden Isik <aidenisik@protonmail.com>
-Cc: aidenisik@member.fsf.org, Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the Exynos5515
- usbdrd phy
-Message-ID: <avXHP-GPIRXqFkEv@parshuram>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
- <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
- <avWeJqbpbLcWgq_R@parshuram>
- <Dhrinh2IqyBByHLyFp_SHX9igTjQgKk4G62C1vp6tHdO8QkM4kiFDLaExxnZeljVMXJ8YksFrLRDRT9voAj6LiJYqPvrUg3nFVNFzi7C9Bc=@protonmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, Stefan Wahren <wahrenst@gmx.net>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Vincent Mailhol <mailhol@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ kernel@pengutronix.de, Fabio Estevam <festevam@gmail.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Manivannan Sadhasivam <mani@kernel.org>, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ linux-can@vger.kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20261112130506.12823-1-wahrenst@gmx.net>
+References: <20261112130506.12823-1-wahrenst@gmx.net>
+Subject: Re: (subset) [PATCH V2 0/6] ARM: mxs: add EVAchargeSE board
+ support
+Message-Id: <179449225983.539829.932909223688582860.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 19:34:19 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,27 +67,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Dhrinh2IqyBByHLyFp_SHX9igTjQgKk4G62C1vp6tHdO8QkM4kiFDLaExxnZeljVMXJ8YksFrLRDRT9voAj6LiJYqPvrUg3nFVNFzi7C9Bc=@protonmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On 12-11-26, 12:53, Aiden Isik wrote:
-> Hi Vinod,
-> 
-> > .n_phy_cfg does not exist.. Please fix this
-> 
-> As stated in the cover letter, this is introduced by dependency [1]:
-> 
-> > This patchset also depends on [1], due to using an
-> > exynos5_usbdrd_phy_drvdata member > (.n_phy_cfg) which was introduced to fix
-> > an out-of-bounds access bug.
-> 
-> > [1] - https://lore.kernel.org/all/20261020063559.3530901-1-selvarasu.g@samsung.com/
-> 
-> Which has since been merged by yourself. I assume you just
-> looked at these patches in a different order so saw mine first?
 
-Yep, picked now
+On Thu, 12 Nov 2026 14:04:59 +0100, Stefan Wahren wrote:
+> This series adds support for the chargebyte EVAcharge SE, which is a
+> ISO 15118 compliant controller for electric vehicle & charging stations.
+> 
+> Changes in V2:
+> - add Krzysztof's Acked-by to Patches 1-3
+> - align writing of EVAcharge SE (reported by sashiko)
+> - add "dts:" to subject of Patch 5 (reported by Andrew)
+> - add PHY ID of LAN8720Ai (reported by sashiko)
+> - move enet_out clock to MAC node as in imx28-btt3.dtsi
+> - adjust IRQ type of PHY (reported by Andrew)
+> - add new patch to enable EVAcharge SE peripherals in mxs_defconfig
+> 
+> [...]
 
+Applied, thanks!
+
+[2/6] dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2562
+      commit: 06f194589afdf29e85176b358ecd5a38aa467a95
+
+Best regards,
 -- 
 ~Vinod
+
+
