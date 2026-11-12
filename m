@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478548;
-	b=Uazc3eQjLn7u1J6/7Jk1ey+aEbWMDF6WvBy8VJ09hQaSxb9nvwzYoxlrw+B4HnFUIhb3
-	 HbMDqxpwDjbCEpTDdgnTzAt2RnYIJR1BPogUXEJU2Paq57NL3nNhhrPTYYlUlyjqPfNIE
-	 6BDU//NKwgl6sm8UxDf5w9VHT+Dqf8pCNKLrkNEc1aP7rMB+TTreQvQosnR64M+UusJsF
-	 mj8JvnlZNHU/t9cPgtrWiRcUw0iHXhKf92MBHM7J+AlDj29dat9xw+8OKY0hO6oU+eplA
-	 ls/Xss44mQrtpmreY8bAk0n++67VF7WH/PriSU6RWRQWxNRPWDqQVULO8wGiqXeFseg==
+	t=1794478556;
+	b=aE4R+l7r8zxnxwq6B7ie8gHK2Hf4jW1mshMXsYYxJZ70J2EFJGdnBHSL6SzNL1IP22tk
+	 WTmBHfeN3dVvjRYDAXZs5ScevZ0GQYjlOcEN6kjoLmdhqJyKMyv7AE5jSxbW4y7FZKDjy
+	 QLA7qcqPYSK8WB3lxREQ/+S0rs3b3Kl1vJx4bnPJ/VVmFiAfguMmsAzfjIGwb4rLxd3GT
+	 3KYRuVRUyxENizUoHmDHzSQ2M4OirEtB8LebWeJQ0A8zNfpyx/cTp7BidDwXx5HJMWWsE
+	 li3YPWgNWEfIvi3aZZwcBRG0529Uv/T5vE8eAtJixuJpHjzS+NRN0BW/7ZE7RB6+LEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478556;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rcf7KX2/k1jjCd0zZNcv+h8VDra3CCI6aK6Rh3JpzWs=;
-	b=wuBKPWFtg7H3uzjzS3lcTIoCRfplm60YFQd8F2PNeKfyig1enrnQJLNjVInhWAd0bw1Q
-	 tHyvXGV/YLPShJjfqaNymWLLnvTRUlc9Yg9UjaZty+VVCIwkxOxy8qg1q/SXWd7asYgJO
-	 RiWXs/YlbUOdsFAp1czzeAUjhDosA90fm+deqmmZqq3ort4ZnkZWbZ2XxPhlung/qdwxq
-	 JxB4HxOlYspNN7+eSIhfQRc7o9wzypyKwEXstSLecML/wjoygNBWrXcuECE6qe0P4Isle
-	 JMTCTAVRcVPfE5DoqEPXLcIdRs7f0lz2b6UAAYagLFf4fFjM6d/jgSdGlA7d97d2peA==
+	bh=Y+7ViZgck0V8RkyIHFto0Znqk/6YAtzFgiUxh5asDVE=;
+	b=V18hKi2kMkrRfIygV1J2cyAaK/kngVlU3q5SGy/41V8SujwsjAp2XeaOdstNLC/Pme2Z
+	 xwwmwIfEkn17GWJxVMH5fg1uIqXMs9Y0TRvZqeSoyCLy3EzwNGOMTUkZkyBz4/aYHbW5b
+	 iAYsQpQcPMuRaTmfGCsWrX2emCdpTbSo/6JfPmrJnsTX6gxuCU8gKbfKufVhB0n+/h2bI
+	 SL8zpZbzyJevj4QjuTOtVCyeTllw1d3lDn66daFLFWgT6L45s1RlO02V6LFY9PSkYB/cV
+	 QNbHsEge6EOq4EOEGUCR+plKBhiFoZB2mMqQYmIaTc8mF+mBWH9gi17UVpBkRPK1mwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="kK6g/sVP";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GQ7LbsO8;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fzmqt7oK;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=STW2KqLq;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9339606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9339606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACEF606A330
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DACEF606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kK6g/sVP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GQ7LbsO8
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9DsSk4092512
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:47 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fzmqt7oK;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=STW2KqLq
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC7iq2L125791
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=rcf7KX2/k1jjCd0zZNcv+h
-	8VDra3CCI6aK6Rh3JpzWs=; b=kK6g/sVPxEq/537kJrMxhljfwMxmf7yPaRAnd7
-	aOftMKlG2vo62K702jKPIZEhXhbjvIYtRBeP98/QE5E8kl3yA+FGcvc/NDcbB6Hr
-	UlRKxmfUN7jtgUdhJZRCVTp6xPcHwizF/E2s3WHDfXwHDqV4t8RtQjLvTpacdz/o
-	W2fp8qPqzOWsSXlrvYhCJyobR8MxjUAOeXXjV8/VY5YQArVaUGewu7RoCjRKtH5/
-	YNOgevYEDKVNKLYum2ulTH5f13RpBwIuIFCxTx3u9ajVw324KlU0GEcD5YtGT6pu
-	1L3ujOdlwG66RZj4YJHqnVEBJUB8jmNgJCqMEloqVBwCOF0Q==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8jbjp-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y+7ViZgck0V8RkyIHFto0Znqk/6YAtzFgiUxh5asDVE=; b=Fzmqt7oKnOcfFg2u
+	ewzqXgKKfY296D6RBHlr7RPnrOCjgyuFJnbMJqhtiEJQWIJBTquuOKWIYGdBcwot
+	INFto1MfBzgi19DZZPHb0y0z9C1zYCmBUx70VgrUgS7cFxaKyDLdeH1pfFedbjSf
+	i9dg2DBH1hCX2MTlbZef7q8nvqOO70v4NGKtKGIZe76ZSwVpvfYoOciD9jL2Duts
+	3iCpK2mkIi76LYki8HF9r9jbPqHjuwI3K0/Bg3hqLCa5J3aiOP1BeDVOhkV6ptQh
+	G7pE7dwjRtZ/+RgsqHyBvuVAJM6MdQ+0ns20RyFcDT2ZyRYrQb5hlkuB6q0BsZYo
+	D4zh8g==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9a08j9f-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:47 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b852fdd55aso5245450b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 02:15:46 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:15:54 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cdaf2073b0cso2455829a12.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 02:15:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794478546; x=1795083346; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rcf7KX2/k1jjCd0zZNcv+h8VDra3CCI6aK6Rh3JpzWs=;
-        b=GQ7LbsO8K81lRhxoZyiMNa4C499FETNbcoEoDJ6lPt0bsojmTUTtd2EqJVGNdtvbFi
-         bWYoTX7h9OGeMaI7O8iF7NxOweHh0Obql5+mAFLy9BB+J44hxHiQwAp7pf/q9cdXPccv
-         3oO3/k4hnaQgiDD8zliaIfh1cerLO+H0tdt2+nGbaREoWKSLWIZzyUTOAHbdmMcjNDxl
-         PsFqVXLgb61dorZbfBUIn/+poLtlgpUz99yEVMlNkewwZAMQ4MSUCM6CJvEZYlOZD7bj
-         36Hc7nBlB1PAHeW7MkQN6XgXFpkjQXO2tLMuF9iYF1wrzob3HeIy2+s3ylepF6ccaxKm
-         A3pw==
+        d=oss.qualcomm.com; s=google; t=1794478554; x=1795083354; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y+7ViZgck0V8RkyIHFto0Znqk/6YAtzFgiUxh5asDVE=;
+        b=STW2KqLqOztywiCCS3HM/5CkZC1TphJA0S6mo/W5O1wXA20QU/BxB3lrfVfcclmodt
+         b9/z5lIThM3gLmeh0f5dFhfhy9zt0obpjdzJKttabHHblefbLLjEnuEnbiPxUKRE0JYT
+         WSHHf1RB/wZIGwxHmEdARrdQhoO4aRv7K1HJN39FECqjdhNIW7jRBg63xWHXNCjjMrzU
+         EhkvI5DLh4iinHEEBsKgGmk1D8+7tGQTv2XSYNwqZdQ9XhP4J283Tdihdf45akeCROAl
+         4UEsstIXrHGA5xPw7ekcv21eM6akJCiSc2gDKKB1iHkezdDnT7llYgyinqah35iWO9lq
+         gtYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794478546; x=1795083346;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rcf7KX2/k1jjCd0zZNcv+h8VDra3CCI6aK6Rh3JpzWs=;
-        b=jgXgODub3iQb1GfTP0JP1Vd+8+0/0oGhmmnudDLcPB/NT8WrWNCSr4d+JLhpKVaa5p
-         cIN/preq6wcVHMkeRSPBfNCYl7ZaewDPDSRHXLQrBqe0vr07s5lkH0BJ+jC7xH9a274i
-         BAI8eltDB9RZwDo8MOqiQU8KTeBi0/VEcNqm3NX/1PxozTDJiwEiddcA2NIzakBWnqzM
-         QhwIHj7PVqQgga1u5f4ctzTUp5pZE+ddA08aA1d/vBjmTBPiPrYjQwo8YZo9ypawd1FC
-         utW0xeFASqEwO/T/YzACkbKOWLNN1mbwqDgppCq6Cv1P5dz6UkEI+NsLazxss74cu2sv
-         56xg==
-X-Forwarded-Encrypted: i=1; AL+hErGWXHbTTej7XyNaRxh7grD7WiQhXCKAGegS0FKjqEfcULc8HDKmsJHwBw7pGgN/NAkUGir8BdoPQrt7@vger.kernel.org
-X-Gm-Message-State: APuU4Z8D2GhbCzwRI35L9IuKim6T0Bo+BdVJErUfbuih5Xg+NMMWhA+3
-	GKCfFhbNGhCeRK6fdEbMMXmIbot4g2WhSFCXiJDVIqfCY5wWRxBnHO6jAHwnjA4h7VAHdF5c2OT
-	lPk/9ZFn4V7ExZDS8BN3u2x8RxB/a5JDoNwTkLiks7JNptqArRmcDuQLl1R+czDR2
-X-Gm-Gg: AYBFou2UNMjP7kf9Ksy0n/JdtcB+ssq04DXkbW8e/QNfRebL7QBVhxA/6827PZyrE9w
-	Fx49a3Fc9P1SmWy8UdlSgRSrFJn7l9L6wWdjKMYpKICQOKNJNQOwunhjh/hzSzo3ADzjNJCmBd8
-	i5+2/I+wYJgtP4NFjZRb6P2/T39sHbcyzYPlW7X/D3JuKY+xROlm1dnqDheYJeU0Nq2MnjvvfjU
-	zR/7M+yKt3U1rZZ+yAg6/hoO9yQTNR2GKnkC3RlHx64fa/Gi2K6of+/1h6exUsEcwwT0vHVQttJ
-	1lmUyqqexEoscxjDpLQ78WS0Ha4s+z1R0/6g21XGv6zU3dVL+izLgp87Ioa8FsqGyzx7Y/AE8TV
-	JLs4yZ45Ld7f4GG1+wVsJqTnXQ3ihAo12+0w2tvOYIiEe+ORgCS5clsNri5w1oxBTSuQ0fJap4u
-	Qx
-X-Received: by 2002:a05:6a00:278c:b0:890:a995:1f4f with SMTP id d2e1a72fcca58-8bc1c7837dfmr4652734b3a.20.1794478546394;
-        Thu, 12 Nov 2026 02:15:46 -0800 (PST)
-X-Received: by 2002:a05:6a00:278c:b0:890:a995:1f4f with SMTP id d2e1a72fcca58-8bc1c7837dfmr4652711b3a.20.1794478545943;
-        Thu, 12 Nov 2026 02:15:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794478554; x=1795083354;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y+7ViZgck0V8RkyIHFto0Znqk/6YAtzFgiUxh5asDVE=;
+        b=1XurPlIkN/3GMSZqUQgo6N0eXXVxojw5VN7ee+q8hV/Maiyay/f8rwiSoh0zEoAdi0
+         vzcqd0ea/1KCT4uLVl5mwn90pgPrNKtD4CkQs7PMXf82orBRwZuk8GmGA7G0RDmt0MB6
+         xR8d8UY++6pMifKEPKxUeCrRrjpK3YlCyynvbrpSElUeqZJPV6Rxl51CovCap6pDe6Ja
+         g9rpe3aLdkDYcBfrfbhRI+jM+8KuPfBxzL+4VazMlXCBqLzrss0BYfXYE9Z6kHajoe9n
+         NdTo3U0Qbhqwf2Q6//yexI7c78CaV4X/QcQRelBnLIbbPVW29pMnrUIBM5xITTtIkDjd
+         WeUA==
+X-Forwarded-Encrypted: i=1; AL+hErH0fqq9WUqs3lV/HySVPlV+4WB+mcuEzJJz3p1q/AK58uGJ+hcIMCqFSsibqnuQJ3S9SE3a2REvlGwe@vger.kernel.org
+X-Gm-Message-State: APuU4Z90ySwQLWuEAozPHIYsrC+E77LiX2jtYzWwCVJg4EEoFNQ4QQtk
+	nDGGFee5eCGrlhcjaJYCL+sHLLPnt6AqXhnySRFcOIWYHqzu2Ifp97vhoaz1uqyOEtXOGy4sY6d
+	ClBFvuhF6TOvDX3zK29Z2/URKQQ67LgYjb4PxXyCjQqadArldSVGGQynC8TPr1lMm
+X-Gm-Gg: AYBFou1TUs0pUN1zjUKgEfD3Oj9BayCGVBS9759ZTBtDGVWTbXDvzX/zv08Yp22aFLC
+	A01lBsml43iUPrJ3FUVqaaqYVT/Mg5mzK38SJ2oecT86jDJuZ/3q7MoCk3gGc4XCWyV320/FMNx
+	LnZSu3c97ktZi0IIvox7PaEaAf9JQNucVxYOBXNkgAsNVfp/AH65NgKVeNNyUzyhDDPxEOKfI3M
+	fofGRqYexVjr+pr5SX1nztx46n7w4+ixV5ba9NE+d1uuAh5uHdmX+15Cb+EjO9x14QoKzmOGiQz
+	IdiwcRX1JL1Vw0bYRzcoCwE7hDr/OhW4szafYk7W4kJPT7ed0P+G8xsl8nzVBtS375kElmUH1Oz
+	nvhrZXvhATjsN6piw8+1ZGdy6PSYqEMA40Ol/QPUe9tH/jcAnyoGjAfKUU5NN6v/2tZnciaHeFo
+	CC
+X-Received: by 2002:a05:6a20:258b:b0:3e2:b400:2b04 with SMTP id adf61e73a8af0-3f2fecdd04cmr5825425637.45.1794478553655;
+        Thu, 12 Nov 2026 02:15:53 -0800 (PST)
+X-Received: by 2002:a05:6a20:258b:b0:3e2:b400:2b04 with SMTP id adf61e73a8af0-3f2fecdd04cmr5825386637.45.1794478553168;
+        Thu, 12 Nov 2026 02:15:53 -0800 (PST)
 Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3e110sm3185872b3a.36.2026.11.12.02.15.38
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3e110sm3185872b3a.36.2026.11.12.02.15.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 02:15:44 -0800 (PST)
+        Thu, 12 Nov 2026 02:15:52 -0800 (PST)
 From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Subject: [PATCH 0/4] Add Parade PS195 bridge support to enable HDMI on
- Glymur/Mahua/Kalambo CRDs
-Date: Thu, 12 Nov 2026 15:45:33 +0530
-Message-Id: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 15:45:34 +0530
+Subject: [PATCH 1/4] dt-bindings: display: bridge: Add Parade PS195
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,11 +117,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAMWR9WoC/yXMSwqAIBRA0a3EGyek9N9KNLB85gv6oBlBuPesh
- mdw7w0OLaGDNrnB4kmOtjWCpwmMRq4TMlLRIDJRcs4FW6Txkhm1EKsRq2LItRKNhBjsFjVd36z
- rfzs/zDge7wFCeADXmfYNbgAAAA==
-X-Change-ID: 20261112-mahua-hdmi-8ee75b4fd29a
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-mahua-hdmi-v1-1-b463d7b1dd7e@oss.qualcomm.com>
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+In-Reply-To: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
 To: Mahadevan P <mahadevan.p@oss.qualcomm.com>,
         Andrzej Hajda <andrzej.hajda@intel.com>,
         Neil Armstrong <neil.armstrong@linaro.org>,
@@ -143,84 +142,176 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         Nabige Aala <nabige.aala@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794478537; l=2072;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794478537; l=3963;
  i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=v5XDZt9qzklAugLYWJ0KPcKjOVcV/r7Hu8yNX/ldZrY=;
- b=HVxI65GVY+yVZsqR4s5Z83O7AuyvDoKkcrQS5X7IYKBbRuMlH3g2sJZ34tvUgmlqNKH1zAwuz
- rAcO6fnb5SgB5wdTayeYX3dqiUYW7upAQ4EY11TiOa6lk9T/hj0/nK9
+ bh=7LNEKtT4mDMRU5sAzssLKLYmcuRayyy/4HBNgkZ2SGg=;
+ b=U/AdJ+o45wb9voMrU2x2MRI1ftHCAd8QA/V23fnJsMKleV0BRWd/NRWn4JvLwt39el9WdiRnd
+ TVKaAHUSTjhD7TYJe6mGwPBnrsgR2x2fHIzka11OamsKRpe6gDMvKmH
 X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
  pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfX1pn0j2+bO/qQ
- fqTGzQFrdgnse4v9NEguqpRSCcoXvl7XdjUNy4vg7BnK5FO9SGzfM5q/QmtclDJaiDSGP4a4M9Z
- m+PBhh27H5X9W34wrwVlZ7Neb4ntOAA=
-X-Proofpoint-GUID: Qph_qz6rSlYL7Z0FlakF6yWtq3qCtNyE
-X-Proofpoint-ORIG-GUID: Qph_qz6rSlYL7Z0FlakF6yWtq3qCtNyE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfX4pcBFOc7+ZZI
- rnoQBjV5ReIRz+6GoWBuX9gNZNbO+r9bh2eOwxmQWw0hvwyRE938aFzzxVZa/zNPI+eNKgvLjXV
- 9G7HsCMX93qjGkraNkuxGGUlJRRNol7RRXjVCmNo4T4e0W3G3qJFyfyaGH+/D881oO1VsjlnOV1
- zUP0FDdj6mNe9hFATMTFBI2pUqdWvKS2X7auHTTJUu6dqNLqCXnFXadHyoUFuxMWIJO6n0AXOo7
- airsKT7YUmp3CI//bwKeBYfJyvejYK3py4UrK8fMsPxQmkYoxk++bF/BvHE9LtSBGwHU7v8zeq9
- MhvVIyXouv/fDl1jpB8CeS/OpoBYvlaIKdP18ZozwDbMGnj+WPyT9b+62mt0aIBZKBiB4eLydBJ
- K+Medp8CDW5nOZwmFLHAN839USSMZEH5etYFlU/zeeQXRKRtDIXCLUKRdMDy29vxXrS3qOlpt9J
- RUnKxWLIyj/BnOTnHjw==
-X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af591d3 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: MsX8Mm6feBFuqegz7zZfU3RNTJGFOLDm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfX8weDPuv3GIFG
+ lRwu6WCosGLeKXrpblmdMqNNpRkq0sI9pEQKsRdehW3wEO1HRsILx0cCFgLPrQwtmS87kc/xWp8
+ MSk9xCOe53Qpn30QV6HbRwZeX8Nu/Im42miggWN29QwgDeAu9KYP942nBS2KMH0aOYrmK9heg7n
+ zNgrRyZCxb4e3pkgNNKPnma0CFAK5XWxeA+jVBw2+9KMy0lcL70aciSNv3xVqnLnN4sCEAPkHuE
+ cnzPl2hYi6V3IOznjo9w5AWbv7fuGGxkKHb9UKNgZLhzzvlA4Egg4nqysCcI96nseCPEQ4TaVkT
+ pMDjBIRaKbewTJ7P1xUfghEZ5yVHmJQIcyoKmuKOsG4acgPP7WKiCh11u3vBRRKJ8B+tdncfb5x
+ trye0dUvzi61TocaE9b1xGLXH/Kb690Rt0ksQgv1fBQAMV0XZZzScIFMc2vcl8+eeJWySIj8Rsx
+ dsnfHEEWsf4B0iOkB5w==
+X-Proofpoint-ORIG-GUID: MsX8Mm6feBFuqegz7zZfU3RNTJGFOLDm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfX4SVLSUxHynQU
+ bOD/DPUAaExRDXrtuVHzDzJJpkNgfFKdWDAZo+Kklug1Gfj1YaU2Y4UZi4LB1tQ7iFrTqfFhCnl
+ 1e0b9sEOqAYFfRVLISxGcTjyzo6sePY=
+X-Authority-Analysis: v=2.4 cv=COG/zhrD c=1 sm=1 tr=0 ts=6af591da cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KmDV3LX3zDEL7CZQN7UA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=e5mUnYsNAAAA:8 a=cm27Pg_UAAAA:8
+ a=xQKGsFAfKFO7eTD4QCIA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+ a=sptkURWiP4Gy88Gu7hUp:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120040
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120040
 
-This series adds initial Linux support for the Parade PS195 DP-to-HDMI
-bridge and uses it to enable HDMI on the Qualcomm Glymur CRD family
-(Glymur CoB/SiP, Mahua, and Kalambo).
+From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
-The PS195 operates autonomously using firmware loaded from external
-SPI flash — it handles link training, EDID access, and hotplug detection
-without host register intervention at runtime, so no existing bridge
-driver fits its power-sequencing and reset model.
+Add bindings for the Parade PS195 DisplayPort to HDMI bridge, describing
+its power supplies, optional reset GPIO and display ports.
 
-It introduces:
-
-- a DT binding for PS195 (supplies, optional reset GPIO, and port graph),
-- a DRM bridge driver that implements PS195 power sequencing and PM handling, and
-- arm64 integration (defconfig + shared glymur-crd.dtsi wiring) so all three
-  variants can route DP over USB2 QMP combo PHY to HDMI through PS195.
-
-Deps:
-PHY PLL change: https://lore.kernel.org/all/20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com/
-Glymur commonize change for regulator: https://lore.kernel.org/all/20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com/
-
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
-Mahadevan P (4):
-      dt-bindings: display: bridge: Add Parade PS195
-      drm/bridge: Add a driver for the Parade PS195
-      arm64: defconfig: Enable the Parade PS195 bridge
-      arm64: dts: qcom: glymur-crd: Enable HDMI output via PS195
+ .../bindings/display/bridge/parade,ps195.yaml      | 98 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 104 insertions(+)
 
- .../bindings/display/bridge/parade,ps195.yaml      |  98 ++++++++++
- MAINTAINERS                                        |   7 +
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi           | 142 +++++++++++++++
- arch/arm64/boot/dts/qcom/glymur.dtsi               |   6 +
- arch/arm64/configs/defconfig                       |   1 +
- drivers/gpu/drm/bridge/Kconfig                     |  10 ++
- drivers/gpu/drm/bridge/Makefile                    |   1 +
- drivers/gpu/drm/bridge/parade-ps195.c              | 197 +++++++++++++++++++++
- 8 files changed, 462 insertions(+)
----
-base-commit: 944e974742c54a1d8236fe16897644c35ffd6433
-change-id: 20261112-mahua-hdmi-8ee75b4fd29a
+diff --git a/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
+new file mode 100644
+index 000000000000..089191570ef0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
+@@ -0,0 +1,98 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/parade,ps195.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Parade PS195 DisplayPort to HDMI protocol converter
++
++maintainers:
++  - Mahadevan P <mahadevan.p@oss.qualcomm.com>
++
++description:
++  The PS195 converts DisplayPort input to HDMI output. Firmware loaded from
++  an external SPI flash handles link training, EDID access and hotplug
++  detection. This binding describes operation without host control of
++  the device registers. The optional I2C control port is not required for
++  display operation. Reset may be controlled by a GPIO or released by a
++  board resistor-capacitor network.
++
++properties:
++  compatible:
++    const: parade,ps195
++
++  vdd09-supply:
++    description: 0.95 V core and analog supply.
++
++  vdd12-supply:
++    description: 1.2 V I/O supply.
++
++  vdd33-supply:
++    description: 3.3 V supply.
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to the active-low RESETB input.
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    unevaluatedProperties: false
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        unevaluatedProperties: false
++        description: DisplayPort input.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        unevaluatedProperties: false
++        description: HDMI output.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - vdd09-supply
++  - vdd12-supply
++  - vdd33-supply
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    hdmi-bridge {
++        compatible = "parade,ps195";
++
++        vdd09-supply = <&vreg_hdmi_0p95>;
++        vdd12-supply = <&vreg_hdmi_1p2>;
++        vdd33-supply = <&vreg_hdmi_3p3>;
++
++        reset-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                bridge_in: endpoint {
++                    remote-endpoint = <&dp_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                bridge_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 46c416cadacd..9e1db88ec1c9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8581,6 +8581,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/olimex,lcd-olinuxino.yaml
+ F:	drivers/gpu/drm/panel/panel-olimex-lcd-olinuxino.c
+ 
++DRM DRIVER FOR PARADE PS195 BRIDGE CHIP
++M:	Mahadevan P <mahadevan.p@oss.qualcomm.com>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
++
+ DRM DRIVER FOR PARADE PS8640 BRIDGE CHIP
+ R:	Douglas Anderson <dianders@chromium.org>
+ F:	Documentation/devicetree/bindings/display/bridge/ps8640.yaml
 
-Best regards,
---  
-Nabige Aala <nabige.aala@oss.qualcomm.com>
+-- 
+2.34.1
 
