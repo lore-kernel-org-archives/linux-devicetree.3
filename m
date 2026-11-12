@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794470408;
-	b=DB5TheU4eM7N7tKB80QmzDfjZFoLy50sD2MieihQNkeBoHuqsu1fPfQpi98fl/rsxXXf
-	 m//xDhTzQYDZxckuF8uqhbaS1Ae+Bl/sEe2ncvCnVJeHVtMyGtAXhSXFmwK3p+LLDbGMT
-	 KIeH4o4HLdylccspBTWl9TK1O8RcvL7tvifs7dMCokU4zj0hFRJUXJ4cyczK5GBv3BHtk
-	 7K/d/tnQhPn+cZqn9NU5v+/8CDTwHhATzfN5wWy2xa+Ney8m6ny4iMkb0R4pKkqwASXCW
-	 EZwnx3kQWNa/6PAPwNsgVczAsPkSAL7yxL4U8MFG/5Gp3Hf9feMxS73TMRUNWgdZ9jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-	b=jMS9jAGzwcarCjpBOb+8JvfRTPed/Ou4ZoRpm2wpOT4OM3CWG2EtFvabeZYHp1ggHyTz
-	 khYhAoR22rYyOzYfgcUJcUxE0gax3wR9nqlg7A92OYpSM0MeIYqF4r+1cjJCV/F3BkA6i
-	 eW4z7J3DmhMl/YqVEUTqXHpPzOF3qtlNj2VRwrbjM90LkPB12gW8Gm/WKN8BS5B0ycNNQ
-	 aLpiAtZaJMz/6UIpm8IsWuRAKk8d8zg4sob6yXoA6pMVy2lnH9arKD3uT0dSzf4hHasu2
-	 Hc5hFkbxG6K4+sdBpVkypEqDX4nv+gqHaQIwthx0DG4D5l/PTUL/YmHY8MDJbg7UfYg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIQVWYj8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794470480;
+	b=WMbIrO9F/s3XbG1mKa85gHkMpMrzT4CVPNzaNAc+IwES7syv8owxH5sNVr+sLFKhrSR9
+	 t5z6+eoYBMYqn7TKFdSzkm1M8zPaEjSVrD513N8f1zzku8tIs3tqyruigN2wXhamG4y/u
+	 K2et6XHrgQwZ42jzFi1XKwzMLG7D3+e+iurmtCofLpqf0WotNCTLvajtVkINw1wrjVJA/
+	 jGuxfn4VtFWo2ZA2xjxHdJhpJNB3jw45noPTPXhYq83dBgbcxT7DkSG5qR7j7tG2dAMts
+	 ax2BOgzL3RFKJMZGApVFYVldoJe3LURz7I9jyqfG368K/MsCGZR8JfRvkxlZ88lR6Hg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470480;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Qah46fhbDwH4cpNdD/q4W0jvLXp6V+k5euCRpR0v8cQ=;
+	b=P5P50ktRDTg98RJ2hH6bnhHOeDR+EdUM7grrmLuzXnwwFCxcKVwo5zA252ofDR2aJI7f
+	 lUJyaQzEye55Mf7u/mcXghE1MLL8INhsDJfYa1WwwB/UWuOIklGTJefGR8G+hPzgmqogO
+	 qaPX68CGOYbjr9LAfwqpUUnq7l5FJYIOZ9DgCo9p1MZRCk0DvpuCFDIwvfFno+SXVKWca
+	 GmNlRJ+mf1/+4aicOOO3wjwSNsrhhe+OmzaA6n8iVQr2fwKoR61DvH9k9efzlZoSHXAHm
+	 hK38AdD095j+5VeUvirJoDr4wGi1J9Wx97RRMDHsYxYfIDby2ON1mhBn8NVdPiPemJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4tAs2h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547B9606A32D
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 547B9606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B103606A327;
+	Thu, 12 Nov 2026 08:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIQVWYj8
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3adf89523d8so2024811fa.3
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 00:00:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794470406; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lfc81fAm5aA6AnR3+tPMHIYHU1KaCGJGFuJEhQVNWR1e66q/26S55nXDGRynJOuVox
-         ceOSlyNdEBDuG0OtrbagmXxxYtuM/YBeMz6RNoOGxt2awlTtb8GMKNoIhFHX6PzvCXzr
-         Gzjt9ScgioxgUsqIfecSK9FHOfFrQ1E0SgVjS4rrYcXe+C+kAEMZRmt9qHSLwMb+XCJ6
-         T7iv7LOmTy4tiJJTj2JxA/O8b0tfqtdlwLjHV3T5s/ldKP+GFy0C60SxejhrY+SlfQA0
-         3P8sJ8VSJryN58uryDeBv5uVDpJnw2t5otVJBTbMPT3nVQ7cml5ya2EnJc0lqjsNbtNJ
-         qGJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        fh=iRFVhoCa89QDOlqOcBdbVQ88zazFzKP4be/1OWIp4IM=;
-        b=qX7J0UBlX6yZnjWsVywSgdFtsC1Zc/gcFShsBemlkV9KRSwEWwJMDAmwPuHqnREcpq
-         8lUbcgZpMB3CVGONNrIzYsRuP6UUpFTufhuGCECrjmvzntmUnEaNK2V/NhOFFpshcEhd
-         DhO0xOqwaQBwYXgBmqnogV7A/rTkwXv5NrEyocf079If0BANY15HB7ddtlZMirmJhpS8
-         lFbKzfVSJhYKxpAAmIxL2KdublyGrVx9veYtDLQL4urRKCvnWsffCWqIV8HkFtZiR8h6
-         C3v41CQHfqqf/8IS46LgEJnTPbfmaTvYuNzXTPk/ovtsUb68CkdPhvOiejzTptc3pQu5
-         S4vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794470406; x=1795075206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        b=GIQVWYj8ZnSahGOCoPVd+jjkA2EUwTBSx8VikobH1zTBEohOrcSWHGBkOfHFsmVLqn
-         lL6NTPpr3p5XAMWWnezU8yX+YeaYl2Vy8ylOlqj9Y6r61tntidyK1n1KZTjlCBgkfT0N
-         BqLuOCoieu8CjECxn8HCttTDyoyctZ+FqCA958QArwTFRd9gS3+BuW0cr+HV3wDwpoLZ
-         OGb2AZcQi2nBlwbOgaV5DQGZsw0+uyMqx1AZs9DUOhZX+Vr+Bj4Tq4m+0TOgabmVRK1v
-         pLYBvpSsjNxAASwCn1utxnfQM965iro+s+trIIQv7WFI3v28PbmHbks8VQpVnliK39H/
-         nk9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794470406; x=1795075206;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        b=QZXtcGpcSUjNJRTUFC9wpu2JdkZRFAk4J2T1hbVrSEfTMKpFG+d3xeZ2HC7J+IlEhX
-         cCBfR3qdNGwIZeNkjDb1TN05JXCpO4LzG8ws0BnU0F/Q/E/dSk1c6qUGQOR7qgXNN7Z0
-         FUxYGsLM8+3AcEDab6w9u9/RtWFBl5W0OoqOunF14iK4liMFgK2cRPKAIgq9o2QFt46a
-         JLNJDg/QrWp7gl78e/GNaaxb5cxJ1T3lWFEGy11pREhDTFg7xSpeCOdm8V+99xAsyrw+
-         WJY4CALx2if3oXV/KZXe9FceEROJnLwGQlizwCbhupHsWa6kZQ5ji8xJMPbnJw/owaSf
-         +eEQ==
-X-Forwarded-Encrypted: i=1; AL+hErHdTLI68M3LMIdpRg3vcrVX1iySMO3yWetqd8UDovjwYsz+IyiIKbRCmgrtKohDnUt1jSFQh8PWgX5P@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Ita7cyTJ19jJM+O1Y58RRMX4SQLSco+H6NdDAuKyBJJorOxye
-	0mOF+PE4Bsyj2shBJfzqPbC2Sr2piJwV/DUn8sXpsrhxzmXN92axonjcNjOjQZpCPtGq7XKJeg+
-	Lt6NjWD3MAj9AJaM4XgLpkUnN3N+icCM=
-X-Gm-Gg: AYBFou1rRGpwKkzN3+B/VnDf4IB4qdNQ0LC2pchcgGAzWzkbO69CzTk1PHSPPnA8zyO
-	K+hcFBb0AJVKhVs8AYamF5chFnimgcam8/RwMoS3AP48VxdgWauRCZguBWixFKhwd9ZHlt4cFBw
-	mHNN4GgC9ym/Gfoy1IijKH/y8Vtl1BV4PdVvNxVhNgcROEiVjIPqjMFI7POoQ73nZB2ZJX/MXvO
-	p6y+VxnSA3V4imwbbgUM57RMzPE7yyi/cWmqcD567HdzaUiULGlGtE3ZmvZMOUYmeMJWSkpHVZX
-	LozAinGmMwgECx+Wxr/+zj/Y4rQZuYbpMCKCgsQdXqWH80OXZPMFbiaQ1/FJ88MuAluHPyO3/kD
-	XXig5FQgAaUXkrXckwhXjzBUV6XwBCcBU/ef6T1NF471MBdOmN5HAudEKyxiflAGx01N5MgQ=
-X-Received: by 2002:a05:6512:32ce:b0:5bf:d00a:b6c0 with SMTP id
- 2adb3069b0e04-5c15d61a7d2mr1922231e87.3.1794470406245; Thu, 12 Nov 2026
- 00:00:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4tAs2h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064A21F00A05;
+	Thu, 12 Nov 2026 08:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794470479;
+	bh=Qah46fhbDwH4cpNdD/q4W0jvLXp6V+k5euCRpR0v8cQ=;
+	h=From:Subject:Date:To:Cc;
+	b=kY4tAs2hd0U6lOA0K8IxC/LsYPMVBRXQdyyNxYL2lQ+IMtploA/s78BLdTUm4XGVc
+	 P93leJr28v0vw8jCBQJr4m96iVAlKdi285/i6ynntfAMhaIfOOlIMgerEEPwpbCzkU
+	 s0VkrfM2epQJKpgkUp/apOAqtAfCKGBcWOEJWWrD+vcQfmWmZSIQ8P/P+JdVyIu+CT
+	 hq2GNG0PRDXKoonqL0CETcItplnpX8A35E2nydcm6Rw/9bi36Qsd5a1ICv9wjHH5o2
+	 ICI0zNWQOxOn4GzrJewhiMuaCNkTgZwGWRoYDJ+uY3gw7Nk+nJVIGMKuQnzpJAOYeK
+	 Ew/CooQyOUDLw==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v4 0/2] PM: spacemit: Add power domain support
+Date: Thu, 12 Nov 2026 08:00:55 +0000
+Message-Id: <20261112-04-k3-pm-support-v4-0-de3931aa5153@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,113 +53,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com>
- <20261110-usb-port-pairing-v1-1-9307e29d2ed2@gmail.com> <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-In-Reply-To: <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Wed, 11 Nov 2026 23:59:55 -0800
-X-Gm-Features: AclHuK-RZu7t5oXW3B0hgGonN3UAbxzfPc39DI6ekhiu8UyR_6arhmtUrw5yX_k
-Message-ID: <CAEy9hNV9saBWyKxuMR5unmLjzBM2+S7u+FewEevuLV-6yo1ztw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: usb: generic-ehci: Allow describing the
- root hub ports
-To: wens@kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NQQ6CMBCF4auQrq0ZW6DgynsYF5QOUFHatNBoC
+ HeX4sIYXf7Jm29m4tFp9OSYzMRh0F6bYY10l5C6q4YWqVZrEwYshxJKCintObV36idrjRspSGx
+ SwEI0SpD1zDps9GMjz5d3+0lesR6jExed9qNxz+1nYHG38QeA4pcPjALNGyGKKuNKMXXq0Q142
+ xvXkugH/hEOfwW+CrJUNRSZAF7KL2FZlhcKPlMQBQEAAA==
+X-Change-ID: 20260909-04-k3-pm-support-0bef40e87fd7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Icenowy Zheng <uwu@icenowy.me>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2695; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=zFye6M5NKotuxjgyr7IlnWx2Qi3038u/MfWOQTdTsqc=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq9XJCxCuotHkY4p603gXwIV4JIq12y3AQjVnMJ
+ wgkSYGeqYCJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavVyQhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+331g//fzYjoLn5jn9BCg0jlpTOwJVQxJNuLwP5X+R1xTRhqECd0O0isRPzS
+ zk0pLateXp54ZEEy28ZTQqlWe0Epu14zqrcjoxG5oNudXYZ6QpYmazkMiqCwI37Vn2haHTgTeu9
+ suv2GuyAs35I9Fi76MV6xGcbi2Bmlh3BdnnevOlQd3BdU64cbSErUxKKYKuuxwRS90msnHNUzC5
+ SGaTKA2+mhSsURroHhDzQcMFHs0kK9LjxWnSs1N8AtKwjyuMizRDNZLrm6S3UWVZq2N1HAjppoG
+ glVnZbhzXOO6xoAVkA2+pJurCRFoRjBBo/4QLcXMeDW/7DFyQUltT588GYyQynLfjdHjHzJAaAF
+ idYwSTs/XaZXtR2AdWfSFWdd9mp9nqEC1VbPGDKJ3H75lqfFe2VoGnSkjHVXSZ1rFx5zxAr/xZM
+ 2aD/rbaGDT6kqfoheaHvrOrhI+x4qXZnzt+UV2omg4yHaQ6laG3BqiRZublWM9DWbdLOLdPUj5P
+ 8thC9oo+JFpNywErtgf3iRmCUpSOGOl7GF5USSH39KYuafsaeaOipY/xPVszWjAFOiTy3ggK7TL
+ A6ckdcMt7GHG0wTAQixwZFi/oZEdFhT0JGLifBTPansSkCh5TkmZDPVkZGPxrIL2MJWUhbDUcgT
+ Nl72x8/ql/zaOVku5IJ51Owz0QPYi8=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Hi Chen-Yu,
+In this series, we try to add a Power Domain driver support for SpacemiT
+K1/K3 SoCs, the driver implement the power-switch functionaly which support
+power on/off, and it's based on Linux Generic PM Domain framework and
+similiar to vendor K1's implementation, but unlike the K3's vendor
+version which is more complicated.
 
-On Wed, Nov 11, 2026 at 02:35 UTC, Chen-Yu Tsai wrote:
-> Would this patch covering all HCDs be better?
->
-> https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
->
-> Also see Rob's comment about covering the port numbers.
+  The DT documentation for Power Domain already exist in below file,
+and APMU already has #power-domain-cells property.
+Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
 
-Yes, yours is better: it covers every host controller, and
-generic-ehci.yaml gets it through usb-hcd.yaml. Rob's point about the
-port numbers applies to my patch too.
+  The previous DTS patch is obsolete, so I dropped it. For devices required
+PM feature, it need to add a "power-domains" property, and should send in
+a separate patch.
 
-v2 drops this patch and builds on your patch 1 instead. Only the
-Orange Pi 5/5B DT patch, which now goes to the Rockchip tree on its
-own, needs it; that DT passes dtbs_check with your patch applied, and
-also with 'reg' limited to 1 and up as Rob suggested.
+  In order to test this series, a prerequisite CCU patches are needed,
+which can be found here [1].
 
-The v2 cover has one question for you: patch 1 there looks the graph
-ports up by root hub port number, while you have said root hub graph
-ports should use the raw xHCI port number. Which one do you want?
+Link: https://lore.kernel.org/spacemit/20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org/ [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v4:
+- adjust Kconfig help message
+- drop unused include header 
+- propagate regmap_read_x() error code
+- simplify spacemit_pm_is_off_state()
+- Link to v3: https://patch.msgid.link/20261108-04-k3-pm-support-v3-0-b9dc0857039b@kernel.org
 
-Thanks,
-Arun
+Changes in v3:
+- collect tags
+- rename spacemit_pm_is_off_state()
+- implement a remove() function
+- use proper type in struct spacemit_pm_domain_param
+- refactor struct spacemit_pmu
+- Link to v2: https://patch.msgid.link/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org
 
-On Tue, Nov 10, 2026 at 6:35=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wrot=
-e:
->
-> On Tue, Nov 10, 2026 at 4:20=E2=80=AFPM Arun Iyengar via B4 Relay
-> <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
-> >
-> > From: Arun Iyengar <aiyengar1990@gmail.com>
-> >
-> > The USB 2.0 lines and the SuperSpeed lanes of a USB 3 connector don't
-> > always reach the same host controller. On the Rockchip RK3588, the
-> > SuperSpeed-only USB 3.0 host 2 (xHCI) is paired on the board with one
-> > of the separate USB 2.0 hosts (EHCI/OHCI). Only the device tree knows
-> > which EHCI root hub port shares a connector with which SuperSpeed port.
-> >
-> > The USB core already reads a hub's OF graph, with one graph port per
-> > downstream port, and uses it for the port connect type. Allow the same
-> > "ports" node on EHCI controllers, so that a root hub port can be linked
-> > to its usb-connector node.
-> >
-> > Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/usb/generic-ehci.yaml | 13 +++++++++=
-++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/=
-Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > index 908b02d9175e..9dcba539d60d 100644
-> > --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > @@ -160,6 +160,19 @@ properties:
-> >        - host
-> >        - otg
-> >
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +    description:
-> > +      The root hub's downstream facing ports, linked to the connectors=
- they
-> > +      are wired to. Needed when a connector's SuperSpeed lanes go to a
-> > +      different host controller, which then pairs with the root hub po=
-rt
-> > +      through the connector.
-> > +
-> > +    patternProperties:
-> > +      "^port@[1-9a-f][0-9a-f]*$":
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Root hub port, numbered from 1.
-> > +
->
-> Would this patch covering all HCDs be better?
->
-> https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
->
-> Also see Rob's comment about covering the port numbers.
->
-> ChenYu
->
-> >  required:
-> >    - compatible
-> >    - reg
-> >
-> > --
-> > 2.55.0
-> >
-> >
-> >
+Changes in v2:
+- convert to auxilary driver
+- no need dt-binding doc, drop it
+- drop dts patch
+- support to build as module
+- set always on for K3 audio pm 
+- no global variable for struct spacemit_pmu
+- no force to do power-off in spacemit_pd_power_on()
+- check return value of pm_genpd_init()
+- adjust license header format
+- Link to v1: https://patch.msgid.link/20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org
+
+---
+Yixun Lan (2):
+      dt-bindings: power: spacemit: Add power domain controller IDs
+      pmdomain: spacemit: Add power domain driver
+
+ drivers/pmdomain/Kconfig                        |   1 +
+ drivers/pmdomain/Makefile                       |   1 +
+ drivers/pmdomain/spacemit/Kconfig               |  21 ++
+ drivers/pmdomain/spacemit/Makefile              |   1 +
+ drivers/pmdomain/spacemit/spacemit-pm-domains.c | 424 ++++++++++++++++++++++++
+ include/dt-bindings/power/spacemit,k1-power.h   |  14 +
+ include/dt-bindings/power/spacemit,k3-power.h   |  12 +
+ 7 files changed, 474 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260909-04-k3-pm-support-0bef40e87fd7
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
+
