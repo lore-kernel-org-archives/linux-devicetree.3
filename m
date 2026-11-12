@@ -1,102 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446962;
-	b=IydhJoJvq6Bg+rGjpgAim8nX1l7uMD08kx87P9zR2fhrsiaTc4MkRbwetx0146BNBYDS
-	 HNhtxDfnHXDSW3+M/7dxQIAs6OLlOg6os/lfDWpnlDuXEAmNzk6rYvQ5cNPtK1p7F7qlE
-	 LMBP4gQaefcsZkCwFb+08TUsJCEqNYYmYAB4WyVnYAcL1EKGkduXdo6ocXTDWOjvWWULH
-	 QrzQk0I94wunJcRuqV3t6DymvSNbJcqstO8OEN7a4JU1agqutPSdrWh4xj4gKNiJ/ZyY2
-	 bXLNa2U644c7pbIvTmi7ch38eMFCsZ+ZD+rH5OHgRqP4aeL6i6h11G9qU+ou6ubr+dA==
+	t=1794447002;
+	b=Esgv/YrnNat60L6OmEtuChshdRpFAmFyNiUwSbcaRZGkbbi16WKUh9cnqDTSCsDzTCwx
+	 QUflOlapUbPrKNFnjjf2pgaygfx160P9AcTPQtm+MqMl/fxrMx0h40yTb/KhwsuF8SLRP
+	 mOEoVyQa4O6DhSMTchSJxbokbTMUv3cAPPbMlywzBmD/4I0MadRllfkVw5IaYHLzf8uWZ
+	 Wzanhe61qRiakiP+ba1mLvokZREgEc+vd0KrBbrraF8CNd7Y3WJlG9O3jIhMn14W2OrXm
+	 MrbNQTDQxvs2BRZFZFAP5vIsqobbhfmieRnVDHSHiWsmtlo1PIUathlgStVJo6R8ZDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446962;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=naeHT3lsD43WVFFXOIg9/UkqxmnGM41dLQc0bv16TWs=;
-	b=gRv5iFoGWI3xHznqkrdlmSdG6eX8JZ5hkDuOILogqEZZYGacn3kYs0qGX+//eONGCO/T
-	 Ifjnpw/bd3hKbtm2xsUE7JNdxd+ohe/lVYvCVSAM7HiaKmHaooMFQYyeQPVO4NbGkjLYP
-	 iqckuUehxg6BpSy8FeICOAIvW71z4TSBl0PRy1iT2dsGXARxmIULquYnkVN+8R0lLBbuv
-	 ruiRYmShMHRN0UcrRn9847Q29dxHqJNju5B2iKC8hCTJdrZZ7gpJ8xLyBTAelOQ3UKh9z
-	 TJ+frvLotA8LCn3riC+hNPkA4JG43iw8h86h5oHO614Tg9OykX6KOskOvQgsJnJ9nfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447002;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Mq/jGeJ1kGXXos6D0p95YO4hddT5N8ASO2P3gIqnfss=;
+	b=hMqxqKYShc5IdNwWVABsRyKScqzRFaMqSqoty994ydxQr3Lnukf+cnBfTY5KFuWICo0x
+	 +rwsmAaiDIXQyIBt/zhEo8fGmFVjnN2fpd0lDpDmwiSu6aMgZE1ZIfNxt2zOuFLvlx8w7
+	 OE/WQjd7uJgu0OMItypYgqQO9T9jJKazav9nZtWtgfmscbdqygb5NqpaEHpxQ+N081184
+	 wqZ3nBoSct85ZCcRaPFSHtY4Bmn5AWgOJCkscfqor25LF4rh7JUXBgwofJ0SUTlWd+Gbu
+	 igqFu759Uu2l6C51jCvRgk8y2EIe494Y6l/iN7NGHxmS1DJWSLi9j+ogjZXim/0Rgfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWYShvXE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588666070228;
-	Thu, 12 Nov 2026 01:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588666070228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD7F606A880;
+	Thu, 12 Nov 2026 01:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794446961; x=1825982961;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=drwpAsrOFw4B/qCkDMxl8Rzegtt/n6DW8SOYJld6ACA=;
-  b=dR+4nUqBg1xP5hLwWGCi48LPh3R4Z1e+9HVF2DiAxa7vIuqzFzs5+cEK
-   dANeswCa4jq/MwJLiRYwr/0HCp1iV3EQPYPalLgNQ3Iv2YEeCmQnvqq6F
-   SLoiLNo3H9LawT65jaCBZGLOUMPHJWgUMYN/17xSY7H3O2uldga4R2MRu
-   1MrHAn+n6djSYIwAEYYc6Y1jLHw6i/1oiBpDToboA7+lcAR3ejJPNMQME
-   XhjJQcDFxBsS5y3JOKfz532lZFemDySb0t4xxJa+7Oq8o4wJ2Msg0RrqW
-   aQcKL22n6RuXXJ8fEPgf4G+deuSx+LUJZt83aZ7gxWLJYXx7OXGGKqSyz
-   w==;
-X-CSE-ConnectionGUID: z6iaWYs6Sdyk7hKAW7KkjQ==
-X-CSE-MsgGUID: uYM3Prp+RXKTG44qjaS7BQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3306724"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3306724"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 17:29:20 -0800
-X-CSE-ConnectionGUID: wXIAkD9OSb+cGo57KrKyqA==
-X-CSE-MsgGUID: KnBwmaLHRL28S7SM9UOKBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="10415943"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 11 Nov 2026 17:29:14 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRJcl-000000010BX-15iQ;
-	Thu, 12 Nov 2026 01:29:11 +0000
-Date: Thu, 12 Nov 2026 09:28:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Alejandro Colomar <alx@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-Message-ID: <202611120922.GqXZB0lH-lkp@intel.com>
-References: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWYShvXE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976A71F00A08;
+	Thu, 12 Nov 2026 01:30:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794447002;
+	bh=Mq/jGeJ1kGXXos6D0p95YO4hddT5N8ASO2P3gIqnfss=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=iWYShvXE+v5oGFNXO1K5u0zwED1XMRYvN4zj5eYCJCoYp3vhh8gBsWTSo2VxZ1qD6
+	 3Q8YpRo0M3w6LWsF1rTtA1aSZRfDFqKpVZrBaYpHTI1FGT/tsra+A3F1Oj+5GrO59o
+	 twP82U9XQ49hjTOfoJ+EhMBHb0pvrNJNDVVaT4v7cMBU5c82flD20OZo/4Q+hNtaoP
+	 z8S63wgyN72edM6J9IIrQ6L61t9XrjBDv2yATLDp5GrZFnjCZpBUOzpW6S/GqwHQZq
+	 XWFo79Vhsk65+b+N3WNp+yoi4wZK3B/P5yPobnAjC27lw+1p/u8vTveib5lK8fTlEK
+	 lwfY8Igfe4KLw==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,80 +49,177 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/4] dt-bindings: clock: Add Siflower SF19A2890
+ clock manager
+From: Brian Masney <masneyb@kernel.org>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev>
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+ <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev>
+Date: Wed, 11 Nov 2026 20:29:53 -0500
+Message-Id: <179444699398.1126566.18079369824329437583.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4539; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=OrUYxx88NbEJGdzMRTIiV7RLdbl6H+Bpa1NcCXGtC0A=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+ik25WH39d8jdF0suq/etZz3yJGZK/XM1gc0inf/33
+ 4x9fmv7x45SFgYxLgZZMUWWJblGBRGpq2zv3dFkgZnDygQyhIGLUwAmcsqckWHWqn+OBdc8XwZI
+ m27mC9IW7Uz6HnBu/bbP16++X8fiUJHHyNCrcy2SK4pdw2RnuKvcIt5z9Qv29ns7WX1KK6/esb7
+ BmxEA
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Hi Alejandro,
+Hi Joseph,
 
-kernel test robot noticed the following build errors:
+> The clock manager of the Siflower SF19A2890 holds the SoC's PLLs and
+> the muxes and dividers that derive the bus, CPU and peripheral clocks
+> from them. The peripherals' own gates and resets are in separate
+> blocks.
+> 
+> The header is Chuanhong Guo's, from his SF19A2890 branch, without the
+> count at its end.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../bindings/clock/siflower,sf19a2890-clk.yaml     | 57 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 +++
+>  include/dt-bindings/clock/siflower,sf19a2890-clk.h | 27 ++++++++++
+>  3 files changed, 91 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> new file mode 100644
+> index 000000000000..9b72f14c2bd9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-clk.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower SF19A2890 clock manager
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +description: |
+> +  The clock manager of the Siflower SF19A2890 holds the SoC's three PLLs
+> +  (CPU, DDR and common) and the clock muxes with dividers that derive the
+> +  bus, CPU and peripheral clocks from them. The peripherals' own clock
+> +  gates and resets are in separate peripheral clock and reset managers.
+> +
+> +  The clocks are defined in include/dt-bindings/clock/siflower,sf19a2890-clk.h.
+> +
+> +properties:
+> +  compatible:
+> +    const: siflower,sf19a2890-clk
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: 12 MHz oscillator
+> +      - description: 40 MHz oscillator
+> +
+> +  clock-names:
+> +    items:
+> +      - const: osc12m
+> +      - const: osc40m
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - "#clock-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    clock-controller@19e01000 {
+> +        compatible = "siflower,sf19a2890-clk";
+> +        reg = <0x19e01000 0x800>;
+> +        clocks = <&osc12m>, <&osc40m>;
+> +        clock-names = "osc12m", "osc40m";
+> +        #clock-cells = <1>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..ce8d0596939c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25698,6 +25698,13 @@ N:	sifive
+>  K:	fu[57]40
+>  K:	[^@]sifive
+>  
+> +SIFLOWER SF19A2890 CLOCK DRIVERS
+> +M:	Joseph Telaak <joseph@telaak.dev>
+> +L:	linux-clk@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> +F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> +
+>  SILEAD TOUCHSCREEN DRIVER
+>  M:	Hans de Goede <hansg@kernel.org>
+>  L:	linux-input@vger.kernel.org
+> diff --git a/include/dt-bindings/clock/siflower,sf19a2890-clk.h b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> new file mode 100644
+> index 000000000000..a9fc9ecf4520
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
 
-[auto build test ERROR on kees/for-next/hardening]
-[also build test ERROR on driver-core/driver-core-testing driver-core/driver-core-next driver-core/driver-core-linus kees/for-next/pstore kees/for-next/kspp linus/master v7.4-rc2 next-20261110]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+The license is different compared to siflower,sf19a2890-clk.yaml. Is that
+expected?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alejandro-Colomar/string-Add-strprefix-and-deprecate-str_has_prefix/20261111-205515
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/hardening
-patch link:    https://lore.kernel.org/r/cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx%40kernel.org
-patch subject: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c628d639fc66f8e6d8ab1f0cc6b1df38f974e020)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/reproduce)
+> +#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
+> +#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
+> +
+> +#define CLK_PLL_CPU		0
+> +#define CLK_PLL_DDR		1
+> +#define CLK_PLL_CMN		2
+> +#define CLK_MUXDIV_BUS1		3
+> +#define CLK_MUXDIV_BUS2		4
+> +#define CLK_MUXDIV_BUS3		5
+> +#define CLK_MUXDIV_CPU		6
+> +#define CLK_MUXDIV_PBUS		7
+> +#define CLK_MUXDIV_MEM_PHY	8
+> +#define CLK_MUXDIV_UART		9
+> +#define CLK_MUXDIV_ETH_REF	10
+> +#define CLK_MUXDIV_ETH_BYP_REF	11
+> +#define CLK_MUXDIV_ETH_TSU	12
+> +#define CLK_MUXDIV_GMAC_BYP_REF	13
+> +#define CLK_MUXDIV_M6250_0	14
+> +#define CLK_MUXDIV_M6250_1	15
+> +#define CLK_MUXDIV_WLAN24_PLF	16
+> +#define CLK_MUXDIV_WLAN5_PLF	17
+> +#define CLK_MUXDIV_USBPHY_REF	18
+> +#define CLK_MUXDIV_TCLK		19
+> +#define CLK_MUXDIV_NPU_PE_CLK	20
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611120922.GqXZB0lH-lkp@intel.com/
+This is the only one that has a suffix of _CLK. Can that be dropped for
+consistency?
 
-All errors (new ones prefixed by >>):
+Brian
 
-   In file included from scripts/mod/devicetable-offsets.c:4:
-   In file included from include/linux/mod_devicetable.h:31:
-   In file included from include/linux/device-id/hv_vmbus.h:6:
-   In file included from include/linux/uuid.h:11:
->> include/linux/string.h:575:2: error: call to undeclared function 'WARN_ON_ONCE'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     575 |         WARN_ON_ONCE(len == 0);
-         |         ^
-   1 error generated.
-   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1
-   make[3]: Target 'scripts/mod/' not remade because of errors.
-   make[2]: *** [Makefile:1424: prepare0] Error 2
-   make[2]: Target 'prepare' not remade because of errors.
-   make[1]: *** [Makefile:248: __sub-make] Error 2
-   make[1]: Target 'prepare' not remade because of errors.
-   make: *** [Makefile:248: __sub-make] Error 2
-   make: Target 'prepare' not remade because of errors.
-
-
-vim +/WARN_ON_ONCE +575 include/linux/string.h
-
-   555	
-   556	/**
-   557	 * str_has_prefix - Test if a string has a given prefix
-   558	 * @str: The string to test
-   559	 * @prefix: The string to see if @str starts with
-   560	 *
-   561	 * This is similar to strprefix(), but returns an offset instead of
-   562	 * a pointer.
-   563	 *
-   564	 * Unlike for strprefix(), if the prefix is an empty string, the
-   565	 * behavior is undefined.  If you need to support arbitrary prefixes,
-   566	 * use strprefix().
-   567	 *
-   568	 * Returns:
-   569	 * * strlen(@prefix) if @str starts with @prefix
-   570	 * * 0 if @str does not start with @prefix
-   571	 */
-   572	static __always_inline size_t str_has_prefix(const char *str, const char *prefix)
-   573	{
-   574		size_t len = strlen(prefix);
- > 575		WARN_ON_ONCE(len == 0);
-   576		return strncmp(str, prefix, len) == 0 ? len : 0;
-   577	}
-   578	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Brian Masney <masneyb@kernel.org>
