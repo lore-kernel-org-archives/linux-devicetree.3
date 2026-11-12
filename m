@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477676;
-	b=pbZRTjM100LR9lb2Hn77ROs22lIphKhDC1DDuc+InYL2qROP5DOdA+m1L2yDZbkBJ5kQ
-	 5FW4WxQpwYEFPclvIOtemtKDz7cC9dJpN+PikYDM2hLlubl9z6PLs+flvT0Rg4PX+6ZiF
-	 /Q7CwRZDOyJQMPfJBaB+9BliFnMbMHiuQitDV16jCdN0VzN53dywn368xhBc4zT3Lxmvi
-	 NNCuMakKaziQl00Akhdrk1kaOwDAIJrGVVR5aTh40eV4bPgs4mf8pabQJfpn0ZmEQ5jYT
-	 jSBTC7l7sMiy/qHm/UDb89lY+jXswfpN2dcab+jatPKXiYG/D5iYcDWMvTVPxi+oD4w==
+	t=1794477737;
+	b=m9RtoQyVN7BUkNR+6vBkhILs5P5aJuVvRaoGHKmGp2T6hQ0QsEF6kzqGiH+Uq+Gh2pGS
+	 kAck9ez/VsdvYcyCdx69PRius9/1cbmlll/49FdBRiV8+xUtXuyp01LncqMVnlBL1GtDB
+	 nwuqnz4UcFpqIlIDIH9/jxWItPSQY8seZjxAmi7QJH45XcArSoPUO2AlLLnopNyX1L/FL
+	 uPs/Pg7DelSFvyjXt5W16iFvxsd+I1oHhv5KnxYVo88vE7lWUWUAzWV3LjczD0Im51bvu
+	 9gKTqWZcBxt9M5V4836vOGd3FUnx/wKlb9GQLUp31dVGi6Q2fUaaLqxeedGH/n29XCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477676;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PpqV60gwAn+Zkmd7kJpiUYhBX9aIAWQFymmIndWwUdM=;
-	b=WAi7a4pZvOo2Rx7ehEVYWoQAViiF+F1lrtJNuCRpIW9gRAAyjgJwizaJp0OqFB02us95
-	 ZO2l4ICynlJpMMTgESorrw37+NIFesRNnoXe9n7pK82uw3cj7HnTsBPfiVAdzW/DVvsS0
-	 lwCtYouJJRmPmcxMLr5Pofyy8ncGXaCEsb/zHDgKc+CplGEFk/ldF58NEREIy6HxvIAjp
-	 G49cgIhBH2OjIAsSniRZc18s7Yjhpzs0LwdyeqXniTKFXxcMHWjP5ORcoxtc2OEE8qQy7
-	 A4T0sZp2XjD5ZMo8QVeQXLAvGfyIW1yOup94zcrB7dyn9k0s0MAGqMam0JmIu1MMyNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477737;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fAJgQGrnDyIs42JcXtisaVGtyeecTwCSDIN2y9VjEI4=;
+	b=ypupptV05wHLfcRC9llLJQgvTKsudR/N+5G942U2PBUJJfuVYra/23/KsmuAW2uooqZ6
+	 PuIUGLEHYZPi8JZ4xw6AjEliDf7d1dd71s4d4eofpwwe3kcSqXUoq1lKTI3XGv9OrdCat
+	 Rk4BcqW2RzjI1Yq07UGXA2jLJwLVrDDfaKdnzei01Vs2uzbXu2lhkFloZsWPqx+srwcXU
+	 HZ6knALRwsEhmgcCY2MX58rGMapZUxG1ZtiJd1R/Q70F0scAALIrHYbimGKOTSmr94Iwm
+	 k7v6J1TSHAUizV9iEUmATdM/c0AFX6tizf1lqxZUn50K/9nLInVw+/hzl6sPdWWPzFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J8B/jFdP";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GVXtq76/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FA6606A321;
-	Thu, 12 Nov 2026 10:01:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EBA606A31C;
+	Thu, 12 Nov 2026 10:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8B/jFdP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9361B1F00A05;
-	Thu, 12 Nov 2026 10:01:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVXtq76/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6711F00A05;
+	Thu, 12 Nov 2026 10:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477675;
-	bh=PpqV60gwAn+Zkmd7kJpiUYhBX9aIAWQFymmIndWwUdM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J8B/jFdPqvAo8kNlFXubDSk92o/8aSxXinBZQgeI8Mku5SxRRVSfGdr3XrT2vbq78
-	 vy1orzo8/+6YJJ/a268YSFjzkbJcpdWf6KfxqvyfKecekMMclH9v0Z+HeJvXZRF5AR
-	 /1g2nFPjVbreOUM9+26LeNoyPNshKBNPV6RnpkYOzSZ9+KskkpWtVDFb7WXdKDdlyp
-	 8T8oFdOPwOdxMNpqT38wRbz9Pgszeigx9znLrowkIBZ1zjzwx/C4qNw3H3bB1Wd+ql
-	 Y6bVW7QY7Uq7EA5t75wz/zjBw+djUs46e7nXe1SEo5tI5rBG+tNAoYbECabqOrtkhs
-	 +FlZ6lPESLdVg==
-Message-ID: <sashiko-outbox-210918@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: ipq5210: Add NSS clock
- controller node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261111-qcom_ipq5210_nsscc-v2-3-7e2c1dda3ed2@oss.qualcomm.com>
-References: <20261111-qcom_ipq5210_nsscc-v2-0-7e2c1dda3ed2@oss.qualcomm.com>
- <20261111-qcom_ipq5210_nsscc-v2-3-7e2c1dda3ed2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 10:01:15 +0000
+	s=k20260515; t=1794477737;
+	bh=fAJgQGrnDyIs42JcXtisaVGtyeecTwCSDIN2y9VjEI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GVXtq76/u9xl4SMRCANNQKCkWsHmarDqlIaoymv2vBGdGzzB4GQFDK9tqX465uxf4
+	 sdu5VOuR72EOlIl9np9cEcyywPIERWmFXpcXSQTEQkngbVb/SfpBlFv/BhgmxvuJL3
+	 BZ5OG8o43CSTkVoWtWt/S5kcKR7I8V/0tPcCRrWiKHX1Blv9qgz2sNhprNOXF502Dg
+	 AyJlKYu9WRXqQpO+nqQ5q2ZiiWsDkQgjlPEezPNJ3qjujHJdh19w1U/MFmR0yP9Jyx
+	 VKiO7ApjaUnfo0+iNJ1RDB+/hdyTera/zEABABKR0OFDOMdQk2MV2TtbAaxpeBlk2y
+	 lWON0jlSLba0A==
+Date: Thu, 12 Nov 2026 11:02:13 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
+	gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
+Message-ID: <20261112-benevolent-discreet-warthog-1dbf04@quoll>
+References: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
+ <20261110163909.78085-2-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,68 +59,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261110163909.78085-2-atanas.filipov@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: ipq5210: xo_board uses xo_clk instead of
-  ref_48mhz_clk
---
-
-commit f6342940567706c16d7408b991562c108f13f6b3
-Author: Luo Jie <jie.luo@oss.qualcomm.com>
-
-arm64: dts: qcom: ipq5210: Add NSS clock controller node
-
-This commit adds the NSS clock controller (nsscc) device tree node to
-ipq5210.dtsi to provide clocks and resets for the networking blocks.
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index 0c1ede0f73b21..11915f8eb1567 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -331,6 +331,46 @@ frame@b128000 {
->  				status =3D "disabled";
->  			};
->  		};
+On Tue, Nov 10, 2026 at 06:39:02PM +0200, Atanas Filipov wrote:
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7280-jpeg-enc
+> +    then:
+> +      properties:
+> +        power-domains:
+> +          items:
+> +            - description: Titan top GDSC
+> +            - description: CX power domain
+> +        power-domain-names:
+> +          items:
+> +            - const: titan_top
+> +            - const: cx
 > +
-> +		nsscc: clock-controller@39b00000 {
-> +			compatible =3D "qcom,ipq5210-nsscc";
-> +			reg =3D <0x0 0x39b00000 0x0 0x100000>;
-> +			/*
-> +			 * Note: CMN PLL output clock names below are reversed relative
-> +			 * to the hardware block they feed - IPQ5210_PPE_CLK is wired to
-> +			 * the NSS hardware block ("nss") and IPQ5210_NSS_CLK is wired
-> +			 * to the PPE hardware block ("ppe").
-> +			 */
-> +			clocks =3D <&xo_board>,
-> +				 <&cmn_pll IPQ5210_PPE_CLK>,
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm8250-jpeg-enc
+> +    then:
+> +      properties:
+> +        power-domains:
+> +          items:
+> +            - description: Titan top GDSC
+> +            - description: MX power domain
+> +            - description: MMCX power domain
 
-[Severity: Medium]
-Should xo_board be parented to <&ref_48mhz_clk> instead of <&xo_clk>?
+CX and MMCX are the same inputs, right? Then make MMCX second, unify the
+list at the top-level with minItems and here you only narrow
+min/maxItems.
 
-arch/arm64/boot/dts/qcom/ipq5210.dtsi:
-		ref_48mhz_clk: ref-48mhz-clk {
-			compatible =3D "fixed-factor-clock";
-			clocks =3D <&xo_clk>;
-			#clock-cells =3D <0>;
-		};
-    ...
-		xo_board: xo-board-clk {
-			compatible =3D "fixed-factor-clock";
-			clocks =3D <&xo_clk>;
-			#clock-cells =3D <0>;
-		};
+HPG also calls both domains only as MX and CX.
 
-arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts notes that xo_clk can be
-48 MHz, 96 MHz, or 192 MHz, which the WiFi block divides down to the
-48 MHz ref_48mhz_clk, and that xo_board is a fixed 24 MHz clock routed
-from that 48 MHz WiFi output clock divided by 2.  Because xo_board uses
-<&xo_clk> as its parent instead of <&ref_48mhz_clk> (unlike
-ipq5424.dtsi, ipq5332.dtsi, and ipq9574.dtsi), on boards with a 96 MHz
-or 192 MHz xo_clk, xo_board will resolve to 48 MHz or 96 MHz instead of
-24 MHz, supplying the wrong XO reference rate to nsscc, gcc, and sdhc.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-qcom_ipq52=
-10_nsscc-v2-0-7e2c1dda3ed2@oss.qualcomm.com?part=3D3
+> +        power-domain-names:
+> +          items:
+> +            - const: titan_top
+> +            - const: mx
+> +            - const: mmcx
+> +
+> +additionalProperties: false
+
+Best regards,
+Krzysztof
+
