@@ -1,106 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794525980;
-	b=jipMAK59ArVFS+gOzrZUKWB0el8gE9p6qDHkhcyRSrunoS9kdsrx1CW0JMwnkbH45ayr
-	 mntpTb+o/qfmBx4BnySW3jrYoqEAWgi7oBl2oTgVzBPNC/pRn5yUt5DZHOpVgXY1tKxXt
-	 /Tv/lk3bY6wlYlEkCPUUk5Ww4XaWzV+sGqhD3UcAhn4i9VHXTVVhPthGiQvovUFFnYVYB
-	 M8Zv/gsJ1blgp/P89+wJByWP3crJwqGYz+d6Ty+ZQE2vhv8Lb5L5SpxvAIwFMOf3pD9/O
-	 pswjjgi9wLVCNB4A6bfbJZdQLwenfWsaF/2wo+boYZaQuh6PySLiSygvB2ZSPIJ0vPw==
+	t=1794526458;
+	b=Tytx7d3Yza7OUj5P2k/fi28JVs9Nc0rHLheodzM7+UMlNjZSBQw4CXky9IeiVRHFlvBq
+	 NIPU0fIcOW+sFzXdXsmU2rSqX965vjkdhqCtGXCEyJvUVcIz5JUP2eW2v+M9BkKaSAz/W
+	 69vrLgBWYBTxyKlwYNId+EKsbLvXM8NZoCym8lnEPmqACmBmbGz7CVdsVhO0GBDL7jtHH
+	 ChlYevMJRk1dZA9LQ5AMavpQsOz+7pubQsanlax9Uq+pIoKAccRELX9aOUDtVWkC53e8I
+	 um+05yyiUfgZzQ3PKRX3QZuIaAyyyN+w+L8sWblMOV88zKmtFf0OEKudxAF/TeV1iRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794525980;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
-	b=t926WTUoz87XiU2uKKegbAkp5k3f8991qA6pPg84F1XTjzPG7vYYHsWzBCR6VVA9ZCS0
-	 2no9szZUorT/z5tHqAQ2osTLeIquUiJTf0MhuGTF6vGfUbe7pzVGmsdKNjhtq5Zw3UlDa
-	 PSvfxvNiM5ToMODBvyvqG2FKuytrCOKGNg1fdBuB3H8fYpn8TX9kzWuIy3w5ysSl2tVmd
-	 i9jUJjW7QsZqxenUHSuaDjaUBuThSOBth/jkARTAf5zHMjbZyzq10Vzh4kHUcx4nikMf0
-	 kjl4HcWVUPSVwTYs3J3ClvJfbgq+VNsFxxLnqQcaaj3KhyGTQ5XhJ494GSEOYBmMJTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794526458;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Sh9ZL6OASL7x6o547mKhzUESIR8P4jSUl+e/976Cyns=;
+	b=qXR7cdpLdJS1UT1uzhx71sJwTLyUqECN/pYzyAbxBAg02NzXDpweq1Gy61mPGerzS3hZ
+	 en0nZbm338zl/Gc+yFZXtpEWetEX7Cqk9NfUOAPxhNn8z8eDp/P86aryNQkMsHtCo0gLr
+	 gOWc2RX+6NOJ5mRemQ+9KZ7HGMOd7i2xOwBrinupvmUvgjfOOF2tic36vuzC2TmVbYk/H
+	 pGypxudzhzA6XMVYfMWP9Y0DmkI+U4TY6UE81FBAvKN/6lBiAmufuV/8Ar+bv3UN2xyLH
+	 bmjKe0Tw5PYQX3iUejLlWI0xBoTC7ptm3VVU8axpJxBthC3m72HSUqcJkY3Zue8Ev8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZeYvC5t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5439F606A32E
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 23:26:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5439F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AE1606A31C;
+	Thu, 12 Nov 2026 23:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so109053eec.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 15:26:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794525979; x=1795130779; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
-        b=MieY4qOQ6pZCIr5Q+lFQVjXxwPdVfoiH5Y7ie0qONvaiteOGiCfww5p+6jOvUxjJi/
-         i6QJTbx3moiDt0L3+PJqL6CYnAMPOi8AfnlB7SFJvPN6+n2dywupbWkGGew0uyqFtqb5
-         9GF2qkhHJ+rQK7uZ3IcX2rxFEGjwg2CttKgzE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794525979; x=1795130779;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
-        b=Zz0zcMmm2iMBMEhbX83X+fk/LAhbOMFmA/nsQgj58JrXeIIz0eI0yl9Ws3ihYJ9av1
-         kouhjajLnSVmC9t1hrSEpdFjMMqEgXGuZ2a3OKH4u1tp9BVgk/MLd7hN/QxAAA0EiksO
-         7tbG7a4X+bpQKzQnBk5IXmaUNhq4wEFPVrgl3QwrXIdtT5DsX6v2L6ehoJzFajulpuCG
-         hHQzqVtvrjWZWs+9O1KAXy616FYGBiuS1mHzF3rxHlAn1hEZNhdK2Dbie3V+LosPiuak
-         W7lMJCrC0p5LrUrGGAIuSjWRyN+9tiyqkbz2x7znZWWXkAzryk7ihpxIJzPQ4ULyJALp
-         +bgw==
-X-Forwarded-Encrypted: i=1; AL+hErFIHorTttgT9d8QaB9HVOkwGFyN6m6o6yvB3ikvmKZkI2SbzomjTm8Nxg6qvOkKXQM9FrxfN5b3zZ6p@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jU+LK6KXwPtL7Av6/MF3tzLuBMewIhhunJwWN1fJsu4kQJdT+
-	tsQzBAGbyXQ4mTlvj7DVGvZLbzm00NdXu1gAVcun9BzdpiSGyQ/lA+O4RHNTiY95WQ==
-X-Gm-Gg: AYBFou2tmQa6k9vAX6tG5UwpVc5xBJLDXkGD7MeIRkDzpEKV/FgYRaXrK8HC6hmPvdH
-	1htELbQ24XXSSqcS3nwn4bV3ij+0OBtcXIazxIW8lZcpQD6l5zlMdB7uP9oFZThXPtoum9xa3Ac
-	0lKPcKnEefX3eWIuo3H2jITkYgXXoONfx537KN+gyRFon5dutyR3FTzcRUkuKXUYI+5ohWCK7ag
-	X0WedM/9mTG3RxTBo5GkX6FmelHurKyiQRU8xo+/2P95o/FLGk9NhpxjEgf/iLhZ21w5DEAC3Dx
-	vv5vR/cQBf0dEQMNCT6b6bhj0oN/NbUme4iB1Tto70IvqL869bVAf0rDz/QImfpCItBn4ym+Ykc
-	C4oiDzrSm79rfF8bm4gYt7thDAJRrMIJpWYElgbFFQSBzf3cdHjBD3U0UHTWtY+knUY2aWQEsG3
-	1H5XRhoXzPkWZGji0WKekCTNsxLgndiM7yZ8sBgyZdCZehG8ZC5l22tkm0iZxzMxlHDwlJ7e0BJ
-	86hrep8ozp+e6z3fPyp+PhUE8TqeDnJ/gtNaVjodfN9aZTs7kKO1I7QY4liTvKFI6wtNEJdeHt0
-	4JTSoliPNeBWPvudlQzGWpAiGBfxz85U/idJ4fVe4AYMMIEp4vh8kndJ7wSqQgV1nw3WKUHi9tM
-	ZNVe20CQoizVfgw==
-X-Received: by 2002:a05:7301:b07:b0:369:4c3f:8a5 with SMTP id 5a478bee46e88-37966a5b9eamr527768eec.14.1794525979231;
-        Thu, 12 Nov 2026 15:26:19 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:616b:3e06:cec4:c2f9])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3795591f4f8sm1521913eec.13.2026.11.12.15.26.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 15:26:18 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:26:16 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
-	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
-Subject: Re: [PATCH 5/9] clk: google: Add CPM clock driver
-Message-ID: <avZLGHs0OPoC_VGb@google.com>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
- <179372634472.2573818.17532943286609086157.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZeYvC5t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D441F000C4;
+	Thu, 12 Nov 2026 23:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794526457;
+	bh=Sh9ZL6OASL7x6o547mKhzUESIR8P4jSUl+e/976Cyns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eZeYvC5tgpej/tohuXCQuUmLwb0rAaRU9EozOQnEs0zGx/L0817OmWOhtNy/H2Hgc
+	 0MfxQE9QBEEs5bpqbYRifBr9wPavBop5WvEdWu2LimnHfzL0JdBa9uCkSucNqQfbtg
+	 Lb1dZYUvZ/DCxIIUZXvZxY7f7WYL+MyBjIXEsXPEp+kaM5PgvBYN/ffV87gUGMBSf3
+	 GM4oF+xy7ZebBFbdzzcrClFKrZns5XTxmSuN9XJLDXGLjpxoKHxugnIw6IqgvJFqji
+	 GusLrXXxjfJSqQolEghxECt4DcSTUy0xLsukjkUXMr6usfy1YnrBz67PJkt3oh0zhB
+	 osRcK7ecH4D+g==
+Date: Fri, 13 Nov 2026 00:34:09 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/6] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avZLqUuq1OApg_MS@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <a74fabd985a874da7556ae1601053b4bcc100f13.1794425425.git.alx@kernel.org>
+ <20261112223107.3a9efb85@pumpkin>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,132 +72,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="old5g3x2i3efn55u"
 Content-Disposition: inline
-In-Reply-To: <179372634472.2573818.17532943286609086157.b4-review@b4>
+In-Reply-To: <20261112223107.3a9efb85@pumpkin>
 
-Hi Jerome,
 
-Thanks for the review, and sorry for some delay. There was a lot to dig
-into here.
+--old5g3x2i3efn55u
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/6] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avZLqUuq1OApg_MS@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <a74fabd985a874da7556ae1601053b4bcc100f13.1794425425.git.alx@kernel.org>
+ <20261112223107.3a9efb85@pumpkin>
+MIME-Version: 1.0
+In-Reply-To: <20261112223107.3a9efb85@pumpkin>
 
-On Tue, Nov 03, 2026 at 06:19:04PM +0100, Jerome Brunet wrote:
-> > Google Tensor SoCs (used on Pixel phones) manage many resources
-> > (including most clocks) using a Central Power Manager (CPM)
-> > co-processor. We communicate with CPM using mailboxes, abstracted in the
-> > cpm_request_client(), etc., API.
-> > 
-> > The clock tree is largely not represented fully by this driver, because
-> > CPM hides most of the divider, mux, and parent details, instead
-> > maintaining its own internal table of mappings for divider and mux
-> > values. The one exception is for some of the DPU clocks, where several
-> > clocks and dividers are exposed directly, and the firmware API works on
-> > divider values instead of clock rates. I attempt to represent this
-> > properly with dividers and parents, although I don't have the full
-> > display stack running to verify everything yet.
-> >
-> 
-> As you say, the clock tree is not fully represented here. Beyond that, CPM
-> owns the clocks themselves, as the driver acknowledges by setting
-> CLK_GET_RATE_NOCACHE.
-> 
-> The driver keeps a partial copy of CPM's state in the kernel:
-> 
-> - Rate tables below hard-code what the FW has (or should have) instead
->   of rounding the rate, even though there seems to be a ROUND_RATE_OP_ID.
+Hi David,
 
-Aaah, ROUND_RATE would be lovely except ... the firmware implementation
-has a giant "TBD" / "error: not supported" instead :(
+> Date: 2026-11-12 22:31:07+0000
+> From: David Laight <david.laight.linux@gmail.com>
+>
+[...]
+> > +static inline char *strprefix(const char *s, const char *prefix)
+> > +{
+> > +	size_t len =3D strlen(prefix);
+> > +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+> > +}
+>=20
+> I suspect this would be better as a real function.
 
-If there are major must-haves (or, very-nice-to-haves) in this firmware
-API, I can see if we can get them added, but that's usually easier on
-not-yet-launched products, whereas Pixel 10 is more than a year old
-already. I'll see what's possible though.
+You mean better for performance?
 
-> - kernel handles PLL parenting and divider math for the DP clocks, while the
->   firmware can also switch them to what looks like the oscillator, out of
->   the kernel's view. So the math is likely duplicated as well
+> Possibly even just a simple loop rather than based on calls to
+> both strlen and strncmp().
+> (Even if the strelen() is mostly a compile-time constant.)
+>=20
+> Something like:
+> #undef strprefix // Or put it the name in ()
+> const char *strprefix(const char *s, const char *prefix)
+> {
+> 	do {
+> 		if (!*s)
+> 			return *p ? NULL : s;
+> 	} while (*s++ =3D=3D *p++);
+> 	return p[-1] ? NULL : s - 1;
+> }
 
-I'd have to do a little more research to be sure to what extent the
-firmware actually changes any of these behind the scenes. I'd imagine
-that for the only divider-exposed clock (DP), it probably doesn't, but
-I'm not sure at the moment.
+I don't know.  In user space, I expect strncmp(3)+strlen(3) might be
+better due to being super-optimized by glibc, and making it easier for
+the compiler to understand the code.
 
-I get your point though; it's certainly not beautiful, and may be
-difficult or impossible to maintain in general.
+Here, I'm not an expert about such micro-optimizations.
 
-> This middle ground cannot be kept consistent. CCF assumes it knows the
-> topology and computes rates from it, but the firmware makes the actual
-> decisions. The DP clocks already show it: the tree can report a parent the
-> hardware does not use, and .recalc_rate()/.determine_rate() can disagree
-> with what CPM programmed.
-> 
-> I would advise to follow a model closer SCMI. What you are doing here looks
-> a lot like it.
-> (see drivers/firmware/arm_scmi/clock.c and drivers/clk/clk-scmi.c)
-> 
->  - Put the LPCM service protocol (request word layout, dst_id, timeout,
->    error translation) in the CPM firmware/soc driver, behind a small API
->    shared by clk and reset. Philipp asked for the error helper on 6/9; the
->    whole request encoding is common, not just the errors.
+I personally prefer leaving it with the calls to strncmp(3)+strlen(3),
+which is safer (the manual loop with byte operations is full of
+opportunities for off-by-one bugs), and more readable, and leave it up
+to anyone who wants to optimize it to do that later in a separate patch.
 
-I'll try to do some more sharing similar to what you're suggesting. But
-full disclosure: the similarities are still somewhat rare in general.
-Within a given service (so in this case, you're talking about
-CPM_COMMON_LPCM_SERVICE, used by clock, reset, and *part* of pmdomain),
-the protocol is largely shared.
+Also, having it inline might help optimize further than what a loop can
+do, because the strlen(3) call will be entirely optimized out in many
+cases.
 
-But this series also touches CPM_COMMON_LPB_SERVICE (also in pmdomain)
-and hints at some CPM_COMMON_PMIC_SERVICE support (RTC and PMIC); and
-there are at least 5 more defined servies, as well as a few other
-bespoke protocols. Those each have distinct request and response/status
-encodings. (Unfortunately.)
 
-So, I'll try to consolidate what I can, but it probably won't go super
-far.
+Have a lovely night!
+Alex
 
->  - Make the clock driver a thin CCF adapter: each CPM clock is an opaque
->    endpoint, and gate/rate requests go to the firmware. Get rates from the
->    firmware (round-rate op) instead of local tables. Model no topology the
+> And in the header:
+> const char *strprefix(const char *s, const char *prefix);
+> #define strprefix(s, p) ((typeof(s))strprefix(s, p))
+>=20
+> David
+>=20
+> > +
+> >  /**
+> >   * str_has_prefix - Test if a string has a given prefix
+> >   * @str: The string to test
+> >   * @prefix: The string to see if @str starts with
+> >   *
+> > - * A common way to test a prefix of a string is to do:
+> > - *  strncmp(str, prefix, sizeof(prefix) - 1)
+> > - *
+> > - * But this can lead to bugs due to typos, or if prefix is a pointer
+> > - * and not a constant. Instead use str_has_prefix().
+> > + * This is similar to strprefix(), but returns an offset instead of
+> > + * a pointer.
+> >   *
+> >   * Returns:
+> >   * * strlen(@prefix) if @str starts with @prefix
+> > diff --git a/lib/tests/string_kunit.c b/lib/tests/string_kunit.c
+> > index 0819ace5b027..73d2614b1474 100644
+> > --- a/lib/tests/string_kunit.c
+> > +++ b/lib/tests/string_kunit.c
+> > @@ -287,6 +287,14 @@ static void string_test_strspn(struct kunit *test)
+> >  	}
+> >  }
+> > =20
+> > +static void string_test_strprefix(struct kunit *test)
+> > +{
+> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", "foo"), "bar"));
+> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", ""), "foobar"));
+> > +	KUNIT_ASSERT_EQ(test, 0, strcmp(strprefix("foobar", "foobar"), ""));
+> > +	KUNIT_ASSERT_NULL(test, strprefix("foobar", "bar"));
+> > +}
+> > +
+> >  static char strcmp_buffer1[STRCMP_LARGE_BUF_LEN];
+> >  static char strcmp_buffer2[STRCMP_LARGE_BUF_LEN];
+> > =20
+> > @@ -891,6 +899,7 @@ static struct kunit_case string_test_cases[] =3D {
+> >  	KUNIT_CASE(string_test_strnchr),
+> >  	KUNIT_CASE(string_test_strrchr),
+> >  	KUNIT_CASE(string_test_strspn),
+> > +	KUNIT_CASE(string_test_strprefix),
+> >  	KUNIT_CASE(string_test_strcmp),
+> >  	KUNIT_CASE(string_test_strcmp_long_strings),
+> >  	KUNIT_CASE(string_test_strncmp),
+>=20
 
-As mentioned above, round-rate is a no-go :(
+--=20
+<https://www.alejandro-colomar.es>
 
-I also don't see any way to query firmware for supported rates. Off the
-top of my head, the best I can come up with is sweeping through rates
-on SET_RATE and guessing, until we find something that doesn't return
-INVALID_ARGS...
+--old5g3x2i3efn55u
+Content-Type: application/pgp-signature; name="signature.asc"
 
->    kernel does not own. If parents must be exposed, the firmware should
->    describe them, as SCMI does, rather than the kernel hard-coding them.
+-----BEGIN PGP SIGNATURE-----
 
-I also do not think topology description is possible with any existing
-firmware. I would think if we were revisiting how to do this more
-sanely, it would make sense to stop exposing the topology at all, but
-TBD.
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2TOUACgkQ64mZXMKQ
+wqmDQQ//Yu41xZyNKzxBSm8wsuEig7agWdonWXyNMq+1QZQ5OJ48m5pcEOuKSnEY
+Owih2vpT5IAvOSQNaznvvzDrzmVSqoleMLnqaKAgW0qUKAX9jDJM0jGC07/VTKuM
+dojm2fut1khwmig4txxRNT5hghgko3coLs2fsi/oGGoUlV42ixlxc1HYCu5N01mk
+vvXh4WfRtyKUXf52s5/tC2fB79yYmW8S8rv7JWwmJRMHw0DhCdgWtUvdDwJjNRdx
+02dQChGkKhl8OZiSdvwZ4RF7BqA1K4ruDeCSlFdcRFv/X+oWvaaqdiH5Yzp86hek
+RVOAem+ztCvkXDyxKCDuGgCwW0cOw6M8Jsi8hlzksic9FkVoNO+qLCoyoZB870n6
+APwXUwt1ah0zFi8K3JiMpI9KqGTsbqrKd0xZmtZ94ogAZWlCowalsfGjuXD/6sZU
+Fo1fSm/crDdVzBTM8Ouch+sX+q+ouwxo9WQ00mr4K6T4O42L9RR8Lk2mHT5UQGnU
+Martjy+ZhTcGfqiQ0rY1m+Q1c30pmuAonlkaKKZEO+Bi/l8cQqRCpqVGi9tzBnYh
+m2V7MN1OllP7+C+Ne4EyDGHmvui//9AYI63NxnBrtnPnPcb9iRtUc+csRz6ItwNP
+gCUutAEaPAFg5814l0JSidCzPyAmxxHUt8vULfUMt18UnwV/+uA=
+=GnGK
+-----END PGP SIGNATURE-----
 
-Anyway, thanks for your thoughts. I'll see what I can do about
-ROUND_RATE, but also am interested in your opinion on the best way
-forward with the existing firmware API.
-
-For some positive notes:
-
-The vast majority of these clocks do not actually support multiple rates
-(at least, not in the tables here), nor do they expose any topology. So
-I think I can just remove their rate table, and only rely on
-(1) GET_RATE or
-(2) SET_RATE, which will only succeed if you get the exact supported rate.
-
-On some other clocks that support multiple rates (e.g.,
-HSIOS_MPHY_REF_TCX0_CLK), I don't believe we ever need clk_set_rate().
-We only use clk_get_rate(). So, probably same story as the 1-rate
-tables.
-
-A few others (DSI0/DSI1) seem to never use any get/set_rate operations,
-at least on any Pixel drivers. So that probably can also be omitted.
-
-I think that _only_ leaves DP clocks.
-
-All in all, maybe I can strip a lot of this down quite a bit, and work
-on DP separately.
-
-Brian
+--old5g3x2i3efn55u--
