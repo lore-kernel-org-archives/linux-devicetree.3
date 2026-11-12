@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493892;
-	b=jLOsfdwFolkTDb9aQUv6a4WBxunYtN7ksAGWzrE6nhC/8qqLacItKnb/f1BVenl1ijlA
-	 TzH+sOboe/AkVBa7X6h0gD7TFce8bIovVIWYTaDi/qlI+kxLaiQq0DUxKE0BYWreDzY3J
-	 YII7jwB8ZVcmM+vhq8d1t6voagMuZyuBNXodhZG0eNxqqBOMJWfulrbOzpaRllfUsH1eu
-	 Lf2ZmgXdYwA3/nM9CL3RVasavaNyBqpbohOJRpaPRWd/ATLDVEGqu0pOMatb8Sxr/p2dv
-	 wSeuHoOIugaU+LdsB7DBOkNW6Elt9OSExf2QJAyJWeZjGbPyF7qiRB+b+HZQvtR1UQQ==
+	t=1794493899;
+	b=3+1LIbldkRagEVIsyJGgcugK2Il60hPYPXRO/nQiBFolEEsZp95+XOQ7KKUmGJpt4VEa
+	 jv2rWjc/C1ZtL+a5Mur0YTncdmfiCkWI4LS5kCqU+g0nCwQvLFK9U+Nlc3+073TJ9oMON
+	 eWTAUJSzxw7xi/qPV68EP31hR/Ry7qZz+jdNiww01+J2caOXz9KFD5Sc/RLrp+2FvNKoe
+	 qNxSJ0mKv3g6v9CpxPZ2EAEw/FptMQRb/rlAZUzRiOG8TF4sMpdws4F1guF8bSl0DaHZr
+	 u7W12Yf5JLILd5dzzc+9BjZDGap6Ni8HVBbPSsdlOMFmXGZtkj7K9meYbhhKpOx65oQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493892;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493899;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Received:From:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 Received:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -27,53 +27,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GXPx2Bcbn8wBF9aR3oZ2XoZDODyxcUbD7FaPBq/1ItY=;
-	b=UW4Y3FBnhk0MarLVpRan0/MK940E48DKOsVx4XLDY3VacWC8U1EZUNiePd5kqZIZ44Av
-	 XrB5kIr+7hqh9CPTXKTFLmIJNud3VtdHXoNpjQLV6pg1xrVWEHuPIN/zHi1vdbT/3YrYL
-	 BDLwi9IYbfx9H2koy3x0XA6KlWFcAE5m3xSJqSrOAJ6DPOId5q50ggcwtq5GZ2reHfkln
-	 c34EY3PYFcJQ/QSzJ0INAVZz8hMXDcitXXxog0IEUEfAaJyog1nkt5gi03SBNZf4JE5SP
-	 d1C/79kk6Cjv6FuiyhY2OnG2L89bsw021zRV7yJ8MkmFfz7wDOU4IJdHwaYqcVqc4CA==
+	bh=Te6MKTt28E1xYUrIER4tNd+Xdp/XKOJ6cAZ9QWIzkyk=;
+	b=jD8eKuHDQc+QO66qB34XohnKWiVG+P0RwxrodU9q7GdpJ6KYr5Wpobhh2/cwwA4C0Vqb
+	 +k3TmThTIQHPXTGaFEN5N4BsbL+fpieR6CN+UZEswaf/tW88M3MAdRPB4H5KqgCi6GgIL
+	 tYkpDy3ozhP/NlbmwFCuJd6BA/OGUNFq2dcpjXvYjXpKhA1oWFrMrXJ9Yc7EQDe1acATX
+	 YNzgAsagCngT7KSbXwPV4MTiMGsK8M59Bb/7/BBil5APN8Izkxn4QzJ34Pf9ad98VtiJT
+	 /MenULwoawqH6I0C/pP5AUDEQ2JXvMSXVLYPSXjST60Le+bOZ4SK1B8vRW1uuAM4G1A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=axis.com;
 	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=VM7UFB3P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013060.outbound.protection.outlook.com [40.107.159.60])
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=UZZJAXWn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCAA60A3835;
-	Thu, 12 Nov 2026 14:31:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECCAA60A3835
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A672A60A6F7D;
+	Thu, 12 Nov 2026 14:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A672A60A6F7D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=VM7UFB3P
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=UZZJAXWn
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DgrfQXLq0RRv4uUQFxF8m81kwlpsDm5zZGypVeanO0Vfe6H8Y96xAyRk2fVYuO7D1zxUop20BpkoFoN6BdHHpEVzBn20x8XT9tekCXxRC/QSqF1fVvZ6+Qjt9jAI+Hpks+A4KIdBp4wcoPlgU4va+vb//O/3W60Mt2QfCWgwzmjIYZllOHGEq3pcN6zJMFfGPY8qurnsuB3uP/e8IbYoKsy9gw1PJW43FR7aYUheDI6WMQfKRs4jIg0pjbprs1b9+hGVxykzmMLsFS7QPVyhB0Uo1p/MTU6DGIGh/WvyAk1cjyS4roBiMxTHkWhlhhR/HVCWdraaapL4vKhsDpjhDQ==
+ b=lJshW9VN36Y43kSjGWhphiZbkBs9ZKaKPEgvM4OH9RSYl+Y9dgKZKCuhetbE5+I9/8VZn1mHOw/pVlQaXN5HSSiZcimqSFpNa4cMq52eFrs7ArxVDMQF5w3/fIuo2jFJVXQ/5I8ZOT9WlJ5ZDMGbOj5WxtX6T+AE6JUZ0OLO6oDRLcZTvzErUjB+0DzM4b7xTV7nHg+1AsuZf3Ac8EdUoO5Kj6Q/lCMSKa/6EjI2aUim/Q7ploxVlDBSEcuFNai0TVTbeGusbfyZEm/3b6c+tR5wsZ0KnDry7+BGK32tweEgtXYQbitTaSr9qRQ1gFnalZoOoQlxvf8s29Dg5NKh5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GXPx2Bcbn8wBF9aR3oZ2XoZDODyxcUbD7FaPBq/1ItY=;
- b=ykWkFej+qugWLqlNyUHnU/sU/v8UTHTYVtTUAEYl76YKEFOr6iYqyzwGMW078S0KyhOhp0CLXQeJSEXSPTcusKugZIvpk3agj/V4wWX0tBTfmxhCypjuwD8M/u1lHr1648d9CBT+MYvLTAAWWjdtZED4EGV3HSxEng3cszJn7VdkN/75K94WCtV/oKtYZVZ+54TH/Gg+5UmXcxpXijRYbQwbDsxmzETZ8NroWridDPVJS1tjGSorKb7VjP9gZuKtEVatXFdkhIGGfqIfsvuq3AJOCXvyWK7Kvdx6iM6jKC3VZ5c0S9QUFM2sGvjh0oHr55RpLYmqNSM4HmNadBjpfw==
+ bh=Te6MKTt28E1xYUrIER4tNd+Xdp/XKOJ6cAZ9QWIzkyk=;
+ b=cYtjUQ6YDUxqBF+AdNKv3wCQ6f6X66PGICz31NS65+KqXZJtjPHLlMcZqxiz26A6NGF1bGIByJRYb9UqQQdOE19EzFGPNeNAxOhq+NrYXG/wLJRd00hRDjaQSjSDMM7ie0VqIuLM57df5y0PbKAQPMUTilM6ceklRgoIjxeF6hAnq8C3zql3rH0urjW5QUjqY5KdJBe5WLpvWAwlP26iss+f5yV+q+IRG43OzVKhdstjE1L8aP+OatuG2alqY1O2iJgoqdW0FOph63IkmjBoUh6o3bEmYHGXuZUiB5b19n+03zJUkLlgbAWrHfTPEPv5l7AcVxtexjw66ErEvesnQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GXPx2Bcbn8wBF9aR3oZ2XoZDODyxcUbD7FaPBq/1ItY=;
- b=VM7UFB3PBf8AC+Z69Y0k8BCc6WrWduWTs5mgJvtqysUxcR0YvBNHlIjTFkANeOOgmKEWjSf1VVWTqpJ4LrBO7N9dwLWFN8yZYgLkLrqEsLQJLQqXlEL3tsrA1zSB1v1gEnOtAjsVC2LNMTSbgrPY8KLiktnWgW8dGnjWVqntvBE=
-Received: from DU2PR04CA0262.eurprd04.prod.outlook.com (2603:10a6:10:28e::27)
- by DU0PR02MB9537.eurprd02.prod.outlook.com (2603:10a6:10:41d::18) with
+ bh=Te6MKTt28E1xYUrIER4tNd+Xdp/XKOJ6cAZ9QWIzkyk=;
+ b=UZZJAXWnJ4T6x5BL97N0QLhL9pucOhUhkjprsmAhzo/I5rqIa7RpEag8bQ6SM7xp7XPgLRcK+eatHugBMzl0nUc3hN2gWj5irIdXEnozSURTRJ8NYbFW8hDJgj+Bp8aIyV4XkcCetCeI6YsAXp4cLl6TE/dApLvhURSek3D4Mx0=
+Received: from DU2PR04CA0261.eurprd04.prod.outlook.com (2603:10a6:10:28e::26)
+ by AM9PR02MB6596.eurprd02.prod.outlook.com (2603:10a6:20b:2d2::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 14:31:28 +0000
+ 2026 14:31:32 +0000
 Received: from MAD0EPF000008B0.eurprd04.prod.outlook.com
- (2603:10a6:10:28e:cafe::58) by DU2PR04CA0262.outlook.office365.com
- (2603:10a6:10:28e::27) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:28e:cafe::66) by DU2PR04CA0261.outlook.office365.com
+ (2603:10a6:10:28e::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 14:31:28 +0000
+ Nov 2026 14:31:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -83,7 +83,7 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
 Received: from mail.axis.com (195.60.68.100) by
  MAD0EPF000008B0.mail.protection.outlook.com (10.167.241.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 14:31:28 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 14:31:32 +0000
 Received: from se-mail10w.axis.com (10.20.40.10) by se-mail11w.axis.com
  (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 12 Nov
@@ -92,15 +92,14 @@ Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
  (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Thu, 12 Nov 2026 15:31:08 +0100
 Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
-	by se-intmail02x.se.axis.com (Postfix) with ESMTP id E991F20AA;
-	Thu, 12 Nov 2026 15:31:07 +0100 (CET)
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id 0C11C2349;
+	Thu, 12 Nov 2026 15:31:08 +0100 (CET)
 Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
-	id DC4303061551; Thu, 12 Nov 2026 15:31:07 +0100 (CET)
+	id DE57D3061558; Thu, 12 Nov 2026 15:31:07 +0100 (CET)
 From: Kanak Shilledar <kanak.shilledar@axis.com>
-Subject: [PATCH v9 0/7] Add support for InvenSense ICM-42370-P
- accelerometer
-Date: Thu, 12 Nov 2026 15:29:26 +0100
-Message-ID: <20261112-b4-inv_icm42370p-v9-0-875c828a281e@axis.com>
+Date: Thu, 12 Nov 2026 15:29:32 +0100
+Subject: [PATCH v9 6/7] iio: imu: inv_icm42607: Implement MREGx register
+ access
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,14 +110,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAEbN9WoC/23R3WrDMAwF4Fcpvl6GJNuy3au9xxgj/lt90aYkI
- 3SUvPvcDtaQ+vIIviOQrmJKY0mT2O+uYkxzmcpwqsG97EQ49Kev1JVYsyAgBibXedWV0/xZwlG
- RNHDuQohsEJh9yKKy85hyudwr3z9qPpTpexh/7htmvE3/yizwc9mMHXRswEqTtVWU3/pLmV7Dc
- BS3rplWHmXDU/WIfYo5ZsNRbrx8eAfY8LJ6Y0KQyIoQ9carlUfT8Kr6HJ00MiPJ4DZe/3sEoIb
- X1QfWZNEbpZ88r33jGTNXn7S0VmW0Om/vZ1aeWvc31RNRIsd9wAQbbx8eQTe8rd4rlbxjIPC88
- suy/AKE0rWtbwIAAA==
-X-Change-ID: 20260629-b4-inv_icm42370p-ccd671066bcf
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261112-b4-inv_icm42370p-v9-6-875c828a281e@axis.com>
+References: <20261112-b4-inv_icm42370p-v9-0-875c828a281e@axis.com>
+In-Reply-To: <20261112-b4-inv_icm42370p-v9-0-875c828a281e@axis.com>
 To: Henrik Grimler <henrik.grimler@axis.com>, Jonathan Cameron
 	<jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
 	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
@@ -133,297 +128,744 @@ CC: Kanak Shilledar <kanak.shilledar@axis.com>, <kernel@axis.com>,
 	<jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
 	<krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11337;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=26379;
  i=kanak.shilledar@axis.com; h=from:subject:message-id;
- bh=W5dMvLdBhcEqsOZJThV5AecpOEbcP9dXnyj8k47eiO8=;
- b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsj6enbpG0nJW+5n582oufH2X6XoUzbOyR2crm41VxsWN
- bmvbLq0tKOUhUGMi0FWTJHlnNH26P3J/3TnSDtdgpnDygQyhIGLUwAmEsvA8Ff6xhynpeGX9cst
- jKI7/VtqdF/kdduLnWFs49LuVKjcN5eR4bGAJustMz7nXd0bDy5P3230ZmHSPZN3ba55LZcTm6u
- rGQA=
+ bh=/8+AgvuTRzjEWqosmDzx9kJq0EwfIOif56s1dyaKY0Q=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsj6enb15Nfbrz6OtnK/ypA1K7o94KiaWtSfrgWR07+fW
+ HU5NzS/tKOUhUGMi0FWTJHlnNH26P3J/3TnSDtdgpnDygQyhIGLUwAmsiKE4X9S9EZm2dtXJQS+
+ Gx3XDNmofYi5gmnP1j262ce2FjSZS69m+CsU93xCwszJG7OXSFaICvtK+TsdM10hLf4vgrNGJOc
+ LEysA
 X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
  fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008B0:EE_|DU0PR02MB9537:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e1fde69-e1fb-40f1-6e03-08df40c9a341
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008B0:EE_|AM9PR02MB6596:EE_
+X-MS-Office365-Filtering-Correlation-Id: 519f1d95-9dad-4e54-9beb-08df40c9a5b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|32650700020|23010399003|1800799024|82310400026|921020|10067099003|11063799006|56012099006|261022115727099003|261022105027099003|261022075727099003|261022113327099003|261021121427099003|261021123027099003|261021135927099003|261021130227099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261026130827099003|261028144727099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|32650700020|36860700016|3613699012|921020|10067099003|5023799004|11063799006|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|18002099003|22082099003|10063799003|6133799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	71WHFibf/uelxncoGODU/H3HJ4+5G7Hk3pa5EY216anrStqr+BIMroTH5vXhFFOcD2fGaKHgibmNgYavEE3wgeFm6BZ+r51O9z5FP7dXNX/uHnuV63zG5yMChs6TwJo8alXMzLqw8jhkwoTXyYyNFJhZvKHuY3Q70O51237ua5vKuQKoftNkzAu3vfj/ZLMKtXA+myaDiIXQGNnrMP5SI6B0duUB70N6Zr5ECKM7TdGPI3RpUKLKN6WKm/BTV4+XEltS9V5ji3po74WQ0rQWrPQzSUlU4m5Sw69nXFb48q9lFl8MUzW81slolXFKcapIM4xlr4XrMUSijDN0T4sGvAdy+RlK7F+GrBzwDd4eZAhloeyYoKwKN3EEPG3A2mfzvTDstz6W5Bl0kBQHlnwZvCQGbdYEYMj2esmz62Av7wEqFyQIp6zdffOvb3gTzfJ3YAdWiJ5RZ5+dLZFbd0wcsPumiXD6GmxeLyxWo+Xcfw6L20Ap2wqU/mWt30UQvRrEKv06rZ8AWxYla3CDWjJbJfgxNQzdPjqKdj8yXg4MfiS2C772gGxam6eXVkJM/FXnUow6nxDamJKyFX1XEHYH0xzm6UCov2qV+Mbhgl2XUt6Cy7qHke8i8hCov+Sucrq4F6fwM+7Mzz6ZiWVZasz6HdbjC1PAVvw2xtzsgtGE4b6ExqSagU2k8OsSyKDtpjn3
+	EvPM9UIzdu7vMH1WJmlLdIofUmkyY2Y0TxGYiAr1vnov0GBpY29l/P3AA6i0HeqU4lU5wVMRBkLGV170f8i5Vn7CRcnzCm4pjiGjQFtnYsl0bwKIMRuLmdwL6a53wqp/uLJ8k7ex3yaZ0nc5lCv7gyEafrVX3CdSmyGwAretAFl5mMNrBTWeeWwE0WD3vxoFA25XrV2cIfxnYQxEHdY3KflfbJZg/WKe9dWbUfiPF4eVawCga8sPY2uMIwKmO+q2FEc+1wNTpD927ARtZK/q89iZO38ujtW6Wlyd9+wGcJxE7Zbha982Q+qE1t78mlQlJwT5gzz5r7QFA7QSlh0FtVLxrUKZl7EGbplh1LaxG/H7b1DbvN2I8TZv5hUUPH8fg7KSYqsBH/ytIxc7j3PlplSD3wk0LuGpqNZqnENZslfm2hKypt/9PnL+4uDt4JFWZHgJ5k/TXBH9oVwkKQlnkfmhWWIH3EWsTMeGmk4E1h+uR4XTlnd2T8cGnM5854YGo2msb6X1lKqStVbXT2YvQVJk+DfkI5fbBqQ7byNQpCfQLNuvRbFneVXkPAZeE9u4ZmukJ8bIPZ7DxpsdBP4vs0QWDUxj6tH18TEcjW/mnL8XzyPrsZsVnKrPV7Peiz99f25s65x6gabpQIe+pcvLtnxKsjElfQyiBB8dYawM1PptDfCT17bVYQ+1TjXkVLlj959K9fUHBGpp3OvPsM8mHLY4QUo8SXsdi5BgFDtjlC8=
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(32650700020)(23010399003)(1800799024)(82310400026)(921020)(10067099003)(11063799006)(56012099006)(261022115727099003)(261022105027099003)(261022075727099003)(261022113327099003)(261021121427099003)(261021123027099003)(261021135927099003)(261021130227099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261026130827099003)(261028144727099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(32650700020)(36860700016)(3613699012)(921020)(10067099003)(5023799004)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(10063799003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	RD1McGzUl2CE1vxS93wn6jUNzR4QJnR8Igk0heZ3VoPlr9gDAJExNZPk2Mm579zMtz3A/tT7p4phhc/aJyR0zrYtVUydbYB3btnyOcCf+DvCtGCG+ntYSfhxxXlOkX3o9eOqMkgCEieY7R4KKVAu1ylFqZyx7Dfy/jn9/UKlUTbei5b294GMySSnZKMJlWfV/g+SfS0IhIqUeLs1Soolh8hTE3M8JO+izoMC226bBQi2w0pgF2Nlmu11y7E0ZQopWnCCpkIT46X8f3/Hkh5qB74MhkHZ/dOhH5SAnMgOWORG9hmKJiZQDEnahrbgAqL6o5t3cIQ8DGGitPbGZ2R9ZUViQ26s0R9IVYgmIOK8/HgRyjobTTA70zpdXB0sQe4LZv/BVyVsNskG2tyq/oR/rno1/Yv5+LvqKddcNVyYpRjd18y9QbK9rlQ4hw1WZFAG
+	KtpPUUEU940eHSMfMAOe5THvoAcf22KeZyS5Eb/VJUoL36Fa8BlzvsNm8i+eO45Co2PgFEb76IqnWzEQHbq4BYkAQYaMPr0w5vC1W8Crbpv9cY4v0a29EKjvqtRUr0EiJheJcG3yIJ3xlNCMebzDC6hESffXbbT0PWe06d+Yw4cgYROt0cMtvG6rCBt/mymC+gYwIcNpYd6/9dN7mkW+E9D61/uLmm+zjdNvQbBK0skIsXVngYDolmzpUleRPlOvkGTHUgN8RS8Yns8Op6dpdvm+EpU5ACDncW53vgZ6Onik4v5iuQLUS/nuR9TOvwmG+sOcfmxsJjN9xuz/hoFzdHx1APQi5ytrxJ/BGfYSG4uTmTYcRpi+CyzP+yODdENqeoLo3rrKUK1wLvwB2sDTlR9IlUH7VDo5/IZGp6VFfHvAu51hF0XiY0ZW8L7efsRW
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:31:28.0601
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:31:32.1802
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e1fde69-e1fb-40f1-6e03-08df40c9a341
+X-MS-Exchange-CrossTenant-Network-Message-Id: 519f1d95-9dad-4e54-9beb-08df40c9a5b6
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	MAD0EPF000008B0.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB9537
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR02MB6596
 
-InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
-accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
-FIFO and two programmable interrupts with support for ultra-low-power
-wake-on-motion support. It has a built-in temperature sensor. This
-patch series adds basic support for the sensor with functionality of
-performing raw reads and writes via the I2C interface.
+The device supports indirect register access to different banks. A
+specific routine needs to be followed when accessing the registers in
+another bank as documented in the datasheet (section 13). This is
+required for accessing registers configured via the user and
+implementing buffer support. The implementation is inspired from the
+icm45600 driver.
 
-This device contains 4 register banks for configuring the device called
-MREG0, MREG1, MREG2 and MREG3. Unlike other devices from the same
-vendor, this contains a very different way of accessing the register
-banks apart from the default user bank 0 (MREG0). The register bank access
-procedure is mentioned in the datasheet Section 13. This is very
-similar to the existing InvenSense, ICM-42607-P driver. Thus, it
-improves the existing driver support and adds the ICM-42370-P device to
-it.
+The banks are defined based on their initial bank access code which are
+written to the BLK_SEL_* regs. However, there is a variation for MREG1
+as User Bank 0 and MREG1 both share the same 0x00, so User Bank 1 has
+0x00 and MREG1 has 0x01. When MREG1 register is accessed, then BLK_SEL_*
+is written with 0x00 instead of 0x01. All the register access goes
+through the 16 bit virtual regmap layered on top of the 8bit bus regmap.
+Bank id in the upper byte and the register address in the lower byte.
+Bank 0 accesses are forwarded to the bus regmap with the bank field
+stripped, while MREG accesses are forwarded to bank switching sequence.
 
-While adding the support for new device, I tried to perform some fixes
-to the existing driver which were pointed out in the v2 of this patch
-series.
+Due to the specific bank switching routine, it is not possible to use
+regmap-ranges. Only User Bank 0 supports bulk read/writes whereas other
+banks can only be accessed serially. Each time some data in the other
+bank needs to be accessed, it should go through the complete bank
+switching sequence.
 
-The buffer support will be added in another patch series.
-
-Note: The datasheet for InvenSense, ICM-42607-P could not be found on the 
-official https://www.invensense.tdk.com/en-us website. Thus, I am 
-using the datasheet available at https://www.lcsc.com.
+After initiating the MREGx bank access, the BLK_SEL_* should be reset to
+0 even in case of failure. Ensure the internal clock is running before
+initiating bank access. Add extra helper functions to separate good and
+bad paths.
 
 Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
 Datasheet: https://www.lcsc.com/product-detail/C5129967.html
 Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
-Changes in v9:
-* [patch 1, 2]
- - Dropped gerrit's ChangeID.
- - Fixed the commit message title to match ICM-42370-P.
-* [patch 4]
- - Updated the temperature read function to use _get_pwr_mgmt0 function
-   instead of accessing the PWR_MGMT0 register directly.
-- Link to v8: https://patch.msgid.link/20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com
-
-Changes in v8:
-* [patch 1]
- - Drop orphaned link in the commit message.
-* [patch 4,7]
- - Fix indentation and alignment of code.
-* [patch 6]
- - Drop Assisted-by tag.
- - Add extra helper functions to implement bank switching to make the
-   code more readable.
- - Update the commit message to highlight, BLK_SEL_* should be restored
-   whenever, MREGx transaction is initiated. 
-- Link to v7: https://patch.msgid.link/20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com
-
-Changes in v7:
-- Add reviewed-by tags.
-- Added a precursor patch to fix interrupts property in dt-binding.
-* [patch 4] Initialize gyro based on chip_info
-  - Use explicit comparison instead of implicit.
-  - Add a new wrapper for setting sensor modes depending on availability
-    of gyroscope.
-* [patch 5] Add support for ICM-42370-P
-  - Drop the dev_err_probe for WHO_AM_I failure, as it was unnecessary
-    and doesn't provide any extra useful information.
-* [patch 6] Implement MREGx register access
-  - Fix formatting issues
-  - Performed checks with lockdep and no issues were found.
-  - Added `use_single_write` to the virtual regmap (pointed out by
-    @sashiko).
-  - Moved the transport regmap to _core.c file such that, it can be
-    accessed in both _i2c.c and _spi.c.
-  - Handle error when clearing bits for IDLE bit.
-  - Rearrange fsleep in _mreg_read/write to sleep before entering the if
-    block in case of error.
-- Link to v6: https://patch.msgid.link/20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com
-
-Changes in v6:
-- Add reviewed-by tags.
-- Arrange ID tables based on compatible.
-- Reword some commit messages.
-* [patch 1] dt-bindings: Add ICM-42670-P
-  - Explain the new device properly in commit message and dt-binding
-    description.
-  - Remove invensense,icm42670p as required from interrupts.
-* [patch 3] Initialize gyro based on chip_info
-  - Fix conditional flow with if-else statements.
-  - Do multiple similar assignments in one.
-  - Fix inv_icm42607_set/get_pwr_mgmt0 functions with has_gyro condition.
-* [patch 5] Implement MREGx register access
-  - Elaborate more on the bank switching mechanism in commit message.
-  - Fix return on error handling in inv_icm42607_mreg_read/write functions.
-  - Fix code formatting and reduce priority of "failed to clear IDLE after
-    MCLK timeout..." to debug.
-  - Return early in inv_icm42607_mclk_put().
-  - Deduplicate regmap_config for i2c and spi regmaps.
-  - Remove MREGx registers from the list of volatile registers. There are
-    few volatile registers but they are not used currently and are not
-    being on planned on using in the near future.
-* [patch 6] Add accelerometer calibbias support
-  - Move the Note to end of the commit message after ---.
-  - Replace div_s64 with DIV_S64_ROUND_CLOSEST().
-  - Replace masking and shifting for accessing the USER_OFFSETx registers
-    with combination of FIELD_PREP/GET and GENMASK.
-  - Fix switch statement by combining similar return types.
-- Link to v5: https://patch.msgid.link/20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com
-
-Changes in v5:
-- Merge the dt-binding properties into icm42600 binding.
-- Revert the unnecessary moving of iio_chan_spec_ext_info struct
-- Move the addition of has_gyro property to a separate commit.
-- Reword the commit messages for few patches.
-* MREG bank access
-- Update the bank id defines.
-- Use graceful error handling when clearing mclk bits.
-- Use FIELD_GET macro whereever possible.
-- Change to get_unaligned_be16 wherever possible.
-- Revert removal of _is_readable and _is_writeable functions.
-* Calibbias support
-- Make _accel_calibbias array a static const int.
-- Fix casting of values throughout.
-- Link to v4: https://patch.msgid.link/20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com
-
-Changes in v4:
-- Drop the little endian ABI change patch.
-- Drop the odr formatting patch.
-- Drop the gyroscope calibbias implementation patch.
-- Reword commit subject for changes to the IIO channels macro.
-- Fix formatting across patch stack.
-* DT bindings
-- Reword the commit message of dt-bindings patch.
-- Drop the MAINTAINERS entry.
-* ICM42370-P support
-- Update the probe to select gyroscope functionality based on the
-  chipinfo struct based on the `has_gyro` member.
-- Drop setting gyro member in the `inv_icm42370_default_conf` struct to
-  NULL.
-* MREG bank access
-- Update the bank access as per @Jean's comment to make it similar to
-  icm45600 driver.
-- Use the regmap approach to handle bank access.
-- Dropped setting the default configuration for the ICM42370 to be
-  always start in the LOW_POWER mode.
-* Calibbias support
-- Add calibbias to `inv_icm42607_accel_read_avail()` function.
-- Instead of clamping out of range values reject them with -EINVAL.
-- Fix return handling of calibbias functions.
-
-- Link to v3: https://patch.msgid.link/20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com
-
-Changes in v3:
-- Updated the cover letter to match the implementation.
-- Add SPI properties to dt-bindings and fix typo (leave out I3C for now).
-- Move the implementation to inv_icm42607 driver as both are similar
-  devices.
-- Fix formatting of the drivers based on the comments received in v2.
-- Switch endianness of the driver.
-- Update mreg checking to perform bank access even if the device is in
-  OFF or LOW POWER state.
-- Implement mreg read writes and calibbias support for inv_icm42607
-  driver.
-- Drop buffer and interrupt handling implementation for next patch series.
-
-- Link to v2: https://patch.msgid.link/20260813-b4-inv_icm42370p-v2-0-11aedfdf76d3@axis.com
-
-Changes in v2:
-* Changes across all files
-- Update MAINTAINERS with company mailing list
-- Sort/Cleanup of includes
-- Use `guard(mutex)` and newer `pm_runtime` APIs
-- Fix code formatting and add empty lines
-- Be consistent in inv_icm42370_data variable name
-- Fix MODULE_DESCRIPTION
-- Drop secondary state struct and merge it's properties in
-  `inv_icm42370_data` struct
-- Update mreg_read/write function calls
-- Change the compatible and filename to `icm42370p`
-
-* Changes to dt-binding
-- Add dependencies property
-- Made vdd and vddio supply as required
-- Add description to drive-open-drain property
-- Add mount-matrix property
-- Add interrupt-names property
-
-* Changes to `inv_icm42370.h` and `inv_icm42370_buffer.h`:
-- Resturcture the file according to @Marcelo's advice
-- Move struct __aligned properties to the end
-
-* Changes to `inv_icm42370_core.c`:
-- Fix _accel_scale[] values
-- Add IIO_TIMESTAMP to channel spec
-- Update mreg_read/write to fix bank access
-- Replace usleep_range() with fsleep()
-- Use constants from linux/units.h
-- Call `_update_fifo_period()` after updating the ODR values
-- Fix mathematical error in offset calculation
-- Implement handling of mount matrix
-- Implement handling of named interrupts
-- Use devm_regulator_get_enable for the vdd/vddio regulators
-- Use better error handling
-- Move iio device registration after performing IRQ init
-
-* Changes to `inv_icm42370_i2c.c`
-- Change compatible string as per the binding
-- Use named identifiers
-- Add `id_table` to the i2c_driver struct
-
-* Changes to `inv_icm42370_buffer.c`
-- Update FIFO enable/disable logic
-- Update FIFO buffer to match the specification and handle increased
-  size dynamically.
-
-- Link to v1: https://patch.msgid.link/20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com
-
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-To: Henrik Grimler <henrik.grimler@axis.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: kernel@axis.com
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+LLM was used to implement the mreg back switching support.
 ---
-Kanak Shilledar (7):
-      dt-bindings: iio: imu: icm42600: Drop interrupt requirement
-      dt-bindings: iio: imu: icm42600: Add ICM-42370-P
-      iio: imu: inv_icm42607: Simplify IIO channel macros
-      iio: imu: inv_icm42607: Initialize gyro based on chip_info
-      iio: imu: inv_icm42607: Add support for ICM-42370-P
-      iio: imu: inv_icm42607: Implement MREGx register access
-      iio: imu: inv_icm42607: Add accelerometer calibbias support
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h      | 166 ++++++++-----
+ drivers/iio/imu/inv_icm42607/inv_icm42607_core.c | 288 +++++++++++++++++++++--
+ 2 files changed, 375 insertions(+), 79 deletions(-)
 
- .../bindings/iio/imu/invensense,icm42600.yaml      |  21 +-
- drivers/iio/imu/inv_icm42607/inv_icm42607.h        | 177 ++++++----
- drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c  | 202 ++++++++++-
- drivers/iio/imu/inv_icm42607/inv_icm42607_core.c   | 389 ++++++++++++++++++---
- drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c   |  13 +-
- drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c    |   6 +
- drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c   |  12 +-
- 7 files changed, 672 insertions(+), 148 deletions(-)
----
-base-commit: b70566610b48ba49dec636019da4d696db64b085
-change-id: 20260629-b4-inv_icm42370p-ccd671066bcf
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+index 674a9896fabb3..eecf4c46cbdb0 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+@@ -167,31 +167,59 @@ struct inv_icm42607_sensor_state {
+ 	int filter;
+ };
+ 
+-/* Virtual register addresses: @bank on MSB (4 upper bits), @address on LSB */
++/*
++ * Virtual register addresses: bank id in the upper byte, register address in
++ * the lower byte. Bank 0 is directly addressable on the bus. MREG banks are
++ * reached through the BLK_SEL/MADDR/M indirect access window, one byte per
++ * transaction (datasheet section 13, no burst support).
++ *
++ * MREG1 programs BLK_SEL = 0x00, which collides with the direct bank, so it
++ * gets the distinct virtual id 0x01. MREG2 and MREG3 virtual ids match their
++ * BLK_SEL values.
++ */
++#define INV_ICM42607_REG_BANK_MASK			GENMASK(15, 8)
++#define INV_ICM42607_REG_ADDR_MASK			GENMASK(7, 0)
++
++#define INV_ICM42607_BANK0					0x00
++#define INV_ICM42607_MREG1					0x01
++#define INV_ICM42607_MREG2					0x28
++#define INV_ICM42607_MREG3					0x50
++
++/* BLK_SEL value written to the device for each virtual bank id. */
++#define INV_ICM42607_MREG1_BLK_SEL			0x00
++#define INV_ICM42607_MREG2_BLK_SEL			0x28
++#define INV_ICM42607_MREG3_BLK_SEL			0x50
++
++/*
++ * Datasheet section 13, Accessing MREGx Registers: no bus access for 10us
++ * after programming the indirect access window.
++ */
++#define INV_ICM42607_MREG_ACCESS_DELAY_US		10
+ 
+ /* Register Map for User Bank 0 */
+-#define INV_ICM42607_REG_MCLK_RDY			0x00
++#define INV_ICM42607_REG_MCLK_RDY			0x0000
++#define INV_ICM42607_MCLK_RDY_BIT			BIT(3)
+ 
+-#define INV_ICM42607_REG_DEVICE_CONFIG			0x01
++#define INV_ICM42607_REG_DEVICE_CONFIG			0x0001
+ #define INV_ICM42607_DEVICE_CONFIG_SPI_AP_4WIRE		BIT(2)
+ #define INV_ICM42607_DEVICE_CONFIG_SPI_MODE		BIT(0)
+ 
+-#define INV_ICM42607_REG_SIGNAL_PATH_RESET		0x02
++#define INV_ICM42607_REG_SIGNAL_PATH_RESET		0x0002
+ #define INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET	BIT(4)
+ #define INV_ICM42607_SIGNAL_PATH_RESET_FIFO_FLUSH	BIT(2)
+ 
+-#define INV_ICM42607_REG_DRIVE_CONFIG1			0x03
++#define INV_ICM42607_REG_DRIVE_CONFIG1			0x0003
+ #define INV_ICM42607_DRIVE_CONFIG1_I3C_DDR_MASK		GENMASK(5, 3)
+ #define INV_ICM42607_DRIVE_CONFIG1_I3C_SDR_MASK		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_DRIVE_CONFIG2			0x04
++#define INV_ICM42607_REG_DRIVE_CONFIG2			0x0004
+ #define INV_ICM42607_DRIVE_CONFIG2_I2C_MASK		GENMASK(5, 3)
+ #define INV_ICM42607_DRIVE_CONFIG2_ALL_MASK		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_DRIVE_CONFIG3			0x05
++#define INV_ICM42607_REG_DRIVE_CONFIG3			0x0005
+ #define INV_ICM42607_DRIVE_CONFIG3_SPI_MASK		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_INT_CONFIG			0x06
++#define INV_ICM42607_REG_INT_CONFIG			0x0006
+ #define INV_ICM42607_INT_CONFIG_INT2_LATCHED		BIT(5)
+ #define INV_ICM42607_INT_CONFIG_INT2_PUSH_PULL		BIT(4)
+ #define INV_ICM42607_INT_CONFIG_INT2_ACTIVE_HIGH	BIT(3)
+@@ -202,81 +230,81 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INT_CONFIG_INT1_ACTIVE_LOW		0x00
+ 
+ /* all sensor data are 16 bits (2 registers wide) in big-endian */
+-#define INV_ICM42607_REG_TEMP_DATA1			0x09
+-#define INV_ICM42607_REG_TEMP_DATA0			0x0A
+-#define INV_ICM42607_REG_ACCEL_DATA_X1			0x0B
+-#define INV_ICM42607_REG_ACCEL_DATA_X0			0x0C
+-#define INV_ICM42607_REG_ACCEL_DATA_Y1			0x0D
+-#define INV_ICM42607_REG_ACCEL_DATA_Y0			0x0E
+-#define INV_ICM42607_REG_ACCEL_DATA_Z1			0x0F
+-#define INV_ICM42607_REG_ACCEL_DATA_Z0			0x10
+-#define INV_ICM42607_REG_GYRO_DATA_X1			0x11
+-#define INV_ICM42607_REG_GYRO_DATA_X0			0x12
+-#define INV_ICM42607_REG_GYRO_DATA_Y1			0x13
+-#define INV_ICM42607_REG_GYRO_DATA_Y0			0x14
+-#define INV_ICM42607_REG_GYRO_DATA_Z1			0x15
+-#define INV_ICM42607_REG_GYRO_DATA_Z0			0x16
++#define INV_ICM42607_REG_TEMP_DATA1			0x0009
++#define INV_ICM42607_REG_TEMP_DATA0			0x000A
++#define INV_ICM42607_REG_ACCEL_DATA_X1			0x000B
++#define INV_ICM42607_REG_ACCEL_DATA_X0			0x000C
++#define INV_ICM42607_REG_ACCEL_DATA_Y1			0x000D
++#define INV_ICM42607_REG_ACCEL_DATA_Y0			0x000E
++#define INV_ICM42607_REG_ACCEL_DATA_Z1			0x000F
++#define INV_ICM42607_REG_ACCEL_DATA_Z0			0x0010
++#define INV_ICM42607_REG_GYRO_DATA_X1			0x0011
++#define INV_ICM42607_REG_GYRO_DATA_X0			0x0012
++#define INV_ICM42607_REG_GYRO_DATA_Y1			0x0013
++#define INV_ICM42607_REG_GYRO_DATA_Y0			0x0014
++#define INV_ICM42607_REG_GYRO_DATA_Z1			0x0015
++#define INV_ICM42607_REG_GYRO_DATA_Z0			0x0016
+ #define INV_ICM42607_DATA_INVALID			-32768
+ 
+-#define INV_ICM42607_REG_TMST_FSYNCH			0x17
+-#define INV_ICM42607_REG_TMST_FSYNCL			0x18
++#define INV_ICM42607_REG_TMST_FSYNCH			0x0017
++#define INV_ICM42607_REG_TMST_FSYNCL			0x0018
+ 
+ /* APEX Data Registers */
+-#define INV_ICM42607_REG_APEX_DATA0			0x31
+-#define INV_ICM42607_REG_APEX_DATA1			0x32
+-#define INV_ICM42607_REG_APEX_DATA2			0x33
+-#define INV_ICM42607_REG_APEX_DATA3			0x34
+-#define INV_ICM42607_REG_APEX_DATA4			0x1D
+-#define INV_ICM42607_REG_APEX_DATA5			0x1E
+-
+-#define INV_ICM42607_REG_PWR_MGMT0			0x1F
++#define INV_ICM42607_REG_APEX_DATA0			0x0031
++#define INV_ICM42607_REG_APEX_DATA1			0x0032
++#define INV_ICM42607_REG_APEX_DATA2			0x0033
++#define INV_ICM42607_REG_APEX_DATA3			0x0034
++#define INV_ICM42607_REG_APEX_DATA4			0x001D
++#define INV_ICM42607_REG_APEX_DATA5			0x001E
++
++#define INV_ICM42607_REG_PWR_MGMT0			0x001F
+ #define INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL		BIT(7)
+ #define INV_ICM42607_PWR_MGMT0_IDLE			BIT(4)
+ #define INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK		GENMASK(3, 2)
+ #define INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK		GENMASK(1, 0)
+ 
+-#define INV_ICM42607_REG_GYRO_CONFIG0			0x20
++#define INV_ICM42607_REG_GYRO_CONFIG0			0x0020
+ #define INV_ICM42607_GYRO_CONFIG0_FS_SEL_MASK		GENMASK(6, 5)
+ #define INV_ICM42607_GYRO_CONFIG0_ODR_MASK		GENMASK(3, 0)
+ 
+-#define INV_ICM42607_REG_ACCEL_CONFIG0			0x21
++#define INV_ICM42607_REG_ACCEL_CONFIG0			0x0021
+ #define INV_ICM42607_ACCEL_CONFIG0_FS_SEL_MASK		GENMASK(6, 5)
+ #define INV_ICM42607_ACCEL_CONFIG0_ODR_MASK		GENMASK(3, 0)
+ 
+-#define INV_ICM42607_REG_TEMP_CONFIG0			0x22
++#define INV_ICM42607_REG_TEMP_CONFIG0			0x0022
+ #define INV_ICM42607_TEMP_CONFIG0_FILTER_MASK		GENMASK(6, 4)
+ 
+-#define INV_ICM42607_REG_GYRO_CONFIG1			0x23
++#define INV_ICM42607_REG_GYRO_CONFIG1			0x0023
+ #define INV_ICM42607_GYRO_CONFIG1_FILTER_MASK		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_ACCEL_CONFIG1			0x24
++#define INV_ICM42607_REG_ACCEL_CONFIG1			0x0024
+ #define INV_ICM42607_ACCEL_CONFIG1_AVG_MASK		GENMASK(6, 4)
+ #define INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_APEX_CONFIG0			0x25
++#define INV_ICM42607_REG_APEX_CONFIG0			0x0025
+ #define INV_ICM42607_APEX_CONFIG0_DMP_POWER_SAVE_EN	BIT(3)
+ #define INV_ICM42607_APEX_CONFIG0_DMP_INIT_EN		BIT(2)
+ #define INV_ICM42607_APEX_CONFIG0_DMP_MEM_RESET_EN	BIT(0)
+ 
+-#define INV_ICM42607_REG_APEX_CONFIG1			0x26
++#define INV_ICM42607_REG_APEX_CONFIG1			0x0026
+ #define INV_ICM42607_APEX_CONFIG1_SMD_ENABLE		BIT(6)
+ #define INV_ICM42607_APEX_CONFIG1_FF_ENABLE		BIT(5)
+ #define INV_ICM42607_APEX_CONFIG1_TILT_ENABLE		BIT(4)
+ #define INV_ICM42607_APEX_CONFIG1_PED_ENABLE		BIT(3)
+ #define INV_ICM42607_APEX_CONFIG1_DMP_ODR_MASK		GENMASK(1, 0)
+ 
+-#define INV_ICM42607_REG_WOM_CONFIG			0x27
++#define INV_ICM42607_REG_WOM_CONFIG			0x0027
+ #define INV_ICM42607_WOM_CONFIG_INT_DUR_MASK		GENMASK(4, 3)
+ #define INV_ICM42607_WOM_CONFIG_INT_MODE		BIT(2)
+ #define INV_ICM42607_WOM_CONFIG_MODE			BIT(1)
+ #define INV_ICM42607_WOM_CONFIG_EN			BIT(0)
+ 
+-#define INV_ICM42607_REG_FIFO_CONFIG1			0x28
++#define INV_ICM42607_REG_FIFO_CONFIG1			0x0028
+ #define INV_ICM42607_FIFO_CONFIG1_MODE			BIT(1)
+ #define INV_ICM42607_FIFO_CONFIG1_BYPASS		BIT(0)
+ 
+-#define INV_ICM42607_REG_FIFO_CONFIG2			0x29
+-#define INV_ICM42607_REG_FIFO_CONFIG3			0x2A
++#define INV_ICM42607_REG_FIFO_CONFIG2			0x0029
++#define INV_ICM42607_REG_FIFO_CONFIG3			0x002A
+ #define INV_ICM42607_FIFO_WATERMARK_VAL(_wm)		\
+ 		cpu_to_le16((_wm) & GENMASK(11, 0))
+ /* FIFO is 2048 bytes, let 12 samples for reading latency */
+@@ -284,7 +312,7 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE		8
+ #define INV_ICM42607_FIFO_2SENSORS_PACKET_SIZE		16
+ 
+-#define INV_ICM42607_REG_INT_SOURCE0			0x2B
++#define INV_ICM42607_REG_INT_SOURCE0			0x002B
+ #define INV_ICM42607_INT_SOURCE0_ST_INT1_EN		BIT(7)
+ #define INV_ICM42607_INT_SOURCE0_FSYNC_INT1_EN		BIT(6)
+ #define INV_ICM42607_INT_SOURCE0_PLL_RDY_INT1_EN	BIT(5)
+@@ -294,12 +322,12 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INT_SOURCE0_FIFO_FULL_INT1_EN	BIT(1)
+ #define INV_ICM42607_INT_SOURCE0_AGC_RDY_INT1_EN	BIT(0)
+ 
+-#define INV_ICM42607_REG_INT_SOURCE1			0x2C
++#define INV_ICM42607_REG_INT_SOURCE1			0x002C
+ #define INV_ICM42607_INT_SOURCE1_I3C_ERROR_INT1_EN	BIT(6)
+ #define INV_ICM42607_INT_SOURCE1_SMD_INT1_EN		BIT(3)
+ #define INV_ICM42607_INT_SOURCE1_WOM_INT1_EN		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_INT_SOURCE3			0x2D
++#define INV_ICM42607_REG_INT_SOURCE3			0x002D
+ #define INV_ICM42607_INT_SOURCE3_ST_INT2_EN		BIT(7)
+ #define INV_ICM42607_INT_SOURCE3_FSYNC_INT2_EN		BIT(6)
+ #define INV_ICM42607_INT_SOURCE3_PLL_RDY_INT2_EN	BIT(5)
+@@ -309,17 +337,17 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INT_SOURCE3_FIFO_FULL_INT2_EN	BIT(1)
+ #define INV_ICM42607_INT_SOURCE3_AGC_RDY_INT2_EN	BIT(0)
+ 
+-#define INV_ICM42607_REG_INT_SOURCE4			0x2E
++#define INV_ICM42607_REG_INT_SOURCE4			0x002E
+ #define INV_ICM42607_INT_SOURCE4_I3C_ERROR_INT2_EN	BIT(6)
+ #define INV_ICM42607_INT_SOURCE4_SMD_INT2_EN		BIT(3)
+ #define INV_ICM42607_INT_SOURCE4_WOM_Z_INT2_EN		BIT(2)
+ #define INV_ICM42607_INT_SOURCE4_WOM_Y_INT2_EN		BIT(1)
+ #define INV_ICM42607_INT_SOURCE4_WOM_X_INT2_EN		BIT(0)
+ 
+-#define INV_ICM42607_REG_FIFO_LOST_PKT0			0x2F
+-#define INV_ICM42607_REG_FIFO_LOST_PKT1			0x30
++#define INV_ICM42607_REG_FIFO_LOST_PKT0			0x002F
++#define INV_ICM42607_REG_FIFO_LOST_PKT1			0x0030
+ 
+-#define INV_ICM42607_REG_INTF_CONFIG0			0x35
++#define INV_ICM42607_REG_INTF_CONFIG0			0x0035
+ #define INV_ICM42607_INTF_CONFIG0_FIFO_COUNT_FORMAT	BIT(6)
+ #define INV_ICM42607_INTF_CONFIG0_FIFO_COUNT_ENDIAN	BIT(5)
+ #define INV_ICM42607_INTF_CONFIG0_SENSOR_DATA_ENDIAN	BIT(4)
+@@ -327,7 +355,7 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INTF_CONFIG0_UI_SIFS_CFG_SPI_DIS	2
+ #define INV_ICM42607_INTF_CONFIG0_UI_SIFS_CFG_I2C_DIS	3
+ 
+-#define INV_ICM42607_REG_INTF_CONFIG1			0x36
++#define INV_ICM42607_REG_INTF_CONFIG1			0x0036
+ #define INV_ICM42607_INTF_CONFIG1_I3C_SDR_EN		BIT(3)
+ #define INV_ICM42607_INTF_CONFIG1_I3C_DDR_EN		BIT(2)
+ #define INV_ICM42607_INTF_CONFIG1_CLKSEL_MASK		GENMASK(1, 0)
+@@ -335,10 +363,10 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INTF_CONFIG1_CLKSEL_PLL		1
+ #define INV_ICM42607_INTF_CONFIG1_CLKSEL_OFF		2
+ 
+-#define INV_ICM42607_REG_INT_STATUS_DRDY		0x39
++#define INV_ICM42607_REG_INT_STATUS_DRDY		0x0039
+ #define INV_ICM42607_INT_STATUS_DRDY_DATA_RDY		BIT(0)
+ 
+-#define INV_ICM42607_REG_INT_STATUS			0x3A
++#define INV_ICM42607_REG_INT_STATUS			0x003A
+ #define INV_ICM42607_INT_STATUS_ST			BIT(7)
+ #define INV_ICM42607_INT_STATUS_FSYNC			BIT(6)
+ #define INV_ICM42607_INT_STATUS_PLL_RDY			BIT(5)
+@@ -347,11 +375,11 @@ struct inv_icm42607_sensor_state {
+ #define INV_ICM42607_INT_STATUS_FIFO_FULL		BIT(1)
+ #define INV_ICM42607_INT_STATUS_AGC_RDY			BIT(0)
+ 
+-#define INV_ICM42607_REG_INT_STATUS2			0x3B
++#define INV_ICM42607_REG_INT_STATUS2			0x003B
+ #define INV_ICM42607_INT_STATUS2_SMD			BIT(3)
+ #define INV_ICM42607_INT_STATUS2_WOM_INT		GENMASK(2, 0)
+ 
+-#define INV_ICM42607_REG_INT_STATUS3			0x3C
++#define INV_ICM42607_REG_INT_STATUS3			0x003C
+ #define INV_ICM42607_INT_STATUS3_STEP_DET		BIT(5)
+ #define INV_ICM42607_INT_STATUS3_STEP_CNT_OVF		BIT(4)
+ #define INV_ICM42607_INT_STATUS3_TILT_DET		BIT(3)
+@@ -362,15 +390,35 @@ struct inv_icm42607_sensor_state {
+  * FIFO count is 16 bits (2 registers) big-endian
+  * FIFO data is a continuous read register to read FIFO content
+  */
+-#define INV_ICM42607_REG_FIFO_COUNTH			0x3D
+-#define INV_ICM42607_REG_FIFO_COUNTL			0x3E
+-#define INV_ICM42607_REG_FIFO_DATA			0x3F
++#define INV_ICM42607_REG_FIFO_COUNTH			0x003D
++#define INV_ICM42607_REG_FIFO_COUNTL			0x003E
++#define INV_ICM42607_REG_FIFO_DATA			0x003F
+ 
+-#define INV_ICM42607_REG_WHOAMI				0x75
++#define INV_ICM42607_REG_WHOAMI				0x0075
+ #define INV_ICM42370P_WHOAMI				0x0D
+ #define INV_ICM42607P_WHOAMI				0x60
+ #define INV_ICM42607_WHOAMI				0x67
+ 
++#define INV_ICM42607_REG_BLK_SEL_W			0x0079
++#define INV_ICM42607_REG_MADDR_W			0x007A
++#define INV_ICM42607_REG_M_W				0x007B
++#define INV_ICM42607_REG_BLK_SEL_R			0x007C
++#define INV_ICM42607_REG_MADDR_R			0x007D
++#define INV_ICM42607_REG_M_R				0x007E
++
++/* User Bank MREG 1 registers */
++#define INV_ICM42607_REG_OFFSET_USER0			0x014E
++#define INV_ICM42607_REG_OFFSET_USER1			0x014F
++#define INV_ICM42607_REG_OFFSET_USER2			0x0150
++#define INV_ICM42607_REG_OFFSET_USER3			0x0151
++#define INV_ICM42607_REG_OFFSET_USER4			0x0152
++#define INV_ICM42607_REG_OFFSET_USER5			0x0153
++#define INV_ICM42607_REG_OFFSET_USER6			0x0154
++#define INV_ICM42607_REG_OFFSET_USER7			0x0155
++#define INV_ICM42607_REG_OFFSET_USER8			0x0156
++
++/* User Bank MREG 3 registers */
++#define INV_ICM42607_REG_ZG_ST_DATA			0x5005
+ /*
+  * Timings as listed in section 3 of datasheet, all values listed in datasheet
+  * in ms except temp startup time... setting all values in us and using
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+index 5ab15525c63f7..f73730493e529 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+@@ -18,62 +18,303 @@
+ #include <linux/time.h>
+ #include <linux/timekeeping.h>
+ #include <linux/types.h>
++#include <linux/unaligned.h>
+ 
+ #include <asm/byteorder.h>
+ 
+ #include "inv_icm42607.h"
+ 
+-static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned int reg)
++static int inv_icm42607_mclk_get(struct regmap *map, bool *idle_set)
+ {
+-	switch (reg) {
+-	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
+-	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
+-	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
+-	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
+-	case INV_ICM42607_REG_WHOAMI:
+-		return true;
++	unsigned int val;
++	int ret, ret2;
++
++	*idle_set = false;
++
++	ret = regmap_test_bits(map, INV_ICM42607_REG_MCLK_RDY,
++			       INV_ICM42607_MCLK_RDY_BIT);
++	if (ret < 0)
++		return ret;
++	if (ret)
++		return 0;
++
++	/*
++	 * Clock isn't running: we're either in Sleep mode or in Accel LP mode
++	 * running on WUOSC. Force the RC oscillator on via IDLE and wait for
++	 * MCLK_RDY. Datasheet gives 10us (accel startup) to 200us (accel
++	 * transition from OFF) for this to complete.
++	 */
++	ret = regmap_set_bits(map, INV_ICM42607_REG_PWR_MGMT0,
++			      INV_ICM42607_PWR_MGMT0_IDLE);
++	if (ret)
++		return ret;
++
++	*idle_set = true;
++
++	ret = regmap_read_poll_timeout(map, INV_ICM42607_REG_MCLK_RDY, val,
++				       val & INV_ICM42607_MCLK_RDY_BIT, 10, 200);
++	if (ret) {
++		ret2 = regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
++					 INV_ICM42607_PWR_MGMT0_IDLE);
++		if (ret2)
++			dev_dbg(regmap_get_device(map),
++				"failed to clear IDLE after MCLK timeout: %d\n", ret2);
++		else
++			*idle_set = false;
+ 	}
+ 
+-	return false;
++	return ret;
+ }
+ 
+-static bool inv_icm42607_is_writeable_reg(struct device *dev, unsigned int reg)
++static int inv_icm42607_mclk_put(struct regmap *map, bool idle_set)
+ {
+-	switch (reg) {
+-	case INV_ICM42607_REG_DEVICE_CONFIG ... INV_ICM42607_REG_INT_CONFIG:
+-	case INV_ICM42607_REG_PWR_MGMT0 ... INV_ICM42607_REG_INT_SOURCE4:
+-	case INV_ICM42607_REG_INTF_CONFIG0 ... INV_ICM42607_REG_INTF_CONFIG1:
+-		return true;
++	if (!idle_set)
++		return 0;
++
++	return regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0, INV_ICM42607_PWR_MGMT0_IDLE);
++}
++
++/* Only compute the BLK_SEL value, the device is not accessed. */
++static int inv_icm42607_reg_to_blk_sel(unsigned int reg, u8 *blk_sel)
++{
++	u8 bank = FIELD_GET(INV_ICM42607_REG_BANK_MASK, reg);
++
++	switch (bank) {
++	case INV_ICM42607_MREG1:
++		*blk_sel = INV_ICM42607_MREG1_BLK_SEL;
++		return 0;
++	case INV_ICM42607_MREG2:
++	case INV_ICM42607_MREG3:
++		*blk_sel = bank;
++		return 0;
++	default:
++		return -EINVAL;
+ 	}
++}
+ 
+-	return false;
++/*
++ * The internal clock must be running before starting an MREG access, then the
++ * bank is selected in BLK_SEL_R or BLK_SEL_W (datasheet section 13).
++ */
++static int inv_icm42607_switch_to_mreg(struct regmap *map, unsigned int reg,
++				       unsigned int blk_sel_reg, bool *idle_set)
++{
++	u8 blk_sel;
++	int ret;
++
++	ret = inv_icm42607_reg_to_blk_sel(reg, &blk_sel);
++	if (ret)
++		return ret;
++
++	ret = inv_icm42607_mclk_get(map, idle_set);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, blk_sel_reg, blk_sel);
++	if (ret) {
++		inv_icm42607_mclk_put(map, *idle_set);
++		return ret;
++	}
++
++	return 0;
++}
++
++/*
++ * BLK_SEL must be restored to 0 after entering MREG bank (datasheet section 13) do it
++ * while the internal clock is still forced on.
++ */
++static int inv_icm42607_switch_from_mreg(struct regmap *map,
++					 unsigned int blk_sel_reg, bool idle_set)
++{
++	int ret;
++
++	ret = regmap_write(map, blk_sel_reg, 0);
++	if (ret) {
++		inv_icm42607_mclk_put(map, idle_set);
++		return ret;
++	}
++
++	return inv_icm42607_mclk_put(map, idle_set);
+ }
+ 
++static int inv_icm42607_mreg_read(struct regmap *map, unsigned int reg,
++				  u8 *data, size_t count)
++{
++	unsigned int val;
++	bool idle_set;
++	int ret;
++
++	/* MREG access is one byte per transaction, no burst support. */
++	if (count != 1)
++		return -EINVAL;
++
++	ret = inv_icm42607_switch_to_mreg(map, reg, INV_ICM42607_REG_BLK_SEL_R,
++					  &idle_set);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, INV_ICM42607_REG_MADDR_R,
++			   FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg));
++	if (ret)
++		goto err_switch_from_mreg;
++
++	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
++
++	ret = regmap_read(map, INV_ICM42607_REG_M_R, &val);
++	if (ret)
++		goto err_switch_from_mreg;
++
++	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
++
++	ret = inv_icm42607_switch_from_mreg(map, INV_ICM42607_REG_BLK_SEL_R,
++					    idle_set);
++	if (ret)
++		return ret;
++
++	*data = val;
++
++	return 0;
++
++err_switch_from_mreg:
++	/* The access may have been started, respect the access delay. */
++	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
++	inv_icm42607_switch_from_mreg(map, INV_ICM42607_REG_BLK_SEL_R, idle_set);
++
++	return ret;
++}
++
++static int inv_icm42607_mreg_write(struct regmap *map, unsigned int reg,
++				   const u8 *data, size_t count)
++{
++	bool idle_set;
++	int ret;
++
++	/* MREG access is one byte per transaction, no burst support. */
++	if (count != 1)
++		return -EINVAL;
++
++	ret = inv_icm42607_switch_to_mreg(map, reg, INV_ICM42607_REG_BLK_SEL_W,
++					  &idle_set);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, INV_ICM42607_REG_MADDR_W,
++			   FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg));
++	if (ret)
++		goto err_switch_from_mreg;
++
++	ret = regmap_write(map, INV_ICM42607_REG_M_W, *data);
++	if (ret)
++		goto err_switch_from_mreg;
++
++	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
++
++	return inv_icm42607_switch_from_mreg(map, INV_ICM42607_REG_BLK_SEL_W,
++					     idle_set);
++
++err_switch_from_mreg:
++	/* The access may have been started, respect the access delay. */
++	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
++	inv_icm42607_switch_from_mreg(map, INV_ICM42607_REG_BLK_SEL_W, idle_set);
++
++	return ret;
++}
++
++static int inv_icm42607_read(void *context, const void *reg_buf, size_t reg_size,
++			     void *val_buf, size_t val_size)
++{
++	u16 reg = get_unaligned_be16(reg_buf);
++	struct regmap *map = context;
++
++	if (FIELD_GET(INV_ICM42607_REG_BANK_MASK, reg) != INV_ICM42607_BANK0)
++		return inv_icm42607_mreg_read(map, reg, val_buf, val_size);
++
++	return regmap_bulk_read(map, FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg),
++				val_buf, val_size);
++}
++
++static int inv_icm42607_write(void *context, const void *data, size_t count)
++{
++	unsigned int reg = get_unaligned_be16(data);
++	struct regmap *map = context;
++	const u8 *d = data;
++
++	if (FIELD_GET(INV_ICM42607_REG_BANK_MASK, reg) != INV_ICM42607_BANK0)
++		return inv_icm42607_mreg_write(map, reg, d + 2, count - 2);
++
++	return regmap_bulk_write(map, FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg),
++				 d + 2, count - 2);
++}
++
++static const struct regmap_bus inv_icm42607_regmap_bus = {
++	.read = inv_icm42607_read,
++	.write = inv_icm42607_write,
++};
++
+ static bool inv_icm42607_is_volatile_reg(struct device *dev, unsigned int reg)
+ {
+ 	switch (reg) {
+ 	case INV_ICM42607_REG_MCLK_RDY:
+ 	case INV_ICM42607_REG_SIGNAL_PATH_RESET:
+ 	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_APEX_DATA5:
++	/* PWR_MGMT0 IDLE bit is toggled behind the cache during MREG access. */
++	case INV_ICM42607_REG_PWR_MGMT0:
+ 	case INV_ICM42607_REG_APEX_CONFIG0:
+ 	case INV_ICM42607_REG_FIFO_LOST_PKT0 ... INV_ICM42607_REG_APEX_DATA3:
+ 	case INV_ICM42607_REG_INT_STATUS_DRDY:
+ 	case INV_ICM42607_REG_INT_STATUS ... INV_ICM42607_REG_FIFO_DATA:
++	case INV_ICM42607_REG_BLK_SEL_W ... INV_ICM42607_REG_M_R:
+ 		return true;
+ 	}
+ 
+ 	return false;
+ }
+ 
+-const struct regmap_config inv_icm42607_regmap_config = {
+-	.reg_bits = 8,
++static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
++	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
++	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
++	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
++	case INV_ICM42607_REG_WHOAMI:
++	case INV_ICM42607_REG_OFFSET_USER0 ... INV_ICM42607_REG_OFFSET_USER8:
++		return true;
++	}
++
++	return false;
++}
++
++static bool inv_icm42607_is_writeable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case INV_ICM42607_REG_DEVICE_CONFIG ... INV_ICM42607_REG_INT_CONFIG:
++	case INV_ICM42607_REG_PWR_MGMT0 ... INV_ICM42607_REG_INT_SOURCE4:
++	case INV_ICM42607_REG_INTF_CONFIG0 ... INV_ICM42607_REG_INTF_CONFIG1:
++	case INV_ICM42607_REG_OFFSET_USER0 ... INV_ICM42607_REG_OFFSET_USER8:
++		return true;
++	}
++
++	return false;
++}
++
++static const struct regmap_config inv_icm42607_virt_regmap_config = {
++	.name = "banks",
++	.reg_bits = 16,
+ 	.val_bits = 8,
++	.use_single_write = true,
+ 	.writeable_reg = inv_icm42607_is_writeable_reg,
+ 	.readable_reg = inv_icm42607_is_readable_reg,
+ 	.volatile_reg = inv_icm42607_is_volatile_reg,
+-	.max_register = INV_ICM42607_REG_WHOAMI,
++	.max_register = INV_ICM42607_REG_ZG_ST_DATA,
+ 	.cache_type = REGCACHE_MAPLE,
+ };
++
++/* regmap configuration for the transport regmap used by both I2C and SPI */
++const struct regmap_config inv_icm42607_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++};
+ EXPORT_SYMBOL_NS_GPL(inv_icm42607_regmap_config, "IIO_ICM42607");
+ 
+ /* chip initial default configuration */
+@@ -620,8 +861,15 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+ {
+ 	struct device *dev = regmap_get_device(regmap);
+ 	struct inv_icm42607_state *st;
++	struct regmap *regmap_custom;
+ 	int ret;
+ 
++	regmap_custom = devm_regmap_init(dev, &inv_icm42607_regmap_bus, regmap,
++					 &inv_icm42607_virt_regmap_config);
++	if (IS_ERR(regmap_custom))
++		return dev_err_probe(dev, PTR_ERR(regmap_custom),
++				     "Failed to register regmap\n");
++
+ 	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+ 	if (!st)
+ 		return -ENOMEM;
+@@ -633,7 +881,7 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+ 		return ret;
+ 
+ 	st->hw = hw;
+-	st->map = regmap;
++	st->map = regmap_custom;
+ 
+ 	ret = iio_read_mount_matrix(dev, &st->orientation);
+ 	if (ret)
 
-Best regards,
---  
-Kanak Shilledar <kanak.shilledar@axis.com>
+-- 
+2.43.0
 
