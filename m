@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794520432;
-	b=j90s2NVaHIwEmJNS/ULrm+G0DR3uUHjL5yQxCvcg1udrPwFcOMu3BE8VmwPI3mMpERpy
-	 MObZj50oASnOeQ5I4jjUDBNTC+bkbWWvNaCrIqS+MmHSGch930HwNnPq+sh4ijZQpp6py
-	 3drxqqbO79TGctpP8wiGlvFFxvWKPttqCHtcw2254hLa4Aq1h411OGTHSoVgRqR3Y56lS
-	 gKsAEL0sBb79x13jAQ/lQFH/7Ae8kUZN4kGrsSM2Sbv3x2tsU23eInXTLAWDw7v9vIaGn
-	 nuVsRdw7dFJWz+escd29MuBd3atzo8UZY9+hCbKmZ5Y1i8/zqitfNha6BLfkmPQfXBQ==
+	t=1794520435;
+	b=ZALx0u+GD5M6nLXkzr83ZVjt/7pvfIF92rbxlybK3aRz/zXn9SeV59sIFXfhOCGXmomZ
+	 SbGjQnmbzdkwl8pZr3PayMerG/BUyDRmJ6eQdmRTNmHiKD82IhVfXIjre+MceGsWKDKA5
+	 pqwRcgt0ZA7uOswjzdesC/6opXCr/fYMCA4wW79dwnl9WHGFWvy3mkAdOpAyTDRGr0Xw7
+	 VuuSuMI0DiWBAxN5BfR4COgEPGCkQJ/yX8KfLbUpnH3krPqz5KYrxsTxE2QYqaDVUSD+A
+	 L7AN6y0LkVxjRuctEb4PEokwBQN0BIh2IUc6LzyoApfIkI3pEAjMmtdcaF2ivyYz93w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794520432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794520435;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KIbzg7d2+UtRUYNVIhRwn0m7ejVizCAxgM+sH7uQvyY=;
-	b=l0A//a5wufXtwYj13iquRzw+/Xis0j7cxcI8aPY1CpTnBVIYUH8EJq2fDZLrbBK79Iu9
-	 z6IUqzCVz9cbTyKo2lJGqOrFdVUQl7JeyYm2qpLjo9VH6b2Fs4EKgc/hcBnjrLg9msYq3
-	 8HvVoWH0dbeW+5KGj1sUBvfoY8B2fslVakR8R1J/EiSb7FAjhQBRQIYnSNsRZLWGm1JC/
-	 lwoW4HKH6ZKimYDax2Dz8GtinYcTZySAAeD5HwbuqWSLt1AD37uDDkYN8G8iAgofr3BAU
-	 ws6x4TykTb5S2SYciG+THzDih3ORF0gxrT3T8qPqrMGKjgkpb3K2mL6ctbUF0U+eKEg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=02NFS87u8B2FED+eEBRVmb+CbNAG29G/4Czh71G23bc=;
+	b=d5MKN76V0qmof0PstYOd7mIa+5Ppq99BZmWJii1MmDxZ+bEZd4kvcPebnAT6hMYbjBfz
+	 62nvjXB35ZeiRUCo37v6nt6w2f7QhvxK9lvmZzgWSnwKELOOmon+7VCfS7xH8wFBG7jd7
+	 anWqz3f4aXEpjXOixVWe6F1iW6jNu8hHtBdsJ+WXkzcSYxhpTgZdn28Ql5A14LC72yyDK
+	 cpfJ2IgjUhP6P/gRhLbADSWtxMb2afZuz1YnfKhwdsTgIjJXXqle+tbk2t+hggcnrpqbu
+	 0F00Iom4XkTyJMHT7CVl+7GEmKpBXavJH2vieIUW8ZIQ7pMVh3ofaIWs9iXoKa9/R4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TftBanSZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MltxBt/N";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F26F606A31C;
-	Thu, 12 Nov 2026 21:53:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538EE606A8A7;
+	Thu, 12 Nov 2026 21:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TftBanSZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05FB91F000C4;
-	Thu, 12 Nov 2026 21:53:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MltxBt/N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C931F000D2;
+	Thu, 12 Nov 2026 21:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794520431;
-	bh=KIbzg7d2+UtRUYNVIhRwn0m7ejVizCAxgM+sH7uQvyY=;
-	h=From:To:Cc:Subject:Date;
-	b=TftBanSZdsrTHdKddcn0V0DWOqqKBqE+4jWC5w+dKJWGlwFM5JARZmNjWDvpdi1PR
-	 WCr9mLh7D0ub90439VaLJIJD33sebpvVWYfREhKYldNAgDPqAeryVw72R+BLWpL/O3
-	 m1CfPiAaaXH3QMQEnRWVA6JZVr4S9jcTkP9d4oXRRgERD8RDd5raCOVWrOMRucyXw5
-	 /By/X8b9Am/4de5gvyekCqqkBShBz59hVTvktf+HwjetO1ilrGvs5ctBSOrtzhCieT
-	 a8HrOTJWew4sf6UWvjB64y2im26WFK1wr154/0oUcQT9vnguC5eDFr8gxsOhCR9V2L
-	 VvGERFqk01W+Q==
+	s=k20260515; t=1794520435;
+	bh=02NFS87u8B2FED+eEBRVmb+CbNAG29G/4Czh71G23bc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MltxBt/NM3NWzwYKjaJkfdjNZkSA3U+dQl9Yw/Ge+69BUr1Q83t2vCkfTpZjqyOAT
+	 vYFf6iODVFRTq5W4AG3R/AVPfhOO9NwTUoL4zVvj/OFcS3xAC/Tw5BKIjUETpVVtCu
+	 spBYFbxvS25LOLRbiIqi9LVUAJhcwAcyHrXLycW1dkmhB7HmD/mFhBU5lISebQZQdI
+	 05FVDgXPqAFr467c7IsyfWEH6gCodR+85Tp+7Sy9ysKqsd7wWgSKG7MhStYyCx/cwj
+	 /WqZ1iDLFs4Vx2GzKXvOhTQI95b3zVvftajpm5A8y/ZGFztyhAhod9AO+QPn7TH/Rd
+	 ZOLSQ9NhSuOxg==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -51,10 +51,12 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCHv3 1/4] EDAC/altera: use flag to differentiate 64-bit platforms
-Date: Thu, 12 Nov 2026 15:53:39 -0600
-Message-ID: <20261112215342.2476801-1-dinguyen@kernel.org>
+Subject: [PATCHv3 4/4] arm64: dts: socfpga: agilex5: add support for the ECC manager
+Date: Thu, 12 Nov 2026 15:53:42 -0600
+Message-ID: <20261112215342.2476801-4-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+In-Reply-To: <20261112215342.2476801-1-dinguyen@kernel.org>
+References: <20261112215342.2476801-1-dinguyen@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,123 +68,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In commit (d4486fc3098e "EDAC/altera: Use ECC manager compatible to select
-A10/S10 IRQ layout"), it added a way to only differentiate Stratix10 from
-a 32-bit platform. In preparation to add support for Agilex5, it needs a
-way to make a further differentiation.
+Add the ECC manager to the base Agilex5 dtsi, along with OCRAM ECC and
+RX/TX ECC for EMAC0, EMAC1, and EMAC2.
 
-Make use of the driver match data to hold a flag for different platforms,
-specifically Stratix10 and Agilex5.
+The eccmgr node is an interrupt aggregator, not an MMIO device. Its
+INTMASK and INTSTAT registers live in the System Manager, and the
+driver reaches them through altr,sysmgr-syscon, so the node has no
+reg property and no unit address.
+
+The OCRAM and EMAC children are MMIO devices, each at its own ECC
+controller address. #address-cells, #size-cells, and ranges translate
+those addresses onto CPU physical addresses. ranges does not give the
+manager its own window.
+
+The children stay under eccmgr because they are clients of its irqchip.
+The Agilex5 manager binds to altr_edac_a10_probe(), which walks the
+child nodes and uses one IRQ domain for the per-RAM blocks.
 
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
 v3: no changes
-v2: use enum for altr_platform_idx
-    use SOCFPGA_A10 for A10 platforms
+v2: add more context to commit message
+    move eccmgr out of soc node
+    s/38/36 for emac0-rx
 ---
- drivers/edac/altera_edac.c | 20 +++++++++++---------
- drivers/edac/altera_edac.h |  8 +++++++-
- 2 files changed, 18 insertions(+), 10 deletions(-)
+ .../boot/dts/altera/socfpga_agilex5.dtsi      | 69 +++++++++++++++++++
+ 1 file changed, 69 insertions(+)
 
-diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index bb95dab847b3c..78f4a1b0fc64a 100644
---- a/drivers/edac/altera_edac.c
-+++ b/drivers/edac/altera_edac.c
-@@ -1489,7 +1489,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	int edac_idx, rc;
- 	struct device_node *np;
- 	const struct edac_device_prv_data *prv = &a10_sdmmceccb_data;
--	bool is_s10 = device->edac->is_s10;
-+	unsigned long flag = (unsigned long)device->edac->flag;
+diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
+index 161f3d4bbefe8..12d623d4b892e 100644
+--- a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
++++ b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
+@@ -160,6 +160,75 @@ qspi_clk: qspi-clk {
+ 		};
+ 	};
  
- 	rc = altr_check_ecc_deps(device);
- 	if (rc)
-@@ -1538,7 +1538,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	 */
- 
- 	/* Using compatibles to determine the IRQ Index */
--	if (is_s10)
-+	if (flag == SOCFPGA_S10)
- 		altdev->sb_irq = irq_of_parse_and_map(np, 1);
- 	else
- 		altdev->sb_irq = irq_of_parse_and_map(np, 2);
-@@ -1556,7 +1556,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 		goto err_release_group_1;
- 	}
- 
--	if (is_s10) {
-+	if (flag == SOCFPGA_S10) {
- 		/* Use IRQ to determine SError origin instead of assigning IRQ */
- 		rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
- 		if (rc) {
-@@ -1967,7 +1967,7 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
- 		goto err_release_group1;
- 	}
- 
--	if (edac->is_s10) {
-+	if (edac->flag == SOCFPGA_S10) {
- 		/* Use IRQ to determine SError origin instead of assigning IRQ */
- 		rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
- 		if (rc) {
-@@ -2121,7 +2121,7 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, edac);
- 	INIT_LIST_HEAD(&edac->a10_ecc_devices);
- 
--	edac->is_s10 = !!device_get_match_data(&pdev->dev);
-+	edac->flag = (unsigned long)device_get_match_data(&pdev->dev);
- 
- 	edac->ecc_mgr_map =
- 		altr_sysmgr_regmap_lookup_by_phandle(pdev->dev.of_node,
-@@ -2154,8 +2154,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
- 	irq_set_chained_handler_and_data(edac->sb_irq,
- 					 altr_edac_a10_irq_handler,
- 					 edac);
--	if (edac->is_s10)
--	{
++	eccmgr {
++		compatible = "altr,socfpga-agilex5-ecc-manager",
++			     "altr,socfpga-a10-ecc-manager";
++		altr,sysmgr-syscon = <&sysmgr>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		interrupt-parent = <&intc>;
++		interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 241 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 95 IRQ_TYPE_EDGE_RISING>,
++			     <GIC_SPI 120 IRQ_TYPE_EDGE_RISING>,
++			     <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "global_sbe", "global_dbe", "io96b0" , "io96b1",
++				  "sdm_qspi_sbe", "sdm_qspi_dbe", "sdm_seu";
++		interrupt-controller;
++		#interrupt-cells = <2>;
++		ranges = <0 0 0 0xffffffff>;
 +
-+	if (edac->flag == SOCFPGA_S10) {
- 		int dberror, err_addr;
- 
- 		edac->panic_notifier.notifier_call = s10_edac_dberr_handler;
-@@ -2205,8 +2205,10 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
- }
- 
- static const struct of_device_id altr_edac_a10_of_match[] = {
--	{ .compatible = "altr,socfpga-a10-ecc-manager" },
--	{ .compatible = "altr,socfpga-s10-ecc-manager", .data = (void *)1 },
-+	{ .compatible = "altr,socfpga-a10-ecc-manager",
-+	  .data = (void *)SOCFPGA_A10 },
-+	{ .compatible = "altr,socfpga-s10-ecc-manager",
-+	  .data = (void *)SOCFPGA_S10 },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, altr_edac_a10_of_match);
-diff --git a/drivers/edac/altera_edac.h b/drivers/edac/altera_edac.h
-index 9387056fd65e3..4a9da28fa96ba 100644
---- a/drivers/edac/altera_edac.h
-+++ b/drivers/edac/altera_edac.h
-@@ -351,6 +351,12 @@ struct altr_sdram_mc_data {
- #define ECC_READ_EOVR                     0x2
- #define ECC_READ_EDOVR                    0x3
- 
-+enum altr_platform_idx {
-+	SOCFPGA_A10,
-+	SOCFPGA_S10,
-+	SOCFPGA_AGILEX5
-+};
++		ocram-ecc@108cc000 {
++			compatible = "altr,socfpga-a10-ocram-ecc";
++			reg = <0x108cc000 0x100>;
++			interrupts = <1 IRQ_TYPE_LEVEL_HIGH>, <33 IRQ_TYPE_LEVEL_HIGH>;
++		};
 +
- struct altr_edac_device_dev;
- 
- struct edac_device_prv_data {
-@@ -394,7 +400,7 @@ struct altr_arria10_edac {
- 	struct irq_chip		irq_chip;
- 	struct list_head	a10_ecc_devices;
- 	struct notifier_block	panic_notifier;
--	bool is_s10;
-+	unsigned long		flag;
- };
- 
- #endif	/* #ifndef _ALTERA_EDAC_H */
++		emac0-rx-ecc@108c0000 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c0000 0x100>;
++			altr,ecc-parent = <&gmac0>;
++			interrupts = <4 IRQ_TYPE_LEVEL_HIGH>, <36 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emac0-tx-ecc@108c0400 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c0400 0x100>;
++			altr,ecc-parent = <&gmac0>;
++			interrupts = <5 IRQ_TYPE_LEVEL_HIGH>, <37 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emac1-rx-ecc@108c0800 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c0800 0x100>;
++			altr,ecc-parent = <&gmac1>;
++			interrupts = <6 IRQ_TYPE_LEVEL_HIGH>, <38 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emac1-tx-ecc@108c0c00 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c0c00 0x100>;
++			altr,ecc-parent = <&gmac1>;
++			interrupts = <7 IRQ_TYPE_LEVEL_HIGH>, <39 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emac2-rx-ecc@108c1000 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c1000 0x100>;
++			altr,ecc-parent = <&gmac2>;
++			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>, <40 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emac2-tx-ecc@108c1400 {
++			compatible = "altr,socfpga-eth-mac-ecc";
++			reg = <0x108c1400 0x100>;
++			altr,ecc-parent = <&gmac2>;
++			interrupts = <9 IRQ_TYPE_LEVEL_HIGH>, <41 IRQ_TYPE_LEVEL_HIGH>;
++		};
++	};
++
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 		interrupt-parent = <&intc>;
 -- 
 2.42.0.411.g813d9a9188
 
