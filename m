@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495769;
-	b=xNr1wqukWOrsrhPqSjf5wKs9KzYDV9qFONPhZ7oCtT4l472frpGnOTlK5gIInSVQL2Rs
-	 K0jZ5Y7YY6sPgkWTzHM+hZ/BpevT4RwVZUPd9OEacEbTrY8kySRpRPgZWdHdOLnd6P19Z
-	 L330zApVLI9DQuOBiaKs42iORYU6Ur/Slr6aANXtymeH9yzofAQd1+NeWnJhjQz6rZA8L
-	 Qxxo6KddoQuBltVyz3uXqBapl3UGUI3vFJXTKgUE4Y3ZQuQ80sPQT4U0xqEdGyG/MwprO
-	 UHRoGXNpJ2MDQElwmKK19axg/7V3LqrLH+y6zWU5Npb4gw7XIrCoMeDSwm+WFcml0aQ==
+	t=1794495770;
+	b=yvuxk7p6X9OCMT1RL7FBFFmiBb/8SGLwzE0we1asTAfkss8iZgTDcY2Ekooxffqw3LDt
+	 S/z4Q210aaVsUUYbyxOsraQLpmjEP9oO/+8FsBUDYhZ3ALncIQ8erzLp0gE5SNbIusGyO
+	 z0Q2eFTQY9A7rl5mVs04pbB4DI8cucR6rkl3QD8ZbR1wg9zcsSEBLtKmoCu3iWIovBCSc
+	 fH3fsTJFDy3nptdVqaX6yImP8p9Y2wNaBUIkGE4B4NN5TBoRTfYSljHsQXtcwXyQiDL3u
+	 CRwrtJpeh1f5foovosTX8KPi/87f1+OtluOKPPtNL9dH8R3sNpumTOorE/hrfgFXrlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495770;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ylShe8HWjM2yCOaQXzQ0NGIXs6JPh3EhfmIe6mjqzT4=;
-	b=0T2/4b08yw0HkxzeYtW/1kfUhI6LDLy9shAipsNSYBzC6Ej2PuPrvawrC3Zyn9cakC+0
-	 KcjjPRA69bhgWSndzGxTVFudPU5NlSwis4Au8orv/z/8pPzFqZOk0MWQLEvi3OgIYSm8n
-	 QfHbMBzNyVUQ4yGUAcTDmNdUR2wqYecPp0giRLMPHSuDn/PL7eJrbGkWPFnepeKwNgo5R
-	 IUCOAK4ztIw3qSLD/kQK+7FGlf8XdO8+iKXAmxITpHBc8b5RbEfopIkTMCSe971but3Qs
-	 MR8EWGGZ6zzDMU2unb5uIQjv0WTAeRLvLKjfGhojX9eSpdRsyUL66qI3V0vexbxoIWA==
+	bh=2uOiyb+Q8M216uUXx952IJn6ffOrIl5bI86rzJ70cYk=;
+	b=cfZfq0I4suELXyKfF87uLfXXUnJ2noBjKiRh4ZIJjyL/ZxcW5GGUxUpgMviDCRTDujAx
+	 bT869JSnD5BI5U66FdN8ub+7TWQ3fS1mTm88kMX/n48dUA5Fs6YuWGthBmIg+k8lXyNQJ
+	 Pf1+wwIXDYmSofvVfP2VU7k7KAzL1G6LkbtlPiJ+MHInxOUN2aYlzDztY0ODQIFu+M0hE
+	 KIb4o7jL3SYFNJ5HMKz429gYBD65w/0QiFOGUVJbLM31dUtIlVgSbcTWzZifG8wlKumMu
+	 EzQCZx1GoT9n4d1ZMrfenwkthvQh9BFc4P9tid6XP8x4lBN25LfNppAOAJ+I/LpmtWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=dolcini.it;
 	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=elmq5Boc;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oJRTTFCJ;
 	arc=none smtp.remote-ip=217.194.8.81
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1CD606A8BE;
-	Thu, 12 Nov 2026 15:02:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE1CD606A8BE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CB260A2618;
+	Thu, 12 Nov 2026 15:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CB260A2618
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=elmq5Boc
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oJRTTFCJ
 Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 29323231D6;
-	Thu, 12 Nov 2026 16:02:46 +0100 (CET)
+	by mail11.truemail.it (Postfix) with ESMTPA id AA0AA231D8;
+	Thu, 12 Nov 2026 16:02:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794495766;
-	bh=ylShe8HWjM2yCOaQXzQ0NGIXs6JPh3EhfmIe6mjqzT4=; h=From:To:Subject;
-	b=elmq5Boc7mSXRw2ZQTiTmd30m7eQsb+OS2hWtcZ3oiz63c3BMJw6Ny+x37NSYjkS2
-	 HF6vSxQgq3QmAa8WS6c7SKtA7lid9km6+jkAhIvgIBQ3+NIsXWqG75noYVFdloh8cX
-	 Qjgio6U/oIqyJ303sYJA/9OM+5hY2HxK15lUkzn3vMtVuZtKQvExV9JWFApgdnRc6t
-	 S5kcx+wF2wnSPrzK5aNRjfw1hbBphVXPUS2RvLS+LU3azIBx8J6Gfz+WwvaQxAT3b0
-	 MnLXDAORdGORQp5WctvByzVuwgYCSbTf9PbvNvjGqkxqZh1pUrPVzTD5g7ORnEycPV
-	 qem1R07MpJf8g==
+	s=default; t=1794495768;
+	bh=2uOiyb+Q8M216uUXx952IJn6ffOrIl5bI86rzJ70cYk=; h=From:To:Subject;
+	b=oJRTTFCJ6ymHL57mF0t61n2pua8y/wVHTmyEMXPEHHX7I5kmswZOYVGWFkPjELho5
+	 YVRa/DhbTS9ujQm3TbWT2JDlUWVZItbRhBfVMecxXZ3Dw+bdrfCCF5yM+WARy2tJZg
+	 ceK2ZDk0jtQghiz2IWNmxQ7RL5P7Wj9r2uCs8DCKwSxavfDRp8+VaQ3hOBAvCdEW8M
+	 7Q0EzYvQRImUbpHo/fPT14OPTQAM13dKEr7/7tLq1S0E0N6nXQBMzUvnPH4ulvgLr5
+	 aMuGb4un+s8R5B6Jcc26UwDH/cdUAZPsLiryFlt5NfMx+gycheEJy/gUkkyI3xv94o
+	 8XzoTBLMBTqGg==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Rob Herring <robh@kernel.org>,
@@ -59,9 +59,9 @@ Cc: linux-bsp@toradex.com,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 05/11] arm64: dts: freescale: imx8mp-toradex-smarc: Add SPI aliases
-Date: Thu, 12 Nov 2026 16:02:27 +0100
-Message-ID: <20261112150236.164850-6-francesco@dolcini.it>
+Subject: [PATCH v1 07/11] arm64: dts: freescale: imx95-aquila: Add SPI aliases
+Date: Thu, 12 Nov 2026 16:02:29 +0100
+Message-ID: <20261112150236.164850-8-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112150236.164850-1-francesco@dolcini.it>
 References: <20261112150236.164850-1-francesco@dolcini.it>
@@ -78,34 +78,33 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The SMARC specification defines the module interfaces and their
-numbering, SPI0 and SPI1 being the SPI buses available to the carrier
-board, implemented by ecspi1 and ecspi2 on Toradex SMARC iMX8MP.
+The Aquila family pinout defines the SoM interfaces and their
+numbering, SPI_1 and SPI_2 being the SPI buses available to the carrier
+board, implemented by lpspi6 and lpspi4 on Aquila iMX95.
 
 Without aliases the Linux SPI bus numbers are assigned dynamically and
 can change with the carrier board or probe order. Add spi0 and spi1
-aliases so the bus numbers in sysfs and the spidev names match the
-SMARC interface numbering. This replaces the spi0 alias imx8mp.dtsi
-gives to flexspi, which is not used on Toradex SMARC iMX8MP.
+aliases so the bus numbers in sysfs and the spidev names follow the
+Aquila interface numbering, zero-based with SPI_1 being spi0.
 
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi | 2 ++
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
-index eb8b9db7e3cd..f3d21d788b85 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
-@@ -20,6 +20,8 @@ aliases {
- 		serial1 = &uart4;
- 		serial2 = &uart2;
- 		serial3 = &uart3;
-+		spi0 = &ecspi1;
-+		spi1 = &ecspi2;
+diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
+index a1870f7b2eca..e7c20dfffd34 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
+@@ -31,6 +31,8 @@ aliases {
+ 		serial1 = &lpuart7;
+ 		serial2 = &lpuart1;
+ 		serial3 = &lpuart2;
++		spi0 = &lpspi6;
++		spi1 = &lpspi4;
+ 		usb0 = &usb3;
+ 		usb1 = &usb2;
  	};
- 
- 	chosen {
 -- 
 2.47.3
 
