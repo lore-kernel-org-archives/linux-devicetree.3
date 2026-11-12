@@ -1,58 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508205;
-	b=iIZE9uDkzMmU6WDL/B7sJqOq62XImyf0PFGqx7xscA9wn9xnIvQ+O214/nQFwoda0EO/
-	 xYTGUrUK4AU529Eg8quTCXWOoVyGKM05zDzF4Us2M8/Vb5ONH9wXIPojiCWv/CPbi7tQ8
-	 pCg0iSNUjAOdgC/QaUpAeZkGlDSXwJ4UFuH4WuuwxnAL/xtWVQZxbmxwg1btWIKfCOhnk
-	 Nf2fa3j+54kAeedYPbu9FvLbtYr8UL2wURoJ3T+yDCoKreKt71iXwfuoMWg7vwEST9UL9
-	 WYumKCnAUc1dD9ZFtNAxGb12s9Ak3o6MZECfm6LJtT2hVMNLX8NPc0bBn64+XxbBIbg==
+	t=1794508343;
+	b=kdCEdfOLFxkFZhTvZmHKNQ84IrLb4/55XNS5am+xmkbjltENnYb8FO4SaRtf81GZwCRq
+	 /0vq5MIWsmSEyPZG+mdBqgjy6oJYh8HlwcHJ8tKAt47brPrfvXLyTKP+Xk1gKX0+TrOHf
+	 W2bPsR2KEH6665dzy0st4D3c9ZY+LzZXDk4MKrtTSZWbImawRaSB0/p8A475JvtAGk50D
+	 YZKmghmB2c09JrTXl1ZjOB8HCb2s4aAg861rQOyGWmg6rnNkcrYKlTuOBp5bUHafZlWyQ
+	 p+h4Y97HZPp+IioD/5sROkkcui3Xoc7I88h3hYqHDN9p2fnirVlqlAx7tdPewIZPPTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508205;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Rtc92rlbJoLohK4LVxmMVpKXwZ+yJ59RVuAWYMV1ddM=;
-	b=2MdoEsrwHDfe2rw1W8EXxeLRRwq05p25PAdwQGoP9dbM86TZfRysUy/LTJ3gJOFke11K
-	 tdBqX7enOzqAQTZ+1efQMJIGxKJx9dav7MHkfZieTOcFTZ6/n7sg+V4QgdH411OskarS9
-	 S3kH2SrL7yZSNElLAV8mrq0vb+q9i3oSOF7UIcBaErbTnTrmYpp2PvK1y1rgzDLLY8RBv
-	 hmNBVfnz22hano2gSGaNcwRGjQ8jzRoJrER2A9JcpF31Q53FU1WNi9VYDJ0NgTZjMNTSs
-	 RI/i3hmXWjvjg8XFeTkpr8VRYsXvudHseg+O1PfGlt7nJWKhpMTTlzIASaM3DMKpCZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508343;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=7J6szkHoUY5vSHIV99jZmMInNdAFZjxoFUCtmntH2Ns=;
+	b=BEzSTm617YeOQVOXD2dstpkkNjiZVqcpLf6BLoFYcOV4Ow1agUanEgChEcDGzOyVD7dk
+	 bR6jDbwK7EAt426VHnA2UtYDgep4+I/qdrbk1tb1fBbyEl1ys/Qk0ess6rKZX4l+baXLw
+	 Cx6aBqR+xT8k9RAwH6buKYC0MBwrfnx35QL1LEDDDYZlu3CSAWhOwSHyqTzxm73yvw/LW
+	 oiLzAOgtKzYJO85LUkXe4lzW6TI40TR5NLWu3lr1fQoPK98OF7Os72W13vQ5qKcTVWnUC
+	 wsZoxAF2oFmO7viSMBZkhQcqK1noiuV7tcONKNMXf0iMmEJywsfnJ4cl3auW4xgTB1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS3+VlNK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hj8WqdRm;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F74606A327;
-	Thu, 12 Nov 2026 18:30:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F0B606A898
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 18:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F0B606A898
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS3+VlNK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518701F000C4;
-	Thu, 12 Nov 2026 18:30:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508204;
-	bh=Rtc92rlbJoLohK4LVxmMVpKXwZ+yJ59RVuAWYMV1ddM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jS3+VlNKNheQKWnKJjut95GHr34G+JNaUDsAWytjTmzpXs/UwgLRHqPj5GutmW7oX
-	 dDBa2x+2TFu05dIOHA0x2pD0iZxHeowgDs4dM2vg3nitk21sVx9N26FbvPObzbFk9G
-	 FhSuVGqbBWqql8CLciAenR0idFvAbQRC8Ua7+55XqV2bjG3ptXsC7HdWnp8wRLagaq
-	 /XlU71IAuqJaSDBHumr84oYUsSzPgonQ4S7qKawOJJaAMhjvIh/i2ROGhx6GkDHDyA
-	 CSlNaBROHZZokcecgOZ3SHv7x3aegxwj8wyojRwbT5sthRNboLbdMUvq0N3ACfH61x
-	 FN5OzKne6wtTw==
-Date: Thu, 12 Nov 2026 12:29:56 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-Message-ID: <avX9Qrcapcnutdgh@baldur>
-References: <20261021022446.3619435-1-robh@kernel.org>
- <avWbmsjkYo2LMJKs@parshuram>
- <20261112125346.GA3821108-robh@kernel.org>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hj8WqdRm
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso35784a91.2
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:32:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794508343; x=1795113143;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7J6szkHoUY5vSHIV99jZmMInNdAFZjxoFUCtmntH2Ns=;
+        b=nTJQjv4YfSTLcHdshSa7KFNCrF49dDdEQL4AJ52EHHeK8mq+NogqIYK3DxppVoBhoh
+         TOjpu4VxuIXUKq0MX5dDz7HGFZTQdVLfdDqTa695WRRb5eu7OtSnQ553GxN+bQU69GsQ
+         TvZ3gzxgsbXKrgoin2k4fDP3usrhXLWyuVeDxvyfabiNVRwgrpGmvOB/rRY7V24DPSQc
+         hs59N+UKQR3hcv0j9w76MN6wSFkisDrCyc/+g52QLCpmY6iZum/iaLXQvOU2OwXCdr3j
+         uEDUQqXahKHVE2kej9UAVXrddyPE0kQ/7AQbxJUZvi/blz1Fp+fGMEtMqs8AofDgQJaH
+         Bknw==
+X-Forwarded-Encrypted: i=1; AL+hErGT2fBSCkL/tiUkIa9cRZxLfNoYDKT64XovF4t7ivqJUhlg27YQNvQYtxe7BSp8QKdtxiP7+4TFapdL@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2HQQVyjgfvVm1PsE0uvUOhiRnfFKddYDlYMfuMy3E4iTZg5YI
+	7Fm/rCBb39Ch+qBj3l5A/oazACX8zkYj7B9AGNkdNFyo2LtbclloDjqD2e5xYBbIF/+Eko1eXmo
+	8cVCM4uYmFW1TaXQGVNo1O64lzY8/qYQ5lDE6xXR5BJLppGmX1sKD/r9lCzplkrx0XrHfq5Cw/0
+	gcdGceU/O1WTpXBLGq71krP6i0hG9Nr4LzaWSFPHAxO7dRJbyU14Ug/nm4IP/KlUf/ve4WqOYhH
+	uKfsRX8gj/dCA==
+X-Gm-Gg: AYBFou2LboFvGH5M7pDD9SAv0e2J6KTgRIx4hV4usRKPvj2/0segqWrZqdov2wXPqrE
+	mNr+Z3XDhpqHnLj0u8OLA3gTP+MwbW+cpFlgg6nWFc1k+tJNMGX/pt7heOjZWO3W6iynRoB347G
+	b5AVOgTTBg3sH8L0p4Q+9Ew8vbjaKqb2IoEuL9gYKQgOUFZarwZ32Y/lQdn23Z84o13cwfrETp0
+	8jJZjSsx/QFzq2r8bvHqaLM4XKcv2xhBfnBjLg1p1vH4tI/4ZEl1ZBmDbOnq6ujDWvG8cZ4QLJ3
+	UqA/LCzR6OaYe03jHyeSmFNVA2KqSIrJleMtBiS0zdzr+H1ol3bqsQyRZJz55VVYSEgkfiqgnjP
+	UlQOrwcthB2QW98WgpUkEOmINzSMNV2JVz/g5Kv4nsz9hLH2Fsfqqe96tD1C+JjDCCToCc5X6fF
+	CoJlYk38WDoFpRva8Fr7wMzwFT1/zUdPyh
+X-Received: by 2002:a17:90b:3fd0:b0:3ad:3e8:12 with SMTP id 98e67ed59e1d1-3b182f82fc4mr5493950a91.48.1794508342538;
+        Thu, 12 Nov 2026 10:32:22 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b182deb0easm2731052a91.3.2026.11.12.10.32.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2026 10:32:22 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4adae31e4b1so99911fac.2
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:32:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794508341; x=1795113141; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7J6szkHoUY5vSHIV99jZmMInNdAFZjxoFUCtmntH2Ns=;
+        b=Hj8WqdRmGWOLv5GuO9EELcQkAx5t7dZUjEk+LwJ7YYKf2QUKYe4O6M8EwClPb4SF6v
+         0eaN3fiT4zKeNRW8Yg0+61HBzxCzD6aoYk2gI/yNdPR2oflYLRcQxZ67zmLMYSpR3VCs
+         RiG0aWcF+vH1TRYZi+JUSBzGS9IRWiEA4Xw1c=
+X-Forwarded-Encrypted: i=1; AL+hErFbomveKudpg163grKRbE8UL/3Y+FJbQCOwIXxj0agnu4pqKFyZZRXV6hD8GmqVZOt9j4nd9imJbf8q@vger.kernel.org
+X-Received: by 2002:a05:6871:5222:b0:4a7:4b67:9c6e with SMTP id 586e51a60fabf-4afdf2a5826mr527452fac.18.1794508340586;
+        Thu, 12 Nov 2026 10:32:20 -0800 (PST)
+X-Received: by 2002:a05:6871:5222:b0:4a7:4b67:9c6e with SMTP id
+ 586e51a60fabf-4afdf2a5826mr527378fac.18.1794508340076; Thu, 12 Nov 2026
+ 10:32:20 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,74 +98,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112125346.GA3821108-robh@kernel.org>
+References: <20261111194426.1652644-1-kamal.dasu@broadcom.com> <20261111194426.1652644-4-kamal.dasu@broadcom.com>
+In-Reply-To: <20261111194426.1652644-4-kamal.dasu@broadcom.com>
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+Date: Thu, 12 Nov 2026 13:31:42 -0500
+X-Gm-Features: AclHuK9Gcw9h0Fgz3MQFVLb11_B7QeXMY6sovaMhs__VhmnR9_UvdFmJVT7osZs
+Message-ID: <CAKekbeuwQVkYiRNdOofqkmrXSazmembCdPtkR2CXkhOHasG=kw@mail.gmail.com>
+Subject: Re: [PATCH v12 3/6] mmc: core: Add option to keep an eMMC powered on
+ at system suspend
+To: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Shawn Lin <shawn.lin@linux.dev>, 
+	Shawn Lin <shawn.lin@rock-chips.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000003a51a306601888c0"
 
-On Thu, Nov 12, 2026 at 06:53:46AM -0600, Rob Herring wrote:
-> +Konrad
-> 
-> On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
-> > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
-> > > For the QUSB2 PHY binding, keep the three regulator supplies required
-> > > except for legacy IPQ6018 nodes that do not describe the board rails.
-> > > 
-> > > This relaxes the requirements for the IPQ5210 as well as if it is
-> > > compatible with IPQ6018, then it shouldn't have more required
-> > > properties either.
-> > 
-> > Hey Rob,
-> > 
-> > This fails for phy/next I see vdd-supply has been moved around..
-> 
-> The change in question[1] should not be applied until the .dts changes 
-> in the series are applied. It introduces a bunch of warnings.
+--0000000000003a51a306601888c0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I don't understand. The change you present here relates to ipq5210 and
-ipq6018.
+On Wed, Nov 11, 2026 at 2:44=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.com=
+> wrote:
+>
+> From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+>
+> The DT property keep-power-in-suspend, allows us to specify whether the
+> platform is capable of keeping the power to the card during system suspen=
+d.
+> Up until now, this has been restricted to be used for SDIO cards only, bu=
+t
+> let's add the initial support to allow this for eMMC too.
+>
+> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> ---
+>  drivers/mmc/core/mmc.c | 24 +++++++++++++++++++++++-
+>  1 file changed, 23 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> index a02b04938e1a..c936272bcd81 100644
+> --- a/drivers/mmc/core/mmc.c
+> +++ b/drivers/mmc/core/mmc.c
+> @@ -38,6 +38,7 @@ enum mmc_poweroff_type {
+>         MMC_POWEROFF_SHUTDOWN,
+>         MMC_POWEROFF_UNDERVOLTAGE,
+>         MMC_POWEROFF_UNBIND,
+> +       MMC_NO_POWEROFF_SUSPEND,
+>  };
+>
+>  static const unsigned int tran_exp[] =3D {
+> @@ -2157,6 +2158,15 @@ static int _mmc_suspend(struct mmc_host *host, enu=
+m mmc_poweroff_type pm_type)
+>                         goto out;
+>         }
+>
+> +       if (pm_type =3D=3D MMC_NO_POWEROFF_SUSPEND) {
+> +               if (host->retune_period) {
+> +                       mmc_retune_timer_stop(host);
+> +                       mmc_retune_needed(host);
+> +               }
+> +               mmc_card_set_suspended(host->card);
+> +               goto out;
+> +       }
+> +
+>         if (mmc_card_can_poweroff_notify(host->card) &&
+>             mmc_host_can_poweroff_notify(host, pm_type))
+>                 err =3D mmc_poweroff_notify(host->card, notify_type);
+> @@ -2193,9 +2203,15 @@ static void mmc_remove(struct mmc_host *host)
+>   */
+>  static int mmc_suspend(struct mmc_host *host)
+>  {
+> +       enum mmc_poweroff_type pm_type =3D MMC_POWEROFF_SUSPEND;
+>         int err;
+>
+> -       err =3D _mmc_suspend(host, MMC_POWEROFF_SUSPEND);
+> +       if (mmc_card_keep_power(host)) {
+> +               pm_runtime_resume(&host->card->dev);
+> +               pm_type =3D MMC_NO_POWEROFF_SUSPEND;
+> +       }
+> +
+> +       err =3D _mmc_suspend(host, pm_type);
+>         if (!err) {
+>                 pm_runtime_disable(&host->card->dev);
+>                 pm_runtime_set_suspended(&host->card->dev);
+> @@ -2260,7 +2276,13 @@ static int mmc_shutdown(struct mmc_host *host)
+>   */
+>  static int mmc_resume(struct mmc_host *host)
+>  {
+> +       if (mmc_card_keep_power(host)) {
+> +               pm_runtime_set_active(&host->card->dev);
+> +               mmc_card_clr_suspended(host->card);
+> +       }
+> +
+>         pm_runtime_enable(&host->card->dev);
+> +       host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
+>         return 0;
+>  }
+>
 
-That change doesn't touch these two IPQs, so what are you suggesting?
-Are we talking about the same warnings?
+Hi Ulf,
 
-> Can the QCom folks stop doing that! Coordinate applying the series or
-> take the binding and dts changes in 1 tree.
+Sashiko reviewed this patch and sent the result to me and the DT list
+only: https://sashiko.dev/#/patchset/20261111194426.1652644-1-kamal.dasu@br=
+oadcom.com?part=3D3
 
-I assume you're referring to "QCom folks" in the sense "any maintainer
-touching a binding change related to a qcom platform"?
+It points out that with MMC_NO_POWEROFF_SUSPEND, CQE can stay on across
+suspend if _mmc_flush_cache() sends no command (e.g. cache disabled),
+since the flush is then the only thing that would call ->cqe_off(). It
+looks valid to me from reading the code.
 
-Do you have some CI/guidance/tooling for Vinod (and other subsystem
-maintainers) to perform system-wide DT-validation when considering
-merging a binding change?
+This patch is unchanged since v10 and Sashiko had no findings on it for
+v11.
 
+Would you like a guard in that branch, e.g.
+"if (host->cqe_on) host->cqe_ops->cqe_off(host);"? I can fold it into
+the next version v13 if so.
 
-I unfortunately only spotted the one-way dependency when glancing at the
-seris and thereby ignored the dts patches waiting for the binding to be
-merged.
+Regards
+Kamal
 
-> Given the patch series is 2+ months old, I'd be surprised if the rest
-> gets applied.
+--0000000000003a51a306601888c0
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-I've applied the two dts changes today, and they do resolve a number of
-warnings - presumably the ones that you're talking about, but I don't
-think the ones that this patch aim to fix?
-
-> 
-> This patch OTOH fixes warnings.
-> 
-
-What warnings? Can you please provide actionable context when you're
-pointing out these issues.
-
-Is it the three "'x-supply' is a required property" warnings from
-ipq6018-cp01-c1.dtb? It seems unlikely that there's one chip that
-doesn't depend on those supplies.
-
-> Rob
-> 
-> 
-> [1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
-
-https://lore.kernel.org/all/20260903-topic-8996_61x5_qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com/
-
-Regards,
-Bjorn
+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
+H0K0rs+X8O45xZIUJlxzf5UZex3BLi1f/H+08rSQULWEtO/ECwkFod2DIzSX7fZdz5RQ1PpziEOp
+goo/JZPYIeCmgt3rIyvMuupj8Ymb0J/velhpXfQuYUM52viw2nmqVcxCwBqyM3Iq7eI4xtEOFRmR
+wxSizd3MSQMf6GCHA4/B/6ttnxhGAr3utaOU+x/RnzG0gPLTW1XRAQ0+GVc/tGFdI864OG1cyrRl
+GvBnHJQSAFOIKwYrUk2oFpgMbafQ6osCAwEAAaOCAdswggHXMA4GA1UdDwEB/wQEAwIFoDAMBgNV
+HRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5n
+bG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYt
+aHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFww
+CQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRw
+czovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRw
+Oi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIgYDVR0RBBswGYEX
+a2FtYWwuZGFzdUBicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAU
+ACk2nlx6ug+vLVAt26AjhRiwoJIwHQYDVR0OBBYEFOV9h+N/T9ZsJ40qRxh7NYYD+N6MMA0GCSqG
+SIb3DQEBCwUAA4ICAQAKtKh30wv1/30230mCimgUjMWQE/LImRmyfDgrp2IhBVS6mDun+wH8thEB
+WhBHQMz3gsGixU4ZBJG72eWi39IzQ7CGnisJwA0+hsGaGg03AVtFtqo1rXYRZ81MEDOb6BPYLigJ
+RsHbNmrUGR+LsGeUwOWUeRXqBrYaYFrkgHKvVK1NEewv+vUY08n4tsezO3jq0HKhVDY46bMbf8vL
+oQqqhtcQvu2+5FK2jpUayeubpzPwobjEG61RIhBvM0KivY4CB2s9A7qgjL1XBycAybIvG03BbFoT
+t282FqXwk9JU6YihLlt+hpzO9UF7E8GZYlQlVIZOLOvytqilhua+2h77Yy8Jz/FJyIXKuaLPtvb2
+SC2shL7jF28kQbP3QUKwAig+cxwbpngnUkd9D9cXSHVq9PPwYm0A4eAO0YQ/80Uq20+gXF++g0sy
+NKrrV3i0T1dbCd86miGDKvarGzjh7pdsdwNY15liGP6Orib1tnWkJcbtP1rJty4r/mbbxcK8ILO4
+IvTGFG6BfjJ+La0aRt69i1fQmjUWHLwzkLNpw9cJH8/MONZcEJeDkq9WELSyy29bagStk5KHu7NO
+TH65sZg+i/4qmj3DEeEGTr/Shzp4YWSNn4W7NEelr0VgDlwa7xqlwZjXxG4MIJqy0SsQlAwEXtqd
+nH2FpJfzgAetkuyU6DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2Jh
+bFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDEca
+ZUGCu6d0oT1M+zANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQgK4PlZ+jjL4V/WC9B
+VMlLhrlB1Bz5TQMVrnkLa/dT48swGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
+CQUxDxcNMjYxMTEyMTgzMjIxWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgB
+ZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEw
+DQYJKoZIhvcNAQEBBQAEggEARvTkGFnNVhpGD1KNsLdjoTn1lYWIkGJ+FHem845H4ve/b2F03rk3
+hQIqFdk2Ozps5UrAMwcYNI7bZCGbd4m8K+5saJ62oAlSJuuukE+40+KT9iLAm++3No+R9zU7jbAm
+6d6EvfLp33tQzJDcJqFShQCgZDh7KsCSXIzDV4lSPj158azKiEXa+RPCkLmzxvU01nA37wGcHhLa
+LSL3Uc3w93sqeIwyQt0NeLLykWRUfIqfJAuP8bcNTBucKeHr0u/MxT9ksvTR5AtKqn6boOtY8EwC
+ss6fA3YSszwFG2zkqkTdrWdusolEgLennZG6tzmLgN86LBUlbA5CIzJmRpBYxA==
+--0000000000003a51a306601888c0--
