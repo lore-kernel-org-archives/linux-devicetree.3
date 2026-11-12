@@ -1,67 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474876;
-	b=iR1pnbT+OKs4hMXwqR0r9Pdk//kSB8/PDAaI2pjlFQEtSrU/0YLzag1UIwVoQkOdrucv
-	 8ii4AC/oiQcAFCfy8kj/LlpEo+tg4YplWmT3jlIPQdJDeN5hH+UBqFqML2+SrOfqBAKA4
-	 UTJG5jdFl9WjavShnFChRMz1/RPzfsdKToFStxnvO02sYz1WZVQJeHqwTMQQsKbP+XHyF
-	 B35+CS1ZNKhH4dtrUEpNiaL4mRqLxvZ98cBIxa4a93SYt6ZRB9tXWfIR4TNUIsHd+9H0a
-	 yFCCyBPZv+TRccK9ix5jXGnWnws8gOhce58cgVnca5T3A7y3tdbY9R1n8Hld/OJeIeQ==
+	t=1794474898;
+	b=Yvw2zkT1wlyHDrU1R9B3X40W6B4LC4gRzrs52/VB+nCjsk55ju/CwkaHX5Q28FC2XI/u
+	 RBKtD3zVcChRQMRvR9iK1Zqt4xq0NgyuQv4B8yHhrFSu3dCPHbhOnK3MBhO36R6djwBa9
+	 SXIn98Ij2fu60J2IEWBVYGSCk9UxwhJmnp3RZbnZIeaa2EbtHmtJ+nFtGW2zf1ZI/vWzR
+	 IayrMap0j/VwLpNWM9wtGs8EmHwVKd69pYZoeUDZfRjGnGGEOuk3zSQB2gyAUFR7Y00N3
+	 RYacHgcwvwyyAaPqJo3RshjA+7cNAH7r9xvluNWo6RlQgO0sUDag75ucBZ4UgcnAM1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474876;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ukdspEzX17qncMGtu1EzFs6Nj+VLyvCmrh0bcRFleqQ=;
-	b=VZVIUO67n7t5XpLm1G0vd2ke/7bdfdyBdbhz/L4F+eIXrkTDY7N8a7Iatzhyr5c0b4/K
-	 lz9vJNYCbvDOTYRVSHufo2ZBJqK/QgbwzpaJtROw/2/JudXDwmhH4vFcfwIk2XFWahsGm
-	 1WR7NVqFUK/SpKDJCIm3TBkdYaUBoI5cQ+otqTBT0HAP9s8PBbY+4q+76SwbRH7/lwyCQ
-	 6ylJQZxlo9kM9HVk9t8ddVCvPegK5BeomhQ8lBFsiWP7X1HeGvnaZQkr0PyzwWxpaatpc
-	 pZ8RDtymRND9JY5F3lZt4uh6Fxhj0mjB/smO3OmIAyTJOqZOZZWyg6cJ7Nw7gYeS2cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VMpo5RPSnSntW+woI56Bm32Y77NrXTYORi/b1dPNWxY=;
+	b=KCVGkkxVa+mq6NDO3X6aTPsgYP8t1nFOPhUcW7hkYsmfpLTnFvE4bgmXBsSy5QySUgho
+	 wudsWsdUv19sZTs1muBoBTiwiYrSasM/ugdWHDT2m+V0BApkBCEvSTFhCSqD2fSXEXAeH
+	 R7h/7FT9NfEkvao4LgnY+oL/KrxnDGmL/H0SHgrlu96wByLCWmOj0OR/8WXIFI9YqLgC5
+	 TcV6Y5pUSj05X0qSivF9cdnyUOQlpr+Bs2yBgKMNA/wZhDiBiawt55DKeE86Dit0KoJeN
+	 2e8FaCJSOsQOTPoTBiUub4B9/C0ZnaaLNZYRKJl2LgE2m2DACS2JwQphywxXY4vnBuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=af0I1MFM;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DkmScuGE;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BB4606A323;
-	Thu, 12 Nov 2026 09:14:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96BB4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719A3606A321
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 719A3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=af0I1MFM
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 322DF10A5C7;
-	Thu, 12 Nov 2026 10:14:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794474869;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ukdspEzX17qncMGtu1EzFs6Nj+VLyvCmrh0bcRFleqQ=;
-	b=af0I1MFMgNA5OLs4ArEeVJmDDLIE2ofIoXUjANvrIbkkHwWZT/Af32hxkFTTGDs9hY8Hik
-	gTi146v+/dufj5vAvhTGVsU5nRJLHYXYkeC3nEENlbWxkCNGbnw621BPPbcJFT+uX/eYNU
-	ixlqdKisSOVMs6YCLzoJ+HVzm42VdrJ9SbfRLPZBPPUhx6AO/0qOIbgtGjIrTxeltkWpg5
-	mOPUxPyXQf+w66HpCAcrmoiy6SMiL6KVpgrJatfZQZ1U82W6cMEoUHyOlpE87XmW7Bvkin
-	6Rp3vZsjmt93Ma6R9oyKJY6wl4rubXlmp9gKB6fCTdsHnG6ZZGm7e9G+hfgYHg==
-Date: Thu, 12 Nov 2026 10:14:26 +0100
-From: =?UTF-8?B?xYF1a2Fzeg==?= Majewski <lukma@nabladev.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
- <Frank.Li@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: trivial-devices: Add National lm77
- temperature sensor
-Message-ID: <20261112101426.35732e91@wsk>
-In-Reply-To: <20261111175348.GA167782-robh@kernel.org>
-References: <20261110150243.1531953-1-lukma@nabladev.com>
-	<20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
-	<20261111092311.54928fd3@wsk>
-	<20261111175348.GA167782-robh@kernel.org>
-Organization: Nabla
-X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DkmScuGE
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b244fb7fffso5038710c88.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:14:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794474897; x=1795079697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VMpo5RPSnSntW+woI56Bm32Y77NrXTYORi/b1dPNWxY=;
+        b=DkmScuGE2S5W+J0x5xOGsHjzrmQcGkJEm2g+m0h+CavgHZx4UX/BruWSCdJ9BSx60b
+         FmlWZ5FX+sYZCu6MsFeJbr+85tF+PAmL6gcLN15lICenKJC57YiePTzhgtmXZ5IQ8i5d
+         nojV99O9BoRpeaC5qagbnN1pZh+62iOX6LCew=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794474897; x=1795079697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VMpo5RPSnSntW+woI56Bm32Y77NrXTYORi/b1dPNWxY=;
+        b=MSTwvvg/qqrqUmq1MWh9vXOffuHg2SVOzMno6S4AuKaYMOzFjtdYUj2FUoVT7vSGLr
+         gcVQPVqMhO4wlSL2xqYte5TpPshnfhUlTd1DaPK/IIvobRF49sgkXmuzVv4zCbIA6eiz
+         3KZMv3GsbzQSzW/Yc5WZ7/omLuK5enrDCP4fMXqzcjMP/Rinvzts6Jok1ujVJLdV4pJu
+         uz/rU8MCySObME4sUsmEUnU9a2wQ8a35dqbu4TMOLlo9bTfol7xoY7zO7qHxaqdxp5Z1
+         JPrXjMJwN2AOSmQpdFd7qR49aIggsPUn0omdjEGBu9MbdqFTHHRzicdgzpLRgG9idwQK
+         XOzw==
+X-Forwarded-Encrypted: i=1; AL+hErEoN7Go2RodXxg6DiUS6Utje9H0QBamBecqzqbtkyWUmWnHIjpwf+MMgFPOHhxpGXHhq2afwJz2sPJi@vger.kernel.org
+X-Gm-Message-State: APuU4Z8F4ZQQUyS/WTUCGBLwwmNMBcRedtQaP1KnjU4kigaB+PE2Odks
+	3r4biIU9JOi1zG6UT7//4z6/mtK8Z4bmUZEuai0tiNdv5orFMmkyqdUFE4lCQbkh6w==
+X-Gm-Gg: AYBFou09mtojpp+z1B31POGJNJrEildHp0IBxM7S14lvZFfeJfWXlIkMdye66FLAy2h
+	D51XB0jtnCQlI2RIPaGoCqhbn3RxO/PNpuw5nf/xVI5FjtuaHCBQKOyG5E/wQXcRth/sgwb13CG
+	Wrmwwm3KFwISYcWNJreYpKyr1nLwXIMkuoX8my8yOfc5rPBLKICE4YXwzSSsja/uokPQfPzOykS
+	sdivdJpqN7heiRAQMRcOtBYcsbniKVm0+hgUTdD6s1F46Xp0dDve0LZSrgD+ydFdlXL1PLD6a2n
+	T6mqHCSRv8oUK+rhiXIOZL82erGLuptl2Pq7YhawuZuuz/DkKjU7eW4fLQiWO+qM5oQRTlDH5sq
+	cXvPQ7H4Kd9mLgpNSAzwCtYlqUqrXh9oTCDeEc0z2LhKQI92VnEdsd9rQp8KtpSmGRz+bJ/s0TX
+	8yYrMskRTuzmbobI1uA1niXT0aQKxHkbQEkx/lx0oOn/Toclu5188IJlCAI9YkXylY27DOUBp7/
+	RV+FSN4fU+VPiYpPqYjUCDtRW0Y5Mk30kt7Zk4vvRumdTmF0x0ofu1CiRnNLaJtKH0+tP/TLWib
+	Oqa9d5K1ZXZWSYuiZ9kteYvv3o2F6sQfqYscLyQV5mlQYkyLgLDNNUBQGHAD
+X-Received: by 2002:a05:7023:d0d:b0:1a1:8bac:c1c1 with SMTP id a92af1059eb24-1b3c02f06b0mr4729658c88.15.1794474897295;
+        Thu, 12 Nov 2026 01:14:57 -0800 (PST)
+Received: from localhost ([2a00:79e0:203d:7:3df7:8811:7670:7b44])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3b5b2eeffsm23794130c88.9.2026.11.12.01.14.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 01:14:56 -0800 (PST)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mateusz Koza <mateusz.koza@grinn-global.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/2] arm64: dts: mediatek: mt8390-grinn-genio-sbc: Fix PCIe pinmux node name
+Date: Thu, 12 Nov 2026 17:14:46 +0800
+Message-ID: <20261112091448.869620-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,85 +95,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Rob,
+The pinctrl bindings require that the pinmux node's name and the node
+names of its children follow a certain pattern. The current names do
+not, causing a DT validation error.
 
-> On Wed, Nov 11, 2026 at 09:23:11AM +0100, =C5=81ukasz Majewski wrote:
-> > Hi Guenter,
-> >  =20
-> > > On 11/10/26 07:02, Lukasz Majewski wrote: =20
-> > > > Add "national,lm77" as compatible for the National (now TI) LM77
-> > > > digital I2C temperature sensor.
-> > > >=20
-> > > > Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
-> > > > ---
-> > > >   Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
-> > > >   1 file changed, 2 insertions(+) =20
->=20
-> Not really a trivial device as there is a T_CRIT_A signal...
->=20
-> Though I guess LM80 and probably others aren't really either.
->=20
+Fix up the names so that the validation passes.
 
-Yes...
+Fixes: f4d1eace54f7 ("arm64: dts: mediatek: mt8390-genio-700-evk: Add Grinn GenioSBC-700")
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> > > >=20
-> > > > diff --git
-> > > > a/Documentation/devicetree/bindings/trivial-devices.yaml
-> > > > b/Documentation/devicetree/bindings/trivial-devices.yaml index
-> > > > a8b2b9deade4..9413ee0626f5 100644 ---
-> > > > a/Documentation/devicetree/bindings/trivial-devices.yaml +++
-> > > > b/Documentation/devicetree/bindings/trivial-devices.yaml @@
-> > > > -387,6 +387,8 @@ properties:
-> > > >             - national,lm85c
-> > > >               # I2C =C2=B10.33=C2=B0C Accurate, 12-Bit + Sign Tempe=
-rature
-> > > > Sensor and Thermal Window Comparator
-> > > >             - national,lm92
-> > > > +            # Temperature sensor
-> > > > +          - national,lm77   =20
-> > >=20
-> > > I'd suggest to retain alphabetic order.
-> > >  =20
-> >=20
-> > The "alphabetic" order for "national," is already "disturbed" in
-> > this file - that is why I've put it in the end.
-> >=20
-> > Now, the question - shall I "order" properly all of "national,"
-> > bindings in a single patch (including the new one)?
-> >=20
-> > Or prepare two patches:
-> > - One to make the alphabetic order for already in-tree properties=20
-> >=20
-> > and
-> >=20
-> > - Add the "national,lm77" afterwards ? =20
->=20
-> Just don't make things worse.=20
+diff --git a/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
+index 51f12328a1d6..7a31cf6f27db 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
+@@ -228,8 +228,8 @@ pins {
+ 		};
+ 	};
+ 
+-	pcie_pins_default: pcie-default {
+-		mux {
++	pcie_pins_default: pcie-default-pins {
++		pins {
+ 			pinmux = <PINMUX_GPIO47__FUNC_I1_WAKEN>,
+ 				 <PINMUX_GPIO48__FUNC_O_PERSTN>,
+ 				 <PINMUX_GPIO49__FUNC_B1_CLKREQN>;
+-- 
+2.56.0.567.gdb80ae8cd5-goog
 
-Ok. I will :-)
-
-> Put it after national,lm95245 and
-> before national,lm80. Then all but the first 2 are in order.
->=20
-
-+1
-
-> Rob
-
-
-
---=20
-Best regards,
-
-Lukasz Majewski
-
---
-Nabla Software Engineering GmbH
-HRB 40522 Augsburg
-Phone: +49 821 45592596
-E-Mail: office@nabladev.com
-Managing Director : Stefano Babic
