@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794520435;
-	b=ZALx0u+GD5M6nLXkzr83ZVjt/7pvfIF92rbxlybK3aRz/zXn9SeV59sIFXfhOCGXmomZ
-	 SbGjQnmbzdkwl8pZr3PayMerG/BUyDRmJ6eQdmRTNmHiKD82IhVfXIjre+MceGsWKDKA5
-	 pqwRcgt0ZA7uOswjzdesC/6opXCr/fYMCA4wW79dwnl9WHGFWvy3mkAdOpAyTDRGr0Xw7
-	 VuuSuMI0DiWBAxN5BfR4COgEPGCkQJ/yX8KfLbUpnH3krPqz5KYrxsTxE2QYqaDVUSD+A
-	 L7AN6y0LkVxjRuctEb4PEokwBQN0BIh2IUc6LzyoApfIkI3pEAjMmtdcaF2ivyYz93w==
+	t=1794520909;
+	b=0HhczaUG5fqgTS/xYTQe/R3P87/HdhWyMwLKGF9vZfXAxCOz3yJyLCGFVFTcHD6OwqX9
+	 BBeK86TaKb4vv3VINUZxd8WIHIH2QwgfLFieqUPxwAUr60hgM1ip8sdyJZLksIp8s7i4M
+	 irW0owz45J4/I4NVoV9MR71nNU++LCdo/za052BNv6jzNOzQe6WJm6zLW8vMLfS1s+lLm
+	 MtsHqDv6tVcIR90qvcJqrsLVvSIS0NnzkHmN7jRhsXRB9S6C+3XlN50oMLkao+uRYsOMU
+	 eACyi8TfN2ZSQBU6i5tbycZgjCpSQCHeLB7tiT1hODEX1WzyDT3pm3v48cFig/bqHeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794520435;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=02NFS87u8B2FED+eEBRVmb+CbNAG29G/4Czh71G23bc=;
-	b=d5MKN76V0qmof0PstYOd7mIa+5Ppq99BZmWJii1MmDxZ+bEZd4kvcPebnAT6hMYbjBfz
-	 62nvjXB35ZeiRUCo37v6nt6w2f7QhvxK9lvmZzgWSnwKELOOmon+7VCfS7xH8wFBG7jd7
-	 anWqz3f4aXEpjXOixVWe6F1iW6jNu8hHtBdsJ+WXkzcSYxhpTgZdn28Ql5A14LC72yyDK
-	 cpfJ2IgjUhP6P/gRhLbADSWtxMb2afZuz1YnfKhwdsTgIjJXXqle+tbk2t+hggcnrpqbu
-	 0F00Iom4XkTyJMHT7CVl+7GEmKpBXavJH2vieIUW8ZIQ7pMVh3ofaIWs9iXoKa9/R4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794520909;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=vdMA1rZDsMWZnzwxj7F1cIHftxuCu3tfuRlXj3dXsUo=;
+	b=E54IptIwqZQ9K8Y6PehtEb2j/9NJ5wpCaxzKNRqkmS8//EbBfEB74ES3TjqxILeGFCMQ
+	 K4rUai2Tg7YI7oHIyM9MYlCjiuK1ZYkevrwIOHlwUAru/WcmPYmLePmhnIwCZG/jrbFpX
+	 sHU+gHLHxu70BBwGdhC9NbCZnSg+44dvE3CZ/hXGOfD3fDyZjclVYhQihpYFxAg2z71cp
+	 BaQKsr6WVvCk2Xs9UOd4pwPi1TcXv3Mg4zQY6D4u5cHRKxV7Q6BhJuoUv3sIl7eDIMPpY
+	 33g2+sug7NdBI49h7wGZ8oDCUUuU3q/C7EefhN17TFRAPw3QZJZAkRXjCuQcM82H9BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MltxBt/N";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0Nd4IU5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538EE606A8A7;
-	Thu, 12 Nov 2026 21:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADECA606A321
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 22:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MltxBt/N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C931F000D2;
-	Thu, 12 Nov 2026 21:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0Nd4IU5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077CC1F000C4;
+	Thu, 12 Nov 2026 22:01:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794520435;
-	bh=02NFS87u8B2FED+eEBRVmb+CbNAG29G/4Czh71G23bc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MltxBt/NM3NWzwYKjaJkfdjNZkSA3U+dQl9Yw/Ge+69BUr1Q83t2vCkfTpZjqyOAT
-	 vYFf6iODVFRTq5W4AG3R/AVPfhOO9NwTUoL4zVvj/OFcS3xAC/Tw5BKIjUETpVVtCu
-	 spBYFbxvS25LOLRbiIqi9LVUAJhcwAcyHrXLycW1dkmhB7HmD/mFhBU5lISebQZQdI
-	 05FVDgXPqAFr467c7IsyfWEH6gCodR+85Tp+7Sy9ysKqsd7wWgSKG7MhStYyCx/cwj
-	 /WqZ1iDLFs4Vx2GzKXvOhTQI95b3zVvftajpm5A8y/ZGFztyhAhod9AO+QPn7TH/Rd
-	 ZOLSQ9NhSuOxg==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: bp@alien8.de,
-	tony.luck@intel.com
-Cc: dinguyen@kernel.org,
-	rounakdas2025@gmail.com,
-	niravkumar.l.rabara@altera.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCHv3 4/4] arm64: dts: socfpga: agilex5: add support for the ECC manager
-Date: Thu, 12 Nov 2026 15:53:42 -0600
-Message-ID: <20261112215342.2476801-4-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
-In-Reply-To: <20261112215342.2476801-1-dinguyen@kernel.org>
+	s=k20260515; t=1794520909;
+	bh=vdMA1rZDsMWZnzwxj7F1cIHftxuCu3tfuRlXj3dXsUo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G0Nd4IU5ewOYMFpEovRpijk3pI+PT6ikNXtBYlDm6uvTabKBAioN+qb/Pm4Yf4owk
+	 0M2U+4+OO9Njl85nKwSCy3KRGQCXlemxX+HWu9nxu+cl4T0UIYr7ko9GXfWYWf6r/+
+	 JNedgMSIr/U2uLq/wRLouQx3P+EWfMiRzOEUrfp69qA2RFx4KLNTJC/Jo2zXQ0Kj66
+	 M/oK1zRVrgD//UU5BrNhSagrcojGNvIR0kXlt885gtADHJRcV9gtEBMa6+7JR/fK3J
+	 rpybBrzJNBQmicSJXq9kGu/R9CktfQ44C6PcAblUM3Lm7GqtiM+tLNdajKOMZ5tSLd
+	 Tsvcg1terf+mw==
+Message-ID: <sashiko-outbox-211882@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCHv3 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112215342.2476801-2-dinguyen@kernel.org>
 References: <20261112215342.2476801-1-dinguyen@kernel.org>
+ <20261112215342.2476801-2-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 22:01:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,116 +60,174 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add the ECC manager to the base Agilex5 dtsi, along with OCRAM ECC and
-RX/TX ECC for EMAC0, EMAC1, and EMAC2.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] dt-bindings: edac: altera: fixed-order interrupt-names tuple
+  with minItems 1
+- [Medium] dt-bindings: edac: altera: incompatible a10 fallback
+  compatible for agilex5
+- [Low] dt-bindings: edac: altera: unwieldy per-compatible conditionals
+  in schema
+--
 
-The eccmgr node is an interrupt aggregator, not an MMIO device. Its
-INTMASK and INTSTAT registers live in the System Manager, and the
-driver reaches them through altr,sysmgr-syscon, so the node has no
-reg property and no unit address.
+commit 8ef209bb93609f50bb0952f3479bdf8adcfdc2d5
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-The OCRAM and EMAC children are MMIO devices, each at its own ECC
-controller address. #address-cells, #size-cells, and ranges translate
-those addresses onto CPU physical addresses. ranges does not give the
-manager its own window.
+dt-bindings: edac: altera: agilex5: document new edac support
 
-The children stay under eccmgr because they are clients of its irqchip.
-The Agilex5 manager binds to altr_edac_a10_probe(), which walks the
-child nodes and uses one IRQ domain for the per-RAM blocks.
+This commit documents the Agilex5 ECC manager compatible string and its
+seven named interrupts in the Altera SoCFPGA ECC manager DT binding.
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
-v3: no changes
-v2: add more context to commit message
-    move eccmgr out of soc node
-    s/38/36 for emac0-rx
----
- .../boot/dts/altera/socfpga_agilex5.dtsi      | 69 +++++++++++++++++++
- 1 file changed, 69 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-mana=
+ger.yaml b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.=
+yaml
+> index 136e8fccd429a..14e09fc86055f 100644
+> --- a/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
+> +++ b/Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml
+> @@ -20,7 +20,9 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> -          - const: altr,socfpga-s10-ecc-manager
+> +          - enum:
+> +              - altr,socfpga-s10-ecc-manager
+> +              - altr,socfpga-agilex5-ecc-manager
+>            - const: altr,socfpga-a10-ecc-manager
+>        - const: altr,socfpga-a10-ecc-manager
+>        - const: altr,socfpga-ecc-manager
 
-diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-index 161f3d4bbefe8..12d623d4b892e 100644
---- a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-@@ -160,6 +160,75 @@ qspi_clk: qspi-clk {
- 		};
- 	};
- 
-+	eccmgr {
-+		compatible = "altr,socfpga-agilex5-ecc-manager",
-+			     "altr,socfpga-a10-ecc-manager";
-+		altr,sysmgr-syscon = <&sysmgr>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		interrupt-parent = <&intc>;
-+		interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 241 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 95 IRQ_TYPE_EDGE_RISING>,
-+			     <GIC_SPI 120 IRQ_TYPE_EDGE_RISING>,
-+			     <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "global_sbe", "global_dbe", "io96b0" , "io96b1",
-+				  "sdm_qspi_sbe", "sdm_qspi_dbe", "sdm_seu";
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		ranges = <0 0 0 0xffffffff>;
-+
-+		ocram-ecc@108cc000 {
-+			compatible = "altr,socfpga-a10-ocram-ecc";
-+			reg = <0x108cc000 0x100>;
-+			interrupts = <1 IRQ_TYPE_LEVEL_HIGH>, <33 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac0-rx-ecc@108c0000 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c0000 0x100>;
-+			altr,ecc-parent = <&gmac0>;
-+			interrupts = <4 IRQ_TYPE_LEVEL_HIGH>, <36 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac0-tx-ecc@108c0400 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c0400 0x100>;
-+			altr,ecc-parent = <&gmac0>;
-+			interrupts = <5 IRQ_TYPE_LEVEL_HIGH>, <37 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac1-rx-ecc@108c0800 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c0800 0x100>;
-+			altr,ecc-parent = <&gmac1>;
-+			interrupts = <6 IRQ_TYPE_LEVEL_HIGH>, <38 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac1-tx-ecc@108c0c00 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c0c00 0x100>;
-+			altr,ecc-parent = <&gmac1>;
-+			interrupts = <7 IRQ_TYPE_LEVEL_HIGH>, <39 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac2-rx-ecc@108c1000 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c1000 0x100>;
-+			altr,ecc-parent = <&gmac2>;
-+			interrupts = <8 IRQ_TYPE_LEVEL_HIGH>, <40 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		emac2-tx-ecc@108c1400 {
-+			compatible = "altr,socfpga-eth-mac-ecc";
-+			reg = <0x108c1400 0x100>;
-+			altr,ecc-parent = <&gmac2>;
-+			interrupts = <9 IRQ_TYPE_LEVEL_HIGH>, <41 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+	};
-+
- 	timer {
- 		compatible = "arm,armv8-timer";
- 		interrupt-parent = <&intc>;
--- 
-2.42.0.411.g813d9a9188
+[Severity: Medium]
+Is altr,socfpga-a10-ecc-manager a valid fallback compatible for
+altr,socfpga-agilex5-ecc-manager?
 
+On a kernel without dedicated Agilex5 support, matching
+altr,socfpga-a10-ecc-manager binds altr_edac_a10_driver with is_s10 set
+to false.  altr_edac_a10_probe() and altr_edac_a10_device_add() then
+treat the device as a 32-bit Arria10 ECC manager, writing Arria10 System
+Manager register offsets (A10_SYSMGR_ECC_INTMASK_SET_OFST), registering
+platform_get_irq(pdev, 1) as a chained IRQ handler, and requiring two
+interrupts on every child peripheral ECC node.
+
+> @@ -33,7 +35,25 @@ properties:
+> =20
+>    interrupts:
+>      minItems: 1
+> -    maxItems: 2
+> +    items:
+> +      - description: Global single-bit error
+> +      - description: Global double-bit error
+> +      - description: IO96B0 DRAM controller error
+> +      - description: IO96B1 DRAM controller error
+> +      - description: SDM QSPI single-bit error
+> +      - description: SDM QSPI double-bit error
+> +      - description: SDM single-event
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    items:
+> +      - const: global_sbe
+> +      - const: global_dbe
+> +      - const: io96b0
+> +      - const: io96b1
+> +      - const: sdm_qspi_sbe
+> +      - const: sdm_qspi_dbe
+> +      - const: sdm_seu
+
+[Severity: Medium]
+Does defining interrupt-names as a fixed-order tuple of const values
+with minItems: 1 match how Agilex5 nodes specify interrupts?
+
+In JSON Schema tuple validation, an array of length N (with N < 7) must
+match the first N entries in exact order, so dtbs_check will reject any
+Agilex5 node that omits an earlier interrupt (such as global_dbe or
+io96b1) while specifying a later one (such as io96b0 or sdm_seu).  Or, if
+all seven GIC interrupts are always wired in the Agilex5 SoC device tree,
+should minItems be 7?
+
+[ ... ]
+
+> @@ -235,28 +255,50 @@ patternProperties:
+>        - interrupts
+>        - altr,ecc-parent
+> =20
+> -if:
+> -  properties:
+> -    compatible:
+> -      contains:
+> -        const: altr,socfpga-ecc-manager
+> -then:
+> -  required:
+> -    - compatible
+> -    - "#address-cells"
+> -    - "#size-cells"
+> -    - ranges
+> -
+> -else:
+> -  required:
+> -    - compatible
+> -    - "#address-cells"
+> -    - "#size-cells"
+> -    - interrupts
+> -    - interrupt-controller
+> -    - "#interrupt-cells"
+> -    - ranges
+> -    - altr,sysmgr-syscon
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-ecc-manager
+> +    then:
+> +      required:
+> +        - compatible
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - ranges
+> +
+> +    else:
+> +      required:
+> +        - compatible
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - interrupts
+> +        - interrupt-controller
+> +        - "#interrupt-cells"
+> +        - ranges
+> +        - altr,sysmgr-syscon
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-agilex5-ecc-manager
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 1
+> +          maxItems: 7
+> +        interrupt-names:
+> +          minItems: 1
+> +          maxItems: 7
+> +      required:
+> +        - interrupt-names
+> +    else:
+> +      properties:
+> +        interrupts:
+> +          maxItems: 2
+> +        interrupt-names: false
+
+[Severity: Low]
+This isn't a bug, but this binding already spans several SoCFPGA
+generations with different property requirements, and defining seven
+Agilex5-specific interrupts at the top level only to restrict older
+variants back in a second if/then/else block makes the schema hard to
+follow (with minItems: 1 and maxItems: 7 in the Agilex5 branch also
+duplicating the top-level 7-item lists).  Would it be cleaner to split
+Agilex5 into a separate schema document instead of adding more
+per-compatible conditionals here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112215342.2476=
+801-2-dinguyen@kernel.org?part=3D1
