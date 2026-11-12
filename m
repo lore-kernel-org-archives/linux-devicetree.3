@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468925;
-	b=QIQADfIA7s4eJqQDVaZ7L0MT/+CQhxgMPCieHtrBVc0t0UBpUl0wFBXBZdwStm0IBlRr
-	 UaiFmQGc4VdTmsmD92h2vO9t82aCzOdmGUuPME8ThRrWYkW0OF8LOx7bTDSBX7gLDGRAk
-	 2jTr6ykof9Ia2DMkEeVXL9XnH5ghodrr84jSk47tHCrE/dlvpUklGw/7iDcFzT+iMmqcW
-	 /1FQCCWmlyzJYWvNHto7TaQC6RlWp+lryJy0bKVJc1GRno4tKKPdE4tiH65TlSF0pPOiI
-	 AuY3tAoq6SziAZou4FOKNnESXj2W6AoF5bTj/U+XH71K21P1Eogu1YiC27WpceaXmWA==
+	t=1794468962;
+	b=CPrlsvq8d8qo0viylyBqCgyYWwlmLDDbdEoHuUvlhoSWHKdBowuXWImpbkiTHKEHRoPP
+	 0miTKzWjC28zxZhn0MHWcoQejXS6s8JDyZgEfh/Ay1TWOsVcG0yQzp/XKtqzUM7gelDnR
+	 mYPN/0OzZ5iq1WyKATlXwisXVqrcQJdC+sa5EBA1PLOsA5zDn5eWsCsqYCkKWd3hZvV0f
+	 oakdsaI5DmeYpamF/QWvKu0q+BzWsKLYvLuEkZ9XlQjJpTF9aFYYZnuhUoNyMAZg8V/Ei
+	 UtHWHBfYsNFmLfPblcXiYaHEvABvN19//Q4F7sFziOAl7Zb/2AKUHwwYqj5F+wytWBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468925;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iHvQScvW7jXvcnXbU6VuzVbGjbXD7QIbA/h+54rh/ko=;
-	b=JY+4tVY442GfmKsGxiJXu3e1xcm0SBC1uVFiwlG3X+w9HF6CNJ/LXUTLhbG8Q5gzKi4N
-	 hMYt6nbmKmy0k5Gbp0Th4JsMtjbPugOsDAjq9f1scV8eDB8N8wyVpyNuw89AeFVDSgj7B
-	 TTRHFmnEHjCqfE9tci96+84H1Jq6sSbZrUV6EU280f0SAkX+ptyFLOBWbF0tv1NW85BhB
-	 iCcyyzbAAbiXmWVqoOEgfQMuJ3IXkiwtmLcMZt2P7RJ4xaqnUB3oXvDewnTb4f9GUFyHK
-	 h5zLdJtudpovGO8Xf+oTocWFb4YM1JG4HQGZ/ZbObtYqFNoaHfLpAe23t83NdpFb5/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468962;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+	b=wo00OQUpBNlYnvBqlyefkru30LUQVTYINYMbVwQRp4bfiuOvLyais4HFjtgx6UktEwpS
+	 q7eIGvgXuT0qgAISvINk/kg1WS8mY2z5/jumTRmAh1TBZuMuhuDVIJVZxsQIr2CMeOe9p
+	 oaSTeyEnMM8cNMC8PsGC1p3BFtuRAbnCICDcYSQT1NaGD1bCLr1yHQm4CtlZXl1Zy/mkz
+	 y7OamtRw8vee8x+8/MUeK7GMaMsaHRLkBIvZkZ+yALiOvNaUJYdcIeuem8LAub3+DgNJy
+	 fNFiD3uhrIsjVjr1zlhc6kZbWHvQ3sjlMuht7vfhYM+drUEiZUHwcrNIM3JTYVXc9gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YAaZKPF0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Sa/bc71A";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Sa/bc71A";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6A1606A31C
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 07:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235CC606A31C;
+	Thu, 12 Nov 2026 07:36:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 235CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YAaZKPF0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40C21F00A05;
-	Thu, 12 Nov 2026 07:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794468925;
-	bh=iHvQScvW7jXvcnXbU6VuzVbGjbXD7QIbA/h+54rh/ko=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YAaZKPF09kgJL1IZbZ6LPcwHctA+HQqwUPboLgkc6Sw8TCX4fiGY/RtPkSPeVfw/w
-	 1U/mFK3q2ZnrTRPekU3tNa45BRnbkQBudGAChKrILN91qNJD27eKeyMqmNL3UBzcBf
-	 AbgOV3gI/EC4pZRqHSFxWQiEXP+Z816IXQHX83t+83MMFkqUZK9ArRWg+f7kpr1Q3I
-	 f2kX/7MDQ9RaBYRsgI0tBJNxLLYiO6nhGfgYwZCMAg4S+9ehmV87LWJSG0bRBnMipg
-	 +Fj5f9xqB/zO3GAa9Vp6xiJqW6hgxl826BIiTAwGg+cx8iswuJFCQyu4jscw8PKAxo
-	 XDrg6wvjTJ9Qw==
-Message-ID: <sashiko-outbox-210616@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] power: sequencing: qcom-wcn: support SW_CTRL
- wake IRQ
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linghui Wu" <linghui.wu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261112072009.3815276-3-linghui.wu@oss.qualcomm.com>
-References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-3-linghui.wu@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 07:35:24 +0000
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sa/bc71A;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sa/bc71A
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2BC5421E2E;
+	Thu, 12 Nov 2026 07:36:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794468960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+	b=SWfGlL5SP9QxUigmvUkfyufsOScTBkV0SKYv4XyB00QDFc56vIRgnLoooVn4Kfz5I6sU8G
+	2TK/UiWAb60R81XNi8V6KibQBmpzUHvjBvSdB5YOMNrZCh/UDV61tfqznjFnZFjuE5zMid
+	PhpBGV6jwyk26HJYE9lmUNvnG+oeKj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794468960;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+	b=Sa/bc71AVe/647ejfmkcDQX8ZQ9mMjzepp6L1XlFCiZXlLt06zcX3shwy7VBKqckpNTto4
+	sg0Ykd6hzc53DsAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794468960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+	b=SWfGlL5SP9QxUigmvUkfyufsOScTBkV0SKYv4XyB00QDFc56vIRgnLoooVn4Kfz5I6sU8G
+	2TK/UiWAb60R81XNi8V6KibQBmpzUHvjBvSdB5YOMNrZCh/UDV61tfqznjFnZFjuE5zMid
+	PhpBGV6jwyk26HJYE9lmUNvnG+oeKj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794468960;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+	b=Sa/bc71AVe/647ejfmkcDQX8ZQ9mMjzepp6L1XlFCiZXlLt06zcX3shwy7VBKqckpNTto4
+	sg0Ykd6hzc53DsAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC663134A0;
+	Thu, 12 Nov 2026 07:35:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WBbQIF9s9WrAEAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 12 Nov 2026 07:35:59 +0000
+Message-ID: <8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
+Date: Thu, 12 Nov 2026 08:35:59 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,76 +105,137 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
+ mono format
+To: Sebastian Raase <linux@sraa.de>
+Cc: Hans de Goede <hansg@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
+References: <cover.1793758480.git.linux@sraa.de>
+ <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[dt];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,sraa.de:email]
+X-Spam-Score: -11.79
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] power: sequencing: missing wake IRQ trigger type in
-  pwrseq_qcom_wcn_probe()
-- [Low] power: sequencing: qcom-wcn: direct inclusion of
-  linux/pm_wakeup.h
+Hi
+
+Am 04.11.26 um 03:34 schrieb Sebastian Raase:
+> This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
+>
+> Signed-off-by: Sebastian Raase <linux@sraa.de>
+> ---
+>   .../devicetree/bindings/display/simple-framebuffer.yaml         | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> index 45ffdebc9d86..c627ec088434 100644
+> --- a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> +++ b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> @@ -94,6 +94,7 @@ properties:
+>     format:
+>       description: >
+>         Format of the framebuffer:
+> +        * `mono` - 1-bit packed pixels, 8 pixels/byte
+
+I don't object the change, but I really object the naming.
+
+Mono is not a good name because it doesn't describe the format's pixel 
+layout. For example, RGB with only 2 colors is also mono in some sense.
+
+The common names used in the Linux kernel for this type of color format 
+are C1 and R1. More generally speaking,
+
+  - Cn describes an n-bit format with a palette. The pixel bits index 
+into the palette.  Pixels are packed.
+  - Rn describes an n-bit format with a single color channel. The 
+channel has linear color gradient. Pixels are packed.
+
+In your case, you'd define 'r1'. While at it, we can also define r2, r4, 
+and r8.  The terminal supports up to 16 colors, so implementing r4 might 
+be of interest to some simple hardware.
+
+Best regards
+Thomas
+
+
+>           * `a1r5g5b5` - 16-bit pixels, d[15]=a, d[14:10]=r, d[9:5]=g, d[4:0]=b
+>           * `a2r10g10b10` - 32-bit pixels, d[31:30]=a, d[29:20]=r, d[19:10]=g, d[9:0]=b
+>           * `a8b8g8r8` - 32-bit pixels, d[31:24]=a, d[23:16]=b, d[15:8]=g, d[7:0]=r
+> @@ -106,6 +107,7 @@ properties:
+>           * `x8r8g8b8` - 32-bit pixels, d[23:16]=r, d[15:8]=g, d[7:0]=b
+>           * `x8b8g8r8` - 32-bit pixels, d[23:16]=b, d[15:8]=g, d[7:0]=r
+>       enum:
+> +      - mono
+>         - a1r5g5b5
+>         - a2r10g10b10
+>         - a8b8g8r8
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-commit 832aa68ed4662747e202e91c3f57f19829c22253
-Author: Linghui Wu <linghui.wu@oss.qualcomm.com>
 
-power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
-
-This commit adds support for requesting the SW_CTRL GPIO and registering it
-as a dedicated wake IRQ when the WCN PMU is marked as a wakeup source.
-
-> diff --git a/drivers/power/sequencing/pwrseq-qcom-wcn.c b/drivers/power/s=
-equencing/pwrseq-qcom-wcn.c
-> index e51b655add01c..26b436df9b93e 100644
-> --- a/drivers/power/sequencing/pwrseq-qcom-wcn.c
-> +++ b/drivers/power/sequencing/pwrseq-qcom-wcn.c
-> @@ -11,6 +11,8 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_wakeirq.h>
-> +#include <linux/pm_wakeup.h>
-
-[Severity: Low]
-include/linux/pm_wakeup.h forbids direct inclusion (#error "Please do not
-include this file directly.") and is already included via <linux/device.h>.
-
-[ ... ]
-
-> @@ -525,6 +534,33 @@ static int pwrseq_qcom_wcn_probe(struct platform_dev=
-ice *pdev)
->  		return dev_err_probe(dev, PTR_ERR(ctx->bt_gpio),
->  				     "Failed to get the Bluetooth enable GPIO\n");
-> =20
-> +	if (device_property_read_bool(dev, "wakeup-source")) {
-> +		swctrl_gpio =3D devm_gpiod_get(dev, "swctrl", GPIOD_IN);
-> +		if (IS_ERR(swctrl_gpio))
-> +			return dev_err_probe(dev, PTR_ERR(swctrl_gpio),
-> +					     "Failed to get the SW_CTRL GPIO\n");
-> +
-> +		wake_irq =3D gpiod_to_irq(swctrl_gpio);
-> +		if (wake_irq < 0)
-> +			return dev_err_probe(dev, wake_irq,
-> +					     "Failed to get the SW_CTRL wake IRQ\n");
-> +
-> +		ret =3D devm_device_init_wakeup(dev);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to enable wakeup\n");
-> +
-> +		ret =3D dev_pm_set_dedicated_wake_irq(dev, wake_irq);
-
-[Severity: High]
-Does wake_irq ever get an interrupt trigger type configured?
-
-gpiod_to_irq() maps the GPIO line with IRQ_TYPE_NONE, and
-dev_pm_set_dedicated_wake_irq() calls request_threaded_irq() with only
-IRQF_ONESHOT | IRQF_NO_AUTOEN.  Because neither supplies trigger flags,
-__setup_irq() skips __irq_set_trigger().  On Qualcomm TLMM GPIOs,
-msm_gpio_init() initializes the IRQ with IRQ_TYPE_NONE and handle_bad_irq,
-relying on .irq_set_type to program hardware trigger registers and install
-the real flow handler, so SW_CTRL wake interrupts will either fail to fire
-or hit handle_bad_irq() instead of waking the system.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112072009.3815=
-276-1-linghui.wu@oss.qualcomm.com?part=3D2
