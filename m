@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471778;
-	b=ICMAINY1Y6yVnh0DWkm6sPgj67Yi7ZJnMsRVv8y+Gi7tg96BUg/Iql+RYzZO/HEesBRD
-	 ZByBNlV5vcCM5D43VZjK4Wp8g2vwE7bk8lV39tWtqF8Grxrv/TpigHQEGHqTLzCT/PqE2
-	 GKGTciSL0kPUXMHjn4z+GPbcOo7XHVxKritfspFJETvItoKwSREejdLXsBFnWmz9jt13g
-	 yuT//b+yrN1Gb4K0UFeavPeyxktGyKbmbMCSNepJ8yalMxYmhjNrrIl1zBT3CwDC8wSIH
-	 VbFSlv/Ays1zqszMZy6hnj/7mSGOcI5Hyob0ShR5PCibk7NEjhFQtve28MLaZb1R0Ng==
+	t=1794471794;
+	b=zRfnXMSP4s5wYeegVbd91JEwBH5QFLfJIzWUPwN4CQeCHMddEJmsXxqqgEYyqW+I3nVO
+	 QYZDU8NV+yC/jCvGpEAgV05ylelDhfqg+b5vEAuGd3lfKzpkimrjmp06x4MUgV1kFZb6m
+	 l7OOQ7tVvaL3k4yFF+5W9Gv7d/yIgWHxRyjt1EX1p42yaCGjmUlATYUPhi9145FZbJgvs
+	 Xu9dcIUt3DY721r3lOjEjBKgyuKWmv3o62q6QMvGLfAMv+Q3ogLOTpxNDu+5VgZ4e/b+L
+	 Y4Jt292VJ5smWqSIxkgn575a37DpuHVm/PqhR24UJNH59nZsFlUGAODuA+vR0LePYVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471778;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DGRmYJsEqQDUHJi6CMXNYxNkp4AEpmlVNQBXe+bE3vk=;
-	b=Vw68cv2g23N16KR+7+BwlyZC/fWHmF2BRv8LYuQw9IjAaTMnRhpG9jfHGOqezxclo8cm
-	 b3txLulmb10GJ2xs9Rc1hUeYq5ZrqqqZlhspW1fk+zsRTI06/UAPf7bI8g2VZR0aTHipa
-	 2CpEqL+xMjeXHUC+LqCZ+/3de0N4GV8e4+KZ49KBpw6LdHhdimBe+dB7T6yUxb1FzGFZE
-	 /a9UOOBtgTQ9SwPcLxhlB1/lKNoEIVSSWnZDmyX3DwHXXfivzRNsYIsx/ktnNGu3N034K
-	 Ewvh9olWxVxjWjKSxqG39rt00E1fmfobKOc60S+pghX7NDNS5LoiuW3MsRMKNTg3HzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471794;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+gjp+j/K2fZERzk5HL3qZw8YKHHQVed0sM3gsSjuBOY=;
+	b=r/AWxCbx16qEBITQCNk8qGy5MgO6HNc3zMa9Hns28nB8OER6Vjuvq/qmQA9fobxiGq23
+	 N6LGfwqZg6mUameIqnujXPtBt7+tJTP6ow7yqnvXWzjRIP5VfhRq6w0S0PA/nXVdhLv7H
+	 d9cbBXngFC8XLBHXAm5gmh2M1AbBgN+pVwELVegEBHBBAIsmeYWHkZ0ElSgzpqTkyFerN
+	 2SjhTou4GZQwj8xreo6zlw2DHo/nKk+kN/KeK8/UipfTh9BvVzsnLvcmT/67KfzHKg1Ve
+	 Tp00vzLe0gEieK6lJLNiNK9OTfAwYHJO0kCCPvIW4FEALBEFe3DA9qzCPQF8pacnnjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bMZOGm/7";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHPW5PFG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC196606A31C;
-	Thu, 12 Nov 2026 08:22:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF46606A88A
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMZOGm/7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AB51F00A05;
-	Thu, 12 Nov 2026 08:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHPW5PFG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68431F00A12;
+	Thu, 12 Nov 2026 08:23:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471778;
-	bh=DGRmYJsEqQDUHJi6CMXNYxNkp4AEpmlVNQBXe+bE3vk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bMZOGm/7Ug80MpAuVSGDwpL017xjGwaKyxOSrl5Fz2Wl3ZRR+NFhQEWamcxhgNVKV
-	 kIDSq0oAXjICmVWEK8yt3ajnZsoehG9DRLbs3igzte1bMaesZWLP9MSDhz19GsI8pD
-	 K8FT9qz+ot5dA9sOR56XADR4YEmfFhOSqLHA1D5N4xqh/AVs/WeCK88LdQWtdicJpD
-	 3GOKNKjEJdFHwmLEYZ9RTJ0FTT2zUt8o9c7YkjEOOR4IRZ1OqXz2uOPBVUaDYmS7/n
-	 aXnn2PFHgAOvIv3LNnGP2k/klaWrUwwp6BE1b/ZZ3deeUNHZwvyJDCS3GMxZhSkr18
-	 x7/Dw2utTLeYg==
-Message-ID: <d9ef2067-c699-4f77-a2bc-074dbe1124cd@kernel.org>
-Date: Thu, 12 Nov 2026 09:22:48 +0100
+	s=k20260515; t=1794471794;
+	bh=+gjp+j/K2fZERzk5HL3qZw8YKHHQVed0sM3gsSjuBOY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CHPW5PFGseobdzynB0k2U6/ixjS/oW3o/eiED0bFX5JwE/vd+Ob8iDJBs/8ZLc3IG
+	 NbdC1NpWty8NOGE/3OrztqSUWfFzdKh2M6ujnQm8ulEmd7pUkmdqoXmiTj91XaAi1A
+	 sxvjG9yz4YwhHxjXTEr27X1KaVCgVLthF+P3cXdwxxB/5BsZQRtk2LIpdPg5uP+5Th
+	 qIPV9fsFyOsMRVfgW9tPOXTJODXXePNNKimTvZZzxN6TyiNoyEfDpbBUf/Q6UzA8e7
+	 yzobyst+XRixnUQZAJcTZ9eLm1Ozf9zARUT30UdS+uHSNHp7iPTTT6hK+ZK4oO2rK/
+	 qwGPdXdRGSlEQ==
+Message-ID: <sashiko-outbox-210701@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: soc: ti: Document the
+ ti,tda54-mcu-scm-conf
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Moteen Shah" <m-shah@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112081047.1550471-2-m-shah@ti.com>
+References: <20261112081047.1550471-1-m-shah@ti.com>
+ <20261112081047.1550471-2-m-shah@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 08:23:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,96 +60,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang
- <yuanjie.yang@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joonhoe Kim <26rote@gmail.com>
-References: <20261109-msm_gdsc2-v5-0-4a3159b5e4b8@oss.qualcomm.com>
- <20261109-msm_gdsc2-v5-1-4a3159b5e4b8@oss.qualcomm.com>
- <20261109-mammoth-of-delightful-potency-b1ede2@quoll>
- <01f33d97-ce2f-4cf9-8672-63effc90fbe5@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <01f33d97-ce2f-4cf9-8672-63effc90fbe5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 12/11/2026 08:13, Yongxing Mou wrote:
-> left, which is pointless anyway since items: already fixes the length, 
-> so it's gone in v6.
-> 
->>> +
->>> +      required:
->>> +        - power-domain-names
->> Why adding this?
-> items: only checks the value if the property is present, it doesn't make 
-> it mandatory. The driver looks the domains up by name, so a Kaanapali DT
-> without the names would pass the schema but fail to probe.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: soc: ti: unresolved maintainer objection to
+  ti,proxy-id
+--
 
-Please define power-domain-names in common file as well, set the names
-there with minItems and for Kaanapali you only constrain the size and
-require it.
+commit 3553d71ec015a9aca0d29d3d396108a6a975a8a8
+Author: Moteen Shah <m-shah@ti.com>
 
+dt-bindings: soc: ti: Document the ti,tda54-mcu-scm-conf
 
-Best regards,
-Krzysztof
+This commit adds the Device Tree binding schema for the Texas Instruments
+TDA54 SoC MCU domain System Control Module configuration register region.
+
+> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-co=
+nf.yaml b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.ya=
+ml
+> new file mode 100644
+> index 0000000000000..111cbb739b5f1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+> @@ -0,0 +1,78 @@
+
+[ ... ]
+
+> +  ti,proxy-id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 7
+> +    description:
+> +      Proxy region (0-7) through which this node's clients access
+> +      claimable registers and their fault status registers.
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +    description:
+> +      The cell selects the ePWM time-base clock gate. Values 0 to 12 sel=
+ect
+> +      ehrpwm_tbclk0 to ehrpwm_tbclk12, i.e. the gate for ePWM instance N=
+ is
+> +      specifier N.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ti,proxy-id
+
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v2 [1], is the required custom
+ti,proxy-id property still needed here?
+
+The proxy selection does not vary per board for this single device (or
+would be implied by the compatible string), and selecting a proxy region
+for register access arbitration duplicates the standard access-controllers
+binding.
+
+[1] https://lore.kernel.org/r/20261028-inventive-screeching-bettong-9f4240@=
+quoll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112081047.1550=
+471-1-m-shah@ti.com?part=3D1
