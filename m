@@ -1,83 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.215
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503399;
-	b=d9jDWPuhMecQS1IYGNHNaJf1g5y2DbQFmyvZF4SGcghaY+gWxShlqld+/ZtjezobpKHI
-	 MLkRxS9KIHMTXCxVP/02qZ0ElsEYk0wMUCuwHIhjybuM++gIuj/AofkwVOjVu7U93CzpQ
-	 7SUFwQmCK3kM4ssmifz//nVKiuvBw0rMjhEId/gBH7mU57cbJPXDKLFB00SYEm1WC7BNU
-	 p0Us4euP5W0Gg42bzbAdJ28Yd8YzOlQjhb/FjKm3nkOG1P5X5DkA02HEOPUzfTNmajfmZ
-	 UkRqu33wSvZj+2twvRdkHdBFJcvhPCuTnJ2EPwvAS4WxF4ICW6rFDzb2U89E+uTpSkA==
+	t=1794503707;
+	b=jQBuJy9FPJ//n8mHsIP4o3pr9paTZY3tfhT0GnL4944H1X2sWQzx9dzy96BpvYbqt9KD
+	 3GPVIcL/l0+bMhYs3cOnJ2WsQXMqqQ55uGrw9U5Cg38tta8lq071y2h5Dse2bV3aYKGQT
+	 awkeq7yu3lAU96HhtLwZFJ49XYtxPOlY042fP/nRbsp+LXMV1AH20fhP73ivYI7hYeJtH
+	 1zcmSPPSOiDY/DAnaExpJK8qX1X8WdxJ31VIw9ggjy7hS/JJDAlQkfQNv3tA/AW54y/qY
+	 i0fzGifRicxgj7+AB81qU1nQx/0ehobVhNDy+TvnQaDJOZzdY7PiLTQcleQ3lMOWMRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503399;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TO5hZF60fpsvaG7wW/pQxTHc33GQs6tLzXWQ6VKBs6w=;
-	b=vMXmY7v4jVVLgnsVoC+iZyEbRwwaCuYEgYEl5JJ0LVcTwpIr+ol74eBGy2cx80jW1kRt
-	 SllAUcQshV9+a8vm6ZMRNQ85C2HqBENpbbE+ucPMfMrpiOSvsjNy1xEMpRE6T6zqLM0BD
-	 aQb5TfclWUzdY7kNroKqqlhWUYvScD4Png4+0QhrLhEid7yjrf+ZWsjhkpuX39Z8v30Ve
-	 MZi5CPX4tKFymfc3ykGn5nUKMM9TmaOTGNdkS9VUNHUwVmRvPxS4viLo5XO6AwNw448Oj
-	 KhqX/tT6O3C7pSrmmPDlcDNUqujne3SEQIB2TzBslSJRy8kZa+x2ufBwoZm72kr7L0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503707;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Sj0o3JVl3N+FI+aU/iGHx1e6wE1R4ZNeqwLA3Bi3IL8=;
+	b=H2RMYA4VSyfQc6H/ffISZKPSax2Xh/qHJIUT6styPpykNqrleRKtiXyc2w035gmWeSsR
+	 NCBB90SXBCFwndyO6ulaidm5Itb8+n+NuzUVx/HP8QMGDulihxsa978gyTjreuPz3XVzW
+	 7IhFsqQReYQTVqmnRkdj3ZzSmF1mZXXYz+A1RdzCsDgYJeRPq1Jvi9xnuHt2H6dCITcMC
+	 e27BJ7Fvq81xEmFWhJ1CVeTjuO5wDp065Dqe29J0jhMju9TI5vnZdm1Cy1NQimOee4h96
+	 EouMqw9DO72Eue/R1V5imM/aP1IYBiffXr5RfEyI3tnV3w4G5mnIBbRqV2PTJC0lgRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cpcIslPG;
-	arc=none smtp.remote-ip=95.215.58.215
-Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDHL8669;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C003606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:09:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C003606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EA0606A8AA;
+	Thu, 12 Nov 2026 17:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cpcIslPG
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Q718G4IRORkXt111lb1vaKDUhjnIbg9uCJWm7J0ppfo=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794503396; v=1; x=1795108196;
- b=cpcIslPG9I+dA6Np8LmxDtYP6jNNlb8ptLb0MfC+l2eq07jBhW/gMO5Hu9qwF198n9OVrT9W
- QwM3RULDmQQv+Wf80F0vnX5N0xFsdZg+p2IfH4G1y65xS2Fetv4GzCmyqiY7yQjfFIdHXtJOQ87
- liUWpwlEf/7cKjKNfo24c7en+4euUsB43fecNqwx1GrTmYfwxmt9/eivrWe4rZQnd4f7BuDsx/V
- i5Hwnmbou93gpac1lSA4UKOw3fkbzehWZ6dRZZi3kP5cujPsrzIOkjFpEZLYe8pVHLbjCIK4EO4
- KBtqixIJX7I118TQzxUeOsqF2zOxs8XpDStZSBLPROoiA==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 33f881be3497a386;
-	Thu, 12 Nov 2026 17:09:56 +0000
-X-Mizu-Trace-ID: 33f881be3497a386
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	Marc Lainez <marc.lainez@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Danila Tikhonov <danila@jiaxyga.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] arm64: dts: qcom: pmi632: Add battery fuel gauge node
-Date: Thu, 12 Nov 2026 14:07:31 -0300
-Message-ID: <20261112170841.2189322-6-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
-References: <20261112170841.2189322-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDHL8669
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12FB1F000C6;
+	Thu, 12 Nov 2026 17:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794503706;
+	bh=Sj0o3JVl3N+FI+aU/iGHx1e6wE1R4ZNeqwLA3Bi3IL8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=JDHL8669Tu5KOw63GwH3OlFzLyXjBomwYG4WEJV1G14b+g7CGDBEMAEYIPuTJEL9K
+	 Z/T8tHvPLlL40nCvTpDg+ZFgTx2ZnQ1xnfR8gOyG9+sDEdjgqVvUysr1QIAyP+/Za4
+	 aWnmeP0/DhXeuKP8MSGdQESjzOFiE2IGg78ke2T5f7axCE5oMOT0UJd6jhQzW/Pv/f
+	 SVB4Aww4VVz2OopQCc1FGIkH4OyHXXd7hiX/cd5MqnKSTnM5IvhFb/LjN7knvAATCz
+	 1A7WSHzomxL/v0oNAD2hHhe2K9Pa0VfCkfj7Zm/O5oNUlpn4KJHU7uWOhxJgsovm5P
+	 ykuyAJv8n4LRg==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,65 +49,272 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v16 2/9] clk: realtek: Introduce common probe()
+From: Brian Masney <masneyb@kernel.org>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
+ cy.huang@realtek.com, stanley_chang@realtek.com, 
+ Brian Masney <bmasney@redhat.com>, Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261112052544.555563-3-eleanor.lin@realtek.com>
+References: <20261112052544.555563-1-eleanor.lin@realtek.com>
+ <20261112052544.555563-3-eleanor.lin@realtek.com>
+Date: Thu, 12 Nov 2026 12:14:56 -0500
+Message-Id: <179450369604.1227210.1514039416965256446.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7910; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=yBTYZt2B9XOGCU44T0YYZapPjsjMGHfpkuF9t3RXyMI=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+fhGM6+qO/Zgk9T70eu7Jjok3lU/c76qdcHTFgTmvX
+ AvF7ab1dpSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCROzcYGSZEFNqpSbIfquhy
+ ZrlY4uHjF52ucWObsK2L/BGBttQfPxj+is+5JL4tS2L2lCID998nz8zafvHbus/sC4QvCYTMu3H
+ qKi8A
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Add a node for the "qgauge" battery fuel gauge at 0x4800, and for the
-SDAM region at 0xb100 which contains the full charge capacity.
+> Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
+> and add the clock provider.
+> 
+> Additionally, if the "#reset-cells" property is present in the device tree,
+> it creates and registers an auxiliary device using the provided aux_name.
+> This allows the dedicated reset driver to bind to this device, enabling
+> both clock and reset drivers to share the same regmap.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Reviewed-by: Brian Masney <bmasney@redhat.com>
+> ---
+>  MAINTAINERS                          |  1 +
+>  drivers/clk/Kconfig                  |  1 +
+>  drivers/clk/Makefile                 |  1 +
+>  drivers/clk/realtek/Kconfig          | 29 ++++++++++
+>  drivers/clk/realtek/Makefile         |  4 ++
+>  drivers/clk/realtek/clk-rtk-common.c | 84 ++++++++++++++++++++++++++++
+>  drivers/clk/realtek/clk-rtk-common.h | 37 ++++++++++++
+>  7 files changed, 157 insertions(+)
+>  create mode 100644 drivers/clk/realtek/Kconfig
+>  create mode 100644 drivers/clk/realtek/Makefile
+>  create mode 100644 drivers/clk/realtek/clk-rtk-common.c
+>  create mode 100644 drivers/clk/realtek/clk-rtk-common.h
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c51f9fc157c8..54873a33038b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23541,6 +23541,7 @@ REALTEK CLOCK DRIVERS
+>  M:	Cheng-Yu Lee <cylee12@realtek.com>
+>  M:	Yu-Chun Lin <eleanor.lin@realtek.com>
+>  S:	Supported
+> +F:	drivers/clk/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  
+>  REALTEK OTTO WATCHDOG
+> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> index 37a8e35d4178..eb9256459251 100644
+> --- a/drivers/clk/Kconfig
+> +++ b/drivers/clk/Kconfig
+> @@ -532,6 +532,7 @@ source "drivers/clk/nuvoton/Kconfig"
+>  source "drivers/clk/pistachio/Kconfig"
+>  source "drivers/clk/qcom/Kconfig"
+>  source "drivers/clk/ralink/Kconfig"
+> +source "drivers/clk/realtek/Kconfig"
+>  source "drivers/clk/renesas/Kconfig"
+>  source "drivers/clk/rockchip/Kconfig"
+>  source "drivers/clk/samsung/Kconfig"
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index 52d138d4ffc8..3930bf20667b 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -156,6 +156,7 @@ obj-$(CONFIG_COMMON_CLK_PISTACHIO)	+= pistachio/
+>  obj-$(CONFIG_COMMON_CLK_PXA)		+= pxa/
+>  obj-$(CONFIG_COMMON_CLK_QCOM)		+= qcom/
+>  obj-y					+= ralink/
+> +obj-$(CONFIG_COMMON_CLK_REALTEK)	+= realtek/
+>  obj-y					+= renesas/
+>  obj-$(CONFIG_COMMON_CLK_ROCKCHIP)	+= rockchip/
+>  obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
+> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+> new file mode 100644
+> index 000000000000..e8deccf93f94
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Kconfig
+> @@ -0,0 +1,29 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config COMMON_CLK_REALTEK
+> +	tristate "Clock driver for Realtek SoCs"
+> +	depends on ARCH_REALTEK || COMPILE_TEST
+> +	default ARCH_REALTEK
+> +	help
+> +	  Enable the common clock framework infrastructure for Realtek
+> +	  system-on-chip platforms.
+> +
+> +	  This provides the base support required by individual Realtek
+> +	  clock controller drivers to expose clocks to peripheral devices.
+> +
+> +	  If you have a Realtek-based platform, say Y.
+> +
+> +if COMMON_CLK_REALTEK
+> +
+> +config RTK_CLK_COMMON
+> +	tristate "Realtek Clock Common"
+> +	select AUXILIARY_BUS
+> +	select REGMAP_MMIO
+> +	help
+> +	  Common helper code shared by Realtek clock controller drivers.
+> +
+> +	  This provides utility functions and data structures used by
+> +	  multiple Realtek clock implementations. It also provides the
+> +	  infrastructure to spawn reset controllers via the auxiliary bus
+> +	  where required.
 
-Signed-off-by: Val Packett <val@packett.cool>
----
- arch/arm64/boot/dts/qcom/pmi632.dtsi | 33 ++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Drop the prompt text because this isn't meant to be user selectable.
 
-diff --git a/arch/arm64/boot/dts/qcom/pmi632.dtsi b/arch/arm64/boot/dts/qcom/pmi632.dtsi
-index 82b5d7b7bb5b..5e9e82563884 100644
---- a/arch/arm64/boot/dts/qcom/pmi632.dtsi
-+++ b/arch/arm64/boot/dts/qcom/pmi632.dtsi
-@@ -163,11 +163,44 @@ pmi632_adc_tm: adc-tm@3500 {
- 			status = "disabled";
- 		};
- 
-+		pmi632_qgauge: fuel-gauge@4800 {
-+			compatible = "qcom,pmi632-qg";
-+
-+			reg = <0x4800>;
-+
-+			interrupts = <0x2 0x48 0x0 IRQ_TYPE_EDGE_BOTH>,
-+				     <0x2 0x48 0x1 IRQ_TYPE_EDGE_BOTH>,
-+				     <0x2 0x48 0x2 IRQ_TYPE_EDGE_RISING>,
-+				     <0x2 0x48 0x3 IRQ_TYPE_EDGE_RISING>,
-+				     <0x2 0x48 0x4 IRQ_TYPE_EDGE_RISING>,
-+				     <0x2 0x48 0x5 IRQ_TYPE_EDGE_RISING>,
-+				     <0x2 0x48 0x6 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "batt-missing",
-+					  "vbat-low",
-+					  "vbat-empty",
-+					  "fifo-done",
-+					  "good-ocv",
-+					  "fsm-state-chg",
-+					  "event";
-+
-+			nvmem = <&pmi632_sdam_2>;
-+
-+			status = "disabled";
-+		};
-+
- 		pmi632_pbs_client3: pbs@7400 {
- 			compatible = "qcom,pmi632-pbs", "qcom,pbs";
- 			reg = <0x7400>;
- 		};
- 
-+		pmi632_sdam_2: nvram@b100 {
-+			compatible = "qcom,spmi-sdam";
-+			reg = <0xb100>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0xb100 0x100>;
-+		};
-+
- 		pmi632_sdam_7: nvram@b600 {
- 			compatible = "qcom,spmi-sdam";
- 			reg = <0xb600>;
+> +
+> +endif
+> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+> new file mode 100644
+> index 000000000000..13000ed4ba11
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+> +
+> +clk-rtk-y += clk-rtk-common.o
+> diff --git a/drivers/clk/realtek/clk-rtk-common.c b/drivers/clk/realtek/clk-rtk-common.c
+> new file mode 100644
+> index 000000000000..7df6d04bb95a
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtk-common.c
+> @@ -0,0 +1,84 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2019-2026 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
+> +#include <linux/export.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include "clk-rtk-common.h"
+> +
+> +static int rtk_reset_controller_register(struct device *dev, const char *aux_name,
+> +					 struct regmap *map)
+> +{
+> +	struct auxiliary_device *adev;
+> +
+> +	if (!of_property_present(dev->of_node, "#reset-cells"))
+> +		return 0;
+> +
+> +	if (!aux_name) {
+> +		dev_err(dev, "DTS requires reset controller, but aux_name is missing\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev = devm_auxiliary_device_create(dev, aux_name, (void *)map);
+> +	if (!adev)
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct regmap_config rtk_clk_regmap_config = {
+> +	.reg_bits = 32,
+> +	.reg_stride = 4,
+> +	.val_bits = 32,
+> +};
+> +
+> +int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct regmap *regmap;
+> +	void __iomem *base;
+> +	struct clk_hw *hw;
+> +	int i, ret;
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	regmap = devm_regmap_init_mmio(dev, base, &rtk_clk_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return PTR_ERR(regmap);
+> +
+> +	for (i = 0; i < desc->num_clks; i++)
+> +		desc->clks[i]->regmap = regmap;
+> +
+> +	for (i = 0; i < desc->clk_data->num; i++) {
+> +		hw = desc->clk_data->hws[i];
+> +		if (!hw)
+> +			continue;
+> +
+> +		ret = devm_clk_hw_register(dev, hw);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to register hw of clk%d\n", i);
+> +	}
+> +
+> +	ret = rtk_reset_controller_register(dev, desc->aux_name, regmap);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register reset controller\n");
+> +
+> +	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
+> +					  desc->clk_data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(rtk_clk_probe, "CLK_REALTEK");
+> +
+> +MODULE_DESCRIPTION("Realtek clock infrastructure");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/clk/realtek/clk-rtk-common.h b/drivers/clk/realtek/clk-rtk-common.h
+> new file mode 100644
+> index 000000000000..de3f23120b53
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtk-common.h
+> @@ -0,0 +1,37 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2016-2026 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#ifndef __CLK_REALTEK_COMMON_H
+> +#define __CLK_REALTEK_COMMON_H
+> +
+> +#include <linux/clk-provider.h>
+> +
+> +#define __rtk_clk_regmap_hw(_p) ((_p)->hw)
+> +
+> +struct device;
+> +struct platform_device;
+> +struct regmap;
+> +
+> +struct rtk_clk_regmap {
+> +	struct clk_hw hw;
+> +	struct regmap *regmap;
+> +};
+> +
+> +struct rtk_clk_desc {
+> +	struct clk_hw_onecell_data *clk_data;
+> +	struct rtk_clk_regmap **clks;
+> +	size_t num_clks;
+> +	char *aux_name;
+
+Can this be const?
+
+Brian
+
 -- 
-2.56.0
-
+Brian Masney <masneyb@kernel.org>
