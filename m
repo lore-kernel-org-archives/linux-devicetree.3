@@ -1,88 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511770;
-	b=UP49VR1Hgccf6eMhy6OrZG2JZy2W/jXoFBgFt+gbBBNIPVryIJqo4eJCgRLPVFQC4K7F
-	 tFZGvheCeaa/8VuVC0bah8rj+9Mf/ZJnNARjWDUfhRgx4P/FYQpmFIfPEn0xTxhxyF+Xg
-	 eO8j9ZLapLfg2zUkOkhFjLpRPwRQSN7c8uM92VtaTvfj9tqOi/uX9I9399hd2jGXXQ/PF
-	 Zcr9+7yVqU1tv5gVb7iDeEWMNEbEi2RvfYX78M49YayLCfcfTj3aP8QfUQL2eOj5w2hX8
-	 PWySZvQp56YGuUVyQFv2RyRMiNsTaZki0FGL6GQic+XAISWOAQnWsndgbivJL3waF9w==
+	t=1794511973;
+	b=gVdPIivyfuQj0Gi0mgD61YK09LCE2abrJRiq7PVGfiGBEaWUiG1E7LwhH9bl0gd/qSnb
+	 9aW6N9p4uwQ84lvBs4R2T7jU68V61OYn92ohRgYLmf9AZKrKo6qyQQowEma41ikopGeFD
+	 DoEc1hs9f6HxBH/OwMpKveaAshbuNzoInVOqJM6XmVq2IW7mRx7Mwxcs//CnEuftrFHBk
+	 r9wc0Y6bfkglIWTjiWOvcBtVUnav7Tt1DI3B11DCod6/zRPNesIrogNycikcJkDwszNzw
+	 Z5tJqyRU+K+Azsy61ZsstTIcsyaQ/5mq0xhUuRkeqhc5APuIOQd1OQ7LSS04wzJWUUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511973;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fmAmCt8UxjgYWhWHzgyp6r0DP5B2fOuM65Nbsx1mc0o=;
-	b=2PuKgdHa+hKBlYV6alXby1jd/ds6f0pkK9WNKib2Op+LoHGRt8lj687cdH9K57rY5da/
-	 Bp36BlF/5m2p9Kj3+/3AszaUtUqd9v9HKVCyl5BZEGI0Rkx6q1hDjKDRtaqb+mdXbzt8I
-	 wqK1B0nSst1AulzgLey+XmZIDxQYR91sfVkgELTQGko/G5WJVAJYozsC/5ixCmnaLA+eH
-	 wlzQaGIwI4txYmByTpFYr3d8nDkqtNR4gYTPXGyf97zF8D6kcLOFeBFrH8ff/XBCOZ8z4
-	 KsgZvjrC6pcdmcs4w9P7mLXqTmBpWLKne3DhgLr0WACn1aKFcxfOx2RqgYPRaIIvKrQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ME4Lm952VssEFecXKMuEh0Vy6xCAkVUAnYCqLJV83BU=;
+	b=vlVN0NM55XjyZSYRy/ARpZSICGEC7v+6jIATp2LLeYNCksT3ZvMiiNWQWE2WU9BZQpc4
+	 AYw6H2G5DC8NLtcq+v1dAjtsYH59ef02R7VzBk+nMYdiG0m7hGcjUkw5Z7XWlaUYGxEsM
+	 vsrBNaEgWbVxgH0c0GdQs6+So0AayarD7MdFqLP8iRXP7q+qY6vs9pTPIHB2VddFHXK2T
+	 u0krchK0Lp4i2l7NmVTpOZlFyh1ozai+/0jhJjzvd2fYfdXNoc6LqeFTlJVUKTP+gdOoO
+	 rzPOiMslfnUbNKCXW5I6SoYb4FxGNVy06vkLGOInDxaUGbr1Fl3JB5zanLoOf733BSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3Kq1a+7;
-	arc=none smtp.remote-ip=74.125.227.129
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NjPizhR6;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6EE606A31C
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 19:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F6EE606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07081606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 19:32:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07081606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3Kq1a+7
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3b10718b387so97368a91.1
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 11:29:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NjPizhR6
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36fe5944e9aso220216eec.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 11:32:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794511769; x=1795116569; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fmAmCt8UxjgYWhWHzgyp6r0DP5B2fOuM65Nbsx1mc0o=;
-        b=v3Kq1a+7ql5oXgGT5c5lV++J/+Xy84mJXUGN5XjMD5+8TAjEr1x0CdvJyIsiyjk6vx
-         kYpzDJ07P60CYudM1VSkmCQBxlMgsBS1UL000ihMP1rphUVkbdaoPQAnK9z3gXwlxX1I
-         KWxO7gpwnuyT8KIj9aeXi+yFZQzXinwp8QAhBe/c19ehH8x2YttA4WJRhWRZd22Yo5YQ
-         rIeHTWA6JiKSHqu3uuId+1Z9PImRBknKVRNpfEviK97tHsu78NJFnRo5St0C1q+GMPug
-         bKsu9JZz7gcq/7WoYfvBkHKMSaUVl1iMWI3hbvNfPs96KfE1OdJfH+7sWwVSAEC4xDlN
-         g44Q==
+        d=gmail.com; s=20260707; t=1794511972; x=1795116772; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ME4Lm952VssEFecXKMuEh0Vy6xCAkVUAnYCqLJV83BU=;
+        b=NjPizhR6sJABSSKbD/L4Pk8DJZQWM2kKnAYlR84izVNYD5hlurFI9Iqirmwjv8fVad
+         3e8/GKaWcNbJMzef+UDSOWd0y9BTTevHeZxc2CAHEzIlOOrU1bwUs/Rx///0onC9vmeC
+         QINn/o4gYXYyXlCjMPDFfIUY/QJY6Ow10iUfGJkjBNpL+jONbCtxJYwzCD+5fnFOG8zO
+         Bl2tC7I0MjhsTCyNRRIpnfIBiNvnlGM2NH6gzI9Npt9HB7sifOB3co3V872rXWQSncDU
+         QbMgWv3SdQhDI0MwOP8wXfVvtsNP+D8D+kNBXVmvpl72yMGGTjVLMfrcSiQR5U+Zhx2V
+         ohig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794511769; x=1795116569;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794511972; x=1795116772;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fmAmCt8UxjgYWhWHzgyp6r0DP5B2fOuM65Nbsx1mc0o=;
-        b=QrTs7SLp524y7boWUW5szOu1LWj74BctVE6kRzrc2zpi/kONHPcMI+89p1PRAU9sBH
-         bYhtuVyYEj0yK68Kre8EsqGnvqqCS+usYuBMabaftWuYWDOsf5zNVgAo8Wkg4IuQiqpG
-         Sii57v+vT21VNRTnZhb2e+FHwCxQ5dBFhcP4lCT3HI9nSYhoEBbCLdR9oBsrnYpAssih
-         M7MEolmZMulxQttoHLhSrA5nVSUHiOP+c23CmoYnqdS68RsPexJlLy5jY2qn9BDRGmqR
-         48/2Q713ikXoGoKMO9Mg12DWWzyRAvq1rN0Otw/+AOvt1jaXm5kLdm2pc0QJGvrmdSdu
-         ArBA==
-X-Forwarded-Encrypted: i=1; AL+hErFpnbjBMXgdW2LIEChPvUFRupvmxj9OE9jsB7G7KnIolKSWEECwQd0PtmQVp5KftnBPh+V9g9TqZP8c@vger.kernel.org
-X-Gm-Message-State: APuU4Z83ydWgR6Hyjy265IXb2dKpCO5cO1QNEFIJD2vlDZTXxfjZwtOk
-	zfVvO8uuYPXPPNF6InYtgJWAac2hDaADuQzBnrgIJpP9D3B13+5+olC3
-X-Gm-Gg: AYBFou1Il2abnKwOGtDSurr7Mwyaa4BrbBRaPMaI1PlH0RfImwU/8SPFuY5/7Mbk268
-	Cz8A3O4ijBXaweoEdy0FZHOP5nFafsx1miVvkzVo0oRQ6xpQPzF52td+fwi4mMSEegnD56WLaoL
-	AJCgiMALl1bFGmqaRjP39ex/4JETKW9vhFAvI2rferpRcOswmVQqOHQ7Hv8zng9ymU5ANGZgPKN
-	p0xbTqw8RptHX+Kb9A+m4Qn7DDFtfgR8Xr4SeLy5fTjE1h680TdgclgxHAgbvkbgP1Bsg8LJgwc
-	4sjYHQTqvNHVpZVulW8rYqcWdIGiBenrvIuYOw48xzNjGanXVvsNlZkdOC3eNYcOQ3rjIVVQBQQ
-	ZFOXJ79QXSLnva7vyUpJTw9ct3cNlqEzoLUDrtZG0QSc+AXmdV1Rn3wQDV3F1Z+nlQ8KraYA/rf
-	FxHDub+0zIkVag2/Zdn014YtGoG7Wi4+mCbsO5smP2lGMBB6t9wFtt9sgtkqYB1icmZL6+9c2So
-	k9yHLwe3AIdNdc0cj+EKhFTwTWsky2Rr+AEPP5Hc2VtODr7eOWfF9FASyMgZzf/zuZ2pgDPAgcV
-	wMVxUOYIgav4I+EuguSfIpnH2Dhae7RHoKCWy3PvtkbU9IKC77flkR8=
-X-Received: by 2002:a17:90b:1f8d:b0:3a8:6045:5a19 with SMTP id 98e67ed59e1d1-3b1b0a20e04mr73493a91.37.1794511769226;
-        Thu, 12 Nov 2026 11:29:29 -0800 (PST)
-Received: from [198.18.0.1] ([45.95.212.224])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f6e0sm5972639a91.9.2026.11.12.11.29.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 11:29:28 -0800 (PST)
-Message-ID: <f0b7f100-f8cd-4e58-8a67-beda34ad4d06@gmail.com>
-Date: Fri, 13 Nov 2026 03:29:23 +0800
+        bh=ME4Lm952VssEFecXKMuEh0Vy6xCAkVUAnYCqLJV83BU=;
+        b=m/xuzgmWxt+k0gLbgiHPSHPbQp3iOeVFqetyzEaKq1UJMRNKlH9rDV5tY1NKkMS0aa
+         BPi1lKIIWr7Qi/R0XTSUEszAETu0NZ5Y9A83n33x76isSCGm0CD3phqhKqSGqJNZwT4m
+         yqM27+9RuhcEfErCnSz6+FLdXzYnzEbhD7b3JezFqiPCqQmmoLYC2X3igMxlcVHAa/yZ
+         p4oTLvFyjiuSMGuXkan0eIn3NwawL53iqLApR2+kmOgW/3eqSRTyCqhsGuAE6AShXw3o
+         cXvqsvfH3AA3lqsSqxrl2bZAD9Mr781hD3HKi3OjzZQA0mfdC7AYQh0ZJswGt9uXjfT5
+         Pz8Q==
+X-Gm-Message-State: APuU4Z+uBZmxZC/fL5iZMQHGN6Snhmfkxlnf3ZB7v970Oy/W4myMKmsm
+	CSkxX+ZC1SD1utoEdLATaPIYTBAtbuR/S7N6UdeRSTIgeEyyegu+iLMY
+X-Gm-Gg: AYBFou1BHTrdlJ3LDIkMZ2LOTzcsGrirbJ9h2Y0HqrXIJ4KNb0SEeEblhrGuS93CwOr
+	fxYHk37oIt1dA3egXI7GheKZEHDcrhzEchI1gWUPV+ry1d3VaqNVKd+YAx5XxYL9srpw8HJ6Qun
+	eKgnUFoyl9NAOZkPhbIwabCnJ9AEG0d71emzbbSkW2ybXePgEUi0lj3u1DUCNBFZ4uF4MsQdFXT
+	wghgQ5fKqEfBze8KCwlTQldkuYUWO0uRFgEt55mSVPv2vSojN2TgVc04j+GkYcZgvQ9O8RI5O0W
+	iWSI3Gbpn/6Ncab86NXL9+qU195HrYyEI8KnE7TMcAg0QENm0zFKEGLeeb8gHZs8cMgKaZSdUYP
+	coG2WoWmZ1KFRuq7noj0DjW6eOg+9f4PQYb54YJ0UsKMm+hyfXyy1MzaiTJMe1Rktwp21FpCrNb
+	4gQFLFAUxQwHZWRUi3cs1wD8lsaCZD+49kYmVIERXDYChOuvJZYreMlmCcrUHZzuaNjVpCtXg2T
+	UzvH2gVfqdX055pRh/iFfGGwTgip2DrpWkJkzAzgOV/1CC7fQYHMDmcWqeeGZ4IxURp1n3t+ei7
+	0NDe1BPQqODv/hB9f8rUcMDoPdqDZeWW/ZJlgcZA2r0k0wz1HQ==
+X-Received: by 2002:a05:7300:828e:b0:356:7ddb:2e54 with SMTP id 5a478bee46e88-37966a5ce93mr121854eec.29.1794511971759;
+        Thu, 12 Nov 2026 11:32:51 -0800 (PST)
+Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm565379eec.14.2026.11.12.11.32.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 11:32:51 -0800 (PST)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>
+Subject: [PATCH v3 0/2] ARM: dts: zynq: Add ALINX AX7Z020B development board
+Date: Fri, 13 Nov 2026 03:32:43 +0800
+Message-ID: <20261112193245.250149-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,111 +97,184 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
- board
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
-References: <20261111162917.97532-1-cyan2254650260@gmail.com>
- <20261111162917.97532-3-cyan2254650260@gmail.com>
- <20261112-mottled-formidable-galago-eb933b@quoll>
-Content-Language: en-US
-From: Pufan Jin <cyan2254650260@gmail.com>
-In-Reply-To: <20261112-mottled-formidable-galago-eb933b@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Add devicetree support for the ALINX AX7Z020B board, built around the
+ALINX AC7Z020 system on module with a Zynq-7000 (XC7Z020-2CLG400I) SoC.
 
-On 11/12/26 7:08 PM, Krzysztof Kozlowski wrote:
-> On Wed, Nov 11, 2026 at 11:29:17AM -0500, Pufan Jin wrote:
->> Add devicetree support for the ALINX AX7Z020B development board.
->> The board is built around the ALINX AC7Z020 system on module with a
->> Zynq-7000 (XC7Z020-2CLG400I) SoC, 1 GB DDR3 SDRAM and 32 MB QSPI
->> flash, and provides Gigabit Ethernet (JLSemi JL2121 PHY), USB 2.0
->> host, MicroSD slot, dual CAN buses (SN65HVD232 transceivers on
->> MIO 10-13), I2C RTC/EEPROM/LM75 and the serial console on UART1.
->> DevCFG FPGA manager is also enabled.
->>
->> The two SMA AD inputs and the spare differential pair are wired to
->> XADC aux channels VAUX1, VAUX9 and VAUX12. The XADC hard macro is
->> always accessible from the PS, so expose these channels via the
->> driver's xlnx,channels property.
->>
->> Link: https://www.alinx.com/
-> Drop link. We do not advertise websites, unless it brings some value.
->
->> Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
->> ---
->>   arch/arm/boot/dts/xilinx/Makefile             |   1 +
->>   .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  70 +++++++++
->>   .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 142 ++++++++++++++++++
->>   3 files changed, 213 insertions(+)
->>   create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
->>   create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
-> ...
->
->> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
->> new file mode 100644
->> index 0000000000..472d9fcaaf
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
->> @@ -0,0 +1,142 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * DTS for ALINX AX7Z020B Development Board
->> + *
->> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
->> + */
->> +
->> +/dts-v1/;
->> +#include "zynq-alinx-ac7z020.dtsi"
->> +#include <dt-bindings/gpio/gpio.h>
->> +#include <dt-bindings/leds/common.h>
->> +
->> +/ {
->> +	model = "ALINX AX7Z020B Development Board";
->> +	compatible = "alinx,ax7z020b", "alinx,ac7z020", "xlnx,zynq-7000";
->> +
->> +	aliases {
->> +		ethernet0 = &gem0;
->> +		serial0 = &uart1;
->> +		serial1 = &uart0;
->> +		mmc0 = &sdhci0;
->> +		spi0 = &qspi;
->> +		i2c0 = &i2c0;
->> +	};
->> +
->> +	chosen {
->> +		bootargs = "";
-> Drop bootargs, why do you need empty ones anyway?
->
->
->> +		stdout-path = "serial0:115200n8";
->> +	};
->> +
->> +	usb_phy0: phy0 {
-> just "phy" or is there phy-1?
->
-> Best regards,
-> Krzysztof
+Changes in v3:
+- Drop the vendor website Link: tags (Krzysztof Kozlowski).
+- Drop the empty bootargs property (Krzysztof Kozlowski).
+- Rename the USB PHY node from phy0 to phy, as there is only one USB PHY
+  on the board (Krzysztof Kozlowski).
+- Keep the explicit mdio node under gem0, as requested during the v1
+  review and reviewed by Andrew Lunn in v2.  dtc W=1 flags the parent
+  node's inherited #address-cells/#size-cells.  DT schema validation
+  reports the same Zynq-7000 diagnostics as zynq-zybo-z7.  The MDIO
+  layout was also verified on hardware.
+- Sort I2C child nodes by address and reorder status/reg properties.
+- Add Krzysztof's Acked-by to patch 1.
 
+The "alinx" vendor prefix is already queued in linux-next as commit
+1f06cd374a60 ("dt-bindings: vendor-prefixes: Add ALINX vendor prefix"),
+so it is not part of this series.
 
-> Drop link. We do not advertise websites, unless it brings some value.
-Agreed. I've removed the link in v3.
+Tested on hardware before the DTS style reordering: SD boot, UART
+console, SD card, GbE (900+ Mbps and LED hardware offload), dual CAN,
+I2C, QSPI and XADC.
 
-> Drop bootargs, why do you need empty ones anyway?
+Pufan Jin (2):
+  dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+  ARM: dts: zynq: Add ALINX AX7Z020B development board
 
-The empty bootargs is not needed. I've removed it.
+ .../bindings/soc/xilinx/xilinx.yaml           |   5 +
+ arch/arm/boot/dts/xilinx/Makefile             |   1 +
+ .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  71 +++++++++
+ .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 146 ++++++++++++++++++
+ 4 files changed, 223 insertions(+)
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
 
-> just "phy" or is there phy-1?
+Range-diff against v2:
+1:  f44b8dc6e6 ! 1:  ca50a01108 dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+    @@ Commit message
+         Document the ALINX AX7Z020B development board, built around the ALINX
+         AC7Z020 system on module.
+     
+    -    Link: https://www.alinx.com/
+         Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+    +    Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+     
+      ## Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml ##
+     @@ Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml: properties:
+2:  a985ee80d4 ! 2:  477061f136 ARM: dts: zynq: Add ALINX AX7Z020B development board
+    @@ Commit message
+         always accessible from the PS, so expose these channels via the
+         driver's xlnx,channels property.
+     
+    -    Link: https://www.alinx.com/
+         Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+     
+      ## arch/arm/boot/dts/xilinx/Makefile ##
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi (new)
+     +
+     +&qspi {
+     +	bootph-all;
+    -+	status = "okay";
+     +	num-cs = <1>;
+     +
+    ++	status = "okay";
+    ++
+     +	flash@0 {
+     +		compatible = "jedec,spi-nor";
+     +		reg = <0>;
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi (new)
+     +			#size-cells = <1>;
+     +
+     +			partition@0 {
+    -+				label = "boot";
+     +				reg = <0x00000000 0x00500000>;
+    ++				label = "boot";
+     +			};
+     +
+     +			partition@500000 {
+    -+				label = "bootenv";
+     +				reg = <0x00500000 0x00020000>;
+    ++				label = "bootenv";
+     +			};
+     +
+     +			partition@520000 {
+    -+				label = "image";
+     +				reg = <0x00520000 0x00a80000>;
+    ++				label = "image";
+     +			};
+     +
+     +			partition@fa0000 {
+    -+				label = "spare";
+     +				reg = <0x00fa0000 0x01060000>;
+    ++				label = "spare";
+     +			};
+     +		};
+     +	};
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts (new)
+     +	};
+     +
+     +	chosen {
+    -+		bootargs = "";
+     +		stdout-path = "serial0:115200n8";
+     +	};
+     +
+    -+	usb_phy0: phy0 {
+    ++	usb_phy0: phy {
+     +		compatible = "usb-nop-xceiv";
+     +		#phy-cells = <0>;
+     +		reset-gpios = <&gpio0 46 GPIO_ACTIVE_LOW>;
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts (new)
+     +};
+     +
+     +&gem0 {
+    -+	status = "okay";
+     +	phy-mode = "rgmii-id";
+     +	phy-handle = <&ethernet_phy>;
+     +
+    ++	status = "okay";
+    ++
+     +	mdio {
+     +		#address-cells = <1>;
+     +		#size-cells = <0>;
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts (new)
+     +};
+     +
+     +&i2c0 {
+    -+	status = "okay";
+     +	clock-frequency = <100000>;
+     +
+    ++	status = "okay";
+    ++
+    ++	temperature-sensor@48 {
+    ++		compatible = "national,lm75";
+    ++		reg = <0x48>;
+    ++	};
+    ++
+     +	eeprom@50 {
+     +		compatible = "atmel,24c04";
+     +		reg = <0x50>;
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts (new)
+     +		compatible = "dallas,ds1338";
+     +		reg = <0x68>;
+     +	};
+    -+
+    -+	temperature-sensor@48 {
+    -+		compatible = "national,lm75";
+    -+		reg = <0x48>;
+    -+	};
+     +};
+     +
+     +&sdhci0 {
+     +	bootph-all;
+    -+	status = "okay";
+     +	disable-wp;
+    ++
+    ++	status = "okay";
+     +};
+     +
+     +&uart0 {
+    @@ arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts (new)
+     +
+     +&uart1 {
+     +	bootph-all;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&usb0 {
+    -+	status = "okay";
+     +	dr_mode = "host";
+     +	usb-phy = <&usb_phy0>;
+    ++
+    ++	status = "okay";
+     +};
 
-There is only one USB PHY on this board. I've renamed the node to "phy".
-
-Thanks for the review!
-
-Pufan Jin
+-- 
+2.56.0
 
