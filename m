@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480096;
-	b=2Eh6VOlEGDB8GkvqI5jOqe2MEoofuD7uV7fo/PbQQSz3sBadB2W3kC6LZp0G3yZgD2DL
-	 dGwd8Xxng8zRZK5gAdyS1rFb9ylhkcSWIvMEs1Tnz/qk5af41QObpzPB4tO6fjKMXu5oC
-	 XwOs4Rfh1tteFufEnLt+RcymQsewM5mBUCEPpaGv6DDWCCukMqa4qU0cYPT31IP28GEB5
-	 WeO+AKAj/BrogQlxhQ/yfvjW3cSuVLsQcfXUZadv0bCiVt9ZIK4rh2MN/OPs4Rf9Kkj1D
-	 nTqvxvWg0/yicqDN8aZAMO4e9n/u0Whl9tlHSGwTdrfEWhwsr5zoosa+5h2OdTO4n+A==
+	t=1794480426;
+	b=yqv36ENjYR/xHdFXZdV9WlLMPA9fq4U8bh3XS6mfDmdtZxLrnamWzA3QpaoWswOz5T5J
+	 zSqERhwjOe7GZt9IEubptXRgOD2q5M1IqyKRClMjhTc+2RfjAQdXtacEoTZQPRCDVVWCv
+	 eBF+wq5WxhMd3F5xTXj3hkvTwvYdkuafhrbooddzqMYjW09aamcqA2EW0d8MArTo4V9Nk
+	 /3g7E73qeiDQGhPyX3Lu1SXMwvUF1Qd3hbz4xv/kyrBwlBuUwxEoz3Ndu4UZP7Jv0BdLS
+	 8tRlLfMEfHHESz5oE6CN+fI38ijpvUM6bDx2xP7qgys1CdS1QVAFeWku6b1p/qyqAyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480426;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZP3U5tKFMTHhfEkSOkzIHCLH+O/mUp11WA5Kb/PScQc=;
-	b=DEzVWdMwGOZw5+CY4BPj7U1i8YDHSbVQPvgolLWhpJVHRwUvO7vyCB2RneLTrdCvTx/H
-	 Nb4jKHReKmwXW6e2RHbxZBJZS8v928YF6iiGNwY+04uJrNbd2tJm5NqYgHBxo57pwn7W/
-	 yNlPi7YP9c+Tw2eDmIQoZ/+cm4saelvZ3xn/LvP77MrUKYceDRH022LxYlSjqOG3yrTau
-	 BDG6+BdOs70S9wnvvtxQ2QRaKnYc87aOnDR99xMBs7QFFufoZ8zlJBw0HPKmX/M1+HEbI
-	 3k/pGxGvOdOqcdso5m4j4sdZx06Sc+hqem7Y2xGMYSTWen7qTj29TkW153OEwX9CP7A==
+	bh=xQUAVxIrA0e4kdr2QPbx8bp/YVLIcucobYOVtM6SpEU=;
+	b=HivRmzR+hRguRShjsWC71dRFhe44JKxQ+YSgK0fnhberBj8BYPPsA1BtzeOdMlOHHofx
+	 S9s5CPDQjW28gaXJK81rdapH4zunw2v3+D7p7o/c79fg8REyTR6HNo/4I2nohsslCPdck
+	 D4hAaF50piHrMD25VRPKr9A9Dvk/FTVUkVVbZLq1Bj0QO/TvyC0GO1dgK8Wyst4nFLOEo
+	 1mRxAPVa9AFke4ClhJjWdC2pQRssm3AC2BmuiwZJQ4Q2Z4ASPxR4LGjDmGk3w3r62cFk+
+	 S93k2s0DWMNkbHlegDpQrFLoquE0y/P9XPQq0QdGIQd9DoUtyVO+bL5obt++PUSbPTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ny7X4Hvn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsxlAq+N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8451606A31C;
-	Thu, 12 Nov 2026 10:41:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806FD606A332;
+	Thu, 12 Nov 2026 10:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ny7X4Hvn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D83D1F00A05;
-	Thu, 12 Nov 2026 10:41:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsxlAq+N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624081F00A05;
+	Thu, 12 Nov 2026 10:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480096;
-	bh=ZP3U5tKFMTHhfEkSOkzIHCLH+O/mUp11WA5Kb/PScQc=;
+	s=k20260515; t=1794480426;
+	bh=xQUAVxIrA0e4kdr2QPbx8bp/YVLIcucobYOVtM6SpEU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ny7X4Hvn9UH6mVup1UvEbkAfGc8JY7VlNNNI96Rh8wwN1bR0EwV4gzt8yE+wqa/8r
-	 oF5fVa29etzTNaKAy2YFBaeku48E1mY07UDW65GViK2gQOq3h2y/ZTXQ7V9b+zMIJR
-	 /xaYSk9mqAXQzWRMgbmjxUrtEL60BJ8U79nESmxJvPqfA6zYl0FKsxIIrBCj65czpo
-	 JseNY5/q1Yy2av2SqkHLCDr9k1PG+D3Kx7PXkKJBC54BqxM0mQKD+GyG7L7VGhI1Px
-	 BWxrlY7uEVtl6B08t8IPWbz3pNrXrTecf4zGnvQPSku6vZe0qhvEHV62uYgKYD2oty
-	 QrtzyroSYsGcA==
-Date: Thu, 12 Nov 2026 11:41:33 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Cc: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Michael Walle <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Alexander Forsch <alexander.forsch@bytesatwork.ch>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] dt-bindings: arm: fsl: Add byteENGINE i.MX93
- platforms
-Message-ID: <20261112-acoustic-natural-koel-053ef8@quoll>
-References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
- <20261111133119.1063210-5-frank.obergfell@bytesatwork.ch>
+	b=AsxlAq+NmzI/wNy08KiMrdGfA1lCFcL7WyVieP1Hd8pRJQ1mx5OS2gUMf17G20wAN
+	 tSBTJuh12XaZLjlII5PLEmBSWtlPN6waOJjk5039Amiu+OLQa1LTs3J5/UGNhdbr9z
+	 BjduKSKQdYtjdOrfZc/sNIO+LY09xdCtR+NVyDnV1a6YWGT4mkpS1JTqEcQwNHlLQh
+	 xRpUsVZnTdPWx9nnqgmdQBgUuYxT9kiBI/MEgX8QsnSDw/NmSj85hTnjyccdwTjrmv
+	 3N9pfi4r4ESXMWsoFJK6SgRViNsQecHMEYXy+GXzNTyiFQhmW2U26Ojj7HZ1LzE7jY
+	 WGO4XpccYghKQ==
+Date: Thu, 12 Nov 2026 16:17:02 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
+ qcs8300 16 GT/s PHY
+Message-ID: <avWZJr2eIE9KrV77@parshuram>
+References: <20261019-monaco_ep-v2-0-852cb9f5d012@oss.qualcomm.com>
+ <20261019-monaco_ep-v2-1-852cb9f5d012@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,24 +70,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111133119.1063210-5-frank.obergfell@bytesatwork.ch>
+In-Reply-To: <20261019-monaco_ep-v2-1-852cb9f5d012@oss.qualcomm.com>
 
-On Wed, Nov 11, 2026 at 02:31:18PM +0100, Frank Obergfell wrote:
-> Document the vendor prefix for bytesatwork AG and add the compatible
-> strings for the byteENGINE i.MX93 System on Module (SoM) on the
-> byteDEVKIT carrier board.
+On 19-10-26, 14:55, Krishna Chaitanya Chundru wrote:
+> The QCS8300 16 GT/s x4 QMP PCIe PHY was previously described using only
+> the qcom,sa8775p-qmp-gen4x4-pcie-phy compatible, since no QCS8300-specific
+> compatible existed for this PHY. This was a mistake, as it left the PHY
+> undocumented as QCS8300 hardware and indistinguishable from SA8775P in
+> the binding.
 > 
-> Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-> Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml         | 7 +++++++
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  2 files changed, 9 insertions(+)
+> Correct this by documenting a dedicated
+> "qcom,qcs8300-qmp-gen4x4-pcie-phy" compatible, with
+> "qcom,sa8775p-qmp-gen4x4-pcie-phy" listed as its fallback compatible.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This fails to apply for me on phy/next. Please rebase
 
-Best regards,
-Krzysztof
-
+-- 
+~Vinod
