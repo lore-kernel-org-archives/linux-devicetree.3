@@ -1,79 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794446298;
-	b=oAi3jc1L2gE4HP4eNdb8ArFDSqeFuYrJ2N8WEJ3+V1Z1Xd8x0ZxSgvRI+jqg3+OEkCJF
-	 B5xM42CJzG3XvYwbWTDXkN77mvJgQLM9zLJOV5FBn7yjKG/BoAVCREiKplM1oYoknAeJx
-	 wIqdWdQhaAcukH1B0Bs2pvGSttUmBj/4AogkLRFTnWy7TfpKi1wZATIu4njbqTLgCliVi
-	 za5D7JwxiC0UUXF5FNKVLq/8Uw1CwqdMaxjWPYfyRtCipVqHmfvM2BEvAgeoiS2FLlOZt
-	 rA8QK+Hfh5c3IhTVhKTtuMaBi94PAYYr1zSax39HDp7PQoEG12yo7FfZrSoJrB+BsIg==
+	t=1794446483;
+	b=ID1FfgU0hE/wSqZj9cbNi434wnnQIc3sTBCC88PqMREjriDxZCdR+XhF9J1eqfCvmT1v
+	 LeZuRmo8UvWaco8YOVBbYaiw6cK+qcX9XCnDXAQQmCF77fHamhbktX41R7vCzBO9aMSID
+	 Tx1aOP04o+v3vuQXGrt3YkRMAhWkYlMkntXUyiu2SpMe9CdDsl8F6d2d+Hg60Wpvh0Xfr
+	 qzSZagRKuj36opGF3oFNWkNd7T4HC7XovEumkZKibpS5jsUHbIUaCBoETKjhPnQmvgMfM
+	 lxBIspmVGDIpWwTJ9AKpBQQyAo4Pqu3YMhJeHys2w3bjOCNQF4r4+VFe7sjy2+PEkcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446298;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
-	b=kYNg9yhNXoFgBPR8ksERMebNnBNx06bT8ljKCJupGqe+Bv84TB2dO7lrhiqrWIe7MRTZ
-	 Y0xmg3g0RnsIpaw0BKyRSX7Sjzep2kOpxpIZIWbfDkJlp4NVUWtxfWjtyoTG1AddbxPDi
-	 NAaL/PHNftvZoJGO/J+Bm52aGXL3y1XrJvSOmH4XXM4sBOeGPd5jKneW41X5LSEG7BYiy
-	 AU6Z3/lYJN6//Agt21JTiIhgjGgVtYiA1b8SkL6ajd/+stv8u5xXsgCg0aHIhdWhTfDLc
-	 ybAy+ECRO+G1yHbOTfrMsFdOpQc3fiKWzGx1fGb5b9el2GARrvTFcVxB1vljhdn93Mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446483;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uR14w8pTREbKmhYIIjAZO/XpkzUWV+xjmuAZ+6vcCFw=;
+	b=msNWpRpoZoOv85JrC+XwTHVqC6CAioytl+wtB9AGj+MJSOQq1n3iUrPfU/mOzDeXpdSE
+	 7aBtXW9P7YjAS7aR7Hs6R8DwskYku3Yz7391Zqjomg0l8YAleM1U/4ojipnF3OHnimeN/
+	 smD3R7eKzqFvUTl3VDkbF5aNzUT31iObGnBBufNSpITDlAOo6U2P2TBkvWia8EszawnbM
+	 3gQR0yEnei3IDoA59n8rmnRB/5SFn4zKF4D/mwpXLufOKcWZ8dmrsovPu+KQLtUYeEclW
+	 9756BbNo29tJ7ZkD/BCy6NM5VPWqzHIcPAighU6BHAbjew7l8RsRd4P8YTOKKYexNtw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkXImLPd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MxMvrBcJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.52
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DDD606A321;
-	Thu, 12 Nov 2026 01:18:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43F4606A31C;
+	Thu, 12 Nov 2026 01:21:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C43F4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkXImLPd
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794446297;
-	b=mqFDIgPyD64w/jounPZJvg1RMgEoPNK/KT2rUpladn7VRFKI5OKlD+oNitpepIj5GpsI
-	 Ciqn4oc3DH544l0jBNQ0NvO1KEwYYfrNKDoik6e3tN3D/NJrBO65iNFOZnjEb1S/H7uIG
-	 xsvXMgx65gqbmWlE00oHx/Ks/JUZAMiVCzvgCCaItPie3OFefQ3B8csl2b6nFb4HPgG29
-	 /uDKJeqq+Vc8frplKT5lTowmZaBgesZ7sQEDGZrsLBk20zE9SjMKbFkd0IsxWzcqVppEn
-	 2ZKhnW2hCjd2Tkn6Pi6xBMCPKYXNY5b+UKD96N252kHORXKmV58myCEFzYYZyQBi/RQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794446297;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
-	b=t3KTQ03rfxlud+5fHcHXXm8QYtzXxIRJe+NyIYrbpV6oYucbql+jOtD5bCiGO2302Jor
-	 LzwWbmIfl7mMOMKDsFD4KmKf0WSBtCJYIGDz57ajiGNL+g621N8e3Of8ik3mttcIEW0BS
-	 IWffr7d7HYUOZ74Shg95PTEOyKZm9iX3UW9+BUSkBVqXv7y+XmUAdTgef6UYuCAoxqeXb
-	 UQ60pVGfSYl7IowWtO64QhhCheMqrd1xFSuTTFNiDQ/0COVMB4lQdS9tvCjjhAbDLljlq
-	 K2GUV4OFGwH4s/K9vezVtxKI7TOJ8GLm2NyYsCnf60A5eGQMhIa6EUop0izmAnoCRxg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1B4AC1F00A05;
-	Thu, 12 Nov 2026 01:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794446297;
-	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PkXImLPdE+XOnRYLkukGVZzArbr3fLPccyriXx3W5y9dg5ZYo8EHPfJN5Yngw3eYz
-	 QB61jmbaAHOz1bDIWUSV6/8tNW+vBMOuirNWAsGPaLT6oHy02+GCPNjwVD2OopQ/Pl
-	 WWN4w9I2Y1KH3TavxJbM6/HvEK/o3KyZ17wBsiXDca5ug8sIW1hUiKkRFn9wYTROB5
-	 0UVjgZVp4x5ypXb4iPDJzTcfIEH8X638t0g0mfdLhYIPRmI0Ga6xRw9c4KkhGfg7ei
-	 8y3RFPq0mU8vtLGJaogvZlCUzCetrc5vDyoTuv2ZjXIowhKWQ0w8ieIl7Li5O4n2Sa
-	 MxjkuRyL8Jyaw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A206B491AB;
-	Thu, 12 Nov 2026 01:18:16 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Thu, 12 Nov 2026 01:18:15 +0000
-Subject: [PATCH] arm64: dts: rockchip: Name the GPIO lines on Kobol
- Helios64
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MxMvrBcJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XAqeujJtHUpklGvqYR+llcduss+v1awKiOM+arbIEJ0Ak/8nrYVRcjU8+y3K5W63tpA7fEEJ7Jfpl56jAr4tfWMmPkVfDzrnmbVXzNVXS4LEYKarlQNLA8pFrNMZ1DrCk3GeToOseb7Zj88s1r6gfdVJOV2gPfXeMX2Pp1GxC6FlHTLs/EqoxMYMhEm4ZVnYkJe85CnYIGyUwhdPafxHIhSfTxyGrWkgNEwV/sXnWSp5AiSmQXhS5Ga073DZLq/yW2j7jgwPC5lIeeJk3UYyN6rp9gok3NjXUlOKu/AgtPBTvCxqyaOhyjt9k9j7gE3n0XevJkSDvbzFQnz2LdBHAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uR14w8pTREbKmhYIIjAZO/XpkzUWV+xjmuAZ+6vcCFw=;
+ b=OdtgbrjCTcSW7KiAFZD8kCnaIzJ90C7kj2XpbO//P0SfZ/utm8fcEIhq54MvDqLPZ5ba5FjD2Oud1yF3eYxxpsSy0faA0XzBDcSnMwT1DrD0jhuQW9OdiFJvZeWzWv1SKkf9aK1aTiH2gup4CT0jWtbD0vFBVqF8almPs60ggJbyH7tY0uOk/nTHPeFS56nt0qFA9YncAtZH3ccFlP7W2MZkNQZ+wSkPOOq38jCrGBUjbFJkJXjG7TzR+e3W7kVg2OhL6VW0drkOM+yiGbgp/2F6SwrZPmLA44zKlwcq0GUDbF5dk2MGn4utKg2EO+a9K3oAq2SBSO1yIHN9VCNNWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uR14w8pTREbKmhYIIjAZO/XpkzUWV+xjmuAZ+6vcCFw=;
+ b=MxMvrBcJWR6CLmbumZ7/pPhb8edDvuOKgKZlXThSIMCtMn2hRVieIeMjlD9+57z2WDWsiy6bXdgo/diUiKi44Z6qPCFW79h0i/3JIO78kwWZ0dZ2E2Kie/aGOVAGkacqzaxxlhaeN7qR6Sla4LkRzE/htUDjGOOIrUwVAb3oSimfAdDJZCloCUNTdGurnYQLEfmOetYLMLecEGccskJm3JtSbgEzfAqJsPJMuVAg8H/u9WvrqppBnMDlSQWXj7jRTkd5a0p4DyaUtmjDHQXbKAJnv+dWzIVjxxp2L0qIbmx+nvFDS5BvnCcPnVNQSBoI4DaeA7hQGyrjjLwB394gPw==
+Received: from DS1P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::16) by
+ SJ2PR12MB7917.namprd12.prod.outlook.com (2603:10b6:a03:4c7::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 01:21:14 +0000
+Received: from DSM2EPF00000011.namprd02.prod.outlook.com
+ (2603:10b6:8:242:cafe::61) by DS1P221CA0025.outlook.office365.com
+ (2603:10b6:8:242::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Thu, 12
+ Nov 2026 01:21:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DSM2EPF00000011.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 01:21:13 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
+ 2026 17:20:54 -0800
+Received: from build-johnliu-noble-20261009.internal (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 17:20:53 -0800
+From: Johnny Liu <johnliu@nvidia.com>
+To: Johnny Liu <johnliu@nvidia.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	"Prashant Gaikwad" <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, "Douglas Anderson" <dianders@chromium.org>,
+	Aniruddha Rao <anrao@nvidia.com>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v3 0/4] Add Tegra238 BPMP support and fix stale EMC clock rate
+Date: Thu, 12 Nov 2026 01:20:14 +0000
+Message-ID: <20261112012024.3947256-1-johnliu@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102121202.2431928-1-johnliu@nvidia.com>
+References:
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,150 +118,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-helios64-gpio-line-names-v1-1-2ce53756753f@iav.lv>
-X-B4-Tracking: v=1; b=H4sIANYT9WoC/x3MQQqEMAxG4atI1hMwRUS8irjo1F8NaCsNiCC9+
- 5RZfov3XjJkhdHYvJRxq2mKFfJpKOw+bmBdqsm1rhcRxzsOTdZ3vF2a+NAIjv6EcfDfYZAOi7h
- ANb8yVn3+62ku5QfPO7juagAAAA==
-To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4082; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=mxfTsSDkWYOFNeIUFLUD6qD7wTrjLsl+OXjto3i0uRA=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlfha9nyr0qPrqV6fH2LaHnvsw23ecXeWbZ+g/idxaU6
- l1qWKYd1lHKwiDGxSArpsgy4ZDGrYwlV//6e5g/gJnDygQyhIGLUwAm8k2akWHuGimJPXIajY/3
- V8ZZFcnOlUrrv8uXbLLgjcrNhbcXnGJh+Cvaw9JhWs+yWfG4UOyJSaKyKz06z909X+u8p6PS5bE
- 0KzcA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSM2EPF00000011:EE_|SJ2PR12MB7917:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8e4446f-2dcd-44c6-607f-08df405b3e26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|30052699003|36860700016|7416014|376014|82310400026|23010399003|56012099006|11063799006|22082099003|18002099003|10067099003|261009223027099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	ZWKDG98suBjM+WQ0nRO9NFSoyH8qTUS30G0IStUU0JDNBvbqQJJ5wZ8PSYEokjkcZcz+gGtEOscMIXvq9xEDadcLIL6bDEt9ElMEfIzqJl5RfQu+AaShM9Iuea1pi4SFngfDNmEb1ER6OhdgbSQ2D96qrZ48+5aB05ELTVs7rsLPTda+E8fZ3gFDcfqDE/mxtDjUtsTY/mDEjp0XySJLL3gPGWf1DhXLEn5yLh2mEdctfY9vmuvbk4KNHvXGtpiUiLwvQa7g+TOzAoz1vlACPxRZt40yaQhpwb1q8CWDQucoiKQXkLvUoE2eE1p59zvLn69bmxW8XX3YMDiLO0/nO8+QDKHfT5HVikBexLO7gJEM6C5i3NqmBPqfS1TZ3fKuN2CbTIyhvOroUAB/11Qawb237Kio1A39dd8GeOYl4MhtmX/Vy8tXg7F6A/S8PDIEKy8UK9KDYg4LPuY45Oi260VnAqBchFsxd7+YsuFc3YpI65MMtKkUnkkUAA4ifDwLzostXHcU+O7V2jpLtdRHrpHfnJerjChE0B1DSJlLVFxyZRgJ1PnZFm1xUQNY59lSJ6JFkimuhSqmECXkY5QFoKfvedce6Lp7OFwvQLkNhDkY2L+DLxRda+kSl11BlaGnk3/rdin/P2txhIP7dXirPqk2VuPsPMcjPbV34gGyQ48fIM15lIE0vlGE1V/P+fPxdBuJ0lfoiBMNz+m1xWeWlg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(30052699003)(36860700016)(7416014)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003)(261009223027099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	t2KU3ahODeQ1VlBlh74ffxzveB4wSN+qVjjP10U3p3UFMOuoFXU7jZqimNBa+4mcaudsUm0BAXY0WN4tDCSavVGMw3TW3AUxoKYAxvPBamTofwjr99Kae4iKammaz3K9LW3AY5tRV/e0ijq6zmn41QlAQGNuJdRJhPoHpp+ud9JZwDXyvJbq/zUoEQ3D3N5X+oOoP1NvSJaH6IFKMxRHx91pYZRVqpHZjkTwsZXlXdk/VlYfRXn2fRL/QZwIzcnZbKbkBj4+/A2c3QqsqEmmMR7kqfH7EO6sxl8b2kIONKMz1z7pVq7uSAEf4gv2EJ8QUjbbU+YALNVC4fwJRt7RIh6RoCQv4sTDfE7+psQD2usGxexcw/R9j5iXD+WWsjjF5IcBDvIl/pqPlKyN9sfBEci6D7V30xgXYT9lPfZTmnMe/HBuKc7z2fg2fjfbA0QR
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 01:21:13.7490
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8e4446f-2dcd-44c6-607f-08df405b3e26
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DSM2EPF00000011.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7917
 
-From: Igor Velkov <iav@iav.lv>
+Gentle ping since I haven't received others' review for a week!
 
-Name the SoC GPIO lines after the nets on the Helios64 Rev1.2
-schematic, so that user space can find a line by name. The auto
-power-on latch (U23, an SN74LVC1G79 flip-flop), for one, has no kernel
-driver: user space sets it at shutdown through AUTO_ON_EN_D and
-AUTO_ON_EN_CLK.
+Just wondering if you’ve had a chance to look at this patch/series yet.
 
-A line that reaches a named net through a series resistor takes that
-net's name. The SD card lines, whose nets are not named, take the SoC
-pin function, and the two board revision straps are named after the
-schematic's "Board Revision ID" block. Lines that go only to a test
-point or are not connected stay unnamed.
+Thanks,
+Johnny
 
-Link: https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on Helios64 with the names added by fdtput to the DTB of an
-Armbian 7.3.4 kernel: gpioinfo lists them, and every line it shows as
-requested by a driver (LEDs, buttons, regulators, beeper, charger, SD
-card detect, Ethernet PHY reset) carries the name of the net it drives
-or reads.
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 74 ++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+On 2026/11/02 12:11, Johnny Liu wrote:
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index f13ea2df7a30..329116e2074b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -421,6 +421,80 @@ &gmac {
- 	status = "okay";
- };
- 
-+/* Line names follow the Helios64 Rev1.2 schematic */
-+&gpio0 {
-+	gpio-line-names =
-+		/* GPIO0 A0-A7 */
-+		"RTC_CLK0_SOC", "SDMMC0_PWR_H", "VCC12V_DCIN_GOOD", "USR1_SWITCH#",
-+		"NETW_ACT_LED_ON", "PWR_KEY_L", "PWR_LED_OFF", "SDMMC0_DET_L",
-+		/* GPIO0 B0-B5 */
-+		"LAN_WAKE#", "EXP16_INT#", "PMIC_INT#", "USB3_ACT_LED_ON",
-+		"SYS_GRN_LED_ON", "SYS_RED_LED_ON";
-+};
-+
-+&gpio1 {
-+	gpio-line-names =
-+		/* GPIO1 A0-A7 */
-+		"HDD_A_ON", "HDD_B_ON", "TYPEC0_CC_INT_L", "VCC5V0_TYPEC0_EN",
-+		"USB_MUX_HS", "PMIC_SLEEP_H", "OTP_OUT_H", "SOC_SO",
-+		/* GPIO1 B0-B7 */
-+		"SOC_SI", "SOC_CK", "SOC_CE#", "I2C4_SDA_TYPEC",
-+		"I2C4_SCL_TYPEC", "USB_MUX_OE", "GPU_SLEEP_H", "I2C0_SDA_PMIC",
-+		/* GPIO1 C0-C7 */
-+		"I2C0_SCL_PMIC", "CPU_SLEEP_B_H", "SOC_WP#", "LOG_DVS_PWM",
-+		"I2C8_SDA", "I2C8_SCL", "USB3_EN", "USB3LAN_PWR",
-+		/* GPIO1 D0 */
-+		"PCIE_PWR";
-+};
-+
-+&gpio2 {
-+	gpio-line-names =
-+		/* GPIO2 A0-A7 */
-+		"I2C2_SDA_TEMP_EXP", "I2C2_SCL_TEMP_EXP", "SATA_ERR0", "SATA_ERR1",
-+		"SATA_ERR2", "SATA_ERR3", "SATA_ERR4", "I2C7_SDA",
-+		/* GPIO2 B0-B7 */
-+		"I2C7_SCL", "SPI2_RXD", "SPI2_TXD", "SPI2_CLK",
-+		"SPI2_CSN0", "", "", "",
-+		/* GPIO2 C0-C7 */
-+		"UART0_RX", "UART0_TX", "", "",
-+		"SATA_SO_LV", "SATA_SI_LV", "SATA_CK_LV", "SATA_CE#_LV",
-+		/* GPIO2 D0-D4 */
-+		"SATA_WP#_LV", "PCIE_CLKREQ_L", "", "CHARGER_STATUS#",
-+		"PCIE_PERST_L";
-+};
-+
-+&gpio3 {
-+	gpio-line-names =
-+		/* GPIO3 A0-A7 */
-+		"RGMII_TXD2", "RGMII_TXD3", "RGMII_RXD2", "RGMII_RXD3",
-+		"RGMII_TXD0", "RGMII_TXD1", "RGMII_RXD0", "RGMII_RXD1",
-+		/* GPIO3 B0-B7 */
-+		"GMAC_MDC", "RGMII_RXCTL", "", "GMAC_CLK",
-+		"RGMII_TXCTL", "GMAC_MDIO", "RGMII_RXC", "GPHY_RST#",
-+		/* GPIO3 C0-C7 */
-+		"", "RGMII_TXC", "", "",
-+		"", "", "", "",
-+		/* GPIO3 D0-D7 */
-+		"", "", "", "",
-+		"", "", "ERR1_B", "ERR1_A";
-+};
-+
-+&gpio4 {
-+	gpio-line-names =
-+		/* GPIO4 A0-A7 */
-+		"", "ERR0_B", "", "",
-+		"", "ERR0_A", "", "",
-+		/* GPIO4 B0-B7 */
-+		"SDMMC0_D0", "SDMMC0_D1", "SDMMC0_D2", "SDMMC0_D3",
-+		"SDMMC0_CLKOUT", "SDMMC0_CMD", "", "",
-+		/* GPIO4 C0-C7 */
-+		"", "", "FAN1_PWM", "UART2DBG_RX",
-+		"UART2DBG_TX", "FAN1_SENSE", "FAN2_PWM", "FAN2_SENSE",
-+		/* GPIO4 D0-D6 */
-+		"SATA_SPI_FLSH", "AUTO_ON_EN_D", "AUTO_ON_EN_CLK", "BUZZER_ON",
-+		"SATA_ACT_LED", "BOARD_REV_ID0", "BOARD_REV_ID1";
-+};
-+
- &gpu {
- 	mali-supply = <&vdd_gpu>;
- 	status = "okay";
-
----
-base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
-change-id: 20261112-helios64-gpio-line-names-cab8814ed12c
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+> EMC clock scaling is handled by the BPMP firmware without kernel
+> involvement, so clk_get_rate() on the EMC clock can return a stale value
+> cached by the common clock framework. This series makes the EMC clock
+> rate uncached on Tegra234, Tegra238 and Tegra264, and adds the pieces
+> needed to identify the EMC clock on each of these chips.
+>
+> The EMC clock ID differs per chip (TEGRA234_CLK_EMC=31,
+> TEGRA238_CLK_EMC=43, TEGRA264_CLK_EMC=290), while the
+> "nvidia,tegra186-bpmp" fallback compatible and the tegra186_soc data are
+> shared across several chips. To avoid detecting the chip at runtime, the
+> EMC clock ID is carried in per-SoC BPMP data selected by the device tree
+> compatible.
+>
+> Patch 1 adds the "nvidia,tegra238-bpmp" compatible to the binding,
+> together with the Tegra238 clock ID header. Patch 2 adds an emc_clk_id
+> field to struct tegra_bpmp_soc, together with dedicated SoC data for
+> Tegra234 and Tegra264 built on a common TEGRA186_BPMP_SOC_COMMON
+> initializer. Patch 3 adds Tegra238 support to the BPMP driver, including
+> its own SoC data and EMC clock ID. Patch 4 then sets
+> CLK_GET_RATE_NOCACHE on the clock matching that ID, so that the common
+> clock framework forwards rate queries to the BPMP instead of returning a
+> stale cached rate.
+>
+> The series touches both the clock and the firmware code. Patch 4 depends
+> on patch 2, and patch 3 depends on patches 1 and 2, so I would suggest
+> taking the whole series through the Tegra tree with an Acked-by from the
+> clock maintainers.
+>
+> Changes in v3:
+> - Move the TEGRA186_BPMP_SOC_COMMON refactoring out of the Tegra238
+>   support patch and into the "Add per-SoC EMC clock ID" patch, as the
+>   refactoring only makes sense together with the per-SoC emc_clk_id.
+> - Keep all Tegra238 specific changes (Makefile, CONFIG_ARCH_TEGRA_238_SOC
+>   guards, clock ID header include, tegra238_soc data and compatible match)
+>   in a single "Add Tegra238 support" patch, and reorder it after the
+>   per-SoC EMC clock ID patch.
+> - Reword the "Add per-SoC EMC clock ID" commit message to describe the
+>   intended use of emc_clk_id: the BPMP clock provider sets
+>   CLK_GET_RATE_NOCACHE on that clock, as it is completely managed by the
+>   firmware and the common clock framework must pass rate queries through
+>   to get the latest rate.
+> - No changes to patches 1 and 4 apart from the patch numbering.
+>
+> Changes in v2:
+> - Squash "dt-bindings: clock: Add Tegra238 BPMP clock IDs" into
+>   "dt-bindings: firmware: tegra186-bpmp: Add Tegra238 compatible".
+> - Reword the binding commit message to state that the Tegra238 SoC is
+>   fully compatible with the Tegra186 BPMP.
+>
+> v2: https://lore.kernel.org/all/20261028155000.1205739-1-johnliu@nvidia.com/
+> v1: https://lore.kernel.org/all/20261028084900.1047287-1-johnliu@nvidia.com/
+>
+> Johnny Liu (4):
+>   dt-bindings: firmware: tegra186-bpmp: Add Tegra238 BPMP
+>   firmware: tegra: bpmp: Add per-SoC EMC clock ID
+>   firmware: tegra: bpmp: Add Tegra238 support
+>   clk: tegra: bpmp: Do not cache the EMC clock rate
+>
+>  .../firmware/nvidia,tegra186-bpmp.yaml        |   1 +
+>  drivers/clk/tegra/clk-bpmp.c                  |   3 +
+>  drivers/firmware/tegra/Makefile               |   1 +
+>  drivers/firmware/tegra/bpmp.c                 |  61 ++--
+>  include/dt-bindings/clock/nvidia,tegra238.h   | 279 ++++++++++++++++++
+>  include/soc/tegra/bpmp.h                      |   1 +
+>  6 files changed, 329 insertions(+), 17 deletions(-)
+>  create mode 100644 include/dt-bindings/clock/nvidia,tegra238.h
+>
+> -- 
+> 2.43.0
+>
