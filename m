@@ -1,90 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794478034;
-	b=iL8brdzciOu430SqY6sR/agFdGJPqKLK+RCFptaKihIz52newiOeuoYRw0iRdz9HJCGn
-	 NM6FVUwRVtU1fzkNYY0c5hzYZdg4P4k2p7NFy2xDGjsAtr1cVzssOFcXMc4EiFKLPW1PM
-	 xcOjv/OgZZLPYL4pnCkHRZO0KUOZySQBvD2Y2n60JFy+EBp58OeMfGme+BlP4k3Mtr2p0
-	 udzN3c6uMyXWwZS3zay2xi/D184PUw1/vUl5xRdB4EHFpMlSDqnF82aSwpuuqk8xQ0pOs
-	 WaK5IplXn2iGK7OVk8rlXsqTSt9G1reyTakxRwPkb1sIQ0BK18AvcvgrV0YoKTqobOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478034;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
-	b=pnWTPziWXyCR8ILn0f3L+6RkG+D+bJDK+VQ6MpSXWuyofIC3FB/OwlAHUo1Z+TiWrkIj
-	 zJmG/fUVQ1F0Dmq1OnAtHxfUhkhx0klK8G4ZsdRrTmN0iSsXap+x4/P05K904h57nOOHg
-	 kIrqyI9KwBWheRfiRo3MqKB1aINIDI43624wF6fl8QGp2HnOBmBuqjRKKux7j+Lb4rYog
-	 axQvt1bekF9k7IyEwmduD4Ka+P96qleCUtcc5ViEKsGBz3hXWyDtfXkVGc/ijOLhx46Os
-	 1QJgAobS60PAtb+vvWrbS1AfPiM8GUVwZFzjaAbtrPn4AUV9ri57hjcYBn3iSGV/KFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=A1A38LOW;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=voTzo6s7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.82])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794478165;
+	b=XLBhr/n1H1xr2tpya1ckxLbDkocJPHvxTlML06hUV1vGGNKv+mGCCWRp8eby60FMrLHL
+	 s08ZDIkohcPhVLjztNMerhEWZQ1EJIf2rkCV3e6PMIGfbcSGGAkOWE76wQz1dlOmkJ939
+	 qvUPMWkJV2PosLVJmloNvFH5f08uf6+Mf40XXOVJKgnnmVmGLfZAlYIjqStu9Q92T8iLB
+	 T9qgPtU2sJiEBAECBtqc3zdCYYydoIbCtx41l4milv18TDsStDFLDJHdVca8x2c5UKiqn
+	 By+2Z1rCaD75FDgobBSwKxVqhqDhZ6ZfgH3ibWLDA7EjabhocWdTU+UkBCMgzIJW+eg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478165;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=O5L90x0qJtQLjtO8wu1AzKm3UqP/ZRrsRFZq7AMcdGQ=;
+	b=Vf580InLSPWCeaeqEyoe3qs3S2wGlU+ZUiNLoLueEjIIvPtHe9e2sMaShpfB8iu/nid0
+	 G1J2k2RC2tJzSivuhBJIrITdk/+4aKzim+PRooM095yOklQUJADOWVRKE1sOpd5ZggWhI
+	 A3lnoLeiCCtn2PwcfBGVB7PvoSkXl2Xprjfz/y3e6oPuZN62HWYW/oysYo3s5JYa6TbWI
+	 wW+lCEw1DTD8o42v5+EA+s4Nc5N9svfxa0HxXuwwJZrke6IPeoTzsJ+kyFok3M3zKqzBt
+	 mL+Mm9sylcZbDidNKfWG6KiCRAHQQt3JFZuN4X7dMMCyAq1Qi51yOxOVf+EGJJTh+CA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z+mVmidC;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bhHQXAO6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49BB606A333;
-	Thu, 12 Nov 2026 10:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B49BB606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A0E606A327
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:09:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A0E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=A1A38LOW;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=voTzo6s7
-ARC-Seal: i=1; a=rsa-sha256; t=1794478030; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=XWV0fGqYErWZql2iGhouFxsrUOFN60KTxfYsJG7LqCJORolfiKRcs6UiMxrKS9Gf16
-    nZ2FdiYiF8R2tCdrykHZldEo86i/REhsnDKyjuoCjfpts6cy0yKUDtRfY4OWrZ82I57l
-    qAOHjGKCIFmq6TfL9j3BnYAGnV6NyU6g6tbfQssdG80+nmFxLcYwAK0Xm0DsumALoU9n
-    nTwjkKfZtKLqZd+aigWiNDJwX3cA0Wvon7dE5Z4BF2MvFv9TkCNbO9cRj/MaQCvtLgyC
-    3R+w68/Lk3PiY5l+02NR2Olp749FpL3QutsUVI0JFMcG/onnXoTw3D8rMbfb/WhqFxrW
-    telA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794478030;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
-    b=mxvzKQbYJkVWWg7RjGeQMJzha8VN85CbpSSnBYv5scZ+EGbLuV6pUTTJf0SW3syJMW
-    bCv4GwltsuaUb7Bkr5OdsZZwd4avwmNeaD/iTkk9Th6EQlJeEuvyf//v5he+cksZTIC9
-    7aPuS4AL3Q3LDTs8MVPjvY2snz6clnP52GRy71cG288B6j5SSG35uLt0k4/Ryc1ekNn2
-    vgitjbs9Oy+qmb4k3vVvy9dgcf4JtrR4tQHUkCmtLKOXJpD8mqzfGchEwS8uJTo8lfWA
-    M4kJ2ZY4m3P+2PdFT6DQrFHRUOSXkMZcTVooUeaAbb+UVptW+jk0bE644xvewYZouT9D
-    soiA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794478030;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
-    b=A1A38LOW9F6acPfut8wGJ8aC+WvmOo+Vqn05JE+or/SKWrZMWCSKSssFjdCcnLLAiK
-    KCrTReoL4EatVmgBOB3SXX77xf7Ks+Dk4oNPT3cFW1sLhkAxEfh2ltsZ6ZgUrh6N13fO
-    f6gQzsvTVHAsy3rLn9hxKBklEyOYM9oi/4ZGOz4qDton9OOfNbxSc9IumRBksjlKJXJh
-    vSmDM1Ak8Mnikk/tF38KLdbGDppzjhAQhEWalsIifjCHsLnsR8Io73Ftxb7iTL5Dj0IP
-    MGvxsd8Svm5BpuDX0siAn8TIH2Jjo4IZ2/dk0m68qOXnW+PEAIlMRxuj+UG7CY8JyrWW
-    29VQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794478030;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=RA3Z10wD7RDLkl1LQhXqveUCzhHEJEYzO4jR3113zUk=;
-    b=voTzo6s7h+H1VwoU6pbBx1a/Pc1ZqpXa3mZnT1Tz4SsT3iWuML6wzSSohLNGdIuqMR
-    o2hg8YF+0STgY/mfKGCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22ACA79BFM
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 12 Nov 2026 11:07:09 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z+mVmidC;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bhHQXAO6
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC4mHoX3893693
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:09:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	O5L90x0qJtQLjtO8wu1AzKm3UqP/ZRrsRFZq7AMcdGQ=; b=Z+mVmidC5pU/7H58
+	ppN+5gd9fW4E9aupzUBR+8n3m18WAywMq22mlqus8et5Jj3bsd+QvVj++p1MkI6Z
+	mtaufojodvfS074+xpddYk6YaOWa0dq4QZyvNQrGUWY9XwcINwFHXbEPhEUFFJG4
+	hainEEeEQRmVfkhV4/dF51kPSxMkKkd88tj5mmMZSa+Z1u3sJ5ASONY+6P+sGfm0
+	LBWHZY2N7camWy9NzgbhjlxYlWG39pYwSDAA2LAL/aDmVHoEksUbe2CvtRVsVw6V
+	7NvKNKZ8E8Ny0cteehfuu7o6dGIMZyzk/gfKKFIURz96JfCw2wfDcMNWn7BCKTLS
+	qGRWjA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6re13bc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:09:24 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3acc98e3b3cso3426347a91.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 02:09:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794478164; x=1795082964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O5L90x0qJtQLjtO8wu1AzKm3UqP/ZRrsRFZq7AMcdGQ=;
+        b=bhHQXAO6YGRe3KAn2gun6jzd5J9mEP4cRt4RKjF5Iycvz0K46hLE/j2tIPkM6yv1LS
+         q3FgrcAfPHZ3DTjhBg6x75aNBHiYS9GCqZ7HJfZSUmq3hgjMivPqC6N8xc2bV3eVMWDr
+         bONhe5w23Rd7j01HSFDaIInuMrgkBx7qF0eMhrxDTs+65j5B86o83lLtX4uNoa6cyGGN
+         /1lhrr52mLvrYcHDY34l+poUqWzXRww5llZtDgLWWYBvyGOuWqvarjXiM0Z7yqu5/3Pi
+         SvRxgMXG426K39MEbfW9kglbQNJ77QYjPU3c4WwZ89W/uoHERXvDSz8z0o2EheZUpPNS
+         HLSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794478164; x=1795082964;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O5L90x0qJtQLjtO8wu1AzKm3UqP/ZRrsRFZq7AMcdGQ=;
+        b=fuwFQQDlSDaxLk6mF1Ss7JaLUybyIiffRx0BkKguDApH1JgIBetwEXv4MPKTcajvoQ
+         72Oj4HpiX0jVGEIN5OPy0hV6/+jL/OBy9N3S88pO/qhjBwnTWHI9nv2UHOxlRb82NfFN
+         rTVlpLp5N+lj4ALPW8P2ZW+ZRuXqdQPiUU8vlDZ4Q46mLz8qWLyxECklM8IOiQ9Ib/Pd
+         pDLNa1yR3aUeDyBk2zRbAjbXcwB0LCmtog6kUvn9SZWlhvyPgra+H5gBG23pNcYNvy60
+         A2ElZUSCMP7wnH8Ie95awXFzn2PcF+SxstRB+4B9KBrkN1WvtNyTxuYmwCm/mw/McgGR
+         FJ3g==
+X-Forwarded-Encrypted: i=1; AL+hErFmsVV/zqCjhfDFQoQAbO0pPo/ov1BSUvqC8hLR3McYTZtD/xDT/6xPmU+hkV/2hUSEmpMCtypbmsSQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z8K5Hpl6xsFBFs4IVgzhhddkgsbrhgMkZZulnXcDykJ0xUSchCR
+	dUVtdefPKlGMIeMsoAtp9GQXmhNhudv2ttWqzb7psl16Pp07U/Osxh3GVGm7+W15apWYWG2um2z
+	JwBqs4233tR2Omz1qELA7NdKff6DuwO1sflNdbDcxKkW+pXh+heP/zbaEF/9qUcTE
+X-Gm-Gg: AYBFou1AbaWpWlUf1vBO+d3hZqMzz44z9Ub/dG6HqNMdZhFCZebOSeaw39EFmj7Vjo8
+	QMFfbkKWthgirEALZVATul9Bd+5SEJH/NSXDj0g8snNmWrYaz5UBpk0DsrGmvKVzXtctmc143Qv
+	5hL6k0jlc858PDH31e2uYbW8etAimZD71JN0/k5I+6Ji0FgQa7rB/c8Oc1z5YfgC9GxenvIE/61
+	3xr+0x3DGvSFu5gi+eLYM7Ay69s1cWYJi6Y/aNT2ZSkazWkdZTO3zCw7V9hXnPsZJ2wap07cFUn
+	LfTnIt+OyQkbO6oE5qZ37Ccn46NTgefvAxbrtSLtk9HvBHAkHeATytA3a3IWms/UIuQYZl4RaAV
+	z/hna3krSvNknR1r/cCNzJWc37FPVgnZPy3VeSMbQ4nFWkjWsLOMU/v8ZM4yUQ4XNKMLMZlFA1S
+	edWMk5AUnUtjU=
+X-Received: by 2002:a17:90a:e7cd:b0:3ad:6090:a189 with SMTP id 98e67ed59e1d1-3b182f93b3cmr5126594a91.45.1794478164010;
+        Thu, 12 Nov 2026 02:09:24 -0800 (PST)
+X-Received: by 2002:a17:90a:e7cd:b0:3ad:6090:a189 with SMTP id 98e67ed59e1d1-3b182f93b3cmr5126569a91.45.1794478163557;
+        Thu, 12 Nov 2026 02:09:23 -0800 (PST)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f6e0sm4005578a91.9.2026.11.12.02.09.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 02:09:23 -0800 (PST)
+Message-ID: <27de4b46-4fdc-493a-abd2-f28f22ed6c4a@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 15:39:18 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,70 +115,122 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <384F58FF-41C4-46AC-8B2A-1B6ABCDA6981@goldelico.com>
-Date: Thu, 12 Nov 2026 11:06:39 +0100
-Cc: Andi Shyti <andi.shyti@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C17AD04D-6EE7-4CF8-8DB1-FED4A16C66AB@goldelico.com>
-References: <20261024212520.91401-1-olivier@mgcrea.io>
- <20261024212520.91401-3-olivier@mgcrea.io>
- <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org>
- <at8jCGfp9dKjieoo@zenone.zhora.eu> <20261109190345.61480-1-olivier@mgcrea.io>
- <384F58FF-41C4-46AC-8B2A-1B6ABCDA6981@goldelico.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 v6 3/9] ASoC: qcom: lpass-rx-macro: Add shikra
+ compatible
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
+ <20261106-add_shikra_support-v6-3-2cda302237cc@oss.qualcomm.com>
+ <c1dc47d0-676e-4b88-b904-34d193e61808@kernel.org>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <c1dc47d0-676e-4b88-b904-34d193e61808@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: YszF4XDL6H-P-dxtizbCRIkEG8vG7yow
+X-Proofpoint-GUID: YszF4XDL6H-P-dxtizbCRIkEG8vG7yow
+X-Authority-Analysis: v=2.4 cv=NJhAaE6g c=1 sm=1 tr=0 ts=6af59054 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=71XsD3E5Q5-dLC-WrCUA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfXzIpNdAOmHAog
+ IhCL0qBKE1zgvVUJo3qUqWk4CzjKjRLXl90uIcGTlPWVDMYxso4VnYNYeIUZIH7JdO3M/BLoSuX
+ KfI1lNy6sa3NLKh5yCJiDWuc8vBMEfY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0MCBTYWx0ZWRfXw0jIk1SQEzxM
+ Gr6VlsGEP2R9acX1IRHm9nrUdt8YXDdJDeCr69Y8xIiQxFfIc6qdsQo9hJz/Qu2WYAn9Q6m6biv
+ UowfSxfMfxaI7W2xqV37FIDsCjGFapjCAnDnYyi5UgUoNPZG4cPmZYu8Z8WDFgFVmXh98z6k3DR
+ xDeBLqht2mQ9BFSrVm6T8nzP6SHnrUpCNcvAFYZfwxqXm95uDPQ5QlJ7uJmyt9phuv2tkwc6gKm
+ NPpkgONEKJv/UlTntCRUyc3EF+d+KSc4s5dQ9fu4hhr8C828wjqtcJMN3VdJr35VTgq96V8rLu/
+ M7gWdW1Z5NW+Pz1g+OXYFdMNKRS67dM3UD9EL25ZAYIaWZeawj0EoiFQOqjCMx3zxyTukxfvx8F
+ xBUsTq+xGHEILM2XXZiAYEJsfJDi4oXbIR1lhKeQGhKbrcdzPR/8NcLcrMeoV05HvbHvDEVE3OR
+ HgodGouuTXlcL5leUOw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120040
 
-Hi Olivier,
 
-> Am 10.11.2026 um 07:31 schrieb H. Nikolaus Schaller =
-<hns@goldelico.com>:
->=20
-> Hi Olivier,
->=20
->> Am 09.11.2026 um 20:03 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->>=20
->> Hi Nikolaus,
->>=20
->> On Mon, Oct 26, 2026 at 10:54:49AM +0100, Andi Shyti wrote:
->>> I'll wait for Nikolaus ack/r-b for applying the patches.
->>=20
->> Could you have a look at v2 when you have a moment? It is the version
->> after your review of v1: the spike filter programmed on the X1000 and
->> later, and the X1600 falling back to ingenic,x1000-i2c. It still =
-applies
->> on i2c-host and on v7.4-rc1.
->=20
-> Yes, it is not forgotten.
-> I just have to solve another issue before.
 
-I have tried to test that. Unfortunately the x2600 board (which is the =
-only
-one where we use I2C for the RTC chip) does not run reliably and =
-randomly
-crashes and damages the =C2=B5SD card contents. I wasn't able to find =
-out yet if it
-is mmc/dma or dma or a bug in the x2600-sdhci driver or something with =
-cpu
-caches or a hardware issue with RAM timings.=20
+On 11/9/2026 8:45 PM, Srinivas Kandagatla wrote:
+> 
+> 
+> On 11/6/26 12:33 PM, Mohammad Rafi Shaik wrote:
+>> Add shikra RX macro compatible data and hook it into the LPASS codec
+>> v4.1 flow.
+>>
+>> The RX macro register layout of LPASS codec v4.1 matches the v2.5+
+>> layout, so reuse the existing v2.5 register access helpers, controls
+>> and widgets for it.
+>>
+>> v4.1 additionally requires the FS counter to be bypassed before it is
+>> enabled during MCLK enable. This is a property of the codec version and
+>> not of the board, so key it off the version detected by the VA macro
+>> rather than off match data.
+>>
+>> Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+>> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>> ---
+>>   sound/soc/codecs/lpass-macro-common.h |  3 +++
+>>   sound/soc/codecs/lpass-rx-macro.c     | 14 ++++++++++++++
+>>   2 files changed, 17 insertions(+)
+>>
+>> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+>> index 573b2145e1c4..b52665b11e35 100644
+>> --- a/sound/soc/codecs/lpass-macro-common.h
+>> +++ b/sound/soc/codecs/lpass-macro-common.h
+>> @@ -30,6 +30,7 @@ enum lpass_codec_version {
+>>   	LPASS_CODEC_VERSION_2_7,
+>>   	LPASS_CODEC_VERSION_2_8,
+>>   	LPASS_CODEC_VERSION_2_9,
+>> +	LPASS_CODEC_VERSION_4_1,
+>>   };
+>>   	case LPASS_CODEC_VERSION_2_8:
+>> +	case LPASS_CODEC_VERSION_4_1:
+>>   		rx->rxn_reg_stride = 0xc0;
+>>   		rx->rxn_reg_stride2 = 0x0;
+>> +		rx->fs_cnt_bypass = (rx->codec_version == LPASS_CODEC_VERSION_4_1);
+> 
+> This does not look great, can we move this to of data?
+> 
 
-So at the moment I have no device using I2C at high speed to do real =
-tests.
+The FS control bypass is version-specific rather than SoC-specific. I 
+initially handled this through OF match data, but later moved it to the 
+codec-version check since the behavior depends on the codec version.
 
-Please go ahead and if I find something we can write updates later on.
+Best Regards,
+Rafi.
 
-BR and thanks,
-Nikolaus
 
+> --srini
+> 
+>>   		def_count = ARRAY_SIZE(rx_defaults) + ARRAY_SIZE(rx_2_5_defaults);
+>>   		reg_defaults = kmalloc_objs(struct reg_default, def_count);
+>>   		if (!reg_defaults)
+>> @@ -3951,6 +3962,9 @@ static const struct of_device_id rx_macro_dt_match[] = {
+>>   	}, {
+>>   		.compatible = "qcom,sc8280xp-lpass-rx-macro",
+>>   		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
+>> +	}, {
+>> +		.compatible = "qcom,shikra-lpass-rx-macro",
+>> +		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
+>>   	},
+>>   	{ }
+>>   };
+>>
+> 
 
