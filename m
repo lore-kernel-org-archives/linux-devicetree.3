@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447990;
-	b=3OVEZhCp4B9aLdcKYys6OCqN7iOymoRiuXRQyEA4fnR/eJfMfhbcjourjeIkHalGZbf2
-	 MoKEh+3WJKhr0You4CRRK2K4gmZx8PNcwDfxpheBKqQ/4O51fPeJTSBH8Ewq7F7r8/HoE
-	 Rj9Ltgkwn7ikeaqFvBlBlrDMsMLRg3to+xC2jQTLotJvNFgunWxa+nQbPhe87BN9noP6W
-	 +mOvMCpDHv8Zl24fQKaQ3HQ4o6c7qDPpp6DDzqO7UPBRtz/pBP22c6lhm3IfMx9jN1OG0
-	 fG7H4Cq9sRWtNLu34GCgEOPFuRm6XvptSIdL2E43zabRsjtldIlovVijbtn28Dtqx9A==
+	t=1794448037;
+	b=eqmEJvU6h+Ahhf4jehax25wmK6wF8yX6S5ryaPo/G9nK05PsSXsQ6fyViokw8X3ykB4T
+	 yYZ4QFjsi9ljq9pmk7KqWBew7v4kqBkmrBXPFZLZdZA4MOaIPfd6ePtusAzIUIOmcNZwY
+	 z3Dctw+gBKJMuRI0bmu5N+DZXEDLNZpszgTn6mYyg2mTDe1UWRQTAvUwSDKwN1EiXxDeO
+	 FN7ZxmnJ8lk7YBiV8cdcnPIaatknxY0qkUe7+Mr3Sf/1X0Jg/T0xITEptubL6PoZDE9FJ
+	 kWwefOxqPeW4ztPZBn9ZBhmh81pOfed5e2LvB9dXkd0ukO75cnzpJ8WsE9iznJiv6jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447990;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=o9qbUelCx5fzvjlP9T4Xcmeuzs4IG3zEIHU3OITHRHo=;
-	b=E0Fx9V9OqCUKgBAhAWpufzty4OiKcMmRPmDoxy9IJ/1GjQGhBwH/5g4LqvdBJAn1B1uk
-	 04RMn4Hw7PUyjvaXOUn8ZEc1CoEwK1eXGDji0VShu7MeTQusd1X7Nhh91/xVMll1oOMXc
-	 JI86Z1cgerWaaxV2hgEIpol7DOL9XhibgQxOBHE6Ga/BhxLwRuQtnpKmCpxhrALRsYK+c
-	 eZgbnAwZt/Oo0yB+ZHmbRPjT4k9HJT9obRL/ENtoYCFf7cje2OeYJ/TwiAG+1QYNVajYm
-	 b8nc6i5ZOxdwDtLKARONwoDaJ/RHHYRe8PzUC/ldK3oI5Bk2d+Xhu6YMSs60IADKNsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794448037;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=YAasUpXd4Y3J+GE5AGq6+24CrznL6SHkG3wCr7INF78=;
+	b=TsGGe8Iv3OzgHiZ3lfkm9iNZfKRcEzJyEMF9QUQTjfXhSB457vxMV66HoRQ/yyBBb8zt
+	 d9q57w4gwmLO5ALP436y0vlm6GEjXH18JKHOAOZj+v80AgOx1aw0JyyNcwFbkQEHjxhEG
+	 Mr5FWH6V6dbCIdnkOAaoThq/GgYmnMTADyn488sB1Fyn4RQyQx6HBT2uiHU4K0e6dCbql
+	 7NdFjPNaXogMNV0GM3EC63t7I+Dm9hrsqx/K8ZU5ZHym+5e4eqPkanC6NylLFywcg9dQT
+	 ZrZVLkIAlUdovxqL+7RdnRPasQlVjNj503acZdhE5NwrC8YnDCuV3tPsqrRWvS7lncQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=piyJX+OD;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CdWCAg0W;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CC8606A31C;
-	Thu, 12 Nov 2026 01:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80CC8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92FA606A323;
+	Thu, 12 Nov 2026 01:47:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92FA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=piyJX+OD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794447957;
-	bh=o9qbUelCx5fzvjlP9T4Xcmeuzs4IG3zEIHU3OITHRHo=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=piyJX+ODZSYYaVvjlTI2Eq9fElkjSsMxECUYYfK7ObaUBsg5PgSevcsupPAxywNUG
-	 M1V8o33I51bLUw7HNWTBkWtgIrCpBX6XsgTznpCjUmm4GjvzDmmTNdnXfXcOulnxIU
-	 W9hxC8AC0AIVB0KOWtwu9w9G0OOccXGgnGlv+qEE=
-X-QQ-mid: esmtpsz17t1794447955t84c88b44
-X-QQ-Originating-IP: nAMxank+hAidb3QvsKnH0QjBdmBkxc00yYWvW0b9tzA=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 09:45:53 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6514529535114007816
-EX-QQ-RecipientCnt: 20
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CdWCAg0W
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B6B9933D;
+	Thu, 12 Nov 2026 02:44:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794447890;
+	bh=HgZ7Ha70ZLzMn9/whtW0EoB1N1MqFubj3YjWeQb1A5I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CdWCAg0WZiat7Gqs9PDQcTyzmYC4cigUOOnpPb36ovcS8JSdI4VDUDC29gJrYuciu
+	 CX0icnP8UIIySF+tMqS8N8cHmbmto7ZEE38BZVWEX2v9PZ7+pwsBq7TYL9V2Ne9WAE
+	 XFavYU/5vAZAyKD64tYVLCN6m+qAmnUlTvohrTN8=
+Date: Thu, 12 Nov 2026 03:47:12 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 04/11] media: imx8-isi: Reuse mxc_isi_format_enum() in
+ capture format enumeration
+Message-ID: <20261112014712.GC449716@killaraus.ideasonboard.com>
+References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+ <20260929-isi_imx952-v4-4-e69f89c7c651@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,87 +69,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 12 Nov 2026 01:45:52 +0000
-Message-Id: <DMSUPKS0VL8N.1RUUESQVU8FMF@linux.spacemit.com>
-Cc: =?utf-8?q?Fr=C3=A9d=C3=A9ric_Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- <marcel@holtmann.org>, <luiz.dentz@gmail.com>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <dlan@kernel.org>,
- <anarsoul@gmail.com>, <alistair@alistair23.me>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <troy.mitchell@linux.spacemit.com>, <linux-bluetooth@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] Bluetooth for the RTL8852BS on BPI-F3
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Luiz Augusto von Dentz" <luiz.von.dentz@intel.com>
-In-Reply-To: <179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
-References: <20261111094557.443481-1-frederic.mahe@cirad.fr>
-	<179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OD73vtqOAFgqQdl8kVxlaorlGh6ZaUM7MaaEhliCvStV/AKYXHEQMwXv
-	mE8cjPXzZoSMzDP5rS79pEFkS9v0Cuth3c55LR7M61G2e8XnCAOlpEjrxoh8bqs8GEKMTfm
-	GTyWl/QZL70ACCCVQ6uj8Tlyf3KkE2JcX10i0FHHOsrnfmi5q+Ehkn3K7RXY3bZvU2FID2H
-	UvN7y9rKiw77FT7s6GhJ4fx1S1RlRbt7n6OsPhwPZHVivwHdgz9O3mYH3bj7sr9CPzEsPiZ
-	anYDNKhJiC+hgVRO+VxFCm7clKBTCO1/dpbNR1ml5GvrpEDfhV/2pIFyykr+YGZpQHxfY3p
-	TJc9QYLV1u0QXALxLj4Val5hsZE7/CthI+Qownvjkph5L1F+EXqwyrq4eoP0YcK/ilmDAho
-	ZvCFlYhVaBcsc2VU89cwcIOEQgZEehRzQdL+SJw7373sgvVEJE1Y4vyw/ms45GOTC2Q21Id
-	OMUuGZ3QjPuQHbb8B7XixuiYzs7iprF3xJjXo0jmeKrNhDIZGvuaDAh4bySOqW6kLnAbV56
-	RA+Y600SEiXKQWXcLbRFeMx6ywBNGCxG5a+UJRDhGRum8DpjlhmVG+CuhQ2RMmjgc4wr2TD
-	d9jJ3pfBFkZ94W/W+gOn3AIKoBSv2bAM+/8wb+QQJ5FJNFooxGq+YiWh3LAhoLGuVsbgV+D
-	cGyRNvuebtQHbocavAoJSFzS4BmjFe3dwxdXk0kd1Zcow1gxUfTvCHCmx0tZuh3HzTl/1bD
-	l1/6KffMQMTv7+AgDGYqGXZ/mf93hOH0+JeQSGtCJb9BHs+QrqmdnYhQb8uRxyx+kBYUNNl
-	06viwZorpHpExLypIKCmxYCnoJKmZprZWkCQBHUR8BYD7VkRJkGTe7sPXHBZu8AsEKY/jew
-	aZH2f1ovWzm8emaBcAGSmMYWkhghxdY3HkVZc6ExcZXgl8mK7/cUEWu2d5kcUwGmCbG4Qji
-	rdB4VW/J2kmthTdNN2Yl5OqyEXyWpT820kPtJaT3gkQUxcw6IWwrGWQL2IF+aHUev6hHd1F
-	5OEfl/viYZ1xVcnkitMrNIqckdq/L55vhD+jfzXnkrJegcbhzOxEi1uwRca08Usj47dp6VX
-	f8qGllmeqmKimpUt5M9OSQQo1cVnn7Swg2kYjxjGMTh
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-isi_imx952-v4-4-e69f89c7c651@oss.nxp.com>
 
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue, Sep 29, 2026 at 04:52:25PM +0800, Guoniu Zhou wrote:
+> Simplify mxc_isi_video_enum_fmt() by reusing mxc_isi_format_enum()
+> instead of open-coding the same format table traversal.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-Hi Luiz,
+This will cause a small performance regression when enumerating formats
+without mbus_code being set, but it's not a hot path.
 
-On Wed, 11 Nov 2026 19:40:19 +0000, patchwork-bot+bluetooth@kernel.org wrot=
-e:
-> This series was applied to bluetooth/bluetooth-next.git (master)
-> by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-[...]
-> Here is the summary with links:
->   - [v2,1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
->     https://git.kernel.org/bluetooth/bluetooth-next/c/c21f8cff7503
->   - [v2,2/2] riscv: dts: spacemit: enable Bluetooth on BPI-F3
->     https://git.kernel.org/bluetooth/bluetooth-next/c/df348a0d065c
+You'll need to either update the commit message of 03/11 (or possibly
+squash it with this patch).
 
-SpacemiT DTS changes normally go through Yixun's tree to the SoC tree,
-and Yixun hasn't acked this one yet. The binding patch is fine in
-bluetooth-next.
+> ---
+> Changes in v4:
+> - New patch
+> ---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 30 +++-------------------
+>  1 file changed, 3 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> index 0d87a1082727..21849af3121b 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> @@ -1231,34 +1231,10 @@ static int mxc_isi_video_enum_fmt(struct file *file, void *priv,
+>  				  struct v4l2_fmtdesc *f)
+>  {
+>  	const struct mxc_isi_format_info *fmt;
+> -	unsigned int index = f->index;
+> -	unsigned int i;
+> -
+> -	if (f->mbus_code) {
+> -		/*
+> -		 * If a media bus code is specified, only enumerate formats
+> -		 * compatible with it.
+> -		 */
+> -		for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
+> -			fmt = &mxc_isi_formats[i];
+> -			if (fmt->mbus_code != f->mbus_code)
+> -				continue;
+> -
+> -			if (index == 0)
+> -				break;
+> -
+> -			index--;
+> -		}
+>  
+> -		if (i == ARRAY_SIZE(mxc_isi_formats))
+> -			return -EINVAL;
+> -	} else {
+> -		/* Otherwise, enumerate all formatS. */
+> -		if (f->index >= ARRAY_SIZE(mxc_isi_formats))
+> -			return -EINVAL;
+> -
+> -		fmt = &mxc_isi_formats[f->index];
+> -	}
+> +	fmt = mxc_isi_format_enum(f, MXC_ISI_VIDEO_CAP);
+> +	if (!fmt)
+> +		return -EINVAL;
+>  
+>  	f->pixelformat = fmt->fourcc;
+>  	f->flags |= V4L2_FMT_FLAG_CSC_COLORSPACE | V4L2_FMT_FLAG_CSC_YCBCR_ENC
 
-Yixun, what do you think? Should Luiz drop the DTS patch and you pick it
-up?
+-- 
+Regards,
 
---=20
-Troy Mitchell
-
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavUaUCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9TDAD/fhHvVXqOkUxo
-4u6rg6LrG/txpGkWipkP94X2k5PSn9EBAIezttdQYAric2H/Pw+q38b/NEdLHI/i
-7Au69q7vwYkA
-=ms2x
------END PGP SIGNATURE-----
-
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3--
+Laurent Pinchart
