@@ -1,65 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524950;
-	b=DjNtF2EkcGP2aRKiTONZL9AaETMr+pVQSEwN9MfrMAm3xuUIBSavVNs0ofw2yctYbQ7k
-	 hS2Dv5tTcFWWW0q2ur99RSan5e+FRUdvtxNyZJbGPHgCLrOdRoLjW1hawyDiwCOqR8LX/
-	 jAM132GMpZ1bvOyUQh4yy1r8dP10XQt5HQHG0MExEGiTbD1hkyim4PsQYT7DL/EIl+227
-	 90gLDUsZxwufRud2PfBFLMBQH01ZR9FBWJKQD1lSRrhaeffPsMO5kKATK8K6SoTmF5D6g
-	 lv1RNNkVF+yWMXAcRQ22gqHBymEs1+Zs56j4nF2ZWLNxlzHe6Ppn7wezdHbggaz/COQ==
+	t=1794525980;
+	b=jipMAK59ArVFS+gOzrZUKWB0el8gE9p6qDHkhcyRSrunoS9kdsrx1CW0JMwnkbH45ayr
+	 mntpTb+o/qfmBx4BnySW3jrYoqEAWgi7oBl2oTgVzBPNC/pRn5yUt5DZHOpVgXY1tKxXt
+	 /Tv/lk3bY6wlYlEkCPUUk5Ww4XaWzV+sGqhD3UcAhn4i9VHXTVVhPthGiQvovUFFnYVYB
+	 M8Zv/gsJ1blgp/P89+wJByWP3crJwqGYz+d6Ty+ZQE2vhv8Lb5L5SpxvAIwFMOf3pD9/O
+	 pswjjgi9wLVCNB4A6bfbJZdQLwenfWsaF/2wo+boYZaQuh6PySLiSygvB2ZSPIJ0vPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524950;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jBIoGmo7JFFX82SEeE73qtD3GyZxn6nVs6zZ0aNe29g=;
-	b=kpH7iOsEY3UlFp5lXsP63iku51uyjkU4QSqsknz99R04SeY4sOkoc2zeIiUFi1o7ThkV
-	 oaV26CMO19zKNR3d2xKTb4hnC3yubB5VplvYlgo52L3pGRdBXj96axwI6U/XVujN+urxU
-	 n/wKY88XrQp2tXlhI8Ca3IQp0/LyMjM2ojTJaotsBHv3GFCr1P2T0pu5ErOxE4c5udwHu
-	 njpo7fkRKfdfrKvpgc24oW9K+pWVhZZ6xeKY6fwyP15Tquyh7bbmSrNPvcVUYJuCDRC95
-	 8ZmM3PLeKxQjBFD7sFBDkccqI4oAZ+PTdbujAZzRI3CcSOdz1oOCa5J5ll+rkaejNJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794525980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+	b=t926WTUoz87XiU2uKKegbAkp5k3f8991qA6pPg84F1XTjzPG7vYYHsWzBCR6VVA9ZCS0
+	 2no9szZUorT/z5tHqAQ2osTLeIquUiJTf0MhuGTF6vGfUbe7pzVGmsdKNjhtq5Zw3UlDa
+	 PSvfxvNiM5ToMODBvyvqG2FKuytrCOKGNg1fdBuB3H8fYpn8TX9kzWuIy3w5ysSl2tVmd
+	 i9jUJjW7QsZqxenUHSuaDjaUBuThSOBth/jkARTAf5zHMjbZyzq10Vzh4kHUcx4nikMf0
+	 kjl4HcWVUPSVwTYs3J3ClvJfbgq+VNsFxxLnqQcaaj3KhyGTQ5XhJ494GSEOYBmMJTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrCYY7Av;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0DB606A888;
-	Thu, 12 Nov 2026 23:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5439F606A32E
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 23:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5439F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrCYY7Av
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF331F000CE;
-	Thu, 12 Nov 2026 23:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524949;
-	bh=jBIoGmo7JFFX82SEeE73qtD3GyZxn6nVs6zZ0aNe29g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RrCYY7AvCuTNFWIH5O2Id7zYUJUHHdKNBLB4B0ewDy78nIRFM8iU3icaKWICzM09r
-	 tPnL6PYXYZuPMLp1mGEiBqnKlS7Er1WhjIUA3V/PK9uNGI9TIax986C1f1eb1TFdiP
-	 QYXhiy9X3B40TjfCDlh7/DwDinPknx4egM5evupojDtSwzCUJOp25NgMsxHZhdzscq
-	 shbU/x/UPxvS7Qi0sBcgPulRH5yvcctA1ZevadIP//0LMT7a6aKOIEdzVMSyPgc0CS
-	 NqwWDo48uXYCA9TQdrF5sEGg4V/4n80YBwWU5c8xpSDtkzKgkg4Zo1ThxHl3gb12Ph
-	 YuR37/5E6KSBQ==
-Message-ID: <sashiko-outbox-211932@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 1/6] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abhinaba Rakshit" <abhinaba.rakshit@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Manivannan
- Sadhasivam" <mani@kernel.org>, "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin
- K. Petersen" <mkp@kernel.org>, "Adrian Hunter" <adrian.hunter@intel.com>, "Ulf
- Hansson" <ulfh@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Neeraj
- Soni" <neeraj.soni@oss.qualcomm.com>, "Harshal Dev" <harshal.dev@oss.qualcomm.com>, "Kuldeep
- Singh" <kuldeep.singh@oss.qualcomm.com>
-Cc: linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, "Abel
- Vesa" <abel.vesa@oss.qualcomm.com>
-In-Reply-To: <20261113-enable-ice-clock-scaling-v13-1-258dc817bd63@oss.qualcomm.com>
-References: <20261113-enable-ice-clock-scaling-v13-0-258dc817bd63@oss.qualcomm.com>
- <20261113-enable-ice-clock-scaling-v13-1-258dc817bd63@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 23:09:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MieY4qOQ
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so109053eec.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 15:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794525979; x=1795130779; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+        b=MieY4qOQ6pZCIr5Q+lFQVjXxwPdVfoiH5Y7ie0qONvaiteOGiCfww5p+6jOvUxjJi/
+         i6QJTbx3moiDt0L3+PJqL6CYnAMPOi8AfnlB7SFJvPN6+n2dywupbWkGGew0uyqFtqb5
+         9GF2qkhHJ+rQK7uZ3IcX2rxFEGjwg2CttKgzE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794525979; x=1795130779;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=meZuQntashJTcd7s3yiRtBHxVh9sQmthI/UbfhQzfC0=;
+        b=Zz0zcMmm2iMBMEhbX83X+fk/LAhbOMFmA/nsQgj58JrXeIIz0eI0yl9Ws3ihYJ9av1
+         kouhjajLnSVmC9t1hrSEpdFjMMqEgXGuZ2a3OKH4u1tp9BVgk/MLd7hN/QxAAA0EiksO
+         7tbG7a4X+bpQKzQnBk5IXmaUNhq4wEFPVrgl3QwrXIdtT5DsX6v2L6ehoJzFajulpuCG
+         hHQzqVtvrjWZWs+9O1KAXy616FYGBiuS1mHzF3rxHlAn1hEZNhdK2Dbie3V+LosPiuak
+         W7lMJCrC0p5LrUrGGAIuSjWRyN+9tiyqkbz2x7znZWWXkAzryk7ihpxIJzPQ4ULyJALp
+         +bgw==
+X-Forwarded-Encrypted: i=1; AL+hErFIHorTttgT9d8QaB9HVOkwGFyN6m6o6yvB3ikvmKZkI2SbzomjTm8Nxg6qvOkKXQM9FrxfN5b3zZ6p@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jU+LK6KXwPtL7Av6/MF3tzLuBMewIhhunJwWN1fJsu4kQJdT+
+	tsQzBAGbyXQ4mTlvj7DVGvZLbzm00NdXu1gAVcun9BzdpiSGyQ/lA+O4RHNTiY95WQ==
+X-Gm-Gg: AYBFou2tmQa6k9vAX6tG5UwpVc5xBJLDXkGD7MeIRkDzpEKV/FgYRaXrK8HC6hmPvdH
+	1htELbQ24XXSSqcS3nwn4bV3ij+0OBtcXIazxIW8lZcpQD6l5zlMdB7uP9oFZThXPtoum9xa3Ac
+	0lKPcKnEefX3eWIuo3H2jITkYgXXoONfx537KN+gyRFon5dutyR3FTzcRUkuKXUYI+5ohWCK7ag
+	X0WedM/9mTG3RxTBo5GkX6FmelHurKyiQRU8xo+/2P95o/FLGk9NhpxjEgf/iLhZ21w5DEAC3Dx
+	vv5vR/cQBf0dEQMNCT6b6bhj0oN/NbUme4iB1Tto70IvqL869bVAf0rDz/QImfpCItBn4ym+Ykc
+	C4oiDzrSm79rfF8bm4gYt7thDAJRrMIJpWYElgbFFQSBzf3cdHjBD3U0UHTWtY+knUY2aWQEsG3
+	1H5XRhoXzPkWZGji0WKekCTNsxLgndiM7yZ8sBgyZdCZehG8ZC5l22tkm0iZxzMxlHDwlJ7e0BJ
+	86hrep8ozp+e6z3fPyp+PhUE8TqeDnJ/gtNaVjodfN9aZTs7kKO1I7QY4liTvKFI6wtNEJdeHt0
+	4JTSoliPNeBWPvudlQzGWpAiGBfxz85U/idJ4fVe4AYMMIEp4vh8kndJ7wSqQgV1nw3WKUHi9tM
+	ZNVe20CQoizVfgw==
+X-Received: by 2002:a05:7301:b07:b0:369:4c3f:8a5 with SMTP id 5a478bee46e88-37966a5b9eamr527768eec.14.1794525979231;
+        Thu, 12 Nov 2026 15:26:19 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:616b:3e06:cec4:c2f9])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3795591f4f8sm1521913eec.13.2026.11.12.15.26.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 15:26:18 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:26:16 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 5/9] clk: google: Add CPM clock driver
+Message-ID: <avZLGHs0OPoC_VGb@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
+ <179372634472.2573818.17532943286609086157.b4-review@b4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,163 +109,133 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179372634472.2573818.17532943286609086157.b4-review@b4>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] soc: qcom: ice: qcom_ice_probe() fails with -EOPNOTSUPP when
-  !CONFIG_PM_OPP
-- [Medium] soc: qcom: ice: unreleased OPP power-domain vote in
-  qcom_ice_suspend()
---
+Hi Jerome,
 
-commit 9800ed91573a2f35826acc3c3e7577fb8636aaef
-Author: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+Thanks for the review, and sorry for some delay. There was a lot to dig
+into here.
 
-soc: qcom: ice: Add OPP-based clock scaling support for ICE
+On Tue, Nov 03, 2026 at 06:19:04PM +0100, Jerome Brunet wrote:
+> > Google Tensor SoCs (used on Pixel phones) manage many resources
+> > (including most clocks) using a Central Power Manager (CPM)
+> > co-processor. We communicate with CPM using mailboxes, abstracted in the
+> > cpm_request_client(), etc., API.
+> > 
+> > The clock tree is largely not represented fully by this driver, because
+> > CPM hides most of the divider, mux, and parent details, instead
+> > maintaining its own internal table of mappings for divider and mux
+> > values. The one exception is for some of the DPU clocks, where several
+> > clocks and dividers are exposed directly, and the firmware API works on
+> > divider values instead of clock rates. I attempt to represent this
+> > properly with dividers and parents, although I don't have the full
+> > display stack running to verify everything yet.
+> >
+> 
+> As you say, the clock tree is not fully represented here. Beyond that, CPM
+> owns the clocks themselves, as the driver acknowledges by setting
+> CLK_GET_RATE_NOCACHE.
+> 
+> The driver keeps a partial copy of CPM's state in the kernel:
+> 
+> - Rate tables below hard-code what the FW has (or should have) instead
+>   of rounding the rate, even though there seems to be a ROUND_RATE_OP_ID.
 
-This commit registers an optional OPP table for the ICE device during
-probe and introduces qcom_ice_scale_clk() to scale the ICE core clock via
-the PM OPP framework.
+Aaah, ROUND_RATE would be lovely except ... the firmware implementation
+has a giant "TBD" / "error: not supported" instead :(
 
-> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
-> index f9ac45505908f..2259dbecb8b51 100644
-> --- a/drivers/soc/qcom/ice.c
-> +++ b/drivers/soc/qcom/ice.c
+If there are major must-haves (or, very-nice-to-haves) in this firmware
+API, I can see if we can get them added, but that's usually easier on
+not-yet-launched products, whereas Pixel 10 is more than a year old
+already. I'll see what's possible though.
 
-[ ... ]
+> - kernel handles PLL parenting and divider math for the DP clocks, while the
+>   firmware can also switch them to what looks like the oscillator, out of
+>   the kernel's view. So the math is likely duplicated as well
 
-> @@ -560,6 +562,50 @@ int qcom_ice_import_key(struct qcom_ice *ice,
->  }
->  EXPORT_SYMBOL_GPL(qcom_ice_import_key);
-> =20
-> +/**
-> + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
-> + * @ice: ICE driver data
-> + * @target_freq: requested frequency in Hz
-> + * @round_ceil: when true, selects nearest freq >=3D @target_freq;
-> + *              otherwise, selects nearest freq <=3D @target_freq
-> + *
-> + * Selects an OPP frequency based on @target_freq and the rounding direc=
-tion
-> + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(=
-),
-> + * including any voltage or power-domain transitions handled by the OPP
-> + * framework.
-> + *
-> + * Return: 0 on success; -EOPNOTSUPP if no OPP table; or errno from
-> + *         dev_pm_opp_set_rate()/OPP lookup.
-> + */
-> +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
-> +		       bool round_ceil)
-> +{
-> +	unsigned long ice_freq =3D target_freq;
-> +	struct dev_pm_opp *opp;
-> +	int ret;
-> +
-> +	if (!ice->has_opp)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (round_ceil)
-> +		opp =3D dev_pm_opp_find_freq_ceil(ice->dev, &ice_freq);
-> +	else
-> +		opp =3D dev_pm_opp_find_freq_floor(ice->dev, &ice_freq);
-> +
-> +	if (IS_ERR(opp))
-> +		return PTR_ERR(opp);
-> +	dev_pm_opp_put(opp);
-> +
-> +	ret =3D dev_pm_opp_set_rate(ice->dev, ice_freq);
-> +	if (ret) {
-> +		dev_err(ice->dev, "Unable to scale ICE clock rate\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_ice_scale_clk);
+I'd have to do a little more research to be sure to what extent the
+firmware actually changes any of these behind the scenes. I'd imagine
+that for the only divider-exposed clock (DP), it probably doesn't, but
+I'm not sure at the moment.
 
-[Severity: Medium]
-Does the performance state vote set here by dev_pm_opp_set_rate() stay
-asserted when ICE suspends?
+I get your point though; it's certainly not beautiful, and may be
+difficult or impossible to maintain in general.
 
-When dev_pm_opp_set_rate() scales up the clock, it sets the required-opps
-performance state on ice->dev's power domain (and its parent RPMHPD_CX).
-genpd only drops a device's performance state in genpd_runtime_suspend(),
-but runtime PM is never enabled on ice->dev, and qcom_ice_suspend() only
-disables iface_clk and core_clk without calling
-dev_pm_opp_set_rate(ice->dev, 0):
+> This middle ground cannot be kept consistent. CCF assumes it knows the
+> topology and computes rates from it, but the firmware makes the actual
+> decisions. The DP clocks already show it: the tree can report a parent the
+> hardware does not use, and .recalc_rate()/.determine_rate() can disagree
+> with what CPM programmed.
+> 
+> I would advise to follow a model closer SCMI. What you are doing here looks
+> a lot like it.
+> (see drivers/firmware/arm_scmi/clock.c and drivers/clk/clk-scmi.c)
+> 
+>  - Put the LPCM service protocol (request word layout, dst_id, timeout,
+>    error translation) in the CPM firmware/soc driver, behind a small API
+>    shared by clk and reset. Philipp asked for the error helper on 6/9; the
+>    whole request encoding is common, not just the errors.
 
-drivers/soc/qcom/ice.c:qcom_ice_suspend() {
-	clk_disable_unprepare(ice->iface_clk);
-	clk_disable_unprepare(ice->core_clk);
-	ice->hwkm_init_complete =3D false;
+I'll try to do some more sharing similar to what you're suggesting. But
+full disclosure: the similarities are still somewhat rare in general.
+Within a given service (so in this case, you're talking about
+CPM_COMMON_LPCM_SERVICE, used by clock, reset, and *part* of pmdomain),
+the protocol is largely shared.
 
-	return 0;
-}
+But this series also touches CPM_COMMON_LPB_SERVICE (also in pmdomain)
+and hints at some CPM_COMMON_PMIC_SERVICE support (RTC and PMIC); and
+there are at least 5 more defined servies, as well as a few other
+bespoke protocols. Those each have distinct request and response/status
+encodings. (Unfortunately.)
 
-Once a storage consumer scales the ICE clock, the CX rail vote remains
-elevated across both runtime suspend and system suspend.
+So, I'll try to consolidate what I can, but it probably won't go super
+far.
 
->  static struct qcom_ice *qcom_ice_create(struct device *dev,
->  					void __iomem *base)
->  {
-> @@ -738,6 +784,7 @@ static int qcom_ice_probe(struct platform_device *pde=
-v)
->  	unsigned long phandle =3D pdev->dev.of_node->phandle;
->  	struct qcom_ice *engine;
->  	void __iomem *base;
-> +	int err;
-> =20
->  	guard(mutex)(&ice_mutex);
-> =20
-> @@ -756,6 +803,34 @@ static int qcom_ice_probe(struct platform_device *pd=
-ev)
->  		return PTR_ERR(engine);
->  	}
-> =20
-> +	err =3D devm_pm_opp_set_clkname(&pdev->dev, "core");
-> +	if (err && err !=3D -ENOENT) {
-> +		dev_err(&pdev->dev, "Unable to set core clkname to OPP-table\n");
-> +		/* Store the error pointer for devm_of_qcom_ice_get() */
-> +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
-> +		return err;
-> +	}
-> +
-> +	/* OPP table is optional */
-> +	err =3D devm_pm_opp_of_add_table(&pdev->dev);
-> +	if (err && err !=3D -ENODEV) {
-> +		dev_err(&pdev->dev, "Invalid OPP table in Device tree\n");
-> +		/* Store the error pointer for devm_of_qcom_ice_get() */
-> +		xa_store(&ice_handles, phandle, ERR_PTR(err), GFP_KERNEL);
-> +		return err;
-> +	}
-> +
-> +	/*
-> +	 * The OPP table is optional. devm_pm_opp_of_add_table() returns
-> +	 * -ENODEV when no OPP table is present in DT, which is not treated
-> +	 * as an error. Therefore, track successful OPP registration only
-> +	 * when err is not -ENODEV.
-> +	 */
-> +	if (err =3D=3D -ENODEV)
-> +		dev_dbg(&pdev->dev, "ICE OPP table is not registered, please update yo=
-ur DT\n");
-> +	else
-> +		engine->has_opp =3D true;
+>  - Make the clock driver a thin CCF adapter: each CPM clock is an opaque
+>    endpoint, and gate/rate requests go to the firmware. Get rates from the
+>    firmware (round-rate op) instead of local tables. Model no topology the
 
-[Severity: Medium]
-Does qcom_ice_probe() fail with -EOPNOTSUPP when CONFIG_PM_OPP is
-disabled?
+As mentioned above, round-rate is a no-go :(
 
-QCOM_INLINE_CRYPTO_ENGINE does not select or depend on PM_OPP.  When
-CONFIG_PM_OPP is disabled, the stubs for devm_pm_opp_set_clkname() and
-devm_pm_opp_of_add_table() in include/linux/pm_opp.h both return
--EOPNOTSUPP.  Because the error checks only allow -ENOENT and -ENODEV,
-qcom_ice_probe() stores ERR_PTR(-EOPNOTSUPP) in ice_handles and fails,
-preventing ufs-qcom and sdhci-msm from using inline crypto.  Also, if
--EOPNOTSUPP is ignored above, the final check needs to test !err before
-setting engine->has_opp =3D true so it is not set when CONFIG_PM_OPP is
-disabled.
+I also don't see any way to query firmware for supported rates. Off the
+top of my head, the best I can come up with is sweeping through rates
+on SET_RATE and guessing, until we find something that doesn't return
+INVALID_ARGS...
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-enable-ice=
--clock-scaling-v13-0-258dc817bd63@oss.qualcomm.com?part=3D1
+>    kernel does not own. If parents must be exposed, the firmware should
+>    describe them, as SCMI does, rather than the kernel hard-coding them.
+
+I also do not think topology description is possible with any existing
+firmware. I would think if we were revisiting how to do this more
+sanely, it would make sense to stop exposing the topology at all, but
+TBD.
+
+Anyway, thanks for your thoughts. I'll see what I can do about
+ROUND_RATE, but also am interested in your opinion on the best way
+forward with the existing firmware API.
+
+For some positive notes:
+
+The vast majority of these clocks do not actually support multiple rates
+(at least, not in the tables here), nor do they expose any topology. So
+I think I can just remove their rate table, and only rely on
+(1) GET_RATE or
+(2) SET_RATE, which will only succeed if you get the exact supported rate.
+
+On some other clocks that support multiple rates (e.g.,
+HSIOS_MPHY_REF_TCX0_CLK), I don't believe we ever need clk_set_rate().
+We only use clk_get_rate(). So, probably same story as the 1-rate
+tables.
+
+A few others (DSI0/DSI1) seem to never use any get/set_rate operations,
+at least on any Pixel drivers. So that probably can also be omitted.
+
+I think that _only_ leaves DP clocks.
+
+All in all, maybe I can strip a lot of this down quite a bit, and work
+on DP separately.
+
+Brian
