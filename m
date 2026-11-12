@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794508525;
-	b=Wv7vfTjD7VaueaAVkjOCbdnoQbWE/Q5VSykMDkwttrTWfoLc7zcrdH7vLzRj/smea/gP
-	 FRGKjAemyqmRGAWnQLxRd11C9sp7madHMXY6zhaZ3a0rtJQg74TbWHEGWqma0Chj0MjFR
-	 anXSS4uBpp3lq5V1UeM6BdIkszfgBRjB2hMjWQ5SMGd/DgJGI0qQUC86oW6SJuI/Ny9pG
-	 2JMiNXpWfRVbK7d2SvEdg8Vs/Z95Hxk7JwvYQM8d0HxiL6BPJIgz4EDKwTj9f3tMJYFYG
-	 6qQsWNN1vTbN5z+OTXVpsFjhi2iWwrKfMvpA7Q82Kdef2o+5bSvs7cYZvHFecEdMsHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508525;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
-	b=HTc1qUsCmsCZBXXr/mX8JD9+oCjwTa3hdxbYAPwmWj+fpdiCNaTO+MiPRuZPGIfhzhif
-	 Nq4cCFG5nxmYYLsh3uFA5gs1Kp10Aa0twynuL6/A5eDbzJUZQkLyrFnqG7e6L6JkyaZE3
-	 3tdKRQ0NHNCZtmLNEWBVgMQMQ1yVH4zYttIzEq5y55hjGdm5nZA95GuFymn3tEJvJ2uFu
-	 BVsqP0NabnmJaM8JN5d6s4N2WsUIOpeOkyo4VTFrh3tSuUjLwCDnITVPOsH5xPCvVsdfL
-	 G2eiGc9V5xwEV8uH8LE8IZbTKjNpla2NPq9bY/OLqE5JJjdWLGiO4VUKQ/EYm/nMUhw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3hy8zCE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794508701;
+	b=wteecmL+Ze1OKZfQG7DZP4ns+76kdrxKe/LI/j1HuQtfWAYaPchFCUrRm4AGq4c3ZHQy
+	 15WTc1ksalsXb7C2yrBGs0eEeZYb2nonr5ueT+WSIQ2pi6dG7strwWJ2ilkC3/j/os9Ql
+	 XUxOrf6x/EGcFZ+AaD+o7VU9OINO67XbqDNh2J6u3SAW+UZHtiaL+NF09MQdsyhJqXjJb
+	 1IIC0/v7kvuBFtQVRnMKjonezVS6IIGXw3/J/WCQpr42ty+0/j79X1DgA6qHC7wArVxXG
+	 XXpFAx6trNRKL3n+yzZXBfY992bQqkJzGlC6Y2gM4DMAFnqaLa16W2AZ/cVOqnX1IUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508701;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
+	b=wXW3HeHiz6fW37PcusSPZr5Vsv7bMO7KYzyTO6tRytNlkA1yXZCTcACLPLvQcAGawwJ/
+	 49rvM76EKU1HF3u30Dl4xTFHUyIGUYWTJb49c5eRZjQPxTfiptY1eTuSvbs7JVsmDqM91
+	 KFFBpbdibJ3PkAw4MGmWu/HPMe77zVLaFoIpieUF2cs//uVOcAhgNs9rJ30jqhhGcnIMG
+	 tBAuXLb/lSnvf4zSQLT9q3BOHSQhRmc7wFpFP3JjC3NZe/vWChe0ByDZlmdfliuzK/0oD
+	 x8IIaxHU+KaX/tyXOchjILZejdsd6VyFwAKXSLodv3doRCuh7XKpQcJz3o10uvTS12A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B40A606A31C;
-	Thu, 12 Nov 2026 18:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C33606A33F;
+	Thu, 12 Nov 2026 18:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3hy8zCE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794508524;
-	b=LSWvLnya06BKnKU4VBF3eLI1jKg3XjMqrqNxbB5dYEkNuGyVFvTQTARs2Ou4blT/q1AL
-	 Fo1fdjh6sjIWyrnf6ehsfN00oxE9JyLdoh8FwyyROFjzx2r4tikMQsQWseSTrCU6Cmmsp
-	 lGR232q6CsYLvxXLyA/NIGMyv1BHwiAWwcXQf4uzLEatSj6tu7C59klNKyYEKGGxbNdCa
-	 E+ywxHwQcz/DGMR2Ful978TnnyjULHRgb93y+AssNj/g6taLkIa5wWVIgE7lepENgHr4U
-	 oFOer8cLOmBB3fih9qemcSHjC92ehVtk3QxP1l2SeFx9vcO1GStMiVgTL1zoPsKFNsQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794508524;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
-	b=WcHgpUMKPlCr0dx8kU5y/ytHt/qOH6+Hb+NLcP/pCC0FBW7Q11Oog9TM5H7VddBbATms
-	 3EdxrD/0bSaADoIIa68DwszdmR1QZeoOXYnB78TgjqG6nwZ/gR290jf+FUMzIQUkQvvHp
-	 /80Gossw7MgSpv5I3T2qRePKRmhSTfrpTjG/4MMg2a7nhmqIY+QYDyqK9/HjBQqvF0ywl
-	 wo50EmQaXcbm7NPaBcHLBSAqJsXM6CVITCwyoJmfm7T2v1MFMGJ/XfqHWceKs8pc5LRBJ
-	 IUlvWlf1K9ajcIGSnSAfaEn2mzgnNG18RdzLzFg7VvyGXNENwAdnh4aklnVnlxxfA2Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 540621F000C4;
-	Thu, 12 Nov 2026 18:35:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B1E1F000C9;
+	Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508524;
-	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=I3hy8zCE+Zm5kBAY/dZJ7/p3Cx7Yq8zGuE9fOQUXJhYdnUmIo7zp7W6OczVsv/aDM
-	 AH6zmmgpcjDXxes6MyRSqIoVlz847YIe/sRC4i3xoIsTw2lYnxrXCYhX9Ces6BPr2l
-	 yQ985T+leHLgFwM8aWRAcyiUCuxZwtlO7U5M8jRoGcrhcIy0jG6HIrbuVdsFkPA6Qm
-	 v/9IiY8YIjciE0eRHUQ9xlZdT3GH2w7gqpM0NPUWofBfns0GZgZZc04LK/OeN/MeX8
-	 9vo0juBNeDLHyyMpPYZgZebECsgx8DuPMt9GuFkOymUlhsdWeMk04y+dEIRNAgBNm/
-	 NnphsqlmsnDwg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A04394748A;
-	Thu, 12 Nov 2026 18:35:23 +0000 (UTC)
-From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 19:34:56 +0100
-Subject: [PATCH] arm64: dts: rockchip: fix pcie wlan chip on
- rk3588-h96-max-v58
+	s=k20260515; t=1794508701;
+	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LEBUXzPWAsbf071BULHrEEhI/zwFZI/qjjvxJA4hgrD4BGpODUz6udClZy8WSqDAY
+	 WHXI5JIWFzz7RltAvOzuy0YhZwGckicTTpUVYk2KIcL9P1JX1hP6Am+YBf5LvPwuDm
+	 MxyTWs1q+85eYL8pLvDQgRdBYD0uJskQvCm0pzTnx9hVm6sUupUnF9t5GfLSQPMHOE
+	 9jEqd/MNMtUEbamgYO8Olx4/uIDkiR37I68rjLDz2Mb7U+29XTOCUngF/WCVFgxcA4
+	 CdRYJQ7U7T0GosfI7GRu6po5gmyylXm6zZO7Xl0+CziIXhBsqnTC1A0XUHICDidBh1
+	 y2bP54tP4rPxg==
+Date: Thu, 12 Nov 2026 18:38:16 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
+ sub-node to STM32MP2 SYSCFG
+Message-ID: <20261112-worsening-yahoo-323ef21dc921@spud>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
+ <20261110-confidant-bundle-08385b99bd78@spud>
+ <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,85 +70,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-b4-fix-h96-max-v58-wlan-v1-1-7e918fc85b88@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTsJMwKhXsW4KGUKY7SaVoGEc
- HeqLL/kvX+FJFElwaVYIcqkSV8hg04FuNGGQVD7bOCSGyJi7Cr0uuBoGnzaBae6xflhA3LNZ1e
- RL43xkN/vKHn3L19vh9O3u4v7/HKwbTvC0Tj4ewAAAA==
-X-Change-ID: 20261112-b4-fix-h96-max-v58-wlan-2523c41f099f
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Alexey Charkov <alchark@gmail.com>, Alexey Charkov <alchark@flipper.net>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Joachim Eastwood <joachim.eastwood@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794508523; l=1890;
- i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=ls/b1TaJr55nJIaXg9urdpu9Pz+PccgRCIwOKYKwuzY=;
- b=l3ZyBULPRW1p+jSeI4lEhokzzAiNlGuxxpGKDusbTYb0Khn8w05MIb1mv2VuShv1r2Qr/5UqA
- XsVJy3jpg9VD1L3xa/Jbje78bpPdpYYqcqj3eWgWgyF4IUDfsxeiUUZ
-X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
- pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
-X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
- with auth_id=846
-X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
-Reply-To: joachim.eastwood@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hlndOg5Yw8RzH+lw"
+Content-Disposition: inline
+In-Reply-To: <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
 
-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+--hlndOg5Yw8RzH+lw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Correct the gpio used for regulator-3v3-pcie. This pin was found digging
-through the vendor dts. Also add the this regulator to the pcie port so
-it will actually be enabled.
+On Thu, Nov 12, 2026 at 09:36:59AM +0100, Gabriel FERNANDEZ wrote:
+> Hi Conor,
+>=20
+> Thanks for review
+>=20
+> On 11/10/26 19:54, Conor Dooley wrote:
+> > On Tue, Nov 10, 2026 at 11:42:17AM +0100, Gabriel Fernandez wrote:
+> > > The LTDC pixel clock multiplexer of the STM32MP23x and STM32MP25x
+> > > SYSCFG is described by a clock-controller sub-node of the SYSCFG node.
+> > >=20
+> > > Add this sub-node to the SYSCFG binding. It is required on STM32MP23x
+> > > and STM32MP25x and not allowed on the other SoCs.
+> > >=20
+> > > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> > Why does this need a child node at all, can't the clock controller
+> > properties go straight into this syscon node?
+> >=20
+> > Cheers,
+> > Conor.
+>=20
+> I sent a v2 [1] shortly before your reply, which explains this in the
+> commit message, but the question still applies to it, so let me answer
+> here.
+>=20
+> From a hardware point of view, the mux inputs could indeed be described
+> in the SYSCFG node. The problem is that this node is a "syscon": when
+> the syscon core creates the regmap of the node (syscon_node_to_regmap()
+> or syscon_regmap_lookup_by_*()), it takes the first clock of the node as
+> the clock of the registers, keeps it prepared and enables/disables it
+> around each register access.
+>=20
+> The SYSCFG has no clock gate in the RCC, so this first clock would be
+> the LTDC kernel clock, i.e. the first input of the mux. It would then be
+> enabled on every SYSCFG access by all the users of this syscon (PCIe,
+> ComboPHY, Ethernet, OMM...).
 
-After this fix the BCM43752 shows up in lspci and WiFi works with the
-correct firmware.
-0002:21:00.0 Network controller: BCM43752 802.11ax Dual Band Wireless LAN Controller (rev 02)
+Why are any of these things getting probed before the clock controller?
+I had it in my head that clock initialisation was done super early on,
+before smp even begins, so the clock driver would probe and generate the
+regmap before this can happen?
 
-Fixes: b53864811b35 ("arm64: dts: rockchip: Add H96 Max V58 TV Box based on RK3588 SoC")
-Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> Registering our own regmap with of_syscon_register_regmap() from the
+> SYSCFG driver doesn't solve it either: these users reach the SYSCFG
+> through vendor phandles (st,syscon, st,syscfg-amcr) or by compatible,
+> which are not tracked by fw_devlink, so one of them can create the
+> syscon regmap, with the clock, before the SYSCFG driver probes.
+>=20
+> Apart from adding a dummy clock in first position, which would describe
+> something which doesn't exist in the hardware, I didn't find a way to
+> keep these properties in the SYSCFG node. So the mux is described by a
+> sub-node with its own clock inputs, like the USB2 PHYs of the SYSCFG
+> which are already described as sub-nodes.
+>=20
+> In v2, the '#clock-cells' property of the SYSCFG node is deprecated, so
+> that the sub-node is the only provider of this clock. No driver ever
+> registered a clock on the SYSCFG node, so this doesn't change anything
+> for existing devicetrees.
+>=20
+> [1] https://lore.kernel.org/r/20261110-ups_mp25_clk_syscfg-v2-0-624559bb8=
+ec7@foss.st.com
+>=20
+> Best regards,
+>=20
+> Gabriel
+>=20
+>=20
+> >=20
+> > > ---
+> > >   Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | =
+6 ++++++
+> > >   1 file changed, 6 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-sys=
+con.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > index a559f8b03b84..38c844e8f19d 100644
+> > > --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > @@ -45,6 +45,10 @@ properties:
+> > >     "#size-cells":
+> > >       const: 1
+> > > +  clock-controller:
+> > > +    type: object
+> > > +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
+> > > +
+> > >   patternProperties:
+> > >     "^phy@2[48]00$":
+> > >       type: object
+> > > @@ -80,6 +84,7 @@ allOf:
+> > >           - "#address-cells"
+> > >           - "#clock-cells"
+> > >           - "#size-cells"
+> > > +        - clock-controller
+> > >           - phy@2400
+> > >           - phy@2800
+> > >       else:
+> > > @@ -87,6 +92,7 @@ allOf:
+> > >           '#address-cells': false
+> > >           '#clock-cells': false
+> > >           '#size-cells': false
+> > > +        clock-controller: false
+> > >           phy@2400: false
+> > >           phy@2800: false
+> > >=20
+> > > --=20
+> > > 2.43.0
+> > >=20
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-index 3811f9a73bb6c..e869f7ecf93ce 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-@@ -79,7 +79,7 @@ vcc_1v1_nldo_s3: regulator-1v1 {
- 	pcie_3v3: regulator-3v3-pcie {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
--		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_HIGH>;
-+		gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>;
- 		pinctrl-0 = <&pcie2_0_pow>;
- 		pinctrl-names = "default";
- 		regulator-name = "pcie_3v3";
-@@ -319,6 +319,7 @@ &pcie2x1l0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie2_0_rst>;
- 	reset-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&pcie_3v3>;
- 	status = "okay";
- 
- 	pcie@0,0 {
-@@ -373,7 +374,7 @@ pcie2_0_rst: pcie2-0-rst {
- 		};
- 
- 		pcie2_0_pow: pcie2-0-pow {
--			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
-+			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
- 	};
- 
+--hlndOg5Yw8RzH+lw
+Content-Type: application/pgp-signature; name=signature.asc
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-b4-fix-h96-max-v58-wlan-2523c41f099f
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
---  
-Joachim Eastwood <joachim.eastwood@gmail.com>
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavYHlwAKCRB4tDGHoIJi
+0qQzAP485R+QaU2P6b2L0zrS4zCbRiMyXVxuo3+/WUU3dc7jMgEAkdBGsN+zsL7t
+gKc+WZyW1vlVRn7hzQFLhLkjB2PatgQ=
+=UEaX
+-----END PGP SIGNATURE-----
 
-
+--hlndOg5Yw8RzH+lw--
