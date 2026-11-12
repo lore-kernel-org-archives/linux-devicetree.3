@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472758;
-	b=NRu+1nIuWOCBLzX4YdhpTjOwzZd0z5+U7Y5gZndlP/v56WRdfzvwmKu6KiaTfNJHtU0J
-	 cYZEhPDhNbK0GTxyZpWlyVdo0iwlxFrmFHrCbJNm51poj30nnaopli13RWkcon51rxMr7
-	 7vvXfol0aC17//c5dmAbQqxFQS5AC+ykCZf7i2q9Wl6O/JEmiFh29Z0ar0bOcDscC4ohE
-	 k2E4WOZS4T8s7X0t2eqp6yCj2XyPCTZ+k7fiNOZL75uA9nW9pVnchgcMOWVkS5DgDf1Gf
-	 Y/CcIPW01owHsA8gKC1DFC4842bFRJJxeFVgZcQhb0GNlFt0IDUtUaxmg3p946QknZA==
+	t=1794472760;
+	b=ek8iKNUwJBV3+zrxUqn7fACDQKzWKTzTs1+eMmNwI+j2OLRrLyKTXbx+QAg2rOYbQuvt
+	 j55tLAEyvSr1a9b27q73pqkzFL7tIwiqHaY8TvDFeeYJ989PWa9vRjRDyn6dUp/cVY/xA
+	 xMvbGjh68d4Ih86tAdA/WDLi87KYiKs0n7tIrYGuLqk+PCQCDwSkEF7+gc9o00FnFty/B
+	 hrBccpotXKyPdkGqcHxOrM0VKfj3pVlkOz4OlPW7n3j3lYibQvBzdjVOhYCUwHu4h5ddB
+	 favda4sb+QOhUWT9R4PGMFmDqX2t/YY4Kd2Y6NFWlOgda5H02uZzBl6F/55inu41PLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472758;
-	h=DMARC-Filter:Received:Received:From:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bghDXC3RkzL9Zdz5441Qzx67PSGboZpvQ5W4Seee744=;
-	b=BFqteT/5IjZ5Unvec7Dn00LQEU81RpgD8mB/0aBLsJRvnP022jMxoRIgDyyeGMZWXvgR
-	 arGEda10gGUSaBM0vecFFKWuKTni784f5E+T3BVpqL9RxtkRq75AZTUOgumIufHyaSnWF
-	 QftAv3KSNfR/gPezyBrU7nQrqwEnpq8W3Vh1xbnMsG1FH7mJljgCICxHZ2zBNT6aqEiEA
-	 1P28KS/HP7CMWxcxwnwrw7C7NdbeFDR41j6A6NkfztG+smcIj/jcDjcE02Xz7txChl7Ko
-	 ogDMqMasPlzh5lGH9VAL9NuELFLdl7wZoftpk/568WthpE7DRa9rId6/k/RiEzhgF2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472760;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=2RxUdAyVdSwRgSZWlCZeRtYQ8ANbZoRIT48fGOdPh9k=;
+	b=Wjp3ZKqmfk/OCdVuzFi/YLL8gEAicTI9n3cbg+I07UTNSqZmWDEWSXbI3nQJbDZ4PQOX
+	 eNOWGjD+pSqTcIMXQgA8WepzYJczmKuRUIZnEau+b5AKlDnFo9vH8a9C/sO/ZleTrBi7c
+	 VMITQo+tfCrH61zemGhv9QSKETH+/6uIKBhwlIyDnxVNaQeq7StndgI0+kX4txQe1A0dr
+	 oEScDmR5oXm/8cyAmtmT5PCBS2wJigzah9L5pOkoWSxBdOUTxQd8qA3A++lbav0ny/WDq
+	 2W45qzhoX1dGnP+18kYHio4YRZ3r+BCb/epDjukdVyvUFf9hfoY5BK6GAUEUJmADPTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,9 +24,9 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B277606A323;
-	Thu, 12 Nov 2026 08:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B277606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F64606B241;
+	Thu, 12 Nov 2026 08:39:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F64606B241
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
@@ -37,9 +37,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Thu, 12 Nov 2026 16:39:08 +0800
 From: Jacky Chou <jacky_chou@aspeedtech.com>
-Subject: [PATCH net-next v6 0/7] net: ftgmac100: Add AST2700 support
-Date: Thu, 12 Nov 2026 16:39:06 +0800
-Message-ID: <20261112-support_ast2700-v6-0-238020bf46cf@aspeedtech.com>
+Date: Thu, 12 Nov 2026 16:39:07 +0800
+Subject: [PATCH net-next v6 1/7] dt-bindings: net: ftgmac100: Make Aspeed
+ compatibles standalone
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,12 +51,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACt79WoC/23NzU7EIBQF4FeZsBZzufyVWfkexpgWLpaFbVOwG
- TPpu4td6CR0eXJyvnNnmdZEmV0vd7bSlnKapxrM04X5sZ8+iKdQM0NAAwYlz1/LMq/lvc8FLQA
- 3XRyEUaFX2rO6WlaK6XaIr2yiwie6FfZWmzHlMq/fx9Umjv5QHdpG3QQH7iLIiC6g7/ClzwtRK
- OTHZz9/HuCGf4gAMC2CFZEmkBZx6MCYU0Q+IEK3iKxIF6xzTljRe3WKqAcEoUVURVSQZlDgpBv
- kKaL/EQGqRfQvokDbqEIgqxtk3/cfpS62UtEBAAA=
-X-Change-ID: 20260623-support_ast2700-68fb164da45c
+Message-ID: <20261112-support_ast2700-v6-1-238020bf46cf@aspeedtech.com>
+References: <20261112-support_ast2700-v6-0-238020bf46cf@aspeedtech.com>
+In-Reply-To: <20261112-support_ast2700-v6-0-238020bf46cf@aspeedtech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
 	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
 	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
@@ -65,166 +62,158 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
  Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
  Dumazet" <edumazet@kernel.org>
 CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
-	Andrew Lunn <andrew@lunn.ch>
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472748; l=8116;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472748; l=4637;
  i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=7e9PJ1nS1PkHtfy5Istembb/DEr3yO35nADcvyrnG9M=;
- b=3SP1B2yIENzi/kwObyPmeccLWr0rNOwldR4N8dRHr8G4WKO5KKVFkHyQvhn22fotsuZcjfidp
- 1vEfvQIq0R1BvFJd4imdH7sNv0ImgkRsZaaZhuPWuHBEh3Vtv8dbZnr
+ bh=y2/7dHAFpz+HzURl/lsqkis0My8D3WV1bMFE28qKQ78=;
+ b=43xy9PKOInSbIWiupaGeZaLP6V6FaISm4bWuBfvzxZbEXsMKyk/sO63VJUGltiJsMOjn9I7xI
+ /BU6uzzEIVADs+O/FLvDB7FPRL5rIwKOPvSNcEpfCcpNjeOZ5RIvJ9I
 X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
  pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-Add the pieces needed for the FTGMAC100 driver to run on Aspeed AST2700
-systems.
+The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+compatibles are currently only valid when paired with the generic
+"faraday,ftgmac100" fallback: if a node ever bound through the
+generic entry alone, ftgmac100_probe() would set
+rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
+BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
 
-AST2700 keeps using the FTGMAC100 MAC IP, but the enablement is not
-limited to a new compatible string. The SoC can boot with the MAC on
-ARM64, needs the Aspeed-specific RMII mode bit programmed when a port is
-wired for RMII, and requires the driver to use the upper DMA address
-fields in the ring base registers and packet descriptors. Those fields
-expose a 35-bit DMA address range on AST2700, so the driver must request
-a mask that matches the address bits the hardware can encode.
+Make each of them a standalone compatible instead, so none of the
+Aspeed compatibles require the generic fallback alongside them.
 
-The series first documents and wires up the aspeed,ast2700-mac
-compatible. It then treats AST2700 as an Aspeed MAC in the driver,
-enables the RMII mode programming, writes the AST2700 high descriptor-ring
-base registers, carries the RX/TX descriptor high address bits, rebuilds
-full DMA addresses before unmapping buffers, and requests a 35-bit DMA
-mask. The high ring base registers are only touched for AST2700 so older
-Aspeed device tree register windows remain unchanged. With that in place,
-the FTGMAC100 Kconfig entry can be made available on ARM64 while keeping
-the existing Aspeed MDIO dependency for AST2600 and newer ARCH_ASPEED
-systems.
-
-RGMII delay is configured at the bootloader stage, the same way it is
-handled for AST2600, not by this driver. Aspeed's SDK bootloader
-configures both AST2600 and AST2700 boards with the RGMII delay
-disabled and advertises "phy-mode = rgmii-id" to match, mirroring the
-OpenBMC bootloader change that stopped inserting delays on AST2600 so
-its device trees could use the correct "rgmii-id" setting. On AST2700,
-every on-chip MAC is likewise configured by the bootloader with RGMII
-delay disabled and "rgmii-id" phy-mode. Because the delay is already
-resolved before Linux boots, the ftgmac100 driver does not need to
-program any RGMII delay for either AST2600 or AST2700.
-
-This series has been validated on AST2700 EVB and AST2600 EVB.
-
-Patch layout:
-- patch 1 makes the existing aspeed,ast2400-mac, aspeed,ast2500-mac,
-  and aspeed,ast2600-mac compatibles standalone, dropping the
-  requirement to pair them with the generic "faraday,ftgmac100"
-  fallback compatible, and constrains the clocks/clock-names properties
-  per compatible instead of leaving them generically optional.
-- patch 2 adds the aspeed,ast2700-mac compatible to the binding, with
-  its RMII RCLK gate, reset support, the "phy-mode" requirement, and
-  extends the clocks/clock-names validation to cover it as well.
-- patch 3 adds the AST2700 match data and OF compatible.
-- patch 4 programs the AST2700 RMII enable bit and documents why
-  netdev->phydev can never be NULL at that point for AST2700.
-- patch 5 makes "phy-mode" a required device tree property for AST2700
-  and fails probe if it is missing.
-- patch 6 adds AST2700 upper DMA address handling for rings and
-  descriptors.
-- patch 7 enables the Faraday/FTGMAC100 Kconfig options on ARM64 and
-  selects MDIO_ASPEED for ARCH_ASPEED.
+Now that the Aspeed compatibles no longer need the generic fallback,
+also constrain the clocks and clock-names properties per compatible
+instead of leaving them generically optional: aspeed,ast2400-mac takes
+exactly one clock, aspeed,ast2500-mac and aspeed,ast2600-mac take one
+or two, and the plain faraday,ftgmac100 compatible takes none. Require
+clock-names whenever two clocks are listed.
 
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
-Changes in v6:
-- Constrain the clocks and clock-names properties per compatible in the
-  devicetree binding instead of leaving them generically optional:
-  aspeed,ast2400-mac takes exactly one clock, aspeed,ast2500-mac/
-  aspeed,ast2600-mac/aspeed,ast2700-mac take one or two, and the plain
-  faraday,ftgmac100 compatible takes none. Require clock-names whenever
-  two clocks are listed. Split across patch 1 (base rule) and patch 2
-  (extended to AST2700), matching how the compatible additions
-  themselves are already split.
-- Simplify the compatible schema from oneOf: [const: faraday,ftgmac100,
-  enum: [...]] to a single flat enum, since neither branch needs
-  multi-string matching.
-- Drop Reviewed-by from Rob Herring on patch 2 since its content
-  changed again.
-- Link to v5: https://lore.kernel.org/r/20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com
-
-Changes in v5:
-- Pick up Reviewed-by from Rob Herring on the AST2700 binding
-  patch.
-- Link to v4: https://lore.kernel.org/r/20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com
-
-Changes in v4:
-- Split the dt-bindings patch into two: one making the existing
-  aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-  compatibles standalone, and a second adding the new
-  aspeed,ast2700-mac compatible, per review feedback that these are
-  two separate concerns.
-- Link to v3: https://lore.kernel.org/r/20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com
-
-Changes in v3:
-- Require "phy-mode" in the devicetree binding when the AST2700
-  compatible is used, matching the driver's probe-time requirement
-  added in v2.
-- Drop the "faraday,ftgmac100" fallback compatible requirement for
-  AST2700; "aspeed,ast2700-mac" now stands on its own in the binding,
-  matching how the driver already matches it independently.
-- Drop the same "faraday,ftgmac100" fallback requirement for
-  aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac as
-  well, per review feedback. The same EDORR/EDOTR bit mismatch applies
-  to all of them if a node ever bound through the generic
-  faraday,ftgmac100 entry alone; there is no evidence this has ever
-  happened in practice since ftgmac100_of_match[] has had dedicated
-  entries for these SoCs since commit 03a2aba50b2c, but keeping the
-  binding correct avoids leaving the same landmine in place. Folded
-  into this series rather than sent as a follow-up, to avoid
-  self-conflicting with a later series touching the same "compatible"
-  block. Note this makes `make dtbs_check` warn against
-  arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-  aspeed-g6.dtsi, which still declare the two-string compatible; that
-  .dtsi change will be sent separately through the Aspeed/arm-soc tree,
-  since dt-bindings changes don't go through that tree.
-- Document in the RMII-enable patch why netdev->phydev is always
-  non-NULL by the time ftgmac100_start_hw() checks phydev->interface
-  for AST2700: ftgmac100_probe_dt() always attaches a phy_device
-  before register_netdev() can succeed, via a discrete PHY
-  (phy-handle), a fixed-link node, or NC-SI's internal fixed 100Mbit
-  PHY, and any failure in that setup aborts probe first.
-- Drop Reviewed-by from Krzysztof Kozlowski on the dt-bindings patch
-  since its content changed.
-- Link to v2: https://lore.kernel.org/r/20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com
-
-Changes in v2:
-- Make "phy-mode" a required device tree property for AST2700 and fail
-  probe if it is missing, instead of silently defaulting to RGMII.
-- Document in the cover letter how RGMII delay is configured at the
-  bootloader stage for AST2600 and AST2700.
-- Simplify the MDIO_ASPEED Kconfig select to ARCH_ASPEED only, dropping
-  the redundant MACH_ASPEED_G6 condition, and update its help text to
-  mention AST2700.
-- Pick up Reviewed-by from Krzysztof Kozlowski on the dt-bindings patch.
-- Link to v1: https://lore.kernel.org/r/20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com
 
 ---
-Jacky Chou (7):
-      dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone
-      dt-bindings: net: ftgmac100: Add AST2700 compatible
-      net: ftgmac100: Add AST2700 compatible support
-      net: ftgmac100: Enable AST2700 RMII support
-      net: ftgmac100: Require phy-mode for AST2700
-      net: ftgmac100: Add AST2700 upper DMA address support
-      net: ftgmac100: Allow building on ARM64
+ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
+and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
+compatibles"), so there is no known kernel + devicetree combination
+where a node has actually bound through the generic entry and gotten
+the wrong EDORR bit. This part is a binding correctness fix, not a fix
+for an observed failure.
 
- .../devicetree/bindings/net/faraday,ftgmac100.yaml | 85 ++++++++++++++++---
- drivers/net/ethernet/faraday/Kconfig               |  7 +-
- drivers/net/ethernet/faraday/ftgmac100.c           | 98 +++++++++++++++++++---
- drivers/net/ethernet/faraday/ftgmac100.h           |  7 ++
- drivers/net/mdio/Kconfig                           | 16 ++--
- 5 files changed, 180 insertions(+), 33 deletions(-)
+Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
+aspeed-g6.dtsi still declare their MAC nodes with the two-string
+"aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
+dtbs_check warn against those files until the redundant fallback
+compatible is dropped there as well. That .dtsi change will be sent as
+a separate series through the Aspeed/arm-soc tree, since dt-bindings
+changes don't go through that tree.
 ---
-base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
-change-id: 20260623-support_ast2700-68fb164da45c
+ .../devicetree/bindings/net/faraday,ftgmac100.yaml | 71 +++++++++++++++++++---
+ 1 file changed, 61 insertions(+), 10 deletions(-)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+index d14410018bcf..9d352e3686aa 100644
+--- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
++++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+@@ -11,14 +11,11 @@ maintainers:
+ 
+ properties:
+   compatible:
+-    oneOf:
+-      - const: faraday,ftgmac100
+-      - items:
+-          - enum:
+-              - aspeed,ast2400-mac
+-              - aspeed,ast2500-mac
+-              - aspeed,ast2600-mac
+-          - const: faraday,ftgmac100
++    enum:
++      - faraday,ftgmac100
++      - aspeed,ast2400-mac
++      - aspeed,ast2500-mac
++      - aspeed,ast2600-mac
+ 
+   reg:
+     maxItems: 1
+@@ -88,22 +85,76 @@ allOf:
+     else:
+       properties:
+         resets: false
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: aspeed,ast2400-mac
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++      required:
++        - clocks
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - aspeed,ast2500-mac
++              - aspeed,ast2600-mac
++    then:
++      properties:
++        clocks:
++          minItems: 1
++          maxItems: 2
++        clock-names:
++          minItems: 1
++          maxItems: 2
++      required:
++        - clocks
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - aspeed,ast2400-mac
++                - aspeed,ast2500-mac
++                - aspeed,ast2600-mac
++    then:
++      properties:
++        clocks: false
++        clock-names: false
++  - if:
++      properties:
++        clocks:
++          minItems: 2
++    then:
++      required:
++        - clock-names
+ 
+ unevaluatedProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/clock/aspeed-clock.h>
++
+     ethernet@1e660000 {
+-        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
++        compatible = "aspeed,ast2500-mac";
+         reg = <0x1e660000 0x180>;
+         interrupts = <2>;
++        clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>;
+         use-ncsi;
+     };
+ 
+     ethernet@1e680000 {
+-        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
++        compatible = "aspeed,ast2500-mac";
+         reg = <0x1e680000 0x180>;
+         interrupts = <2>;
++        clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>;
+ 
+         phy-handle = <&phy>;
+         phy-mode = "rgmii";
+
 -- 
-Jacky Chou <jacky_chou@aspeedtech.com>
+2.34.1
 
