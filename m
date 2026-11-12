@@ -1,67 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524110;
-	b=S3LjnWlyi2SAWB9JHnhCt9B0t7phw/WECXJxs/AAuvGGgSSFVB8hA/AVjc0+kWYgNoey
-	 vgnQjTHLvBbabV1kxSaT7bSbo04s2gUTZ7ttcZXCNwrKsLzJv/USSnzHJOFQbfycOvqUh
-	 YobAZxd8pCoYdX/425uzkvZtJyFKOa1l6kpcsypzh7Epyvjcq446wOU1utdG4kv7IuqS+
-	 vp0wLE1Qcrm2HJFnQpsVU4DApJ4T+CfjCAegD8Gy1coFSp78X40xi6e6/ZCRySUhNRNAU
-	 isD4wH8u3qaLIGQ/v7pjdF4DUpGr3yVkzWdUf1J9zCt233gU5yVOzEAeudrVaqJPbZw==
+	t=1794524189;
+	b=QdPBhvPLLCbJaIZhBtrSRM1d/74GPJYwfRafo74sKxLvdBbUn6GYJoOUbgQcBVNxo/W3
+	 kw72NMeaLgW21oXUdX3W1DJYa8cBtbB3Rrik6q3NVrD9qEqRi0kdmRn+LvSq59/Pyy/ul
+	 axPE2m/AwA4Wez5UEeXPqSmYdo7AGIrFWmT3DaslpBgimtlwcYvkUHMov5pRsKfeEDs8z
+	 CSo3ilG7vzIsFI6wAHYTV+DhSYKS8TmSzWdVRKrnwUKTUDc99SSrScDsZ+2WePwBqypQY
+	 rgjPsNT2CnuPNyziMAfYelbFZYwH0Neoq9DHGdU0MAHZhkWwQDhTY9LkT9qQnZFs9eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524110;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524189;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wdopgnCjQ29+rPA8LQY/bcOlbV2Ic6CbKWP6Bqv1yTw=;
-	b=2J2UZp0yrxrmkNdfxZzmsesxaSNHBUgO7ChUvwtfo+c5FN9yWm3V/rF5HcwK9q2mWqZO
-	 6NdyZQuQ3eMemSHf92SOYD0WBrimCzthqbr8b/OfOW0sbBL/Dx8WwxMRMtDNyCTB6LT+r
-	 6lPYds9/RR7tQ7dyE7xBf0z/RGMQHRzG1jFVewtN/i7dXFWcI+NGTFYa1cZp5dQHGdHpY
-	 svVGuaL0PxloIJcvtOUMCK5/xpF0jCciNhIdZhlD9GE1rguYGXCcM5Agdcr4mje6466qy
-	 jX8G17WJq5wT6fZl9eH4FsNE8jhFQXvSMc8dddOy2rnt+Ormfcv33ipc+JmLW6tKCZQ==
+	bh=3LmFrsBQFbZEhx18usBDVPj20osM9FeVGPojC5J12gQ=;
+	b=OpswdMuVYOMDVbp3t5KYapquPW4l57s1yMRbT3XiaiUqK8+0ce0oUWt8x+rifQPLfryx
+	 tmCj6cFOXk3cbnJSTgCk9lurMF048xsier380nbLfKxmiWI/fGXqJe2IkwYqTQWOqFR+o
+	 toWPmkbknWk/atcVRGbyDt65l37HdQ5m/YgEnw0mLDZLnpDXdt8lk+PuHeDhM2G5aqCjA
+	 kL3pSyBUQjQK9srR5Xgnq8IszCqy+qrBpGJ/g8MhFNRMm5C4Y0UeTSAUPiCNT9sjPzHaF
+	 M9C4t6M/fT1Gy6dQy9pDVBStFycrj+8dsAxz1qbcSpi6HLeL8wb6jGXnBEkG7frJdBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5T3VC67;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HllWrPif;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C99606A8B2;
-	Thu, 12 Nov 2026 22:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64002606A880;
+	Thu, 12 Nov 2026 22:56:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5T3VC67
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E811F000C5;
-	Thu, 12 Nov 2026 22:55:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HllWrPif
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BEB1F000C4;
+	Thu, 12 Nov 2026 22:56:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524110;
-	bh=wdopgnCjQ29+rPA8LQY/bcOlbV2Ic6CbKWP6Bqv1yTw=;
+	s=k20260515; t=1794524188;
+	bh=3LmFrsBQFbZEhx18usBDVPj20osM9FeVGPojC5J12gQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q5T3VC67UcuPWA8nIYHVjjOlU5wxufWE8gsXYjzyoKZ9tkiQOCeSnXZ/al8IjpkWR
-	 bIMYoY7ycyh3QN0XXAs42wfz5p/FHK4XOaws6xkuK4B3v1uU5kVrZGQre2qZMOyh81
-	 RX2Qh3QY51gdUg3kr5RiRzG25NiETQ6rFbhe/T6hsuKmRNsR3fPFK4ZOyfAO7YViys
-	 z/bhAJgwaF1Q2b6qv9Ce4eUC+2lnBR5q4sZqq7n1wtSa2uDqzEdrzyNOgdFxX35lov
-	 flU4eSmQACeV63eynlxW7ckKFU/amzL28Zl7f+dGcahE1ov43Hu+6u6xstfEGdwQrL
-	 ZdjFlrEwrsAtw==
-Date: Thu, 12 Nov 2026 16:55:07 -0600
+	b=HllWrPifUSJqBkdjY9YrTJzDMsN5rQUpW6Vx4PfZBFkAsYhoO8HT33ivCvtOTCtuj
+	 zvLdNe1lCLQwolmIiVhQ+NWBEI4pRdu6cmbrqxYsvFWAewlPa7jifPDtT4J3b1C6lG
+	 7fbCQ9voHcbxeFjngoMH7O2XVRMufhTrVuBP0ZndRTP0zCWo1W9cwSreWiSUOHo3uz
+	 M0v1ysihN0Yg44yNlZtCqZisx65YDM8kHbdwgcl3NPUWELg+HyYsFXeXNslX9kXnIx
+	 vEQNyAauKKkf5+oPAUG0/IztXO8zJgoOAZPpCBupJ43ZRlkA9ccutBVy5ySGQGKDCm
+	 qedFueBi7YI2A==
+Date: Thu, 12 Nov 2026 16:56:26 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: regulator: qcom,wcn3990-pmu:
- document wakeup-source
-Message-ID: <179452410743.1850681.8370168094636709407.robh@kernel.org>
-References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-2-linghui.wu@oss.qualcomm.com>
+To: Akhilesh Patil <akhilesh.patil@linux.dev>
+Cc: andy@kernel.org, krzk+dt@kernel.org, linux-rtc@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, crofts@kernel.org,
+	alexandre.belloni@bootlin.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, conor+dt@kernel.org,
+	linux-iio@vger.kernel.org, akhilesh@ee.iitb.ac.in, jic23@kernel.org,
+	dlechner@baylibre.com
+Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <179452418643.1857011.17712598174525760162.robh@kernel.org>
+References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,20 +62,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112072009.3815276-2-linghui.wu@oss.qualcomm.com>
+In-Reply-To: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
 
 
-On Thu, 12 Nov 2026 15:20:07 +0800, Linghui Wu wrote:
-> The SW_CTRL GPIO can be used as a wake signal on platforms where the WCN
-> device needs to wake the application processor.
+On Thu, 12 Nov 2026 09:16:41 +0000, Akhilesh Patil wrote:
+> Move to my new linux.dev email address akhilesh.patil@linux.dev
+> I plan to use this email for kernel development going forward.
+> Also update email address in few yaml and driver source files.
 > 
-> Document wakeup-source and require the existing swctrl-gpios property
-> when wakeup-source is present.
-> 
-> Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
 > ---
->  .../devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml     | 6 ++++++
->  1 file changed, 6 insertions(+)
+> 
+> Changes in v4:
+> - No source change.
+> - Added entire change log for all versions.
+> - Link to v3:
+> https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
+> 
+> Changes in v3:
+> - Fixed order of entry in .mailmap
+> - Link to v2:
+> https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/
+> 
+> Changes in v2:
+> - Updated email ID in relevant device tree source files and driver source files.
+> - Link to v1:
+> https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
+> 
+>  .mailmap                                                      | 1 +
+>  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+>  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+>  MAINTAINERS                                                   | 2 +-
+>  drivers/iio/pressure/adp810.c                                 | 4 ++--
+>  5 files changed, 6 insertions(+), 5 deletions(-)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
