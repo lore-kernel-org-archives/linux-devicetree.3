@@ -1,49 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477606;
-	b=kGQG23ZM4ItB+z2vxjCFYp8fDeA/2wifPbtWvYCeRxeFF1XMil6iBO2YkkpKSofAP04K
-	 aPfv3Vuj/9t1cJhHe1uK7uSZ82NzTB2/1AN11kfhijkQSyAlD/atDbyMThaANxi1lONTL
-	 jan46FPMbjQ9aOtr8wVMNOnCfTkT8QRnXgfD1DN4/T13YR2xZ5fzQDP6fWxyUS54qR+K1
-	 yOuve9t9BSTVll3An3dXXE93JBkgiKSHCDHwcDl23gxKePLK7YCTOUqIJyl97H02ZdGI/
-	 CUGKulEBI1VTRdyIuBvQDWYJKNbXcpa3J6J1T4Q8b635AkZMp3YfpHHopq8sTMd5ssg==
+	t=1794477675;
+	b=iUwFLO6a4/gfv9tRT3s6LOdVL0Jc1gSmtzQun8gg0UfiY7arQ3ZmN/4CPTpXtrZ8obHC
+	 VpQbEyzay/mLyp6Sx8nIQ5YZDeS2a9V4ZTajJNjcbMi3xzPSc/WegY7rk+MDk9Wbq2Kc6
+	 UJP7ZSH9F2Ycxv1UiRYvhu/HjLDFu4J3/ksGGtIGQjs9qUB/PGpllZoV8lkRLeNCdQplV
+	 2eawQ/lSE69+cfP8CWKgwfsZJBDjy6H+s8F+YK2/2NH8MfPoQ2CofsGBW/GjbQXueivQ8
+	 KzhUCv0dN5h8baZ6pTOI7nsfXHhHVWM8ztXJTDtEmxHDQ/W1SKCTGoO+tBl2LTVVsrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477606;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=fGRlGGYybYZD5rUwhWpmwOKxGOAAu67qlqBSQsnLu5k=;
-	b=yf0gYDo7mA8Ks9pZ78/pwWYe0dnJot77BaJDGfqzmwiv80CZQKGB/rOCxx0sNgDqrMV6
-	 bK5crwgUK+3XwvmtkXawsD84/I9CtbC17H1jiDlPc8H/Kxnw6DUQrSZg1ppbdwulwoX7l
-	 tGlg3kpfCk0Cb4EHwy4tj3RZvO8csqamUh38/6G7r3F/+WiPLtnqJ8M0+W5BQwiqGjZZB
-	 Og1dj1CuAKxWzp5Rp7S/rK39xGDS2axqwoO0SctfvdjSKJDkdvAry2IPGt7BqL2X3NQUK
-	 etkg9vrF8inZieBH+WsTDwv7q9m/R4zM1nv/WQ78U6TnQCvq56icUhOct7ndZI25epA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477675;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=VMlOl837uqKQtppBwv9KRWnMoG9E9SFyzKVLYp9RwEM=;
+	b=CC2imLSJgeks6HfkHO1QbiXkLiD1TNtGZnt8Lha0lkfVxNkE5xwm10OArLrrWHWb7796
+	 hkVB8j/skC/PPaCU3eHFK/AAjMREIFnMD52TuYzWEkSiNz6ZeRwG+4oS4o4TJ67tbZlIe
+	 Elw+G1jFEyApsyUIehy7sGC9cZNNzqPlMmEyj8jOx3Hdx66tMlzcImLyREr6CZQmltsUr
+	 ChUI6DFzFleeVf3mRx0Lo5XRRVIyb8c0hFEnQY518qaQhMDAOYVB8+fjVRp2BsvFLpcG1
+	 9wAYfdfcY/3s8M98187CYH/c3ySnpGdFtC8Z7HAUTWUxdsNDi5hJeMZcvPoAXi7HhAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7MBROYK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TF4HbZR7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B5D606A331;
-	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9ED606A321;
+	Thu, 12 Nov 2026 10:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7MBROYK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3BB1F00A05;
-	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TF4HbZR7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024A81F00A05;
+	Thu, 12 Nov 2026 10:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477605;
-	bh=fGRlGGYybYZD5rUwhWpmwOKxGOAAu67qlqBSQsnLu5k=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=G7MBROYKXgvSMmoShTZ1C6Pn102zMF34faIzzJPrmZjjaV6GEO8yMQYLDcwHNJ8zk
-	 GUI7nFdNn9dTFJ2R5IZgiZyM/nvSlRqisy2tBUGmZdZeYdsUkpqSvhi4joPSeTJiFr
-	 oe0RFvMkSm7BOu8goZBP8p5atkubU7y/w1jRNTQAS8uvSLb5IzaclVDtCFqXGwZKsM
-	 qivRlRUkldSRPc07QV0UoBDf3Ah7pvyg96iPXLZPcmBEKH67PgiIfJcOOaTwr4GOxI
-	 zS4yLfd+sqDNVmMIFxLPsUdniwK9DfS1YQYSyJVdmRn7YUJpOPT3RXNfgZdFk4i/g+
-	 lVRV6Iedo82GQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B16F3AA9A95;
-	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794477675;
+	bh=VMlOl837uqKQtppBwv9KRWnMoG9E9SFyzKVLYp9RwEM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TF4HbZR70c5bl/jRfcrHBJmvmOIpk/iOqynSXjXUrMWpCk7GIjEkL0mKzxrE5aWTI
+	 +JqzeFr0n57Gt3GD0IJy26nVtq6x19ie2UDx1q2ZtkOZFK1s3/VqHnDH2/ojfA1dqa
+	 Hea5go25Car81wAks7UywHFwl1oqCmXRGTaphGj7WSQocqZjGi6UC13jlBOzY5vyaM
+	 ODRhB4/6uUrFRweFFuOrN2FEL7l6qHGkr5lU7UIxdE5J41TblAd+6g92sVVs8qEiDm
+	 Eh1hSd/2MDtrmOuTDi/3/R9Z6Of9D5FJEvfqO0iC7VaHe9gk7fsMb2i/czWc3ZcBYB
+	 NodMZOgMVew4w==
+Message-ID: <sashiko-outbox-210917@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] clk: qcom: Add NSS clock controller driver for
+ IPQ5210 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Jie" <jie.luo@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261111-qcom_ipq5210_nsscc-v2-2-7e2c1dda3ed2@oss.qualcomm.com>
+References: <20261111-qcom_ipq5210_nsscc-v2-0-7e2c1dda3ed2@oss.qualcomm.com>
+ <20261111-qcom_ipq5210_nsscc-v2-2-7e2c1dda3ed2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 10:01:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,47 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert HiSilicon GMAC v1/2 to
- DT
- schema
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179447760442.1983710.9367740045427311229.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 10:00:04 +0000
-References: <20261109191641.653847-3-robh@kernel.org>
-In-Reply-To: <20261109191641.653847-3-robh@kernel.org>
-To: Rob Herring (Arm) <robh@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
- shenjian15@huawei.com, shaojijie@huawei.com, hkallweit1@gmail.com,
- linux@armlinux.org.uk, f.fainelli@gmail.com, andrew@lunn.ch,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clk: qcom: nsscc-ipq5210: CLK_SET_RATE_PARENT on XGMAC PTP
+  dividers
+--
 
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+commit ba0d35b1d755dedd51b7ae9f8752c3443ce8f41c
+Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-On Mon,  9 Nov 2026 13:16:41 -0600 you wrote:
-> Convert the HiSilicon GMAC v1/2 binding to DT schema format.
-> 
-> As this binding also contains the MDIO bus directly rather than in an
-> 'mdio' child node, the MDIO node name schema needs to be relaxed.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> 
-> [...]
+clk: qcom: Add NSS clock controller driver for IPQ5210 SoC
 
-Here is the summary with links:
-  - [net-next] dt-bindings: net: Convert HiSilicon GMAC v1/2 to DT schema
-    https://git.kernel.org/netdev/net-next/c/556e0ac6a771
+This commit adds the NSS clock controller driver for IPQ5210, providing
+clocks, resets, and interconnect clock paths for the networking subsystem.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> diff --git a/drivers/clk/qcom/nsscc-ipq5210.c b/drivers/clk/qcom/nsscc-ip=
+q5210.c
+> new file mode 100644
+> index 0000000000000..97673d01c9569
+> --- /dev/null
+> +++ b/drivers/clk/qcom/nsscc-ipq5210.c
+> @@ -0,0 +1,2202 @@
 
+[ ... ]
 
+> +static const struct freq_tbl ftbl_nss_cc_ppe_clk_src[] =3D {
+> +	F(24000000, P_XO, 1, 0, 0),
+> +	F(429000000, P_CMN_PLL_NSS_CLK_429M, 1, 0, 0),
+> +	{ }
+> +};
+> +
+> +static struct clk_rcg2 nss_cc_ppe_clk_src =3D {
+> +	.cmd_rcgr =3D 0x3ec,
+> +	.mnd_width =3D 0,
+> +	.hid_width =3D 5,
+> +	.parent_map =3D nss_cc_parent_map_ppe,
+> +	.freq_tbl =3D ftbl_nss_cc_ppe_clk_src,
+> +	.clkr.hw.init =3D &(const struct clk_init_data){
+> +		.name =3D "nss_cc_ppe_clk_src",
+> +		.parent_data =3D nss_cc_ppe_parent_data_ppe,
+> +		.num_parents =3D ARRAY_SIZE(nss_cc_ppe_parent_data_ppe),
+> +		.ops =3D &clk_rcg2_ops,
+> +	},
+> +};
+> +
+> +/*
+> + * The XGMAC PTP reference clock rate needs to be configurable, so the
+> + * PTP reference dividers use the writable divider ops.
+> + */
+> +static struct clk_regmap_div nss_cc_xgmac0_ptp_ref_div_clk_src =3D {
+> +	.reg =3D 0x3f4,
+> +	.shift =3D 0,
+> +	.width =3D 4,
+> +	.clkr.hw.init =3D &(const struct clk_init_data) {
+> +		.name =3D "nss_cc_xgmac0_ptp_ref_div_clk_src",
+> +		.parent_hws =3D (const struct clk_hw*[]){
+> +			&nss_cc_ppe_clk_src.clkr.hw,
+> +		},
+> +		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+> +		.ops =3D &clk_regmap_div_ops,
+> +	},
+> +};
+> +
+> +static struct clk_regmap_div nss_cc_xgmac1_ptp_ref_div_clk_src =3D {
+> +	.reg =3D 0x3f8,
+> +	.shift =3D 0,
+> +	.width =3D 4,
+> +	.clkr.hw.init =3D &(const struct clk_init_data) {
+> +		.name =3D "nss_cc_xgmac1_ptp_ref_div_clk_src",
+> +		.parent_hws =3D (const struct clk_hw*[]){
+> +			&nss_cc_ppe_clk_src.clkr.hw,
+> +		},
+> +		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+> +		.ops =3D &clk_regmap_div_ops,
+> +	},
+> +};
+> +
+> +static struct clk_regmap_div nss_cc_xgmac2_ptp_ref_div_clk_src =3D {
+> +	.reg =3D 0x3fc,
+> +	.shift =3D 0,
+> +	.width =3D 4,
+> +	.clkr.hw.init =3D &(const struct clk_init_data) {
+> +		.name =3D "nss_cc_xgmac2_ptp_ref_div_clk_src",
+> +		.parent_hws =3D (const struct clk_hw*[]){
+> +			&nss_cc_ppe_clk_src.clkr.hw,
+> +		},
+> +		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+> +		.ops =3D &clk_regmap_div_ops,
+> +	},
+> +};
+
+[Severity: Medium]
+Should nss_cc_xgmac0_ptp_ref_div_clk_src,
+nss_cc_xgmac1_ptp_ref_div_clk_src, and nss_cc_xgmac2_ptp_ref_div_clk_src
+omit CLK_SET_RATE_PARENT now that they use writable clk_regmap_div_ops
+(like nss_cc_uniphy_port1_rx_div4_clk_src)?
+
+Because these 4-bit dividers can only divide the 429 MHz parent down to
+429000000 / 16 =3D 26812500 Hz, requesting a PTP reference rate of 25 MHz or
+24 MHz causes clk_divider_bestdiv() (with CLK_DIVIDER_ROUND_CLOSEST) to
+select F(24000000, P_XO, 1, 0, 0) on nss_cc_ppe_clk_src.  That reparents
+the shared nss_cc_ppe_clk_src root clock from 429 MHz to the 24 MHz XO,
+throttling the PPE switch, EDMA, MACs, PON, and NSSNOC PPE.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-qcom_ipq52=
+10_nsscc-v2-0-7e2c1dda3ed2@oss.qualcomm.com?part=3D2
