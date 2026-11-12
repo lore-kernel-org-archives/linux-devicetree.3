@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524014;
-	b=tRkscHKhi8BRfzsBzTopLOjYQANj+UxODUzYxj1elibqsJwMBPAsqfvnCbJfqtupqHG9
-	 sqioIBqd98L59dO2zlwNnj7NWwO69elWtX5akk8XFzLssTlFDmW2DbUTfc7qzzlPl6286
-	 1thGKbqhVod/53MUfI7z2z4YIpfsCGz0uotdlBO0lb66AHeEvNkQFKSZIheE/2rSgp/Sr
-	 bjX4q1DLOixXKrAr2WO4tmp/LgGtUmZjj1OsD3G/6P4ZdkT8OS6mUDT8Twt6V5lwqzdmZ
-	 l8tMD+8We/N9YQzlnKPlzn7S2DRlLm2rx7gfD3rOTAGkrQo4sz4bJWBeVqYC/32q1aQ==
+	t=1794524110;
+	b=S3LjnWlyi2SAWB9JHnhCt9B0t7phw/WECXJxs/AAuvGGgSSFVB8hA/AVjc0+kWYgNoey
+	 vgnQjTHLvBbabV1kxSaT7bSbo04s2gUTZ7ttcZXCNwrKsLzJv/USSnzHJOFQbfycOvqUh
+	 YobAZxd8pCoYdX/425uzkvZtJyFKOa1l6kpcsypzh7Epyvjcq446wOU1utdG4kv7IuqS+
+	 vp0wLE1Qcrm2HJFnQpsVU4DApJ4T+CfjCAegD8Gy1coFSp78X40xi6e6/ZCRySUhNRNAU
+	 isD4wH8u3qaLIGQ/v7pjdF4DUpGr3yVkzWdUf1J9zCt233gU5yVOzEAeudrVaqJPbZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524110;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=riOq4/RI64RYT6I791/FAJUl+Fz8YYsU95UzjkX6Fp8=;
-	b=edobiOPSsW7Ewwah97wjfqGPgOb9lD7oUhsCVaDm+vF8bYFwR46+sXuYcsgC70jpJ0jq
-	 2KpTAaT/h32Fa5JcNunW7A3t+DEyYTDdKWtwwmQs45i5lvDL6Jz/0xdBnZ+S5l6WhVHHB
-	 vXSwhCkUuNSg408mOspWJk1+9QpR8dBwgkXt5LVA9ZMrYYcamXH/WMHAtB6VCwJLaWTGJ
-	 h0nu9lnJsv0qBnKy4jWpdpaA8nKMOM7Z9ZtW9dqQSGTPI2I/PX4tahiovyO8OxhMI6gAU
-	 U9r89PJCVL2TdnuCMXC7iPqnzclsqAmGIqROvi+UYD/tGCnhiGf40/+0QRgllKHsq9Q==
+	bh=wdopgnCjQ29+rPA8LQY/bcOlbV2Ic6CbKWP6Bqv1yTw=;
+	b=2J2UZp0yrxrmkNdfxZzmsesxaSNHBUgO7ChUvwtfo+c5FN9yWm3V/rF5HcwK9q2mWqZO
+	 6NdyZQuQ3eMemSHf92SOYD0WBrimCzthqbr8b/OfOW0sbBL/Dx8WwxMRMtDNyCTB6LT+r
+	 6lPYds9/RR7tQ7dyE7xBf0z/RGMQHRzG1jFVewtN/i7dXFWcI+NGTFYa1cZp5dQHGdHpY
+	 svVGuaL0PxloIJcvtOUMCK5/xpF0jCciNhIdZhlD9GE1rguYGXCcM5Agdcr4mje6466qy
+	 jX8G17WJq5wT6fZl9eH4FsNE8jhFQXvSMc8dddOy2rnt+Ormfcv33ipc+JmLW6tKCZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP0Rk9Ll;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5T3VC67;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916CB606A31C;
-	Thu, 12 Nov 2026 22:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C99606A8B2;
+	Thu, 12 Nov 2026 22:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP0Rk9Ll
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2AD51F000C6;
-	Thu, 12 Nov 2026 22:53:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5T3VC67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E811F000C5;
+	Thu, 12 Nov 2026 22:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524014;
-	bh=riOq4/RI64RYT6I791/FAJUl+Fz8YYsU95UzjkX6Fp8=;
+	s=k20260515; t=1794524110;
+	bh=wdopgnCjQ29+rPA8LQY/bcOlbV2Ic6CbKWP6Bqv1yTw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aP0Rk9Ll1GcUq9dX/ZnSLaSfSIIjPHTjj8j1g2Z11u62YwyU8t7n+ZedIBZjm4MLq
-	 RUMuzfEw3pplAYYjgUyj9I24yLd0unrJCfa7VnXSvKbiy676uPLZPxGksJve0LYOPc
-	 HFtfBeVo0t/WhJWwyQHCYVr+qp6EfGT/rKjDUuUJ16Jmk54Q7Cc5Yx82x7vdi9MP2/
-	 901pAruII26uSpT7yuEHSiVHH9RPI57zxWob7yBevhddMcL/TYrEMWGfGiiXBG2RUG
-	 63yWDcDlS6L0S5F7g/wvfruSMyVwptBqE7aAt25mIvLoFqmlUStsiy257qADJU4tLK
-	 9FHbz4IWECJyw==
-Date: Thu, 12 Nov 2026 16:53:28 -0600
-From: Rob Herring <robh@kernel.org>
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: connector: Add fsl,aud-io-slot
- binding
-Message-ID: <20261112225328.GA1784283-robh@kernel.org>
-References: <20261105064117.277495-1-chancel.liu@oss.nxp.com>
- <20261105064117.277495-2-chancel.liu@oss.nxp.com>
+	b=Q5T3VC67UcuPWA8nIYHVjjOlU5wxufWE8gsXYjzyoKZ9tkiQOCeSnXZ/al8IjpkWR
+	 bIMYoY7ycyh3QN0XXAs42wfz5p/FHK4XOaws6xkuK4B3v1uU5kVrZGQre2qZMOyh81
+	 RX2Qh3QY51gdUg3kr5RiRzG25NiETQ6rFbhe/T6hsuKmRNsR3fPFK4ZOyfAO7YViys
+	 z/bhAJgwaF1Q2b6qv9Ce4eUC+2lnBR5q4sZqq7n1wtSa2uDqzEdrzyNOgdFxX35lov
+	 flU4eSmQACeV63eynlxW7ckKFU/amzL28Zl7f+dGcahE1ov43Hu+6u6xstfEGdwQrL
+	 ZdjFlrEwrsAtw==
+Date: Thu, 12 Nov 2026 16:55:07 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Linghui Wu <linghui.wu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: regulator: qcom,wcn3990-pmu:
+ document wakeup-source
+Message-ID: <179452410743.1850681.8370168094636709407.robh@kernel.org>
+References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
+ <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+ <20261112072009.3815276-2-linghui.wu@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,43 +73,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105064117.277495-2-chancel.liu@oss.nxp.com>
+In-Reply-To: <20261112072009.3815276-2-linghui.wu@oss.qualcomm.com>
 
-On Thu, Nov 05, 2026 at 03:41:14PM +0900, Chancel Liu wrote:
-> From: Chancel Liu <chancel.liu@nxp.com>
+
+On Thu, 12 Nov 2026 15:20:07 +0800, Linghui Wu wrote:
+> The SW_CTRL GPIO can be used as a wake signal on platforms where the WCN
+> device needs to wake the application processor.
 > 
-> The NXP AUD-IO slot represents a physically present I/O connector on
-> the base board. It acts as a nexus that exposes a constrained set of
-> I/O resources, such as GPIOs, clocks and interrupts, through fixed
-> electrical wiring. All actual hardware providers reside on the base
-> board. The connector node only defines index-based mappings to those
-> providers.
+> Document wakeup-source and require the existing swctrl-gpios property
+> when wakeup-source is present.
 > 
-> This connector type is present on i.MX95 19x19 EVK and i.MX952 EVK,
-> where it is used to attach the IMX-AUD-IO audio expansion card[1]. The
-> same add-on board can be reused across different base boards that carry
-> this connector.
+> Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml     | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> [1]https://www.nxp.com/part/IMX-AUD-IO
 
-That link is pretty much useless. Is there a pinout definition 
-somewhere?
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Looking at the overlay, this looks incomplete. It looks like there's I2C 
-thru the connector for example. There's also power rails.
-
-The idea with connectors is that overlays apply to the connector node 
-and nothing else.
-
-I2C we've kind of figured out with something like this:
-
-connector {
-  i2c-parent = <&i2c>;
-  i2c {
-    ...
-  };
-};
-
-Regulators is still open issue though.
-
-Rob
