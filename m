@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496410;
-	b=MyMs5SMvYtH7QuZF7R8lxP5DRYS5zHQgw+hDpgbNfraCsoPlIzCWLn3EvcXaBKDO2WDy
-	 sRzexrtBaPM7nhd6CRSn87lr3hDvLtc5juWUdSY79lp8f8YTri/Pe7t8qVlVxTwKWXlvr
-	 Pe5N/iUnNCNhdXck9VcVeQ+dyZAG0F+APmqvUJIgZUFuMFVsr25XmpXgnrKkjJnGNxqzS
-	 XgO2CRhyRiYWcW3hs/j9/f9IY/mjxQ6HK/GjeCWdhLazQr0NaqYfR28b0eHwlS2glJuH3
-	 waWFfDxr+UkrzLbkEoRI9uPBGuROseXHmpjbRwiK/+/0raPaqnwHhrVcalKm49CkzxQ==
+	t=1794496536;
+	b=F5iq/dG/gYqxDh9x/u/3M/DHIyxYCziyD6KT5znS/V5U2xdhNEjjo4/j3XRx2b/sOM0Z
+	 90CROmkEL8fL/2Dlx/lowWfDeSDlbAmU4XiF45Jqfr8e+1kVRhBNHKWGbdMnzx8fMFUY0
+	 GW+CZKCTEPTnLJ6bGfWXpQrc+MVlgF6ztOgziSbSGpgF5xfpXpBsYpm5iqQUXSY52JVYQ
+	 XYZ4cysdgHWmvYYx+DCEHTt6hz/wKGTHuXMxMVv+F1oRaPg9pLUrLR9UCJCz8dnRx+IiJ
+	 OzdA87A8WD1NfSCneoKinGV13vA1KA23a0OSlAOYYNOfhEKcIpUEZoT3Kmr/8OF1H/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496410;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LSomUVkxeVujxD12mjdTM3jadQF6RoOLSVeuHilCoqA=;
-	b=g2w1lIQCu1HKm1ejCuUW82RP6kfc1ICMYTugjtpTq8RN9srtQmQIucjGE7oEVhPcawNg
-	 Y1muNbwdTwmThzRy1RYiEF2GC9xXSP1dj/uMigb+dWvlzp7i0RYOvuhvpwLGwMxdkg1k3
-	 jlTQ3aikhlLCwLv0s24j4smCQdsaN1F6eOkol4slJEBPs0288aTH3ZdgOynzKcN4nlY4K
-	 7ri0A/pGPQkJvRA8JFm19GpNzJndv0y1hPmx6+2OPHedEtAmzKVMgg8n6lNSOeTDfEd4o
-	 aSDqcoT5x5Yh3tANJoJ/Dobn9kr1oTXMO03eim+tCYEKfe+MVN4OtPCZ9Xx1QSHbPbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496536;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=58Mz0t/hlLLuiZeWpE0SHkeJJdrm5aAjKDDahhhZu60=;
+	b=KVs3pSiJ8JnYuLh/VZEHpLjnfEq96Gow7iB9We6HiL2JN/M04XorhyjaSJW2NlQqPaZ4
+	 p+2YNQgNisMeLAqbTww2OO6WtUmbbRGCnyWbfvcVS+mBuwsls0m87GqvdX65PEpemsHSB
+	 YwEDrWlJGOi0lX+Gul7rwbpFjHmoSxU+0NOQ5Y+5GvPmbrUhTi6XuwL7sIPHgiEmQ8XJY
+	 QHA/b5HePajnfFaDNbFHeSq8kOjEt55gcwenpJZGojgra1fPs9a9SfEaHbA4VHUDJNrYl
+	 Qz3e9VS63mQKwK6O1XjSsBH/7uKzzOgN0YaUW2g8zgqm51igHiDBuqqiSgoYgU9VRww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=YTxFkgxX;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERZ170QQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8E1606A33B;
-	Thu, 12 Nov 2026 15:13:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C8E1606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCE9606A338
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 15:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=YTxFkgxX
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8B1A0231B8;
-	Thu, 12 Nov 2026 16:13:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794496407;
-	bh=LSomUVkxeVujxD12mjdTM3jadQF6RoOLSVeuHilCoqA=; h=From:To:Subject;
-	b=YTxFkgxXLJYTzVmoaE3Y8ZdRNwhcE+0bnXUhxmE7ugGEgr9NNCZU08aMVJYKWVPTI
-	 EpcdEnyz92CyFjNORUosjzxmQ2LnHSEjdp8zPlgFHgmAiGY0or5hU8qHN/rhwNK8Q7
-	 YDQu00wRhrJN1CEZo9oeTjhkSWsMl9AGqrXgw5tm3B+o/t8umK2PSw9VadTS6WmJbN
-	 8aOCdagxv58zBVvlKYPR0bdEc9k+W3WNldWF/b6yIaPO5IFir9TRnorSbcCinXr1ey
-	 iBSryktVJl1m0flXfq+KqrWa7Jbk/RozOBjaxZSer0a7jkHVqo0VByVMTFXtFum9fs
-	 4RyNgREX6brxw==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/3] arm64: dts: ti: k3-am69-aquila: Add SPI aliases
-Date: Thu, 12 Nov 2026 16:13:16 +0100
-Message-ID: <20261112151317.178959-4-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112151317.178959-1-francesco@dolcini.it>
-References: <20261112151317.178959-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERZ170QQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C5D1F000C2;
+	Thu, 12 Nov 2026 15:15:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794496536;
+	bh=58Mz0t/hlLLuiZeWpE0SHkeJJdrm5aAjKDDahhhZu60=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ERZ170QQOLV6LMyM+wGYGGkxa2sHB63VUjS329eQ3viUwnqbqoGebMZQj5pgfmG9Z
+	 /QshVXBegAj4XkYbVeMJvrIe3vSAmjHgVC+K+7Wj6gFCQ8NLX4W7E1HiGnKn4n75R0
+	 L1tw4Y53h3g39OXnqx4EK+nx3+B3oJ10QL3AYUVuaUmyHD7bpbPXmOQ+Y5Ut9GFr3H
+	 /JloEVLSO7TCcBLcaovMG3mHUXRAdwy3fYxO3HrZCog8vXmGWcishz2vmf8AFrDPy1
+	 4DRUH9XtWCy8tOSKZOP1lWArFDqMry2lpGTih1lOHMDPzuWRmCfC4f99hw6BJK1U3H
+	 GQB+VGT8JecxA==
+Message-ID: <sashiko-outbox-211417@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: display: panel: Make DSI panels port
+ optional
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261112150650.137216-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261112150650.137216-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 15:15:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,39 +59,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: display: panel: ilitek,ili9806e: port made optional
+  for SPI panel
+--
 
-The Aquila family pinout defines the SoM interfaces and their
-numbering, SPI_1 and SPI_2 being the SPI buses on the connector,
-implemented by main_spi2 and main_spi0 on Aquila AM69.
+commit bcf90e9f5f8315b117fe2401d0e209382d33f585
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Without aliases the Linux SPI bus numbers are assigned dynamically and
-do not match the connector names. Add spi0 and spi1 aliases so the bus
-numbers in sysfs and the spidev names follow the Aquila interface
-numbering, zero-based with SPI_1 being spi0. mcu_spi0 is internal to
-the SoM with the TPM as its only device, and gets no alias.
+dt-bindings: display: panel: Make DSI panels port optional
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+This commit removes the port property from the required list in several
+DSI display panel Device Tree binding schemas so that panels placed
+directly under a DSI bus node do not require an OF graph port.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi b/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
-index b6854acee8fe..caedff90365d 100644
---- a/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi
-@@ -39,6 +39,8 @@ aliases {
- 		serial1 = &wkup_uart0;
- 		serial2 = &main_uart8;
- 		serial3 = &mcu_uart0;
-+		spi0 = &main_spi2;
-+		spi1 = &main_spi0;
- 		usb0 = &usb0;
- 	};
- 
--- 
-2.47.3
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili98=
+06e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.=
+yaml
+> index 2080d9e0ffac4..9a2602ddd9060 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+> @@ -33,7 +33,6 @@ required:
+>    - vdd-supply
+>    - reset-gpios
+>    - backlight
+> -  - port
+> =20
+>  if:
+>    properties:
 
+[Severity: Low]
+Should port remain required in the conditional then branch for
+rocktech,rk050hr345-ct106a?
+
+While densitron,dmt028vghmcmi-1d and ortustech,com35h3p70ulc are MIPI-DSI
+panels, rocktech,rk050hr345-ct106a is an SPI-controlled DPI/RGB panel
+(registered with DRM_MODE_CONNECTOR_DPI in ili9806e_spi_probe()).  Because
+its node sits under an SPI controller rather than a DSI host, the RGB
+display controller still needs the OF graph port to link to the panel.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112150650.1372=
+16-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
