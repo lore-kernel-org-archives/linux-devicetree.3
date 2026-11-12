@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473329;
-	b=jqZuafR9/iKuV2Jlwyzsblpj3LXcTBiPlKZy8x2k6NdNEN1BnSDYklBKKsDMBT8fWfMu
-	 JF+fZbxhiBAuqkA/S0m3v6A5E/hjSggRQENDx4Bnnv84kwOyx9P03TiRQrHv8rcJE6zlw
-	 pbKWLxONAwrncuR+CIzgFD+tx2Lkt7PJAXTJJktFnDseSqKTecUAYLFGPUuO0ur8yGN60
-	 WQriu+LcdXDkLNaW+GsFue+YiUln27rwXb5OEmguIfIkSvv/QBN+184RYfJ2wC02jyiJ8
-	 O1brmWrxr3a7fS6QHoRQiN4Ny4geYJbn++2aCh8HO59YuAlPTOXZVrRaxqLOh54lwbA==
+	t=1794473656;
+	b=y9UrrkW/c4uipgIM0aQUjtWxKqiH1atTjRsA8qsY+etWPzLlj70zx1RUfgIfHpayIMqN
+	 FFxjNx5qHr9W9rbSA7FJJsjpMk8PV9qW9MxaGkImDMo4ztSolxzIG6qcsMOKb9rdqakKQ
+	 oQybPAcWILlzK4qr/scoWYvtvXyQk7d6YXbVZPhI4EkZ14yqr24jOpuVbYl8Yuqw6zblh
+	 BxrKMwXMd9rpbklK7bUD1Bh6gDPs0vHwboEfpJOmDWeole7PfO3q9zyzm9lUcrNMQSMDN
+	 Vxd1hwqRETncztc7Lv+0AcacWuPSycTsejetgkDRduSYeNzkOGyEKdTsyy1jaW+nhkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473329;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=rMeOu3D5UIUffOK5QEWtJFsJJmygCEj1l8jz1HMcCDg=;
-	b=u3yiJECkwm57+ak7EbaS94XZ9d3GdYqVjbhDU7DLmzhakNu8gnC4BJMuZ+jKAbUHPwxF
-	 TbouOaHWl74Xs1E7rXFio9W/LXnamibUZS0wgZkKx2aApb0Qhvs5Hk4JWuYaFSb2CIm57
-	 YxthUUQz0unZu8yrbrfVb+1+sUUe768VFxVbYmDr91Q4us4183nL+T4GdQttCxp0hZ2ea
-	 GTtibiyK7UGJg5EzGBGoiR00LgBtjihUdZjVBxybJhjESVBHV+LBrr+/h9NYUGB7Pm8a3
-	 LcFBpEtmxAV958592r/Tv3bqrUhY92V8iXN+Uj1pm2YzTnyzuQFaUlL+kxWMhWPDt9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473656;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=v9ksNp+RvMBYbN46k8kUwVWmrxWA39ceETTXWzBueLs=;
+	b=W0YQmUy6REqNtlDrc/K48+aafNtC/tjrM0rCW1Z5vP0NZ7q38rByajCHNRIzPmIjlKTf
+	 /21FuWnqzx5pBX8poTn+qUj55rlIa8jDU4iUbEBQ4+KiNqGxZn2gBgND2qiU377O4nsNh
+	 Pv6A9+PTciMJuBp8o/rX6pDJcpZ2J+I171jzeM6buj4pR2/zd4LNTdMg8aBVR9fSTOCyM
+	 0OZZ39sNSzbnI+sbaLdPclvs01NVxB+MYlelMCQ08/nznIlGpEH2R8x2C1JRzCza0kxt6
+	 PrI7Hj7FYsfkZxob6TW/y8alaGFzzIUBH7E8BUQkWhC/shOkKRflyVpFUxzqbooXcXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ye2PRitO;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XqxDc4eF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E017C606B724;
-	Thu, 12 Nov 2026 08:48:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E017C606B724
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E15606A33C;
+	Thu, 12 Nov 2026 08:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ye2PRitO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794473328; x=1826009328;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TWyaHMDVhhjb9ykYBpeMB8jZeSr1eOXOZGxooPVYyqM=;
-  b=Ye2PRitOPNaxDh5U3CBHtNrIArq6v/4cG52MfDRfQfbhKGF7AciFRmN4
-   AAheVpk/pEjiFWNAV9hH/YQscQBBiqEmODfAdUKW9w9sSAdBsbJVdpH0P
-   t6YtLcGSqxe00EFB8uiE5KvONkiBOUeMCbKfIlBiZzUDoCic9RiMAj6Co
-   w3Id29bVE440bMpTyFjRFo8d3hAQT2E4qVcYvF3aA7zUX3stKs9SIjdyt
-   POJ33rLDwur4hKORZYHib/dDWTqCDyfG39ePM2LVEZUR9zTHREUQ63sCU
-   9f0PTELB9bM9MW8m8Y9dmAo6dHzJT+H9j4M66Um9lQYzLdAxZ7tvE/1ED
-   A==;
-X-CSE-ConnectionGUID: osX9SXbRQnWTe9TOJtTgUg==
-X-CSE-MsgGUID: qzTzN/UJTU6ABt8qI/IyTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3282100"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3282100"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 00:48:48 -0800
-X-CSE-ConnectionGUID: AuCZfg+0QyGiUbwpEgwsfg==
-X-CSE-MsgGUID: PD8x8q1LS7yz4y5HbPARZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8474108"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa005.jf.intel.com with ESMTP; 12 Nov 2026 00:48:47 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id E62DD99; Thu, 12 Nov 2026 09:48:45 +0100 (CET)
-Date: Thu, 12 Nov 2026 09:48:45 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: Update I2C Designware driver maintainer
-Message-ID: <avV9bVJxKOlDUWXy@black.igk.intel.com>
-References: <20261111122808.1302491-1-mika.westerberg@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XqxDc4eF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804241F00A0C;
+	Thu, 12 Nov 2026 08:54:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794473655;
+	bh=v9ksNp+RvMBYbN46k8kUwVWmrxWA39ceETTXWzBueLs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XqxDc4eF03kzcZzrw6EYo/qUCU2Biyb9dJIk1YyLYXx214hTHv3224bFXdWHXwkSS
+	 0oHHOP7UQflqWOOZy7Z2wKy7hj94QhvSlN2NLjI8Rx69tBOS81kEiQaVg6dOdMKEHr
+	 orZAcXlK+8E2OxytG6rsiqXJs4OpaRq1dx1OBvdn6frwNdp1Ra61/4TKdkpltRMiDW
+	 crTjQkWkmzruBIcg9b7FplZ0E0B9Iv17VHweZS+216hRp90RMtjVEiZfAPPzAlh+f5
+	 HgfGs4s51/glELNb4EXy8P/wYpjSqAK0OD/AsZXhNhNhaLQrsH8BXwJBeWe34+20G4
+	 pemzgHYli2Rhg==
+Message-ID: <sashiko-outbox-210797@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/4] dt-bindings: PCI: qcom: document the Shikra PCIe
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linghui Wu" <linghui.wu@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112083355.3884737-2-linghui.wu@oss.qualcomm.com>
+References: <20261112083355.3884737-1-linghui.wu@oss.qualcomm.com>
+ <20261112083355.3884737-2-linghui.wu@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 08:54:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,54 +60,147 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111122808.1302491-1-mika.westerberg@linux.intel.com>
 
-On Wed, Nov 11, 2026 at 01:28:08PM +0100, Mika Westerberg wrote:
-> My @linux.intel.com address will be going away soon and I won't have
-> access to the Synopsys datasheets anymore. Heikki kindly agreed to take
-> over this driver.
-> 
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [Low] dt-bindings: PCI: qcom: legacy qcom,IP-SoC compatible order for
+  Shikra
+- [Low] dt-bindings: PCI: qcom: wrong interconnect slave and tags in
+  Shikra example
+- [Low] dt-bindings: PCI: qcom: dt-check-style strict violations in
+  Shikra example
+- [Low] dt-bindings: PCI: qcom: inactive maintainer email in
+  qcom,pcie-shikra.yaml
+--
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+commit 283a34a0a4cfab50d007b36100271b61fd8ac267
+Author: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-> ---
->  Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml | 2 +-
->  MAINTAINERS                                                    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
-> index a73e2a6e0833..56430a35e5d5 100644
-> --- a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Synopsys DesignWare APB I2C Controller
->  
->  maintainers:
-> -  - Mika Westerberg <mika.westerberg@linux.intel.com>
-> +  - Heikki Krogerus <heikki.krogerus@linux.intel.com>
->  
->  allOf:
->    - $ref: /schemas/i2c/i2c-controller.yaml#
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index efbef2cad7fd..c2a273dd2310 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27261,7 +27261,7 @@ F:	Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
->  F:	drivers/media/platform/synopsys/hdmirx/*
->  
->  SYNOPSYS DESIGNWARE I2C DRIVER
-> -M:	Mika Westerberg <mika.westerberg@linux.intel.com>
-> +M:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
->  R:	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->  L:	linux-i2c@vger.kernel.org
->  S:	Supported
-> -- 
-> 2.50.1
+dt-bindings: PCI: qcom: document the Shikra PCIe controller
 
--- 
-heikki
+This commit adds a Devicetree binding schema for the Qualcomm Shikra PCIe
+root complex controller and registers its compatible string in
+qcom-soc.yaml.
+
+> diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Docume=
+ntation/devicetree/bindings/arm/qcom-soc.yaml
+> index 179aadc86a9f0..72e0f1a824c69 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+> @@ -43,6 +43,7 @@ properties:
+>          - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
+>          - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
+>          - pattern: "^qcom,(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|=
+milos|nord|shikra)-.+$"
+> +        - const: qcom,pcie-shikra
+> =20
+>          # Legacy namings - variations of existing patterns/compatibles a=
+re OK,
+>          # but do not add completely new entries to these:
+
+[Severity: Low]
+Should this new binding use the qcom,SoC-IP naming order (qcom,shikra-pcie
+and qcom,shikra-pcie.yaml) instead of legacy qcom,IP-SoC?
+
+Documentation/devicetree/bindings/arm/qcom-soc.yaml requires new bindings
+to use the qcom,SoC-IP format, and the pattern immediately above already
+matches qcom,shikra-pcie without needing a one-off exception.  Other Shikra
+bindings (such as qcom,shikra-gcc and qcom,shikra-qmp-gen2x1-pcie-phy) and
+recent codename PCIe bindings (such as qcom,hawi-pcie and qcom,maili-pcie)
+follow this convention.
+
+> diff --git a/Documentation/devicetree/bindings/pci/qcom,pcie-shikra.yaml =
+b/Documentation/devicetree/bindings/pci/qcom,pcie-shikra.yaml
+> new file mode 100644
+> index 0000000000000..69463dae9f183
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pci/qcom,pcie-shikra.yaml
+> @@ -0,0 +1,192 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pci/qcom,pcie-shikra.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Shikra PCI Express Root Complex
+> +
+> +maintainers:
+> +  - Bjorn Andersson <andersson@kernel.org>
+> +  - Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+
+[Severity: Low]
+Should Manivannan Sadhasivam's email address be mani@kernel.org here?
+Commit e3d7fda088c3 ("dt-bindings: PCI: Update the email address for
+Manivannan Sadhasivam") replaced the inactive linaro.org address across
+the PCI bindings.
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,shikra-gcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> +    #include <dt-bindings/interconnect/qcom,shikra.h>
+
+[ ... ]
+
+> +                interconnects =3D <&system_noc MASTER_PCIE2_0 QCOM_ICC_T=
+AG_ALWAYS
+> +                                &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWA=
+YS>,
+> +                                <&mem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_A=
+CTIVE_ONLY
+> +                                &config_noc SLAVE_PCIE2_0 QCOM_ICC_TAG_A=
+CTIVE_ONLY>;
+> +
+> +                interconnect-names =3D "pcie-mem", "cpu-pcie";
+
+[Severity: Low]
+Does the cpu-pcie interconnect path point to the wrong slave on config_noc
+and use the wrong interconnect tag macros?
+
+In include/dt-bindings/interconnect/qcom,shikra.h, SLAVE_PCIE2_0 (29) is a
+system_noc slave ID; on config_noc, index 29 is SLAVE_PKA_WRAPPER_CFG
+(&qhs_pka_wrapper in drivers/interconnect/qcom/shikra.c), while the PCIe
+config slave on config_noc is SLAVE_PCIE_CFG (26).
+
+In addition, Shikra uses the SMD-RPM interconnect driver
+(drivers/interconnect/qcom/icc-rpm.c) and
+dt-bindings/interconnect/qcom,rpm-icc.h.  Passing QCOM_ICC_TAG_ACTIVE_ONLY
+(0x3) from qcom,icc.h sets both RPM_ACTIVE_TAG (0x1) and RPM_SLEEP_TAG
+(0x2), causing qcom_icc_bw_aggregate() to vote for both active and sleep
+states instead of active only.
+
+> +
+> +                iommu-map =3D <0x0 &apps_smmu 0x800 0x1>,
+> +                            <0x100 &apps_smmu 0x801 0x1>;
+> +
+> +                resets =3D <&gcc GCC_PCIE_BCR>;
+> +                reset-names =3D "pci";
+> +
+> +                power-domains =3D <&gcc GCC_PCIE_GDSC>;
+> +
+> +                max-link-speed =3D <2>;
+> +        };
+> +
+> +    };
+
+[Severity: Low]
+The example triggers several scripts/dtc/dt-check-style --mode=3Dstrict
+warnings:
+
+- pcie@45e8000 has an unused pcie: label.
+- Properties inside pcie@45e8000 are indented by 8 spaces instead of 4
+  spaces relative to the node, which also pushes several lines past 80
+  columns.
+- ranges is placed after #address-cells and #size-cells, and standard
+  properties such as num-lanes are placed after the vendor-prefixed
+  linux,pci-domain property.
+- Continuation lines inside interconnects are aligned with the opening '<'
+  instead of the first cell value after '<'.
+- There is a trailing blank line before the closing brace of the soc node.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112083355.3884=
+737-1-linghui.wu@oss.qualcomm.com?part=3D1
