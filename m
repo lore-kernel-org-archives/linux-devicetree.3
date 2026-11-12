@@ -1,72 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794505687;
-	b=FPR/PKEn8K9BjZ5IuOas962fjIRuVuE0EoyHoBRqPGUUnZoRGmVZSntxele9WZ5ZmENr
-	 hI/rxSJ70nZYnjYjHBi6wwJnIp28CXooJzyRuemM3QgGdGlpeurgNGeh33em0HBL7kSZ2
-	 yTGtMhguD+R0q1CDMQrxsLAMx8Dov3sxXP0fmRCcNoaTqIxzrprIkKmUHvMg7jZkBbPKK
-	 wUwhtIKUkSeX+sQfCnkg9ervE+v6+4Nk5I8KkpHHg4XPi5eIF8cVc2YBplRI5oHoJ5qhX
-	 A88zOB8Fry9/OGgkKg+Nef9Ac9axItpInZJAxIsJMo1j5UUfHMtDy3JzZYsBvYTBorA==
+	t=1794505899;
+	b=fxJ5QnVZDp8QsNKqNCuOXeg1nZry1Qou2UxdflhTWZs3jUpDqgMSRbLNBmHJ8Ev99BPZ
+	 wE2orz4NU/qowI4M+IJsoUVljY1M832Xo/C1e2elg3Xgb+B8LnNpaWZWlbxNGoZUKvkG+
+	 CEUHgKBg3NCDr9uiIqYmUPaamOZRg3BikCx5uc/4kQTBL+HQH1azZrDb0s5PNscTn0j5m
+	 iq07DTVBaytv1zfR/5DqDkPA5k1om5qL9fulUvXDFM3FtdBCJq74+R9vaIta3eV0LJHZG
+	 Xxa8dbg/xt/HcBlYhCGFa6xAwYGNynfMq5VGYsOppr78BbGfeSatc9GhD0JXVn9RvIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505687;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dJGiQetIHbX3as0TuDaMvVbVCAeT6MoF+8H6BEDLMFQ=;
-	b=4hCtX5r31DEuf2i1Cyw3lLAfpm8j6IT5EL67v2R8bLVjq08tYkr+WwJnxcoIOW/R5Fo6
-	 80AFSFWo5G5K14Is4JVkStwsV3WSxN9QIvZuaDe0Q5oHbD4t7yCg7TnXxZWI+wGHy9X0G
-	 Ce0reI14MZu5c0Y2OLl0p+IlcH9DAkMOU1jNRQhYZGIcJgauAJvuWuojmh3D8/sUYrgQM
-	 bgLDFd+3voRIx7H+ARLF/PFiFfoXPtq7TnrWaUNuqmxa/tHKZuu6MSikSFpMrJh+fpNQM
-	 tsTqEW31cg+5sBBtOpHO5y+HX78EUXGIIGIS/TeVCkb/+I7j/+/8uOKvrI9rVra3Lzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
+	b=WGtsZw3DnJb3994jmnkwxg2wi+FploqVflvA2Eq26itkBLs/Pou2BzZkuyjZgbDAR+vb
+	 LQtOAKCB1Y2MXgSKMLRYYFPDT+bbLV0CGfL8U926atXAS5cuep/FjubMsU2PXA129+wjC
+	 sKKTCAtEX689CUQBYs2q2QA9fWWpKwFcWSaGyaWhcibGlO01alFZ1yblgXf236JD3uuC8
+	 u4LkWsAcTS+1yYqttQP/XsqIRXsxcoOuEWoNmwetaOxwOBKkzpQBdK3BeQZ6ZRJ0W8avu
+	 oixUsBtif65/q/dL4RfNV0poXN38dweepcVWL9xJGjV5edtYlW0XT2MQeI57EN0qTcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQ8uJbK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYGQnnHL;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4725E606A327
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E33606A323
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E33606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQ8uJbK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DCA1F000C4;
-	Thu, 12 Nov 2026 17:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794505687;
-	bh=dJGiQetIHbX3as0TuDaMvVbVCAeT6MoF+8H6BEDLMFQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=anQ8uJbK8rPg585XVLaNrJkPYarEORnUTJwMzHfRUoE9iLw/md2ZNg/Qu7P7KucXS
-	 UH3FsxQWthpGXaKvGJRc9x+68SImM5CwX1R08wUgwddecPu6cYOpWwGaJ+vRs2xnyU
-	 3d2s1cdRDBV3q+5N+HN3+Ulk4FDerSNlImbKorsF4pFEZo4M72UCP2XPX9ImKSB7DD
-	 TcsxksvFkHLXDwKQWWQvAzxA80z+/YDnCGq6zMw0pFCttcLaN3Ul7ZYetDHriS+FZd
-	 zMtwh8qy5DVJOg6iUvH+9W1p0gilWBZu5xDTNXIhJK0yM2aMs+EmySqNit+zVQDt08
-	 +Rwu0L9ri857g==
-Date: Thu, 12 Nov 2026 17:48:00 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Cc: "alex@ghiti.fr" <alex@ghiti.fr>,
-	"anup@brainfault.org" <anup@brainfault.org>,
-	"asrinivasan@oss.tenstorrent.com" <asrinivasan@oss.tenstorrent.com>,
-	"chen.wang@linux.dev" <chen.wang@linux.dev>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"dlan@kernel.org" <dlan@kernel.org>,
-	"fustini@kernel.org" <fustini@kernel.org>,
-	"guoren@kernel.org" <guoren@kernel.org>,
-	"inochiama@gmail.com" <inochiama@gmail.com>,
-	"joel@jms.id.au" <joel@jms.id.au>,
-	"junhui.liu@pigmoral.tech" <junhui.liu@pigmoral.tech>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"mpe@kernel.org" <mpe@kernel.org>,
-	"npiggin@gmail.com" <npiggin@gmail.com>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"tglx@kernel.org" <tglx@kernel.org>
-Subject: Re: [PATCH v3 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer
- bindings
-Message-ID: <20261112-nutty-sculpture-79ef0610ab4f@spud>
-References: <20261111-paralyze-ellipse-dfc194dbe39f@spud>
- <1605ed3f-8078-4ea6-a3a5-b4a3227c0961@htecgroup.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYGQnnHL
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3719e3cb82bso16521eec.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:51:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794505898; x=1795110698; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
+        b=yYGQnnHLNjRjFwShlE2IOVRkXRmHyVnARUO+zC0acUnBWnv3O4iH2uz3OaXdDxBMxx
+         Vfu3DADmmwaG0+a2PYRTZiA0cb6Hya5GgZ7PVno5tcog8X5KH8BZypFtYZGQUl0hMmsS
+         L/MbTg5TgzSVEoj2S4hRL5SrGjcpiaBCPOP/G3w5P8ivQw7Dn896G0MSUEa8g8BXsqim
+         kA5sCS7E0CixFpkXsIhQXmI8meqn6CCeMWD6QDVoZOsOqZuvlqkx6MWf+1NxWQw9Zs8T
+         N/4CwmxiPvVIl5uDs7GHz1qZRlAxUq87ua0jOl7bHEmrg3EEwLiW610R5Rtqic17oR74
+         YKbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794505898; x=1795110698;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
+        b=rdA1w84HDF+z3knfSPhFrLv1hVEkTlESx/nFKRq+CIYWTmKRI7BoLA4+Vm8gu0fL4j
+         HMFMU3ykscTzJe+GPehLQjNiw30ILhfnNV1A5+fdLcAi50WRyAsZHcEygHAvmNhVO9t/
+         q3RfvCqUE1d7pxjJD7W62HpUAdNvEykKjUsDumvstWpDGuGPRHYSyt14t+UMx+2HHTPt
+         sZOsSObM8nwUF36+mjLEiJ3LiWmMUIVeNRzCRWLPKvgIMdWVssmq+IAFVob3qW2bEQ20
+         Dy0pInx3dYJCOfY7DuGwanLO/dDQmDLORjDQfSrJgIYWNlMYbzeaF5j7b/rRpdyvs9TB
+         UHhw==
+X-Gm-Message-State: APuU4Z+xZh1fAci88djibIRebRKJK8W80VRW8VXLcPjFmOydh3drnlwV
+	7uccimQQuDETQhgo9h4BkXmoJg/plELM/dffIbAIbg7FRjL2t1Rp/kbi
+X-Gm-Gg: AYBFou3USBBMHdsZJ4kVjoD/nqsHDqR7etZUaaJPs3YNJXzql4A0MduXMHV9SG37scT
+	xywmvdeBveJmqIgvIS2/6cOKW1ogU+fpxKtqjOcW9UEsSYkJmtt60l+BU4wYbfg380kY73ITMGd
+	BqBVvMcJnAlO+5cjk+QaqIA4eetVD0b2roqQfJRSCU+krrS1VlIK1mTP1+AR7Fc9Aj+Q+3tH4uN
+	Xh3oEh30XFEdrIgcA5r5qJQh9WUCOwZTJC/GOLvg8ayLk77pXSxaFHp2NiPbcbVSkbbQETO68Ok
+	5fUjdi+TF7XHKigrYOCcgFvAnegoMW2xxceqHIf697vmGRDx1g0s7nrHhgPsH1KeDrNCgK0kFIy
+	rp3e8fEW7bc18hgaQdFysnx+hhk8vatess7x6J1ZYvDY1troFmGzvfeuoqB9Bz6fqkKH+6/lNV9
+	wds3Vrqbow9XYBDvOZvmKAsqQgbWMTEh3lUaW6CJgN0cr3+lPerPkNsAS0IldISNCy28pbVpUm8
+	RboLKQgadvg9wQFBXUnvxniVjpssAN+E0+S8bbDnu36oRgaenTGxboX5GgeeNogf2UFwDXESVj1
+	IiC0a+u3Gu3vilxTt8qs7xI71srFYf7n+2a3/g==
+X-Received: by 2002:a05:693c:20cd:20b0:375:f846:5b3f with SMTP id 5a478bee46e88-3767fe8f34bmr9670635eec.0.1794505890231;
+        Thu, 12 Nov 2026 09:51:30 -0800 (PST)
+Received: from [192.168.1.4] ([2401:4900:881d:321d:eb39:71d3:15f6:5fe0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm237865eec.21.2026.11.12.09.51.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:51:29 -0800 (PST)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v3 0/3] dt-bindings: bus: omap-l3: Convert to DT schema
+Date: Thu, 12 Nov 2026 23:21:20 +0530
+Message-Id: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,44 +91,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zmXmMzYYtSgWjbEt"
-Content-Disposition: inline
-In-Reply-To: <1605ed3f-8078-4ea6-a3a5-b4a3227c0961@htecgroup.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02Nyw7CIBQFf6Vh7TU8rAFX/odxQS/QYmoxUImm6
+ b9baoxdTnJmzkSSjd4mcqomEm32yYdhAbGrCHZ6aC14szDhlB8ZpRxGD72AISBwaRxqyZzBmiz
+ 7R7TOv9bW5frl9GxuFscSKIvOpzHE93qWWdn9umLTzQwYqMYwiRqFsOrc3rXv9xjupHQz/5uMq
+ q3JgUJNlZUHWWvmxNac5/kDnnpZFe4AAAA=
+X-Change-ID: 20261002-ti-l3-noc-28dfca81fdc5
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Santosh Shilimkar <santosh.shilimkar@ti.com>, 
+ Sricharan R <r.sricharan@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com, linux-omap@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794505884; l=1687;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=TVUUWGiB0r3bg0BiSKSrtHKyzz1fTiSm8J5D5VjMdbM=;
+ b=j4ViMz3Xe/DKIXBX0OiFHV3H4AaAeqciPcJf7/6rwiei4dIrMfFiPBGN9AWPQmSXK8+LRpZIJ
+ JQUDgNALrsPAVoJ5IGNxcNGCp8KvA/0aNky4nELThs4Ck3/4Za96Jun
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
---zmXmMzYYtSgWjbEt
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series converts the TI OMAP L3 binding from text to DT schema.
 
-On Thu, Nov 12, 2026 at 03:44:24PM +0000, Aleksa Paunovic wrote:
+The text binding grouped OMAP3 (SMX IP) and OMAP4+ (Arteris NoC IP)
+together. split into two schemas because OMAP3 (SMX) and OMAP4+ (Arteris
+NoC) are different hardware IPs.
 
-> >>> MIPS has it, as per their patch[2]:
-> >>>
-> >>>  - gf,mips-p8700-aclint-mtimer
-> >>>
-> >>> Note that MIPS have mips,p8700-aclint-mtimer in opensbi.
-> > /sigh. Aleksa, can we sort this out please as part of whatever revision
-> > is made to the mtimer patch in your series?
-> Right. I was hoping to address this in a separate OpenSBI series
-> by extending the corresponding drivers with the new gf,p8700-* compatible=
-s,
-> without touching the mips,p8700 ones that are currently in use. Does that=
- work?=A0
+- patch 1 adds a missing unit address to the ABB regulator node in the
+  OMAP36xx devicetree to fix a validation warning. 
+- patch 2 converts OMAP3 L3 SMX interconnect.
+- patch 3 converts the OMAP4+ L3 NoC interconnect.
 
-Pretty sure that Rob said not to add the "gf,mips" compatibles for
-things that had "mips," ones already and I would put this in that
-category.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v3:
+- Split bidning into two SMX and NOC variants.
+- Fix reg maxItems to 2 for ti,dra7-l3-noc L3_MAIN_2 is a submodule of
+  L3_MAIN_1.
+- Link to v2: https://lore.kernel.org/r/20261109-ti-l3-noc-v2-0-509e8485a1f3@gmail.com
 
---zmXmMzYYtSgWjbEt
-Content-Type: application/pgp-signature; name=signature.asc
+Changes in v2:
+- Move binding to bindings/bus/
+- Rebase to latest mainline rc
+- Add unit address to regulator-abb-mpu node
+- Link to v1: https://lore.kernel.org/r/20261003-ti-l3-noc-v1-1-9bd18cac33e9@gmail.com
 
------BEGIN PGP SIGNATURE-----
+---
+Bhargav Joshi (3):
+      ARM: dts: omap36xx: Add unit address to ABB regulator node
+      dt-bindings: bus: ti,omap3-l3-smx: Convert to DT schema
+      dt-bindings: bus: ti,omap-l3-noc: Convert to DT schema
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavX7zQAKCRB4tDGHoIJi
-0nbAAP9WAex5D/k3nhtu5yovuBxVX6b+28SKurpmeRZBcoJL/wEAwnhPWFVHHAF7
-IFlKj4079gOnDxMitVEtHvPcOupclQk=
-=E7RY
------END PGP SIGNATURE-----
+ .../devicetree/bindings/arm/omap/l3-noc.txt        | 23 -------
+ .../devicetree/bindings/bus/ti,omap-l3-noc.yaml    | 71 ++++++++++++++++++++++
+ .../devicetree/bindings/bus/ti,omap3-l3-smx.yaml   | 68 +++++++++++++++++++++
+ arch/arm/boot/dts/ti/omap/omap36xx.dtsi            |  2 +-
+ 4 files changed, 140 insertions(+), 24 deletions(-)
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+change-id: 20261002-ti-l3-noc-28dfca81fdc5
 
---zmXmMzYYtSgWjbEt--
+Best regards,
+-- 
+Bhargav
+
