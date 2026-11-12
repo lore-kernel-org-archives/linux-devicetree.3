@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475019;
-	b=3PmWKOnafxccsz841cSgUFIjZVQofi4VJokfPie+0Hj9o3JZuSWT0suKCsyiOT1W978G
-	 UNjkiBP2HEEzPCRjcrChsmIYjdOdxFGgNr/Zq2pluRpR+8kVYEt/mWMYE0wDtxAql7jSa
-	 fFogHEhBy86dF11nE2cdVux4eUv0Ub3JgU3AYb9AkNb1+ebYMUXLsyb/Mk3J1f0KF5Kca
-	 KqiwvLQJhEfF6R9IPu/+jBIrmPbx2o86VecO9C8yRMH9GlV6KQUCegnVBHOh0NjQB0wrJ
-	 5Ep07BjiJJyzsoA1rCW1vKLS6TZcF8TU4/3yl2cy9ltfv41Y8Fjn8KFnq6NBWx9uovg==
+	t=1794475166;
+	b=LE9QTxeh6dIDQhJgtjP6ebXJz5W3rsSrbUEv/5cyIgMP1hkpzrFHklJM7JpX8rP3CkHb
+	 Mt6f52jg9rn3WXNukVDz3l/+lVsxn5h/iOONA4XaXeINlSiMCzYx0ujifjGtJHKuiH9uC
+	 6qixY41BnXanB83bbWcP4OsYiUJYWcppiRI8xOY2VYvnYg8OEGAz/F1x/hIJV3RzE5Jxf
+	 q7wPJS8fsZHViIul2SEo9r3P/niWKaa0JZZSp7BgtTcUAFexQcfU7h7q28u+Z1HkIKAxP
+	 bm+Zvo/kT2yD2MdimcB3WM9Xt0wm6DXKEV+oYfBfGKAZOMJKxpIOyNeod2JvDK5s6VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475019;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=N2P6nDd9tifAxlLFJmiQ99UaxUAK1441F1X72vcKcaA=;
-	b=bdcjv4QoAO3dPKO7JrZIVrpKTTuCVNTnl2HUUQZfmDBOdZHtPWHZmJf4JbrB1KExUp86
-	 /z0MoUFriEx9z+70SDCpEWejblvXbTfFPznh272gVN7OUeOSvJ4l5lUc4tGIC2TOPG2yi
-	 H//mJ3FH7KxEceTAZOTqzNnYmOgk4eXcYqMA6vi52r9M1+BODH7rM0VK9KX67fem45PEK
-	 /34BXWMDS5KR4w4EbFYKyb/5OtVSTxVrqowRuMk+mopFHVguVopryodq0tL7y+y80I60Y
-	 RgleubF/BgfWOhfVrHKJxz8PaNstFmYGDYsycYo0vm1qYjOJkbHK8ghpnKhVGQ2tLWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475166;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=dC3UN5nQ0VVQelkT4iy17nz3pU/SY/d79wQNA1v+0cE=;
+	b=1th6XpJt+sJ+QkQq7Ygnn+/R2Jqu9phqQ+HSIR/XzkjQ/1pXPPzHTUtq//smDp7PukRN
+	 R2eHmyW7T/73ywMj4O9+6MjM6kfxKebS2gW+GwexmyploAOBe38qV1d1yLvVucXXxJoav
+	 g2aHYI7Dhg4pG0mrj8NPQA7kWfukbSjgLwctQcmxct+MpBNVh4DzgkUksgIyAdWmQMj/q
+	 wl/P+UGElPwmo6PapzfNkkEdluTbuIkNecdkyxuP6vTAt5jI/Ws4UQiqa0S5s/mH0qdFN
+	 c+xQKPChyLsVvIc7vqYdM4S+66d3GNKg0iCUiNV5XF1oO3hpcIcw3hm8Q8+v6tFxSiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VM83kiH7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RTsoKJL7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvJm3gBa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FA4606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:16:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38FA4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147DF606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VM83kiH7;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RTsoKJL7
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC92vNf4092872
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:16:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	N2P6nDd9tifAxlLFJmiQ99UaxUAK1441F1X72vcKcaA=; b=VM83kiH7iyLX/Hbk
-	yxYV/l/fERM25JjD0j6/Xgd9GGvK++07mWI8dPt5k91y7Ygw1O/FRD4CzEPq5ikn
-	yKLpFuodDY/Vh4pMIP2JNB7Fm7Y06jdOBCrzqKXWaYsvZr3D+RV2m7eWGn9tOxJ2
-	464MA5QDr6z0cDzH/Xa9pSoryt2FT3C6NqpQdeWle+Bi6WZY47EmKPyzYKBhoueV
-	wtHut9adM6PBB75/XE5MkqTz8qfIrhQ3o+cQahjhk8l3pWVsSc/oFQLswV1MrItX
-	aZkxxR4ggvfVhyh++jn/3FQINAYft2x1o0djkYCTs1AuIDw5YKYGCgKoxAABGcID
-	luWqYA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8j4r7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:16:58 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5362ce9df1eso4138831cf.2
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:16:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794475018; x=1795079818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N2P6nDd9tifAxlLFJmiQ99UaxUAK1441F1X72vcKcaA=;
-        b=RTsoKJL7GfN3fbldcW5qwgsnoRtB9UVcbNv68XtJcHDyicbaV7uJrQ4Y5aGz0Xu/7H
-         TL3wDkuqv3aSxtfb0RGni4bkJ5ko7bAOtZJKXtRvJs5BGVEVR8Tk/u8E0F4EX9EMGauv
-         7VpVxDBXW6K4vQP2ukf1A0eXG0+CCf3LDx86GdF6NARhT4sK2rbzHwIp8y8PpQRugWG/
-         kSTmkFE/GD50Q4o8T2xM7CxMrYRDg8JOaY7NkEr08sXTeWxUFzNywtmmo6ZEkO33r7F8
-         tFj+M6kgLcxxDijN3Qd0maMR4IQ5tsKhswFI0dA7ohg2PWQwQyY4YjXBQmxQ48bdHvPw
-         cUOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794475018; x=1795079818;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N2P6nDd9tifAxlLFJmiQ99UaxUAK1441F1X72vcKcaA=;
-        b=wi0mYz6EDIyq+WGKg8LrRgqhA4Y2jkrZpjP2gQZndHOwDHbrYZOjKUyaaZIdfPkMns
-         zEVUhQrG5YEDCfb9Qgq/k0YwUUm0YMzTTuTKVQi6saz7xQZVaQ17eXJNPMHIZr7XEjsR
-         eW52UDilv3Ape61UcHejc37SGBdzwYIeAIpL6rAFdeSf9DaDVDVIqVHwARNwVEa2YJYR
-         JaMMN5dyC/kfFApZZtLWDbVN+BnMW3BpFkbvXg7+A+IBIPTzubdNOwHh92YJUycc7QO/
-         6yVNCvVggzYPWd6nHp8Bcyc14NzxbSafz8MY7TWBDrxTJ/el+MOxnHG0rRPLoUDBeK9k
-         a8Dg==
-X-Forwarded-Encrypted: i=1; AL+hErGy+/DLcgo8MEzIYap/o/Cs/S/lzC3Ev+vIPt+p8EQ4UeEUfLzDSTiTwc3OUtCLfh4UcYfB2EVucvr2@vger.kernel.org
-X-Gm-Message-State: APuU4Z8E5UfKbv/eH5fp+f/UowlkGZnKZWwYdmyyemOGHYgCXbZJ0AOW
-	UC0lsSIIfPFhDiaDb5yoVcc67D+quJ52X6Cl+AB23iDOIErhi4H64khGPUYk4cy96veEQNUVLxN
-	m3kg4pnAbAQVe1OFMirwRoWQewWuDAHADxULIJJNtkMahGeayv5OJTIPucWnD+Ou8
-X-Gm-Gg: AYBFou3TU8TfCLkOfYjUmzsOYYO9kr0RnubEtXH/guzLK5K9RJSwC00RbUprwcJRWOH
-	yIcbPIFQCr9COqvXg/7e9LKtv2dOIWF1pooDkrVn9hYDXCBeosXwbl9Iiyebyo9YOEPobEPvsme
-	HS5SdJa6QctfsfnqeLDJzq8gYRmqf4K0c4TSZj6s3f+gnvySeyYtAen1H1Npss+K1b6vdomjbEL
-	UMoYPY7jiEig8BE+LsXBcwosdTMt3MGXGCe+MB3D0m6CiY8n0pzYmVKKmCFxtOMu434+UHG5AlH
-	yoNvHb4yA/nZrp2cmj1nTh6pW8QUjHptvAYawlGszS4fGNEbbjTOE54b8eQyzJAXfF4UpSwCFyn
-	fQIk9who7ESD7+K0QFmhZXkxFUzI1VOsiOv40iUpBIXlSloSZoSva9Of+L2PZJiJMPPCTh6Y=
-X-Received: by 2002:a05:622a:e48a:10b0:54d:42f2:78cd with SMTP id d75a77b69052e-556bade17afmr78818501cf.0.1794475017588;
-        Thu, 12 Nov 2026 01:16:57 -0800 (PST)
-X-Received: by 2002:a05:622a:e48a:10b0:54d:42f2:78cd with SMTP id d75a77b69052e-556bade17afmr78818331cf.0.1794475017160;
-        Thu, 12 Nov 2026 01:16:57 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a693e82sm318371066b.83.2026.11.12.01.16.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:16:56 -0800 (PST)
-Message-ID: <897d7742-fc16-466a-8a3d-985292431fb5@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 10:16:53 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvJm3gBa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760421F00A05;
+	Thu, 12 Nov 2026 09:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794475165;
+	bh=dC3UN5nQ0VVQelkT4iy17nz3pU/SY/d79wQNA1v+0cE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kvJm3gBa3cYuwQFLuc/w94vvr9LZucx8XMZxyAgqkJjoysWmzwyrBilKH9PyVKYri
+	 iAE9R9VE9pslJx9T3QosGh2+n4ImpUsYyAa5JQkku/w8czCmXTlSFZNO0ocMbOQWFK
+	 qWJra5LcCEb3ooFA9g/BJFt5SjmWH6953e19TfOppOq5RZAtC1EYPaedbJdB5+owD2
+	 hUesHWYlJer0HnuyRHg5vGWL7025r/agbxP3iosbc+mhiYq8Y7aUxm2UeW3YZ5+sen
+	 Gu7NzqHlbnu94GR9v6FlMmSX7TbEgzEZWhp7HJ1wh7YH9cxAw0K5DMU/nYokruMWTw
+	 2rt01kpR3GjqQ==
+Message-ID: <sashiko-outbox-210862@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: soc: ti: Document the
+ ti,tda54-mcu-scm-conf
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Moteen Shah" <m-shah@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112091027.1601122-2-m-shah@ti.com>
+References: <20261112091027.1601122-1-m-shah@ti.com>
+ <20261112091027.1601122-2-m-shah@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 09:19:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,82 +60,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] arm64: dts: qcom: nord: Add USB support
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
- <avDL8IzfY1AcDjzY@zenbook>
- <o6t6le343ifmu5w33z55ik473xfynt6urv465xe3bn7hyhmncn@7atsac6o5bwo>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <o6t6le343ifmu5w33z55ik473xfynt6urv465xe3bn7hyhmncn@7atsac6o5bwo>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX140gD2Sl4hwz
- QwS1cswShnSePrCXXO58janZtmd2J1imkW2KPGaUJNz0v1O1RZ5TfcVhzAqZB+wvT+J6EYMmlzT
- RIZtSzRowWcfTXv0S1h7LXONGd0b7wI=
-X-Proofpoint-GUID: bQduTtv1i0My9Dsc-NnTJppMrSJvTQyM
-X-Proofpoint-ORIG-GUID: bQduTtv1i0My9Dsc-NnTJppMrSJvTQyM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX2dlIz7CMFDrT
- a19fz1rL1SI7SCR3ymNGLkBv3OU4XOhgJHjefZyZYg/vzeuTMI98D3CGsTo4e6KBaHF8qzSCekW
- zkbbyVwByF5LjFU2VdWYelFZPcqG3LEi0LimCsUQAO9mG2rGrXBHkYJHaEtiMC05VxjVi60N+OB
- hHGGtkkTuq4uyT9+K5t9P68V7n5baAdI+0IKjIoZxmGV40Nvff/2T/KZk66OdqnRfoeh53t7Y27
- DVY/JqkJapIGEBNP85SkSRCuuHHdCe28WbR4E4Qd1pz632jWdDpx+i4WD9J11f43/Y+9sr7Y+AO
- fC26iydo2NaD35K0tRNIJ0BeqF9DnTbPxym811KjPnh4wAmciBfv6NhLSzSSGuRom8oc8AoHBrw
- +OYMKfVXi2PMZ7jfyNqhUH1bbw4KWOrWwObye8Hd2khximknYETpO16aFdHvnqHxE2YTdHHd6DL
- r2ew8xua83Ike6hzKLw==
-X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af5840a cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TCVveBvLx2__rFtw55MA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120036
 
-On 11/12/26 10:15 AM, Bartosz Golaszewski wrote:
-> On Sun, Nov 08, 2026 at 01:23:18PM -0600, Bjorn Andersson wrote:
->> On Tue, Oct 13, 2026 at 01:34:45PM +0200, Bartosz Golaszewski wrote:
->>> Note: This is v7.4 material and depends on several patches that are
->>> still not in linux-next. Sending it out to solicit reviews.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: soc: ti: unresolved maintainer objection to
+  ti,proxy-id
+--
 
-[...]
+commit 5a8bd1f31bfabd409d005d1090df37a55a89dc38
+Author: Moteen Shah <m-shah@ti.com>
 
->>> Dependencies:
->>> - PMIC DTS: https://lore.kernel.org/all/20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com/
->>> - FUSB15201: https://lore.kernel.org/all/20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com/
->>> - USB PHY clock fix: https://lore.kernel.org/all/20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com/
->>>
->>
->> Figured you resubmitted this because the external dependencies was
->> settled. Apparently not, so I had to back this out again after applying
->> it.
->>
->> Please resubmit once the dependencies are in linux-next.
->>
-> 
-> The only thing left is the FUSB15201 series and it's only a run-time and
-> dtbs_check-time dependency. Can we proceed with this or do the repeater
-> bindings need to go first?
+dt-bindings: soc: ti: Document the ti,tda54-mcu-scm-conf
 
-We could pick it like that, but Krzysztof would reject the arm-soc PR.
+This commit adds a Device Tree binding schema for the Texas Instruments
+TDA54 MCU domain System Control Module configuration register region and
+its clock gates.
 
-Konrad
+> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-co=
+nf.yaml b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.ya=
+ml
+> new file mode 100644
+> index 0000000000000..111cbb739b5f1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+
+[ ... ]
+
+> +  ti,proxy-id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 7
+> +    description:
+> +      Proxy region (0-7) through which this node's clients access
+> +      claimable registers and their fault status registers.
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +    description:
+> +      The cell selects the ePWM time-base clock gate. Values 0 to 12 sel=
+ect
+> +      ehrpwm_tbclk0 to ehrpwm_tbclk12, i.e. the gate for ePWM instance N=
+ is
+> +      specifier N.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ti,proxy-id
+
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v2 [1], is the custom ti,proxy-id
+property needed here instead of the standard access-controllers binding?
+
+For a single device where the full 0x20000 region covering all 8 proxies
+is mapped from reg, the proxy selection does not describe a board-level
+hardware difference, and gating register access per host or VM instance
+duplicates Documentation/devicetree/bindings/access-controllers/access-cont=
+rollers.yaml.
+
+[1] https://lore.kernel.org/r/20261028-inventive-screeching-bettong-9f4240@=
+quoll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112091027.1601=
+122-1-m-shah@ti.com?part=3D1
