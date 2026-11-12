@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794462579;
-	b=4Ce3hE6ht9BSCw+DpzRfm44jvuPVTvGvIzLEpIxBsZSX4fa7QPDJEyO65//f8puXbHTM
-	 hL8x5yesyZlAArCgnoyKQ1cnYP2w2EsXqJPEVzpKjI1YAug2NT+705hER4+E71t2Vmto1
-	 KhVnh/QEi9ez1nB0V0piis/YmSNXx5a8dfZIFxpZ4J4cHUhQC1pxFVUKS73ZHRaYQV/yl
-	 1tdVnEjiq83GETNxWW+CAsewaH6DSJaUORGgkh3IpYXG/cF1I/QXWO2vC2jLWuatmrH2H
-	 WMc8CjAiR1vkyJFto9aKXfkJM/l//j9dqY9lX889MObHdb6dolxZb8UpTOZPhCR2hTg==
+	t=1794464396;
+	b=3dQmTVpOgLBjgEyDrK6nsYPS03CKKDySGbtV289vIpetoLyXuS50P+GjmvLG3RzrFGVk
+	 EGQ/d9IMbZqN5ufrcknnza3IrBUjTrqTdHfCjewzDgRY0qt1ucKtoPlzfd9pVaw6veaof
+	 KfSDEy/sxIno7Gh/KaCwhKf99wSIZhGJgH6006zruTIbejmq2WuqTESSGRbii1qcLK8Eo
+	 odS7wogc/1ZIoFsRhwIbLnjBM+VQE1o9CniXghfBzwKGsAfXmupDCDLBYl7e2VUwXZHxZ
+	 h041zL3ZiTqT7xgMc8/47t7Su+pqg6b1VXhb2bPh513QQZ620RZWxZ2CCh0wVBAvSXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794462579;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RKnhdPpfYsPGdAzz+fqYgf9HUMKULURvacSCcWaXmsc=;
-	b=Z7EKbIaS9MNzSMIQCwhQULxjqnlFXBtQzVaEBHfvjTl8RGI/nZV3svU8Gua5FnUZF3aN
-	 dtzArcWr242+LT1Con/wZTm89i+1bNZfIWvgDZetRnASFEzo+VgxNWKnIFF0QpOqbAY4h
-	 XpitzO8b8MPU5EpEPwBjFvdzbcWwADgtLm2T2++WGtzB/nFgBllpgHwd0WsM6zLISQCUh
-	 EeUrWRzhTCK2yYWjEI/RRlXya4PJ4l4o3waGdZbhwnz9lVPZgk5/sPuIvhKHH7/jhyLHi
-	 oNwRSQvRA5Gg7F39KcnirsMv1c5pRAFEtkZVBcYXr1TwwTuBEw9vnR71G/Bwc8MSmtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464396;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=neSRzhF/d5DoRVpSm0zYWoFxhd17W2VLi2BCLsSsDLI=;
+	b=vjpqzdlGwK6F8piRCwvku0xFKrSFlW57/BtwWjp3pzL01DmefE1arupgSenMs85AqHvQ
+	 vhAPROqoZdwheT4s/eTqrN/ZheLwHP8Kfdh7bXQkFF8JaZEeFm6eVIrHLixGAlVptcEYe
+	 UnVy7C/M3FkhiDa6UAwTnA2WVWDCP25Exl8Z0+1c4xNOVDYsyuw2QKO30VIkLzZq7k/b6
+	 QjoEqGBl+tzsOH+FWxw5TMRKnIL7wKwEk816zKb3mTt6+wRsNGT073Zw8baFJMdUy90ZP
+	 EWOc2GEuodXV5sXMax8vR/QD0WZf5yc1kb1C7uDpTjdCL6HuddnMPNJVkuiE9QmzQlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7HNaqrD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ctjilLN4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227AC606A323
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 05:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AEF606A323;
+	Thu, 12 Nov 2026 06:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7HNaqrD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73661F00A05;
-	Thu, 12 Nov 2026 05:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ctjilLN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1461F00A05;
+	Thu, 12 Nov 2026 06:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794462579;
-	bh=RKnhdPpfYsPGdAzz+fqYgf9HUMKULURvacSCcWaXmsc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y7HNaqrDEfFVm511kZrfRhcHSMWF4LQcRrO3ymTgi/ZoqHAQyFzBPVe+3kta60D59
-	 H9d9tSmqVJcVWfetyEo7DclI/Z6lUCZRmWmG0G3hY7hk0Z22jQA951a3I4fClfGVJ7
-	 Yl4LUszBRCF7FV7BQgyI8NRutTwzWtuSOU9/FV0Dzs3pFU0bNIeqeFfLM1wlNEv7r6
-	 8x60zoIJWqRplv9tECQgwtOQH2PasxFehQhqLDEl4rOEBj+KSaYAN4S/32xm5e1qZ1
-	 vgIVswmGJCdUYiJnvU6eAZxZkSthssKm1+KuNP/YIsWuy3UUMwhhjpzjTc3/0qR7sr
-	 eaPuGjQCGsN3g==
-Message-ID: <sashiko-outbox-210481@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza-mtp: Add WCD9390 USB-SS mux for
- DP alt mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Balaji Kalkonda" <balaji.kalkonda@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261112-eliza-wcd-mux-fix-v1-1-70c521781ac1@oss.qualcomm.com>
-References: <20261112-eliza-wcd-mux-fix-v1-1-70c521781ac1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 05:49:38 +0000
+	s=k20260515; t=1794464396;
+	bh=neSRzhF/d5DoRVpSm0zYWoFxhd17W2VLi2BCLsSsDLI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ctjilLN4RNMv/a6ywxFLBBf5r6QEIHNLpp1KM7XvMCdUS1jm42Geh4MwWtCMcv0F/
+	 Hld0s6yVuD8QDO5X9cVCd1Yd7jOOO09N8Aem4VLDmuJJijAPvcaNh79SwCdYJqBDKc
+	 zlvG3sDlX3ERr3aI/a1q8x4jbCmf9Nm43ddHn5Wz4t3UN6qzNgJc4XzPNiZcx/BfEI
+	 IxjaAJGV85Rp380DY67sc73p3ylzB1l7QSUFUnG1mP68pDzNAf/01z2jmbu7a7IKCs
+	 e1N/HaqV9fPx3AixTRP55vuv0nNPzaidGDCCVCE256iFAeYZAI4rfKt7HD7UUMj+2C
+	 Jt9iQV47EAXIA==
+Date: Thu, 12 Nov 2026 06:19:51 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	=?utf-8?B?RnLDqWTDqXJpYyBNYWjDqQ==?= <frederic.mahe@cirad.fr>,
+	marcel@holtmann.org, luiz.dentz@gmail.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, anarsoul@gmail.com,
+	alistair@alistair23.me, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Bluetooth for the RTL8852BS on BPI-F3
+Message-ID: <20261112061951-GKA62271@kernel.org>
+References: <20261111094557.443481-1-frederic.mahe@cirad.fr>
+ <179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
+ <DMSUPKS0VL8N.1RUUESQVU8FMF@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,67 +64,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DMSUPKS0VL8N.1RUUESQVU8FMF@linux.spacemit.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: eliza-mtp: &i2c3 node placed out of
-  alphabetical order
---
+Hi Luiz, Troy,
 
-commit dceba04a5137daf6908c61ec04a54977dab1b62a
-Author: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+On 01:45 Thu 12 Nov     , Troy Mitchell wrote:
+> Hi Luiz,
+> 
+> On Wed, 11 Nov 2026 19:40:19 +0000, patchwork-bot+bluetooth@kernel.org wrote:
+> > This series was applied to bluetooth/bluetooth-next.git (master)
+> > by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+> 
+> [...]
+> > Here is the summary with links:
+> >   - [v2,1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
+> >     https://git.kernel.org/bluetooth/bluetooth-next/c/c21f8cff7503
+> >   - [v2,2/2] riscv: dts: spacemit: enable Bluetooth on BPI-F3
+> >     https://git.kernel.org/bluetooth/bluetooth-next/c/df348a0d065c
+> 
+> SpacemiT DTS changes normally go through Yixun's tree to the SoC tree,
+> and Yixun hasn't acked this one yet. The binding patch is fine in
+> bluetooth-next.
+> 
+This do happen sometimes.. I agree with the split, or another solution -
+I could also take patch 1/2 with bluethooth maintainer's Ack, either way
+is fine by me
 
-arm64: dts: qcom: eliza-mtp: Add WCD9390 USB-SS mux for DP alt mode
+> Yixun, what do you think? Should Luiz drop the DTS patch and you pick it
+> up?
+> 
+Ideally, the DT part patch [2/2] should go through SpacemiT's SoC tree,
+which would avoid potential unnecessary conflicts.. besides, the DT maintainer
+did complain about this thing before and request dts go through soc tree, see
+https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/
 
-This commit adds the WCD9390 USB-SS typec-mux node on i2c3 and wires its
-SBU endpoint to the pmic-glink USB-C connector on eliza-mtp.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts=
-/qcom/eliza-mtp.dts
-> index ee05192adcfb9..d848ae77ab851 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-> +++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-[ ... ]
-> @@ -112,6 +120,34 @@ vph_pwr: regulator-vph-pwr {
->  	};
->  };
-> =20
-> +&i2c3 {
-> +	status =3D "okay";
-> +
-> +	wcd_usbss: typec-mux@e {
-> +		compatible =3D "qcom,wcd9390-usbss";
-> +		reg =3D <0xe>;
-> +
-> +		vdd-supply =3D <&vreg_l7b>;
-> +		reset-gpios =3D <&tlmm 152 GPIO_ACTIVE_HIGH>;
-> +
-> +		mode-switch;
-> +		orientation-switch;
-> +
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			port@0 {
-> +				reg =3D <0>;
-> +
-> +				wcd_usbss_sbu_mux: endpoint {
-> +					remote-endpoint =3D <&pmic_glink_sbu>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
->  &apps_rsc {
->  	regulators-0 {
->  		compatible =3D "qcom,pm7550-rpmh-regulators";
-
-[Severity: Low]
-Should &i2c3 be placed between &gpu_zap_shader and &mdss to keep the
-phandle-referenced nodes in alphabetical order?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-eliza-wcd-=
-mux-fix-v1-1-70c521781ac1@oss.qualcomm.com?part=3D1
+-- 
+Yixun Lan (dlan)
