@@ -1,22 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794474664;
-	b=ZwwAQclbj/Hq+5hgAo3K3PQW7Hx9YR1DFcur6LttXCXW6IzA17ct/R69sHLP56JeTFDr
-	 nNQPsg0LRwkC0lCadbHt2p6rkKnqG5i34y+BTz/ODoT5D0zIaPrXMUqL/VXns6DBnn0ZC
-	 nF8r4uhyN3HkWbrTpDWfXnoToyC7EZsZecl0XC+oQQJAeagbFVUXIJh+cJauQKOfhx/04
-	 hYJ1qjwuWjA4whHFkiIVuUY96AH2jjRefH47HPXSIYJI56BEGU2cwhA6w2ko+zsuk9TjH
-	 IlddhFBGNhDkIDspWrzjt3EznrZZ/g76GY51PstBZbNUP1lKJkifR8bfIQV089fLAUQ==
+	t=1794474670;
+	b=pYRmskyKWZ2F168F68ROQIP/umWUgMtPb6WNViYXlX8FvF4wHCFEKYrcArFAsIO5H4pT
+	 WVNX2ZoV2WFyq1u+mC+daaOqpNgXuMOUAws/HE30eFz4tIhcttH81qVfzUqN7t3hSbDrN
+	 bkugQmp0xpQojGEWgYyiRtm8/H/EEmeiFPsG0v7xGveZqlYCpcwASO4d0T9G0cbD+nmQv
+	 JU73ImJiKqOwfpBPy+VQP3pjMIr5qm9RCNys7SpoAzIcCbtkQ/qapm30TpbDkMzXWRwwx
+	 1Y+5St44wNS1oUJPgWMqNwNbRN97T9HuXVDT3xwrY9Fh4UnkT5b3W1boj8jdDxDC1xQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474670;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
 	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
 	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -27,55 +27,56 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
-	b=CXpyxW+NybJpEYxENlrD8EXRyrtR1lF0TYdwZqFkHuuozGI2i2l2mdk3qF4blYgF1VZq
-	 V8uPk1153TS9vK8GjMLBGNORzgl/4MDUCCmwYAjPPiuTF4VmnFust63ZRO+0tjGoY00fV
-	 1Jqby/yRxKekJwvgLX6dNggx23QBEbZRY/+Qgd2oqsKrEKbmvsHFftNeHDHhnthldtlPK
-	 ZLVxYeJXw7OgjUeJIFaOarg3tEHuqLhpinoMDyAspjs32mSwbEDajMx64ZlvvNSUjlxLm
-	 Imxm8WxFUlPt16wUF+P3TqJO8AYkRykosJkfOZjErkPcTY80J7nqwf9Lc7qnBLAoENA==
+	bh=z9U9cRM+luBzD5j09d7PXAOZ8sbtB4ycDpj1jl36Hig=;
+	b=SD5fWl04l6OiFHc4NtpXSaM4o89dcsr02Vv0eXjRz3e9Jj79buK76CnOLUzd4jyXKu3a
+	 lo2rpsPsGGPjjtozmzPfL294Bz/7OoqtpEBravPoEatMqUei0ZMS3ZRPjxz69U9JMT2T0
+	 mKCt3vNq0TgbbcDquSjz67DaBbzs71Acv5exc/F02PBF6IdMSY4P0AcsZ3VwPRgTZO2DH
+	 SHWMQvVX62ZNLFzYqX0AbkGnjleY9AJ3F16/FeSLZjq/gPP6q2rmdP74INmP1HVZ008tJ
+	 jSu2xPwgwf/nHR2jecJbu/HThvqHp2VkrV7NoV79qw92nR4Ysg3DZONxfLCPeFHSE1g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ti.com;
 	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="pCH6/XWj";
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=XWi1Mqcz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="eVTQ/9Uh";
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sQyZ4Onv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F020606A31C;
-	Thu, 12 Nov 2026 09:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F020606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BF0606A321;
+	Thu, 12 Nov 2026 09:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3BF0606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=pCH6/XWj;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=XWi1Mqcz
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC7N4Fv2098017;
-	Thu, 12 Nov 2026 03:10:57 -0600
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=eVTQ/9Uh;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sQyZ4Onv
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AC7kdJ93094835;
+	Thu, 12 Nov 2026 03:11:05 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=r78bJvOS+YOiP
-	XNO3v++qrthGLT7Dlv3Zf3pQmblGtg=; b=pCH6/XWjpgfOb5P4fUFTsITWZowcJ
-	als3ENvOKi6ILMd1JgCLDIvk+VZcpDYQ+ygKD08hPudB08JRmE9oMIMkQ82T6cia
-	35LqvZQhI3VK75dKwNpVg/l1DfvBCVXjGoKqFlEjFvu8uLZ7tDvRGSaheBciXzyB
-	MDHioNzSOvyo1/DChyLfWedKtu5vV3nTsOPYtNNUp+FsK+R/+OLeDNrapJjb43GI
-	N0HzP8rJh0J/jPK7sfTx1XzoCdbFs3sTThE6ig0aLWepGCCno4mA3eytDy6AhgVd
-	n9amZgNV1qZaW5MN6JvSIVkSP10GiGoj3Q5v9m/eu6TTHdCBi7P0WQzgg==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hw915gjkv-1
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=z9U9cRM+luBzD5j09d7PXAOZ8sbtB4ycDpj1jl36H
+	ig=; b=eVTQ/9Uh7UPhsmHI1424iFFpaVCT4rXEqlKnfdLrcFECKEbZXV7RoTg53
+	yBYH+R1Qs1DlWkXR7CSOqAWPNnmFvohSDU2tkP5vUn2SfNiBJ45SoGHb2L3q70Pf
+	LQTV8npmELvW/VMC1qcF6XO+PDmSh45aotgCOBQwd9s/C3Aau8cNdePygsU91IHD
+	6C/CV3u0acujPAWAk9e23FEHeXrqglQaHJliichCayfBae8v65FHLKN8/ZzBvZC6
+	0eNeLSEQoyjPJ3BYnwsdtBENhjN/GV2eEqQmXuddEUMmWBs2wYE6iwciyDuU7pI+
+	l3eBx96KbhMUZrPGbBHwQCnlQ4hUw==
+Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011016.outbound.protection.outlook.com [40.107.208.16])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4hw4cy2603-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 03:10:57 -0600 (CST)
+	Thu, 12 Nov 2026 03:11:04 -0600 (CST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EZVDKcTpQAZ6cifi0vT/Yk7GAVhjc733FlxWcQgcTLI59sTVyVDK3wVJXWFxJtnVu+6qFlm285rQWZkyQvmLwDERIsJETT5NqFLZBitkB93kHxgtp9S6qtnw2/XKENovKwGzL0YazatCDLxHcrctEkJhRBVXRsk70iz3T+JC2nmK0c2LvbzCgxN4uO1Lj5gjLCEK+UOXP87/j/UkRkUJ/XpkyLvxF7z2s6yZa/XVrZBuHF/D29pn9cRHeEFn8rILhXC++VgcI8jZaJRJQoBbLgK8VxI32/Yc04VEn/05MyUXL7G/ABe/LCfP23JyrGLY/ObeSnl9tGVJqlnA1WDDiQ==
+ b=N4sCR4uVbE9hACGjHqjCx+fFuaHLdMtgAS3sJl+i0LD1Bo/nFR3A9jEvJPIoPOaaTyCJEPWrksNBFwfC4UZWDG4apgPeUh//mmmS48TIzxqOS1DnjXlxE7pnln6d9dYwVhIfeQR6wG0Rc15YUKHhAOyQl/4Q1s6kOb+3y1Tfusgy+PWiPP9u3PW8qxUx34qiNEBzFW8QCCyGifp0TWxcZiMYUya2W+V6rVJtr3xr/yI4GO+MB5bIpqBIGTQemtKJATPG5BK9Qish117Ve3ZNL961EDW7NoQnCz/wLz6D330FInBmIww0z0FkNWe4PwrZVpAjXnGubAeD9NvFpVh3Bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
- b=KblU+nJW9qx/cb5ZHnCwEL+VuMFJHuVA+kM8ueM46UROuf82Bo151Tf6n3A7ouGcgVSjxRlU5gPONLa3JkR6qAPiP6jqfsIUWr8sLQr3XlpxyM209F6NUoExpfaZyBZtWCeZDh7YYyHSfNclaAjXIH8AzUqM1AzvzRSjawvbo6DF2lRVKA9v5MlqRP2XUBGHUAUAUZlLWa7fpiKfsaaxGkborSOzbhi55FtFUTCvzMAA4x/ao2SXMSV4TM8i9NXZgt4ujOu9DSIXiYtzdmg72cS6BSPRJorLThVT5onIOF4FuOMGFSteztJoiTHP1x/DPq04Rk3nEb5U5x00Vg7VyA==
+ bh=z9U9cRM+luBzD5j09d7PXAOZ8sbtB4ycDpj1jl36Hig=;
+ b=uuZ4I7R/4zVcME9Ts0uUlqoszw5abMFuz1ejcU2Rn+TCBPvGZvE+tADz08y8udCeeRO96ttwuisARIqVSKSzl3iDz/swBeVyhXmoaAuCK+Y5H/9kZMsCkdHxX6AMFxDDKTcUNWwMqT++Ps0iEeh8Z2hEabCVwR7PAcY8ESTTfAvtvu5XbXaAxCE+7AoX8vPmvPYiauujr1ZcvT0uEn9HuqW8MH2KPTYUl//Th3MuiwGoE1uYXgrEXObG4gCr0A0DtfqJ33WvteJAl3r6hCMcQQv+qFwU3cW8jDs2gfXLiXjbulRGOWrakeUC1dYlJvOF3BRoZBYn1XwEwNW3oSbntg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
@@ -83,18 +84,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r78bJvOS+YOiPXNO3v++qrthGLT7Dlv3Zf3pQmblGtg=;
- b=XWi1MqczGBBURit0XDttqFxLics8zTb9OE2sLR8Sth/A/mANOmlvrzA4MK/5CYZKYB+V162p3uOgtG0xlqqAudH2+AGG9xlruI0+pc7y5dU8PESFCygBDDWofBK4YI/EHmCtmtiMsdtN9G1CISkfMMB4T+gBu6/Kg4x5wEyzcm4=
-Received: from CY5PR19CA0050.namprd19.prod.outlook.com (2603:10b6:930:1a::34)
- by PH9PR10MB782475.namprd10.prod.outlook.com (2603:10b6:510:3e8::7) with
+ bh=z9U9cRM+luBzD5j09d7PXAOZ8sbtB4ycDpj1jl36Hig=;
+ b=sQyZ4Onv2FnrMUXhb7aLNQXuZ/EVCc2YCd0jqaWqZU/IQ9Pf0lWkA6XeT5UDrkrO5InsFH2qPBI7k78x1BZtYTXcDqyn3iYJj0sdEFQEXywTaLxdksu4D113GNIEhRrqxBZwaEYYCosjc5dzjSmUBDZFeeK0EBfFZ/i9UxgrUz4=
+Received: from CY5PR19CA0043.namprd19.prod.outlook.com (2603:10b6:930:1a::33)
+ by SN7PR10MB6978.namprd10.prod.outlook.com (2603:10b6:806:34d::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 09:10:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 09:11:02 +0000
 Received: from CY7PEPF000000F0.namprd05.prod.outlook.com
- (2603:10b6:930:1a:cafe::19) by CY5PR19CA0050.outlook.office365.com
- (2603:10b6:930:1a::34) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:1a:cafe::4f) by CY5PR19CA0043.outlook.office365.com
+ (2603:10b6:930:1a::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 09:10:54 +0000
+ Nov 2026 09:11:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
@@ -104,22 +105,22 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
 Received: from lewvzet201.ext.ti.com (198.47.23.195) by
  CY7PEPF000000F0.mail.protection.outlook.com (10.167.247.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 09:10:54 +0000
-Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 09:11:01 +0000
+Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
  (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 03:10:33 -0600
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:10:49 -0600
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 03:10:33 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:10:49 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 12 Nov 2026 03:10:33 -0600
+ Transport; Thu, 12 Nov 2026 03:10:49 -0600
 Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AC9ARXw1549289;
-	Thu, 12 Nov 2026 03:10:28 -0600
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AC9ARY11549289;
+	Thu, 12 Nov 2026 03:10:44 -0600
 From: Moteen Shah <m-shah@ti.com>
 To: <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
         <nm@ti.com>, <ssantosh@kernel.org>
@@ -128,10 +129,12 @@ CC: <u-kumar1@ti.com>, <gehariprasath@ti.com>, <m-shah@ti.com>,
         <y-abhilashchandra@ti.com>, <johan@kernel.org>, <kees@kernel.org>,
         <jm@ti.com>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v4 0/4] soc: ti: Add TDA54 SCM configuration syscon support
-Date: Thu, 12 Nov 2026 14:40:23 +0530
-Message-ID: <20261112091027.1601122-1-m-shah@ti.com>
+Subject: [PATCH v4 3/4] soc: ti: k3-socinfo: Export SoC registration helper
+Date: Thu, 12 Nov 2026 14:40:26 +0530
+Message-ID: <20261112091027.1601122-4-m-shah@ti.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112091027.1601122-1-m-shah@ti.com>
+References: <20261112091027.1601122-1-m-shah@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -145,114 +148,218 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F0:EE_|PH9PR10MB782475:EE_
-X-MS-Office365-Filtering-Correlation-Id: 401a3f8c-f200-4adf-b3d0-08df409cdaf3
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F0:EE_|SN7PR10MB6978:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc86d6c9-58bc-4009-2190-08df409cdf8b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|6133799003|261009221227099003|261009223027099003|13003099007|56012099006|261028144727099003|261021121427099003|261102130727099003|261102123227099003|261026140227099003|261026121527099003|261021123027099003|261022105027099003|261022075727099003|10067099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|261009221227099003|261009223027099003|3023799007|13003099007|261102130727099003|56012099006|261022113327099003|261102123227099003|261026140227099003|261021121427099003|261022105027099003|261028144727099003|10067099003|261026121527099003|261021123027099003;
 X-Microsoft-Antispam-Message-Info:
-	jWJ++Eex7y1MUtu5s+Qn40WAFJdt1iofxcIDkgQAvVFyQWmfRYteVzatkZCXpsJEmaSxN6i3zi4GZDk/U8zkZ5PEz1efuOLw68A60PbfLrUShmBkdioNG767aG5SDs23vZDbyHC1kFRXcJlbbKr7v62KPQcp9zufA3oybGDUw8ZDLfl3yL4Wfq87pUUjUmICU2xT8+y9Qkl/t0YO5oil3J4d7x3TwW31lTAN2m6AAt5Wa5YSuxdpNQMU2aiL2pRc2FKhsEo4b6W32JDMrkI7IQ9xpwMZeWueSJm7aMeakFwtLqQx4u7TVa6LmqGv/4Vk54jhGcKaxTtUXOMUMGTYAXGD5KUV97DjozvM9DjMbBAzv0CjD3B/RwcQb1Kyuhh23/xFRBHScS6Uqak4rkssRjMQ+K9oofEv+RX28seLLmTpH3NnRqpJn3WQcEPnnyZ4TZra1NnkCoC1cfNK82QeEFeHMBwAHRivW7TLPtV6O/UxQAykbbdvwAHorwHoh+tM+b1HMEch8SLphgrxae6DO8csAuoJiYPOM9DSDsdZplYrfcr9jNYZaFUJJtDXlWBIY4QN/LaL2TSLai4fFX7u6B1fMaQYoH8ebzdYW170iuViSGmP5V+dnWl8SJSFyR4P9GkEquIa04B4/R/1mhezaw==
+	CMIVswF/kTt2h5O5ansWPIa99782vebQkHpsl8glqPfoeS1ycZQrombKFlEvdkhkHq/s8P4U0XjDmhpmouNgjn1rGNZKb8B59863ckGVBHPuFZlWttWBY3uYybqMlydIgwnR6KGyEpDRnXAnmA0i+cKwJ1KLGKdGiHLuRr0wABJarGTkGx3qwu704NIvykoPyK71cMQLAXV1NntCYk0NS2sXFaxgH7aerDPu0nFV2yTJ5BtfK3/yOGFqT8iAP8BmMJJ0YIeTbdqz6sPz1iZHwvuWx23/SEFr+JIjHHof/BUj0o14MzpADNK97lkQnQL92VUEstMCWoWF8ol8IXVM9rsUjt5L/K3vCfvgp8/JQ6q6Yr1ctIbh4Zj1QisPOfDBr99D0g4CwGDQTC078aPEspZakqCqGy/C7JyeOY3pjJAclLktdRqaE5OwNaOZE/V8qFDPKw7hkuNcBtbFjlZpdkG1Tmsv02Jwl6wWYNrmLoUlNPTHa2sQ2sKQQFvA2bgjvzUhCoC6FdzYuho5R45dogrqWobzeYfqvdO+kLKZ/+Wqn1pBkqHtGNfKCB3ECj4PaCytoh3+8d9s6tOvCzrlgDft748611AYQpRpjfGJPQFYCfHlrURprVjtWzsWOF4OZTSqdblryte93WKCihcgcw==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(6133799003)(261009221227099003)(261009223027099003)(13003099007)(56012099006)(261028144727099003)(261021121427099003)(261102130727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(261009221227099003)(261009223027099003)(3023799007)(13003099007)(261102130727099003)(56012099006)(261022113327099003)(261102123227099003)(261026140227099003)(261021121427099003)(261022105027099003)(261028144727099003)(10067099003)(261026121527099003)(261021123027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	f1SJrJlNF2Ykz6knQ8hYfZtdLlUsf0eiRO6WanBqIu520tPftMMQNwpHYDMrdZEqxlev0pI2HbWMz6t5kl/KxuxQ4xTj9mZvWAGQwtaDOG+7k2sjqHDTOYJTKABp2vEKSfVRwbI+sBWo2uFvGsQsrGYojxREtSTIYSeR6VcMjacHd52Q48S/taJn4lIUC/CwE6CvAB8GVd3UvxxNxE03mkyxILxyhaFa+DgQP/PDGOOF23WYVpeRh4No0DS5e0z5p5zCV1NyfQmVA/+Er8krClgJ88oK3avKDt3uO55ygF7AdrM2WFelSYcO7TLqL1u5xBAwgZNn53d7owEDRZIVtMYEwft7cNyW51wrRvjL89cqYko6FekKkKnBDMv53mnXAOSvy0ytshAheq6CS6K+RxTMkFD9yDpl7YklAEpkYss3C36DnLVAIXa60alh1R97
+	DC1Rqs7o2sROBoo6dP4+RZx8uxGzpJUaA8ok1pUgoQqNnhfSuwg6J2Z2Bqs4UdTxuQLsKF6Q+zbQZBSx8o/AUEEP8NUQF3mi+zS0dNHNRtJfRUwsCXfLi/V49E238lyDuJ6IgdhLhE3slOTPlPItiCcFf+11T4hLpp2/d6yHdVkgcVw6BICGqPXerlXogJ/WtsBEj5qEavhVKJlH2CYq8Yal9cjHipas66mz96+Z+b4PKw22/7pW5wuYfmu/Xa7Feu0EEOtPDI0ESv5axZ37nv3QPfilo+6qshyS19G/wn5wBjr3K3VxbE2R+kKK5NXOvRcy+3k2pnZg63eKDbmCVKpnxKK8+N4luFwLQ1scjIDrBwgtzyH0eMzYIsbNWkVTAGvtKkOku2O9eavI2hMNfZ0OxLSbSJ61ritfszTsC4gjvDJ4Fo3zYPDqxUEmrxrp
 X-Exchange-RoutingPolicyChecked:
-	QM6FRTBuF+gvbbvj2Ulkb5hGC2/u3h1SyglFkJDoHZQTTc1jBtDRDH/mTNuzOemkxw7wZr0neY7q3xTkH+va+MtWGTRmNl+JsOxcbJIO0WT0IC/H6x6K7QDjjqnlIZ15NZVvbQpdzQfjmLtpcIhmE0o0UPfO9sSYcfrYICi1eDWEvHp6jWV0Q+moZA51BfweZ5igBrohfFq2M/mHPXHckBc4lqXC1Oiv2RYUf1WKKpFiv/zLaIlZaMrBO1ivQkjyMw1FzxQj5VkVVjhVNBKFfc9sJfwVCD/HSM2eDpsopr4YZ3J0WNfqSixJvxzSwJw+xwrklJKgLOqUoPaQYtQCcQ==
+	h3UBgc142Fhi6slYpNCZhP14OSrowgRhu+r0Is4FJk4rBQte3n2+x475QyPLZqkwIX+s2SC9YLC1cTdRr7rOWekGkBEoHQc43MMhXj5amB7Y1um5iAAqlAl5tnFBPL6h7tB6G9V+FvAJIBalWrg5jDP+7vrBEQJdX2DnMWX4JlCtx02tah1xl4zh+QE4T7Z9PDb7E62RF8MYIC8y1hgVOYTxwxvuFOIX1/U8rB2pgidC3Up3bpc/jiscprbfmgNA99NwNw2K4NZkfREDGY/PdLANO6WpcJDztBzs4BI54Vv4FYzsmQKYpOmtdbS/peiLhHQKcqr5hF74EUaUsUo+Bg==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:10:54.1476
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:11:01.8515
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 401a3f8c-f200-4adf-b3d0-08df409cdaf3
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc86d6c9-58bc-4009-2190-08df409cdf8b
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CY7PEPF000000F0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR10MB782475
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX5Ls/YSExcEYN
- 3SMLXirsyphGcYYw7RJ5oyfNmLySzck2wf3pepQQbqt/iyPfdPh4XtuvWOgk6rsbD9jLiJAGo5v
- EA+WFD+hyTKWpiaJj3B7hbR3kPPdWJY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfXyDlKb/Pj4dNA
- kam6LdeQjHmPHCvsGUDNV0FuN19et3syIoRz8QRbJXu3lC+0MgvoJqSW1yMa0d90so55OQKR0lb
- OW6Ptjm/E7s6/FlUr10GMId6Tn4fOtxUcEbuchSE/ynSRyrynRBFAXiJjtUNQZpEQOAlp1X/ciN
- sk/TTkwEs0OJjbE0oeyT2lP/jFi/u3C1oD5R4vo1aiyTSU2YgRcCXshqeFE2a4hm4DGeKrJiRaG
- 7bnryF0dRoe8lS4rlDTvHk7SD/PYYSHMjK3s8Rsj8OEG+VW0RKqAfelMm44QOCoNkt1xx52uIaJ
- YEU8zB3r8oKvv9D/SXrRw0oo8mXDoUAh1LnnvVWaDuFbX5yhgGFPhgYmdcNP/kVv5JmYz87oghO
- YRB1R5WrDLGEQxzIcPjCHvU5bhONe8nC69oLPP7vu8hijaBt2bzJ6lexV4qn66AG9l9/kll0eKk
- PKzKs3AgD0uFEgJpY2w==
-X-Authority-Analysis: v=2.4 cv=a8WlZkSF c=1 sm=1 tr=0 ts=6af582a1 cx=c_pps
- a=mGKQszq4vdWEHw2ByKFqMg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6978
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX4jHxV9lAxRUR
+ 9g/dRJCgWb4d/tPFXURE7utx7yj+IEuAh4il/DdUgIZDB+j1AiISkTE9ouWzsbSR8icZnOFW8eh
+ j1o1oF9TL0iVZbouGEm0mBW/YK5Pbp0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX1UlyWeJOpmRL
+ +s9A2BsU5l836DvHhBlBTntu7zuV5JzzzovdwUPwa1Mz9g2DuxLn72bq54zwQTBl3oTiGwjB7/6
+ Be/f8sOHAKjJTmn478yS6EJVJjNGcii5pmuJXywGbjp4Yf6nSXbeGWl6vDNLXLdpN2Ye17q5zai
+ 2YVadQXdzcTL/uoiQrBZ4SY0VWec5AoD23xf5KcWs7LMKZeIRw7mxklRw6u3zaW59goyAxeTDgW
+ gCSkdTbvd+DpL8BT742zWjsS8tXM55eiK7URvo17WZC96iWeJcSNxFLH8Y9FAlS7R7MoFOEQN3E
+ 00NlucYPa9zNsexx46vm9yRHAPssjAwVVRWYxbamYU/hOux5dISi+kHVY12dku23eMxMPcJtyi5
+ D+I2jh5WybxDNPs1bQP9rEBuhILrMqs9LK7qXsRBL7XpGOtmVlQmUfq/Yexvl4sY/iBApWjB4Iw
+ /W75MYq5gEecGqb0KyA==
+X-Proofpoint-ORIG-GUID: cZgD4iGk4P0arCF4PMR9jjDj6-MV97DO
+X-Proofpoint-GUID: cZgD4iGk4P0arCF4PMR9jjDj6-MV97DO
+X-Authority-Analysis: v=2.4 cv=asYnmiZV c=1 sm=1 tr=0 ts=6af582a8 cx=c_pps
+ a=CJt2AWVwLbfAHulDA2arTw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10
  a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=UCzFRFlywXcFtRv7-asA:9
-X-Proofpoint-GUID: d3t8Rp0eUkTkq_Udebjdl8qDNNjwf-r9
-X-Proofpoint-ORIG-GUID: d3t8Rp0eUkTkq_Udebjdl8qDNNjwf-r9
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=MppJNvndz3xZZ7pgNAYA:9
+ a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120036
 
-This series adds support for the TDA54 SCM configuration region in the MCU
-domain. The region is shared by several peripherals, so it is exposed as a
-syscon regmap for other drivers to look up by phandle.
+The k3-socinfo driver reads the JTAG ID through a dedicated MMIO region and
+then decodes it and registers the SoC device.
 
-Patch 1 adds the device tree binding for ti,tda54-mcu-scm-conf.
+Newer TI SoCs like TDA54 use a different path for accessing the JTAG ID
+register, but the decoding of the JTAG ID into the SoC information remains
+the same.
 
-Patch 2 converts the SoC attributes, revision string, and registered SoC device
-in k3-socinfo to device-managed cleanup.
+Split the decode and registration part out of k3_chipinfo_probe() into
+k3_socinfo_register() and export it, so that other drivers can register the
+SoC device once they have read the JTAG ID through their own access path.
+The registration is managed by the calling device, so callers need no
+unregister counterpart.
 
-Patch 3 splits the SoC decode and registration logic out of
-k3_chipinfo_probe() into k3_socinfo_register() and exports it, so drivers that
-read the JTAG ID through another access path can reuse the common K3 SoC
-identification logic. It adds the public header declaring the helper.
-
-Patch 4 adds the TDA54 SCM configuration driver. It provides proxy-aware
-register access with SCM unlock and claim handling, publishes the regmap
-through syscon, and registers TDA54 SoC information through the helper from
-patch 3. The option defaults to m on ARCH_K3.
-
-Changelog:
-
+Signed-off-by: Moteen Shah <m-shah@ti.com>
+---
 Changes since v3:
-Link to v3: https://lore.kernel.org/all/20261112081047.1550471-1-m-shah@ti.com/
-- Add the missing k3-socinfo public header to the helper patch.
+- Add the missing k3-socinfo public header declaring k3_socinfo_register().
 
 Changes since v2:
-Link to v2: https://lore.kernel.org/all/20261027083700.1964371-1-m-shah@ti.com/
-- Split the k3-socinfo device-managed cleanup changes from the exported SoC
-  registration helper into separate patches.
+- Split out the devm related changes into a new patch (see PATCH 2/4).
 
-Changes in v1:
-Link to v1: https://lore.kernel.org/all/20261019080736.944127-1-m-shah@ti.com/
-- No changes to the device tree binding patch.
-- Use devm-managed allocation for the SoC attributes and revision string in
-  k3-socinfo, and simplify the cleanup of the registered SoC device.
-- Enable fast_io for the TDA54 SCM configuration regmap.
-
-Moteen Shah (4):
-  dt-bindings: soc: ti: Document the ti,tda54-mcu-scm-conf
-  soc: ti: k3-socinfo: Use device managed allocations and unregistration
-  soc: ti: k3-socinfo: Export SoC registration helper
-  soc: ti: Add TDA54 SCM configuration syscon support
-
- .../soc/ti/ti,tda54-mcu-scm-conf.yaml         |  78 +++++++
- drivers/soc/ti/Kconfig                        |  16 ++
- drivers/soc/ti/Makefile                       |   1 +
- drivers/soc/ti/k3-socinfo.c                   | 111 +++++----
- drivers/soc/ti/tda54-mcu-sysconf.c            | 217 ++++++++++++++++++
- include/linux/soc/ti/k3-socinfo.h             |  11 +
- 6 files changed, 391 insertions(+), 43 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
- create mode 100644 drivers/soc/ti/tda54-mcu-sysconf.c
+ drivers/soc/ti/k3-socinfo.c       | 70 ++++++++++++++++++++-----------
+ include/linux/soc/ti/k3-socinfo.h | 11 +++++
+ 2 files changed, 57 insertions(+), 24 deletions(-)
  create mode 100644 include/linux/soc/ti/k3-socinfo.h
 
+diff --git a/drivers/soc/ti/k3-socinfo.c b/drivers/soc/ti/k3-socinfo.c
+index e21a2cd14c811..bf0829fb1d61c 100644
+--- a/drivers/soc/ti/k3-socinfo.c
++++ b/drivers/soc/ti/k3-socinfo.c
+@@ -5,6 +5,8 @@
+  * Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com
+  */
+ 
++#include <linux/device.h>
++#include <linux/export.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/nvmem-consumer.h>
+ #include <linux/of.h>
+@@ -12,6 +14,7 @@
+ #include <linux/regmap.h>
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
++#include <linux/soc/ti/k3-socinfo.h>
+ #include <linux/string.h>
+ #include <linux/sys_soc.h>
+ 
+@@ -152,43 +155,32 @@ k3_chipinfo_variant_to_sr(struct device *dev, unsigned int partno,
+ 	return -ENODEV;
+ }
+ 
+-static const struct regmap_config k3_chipinfo_regmap_cfg = {
+-	.reg_bits = 32,
+-	.val_bits = 32,
+-	.reg_stride = 4,
+-};
+-
+ static void k3_chipinfo_unregister(void *data)
+ {
+ 	soc_device_unregister(data);
+ }
+ 
+-static int k3_chipinfo_probe(struct platform_device *pdev)
++/**
++ * k3_socinfo_register() - Decode a JTAG ID and register the SoC device
++ * @dev: device on whose behalf the SoC device is registered
++ * @jtag_id: raw JTAG ID register value read by the caller
++ *
++ * The registration is managed by @dev: the SoC device is unregistered and its
++ * attributes are released automatically when @dev is unbound, so callers need
++ * no matching unregister call.
++ *
++ * Return: 0 on success, negative errno on failure.
++ */
++int k3_socinfo_register(struct device *dev, u32 jtag_id)
+ {
+-	struct device_node *node = pdev->dev.of_node;
++	struct device_node *node;
+ 	struct soc_device_attribute *soc_dev_attr;
+-	struct device *dev = &pdev->dev;
+ 	struct soc_device *soc_dev;
+-	struct regmap *regmap;
+-	void __iomem *base;
+ 	u32 partno_id;
+ 	u32 variant;
+-	u32 jtag_id;
+ 	u32 mfg;
+ 	int ret;
+ 
+-	base = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(base))
+-		return PTR_ERR(base);
+-
+-	regmap = devm_regmap_init_mmio(dev, base, &k3_chipinfo_regmap_cfg);
+-	if (IS_ERR(regmap))
+-		return PTR_ERR(regmap);
+-
+-	ret = regmap_read(regmap, CTRLMMR_WKUP_JTAGID_REG, &jtag_id);
+-	if (ret < 0)
+-		return ret;
+-
+ 	mfg = (jtag_id & CTRLMMR_WKUP_JTAGID_MFG_MASK) >>
+ 	       CTRLMMR_WKUP_JTAGID_MFG_SHIFT;
+ 
+@@ -237,6 +229,36 @@ static int k3_chipinfo_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(k3_socinfo_register);
++
++static const struct regmap_config k3_chipinfo_regmap_cfg = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++};
++
++static int k3_chipinfo_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct regmap *regmap;
++	void __iomem *base;
++	u32 jtag_id;
++	int ret;
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	regmap = devm_regmap_init_mmio(dev, base, &k3_chipinfo_regmap_cfg);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	ret = regmap_read(regmap, CTRLMMR_WKUP_JTAGID_REG, &jtag_id);
++	if (ret < 0)
++		return ret;
++
++	return k3_socinfo_register(dev, jtag_id);
++}
+ 
+ static const struct of_device_id k3_chipinfo_of_match[] = {
+ 	{ .compatible = "ti,am654-chipid", },
+diff --git a/include/linux/soc/ti/k3-socinfo.h b/include/linux/soc/ti/k3-socinfo.h
+new file mode 100644
+index 0000000000000..487e69d0069d1
+--- /dev/null
++++ b/include/linux/soc/ti/k3-socinfo.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __LINUX_SOC_TI_K3_SOCINFO_H__
++#define __LINUX_SOC_TI_K3_SOCINFO_H__
++
++#include <linux/types.h>
++
++struct device;
++
++int k3_socinfo_register(struct device *dev, u32 jtag_id);
++
++#endif /* __LINUX_SOC_TI_K3_SOCINFO_H__ */
 -- 
 2.34.1
 
