@@ -1,45 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.72.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444255;
-	b=01lY87tIwN6wDmNOXycRzT+rLB2VZZa65kZuzNmyEbZY2GncZXvkiG6QOzgQkdxQ+MD0
-	 3fvBvccLo78TsQT/VGh2mu6xmYfBxGW0ayQ5Ip1q/RIBT2C7+i7EymA2ScVddf5Tp8nJp
-	 GzpNWBatYs/5WbUWs/bIWPM9KjxMyKBXAAsWqh0E9cnsGMt0C7csQZm9CrifRax8UxrsX
-	 1MWUwQ8kckeExZSg8FO8KFWfhoQ1enyM1WA0cjYO5kYHDVfQz6tkUxYts7yYrb2nTJ2cw
-	 zjxYHuJ7RekZf7VmTwZRBbAomuz+fckMnvjKPEZy15Afe66oq2+BRLDl4MOhDvjQcQA==
+	t=1794444433;
+	b=YCxx9ph312dDmZGUmNVKfAgOU9XE68WWuUw8WFwdM2J4vJZKPQqjdPNf5lYKDbQGUYeK
+	 EiQnfpYAMeTKLQotzSzyXO3tC/8yve/D24vnr018LwxTyN4vfE/Zhe9nv/+vq1/iXJObA
+	 /qH1JEp9X+yjHqrM8uPacakX3fC/b8udpMYK1G2Y9o+jFiVCJ/WlRGZR20M0htPa19mmA
+	 +QxVaMH+jfLSPcJFShiZo4K8gp2GdM0AhCxq6sQwz9XDtrR7KvJKJLYN9ybnWV43zvkEB
+	 d708dHhsQn/5fTmbsiQDjscEsQCbqGmOWAvXrqu26BmfSG5OtVPuEM+IF5fP/55sXHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444255;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=gjKALxOJFxG8UPiX46nDuXcwHUPMssJRgdYUqts3/dE=;
-	b=j5c+g5ROMYLh/2mfoUJPEofHiSfKWBjKVDSZudxkOqXr9o955ptMUUShzII179xts9BX
-	 ta3owzd8Uwbbc8yZLpMsMSvbHyEapM7WU8VdYfEMOubGqOEOUwuj1UDGZX5kqHjuxz+fg
-	 QzmT3Eu8KPoABRGU6IwTC+lsFA/a0mAIDcr6z1vIn8Dh1rZQ+rdfm9UUCkUV90CCyMmeT
-	 bA2ZtENDjuDYNyXtZDtR+1KbqbktXhJIxE0VNJD3rNBNzcSZg5F2MJUIO4rGreItWLhnd
-	 CaTjNuTsG1GQ6lnSEuihAVFoP/jcJlRfEpOydnG+xY4MbnImXvPjXG1V0hQg4etO9eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444433;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-JNJ;
+	bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=;
+	b=Voq8LAq7WPQRQ8JzHaE/CpNytQPmtQ6nj4RGOa/kjOqnsqfb+FUfQys8RmX5XXf1vu7B
+	 x8V7JSOe2rQOPUUjhrFYJWt9cUH1SyDm39AlaFkTp1au+ExWeqxLvMnY3Jf3qIki3Byda
+	 MxxUIoeGJNk1GmxnU7pAwNkZFbqs4ClCyLNOltWsx2SZKMlKffmr2KdZGs4iwfJDmn9NY
+	 ks5zSiPVanoU8ATFZ8evbXt1Jnkck9ZgDGQUG6dsFAkksAnZTC3M6IZsyRCrTHfXKOn0U
+	 PmpckQ8Y6V/rma46KDyBseRiq9QS40ZN1ZIkJXcVxF/KiCFBOd9teNk6nF6zkrkBEJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzxajcvg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG;
+	arc=none smtp.remote-ip=57.103.72.82
+Received: from outbound.ms.icloud.com (ms-2005b-snip4-10.eps.apple.com [57.103.72.82])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407E6606A321;
-	Thu, 12 Nov 2026 00:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F29E606A333
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 00:47:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F29E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzxajcvg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7443D1F00A05;
-	Thu, 12 Nov 2026 00:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794444254;
-	bh=gjKALxOJFxG8UPiX46nDuXcwHUPMssJRgdYUqts3/dE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=mzxajcvgAkvhwfEdzB25fKJhTZUHAj8SD/wf32E1pJNu9cPU8MKu+RYBrTFytCT1k
-	 4fheQAzH4EgEJGVM7XuXSjUY3biTBc+lB0i+++l2lqAYb4/oBECVoUnX4MB1PM2Hx4
-	 n8X5uYdMXQoNHFZdP7h9XW2sMMfLd4jbKtw8JEWubCRJv8mOxD7d3Lb9dVxkB+dRWq
-	 ndNp0JjHE7Y98RJZO90TIC7zf62VB/NfO8d00KNtbZKLbn448dFBpxqrP3lwG87DFA
-	 Ac8CuMRduxFB0bUCM7dz6d13H9rB/uzpFOn7d9e+c1nrRW0BR9ooHV5Y5o1YDZdIkT
-	 3FVIalTGAYpMw==
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPS id 45AE318004BA;
+	Thu, 12 Nov 2026 00:47:08 +0000 (UTC)
+X-ICL-RepId: 01a1cd39-0380-728f-a833-7c436969ede5
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794444432; x=1825980432; bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=I9c7LqFGQPC4hc1j883OqiSDgYE7IJNWYG15Bc+xeEZF72THLRHv00wP+6LxBfI9KWN21zFfzG0oLxaHDd3wgrLKz2im4/qheCerstXsDeehhxVS7zsbRRS1bLc/yCG+6JTC4lZ1bArcQ/bl5ILTAVcp3JYYaGyJzPTJUltvDX6TDUBoXnZCJhzQEi4CJBdSjlpjCNEVTThvPMYLjJff54cC/9W2gQSJIfU1+n/I0u17qGYe90tBGFJnk7JLz+iRTv0gWXBmF0hzgn7cLa+YGxeh/9MMyqWFv9dGiYVA4v3WvqoVDBoKqo41aMfvubIn06iB3imnSPWlfLmeQiv3rw==
+Received: from bigre.tail98293.ts.net (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPSA id B663D1800357;
+	Thu, 12 Nov 2026 00:47:05 +0000 (UTC)
+From: Vincent Cloutier <vincent.cloutier@icloud.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Purism Kernel Team <kernel@puri.sm>,
+	Vincent Cloutier <vincent@cloutier.co>
+Subject: [PATCH v2 0/3] media: i2c: Add Samsung S5K3L6 and Librem 5 rear camera
+Date: Wed, 11 Nov 2026 19:46:33 -0500
+Message-ID: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,236 +74,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
-From: Brian Masney <masneyb@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christophe Roullier <christophe.roullier@foss.st.com>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-3-624559bb8ec7@foss.st.com>
-References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v2-3-624559bb8ec7@foss.st.com>
-Date: Wed, 11 Nov 2026 19:44:08 -0500
-Message-Id: <179444424838.1126566.15847633472676891180.b4-review@b4>
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7204; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=TiNTrbXao3sKZzrEQ2J3r1cIhFom2KEL9P62Ql6x9l8=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+ct9Sknq0Ry+unclc8lRjrZzp67Z+oyfTGay7Fy1rc
- Frdo7ixo5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIl4nWdkmOfSeCji/1arRofp
- NknnhTx8mw+ls+8/OLH228L/bAW+HAz/zL623bin+0onUEJvJ6+m7f9vElw3P09oVInZJpr1uFO
- GFwA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX2LD5oNNx4wel
+ DQBrYC1DtHdZp5j25LvjfxeG06Q1ThoXhcMNCUPbLa5EqtTkU5RMZw7LO/M82MPUYSDDwr9xgUC
+ RJlNv8zeqkssQbXqnl6TOWz4PmqIxmsRQAepITjy8l48yMbRymjXtFfhTbXNUUUkI549oT9wbLq
+ OM1VBHbXXa/TyL0mnOrvlRUU2mRBfgl2LfeC4h/1NQl5+swtyWoCfudqAaRwpLQungzxHiaIPAh
+ 3wvF4sh3kFpvcV28f6FiBp8zBVgy01iNbZy7UQK75/9mL6ApyRX3EqT0Zuy9IADPqPsopYUJv3G
+ N68wvqXXPkoB8T7D5OwtKYWsXy5cFexfBP74F9lkbu0tHMDzQHSayfCcBt/nSw=
+X-Authority-Info-Out: v=2.4 cv=DPIacCNb c=1 sm=1 tr=0 ts=6af50c8e
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
+ a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kibvr5HLtuNvmma_iept:22
+ a=NVRLzpS9o0UsCidzZbzm:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
+ a=Td3DOQvXE0cbqhFbeG0A:9
+X-Proofpoint-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX4vmFs7WVeV90
+ vMc9I214PFlmf3KTuvFncIjsyckYeNM2yYiN7QQzD1UXjwOGh8Bm4YFHVVdJTFd9fsqNbWr89bw
+ K7mpD4HYai8gpT7MwESvq/b2msuwVAs=
+X-Proofpoint-ORIG-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
+X-JNJ: AAAAAAABUoX1BC//txojkthr/46AsiV8JAB8JP4pp5G3al/KmSo03UqV0f+q+ZixGTTInc
+ OXBe1pDxfgVBnkehI6/ZL2LmjxoLtVAUduJxqWJwDeuoTin7/eQI/qWPjwAaAv2r5RofP7
+ Ktq59XbM8eKa1haKofGs+UJ/IG3dlsxyISf1NndcA/khSd3JBi5qfULkB4wc2DnRF49zdZ
+ RT3iZKOYiBpT+nI2+Lo/Ugewm7RtBWvIVYfgSLUl9SsDZ3imnLuz/eCY4CMVDZ3hKkQ+9h
+ qR3hML4T/pkW7C91cAm5O0dMWJx9CU5O998qsjZ0hOTSiaQ+SEi3P61GPSt7CmyQyatWVM
+ Sc+5+a7lnjo07yE2oZThOmCM35+1mNKovOP9q7kMCzc1ov7VNq3vhuN7IBZ8+IX1w1Ncbo
+ qke6XQV6AHg3nI16r3ScNythuknBATDcU3XIMTivVmOl1z61MIY9aHXElU6CgHickCsYXg
+ th6EzV2D45huPByTXQg3dnH2kDnnM3rLYCwYF095Ngzqv/t3jrbrdniM/c9POKWwKbh1u4
+ FefBF1LTKCOFDi2zgZTQQJijD1d4wbMUGfzBAtHo7WG1Lek8XIupJnvElZ9iO0RifIW+5I
+ aR2VecAirYihU+YrFY+mAFJy9/Ryh6yAAsEOLJkRs/R5zMa2UAX12trF9+k8ywVBuuwfm4
+ nWhF1aaIeyQqr3ZkvZi2miXwtjwYLpnxRz/5V9mjFNChXYDSneKlmn4n21SzPOr05k8pXz
+ Drbrvl7nZjPx5wpyyPbEetmWVnV8fvIyxx3vIt6+sgo4fIfIDXQ+Z6O2QVoyODKJLvTFl9
+ ispM4TYPEmmWhIk4A51jnrHr6+zuqn0mksqKSUyOsVh94gZTs0kdLy8/mv6Y+Fl6CiEJjJ
+ 19WORXSJg/jW+jv2+3PDt0Iu1ihFghRYwe7NkUSa1ghm9yRuEV2fodxdZcKatJvzHB62X2
+ D7lITo/cm02I2SX+cVfN7xN7XvQMo/+kDym37EcdGZsItZPvmhAn2l5dMkYH/mPFiRYN/w
+ jaOPU6DWNiEaIfKKppmxDYlwJ2AMAMQ60nL737ix0rpBiX/XFpY4eyL5EhLZNwxOcU+xop
+ 1aWu3DFmye3wrhcawsn0pPdaB0T1HKUeyFWITCa7yCXtvxhw95Kubh5xkh+qqX772WM/3U
+ DaCZxVcuhyKBy9xJzvtPOktLWA/j7pctbOEJ7UKzAMozkRgXNYY0tNjOW+4oUMAAT+aYd0
+ expJsC55tGd6Z+nmi8olVkHS4uJP0vkKGIHJ4xbeTBi8it+jvkFOrNv7hnVvWWOZK5hJ05
+ jxi2gKRHXrL34AvCvc5oOtuEB6MP+mP2Le4t5cWr7EwHM7LCRDJ1Bt9KOXVkwMo4A4pV0h
+ AJ+3euuf69QEux6jOasawjuYF19U6HbSGulvbSP9qBRKl3H5Ohgg/J0=
 
-Hi Gabriel,
+From: Vincent Cloutier <vincent@cloutier.co>
 
-> On STM32MP23x and STM32MP25x, the LTDC pixel clock is selected in the
-> SYSCFG DISPLAYCLKCR register among the DSI PHY byte lane clock, the LVDS
-> PHY pixel clock (reset value) and the LTDC kernel clock, the latter
-> being the one needed by the RGB (DPI) output.
-> 
-> No driver registers this clock, so the selection can't be changed from
-> its reset value and a display connected to the LTDC RGB output can't
-> work.
-> 
-> Add a driver registering this clock as a mux. The SYSCFG node is bound
-> to the STM32MP2 SYSCFG driver, which populates its sub-nodes, so the
-> driver is probed from the "st,stm32mp25-syscfg-clk" clock-controller
-> sub-node and uses the regmap of the parent SYSCFG node. The mux parents
-> are taken from the "clocks" property of the sub-node, and the clock is
-> exposed through a onecell provider so that the other SYSCFG clocks can
-> be added later.
-> 
-> Co-developed-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  drivers/clk/stm32/Kconfig                |  11 +++
->  drivers/clk/stm32/Makefile               |   1 +
->  drivers/clk/stm32/clk-stm32mp25-syscfg.c | 134 +++++++++++++++++++++++++++++++
->  3 files changed, 146 insertions(+)
->
-> diff --git a/drivers/clk/stm32/Kconfig b/drivers/clk/stm32/Kconfig
-> index 5dbd75cde657..a298983f5511 100644
-> --- a/drivers/clk/stm32/Kconfig
-> +++ b/drivers/clk/stm32/Kconfig
-> @@ -39,5 +39,16 @@ config COMMON_CLK_STM32MP257
->  	help
->  	  Support for stm32mp25x SoC family clocks.
->  
-> +config COMMON_CLK_STM32MP25_SYSCFG
-> +	tristate "Clock driver for stm32mp25x SYSCFG clocks"
-> +	depends on COMMON_CLK_STM32MP257
+Add initial support for the Samsung S5K3L6 raw Bayer image sensor and
+describe the Purism Librem 5 rear camera and second CSI-2 capture path.
 
-Note for my future reference: The common has || COMPILE_TEST already.
+The driver targets the validated Librem 5 configuration: a 25 MHz input
+clock, two CSI-2 lanes, and RAW8/RAW10 SGRBG modes at 1052x780, 2104x1560
+and 4208x3120. It uses CCI regmap, runtime PM, endpoint validation and the
+subdev stream API, with exposure, gain, blanking, link-frequency,
+pixel-rate, test-pattern and firmware orientation controls.
 
-Also add:
+The sensor driver is a rewrite of the Librem 5 downstream implementation,
+not a direct forwarding of its bring-up history. Thanks to Martin
+Kepplinger, Dorota Czaplejewicz and Sebastian Krzyszkowiak for the original
+driver, mode tables, controls, power sequencing and tuning.
 
-depends on SOC_STM32MP2 || COMPILE_TEST
+The Purism kernel team is Cc'd for review. Would you be willing to join as
+maintainers of the S5K3L6 binding and driver? For now, only I am listed;
+I will add you if you agree.
 
-> +	select MFD_SYSCON
-> +	default COMMON_CLK_STM32MP257
-> +	help
-> +	  Support for the clocks provided by the stm32mp25x SYSCFG, i.e.
-> +	  the LTDC pixel clock source selection between the LTDC kernel
-> +	  clock (RGB output), the LVDS PHY pixel clock and the DSI byte
-> +	  lane clock.
-> +
->  endif
->  
-> diff --git a/drivers/clk/stm32/Makefile b/drivers/clk/stm32/Makefile
-> index e04727b59449..8088d172651f 100644
-> --- a/drivers/clk/stm32/Makefile
-> +++ b/drivers/clk/stm32/Makefile
-> @@ -2,3 +2,4 @@ obj-$(CONFIG_COMMON_CLK_STM32MP135)	+= clk-stm32mp13.o clk-stm32-core.o reset-st
->  obj-$(CONFIG_COMMON_CLK_STM32MP157)	+= clk-stm32mp1.o reset-stm32.o
->  obj-$(CONFIG_COMMON_CLK_STM32MP215)	+= clk-stm32mp21.o clk-stm32-core.o reset-stm32.o
->  obj-$(CONFIG_COMMON_CLK_STM32MP257)	+= clk-stm32mp25.o clk-stm32-core.o reset-stm32.o
-> +obj-$(CONFIG_COMMON_CLK_STM32MP25_SYSCFG)	+= clk-stm32mp25-syscfg.o
-> diff --git a/drivers/clk/stm32/clk-stm32mp25-syscfg.c b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-> new file mode 100644
-> index 000000000000..69b9a7592838
-> --- /dev/null
-> +++ b/drivers/clk/stm32/clk-stm32mp25-syscfg.c
-> @@ -0,0 +1,134 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
+Focus-actuator and flash integration are deferred; this series adds the
+sensor capture path only.
 
-It's currently 2026.
+Changes since the RFC:
+- Drop the media-driver reset workaround, as suggested by Philipp Zabel.
+  The base already includes 71827776667f ("reset: imx7: Correct polarity
+  of MIPI CSI resets on i.MX8MQ"), so no reset prerequisite is needed.
+- Refresh onto media-committers.git next, fetched November 8, 2026, at
+  v7.4-rc1 (6628e7d4c6b2).
+- Remove redundant minItems/maxItems from the binding's fixed
+  link-frequency item list, as required by current dtschema. The three
+  frequencies and two-lane configuration are unchanged.
+- Adapt set_fmt and get_selection to the V4L2 client-info API. The mode
+  tables, requested-link-rate/line-length writes and PLL sequencing are
+  unchanged from the actual mailed RFC driver.
+- Reject active-format changes during streaming, retaining TRY negotiation.
+- Recover failed stream stops with hardware reset before releasing the PM
+  reference, and reset after failed starts. Reinitialize on an immediate
+  restart and cache controls while reset is held. Require reset-gpios for
+  this recovery path; the Librem 5 already supplies it.
+- Clamp the exposure default when reducing its range, require a port
+  endpoint, add MAINTAINERS coverage and document the register provenance
+  and deliberate extra reset pulse.
+- Support control setup and streaming with CONFIG_PM disabled.
+- Propagate exposure-update errors before reducing frame length. Restore
+  exposure-range metadata on VBLANK failure, and roll back mode-dependent
+  controls and mode selection on a failed active-format change.
 
-> + * Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com> for STMicroelectronics.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/err.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
-> +
-> +#define SYSCFG_DISPLAYCLKCR		0x5000
-> +#define DISPLAYCLKCR_DPIVSLVDS		GENMASK(1, 0)
-> +
-> +#define STM32MP25_SYSCFG_NUM_CLKS	(CK_SYSCFG_PIX_LTDC + 1)
-> +
-> +/*
-> + * The LTDC pixel clock source is selected in SYSCFG_DISPLAYCLKCR among
-> + * the DSI byte lane clock, the LVDS PHY pixel clock (reset value) and
-> + * the LTDC kernel clock, which is used with the RGB (DPI) output.
-> + *
-> + * The parents are listed in the DPIVSLVDS field order, while .index refers
-> + * to the "clocks" property of the node, ordered "ltdc", "lvds", "dsi" so
-> + * that the inputs missing on a SoC can be omitted at the end of the list.
-> + */
-> +static const struct clk_parent_data clk_pix_ltdc_parents[] = {
-> +	{ .index = 2 },	/* dsi */
-> +	{ .index = 1 },	/* lvds */
-> +	{ .index = 0 },	/* ltdc */
-> +};
-> +
-> +struct stm32mp25_syscfg_mux {
-> +	struct clk_hw hw;
-> +	struct regmap *regmap;
-> +};
-> +
-> +static inline struct stm32mp25_syscfg_mux *to_syscfg_mux(struct clk_hw *hw)
-> +{
-> +	return container_of(hw, struct stm32mp25_syscfg_mux, hw);
-> +}
-> +
-> +static u8 stm32mp25_syscfg_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-> +	unsigned int val;
-> +
-> +	regmap_read(mux->regmap, SYSCFG_DISPLAYCLKCR, &val);
+Previous version:
+https://lore.kernel.org/all/20260626000715.1111803-1-vincent.cloutier@icloud.com/
+Reset review:
+https://lore.kernel.org/all/d80cecc3f317e4493207ea3c347dd144390d299f.camel@pengutronix.de/
 
-regmap return value is not checked and val is uninitialized if an error
-occurs.
+Tested on Librem 5r4 on November 12 (UTC) with the v7.4-rc1 carry using the
+sensor source from this series. All six size/bit-depth combinations pass
+captures and sustained streaming, as do all 30 directed mode transitions,
+controls, test patterns and runtime PM. Reducing VBLANK clamps exposure and
+updates its range without interrupting capture. Active-format changes during
+capture return EBUSY; TRY succeeds without changing active state. There are
+no EOF timeouts. This is carry-based coverage, not a clean submission-base
+boot. Error paths and PM-disabled setup have host-side coverage; no physical
+I2C fault injection or new system-suspend cycle was performed.
 
-> +
-> +	return FIELD_GET(DISPLAYCLKCR_DPIVSLVDS, val);
-> +}
-> +
-> +static int stm32mp25_syscfg_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct stm32mp25_syscfg_mux *mux = to_syscfg_mux(hw);
-> +
-> +	return regmap_update_bits(mux->regmap, SYSCFG_DISPLAYCLKCR,
-> +				  DISPLAYCLKCR_DPIVSLVDS,
-> +				  FIELD_PREP(DISPLAYCLKCR_DPIVSLVDS, index));
-> +}
-> +
-> +static const struct clk_ops stm32mp25_syscfg_mux_ops = {
-> +	.get_parent = stm32mp25_syscfg_mux_get_parent,
-> +	.set_parent = stm32mp25_syscfg_mux_set_parent,
-> +	.determine_rate = clk_hw_determine_rate_no_reparent,
-> +};
-> +
-> +static int stm32mp25_syscfg_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct clk_init_data init = { };
-> +	struct stm32mp25_syscfg_mux *mux;
-> +	int ret;
+Vincent Cloutier (3):
+  dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
+  media: i2c: Add Samsung S5K3L6 image sensor driver
+  arm64: dts: imx8mq-librem5: Add rear camera
 
-Put in reverse Christmas tree order.
+ .../bindings/media/i2c/samsung,s5k3l6.yaml         |  118 +++
+ MAINTAINERS                                        |    7 +
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi  |   51 +
+ drivers/media/i2c/Kconfig                          |   10 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/s5k3l6.c                         | 1192 ++++++++++++++++++++
+ 6 files changed, 1379 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+ create mode 100644 drivers/media/i2c/s5k3l6.c
 
-> +
-> +	clk_data = devm_kzalloc_flex(dev, *clk_data, hws,
-> +				     STM32MP25_SYSCFG_NUM_CLKS);
-> +	if (!clk_data)
-> +		return -ENOMEM;
-> +
-> +	clk_data->num = STM32MP25_SYSCFG_NUM_CLKS;
-> +
-> +	mux = devm_kzalloc_obj(dev, *mux);
-> +	if (!mux)
-> +		return -ENOMEM;
-> +
-> +	/* The mux is a sub-node of the SYSCFG, whose regmap it shares */
-> +	mux->regmap = syscon_node_to_regmap(dev->parent->of_node);
 
-Instead of dev->parent->of_node, you can use:
-
-    struct device_node *np __free(device_node) = of_get_parent(dev->of_node);
-    mux->regmap = syscon_node_to_regmap(np);
-
-> +	if (IS_ERR(mux->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(mux->regmap),
-> +				     "failed to get the SYSCFG regmap\n");
-> +
-> +	init.name = "clk_pix_ltdc";
-> +	init.ops = &stm32mp25_syscfg_mux_ops;
-> +	init.parent_data = clk_pix_ltdc_parents;
-> +	init.num_parents = ARRAY_SIZE(clk_pix_ltdc_parents);
-> +	init.flags = CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT;
-
-clk_hw_determine_rate_no_reparent() already prevents reparenting, so
-CLK_SET_RATE_NO_REPARENT is redundant here. It doesn't hurt anything
-though.
-
-Brian
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Brian Masney <masneyb@kernel.org>
+2.56.0
