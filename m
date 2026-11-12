@@ -1,64 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468306;
-	b=qQAsRpXFNg350XGTYbHQ2tEz3kBSTO1sB44NjGRSISx3d3eI0NBAiQ6iUnbLV39FxBcy
-	 K+11/Bs07LW14jAG+i/EQnxrsOdJPm0wsje5goupPvPWugiZQ+5jBGenY0zYjkgBzLVr6
-	 9duh61ft9eHhs3HuA0zchjrNq2vzK1SGPdZVnIs37uhUUfF6EbF4ZV5ceIPSnEHQ9CfxH
-	 OXfvg3Fwlc5xyEFSL/NKNZQrxrbXbEVarLmKpbt9gzE/YUipwVOM7oO4UCgqVep5Af1cM
-	 xF9dmtk++Q+D7KSu3LCuDvuHMpFd7HxumwKFOwsgrSC/uJ0vpb48QaUjT+zp1O6AkPQ==
+	t=1794468586;
+	b=rS+TAHZZwnX6NvA+fcIfpQq9h7j7eTaGg0G6FZF0HKTBM7YkMRp5FK6owcXPW+3R7Gbd
+	 1ucxjTXcvktmriNvx4SAGN9Zk7HVni8MDn95JSUs79V0DbN/7F2NaEgwqqmdInUV5XBEl
+	 n3mHpDvAhLqAfJGqYBz3X53uJLV1CQhOfq+wY8wNzdC73zOug1JgbFCFBLMbLFaHMC8xE
+	 f1roW3Ana1tviWy7/hJ97WbeCZe/U/vQGX5iVpx9Nj5vOzQUrdeQpBvelwfn3jBUtdIkK
+	 xaIkba2K4Z+1IuTa7e/eJKD/hMpUqcXlSfm8eFtbcTmqtQE7Luzle/3QX/ecuP6sL8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468306;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=pqC808M/mZK8wr2GU+lcOwmAS4GPcScAPoGXHMQXl8k=;
-	b=sxAB5HKNndDMkoXDPT2hkpMGSzdSwF7VjrT+cWP31epCbaNTucnX0e9X1vzPA3Fyka7l
-	 LBT9G3aDYvTJCngp4we7FiHbckJZp4s7GaQoNlPBKAtA6pmtqBLo8lYuu94pMSbVb3m2p
-	 KnzOiZ7/gjLy7Ll6+GkigixkBEVbJNuYeBkBtDPkDShcIzWfgNaXc5GIrIdShs1o7eu/P
-	 ISJlqpEJsgMa2NiiGUTC2VniDSRcO0uNqbkzvYT2IaLPOdBXj8jxjC/nN4aWhMELzYHG0
-	 SH3bMBfaXlvrNDfP9aR/3fKtytq4571dZGit11tJFX9qqFRl33JZkTUH15FsJqmAXbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+	b=38TVSnFIoEnHkWA3pJJ7bX/iORQnAXRFRBDfNNWcaUgBzbuuSbXF+C82qAiJgc6qcIqs
+	 uY5q8Hoaq6EOdUR6zR8dgUxeRCa5WNh+K/+nTfqGspD6H+PLhhTCzRPQM2B4l2RsXcI4D
+	 VOtAMfLGq3+m9PqiWhG8hPO6Y8XcWnpcBJHu0M+eCpfeFIcX/n1L83zElIQ7q0Hw5g9Kr
+	 IGlwdZTquFDOOjBaxM06T30xT/dJaNCaIOnhJB1XamxgUTrK44l5upkn52JEkMlG8TL+3
+	 AI2jOI1fnmI6mF2zrKL3Erawwmzk2lyUV0BOGycrYiUs97pTDmCeBofS8U3Q8FTT54w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNdFc70J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16D6606A32E;
-	Thu, 12 Nov 2026 07:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345F2606A32A
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 07:29:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 345F2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNdFc70J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDBD01F00A07;
-	Thu, 12 Nov 2026 07:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794468306;
-	bh=pqC808M/mZK8wr2GU+lcOwmAS4GPcScAPoGXHMQXl8k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HNdFc70JhZjcvuKLNs4EfjWppFCSNim5jLbVVJZPo/oeyyFA52BKRw44NrvWunV3t
-	 GpbLsLTioy6nWuxiGDslqUkEIzHr7brGuBroD5x0jF01ySwD4gIqg120R9/4fDqEyp
-	 1hrtJKFfSQLmZfwJwQyoCbGpSOhRQfHuEfzRA8CHJRPhKrYMCUetbo9ltrMneLJd1x
-	 Ld12HPfg1BDRSsBSlnDNByHdlS1RkoQEhhC7BCrms0Qi//fzYgL75T431SRysdNcoL
-	 XVWfWspPl0vyg3OATolqSYZSMS5LW/DhDnAxQaRNzsYFeuTjd3hPuVkYJblRle4nL4
-	 2yqVn/RVOEQZA==
-Subject: Re: [PATCH net-next 3/3] net: ethernet: ti: am65-cpts: implement
- PTP_SYS_OFFSET_PRECISE
-From: netdev-bot+sashiko@kernel.org
-To: jjc@jclark.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, s-vadapalli@ti.com,
- rogerq@kernel.org, bigeasy@linutronix.de, martin.kaistra@linutronix.de,
- vadim.fedorenko@linux.dev, r-sharma3@ti.com, robertcnelson@gmail.com,
- nm@ti.com, vigneshr@ti.com, c-vankar@ti.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Date: Thu, 12 Nov 2026 07:25:04 +0000
-Message-ID: <179446830443.2199510.10552580927894870264@kernel.org>
-In-Reply-To: <fd826c118aec02c06bde92ff9c20f1958c214b3d.1794284248.git.jjc@jclark.com>
-References: <fd826c118aec02c06bde92ff9c20f1958c214b3d.1794284248.git.jjc@jclark.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so339152b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 23:29:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794468585; x=1795073385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+        b=gOmxHypxd4O4PUIV8u4WBmDa9ZbYNZauWX/5z3f7n4qIiWsDVvKE5ksPpqLRja/Fx7
+         syfnGKTMQKsemE9DYKzof9wMvwuaztIhowiACaT0TZDl2pOO81i/quJBa3z/LYcLeLFb
+         LHLT3TGVFFu9puCuj5J7I9JfcDHOGL64+8CR7MaaFPNUfRBXnXAQC57Tm8yTM6qXapGi
+         ShbuZ7OSvxHpcu/7LR3pJtuh50Q+rJ69QRVvanQmFu5dygF7+yJcjuuClLFJIrfc8bqC
+         l1LgjEVXtzdnU0e25i2m6CSiRhIjPPcTq2p9iM6NWTrI8vjlOl6RkQIiXUNbYY7i20HI
+         l0Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468585; x=1795073385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+        b=Y6WxGt395f1YFyD/s5hBs4OEU/ZNcTiggIgxxTukvxVy1t77TbMQiyqlXTwhhnFMZj
+         ONJiAkqKdA1fRxTEJZBPWJegmU9Xg9PRbskZkOS++tywWyvQwl3mhgpACoWpi2YqhWtn
+         IBfOyJv+gftcipRFiNPPiEhvCd3bbP8ZMcKjzDfGA0+5fen591tnxXyDHUxmUJC+RD3p
+         H++nE6VCW3DAV/Z5SW5xNiTh9FQGsxyWP7aeyPS92wfyoFAnO0G9wcgL2xXEOFQNhkaT
+         C8NqyUINPZEh/l43uQTkjQvt1BFa5I8XehYwATr3sx4xOtt08FPM2MMfY0R1w9zJKyVv
+         k2Jw==
+X-Forwarded-Encrypted: i=1; AL+hErEJiVrt/RO50mCbjlfVpj5MsKe50ZUTwLBhYBNtccUrJPo7FR7+n2TsrBKy9c8XYdl4H9BJ9/guYjyU@vger.kernel.org
+X-Gm-Message-State: APuU4Z+asbuhEN6WyVF7doUN88dOfakDo0uUs3Bco3vBgbIVjTTXKB6c
+	YmeB0CbvmaJ4QTxxTNcwaAkRmuodRuI+vBj8BdXsjQzLAwYgD9ZsUiCbYTMRv7Ho
+X-Gm-Gg: AYBFou2UoHBAtC5XkR/Ct0PiVfHfui6ZNRD/X02f4Q+yctvI7/XssmFSLsModtZPO7o
+	zfE8x5ALktxmj+wMQi8Gc1GPevT9fELo5G7718Ct2JsAH5hq6YOD8Onelepv5vMMvFzgcEg/PCq
+	40QStKkohti+pQGYQePo7srCpRrqoJNCGY9byUB+2P7DZxbSvSC8X2xT5G48UpCMYB04lZoWLtP
+	5tVHqWN9weBmzeBNtUOAlbD5TQ+hOK3tJ2CAggZHUrQbtDETQdpZjpV3bfFceg6Ca9Yj6uHGwum
+	gtM7Huchd+xRiMwmV1L/CeZ4um3njjkEYyaguHM31sNgZawI2P7f7ldDz5RlA3b1ZVU3itzLsLK
+	IWpZ2S/PNpILxVWerF95kEMuvP++ijQOWevUMcysPGGN9X30d5pyCcHs7A6lz8WEpE8Ad/cl0PZ
+	O2ahy7dfv4NrQsRlFgs0AKlqjrqGDPMg2cvfz3rz5vKvGAbK4KzLD57s5ejYvu2/UDoyWN2Oc+e
+	hdiD9zDbkEr3cVxGmZ53fsqFpIIIm4IBn2N3bnjt5xbvF1/mwIp+bbqlVUytWrSgbvrfyVJKQsN
+	APIKdDjIxe5BZJVUdPHFGVKnkeZzWIYc63sX7sqfws925OxVddLhmbweRvqF
+X-Received: by 2002:a05:6a00:451a:b0:8a9:b07c:7709 with SMTP id d2e1a72fcca58-8bd5cd78ad6mr1206200b3a.19.1794468585366;
+        Wed, 11 Nov 2026 23:29:45 -0800 (PST)
+Received: from shaunak ([43.242.208.118])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab8dd5b4sm2980797b3a.53.2026.11.11.23.29.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:29:44 -0800 (PST)
+From: Shaunak Datar <shaunakkdatar@gmail.com>
+To: rafael@kernel.org
+Cc: daniel.lezcano@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shaunak Datar <shaunakkdatar@gmail.com>
+Subject: [PATCH] dt-bindings: thermal: kirkwood-thermal: Convert to DT Schema
+Date: Thu, 12 Nov 2026 12:59:25 +0530
+Message-ID: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,174 +102,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Convert the Kirkwood thermal binding from the legacy text format to YAML
+schema to enable validation with dtbs_check.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
+Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+---
+ .../bindings/thermal/kirkwood-thermal.txt     | 15 ---------
+ .../bindings/thermal/kirkwood-thermal.yaml    | 32 +++++++++++++++++++
+ 2 files changed, 32 insertions(+), 15 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+ create mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The optional ti,gtc-push property fails in two different ways
-  in am65_cpts_of_parse() (drivers/net/ethernet/ti/am65-cpts.c).
-- [Medium] am65_cpts_gtc_push_select() in
-  drivers/net/ethernet/ti/am65-cpts.c writes the EXPBIT_SEL field of…
-- [Medium] am65_cpts_gtc_push_select() in
-  drivers/net/ethernet/ti/am65-cpts.c reads GTC_CFG0_PUSHEVT back only…
-
---
-
-net: ethernet: ti: am65-cpts: implement PTP_SYS_OFFSET_PRECISE
-
-This commit adds getcrosststamp support to the TI K3 CPTS driver. It uses
-the Global Timebase Counter push event output, routed to a CPTS hardware
-timestamp input. For each request the driver enables the push input,
-waits for an event and pairs the PHC timestamp with the computed GTC
-edge, retrying up to three times. The feature is enabled when the CPTS
-node has a ti,gtc-push property naming the GTC CFG0 syscon and the push
-input.
-
-> diff --git a/drivers/net/ethernet/ti/am65-cpts.c b/drivers/net/ethernet/ti/am65-cpts.c
-> index 0d71147f3c291..70b0d43bfe788 100644
-> --- a/drivers/net/ethernet/ti/am65-cpts.c
-> +++ b/drivers/net/ethernet/ti/am65-cpts.c
-
-[ ... ]
-
-> @@ -797,6 +839,226 @@ static int am65_cpts_ptp_enable(struct ptp_clock_info *ptp,
-
-[ ... ]
-
-> +/* select the counter bit the GTC exports on its push event output */
-> +static int am65_cpts_gtc_push_select(struct am65_cpts *cpts)
-> +{
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(cpts->gtc, AM65_CPTS_GTC_PUSHEVT,
-> +				 AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL,
-> +				 FIELD_PREP(AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL,
-> +					    AM65_CPTS_GTC_PUSH_BIT));
-
-[Severity: Medium]
-Is it safe for this driver to own the EXPBIT_SEL field of GTC_CFG0_PUSHEVT?
-
-The register belongs to the SoC-wide GTC, not to the CPTS.
-am65_cpts_ptp_getcrosststamp() rewrites it on every PTP_SYS_OFFSET_PRECISE
-request. The previous value is never saved or restored, on success or on
-error.
-
-The GTC push event output goes into the Time Sync Router, which can send
-it to other timesync capture inputs, SYNC_OUT pins, or software on other
-cores. Suppose one of those consumers expects a different exported bit.
-Won't its signal frequency change after the first request from Linux, and
-then be forced back to bit 15 on every later request?
-
-The ti,gtc-push binding added in this series describes the GTC as the
-SoC's system counter. It doesn't give this CPTS exclusive ownership of the
-push output.
-
-> +	if (ret)
-> +		return ret;
-> +	/* flush the posted write before the input is enabled */
-> +	return regmap_read(cpts->gtc, AM65_CPTS_GTC_PUSHEVT, &val);
-
-[Severity: Medium]
-Should val be checked here, to confirm that EXPBIT_SEL now reads back as
-AM65_CPTS_GTC_PUSH_BIT?
-
-am65_cpts_gtc_push_next_edge() and the window check in
-am65_cpts_gtc_push_wait() both assume rising edges at k * 2^16 + 2^15:
-
-	if ((s64)(popped - edge) < 0 ||
-	    (s64)(popped - edge) >= (s64)AM65_CPTS_GTC_PUSH_PERIOD) {
-		...
-		return -EAGAIN;
-	}
-
-	push->cycles = edge;
-
-The write might not take effect. For example, the CFG0 region could be
-firewalled or read-only in some security configuration, or another agent
-could rewrite the field. Then the exported bit b' is not 15.
-
-With b' < 15, the first event comes from an edge before the expected
-bit-15 edge. If IRQ thread latency puts popped past edge, the attempt is
-accepted with push->cycles = edge. The result is off by up to that
-latency.
-
-With b' = 16, every bit-16 edge falls 2^15 cycles after a bit-15 edge,
-which is inside the window. About half of attempts would pass while being
-about 164 us off at 200 MHz.
-
-In both cases, wouldn't PTP_SYS_OFFSET_PRECISE return a wrong
-cross-timestamp to userspace with no error? The syscon regmap is uncached,
-so a FIELD_GET() on val would catch the mismatch.
-
-[ ... ]
-
-> @@ -1160,6 +1423,24 @@ static int am65_cpts_of_parse(struct am65_cpts *cpts, struct device_node *node)
->  		}
->  	}
->  
-> +	if (of_property_present(node, "ti,gtc-push")) {
-> +		gtc = syscon_regmap_lookup_by_phandle_args(node, "ti,gtc-push",
-> +							   1, &prop[0]);
-> +		if (IS_ERR(gtc))
-> +			return dev_err_probe(cpts->dev, PTR_ERR(gtc),
-> +					     "Failed to get GTC syscon\n");
-
-[Severity: Medium]
-Should a failed syscon lookup be fatal here? A bad index just below only
-logs an error and leaves the feature disabled.
-
-Returning here makes am65_cpts_create() return ERR_PTR(ret).
-am65_cpsw_init_cpts() in am65-cpsw-nuss.c then fails the whole CPSW probe:
-
-	if (IS_ERR(cpts)) {
-		int ret = PTR_ERR(cpts);
-
-		of_node_put(node);
-		dev_err(dev, "cpts create err %d\n", ret);
-		return ret;
-	}
-
-So a problem with the optional cross-timestamp property takes down the
-Ethernet interface.
-
-A correct DT can also hit this. TI_K3_AM65_CPTS does not select or depend
-on MFD_SYSCON, and ARCH_K3 does not select it either:
-
-config TI_K3_AM65_CPTS
-	tristate "TI K3 AM65x CPTS"
-	depends on ARCH_K3 && OF
-	depends on PTP_1588_CLOCK
-
-With CONFIG_MFD_SYSCON=n, the syscon stub returns ERR_PTR(-ENOTSUPP). Any
-DT with ti,gtc-push would then stop Ethernet from probing. The same
-happens if the phandle points at a node without the "syscon" compatible.
-
-The existing ti,pps handling and the new index check both treat errors as
-non-fatal. Could this path do the same, or should a Kconfig dependency on
-MFD_SYSCON be added?
-
-> +
-> +		if (prop[0] > 7 ||
-> +		    (cpts->pps_present && prop[0] == cpts->pps_hw_ts_idx)) {
-> +			dev_err(cpts->dev,
-> +				"invalid GTC push HWx_TS_PUSH index: %u\n",
-> +				prop[0]);
-> +		} else {
-> +			cpts->gtc = gtc;
-> +			cpts->gtc_push_hw_idx = prop[0];
-> +		}
-> +	}
-
-[ ... ]
-
+diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+deleted file mode 100644
+index 8c0f5eb86da7..000000000000
+--- a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-* Kirkwood Thermal
+-
+-This version is for Kirkwood 88F8262 & 88F6283 SoCs. Other kirkwoods
+-don't contain a thermal sensor.
+-
+-Required properties:
+-- compatible : "marvell,kirkwood-thermal"
+-- reg : Address range of the thermal registers
+-
+-Example:
+-
+-	thermal@10078 {
+-		compatible = "marvell,kirkwood-thermal";
+-		reg = <0x10078 0x4>;
+-	};
+diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
+new file mode 100644
+index 000000000000..1f9b97bdd48f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
+@@ -0,0 +1,32 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/thermal/kirkwood-thermal.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Kirkwood Thermal
++
++maintainers: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
++
++description:
++  Thermal sensor present in the Marvell Kirkwood 88F8262 and 88F6283 SoCs.
++
++properties:
++  compatible:
++    const: marvell,kirkwood-thermal
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    thermal@10078 {
++        compatible = "marvell,kirkwood-thermal";
++        reg = <0x10078 0x4>;
++    };
+\ No newline at end of file
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794284248.git.jjc%40jclark.com
+2.53.0
+
