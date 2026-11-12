@@ -1,102 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468230;
-	b=4XDeA2FjS2yd0mlI947fEiD7d5Hz9mR0y+v0zCostVDYVv0u9C2CM/gAhxtMkXm5QOkC
-	 J6ysKXhTXy1wNtQ2GymsfKBI8moO05111FNM3GHb6BhAJJ2CPEU7mV4+v0zObtEm9btBd
-	 pIJ8maOmiuY6WR9ESLJkL9NBvhO85qqZsZKfGwf+1YDotwgOvHjl5VyUOHLafoUkziZKW
-	 bADjBdBBgep8NUMZER3RxoxcDHreV1QG4srMc//tOvmzIHoHOs/H4hvgmMCkCIiiQIKhS
-	 /mMiOsZvohmqGeQgeeUNKlaR5QLspGW8GXOWF21aZSiqDuP7+0HQqv1DDsKYzOwHVEA==
+	t=1794468304;
+	b=Mv/gbbXAM8hd5g1DwmAKR4cxe/iWe9jE3QlUfTv/l5Iw9iAx7jokjv0ZL8e8gIA4AIaC
+	 DJbkgXWUeHD86J7VJvT8KJfsfiNyDD0mMdGBVUIUKnIq8LLna09xz21FJb4ojPwY+xElW
+	 5A5qLAy1CSQE8pdQ1MkORFNnmJUVM4XcvdcAPeGvyQHYTisCMa7qG5K16CcWsaAb4MsCl
+	 KhVWjeLVyAt/J3W7dPBV8ka8ITg+fHB8gZK/RDwoanQ5Wch+3w8TWDy7YJQvhfmvxDnEf
+	 wru6447LqOchH95DYn23DSqQHfcPe/L37deig+ob1xoT8SWO4UpUHJAL/nUbhL67qkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468230;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=LrLWvSoaY1mTWu+pultD2YRxju02DepMVtHczLMKjio=;
-	b=qZ4Mq8cHaaSLk1swCV7MampJ7oZoS8YpQhmrS0LgVu0YOhLW4CzjvVU9dr1ty8M6L/tY
-	 3u0p3gp6lgdIuxXrT2P4026ufsI5hBRUki9HrncOjiHQ6uv1yueNMP0lO0Mkxv24FKJA3
-	 hDHySbcF2umbkE9zObOhk4BZE6oDRBz5D7v5mnNoIgJwOadA4xFLgbbFtYMYRtoF8yV3E
-	 R9GHOCxcrdjbr5ogmUOVlzHxPL7vB/JFK8SGe0JzcgIO/ezIGQGhcDL1hTVWiSZZ5vCxr
-	 4YNjUzb7BM0IekiJHfpYYIcnF7LcedF5AX8GMEyRAlGfSXDkqtBi3WvS2ALToQ4HR4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468304;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=a1xEK6Aga3yjCNS1Hmlu8sGRBKzLE3yolmU5IVLWK9g=;
+	b=iQqUyTCzqqOYxKe+ZzAyL7dRvByOdGmLM0gqkqX9xXh+DBZG9Nb9b/6MI+OZjKgUKvQE
+	 2PrVW70dqQ9gnq8x0+kG9irx9VPw649MVkxxYTDXZ4p3nvXUFd9JMKbyfMMsDnuDLj5bJ
+	 nBK8C/ahNDy6b502LZyKLK5mLQCKK3XHe3sNMLH8gS/couo/VYo7cgq9LC2cM+R12t6PB
+	 3+La3er7oLpb6o/e1jO6UmOkFrndyAsnr3Qy7mqbKa1DJpNtnV4LfNKxtzSFSKFnXkqpg
+	 hGBbEAAxCcYFdbSctBo2gCekOn45YnB9dJjM7KI3uaGfCeGFchh5OaTQI1OczcM7yRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GhiT493d;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vs8S84HZ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GhiT493d;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vs8S84HZ;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jYd/fAZz";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE05606A31C;
-	Thu, 12 Nov 2026 07:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE05606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4233606A33D;
+	Thu, 12 Nov 2026 07:25:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GhiT493d;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vs8S84HZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GhiT493d;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vs8S84HZ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A0CB921E0C;
-	Thu, 12 Nov 2026 07:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794468227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=LrLWvSoaY1mTWu+pultD2YRxju02DepMVtHczLMKjio=;
-	b=GhiT493dn1rQPY6sEiC/+cNJbGQ9cnRV9fhDN6xQ4jh49qtzvn0mvvKw8pQGgFdzLiVD5k
-	qTwaXWZviU2XzFPCq8iGMZDGpd/eYRQWjt/wQt6LQzCcMXIeawCo3LAUzLvMl90etzlIUN
-	6f2ed62FwxYqw4GGgVbayn+/OdL6zWI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794468227;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=LrLWvSoaY1mTWu+pultD2YRxju02DepMVtHczLMKjio=;
-	b=Vs8S84HZU7917LbWn4O7s9YkA7PM+FX7zxwU9qDRYlitFAocwxDCAS1zUN7lgOCtNlBsqt
-	Zp/Nuajx/CaJ11AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794468227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=LrLWvSoaY1mTWu+pultD2YRxju02DepMVtHczLMKjio=;
-	b=GhiT493dn1rQPY6sEiC/+cNJbGQ9cnRV9fhDN6xQ4jh49qtzvn0mvvKw8pQGgFdzLiVD5k
-	qTwaXWZviU2XzFPCq8iGMZDGpd/eYRQWjt/wQt6LQzCcMXIeawCo3LAUzLvMl90etzlIUN
-	6f2ed62FwxYqw4GGgVbayn+/OdL6zWI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794468227;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=LrLWvSoaY1mTWu+pultD2YRxju02DepMVtHczLMKjio=;
-	b=Vs8S84HZU7917LbWn4O7s9YkA7PM+FX7zxwU9qDRYlitFAocwxDCAS1zUN7lgOCtNlBsqt
-	Zp/Nuajx/CaJ11AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21D47134A0;
-	Thu, 12 Nov 2026 07:23:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xVu5NIJp9WqCBAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 12 Nov 2026 07:23:47 +0000
-Message-ID: <75df518a-41c2-4dda-98fa-61064f8327fb@suse.de>
-Date: Thu, 12 Nov 2026 08:23:46 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYd/fAZz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCABA1F00A05;
+	Thu, 12 Nov 2026 07:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794468304;
+	bh=a1xEK6Aga3yjCNS1Hmlu8sGRBKzLE3yolmU5IVLWK9g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jYd/fAZzm3pNLz3fQRYz76G0ehETIQ1m4H5F5RwgD5a5V/lt8BdhrdeqEUQ8DrKzx
+	 5Lm/FRO0U6X7Onjr+NZLtQHmdJ9ja0FHhIy1RkskBrSOcRr9vNkmTVZspK4JLV4uMt
+	 8/eIzPHtw+eHGdO3q2Gfnz5uYplSF2TLUk4eAHssQV2zNdjMRbOOESIz1I5njrPCdZ
+	 nzChP00C8o3u/dr9voat0JXLcVqm7c/t1+V3g7dM5lTjv9/vIW3ciP2Qfe23xM5xyO
+	 kPhovEsTMClfGYhNs51SrAFMd9/+pKnPuHSym9kHcY7uil/x+RAvJ8MhFoRVMngQN2
+	 cGxWUKLdAT/cA==
+Subject: Re: [PATCH net-next 1/3] dt-bindings: mfd: syscon: add ti,am654-gtc
+From: netdev-bot+sashiko@kernel.org
+To: jjc@jclark.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, s-vadapalli@ti.com,
+ rogerq@kernel.org, bigeasy@linutronix.de, martin.kaistra@linutronix.de,
+ vadim.fedorenko@linux.dev, r-sharma3@ti.com, robertcnelson@gmail.com,
+ nm@ti.com, vigneshr@ti.com, c-vankar@ti.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu, 12 Nov 2026 07:25:02 +0000
+Message-ID: <179446830222.2199510.13606408467624966277@kernel.org>
+In-Reply-To: <42bbc4a03679958f2ed4e195acea99fb57c68fd6.1794284248.git.jjc@jclark.com>
+References: <42bbc4a03679958f2ed4e195acea99fb57c68fd6.1794284248.git.jjc@jclark.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,119 +67,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] fbdev: simplefb: Add mono framebuffer format
-To: Helge Deller <deller@gmx.de>, Sebastian Raase <linux@sraa.de>
-Cc: Hans de Goede <hansg@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793758480.git.linux@sraa.de>
- <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
- <16220356-767a-4f1d-9b24-5b1f960e04cb@gmx.de>
- <1b37c7d3-f8d0-4023-b0bc-4770ec2b17d6@suse.de>
- <9330c733-bb42-4bfb-bdec-d012b651475e@gmx.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <9330c733-bb42-4bfb-bdec-d012b651475e@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmx.de,sraa.de];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[dt];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -11.79
 
-Hi
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Am 11.11.26 um 18:52 schrieb Helge Deller:
-> On 11/11/26 16:27, Thomas Zimmermann wrote:
->> Hi Helge
->>
->> Am 11.11.26 um 00:25 schrieb Helge Deller:
->>> On 11/4/26 03:34, Sebastian Raase wrote:
->>>> Add a new simple-framebuffer format for monochrome 1 bit-per-pixel
->>>> framebuffers. Monochrome framebuffers are not true color, so their
->>>> visual is set to FB_VISUAL_MONO10 (set pixels are bright).
->>>>
->>>> Signed-off-by: Sebastian Raase <linux@sraa.de>
->>>> ---
->>>>   drivers/video/fbdev/simplefb.c         | 2 ++
->>>>   include/linux/platform_data/simplefb.h | 1 +
->>>>   2 files changed, 3 insertions(+)
->>> series applied to fbdev git tree.
->>
->> Isn't that a bit premature? There's no use-case give; except because-
->> we-can.  And doesn't it require a review from DT maintainers?
->
-> I'm happy to add any Reviews or Acks, or drop it again if there are 
-> any objections.
+Low priority / nit picks for your consideration:
 
-Ok, sure. No general objections from my side.
+- [Low] The new compatible "ti,am654-gtc"
+  (Documentation/devicetree/bindings/mfd/syscon.yaml, line 134) is named…
+- [Low] The subject line "dt-bindings: mfd: syscon: add ti,am654-gtc"
+  starts the description after the prefix with a lowercase "add".
 
-Best regards
-Thomas
+--
 
->
-> Helge
+dt-bindings: mfd: syscon: add ti,am654-gtc
+
+This adds a ti,am654-gtc compatible to the generic syscon binding. It is
+for the CFG0 register frame of the TI K3 Global Timebase Counter. The CPTS
+driver writes GTC_CFG0_PUSHEVT in that frame to pick the counter bit the
+GTC exports as its push event, which provides hardware cross-timestamps.
+
+> dt-bindings: mfd: syscon: add ti,am654-gtc
+
+[Severity: Low]
+This isn't a bug, but MFD subjects normally capitalize the description
+after the prefix. Recent commits to syscon.yaml do this, for example:
+
+  dt-bindings: mfd: syscon: Add ESWIN EIC7700 compatible
+
+Should this be "dt-bindings: mfd: syscon: Add ti,am654-gtc"?
+
+> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> index 80ff0e1caca22..b1030f11b2dbf 100644
+> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> @@ -131,6 +131,7 @@ properties:
+>                - ti,am625-dss-oldi-io-ctrl
+>                - ti,am62p-cpsw-mac-efuse
+>                - ti,am654-dss-oldi-io-ctrl
+> +              - ti,am654-gtc
+
+[Severity: Low]
+Is ti,am654-gtc the right name for this node? The commit message says it
+describes only "the CFG0 register frame" of the GTC. The compatible,
+though, is named after the whole GTC IP.
+
+The GTC has more than one register frame. k3-am62l.dtsi maps a
+0x34000-byte window for it:
+
+arch/arm64/boot/dts/ti/k3-am62l.dtsi:
+    ranges = <0x00 0x00a80000 0x00 0x00a80000 0x00 0x00034000>, /* GTC */
+
+The generic syscon schema allows only one register region and no extra
+properties:
+
+  reg:
+    maxItems: 1
+  [ ... ]
+unevaluatedProperties: false
+
+So a node with this compatible can never describe the other GTC frames
+or resources.
+
+The syscon.yaml description also says syscon is for registers that are
+"not cohesive enough to represent as any specific type of device". The
+GTC is a specific counter IP, and PUSHEVT is one of its own functions.
+
+Compatibles become DT ABI once merged. A full GTC binding added later
+would then need a different name for the same IP.
+
+Would a frame-specific name such as ti,am654-gtc-cfg0, or a dedicated GTC
+binding, describe the hardware more accurately?
+
+The ti,gtc-push property in ti,k3-am654-cpts.yaml, added later in the
+series, also describes its target as only the GTC CFG0 syscon. No later
+patch in the series changes syscon.yaml, so the naming is the same at the
+end of the series.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794284248.git.jjc%40jclark.com
