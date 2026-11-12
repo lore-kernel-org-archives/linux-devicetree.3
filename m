@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474420;
-	b=c/sSe1XcJs47qDgmDGeJHHp/+fJx/qEGDp8SVMlbyoxRoj80QBb+lEK5iDQkbRDtvD5l
-	 pPy3y4SdS8j35B820u2IaDYzrMqlwevJnSdWo+HLAyjaBMhWStrvc9eYZAeCcrXn2wZ68
-	 2cdPEaO/Yeez3Dy3tDkookmeXBrsbe6HYXYfEGr13I3GIHuxPu7cCmYLabwjyiNQQm5oA
-	 BcG8yO07ucW50BOSjW30xdhL531sZqg6aOr4ZWtPDTSKkVbVqSPtKtWd19MCRyONexsoW
-	 /E9BjNzrEAIWcm6FJLcMsq6fCiVtNCarGRme9eLpgJccnhRuZ3FdP4tPkkWwL79zJog==
+	t=1794474457;
+	b=f+rKmghIbvsqZIXl5gQ2KG1c2+rRxrtKTed75C6X2o8jT/P0U9pUAap705Rust5ugFF6
+	 2fTTHuu684chrDJsb1uzas1M0J9MUDYImtjxYNmC3wcO0A1cgZj8aOhrmJdirz+stehzW
+	 Hk0g53/5NjJVknwpSTYjtA25+1Hg+Td7JnLrih67GjIWnHETwTd9Cxjhx0J2Yvihafju3
+	 rzQhgHTHTOv2C2ae4YgGwI1r7s0T8rWNSASCAR8UjXmkNW4l34++4UylVCAj07RQLvjAv
+	 xpGLPJ6bfTPbaZ+V6P30PvXlnBExxa0wgAc3lLiqOSsQ6ewUeT3dA2Trmi5KcDsjiDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474420;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=tRjCHW5JmHRNfYMVVQ7cTaxvP6E3n7AN8iMMHkTyP+0=;
-	b=mfjoQxat/zsar4F4A+kLytgC9uS/iXbG9xzKDIqV+0OeytscB7iGwZFs3PiJ28UK8bWB
-	 DgYxItiWNrLrjxnAUzQEwoVhE2Yi1kS4irPP6ati2zhABgvgD+nMVuIxII9RIbsnEBb46
-	 cpaZgT1mJ8Z/D0yMVEtFWEskt6gL0zdlHC2p4NtqbzDMhXW0JHY1i32LpEWBSA1crEHw2
-	 THuLe0/pTyEJI15cz+49zbUb/ehrBwd8Ax90/Blns45JVYOzgDKE2qAFYzAZj6wxm3Sqi
-	 jzLQO5kP0bnBWNF3EIkgLQ1elQVtcM05hjZrxtZv8AL0TiKZ8ubAn9VGWxTlnIMINSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474457;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7oMEbKgyXoeSCmiLuCygcoBNqJed+97Zm0Ftsw9to3A=;
+	b=mpN/r+e2IR81332tjS29OlUQ6TXiuIgfgPYpa/DlnAG70+5jU7osLhqrbL2dNtsNuq8C
+	 ApeTfCbjqiRViAgdGAtufylB9XGxy63Gn34X7Mk707P3KpTZIAVic+Mf4P134qkKDvWlD
+	 aEWmAaqXBY9mdAdZANT3DgclbWQnVlzwRh2L/luHyZrnzoFVMGv8hsN2NPkEaA6gBF+u2
+	 1BZ2ROTvwi7XUOH0Hwi0piaUevnH7ps7yqO6cwJ+YifjQZG1+8UKssRuCO4xyexLM+Fiq
+	 DPsWZyJS+7I3OcNHMD+PP+MRuk8Soay55YyzqrPUfBs59Z0XwaOkgQDan4u6zPiaseg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="KW/OtKqt";
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4K2XwJd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8252C606A323;
-	Thu, 12 Nov 2026 09:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8252C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F033C606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=KW/OtKqt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794474344;
-	bh=tRjCHW5JmHRNfYMVVQ7cTaxvP6E3n7AN8iMMHkTyP+0=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=KW/OtKqtEoK1lsY4m8IpSlY8BhiL7cv5ru/UgX2vN7ctVpvEeFKyN7mBEPDZtSf/X
-	 Y5qD1AaQaYz9eCfxVLJ9z0dpLbogF7UujjGh+Lbo8d4EKHlpf+xRFFQV7xU+TEKNaW
-	 qojewXUaoN6p6iUeMF+Mw95S7ab1zbWvzvmAmsIY=
-X-QQ-mid: zesmtpsz7t1794474342t162cc61d
-X-QQ-Originating-IP: IlA0oIyOsGcenbBY3KwfaIG3ySBqnU3pDSZoMsU2a7s=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 17:05:40 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5635266169473473892
-EX-QQ-RecipientCnt: 20
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4K2XwJd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8F41F00A05;
+	Thu, 12 Nov 2026 09:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474456;
+	bh=7oMEbKgyXoeSCmiLuCygcoBNqJed+97Zm0Ftsw9to3A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z4K2XwJdgyYqUPsIoSfiyzWYOk6OmNhdBn0ut4U/Nnu6d69e3HgCMzev41D384QoR
+	 OHXCFwl0MyPHiI6tIwCN1aufNVRXgTfkHLO8FA2kGYagLdAXDnyU9a8FqzhG6/K9JJ
+	 7AlpD9iY/xBQqOxUmpl6BrtUn9yxi30K78Eig6/uzWL3hTcvAoBnA23fWXwoxnsBXD
+	 hVQZFeVE6/V8cK9P5zM0oEJH/bYSNF5vnqyZ/To7bcMC/ZAK7TuXQ+SZ+Hv/1OvNtd
+	 t5Rn9xti7cUYHcfiQuiCmqYJ3QIqn7euvxo45rTwX+bvvJUlbuhz5XaQfIQ53M1lRC
+	 gXCJOlK7e0O8g==
+Message-ID: <sashiko-outbox-210823@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH ath-next 04/15] wifi: ath12k: add QMI support for
+ extended firmware binary download
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Madhavan Ganesan" <madhavan.ganesan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112-wifi8_qcn9575_bringup-v1-4-3f30fbc2bb69@oss.qualcomm.com>
+References: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+ <20261112-wifi8_qcn9575_bringup-v1-4-3f30fbc2bb69@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 09:07:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,88 +60,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=c32ee5a21c6b100d441d9006521f571ae297a6e48585a5c8ae4e444b3749;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 12 Nov 2026 17:05:37 +0800
-Message-Id: <DMT42A4ZNEL8.29E9VX1NOTPSE@linux.spacemit.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- <marcel@holtmann.org>, <luiz.dentz@gmail.com>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <anarsoul@gmail.com>,
- <alistair@alistair23.me>, <pjw@kernel.org>, <palmer@dabbelt.com>,
- <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <linux-bluetooth@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] Bluetooth for the RTL8852BS on BPI-F3
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: =?utf-8?q?Fr=C3=A9d=C3=A9ric_Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- "Yixun Lan" <dlan@kernel.org>, "Luiz Augusto von Dentz"
- <luiz.von.dentz@intel.com>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261111094557.443481-1-frederic.mahe@cirad.fr>
- <179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
- <DMSUPKS0VL8N.1RUUESQVU8FMF@linux.spacemit.com>
- <20261112061951-GKA62271@kernel.org>
- <20261112085617.516945-1-frederic.mahe@cirad.fr>
-In-Reply-To: <20261112085617.516945-1-frederic.mahe@cirad.fr>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NxDjMro7FujaZjwbpQQFZrocKL1ZPj9tYsZJZb22KtIlWGb/PMJNxnNn
-	ZqTIwiNj10Ki+AEigic7v9bbvThNpflGlEqG3Az/NXT8ZAiCaKSWNRcEQj9XdVmnY8Biwj9
-	c0H1OZylVDd6yzxnb8ehKGE1aIa31dwR16fAr88/3b9drLZUXTOnu3XPLEJT8Ndx24heVly
-	mGh3VCdKdRhpv8tOa8ppFfKmc1MIzV2vWod+RZBrrBYHz/9/OuKvcaDoVb7J6IbgbUap/FH
-	UuoOXOFlQdb4HaGWRtZYZjvSoSUr6dupsTEeg4JZpMJfmi+oI8lf6BNnK5KONFr650j+jBK
-	1hn5Bhs/jqyXVQMXAdcNQFX5TxlpMR6HiF2QI/wwwEaEUtiWOWcjR8WvYS8e5FRvpHTA6Fq
-	xIxQffBosTmO/Z3jM+AHkS79PC04btih8qyIjfixgnmBtx1ZvBhhHFpiscBrvmybzv7qP96
-	sVqNWRxuklX0Gdx0p1mVYIF5hYGGzGp9gykJqYzZFlN9tV9v1TE6C/KidEt0tFdlxK7f3C8
-	QwAjRC9DT+VqzHXtz8td7n1Eq0wwphT9/f3LrIwqJ8E+N8SAKntezGwId8YS7Uy1t4wGsqt
-	/IZ4vijTd1kykG8bkp9q2pkcLYVAfGuifEbcKYiD3TtzKZzb6nvRmd3Vgywh/lUp03owjuu
-	x4TVhVerZaCNRE6Pi6y7+y2z75uQuSFxSyZKzgnIdEI/041XzmfmKgnfS2+DKjWpQPPPdVo
-	Gg5USb1Lk6e/oQy4yt7obleXU6LD0RYIDqg01MlX/i4/LAnt7dKU1ZsXclgxVZFUNBuKRno
-	kimHabaxyCYIf978iyat9PEAUo6XkSMRFpvt8L1uR7XMf/yEZoZ2wL/JbCA72A6O9iFM3N/
-	SPf6bYylwB6uGnyHj9CPMnaKwXrd+DoD8glK5nnW7bDuw99FJV+fOS2ID+ewXmobozKejj3
-	10WJdWbmrpXQUWXanhDp1qgzkJL25tykt+eagnYwgjV2LeC7B4WEk6PsBCtrH+/+vDdkEf0
-	cMgHt2m720gEsA6vcW5ElqgtmmmCtni9RdnBH/sTtxLg9GOkFZPsW+zETEA/oFVNt2etXmQ
-	hNHiuyuj8juXJHeL/9omO0=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
 
---c32ee5a21c6b100d441d9006521f571ae297a6e48585a5c8ae4e444b3749
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] wifi: ath12k: missing support check in
+  ath12k_qmi_request_target_cap()
+--
 
-Hi Fr=C3=A9d=C3=A9ric,
+commit d06cd02bf95410a2331b0d3861ca5bf0baa15ac2
+Author: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
 
-On Thu Nov 12, 2026 at 4:56 PM +08, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
-> Hi Luiz, Yixun,
->
-> Sorry, I should have said in the cover letter which tree each patch
-> was meant for.
->
-> The split is fine with me: binding in bluetooth-next, DTS through
-> Yixun's tree. I can resend patch 2/2 on its own, rebased on the
-> SpacemiT tree, if that helps.
-Nothing to apologize for. Which tree takes which patch is for Luiz
-and Yixun to sort out, not you. No need to resend.
+wifi: ath12k: add QMI support for extended firmware binary download
 
-Thanks for your contributions :)
+This commit adds QMI support for the combined extended firmware binary
+download request (QMI_WLANFW_EXT_FW_BIN_DOWNLOAD_REQ_V01) and the
+mcss_ucode.bin image required by QCN9575.
 
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless=
+/ath/ath12k/qmi.c
+> index 69512b82aa3b3..3b60d624b0aa5 100644
+> --- a/drivers/net/wireless/ath/ath12k/qmi.c
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
+
+[ ... ]
+
+> @@ -3115,6 +3289,27 @@ int ath12k_qmi_request_target_cap(struct ath12k_ba=
+se *ab)
+>  		}
+>  	}
+> =20
+> +	if (resp.ext_fw_bin_download_support_valid &&
+> +	    resp.ext_fw_bin_download_bitmap_valid) {
+> +		ab->qmi.ext_fw_bin_download_bitmap =3D
+> +			resp.ext_fw_bin_download_bitmap;
+> +		ath12k_dbg(ab, ATH12K_DBG_QMI, "qmi extended firmware bin download bit=
+map 0x%x\n",
+> +			   resp.ext_fw_bin_download_bitmap);
+> +
+> +		if (ab->qmi.ext_fw_bin_download_bitmap &
+> +		    ~QMI_WLANFW_EXT_FW_BIN_TYPE_HOST_SUPPORTED_MASK) {
+> +			ath12k_warn(ab, "Invalid ext_fw_bin_download_bitmap 0x%x, host-unsupp=
+orted bits set\n",
+> +				    ab->qmi.ext_fw_bin_download_bitmap);
+> +			ret =3D -EINVAL;
+> +			goto out;
+> +		}
+> +		ab->qmi.ext_fw_bin_download_support =3D !!resp.ext_fw_bin_download_sup=
+port;
+> +		ath12k_dbg(ab, ATH12K_DBG_QMI, "qmi extended firmware bin download sup=
+ported\n");
+> +	} else {
+> +		ab->qmi.ext_fw_bin_download_support =3D false;
+> +		ab->qmi.ext_fw_bin_download_bitmap =3D 0;
+> +	}
+
+[Severity: Medium]
+Should this condition also check resp.ext_fw_bin_download_support?
+
+QMI_OPT_FLAG sets ext_fw_bin_download_support_valid whenever TLV 0x2B is
+present, even when ext_fw_bin_download_support is 0.  If firmware sends
+both TLVs with ext_fw_bin_download_support set to 0, this block still
+stores and validates ext_fw_bin_download_bitmap (failing target capability
+negotiation with -EINVAL if any unused bit is set) and logs that extended
+firmware binary download is supported.
+
+Also, if ext_fw_bin_download_support is non-zero and
+ext_fw_bin_download_bitmap is 0, the mask check passes here and defers the
+failure until ath12k_qmi_wlanfw_ext_fw_bin_mem_info_send(), after regdb,
+board data, and calibration data have already been downloaded.
 
 --=20
-Troy Mitchell
-
-
---c32ee5a21c6b100d441d9006521f571ae297a6e48585a5c8ae4e444b3749
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIYEABYKAC4WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavWBYRAcdHJveUBrZXJu
-ZWwub3JnAAoJEJgJ74D5MzQvtFEA/1OZjuWJIgwA06HIk6xYdeBFMff3E7qYiKdj
-v2lOmwOuAQDOFj0BJUXyYaSBUKsihcqMPFi3X1LWjkUMgbppoOnQAw==
-=uEhc
------END PGP SIGNATURE-----
-
---c32ee5a21c6b100d441d9006521f571ae297a6e48585a5c8ae4e444b3749--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-wifi8_qcn9=
+575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com?part=3D4
