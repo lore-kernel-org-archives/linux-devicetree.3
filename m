@@ -1,56 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794467774;
-	b=NBLWTYyDP6Go7cuHDaufWZIYD83JS+G/E9YihgvQ30K2iQ8g5nPzuIRQwQ6qL+ZyM+8y
-	 YW8p/JvvH7UiBw4K4IRh71d7lIdmBzkkXLNcCuplLgSuEAW+9GAHdCQvNJ+3ylQwxzGJn
-	 umI6RPdEC+BeBRNOWJTocsdq8aS5+IOEuPkzZMZUqdcTRVGCrFuTfgtsMgI2AzXlNJARt
-	 Re4IWgGVSpP0oByaMTH0PWYwCRuImFX+w9v7GU8dfsxUJKQJE7NFR/8F0+9OKNuCOv8Fm
-	 k7bsfd7FNMlpF0fGTgiT+LP/7x5/IADjR9LjotPb3ZoZAvd6ekRqPv5ib0tzvC5UAdw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467774;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ZohoMailClient;
-	bh=/PD4UpFBO687A1NJczwBo6I69uScaHLmvAb6f6geHA4=;
-	b=P5nNluApkikbEy3shpEgA18uTa4uBBorywqafHo0tZYdAMeZtyEb5e6pyp0K4YZPGS7d
-	 dQFEo7smISPaaFj/YXLGbPEV0TC0aNFiLUOjRbB2SXDkuanAUF9UpNNFhziNd0fsjRGGh
-	 cNBlPX6wCNb8mkt0KuS6xfQgUK9G33p3OwdmbcKrEjcH2PTiMlbvMzcf1acs7HRn5ar0m
-	 hE2qlQVYENOblmaq+5EYupPXn/raSrJ1EkyVqIz9VLZQYrtDllqnLW5RlWUG8p5zeZ6iI
-	 PhPejn9X2JMHQintDdGMR0O6F8AH0QAoQFxUhMYaSqcjw3wXHww6uXQ5j+t+DIj8mwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pigmoral.tech;
-	spf=pass smtp.mailfrom=pigmoral.tech;
-	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=k7Dk75Wh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794468023;
+	b=4XZuNR6+PRB9bI6h9VV6tG04Aumix3n9M/u8/NXD9VcEuvhROGiIsMJSJGwYSS7v4Olg
+	 ea8KE1QX4NUnh3eIULwhGV5NeMHSyIWpLDbE2djE42S75HrwwvzMOr5ZAP1GToW6z3G11
+	 dEn8HlYafwFOPD+/Nlgh6gigOnHVu4cYJDmN13g7LBZvmCqVHI1W8zfLMzhcwsZKeitmT
+	 TA/1+kr44Qb7JsG5KUrAHrxumzGfpM+oWJSZyUG6ZPFF2nWyoXj+2OUvIacf5oX+9NKFB
+	 cQh9Hd1ON0zy258LS5Wwwc4LomvKN9YwAKqDGnI6gVuZTNFGtCvM2y8WjreLBhw14Bg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468023;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=i9jbtsLDZsS4FE9dYCV+4UGl52plCiZyJEyDlwed5Yw=;
+	b=qM4dj0zutDF2GE5Q2C4vkSQsNJO18J6/GHj9zq4BZ4FZ2S4zzjLWGgOLo81wl3/cld2X
+	 tZEQQvWemDhgahEWQonLouChu+ThkXC9lZeDikGaUARCLRmqGrdNOpEpmmbdLTtwL00fu
+	 7gdNFWaBDgF0gflqZpOam+7c1oqaPefu+9ZTDjeayLLCzEzK/NluBMB53yiLtjix9s80R
+	 AuAlYLTvKMAp3EWyj+5yhx1IKeA3knavlyMPdmtj77P3OVMP4svUN/YLeTzzMwPhAlJe+
+	 86IxytHIxhafQwejEGKqJ/mbVlfcjsTtYi4zRKWNXVj3g/HWatyTkOo/x8btDbtto2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pKCBwgYw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZwykinUd;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5902606A321;
-	Thu, 12 Nov 2026 07:16:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5902606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E86606A336
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 07:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0E86606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=k7Dk75Wh
-ARC-Seal: i=1; a=rsa-sha256; t=1794467707; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eFvschK8nZYrFe9JQHPertlYcRoIjgArR1RC/CWEZKB7i9wd42awydqDGp0mwt8hcp6bNAKlw5NxjpE+Cqv2VD1D+hwVFAZqOUpLwkHcAF6oETwsq5brMQo52U9RbJoVidfkcYuD4xLt/KwblXrVXtHx357nwI7KhOOiFhpnojU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794467707; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/PD4UpFBO687A1NJczwBo6I69uScaHLmvAb6f6geHA4=; 
-	b=N2fEyqOsOeD/juA3luX2fAvtnGQt0LgfRzOuHdD7N8uEjysH3a4hgAnCHWZv3sumaJNt8RYedbLRrt5Gs4tpPpCY2972RTBUf9l+/A+USd8gIFPocnML7mrYXTycUDXuYe+YFDkboAWKebPbqoKzUVzRxlO+L+h6acWlNFQhBqM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: a=rsa-sha256; b=k7Dk75WhuBJASTWIiahHcnm5WCE78SLceo/06UG1KwNCYpsw4O4bLIAxoj16bRfH3h+gcQVUHxdXSbRrIqFdC5L+yz72ytlsN7aNJ9OoJFTt7r5PUIpa+ArIKatqfo05jHMXTJVgcXntQGXyj8qPfjeuTb+DYTjo0gz2Thh1ff8=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=/PD4UpFBO687A1NJczwBo6I69uScaHLmvAb6f6geHA4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794467705581366.7408594193287;
-	Wed, 11 Nov 2026 23:15:05 -0800 (PST)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Thu, 12 Nov 2026 15:11:57 +0800
-Subject: [PATCH v7 8/8] clk: sunxi-ng: a733: Add reset lines
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pKCBwgYw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZwykinUd
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC5ndCE441531
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 07:20:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=i9jbtsLDZsS
+	4FE9dYCV+4UGl52plCiZyJEyDlwed5Yw=; b=pKCBwgYwBrnc/LxUl1E/mt5JksF
+	tdlEVy+2HRxQhIjIY79Z7zmU6XbZp79c1JqTYYCF7IFim/q40yJ3b2+64HrLpS+T
+	UQKlNTUsnCx44Kz6rK6zeTM0hVAgT2Jx8kCO1GE6VPbTpnsT/jZuAqZU4PmWc/Ir
+	2ql8Voi9P5wr9oXDF/HmNREpFBDzm+yWm/HhS5fpoxaAFTxZcBiPjZlDjXMJ547u
+	3XRMh1JK3Z1TbhiQA6zwonZIenU3qIQ1HbgAbbirDaTXcaF6eCiqYhY4sVWe3LSa
+	jfCVWHKJojLfdZPlj221wCCfLQuAwdUbXeuGf4JC0AxbStE26VC4TfpQbuQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw7nc0a6r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 07:20:22 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed79b01ef3so2356985ad.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 23:20:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794468021; x=1795072821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i9jbtsLDZsS4FE9dYCV+4UGl52plCiZyJEyDlwed5Yw=;
+        b=ZwykinUdbLtRi2qdcSWDBINHpcS6tBsTqcvPJe1gYyoO5ndV2/Rs+vCo5N2is6A4/g
+         jWZkr1nzaJj/x/6v52qVAL2ZM7Hgr6llhiOqT72vHbNpnzpIXFMZVGxNxzNahTetNS7N
+         8wJZx4qm6bSqoL+U7mxrHgl7F9WO+dOMobv+pl5JhAElydLDBp3N/xjQwi07MRvkFX9I
+         LRgMlacLt2SPCofncLeWcdzTBEOQs2wSUHHiorSa0KKM2vK6iIGX6uLZkUsUYm/gZH4e
+         0zj3UZgLS8AFDidSh1YaD0u8BH7pcyGbDDrJ9J7XZ935uortET3JZ4Jj6xEfR78pel82
+         uaRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468021; x=1795072821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i9jbtsLDZsS4FE9dYCV+4UGl52plCiZyJEyDlwed5Yw=;
+        b=v6kKij61PoPjBPtbmss/FgfSG3mhxnaU7anaVNFziS4rTzAikG511dh6PYCNnP+hjF
+         HmwCnrM4lTQn85w3bONS6z3bziredzFZbVJ5qmEN8AlGI3ONFfSfKelnx5ZylKaI/F/g
+         rqTgXtbk39/Fg9RTP5jK9Em49tYLJ6ZUZZ9nedi+c6N+bgFgwAk4Q6OOvXTgxAjvEyMi
+         yXKUb7fyvgzv3WbI52Eb5IbgnpVPY8HkjBilWQKGv0B7lX3+bkew9g6imuZbQXadfNDm
+         OsnR0/3Q/XtIkpxGC0BEeF//iBoN5BEs+97ua4Vg9GMzsU5tISJi37a6SLQ0ln0Ae4Dq
+         wykg==
+X-Forwarded-Encrypted: i=1; AL+hErHP96/skxWTThvFltURdOKL+BqG2ya58u0CgCDkzYDrTzUwPyUK1KJUxhDnqr+uIqa2h09ipUQ6MrE2@vger.kernel.org
+X-Gm-Message-State: APuU4Z/F6iVSwZBlWmD4nPbEQ/OcIK9RlmBFlXOGFgwCbqyXgqfji/16
+	tKl14r+5yOmUJ3NZBZdZKXf5F0NOywZOwdKUomDsC10stL+fVlKTUge0UF8M4oihAIPDIRlgO1g
+	yKHWQm3pKNR/G2Xo0cCfiCdxMHnmFRPx8ahSuzHch0qQz/w8xb8fONdrtB58UVT2z
+X-Gm-Gg: AYBFou06F0KGaJyGSgkhEY1UFPhggdmK9Fmzcrp+8q0xgnjxGJW9A7Q7mqXwKodfn3g
+	9xy6zIBNH1xgwHe1ptFOjA6ga/1bQxJ9jl+1fajhZ4KhDGCQzfRFh8CO2yLSxkmjUd2d5oawO43
+	l5UR9xZXussZ+Ty1CYMsIprale5j0INtjjQvZGfmskq0HL0MRVHaYP/EcvRLI00TOShdyKXzoEM
+	NsXPMnM4k2OYDTF3hJ4bXl27wWcG8IukbGpUXRYriRu7DYjMBidkuvs1faHMAeC4Z/rpvNsN/s2
+	rnDntV4hFB2mt31O3O0BZPme2a6RDI8aF492Wwn6AKyTOh1COK+tV/JGp1Ewgf3Q8BNlXkSLoyq
+	5lF6Tp3by0l//fxm0SYBbKok8Mk5QoT5JWAmNfih8H2IbHr6S0uH38dr7ySptOdXkwq8oyQwdPa
+	jMSQ==
+X-Received: by 2002:a17:90b:4b0e:b0:3ab:be66:ddc5 with SMTP id 98e67ed59e1d1-3b182f3642cmr7324452a91.6.1794468021431;
+        Wed, 11 Nov 2026 23:20:21 -0800 (PST)
+X-Received: by 2002:a17:90b:4b0e:b0:3ab:be66:ddc5 with SMTP id 98e67ed59e1d1-3b182f3642cmr7324412a91.6.1794468020967;
+        Wed, 11 Nov 2026 23:20:20 -0800 (PST)
+Received: from sdciot-sh07-lnx.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c73e27sm3149185a91.9.2026.11.11.23.20.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:20:20 -0800 (PST)
+From: Linghui Wu <linghui.wu@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
+        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, linux-pm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Linghui Wu <linghui.wu@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
+Date: Thu, 12 Nov 2026 15:20:06 +0800
+Message-ID: <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
+References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,206 +130,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-a733-clk-v7-8-db7c5451ffa2@pigmoral.tech>
-References: <20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech>
-In-Reply-To: <20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
- Enzo Adriano <enzo.adriano.code@gmail.com>, 
- Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7125;
- i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
- bh=PdP5eXOJZa8KfZvKjdJwSEED0Kqy+w7Th+f5pcd/5qQ=;
- b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLK+pjP8qhAvKYyNszjk9GbribsX+J5b3369UajvxtRHN
- UcN5gid7yhlYRDjYpAVU2Th8hf/Z63D8+2IQOt9mDmsTCBDGLg4BWAilksZGa60PhZeWG8gu59T
- vprrw0pBpkz23XG/LvatuXPO4saMiSaMDLMUAk9VWopzT3uc+ZpzppzR9VeP2K2fKbh6s/1jSzW
- RZgEA
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
- fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: -TpqlxC9_JrmR4HlkaPMbihF48LKtwK4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyOSBTYWx0ZWRfX0fRFaFyFVsDD
+ OYXyHhFVkrcVoKfKW/2iqX0DHcAmxFZW91pJsv+FPTORK0xde5XZq/yy4QO64IC4K57Tmgo+hNU
+ 0GrZS0KpFvh+BPExaZu3MVJ4XWapcVY=
+X-Proofpoint-GUID: -TpqlxC9_JrmR4HlkaPMbihF48LKtwK4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyOSBTYWx0ZWRfXzlilWsu4j7Co
+ IUrDO+jIC+n1ZBOP7dcGxvsSCgDQ/nSTNy3pDeueWUIVC1F17nmqAkzQnAgpKzgPl3j5Nq+BASd
+ cR6HU10Qcb2ZGhy6eevY40ugffTZr9Jt7zkoMa/RN6Xgp0OUHtXOCaPzTufWAAOIDgDqSENKKtR
+ BzzAwPa4TRcNgs++RZWlaShuhpxQkinP0YMiimw8mf7skPkD0y9dRdP/n7jcokqAfoOJgktr1E+
+ YWhSsJnXm6L1bEr57YEHdlRqgaipbx1VJQY/XoWNnxsGzbDrenF+bIx7iQUipjHgpdTRZUYoyNW
+ I/aPe8jOwL75/tnrwWL+M2aJMOV0xkdQd0TIry3Ml27k6rRuxzef3w6mI6LM4pdaFD7JE1knelb
+ KXQSD51POfNymQWSqaJhnMh25Gkg6wItTBZwkGSiIhQt+pVIwUpjRNIzRMtWiGhjlpPaopdx1yj
+ /MGEoxvLs17/X+gAaMw==
+X-Authority-Analysis: v=2.4 cv=A8b5rKWG c=1 sm=1 tr=0 ts=6af568b6 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=FZ15NAR4OWdYCF8lCvYA:9
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120029
 
-Add the reset lines for the Allwinner A733 SoC. These reset control bits
-are integrated into the Bus Gate Reset (BGR) registers, typically
-sharing the same register address with their corresponding bus clock
-gates. Integrate them into the main CCU driver using the existing
-sunxi-ng ccu_reset framework, allowing the CCU to also function as a
-reset controller for the SoC.
+Some WCN3990-family devices use the SW_CTRL GPIO to indicate that
+resources need to remain available while the application processor is
+suspended.
 
-Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
- drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 126 +++++++++++++++++++++++++++++++++
- 1 file changed, 126 insertions(+)
+Teach the Qualcomm WCN power-sequencing driver to use the existing
+SW_CTRL GPIO as a dedicated wake IRQ when the power sequencer is marked
+as a wakeup source. The PM core keeps the IRQ disabled during normal
+operation and arms it for system suspend.
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-index 47bb73cbc81f..50fd7c11821f 100644
---- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-@@ -26,6 +26,7 @@
- #include <dt-bindings/reset/allwinner,sun60i-a733-ccu.h>
- 
- #include "ccu_common.h"
-+#include "ccu_reset.h"
- 
- #include "ccu_div.h"
- #include "ccu_gate.h"
-@@ -2192,11 +2193,136 @@ static struct clk_hw_onecell_data sun60i_a733_hw_clks = {
- 	.num	= CLK_FANOUT3 + 1,
- };
- 
-+static const struct ccu_reset_map sun60i_a733_ccu_resets[] = {
-+	[RST_BUS_ITS_PCIE0]		= { 0x574, BIT(16) },
-+	[RST_BUS_IOMMU0_SYS]		= { 0x58c, BIT(16) },
-+	[RST_BUS_MSI_LITE0_AHB]		= { 0x594, BIT(16) },
-+	[RST_BUS_MSI_LITE0_MBUS]	= { 0x594, BIT(17) },
-+	[RST_BUS_MSI_LITE1_AHB]		= { 0x59c, BIT(16) },
-+	[RST_BUS_MSI_LITE1_MBUS]	= { 0x59c, BIT(17) },
-+	[RST_BUS_MSI_LITE2_AHB]		= { 0x5a4, BIT(16) },
-+	[RST_BUS_MSI_LITE2_MBUS]	= { 0x5a4, BIT(17) },
-+	[RST_BUS_IOMMU1_SYS]		= { 0x5b4, BIT(16) },
-+	[RST_BUS_DMA0]			= { 0x704, BIT(16) },
-+	[RST_BUS_DMA1]			= { 0x70c, BIT(16) },
-+	[RST_BUS_SPINLOCK]		= { 0x724, BIT(16) },
-+	[RST_BUS_MSGBOX]		= { 0x744, BIT(16) },
-+	[RST_BUS_PWM0]			= { 0x784, BIT(16) },
-+	[RST_BUS_PWM1]			= { 0x78c, BIT(16) },
-+	[RST_BUS_DBG]			= { 0x7a4, BIT(16) },
-+	[RST_BUS_SYSDAP]		= { 0x7ac, BIT(16) },
-+	[RST_BUS_TIMER0]		= { 0x850, BIT(16) },
-+	[RST_BUS_DE0]			= { 0xa04, BIT(16) },
-+	[RST_BUS_DI]			= { 0xa24, BIT(16) },
-+	[RST_BUS_G2D]			= { 0xa44, BIT(16) },
-+	[RST_BUS_EINK]			= { 0xa6c, BIT(16) },
-+	[RST_BUS_DE_SYS]		= { 0xa74, BIT(16) },
-+	[RST_BUS_VE_ENC0]		= { 0xa8c, BIT(16) },
-+	[RST_BUS_VE_DEC0]		= { 0xa8c, BIT(18) },
-+	[RST_BUS_CE]			= { 0xac4, BIT(16) },
-+	[RST_BUS_CE_SYS]		= { 0xac4, BIT(17) },
-+	[RST_BUS_NPU_CORE]		= { 0xb04, BIT(16) },
-+	[RST_BUS_NPU_AXI]		= { 0xb04, BIT(17) },
-+	[RST_BUS_NPU_AHB]		= { 0xb04, BIT(18) },
-+	[RST_BUS_NPU_SRAM]		= { 0xb04, BIT(19) },
-+	[RST_BUS_GPU0]			= { 0xb24, BIT(16) },
-+	[RST_BUS_DRAM0]			= { 0xc0c, BIT(16) },
-+	[RST_BUS_NAND0]			= { 0xc8c, BIT(16) },
-+	[RST_BUS_MMC0]			= { 0xd0c, BIT(16) },
-+	[RST_BUS_MMC1]			= { 0xd1c, BIT(16) },
-+	[RST_BUS_MMC2]			= { 0xd2c, BIT(16) },
-+	[RST_BUS_MMC3]			= { 0xd3c, BIT(16) },
-+	[RST_BUS_UFS_AHB]		= { 0xd8c, BIT(16) },
-+	[RST_BUS_UFS_AXI]		= { 0xd8c, BIT(17) },
-+	[RST_BUS_UFS_PHY]		= { 0xd8c, BIT(18) },
-+	[RST_BUS_UFS_CORE]		= { 0xd8c, BIT(19) },
-+	[RST_BUS_UART0]			= { 0xe00, BIT(16) },
-+	[RST_BUS_UART1]			= { 0xe04, BIT(16) },
-+	[RST_BUS_UART2]			= { 0xe08, BIT(16) },
-+	[RST_BUS_UART3]			= { 0xe0c, BIT(16) },
-+	[RST_BUS_UART4]			= { 0xe10, BIT(16) },
-+	[RST_BUS_UART5]			= { 0xe14, BIT(16) },
-+	[RST_BUS_UART6]			= { 0xe18, BIT(16) },
-+	[RST_BUS_I2C0]			= { 0xe80, BIT(16) },
-+	[RST_BUS_I2C1]			= { 0xe84, BIT(16) },
-+	[RST_BUS_I2C2]			= { 0xe88, BIT(16) },
-+	[RST_BUS_I2C3]			= { 0xe8c, BIT(16) },
-+	[RST_BUS_I2C4]			= { 0xe90, BIT(16) },
-+	[RST_BUS_I2C5]			= { 0xe94, BIT(16) },
-+	[RST_BUS_I2C6]			= { 0xe98, BIT(16) },
-+	[RST_BUS_I2C7]			= { 0xe9c, BIT(16) },
-+	[RST_BUS_I2C8]			= { 0xea0, BIT(16) },
-+	[RST_BUS_I2C9]			= { 0xea4, BIT(16) },
-+	[RST_BUS_I2C10]			= { 0xea8, BIT(16) },
-+	[RST_BUS_I2C11]			= { 0xeac, BIT(16) },
-+	[RST_BUS_I2C12]			= { 0xeb0, BIT(16) },
-+	[RST_BUS_SPI0]			= { 0xf04, BIT(16) },
-+	[RST_BUS_SPI1]			= { 0xf0c, BIT(16) },
-+	[RST_BUS_SPI2]			= { 0xf14, BIT(16) },
-+	[RST_BUS_SPIF]			= { 0xf1c, BIT(16) },
-+	[RST_BUS_SPI3]			= { 0xf24, BIT(16) },
-+	[RST_BUS_SPI4]			= { 0xf2c, BIT(16) }, /* From the vendor kernel. */
-+	[RST_BUS_GPADC0]		= { 0xfc4, BIT(16) },
-+	[RST_BUS_THS0]			= { 0xfe4, BIT(16) },
-+	[RST_BUS_IRRX]			= { 0x1004, BIT(16) },
-+	[RST_BUS_IRTX]			= { 0x100c, BIT(16) },
-+	[RST_BUS_LRADC]			= { 0x1024, BIT(16) },
-+	[RST_BUS_SGPIO]			= { 0x1064, BIT(16) }, /* From the vendor kernel. */
-+	[RST_BUS_LPC]			= { 0x1084, BIT(16) }, /* From the vendor kernel. */
-+	[RST_BUS_I2SPCM0]		= { 0x120c, BIT(16) },
-+	[RST_BUS_I2SPCM1]		= { 0x121c, BIT(16) },
-+	[RST_BUS_I2SPCM2]		= { 0x122c, BIT(16) },
-+	[RST_BUS_I2SPCM3]		= { 0x123c, BIT(16) },
-+	[RST_BUS_I2SPCM4]		= { 0x124c, BIT(16) },
-+	[RST_BUS_SPDIF]			= { 0x128c, BIT(16) },
-+	[RST_BUS_DMIC]			= { 0x12cc, BIT(16) },
-+	[RST_USB_PHY0]			= { 0x1300, BIT(30) },
-+	[RST_BUS_OHCI0]			= { 0x1304, BIT(16) },
-+	[RST_BUS_EHCI0]			= { 0x1304, BIT(20) },
-+	[RST_BUS_OTG]			= { 0x1304, BIT(24) },
-+	[RST_USB_PHY1]			= { 0x1308, BIT(30) },
-+	[RST_BUS_OHCI1]			= { 0x130c, BIT(16) },
-+	[RST_BUS_EHCI1]			= { 0x130c, BIT(20) },
-+	[RST_BUS_USB2]			= { 0x135c, BIT(16) },
-+	[RST_BUS_PCIE_PWRUP]		= { 0x138c, BIT(16) },
-+	[RST_BUS_PCIE]			= { 0x138c, BIT(17) },
-+	[RST_BUS_SERDES]		= { 0x13c4, BIT(16) },
-+	[RST_BUS_GMAC0]			= { 0x141c, BIT(16) },
-+	[RST_BUS_GMAC0_AXI]		= { 0x141c, BIT(17) },
-+	[RST_BUS_GMAC1]			= { 0x142c, BIT(16) }, /* From the vendor kernel. */
-+	[RST_BUS_GMAC1_AXI]		= { 0x142c, BIT(17) }, /* From the vendor kernel. */
-+	[RST_BUS_TCON_LCD0]		= { 0x1504, BIT(16) },
-+	[RST_BUS_TCON_LCD1]		= { 0x150c, BIT(16) },
-+	[RST_BUS_TCON_LCD2]		= { 0x1514, BIT(16) }, /* From the vendor kernel. */
-+	[RST_BUS_LVDS0]			= { 0x1544, BIT(16) },
-+	[RST_BUS_LVDS1]			= { 0x154c, BIT(16) },
-+	[RST_BUS_DSI0]			= { 0x1584, BIT(16) },
-+	[RST_BUS_DSI1]			= { 0x158c, BIT(16) },
-+	[RST_BUS_TCON_TV0]		= { 0x1604, BIT(16) },
-+	[RST_BUS_TCON_TV1]		= { 0x160c, BIT(16) },
-+	[RST_BUS_EDP]			= { 0x164c, BIT(16) },
-+	[RST_BUS_HDMI_MAIN]		= { 0x168c, BIT(16) },
-+	[RST_BUS_HDMI_SUB]		= { 0x168c, BIT(17) },
-+	[RST_BUS_HDMI_HDCP]		= { 0x168c, BIT(18) },
-+	[RST_BUS_DPSS_TOP0]		= { 0x16c4, BIT(16) },
-+	[RST_BUS_DPSS_TOP1]		= { 0x16cc, BIT(16) },
-+	[RST_BUS_VIDEO_OUT0]		= { 0x16e4, BIT(16) },
-+	[RST_BUS_VIDEO_OUT1]		= { 0x16ec, BIT(16) },
-+	[RST_BUS_LEDC]			= { 0x1704, BIT(16) },
-+	[RST_BUS_DSC]			= { 0x1744, BIT(16) },
-+	[RST_BUS_CSI]			= { 0x1844, BIT(16) },
-+	[RST_BUS_VIDEO_IN]		= { 0x1884, BIT(16) },
-+	[RST_BUS_APB2JTAG]		= { 0x1c04, BIT(16) },
-+};
-+
- static const struct sunxi_ccu_desc sun60i_a733_ccu_desc = {
- 	.ccu_clks	= sun60i_a733_ccu_clks,
- 	.num_ccu_clks	= ARRAY_SIZE(sun60i_a733_ccu_clks),
- 
- 	.hw_clks	= &sun60i_a733_hw_clks,
-+
-+	.resets		= sun60i_a733_ccu_resets,
-+	.num_resets	= ARRAY_SIZE(sun60i_a733_ccu_resets),
- };
- 
- static const u32 pll_regs[] = {
+The series documents wakeup-source for the WCN PMU binding and enables
+it for the Shikra CQM, CQS and IQS EVKs.
 
+The series has been validated on linux-next on Shikra hardware.
+
+Changes in v4:
+- Rebase onto linux-next next-20261111.
+- Revalidate the complete series against linux-next.
+
+Changes in v3:
+- Use the "dt-bindings: regulator:" prefix for the binding patch.
+- Drop the RFC marker.
+- Replace the "must" wording in the wake behavior description.
+- Report runtime validation on qcom-next and kernel 6.18.y.
+
+Changes in v2:
+- Derive the wake IRQ from the existing SW_CTRL GPIO with gpiod_to_irq().
+- Drop the separate interrupt description from the binding and DTS.
+- Focus the description on the functional behavior.
+- Rebase onto next-20261014.
+
+Linghui Wu (3):
+  dt-bindings: regulator: qcom,wcn3990-pmu: document wakeup-source
+  power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
+  arm64: dts: qcom: shikra: enable WCN SW_CTRL wakeup
+
+ .../bindings/regulator/qcom,wcn3990-pmu.yaml  |  6 ++++
+ arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi  |  1 +
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi  |  1 +
+ drivers/power/sequencing/pwrseq-qcom-wcn.c    | 36 +++++++++++++++++++
+ 4 files changed, 44 insertions(+)
+
+
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
 -- 
-2.56.0
-
+2.43.0
