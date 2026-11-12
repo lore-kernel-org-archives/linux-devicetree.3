@@ -1,44 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445302;
-	b=GG4XRipg/AVMoOIZtXp5DY/XUAtn+sg/bgwmuRX/w1LtIoSPqo2i4uCIfFJW0ASO0oNR
-	 Ta7yotUdUOWfcZ+bJmm5/hM/04fhgkX+9gCbNiZ6i5NZIycWFCWKZ/YdjeKFRBqDO+eVx
-	 2QwX1M6Z7gBIwCFKimAcd5G3nKgZ4d//2R/ao1ObKUsqgoUjPbpHQJWtyQJujgRo9+kuO
-	 /ZsJSpIrHeytuaWxvnh/ZQpxRyAPwWsDZBcLEvBcpi/qC/GgnxnfsuepZZGnwPr2Y2YlO
-	 iCkKSefXadqoFsd3rVet7JImx68d36olFq9/Qn+J2Ypz0CfE4X05XmXUGxp/kP41qlA==
+	t=1794445409;
+	b=QI/xeLk3P+mHge3BeIWESNivxLynsh8EiWqA9wbh7qnpEb0FfPbTgSFw/7sSKAtqEMy9
+	 wIZku+ZLK6IzURGaXMmES/pv+i67zboNRXTHrw3+j2ZMqnZjrGXQCsqYmY2k8NLCh4K5e
+	 0Oon6yoohXtwJ/SFgxWl77KtIjt+3E0PrzClCpKLPuwMsBYEcsW4PvU1jKBx1U94RrZ1y
+	 NFoImDbCjB4Sv0PkEafulFk9PG41DOehYLUevjoV6dCMISAk7a3lIDYyIjPODae1SsyQv
+	 bqPyH5KVDcyNzKsxZ+GX5JStpfHjOZ0BQxQuqchENt7WAG9/xNUgG41D9iW6el4dbow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445302;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=fY4d6y47CamDA7G44TSptxryAErHvm+2SddM192y+64=;
-	b=NcaZEIQZULoPhqQ5dr7ORbQL4YCFuo76LM+kTJHsgq6hbrhPy2VbU39ML0Do/XtLGgAK
-	 qVmGJn3iEWXbBaDr2jl/8NzOyKXGVJgdHkmqe29SmB0z6/8UmxBQAi5wfmpEe2FuV0zfj
-	 7Oe8HXKlW+QRvyqyU6cbsOQAPWz2z0Jg1VrLZxsO7b+YjCvWnF/6cTaqFMQoKuyt3CQxd
-	 9DMH/KR44JJ4iAEQe0OP2twN6JWpS3A7cCkgUODVa9f1kDRkpsg/ZbrKC2yoctD19c9v5
-	 t3WVz+qwR31N/I0cEoCmKHWpsYb/16ts/xChxmtJfrz0Fd37wBKqImXOIws5jQsYNOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445409;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9IdzEOZACnAbud2LlA/5bkJPHSI6p7WBNERtOSq1ZwA=;
+	b=qXVVTP28HXcPyNsDdR20XFKKz42YJpRVrqGg43ybwzy6hPyVHYpxOA0k3aPhBPhexBvs
+	 93ih2jcA52zJUSiDdY+Gi0oPGO32cYytuQ98Uw0ounloGBfv1Y3YCgVH5PlFh5C73Rx/N
+	 njlq1EgX4aSOXbQ5q0ScSBPsVAjbXzWmY4SPx2+g3WqfK9eg9IZsPum61c0YU1cmu9pt4
+	 WuiLq3Q8h+GkcTqxLGr46b0ScXOkvTtcSeMKDLDm9AxXLUDHnWqOAwbLtR+CdprwovilN
+	 ifjzCR9clSvLYZjEBiMXsd01GdXmd2WhSvk+6LT+/NNS4tLOWbP71VC++bsCOa79xoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RwvIkZTV;
-	arc=none smtp.remote-ip=210.79.60.249
-Received: from mail-m60249.netease.com (mail-m60249.netease.com [210.79.60.249])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIO6Uj5a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C09606A326;
-	Thu, 12 Nov 2026 01:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C09606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59349606A330;
+	Thu, 12 Nov 2026 01:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RwvIkZTV
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 545e00560;
-	Thu, 12 Nov 2026 09:01:30 +0800 (GMT+08:00)
-Message-ID: <dd25880e-be2d-4adc-8384-fa4a7160a4df@rock-chips.com>
-Date: Thu, 12 Nov 2026 09:01:29 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIO6Uj5a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83A71F00A05;
+	Thu, 12 Nov 2026 01:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794445409;
+	bh=9IdzEOZACnAbud2LlA/5bkJPHSI6p7WBNERtOSq1ZwA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KIO6Uj5aGQn9+wmuYSyxklxpKnR9Z9Q6FSg8D4pZwWasg3+zWEGqVNAF9auNiCigc
+	 t5eiwFv2tca0dfpQrZ9KyOVNw+Yn3I29IPKCh5Ge1wVqzEd2bRgG1qXEFC1NxNO5It
+	 JXI/f6KnOlh9ii4Xb2iJbqlNpXgyCCaXvtmR1yUQv7yFEqcN08fGgnpZ7vY8/eXhK7
+	 rgbzWbBCRCf9P+rfeH0qd7G6+axJJzJwyV76r4osA6maS/0R7SmjujAF4wUOODsKER
+	 NKzE1AE46qMWaHLqlBnoCUY0IpGzdZ9mkyiH0XDDWKB6ewvcofXxfgLYJup5DY7ySs
+	 7HqQITGtUIaPg==
+Message-ID: <sashiko-outbox-210030@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: Add Samsung S5K3L6
+ image sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Cloutier" <vincent.cloutier@icloud.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261112004636.739749-2-vincent.cloutier@icloud.com>
+References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+ <20261112004636.739749-2-vincent.cloutier@icloud.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 01:03:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,81 +60,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
- EVB1
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
- <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
- <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1cd462be103a7kunmad3109128fdea8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEIaVktMTUpKTEkeSEkZGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=RwvIkZTV3jQpd5yHEhMQAJE6+49uXKgn5dUqP2jzosXCm8+6dUU5dw4KqqX/DoivJuUINoenbcsTAmcpB6BTQ+CWfDl9iRrua0VavXKaDAXLL/UcF9IXvO/F/f/XVsAi6kHyZHe2zbWlOQwtfMsVnRU16rPU1itMv9XWPFY5810=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=fY4d6y47CamDA7G44TSptxryAErHvm+2SddM192y+64=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Alexey,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: media: s5k3l6: board and driver constraints
+  hardcoded in schema
+--
 
-On 11/11/2026 6:45 PM, Alexey Charkov wrote:
-> Hi Chaoyi,
-> 
-> On Wed, Nov 11, 2026 at 1:31 PM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
->>
->> Hi Alexey,
->>
->> On 11/7/2026 1:52 AM, Alexey Charkov wrote:
->>> RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
->>> controller and a fixed-voltage VBUS supply.
->>>
->>> Describe it in the device tree, including the wiring for both the USB and
->>> the DP side.
->>>
->>> This makes the data roles follow the Type-C port's negotiation, so the
->>> port stops being host only. It also leaves the VBUS regulator to be
->>> managed by TCPM instead of being hardwired via the tangentially related
->>> phy-supply on a USB controller. DP lanes are also muxed dynamically by
->>> the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
->>> lane muxing also goes away.
->>>
->>
->> Have you tested this? As far as I know, dw-dp driver does not support
->> Type-C HPD yet.
-> 
-> I did - it works fine for me under Linux with Sebastian's patches. My
-> primary motivation, however, was U-Boot, where the current phy-supply
-> hack breaks USB data role switching, due to VBUS being forced
-> always-on. With this patch it works, and now the DT actually describes
-> the hardware, as it is supposed to.
-> 
+commit 2a414a254e5114acefaa73e7d87e80c013d1fa39
+Author: Vincent Cloutier <vincent@cloutier.co>
 
-Oh, I almost forgot about that. I think it should be this patch series[0], right?
+dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
 
-But I think we probably need more than just this series, because
-richtek,rt1711h does not register the HPD bridge, so we will get this:
+This commit adds a Device Tree binding schema for the Samsung S5K3L6 13MP
+MIPI CSI-2 image sensor.
 
-[   14.828983] auxiliary aux_bridge.aux_bridge.0: deferred probe pending: aux_bridge.aux_bridge: failed to acquire drm_bridge
+> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.y=
+aml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+> new file mode 100644
+> index 0000000000000..097593d747804
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
 
-Maybe you have already added the corresponding patch yourself?
-Another option is to use the generic AUX HPD patch[1]. :)
+[ ... ]
 
-[0]: https://lore.kernel.org/linux-rockchip/20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com/
-[1]: https://lore.kernel.org/all/20261020072816.180-1-kernel@airkyi.com/
+> +  reset-gpios:
+> +    description: Active-low reset GPIO, also used to recover from I2C er=
+rors.
+> +    maxItems: 1
+> +
+> +  vdda-supply:
+> +    description: Analog power supply.
+> +
+> +  vddd-supply:
+> +    description: Digital core power supply.
+> +
+> +  vddio-supply:
+> +    description: Digital I/O power supply.
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            items:
+> +              - const: 1
+> +              - const: 2
+> +
+> +          link-frequencies:
+> +            items:
+> +              - const: 537500000
+> +              - const: 600000000
+> +              - const: 625000000
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - reset-gpios
 
--- 
-Best, 
-Chaoyi
+[Severity: Medium]
+Does defining link-frequencies as a 3-element items list require every
+board to specify all three frequencies <537500000 600000000 625000000> in
+that exact order?  A 3-entry items list implicitly sets minItems: 3 and
+maxItems: 3, so any board DT that uses a single frequency, a subset of
+these frequencies, or a different PLL frequency derived from another input
+clock rate will fail dtbs_check.
+
+Similarly, constraining data-lanes to two lanes blocks 4-lane designs even
+though the S5K3L6 hardware has a 4-lane MIPI CSI-2 interface.  Also,
+reset-gpios documents Linux driver I2C recovery behavior and is marked
+required for driver standby error handling rather than hardware
+requirements.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112004636.7397=
+49-1-vincent.cloutier@icloud.com?part=3D1
