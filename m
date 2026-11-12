@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518957;
-	b=rJJPIHAitsd2A8hdlqxl/yULluQELInnh39AcSF2X9AYGvnDnnEPB7ThD3ymPQVKJSi8
-	 S0N2ax6Hsj2JpnwtHypH3abimjtTo0LK8EZDrPAQwLUT+WKwdBzalUorPjHNled65TA8L
-	 ipY/Zqx5uFLEkjTk0JeR5l//wbELI/5S2db0FnkkppXDMrM72PuvGSRMxn4xO4ZqTkJTe
-	 lg+uSh2SRMoYrm5y2E9XNEc3q65FuoaNtuQuIV4xWMnlCcrTQ6SnR8fcJNH5PSkk47sVA
-	 8AY5Lk2vF7xLh7membvmdOuSH9S33U25ZR4n+1mxrdtjRniNgkV2po5iJdtzQAfNnzg==
+	t=1794519479;
+	b=1U7Qr3aicErnhmot8SGmuhP4t3b0swDmIv6ArAakpmrzYtvVVF9T5nChGkbNpiRsKswm
+	 +R1QNkuB4+3QwbjaVI1rty1wtHRlb/BZT2fABuawoEBSG/7S/UKIf5cv07Y+WEMz2oiGc
+	 BzAtliXV3zOvMp5OUucEPuCgxMZuw9PwsBUH+J8RnjcfUJT1XCo5eKF8nF9uTgiw1Hm8n
+	 v9n83xPlmWdeBCeuOS9wcylb/aDBsRN9lHAwEtYEWMxsalZub5hTXzQ3cRLchj6oolBK+
+	 yt0VAC4QjoUa5WeJWwYJftTLx/SR2RPzxxy0gKRVsg2mrrH/5nOwHnCujT7QDd44eGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518957;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=K8CXhK/SPFJK7NZbn0+oBRyWqfH1BjckOtDhNMG8Dks=;
-	b=MfjzTw5bWPweJLFpagZqymLAaAmooVquUIQq7JTeqwId/qeIjS5FQ3noigMVFkcStmlJ
-	 8hdBGGWtoLRkmkgKywdUrZHdW1qkZx0AoQyMJrAlt+KmRXdkxpzt1GssCFRY0LwQKg4cc
-	 f3Ddil171fPVWoB8jHGel+WFTGcZnKnNXZa2nTR5ZoXScJgI/ahoWycfjGI5heoacyXhM
-	 B45t1Qdg9XjDFd7ZT3a1lmEMvk1Je8OjYJ468SZ9slJbosqh4AEXST10JqMrCAwHk/DzG
-	 /p2YD41nYYmCNnvtTgZSO5MHzS/Nhv0QZrzayD0aA3TEBJXKg5jxUFWhytSmxRNY71Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519479;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=oZdcJRMUxxlk1z+2TXuUtGeoqWVbfR50Qnwl3g1KkFc=;
+	b=mf/YoTe2qynsvYBc1AI7tauwl16lioUDEzg8czx1cePL4jQCuAm3l17WVP40+/i46kSV
+	 cOuOYJxRy8ttuXuJcgujaCpPuyp/rNU+Ws4IJPFYaP6iIwoSA3E/lxKT+mJhj9G7rWnr8
+	 /Llbr3lxeef2zkbqNWWmTFx9MxAheKnJBSALJqB7bAuqGtVlPQ7S6dC+WrQ/6RDf+LhiU
+	 ztZbf5IjQGvwzsKQS/YoxvsKqyWXDZjoa/zb/LKbZH1/s+ObPTAWX5ILbRgifEWantTKu
+	 w8nhSOOr/UXy7umdnnV8qhs57G0B4XSUkvCBFNvhG4wKsWsbnH5lhaH4xDWZTpF0P9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E3CILbho;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C90E606A31C;
-	Thu, 12 Nov 2026 21:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E3CILbho
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D951F000C4;
-	Thu, 12 Nov 2026 21:29:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794518957;
-	bh=K8CXhK/SPFJK7NZbn0+oBRyWqfH1BjckOtDhNMG8Dks=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E3CILbhovan2nG38+iulYjf/JC2ZxnTgN3AOyRauEziimeEvTkCcwnDdDFD2p+fkE
-	 X30258+YNourTLmShw9E2sfHsbF2oDRq64NcCW4QyGJNp9zBHr7+HaQiHmM2+H7Bpq
-	 JI0blIAbuUVD4qqQvwSWporJUVi5gOGKMrW/G+GeKj2tmMr9NN0k9IcgLKKHg+g+o3
-	 itSpjrDHu7k25hHNO7GuIDmCMhfCTPAIdm0acLoB9C6K5InNcXnhqGe+e28VkAja5F
-	 5eLQzXH97Q99iy+sfZXZneU/jRiNaYJyGpCbM/0tmktNrr4Chf4g3x9fqiP9WSWQKg
-	 z3ugy6JA3oTWQ==
-Message-ID: <sashiko-outbox-211866@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] leds: aw2013: Add AW2027 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Sajna" <sajattack@postmarketos.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261112-aw2013-aw20xx-rename-v5-2-b2c5e323a90a@postmarketos.org>
-References: <20261112-aw2013-aw20xx-rename-v5-0-b2c5e323a90a@postmarketos.org>
- <20261112-aw2013-aw20xx-rename-v5-2-b2c5e323a90a@postmarketos.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 21:29:16 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980CC606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a594d313a3so242983b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 13:37:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794519478; x=1795124278;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oZdcJRMUxxlk1z+2TXuUtGeoqWVbfR50Qnwl3g1KkFc=;
+        b=xKJHd95sAilNxDe/H/brYhVIDpN25IywGBrYMIgArmXUljg9giGmywpiHONeDqHMJl
+         STm0alalvjNY6VxoqVNq3fcBcjZkqRgtW+lKVtR7Z/HmigzCbunOykLh1viNiKzdSP2H
+         CUEfP+FmDjjnBStpBGtLf4blWmZnww+3nNyIRaYeYWOt92RLy9kDwYz33lUc2HO8kV77
+         PcbN0lVq2IyDZdOeWummY3QbInN0AQaeZF2zrPNQOYa7TMVCt1GKG44xRQ9RI1rU26ej
+         yNDsEJysOzmLuJR+K1jGml3D6Bmi9lH+aS9HQb9INCmhznz7n/mD7qMgPxfswlMaxaGn
+         4Tuw==
+X-Forwarded-Encrypted: i=1; AL+hErFN1UX1S7o1/chThN61j2DKBJs01OOotBGux+VId97cTsXGxcpakcM6IC2P9a4t5FR5tAZL4LAqpzcp@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UnJS1R4EeAgTUf0p7/lVFmEE6JbNBuraoSZzkC1x9mq31r0sc
+	rC+/WpVrzQMSk1WlHTAG3AdqyasU/iF/ZqsNIbxg7kWjKoQ9+Nuul8mxAViFKcLc
+X-Gm-Gg: AYBFou0GhncBrmDqt/oDQ5tKcWB9kol57WaQ+7MHhY79/L83VXqrE1OK+E3XQHj/oTK
+	FcukDrVaz3BqBJ/lLanxJIFd5rz13uBpcPWI+jvLRZdCmok1ZmFJWbjwueQCRLmBBmj/h6IdO/m
+	eGKLWSMjThIsaIzMhc5ovmA44b3ovqwBsHf4RpDLWeQyKjLOiZH3UMiWuWx/btyaIr75+ZDyteU
+	lba2agWsMt8749Q19UNGRtFWLxPZfGyTb91IULTtkKDMkaHkb9wFmTa6SPUnQLC0IchPEdG3vYH
+	V2aFTyGqxrt/HfaqJrDpP6aMnERWvkpUTrFcO/g8d+W2wZmJ0EaagoiXzLAs4zmDV9hcXcKDOft
+	MzlNSplO3uxNCnCqK/IMXLeueI2ibZbaXYSTujxAKKqSwWP+fvORZudGALSTWytA8C9ikF46Bux
+	d1jlg5p0ognOQwp0lc+5L452I5aQYRIYHD6/8C8X0AfULzaj+x7i4IXlGPjLKznUY/6AMzOJMuA
+	l5Xy4DeQu40i7rUUkoqB/Ok6dpeuJv7mNM6JcPBIlqy5X3Zc495kaHoyY+D2vOSf4e0eSBMPBCS
+	i8tzR6shcfpOgRo86u2/lTX3YmeDUS5xLgLWEYM004DlnFntOPh3SH9fclw0/hzlYIKYYsYbEs0
+	MC3jVa/RukB73zVUsdwtiBPGk8aFPniVMcvpetGIxwGDn
+X-Received: by 2002:a05:6a21:798f:b0:3e2:2b76:bf40 with SMTP id adf61e73a8af0-3f7a6e9f331mr332597637.26.1794519477686;
+        Thu, 12 Nov 2026 13:37:57 -0800 (PST)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com. [74.125.82.179])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6db9asm145748b3a.22.2026.11.12.13.37.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 13:37:57 -0800 (PST)
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3791619605cso683771eec.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 13:37:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHbUdcdxylRObp7TCVa6kHaWe0ei6ubKcIWKyLKCsLRh17OzihYbIDRJT24ZUJO1Cbx9yOeSaPvvqn+@vger.kernel.org
+X-Received: by 2002:a05:693c:6383:20b0:379:8df3:d2c9 with SMTP id
+ 5a478bee46e88-3798df3d361mr53568eec.13.1794519476959; Thu, 12 Nov 2026
+ 13:37:56 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,80 +80,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+ <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev> <179444699398.1126566.18079369824329437583.b4-review@b4>
+In-Reply-To: <179444699398.1126566.18079369824329437583.b4-review@b4>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 12 Nov 2026 16:37:45 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ79fUPUGG4g+bZYcaMXJHXVh_89NL55MXNkhppMEYDD6A@mail.gmail.com>
+X-Gm-Features: AclHuK-qYQ4QvhuWcFcAv5sXFh2xbA3gQD3BM89Iz_DI_n7EaCswO7U9VivUGq0
+Message-ID: <CAPY4CJ79fUPUGG4g+bZYcaMXJHXVh_89NL55MXNkhppMEYDD6A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: clock: Add Siflower SF19A2890 clock manager
+To: Brian Masney <masneyb@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] leds: aw2013: build error and wrong imax mask in
-  aw2013_probe_dt()
---
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+>
+> The license is different compared to siflower,sf19a2890-clk.yaml. Is that
+> expected?
 
-commit 07caacf25b9b9285cf8d8cd5387ef8435b68fb1e
-Author: Paul Sajna <sajattack@postmarketos.org>
+Yes. The header is Chuanhong's, and it keeps the license he gave it,
+with only the identifier updated from GPL-2.0 to GPL-2.0-only. The
+binding is mine, under the usual GPL-2.0-only OR BSD-2-Clause. Both
+licenses let non-GPL device trees use the header.
 
-leds: aw2013: Add AW2027 support
+> > +#define CLK_MUXDIV_NPU_PE_CLK 20
+>
+> This is the only one that has a suffix of _CLK. Can that be dropped for
+> consistency?
 
-This commit adds support for the Awinic AW2027 3-channel LED controller
-to the aw2013 driver, introducing chip-specific definitions and current
-configuration handling.
+Sure, v3 names it CLK_MUXDIV_NPU_PE. No device tree uses it yet.
 
-> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
-> index cf20e94920fd6..d3858b06e594d 100644
-> --- a/drivers/leds/leds-aw2013.c
-> +++ b/drivers/leds/leds-aw2013.c
-> @@ -20,13 +20,15 @@
->  #define AW2013_GCR 0x01
->  #define AW2013_GCR_ENABLE BIT(0)
-> =20
-> +#define AW20XX_GCR2 0x04
-> +
->  /* LED channel enable register */
->  #define AW2013_LCTR 0x30
->  #define AW2013_LCTR_LE(x) BIT((x))
-> =20
->  /* LED channel control registers */
->  #define AW2013_LCFG(x) (0x31 + (x))
-> -#define AW2013_LCFG_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
-> +#define AW2013_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
-
-[ ... ]
-
-> @@ -293,9 +403,9 @@ static int aw2013_probe_dt(struct aw2013 *chip)
->  		init_data.fwnode =3D of_fwnode_handle(child);
-> =20
->  		if (!of_property_read_u32(child, "led-max-microamp", &imax)) {
-> -			led->imax =3D min_t(u32, imax / 5000, 3);
-> +			led->imax =3D aw2013_microamp_to_imax(imax, chip->cdef);
->  		} else {
-> -			led->imax =3D 1; // 5mA
-> +			led->imax =3D chip->cdef->default_imax;
->  			dev_info(&chip->client->dev,
->  				 "DT property led-max-microamp is missing\n");
->  		}
-
-[Severity: High]
-Does renaming AW2013_LCFG_IMAX_MASK to AW2013_IMAX_MASK break the build in
-aw2013_probe_dt()?
-
-Just below this hunk, aw2013_probe_dt() still references the removed
-AW2013_LCFG_IMAX_MASK macro when configuring subsequent LEDs after an
-earlier LED enables the chip (for example via a default trigger during
-devm_led_classdev_register_ext()):
-
-drivers/leds/leds-aw2013.c:aw2013_probe_dt() {
-	...
-		if (chip->enabled) {
-			ret =3D regmap_update_bits(chip->regmap,
-						 AW2013_LCFG(led->num),
-						 AW2013_LCFG_IMAX_MASK,
-						 led->imax);
-	...
-}
-
-In addition to failing to compile, on AW2027 the per-LED current field in
-AW2013_LCFG(led->num) uses the 4-bit AW2027_LOCAL_IMAX_MASK rather than the
-2-bit AW2013_IMAX_MASK, so using the 2-bit mask here would truncate
-led->imax for those LEDs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-aw2013-aw2=
-0xx-rename-v5-0-b2c5e323a90a@postmarketos.org?part=3D2
+Thanks,
+Joseph
