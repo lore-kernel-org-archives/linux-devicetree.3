@@ -1,45 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493213;
-	b=2QZuNGBUjRzyqUtDriya390US+pje46YF02xcCE+WCNzI3dkYkmspJN1Ls4tN3I4WxdR
-	 bS9tQDi+cvolL4nPqSE6O9PDOIvfwLxKz/kTEVrTefqkSYNIiv90BrDNSqRHCb4Qw9V3s
-	 bKZX7ycejyU36L85vVd1nBX/5Rk/5i3xRSP7OTFbNwChf6+hTY0FisQEhrK0zdeJztcj+
-	 U07ef2Oo6RhNwwpxV4M6YQFdzptEZZrbHqAs6hPlMZfbo/kXFV+ZFpTfNwrFNbSvbX+p2
-	 qIgKBf770fB7CnEpCtwhsSm6zTA0mY6dcWQyK8DDjIqqR/YZj9lg/UwTlL9EzR3bIzQ==
+	t=1794493284;
+	b=eKICEw82/8xK/eYJUC+dZ0cy/x4Tww5lS4tTHuuvKzId9otNpcAZ/2axkJGQ1AHRqGV1
+	 Dzn225AAnh3Im0aU8pOyWlX3TvvPz5gUUZWGANi2D5l8jf26UQoHQd+GmhURc0uGhhtIu
+	 L+fyT+oDrNBKMWs3r3LEFWapViEXw2nBJlyZT43E+/F2hFKAJolSPvU0O76j/TPrEeHEW
+	 PdAbRZKQfi8IFU3MUqLN+jYev10dKGaGCssbQuWsGO2wBi44pqHHdm9HvTWEOvntD6RfS
+	 p9vhWkpJcY1ohr5OVs9w+CdkyUJc9FspZfPITTyjnU4RUkHZXBz2lsLLzkukD4N9gKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493213;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=E1CsLVh6aynACJFDOzaOC9Rn3V3RjM9yRgBiUsH2gk0=;
-	b=o7M3TmnfJOwtmLoQhKj5i7Awm7MUdUAEZqrKHQ1M04wTXpfK3T1RX2iVtU59Ek9Z0TcZ
-	 HmcF2mNX0dXSdp017aBiWQ+LSmk6q9SM41DKsh0onD+G4as9olLESf8Vjq58uAsIaEa5d
-	 1cS2ASLxLdVArTOa27DgAk2TMr/is1D86hyy1KcPpwcr6tAmLsnFtOM4i2ZuBxWzT96+Z
-	 IQZje6KCXxsRJEPZKHr/EkZS2zmKZaIk8avdtYmyhruQbK2LwPL5sJLWTW3Scp6q8E1n6
-	 XNFtL5TQwijmXqebNneI3XiyyRkUkMJuUb3RvXY/3qKM0KGTw7wC+karvdo3itkUxiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493284;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
+	b=xaDzs2wP1LeZGR5gDYBZgst2eItydU4K9EPiDpzXs+6cieerq/gSukzG9/KLkCCbKJNo
+	 5Ed82txdetxeWn/UNEzYLVOnlfPFceTq8neQu8EEimYh7+ne1ijoE7dHaGaLg2moEHJsM
+	 4oHmt1zJwLnsMGSXvW+pr3GkJ7zVPE8wQ0ZcMuZBOLjrlH+euVl0Y2bmWU0oyMuXFY1ZH
+	 VSHlRr9/A+g1ZEXXFeTBlYFJDZaiq+5CJyV43dv5jSbFPWzx+t5yBhvx/2eLRClXwZn/e
+	 C/2QTc0zLnhXQkb/m8bDJpJsidbMrBepPEJOiq/RppXC+grmFx7IV24HwuMEATNAnsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoARwHnd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35065606B2CF;
-	Thu, 12 Nov 2026 14:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoARwHnd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030D71F00ACB;
-	Thu, 12 Nov 2026 14:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794493213;
-	bh=E1CsLVh6aynACJFDOzaOC9Rn3V3RjM9yRgBiUsH2gk0=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=SoARwHnd2sroBBu3klAxmtwaHRx6rgBP/YSXGFybfTkihjpZJjk62hgOqEtgIxvNy
-	 eZ7FpI3k9TCb+KEqIKpbqZdXfz9Kq75/0kXOmEDynVuLW5nxk7iGvnlLrtmAjvHnzn
-	 g+gH02R8EVWyH5V7Mpy3eSe1saPhuUJrkE93EtcTS7sM91NPiNr7zd3Q0dPTlxz26f
-	 l/D1r6KKduUj7C78o/Bf3KlVgOVeNitREf63LNeaF2PCYCj+kOwq3EQtKpg6r4IijT
-	 W2vugE2Z4eoDf8tK/2fpl+mXccQmLXzpX4Es0sftGaiy0G+rOVYDxLpjGlTR6PgCh3
-	 PbICow32k2IXg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE20606B804
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 14:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE20606B804
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-554c0d47d17so35860121cf.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 06:21:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794493283; x=1795098083;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
+        b=nLN0r0LtsNro29VOGLt7kQ4I3rlKBQ4DgcNjeqHVwGf+84aHu96+Htq459QWxgF+KV
+         nbJU1wsHVBCAhW7rgG/ZsZnZiY/YPzvTlWbpX/uSgG7KOt8PqN8lLFKJNbPzLjmcGHAI
+         hL1ij3bfi/shJpg9mNSIP65cIb9l+20QoK5Thyhu3uIHBNTeZbladTxMVN2WCPALye14
+         Xosfey2rK9mgwajXz9K870GVAjlFgTS2sMePWWxIgktkcvtk7Y/73JHq2FWG7bVMzly5
+         x31zOZWydELFw+K2IBIe+J9wnAK3eZAAU/YELjmahrsPUfrfC+U05n7AOjyZLEEpWhA4
+         aSng==
+X-Forwarded-Encrypted: i=1; AL+hErHFUmONoQ8LHD+ZGsSmZg4BQVFJ6hAd/Atpj0096LiWinm9w+vDxONCAIU5g2Fy1T3pnoduFB96wcDN@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kmnk6vHKsXAA/Jm/ybDYtbpGNy7MvB0M5IiW7I5ftfOWh9ayM
+	SEmtQaaAOZFU7sW82Eq6GvWa9Wq1pUJKiAKZ9HkrtxLRObXDWZKqIulaNPhUDjEmSYM=
+X-Gm-Gg: AYBFou0QrMLf4z0umVG/tYh4td+4nsfLGt/fVijNTCWpepQ5XYGbjhXSjXhFyDnVaNz
+	acPR/SH0Z0e3IHlgQ61xOJ16xT4vRADD+e6p/7txW9m1anGMZrTVIdP2u1VPOtXfj0PJ9KeQ1mu
+	/FnXLk+AHLm1kfCa9oZs/WHQ+F6W6q/HhrQXMhrJ2BMQVmu5gEvdKXN+JTc4OJ/Hrj/FaePbIkm
+	7r3Z6vSzzy45HAY+IyB51yb4fvMj5hcPwZsYUJ1Aa5skTzI1Y8jWch9gzS/QW9GMATvC997jzgO
+	pkuCrUI7W2AAUUxwaenubQ2t+wj/UlMa71tIClEdljcnQ9rZO9SYDm6XRKxCg5xKlRmgvUE4gyT
+	3EP1Khz0sIvOhndfMxu5faEmINn23E/mc01JpKifsIib8kwgDZdv8InAe0eKH90uwJQYey+VOCM
+	7dBlf12I8gDTR8yDWLJIFhHioJ9GVTOSnafxlGS2EIpED14qw9hkcyVSZ01nxnYkiIjAK0ySKF0
+	65bvFYAagRxqYOcE5+YjNvlZ9wXrECM7PTsPZ3Qm6YPvKdFbeP71MN3X0+nV4Y9CrkSh9exZShY
+	8BWYYc7V8zse/Gsf/tV4yLq9JQhVr1Pn+SxCnhTPSZKSKT4zT/4G7AeMOKPFwsWfH7A6bGu2Npt
+	rp4Hd+N2talNy0UES
+X-Received: by 2002:a05:622a:4e93:b0:54f:8d78:4dae with SMTP id d75a77b69052e-556c1678b2cmr90824071cf.61.1794493282782;
+        Thu, 12 Nov 2026 06:21:22 -0800 (PST)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com. [209.85.160.182])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-555091eb7f5sm75377541cf.1.2026.11.12.06.21.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:21:22 -0800 (PST)
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53c4b82919fso57849041cf.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 06:21:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGjY9kjPIsf+zhh+gj0puR8+1qkRJW2KfOmgGwikdlEVjpbyb25ROH9TOwbinBBm9W7AzzC1M33ZAf0@vger.kernel.org
+X-Received: by 2002:a05:6102:5798:b0:7c3:881f:b620 with SMTP id
+ ada2fe7eead31-7d5060e293emr2040092137.21.1794492899954; Thu, 12 Nov 2026
+ 06:14:59 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,57 +81,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] ASoC: tegra: ADMAIF: Add Tegra268 support
-From: Mark Brown <broonie@kernel.org>
-To: Sheetal <sheetal@nvidia.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mohan Kumar <mkumard@nvidia.com>, 
- Sameer Pujar <spujar@nvidia.com>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Anupama Kunkulagunta <akunkulagunt@nvidia.com>
-In-Reply-To: <20261104111836.1100527-3-sheetal@nvidia.com>
-References: <20261104111836.1100527-1-sheetal@nvidia.com>
- <20261104111836.1100527-3-sheetal@nvidia.com>
-Date: Thu, 12 Nov 2026 14:20:07 +0000
-Message-Id: <179449320746.339049.259253313248679941.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163; i=broonie@kernel.org;
- h=from:subject:message-id; bh=33wr+nkv3EGi4Mh6rJ/otBChAadoJv9WSingu+n+VFU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+npaoZZzu9//wedWwpHZn9TO/F10PU43+f94j+uaqc
- 78EAj/N7ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEouYwMuzYeP7p4vsm2TYJ
- zVx1l57KhO0zf6B8Pz7yUfwN1eCXnwQZGV4XX+I+5Ck4b9qHenbjMCHlKRcimm5l/uURtZltMkF
- wEgcA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Nov 2026 15:14:48 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
+X-Gm-Features: AclHuK_i81THT_hnDNfFBzoyAYqo67SKua85inNQRuBh9I9Xk4b1lG_6SVOc53s
+Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
+Subject: Re: [PATCH v4 02/13] pmdomain: renesas: r8a78000: Add SCMI maps for VIO
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> Tegra268 reuses the Tegra264 ADMAIF register layout but provides only
-> five RX and five TX interfaces. Add the compatible and SoC data for
-> this configuration.
-> 
-> Add register defaults and five-entry DAI and control tables. Retain
-> the Tegra264 32-channel per-stream limit and use Tegra268 FIFO defaults.
-> 
-> Set the register bound one stride past the final global TX enable
-> status register so the access callbacks mark it readable and volatile.
+On Mon, 9 Nov 2026 at 14:34, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> Add SCMI maps for the VIO domain to map the VSP and FCPV power domains
+> and module controls.
+>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-> +/* Tegra268 specific */
-> +#define TEGRA268_ADMAIF_CHANNEL_COUNT			5
-> +#define TEGRA268_ADMAIF_RX_BASE				TEGRA264_ADMAIF_RX_BASE
-> +#define TEGRA268_ADMAIF_TX_BASE				TEGRA264_ADMAIF_TX_BASE
-> +#define TEGRA268_ADMAIF_GLOBAL_BASE			TEGRA264_ADMAIF_GLOBAL_BASE
-> +#define TEGRA268_ADMAIF_LAST_REG			(TEGRA268_ADMAIF_GLOBAL_BASE + \
-> +							 TEGRA_ADMAIF_GLOBAL_TX_ENABLE_STATUS + 4)
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-This is the one stride beyond thing from the changelog, I've got to say
-I don't follow the reasoning there.  Why do we need an address one
-beyond the last one that exists to be readable and volatile, and why is
-this different to the other Tegra devices?
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Mark Brown <broonie@kernel.org>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
