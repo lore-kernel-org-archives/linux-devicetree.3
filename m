@@ -1,65 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479579;
-	b=nd8BYtgYFhedaZ86r6JDcU6SMmlmjQhrRxfDsY7kYgbhPn7exNilaF9LWdN5BaLUJU9R
-	 oEFQUhY6C2O6G8tZxIvoponZLhEc9ecY+Oaul4ZYUmyf4DuM6EGvfGCd29s6qR9i3eLX9
-	 efqk/cFDH8LUbkYxbyoberJ6IA5S4gvIVGB0Tf3X3Sh1uNpwfVSHezd8kXEhyMQKMZXq9
-	 CVWXeEZnFdTmWxqz4R33tmu8PhGawGgjnTZVDevENNg539fBXdcZb0A6QgaaJd2DedxQ6
-	 S6r+t5jNXjjyteuObNDNgQxGs9iy/FZLTDV7QRECO4yjfuMNgAGwfpCAlTz8usyPKdA==
+	t=1794479631;
+	b=ca3PwApfY00wlFoxo3M6uqs1we1IfGtcIhch54gmQlRY8j6mYfLJY0dVHgDLLOYbiUzy
+	 7YrTc9bSzUaEettD15t8pBUgNIRZKRfHloxBYNU5Mqyv1X5/E5eHIei6A7mQFJLiQyhtn
+	 1Q3ywZOcH/sXBXG6bqmQzVo5DgceWzegODwbZRzkSaNAk8Brq4kxUgA3L1W840sN3u5SN
+	 rJeLG6x20IoA/L91k2nu/OGgg9ZVWSO9mjRbAUGbuq8O4ftokBOoRMscUyX15LtiyaAbC
+	 /wsl6dlkTiSFYXmbdha8gLB7gYN8W1xaL/wentb+fQLoX7Si0mScEOb2ZSGq9vcuULA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479631;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
-	b=0UJdqs4GhwfSDAoko7yE4+1jniLZacCE97EDZPG6OXzvnlFDRHItjcKT7s7GcCJkPLvf
-	 dFlCK+gmuB+gAIcq/rLIEK9uCW/xWPsftRWSnKg7oU/TnmL2nY+L3DYdCx7V5TMiZ+rDK
-	 p+PvP4dp5MRZ5bVVr8rBy7yj2XMS7MuO0q0yazR8hI767tKNeLGrKLsOdTfjuata0xqm9
-	 yI3XNLVhb2M4o4ydlMxRW25s8Bd8U0WSwk/O3RYl0k4pG/fDDFsAvHS77i7rmFaHC7DBU
-	 rEDfZ+eQmMvWS1MxCyNZGB45XOUbs75/p/xdD9K/DARy0t1BTiJCN7lJbKtrn0SF9ag==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+aHQkk84/jyWq1Sa4aXoN8rFXFkbow5EARyg7OTXn+Y=;
+	b=ELMFMhoEvZcfKQnoXol2jKqDlED5b89LftrrYbBkBTXZBCGqREzAJiV03N3zt5u6PA+m
+	 udKCB6UsL103Azio2PlPKRDlciZ+B7lCm0pBwBv1VS+vfxW3l219JlscYvVU5AV4hXDpF
+	 440vwWfVYPj5snUuqV47RAImjSyOrpbPqW4lA3LdMXbEx/FbiBqdWVHJn6ZQCn6CL2B3m
+	 LDAW+x+ux8f2rMFiZElKHt8mWuTfLsItjRKClVLR6tBZEdYsJaKrUqHR+r+Atg/gZ8Iwf
+	 Uxkota5HCV++Cjz4Cs4Y1afMmhYLsvggibMRQalRCZJWcd1ZdGDdjLCAcFvfL1aaH+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIhTJaMD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF86606A31C;
-	Thu, 12 Nov 2026 10:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA1606A323;
+	Thu, 12 Nov 2026 10:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGb2yDtZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E9D1F00A05;
-	Thu, 12 Nov 2026 10:32:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIhTJaMD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E211F00A05;
+	Thu, 12 Nov 2026 10:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794479579;
-	bh=7asrFaHTzZllDDUNciX3JSRX5gXUC5F4fBVc9Jkwf0E=;
+	s=k20260515; t=1794479631;
+	bh=+aHQkk84/jyWq1Sa4aXoN8rFXFkbow5EARyg7OTXn+Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SGb2yDtZZqWFVT0guABW2rgY6yde91AMAt54K9zUMc6UNmu7S/V4fgWu69fKsfyPV
-	 7Es8RO7tpcRecCeER9guaREA7sPOuG3WBLnorqOoYS6/o/S+jqXwzN2exs1B8sA3N/
-	 ZF4JGs3m2/skadvs75aHgR/H6ByuPWU7sQ1BdFy1mJYih50uf3Zp+ccuiPVeVwtDCA
-	 bR7Q5WXN7kDBxMaW3Jvayc6JUP0xbthJyaw/KGsHM7Svirv2yXY2jesLK5/Jg9PZyO
-	 7OsRdD1RmzyyESGfks3oK20chkDsepDNhUJxWgPddg2c6NE2aQVDzmY1ONk0PsuEG1
-	 X2DZOwBkjArtw==
-Date: Thu, 12 Nov 2026 16:02:46 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Val Packett <val@packett.cool>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>
-Subject: Re: [PATCH v7 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
- connector via pwrseq
-Message-ID: <avWVnjF86FLFvfOC@debian>
-References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
- <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com>
- <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
- <CAFEp6-3Mt-CCJEz=RAJUh6pxH-Ssgkqfx3QQfyzvS9HwzFp9QQ@mail.gmail.com>
- <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
+	b=WIhTJaMDCbntg/CKE6hWj2qG9UcfTu46mxNfCVJd3PM6nU2CwAnfD/rNIw9+0TXgr
+	 2x3EfnnydyDZORVGf8LIfESmomjDLYhisRnb7MsqgTxiN3iT2I8fkb+riKRJIruKW0
+	 Dhgg6D525FZZ+jCQfzTSujfaG+WCFZFnKdsV8bBaQrMpjHPsv+CTTeFsiB7tBnVz9f
+	 bJMUFS9r8VnIllKNetZUbAsHSpeYDV5Ibnrcp8yF7Cwnnk51v77a0NqQBiYmRL9Hap
+	 B/5/u2etmF8B8ZrDDl6Z6bZY+9uGl/eMSnu73BTlhYk4LcrhEhKrB6wKTy47CUFf2E
+	 /X42EBe/uwcOg==
+Date: Thu, 12 Nov 2026 11:33:47 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	mfd@lists.linux.dev, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v4 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
+Message-ID: <20261112-unselfish-congenial-waxbill-c7f9e3@quoll>
+References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+ <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,93 +67,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <906ebec9-de19-4a1e-9472-dcf8529fa232@packett.cool>
+In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
 
-On Mon, Oct 12, 2026 at 04:10:26PM -0300, Val Packett wrote:
+On Thu, Nov 05, 2026 at 03:16:47PM +0100, Vasilij Strassheim wrote:
+> Add a binding for the Ethernet switch function integrated into SoC-e
+> SWIP cores.
 > 
-> On 10/9/26 1:40 PM, Loic Poulain wrote:
-> > Hi Val,
-> > 
-> > On Thu, Oct 8, 2026 at 12:58 AM Val Packett <val@packett.cool> wrote:
-> > > 
-> > > On 10/5/26 9:21 AM, Loic Poulain wrote:
-> > > > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
-> > > > controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
-> > > > rather than a dedicated BT enable GPIO.
-> > > > 
-> > > > When the serdev controller has an OF graph (indicating it is connected to
-> > > > an M.2 connector), acquire the 'uart' pwrseq target from the connector's
-> > > > power sequencer and use it to control BT power instead of the bt-enable
-> > > > GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
-> > > > 
-> > > > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > > > ---
-> > > >    drivers/bluetooth/hci_qca.c | 47 +++++++++++++++++++++++++++++++++++----------
-> > > >    1 file changed, 37 insertions(+), 10 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> > > > index 1d27ff98034ba99d0783e48db5c605f3b31117ea..b6ec1a57248e2cf4bd138898ffc5cad45b1b4a8b 100644
-> > > > --- a/drivers/bluetooth/hci_qca.c
-> > > > +++ b/drivers/bluetooth/hci_qca.c
-> > > > @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
-> > > >                        /* Controller needs time to bootup. */
-> > > >                        msleep(150);
-> > > >                }
-> > > > +
-> > > > +             if (qcadev->bt_power.pwrseq)
-> > > > +                     pwrseq_power_on(qcadev->bt_power.pwrseq);
-> > > >        }
-> > > > 
-> > > >        clear_bit(QCA_BT_OFF, &qca->flags);
-> > > > @@ -2396,6 +2399,34 @@ static int qca_init_regulators(struct qca_power *qca,
-> > > >        return 0;
-> > > >    }
-> > > > 
-> > > > +static void qca_serdev_put_pwrseq(void *data)
-> > > > +{
-> > > > +     pwrseq_put(data);
-> > > > +}
-> > > > +
-> > > > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
-> > > > +{
-> > > > +     struct serdev_device *serdev = qcadev->serdev_hu.serdev;
-> > > > +     struct pwrseq_desc *pwrseq;
-> > > > +
-> > > > +     if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
-> > > > +             return 0;
-> > > Seems like of_graph_is_present does *not* return false for the existing
-> > > (non-connector) setup which is currently used in all the laptop device
-> > > trees..
-> > If I understand the issue correctly, this can only occur when a UART
-> > 'port' is left unconnected, in which case the failure is legitimate.
-> > The laptop device trees should be fixed accordingly, either by
-> > connecting the port to the corresponding M.2 device or by using the
-> > usual Bluetooth UART child-node approach. I don't see this issue in
-> > mainline.
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> ---
+>  .../bindings/net/dsa/soce,swip-switch.yaml         | 96 ++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
 > 
-> So it looks like this is because commit 014501d141ed ("arm64: dts: qcom:
-> hamoa: Add graph port/endpoint anchors to pcie4_port0 and uart14")
-> unconditionally added the uart14 endpoint to hamoa.dtsi itself in
-> preparation for the future transition to proper M.2 descriptions.
-> 
-> The laptop dts'es themselves still have the older child-node description for
-> bluetooth, with a dummy port { uart14_ep: endpoint {}; }; that's not used
-> yet.
-> 
-> Could the check be extended to actually verify that there's actually
-> something the graph endpoint is connected to? Or should that commit be
-> reverted?
-> 
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> new file mode 100644
+> index 000000000000..daac779c466d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dsa/soce,swip-switch.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: SoC-e SWIP FPGA Ethernet switch function
+> +
+> +maintainers:
+> +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> +
+> +description:
+> +  Ethernet switch function of the SoC-e Switch IP (SWIP) FPGA core. The port
+> +  count and presence of VLAN and STP register blocks depend on the FPGA
+> +  synthesis configuration.
+> +
+> +$ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: soce,swip-switch-00-04-0c-10
+> +    description:
+> +      This compatible identifies the register layout; its suffix gives
+> +      the offsets of the core version and feature identification
+> +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
+> +      features depend on the FPGA synthesis configuration and are
+> +      detected at runtime using this register layout.
+> +
+> +  reg: false
+> +
+> +  reg-names: false
 
-Taken care now: https://lore.kernel.org/linux-arm-msm/20261112-hamoa-dt-fix-v1-1-55efbac840f4@oss.qualcomm.com/
+I don't get why do you need these two above?
 
-I shouldn't have given my r-b tag for the offending patch :/
+> +
+> +  ethernet-ports:
+> +    type: object
+> +    patternProperties:
+> +      '^ethernet-port@[0-9a-f]+$':
+> +        type: object
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 30
+> +            description: Switch port index, from 0 through 30.
+> +
+> +          phy-mode:
+> +            enum:
+> +              - mii
+> +              - gmii
+> +              - rmii
+> +              - rgmii
+> +              - rgmii-id
+> +              - rgmii-rxid
+> +              - rgmii-txid
+> +
+> +        required:
+> +          - reg
+> +          - phy-mode
 
-- Mani
+Best regards,
+Krzysztof
 
--- 
-மணிவண்ணன் சதாசிவம்
