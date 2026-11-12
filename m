@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480426;
-	b=yqv36ENjYR/xHdFXZdV9WlLMPA9fq4U8bh3XS6mfDmdtZxLrnamWzA3QpaoWswOz5T5J
-	 zSqERhwjOe7GZt9IEubptXRgOD2q5M1IqyKRClMjhTc+2RfjAQdXtacEoTZQPRCDVVWCv
-	 eBF+wq5WxhMd3F5xTXj3hkvTwvYdkuafhrbooddzqMYjW09aamcqA2EW0d8MArTo4V9Nk
-	 /3g7E73qeiDQGhPyX3Lu1SXMwvUF1Qd3hbz4xv/kyrBwlBuUwxEoz3Ndu4UZP7Jv0BdLS
-	 8tRlLfMEfHHESz5oE6CN+fI38ijpvUM6bDx2xP7qgys1CdS1QVAFeWku6b1p/qyqAyQ==
+	t=1794480517;
+	b=u4yoFX59fXDlf21fPaMyUQ9u/2il68ektPV9R5BQccnQvJZxG1F8i3fNyuEgzw4SRT2/
+	 j1PgMNGba2BwN+exO/81ASge0+etKOVFt9Gd9qeyvGtjBJBVYrp03cB2w0lulkbjTttFd
+	 EMBjjJigOpUvLdut4lCvjcTMH1Kr6xdi3LsinctLZ9CUcZZwzqLKTRJXFYf7JuMZ+mWkF
+	 JN3LwVsxFaWpfn3xMhczpznm1BNxuMbf8Fip7AdLgi66wf6L/DFfVLfZxN6kjUNq4zaIg
+	 kI9wdtWbCxhUUIGlte4yL+UbW38yCh7tpgWJi/rrVD65o+Hj981Sj4xM1/Yj/bm9pbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480517;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xQUAVxIrA0e4kdr2QPbx8bp/YVLIcucobYOVtM6SpEU=;
-	b=HivRmzR+hRguRShjsWC71dRFhe44JKxQ+YSgK0fnhberBj8BYPPsA1BtzeOdMlOHHofx
-	 S9s5CPDQjW28gaXJK81rdapH4zunw2v3+D7p7o/c79fg8REyTR6HNo/4I2nohsslCPdck
-	 D4hAaF50piHrMD25VRPKr9A9Dvk/FTVUkVVbZLq1Bj0QO/TvyC0GO1dgK8Wyst4nFLOEo
-	 1mRxAPVa9AFke4ClhJjWdC2pQRssm3AC2BmuiwZJQ4Q2Z4ASPxR4LGjDmGk3w3r62cFk+
-	 S93k2s0DWMNkbHlegDpQrFLoquE0y/P9XPQq0QdGIQd9DoUtyVO+bL5obt++PUSbPTQ==
+	bh=oCLhfmO0/GO10jDgwC2AL+z7Zjpscam/XNbpIH3fbr8=;
+	b=ESJuoqvFd8QERvMGkCQuA9CVIC4DGDXVze0luQbL9rGAB9NGBmBopPseOEUaAkgz4qP1
+	 kOFA4A+uiSMkZhg4Bp49gZRn73gUYudbWq1GBb8l0hS8y1Y9popF+PGGEqcYxY0OI04ks
+	 TU2BNK4MJlp6gdMu+ddaivWEp5TPC8x7+LmEB2cbaQng4s63u3EuGAVABYi7YwA6tuWLn
+	 Gz+SSXtN81+BYo2jBV2YtO+ovW5DZGK+3jvkwkQa032MgwfbVPIqV7JwWRoDlCjhYpQsy
+	 DYgXqJQpBd3sqArbvW73kR/mduDthMR2ChxF8tvRcgZ4Rt8UjfxZ/iK1FyjcPwRgKSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsxlAq+N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvHdwlua;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806FD606A332;
-	Thu, 12 Nov 2026 10:47:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AC5606A31C;
+	Thu, 12 Nov 2026 10:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsxlAq+N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624081F00A05;
-	Thu, 12 Nov 2026 10:47:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvHdwlua
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8B11F00A05;
+	Thu, 12 Nov 2026 10:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480426;
-	bh=xQUAVxIrA0e4kdr2QPbx8bp/YVLIcucobYOVtM6SpEU=;
+	s=k20260515; t=1794480517;
+	bh=oCLhfmO0/GO10jDgwC2AL+z7Zjpscam/XNbpIH3fbr8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AsxlAq+NmzI/wNy08KiMrdGfA1lCFcL7WyVieP1Hd8pRJQ1mx5OS2gUMf17G20wAN
-	 tSBTJuh12XaZLjlII5PLEmBSWtlPN6waOJjk5039Amiu+OLQa1LTs3J5/UGNhdbr9z
-	 BjduKSKQdYtjdOrfZc/sNIO+LY09xdCtR+NVyDnV1a6YWGT4mkpS1JTqEcQwNHlLQh
-	 xRpUsVZnTdPWx9nnqgmdQBgUuYxT9kiBI/MEgX8QsnSDw/NmSj85hTnjyccdwTjrmv
-	 3N9pfi4r4ESXMWsoFJK6SgRViNsQecHMEYXy+GXzNTyiFQhmW2U26Ojj7HZ1LzE7jY
-	 WGO4XpccYghKQ==
-Date: Thu, 12 Nov 2026 16:17:02 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- qcs8300 16 GT/s PHY
-Message-ID: <avWZJr2eIE9KrV77@parshuram>
-References: <20261019-monaco_ep-v2-0-852cb9f5d012@oss.qualcomm.com>
- <20261019-monaco_ep-v2-1-852cb9f5d012@oss.qualcomm.com>
+	b=DvHdwluaCy/hXrdZym7Bl6gk4fXjt5qgZvv8WdIFkTmaxt7YZOV+60qunWJ8nJJha
+	 TidxQYeLeGGYcxYme4l0blPrjaRbNW8RkMK81K82xLiaMp7iYtFEivgW7mAm3Qt3ih
+	 4rSu9jb++luLr6Kr1SpDSzm/Ui0TKc/VEKkHIwzR86dUUvU6uIwqqzMooUOh/i9qTT
+	 4auvXkzf8mjbqn388v9vQlgtIeE27VCbNlj5Dh2WXcaCfuY90c5VVxxNRUdck9/VRe
+	 3qNX25t9oV0f8qEXRWBw6JNp59o/yOroZp5LnTeor29O2lr2bKQaE/+e6LhfFKBnI0
+	 gTfyZui5EuePw==
+Date: Thu, 12 Nov 2026 11:48:33 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Alban Bedel <albeu@free.fr>, 
+	Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] dt-bindings: clock: ath79: drop ATH79_CLK_END
+Message-ID: <20261112-nifty-whale-of-vitality-b5d9fa@quoll>
+References: <20261111215729.10683-1-rosenp@gmail.com>
+ <20261111215729.10683-5-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,22 +61,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019-monaco_ep-v2-1-852cb9f5d012@oss.qualcomm.com>
+In-Reply-To: <20261111215729.10683-5-rosenp@gmail.com>
 
-On 19-10-26, 14:55, Krishna Chaitanya Chundru wrote:
-> The QCS8300 16 GT/s x4 QMP PCIe PHY was previously described using only
-> the qcom,sa8775p-qmp-gen4x4-pcie-phy compatible, since no QCS8300-specific
-> compatible existed for this PHY. This was a mistake, as it left the PHY
-> undocumented as QCS8300 hardware and indistinguishable from SA8775P in
-> the binding.
+On Wed, Nov 11, 2026 at 01:57:26PM -0800, Rosen Penev wrote:
+> ATH79_CLK_END only counts the clocks for the driver. No device tree uses
+> it and it is not part of the ABI, and it would have to change whenever
+> a clock is added. Drop it.
 > 
-> Correct this by documenting a dedicated
-> "qcom,qcs8300-qmp-gen4x4-pcie-phy" compatible, with
-> "qcom,sa8775p-qmp-gen4x4-pcie-phy" listed as its fallback compatible.
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  include/dt-bindings/clock/ath79-clk.h | 2 --
+>  1 file changed, 2 deletions(-)
 
-This fails to apply for me on phy/next. Please rebase
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-~Vinod
+Best regards,
+Krzysztof
+
