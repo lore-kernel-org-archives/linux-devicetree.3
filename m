@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504441;
-	b=AH8NgHHz4zBkiMh0KRKfjZdxhH7ZFIzMV+rVJFm+9x9JaNdGDMP5lnV67cmxCL6jeqoN
-	 7uM0/81u9qoXk9bmpo748lL0bJnGBUxyT83xrlgz3Py9ur142okRFj2gcwI+xo+hYhnqi
-	 +1TOwZIu5ozGfWxmoG10UePRtMnUdjfdLu9g1elBCGAV+LQr1GJ5qZmhVOW0ZuxWGbDfT
-	 1gDqWezAYY0fc8+TJK7C+DyVQXDDg8z/Ef+pbuW5FhbajrpE3AMRQgKAcZn4AEL1mRRRz
-	 VMXRv1WQeNqn3eWolxmCSwAiLd25Nx0XEMfZRh9f9XqJVm1hlAfNsIlaxGqtpddA4gQ==
+	t=1794504584;
+	b=5sazdspY4s7b8v0GQVVilPO2AK8Yo3wZ47Vx39KLBjaThZY+/5lfXSnX3cXfoHr4TzrR
+	 2sJL9urGRU7vj0UPgcR1UsRXbrVKCSxtXCxi3Q8bHlGOaZNXxay6JMHHwQou6frIEh4Zv
+	 V9SwNW8A9kj4wOTpENsTpNKYFKTjIFJCwgYCGMnyWgFIyCV6rsvnrLQaExBKTO2IxRLx6
+	 ksk6Y5pkPWjahYCA+rVVNf7/emliC7HGY7dOrmuIevy5YOHpSChxu1svJcCbAKw7WwW7x
+	 vRtTsCZvQG1igvoDeKdQw5nU1yp5BpFo/xTNqJ4WEdfv3VrWsojNins/MV1MHKQVvkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504441;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-JNJ;
-	bh=8IUECNHiDajqPOe1RiRQKh2wtgaPAw0gQvNQT060lWU=;
-	b=tU14Kkv0MyPIse3nkSwr5jrkypot5xqUZ6LEMZbCHhp1ffDBE8UU+wfhtGts9wFBmF8X
-	 4aLPXhPnf7qslTrmxEoS6PlPuraMKgcnE8JoaajhKAMEEcwQuQAUcZSHBoE3nt9bKOvEa
-	 TXAJhW2pK1qSri3QVPN18n8Kdvu6gZ8MEoA1VzLdjvc1DcEv6aSPl0/9AQ5D79jMZ8r/I
-	 EG7aZp1toevyexUrdv1kcxiGI5U6fOygrcGGvlcp3SFwMpx7WgBTqVb/XF+zyIxtoInmY
-	 ocq5EIe8FLGwkTznRpTftc+7E+pG+3Evxxf2XY+dfwUQOIe3vwQb6fTWdFPJm4kantg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504584;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=3dewtD4z6MnboKiN4P6/KieXHq4pTJgNkPSFbFWmsWI=;
+	b=zouH+yp6knp9JA2dH7g3w++251mmMBrdm4HuhPZAo060SzP48pgFaQ/LMYbsn4dkPoz/
+	 Lu8AbPzILzqWZ/hTlRbRHrirltiUo2JQd0BIVCg8Y0HGWlJwYDNzAJbJPSY6hXz4ya8BB
+	 IGuN1pskyHSFNFjPVEYRaZMNUwN9T2u5D51jedDJ1pj10QbUP0n7shVFKKd/bUrkIIvPA
+	 bobVvIaFSN56IILbYsFSVwyKpsLZWCDlhz5iq4LhNzG9TRvHvgBLEPZ2fnvDKPzrmG/te
+	 +18ixn+tHloEYbk8XGk0umfklaqRocuxgjMlJdoW2Zy0s/hbfovSbG77MMCIIPGwD0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tawheed.cc;
-	spf=pass smtp.mailfrom=tawheed.cc;
-	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=otsYeCov;
-	arc=none smtp.remote-ip=57.103.78.92
-Received: from outbound.st.icloud.com (st-2002k-snip4-10.eps.apple.com [57.103.78.92])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWvrQQSI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0570C60A260B
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0570C60A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tawheed.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tawheed.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A86C606A32A
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:29:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=otsYeCov
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPS id 55D771802094;
-	Thu, 12 Nov 2026 17:27:18 +0000 (UTC)
-X-ICL-RepId: 01a1d0cc-b221-7caf-9aa9-6181f83a192c
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794504440; x=1826040440; bh=8IUECNHiDajqPOe1RiRQKh2wtgaPAw0gQvNQT060lWU=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=otsYeCovDa5jxn8NcGKbkPFgujg/FFyP8czTyszTQYWAY31lPFWyQ6092Zx/Msqh7fq2lpjUf3qieX/wzXN1A36KjMahu8bNzgshzLhscajISIoWOU4SqIsjPOOTrjRWtmLTihxSLl8aKHB7xmb+aXUqsQ1SV6Gz0D2dFCrzoxWw9DN539kHqgLdnzgyijBE8ArG+yHwdqjmowrFWjYwmwlQJL8fbC3FukGHTBBArbcts7ytc8ju5bARz6olIA2S5JG73dp6B7q7pg+bZMlL2ujx1yAtA2TicEDgWyEhtmbcQvT2KrbtC3kJru9+wGWAztiCEeNG0HhBD6Y9zL9oKg==
-mail-alias-created-date: 1711150425226
-Received: from DESKTOP-HUABEFD.localdomain (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-8 (Postfix) with ESMTPSA id 79142180481F;
-	Thu, 12 Nov 2026 17:27:17 +0000 (UTC)
-From: Tawheed Makhdoomi <_@tawheed.cc>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jingyuan Liang <jingyliang@chromium.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/3] HID: spi-hid-of: add the Surface Pro X touch digitizer
-Date: Thu, 12 Nov 2026 12:26:41 -0500
-Message-ID: <20261112172641.407-4-_@tawheed.cc>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112172641.407-1-_@tawheed.cc>
-References: <20261112172641.407-1-_@tawheed.cc>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWvrQQSI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA58D1F000C4;
+	Thu, 12 Nov 2026 17:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794504584;
+	bh=3dewtD4z6MnboKiN4P6/KieXHq4pTJgNkPSFbFWmsWI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZWvrQQSILCPXWpTaQBXlbmCfveD7vWdm6VcmIq+obrGlCxWK90ymZhP8y3Wc1WKJq
+	 OsI6zK1fPdjGbvZtYXZVBB1nfduMc76M9BysGaWxopDnbf6Vdy2VKy/Qe/ugtfXIEg
+	 //jGq2naXMSzCDi1qS9O8Nu1nu+X22EXSUygTTaaJu2nHQHBc4rOU2t1oM2uRDd+pU
+	 A37mrHNiTuzmt7G16w6535rmTfO2DZLpTQ2sj04VMgCZLWuFiWoSc9WznHXdL5rcpZ
+	 h5auX8fKNdjzqt2hPslEVK6vf6fNczE15vzxoqPD5ThtWdqi5pEHO3OtvjKvGK1Gtb
+	 5UQfvmpYyZ+qg==
+Message-ID: <sashiko-outbox-211593@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] power: supply: add Qualcomm QGauge (qcom_qg) fuel
+ gauge driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112170841.2189322-3-val@packett.cool>
+References: <20261112170841.2189322-1-val@packett.cool>
+ <20261112170841.2189322-3-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 17:29:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,102 +60,225 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: WHA6shUJS5uPyMvVx3fsC9BzVDRn3B4v
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2OSBTYWx0ZWRfX7MqP4KUTSYdh
- neXD9ADPYiTKZsbt/c4ElWyfWBX91h4k23D6Fpj+OR17ZbI7S1AhIZL721iH8kTE3lunimenhJR
- 0Ck7GvxMDSW4lSp9fIiKAaweENuuOYgUvgg8pm4spqh+o+Vwl7glbISOiL/qfdhfwWf49rBuz2D
- NWMSuWlRRnQNrlH+U9t2K5iJz2FSxHbrumkQOt0yuwqgRRq2ogeKy3+gGFPhpRYafVSJcAgozQ8
- a9gBn0jwWksU7Etkls0ohVo38SzkcwWIIrrg7NP34FxtImCUbd5lPMMfkdTT+Y90nEdtyFS/7JZ
- /zmYgVpC+UqZgB3+M3muMijBNDUU/br0CX9VHE9gFUBntoSBsb/eDOCuWyJHow=
-X-Authority-Info-Out: v=2.4 cv=RfMFmFtv c=1 sm=1 tr=0 ts=6af5f6f6
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kibvr5HLtuNvmma_iept:22
- a=FWZx5dj72HHvF9NkQXT7:22 a=HiKr9HWsZoCIc8ansSkA:9
-X-Proofpoint-GUID: WHA6shUJS5uPyMvVx3fsC9BzVDRn3B4v
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2OSBTYWx0ZWRfX2BPiqBx5VyUg
- dPtealoOF7nexe5+QVTMIQ1fiFFkzb2Nq+1yFXQgloM3CAim5SbKyrali2TaVEO9i75KZMrFrV5
- pmX4D36Cw7PnPl+yKkDpKAiLyvWPmPc=
-X-JNJ: AAAAAAABHJXMpRV6V7hjkIaMrJ2X+2+76V4lb8b9FdqZBjKqwFt1UhV3MQue1eM5ZXrz9E
- gqgreBGscX82434RTIITVG44jZRrF6Sgrj49KqrcwQWc/bGnBYdhVOckHhU0gwhQnNZTSw
- d9sFkhQowgwjLyqmXSRUGdwvh+7Fb3rYwU1OFEj1x6rsFpF6xbLdXmpPkKRkb5rgExsZBw
- M511Gji1I5n5YQsZA5ITrGpMn960SHU6Q5Ui1DX0aa21Iy1FEcsv5EPtU3ivaYdBiZCbRD
- Ncgntt9+kUALiTfosMM1dlviGh7yG7AU34J+TqciI2P9+pE7Go4XDGt/5hSdH/ivifgB5a
- By6YIC1725fkYCh+uX+FyqJ6EouLH251u9NQu8n/0LEJsKsxSSiInCB7KClplz0Ux5XldD
- k8mRFqKJrIKSEIDEHzlLzzwnqk1/s680IOg8Au7XFGKGaOEMCXaBVw2JrDqLw9qo236880
- QghZVRohe078RStsQqrPhi6G0avkxZMn/AiqK/HoZUi8T+/D7b5aKxXV2XAJLjAAPef3zO
- mm/OK8CnsnX1hf993QbCMO5s2R1JlSuPS++X3FRHxrJAEtcKF67kzor6S5Plpb6MYjHQYs
- rVG2wMFwnFmVUWi08UBzErqsBzBTI6yZoqKcsPFLkqqkgkNLKteptYcTS+s2ltmaKKP4zS
- l+uwu81ctMK7S6278nht3eUHoNQTV0NjgB0oT6gjDtwunzpvn9+7efV4rtGN6cZgq/QQdM
- 3wQZ0zoI02rzTS4DHWeIs1jbqz7Fw26lDIbqVYJwpWAIO8B/gpNrB/wZ0+WkVs8x+pvQ9x
- f2uGC9AOXwY=
 
-The Surface Pro X digitizer speaks the pre-release HID over SPI protocol
-revision. Both the input report header and body are read from 0x1000
-with opcode 0x0b, and the device descriptor is requested from register 1
-with opcode 0x02; the other registers come from the device descriptor.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] power: supply: qcom_qg: UAF of batt_info in qcom_qg_probe()
+  teardown
+- [Medium] power: supply: qcom_qg: temperature unit mismatch in
+  qg_get_capacity()
+- [Medium] power: supply: qcom_qg: broken temperature threshold checks
+  in qg_get_health()
+- [Medium] power: supply: qcom_qg: unhandled -EINVAL design voltage
+  limits in health/props
+--
 
-Add match data for it, with the same timings as the G6 digitizer, under
-the "microsoft,surface-pro-x-touch-digitizer" compatible and SPI device
-ID.
+commit 23cbeedd29303e2809a8e496524a3641be8ea9bc
+Author: Marc Lainez <marc.lainez@gmail.com>
 
-Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
----
- drivers/hid/spi-hid/spi-hid-of.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+power: supply: add Qualcomm QGauge (qcom_qg) fuel gauge driver
 
-diff --git a/drivers/hid/spi-hid/spi-hid-of.c b/drivers/hid/spi-hid/spi-hid-of.c
-index 6de9affbe..429bf51ad 100644
---- a/drivers/hid/spi-hid/spi-hid-of.c
-+++ b/drivers/hid/spi-hid/spi-hid-of.c
-@@ -62,6 +62,24 @@ static const struct spi_hid_of_data microsoft_g6_data = {
- 	.minimal_reset_delay_ms = 100,
- };
- 
-+/*
-+ * The Surface Pro X digitizer implements the pre-release protocol revision.
-+ * Input report header and body are both read from 0x1000, and the device
-+ * descriptor is requested from register 1.
-+ */
-+static const struct spi_hid_of_data microsoft_surface_pro_x_data = {
-+	.conf = {
-+		.input_report_header_address = 0x1000,
-+		.input_report_body_address = 0x1000,
-+		.output_report_address = 0x1,
-+		.read_opcode = 0x0b,
-+		.write_opcode = 0x02,
-+		.protocol = SPI_HID_PROTOCOL_V2,
-+	},
-+	.post_power_on_delay_ms = 10,
-+	.minimal_reset_delay_ms = 100,
-+};
-+
- static int spi_hid_of_populate_config(struct spi_hid_of_config *conf,
- 				      struct device *dev)
- {
-@@ -181,12 +199,20 @@ static int spi_hid_of_probe(struct spi_device *spi)
- 
- static const struct of_device_id spi_hid_of_match[] = {
- 	{ .compatible = "microsoft,g6-touch-digitizer", .data = &microsoft_g6_data },
-+	{
-+		.compatible = "microsoft,surface-pro-x-touch-digitizer",
-+		.data = &microsoft_surface_pro_x_data
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, spi_hid_of_match);
- 
- static const struct spi_device_id spi_hid_of_id_table[] = {
- 	{ .name = "g6-touch-digitizer", .driver_data = (kernel_ulong_t)&microsoft_g6_data },
-+	{
-+		.name = "surface-pro-x-touch-digitizer",
-+		.driver_data = (kernel_ulong_t)&microsoft_surface_pro_x_data
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, spi_hid_of_id_table);
--- 
-2.43.0
+This commit adds a power_supply driver for the Qualcomm QGauge (QG) fuel
+gauge hardware block found in SPMI PMICs such as PMI632 and PM6150.
 
+> diff --git a/drivers/power/supply/qcom_qg.c b/drivers/power/supply/qcom_q=
+g.c
+> new file mode 100644
+> index 0000000000000..071e29d4c2991
+> --- /dev/null
+> +++ b/drivers/power/supply/qcom_qg.c
+
+[ ... ]
+
+> +static int qg_get_capacity(struct qcom_qg *qg, int *capacity)
+> +{
+> +	int temp_decidegc;
+> +	int cap, ret;
+> +
+> +	if (!qg->batt_info)
+> +		return -ENODATA;
+> +
+> +	/*
+> +	 * Without OCV, it's impossible to calculate state-of-charge.
+> +	 * Well, you could try, but you'd get *massive* load swings.
+> +	 */
+> +	if (!qg->ocv_uv)
+> +		return -ENODATA;
+> +
+> +	ret =3D qg_read_temperature(qg, &temp_decidegc);
+> +	if (ret)
+> +		temp_decidegc =3D 250; /* default 25.0 degC */
+> +
+> +	cap =3D power_supply_batinfo_ocv2cap(qg->batt_info, qg->ocv_uv,
+> +					   temp_decidegc);
+
+[Severity: Medium]
+Does passing temp_decidegc to power_supply_batinfo_ocv2cap() use the wrong
+temperature unit?
+
+qg_read_temperature() and the fallback value return tenths of a degree
+Celsius (e.g. 250 for 25.0 degC), whereas power_supply_get_battery_info()
+populates info->ocv_temp[] from ocv-capacity-celsius in whole degrees
+Celsius.  When multiple temperature OCV tables are defined,
+power_supply_find_ocv2cap_table() compares decidegrees against degrees and
+selects the wrong table.
+
+[ ... ]
+
+> +static int qg_get_health(struct qcom_qg *qg, int *health)
+> +{
+> +	struct power_supply_battery_info *info =3D qg->batt_info;
+> +	int temp_decidegc;
+> +	int ret;
+> +
+> +	if (!qg->batt_present) {
+> +		*health =3D POWER_SUPPLY_HEALTH_UNKNOWN;
+> +		return 0;
+> +	}
+> +
+> +	if (info) {
+> +		ret =3D qg_read_temperature(qg, &temp_decidegc);
+> +
+> +		/* No thermistor is not a health fault */
+> +		if (ret && ret !=3D -ENODEV)
+> +			return ret;
+> +
+> +		if (!ret) {
+> +			/* Unset thresholds stay 0; 0 degC is a valid reading. */
+> +			if (info->temp_alert_max > 0 &&
+> +			    temp_decidegc >=3D info->temp_alert_max) {
+> +				*health =3D POWER_SUPPLY_HEALTH_HOT;
+> +				return 0;
+> +			}
+> +			if (info->temp_alert_min > 0 &&
+> +			    temp_decidegc <=3D info->temp_alert_min) {
+> +				*health =3D POWER_SUPPLY_HEALTH_COLD;
+> +				return 0;
+> +			}
+> +			if (info->temp_max > 0 &&
+> +			    temp_decidegc >=3D info->temp_max) {
+> +				*health =3D POWER_SUPPLY_HEALTH_WARM;
+> +				return 0;
+> +			}
+> +			if (info->temp_min > 0 &&
+> +			    temp_decidegc <=3D info->temp_min) {
+> +				*health =3D POWER_SUPPLY_HEALTH_COOL;
+> +				return 0;
+> +			}
+> +		}
+> +	}
+
+[Severity: Medium]
+Are the temperature threshold checks in qg_get_health() comparing
+decidegrees against whole degrees and using the wrong sentinel values?
+
+power_supply_get_battery_info() initializes unset info->temp_alert_min and
+info->temp_min to INT_MIN and unset info->temp_alert_max and info->temp_max
+to INT_MAX, and populates them from alert-celsius and
+operating-range-celsius in whole degrees Celsius.
+
+Because temp_decidegc is in tenths of a degree Celsius and unset max limits
+are INT_MAX (which satisfies > 0), any room-temperature reading (e.g. 250
+for 25.0 degC) is compared directly against a whole-degree limit (e.g. 45)
+and falsely reports POWER_SUPPLY_HEALTH_HOT.  Checking > 0 on
+temp_alert_min and temp_min also ignores any cold threshold at or below
+0 degC.  In addition, temp_min and temp_max represent the outer operating
+range (COLD/HOT) while temp_alert_min and temp_alert_max are the inner
+alert thresholds (COOL/WARM), so their health states are swapped here.
+
+> +
+> +	*health =3D POWER_SUPPLY_HEALTH_GOOD;
+> +
+> +	if (info && qg->vbat_uv) {
+> +		if (qg->vbat_uv < info->voltage_min_design_uv)
+> +			*health =3D POWER_SUPPLY_HEALTH_DEAD;
+> +		else if (qg->vbat_uv > info->voltage_max_design_uv)
+> +			*health =3D POWER_SUPPLY_HEALTH_OVERVOLTAGE;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +	case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
+> +		if (!qg->batt_info)
+> +			return -ENODATA;
+> +		val->intval =3D qg->batt_info->voltage_max_design_uv;
+> +		return 0;
+> +
+> +	case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
+> +		if (!qg->batt_info)
+> +			return -ENODATA;
+> +		val->intval =3D qg->batt_info->voltage_min_design_uv;
+> +		return 0;
+
+[Severity: Medium]
+What happens in qg_get_health() and qg_get_property() when
+voltage-min-design-microvolt or voltage-max-design-microvolt is omitted from
+the battery node?
+
+power_supply_get_battery_info() initializes info->voltage_min_design_uv and
+info->voltage_max_design_uv to -EINVAL.  In qg_get_health(), comparing
+unsigned int qg->vbat_uv against signed int info->voltage_min_design_uv
+promotes -EINVAL to UINT_MAX - 21, so qg->vbat_uv <
+info->voltage_min_design_uv is always true and reports
+POWER_SUPPLY_HEALTH_DEAD.  In qg_get_property(),
+POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN and
+POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN return 0 with val->intval =3D -22 inst=
+ead
+of returning -ENODATA when those fields are negative (unlike
+POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN just below).
+
+[ ... ]
+
+> +static void qg_batt_info_cleanup(void *data)
+> +{
+> +	struct qcom_qg *qg =3D data;
+> +
+> +	power_supply_put_battery_info(qg->psy, qg->batt_info);
+> +}
+> +
+> +static int qcom_qg_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	qg->psy =3D devm_power_supply_register(dev, &qg_psy_desc, &psy_cfg);
+> +	if (IS_ERR(qg->psy))
+> +		return dev_err_probe(dev, PTR_ERR(qg->psy),
+> +				     "Failed to register power supply");
+> +
+> +	ret =3D power_supply_get_battery_info(qg->psy, &qg->batt_info);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get battery info");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, qg_batt_info_cleanup, qg);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Can qg_get_property() dereference qg->batt_info after it has been freed
+during driver unbind or probe unwind?
+
+devm_add_action_or_reset(dev, qg_batt_info_cleanup, qg) is registered on
+dev after devm_power_supply_register().  Because devres releases resources
+in reverse order, on driver unbind or if any of the subsequent
+qg_get_optional_irq() calls fails, qg_batt_info_cleanup() frees
+qg->batt_info and its ocv_table[] arrays while qg->psy is still registered
+and qg->batt_info remains non-NULL.  Any sysfs read or pending uevent work
+flushed during power_supply_unregister() then calls qg_get_property() and
+reads freed memory.  Calling power_supply_get_battery_info() after
+devm_power_supply_register() also leaves qg->batt_info NULL while qg->psy
+is first exposed to userspace and thermal/hwmon consumers.
+
+Note that because qg_psy_desc.type is POWER_SUPPLY_TYPE_BATTERY,
+__power_supply_register() already populates psy->battery_info before
+device_add() and frees it when psy->dev is unregistered, or if
+qg->batt_info is kept, its cleanup action only runs safely if unregistered
+after qg->psy (or if qg->batt_info is allocated on &qg->psy->dev without a
+separate dev action that runs before power_supply_unregister()).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112170841.2189=
+322-1-val@packett.cool?part=3D2
