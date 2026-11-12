@@ -1,109 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501682;
-	b=kUDgU6a8j3OWhyZ/h2G2aYZ3OeYKGZ0mNci/GmFtDP+5q0nT7hyqRZ/BhOZecbTI42eh
-	 /8t7BlbVmlQ1Xtuz9l20jY2VCrcnQH9QXYQsRIKaYMcLM3ElhWrsTpb4DQ6LLBVAnlUUL
-	 3ntJn4TRrJK/7KNuJBMWmDiupuNFaPVeVuPFQmKIgo7BjwrklhAD3BBkx24puqlZ3s2Gt
-	 mUrtjmr/kQrwL/N9Ucp2MeBfYvWbBT1mP1w18MzYZuIxKX5ksXJRAhWKuG/B/MuC4lmbd
-	 X5hXdcj/rjGEg4WSZ5+j5EIg+n+ll7ODMOHnLaMeM0ezlwTq9PAe+l9PF2OOp9V27JA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501682;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=GL1KW5KmlCjKPjnDBxCpHXDrPADkygTf7Br9pvr+Mhg=;
-	b=0uam/Qp9ibv2/6DNdGH0mbo4eyRttxUFFpQ/znweoI0P4UgN+C1tlF/mp4TK9cmE8nNT
-	 PgHiEif0uTwGhmdcdy/I88VEuU139mP6pzsns+CiY/uwsY0XiS/jP+wFvAYnb2LG3Yp84
-	 voq9Kiv5Tsn0WgTNngSbJ2QgjakVFenJ6WAzZVX/jLTSkOveyZhMl7qjNeOfQ1QnGQfP6
-	 F+PcDXSkiS8DmKAchYBrf1+/Tc+X2zAZ0nVmMIJnuZnQfLdTRgCnYfuhgt1etHZzvngww
-	 Z/s3FDxTg9v7QtWyShGPDYRiBN5p+6X5p9HTvbP93Z8ciEVMGmDmRBtve5DHI8iWKVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gnSSx0vC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MVbGfz6J;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794502010;
+	b=1E6V0gHMwk9Xdtm8SETX9plunWdJFczGxZ7CQHejsZ97Yvr4jIrWYVRY4AC1zbFENzVy
+	 G4h/ZAOk7BeMx+rXWN7fj06uhgQtwNt5Hd9cdvMD0JCRQyetoH/K7oPGFSZC7k0DtjP4v
+	 h9B9/rrz3m5nIe4bMEDMgu1fx10uuAfWbRRmX0vi/PvENUmU0TebHV8ZI8slany/COLS7
+	 exRdxtameyJyEY0vh9P3SucrZmZz+JlpvqBQ8zVMSRcFubYrniGg43GyBJ3mUujJ+uTjA
+	 6RVChWYgnSFbRZaW1plL9YSXJNPXRif3vOPdaDNGxrOGOnfxDeZIH9/PhnBO/X+m86A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502010;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+	b=guzeESm9Lz061WQZ87OyTZFo8kOC+rnJVTtaq80pOoXJp8BtJtwfiuZFs5EkDSINbs2F
+	 ZZdps5BB+hW/NrNxEfoAzAXJA0CBGNui8u9zlJWHxhLXmZtLK5aI1jJ6/HhOrxe0C/eOi
+	 JQJZM6Vb8bGeTeuaL7P6MSFznA8mGQJUysrreURm9aRi10UQ7OJ+HZSxiUFf1WpkbhJSJ
+	 WBhf8Q63CKYAelqxnxh2y/dBJF6eczO+ElLR2bf0mtWsDQEynd0dFCOPT4IkzD91tpXf5
+	 Azhgei5EcWybbhvDwo7XBmr1CPTGGLjpy6oYjZaHBRBJhtoNt51b66+HmpouwRN/O8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kobx8YkS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010019.outbound.protection.outlook.com [52.101.84.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91135606A332
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:41:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91135606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EF9606A323;
+	Thu, 12 Nov 2026 16:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3EF9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gnSSx0vC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MVbGfz6J
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZlCN3181052
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:41:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=GL1KW5KmlCjKPjnDBxCpHX
-	DrPADkygTf7Br9pvr+Mhg=; b=gnSSx0vCopJj6a6qEas/Akf07gbKgrP/P850i9
-	W1cj6sdwAYxJv2NMv+GYcgmCgqHx5uDm8gzd4psg0b9nUQEG3dlhy6fWaQziiRlH
-	S6qD00YRtAdlgUDiN6YWV0pw8ih7X8ZxeN+GRt0XhF/wuMAUOGxzVcNwR+ATccvl
-	IjTnTpvRK1kFjtSgwYhXeK4Mr/wNmZiLKaxFvktjFdOCxCSikkoOSFA5j9CWj1lF
-	idwqaA4YhQsA/pUVcAKme9LhRS7II1UYOya/UWu5U4bp/jIv/Dy3KulH438jZLzk
-	RUD4HwsIeIqO0snUWSIxdZv20ufCgMFoYPAXDw0/R8sUp+/g==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwc1j19ng-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:41:20 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3425098ae4bso789191eec.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:41:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794501680; x=1795106480; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GL1KW5KmlCjKPjnDBxCpHXDrPADkygTf7Br9pvr+Mhg=;
-        b=MVbGfz6JDrTw9U7ir5GlDlM8lDQiJ03anvTYV8BwuwIn9hlIso9ssKkFwaAscZsA9S
-         XRwkJU9/7gtE46J1eiANdttz9c/Sd4C5+0YTrg9N3ZgbnW/1a521OsMvkhlIILGBWYSC
-         nLhInkkf4bPMGTluuu+4Mln5dZGwQHlBIrhgygcH6S7sNiMlcjq6tYr2bvCsOVe4mhwG
-         0+WOIQmNCluioT/rQXEN3WlYrrqK+TeqgdFuQZx9x7wMH7rpPBIqN+1WWiz3EFLWnmuT
-         hximC04CDlRaD2S9rKiUOsqP4lX5FyiCGY8bBhPVetJd4x2sPt3Qrgdi226qGtjL8Ac4
-         CQcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501680; x=1795106480;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GL1KW5KmlCjKPjnDBxCpHXDrPADkygTf7Br9pvr+Mhg=;
-        b=HIfLxSRrsmfFM3OgSX9l4wyCjirxp69rk8ZtNunQAx3BpMaH0929ISBTF/TEgHlBZn
-         HvSq1td3Ru0tLZ1oX7BpRnlrDmlJa2bRMR9bIPuUQArQgxI1KTHv3/WtDjaZy3GyrkRa
-         9U+/BTI/7SO0sxlTpNOuHdqHuY+8ZtF8lCREzJHBJizq242Qw0dj0+7px5Ds5tGpaV1a
-         FrkBRyGTpUC70FQG8UCAli2uXV5E76/Lf5TNpiyiIIyBw//QRCstCx6YfznYkm4zj6oj
-         hRE6tnxjKU12SX7y4KXII4Du8y09tkFxw5br/WIohRsASqiDyfbiGJk5J1PznlTFNkCf
-         owUg==
-X-Forwarded-Encrypted: i=1; AL+hErE5h4XJJ0ruKyGURUa/FjKsGP7VHt6srSrMc9AOtAN3BAgaR44jO3MZ/x/PTYCLGmTBd+o+8y8mMi0o@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xs02sOZPMfmls9LJKGoYEAFgHX9d4zaXk1I4mWTtMEWqEKB6t
-	052oT+wiSwSTIyoYljGMUEBxZX2DmWALjv6WapWWRJckAYOnhCRKbvJAlCdhut46bdqOtUd9uDz
-	m+iM1z29xeH6YOUZpaf0XrNQQ39yRa0ZBJDefzH4feeAjJYc1IU3d5QB/dRWzofNp
-X-Gm-Gg: AYBFou3280/clCSKHF1w446agBytiS8iLJYmXgdDWU03kTInmoawKuf5YY5Frf90INE
-	rVn038YcBgzpXOUyl3Zl9uqEMrIi51bpHKVlAhONSyB8WgTK9j1M7RL9hbsfBhH4QhEUnMrTnO1
-	JeXVPxEHXRCXNhdYywzH0T80I05dEA9+bZOU9vRyftgBg+IstgqwqCCmgY79uS19qRtkjRgMUsE
-	i84nYXSajHP7CERMXk5hLP61JimE4260DWFzG16OhsO29PG88xQFWV81JcV6jUB3Fe/VbadfL1b
-	gPyVyvIdPNZuPWvpzek9qTNCmOzgd9YsgAjigqzu9wl/5fllISazFfy72YnjzS5VICBTEWrPoIH
-	z4QTV5Y4KeajT1fhS5oX13QS7ohtLt0ZQyDfE8EoVOkjrZx7I5O6ktjZ/1uWpcR4jQPoAJEMlJH
-	K1gM9ydIaK
-X-Received: by 2002:a05:693c:884a:b0:376:7640:9668 with SMTP id 5a478bee46e88-377e15f05a9mr2410073eec.19.1794501679077;
-        Thu, 12 Nov 2026 08:41:19 -0800 (PST)
-X-Received: by 2002:a05:693c:884a:b0:376:7640:9668 with SMTP id 5a478bee46e88-377e15f05a9mr2410044eec.19.1794501678408;
-        Thu, 12 Nov 2026 08:41:18 -0800 (PST)
-Received: from hu-sushruts-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37926255ad0sm779194eec.25.2026.11.12.08.41.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:41:17 -0800 (PST)
-From: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 22:10:51 +0530
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: Disable PCIe ASPM L1ss
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kobx8YkS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PllXc6r838SsQRlUngtXdQ0IEa+aqjHlsZpjRY4D23abkXRnzWgK6h0S0SaPDen0Qd2eBgxHlV9uyVU8e+8vRoWbbrSchs3qaeohCINx4n8OBI3zXiJhgM49wkVF8ndBdIJ8qjuNtjhZmlCRTLabO44BY2tGmAaLTd9Ul41MCO7cHtfepiM8YhHAC7dKoyaxO9eUZKCmdhznFi/S52HT3C1Z3fxcRRNpY3kK70DJAP3s5zWcsOj5xd3D2+s28Lphg4PyB/zJgTui1FNwy3khpFrc9X2pv+6FNcKRq9Aq2B5bOJEpJ8MPK8AfW3YIRx9MpRz2T2KLOltscSVicKa0Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+ b=RhAroOK9tqHTy3635619ZbI7dXx5zJiNiMc+bfGIWFujDS+932np+aFabZLRAhiOKJz9dYgQDdjpDJ40zqGH1XohHmEF62GQ5Xv6cpYTX0OQUCmNXnfvmZ73ptnCZeql3BFxlpK1QdoYraU752xTOSPREjytmTqWLrkSR/dvmFySrD3AxyXadCnr5/nyIK++l81BknUIcTAEm6WvQriJpZUHpbY5Wj2LVLJRIxPrDY10/ZSFcAtXvswaFLcxFxv57SQGrYExChj/wjRFixgBvv0PYk85WlN9SHQk1+KV1Hbft9qcR4fksoeU0Eusvzgu75eVe/DcwV5bVioSu/7HXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+ b=kobx8YkSueu01dp4zFnity0oOMVfVN4xPUOifVGaE9P6+rG7H2dFGCPbFzcnUWJUQz4MptxhIu8y5ZB9EWuiwZzCyBPVch7KcUYoeBlzW+oqB9OaujeM9huLPlHZ8l7Xrk4Q3ZHInPr3eExYj6fpS736oat6/L1yRNc9WluBRhtQPHy+2vlrRwWrgT3RBWQMui7ofI2b1K5AaWiunPOmCgd98gn1VmvTkOs20D6sUnArmd6Yu1BKEiQnJN2n4gV5oP9/Zr/mglMSl2UBDWIDwd+lFvo977dpzZok7PkZKq1JGSspno0FfD4LzExsm9oli3fOm2yG7cJxwpMR4NtA+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM8PR04MB7988.eurprd04.prod.outlook.com (2603:10a6:20b:24e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 16:46:46 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 16:46:46 +0000
+Date: Thu, 12 Nov 2026 10:46:20 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 8/9] dmaengine: fsl-edma: support per-channel DT child
+ nodes
+Message-ID: <avXtXBPdQcrNQ1Us@SMW015318>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261112-edma-iommu-v3-v6-8-b038edb8ce6f@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-edma-iommu-v3-v6-8-b038edb8ce6f@nxp.com>
+X-ClientProxiedBy: PH8P222CA0005.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::23) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,92 +112,390 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rb3gen2_disable_l1ss-v1-1-aeefbf366595@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIABLs9WoC/x3MQQqAIBBG4avErBMapRZdJSI0/2ogLByIILp70
- vJbvPeQIguU+uqhjEtUjlTAdUXz5tMKI7GYbGM7ZrYmB7ci2SmK+rBj2lnVRMDF1i2+dZ5KemY
- scv/bYXzfD/shr4JmAAAA
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794501673; l=1435;
- i=sushrut.trivedi@oss.qualcomm.com; s=20251127; h=from:subject:message-id;
- bh=hn8E95hSjnp4mo9evG0HYYFRX9Qv8JX3XUrnmOB8URY=;
- b=Cz2hIbb7SVbY6DLNlsZUI/OVjlbb4XaMXl9hWDZtzhwGhSNGzadgtTvKIbeI7iS83xcN2+Bg+
- twR7EFHpjBTBUE2YW9Aed5R0eCRreFpaOewszGyiNXXjzDzyQcYUB9a
-X-Developer-Key: i=sushrut.trivedi@oss.qualcomm.com; a=ed25519;
- pk=OrUHTxBaSg1oY3CtCictJ5A4bDMNLRZS1S+QfD9pdjw=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2NiBTYWx0ZWRfXzRBFqM5e4MkW
- yQj4GUbTw0TfxtcJDIT18i4AZsI5LEE1uQcM/8yRXYNQr+yrLBOu0tms+oRlWX/ySJK123iCuYK
- 14zrDfVlLqtj/EskdjfVq9UmwwXAShE=
-X-Proofpoint-ORIG-GUID: Xnanb-IY3gMsOgjdHmY-S6B5jR5mV-oI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2NiBTYWx0ZWRfX5mzI51b2hape
- Q9tUONqqwDRtojsILZeC4YPmGNJeWOfRIseUssQR+puPOZkiULnduZ/CJ6+paYfgfOrRrUEF3+K
- /+LHIzRIaogWYjVVleWwoVfp/xMxc11F0VeZV4MdJrYctUBESLkZlLjmrKnhJvnSZbY54nvjyRz
- cjkKLLl4zD24ZQswrwrbSHsGRDEA+AWEFzicJK31NSclgBkNxv6UHNGPX7K9iA3cxs5udM0DPHO
- 3zsMmopATFGeAwJYkyJL5VVESMxvs0M1VScBiomQnNXYMtVkakEoQXrNTPIKMcMub+VLdXf1SFY
- C0FXIu95m6k4j5PjEOanQDPx84e3qeS9HYnx4jobYTi1F9U33up0nJ6/ohYr5ZMVzxTo1M9cVaa
- +jRzQG5fdryuq74WKZXGizhvtFBHPFXBeg7zw8YgGDu6vz7uWGt3nQU8KC3vnJHXXGwHFl9xa9i
- wioY44UeFZoWaYIG83A==
-X-Proofpoint-GUID: Xnanb-IY3gMsOgjdHmY-S6B5jR5mV-oI
-X-Authority-Analysis: v=2.4 cv=Vqe2kO2n c=1 sm=1 tr=0 ts=6af5ec30 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=laLeL0i8vuo-D3f-tOUA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120066
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7988:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca4234b3-e156-48d8-caa8-08df40dc8a0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	XNlcRG/UuHKlzJU0u8lTCgyHdNeIAcWTwGee+ya4rYSJOuSXyFk5eLsQPllswyNIfEymdW5JSaUCLCp1zhuYPJTdJSNbIu0rtDy8/NoimtGDNqmKhbYxQ5ak22VO5CcIfutrlUFw18v2azckbKR91sEILirs70fFyQZkPocO5DheteX5iNcNuMXPPupOYrhG+hdeqFXBUHlJsDymlxOLr1PPe4Z7lj55OXx0oxzB/rpPccJbdhrpWtUlcdM6Ah4e815xCaPcIZ0zJ14ZkTkmW4+y37SssFVlvBYwFUX3ctbpZiqeqH15wkUyjAsUGh7R+SOa7szq4Ws7Kia5wl7tKpzH6G/yKw++hjYerpihNVKIDB8rcD/bRh9JhSND6bASLq4+RyMAszhyvbQTdJ+ginnEgugbmK5TOPgmD9cMl0ETCQSIsZvRdJzCELjZOxLIMUj5spe0fzv9m15TtSKpJjQJJeb0BeWm+4y04/05mM92bRfayWqxvmMh2ILBgsjnDsYRoeKfgvgVdTD3yrezPrTJcEs0hLubM7owtCDpotr0bd5tnwZSMWuXj+O4t1z4BoAGDJ0/l0dmCv4aHDsWp8F5UWYuuGml/P6I9omKQLkqT+aa78/xyOdQasHcZa8zesol6AQNWLZpdLJQlWpncylRnnItF3mPsmUvq0jnq88=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rquTIftYCF5Vl4SLV10x9DrfOBQHBpjR3bkw1HucsVBVckZ9lvmIdh40dZka?=
+ =?us-ascii?Q?fRXK2UmODSk2Nxp41fwbx/cob4M9sH98SlHCitvcA+ucxM5aGUl5tS8z+jdz?=
+ =?us-ascii?Q?boBmyMZzFQtX0kJeE02v/cs8ivm8y4atyVtY1+5HPhoiH3BK8nwy85tPQLbc?=
+ =?us-ascii?Q?ymr4SwCQmwgM6gRq5ospLNjoFf0TzYxNG4DUQDbfh/VfdYjKNVuHO7szFMZl?=
+ =?us-ascii?Q?X/w33K0y6zMY30Ezo4RAp3wTO0v1gRAmrklcTCyLrOXMWOYTfUm92X7ei2+7?=
+ =?us-ascii?Q?oitVEblqmH96Fg8G/Tn5R8U0PD26Hk1KLrqQK6Fc6TDsVQ5Gwla7UgU2rmbw?=
+ =?us-ascii?Q?I8+deSUeJ38DuO7REfZ73gUik8PcagqUtWDsg+EGfHpGVPJGAoVG4arw9UuD?=
+ =?us-ascii?Q?SsO1/nXpXqT7bhLyHtmKzij/G6KXBjV9Bm8+yJwXa3Uj5MZ6JjTV2tLoLM8U?=
+ =?us-ascii?Q?vG7aIjgKvBz2iGcpYKAlVorY7vF5WeErRXd4ln7L2SI0N9nadUT9KchyJrMF?=
+ =?us-ascii?Q?COZutFcgWdFGLKGprY3ZkH3b1oog+zSxFeUTMIqdnOxLfwhgsz35S2Cq0uU+?=
+ =?us-ascii?Q?EPOdgD4g/GCmPlP/DrtpEPwaJCwsFIRupIeCwU7SNc6fIidflKZW09bAyE3n?=
+ =?us-ascii?Q?kRiwqIIYZxNJ8SLCseFdtCS3/fX8BZb23WZRm6UHFDSpocSqkhIeI5RRW/zG?=
+ =?us-ascii?Q?/M+53ll3HpgBmMbWZewRvLiug3u4BMBpK8Fe3I/QJ5o/HK/Kz3ZWMnzlIyDz?=
+ =?us-ascii?Q?F5F4L3ApbtNHXogDPWT1cyv/Oj0CUdvocyVXMreSLDVM222Q7GWiiNYeqSTX?=
+ =?us-ascii?Q?dFfKSh4qGog1n07JlO3g9AEdVzdbcgJxu9q41wn7PLiS66Zg/kYC6U6kr/8Z?=
+ =?us-ascii?Q?LdMnjIfg6KqCgbDtjqMUs/ULv0MpZtgJR57VVCLFn7y4RKXf7S4IkIqX7io6?=
+ =?us-ascii?Q?Vk0p1hVdFQfWT2UptoMnY8pM1RyKMCspA6SXL8vZUSZhToGENtOXNjyHTIRD?=
+ =?us-ascii?Q?lH2LZ74xAn+gGXHkqfnwAsD31+2TiUFWWlZqkf7BHv3toaExy/FcqjCKUqm2?=
+ =?us-ascii?Q?egk7Sc/cImamVcroNY/SbXC0ivFJa87W6GsdIeYXyqL4Uc6EK5cmgTTT1OeJ?=
+ =?us-ascii?Q?oQ3SLIzhiR8YC4+LpG25jql9MWHgxGvCrK8huNRprXygEmg9wbR3SIeEeWVX?=
+ =?us-ascii?Q?6c3xQyJ4FYVWefMtwPTfF1rWxJtqbVpO0LQwfNFju1tDYLuJwcUf+QJ9v1U6?=
+ =?us-ascii?Q?XnQ0Xhxm7CczlZcA1MTxSl/Xlndk1S6E7rqSBDghM3NzyesJRqXDDmPU9xaY?=
+ =?us-ascii?Q?yQLAyr0QgAfn6dCdArYAHzYnxFtiLUpvqYW0tctUmjRN7xd0HIdbQzT9JwcX?=
+ =?us-ascii?Q?X5Yr7brZHYQrNiFkowlf3c0Q0Pmh78G6XTw5ljDHQjJoUKzY+p97xaX8qSG9?=
+ =?us-ascii?Q?B7mnzoZn4uai4b20n+LhYrv1IidUq5/1nLMi6/kkN/+5bp6XlhOUsj8uHJ/S?=
+ =?us-ascii?Q?rZkJ1KCrag5Eg09Gno/kU1xiy8MnBQdS0AqBgWRYq88QOCAeBbfgK4nCePRe?=
+ =?us-ascii?Q?aGXiyyfz/8p/2YDPFD89LW7Nek9W3klW0EMO/z4cljWr31b4aemGdYgDgOK3?=
+ =?us-ascii?Q?R/K42SmpFMnp0LQXIlguai/4vMAFDGwaHIKQbzWk4a25nRaztbDYZMZWPVaA?=
+ =?us-ascii?Q?W0qMIUIRWjpent97o5xufwaIfW/WTIuRmrSLyNGoF8O/966Fozy9zKax7cAC?=
+ =?us-ascii?Q?GpHnp9YhM5IInUFL0S78R5Ggu25qsEfyUv7okI5TivT4XNF49vj3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca4234b3-e156-48d8-caa8-08df40dc8a0c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:46:46.5345
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TvCAXrw99iWLdQfcDJJ+l60mWqVXOjE/iUIDaZ6pIWB3gkJ6PmrmxipPNnYMhT1kYkuvWTieNZhSorLSrrplOCrDYqUm9jK82AeHuL8ZJEktLuM5I3h4Kc5i1irlNBhJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7988
 
-On the QCS6490 RB3gen2 platform, there is no mechanism for the
-PCIe endpoints connected to TC9563 switch to assert #CLKREQ and
-initiate a L1ss exit on the upstream link between the PCIe1 RC and
-TC9563 upstream port. Hence, once the upstream link enters L1ss
-and the Renesas uPD720201 endpoint connected to the switch downstream
-port tries to initiate an L1 exit, a link down is seen. This is
-expected because the upstream link is still in L1ss and PCIe refclk
-is cut-off.
+On Thu, Nov 12, 2026 at 03:53:11PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Add support for parsing per-channel child nodes from devicetree.
+> Each child node can carry its own interrupts and iommus properties.
+> Child power-domains are not handled here; power domains remain attached
+> at the parent level.
+>
+> The implementation is split into three functions:
+>
+> - fsl_edma_child_to_chan_id()
+> - fsl_edma_configure_chan_from_dt()
+> - fsl_edma_configure_chan_iommu()
+>
+> Child nodes beyond the configured dma-channels are ignored, which allows
+> boards to reduce dma-channels without disabling every unused child node.
+> If child nodes are present, every unmasked channel must have a child node
+> with a valid interrupt; otherwise probe fails with an error asking for
+> dma-channel-mask.  In child-node mode fsl_edma3_irq_init() does not fall
+> back to the parent's flat interrupt array.
+>
+> The shared error IRQ remains a parent-node interrupt.  A child-node-only
+> DTS without that entry simply has no shared error IRQ.
+>
+> Use dev_err_probe() so -EPROBE_DEFER is not logged as an error, and reject
 
-To avoid this issue, disable ASPM L1ss on the upstream link of TC9563
-switch to keep the PCIe refclk always on.
+This common sense, can remove
 
-Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 2 ++
- 1 file changed, 2 insertions(+)
+> a channel whose iommus property did not result in an IOMMU mapping.
+>
+> Existing DTS without child nodes continues to work unchanged.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  drivers/dma/fsl-edma-common.h |   1 +
+>  drivers/dma/fsl-edma-main.c   | 199 ++++++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 194 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
+> index cbb077e98f55..8843dd5661fb 100644
+> --- a/drivers/dma/fsl-edma-common.h
+> +++ b/drivers/dma/fsl-edma-common.h
+> @@ -271,6 +271,7 @@ struct fsl_edma_engine {
+>  	int			txirq_16_31;
+>  	int			errirq;
+>  	bool			big_endian;
+> +	bool			per_chan_irqs;
+>  	struct edma_regs	regs;
+>  	u64			chan_masked;
+>  	struct fsl_edma_chan	chans[] __counted_by(n_chans);
+> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
+> index 818b9b986f13..88d2b9d6b6ab 100644
+> --- a/drivers/dma/fsl-edma-main.c
+> +++ b/drivers/dma/fsl-edma-main.c
+> @@ -12,11 +12,15 @@
+>
+>  #include <dt-bindings/dma/fsl-edma.h>
+>  #include <linux/bitfield.h>
+> +#include <linux/math64.h>
+>  #include <linux/module.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/clk.h>
+>  #include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_device.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_irq.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/pm_domain.h>
+> @@ -400,12 +404,21 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+>  		if (fsl_edma->chan_masked & BIT_ULL(i))
+>  			continue;
+>
+> -		/* request channel irq */
+> -		fsl_chan->txirq = platform_get_irq(pdev, i);
+> -		if (fsl_chan->txirq < 0)
+> -			return  -EINVAL;
+> +		if (fsl_chan->txirq <= 0) {
+> +			/*
+> +			 * In child-node mode, missing child nodes are rejected
+> +			 * by fsl_edma_configure_chan_from_dt(); do not fall
+> +			 * back to the parent's flat interrupt array.
+> +			 */
+> +			if (fsl_edma->per_chan_irqs)
+> +				continue;
+>
+> -		fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +			fsl_chan->txirq = platform_get_irq(pdev, i);
+> +			if (fsl_chan->txirq < 0)
+> +				return fsl_chan->txirq;
+> +
+> +			fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +		}
+>
+>  		if (!(fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE)) {
+>  			fsl_chan->errirq = fsl_chan->txirq;
+> @@ -415,7 +428,11 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+>
+>  	/* All channel err use one irq number */
+>  	if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE) {
+> -		/* last one is error irq */
+> +		/*
+> +		 * The shared error IRQ remains a parent-node interrupt at
+> +		 * index n_chans.  A child-node-only DTS without that entry
+> +		 * simply has no shared error IRQ.
+> +		 */
+>  		fsl_edma->errirq = platform_get_irq_optional(pdev, fsl_edma->n_chans);
+>  		if (fsl_edma->errirq < 0)
+>  			return 0; /* dts miss err irq, treat as no err irq case */
+> @@ -703,6 +720,168 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
+>  	return -EINVAL;
+>  }
+>
+> +static int fsl_edma_child_to_chan_id(struct fsl_edma_engine *fsl_edma,
+> +				     struct device_node *child,
+> +				     struct resource *parent_res)
+> +{
+> +	const struct fsl_edma_drvdata *drvdata = fsl_edma->drvdata;
+> +	struct resource child_res;
+> +	u64 offset, ch_id;
+> +	u32 rem;
+> +	int ret;
+> +
+> +	ret = of_address_to_resource(child, 0, &child_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!resource_contains(parent_res, &child_res))
+> +		return -EINVAL;
+> +
+> +	if (child_res.start < parent_res->start + drvdata->chreg_off)
+> +		return -EINVAL;
+> +
+> +	offset = child_res.start - parent_res->start - drvdata->chreg_off;
+> +	ch_id = div_u64_rem(offset, drvdata->chreg_space_sz, &rem);
+> +	if (rem)
+> +		return -EINVAL;
+> +	if (ch_id > INT_MAX)
+> +		return -EINVAL;
+> +
+> +	return ch_id;
+> +}
+> +
+> +static int fsl_edma_configure_chan_from_dt(struct platform_device *pdev,
+> +					   struct fsl_edma_engine *fsl_edma)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct resource parent_res;
+> +	u64 child_mask = 0;
+> +	bool has_children = false;
+> +	int i, ret;
+> +
+> +	ret = of_address_to_resource(np, 0, &parent_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for_each_available_child_of_node_scoped(np, child) {
+> +		struct fsl_edma_chan *fsl_chan;
+> +		int ch_id, irq;
+> +
+> +		has_children = true;
+> +
+> +		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
+> +						  &parent_res);
+> +		if (ch_id < 0) {
+> +			dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (ch_id >= fsl_edma->n_chans)
+> +			continue;
+> +
+> +		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
+> +			continue;
+> +
+> +		child_mask |= BIT_ULL(ch_id);
+> +
+> +		fsl_chan = &fsl_edma->chans[ch_id];
+> +
+> +		irq = of_irq_get(child, 0);
+> +		if (irq == -EPROBE_DEFER)
+> +			return -EPROBE_DEFER;
+> +		if (irq <= 0) {
+> +			dev_err(&pdev->dev,
+> +				"channel %d child node has no valid interrupt; add interrupts or disable it with dma-channel-mask\n",
+> +				ch_id);
+> +			return irq < 0 ? irq : -EINVAL;
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 909039816a21..df26c78e8a8a 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -891,6 +891,8 @@ pcie@0,0 {
- 		pinctrl-0 = <&tc9563_resx_n>;
- 		pinctrl-names = "default";
- 
-+		aspm-no-l1ss;
-+
- 		pcie1_switch0_dsp1: pcie@1,0 {
- 			reg = <0x20800 0x0 0x0 0x0 0x0>;
- 			#address-cells = <3>;
+logic have some complex,
 
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261112-rb3gen2_disable_l1ss-dee3d53fa53a
+	if (irq <= 0)
+		return dev_err_probe(&pdev->dev, irq ? irq: -EINVAL,
+				     "...." )
 
-Best regards,
--- 
-Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+basic irq < 0 (include -EPROBE_DEFER), return irq
+      irq == 0, return -EINVAL
+      irq > 0, okay
 
+> +		}
+> +
+> +		fsl_chan->txirq = irq;
+> +		fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +	}
+> +
+> +	if (!has_children)
+> +		return 0;
+> +
+> +	fsl_edma->per_chan_irqs = true;
+> +
+> +	for (i = 0; i < fsl_edma->n_chans; i++) {
+> +		if (fsl_edma->chan_masked & BIT_ULL(i))
+> +			continue;
+> +		if (child_mask & BIT_ULL(i))
+> +			continue;
+> +
+> +		dev_err(&pdev->dev,
+> +			"channel %d has no dma-channel child node; add one or disable it with dma-channel-mask\n",
+> +			i);
+> +		return -EINVAL;
+> +	}
+
+print error only when bit is 0 at both fsl_edma->chan_masked and
+child_mask 0
+
+if (~(fsl_edma->chan_masked | child_mask))
+	return dev_err_probe(....);
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_edma_configure_chan_iommu(struct platform_device *pdev,
+> +					struct fsl_edma_engine *fsl_edma)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct resource parent_res;
+> +	int ret;
+> +
+> +	ret = of_address_to_resource(np, 0, &parent_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for_each_available_child_of_node_scoped(np, child) {
+> +		struct fsl_edma_chan *fsl_chan;
+> +		struct dma_chan *chan;
+> +		struct device *chdev;
+> +		int ch_id;
+> +
+> +		if (!of_property_present(child, "iommus"))
+> +			continue;
+> +
+> +		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
+> +						  &parent_res);
+> +		if (ch_id < 0)
+> +			continue;
+> +
+> +		if (ch_id >= fsl_edma->n_chans)
+> +			continue;
+> +
+> +		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
+> +			continue;
+> +
+> +		fsl_chan = &fsl_edma->chans[ch_id];
+> +		chan = &fsl_chan->vchan.chan;
+> +		chdev = dmaengine_chan_dev(chan);
+> +		chdev->dma_parms = pdev->dev.dma_parms;
+> +		if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_TCD64)
+> +			dma_coerce_mask_and_coherent(chdev,
+> +				DMA_BIT_MASK(64));
+> +		else
+> +			dma_coerce_mask_and_coherent(chdev,
+> +				DMA_BIT_MASK(32));
+> +		ret = of_dma_configure(chdev, child, true);
+> +		if (ret) {
+> +			dev_err_probe(&pdev->dev, ret,
+> +				      "IOMMU config failed for channel %d\n",
+> +				      ch_id);
+> +			return ret;
+
+return dev_err_probe(...)
+
+> +		}
+> +
+> +		if (!device_iommu_mapped(chdev)) {
+> +			dev_err_probe(&pdev->dev, -ENODEV,
+> +				      "channel %d is not behind an IOMMU\n",
+> +				      ch_id);
+> +			return -ENODEV;
+> +		}
+> +
+> +		chan->chan_dev->chan_dma_dev = true;
+
+I think you move fetch irq logic into this funcitons, over half of both
+code is similar.
+
+Frank
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int fsl_edma_probe(struct platform_device *pdev)
+>  {
+>  	struct device_node *np = pdev->dev.of_node;
+> @@ -835,6 +1014,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+>  			clk_disable_unprepare(fsl_chan->clk);
+>  	}
+>
+> +	ret = fsl_edma_configure_chan_from_dt(pdev, fsl_edma);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = fsl_edma->drvdata->setup_irq(pdev, fsl_edma);
+>  	if (ret)
+>  		return ret;
+> @@ -897,6 +1080,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, ret,
+>  				     "Can't register Freescale eDMA engine.\n");
+>
+> +	ret = fsl_edma_configure_chan_iommu(pdev, fsl_edma);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = devm_of_dma_controller_register(&pdev->dev, np,
+>  			drvdata->dmamuxs ? fsl_edma_xlate : fsl_edma3_xlate,
+>  			fsl_edma);
+>
+> --
+> 2.34.1
+>
