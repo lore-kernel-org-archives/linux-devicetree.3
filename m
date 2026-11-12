@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488029;
-	b=Mt4wLo5zui+6rCXhMG3KAQQMksXDe4MpIgzdhAD1ZO5xmlMXa6A2W5vCOvPwq08Ow0xA
-	 rV3y36LQhMUYLCfKklVOr6wE1XAhCOv/eaOZBM2nmWtZENzr4L9KoCpmBJGCgS81KeaWy
-	 zJf+PnB0wp2NvTPPq0porzmhyfdfsjGKtrBUJIV2gSZyMa2xOA0uJge57D4QG4YpeA8tV
-	 fdLe9bhWSxvEnUlKgJKY0Mkd+/14bR6TK+zh9eQB5uo8QzLoiwK5zziq+P4DPi4hp8hJ7
-	 cYvMIkHg9eJMfq47Z67XngerLVNByEL6Ow+xKv+UeR0YV/SeBcshzSSDmm3qR+zqZ0w==
+	t=1794488342;
+	b=KQY7Md/fXo3oSLvb+y8vzyzPvxKyRIg8M6nYDXWpexxoDt6bUR7kLcjL3/ZgM/nddfbZ
+	 nD86uFeqh6+LD93VCXNeuH1NZ1MH61mLviWS8vqlQTG9Daw7mgc/it/7YJ7ucbQtN7Tmy
+	 tvdTzXRTc9NCGVZT5PJE8n4kts/evFUWqeJT1t/KCsltqmC78D6r0IRMedfsB6+r2IqDR
+	 fZLsDp+x9oQcDq3c69WPqodru7ZZ8z0KyV4V2hEQ0PSfHxG/68I9ckIEEx1lNPBJK0TeF
+	 sWvNsc6V3TIJKILEzE4ysu1Mtid7l+PVeiAKPJSZcLDIrdzz74d+Fp6AZTucQQyseYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488029;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2SfI1Ism+5ilI2yQhrJEphs77J0IHLC7svD8evqdJ+c=;
-	b=Y6JFsHH8+LjtMdOesf3JKVjlpvTzNQUT1Hy25YJwiZQUM/N8nAjLSXDxhSrt5Edd4ac5
-	 CijKoOH57zKMeK4LigTtRAwgQ3VLK/2O6hs/OxTb/Goc83fa+tQMe1KmKdtgGC84kdfaA
-	 Y/BmeLtwpVkJKBxYKPUXRtHNkBQ7zRYwTi3NLPq0NvxasbJM+Z5kyXqGIWcPEcaA60VTw
-	 /6nH2OV9OXdAA40jecDyYzV0iLuFPMr/P86AVstpUn7XR//4w3DekdMUbDpHpLKwh7Gq7
-	 YH8tS+YucSJiH9ldOyaGhQtzJdmda2elqhiCM6xwJ526Bwzq9+8TeLZakCOGF2PeH3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488342;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=QbfioGJO9aW8l9BBJUgChIfHsDQ36cO1EtliCR8l2Cc=;
+	b=4tSiD5Yy2/ZasYkx0lnxrHMiRJIkZfB+5nkBUAQOX/6ljeGIfdGZpwjm8qSxe/QX4Chd
+	 FuAV7SU5fzbrmJXzvH7/IkFKxkQUXpwn9F7X/RKIrOPkgM25DPMsnvCG8zFqGO0VDoOSq
+	 IhHstkoLR9D5k+jdYg3wm+/V1NSsfCfTIJkoC5zgMjRtA9hatZoROIU7dg/ISjcU3k7/+
+	 /osNaZLPmH/TDqPKolf/NpSgfBQi063msrzUkynNVW5a8HTyGmy7sRfIt+hF6kkIEmQws
+	 ln3ZpoOHAsn0osnAfRmgM81MeOYqKuTNHdh3IF8cYnxIRLU8nvksG25brNG+SldHClg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZxqeL4J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBaRhlKM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6060C606A31C;
-	Thu, 12 Nov 2026 12:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0379E606A323;
+	Thu, 12 Nov 2026 12:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZxqeL4J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E311F00A05;
-	Thu, 12 Nov 2026 12:53:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBaRhlKM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1221F00A05;
+	Thu, 12 Nov 2026 12:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794488028;
-	bh=2SfI1Ism+5ilI2yQhrJEphs77J0IHLC7svD8evqdJ+c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eZxqeL4JRZct0SGU6JGFkA7wIy5CX6amIYnbY7wk2/pQhUkZZ0URZ/ajj+ks6uW+m
-	 Vc0UICK9M4JGuQANKuekkGWjGw/Y1lLfUV0DIL6/7rMMczGwZcioHRENshAOk83XlT
-	 qhc2R5eGXa2ZPEdBagY27MDxRPpBbqZknCs/FSfHuemJFvmM7LQ66kMUAJBw8w6kFa
-	 Tfd+rrc27i2NRJfnIrkYLNVUeYhejIXCKUuFqQdnMLo7DmjftabuZZyMffPFVI2AYA
-	 NUJvduI6tPwBhx3AZVPlnAnxSc1Hi5wg8Wr1dpMQw0KTZIt8A8we5s4Wx2BQeVOCJx
-	 LMcNKV/PrCXhw==
-Date: Thu, 12 Nov 2026 06:53:46 -0600
-From: Rob Herring <robh@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-Message-ID: <20261112125346.GA3821108-robh@kernel.org>
-References: <20261021022446.3619435-1-robh@kernel.org>
- <avWbmsjkYo2LMJKs@parshuram>
+	s=k20260515; t=1794488341;
+	bh=QbfioGJO9aW8l9BBJUgChIfHsDQ36cO1EtliCR8l2Cc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=HBaRhlKMml47LCxqMg2kNawbQulMRmhVRQzpLrp1LA2sMsXq0FQ96mEHYgqO2xwb8
+	 FizyX1Xxmt4UCyXm/2VKUs4UolfIUhWl+Hr2nz4zI8pw74ALHhoN5qQituTFafrCx+
+	 5IqNrgAZad/am4Esup/rP9zGFGrDjaYzCqXI9l+IiAIqPZKw6K+xuxqRQFvBOCO3FB
+	 drJzfc7GNKpEWmxYnSVXG8PkKzBiySAajbSe93DKN8sVxHz91vVu+kZ2ZEmsaP/Qhb
+	 WoUjmQ0AA/B+H1Zdu4GCgIYUx2sh6jFmdcGlxObn7aiD7MH/FjNWAdMdUzgOMUO4di
+	 zVn03tC6RLyzg==
+Date: Thu, 12 Nov 2026 06:58:59 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,34 +51,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avWbmsjkYo2LMJKs@parshuram>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, daniel.lezcano@kernel.org, 
+ lukasz.luba@arm.com, linux-pm@vger.kernel.org, conor+dt@kernel.org, 
+ rafael@kernel.org, linux-kernel@vger.kernel.org, krzk+dt@kernel.org, 
+ rui.zhang@intel.com
+To: Shaunak Datar <shaunakkdatar@gmail.com>
+In-Reply-To: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+References: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+Message-Id: <179448831566.3881804.12223429512014814299.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: thermal: kirkwood-thermal: Convert to DT
+ Schema
 
-+Konrad
 
-On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
-> On 20-10-26, 21:24, Rob Herring (Arm) wrote:
-> > For the QUSB2 PHY binding, keep the three regulator supplies required
-> > except for legacy IPQ6018 nodes that do not describe the board rails.
-> > 
-> > This relaxes the requirements for the IPQ5210 as well as if it is
-> > compatible with IPQ6018, then it shouldn't have more required
-> > properties either.
+On Thu, 12 Nov 2026 12:59:25 +0530, Shaunak Datar wrote:
+> Convert the Kirkwood thermal binding from the legacy text format to YAML
+> schema to enable validation with dtbs_check.
 > 
-> Hey Rob,
+> Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+> ---
+>  .../bindings/thermal/kirkwood-thermal.txt     | 15 ---------
+>  .../bindings/thermal/kirkwood-thermal.yaml    | 32 +++++++++++++++++++
+>  2 files changed, 32 insertions(+), 15 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+>  create mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
 > 
-> This fails for phy/next I see vdd-supply has been moved around..
 
-The change in question[1] should not be applied until the .dts changes 
-in the series are applied. It introduces a bunch of warnings. Can the
-QCom folks stop doing that! Coordinate applying the series or take 
-the binding and dts changes in 1 tree. Given the patch series is 2+ 
-months old, I'd be surprised if the rest gets applied.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This patch OTOH fixes warnings.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml:32:7: [error] no new line character at the end of file (new-line-at-end-of-file)
 
-Rob
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml: maintainers: "Nobuhiro Iwamatsu <iwamatsu@nigauri.org>" is not of type "array"
 
+doc reference errors (make refcheckdocs):
 
-[1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
+See https://patchwork.kernel.org/project/devicetree/patch/20261112072925.22075-1-shaunakkdatar@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
