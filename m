@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794521528;
-	b=Cw7ovdr3lzIIA+Knfyk1mo5f0bpsMn9ajodoBzeN84YTc513ZJUATzj0LWLuEtWgcScR
-	 U7XK6NFe7XkGAyxCZGF2kGj8xximsXGwwK4CIk2VvM9M9v22d2gNJDP/hVAaxGP9L26Tr
-	 eVOfDxauX/eGqkPOuVrXe4qlOHDlaDfbNhvMNAD760+isgBaHpW/sJhkJNfEBOCwd3CnL
-	 +Owv4CZaE/cetSdKkbwRtqfXSyhFqDKsCaIOpQzxfrhsKTBk4dKCQyIlY1U8lH7QVu+lN
-	 Cfz1TdPR5lv7rz26kpx4EwcmnbBq80xU9SNfLAhdBFizndiGzdjCgo0Gysn1yiSBnhg==
+	t=1794522053;
+	b=aKp0aYNlu+f6zOG1EqZSQXhfvKw5QZBRX+hqgB4lyvLriGVk4P3tNv26tmkveKyEt7+M
+	 UhQ6/NbhJ7Il6CLEHeqQ93ifz2cPhkJKgMUHlSreh8ytImZtHk6n/aa8CcpdnieULtRTs
+	 7L0nMpOkRUR8C73iLOWNaomxaJISRRO25gg+xeTUGxDraK5fwzZxs5gsYKdt83AWvG57h
+	 TVWjfFvFhf/KkKgZJ9PvcPRFgdHGCr9jVUEvrNRNCe7hcm6/2WapBzozvxSw5GU5pXDgq
+	 PSb79NjoTekGjsOVp8W2WBJppXnTHIWB81oDeeT0XB8NbAvaRA/SymkyJZhb++Y3BLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794521528;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=t00do0jJ4W8smIEqCmR7k5PqPqH32OiueXWr4IKc+gM=;
-	b=fSstx5mazd7qUBEG4/Dnjocd6N8NoKynyuwu+pINwbPfCAARmR+iewXbVaZYLNEDZwUj
-	 L29unkBiHrA4GSE6iuvjjLdtOQEEnUcZbum+r6XtBienNiKk9aiBsjKJi742sJ0FTdnJf
-	 Q8N1yVGvdnW+F7jie6bbGUqBTU5I+PYEBV4OJTNl90E9SS7xkiMMDzHnjjO6KGp9K9g9U
-	 LugfF6bgOKwGt++qD0rxyj2Y95R52A5SaE85Hv/9T8XZA3N0vF8h0cpCEQRrMGAGY3RhR
-	 aHrpVYDPfJeo+4bmjjRv/BOT9RxMEIVAqHdDCFqPZehdpGOtZrVkVhFUYQMOEV1He0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794522053;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=mpprA3S6uBrKI3A+k9JU2N0Xl8rjjtK+Cdj2X3TXyhE=;
+	b=QdRV4rS2YNHCusmbeMk1Wm++PhLK68g9ISAYGALiPrJ/oWSIB0La50eMzl2e0NRQkntl
+	 Vb7/dctj+I7JwFRRCLxhKBkt732qxa4k2v2EFpX0TlrglCK1z7dWw2SVppaqZvnYqC5LR
+	 TOsC83guw4ktUVW/s75w5D/Puq6m78qBalS3JLWS5qPBHOKuiMc5KU8z+nSYX/309lJY8
+	 tkXQAoSTGnUE1NgCepZJAn9B0bM++aeUeaiaYyHW5RappMuABQfXXk+4Ta8XPf2RSGEan
+	 ex3cvMODHCkl+fn1aq3+8o5jZqfHeoRS1N74xRXUvtfR5sI1jsWxIW4Q1CsSk1fyj7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1VyRmI9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=QeO99b8b;
+	arc=none smtp.remote-ip=95.215.58.78
+Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B203E606A31C;
-	Thu, 12 Nov 2026 22:12:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDFE606A323
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 22:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDFE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1VyRmI9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5703C1F000C4;
-	Thu, 12 Nov 2026 22:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794521528;
-	bh=t00do0jJ4W8smIEqCmR7k5PqPqH32OiueXWr4IKc+gM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E1VyRmI9g3+1qY+epWD1f/m8KECBHUQoraDUIqR+VX7TkrsF2SWRcl6nrzXAmSasV
-	 rbgFqWvawRLppzkucb3dVShvlzaJgiLIHeln44L5VMqyA7WXgVeM1ytSOCd2uCGV3E
-	 Ck3Svl+rrInl5R6NrV0csjswggbb2yw+WhLafBaqvijrl3h+fP5g7YINzU+X2Cg+Ez
-	 aff/XMllIi0O6ndZEQ/AF57yAnd5xucSbWkepSATPzZoR0MskG2dDvc2/3x2EMQ3As
-	 eyjZ7CeiD0IzZLxQ0f2LdAl5GrVT2uaID74KtGXfz1SJ6OtD2lX2cHrbVgV3LfCvMU
-	 cJZJvQzH6Vr6g==
-Date: Thu, 12 Nov 2026 16:12:05 -0600
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-Message-ID: <20261112221205.GA1425386-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
- <20261105124030.GA1449284-robh@kernel.org>
- <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
- <20261106132432.GA2551143-robh@kernel.org>
- <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=QeO99b8b
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mpprA3S6uBrKI3A+k9JU2N0Xl8rjjtK+Cdj2X3TXyhE=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794522050; v=1; x=1795126850;
+ b=QeO99b8bWnpn9F/8Ggk1UN9xt2m9As0J47VNdgcbao4xp16Eyts6kC9M1yMv04KM1IrVOeEB
+ eCYEX9jzTzB2fi78WnPjavX2DL+llX+FTgC4sAnUFCMhZP4NE+NVkDrqR0GTJKwN1m1cMLwnN92
+ zWGY9UauX0w2IgdGhaQ8rz7E3kOLHgwBU64ymTZBhEws6+LnW6vflt3UghMOrdj5XTV2ifsMbK5
+ q2Gzr5r4FRiItMgi7RWB3BSt3YbKFAyXHiAO/vX5r7SKdVb4SqV1g5ISaP25Yax2/hHkEAEB8hS
+ cFkocfTdidxrOT7r3lt4mhthQt4zpQwDJpXXJARzs5egA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 20d835dec25aa392;
+	Thu, 12 Nov 2026 22:20:31 +0000
+X-Mizu-Trace-ID: 20d835dec25aa392
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,58 +58,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai>
+Date: Thu, 12 Nov 2026 22:20:29 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Paul Sajna" <sajattack@postmarketos.org>
+Message-ID: <4d30540910d8af03de850769e326906550b15574@postmarketos.org>
+TLS-Required: No
+Subject: Re: [PATCH v5 2/3] leds: aw2013: Add AW2027 support
+To: "David Heidelberg" <david@ixit.cz>, "Lee Jones" <lee@kernel.org>, "Pavel
+ Machek" <pavel@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Nikita Travkin" <nikitos.tr@gmail.com>, "Alexey Min"
+ <alexeymin@minlexx.ru>, "Griffin Kroah-Hartman" <griffin@kroah.com>
+Cc: "Nikita Travkin" <nikita@trvn.ru>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+In-Reply-To: <11724004-3e85-4f7f-a683-5ff511863bc6@ixit.cz>
+References: <20261112-aw2013-aw20xx-rename-v5-0-b2c5e323a90a@postmarketos.org>
+ <20261112-aw2013-aw20xx-rename-v5-2-b2c5e323a90a@postmarketos.org>
+ <11724004-3e85-4f7f-a683-5ff511863bc6@ixit.cz>
 
-On Fri, Nov 06, 2026 at 11:51:52AM -0800, Abdurrahman Hussain wrote:
-> On Fri, Nov 06, 2026 at 07:24:32AM -0600, Rob Herring wrote:
-> > What I would like is aliases are not supported in overlays (applied
-> > after boot).
-> >
-> > Don't we already have consistent naming on hotpluggable devices such as
-> > network adapters? All that is solved in userspace. Why do we need DT to
-> > solve this here?
-> 
-> Netdevs can be renamed, and that is why userspace can solve it for them.
+November 12, 2026 at 10:10 PM, "David Heidelberg" <david@ixit.cz mailto:d=
+avid@ixit.cz?to=3D%22David%20Heidelberg%22%20%3Cdavid%40ixit.cz%3E > wrot=
+e:
 
-I don't think that was always true, so if it can be added for network 
-devices, it can be added for anything. But netdev is a bit special...
+> instead of comment (which should be formatted such as /* */), I assume =
+you could use #define here?
 
-> i2c adapters can't be renamed.
-
-I didn't say rename. /dev/input/ has unstable indices *and* stable 
-paths. IIRC, udev creates all the stable symlinks. Disks have links by 
-uuid and label.
-
-> I'm also not sure "after boot" is a clear boundary. 
-
-I mean bootloader applied before Linux is entered.
-
-> Overlays applied by
-> drivers such as lan966x_pci, or for an FPGA on an x86 host, are applied
-> during probe. They describe fixed, soldered-down hardware in the same
-> way a base DT would. The same /aliases node gives stable numbering when
-> it is in the base DT and is silently ignored when it comes from an
-> overlay, even though it is written to the live tree and visible in
-> /proc/device-tree.
-
-How aliases interact with an ACPI system is another aspect I have yet to 
-consider...
-
-> If an alias is a request, as you said, then honoring it when possible
-> and falling back with a warning when it isn't can't break a working
-> system. Today such a request is simply never honored. That was the
-> regression you were worried about, and the fallback covers it.
-
-Right, but there is no fallback for some cases. Having that is the only 
-way this could work.
-
-> If you still don't want overlays to set aliases, is there another way
-> you'd accept to get stable bus numbers for hardware described by an
-> overlay? I'm happy to rework the series in a different direction.
-
-Stable bus numbers is a solution to your problem. What's the problem you 
-are trying to solve?
-
-Rob
+I could, but then for completeness I would want to spell out all the aw20=
+13 current levels, which might be too noisy. Or calculate it, which would=
+ be hard to read. I think comment is the best for now.
