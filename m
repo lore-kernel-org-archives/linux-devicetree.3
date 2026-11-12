@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481860;
-	b=Yo73ZAx1YaksqtSlKUIEli37bQwpzG4kUbyGTn6/u8zCSWQPz5q0b6WQnynGWLChdV2G
-	 BOtecgL5ZQjWRpyJ8JjgVruNjSgqbKcYty8+OeFjg46TOXfIPCTefTs6BGRsLofMCH8b8
-	 pK8kB9lN5heZG52HmFidlBNzMLvKCTDetziOYF3tECqm7LBItwZbD+FxST/Hwrt1OeFow
-	 VHMqSTEqYPgHTp+57J6R/sRNJSFL9F3IOEaNxZrLx2BGfUkyrBea+Rvq7vvTDnHsyEDR2
-	 BXpv+o4EH5QyP0wR2J5P0gc6HJQUp9Ky0WRLb3jVmpi6DotgBdx/XutJKu6xInl+eTg==
+	t=1794481930;
+	b=MsWax2yoNUntWZX7VHX6hKF0vY/USy0f/eUCXOnRf3w1uMxbdpaqqpwrou6myWmGn9TN
+	 YyToxiocnP4Mck/IW7iE6oCSQoPzwf2N1Zis1aTJLZgq2HGTXuDPe0G1oXkq0UnVJgCuB
+	 prkX2s4ABwsVvLP0ReoT7CyQ+f8u9t5EF05y3zDIBX+90cj07wTzlkZzOAe5rED1sQd15
+	 dcASomt7zb6J68hEdfg6M5SzT0cZoRZ7psR0qIE5wivJwthP5FFPFaLQpi/yALA7TqL0E
+	 Thf4w3cj9vNG9gcEpPYTUY5vrJixiW8OlUn1zRHbYAirqb0UKlf9sKZ3Tp0Efnmx9xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481930;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
-	b=fFbRzDMMJc4iT5yGBO3XjFc329NGqrwPv9Y0MZKuVFRKdqqg6F8a9raUSdVNFX2zaoyD
-	 WkICPLiS4g7pEAF2gyY9p/2tMT8ef2ZomIS2aZANJKZadEFQ4rAuQim6RHvBc004O67X4
-	 u14oLznBH+XxGpLBZ4UVFMD9AmqCBhCwO1BQTavWebpi+xLuvRs+b5Mv91au6RE0Kbo3n
-	 10ILRTWFsKibVSEaZnbtkMw+febivwMMx8gjMNw48eb7rgMvBUp/wcHJfy505D3RzEiye
-	 xyTUEtRmws6cxQJCL1EbEryyTRXOyHejqzHrUq2oY5tzeNuIWM8AQEfjz3rPu+0Q9Lg==
+	bh=5gcFLFOOc3M6G3iV05BDCjmeiT0hNCjXENI5/wHr0cU=;
+	b=iKwIibhjvIt1+5C7HMyqjDci9T6hoTbmW6ppFK/NHEPn9J31adeTzN8G2DDmHdVr2ET+
+	 4MkvWVliKUxjY0udvedKw5Jn5rflyOG+KJLd5zz5MoMp2eKa+38v0gL2fi/JCZb3GjLVn
+	 SIROnMPheteEZRg9yEYkVHylza9QoHx0sdRKrQm+Okk+l1E7hf46qy2saGkGQL9I2XavE
+	 hPCBeJehZDZb+tR+LtKD5XvSBPjrTWnPBjb9BtG/ocfWa5zpwVBFOepUWf9KzOH3DZTGw
+	 QBgaOPpRnImVI28LCOj6PvdpKDYAcxLtKUOuAcb3/J1EZ30t0AgH4vhUkImyMuDevZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff21BiKV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2825A606A31C;
-	Thu, 12 Nov 2026 11:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D841606A321;
+	Thu, 12 Nov 2026 11:12:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182F21F00A05;
-	Thu, 12 Nov 2026 11:10:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff21BiKV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246431F00A05;
+	Thu, 12 Nov 2026 11:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481859;
-	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
+	s=k20260515; t=1794481930;
+	bh=5gcFLFOOc3M6G3iV05BDCjmeiT0hNCjXENI5/wHr0cU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BwtDVxcrJDfKDI+sNi5mUcOqiYck2I0tcD04KbCSmrlsFNsp8iy2H0NSgZfTs6nQL
-	 UqhE0LLuBc4NGVQX5rq7sxaVHvir0+MGbNrfZ81U2xeent/FHcvng2rTPmxY4Z5RDL
-	 cnDV9KWGV1fef1OllxITvJDrlN2i0eW4mpFyo2Td1oZp9h8ec11zAf0YDaAMcDRxr7
-	 cNcG3ZLa5Awm2hhqOabCa0RQEC0Z8TXy4zEZkeXUl8PweS+LCVK+YOorDmkVVOFKIs
-	 nZMkj65GTyc+wJwnWv+VPH+/lI1eC3bFtaq0ikhgar2blqlEQ8LXOcRPEDZBWYYNrI
-	 c198QFJyWiJ7A==
-Date: Thu, 12 Nov 2026 12:10:56 +0100
+	b=ff21BiKVa91jTFoi8ychwjJauN3eF1PoeEn0UuAJrEVa7+GYQ3+tcfu8iu3BtDMvt
+	 /9uPNcS8CjNz8QJNJm0UTpmwT8ZJy17HqtSr2HmKNNyZ9PRyw1gIDCIKI4bVQPzO3w
+	 gQjAqEHWYVD2z8aTjbWXP0HxPDfnBvJenuL35Cg3rk23uIawkFcCvbjvGBlA1cuzr2
+	 A4/RpL/qeoUhVgd7No1MSsYYu074n6aG81Z1z0eQIIs66dfloZGBCKML0zxPOjRzpG
+	 dO+L8fWKA0YiBtCgdo5KGyjmW/l0v68+rDVM9KJc65mcsMkMHoRg97ml9efRU+Hnyx
+	 rhnySk6BzoNCw==
+Date: Thu, 12 Nov 2026 12:12:06 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Cloutier <vincent.cloutier@icloud.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+To: Ishu Brar <patches@brar.si>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Purism Kernel Team <kernel@puri.sm>, Vincent Cloutier <vincent@cloutier.co>
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: Add Samsung S5K3L6 image
- sensor
-Message-ID: <20261112-dainty-groovy-jaguar-7cdd26@quoll>
-References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
- <20261112004636.739749-2-vincent.cloutier@icloud.com>
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] dt-bindings: display/msm: dp-controller: Add
+ SM7250
+Message-ID: <20261112-zealous-sparkling-parrot-0e4d3c@quoll>
+References: <20261112-dpu-sm7250-v2-0-8e925a3a8a7d@brar.si>
+ <20261112-dpu-sm7250-v2-3-8e925a3a8a7d@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,58 +68,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112004636.739749-2-vincent.cloutier@icloud.com>
+In-Reply-To: <20261112-dpu-sm7250-v2-3-8e925a3a8a7d@brar.si>
 
-On Wed, Nov 11, 2026 at 07:46:34PM -0500, Vincent Cloutier wrote:
-> From: Vincent Cloutier <vincent@cloutier.co>
+On Thu, Nov 12, 2026 at 10:06:31AM +0530, Ishu Brar wrote:
+> The SM7250 has a single DisplayPort controller, the same as the one on
+> SM8250, so add its compatible with the qcom,sm8350-dp fallback.
 > 
-> Add a devicetree binding for the Samsung S5K3L6 13MP raw Bayer image
-> sensor.
-> 
-> Describe the validated two-lane MIPI CSI-2 configuration used by the
-> Librem 5 rear camera, including its supplies, input clock, reset GPIO and
-> three link frequencies. Require the endpoint and reset GPIO: the driver
-> uses hardware reset to stop the sensor if an I2C standby write fails.
-> 
-> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
-> Assisted-by: OpenCode:GPT-6.1 Sol
-
-Drop tag. Also, your SoB is supposed to be the last one.
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
+> Signed-off-by: Ishu Brar <patches@brar.si>
 > ---
->  .../bindings/media/i2c/samsung,s5k3l6.yaml    | 118 ++++++++++++++++++
->  1 file changed, 118 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> new file mode 100644
-> index 000000000000..097593d74780
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> @@ -0,0 +1,118 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3l6.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Samsung S5K3L6 13MP MIPI CSI-2 image sensor
-> +
-> +maintainers:
-> +  - Vincent Cloutier <vincent@cloutier.co>
-> +
-> +description: |-
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Drop |-
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
