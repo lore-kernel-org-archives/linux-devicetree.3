@@ -1,47 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514391;
-	b=vpzV7Ye8kEOdYDiebGBhn0nOTixFXjnY17nnBASyololI2D0qYpKLK2614dWYossG3Cr
-	 m7qPRpPxmSWiqMsEH1hHGK3knf3NJOXR57h7MnmFdGdrDgaaEeYXvEhjPkqxz4y7j8WK9
-	 6fm/AbQkxntV9TT0n6SO7L+IBgtSldh4WE/CQM8x/nkYamJlMeuWBq1IxR3UyD4QN5fXW
-	 Zfhm3jSRbH8/j/Veb3re8xQJ/dltrQCr8eZSbde26ic0FUCa7dF+e/G6QMmsnFkZO09rv
-	 +zwHIQBkjMpLkRj/9JjrQ8X/h1u95FB4r2GV1WxEQ359zH/kNZo5635KHhLtIY7rUGg==
+	t=1794515101;
+	b=N1u99wPWy/Ch5NriRXDD3Nmt2EtP4mhyh/q7SyvYqhLKiAaDuOesOKkYT1enK5r88c+o
+	 MJEzjsP6Vca/5OJopMK8ZFp9jeSKNn/Y6BsLAHIT7xsbcDo3T1LhD/0DqLrK/vZLnR/hH
+	 /rAWoEYTncR5vRVlWbTegSHcnaLoE5PCEtKaiCP+OYmOKVp2uajRyQKUWvk8XDt2pkPch
+	 wkjFNgBRCWH3YXThepLmXg98ficqzzGWfaF6Tdt8/SMx1B64JbfgJ8NVW5YtLfO//joFz
+	 xWJTT5dZ4Kl2rPyVzPKyt/U1DNhm2d0g+DV6vTDxzPx0pa1+6QnyzBZZdDn7PfxAhhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514391;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gv6kUfncabuP+ZVdtrbbHCGIexNhvbwVVXmfviemsuk=;
-	b=N6pIrzYMTHJCEO7O4o5dwbZh04q/62DRGvkv+R6n8pLbWi1+uGek4kdOUYC2W0nqMP6k
-	 Xy59dtdF6SJh8iEpVLjy+TeQyk+HpUMnVIz92ZKaTLwun0JRGcRAyhR4IVxj6qR5xKm/D
-	 8cQVkckEMgQFoSPrKu3RcnxybD2JAQm64KGuTQ80zFf4BrphQhly7ZgmYxIL5T6ec/qZW
-	 jPDacyxaGoiDpUeDMW35smiB/EWk19THsrVpvi2uzhJsS2bpePN0bIzeV3YT6XnQho9rG
-	 +Q74SZgajx+lp9UnudJ7Zu0exvFTKZhO5SdjHyFgrFLNxahom9OwvdrY0ULpaoFONnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515101;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID;
+	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
+	b=X/x8qKntw3k/dO8CSTPP8ElTSmEge/7vDCFaTu/YDfjf3CcIHJtmBDauW0yAqsQlsCxh
+	 llsdE5QTBTpWYJ6RH8dwz0GmcAeYQPUynRi8tF2ZIxzCP4JFxzxYnaLRg8WNQjMBjcHZY
+	 Adg6KQhFXDoQRZpgM4sBQUGt1F2Dy+XkVYcrrkrSCfmfTZWjAPUnAW69YFgBFtFqkG5Zg
+	 koRkVk/A8szRl0AZZPgp92Z4nCDNirdRrPxY/kgRH4UIgauwEYBvOvb9IpklRUq3X8+LK
+	 FD2sGQU6CBFew+ykMkehz/8G1VZuaKqvu4jM9HjLpjesTDoy+fEgFZ4l1CrLWIVrU1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iutMHWw4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tuta.io;
+	spf=pass smtp.mailfrom=tuta.io;
+	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR;
+	arc=none smtp.remote-ip=185.205.69.213
+Received: from mail.w13.tutanota.de (mail.w13.tutanota.de [185.205.69.213])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E02E606A31C;
-	Thu, 12 Nov 2026 20:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F95606A327
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 20:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6F95606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iutMHWw4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550A31F000C4;
-	Thu, 12 Nov 2026 20:13:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514390;
-	bh=gv6kUfncabuP+ZVdtrbbHCGIexNhvbwVVXmfviemsuk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iutMHWw4g7rhbFZrf/orTMdre66B/MthrJTwTXM219nq7BedireH7yePdiNPbYVUP
-	 lbwHLVbSSyOjfMLoezwIKRtiKG7hsakyp68BkgoYV8VSM6RT+/JN5XYkskxNSyFNzU
-	 NnFVsWBEzRNDPaBD97qFnqVGdET0yDtPO+Lm1/F9lO5BNSCgq423YWQ5+HkI0dg+Hb
-	 vcLkU9pMVZSN7wUq4sGtTgTeYhNzquwNFLTliF5ik7JhIs4OcnMm5lLO6DhRkLMMrY
-	 fbPGIJtFtzSILwkWoc2l2ZmT1Nki/AELfvexs16Hnxtyw8dwsHQJp2ODqzrratLOF2
-	 kHe24GslBVztA==
-Message-ID: <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
-Date: Thu, 12 Nov 2026 21:13:03 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w13.tutanota.de (Postfix) with ESMTP id 457E01A390EA3
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:24:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1794515094;
+	s=s1; d=tuta.io;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
+	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
+	b=t7oWQcTRLFV8EfH0Z9oCKiMWx7TBp3nr3wLRNSNbljvlUHZjaLPmREOyIRGbKrZ0
+	mVeBkE4uxgOVvD2WMaQf7sLbf0XyMhzc0vnfUvK1YmVqLHhDE1pFVB69pOoMze23bbQ
+	/MhnNui/4xCqFeM9YdCzsn2vX5SFL/cB/JpQu8M364hinugmww/43G0N+n8JAhK+roV
+	auXKF+rjcUjVQBtgTBIndD+GW2BQoKx0YJh33iN3/JxhHPe5V3uYzW3DM8cDcL4LvIT
+	j9nk7fwTVQdSssnunLg9m/cuoVTHkRwp8dt6y+NqDDhQmhZr6rx6nCFbfykiQCxF+zx
+	Tn4NnBm0bA==
+Date: Thu, 12 Nov 2026 21:24:54 +0100 (CET)
+From: servpol@tuta.io
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linux Pm <linux-pm@vger.kernel.org>,
+	Devicetree <devicetree@vger.kernel.org>,
+	Linux Kernel <linux-kernel@vger.kernel.org>,
+	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Message-ID: <P6GQkBA--F-9@tuta.io>
+In-Reply-To: <avEHPVdx0NlX4dhy@venus>
+References: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io> <20261021-gl-e750-mcu-v2-2-9bd7e7c2e0e1@tuta.io> <avEHPVdx0NlX4dhy@venus>
+Subject: Re: [PATCH v2 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
+ driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,105 +69,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-To: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261021022446.3619435-1-robh@kernel.org>
- <avWbmsjkYo2LMJKs@parshuram> <20261112125346.GA3821108-robh@kernel.org>
- <avX9Qrcapcnutdgh@baldur>
- <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-In-Reply-To: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Feedback-ID: 01bb77f0f6a34f22cd96c09b0ff79382356995353b38b124f21de10af076a9961e02969e72277f7fb26516500e6c215bfc:TurnOnPrivacy!:tutamail
 
-On 12/11/2026 20:22, Rob Herring wrote:
-> On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
+On Mon, Nov 09, 2026 at 12:35:58AM +0100, Sebastian Reichel wrote:
+> The Sashiko analysis looks correct:
+>
+> https://sashiko.dev/#/patchset/20261005-gl-e750-mcu-v1-0-499d2e31f786%40t=
+uta.io
 
+Hi Sebastian,
 
-(replying only to parts of the message)
+thanks for looking at it. That link is the review of v1, and both
+findings there are addressed in this v2 (see "Changes in v2" in the
+cover letter):
 
+- a new message (they all start with '{') now ends the previous one,
+=C2=A0 so an event that follows a status reply without a line ending is no
+=C2=A0 longer appended to it and lost;
+- the poll work no longer clears the receive buffer, neither before the
+=C2=A0 request nor on the reply timeout; it only consumes a pending status
+=C2=A0 reply, so a partially received event stays in the buffer.
 
-> 
->>> Can the QCom folks stop doing that! Coordinate applying the series or
->>> take the binding and dts changes in 1 tree.
->>
->> I assume you're referring to "QCom folks" in the sense "any maintainer
->> touching a binding change related to a qcom platform"?
-> 
-> No, primarily you and the submitter I guess. Submitters should be
-> aware of dependencies in their series and suggest how things are
-> merged. Otherwise, it falls on you to care that warnings are getting
-> introduced.
+Sashiko's review of v2 reports no regressions:
+https://sashiko.dev/#/patchset/20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1%40tut=
+a.io
 
-We all have been swamped with patches and Qualcomm have been probably
-the busiest arm64 platform for months now.
+If you meant something else in that analysis, please let me know and
+I'll address it in v3.
 
-for i in arch/arm64/boot/dts/* ; do echo "${i}:$(git log --no-merges
---oneline v7.0..v7.4-rc1 -- $i | wc -l)" ; done
-
-qcom: 1016
-freescale: 485
-renesas: 215
-
-Qualcomm SoC got one more maintainer, so there is catching up, but
-probably not enough.
-
-> 
-> I would not care so much when there are transient warnings in next,
-> but I don't want to be the one chasing them down. But AFAICT, it's
-> always me. No one beats me to it and I'm not all that fast in
-> noticing. I just compare all the warnings by platform for Linus vs.
-> next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
-> for things moving in the right direction. Of course this is all after
-> applying which isn't ideal.
-
-FWIW, I do test all Samsung ones and I look only at some of Qualcomm
-boards, because there were just too many warnings to have a clean
-dtbs_check for qcom. I do report them to Bjorn/Konrad [1], but that's
-indeed only subset of entire qcom ecosystem. I know that a few other SoC
-platforms keep track (TI at least).
-
-[1] https://krzk.eu/#/builders/102
-
-
-> 
->> Do you have some CI/guidance/tooling for Vinod (and other subsystem
->> maintainers) to perform system-wide DT-validation when considering
->> merging a binding change?
-> 
-> This one is an ABI break because it adds new required properties. I do
-> have some tooling that looks for ABI changes, but haven't committed it
-> because I haven't figured out the best way to deploy it. I think for
-> anything that is an ABI change, the binding and dts files need to go
-> in together.
-> 
-> I think it is time to reconsider the default of bindings go in with
-> the driver. That works okay for new bindings as long as the platform
-> maintainer doesn't take .dts changes before bindings land (also an
-> issue). However, for cases like this, we need the opposite order. We
-> need to figure something out because this is only going to be more of
-> an issue as we get to warning free (and we are close).
-
-We have been talking about this for some time and recent consensus was
-that SoC maintainers can freely take such bindings when driver subsystem
-maintainers lag behind. The case here is a bit opposite - driver
-subsystem was before SoC.
-
-So let's change the generic recommendation/policy? Whenever patchset
-touches bindings and DTS, and the bindings do not need any driver
-updates like they add only front-specific compatibles, the SoC should
-take entire set?
-
-
-Best regards,
-Krzysztof
-
+Thanks,
+Serv
