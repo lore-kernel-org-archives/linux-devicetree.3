@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794541399;
-	b=CLJN9NNEGOKkZX92/pMJOyrsMw9SN+z/i+qdHndUwTKB4sDXhLPbfWOQoUd0CsNSL5Km
-	 rJrON7OJ72vk0JP00KyKlByax01C86uI50Wd39U1pcq2SiQbiHoWez+wPFDOABJGHGavp
-	 s426/6dorcm2tu05O6ZjetMCuPNjKCC66pr6TXGzhrWx7dNoHxYaasl60YXPzXyj9XV41
-	 7iNkT27/xr46y4dYlkgAKrTLRe185Gzt5rkzvZzluv+76Dj5coTcTHWEshpIl4W/XeZ3d
-	 uflbAGMBwlnxoYMCHrOQMadpG/37PHQ35w1tu64rjhrJkulft3Bu3nW71Oa0/n6lwMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794541399;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=TpCoXmViLUTdUBDjV1/9xKc96GGjy//lN+e1tkoCFfQ=;
-	b=cFtzlCh8TQx200O0Kwtx2WJgz0DrGIc3rTdnAFvKWqDX9zOpUzp/LS6bf4UzIGJtL09e
-	 qYiA4Ao3iPz8DkppAondOwGGYVsuXOEWJXBmWx3DWmjPFom0g7nSDaZ+fyQdC9OIbehrN
-	 CaJLShOB8e92n0hs5DoAjNvBVIa+ACHpZZt81CqCREN5X24ZDuwgWe+1ISZbnbmLkDkfj
-	 S9piVRt4eLl4qZfSQb+wSeXM133wHF4aoy6NBv5HOCQyeou53e4StXTkORuGNVRfnKbeR
-	 2bxlqgLwZ+f9yCSGh2yKnJYRkJW0yCPLk+s7DA/CP1KNwwqRsqPBQK4s4bE/1qjsW9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nWZqkKJ3;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Drhx4NFq;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794543103;
+	b=HI1ItAr3uJC4ig0ow3Pey1SO2UTFKx8/xDiJ0appwyF64jcGP4xf6yGteIgSJMGte46P
+	 qWuTu9hZDgcVVI6Ph7WW+Siw8kzn1+zXjeDV8ElEzZCz7AOk0ZdDnR9A4QoeQJUgmTSV8
+	 9M62BFmF939/WEPO5hf/LerwxBfu/99NwY1euw38hnMatIHyIsMGn0WNUILaex+G6o16U
+	 kQamf3vNHIE/DKNh7gCII3iSaua/HY41I9gO2V8f5X8rfipg01watiDRZG2sqeX/VBuOg
+	 gmW+i69DQ7qZHJOa4wEqWGDQ4/vKKbfxBgpiCkXaF2rorwVwpa2Q2K3qwow3lUodATg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794543103;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+lqkvsptNAsmFpGtYAdrOoSm4FQbFmznUqUV/049Skc=;
+	b=dOH5o4vHeUeyloGxXPlGc+jk0YK7W2XatXeY4FN/4TFbdZn3bA64b18PSDhO+kasplzN
+	 drWDc5o4wRPAfKyXt0viqDXwXB81dIzzvXysKRUaXOL/SMoLrxFkpvog81ROzqI0mNR7B
+	 JCK3EOLn5najaDWammxQSh0ppGJurBeOpKH/3byMdv7jJjL0HIXjLaDVzXrFU5vnaPwQF
+	 a7ItvpA60e9H3yEWJSpu26eQamD1G1HffB9gVNg3yujkD6err6jle10X5zv8/LuAnClmy
+	 805DtDZUnhxX4x/8Ht7x4Xu3wbPct7qVbMm0/Th3Gq57hd3U64xJnS85bE5KBTuDxYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iRRpvnUs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.61
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED5B606A321
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ED5B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD185606A327;
+	Fri, 13 Nov 2026 04:11:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD185606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nWZqkKJ3;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Drhx4NFq
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD2K5012636692
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:43:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TpCoXmViLUTdUBDjV1/9xKc96GGjy//lN+e1tkoCFfQ=; b=nWZqkKJ3CLkwxq5U
-	8pRfvFrg5fA2zwANer2P5rrsm3l06Y3TxxWLYN1Mb4uRUq1MiOzWMo69f22sdn46
-	jSWX59YUz8lkpEIevAXUe4jDEbILWsXbyobh+WoQDoJle52wJnU3W4b661hZKf13
-	Ndrcl/gqiPOKTITBQC0I6G59c/NSGM94yquZRBVfpGetA+y9enkHtCmbnLlWDplu
-	lXDT1ua5azMvNW3e0/FuxfUWzD3k/UhWRyZw7rPYQ+WZSXDFLcV6MJ/o3c8lbb96
-	sALT6+FXMS/SRffsSWB87UZ85UemyWUoBzjlbRXgxg5OoGY1T5gcoC3jLoATTvnA
-	7alIEA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6re4eyd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:43:17 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ea446ea8c9so12048765ad.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 19:43:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794541397; x=1795146197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TpCoXmViLUTdUBDjV1/9xKc96GGjy//lN+e1tkoCFfQ=;
-        b=Drhx4NFqIehATIow3r+WVNkcgWdgaTjh4ghyCUHiBXMNMdnZ5Zaku7KS1bbCYnS7DD
-         XqEX2InMCm2CyhoQFOUf1I18MAl4LalCX+ylilFAnVZQQcM+llLBZq7rUNwPrr3B2I55
-         KzoJNPjvYtxGbp3xidRuwnzZZqS8/IykB6L63RjcPKoXURLuocrtVh2xDOTK0GsCm+xh
-         ItmqdgoZkfbJ+e7C/EnrS28BVPLJiDUx+HjUiF5kD+SdUMa95FcK3PBqjThmsCvkUNyO
-         HcWe0pisoAAxeDQ4CDmGOvvkNd/WReuH0ic1HQKkstNMrCiDySHwVvvq2EH2gd9UtN1T
-         OE/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794541397; x=1795146197;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TpCoXmViLUTdUBDjV1/9xKc96GGjy//lN+e1tkoCFfQ=;
-        b=tyWx1LkC7V0R1hoyz7KcgLLSerN3Pcq0cw/cim1BAoLomojkiHh4xwSMGLCNoKziin
-         kzch15yvtdL6NmhZ/adTmwwHDo2rfkb0+oZln73l+LOu67LgaQokDlXVe1x/8iErcFp1
-         sUTICCoqE9GqhTT9TrdqloSUjns2OBAR0NRgHEu59QM3uN3kiRQRPrIsUc3wumdtwunG
-         t9pxHQOBbYYkHo3QlF+fGHdJVzTJHze2/1/LWHBzN0hTZSYc2ECYL/d/2sof3RKulv92
-         t69uNMGruCc5m+UnFN1mIwpkg8/bDk6TFf2Z3znk4iZThVnlKSsyQSaMJg3STYYf8O2M
-         mjxQ==
-X-Forwarded-Encrypted: i=1; AL+hErEHJJUxkWOdQakxGFjAAAmQZrHbXrpxpT2Nd931nOxLv2nhMyV5DWop+Ptkt3YbQVSWkhFPvU6p8ElL@vger.kernel.org
-X-Gm-Message-State: APuU4Z8u6mxb2mvAPMeEHEm+Paf3Ouvx4t5jtAw9iht3Cb59NJ+OHHeR
-	PlGJfMJHzW1RqGZy+ELd9FOcwNMJJEnNXlG3EYgHXNKX1EW8YCIUOcuzfuLdlrNOvP8XXlLMXxB
-	tlPaGRBE+a8z1XUpMmBbr9d/HifuhAvAoaXKCAmvXaBnAQcO6XOdHgnmQhJ4d9Yy8oZSR+AX6hy
-	g=
-X-Gm-Gg: AYBFou1LABPyA3YI3At5qUYKF99HHgI5tc7zl1tonrDnWMfj4wAoXIcwz8tJjhk7Dw3
-	cr5fsyLNS763eWEoFHmWBWibwuP48isJjjOFxHUaOocsP0gdMtPOJVYgR02wVpU5M/GCn0JOE6J
-	crj2yu2AJ0j6W6UppITmtEBh7qY8QfzZFIlbdjB2k0Mcr8XekDMEn+gNus7e6MFcp/WZYFB8Xo4
-	wi/OwFeS91nuY/vcKJDusdFaztB6MNKfTTxw6PEAWM0PcsSQpuUuouDmF6s9kk6gHmr6d5b0GcH
-	EIdJJT99PAQP32EgmRLK6ADkfR0X6LgEO00yxrTW5rGM20pTPVlAHGW+OUKUE6EbsloUPLQBwzK
-	Ba1R4GntzbvD2EpfIaJlEnTFNkV7KITbXt9sk5m28B40b0YdUL7LKqAueCumMkQoUar0PDA==
-X-Received: by 2002:a17:90b:394d:b0:3b1:6e2:3693 with SMTP id 98e67ed59e1d1-3b1b0b9213emr653710a91.17.1794541396669;
-        Thu, 12 Nov 2026 19:43:16 -0800 (PST)
-X-Received: by 2002:a17:90b:394d:b0:3b1:6e2:3693 with SMTP id 98e67ed59e1d1-3b1b0b9213emr653696a91.17.1794541396142;
-        Thu, 12 Nov 2026 19:43:16 -0800 (PST)
-Received: from [10.235.8.108] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec622b6sm2309528a91.11.2026.11.12.19.43.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 19:43:15 -0800 (PST)
-Message-ID: <ec0a8428-b7a9-4b7b-ba0b-bd4a8737153b@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 11:43:11 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iRRpvnUs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KfzyOukX8zhOhdcX1rWgIeLzbpM0dZbN5P1ZcINefqXBbjdn7trPZeDtSMeC3A6xS1dlks4VTeGhD+K6eF8HmUkO3ZCDgmJsN38OuuA0u00qZRBH1mTJH0DklcNXVgle0E7Acof86FMJ33H5JBmNMDNuLevdpffTHZyDu43A87vNFOJFPDF5owpHlWYiDLLfmQ3hopkue4fyf1xaXlyC3kdgXM0tveRdruW/otOP1jsVqrWsTDEkuTvXJiNgKZfYiTM4/wrzWce61nb1v/bLWUBP8DhmDNlHhZFp64Ur+rGFbMCKRhcKI6lqjf9Mb5LAkMG+BFSsJlHl/Iwu1F7HEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+lqkvsptNAsmFpGtYAdrOoSm4FQbFmznUqUV/049Skc=;
+ b=WFIByYchdcw5BURknnPKAB3y8oiczzx/aj1vxFcSQ8yJ4BCTnYTD3raiZLQDf8eef8KJnNSwqcsmIkJ0ggT72n0zpgqa4w0fzH288oNec5d0BzpeV9//Hzkdr3S8GwPrgfOKBhHb5a014N39ILhjdYGC2W37C2bHG0scXz/6853ZMI5m3z4tqrRwP+3/TdzwiN93bSCE8JPl72T0Da+o7bA6SJZDf/1dYq8crH6QnNkCIeUj2TWjCA0KMdxWgteCvvj0UfnMIGgqpTaXsRp3mQtF4VCoNwbB0xjUK1qTdZLhLVOzUlcHCnVTsVsWnm+zvFkx2hbkZ3o89+X+9y5FXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+lqkvsptNAsmFpGtYAdrOoSm4FQbFmznUqUV/049Skc=;
+ b=iRRpvnUs7+nyykI4HNsmPcvzgp9BWNG25oLgoC/jVCSxyNm9hRtpc5r0bsmKBYrU1NeHl0X5pGnwGBzvBSAWK1lfvsm7TIemxS18Eape6yidp7avVWJfTiBHlooyOELldlXy0R03SZO2j6coLkVO/wMavHv4V9Ly93RhooxqcVk=
+Received: from CY5P221CA0116.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:1f::28)
+ by SJ0PR12MB6968.namprd12.prod.outlook.com (2603:10b6:a03:47b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 04:11:39 +0000
+Received: from PH2PEPF00048917.namprd05.prod.outlook.com
+ (2603:10b6:930:1f:cafe::67) by CY5P221CA0116.outlook.office365.com
+ (2603:10b6:930:1f::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 04:11:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH2PEPF00048917.mail.protection.outlook.com (10.167.243.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 04:11:32 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 12:47:33 -0600
+Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 12:47:27 -0600
+From: Srinivas Neeli <srinivas.neeli@amd.com>
+Date: Fri, 13 Nov 2026 00:16:48 +0530
+Subject: [PATCH net-next v4 4/8] net: xilinx: tsn: parse endpoint DMA
+ channel configuration
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,115 +103,363 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: ipq5210: Add NSS clock
- controller node
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
-        conor+dt@kernel.org
-References: <20261111-qcom_ipq5210_nsscc-v2-0-7e2c1dda3ed2@oss.qualcomm.com>
- <20261111-qcom_ipq5210_nsscc-v2-3-7e2c1dda3ed2@oss.qualcomm.com>
- <sashiko-outbox-210918@kernel.org>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <sashiko-outbox-210918@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: RrZbclJraC5BaxWvq79QDE1r9SVG3XHh
-X-Proofpoint-GUID: RrZbclJraC5BaxWvq79QDE1r9SVG3XHh
-X-Authority-Analysis: v=2.4 cv=NJhAaE6g c=1 sm=1 tr=0 ts=6af68755 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=f0regg0dAIW5IDvKWx8A:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAxNCBTYWx0ZWRfXyPLG6gr+8I8K
- nhChwgw0m4eYWku8J59rHn+pioebCpcXN4L1cJxiqktrEFVNs5SNRbTv3xeZ0OzrilMXIXQBKLJ
- VOXr3tAomRZW4ozaDNPZ590AMHQX8w8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAxNCBTYWx0ZWRfX7xlbma4ti8UB
- ZXQT7mTOKpi+Id8077Gq22bHRUvNv5RRZK40sRkNd3hJfUI483WaxovRgZBkPKIgVakzc0MUX/E
- 7Tw9lIlk5K5/JQHBRJzBknZXdevNO1rKMCSQn/nF20esljF8kqsZ4QGlVR185cP5JLMuYLTHYRL
- BeqTlfStJSEtNN1pSSXi2M8GOgznUVH9wm8NTHxEHEiE9sdPo+3uL4XHb8LqdMEm0FcjRl9t/qY
- NHdj6BOtp3eiBruLaIQPRekTum22aHoQ5HW2Zty0Zt2Ww6Slu6sZWQlJGDhrc6g9YT8S1BYElkm
- Ew1gOfkjMGPAKomThbtXyBcQzGbcccyg/AGOr5mj4oEB/B+lHusnmeZgRfPqyis3UmpTP8J3S0x
- Vao1jz6rEPRCifHzAuVUNcIz5oAf/kthiquhsMkdOT6ajG5nYgTbwSZjlZYhnXjbWaCc68d0GQ0
- 6DuRXBGNt9z+9mEP5hg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130014
+Message-ID: <20261113-patches_v2_external-v4-4-56bb26f042a4@amd.com>
+References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
+ Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
+	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	<git@amd.com>, <neelisrinivas18@gmail.com>
+X-Mailer: b4 0.16.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH2PEPF00048917:EE_|SJ0PR12MB6968:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab04a08d-a7a8-4d97-6a15-08df413c337c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|36860700016|82310400026|921020|11063799006|261028144727099003|10067099003|5023799004|56012099006|261022105027099003|261021123027099003|261026121527099003|261026140227099003|261021121427099003|261022075727099003|261102123227099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	VA7cv4Mmp7cT/9M7KOj6FNaB0JiM1p5IynMmtcgwQctqKxpB3C1kMesL3Ckm++Mq6B2BckvMhec6jGwwZbF98HzXdcqNCFVUUSNY9cq+sciTsBE6oXcPs6D0PK1PrBDZymnGOBm5HxKd6qKgeVBuYv6Xi1FK04pyFju8GaQ0pom9S4LXeJAQy+s7Pa3J3q+RckD9XCexaIKX3cGUfItU4aF7m9eyuYhi1rMF/exa5QPWF4vUSU4cEqspMobfBVzx2/zswwHV+zQ+u74jO7MPBHQY9BeFf2kdPWKhi48rC7gAenKBe4eG+wrUPs6Fe2Wu7MrpnRdX4aFYyOkwCwLrgtj0DKYFgB4ZXhjD1k607FqOaggEhkoUskmxhByXp/gcQHNQwUpjdgFFYlleV9g/jav5eBjtLffLfRAAj4oXH3sGs+W1M9qQ6/mcViN2f7Y+UhtExzp8TkXeYDadSEWy287qsNzmzTLg/I+ba55MjWEj6vs+Wo+zL4Lz8CQJB4p82mNu1obFgyv19cGsj8Ulvb6ZZn85LUL3CUyHEG73ltwHlXFgI9iTZk8FIiHfccam2D77P3o2rxhg4txrkO2YwWPP71Ap9yyhInNjnDex1kQBrS8SBa8G9nvNrhb6YmN9Drjex1XK+hOv/O5hp8hllWjNGtzqQUiVovaVJFdtmabOWXBtc/oZeefWJ7gSOxo2S3J8vvYjwmhd0WcZ+7Oomc/+f68cvadA9ZeIAgdYx2K1H/aIMHgs+k/v2UuOmvcM
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(36860700016)(82310400026)(921020)(11063799006)(261028144727099003)(10067099003)(5023799004)(56012099006)(261022105027099003)(261021123027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022075727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	40EczBmyee+1jnAZQ+eMJbDYsUU2V0qBxinfJc1pZ1Xg3sUph/Isb4ZqS1J/ZI1VSt969/V0K2BEkGuiG0KuCQq8WUn0uhmJwNPjJbc5hdGGQlJxfEzmmZDmqR+AO5pldlsdkMH1XIVJDMl9b7ykY0B7wwnwaeuhQoi/cWDl8dR3OJqM5Pt74sqPUqMP4pTmxmNvBampJDk4/teF9jKeHLjDMr7KIj3mYWQ+RWM5ndIWJG7TNoE1gTFFjqUQoxaZJ7zM1Qw8DYbhBAZtFSJ5L4T+9YuSstppt+bk8kRq8vfkIZowuRKZIgNVRKdvHKDinj446xy2zw4C6zNMcaCx38r5fXjhnIztzQn7Mcs4noomCtuq5PHnfm5RGlcErgHNcpSzskvJov77rNTUNRFs7CyHVXx8VO+gBrwwv3is2XQnBKxZ47cKdwE9GEtMDmJO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 04:11:32.6397
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab04a08d-a7a8-4d97-6a15-08df413c337c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH2PEPF00048917.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6968
 
+The endpoint has one MCDMA channel per TX queue and per RX queue, and
+the device tree lists them in "dma-names". The transmit path needs to
+know which channel backs each logical TX queue.
 
+Count the TX and RX channels in "dma-names" and allocate the conduit
+netdev with that many hardware queues. Parse the "tx-queues-config"
+child node to map each logical TX queue to its channel.
 
-On 11/12/2026 6:01 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] arm64: dts: qcom: ipq5210: xo_board uses xo_clk instead of
->   ref_48mhz_clk
-> --
-> 
-> commit f6342940567706c16d7408b991562c108f13f6b3
-> Author: Luo Jie <jie.luo@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: ipq5210: Add NSS clock controller node
-> 
-> This commit adds the NSS clock controller (nsscc) device tree node to
-> ipq5210.dtsi to provide clocks and resets for the networking blocks.
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
->> index 0c1ede0f73b21..11915f8eb1567 100644
->> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
->> @@ -331,6 +331,46 @@ frame@b128000 {
->>  				status = "disabled";
->>  			};
->>  		};
->> +
->> +		nsscc: clock-controller@39b00000 {
->> +			compatible = "qcom,ipq5210-nsscc";
->> +			reg = <0x0 0x39b00000 0x0 0x100000>;
->> +			/*
->> +			 * Note: CMN PLL output clock names below are reversed relative
->> +			 * to the hardware block they feed - IPQ5210_PPE_CLK is wired to
->> +			 * the NSS hardware block ("nss") and IPQ5210_NSS_CLK is wired
->> +			 * to the PPE hardware block ("ppe").
->> +			 */
->> +			clocks = <&xo_board>,
->> +				 <&cmn_pll IPQ5210_PPE_CLK>,
-> 
-> [Severity: Medium]
-> Should xo_board be parented to <&ref_48mhz_clk> instead of <&xo_clk>?
-> 
-> arch/arm64/boot/dts/qcom/ipq5210.dtsi:
-> 		ref_48mhz_clk: ref-48mhz-clk {
-> 			compatible = "fixed-factor-clock";
-> 			clocks = <&xo_clk>;
-> 			#clock-cells = <0>;
-> 		};
->     ...
-> 		xo_board: xo-board-clk {
-> 			compatible = "fixed-factor-clock";
-> 			clocks = <&xo_clk>;
-> 			#clock-cells = <0>;
-> 		};
-> 
-> arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts notes that xo_clk can be
-> 48 MHz, 96 MHz, or 192 MHz, which the WiFi block divides down to the
-> 48 MHz ref_48mhz_clk, and that xo_board is a fixed 24 MHz clock routed
-> from that 48 MHz WiFi output clock divided by 2.  Because xo_board uses
-> <&xo_clk> as its parent instead of <&ref_48mhz_clk> (unlike
-> ipq5424.dtsi, ipq5332.dtsi, and ipq9574.dtsi), on boards with a 96 MHz
-> or 192 MHz xo_clk, xo_board will resolve to 48 MHz or 96 MHz instead of
-> 24 MHz, supplying the wrong XO reference rate to nsscc, gcc, and sdhc.
-> 
+The device tree describes one "queueN" child per TX channel under
+"tx-queues-config". Each child names its channel with
+"xlnx,dma-channel-num", given as the N of the tx_chanN entry in
+"dma-names". Every logical TX queue must be described exactly once and
+name a distinct channel that "dma-names" lists, and the TX channel count
+must equal "xlnx,num-priorities" on the parent IP node. Probe fails with
+dev_err_probe() when any of that does not hold.
 
-In hardware, xo_board is the 48 MHz WiFi output clock (ref_48mhz_clk)
-divided by 2, not the XO clock directly.
+Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
 
-I will add a fix as the first patch of the series. It changes the
-xo_board parent to <&ref_48mhz_clk> to match the hardware clock
-routing.
+---
+Changes in v4:
+- Use alloc_etherdev_mqs() so the standard eth%d name is registered with
+  NET_NAME_ENUM while preserving the TX and RX queue counts.
+- Reject xlnx,num-priorities outside the 2..8 range the binding allows.
+  A value of 1 used to probe with a single TX queue.
+
+Changes in v3:
+- State the device tree requirements in the commit body. One "queueN"
+  child per TX channel naming its channel with "xlnx,dma-channel-num",
+  every TX queue described exactly once, and the TX channel count equal
+  to "xlnx,num-priorities". They were only in the v2 changelog before.
+- Correct the kernel-doc for tx_dma_chan_map. It holds the N of a tx_chanN
+  entry in "dma-names", not a hardware channel number.
+- Name the counting helper ep_count_dma_channels() and its probe results
+  num_tx_dma_channels and num_rx_dma_channels. Both count MCDMA channels
+  listed in "dma-names", which "queues" did not convey.
+- Call the RX map rx_dma_chan_map, matching tx_dma_chan_map. Both hold the
+  N of a chanN entry in "dma-names", so one concept now has one name.
+- Keep the RX map in a probe local rather than copying it into the private
+  struct. Nothing outside probe reads it.
+
+Changes in v2:
+- Check xlnx,dma-channel-num against the channels that dma-names actually
+  lists, using a presence bitmask. Reject duplicates and out-of-range channels,
+  and index the channel arrays by logical queue.
+- Require one queue node per tx_chan and num-priorities equal to the TX channel
+  count. This also gives xlnx,num-priorities a consumer.
+- Cap TX and RX at 8 to match the binding.
+- Error out on an unknown dma-names entry instead of skipping it.
+- Drop the unreachable TX and RX count guards. The in-loop index and duplicate
+  checks already bound the count, so the channel arrays cannot be over-indexed.
+---
+ drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 203 +++++++++++++++++++++++-
+ 1 file changed, 202 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+index b6458bb0ba0f..9458db38255d 100644
+--- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
++++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+@@ -5,9 +5,11 @@
+  * Copyright (C) 2026 Advanced Micro Devices, Inc.
+  */
+ 
++#include <linux/bitops.h>
+ #include <linux/etherdevice.h>
+ #include <linux/ethtool.h>
+ #include <linux/if_ether.h>
++#include <linux/if_vlan.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/netdevice.h>
+@@ -21,14 +23,31 @@
+ 
+ #define DRIVER_NAME			"xilinx_tsn_ep"
+ 
++#define TSN_DMA_CH_INVALID		0xFFU
++#define TSN_MIN_PRIORITIES		2
++#define TSN_MAX_TX_QUEUE		8
++#define TSN_MAX_RX_QUEUE		8
++
++#define TSN_MAX_VLAN_FRAME_SIZE		(ETH_DATA_LEN + VLAN_ETH_HLEN + \
++					 ETH_FCS_LEN)
++
+ /**
+  * struct xlnx_tsn_ep - EP MAC private data, embedded in net_device priv area
+  * @ndev: the conduit netdev
+  * @dev: backing device
++ * @num_tx_queues: number of TX DMA channels (one per priority)
++ * @num_rx_queues: number of RX DMA channels
++ * @tx_dma_chan_map: TX queue to tx_chanN map, or TSN_DMA_CH_INVALID when
++ *	the queue has no channel
++ * @max_frm_size: maximum frame size accepted on RX
+  */
+ struct xlnx_tsn_ep {
+ 	struct net_device *ndev;
+ 	struct device *dev;
++	u32 num_tx_queues;
++	u32 num_rx_queues;
++	u32 tx_dma_chan_map[TSN_MAX_TX_QUEUE];
++	u32 max_frm_size;
+ };
+ 
+ static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+@@ -69,15 +88,180 @@ static const struct ethtool_ops ep_ethtool_ops = {
+ 	.get_drvinfo	= ep_get_drvinfo,
+ };
+ 
++/*
++ * Parse the "tx-queues-config" child of the EP node. The logical queue
++ * index is taken from the "queue<N>" node name, so the mapping does not
++ * depend on the order the child nodes appear in the device tree.
++ */
++static int ep_parse_tx_queue_config(struct xlnx_tsn_ep *ep,
++				    struct device_node *txcfg_np, u16 tx_present)
++{
++	DECLARE_BITMAP(queue_seen, TSN_MAX_TX_QUEUE) = {};
++	DECLARE_BITMAP(chan_seen, TSN_MAX_TX_QUEUE) = {};
++	unsigned int count = 0;
++	int ret;
++
++	for_each_child_of_node_scoped(txcfg_np, qnode) {
++		u32 chan, queue;
++
++		if (!str_has_prefix(qnode->name, "queue") ||
++		    kstrtou32(qnode->name + strlen("queue"), 10, &queue) ||
++		    queue >= ep->num_tx_queues)
++			return dev_err_probe(ep->dev, -EINVAL,
++					     "tx-config: invalid queue node %pOFn (have %u queues)\n",
++					     qnode, ep->num_tx_queues);
++
++		if (test_and_set_bit(queue, queue_seen))
++			return dev_err_probe(ep->dev, -EINVAL,
++					     "tx-config: queue %u described twice\n",
++					     queue);
++
++		ret = of_property_read_u32(qnode, "xlnx,dma-channel-num", &chan);
++		if (ret)
++			return dev_err_probe(ep->dev, ret,
++					     "tx-config: queue %u missing xlnx,dma-channel-num\n",
++					     queue);
++
++		if (chan >= TSN_MAX_TX_QUEUE || !(tx_present & BIT(chan)))
++			return dev_err_probe(ep->dev, -EINVAL,
++					     "tx-config: queue %u maps to channel %u not present in dma-names\n",
++					     queue, chan);
++
++		if (test_and_set_bit(chan, chan_seen))
++			return dev_err_probe(ep->dev, -EINVAL,
++					     "tx-config: channel %u already assigned to another queue\n",
++					     chan);
++
++		ep->tx_dma_chan_map[queue] = chan;
++		count++;
++	}
++
++	if (count != ep->num_tx_queues)
++		return dev_err_probe(ep->dev, -EINVAL,
++				     "tx-config: described %u queues but expected %u\n",
++				     count, ep->num_tx_queues);
++
++	return 0;
++}
++
++static int ep_count_dma_channels(struct device *dev, u32 *out_tx, u32 *out_rx,
++				 u16 *tx_present, u32 *rx_dma_chan_map)
++{
++	u32 tx = 0, rx = 0;
++	u16 rx_present = 0;
++	int n, i, ret;
++
++	n = of_property_count_strings(dev->of_node, "dma-names");
++	if (n < 0)
++		return dev_err_probe(dev, n, "failed to read dma-names\n");
++
++	for (i = 0; i < n; i++) {
++		const char *name;
++		size_t plen;
++		u32 idx;
++
++		ret = of_property_read_string_index(dev->of_node, "dma-names",
++						    i, &name);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to read dma-names[%d]\n", i);
++
++		plen = str_has_prefix(name, "tx_chan");
++		if (plen) {
++			if (kstrtou32(name + plen, 10, &idx) ||
++			    idx >= TSN_MAX_TX_QUEUE)
++				return dev_err_probe(dev, -EINVAL,
++						     "invalid TX channel name %s\n",
++						     name);
++
++			if (*tx_present & BIT(idx))
++				return dev_err_probe(dev, -EINVAL,
++						     "duplicate TX channel %s\n",
++						     name);
++
++			*tx_present |= BIT(idx);
++			tx++;
++			continue;
++		}
++
++		plen = str_has_prefix(name, "rx_chan");
++		if (plen) {
++			if (kstrtou32(name + plen, 10, &idx) ||
++			    idx >= TSN_MAX_RX_QUEUE)
++				return dev_err_probe(dev, -EINVAL,
++						     "invalid RX channel name %s\n",
++						     name);
++
++			if (rx_present & BIT(idx))
++				return dev_err_probe(dev, -EINVAL,
++						     "duplicate RX channel %s\n",
++						     name);
++
++			rx_present |= BIT(idx);
++			rx_dma_chan_map[rx] = idx;
++			rx++;
++			continue;
++		}
++
++		return dev_err_probe(dev, -EINVAL,
++				     "unrecognised dma-names entry %s\n", name);
++	}
++
++	if (!tx)
++		return dev_err_probe(dev, -EINVAL,
++				     "no TX channels in dma-names\n");
++
++	if (!rx)
++		return dev_err_probe(dev, -EINVAL,
++				     "no RX channels in dma-names\n");
++
++	*out_tx = tx;
++	*out_rx = rx;
++
++	return 0;
++}
++
+ static int xlnx_tsn_ep_probe(struct platform_device *pdev)
+ {
++	u32 num_tx_dma_channels, num_rx_dma_channels, num_prio;
++	u32 rx_dma_chan_map[TSN_MAX_RX_QUEUE];
+ 	struct device *dev = &pdev->dev;
++	struct device_node *txcfg_np;
++	struct device_node *ip_np;
+ 	struct net_device *ndev;
+ 	struct xlnx_tsn_ep *ep;
+ 	u8 mac_addr[ETH_ALEN];
++	u16 tx_present = 0;
+ 	int ret;
++	int i;
++
++	ret = ep_count_dma_channels(dev, &num_tx_dma_channels,
++				    &num_rx_dma_channels, &tx_present,
++				    rx_dma_chan_map);
++	if (ret)
++		return ret;
++
++	ip_np = of_get_parent(dev->of_node);
++	if (!ip_np)
++		return dev_err_probe(dev, -EINVAL, "missing parent IP node\n");
++
++	ret = of_property_read_u32(ip_np, "xlnx,num-priorities", &num_prio);
++	of_node_put(ip_np);
++	if (ret)
++		return dev_err_probe(dev, ret, "missing xlnx,num-priorities\n");
++
++	if (num_prio < TSN_MIN_PRIORITIES || num_prio > TSN_MAX_TX_QUEUE)
++		return dev_err_probe(dev, -EINVAL,
++				     "invalid xlnx,num-priorities %u\n",
++				     num_prio);
+ 
+-	ndev = alloc_etherdev(sizeof(*ep));
++	if (num_tx_dma_channels != num_prio)
++		return dev_err_probe(dev, -EINVAL,
++				     "TX channel count %u must equal num-priorities %u\n",
++				     num_tx_dma_channels, num_prio);
++
++	ndev = alloc_etherdev_mqs(sizeof(*ep), num_tx_dma_channels,
++				  num_rx_dma_channels);
+ 	if (!ndev)
+ 		return -ENOMEM;
+ 
+@@ -89,6 +273,23 @@ static int xlnx_tsn_ep_probe(struct platform_device *pdev)
+ 	ep = netdev_priv(ndev);
+ 	ep->ndev = ndev;
+ 	ep->dev = dev;
++	ep->num_tx_queues = num_tx_dma_channels;
++	ep->num_rx_queues = num_rx_dma_channels;
++	ep->max_frm_size = TSN_MAX_VLAN_FRAME_SIZE;
++
++	for (i = 0; i < TSN_MAX_TX_QUEUE; i++)
++		ep->tx_dma_chan_map[i] = TSN_DMA_CH_INVALID;
++
++	txcfg_np = of_get_child_by_name(dev->of_node, "tx-queues-config");
++	if (!txcfg_np) {
++		ret = dev_err_probe(dev, -EINVAL,
++				    "missing tx-queues-config node\n");
++		goto err_free_ndev;
++	}
++	ret = ep_parse_tx_queue_config(ep, txcfg_np, tx_present);
++	of_node_put(txcfg_np);
++	if (ret)
++		goto err_free_ndev;
+ 
+ 	ret = of_get_mac_address(dev->of_node, mac_addr);
+ 	if (ret == -EPROBE_DEFER) {
+
+-- 
+2.43.0
+
