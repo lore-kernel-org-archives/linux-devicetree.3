@@ -1,77 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486448;
-	b=xXGL9lPIN64qZASbhAcSt8c7u7gK8OLYrBaRuZ4GAJaSntPPAp5okWjA/9MX6KMTgT6g
-	 CHSr+voBewY5lJoFB+nc4sIuby2r6i05rCk0ZxdYJ3PIFz4K1BrgD0XqH+1d48cver3UA
-	 nF1HGbGGRy8Ba51Vv30g9+/5IP4FpGq/cy4r0t8p9nuMO+qUwhflL3k6EYtAMkevg5cWj
-	 hAWabZyApgf6JUouSJM4BoQS/x7smzmwp5Uz02ljJTgCkjudiREOChJNC4kKYv8HS4qzk
-	 NWuyiDxe7UNBNPoEsJBypEHUojeHYxGQ8BaTglB0m3jzeCEaHSFoyx4rsP62CJ55jvQ==
+	t=1794486561;
+	b=APZ2doo7v3uol8pK9IGXgDcJtlH3htgf7UpmYkEZaK4rXYHKJNvgbgoZ3S4VYNl5jH9R
+	 tEEwCB5pqIvAhr9T4aPpVDguAG459iv5BQ5TnkyTTSpV8lRZ6x2MpgEMe044TICJb3v8r
+	 AzNGpt0CGefpK3gER1LzO1JTP32QyTr+4r9QHAeIJX35MxDDnCLh8SDVg7g/0/Kqm+0PX
+	 hNHjH+xJwamUHEu6CvWkyNFiWWUA8bsBJ3KwaoZtllVv8i6KIfRGmiWDdgQoh0+TnCgm1
+	 qM1IehlKkbQHAc0yW84obAcX6x1I39mQQCJQTQ7NDf0a4tK743OK2l3bX+mZSP7+MfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486448;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=S7yfW8a4jOm9PquT7mm+dF7gxrK1OkdAmj4fgTK6ApE=;
-	b=VUJT8ldX0uOY+BaNfGOFl3S6B7W24rzb9Xj9QdMtFAL4fqT3EUgNqisyscyeviwAH3c1
-	 98RFSDtujQswFgKc4KMPaXqpPFeE5P/uSk/wHUQ6a249xhoWUz/kvE/MA83uD1LDOPY9D
-	 wcpErmN6xQGet1LN5enDYEJFoHKArcjpqRQqeM1IyV5hwhK6wNCKKvdazUsTZ3jsf2T3K
-	 QytlZOGLdh0sq0agUQ6x5W5gz2oTi9qK0vxQZWC1+vutZOGAm8O/SpgRoW1Neq0pk5JOe
-	 hmbqx8XL+X479ALAZTZUOebq1gdwHc99X+INVrTo3MbRnWTGZS34VnMb9tQVDHbbQYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486561;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=nDW+I7pR54nOMsKvI1W+hH5KbFWxBLJmUjtsUkPGktE=;
+	b=ZPN3YELHPEWpdKeH/3/YCAQe1cq3dSlckM9FiZTIuVgqttTa7sEZ1m4r9mwVR2lNG4PD
+	 WISLnUIxfuylgiWQ/hEjDt+126Btmfnff8PFAEUU9DKd823uXYyx+xWnjtzKn6WvqlUAC
+	 rsG2HB4L4ahYudxHpQtkVFDNhvL5vTpNseYW2n/CO2lfJJ5YYAhGAHGus3rILFt+xqVKV
+	 b3z7HK3hSyIuxDImW1D9C6Jz1QpAKBp7Nn+qHMfpzH8dcb8zaQwsB3JyZgdjmH/OL7ji5
+	 vT/ZHVQPfLKGfE7LCSpbnQIpQdXYxjj1NpTsyooPQxjVExO173X3SJzIkKtRMJY2GTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.net;
-	spf=pass smtp.mailfrom=gmx.net;
-	dkim=pass header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=naFcrTKW;
-	arc=none smtp.remote-ip=212.227.15.19
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A66606A31C
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 12:27:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64A66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=naFcrTKW
-DKIM2-Signature:  i=1; m=1; t=1794486445;
- mf=PHdhaHJlbnN0QGdteC5uZXQ+;
- rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
- d=gmx.net;
- s=s31663417:rsa-sha256:EE899yldj15asOXM0XUhRGeFzC3E
-   N2PfKNMxOStNS2LUMsY/IM63Ub2HtkJ5jArPtEFtXCmj6hjv9rB8Fz5N30XvUqIRl0R+3pqg/qi
-   2DKRvj1htkw9lvHODYvybMrjmO0+PjdIkPeN3tS4S98u2mF1hN7C2fV1x4EjQkrd3eFs+Q7WB36
-   N0tbTkYZcgUIfzEyT7D8AXL6wWhucYjV+W7IpADy/E4PNHFPr83/XHE1/+O/Q40eW7Vl7XsEZkC
-   fRwoAKHfjnNESC3KvdcH0icf2pq9JMOZxRs9Ti0CwkchZJNfW3sWmEFMJPZW9ulK6bFPrtFfH4L
-   l7d5DOqxhNCiyA==;
-Message-Instance:  m=1;
- h=sha256:
-   BaBtObVm/yxyJnvi9tY1xwptib9aLxnFryMi4swngv0=:
-   92uUB+F8awM+lk/iBkvVd+uBcwGd9xZHDk1vnh2Mons=,
-  sha512:
-   VcnEPFvgkXaubwOm+yb7uFe8VcnjM2hooT/eR7k5TY1AMjaluG1UtF8ZehzQP+TKv5mZ5Oq8vmshJcKWWrR70Q==:
-   sole+cM0SIF50QMH6VC7cX7ZvOlFIVnppob53Clu9z0BaJeaqErUw+R6+ZeKSFMJilTfcJPPWABOxW/FidKD8A==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1794486431; x=1795091231; i=wahrenst@gmx.net;
-	bh=S7yfW8a4jOm9PquT7mm+dF7gxrK1OkdAmj4fgTK6ApE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=naFcrTKWB1AzwZbbq07So8g1W1lqXq0KqBMUkHFVQFgQI+qRAnN/IGZkWjhoZaPw
-	 JHvbNA36qfGIju6GbuL2tgczVhwgirT9QHHIhwkStOsC3NqYJxtcZS0rsNdCsWzxW
-	 Cng4Hg7GqmfRU4Dzihu1hwsQ+gtWCKxV3jjIY/8q9u95VCF4dGEgmG4qqdvcsONX/
-	 SpY6N6s7nSAXGEvvCWbb+0NC3NR9hzLNgRwYuC3sTvU5xqWlYdWq5oTlHpSlSKvRh
-	 Fk8D1oFwraY9fURkq699VaO0eVkE/bJ78B5z2F3+WXTikEk3WRyjrgxJONkhLbLDC
-	 t+MEVq7pPTk8v4bafw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mq2nA-1wfRld15F4-00lzXG; Thu, 12
- Nov 2026 13:27:11 +0100
-Message-ID: <11a2e182-b41f-4d61-aef9-50e8e599b359@gmx.net>
-Date: Thu, 12 Nov 2026 13:27:08 +0100
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81697606A323;
+	Thu, 12 Nov 2026 12:29:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81697606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794486560; x=1826022560;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=8ZFQvAS7fy+Es8ydgt0QM68OCf5wxuSnAUS6l0H+WCo=;
+  b=F6SwZqUc2aLs9RoioXdVHNmxrSwM8ecybP0GENv0iRdE0079fPv4DK4J
+   rzY/Yqa6JuqMP8E+sj6qv13CrivOdZXpaBADtFUS+aUK5I2q4lAr18Ud0
+   yEum/nNkS1UIEi0GUEKf7CiKLYWYnp3UogY/I0tL3LzT7aSzNCl2oHL2j
+   O9Xt/7WteL/SY2EyGnB6Oi454XYH5JomvTvEmK9UcCzk/vaPXrV4AxKHQ
+   JB0DCETWh7yZByHwWYncMCzyYT26nX5lILh5V/ApI1KBmZz4tztVCF4QE
+   B6JARGoZhlnZKtiXtV1ASp5p3kWa9DXfHu7B6kvFgfLH4H7048gT4p8e+
+   w==;
+X-CSE-ConnectionGUID: Jly7lB5MTe+QEe3/IDSYWg==
+X-CSE-MsgGUID: UUoNWntTRpKzgfht6SX57Q==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 14:29:17 +0200
+X-CSE-ConnectionGUID: SM6LiygqQzy9bfr3IerDhA==
+X-CSE-MsgGUID: CRTdBiWZQzyyAh7FTl/ZyA==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces02_data.me-corp.lan with SMTP; 12 Nov 2026 14:37:24 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 12 Nov 2026 14:29:15 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: [PATCH v2 0/6] perf: add PMU driver for the MIPS Coherence Manager
+ 3 performance counters
+Date: Thu, 12 Nov 2026 14:28:57 +0200
+Message-Id: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,297 +67,280 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] ARM: mxs: add EVAchargeSE board support
-To: netdev-bot+sashiko@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linusw@kernel.org, brgl@kernel.org, Frank.Li@nxp.com, vkoul@kernel.org,
- mkl@pengutronix.de, neil.armstrong@linaro.org, mailhol@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
- mani@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-can@vger.kernel.org, linux-phy@lists.infradead.org, kuba@kernel.org
-References: <20261106230746.21954-6-wahrenst@gmx.net>
- <179413989528.488853.11075194967877927671@kernel.org>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-In-Reply-To: <179413989528.488853.11075194967877927671@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:msuzoZoYDhUxsHRxMDEbuk3Th+91/WmhR6OJrIS7c6ZJ9y5O8lG
- U24dUx/fvJ87+FP6++mTCqkHzjih24RUctISdFdODeryHp3gbnxIES6BuJ2NbHr6dRL4Zx9
- fHh/+4uIDNfr5eL33JPZ3UrUl1mMyJV+sO3iBxAKDIlI4DvA/V4nuj90k8IL5osSvjs1oaz
- 9zy8fX+uc040GHcdrkDVQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:pqDLMgbG9MA=;vhSN3G/UU/5XQR49sBzuYNJPcuW
- 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
- Rf+nofhuTuKYmHKeU0jPzmb9h
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAqx9WoC/12Nyw6CMBBFf4V07ZgOr1BX/IdhQcsgYywlLRAJ4
+ d8FjBuXJzn33FUE8kxB3KJVeJo5sOt3iC+RMF3dPwi42VnEMs4RJQLnmZRgbAKDnSCtEdtEKZ0
+ mUuybwVPL77N3r74cJv0kMx6Rw+g4jM4v5+GMh/drF3/tGUGCbhBVVqSFwrq0TvOLFroaZ0W1b
+ dsH3CAVU78AAAA=
+X-Change-ID: 20261101-i6500-cm3-pmu-4a11f399b430
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Fu Chao-Ying <chao-ying.fu@globalfoundries.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Paul Burton <paulburton@kernel.org>
+X-Mailer: b4 0.16.0
 
-Am 08.11.26 um 13:11 schrieb netdev-bot+sashiko@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwo=
-rk
-> know by including "pw-bot: cr" as a separate line at the end of your rep=
-ly
-> (one such reply per series is enough).
->
-> - [Medium] The ethernet-phy@0 node in
->    arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts (an SMSC LAN87xx-clas=
-s=E2=80=A6
-> - [Low] The patch only adds
->    arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts and a dtb entry in=E2=
-=80=A6
->
-> --
->
-> ARM: mxs: add EVAchargeSE board support
->
-> This adds a devicetree for the chargebyte EVAcharge SE. It is an i.MX28
-> based ISO 15118 controller for EV charging stations. The DTS enables eMM=
-C,
-> the debug UART, Ethernet, USB host, QCA7000 powerline over SPI, CAN and =
-the
-> board LEDs.
->
-> Link: https://chargebyte.com/products/controllers-modules/evse-controlle=
-rs/evacharge-se
->
->> ARM: mxs: add EVAchargeSE board support
-> [Severity: Low]
-> This isn't a bug, but the patch only touches arch/arm/boot/dts/nxp/mxs/.
-> Should the subject use the dts prefix, for example "ARM: dts: mxs: Add
-> chargebyte EVAcharge SE board"? The previous patch in this series, "ARM:
-> dts: imx28: add alternative pinmux for CAN1", already uses that form.
->
-> The product name is also spelled three different ways:
->
->    subject:    "EVAchargeSE"
->    body:       "EVACharge SE is a ISO 15118 compliant controller ..."
->    DTS model:  model =3D "chargebyte EVAcharge SE";
->
-> The dt-bindings patch "dt-bindings: arm: fsl: support chargebyte EVAchar=
-ge
-> SE" uses "EVAcharge SE". Could the spelling be the same everywhere?
->
->> diff --git a/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts b/arch/arm=
-/boot/dts/nxp/mxs/imx28-evachargese.dts
->> new file mode 100644
->> index 0000000000000..75ddde2264936
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
->> @@ -0,0 +1,294 @@
-> [ ... ]
->
->> +&mac0 {
->> +	phy-handle =3D <&ethphy>;
->> +	phy-mode =3D "rmii";
->> +	phy-supply =3D <&reg_3p3v>;
->> +	pinctrl-0 =3D <&mac0_pins_a &mac0_phy_reset_pin>;
->> +	pinctrl-names =3D "default";
->> +
->> +	status =3D "okay";
->> +
->> +	mdio {
->> +		#address-cells =3D <1>;
->> +		#size-cells =3D <0>;
->> +
->> +		ethphy: ethernet-phy@0 {
->> +			compatible =3D "ethernet-phy-ieee802.3-c22";
->> +			reg =3D <0>;
->> +			clocks =3D <&clks 64>; /* enet_out */
->> +			interrupt-parent =3D <&gpio4>;
->> +			interrupts =3D <5 IRQ_TYPE_EDGE_FALLING>;
->> +			max-speed =3D <100>;
->> +			pinctrl-0 =3D <&mac0_phy_int_pin>;
->> +			pinctrl-names =3D "default";
->> +			reset-assert-us =3D <500>;
->> +			reset-deassert-us =3D <500>;
->> +			reset-gpios =3D <&gpio4 13 GPIO_ACTIVE_LOW>;
->> +			smsc,disable-energy-detect;
-> [Severity: Medium]
-> Can the PHY ID be read here while the PHY is still held in reset?
->
-> This node only has the generic c22 compatible, with no
-> ethernet-phy-idXXXX.XXXX entry. So fwnode_mdiobus_register_phy() reads t=
-he
-> ID over MDIO before phylib has requested the reset GPIO:
->
-> drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
->      ...
-> 	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
-> 		phy =3D get_phy_device(bus, addr, is_c45);
-> 	else
-> 		phy =3D phy_device_create(bus, addr, phy_id, 0, NULL);
->      ...
-> }
->
-> The reset-gpios line is requested only after that, through this path:
->
-> phy_device_register()
->    mdiobus_register_device()
->      mdio_device_register_reset()
->
-> The reset is deasserted later still, in phy_probe().
->
-> If nRST is low during the scan, the ID reads as all ones and
-> get_phy_device() returns -ENODEV. __of_mdiobus_parse_phys() then just
-> prints "MDIO device at address 0 is missing". The phy-handle in mac0 poi=
-nts
-> at a PHY that was never registered, so Ethernet doesn't come up.
->
-> One way to hit this is to unbind and rebind the FEC driver, or to reload=
- a
-> modular fec. On removal, phy_remove() and phy_device_remove() assert the
-> reset before the GPIO is released:
->
-> drivers/net/phy/phy_device.c:phy_device_remove() {
->      ...
-> 	/* Assert the reset signal */
-> 	phy_device_reset(phydev, 1);
->
-> 	mdiobus_unregister_device(&phydev->mdio);
->      ...
-> }
->
-> mdio_device_unregister_reset() then calls gpiod_put(), but the pin keeps
-> driving low. The next scan finds the PHY still in reset.
->
-> The same failure could happen at first boot if the bootloader leaves
-> GPIO4_13 low. This DTS muxes that pad as GPIO with MXS_PULL_DISABLE.
->
-> Documentation/devicetree/bindings/net/ethernet-phy.yaml covers this case=
-.
-> It says that if a PHY needs a particular reset sequence before its ID
-> registers can be read, the compatible list "must contain an entry with t=
-he
-> correct PHY ID".
->
-> imx28-btt3.dtsi also has a LAN8720 with reset-gpios, and it does this:
->
-> 	/* LAN8720Ai - PHY ID */
-> 	compatible =3D "ethernet-phy-id0007.c0f0","ethernet-phy-ieee802.3-c22";
->
-> Could this node get an explicit ethernet-phy-id compatible too? The
-> smsc,disable-energy-detect property suggests an SMSC PHY, and the ID wou=
-ld
-> need to match the part fitted on this board.
+The Coherence Manager 3 (CM3) of the MIPS I6500 multiprocessing system
+is the point where the requests of all cores, I/O coherence units and
+the hardware prefetcher are serialized before reaching the shared L2
+cache and the memory interface. It carries a small set of performance
+counters which observe this traffic: two programmable 32-bit event
+counters and a 32-bit cycle counter, programmed through the GCR global
+debug block (GCR_DB_PC_*).
 
-That's a good advice, I will adapt my series.
+The counters can count requests serialized by the CM, requests received
+by an IOCU, requests issued on the memory interface, AXI handshake
+cycles on the memory and IOCU buses, and PDTrace statistics. Each event
+is refined by a 64-bit qualifier made of groups of bits (originating
+port, thread, command, cacheability, L1/L2 line state, eviction, bank,
+scheduler, ...): a request is counted when it matches a set bit in
+every group, so the same event can be narrowed down to, for example,
+L2 misses caused by coherent reads from core 1.
 
-Best regards
+This is the only visibility into the L2 and the memory interface that
+the I6500 offers; the per-core counters stop at the L1. It is the
+natural place to attribute memory bandwidth to cores and IOCUs, or to
+measure the L2 hit rate of a workload, on SoCs such as the Mobileye
+EyeQ6H.
 
-pw-bot: cr
+This series adds an uncore perf driver for these counters.
+
+Design notes
+------------
+
+The driver binds to the existing coherency-manager device tree node
+("mti,mips-cm" / "mobileye,eyeq6-cm") and reuses the GCR mapping
+already set up by mips_cm_probe(), so no new reg property is needed:
+the GCR base is discovered from CP0 CMGCRBase as for everything else in
+the CM. The register definitions go into asm/mips-cm.h next to the
+other GCRs, following the existing accessor scheme.
+
+Events are described by two fields: 'event' (config:0-8) is the number
+written to GCR_DB_PC_EVENT, with 0x100 as a pseudo event selecting the
+cycle counter, and 'qual' (config1:0-63) is the raw qualifier. A
+qualifier of 0 picks a per-event default counting every occurrence;
+this matters for the I/O and AXI events, whose qualifiers contain
+encoded values (IOCU number, AXI channel) rather than masks, so "all
+ones" is not a sensible default there. Named events cover the common
+combinations and, since they are plain event=/qual= strings, serve as
+templates for custom qualifiers.
+
+A multi-cluster system has one CM3, and thus one set of counters, per
+cluster. The number of clusters comes from GCR_CONFIG and one PMU is
+registered per cluster, named mips_cm3_pmu_<cluster>. A cluster need
+not have CPUs, online or at all, for its CM to be busy: its L2 and
+memory interface may serve the I/O devices behind its IOCUs while its
+cores are absent or powered down. The counters of a cluster are thus
+accessed through the GCR redirect block (GCR_Cx_OTHER with BLOCK set
+to the debug block) from whichever CPU the PMU runs on, which may be in
+any cluster. The one thing required is that the CM of the counted
+cluster is powered, which the driver checks in the CPC (the CM "core"
+STAT_CONF sequencer state) when an event is opened; the counters of a
+cluster that is powered down at probe time are initialized on first
+use, and events on it fail with -ENODEV until then. The counters are
+shared by the whole cluster: events are system-wide only, pinned to one
+CPU which follows CPU hotplug, and sampling, task events and the
+exclude_* attributes are rejected.
+
+A cluster holding CPUs is a special case of the above: Linux leaves
+CPC_PWRUP_CTL.CM_PWRUP clear once it has booted a cluster, so the CM
+powers down together with the last of its cores and the counters go
+with it. The hotplug callbacks track this: when the last online CPU
+of a cluster goes down and CM_PWRUP is clear, the PMU of that cluster
+is paused (counts harvested, running events kept but not counting,
+new events refused with -ENODEV) and it is resumed, the events
+restarted, when a CPU of the cluster comes back online and the CM
+with it. Pause and resume run on the PMU's CPU with interrupts
+disabled, like the perf callbacks, so they do not race with them;
+the pause precedes the death of the last CPU, hence the power down,
+so everything that touches the counters either runs on that CPU
+with interrupts disabled or is waited for by the pause (the poll
+timer). The remaining exposure is a cluster without CPUs whose power
+is not managed by this kernel: only the CPC check at event open
+covers it.
+
+Overflow is where the SoC integration leaks in. The CM3 has a
+so_cm_perf_cnt_int output, but whether it is wired to a GIC input is
+the integrator's choice and is not discoverable. The binding therefore
+gains an optional 'interrupts' property: when present the driver uses
+it to extend the 32-bit counters, otherwise it polls them every 250 ms,
+which is comfortably below the time the fastest event needs to wrap
+at the CM3 clock rates. Both paths yield 64-bit counts. In interrupt
+mode the counter is only read on demand and may make a full turn
+between two reads, so the overflow status is folded into the delta.
+No DTS change is included because the EyeQ6H routing of that signal
+is not documented on my side; the driver works in polling mode
+without it.
+
+The interrupt can only serve the cluster the CPUs live in, and only
+when they all live in that one cluster. Each cluster's CM drives its
+own interrupt output into its own GIC, and the GIC driver routes a
+shared interrupt to the cluster of its affinity CPU, so a single
+'interrupts' entry cannot serve several clusters at once. The PMUs of
+the other clusters, and all PMUs when CPUs are spread over clusters,
+are polled.
+
+The driver can be built as a module. That requires exporting
+mips_gcr_base, mips_cpc_base, mips_cm_{lock,unlock}_other() and, less
+obviously, mips_cm_is64, since the CPS accessor macros consult it on
+every 64-bit GCR access. All are exported _GPL.
+
+The redirect block is reached from the perf callbacks, which run under
+the raw perf context lock, and from the polling timer in hard
+interrupt context. mips_cm_lock_other() takes cm_core_lock, a plain
+spinlock, which is an invalid wait context there and on PREEMPT_RT.
+Paul Burton's patch turning it into a raw spinlock, posted in 2019 but
+never merged, is picked up as the first patch of the series.
+
+Patches
+-------
+
+Patch 1 is Paul Burton's conversion of cm_core_lock to a raw spinlock.
+
+Patch 2 adds the GCR_DB_PC_* register and field definitions, with
+local and redirect accessors.
+
+Patch 3 exports the CM and CPC symbols needed by a modular user of the
+GCR accessors.
+
+Patch 4 extends the mti,mips-cm binding with the optional performance
+counter interrupt.
+
+Patch 5 is the driver itself together with its admin-guide document,
+which describes the perf interface and transcribes the event numbers
+and qualifier layouts so that users do not need the TRM to build a
+qualifier.
+
+Patch 6 enables the driver (as a module) in eyeq6_defconfig.
+
+Testing
+-------
+
+Built with eyeq6_defconfig with the driver both built-in and as a
+module; every patch of the series builds on its own, and the binding
+and the document pass their respective checkers.
+
+Run on the EyeQ6H board with 2 clusters, loaded as module in polling
+mode. The overflow interrupt path could not be validated on real
+hardware: I have no platform where so_cm_perf_cnt_int is wired to the
+GIC, so that mode is build-tested and reviewed only.
+
+[   66.128375] mips_cm3_pmu coherency-manager: mips_cm3_pmu_0: 2 counters + cycles, polled
+[   66.129617] mips_cm3_pmu coherency-manager: mips_cm3_pmu_1: 2 counters + cycles, polled
+
+dev / # perf stat -a -e mips_cm3_pmu_0/cm_requests_l2_hit/,mips_cm3_pmu_0/cm_requests_l2_miss/,mips_cm3_p
+mu_1/cm_requests_l2_hit/,mips_cm3_pmu_1/cm_requests_l2_miss/,mips_cm3_pmu_0/cycles/,mips_cm3_pmu_1/cycles
+/ sleep 1
+
+ Performance counter stats for 'system wide':
+
+            505821      mips_cm3_pmu_0/cm_requests_l2_hit/                                   
+             49083      mips_cm3_pmu_0/cm_requests_l2_miss/                                   
+            184893      mips_cm3_pmu_1/cm_requests_l2_hit/                                   
+             37760      mips_cm3_pmu_1/cm_requests_l2_miss/                                   
+        1807514589      mips_cm3_pmu_0/cycles/                                      
+        1807491360      mips_cm3_pmu_1/cycles/                                      
+
+       1.005857149 seconds time elapsed
+
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+Changes in v2:
+- Pick up Paul Burton's "MIPS: CM: Make cm_core_lock raw spinlocks" as
+  patch 1: the redirect block is accessed under the raw perf context
+  lock and from hard interrupt context (Sashiko).
+- Account a full counter turn in interrupt mode: fold the overflow
+  status into the delta instead of relying on the 32-bit difference
+  alone, which lost 2^32 on every wrap (Sashiko).
+- Keep the 64-bit qualifier in hwc->config1 rather than the
+  unsigned long hwc->config_base, truncated on 32-bit (Sashiko).
+- Set hwc->config before validating the group, and do not walk the
+  siblings of an event that is its own leader: it has none yet and
+  its context is not set (Sashiko).
+- Use cpuhp_state_remove_instance_nocalls() so that the unregistered
+  PMU is not migrated (Sashiko).
+- Check that the cluster is powered on every event open, not only
+  the first time (Sashiko).
+- Pause the PMU of a cluster when its last online CPU goes down and
+  the CM is set to power down with its cores, resume it when a CPU
+  of the cluster comes back online; closes the window where the
+  counters of a cluster could vanish under running events. The
+  poll timer stops with the pause and is re-armed by the resume.
+- Note in the cover letter that the interrupt mode was not validated
+  on hardware.
+- Link to v1: https://patch.msgid.link/20261108-i6500-cm3-pmu-v1-0-bd119584891a@mobileye.com
+
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Clark Williams <clrkwllms@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Jiaxun Yang <jiaxun.yang@flygoat.com>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Will Deacon <will@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Kees Cook <kees@kernel.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+To: Benoît Monin <benoit.monin@bootlin.com>
+To: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Théo Lebrun <theo.lebrun@bootlin.com>
+To: Fu Chao-Ying <chao-ying.fu@globalfoundries.com>
+Cc: linux-mips@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-rt-devel@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-perf-users@vger.kernel.org
+Cc: linux-hardening@vger.kernel.org
+
+---
+Paul Burton (1):
+      MIPS: CM: Make cm_core_lock raw spinlocks
+
+Vladimir Kondratiev (5):
+      MIPS: CM: add CM3 performance counter GCR definitions
+      MIPS: CM: export the symbols needed to access the GCRs from a module
+      dt-bindings: mips: mti,mips-cm: add performance counter interrupt
+      perf: add MIPS Coherence Manager 3 (CM3) PMU driver
+      MIPS: eyeq6_defconfig: enable the CM3 PMU
+
+ Documentation/admin-guide/perf/index.rst           |    1 +
+ Documentation/admin-guide/perf/mips_cm3_pmu.rst    |  346 ++++++
+ .../devicetree/bindings/mips/mti,mips-cm.yaml      |    6 +
+ arch/mips/configs/eyeq6_defconfig                  |    2 +
+ arch/mips/include/asm/mips-cm.h                    |   51 +-
+ arch/mips/kernel/mips-cm.c                         |   25 +-
+ arch/mips/kernel/mips-cpc.c                        |    2 +
+ drivers/perf/Kconfig                               |   12 +
+ drivers/perf/Makefile                              |    1 +
+ drivers/perf/mips_cm3_pmu.c                        | 1237 ++++++++++++++++++++
+ 10 files changed, 1672 insertions(+), 11 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261101-i6500-cm3-pmu-4a11f399b430
+
+Best regards,
+--  
+Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
