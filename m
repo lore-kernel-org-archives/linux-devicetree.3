@@ -1,65 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515101;
-	b=N1u99wPWy/Ch5NriRXDD3Nmt2EtP4mhyh/q7SyvYqhLKiAaDuOesOKkYT1enK5r88c+o
-	 MJEzjsP6Vca/5OJopMK8ZFp9jeSKNn/Y6BsLAHIT7xsbcDo3T1LhD/0DqLrK/vZLnR/hH
-	 /rAWoEYTncR5vRVlWbTegSHcnaLoE5PCEtKaiCP+OYmOKVp2uajRyQKUWvk8XDt2pkPch
-	 wkjFNgBRCWH3YXThepLmXg98ficqzzGWfaF6Tdt8/SMx1B64JbfgJ8NVW5YtLfO//joFz
-	 xWJTT5dZ4Kl2rPyVzPKyt/U1DNhm2d0g+DV6vTDxzPx0pa1+6QnyzBZZdDn7PfxAhhw==
+	t=1794515123;
+	b=f4jVC715pDd5E6dSmrC8OSvkfW3+Zip3Z6D1BR+D8iKspsuSswwSAHuvB3osv18Qaj+P
+	 M4rFPRJMGI6VIu0A2JHWMCoCpJJCFP2KPKzFniSEp4cwyuhq3k8jgmYxtuVczAOGjOdYn
+	 HEW5UJn+uJ3P4V+xRBRIuOnV/W2sgTQwBGaU7cFBYBK1/OBcoUeE6D9d+Gu8Z352UHq8S
+	 bPkPCV1OrG3xe0a27GWrzgfQwCGZr78v+JQbPV4lcPer7ycVmTqIDE7JfjJCsAkAPnTGV
+	 f4NHwDb3VAbX9ddRV1WGG1IjGY1KRn8SEiwHcTH0jPoG7/XO2osGTeJq+45pHeGCw7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515101;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
-	b=X/x8qKntw3k/dO8CSTPP8ElTSmEge/7vDCFaTu/YDfjf3CcIHJtmBDauW0yAqsQlsCxh
-	 llsdE5QTBTpWYJ6RH8dwz0GmcAeYQPUynRi8tF2ZIxzCP4JFxzxYnaLRg8WNQjMBjcHZY
-	 Adg6KQhFXDoQRZpgM4sBQUGt1F2Dy+XkVYcrrkrSCfmfTZWjAPUnAW69YFgBFtFqkG5Zg
-	 koRkVk/A8szRl0AZZPgp92Z4nCDNirdRrPxY/kgRH4UIgauwEYBvOvb9IpklRUq3X8+LK
-	 FD2sGQU6CBFew+ykMkehz/8G1VZuaKqvu4jM9HjLpjesTDoy+fEgFZ4l1CrLWIVrU1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515123;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
+	b=w1O2HERh+v/G3cV7leMzJBjdcO9q9TH+9jTEdi7iB9U3m2t+ZQ0ogEAMhvHS4uyhoGEE
+	 pitpRQVnT37TgOvEXW9xYtQmJuct/u8H0PirC0i9Iam9QNKHCg4GQAfNmm/xI+0PvoMGt
+	 UVG+V+/taNRae8sI378C/P72M68Ho8WfLep0R75hCJaSSFHtnhfzCD9tDfd//PLBr2kky
+	 6LG6ei1yPVDpfUwjshGBtwXn0ixVTJXzayiCmlDJwit4LWUhV+qV848gphDcrVFBCRM9v
+	 JphS1yLmS0RpRYarH6fFpVFfOEpCZ3E5tPnV1Au6AaTNXcwRQ9TNt/0Ih33a5r/fmEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR;
-	arc=none smtp.remote-ip=185.205.69.213
-Received: from mail.w13.tutanota.de (mail.w13.tutanota.de [185.205.69.213])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=k12cRKh2;
+	arc=none smtp.remote-ip=74.125.228.134
+Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F95606A327
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 20:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6F95606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E15606A330
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 20:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E15606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w13.tutanota.de (Postfix) with ESMTP id 457E01A390EA3
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:24:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1794515094;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
-	b=t7oWQcTRLFV8EfH0Z9oCKiMWx7TBp3nr3wLRNSNbljvlUHZjaLPmREOyIRGbKrZ0
-	mVeBkE4uxgOVvD2WMaQf7sLbf0XyMhzc0vnfUvK1YmVqLHhDE1pFVB69pOoMze23bbQ
-	/MhnNui/4xCqFeM9YdCzsn2vX5SFL/cB/JpQu8M364hinugmww/43G0N+n8JAhK+roV
-	auXKF+rjcUjVQBtgTBIndD+GW2BQoKx0YJh33iN3/JxhHPe5V3uYzW3DM8cDcL4LvIT
-	j9nk7fwTVQdSssnunLg9m/cuoVTHkRwp8dt6y+NqDDhQmhZr6rx6nCFbfykiQCxF+zx
-	Tn4NnBm0bA==
-Date: Thu, 12 Nov 2026 21:24:54 +0100 (CET)
-From: servpol@tuta.io
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linux Pm <linux-pm@vger.kernel.org>,
-	Devicetree <devicetree@vger.kernel.org>,
-	Linux Kernel <linux-kernel@vger.kernel.org>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Message-ID: <P6GQkBA--F-9@tuta.io>
-In-Reply-To: <avEHPVdx0NlX4dhy@venus>
-References: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io> <20261021-gl-e750-mcu-v2-2-9bd7e7c2e0e1@tuta.io> <avEHPVdx0NlX4dhy@venus>
-Subject: Re: [PATCH v2 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
- driver
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=k12cRKh2
+Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c50515c3ba6so14708066b.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 12:25:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794515120; x=1795119920; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
+        b=k12cRKh26zksVO8S824tp/DolPEFhTQ/HaDRc8qqsPIRhEMSezynLaLVjj1m4tFV3g
+         clbSSzznizZAPQfW4HojBdgAO1drWUAYpABP0F2wP/XQFxH4idY3RxdFQoDMLJGqDjNM
+         MICHZjEy7oHne/QNi6KP4c/T6Ae4n7Fk53aQKOkm2NkI4lQoDnI87TKxTKwtsDFQhrd2
+         Jw8TM4CKvqHZvlIwB548+RJr+l2rCWGRTBSzLx0gNTQS2kCUYghWXFrxFVGFS+K5JD5T
+         6MMGMZ/NJQMEFGyKb8LgIB/Nc69c9+QSFwfzAT8acZKMR7vJAwV3Lrb5QGEX0aKFLS/5
+         PpBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794515120; x=1795119920;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
+        b=gq/NPJCGRQWj/JICBKEQ9LNlo7kDJ7MHWGpYn511ipwdETnSK9pYoJ/JyTvwkr+aGF
+         +YQTQw1vhoHFpCLVPrKqn8Rkoagu7Ag8nD+vKpieVQ3UDPHBBLFrNs6l67qBAWgFn/ms
+         lQxCjoHkBQRqjNhtkKwTyfzWbrhd13bUuLMBVShd8G5JmwWvCf53bYdIlug7Xe0TxKzq
+         HHv/WKkXqU7vqMjhW2fDHc+0yYdpB8L38Gp1r3Ew00hYCPHDSHLIJNdiVsYgj3a1EZlr
+         R3Uoczfaq65ctpwG7Z5plyZ2k4dx6c1xO9D1PJY7HnZkCCIs1mWNWUxUA0U2OMmaW6/4
+         kciQ==
+X-Forwarded-Encrypted: i=1; AL+hErGYXQ5+EZ+Rl28AZhcvq0VAt9qnmoUAf+GzjXM8ItlgoY9bSV72Od72BDMXO6QqTsRjUu6JhMWBXrWt@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QjkqImF8RKN31hELNyvNyEFIuRwCXvVNPzeAuG1DBxLUm9vXn
+	3vlnJlqHmvXa3Qp68WKLUah5M8HvL8X+X6QP9KQaloMSgNOi/ByOnTZ2gb18a79UhCE=
+X-Gm-Gg: AYBFou1HyImTF2iHfKEvZysTbDJTwiwZ4607cqI2QCJeQs20i9gtsWegoIhEnHCCooT
+	e88tPrxe5xQj4+tuR1o87boRrTvG8zLc3kC1+aNSiH9c0tosU3lKuZcboQ65ZQzfI7n7P5WilzN
+	5T3aBgPyLmMPfFrSPp2U3TMe+dOx9W/20KCeaEfJ7vHAfcTweeOcaGsVj3Uj3pbj5LOx460mlvK
+	tyMWqicsieL8anvAZap3EPcPjXIPL04QVicuflSaw7yB3O9H5LehDmzG3cnyyvLmoz8/SaA4qiG
+	ygsiyun8tA0N8P/a4mSKHxDPm2Fs/IK70J5o9I65OhOZNVULFh85ojeV7hIkpfiyQT/YalE6Zh/
+	RlojYq4Tej/xw/Ir+XJdk84NSQk/ZSaZD4Pc0urG2758GXLD9H36nzucRArn3goT4G4sYs72ebV
+	RRCez9BITNPdOauUkEv4or4Ibef8xUickpyO8hSZcRDZh5tPaBU0Lz5v6yon9lM7RoNaYgt2xOj
+	ERYf/6HYGb9bLrsj/dVWxqMBL1ZQbpWmYGQ/Db89nQ3+BUtCsgDzIx5lEqT57B6uw8UtBogz5u4
+	z2RaKFEW9LFpBKi7JkaPKzthRF5iz9HBOrbCFd2V6LAMnA==
+X-Received: by 2002:a17:907:9411:b0:c41:64c1:cc2e with SMTP id a640c23a62f3a-c50963f37c0mr30784866b.46.1794515120585;
+        Thu, 12 Nov 2026 12:25:20 -0800 (PST)
+Received: from [192.168.101.179] ([2001:1c04:504:7401:4b2e:1820:6d24:b264])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c266cf12sm108474a12.37.2026.11.12.12.25.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 12:25:20 -0800 (PST)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Thu, 12 Nov 2026 21:24:55 +0100
+Subject: [PATCH v2] arm64: dts: qcom: Add Samsung Galaxy Book2 Go
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,35 +91,746 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: 01bb77f0f6a34f22cd96c09b0ff79382356995353b38b124f21de10af076a9961e02969e72277f7fb26516500e6c215bfc:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-book2go-v2-1-12691134e34e@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NQQ6CMBBFr0JmbU2niiAr72FYtDDAaOyQFomGc
+ HcBo8uXvP/+BJECU4QimSDQyJHFL2B2CVSd9S0prhcGo80JNaJyInfTinKazseU0kNTO1jsPlD
+ Dr610Lb8cn+5G1bDOV6PjOEh4b1cjrt6vav7VEZVWGeY5ZWQzi+mlsRz6TjztK3lAOc/zBwM0i
+ gK0AAAA
+X-Change-ID: 20261011-book2go-b0e945e53fdb
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jasper Korten <jja2000@gmail.com>, 
+ Federico Amedeo Izzo <federico@izzo.pro>, Luca Weiss <luca@lucaweiss.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794515119; l=16429;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=qhnGwsbAzWiy3FSkOh/v/CmCuUEnR7XUf/giyVKT+LI=;
+ b=gZbuUQHRGhWbWQ3GPouOEZ7cF9SFngC+WIsUKkGyQRG453xraGEHTQnS5N7e7eZUPqZyAAMcF
+ mjvuk646SC1BZYstZQw1fJjLq6Fd9jM0OWcLUJWzx/kp6Wx9A3msP4M
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On Mon, Nov 09, 2026 at 12:35:58AM +0100, Sebastian Reichel wrote:
-> The Sashiko analysis looks correct:
->
-> https://sashiko.dev/#/patchset/20261005-gl-e750-mcu-v1-0-499d2e31f786%40t=
-uta.io
+From: Jasper Korten <jja2000@gmail.com>
 
-Hi Sebastian,
+The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
+(SC7280).
 
-thanks for looking at it. That link is the review of v1, and both
-findings there are addressed in this v2 (see "Changes in v2" in the
-cover letter):
+Add initial functionality:
+* Display (with backlight, GPU)
+* Touchpad & keyboard (without Fn key mapping support)
+* UFS storage
+* SD card
+* USB Type-A port
+* Modem and mobile data
+* WiFi & Bluetooth
+* ADSP & CDSP bootup
+* Battery fuel gauge
+* Venus/Iris
+* Lid switch
+* RGB LED (Operating status LED)
+* Webcam (USB UVC)
 
-- a new message (they all start with '{') now ends the previous one,
-=C2=A0 so an event that follows a status reply without a line ending is no
-=C2=A0 longer appended to it and lost;
-- the poll work no longer clears the receive buffer, neither before the
-=C2=A0 request nor on the reply timeout; it only consumes a pending status
-=C2=A0 reply, so a partially received event stays in the buffer.
+Notably missing:
+* Speaker & microphone
+* Charging
+* USB Type-C ports (except when active at boot)
+* DisplayPort on right-side USB-C port
 
-Sashiko's review of v2 reports no regressions:
-https://sashiko.dev/#/patchset/20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1%40tut=
-a.io
+Signed-off-by: Jasper Korten <jja2000@gmail.com>
+Co-developed-by: Federico Amedeo Izzo <federico@izzo.pro>
+Signed-off-by: Federico Amedeo Izzo <federico@izzo.pro>
+Co-developed-by: Luca Weiss <luca@lucaweiss.eu>
+Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Changes in v2:
+- Fix swapped vdda-pll-supply/vdda-phy-supply (Sashiko)
+- Fix wrong pinctrl pin for touchpad (Sashiko)
+- Drop output-low from pinctrl states (Konrad)
+- Add space after /delete-property/ (Konrad)
+- Wrap qup_uart7_sleep_* lines (Konrad)
+- Drop applied patches
+- Link to v1: https://patch.msgid.link/20261012-book2go-v1-0-7188e7ea7a15@fairphone.com
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../dts/qcom/sc7280-samsung-galaxy-book2-go.dts    | 644 +++++++++++++++++++++
+ 2 files changed, 645 insertions(+)
 
-If you meant something else in that analysis, please let me know and
-I'll address it in v3.
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 8329c06b60a3..8152089a1c8c 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -354,6 +354,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-herobrine-zombie-nvme-lte.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-idp2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-crd-r3.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-samsung-galaxy-book2-go.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc8180x-lenovo-flex-5g.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc8180x-primus.dtb
+ sc8280xp-crd-el2-dtbs	:= sc8280xp-crd.dtb sc8280xp-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts b/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts
+new file mode 100644
+index 000000000000..51f0a92d0026
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts
+@@ -0,0 +1,644 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2025, Jasper Korten <jja2000@gmail.com>
++ * Copyright (c) 2026, Luca Weiss <luca@lucaweiss.eu>
++ */
++
++/dts-v1/;
++
++/* PM7250B is configured to use SID8/9 */
++#define PM7250B_SID 8
++#define PM7250B_SID1 9
++
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "kodiak.dtsi"
++#include "qcs6490-audioreach.dtsi"
++#include "pm7250b.dtsi"
++#include "pm7325.dtsi"
++#include "pm8350c.dtsi"
++#include "pmk8350.dtsi"
++
++/delete-node/ &ipa_fw_mem;
++/delete-node/ &rmtfs_mem;
++/delete-node/ &wpss_mem;
++/delete-node/ &xbl_mem;
++
++/ {
++	model = "Samsung Galaxy Book2 Go";
++	compatible = "samsung,galaxy-book2-go", "qcom,sc7280";
++	chassis-type = "laptop";
++
++	aliases {
++		serial1 = &uart7;
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&hall_int_default>;
++		pinctrl-names = "default";
++
++		switch-lid {
++			label = "Switch Lid";
++			gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			wakeup-source;
++		};
++	};
++
++	pm8350c_pwm_backlight: backlight {
++		compatible = "pwm-backlight";
++		pwms = <&pm8350c_pwm 3 65535>;
++		enable-gpios = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&pmic_lcd_bl_en>;
++		pinctrl-names = "default";
++	};
++
++	vreg_edp_3p3: regulator-edp-3p3 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "VREG_EDP_3P3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++
++		gpio = <&tlmm 96 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&edp_reg_en>;
++		pinctrl-names = "default";
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	reserved-memory {
++		wpss_mem: wpss@84800000 {
++			reg = <0x0 0x84800000 0x0 0x1900000>;
++			no-map;
++		};
++
++		rmtfs_mem: rmtfs@a0800000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xa0800000 0x0 0x300000>;
++			no-map;
++
++			qcom,client-id = <1>;
++		};
++
++		ipa_fw_mem: ipa-fw@81800000 {
++			reg = <0x0 0x81800000 0x0 0x70000>;
++			no-map;
++		};
++	};
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm7325-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		vreg_l1b_0p8: ldo1 {
++			regulator-name = "vreg_l1b";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++		};
++
++		vreg_l2b_3p0: ldo2 {
++			regulator-name = "vreg_l2b";
++			regulator-min-microvolt = <3072000>;
++			regulator-max-microvolt = <3072000>;
++		};
++
++		vreg_l6b_1p2: ldo6 {
++			regulator-name = "vreg_l6b";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		vreg_l7b_2p9: ldo7 {
++			regulator-name = "vreg_l7b";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9b_1p2: ldo9 {
++			regulator-name = "vreg_l9b";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l18b_1p8: ldo18 {
++			regulator-name = "vreg_l18b";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		vreg_l19b_1p8: ldo19 {
++			regulator-name = "vreg_l19b";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		vreg_s1b_1p8: smps1 {
++			regulator-name = "vreg_s1b";
++			regulator-min-microvolt = <1872000>;
++			regulator-max-microvolt = <1872000>;
++		};
++
++		vreg_s7b_0p9: smps7 {
++			regulator-name = "vreg_s7b";
++			regulator-min-microvolt = <952000>;
++			regulator-max-microvolt = <952000>;
++		};
++
++		vreg_s8b_1p2: smps8 {
++			regulator-name = "vreg_s8b";
++			regulator-min-microvolt = <1256000>;
++			regulator-max-microvolt = <1256000>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8350c-rpmh-regulators";
++		qcom,pmic-id = "c";
++
++		vreg_l1c_1p8: ldo1 {
++			regulator-name = "vreg_l1c";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		vreg_l6c_2p9: ldo6 {
++			regulator-name = "vreg_l6c";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		vreg_l7c_3p0: ldo7 {
++			regulator-name = "vreg_l7c";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		vreg_l9c_2p9: ldo9 {
++			regulator-name = "vreg_l9c";
++			regulator-min-microvolt = <2960000>;
++			regulator-max-microvolt = <2960000>;
++		};
++
++		vreg_l10c_0p8: ldo10 {
++			regulator-name = "vreg_l10c";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++		};
++
++		vreg_l12c_1p8: ldo12 {
++			regulator-name = "vreg_l12c";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++	};
++};
++
++&gcc {
++	protected-clocks = <GCC_CFG_NOC_LPASS_CLK>,
++			   <GCC_EDP_CLKREF_EN>,
++			   <GCC_MSS_CFG_AHB_CLK>,
++			   <GCC_MSS_GPLL0_MAIN_DIV_CLK_SRC>,
++			   <GCC_MSS_OFFLINE_AXI_CLK>,
++			   <GCC_MSS_Q6SS_BOOT_CLK_SRC>,
++			   <GCC_MSS_Q6_MEMNOC_AXI_CLK>,
++			   <GCC_MSS_SNOC_AXI_CLK>,
++			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
++			   <GCC_QSPI_CORE_CLK>,
++			   <GCC_QSPI_CORE_CLK_SRC>,
++			   <GCC_SEC_CTRL_CLK_SRC>,
++			   <GCC_WPSS_AHB_BDG_MST_CLK>,
++			   <GCC_WPSS_AHB_CLK>,
++			   <GCC_WPSS_RSCP_CLK>;
++};
++
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcdxkmsuc7280.mbn";
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	/* SSTP0001 */
++	touchpad@40 {
++		compatible = "hid-over-i2c";
++		reg = <0x40>;
++		hid-descr-addr = <0x0e>;
++
++		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
++
++		vdd-supply = <&vreg_l7c_3p0>;
++		vddl-supply = <&vreg_l18b_1p8>;
++
++		post-power-on-delay-ms = <2>;
++
++		pinctrl-0 = <&hid_touchpad_default>;
++		pinctrl-names = "default";
++
++		wakeup-source;
++	};
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++
++	/* A96T396 Proximity @ 0x20 & 0x21 ? */
++};
++
++&i2c4 {
++	status = "okay";
++
++	/* LIS2DLC12 Accelerometer @ 0x1d ? */
++};
++
++&i2c9 {
++	status = "okay";
++
++	/* A96T396 Proximity @ 0x20 ? */
++};
++
++&i2c10 {
++	status = "okay";
++
++	/* ? @ 0x09 */
++
++	battery@b {
++		compatible = "sbs,sbs-battery";
++		reg = <0x0b>;
++	};
++};
++
++&i2c12 {
++	clock-frequency = <100000>;
++
++	status = "okay";
++
++	/* SSEC0001 */
++	keyboard@5 {
++		compatible = "hid-over-i2c";
++		reg = <0x5>;
++		hid-descr-addr = <0x20>;
++
++		interrupts-extended = <&tlmm 131 IRQ_TYPE_LEVEL_LOW>;
++
++		pinctrl-0 = <&hid_keyboard_default>;
++		pinctrl-names = "default";
++
++		wakeup-source;
++	};
++};
++
++&i2c14 {
++	status = "okay";
++
++	/* EC2 (?) @ 0x62 */
++};
++
++&ipa {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/ipa_fws.elf";
++
++	status = "okay";
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_edp {
++	status = "okay";
++
++	aux-bus {
++		edp_panel: panel {
++			compatible = "edp-panel";
++
++			power-supply = <&vreg_edp_3p3>;
++			backlight = <&pm8350c_pwm_backlight>;
++
++			port {
++				edp_panel_in: endpoint {
++					remote-endpoint = <&mdss_edp_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_edp_out {
++	data-lanes = <0 1 2 3>;
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++	remote-endpoint = <&edp_panel_in>;
++};
++
++&mdss_edp_phy {
++	vdda-pll-supply = <&vreg_l10c_0p8>;
++	vdda-phy-supply = <&vreg_l6b_1p2>;
++
++	status = "okay";
++};
++
++&pm8350c_gpios {
++	pmic_lcd_bl_en: pmic-lcd-bl-en-state {
++		pins = "gpio7";
++		function = "normal";
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++
++	pmic_lcd_bl_pwm: pmic-lcd-bl-pwm-state {
++		pins = "gpio8";
++		function = "func1";
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++};
++
++&pm8350c_pwm {
++	pinctrl-0 = <&pmic_lcd_bl_pwm>;
++	pinctrl-names = "default";
++
++	status = "okay";
++
++	multi-led {
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@1 {
++			reg = <1>;
++			color = <LED_COLOR_ID_RED>;
++		};
++
++		led@2 {
++			reg = <2>;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@3 {
++			reg = <3>;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++	};
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcadsp7280.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qccdsp7280.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_mpss {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcmpss7280.mbn";
++
++	status = "okay";
++};
++
++&remoteproc_wpss {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/wpss.mbn";
++
++	status = "okay";
++};
++
++&sdc2_clk {
++	drive-strength = <16>;
++	bias-disable;
++};
++
++&sdc2_cmd {
++	drive-strength = <10>;
++	bias-pull-up;
++};
++
++&sdc2_data {
++	drive-strength = <10>;
++	bias-pull-up;
++};
++
++&sdhc_2 {
++	vmmc-supply = <&vreg_l9c_2p9>;
++	vqmmc-supply = <&vreg_l6c_2p9>;
++
++	pinctrl-0 = <&sdc2_clk>, <&sdc2_cmd>, <&sdc2_data>;
++	pinctrl-1 = <&sdc2_clk_sleep>, <&sdc2_cmd_sleep>, <&sdc2_data_sleep>;
++
++	status = "okay";
++};
++
++&tlmm {
++	qup_uart7_sleep_cts: qup-uart7-sleep-cts-state {
++		pins = "gpio28";
++		function = "gpio";
++		/*
++		 * Configure a bias-bus-hold on CTS to lower power
++		 * usage when Bluetooth is turned off. Bus hold will
++		 * maintain a low power state regardless of whether
++		 * the Bluetooth module drives the pin in either
++		 * direction or leaves the pin fully unpowered.
++		 */
++		bias-bus-hold;
++	};
++
++	qup_uart7_sleep_rts: qup-uart7-sleep-rts-state {
++		pins = "gpio29";
++		function = "gpio";
++		/*
++		 * Configure pull-down on RTS. As RTS is active low
++		 * signal, pull it low to indicate the BT SoC that it
++		 * can wakeup the system anytime from suspend state by
++		 * pulling RX low (by sending wakeup bytes).
++		 */
++		bias-pull-down;
++	};
++
++	qup_uart7_sleep_tx: qup-uart7-sleep-tx-state {
++		pins = "gpio30";
++		function = "gpio";
++		/*
++		 * Configure pull-up on TX when it isn't actively driven
++		 * to prevent BT SoC from receiving garbage during sleep.
++		 */
++		bias-pull-up;
++	};
++
++	qup_uart7_sleep_rx: qup-uart7-sleep-rx-state {
++		pins = "gpio31";
++		function = "gpio";
++		/*
++		 * Configure a pull-up on RX. This is needed to avoid
++		 * garbage data when the TX pin of the Bluetooth module
++		 * is floating which may cause spurious wakeups.
++		 */
++		bias-pull-up;
++	};
++
++	hall_int_default: hall-int-state {
++		pins = "gpio35";
++		function = "gpio";
++		bias-disable;
++	};
++
++	hid_touchpad_default: hid-touchpad-default-state {
++		pins = "gpio51";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	bluetooth_enable_default: bluetooth-enable-default-state {
++		pins = "gpio85";
++		function = "gpio";
++		output-low;
++		bias-disable;
++	};
++
++	sw_ctrl_default: sw-ctrl-default-state {
++		pins = "gpio86";
++		function = "gpio";
++		bias-pull-down;
++	};
++
++	edp_reg_en: edp-reg-en-state {
++		pins = "gpio96";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-up;
++	};
++
++	hid_keyboard_default: hid-keyboard-default-state {
++		pins = "gpio131";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++};
++
++&uart7 {
++	/delete-property/ interrupts;
++	interrupts-extended = <&intc GIC_SPI 608 IRQ_TYPE_LEVEL_HIGH>,
++			      <&tlmm 31 IRQ_TYPE_EDGE_FALLING>;
++
++	pinctrl-1 = <&qup_uart7_sleep_cts>,
++		    <&qup_uart7_sleep_rts>,
++		    <&qup_uart7_sleep_tx>,
++		    <&qup_uart7_sleep_rx>;
++	pinctrl-names = "default", "sleep";
++
++	status = "okay";
++
++	bluetooth: bluetooth {
++		compatible = "qcom,wcn6750-bt";
++
++		pinctrl-0 = <&bluetooth_enable_default>, <&sw_ctrl_default>;
++		pinctrl-names = "default";
++
++		enable-gpios = <&tlmm 85 GPIO_ACTIVE_HIGH>;
++		swctrl-gpios = <&tlmm 86 GPIO_ACTIVE_HIGH>;
++
++		vddio-supply = <&vreg_l19b_1p8>;
++		vddaon-supply = <&vreg_s7b_0p9>;
++		vddbtcxmx-supply = <&vreg_s7b_0p9>;
++		vddrfacmn-supply = <&vreg_s7b_0p9>;
++		vddrfa0p8-supply = <&vreg_s7b_0p9>;
++		vddrfa1p7-supply = <&vreg_s1b_1p8>;
++		vddrfa1p2-supply = <&vreg_s8b_1p2>;
++
++		max-speed = <3200000>;
++	};
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 175 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l7b_2p9>;
++	vcc-max-microamp = <800000>;
++	vccq-supply = <&vreg_l9b_1p2>;
++	vccq-max-microamp = <900000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l10c_0p8>;
++	vdda-pll-supply = <&vreg_l6b_1p2>;
++
++	status = "okay";
++};
++
++&usb_1 {
++	dr_mode = "host";
++
++	status = "okay";
++};
++
++&usb_1_hsphy {
++	vdda-pll-supply = <&vreg_l10c_0p8>;
++	vdda33-supply = <&vreg_l2b_3p0>;
++	vdda18-supply = <&vreg_l1c_1p8>;
++	qcom,hs-rise-fall-time-bp = <0>;
++	qcom,squelch-detector-bp = <(-2090)>;
++	qcom,hs-disconnect-bp = <1743>;
++	qcom,hs-amplitude-bp = <1780>;
++	qcom,hs-crossover-voltage-microvolt = <(-31000)>;
++	qcom,hs-output-impedance-micro-ohms = <2600000>;
++
++	status = "okay";
++};
++
++&usb_1_qmpphy {
++	vdda-phy-supply = <&vreg_l1b_0p8>;
++	vdda-pll-supply = <&vreg_l6b_1p2>;
++
++	status = "okay";
++};
++
++&venus {
++	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcvss7280.mbn";
++
++	status = "okay";
++};
++
++&wifi {
++	status = "okay";
++};
 
-Thanks,
-Serv
+---
+base-commit: b915a556f84147d973ba794e7b80d6059cd5d0a0
+change-id: 20261011-book2go-b0e945e53fdb
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
+
