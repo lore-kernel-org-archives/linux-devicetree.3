@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482418;
-	b=dbrC2YBYCdbDKJ4T7j6AXZZCTNxiNr35t7/2dmFFYWqsukW0TV+PZ87DmXY17KMcAs2B
-	 88D+10aqBMjGQ5fjPOaQ16cGVgMF+Heirw/hl0gD7CEEnBHyI9LXaWsmJs6Lo6Iy3fNld
-	 KqzyRQeaxmnw8U2dOIWF5mxnnens706GSD9oWJwM2ofngjCbJdLdYGL+0Q05xjxj1bNHM
-	 +5hthxfYOlpYSbc1MD7GbX9/GUfixzVhh/J9GZI0Gr4fqYF+7r9e9iVWQqtVxG0Y/5qsM
-	 cTcA66NABczHUO0twYol9eKAgRKOcD/MwWdhDucpIZrdV34yaU6i3kmu/G6GNEY20ew==
+	t=1794482422;
+	b=R54y5BXieQLMZAJXvgBTs4jbTmAJZ5qOy0UxiV0Dvij41EceFX3AtDJvZXZL4ZnSyA3e
+	 uywkdgJSI1GiFuSVSR3t17IU5Kg01T06nzFUcIg3/cZAXPRSWEX1UuWUBpDeKuFIoAIFD
+	 TNGOAfFchPZ00LONzGqNFr6tcLdD2ykoCjV122Sn83snLvIbq3oUPNpdBlxPb2t06Lz9/
+	 OkhbRhFYMwBBRYze2z2nw1LbomdX8ft8SvgJyCBvzEbgpmNwS/bSrNiNA+NayYpFfy+/7
+	 mhmC2Pz8xTE+9xzqMfm6jJng6hdCkHUppqMhTBiN6X2eS+TEHRYPd42fNM0AeoJA1Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482422;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=BXzZFv1rViA+t/kvS8iAtCAtd1WIdvaY0MOKVvctdWU=;
-	b=v/pGTjrd6ijRqDX6AFEiDTP2KP5sR51od34N6u6enZeeq+N4nz6JNEWw2GOWWOu9d2O7
-	 C2BppIcguy23Y2QK7HYNM15Jyf9XGcrZ0t4cgITXdbCc0ff+dIExCG+xmIQwrnhZe47Cy
-	 W5wImy1MBp84POptq7Wtnyzf0Tao+jYJCVh8mv925o6jOtN9vuq6as22jRBKb1q2D47Ry
-	 1Ts0WhkHAJgTpVmfsyG0s8Er5DrM4xgSsstV4KRIyDz9ZmWEu9+WyYah/qSkM5qxv8Jpd
-	 eLfkpMN5cTBzuVtGkEjuljscwWVK0CR2NVSNgDEuj4bgzclm+PIckntpFA/UgWb6dVA==
+	bh=D0muWOhoQ0tEZKS30AGh6Dci91ILHagLlBaq3eYFtng=;
+	b=Hsb6StaVhwnGvyjyaFw07NTijYXgr8g428iLHuM5XeNteE0nV1E6OfcTfchUCSm4bd4S
+	 WmAxm9+i+4pRdkCzcsFpN3nMlMjrO/P5ad/gcGsJGbGnGiNjOogsKd+8OOPiB9hBTI3xV
+	 qVFYVpiCjoauDqd9RNZ0Lu2eGzk09anZxS4flXrMfS8U0jwsiRkkp4zVUiJzB+CfZ+7mV
+	 jC20BjjjB2rORC0qwfRfnmoSGWXuQSxOZVx6N6J06RD3GfgkUKVKvdapOAMLKOdsiQVtm
+	 1sZBbzgJUfEU7mzAxMJLPfSb7VnI7BoGXJIrymv1bHzTfsWzRtZsyYpk0LnQtUIvCUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jo/HQb17";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W/JWJ4q0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F64B60A3839;
-	Thu, 12 Nov 2026 11:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A871F606C161;
+	Thu, 12 Nov 2026 11:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jo/HQb17
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B6A1F00A07;
-	Thu, 12 Nov 2026 11:20:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W/JWJ4q0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6431F00AD8;
+	Thu, 12 Nov 2026 11:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794482417;
-	bh=BXzZFv1rViA+t/kvS8iAtCAtd1WIdvaY0MOKVvctdWU=;
+	s=k20260515; t=1794482422;
+	bh=D0muWOhoQ0tEZKS30AGh6Dci91ILHagLlBaq3eYFtng=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Jo/HQb17E0i8jEZbQEXkjWKCg/LQKfPCSEM9JA6Gm0rDmS/I3ESUCninPxzJNnJBz
-	 YzP+cgVGD9/rVDFkLdBJgXSIVpHC7buwyHCBUSfqinFgIMHrOZqtsHLZR7g6Saj/uY
-	 u3rQDKPOda2zHYOrLdB43qK9/NrMzMs/p/J64838H9kRXk3G6jU3Jl5rESOPpP4NRf
-	 RRSsUB6gV5/ugibkJPdUykpx0RSWzw8PB/SOYCRFj0/NZ2fb+NCswbCMWaHOwB3L4M
-	 NVsAWiSD0JqaweWMrnV7zqPWMRwi9+TSxc9hkPpO9QCupsVoWaPlruCIZOTLGskaGj
-	 is/VOboU3j0Dg==
+	b=W/JWJ4q0trAwrNUTMwd48kyOdE2oujP6zEW7lypxH+tskkuk6rRNqy4YJh89lu78D
+	 Gh5dV03HXI5iRQphl6ZGbAJ6NCrAL41KUSaQ/+G+BW3+Zvzkr8t+McTSt0KeqWAjdW
+	 xr+Xo7GyAIS+KcH2f6d5Rv0DqPS/cIAzvrlkHSMeM10o++oMq7xgMT6oOvngoya4aE
+	 94WFzO6LV5PAwfglSdn64Xn5CiPBGeQR/ORM6gw1tahivyOIhkVI9Y5V8pgq95g2aK
+	 QsMO4WjgcD1KoTTzlvHnVeY9w3eIe0aIemLcC01Pym/FKr+F3LdF3//EQd77bF/eYM
+	 DIueSeqbKbvnQ==
 From: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-In-Reply-To: <20261103-sa8255p-eth-phy-v18-0-b00cc2fa0404@oss.qualcomm.com>
-References: <20261103-sa8255p-eth-phy-v18-0-b00cc2fa0404@oss.qualcomm.com>
-Subject: Re: [PATCH v18 0/2] phy: qcom: add the SGMII SerDes PHY for
- firmware-managed systems
-Message-Id: <179448241404.492462.11258139095481555571.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 16:50:14 +0530
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Billy Tsai <billy_tsai@aspeedtech.com>, 
+ Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: linux-aspeed@lists.ozlabs.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
+References: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
+Subject: Re: [PATCH v10 0/3] Add ASPEED PCIe PHY support
+Message-Id: <179448241801.492462.15920568972028232724.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 16:50:18 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,22 +71,26 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Tue, 03 Nov 2026 11:35:51 +0100, Bartosz Golaszewski wrote:
-> Vinod: Sorry for the noise but sashiko pointed out I forgot about one
-> comment from Krzysztof. This still should be good to go, there were no
-> more sashiko comments and this is just a rebase + a commit message tweak.
+On Tue, 20 Oct 2026 19:59:48 +0800, Jacky Chou wrote:
+> This patch series adds support for the ASPEED PCIe PHY, including the
+> device tree bindings and the PCIe PHY driver.
 > 
-> Add support for the firmware-managed variant of the Serdes PHY present
-> on the Qualcomm sa8255p platforms.
+> Summary of changes:
+> - Add device tree binding documents for ASPEED PCIe PHY
+> - Implement ASPEED PCIe PHY driver, including reference clock handling
+>   and an AST2700 host bridge reset sequence
+> - Update MAINTAINERS for the new bindings and driver
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: phy: document the serdes PHY on sa8255p
-      commit: 0eeaa6e65318b14cfecb3e7e4338f4eca7070c48
-[2/2] phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
-      commit: 4cc9f70c3dc187cd45eac2815117ea81b101a1ee
+[1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+      commit: 020ee21a7ae584f116183867c41e8f8bddecaae7
+[2/3] phy: aspeed: Add ASPEED PCIe PHY driver
+      commit: 256cc8295557c134421d0b48ea37f6c9d4f232fe
+[3/3] MAINTAINERS: Add ASPEED PCIe PHY driver
+      commit: be45a1d5c3fed409d909d031547183144a806718
 
 Best regards,
 -- 
