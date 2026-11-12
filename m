@@ -1,68 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502029;
-	b=0JtVRk/yjE1AQs70lzH6qmFv9Q0MlsWz8oYB32x2Vuz6PGP838g10RpV3aPJqnyGB4HQ
-	 POZ+Oha1Msb4FkY2mcYhbXQ4c8FhQjCrmAbGBtNWVWwCLAFOEycBd2TL0CxwRIloocha7
-	 0lypvTeBzrrzzgfbK3jMr6PX0xPu/1lG2YVr3CAsCdZT/dBGUV9H8A3bEpoMMDauo7Hp8
-	 zn4vXx3dEGak78ZXIisRZDhNvxXIj2OXVw3+5IMAi8kjczUSwFAdCtwatzm04NlTN0vze
-	 xdzZg46PjH/680N7oxdst5UMph7FPiY9B5MIsusV/hk5zi8EFtD+ghSoZGfotOQP54w==
+	t=1794502244;
+	b=iS1GpMEXgYo9e4eoFJYp6hLD1nltS62kYahnIgViH1SrUYmYIJ4+O+kchQhy49gDz5lC
+	 Xlx0dZD5HTpNLoHxE66eS9iOllDmhkaZ/1czaADBVZo5OxrRabCPEMDsqn9CpvH971q08
+	 4Uy3qsw3IJCkkN7LjLJYiutRms0FGaCGVGbBrAvx7yOMIy2SJSZUWFMbAvi9pG5TFj9CS
+	 G4rWHdIb0hfmZSIMDnOSeIjCf9WVTD23fHBqT519WCvl4pFDygIuRGU0ZogHfwl57A4p0
+	 OgQc3uz5BH2W6MPSigGdjkbHkPgrBYHxITZhfgXE1gwLd7ifyIrO7jjq0ThAyxArGuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502029;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EI+/gOi3YcwXHjbf8KM4BWSUOlp+RtEEWptAHvG91Jc=;
-	b=rmQr7sq2GYXOvvlw1vWw6PI/dQsPR7VB/a7OKC4M83W8tJgBAp61n6fN7ATHyDhv1h11
-	 vCYUhTPgvcikQmo8SJI9uDMtGJGlvFE3qbYi/VIJX7Y6Ch8mFBbUIoX9EPSJeUVTlL/JB
-	 aqG2AnmTulr7ynr4e7iz19wB4Z5wqa526fpMU80CpzAa35dZswvn+7NbUFvHzDsPbnjvF
-	 8h8j9hI1lLf7G3NrxLr9QL/C/HU4qYKEVuftPdqNNXZCaHXieFn1pKuGDbkuzdVWtqfrc
-	 mpHFCX+poK5u+ipgy/pHWy+FTrjYI1fizTKVBTA6B4LeflvB4JsWnjQH9GQdktCrvsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502244;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HGqrSHL7OQhTkybA147XVm/N5Q045cDL3CHSGKRoIzU=;
+	b=d2JRvJNdoNEUW5GdZ7eVTTTLpsS8m7/IlwXUsx65UNjSc8bHOFgdb2rCHXu7Sz29nU5N
+	 agbvo7SHXWZJhVRtK9hcu1jUR4CQHqUgbAM9tFO9Au01QF6BBkAeKka08cxpECFSwFcI7
+	 2kf+ulmfN29jGDlxPgo0KWeXksBQLaZZVUjU6mN+D4vCMQdmuQ2ujLsUbQsYEsZ0ooa6Y
+	 5pM82KmjqUtWKuFGkRDBZ6WbZiXJ1wzfbFJklgvinA4p0f89spm3UexR8UzARcyEwQjIK
+	 qCcAXt+akhG7xljrBoLhCt5UcEhVCkhCsjakMRzShDoKnwKoHrunwL6fulwxD39B3rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QcHFZz+C;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0lby8yN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC20606A8A1;
-	Thu, 12 Nov 2026 16:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAC20606A8A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95E3606A32D
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QcHFZz+C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794502029; x=1826038029;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=gb+ertXw9oZUZYFRwrzAW9mTO6w0J+Qo9JE40Aj9z54=;
-  b=QcHFZz+CWnRNbdm0e2RdF7NEXZvxEQmXf+ZXQ4Jtk/LGBdihs4kSITuc
-   YzYj1G1k19zhXMx/hGTYw13oshhZ3V9bIyqQkPhN7UsVMLRitdCiZKbtW
-   wyk7mO9/NYJ/n73DPmpCu8w5+MlUniG6Tz/iKWcZ8tKnFUaUUaxUweOLa
-   k+x/H5RggKqQpe0L7A1GyyUl8xu/gdKeJ5TMuLqke1rSHb9mQBACe9tDZ
-   DI/Xx2+7w1nnuOpsdM4zdLNoGO5LaLJYPop5tcqMXKErTmTFoYhUnmzbp
-   g5PnAsuwiu4I5/q4Rv6LEu5oSKJ7RdLCaTMGckqCU/a2e1dQTMpjx6Eh/
-   Q==;
-X-CSE-ConnectionGUID: QJ8lzQAOQTmiClHRo503WQ==
-X-CSE-MsgGUID: xl9paxarR4y1a2YBaBpZ8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3176592"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3176592"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:47:06 -0800
-X-CSE-ConnectionGUID: lzK5vqr6QuuygsvCO9xHyw==
-X-CSE-MsgGUID: fvngpodqSqOyq1wRmPy0EA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8699912"
-Received: from dawidgla-mobl.ger.corp.intel.com (HELO [10.246.19.71]) ([10.246.19.71])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:47:03 -0800
-Message-ID: <d246fbef-d923-475c-8e1f-bbeca20847e7@linux.intel.com>
-Date: Thu, 12 Nov 2026 17:47:00 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0lby8yN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CE21F000C4;
+	Thu, 12 Nov 2026 16:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794502244;
+	bh=HGqrSHL7OQhTkybA147XVm/N5Q045cDL3CHSGKRoIzU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n0lby8yN6PbqZHuJPJr74B+Q0RO5Y9sMwskvD1SbWIvkxpZY/loar9Lv5xtfhfP8a
+	 rZ2yJjzs/WJRzwrkTIR1inSx9g3Uqg76uvoRxAaRLfQJpw16cnusPHUMsyYg/YIl8D
+	 jPLi09002KEWPAg8e/YTd3fLguAlHY6fUKMmXI8gK+cvbgidOrTWfGAufJU5fOsAij
+	 beiy2HqnbUoSN/FtEV7+yl1dXennW1tO4vYVMaCRbUdSQwzopLTF5I+8GYvAn79UaX
+	 xpBJtP14/yzR8fefULzLn9GtH1e+Ef6B8eRYqjHO660NtpprvDeAeTeCEpq+MBoN5q
+	 ZGQUtA/52uPfg==
+Message-ID: <sashiko-outbox-211537@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: Disable PCIe ASPM
+ L1ss
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sushrut Shree Trivedi" <sushrut.trivedi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112-rb3gen2_disable_l1ss-v1-1-aeefbf366595@oss.qualcomm.com>
+References: <20261112-rb3gen2_disable_l1ss-v1-1-aeefbf366595@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 16:50:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,109 +59,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
-References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
- <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
- <fff90721f7892c0285f4fed7fed460c7c1e183cb.camel@codeconstruct.com.au>
- <599f1b31-f175-47df-b074-1915688eb390@linux.intel.com>
- <a92395610d27fc0f97af3b27b150de61583c2197.camel@codeconstruct.com.au>
-Content-Language: en-US
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <a92395610d27fc0f97af3b27b150de61583c2197.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 2:49 AM, Andrew Jeffery wrote:
-> On Tue, 2026-11-10 at 17:42 +0100, Dawid Glazik wrote:
->> On 11/10/2026 6:53 AM, Andrew Jeffery wrote:
->>> On Mon, 2026-11-09 at 18:41 +0100, Dawid Glazik wrote:
->>>> AVCRP is an Intel x86 server platform equipped with an ASPEED
->>>> AST2600 BMC. The BMC is used for out-of-band management, platform
->>>> monitoring, and system control.
->>>
->>> It's probably my fault to some degree for not providing a better
->>> explanation of what I was after on v4, and for merging changes from
->>> others in the past that were pretty lax on the description, but what I
->>> was hoping for was something more like e.g:
->>>
->>> - f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM"), or
->>> - bc83b7353d2b ("ARM: dts: aspeed: Add Facebook Anacapa platform")
->>>
->>> Are there more details you can provide? If there are, I'm fine if you
->>> reply here with them, and if there are no further concerns I can update
->>> the commit message while applying the patches.
->>>
->>> This also applies to the JNCRP patch that follows.
->>>
->>> Andrew
->>
->> Hi Andrew,
->>
->> Thanks, that helps. I also found one more issue in v5 (uart-routing
->> issue), so I'll send a v6 with the fuller descriptions below
->> instead of having you edit them. Please hold off applying v5.
->>
->> AVCRP is an Intel x86 server platform. The BMC is an ASPEED
->> AST2600-based RunBMC module on the platform's DC-SCM. It supports the
->> platform's out-of-band management and exposes board management I/O such
->> as the system UARTs, status LEDs and control buttons, while integrating
->> with the host's telemetry and management infrastructure.
-> 
-> Can you talk more about the division of duties around RunBMC vs DC-SCM?
-> Can you describe how components of each spec are used in the design?
-> 
-> What's the motivation for designing this module vs using another? Are
-> there any specific target platforms intended for it? If there are, then
-> some further details about those would be nice. If not, no problem.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: qcom: qcs6490-rb3gen2: missing Fixes trailer for
+  TC9563 L1ss fix
+--
 
-AVCRP is an Intel x86 server platform based on Granite Rapids
-processors. Its BMC is an AST2600-based RunBMC module on the
-platform's DC-SCM. The DC-SCM provides the board management features,
-such as USB, system UART over USB, status LEDs and the power and ID
-buttons. RunBMC was chosen to enable a broader BMC ecosystem and
-implementation flexibility.
+commit 9d5417f567397369628afe2e5d17be0a24757085
+Author: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-The BMC provides the platform's out-of-band management. It exposes the
-system UARTs, USB, network, KCS, MCTP over I3C and LPC POST code
-snooping, and it handles the status and ID LEDs, the power and reset
-controls and the host fault signals.
+> arm64: dts: qcom: qcs6490-rb3gen2: Disable PCIe ASPM L1ss
+>
+> On the QCS6490 RB3gen2 platform, there is no mechanism for the
+> PCIe endpoints connected to TC9563 switch to assert #CLKREQ and
+> initiate a L1ss exit on the upstream link between the PCIe1 RC and
+> TC9563 upstream port. Hence, once the upstream link enters L1ss
+> and the Renesas uPD720201 endpoint connected to the switch downstream
+> port tries to initiate an L1 exit, a link down is seen. This is
+> expected because the upstream link is still in L1ss and PCIe refclk
+> is cut-off.
+>
+> To avoid this issue, disable ASPM L1ss on the upstream link of TC9563
+> switch to keep the PCIe refclk always on.
+>
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-> 
->>
->> JNCRP is an Intel x86 server platform managed by an ASPEED AST2600 BMC.
->> The BMC is the platform management controller for the host system and
->> supports platform power and reset control, while participating in
->> out-of-band monitoring and reporting for host faults during bring-up and
->> normal operation.
-> 
-> You don't mention RunBMC/DC-SCM here, so I assume the BMC is integrated
-> into the platform? Can you describe the purpose of the platform itself
-> (beyond the purpose of the BMC, which tends to be the same for most
-> platforms)?
+[Severity: Low]
+Since this fixes a PCIe link-down failure on the TC9563 switch upstream por=
+t,
+should the commit message include a Fixes tag?
 
-No, JNCRP also uses a DC-SCM.
+  Fixes: aa7b4bbcb3a1 ("arm64: dts: qcom: qcs6490-rb3gen2: Add TC9563 PCIe =
+switch node")
 
-JNCRP is an Intel x86 server platform with Intel Xeon host processors.
-Its BMC is an AST2600-based platform management controller on the
-platform's DC-SCM, providing out-of-band management of the host
-through KCS, network and MCTP over I3C.
-
-The BMC controls platform power and reset, and monitors CPU and memory
-thermal and fault signals as well as host processor module (HPM)
-presence, FRU and fault signals. It also captures POST codes.
-
-I'll fold these into the commit messages in v6, together with the
-uart-routing fix, so there's no need to edit them when applying.
-
-Regards,
-Dawid
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-rb3gen2_di=
+sable_l1ss-v1-1-aeefbf366595@oss.qualcomm.com?part=3D1
