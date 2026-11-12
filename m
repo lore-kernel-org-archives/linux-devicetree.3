@@ -1,140 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471127;
-	b=ZPNxLVhrZRVy40FV7Ejohb07ZfN6hxsqIKBzD0HN56xJySRa0VOl4vZ/3kM8OzJpyz8U
-	 8kOx6kQI8dpAkrkTTtWN/u2gvDXIYLvJKwgAxP+imNKmVu04x1XC6XC6bpnKP87haahvt
-	 CLouO34oITl6pMtNgXe2J49qTwONLxCOYRZrznZicx6ANK5pTShw6QtLGWJ4ddj5Zhn3W
-	 +GQLknEjHv+GzjBQNjrGNEB/fU+y2C+z/0JwkXn8HjWOAa/uHzhp4A885H3DT7DtGWFpK
-	 vCgJrGRtRo70AKigymfVEoyxvJDaomj9NEKXXTSRx9vRIMigCjEmY1l4Im9JmF1xGPA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471127;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=UwLQBTaX5DSs1CAnX6R6pJhDYs0FM8ZVRIsSUFTBuxY=;
-	b=pPgTtS3qC2uqTJL0DrPRVGYkRvP8Prbqkxx1dS3jYDGwRU+Rix695JLvZQJGmSBSFAc1
-	 iMnz0OHoTuw2BBPhP+WxvoPg2UdRXhyHder0WlUQI5Dn65O0QQFjD0960lTxy+of1ROjo
-	 kw3dUKrY5ruw1WJHKSziDZEq+3sHRS/JOnyhPtybCj0kFHksuzCO7LMbctU5cNFQeq5NX
-	 qEZwQwZdHjso7BWTIF6Z4Dxe7pL1T1SBBBS82PpLGDj+5bVkRn60ZW6+BVr7rT8TxYwOd
-	 ervgkO1FezPkJt3BLQVYtATocDna7ugf91pmHuMxgH3JY/9FNvnZjaYPYHADfljFOWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=fjSq08WA;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=n9v5P48f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794471156;
+	b=p1Mgx3YB8FpIKTHCOtmKZOFxxwegMMx9kFLDyHNeLrzyXKU/v594npYMP/V1fTAW5RIg
+	 dHP4g8vqfYGBkpAUax8+gMl2hLmdib6KC9k12le9K69pgVeM1/r3U3IfIkyAEDDFQhviA
+	 kyLqvCParpVdb4vJ1TiDyB8fqtfpar3cLqEeSNYgEzqF8ucaSSru0X9P7HPaxDQjLar6l
+	 +qMBHuChuWbfbW98iQZyo3XUe0+/BF3pMiOvrKrIKnjMCBAH+4LtDxk0v5ZgQyBJV3RfM
+	 l951BE31OGAM3B12uI0Fps56y7rNa8cLms4dOs/is6GbCmGqMu0ESV4uk7pXhfMLPMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471156;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=i4Usv198qCvT1xdnr9OKW5ZLVCsGku8RkLVQlQ2znC0=;
+	b=DiTOc2etpDiUjnKrRHMczpzjXe3fPscv5f4KRwBSLIm48Dgccu+DXNP3pfF02V+/fBMO
+	 R+aJeeM2w3xS2AjjUQy6PnPWXW+AnqvCNEvO4++QkFrjtDwzexixzzfouEpt4I6ZsTDbK
+	 pP0TXGJo8m5v6AYn2BDq4P8kk5VAfOz1iVg5w3Mj41vbZXRwdPxaa79I1Aa9U5vr8ZONA
+	 TjmkkeM4Kru9l9NdMxfznmV0UEAMvNnvE0QNZKVHIjestqIsWmIbloWkGFAmfnZZESXkJ
+	 cuoAtWeRJNjRRtlORljRiVYG2mWmEAIGGYYUte3PyTuRfc29wZisU/RmZ98Ek+iglyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HXsfTWlv;
+	arc=none smtp.remote-ip=74.125.227.198
+Received: from mail-pi2-f6.google.com (mail-pi2-f6.google.com [74.125.227.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EE6606A8A4;
-	Thu, 12 Nov 2026 08:12:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67EE6606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70450606A330
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:12:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70450606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=fjSq08WA;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=n9v5P48f
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AC5is8l2297511;
-	Thu, 12 Nov 2026 02:11:48 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=UwLQBTaX5DSs1CAnX6R6pJhDYs0FM8ZVRIsSUFTBu
-	xY=; b=fjSq08WAIGBTEHSV/uXmbFMRtgUh3tpF33DC0RbK2V46HWGyghrMtYiV1
-	X/aGKaUJQqqM2xoMOk/CR75e4QDLyCTwGJoU9AvXmcff/ozHB6p0wC+0meIKeTo2
-	YEchbo2blkHZ52BFZeUbEx8+1aL8tTS4UroCZ8dk7Cgvkj3UnWNW2wWzJFn3mp6d
-	KyJTej1mgaD+jZFIZgH/+QsnT1w8GdK2xu4pmPnPf1AJGU2FOD/wyYxtBt5fGgJ5
-	QKvtej0uM/dZaRIBGjnFZ4T2hp9Nh2FS+dtzhqO9uEcxhODDhkflFDzBZj0aZ1ky
-	4Z9b6MF3U4u+K+SMAdMfCAb4nGRfg==
-Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011045.outbound.protection.outlook.com [52.101.52.45])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4hw7k48vvq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 02:11:47 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bSTMwy7IM4aOKzimiazeY5maeT8ETPS5dgDEQJ6LeoU0+4ZAF9n3NrMC1Hb5791nSpxcthgeLic5nEKLUxzIodL2lX6gybl0I1JYIuc13B1Q0LeLPxKKytzSMeYBc+CA5fP8+Jbrd73KuMidLCIVPIcjin34+NlVCyLGESylO42vD3sgcp7BGkxzkF2HBsLGhCj6YxI4rp77zdF29H5oVXW4bAgvqccYFCg0Q/8+7FpYQ5f6F69/PRfK8hp6ilt+jEd8dBLwbGGxQd9d+3siNVPFCWRBAUYBFP5MkOXsYDiXd+aPnzhqPO6XvW4n5fct3rmcCaiijewtth6Jjw1b1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UwLQBTaX5DSs1CAnX6R6pJhDYs0FM8ZVRIsSUFTBuxY=;
- b=uQEMsbvwCTCISeLqTW2e8gnY6B/o9vXm7Vsny6VS2weqDLxWk2FWgFAzj19lQY4ixITCxi2UyOoP4gaw8mQhNyaDdhMICEk5kdMMv3arshsrOhsBC1n73CPkHDduNav9unNVckNQCXV8ERX1uTSwgk2BaF64p30Q5Q19MIbuMsCPvZ4BfDZDp5Xq8Ko9osl/GFZgeDGaqfTdwEHdPNr6JL2EvOhexiCQnRy7w0mO5Uzj/1IiOmH85Z8PGvKkV+mdLpdbk78sAWzvO/Btt96JrFKOtMVStxfWqIbW2NtqcbTo/y66iIyZx1N3D34oW8KSpQxkTIOTA7f7ePIjS3lTSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HXsfTWlv
+Received: by mail-pi2-f6.google.com with SMTP id 41be03b00d2f7-cdb536daf59so2063997a12.0
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 00:12:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UwLQBTaX5DSs1CAnX6R6pJhDYs0FM8ZVRIsSUFTBuxY=;
- b=n9v5P48fumQGQFypM4xmcM0UqzOct5Mx+fsGv7rKeGiZzBir/AYfVEw1F/2+awx8rDR4L6rClC0p+dhqp0BTVBmiEKiUhY7Q9CPzra62//Zk1VED0pvSjAwsqASquFWiwOUG9M21waOJM+AYrbL7EDBAqJ1mWtzsMH+4VgWJjkM=
-Received: from CY5PR15CA0050.namprd15.prod.outlook.com (2603:10b6:930:1b::16)
- by SA3PR10MB6970.namprd10.prod.outlook.com (2603:10b6:806:315::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Thu, 12 Nov
- 2026 08:11:44 +0000
-Received: from SN1PEPF000397B5.namprd05.prod.outlook.com
- (2603:10b6:930:1b:cafe::d) by CY5PR15CA0050.outlook.office365.com
- (2603:10b6:930:1b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 08:11:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SN1PEPF000397B5.mail.protection.outlook.com (10.167.248.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 08:11:43 +0000
-Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 02:11:10 -0600
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 02:11:10 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 12 Nov 2026 02:11:10 -0600
-Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AC8AlaN1453305;
-	Thu, 12 Nov 2026 02:11:05 -0600
-From: Moteen Shah <m-shah@ti.com>
-To: <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <nm@ti.com>, <ssantosh@kernel.org>
-CC: <u-kumar1@ti.com>, <gehariprasath@ti.com>, <m-shah@ti.com>,
-        <vigneshr@ti.com>, <afd@ti.com>, <a-limaye@ti.com>,
-        <y-abhilashchandra@ti.com>, <johan@kernel.org>, <kees@kernel.org>,
-        <jm@ti.com>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v3 3/4] soc: ti: k3-socinfo: Export SoC registration helper
-Date: Thu, 12 Nov 2026 13:40:46 +0530
-Message-ID: <20261112081047.1550471-4-m-shah@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112081047.1550471-1-m-shah@ti.com>
-References: <20261112081047.1550471-1-m-shah@ti.com>
+        d=gmail.com; s=20260707; t=1794471155; x=1795075955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i4Usv198qCvT1xdnr9OKW5ZLVCsGku8RkLVQlQ2znC0=;
+        b=HXsfTWlvdZpaXlHRxPEMEeUWm41NRd7Pj0qjWjMS+5i0zYK+VB1y58If6sKgzyCUVk
+         euCU8toU1OjmASImGBFv1SkzJBSTyKRYbjp7ksPGokVgfoqBxqheIgiT7m9RoR4DKVXr
+         P6SD1zN/STvrCZdhQWjfghduBk8oCaNHtmDBjAYpKF/vhcUNDQDEVXyM71OFI2xRhD2C
+         o1LVrcwHgsYrX7HoFSNFBmlGIIcxh+J2rGvkGGG2e4SEXqCr1TwjtnMijfJYzegzrEeH
+         89BL2LfCVC064r39s/Ftb50krGI2lg25lbtsP9QxknqAvGST4Fcs8ZQlgoAhlR54Weoa
+         CXKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794471155; x=1795075955;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i4Usv198qCvT1xdnr9OKW5ZLVCsGku8RkLVQlQ2znC0=;
+        b=U/ExALPmhHTmlEJwZcH7W/EpdVIVihyZgdbBR2B2lI6W2ie/VLt5bzAkILeXtL/8Z2
+         Ebg2xfA5LQJKzZwuMYvHbFx8pRnzY/uLXLG5mzwLmOucpzIdMSGDyWEkNrFwIVr2OJGR
+         C5xXmvvuxRsJ9kdNun7ecs0HWIkNlHPxICxF3kugow+K4ePaDf40bqQvstYsj84/R98T
+         UeKieUbIKSnP/3tqmO7um1LbS/KUIJ8I7U+l8XYpa5mCvj4o3CLNc57XqIPWm9aibaDb
+         NvJHQE16hR11EPWj7ktRReOTKyP9HH4PEznihh80wWyPxuVOx8paqqQSuxu/a1TrAFfk
+         cQLA==
+X-Forwarded-Encrypted: i=1; AL+hErGZvoKS4KYrUvQvKWBWUReIkpCRbFpeVMiiYuOU34y2YKuNYD+seUpeArU4uNZHpcNPo1qhyInA6KHD@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CPddQyF97RsSdr1UW537PDP+yk8EJvq7FpcRQaA6Kt6Ho0jzV
+	SHQxtJNIO+yLfarVZolpLIXCtWMUxX8zbRG0e+NjAv+fKeufUqCxpsiU
+X-Gm-Gg: AYBFou06pBG5wJw9JSnWb15pT27eLjmQWNnzLoLYocBkSD9ibSIXRCKFYTc+k1voZEn
+	G1X5YLuRzXc+6lHeyPFfok6xvqi7ypyVnDQ+VMYSuNCCyAdss7QDWO1dPsxKACkEkhOVyp30EKA
+	k8hNfgrrPk1OJVxF7DdZ373swpgbsRsxVCKsE8r0ZV1TDVP03wXdLjDnptwnxptPxm9xP0zx1zr
+	t9KzDZRJwkBVaU2h8cOV4IMqzwAHvYUU33+Nxup49fOT9XnRsLLbADaq+vMTRHJYX+N+12rA1Ky
+	rPDM7dPp4HQWX+AwRS74OxCESAsMuxf3mXG7mlEEu/0c2VluAxa+uasM4qbxudpgWzLl+3RYFTy
+	HWtM4rZJiPwqQQepV75/xM3bu+WBP0b598Sf0Sd2jv79oUPnIgGNQk+n0O2tzZRwYFkNl+MW5FI
+	1MUAPH4nl1DPBJGjm9g5fvNhQBuDZDU6P/w2bvmbeTjQfUuU6t/aja1CoRE8yvvgwVhQ4TpvT5R
+	zKL5H45G/B21bYbewd3Jj/5Iy6PvmHMEy9KuCF8x0sa7XjjNg/1c+qrX9kUxhO4amoJusOJSmcK
+	cUZcNYLGXZEyIcdezDc8ZRpcnu1bzZFv4yVUCA==
+X-Received: by 2002:a05:6a00:1893:b0:89e:37b0:d1bc with SMTP id d2e1a72fcca58-8bc1cd62e03mr5111050b3a.28.1794471154695;
+        Thu, 12 Nov 2026 00:12:34 -0800 (PST)
+Received: from [10.125.112.22] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3eecsm3105447b3a.1.2026.11.12.00.12.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 00:12:33 -0800 (PST)
+Message-ID: <210ff30c-17a1-4bd1-b943-34a1d0688e43@gmail.com>
+Date: Thu, 12 Nov 2026 16:12:18 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -144,199 +92,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|SA3PR10MB6970:EE_
-X-MS-Office365-Filtering-Correlation-Id: cae083f0-210e-4f40-1522-08df40949645
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|261102130727099003|261009223027099003|261009221227099003|56012099006|261021121427099003|261022113327099003|261102123227099003|261026140227099003|261022105027099003|261028144727099003|261021123027099003|261026121527099003|10067099003|18002099003|22082099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	9FylK4N8GYbenVdprLfBP4kcsiFMzbobnx0PN2BewIP4vXYzAhQ9qcyNXKC1OgeyAIZEUV9AV++BMDZv3R6NJuR/610/WIrjOe6pYFBIYzq3L4VsTwqAesTf0H45JPM6Aogh+fLTzSmeJnrXyp9nMaW9YrWDarDNFeDS8lcZJ2w0vceXFKEQLBlH2hJtOkh1lzc3esMVsADrpqze3uoWIEaNgieoYlfrJtGGRf9PflsAkEBlUFFzoElgAU1jmIJ9hlVRxyGzc0scpKF2yEELAEf7We2X+dH4D29IyPJXTe8OJ3V6EteoKkveZW7azVLcNI9kuBQQdg6tFPJYLo3jAe5TVhTNOh+poMP0n1B4dhvlgGNwE4iqiod9xJBTH2GXmSJR1dRg2WXuZ0VPE7iBT5MePCespyO0L0CyWI+LJxkLkTdowV5CSdW7ke72kb1Gs5tmDTaK8LqUHytF8YQqfoTm6iAx/+Ly/dyBUMaey/3s10K/wFambWw1GioeNzXwhrU607499HNgY02Bd0FwzrMj78t+wZe4WxzZ0pnVoPWOiBK9+rk32Ey6NcuEoHwg4FD9FMLPoSF6sEn0aY09j1gCdcFSbeWsuz3PemZrTkpQ2hEw7z7ZxqOmDdPWmON189FLnpS4gqrR3vJqphzMqQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(261102130727099003)(261009223027099003)(261009221227099003)(56012099006)(261021121427099003)(261022113327099003)(261102123227099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021123027099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1w8A2sZF59jWprogUG2bqHgjXzcKBY7+MZoXvOR1IiKC4nxrvJmVEjWXkc9ok9AyjSJKjDS3tqCXNhcNfN32C2XvF25lg3YsS42IjapKbI/6rcz+dhqKjrsas9TCjlHjG2QjoAB9jX1BUGKkz+otjine3MUpcstAuibJS7aRJ6LZXzbS83bLFnQe1NJwB7UvsForTLNQFc2VfBFmyLpmWNntyS9hBx4SSZbDkk1u6Fn9XaVyHy0y7Agatxi99rtft8dxVCa75KDbbICzCyJ+3FPEMUOH6Ncun6JFBSQOjph7dWrmjxzX02Mz93YGD759K1AJC/kUWmcEo7vxjjcxeDsSRIlNWlqLO2DbaT4ovfJI20I/qaOlrRyiDU2U6W4JQM9EM/C1WTpGBHQJrGFkNesZXG1c/CYitBZBkrl3YGmsfdpIjDPrVQzm/hpgSrbb
-X-Exchange-RoutingPolicyChecked:
-	f+oS4UsVNyqxFAUyCbfYuAr4PEcKPFO1wixhZzgS01Ba7IFAr9joH8BNOH+5yOr652ga1xFoz4kYhAoBp8x/s/cIweQRJToQ8TmAsc1o5/3tS6WYs/7BOOPnR/+K+WFjyBQypiebROqP/H5jQmhUU+WIUypI/tQVYL5REx+4SdDN41P4dTHeDrWW8AdD0gynKsu0jeQlCqV9EsXypOLbbdRKv3XKfFiFRGsV4V8eOO5CI52zLNMCg/GpaN+ORxSjZIs/qAd6JisGeTRw5JmSQX2UCsNu6pr4X0WJF9wHEvqmSUv91wbVmY2lODzW2OieoUWRJdD1TaFd8WaA/X4UEw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 08:11:43.0040
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae083f0-210e-4f40-1522-08df40949645
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR10MB6970
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMiBTYWx0ZWRfX4EzI78H7yVbP
- 5SiHCvJcIWPHrnUGifsv6op9kpn39Cr1d+Y59Nz1gfu6rWWTomJw5rv4OvvOIsno2xM4enFVJq6
- 503z51kPTtb4A5Qk30F6ZIuQpam/Ew0=
-X-Authority-Analysis: v=2.4 cv=fNCsTpae c=1 sm=1 tr=0 ts=6af574c3 cx=c_pps
- a=f/vGOH3Q9iIJglbWlzIglQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=sozttTNsAAAA:8 a=MppJNvndz3xZZ7pgNAYA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
-X-Proofpoint-GUID: Pq9LxVEjqGCjryO3K-CVILI_it4gpP0o
-X-Proofpoint-ORIG-GUID: Pq9LxVEjqGCjryO3K-CVILI_it4gpP0o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMiBTYWx0ZWRfX+VHoF9BrMxIj
- GMMrdvv7MsnHGeHcotCsJ9CFnBiIDr/FZUab/Nl1yZAJxFdtFuapYHk2DmeX2/vFtD/DJNfjwQ4
- XJf9/ArSJcI0gnTl0fXizkm+znsYME4FAeAtNUJfP9pv8BALlvoZg6lq9vfH9lYUrTHi2QToupm
- 6ZR7xCRu/PdknoWwAOR4GEJQcsgbbfgKmkRkhBA5gU4TvvYqIlv26o9naobEJ3dEp7uhFxaG3S8
- b4S164q2mFLMkZLhrTyPh+n9fgLEzJMWeu/xftGxRIvIFpyl6dTyKM8cbAytiOleUxKKWGntqIQ
- OE5zkRqyvLUlAPZHDa4aWpQEmQeSrJo+N1nMBiCzbKsdDPDM0SpEz3xeitABemot6R8JVTmE+X7
- GjURHENb0wGRhe7Ldq1+Z3OBKER24BkgIJWN4FGAsWcYdjlmOEYMp9xEW4gJu0HO7JoMv0lZfPk
- R3bSgoWgobxdk6KBruw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120032
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/8] kdump: reduce vmcore size and capture time
+To: Mike Rapoport <rppt@kernel.org>, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu
+Cc: robh@kernel.org, baoquan.he@linux.dev, m.szyprowski@samsung.com,
+ catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+ chenhuacai@kernel.org, kernel@xen0n.name, alex@ghiti.fr, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+ hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
+ robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+ <7773d026-4aef-4169-866a-71ec9a91da21@gmail.com>
+ <avLaJxIrrnMQngO9@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <avLaJxIrrnMQngO9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The k3-socinfo driver reads the JTAG ID through a dedicated MMIO region and
-then decodes it and registers the SoC device.
 
-Newer TI SoCs like TDA54 use a different path for accessing the JTAG ID
-register, but the decoding of the JTAG ID into the SoC information remains
-the same.
+On 11/10/26 16:47, Mike Rapoport wrote:
+> Hi Wandun,
+> 
+> On Mon, Nov 09, 2026 at 08:23:16PM +0800, Wandun wrote:
+>>
+>> On 10/21/26 16:30, Wandun Chen wrote:
+>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>
+>>> On SoCs that carve out large firmware-owned reserved memory (GPU,
+>>> camera ISP, ...), kdump currently dumps those carveouts as part of
+>>> system RAM even though their contents are firmware state that is not
+>>> useful for kernel crash analysis.
+>>>
+>>> ACPI systems already filter reserved memory out of the vmcore through
+>>> their existing path: firmware reports those carveouts as unusable in
+>>> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+>>> (is_usable_memory(), efi-init.c), and the ELF header builder has
+>>> always skipped nomap regions; only DT-based systems currently fail
+>>> to filter these regions, which is what this series addresses.
+>>>
+>>> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+>>> memblock to filter reserved memory on DT-based architectures. A new
+>>> flag is needed because MEMBLOCK_NOMAP can only express regions without
+>>> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+>>> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+>>> so kdump omits them; reusable CMA regions are different because their
+>>> pages are handed back to the buddy allocator and may carry crash-relevant
+>>> data.
+>>>
+>>> Since the reserved memory regions are filtered out, the vmcore is
+>>> smaller in size and faster to produce.
+>>>
+>>> The series is based on linux-next and is organized as follows:
+>>>
+>>> Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
+>>>              memblock, fold the duplicated per-arch memblock walks
+>>>              into the weak defaults, and serialize crash header
+>>>              preparation against memory hotplug.
+>>> Patches 4-7: NODUMP infrastructure: switch crash_core to
+>>>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+>>>              flag, add a dumpable flag to struct reserved_mem, and
+>>>              mark /reserved-memory entries with MEMBLOCK_NODUMP.
+>>> Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
+>>>              ELF header.
+>>
+>> Hi all,
+>>
+>> A gentle ping on this series.
+>>
+>> I'd appreciate any further feedback, particularly on the
+>> MEMBLOCK_NODUMP discussion and the issues raised in the Sashiko
+>> review.
+> 
+> I'm fine with MEMBLOCK_NODUMP.
+> The issue Sashiko raised about bound check against cmem->max_nr_ranges
+> seems valid. 
 
-Split the decode and registration part out of k3_chipinfo_probe() into
-k3_socinfo_register() and export it, so that other drivers can register the
-SoC device once they have read the JTAG ID through their own access path.
-The registration is managed by the calling device, so callers need no
-unregister counterpart.
+Hi Mike,
 
-Signed-off-by: Moteen Shah <m-shah@ti.com>
----
-Changes since v2:
-- Split out the devm related changes into a new patch(see PATCH 2/4).
+Thanks a lot for the review.
 
- drivers/soc/ti/k3-socinfo.c | 70 ++++++++++++++++++++++++-------------
- 1 file changed, 46 insertions(+), 24 deletions(-)
+Some analysis and plan about "bound check against cmem->max_nr_ranges":
 
-diff --git a/drivers/soc/ti/k3-socinfo.c b/drivers/soc/ti/k3-socinfo.c
-index e21a2cd14c811..bf0829fb1d61c 100644
---- a/drivers/soc/ti/k3-socinfo.c
-+++ b/drivers/soc/ti/k3-socinfo.c
-@@ -5,6 +5,8 @@
-  * Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com
-  */
- 
-+#include <linux/device.h>
-+#include <linux/export.h>
- #include <linux/mfd/syscon.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/of.h>
-@@ -12,6 +14,7 @@
- #include <linux/regmap.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-+#include <linux/soc/ti/k3-socinfo.h>
- #include <linux/string.h>
- #include <linux/sys_soc.h>
- 
-@@ -152,43 +155,32 @@ k3_chipinfo_variant_to_sr(struct device *dev, unsigned int partno,
- 	return -ENODEV;
- }
- 
--static const struct regmap_config k3_chipinfo_regmap_cfg = {
--	.reg_bits = 32,
--	.val_bits = 32,
--	.reg_stride = 4,
--};
--
- static void k3_chipinfo_unregister(void *data)
- {
- 	soc_device_unregister(data);
- }
- 
--static int k3_chipinfo_probe(struct platform_device *pdev)
-+/**
-+ * k3_socinfo_register() - Decode a JTAG ID and register the SoC device
-+ * @dev: device on whose behalf the SoC device is registered
-+ * @jtag_id: raw JTAG ID register value read by the caller
-+ *
-+ * The registration is managed by @dev: the SoC device is unregistered and its
-+ * attributes are released automatically when @dev is unbound, so callers need
-+ * no matching unregister call.
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int k3_socinfo_register(struct device *dev, u32 jtag_id)
- {
--	struct device_node *node = pdev->dev.of_node;
-+	struct device_node *node;
- 	struct soc_device_attribute *soc_dev_attr;
--	struct device *dev = &pdev->dev;
- 	struct soc_device *soc_dev;
--	struct regmap *regmap;
--	void __iomem *base;
- 	u32 partno_id;
- 	u32 variant;
--	u32 jtag_id;
- 	u32 mfg;
- 	int ret;
- 
--	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
--
--	regmap = devm_regmap_init_mmio(dev, base, &k3_chipinfo_regmap_cfg);
--	if (IS_ERR(regmap))
--		return PTR_ERR(regmap);
--
--	ret = regmap_read(regmap, CTRLMMR_WKUP_JTAGID_REG, &jtag_id);
--	if (ret < 0)
--		return ret;
--
- 	mfg = (jtag_id & CTRLMMR_WKUP_JTAGID_MFG_MASK) >>
- 	       CTRLMMR_WKUP_JTAGID_MFG_SHIFT;
- 
-@@ -237,6 +229,36 @@ static int k3_chipinfo_probe(struct platform_device *pdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(k3_socinfo_register);
-+
-+static const struct regmap_config k3_chipinfo_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static int k3_chipinfo_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct regmap *regmap;
-+	void __iomem *base;
-+	u32 jtag_id;
-+	int ret;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	regmap = devm_regmap_init_mmio(dev, base, &k3_chipinfo_regmap_cfg);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	ret = regmap_read(regmap, CTRLMMR_WKUP_JTAGID_REG, &jtag_id);
-+	if (ret < 0)
-+		return ret;
-+
-+	return k3_socinfo_register(dev, jtag_id);
-+}
- 
- static const struct of_device_id k3_chipinfo_of_match[] = {
- 	{ .compatible = "ti,am654-chipid", },
--- 
-2.34.1
+After patch 3, the remaining race is x86-specific. The weak defaults are
+safe: every runtime modification of memblock.memory, hot-add and hot-remove
+alike, happens under device_hotplug_lock, so with the lock held the count
+and populate passes walk a stable snapshot.
+
+x86 instead walks iomem_resource, and Xen balloon inserts its new System RAM
+resource before taking device_hotplug_lock() (reserve_additional_memory),
+which is the one remaining hole.
+
+The issue is also pre-existing: before patch 3 there was no locking at all,
+every hotplug path could race the two passes.
+
+The proper fix is to switch x86 over to the memblock-based weak defaults,
+as patch 2 already did for arm64/loongarch/riscv. Would you prefer to have
+it in this series, or as a separate follow-up? Both work fine for me.
+
+> 
+> I didn't check the reserved mem one.
+
+The two Sashiko findings on the reserved-mem (patch 7) will also be addressed
+in next version.
+
+>  
+>> Please let me know if there are any other concerns or suggestions
+>> before I prepare the next revision.
+> 
+> I believe that should be rebased to account for reserved memory changes.
+
+Sure, the next verison will be rebased on latest linux-next.
+
+> The riscv change from resources to memblock needs an Ack from riscv
+> maintainers.
+
+Hi Paul, Palmer, Albert,
+
+Patch 1 builds the crash_mem ranges for the vmcore ELF header from
+memblock instead of the resource tree, so the later MEMBLOCK_NODUMP
+patches can filter reserved memory from the vmcore on the memblock
+side. With this, the vmcore size reduction the series brings also
+applies to riscv.
+
+Could you take a look when you have a chance?
+
+
+Best regards,
+Wandun
+
+> 
+> And with all that I can take the next version via kexec tree.
+>  
+>> Thanks,
+>> Wandun
+>>
+>>>
+>>> v8 --> v9:
+>>> 1. Patch 7: Avoid a potential boot panic on SH when NODUMP marking requires
+>>>    memblock resizing before it is allowed, found by Sashiko in [1]. SH supports
+>>>    neither CONFIG_KEXEC_FILE nor CONFIG_CRASH_HOTPLUG, so skip marking when
+>>>    both are disabled.
+>>>
+>>> v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
+>>> that approach is superseded here):
+>>> 1. Stop marking /memreserve/ regions with NODUMP. v6 marked
+>>>    /memreserve/ regions with NODUMP. But a bootloader may specify
+>>>    a /memreserve/ entry for memory that the kernel later frees
+>>>    (e.g. the initrd), and those pages would then be wrongly
+>>>    filtered out of the vmcore after being reused as normal memory.
+>>>    The v7 fix (clearing the flag in free_reserved_area()) caused
+>>>    a lockless runtime mutation of memblock.memory [2]. Better solutions
+>>>    exist but need extra preparation, so temporarily dropped the patch
+>>>    that introduced the problem to keep this series simple in v8.
+>>> 2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
+>>>    MEMORY_HOTPLUG are unset. There the memblock arrays live in
+>>>    .init.data, and the weak defaults referencing them create section
+>>>    mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
+>>>    is also unset.
+>>> 3. RISCV recently gained crash hotplug support, so adapt its handler
+>>>    like x86 in patch 3: use __crash_prepare_headers() instead of
+>>>    crash_prepare_headers() to avoid self-deadlock.
+>>> 4. Update the cover letter per review feedback: describe how ACPI
+>>>    systems filter reserved memory and why a new flag is needed
+>>>    instead of reusing NOMAP.
+>>>
+>>> v6 --> v7:
+>>> 1. Fix a stale MEMBLOCK_NODUMP flag issue [3]. Memory reserved and
+>>>    marked as NODUMP may later be freed (the initrd, for example),
+>>>    so the NODUMP flag must be cleared accordingly. Since the fix is
+>>>    part of the NODUMP infrastructure introduced by patch 5, it has
+>>>    been folded into that patch.
+>>> 2. Drop the "generic" related description in the cover letter.
+>>> 3. Collect the Acked-by and Reviewed-by tags received during the v6
+>>>    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
+>>>    only one without a tag, as its Reviewed-by was dropped when the
+>>>    fix was folded in.
+>>> 4. Drop patch 1 of v6, which has been merged separately.
+>>>
+>>>
+>>> v5 --> v6:
+>>> 1. Serialize crash header preparation against memory hotplug to avoid
+>>>    out-of-bounds or use-after-free issues.
+>>> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+>>>    avoiding a panic from too few regions before resize is permitted.
+>>> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+>>>
+>>> [1] https://sashiko.dev/#/patchset/20261016061549.4181390-1-chenwandun1@gmail.com?part=7
+>>> [2] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
+>>> [3] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
+>>>
+>>> v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
+>>> v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
+>>>
+>>> Wandun Chen (8):
+>>>   riscv: build crash_mem ranges from memblock instead of resource tree
+>>>   crash_core: fold duplicated memblock arch hooks into the weak default
+>>>   crash_core: serialize crash header preparation against hotplug
+>>>   crash_core: replace for_each_mem_range() with for_each_mem_region()
+>>>   memblock: introduce MEMBLOCK_NODUMP flag
+>>>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>>>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+>>>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+>>>     header
+>>>
+>>>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+>>>  arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
+>>>  arch/riscv/Kconfig                         |  2 +-
+>>>  arch/riscv/kernel/crash.c                  |  2 +-
+>>>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+>>>  arch/x86/kernel/crash.c                    |  2 +-
+>>>  drivers/of/fdt.c                           |  1 +
+>>>  drivers/of/of_private.h                    |  1 +
+>>>  drivers/of/of_reserved_mem.c               | 18 ++++++++
+>>>  include/linux/crash_core.h                 |  2 +
+>>>  include/linux/memblock.h                   |  9 ++++
+>>>  include/linux/of_reserved_mem.h            |  1 +
+>>>  kernel/crash_core.c                        | 53 +++++++++++++++++++++-
+>>>  kernel/dma/contiguous.c                    |  1 +
+>>>  mm/memblock.c                              | 16 +++++++
+>>>  15 files changed, 103 insertions(+), 94 deletions(-)
+>>>
+>>
+> 
 
