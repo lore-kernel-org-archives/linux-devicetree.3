@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474093;
-	b=4PBBkP+A42ndeDaQfM8+Pt9PqToeVKdrrLE6VeK4WKfokYy+nv2k3SNP3gZQC7nYz7bn
-	 Eizwl4DgStbkx/HQDbmsn0p3Rv31iIKUPIb8WUHmR1ErEMPRUu2CIU8qGzR+qOnTO7PTc
-	 XmSuw/YmI3o8dU5ISkysauLytSqVLoSd7dn7te97jjJLU8tPEXgIp6l/eMv1h19HCe4UB
-	 CDax4EoatrMic5oc+e751yvzdNG4LGRsbJxv0ibOswssS7Q/BxkaNcjmwoOfw/a+SLksE
-	 mwi/zPvG51PkXY5tgjoNhXqELC+j4f2yIOpdTQ4kBv43AmldSoWR31YrBrLa9pnv6Fg==
+	t=1794474156;
+	b=VT05OT9mDhwAPqpwtyw3T9HiLPeZJlt5D25gq9FvhvGy/skoVznEdjddC9RlYtT0pIhn
+	 ZQR8avg60jIYpZOdbSVXOpOZHMioXZ5WFgAMBVre1UbfXt9GuzLaqsWWI4yUFdxWfNJtC
+	 LJjsfznrJmzPW1fJS082UY1Fxz8hNKINpX9domPHGKUtVRxzRXgOpshzVvwTSrKvlBAjD
+	 zmRST/2dXfXXQAreC3xQ8caYov+yDSf7ZrKC+vuMmELGjHf90Pg5UhNThPzvL8TfzKEjG
+	 9uW/fBlaEZjsAqf2YAghNhkRmdJd9AjGTHJmW1899h7jK19b8FM0py6NhyoU7wuMZAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474093;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=UU03pdQXvnZhnp48bfMOqGxzcN0ycFpUm4aKAjaRGoU=;
-	b=0t2XyAXDOTBRWEJ9vLi4Y3DPYj8Si/icWCiykkpLSAwxH1Q1SfnDq3OJWRpCVXDitU0i
-	 +lBM1y3oa/r1zywWzPhzytCJ7TzQICmUguxaBC5TW0SaTub20ycCTbOM/JGoZ+sAc7bg8
-	 Mvukg8lsmRF5CZEtgy+dqlTYi5u4wXJRGjg36+WjaYzATrz+qE60O901VXTaKTkAhiXCF
-	 zY/bglsf5Mph7UDBYEUlSf6juVk7Q2aCxkXQahq4HrFe4hNW+P1opm4pzfc6RkxN0mXCQ
-	 lowGTN9sq9seF2XMehdyJUXD3wBm/5/N4MxJccGnALLmMV/0aFIu2Vq1YI6/dv+B/Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474156;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=WZOjYaEo0Xhkb1NPLiB1aUDQ3jjc+rhCfDB38OU6Bew=;
+	b=ZJFjDbgsvMzb7bpMlVd7AFJkh2s5IA2CQCqxb+Xs9Pj6y2TiAL2rE3/WWQ0S+K7ZU0UN
+	 MccGjpK+zdjCQvn5BuLtr3xGj5q0ABi6nerxs/WXPUBg8BmG/fUBWrQTz7UiysaDjvyi6
+	 8qN9SmAiQO7JtXIKWIJmSDDqz3rOmmMfFJg7d3BmO+4P0WTKhDGdoBDREtm2dA4b4ZHno
+	 kJDSQxVFyfMz/IQclXB+/5TAdIZ6CwLpUOPCr9Aezm9F6txN7U9lQ49eIdZv9G6fGiw1c
+	 L2S4Lm/vCfvzRWTPK+mUGb0VxxQwB+ikX0Imovy7p8jsbvR0YSIOctO4n7StYeXIP7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+QlnDLN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Ly4RwH/g";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF173606A327;
-	Thu, 12 Nov 2026 09:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B92606A323;
+	Thu, 12 Nov 2026 09:02:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B92606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+QlnDLN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F165E1F00A0D;
-	Thu, 12 Nov 2026 09:01:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474093;
-	bh=UU03pdQXvnZhnp48bfMOqGxzcN0ycFpUm4aKAjaRGoU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A+QlnDLN4dqpSwg7GeMb7nW0Xx0z9WIMvCnlPG8lRaZJSW5f56yU7Qer41MbaOXtc
-	 sztGXvox+GkmXBvRml4izMX+ncvN5+z36z4179Urvn2nFNl/LPe5Bq6puWEX6mZ8N4
-	 +a5JxJinzw1yrxncWvdyYgHG5rg4rFAOrysxFNDOuhlLAgEoNY+D4HwPORfDb4V0BU
-	 +jb1Pl4TF+U4atES3OZ/YvEa4G25d5yjJ8uRZi0SJRrSc5sw29Mx1KdM9cWJluyij4
-	 L5TArHVaN4gaeINIVp7ROwmBmsJGVFXBv7b6XjWt26tO1rUugEfJtPYHDiWr0kk5NR
-	 4oIXjvjoASsFA==
-Message-ID: <6a897be9-8732-41c7-890b-ac943fe106e6@kernel.org>
-Date: Thu, 12 Nov 2026 10:01:22 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ly4RwH/g
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8w4AE4149412;
+	Thu, 12 Nov 2026 09:02:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=WZOjYaEo0Xh
+	kb1NPLiB1aUDQ3jjc+rhCfDB38OU6Bew=; b=Ly4RwH/g8ipLSE2Y8H4PV2sIrqo
+	M4+od3llhNO/SymrsBRliHX1PVpLEqUekPKdbUs4XUoUsTLOZQNP4kR4QPDHofgT
+	J2MjINHY5W3axaRSxzk8PObX9kCzGgGKzgYlJdgZiWp84yBblq1EKr1esTKtQY5J
+	0wQcMkVc4y3PamTzdp+1vcRYytgsSGeTk5UwZPo7GRGgAM4NEUE56THxPcLS2nFS
+	QclxN9i1umJ4q7qcET3gbfG204XcEjjmKV7JDOLeS8ehEGaENF0kUspTPnGY0k84
+	q72Cc432VH1c4Zu8kDkjG2EcSQJSDip6n/Qlmy50D686AlgQEnrKgq4TN9w==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvxc62nvf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 09:02:33 +0000 (GMT)
+Received: from pps.filterd (nalasppmta02.qualcomm.com [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8x5Xb4155259;
+	Thu, 12 Nov 2026 09:02:32 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-kumaranu-lv.qualcomm.com [10.81.89.194])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AC92Vtl4163788
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 09:02:32 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 4187942)
+	id CF8D3AA8; Thu, 12 Nov 2026 01:02:31 -0800 (PST)
+From: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        quic_mohanull@quicinc.com, quic_hbandi@quicinc.com,
+        Kumar Anurag <kumar.singh@oss.qualcomm.com>
+Subject: [PATCH v2] arm64: dts: qcom: Add dmic45 support to rb3gen2 vision mezzanine overlay
+Date: Thu, 12 Nov 2026 01:02:31 -0800
+Message-Id: <20261112090231.134176-1-kumar.singh@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027115115.1822423-1-kumar.singh@oss.qualcomm.com>
+References: <20261027115115.1822423-1-kumar.singh@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,128 +86,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] soc: toshiba: tc9564: config system controller
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
- alexandre.torgue@foss.st.com, marex@nabladev.com,
- changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
- <675dec20-1cd7-4d37-89b4-23237b760f33@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <675dec20-1cd7-4d37-89b4-23237b760f33@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: x7CrkuploINEDWH4Jq6YM8HIHrPVVJP1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNSBTYWx0ZWRfX0Azb4Z+P0TcO
+ mrMoKPrnsRagcKxRDvd/c3w55jDzljbCb0KpYf1lB1w+LY7MBgrC6QDXWBipkhhiiiW60x39cb+
+ OY7ZcIQhAzFRMP+/lsWwvaIN/nvIxfMblVg2SHCMv4XJcYk+hjvyctgOJQR0oT2UqsVq50pNnja
+ RgE+VzbJX5ZsYSKrHMIyaOSrG/mnroohXyTXg2jiO8deXTAA+z62wCptY3vwQbZbnNFOjYLGXVm
+ ryg+5jc34fxrdB9NnGMzVNe3KE3p/EJ/NdPpPSugB1UHZcc7aGZsNwul9FGCtEpqUmUOMY1IftP
+ iEoQzShLtdWIQNsVPvzxLSvZPfwkB3J8tnG6mGrhmbOTg2FNEL9PQu8WhTXikGxeTSi2/fECiup
+ pPed2lYxHhimhdUebVkz2GQdYSjpJXXX0lRJmeRwKqNCkWrOtp+5lHBONjl6Etag1UdjenMRLZ3
+ Pm7eTzROshceyj4cj+g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNSBTYWx0ZWRfXyKkyaHQxElOg
+ PlTOuJqJa1O1P+JcR9K1ccwqQ9NMOOfQggXYhelAV9EMOQqm1hhS9w9ed7DUafcO32e8VS1pI7F
+ Hx5tDYCHFmJIvmzvppD6mIj5vEjuQ6k=
+X-Proofpoint-GUID: x7CrkuploINEDWH4Jq6YM8HIHrPVVJP1
+X-Authority-Analysis: v=2.4 cv=O/ysLx9W c=1 sm=1 tr=0 ts=6af580a9 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=Q2MlFL10D3EfIEKmRpMA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120035
 
-On 09/11/2026 18:42, Alex Elder wrote:
-> On 11/5/26 2:26 PM, Krzysztof Kozlowski wrote:
->> On 04/11/2026 01:43, Alex Elder wrote:
->>> This series is comprised of some code that was previously sent
->>> separately.  It now incorporates a new system controller driver
->>> that advertises clock and reset functionality, as well as regmap
->>> access to its address range.  This combination is being treated
->>> as a new series.  (Details of previous versions are below.)
->>>
->>> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
->>> It includes a PCIe switch with three downstream ports.  To one of
->>> these ports an embedded PCIe endpoint is attached, and that implements
->>> two PCI functions.  BAR 4 for both PCI functions provides access to
->>> registers controlling blocks within the SoC.
->>>
->>> The system controller driver adds the clock and reset devices
->>> using the mfd_add_devices() interface.  The clocks and resets
->>> are implemented by drivers included in this series.
->>
->> Toshiba TC9564 bindings and DTS should be posted completely. We spent
->> great amount of time on discussing already and I pointed more than once
->> that big picture is missing.
-> 
-> https://github.com/riscstar/linux/blob/tc9564-dts/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> 
-> Node pcie@3,0 is the third switch port (within the TC9564), which
-> has an embedded PCIe endpoint with two functions.  (You can ignore
-> pci-ep-bus@0 for now.)
-> 
->> You are not describing here parts of a SoC.
->>
->> You are describing one, single device how the host sees it and DT
->> maintainers (and writing bindings) ask for complete picture in such cases.
-> 
-> I'm glad to provide whatever information you need.  There is more
-> than one way to provide the "complete picture" however, and I don't
-> want to send something that isn't helpful.
-> 
-> If you want something different from just the DTS file linked above,
-> please say so and I'll put something together.
+Add pinctrl states and VA macro routing for two additional digital
+microphones (DMIC4/DMIC5) that are present on the vision mezzanine
+add-on board, mirroring the dmic01/dmic23 pattern already used for
+the on-board microphones.
 
-The DTS was enough and it shows that you described internals of the
-device. I keep my claim, that is not correct representation because it
-is too detailed and too complicated.
+Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+---
+Changes in v2:
+- Move the dmic45 pinctrl states into kodiak.dtsi instead of the
+  mezzanine overlay, since gpio12/gpio13 belong to the SoC's
+  lpass_tlmm block, mirroring the existing dmic01/dmic23 definitions
+  (Konrad).
+- Link to v1: https://lore.kernel.org/r/20261027115115.1822423-1-kumar.singh@oss.qualcomm.com
 
-Nothing related to the syscon should be represented in DT, because these
-are internal registers handled by the device itself. DT does not
-describe internals of the devices, but how the device is being
-represented for the host.
+ arch/arm64/boot/dts/qcom/kodiak.dtsi           | 14 ++++++++++++++
+ .../qcom/qcs6490-rb3gen2-vision-mezzanine.dtso | 18 ++++++++++++++++++
+ 2 files changed, 32 insertions(+)
 
-And Rob Herring already expressed that, if I understand correctly:
-https://lore.kernel.org/lkml/20260605144032.GA3659201-robh@kernel.org/
+diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+index 8c7523602d27..87a67eed84d7 100644
+--- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
++++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+@@ -3060,6 +3060,20 @@ lpass_dmic23_data: dmic23-data-state {
+ 				bias-pull-down;
+ 			};
+ 
++			lpass_dmic45_clk: dmic45-clk-state {
++				pins = "gpio12";
++				function = "dmic3_clk";
++				drive-strength = <8>;
++				bias-disable;
++			};
++
++			lpass_dmic45_data: dmic45-data-state {
++				pins = "gpio13";
++				function = "dmic3_data";
++				drive-strength = <8>;
++				bias-pull-down;
++			};
++
+ 			lpass_i2s1_active: i2s1-active-state {
+ 				clk-pins {
+ 					pins = "gpio6";
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
+index aceafea45343..11c68f3120df 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
+@@ -80,3 +80,21 @@ cam_mclk3_suspend: cam-mclk3-suspend-state {
+ 		bias-pull-down;
+ 	};
+ };
++
++&lpass_va_macro {
++	pinctrl-0 = <&lpass_dmic01_clk>, <&lpass_dmic01_data>,
++		    <&lpass_dmic23_clk>, <&lpass_dmic23_data>,
++		    <&lpass_dmic45_clk>, <&lpass_dmic45_data>;
++	pinctrl-names = "default";
++};
++
++&sound {
++	audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
++			"SpkrRight IN", "WSA_SPK2 OUT",
++			"VA DMIC0", "vdd-micb",
++			"VA DMIC1", "vdd-micb",
++			"VA DMIC2", "vdd-micb",
++			"VA DMIC3", "vdd-micb",
++			"VA DMIC4", "vdd-micb",
++			"VA DMIC5", "vdd-micb";
++};
+-- 
+2.34.1
 
-"And really, a DT node for them should be completely optional (unless
-there's some power on ctrl needed)."
-
-"Everything else like SPI, GPIO, UART, etc. should be under the PCIe
-switch upstream node in a pci-ep-bus."
-
-You don't get multiple syscons and other internal routing elements.
-
-Best regards,
-Krzysztof
