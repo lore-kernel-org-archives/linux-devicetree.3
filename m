@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474902;
-	b=sfgyPS+oFdVHJATReBnd0WoRArH23/SvSL6LXuemYgrKmizKcRn6FYgoqgLg364qZOhk
-	 i58W2gNc+qQScnRHbGDIaUt+dJERBkBf9LPsIaN36LDN1NCrvJcyDPYTER4UXcRP/wQGr
-	 PNpLQRuaob1xNEMiw+V6Y4zEVTtDnabs0lM5fwYxHgqNJH5UcxOjSrQLJrLQIcLGqCikO
-	 t7CdL0WvLjt1ap92KWrWU+fW/zXNxmEYHF33vedkZUtN5YwRog7asy1pyskFD1JW+6nsh
-	 NaQ6fvtLROX+64tGtg0QvXL+ofnTlgBhnWBtsv/fWqOCx+efhc6zl6dK4YlYfeiN55g==
+	t=1794474916;
+	b=ipdrClHy0MAqugz3SwemjjidcKcW0Gr3+bRfkGsJYCGCmZ7lrcj94jCaSSNkJWNbR6+x
+	 lOA1ID9sf9AU0dkLbU6yTWFHSTDdS6bceW4dYg5kVZeS4vnoTWzLFW8XZj0KEpFaISSB3
+	 3tWYunokZZv8On95BbkvCPhIra0bhgCHQteir4/XPl6L7ZCnTC1u9opTE52NcjJ2mNN61
+	 2mD+r2wHPrrc9h0lya3+hDSRl8BjflgVKyaBB6ys30VXkidy8tp6Evn0lULWW9WSjqnO2
+	 XiUzvMAY6WGZ+nAhJOAdJgQhrznrjDkR8LD2dNLbwXB2AxnrkI1B9vY7vcOqBkLrZ/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474902;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/4jBQf+2hS3DAsRaFcqGX6vFD+jXw9epZKaxG7T7JiI=;
-	b=wTn7triHpCm+1Nl6WrPw+/LEJDXRAUL75jx9jeuuanrjJw4uqP4PaK4A4bta+twYxJG/
-	 HDRAwurZffF2BJpwuzJ4fDe8X03xg2WYeQNewyyZLXznN7osI7zhM+c+Lf1lIKCyMawF0
-	 LFEExcS8jdvjgOyqxbak2DuLYYFXdd/7nLNotXKUPSkqjR0OzuEE/Q1kNxKUxGP1JCgbc
-	 jWoCgCrk3ZWU9fnafwFBU8CT++nYxvmxNwOIK8nc6Ua47hD4DoxQ1cNgaJ91N95i5i1T2
-	 BxA1wKdm91rKS2cVelYE7kxZOzhtE1dFVsUwOIT4FLQeERDD3R57oH741F1tqAEl7iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474916;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=p6kD70grwY03BvmoDcid1nVMJksmh5DRjbYbwCO+Ep0=;
+	b=y7bgg5NhSpjtV+ErkUmHwra7YwH1taKh/VuVQOL7rH0FV5pmiziOcwFPjU82z60YNt0e
+	 Lb/i8kCvZ10KwyEg7wok8QaeZkJp3tlYVj2Jq7ufxM+3VelBnL121H1cfQF2hNdQnq72f
+	 22ANTyYupBh+AAIGO+2lXZIujSO6yDmiUFJVtdBW+s+PX29FddpUPNzlZts4ETgjJjo8E
+	 jec+HxwqCqtf7laIoEa/6ZSJ3/TBY+wForbbFlu9//h2uecHnjYx4Xw6T0/L6aWJxGkP0
+	 3pQX2xygTo0kx7Vk/eikHXd2jObeTE3S19sr6cP/408sRD/4yjmgMQNVqq5zC3Mk8CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iXkvTuNu;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDsSTYWD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6EE606A32A
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D6EE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7DF59606A89D;
+	Thu, 12 Nov 2026 09:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iXkvTuNu
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a2761c69fbso7137859c88.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:15:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794474901; x=1795079701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/4jBQf+2hS3DAsRaFcqGX6vFD+jXw9epZKaxG7T7JiI=;
-        b=iXkvTuNuKIh6EHGNW2b30E/CNNzLs80Rc0+6kYvuk4yXyT/fd8ciF+OoK2UPZ6cI3+
-         NZZiVvS4hVU9z05fD2CBtrOmgcdkRiHPvjNvk50k3zyllpiZSc2LCYtDT5iVKRnpbe7o
-         O1Fw5DNeqNTQ+b3lSG5lP06L9DZNMLft931HA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794474901; x=1795079701;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/4jBQf+2hS3DAsRaFcqGX6vFD+jXw9epZKaxG7T7JiI=;
-        b=FPgWw3ndzkIoaaAtowq9caZat/2mFCLP7iC0p1wbSRNY83s5sFb5fjBN75H3TTSvz1
-         AviV2QrpRfbyLeH4nlktyIUaVsmHj1oLoVSmgpSNQ9hny3a7elWIAdkUMcQD0EPMHWOC
-         yg9a21vXzrZMHV/X0Fb4pUQQ6h5zv4iChScvRPt604jhygEHbE4qqO6u7pZAabAKK7vm
-         Yh5X2lSJnXg0hnt8EazMwXSIH94o+UHEGDtau0VMCZuaAptSvOUaoPmCuxT345tI5Xvm
-         p3UFO361qQI6lyP6yNAn2NgE4Or2F1cjZqb10Uz1VKDWGAY4/vb4EkVLR1tVW2nyLb9e
-         GzDA==
-X-Forwarded-Encrypted: i=1; AL+hErH43qnAz2b2wRsRojWC7jayWS49oVEmK78453VVCm7Ap8dVzdJvOvEVd0xLzFXQY4KZ8mrH1f8dqWwT@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9TPvgvn5QlbkmYMLox1ZzX0rFnboTHIE12r9zGATjZjvmw/0f
-	FDdmVvvACLsKUQHtUpX6lPMlZrJ0oWECnPGic2ANWmQbz7c8qVzh6ldsJOhigHAW3Q==
-X-Gm-Gg: AYBFou3LNa4SYqRFTniLW44PZuJ9GZGohZphQ07Alt6ZDo1kKTgaQklNJqs9DFHCpHx
-	hGr/6rOkuJRwvAVmWGYCjKDeCeXEWQG1GG5PGDYCvLP2VBaskyfxkIVN2xOvAcFwIaixHKZgAF0
-	Z48got0AKi/U9fjDFCxdRuiUsVr/P1auxfBq25ERr9lkuNVn+0la0GlGP/NsNgn91CRNw9V2vQ2
-	EKYy1ZYdx3PWqGW34ZJbX2Q+TYoPdPFhvbbU3uXpTaz65TKmd94z+rBoHf2HIvUONyorJemn6Uv
-	1fG0scMJjzwDyn0uoE3wHbawt3W0FPXuGSn1vBqZdg0AgmBx6oAJNBtzf0O1/BuJdak9ebh6xFs
-	/a6GbyFWz7DdQi+326QZQUB2d7KzBZrfihKAaRhh4RFBJjox35ZunVGhcz3ROD9dQrJOBHrizAh
-	bLa4pAv5ki4plCzusjObf8jQYms1eEQUyLBYJPvWmqLwTmaeD0fW/cqMWNPZfEc7wBIVZbWn9SH
-	vD07zMfS0yxKj1rjulISmPD0ypa+BZ79ynIGzmQM6nVszYeo0h9Y/2E8+KRuMoNhR2z3IOLlfe8
-	mlztMRkRb/+4ocPZArCu7QDPhQqkV+iiSHrDAeblAUmek59tLv4AviTUA4lpfDPEljzRcsnmVYY
-	12RfH7g==
-X-Received: by 2002:a05:701b:4510:20b0:151:2e62:fe5b with SMTP id a92af1059eb24-1b3c0304105mr4870294c88.22.1794474901309;
-        Thu, 12 Nov 2026 01:15:01 -0800 (PST)
-Received: from localhost ([2a00:79e0:203d:7:3df7:8811:7670:7b44])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3b5b2fc09sm48205792c88.10.2026.11.12.01.14.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:15:00 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mateusz Koza <mateusz.koza@grinn-global.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: mediatek: mt8390-grinn-genio-sbc: Fix Microchip USB2513 compatible
-Date: Thu, 12 Nov 2026 17:14:47 +0800
-Message-ID: <20261112091448.869620-2-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261112091448.869620-1-wenst@chromium.org>
-References: <20261112091448.869620-1-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDsSTYWD
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2CD011F00A08;
+	Thu, 12 Nov 2026 09:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474916;
+	bh=p6kD70grwY03BvmoDcid1nVMJksmh5DRjbYbwCO+Ep0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aDsSTYWDteLmmN41F83nSZqVvrdkV50ryF1qJdtBshsRkZkyVzXld9QR8KlfwyhZ9
+	 7WWnj0V95UNw3md/Dys4dpGaXugg1e5pgjPYiEiBUUuThdyLlAlzfv9NBpP6rnNVpC
+	 JUoBtofERKKe/DCfhRE8+sxdx95vc983FwKJxrkYobrTnhyt9Wo6hBER9MpTXbBOHV
+	 gWZQD/4CwrYZUE+0v4y7nYtKvdD8wjPTetLiafR29nSHZhq9H9sczoOD+pFGjFGxJs
+	 4uyfG4hkAE5ByoTDXI0T6gIgfI6aghXxpVEyaOY0PVNW8vTTR+fU/qCcmGd2zPmMlL
+	 nyPwYRbYYduBg==
+Date: Thu, 12 Nov 2026 10:15:12 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/4] arm64: dts: qcom: nord: Add USB support
+Message-ID: <o6t6le343ifmu5w33z55ik473xfynt6urv465xe3bn7hyhmncn@7atsac6o5bwo>
+References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
+ <avDL8IzfY1AcDjzY@zenbook>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,53 +61,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avDL8IzfY1AcDjzY@zenbook>
 
-When modeled as a USB device on the USB bus, the USB device's compatible
-must follow the pattern described in the USB device binding,
-usb-device.yaml.
+On Sun, Nov 08, 2026 at 01:23:18PM -0600, Bjorn Andersson wrote:
+> On Tue, Oct 13, 2026 at 01:34:45PM +0200, Bartosz Golaszewski wrote:
+> > Note: This is v7.4 material and depends on several patches that are
+> > still not in linux-next. Sending it out to solicit reviews.
+> > 
+> > This series enables USB on the Qualcomm Nord platform which has three
+> > USB controllers:
+> > 
+> >   usb_0 (0xa600000)  eUSB2 + USB3/DP combo PHY
+> >   usb_1 (0xa400000)  eUSB2 + USB3/DP combo PHY
+> >   usb_2 (0xa200000)  eUSB2 only, high-speed
+> > 
+> > The first patch is a fix for the i2c9/i2c10 pin functions, which is a
+> > prerequisite because the eUSB2 repeaters and the Type-C controller all
+> > sit on i2c9.
+> > 
+> > Patch 2 adds the three DWC3 controller nodes to nord.dtsi.  They are
+> > kept as far as possible free of anything variant specific, so the
+> > clocks, resets, power domains, interconnects and PHY references are
+> > added separately in patch 3 for the "embedded" variant, alongside the
+> > five PHY nodes (three eUSB2, two QMP combo).  Adding the QMP PHYs also
+> > lets the two pipe clock placeholders in negcc be filled in.
+> > 
+> > Patches 4 and 5 wire the ports up per board.
+> > 
+> > Nord RRD:
+> > 
+> >   usb_0  OTG, USB-C, FUSB15201 Type-C/PD controller
+> >   usb_1  host, Genesys GL3590 HS/SS onboard hub pair
+> >   usb_2  left disabled, not routed on this board
+> > 
+> > Nord Ride Embedded:
+> > 
+> >   usb_0  OTG, USB-C port 0 of a dual-port FUSB15201
+> >   usb_1  OTG, USB-C port 1 of the same FUSB15201
+> >   usb_2  host, USB Type-A, VBUS from a PMIC GPIO controlled
+> >          fixed regulator
+> > 
+> > Both boards use NXP PTN3222 eUSB2 repeaters, one per enabled port.
+> > 
+> > Dependencies:
+> > - PMIC DTS: https://lore.kernel.org/all/20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com/
+> > - FUSB15201: https://lore.kernel.org/all/20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com/
+> > - USB PHY clock fix: https://lore.kernel.org/all/20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com/
+> > 
+> 
+> Figured you resubmitted this because the external dependencies was
+> settled. Apparently not, so I had to back this out again after applying
+> it.
+> 
+> Please resubmit once the dependencies are in linux-next.
+>
 
-The Microchip USB251x family of USB 2.0 hubs has two bindings, one is
-for I2C connected and standalone platform device (usb251xb.yaml) and one
-is for USB device (microchip,usb2514.yaml).
+The only thing left is the FUSB15201 series and it's only a run-time and
+dtbs_check-time dependency. Can we proceed with this or do the repeater
+bindings need to go first?
 
-Since the hub in this device tree is hanging off a USB host controller,
-switch over to the USB device binding's compatible.
-
-Fixes: f4d1eace54f7 ("arm64: dts: mediatek: mt8390-genio-700-evk: Add Grinn GenioSBC-700")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-IMO the standalone platform device variant should be deprecated. If the
-device has the hub standalone without a configuration interface
-connected to the main SoC, then it should just be a child USB device.
-
-And the platform variant hanging off the USB bus probably never worked
-on Linux, because the USB subsystem won't instantiate platform devices
-outside the coverage of the onboard devices driver. USB worked fine
-because the supply is always on, and there is no reset GPIO. But folks
-really should check if a platform device was created and if the USB
-device has a device node attached.
-
-OTOH, the USB side of the onboard device driver is missing the PIDs
-for the 2-port and 3-port variants, i.e. PID 2512 and 2513. Not fatal
-since there isn't actually anything controllable.
----
- arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
-index 7a31cf6f27db..b69fb599ad53 100644
---- a/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi
-@@ -470,7 +470,7 @@ &xhci2 {
- 	status = "okay";
- 
- 	hub@1 {
--		compatible = "microchip,usb2513bi";
-+		compatible = "usb424,2513", "usb424,2514";
- 		reg = <1>;
- 		vdd-supply = <&reg_fixed_3v3>;
- 	};
--- 
-2.56.0.567.gdb80ae8cd5-goog
-
+Thanks,
+Bartosz
