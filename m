@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481732;
-	b=PDN43cqpCdZIyvPx/yFcSeJuIsAIdYebDysrqVClUB8zbVUU/4jXyhgoznbUNGonA3iq
-	 3A3rwXInKwKCm16JlVExm/85CV6hzNUoyHXphGKV3e945cmgmw9Zxu57k3jq1eAh8CjLY
-	 GYumSuVsCtwqAdhJz8G99zXH9UZs6/fSdcrYIYTzOvEyWJI5rJBdIXK0WfVf5mFDm8Ebg
-	 /TWqet1cQKiM+NIGSCEaPmZW7QksS6+8sON7g5S1VISSK0UDedeYt1zne1/4aLfx1pO7V
-	 Fml5EVOzZLmTT4vU2ABEtZHmUIWibb4P0F/xStjDPtzkzosI6Hf5k7xZoptSC2aQFJg==
+	t=1794481743;
+	b=JsPRysf88TZCsExiA6PSfLikjyIx6HOiq1pZGhnsK8yygFQHAH8fuk6WJTlMoSmU3vHj
+	 nRB9MC0DKbQo5hm7J3EZTaHxpJG/xOqyy4p1zm7wxFlgmuTGqhm6Xs9JT/Be79C+WLzed
+	 UKmgPVSSlnae4+BTdZUZExdC7WMiSh27LLq38rtobR0HkgSejtNPC3HIrScVUenNTPcTK
+	 L62Y2q33+JYAxhrS5qiCzWXGQ9gTcJ615bfGK1INSetcfSTY7DVOJn57BFzHwwry1P4At
+	 XWCeQel4Q6UpM0vpexVUXCgUvtpk5t6+1y25pNngU1Ld+TD+uy5treFOxcJPdyJV+Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481732;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=r8LeQJ3H9vwXd92l8n5mDTq6/jwXyFVP+xBw8qc6N4w=;
-	b=eIDJvUSuOoP1Nbmlq5wdM5xSKDLG9rs2zpehi9hGwUOkfIMX4ghu3f0h/Auxr7a9vIaz
-	 2Mi67R9/d1k6UwlsfwAmqQvVolvPEfkEWeEHSUi8dUDSDuKYx66vycTuO478Hm7NuPjXG
-	 xmzZfBADzDvufE7wBmeXmqgooRE6YOJ885tKGNoJ1ZIB+f58moFr/+MVPgG1+DV87dKXg
-	 AK4fF8ukQn3rdNbwdEkIz9qSPqr/sZyG0s0hXDgDefZ3wc5vbSHCZIl+fPWOWzg5ZNMHE
-	 EFMR+9OMX1KF2Nj3yCGSxZQOTPrqt7Es7RDtUQk/B18DgvMniZbXo02HRoGA0Dt1u3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481743;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UwAE7JZbz6BZSDqMSG1PdFWp7D8tf1YwFLlJFvJVmaM=;
+	b=khKAUs0wfUuAYQlPU8vLn8ARdDaCQ4oGhLJy3Xxg7lrh0DpQe3sBKH3Wc5QKjPEG9uHO
+	 3p5uyVnICbYhrfSZkpFerLLBvZdV3WQ1CeVEyG/0YvwZsQyCA/GH7S59BcfaWHVVgXTZC
+	 XjYYmmD64yywSOfMJn9Q/z1ROobV1L3CDlJTzz2aTu2aMM4Ti/lxwOjLNA/T41ZNwwLOD
+	 d3jxFva+KkLo9lmvPDyEUTTOHtZRNqA0TnDs30suvnQdXSZD7BWSSO5TkwTeIXLg1FjSv
+	 3Ahx0lxKN9WEmsTqt2TQeq4PPCNhPWa/9tPoqwve1eF/tl/Sc503ANqNEGo+a6EQWqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzMZ1Oh9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lDVZN/xj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86054606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 11:08:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F15606A31C;
+	Thu, 12 Nov 2026 11:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzMZ1Oh9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFAE1F00A05;
-	Thu, 12 Nov 2026 11:08:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDVZN/xj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927941F00A05;
+	Thu, 12 Nov 2026 11:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481732;
-	bh=r8LeQJ3H9vwXd92l8n5mDTq6/jwXyFVP+xBw8qc6N4w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NzMZ1Oh9HxHZ6qAk5EfPB8RIuILKq+u/heoaTo1HB53tH9+5pAKywe7KbvOxoq+zA
-	 XATFxvjljrWRPI7iflpDvHXoKr30fBFmSTI/XNfdHoHHBI70Yl5971B6lXqcOjBPPG
-	 iavS4XP4C9ZWMdrlksAJ6tvnCezzRTD0/4Ty3BOZM5/lQekHC75pQrP4Km93UEIyK0
-	 IoPO2Yp4kzZkeJIjSK9qStqxhk+wW7s9m2pgkDzXwaaTkQ9WkbEpsd+YkIXUXCgBW0
-	 3PsdCBnlJJ8x3WMAd1B2QG43Rlw/jWyA0Y9rY3LigHytx6iUKLSjfoOBvfehna4gln
-	 VIwlv6tgvLALw==
-Message-ID: <sashiko-outbox-210997@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 8/8] optee: Add support for lendable-dma-pool
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Donnefort" <vdonnefort@google.com>, catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, akpm@linux-foundation.org, m.szyprowski@samsung.com, jenswi@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: mark.rutland@arm.com, robin.murphy@arm.com, hch@lst.de, ryan.roberts@arm.com, sumit.garg@kernel.org, sudeep.holla@kernel.org, ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com, linux-mm@kvack.org, op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org
-In-Reply-To: <20261111110738.872947-9-vdonnefort@google.com>
-References: <20261111110738.872947-1-vdonnefort@google.com>
- <20261111110738.872947-9-vdonnefort@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 11:08:50 +0000
+	s=k20260515; t=1794481743;
+	bh=UwAE7JZbz6BZSDqMSG1PdFWp7D8tf1YwFLlJFvJVmaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lDVZN/xjnSgyoNZxykOUM3Smp2WGUkPhk9j7mDaN9E+JVptgcnjP2lOTs1wTllHiR
+	 7T7ifFTHJ5Eb7Jnk6KjQdUwaMGLfQn+gdJBlXy7b87UL5fnHI77Bn93qfElLXl56hf
+	 TRPklvFnuBF3h0B5me9Ipvfsjphlp0Nze5qbkSNFiii3uil+YcN6Gksl3jve+OiDv0
+	 DAbNTNN16OR29/MWoYpahhudH1MXLyhXPBM6D3yfWPK38qBJPSPN7hcKpamwdgWbzT
+	 jCy0J66OB5GcBXIVvBvMVmApo3apv9P/IUXCHZtuUbfsD3leaBH4U37jB+xowe4k3r
+	 /LrWqjAM/OqGA==
+Date: Thu, 12 Nov 2026 12:09:00 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	pierluigi.p@variscite.com, Stefano Radaelli <stefano.r@variscite.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Joseph Guo <qijian.guo@nxp.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	Josua Mayer <josua@solid-run.com>, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	Maud Spierings <maudspierings@gocontroll.com>, Mehmet Fide <mehmet.fide@screeningeagle.com>, 
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: fsl: Add Variscite
+ VAR-SMARC-MX8M Plus
+Message-ID: <20261112-vivacious-archetypal-kingfisher-edd054@quoll>
+References: <cover.1794420001.git.stefano.r@variscite.com>
+ <b8f4c61c0171ed19c8fb60b702e4fd2e2c9d7b95.1794420001.git.stefano.r@variscite.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,66 +66,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b8f4c61c0171ed19c8fb60b702e4fd2e2c9d7b95.1794420001.git.stefano.r@variscite.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] optee: restore_direct_map_dyn_protmem() called when
-  reclaim_protmem() fails
---
+On Wed, Nov 11, 2026 at 09:23:10PM +0100, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
+> 
+> Add compatible strings for the Variscite VAR-SMARC-MX8M Plus module
+> and its Echo development board.
+> 
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+> v1->v2:
+>  - No changes.
 
-commit 1a801ca7487b0859c4bfdf62e4f1116b16a1b7fe
-Author: Vincent Donnefort <vdonnefort@google.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-optee: Add support for lendable-dma-pool
+Best regards,
+Krzysztof
 
-This commit uses dma_zap_direct_map() and dma_restore_direct_map() to
-unmap dynamically allocated protected memory from the kernel linear map
-before lending it to the secure world and restore it upon reclaim.
-
-> diff --git a/drivers/tee/optee/protmem.c b/drivers/tee/optee/protmem.c
-> index be3abf6e8aa6d..10e8f1540e5e8 100644
-> --- a/drivers/tee/optee/protmem.c
-> +++ b/drivers/tee/optee/protmem.c
-
-[ ... ]
-
-> @@ -76,6 +103,8 @@ static int init_dyn_protmem(struct optee_protmem_dyn_p=
-ool *rp)
->  	rp->gen_pool =3D NULL;
->  err_reclaim:
->  	rp->optee->ops->reclaim_protmem(rp->optee, rp->protmem);
-> +err_restore_direct_map:
-> +	restore_direct_map_dyn_protmem(rp);
->  err_put_shm:
->  	tee_shm_put(rp->protmem);
->  err_null_protmem:
-> @@ -112,6 +141,7 @@ static void release_dyn_protmem(struct optee_protmem_=
-dyn_pool *rp)
->  	rp->gen_pool =3D NULL;
-> =20
->  	rp->optee->ops->reclaim_protmem(rp->optee, rp->protmem);
-> +	restore_direct_map_dyn_protmem(rp);
->  	rp->protmem->flags &=3D ~TEE_SHM_DYNAMIC;
-> =20
->  	WARN(refcount_read(&rp->protmem->refcount) !=3D 1, "Unexpected refcount=
-");
-
-[Severity: High]
-Can restore_direct_map_dyn_protmem() run while rp->protmem is still lent
-to the secure world if reclaim_protmem() fails?
-
-reclaim_protmem() can fail, for example if optee_get_msg_arg() returns
--ENOMEM in optee_smc_reclaim_protmem() or if the secure world has not
-relinquished the memory handle in optee_ffa_reclaim_protmem().  Both
-init_dyn_protmem() and release_dyn_protmem() ignore that return value and
-unconditionally call restore_direct_map_dyn_protmem(rp).
-
-On arm64, arch_dma_restore_direct_map() remaps the pages as cacheable in
-the linear map and runs dcache_inval_poc() across the range, which
-re-exposes the still-lent pages to CPU speculative reads and triggers a
-synchronous external abort or SError on the cache maintenance before
-tee_shm_put() returns the pages to the allocator.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111110738.8729=
-47-1-vdonnefort@google.com?part=3D8
