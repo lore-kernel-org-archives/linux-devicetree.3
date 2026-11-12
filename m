@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794459421;
-	b=YAfjayAfaUhTYyEkNh0X+70iZ/b6of3zybordza0F7rObdaF4PR7hNy22LzdPCTmPzrd
-	 KTfJ6S3wCv8TMVBpF/ffq+JBKjiDinZoagXyz8q52AkjVLzdiI1fgeHs2cuA/HaRGDyKb
-	 53q+BVRMYkDIyL2d+zyfoiTzIh4XXI3SZgaBkN7balW73043uXYm+RjtALqphL2FGYmSg
-	 kuFXeAJObyHdlSuvREWMxUqY7Kyq628Hh8OkVmpeoEmP5idB0bfHBIB1vda9tP/oHuOlP
-	 YTDAgPs933yTs94wbQtCM0LFRcFuUaVU1EBULJW6FYhp4T57RgHJDkRalVN9nv7m8kg==
+	t=1794459474;
+	b=vyMR7mQ18B6shMQAUbRmT8D9H7IOASKmzrEwmlI+en1+okW0+zrwjy+I+tfDxTjtJglk
+	 tK56L/wkGUdnvKu+5rTKDLHhntOPHlCyRR5SIwMPrHIAHfgjsdudEKUU/E2DXC1I/mFmn
+	 P6eIVXJSIbAm2jkNklTyc++7ngU5LOmujJQxhXglrup2CPc6/tt2gPERwdgVoFZ/G+qH+
+	 vtWT6lwb9NoSl1QlcZwaEi9VRcRfkbJXLyF8bEBAwu6C3AWxA3JgVRwWUwZ6VG2+eNsdP
+	 OgYDZSt8+SLPEAMKkuH4L6pDnFQh95R5kNwzHNyYQmLbyQ264xuPRdvERHbimvor8UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794459421;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
-	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
-	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=z4D59vuyvcMbDa9Pt/pKTpe/EwgReKN9P8EsTN5XhmA=;
-	b=wBR3GUvIqepmqg3lOeBO6aBknQGOsFOLA/Fv/39rwk7bt3PhJNnquCUNPtjKzxbkRrT0
-	 dHIcONZnVvgde8dpXEKMQhm51lGQJLDyRkLes47oqB4KhPFvaEEuaBIdCEMlV6yUWl84c
-	 zZDqfYmXdbiRDvRvqqts5TwJJivEGSP2NRobXSR2a4CN/gV2I8xhapD36ejtqYTlc6I7q
-	 /9K0aR34299x4BX9rnZTNzzsoGkvMSB/EnG7x/cOTE7odM8F0B7nJgmbolxd1VFYUE/sc
-	 SM6+18CjrUL2Wlvp/GYbKmjAqE+vIaXkUdvERvXtt5JZsW/41VH6A/CCF/TOCbWSaMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794459474;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=t9aFDRUNfEnIv0LAN1/Rn9TP+JbR9IGPJLZC8kpkkzs=;
+	b=FelWmuTiWKeZjHoqjmXD0aHyTBDMH/Uz8W3+Qj2KC7RCI28kaHWIgROaAmXd+F7VDjDh
+	 yEp0101SBPvwpBMobf8SXidvQ4QVKmtAxoZdU8gHk9RZvBaa36cFnGyNW56PfiC7dvl1Y
+	 Xnhy3J93ia7tm264bTJfz1fKP5aOp8GDzqQ51x1jNq4f5S2r5WOYR9i0B43pjnoDhG7t4
+	 NVwAr1fyCDFutWIupiwkRnis81iHaLOeXJu6Cv4pL9WuMKkmWF4PAplRGHv3DtqHxj0Cd
+	 y46lJ/0OBbBxG7G5ht6p1C4A9Jv+MlvuTtRz2aqGzXIceOKZZ9YqjvwZOuL7g6CVyGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=brar.si;
-	spf=pass smtp.mailfrom=rsend.brar.si;
-	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=D8itWCM3;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=OLwJAMcM;
-	arc=none smtp.remote-ip=23.251.234.58
-Received: from e234-58.smtp-out.ap-northeast-1.amazonses.com (e234-58.smtp-out.ap-northeast-1.amazonses.com [23.251.234.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWCJAvsY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25018606A31C;
-	Thu, 12 Nov 2026 04:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25018606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84783606A331
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 04:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=D8itWCM3;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=OLwJAMcM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=brar.si; t=1794459419;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=b9oTyFk/rhLglEhNvK85W7391VaWqHkJc9l5PkpIFzU=;
-	b=D8itWCM367Y3/QY0LSrMt3b+A6ypYnhGsyhncm+25A67r0OPAfAa3pM8n43R4qCQ
-	rQz1e0vYFC6PHttPTrSrEmjauzAvKup62r1UTzxThHKUiyRZvaBNkP/P1XE5Ykn8WjX
-	KzdRUUoMDK2o5OZo6nZgO/NOVTWzN+80GsfIyFPg=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1794459419;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=b9oTyFk/rhLglEhNvK85W7391VaWqHkJc9l5PkpIFzU=;
-	b=OLwJAMcMKujoQEi9JZXOvYIWeYPmT0kuYbgtR9ma8cJ0XQOesYAPMlkMccZOSC1m
-	+46fauBdJqvRLN28OZURwRl30ZFmwAxQkWKy8QWCZ4bAP9TSgO+zl/7e+B2kKrOQATd
-	bKtWIp8Z6WeviIYh9TfIkdYj8+vOqMWXJvEQLE8Q=
-In-Reply-To: <20261031-gpucc-sm7250-v3-1-a903f8a375c2@brar.si>
-Message-ID: <010601a1ce1dc3ab-f94c69be-c454-4038-9dbd-e970b1860da3-000000@ap-northeast-1.amazonses.com>
-References: <20261031-gpucc-sm7250-v3-0-a903f8a375c2@brar.si>
- <20261031-gpucc-sm7250-v3-1-a903f8a375c2@brar.si>
-X-Pmail-ID: <1794459418845.156917985495@brar.si>
-From: Ishu Brar <patches@brar.si>
-To: patches@brar.si
-Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, taniya.das@oss.qualcomm.com, 
-	quic_imrashai@quicinc.com, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: clock: qcom: Add SM7250 graphics
- clock controller
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWCJAvsY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB581F00A05;
+	Thu, 12 Nov 2026 04:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794459474;
+	bh=t9aFDRUNfEnIv0LAN1/Rn9TP+JbR9IGPJLZC8kpkkzs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HWCJAvsYhBpLP4zDidWl7gJiJN/QdjYW+4TdlzRRsE2V1OBS6zdrPnN/sQlkS239a
+	 qowR+NkBbKzUHsn/JMOOOIXlwkxaopqGZbGwGQzI/LpEb9whwDG5M1VWv6Y4ES9UqJ
+	 WwNHSEqq6oSi6F7citgKRL8aWhjexMsOufeRgqbYJz10h7myLqR5IwM3pu33kRpgav
+	 VGpw2lqSrmFJzWIU2tLHHlrRyhWSspgdFkJ5NPvSWY57gS+jfis1CnRNTTcjUsBqID
+	 aG7w7fuEcNOXC4kix9BQKq9fus7WJKdKUir955jwhUtQPLDBzogNNagOYi+Sw3o0Gs
+	 3aRPKzTnWyieg==
+Message-ID: <sashiko-outbox-210403@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 06/11] arm64: dts: qcom: ipq5210: Add ICE support to
+ SDHCI
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112-08-dts-v9-6-c34de4f78fbb@oss.qualcomm.com>
+References: <20261112-08-dts-v9-0-c34de4f78fbb@oss.qualcomm.com>
+ <20261112-08-dts-v9-6-c34de4f78fbb@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 04:56:59 +0000
+Date: Thu, 12 Nov 2026 04:57:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,33 +60,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
-X-SES-Outgoing: 2026.11.12-23.251.234.58
 
-On Sat, 31 Oct 2026 11:19:02 +0530, Ishu Brar via B4 Relay wrote:
-> From: Ishu Brar <patches@brar.si>
->
-> Add the compatible for the graphics=
- clock controller (GPU_CC) of the
-> Qualcomm SM7250 SoC (Snapdragon =
-765/765G/768G), and the header with its
-> clock, reset and GDSC indices. =
-The clock inputs are the same as on
-> SM8250, so the existing clock and =
-clock-names constraints apply unchanged.
->
-> Reviewed-by: Krzysztof =
-Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Ishu Brar=
- <patches@brar.si>
-> ---
->  .../devicetree/bindings/clock/qcom,gpucc.yaml  =
-    |  2 ++
->  include/dt-bindings/clock/qcom,sm7250-gpucc.h      | 36 =
-++++++++++++++++++++++
->  2 files changed, 38 insertions(+)
-> [diff trimmed]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: ipq5210: 300 MHz ICE OPP table attached to
+  sdhc node
+--
 
-Gentle ping on this series.
+commit 26d7894a0ee84572c70f5300978aa25be22d94a5
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+
+arm64: dts: qcom: ipq5210: Add ICE support to SDHCI
+
+This commit adds the SDHCI inline crypto engine (ICE) node, a 300 MHz OPP
+table, and CQE support for the IPQ5210 SDHCI controller, and enables ICE on
+RDP504.
+
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5210.dtsi
+> index f3d688fded802..267255d2980a3 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> @@ -164,6 +164,14 @@ opp-1416000000 {
+>  		};
+>  	};
+> =20
+> +	sdhc_opp_table_300mhz: opp-table-300mhz {
+> +		compatible =3D "operating-points-v2";
+> +
+> +		opp-300000000 {
+> +			opp-hz =3D /bits/ 64 <300000000>;
+> +		};
+> +	};
+> +
+>  	pmu {
+>  		compatible =3D "arm,cortex-a53-pmu";
+>  		interrupts =3D <GIC_PPI 7 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIG=
+H)>;
+> @@ -456,7 +464,25 @@ sdhc: mmc@7804000 {
+>  			clock-names =3D "iface",
+>  				      "core",
+>  				      "xo";
+> +
+> +			qcom,ice =3D <&sdhc_ice>;
+> +
+>  			non-removable;
+> +			operating-points-v2 =3D <&sdhc_opp_table_300mhz>;
+> +			supports-cqe;
+> +
+> +			status =3D "disabled";
+> +		};
+> +
+> +		sdhc_ice: crypto@7808000 {
+> +			compatible =3D "qcom,ipq5210-inline-crypto-engine",
+> +				     "qcom,inline-crypto-engine";
+> +			reg =3D <0x0 0x07808000 0x0 0x2000>;
+> +
+> +			clocks =3D <&gcc GCC_SDCC1_ICE_CORE_CLK>,
+> +				 <&gcc GCC_SDCC1_AHB_CLK>;
+> +			clock-names =3D "core",
+> +				      "iface";
+> =20
+>  			status =3D "disabled";
+>  		};
+
+[Severity: Medium]
+Is sdhc_opp_table_300mhz attached to the wrong node here?
+
+sdhci_msm_probe() calls devm_pm_opp_set_clkname(&pdev->dev, "core") and
+devm_pm_opp_of_add_table(&pdev->dev), which binds operating-points-v2 on
+sdhc to sdhc's "core" clock (GCC_SDCC1_APPS_CLK).  In
+drivers/clk/qcom/gcc-ipq5210.c, ftbl_gcc_sdcc1_apps_clk_src only supports
+rates up to 200 MHz, whereas 300 MHz is the rate in
+ftbl_gcc_sdcc1_ice_core_clk_src for GCC_SDCC1_ICE_CORE_CLK on sdhc_ice.
+
+Attaching the 300 MHz OPP table to sdhc gives GCC_SDCC1_APPS_CLK an
+unreachable 300 MHz OPP while leaving GCC_SDCC1_ICE_CORE_CLK on sdhc_ice
+with no rate configuration (qcom_ice_create() only enables its "core" clock
+and does not parse an OPP table).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-08-dts-v9-=
+0-c34de4f78fbb@oss.qualcomm.com?part=3D6
