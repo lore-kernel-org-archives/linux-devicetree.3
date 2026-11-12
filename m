@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479833;
-	b=VxIP7LycOIeGB9jMVIGFmdqEGpHQVcv9OIpMRm3DZuKr3yuGW/CzPjvOvcFG86XrS3Su
-	 5LgzRMzhtW8eb2IAWlbtlDII8gb/1Zb9clVzGyk/fwL6JhrQUznbJasERPmabINoONysT
-	 HQe8VQw+OAU1m692+jrb6FApPOaaCwEe7nakxcmC7Nc7KUswLfcM5USAA+GFrBWFz9QJa
-	 8ZRQjiGuZBUvH1AYWOGuNllHu9J4s3F19b2ssPZZz+ANVkWmSbbM2hzfbbPel97sBHltm
-	 //905yJzYIztTVO+FOIiSetLE5eS5JATLNC3f0DmUct0tU6AXc/Q0zRRrlfwBAYLxig==
+	t=1794479895;
+	b=TlpHIO3w8mY2E16nxRYrkt2ApDVuJLJnVw93y12bThxREYUwyu6NFZBEODrk0dVMiHPS
+	 AnOS1WPghSXs6uJAioW4OU23YieEq71NWoznZasxxQkR2NcwspeQhqp8nrtMx3+ihHkJ5
+	 FXk3lg0UAIKyqVdcfZLIRKeISdEbqTIM+XysVwt9ccGYjRfTluvfwizDOeRgBUlxDHadW
+	 zhZ5J8UOsSF9VLPVZw1dhjS1wkRfRa217kSBrijVj6zwSghQ2ZSrTgaho1po6MWB4/B9Z
+	 0a/eNSVkThjuzm5yzvDBr5DrNi3uaeWLB+BNZCbft2YqvPbdG53zxp+kwEIQR1lw73A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479895;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Kzqp5iGyk++So6EO/Kp6qWBhwWMWDzt/i/L4ZdkxQQk=;
-	b=NxVPiQ/qBTwOgs1XDMB26Ww9JxS4h3rQDImIqdobx+9yAGsaU4HCizGEHSzACpth/pTu
-	 y4d3CPMgGnpDuSXk3IHqWYMdFSr9IfsycZz512/DjvY2HX7Tu1S53EnNxq6hZC0yS2Rtv
-	 TiHdp6t3bQeNQUqihidjX6q7eZ2C5oy0237OzHUcsrG8j9/qWVBNvds+LovjhkhRk0koR
-	 /VTwvXtd1wfI88+Cc3/cEGwd4jLDaNoD8KbK3g4pnFVI2g4N1RCjAjM4nIqmcVvU643f6
-	 hvjZVP/M4dQSZXh2S96UBXB3nvTn20RxxaicrTMfVPMNzL7jkbimTKqje9Ql4ig20hQ==
+	bh=UlhJcu9wlQGccgc3eyv9RsDxodKeawxsHzV+5724IEQ=;
+	b=Nz1eG7nBmggKwlid9FFnY72AolZCCZfJnu9Y+6fBwyIgwx3fdQHTVe4EfiYlnMfqhv9M
+	 JwcNd/fyFNCz3tt/C+kKpFGBQGdwc8eWxV4HF/1A/tRgDRo5JQGfjuo7mFgcR+0czvVIX
+	 FiIcWio/43BZ4d1oZLUOTtygknrK0KOQfaBUyIvIt/4D7VlRbKSZh+T4ENiqPaf0Kfvf0
+	 2hUKoli8/tbukCi+7sRAIWtN8NpJml1wn+YqPlEm4xjYRZmq8e3Q+/mIVPmk2hqkveUIK
+	 fvqMRvi2EQmQfmkhVRPeOSEH0a4H2Hyw0mFD8eInO9QrhNbv0dSfRGo6ilf1AT198VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGh0F6w4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hy938g/4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23FA606A321;
-	Thu, 12 Nov 2026 10:37:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CE0606A32D;
+	Thu, 12 Nov 2026 10:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGh0F6w4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A181F00A05;
-	Thu, 12 Nov 2026 10:37:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy938g/4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E69E1F00A05;
+	Thu, 12 Nov 2026 10:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794479832;
-	bh=Kzqp5iGyk++So6EO/Kp6qWBhwWMWDzt/i/L4ZdkxQQk=;
+	s=k20260515; t=1794479894;
+	bh=UlhJcu9wlQGccgc3eyv9RsDxodKeawxsHzV+5724IEQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KGh0F6w4o5tT3aaRjJyR2mSvD+mRV/4eW9/IrbnWkDLToYL+XlbOoeFHUFGNagRSp
-	 ie4wY8eZFlJa2N0LZ+/SpEXwSCoZJOB38ZQS51GWQgb2KpKiYKuaU+/FnIK6v/sknJ
-	 Y+VlyA3YXXM3uGu2igjvE4nwIo5R6zXknjaLtOcPqhVzPG1C6Oaf1mSNMoN4vgjp+0
-	 rXX/NYzxN2S62j1Mqy8QHCxqEjJMFSjd5XKE9wj031IwzuPJHfODUjXthX++LhoX+E
-	 6I9oMhpMNSr7oOsIP3OJYNUbEAJPqR0NpuJ0ictLkVZkj3fPZZ2LnM4XMEyjLjnYkw
-	 k1vAnQXpOj9HA==
-Date: Thu, 12 Nov 2026 11:37:08 +0100
+	b=hy938g/4igzFgZNjlYHansFdKN84iLAOP6GO3DGPfd3lO8kATH511IHcPmG/OXvQf
+	 CtmX8jk5hD80fGKSMNuTEJ8JXT1VaM1PQN6Lo9CHe7sMDSw45YvyJInoIXiB+qKr91
+	 IACb78C7dwP8dOGcSe53M5bIHrTsTU/jY5ibuTPLwx4p44ouTu23FLlklRUaETZUW2
+	 lqEO54b1bd6DFLcJHMAfytA9Tlk+0Y1tk6+0F2LBYaKZdPPe8uzp1lhHE6xgB8TKnP
+	 bl+wzgMJfOrHwp7se6dkdJuDIryZupIOZhUAwFblH2D/dlQzvEy3gmZsZV1q4/bNYQ
+	 GVHKgUZRxNu+w==
+Date: Thu, 12 Nov 2026 11:38:11 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gary Yang <gary.yang@cixtech.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: add Realtek RTS5453H Type-C
- port controller
-Message-ID: <20261112-memorable-ruddy-auk-8df30c@quoll>
-References: <20261110051723.434009-1-gary.yang@cixtech.com>
- <20261110051723.434009-2-gary.yang@cixtech.com>
+To: shengjiu.wang@oss.nxp.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	shengjiu.wang@nxp.com, daniel.baluta@nxp.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andersson@kernel.org, mathieu.poirier@linaro.org, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, p.zabel@pengutronix.de, linux-remoteproc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: dsp: fsl,dsp: document debug reset
+ control
+Message-ID: <20261112-sociable-prudent-newt-be2b30@quoll>
+References: <20261111031808.570680-1-shengjiu.wang@oss.nxp.com>
+ <20261111031808.570680-2-shengjiu.wang@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,55 +64,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261110051723.434009-2-gary.yang@cixtech.com>
+In-Reply-To: <20261111031808.570680-2-shengjiu.wang@oss.nxp.com>
 
-On Tue, Nov 10, 2026 at 01:17:22PM +0800, Gary Yang wrote:
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        typec@30 {
-> +            compatible = "realtek,rts5453h";
-> +            reg = <0x30>;
-> +            interrupt-parent = <&gpio0>;
-> +            interrupts = <8 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +            connector {
-> +                compatible = "usb-c-connector";
-> +                data-role = "host";
-> +                power-role = "source";
-> +
-> +                ports {
-> +                    #address-cells = <1>;
-> +                    #size-cells = <0>;
-> +
-> +                    port@0 {
-> +                        reg = <0>;
-> +
-> +                        typec_hs_ep: endpoint {
-> +                            remote-endpoint = <&usb_hs_ep>;
-> +                        };
-> +                    };
-> +
-> +                    port@1 {
-> +                        reg = <1>;
-> +
-> +                        typec_ss_ep: endpoint {
-> +                            remote-endpoint = <&usb_ss_ep>;
-> +                        };
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-
-Drop all nodes below, not really part of the scope.
-
-With this fixed
+On Wed, Nov 11, 2026 at 11:18:04AM +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> The HiFi4 DSP provides a separate reset control for its debug logic.
+> Keep this reset deasserted so that an external debug agent can access
+> the DSP and perform debug operations.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  Documentation/devicetree/bindings/dsp/fsl,dsp.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
