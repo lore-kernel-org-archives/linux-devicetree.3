@@ -1,72 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484368;
-	b=FWhOcBH8gA/qLGc2/VtFjZs2Cl3FwseaT7iEMWGaz6JTH30fh5l8VFWecFKTGRBv7YkB
-	 WJZemZNCl/rZhf5bx2/4ZQ9LKxesJRJNL4bAqGx2XWUTux1GGUd7OE5bEXcwzwhflypL/
-	 48Q1W8D5sSBuVdWrVnmE9AHdiJCqCkPSXZerAJqOmcIO/23MpZz+xsjItCt5R4x/WH+5k
-	 APm4kKREwDfysgAN2u0Buf6sJC6pe6Eqs6JlnJ+B+GmCa2dg7d2LoNvANgmiMeZzi03DE
-	 RezU2J31VMQCFK7FiN13aDcA5podQ77joERcbzP20Qqjhs10fRwBWjJp2I6b0Ph8ovA==
+	t=1794484644;
+	b=aR+geiTUs6XO6+XHXjiLyJIrbrFpAqzT+qk7bkue+ePpq40Oqc6BKRpkJJpKQyfFqE3C
+	 EdOThHS0jcu25IXIv94qcb+WvwkSAe82gae8FHoXkVSS8ZrhnlhXeXux9cbyb2uFjZGiu
+	 O+L9JFG/m9J2XHPYdBdM8hk+AAClr8NzHsI7wnEPnMLmqsVQxDTPgfo/WoKwJhVLz0TJK
+	 TmwdR7TPsSbqOywLzr0NVMPno6k8/d4OxJ/kA7FGNgdwctygE5p0U07s+9ssa0r9YRK+p
+	 LaTTnucb4I7j/fXZOEJMxSCDbr175ZyYmpIpq0svhKZWvcFKha5XG38PGeyuX1E4fMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484368;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ab65Y+/YS/ftn0XtRf+D21POuuZDeeWSaeiwjaGmWKM=;
-	b=Dk1YwI5CFPnQpABSCxNcrJ9903L85NBkNO+r2arbu9XBA1zlNh0GLcZ1utBxpAyIFlPu
-	 PrV7J7Oi+VGFzAgvPmBSbnqjzXEKKRKmkJeSYSuOKydUtAPEkjheaChb78+ZgaVR+ynPv
-	 TpiCkKq9tIbZwd4Jqwp7LEnH/mU1yoOB96M/pwbgXqJQHu7EhxbvsGPTLHTc1lIe5nzRD
-	 vfKJdMMdR9njaMvVSGltAvi8ywoppnGrqYJwv1avFhLcw84fnB4bGayI6tXEI6WW+6aDe
-	 WlbUYfZpfIogeuvXjg+wS+wmbgUaL302sADJnmGd3FHVXFkRAwKZUWPfCLSqJN20bsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484644;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bp/lLZL1SBFmFEQkQH5gmAHuHmDO473OO1jYcQt5nwo=;
+	b=bGb3PAqPAoCPLUpjK9S47k82Wa4gT468DjZrh+V5naW+84cUjtpOkqXd6GQ1CebFsV/M
+	 m6EqLCFXIvZHUNxAO4g4Hevoy/1AjVu/MGd4tG4OxHFd/ISKrPf9hzwND0+KbzUMSA+Bw
+	 2vl1nb45HrpbJDiqkqUNgzGh5OLNYpe51eIm42RtOzjwNcyj7WN9mDzJ1bANPmPfM9xuX
+	 3aF1V01omIiRpDk8tlLeywxlYZRM481TeIL5RalV+So+ySwo2WqqGc7NAos2e4uECwqoc
+	 gGYGGc0+PDa7/gpqQfm+JJ3+Uuc71m/ywG/6XLmBf6TzEEEY2KxQED+TaydpxuOFLbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JciomXZa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrdTW7Rb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06967606A321;
-	Thu, 12 Nov 2026 11:52:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BC0606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 11:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JciomXZa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF661F00A05;
-	Thu, 12 Nov 2026 11:52:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrdTW7Rb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B871F00A05;
+	Thu, 12 Nov 2026 11:57:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484367;
-	bh=ab65Y+/YS/ftn0XtRf+D21POuuZDeeWSaeiwjaGmWKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JciomXZaUjqGr0rn+i52tzTnVMKf61Ev/r6LPScfy3/DHjKOGHeScELqCPIMBBPlE
-	 ctID8uzarSzJ+lo7upBGVmq2V8xtl5tnfs/cB+SqHYLHbajDMl3JXyuXoq6iIMGLaS
-	 P/y1+WblHvuQml3Bi8eNhvWXoq1nttW3GnSWLFokZJcUeOM6yIoklaaYb3p4yq09r+
-	 kwLPkSBfkFsF+Tiucs3ZfCvR/I4CEgOuCSjcFU0Xwm5gWwbn/fGHeHGO2k6DhfnfU7
-	 DuXsXuV9XgADgIxMopbBrjiRn2Fm6wsL5HTd3PVU2pQnTVkJerK9EXIz1ZTrThwqaH
-	 di4aUgCf/gR1w==
-Date: Thu, 12 Nov 2026 12:52:44 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-usb@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 02/17] dt-bindings: firmware: qcom,scm: Document Halliday
- SCM
-Message-ID: <20261112-fabulous-nautilus-of-joviality-dd8d5a@quoll>
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
- <20261109-halliday-dts-v1-2-289114ab8197@gmail.com>
+	s=k20260515; t=1794484643;
+	bh=bp/lLZL1SBFmFEQkQH5gmAHuHmDO473OO1jYcQt5nwo=;
+	h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+	b=DrdTW7RbwQixGyITa2oRKKftxgf8uk5C5Q4gQPa4V7h4+B/Il0SqVgubFA1AEZGW3
+	 hPtb8WMpSAhCt2HkYkHhmj3QOF+gMa3MNHtq9YJtvRjM5eGn/oeUkNHcJEghCkNRm8
+	 2A6HUzabaOgnOtqc7hPUB3Ojr6mhXa+dwNl8vpGd4ZmnvXkszOi5b0qU0T9Fo/2gQF
+	 evYImBInlYGw3DbqEhlSd2hVUy1sEwRrVxhJFCnxLQmMwG37M3Gg019cFCZUfPRC0p
+	 2k37qnz4fgvIgEcOcFqBJipDX9j8gQ4CyFmpA6pLsVnQL2J+Gjak5Pv8cxJZ+UiCvf
+	 e2BzuZkSE/rKw==
+Message-ID: <sashiko-outbox-211056@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/8] nvmem: core: take a reference on dev.of_node in
+ nvmem_register()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manikandan Muralidharan" <manikandan.m@microchip.com>, pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com, miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, linux@armlinux.org.uk, richardcochran@gmail.com, arnd@arndb.de, linusw@kernel.org, enelsonmoore@gmail.com, aaro.koskinen@iki.fi, pengpeng@iscas.ac.cn, mathieu.dubois-briand@bootlin.com, gregkh@linuxfoundation.org, michael@walle.cc, linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <2bc9cde2ff5bfa2bc55bf12407bfc08f6a467bb6.1794391660.git.manikandan.m@microchip.com>
+References: <cover.1794391660.git.manikandan.m@microchip.com>
+ <2bc9cde2ff5bfa2bc55bf12407bfc08f6a467bb6.1794391660.git.manikandan.m@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 11:57:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,21 +59,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-halliday-dts-v1-2-289114ab8197@gmail.com>
 
-On Mon, Nov 09, 2026 at 12:33:14AM +0000, Stanislav Aleksandrov wrote:
-> Document the SCM on the Qualcomm Halliday SoC.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] nvmem: core: missing Fixes trailer for nvmem_register() of_node
+  reference fix
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 34145a3067cdfbb6bf1220c524a41a448d6b7c85
+Author: Manikandan Muralidharan <manikandan.m@microchip.com>
 
-Best regards,
-Krzysztof
+> nvmem: core: take a reference on dev.of_node in nvmem_register()
+>
+> nvmem_register() stores config->of_node (or config->dev->of_node)
+> into nvmem->dev.of_node without taking its own reference. Callers
+> that get the node via of_get_compatible_child() etc. and drop their
+> reference right after registering leave nvmem->dev.of_node backed by
+> no reference at all.
+>
+> Take an of_node_get() when assigning nvmem->dev.of_node and release
+> it in nvmem_release(). Existing callers that hold their own get/put
+> pair around the registration call need no changes, since get/put on
+> a device_node is per-holder and independent of core now also holding
+> one.
+>
+> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> Reviewed-by: Michael Walle <mwalle@kernel.org>
+> Suggested-by: Michael Walle <mwalle@kernel.org>
+> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 
+[Severity: Low]
+This fixes a missing device_node reference in nvmem_register().  Should
+the commit message include a Fixes tag for the commit that introduced
+config->of_node handling:
+
+  Fixes: 1333a6779501 ("nvmem: core: allow specifying of_node")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794391660.gi=
+t.manikandan.m@microchip.com?part=3D3
