@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794509294;
-	b=ZBzRfqatSX9Sic0Wp088a43ug1ZNY2i51qCbrdJOAh/3dZbvnYUOJVJmRrW4sBUps8C2
-	 9Imbcx21wD64QeeqzTRx1/klZjpH0Qg1oqLLHUWsX1zTZ16vwmHNNKdQ5yRjWslSG2V9A
-	 LXrP7Ja532jt61TT+lUWkKHk4togKUAODi+rqrT1c4DH5GyvAOO6nKkV0rSvP2Q5x7bW8
-	 IWuzXY2TMIM1KDjMionPNZKn9wEx8OkmLj1dJzkMn/6PhhUHUguV/sXWUST1YzIMumqys
-	 DKs1cnKxerX65hTgjSgEIAgwAVTi5vM6+tPQaEtJgH3afm8SjOJchpzMWFGpIl/SrNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509294;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794509333;
+	b=XtEWnQpUXzaUPIGl1QgBkRFgglbnqg3jHQUCMTin3DuRrV5DrVH0XkiWRTGE/m+2n7i8
+	 ELdZpnThu6Zzt11D3iYDGoc/PhofS94Gl8E+xBpKvyRk5rHb9XNXP/z7dVldz1I+gsDPT
+	 dH59RzpKSJ5l3f4pGUFPhBJ0F0ZaDHRBGds/GCTq+Q1vboWSLulEfxowOqd5TnGs0zbG5
+	 kzYFjD2lpKWomjluYnSBOYzlArCGJDBiAcpsiEIN8vngRUr+eGr0FUqkIR666u+mlSZ3V
+	 K8z1Eg0Cxv8HHYP+OKFKpTjBX2UraMmtVSaf+RtAP1G4zeEIp8n1JEcgeDJWqIn1Q+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509333;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
-	b=nKWgr2iliyzifyuiioMyJZPGNRt9yvSSTxmm546YQzeGdhIbe/wAi5vBGswjLsCAzpxB
-	 rwaq3uzUuPatjPluI58BtQjdBnVyevGN7FIbOINehu3J7zFB3+9ofX0pwd72J4gegwpbj
-	 KMCV5NH6QX+94I1f3YqKnUXlqazclLNrPbrFhXRXOEQBUqNhqVq3ALSuWgs/ciooGkTfU
-	 Hle9gL4o6AV2RmAX0xsLVxIDs3KM6O7vbSkhMVQt/NMuEZvaP7N/8p/SKoRNffzUc5zDc
-	 q9+9C1ILF+otEjGMiN6Z8aHbTnpjwYLPWMuAR7hyEVWwPZ/zxDeL+sqaPGzILOq9jvw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=ehC3qw847iiWR5bSKdz3P8hEWEJvIA2jk0hJ/mxqd70=;
+	b=g0VHLt4uINCxwkB2B7xWsgHv9zIQu0ULRvFHbYEzMfA/hL7P7s5+548yv/8qOEExNr1P
+	 cbDpEDeTk3A37Y8gRTrFQWqfrwlgFyOxKiz2Zt21/y56jjw5gtZdYmd+ePf4hTED74E4x
+	 etyGKn0md71wATlO4pz1R7cUWhkoL9Rf6xXV64jEdv8aZFPB2tUdjHISzjEVOgWvsUnWJ
+	 sIZIDR9ehj4jW6EKclXuvAY6c3eWMj9cTTtyOFinDIk6YTgkASuKFZvBok2sCtueoKJTv
+	 mPzmP+v1KL4VSmN3Sgq1XTKLF0Y/QMzr0xTDLPXOmo9QActGIF0TS0RYiHFuk7ovaxA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0xoVYenJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Uwp7LFy;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1BA606A31C
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 18:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C1BA606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6363C606A321
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 18:48:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6363C606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0xoVYenJ
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5365d725440so422521cf.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:48:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794509293; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z4sBVW/UZsW4R0PtTBfLSIJado0WH023G+addQ5GKhHbQVoWCsQqsRAfnWhZxPkmXK
-         H94F+UvR1jYpQBAPzEeQWZXKEy2zvA3zGzbkCb1YnMhNl8kXs8Z80wU276S6dkFeP9ir
-         yyhpLumNzqlMXwpnWruJafNeGf+8ucoGcpyi2ViNGx6AoMbWk+C1lB9qiM9T+0UHhSVJ
-         j5Au95DmcPGHyxQVlKX2//epbbsDrmlOQg/ZBN/m2RVy0vl4ZWJzWHA9cAXaczfoCcK2
-         +KW6o7ToYjEHUmvmxZ0RxuFZWKxoIZGwhmEEJQ/nBUv3t3mcOw9N5040Ixs2IEdq8R9s
-         s6WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
-        fh=rR8RR7x6TS8XwGDYyVue95saa2rE5FHx52LoxDMftYY=;
-        b=e0fjhPbzr/uYYHaCeJOGw81ppEmLki51GiYavJdK/Opm8a6xet158LIywKVIFGNqIl
-         T/jFvux/c295KhjHuuftHH2JYhb3berAoihSo6Vzq16qRVpaMfWzABs/ADVYRvvvGPcr
-         c3foXDAlAcdBXmfD7agEt3PqTeD4/M5lwHTqEPCsXK5ubXCPDEu93NKmJtukheGVHMA7
-         jOQbaH0JCU2+5Nb6ejDTKgBhZWFNDT/oWE2/EqKWlYPcFp5GKoGU2FB0Sg7XluHkkgI/
-         gc7JwJf/bEGaAknH2xCvaXFQMh/PJh/UedjzrJN1krJM6FlRWftcRRLv1kuDGDcdy1Ai
-         n1fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Uwp7LFy
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so43032f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 10:48:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794509293; x=1795114093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
-        b=0xoVYenJNOHYVK2tk3GQfolNIKeukJZ32f/YHV41rGHEFcfGWKY8DZAT5ilu1wxECC
-         pRtnOL5FnjC8U4DbCjzMoj/gGseWk41079Yc8xscAIe6N8uXfVn6pMqstuXadzT18sdN
-         Ei1OEWF7hhOXRwOyxBNzHG6y1ldj0MbN7OApgdP2vIOQWTHd9fk3W10sifNDgr3ordE4
-         s8ZMzTyHKM1/LSLY8UmNNPt+XjoYFIbkELNNsLNkLdD6dz6HmdV+JY0tEe1YRKBCeCCh
-         Sa5thdQu4rhEJCkhziV/TfDJ9BSfG7fAcXteNGgJLKP5ovJVqoFaoWuZxe22+FBRPT2P
-         Y6kw==
+        d=gmail.com; s=20260707; t=1794509332; x=1795114132; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ehC3qw847iiWR5bSKdz3P8hEWEJvIA2jk0hJ/mxqd70=;
+        b=0Uwp7LFy9H3iZbBdJ54W+9fgzSqkyHsStffVINr0TBShOrFhc7h8UEdYxpjnWd1AqS
+         5+gNE+B5sxz5Zt8TCiXM9hd1tuKEQOYAHzWLw7hFAxsH7xCWosBsl2EYtj55IzP9APC9
+         Bxpm4YKHBidjtg+XklPtQE8WS8GB4dplrA69fuqhw2V0WPsxA90TMNheJyU/MjdrS6gA
+         wgNSiOfJ8qallXm+3EukTreqjh/4+MOL8/4p7+lCY8QiCkuWP2g0Ikb8R1sFrYWKgKph
+         qZQ4xiEJXR+aLghKiBo7hefVt6t6+lqYoiWpTbFb0RrYyvE2N/6nTSVYuc2p20PsarDl
+         OKHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794509293; x=1795114093;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
-        b=haM5IhRyxBWsgzNkQqGBC2CNOmKjbIvY9v+l3HcZHwr9ZSFPyiVe6hO9ti41mQbXsO
-         EqqnZaolT/cccRyNYCnfil5/0ZXLAyq7x1hBuJCdCN5pE4UylHuzN03RXOkk/ThbEkbL
-         aAstBzL0g75QmbyxWD1hWcQjdVw1HHdwcNfR7ecg+mz1RQTt5k4RxAWI6AqNLYJMRh5F
-         Osyy2Kq4IYClshqBy7hFljef4UXS2r7trvZhvkclMFY1zMT/iWNWuZJEG/WYZOm4wvXC
-         n2X46FI3jpmPUHiXpDu+6hNUvEjyEfx0RQG6t9TU0IXQ099jVqmP/0Eg4T8j2xG6KJ2f
-         B21g==
-X-Forwarded-Encrypted: i=1; AL+hErGDoCPu18CbBQRbLJG8UO5/32oFWW+Rahnwrvkc4LFVruXg1csFRsBMPPWhan0eu5fEsezgbBrATjru@vger.kernel.org
-X-Gm-Message-State: APuU4Z/o2+Pw0XTe5zx6gRRqrrGc8CduURu7F/IRTl0c0p/7/xA2H+Fh
-	d1s8yyIJVoHt+hC+NNHL80N3jqFmRFQGQzAw5Wj3q1tsj83r/fh3lqRv9x5FCpzbuPHvpLZytxs
-	Jwwe+cfi/vIhhgfK2B2+WRwO/pjkHwejtrAKXqMI=
-X-Gm-Gg: AYBFou3zO1eptxITp6/RGlyLDL3BAshw/ZVcC+gW6oiviVN8udaI6zf8Q87IRRxTg27
-	QB/t8VzRbNHfuSkYAfovXP1BU4CW1fH7FPHdqhXzlvH0PUb1RoD8X3xX4r1DY3n2E2ofyvl/7tD
-	Gx8H9sqvTaOHC1UE8ZgHRllm43N69h6MOJpm1TotUHT6DtW1+ksmyalfP/Yf65yhIzFF12X4KFx
-	MNxUgm/GAs0VtBPILnqiHuLEAmgaOX5jUI7t7sxS81aFMmBDqugZv/9XcmMDnZ+zyErp1KPHfzl
-	qtMp5vJH+wEB+Ea7P3XZ0TxIugLdLkivIY9CzCeqQXp5Vx+cxgwI8GI2Wd1DYPTsQCJcCXrpkp4
-	YWNE6pc42W8kjAziykC3OOdONitZtsZxz605Vmzo9fZazd6XN/ahTV7p0Aw==
-X-Received: by 2002:ac8:59c9:0:b0:536:5e62:4647 with SMTP id
- d75a77b69052e-55ac755ea49mr5719511cf.16.1794509292920; Thu, 12 Nov 2026
- 10:48:12 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794509332; x=1795114132;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ehC3qw847iiWR5bSKdz3P8hEWEJvIA2jk0hJ/mxqd70=;
+        b=yfmNsED6mczfyD1MaVv7Y8zSmzFBpQoaf/bBAo2M7tHXFWB/tKMkM8Ze6mNAyqvwl7
+         QKgc3XfCL2yWheouVI2/afyVQP6Ca5FZM4+yB1FeEWzCwSY5gFozEGzmDlhPyBt9jNO/
+         nLlMhsV0euQop7iR6cgi6NQt/DUvuij1aeUA0E7a2tbs73XOfFTIBfi/aZS0YuxVbBrO
+         zgOL/DptTs2E70n5xXxqGSv9pd/jxlN4RLJpHrbETx4izxS2bmCpPYY7Hw1L20J9RstH
+         zmV80hpgM5zdMZC+pgKDhd1TyUdtxIfKK/S3p1vJISWk6uFxA3V8yzw6gCAORm+awAcW
+         zpkw==
+X-Forwarded-Encrypted: i=1; AL+hErEStZWvu7xdE9eSKerlQ2HY22bgNZQ8FsScSG3A32VpzeSle3k5zSo23epx7piD4C4wAfLooYLD/uXi@vger.kernel.org
+X-Gm-Message-State: APuU4Z+S/fNH7ik8HbsrTEnKOl8YS+T/pcwBPm3+h69Hn86D4yj0Kskw
+	W0Zb5ayJy/Yr4bZn0xgnkLtcb2GoZCnjVp6xUXxPR0kv2UuZpzvUmvc1
+X-Gm-Gg: AYBFou3QQOGByYmTAExDMK3nAJzsJDU3FF+rsSDxdSPYEVwb6Y+4ncpbYHCLEhtLXzB
+	SlZq6XhIINNRSDBEaoys0HVSW5+QNSOyd0Hs6zgIevZ0TSqWMyxQ0jIoAZjJRP4gj39D2I1WOaF
+	aM4vZyL0LhPQ8xlDmtneqq3xzlKYXKoxyz+ROf/GRf97/UkbHVF9QU/adBjZW/xoN0FMBxSteWW
+	8QtHRODQhElNRIMifba0Qr/TIN6P3Le6c7bGK0yMR43uq9lv35UadsiLWgCCJqah146Jc66DUz5
+	AJem8Z8zzAYGqw4bjox3Uoii45q0WS3AyARHwL7eeLG7LoLxzY3LvFghTbry+KwydEedS1k/c3Q
+	HqwcV9IddbVyK7COA4qp452JYqs71QE+4T47AEgKww5NnkLbqlNXKXyJpcy3PqLoImgojpbS/z0
+	1NQBmY3kUMdENiegLg7sPskuS76Mst8q9C+g0EDt63vpn29z3OjtKO/qRhrLBicqlwHpxkHJAuX
+	Bi3VsXQpx541u2cu3KvMW638GVpYKflG2yH4I3OsI5fWkXyRZSyS4EjaLa5Ap2jw7JNfA6OqzV9
+	lb3c+5MneTqncR8AdbcQv1ci+yU/6xAT8m1xLM9I7An/DX4XwfhomRQIIZAFPIBwvw==
+X-Received: by 2002:adf:e193:0:b0:48c:7306:18e9 with SMTP id ffacd0b85a97d-49c728c6e6amr559149f8f.43.1794509331619;
+        Thu, 12 Nov 2026 10:48:51 -0800 (PST)
+Received: from [127.0.1.1] ([2a00:23c4:a702:d301:72c6:df48:8225:6701])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c8a77sm712972f8f.49.2026.11.12.10.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:48:51 -0800 (PST)
+From: Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/3] Enable RZ/G3L SDHI
+Date: Thu, 12 Nov 2026 18:48:49 +0000
+Message-Id: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,69 +92,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111212921.290857-1-artem122novak@gmail.com> <20261112-reprise-jukebox-41fb305e9044@spud>
-In-Reply-To: <20261112-reprise-jukebox-41fb305e9044@spud>
-From: Artem Novak <artem122novak@gmail.com>
-Date: Thu, 12 Nov 2026 12:48:00 -0600
-X-Gm-Features: AclHuK83CGLq-frSEcoEahwnbtEAvhllMZwb7XrHT3XQ7fzapMydAcTCyK9acmI
-Message-ID: <CAPufuhZPs66hiMzHZPMLBiOAOjJxaePo=9OEvcxmxyQdKFxBVA@mail.gmail.com>
-Subject: Re: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
-To: Conor Dooley <conor@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABEK9moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mj3eKUjMz4oqp04xzdVINk85SkNPPktJQUJaCGgqLUtMwKsGHRsbW
+ 1AK8wX5pcAAAA
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794509330; l=927;
+ i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
+ bh=Dss9d3rLSskDoDGjHbVLdNl2abzsD0tiK74OykusZ0g=;
+ b=U5lTnM6vZZ2+5AixWA6rJ6+Y3nnciUxHLKYa+1CLUz+FfMARiYHqhiMyLwt3GjdSOAUI4Uioc
+ NAVTQK3dmPXAAoWx3xXdKSBWWoc/Gh4YdGfSTTBlRh8+PCKbgrCeYj3
+X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
+ pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-Hi Conor,
+This patch series enable eMMC on SDHI0 and SDHI1 on SDHI2
 
-I wasn't entirely sure whether this should be submitted as a
-standalone patch or together with the board binding,
-so I marked it as an RFC.
+This patch series is depend upon [1]
+[1] https://lore.kernel.org/all/20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com/
 
-I included the vendor prefix in my October 22 submission for the
-fx-9750GIII binding.
-I guess, regular patch would be nice, in this case.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Biju Das (3):
+      arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
+      arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
+      arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
 
-Submission from before:
-https://lore.kernel.org/all/20261022063902.471383-1-artem122novak@gmail.com=
-/
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi         |  73 ++++++-
+ arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts |  89 ++++++++
+ arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi   | 231 +++++++++++++++++++++
+ 3 files changed, 392 insertions(+), 1 deletion(-)
+---
+base-commit: e7d07f2ed4b4a14f79bc9fb417d25695cb7679a9
+change-id: 20261112-sdhi_rzg3l-e0c7dbf7cfdd
 
 Best regards,
-Artem
+-- 
+Biju Das <biju.das.jz@bp.renesas.com>
 
-
-On Thu, Nov 12, 2026 at 12:13=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
-ote:
->
-> On Wed, Nov 11, 2026 at 03:29:21PM -0600, Artem Novak wrote:
-> > Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
-> > registry.
-> >
-> > This prefix will be used by upcoming Devicetree bindings for
-> > Casio calculator hardware.
->
-> Why is this an RFC?
->
-> >
-> > Signed-off-by: Artem Novak <artem122novak@gmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/D=
-ocumentation/devicetree/bindings/vendor-prefixes.yaml
-> > index 5471a06f93f1..f05475072eec 100644
-> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > @@ -303,6 +303,8 @@ patternProperties:
-> >      description: Capella Microsystems, Inc
-> >    "^cascoda,.*":
-> >      description: Cascoda, Ltd.
-> > +  "^casio,.*":
-> > +    description: Casio Computer Co., Ltd.
-> >    "^catalyst,.*":
-> >      description: Catalyst Semiconductor, Inc.
-> >    "^cavium,.*":
-> > --
-> > 2.56.0
-> >
