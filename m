@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794459639;
-	b=b7d5t4quNwwl3lndsl+DSpLy9eZRvocopqEiS7i25qgqXIL2nOI2/xEHwiKSex9WPD7P
-	 kSznROex+jxsX9BpeL2tuIRC/f8ttsuLM4CaNm1QHjhbYZg4CKLn9RtZNQb0JdegaQGiK
-	 efNoJtoF0rhU3RIWfV1w7yQhrNAQczH+myeYGs/yLpPFnThJ4zMmL8hBx2o0TlAGq+nj9
-	 tL2HOt+1bPjqtfUl/FCi5bDdtdyntMjbP0orOmzCfoSdek4rw7IDqC5IEEwe3A3J6ujOp
-	 0jUwB7PwltbQEzIlC6+HsaQiKYr6NEJpHkn+8KnPe0ca0NWN906/sA5sxAciHP3szlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794459639;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=zHOMSk1Nz0b3keQ9uF/wOvL2htKXSmoUrdPk0wh4/p8=;
-	b=nqza5ia3aAKBEjiJAcsUjdUZcWEyqpeP0y3+RJSVCUl3ruDkUK+2X68sMTdwmcAedVOx
-	 wf8zRIP6giJsg5wlJ/KkDlshtSx4ZTW7teHyNeYCqu1C7SrxS+fW59rnFKAEm4MwTW8nA
-	 sm0D1jgR2z71ZZAKQ4b1m4hMqvPvtdfjvzTbqAWs/eGzerSJjJK/2unZM8XnHCmS4njJT
-	 bOsjj8r4/F6FdQ72WYR3jwlh5s3MEmVW/ooIWIxI2n2XpWA1n1zr0p3/flbOyPirMqHrK
-	 gjfUTCedjXjSrwjp1Op/P1PB1Mr0IsTxJQdmi7nV3HjU+AgVJnflpkTpxLVIVq+Lrmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkvQIcSk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794459807;
+	b=KmRWPzXUlJdhddy6Qoly9osTDOAooK9A72bJBqkJS11PvxY6wwCCDyVK7Fg044WX+gDp
+	 0O5Z8/PBye76Ex64uATcSzPG0dhIM3wO96KePx6m4dtvGpHKRT+OtDPeLENqFI0TttkSB
+	 UwgIT0vOQGEAYiUgwbN7d1Dc9f9bsvPnjfaReBMA7UwjH1DxpBoEGJ7PhQPq/3wwzCDiB
+	 zHwP13Yi0upOQBaWiQdV5WS4lHY9OOMh7CONcAdVPfwJDEr/XTBw4E1ahiE/mlwNjDh98
+	 2Y8lD5j8rHeKb8YCy4RF/R/QB28g1/SxEwPTPgIrIujBio9Gtc11m/Dd9kGjsGAgsVg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794459807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wojn57CdK3ADHCAhmqBfKGAS91+qGaFp/WwM/gNTuCE=;
+	b=LXGlooAdJhv+7NsnKf01MEVyA1gPUZfZfZDiAV41xKqYfUoPgf55HeHrokArT68qDG8K
+	 7vjyKiEM4a5LEekcypU9UUJQAAg1yFSbv/QfgmQj86w8Ua1KZvciQ/OG8umcr3qIeTdel
+	 Ll43B8370R5qooywwM5SescRgpDuaDvBr1mbs/90q2g9okfIH1CleyGEQDAL8VkRY8ODw
+	 MP2lTfbQ2GJ+CKGIVjkxIT1Uu7E3JenKCr+v+A40YKK77EV42pvnbWfUZNYTfBvVsb8dJ
+	 0B7/pskFkB580NECfDYbFkyzcOr6F+NqPAeqdQyga+VtuOwKQm4NqXsywk++6hIBPAw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaemNLOU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D9D606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 05:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B944606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 05:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B944606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkvQIcSk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3451F00A05;
-	Thu, 12 Nov 2026 05:00:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794459638;
-	bh=zHOMSk1Nz0b3keQ9uF/wOvL2htKXSmoUrdPk0wh4/p8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gkvQIcSklie+Y/uB5secYYovXHf76vMbfRuocGo23x8ycMA+dzbQevOsDAPtt5YMw
-	 aT59bfH5zGo5HHMMzK7kMT9ZkNMJ4QXUvfzIh3ronM5/QKGgmAmDxqTbqMaJv4jXB7
-	 2nenqd8/zD6D1AkfIGbEclZs7RtWFfAKwSCunRgVuahIsDHOIlQrYGD+JRLZrUtbEL
-	 Qn3ovi3piKw8zDFLFCmIkRurLNLAwV4mw4PIepd05h5x6Vy1ivET7C+uIKdWZyvjNo
-	 zFNzsDqFAQxRvmZa1oHtjuP3PJD04p08tWB6ptW3K/TTt3ouA7odeGDX4hyBsO3wbT
-	 6WnLQOxZ+2IQQ==
-Message-ID: <sashiko-outbox-210408@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 10/11] arm64: dts: qcom: ipq5210: Add SPI node
- definitions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261112-08-dts-v9-10-c34de4f78fbb@oss.qualcomm.com>
-References: <20261112-08-dts-v9-0-c34de4f78fbb@oss.qualcomm.com>
- <20261112-08-dts-v9-10-c34de4f78fbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 05:00:37 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaemNLOU
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab43d1dbceso2055481fa.1
+        for <devicetree@vger.kernel.org>; Wed, 11 Nov 2026 21:03:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794459805; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z16FIXnHhol2kP26FF7Ovx3B8TLwo1MPZIcUrhjDO8rx4BwTtKhV9+SNdo+JVxIB81
+         hdC0KVyVW1RQV1y7/Z3Vlu2WCyqecaQ7UWV0ipC5LBtBF4LmU7xepinBTuEIrADjsqqr
+         yIeGgup7KBicAku6Xj4oCsuX53LfUwJ3qtYZvEM7/jQWZNQJVdx4Zq4xzDq6XxU8gX65
+         7M68h725iyQkl8NLUKW4e9W6apzRxwoMGe5AMYhfXnP+U+lelSlYc65DjrUVXaNjuOhw
+         w8XZXVKn7GwtlSzYY0WEU6uC8OCk3F8BqTq5EHEW58Qd/kcdkEEbclgkltCor9wZuqJW
+         OYJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wojn57CdK3ADHCAhmqBfKGAS91+qGaFp/WwM/gNTuCE=;
+        fh=R0mjQMlEwYdCBYczDitf/bh0IqkJHVRgH7OsAdeQx1s=;
+        b=kO/kAt3/Ol+CfwHftRJvCUOtC+EcpVZVzTYe/UF84AwOWSikYGMnC2pk8OjlzzC7j0
+         5XUzRa2YFPc6w4paUKfVtuoX+OJSLsJodaFWE4FZ3q0/FUXQ0CojSOh8Wdnyk3QW/WNF
+         tXzsijjcED5v5cNcMF/R4UL+cPshhzwITDFmdQ6FhHD6KZbJon8dvSHI+Kf3hjlQfuw6
+         rUP1Qn3xwmpS6C+J+yrPbLRvEzQRjvlmcqzH7NMWpqUA+oPwMGO/pyjWsXcUNNZjQY5q
+         X6pnYirs1A8gY2GR4OZTdRXDUwQeyBd53Yk2REo1F6dXoIDVpB11BDu/L7YEZeaiPiwk
+         G6YQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794459805; x=1795064605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wojn57CdK3ADHCAhmqBfKGAS91+qGaFp/WwM/gNTuCE=;
+        b=gaemNLOUmMlOj79oNRsDVgPcnpn7O7LSUXjc3Z9LQes5hys/5UrxmwWdqdVCGvBUwU
+         +W8tFrrKOU+12KJ/LOuGu9kAooCzky7Xdm2lGJnpzrHN8PMTriAC/ja00bjhDL90Dnxz
+         js/vaDgdJHekplKfZKF6dkMBx3t1kMwTpdaVJooJacKipBVoceS9DhbVh4rmPqYjptRn
+         vohBQ8BSbqQddzriTcvFGOomzeOR/kvTP6PjurupmLHPC0XPmQ3X77Q5v2Ru8EuqPaKK
+         CDiIRnNyZV5eChxvCDDYJv/z40MMxzKZONPs3ombVXGp2r1yJsHjswXSfBTMeXe41jqg
+         dcEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794459805; x=1795064605;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wojn57CdK3ADHCAhmqBfKGAS91+qGaFp/WwM/gNTuCE=;
+        b=n08bBxs1auI+Njj/5PnL9rTK6mCgts/4gtDEDU8/L2lkGfg5a33STJuTooGcYrXz9W
+         izO6+YadL//t+HZOkIAHOVNL9H66FoFaLCIE5+DT80+NTrbNHQ/XEBHfnNO1JGDQvYmK
+         1ePSTeSFpSnsFzYZZIZF1rlvlWlmCBxEuoUIRzwnTemEVEYGmqr5g7QSseHJmzcGkKtj
+         8/JKqmuDNuN8SCO344J50h6/VoATMFDp5m7D80ohIS/OypPiv9xv9LvNYMdBcz0BkFcK
+         aV76SuKNFYzWivLq+kdZK9ZGILZsV6Z0UF1fT0QAnaXYuTZyQT3BXeqTYMYUYmeCJi17
+         /9tQ==
+X-Forwarded-Encrypted: i=1; AL+hErHLcwjHRq8L6FFH7IsbVLt/+sv9BNhZoOSbOb/0E6vz3+NvhcGw2+ESRO1CJu4I3Jd0wci78lJncQ2s@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NraZFcRhZZv+2v9rq/VS8KMFU+HZANMxLDF0Z58feHsMucCQG
+	JOI2A7UNyXBndK37z7oSnD7uQ9MqZp/iLhg3MU+gFoFwkRzwh5JC59y7c9VKKUU5MN40Q4Jy26j
+	2J/oGBjG579dYpfZ/d6tV/zdX6+aHYaM6GNXPiWE=
+X-Gm-Gg: AYBFou3LQZvvZtndiIj57kURyFzIMClCqADL8sDFN93Edl4fb7bXJauhNvqd3OnfV4x
+	4ZQHuRwFWGlxD5FUpT0SlM+PRsECu59R8oG1jV/2OJdBwH9eHKMccNwQzjz8JMZDH7DunQYXXzB
+	5d08ZSszw/TSmiitghsMzD1Pg09jR3qSQ12GwmCN0ydugIaGEyS1dt3rAMq6IChLGXaLGBN2pBe
+	VNhru340KdISWR2fqpxKg23Q9e5FdHREMcMIz62y+IuI0RQ/csDGrAdRiv0FqFex4dk/pMpVcvV
+	YEx43ZWgq2o/qzgxA14VLRF0ont83HlgNCeosXZv2IpS8eAxhC5wvZqI++9pyFvNJ8UXKRxV7z5
+	MtMlRsV8D1ZCk9B/3nfLyXyHXGfAASv003MqtcmaoEgKeSe5uDZ/y/K6zxG+k4RBlE49pgfg=
+X-Received: by 2002:ac2:5683:0:b0:5c1:4f83:180f with SMTP id
+ 2adb3069b0e04-5c15d79ea99mr1533353e87.6.1794459804558; Wed, 11 Nov 2026
+ 21:03:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,111 +103,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
+ <20261110-h616-zero2-dt-v1-8-05506d760f21@gmail.com> <ekjxzCRpRcWPwcDw_lDV4g@gmail.com>
+In-Reply-To: <ekjxzCRpRcWPwcDw_lDV4g@gmail.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Wed, 11 Nov 2026 21:03:13 -0800
+X-Gm-Features: AclHuK_1HOFnNDyAInx4WxkF0Jpvdf0PJfEA3HHVUlfWeMJnLB-aUMtv6VNxQng
+Message-ID: <CAEy9hNV+tiw6RgjTz2zvCFriLb9Y9-aDhgfZMF9mxzUryGWqYg@mail.gmail.com>
+Subject: Re: [PATCH 8/8] arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: ipq5210: 50 MHz SPI OPP cap breaks
-  get_spi_clk_cfg()
---
+Understood - please disregard v2, v3 will fix this issue.
 
-commit 146df0b74de51d5a0fb5f5d16a2e1f1177beaca7
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-
-arm64: dts: qcom: ipq5210: Add SPI node definitions
-
-This commit adds the spi0 and spi1 QUPv3 GENI SPI nodes and a 50 MHz OPP
-table to the IPQ5210 device tree.
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index 36f874e57b425..052c2f3df94db 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -181,6 +181,14 @@ opp-32000000 {
->  		};
->  	};
-> =20
-> +	spi_opp_table_50mhz: opp-table-spi50mhz {
-> +		compatible =3D "operating-points-v2";
-> +
-> +		opp-50000000 {
-> +			opp-hz =3D /bits/ 64 <50000000>;
-> +		};
-> +	};
-> +
->  	pmu {
->  		compatible =3D "arm,cortex-a53-pmu";
->  		interrupts =3D <GIC_PPI 7 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIG=
-H)>;
-> @@ -459,6 +467,18 @@ qupv3: geniqup@1ac0000 {
->  			#address-cells =3D <2>;
->  			#size-cells =3D <2>;
-> =20
-> +			spi0: spi@1a80000 {
-> +				compatible =3D "qcom,geni-spi";
-> +				reg =3D <0x0 0x01a80000 0x0 0x4000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE0_CLK>;
-> +				clock-names =3D "se";
-> +				interrupts =3D <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
-> +				operating-points-v2 =3D <&spi_opp_table_50mhz>;
-> +				status =3D "disabled";
-> +			};
-> +
->  			uart1: serial@1a84000 {
->  				compatible =3D "qcom,geni-debug-uart";
->  				reg =3D <0x0 0x01a84000 0x0 0x4000>;
-> @@ -495,6 +515,18 @@ i2c1: i2c@1a8c000 {
->  				status =3D "disabled";
->  			};
-> =20
-> +			spi1: spi@1a90000 {
-> +				compatible =3D "qcom,geni-spi";
-> +				reg =3D <0x0 0x01a90000 0x0 0x4000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE4_CLK>;
-> +				clock-names =3D "se";
-> +				interrupts =3D <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>;
-> +				operating-points-v2 =3D <&spi_opp_table_50mhz>;
-> +				status =3D "disabled";
-> +			};
-> +
->  			i2c2: i2c@1a94000 {
->  				compatible =3D "qcom,geni-i2c";
->  				reg =3D <0x0 0x01a94000 0x0 0x4000>;
-
-[Severity: Medium]
-Will capping spi_opp_table_50mhz at 50 MHz cause get_spi_clk_cfg() ->
-dev_pm_opp_set_rate() to fail with -ERANGE when geni_se_clk_freq_match()
-picks a source clock rate above 50 MHz?
-
-Both GCC_QUPV3_WRAP_SE0_CLK and GCC_QUPV3_WRAP_SE4_CLK use
-ftbl_gcc_qupv3_wrap_se0_clk_src, which exposes five rates above 50 MHz:
-
-drivers/clk/qcom/gcc-ipq5210.c:
-	F(50000000, P_GPLL0_OUT_MAIN, 16, 0, 0),
-	F(51200000, P_GPLL0_OUT_MAIN, 1, 8, 125),
-	F(56000000, P_GPLL0_OUT_MAIN, 1, 7, 100),
-	F(58986175, P_GPLL0_OUT_MAIN, 1, 16, 217),
-	F(60000000, P_GPLL0_OUT_MAIN, 1, 3, 40),
-	F(64000000, P_GPLL0_OUT_MAIN, 12.5, 0, 0),
-
-geni_se_clk_tbl_get() populates se->clk_perf_tbl via clk_round_rate()
-without consulting the device OPP table, so geni_se_clk_freq_match() will
-select 51.2..64 MHz source rates whenever an integer divider yields a
-better match for the requested SPI bus speed (for example, 30 MHz =3D
-60 MHz / 2 or 15 MHz =3D 60 MHz / 4).  When get_spi_clk_cfg() then calls
-dev_pm_opp_set_rate(mas->dev, sclk_freq), _find_freq_ceil() returns
--ERANGE because the highest OPP in spi_opp_table_50mhz is 50 MHz, aborting
-the SPI transfer.
-
-Since spi_opp_table_50mhz carries no voltage, level, or bandwidth votes,
-operating-points-v2 can be dropped (as on ipq5424.dtsi) so
-dev_pm_opp_set_rate() falls back to clk_set_rate(), or the OPP ceiling can
-be raised to 64 MHz if the SPI controller supports those source rates.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-08-dts-v9-=
-0-c34de4f78fbb@oss.qualcomm.com?part=3D10
+On Tue, Nov 10, 2026 at 8:11=E2=80=AFAM Jernej =C5=A0krabec <jernej.skrabec=
+@gmail.com> wrote:
+>
+> Dne torek, 10. november 2026 ob 06:37:02 Srednjeevropski standardni =C4=
+=8Das je Arun Iyengar via B4 Relay napisal(a):
+> > From: Arun Iyengar <aiyengar1990@gmail.com>
+> >
+> > The I2C core numbers adapters after the "i2cN" aliases and hands out
+> > dynamic numbers, in probe order, to adapters without one. The Orange Pi
+> > Zero2 DT has no i2c aliases, so a TWI controller enabled by an overlay
+> > for the header pins gets whatever number is free when it probes: TWI3
+> > on header pins 3 and 5 does not show up as /dev/i2c-3, and the number
+> > changes with the set of enabled buses. The vendor manual and the
+> > vendor BSP name the buses after the controller.
+> >
+> > Pin the numbering as the vendor BSP does: i2c0 to i2c4 are TWI0 to
+> > TWI4, i2c5 is R_TWI. Disabled controllers get no adapter, so nothing
+> > changes for buses that stay off.
+> >
+> > Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> NAK.
+>
+> Extension connector is not covered by board DT. Use overlays
+> if you want to use them.
+>
+> Best regards,
+> Jernej
+>
+> > ---
+> >  arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 9 +++++=
+++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.d=
+ts b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> > index d5d39bac5915..98fc83291dc8 100644
+> > --- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> > @@ -12,6 +12,15 @@
+> >  / {
+> >       model =3D "OrangePi Zero2";
+> >       compatible =3D "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
+> > +
+> > +     aliases {
+> > +             i2c0 =3D &i2c0;
+> > +             i2c1 =3D &i2c1;
+> > +             i2c2 =3D &i2c2;
+> > +             i2c3 =3D &i2c3;
+> > +             i2c4 =3D &i2c4;
+> > +             i2c5 =3D &r_i2c;
+> > +     };
+> >  };
+> >
+> >  &cpu0 {
+> >
+> >
+>
+>
+>
+>
