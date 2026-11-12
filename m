@@ -1,66 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508701;
-	b=wteecmL+Ze1OKZfQG7DZP4ns+76kdrxKe/LI/j1HuQtfWAYaPchFCUrRm4AGq4c3ZHQy
-	 15WTc1ksalsXb7C2yrBGs0eEeZYb2nonr5ueT+WSIQ2pi6dG7strwWJ2ilkC3/j/os9Ql
-	 XUxOrf6x/EGcFZ+AaD+o7VU9OINO67XbqDNh2J6u3SAW+UZHtiaL+NF09MQdsyhJqXjJb
-	 1IIC0/v7kvuBFtQVRnMKjonezVS6IIGXw3/J/WCQpr42ty+0/j79X1DgA6qHC7wArVxXG
-	 XXpFAx6trNRKL3n+yzZXBfY992bQqkJzGlC6Y2gM4DMAFnqaLa16W2AZ/cVOqnX1IUw==
+	t=1794508857;
+	b=UZE7R8E1OICYvW2DyEfyWUGg2VhMBJiMlCIaOWotft+ENFviEf8PLeqWb5NEplbixVYr
+	 7xL/Ebalxy/rts086OwqCyG/MAlShhmMxWwvYBG6sir24dPP8iC0ga1iFsNGw8D/Ya9xZ
+	 Zinu937ikpdnTZs9VmUMGgsPuyk/7uXais49XS/rWn8cpa8CzEhl2Np0xIte37PM1KaMr
+	 XuWjwkcI2ho36V0nQ+V+KNcOnfivj/ENxPqNqhtMAQ4a+7igdk8oluuxJKz+7KU/Kg17D
+	 nI12+1q4L0J5M3X2nonhOS544sSQOUZrKcD3FB/DRLTy6JI9xWnsS2B7pxATrSzgOoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508857;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
-	b=wXW3HeHiz6fW37PcusSPZr5Vsv7bMO7KYzyTO6tRytNlkA1yXZCTcACLPLvQcAGawwJ/
-	 49rvM76EKU1HF3u30Dl4xTFHUyIGUYWTJb49c5eRZjQPxTfiptY1eTuSvbs7JVsmDqM91
-	 KFFBpbdibJ3PkAw4MGmWu/HPMe77zVLaFoIpieUF2cs//uVOcAhgNs9rJ30jqhhGcnIMG
-	 tBAuXLb/lSnvf4zSQLT9q3BOHSQhRmc7wFpFP3JjC3NZe/vWChe0ByDZlmdfliuzK/0oD
-	 x8IIaxHU+KaX/tyXOchjILZejdsd6VyFwAKXSLodv3doRCuh7XKpQcJz3o10uvTS12A==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=8HwKy2Ni3hhvlhPAIbhLgQPBiXHFM2JdTyPuEE7hnDI=;
+	b=xqHiY19XpJ1f5GojgNzt3SfNs7ZPlTV/nChA/Ev1gPfHRZZ8OTDjugiacG4HNaAKBq/P
+	 XaBeMdBUFNq04SpxxJhw0B12e7KCxkw72Ujons2o7tBVocNrgrIbnq9fzog9lkTSFBZlo
+	 dQiDEyN5dQ0cFa8zZZ/EFHSzSv9PCl9dKBwVzZ0U5YMXMRuN6RYa51Q8QTsLlGyxlGEoj
+	 GBOJXOGFYobrSdA8SHzZS99x3VDmAZ9YUMQ9yq1LfTOAJlsRos+f/jfOZCPP7aCepqaWr
+	 /PSSWJQNluOhqCgzeKEhIHheu5RvYJ0DQTCV5IZJicIFQDqmBgIF0P/frmix1/3sQ5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2XFml4V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C33606A33F;
-	Thu, 12 Nov 2026 18:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C557606A330;
+	Thu, 12 Nov 2026 18:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B1E1F000C9;
-	Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2XFml4V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9D01F000C4;
+	Thu, 12 Nov 2026 18:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508701;
-	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
+	s=k20260515; t=1794508857;
+	bh=8HwKy2Ni3hhvlhPAIbhLgQPBiXHFM2JdTyPuEE7hnDI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LEBUXzPWAsbf071BULHrEEhI/zwFZI/qjjvxJA4hgrD4BGpODUz6udClZy8WSqDAY
-	 WHXI5JIWFzz7RltAvOzuy0YhZwGckicTTpUVYk2KIcL9P1JX1hP6Am+YBf5LvPwuDm
-	 MxyTWs1q+85eYL8pLvDQgRdBYD0uJskQvCm0pzTnx9hVm6sUupUnF9t5GfLSQPMHOE
-	 9jEqd/MNMtUEbamgYO8Olx4/uIDkiR37I68rjLDz2Mb7U+29XTOCUngF/WCVFgxcA4
-	 CdRYJQ7U7T0GosfI7GRu6po5gmyylXm6zZO7Xl0+CziIXhBsqnTC1A0XUHICDidBh1
-	 y2bP54tP4rPxg==
-Date: Thu, 12 Nov 2026 18:38:16 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
+	b=I2XFml4VnUd9hWL11SqonT3UQ7RpFiGf2jFkNpay7r2Rvn2MCvt70KsIsO/IbOQAE
+	 hsHQKymF4/2AXgmKyL2diX1kUmzfaMaOYZXHypct6PAtJqfbiBN4zULMmqqLaqNdvU
+	 UG5V10GX8F/oUPWwlAb9eozaPJDTHFrXLVk5HnfHn6wLOwNV0h7Rz7q5dEgWku/WqD
+	 vWEzIyrsrby3B36UvvpiKHwRyTr2uVr8Q8AMVTJZg0bnkun3NNeftex1CVFT4W0+aQ
+	 2IbUsxxCfgnY/AAYU00WDi4MbAW9ixXH4RJ1SPQuw9dU5kXfohsIbiciSM2Ct1pelz
+	 UcJ6Xav1JgT6A==
+Date: Thu, 12 Nov 2026 18:40:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
- sub-node to STM32MP2 SYSCFG
-Message-ID: <20261112-worsening-yahoo-323ef21dc921@spud>
-References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
- <20261110-confidant-bundle-08385b99bd78@spud>
- <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	lianfeng.ouyang@starfivetech.com, s-jain1@ti.com,
+	andriy.shevchenko@linux.intel.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: Add Synopsys DWC_i2c controller
+Message-ID: <77286fa5-5952-4e02-9c4d-040b047cc2b5@sirena.org.uk>
+References: <20261111-tda54-upstream-i2c-v5-0-280a4a779b24@ti.com>
+ <20261111-tda54-upstream-i2c-v5-1-280a4a779b24@ti.com>
+ <fc1fe51e-952c-4c8f-8dc1-fb832b03943b@sirena.org.uk>
+ <20261111-smooth-meerkat-of-judgment-dbe8bc@quoll>
+ <34533daa-7eb9-4674-a288-e8d87a8bf29f@sirena.org.uk>
+ <fdeee43b-9a27-43b2-9193-7b2db468e9c0@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,132 +69,41 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hlndOg5Yw8RzH+lw"
+	protocol="application/pgp-signature"; boundary="JPShpkDOxa7X/GR9"
 Content-Disposition: inline
-In-Reply-To: <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
+In-Reply-To: <fdeee43b-9a27-43b2-9193-7b2db468e9c0@ti.com>
+X-Cookie: Baby On Board.
 
---hlndOg5Yw8RzH+lw
+
+--JPShpkDOxa7X/GR9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 09:36:59AM +0100, Gabriel FERNANDEZ wrote:
-> Hi Conor,
->=20
-> Thanks for review
->=20
-> On 11/10/26 19:54, Conor Dooley wrote:
-> > On Tue, Nov 10, 2026 at 11:42:17AM +0100, Gabriel Fernandez wrote:
-> > > The LTDC pixel clock multiplexer of the STM32MP23x and STM32MP25x
-> > > SYSCFG is described by a clock-controller sub-node of the SYSCFG node.
-> > >=20
-> > > Add this sub-node to the SYSCFG binding. It is required on STM32MP23x
-> > > and STM32MP25x and not allowed on the other SoCs.
-> > >=20
-> > > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> > Why does this need a child node at all, can't the clock controller
-> > properties go straight into this syscon node?
-> >=20
-> > Cheers,
-> > Conor.
->=20
-> I sent a v2 [1] shortly before your reply, which explains this in the
-> commit message, but the question still applies to it, so let me answer
-> here.
->=20
-> From a hardware point of view, the mux inputs could indeed be described
-> in the SYSCFG node. The problem is that this node is a "syscon": when
-> the syscon core creates the regmap of the node (syscon_node_to_regmap()
-> or syscon_regmap_lookup_by_*()), it takes the first clock of the node as
-> the clock of the registers, keeps it prepared and enables/disables it
-> around each register access.
->=20
-> The SYSCFG has no clock gate in the RCC, so this first clock would be
-> the LTDC kernel clock, i.e. the first input of the mux. It would then be
-> enabled on every SYSCFG access by all the users of this syscon (PCIe,
-> ComboPHY, Ethernet, OMM...).
+On Thu, Nov 12, 2026 at 11:46:27PM +0530, Aniket Limaye wrote:
 
-Why are any of these things getting probed before the clock controller?
-I had it in my head that clock initialisation was done super early on,
-before smp even begins, so the clock driver would probe and generate the
-regmap before this can happen?
+> So if I understand it correctly,
+> 1. you'd rather the driver have a generic compatible such that we can have
+> distro kernels not requiring specific SOC support for this driver.
+> 2. AND it is possible to have a *sane* fallback by using the IP's generic
+> minimum fifo depth. The DWC_i2c manual specifies IC_TX_BUFFER_DEPTH and
+> IC_RX_BUFFER_DEPTH as 2..1024, so using depth of 2 as a fallback would be
+> functional on any integration, just slower.
 
->=20
-> Registering our own regmap with of_syscon_register_regmap() from the
-> SYSCFG driver doesn't solve it either: these users reach the SYSCFG
-> through vendor phandles (st,syscon, st,syscfg-amcr) or by compatible,
-> which are not tracked by fw_devlink, so one of them can create the
-> syscon regmap, with the clock, before the SYSCFG driver probes.
->=20
-> Apart from adding a dummy clock in first position, which would describe
-> something which doesn't exist in the hardware, I didn't find a way to
-> keep these properties in the SYSCFG node. So the mux is described by a
-> sub-node with its own clock inputs, like the USB2 PHYs of the SYSCFG
-> which are already described as sub-nodes.
->=20
-> In v2, the '#clock-cells' property of the SYSCFG node is deprecated, so
-> that the sub-node is the only provider of this clock. No driver ever
-> registered a clock on the SYSCFG node, so this doesn't change anything
-> for existing devicetrees.
->=20
-> [1] https://lore.kernel.org/r/20261110-ups_mp25_clk_syscfg-v2-0-624559bb8=
-ec7@foss.st.com
->=20
-> Best regards,
->=20
-> Gabriel
->=20
->=20
-> >=20
-> > > ---
-> > >   Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | =
-6 ++++++
-> > >   1 file changed, 6 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-sys=
-con.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > index a559f8b03b84..38c844e8f19d 100644
-> > > --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > @@ -45,6 +45,10 @@ properties:
-> > >     "#size-cells":
-> > >       const: 1
-> > > +  clock-controller:
-> > > +    type: object
-> > > +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
-> > > +
-> > >   patternProperties:
-> > >     "^phy@2[48]00$":
-> > >       type: object
-> > > @@ -80,6 +84,7 @@ allOf:
-> > >           - "#address-cells"
-> > >           - "#clock-cells"
-> > >           - "#size-cells"
-> > > +        - clock-controller
-> > >           - phy@2400
-> > >           - phy@2800
-> > >       else:
-> > > @@ -87,6 +92,7 @@ allOf:
-> > >           '#address-cells': false
-> > >           '#clock-cells': false
-> > >           '#size-cells': false
-> > > +        clock-controller: false
-> > >           phy@2400: false
-> > >           phy@2800: false
-> > >=20
-> > > --=20
-> > > 2.43.0
-> > >=20
+Yes, exactly.
 
---hlndOg5Yw8RzH+lw
-Content-Type: application/pgp-signature; name=signature.asc
+--JPShpkDOxa7X/GR9
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavYHlwAKCRB4tDGHoIJi
-0qQzAP485R+QaU2P6b2L0zrS4zCbRiMyXVxuo3+/WUU3dc7jMgEAkdBGsN+zsL7t
-gKc+WZyW1vlVRn7hzQFLhLkjB2PatgQ=
-=UEaX
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr2CDIACgkQJNaLcl1U
+h9DFUgf/ZgGPRM6nv1tMqke3XXhd8qi2gi9+yWd7tFmhD377HQAi6oU+E2oF4jmc
+Bm1f/14MWdfgUCgYwjHidMCLRjeHac8RCbon5z4Gl7izfHr8PN4Ip6//xLFvvGzf
+IG93Ly2yhILFrvD92uYo6f/4D2V32FDNleCGBii7JbcdFqfxQQCZ6VqsAHiHCpll
+RS0ovnSur0GnFjd9MDD/cH01f/Y5SN822CkpPgpU/2cAtI+LE46dmcAvnobExdIx
+1nWUaOoyoKgu1sad9S+TaVYV+T90zF1uPeD2F9yR+Ma9bqryLbIxFpx8D41gXPJR
+ixBMreAecmQuPPAl2lYN2ZdBIy6oAQ==
+=NxGe
 -----END PGP SIGNATURE-----
 
---hlndOg5Yw8RzH+lw--
+--JPShpkDOxa7X/GR9--
