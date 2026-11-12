@@ -1,112 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475949;
-	b=1qNPj1ATymel39otGENeDYe6gRebXzy6V6Xr6SFff1RLftZEWUFSxKU/FF0h1NAnO6sY
-	 +Ami6EmrWtUsChGM0wufQ+p3dGcOCXZDbV/7bXh4XzsZDjJ4i/89lT2tRO8QKUOvdrqTT
-	 N/V9kPQgPXn+qIYLRCgz4eQVe6CuCAaczLpcR5jUwV4gQrKeVPp90voMKEoRo7Fy/cot6
-	 FyIo97n+8I3/RhMRXEnW7NZfaMtu2RcIqsDht6S0VY6ZT0JW4/plpa0RMGCOx6eOGOOJs
-	 3BGjUXiuYF3EVQTH7w0CUDIdjpEtLQ58GtG/z/LpOm8pr/4pyt9SbZjviNSgou4QDlA==
+	t=1794475980;
+	b=sDIUvwXv2m2D0vMwb5G8/dg7pJtSXqrSZdV5tQxdjqNEsMJhH0nuTpqo+dUch5Q2+pUk
+	 9e6z+p+DUbilbSgf7rLXHZUkt70J2IgSKVuRzHmHMJRxvu2vUtJnlmOOtz1XCk2fpf6bF
+	 7Ep6oYuGksZ4GGDIFHoElACO5yeC/LMJ3VFKADsBQ9Rb/137lH3FVWyPnoe8i40q6aZne
+	 gIYw2qZUMbfK3/kTC9SQHUc1svDCYNpVEuhZdGy146EmqtYMTO8wxRxUBxI1U9Q7L9n49
+	 bC3LP1j6C6lpL5SqZmAmnf00L2qltOhMZ5KD0zGgSeyzmVNyQnxad68c2lmIm0Ke53w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475980;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-	b=sJ0E4tHP8dEqqe0bivILsFTvibCrqOBm/iyzs2dMSNOgdFiojp4uqSBFrWlGrFO5XCZi
-	 /uXpbC3+15CSpUC4Vt0TrmZqsk7g1OlEee8wBUanKVVFkwvItqyxtK2UMlBWoq45+O+y1
-	 WXs2LYSU+W4tZ1U7vPqV8IHmCeWdBe2hDf+utuJzx5EWzoH+Ip7pwVC9O3qIWY98pwWWO
-	 dZXVHhtYjHsSAn5HjPlFJ0sl+Lj+an8yUvLVyCJoza7tc5fejFVpJmvAfQ0BjdiPhZswi
-	 EaqkyyLlSAhI2EfsvU3VnG7epdURo+QzUem6pKveXRuZ8mQtEAHKAR8Bsb+qIT8meBA==
+	bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+	b=YsKynIdqKIEcXWyZGZWHA6mZ6n7SJ2HqRoRDj+0AiYIs6VYx6ffndvoYaN75Z19u0BGx
+	 SAuh4JY5PfqYZ8D3r1k8inw3R9lowvasbZMxcFFqjcUkuDNPkJH4f7ugE9OJIzwHeVXfM
+	 LkO0yLRI66elR+yW+/FTFTFlA/Eiq3wq88zR+Z3NGyVxf6FAMRAXKDHJ+7ZF+pg2OuAfh
+	 Ei4qnKQhNrxOdI86JoiLagybmEAFLJ9cm/5kdUKkR6Bc4VoNeWy+09YjejVdmU1FwOZxn
+	 ymYSHHA63+wTu+XeUrC2aXrqFnSrIB8FcYWs/tw2eTCIguhK2esg5YPOS4TSC0pf5iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="VmF/cr7R";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HKHiWxFl;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QNEs1OqV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ky6gW3mE;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295BA606A323
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:32:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295BA606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3928E606A31C
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3928E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VmF/cr7R;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HKHiWxFl
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9AKKQ4092474
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:32:28 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QNEs1OqV;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ky6gW3mE
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9JtZl2514118
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:32:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=; b=VmF/cr7RgX5IKly5
-	nB8ld7K5D9AzKUIOEugReBYCnCvRZHnKq8ckwwPd3MdCpgn6tDd93WdjDdaA9b6E
-	l0WSMXMRdGhMoIrK7QPZTPN+yMR0023gcBHh+rvBynvJ6qVGJarBEd/2K6ZAWKcl
-	DHi3lT7Rw+HeUI4zOpJDUzpLh8wrBibWKeYtghBDeSUwZ46uA/eFcxHiB0sK1pwR
-	DYEhD6popASG7J9wELjVH56JMoJgHLIZ5uDiOiSzXEzXW4T4vJilMgZ9OWfhQ/3i
-	nfMcHwtge9Ud3f8pW9WhIPlx4NMjYvP6zLErMZjKSranHj4kj8rXupXMGGXtMg4U
-	sLscUA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8j6mr-1
+	Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=; b=QNEs1OqVZhxSqcNz
+	7CaxEGvyYxcn8sWAwKPUwf3KHCkip2UMa2qvizkBgf9TCcd02mfsD+Th3nFelV5U
+	fpr1KlN7ZkMZLeiHNyMKXfISrr4tOzr4oIZfitDPsleBaB+MjTrX7nWMjKl88cgH
+	hDNMhMeWDqstOTNs9TykMxIOUmaqApcZYuElS2knDaSr81Cx3eZaV7nif8X+mHnJ
+	PJRNDg4on4bnV+KAPwwCW50QG/7grnxxVavXmGET/uForAz8HKBpmqq+ce+2+i4j
+	1albDF1n9ctEO0og8+r2joQds1yFStNm4+A7xkdqR0nUe+7CGVvrH9XieFhYI7GZ
+	AcMPnw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1txqa-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:32:28 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd652c0385bso2819240a12.2
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:32:28 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:32:59 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0e00d7cc2so3881679a91.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 01:32:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794475947; x=1795080747; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794475979; x=1795080779; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-        b=HKHiWxFlkYv80AquZQMGd2DhrkssvCgE8nBFesdbIC84hbDY6DRytHx2g7QN8sgehI
-         j1ypV02/EAAHW+mjBChHjWW180eXdqeplQIOGbqW1sNrbQpEWaX/gOYIqQvmVm79dXYL
-         xBllAV7Xhy+bw8Njj386fmnrPp82OMm9aX5RklllWln3CKmI2P7Ph8npDq6zEVa737q+
-         n4O0PjZM9Np7viOraOU4KdU3VZJtkIUjsn7tjunpufRXyJXp9GL/DzYxbkM7LCa3qRGp
-         hA2b6WCsyW1FJTxPZ8ekmbQwjgR8OGZJ7eAI+u4CVKUCDom3xAkNqGOJSSTzxcXyBhfW
-         LKgQ==
+        bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+        b=Ky6gW3mEIC1B7T1WO9PFjZObF2eDUuYmhulCnTrvnrNcGCI12pwzH6V6YM3NtkLhkL
+         Y04NUvtaMvMyx1rV9sVAJwYzXQ8Sc42CkSHo7PikAH0+8AtG91t28yN0bu/RJKNQaT94
+         9rDr6EZsyZV6us/nIfHR1IrqRiffYooY+R6qW3Rs/UzZ8JKqR+GjmBp5qARMgvxtNlQI
+         t/qy+W+RJlClfr7kDayTuEvHYWQQZP8I4nPJsu97vvnoxMMHZDPqfXLP56h1sA9G4heU
+         RY6K13XfM576WaZdOu5V+F6WSqmlMtd/3U5oYF9KYCqSSLvXLBUjRcQxM+JMdRs11j5H
+         zteA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794475947; x=1795080747;
+        d=1e100.net; s=20260707; t=1794475979; x=1795080779;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-        b=Ll2u6h7B2B/jSv9X2fFHwDwvyBcM9/vqNi5Hm7p8vK6KdpUp5NEt8J99hlUkeED0cI
-         Qx1bExQZMLiFLXTg6CAh1THU2EySCDJoMQiBhHJe14NpWu1YEY5PaWvTTLs1t7su131X
-         hQDGrOP6e9dSSDl+1qFzSATJsB8H086Mw1A5vy+AfIzAMFipZwlLyyIZuDnrCtL2+0gN
-         /dgG327k9ri4ZJ27YC5ZAGsu+gSITb0iZ0vZkG+yzuJOw02vxRbaWFFpHi2L5dWFl9rm
-         22xryTE+vR87v8HTPurnDdzRkWB/S+SbMqrwm5iuGQ8Zog1UQWuWS9ASgHnT/rEMkdj8
-         ltFw==
-X-Forwarded-Encrypted: i=1; AL+hErGnxMYLWc/OMkCpmvCwcQRMJqNH0uImlotFqKvmMiByq05y5Ylm0BU6wWC58urk8A4uWoUUBkq5FzzT@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3/KU6UVTrYf631d3zH9lZ6MJBWk/7dbQSTarQgMV+5pQWZvzc
-	7tfblCHM/7HPEfSmlkH/kNGPLKvXqao/codacX9zWzrlMUXDU4ZTmqDCfseKDfkQEgxhmBg/q7V
-	4950+MEusxOqqP+PolW818CvUEkHyB6PHwHyGfXl0mAfC7aYlhJTlEPWrl7IssQxAvRSfsyv1
-X-Gm-Gg: AYBFou3KQNzcjvhylmmrglzWwzIhaE6kQTgqRQuN4QIo7jqAyZ5VdobLNW5iibMEU3L
-	YVD5235tw0O3Yu3FKcf7NlE+uFha3SbVZrgvy54aNoTkjVL+r05f1+ibHrtA8c9xeFVDV8Y5/rL
-	76ipOpK4sQuh9MXGRmgKFOy8kviLHLqRD3WXti9vez74tzTTxoCRQkDZQOC6aiyP3LMZeBuQNky
-	VokZH9pNL7NpXD38EVGSkMRoNBskU6b/GTVUahJ7twEOcvtDeDol07Ivxhaq3vPELDx+GOBPiaY
-	9SvtdsXeMk2AdkU21qM2Klgg3CXdwPtMkwLJGfIgr72lbz4aPoY6BPnE7ZZJ5LXNUJoo1xIN5Ig
-	lpBWMRLchb+Zv3o9DvBbf/NpBgbxj/XmyV5gUfqBTF1tmhHISJfcIsKs7OvaU1oHQ1ZbYdKDYEG
-	N2
-X-Received: by 2002:a17:90b:1647:b0:3a8:c0cd:57f9 with SMTP id 98e67ed59e1d1-3b182f26a0emr5088685a91.25.1794475947483;
-        Thu, 12 Nov 2026 01:32:27 -0800 (PST)
-X-Received: by 2002:a17:90b:1647:b0:3a8:c0cd:57f9 with SMTP id 98e67ed59e1d1-3b182f26a0emr5088666a91.25.1794475946998;
-        Thu, 12 Nov 2026 01:32:26 -0800 (PST)
+        bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+        b=gE633RJjpKN99HsuPlLaZ2Qn7dCQe67xXiEVBLuAKTsC5cZw/0c/mAMlAJCN63UV7O
+         +X9DPeEh0vom1DAtQ4PBL4goQdw3QMfcqZGztuLKdhNwyMM0Wt7EoX1friL9Inr7d5rk
+         2z4b0MFkkvU7H+8eIusQBq9xcFSJnJVadiKSH0ffdFxwZ+e6cpD0KiWjGMneT8xBNC8s
+         5Ji9rovvFVMWfLhYl4IWnu9gTX+1Z65cThTokQ9bPoRkxqjW+DgEyKk0gIND9WgFanUI
+         vo3ldAfGU0fCo/n+vzb+sKyaH6zoQ8vc6XRQuuwn8vUtx2YiTb9kLEwCR+T0nmK2TX25
+         dTUQ==
+X-Forwarded-Encrypted: i=1; AL+hErGxyWqX7qs2htMZJnXTMY4S0sNt1QyaacKASFjrrecq2ISjaIjiScdz4+TNCHm+vwdkABXlVnrWBk+Z@vger.kernel.org
+X-Gm-Message-State: APuU4Z8r2k703gFVcu/ocJ6SBDU1ucFXQe0QyKj1AP6WNOa3SU3QM6er
+	m6pAJKTUyBvdpuWtaceizXzzrRqKq3clN8po11ot8WuU5ziSF+YljQMEoCc/nZiRVurV10+JXQe
+	JrTCm32SIw935+fn5A6Em6GtmjfdCGuf4qv/CfqD3icB66/MMQ+o6QEQI/o5bCJ7R
+X-Gm-Gg: AYBFou00UVps9L8DcS3ZqcOpGW3mvcvj8hwFuYRXf7lILkk1PwNmnj1I4WdYf1bvL+2
+	q+8o96mOQr90b54jdfD57Yopovgv+SmEcNdjlsnRZK//zwbQMysNn0eao0O3Lh5E5yBB2RW8cGN
+	bt148r5DRR4MDdPDl8lsqC2Z7ldQCOzfGv1NOsBuoc2YeIjhXJ/4KZblu+8UW8UaSGJyhCtmvkP
+	ivqzU1phnKhf0QJevWfFYsdaO4dsI0Kl7F581mMieirkCFLXAo5KlA48O5MHXsqAzFCqOdC4Pad
+	gd7NBy3O6pKWy3iK+3nTcz9T0pXEA8RY/2AS4duhysD/rbJU9RlB21ksafposlBJ4XmD4wYuKFl
+	TjC6QgJMB9ku6DHDzPR6WFeGVFcqwU3LDt/7F9V4AckTVosKr2zcRMe9UELxjJUwxpFJEZJthju
+	p7
+X-Received: by 2002:a17:90b:2250:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3b182f57e28mr5448958a91.34.1794475978573;
+        Thu, 12 Nov 2026 01:32:58 -0800 (PST)
+X-Received: by 2002:a17:90b:2250:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3b182f57e28mr5448935a91.34.1794475978124;
+        Thu, 12 Nov 2026 01:32:58 -0800 (PST)
 Received: from [10.217.216.70] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c768e8sm3803578a91.11.2026.11.12.01.32.21
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d916c0sm31396185ad.41.2026.11.12.01.32.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:32:26 -0800 (PST)
-Message-ID: <28202f96-f234-4c7c-be6b-3019e119bb0a@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 15:02:20 +0530
+        Thu, 12 Nov 2026 01:32:57 -0800 (PST)
+Message-ID: <1b1c69fd-580c-4104-969b-ba09693ec6d7@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 15:02:51 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,8 +117,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/10] dt-bindings: ptp: Document TSCSS hardware on
- Qualcomm QDU1000 SoC
+Subject: Re: [PATCH v2 03/10] dt-bindings: ptp: Document TSCSS hardware on
+ Qualcomm Nord and Shikra SoCs
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -136,106 +136,87 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, netdev@vger.kernel.org
 References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
- <20261108-tscss-v2-2-d5f575010427@oss.qualcomm.com>
- <20261109-sticky-caiman-of-research-65e9a4@quoll>
+ <20261108-tscss-v2-3-d5f575010427@oss.qualcomm.com>
+ <20261109-statuesque-polecat-from-lemuria-1b8ade@quoll>
 Content-Language: en-US
 From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-In-Reply-To: <20261109-sticky-caiman-of-research-65e9a4@quoll>
+In-Reply-To: <20261109-statuesque-polecat-from-lemuria-1b8ade@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX75OWJvw+paB3
- qDiFzgykuPicuKBLKL4VBXHQHqYTxDoms9YDMZgxUQNSb3ERmv3LwqXEQFKsmFqvkeXziJLTud4
- 5H/PtGuGCObMoQWhTmDLc3jPqnkGGz4=
-X-Proofpoint-GUID: CtXOi82b0mXyr5iRt97GwntIHY9tnSGo
-X-Proofpoint-ORIG-GUID: CtXOi82b0mXyr5iRt97GwntIHY9tnSGo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX6PiT832N1/Pm
- IGk/d9ROPL8CO6JYF8bkph8V3EDkKiCqMXytCWyXH0oNARX32nLVnL7aUnAV2a+iCRf0uYx0idy
- QTKcW37CcngsUK3aS3KoT/lfFMlMYZXBfvjyXpHBZueOwgVRQWT6ajKoKExS3o9H9riTwwNxHg9
- Sw3v8GKXZj4fXkkIzC8MFLxaBryL6GnmE3wzcwrGcEKdXvmfyfcNWFuy3YyJioNy73ZzPeVOzYh
- PG3prbndqmZwCevd7UiFYosAxpDR5ffijpnquMD7Thsp4R+fZwLU83KxQ/EBXMrFLZkf0s61yqy
- bOD9rMcMo9hWXbyH2y4jy3e/b9T+t2I9qz70Yzld43eHXcxXKlAViDLYa4twCNhHxHeRWesC/FF
- YZikFXDeD2Igo1gsgPaiW3QyWLRA4ISE0C+XQVTB53rrisB/9EYjG3G74jOqeBayG+/isrvuJSZ
- 6Y1kUwO/DABvQugCZqg==
-X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af587ac cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af587cb cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VFrjYgP8P-MpaLTDB6EA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=8x6Hp9lnLVyU3yzMCIwA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: G1qz_BlOlN3B2l72IrJTSxye4qDhWvVD
+X-Proofpoint-ORIG-GUID: G1qz_BlOlN3B2l72IrJTSxye4qDhWvVD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX1e+j2BNNKceT
+ GxPH2swfCfMNHiFwTzRed6GuGqV8oHnqoW2GjuxaUT5T9D/N5Zjer3l0sSixkyXaGje9mgnl6bJ
+ E6BxYyuH6x61nnX2OaqyQex+XylnnF/yDYQWi0MRwi5My/a7TYeYEYy60cF1fpzVePfouy1jHwh
+ Pq3AvjHVp2bt5duPL0CY7fPvWuq+RLEAAY+RyzfrCN/rXakeTVStyKSC9gE5CHDGP66ecY/nqwb
+ C5x5gRPwc7N6VJJomeCQo4gL9yDyrCNXjtjlZyOEApGd0cA7UEh217pWlC+EgekJQwZWuzG/LKA
+ aZohDxv8OfATAc8P0dIHfNxV9MYqNiRR+u13AoY4VfYkacjXs+BdEKSwrFPHzEcXoya3M/f7NUW
+ QOWFDM8PhA9Lwb9LzhznNEA/Fd05H4Q0ncrejt38nadC5wqrq7oJUWnAsapka+fcn/pHxZ2yquE
+ 9t3ayY1FXlFyRU1lJvg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX5trX9EiYl3m+
+ +AsV5Jmi56CC84H3dTIhbFH3y3jkdbni1Y5s2MAi8w6WVZNFBJDpEATcDnMkDHk0hdwZ6tx4uJe
+ uynkMoBoaVnmAT+7svz8Ff807VYMtYo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
  definitions=main-2611120037
 
 
 
-On 09-11-2026 06:19 pm, Krzysztof Kozlowski wrote:
-> On Sun, Nov 08, 2026 at 06:48:23PM +0530, Imran Shaik wrote:
->> Add Devicetree bindings for the Timestamp Counter Subsystem (TSCSS) found
->> on Qualcomm QDU1000 SoC.
->>
->> TSCSS is a time synchronization subsystem composed of two main blocks:
->> Timestamp Counter (TSC) and Event Timestamp Unit (ETU). The TSC block
->> provides a continuously running counter used for timekeeping, while the
->> ETU captures timestamps for external hardware event triggers.
->>
->> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> ---
->>   .../bindings/ptp/qcom,qdu1000-tscss.yaml           | 170 +++++++++++++++++++++
->>   1 file changed, 170 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> new file mode 100644
->> index 000000000000..52a063ec4b78
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> @@ -0,0 +1,170 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/ptp/qcom,qdu1000-tscss.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+On 09-11-2026 06:21 pm, Krzysztof Kozlowski wrote:
+> On Sun, Nov 08, 2026 at 06:48:24PM +0530, Imran Shaik wrote:
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: etu_summary
 >> +
->> +title: Timestamp Counter Subsystem (TSCSS) on Qualcomm QDU1000 SoC
->> +
->> +maintainers:
->> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
->> +  - Taniya Das <taniya.das@oss.qualcomm.com>
->> +
->> +description: |
->> +  Qualcomm TSCSS is a time synchronization subsystem composed of two main
->> +  blocks - the Timestamp Counter (TSC) and the Event Timestamp Unit (ETU).
->> +
->> +  The TSC block is a timestamp generator that maintains a running counter used
->> +  for system timekeeping, and is functional with just the AHB and counter
->> +  clocks.
->> +  The ETU block captures TSC timestamps for external hardware events. Each
->> +  ETU slice binds a slice number to an external event selector, and
->> +  generates its own interrupt when that event is triggered.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,qdu1000-tscss
+>> +  pinctrl-names:
+>> +    minItems: 1
+>> +    maxItems: 32
 > 
-> I failed to spot the difference against your binding at patch #1. How do
-> they differ?
+> So here there is difference, that justifies different binding file.
+> 
+>> +    items:
+>> +      pattern: "^slice[0-9]+$"
+>> +
+>> +  qcom,etu-slice:
+>> +    description:
+>> +      ETU slice number for each entry in pinctrl-<n>, pinctrl-names and
+>> +      qcom,etu-event-sel.
+>> +    minItems: 1
+>> +    maxItems: 32
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +
+>> +  qcom,etu-event-sel:
+> 
+> Anyway, you need common schema defining qcom,etu-slice and
+> qcom,etu-event-sel properties. Maybe also pinctrl-names and other common
+> properties. The individual device schemas should only override/narrow
+> constraints
 > 
 
-The ETU interrupt wiring between the QDU1000 and SA8775P/QCS8300 is
-different.
-The SA8775P/QCS8300 share one summary interrupt across all ETU slices,
-and the QDU1000 has each slice with its own interrupt line. Due to this,
-kept them as separate bindings.
-
-Can add them into one file with an if/then on compatible if you'd
-prefer. Please let me know.
+Sure, I will introduce a common schema qcom,tscss.yaml with the shared 
+properties. Per-SoC files will take care of overriding their own 
+constraints.
 
 Thanks,
 Imran
+
+> 
+>> +    description:
+>> +      External event selection value for each ETU slice listed in
+>> +      qcom,etu-slice.
+> 
+> Best regards,
+> Krzysztof
+> 
+
