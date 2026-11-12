@@ -1,73 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502987;
-	b=XmXTy9FMj0BFI099P610XAsvv6UPjC8DptAoPKh5h25o1h6EWPobCWOjbBT000CoGNMT
-	 eeKSSq5SUMxRKcosXQmLxdjYdDCdeUr8QY/bQqMGtUGWf6KHwKdGCoxMWQjtEmOIiRgcw
-	 cTo8N+6hMV6hRO/Y5FJ3IpA18uL3FBTkugkyqDo+MRBWbyiHe8qIfIhdnCk/9BJsH8tFK
-	 HhShX3gxuBlxhakToesIMUL8qjGnKC2WQVI6pFwaqGv8OCWPFw1PxPLbmDkyVX76fLPu+
-	 lYmU+Pois/YOgrn6z/IscQtxllg39bmTbwpMH9lAZ2Y9y2lxse8+xKRYWpRrpkKRRtg==
+	t=1794503343;
+	b=Mhlpc005ZjXThz5vWtRCJk2+Az0WHxkMlV1AsG7HLmuP/gQoLWSYrqqaIDqXeTWgbTmh
+	 IMdZEoINyRv+e8zxKeFFiElZYrHPZuqPwUTGZhLpRxFPujgSdvaYOOTh4nkK8dSvjDoFl
+	 ++PDJHNWrenneRKcNqjUjQjSg4u6BHR5/YBkPcaZFrje6w1GDpit2/En8R+GXrWxzrK5h
+	 jNOdlO++m+zAe5aHpno61ZKctMDEHdgJf6CLNXCl1l4ED7YCNDYNpEMkN0sRP4VJtRNqF
+	 GnoGtWtvTIQE7D+MAzIDYudoh7dafO9K7DK7LDaA9Q5Ri6u/mcH+jVzgkHT6HaFjjhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502987;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=3W1A4BQMOpN9nFxHb2rXE8WHciL/muN+wSYPGT+qRXs=;
-	b=PBmVsivLIcMZXrj08n2WriHuZvp8M5BgGT3OUH7QyztjdTCmfflX2QPygttrxqfCe9MB
-	 0GNG4sq3d1Yc+6P+zSeZhk5PTvLif9VMcreeeQTeP38U9trDwcoZtUEsW2A474BloZP+b
-	 lo9zLBypIw8c6IYqv+a4T61pKjQVMltKXwpDvdNu847Jt09RQPTp9lodH0n50IK29X/uz
-	 yN4mjHVHgAQ8iRRctp50IUhMKJ9GnEpDKU1H6F0Z/3nNecmrUq3chCOueWnOFbusUiRJz
-	 1oY9BeVEVrVsWdS4qEn6wRPfz45uln5g43rhoiUL60a3nGuVXyVBIk4j4tctYi/Jecg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503343;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oj2TNmHu0aGvGVnFAhxBXVtL1PvBAFJMiuWObtt4eU8=;
+	b=Y7DzVxjrDS0TzNsmw4LLN3GraehupOfxiARRAWGZJF5QLElRqd2kWoRUnYNfnx2puEA/
+	 54Oii5oeW4UrI+PwbyUCXL76CrGq2ZYi1NZrvpEoy4V2MewmFTSUasK0459bWtF4Omofb
+	 1jKUE1EMHzlY4GX0C9/nn5Xa0KZ2L1fslowDpLs6cgVpbnKrIRAFQ46mlYWBjsDh8pCRc
+	 KcLn8YpRFN2h4XtFKDcqHLy0nNehVWGNbsK6WWnpFhqq6h514lCwH39W3e9KNtVcsMnjW
+	 JH8PH/0x6pb6gSWTVHHQMG7f/J+woi8bxDlVI76ulzMVs8oDHdgEDB5/ywORhzcGlwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.54
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P;
+	arc=none smtp.remote-ip=95.215.58.161
+Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BC5606A321
-	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BC5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-99bf7b97f12so38635241.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:03:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794502986; x=1795107786;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3W1A4BQMOpN9nFxHb2rXE8WHciL/muN+wSYPGT+qRXs=;
-        b=AtHNayY8XIzZLGn3+awcVmQ81naCaIuWvladi3l/PwkY0yqTKmcBhhrjdjc7eShiRD
-         /q03pGYuaIm0ev2X0HdJOQVXdM4VaKVbaqXM3pUQmEBRYc7MjPsTLy4V1X80uU+T2r+k
-         rhCn+tdVAp8fuQoWfSkA69N504ztR0sEaqLV5s8dUQTMsqXSqORZqkElhcnANDkVOQgz
-         VFGwf63Q0mfU50ukLCrs8Y/pgeNy//NZkKTicNEkaeuQgaNCGT6AZC9d//HbGgUFjmJJ
-         PIKpT6j14sB2SYOUz1McZlcGO3daySMyXioLeIcCYGRy/WbGS9TQHVsmfZWHoBicvt79
-         EzzA==
-X-Gm-Message-State: APuU4Z94kTfXqvzNJRkvnmNfYIzH9CeRu7CCw/Ebl9ck8OYBatvPPVrn
-	aH9nsgDbYc0lm6xS/UwAH00n8RbmTcYVjUn2gVO8bmEUUIi+d9WsL1VNooBfRtaI01k=
-X-Gm-Gg: AYBFou0USKeFmZKzy5AVI1GE3DDjBW72NR22yo+0aYcvi0VbBzywG2hOqhg5xcXBIgL
-	0gu5IC2EppgpNOo5LGn+YgdKhJc2j7VjRPVZTLaixpOuERdOtxQOOeI6d/0/kZvZgH6VPpGWoL3
-	92XE4gehu/0OuQmX/AdIaZcah9eunH0t0qYkZTurZaKE8LNJ9BM8iydFfJrL/9ZT/06YcNfCJz1
-	V8xZvDkDDNRrIfPrQk9x+ocdjw0OaBKIdXRIfrOLrcEHgWU+qAb/L8R+4QgtWQPdNgnefdfKOhA
-	R9u31mSwT1gysta0k6Bip0F/gdrUFBobOZ+Arkqf4vsAxqJxChNqYHAyEA6+roPD6k3Bm1iqUOk
-	xTg2oZqorcdn8JeTmEXGO0n8sL3orw10vTV82vacRCXSOaSQ6SU+iDNz1NXCbfLstSgAgfcOfJ4
-	PtBdcj3fS9QfSz6KSKdwNhxdLl6QXET2S65CDVBcvefbHQTUn5CroMvE+in509RhOFKCfF54nbl
-	ICY7hDdLP5iEuPDmTZHX0Q7YUATog6IqQOykgmY5rtSxIEZayBLKo2lYCvTiMhZ8A0Hi9jnK9i6
-	wr3BuxCfR5rbACucA/pSSOiIjwTUjy9zuhD/KVhrKPtbBjnXH6NCSlhzuFGIuDjEEYs8k1M=
-X-Received: by 2002:a05:6122:1790:b0:5ea:bf30:851d with SMTP id 71dfb90a1353d-5ee274b21ddmr932056e0c.16.1794502986357;
-        Thu, 12 Nov 2026 09:03:06 -0800 (PST)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c8427aed0sm55464241.8.2026.11.12.09.03.04
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 09:03:05 -0800 (PST)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaf34452a9so43873e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 09:03:04 -0800 (PST)
-X-Received: by 2002:a05:6122:510a:b0:5ee:52a:f480 with SMTP id
- 71dfb90a1353d-5ee27434e9cmr838741e0c.9.1794502984448; Thu, 12 Nov 2026
- 09:03:04 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7DB606A335
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:09:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC7DB606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W6VeXoYsDeuooRLOPur5oKNEUPcbNXvMYUsUnI6yMhQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794503340; v=1; x=1795108140;
+ b=KNTpMS5PiD58A1ons/DpdJZmpZOCajmxxKBM5F/RE+ZjoQuNDaELQmTkqYAwdvagMjqJPCOH
+ VyVorLwW83zHYFDRVk9P6fnbphJ1ZPIVuU/7JmkCTfDGeBw/ma+fwnFbeaP6RRKc9ypS1qR3P2h
+ ipGeKR709smjl2/rMw2zt6CDTkzPrBN71Ds1fLAaz78BUPpwF+3E83msDbhgNXUZh4jt2ri2HIj
+ Sak3LhdsE0QAL95+jlxE2NM8uPvNuHnRUNWNPQa5+3MHZsX0n2eNmAk1Nr1zRLXLyh7V9Be9bEH
+ Et+M8i7ydeO2Z0C2nSxkkowNxTqr+0WISXwIcDxn9lV2Q==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cc99491184bea011;
+	Thu, 12 Nov 2026 17:09:00 +0000
+X-Mizu-Trace-ID: cc99491184bea011
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Marc Lainez <marc.lainez@gmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Danila Tikhonov <danila@jiaxyga.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] Add driver for Qualcomm QGauge (qcom_qg) fuel gauge
+Date: Thu, 12 Nov 2026 14:07:26 -0300
+Message-ID: <20261112170841.2189322-1-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,92 +85,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792163045.git.geert+renesas@glider.be> <e3b9d76d5b4a254d561b6e734423063e94225a28.1792163045.git.geert+renesas@glider.be>
- <sashiko-outbox-174603@kernel.org>
-In-Reply-To: <sashiko-outbox-174603@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 18:02:52 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWb4UPKhcFnRG-dta5KvDUV_cZzWrWwaD2D-vGnh_qtSA@mail.gmail.com>
-X-Gm-Features: AclHuK8ZV6Kxtk9Z6yJfLydeqQiC4mysO9PUPwmC0BbcDagci2s6Qg-Q4JhBB4c
-Message-ID: <CAMuHMdWb4UPKhcFnRG-dta5KvDUV_cZzWrWwaD2D-vGnh_qtSA@mail.gmail.com>
-Subject: Re: [PATCH v4 6/8] pmdomain: Make genpd_get_from_provider() public
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
-	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 at 18:08, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] pmdomain: UAF due to un-refcounted genpd pointer export
-> --
->
-> commit a7a3a37d2be118bab420ebff1f13629dfa676eb6
-> Author: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> pmdomain: Make genpd_get_from_provider() public
->
-> This commit makes genpd_get_from_provider() public as
-> of_genpd_get_from_provider(), allowing PM Domain drivers to look up
-> generic_pm_domain structures directly.
->
-> > diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> > index 88c886814a5b9..4136368456d99 100644
-> > --- a/drivers/pmdomain/core.c
-> > +++ b/drivers/pmdomain/core.c
-> > @@ -3018,8 +3018,7 @@ EXPORT_SYMBOL_GPL(of_genpd_del_provider);
-> >   * Returns a valid pointer to struct generic_pm_domain on success or ERR_PTR()
-> >   * on failure.
-> >   */
-> > -static struct generic_pm_domain *genpd_get_from_provider(
-> > -                                     const struct of_phandle_args *genpdspec)
-> > +struct generic_pm_domain *of_genpd_get_from_provider(const struct of_phandle_args *genpdspec)
-> >  {
-> >       struct generic_pm_domain *genpd = ERR_PTR(-EPROBE_DEFER);
-> >       struct of_genpd_provider *provider;
-> > @@ -3041,6 +3040,7 @@ static struct generic_pm_domain *genpd_get_from_provider(
-> >
-> >       return genpd;
-> >  }
-> > +EXPORT_SYMBOL_GPL(of_genpd_get_from_provider);
->
-> [Severity: High]
-> Can exporting this API lead to a use-after-free regression?
->
-> of_genpd_get_from_provider() returns an unpinned, un-refcounted pointer to
-> struct generic_pm_domain whose lifetime is managed by the provider. While the
-> commit message compares this to the clock subsystem, clock pointers are
-> refcounted or uniquely allocated.
->
-> The follow-up r8a78000-mdlc patch demonstrates caching these genpd pointers in
-> its power_map without acquiring any locks (since gpd_list_lock is internal).
-> Because the SCMI provider is looked up dynamically via
-> of_find_compatible_node(), fw_devlink cannot automatically detect the
-> dependency to create a device link.
->
-> If the SCMI driver is unbound (via sysfs or module unload), pm_genpd_remove()
-> will free the genpd structures, leaving dangling pointers. Furthermore,
-> overwriting the attach_dev and detach_dev function pointers of the SCMI genpd
-> objects will lead to invalid execution if the module is unloaded.
+Hi o/
 
-If the SCMI driver is unbound, the system is dead anyway.
+This series adds a driver for the "qgauge" battery fuel gauge
+present in Qualcomm PMICs like PMI632, PM6150, PM7250B, PM2250.
+The PMI632 is used in SDM632, SM6115/SM4250, SM6125 based phones.
 
-> [Severity: High]
-> This problem wasn't introduced by this patch, but does this internal caller
-> have a time-of-check to time-of-use (TOCTOU) race?
->
-> Fetching parent_genpd locklessly in of_genpd_add_child_ids() allows a
-> concurrent pm_genpd_remove() to free the domain before gpd_list_lock is
-> subsequently acquired.
+This series was tested on sm6115-motorola-{cebu,guamp}, whose basic
+dts has been submitted as [1].
 
-Ignoring pre-existing issues.
+There have been two attempts at making this driver, the first one
+"WIP! power: supply: Add rude driver for QGauge" as found in
+various development forks [2] was rather infamous for wild capacity%
+swings due to load variation :D
 
-Gr{oetje,eeting}s,
+The second one was submitted to msm8953-mainline at [3] by
+Marc Lainez, and it behaved much better thanks to the use of
+power_supply_batinfo_ocv2cap.
 
-                        Geert
+This is a continuation of that work, carrying his From/S-o-b on
+modified patches with explicit permission. I have added the
+SDAM read via NVMEM API, fixed the batt_info leak and did some
+general cleanup.
+
+With the SMB5 work also going on right now, we'll finally have
+full battery support on these awkward pre-battmgr generations!
+
+[1]: https://lore.kernel.org/all/20261109221453.658316-1-val@packett.cool/
+[2]: https://github.com/sm7150-mainline/linux/commit/76879bf7a71f4f8f66b9bcd7175069ca7bbf4274
+[3]: https://github.com/msm8953-mainline/linux/pull/242
+
+Thanks,
+~val
+
+---
+
+Marc Lainez (2):
+  dt-bindings: power: supply: add Qualcomm QGauge fuel gauge
+  power: supply: add Qualcomm QGauge (qcom_qg) fuel gauge driver
+
+Val Packett (3):
+  iio: adc: qcom-spmi-adc5: Add ADC5_BAT_THERM_100K_PU
+  arm64: dts: qcom: pmi632: Add missing bat_therm ADC channel
+  arm64: dts: qcom: pmi632: Add battery fuel gauge node
+
+ .../bindings/power/supply/qcom,qg.yaml        | 105 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/qcom/pmi632.dtsi          |  41 +
+ drivers/iio/adc/qcom-spmi-adc5.c              |   2 +
+ drivers/power/supply/Kconfig                  |  13 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/qcom_qg.c                | 807 ++++++++++++++++++
+ 7 files changed, 976 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
+ create mode 100644 drivers/power/supply/qcom_qg.c
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.56.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
