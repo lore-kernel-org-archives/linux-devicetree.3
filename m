@@ -1,129 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472397;
-	b=tQ69B4+FuPjtbbIEwYlQmEHs+xnpK7yqg9xLu3Z8lAHS9CfgA/f3A9HuqUFoe9nlYhMj
-	 QbjlMcAkhtYANiSSfBfY2cobttAHIEEfdiiwPp6h3nI/urrW2B1AmNaTrGu1zHo5kYGJ6
-	 fv67gDLFzfe48nRIT3o3nrwz6ZuKbT0VJDDv1FocGicHVyFLACoJrI7ZoaQPYTzhj4YYr
-	 k2Ld810OH/iO8TpCszSbMZggUgTNj3//4Aw+Y6fnWY9j1UoF+LEi+bkjOcL/y8sksOrQM
-	 TNZYSbbWLqwHhvEQsaq5Ry7kQLbfbpRQpa9qeiIbT+xkbsJpebrn+J5aqCqMB1PZF8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472397;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794472400;
+	b=torO1w33xiq9jSNrMQL5yZX52sq7QNB0rdhCcnqtojMRlR3fxWwbZ53q8AWzL5yNI3H2
+	 O081n1RI4kOLT3ZNLYRmWs6KNd4x/r0p7xEWwQYbeObeuBU3EkemtwL4a3KlqZlslQXzs
+	 7MkEsKbNPG2CFkwiI2ixbYSmxDT03g1RlzuUl0JApfq2311oX5G+WlU9DEfSaRFZpU6EA
+	 kpsHB2AmNXkPpoiodf/Bdh2Fflw2czC95NpG6hLDScCj0p7xMTr/tsHt4wIYQ/iJT8J8c
+	 TuFBz2iKLZO4nQivVn1L+9+gSyk56naQxgq/3UXNUmp0Wlqv+bdVmauxZqlRMru+Fmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472400;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Jgj5v6tMzxErMpwZgPi5ZAqijUNK0DqXXXB9ZItT6e0=;
-	b=kuBPOvST250FnzcMSK/hLFAXZvJx3JgwL3Rxgx96uJHL03qz6BJ3dTYXYGPIuv5kYABv
-	 Fz75JxGa4UMhEDKzoPhkq6DPKdN0pNYugyZYTNNRK2WwSliVwirpV90VctlCfLB4KBWUx
-	 RckW9LnRHNmhKGoYzgVTKML52Y0hJM/IeDNSlADrfrYesVrMucDbjUZ1anEG7pDhpotyA
-	 Dnz11RfTtlAiLGjIMAQuKJvvpnnkk5By4i/oteXY0ByDc0nZFf7R0SyHvzPUO0WQKkLkv
-	 vkuToicYeksRZWwjLrgr171d6x4wahdknc4vf6jRNgQ3D05w6OEnQWksYUqhEtQkl3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=jqi7Pxxu;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=pSWPg89c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
+	b=CyvXYoeQvhUB5EEHJWTfMucyXD/XlAj+fM1AcYuK/Y88thw4V4Ucpbdg4NsS/bJ1bjwr
+	 nFWvL+BfPZlJI4FErA0jVDQMGaYqiaviXrb96RUnoMq+j6KObvG2X+Gw+HNaodQXhZ7cN
+	 QAGnv193CJjVQb6FVXrUoLxzGmrldalPIEav3zzp/0JGcYJUrAaNcPpGOhwEJRDP4McuV
+	 2DNzIhu/PWABOEGuSNW7tjfiIrZ/DtLrAnxFQRkP27RcjMVzq6fMLTDiv2LOY9AwV2DbI
+	 68kBsGcNsT3ji66gtwYg/ExYGkoTW/vCBil2UU48Et+5aGA2dq6ZVBDff+V/ecWVFFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mS57UF3t;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=deHAO5QJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE2060A6F73;
-	Thu, 12 Nov 2026 08:33:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE2060A6F73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0C9606A885
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:33:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B0C9606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=jqi7Pxxu;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=pSWPg89c
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC7N4R22098013;
-	Thu, 12 Nov 2026 02:33:12 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=Jgj5v6tMzxErMpwZgPi5ZAqijUNK0DqXXXB9ZItT6
-	e0=; b=jqi7PxxutL7RcSXrxfhjnhe3ckXg33oCiS1FVyLBzL8dnwWh6ci9zuaOC
-	0A0QXlMbjiu/M6TKT47JoLzqzj2MRIwCZZf0+sOZ9K6LOTcoXECtH/Z7GuDCZOVi
-	Cdv47961vjUq2l9Q7EmEPtnt9JQGSQhVJ+fxVNpXTxjXoVbRMkqnfbixvcNXdPOu
-	ablR1iztIwQvFnYB0H2enX/EvLNyy0/e7EtmrzlHUfI95MREVaQY+WPQYCd9VHiZ
-	wGtwuIP1R9Z4/A3YR75apFopwVLY2x/MZImJcGgyQBOLYlusW+DaZlqcxBPd+p6i
-	Se5SKuWvJa9T3NguJ31xcyo0hTfiw==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010027.outbound.protection.outlook.com [52.101.85.27])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hw915gcax-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 02:33:12 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xiS81e5soLP7+XepdpqXbfFcMc2Tjm4YGwDgs+3wHe1nIDhHE2th+RNB2//tPljgI5zrE+9pco5ADR56F7tl+eqLV/ugglZUuUWL7EGgkNfn+ymU2zeeXYj2ETuGVNtf7fiVdg7CjagF3R6MzpULrNQf6k+p1EbNGXsMP6eh4+eCuVQImIK5pVBlPZWnzcTK1ZqAbKpy83OWaoquilp2ccLfhUe1o71/R0SHRT43fS2OIR9plAjgCfkthVvTT7QbT9U2o51S5W51LWEGa+eduNauF5vxGxOUQxDN/jF7OIu1tqV5uw5sGwyOeoI1AYuh2jXVhgh8U8QUgb7wLkqibQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jgj5v6tMzxErMpwZgPi5ZAqijUNK0DqXXXB9ZItT6e0=;
- b=k2FUwBxCWAJwBjpV3/R2bqhTTxAAzgkwqLLrhlQe0PU+CMgkqsuotKguqLlcfcb9oEMKOuJAxCgA91o4Mu8xVD0ATB0WOv3zrbf5EP26hsJ91dgmg5y5MJk871wk/g3VHXf495uCXh9SeugdX2krRlL9+OK4BnQkTZRRQZw3fGgi/ho8JOMhJ2cKbB3m/TWJhAetKIG8cmwBJp9xCCY68bkjjKyqAvjDhhdvUBn2nji/sGqLpRr5k1RW7xL89zQffgyL6A82Bh+1TT80ZQP5HY0xcSTRZb7y/6LgbTHcUpKfXH9C5RMpi3cyQ/3LrJlIm0bvrEPdrNSVPX9JTVK/mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mS57UF3t;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=deHAO5QJ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZQsk4092470
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:33:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=; b=mS57UF3tUgxFrlxj
+	xB1z4moWrZ/cepUsWIaj9Xw4c6DddzWGrWZ5DN3zr0NQZUhDRUr22twDmG1EZFY1
+	LeTcCeOKTsdTpFAU7H14mr/i1GzX+0G6dUcQIPT+XI2ROlQcZLiZ9uC+hg1x2RMZ
+	RwSgCOMRN2cPqipFt0gpaknCXNO8ErZ0g8xpNrGrWzumyQMTrsU7/SleTwJomSSv
+	q2KeSy5KdoAOg2B3QjmkcAP6W5+52pQlX6chy3AOiMSiJs0lpUJ1ppqzz1XjOyPF
+	zbTI59XXvaL9zAs7VaqRL2EWi/HPBSyfcBzTbDMs15Y0/NZTBuEcJ5eo/WZnMcN4
+	bsnKag==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8hy6r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 08:33:19 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b18165dc53so2336732a91.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 00:33:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jgj5v6tMzxErMpwZgPi5ZAqijUNK0DqXXXB9ZItT6e0=;
- b=pSWPg89cINXf1XhnkQtYJ+Fu0bjRJ9bXJ6Ylt9tN8228SEGOCZEBsC857ZDSoWTkoVHsd8SzDbbW6mNiVHj9OUUDIEZw0Yn0ayVwPi7KIarOoiiW4GyucyUBeDbyISTzXm/n32Vk35V75CYVVfIVtwY9c0eqLiEr8Gs+7uHa2LE=
-Received: from BN9PR03CA0204.namprd03.prod.outlook.com (2603:10b6:408:f9::29)
- by PH7PR10MB7850.namprd10.prod.outlook.com (2603:10b6:510:30c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Thu, 12 Nov
- 2026 08:33:09 +0000
-Received: from BN2PEPF0000A7FF.namprd02.prod.outlook.com
- (2603:10b6:408:f9:cafe::ad) by BN9PR03CA0204.outlook.office365.com
- (2603:10b6:408:f9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 08:33:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN2PEPF0000A7FF.mail.protection.outlook.com (10.167.245.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 08:33:08 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 02:32:59 -0600
-Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 02:32:59 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
- (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 12 Nov 2026 02:32:59 -0600
-Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AC8WvQh1485912;
-	Thu, 12 Nov 2026 02:32:57 -0600
-Message-ID: <a7959800-b60c-4f44-84eb-552c37dba376@ti.com>
-Date: Thu, 12 Nov 2026 14:02:56 +0530
+        d=oss.qualcomm.com; s=google; t=1794472399; x=1795077199; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
+        b=deHAO5QJdC7izzzDIrwzT1rO5HAJPJDzT2o7VL41v/IZ/CcOGLssP0CvZkMUmEDPFw
+         ZegcWUOo0n/y+cumHkgVn6YYqUeuW7QQMfqblCD9uUWgy7R4kAZ2qhSNypfhecKZ6Qb3
+         +hZQ3xCZTnAl2AVADlXr0d4RHKnTiU6Ck6AtvBHW4LRC6qMMU4HvUwq33WmZly87wxVf
+         +Z6ytCMH/zIEQW04OGLhqoXtjl2WZUh1AP5RHfSZ86hLdUKVaZCXy9Ro2E7mMOU9vX7P
+         3du4QclaoEJcT/lDy2WNS90xDGWZQGDDgU5/2C44cq63NPyHBAXY7K2un+vMbHLqHzXa
+         SG3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472399; x=1795077199;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
+        b=JlmlMz4u4k1K5oSXzb+vgRHzpa451x4/eg8OAk5X/0Ho24C/5wl6tuoa7ZRmEZOYDZ
+         Ng56mIEZM3N4xR80519aQHx2Jm4Q5gugyTcvz5sXDaqqMUXVnrVK8H4GeRutQB1iJiV5
+         RquQwAThUhqKFmPB7CD3oHr3fxtiVaYyt5VE2MEGP/cuUr+pB3Q4FyWhdsz6gFgfTX8a
+         vshlpAno64j2+VhdJJ41DPjv9imK+MQBmNSUNqd3g1OnXRWxDv2Nqu96CUE3sjO9KThY
+         J2FBOlbYjqmXQaoad9rbyjqaFW/DtucaLq3Xu9G10p+hGCykTds0+deTKB3cFOhsM9Gk
+         9nOA==
+X-Forwarded-Encrypted: i=1; AL+hErElfQ6kjT7Ai9MmgLttDZ1LHH6DQvLyj49CsuFFA/uyHPcad9Lw/g1Y1mSXvIKi2AbR80hNUDzim5cy@vger.kernel.org
+X-Gm-Message-State: APuU4Z8O10ieTJla42oKfGV2pBwMbHR1GAS7WrL9YtW5Ezs+7iSjQkI7
+	8ufsrDfmR1yponkQk8xOJt8T730xe3IgvC+U3vlU5IB/NfYSkg+ALRnUL7EMuetDsybtHYgQijf
+	SyTS5SmctCrURH8YbiqaSl8RotZ8casZWnpwfPvc22DKqaFuxWRbgSEnRF1BD6ceX
+X-Gm-Gg: AYBFou2ChO7kPEKRVDoTZCs/z0nOtjWQ2vXl/MQ4thuNxNZN3GLJY91OTS85o0X+1Xl
+	+L6OMez20aQ2TBbbUByjJAtln21nhKniy8tR0JEWDhCSrv4YS+KENPUmH4umEzAzWeBIRmYd0pM
+	mS6NL3ivp3NANwGZ9zfFOR7x43r9Zj0EzzUk/mmqsib9e6OkX2RX0GOS2Mmpi99SDYkuvxyU043
+	GOHjF2xuYIxsnjDFkBOlVGQNgVNWTpBbhdD4bazuzH0TICgZ0Yt57n6yslo0LCScd+T4QUf3l/8
+	td3v231YFKaXvQYbSpmbNCuLZ5e0aeBiHJmAsQ7AnzG+9Sz5jVK2yFKK5R3S0ReQ8huplGU8SpI
+	UzVrN8S1ajXWneFq79uB+dZTtYURo2PcfnU+VoChV/4X46/ipT3VWZbCT6EC8A6QilUv1uqwaVm
+	662M3DZVg4L1QDlnkaIusXkT7/9VBXVXb0IKhkCV3OMdrLpRasit63pa0dPu3nsMSz3zyPsTrDS
+	w==
+X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4885542a91.7.1794472398783;
+        Thu, 12 Nov 2026 00:33:18 -0800 (PST)
+X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4885514a91.7.1794472398263;
+        Thu, 12 Nov 2026 00:33:18 -0800 (PST)
+Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm3518029a91.3.2026.11.12.00.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:33:17 -0800 (PST)
+From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 14:02:24 +0530
+Subject: [PATCH ath-next 10/15] wifi: ath12k: add Wi-Fi 8 MHI config for
+ QCN9575
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -133,114 +117,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] soc: ti: k3-socinfo: Export SoC registration
- helper
-To: <sashiko-reviews@lists.linux.dev>
-CC: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
-References: <20261112081047.1550471-1-m-shah@ti.com>
- <20261112081047.1550471-4-m-shah@ti.com> <sashiko-outbox-210688@kernel.org>
-Content-Language: en-US
-From: Moteen Shah <m-shah@ti.com>
-In-Reply-To: <sashiko-outbox-210688@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FF:EE_|PH7PR10MB7850:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1dbb126-f006-486a-d1b3-08df409794c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|4143699003|260925021311599003|260925021911599003|260925022911599003|56012099006|261009223027099003|261009221227099003|261022105027099003|261026140227099003|261102130727099003|261026121527099003|261022113327099003|261028144727099003|22082099003|18002099003|13003099007|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Okbc+SCgNjw6YWi1FL4RVPkS7d9/bW/nRYHYUf6lOtXejMIiHJAgm4yRcWLYVuIvnhTNoGlj+XWEzIOciYdhdEGdpiT3RvULGxf+Uv2+xkyH6TKnLZdaWzAREmIPmeWp5TrYNNb9dmSP9zPr03vSehIPJic6Xk3km3vjktkn9qY5frv++6gGcBf7kCDafGvfX2wLQJrzzSGVLuN0TB7QeVwFWYvoC7sXm1TxX326etqjxdVhpnBb2oc85yYw2XP1JmXawppz1sAkiiZUSnlRGYDims6dBj5HLCTJmZyjkS1X+BnkqTTmcbWTUusmc1rBk/izVGLJQEfagx3MhXk+R2u7OYBhkgnjVrCqADS/GBO+dFK000fszrGks5fa4ttpdR+/SwBq+2inHDTa+33uTEKX580nNLbbzKgrPwTfSmvbJWM59AZVK5e1VWXcIJN9jChunRDYi3j1r+b81mUtSBG+eDEve0minYdpP+ichDl1qqa4xMSbtv+tpb6dUNn7AXV1tlOht6dU5HUG+pSpD2QjDAVA4vWBQPbvRIsJ59zPPwiWA2n5WMgupNirfOLuBxg1uuNgMpBEJeHsR4j3L97gy3XPjt/jUXPqlgzVXGraN64OW1Or7Lx21C0baPoWQyCIVWlhoXMXx9ewJGrQ4A==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(4143699003)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(261009223027099003)(261009221227099003)(261022105027099003)(261026140227099003)(261102130727099003)(261026121527099003)(261022113327099003)(261028144727099003)(22082099003)(18002099003)(13003099007)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	E9axym0xPHzh7ckKM6WH4o/7fd62UIE9i+r8iZr5soJBYa8C0yA8Zke6r9PtqziCuIdLtdkgGjyhN1Wj4bQfd/zMZ/Vv9Q61eXb3HRe/mp83RMu6M08vpPCS7SILcGAkpdUAmPr5FMyml3llXnEnqQiaoUm7Ax8LneTECOvPEgN/cnqvRlWsjGeMgrr2vvllP5bhvU+8/aAfCJxBgZyIEZ+WstB7QqmjrkyyyzjsqDNyMPZHRlqsuU6XdsowAPuesSPOAMuY7sJsAnXbw0t1bw0RGjMO9wMqkcuRQGdxq2/TGzMqmBT8auKmyNkh5EfJ4Vezku6RfNb92KpnTZogfjs7b7etgIcUb7eMR+Gs3r//RCIqRXTvmdA3GOiJoqSntDLmbr0K3Md9Czes7AuGd9IEr8IQWeQPGa5lL7/FUrI2/rFYbUr1WFtXFjAsKcpE
-X-Exchange-RoutingPolicyChecked:
-	bpdX7O1vrwSbFjWrg+NmmSrQRAI1YdFMSboymuyFC1oplBerD4goGiH7+TuPTxBwqAcNs1VRccLsnehIepei+WXDMVBGNL//m0U3Vv6fa8kIb1/8oDoGZbEDEgyT3HIQHZNco8EUVzs5nNEqdIgQEpxyfvZ8HGZhiGOGVrbP2i+l8VJR1NoLMNIUSWRukk/eWB/9s++4HE/AMI2kAED5ze63qRfhqOQHge9zbH92MGyV9bcki7BED9UNVKBYCEGIfgirM5xFX06bA1ifBfwSnBHyXxWpFA3XX01k9q20nmFhTA57k19DoFfhvz3+RlR0EtGqEqKjsfA4c/xn+tiVFg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 08:33:08.8583
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1dbb126-f006-486a-d1b3-08df409794c0
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FF.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7850
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX+l7xwy5PAbT6
- a25p0EbNzN6JV0x5szMhE+51qK5CW6e2SMWROi2Xwstt32TcxdwpJ7wIGL4t7YoFMk/GGVKC2QV
- M6fEpaFuhpxHcjWOYDgibOqX46AxnIY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX16GbvQdudBoU
- kdy2nApp90dW1GOO5lporJB/2Xja8v+QFHYgWcdIbmt8V9r50IM+QO3mCW3EM8LypaOgArQIrY/
- 7uH0GUL67CyokgRth6MWvrihhXfaEw/jrBfVVyZsvkoPGPcN0dwypJuSgPoZmUDOHbTyeyoKedo
- PnzdJSPL9NVYUicFk6nBW9g/wido9s75X6m3wX+eonoZ3yQ4FNqN76CwJNjiQFyi2S6l9qwVM24
- Xm2RITkhKcxa/p2arJFgD2g2S/viAiulAaxZdAZlL+5085rZ6oFFzSPKC/4DuwN3XVDtykJCLsG
- 6DF5IfuaiaY5XQqK8+WkdGEU0kcMpOFpdsVWzPwAOcuWG519lH6EiV/NqglhDC+zBxR8VuwMK2T
- jXjc601ZFf7abgzGD92D0jnfFOqm00uSlyiG5pJpo+TYCeOmTX4+umYzuymvUBv7pqhxfZosAfG
- zGWI1ySHrqA1S25veQA==
-X-Authority-Analysis: v=2.4 cv=a8WlZkSF c=1 sm=1 tr=0 ts=6af579c8 cx=c_pps
- a=3isWwmYGSdluMw1j68YAZQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
- a=VwQbUJbxAAAA:8 a=F1xpG-LBS1Ke4qg9fq4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: dHfYX1WPIfZewhwD7mFzI6j7F7vsc5DG
-X-Proofpoint-ORIG-GUID: dHfYX1WPIfZewhwD7mFzI6j7F7vsc5DG
+Message-Id: <20261112-wifi8_qcn9575_bringup-v1-10-3f30fbc2bb69@oss.qualcomm.com>
+References: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+In-Reply-To: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        llvm@lists.linux.dev,
+        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX7VX13XYo8TOb
+ EsJHm8BH74b9Ew9LRPSb6MngPjdYUNdPqNdPq4I8TeOpHjt0beg9xvvhSalqQY6liGaJLuhY+7g
+ y3KkAJEVFyAlGQvYxohdCKZL2pzDOYo=
+X-Proofpoint-GUID: uDH0mnHE1yPFgDkhGveD6Q-BB3TD_eSR
+X-Proofpoint-ORIG-GUID: uDH0mnHE1yPFgDkhGveD6Q-BB3TD_eSR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfXxfdBNCI2pJTb
+ 3bnf2M73VC6e//vN5algWX7aQspWB87BTpEvFPIglyTyk/qy688Fdlp2ud02vQVT3pHqKaTVvDi
+ XDauIf9SZp9FZT+d4mrYDub/9138yDleG03BjbukS7XEO08+N6kPm2inbikXqHlLqh/Z018JWZ3
+ qRHwSeW9D/sZWWqozmmhDN4tj8cuK1S7rDChF5xXPe04kL/HHM/dq62P8ExA/pYqapzx3zUo2um
+ Pg3ql3UNiSLlJuS9Qu5QhuSOX5sWn0NmC4K7WepX6RyEEnXVOearXrLHlYiiHk1FQ3nmF4Y7i80
+ zpWkhKH+ONql3iDASPz95kZvcPrgzPgPvjSsMuEL9a5/9uv6JPD9JjtJX81vhrC7vMwQ1fxe+gN
+ XtNe85uwVimjUpPMTNihrvCWf4d6ONuf9ztALauJCLFZt03t3Uvph8hZ168XNfMz3UX9GeWlUIJ
+ XXocuV7QB1FfzTUA7/w==
+X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af579cf cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=FOB8LY2opcXQ8BbJJMkA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120033
+ malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120033
 
+Implement the MHI controller configuration for QCN9575.
 
-On 12/11/26 13:49, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] soc: ti: k3-socinfo: missing header for k3_socinfo_register()
->    breaks build
-> --
->
-> commit 50190b242a0586e1caa40c20a83d5610007110d5
-> Author: Moteen Shah <m-shah@ti.com>
->
-> soc: ti: k3-socinfo: Export SoC registration helper
->
-> This commit splits the JTAG ID decoding and SoC device registration out of
-> k3_chipinfo_probe() into an exported k3_socinfo_register() helper.
->
->> diff --git a/drivers/soc/ti/k3-socinfo.c b/drivers/soc/ti/k3-socinfo.c
->> index e21a2cd14c811..bf0829fb1d61c 100644
->> --- a/drivers/soc/ti/k3-socinfo.c
->> +++ b/drivers/soc/ti/k3-socinfo.c
->> @@ -5,6 +5,8 @@
->>    * Copyright (C) 2020 Texas Instruments Incorporated - http://www.ti.com
->>    */
->>   
->> +#include <linux/device.h>
->> +#include <linux/export.h>
->>   #include <linux/mfd/syscon.h>
->>   #include <linux/nvmem-consumer.h>
->>   #include <linux/of.h>
->> @@ -12,6 +14,7 @@
->>   #include <linux/regmap.h>
->>   #include <linux/platform_device.h>
->>   #include <linux/slab.h>
->> +#include <linux/soc/ti/k3-socinfo.h>
-> [Severity: High]
-> Was include/linux/soc/ti/k3-socinfo.h omitted from this commit?  Without
-> that header declaring k3_socinfo_register(), compiling
-> drivers/soc/ti/k3-socinfo.c fails with a missing header error.
+Add ath12k_wifi8_mhi_config_qcn9575 with IPCR channels 20 and 21 and
+control and data event rings in wifi8/mhi.c, and export it through
+wifi8/mhi.h. Update the QCN9575 hw params entry to use
+ath12k_wifi8_mhi_config_qcn9575. Build wifi8/mhi.c from wifi8/Makefile.
 
-Missed adding to the commit, I will send a new version for this.
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
 
-Regards,
-Moteen
+Signed-off-by: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+---
+ drivers/net/wireless/ath/ath12k/wifi8/Makefile |  1 +
+ drivers/net/wireless/ath/ath12k/wifi8/hw.c     |  3 +-
+ drivers/net/wireless/ath/ath12k/wifi8/mhi.c    | 70 ++++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath12k/wifi8/mhi.h    | 10 ++++
+ 4 files changed, 83 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/wifi8/Makefile b/drivers/net/wireless/ath/ath12k/wifi8/Makefile
+index b1b90c109c76..051c6447d35c 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi8/Makefile
++++ b/drivers/net/wireless/ath/ath12k/wifi8/Makefile
+@@ -4,4 +4,5 @@ ath12k_wifi8-y += core.o \
+ 		  hal.o \
+ 		  hal_qcn9575.o \
+ 		  hw.o \
++		  mhi.o \
+ 		  pci.o
+diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hw.c b/drivers/net/wireless/ath/ath12k/wifi8/hw.c
+index bffd1081fd2f..428d6b2b4418 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi8/hw.c
++++ b/drivers/net/wireless/ath/ath12k/wifi8/hw.c
+@@ -13,6 +13,7 @@
+ #include "../mhi.h"
+ #include "hal.h"
+ #include "hw.h"
++#include "mhi.h"
+ 
+ static const struct ath12k_hw_params ath12k_wifi8_hw_params[] = {
+ 	{
+@@ -64,7 +65,7 @@ static const struct ath12k_hw_params ath12k_wifi8_hw_params[] = {
+ 		.num_tcl_banks = 0,
+ 		.max_tx_ring = 0,
+ 
+-		.mhi_config = NULL,
++		.mhi_config = &ath12k_wifi8_mhi_config_qcn9575,
+ 
+ 		.wmi_init = NULL,
+ 
+diff --git a/drivers/net/wireless/ath/ath12k/wifi8/mhi.c b/drivers/net/wireless/ath/ath12k/wifi8/mhi.c
+new file mode 100644
+index 000000000000..04eb1f1650c3
+--- /dev/null
++++ b/drivers/net/wireless/ath/ath12k/wifi8/mhi.c
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: BSD-3-Clause-Clear
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include "../mhi.h"
++#include "mhi.h"
++
++static const struct mhi_channel_config ath12k_wifi8_mhi_channels_qcn9575[] = {
++	{
++		.num = 20,
++		.name = "IPCR",
++		.num_elements = 32,
++		.event_ring = 1,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = 0x4,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++	},
++	{
++		.num = 21,
++		.name = "IPCR",
++		.num_elements = 32,
++		.event_ring = 1,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = 0x4,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++	},
++};
++
++static struct mhi_event_config ath12k_wifi8_mhi_events_qcn9575[] = {
++	{
++		.num_elements = 32,
++		.irq_moderation_ms = 0,
++		.irq = 1,
++		.data_type = MHI_ER_CTRL,
++		.mode = MHI_DB_BRST_DISABLE,
++		.hardware_event = false,
++		.client_managed = false,
++		.offload_channel = false,
++	},
++	{
++		.num_elements = 256,
++		.irq_moderation_ms = 1,
++		.irq = 2,
++		.mode = MHI_DB_BRST_DISABLE,
++		.priority = 1,
++		.hardware_event = false,
++		.client_managed = false,
++		.offload_channel = false,
++	},
++};
++
++const struct mhi_controller_config ath12k_wifi8_mhi_config_qcn9575 = {
++	.max_channels = 30,
++	.timeout_ms = 10000,
++	.use_bounce_buf = false,
++	.buf_len = 0,
++	.num_channels = ARRAY_SIZE(ath12k_wifi8_mhi_channels_qcn9575),
++	.ch_cfg = ath12k_wifi8_mhi_channels_qcn9575,
++	.num_events = ARRAY_SIZE(ath12k_wifi8_mhi_events_qcn9575),
++	.event_cfg = ath12k_wifi8_mhi_events_qcn9575,
++};
+diff --git a/drivers/net/wireless/ath/ath12k/wifi8/mhi.h b/drivers/net/wireless/ath/ath12k/wifi8/mhi.h
+new file mode 100644
+index 000000000000..7a229ea378d2
+--- /dev/null
++++ b/drivers/net/wireless/ath/ath12k/wifi8/mhi.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: BSD-3-Clause-Clear */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _ATH12K_WIFI8_MHI_H
++#define _ATH12K_WIFI8_MHI_H
++
++extern const struct mhi_controller_config ath12k_wifi8_mhi_config_qcn9575;
++#endif /* _ATH12K_WIFI8_MHI_H */
+
+-- 
+2.34.1
+
