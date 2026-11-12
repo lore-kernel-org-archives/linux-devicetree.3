@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794448872;
-	b=FndO7LJcE6+XwolJH/TJIs99bAkHd/nd4whPxpSrvB3o8eeDY7kMHrkHC6tztI+lbPzW
-	 lyuM7k+H5O+wORINOkjA9JEiDvX8anHbd5kwePBYhqo7LpNY2+JocUJ1U7TJRwBO45YvM
-	 1g+s4/269X8sWIJwkgWBMj8P5vt60DQj4+BY9podouMpI4iK1CIG1eBbjCSIykvpoiB/m
-	 3FAf1Gl/ah7PivjGapxbybmC52X4fvFX6/MKb5W8lP3CmczHPPrPXVCkl+ealBTITuVtU
-	 uucft7ksZ7NuEQ/JrDvQOu1V/qxYDMfQt/yb3wBQrX/TmkSCFM4apySzSW9pR35uD7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794448872;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
-	b=tbfc4HH1+uikAQNEsEGiuXNVFtelrWONPxeyRhZHlLwrwqx4LmiJvhNtBuFYlFI7H7pW
-	 baGjb40KQi82nyD+zbV9ppoZLFoIm890VDst0DzRVPKETnP42zsdajTgA+vmCX3a5DwjP
-	 WKdTJWxBJx3kn4FBJH0gfopeHsuKB58YNiWCCzvdTtj6YPl/a9ShShAx3HmNgxNIC9g9n
-	 KNEipmANsB/HC+lXUJHB7HzVEaT6c9ntXqQKpC7EDIESFfirTN9ujjPvkC6MHPUrPMlWd
-	 Yqsk+mObTUM+jHfjCEPh8kO5irvLEn0Sfqtpdw4OasafsIaz8Ey1BlEN9udPwTFS0dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+xdcIxX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794449419;
+	b=OEYSSp+R4ijvB/soqukTWfEbzbTXTIB/J2jqBIDbV6aKpGs96vIwIr/FUDiZJ/duFFtW
+	 5ui0gI59mq+D7HkWwM3AyNkl4MaFzgtvpEd10p4xqUec0FW/OVok/DbhbtIWhzecMWr3z
+	 /dgZHsSWDabTHHmWIiSDj/UGlt+rX+NZLjuGtWnwjI5+QGnUEZ162HHYWJc18zzLxPg4t
+	 e4m5ZOgeMz88Y9YG7SwrsFjvL1MzbG8qzEtSD3PshG2Q/ke8p3aWk6Sd1gt9f1dARTUwf
+	 WtdcCKZ3XVqJXN/cwTqGaJnSzsJWh0mCZWIy5bhvU25K1EZsQrNXNglKDengqaQTDHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449419;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XfFPLXCWvqhDfIvJapjmB6/FOr8sxw4ppmvMfUsLAyM=;
+	b=zDkoTPMd9lCmAL75sfYCdYwTShM8503ORBd2iOJK34v0LZVU7mmeX/xGNwIW3bm/b/1M
+	 X5fs07tHrbstYw7uT574jASRerwn4Mle27cG/kxuyJ9rI+lYrfhT3OiiP7N5pj1oWople
+	 MT6/jWF7EFswURCq/ft26M2BYL0aDAg8dkHDbFwnw1IW3MK4kxp6SxI4Wh3b9kRL7KUfw
+	 5l5h64eL++CGlPa5m2cPCuZ5yoYnnKMiYxmYOIC/l/f3OqSptdeRBTCpFpk7w4K/01z4T
+	 l6z23UqakU9RCgDT2BHtQ8toLARZNKQb70kH2q3cz3/Y3Iim5k90Go7L7A9Y8OObzww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaWtdPmC;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E54F606A326;
-	Thu, 12 Nov 2026 02:01:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B588B606A323
+	for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 02:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+xdcIxX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794448872;
-	b=gL8JasT9JUNwQLYbnWjuoQmb5RabbYW2jKrjEAa/ZNDgSk9tWvYnLrALfIz2SsuelgRz
-	 HugB2N3o+WWjlhg5Broibvf5fo9lXCiFlusvcQ6Bt12fVyCbk1R9mDuTFOmU+xQWuDaL4
-	 Cl2g/kJhBUXWbJp0V0vvnqhu9+oWNEsd49NfFSgk5AOJ4YfcXVD9qaH8efplclIPxsreb
-	 NHLYP4gPr4vMMiQ3yNHH6hsOoqNLEzVjYm/dUaR9e5ZWk26DYtY1asrdXbRScEYaIUT+Y
-	 buvgicQQ6ikLMV97YNUpvxFH4NJp9XH6zCLhI5qW16rOxSgZlTPKkNkwoxUqk8BOaVQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794448872;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
-	b=L0o2SdoaluqN8zNOgL4v+ibl2I0XtPAIvF1hkLjcLRB3hTc34BOxOn0blzyXA9DmSJb/
-	 uHdjuNwKSUx/uKb4ZM+CFlSjbY7hWB4Pmn8CFv0S2KrgSy8++XNLjTnKi0Ug2vLJxXYtH
-	 eE6hMCn+MSWyIHafeJUe+2Y2QxJDwbUmtVjQdTqSrmySGQpktK9xQqQqB0DmpMmafV4Xd
-	 /92gsZdR7lPy9aH94zMUISN4S4sNX/NmiWCn3S3IMwIdDnWJo9zPRotNg4Vou9nyPH7vT
-	 +BjO3qkGh3XbEoILdgAkQdmCZ+KtAVMf3lmkUu5Syc2aOive0EIcUQcosJmJc+5Tf3Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3297D1F00A05;
-	Thu, 12 Nov 2026 02:01:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaWtdPmC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056231F00A05;
+	Thu, 12 Nov 2026 02:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794448872;
-	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=G+xdcIxXkCUhSU/GoDcV4EVXitGUj7p4a9INZ4G51L2t5TJVAVlOiLuVuYXIKGfxJ
-	 9yhhcY/Ah3hKF44WmCfyrvI/odBWtfxiwySAgsSlWCM8F/nm9QvzFlUyRycTH/whz+
-	 BEPYHvocnOxMGGtRibRh6nKw8BO46w+STbUUgDsuFt4xeyD7wa0aPGBaQi+f5kNVkW
-	 jMA36z4Sq9C0n8cxKMeWN97dtW0N1uIq4pzZ2SMpU4iZH/rlkH73o7wm2IbYarMk6Z
-	 2yT47fgpI/JpckhB0ygOZIl/MRA3iTW2cEjzciwJbtjgwNQhF3A875PckcRC5sl1a2
-	 QzhYt/wewGp7w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AFE70491F6;
-	Thu, 12 Nov 2026 02:01:10 +0000 (UTC)
-From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Thu, 12 Nov 2026 10:01:01 +0800
-Subject: [PATCH v8 2/8] dt-bindings: riscv: cpus: Add UltraRISC CP100
- compatible
+	s=k20260515; t=1794449419;
+	bh=XfFPLXCWvqhDfIvJapjmB6/FOr8sxw4ppmvMfUsLAyM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WaWtdPmCggu4Rbv8+lzttqT4gW3D2vGy1ipUT0LYYhkPZfNaWz0mcXqjyxJRE2YPh
+	 MNREUw5WVmF9dV4E39t/3wOXpeCWS6Y8fBUhQgtakLcKb4kW72VxP6R5gGHwvVbGHs
+	 OLjVL41i/MYRd4x0YdRjVLtoLB3UnSp6/h3YyL4I6yqCwaqO3yPZBPVYFcJOgU6HpL
+	 yLhpxCKhZ/eZhDDwRr2Aq+9X0gFzbWBRrFlSzxyTpCGKNQ9LhZGEfow6GqUxj/ygrq
+	 GsLRYJ6aMkErlXLIgvQ/8gNvgBhgzNKa8cm7yXwZjLl+6AqEtI3BvdxsyaGWVk7Htd
+	 RQd+Gv8p1tK3Q==
+Message-ID: <sashiko-outbox-210157@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 3/8] dt-bindings: riscv: Add UltraRISC DP1000 board
+ compatibles
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xincheng Ji" <jixincheng@ultrarisc.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261112-ultrarisc-dts-v8-3-14fa0834cac4@ultrarisc.com>
+References: <20261112-ultrarisc-dts-v8-0-14fa0834cac4@ultrarisc.com>
+ <20261112-ultrarisc-dts-v8-3-14fa0834cac4@ultrarisc.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 02:10:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,64 +60,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-ultrarisc-dts-v8-2-14fa0834cac4@ultrarisc.com>
-References: <20261112-ultrarisc-dts-v8-0-14fa0834cac4@ultrarisc.com>
-In-Reply-To: <20261112-ultrarisc-dts-v8-0-14fa0834cac4@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
- Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794448869; l=804;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=4TAyfkBcv/s6Kdb5vlK3fVOCoBkGrwHfHTtS6V/To4w=;
- b=c0dNroODbCa+STlk7O4ZJ+FBbjEw5h2Z76V44KpxyNvjRgYe3dOx+MNK9x1EVwsc1uzkrZQ3h
- 4teTpvPfqSwDGVJ5Y5ETi+tbqc8HHOj/0MYvGCeVhdVG3tQAhsNdycM
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
- auth_id=1046
-X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Reply-To: jixincheng@ultrarisc.com
 
-From: Jia Wang <wangjia@ultrarisc.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: riscv: ultrarisc lists departed maintainer and
+  stale git tree
+--
 
-Document the UltraRISC CP100 CPU compatible.
+commit 12ea55f6c9205d92a219a92f47c317d3c2daaad7
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-The CP100 CPU is used in the UltraRISC DP1000 SoC.
+dt-bindings: riscv: Add UltraRISC DP1000 board compatibles
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
- Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
- 1 file changed, 1 insertion(+)
+This commit adds the device tree binding schema and MAINTAINERS entry for
+UltraRISC DP1000 SoC-based boards (Shenzhen Rongda M0 and Milk-V Titan).
 
-diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
-index 0da219ae6769..85adf72899c9 100644
---- a/Documentation/devicetree/bindings/riscv/cpus.yaml
-+++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
-@@ -67,6 +67,7 @@ properties:
-               - thead,c908
-               - thead,c910
-               - thead,c920
-+              - ultrarisc,cp100
-           - const: riscv
-       - items:
-           - enum:
+> diff --git a/Documentation/devicetree/bindings/riscv/ultrarisc.yaml b/Doc=
+umentation/devicetree/bindings/riscv/ultrarisc.yaml
+> new file mode 100644
+> index 0000000000000..a51e63dbeca33
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
+> @@ -0,0 +1,27 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/riscv/ultrarisc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: UltraRISC SoC-based boards
+> +
+> +maintainers:
+> +  - Jia Wang <wangjia@ultrarisc.com>
 
--- 
-2.34.1
+[ ... ]
 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ff1c1aea9a989..7eb1b2971bead 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23639,6 +23639,13 @@ F:	include/dt-bindings/power/thead,th1520-power.h
+>  F:	include/dt-bindings/reset/thead,th1520-reset.h
+>  F:	include/linux/firmware/thead/thead,th1520-aon.h
+> =20
+> +RISC-V ULTRARISC SoC SUPPORT
+> +M:	Jia Wang <wangjia@ultrarisc.com>
+> +L:	linux-riscv@lists.infradead.org
+> +S:	Supported
+> +T:	git https://github.com/ultrarisc/linux.git
+> +F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
 
+[Severity: Low]
+As reported by Conor Dooley on v7 [1], should both the new binding schema a=
+nd
+the MAINTAINERS entry list Xincheng Ji as maintainer and
+https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ as the git
+tree instead of Jia Wang and the github.com/ultrarisc/linux.git tree?
+
+Later in the series, commit "MAINTAINERS: Update UltraRISC platform
+maintainer and tree" overwrites the MAINTAINERS entry added here, while
+Documentation/devicetree/bindings/riscv/ultrarisc.yaml is left listing Jia
+Wang, who has left UltraRISC.
+
+[1] https://lore.kernel.org/r/20261110-amused-strobe-d6cf2bf24861@spud
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-ultrarisc-=
+dts-v8-0-14fa0834cac4@ultrarisc.com?part=3D3
