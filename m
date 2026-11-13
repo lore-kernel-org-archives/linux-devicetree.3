@@ -1,107 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794574202;
-	b=Fa6dcbtu5ytwAtSTSje7EQLmIsl6vO9eiosYNEl8fohAGErOJydomI91HlJYAZEK+0XH
-	 7iLa7qullPQQmiT59iaRhyqFgEFVrb+VY9skcPR96uuz1wJ/JSyu1fRmGj0P6zMU++GOY
-	 WwXDWT5FMvNPpzYYDocIc9Q+FEvQGI0vkqBZ/S3NpylFVaaAQcnP41QvoS4kIf1ne9LeX
-	 NO+DPqxVw+EK53bstb7DmvKd7JMXsVbImsxco4wQwnvx3dzGmIt3Z4pUbZLOlQ4e8iHtu
-	 EvqJvlhqOixes2CI8bwCUSpaAaPtwuh+xUqmYzdb7Ilpc00yCemAhqsa1R27GpFw++Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574202;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
-	b=N/ZUeG5/1C3Aeeirns/A4CpTYuPmfgz+1j1UWK/g7Aerk+yrhxvDo1vrk6EG7Qo0e/CI
-	 VUzooBuoy9fFmHmib7WNokULWbpS0dQOTQ9FhDedSrDvyPHSxA/PDnIJzi/71ztkMEKtF
-	 ESLlS8peACwe5C/BHPM/vzgbuKB3l8lT/8i7rKbBFMe/KIoRep1F5jC3RUUTUAixCuB4Y
-	 pf1R7UrQvB3WT4ccQPzMyJQ88tnXVPO217rSZMeneGr0o+arIWkzRYCtAyFl4VYgrVOHY
-	 s0zcHRD969Igl2wU+bsD0CPf6awpMG1fIqc8oKw/FSxeHfK5ae2l7q7m0uhLPkZXrJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XgpV3UGW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011061.outbound.protection.outlook.com [52.101.62.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794574306;
+	b=5p/G6uDqHizwwiR++c9msqflvnuy0bJJ4F+GoPyR8d/ufdPR4wmj4rneS3Wqb2Tm9Bib
+	 dJarpRqyAWBlAJvAVpnWF3PTaSkkTv59NfGVpBT8ggusDVpYp3quk4jcsG+qnrqWBrZHV
+	 c4Gs3YhstDd00hNJiM0o1f9a+LzsH4Lhk+tmqSTqiRqisjG6aCZXRr7UdCn0ADxbcSh//
+	 NX+4rP2l4jgVXRgKseG5btFWFb2Ebzqmjgb/9BuhGi8MjgXJ1X7hh/n6PYie6ToCkGbmy
+	 F5Vb1UV5RxWwt/EQxytIPeSKz/22WqJ5Pszb85MwoC4tIl6bnwJgPpZaneju5F5EElA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574306;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=DlD+SXi8ilN1nbvw3zTuFdKBU8rJFqi0j1tprnf86+c=;
+	b=Kg+SvwN09qEXALTW8TGgjetY0jsM6OAODRGCYqwW15fdASOKsLCdJnm+DmE9F0HxMUBY
+	 x1MmdpBHVkBZLL00vY222vkDIuxzH4iVuDDJY+zmcNGPWs5pUaLqTq3ax6dC+XUr4fZ6A
+	 3qz7lWA7v7YegcKkfPa0VlYRlAFOkBmvIsvED2v0hDOCqC+g74bNZClDES8zo/5/haauy
+	 Se7XSHpreic9Hc6RhPXRvTzLx0SLPHVF19tKPuj/XN6GtEot4+qXcfBrSF75I+947dHg5
+	 Fi36M3gIUYpfSsjT7MpdMiADQU4aGcaRftsX0zOwsx6wx7wyvZzD59Ee0stQXQZc0WQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVmaxU7k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC8C60A6F44;
-	Fri, 13 Nov 2026 12:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FC8C60A6F44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B6F606A323
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 12:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XgpV3UGW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WZTxLM/H4r07esyx8ump2WD5OvBI9xHW3j/GEkvI53P4agt+WxeOijV+Lri5bsBJBFwNPh+xCKaoaX1PHdxrDUbA7Q2zNUSPZWtNnpMM2OqD9R+joh2RFG+qpq6cUuyCJTQwvbjHpTt/oXH+ouSiwp9zwDOWS05pbfshggv9e0opBkoZWq+I3tzVdum1WvUZ86ND+cm6Rc3XIkr5UTeFREDKlemYzc7uJ53Yky8YGxK96J8xyGoI358QjpUhA4zSyofov9BweJKCuiOsbM6BKLHB6mveEjwrb4MhijDtzBXnopiXJycPmN1MX5aYIQ68SOc4inBS/QoOmY4ot5eiwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
- b=mibxZ247k1WnQ8lKnD33O/tC3oodplf6QA67WCmYRnKDpAVtn7eCJqCzCWqAiRmeWa9UuLmncn7Fg3aDer0i5PuhLX1yhiSHWijH6ize1DTq4hR04wZhutobiL0deLkIxuedJ9yaG7CSgoLlnYwGnZPvpe+Xy2KR1Z1TUkTGASNaJZFQGQ9T3Om+rZBJR6nqWqOwZSkbEuvaHRKHI49G37srmHiY75+6Ked3PiRRjOTSu2yOGq10yAZ+/E1+jyk8JEJWgCos3sK3s73mydeqafcsuW8v4FHpbiQS8itvOROAmZ9aFtt6SDgBmJGLP9i/Rn7m3ZbAuuDuoCZOdLd1ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fhh23ipf5Kr3XGEeq5FPZ0EvQcPlo0jj5NBS9X47opQ=;
- b=XgpV3UGWDa1GIpNlAcQegl0xs+wb/fJMENuPmJxGh7PsHSs/b7KlLzOYf0HWs5638zb24fhmXQ4pumvCjTnLSc5D/1DNm/n0e22OSLseMQMxrwX4iFggTC3Cpg7E/OfGfIP3w8s6G7aqBztYBqLnMo/g6L4Uuv679S1cSbbJJWs=
-Received: from BN0PR03CA0016.namprd03.prod.outlook.com (2603:10b6:408:e6::21)
- by MN2PR12MB4405.namprd12.prod.outlook.com (2603:10b6:208:26d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 12:49:36 +0000
-Received: from BL6PEPF0006C3DB.namprd02.prod.outlook.com
- (2603:10b6:408:e6:cafe::1c) by BN0PR03CA0016.outlook.office365.com
- (2603:10b6:408:e6::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 12:49:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3DB.mail.protection.outlook.com (10.167.249.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 12:49:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 06:49:03 -0600
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53 via Frontend
- Transport; Fri, 13 Nov 2026 06:49:02 -0600
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
- AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
- list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH] arm64: zynqmp: Disable DP for Kria SOM
-Date: Fri, 13 Nov 2026 13:48:53 +0100
-Message-ID: <ef31d389e963485d19ea5837d442ab0b1ac39b6a.1794574131.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVmaxU7k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D69501F000C6;
+	Fri, 13 Nov 2026 12:51:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794574306;
+	bh=DlD+SXi8ilN1nbvw3zTuFdKBU8rJFqi0j1tprnf86+c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DVmaxU7kGuaDv0boB3cttsOZ5x9CLbxNH8j7IdHP8vGlnqiwYfHsIcNETTNLhAxo7
+	 a9WNKN04KGtwg8gKhJS4xdAgH+yMRuJzhj6MKIeBUjsJ1JzwO8A8dCWYbTUXt5Cpuk
+	 7+oaLKcUKvh1NbC2EBY6oIV1VTyhMrZG9WFLTvACF3vsuFbJcXkS6AzGmySEgXvBCC
+	 S6qNTC8Eg4FnXfBo4O/n4bRUkJ8Zk6a7IZ0/JASXvkEM8xOQTGK7+FfjzzD7UUS5j4
+	 h7COPqaxTXAyjDcJ2MqB6mKMXzxpH8+j/Vs4OO2FSWCqyhaTwovxG3x/T4C9JdwRNI
+	 BoefImuad9U6Q==
+Message-ID: <sashiko-outbox-212791@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/8] iio: imu: adis16607: Add FIFO-based buffered
+ capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Radu Sabau" <radu.sabau@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-adis16607-v6-6-3f678719942a@analog.com>
+References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
+ <20261113-adis16607-v6-6-3f678719942a@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 12:51:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,65 +60,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=785; i=michal.simek@amd.com; h=from:subject:message-id; bh=Uw4/VEXAmEGOP8UvlS1CsYf7lCvDJCa2ephJAQA+Xx8=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWR9Z7dh/Cg3p+3j0ej8C/9MrKu4N/3xyD156L+DYG/f4 q0tUa8fd5SyMIhxMMiKKbJMZ9JxWPPt2lKx5ZH5MHNYmUCGMHBxCsBEMoMY/nCdaLAsPiJsdec6 259PIp8TXyV5TumIjokX9Nk0n1Nt+hmGv4LS9Wc6zItn8Ni6nshRZlzoYW8v5qV4M5dVmYE7ga2 dDQA=
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DB:EE_|MN2PR12MB4405:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d0195fc-ece4-47dc-f59f-08df4184924d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|18002099003|261009223027099003|3023799007|56012099006|10067099003|261021123027099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	wvih0UIvfNzNux8iO46LxbxhHVafiLw8yegYjxwp26kNJJeNuf9zlODIhRzj6xOfD1he9EiZfewd38RSr+FsalwqevByZz044LHHtThdNRJjf2cB7Q7DQPK9mf0O1sh8FYWenqaEslC7Ujnz+2vanpIpTm0xYBfJYD3t+lUpz4HgV6YOMUJ+enUDaNEOch6LkPXuAeLxzVjeQCF1W/n95EhELXNw52aBI/miZKFd5iDjvjLAqqzqwKqa9VbyYaTMBfVKVfkmv429aVGqn5v+bB66aE+zjD2kmmy/jg25PdOHhlJpaKO8lE+auaSR4b+nNSYQHFrUK5xyE3kviJl+fcyWSe6QGvsn/ZydrVw62oAoDnLbjoPsJvYGd225mriwK0grryCazEJDwqqkuB4gmMYzbv8vLIXWp252IFQepV0t9i2+IpGcJOwtG0MDOc2uRMsm9F9UygznvJ9zh7f2xJ4Sk515SCqd9AG6MBgiil3bzfi4K7SjCzCYNmask7+LVpnnzwVFzVEjo9Wzt3WL5Xdv3ZgCXwspmn0WoUHqeFB9Bu2VQPR7PT3FyPyAXgbTnwtQhdVsoSAm+b/jsIgtzzAzgl4aJVaJ1yzJNCrrhtwB3M7E14I7FgRlfdfMFkI/OQDkHdCBV+ZI812k/Np13jkItL+QPIFIMloG37khB5aNN7P4HzhHQ+eBObYkAmYoaFXjdIT4FvUxF+6lu/6FxQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(261009223027099003)(3023799007)(56012099006)(10067099003)(261021123027099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	51CyLgdmcIQevLvoCCKEsD1w9DouKcaFgo6XzmvXvCo4wRmahuymRRHzFc8UTx3a8QR1hiNZRPodWH3UZa6odSAtmHisV53oRirbi2HrhHkIQyVLavYowZoSGSKippWi6mGZew3A0SPVvCHnGc4/jWo8dRl2lBv3qAkwiY4U+wP4dE8Rxt4SScVa0sZ4sqawNDs5htmNAiRuM7794aixYwwTtvlFF1TOGjDfgiQzYeU2/IhYLqZLsIABB2YVwbtHfJvQAGPKjXjqKsVp6WnS4ml62K9BOZ+LEN4r62GPXfFzaOP83ozt+H3Nza+b5E+HV8f/78uSsTeerYUw2/K6tQNIXnxJDHJQFmURCaolOc/iH3UEiuGWdfgfMjr+FL+F13OFJVGpBV+28wGQ2P/e8yoa4xhgiwp4ErIjdi5wBGUcX3HKIm0E7JQoouXpKGWk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:49:35.5545
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0195fc-ece4-47dc-f59f-08df4184924d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0006C3DB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4405
 
-DP is enabled via DT overlays and there is no need to have it enabled for
-SOM only. Schema validation also reports that phys/phy-names are required
-property which is not valid for SOM only DTs.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] iio: imu: adis16607: initial fifo_watermark in adis16607_probe()
+  is overwritten on buffer enable
+--
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
----
+commit 432b63f4ff217d947afef093d1237f760013e881
+Author: Radu Sabau <radu.sabau@analog.com>
 
- arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts | 4 ----
- 1 file changed, 4 deletions(-)
+iio: imu: adis16607: Add FIFO-based buffered capture
 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-index 500af1d2232f..a81e61a4f4d4 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sm-k26-revA.dts
-@@ -363,10 +363,6 @@ &ams_pl {
- 	status = "okay";
- };
- 
--&zynqmp_dpsub {
--	status = "okay";
--};
--
- &rtc {
- 	status = "okay";
- };
----
+This commit adds hardware FIFO buffered capture support to the adis16607
+driver using a kfifo buffer, a level-triggered threaded interrupt handler,
+and configurable watermark attributes.
 
--- 
-2.43.0
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> index f5dc37c54191e..377e7c46f860b 100644
+> --- a/drivers/iio/imu/adis16607.c
+> +++ b/drivers/iio/imu/adis16607.c
+[ ... ]
+> @@ -228,6 +262,333 @@ static const struct adis_ops adis16607_ops =3D {
+[ ... ]
+> +static ssize_t hwfifo_watermark_show(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     char *buf)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
+> +	struct adis16607 *st =3D iio_priv(indio_dev);
+> +
+> +	return sysfs_emit(buf, "%u\n", st->fifo_watermark);
+> +}
+[ ... ]
+> +static int adis16607_set_watermark(struct iio_dev *indio_dev, unsigned i=
+nt val)
+> +{
+> +	struct adis16607 *st =3D iio_priv(indio_dev);
+> +
+> +	val =3D clamp(val, 1, ADIS16607_MAX_FIFO_WM);
+> +	st->fifo_watermark =3D val;
+> +
+> +	return 0;
+> +}
+[ ... ]
+> @@ -792,6 +1183,8 @@ static int adis16607_probe(struct spi_device *spi)
+>  	indio_dev->info =3D &adis16607_info;
+>  	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> =20
+> +	st->fifo_watermark =3D ADIS16607_MAX_FIFO_WM;
 
+[Severity: Low]
+Does initializing st->fifo_watermark to ADIS16607_MAX_FIFO_WM take effect
+when the buffer is enabled?
+
+devm_iio_kfifo_buffer_setup_ext() initializes buffer->watermark to 1 via
+iio_kfifo_allocate() -> iio_buffer_init(), and iio_enable_buffers() calls
+hwfifo_set_watermark() with that value before postenable() runs. As a
+result, hwfifo_watermark reports 38 in sysfs before the first capture while
+buffer/watermark is 1, and enabling the buffer immediately overwrites
+st->fifo_watermark with 1 before adis16607_buffer_postenable() programs
+ADIS16607_REG_USER_FIFO_CFG.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-adis16607-=
+v6-0-3f678719942a@analog.com?part=3D6
