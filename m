@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563275;
-	b=YPtB75Ap0S3duUae4c3Oxc5vYUd4rOLOItv3XFg65ZbEEiUiwWHAXJyWgA0ewvGlXjEq
-	 niFRJs/nRA8PuJZRFZ7tPNKKA8P05ufPcfznfYhaO3itaJydZpOARZK7VRhbfyjwm9Y4t
-	 4uSQ+7DgfYdt3BPjtE6wkWZhdeoIc62fafqrY7beVfRnaP+RkPGf0MMt+1fUeeaON1z/a
-	 u2MV0s7W13PpZlafzDDWJlzCwZmnyKdT+ffWz+qSU3B+BSfHkHDZAZsjfWLzkKiGU+g5E
-	 mBPHqbD0NbyOLxGL3o3XIdh0HM0VzpOruWscmOnTBUBIfncIi0fClgZdWhcIOenMGGQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563275;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4osRCpBUwVbAVXzsmKv+OVrPMoAzVjh03WXG58X+e3k=;
-	b=yxsrQBNqZrM52ZzqltY1rlrrEduBkbS/g4c6Gyz8bmHZ62OATHyIcVH1l87lHzKb3BLm
-	 K7JaarMcmc9yRKzZElVMxBI/G6AvC30qCjUOxjRW+HPdkXjDfzURcWt3E7XHoIVnFdCNu
-	 o0x6MKv0/40hXtqX9njVgmbtR2XpLti0bW4W88AcgyOGmmgnPksInVSMep1wqui53HO/u
-	 YkXUbxYBN8nzbDc+GjG+u+AGhzMa78yP2HfX/H5RsDHFaNfNR/EKRFoCkTFcvX+6+moD2
-	 Ii0p3ELmkH7AELhND7ZGys5yknzql+Hs9JXO7NlIDvApCnAIqmwTj+WSM0OE37MJ/2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2SGBIlh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794563293;
+	b=jRIFo3U0LBQ3c9nNMSpHeL7q/FUKrhuNWRKJ0um06u9GGPYdKWurNBwzm9VjCl/5+yWv
+	 BCTSCtB3J1WC+txkqJkU4nGJn/TTwpNPiMyqngJISEvKhSsEOWT69c3hEiVWPPfCEsobm
+	 124RvXsXaBSdDCLy/K+Qki9cRuJrir57Xrznn6BVnHq4LdyT/ygkHC1RDFF7T7i0EkvPK
+	 eSMFF+w+Rgrha/KypUNLYBQSzBaLuXyArapPHLAraSpMGNim47WMh6KaiEy2HRfPvbpNu
+	 B4g6LEEdZPcGcV4Tyy6R0r8fIbMLdCWMIyP9uxtpp4CJRSUZKJfoV33J3knurk/X/aw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563293;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=wG3dHvBX6XXCB1e5pZpU38/z7uKFU2yTyv/v2C5pAKpBGATZi1NUbTT8CuEDs+CxqfGB
+	 4QDpXB/SBywLpnf0oRv0rCqnRU4I649Sa9OEEodqnxxGCC3FOBHUMunb5LBtOy1PLaYbL
+	 3ScMt7VcgOtz73u2Wv5lTusLDkobdWAqHcPmMlNGb2uASBB9/wzKEkyXqd/orLSsLn/2h
+	 roZckHxAgSbr0AmON8Oexgs436GOsfRv0UvYkZvJI4xIj62GmoOGM9UmQE3gkD17OOqDa
+	 btUawOs6FmM3pxE06TyH4UgD/rqqTYMzGWLzwQw2KccdRMzdMgwyW0E9kJX/cohAwnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FqvcFHOA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C14606A335
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B643606A31C;
+	Fri, 13 Nov 2026 09:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B643606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2SGBIlh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478ED1F000C4;
-	Fri, 13 Nov 2026 09:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794563275;
-	bh=4osRCpBUwVbAVXzsmKv+OVrPMoAzVjh03WXG58X+e3k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J2SGBIlhfMAPKgkO3hveoHlL2XaEpDZdhitQjdDsyc6GZeZU7J0JqxUWjNT8ixJsG
-	 rlPkBUMHO6V1/vOUiH54rmkwpYC3D4o7rlAUu4Yv/DfZB1iJVpeHXOHrPd9lLXhtDR
-	 tw5GwErG6+mdBSpw5ZvFEoW5iNblMgvdqhv6vIfil8pARVZEsS1DqIfmtUaeuRSSeo
-	 oJLkyAkHL9h1SrMNE4Ilz/lthPmwPuUKTqZzTEuWZHwvXG7DwHNrAWtwXOp1bC2C6k
-	 phdlKd5ElehOgfYDFLC8M7i4Wpa/WBD567NF9DoaUpsW9hKmfPtVORitwX5z142UpE
-	 sjYwM4wtrI11g==
-Message-ID: <sashiko-outbox-212570@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
- I2C/SPI engines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-nord-gpi-dts-v4-2-e4a1510687c0@oss.qualcomm.com>
-References: <20261113-nord-gpi-dts-v4-0-e4a1510687c0@oss.qualcomm.com>
- <20261113-nord-gpi-dts-v4-2-e4a1510687c0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FqvcFHOA
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 980D3202266;
+	Fri, 13 Nov 2026 10:48:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794563289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=FqvcFHOAeaCHKc//EX4Sn8K3WgWUE9ly8lTAA/ubhgL1zyUhcTU49NYaJcy03/u2t82L2W
+	UX6G9VcHfqnXq0mqWRNwteHo5xJBoP6Tx5BSLYqxtyEKWVOyKTrpB7xn/rSkr58/b1ho0M
+	JWeoMnt1LU/QDcnnf7HcGVahrSiJf5eJWCif3ai//637c9+QsqtaIjPJh7owV9WMyK5ZQv
+	Zsrk/Pm6XkdQf2tzoEi+C+QJWgvhy0nb/X5hq1t10P3gzd43rYDbd05at58VOHz4FYSE2m
+	8hO6tH3vsmEcF087cew6LcawDaV5ueVfjeJm2N97h2mBzD2mWh4UttExg9DaIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794563289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6H6K3uHq6NldMYMP3YlBlDnoWedZJbrPijCyuvU5TUk=;
+	b=F07za/cfOIcBUy3W+xv3VFmG0ykRp8tVU87RsKSyxqY1Z5RAwqaSKdOzAwj1nUT5I4Auaz
+	1FiIIWP7NXflJyjVgGZlm6TsW+021zI7asuteUQUvTYP0SCvyeQCrVQT6rWK7+E3ODml5z
+	L6FtPBs1/ytxW9zd+KS8kKZZ2TZaCbFHzmb6WzEwP6Ryp1L4uzTS5vZhmo+Y1Wks1A+WKL
+	IQMN9NEhy4uFTCu6oOqcE8Tfx0NQlJnfCPiFqwqIkzYz9EV1V5c1r59r/mqTE3EI9FRrEz
+	w5EXvwLFlS8IjRBQHzCJBQEEOC66XBFattdrbfPOWjN2Mm9uS4N463WBsTc56g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794563289; a=rsa-sha256;
+	cv=none;
+	b=DATszqC5RkaNaiZF3N020sjUU8Dt3zypTQz316EJeMEzE20YJJfUYsbGms8dgsEOH+0FTR
+	0cuFWWXTi9H4nm9W66UQxLfGxRADGU+tgQZ/51DV+Dfpx8e4Sn74JcF32JCuDXslkLjKF5
+	v+pnIT4/mhmfb0TEpcwwXIGIQwrwCJLDWGEoMEHDulMxaqszKhLbHGc7XEKlnVv5yGL9+S
+	iBPXCJszLfz7yjoISZd0P6vmS2s2WaNYP4ay++qtT+8WTKLvsMQpCIc1MXQOUBNt1CfiHo
+	GfKNzWN0sxP8v6b3JGt8u51d/JlSwOQKbio8i08p6Uk0XPjH10ZKbuU1pkoSyQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Arun Iyengar <aiyengar1990@gmail.com>, Benjamin Gaignard
+	 <benjamin.gaignard@collabora.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner	
+ <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Hans Verkuil	 <hverkuil@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 	linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org, Sergei
+ Khomenkov <shomenkow@gmail.com>, Tharit Tangkijwanichakul
+ <tharitt97@gmail.com>, stable@vger.kernel.org
+Date: Fri, 13 Nov 2026 10:48:09 +0100
+In-Reply-To: <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+	 <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+	 <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+	 <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
+	 <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 09:47:54 +0000
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,81 +106,29 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: nord: QCOM_GPI_SPI DMA properties added to
-  UART nodes
-- [Medium] arm64: dts: qcom: nord: missing GPI DMA properties on spi4
-  and spi14..spi19
---
+On Do, 2026-11-12 at 23:54 -0800, Arun Iyengar wrote:
+> > Le 12/11/2026 =C3=A0 11:19, Philipp Zabel a =C3=A9crit :
+> > > If vsi-iommu accesses require these bus interface resets to be
+> > > deasserted at certain points, why doesn't it request its own reset
+> > > controls?
+> > >=20
+> > > Depending on implicit assumptions like another driver not asserting i=
+ts
+> > > exclusively controlled resets seems fragile.
+>=20
+> The AV1 node lists these resets for hantro only.
+> vsi-iommu would need them in its own node and binding,
 
-commit 9c6fd2386259cb23b0a0394993d22bac655549bb
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Would that more correctly describe the hardware though?
 
-arm64: dts: qcom: nord: wire up GPI DMA for QUP I2C/SPI engines
+> and both drivers would have to move to shared reset controls.
 
-This commit adds GPI DMA channel phandles and dma-names properties to QUPv3
-I2C and SPI serial engine nodes in nord.dtsi.
+Worse, shared reset controls don't work if one party temporarily needs
+full control, for example to issue a reset pulse after timeout.
+So this likely would require exclusive reset controls with
+acquire/release.
 
-> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
-m/nord.dtsi
-> index 68787db708f61..818f6054bcec8 100644
-> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-
-[ ... ]
-
-> @@ -1244,6 +1272,10 @@ spi20: spi@898000 {
->  				reg =3D <0x0 0x00898000 0x0 0x4000>;
->  				interrupts =3D <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-> =20
-> +				dmas =3D <&gpi_dma2 0 6 QCOM_GPI_SPI>,
-> +				       <&gpi_dma2 1 6 QCOM_GPI_SPI>;
-> +				dma-names =3D "tx", "rx";
-> +
->  				status =3D "disabled";
->  			};
-> =20
-
-[Severity: Medium]
-Were the GPI DMA properties for spi14 through spi19 (on gpi_dma2 SE 0..5)
-and spi4 (on gpi_dma0 SE 4) accidentally omitted?
-
-All seven I2C nodes in qupv3_2 (i2c14..i2c20) and all six I2C nodes in
-qupv3_0 (i2c0..i2c5) are wired up, but among the SPI nodes in qupv3_2 only
-spi20 receives gpi_dma2 channels, and spi4 in qupv3_0 is also skipped.  In
-particular, spi16 (spi@888000) is enabled on Nord Ride and Nord RRD, so
-spi_geni_grab_gpi_chan() will fail to acquire the tx and rx DMA channels
-when FIFO_IF_DISABLE is set and fall back to FIFO mode.
-
-[ ... ]
-
-> @@ -1309,6 +1345,10 @@ uart0: serial@980000 {
->  				reg =3D <0x0 0x00980000 0x0 0x4000>;
->  				interrupts =3D <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
-> =20
-> +				dmas =3D <&gpi_dma0 0 0 QCOM_GPI_SPI>,
-> +				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
-> +				dma-names =3D "tx", "rx";
-> +
->  				status =3D "disabled";
->  			};
-> =20
-
-[Severity: Medium]
-As reported by Konrad Dybcio on v3 [1], should these QCOM_GPI_SPI DMA
-channels be added to spi0..spi3, spi7..spi8, and spi11..spi12 instead of
-their sibling UART nodes (uart0..uart3, uart7..uart8, and uart11..uart12)?
-
-Those eight SPI nodes are left without GPI DMA channels, causing
-spi_geni_grab_gpi_chan() to fail to acquire tx and rx DMA channels when
-FIFO_IF_DISABLE is set, while the UART nodes gain dmas and dma-names
-properties that are not permitted by the GENI UART bindings.
-
-[1] https://lore.kernel.org/r/6e91b34f-367e-4835-a7ce-e899953a5bd1@oss.qual=
-comm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-nord-gpi-d=
-ts-v4-0-e4a1510687c0@oss.qualcomm.com?part=3D2
+regards
+Philipp
