@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595126;
-	b=5Xg1TgsSeCiiy3dyoKLS7QjWBxzwpSht0IHVp/FZWHtcAQsUgzTaIBc3SxGnHzVIZFIU
-	 BEanW5AY/P7pgYpbI/xHpzCVTbUc6QfyP47YObs8hMNxbjA8yCxNoh/OlkvS4XbcvGteL
-	 MtQbXrQCAPEjyAthc02eMkir14ViNdzluJ6gIYD6RncOFCH0NGAfre1vZF4thdOmOHFeA
-	 nqur4xLEc2erd5MJ3oy4Tv5TNqAE9jakKMfi+ojqQHsx2Pdiwp4a9s9hDvX5zFXoFBdjy
-	 V4R9BeIg6/mJzm2RV9AVIZ+5V2+HVYZJnzzA9X+kWGaHpv2TE+chyrZysnmGyecFJcw==
+	t=1794595123;
+	b=IRET6IbNvAWxGeJk+qP62ZElLEOby/71JaBBV74xzuVpMQJ4cw5KnNY54uwV1DC8y9pY
+	 5VC8J/Viu9WnRfof24xss7YL7NDI6PpO+sP/pHtOaT8ciXZ5uvO6IiKRfqDqBBwk1BtUl
+	 sEG7UXy+dSaZajMNfEpC0VMmU8IIDiEedyVYPCzNzJboW6ZPkhDjG4wRyfT+h6mr8tUTO
+	 Pl5yqTfKKFMyjrQTixT46yfTH+jO/ND7jRuga9z2Y0gBFh0EQ/ie2Cg4JAE8XdyPQgwEs
+	 mJ/ubknfiYsfJKWB5/6Iy2rPJNb7Vi9MoycUFdppiKhJENUkFTSi48wnugrDHOJefgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595123;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=6Yb4xm/71FbPbrX8bul+Nh9djbt0T9PDaJg9F6V3s1Q=;
-	b=e5i/pd509ebTo/j3iiwdG24uWti/urYK/sUGPBjxfSrVgP/9HtWik1MbAC/GvPAcC6CJ
-	 N445mP1hOBurdyR3y63XyQVzWlqNd01i+g3HJbKD+s1opDwraLYEd94GpFKsbBBh0sgPi
-	 sFaS3E60/0xloZSUtUrQrkcr4WXjFFXK1/Jz/2oNuO6U+uq/wQdaXW+uMCPCgn6ysQYRq
-	 beEfIWUaWpqHjaCkwmqqWaLd7rM6w77K8LG2XDUu8Hikl6XMQHguP+4RkV7oYurs/J1u4
-	 I96DIFIdcG6AglxV4vtfKnATpUl5zyRtiT/yxQfpqO5RG24axGVa67RuWBdWHnBLvng==
+	bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
+	b=Lecj95ZmiL87V7NN2XHe+DSy7scQfFclL16sopQKTMh1cvbAnKCBdgkc1Klbp5dx6X+8
+	 v/d3NTvulVvFDQCxpsZP0Lyx0pm+odvFkxQyzqA/1qmGGg46ThgOzdfNDeZjufeUJm5ro
+	 LUoA54Xvbq+ulqDQwR80+fUCKaoBd5hbWqcXR/Qqx2PkTf04YfobtE07P2VPear8pATRV
+	 4PAEX8xxRKpJrIs7v+thEiJuKyh3svsKfzPNFOs+qb0sRzYAIWoWglGlD4iifJJpiMrCw
+	 6N+C1zDpUZZmFB9GfdD7vca/VgtOeXEaP6NCSa9DoEGbK1tx7dB/3VRJr+69HOXVqvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EMnFR12B;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kNvNHTUg;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9948606E56D
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9948606E56D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27887606CC83
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27887606CC83
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EMnFR12B
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so9793625e9.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kNvNHTUg
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490a0e72588so573550f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595124; x=1795199924; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595121; x=1795199921; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Yb4xm/71FbPbrX8bul+Nh9djbt0T9PDaJg9F6V3s1Q=;
-        b=EMnFR12BFy/Zd/JfaqoThARSiDLJF50Y55g/A5oqz/RdNk/+AyHud5tlPSeLcaJY7E
-         w7kfG9fjnI+eT86YE6YxbUMWWML14o5beIvMc/Ro6ndCwjooH0cV+KD7EloGy/wRJD9V
-         Jif90NVzZVcQ6+YoLmHHZt4iAeZLaEA7ly68CU49G7X3pzaWIZR8lMzP2+vY891L1jTl
-         h8RmgqDHq6vxU266MaErJnLthW6M6kNZv5ZuJ3s2+KVNORgMp4D4JrCArmECEFJMES0C
-         4OFjKe4uqE0XjwMT4xmKxa49UaDBJ5eRE3nw5DHCUehtiWFP+2bUX4YlOMp59d2pT66y
-         2umg==
+        bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
+        b=kNvNHTUgRjtH3mON9M91rXL1bm5mOnrWnMSeu1K73fYuLMy8EvA/ZS83+hjpvyJ4Yy
+         2aprL0xs0PB40OQ6Dhhpugd6YRCMj33GDsubh7LMFUt3yVSSZQDZV9l5LxVVcm7EHhY0
+         pjTO/mSguDcs4kyewWd9euNoJJdqA61YNmA1VwXvwD88303OTCnLnVca0Uf9X+LVbijM
+         kyjoLiViBevsmqMY1+WOYgCanH6OrT+rqXkDdJS7IOaOERJ0THv7oqUVQAQ6jLoLHu1s
+         EIa2/zQG+mdhkF1n+BHNbgY8K1grM+O1yTMHkZA0I5ebtHQBqxdMYuDHw3VcUUhJRxlj
+         wE/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595124; x=1795199924;
+        d=1e100.net; s=20260707; t=1794595121; x=1795199921;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6Yb4xm/71FbPbrX8bul+Nh9djbt0T9PDaJg9F6V3s1Q=;
-        b=LJ7dhC2DBtKhbkfyKItKSiZRpVfGCk8BlttHLM79DnbLh8ymUxyORkWi3i+pfev6y/
-         h/Jz8bGikLgh/iFkO6BcYUYQSLCW52ISVsReNgtVxMK+nFEv91JC4z7/4XcsU8t6iPsE
-         gdEoC29OgFL8Ie4QMy9cX8zddqEn+dsGtKn+Xawqjxl7UMSS/MDXDvRxZh7kvjWBZ8D0
-         eX0diMFodN3XkFWCjiYDD1D5c+21He/lHo0mGVSKYu0A3WY52vsfHdHwZmTPuPziu9nP
-         XwRqj5qYekvpRUlGjZM1ib8KebHZmD6TYmKeUi1VdIrm8n9J5vTA68chQanTA0WNZywW
-         5LAw==
-X-Forwarded-Encrypted: i=1; AL+hErEPu8+GGInnwKpBcm56Gn8VdxDdLRu1D8YVAW1t+1x9hlQmBj+bUAiXgNMWg0xAlxd6XUw1dRXm/CcR@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LAysQ4xmUI5kHlr54u7NJljbgT2rSs3bieSQEehoVHTNMRBaW
-	msVV7NIgppPVbPduUmL9EOlx005Q7dKj+7O0B5TcyQeSa03lUatydsj0iHF1FneLfhg=
-X-Gm-Gg: AYBFou0/X+axQxjSlh+tOXF6EbZdgryy2pj/n5J2UlypWlyS/Wy0SgIp4zQSLOU0Xo7
-	EED8l2c3gHlQChe4geF3c+6yCG2izKgqDyB86STE/ND5iDXEYnDnm4IcXWqshbYQjQB97hHpm2O
-	hJg9qeI3u2BkR7z77RPQ88sXWii8ATV9AJgxGJEROljFFIp8TuQj4JE9jLmpztebA/y237dEv9M
-	fh1mia/CHuY6PGdV5j4UWAi+4NRfIflbCnTxo4xN8BXcnAx6gVzkEewfnpJp8Z30WCerCHqrGyh
-	8ZmTV/WEOAaHYHn1SvbNoRGmFaRx4LzoMiyRbge63BnwHIGRgCGIYk46X5ycNPSw7UfMujzFvyk
-	mD7tmXnrCRW33ubhWRkG2YbXdllvboStLCRac0eJGbirKY/ghhRmKcK3DA6jYScxYhfGr82EAYy
-	aikHMly/EO7EIBpoByJAv7jspsG0nB6//N+1Ab94LRossN95sJAja3dGSxJfZ2nT/hxAVuXOGj0
-	PdcfAXuzvTsRD1FCBQo4pKfdvvhxu8C9JfG1hPnPfGj68XmCl8iyyI1H9+et3B4jIVkspJ5gWe1
-	li04R8zEHuXNOPjSj+dpsGb/SlkfgpfVVTCRYWOvB+U=
-X-Received: by 2002:a05:600c:46cb:b0:4bb:52d8:73ef with SMTP id 5b1f17b1804b1-4bb55af12e1mr70215745e9.34.1794595124200;
-        Fri, 13 Nov 2026 10:38:44 -0800 (PST)
+        bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
+        b=R0xnaq6GOg/QImYCp6BtF2bBK0nZbnrpzPobmI4lK+4hR9tI11SQoUNNqH8b/YvMa1
+         dkLbxaVekD+mWWJsZLSCu0tPu9EvtjTtuh4Y0OkxIfXGYMfhDgmSou+T+ah0ZiEUo3lV
+         Thuc4ZV0puu0V7Wot1QrHQ6Eghxzd7NCseooTt+t1pceZvdTGHZ9J+/UeI//VDGRv2il
+         n/QoHeUnAANA6lwQrhmeqkpeVLjOsAujSZjvvgrWg4y3PaaJGTtdMJJsY2HllOqX8XES
+         W6oNEjvSID3ncrX/mIBig55w+uVvhkdchZKabfQ2mYqtj6+nZWio15WxQ3m37iTdP61J
+         Y9gw==
+X-Forwarded-Encrypted: i=1; AL+hErHpdTjSkZq3s/JtGyxj5sLU8doiqoIM3116pC2Pw41zfy2EFnYm9rofpBSHvo+6wmnWuzg3T3geeX/U@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ExNBz7rN939hGKnzzhbADMayfPQIJFYUl2XNNOz+8HUNni27N
+	huBGTxIHg3V0r+gdDoQqoRZCug0Cm1rmn8rWkWEcx0YedqgqBOxGXEmFRuWbZ3gx844=
+X-Gm-Gg: AYBFou2kDKfFsNaXg0sBs7CWA5lGKn4MZKydntAxxp9fb00/LE36TdmMlX4Xv+Jdg38
+	wVi6k/WnaZZ5T6HD2zsW8732I1xyq2xg3koBO3vWqR48UooUbRYVSIeJMZbbKaFqhT+DzuJGafZ
+	UvkDvObpDNvIPpNKwssR/7Txss9SQ/q4vCk2GkRpQL782H5J0bb2O3VqRFuVeyzk76bi+4a5nwx
+	+6YJJ4O8folfFr0ZadedREUCDSiCo0Wp4jXaPRmWdFXofKQAYwR9NhtB98WjvLIt8TXHb+lcntr
+	TSvaU+RVPNyPaYbcKgB3XIEXkoLJYWIsvKerJ+jfGE9LxvNchv1rir/7SrmOFyh368g2e7aBBTr
+	ExZKj3xR1lPX3eWmWfwpSASHr5gg3DBgEwiuXloIuSvG4JA4fyA1/lpeaVdbXR5oURqJmGNXc9L
+	4uOj5N0FnkJgiQzFZXO8kDmYB+6eLcz/y+BVaqaY2ddiKJtZdHkUyHbQ1/KceJ++PIyARbpFlss
+	pGaJbBip1bUSbOP96nTe1KFSPTsYjtPfnXkvnkJPzWT3jmMhTiPpT85U0Q7MexlRfBW5LVfxoo9
+	b/ZlyeFQTQ9GDNNGAu+YjukbrK+k27cRCE9axYZJGnc=
+X-Received: by 2002:a05:6000:29cf:b0:48d:f9dd:e3df with SMTP id ffacd0b85a97d-49c712ac8edmr4249814f8f.18.1794595121078;
+        Fri, 13 Nov 2026 10:38:41 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:43 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:40 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:22 +0100
-Subject: [PATCH RFC 08/23] ASoC: qcom: lpass-cpu: get the optional
- codec_mem3 clock
+Date: Fri, 13 Nov 2026 19:38:19 +0100
+Subject: [PATCH RFC 05/23] ASoC: dt-bindings: qcom,lpass: add WSA RX and TX
+ channels ids
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-8-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-5-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,61 +113,62 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1381;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1281;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Z8GunUt92Y/75liBMYWXLbRwhUaetuFUQPX3BHF04L4=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91khB1slVEF7d6pDan68qfrqHRNn8kCup/oD7Ah9
- hZllBjaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIQAKCRB33NvayMhJ0ezgD/
- 45ZUV+oN3bZPvX/nBQqaRAOlnpXXntUnO4puAR6WYjREGQL+qQR3swBxSOfZuApkJ1uP+MRJNBBNWH
- lQUfzGyz359aiHXu2wQg8ejOYBhu/RCprmvNTWoOo6iEDUMhAJmcNC4vwAEeRd7hGRetUUBwaGGqBA
- 2MX2bvLNk3hnBttn2U2wB73UDvIPTZMix5+hOCKn77M0TkzxygA+QtythciBB1bz1ZjHEH41fvW+Rf
- v4MG5fa7fkHO1dHDssw545R581/ncL7jEv6i5LOxYu62gpgGRI1fWZgmuiEnwKy+pog0m5sZjoRbQN
- o8tMtxZkvHdS3h5KUsa/p7DzS23yZ6FPyU4u0ya+hkxanDIaN6wQFjUGrB5ogFsGkRZwjMcWK9rVVL
- 4c2U/VMSdxVz6s1vTO1waKQ+tG3fi/VRMkvszXcMofbGuOvkBtr3ffl9t9zVFZkhjaknEnYsWCY+vU
- lbgz1EwV50TtXULVzqxt3dixNV8Erf4Vgpc6PpQAjSw3HPR9dCLnxPiY79MrST0s2x9lHkxxNp/FpJ
- rzpuEfpz5ApeS3oHmoslrpuTh3ZLh05TE+uXj9hmI0pBtWAgkwhegWpjmHGHPtocAGh+XpHkYwZRaC
- 9UZyDMFeqzoYTidcj7aC+O+w2zdxRw0yEtyrOah3BGzW3mwqecX3Py6Mn1Ag==
+ bh=7B0HLPkz/JmSein0hlLzb+UyX+3YoDiyYBasK2j51sI=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kfPhvTXeMs73QmE5NQsahYZG9H830cDEBY6m9o
+ UEhCBleJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZHwAKCRB33NvayMhJ0VCjD/
+ 9N0CE7ZXY2semuBrhYN0RyvNDEYoK7WutoyBIX5xdZDi43Z4J3tQePDZTIgp8ZFCYT9aiv6iW+vjmB
+ Lf9Yo9oJ66bHsV1hoAeXLrXicmkYA2NGEckDOE6g2tdkKXaIAJ8lFri+9GnGPOmeu+V21fWgKg10MX
+ TgUf4zSTk0mtjwhOgAX5H2EfWQmg0eubO5w4aEmLPfn4vJBx9y6eqbo3H5sFIvStYXxniE6jargFkS
+ fImd31BCwFKxStoRZJrbfUZDK1DlqyaSJfOV719LYbkYewTqbE8yh1sJHOYS8KwxBiNqUXPOtl6UH5
+ F2nPJNyuL7PGUKadHNl4hJ7v32XmAfQ43twMGR/vDOdmCy700unX5t9Y57nQL7tHjTCiesr7RPxzzE
+ gaDLBZ0IHe50oUdmjMoWImbsr3iZjLkrXPUwtg45m0i3uAJsyLY3D8JzgbewybuCv9nVcld/PV73EF
+ VfklXWvriz7PNi3AjEN+z9X7+3SjIOmCewotFOQQMgKDWiLx5cju3UfzuuGl6V15fVxORUnV+JdhCG
+ AAiSPsKru+jO0WEzQ8x5Rb+2ywsk+vdXIqAP+tODE2TUNe5gklfawC/OPSzdvCDhrWPm5um/xMIpFf
+ liQuTT+BHUy6GBVORrke3b9xJAz9GqO5UKYjwiCt4RKagd+C+Z5bzmIR5Bzw==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Some SoCs like SM8650 have a 4th codec LPM block, gated by its own
-codec_mem3 clock, which the driver doesn't get.
-
-Get the optional audio_cc_codec_mem3 clock with the other codec DMA clocks.
+Add the bindings to connect to the Qualcomm WSA interfaces.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- sound/soc/qcom/lpass-cpu.c | 4 ++++
- sound/soc/qcom/lpass.h     | 1 +
- 2 files changed, 5 insertions(+)
+ include/dt-bindings/sound/qcom,lpass.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index ee187eeb7392..ea8b6083529c 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -1071,6 +1071,10 @@ static int of_lpass_cdc_dma_clks_parse(struct device *dev,
- 	if (IS_ERR(data->codec_mem2))
- 		return PTR_ERR(data->codec_mem2);
+diff --git a/include/dt-bindings/sound/qcom,lpass.h b/include/dt-bindings/sound/qcom,lpass.h
+index 22f5e1fcc8a6..5d8db5195dad 100644
+--- a/include/dt-bindings/sound/qcom,lpass.h
++++ b/include/dt-bindings/sound/qcom,lpass.h
+@@ -44,6 +44,27 @@
+ #define MI2S_SENARY	34
+ #define MI2S_SEPTENARY	35
  
-+	data->codec_mem3 = devm_clk_get_optional(dev, "audio_cc_codec_mem3");
-+	if (IS_ERR(data->codec_mem3))
-+		return PTR_ERR(data->codec_mem3);
++#define LPASS_CDC_DMA_WSA_RX0 36
++#define LPASS_CDC_DMA_WSA_RX1 37
++#define LPASS_CDC_DMA_WSA_RX2 38
++#define LPASS_CDC_DMA_WSA_RX3 39
++#define LPASS_CDC_DMA_WSA_RX4 40
++#define LPASS_CDC_DMA_WSA_RX5 41
++#define LPASS_CDC_DMA_WSA_RX6 42
++#define LPASS_CDC_DMA_WSA_RX7 43
++#define LPASS_CDC_DMA_WSA_RX8 44
++#define LPASS_CDC_DMA_WSA_RX9 45
 +
- 	data->va_mem0 = devm_clk_get(dev, "aon_cc_va_mem0");
- 	if (IS_ERR(data->va_mem0))
- 		return PTR_ERR(data->va_mem0);
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index 68b71039b981..4231466928d4 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -107,6 +107,7 @@ struct lpass_data {
- 	struct clk *codec_mem0;
- 	struct clk *codec_mem1;
- 	struct clk *codec_mem2;
-+	struct clk *codec_mem3;
- 	struct clk *va_mem0;
++#define LPASS_CDC_DMA_WSA_TX0 46
++#define LPASS_CDC_DMA_WSA_TX1 47
++#define LPASS_CDC_DMA_WSA_TX2 48
++#define LPASS_CDC_DMA_WSA_TX3 49
++#define LPASS_CDC_DMA_WSA_TX4 50
++#define LPASS_CDC_DMA_WSA_TX5 51
++#define LPASS_CDC_DMA_WSA_TX6 52
++#define LPASS_CDC_DMA_WSA_TX7 53
++#define LPASS_CDC_DMA_WSA_TX8 54
++
+ #define LPASS_MCLK0	0
  
- 	/* MI2S SD lines to use for playback/capture */
+ #endif /* __DT_QCOM_LPASS_H */
 
 -- 
 2.34.1
