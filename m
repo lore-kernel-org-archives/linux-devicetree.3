@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794557963;
-	b=UBsuBxcPrp9GavMNvUZwR2d8Iu3IVX89hbU9CmzJS7aK8nhbKUOUaeDNKCrkto99d/3+
-	 rGwTFZIOd9nDgZekqCAIOZZzFz5pl5PomCjdo21Dy35e4agnsNjqLouyvrAjnY4XjC55g
-	 qlvDayqjw5dMS8RqjzEjcQsg0qx/Gro7Z0SrPNB6njxAvSEiOCPW2i5KAvTkzz7joVOVk
-	 udf/tfoU/xcF4aM4g3mQTCkzDzkyKvMQcZdmp+kTDHe7yOm53XdISIQ7/7Vpn31zxR9FE
-	 RljwKHEHaeJlvXrNbdzOB3KsDi6/L2SD2oliv7amGCyyGL2ywP5BYibGiABncslKwyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557963;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=5BxipZIRI/QUeWboqgmOWLXtvdEMQ00UKulK7sI3VHA=;
-	b=eVlBEB13XelgQcwwKGmyByWY8B73eyHrR99409MsN5LyG7ISgnER5tLetSih+PGb2Iva
-	 GtA1iYDNssoOazDs1NnXaLzUhEPyYDZ87aFp05R6qxyvdLPuYeiGG2xsHxm+nzE6NGeFF
-	 QgkW57CHZGJeX2oKr3a/g/AltjZe5xWNEG+wC92TpTjqbh4uxUGDJA2zl+sZ1xoeW+wq0
-	 K1fUi5D67N/omxgcd6EHqHCob9wa3qGDpTDzAGs4lCftNP7R3fHtc9a3O3PmQsvj0ed4v
-	 J8xvzZeOLq+qKZ13KwCjpDfH87z5JdB+7xSFFyHNUEi/8SX5SgpQoKwubPQQDIk3J1Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=JGJ8zC2R;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 68CB9606A31C;
-	Fri, 13 Nov 2026 08:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68CB9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794558040;
+	b=c0sVHzsa46ciCPOYqB9pfw+FtL/hNuKXUR0Hf1hNolME05GUcTZb+MgXfQiuIO/ezqzL
+	 Zv0n4wRakTn6wRpy/A8DTNkZtPle2qR7TR/sMKNOXmKg9Uu6y0rHq7V1xZZuyxZbVoMti
+	 6QBVaa6wne0F4tlGyZP/aWM7plBV7Wwp0Gl6WoaVCGNMacL1/GuBx8WSXExI32ufsL5Uh
+	 u2QRF3HqcuFwMpVyMw3rdamVUsk8iTMZMfeAlQQ/kJQjDen6YIe8QckHcvovtzlTvuSvI
+	 G4NwK3+8VDUByGHjH95U6WkXTqNKXMPDpAF0lcHaeUIUzJjS9pe3bonIYHyg7BV+gnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558040;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=qfKfJJI7wxhAdDWtpsGEzNb54cWJZYAwY7eIBpXfiDk=;
+	b=XTdxIj/P4fwiWHEIpQf22ld/2RgYlLlVvyZqNMziml5ieuuLGy7KyIW9H3MajWw3VlAw
+	 7UWzHuYqpwep1Im0M7dc1qw/KJfadzEgwfe5z1I5LN4iyXYN9XqD8eX1YQtgXsAHIbb7o
+	 p8ftfMvcwQ4FuUGHSSx/KA+rJLmPdxkj29ZSKOG2nH1GgrEHr5HmbyveEMrjjLxt18v8w
+	 t9X/Tcgzz8gvELO1dpTQIzklkuQDy0w4Gg71ixvR3tuV60NNueaXv/PWlXHS6iCVA+Nse
+	 ECJBnEz+mfd1NiOS7X0RBf4qS8XFOdlfo5OGaSn7yTSgbboDgr2StfWqw+ClP2iEktA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHhozOY0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859BA606A327
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:20:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 859BA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=JGJ8zC2R
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHhozOY0
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3adfb0c9e3cso1343861fa.3
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:20:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794558039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VfUIK0kHsJsc1ApRyo9ksjBTdQm2yzzr4rFL/42DAvJ7CFvkuRPe8b0UHPIGIyXOqe
+         G1DcEv7dnUDIgUXOUvntXZys7nZ1+AGgOrwxsdUZdApbTX+dgEJVYuoCLIDjIrFNR/al
+         EC3CPS+HCZ1Oks/WBvJ8pklNMrQHPJyAjUiEHy+QDW9+9h60YlRVAD2wlfHU4m2xFjXf
+         6G+uC6Bbfwk5DrNeOHCAfCn1TGoNuC/+c2pUcfxUmAuZWuic0P22zXpfRoe2wvTtssuH
+         87TwX52cq5T69Bq2my5V8UHxsxQYcIo0vlo7f13wzFtnW55S/rxwTiR8dV24JJjOD38e
+         ohrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qfKfJJI7wxhAdDWtpsGEzNb54cWJZYAwY7eIBpXfiDk=;
+        fh=Eb9s3SqG79AIOcP3KP0xnqkNj/01+PkrEltKEYFy5s4=;
+        b=aVox4dKkuB2XFPK4fmH8B3Zh9/gIegD47NFgW8BgNxW8fkfKG7JUfjgeSofeF4MXhM
+         ohtzIkVvyM5FfgPGDL8Xqsw0qTJUM1aonlRHLtrNkQ6JNrRelGHCbJ9VXxQWLE6kjwmy
+         qKopRvj4vHY0XDpsIh12EGnRsomsSm9eW7P4BHoOASjeOz9aJDAKXq3ptyi+sqGxFgrs
+         Jxkcg4WUv4su1HkBOmS5KW/pRpWln19MYxBduA1gFV8zib2ZorLjBY+p1NznqQiLF6Bl
+         skoYAc0P73E6mzVYh6NaVYN/Zk/BGEcV8XPQb7SB3olf9ezO69EPQ7jFxxVc5sOfTllu
+         v14Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=5BxipZIRI/
-	QUeWboqgmOWLXtvdEMQ00UKulK7sI3VHA=; b=JGJ8zC2R8N04jyt6z6gqsXNiNM
-	9GdUaYGOl5VA3DcaLXCBEK6aFIF0v/jX+jpI47jA0Z4ePXEm5pmwk7PagsTH2zlA
-	CIsvH+JTrptJKpeGUMZqgmuEUo4JHnNdXEyrZHBU1nXMeP26b+B4rdTQQbarDX4D
-	2csPkEHZbbDijqXyk=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBX1DgCyPZqlSK4AA--.7571S2;
-	Fri, 13 Nov 2026 16:19:15 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v11 0/2] regulator: add the Will Semiconductor WL2868C camera PMIC
-Date: Fri, 13 Nov 2026 16:19:12 +0800
-Message-ID: <cover.1794557667.git.xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+        d=gmail.com; s=20260707; t=1794558039; x=1795162839; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qfKfJJI7wxhAdDWtpsGEzNb54cWJZYAwY7eIBpXfiDk=;
+        b=xHhozOY0NJ2QC6eQD/p+zobo+GcRPv7sezbHuV39CnsJv+rIFMXaRxdJiXo4HMW5rk
+         kdxvT7jERlvnC68k2QiiLyZBRz0Ugps4BstnvYKRHz5kDQ7XrUh/llNQWvuncUNrlHtb
+         UPAURYJDSTDhXQAGVBdPLs3MbasyoOzuhkKkSlqdmvs7/hg/e76tWeuXBnwTKZWjyeNl
+         6gPLUcwoKmikMRmwQogewu/eo82l858Atm07y51VNrCQ7+NeVO/+QfbKpyK8znspUjBN
+         CxiJHKQWIU0idMqoy3WQW8DkOPmPpJtd1qWjg7LA0ELH3ls0J8uIExMIUmyu7vTMrdcW
+         OmTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794558039; x=1795162839;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qfKfJJI7wxhAdDWtpsGEzNb54cWJZYAwY7eIBpXfiDk=;
+        b=DibpZFl+h2L0yk8GIKHme/psNARkiSx18fV8YZbjQsUNO+kcKxEJiqVJFn4CQHxHNG
+         IxLIu6IeZ1o55FA/ofsOGs587DwAOvABi+ublmka5oRmBq7Dh9k8MyPr9N0F7wwmVTJm
+         LSkU6T2VVqylbGGxJfXiCWgIQZkOfh4PsOH717DiS7BrX/V9m7HtvaQGy+J+xp5ux2a5
+         XLUS7zEmOsgXIM06kcL5jdOQj1nV7wob8U4MV6oCQ0ISEy1hsActFuyi8LYEsK/1ylfD
+         U/cHZLgcpOolctgO1lAWlUggqz3kD+Nec4hDgwgPcf0i0dEWq5huUIquU75/C7wQQbp9
+         UUVA==
+X-Forwarded-Encrypted: i=1; AL+hErFWz++RSLMlP+Yg5GkiUtmfdTRPwPnlwCCqfLpJ7Ocf+XetWql/x8LV6EsrFb3uGCOuLpfkpiOAZkRM@vger.kernel.org
+X-Gm-Message-State: APuU4Z+owFIr8SvocObeyXjg/dzGCiBao9ruRc3J3X/Yp9INImVSJhY4
+	PeOoyLcXzkuxA/AprcSBsrCq2jMnF+nV0Y1hCjbrwo7pmWcYvEvE8AscT4elG6EfrIMsRXg3eIR
+	t7ZMVuh6YKw1zzeeIRV1b/zz+3LjRaM4=
+X-Gm-Gg: AYBFou1vBoFffoT7ZeTbSj3je4UwzHmxm3kkGZTIPCg78pFJBGWodPPsiVmog7jENj8
+	1ABGuEjPn7af5muroqEuP1wywzonfZqJuPROZ72jtL+xfkEdz4ZAD7uTLhPG7Hr5YQEg8KY5+up
+	ec2SgLAx50aSgj4lhzGOoDM+/Gd4j557wDw/4xhf+DhXvhgMgsjFtPX10GO+f8RBhHPCL6Th399
+	sIupOciYc9PSh8pIbx0iWHHy3kUDdib19WjwDoE4tT5nFlc6ksxWu4wLzoqJxNWiMypgz/C8TBD
+	iRYXeSkhcdVMwcLJsOQqGLFA4MIOWu2YtyEB8oVmu5Y4r0QCV9/gb4Z/xRn42LY3NZdGiqHld/W
+	EQrvx+6Ywcwz+YciNefxQkPAuS1rMqOsoghtG4lFAic7HAhNe0PblgE3cUmoMyFEBmQzJifE=
+X-Received: by 2002:a05:6512:3e0d:b0:5bf:a66f:e5e with SMTP id
+ 2adb3069b0e04-5c17058b108mr849129e87.0.1794558038625; Fri, 13 Nov 2026
+ 00:20:38 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,105 +103,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBX1DgCyPZqlSK4AA--.7571S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF4DKw43Zr1UAFWktryrWFg_yoW5Kry8pF
-	s8ArZ3Cr4kKry8KrsFyF1Iqa4rZrn3ArZxC3s7A3W8Zan8Aa4Iqryftw45uFyUGrn7ZF1a
-	vF98WF1kCF18Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgcTQUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREJB2r0wlk29gAdsG
+References: <20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com>
+ <20261110-usb-port-pairing-v1-1-9307e29d2ed2@gmail.com> <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
+ <CAEy9hNV9saBWyKxuMR5unmLjzBM2+S7u+FewEevuLV-6yo1ztw@mail.gmail.com> <CAGb2v64xjbc2t+fMegBUSptiwT5FQBqc8aqiVkLjwfaB+3FV0A@mail.gmail.com>
+In-Reply-To: <CAGb2v64xjbc2t+fMegBUSptiwT5FQBqc8aqiVkLjwfaB+3FV0A@mail.gmail.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Fri, 13 Nov 2026 00:20:26 -0800
+X-Gm-Features: AclHuK8fPl6O1DLxtbIbOB_Tvsw2cAGJCYYC3mBqm8ET2-FLO8BbsLPv08rZzEo
+Message-ID: <CAEy9hNXErDHYorhMp+xVz-A1tYs7JSEdFYApCK5AO1nMAFDqCA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: usb: generic-ehci: Allow describing the
+ root hub ports
+To: wens@kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-*** AI-assistance disclosure ***
-This cover letter and the two patches below were prepared with the help
-of an LLM coding assistant.  The author reviewed every line, ran every
-gate quoted in this letter himself, and takes full responsibility for
-the content.
+> It should definitely use the raw port number, since that is what is
+> supposed to be used in DT (and what is used in ACPI).
 
-This is v11 of the WL2868C binding+driver series.  It supersedes v10
-(<20261111111132.1296892-1-xiaqinghuan@mail.ustc.edu.cn>) and differs
-from it in one place only: the LDOx_SEQ handling Mark asked about.
+Thanks. v2 crossed with your mail; v3 will use the raw port number.
 
-What changed in v11
-===================
+> FWIW I'm also pushing a series to wire up USB on M.2 connectors [1].
+> That also has some code that does OF graph lookup.
 
-Mark Brown asked on v10 2/2
-(<20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>):
+I'll look at it for v3 and reuse what fits.
 
-> Should the driver not also override the LDOx_SEQ registers to make sure
-> we have software control of them, or hide the enable/disable ops if
-> they're non-zero?
-
-Taken the first way: the four slot registers are cleared in probe.
-
-The datasheet (WL2868C, Will Semiconductor, Rev 1.4, April 2022,
-"0x0A, 0x0B, 0x0C and 0x0D: LDOx_SEQ", p.35) defines LDOx_SEQ[3:0] as
-the power-up sequencer slot of each output:
-
-  - 0000, the reset value: the output is controlled by its LDOx_EN bit
-    in 0x0E;
-  - x001..x111: the output is controlled by the sequencer, which brings
-    the LDO up once SEQ_ON in 0x0F is set and SEQ_COUNT[2:0] reaches
-    the slot; writes to the LDOx_EN bit have no effect on it.
-
-So a non-zero slot silently defeats enable()/disable(): the register
-write succeeds, is_enabled() reports the LDOx_EN bit, and the output
-still follows the sequencer.  The binding describes no sequencing at
-all, so clearing the slots and keeping 0x0E as the only control path is
-the way to make the enable ops truthful.  The other option, hiding
-enable/disable when a slot is non-zero, would leave the outputs
-uncontrollable on exactly the boards where software needs them.
-
-Measured on the reference board (Lenovo Legion Y700 Gen4, SM8750;
-Linux 7.3.1, driver bound, read-only through regmap debugfs):
-0x0a..0x0d = 00 00 00 00, 0x0e = 0x80, 0x0f = 0x00.  The firmware left
-every slot at its reset value and the sequencer disabled, so the clear
-is a no-op on this board today; it is there so that a board whose
-firmware does program the slots does not end up with silently
-uncontrolled outputs.  Clearing a non-zero slot switches off the outputs
-it had turned on; at probe time no consumer is up yet, and the core
-re-enables whatever it needs through the enable register.
-
-Everything else is unchanged from v10, so the v10 changelog (sashiko's
-three Medium findings and the two Low binding points) still applies as
-written.
-
-Gates for v11
-=============
-
-- git am of the two patches onto pristine v7.2 (25f7927e6ccb) leaves no
-  local changes after the series.
-- checkpatch --strict on the driver change: 0 errors, 0 warnings,
-  0 checks.
-- W=1 build of drivers/regulator/wl2868c-regulator.o with
-  REGULATOR_WL2868C=y and its dependencies: rc=0, no warnings.
-- dt_binding_check: unchanged and passing; the binding is not touched
-  in v11.
-
-
-Qianhui Xu (2):
-  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
-
- .../bindings/regulator/willsemi,wl2868c.yaml  |  99 ++++++
- MAINTAINERS                                   |   7 +
- drivers/regulator/Kconfig                     |  11 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/wl2868c-regulator.c         | 301 ++++++++++++++++++
- 5 files changed, 419 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
- create mode 100644 drivers/regulator/wl2868c-regulator.c
-
--- 
-2.53.0
-
+Arun
