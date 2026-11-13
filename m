@@ -1,48 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794609416;
-	b=W1Fx8UA0gaWwMNIcT8fIaeAyIJVoV9/5RrSTpGBObp2vf4JvLHaxm4CIJu/IAm2aiPat
-	 plVOlBPRSLcVCVQL/BKhO3f9bAgnoYCHx3+lS016/p8QjH8PQ8Ko56s3d14MGDdCj84NK
-	 /JW+ZDsIAQmOI45nW3hzhLOt/VSgsks5LYdMzHq80YrKieBmegge6JCC844zVleeXYvYW
-	 jZfU/FZDTOgoNi6lhq/TdtRP6k4O+rfIUMqpmbsUJ2wx9sRHTuxWsbK1XEpbAqhwRbIpO
-	 v9Q1RU5NxaPIe8cqk3jnp0/OAfMWILRbrVpc6q5Km2TQUpmLjWAJy7N+p8lq5A1f4Tg==
+	t=1794609995;
+	b=O1IiCNLsPS5OC3L8XBaWfDfRkb9Q+oEIfAiIt9A5TX18B+4qpqCgpI/FM+p3s+Q6E3K+
+	 x8x0pla8MqNNZ4px70/diddWVXz1s5IdYfS3C73972TaNQG9T8mbNXOD8Tgdxr/DtHDW8
+	 p4kRydOeJr63k0+AiAnFdlYWA7W5Mok18P1O1nooyJO8DhI66ldQJZYEKGa2NmUeH6681
+	 h7vmOxJkHBvcjikqm1J5DExAIGUUU7uel/gwPUFVUml5nKnH/ujvp6lYzpITCb4RMBi38
+	 SwylMWdEokj39R7pyTLfmEoYEkWjegHYpIUNWUALnP7DDO2DVAAPHBX+5NvpDC1D1eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794609416;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=AF9d3/s55owBhUJiIiIWyiUVQx0z+18PRAIyL8wj9Ms=;
-	b=QVgfI2IJyk4JH48Q4vAwzyAOwpuZGjkm7HJClptEm2gMhqpKOKpGB4g9Nbc45qxPH7ei
-	 iNQye1PQpWD190a/wxoYv4AMURWYP10tsGfynxiuRioF1dBQLPs8F5P0CyTbX4PW2G4Cd
-	 kyVTsfio1RO4Jo1TITv0DghTnTkWLsoTcZ2EILHmQK7vlBDCcczOHq2UhnG+Qj6Btjgex
-	 2gRdkNmJrtQs9Rr7O6cpmDXQVa1Tt0H/iec6bBQgqlpjzeOKMahoUiWWP32hvzzwkKo9y
-	 QiRbo/zC0bHVAMMUNph9y1AwpcYf4mx3DdBcfzwfA8n1rBbYb9Jw1TTOHHXtdgf9mKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794609995;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SJJFXFJOjUb6U2UtiZQNfL1AoPB2mBR7cd+kQxd45dI=;
+	b=D5vZC0LspIxfLBzwP+l7PQg0E6s4Ji3Fwx4X/bXBCpTdGTEP1M/U0w7SAXGbfg39KgXN
+	 uS40cxx9aeKusk50OnZXgDLBe5vclKxhNoJtwfbhU1Esxiwq3Le/2WuReZU9IlyImtb/p
+	 yE+39zo8S3Ch6bzu0Eym875nKAakMxfYNNiU4LDwWZ0I6jOCddbYu9T6Qhw56cHupRDX+
+	 aeyBotZN0+VKf8HUaO+xL1qmAtEbtMUGnT5ZKyP52BAm/IFHaFTmehPpfSmT19PCzdpD4
+	 BhOl9rXAfX7ErPHtWAHqJDanEFXB/YorgYQwnRZxb2gkMSAn2Z3qGzq1/kV/9KHiRiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoXoUkhH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OXykTpMI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3629C606A54B;
-	Fri, 13 Nov 2026 22:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8658606A32D;
+	Fri, 13 Nov 2026 22:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoXoUkhH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB9E1F000C4;
-	Fri, 13 Nov 2026 22:36:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OXykTpMI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48301F000C4;
+	Fri, 13 Nov 2026 22:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794609415;
-	bh=AF9d3/s55owBhUJiIiIWyiUVQx0z+18PRAIyL8wj9Ms=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eoXoUkhHKqTdbPP8de0fEdn6CQgARYdt6dgs97p/KHNPMDVziBs3Hl/+zWMi4cG5u
-	 FdVjQmfLaxAOM0PFJRLV6px3ZPdEz4gdmemzBh24ggUnkvL49qKSwboy/msJMljC8s
-	 73j+Nl7o1KnQ404aJsMDIuYqPUw2nbrUqj75f/JH7YuiaZott3u25w9za4iNGVMkck
-	 D+vLzQWjm8Q8zLFFo65n3pvX97KJ6efNFdn/6BcUx/gLu2PV7RuSL5/qSdn2H4I/mf
-	 j9xUYHFm8VFH9TG04ln/0Mb0Ns83ZhX5lg9HeDmBewru9PN5RV1BS9NPkOTznAdnJe
-	 GJ+C4OFwmQsAQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id A595A326384A;
-	Fri, 13 Nov 2026 22:36:50 +0000 (GMT)
+	s=k20260515; t=1794609995;
+	bh=SJJFXFJOjUb6U2UtiZQNfL1AoPB2mBR7cd+kQxd45dI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OXykTpMI6vEGjfkrx9j5PULfAFNQfq1W/F9Y+XHVbp7+FwSM6ZbExMxaMZ+gI6k89
+	 tXWJwfOV+eb4lw7s4q/FShR14KKetT9HCLR9EQD989h26yMA+5LRC6AMNJkEFVNulV
+	 H4lvEqOtc5eGN+DKlC+6WBidSD6rsgWbJRaX/fPvoR2S+XGfrvayXp56WlDUg7tQx+
+	 L4yDRYSx0xMYffnyXBbJeA9AN9SkprcoL+UuqoexHfyj2f0dUijWpwEOdKIm6a7nqH
+	 PSmfQq28+hk/H11vWxH+xKf5snBLbkPLuV6e/5mRzdbw0DOg6jwgjARJnnud3dCOSD
+	 zfdFXe6JIdjjg==
+Message-ID: <sashiko-outbox-213839@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 06/19] clk: sunxi-ng: add support for the Allwinner V861
+ CCU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Han Gao" <gaohan@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 22:46:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,91 +61,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 4/4] regulator: qcom-rpmh: Add debounce delay before
- disabling regulator
-From: Mark Brown <broonie@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
- Saikiran <bjsaikiran@gmail.com>
-In-Reply-To: <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
- <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 22:36:49 +0000
-Message-Id: <179460940931.590303.9395310796576570677.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2417; i=broonie@kernel.org;
- h=from:subject:message-id; bh=12pt1zHDasK7LJ9maTvmL1/ou7W8H6tUQyLIeXUDnbs=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+T2SapKf4ZNKZDg69QNP5j2NT9kgueOUgJGySF6C0I
- 1JfbtvFjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzE4SPDP/OGPp5H94L2LCy7
- rekdI5LtqTT7Z5CAW/RR9siV7ZNLgxkZFkbd2TzjpaUEt7jyMYeNCqsEUkK+/1z0Vaq8V6d/wpN
- jXAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> Some consumers rapidly toggle a regulator off and back on, e.g. a
-> driver that disables its supply on -EPROBE_DEFER and re-enables it on
-> the next probe attempt. Sending the disable to RPMh immediately causes
-> needless power cycling of the rail.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clk: sunxi-ng: ccu_mp_set_rate() ignores
+  CCU_FEATURE_UPDATE_BIT for dram_clk
+--
 
-Looking at the code here this doesn't really seem at all driver specific
-- we could implement this in the core around any disable and enable
-operation.  Is there anything that really ties this to the driver code,
-or could it be factored out and available to everything?
+commit 4dcfa888826dc579312b5e254290daa03aed3f59
+Author: Han Gao <gaohan@iscas.ac.cn>
 
-There's also a bunch of stuff from Sashiko a lot of which looks valid
-but I didn't check it carefully.
+clk: sunxi-ng: add support for the Allwinner V861 CCU
 
-> + * @lock:			Serializes disable() against the teardown
-> + *				action, since both make a read-then-act decision
-> + *				on @debounce_delay that must be atomic to avoid
-> + *				queuing @delayed_off_work after teardown has
-> + *				swept it.  enable() needs no lock: its only
-> + *				shared-state access is cancel_delayed_work_sync(),
-> + *				which already serializes against
-> + *				@delayed_off_work.  @enabled and @rdev are also
-> + *				written by @delayed_off_work without this lock
-> + *				held, so they use READ_ONCE()/WRITE_ONCE() there.
+This commit adds the main CCU clock and reset driver for the Allwinner
+V861 SoC.
 
-The work doesn't seem to write rdev, but does write last_off?
-
-> +static void rpmh_delayed_off_work(struct work_struct *work)
-> +{
-> +	struct rpmh_vreg *vreg = container_of(work,
-> +					struct rpmh_vreg, delayed_off_work.work);
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun252i-v861.c b/drivers/clk/sunxi-=
+ng/ccu-sun252i-v861.c
+> new file mode 100644
+> index 0000000000000..af84c49fbaf16
+> --- /dev/null
+> +++ b/drivers/clk/sunxi-ng/ccu-sun252i-v861.c
+[ ... ]
+> +static const struct clk_parent_data dram_parents[] =3D {
+> +	{ .fw_name =3D "hosc" },
+> +	{ .hw =3D &pll_ddr_clk.common.hw },
+> +	{ .hw =3D &pll_periph0_2x_clk.common.hw },
+> +	{ .hw =3D &pll_periph0_800M_clk.common.hw },
+> +};
 > +
-> +	/*
-> +	 * No locking needed. cancel_delayed_work_sync() already guarantees
-> +	 * this work has either not started or has fully finished by the
-> +	 * time enable()/teardown proceed to touch shared state.
-> +	 */
-> +	if (!_rpmh_regulator_set_enable_state(vreg, READ_ONCE(vreg->rdev), false))
-> +		vreg->last_off = ktime_get_boottime();
-> +}
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE_FEAT(dram_clk, "dram", dram_paren=
+ts,
+> +					    0x800,
+> +					    0, 5,	/* M */
+> +					    8, 2,	/* P */
+> +					    24, 3,	/* mux */
+> +					    BIT(31),	/* gate */
+> +					    CLK_IS_CRITICAL,
+> +					    CCU_FEATURE_UPDATE_BIT);
 
-There's no reporting if the actual disable fails which seems bad.
+[Severity: Medium]
+Does changing the rate of dram_clk actually latch the new dividers in
+hardware?
 
->  static int rpmh_regulator_enable(struct regulator_dev *rdev)
->  {
-> -	return rpmh_regulator_set_enable_state(rdev, true);
-> +	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
-> +	s64 remaining;
-> +
-> +	/* See struct rpmh_vreg's @lock for why no lock is needed here. */
-> +	if (cancel_delayed_work_sync(&vreg->delayed_off_work)) {
-> +		/* Queued disable never reached RPMh, so undo disable()'s flip. */
-> +		WRITE_ONCE(vreg->enabled, true);
-> +		return 0;
-> +	}
+dram_clk uses ccu_mp_ops with CCU_FEATURE_UPDATE_BIT, but unlike
+ccu_div_set_rate(), ccu_mp_set_rate() never checks CCU_FEATURE_UPDATE_BIT
+or sets CCU_SUNXI_UPDATE_BIT before writing the register:
 
-Nor do we restore this flag.
+drivers/clk/sunxi-ng/ccu_mp.c:ccu_mp_set_rate() {
+    ...
+	if (shift)
+		reg |=3D ilog2(p) << cmp->p.shift;
+	else
+		reg |=3D (p - cmp->p.offset) << cmp->p.shift;
 
--- 
-Mark Brown <broonie@kernel.org>
+	writel(reg, cmp->common.base + cmp->common.reg);
+    ...
+}
+
+When clk_set_rate() updates the M or P dividers without a parent mux or
+gate change, the hardware ignores the unlatched divider update while
+ccu_mp_recalc_rate() reads back the new register fields and reports the
+wrong rate to the clock framework and child clocks such as mbus_clk.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-v861-v1-0-=
+eb71ec3ee523@iscas.ac.cn?part=3D6
