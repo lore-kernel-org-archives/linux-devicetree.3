@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794589172;
-	b=xCmw3pdu+VEjpGaxfND/P1SQu6xwYejlZwbjLgy37wwZ2nu2Rzqvu0vmYKb2ELSXwtW3
-	 i1QJ2Mc/xpIHVJT3lfCpCUydXB1lbfmmGhr8Rb3HvSxlDGuw9zk8QxlwDu9SlnNb3ct6s
-	 1512Mzm3ikogQC6gh8rwJHGyct0Ys2wiOhvTJ9LPHqd9lO3j7ZBcTv/4kixewxjJLs75A
-	 29xTai/1Ne8QAu88leKWHkqjvqqYWsJJV8TuAyISrKyNU3PZyBLf/ha9aFslyY9p5tMcO
-	 CWxw5si1AGB8tUuDVWRVbWXZwfCaAF2Kc2N94yCyG3aCcubpIFxaAL3eeUH6b7K9pSA==
+	t=1794589173;
+	b=MjOf18zhL7dEc8LQ360dWjYJVmKnA6oKh8PpEa3cQ/j+4Ctn5DPUWfTjmv8AFQbHL0SP
+	 AinC/9DPYY/RnXuZ0c3mMHxSn5LzMJnS0YBPrWUb4W2IkwwLR0egOrB7TgtObIVejXOQZ
+	 PUjdIsaPcWQq1JJpTNx5DVEkNv2wm6EKSchUyL0aLQchC0wwjGILioJTbIEvRRFXarK38
+	 ObJ3mtcQJHJXOfButCHKAx1BnmtnsUki80DtepAfzW5+nwQ1DScd4m6PqE6DaXQZbgeuC
+	 PESKhxM1yCouY9aPDmNCDJCFc2jrePo7RIgJi9ZcS5UOvRcwglorYwP8TcnjjHtsLXQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589173;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
-	b=GBL9yVcQfGigyOzSZzUbeqGPNnDjEekLNvrFdy7ejCqXis+kgXS25JNahJtfHdCSeWn+
-	 EJ4PmLM6O5zF8ioRvnDWT8D1KA9a0waiH62FVVszUTfpuaM+iAHtgCwyQE9ZVj6fsQPWi
-	 Y8zXTJPqprsew92Ifshtn+AUlltFPN4yuVaFveINDAAuT9/l0+044fvGApzYDiArYlBcA
-	 9DEIOSR9P3GNcQ3oGUZ2ytkkoJd6JDt4MRgQdCl6qzBauTjlitwfbnRfN8BTUWEsYrzGS
-	 sRHCGclCKvEYk+9xBADoBHfiFrCAP0Z/kZLSXJfZtkB6xBfMGKDp9l9+cJogD8EP/dw==
+	bh=rJvjfmEhSuqQTCnpv4nXJfbQRn21yTAaI+JW1VF1tvQ=;
+	b=TqLW3OdFnTwid4PywK2M5LbELcrp5y45KX1tE16BGZ1mMiiLU/PBc3dOa9sQ4MyxNN7M
+	 CojLTAG2gdJQivPBgTu8zaXJy/t/xFRPJIalrQIs2uRbcDa+y+Wb3YVMPHE70WzLhCoVU
+	 rKWUtrHhGD6aDvQSNKnvHXUGOqQ3zeFkASzYxVzHx0pRPoKzupZxw0AVJ8LnI+rcZuneU
+	 miHv1EI75coFYqZe8u2qYZNIq2vC5VkqIkgvCkKbw8EKUdi23+hjcz/mpqMkQo7CKV9H2
+	 LzlRZT/rF9TPRPkF8JNZTvgIwUDitbtPcnuD1DHnfcM0qjRkXiKbZnajH1k2k0C2Trg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDQfzj18;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPUygwEW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73FA60A260C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9A260A2612;
 	Fri, 13 Nov 2026 16:59:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDQfzj18
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPUygwEW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794589172;
-	b=ZzUXhtAinGxvLEuto/spAvM2krywTFUFKb2WknXhEkKma6z0EShr7Wbq/lzgQwu9eD/5
-	 z4clNXJwAZaiSZDIFtkNuj/0LGJvQadtgk40f+l09F9Cf20nHIrP/DCkx6rkH0aU6btSy
-	 cGPOzzdmXE19JgZRoSOk8x6F14stsJJ8A3Zti43ixRzASlJOoCsgm/01CD7fp/ufZlwlb
-	 gNaY9fopPZJ02+Sbu4ZbkJJBVZxNjjv4tNrn0qbHKD+gl2RQ6wzFeT7ruG8/uX6iA2YRG
-	 bAtgDy1pnd6eSFjXOIzw80BVeQeHayeKrXa3NbVgjFp9nMA6noynJt2Bh2S33aV3r3w==
+	b=jIsp9Zf3z34Yy6ZuoxVxpUuK6r6JUou0NRhDtDI9wsW2ynWDE0kICYvN0k8ZsKDoUIhT
+	 aahzS4m1TUGLZKDKR4RnzpfzQIU3k1B1DhGXAK9gfPlZWkO9qUGj9ZKLFLamL8+0ENqG1
+	 w8TO4wG9u3jNPEIcnMEggAowcM4y1IZvMW4mhhzplI3wcjsViloMRyzuGI9CVRkOd+2Pt
+	 4cUyI9GXnJ2J34tBjVygbw7e6LP3EtHSo4YUO+i/ZIVYNE/ghTibVnSosNH9HaWJmDyWE
+	 E/E8RzOsVBeDNE67qfFsx5tvoC3ZXkdWgzzAgDJXWufYsr/9gHLnKx/iqo/gqExqrog==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794589172;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
-	b=i0DudhsoAKvFsbirI33wFHM4js1BCQIMcb3xZ2t7NuXeEqSIS8DM286sGFDXQrQ//EAr
-	 YhSX7xRrU3u+6R0hzfDnoiW43yBrv8Xsdz0nQM7el3YRrhkZh/Kzci7iepzsqp+V4i5Nn
-	 SOX2NL4tfBZFrkzmsWCsw6ILn3Ze41IEVxQut9zCq4kIpai6Hsn+CSz7M+be1tZUEcLju
-	 WjhouhYUYPeupMBb8vwzDRWvo+RT0P/h79ISRPj+wD7s+K4CUt3ld2/CAOm+BoHq37JnE
-	 IEi7IFMjcGAjGPP0cIUi4VB0RFCOHmJPKokO9JBhT1DB5CpRO4ZfEFbXw8b7P8G48TA==
+	bh=rJvjfmEhSuqQTCnpv4nXJfbQRn21yTAaI+JW1VF1tvQ=;
+	b=NbD+GQn61aSFxQr1Ap3107LerWuaIAaXZ1NummygyJJYMC19t6iFXCCaFuNGFwyicJMm
+	 1x6GJ7bASZdis+x9ru4CeRw1mHS+4RaJzxK6DfVZi2VaehnI/98gO0AD6MjeO3PC9ANf7
+	 YBsOM5vBieNGW0KbzxRK5bJbAnZ+z51ShCEMpRqdQUHSc/4fXpOlzZKQrHKsBGkFHpA8N
+	 uaWyUEjGl48uVH7AuOEAwr8MAHS80WfAMRitv8W6vs2iqTKjOEe4+KF5MJXgH5Xce2SPK
+	 pyuDRhyzOF90p7OWEVHeOPoJmOjIZ+6MFlPtboDwtvTDOOcII+ALOADSv2xT8O9KYxg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D68B41F000CB;
-	Fri, 13 Nov 2026 16:59:30 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 387291F000D0;
+	Fri, 13 Nov 2026 16:59:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794589172;
-	bh=w9dg4AaaJaDRpTl41ChaxjBbqBnEhij/Tjfv4wRm3ss=;
+	bh=rJvjfmEhSuqQTCnpv4nXJfbQRn21yTAaI+JW1VF1tvQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UDQfzj18jXhWV65rLY+CEWQ+4I5YItix/dgLGWEy+Se3t5m5/RGhnLHemOkiKdork
-	 wUbWj7xEXQcfDh292PRBvEQOHTubz/yMYzdIkjYqkwO7aT/xSv/uU/nzPblffdROgD
-	 b3qru9ZgPVZ5ZAwYDm1ozB/Im/Owus8L2y7SzRfl+b/sYNRXZWYM1MRYebw6TvO5oi
-	 aJNsD+3MI7PvymyO3KQiUkbY3BIIuF3+LDTVTKBBPMjmgv/x5UuXxo/oC22KedgG/Z
-	 Vb45M8562hzXUr/L+NV9sgntpk8BjK9S8/jVcLm4Lj7TV6hUfrGpQ7GNm0655YBjMV
-	 WYCX0mXzNYylA==
+	b=nPUygwEWtF/+NXbyEq44JJLp7ZZJqRE5+ne17mDuPCK6GdyOwqRznu2pAoQ5JNbkx
+	 YXzV9sBOr6YZbh3Hmv8RnTdJLjlB9uScxdGLbbpA22ATglQ9ZjwbcZZ1HWdaWLxqXi
+	 mvj7IJ0A9hlFxlhCNqKkhOrvExkh3TfA8CWUm4J1aalIxyF/R8rS67WPCIV1H+H+VX
+	 IGCmlzxVa6qkcb/Jme0wEZaeD8V2OPKav79ByVmitz5AaHjVjWF11eizOkJM04AsAN
+	 KRjPUB+SxiOqumlgJbNmjEMAO14MHuG72grIBQhVH8t66oigBK7Wsh/wzmc0HV+ewq
+	 efNvjFFJGfkSQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A18B49A1F;
+	by lkml.kernel.org (Postfix) with ESMTP id 9AC0E49A2B;
 	Fri, 13 Nov 2026 16:59:29 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:59:24 -0800
-Subject: [PATCH net-next v11 05/14] net: ethernet: microchip: lan865x:
- Depends on PTP_1588_CLOCK_OPTIONAL
+Date: Fri, 13 Nov 2026 08:59:27 -0800
+Subject: [PATCH net-next v11 08/14] net: ethernet: oa_tc6: Drop frames if
+ footer has FD bit set
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-s2500-mac-phy-support-v11-5-7a186141952c@onsemi.com>
+Message-Id: <20261113-s2500-mac-phy-support-v11-8-7a186141952c@onsemi.com>
 References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
 In-Reply-To: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
 To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
@@ -108,11 +108,11 @@ Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>,
  Jerry Ray <jerry.ray@microchip.com>, 
  Ciprian Regus <ciprian.regus@analog.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=995;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=2179;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=Wj4qNO+pltej/S7LvUHDWa6nEFAP4MrIYcLCWkuKPJc=;
- b=vJ2gca9H5Wtp6WO/1h7EIJ3ofko42ULtcL9bO0LF0GsD4vmRIvI6czmjmEBLzK7vKyCBER/EB
- zIojPN+nAFsBgNjCdvzI4v3O7pOy1S6NkBPl38MsZVSauHYZXIo7X3V
+ bh=dkkj9Yvy8E8XVR9o8A4wOOf+5qrIVE9onT+oIT/7Bdw=;
+ b=QdWV9vCthImkHEbA7LbkU3pP2WAhkBfeV0eQmeWxBTZvloGcgSCVfEima3UVrizhjxcswM4vv
+ WoQdCIRBdnzCCUkJTIS/C4AS2SaBW/BW6RYqipi8IMQZV1/5H9o1ktJ
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -123,33 +123,62 @@ Content-Transfer-Encoding: 7bit
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Add the PTP_1588_CLOCK_OPTIONAL dependency to LAN865X. A following
-patch makes OA_TC6 depend on it, but "select" ignores that, so
-LAN865X built in with PTP_1588_CLOCK=m would link-fail on
-ptp_clock_register().
+Drop a receive frame when the data footer of its last chunk has
+the Frame Drop (FD) bit set. Dropping the frame with FD bit set
+is in OPEN Alliance specification.
+
+Here is one scenario when FD bit will be set. With RX cut-through
+enabled, the MAC-PHY can start forwarding a frame before it knows
+the frame is bad, and uses FD to tell the host to discard it.
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 ---
 changes in v11
-  - Moved the vendor changes into its own patch.
-  - New patch in v11.
+  - Act on FD bit on the footer in the received data chunk.
+  - New patch in v11
 ---
- drivers/net/ethernet/microchip/lan865x/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/oa_tc6/oa_tc6_main.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/net/ethernet/microchip/lan865x/Kconfig b/drivers/net/ethernet/microchip/lan865x/Kconfig
-index 7f2a4e7e1915..342172cb8837 100644
---- a/drivers/net/ethernet/microchip/lan865x/Kconfig
-+++ b/drivers/net/ethernet/microchip/lan865x/Kconfig
-@@ -8,6 +8,7 @@ if NET_VENDOR_MICROCHIP
- config LAN865X
- 	tristate "LAN865x support"
- 	depends on SPI
-+	depends on PTP_1588_CLOCK_OPTIONAL
- 	select OA_TC6
- 	help
- 	  Support for the Microchip LAN8650/1 Rev.B0/B1 MACPHY Ethernet chip. It
+diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
+index 2b31370da2d2..5d01ef5a13ad 100644
+--- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
++++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
+@@ -1150,6 +1150,7 @@ static int oa_tc6_prcs_rx_chunk_payload(struct oa_tc6 *tc6, u8 *data,
+ 				       footer);
+ 	bool start_valid = FIELD_GET(OA_TC6_DATA_FOOTER_START_VALID, footer);
+ 	bool end_valid = FIELD_GET(OA_TC6_DATA_FOOTER_END_VALID, footer);
++	bool frame_drop = FIELD_GET(OA_TC6_DATA_FOOTER_FRAME_DROP, footer);
+ 	u16 size;
+ 
+ 	/* Restart the new rx frame after receiving rx buffer overflow error */
+@@ -1159,6 +1160,25 @@ static int oa_tc6_prcs_rx_chunk_payload(struct oa_tc6 *tc6, u8 *data,
+ 	if (tc6->wait_until_start_valid)
+ 		return 0;
+ 
++	/* Drop the frame, if footer sets FD bit. Checking FD bit
++	 * becomes important, when cut-through operation is enabled.
++	 */
++	if (end_valid && frame_drop) {
++		oa_tc6_cleanup_ongoing_rx_skb(tc6);
++
++		/* Full frame in this chunk. Nothing to free. Move on to
++		 * next chunk.
++		 */
++		if (start_valid && start_byte_offset < end_byte_offset) {
++			tc6->netdev->stats.rx_dropped++;
++			return 0;
++		}
++
++		/* The chunk carries only the end of the dropped frame. */
++		if (!start_valid)
++			return 0;
++	}
++
+ 	/* Process the chunk with complete rx frame */
+ 	if (start_valid && end_valid && start_byte_offset < end_byte_offset) {
+ 		size = end_byte_offset + 1 - start_byte_offset;
 
 -- 
 2.43.0
