@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533006;
-	b=jkfAPIntErF8R3m+NVfdAWzEgh6BsMm7g++f3J6NOQ2yv0+yxgJO+fwEyDLuSsK0o++e
-	 DPoNhfP88qKEMO2a9O3/x6A9nyaLckLlsc0Wjy03xYpptUY6/arkaTE+XW2ZDfS7BG3+N
-	 AX4z6CZOCtv3HXFaMv7IsJvDuPIgqdQWcIbXnzZT0wM8qpB7aadhpbcCWbCkqOp01BJEH
-	 gTTb/F/iLU4FxHG7bEPG/i2KxJV69iFEvqZQQD41Ubo3sFPE+xPvaVjijdvnsSinUE46u
-	 pp1nbpxgQiDZmvJDuiAgrQMsldkWKu2RkpiBaaBFwxGjfk+4kipxt0GuxEBvh2nblJQ==
+	t=1794533097;
+	b=rjfYMlNWmHJPx2/jZvZzXWPRA4Fkj57ADEJGaTUMBww4YzoPuO2ptDoC1wwpEKHnImVR
+	 ZnhNtsLRjlLOxXcYfqLlFpwZ2V+G2/C/s4aHnMVTLpllL/KWt6ltcaL6BvHiS0aw1EJ8G
+	 kLCac3XqCa+eqQ47V6l6GzYrRpFX/Wt4sHDnbeZdkouCgL++zUqxLOVgFqB4Q25b4V8r7
+	 +CfFOiCfaVfs5ZWSIMgjFfsXq3dXE8WMjh63obmFUa35OVtNiWkesednXYjN5oeBqWfVM
+	 q7HxbF9I+McrhFkXOqhhipbpqHqfXhqMYo/ZcFvSgLYaYSrpdXnQl0xoQ2DHk+dIwrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533006;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
-	b=GPElnBSfgzw0l2oWqzy9b4Oyym+XIZdOpkXTtyR3GjXvdsYw+dGXrao89h1kv+rBblD2
-	 gy8xXNGVojt3FWMJKWEkKkB8MtPzp3hwytUYvTmvhOd8dH4PBi3dmdq4zvX+9NeWeSP3A
-	 2b4H1S5suWGB8PjETEf19wU1QQEu5prQ2alPSCmH7t347vFwxMmI6+gkZm8FYFSse5A6+
-	 h4DWbag/PbQ8v9zuVL6piXHP4DAEQmDoH0GvTg1y626nPTAIW+1IZGiwwU2PAdywx+M0c
-	 Ls7iEmpZEVITYLCxRdsIDxKoplr4Riu3LRjY6D8VupFmDa6TxVrjNnjXa+84szvPlJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533097;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=tudgFORN5TyG6PTCZqP+6imVHwqL/7Btvlf2shsmRlo=;
+	b=tJQjFr5VX63+T4k6VU2vI5z8BKJAUIyWCRYOxz30Lmpb9Xm0pekO4oVGSTxde1FxhKYJ
+	 OuBPzMgwjYzqX30koocW5RanZI4i82VEio0msRjCtGC3J7BYoWfXia6Jm4IKx8gIVc2Ir
+	 tD53bpPHFqvC5gqPCcr9igoeI2Nevf4osuvhglALo4thY5MH7WsTNQHjcqI2zO9ObM92d
+	 oeakgoMbjSYhCZadGdqpCADSnJxz8p2NBGTiaQnjJ9ehF53nCCgTEAHZXyuMmsCJkTSFc
+	 EEKROj/Ugk04palU+RZWlFkviHa+Nrxt+qYX8VExJTvdwxY/v/jtWbQsrU4h6Gsis2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=0CHx4QDf;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=qEVlxNvA;
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E380A606A321
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E380A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D28A606A323;
+	Fri, 13 Nov 2026 01:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D28A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b3541bb1a2so2954517b3.1
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:23:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1794533005; x=1795137805; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
-        b=GTiaISFXFMwlQRO0n2/KtqU9W7SvrXe5qiAcaTbvIMxPy6l6yIO+ycn/shtcvuSkpH
-         Ms+TdlOHLFbh5qGXdxR8C41LOY3K27cDOfz3HD7vFkkn3ERTuR819vXjeZcU6W49zy7J
-         S6J8ZrNCYAQ/2N/tXm8xoAjg9cfiSSsIMz7l9sv69JbG2fMC9Xjb0vVGtjvyGEmI7Uy2
-         2JDhC/MS6YObbZ+fM7zi36etDnJ6kW8iNj442l05eZR5whnbQog4IQXrec5XfsKjkiwL
-         s0+MM2plCc52hBujj/3836Huu5My2vuh7x3sriFXDV7GFGYpxjukNbeJsuqv7PUV376c
-         4wHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794533005; x=1795137805;
-        h=content-transfer-encoding:mime-version:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
-        b=MceAbPwVjs+mQWjdV0wo0VezhND5A+nugg6QT3bNBXNpd6Z+JTuMn5tbIAYNQoa5v7
-         HZwc8j8L76FtXw3V6prL0DA9G3wne/TZAl+JQJDXUrJQ6QzJkiCOxfvfirfoblDmUcOx
-         DkKCryqUi2HAesixwsloemwGvlu2YaaoTY2XOpVQ6TMsfKGsihjn4kV5Do8jxlc2YJoK
-         L/4tIUEJjEZnGVudE9i0r/BmCEkp+C4wBEEX/dhDUSY9AebFlA4F5uGEfenGBufyUryK
-         3gfKxL57hSl/E6c5F6tzL6mpkiSiGvJdjQ6Dfdt/XRw4jJhUy90j7dAsjGJo4jaVAT1h
-         2cWQ==
-X-Forwarded-Encrypted: i=1; AL+hErGyDyaqBNMugA3v70t/48yrZJ230FikYfb0veG1+ChR3aKtGovdX9zTSTqkPPU658yWcTHrAILv0pQV@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gLiLZjST+jY6fk7Zw9jAl/97bDS8ts6/H3S6exVnHbfFkxkj3
-	0660l/yU4G19BYoQDHuRAf5CgL1uyXAftavTIyH9OwhL1alD52skg3aOUGqPUR5mhZE=
-X-Gm-Gg: AYBFou0WhK/mVpvLqfWd0TxSwx7Wi8W1rl3DFp/WoICZ88ruCxsp+yCeEwfb/nI8Jba
-	cfQClOZb9AC+iKNEnPwqTaXhgaSSSh0PWTjIhpc/58w0+N4IR2Rk0UWSgo3k+jn4DAabXbci4fl
-	ksS0tmGJN8mWuaSzBx6Syk7EKarUNftxdU1R9izAF+0sDFE+3zFftcmpRtWCvfMmnwZn8/76+1E
-	ryCoQ3lL/MKCPj897p/n0EFqphtjKSJYXmXLsfxWtD7WLEuXEaSdF/vJUX9bvrLJp/82CNk/Lu8
-	iwDJt6Wm2Jr58bv5VDZLmZVWTeFHcU8lPzNTBvh33x2PAmr8/dLMWc4Vsp/wPXHQ9Juhn0/24W3
-	pTMomiX5v2mdgkHSR0qvmMf7qIL5b2PWmxlNkO/1Y3+q2CdWvg2EVFQ2QN9u2tmWhIe+fgA+spp
-	A3HQ/GoVH/OGsfm9EAcN6scUXPekgn75dbJeEQmnQfGm8h9qHzdRYeTcX6htUS/Fn9F4xDyjSaR
-	dSGdDAwgzeENIyYywU/uMlCiRamjnyY31FxU6s9On83jL3wK7qjcUwMuWCJbYXGVlJ0fmdrmyp0
-	mZD451gy9noDVmGwd1ivI8ShfKBzG6uqiZGe6oZgkKgNhcQ=
-X-Received: by 2002:a05:690c:c1c1:b0:8b0:95a7:37e2 with SMTP id 00721157ae682-8b4aa33412cmr5356997b3.80.1794533004833;
-        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
-Received: from localhost ([23.145.140.5])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9e8d20sm9341667b3.38.2026.11.12.17.23.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 17:23:22 -0800
-Message-Id: <DMTOUWAKBIER.19DO7XAP7Z2R3@nexthop.ai>
-To: "Rob Herring" <robh@kernel.org>
-Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
- <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
- Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
- "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
- <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-In-Reply-To: <20261112221205.GA1425386-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai> <20261105124030.GA1449284-robh@kernel.org> <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai> <20261106132432.GA2551143-robh@kernel.org> <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai> <20261112221205.GA1425386-robh@kernel.org>
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=0CHx4QDf;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=qEVlxNvA
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Subject:Date:From; t=1794533095; bh=tudgFORN5TyG6PTCZqP+6im
+	VHwqL/7Btvlf2shsmRlo=; b=0CHx4QDfnFRmuZJmBXW9Y6KXtFuh9CGPo/2KoN5GrdMwj0RfwX
+	oeD1OWHHUHegHWXITLv3Kh6GA2UmXivP45Dg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Subject:Date:From; t=1794533095; bh=tudgFORN5TyG6PTCZqP+6im
+	VHwqL/7Btvlf2shsmRlo=; b=qEVlxNvAjt0qwQFhhiq2Cuyxhxjwr9oe79KBSVGdhAViXEroq6
+	wZfSHBLl7l1zxmeP9iv8KdPRvpoD6eMidDG3MNHHAcf4gVZFWj2sB0HBRsrwsjwC0nrxhHUVdPW
+	Ntu6fNQ0wIosPP3Q014nKMMQBCxmJVHHm9ZtwSCaSB/BvpAuotVw+iNhKwQPaoFVIRUz6SqWJcL
+	NG+bGupPDRSN2my+tnFdw3zCroPsmwesyAM1K+RY91jxg65D6Hzorv+xarjTYQhBqcCQNdx+AjY
+	Sqp1vbb1z2iA4ShWRFTiMMSqnYCZLVysPzi8uaYFayASzv+EjZWNQQMhzyp258YRdiw==;
+From: erebion <erebion@erebion.eu>
+Date: Fri, 13 Nov 2026 02:24:47 +0100
+Subject: [PATCH v4 03/12] arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem
+ node
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,53 +60,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-pdx213-upstream-3-v4-3-4b01c50a821c@erebion.eu>
+References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
+In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>, Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=1232;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=6EhZPvz7qL2tkP58jiJGNmInEJYuo+/5G6TBp1uqCio=;
+ b=4iafPFGARMEhy8AG/fFPhlHdIRT8VjAcR9J/vnSuZjFuLuSr7O6AKhaanHLGjAOiMfCnDq9hr
+ oFMDB+SL8LJA0ZWJFumgnbg97HAv9kLi/vbuNHa/ynQmb8y4L0Peuy1
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-On Thu, Nov 12, 2026 at 04:12:05PM -0600, Rob Herring wrote:
-> Stable bus numbers is a solution to your problem. What's the problem you
-> are trying to solve?
+Adds the qcom,rmtfs-mem node required for the modem
 
-Labeling hwmon channels on an embedded Linux system.
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-The board has an x86 host with ACPI firmware and a PCIe FPGA that
-provides a dozen or so I2C masters, with muxes behind them leading to
-PSUs, fan controllers, voltage regulators and temperature sensors. The
-FPGA driver applies an overlay at probe time that describes all of this.
-Userspace labels the hwmon channels with libsensors, and sensors.conf
-picks a chip by its bus and address, e.g. "pmbus-i2c-12-40".
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index ca44219e1a67d..a393b7533ccbf 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -4,6 +4,7 @@
+  */
+ /dts-v1/;
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+@@ -54,6 +55,17 @@ touch_en_vreg: regulator-touch-en {
+ 
+ 		vin-supply = <&pm6350_l6>;
+ 	};
++
++	reserved-memory {
++		memory@fe901000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xfe901000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
+ };
+ 
+ &apps_rsc {
 
-The same parts sit at the same address behind different mux channels
-(PSU1 and PSU2 are both at 0x58, for example). Their hwmon "name" and
-their address are identical, so the bus is the only thing that tells
-them apart.
+-- 
+2.53.0
 
-libsensors has a "bus" statement that maps a bus number in the config
-to an adapter name, which would avoid relying on numbers. It doesn't
-work here, because the adapter names aren't stable either. Mux channels
-are named "i2c-%d-mux (chan_id %d)" after the parent's dynamic number,
-and the xiic masters are named after their platform device, which comes
-from the MMIO address the PCI BAR ended up at. A udev by-path symlink
-for /dev/i2c-N wouldn't help, since libsensors doesn't use /dev/i2c-N
-at all. It reads /sys/class/hwmon, where the bus number is part of the
-parent device name ("12-0058").
-
-> How aliases interact with an ACPI system is another aspect I have yet to
-> consider...
-
-On these systems the base DT is drivers/of/empty_root.dts, which has no
-/aliases node. So no alias is honored from the base DT, every bus is
-numbered dynamically starting at 0, and the overlay is the only place
-an alias could come from.
-
-> Right, but there is no fallback for some cases. Having that is the only
-> way this could work.
-
-Can you spell out what that would take? Does every subsystem that
-hands out ids from aliases need its own fallback, i.e. the i2c, i3c,
-spi and mmc cores, plus mtd and the serial drivers, before overlay
-aliases could go in? And if so, would you want each of those as a
-separate series through its own tree, landing ahead of the OF patches,
-or all together in one series?
-
-Thanks,
-Abdurrahman
