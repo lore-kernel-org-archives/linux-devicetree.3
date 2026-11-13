@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581550;
-	b=EzH1QZ7NXMGeVfXLTeWj9+p8rMk7Vw8IzSiKzpeWJMZdqck4VbMwuM/3vTS0YFPd1n4s
-	 prs7vY1FBnxcXCk/NsWSISUBIaHBJ8PgeU+hkXmgV5BjtrHsl5ErrcMszSkUuRNTDENtC
-	 XLA8XvKQ/kSsipi8xKr06TbYLCH/NInr26kB9IJBqFV/2wtitCUaTCcPPZQaGj5AjtXje
-	 gKpkGjq38w69Qn6HL6S+CBCtaGqUOkbz3d4y94A3QwtTV2raNxF/buwJCuXf62NYBcHt9
-	 CsNmGT2xJ75vD1v16aiZgyIMGaxIyeBOVDsRf/HJXHm/tOYpmjZQqPrbPdYGRGFwLTQ==
+	t=1794581571;
+	b=vSYZY1tsRRT1tVzYnAV1Pww5ILglt4IjsWBF+kCN5tMQl90WAkg5UNMqWnHwtkzxJxoR
+	 7QO7CK8Zif2N2nruw8DNelMfaZUBal7AKJwK5VfWy1tV6D/7xAQbFpGauG+4EZawS4nUV
+	 1CKKlM5TEuPIBM9TwklW6yEY66GvrBPLOuqjM1QsruJD1GX359HbDygH2Bgtk1xKi26SM
+	 WfyU8Ueied6l23D45lS6rJoYDMdvOlsW2rDF84pgqJLntIVF/6+KSPND+6vwL6ZOtnSPZ
+	 ohhpu5YU1VN2t87yZ3xF7oPv2AvDJk/Wdgnaifs3RrFE5VyTaEnJomZWz8QxVFjs4ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581550;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
-	b=RfVmmsrTQ44MLz4MvxebIUIcU8lbgZfwg56GRF7FSuYkBfEbS+XjcSQgRkZ45Rr0lhtd
-	 kk47DaUZomViI7yDqSFoSMME/ZzEa9hThekU87k/27tdXeGMGiRO0/GoJS8Q908MX3M30
-	 YK3f5OaHJGsqjK0P4WDBJkrKrCdB9UzNtU2KRdG5cFO+aVtmzongo172J4ERJ9PvhAWnz
-	 webfx2Ui8tCi6NTzcbz9Y0+/aC4NkKqxFAcp5DXdmbF+wzLUUEucYLb+f8SJilgckDisu
-	 UIi6keOKBVpIPkssDf9INXz+ynqiQWWWrRNR/O04mq9SSyAnf1I+9K2UusBvudWldug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581571;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=NwR3ZK+dpWHuEemJ/KF8Oep+ReBdvcqp5qFB2zRlnOs=;
+	b=1G0QOBTxyWxoG5O9tB2di8+wvE2X0nuax1gusK1wjvGPe5gs7CNZ1PJvMnGAd+VLdzlu
+	 UOa0CL14XtF5GGPtDgonWQ0X4botYwI/rf1RtpLQV8oi9NX4kvTNF13HWrpZVyg3bki1Q
+	 gztM5k0vDOd0uoydx71CKx5fB9mKu2wHiQgfoniOZJHUtvYE6IW8+V24yWgomZytqJfvF
+	 kt/7KS1MiYdFZVrGyppuxXd4cLyJht2qrMndT4lgb7h0bFbZc4qAuaCtnsDAhrld+X9e7
+	 1rFDRn6DCQ731LL2IZS+0r5aUL98yPERWc/eTVx7UQKML+zCK5ZmNCrDj0RKzOIValw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=aFiWn8oQ;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=Ox0bFsAL;
+	arc=none smtp.remote-ip=45.157.188.8
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE1C606A32E
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE1C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208B9606A33A
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 208B9606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=aFiWn8oQ
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c5080ef9b31so227981166b.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:52:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794581548; x=1795186348; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
-        b=aFiWn8oQ/Gdg4T0XFGfb0riUMpESOKfoO+blWZhQoaQ3KXBLpAxYHhpASVfVWlv+eC
-         hd5Xkd7VZxaaS34+U6oPmvp7dqvXD7S9GrX8nSgOCXXex+j1laODKF5G2z2+tjJAWGOc
-         qAiaOWTXBxR+RiZ+STVemTty5R4xbYnIK613+GcMFWOTO3jj8zBx3R3FaIf529asBtYc
-         ImLVfQ5UaMskbedLnsU9Qu9C6whXAOZGo7ji3n8sI3PLB4jq5aXvMhBrJdfvh+uU3Y84
-         BPj6BYfSvF26pn2G5W0aZk51yHCVjqsU4upU/LCx7kRUaSn6MnJGVrBdWvyeCH03LQuL
-         D13g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581548; x=1795186348;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
-        b=IwB4eUUN1stQZrZdug4tMa/4ua8uYR9eyScOuMvnThyMZ0GBL/+S7H+LAcM1RZtgKU
-         Ht5E67+hTAkz5GFL401gsjZgQl2gq3i4SekwgbBsYmO75IC5uvtEcV6H9Ee9RjRBzAe1
-         BHwNOUl76tmWaeFBZJWNr5758kuW/YqW3xsr6H7HOXCfHwkCLSj5TapzFRNJa9LW50OQ
-         79CI7NtoutOjaN8+puQYf+OmyP8Pe7F2A72/FFHD584TXcKvbp0/REuggzN5E4fZPMnu
-         9U/nvIIM8hInmg3ucvHSeOCmIOnRWWuR9gEUo2c1nM6XgaunRxMQGb66Jzv/rzU34w0y
-         5zpg==
-X-Forwarded-Encrypted: i=1; AL+hErFwC2PNCOhXgPeF8BJ81SK4Z6Bvdi387kR3CDHZdO3MVS5g/A1uwE9HPT/t5D9EMIbWYsr+wr2bwS2K@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vKqtK6W7ZSrWpZ9boJ0qXu/POYw4ImfS/L5jdUT4V3AYNLYyF
-	yE4QHPOtSjVfq308bfDickwA8FJKI2QxhA24mYcNKcEhbX5QBIpS3hpk83bpOVwXRVw=
-X-Gm-Gg: AYBFou2JXHAYh2+CjDf4b9dctsoJBtz/ne8c3e14LaytTpD0msQ+vvT8WJmXBkG6720
-	yXIl2Q7P+jFO+4qzxYJ2jzHtGTud69oKVrbFmbqBqAFKTzkyROOl6dVSQC8UlNBvyMPa12Wsx+C
-	uXMzvKk4A5yBibcN0zOcKgdqY7wiYfQjo5uUWB7paCVsnHomBHfw5PaOQ5Mbpjck7OFAPcpg31N
-	Mu+RsnhWJzaXu3Kw+BNb99O736s6qyVcH43tbSBHMCQWILzNJ0Bmlyyq7mQLG4vIkdt2P7ZDJ5Y
-	ldxPVTSFxFHFakxliGToxNxDVTj7VfRWeEJL4/R8xUMHMcJIHa+d/bfphWh89R8ty7+TmpBiVq5
-	fhTiKeU7eLlzocfmmFGhOVOszKkFNP9A+N2oN6NxjmahCyfDy+ze6LM7vHuB0NBmqNXaiZDjGpT
-	aY5XBjMnbYoIJkBgBQmgy92ZuJf9tRyUNELpVx03EsYeoYSbBS4/v1uUs6OSU7kUaBqDTjES7OT
-	3OdEfHmZjKo267LomymftBSpnfrgaMufkBfCnrSK7OfR5XqNFSF6LPJzru3qbQKfvnQY0VD6j0G
-	a0D8/FB0Z0WYK6ipsxLlhdKm5sTkQKVTTuuPOdzbC2dss54U7zUDG0ea61o03QBF9mrrbIEGzm7
-	BzM9w2tc=
-X-Received: by 2002:a17:906:f59f:b0:c3f:c856:fb7a with SMTP id a640c23a62f3a-c509610fe94mr243168766b.3.1794581547988;
-        Fri, 13 Nov 2026 06:52:27 -0800 (PST)
-Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b40831sm112988566b.42.2026.11.13.06.52.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:52:27 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=Ox0bFsAL
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jR0c00q33zF7m;
+	Fri, 13 Nov 2026 15:52:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1794581567;
+	bh=NwR3ZK+dpWHuEemJ/KF8Oep+ReBdvcqp5qFB2zRlnOs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Ox0bFsALlOMRbUap1XpX+WRVX9TYHqYr1BTeeahRyoNYtG4M7IjNBc/rVuzYaZjSp
+	 S1mLIb5FsYhZPDF+8P9FATPzg9kH3i+hQa1ls/6vszKxVLjvZhL/N29/qn5AP8DWdk
+	 d4Oz3x+OMlrIVl1OXxpCR2LE9qGBCNXSAjgk9UL1DtJ1ODmrLUb7ZHdlZl8okDetyi
+	 umxpFzr39/PxnNPceeq3lW/Od/ZeZh8U8P95Zh2m7eSOLlK8QX9HD0MKjCL/W2mJbm
+	 qDVCX5vRX46+ARYqieEsfiU6p+uaQ7O6zw0CjETtWZMYDbtZqOu0EHYzBEIfngRkK8
+	 X86692Amz/LFw==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jR0by754Czlwj;
+	Fri, 13 Nov 2026 15:52:46 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
 Date: Fri, 13 Nov 2026 15:52:23 +0100
-Subject: [PATCH] arm64: dts: qcom: milos-fairphone-fp6: Enable Iris
+Subject: [PATCH v2 1/2] arm64: dts: rockchip: enable OV9281 CAM0 P14 on
+ RK3588 Jaguar
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,58 +63,244 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-fp6-iris-v1-1-5496b6d99911@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr9LM2kkYDBi5imHR1qmOCQU7xZAQ7
- m4Vli95/78VlJOwQmdWSPwRlTEWoJMB/7TxwSj3wlBXdUtEZwxTi5JE0YXmcrWhIm4Iij4lDrL
- 8r279zjq7F/v82x9G4vdcGnnXwFll9OMwSO5M5CXj0SHot+0LWuOClZ0AAAA=
-X-Change-ID: 20261113-fp6-iris-bf579af01e51
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794581547; l=900;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=eOYybVYmm/vaSHdcDuworLmH2a8ysNCRIzxyd+Wv6Bk=;
- b=Oakb4yTV8EJe4CaVf0hGwMlwSdxXutNjtX2IXg+EVnvMzeZGSXydLJ2z4lMzaqf3VkYczrgNv
- kEoaXwbIYsXB/26LegEkRQcsr03nJhNjnMVCkPp4psMIYflweIFUM0L
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Message-Id: <20261113-jaguar-cam0-cam1-v2-1-3e9377e3c882@cherry.de>
+References: <20261113-jaguar-cam0-cam1-v2-0-3e9377e3c882@cherry.de>
+In-Reply-To: <20261113-jaguar-cam0-cam1-v2-0-3e9377e3c882@cherry.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-Configure the firmware-name and enable Iris so that hardware-accelerated
-video decoding & encoding works.
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+RK3588 Jaguar has two proprietary camera connectors, P14 and P15. This
+adds support for the only camera module we currently have for this
+connector, on P14.
+
+The camera module has a 2-lane OV9281 camera sensor, an IMU, a
+magnetometer and an EEPROM.
+
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/rockchip/Makefile              |   5 +
+ .../dts/rockchip/rk3588-jaguar-p14-ov9281.dtso     | 120 +++++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     |  36 ++++++-
+ 3 files changed, 160 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-index 5c4581410a40..e46db1b794cc 100644
---- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-@@ -768,6 +768,12 @@ &ipa {
- 	status = "okay";
- };
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index 442d322a20cf7..cf977e883c374 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -204,6 +204,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-h96-max-v58.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtbo
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-pre-ict-tester.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-lubancat-5io.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform2.dtb
+@@ -336,6 +337,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtb
+ rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
+ 	rk3588-jaguar-can1-can2-uart4.dtbo
  
-+&iris {
-+	firmware-name = "qcom/milos/fairphone/fp6/vpu20_2v.mbn";
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281-p15-ov9281.dtb
++rk3588-jaguar-p14-ov9281-p15-ov9281-dtbs := rk3588-jaguar.dtb \
++	rk3588-jaguar-p14-ov9281.dtbo
 +
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
+ rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
+ 	rk3588-jaguar-ethernet-switch.dtbo
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
+new file mode 100644
+index 0000000000000..bb4ce6718fa26
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2026 Cherry Embedded Solutions GmbH
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/rockchip,rk3588-cru.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++
++&csi_dphy0 {
 +	status = "okay";
 +};
 +
- &pm8550vs_c {
- 	status = "okay";
++&csi2 {
++	status = "okay";
++};
++
++&csi2_in {
++	csi2_input: endpoint {
++		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++		data-lanes = <1 2>;
++		link-frequencies = /bits/ 64 <400000000>;
++		remote-endpoint = <&cam0_output>;
++	};
++};
++
++&i2c2 {
++	#address-cells = <1>;
++	clock-frequency = <400000>;
++	#size-cells = <0>;
++	status = "okay";
++
++	magnetometer@1e {
++		compatible = "st,lis2mdl";
++		reg = <0x1e>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <RK_PC7 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&cam0_imu_int3>;
++		pinctrl-names = "default";
++		vdd-supply = <&vcc_2v8_imu>;
++		vddio-supply = <&vcc_1v8_s3>;
++	};
++
++	eeprom@50 {
++		compatible = "st,24c64", "atmel,24c64";
++		reg = <0x50>;
++		pagesize = <32>;
++		vcc-supply = <&vcc_1v8_s3>;
++	};
++
++	camera@60 {
++		compatible = "ovti,ov9281";
++		reg = <0x60>;
++		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
++		assigned-clock-rates = <24000000>;
++		avdd-supply = <&vcc_2v8_cam>;
++		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
++		dovdd-supply = <&vcc_1v8_s3>;
++		dvdd-supply = <&cam_vcc_1v2>;
++		pinctrl-0 = <&cam0_rst &mipim0_camera1_clk>;
++		pinctrl-names = "default";
++		reset-gpios = <&gpio0 RK_PB0 GPIO_ACTIVE_HIGH>;
++
++		port {
++			cam0_output: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&csi2_input>;
++			};
++		};
++	};
++
++	imu@6a {
++		compatible = "st,lsm6dsr";
++		reg = <0x6a>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <RK_PC0 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&csi0_imu_int1 &cam0_imu_cs &cam0_imu_sa0>;
++		pinctrl-names = "default";
++		vdd-supply = <&vcc_2v8_imu>;
++		vddio-supply = <&vcc_1v8_s3>;
++	};
++};
++
++&pinctrl {
++	cam0-p14 {
++		cam0_imu_cs: cam0-imu-cs {
++			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_output_high>;
++		};
++
++		cam0_imu_int3: cam0-imu-int3 {
++			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		cam0_imu_sa0: cam0-imu-sa0 {
++			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		cam0_rst: cam0-reset {
++			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		csi0_imu_int1: csi0-imu-int1 {
++			rockchip,pins = <1 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&vicap {
++	status = "okay";
++};
++
++&vicap_mmu {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+index 0446834e84d5d..99baf89167d35 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+@@ -40,6 +40,16 @@ aliases {
+ 		rtc0 = &rtc_twi;
+ 	};
+ 
++	cam_vcc_1v2: regulator-cam-vcc-1v2 {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vcc_1v2";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		vin-supply = <&vcc_1v2_s3>;
++	};
++
+ 	chosen {
+ 		stdout-path = "serial2:115200n8";
+ 	};
+@@ -123,7 +133,26 @@ vcc_1v2_s3: regulator-vcc-1v2-s3 {
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
+ 
+-	/* Exposed on P14 and P15 */
++	vcc_2v8_cam: regulator-vcc-2v8-cam {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_2v8_cam";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		vin-supply = <&vcc_2v8_s3>;
++	};
++
++	vcc_2v8_imu: regulator-vcc-2v8-imu {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_2v8_imu";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		vin-supply = <&vcc_2v8_s3>;
++	};
++
+ 	vcc_2v8_s3: regulator-vcc-2v8-s3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_2v8_s3";
+@@ -437,6 +466,11 @@ &i2c1 {
+ 	pinctrl-names = "default";
  };
+ 
++&i2c2 {
++	pinctrl-0 = <&i2c2m3_xfer>;
++	pinctrl-names = "default";
++};
++
+ &i2c6 {
+ 	pinctrl-0 = <&i2c6m4_xfer>;
+ 	pinctrl-names = "default";
 
----
-base-commit: 6aa7dbf8ad5ebd3babf53a4d6209018f86939f17
-change-id: 20261113-fp6-iris-bf579af01e51
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+-- 
+2.56.1
 
