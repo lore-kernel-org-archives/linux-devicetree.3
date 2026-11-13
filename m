@@ -1,63 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588596;
-	b=w0mV1DZ61QmMHFOjmYuQdTjMhP+dPyDdEFfxULtFJlA8ouvbSAyZgk0Zq4E3fLTbVByy
-	 Pqoh0nK8hz+ax+431FS2XzcGTrsKY30owmAiQB3m02Y6uTaRmri8wbK1Q1mlNc6S7jydz
-	 4Od1uX6rFjmKPSXqtEWvSQIfsOdHhEV3W5HkufX74T5G6hk9C6UI87NRyt/4+pGfnWdn5
-	 Q1sixJR//3Ost4RPzmt0QDtW3ox1iGO1smS9TrZtcHSTDibz1UzkoPkDJVBlo4aH7uEqz
-	 IscduEXcsbq7v9SGZ7EbYt/0oiFkKUVSwcDc5+etSUsO91ttZpE4wLP/gRHhQLCwhxA==
+	t=1794588750;
+	b=JQt9wFoAknbH/wweMtjc/EBtrzB2k5BVASDvutdp/JhCw2tTu4Ynrc5BMPiBMdng74Fb
+	 v72tfU0i/OX/geCHGL1nZ+iKhGMIgyxGvLx5o9reC2G7UVv6M7Bj+TvtRPrIxmmv7GfS/
+	 Uo2gEgI3UV4R7BOmjnqPbvUjZ7GP86ZEU3v0whMn8yn3VIVsOxjDwU/fFD25moOeNgmMJ
+	 Y7BXTLWelVSsQlofc1wYhybRMIPEcn7Pu+VgdN5aaBnIy5UBfTGPumcLPnwCLsIdassHf
+	 Mn9u5WuqU16sFC89RFx7d0cpzOMhbSuFQT52IsLmyTvTeF03mo1vVQKFkkC7z3GhPfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588596;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u5fvYQ8U5nIl+mFeWLnbldY7ZoGJvcVN4i4XVhyP/9A=;
-	b=bKClpE4br+M3CYHKPBovGbAlokiC+1e2loD1PLHOWGz0BrEVIDbRGJPGwgHb5ROBkhvx
-	 66+CiuD4ldRSjR5fqBrEzW9t6sCDVraJBpD46JfuAIjKAKNEGz0CTTJVV82Ok4aTz5BMY
-	 vIZVnGZo6t7/S9EOApR+TdiW84CKp0efJMBFLAwHtPEbbxW4MNSp0Ut7FQ+2A3ZanlQVf
-	 qxrWTq2KEF+oGOIqdlEM6tasfXyGnjOieD1fCl7R12Vm86O+Cz28tgiHx2vkgYLnj4EKO
-	 5p3DTEGTM6gfLLA2Kom/PbBhMFw1uhETNLdwE4ZbbmblQuHGIttGC+MEop2DGnN4K4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588750;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=svY1w6EwatVo838DMHluYYqTPuJ2NWAoxPsNbfKh4U0=;
+	b=toGCaGRRr3retEE9CuTDjmAP5pAyzeqPJbw8lKSTke9cYXgY7Om0/KwCjMGEuUEIKlum
+	 mGs9eT+SBAdiHzf++1O8n1t/t+ksdaj6S/TmtQJrRYBaM8R//jIqB6ErUhccY6SRl/uOI
+	 GLGJZ92zoR0MUyniasLP76C8X/oxdkNEszmFDmGfxX+x0m1T/rpl2wepsqHOcEAwqAfBB
+	 vVVSJa1PqzJOTcxxHxEhaLMTLcCUl1EB15KuOM6G+jAZ/Kvz5HJpqHLtvz4+pyUOalEmP
+	 KUKrp1XX0b8QOCgOOnMUb+uDyTaBWzIkTG03g25+bTtR548GLdDqEjkqI40Xd77tq3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTIG26iv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amieiro.net;
+	spf=pass smtp.mailfrom=amieiro.net;
+	dkim=pass header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=o9oWjx64;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33588606BC8C;
-	Fri, 13 Nov 2026 16:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1EC606CDEE;
+	Fri, 13 Nov 2026 16:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1EC606CDEE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTIG26iv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3E01F000C4;
-	Fri, 13 Nov 2026 16:49:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588596;
-	bh=u5fvYQ8U5nIl+mFeWLnbldY7ZoGJvcVN4i4XVhyP/9A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eTIG26ivmrh97LKlE68YSe+9Qp/5sK9sXfFFKnQYhBwXV0HgIHsUGSsMVosVqjaTQ
-	 UXsk3bVp8Is8zLJkhQc+9Uz4fWzOQNolzFd8qMqZAyaGG/14uxm7NBjg6ErhXp7iV3
-	 Hm9hYG8st8dWdMELVGM7TIPNSGV2OlQfa1QD1u6elXu9aucZkpqBhKBrfuXtOj9Mfo
-	 91uIbmiOaVTGwdL16uOwyCqdC43FefoeBrl4GIdZHPwjoO2NckluJpDgj+1+jPHmgw
-	 0qLpYjSKOZJJhWvBtMvevlZ8YLZKV+qAVyPk7LVMZCM80KVZOmFLmjKFS1DiiJfvcL
-	 h8EPqaWtzmKEg==
-Date: Fri, 13 Nov 2026 16:49:51 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>, linux-clk@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: clock: tegra114: Add IDs for CSI pad
- clocks
-Message-ID: <20261113-brunch-rectify-96bdf183eb78@spud>
-References: <20261113145708.261530-1-clamor95@gmail.com>
- <20261113145708.261530-2-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=o9oWjx64
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jR3Fw1DQhzMlXf;
+	Fri, 13 Nov 2026 17:52:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1794588740;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=svY1w6EwatVo838DMHluYYqTPuJ2NWAoxPsNbfKh4U0=;
+	b=o9oWjx64l3jVuPPckX8M5LXKLmN4T5cbxIUzULDFCxw96LnPMUI45yGurOV4eT7Mju+AJW
+	G7N1sRf2LZr9ab7yQSxrXYy4ReE5bQ8LIw8rZLn/7Nkf+qDDnyplRyTyq7TsO2+g7Jv71G
+	0ICl7qZ6ClpmqkEyqYp/HUL5GS1KwnxZPPnXaKniLfPUr0aIfEFCUl0tHdtrW/OEN0uAi5
+	iLpk+3FWxeykuyGp/pXmMn3eYioQgLwGE8xLRIi6twwygLnwq2U5G6tF2u4uznJvsK0i7D
+	iZ4TWkzi4Jal2fIC8QiOksSF1DJrokyoz7uWYvI3lpdR/wJiKesq2Evh1fDVoQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: =?utf-8?Q?Fl=C3=A1vio?= Amieiro <flavio@amieiro.net>
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
+ <griffin@kroah.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] leds: is31f132xx: Add support for is31fl3206
+In-Reply-To: <179370064610.793788.8239015594326628135@kernel.org>
+References: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
+ <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
+ <179370064610.793788.8239015594326628135@kernel.org>
+Date: Fri, 13 Nov 2026 13:51:54 -0300
+Message-ID: <87cxs87jyt.fsf@berlin>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,73 +77,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0SAHPjNnz12osxUM"
-Content-Disposition: inline
-In-Reply-To: <20261113145708.261530-2-clamor95@gmail.com>
-
---0SAHPjNnz12osxUM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 4jR3Fw1DQhzMlXf
 
-On Fri, Nov 13, 2026 at 04:57:07PM +0200, Svyatoslav Ryhel wrote:
-> Tegra114 has CSI pad clock enable bits embedded into PLLD/PLLD2 registers.
-> Add ids for these clocks. Additionally, move TEGRA114_CLK_CLK_MAX into
-> clk-tegra114 source.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/clk/tegra/clk-tegra114.c         | 1 +
->  include/dt-bindings/clock/tegra114-car.h | 3 ++-
->  2 files changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-teg=
-ra114.c
-> index 97f5500b13b5f..80b7f64125d92 100644
-> --- a/drivers/clk/tegra/clk-tegra114.c
-> +++ b/drivers/clk/tegra/clk-tegra114.c
-> @@ -47,6 +47,7 @@
->  #define CPU_FINETRIM_R_FCPU_6_MASK	(0x3 << CPU_FINETRIM_R_FCPU_6_SHIFT)
-> =20
->  #define TEGRA114_CLK_PERIPH_BANKS	5
-> +#define TEGRA114_CLK_CLK_MAX		314
-> =20
->  #define PLLC_BASE 0x80
->  #define PLLC_MISC2 0x88
-> diff --git a/include/dt-bindings/clock/tegra114-car.h b/include/dt-bindin=
-gs/clock/tegra114-car.h
-> index a93426f008acc..b53f5942f4bae 100644
-> --- a/include/dt-bindings/clock/tegra114-car.h
-> +++ b/include/dt-bindings/clock/tegra114-car.h
-> @@ -341,6 +341,7 @@
->  #define TEGRA114_CLK_DSIA_MUX 309
->  #define TEGRA114_CLK_DSIB_MUX 310
->  #define TEGRA114_CLK_XUSB_SS_DIV2 311
 
-> -#define TEGRA114_CLK_CLK_MAX 312
+Thank you very much for the review.
 
-Good riddance.
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> Lee Jones <lee@kernel.org> writes:
+> --- checkpatch.pl (1 issue) ---
+> Line 83: WARNING: DT compatible string "issi,is31fl3206" appears un-docum=
+ented -- check ./Documentation/devicetree/bindings/
+> ----------------------------------
+>
 
-> +#define TEGRA114_CLK_CSIA_PAD 312
-> +#define TEGRA114_CLK_CSIB_PAD 313
-> =20
->  #endif	/* _DT_BINDINGS_CLOCK_TEGRA114_CAR_H */
-> --=20
-> 2.53.0
->=20
+This is documented in the first patch of the series, as requested as
+part of the review for v1[1].
 
---0SAHPjNnz12osxUM
-Content-Type: application/pgp-signature; name=signature.asc
+> On Wed, 28 Oct 2026, Flavio Amieiro wrote:
+>
+>> + * @enable_bit_offset_in_led_control_reg determines the offset of the
+>> + * enable bits from the least significant bit of the LED control
+>
+> Make sure you run W=3D1, particularly when changing Kerneldoc.
+>
 
------BEGIN PGP SIGNATURE-----
+I checked and get no warnings with `make W=3D1
+./drivers/leds/leds-is31fl32xx.o`, `./scripts/checkpatch.pl --strict`,
+and `./scripts/kernel-doc -N drivers/leds/leds-is31fl32xx.c`. Am I
+missing some other check here?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavc/rwAKCRB4tDGHoIJi
-0twiAP4scZZmgN7SfazyyocDgaxHu26CVIKnSORhO8FWJslLhAEAnM8Qo0cMyccx
-kEafOA6qqeZSOp8sz+Mt1YOVi7yMvwo=
-=kaTu
------END PGP SIGNATURE-----
+Again, thank you very much for the review. I will address the other
+points and send a v5 as soon as possible.
 
---0SAHPjNnz12osxUM--
+Best regards,
+Fl=C3=A1vio Amieiro
+
+
+[1]: https://lore.kernel.org/all/20261013-jolly-salamander-of-tact-7cf46e@q=
+uoll/
