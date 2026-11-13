@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794573215;
-	b=dSN9ZzNHpFqryWrMfQzn1gq6ssuyPsHpLAADnNuUHoIHVAZlBDNb15zFDaQd/nudcpWs
-	 eaAIQaBq3YbFJCQYCiOsq/1Yn9dRUIy1yoFiMQEgnrfaIixp/gdAOh0GIS2rpLRCea7sU
-	 XvIBRxj2Plq0xhhU0SVQ0ykEp9xhSOvRVw0+Bf9U4ktIo5nuFK0Z8S65/kgDZLcRTGxQ8
-	 Fr9R1GeaoYY9QEhHx5z3hI2rjjEEkS2F90g46bXHoO33KTYvbeCpF3rUqtb/sefKsWQXn
-	 T0Vd6Qx7NYxMDRl0Ffdp0AxR6VVC0vd7ZYoreQ4V1fco5ja4gZnIIv7eWq+EdIaGYtw==
+	t=1794573216;
+	b=IZSaF9aQTZOISvU1fsdpjsd2LpnuZXBbCwOz4KZjVGuq5x+kN7c1WCwOpLHkY4GGcapi
+	 mJXvjFxmhExLSoBciXooYz4ESHZkhN8DmCOep1iXotV+YdWWHOnZSGD47pq5/Ra+6kMtX
+	 TazqwWq+d1horYi1I4zvhf5nfWHWuF4Wc7q8LlV6lR+8JkScR21eAK+ckmCqq/2DzfPH/
+	 KkHAufkMpl8mnD6QiucnSAn2EhbUeDxu6+WoaQER9GLcmv0QIyN50LgyGQB0+w+a6SKK3
+	 iFYdNn1rN9nSTXa9w3rRbHtgJJRNdn1WTUNCEMjun8oFe/qp8aK5rVgFVT9C+aay80Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573216;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
-	b=kR062LgqA+KAJbbaoec9oCzF01KCRnTCwumt7Ty9GiKtq6dz4dtAmVCgkM12iumfODHt
-	 kaTorrbsRSu7PywAObomb0o0kKuB1sAWY9d/q5w6xvJKW4VKBR8Q2dwSa+TBXJjkL5s+4
-	 kjsyVp7yWrrXS2Wg0ZkAlniXNrfRC/M91C84/75Xytq6w1UgOzDgp0nPRNBQAWwAKNUIX
-	 lXn2gAY7uz3jTahoJRpMs58xx4reFEIHEtcwGKfZLVFe9UaDZjg3Txo6G7/HuJgcaw2wx
-	 jIjGheB5MzYcCBpMHwnFDWZeTINoWaAHvlhOisxz0rTLuOBt+3EjeAPerXirdK8T5XA==
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
+	b=uN/w+cb13KhsouaG/7RkvKXikveyZB/CiVa/hPP0sez1bWDhtZY5RIeKO4xOe3qIhWOV
+	 DvZBys/rCTcLRhG3hc5AxgUpT4bFaiam8apRp4ZLRkSS+7JLaGtOLEiCFefvSmRxKMOHY
+	 VRz9gYvqgNNHUOqqXjpoXJLcHu2yfM0by9ZEf7XcT9XL1wR8gKvZMCfbiRZi8gxDz9PKf
+	 /9iNycJMRNNcaOKc4OvMgGPDPlrLNiC9yALcZAlgMuQlELjNoueyOQgxc15o739BEwLOf
+	 AMT4QGhQjc+w0ZxQBdeoqihWC1yuBFHm/pB1b8+0O/YMeRL75XtZ7zc3UxF4hUl6xSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs+Z6x+7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsPKqlu4;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D49606A332;
-	Fri, 13 Nov 2026 12:33:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3E9606A8A8;
+	Fri, 13 Nov 2026 12:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs+Z6x+7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsPKqlu4
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794573215;
-	b=Mji3ln+wkTmpKB/3GThsSNjGEZQlKH8OrMGkQsmB6EzU88ZxE4Xxhk6DgR3AbZorhuZz
-	 SmX3LuoqAGidvmcFLNr879/yZHClqOQqaT4TW6oYRTteLikRhQFwmtvgQPFx7Ix2hqPbl
-	 mNTVdId0p2POglS4XMa20YFmMidKDMmbckvvEWOjgyc0g6EQI+01wJ6QRXNbgEJghjt07
-	 5G5NxDvervVNpgqecFQVYL7XblRl7NbF2xiw1D07DGFOZ7CteFURM+ks0Qrs4grUqy0eF
-	 WugoWclF4LnLz7a3h+ZRBPM5nXWblJDmrAhGwWNLyv5daWP1lvgtCvGlL1rpSY/N4VQ==
+	t=1794573216;
+	b=Dj5E2mYXCghsPVeZ9aDQAHEbbtn2ruNrHQ26ctyGtBspFgdFkOOi7Xsp+yLiXT6wRgwX
+	 O4wzxrrj1oqS+OnYMNUSpJwZfKjzwW6Pl6CS8q6EQPgu4nYQvEjxIiLn/DnwOU5SLOzln
+	 1E7ltCVI1Pk/O+HOz0zmApWRggmhcDbX7/l4xl8ltVbF2TwK0o4WDUQ12YURQL4feCTt1
+	 A0poKsHlNWA36AyFJpdY4MHJ42v5k3idaIuv5mZDOcvNtxShrrJVt2/SMEid6HDVwyFBW
+	 taO0DPoIFAlLWmBZpHFgJj7kQCV3y3R1+Ohtyp3kIKR7TLwRjNVrodD6uFZhpVFqNuA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794573215;
+	c=relaxed/relaxed; t=1794573216;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
-	b=FDiibBdF8lZsz734h0coispxqXFJejGXMww1rkNyDjjmq6nMNhXqxtrsrnCbtA0LQQ4O
-	 jeh4/yj6Ykzq2hFM6fKWH1633Lgyyoj9YjhvDArouu1w+7LKs1Eyxe0xgXuV3KyXTqBmU
-	 E5TCGd9l7EW/c9otW902gTr5kHFiw6VcFGCIsT9KKcAoJfT2YyNWIOQKmLBkTHwYINdTX
-	 LSkNOjQdasmTYyNQOHBhcdeDV+2I4P80YEhk34NcTTJ5VKru4Q8jxj/QmCJFkan9y+87N
-	 3RS/l5as5Z+lXGXq/fmEgRsEHjBhWLkYfDeS76bWuztFPSW62RiTLQC1PzsW1dFG6hg==
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
+	b=NlQB+8amRcRw/9LjWMImBEsfB8o+lZt4WByDc9dCTrT9k8Y2y8z6KECvy/Jn/YlAHms7
+	 xZ/oWuYxA5bkT845jJaKFI6vYjen/0Qo0D5ANG/K+J9zZsfcfrNfTgZ359Fh57UPOfDka
+	 k+vFVESAWAnYw11zy5uS32t/OpPuX0wl4YZC53IEqcmWp6whD6tLYf8gEtiQfsINxaGUl
+	 O2fvQJYPEZrXCyP4RudUhETeJQr7Gm9HFfOB0jUS9c+u48/bnj76QocWArrjEPUlVoXXt
+	 jJuktwwOVVdT/s4DEFLKfIlLacHzJcohIw9gFr5oQLRSG9WXCk4/D00KUkVQDmBumYQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3093A1F000C8;
-	Fri, 13 Nov 2026 12:33:34 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 899891F00925;
+	Fri, 13 Nov 2026 12:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794573215;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
+	s=k20260515; t=1794573216;
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hs+Z6x+7hKRRTWjf1q9izoLRD6iWGP2AtlXjv43o+GmmkN59QGhK5fmY+4ni2lgWH
-	 MvXneUXOJTj2P3ohG+tDwsJG586izZC33kmno/kt9CiLjdEIiOvQ473KEANbbj0Uph
-	 e02VfB958oScF8ywfHrRn13kgt9MDGtSLMNxmLJ+/mG2cvPxaS0iBnPFfJlg6KFsXq
-	 d0whgZw336DARlMG021hDEaKLz22qkwS79qtL0CD7C3MjROQWXMbfxWY/G5H6uknpt
-	 Al78o5FrtCQ++GMljGedoU9KLwLP11HmMscKxaG2D6hK5KoBcq0QmJsu+uFLY80P4f
-	 70BJg6JRG6xQg==
+	b=LsPKqlu4KjzVCsJ7QdnjMDdru0hHGIBJs/2HZI2HCKrQglDsaUQvDsG55H5/NapuE
+	 XdnyQMu2dX7UnKmf+mpdzo1mxBXfrveAKt62o9ql0Ab7zX6YHbzYYDCpgtZ1klOXVS
+	 Wffj0NYe9He4CzaLF2d2/sADkZVnZ0lEalbO0nIgciM8Hl7/wClkAm9RYs19iEvowf
+	 Cv6UC/RARUw/4N5lN2MvJMUixsOYCxTh3SSD4K01i6VPHPVa3hsftSAyHXqx6QHWjs
+	 +uY70XIC5IL5WhvVMbXmnwN8cxQbX3aZoIesWD8iBEG8CLHbuRyu1GXu6QtJw+/dpR
+	 7wFJkAiXkMXiQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B5E50477A0;
-	Fri, 13 Nov 2026 12:33:33 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0D18D477B0;
+	Fri, 13 Nov 2026 12:33:34 +0000 (UTC)
 From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 13 Nov 2026 14:33:34 +0200
-Subject: [PATCH v6 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
+Date: Fri, 13 Nov 2026 14:33:38 +0200
+Subject: [PATCH v6 8/8] iio: imu: adis16607: Add calibration bias support
+ for gyro/accel
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-adis16607-v6-4-3f678719942a@analog.com>
+Message-Id: <20261113-adis16607-v6-8-3f678719942a@analog.com>
 References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
 In-Reply-To: <20261113-adis16607-v6-0-3f678719942a@analog.com>
 To: Lars-Peter Clausen <lars@metafoo.de>, 
@@ -100,14 +100,13 @@ To: Lars-Peter Clausen <lars@metafoo.de>,
  Ramona Gradinariu <ramona.gradinariu@analog.com>
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794573212; l=4547;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794573212; l=3726;
  i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=dtrcj1XsEm2I9niI4lfK23LNsNQBo2BdJFRP4omBKms=;
- b=zf8uk9ZGlBtTtamRvSMSz++PrVfQbZ8jWk+J3gI53Bd1T9mtSuGbpnKOKIfmVfhvodV6IsRZH
- w1XUuIlvRJhDlT8E8jwM4r1yl/Fr7yKDGiFXHJ9zblYwdrcGrRTa7NJ
+ bh=VnNIhnMUl2LvvkzsAw4PqZBgigIcUBDk4HP4t1NObL4=;
+ b=LQjI363kyoQL/kJnjvxraTjBXjQYGku4ZXXvaMwlJrNhzabo+kpKO20Rcr+GG8tzM6Gz5L3dy
+ UE1fQznpC4TDaTEOT0S0DGyCp1vl+UV5dFWiLs25arkUcHl2vuh517B
 X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
  pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
 X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
@@ -118,146 +117,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Radu Sabau <radu.sabau@analog.com>
 
-Add device tree bindings for the Analog Devices ADIS16607 Precision
-MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-gyroscope, triaxial accelerometer, and temperature sensor, and
-communicates over SPI Half-Duplex.
+Add IIO_CHAN_INFO_CALIBBIAS support for the gyroscope and
+accelerometer axes, backed by the device's per-axis bias registers
+(XA/YA/ZA_BIAS, XG/YG/ZG_BIAS).
 
-Two variants are supported, adis16607-2 and adis16607-3, differing
-only in gyroscope full-scale range (±450°/s and ±2000°/s
-respectively).
-
-The binding exposes optional properties for:
-  - An external clock for sync mode (falling back to the internal 8 kHz
-    clock when absent)
-  - A hardware reset GPIO (active low)
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 94 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 101 insertions(+)
+ drivers/iio/imu/adis16607.c | 40 +++++++++++++++++++++++++++++++++-------
+ 1 file changed, 33 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-new file mode 100644
-index 000000000000..4545f942365c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-@@ -0,0 +1,94 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADIS16607 IMU
-+
-+maintainers:
-+  - Radu Sabau <radu.sabau@analog.com>
-+
-+description: |
-+  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
-+  with a triaxial gyroscope, triaxial accelerometer, and temperature sensor.
-+  Uses SPI Half-Duplex communication protocol.
-+
-+  The device has five GPIO pins (GPIO0-GPIO4 in the datasheet), each
-+  independently selectable for a single fixed function. This binding
-+  exposes GPIO0's reset function as reset-gpios; GPIO2's sync function
-+  is modeled via the clocks property, and GPIO4's DEV_NOK interrupt via
-+  the interrupts property. GPIO3 (data-ready) is required internally
-+  regardless of board wiring and isn't exposed. GPIO1 (wake) gates
-+  whether the bootloader auto-loads its NVM contents after reset; it
-+  defaults to enabled with a weak pull-up, which already gives normal
-+  operation with no configuration needed, so it isn't exposed either.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adis16607-2
-+      - adi,adis16607-3
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-cpha: true
-+
-+  spi-cpol: true
-+
-+  spi-max-frequency:
-+    maximum: 10000000
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description:
-+      Optional external clock for sync mode. If not provided, the internal
-+      8 kHz clock is used.
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      Optional GPIO for hardware reset, active low. Routes to the
-+      device's GPIO0 pin, which can be independently set to the reset
-+      function or left idle via an on-chip register.
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - spi-cpha
-+  - spi-cpol
-+  - vdd-supply
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        imu@0 {
-+            compatible = "adi,adis16607-2";
-+            reg = <0>;
-+            spi-cpha;
-+            spi-cpol;
-+            spi-max-frequency = <10000000>;
-+            vdd-supply = <&vdd>;
-+            interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+            interrupt-parent = <&gpio>;
-+            clocks = <&sync_clk>;
-+            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..d5679e8d0ffd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1792,6 +1792,13 @@ S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+index cd5f875d4c56..84fd5b9ad8a5 100644
+--- a/drivers/iio/imu/adis16607.c
++++ b/drivers/iio/imu/adis16607.c
+@@ -56,6 +56,12 @@
+ #define ADIS16607_REG_SOFT_RESET	0x36
+ #define ADIS16607_REG_SELF_TEST		0x39
+ #define ADIS16607_REG_DEC_RATE		0x3A
++#define ADIS16607_REG_XA_BIAS		0x3B
++#define ADIS16607_REG_YA_BIAS		0x3C
++#define ADIS16607_REG_ZA_BIAS		0x3D
++#define ADIS16607_REG_XG_BIAS		0x3E
++#define ADIS16607_REG_YG_BIAS		0x3F
++#define ADIS16607_REG_ZG_BIAS		0x40
+ #define ADIS16607_REG_DIGITAL_STATUS	0x4E
  
-+ANALOG DEVICES INC ADIS16607 DRIVER
-+M:	Radu Sabau <radu.sabau@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+ /* SPI Half-Duplex lock value */
+@@ -167,15 +173,16 @@ enum {
+ 
+ struct adis16607_chan_regs {
+ 	u16 raw_reg;
++	u16 calib_bias_reg;	/* 0 if the channel has no calibbias support */
+ };
+ 
+ static const struct adis16607_chan_regs adis16607_chan_regs[] = {
+-	[ADIS16607_SCAN_ACCEL_X]   = { ADIS16607_REG_X_ACCEL },
+-	[ADIS16607_SCAN_ACCEL_Y]   = { ADIS16607_REG_Y_ACCEL },
+-	[ADIS16607_SCAN_ACCEL_Z]   = { ADIS16607_REG_Z_ACCEL },
+-	[ADIS16607_SCAN_GYRO_X]    = { ADIS16607_REG_X_GYRO },
+-	[ADIS16607_SCAN_GYRO_Y]    = { ADIS16607_REG_Y_GYRO },
+-	[ADIS16607_SCAN_GYRO_Z]    = { ADIS16607_REG_Z_GYRO },
++	[ADIS16607_SCAN_ACCEL_X]   = { ADIS16607_REG_X_ACCEL, ADIS16607_REG_XA_BIAS },
++	[ADIS16607_SCAN_ACCEL_Y]   = { ADIS16607_REG_Y_ACCEL, ADIS16607_REG_YA_BIAS },
++	[ADIS16607_SCAN_ACCEL_Z]   = { ADIS16607_REG_Z_ACCEL, ADIS16607_REG_ZA_BIAS },
++	[ADIS16607_SCAN_GYRO_X]    = { ADIS16607_REG_X_GYRO, ADIS16607_REG_XG_BIAS },
++	[ADIS16607_SCAN_GYRO_Y]    = { ADIS16607_REG_Y_GYRO, ADIS16607_REG_YG_BIAS },
++	[ADIS16607_SCAN_GYRO_Z]    = { ADIS16607_REG_Z_GYRO, ADIS16607_REG_ZG_BIAS },
+ 	[ADIS16607_SCAN_DELTVEL_X] = { ADIS16607_REG_X_DELTVEL },
+ 	[ADIS16607_SCAN_DELTVEL_Y] = { ADIS16607_REG_Y_DELTVEL },
+ 	[ADIS16607_SCAN_DELTVEL_Z] = { ADIS16607_REG_Z_DELTVEL },
+@@ -1043,6 +1050,16 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
+ 		/* Temperature: 0 raw counts = 25°C; offset = 25000 mdeg / 5 mdeg per LSB = 5000 */
+ 		*val = 5000;
+ 		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_CALIBBIAS: {
++		u16 reg = adis16607_chan_regs[chan->address].calib_bias_reg;
++		u16 tmp16;
 +
- ANALOG DEVICES INC ADL8113 DRIVER
- M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
- L:	linux-iio@vger.kernel.org
++		ret = adis_read_reg_16(&st->adis, reg, &tmp16);
++		if (ret)
++			return ret;
++		*val = sign_extend32(tmp16, 15);
++		return IIO_VAL_INT;
++	}
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		ret = adis16607_get_freq(st, &tmp);
+ 		if (ret)
+@@ -1081,6 +1098,14 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+ 		return adis16607_set_freq(st, tmp);
+ 	}
+ 
++	case IIO_CHAN_INFO_CALIBBIAS: {
++		u16 reg = adis16607_chan_regs[chan->address].calib_bias_reg;
++
++		if (val < S16_MIN || val > S16_MAX)
++			return -EINVAL;
++		return adis_write_reg_16(&st->adis, reg, val);
++	}
++
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1095,7 +1120,8 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+ 		.type = (_type),					       \
+ 		.modified = 1,						       \
+ 		.channel2 = (_mod),					       \
+-		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		       \
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		       \
++				      BIT(IIO_CHAN_INFO_CALIBBIAS),	       \
+ 		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	       \
+ 		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),       \
+ 		.address = (_idx),					       \
 
 -- 
 2.43.0
