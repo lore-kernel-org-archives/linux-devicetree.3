@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588192;
-	b=TBEYc24wD2EHCilPghEsOXtYbfxPLjNCoFFcxKakyrcHD7/4kD88icKIBtNPOfKXIRbH
-	 tqwUsGCA01oTm/At4ySBG2+Bk0XD8H7EdBoWKhkXAzixmQhLlVkG0rpS4w1WHpvctiOPK
-	 uX88yVES7qGnrz5/KysTDERLjA0ZmGuFvFT9QKOTJkKrrSxDaJBkVZmGlLJqU8fyDQmDo
-	 9Ivqj4wa2rvuwtv2YXPS4x6GF9EYPYuwsT8CUMyQiXq4xB0NHr9JBzAydLdRBFa7wZtjs
-	 WDcID2BmVNTBeC7Au2p6T0+5M3fX2yyraP2Jif3puDeNqVh9Q4CYsVHKbJ8jU/Ji6Ow==
+	t=1794588193;
+	b=iaj162xscw9b0nJPcd17da3k7btzwlURbmNEl0HfSukngenp9VbFTvt0MkSqcCPuHr4k
+	 HX1HZPPyKwZ3j4GFyTfUACuAPW5lrRrYJR+ze9oayUef6rxPn5hw280IRUkrVx6nYv4rD
+	 DfkCgrejhZGetRr+02zCOWjazRRn+kxioyzBR9zZpaizHS+WjVUWkXequVGF/SAFtRBSf
+	 bPUIlDbRNThLtEcDYquc+a4cL4S6LJn/Dh7hiFJkxa+eQrM2Smy+8BLmsvAn4a+yYoAAZ
+	 +GaHaI7ocPE+LX2q0puB6Jf/2hyhcT0ZtgtmlBf2LnmiX7etOIK45cd1I/bR7cT8EOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588193;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
-	b=ebe1kUvvxIRju6MUeOHZeEzDm0aE+eGKaadosmBcI3GUJUOkq90XliJcaS5DMMsBs7Bk
-	 Pi+vilenb88UdPeSdVzpNFWNEUiHAggytwIv4sQ0pJVhOEWbBe97H4nxpxF1Y5SxHlihN
-	 81bbJ7kqcOhwAKmJLc1Y0ki3At73rVD0DDioYSJDD18H2cf6DCYNJp1My5HZXXDwlN3xi
-	 T//NrnICXbNZov4Zu61wB4EbgvAjlLbiMk9o8CskUd6mtz6Jlj8jpNhw8p8tqZcTuri4Z
-	 3cVlMQVgqcIWcZ/w1a8KvN2X2XnYURDWKUtxdPmWpp3gPb9zV0neTs/8bP2E38+LeEA==
+	bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
+	b=Kk0Tm3hOp/ZlZPazN2+u7ZZ3irHN03HsFUIB50EuwxmM3DrEWSAndYVyFmtelN6SfcxE
+	 Kxu0mTzNfM7zMNa7RZSZMs86543UkmQUG/O1yYtdMGfOjE3dKfxtv4cI9yBVgSYG5QFCd
+	 FZLWKwBGFP9Sat8MlExy4UpOVMybxxXWIEhnlGO1pLj2ckz6BpV+igr7rDnbUr9HRHQOH
+	 3Ssx/xB0oyzbJht2R8Zm0Y9VhoicBGxQIAoOLcK4B0ddOyvTsXw4cZb7SbFi4a2f3NlfT
+	 9R6bD0BZhN/DBRzAOI3gNDg2ypE4hSiHm0Gg1itMScL//GdYQSFH8UK3rMdtJTNe4bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jmHn1N29;
-	arc=none smtp.remote-ip=74.125.231.128
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gl5mRAc+;
+	arc=none smtp.remote-ip=209.85.210.65
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com [209.85.210.65])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF7660A380F
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:43:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EF7660A380F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9DA606D5E1
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE9DA606D5E1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jmHn1N29
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-84e8a9fae57so492706a34.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:43:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gl5mRAc+
+Received: by mail-ot1-f65.google.com with SMTP id 46e09a7af769-84e513877a3so1866155a34.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:43:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794588190; x=1795192990; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794588192; x=1795192992; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
-        b=jmHn1N29vwT89iRdWkH14RT1lU9HKGsWm5GLUbBebiA9zD6t9Vn8WmoyOa68IfmOkS
-         NEZLlOcbXrXWkyenJaQIjmv0ej2Gu+PhPewn9fIw0K0eJ2lVC1SzXrJsbcT5XojJD9zc
-         BneUYK5QQdu3iwcUHT8qc8wgOvD6Ej0XM/VdKUg4dFpvE4SEG76meQGrBFzBzx2ONiUQ
-         TcDBFAb/kNQNRRoL+y4JtCiWD1aUob/RLG1v1etLHYrQE+MO8tO8C5aXYAm3aR1V7aRo
-         vy9zQQacS76phtujz2M/CD0CFjgpw+sWmETnn0xgzVDPpuMu2tqqKD7i8zeDzz3VnXKz
-         b1zg==
+        bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
+        b=gl5mRAc+Q87yIw3FA7INlu9F67qDStwak1WRRCFyGImlP1tanQWXnyQlcGJLv2T0V0
+         YY692v+CGbD7myx/t6zAZocLSAJz94JuctGdQ6xWyr1G3CJZvm6WCs7omRUCusgJud1m
+         4wMf8WEa8u5w4xFPZ47nZYr75vDoO1pS9Vl5dDuqqR0JOOPUm+CjiniRiTH7/EYqFbXi
+         xT9/k0C0EKHnVXD/cqBQ7KwJkAHwtyj4o899oz0M/1pmGyNvlqDSuBmwAJGjpTRnlA6z
+         rN7RA8tkRrM/E1FBYQS6xXFELcysgByZ5xb6FUNDnMDO4jkeQ+2u91L3ti8q0qZ1i8Iq
+         VV6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588190; x=1795192990;
+        d=1e100.net; s=20260707; t=1794588192; x=1795192992;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
-        b=v/eBTjCsN0bFQBXYCYH35NTtX7oaAHlO/+Hw7IZj6F8QpRaXCyhUST5tdXkh4X8vTb
-         TzGS+ZgciJJwUBr+iWmpI625B6gLD4TmQuj1fnw3V7LuNLsPM/SbQd0r+0bcpvrm/ZyW
-         CB5ZZMHPbJ4EmRdAHGsm6/kOxzLzHZ9YSxmsRz+b9WZBpzB4Xulp6pbGVl2YzmUzari+
-         ghLa9zNV91RA7gDz/wXY43BQPWv9mQTt0zrw2a0kJJVQ/N2WVrQxJR0OGtXKPz9KAtLg
-         gEvgFTQaQTGrlACkNE6BpGsUPM6WIz1HOxSRtv3H2uWxYy8fGf5/HcK8FIQFwVAnv5cY
-         57eA==
-X-Gm-Message-State: APuU4Z9pVIsBwl9kPtGCWt2a+ouW2UVBnvz74nGRbvAndL17pFYZtVDn
-	ro65yT8gJ8L+sVhT1rqN56b/gJ+s4xj8XmBen+dHW2mlJGfiXyT2zkrZ
-X-Gm-Gg: AYBFou1LxlPt2rfz9t11B21+dmU4PLvUWhFsfu2k9Sw7vmll40cBmF3i41/X6DXQ9zo
-	q8iIh0HveCApeM6B7aI5qh3o5rd9J80tUcSFrrW5J4j3zfXZzHShTmqgsE4VTtn7rVEb6+rOUZx
-	l+5+v5O7itMxW3bORKAkB93zpxcOXhWxEv8lqx32OTJNIHUGAM9RAuWD5GfyzQiOPSKbVa2NmPG
-	gKRG0RoWkOxGYvHZpdzF+GtQzi+uLXOrjI3sQKXaG3ZonX6s7RQvz1E8plrL0xXp8zlJAmCZsqO
-	Ns4NTVhUVO3AXrbl23vY8NdedMerxGMfONFxMpXsXN1kaWq77iz7jEUL+3zRMf3zD6SRUKV0a5j
-	y1VALSbAP5crK0aCnkC8ZlKHJULssUjm+Tm0kiSyBKpFPMTaL8+OuRHZW4MfR9Pkqsjvcl18O4+
-	JkF5LHRuXjfqC7Mp0ySwEfeaMia6eazPXMF5sMbUmkmLLE51ncf0YikcKPrwLl2BfpopuSRY4gL
-	W32MQoK1B7ezHvuaAij7pP91si18JJbg5uvZwuqWfADGGK2p3u6uhrLUvY+r4PJX2TcjdvzCzqx
-	bLvKaEI3zMRR68RcBdBGP850v/RvJvmoEdsGk2+Y45Xj53NHLneYrkkIgWwzroN4Kq1wShRZj+p
-	r87F+YxvTc1FE+SlQSUk=
-X-Received: by 2002:a05:6830:2709:b0:822:6f0d:d04d with SMTP id 46e09a7af769-86289866833mr2450881a34.16.1794588190361;
-        Fri, 13 Nov 2026 08:43:10 -0800 (PST)
+        bh=3p1f8Yec85jLXGY1wQELmw04hKpnMA5OmY/Vm2aQaMI=;
+        b=sFSsWc1EzON62vNALBcKk+Q1wtkCXcyKtoMjXM8GB2oRnI1b1AsDqy9KHUlBn43uUF
+         +pVhcRGcHN0ojxNKI/hKoRxxCvwsNHEkQzbMJnEhskG7llPrtdFd/ukhld4os3O9MzKm
+         tqsvr5rDV2Um3qxTcuaX1skHVODKPr3MVXnZVFoXfLAG+aLG/Fsjgc8NN+dsagxFySBs
+         atmYwcfxr8GzACFVdBI6rdS40ZRUZv88yfjGm4FBcR7O28WGtpNUC80rpK4FqtFfp8dy
+         iQIhGqozzQx38pWb+E2rrgWypEnGYgu0V+EdlVR2QV6gh1Fvx1h3a1rGFQvXDLZIhacE
+         mWQw==
+X-Gm-Message-State: APuU4Z8XLuNaE3xO82BDqG83d4PHVicl2iWbwXaKKj87QyNwhQDhVtd+
+	jISYrdLgeuXK+bUJmCjYRQLsutgX812UoCynSifngkFK2B8kRrgEbqRt
+X-Gm-Gg: AYBFou2eXfDc6Cb9m8M2AQsh7F04wcp5A9Rd/519GrThlZVC4RykdGF6Q76wNxp2Ity
+	KO6vMjaiPGQWoSena1FciAOjRklxCpVRWfBx6ZG+TYxyHFPbNlfbqJb6MF2gWAtkwgBCNg2OCIs
+	5NzXWoAVKJ5sWk/nxdVBLq2SSU7OuYz13JtBx0Cwe8/zguUZ71G72y63/X00onl5dRR85tQKjs9
+	E3+8W+jLqVIyigZfuBeSAp8g9z97yjhsHHGknW3ANyLHvPA+IpV6JZrN/AF2Y0Y79mc91qW8TFJ
+	9nnVb4UuKY91lnCUdQqXeyjxLLFDexrpJvCIhY/C3keSmQ4N9BSYs1Y9mvfNjFsKtxvgEjkSSdp
+	PJer0LmI/zZW5SJo8IVMeQSZmOcghPEf7lFynNxrT2VqRqIMTCsBP+hsB+kEZ5VV0fckJNoriW4
+	AGg+GJDASs+LPKq9lTrwAMvPQqSZgMiSQuig1P7IyIefPn9L48LZ+RGN99gv/GjZgiGQSlV9ToV
+	iKHggPDKfRK9QM7UzUF5UNtp5V3TC0d9hQhfhisWRadLotTPa7CGwHjcQbi7lTmkfIkWctqcV4m
+	u6zl4DuuwUy8gMiegibe5Ey0f4zs1BDp3BaK+v1OivryRFUQVqs7qtBHPY3z+a2/Xoah2cn7lUi
+	woFmTWHpLfzRzsEIB7oE=
+X-Received: by 2002:a05:6830:8545:10b0:861:befc:9b95 with SMTP id 46e09a7af769-861befc9e27mr1819572a34.26.1794588191654;
+        Fri, 13 Nov 2026 08:43:11 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.09
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:43:09 -0800 (PST)
+        Fri, 13 Nov 2026 08:43:11 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 13 Nov 2026 10:42:44 -0600
-Subject: [PATCH v2 1/3] dt-bindings: arm: mediatek: Add MT8173 Amazon suez
+Date: Fri, 13 Nov 2026 10:42:45 -0600
+Subject: [PATCH v2 2/3] arm64: dts: mediatek: mt8173: Add the keypad
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-1-d3b8865fa50f@gmail.com>
+Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-2-d3b8865fa50f@gmail.com>
 References: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
 In-Reply-To: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -106,38 +107,45 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=882;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=1040;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=I6NAM91xiG7y4IDUJHiYq0Fw7LL1iEfDMhzdluyzqJk=;
- b=hFxh2nuoCt+M9OhbQICBEs+ke7rF5fRGCqw7H2cvfOLLCmLg/RuSD/8xWWVTL43MjLHeuoI+e
- PTT1VNMJ1OyBTfk/s33BI0jXHT7JcrMz5LW4pwiYIr0wef1T5m2cxBx
+ bh=XWTgqrmP7rORvhppkX5O4ecuuFFQiKCRGXT4o7Blnls=;
+ b=p1V9+WfESnlytGo+yWLkayiutHu52hR6G9rdCc885GFv0kK/66QQx3BmStt3S4rQZBGGzCuSb
+ N1MV6nuLbwiCY6FjGl8S0MX7B0dx1kTM+hKuPoR9KcdWLmYpg/fcM72
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Add an entry for the MT8173 based Amazon Fire HD 10 (2017) tablet,
-codename suez.
+The MT8173's keypad controller is register-compatible with the MT6779's.
+Describe it, disabled, for boards to enable with their key map.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
-index 180e6e4948e7..26f096587631 100644
---- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-+++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-@@ -157,6 +157,7 @@ properties:
-           - const: mediatek,mt8173
-       - items:
-           - enum:
-+              - amazon,suez
-               - mediatek,mt8173-evb
-           - const: mediatek,mt8173
-       - description: Google Burnet (HP Chromebook x360 11MK G3 EE)
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+index 2ecdea33672e..61261fe643ab 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+@@ -555,6 +555,16 @@ pwrap: pwrap@1000d000 {
+ 			clock-names = "spi", "wrap";
+ 		};
+ 
++		keyboard: keyboard@10010000 {
++			compatible = "mediatek,mt8173-keypad",
++				     "mediatek,mt6779-keypad";
++			reg = <0 0x10010000 0 0x1000>;
++			interrupts = <GIC_SPI 154 IRQ_TYPE_EDGE_FALLING>;
++			clocks = <&infracfg CLK_INFRA_KP>;
++			clock-names = "kpd";
++			status = "disabled";
++		};
++
+ 		cec: cec@10013000 {
+ 			compatible = "mediatek,mt8173-cec";
+ 			reg = <0 0x10013000 0 0xbc>;
 
 -- 
 2.56.0
