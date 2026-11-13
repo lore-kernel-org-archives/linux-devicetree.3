@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794574823;
-	b=v5UIAhDHWUV9aSaKwCEofP21TzVgUwnr7/e5pJRTnTK52Xo/TwfNGFunYQZgXnDzIIdh
-	 YpKepxCnxwPgiDbHWnOa/TDxaRLyRAKCIheHWz/Jn/EjBwwKib3wMB5UKKtiCRBOHi0v7
-	 FsfUgk4htCtgqJUco7wMKA+zl3BtcvKYd7uzfT3Jq7Crto08OKIiCpn4+ktqnKAgcc/So
-	 grr4tQ3K/LUmNAgGk5p6k11wzi8I5X1iigDd28lFBqtySNG2yOLgA0fUptO29QnCWksII
-	 9ggpnfCepjs9C1H00DIw0DRAr/xubLTiUytR246zjzJbGnBsDBp6xaHH3X+yLCxuhBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574823;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XC1S22UbkTI9Hs3X5FcI1GncSQzwIasUhPAH3Atb5hw=;
-	b=diXcP/8Qp5m/XURw8SyWZkNuVXMufC6UPLgKFF5+gxlqwatgUYZ6T+0iRsb87s15Dced
-	 0dmo08LkDtUEJczIj33fvfOKPNFD2R3fN2b0ZcXLYA1FmTD7sOJnmE7SEyzkByrOeIM60
-	 1KOD7xRyE/NP/0MlX1SqMOZmkm9O0V21drmdVAVIs7zps7yBHWzMuEQyVjXXKo8q84+8J
-	 dNuwygV6uszoZfhhpMi+GnsWx1CHTep87utb6DCAUondDCbOMUrafMdfVhlNmor9dK4sT
-	 OU22t8eiNUDEtzGy6LaDjEomouNJ5n1LAJ+bWCFTR15hXh/KHQzD3ju2umK4FQ7f3HA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJOWmu3j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794574856;
+	b=z80YwbhQs/DR1fWmcF1BocBXp1vONXCOHxKqeUnk2ivjnXaQGMS+VmJ5sPoxOmfVA+Qs
+	 M441vNSGs2QxQGHddjxD/sv+URBx7lNUuzj0SAvEJFOlzwX2n+a25XW/DBL7eHzsPXzRq
+	 9Wp+Vc7r8bqm5n9TYHLogPRSjUWLpQVlwnUBe2/gwnzgTqwOqCbxMEwdRbhQop6E82XbU
+	 MonfRv3rG3Q+NOWAkoOmU/B+/bLQFZE8UBm061n/MM6yeyPIryQS/cEuRqZeP4Vs8wHri
+	 CloR3yR7uyraivYuFRGW8Qqp6I97BCtzFEKCoWOQPBQRWDFvUMmpQDe1OZLxdLaGCdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574856;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vHVRb+XQ9sS2KuwAx8Ypuf6s4A1tTt5ysFHn77oys1M=;
+	b=5R0RjiY6wt1FfHV9tGSytLDQpirZvDaz9I5Ty1Ub8Y0l1wnYCTW76qGB+NoDzQHkEKQ+
+	 c+w0tpte3c7oAL5fBj8Ck3/TsoGbmAZEPKSQSUBSbchm4CorU3MD81t+isxis820Ko/Il
+	 DmxOu5XngONLkhKgSgnblNIJqHTGeRCj+5A+6lp8oLZLtIfjtAMuCKTXhteM7gwZA6Snb
+	 WlZwlN3pONUhyxI84bh7Lkvxlgn5aPauydPABIWHHpZDR3KGqrwnW42lTGh6//tFEt3FJ
+	 rvHZFaLdDtHraD2Dr3tjF/K3hh8QBHx02gLnMPatRptiPNM5Yvt2Yb57Palv/R20ldw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jnm00dpe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD875606A32E;
-	Fri, 13 Nov 2026 13:00:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F17606A335
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F17606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJOWmu3j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBCD1F000C4;
-	Fri, 13 Nov 2026 13:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794574823;
-	bh=XC1S22UbkTI9Hs3X5FcI1GncSQzwIasUhPAH3Atb5hw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KJOWmu3j5FHk5Ozuxx29WamfDOFUe0FP05+TjrWRExS8GQ3Y5JM5kjaj8b4AfgFMT
-	 a/xlIVbn+b9E5NnUGMiywqYJ46J8DyUrku0+0oS6XzNF2WOMibOxqAuEX3d9Vd7RJG
-	 Xrbf0qfq9u8+QncOr41Q3cIf1mjD/l2rt5o6P+A92VDCiY1Ms+FVoaOQwEFj+B8+AS
-	 5pUXc2wdcQxAXbgYNHQPT3JRq6/t2WXRJSmO4/NY/Z42N2/hzZ6Bry9KeqPIX5JYOo
-	 q3VZiJmzeP4024Zh4/aP84/zhhGaPcPMh278dt3+fxmPy533CvDCKEdginokn3+/+J
-	 f+HGYpO8x7dsA==
-Message-ID: <290eea3b-a4c9-40d4-876e-395cefa4843e@kernel.org>
-Date: Fri, 13 Nov 2026 14:00:16 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jnm00dpe
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1312159a12.1
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:00:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794574854; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S0KRyrBj72qdaoORHdCr/3MF8ickzzTXPoFIJbg2RlwOZsNzfimUpWMZczhcJqM3YC
+         wXdbtPPYD65bFTk4LvroD2ePDPDayacYpxH+uJs+X2b7955iNWU0aYpmK3lBP6jSpVTN
+         iXTWHC+DrLqbPEaYTFgZ8zJxCOWQoQ04IZgcEoohk3+Vd2GsZ6EECCGUCSFL3h2qXhgA
+         V9wyGEnKOh6IZtTtK+LkiXy4kvwnIbk+ks+TSdtt9rVu2BLmdpgnaYn4xlhFpoJjt7+p
+         zvHmkn1L4LuLnHuMeQS3DnRRICA6uVozAaqFVB9Ru+Ha6zQ+WueATK/U6F+DZby2irUC
+         HB1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vHVRb+XQ9sS2KuwAx8Ypuf6s4A1tTt5ysFHn77oys1M=;
+        fh=I1VbWHWaXbA9TjSm0Kyz7zXn82UDydF0txTWyL0GOPo=;
+        b=oiZ5jPJjtLCrA5qQ4AkVqhZTD6qvQ8E3XTlz2Pi71jDybOZhl1q8tuONkE4JUOtREs
+         zRPQLKCOSHoJeMLiI32wXjecbcGiS06PADitKZAbjiiz5xlMNtx06jWfavyiKhnc20jw
+         Z7bR39HSWO/JQIsVvW/sRsb/F/Ni8chdKOu3FWXn/gIfKC5Cyp7fouRxisp9lgxdPPMt
+         sJ396wQr1y9V+E2UWzQkoCLGp+u28wemL3qGzDx6pwPdZRj+BUJ/IKrOMM04lox3sQeu
+         9wNFsvB1k0L/Ws9a8iV1o6UwP+j0UTw2v3cJpSdSzZqlCzQXHUFRgDlvGwwsS1T0yOR6
+         ziMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794574854; x=1795179654; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vHVRb+XQ9sS2KuwAx8Ypuf6s4A1tTt5ysFHn77oys1M=;
+        b=jnm00dpexQcSPfGZxQphnKBSd17bh5Upe1ySHaJZjd3SRylcfmGBl4dkJu33zlmYFS
+         IK8hqMGUDl1UCPZ8ZrJ7+cPX+7adIw6uvi7+1wSF1E4uPoOASKQqKtMVltRdHOGxuoLJ
+         HJBALf2AkIm/5Oc/99i93CWinzFErZvMrVFB0BPMBtf/hNO6A+9FDjSO6bCdzdapFF/1
+         NbOfWZ0Vyez1mjQJ1sEMXA3/cp4OI8aKne4ycJkA00biNQ8w1FHmhwmQ6FK4ZHWkNKPh
+         k1yv9/YvgPomizwtcLEFLtNVP650OM0e1LeUivUAFjAeZyDo+gcaD4K6as03xcz+n65y
+         Yedg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794574854; x=1795179654;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vHVRb+XQ9sS2KuwAx8Ypuf6s4A1tTt5ysFHn77oys1M=;
+        b=RhhVoNkjrPzZmOPbPY6DtPjw/EogfS4RscDNPO/fG2Wwc4ycLuJBp1hD6EvoR64q27
+         yyo+PBQ8WFq87LAnCQIBvafCherY/vDb69K5E0tUc0vwkqeDuGPtwvZfkgUrMaE6QMAM
+         d0eoO4zvkFAUSwSDTtKc4FjYlI/5r+S9cthcaEEAo8xWOwWER2F86HIgOklcRaxe2Qyp
+         lTz0lS89WJMS8T4HbE+4q+FiPtTgOkkF8x4DJHuV8aiLP+zOsoE0WwjPoXDYmbZIofdj
+         btL9JcYKUwQfMf3hnvHSqHi+u0xcyG9KBMycDKHFaL4ej5SDUDL6TnXcZJcwKL2RmQzh
+         m8rg==
+X-Forwarded-Encrypted: i=1; AL+hErHvv2ZKF/QN57p9nSm4NYWHQb/cuejLLP9bGp7zvqDMbMiJGoBccJtRWqRFfaoTr8uGloUWGvhX/RpB@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cTjsNq7u9vUiSWolsOjoBIfd1U35vojXK0ISVvqt0qSMxAD6J
+	OzlFWQKL39HQ//vT7IdjYHASj524KjBTmQnCGRSOQUqPZCoGJY93GXcrEhy4XX3PHH/54OWva1J
+	1XMSDvDvgDMU/LIrtkFCHfniFW9FbzZk6zyJggAJamw==
+X-Gm-Gg: AYBFou1QfhgNL6Z9yCQ+hrISriYNnmly9mE05g9U+BxUafCqpMIWK60SJ6egZ4GpIg8
+	LYzKGp6jyXvf64lPtCsn1NR965yLkm8z9OYTl3lGJv22gF9MA43n1EJAzdZJA8kzHPdRT2jTfmw
+	YgR435a/3Itsn7Cwi1jI/E2fGGpY4MvyhJp20beuodVEpsOMupOf4TxhxELrDiJfpdvaWeUmMwE
+	SvPNM5ihGmITQgXkZyMdVcoxgRB2WSNVUU3ODXAHmky4j2tmJ1nUlpXET5IHWtx0qHzt6yy/ovH
+	3/OPH55Cht+eogvbKnwJElGnTsqNme+kPZTRHUOAgz1F6mmpwZrJEresdug9kIV8j1dcIEREZXk
+	k5ejlEcIa/xn3N+uI/me2bTlh1tDu4GsNDFHwV0GUH94ToWurSNjBoX2BmAlP6t4mdIi198rpDf
+	vkXAHqMIfFmd4yaUk=
+X-Received: by 2002:aa7:d1d0:0:b0:6b6:face:56ff with SMTP id
+ 4fb4d7f45d1cf-6b7c0c1cecdmr1756365a12.33.1794574853723; Fri, 13 Nov 2026
+ 05:00:53 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,76 +104,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] arm64: defconfig: Enable PCA9685 PWM controller
-To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com
-References: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
- <20261113-draco-evk-display-v1-4-28a19c6aea87@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113-draco-evk-display-v1-4-28a19c6aea87@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CGME20261113104904epcas5p1546fd543fad42a61f1a70d4fd55ac833@epcas5p1.samsung.com>
+ <20261113110612.3265841-1-raghav.s@samsung.com> <20261113110612.3265841-13-raghav.s@samsung.com>
+In-Reply-To: <20261113110612.3265841-13-raghav.s@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 13 Nov 2026 13:00:42 +0000
+X-Gm-Features: AclHuK-Gujxl0bdCqN1FIJbWWs5SjHt2ToZTIgj-Ln1Yz-sYA3apmJelY48JkxE
+Message-ID: <CADrjBPoSV8uOqX2tkVyEdiZi7NEOJAb8JsxkvMqUn9+wF5Jc8w@mail.gmail.com>
+Subject: Re: [PATCH v3 12/14 RESEND] arm64: dts: exynos8855: add cmu_peris
+ clock DT nodes
+To: Raghav Sharma <raghav.s@samsung.com>
+Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
+	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
+	pokala.reddy@samsung.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 13/11/2026 11:55, Mohit Dsor wrote:
-> Enable CONFIG_PWM_PCA9685 as a module to support the NXP PCA9685
-> 16-channel PWM controller used for backlight control in the
-> lemans-draco-evk LVDS panel overlay.
+On Fri, 13 Nov 2026 at 10:54, Raghav Sharma <raghav.s@samsung.com> wrote:
+>
+> Add required dt node for cmu_peris block. Also add sysreg_peris node.
+> sysreg_peris contains DRCG SFRs bits which are used in clock driver.
+>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+> ---
 
-git grep lemans-draco-evk
-Also there is no such file, so maybe you want to use full model name?
-Qualcomm foo bar?
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-Best regards,
-Krzysztof
+>  arch/arm64/boot/dts/exynos/exynos8855.dtsi | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+> index 2e5dc79d66bc..b461de6a7548 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+> @@ -146,6 +146,27 @@ soc: soc@0 {
+>                 #size-cells = <1>;
+>                 ranges = <0x0 0x0 0x0 0x20000000>;
+>
+> +               sysreg_peris: syscon@10020000 {
+> +                       compatible = "samsung,exynos8855-peris-sysreg",
+> +                                     "syscon";
+> +                       reg = <0x10020000 0x10000>;
+> +                       clocks = <&cmu_peris CLK_GOUT_SYSREG_PERIS>;
+> +               };
+> +
+> +               cmu_peris: clock-controller@10030000 {
+> +                       compatible = "samsung,exynos8855-cmu-peris";
+> +                       reg = <0x10030000 0x10000>;
+> +                       #clock-cells = <1>;
+> +
+> +                       clocks = <&oscclk>,
+> +                                <&cmu_top CLKCMU_DOUT_PERIS_GIC>,
+> +                                <&cmu_top CLKCMU_DOUT_PERIS_NOC>;
+> +                       clock-names = "oscclk",
+> +                                     "gic",
+> +                                     "bus";
+> +                       samsung,sysreg = <&sysreg_peris>;
+> +               };
+> +
+>                 gic: interrupt-controller@10200000 {
+>                         compatible = "arm,gic-v3";
+>                         #interrupt-cells = <3>;
+> --
+> 2.34.1
+>
