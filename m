@@ -1,61 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794611089;
-	b=Ere0KFcjZzAC7F+VJzbY7m2oQH8kFmz9ZqgNevPHpXq7gZxnQGPvgOdNLHteDHvaj1/D
-	 63Lg3vNpi55AXZGA1mi/5TxppDNi7o1AkIVFyNwrqJNnh3XOzzTc6r1y6K6TYI8K6+eYS
-	 XxWb+ADPK9iVZnNKyWYDOnFtr3rHPMFTPjqtTMQgSAfJ2Nv9uGumPy3sVnMsl7/iR1VnH
-	 ofgQ9zXuiKL7zkvoPzooxHga4QuubpjvfqWU4YsDBjIS6q+NGAGNNfFSQ/H2aHJmQ+THi
-	 AXX4gREZAgA7/w+o9/3/x83/fVZU7MH6dCSs0BNR3f9lldXbbjwn2vZ8exT6eclzFqA==
+	t=1794612954;
+	b=QMNSIn2AO006lUoepbETOMb//bzVY4tx/1tM+47OjF/QfBagYR3XS/gkdX3d3Qjg7WIy
+	 ltbAU/V4JcoekorOFPumBZeo8legbSjukYTdUHxhCRzykqYoHnKuN/8DtrifagjIiAQ1L
+	 9CbPIm3IVm/pv7n7OBrW/QdCIPYya4ZDsPJd++8WNMAtWNE+48wxnSdyz26XlevFwM5W/
+	 3QzliW6uXraHO7uq4k0TZtMjGBWKPCI8EIY0nQB3q7La5o9UCXlqFSSBj2btpcPjXDfYt
+	 C4DUfYv+/tQLjTvjSLGYMIpgIBEH4HqFvaPVya4JguQZEk3xE88ppB9B7MoeJoNvIQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794611089;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Krx13oDhrRUsMiTIZ62Zs/3Dq6U/Cu5IlVxvdunMvxk=;
-	b=lpioSKyuWMZeMmiaXrd6l/PvuIc00XNrH6Q8o8HPV68c76EQm9qStce8J67VG3kT6bAL
-	 ++sADdgaTk6qSZ4Lm7YtJztwseY/cm5bA4PJmF4EPpHRepTPKlVJytp1ofrgcuQHb+wez
-	 /KBo7qmZ6fG9yElZgWyo3D90sp2km1Vr2d1qchI0EKmUJkC06/IlicGDe49ZllNIBiYp6
-	 eJZ6YR2zhszS0g8TS/+HpSbM5SAT3MiOZisRurbMXCYt0JtGnDFitTue9eslheGAw1QvI
-	 eplsyq47GvoHQ7o6DS3vkDNfNOKsEzI5df+apsXfUJkcANv8NA9t9PT8vYkO3NkB7zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612954;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=SwJd2Py1hwLAkVWbC1tuBf/N4RS+TrQ8utxzBCwMfb0=;
+	b=FQ3bZ/mwvM9lMZ15/ZKtqGHswB2eQ6P4ZJsS5OIIMhKli+g/ewi21qP4BIAAZSGXTen7
+	 Aso9Ys3w8nemacMFYxRcvIKMZj48DEfa4sg+F4NsKYq2pg+pQX9pM8xm8FmpCiRAXg6j9
+	 GKH2mGBpg8WPAMmDCMyJxO6LFposl0a78gCHnhfYcVg1zkGjyllFlb5NdfegeW+RSLvrO
+	 egL+KnHRizoAHR/iHWYHWf9vLr2+FVKFAaKPa+wvzP4xFaQ8xFOaZxzscYu4vap6ifRw/
+	 RGnZmRdxu920wSlWFx3G5b77WHcCGWuFRu60oisRvECkFUtkzxK0hZPFyTS49GTttRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asub0Id8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=QCOUxpI+;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95555606A335;
-	Fri, 13 Nov 2026 23:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B587F606A32E;
+	Fri, 13 Nov 2026 23:35:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B587F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asub0Id8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10F31F000C4;
-	Fri, 13 Nov 2026 23:04:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794611089;
-	bh=Krx13oDhrRUsMiTIZ62Zs/3Dq6U/Cu5IlVxvdunMvxk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=asub0Id8uKMir4Sbcs1fqGd5cRgvs415DyEMt8ueIxeyAQm4hoQXX/auX2Tljs0Ca
-	 rvedxqjQ9YCTY0jMhe54wXZAPVQvzX8d5vhvdi+ySKZi19dLCkxBXTwDClZzGoYlQk
-	 20Z3lBw1+2z0KkLN7Kk7J9XUiYAtd/mEeKZV8gTdBJgHiou+saGr2PapavicypGw9r
-	 BrjGCZman0b8Nvk4p7Gu9rVgXs2FfrwMzxGq2bCIZU+/E3EJUjV20RxbTtbYQe+dN1
-	 X1RLNiu8XOeL9zs9/KB7ZmQrJOojCl8BEnPpp8wkl8z+LfOeIyAVISOVRbswT/y8hm
-	 AcakntsBaFm8A==
-Date: Fri, 13 Nov 2026 23:04:46 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, spacemit@lists.linux.dev
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: k1: Correct missing space
-Message-ID: <20261113230446-GKA67791@kernel.org>
-References: <20261113185214.182695-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20261113185214.182695-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=QCOUxpI+
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 962D510E82A;
+	Sat, 14 Nov 2026 00:35:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794612947;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=SwJd2Py1hwLAkVWbC1tuBf/N4RS+TrQ8utxzBCwMfb0=;
+	b=QCOUxpI+NarMDypkl+ZoWqpecl86onLiTCg0GHwYAECMLhG0eAe8/nTgT9b2pdygvS59CY
+	uZnlIg0WjuYyIV56Y/jkO3xZTCWTJPjSFy4nSQ2sjIv9Swly9Neh5navjUViVCOs8OuixI
+	YARv2L0R/UXVNd/NiArPzexTaBlX2oQQsPGkzbPjMlKxQmpGfP5WmFPsMC6wreSfSrJdtF
+	R7irg1qXBw0NPcXULvieSnWNEIuilUURPd9isf4Rero6uP5EwV9JPnVJcTIjClqYpdgR6J
+	6tCDBk8b7E2nC+d8vDyDpRKQZzedKQl/zeQudM30+/Y0uL0/L7BN2vhO+/HzYw==
+Message-ID: <941bcf61-82f5-49fa-ab38-2bca3deb05f4@nabladev.com>
+Date: Sat, 14 Nov 2026 00:34:47 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,34 +56,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113185214.182695-4-krzysztof.kozlowski@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: st: Move Bluetooth to USART2 on STM32MP23xx
+ DHCOS SoM
+To: linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20261026125201.76716-1-marex@nabladev.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261026125201.76716-1-marex@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Krzysztof,
-
-On 19:52 Fri 13 Nov     , Krzysztof Kozlowski wrote:
-> Correct minor style issue around white-space - missing space.
+On 10/26/26 1:51 PM, Marek Vasut wrote:
+> The Bluetooth chip is connected to USART2 on STM32MP23xx DHCOS SoM,
+> adjust the DT to match the schematic.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k1.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> index 542bfc0d19f5..5d5f7f8a393d 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -948,7 +948,7 @@ pdma: dma-controller@d4000000 {
->  				resets = <&syscon_apmu RESET_DMA>;
->  				interrupts = <72>;
->  				dma-channels = <16>;
-> -				#dma-cells= <1>;
-> +				#dma-cells = <1>;
->  				status = "disabled";
->  			};
->  
-Reviewed-by: Yixun Lan <dlan@kernel.org>
+> Fixes: 6642d6a47901 ("arm64: dts: st: Add support for DH electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
--- 
-Yixun Lan (dlan)
+Is there anything to do regarding this fix ? It would be good to include 
+this in 7.4 before it is out.
