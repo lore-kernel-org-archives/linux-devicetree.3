@@ -1,65 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535172;
-	b=C4OoT426TjYUj421Fdcv13DW5Ow0H0MCInQr3S3kZbFNtI85Ydg9+NbZZBlqFfrzNLWv
-	 /J/PaGePrEnLR3GMVGRdrEseE+UMues1sjAlZSNrfPVeKxpQk8INZh5FK9+gB6mvSUm4G
-	 uTX5oBNcnfmqsQHYkSqnXDwoZgnghqzJ2b+05i94iUQvoI46EKEIdzpHWC9+pY4+48CK6
-	 4HyMb5MqfqbYiz6DqDYuInP5EMhF3Ds1xb3OWkg4LP+Nh6db1zwIVN7t/yAez20steFFH
-	 hC+0RCMHEYBoHn5W/T1vkOblxzCFN/kj3FS6lCoYUpqoDR4nHQRUdjPtDbBbI5N22zQ==
+	t=1794536125;
+	b=aaRvIfcnxExn4FH9AeHfbZz8nRSjp9Ij8yO2QY1h04GXofBCA9vr4TeGK6dKpftmS/XT
+	 pqV69M4Ms92BkcpJixOxyIGZGb3EfMufmTK+zN5QMc5oVF5rfXuss/nlu6KnulcjKTdNo
+	 Nez9cCsZnPKporv4/RpygH9fqLrZhDF9ocNkYR6y/APAV5GWbmS7IxN5EXJyX2BzbVep9
+	 dGyOoOXnUaNstceBkW/RgvJFKJ2HTSY7+oq748QJp6O8w80xYAeOsbHWMaRiZowgvH8lG
+	 hOSeiuFK72sBq6tMuRFUyIA0L3cDAAHWgoXQ4lYxLVZvlmI47q/Ncwvlr2COUWZZ/FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535172;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=B3TZduTnFzChcHGfYfZGHRmxnY1aolOmHvj30T88wh4=;
-	b=XUXZscWqB90Uu2iRLPWm1/i0gcd6GC23BD9M8NI3hkEc1DEKYFb9OsAj9DBNt2c6qDNq
-	 kkayAvfOzmh1MY/pNCN2j+xrzxznr9IXvHFZ/CadqGWSbhJUAgUmTX6qi6/lCBt6PuJCR
-	 nQ4hc3Jaef/JfuV6VNZbumfm1b1Jz+KG77W8HeUZlzSsGgruT5EoQUR54XqV/ZXs4Ng2J
-	 340VO+z+e4YuPKELpI54TIz4uD/lTSot70XKaXkiaGL8pBKt+052vw8WoG0mm8D+Df8BG
-	 IhO7SXxubjzHFlMmX7CIPljhiWZRbxq/5msY9IpPmEqwDyaQ2Dv9YAov2RwvDFRMB1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536125;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=1GtwLE2dW7ZsjXW/2HfhRMJDb/gDxI8w5UnCKK1RLMU=;
+	b=E8juTPlpJeKTpnaB4okofNCEd4vChX247q9q96YTKv3DpUfG305mwhF+xGOOOTkkiRn/
+	 avnUhWsX0DYMfG+PjuCBqvm5of1F8tnHV7xFvWx6Qp4ek98fBeQ7g5vkNLG6z41fYek1H
+	 jsGfY358MdbmN+33ySISv/+WjoszB20f7PA5YUH7zMrKLdmmAlzTVak8W6t3JmPB9mrAM
+	 kkmA1heI62FYd3uB50TEb6YQ8x5Fh3t6AspCeHQoMfNR3+SH7SdyntP0K1JItxChVFlYi
+	 VVJMdojdCtkq+SQ1rENp+t31Lzkaq9g1UDbEu2vJrZkoKZG8TDG5A5I79/mjKlLEEKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJtPH+Hu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="i0tdbp/K";
+	arc=none smtp.remote-ip=47.251.158.250
+Received: from mail-m158250.netease.com (mail-m158250.netease.com [47.251.158.250])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F187606A31C;
-	Fri, 13 Nov 2026 01:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF9C606A32D;
+	Fri, 13 Nov 2026 02:15:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF9C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJtPH+Hu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FDB1F000C4;
-	Fri, 13 Nov 2026 01:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794535171;
-	bh=B3TZduTnFzChcHGfYfZGHRmxnY1aolOmHvj30T88wh4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZJtPH+HuttCaLSL5bTWc5HpRiOYvBtGXoHMqgof5AZ+sEI0dZb431ygMgMQ5rPowq
-	 H++BwoQzN5ON489nM5N+yGtnjTzpPCmcKq4ukuNLRODNJSfT1zFjY02dJRgOdkq1DW
-	 +RnXyaNcrWzjysibtdgsrxtXnYwlWb19l9WuJX2T1z2lWIBwDkzwH6D5LLoCa9TMoQ
-	 jOfFFJMp+B+2EQIfr+1AkCPiBlCNHKza+pexxxt0n0UhzvujEH1mP5BRC0Qb9P9gHe
-	 6NCecFcdJir1/tk49DfAF4o11rpCWZnoKDHmyRnIBWPmDVhHuEVRYATAyaIu+oJGRg
-	 5rWrB0EbpSk8w==
-Date: Fri, 13 Nov 2026 01:59:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Marcelo Schmitt
- <marcelo.schmitt1@gmail.com>, Chris Morgan <macromorgan@hotmail.com>,
- "Joshua Crofts" <crofts@kernel.org>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/7] Add support for InvenSense ICM-42370-P
- accelerometer
-Message-ID: <20261113015928.7a691cf1@jic23-hlaptop>
-In-Reply-To: <20261112-b4-inv_icm42370p-v9-0-875c828a281e@axis.com>
-References: <20261112-b4-inv_icm42370p-v9-0-875c828a281e@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=i0tdbp/K
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54857d4c9;
+	Fri, 13 Nov 2026 10:15:12 +0800 (GMT+08:00)
+Message-ID: <b961a36f-e7ef-498c-ac4d-efe90f76e289@rock-chips.com>
+Date: Fri, 13 Nov 2026 10:15:09 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,27 +48,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
+ EVB1
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
+ <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
+ <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
+ <dd25880e-be2d-4adc-8384-fa4a7160a4df@rock-chips.com>
+ <CAKTNdwGHS5M4yNKEqfKV8hEJRAYf3wnY1Z6jOWQx7e4cipTF9A@mail.gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <CAKTNdwGHS5M4yNKEqfKV8hEJRAYf3wnY1Z6jOWQx7e4cipTF9A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1d2b0016003a7kunmdd9bb254ad509
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhlMVhgYSBhLSktOGhhDT1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=i0tdbp/Kds+rR0Vm/TwItaI+X9++Dl3d3CwCBEFhKDTwiVN2vyiHG5m6TEngBlzppXetupZmxmqDOdz8y12q3NvIHKrGYg8GNBBJxV2g3TNRRBC6SrxEE21pZ9V3lkPpfgwQQjmRPHxETdKlSsbiocadM+SWMj27RiYnYsfFObw=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=1GtwLE2dW7ZsjXW/2HfhRMJDb/gDxI8w5UnCKK1RLMU=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, 12 Nov 2026 15:29:26 +0100
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+On 11/12/2026 9:25 PM, Alexey Charkov wrote:
+> On Thu, Nov 12, 2026 at 5:01 AM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
+>>
+>> Hi Alexey,
+>>
+>> On 11/11/2026 6:45 PM, Alexey Charkov wrote:
+>>> Hi Chaoyi,
+>>>
+>>> On Wed, Nov 11, 2026 at 1:31 PM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
+>>>>
+>>>> Hi Alexey,
+>>>>
+>>>> On 11/7/2026 1:52 AM, Alexey Charkov wrote:
+>>>>> RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
+>>>>> controller and a fixed-voltage VBUS supply.
+>>>>>
+>>>>> Describe it in the device tree, including the wiring for both the USB and
+>>>>> the DP side.
+>>>>>
+>>>>> This makes the data roles follow the Type-C port's negotiation, so the
+>>>>> port stops being host only. It also leaves the VBUS regulator to be
+>>>>> managed by TCPM instead of being hardwired via the tangentially related
+>>>>> phy-supply on a USB controller. DP lanes are also muxed dynamically by
+>>>>> the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
+>>>>> lane muxing also goes away.
+>>>>>
+>>>>
+>>>> Have you tested this? As far as I know, dw-dp driver does not support
+>>>> Type-C HPD yet.
+>>>
+>>> I did - it works fine for me under Linux with Sebastian's patches. My
+>>> primary motivation, however, was U-Boot, where the current phy-supply
+>>> hack breaks USB data role switching, due to VBUS being forced
+>>> always-on. With this patch it works, and now the DT actually describes
+>>> the hardware, as it is supposed to.
+>>>
+>>
+>> Oh, I almost forgot about that. I think it should be this patch series[0], right?
+>>
+>> But I think we probably need more than just this series, because
+>> richtek,rt1711h does not register the HPD bridge, so we will get this:
+>>
+>> [   14.828983] auxiliary aux_bridge.aux_bridge.0: deferred probe pending: aux_bridge.aux_bridge: failed to acquire drm_bridge
+>>
+>> Maybe you have already added the corresponding patch yourself?
+>> Another option is to use the generic AUX HPD patch[1]. :)
+>>
+>> [0]: https://lore.kernel.org/linux-rockchip/20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com/
+>> [1]: https://lore.kernel.org/all/20261020072816.180-1-kernel@airkyi.com/
+> 
+> Yes, on my daily-use branch [0] I've got a local commit enabling the
+> HPD bridge specifically for TCPCI (69b7c806b334). But that's all
+> driver territory, so out of scope for DT discussion ;-)
+> 
+> [0] https://github.com/flipperdevices/flipper-linux-kernel
 
-> InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
-> accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
-> FIFO and two programmable interrupts with support for ultra-low-power
-> wake-on-motion support. It has a built-in temperature sensor. This
-> patch series adds basic support for the sensor with functionality of
-> performing raw reads and writes via the I2C interface.
-Applied to the testing branch of iio.git.
+Great! Also worked for me.
 
-I'll let it sit there until sometime next week and if all looks
-good then that tree will get pushed out as the togreg branch that
-linux-next picks up.
+Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-In the meantime, last minute tags and feedback can probably still
-be handled.
+-- 
+Best, 
+Chaoyi
 
-Thanks
-
-Jonathan
