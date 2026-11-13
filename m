@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597253;
-	b=z6OgkNK8Hd5uqjYS6VmbnS7X+DrD5OOilrzgDVZVq/CPRAhXqQnwBv9OrvTYWSlyQWkv
-	 9PY3qiQaY6Y9stpn61egCwOU3L5tCyI/4HqpyaBqMtYO+pBaI8/EpcIiRNXkQo1YyCRl8
-	 +mL06Eah7/d+xHf6XxtdKqUwBF6dC8KABbSBkDf+XYZkhihFOtGBEjyHJsWmP8izyst0U
-	 Waqo0xsfzFjH5Bzq/xk1vsczwMjzTQAFfgFHn/TH5thde6y4CLQN00hmZx+xnycWI9+uu
-	 1x3rOguETzyI5G57U6kvmLgsokKyCMLwcFSlQiL3uhWVYepkIxrEWePrvUYXgHcZvBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597253;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3dfOJhNa1GUb5NUr+WMQKiKJyqNmDJduyIjSRQWgD50=;
-	b=YkEJKk4FJPqevT9Pt8Nr8FOJw1fTUPz/q5nWYquVVOpX1UnRwroywSteX3BrhYqR3Tjf
-	 tnO9yDN735UnjI2w9/hhtp70OA/xa8oPbvY237psN5SkpPRMsIlEtZ36xxOuCHAX9bxrJ
-	 NU9zeSUAG52Li+5i+NNNJybUuc0mTerw7kjjzSRKL1zHkSZiek4w/Inv1PkN/MuGhKkHr
-	 +Z80vHIH9S4+tQ27PCUjIvCrx/ce1K/boOXFKRl+kEvrwZ1RRuz4NDsFK/yh/2Le8F/XD
-	 FiRFPl0feFEt5L6F5krX53W+tW+1K+7qjokWazXx0nXUDXHhU/sXu16bRab+iL20JGQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqTWNN11;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794597300;
+	b=MaEHjXFIORm1eCjLYwG/cLRNx1pwwWACPchm0RPJJadYXZxc2Y98npePjEJNPL6ODy3h
+	 Js2p1d8kzo57CIMz94zlnL7BvdexX3puYpHM0ovYc468p1OS4qZNsm/dP5bbVQnn86fJz
+	 z6EyzK6spycRGcxENzyaDJePYKQBkaVyGG8oSjklMyn3wYMM9N+VBz8no6zE+MbQz7hdg
+	 2rhVbt2b4xvGnv73OPnZobj6kqkw8Zn4hjH8IavyCHbtV2XsG72+pLcqJQ6F/af2TsE9w
+	 BBMjBuUUkVU2d1qCvsUzm7Q8TspliMa3EmGRve7iOB3HZgG9/XmiMorNeFK0CJ2b+zg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597300;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
+	b=xgTtRUfpsfPnQc2C42HV7t0MOXLhLRlM6N8tjGgtquKOZLduWHbbxzS4uE8xfHseYHdq
+	 1Slz/NJARG/3Iu7k4XWQIk6EmN57ytc/NacZT5HtN84zJ4kuPJKnyVI3ZVFtFSZ+EeaDS
+	 HWQlh3hnIRzbu/R1r9jQIQb5wDViltdANXL5OO7eaUcA7wFOzcMTTuxgBQnBiW66rkr96
+	 z5iQOiop1Da1LaknT5GdQ7kDFxTLMj66wumW1M+mP8+cqOLClqwl1BYO9kVad/o+5zbYm
+	 U4FT0nxeEMcbOiH3j/8YvYizGuk09SPqx+d6btezQ1F2lQxXmcO7EVIyVIic5skxyFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NxInhMNU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541EF606A898;
-	Fri, 13 Nov 2026 19:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1F5606A334
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 19:15:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E1F5606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqTWNN11
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968F61F000C6;
-	Fri, 13 Nov 2026 19:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597252;
-	bh=3dfOJhNa1GUb5NUr+WMQKiKJyqNmDJduyIjSRQWgD50=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EqTWNN11lCrzxr2oyb0hHn8pbqpX2nguyqqDNKqpLUPnybPuk0udEkdxJWcvrMmpQ
-	 tWnIx6bLg3qdp509Ttv/iX1lYShwZ9BfsCsaBXnbLrdOoIFLIabgYp8c6ZeqCQr1eS
-	 BXdtjc9Jj1d/AA8N30mMSBkeDmd3QoFt6M/g0vz3CjeXUN/bhcJRJQxkoiNPHeSKQi
-	 IN12uZcodD6OvPFMhTmvXZC02VGPez+PPxfXSN3eFk1dE7zY7LalnYZgTWTb3e6m0d
-	 YXlhTiEXK5/EWvlZ40t7iwsG0S3sRsjiyGx3TFwG8309Q14ep2L46lPkX66KOO9FIC
-	 mdrj4skqqgmxQ==
-Message-ID: <sashiko-outbox-213528@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 02/23] clk: qcom: add SM8650 LPASS core & audio
- clock controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-topic-sm8650-el2-v1-2-5183f6aab9fc@linaro.org>
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-2-5183f6aab9fc@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 19:14:12 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NxInhMNU
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67be7b9abc8so1105017d50.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 11:15:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794597299; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GGU6vErIDGT/wzneTQrqxEnnpuTzNrhhlXqkusYgTSRyVFMAGzxxqrgJ8uw6bx2zYP
+         11xF6v1EpXTwBa0pIHzRevXFTY1UrAh7n26obhfeP1ixCUIuSbfrqjbjFjkNfmGNiqnM
+         dpLXJPHKgZM3zjZq4eE3IF7KkOJk/ko8cvOvfE7Aqp6tsArShheh7bJYdCMb75z3QdLd
+         JVri5FK23FxNLXFm9uUo9/eG1y7CY9w5PAnjqDFC7aDNdQjknuNXbE8kXyaT41roEo+K
+         5kqViCnL6DmRRMeUEw1tgOgxkdMo2aGBpuVlCUF6PE2sBERYqnmA69magIIOTeX02X1s
+         gCGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
+        fh=00NZ5uP+v0cLv8KiaODn0AcR36zpJeIisIY/qMWiUBg=;
+        b=NRH2U7qRo6h5V7laB6YlVWSfAGOw45r7gyWHFStsIk603kHFKamxR4yxB6/+JnjgO1
+         m2qXK6iHB7Ho2fRB1mh7EvIBAwN4HrNmZMJP2WEejEARn0vzrkQ6c2sLDa2S6gPe5nGi
+         SjBV2QdcHqh7F7c9f64TwOZR6WNojY7HxO5WHKGAFgVzc+rSaUoNDlYth7lpxWtdRGEP
+         nBUObCteHah7/1UHznTbKQc+IdqAEQzpnw9izjbtJjEsvY1TO/cZruMuVDkmJc7a+uWy
+         1zh+mS1wqSUSTi/6joAJ5KIHiEsWe5/3LQUusHDJgFckojwNZclvgelp3a9f9+lmBDM8
+         6Heg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794597299; x=1795202099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
+        b=NxInhMNUsk1V/GHuk1KJEYz7215Gz/JpAe8IOmddxaqdRdV3SRBV6i4ekftDaqb5kM
+         aNmI8zGb87pgvjwzaq6B89gecxVmqqFLzJusRJwwA3OwsIbA7BuQYtGaP4A8sNt2kleZ
+         NyW/BoJyCMWS3aBm3XxNxhxB0a8kUb9niJY76q1Z01Fj89zGHdS3otf2dIInzkQ6dwgY
+         zPx2UsPTrqqDaAYBr1oYlOxUYjfbGzKIBzmWbo7NkAr6Af2D+gpiKLvLSJOG7P+9uVfv
+         G8kpWf+CLRYJcUAj9aYqW2QJGz5ZH38aJ7wMXHvqEbRl72V9Ut8yE2FpGX0/IdgDmid7
+         SmQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794597299; x=1795202099;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V4Lkji1HX8R+QyAlAik1p8btRedCNisoSjayriZIZjc=;
+        b=Ky7/JA9Mzj5nW3uJJQNZ+ASf+sVhILSigf9oXnAXrdcc8c7yhIyLMxnMYrb/uOv64R
+         q6AJqZIoFx0zbUdByikAhLk+H8jVKwWhRSUpaF0vRvD4tqXufSePqSqNAYfTc6oaNUUD
+         O6oIJWqC44YDhRUQmRZL1N1aRBBw8my7ch89F1G4zoYlIDGmFrUiG/NSYvCG7q2QCC4L
+         VRNWljvSWSW+5FfWIPqXeiQfS8h/pN23x+ZCECOLLaNurHyJzMC0CXrYAakqkODki7UE
+         1svOywm6s8iUdw4J5gvG4yCuG1N5p3+YxXmIpzlIopMN5LMfI8/jgmT2yVHXDMa6MzJO
+         xxrQ==
+X-Forwarded-Encrypted: i=1; AL+hErE4SiCK4L8oaEEwREcFlzWce4WAdH7z4xB3BTTjfJBlwTeFSiNzgvnFbKmBjh+ETNWjKmTFLroy42iJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Rjus9EcPXeJ67f/eVK4oSw6OU12SSXxbPNyjqRJJLHZdtPAUr
+	ICAjAwPTcaA9TOAUj+tx4cpgrmUc6D8zaK5RPqrUStrf7Y3NKTxOzijijeJBP8Qk/pxs3XK9TFZ
+	GaIafyBJvP3UQDv03PZhxDO+h3M4zfOw=
+X-Gm-Gg: AYBFou1nq1HfEQjI6YaLL87d9nYyHfpFFHivlKCCcvagSqMdGK8uY5EEMxQXrfS1lSH
+	SqUxP/JfihEWBKHn/GnFk5VpPVaWW5Uv2ANs/ktT2uADpeQ6njA+sfv1ZMGgiFvAGCGqlYnpJ6A
+	xOljL/t/kknFwqpOZhR5UTvwJfg8nJ2+I1Itv3OivAdyZ0XQHHpK+/JV9a/qbi9rgP/UnV2DjmC
+	ljVGUN9DwpsKuU//Pdk5Cx0vOUOraXIvgm+Wilhdfpw8dEoQmy3W7kyJWqeSDqjhb/Ia0VjKo2k
+	L4KSEVyt1EB7iX7/MHhlzetvu6SOMbmja6QiZubl349FVT0Nae1ljXoYmTcgQdCUqpDv8IheXIt
+	++rTO+Bbh3WwDpbVvivfxTFk7SQRoZovMxknKLw==
+X-Received: by 2002:a05:690e:1188:b0:67d:98b7:8861 with SMTP id
+ 956f58d0204a3-67d98b79810mr345876d50.48.1794597299405; Fri, 13 Nov 2026
+ 11:14:59 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,247 +103,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+ <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com> <20261111004732-GKB2005@kernel.org>
+In-Reply-To: <20261111004732-GKB2005@kernel.org>
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Fri, 13 Nov 2026 20:13:00 +0100
+X-Gm-Features: AclHuK_kboH0z5fWoPol696e94WfTnxywiDJDP5pOyMB6ipnYxJpzrLU0NPVDpw
+Message-ID: <CABdCQ=MPPuTQ-3aCds7F6C1AZ2c79HVJXGjtqN9_jHpKo+0E2w@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device node
+To: Yixun Lan <dlan@kernel.org>
+Cc: Alessio Belle <alessio.belle@imgtec.com>, 
+	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] clk: qcom: missing pm_clk setup for iface clock in
-  lpass_hm_core_probe()
-- [High] clk: qcom: wrong DT clock index for BI_TCXO in
-  lpass_core_cc_parent_data_ao_2
-- [Medium] clk: qcom: missing driver unregister on error in SM8650 LPASS
-  init functions
-- [Medium] clk: qcom: wrong postdiv clk_ops and user_ctl_val for
-  lpass_core_cc_dig_pll
-- [Low] clk: qcom: dead code, unused declaration, and unwrapped pm_ops
-  in SM8650 LPASS
---
+Hi Yixun,
 
-commit b45bde29cb5ec941ad6de37d77c22a656fbda080
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+El mi=C3=A9, 11 nov 2026 a las 1:47, Yixun Lan (<dlan@kernel.org>) escribi=
+=C3=B3:
+>
+> Hi Iker,
+>
+> You could drop "RFC" prefix next time..
+>
+> This patch generally looks good, while note that it has to
+> wait for power domain to be kicked in
 
-clk: qcom: add SM8650 LPASS core & audio clock controllers
+That makes perfect sense, I already noted it in the cover letter and
+I'm fine waiting until that one is merged.
 
-This commit adds clock and power domain controller drivers for the SM8650
-LPASS HM, core, audio, and AON blocks when running without ADSP firmware.
+>
+> On 20:56 Thu 15 Oct     , Iker Pedrosa wrote:
+> [...]
+> > Disabled by default; boards enable it individually.
+> >
+> As GPU is integrated within SoC, I'd rather see it enabled by default,
+> so will not only one specific board befenit from this patch,
+> besides, I see no reason why people should disable it by default?
 
-> diff --git a/drivers/clk/qcom/lpassaudiocc-sm8650.c b/drivers/clk/qcom/lp=
-assaudiocc-sm8650.c
-> new file mode 100644
-> index 0000000000000..636ce9a1b3451
-> --- /dev/null
-> +++ b/drivers/clk/qcom/lpassaudiocc-sm8650.c
-[ ... ]
-> +static struct clk_rcg2 lpass_aon_cc_ext_if1_clk_src =3D {
-> +	.cmd_rcgr =3D 0xb004,
-> +	.mnd_width =3D 16,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D lpass_audio_cc_parent_map_0,
-> +	.freq_tbl =3D ftbl_lpass_cc_ext_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data){
-> +		.name =3D "lpass_aon_cc_ext_if1_clk_src",
-> +		.parent_data =3D lpass_aon_cc_parent_data_0,
-> +		.num_parents =3D ARRAY_SIZE(lpass_aon_cc_parent_data_0),
-> +		.ops =3D &clk_rcg2_ops,
-> +	},
-> +};
-[ ... ]
-> +static struct clk_rcg2 lpass_aon_cc_tx_mclk_clk_src =3D {
-> +	.cmd_rcgr =3D 0x1b004,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D lpass_aon_cc_parent_map_0,
-> +	.freq_tbl =3D ftbl_lpass_mclk_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data){
-> +		.name =3D "lpass_aon_cc_tx_mclk_clk_src",
-> +		.parent_data =3D lpass_aon_cc_parent_data_0,
-> +		.num_parents =3D ARRAY_SIZE(lpass_aon_cc_parent_data_0),
-> +		//.flags =3D CLK_OPS_PARENT_ENABLE,
-> +		.ops =3D &clk_rcg2_ops,
-> +	},
-> +};
-[ ... ]
-> +static struct clk_branch lpass_aon_cc_tx_mclk_clk;
-[ ... ]
-> +static const struct dev_pm_ops lpass_audio_cc_sm8650_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-> +};
-> +
-> +static struct platform_driver lpass_audio_cc_sm8650_driver =3D {
-> +	.probe =3D lpass_audio_cc_sm8650_probe,
-> +	.driver =3D {
-> +		.name =3D "lpass_audio_cc-sm8650",
-> +		.of_match_table =3D lpass_audio_cc_sm8650_match_table,
-> +		.pm =3D &lpass_audio_cc_sm8650_pm_ops,
-> +	},
-> +};
-
-[Severity: Low]
-This isn't a bug, but the `.pm` assignments in `lpass_audio_cc_sm8650_drive=
-r`,
-`lpass_aon_cc_sm8650_driver`, and `lpass_hm_sm8650_driver` do not use
-`pm_ptr()` (with `RUNTIME_PM_OPS()`), so the `dev_pm_ops` structures are not
-dropped when PM is disabled.
-
-Also, `lpass_aon_cc_tx_mclk_clk_src` has a commented-out `.flags` line, the
-forward declaration of `lpass_aon_cc_tx_mclk_clk` is unused because the
-following clocks reference `lpass_aon_cc_tx_mclk_clk_src`,
-`lpass_aon_cc_ext_if1_clk_src` uses `lpass_audio_cc_parent_map_0` instead of
-`lpass_aon_cc_parent_map_0`, and `lpass_audio_cc_sm8650_probe()` and
-`lpass_aon_cc_sm8650_probe()` duplicate the same `pm_clk` setup.
-
-[ ... ]
-> +static int __init lpass_audio_cc_sm8650_init(void)
-> +{
-> +	int ret;
-> +
-> +	ret =3D platform_driver_register(&lpass_aon_cc_sm8650_driver);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return platform_driver_register(&lpass_audio_cc_sm8650_driver);
-> +}
-> +subsys_initcall(lpass_audio_cc_sm8650_init);
-
-[Severity: Medium]
-Does `lpass_audio_cc_sm8650_init()` leave `lpass_aon_cc_sm8650_driver`
-registered if registering `lpass_audio_cc_sm8650_driver` fails?  When built=
- as
-a module, failing module init without calling
-`platform_driver_unregister(&lpass_aon_cc_sm8650_driver)` leaves a freed
-`platform_driver` structure linked on the platform bus list, causing a
-use-after-free.  `lpass_core_cc_sm8650_init()` in `lpasscorecc-sm8650.c` has
-the same issue with `lpass_hm_sm8650_driver`.
-
-> diff --git a/drivers/clk/qcom/lpasscorecc-sm8650.c b/drivers/clk/qcom/lpa=
-sscorecc-sm8650.c
-> new file mode 100644
-> index 0000000000000..4f91ab0d772ec
-> --- /dev/null
-> +++ b/drivers/clk/qcom/lpasscorecc-sm8650.c
-> @@ -0,0 +1,509 @@
-[ ... ]
-> +static const struct alpha_pll_config lpass_core_cc_dig_pll_config =3D {
-> +	/* 614.4 MHz */
-> +	.l =3D 0x20,
-> +	.alpha =3D 0x0,
-> +	.config_ctl_val =3D 0x20485699,
-> +	.config_ctl_hi_val =3D 0x00182261,
-> +	.config_ctl_hi1_val =3D 0x82aa299c,
-> +	.test_ctl_val =3D 0x00000000,
-> +	.test_ctl_hi_val =3D 0x00000003,
-> +	.test_ctl_hi1_val =3D 0x00009000,
-> +	.test_ctl_hi2_val =3D 0x00000034,
-> +	.user_ctl_val =3D 0x00000000,
-> +	.user_ctl_hi_val =3D 0x00000005,
-> +};
-[ ... ]
-> +static struct clk_alpha_pll_postdiv lpass_core_cc_dig_pll_out_odd =3D {
-> +	.offset =3D 0x0,
-> +	.post_div_shift =3D 14,
-> +	.post_div_table =3D post_div_table_lpass_core_cc_dig_pll_out_odd,
-> +	.num_post_div =3D ARRAY_SIZE(post_div_table_lpass_core_cc_dig_pll_out_o=
-dd),
-> +	.width =3D 4,
-> +	.regs =3D clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
-> +	.clkr.hw.init =3D &(struct clk_init_data){
-> +		.name =3D "lpass_core_cc_dig_pll_out_odd",
-> +		.parent_hws =3D (const struct clk_hw*[]){
-> +			&lpass_core_cc_dig_pll.clkr.hw,
-> +		},
-> +		.num_parents =3D 1,
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_alpha_pll_postdiv_lucid_ops,
-> +	},
-> +};
-
-[Severity: Medium]
-Should `lpass_core_cc_dig_pll_out_odd` use `clk_alpha_pll_postdiv_lucid_ole=
-_ops`
-instead of `clk_alpha_pll_postdiv_lucid_ops`?
-
-`lpass_core_cc_dig_pll` is a Lucid OLE PLL, where the FSM vote bit lives at
-bit 25 of `user_ctl` (`clk_lucid_evo_pll_postdiv_set_rate()`), whereas
-`clk_alpha_pll_postdiv_lucid_ops` checks bit 20 of `mode`
-(`clk_alpha_pll_postdiv_fabia_set_rate()`).  In addition,
-`lpass_core_cc_dig_pll_config` sets `.user_ctl_val =3D 0x00000000`, so
-`clk_alpha_pll_write_config()` skips writing `user_ctl` and never programs =
-the
-odd post-divider or output enable bits during PLL configuration.
-
-[ ... ]
-> +static const struct parent_map lpass_core_cc_parent_map_2[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 1 },
-> +	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 2 },
-> +};
-> +
-> +static const struct clk_parent_data lpass_core_cc_parent_data_ao_2[] =3D=
- {
-> +	{ .index =3D 1 },
-> +	{ .hw =3D &lpass_core_cc_dig_pll.clkr.hw },
-> +	{ .hw =3D &lpass_core_cc_dig_pll_out_main_div_clk_src.clkr.hw },
-> +};
-> +
-> +static const struct freq_tbl ftbl_lpass_core_cc_core_clk_src[] =3D {
-> +	F(19200000, P_BI_TCXO, 1, 0, 0),
-> +	F(51200000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 6, 0, 0),
-> +	F(102400000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 3, 0, 0),
-> +	F(204800000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 3, 0, 0),
-> +	{ }
-> +};
-> +
-> +static struct clk_rcg2 lpass_core_cc_core_clk_src =3D {
-> +	.cmd_rcgr =3D 0x25000,
-> +	.mnd_width =3D 8,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D lpass_core_cc_parent_map_2,
-> +	.freq_tbl =3D ftbl_lpass_core_cc_core_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data){
-> +		.name =3D "lpass_core_cc_core_clk_src",
-> +		.parent_data =3D lpass_core_cc_parent_data_ao_2,
-> +		.num_parents =3D ARRAY_SIZE(lpass_core_cc_parent_data_ao_2),
-> +		.ops =3D &clk_rcg2_shared_ops,
-> +	},
-> +};
-
-[Severity: High]
-Should `lpass_core_cc_parent_data_ao_2[0]` use `.index =3D 0` instead of
-`.index =3D 1`?
-
-`qcom,sm8650-lpasscorecc` only has a single DT input clock (`bi_tcxo` at in=
-dex
-0), as used by `lpass_core_cc_dig_pll` and `lpass_core_cc_parent_data_0`.
-With `.index =3D 1`, parent 0 of `lpass_core_cc_core_clk_src` cannot be
-resolved, so `lpass_core_cc_core_clk_src` and its child branches report rat=
-e 0
-when parked on `bi_tcxo` via `clk_rcg2_shared_ops`, and requesting 19.2 MHz
-fails with `-EINVAL` in `_freq_tbl_determine_rate()`.
-
-[ ... ]
-> +static int lpass_hm_core_probe(struct platform_device *pdev)
-> +{
-> +	return qcom_cc_probe(pdev, &lpass_core_hm_sm8650_desc);
-> +}
-> +
-> +static const struct dev_pm_ops lpass_hm_sm8650_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-> +};
-
-[Severity: High]
-Does `lpass_hm_core_probe()` need to set up `pm_clk` and add the `"iface"`
-clock before calling `qcom_cc_probe()`, like `lpass_audio_cc_sm8650_probe()`
-and `lpass_aon_cc_sm8650_probe()` do?
-
-`qcom_cc_really_probe()` with `.use_rpm =3D true` only calls
-`devm_pm_runtime_enable()` and `pm_runtime_resume_and_get()`; it does not c=
-all
-`devm_pm_clk_create()` or `pm_clk_add(&pdev->dev, "iface")`.  Without that
-setup, `pm_clk_resume()` and `pm_clk_suspend()` in `lpass_hm_sm8650_pm_ops`=
- do
-nothing, leaving the LPASS HM interface clock unacquired and potentially ga=
-ted
-when `qcom_cc_really_probe()` and `gdsc_register()` access the HM registers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-topic-sm86=
-50-el2-v1-0-5183f6aab9fc@linaro.org?part=3D2
+This is one of the reasons I sent it with the RFC tag since I didn't
+know how to proceed. I'll make sure to enable it by default in the
+next version.
