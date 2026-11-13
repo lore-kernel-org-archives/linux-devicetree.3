@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602915;
-	b=gmQhJpEJrj70FccE2Egn2DojPkzXERSz5x6zNoHcu57w9xqUgsewJQIKXm3CU6MiZgsE
-	 dvPiwZTV4o/0EdpAWJdGhfW+h3WSkQSR3K0l+/606gH4yDpqCXqrvWGhMPZrh8PRiiLag
-	 026/MLt5BQDOtXl4XJPH0rOSAvzUvADN5nsY1+FzevVsDZzu/ko3LSfXr5Slh7ENVQBld
-	 PUqYDuQ6QV9qHqtvS/V8DZebqK+kh9L+yOgwS1NST/JQlBC3a0gc+uUSK4E2IIAvBvvl5
-	 oaCjJ0P1jblZ9SGx2DI0FIo91B8T0YyGF1LOJn7PzwxnapAde3U47bHzSzMAvutnZZA==
+	t=1794603111;
+	b=CV4S2+1wkTkfESGcVtoy2intd+mc6imF2EuUQVxbll6aHUk9lM7DU+bZIf9nw8q5bzHm
+	 NT+FqAfIPoBRWh4/K6qTtLAIJ16kan/r5bvj5hD0QUlx2AIAFkeBlV0GJkmAw1wjKPnWM
+	 2cmjTSPKYD1FJaBa4MRG3/gZH7LhniT8tNQoOrEmRn+vI+b7flvzpRlnt/Y6ag0d6H1t6
+	 QuP3YU78F3FLU5nZk+TmLCGvKrUUAZh9QUnFUw0RV8Urj+G0OgodUUdy3VrKazvocyZw7
+	 r6PObGavMP9BIbHpVtSs3pHe/aKcMbxitfMflVD2URDhoaLxb5eAv11+RZLk9PaPUHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602915;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=/Ktn3E20uyErc4L/7IYjC7izDZZdI2uwat4zTaX+wOI=;
-	b=pvzkJfBuo4J6uBtB0Q69EvGH0mrbLWSchdp2vfM6xXszu9DYhWEHaQAL0nPCqhXeiu8O
-	 7FYEhcAWUvDXq1epWXeU9l4UNrcKWhkl2UtnYQL2rTPeHxYIf3sIJElV8GBbaNO57taiM
-	 OZ2N1FlARgX5hus9An0ipOfFmrvPu0T4vjR3/e7Dd//DPpnOeGXnY3XjXsLfC+YPECUmi
-	 pilbT70Y4v17QEedGa8P5k/s7pYQDf+xzZoikjq3xCS+NkFJwMTqVlAkUCBXXdo0UjfZZ
-	 OIEy5hzwbAkiMybQRbBKRNYRfHK9qxeXLeZFk13tC+8y1EqjJnm4qAXSdmOB1X2nJVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603111;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=TxDR5uoVi29IYdzO/SmccK9SUSlSLp5OZsh0EFtgquc=;
+	b=2eDddn4SvJtV0hGENE0imrMcCEI8TAPpB/f2mAVnHHDuhe2HOqL/uR5NuwZLvsTGDCBd
+	 lZ0PKojiD8d6nZNMnY4jQpaprQ6ikazDqMM/vFaHrvBVSX7t/VNdwBBTp3kfx3JN+WE+3
+	 5k3p7eyIQNSZNE3caI+iCgQD1QwEQdZCtRNZNwlFwM82FkD3N7kyF9nFV5QbM+DIp/CId
+	 /DNoPIGmqghtHfD4v8zuOHM6iYHuORRCFhNXedFc7ljaUnwe5PODEgNLLL8LRhvNnmPu7
+	 0KoPYkwb1opzLVLUAdbsoCYQb7HQmU0jwMEt0yNighl8xw/ybd7Zf64SI4/ZqrwhJQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fPpm7z8e;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxiVF640;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0840F606A33A;
-	Fri, 13 Nov 2026 20:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0840F606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708F4606A331;
+	Fri, 13 Nov 2026 20:51:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fPpm7z8e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=/Ktn3E20uyErc4L/7IYjC7izDZZdI2uwat4zTaX+wOI=; b=fPpm7z8eZEPGwBxfGOC2TEjOnF
-	kA8xLUy/kTF7tMOzsMFXeDU/1hPQ79YR5NBN+RwZgm3KJDbzOSloDeqwYcyPMHU+FU+iE4o69CdQk
-	/I9Oqq6V1WsHm4DQNvubF5r8cNHvGFK9EQvfyvxSuhz87pUfglPSuD1G6HzFeNInUfRY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xRyCB-00GMVK-MP; Fri, 13 Nov 2026 21:48:27 +0100
-Date: Fri, 13 Nov 2026 21:48:27 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Eric Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, mfd@lists.linux.dev,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
-Message-ID: <e4417d39-390d-4ece-bb2d-5f1745185d37@lunn.ch>
-References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
- <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
- <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
- <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
- <cc35b2127b04772f05948ac51c8faa5ef07da0b0.camel@linutronix.de>
- <20261110192118.GA1412882-robh@kernel.org>
- <5a6183e3480a0d910e275acf591e2db8700da827.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxiVF640
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26131F000C4;
+	Fri, 13 Nov 2026 20:51:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794603111;
+	bh=TxDR5uoVi29IYdzO/SmccK9SUSlSLp5OZsh0EFtgquc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SxiVF640ylULF2WKIumdrchh2J1L+dI9WDixWgGUorjS85Te3ckTcOynVKoDpVvdX
+	 EdwSS27P38NrkYcT4QNO4yBe19tgTO1ILU6xFHdQWurHWkhEJ0VJizi/HNCkjToJGV
+	 5pLEROzf7euUgmAL9kSTzCyZT6JdorI7SFtXYl/8t65yAjLHrD7xclb58EvalblTXQ
+	 Rb+bFzDanbD/4dOZ14tMJ+aFFduuKL4x4j8gcWzWOBsgC0y7vdSSCaAn8MIfN9ZtHL
+	 E3NRXxM5CZVmgXs0bowpJOVj4nFXPqwZt8VPtCKilNCG0tl5476iahvLKI58Y2Rw7E
+	 uxWlekBVlpOPw==
+Message-ID: <sashiko-outbox-213684@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: add device tree for Asus
+ Vivobook 16 X1607QA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Daniel Carter" <yass27106@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <bee078b697b74da694b5f9e6f518c0fb@gmail.com>
+References: <2c4a807496c04047b6d5735e3946dd16@gmail.com>
+ <bee078b697b74da694b5f9e6f518c0fb@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 20:51:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,41 +60,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5a6183e3480a0d910e275acf591e2db8700da827.camel@linutronix.de>
 
-> > Given the MDIO bus and mux registers are adjacent, I don't know that 
-> > putting the mux into its own node and driver really buys you anything. 
-> > Can't your MDIO driver handle the muxing directly? mdio-mux-mmioreg was 
-> > created for when you have mux registers in some completely unrelated 
-> > block.
-> > 
-> 
-> What it buys me is less custom code to maintain for bus selection and
-> selector-value validation.
-> 
-> The MDIO controller and mux were combined in a previous version.
-> Following Andrew's suggestion [1], I moved the controller into its own
-> driver and stacked mdio-mux-mmioreg on top of it.
-> Sure, the selector is part of the same MDIO control register. But the
-> generic driver already provides the masked register update and
-> selector-value checks. My preference is to keep the current approach
-> to reuse existing code, even if it requires some integration and
-> documentation efforts.
+Thank you for your contribution! Sashiko AI review found 6 potential
+issues to consider:
+- [High] arm64: dts: qcom: missing Signed-off-by trailer and commit
+  message body
+- [Medium] arm64: dts: qcom: missing /delete-node/ for pmc8380_6 on
+  Purwa X1607QA
+- [Medium] arm64: dts: qcom: missing qcom,dmic-sample-rate and
+  vdd-micb-supply on vamacro
+- [Medium] arm64: dts: qcom: missing x1-el2.dtbo target and
+  &gpu_zap_shader reference
+- [Medium] arm64: dts: qcom: x1p42100-asus-vivobook-16-x1607qa: wrong
+  inherited eDP panel
+- [Low] arm64: dts: qcom: split root node, unsorted nodes, and style
+  violations in DTS
+--
 
-Since you have both implementations. Did the lines of code go down
-when you reused the existing mux?
+commit 0106da8e8437e65f83503717cf06104fc06ff24c
+Author: Daniel Carter <yass27106@gmail.com>
 
-> The IP core can also include an I2C master for accessing external
-> devices as a synthesis option.
+> arm64: dts: qcom: add device tree for Asus Vivobook 16 X1607QA
+>=20
+> arch/arm64/boot/dts/qcom/Makefile             |   1 +
+>  .../x1p42100-asus-vivobook-16-x1607qa.dts     | 237 ++++++++++++++++++
+>  2 files changed, 238 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1=
+607qa.dts
 
-SFP cage being the obvious thing.
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 88230c4e00ea9..7332a73dbac71 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -509,6 +509,7 @@ x1e80100-qcp-el2-dtbs	:=3D x1e80100-qcp.dtb x1-el2.dt=
+bo
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1e80100-qcp.dtb x1e80100-qcp-el2.dtb
+>  x1p42100-asus-vivobook-s15-el2-dtbs	:=3D x1p42100-asus-vivobook-s15.dtb =
+x1-el2.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-vivobook-s15.dtb x1p42100-asu=
+s-vivobook-s15-el2.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-vivobook-16-x1607qa.dtb
+>  x1p42100-asus-zenbook-a14-el2-dtbs	:=3D x1p42100-asus-zenbook-a14.dtb x1=
+-el2.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-zenbook-a14.dtb x1p42100-asus=
+-zenbook-a14-el2.dtb
 
-It will need to be a Linux I2C master in order that phylink can use
-it. And i would not be too surprised if the existing I2C drivers can
-drive it, it will be licensed IP. So an MFD will make it easier to
-instantiate.
+[Severity: Medium]
+Should this also define x1p42100-asus-vivobook-16-x1607qa-el2-dtbs with
+x1-el2.dtbo and build x1p42100-asus-vivobook-16-x1607qa-el2.dtb, sorted
+alphabetically before x1p42100-asus-vivobook-s15?
 
-	Andrew
+scripts/Makefile.dtbs only passes -@ to DTC for base DTBs referenced by a
+composite *-dtbs rule.  Without the -el2-dtbs rule, neither the pre-merged
+-el2.dtb is built nor are __symbols__ emitted into the base DTB, so
+x1-el2.dtbo cannot be applied for EL2/KVM boot.
+
+In addition, at the bottom of x1p42100-asus-vivobook-16-x1607qa.dts, the
+GPU zap-shader firmware is specified via a nested zap-shader child under
+&gpu (along with a redundant status =3D "okay" already set in
+x1-asus-vivobook-s15.dtsi) instead of referencing &gpu_zap_shader directly
+as x1p42100-asus-vivobook-s15.dts and x1-el2.dtso do.
+
+> diff --git a/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.d=
+ts b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
+> new file mode 100644
+> index 0000000000000..0092ae3db9cc8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
+> @@ -0,0 +1,237 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026, yass27106-hue <yass27106@users.noreply.github.com>
+> + */
+
+[Severity: High]
+The commit message is missing a Signed-off-by: trailer certifying the
+Developer's Certificate of Origin, and its body contains a pasted git
+diffstat instead of a description of the ASUS Vivobook 16 (X1607QA)
+hardware and why it shares x1-asus-vivobook-s15.dtsi.  The copyright
+header here also uses a GitHub handle and noreply address rather than the
+author's name and routable email address.
+
+> +
+> +/dts-v1/;
+> +
+> +#include "purwa.dtsi"
+> +#include "x1-asus-vivobook-s15.dtsi"
+
+[Severity: Medium]
+Does this need to delete &pmc8380_6, &pmc8380_6_thermal, and
+&pmc8380_6_die_temp after including x1-asus-vivobook-s15.dtsi?
+
+x1-asus-vivobook-s15.dtsi transitively includes hamoa-pmics.dtsi, which
+defines pmc8380_6 (SPMI USID 6), pmc8380_6_thermal, and pmc8380_6_die_temp
+for the third CPU cluster on 12-core X1E80100 SoCs.  On 8-core X1P42100
+(Purwa) platforms that cluster and its companion PMIC are unpopulated, so
+leaving these nodes enabled causes the SPMI PMIC, temp-alarm, GPIO, VADC,
+and thermal drivers to probe and poll absent hardware, just as
+x1p42100-asus-vivobook-s15.dts avoids with /delete-node/.
+
+> +#include "x1-asus-vivobook-s15.dtsi"
+
+[Severity: Medium]
+Does the 16-inch Vivobook 16 (X1607QA) really use the 15.6-inch Samsung
+ATNA56AC03 panel inherited from x1-asus-vivobook-s15.dtsi?
+
+x1-asus-vivobook-s15.dtsi configures the mdss_dp3 aux-bus panel node with:
+
+arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi:
+	aux-bus {
+		panel {
+			compatible =3D "samsung,atna56ac03", "samsung,atna33xc20";
+			enable-gpios =3D <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
+			power-supply =3D <&vreg_edp_3p3>;
+
+Without overriding the panel node for this 16-inch (16:10) laptop, the
+board binds the panel-samsung-atna33xc20 driver for a 15.6-inch 2880x1620
+(16:9) AMOLED panel with Samsung EL_ON3 power sequencing and DP AUX-only
+backlight control instead of the actual panel and backlight configuration.
+
+[ ... ]
+
+> +&lpass_vamacro {
+> +	pinctrl-0 =3D <&dmic01_default>;
+> +	pinctrl-names =3D "default";
+> +};
+
+[Severity: Medium]
+Are qcom,dmic-sample-rate and vdd-micb-supply missing on &lpass_vamacro
+(along with the vreg_l1b_1p8 LDO1 definition in &apps_rsc regulators-0)?
+
+va_macro_probe() logs "qcom,dmic-sample-rate dt entry missing" when
+qcom,dmic-sample-rate is omitted, and its "vdd-micb" DAPM regulator widget
+falls back to a dummy regulator without enabling the 1.8V LDO1 DMIC micbias
+rail unless vdd-micb-supply =3D <&vreg_l1b_1p8> is provided as on other X1
+boards.
+
+> +
+> +/ {
+> +	wcd938x: audio-codec {
+
+[ ... ]
+
+> +	sound {
+> +		compatible =3D "qcom,x1e80100-sndcard";
+> +		model =3D "X1E80100-ASUS-Vivobook-16";
+> +		audio-routing =3D "SpkrLeft IN", "WSA WSA_SPK1 OUT",
+> +						"SpkrRight IN", "WSA WSA_SPK2 OUT",
+
+[ ... ]
+
+> +&swr0 {
+> +	status =3D "okay";
+> +
+> +	pinctrl-0 =3D <&wsa_swr_active>, <&spkr_01_sd_n_active>;
+> +	pinctrl-names =3D "default";
+
+[Severity: Low]
+This isn't a bug, but several parts of this file diverge from the
+devicetree coding style:
+
+- The root node / { ... }; is split into two blocks with phandle references
+  in between instead of a single root node block at the top of the file,
+  and chassis-type =3D "laptop" duplicates x1-asus-vivobook-s15.dtsi.
+- The top-level &label references, the DAI-link child nodes under sound,
+  and the cpu/codec subnodes in wcd-playback-dai-link and
+  wcd-capture-dai-link are not sorted alphabetically.
+- In &swr0, status =3D "okay" is placed before pinctrl-0 and pinctrl-names
+  instead of as the last property before child nodes.
+- Multi-line property continuations in audio-routing, wsa-dai-link
+  sound-dai, and the remoteproc firmware-name properties are aligned
+  assuming 4-space tabs rather than 8-column kernel tabs.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2c4a807496c04047b6d=
+5735e3946dd16@gmail.com?part=3D2
