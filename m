@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585435;
-	b=V4DMTmHRVjMRPq08wo4hphkRWEIqhUb4hUpakKjxTn57e7MnDftaEYlBeurFarsZAXN0
-	 zzih0YMF9eF8cYMwExgi+h7TtABEfNDM0sJO1uq7UWfKMYPSJWMAaaP8ayQE/+LgyeT6l
-	 Gb0wJQt8AltLlJ5FDa+04eWxoHy7m0Tz4U5lTKRJFc/h3ejKC3q480eEQZscvLvs3fMR1
-	 iVpgyo38WnSes9wJ/2KqkiCTVjWilvzaqWXSOWs6QSdkcCEWQQpXq+M5/X1Ka4PxiKIBC
-	 WlZ9ESJZyeIo4PyhMFNNehJR3AsWlDheRnWw5yU5VQGEt/Pj8VZUEn9A4zXqDVowUHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585435;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Zi5M0mJRg4p1dAWm4YTJ7EMr2E+1iUxREBzU5bap0i0=;
-	b=G8qUQSvUhQ0sz2yXc5WtrwhtV1XPAi0/acN8vg67BEUwYfsZjuXoUJ4BgS9McIuqCnRZ
-	 hSkUVJbzRzv7UXtiMG97YSkwDEjq8L8hxTlAp8W5L7ECJZX0H1o+V7AtaCNr+xeRaAdZQ
-	 KBGP2daSS8lEyEvEUVI45h7aZPVWpLtmlFDl1fEvRy/pN0HKJ8fYlvugnk4Z0P0A6z4A7
-	 L2imB+tn15AvLhjHbfwA25ujdHLc+9zBIfG0rmEcs94mlBEXQSv6vNLUoulXDgFpsHLvb
-	 5d0lEe4FS+xkSKBS5U5yFjmf6+zdU1OXXxIwei4Ngl4y4GVR3PyYWMi9H0ILDVxUDzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYzRKokd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794585580;
+	b=03RV45N9iya5Ya9mk5dJ5Pq+nwhL8MQvubyarv1k6W21BMXABN7Nm4GU8B5hvhgZKeYG
+	 P6VXJJxENTn3EC/XPbXD4wb1344kw9lS7bMOWcuy4Yrjbg1cA15d7vhbxmuGbNGU1c6yB
+	 Icyge9kx+5ZfYV7bbQy2D0fW1z3G2Pnn1eTKrZ/SahXGHxmMgeVVP5g25qCOyyra774Av
+	 j9fjrvZ/XX8GpAE59OrqQ3eg0p9lC5xAzlAdsRbAASRjS2bwhWe85n9pDSAQg8PEHd2LG
+	 ghsrqge42V5PonayC7KcI6oYZwnj3lZo1oT2qK5Kd5Njq/1nJE2FOB77EDp5xes+pEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585580;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=;
+	b=PttbybguB7rZsH2CNsbbUslbMHJffc6a7GCUk/pLk3zL1aws13MZYAY9dp/4jY5JA7fQ
+	 2nUDBx8xryhJPqMwtvgu/dgozOqs4qnac3KcUdz/ixRdv4idn9onZOu9ma/YEeGC/Sxoo
+	 sIr20Vf/MPrqEZkyfJst52NkMYL/rsSwe7d9sE38/MORIa7XmRFUsMm8LxtJBnNMksBET
+	 3a1In75/LE9Z/1UsmpyHXzczQLROlA4ttlqeN2OU2jWNdqSvAkO847za2x8wd0s40pwUF
+	 HJ3JVeKWzf5Hd74hGezaEbVUxpgZXQiomhzaQrODePP5HhX8jubiJ3wiRjcjecx3B5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=inferno0230.in;
+	spf=pass smtp.mailfrom=inferno0230.in;
+	dkim=pass header.d=inferno0230.in header.i=@inferno0230.in header.a=rsa-sha256 header.s=zmail header.b=OWMSJV8c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.51
+Received: from sender-of-o51.zoho.in (sender-of-o51.zoho.in [103.117.158.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C1260A5BC7;
-	Fri, 13 Nov 2026 15:57:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF59760A2628;
+	Fri, 13 Nov 2026 15:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF59760A2628
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inferno0230.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inferno0230.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYzRKokd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E622E1F000C9;
-	Fri, 13 Nov 2026 15:57:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794585435;
-	bh=Zi5M0mJRg4p1dAWm4YTJ7EMr2E+1iUxREBzU5bap0i0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QYzRKokdAy0SKdI3tHkcUnLg2d5e0Dy3pz1ZIQVdt0oawFgHydT3qbQNSj+XnWsnz
-	 aGPsQLAdL7eJQxkgFJtYcKywI1njTS5Ub+JPXBmOyTFgPZvbEEBOiYvQzxQSGx1mBC
-	 zpKbCF6sopgEMIyIQREAjNMgwCiUtx8HXO9/8LRanb3m492b33ct9forUlp6L+QIx7
-	 f3ZNttCIdZ5hVvDXRV1W+s3cPifDMIhnM8tzcvlY8TlsqUweNi9q53VL+qdq+8WXyl
-	 yuslHhT2FR0cWenBZhnRd4aznkmfGbMtsPvLgQNfNKB8aGneqODkP/F41gkw23h/4x
-	 IkWgXu7b6fFnA==
-Message-ID: <sashiko-outbox-213132@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/10] gpio: shared: generalize most code to firmware
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
-References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
- <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 15:57:14 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=inferno0230.in header.i=@inferno0230.in header.a=rsa-sha256 header.s=zmail header.b=OWMSJV8c
+ARC-Seal: i=1; a=rsa-sha256; t=1794585566; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=ejwCJWvcaUWkbeGgTZIb+iy9k5lTriZ9j6jD1e02zOit4YxgqAEQ2X1Syoa9wo1FwbW9+9+8wF4GfPVV8juaj3VeKMRJmlk+uUg0mhjlOb6OzOlXOtbelwv2MTDXMffuHfFUAsF6rbljbWRac1PvpsggdUCsR6vkYN0Okcq3lDM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1794585566; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=; 
+	b=IzubNrgY/b9qep5tU/q7McQWrEF/ENI4ZxnNLmWO7iErCgoP5sHeaC7c5sWt/jR3m8dUNaR6DcmwnDVEuH5gDH8o15mg8idnS5SUMDMcuNg7YNvsNlUbUekvVvmUcHRQC2VX3sY+rtlYbRUZaSqt1LumJfjRE8bUboG7lgizCNw=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=inferno0230.in;
+	spf=pass  smtp.mailfrom=mail@inferno0230.in;
+	dmarc=pass header.from=<mail@inferno0230.in>
+DKIM-Signature: a=rsa-sha256; b=OWMSJV8cqWV4Hd82XI0dtyYS+fB3lMYDWLps0Pz5sOS73WXmllhhNG0pe5BttTC7T+XeEYLq07VLsmjpi0aFzi7CQGWJKPkcOZ7C0Tpf4XQlGyL6xC0tJK+iX4SEKATPuwi+ZFdVcu/wap7taR2U5txqWEJEQ73Q7Llg4EcPZQQ=; c=relaxed/relaxed; s=zmail; d=inferno0230.in; v=1; bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.in with SMTPS id 1794585564858467.445858350549;
+	Fri, 13 Nov 2026 21:29:24 +0530 (IST)
+Date: Fri, 13 Nov 2026 15:59:17 +0000
+From: Aditya Choudhury <mail@inferno0230.in>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM7550
+Message-ID: <avcz1Z6OnT-c2kgQ@inferno0230.in>
+References: <20261112-sm7550-soc-id-v1-v1-0-57299906d81a@inferno0230.in>
+ <20261112-sm7550-soc-id-v1-v1-1-57299906d81a@inferno0230.in>
+ <20261113-ambitious-solemn-narwhal-cbaeec@quoll>
+ <avce6OKgtVIi15tR@mediaserver>
+ <b945d65b-60a9-4437-999f-15b5f0307b5e@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,61 +71,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b945d65b-60a9-4437-999f-15b5f0307b5e@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.12.1.5.3/294.567.56
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] gpio: shared: define __free() fwnode in one statement in
-  scan_property()
---
+On Fri, Nov 13, 2026 at 03:57:17PM +0100, Krzysztof Kozlowski wrote:
+> On 13/11/2026 15:30, Aditya Choudhury wrote:
+> > On Fri, Nov 13, 2026 at 12:17:35PM +0100, Krzysztof Kozlowski wrote:
+> >> On Thu, Nov 12, 2026 at 10:30:26AM +0000, Aditya Choudhury wrote:
+> >>> Add the ID for the Qualcomm SM7550 SoC, whose internal codename is crow.
+> >>
+> >> >From where did you get internal codename? Downstream does not use the
+> >> proper codenames.
+> >>
+> > crow is the codename used in downstream sources. I assumed it was the
+> > internal codename since SM7550 is publicly known as Snapdragon 7 Gen 3.
+> > I was also unsure about this because SM7635 uses milos upstream instead
+> > of volcano downstream.
+> 
+> As you can easily check, names in downstream are not codenames and have
+> no meaning. Don't use them.
+> 
+> > 
+> >>>
+> >>> Signed-off-by: Aditya Choudhury <mail@inferno0230.in>
+> >>> ---
+> >>>  include/dt-bindings/arm/qcom,ids.h | 1 +
+> >>>  1 file changed, 1 insertion(+)
+> >>
+> >> Where is any user of this? Why do we need such SoC patches separate from
+> >> the actual new SoC?
+> >>
+> > I sent these patches first because I expected a possible codename
+> > change, just like what happened with SM7635. I wanted to settle the name
+> > before sending the actual SoC support patches, so it wouldn't need to
+> > be changed everywhere later.
+> 
+> But this does not settle the name! You only sent SoC ID, without the
+> actual name. Organize your work in proper chunks, not split without
+> proper reason. This only limits the view and makes review unnecessarily
+> difficult.
+> 
+Sorry about that. I sent only the SoC IDs because I had seen it done
+that way in the git history, and I hoped it would also get the codename
+sorted out first.
 
-commit 78d07ba961e7635e708d83665d68a4604d21cd5c
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+I can either send a v2 of this series with crow reworded to Camano, or
+send the whole SoC bring-up with the SoC ID patches included in it.
 
-gpio: shared: generalize most code to firmware nodes
+If I send the whole bring-up, should it go out as v2 of this series, or
+as a new series?
 
-This commit converts the device-tree scanning code in gpiolib-shared.c to
-use generic fwnode APIs and guards the remaining OF-specific entry point
-with CONFIG_OF.
+Either works for me, whichever you prefer.
 
-> diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
-> index 44af3bc1494e4..edd61d16f065f 100644
-> --- a/drivers/gpio/gpiolib-shared.c
-> +++ b/drivers/gpio/gpiolib-shared.c
+> Best regards,
+> Krzysztof
 
-[ ... ]
-
-> @@ -131,157 +130,159 @@ static int gpio_shared_setup_reset_proxy(struct g=
-pio_shared_entry *entry,
-
-[ ... ]
-
-> +	for (i =3D 0; i < count; i++) {
-> +		struct fwnode_handle *fwnode __free(fwnode_handle) =3D NULL;
-> +		char *con_id __free(kfree) =3D NULL;
-> =20
-> -			ret =3D of_parse_phandle_with_args(curr, prop->name,
-> -							 "#gpio-cells", i,
-> +		ret =3D fwnode_property_get_reference_args(curr, propname,
-> +							 "#gpio-cells", 0, i,
->  							 &args);
-> -			if (ret)
-> -				continue;
-> +		if (ret)
-> +			continue;
-> =20
-> -			np =3D args.np;
-> +		fwnode =3D args.fwnode;
-
-[Severity: Low]
-This isn't a bug, but fwnode is not used before
-fwnode_property_get_reference_args() succeeds, so it can be defined and
-initialized in a single statement as:
-
-	struct fwnode_handle *fwnode __free(fwnode_handle) =3D args.fwnode;
-
-rather than being initialized to NULL at the top of the loop body and
-assigned later.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-fwnode-for=
--each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com?part=3D10
+Best regards,
+Aditya Choudhury
