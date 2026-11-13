@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794588038;
-	b=AtzwhQ2JXh6tJ7iEjI1I/NLb8GD3TRgVrBA+01T1Ch37HKS/KBIv9qirACmRaL8guZV1
-	 U5tRh225mTAELZJCxQJJOtLj9uBUkLfk4ni5cvw2vhWO0loQGv5aMRjzQ5KA3k39fZYpr
-	 /j0yzJlM0u5FXIy7cjRP2JEnDALQNBAf4a3cwk3+r8Glbj2MjnjhQgb020IfYi2JSt7GW
-	 em9LdBN+WaxpwMhIY5BpBPHsc0UVHlbv/cCuPKMarJD6FJSe5xasWG2KCLxWeHbiXTyuI
-	 40P/ukJ8+TqxNNo4kRekypXe+bXkLGwgg3TQU8RNWdHcW5m8RKT86EQTSemTe7ha3VQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588038;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
-	b=kCCiu0BvG1qj5Zh4FVj5nP8f4W4wjxLQbpu6vrzPGNp7IHg79xIzvsiopCagtq7HJRWK
-	 YYoam3fxidrtM5uuVgYo4/WX0M/pLq/wBGoKJ895+/QpgbWc9GEZflvU5frk9G/5dI5So
-	 2IT+m43uLeCbRrSZO012GdgA+gIurjyUR5bAfbYfLDhDz6qBrg3vt8L5y+J8qvBdH6EkT
-	 rx0eGidneyE3vynSsP4ekR33I7jF9cANEOWzhEw/pA77sB3+/whdKNnE6MzGWy7l6ELTZ
-	 K4hXKq+nqUnmcMTjSIjo35DZ3NVuPzxEKbwLVlQ0CRGezzQqzhi2GhPf9QrJ1ROVoRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6z+1PLw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794588152;
+	b=JbvS3NtGbUuwWaKLC4JxAPYUHvSEGTrDONWIJ7H7O1CXzo9gCDdBhdr+InFjZb7wC5P0
+	 Kq5UhTqSJryoIinEK/lh3nhfU0qKhiSwR1SVqUzuElMQg/1Z1IpG2vkK0J3UWYkyduVFh
+	 O2p4aoddUtLUHh1ZYFz8y7nFE5VD47zqK3/EOoACk6FWuQO5317EQKuu46BYh/FRos1VP
+	 ihI0tfhHAnO87lPX3RXLiQeG8nylhTMCp145YIv9YmQtDELwrfIk/Xh5VeIxUmShIAUXg
+	 h4hXiuygzOrohrJdUAoze9bxwYLlcIE3b/6FjOYjbjmiuTtYcfSOgje8ru+mZOlKFcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588152;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=m/PpC4O3NzjAavCAj87Bv2LPOvh9Te54rBz9fHCqCGE=;
+	b=CbpBe+e8nA69tQaO/bENtx/9fbIkd6XDGWnTnbqehQIVlsEVqxhUyccFDlxQu0WCskaD
+	 /sRXbo16632qTrORume+C1EVKHidgt3VmDwFoWv4mgzynuUsoDXwTmFaFrJtNDboPvsOr
+	 OkEkecAE9WjC+2nr/72YLDkIbJBLDXTfAh6D5OiJcrzn/WNty4mI5VVr/kTlruJ6G6sAl
+	 9Wni5sB4frN8qV/QA097cdqhksdU2jwfMcyv3wYsRtwYt/0LxSkur35qj8VlX49LrKgTM
+	 ZRcxR4iXFwTRhFb/o7RQMw8eGX5MHrZmTUnrHwSGECctNlZ954SqyealXRLnE0WMFNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cg7ZwTKz;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8B7606EBD8;
-	Fri, 13 Nov 2026 16:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A999D6073F66;
+	Fri, 13 Nov 2026 16:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6z+1PLw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794588037;
-	b=rWHVYq8EWtVlBdkATnfY2VCI5cA5S5Qq3/Kp4u0Vm6u6e9QMk3Ly6EClQADtmFqvNjb7
-	 JkD/oFtXcVZbnzzvdKNmFu1uIihZXgA+FUJYtvE8sw2cx/qQGwQW8U5C/ZrHz0TQQsPfh
-	 z27/HnOme71boanfhwtjsTo14qd0/30AtQo+W8sGhIChhHA8GYcGhw75FsILTxt2/lYB9
-	 4wxlEw6hhq+HIiqi4rAVBvi/BNyKDNqTIlFnKzX2NbsGwfqpruoOo8DYIYxzIKAGKmJQs
-	 m765hfgxQtDa4nVla8b2VfGjCm2x38HP7weUCV9bWqlFWfFTBHiFzmjlqbv4la3HUmw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794588037;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
-	b=iIu5mM7nW7jMxPT7HweHlWsQ9iZC3mrOkaJf8VnqqwFw4/M+2tPWrJ/kfPJNdLFcTwe1
-	 u98XgGcjNTABdZ8bJEe8fk7yklwqQNhnMwIIjDSmqeP4a8UBsW93F5uqGcYttTK7e5P9m
-	 RxpEhIZENNT61dJ3lJ5SptNSh7LBbrW5XQ07xGrW9dkdr64zPTArlhdUXA3sGLTepSVYq
-	 nAXZkdvetotubfwYOyHRIPZB94VKQ7OBCAUsQMatBR1fylXbW/8ksyCqA5TA/8sSA/f3m
-	 pP47DoEfOYYIByKQFk8KjbcYocHFqGWb3Y6vNJn3N660nOW7U8Mu1myEpFLIkcJvkiw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0CE771F00931;
-	Fri, 13 Nov 2026 16:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cg7ZwTKz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B88A1F000C9;
+	Fri, 13 Nov 2026 16:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588037;
-	bh=Ea52I2vnQCe6Ni6efkUTjPrh+GmNSqV3kj5+yTLJAXI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=E6z+1PLw8ZgAazWXSe/Qw4zD+zAqi2H3Z5Kcwfn7C/AiwBCNpw28yhjPMtymk2QuB
-	 P6sSxXZzhObCZtfShROoo2fgNwwI1B4xqlVDi8I30JsJcUqug85DI7JUatjjPVryWR
-	 WZvVrz8jRD8cH+CKvqQza9dTw9KTakTtcX9FpXayjtAd2dHd3iA9aPbGL+Y/Z8JR7q
-	 FfYI1hrx3OxBWNjo923169tWLrmZ567rMD5z5DW7ApxFFm5BHOFc3pMeMQi7FEqLgj
-	 rTxJoqUyokjDYaI9ZwNyIuPNSPfNWs72fF3EQeUA0pV8xjCol9YNxVR11UUcc1qAxt
-	 jBKTFUTIfgW0Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A7008499FF;
-	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:40:42 +0000
-Subject: [PATCH v3 11/12] arm64: dts: rockchip: Add the reset lines of the
- RK3588 VEPU121 cores
+	s=k20260515; t=1794588152;
+	bh=m/PpC4O3NzjAavCAj87Bv2LPOvh9Te54rBz9fHCqCGE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Cg7ZwTKzaL5cIghRSQIAmUB1l2GCAW2rXSTKzHi9SiGYeQuOlMGpXkT7uE5PT2/W3
+	 yzLLZnpw/b/Vu+YzxNu7PFMNJKGPAoexQG6oJiSJTECpFlukpwypsJnaGlm6SUgwqY
+	 EddF/XrR5eaeKYAgrd3mxk4rEN7hhquh+rwg+/+IYhQ23pC7yoqc3QO0iMyhl1cRHL
+	 v/7myZBX4tgFETu7qGM00lpohIPJgkbBZyvA+LQExLHSWLxyV9XFM2xYP4sRwIcVPv
+	 3zKF8HWpiV9ckP6W8Mu8/lcff4WoGjBz4ciMFZ5pYBrBx+IlUsnPhdSjtqBH2r89PF
+	 j7NCmg7tbJAGA==
+Message-ID: <sashiko-outbox-213219@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] arm64: dts: imx95-phyflex-libra-rdk: Add
+ phyFLEX-i.MX 95 Libra RDK
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Hahn" <B.Hahn@phytec.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261113-wip-bhahn-imx95_upstreaming-v2-2-3ef58af5e689@phytec.de>
+References: <20261113-wip-bhahn-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de>
+ <20261113-wip-bhahn-imx95_upstreaming-v2-2-3ef58af5e689@phytec.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 16:42:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,103 +60,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-hantro-robust-v3-11-82383c722ad2@gmail.com>
-References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
-In-Reply-To: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sergei Khomenkov <shomenkow@gmail.com>, 
- Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=2128;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=pWGgDNReqboxSyr5VfPbRCUDYTeDvzJsJNZ3jQadXZk=;
- b=xlaQlRPGNedb+7Aggz+XzrrJ5V2GEFZb3cM3x2htpaw4NA4fX5zQHfHCaZ26hKfcMjd+YQkLU
- 0XqMYpqifR5AhYVZjF+SM+b95Ukk4rvYav9GDAd5ZwXPXSEPWJMgVFE
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] arm64: dts: freescale: missing OF graph ports on M.2 connectors
+  disable radios
+- [High] arm64: dts: freescale: usb2 missing dr_mode, vbus-supply, and
+  pinctrl_usb2
+- [Medium] arm64: dts: freescale: eeprom@58 uses 4 KiB 24c32 compatible
+  for 32B ID page
+- [Medium] arm64: dts: imx95-phyflex-libra-rdk: descending
+  cooling-levels breaks pwm-fan
+--
 
-Describe the AXI and AHB reset lines of the four VEPU121 JPEG encoder
-cores, so that the driver can reset a core that is stuck after a fault
-of its IOMMU.
+commit 831b01c8ff6e8f1f1ec13e354da0a278c7f495db
+Author: Benjamin Hahn <B.Hahn@phytec.de>
 
-The IOMMU of each core sits in the same register block and is clocked
-by the same clocks, so these resets likely cover its bus interface as
-well. This relies on the driver not leaving the VPU in reset after
-remove ("media: verisilicon: Don't hold the VPU in reset after remove").
+arm64: dts: imx95-phyflex-libra-rdk: Add phyFLEX-i.MX 95 Libra RDK
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+This commit adds device tree support for the PHYTEC phyFLEX-i.MX 95 FPSC
+Gamma SoM and the phyFLEX Libra RDK baseboard.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..227465d446a2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1325,6 +1325,8 @@ vepu121_0: video-codec@fdba0000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_0_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER0>, <&cru SRST_H_JPEG_ENCODER0>;
-+		reset-names = "axi", "ahb";
- 	};
- 
- 	vepu121_0_mmu: iommu@fdba0800 {
-@@ -1345,6 +1347,8 @@ vepu121_1: video-codec@fdba4000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_1_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER1>, <&cru SRST_H_JPEG_ENCODER1>;
-+		reset-names = "axi", "ahb";
- 	};
- 
- 	vepu121_1_mmu: iommu@fdba4800 {
-@@ -1365,6 +1369,8 @@ vepu121_2: video-codec@fdba8000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_2_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER2>, <&cru SRST_H_JPEG_ENCODER2>;
-+		reset-names = "axi", "ahb";
- 	};
- 
- 	vepu121_2_mmu: iommu@fdba8800 {
-@@ -1385,6 +1391,8 @@ vepu121_3: video-codec@fdbac000 {
- 		clock-names = "aclk", "hclk";
- 		iommus = <&vepu121_3_mmu>;
- 		power-domains = <&power RK3588_PD_VDPU>;
-+		resets = <&cru SRST_A_JPEG_ENCODER3>, <&cru SRST_H_JPEG_ENCODER3>;
-+		reset-names = "axi", "ahb";
- 	};
- 
- 	vepu121_3_mmu: iommu@fdbac800 {
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi =
+b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+> new file mode 100644
+> index 0000000000000..7cc4fa0104c36
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
 
--- 
-2.55.0
+[ ... ]
 
+> +	/* User EEPROM ID page */
+> +	eeprom@58 {
+> +		compatible =3D "atmel,24c32";
+> +		reg =3D <0x58>;
+> +		pagesize =3D <32>;
+> +		vcc-supply =3D <&reg_nvcc_aon>;
+> +	};
 
+[Severity: Medium]
+Should eeprom@58 use compatible =3D "atmel,24c32d-wl" (or specify size =3D =
+<32>)
+instead of "atmel,24c32"?
+
+"atmel,24c32" registers a 4096-byte NVMEM device for the 32-byte
+identification page, so reads past 32 bytes wrap around and writes at
+offsets >=3D 0x400 set address bit A10, which permanently locks the
+identification page on M24C32-D devices.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts b/=
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+> new file mode 100644
+> index 0000000000000..ccd05932e9557
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+
+[ ... ]
+
+> +	m2-key-m-connector {
+> +		compatible =3D "pcie-m2-m-connector";
+> +		clocks =3D <&rv3028>;
+> +		i2c-parent =3D <&lpi2c5>;
+> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
+> +	};
+> +
+> +	m2-key-e-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		clocks =3D <&rv3028>;
+> +		i2c-parent =3D <&lpi2c3>;
+> +		sdio-reset-gpios =3D <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
+> +		sdio-wake-gpios =3D <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
+> +		uart-wake-gpios =3D <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
+> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
+> +		w-disable1-gpios =3D <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
+> +	};
+
+[Severity: High]
+Are m2-key-m-connector and m2-key-e-connector missing OF graph ports linking
+them to pcie1_port0 and pcie0_port0?
+
+When pwrseq_pcie_m2_probe() binds to m2-key-e-connector, it requests
+w-disable1-gpios and w-disable2-gpios with GPIOD_OUT_HIGH, holding both
+active-low disable lines asserted.  Because neither the connector nodes nor
+pcie0_port0 and pcie1_port0 define OF graph endpoints, slot_pwrctrl_probe()
+and pwrseq_pcie_m2_match() never match the PCIe consumers to enable the
+sequencers and deassert W_DISABLE1#.
+
+[ ... ]
+
+> +	fan: pwm-fan {
+> +		compatible =3D "pwm-fan";
+> +		interrupt-parent =3D <&gpio1>;
+> +		interrupts =3D <4 IRQ_TYPE_EDGE_RISING>;
+> +		#cooling-cells =3D <2>;
+> +		/* startup 35%, duty cycle 30%-100%;
+> +		 * polarity inversion does not appear to work
+> +		 */
+> +		cooling-levels =3D <255 166 96 0>;
+> +		/* fan-supply =3D <&reg_vdd_5v0>;  probe fails with this set */
+> +		pwms =3D <&tpm5 3 86958 0>;
+> +		pulses-per-revolution =3D <2>;
+> +	};
+
+[Severity: Medium]
+Does using descending cooling-levels =3D <255 166 96 0> with normal PWM
+polarity break pwm-fan suspend/shutdown and cooling state tracking?
+
+On suspend and shutdown, pwm_fan_power_off() disables TPM5_CH3, which lets
+the 0x51e pad pull-down on IMX95_PAD_GPIO_IO26__TPM5_CH3 pull the inverted
+fan control line low and spin the fan at 100%.  In addition,
+pwm_fan_update_state() assumes cooling-levels is sorted in ascending order
+(pwm < ctx->pwm_fan_cooling_levels[i + 1]), so writing pwm1 or pwm1_enable
+via sysfs records the wrong cooling state and causes pwm_fan_set_cur_state()
+to skip thermal transitions.
+
+Using PWM_POLARITY_INVERTED with ascending levels and a non-zero off state
+(such as cooling-levels =3D <1 96 166 255>) or a pull-up on
+IMX95_PAD_GPIO_IO26__TPM5_CH3 avoids disabling the output into a pull-down.
+
+[ ... ]
+
+> +&usb2 {
+> +	disable-over-current;
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+
+> +&usbphynop {
+> +	vbus-supply =3D <&reg_vdd_5v0>;
+> +};
+
+[Severity: High]
+Is usb2 missing dr_mode =3D "host", pinctrl_usb2, and its VBUS supply?
+
+Without dr_mode, ci_get_platdata() defaults to USB_DR_MODE_OTG, and because
+no ID pin or role switch is wired to usb2, ci_hdrc_otg_fsm_init() leaves the
+controller in peripheral B-idle mode instead of host mode.  Furthermore,
+fsl,imx95-usb does not set CI_HDRC_PHY_VBUS_CONTROL, so ehci_ci_portpower()
+only controls vbus-supply on &usb2, while placing vbus-supply =3D <&reg_vdd=
+_5v0>
+on &usbphynop causes usb_phy_gen_create_phy() to claim reg_vdd_5v0 via
+devm_regulator_get_exclusive() and block other consumers such as pwm-fan.
+Finally, pinctrl_usb2 in imx95-phyflex-fpsc-g-som.dtsi is never referenced.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-wip-bhahn-=
+imx95_upstreaming-v2-0-3ef58af5e689@phytec.de?part=3D2
