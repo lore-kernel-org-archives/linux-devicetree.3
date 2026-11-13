@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597796;
-	b=wE1fb6fcOMVHwqjU4OWezMulxayt4TXPr7BZhJD99wM9aOjGwdpjITw6xG2unLL7NJGz
-	 9/8N87SaekeIA9ou4UhbrIgj21Y79KXTjqlaOx8HMeuYpBs3sVO+PTb/0TH6+DTv4bL9S
-	 CiZDelHsDgqekikjiLAWY2gy70h0aqFLN4+/hRq92BvKgTPvjKERjXHInrOPwwBecdFJK
-	 N++cVrlRbTRJhrgILlpuBH0lQtpA8+igCOd85sE3GlmGub6AZTjc+UJWrC4bfbDY0aaIS
-	 CD1+3TCqzsO3oxAEqodpz66cgixpBrfSaL2iotPpT9FJiOkKbPqQvImkF5na4QkJZdw==
+	t=1794598234;
+	b=GfKZCLPZsFL11hQKCxA2O68QE92eTR1i5+op41/VbUyTpcwvM7svJ1UgrtD2JXYvvrEr
+	 e/gNnMuwKNqf8jeooi2KTHUTHGwq8N5D1UWT7KP6Win8zwk15hGMiXxqW9XP+v96pm1fn
+	 nGPkbdiZ5WHMjyPyv2QxOH4BkbyqAAurUOJZ7nJD9Jnm2jn6wtrdROnJWKqQwhvfV4538
+	 2gOLGPnXB15Tlx1eKtIzo3Yn/aDSL1I80LJ5gG753DwdRMoe+z9k2Qv7l46KVUPwqCNpM
+	 LBV6QhtkuRHnKrSS6kFtY1LXDWK5w4siPCWxM4vzmFtSYLQCep4fOC4jZmt3s0xDfnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597796;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JXKKwHVxInsndtUs/0yvRQbzFzI58tKEJsLZA3ssRfA=;
-	b=XqJtUdwn7tHpfrUD3ZUGTVHx7NktVgEePgm0yUyeBPDLzEszcZLd4viFLZyIWGGr6kzT
-	 UD2CTpEwg+AngB72U7KuD7GWgr1KJiEz+uB0vHjZsg4gBPzLSospYEeDOSW+pWOtaC+t0
-	 FcAbZNvPhEfFWnW8dUfYodDdzaLSDpHIv1yso/wi88uS38evIotzDx29v1AD0jSlMFbHX
-	 1PWlQMZQinvZtLmyOK8zcsYcAEvshovdQXcoLz6Cdqv55Xy+C1oF2+k61CXZtn9KmUFCI
-	 8+51oSLrK8p2eK3xUO8VehhIbwNkfX26drVrKCwmM61INWlUCV9uPbOE7A9wJlK4+yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598234;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=5RUUEU4Zs98a2BCCEhrllG9CzAbnewWKsXy+kzkBWDs=;
+	b=ka9ufPran0nyTPb35OtAezKW+lLv1rwLqJDSTP5BJiwsTqDHZ5s2dbX+l5J5Thh2Eczc
+	 YtAwLry+uISTEXEAvrpcxvBrOVud+JHLvz8nrFpk0nPO6rjcEp1n21fd6VaHrzJWb2+f+
+	 /owCtZ8m63nv2YBEQRgkudUpw+554Wn53/NChXjEI84Pg0iPvsISIzRrcC3grAc9FWP7N
+	 Tc7ZeoTLh2DDTvAgvqsBtTmNvsUukebUvJ5fKMAYmCOX4fQa+wumBaXeLhWq36kuwL0Jj
+	 9C9sEyJ7Y1vRlusuzgazspfXquG4wel7ubZToDvtYYqAtHcWqYiBa9PSIIkrnaIhmrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KuK74rCK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b="UHDE/nC6";
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837AC606A89A;
-	Fri, 13 Nov 2026 19:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAF0606A334;
+	Fri, 13 Nov 2026 19:30:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AAF0606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KuK74rCK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003581F000C4;
-	Fri, 13 Nov 2026 19:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597796;
-	bh=JXKKwHVxInsndtUs/0yvRQbzFzI58tKEJsLZA3ssRfA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KuK74rCKL99W77V5C9xYqkYm4TDaHkaYX5wZVVDjzfSmiL7X5AokKHbik1HwibV8O
-	 mRlH/uTbkuUN5Bq+fVurRoJwRw4kaimBNd8j3j5YsSeWGBYDh+SYg9lYsjpCtKpWKq
-	 AUJCmdcpALrpFA+CEipjtbqYuLGodCjtXwoEca70moEuXHMKFLyFId4PFfa5giAefq
-	 k02DGmraLVweYJJJdY+D3m97Kmd8cGki6vmTrKYbYUKcr0sh6lax//VGsdqJ5c5O0J
-	 GtnYJqJSHi3LRZUqarNXw7UUTABPeRu0z03vQa6GqwDEhgOPUFCv7uk/e1NKZ0wmos
-	 +LCXgXOAMTHzg==
-Message-ID: <sashiko-outbox-213545@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 22/23] arm64: dts: qcom: sm8650-valve-deckard:
- enable audio
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-topic-sm8650-el2-v1-22-5183f6aab9fc@linaro.org>
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-22-5183f6aab9fc@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 19:23:15 +0000
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=UHDE/nC6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=5RUUEU4Zs98a2BCCEhrllG9CzAbnewWKsXy+kzkBWDs=; b=UHDE/nC64QzET9Ce0UvDM2RQ6T
+	cdqX2AjGf9mjFgYKSyF/IpJrgzvFq7ghx5upx7ykxnyq9Vnbk4tr9LGV2nEvlDglE89JkK+xz7yxs
+	LT+GX0Tc+pASWuEmdN2DysSE81m1uNwSGZ26dd/B+peLkUZuZL8/LDNWstvwlTFecdIsan1O+lU+h
+	demp951nfGj7dQ0EKBFr0z+GCGf8EcVziv6YERLuguZ1A5PrP2ygFXhNnbAwp7d97lOYmOJYv8Sve
+	BatOCE1AUsLmV4Qv47RO7XUBKoyiDRIdmO7WRGLmzj8uCQzAXuRfoAFMb8X5qyXfPVv3X6VUlI4k5
+	Q/hscLoA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Lee Jones <lee@kernel.org>, Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chris Zhong <zyw@rock-chips.com>,
+ Zhang Qing <zhangqing@rock-chips.com>, Joseph Chen <chenjh@rock-chips.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yaozhong Li <yaozhonguwl@gmail.com>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v6 2/3] mfd: rk8xx: Release the power hold GPIOs before powering
+ off
+Date: Fri, 13 Nov 2026 20:30:17 +0100
+Message-ID: <R_CRTELbTC-4nNJy2OQEFg@sntech.de>
+In-Reply-To: <20261101154053.3874-3-yaozhonguwl@gmail.com>
+References:
+ <20261101154053.3874-1-yaozhonguwl@gmail.com>
+ <20261101154053.3874-3-yaozhonguwl@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,103 +68,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: sm8650-valve-deckard: missing VA DMIC1
-  route in audio-routing
-- [Low] arm64: dts: qcom: sm8650-valve-deckard: unused lpass_rxmacro and
-  lpass_txmacro enabled
---
-
-commit 159b85c8d3e0dd02d73b32823f4b0aaab92103dd
-Author: Neil Armstrong <neil.armstrong@linaro.org>
-
-arm64: dts: qcom: sm8650-valve-deckard: enable audio
-
-This commit includes sm8650-lpass-cpu.dtsi and configures the SM8650 sound
-card, lpass_cpu, and macro nodes to drive the speakers on Senary MI2S and
-the DMICs on the VA macro.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm=
-64/boot/dts/qcom/sm8650-valve-deckard.dts
-> index a365caa28cee4..723f7911fc547 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-
-[ ... ]
-
-> @@ -160,6 +161,37 @@ framebuffer_mem: framebuffer-region@af400000 {
->  		};
->  	};
+Am Sonntag, 1. November 2026, 16:40:51 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Yaozhong Li:
+> rk808_power_off() writes the PMIC's shutdown bit directly. On boards where
+> lines driven by the SoC gate the PMIC's power-off path, a shutdown
+> performed this way does not stick: the rails drop and immediately come
+> back up, so the board restarts instead of staying off. U-Boot reports the
+> result as a power-on reset.
+>=20
+> Take those lines as an optional GPIO array, hold them asserted while the
+> system runs and release them - waiting power-hold-delay-ms - before
+> writing the shutdown bit. Device trees without the property retain the
+> existing behaviour.
+>=20
+> The array is claimed before any child device is registered, so that a
+> -EPROBE_DEFER from the GPIO provider does not tear down the regulators,
+> RTC and clocks that devm_mfd_add_devices() has already registered.
+>=20
+> On a Firefly-RK3399 the shutdown stuck when such a line went from high to
+> low before the shutdown bit was written, and did not when the line was
+> never driven.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+>  drivers/mfd/rk8xx-core.c  | 49 +++++++++++++++++++++++++++++++++++++--
+>  include/linux/mfd/rk808.h |  3 +++
+>  2 files changed, 50 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+> index 3dcf6ab..137ab20 100644
+> --- a/drivers/mfd/rk8xx-core.c
+> +++ b/drivers/mfd/rk8xx-core.c
+> @@ -11,6 +11,8 @@
+>   */
 > =20
-> +	sound: sound {
-> +		compatible =3D "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
-> +		model =3D "VALVE-DECKARD";
+>  #include <linux/bitfield.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/mfd/rk808.h>
+>  #include <linux/mfd/core.h>
+> @@ -703,6 +705,22 @@ static int rk808_power_off(struct sys_off_data *data)
+>  	default:
+>  		return NOTIFY_DONE;
+>  	}
 > +
-> +		audio-routing =3D "VA DMIC0", "vdd-micb";
+> +	/*
+> +	 * Some boards route "power hold" lines from the SoC into the board's
+> +	 * power circuitry. They have to be held asserted while the system is
+> +	 * running and released before the PMIC shutdown request is written,
+> +	 * otherwise the rails can drop and come back up instead of staying
+> +	 * off. Releasing them here rather than from a separate handler keeps
+> +	 * the ordering against the I2C write explicit.
 
-[Severity: Medium]
-Should audio-routing also include "VA DMIC1", "vdd-micb"?
+this will be called from both the I2C and SPI variants of the controller.
+Also please shorten that comment block.
 
-lpass_vamacro uses dmic01_default and the LPASS_CDC_DMA_VA_TX0 DAI in
-sound/soc/qcom/lpass-sm8650.c sets channels_min =3D 2.  In
-sound/soc/codecs/lpass-va-macro.c, "VA DMIC0" and "VA DMIC1" are separate
-DAPM ADC widgets, so without routing "VA DMIC1" to "vdd-micb", enabling VA
-DMIC1 without VA DMIC0 will not power the vdd-micb regulator supply.
+> +	 */
+> +	if (rk808->power_hold_gpios) {
 
-> +
-> +		speaker-dai-link {
-> +			link-name =3D "SPKR Playback";
-> +
-> +			cpu {
-> +				sound-dai =3D <&lpass_cpu MI2S_SENARY>;
-> +			};
-> +
-> +			codec {
-> +				sound-dai =3D <&left_spkr_i2s>, <&right_spkr_i2s>;
-> +			};
-> +		};
-> +
-> +		va-dai-link {
-> +			link-name =3D "VA Capture";
-> +
-> +			cpu {
-> +				sound-dai =3D <&lpass_cpu LPASS_CDC_DMA_VA_TX0>;
-> +			};
-> +
-> +			codec {
-> +				sound-dai =3D <&lpass_vamacro 0>;
-> +			};
-> +		};
-> +	};
+unsigned int line; here not in for() ... could also just be "i", as it's
+simply counting
 
-[ ... ]
+> +		for (unsigned int line =3D 0; line < rk808->power_hold_gpios->ndescs; =
+line++)
+> +			gpiod_set_value_cansleep(rk808->power_hold_gpios->desc[line], 0);
 
-> +&lpass_rxmacro {
-> +	status =3D "okay";
-> +};
-> +
-> +&lpass_txmacro {
-> +	status =3D "okay";
-> +};
-> +
-> +&lpass_vamacro {
-> +	pinctrl-0 =3D <&dmic01_default>;
-> +	pinctrl-names =3D "default";
-> +	vdd-micb-supply =3D <&vreg_l10b_1p8>;
-> +	qcom,dmic-sample-rate =3D <2400000>;
-> +};
+This code is (now again and more correctly) running when irqs have
+already been turned off, so nothing is allowed to sleep here
 
-[Severity: Low]
-Are lpass_rxmacro and lpass_txmacro intentionally enabled here?
+When you enable
+CONFIG_DEBUG_ATOMIC_SLEEP=3Dy
+you should get nice warning splat about that.
 
-The sound card only uses MI2S_SENARY and lpass_vamacro, and nothing on this
-board consumes DAIs or clocks from lpass_rxmacro or lpass_txmacro.  Probing
-them registers unused ASoC components and calls lpass_macro_pds_init(),
-which holds active runtime PM references on the macro and dcodec power
-domains for the lifetime of the drivers.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-topic-sm86=
-50-el2-v1-0-5183f6aab9fc@linaro.org?part=3D22
+Heiko
+
+
