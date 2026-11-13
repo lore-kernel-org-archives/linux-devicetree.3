@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558883;
-	b=KYelIxTJZQmkV5J8gtrvrgqlzB04PXDynRy1a2+XiTPidCJt0iGdsbOWvnp0nMtTLdRz
-	 NrYWQBKsvB45asoVllYMixa010UrxIKjq90KTAgQohe6bEFZY4VW3q+9rqUnUh2sc/Rem
-	 12lbQAa2QepgH74tew/y3br+3QzJWSAI8qyPxnfkdlBIxDB7D++ACIRg/uV5SlCM/0qqY
-	 ohqCvAsD9+awkmPJ4S+iKxTbjeiJctvkAeUvMB0OVe0jGlqwTtCuqaviHxdk0P34vzGvc
-	 byCbFBBpDGryQRI5RZ8/Dc92+4qERh2jNQoGS2h/j2ILngTK7tiBM/PRaAuWI+BGYwA==
+	t=1794558988;
+	b=kiKT0jkg+TyfFF5BXrxbm3Riy/i5fQWcmixhHCEr+Rhnnkp7/MuZgH/zV7pip2zVqve7
+	 0zcihFjQsrcjOkFOa/vi0S900RJK3UjtK7qn/yk1yM4Iyh5EadUIrSMWRs86ogqvoKaEt
+	 thHxpZ0kjhCVd96asLfDxvJVZIehKegFcTy90UDXtO4emjH6oQ94n1JmL2n/xLAtqyG8c
+	 Coe6/nkYsBIWNgLVmBumrPSycmvmEg+rMLPcumsvR9M4XRuuf/wJjT5uyc9Sa8quU3xPF
+	 UdLb0hWS/COeYjl4Mda5E0en6Y69fscbTftNlpg9JJ2PAI/X90kxFvQ0wvBRGr2A1yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558883;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v7TkNmAjWoTE0ChEpTaHQcYbnV/hk1xGuEWLimgYKas=;
-	b=mYW+RSUfCbNitcxLWvXcNFfi/Azn3BhSvmAR4IEf1cpqRDVvWfZDNQjDO0JyEdp1FvrX
-	 isO7Ozguo0lgoW/udKqi7CNsdtSNPbZq0f46OQvFDqVQCloGOddhPibWVc96fXI8r22qf
-	 MsUb90Rca6KImYPLXGyuqONmhrXK/1sRIadosxpqxXMZGycpIgQgw2OzthlJzPq3hJQie
-	 93kpEVONYhe+NDay/2Hdo+yN3VNgVUXv9EzOIzwl/UpW8O8mWE7TQYIzyox7YAsa3zji/
-	 Pl5H4AoEGiXUIZWIrqIfFfic3T0aKMq9j36QL5jaJ0SVwme6znYvC5ftI/bDgwYar/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558988;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=jPPDfViig2yIjbJ0gx2L1ZBwONIm1pAcOolkFFJ0dzY=;
+	b=L5SsKh19cA62zRR6C+l1mq9TdUsHzZZ0f3VBTthDfUrapdbYzVaKSQgZJaAJwFN8sDlA
+	 xDQXJMkb6aFXB/PUEHxEDGHKywR2RFQgiYNJH9vrhEmCaiXWH9pDtRiyJRdPH9TjVhdEF
+	 SdZiQYhmTMM5+DJicM/cebSv0QrE8gtTFR4fhtadwPFK9y+HJ094U9mdB6wAMxstwmwgF
+	 ZmW0hFH9Ip27amYc1v23NZRB03it0TQMBdoKCFlovkjYzz8Qcv304YIb2yWv5QpJw34np
+	 Kh9Odof56DeIkQsx/BuLvkR8APAEPA6f2o/Zc3pYVvcEdrSqoyXkraDvO/YGVflgS4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgpgC6BC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0436606A33E;
-	Fri, 13 Nov 2026 08:34:42 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nwnnRATS;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B079A606A339;
+	Fri, 13 Nov 2026 08:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B079A606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgpgC6BC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3137E1F000C4;
-	Fri, 13 Nov 2026 08:34:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794558882;
-	bh=v7TkNmAjWoTE0ChEpTaHQcYbnV/hk1xGuEWLimgYKas=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dgpgC6BCIyY6r2PPIy7apw5eOig0q3odoYc7hAIx3l+bk4sifsiPyTuN/BeQRCgDZ
-	 Bc/YxSoKcLqwcIZZ1eYQNFW3GBDBNYFRRzmB0tcrwY06gZ7AIVWV8IKU5SmsEE+TNx
-	 Nghg3TokkTD+ph95MtYO360LlNdL/xjEdGwa5UPejyOsKz8ZxqoiSsKbF68RUUWPZ4
-	 7Aes/80oUhrx6MZvHjXzKhnY4bhlWTno1r5CxIRgNUUczE5hPLUe9vtS3MHgEpqmSJ
-	 AX1Hx0pFeIElTolSy/X6W1+61J0rtzvEfqMHYDuRi5RLOJ2HHHxbpB7qjwxzOndbO6
-	 +82hVegjvQ/ig==
-Date: Fri, 13 Nov 2026 09:34:37 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shaunak Datar <shaunakkdatar@gmail.com>
-Cc: rafael@kernel.org, daniel.lezcano@kernel.org, rui.zhang@intel.com, 
-	lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: thermal: marvell,kirkwood-thermal:
- Convert to DT Schema
-Message-ID: <20261113-striped-fascinating-mussel-dbcf6b@quoll>
-References: <20261112080532.30774-1-shaunakkdatar@gmail.com>
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nwnnRATS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=jPPDfViig2
+	yIjbJ0gx2L1ZBwONIm1pAcOolkFFJ0dzY=; b=nwnnRATSCZniyi3GA5BW4mPzz5
+	bUx2/IMgEyzvEvDJ4pZBAEcUhLIEyz4Fh64RIiQ+nT1fa8OFFtKshMyWtBTztM61
+	8+l563YI4mTO7sLEdlr1beCQTwvtR+g0XHhpqj39SmSWDeX7x6MXA12QACgVvi9c
+	VoZgIUfL80kped5eM=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3g0j_y_Zq+ze4AA--.520S2;
+	Fri, 13 Nov 2026 16:36:16 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	konrad.dybcio@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	taniya.das@oss.qualcomm.com,
+	andersson@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] drm/msm/mdss: reset all block resets described in DT
+Date: Fri, 13 Nov 2026 16:36:12 +0800
+Message-ID: <cover.1794558882.git.xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,19 +67,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112080532.30774-1-shaunakkdatar@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgD3g0j_y_Zq+ze4AA--.520S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF4kWr17Zr13Ar45GF15Jwb_yoW5Zr15pF
+	Z8C3s3Jrn5A3yUZFs2g3W8uFy8Can5tFy3XrZ5tryUC3y5JF1xXFW3trWDtay7CFWfZ3WY
+	vF4SgrWv9F1qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvCb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY
+	04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
+	1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
+	b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
+	vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+	cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
+	nxnUUI43ZEXa7IU5IAp7UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREJB2r0wlk29gAls+
 
-On Thu, Nov 12, 2026 at 01:35:32PM +0530, Shaunak Datar wrote:
-> Convert the Kirkwood thermal binding from the legacy text format to YAML
-> schema to enable validation with dtbs_check.
-> 
-> Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
-> ---
+*** AI-assistance disclosure ***
+This cover letter and the three patches were prepared with the help of an
+LLM coding assistant.  The author reviewed every line, checked every
+statement against the tree and his own logs, and takes full responsibility
+for the content.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This is v4 of the MDSS block-reset series.  It supersedes v3
+(<20261102055026.438521-1-xiaqinghuan@mail.ustc.edu.cn>) and changes only
+the last commit message, in response to Dmitry's three questions on v3 2/3
+(<awb7bslhrhemsgvu7ubaejvurk6fecotgvqlwtvsoe2benqdgq@tvh2sfjbuzyu>).
 
-Best regards,
-Krzysztof
+What changed in v4
+==================
+
+v3 3/3 claimed that command-mode panel initialisation "fails with command
+DMA timeouts and the display comes up as backlight only" because INT2 was
+left out of reset.  That is a causal statement the data does not support:
+the failure is intermittent (~50%) and we never isolated INT2 as a single
+variable.  v4 drops the claim.  The commit now says only what holds: MDSS
+is an interrupt controller in DT and the DPU takes its IRQ from it, the
+display clock controller provides both block resets, and firmware can hand
+over with the block running, so DT describes both of them.
+
+The two Reviewed-by tags received on v3 3/3 are carried over; the diff of
+all three patches is byte-identical to v3 except for that commit message.
+
+Answers to the three questions, for the record:
+
+- it is an interrupt controller: sm8750.dtsi's mdss node has
+  "interrupt-controller;" and "#interrupt-cells = <1>", and the DPU child
+  uses "interrupts-extended = <&mdss 0>"; dispcc-sm8750 exposes INT2 as
+  MDSS_INT2_GDSC plus DISP_CC_MDSS_CORE_INT2_BCR (0xa000);
+- side effect: msm_mdss_reset() runs in msm_mdss_probe() (msm_mdss.c:372)
+  before the irq domain is created (:417) and before of_platform_populate()
+  (:537), the group is held for the existing 20 ms and released, and dispcc
+  PLLs/clocks are untouched;
+- testing: the reset at this position, with core+INT2+RSCC as one bulk
+  group, ran 5/5 cold POR and 2/2 warm resets without a bad boot, against
+  5 STORM in 9 cold boots when only the core was reset.  The exact v4 shape
+  (array API, two resets) has not been booted, and there is no per-reset
+  A/B.
+
+2/3 exists only so the driver honours a DT listing more than one MDSS
+reset.  If you would rather take 3/3 alone, we can drop it; say so and v5
+will be 3/3 by itself.
+
+Gates for v4
+============
+
+- git am of the three patches onto pristine v7.3-rc7 (24a19b953e) applies
+  cleanly, no fuzz.
+- checkpatch --strict on the rewritten 0003: 0 errors, 0 warnings, 0 checks.
+- dt_binding_check and the W=1 build are unchanged from v3 (no code or DT
+  diff in v4).
+
+
+Qianhui Xu (3):
+  dt-bindings: display: msm: mdss-common: describe additional block
+    resets
+  drm/msm/mdss: reset all block resets described in DT
+  arm64: dts: qcom: sm8750: describe all MDSS block resets
+
+ .../devicetree/bindings/display/msm/mdss-common.yaml         | 4 +++-
+ .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml    | 3 ++-
+ arch/arm64/boot/dts/qcom/sm8750.dtsi                         | 3 ++-
+ drivers/gpu/drm/msm/msm_mdss.c                               | 5 ++---
+ 4 files changed, 9 insertions(+), 6 deletions(-)
+
+-- 
+2.53.0
 
