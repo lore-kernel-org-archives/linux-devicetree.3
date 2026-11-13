@@ -1,73 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587973;
-	b=UJA5H3oZJZt557ihdcFQHS+iciDtSMWIqGNnasC9UAiPh8Wniv9WF3hbQq/ngswirQmU
-	 IpGBtyVTYwurJdOGT0l2FWnOtogrEL7pBvobtlakmsvNnaq8cOLEk4wDUWMcIfIuQCLds
-	 mD3oHNyctNLQZXAG1ygK1A3DzhaFkIyZUC14CykYreDEDmcMDFdj+321XKmxgnSCuCnmY
-	 fJSY+0tfpwum+2ElJ42n9EIkZKHZk0aoYUKbOXFYVXAiiUi+CedtPDWx7kh34jGU1Y1PS
-	 Xdvn/PJAKOGw6vC03CqtnsUhMfMkus2f/Xl1FgzE85i1GAplGHkrF7p41tVqp0jNWog==
+	t=1794587985;
+	b=afQ55sbO0c0zc13d7gLEviscxzpB6KyMje0dONbfn46/HpAwZjey35beTHrm3t3Cjr35
+	 eVnLxvIngUm6DU7kGY5EZZyTN1xNHz/AylCBm7K/oqaeylztH2ZvQ/Ao8rh+2AnY1RfYD
+	 sy3T8PxbEMRctMFNa63BlBnQv+N31h+3YJdF47/w2wAMSgnJn+WMShsK5w1/UXDVEWobA
+	 tsQtXIJ4e/8NurJluGohqzeAAmZ36WGa5uJpjaFyvTCVeku6slf2KUJ5utRViRvAMhzcH
+	 2Rw7RMF5SmWTSfZNzlvEblPyipgBK8tQqMVNDmYJFBy7iF5AvC+JMwf1Ot4OGrj5blA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587973;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ZIaozk2aBHaH1oFJEjjG6pq54xGfHGZXMiLG49FuxWM=;
-	b=OCNriIX5sDAPrs96esMs2t5ekKzx22mVJGdLUJA+ys6fJhAnVe2Wg06gpHwP4ahDiNOg
-	 H1r4Q1xFQmxjNTFV2C4ffpHjYWXX4Buua3Sc2u0yK/wS8fBphog5LWzx6lLEMNAZJ1fHm
-	 UEqPrzXDatsmdvNYx3k75N0c58FbRhumjwXhLUY+lJWVbCqIEmBL79bulYkBwbTlwnqkG
-	 rreNL3uU8x7tjH+8SRbcHM1QK76QO7qMAyX997Mgd2VQ/7ARsSlkoXsZHKT+HKwtx231C
-	 tVG5PJJYE5Ldo+9C6bX2ynM2hV4HlmztURZETzwW6Xwdl7X1AHsZ1oHAmVx0LeWYFrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587985;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=i4h4HKH2GS6z/2Zf2rK+27RgIC+Lc8U/1I7bo+I9VMw=;
+	b=VHTC2VNmyCQtQ5UAHWMpb/X3yGlwoDWYx8Lub6wONMkvpK1HRJZvTnFInWsD4re5u0yc
+	 E1dCDixs+6LRXnbRkQ0jxtsTfhU7Yl8yTqQWibEmNrJgyAzJM7XgaHDUimEjhEsJrmNBP
+	 pH5zVOvMwIuBX+VvvChO4uRfzhbagsmXTH/rsxHP/DM9pUv1VENn9yjaQCIPvbgq0e1gW
+	 ilu2kA79qs4mxoG4oNnNkIHusxRfDj2RnBVOS8zxdrgva9ymGU8mNnF9zf4CgiI/EKNbN
+	 KUM/40r19pB9iQq759j756FkCxMDccEJZEEUZp4w7W3/cYgYxigDMrc90fVQwlBCBsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF;
-	arc=none smtp.remote-ip=212.27.42.3
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALcdOMa6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0CD606AFE3;
-	Fri, 13 Nov 2026 16:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A0CD606AFE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB4260A3810
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:39:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Y27pSlBF
-Received: from L30177.local (unknown [158.255.110.170])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id ECC3913F8AE;
-	Fri, 13 Nov 2026 17:39:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794587970;
-	bh=Nq5VMxuAxZkNVKKpbGt5VbkTDNOsTH++OiONsbi9n9A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y27pSlBF6JC60hVZAj8IPVqa48C/9DgkKqOkQDESe2muCIMq1QiH0t2hpY74zGNor
-	 OtZzOAz4r2ULrN4s+CBzg/XtDOlc9O89iXA+G0s6SUgY7mlQnzDErXQV+ELA5RNaVW
-	 PK2PDB4K43IBDzZj9SO+65cyDlC491QsHI1NYeRwF/XtNGdaiyb8ChPIcKkIUVC2In
-	 dvO1b1pdQocvaDngZ6qUQv0TZJtqExY4YIAmBF+5gHhlvome38PHRk5sKV9ag8cLbe
-	 xkXCmw2A00qeLS/JkZrIUoxtz0CyY8rdsqNrklwxDAO/6T8FiPaISATPfhBBiQvTEd
-	 tKScOcofIrrdA==
-Date: Fri, 13 Nov 2026 17:39:05 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Christophe Leroy <chleroy@kernel.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avc9KbxQ4dxlibGQ@L30177.local>
-References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
- <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALcdOMa6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5441F1F000C4;
+	Fri, 13 Nov 2026 16:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587984;
+	bh=i4h4HKH2GS6z/2Zf2rK+27RgIC+Lc8U/1I7bo+I9VMw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ALcdOMa6hO/4+zWLRKfVReliozd0tV/nS9K95tTPfpcs6jwGWaXax15MSQuOIavnj
+	 qunIL02zx109VSLtNnbtWw+r9w0Vrp2RW7MoY/Er/82U7h9d8jVg0DuWp23xv6ODIL
+	 kGT+GnkrDgOZk3Vzj2TXWov7hvB4Z7ORfalKUFrJGAnK7lJXyriIXX11n/1+0bKsWh
+	 9+lzq7Xfsvjc8V1oSNJDkJTggHECANVW7OlKDCbACoVxsmfRWfKIxsHkvGKMLVWzDT
+	 dVxyy9tiadUdc/liRi9RsEC2CCRARNJW6f+KW66YKuTLiYc9qsH4o08ZOdStrZ/pK9
+	 iDq/PAxMY08Rw==
+Message-ID: <sashiko-outbox-213216@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 10/10] ARM: tegra: Add CSI node for Tegra114
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261113161819.36847-11-clamor95@gmail.com>
+References: <20261113161819.36847-1-clamor95@gmail.com>
+ <20261113161819.36847-11-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 16:39:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,29 +59,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
 
-Hi Christophe, or Vladimir,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] ARM: dts: tegra114: undefined TEGRA114_CLK_CSIA_PAD and
+  TEGRA114_CLK_CSIB_PAD in csi@800
+--
 
-Le 08/11/26 11:06, Vincent Jardin via B4 Relay a écrit :
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
-> other fields of the RCW:
->  - fsl_guts_rcw_read() reads a status register
->  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
->    waits for the status register to follow
->  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
->    which holds the override registers, is mapped
+commit f51e7b055195911c3530d9e3bca74397442d3256
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-May I ask for your advise on this topic ?
+ARM: tegra: Add CSI node for Tegra114
 
-I am looking for the review of this serie, then I'll adapt it
-for u-boot along with the integration of Linux.
+This commit adds the CSI child node under the VI node in the Tegra114
+device tree and shrinks the VI node's reg range to accommodate it.
 
-thank you,
-  Vincent
+> diff --git a/arch/arm/boot/dts/nvidia/tegra114.dtsi b/arch/arm/boot/dts/n=
+vidia/tegra114.dtsi
+> index a5958f3a965b2..0d1328c4d3c8e 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra114.dtsi
+> +++ b/arch/arm/boot/dts/nvidia/tegra114.dtsi
+> @@ -53,7 +53,7 @@ host1x@50000000 {
+> =20
+>  		vi@54080000 {
+>  			compatible =3D "nvidia,tegra114-vi";
+> -			reg =3D <0x54080000 0x00040000>;
+> +			reg =3D <0x54080000 0x00000800>;
+>  			interrupts =3D <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
+>  			clocks =3D <&tegra_car TEGRA114_CLK_VI>;
+>  			resets =3D <&tegra_car 20>;
+> @@ -64,6 +64,38 @@ vi@54080000 {
+>  			iommus =3D <&mc TEGRA_SWGROUP_VI>;
+> =20
+>  			status =3D "disabled";
+> +
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +
+> +			ranges =3D <0x0 0x54080000 0x4000>;
+> +
+> +			csi@800 {
+> +				compatible =3D "nvidia,tegra114-csi";
+> +				reg =3D <0x800 0x200>;
+> +				clocks =3D <&tegra_car TEGRA114_CLK_CSI>,
+> +					 <&tegra_car TEGRA114_CLK_CSIA_PAD>,
+> +					 <&tegra_car TEGRA114_CLK_CSIB_PAD>,
+> +					 <&tegra_car TEGRA114_CLK_CILAB>,
+> +					 <&tegra_car TEGRA114_CLK_CILCD>,
+> +					 <&tegra_car TEGRA114_CLK_CILE>;
+> +				clock-names =3D "csi", "csia-pad", "csib-pad",
+> +					      "cilab", "cilcd", "cile";
+
+[Severity: High]
+Are TEGRA114_CLK_CSIA_PAD and TEGRA114_CLK_CSIB_PAD defined?
+
+include/dt-bindings/clock/tegra114-car.h does not define either macro, and
+tegra114_periph_clk_init() in drivers/clk/tegra/clk-tegra114.c does not
+register the csia_pad or csib_pad clock gates.  Leaving these macros
+undefined causes dtc to fail with a syntax error when building any
+Tegra114 device tree.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113161819.3684=
+7-1-clamor95@gmail.com?part=3D10
