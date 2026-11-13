@@ -1,80 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794559507;
-	b=vyKN9VKsujUWmNtGmWh+HtODtuhfhfiDp1w2khDiO8demV7RYroVFdRb8syf8QwBQB+q
-	 pgnzu7Ypd2gBOhdT/yDhgINyPDt7BDHeZJ3o04CLSFo8s6sUz/jrbuk4E2iuoDynlkMCe
-	 qts1yfLQrA41Dn8sOxKEMmf1gsdGsVphUH/QYQLVEN9gvUTlnX7JK8v7300p6XtV88UUg
-	 7XOHM95fnCD6FvEQ6xLnEtFqtBA5V6JaeKKBKVBVyHQtNt0O/UAnRSsaV7VxIwFL2v0Q8
-	 kA3Ami/ohO+FvdYruUMorCNWkIEAK5ZH+2/tFDn2YcQ4VSIBPjV87TrKZp2Ws4CCmtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559507;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=31dV+hbb4hVRp8z0uoBI2OUNQZcOaUvP3vksNhkTFGo=;
-	b=vIR/l4zHIP7ZhX4MIJCxptZQzYyxku/TFRQ5n5rT6d6gxDRjwP9uQYewzRhgIBdxEq4R
-	 7xFSMB/VkohbJ3fVSF8cmZHpVwDXMTBran8CKn9hrBFIJFPJV09lfSR36TkjSlasody9E
-	 Qny2utIxlDr3JqXcTDt38JpktFCPsux0afREl5+PZ1isTsRnRd1EeSlPXykkEpn28xl0o
-	 Kyh8kdcosbLJmCWsPDnZGCIWz1UJyR75XORVhH4EcQd/Ovh/82GBd8PwOPiCJekckMZ9h
-	 sYstfiBCqxMXHD9AYzDwn6I6O22X2Eb8Z+UERgGMDaspjSiPgQ3uilAq97I45aL3yzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYoZpfZ7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903DA60A6F78;
-	Fri, 13 Nov 2026 08:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYoZpfZ7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794559507;
-	b=u2pCk5CMdkNZ+3MTt4wM8kVjpQx5qCKoFlRrNLyVxSsnD40J9XrTb2hxdnkCiXBnxmWI
-	 v7rzYifibccyVIwAg5q2bKvvrHXbyan+W2CrQ5hJn2UcNMaYTDeBYjywu/M8VvVSAeosy
-	 p1OATfU41ppdniQey3MCyOvY5er4/y1iJhAmXzz77MqWzpkEsjU6etq9eLkH0xQEH6tzM
-	 aJoROhlnv0W2yRI+alUkFn7QD6dCEmFHvTk52X+ltHoSnOCe2u9szIBQ4S5RH6PxiT8qt
-	 L9ftT6J24yM+JD+/kOYcghVBS4P9KpJjnbvF3GfLZw/UPHQ4QZRhgX7hm0LHd3jnlXg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794559507;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=31dV+hbb4hVRp8z0uoBI2OUNQZcOaUvP3vksNhkTFGo=;
-	b=kjW0HGekRsPrW0xmxt0hHK+N+sqvdQTwcO5eAtwMU8F+KX9451MfvzeiTBLPNzrXv/PK
-	 SvwnqRFsKm53AQIGqWFjupGrSwxSaGC6iollcgHfUmTx1jJYZI43WzTd9awK81mMmYgrS
-	 BwRrzqV0vmY+h1j86amKydFoT4tqZ6dnP7c5caSUOb0zSiNI5IEYUMecY/gJqVQQ44YbM
-	 29XhzaWA+xq9EKhW30Wt6rnxLA3pUHrYtc1Mp9RcxPuLmZSUeZGB4nmE3ZLr3SvGIHmyw
-	 WA1eggl9gkjvuVo79FVjLH7Vj6tCxOrMmo4zaoXSGnGKEKgF6dBAIqeODi9BTtATF/g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794559744;
+	b=tRdxg56KEueIaVnXqJo50fcMnw4f0levx+GFX3admUCc8a8W74juksORHEyjWIBqfg7C
+	 CrqUsus1FDrQp5zftZgPa4w8IjOrtBRy3sUSeWAnUKBcr5LmF9xSj9/QbQxoXo+aNs4ZP
+	 +yQg4mvnUUmaMbMXDtRlXTQs4q5H09FhYPXi6AuRKfDMHFSryYKnOgoRB+030iaBKnONO
+	 Fl6DItq610WZAiu2pUNdKaEawtouYN/usnCGvJYpWrKxDnWjpt0eqQnDuyNjZs6nZk69V
+	 2cinnV1jMVNAF2Dow10yoELHS4+ee8xBa3bqYE95tgpcIoVjAqTKQoJfajwPJEZwj5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559744;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+	b=lD0kB5zI0sJQNPeS6J5mMEZDbwApfsyNO5oQlvkIoW6KrTStKv8E2sU3z7E3TAqVpFk1
+	 lW+KD74yZ9cOEwoDT5bgzzVfDv9Nrn8zYntMmfEtU+NqrgDnc+BYhS8fE/Y+hy34gJ5UI
+	 PRYH0pdTqQuVxhDGakCmqq6y+SdxmKAzdbeADWvP9hondzBE8IiRmy+oO1oxMX3mCN5A+
+	 zrd8q+zkPWIbgutBIyNsqZAGgP2Dad1vvO5oNpUd4b7C97FtcW/iCvpFFupt0ANOtyThi
+	 KA7dxNyc3NWLdyAdNyq+G3nG9Bo+fjvnLgeEEcXI+3Y+39/tRL+fity4jUOT8VPyJaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1BF541F000C4;
-	Fri, 13 Nov 2026 08:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794559507;
-	bh=31dV+hbb4hVRp8z0uoBI2OUNQZcOaUvP3vksNhkTFGo=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=SYoZpfZ7hEbNeF5GTYyX72hicta2768hYXtnnzo6ZxFe7HJIbP4fYij75bGBr8DKd
-	 PxRFuHiDn6PldT29VYXSIAqIynvHYQHE0U3mQx3want1w1L+Gt0CY1ae0MDSAJScK4
-	 b6q2qDrNh7goz4lpr/8XGaftfQV6ep8mBBPHYbKj5qE1n7Xehtc9YbZjvnfugThDZP
-	 deJI5vFVJD1+rc4yjNtuu/fy3FJxrZ0I+hsCm5Y3TKlvNYzK3T6eooHmL07+Gc4T4P
-	 lQlE3ZGTENgEfPGJkMBN2btYksZCBZ4Ix3pzi4KuzwNN51J/HI1YalaupOLFmgFf3B
-	 pdyn3rTuOtg5Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6D5B8476C9;
-	Fri, 13 Nov 2026 08:45:05 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v3 0/3] iommu/arm-smmu-v3: Keep the clock of the RK3588
- PCIe SMMU running
-Date: Fri, 13 Nov 2026 08:45:04 +0000
-Message-Id: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF32606A32A
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF32606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXbDGLQb
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e98798cbddso5710925ad.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:49:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794559742; x=1795164542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+        b=uXbDGLQbF0w26QAw6MJrM+Gn/WE9SHb8OtRQkAj9lO266801X+jv0LVPreBz6oz94a
+         B92xhj2j1To789uEuSuRZKr3zzsuxMeBmH0dbBnMJnT54gk68b70J1d5rKe7c45aS80R
+         Hg7JVCq2OYsF4ORvO93oQGyjExlaRb9HVQBZGLLvF94c9QBrEFXVB16EPcRyrXIxKm31
+         vh50ZnIGEI+CSKCCOrTQezfbF6rb160F8KYZoNI3fcxRDUz8kQ0PqGfhBB5JkUnV3buX
+         j/5Gy7hNjzBDPzunZypx2PLkuIroU/j8E+codgCOSinm05fSiidcjrrlDIOKtWVWFv2U
+         gq6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794559742; x=1795164542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qx6anf3hBdJB8SU0X3cTGKNeyaZPKU1W0S8sS4JiQgM=;
+        b=WSJDWVzQ91g2vvs9b5lhQ+b0A4kX9MVzOL4IFujBGhE0K/ueme7VmerpWHzd8qYnqD
+         TuL0QKD7kg54TQ6RaCnrAhH6pS7VmX96v5caeiSeG/FFbqwS24XpSk0N8cANT6qWh9dJ
+         NaKiw2nZePl/OsH/k4/NjEoA//gxE/7o7i4BL341KrpZtIOodeRoQROg2rXbVFR7eFyW
+         h/UV0BaQpnwGLdJkB3zK5lz9U6iUxdltZG/tfnjWXWhKOamqkyweOJRlgRLZZD4RX/rm
+         cz2rXuUT6D+uys8OUF5OekpvbfjB9jC+ddBl+q9/LFeDLY76si3bX4SeEvzDRR44/m4W
+         maEA==
+X-Forwarded-Encrypted: i=1; AL+hErE3d2kRBn/ey06sUjK1K1OwhrurAfbof8czCmRpmZm2onfBkdXrNm/T8WA5dRxCWLhhqy4gXML2JPFh@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eAP5bfnocV4c2LHc2c431jtKyDUYxA9Pnzb+lPDzzT9J06eMs
+	f0MQ8stg1cIgCqbQEW2THbJx9BXot6ZAfYmsJL/FLEaOPF3ocEcaUwL+
+X-Gm-Gg: AYBFou1nCFRsmQPCgJw4SsUcuW4wro22kFAae/fJBWEpF8gDWPQXMXE4VrGYqFrXksx
+	QMTWsq6D67aSSZLXKlghwJ1DvW2rnyAd29KhY/K+PQ0PTQpwF9TJtJv1VTkW0aY+qNriKm4ugER
+	aTyXqhgTWE3r1y0kZOjKTYZVXaAXXi+vjW4xMCzhnno1GmOHraKrPn3aI5mYH6DHThFlQ3Ig8zr
+	qzXlkQwzu3OJvYTbqTWnSVtYxxyMqJ7FtdCzCmUq+69qwJB47hDfKzuQsjN7H1n/ffCsDQYfsVv
+	QdQdRM8po6Pgp3Wa4ul1eR77giqzpAu3XhucMsxViQkyzUJ+G04VkJBikUWWv78TSW6iXLxHY+J
+	KT7uTLoESdnSaQhWT04BualQcrtGbM5omyCyuWXzIAPkSlOb/h/+PBTgyG03oSGB2yQ/0ptGnE1
+	uG3ZCv2Wtnf1XKYdZD9e09LNobujg9Q9dYzLqlslenEAOovTMce/2nbTketOkAQjaZK9tl+1rS1
+	7FSb7kDi+y1P8Yd6E3QwLrjgD1xHX4+czbOU7eKDDW1VndnUAwtp1kOL2LFNc9/DBey1h+HJwgZ
+	K6JboshJAFcI+b3f1uvep+gg4klyUiwXA43my2LjLzVePep1vpUOWvipihx+UGUFmX+VivThr1V
+	WKiHk
+X-Received: by 2002:a05:6a20:a11c:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3f7a8bd20camr1630922637.64.1794559742523;
+        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
+Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcce76sm742540b3a.5.2026.11.13.00.48.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 00:49:02 -0800 (PST)
+From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+To: dmitry.torokhov@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Add Nuvoton MA35D1 keypad controller support
+Date: Fri, 13 Nov 2026 16:48:50 +0800
+Message-ID: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,99 +102,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V0bQ0zECiu/A/joi0FxsgjLTQaw
- r/b4obEuDzJPeeuzBlLxrFLsjJrPDkahwDZKWG6k0NrONWBGaZYAEDKXd8v3Gd80mT4VHOJDWC
- pBNSiYcGarGnotRdv9y+7RT2MnmMmLjpy82jf+6WHuPtf98BTXqAQUGmZ56q6tr2k51mPPYt1j
- 0cff30MfibLUilVKNT50d+27QOoIzUYAAEAAA==
-X-Change-ID: 20261110-smmu-v3-pcie-pd-a2f127b81d8f
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Niklas Cassel <cassel@kernel.org>
-Cc: Pranjal Shrivastava <praan@google.com>, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
- Finley Xiao <finley.xiao@rock-chips.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794559505; l=2819;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=JFQF5/x0xcmOO0il+Oumud6dGqDqEHGMJfPbBtaSTas=;
- b=r+ccjvH9jrVlYhNR5ezOijurYTiyt5yfiemcGV3RXLrUNiui61CYNJy//fe7BhE07XOPhzNE2
- wY7ACapqPM6BUGt6qS9vDJkBwcln639T7ld7v8/RoTqPdZ44VyBNH3n
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
 
-On RK3588 boards without an enabled PCIe controller, ACLK_MMU_PCIE is
-gated as unused while arm-smmu-v3 is bound to the PCIe SMMU, and reboot
-hangs in arm_smmu_device_shutdown() until the watchdog fires.
+The Nuvoton MA35D1 SoC provides a hardware matrix keypad
+controller supporting up to eight rows and eight columns.
 
-Patches 1-2 are for the iommu tree, patch 3 for the Rockchip tree.
+This series adds the Device Tree binding and input driver
+for key press/release events, clock management, and system
+suspend/resume support.
 
-Pranjal Shrivastava's "iommu/arm-smmu-v3: Implement Runtime/System
-Sleep ops" v11 (not merged) has no clock handling; the clock can move
-into its runtime PM callbacks once it lands. mmu600_php is disabled in
-rk3588-base.dtsi and is not changed here.
+Tested on a Nuvoton MA35D1 board with a 4x1 keypad
+configuration and a 1 MHz KPI clock using evtest.
 
-Tested as v2 (same code, 7.3 kernel) on an Orange Pi 5 with the M.2
-slot in SATA mode and the root filesystem on SATA: three reboots reach
-the boot loader 0.59 s after "reboot: Restarting system" (was ~89 s,
-via the watchdog), and aclk_mmu_pcie stays enabled. The resets property
-is not used by the driver and was not tested.
-
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Changes in v3:
-- Shortened the commit messages and the cover letter, and dropped the
-  "on SoCs where ..." part of the binding's clock description
-  (Sebastian Reichel).
-- Squashed the DTS reset patch into the clock patch (Sebastian Reichel).
-  His Reviewed-by of the clock patch is kept.
-- Dropped the description of the binding's resets property.
-- No code changes.
-- Link to v2: https://patch.msgid.link/20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com
-
-Changes in v2:
-- Moved the fix for the Tegra CMDQV reference leak on a bad
-  #iommu-cells (Sashiko AI review) to a separate patch.
-- Dropped the power-domain patches: the TRM puts MMU600_PCIE in PD_PHP,
-  which Linux does not control (Sebastian Reichel, Shawn Lin).
-- Binding: one clock instead of up to four (Sashiko, Sebastian Reichel).
-- Driver: one optional clock, got before the firmware probe so a failure
-  cannot leak the CMDQV reference (Sashiko); shorter comment (Sebastian
-  Reichel).
-- Added the reset to the binding and the DTS (Sebastian Reichel).
-- Link to v1: https://patch.msgid.link/20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com
+Feng-Yi Hsueh (2):
+  dt-bindings: input: Add Nuvoton MA35D1 keypad controller
+  Input: keyboard: Add Nuvoton MA35D1 keypad driver
 
 ---
-Arun Iyengar (3):
-      dt-bindings: iommu: arm,smmu-v3: Allow a clock and a reset
-      iommu/arm-smmu-v3: Enable an optional clock
-      arm64: dts: rockchip: Add the clock and reset of the RK3588 PCIe SMMU
+Changes since v1:
+  - dt-bindings: add optional resets and reference input.yaml.
+  - dt-bindings: fix interrupt, clock, and keymap formatting.
+  - input: use guard(mutex) in suspend/resume callbacks.
+  - input: rename error variables from ret to error and
+    explicitly return 0 on successful resume.
+  - input: remove the unnecessary linux/mod_devicetable.h include.
 
- Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml |  8 ++++++++
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi            |  2 ++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c              | 11 +++++++++++
- 3 files changed, 21 insertions(+)
----
-base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
-change-id: 20261110-smmu-v3-pcie-pd-a2f127b81d8f
+ .../bindings/input/nuvoton,ma35d1-keypad.yaml |  75 ++++
+ drivers/input/keyboard/Kconfig                |  11 +
+ drivers/input/keyboard/Makefile               |   1 +
+ drivers/input/keyboard/ma35d1_keypad.c        | 407 ++++++++++++++++++
+ 4 files changed, 494 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
+ create mode 100644 drivers/input/keyboard/ma35d1_keypad.c
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+-- 
+2.43.0
 
