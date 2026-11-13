@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595130;
-	b=qrrzuwPy+NP/5ChbEcIZ51XumyWzIBssHmqmPX9emlgLe+4XshvKW5s7tZu/5aW0q6eL
-	 V2hePRkmhcn8tgP6WvLFzNsTUTgDBrlW40F8nd0+7XsbgthPKF1qeyipW49Zd6hRbCgz9
-	 DV7j1afLlkFsbuMNdYKy2N5+ZgIlXtbDL0OH4yp15zPS2BLpbSuslGIo+hRmGrjNhHqXO
-	 QIJuLL7DAC9QTtgtFYNDiKzcSS6s1dQjvIMzCun0xU0YvSNAtjzPUqdwKCbN+kcD5GjfH
-	 TbBZmqHOWhFjOxb52KbYFxe5wqsCS1mJVG0MzS4y6a7OdWL+IvqTP+JiLz/6XB8ORtg==
+	t=1794595132;
+	b=Kypg7xYCTfcm9IE1HTUkANMuwc7nV0N+KlSiy4WNDSWQnar6j18hn3P/asOaUseZqpFH
+	 h0lzlb6tTgoPIab9BNEmzXzQlwiSl1fy6Q7Q/2EA/U6Z9zM6XqYzKeM7p7rQgIkZsaA0S
+	 DsVIs3xHE5ae4ax4TEHcWJfcFN+zspcnnfZqgrhgEr+2pXfkeS6uuOMpVZQ3PSUbDOgYq
+	 ovryJwlXk3/gE9XOwb0QDhxeF9Mon84txaUVog4XbLuoqiLhCGDKw8+/lS86tIIzkeSvg
+	 gfm50xp/9TMkoDIot2nvfLLEXlUL2tUpvS3n9RdBUFoCgqgV78s9FVtgZsEOXGDoMtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595132;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=/WLYnDFB5WqiTmstQk3U+Or9EEun2Fd05KTvnYRhk7k=;
-	b=YWgR1bOHmFpvi5KfLKb2FhrEptnLNg2hM1t/B7BbUMc7f36o6avrBc/MbB5MQakcExyh
-	 d9xMYbP12o8wi6XVURZr8NPi61Y6hTEQY+p+aNe13ODcapbhuOKr99PU6LliCUB+YgUgt
-	 KzzXhAKtVinAi07VdNmPUTtLthCCLSsWRLHwM2tXsUZ8TO0TfZKJ7AhXcIgG+zqvQucQM
-	 ybNE5nl7ylkJ8cu3SJ3tD6qyWnfuOwuQRkLzT4td5MIbEdBRic5lgJ7Z7Vd98i+5JFQ7n
-	 H34A4S2Uckxf1x8/mBeGPtsIjSZpUdax9MqUXOzdQCaRGekM4Y+BXJhPiKWh3hodA0Q==
+	bh=I3CxMslsd+5GbFipqe8hUZfFNzi5/bfvHjhMGH0Ggto=;
+	b=XPgM3fwElD/psJM1kABFLo+tcs13b57tdSfpVU47DcdYGFFBukUSGyIEj6EiFmn8Hnvz
+	 7gXJ0xQW2kTeUEcaBqSxWmRYdX43Xt/gvgSin8A+Fu5e5cLhan2QkyVcpFPBgUXdvsF6n
+	 81eEWdHxRePo4ZA5jH0BnorI9wPzT5PqWhZUegrjY3ZB/zslDskkrdMCDv1Ub3l9ul6Hi
+	 8XkanYWHuytU2aUz6Fl4WWdPXqt96CX83zkxiq2gCNrN7BVR3xzoJ3HOOW9u8f/VyJW4b
+	 WovhBhC6kSqRHJvbsLCokiddHyXcrfyzA1oX60vwPcGVjfKABWsgFOWv3/xoHyr+vBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CHBH4gV2;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LbpqK6Un;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A89060A2631
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A89060A2631
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC1660A3824
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CC1660A3824
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CHBH4gV2
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e10a70540so638829f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LbpqK6Un
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491971ac844so1507154f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595128; x=1795199928; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595130; x=1795199930; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/WLYnDFB5WqiTmstQk3U+Or9EEun2Fd05KTvnYRhk7k=;
-        b=CHBH4gV2txsfWUqt93sFXgZF7/fnwxzFiPXhIjbdrpO+4XbKSdWUmmbI02iSL+Tk+e
-         UF85gafw1u4pnt2n+oWOHW0NRifB4bGa2JyalIt3gONDYehIkVUNWyhW25sSNIEg8wxP
-         sAkNUnZ6tUcBdblyDmd8XmlrapYPS/rm3xFaCakAhnF4aMxC11Jp/WVWY7R6YhQxEexn
-         Cg6ZpeVf+I2vgRaxVo1uOOjwJsjWWKQrG3/A7IF+sYtBNwKRJo6kAfHnrUlHscFjkzng
-         nFC+2nLaO+x+uq4srb5SmH+UCT1OLiZWCBvTcsdqcIC+ElDcFyF4lfHOePqP3owY0SRC
-         a6XQ==
+        bh=I3CxMslsd+5GbFipqe8hUZfFNzi5/bfvHjhMGH0Ggto=;
+        b=LbpqK6Un967LK/nmM728B9/DzxZ3woD3YQrGDkm9tctvjUStFBTEOGxHGYYUzjuPBj
+         EtLMVOrZo+ntdcy2qL+Z/UO8FsI8ZAS+xb/mb0tac3YTNrtt4PxukKQd+GD87L/out6A
+         jzIxTbJWtjtuuQWmHsqkhfjvyku7FuRgiojQu+Og/HjqA+keC6Y0PI8hNETXDd8A77Ak
+         D4smjMqJoSjYpoEkOW1h/Yu2WvSFJCLoQ72bHe2D66ZuriXYRPnhxoKcPUuSq4GoT/EL
+         9MTr+sphaPhBF56ZXsxr5yR1OTeo2gb6PSDmCGk/5zlLouzs8WkyHKiOtTmDqm2tGnJj
+         lzqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595128; x=1795199928;
+        d=1e100.net; s=20260707; t=1794595130; x=1795199930;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/WLYnDFB5WqiTmstQk3U+Or9EEun2Fd05KTvnYRhk7k=;
-        b=pUMgS7xq6py29VJSpcs/uPYsa39M5v1CAleX5DuDdWDv/lOS7KPKcr6kNATBxvwFkS
-         PvbmzVGUCkmz4/W16LVPrB6Ak1Jg3EOz/jYy1aYP9nYw10iAw5WzPWtawiyW9ucdAaIg
-         d18dju5Plqdq9i+dyDT4oOGpz5fen5tZsDSvwGZSivGFEhL5v9FmtrNhvxGTL30xQVQj
-         uOcZV1MCQe/rooExEwhJC7VKnx2CTrkGrIhmmrGRCzvhJHl1apIqOJCfDNHgl3b5RIho
-         t8HP22zyDJTRvPQIpiQ5DZkD5RZQFri9tESuos+BkBuvbfxzCcaobDXyiWUWUdssj1aa
-         9fRw==
-X-Forwarded-Encrypted: i=1; AL+hErHYBeEjULCLAz6XOmYcCWd49aI30obs/O3wVJYNSiwa6uuOgs5IWxlYikR+ZHWllw3q2kbrM3hgB6U5@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kpIJ7MKQXuGoWBufRHyS/pH5GXoSxeGTFZuTUrLvH44UOZjFd
-	c0d8Hh8+DzwI/ojzgw/bkHq9KtAKH7LbQZWMXpiMXwmgrC5M549qPzqEkkf8Wu1CXhw=
-X-Gm-Gg: AYBFou15B2L7HWkWle5x2U4Hd4N5rwJZbW/X45xOOGB8KB5t5s4rTfVRR9a/vTDfQS0
-	9VU7bLZuGIm2yvpRCVVIGeqSDLGC8Kt0adjtLm8UzYit2Abk4FqtLjUHWHClhh207QsLmu6br4y
-	+v5MQH24CGYXtUxtv0VRceJYj+BroplJ1QAKRo4RbC6q/ylxMwE8YxEg4r2m86Cw5sGoJBs7fhx
-	zBlyQioCj2feACcBfMvI7UM8M3GOjzE3l2iZe0aJ5z8nquOHUwiUmNekGS3vJI5+ZmH4j85wdEZ
-	SXCQeU9gJpcuqxk+OLimklpvdebOqMJ4H7wB9kpR/UabsF9JFkQ4NVAgW+gTznIyDgtf5wrNqjI
-	JyG1toIVlILC+Q87giIUV/rqI5kseETvFsGg7WV9sCm6icJYXhUgD6zI1x6NYVO3HK3XKEmhJiK
-	T9sJZMalU7BY4VUgYgStAbOgn8ur4NJIai/C/YPx+4WEBdC1eC7Rhg5owUMpSl25FN0dg9NXKRk
-	fvBPxG4OAZJoCH3IWMxlopW/CO+Bsz+MugfdoCXeMjs4d3PtcyEyUr2LF/GLQlNbGpt+22IZqxc
-	VlmWkjxN0eKpRxf+r8P5qYX2eujkmTS54X3SmyoWVYU=
-X-Received: by 2002:a05:6000:1603:b0:492:7969:b4d2 with SMTP id ffacd0b85a97d-49c740bcf2cmr5166909f8f.40.1794595127796;
-        Fri, 13 Nov 2026 10:38:47 -0800 (PST)
+        bh=I3CxMslsd+5GbFipqe8hUZfFNzi5/bfvHjhMGH0Ggto=;
+        b=rm+keUSumAas+q1BsEik2tOJKlQWmay0C/s66Hs9OlGfUJxzpUxPUtmDEMIjBzHIrv
+         BIoX3eiYFkJ+pR39JvIke012Xx5e56BMlBbt/DQH8+zp8EA50zpYbUjkrcKo21PI/TEf
+         FzkDcvD781uY+if9UEu/e08fAHa1siYkN2V+6bztqVnUxFo299k2SQgXG9VoKGxpzQU9
+         aecRQH7c3W82IqG5zygJx13241koQkzw4L2/zw5YyYK0xXWm3pUPtNSQAqnUKtZ9bidJ
+         RhRAicrOZNnrDllLguSZsw5bdyoGhPmHMXSZdvl4xPY9sIHlkal08U8mwv1MwS0Yee6b
+         Npvg==
+X-Forwarded-Encrypted: i=1; AL+hErEc/AhoCFjOwoeYhout4FWG71zvLJ0KZyHXajmsWaLewK6iAiX5ls6/w0Kdc6P00jENbCqLjIp8y9Tz@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IfUvLE3wJbWYY2mZ7CE6SmkJ1twSnPHjV+YVt7owJNK33JaTD
+	yzJlC4300F3OoOkkRJ2kU9SE8EHwYmNNh7WsXtFxBYR8D2UkuMJeguf/WheVANp2JYM=
+X-Gm-Gg: AYBFou1y7fmHyrInLoZoqQImRWmuxWuX8XUo+gFLXq0YIzgSvHtKEqT+ltJTuclQF2T
+	lhFebgTbiWKW3KbU6DlIrmQ+/V9u2Xk3w4i33nQtVFrslp91B7YJoyWl5Ug2PN+NgHdhHFeBJ9c
+	VuSGpfPCgyAEQGqcl3uwV6/9JMyljHhAhIKYMm5SfKmpS5OK6ZCGJeCrH3LbP4NPGP+PnwpXEdJ
+	Jg8ZqT2VeNec1aesvufoinDxHrCGu3Zzu1hSj5iTnq3xjhbn1trGAHpBUyYii0/NlHrRjbebCaa
+	oi96IFrn1mqS6yMBOPJMNbwWc9GW6zKk03kN9Bqs6nHk1dwUM/WcBjp96+Me3DLr+bByasJskY2
+	peExN52OdXQaE59Tcu0NrJsWlIIkFaTYSemyPrO86TV3w8GFBaaJzKIZHLmTipurGdZIOgCb4tJ
+	4Kqljg102ykj6Ji99YIxFiebdtw/sfSzKu0f1FWAdtItSvONaVDZSdf3cvytwCHntghVkC04nMf
+	K9mXlUt2+8+1FTDDa6iVWOlNDvpGMSTe0lY+wW7RGDoiW+31mId4yxhqB5J7YdfHdYPPvnukyo4
+	uvrbZIP/bJ14/3W61Kb2JTEOIi7oC82c1vfIVp49rVSL
+X-Received: by 2002:a05:6000:1615:b0:48c:466e:9d08 with SMTP id ffacd0b85a97d-49c72e8536dmr4550919f8f.43.1794595130196;
+        Fri, 13 Nov 2026 10:38:50 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:46 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:49 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:24 +0100
-Subject: [PATCH RFC 10/23] ASoC: qcom: lpass-cdc-dma: add support for WSA
- codec DMA
+Date: Fri, 13 Nov 2026 19:38:26 +0100
+Subject: [PATCH RFC 12/23] ASoC: qcom: lpass: add support for MI2S_SENARY &
+ MI2S_SEPTENARY
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-10-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-12-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,153 +113,149 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4605;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4946;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=mfCsPzRhTWREQ4uyFW4BU1EwrH1qQBPLGV1oO3W+KKo=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kihi0qBfz+vwZ0bKz74N4nbztnTKEXa32JgaEV
- yPgRWB2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIgAKCRB33NvayMhJ0TepEA
- DNjEhUfRPccxLAruIu2oedipL4Sdb17jQOcLzJtgLBDQh1lLv/z6fwv9MJHHWAQE3lDptHZlLcIzHT
- UL4aRFD7mi2lilpcnr9OxnwnsdaD+tZGvdNzQyHAxC17onvm5F59Xfu5Bg8HR4VMJP/2oiqDhEUYoS
- 2Z4e2Jzaxp++5YkocnfcfPcGxXZ6dvjhId/UrTTGk97LU3+Srb9ywCYE4ud8ye8TYusgn/TPfQ++h2
- xdDm7tuGcdaKi8zSyb3oUl9hnRaynyBJ/scs1/86mxjHQDV4bTOCAsZc9ASAThWrfRkHtvEQNKNsaN
- YbqJWtekKzX6LXKdOOqEYc9Nwb45IRF33Vmt7xx46vXkeYhK3p+tPM6+0ZmozLg6Je78XuKMQpqLND
- CmvKLzgQEK/o3FuDQtCD8+nYKZe/tefKx6oBrCL5Y+oDUcJn3+ZqSi+xpcKp+3cQRlyK45pIA65+vJ
- fvqXTAN0dc17yqFdF4TF2XJTpQP6Sg7OZf08SKYgVx6OZCtn+RHUlHKp4I+dPtG2bXjmh8HzTP2C4b
- 4+13Rlochxjj9WmVOy4ehCI4XVJOkrJpeHJTZ1p7p2271M6fkQbkX93d4d0qIpKGAM4KemRIvpIVFk
- KWSXoJhZdOrmN+E+mgN7UIM5MyFNuOQW4IHm95jPegpd3nkzmSFJk4IyHlUg==
+ bh=rqZ0Osg0HojjlY5HyP3QcoLTcy4Arc9udO5pSa/aXBU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kjp0bSXvioqiMiwdRjaBx8bf6FhTsGhAQufZLi
+ jum2U2eJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIwAKCRB33NvayMhJ0eVuEA
+ DE/YDI4pr9/6zWuN9XERrBLxGuRaSsKBAlHRD2Oliy3oHThjs9SgS4iq9JeHHtILp4ScnitchAv4VF
+ oBQlSwJDvUaF0RjEow+nTVWSbwXAIABeljVLoDkcEbqC7hKqikq4M0N/DSLcDJee+hugf560hbVtQB
+ tKm5QxQV/F75kUO6GnmsApUkr+eBjbopH3+Wdqb3d1d/8Trpgln1rvqVnmG21JypwH2GHt663sZssS
+ Pt2B19mj2SeY1k49Q/3sFjCTkMPvta51CMuIePkEjTTY77AOfwLbRfvwbJxF20LK8I+BWfRM/oR855
+ HU/4zmcGi5xKya0V2wz68yFqMv5tNMxFTSN86ujIHLRiceoXY8rkYEXrY0ZUHjz0EduyMKcQXv2G/6
+ GAjEKbBsUxoWsYjViWsU/UkB3AnkAh0PDvCh8nfEr9n1Ap3DocpSg1p3xMHzRRxO9UnuXCt7ZHtVVn
+ Q6dA6Z1jS2IhE/rX/awLO9mRutGwd3jE4V60s43G4ctEuN+TsjA7c8ujaFJ9EVhVn6OsneOgIVphGM
+ y6To59zf6jAvTXKu+Ho5WWxdsUhm1oytUZXf4tnvE4rApIhsv+UaiBvM9jpAI+clU2g6K2S9joPLKf
+ x9qbWVJtduRBGCfaIhhuGrv63Igwq/synAeY42R4KZ9sJ16z4GVBhfdCENHA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Add the plumbing for the WSA interface in the lpass codec
-DMA driver.
-
-The WSA interface uses the same LPM buffer as RXTX and
-need to enable more LPM codec mem clocks.
+Now we use the helper to translate the DAI id into a proper
+MI2S port index, we can add support for the MI2S_SENARY &
+MI2S_SEPTENARY ports.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- sound/soc/qcom/lpass-cdc-dma.c | 44 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ sound/soc/qcom/lpass-platform.c | 14 +++++++++++++-
+ sound/soc/qcom/lpass.h          |  3 +++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
-index 2dc8c75c4bf0..903055e3188d 100644
---- a/sound/soc/qcom/lpass-cdc-dma.c
-+++ b/sound/soc/qcom/lpass-cdc-dma.c
-@@ -54,6 +54,14 @@ static void __lpass_get_dmactl_handle(struct snd_pcm_substream *substream, struc
- 		*dmactl = drvdata->va_wr_dmactl;
- 		*id = pcm_data->dma_ch - v->va_wrdma_channel_start;
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 574b46e2176d..2400a6d16bb8 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -274,6 +274,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		port_id = mi2s_port_id(dai_id);
+ 		map = drvdata->mi2s_lpaif[port_id]->map;
+ 		drvdata->mi2s_lpaif[port_id]->substream[dma_ch] = substream;
+@@ -303,6 +304,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 	data->dma_ch = dma_ch;
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 	case LPASS_DP_RX:
+ 		ret = regmap_write(map, LPAIF_DMACTL_REG(v, dma_ch, dir, data->i2s_port), 0);
+ 		if (ret) {
+@@ -361,6 +363,7 @@ static int lpass_platform_pcmops_close(struct snd_soc_component *component,
+ 
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		port_id = mi2s_port_id(dai_id);
+ 		drvdata->mi2s_lpaif[port_id]->substream[data->dma_ch] = NULL;
  		break;
-+	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-+		*dmactl = drvdata->wsa_rd_dmactl;
-+		*id = pcm_data->dma_ch;
-+		break;
-+	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-+		*dmactl = drvdata->wsa_wr_dmactl;
-+		*id = pcm_data->dma_ch - v->wsa_wrdma_channel_start;
-+		break;
+@@ -400,6 +403,7 @@ static struct lpaif_dmactl *__lpass_get_dmactl_handle(const struct snd_pcm_subst
+ 
+ 	switch (cpu_dai->driver->id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		port_id = mi2s_port_id(cpu_dai->driver->id);
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 			dmactl = drvdata->mi2s_lpaif[port_id]->rd_dmactl;
+@@ -442,6 +446,7 @@ static int __lpass_get_id(const struct snd_pcm_substream *substream,
+ 
+ 	switch (cpu_dai->driver->id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 			id = pcm_data->dma_ch;
+ 		else
+@@ -481,6 +486,7 @@ static struct regmap *__lpass_get_regmap_handle(const struct snd_pcm_substream *
+ 
+ 	switch (cpu_dai->driver->id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		port_id = mi2s_port_id(cpu_dai->driver->id);
+ 		map = drvdata->mi2s_lpaif[port_id]->map;
+ 		break;
+@@ -518,6 +524,7 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	int id;
+ 	int bitwidth;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	unsigned int port_id;
+ 	int ret, dma_port;
+ 
+ 	dmactl = __lpass_get_dmactl_handle(substream, component);
+@@ -568,7 +575,9 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	case MI2S_TERTIARY:
+ 	case MI2S_QUATERNARY:
+ 	case MI2S_QUINARY:
+-		dma_port = drvdata->mi2s_intf[dai_id] + v->dmactl_audif_start;
++	case MI2S_SENARY ... MI2S_SEPTENARY:
++		port_id = mi2s_port_id(dai_id);
++		dma_port = drvdata->mi2s_intf[port_id] + v->dmactl_audif_start;
+ 		ret = regmap_fields_write(dmactl->intf, id,
+ 						LPAIF_DMACTL_AUDINTF(dma_port));
+ 		if (ret) {
+@@ -811,6 +820,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 		case MI2S_TERTIARY:
+ 		case MI2S_QUATERNARY:
+ 		case MI2S_QUINARY:
++		case MI2S_SENARY ... MI2S_SEPTENARY:
+ 			reg_irqclr = LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
+ 			val_irqclr = LPAIF_IRQ_ALL(ch);
+ 
+@@ -910,6 +920,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 		case MI2S_TERTIARY:
+ 		case MI2S_QUATERNARY:
+ 		case MI2S_QUINARY:
++		case MI2S_SENARY ... MI2S_SEPTENARY:
+ 			reg_irqen = LPAIF_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST);
+ 			val_mask = LPAIF_IRQ_ALL(ch);
+ 			val_irqen = 0;
+@@ -1073,6 +1084,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+ 	case MI2S_TERTIARY:
+ 	case MI2S_QUATERNARY:
+ 	case MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		port_id = mi2s_port_id(dai_id);
+ 		map = drvdata->mi2s_lpaif[port_id]->map;
+ 		reg = LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index 78125048b064..4407996fb145 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -45,6 +45,7 @@ static inline bool is_mi2s_port_id(int dai_id)
+ {
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
++	case MI2S_SENARY ... MI2S_SEPTENARY:
+ 		return true;
  	default:
- 		dev_err(soc_runtime->dev, "invalid dai id for dma ctl: %d\n", dai_id);
- 		break;
-@@ -68,49 +76,67 @@ static int __lpass_get_codec_dma_intf_type(int dai_id)
- 	case LPASS_CDC_DMA_RX0:
- 	case LPASS_CDC_DMA_TX0:
- 	case LPASS_CDC_DMA_VA_TX0:
-+	case LPASS_CDC_DMA_WSA_TX0:
-+	case LPASS_CDC_DMA_WSA_RX0:
- 		ret = LPASS_CDC_DMA_INTERFACE1;
- 		break;
- 	case LPASS_CDC_DMA_RX1:
- 	case LPASS_CDC_DMA_TX1:
- 	case LPASS_CDC_DMA_VA_TX1:
-+	case LPASS_CDC_DMA_WSA_RX1:
-+	case LPASS_CDC_DMA_WSA_TX1:
- 		ret = LPASS_CDC_DMA_INTERFACE2;
- 		break;
- 	case LPASS_CDC_DMA_RX2:
- 	case LPASS_CDC_DMA_TX2:
- 	case LPASS_CDC_DMA_VA_TX2:
-+	case LPASS_CDC_DMA_WSA_RX2:
-+	case LPASS_CDC_DMA_WSA_TX2:
- 		ret = LPASS_CDC_DMA_INTERFACE3;
- 		break;
- 	case LPASS_CDC_DMA_RX3:
- 	case LPASS_CDC_DMA_TX3:
- 	case LPASS_CDC_DMA_VA_TX3:
-+	case LPASS_CDC_DMA_WSA_RX3:
-+	case LPASS_CDC_DMA_WSA_TX3:
- 		ret = LPASS_CDC_DMA_INTERFACE4;
- 		break;
- 	case LPASS_CDC_DMA_RX4:
- 	case LPASS_CDC_DMA_TX4:
- 	case LPASS_CDC_DMA_VA_TX4:
-+	case LPASS_CDC_DMA_WSA_RX4:
- 		ret = LPASS_CDC_DMA_INTERFACE5;
- 		break;
- 	case LPASS_CDC_DMA_RX5:
- 	case LPASS_CDC_DMA_TX5:
- 	case LPASS_CDC_DMA_VA_TX5:
-+	case LPASS_CDC_DMA_WSA_RX5:
-+	case LPASS_CDC_DMA_WSA_TX5:
- 		ret = LPASS_CDC_DMA_INTERFACE6;
- 		break;
- 	case LPASS_CDC_DMA_RX6:
- 	case LPASS_CDC_DMA_TX6:
- 	case LPASS_CDC_DMA_VA_TX6:
-+	case LPASS_CDC_DMA_WSA_RX6:
-+	case LPASS_CDC_DMA_WSA_TX6:
- 		ret = LPASS_CDC_DMA_INTERFACE7;
- 		break;
- 	case LPASS_CDC_DMA_RX7:
- 	case LPASS_CDC_DMA_TX7:
- 	case LPASS_CDC_DMA_VA_TX7:
-+	case LPASS_CDC_DMA_WSA_RX7:
-+	case LPASS_CDC_DMA_WSA_TX7:
- 		ret = LPASS_CDC_DMA_INTERFACE8;
- 		break;
- 	case LPASS_CDC_DMA_RX8:
- 	case LPASS_CDC_DMA_TX8:
- 	case LPASS_CDC_DMA_VA_TX8:
-+	case LPASS_CDC_DMA_WSA_RX8:
-+	case LPASS_CDC_DMA_WSA_TX8:
- 		ret = LPASS_CDC_DMA_INTERFACE9;
- 		break;
- 	case LPASS_CDC_DMA_RX9:
-+	case LPASS_CDC_DMA_WSA_RX9:
- 		ret  = LPASS_CDC_DMA_INTERFACE10;
- 		break;
+ 		return false;
+@@ -56,6 +57,8 @@ static inline int mi2s_port_id(int dai_id)
+ 	switch (dai_id) {
+ 	case MI2S_PRIMARY ... MI2S_QUINARY:
+ 		return dai_id;
++	case MI2S_SENARY ... MI2S_SEPTENARY:
++		return MI2S_QUINARY + (dai_id - MI2S_SENARY) + 1;
  	default:
-@@ -184,6 +210,17 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
- 		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
- 		clk_prepare_enable(drvdata->va_mem0);
- 		break;
-+	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-+	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-+		clk_set_rate(drvdata->codec_mem0, CODEC_MEM_HZ_NORMAL);	//??
-+		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);	//??
-+		clk_set_rate(drvdata->codec_mem2, CODEC_MEM_HZ_NORMAL);	//??
-+		clk_set_rate(drvdata->codec_mem3, CODEC_MEM_HZ_NORMAL);	//??
-+		clk_prepare_enable(drvdata->codec_mem0);		//??
-+		clk_prepare_enable(drvdata->codec_mem1);		//??
-+		clk_prepare_enable(drvdata->codec_mem2);		//??
-+		clk_prepare_enable(drvdata->codec_mem3);		//??
-+		break;
- 	default:
- 		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
- 		break;
-@@ -205,6 +242,13 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
- 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
- 		clk_disable_unprepare(drvdata->va_mem0);
- 		break;
-+	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-+	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-+		clk_disable_unprepare(drvdata->codec_mem3);
-+		clk_disable_unprepare(drvdata->codec_mem2);
-+		clk_disable_unprepare(drvdata->codec_mem1);
-+		clk_disable_unprepare(drvdata->codec_mem0);
-+		break;
- 	default:
- 		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
- 		break;
+ 		return 0;
+ 	}
 
 -- 
 2.34.1
