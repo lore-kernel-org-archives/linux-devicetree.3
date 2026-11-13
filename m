@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577685;
-	b=aDO+wjyeyA8upWQ5AMHW/9SkuCyk2yJyyM9vV1ryZofvGv/AZ3JynbSBGOQz2L8q7B9U
-	 EmH2AUCRNSRNdkeeLvt5MGo+vTeBO5iacCAAVp3SxQI6AGlD4G87pn0Onn0e6U0Vx/CBI
-	 o5Xu19kswGKwUuyzuc5UIIwCZhgovtPuJUsqcIQYlfFvPzWQIgYHdWAhDGtQhrc2tdFKp
-	 rzMOD/Ljj5/ZzxS3pCtNkW1KUYSt7N5wSmy55quALWnoaZVjjFD/5opQfE8QWKJIbfQKP
-	 9PWqR/GJqsiyD4hEv/23OOzxFEhFyzI4ExC+2+skeSDUTcuMMOa0zPat7qX6CLaOjwg==
+	t=1794577758;
+	b=qYrxQrEZv1yGh4kJOE6jnBnbQfXTNzrR5XJmcAcUeGYAflu7i4LHBbOlDziUeNhIMOgr
+	 fhex4RBUs+USfDehjpvPLzlVO1Lvnt4BDP7fmQD3bYWiO2Yiwi8OKy6JJcVaeTe7ml7Y3
+	 xOxh/+dWS9mnpm9yIRObedGiKnTMHb/atlrEUw2Vx0rtBgSxAFQN7vTcGHN+Tet7H2d+f
+	 ZjHrCsrL0GNPFMaZkJBGTvtPH/+QO5yzEQbSuO/eo3FgKovz1OXAwroQ9+7cJLrbdH5jE
+	 Ahng4IJeuHwH7WIubf8xWAFoRCxSek7soA06aGLHMxcD8YvD4dQaNfdxj8BOzPP0emw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577685;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=98DD9GvKbyjoWTiQpEC1uV5CQh28S6aA8oScTTaagZI=;
-	b=W5XBEoHfuIgeS2fXjWVjxH2fyD+45i8C9ygP9ClTaMAx2y2b0JgDyysK5ylnxKHi7kr7
-	 HmA8vKR3oiwi6fV/qvHtDEsdzih9LWCV1eRnS7WptAfWzOlnF9SHNCueavI8lSVEJQAOf
-	 EkYH3rXl/OxhRVjrluZ0fHobZIUT/ZuzKiUj6V2Yc+PWtm8DAOHFL8nNx852+ulTazrE0
-	 F/II6cudcZfz2mwpCZnqXpk1mZu99+OghBilFZcboTbv7c6kAXpybBxFJZBEtrtirMfwM
-	 QfJc98N+Uf6XmrCRMx//sN3t1bS+vRhnX+ADSivajmYidmgqJ6cE09EN2iMCCVQEqmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577758;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+	b=U3/wRZ2numGLWGewi0gFIPF/FL0koJX2Kwa5uOE3w7T6NOa41RS98WSuTVvxt6cKARL7
+	 waGIEG4vNebn/qy8U+zIx0tF2nfYMcOMbczpUGmlYlmONFJTvYqmuT0JGLD7LieJx4Rx7
+	 V/wr7LkIcMogGJ/awd5Ljjw8l4po0m0uWdheDW0NOcn84yl9gamrmLfjndPkdSeNxxHJa
+	 kNx3OTfYYc5bVsvQW5H4lfzHbdhWhszqrKAiV+5jMsJJ6wxoVlDOcze+5gJu81PtqhEfW
+	 PIoZVN522r2XpY6kecA/pCsL0f8ET5FN9IHk/ls1HpR+D3Ovd2pgfST8gYb2TqnvOIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8wgVrpE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2WyAc65;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF10A606A8BB;
-	Fri, 13 Nov 2026 13:48:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8612C606A323
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8612C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8wgVrpE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1491F000C5;
-	Fri, 13 Nov 2026 13:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794577685;
-	bh=98DD9GvKbyjoWTiQpEC1uV5CQh28S6aA8oScTTaagZI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N8wgVrpEqCKxFALFL776UMDWj0hUGpz74/UZcO4i+kmtAz/Q+mdFCA04JMwD7P/U9
-	 l5A9em+p3yNHueuJrz0V3c8VOh7E5gLle6UIoXl9nPB0gNhM9prNKAd9YQ3jZiS+2G
-	 KHXcHgS2qA6SW+GpZsC9gGQxPxB/Byc53jyPIz5Sfk5xfcuzhufVXIUK5dJF4kNqW1
-	 79tUAe/HdMmxOTjAg1eHIrIu4FxX34oVW6+pU+rSacf3Ccjhvhdsuo8xLlelqiYtrm
-	 s321DPk6NewS4DAqZ6tzz/4MVAdtefS6bipo+yzMoBA2VHIYwjgLXKflAw4TPBHKlM
-	 ZM/xbLYZKTH1g==
-Date: Fri, 13 Nov 2026 14:48:01 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v5 2/7] string: Warn if the prefix is the empty string
-Message-ID: <avcUA0z7CuQqs6Bz@devuan>
-References: <cover.1794574496.git.alx@kernel.org>
- <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
- <sashiko-outbox-212859@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2WyAc65
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso1208114eec.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:49:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794577758; x=1795182558; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+        b=j2WyAc65HHKXZAtTItIC5JMMjuCVCGvh24lyDPoCV3vQMwTi+DFmIwfD0//Z5d3bxy
+         klc9Wq/T/2lESjNQtPg+ZoAnYZ2E4Jihj7aKgXVgYlxtBmmGZzID7ScasvwAUehBK6Ji
+         Xmb60E0miUdAXJQ2fr1Dxl5E/twWeuVqr2lvw2K8A4T/sMuEkYQ4Wk8Lyw0oi2v4j5hD
+         VKrpghB/FHbs0MZoXZ1D8jhPjb0ANbOn0SYehDI8ivVsxWXjDBTrJSkaMs1h3g9JI1PW
+         i3q3kieyyBE9xQJFzORBSWc66R//jd6z6TkNVhspmEbEYuriYjGPHduoZrnvQDdmOokA
+         LTcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794577758; x=1795182558;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+        b=xM7rk28D3rkxWUx5Mnra2usRFM/QEeNbqZLHnhjRtJsolKZp9avr9V54KIKaHj+5Yr
+         iJjP6PDJUfOLjQOGfhLPZBSnPLOtqlxOudcJ5XNA4Q0skpAYk1pthMi6+2F9n23hOGYY
+         3MS7+TvtIqCCzi8C6L/bZzEJTTX/ggGIrN7iQs+12r3iqAbWgB8urexAXbFyjpZYMu4/
+         ewW4/q1TuLfjC+muDFGnV2/mJZ5gHS3tj6QG6zLapcr55NQvHXJMYn91Wm5cIwc5qG69
+         WxGuQphCLI7XuBJsGtK7MVvp/YgWWZ44MrIuCUXPA2b5yd3uMgRk+CD7GBhRt5vQ6Mv5
+         uN5w==
+X-Forwarded-Encrypted: i=1; AL+hErGJ8+yBQC8c5irEEfkTDdqZIOAmbiyOx2Cq3wCSoUv5nqXD575XHhvcOu9Vdow2FduLwk2+8D/fxeiM@vger.kernel.org
+X-Gm-Message-State: APuU4Z8P38yzdN5ZI1EVYsDasH7660p5g26Svbg2DtsnwXug82YwIyzn
+	6UicFdz3t79pP1CI6IGInsPpy4fyHIUwKB2OcZr6yashsvR+P9LRwJe6
+X-Gm-Gg: AYBFou3qyItF9jgnBURErLELo6a5/ClW4OzQiZzqOaogd2UlyQpbq36g/KFCxM668RN
+	OYSSWxeH9VoEDWwGPoWIVP7gmNXGjP0VHatbiRYDLfHqIJypmivqtA2JlF4SSkObaT4TZZ+qZkb
+	bhc+ottwNXbDFw7indNX8mZxF/Htkdmy1rzRFWKAgKX0HICxrSmRlqfR+CJxWD3BG/GOEYefeHV
+	lv2HQ+NsEk5lA3ZC9Ncv3DVDbF4+HweG/5RRjqR86s6Yfu12bVykurlSbTjXk32+KhwCoO2nTZQ
+	Y6XzQWSCqJaGk1E9vnSSaBBOmfpJVSGY+NehJ7Q9JmjPCZFMU/iiE/Rxqmh6FTMd0ZTRzKi/TPS
+	FnCCQ0gTIKrWJ2TPE91oarC/ph2iyewoQFuwqIsUGBSLaB8q4AaDx8UhbiweMZ1jEZSq8pqRoTW
+	P3/Ik5iHB3WQTXl8izsxxfhCDXx0n3lx7tBF8jT7qHhDDT69rjwmhUNeuzP6w8vOsnKqnyYZ1l6
+	GMu7LJcAoIKogx0lIZzpg8QiEE1NyRDSfpfRiMo5708LznpgG4eimieEdhfrexJw4ct1jdK7OQB
+	NlD1/y9sT75cJfwMk9E4h4J8ZxRsAQ==
+X-Received: by 2002:a05:693c:88db:20b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-379684ae78cmr2170730eec.38.1794577757517;
+        Fri, 13 Nov 2026 05:49:17 -0800 (PST)
+Received: from duge-G3-3500 ([183.192.220.187])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm8381252eec.7.2026.11.13.05.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 05:49:17 -0800 (PST)
+Date: Fri, 13 Nov 2026 21:49:04 +0800
+From: Jiayu Du <duge1256@gmail.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, p.zabel@pengutronix.de, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+Message-ID: <7xzpzkw5qmt3xb3ezo2sii6tnfraetwooh2l6dl4svclvbn43o@uvm7uyhz4bck>
+References: <20261106060525.346873-1-duge1256@gmail.com>
+ <20261106060525.346873-3-duge1256@gmail.com>
+ <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,157 +101,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jl62dtj4qtrdc7vv"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-212859@kernel.org>
+In-Reply-To: <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
 
+On Fri, Nov 06, 2026 at 12:15:54PM +0000, Troy Mitchell wrote:
+> On Fri, 6 Nov 2026 14:05:24 +0800, Jiayu Du wrote:
+> > Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3
+> > eFuse controller. These banks contain temperature calibration
+> > parameters and other configuration data.
+> The rest of the window holds the root key and the SSK, which is why
+> only these two banks are exposed. Please say so here and in a comment
+> above k3_efuse_keepouts.
 
---jl62dtj4qtrdc7vv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v5 2/7] string: Warn if the prefix is the empty string
-Message-ID: <avcUA0z7CuQqs6Bz@devuan>
-References: <cover.1794574496.git.alx@kernel.org>
- <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
- <sashiko-outbox-212859@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <sashiko-outbox-212859@kernel.org>
+I will add this explanation to the commit message and above
+k3_efuse_keepouts.
 
-> Date: 2026-11-13 13:26:21+0000
-> From: sashiko-bot@kernel.org
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [Low] string: moving str_has_prefix() to lib/string.c bypasses
->   FORTIFY_SOURCE
-> - [Low] string: commit message cites non-existent lib/string.h and omits
->   function name
-> --
->=20
-> commit 018109c1aa9a2d5e3def240ae4b9134b27f492d5
-> Author: Alejandro Colomar <alx@kernel.org>
->=20
-> > string: Warn if the prefix is the empty string
+> 
+> > Snapshot the shadow registers with aligned 32-bit reads and expose the
+> > data in little-endian order at controller-relative offsets. Serve
+> > reads from the snapshot and use keepouts for the remaining register
+> > ranges. Keep the AES_WTM clock enabled and its shared reset deasserted
+> > while the provider is registered.
+> Why keep the clock on? Reads are served from the snapshot and nothing
+> touches the hardware after probe.
+> 
+> Tested on CoM260:
+> - clock on only around the snapshot: probe and unbind/bind work, the
+>   clock stays off (AES_CLK_RES_CTRL 0x00c30050), same bank 0/7 data.
+> - this patch: unbind gates the clock and asserts the reset
+>   (0x00c30070 -> 0x00c30040), rebind reads the same data.
+> - this patch: 3s of WTM_RST or of clock gating leaves the shadow
+>   values and FUSE_READY unchanged.
+
+I will disable the clock after taking the snapshot, before registering
+NVMEM. It only needs to be enabled while accessing the hardware in probe.
+
+> 
+> [...]
 > >
-> > This corner case is mishandled by this function.
-> > Warn if it happens.  Also, document that if such corner case
-> > is needed, strprefix() is preferable.
+> > +	depends on COMMON_CLK && RESET_CONTROLLER
+> Not needed, both APIs have stubs.
+
+I will remove these dependencies.
+
+> 
+> [...]
 > >
-> > We need to move str_has_prefix() to "lib/string.h" to be able to use
-> > WARN_ON_ONCE().
+> > +#define K3_EFUSE_REG_SIZE		0x400
+> > +#define K3_EFUSE_BANK_SIZE		0x20
+> > +#define K3_EFUSE_BANK0_OFFSET	0x104
+> > +#define K3_EFUSE_BANK7_OFFSET	0x190
+> Nit: the last two are not aligned with the others.
+
+I will align them with the other definitions.
+
+> 
+> [...]
 > >
-> > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-=
-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-> > Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> > Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
->=20
-> [Severity: Low]
-> This isn't a bug, but the commit message says str_has_prefix() is moved to
-> "lib/string.h", which does not exist; the patch moves it to lib/string.c.
-> Also, neither the subject line nor the opening sentence names
-> str_has_prefix().
+> > +	if (resource_size(res) != K3_EFUSE_REG_SIZE ||
+> > +	    res->start % sizeof(u32))
+> No need to validate DT here. Drop it and use
+> devm_platform_ioremap_resource().
 
-Oops, typo and thinko.  Will fix for v6.
+I will drop the resource checks and use devm_platform_ioremap_resource().
 
->=20
-> [ ... ]
->=20
-> > diff --git a/lib/string.c b/lib/string.c
-> > index a3778d5aab4af..61a1e79c1b875 100644
-> > --- a/lib/string.c
-> > +++ b/lib/string.c
-> > @@ -774,6 +774,30 @@ char *strnstr(const char *s1, const char *s2, size=
-_t len)
-> >  EXPORT_SYMBOL(strnstr);
-> >  #endif
-> > =20
-> > +/**
-> > + * str_has_prefix - Test if a string has a given prefix
-> > + * @str: The string to test
-> > + * @prefix: The string to see if @str starts with
-> > + *
-> > + * This is similar to strprefix(), but returns an offset instead of
-> > + * a pointer.
-> > + *
-> > + * Unlike for strprefix(), if the prefix is an empty string, the
-> > + * behavior is undefined.  If you need to support arbitrary prefixes,
-> > + * use strprefix().
-> > + *
-> > + * Returns:
-> > + * * strlen(@prefix) if @str starts with @prefix
-> > + * * 0 if @str does not start with @prefix
-> > + */
-> > +size_t str_has_prefix(const char *str, const char *prefix)
-> > +{
-> > +	size_t len =3D strlen(prefix);
-> > +	WARN_ON_ONCE(len =3D=3D 0);
-> > +	return strncmp(str, prefix, len) =3D=3D 0 ? len : 0;
-> > +}
-> > +EXPORT_SYMBOL(str_has_prefix);
->=20
-> [Severity: Low]
-> Does moving str_has_prefix() out-of-line into lib/string.c bypass
-> CONFIG_FORTIFY_SOURCE and prevent compile-time constant folding of
-> strlen(prefix)?
+> 
+> [...]
+> >
+> > +	reset = devm_reset_control_get_shared_deasserted(dev, NULL);
+> This asserts the reset on unbind, rmmod and probe failure. The fuse
+> data survives, but WTM_RST resets the whole GEU (FUSE_SCLK_DIV_CNTR
+> went back to its boot value). The driver does not need the block after
+> the snapshot, so use devm_reset_control_get_shared() and only
+> deassert it.
 
-Preventing the compile-time constant folding of strlen(3) is indeed
-a performance degradation, but that's necessary to be able to
-WARN_ON_ONCE(), so there isn't anything we can do.
+I will use devm_reset_control_get_shared() followed by an explicit
+reset_control_deassert(), leaving the shared reset deasserted on teardown.
 
->=20
-> lib/string.c is built with __NO_FORTIFY and its top-of-file comment notes
-> that it is reserved for routines that have architecture-specific
-> alternatives in <asm/string.h> or get overloaded by FORTIFY_SOURCE, while
-> other helpers belong in lib/string_helpers.c.
+> 
+> [...]
+> >
+> > +		for (i = 0; i < K3_EFUSE_BANK_SIZE; i += sizeof(u32)) {
+> [...]
+> > +			put_unaligned_le32(val, efuse->data[bank] + i);
+> Please poll FUSE_READY (GEU_FUSE_STATUS bit 1, offset 0x184) before
+> taking the snapshot, and fail the probe if it never sets.
 
-Do we want to move it to "lib/string_helpers.c"?  I don't know enough
-about the organization in these files, so just let me know what I should
-do.
+As you clarified, the automatic shadow load at power-on does not set
+FUSE_READY; it is only set after a software-triggered reload. I will
+trigger a reload through GEU_CONFIG bit 22 before polling READY, and
+fail probe if the poll times out.
 
-> When str_has_prefix() was a static __always_inline helper in
-> include/linux/string.h (introduced in 72921427d46b ("string.h: Add
-> str_has_prefix() helper function")), strlen(prefix) folded string-literal
-> prefixes into constants at compile time and ran fortified bounds checks on
-> non-constant arrays.  Moving it to lib/string.c forces an out-of-line call
-> and an unfortified runtime strlen() scan on every invocation, and shares a
-> single WARN_ON_ONCE() state across all callers in the kernel.
+I tested this sequence on my COM260 Kit: probe succeeds and both banks
+match the data read with v1.
 
-I guess that's bonus points for strprefix().  :)
+Thanks,
+Jiayu Du
 
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794574496.=
-git.alx@kernel.org?part=3D2
 
---=20
-<https://www.alejandro-colomar.es>
-
---jl62dtj4qtrdc7vv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr3FREACgkQ64mZXMKQ
-wqlHxA/9HSGzldXnzIicmgjy7b3KWGp1uFOpTrC7ibX1q6nkdqw5eSFm29MRyjQ4
-oEM+zUtxx3e/nkExqUXZT2zEZBvNpv8vzDi2WNK/Yt6VGIckPDzZGmpmut1Xuadr
-UzZkW5EGUhHLpbgaHoF+5rnSAshdshf+Ocp3Oj9bOicHr2NqLbW7XSRDdFc5X3Iy
-xgmFBh3D3W1VOW/cpGQlh2/2JUVObBl1mJbeAGsMwzibJwjV95tFxOEiRD9AQE3W
-Jzd8h1fN7RjgDXS9RTDN8JhRfPbCWFohuSzNOihblUV/fxOxZTH9lNR7Dzm7ONcA
-wbVC7QAAWlUHOvnWmwyv+h5eaNH71sMHIlWzupB8S2CaQ7+zdi9D7NlSb0bwEkrA
-gxDGrE3imiVttRn3sUakSgyLTRYlgbCUoHX0y7zudmMDxwaN1+PwEIX53Ow+73sS
-e0tT2eUQ4eWuHYBhCOic4FgXXB2TqpZE8TQ6IIey9E/yylFzvulpquct2JmFGMXO
-gUxwSCAK9N7l24gjbYZtvAoSyg6hlCLJvwWdNxrLEFHHpodBJtqTrg8rXoCYrI3O
-EOOUa0++CMjl6vk2gOSChVU0MCFGbKzv/nAFaYf30W3PlGUH69RwJsDImIlLrNg2
-0HQp0xHBhsVMrlw+UsFcBzGNjgEbrGf/FB/ZJ0i34/vR8pXpKoE=
-=J6yv
------END PGP SIGNATURE-----
-
---jl62dtj4qtrdc7vv--
