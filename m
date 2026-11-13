@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794550651;
-	b=mKgrMkWHYmX87lv5mi2BqXdjojnpu4VRr+eHQucQwq1qQWL92AnaSRcyfLvqFcpmOEHD
-	 FTL8Hviv6K1Dwt+HWx5suDXk5CTuwe8UP1YN/fdM1sU2n4g0HoQ21aIEtC3ZGgoCAYJHY
-	 FA/nRKepQA8E0asDlGNXDxL0tOhw7T/k0IJZAUA0loNeYagcIKEV6TxOAaeVSsTWioK9I
-	 aTNUU1URs02+3G6DrFDknSwUNS/rhakjuSclpsBhNsu35kQTQffBdIWOeJ+K7ZFaOqnVU
-	 oJhcyRI/S4EbfV3up4IsCfnF3CjoPK9M7UXRq1g2UBlpBZHj5a0sigTv1cyIYUlTr4g==
+	t=1794551105;
+	b=1sLz7yInqHWLFJtz6FSBTmnY73pMamAIx/rtiD/N1eRy2iWqhox2mThZqMfoDnEQ0PCm
+	 IT7zfuJZB8hKXt5mHlkbMhfDguH88yz7DsW15QBEOPBNSCbyguzsm96oj4ASohXXqDttH
+	 ejmjOP+GoiC3VNAI0Og+4JDaqqvRY2QX/UmGXteouu+soewRiCcl2zzQ9n0su+xOcnbBR
+	 57kYcDGM6kfiB+YyceNeC3R4bAHdM2OlMu8qnSEbQnUft7W4/djUTtEULtV5QBDsVt7Fv
+	 VJbKogwukWgSxPX6hFLVqiV7J3H/wdV8L+ds7JA5TXM4TF+AOyTqjeGRZ6+zeI7Hh4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794550651;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gF+Q7Ui34Qq0VtY7TAD0rthakFzomrYF9aXVXa/KptI=;
-	b=O8xmlLPp0FbkR0XP/hKN72e+/zHBeD6VJTOkdDsVtpRcFWyk3ZqHsv6pXJFzzy8ppcme
-	 UoxRBnC4ZTOJw9/LRjB1AaX+rkpP5U4XOpspk/McmS/FjOwduqWYuYP0spwGNLnVaXPBm
-	 9u0YMDSebyQ3HepRpSSX1FLUzgYJl+S+sEBJqmF16oan4+u9GI+kXPX45eVvRO7DzYEiL
-	 YRMgBfrtoZkSpOcT5l0rQ2cqp3HbRRqE67e+qqRTKFjEuegpRLr0o/1QVkHKPL7o/BGjD
-	 1yzbGJKsZTp7moLHoLpIbQOj0Bj2UrIM+rElr9C2JU54TqC8JO5RCRx1nnWVJ2hFfbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551105;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
+	b=iQ616Wz5hp1RPr9Wp7l3cUhKTR/CqFJpREAhYj0QAN1F4haU0QQYDOd1gwcEFVhGtaro
+	 dyjXfXbupzaZnKyDZaLFr9l7bXvzrEpDZWzN4hFoAPiQWJ3RRYI1RK/f1cyNpBtUDv6cE
+	 2FQNJG8nIoj5jSOG2Gzi7qExD2AGPkXg3VWdYcefufxaTjdSOMV/TwsUi6c5Uzfd8P+Q3
+	 0f3M74ruwNh4QwabGLvMwLR747OiOKmlVZ3053o/Zz5ysPLT7Kq5DUEy/1UaGxYxdvR+G
+	 gsxFglNAW7F8R8HndUQjdR5UWlJUlAk8XXxEHAx51lfOO/WuSxmFSCnAOcstPmbszpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW8qug2p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gj29W04e;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D548606A321
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2D6606A31C
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B2D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW8qug2p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A224F1F000C5;
-	Fri, 13 Nov 2026 06:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794550650;
-	bh=gF+Q7Ui34Qq0VtY7TAD0rthakFzomrYF9aXVXa/KptI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KW8qug2pSfjcML1x8AqLbCYQvGh80Grc8+MAhccLo5MLpofernvyDhvxHcTENFshP
-	 vqh3ig3rhnyxnlombdYWNwknJuR8plgi1mAm2ftyNM4oJfgw6IuLb2PX011BKHncPD
-	 7PMSf1RvX1R0mB3EPPZVKvxaFqGbfgOA0OSuUJnRE0wjWdvhTuXVk/u6K0Edp6xEgb
-	 uAg1jHydhHP+IkhTUPuD0j79ZEZpqN5xUfqDUWSLXnUTafy9ryorfdn/9TVqNSR8uT
-	 AQCMErLEcu1FUQJ4D8/WnEWKncRDQa6UEUHvJLq8rF9G3wRATbJdaWIt/8nEkb6xAq
-	 yUGyeGuJX1DOA==
-Message-ID: <sashiko-outbox-212272@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] drm/msm: mdss: Add SM7250 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ishu Brar" <patches@brar.si>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-dpu-sm7250-v3-6-30bdec59d204@brar.si>
-References: <20261113-dpu-sm7250-v3-0-30bdec59d204@brar.si>
- <20261113-dpu-sm7250-v3-6-30bdec59d204@brar.si>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 06:17:23 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gj29W04e
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so5333255e9.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 22:25:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794551103; x=1795155903; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
+        b=gj29W04eXkb5qIjLAIWJz8pxmukjfb6Kc8tpvLRp2RsZwRrX9TwNBoUGzZfXcbhDM0
+         DjIV9Yq7n908GPX1ozQgjByI+/k+qXmFXYKSRJQ8ZyY8yoxXLDnJ/N6LqsbLDqyyRhle
+         GEWaq4UHwYY1W7ZbxILKzy+mIUE7SsTqW83XGVFLj9vbHEl1WeDyT7eG6MAgu9KFowV9
+         Hghd+RNvxyQjxFXsCxIRW/hoGjE+sM7D1jJuI2+cBGRHGyPn7og6LLZe7B0DMIJNzf7m
+         Xydoiw8ZCuOhyb9Q/ZgiZXkZRu44scunyhEVctQm7gyHbu/x7Biuclr66oFGsSFN+j0W
+         nZRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794551103; x=1795155903;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Y/iVRnV4ObqWfBTvVOJIAncw0xRUL0KHEf+fXRemdw=;
+        b=tsS9bn00mPEgfVM9jCjoySAZNfmoeJVRg+p0csVs8eXgv97V4AsYyqweHpQ9cWB9RV
+         whuCeGib5zLVKlIH2aym4alxQmlENvJtaUMOJKTDl5FOn/jH8I97aaDNFJ5TwhMTe/Qv
+         n4YjaIP6D/orKOnQqOGeXUNuMGWLua0iYjPKAjkcCZllTtheZOE9oXdWWaXOB/1qdvN4
+         ku2ZWdXotjwzFU2L4YMqgW0c7QCOuCDoTjN46iFrigr6Czj8A94zN8TJHwyMf5jdFHb9
+         IN+7csqXbLRTa/+3KxEiF21e2Vam7GqUXJyKRRK1GK/D2WbT3ZrE8neHUkEALEBDTG7c
+         mZPg==
+X-Forwarded-Encrypted: i=1; AL+hErEemuon2M/110vhzsw1vGtoTULAGDxHcrrYNzJmcE6/BRfhGQrFhZ0hu11Lu5ND1FRZNsyba08uagtW@vger.kernel.org
+X-Gm-Message-State: APuU4Z/niGfrcEHu/G3NjawwoiR342WVsvoX9BG360/mGgqd4ye7FLbu
+	2rYCeK6Pc0f+DOwY4NQYSDdYwuc3w03mcPxxwzzU4x+/raKYFH4+1kdLnNARlUV8DWU=
+X-Gm-Gg: AYBFou2nENPC0vhADnRHAtgDcArW+o8CvCyqLccgMxldTfAT26iIrkA91nD3lyyAfHu
+	JkokaNJo+v1bZs3CehAO+j1UYt5Y/yvX2BnZu85SXF9HVqS/48Bo9Rh3s28IV1gYIH+hItQaU8d
+	sJpd/mc6pQJQrsN7hxDD/BXmljYmnn+sAVAZiQ/GmZOcR77RWEk7xv/b3UsT61a3YljWXAQMixh
+	0F9CR9UK3T97hP8xqTwuy3IyagXVVwZKimClGAFw61YnSRhvYD9g1Ai1fhYoyHwHKA9LWSQRFnh
+	729iaE3RK13JBmIpxdvnV2fvMR89hOsqWJIYOkLTM+CGnATZ2YsYH23U/q0+MzMDYnfX+eCe17e
+	I9+w4/D70W8N0UJLdVwRhRUBaxGVUuF+zb+So0yOEstpp1YPhu/72QYuCO0/Ccid1twYJIpuI2a
+	HWzYaYgjwtUHEYhroStpnxW9BuY5HDtfXfkBpzBsSjwCQ464GQrVGCGl7X9VoimZZ8Sw0K66o4G
+	ocmWeepNuGbfZ9/ps8Op/3VDNdW27ISRrzikKF8WvEDNdst9DoVjcdmaiZQaySFo+s+9yFdtsKY
+	kCa+66nm3UxBZ7WjHZchxOokKPt1LHMnDXHtu50j32T4MtBRQHGztrTRAQxTZC/Vq9B0Ja5gVA=
+	=
+X-Received: by 2002:a05:600c:4e44:b0:4a2:180a:3417 with SMTP id 5b1f17b1804b1-4bb55c5f5admr25342125e9.1.1794551103537;
+        Thu, 12 Nov 2026 22:25:03 -0800 (PST)
+Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb571cfa2esm25586955e9.2.2026.11.12.22.25.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:25:02 -0800 (PST)
+Date: Fri, 13 Nov 2026 07:25:01 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
+Message-ID: <avas_9BOcoyn4j0y@monoceros>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-3-667829cd290a@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,40 +103,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ekj7jpy4oarwkme4"
+Content-Disposition: inline
+In-Reply-To: <20261110-ups_mp25_clk_syscfg-v1-3-667829cd290a@foss.st.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/msm: mdss: missing qcom,sm7250 UBWC config breaks
-  msm_mdss_init()
---
 
-commit 9c80774ba784ea5c8dce29db13d653c875106e5d
-Author: Ishu Brar <patches@brar.si>
+--ekj7jpy4oarwkme4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 3/5] clk: stm32: Add STM32MP25 SYSCFG clock driver
+MIME-Version: 1.0
 
-drm/msm: mdss: Add SM7250 support
+On Tue, Nov 10, 2026 at 11:42:18AM +0100, Gabriel Fernandez wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
-This commit adds the qcom,sm7250-mdss compatible entry to mdss_dt_match.
+Please don't add <linux/mod_devicetable.h>. of_device_id is already
+provided (with less dependencies) by <linux/platform_device.h>.
 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
-s.c
-> index 259d362475c81..8097e8f9144e4 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -563,6 +563,7 @@ static const struct of_device_id mdss_dt_match[] =3D {
->  	{ .compatible =3D "qcom,sm6350-mdss", .data =3D &data_76k8 },
->  	{ .compatible =3D "qcom,sm6375-mdss", .data =3D &data_76k8 },
->  	{ .compatible =3D "qcom,sm7150-mdss", .data =3D &data_76k8 },
-> +	{ .compatible =3D "qcom,sm7250-mdss", .data =3D &data_76k8 },
+Best regards
+Uwe
 
-[Severity: High]
-Does qcom_ubwc_configs[] in drivers/soc/qcom/ubwc_config.c also need an
-entry for "qcom,sm7250"?
+--ekj7jpy4oarwkme4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Both msm_mdss_init() (called from mdss_probe()) and dpu_kms_hw_init() call
-qcom_ubwc_config_get_data() and fail when it returns an error.  Because
-qcom_ubwc_configs[] has no "qcom,sm7250" match, qcom_ubwc_config_get_data()
-returns ERR_PTR(-EINVAL), so MDSS and DPU probe on SM7250 will always fail.
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-dpu-sm7250=
--v3-0-30bdec59d204@brar.si?part=3D6
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2rToACgkQj4D7WH0S
+/k7rcwgAuyIO02PIHScObbQSwpTN1bOxntCQuOefipHur6Tv164hiCD+Ows3bueO
+hHN81SuXrTS4hzRGcT5jFlW7zlkz9L2tSHYZ0us3Hep0wntBkIeA0JeCZqBCoASn
+RuXE5+uHnhkMUlqy+/xZlblQtRTUnoCZmce9NixemtTaCIMPlL9gIeoouNGk9r2B
+2Ov8mhk3tjy1A9K9YCE3vdde8NAm9G0myqV85K2q+/6a8k9IqoogrLX5x/9uNZgI
+wH/iThyVCnk4MnvbQGHVc7Q3QXDOZAVGeZPck+t/XfvkrsVkuawozxF0NWZO8LMe
+ldXWek5P8iobsActxH4I13gTcjgwBA==
+=QOFE
+-----END PGP SIGNATURE-----
+
+--ekj7jpy4oarwkme4--
