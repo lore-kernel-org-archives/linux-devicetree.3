@@ -1,71 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590382;
-	b=bTWpoI4ZRgNtUL61t8y8/7sP4kpobseafveyDTeE11uCxLiCRfGCYVMlAQwr64O6dkkY
-	 tENq3qVc+ohsIf1gC0PlSG+loJ4mMnnuJjVMdCe2d22y6bRRleRzYsjV6Hq6bI4Q2wMm3
-	 PsZmn2l5/vU3iqAzPlSpTDSWyTDfhZGSHN9Nt+EjpGYnggo/ZWZ8uFAAJveHl8MT4Q80H
-	 4qRJBu0/eKit33c0kwr3SL3O1rI8olBooma/9GBDdBXWysQ9XDjEE6XrUxMoB9ATdFTXn
-	 utW6Epm5iTN/SabD2rdhlUH1i4zs2jL+WbRUf+QE5dfKR449Sqmt3fVop79l9WOGGiw==
+	t=1794590435;
+	b=T2AQqw8I/GF9S61gS2uHZflxoPGExqJ6huoZ0eojV8erRoiT5OSUH8jI8/1Y3qrN1wSr
+	 IqRJXRNsgMIodfeEIPSYfSHBVmSfUO5QK7McHr1H6T8jzplU/IP6pMu+UrYIo29xLAkCO
+	 q4AOdX7UE2qFanLJdCO/VRMTNF9oxaJh7CnRa/O4eyIEDZ+l9MK9zofq1uzL9Zhzuh2fj
+	 2LONOqHBEdD/6kHZcuZF+5unEnHcphPY5owu5rOJcKl0iwVqMpWPRM+hFz76Sv2cJD2AI
+	 o5QJDi2itjULMomBTDz/oeS1btkEirX3yKtstxhaBguOu/6BxVkCfDIvA1L6uuhHX3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590382;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=;
-	b=seZj4eIvn/ovGuU7f+SM5j0FaxvM9E1XfW1zMrNLKmyjffKqwyJwOcldYkwGig47irC3
-	 2SD7y0A5OhC11m17XN5/KAThXqyB2DcpC9JfUciCy1GPavTeCa2JO5/ZXakgM0gtM8mPr
-	 s0iMyBuxJUUzCcJBRTy3b+YG3IMTGLUU1Nn6tnyCO2loXbm+XyD1DQtuIhNziILFShaBi
-	 miWw1HdGwXzctLeHujyvuQUwjunjlx43utEluxf2GXKWoL2Q5AOPryyT0zZNEMYCG5x2e
-	 Q0uyj8+lLskclLZX6w9FZIMu3/P+zbKLArqf395HsxipU9B2Uk3EUsR+9rxm86UEG7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590435;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oTXxB3waWpkLlntIvF64sIESVgJnv9c9rK9MOS+VyeI=;
+	b=EwzBF7bOarcrwirIj+e2MCW0oZ6tLT6RazwLskx04+W/m4AxB5mGUK3sHAst5YXAcYot
+	 X6TzTt7G3j7am4sXSRdq7+g+tZFo8MaT16sUNc/ecnVBYhh0pzGiF2IR+O44dJ/AN36y6
+	 Z6V6CPBTakRpYrtMCdp5Pe1r+OldKpKDC1Xp4JUnqRyETmmWrB5WqGuVj8lfqGeac6zqr
+	 0GWILTXA9h+0madh5cnpd64cZzUS0KLCmx12BnGY2z8SBYsoRFNZ2oiJ97S+G6w0yLTKi
+	 oIy/WMPMm74CDPv+Bdp//rodimiyBXRRq5RfBK+3g/BbFE3wT+1a+gWgSrfqGkTTYhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3Pc7+cf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AD6606E651;
-	Fri, 13 Nov 2026 17:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AD6606E651
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9929A60703C6;
+	Fri, 13 Nov 2026 17:20:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=gQDmr+DC
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 65197227A9;
-	Fri, 13 Nov 2026 18:19:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794590371;
-	bh=lLRe7OQ+TSz40sIuSGn/k/GXxs4txoePPfp4Cfqlpuo=; h=From:To:Subject;
-	b=gQDmr+DC0PzJkqKQHMverOutbN4CiJgTneAPacT/pLTZHq5gsyc/bXjMWCh0cuOdS
-	 +97MfdA+S4dGKJsNtaQ2OaGv/vPHQY8/M95adOp6rSVVnV7u0V2ew+v7uEatUltIQi
-	 C7CfUEHS/Kfe3kOYY7OJRmSDLxWONNCg2QBXRgXLPmqxBhlLNzC9xyMf6l8eLNfzKe
-	 1EFOzKOsQJkAOkqN/y3BGWSButhtaATx2KY0SqTsA6pcmNHvq0ib97TEpRqRs72KiQ
-	 EjRoqRINtyScFSLfgHyWYAnNNXZKM7CYnsyBJnvNzcFqAtXj0gGy5i0K1tpO7B8d+9
-	 LGLlF3PkarAng==
-Date: Fri, 13 Nov 2026 18:19:27 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3Pc7+cf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2253C1F000C4;
+	Fri, 13 Nov 2026 17:20:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794590435;
+	bh=oTXxB3waWpkLlntIvF64sIESVgJnv9c9rK9MOS+VyeI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U3Pc7+cf//FcAy2oXt3p6yCM8+yW5wQfZ4HW5+RJVCEiV9ClKuo0fGW8/3NKPFzDf
+	 X2BPWFZ6j5Xn2ZUQcymFiZxpaMVLt4iFcrwb8VJ/OdlHBEBPuOCzHWsjvK9NuyyeWu
+	 lInmcPtcBkTt6W842zoOYdvgg6VMwWWepxrOXykCX4GThtg0AvPfvlUnQKomoP7QL5
+	 Nw4oLUrylKYCTV71IijLQF/Wg5cCNHYBsPQweTM3NOnTr3ssss+GobA8n5kZ+S0CnJ
+	 B3CYeRAblKgbRrQoGUxXJXkor7M3iY1pOcDqlsgqthbJaG+xSv+AbkQw7ko7sWZetv
+	 YfdZ9urJLiuww==
+Date: Fri, 13 Nov 2026 17:20:31 +0000
+From: Conor Dooley <conor@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
- alias
-Message-ID: <20261113171927.GA762258@francesco-nb>
-References: <20261112150236.164850-1-francesco@dolcini.it>
- <20261112150236.164850-2-francesco@dolcini.it>
- <avXeK-IRXbKqI-pc@SMW015318>
- <20261113073135.GA8515@francesco-nb>
- <avc2nzql-JV7a-JH@SMW015318>
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org, letux-kernel@openphoenux.org
+Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: ingenic: Add X2600 support
+Message-ID: <20261113-probe-gravel-3c7e3cd8f7d2@spud>
+References: <cover.1794557697.git.hns@goldelico.com>
+ <ba9c514a8243419da3bb46fcb507b706c948fb60.1794557697.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,63 +62,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="44iUcuStpHNSNSzT"
+Content-Disposition: inline
+In-Reply-To: <ba9c514a8243419da3bb46fcb507b706c948fb60.1794557697.git.hns@goldelico.com>
+
+--44iUcuStpHNSNSzT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avc2nzql-JV7a-JH@SMW015318>
 
-On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
-> On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
-> > Hello Frank,
-> >
-> > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
-> > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
-> > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > >
-> > > > The Verdin family pinout defines the SoM interfaces and their
-> > > > numbering, SPI_1 being the SPI bus available to the carrier board,
-> > > > implemented by ecspi2 on Verdin iMX8MM.
-> > > >
-> > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
-> > > > and the spidev name do not match the Verdin interface. Add a spi0
-> > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
-> > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
-> > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
-> > > > the spi2 alias inherited from the SoC.
-> > > >
-> > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > ---
-> > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > index 1ac9d000d415..0369803a4d46 100644
-> > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > @@ -16,6 +16,8 @@ chosen {
-> > > >  	aliases {
-> > > >  		rtc0 = &rtc_i2c;
-> > > >  		rtc1 = &snvs_rtc;
-> > > > +		spi0 = &ecspi2;
-> > > > +		/delete-property/ spi1;
-> > >
-> > > Can you avoid delete property for new platform?
-> >
-> > Unfortunately this is needed.
-> >
-> > The included imx8mm.dtsi has
-> >
-> >   spi1 = &ecspi2;
-> 
-> Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
-> board feature, not soc features.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Please see the linked thread [0][1]. It's not a viable option.
+--44iUcuStpHNSNSzT
+Content-Type: application/pgp-signature; name=signature.asc
 
-In addition, I can do this for my boards (Toradex), how do I know what I
-have to move for boards I do not know? I can't do that. The only way
-would be to duplicate the whole aliases on *every* board.
+-----BEGIN PGP SIGNATURE-----
 
-Unfortunately your proposal does not work.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavdG3wAKCRB4tDGHoIJi
+0iJgAP4uNgFIP0i4mmLc6XaxoNcSMY2sBZR2A7O2WYwFkShZRgD/beg5ETfjWgGS
+OQqv2eU1VHkKGNlavAotFBJNOYa4iAA=
+=Rs4R
+-----END PGP SIGNATURE-----
 
-Francesco
-
+--44iUcuStpHNSNSzT--
