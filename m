@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794595143;
-	b=aEtq2p/VYiq0mycFncri4064AmWfaCmQrVqDaHyu+mlQWNkrF5ymMF7WFW5xuFXRFoTU
-	 rQvJWr/j+hs7p3hbWtRlhqEqnKGk9oOrKOhvGkrCLJcs2nkyrGt2xaLvGCS/hTGKj9Vik
-	 ITmc58r0PBJBVlV7VdGXg/Ck0Uk/75BH8/amiYse4Y5JtfU+vdDPDeCLyalHX4ytoNjXW
-	 g8bneh3mI0dYgKbfoS17uwe1i84k5YjsG5tdPzxctoBbpOkIjTkcrkHnDyUUSUgCKntfK
-	 wiFXvznAIO0uxQkdAbUQaybUSR8gD76qo5Wnp7r/ocyTmR9c5tM114soDdVHphpHb3g==
+	b=KZQK92SoMmg9N2VIOGKBZhm3dJLBq7XSxBlhlhWEiomrcq5OSKKbV+GyzlqRNEHuNtUZ
+	 la9YZo8wYa1nmAIq8p19CUz2SdDnuJHDwehxwjsgvLJEQ0G2GRVXrzZX3RcofM6V6Pb33
+	 scUN5axcgBb9/1hj8oQyJm9N0VpKXI/t9n6yLsKXUHwbJz4hL5fQduNNd0aWcxOYwV9am
+	 D7XxOB01POdVgLgxVUGcCrFS6kjzZNIAmy6YVBeOewAPP5+qQG2fhJobNelktQM5DEieR
+	 S1NXA8gEUnFr6m0kIu6xKjwY/bis+iVbO9jDMBIxO8lVVYQv2fTZjL7DLgCGl/E6qKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794595143;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
@@ -13,77 +13,76 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-	b=rfTaip2jYUgqxWC6pbxLA01dXE2GNjA5zI775XN+V9uOEfBUcmaIj4UziA7hzBWOB/gN
-	 p6cR6ejkbQu+xkOBVVfJDAyQW8dJYtfRbKHq8f6R4VJBpKd0dQtCHN7FY2FxBTD+KWOll
-	 Ukwk9TT4if7y9HQHt27td8Dh4kWbJ/lMj5wFSOkh8aW4pb9Bj9+Mave5u83wq4XKJwT7J
-	 iE16Gwyj/VJNxjpEuh9N2si/H7l4KuMhd4P+ffnTHqBad0ceePb0/ZaeVu7bt13l498gi
-	 +jbOcimfa5k7hutXKuoYScZqhP75dmPWF9OTzRcuwsNgwZumvPm9IQKZpoKEUSYj3og==
+	bh=ojl/cw/dowOK0qKRCZeiKJaRwVJ1sk02/jN+oDFnW/0=;
+	b=ypW6k8fjFl0LzFQG7EAO35MwSQEzZWlkA0j427q8d+G/mKsWOYZvwQh6ohlN4wGL7FbO
+	 E+9WaWKg7P2tL/2y64l4W0wY/geRuIQicx6O4EZU36AJzsmEISX3GFdJeyRHpnJgyiGqj
+	 mx7qKeWrNQOveNFD6xxx2GfAsqAgwhv2kVHqDaxbd3mAMe1LA5aBAXuKCXMShlvlpc7ex
+	 SV3WhBVAlvZHa4YIdudLnu4o9fF1OXqc9f0WQZyMXAWgfWtf1IdUzTJMxZY5V8zcAVUs8
+	 +m4Sof3P+U0teE5XCPiOcIsrX3Omezo3OWS/b5uSSQQCRGQeXN5HQyCztsIdyiOrzDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nGXC2mr8;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jr6uG1Gz;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389AF6077DB6
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 389AF6077DB6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441766077DA3
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 441766077DA3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nGXC2mr8
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so701129f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:39:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jr6uG1Gz
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e3b22e971so640442f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:39:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595142; x=1795199942; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595141; x=1795199941; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-        b=nGXC2mr8jDEFHh8X7rT1WEuyQyAOtyoVaJp5hD24VULt5Dm7tn5F4rQogcz1AKkt8B
-         GbsQRDgwSeNRHydCV8O1Hf2dk9YPkq8TTOacvrvqNUcKJhd0pmpYNxAhee9OAn3Q3CBb
-         ZrLDMEXjtXAByco6PMvyEc4Xctx+kkdofg5qfcfru3MRhroRs5e8pFa7aQn0UfFZsG5M
-         IawcxBBflPCVPeX9BBMQ76gpLVA7LVYCgcNqtEAO7pfK5UbS4qgGZFXxWtBsDRRjMzcE
-         xmBeK91uK9gZwr+1rZrafLNgqEXXbHruS92N+aVKjk5Mm+T2BzzvS4ELissMU9eRY1Yp
-         90Ug==
+        bh=ojl/cw/dowOK0qKRCZeiKJaRwVJ1sk02/jN+oDFnW/0=;
+        b=Jr6uG1GzcRu4KzDsGdEZkaUqHJrojddpRKzQKqqqcRDH8z8WDuwCbyjlx54CwpdO5x
+         CcAbOeD6FxIss83KsHnZ4br5/qOFC3mMt0WDi545jYfygY3KFnbNf0jBhgPogS1eVSD9
+         bawaTwxh7boTpxh0FqP8JjUuts1rWfHRY53LFnUNhJIPdfKkuWFQfPqeXvpSYc61hRLw
+         d4lNOh8jZA41YYhXsYRgS/+0GnHZmmstDIvL63TOEisSXkZccqr6t/ZsXmg+QAwKF6Yo
+         Ejqq0RxnxtdSZ+JNHuQkDLTbvhFonCb24leoknssa8gvRADCQL+EjHWg+3Usn2uN9W0J
+         nAIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595142; x=1795199942;
+        d=1e100.net; s=20260707; t=1794595141; x=1795199941;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-        b=Rit6RRomMl9s24VXn8ik5tda1AXtbnplIKFJ8RaAdnx3p0lToao0Bc5YeJo7NsW4yO
-         ML4EXSm7u2B4jHA9phu7Fg8KysN4ILNe7UM92sc9du1ky/t/sJZqd7smdJTmTV51Yi76
-         zzhPmmXBs5ar+R1K+hNi4oNXqBSmTKpOdaiEG1fpGLyxI5LttRLJrc7K3LtUSNn3Iy45
-         kqyyohf2bRPhPn+82HvR9ozBjxa7R165I+5iywxL38fbVLdR8GwsS1wYWyUsZ3+ipIHZ
-         BgOj7ahzCe+zjY5QhPXwvmDomc6D4Ed0xYUL9k5Dj2Mapy8+FK0lWNsq32mMwaNuv9ki
-         9DRw==
-X-Forwarded-Encrypted: i=1; AL+hErEhSNNVDUtzc95ev1kcPheb0KhHKzQG6nOOFMZjW9LsioLYHggQUQVZ1aG2nEeZMrX6jNmBf9hgXmYt@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Y8STkzwicYc0EyiRpZnViXKWhAcYNrp0fH1CYHpdwlKRH3J3+
-	6bzWH/lYT1xhc4KAECruFf6z8yjF/d5rAkbzzF8wSQY++ViZtLvb1CIvsTYBGOGgLsk=
-X-Gm-Gg: AYBFou0+uxQjSneRbYm08rjPhk82vD9Ini+IWFYLn2AyngiES5EYkUXkTpPw+4RCs3C
-	K7W7OV9kviPbbs3cgAGk9swcbT4+NXb4D6EhR/LahSeFjdro075WbsGfDKbpzmcvUccrUNQUimr
-	BMpIbLh8x9RxRwv30IQs0+NrW0fMHBR5lNNCUwOWaw/+ja/mTFZuT7TlgdOjRNDI1/P6wCY3pq4
-	0JqBgZhpVyUjlLjPyw3dF9ZIrJ47NtG/hX+RcsQIluL4XvcByNMh/fbfKtWZMUTq7Ay31Tns7dN
-	KLK8NfwdSdxq16FJ2VHGszsUO9L+kgkBRJvsa+9+QOcs5l1Hqre+gAlBQbGYHY8sqlog9/6TlPY
-	erxY/Mp+3pZbmaQiInB4xli3EHuAEaCwHz9qHLzfxXym74Rnou/En1KQswC3YhwG31ESGgKUN/G
-	UCzRTU1SzShlJ+0pWfPA9vKgzRjiH8YBSgxVVHYviFk8p/dIvZu20kp5KmWpTEgQoQiplpplB3r
-	IV6gBBvPYgENVq6LnPLnlx8Okx2m7SXCy0UIdv7t+ZN5NoxUekTL94OcP0d7N+mQwaulZcxI8J1
-	38bpthKradimwsjctSzhaSKpGr4JsVdmZmmyv237pb0=
-X-Received: by 2002:a05:6000:4697:b0:492:c53e:2ea8 with SMTP id ffacd0b85a97d-49c7458620emr5628794f8f.49.1794595141531;
-        Fri, 13 Nov 2026 10:39:01 -0800 (PST)
+        bh=ojl/cw/dowOK0qKRCZeiKJaRwVJ1sk02/jN+oDFnW/0=;
+        b=lL8FJ1x6g2tMDBht09GQ01QVkBMuhBEtbh4WVaXApM/KtZnyAcOyrxzKnPKI4FYLL3
+         U5n/PTrgosW9Gw/LvUzlo2T7pdO63tghUFO6PEVvkKDhCzSyL9JboSDtn0n/J35ezhVF
+         NAbaL7ERoKV+vLnPHqYVNm8tCAv3uZ8+WSV6S14KPQbDw0IoWxtKE1pZ9R1rfGGSHLcH
+         gpVRmK6pXoJ9RqnaSVRGGI17I7yKlmhRJe/cEPhUN85nK+rUFVFH1VmxOx64aDrKP4nJ
+         6yjod4NRW3VU0lMtceP2FqlKG/iSvo51pqNiZ/IcBMoW/CXZsVlqWh5xYSP93seRN1qB
+         Q1xQ==
+X-Forwarded-Encrypted: i=1; AL+hErG5liJEmQsHbnTcfd3HuSNtaTgFL6l5zaLnSia1HtKRPKy9RiwJE4tb+eSwp/0gn5IOtBRriHyciM1p@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QEbZ5OYTpjJ03ja0BbBdZXDBCFLxlkMaYOsRVlOSnIZQ2AVys
+	DyMLPw1VqS4cxUIp+o09kkEpACfulkBUZre5/Nn2zKZ1sHoCQbA9xZsfaM/Qp/udK0U=
+X-Gm-Gg: AYBFou0fpi6KeXTVidYhCzrkQYctO8jchW3LiY1Nc16/ghCox7Gs/M6wpa25Du0M3EV
+	9JYDt8LbxAMrqlK/L4e6gDC2QqzJ/r1usZOgdCsLBiPtVREBceQys+Wz4AYlcyOQOWEZKXfyf15
+	Yv3hmpzvCmYMep5vl8/3VvIVXdpo5GFL32aXSQAtR2jZShTT4Up0hOJ01CZ94JCTyLHiJa56nnJ
+	nrbx3OGS7SgdHNnwQGGyIy8peNYkQNScPA2aLM2DOpSS7JdLtDx0IzduRxI6aVAGilm+OugAkmy
+	aW24TH4VRSAaHwuxhsTzqVVDhyS+ttZhExHD8haf8K3Goc2eCpCl0X87jiTf14NRUg/p80seHCe
+	bVouQNzuq4JLOG4b0qf5UazxEqsRZo8u0/4nN4iH1jQ/6DvgAZKT3y9FLlDYSNzVZawa94GLUIl
+	TBPNyTUPun/2nHLMeQLrPIl0wqPGnxb3oX/4vDXEZl6P2bNuL1NzQvNvwmCR0AQ5IJG7qMYx7Kk
+	V7KXNrq2nM4LFx8LYwUO2jYm809QVqYkF/aDitFJ+KC9XM0NBTzUZghz5XR3cWvlTC1SrfgaOJp
+	QoX36buZJNOagUzPxA+fEC83oj/xjzxucsdFm7enlv8=
+X-Received: by 2002:a05:6000:22c2:b0:48d:ecba:3cf8 with SMTP id ffacd0b85a97d-49c741b1331mr8478786f8f.43.1794595140541;
+        Fri, 13 Nov 2026 10:39:00 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.39.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:39:01 -0800 (PST)
+        Fri, 13 Nov 2026 10:39:00 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:36 +0100
-Subject: [PATCH RFC 22/23] arm64: dts: qcom: sm8650-valve-deckard: enable
- audio
+Date: Fri, 13 Nov 2026 19:38:35 +0100
+Subject: [PATCH RFC 21/23] arm64: dts: qcom: add SM8650 LPASS CPU dtsi
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-22-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-21-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,123 +112,299 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2284;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7934;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=V5W1xkU5JSLg+slKk1AfIWeDvtlCZVv2u4mE0vZ1GEw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91koLJdzmuJYexHUXqCwf/rguGD0uVlz2GY/nKi3
- xzdtgDCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZKAAKCRB33NvayMhJ0bV8EA
- CP6h7TdIv30wzog9Ph/7TaDUOU9Q0KoVpgAYqjAzcf+icYGmJ2kONvsVh8/7PH4note+jLzG4tDvTg
- nzrwuAj4KUDPAlz6PsQ0XHZ29zJ75rEWfDIcEdF7vdhPYIovfSgs6QqLDpS1desaMEODAJoS795EuR
- iEfrJWyLP5ef/bcOxxWzXNzoSsZ8A/Bt5LvYXk1HHAUA+tFPJhz/gcwCBydcEOTB1yo4qRJayeiKVJ
- Rcu1DJoYfimFMS66fRmnsNY6R5eAQZ1B8TESR7wnoyE+HFaY7XEe2rWXyhtMp9D39ig0ofzVxfvBfX
- xClL2KpG9LTBkZ+JVJyZ0ZGlzjrbxZ57KV9KGfbgr/ifMSJ/eBIUb8zKdUnuqKwQG/0xmOgGYXvoaQ
- oUkbQeo4YfP7z7bTQ/6Nx7byp2lGcbrehRCaO08sxRUtNvRMx0txP92TmhKIVG0+kRyH056YcHvSfl
- uFXPOGWBL0r5Hbvb0nq80KI4A0cCyrHZ5L7hEzBaIZY0mL/EEWfx31q7RHb8acgQTvlh+WLJBIuuKi
- SHdv3y0nTLm8aCpLij24hLvJwvowGkLPsz0Nqz3L7r9XD7eBVkTeWrfOzngpRAPTHBq7P3NEAWHkft
- L83kztdj+ctg8j8LHeuyGltN3XftbP1L7HKNTQojJmNX5Zlac2vC7lPbC0rg==
+ bh=3kjZaVqJSyCEesNU0H/+AmXUsTyHtkf+decNnu3GiPE=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91korEVY0HK0b6kmL+fpgIqlGWV1Dj1bLChkSm1b
+ u5jdI0GJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZKAAKCRB33NvayMhJ0XG+D/
+ 46gGGSC/jvBNh4B0Ilk03vkLY2x33GvoF/4pfSnRaCXyJqomwfMdK2ORERCZ9qYR3oIfqOPACfl2EN
+ /0XZpvmcDt+bQYr+uAFtGal8rZ4h1cg7Ogpu1I2r0ZJI+vRXhvT/IeObzFdQy4GJAdTk7aDpdasRqW
+ EaLypIl7jVJqZBDSw5Xz1M9cLqvk05yhwdkoPAGTdqSTFqtlKE3DJqh2vA1xamutL6ebGN6tZbzrQX
+ QJt/TeYBU8pmO5BxHHO6JexIFicIFdbCP3hgIFlkblo/liu+D9PgLdHi3EJcNpr165nj6D5StP5uGY
+ rU/ZgmLXSm5NTcehoXXhB+0z59wobSZ4V3MOIeRLj7JUPPE+c8q0nUmbeh7AqJQkbOb9T5lujxExOU
+ yfJxWNuEVmejkBtQvCQULPNlqzq2hzRwZVUWmOjn/+n3PJzKVMerD2vdc4GnbR5cSRyCgOc5U7QPPc
+ kYZdifbIipBU7BQ5I3zL7IZLbWmkjHionXhhMPePFrTTaFcZ9OZdvCMGyXD7Zf+IkfKHUtkdIXFfPT
+ b1NnNNpjF+9tcossNXvUVPdjXIAFJbtWVqYTvu/yI05BcEFg/Fpnl6wAWMoTVS0cdk9mdfIv+CwRGj
+ 9w8jMVOYfn++noWxHj4h69oq8oJ8sbjLdtdMxY3239zSiooQLnOrdEtg/3NQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Deckard boots Linux at EL2 without the ADSP audio firmware, its speakers
-and DMICs need to be driven through lpass-cpu.
+Boards booting at EL2 without the ADSP audio firmware need the LPASS clock
+controllers and lpass-cpu nodes to drive audio directly.
 
-Include sm8650-lpass-cpu.dtsi and add the SM8650 sound card with the
-speakers amplifiers on Senary MI2S and the DMICs on the VA macro.
+Add sm8650-lpass-cpu.dtsi with these nodes and the LPASS macros clocks,
+and the I2S2 pinctrl state.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts | 64 +++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8650-lpass-cpu.dtsi | 222 +++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi           |  25 +++
+ 2 files changed, 247 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-index a365caa28cee..723f7911fc54 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-@@ -16,6 +16,7 @@
- #include "pm8550ve.dtsi"
- #include "pm8550vs.dtsi"
- #include "pmk8550.dtsi"
-+#include "sm8650-lpass-cpu.dtsi"
- 
- / {
- 	model = "Valve Deckard";
-@@ -160,6 +161,37 @@ framebuffer_mem: framebuffer-region@af400000 {
- 		};
- 	};
- 
-+	sound: sound {
-+		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
-+		model = "VALVE-DECKARD";
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-lpass-cpu.dtsi b/arch/arm64/boot/dts/qcom/sm8650-lpass-cpu.dtsi
+new file mode 100644
+index 000000000000..43d0d8daa4fe
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8650-lpass-cpu.dtsi
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, Linaro Limited
++ */
 +
-+		audio-routing = "VA DMIC0", "vdd-micb";
-+
-+		speaker-dai-link {
-+			link-name = "SPKR Playback";
-+
-+			cpu {
-+				sound-dai = <&lpass_cpu MI2S_SENARY>;
-+			};
-+
-+			codec {
-+				sound-dai = <&left_spkr_i2s>, <&right_spkr_i2s>;
-+			};
-+		};
-+
-+		va-dai-link {
-+			link-name = "VA Capture";
-+
-+			cpu {
-+				sound-dai = <&lpass_cpu LPASS_CDC_DMA_VA_TX0>;
-+			};
-+
-+			codec {
-+				sound-dai = <&lpass_vamacro 0>;
-+			};
-+		};
-+	};
-+
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-@@ -776,6 +808,38 @@ eeprom@50 {
- 	};
- };
- 
-+&lpass_cpu {
-+	status = "okay";
-+
-+	pinctrl-0 = <&i2s2_active>;
-+	pinctrl-names = "default";
-+
-+	dai-link@22 {
-+		reg = <MI2S_SENARY>;
-+		qcom,playback-sd-lines = <0>;
-+	};
-+
-+	dai-link@19 {
-+		reg = <LPASS_CDC_DMA_VA_TX0>;
-+	};
-+
-+};
++#include <dt-bindings/clock/qcom,lpasscorecc-sm8650.h>
++#include <dt-bindings/clock/qcom,lpassaudiocc-sm8650.h>
++#include <dt-bindings/sound/qcom,lpass.h>
 +
 +&lpass_rxmacro {
++	clocks = <&lpass_audiocc LPASS_AUDIO_CC_RX_MCLK_CLK>,
++		 <&lpass_audiocc LPASS_AUDIO_CC_TX_MCLK_RX_CLK>,
++		 <&lpass_vamacro>;
++	clock-names = "mclk",
++		      "macro",
++		      "fsgen";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "macro",
++			     "dcodec";
++};
++
++&lpass_tlmm {
++	clocks = <&lpass_core LPASS_CORE_CC_CORE_CLK>;
++	clock-names = "core";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "core",
++			     "audio";
++
 +	status = "okay";
 +};
 +
 +&lpass_txmacro {
-+	status = "okay";
++	clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>,
++		 <&lpass_vamacro>;
++	clock-names = "mclk",
++		      "fsgen";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "macro",
++			     "dcodec";
 +};
 +
 +&lpass_vamacro {
-+	pinctrl-0 = <&dmic01_default>;
-+	pinctrl-names = "default";
-+	vdd-micb-supply = <&vreg_l10b_1p8>;
-+	qcom,dmic-sample-rate = <2400000>;
++	clocks = <&lpass_aon LPASS_AON_CC_TX_MCLK_CLK>;
++	clock-names = "mclk";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "macro",
++			     "dcodec";
 +};
 +
- &pcie0 {
- 	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
- 	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
++&lpass_wsa2macro {
++	clocks = <&lpass_audiocc LPASS_AUDIO_CC_WSA2_MCLK_CLK>,
++		 <&lpass_audiocc LPASS_AUDIO_CC_TX_MCLK_WSA2_CLK>,
++		 <&lpass_vamacro>;
++	clock-names = "mclk",
++		      "macro",
++		      "fsgen";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "macro",
++			     "dcodec";
++};
++
++&lpass_wsamacro {
++	clocks = <&lpass_audiocc LPASS_AUDIO_CC_WSA_MCLK_CLK>,
++		 <&lpass_audiocc LPASS_AUDIO_CC_TX_MCLK_WSA_CLK>,
++		 <&lpass_vamacro>;
++	clock-names = "mclk",
++		      "macro",
++		      "fsgen";
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>,
++			<&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++	power-domain-names = "macro",
++			     "dcodec";
++};
++
++&soc {
++	lpass_audiocc: clock-controller@6bc0000 {
++		reg = <0 0x06bc0000 0 0x38000>;
++		compatible = "qcom,sm8650-lpassaudiocc";
++
++		clocks = <&bi_tcxo_div2>,
++			 <&lpass_aon LPASS_AON_CC_MAIN_RCG_CLK_SRC>;
++		clock-names = "bi_tcxo",
++			      "iface";
++
++		power-domains = <&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++
++		#clock-cells = <1>;
++	};
++
++	lpass_aon: clock-controller@6e00000 {
++		reg = <0 0x06e00000 0 0x30000>;
++		compatible = "qcom,sm8650-lpassaoncc";
++
++		clocks = <&bi_tcxo_div2>,
++			 <&lpass_core LPASS_CORE_CC_CORE_CLK>;
++		clock-names = "bi_tcxo",
++			      "iface";
++
++		#clock-cells = <1>;
++		#power-domain-cells = <1>;
++	};
++
++	lpass_core: clock-controller@7b00000 {
++		compatible = "qcom,sm8650-lpasscorecc";
++		reg = <0 0x07b00000 0 0x58000>;
++
++		clocks = <&bi_tcxo_div2>;
++		clock-names = "bi_tcxo";
++
++		power-domains = <&lpass_hm LPASS_CORE_HM_GDSC>;
++
++		#clock-cells = <1>;
++	};
++
++	lpass_hm: clock-controller@7e00000 {
++		compatible = "qcom,sm8650-lpasshm";
++		reg = <0 0x07e00000 0 0xa000>;
++
++		clocks = <&bi_tcxo_div2>;
++		clock-names = "bi_tcxo";
++
++		power-domains = <&rpmhpd RPMHPD_LCX>;
++
++		required-opps = <&rpmhpd_opp_nom>;
++
++		#clock-cells = <1>;
++		#power-domain-cells = <1>;
++	};
++
++	lpass_cpu: audio@7b87000 {
++		compatible = "qcom,sm8650-lpass-cpu";
++
++		reg = <0 0x07b87000 0 0x68000>,
++		      <0 0x07d00000 0 0x2b000>,
++		      <0 0x06c80000 0 0x10000>,
++		      <0 0x06b40000 0 0x2b000>,
++		      <0 0x06d00000 0 0x2b000>,
++		      <0 0x06d40000 0 0x3000>,
++		      <0 0x06b80000 0 0x2b000>,
++		      <0 0x06a40000 0 0x2b000>;
++		reg-names = "lpass-hdmiif",
++			    "lpass-lpaif",
++			    "lpass-rxtx-cdc-dma-lpm",
++			    "lpass-rxtx-lpaif",
++			    "lpass-va-lpaif",
++			    "lpass-va-cdc-dma-lpm",
++			    "lpass-wsa-lpaif",
++			    "lpass-aud-lpaif";
++
++		interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 268 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 196 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "lpass-irq-lpaif",
++				  "lpass-irq-hdmi",
++				  "lpass-irq-vaif",
++				  "lpass-irq-rxtxif",
++				  "lpass-irq-wsaif",
++				  "lpass-irq-audif";
++
++		clocks = <&lpass_aon LPASS_AON_CC_AUDIO_HM_H_CLK>,
++			 <&lpass_core LPASS_CORE_CC_SYSNOC_MPORT_CORE_CLK>,
++			 <&lpass_core LPASS_CORE_CC_EXT_MCLK0_CLK>,
++			 <&lpass_core LPASS_CORE_CC_EXT_IF0_IBIT_CLK>,
++			 <&lpass_core LPASS_CORE_CC_EXT_IF1_IBIT_CLK>,
++			 <&lpass_aon LPASS_AON_CC_EXT_IF1_IBIT_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_EXT_IF1_IBIT_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_EXT_IF2_IBIT_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_EXT_IF4_IBIT_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_EXT_IF5_IBIT_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_CODEC_MEM_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_CODEC_MEM0_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_CODEC_MEM1_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_CODEC_MEM2_CLK>,
++			 <&lpass_audiocc LPASS_AUDIO_CC_CODEC_MEM3_CLK>,
++			 <&lpass_aon LPASS_AON_CC_VA_MEM0_CLK>;
++		clock-names = "aon_cc_audio_hm_h",
++			      "core_cc_sysnoc_mport_core",
++			      "core_cc_ext_mclk0",
++			      "core_cc_ext_if0_ibit",
++			      "core_cc_ext_if1_ibit",
++			      "aon_cc_ext_if1_ibit",
++			      "audio_cc_ext_if1_ibit",
++			      "audio_cc_ext_if2_ibit",
++			      "audio_cc_ext_if4_ibit",
++			      "audio_cc_ext_if5_ibit",
++			      "audio_cc_codec_mem",
++			      "audio_cc_codec_mem0",
++			      "audio_cc_codec_mem1",
++			      "audio_cc_codec_mem2",
++			      "audio_cc_codec_mem3",
++			      "aon_cc_va_mem0";
++
++		iommus = <&apps_smmu 0x1100 0>,
++			 <&apps_smmu 0x1101 0>,
++			 <&apps_smmu 0x1102 0>;
++
++		power-domains = <&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
++
++		dma-coherent;
++
++		#sound-dai-cells = <1>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		status = "disabled";
++	};
++};
++
+diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+index d88acdb8c775..298e4ca33b4b 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+@@ -4427,6 +4427,31 @@ data-pins {
+ 					bias-bus-hold;
+ 				};
+ 			};
++
++			i2s2_active: i2s2-active-state {
++				clk-pins {
++					pins = "gpio10";
++					function = "i2s2_clk";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++
++				ws-pins {
++					pins = "gpio11";
++					function = "i2s2_ws";
++					drive-strength = <8>;
++					output-high;
++				};
++
++				data-pins {
++					pins = "gpio15", "gpio16";
++					function = "i2s2_data";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++			};
+ 		};
+ 
+ 		lpass_lpiaon_noc: interconnect@7400000 {
 
 -- 
 2.34.1
