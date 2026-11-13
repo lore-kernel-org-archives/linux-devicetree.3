@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533548;
-	b=aCGBpds69Em9m+wtQwfkWTEmi1zss5vyLLto33bO325zstE2oHV1TRsNavzmvFAsA1JB
-	 AE/iKThMSc/YYD4/ku5gF2qEaPMmoJ4v4dnVb3WTTjJ4Kb/NH5KPj4cUHQZEhq644Ovq8
-	 Z9CURQXrUeR+la//firZskhBrM6i7fuj440tvL0p0eO3fQMuC0pSnrEo+IuZ6sxfKLSTJ
-	 nnfkevaIiox+HnDVgsnkBDZMbITfIlC0v/tiYsOw6+enSaIsIuBTskKFXmTm6XeTi5Ln8
-	 WL0cwudFAXWrGKJnhNY35hnMZ13TRXhKn8xVixHTis88BJTNkqmS7YuOAgnstmobTFw==
+	t=1794533581;
+	b=VOcycMFz7ftUEZNiFwn9Ag71DAAq+D1mmDD+15Qs+eSpYOF3A0FAtIj6JuQsgZahvlgf
+	 D41k8f9l4IpvRrFASdMNwL7sBz7gJxyobP4yPJDthqJ/Y/mzpsPWewVvfedPaGtQQZCK7
+	 KJk8ZHNlzYHq/Lthz1XWcY5tJdNok1j5Qdijd7Z66+cinCY2O8HnhZd1QixtMoRCpGdms
+	 qi3ByLbJY3kZGguAhPW6dLAUQ7YqZcVJ5vhr/R1r2oNdhxq8AkNDfemJ9xkpJT2nXAQ9y
+	 oKs13v7p4aQCFNbVZLI22zCYwR2vWBiNmFXZ1oMbJ5juixmX2AKyIS+Bhuc0iNXr3Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533548;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yaPzTNzS9vcm8XrStwcS2srUboheOtzp4zjwgW7ODUo=;
-	b=VQdXdTOu8BzzrcaUWan8yqgtfiTFGUXDLMT5iQNtXAZaaJtFHIY26aDyiyLaKmKQOb0c
-	 o0IG+3PbBUv0bXHrRutHq7dGnA/qzUnaiViYPfLtd1vxF4VF+2qojxXhbzvq8i3W99vVJ
-	 ZrJwTq1gVzOvi8sKARSmElyrCFMOLbXk/xUmmZAkjsoy/kBEzjuMfmTjp6LIvj8ANVjfG
-	 +QsmozZu/DUepQNA8rjpSkEHtHQHYLDg9KU7zrmxGa9mGPhmU1EofKHvWiO5zSkX4peIS
-	 Q5l2uz4K0VbklmmNy8b1Z0cR7SdpPwD+zRT6mqJ9WEyVcBWg/Fs055LhrW1UZi49Z4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533581;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yQVJRceumFd3S9xDfb9b5jpTVTAv9ljoeKEyL9VyzMM=;
+	b=3pd/4uuIAmAor7uurXmexH4hK1djT03jWL7l1kpAg8SDg7URsk677e1eMbT20wZDrNak
+	 DMf2dhgfHdTHQQfF2Jey73sBamqEtd3GGfkhdPf6rphD2i/4bJo1E2Bvqg+7xAnMmLQLe
+	 Zlo6WAz9UDP/FodFeil5YXWF5h2rE17VOoYFickvPG9xkoJ5cJ+VCs+tR2zV1zNimWQ2f
+	 quJm+J7mL+iDadfg8wXfVUvklRqxY5efuCJuWyPncTFINlf045UOHuGgrxMXh89DTaBw+
+	 ZkTxFEANZqCUmviS8wrZ/FjBkvbbat0k5HszgJMXs2fFmax0/zKwyoQJkVAcO0KQMxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bEwqGxVS;
-	arc=none smtp.remote-ip=209.85.222.45
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hlGKjtd/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D798F606A323
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D798F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BABA606A321
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bEwqGxVS
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-99c042cee7dso554766241.1
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:32:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794533547; x=1795138347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yaPzTNzS9vcm8XrStwcS2srUboheOtzp4zjwgW7ODUo=;
-        b=bEwqGxVSZEgiZfeUHyQ4X6j+xmA9YFMg9C3c9gdG2of3W17qoml+f4a8+zBqD9YyV3
-         afUfBprGMFNiTDJkjTlcYr3QPvtjPnxtiSoeIyiNYN7RPgR/RHujwWORXFdtIYGNg0HM
-         T7FrXAUhd+m4IiTKxaJLMSJrITTTeq9SeCfHT+umw8zMu9V/orjbRrNTbDm+yrCJ2oSQ
-         DUq0u0/X1kGhn6HA90kIgmzUswvInFvGk17Q3uJcyRr7d69WGgx+ZrMHonAymgjobqg+
-         TaK3oYMkg8FgMW8YUwp932/7qrhz3jqWlqMyfd76IXQ5Ky9ODaSid3hgv7J6xYlKx/nG
-         Bmiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794533547; x=1795138347;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yaPzTNzS9vcm8XrStwcS2srUboheOtzp4zjwgW7ODUo=;
-        b=PLgjNuStGK/ZtzhqkMSJHmuBfNu+038IgyFRpiZHNmfYz1jTlleVUSWkI0ZxSnm8kC
-         iY7+fDVnWv/IYQi8lLDEwPkOZELaXPwp9NMrt+K5miJaIQRLxGIOnq2DEWWvybyLyNPN
-         IQR+Khpy5rgw4+Gmp/GIrrALoJkcxBz0kpbjTf8qRVspRqTCW45gbfE8znir6ShmAjqw
-         MWdXMUQMPdbfBHbz4CKzGAfuoEkstrIWQGpiQWdZSyAUr4dXy2nwOx/pFttkb1XccABi
-         FvVha50uUmsh2FEArYhw5HpNjjtq/mX+KoN8UMh49KtzIC+8s+lBcWnr9C2pqKYL5dfB
-         /KZg==
-X-Forwarded-Encrypted: i=1; AL+hErHOOXO49fq+USACMRLy9shIx8Ge38XfrGspg4uENcYaiyp0PIFAU9YPJpFDDJtmNjj5MNYhHvg0Rtmj@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hYoIX+sfSrq35Zgk7gyLBeX9dg7ekkQarC1XBYRWIjWEjyy+G
-	zfDu9Z2vamNJ7+X8wnqlSjKiLk5r7ggqD1X+YuU8JWq0qxtbBHQwhY9G
-X-Gm-Gg: AYBFou2OkryJYDgAwBVBVZCdJWyuNSWHBpQ2OfqZG7Jy5LDqiMOoPeuIDrh04Gsf6u3
-	vO950+bPdyVEs/TunQ5u/3Iqunus7X2NhfTO8YXjwykymmCANAiDaYD/IuSjtxcJZCcpaamVPTM
-	qyuJrE67B1cclwO+/hLbGVRDEx9XkmGPUtE0dT/zgYB+hkFvUjLF85VcEGMESrOHcP2xzebOwC3
-	BuH8Tr7l8iU2N+9ILYnahEVzcFwf8KsRlSqGkSMlV5/HKt3WAEKsBqBflYNON5zyutOxiQXvUAG
-	qxuU4SC0PB2fl2peLIsSSXnQ8TnL9kcL0HWHbtcCQceGU6F5zhwdDFpZ0/99LiSxfOsBDE2dCFR
-	piiyYtRsULYAbuKebm+sy6mNmdaukU/Kjk6EIdpNSBzfwrQ3CDf1YnnaCRn7azh8FOhtDEI9rEV
-	x/r1UdJqRaVc8P8vCBJQLGBS4ztiAc3jKLYOh3pe65gQID4TGg7VbcPMwIRrThK8ciC8jnAvv5S
-	ws7FTrmRanONjStNdEX8dX7YnVY+oPtmHf0tCMD2Zs+XkSjVfMCs8qoNuHWJ7j+PxogT0gTJW5c
-	Ll7mzfTPq60TSwPLV+M87QrdghWQvjRWfg9STuUq5Ojxqd2uxKe3JqI81kUfAj6WyGaClBcuYBj
-	NEwI5Z8iuBTdCvpmR7TYxeQ==
-X-Received: by 2002:a05:6102:e0c:b0:7cc:1045:604 with SMTP id ada2fe7eead31-7d64d8b000bmr325444137.30.1794533546827;
-        Thu, 12 Nov 2026 17:32:26 -0800 (PST)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a803:1afe:4b16:e82:1dda:bfc3])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d64be7e2e9sm796166137.0.2026.11.12.17.32.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:32:26 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: lee@kernel.org
-Cc: maz@kernel.org,
-	andy@kernel.org,
-	jic23@kernel.org,
-	dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-iio@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	Fabio Estevam <festevam@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] mfd: mxs-lradc: Pass parent IRQs to child drivers
-Date: Thu, 12 Nov 2026 22:32:12 -0300
-Message-ID: <20261113013212.470981-2-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113013212.470981-1-festevam@gmail.com>
-References: <20261113013212.470981-1-festevam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlGKjtd/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC691F000C4;
+	Fri, 13 Nov 2026 01:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794533580;
+	bh=yQVJRceumFd3S9xDfb9b5jpTVTAv9ljoeKEyL9VyzMM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hlGKjtd/HU4WxY4M9uRAhjiBa88jX/u6l061ApHmmB+lgsD4Nv2UwcVnJ++lxUht9
+	 pZxIEWSfI5hMpNugKOxYc/aRt2OS056pj/Hnb9bnW3sddg1mmcKLPCGAitNywc4Wp7
+	 e2M0KbYgXaztVVE+eR2DBagf0f7Z7mRhDjnow12lIjt4OwsKtYKi2KHMaDV45L9Qmh
+	 556edfnsykGiyMBZtiZAVy89jGey0UWXhF2Txa6N9MnyC53kjUeQjz5Jgx0DGX/cRV
+	 9RetbFyUVzLDePOSsK6KjQP5UJrV5YQUt/71jbAoSxJi0VjbkT6SZh3w6ea60PqNi7
+	 gHijy6qM9CgAw==
+Message-ID: <sashiko-outbox-212063@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 10/12] arm64: dts: qcom: sm6350-lena: Add PMK8350
+ thermals
+Reply-To: sashiko-reviews@lists.linux.dev
+To: erebion <erebion@erebion.eu>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-pdx213-upstream-3-v4-10-4b01c50a821c@erebion.eu>
+References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
+ <20261113-pdx213-upstream-3-v4-10-4b01c50a821c@erebion.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 01:33:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,514 +60,32 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The MFD driver stores raw DT interrupt indices in IRQ resources but
-registers its child devices without an IRQ domain or IRQ base. The child
-drivers consequently receive the indices as if they were mapped Linux
-IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: Signed-off-by trailer uses handle instead of
+  real name
+--
 
-  0 is an invalid IRQ number
+commit 6202c1bff4c338ba19173eebbf9dc1a6bca1824f
+Author: erebion <erebion@erebion.eu>
 
-The children then try to recover the indices from their resources and
-map them against the parent OF node. Besides duplicating IRQ names in
-the parent and children, this relies on invalid platform IRQ resources
-and fails when IRQ 0 is rejected.
+> arm64: dts: qcom: sm6350-lena: Add PMK8350 thermals
+>
+> Configure the thermals for the xo-thermal thermistor connected to
+> PMK8350.
+>
+> The trip points can really only be considered as placeholders, more
+> configuration with cooling etc. can be added later.
+>
+> Signed-off-by: erebion <erebion@erebion.eu>
 
-Resolve the interrupts with platform_get_irq() in the MFD parent and
-store the mapped IRQs in the shared LRADC data. Drop the child IRQ
-resources and duplicated name arrays, and have both child drivers
-request the mapped IRQs directly. Use the MFD memory base support to
-translate a single relative memory resource shared by both cells.
+[Severity: High]
+The Author header and Signed-off-by trailer use the single-word handle
+"erebion" instead of a real full name, which does not meet the Developer's
+Certificate of Origin sign-off requirements in
+Documentation/process/submitting-patches.rst.
 
-Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
-touch events are reported, and the touch-detect and LRADC channel 7
-interrupt counters increase as expected.
-
-Cc: stable@vger.kernel.org
-Suggested-by: Lee Jones <lee@kernel.org>
-Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-Changes since v2:
-- Use reversed Christmas tree. (Andy)
-- Check the return value of device_get_match_data() (Andy)
-
-This is a long-standing bug that I reported in 2020:
-https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-
-This patch touches MFD, IIO, and Input. Since the IRQ mapping is moved
-into the MFD parent, I suggest merging it through the MFD tree, with
-acks from the IIO and Input maintainers.
-
-The full backtrace:
-
-[   10.540505] WARNING: drivers/base/platform.c:492 at __platform_get_irq_byname+0xb4/0xcc, CPU#0: swapper/0/1
-[   10.555516] 0 is an invalid IRQ number
-[   10.559627] Modules linked in:
-[   10.562849] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc7-next-20261016-00003-g36062817a968 #17 VOLUNTARY
-[   10.573732] Hardware name: Freescale MXS (Device Tree)
-[   10.578934] Call trace:
-[   10.578992]  unwind_backtrace from show_stack+0x10/0x14
-[   10.586955]  show_stack from dump_stack_lvl+0x48/0x64
-[   10.592170]  dump_stack_lvl from __warn+0x8c/0x190
-[   10.597114]  __warn from warn_slowpath_fmt+0x94/0xcc
-[   10.602232]  warn_slowpath_fmt from __platform_get_irq_byname+0xb4/0xcc
-[   10.609027]  __platform_get_irq_byname from platform_get_irq_byname+0x10/0x30
-[   10.616337]  platform_get_irq_byname from mxs_lradc_ts_probe+0x18c/0x378
-[   10.623247]  mxs_lradc_ts_probe from platform_probe+0x58/0x90
-[   10.629174]  platform_probe from really_probe+0xc4/0x2cc
-[   10.634649]  really_probe from __driver_probe_device+0xa0/0x1e0
-[   10.640721]  __driver_probe_device from driver_probe_device+0x30/0xc0
-[   10.647315]  driver_probe_device from __driver_attach+0x94/0x158
-[   10.653466]  __driver_attach from bus_for_each_dev+0x7c/0xd0
-[   10.659280]  bus_for_each_dev from bus_add_driver+0x158/0x1fc
-[   10.665169]  bus_add_driver from driver_register+0x7c/0x114
-[   10.670901]  driver_register from do_one_initcall+0x60/0x294
-[   10.676721]  do_one_initcall from kernel_init_freeable+0x19c/0x24c
-[   10.683073]  kernel_init_freeable from kernel_init+0x14/0x10c
-[   10.688997]  kernel_init from ret_from_fork+0x14/0x38
-[   10.694200] Exception stack(0xc8819fb0 to 0xc8819ff8)
-[   10.699335] 9fa0:                                     00000000 00000000 00000000 00000000
-[   10.707591] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-[   10.715843] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[   10.723117] irq event stamp: 146363
-[   10.726729] hardirqs last  enabled at (146367): [<c00adbd8>] __nbcon_atomic_flush_pending_con+0x120/0x1c0
-[   10.736770] hardirqs last disabled at (146372): [<c0008f38>] __irq_svc+0x58/0xb0
-[   10.744618] softirqs last  enabled at (146362): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
-[   10.753153] softirqs last disabled at (146385): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
-[   10.761603] ---[ end trace 0000000000000000 ]---
-[   10.766374] mxs-lradc-ts mxs-lradc-ts: error -EINVAL: IRQ mxs-lradc-touchscreen not found
-[   10.766456] mxs-lradc-ts mxs-lradc-ts: probe with driver mxs-lradc-ts failed with error -22
-
- drivers/iio/adc/mxs-lradc-adc.c          |  43 +-----
- drivers/input/touchscreen/mxs-lradc-ts.c |  30 ++--
- drivers/mfd/mxs-lradc.c                  | 175 ++++++++++++-----------
- include/linux/mfd/mxs-lradc.h            |  10 ++
- 4 files changed, 113 insertions(+), 145 deletions(-)
-
-diff --git a/drivers/iio/adc/mxs-lradc-adc.c b/drivers/iio/adc/mxs-lradc-adc.c
-index dda5182a5076..1222997649f4 100644
---- a/drivers/iio/adc/mxs-lradc-adc.c
-+++ b/drivers/iio/adc/mxs-lradc-adc.c
-@@ -17,7 +17,6 @@
- #include <linux/mfd/core.h>
- #include <linux/mfd/mxs-lradc.h>
- #include <linux/module.h>
--#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <linux/sysfs.h>
- 
-@@ -39,28 +38,6 @@
- 
- #define VREF_MV_BASE 1850
- 
--static const char *mx23_lradc_adc_irq_names[] = {
--	"mxs-lradc-channel0",
--	"mxs-lradc-channel1",
--	"mxs-lradc-channel2",
--	"mxs-lradc-channel3",
--	"mxs-lradc-channel4",
--	"mxs-lradc-channel5",
--};
--
--static const char *mx28_lradc_adc_irq_names[] = {
--	"mxs-lradc-thresh0",
--	"mxs-lradc-thresh1",
--	"mxs-lradc-channel0",
--	"mxs-lradc-channel1",
--	"mxs-lradc-channel2",
--	"mxs-lradc-channel3",
--	"mxs-lradc-channel4",
--	"mxs-lradc-channel5",
--	"mxs-lradc-button0",
--	"mxs-lradc-button1",
--};
--
- static const u32 mxs_lradc_adc_vref_mv[][LRADC_MAX_TOTAL_CHANS] = {
- 	[IMX23_LRADC] = {
- 		VREF_MV_BASE,		/* CH0 */
-@@ -691,9 +668,8 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
- 	struct mxs_lradc_adc *adc;
- 	struct iio_dev *iio;
- 	struct resource *iores;
--	int ret, irq, virq, i, s, n;
-+	int ret, i, s;
- 	u64 scale_uv;
--	const char **irq_name;
- 
- 	/* Allocate the IIO device. */
- 	iio = devm_iio_device_alloc(dev, sizeof(*adc));
-@@ -725,28 +701,19 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
- 	if (lradc->soc == IMX23_LRADC) {
- 		iio->channels = mx23_lradc_chan_spec;
- 		iio->num_channels = ARRAY_SIZE(mx23_lradc_chan_spec);
--		irq_name = mx23_lradc_adc_irq_names;
--		n = ARRAY_SIZE(mx23_lradc_adc_irq_names);
- 	} else {
- 		iio->channels = mx28_lradc_chan_spec;
- 		iio->num_channels = ARRAY_SIZE(mx28_lradc_chan_spec);
--		irq_name = mx28_lradc_adc_irq_names;
--		n = ARRAY_SIZE(mx28_lradc_adc_irq_names);
- 	}
- 
- 	ret = stmp_reset_block(adc->base);
- 	if (ret)
- 		return ret;
- 
--	for (i = 0; i < n; i++) {
--		irq = platform_get_irq_byname(pdev, irq_name[i]);
--		if (irq < 0)
--			return irq;
--
--		virq = irq_of_parse_and_map(dev->parent->of_node, irq);
--
--		ret = devm_request_irq(dev, virq, mxs_lradc_adc_handle_irq,
--				       0, irq_name[i], iio);
-+	for (i = 0; i < lradc->num_adc_irqs; i++) {
-+		ret = devm_request_irq(dev, lradc->adc_irq[i],
-+				       mxs_lradc_adc_handle_irq, 0,
-+				       dev_name(dev), iio);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/input/touchscreen/mxs-lradc-ts.c b/drivers/input/touchscreen/mxs-lradc-ts.c
-index 2970d9eb9c2b..c89aaed9eb8d 100644
---- a/drivers/input/touchscreen/mxs-lradc-ts.c
-+++ b/drivers/input/touchscreen/mxs-lradc-ts.c
-@@ -18,15 +18,8 @@
- #include <linux/mfd/core.h>
- #include <linux/mfd/mxs-lradc.h>
- #include <linux/of.h>
--#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- 
--static const char * const mxs_lradc_ts_irq_names[] = {
--	"mxs-lradc-touchscreen",
--	"mxs-lradc-channel6",
--	"mxs-lradc-channel7",
--};
--
- /*
-  * Touchscreen handling
-  */
-@@ -601,12 +594,12 @@ static int mxs_lradc_ts_register(struct mxs_lradc_ts *ts)
- 
- static int mxs_lradc_ts_probe(struct platform_device *pdev)
- {
--	struct device *dev = &pdev->dev;
--	struct device_node *node = dev->parent->of_node;
--	struct mxs_lradc *lradc = dev_get_drvdata(dev->parent);
- 	struct mxs_lradc_ts *ts;
--	int ret, irq, virq, i;
-+	struct device_node *node = pdev->dev.parent->of_node;
-+	struct mxs_lradc *lradc = dev_get_drvdata(pdev->dev.parent);
-+	struct device *dev = &pdev->dev;
- 	u32 ts_wires = 0, adapt;
-+	int ret, i;
- 
- 	ts = devm_kzalloc_obj(dev, *ts);
- 	if (!ts)
-@@ -668,19 +661,12 @@ static int mxs_lradc_ts_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	mxs_lradc_ts_hw_init(ts);
-+	mxs_lradc_ts_stop(ts);
- 
--	for (i = 0; i < 3; i++) {
--		irq = platform_get_irq_byname(pdev, mxs_lradc_ts_irq_names[i]);
--		if (irq < 0)
--			return irq;
--
--		virq = irq_of_parse_and_map(node, irq);
--
--		mxs_lradc_ts_stop(ts);
--
--		ret = devm_request_irq(dev, virq,
-+	for (i = 0; i < ARRAY_SIZE(lradc->ts_irq); i++) {
-+		ret = devm_request_irq(dev, lradc->ts_irq[i],
- 				       mxs_lradc_ts_handle_irq,
--				       0, mxs_lradc_ts_irq_names[i], ts);
-+				       0, dev_name(dev), ts);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
-index 30a66e268169..d16dfea89207 100644
---- a/drivers/mfd/mxs-lradc.c
-+++ b/drivers/mfd/mxs-lradc.c
-@@ -18,12 +18,9 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-+#include <linux/sizes.h>
- #include <linux/slab.h>
- 
--#define ADC_CELL		0
--#define TSC_CELL		1
--#define RES_MEM			0
--
- enum mx23_lradc_irqs {
- 	MX23_LRADC_TS_IRQ = 0,
- 	MX23_LRADC_CH0_IRQ,
-@@ -52,84 +49,111 @@ enum mx28_lradc_irqs {
- 	MX28_LRADC_BUTTON1_IRQ,
- };
- 
--static struct resource mx23_adc_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH0_IRQ, "mxs-lradc-channel0"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH1_IRQ, "mxs-lradc-channel1"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH2_IRQ, "mxs-lradc-channel2"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH3_IRQ, "mxs-lradc-channel3"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH4_IRQ, "mxs-lradc-channel4"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH5_IRQ, "mxs-lradc-channel5"),
-+struct mxs_lradc_soc_data {
-+	enum mxs_lradc_id soc;
-+	unsigned int num_adc_irqs;
-+	u8 adc_irq[MXS_LRADC_MAX_ADC_IRQS];
-+	u8 ts_irq[MXS_LRADC_NUM_TS_IRQS];
- };
- 
--static struct resource mx23_touchscreen_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_TS_IRQ, "mxs-lradc-touchscreen"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH6_IRQ, "mxs-lradc-channel6"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
-+static const struct mxs_lradc_soc_data mx23_lradc_data = {
-+	.soc = IMX23_LRADC,
-+	.num_adc_irqs = 6,
-+	.adc_irq = {
-+		MX23_LRADC_CH0_IRQ,
-+		MX23_LRADC_CH1_IRQ,
-+		MX23_LRADC_CH2_IRQ,
-+		MX23_LRADC_CH3_IRQ,
-+		MX23_LRADC_CH4_IRQ,
-+		MX23_LRADC_CH5_IRQ,
-+	},
-+	.ts_irq = {
-+		MX23_LRADC_TS_IRQ,
-+		MX23_LRADC_CH6_IRQ,
-+		MX23_LRADC_CH7_IRQ,
-+	},
- };
- 
--static struct resource mx28_adc_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TRESH0_IRQ, "mxs-lradc-thresh0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TRESH1_IRQ, "mxs-lradc-thresh1"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH0_IRQ, "mxs-lradc-channel0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH1_IRQ, "mxs-lradc-channel1"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH2_IRQ, "mxs-lradc-channel2"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH3_IRQ, "mxs-lradc-channel3"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH4_IRQ, "mxs-lradc-channel4"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH5_IRQ, "mxs-lradc-channel5"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_BUTTON0_IRQ, "mxs-lradc-button0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_BUTTON1_IRQ, "mxs-lradc-button1"),
-+static const struct mxs_lradc_soc_data mx28_lradc_data = {
-+	.soc = IMX28_LRADC,
-+	.num_adc_irqs = 10,
-+	.adc_irq = {
-+		MX28_LRADC_TRESH0_IRQ,
-+		MX28_LRADC_TRESH1_IRQ,
-+		MX28_LRADC_CH0_IRQ,
-+		MX28_LRADC_CH1_IRQ,
-+		MX28_LRADC_CH2_IRQ,
-+		MX28_LRADC_CH3_IRQ,
-+		MX28_LRADC_CH4_IRQ,
-+		MX28_LRADC_CH5_IRQ,
-+		MX28_LRADC_BUTTON0_IRQ,
-+		MX28_LRADC_BUTTON1_IRQ,
-+	},
-+	.ts_irq = {
-+		MX28_LRADC_TS_IRQ,
-+		MX28_LRADC_CH6_IRQ,
-+		MX28_LRADC_CH7_IRQ,
-+	},
- };
- 
--static struct resource mx28_touchscreen_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TS_IRQ, "mxs-lradc-touchscreen"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH6_IRQ, "mxs-lradc-channel6"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
-+static const struct resource mxs_lradc_resources[] = {
-+	DEFINE_RES_MEM(0, SZ_8K),
- };
- 
--static struct mfd_cell mx23_cells[] = {
-+static const struct mfd_cell mxs_lradc_cells[] = {
- 	{
- 		.name = "mxs-lradc-adc",
--		.resources = mx23_adc_resources,
--		.num_resources = ARRAY_SIZE(mx23_adc_resources),
-+		.resources = mxs_lradc_resources,
-+		.num_resources = ARRAY_SIZE(mxs_lradc_resources),
- 	},
- 	{
- 		.name = "mxs-lradc-ts",
--		.resources = mx23_touchscreen_resources,
--		.num_resources = ARRAY_SIZE(mx23_touchscreen_resources),
--	},
--};
--
--static struct mfd_cell mx28_cells[] = {
--	{
--		.name = "mxs-lradc-adc",
--		.resources = mx28_adc_resources,
--		.num_resources = ARRAY_SIZE(mx28_adc_resources),
-+		.resources = mxs_lradc_resources,
-+		.num_resources = ARRAY_SIZE(mxs_lradc_resources),
- 	},
--	{
--		.name = "mxs-lradc-ts",
--		.resources = mx28_touchscreen_resources,
--		.num_resources = ARRAY_SIZE(mx28_touchscreen_resources),
--	}
- };
- 
- static const struct of_device_id mxs_lradc_dt_ids[] = {
--	{ .compatible = "fsl,imx23-lradc", .data = (void *)IMX23_LRADC, },
--	{ .compatible = "fsl,imx28-lradc", .data = (void *)IMX28_LRADC, },
-+	{ .compatible = "fsl,imx23-lradc", .data = &mx23_lradc_data, },
-+	{ .compatible = "fsl,imx28-lradc", .data = &mx28_lradc_data, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mxs_lradc_dt_ids);
- 
-+static int mxs_lradc_get_irqs(struct platform_device *pdev,
-+			      struct mxs_lradc *lradc,
-+			      const struct mxs_lradc_soc_data *data)
-+{
-+	int i, irq;
-+
-+	for (i = 0; i < data->num_adc_irqs; i++) {
-+		irq = platform_get_irq(pdev, data->adc_irq[i]);
-+		if (irq < 0)
-+			return irq;
-+
-+		lradc->adc_irq[i] = irq;
-+	}
-+	lradc->num_adc_irqs = data->num_adc_irqs;
-+
-+	for (i = 0; i < ARRAY_SIZE(data->ts_irq); i++) {
-+		irq = platform_get_irq(pdev, data->ts_irq[i]);
-+		if (irq < 0)
-+			return irq;
-+
-+		lradc->ts_irq[i] = irq;
-+	}
-+
-+	return 0;
-+}
-+
- static int mxs_lradc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct device_node *node = dev->of_node;
-+	const struct mxs_lradc_soc_data *data;
- 	struct mxs_lradc *lradc;
--	struct mfd_cell *cells = NULL;
- 	struct resource *res;
-+	unsigned int num_cells;
- 	int ret = 0;
- 	u32 ts_wires = 0;
- 
-@@ -137,7 +161,11 @@ static int mxs_lradc_probe(struct platform_device *pdev)
- 	if (!lradc)
- 		return -ENOMEM;
- 
--	lradc->soc = (kernel_ulong_t)device_get_match_data(&pdev->dev);
-+	data = device_get_match_data(dev);
-+	if (!data)
-+		return -ENODATA;
-+
-+	lradc->soc = data->soc;
- 
- 	lradc->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(lradc->clk)) {
-@@ -187,38 +215,15 @@ static int mxs_lradc_probe(struct platform_device *pdev)
- 		goto err_clk;
- 	}
- 
--	switch (lradc->soc) {
--	case IMX23_LRADC:
--		mx23_adc_resources[RES_MEM] = *res;
--		mx23_touchscreen_resources[RES_MEM] = *res;
--		cells = mx23_cells;
--		break;
--	case IMX28_LRADC:
--		mx28_adc_resources[RES_MEM] = *res;
--		mx28_touchscreen_resources[RES_MEM] = *res;
--		cells = mx28_cells;
--		break;
--	default:
--		dev_err(dev, "Unsupported SoC\n");
--		ret = -ENODEV;
-+	ret = mxs_lradc_get_irqs(pdev, lradc, data);
-+	if (ret)
- 		goto err_clk;
--	}
--
--	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
--				   &cells[ADC_CELL], 1, NULL, 0, NULL);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to add the ADC subdevice\n");
--		goto err_clk;
--	}
--
--	if (!lradc->touchscreen_wire)
--		return 0;
- 
--	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
--				   &cells[TSC_CELL], 1, NULL, 0, NULL);
-+	num_cells = lradc->touchscreen_wire ? ARRAY_SIZE(mxs_lradc_cells) : 1;
-+	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+				   mxs_lradc_cells, num_cells, res, 0, NULL);
- 	if (ret) {
--		dev_err(&pdev->dev,
--			"Failed to add the touchscreen subdevice\n");
-+		dev_err(dev, "Failed to add subdevices\n");
- 		goto err_clk;
- 	}
- 
-diff --git a/include/linux/mfd/mxs-lradc.h b/include/linux/mfd/mxs-lradc.h
-index ada3d81ee277..d36951f03da2 100644
---- a/include/linux/mfd/mxs-lradc.h
-+++ b/include/linux/mfd/mxs-lradc.h
-@@ -19,6 +19,9 @@
- #define LRADC_MAX_MAPPED_CHANS	8
- #define LRADC_MAX_TOTAL_CHANS	16
- 
-+#define MXS_LRADC_MAX_ADC_IRQS	10
-+#define MXS_LRADC_NUM_TS_IRQS	3
-+
- #define LRADC_DELAY_TIMER_HZ	2000
- 
- #define LRADC_CTRL0				0x00
-@@ -153,6 +156,9 @@ enum mxs_lradc_ts_wires {
-  * @buffer_vchans: channels that can be used during buffered capture
-  * @touchscreen_wire: touchscreen type (4-wire or 5-wire)
-  * @use_touchbutton: button state (on or off)
-+ * @num_adc_irqs: number of ADC interrupts
-+ * @adc_irq: ADC interrupts
-+ * @ts_irq: touchscreen interrupts
-  */
- struct mxs_lradc {
- 	enum mxs_lradc_id	soc;
-@@ -161,6 +167,10 @@ struct mxs_lradc {
- 
- 	enum mxs_lradc_ts_wires	touchscreen_wire;
- 	bool			use_touchbutton;
-+
-+	unsigned int		num_adc_irqs;
-+	int			adc_irq[MXS_LRADC_MAX_ADC_IRQS];
-+	int			ts_irq[MXS_LRADC_NUM_TS_IRQS];
- };
- 
- static inline u32 mxs_lradc_irq_mask(struct mxs_lradc *lradc)
--- 
-2.43.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-pdx213-ups=
+tream-3-v4-0-4b01c50a821c@erebion.eu?part=3D10
