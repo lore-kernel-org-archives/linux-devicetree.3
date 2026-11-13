@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530247;
-	b=JHH/1PvntG77div1AHCxDFvMyLibypBERF77/0ZPRtk3QmWkO9HKx1idIyUMk119esSX
-	 kM59SCHbae4CynZmaWAu9hg8qR/nNTvby2SP0e4zZKgRGVYzcsCfHL0g+D2hJdoKpCcbW
-	 QWoy6CD4thpKyqmJyDg6W3NAo0ePAKxn/zhwJsjFfnPrjvLkSrzpenvfr6mXF5uAEFYvs
-	 TJElePWBOCDpBW4me6YiCV44herW7jrSICGtoq7HGhTYDPhTnUB/OD0whqi44wEVbSco4
-	 pT3iDL7rI8Gn2lD8QwqsACe9mbvQmBz1ejxc4s9PFaDpr5H1QpWSnWgdXTNxmBUDx1w==
+	t=1794530254;
+	b=pfiL2VdvSGtv1EaiZiJzI6X3HTDZFM0HBGFckzV+tI8jiztO8Zgc5e7DfD5BLJD7Np6n
+	 SHeRTnPcsZfDt+mhmjOMfrV0h7XccgC88+5w9lnAAet3SpNECY7+o7c/qs7SgCLvfgvsV
+	 vNLZ2Oi1wgNQd+3njzJQH2dmYeIdeTvi1xNE9nLi9bjJhFJMXsz2d5x8X57PtVApT6D0k
+	 up78nSujy7vFgwNxIZQEDnBbCzqXNVO+fR2zq/LDQBUKMNQXWy4Bwr5hHJAVDKDMdeLgP
+	 5x0mwKHW4lID0558nZZp4FIFJYlU7xUwqDx4Gw7tqes5pJ2yrnaoNCoBebq5w/j7aIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530254;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5W7kX9rp2XBF1bJ27nT4HG77OkJIXZJCoQWjVdRY9vA=;
-	b=ssJsPHshD8viDyGzbVJveUsAdsI7RmusMlaU7p5xWoNP3J3OICtgQCcHYVuoQKIo1AFe
-	 LCFidy+Ir8fEOcaOQwH9HETWWNqgD2HOh29qod9RNIqqeghbIDCs7hnj3NX+wJUHGc1Or
-	 olmaPw0zDAbkBjHBR6ych/Z0pCr4U0JLnXgs+e6xFVZv9Yc/YsYocbXizBpN9JkjgQ4dJ
-	 R/KSo6wsb2etuX26fpzCjCXONqr/uR05QGjeCJ2We9pwD5pnIfpuEHqI1wLA8EaJ+RvQX
-	 ZtI15EePK0elyHGOMPt5j6hwKCzTanF2+XxpZPYh7NfUGzx3jHFdBWsVF7yx0/LXqag==
+	bh=oiEUMAMTxco0TlFyeXtyTWroWf67a7kle4Uiif5GCnk=;
+	b=SXHBPvu0Ec8WZNX/7KKi8ZI3y253hvSYqxKCPiMD4XmKEx+L7+gkxH+TjhL/bzRHFaDm
+	 vC9Zt/vvoHYh4Depba00DtKdrJtsyfAWKtFvS4IJMt53BdHm7VItdGIIsZdddesJCPrJF
+	 yVgB3sHUAQi6+fD9pFK4zo1vDbuqlM4UHLYB4M7HT3ciwSMZj5j6hSXs3JKdGSe861+3s
+	 QtHSX5CgceLsI63gO0x0ISdTb5WgEh5WYDYrwG/9S5Drf/bp8NXaMkiSOq2Q5q8MzDDk7
+	 h4JaeyVuaLpMNTWAK6Ef+YmSe0wAjXylVe30+o+sdE0cNIfSQigOk1ct8zB2qIOfk6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTEz5d3W;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eY0yCinW;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCE9606B565
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BCE9606B565
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBBE606B566
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:37:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BBBE606B566
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTEz5d3W
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-491aaed7565so135198f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:37:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eY0yCinW
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-491846221ffso313662f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:37:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794530245; x=1795135045; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794530253; x=1795135053; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5W7kX9rp2XBF1bJ27nT4HG77OkJIXZJCoQWjVdRY9vA=;
-        b=hTEz5d3WaREJ7ysbOywNEF1KN5ZyBCj5690RiF0asHXetT32w34pPUJoObRiJNSims
-         XG/c3EOAZP+oTRD8QqudIefWN1UcSGIaxz6drRr2GgcmjRCBctCIqrvj8wEhOk127D1G
-         XsCGs856Lwncv613nP7uDgbfZl5yE3c1C9tbQ0pEhsd4Ef1uDeEfSZXQMMe1xbHbXy5u
-         XezoQ5cMs9fN0y7kKRhsOKMoI5jtiPIurMEQJ+eZUxYRX2TCoD9vMxto7Pr/c1JjMoCW
-         J1zfOk98xReIr+9782nVk1iwv6lHo23M8tOUY+DS4Sop7VIUchrHUWqtWxctxelkW/Fh
-         lApw==
+        bh=oiEUMAMTxco0TlFyeXtyTWroWf67a7kle4Uiif5GCnk=;
+        b=eY0yCinWUTqTSYrncmqmmCjvm4o1MIXWWt89QbqMMmPRCBbup9AC6IhsdAq/6ImTEU
+         sG/ge1Cs1Fa4qGAFpq5LQ6UK36xbjkXq3bpJ+HTWj41H23XsCr1F6cZJROxJa/2Qr8r/
+         MhYsJgTOKEv9zozWFQxvKTXas/h0tKzZDl9vWkl3JAb//05XypuDsFNJMgkBBW1BjnV6
+         ZSRzva1/tUttfwrqzbfIsx3Ctd2wbR2TdkDM/3iXWtScISLR7z8CAKDR4O1jb05JSkMD
+         Db7gNt6on2Sw+W/9stkMZFokC0cGRkGJAIMD04RBB/6MCbbwU2a6VNut1rXxv4gL09D+
+         q9ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530245; x=1795135045;
+        d=1e100.net; s=20260707; t=1794530253; x=1795135053;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5W7kX9rp2XBF1bJ27nT4HG77OkJIXZJCoQWjVdRY9vA=;
-        b=U31vSFC+5kMqlBsV+2NRAN83p+r7LDsMRtEh3im5qNJJRr3JMru1QvbUa40lWskHMk
-         gF26d8j+H279HRhuh3JDnYdQPVfjQ3sRK18mOZh0DBs5UC/nDWz4vOXVrzXUDJVgP/PY
-         y7y66za+Vef58+lyzvdYx+EkDOz0qyYp3dQXKKxgxNQpbuzrvnmrcP9FaOpPsZtd1EYh
-         QckYdFiWkbNHAo6TfrtKhd7xO/QOM6qbWj4fQunqDT1t2U24FSvn4CRooDa9p6YK/4QS
-         nMChh8gJp+PsdqV9XjEneLrSyMZ61Qy1Vx/kmoPAkcv4wEoPTmEGW7hyejbqy0mpcnQR
-         YmhQ==
-X-Forwarded-Encrypted: i=1; AL+hErGy66O67/BgNVoSo1Le5tJ7Fm2d7DyjNG39KRHwUN7ggGf0FOZTCkWc6CVacicW8Wl8Kic9tGkUBekq@vger.kernel.org
-X-Gm-Message-State: APuU4Z//jSDEiYN/MmoIBLWk4j4dL5KfQGnwGTdh4pEL0V1Yw4fsFJdl
-	TXnAsz+J4kzxpiPpRmvfBos/vlwHB4qjQz/KHtZ0iTFgMvGUAOfCPMFJ
-X-Gm-Gg: AYBFou1/GewUnPynpHh6wuHA3WhGkkLM7s3Cuzfgi+C7fy3jy1ti4CdfEZsLmXpUIpv
-	cdscKzhxWlVpRiNtKJ1Dyv8PTyDPW2hhrpE+Ve5vrLu+zUGL6m5cl1jcep1e+HoRSbkPvxa3xJs
-	+rfrIkE3pnSVsrxz/d22o17uef8ZNEzTDMdTaNHIyrxA7QGa3ddXbqQamLDjXiFZVucf4n6oBfn
-	R8X/T5GOFlJtH02p1dd9//wjs7+fvGcKWrr4CuZBPo92SMi3j28WgO52KdGA6PSBKxiyLfpwUJ+
-	nzTWqT5xB/7vjQLUgEe4rdlrH+aQ1Fh5whPKM/LeWtQ7zJMmFdaV2gxxSKhGwni8febBB3CgPGt
-	Dh8wSYKS15gvdSvygIqYBfBRvA7ahvG807NpIW6/KcFHXmb3pcU6QT8obI2u5kHZr1ZKZ6f/YYd
-	Jm/APXo28uWqcYtLaUU23iwc2cD7nkaK7makf1Sq0ZFcYyIzSN/phgUURAcWR3yVGj5/O2RZZAH
-	COSP7xu7uVxOe3U3kMD9zO/AVNPXW29ZsAIRIotre92vnF5gz1rGcFsVhOzh+ISmOP2JvmtQBOS
-	eJbJsGDviiTkZvcLDrSUZ2JcZw1qJg+qc8FZ7GZEUgn5KGEpx0XC7KDlRZe4F+EhSalKa43Xozo
-	o0YhoU4NfeQXJnikcxlMJfv2Ya2rAlaEKkKpceAPptDVAEvwPAIVBkXZaqQfZKu+YI+qnbXPpyk
-	+RoLCas2oPZydMbbVg
-X-Received: by 2002:a05:6000:1885:b0:499:d9a9:5158 with SMTP id ffacd0b85a97d-49c727d1e47mr2139782f8f.31.1794530245167;
-        Thu, 12 Nov 2026 16:37:25 -0800 (PST)
+        bh=oiEUMAMTxco0TlFyeXtyTWroWf67a7kle4Uiif5GCnk=;
+        b=RrzzxIi197xAYlyBNSEGlWF0uCXhEkiNI6JTNutcb0kFXsR3L2rHC5B2XM7ncYDbjr
+         A5sSxmGixdmT2RiweLS/ouKWFA1LxqFKqJ5/4ptS6t7mJR1d0YD2xJbbBR/6Uddu3J/X
+         6yc3GqRjTah4YMYAIibNiViQ5N1ntFqD9Mkh/u/cmVqm0NciH1jnncwsLfgGRmBDOFCu
+         mD7IZ/w96S3TW4EN5m1QpGZDQNE1VoPI3y2Dg+zvWjAuLoPINLnXbjQ5drm/Q3kVyjlt
+         FVDpj2EupCjfyVcs2HpR6Qpte1ORBjleTCORmQZ+F40Lez+NRgR9McojsY+pUAF6qaOO
+         14QA==
+X-Forwarded-Encrypted: i=1; AL+hErHJxx9SC9DLonVcTUmex+X6G4uaaVqwUspYDxCaaIfTVfkdTdLcxykPHzZU27LwSiSS++LWEeITnOi8@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZJqRpvjzpmbMRJAzC4BcHCS50BOVTNJuuPPpXcM/j61Jt9/3B
+	01nREMIkmPVEBQySQugxZePF+GWWyq+gmB0B7Pz4Q8oCJx+FhFSsYHGt
+X-Gm-Gg: AYBFou2B5V2tAhOfRfolqOR4UO/Kyy0HVdGPzYCfRjqD7WklYcSv47T32PUUXlnamQ2
+	Oj7aVSF7tSEgVQM62tNYjWxdl1mNNIca2uhiJSWZOYUNQMQnrux3dy8DqBCYz650R/NCVb19CsW
+	H3wTI6rI0ED4/UZ+zGjF96nJuAgqMudbRjIujHV+WLVqPar/dZrOF7MX1bn/gv7LPo8X//ZNiIV
+	3UG8NrE61QnyJ59C8hXA95B7zHd2CKf0tiAwnd0Tke4xdlrxyoJtbEkbtbhQDS23wRzICT6CWrh
+	4WwJ5e2w547/d7s89ju4HlczGhxZOMu/wHUumdvZ7vmap2w4pa07+P4TpRgZXTycPRSQBHc7Rhx
+	JxshtOVL73/w+3tS304GhMhUHsF+xsJ7DbOCOEpHTGN7NF7NzQg1FkjV4McDyqUqRblwTc7yGcz
+	1PwYBUTx7GktwO0EtHPAQ86iFXGf4sBjcCDTHp5s9CGpX7UkCdYaxLpEYNAkdzJVp6S4qyVC7nS
+	4ifw8E6Vl13nwAMVLp3dFpcfkIYvoj54UTOjJG4lk2e8CCYFEz0rfvlyOHi3Z1HuQxk6pHmHaL0
+	pA3Uu2MqpI9ZHvQVYGv81ep67Cp129e6/gPsZQO1deoJcqxGJeCqUMe76UCX50SDCoSealuVnc6
+	+Nd1B1haUTKQRjpRemqCB2F3puqXtoZjdbjEq12RMfMX0kdzFpRrs4w7cbmwoKNNMrrf94g/n3A
+	DUzzhjXAWYzIt39Dv0
+X-Received: by 2002:a05:6000:4917:b0:48e:2114:8ab9 with SMTP id ffacd0b85a97d-49c71d47601mr2290702f8f.31.1794530252965;
+        Thu, 12 Nov 2026 16:37:32 -0800 (PST)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm2702533f8f.44.2026.11.12.16.37.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c607d12c4sm1875000f8f.41.2026.11.12.16.37.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:37:24 -0800 (PST)
+        Thu, 12 Nov 2026 16:37:31 -0800 (PST)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org,
 	arnd@arndb.de,
 	stefandoesinger@gmail.com,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 04/24] dt-bindings: clock: Add ZTE ZX279128S CRM clock bindings
-Date: Fri, 13 Nov 2026 00:37:22 +0000
-Message-ID: <20261113003722.3667081-1-ghahramani.navid@gmail.com>
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 05/24] dt-bindings: reset: Add ZTE ZX279128S reset controller bindings
+Date: Fri, 13 Nov 2026 00:37:30 +0000
+Message-ID: <20261113003730.3667609-1-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015-misty-lively-galago-693c57@quoll>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-5-ghahramani.navid@gmail.com> <20261015-misty-lively-galago-693c57@quoll>
+In-Reply-To: <20261015-noble-sloppy-chamois-c71dd2@quoll>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-6-ghahramani.navid@gmail.com> <20261015-noble-sloppy-chamois-c71dd2@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,28 +111,14 @@ Content-Transfer-Encoding: 8bit
 Hi Krzysztof,
 
 Krzysztof Kozlowski wrote:
-> This is odd. Device is specific, fixed. It either is or is not
-> compatible, not both.
+> This belongs to the patch with bindings/schema.
 
-Right, the next version drops the syscon compatible from crm2.
+OK, the next version adds the reset header in the same patch as the
+schema.
 
-> Do not need '|' unless you need to preserve formatting.
+> Drop, not a binding.
 
-Will fix.
-
-> So the PHY does not need any resources from the parent? It gets its own
-> clocks? See explanation of simple-mfd.
-
-The next version has no PHY child nodes. The PHY registers are inside
-topcrm, so topcrm itself gets #phy-cells.
-
-> Incomplete example.
-
-The next version turns topcrm into an MFD like Stefan's zx297520v3 CRM,
-and I will make sure its example is complete.
-
-From your other mail on this patch, none of the subjects in the next
-version will have the redundant word bindings.
+Will do, the _COUNT defines are gone in the next version.
 
 Best regards,
 Navid
