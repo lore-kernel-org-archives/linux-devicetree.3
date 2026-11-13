@@ -1,48 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564109;
-	b=zilh5uDbUJLTVnMcei0H8YHtXXzd/34sCzj70GYhK7o67lREvdTrurrmkN0mrVlyaAjN
-	 OlS0Ap340qgxdLi40QYhSguKz68Bo7gwCflFVUbYq9BOGnSkN7k1mkxXUdZW987XQMjC8
-	 jT9OCihUjlwuFvjkNhhF3BavDuGKuEKTiPCQ2LT9TKNSiStYq5YxBzZ0JYPsWXDnQgdM3
-	 TsoAbiZliI1Ets//ST0KD2UGE7qhibpZgFtYRFfV/xqjjGsrcCBtYoVVihQBacTsETZK+
-	 GPXmpOsXn7y91M2NP8nnqOedas3rBeOy3F764B5XsRBOPUQHRCQhvJ+kvYy+c56M5Vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564109;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
-	b=JBFFWsTRjLTJdAD0w7mNoErGumyC39iRXiBn3jNSPYhCZaiYXMl8wmI2IK80D8yjGlV5
-	 7KTSyR86U1hN/IsoG7K7m+5Af3o50oFCRzUGOjz0pg+Hxglx9M/psndxVDhz/xuQOrZl2
-	 Lig+OWgfaI/UvO0iF4vl0x9Gu3exevDAmzGw3YQxUkGg6oL+kgMG1a45PZZSWts9H943O
-	 5Lq7BxFJ+uJJNkGBqy6T4FgTo3IvygjIomfqKVFD3xKroHtN4PDAeBNpH0smFSZp/yVMR
-	 Nzv3JgXZk0IVNqZ2etGsoq6zh0YhGQ45UXceTfJcTOljluLs8GLrxbXuSzxlRi0+SoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794564203;
+	b=Nqkt1PHp+SUsbTKSQeQ8+vcR1432sG/hGKwQGjkWRrP5ndUqf8W8K4tGPWdKkbKvbBAn
+	 hh+PioZUOZi6tB1y+755meusa0m2AVcjCD+w/1zz+zt4G7DdJHOHu/rilMr5b4vfRbZ96
+	 0kO7oxLmDP4Vl0T7vB1y4Xx2fICNelo4EWNhRjLNQQ1LhCk9UQK9i8mOY8Zr9auTmM7S/
+	 xvxdEr/yYK2dOsL8p7cR97Fr+NqIjOI5Btt7dGS41aWdkIrAeD7EKc2Qcu/Y+XKopfT2K
+	 ZRVBOJ8byLem/3ni+gJsH+fQyMNRmNCpu7IKKjIEl6j1O8zDvnuebujuoZbeb0+v6eg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564203;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
+	b=tirvJXq/cT4SiC6PPBpt5utall0F1IpiCgofogoylJm1ysEO1Kpiz6KET0PeeKaQL6Db
+	 aKuM5ZqsUuwo1KL1k+p2OZRCteeIYCq28ktVHipxD4DLgA1givMWt+jTMxw+vgjWmaR6G
+	 szVTS8VlQiJsk4MhfYpQ3kIjjnTIeOuC5Oe7UqENVVhZ6uW47V/i4nmtKaLsWpx1v6mc1
+	 DoLsIFPcp33ubCREJTedK0pd+rMhNAhTlH8KDdAbwMp11d1n0J3HwNhQC6SjXTQ3DYkQF
+	 94oRh9GZ1i7MVm7v9o65t1RM73UJNDW+qrzjK65vFyUZ32xoR8fHonf19by0rj7Ewgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=J4u44Z76;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=1sDEaCr8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D84606A323;
-	Fri, 13 Nov 2026 10:01:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2C7606A333;
+	Fri, 13 Nov 2026 10:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2C7606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D061F000C4;
-	Fri, 13 Nov 2026 10:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564109;
-	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
-	h=From:Date:Subject:To:Cc;
-	b=oNXrDDbycUwETg6fripz3Zax21stfDwqYisSNPtkMSI4Y9D/gIRPY9t1JIb8f6TlE
-	 HJp++5lYZWrTdD64BFbU2dg325tw2Fxdl8TQlh+LlmZbjapBmMxu9xo72dR4bLXR+K
-	 b5oNY1oQKENHVbvBa2cb/AhZcskKpPhTg52hu3Jd8YkDSiPvINtolvwaZg2alTxaTg
-	 I79a1JAQEGZlHVUMt5gjP48Ojn6nrxM/2MQaJIkBL4TYVtFaf4K6ndtAeYLQmRjVSZ
-	 eylnJpWde95K5UcfUDncQff9uvdaZfV4shP7RprcmKBGUPYF8cZBtqdUvYobped9fO
-	 w7g/HsD8eufPQ==
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 13 Nov 2026 11:01:44 +0100
-Subject: [PATCH] dt-bindings: usb: ux500: Convert to DT schema
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=J4u44Z76;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=1sDEaCr8
+ARC-Seal: i=1; a=rsa-sha256; t=1794564192; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=sA9GokYDfj7V0DBdFvM3MI3W6Nd4EPmv7P4XdUdU7B7/VSgKbT+TloZ/2VvWkj9F8q
+    gSBSb5RowCdeOm5uMk5+G4JmDx6dUuLfXXcutwwANkEd4T1CwE1W+RroFAAu6mECbHQ0
+    LTnGxaVT0uAZL3oiQDcdon6FHb+XlBdg4i58SIwf861HI0TFpPbO8flUo6ZhXu6rHlLa
+    nffmM2Sad/HfvakX/NNIaFZg1P08Jq8y5rVknHAcw0ghXQ5/B4ECrTZvB04cosg43gCm
+    GSAbsVjz0HZbIh2JkXmoWXiKwhO27GAN0ZjzetFLfM9Dmgy2TTS1teG48Fmt3GLIhTSr
+    UayA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794564192;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
+    b=BoLrDPIs664b1e6sK/NgDUlAiUXmHHvPbuA2Nc6iaVH+/NEkWFjal0ahHFyaSbNlbO
+    x6Q/nHfLIE9CHNEOhXS4IML+RyMXbDh3+6o7TjyjMzOpl4Gp8GJ4ZN3YbDsCYTRQAtjA
+    Obp9yIZVdyo3B3MHJJyaqictJQyqBFJbA7ryViocJd3IRIRTMe/YYmMzcBfEu/QJp4Fb
+    tEXGhYwlXh/9kq2t0KY+6Yp58NTGJgPdsKLB7kV/Qigx+sphyLu69Pud4hJ6Y10dJlYn
+    r26tKr7UZIzIkUCDvhtkDlvfFJclBcKqmLSzgYptGDChG00QcQFWLiuojQPWSQIvjP6X
+    ba/g==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794564192;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
+    b=J4u44Z76fHLT0pc18llafTSWZ6DXvfHsiY8mJKjBJrl+wQ2DduKhaUGfRDB+eUxsdN
+    d+XQnbt2VZQdWAi+xTuta8mzPP9lbLvqvtxRMpb7oLZCSMSTGWBnkE+Iy+PvWZk3mtGo
+    YSXetWauph6+y75U9zeXpJ+nVC0djuVR6cGLHPT891dlA80C2DQnipwC5RMrJ/YFxr3e
+    G3yycWGlNnO6hcPfVT/Al/O6JbIys53qIQV1vgbgR3HU+gnbhT8rC8QgB/M3oSWJynOx
+    /U/cRVS4yapqPzEBVxsd+ckre35fH/R1paHDAbAHjrN5lXgoddcj22Z5UkCem1e43B3Z
+    e/Ww==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794564192;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=jn7aSqmX7Bdz/eneT4RXbR5rgE989xqw1xr9DvTT8pE=;
+    b=1sDEaCr8BlPCaV7BGBQhpyufNw8SfqUoFqYvakUxGMmSrZ0VKpqFFUQ9Q+KhgmcxFK
+    llasZHxCv3jhS2xgbUBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ADA3BFpd
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 13 Nov 2026 11:03:11 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,185 +93,316 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-ux500-musb-bindings-v1-1-553aa97c5c95@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AJtYWchVxocnUzqJpyaAI4
- t0LfQd4J1ybqSPRiaa7uX0qEklHyK+5rspWkAgxxLuIRN6OIQR+b77wYrVYXZ2zlKC3R+51iOg
- I36ZPO/7rOF3XDxbYC9plAAAA
-X-Change-ID: 20261112-ux500-musb-bindings-c1d0e47c3e52
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bin Liu <b-liu@ti.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 2/3] pinctrl: ingenic: Add X2600 register and GPIO IRQ
+ support
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <d8e981be7badb4cb2476e58399010e533df40916.camel@crapouillou.net>
+Date: Fri, 13 Nov 2026 11:02:40 +0100
+Cc: Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <209B96BB-1458-442B-95B8-F0F6BA204E9B@goldelico.com>
+References: <cover.1794557697.git.hns@goldelico.com>
+ <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
+ <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
+ <11E0E075-D267-4E50-906C-022D297A4988@goldelico.com>
+ <d8e981be7badb4cb2476e58399010e533df40916.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Convert the Ux500 MUSB text binding to DT schema. Describe the APB
-clock and the existing ordered DMA endpoint channels, and reference
-the common dual-role USB properties.
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-Convert the Ux500 MUSB text binding to DT schema, describing the APB
-clock, ordered DMA endpoint channels and common dual-role USB properties.
 
-This patch is split from the Ux500 DeviceTree validation cleanup series.
+> Am 13.11.2026 um 10:54 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Le vendredi 13 novembre 2026 =C3=A0 10:49 +0100, H. Nikolaus Schaller =
+a =C3=A9crit :
+>> Hi Paul,
+>>=20
+>>> Am 13.11.2026 um 10:37 schrieb Paul Cercueil <paul@crapouillou.net>:
+>>>=20
+>>> Hi Nikolaus,
+>>>=20
+>>> Le vendredi 13 novembre 2026 =C3=A0 09:14 +0100, H. Nikolaus =
+Schaller a =C3=A9crit :
+>>>> Add the X2600 SoC ID and adapt the GPIO register access functions
+>>>> to its register layout.
+>>>>=20
+>>>> Unlike earlier Ingenic SoCs, the X2600 uses a register bank
+>>>> spacing of 0x1000 and provides separate shadow registers and
+>>>> load registers for each GPIO port. It also uses a dedicated
+>>>> register for clearing GPIO interrupt flags.
+>>>>=20
+>>>> Update the GPIO interrupt configuration to account for hardware
+>>>> dual-edge detection on X1600, X2000 and X2600. These SoCs require
+>>>> PAT1 to be set when dual-edge detection is enabled, while X1000
+>>>> and X1830 continue to use software emulation.
+>>>=20
+>>> So at the same time you're fixing X1600/X2000 and adding support for =
+X2600.
+>>> Looks to me like it should be splitted into two patches.
+>>=20
+>> Well, I have to look if it can be split.
+>>=20
+>> So far the driver for X1600/X2000 does not have dual-edge support by
+>> hardware (programming the EDG bit).
+>>=20
+>> But registers and programming model are the same. Therefore it is =
+more
+>> or less a nice side-effect that x2600 adds functions to x1600/x2000.
+>>=20
+>> I.e. new code would be replacing some is_soc_or_above(jzgc->jzpc, =
+ID_X2600)
+>> with is_soc_or_above(jzgc->jzpc, ID_X1600) to fix it for them.
+>>=20
+>> Or otherwise we have to split full x2600 support into two patches.
+>>=20
+>> Is this worth a separate patch or should we leave it as a comment in
+>> the commit message?
+>=20
+> My idea was that you'd first swap X1600/X1830, then add support for =
+hardware
+> dual-edge support if >=3D X1600, and finally add X2600 support.
 
-Prepared with Codex.
----
- .../bindings/usb/stericsson,db8500-musb.yaml       | 79 ++++++++++++++++++++++
- .../devicetree/bindings/usb/ux500-usb.txt          | 50 --------------
- 2 files changed, 79 insertions(+), 50 deletions(-)
+Ah, ok. Fine with that. Will do for V2.
 
-diff --git a/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
-new file mode 100644
-index 000000000000..9edf77aa43b6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/stericsson,db8500-musb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ST-Ericsson DB8500 MUSB controller
-+
-+maintainers:
-+  - Linus Walleij <linusw@kernel.org>
-+
-+allOf:
-+  - $ref: usb-drd.yaml#
-+
-+properties:
-+  compatible:
-+    const: stericsson,db8500-musb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    items:
-+      - const: mc
-+
-+  clocks:
-+    maxItems: 1
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    items:
-+      - const: usb
-+
-+  dmas:
-+    minItems: 16
-+    maxItems: 16
-+
-+  dma-names:
-+    items:
-+      - const: iep_1_9
-+      - const: oep_1_9
-+      - const: iep_2_10
-+      - const: oep_2_10
-+      - const: iep_3_11
-+      - const: oep_3_11
-+      - const: iep_4_12
-+      - const: oep_4_12
-+      - const: iep_5_13
-+      - const: oep_5_13
-+      - const: iep_6_14
-+      - const: oep_6_14
-+      - const: iep_7_15
-+      - const: oep_7_15
-+      - const: iep_8
-+      - const: oep_8
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dr_mode
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    usb@a03e0000 {
-+        compatible = "stericsson,db8500-musb";
-+        reg = <0xa03e0000 0x10000>;
-+        interrupts = <0 23 4>;
-+        interrupt-names = "mc";
-+        clocks = <&prcc_pclk 5 0>;
-+        dr_mode = "otg";
-+    };
-diff --git a/Documentation/devicetree/bindings/usb/ux500-usb.txt b/Documentation/devicetree/bindings/usb/ux500-usb.txt
-deleted file mode 100644
-index 439a41c79afa..000000000000
---- a/Documentation/devicetree/bindings/usb/ux500-usb.txt
-+++ /dev/null
-@@ -1,50 +0,0 @@
--Ux500 MUSB
--
--Required properties:
-- - compatible : Should be "stericsson,db8500-musb"
-- - reg        : Offset and length of registers
-- - interrupts : Interrupt; mode, number and trigger
-- - dr_mode    : Dual-role; either host mode "host", peripheral mode "peripheral"
--                or both "otg"
--
--Optional properties:
-- - dmas       : A list of dma channels;
--                dma-controller, event-line, fixed-channel, flags
-- - dma-names  : An ordered list of channel names affiliated to the above
--
--Example:
--
--usb_per5@a03e0000 {
--	compatible = "stericsson,db8500-musb";
--	reg = <0xa03e0000 0x10000>;
--	interrupts = <0 23 0x4>;
--	interrupt-names = "mc";
--
--	dr_mode = "otg";
--
--	dmas = <&dma 38 0 0x2>, /* Logical - DevToMem */
--	       <&dma 38 0 0x0>, /* Logical - MemToDev */
--	       <&dma 37 0 0x2>, /* Logical - DevToMem */
--	       <&dma 37 0 0x0>, /* Logical - MemToDev */
--	       <&dma 36 0 0x2>, /* Logical - DevToMem */
--	       <&dma 36 0 0x0>, /* Logical - MemToDev */
--	       <&dma 19 0 0x2>, /* Logical - DevToMem */
--	       <&dma 19 0 0x0>, /* Logical - MemToDev */
--	       <&dma 18 0 0x2>, /* Logical - DevToMem */
--	       <&dma 18 0 0x0>, /* Logical - MemToDev */
--	       <&dma 17 0 0x2>, /* Logical - DevToMem */
--	       <&dma 17 0 0x0>, /* Logical - MemToDev */
--	       <&dma 16 0 0x2>, /* Logical - DevToMem */
--	       <&dma 16 0 0x0>, /* Logical - MemToDev */
--	       <&dma 39 0 0x2>, /* Logical - DevToMem */
--	       <&dma 39 0 0x0>; /* Logical - MemToDev */
--
--	dma-names = "iep_1_9",  "oep_1_9",
--		    "iep_2_10", "oep_2_10",
--		    "iep_3_11", "oep_3_11",
--		    "iep_4_12", "oep_4_12",
--		    "iep_5_13", "oep_5_13",
--		    "iep_6_14", "oep_6_14",
--		    "iep_7_15", "oep_7_15",
--		    "iep_8",    "oep_8";
--};
+BR and thanks,
+Nikolaus
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-ux500-musb-bindings-c1d0e47c3e52
+>=20
+>>>> The corrected interrupt configuration has been tested on X1600,
+>>>> X2000, and X2600, including GPIO dual-edge interrupts by a
+>>>> gpio-button.
+>>>>=20
+>>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>>>> ---
+>>>> drivers/pinctrl/pinctrl-ingenic.c | 71 =
++++++++++++++++++++++++++------
+>>>> 1 file changed, 58 insertions(+), 13 deletions(-)
+>>>>=20
+>>>> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
+b/drivers/pinctrl/pinctrl-
+>>>> ingenic.c
+>>>> index a62532c49fb60..90c734c74d267 100644
+>>>> --- a/drivers/pinctrl/pinctrl-ingenic.c
+>>>> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+>>>> @@ -70,6 +70,10 @@
+>>>> #define X2000_GPIO_SR 0xd0
+>>>> #define X2000_GPIO_SMT 0xe0
+>>>>=20
+>>>> +#define X2600_GPIO_FLAG_CLR 0x58 /* write only */
+>>>> +#define X2600_GPIO_SHADOW_OFFSET 0x800
+>>>> +#define X2600_GPIO_PAGLD (X2600_GPIO_SHADOW_OFFSET +
+>>>> 0xf0)
+>>>> +
+>>>> #define REG_SET(x) ((x) + 0x4)
+>>>> #define REG_CLEAR(x) ((x) + 0x8)
+>>>>=20
+>>>> @@ -114,6 +118,7 @@ enum jz_version {
+>>>>  ID_X1830,
+>>>>  ID_X2000,
+>>>>  ID_X2100,
+>>>> + ID_X2600,
+>>>> };
+>>>>=20
+>>>> struct ingenic_chip_info {
+>>>> @@ -164,7 +169,8 @@ static const unsigned long enabled_socs =3D
+>>>>  IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
+>>>>  IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
+>>>>  IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+>>>> - IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
+>>>> + IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
+>>>> + IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
+>>>>=20
+>>>> static bool
+>>>> is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version
+>>>> version)
+>>>> @@ -3545,15 +3551,21 @@ static void =
+ingenic_gpio_shadow_set_bit(struct
+>>>> ingenic_gpio_chip *jzgc,
+>>>>  else
+>>>>  reg =3D REG_CLEAR(reg);
+>>>>=20
+>>>> - regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
+>>>> - jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
+>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>> X2600_GPIO_SHADOW_OFFSET + reg,
+>>>> +      BIT(offset));
+>>>> + else
+>>>> + regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info-
+>>>>> reg_offset) + reg,
+>>>> +      BIT(offset));
+>>>> }
+>>>>=20
+>>>> static void ingenic_gpio_shadow_set_bit_load(struct =
+ingenic_gpio_chip
+>>>> *jzgc)
+>>>> {
+>>>> - regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
+>>>> - jzgc->jzpc->info->reg_offset),
+>>>> - jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>> X2600_GPIO_PAGLD, 1);
+>>>> + else
+>>>> + regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info-
+>>>>> reg_offset),
+>>>> +      jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>>>> }
+>>>>=20
+>>>> static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
+>>>> @@ -3618,6 +3630,12 @@ static void irq_set_type(struct =
+ingenic_gpio_chip
+>>>> *jzgc,
+>>>>  break;
+>>>>  }
+>>>>=20
+>>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X2000) ||
+>>>> +      (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>>>> +       !is_soc_or_above(jzgc->jzpc, ID_X1830))))
+>>>=20
+>>> I remember you saying (in another patchset) that the X1830 was older =
+than
+>>> the
+>>> X1600, if that's the case the IDs for X1600 and X1830 should be =
+swapped. I
+>>> believe this patch would then become much simpler.
+>>=20
+>> Indeed. So I can swap the ID's in V2.
+>=20
+> I just checked in the programming manuals and indeed it seems to be =
+the case.
+> Weird! I had no idea.
+>=20
+> Cheers,
+> -Paul
+>=20
+>>>> + val2 =3D true;
+>>>> +
+>>>>  if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
+>>>>  reg1 =3D JZ4770_GPIO_PAT1;
+>>>>  reg2 =3D JZ4770_GPIO_PAT0;
+>>>> @@ -3640,6 +3658,9 @@ static void irq_set_type(struct =
+ingenic_gpio_chip
+>>>> *jzgc,
+>>>>  ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+>>>>  ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+>>>>  ingenic_gpio_shadow_set_bit_load(jzgc);
+>>>> +
+>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>>>> !is_soc_or_above(jzgc->jzpc, ID_X1830))
+>>>> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
+>>>> val3);
+>>>>  } else {
+>>>>  ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+>>>>  ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+>>>> @@ -3714,7 +3735,8 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data
+>>>> *irqd)
+>>>>  bool high;
+>>>>=20
+>>>>  if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
+>>>> -     !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+>>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>>>> jzpc, ID_X2000)))) {
+>>>>  /*
+>>>>   * Switch to an interrupt for the opposite edge to the one
+>>>> that
+>>>>   * triggered the interrupt being ACKed.
+>>>> @@ -3726,7 +3748,9 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data
+>>>> *irqd)
+>>>>  irq_set_type(jzgc, irq, IRQ_TYPE_LEVEL_HIGH);
+>>>>  }
+>>>>=20
+>>>> - if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>> X2600_GPIO_FLAG_CLR, BIT(irq));
+>>>> + else if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>>>>  ingenic_gpio_set_bit(jzgc, JZ4770_GPIO_FLAG, irq, false);
+>>>>  else if (is_soc_or_above(jzgc->jzpc, ID_JZ4740))
+>>>>  ingenic_gpio_set_bit(jzgc, JZ4740_GPIO_DATA, irq, true);
+>>>> @@ -3754,7 +3778,9 @@ static int ingenic_gpio_irq_set_type(struct =
+irq_data
+>>>> *irqd, unsigned int type)
+>>>>  irq_set_handler_locked(irqd, handle_bad_irq);
+>>>>  }
+>>>>=20
+>>>> - if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && =
+!is_soc_or_above(jzgc->jzpc,
+>>>> ID_X2000)) {
+>>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>>>> jzpc, ID_X2000)))) {
+>>>>  /*
+>>>>   * The hardware does not support interrupts on both edges.
+>>>> The
+>>>>   * best we can do is to set up a single-edge interrupt and
+>>>> then
+>>>> @@ -3849,16 +3875,35 @@ static inline void
+>>>> ingenic_shadow_config_pin(struct
+>>>> ingenic_pinctrl *jzpc,
+>>>>  unsigned int pin, u8 reg, bool set)
+>>>> {
+>>>>  unsigned int idx =3D pin % PINS_PER_GPIO_CHIP;
+>>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>>>>=20
+>>>> - regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>>>> - (set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
+>>>> + if (set)
+>>>> + reg =3D REG_SET(reg);
+>>>> + else
+>>>> + reg =3D REG_CLEAR(reg);
+>>>> +
+>>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>>>> + u32 target_reg =3D (offt * jzpc->info->reg_offset) +
+>>>> X2600_GPIO_SHADOW_OFFSET + reg;
+>>>> +
+>>>> + regmap_write(jzpc->map, target_reg, BIT(idx));
+>>>> + } else {
+>>>> + regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>>>> reg, BIT(idx));
+>>>> + }
+>>>> }
+>>>>=20
+>>>> static inline void ingenic_shadow_config_pin_load(struct =
+ingenic_pinctrl
+>>>> *jzpc,
+>>>>  unsigned int pin)
+>>>> {
+>>>> - regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
+>>>> - pin / PINS_PER_GPIO_CHIP);
+>>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>>>> +
+>>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>>>> + u32 target_load_reg =3D (offt * jzpc->info->reg_offset) +
+>>>> X2600_GPIO_PAGLD;
+>>>> +
+>>>> + regmap_write(jzpc->map, target_load_reg, 1);
+>>>> + } else {
+>>>> + regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info-
+>>>>> reg_offset),
+>>>> +      pin / PINS_PER_GPIO_CHIP);
+>>>> + }
+>>>> }
+>>>>=20
+>>>> static inline void jz4730_config_pin_function(struct =
+ingenic_pinctrl
+>>>> *jzpc,
 
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
 
