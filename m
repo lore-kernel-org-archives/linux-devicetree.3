@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581660;
-	b=EVtXAQTUlTBbogcrHsbZqvvw1Psdly82igZMqjWyRcGbxFZG0v0ZMSqpMLJF4jA4NfWR
-	 zPKAU80DLaJiYvPN+knEccOD5an/YQHI0m/OcZHqqS1lNGN85nLMLYOWQl4ZyfZdRRD8c
-	 xCMes4oC5I0czdRxbwbS7ayZboSTCcfGUoWZxz0aVMP3rINjV2Xxk+baGC/fZvpMeHxAi
-	 R3j4i+r3qRyx4WCLUcqfrgPyR/bntJW3fSotpJb+oxhWpaiEZA6cDOZBIUgWfuJct4hX2
-	 2/dj+avlajeEoSGylsh/aabWaI2cZNlYNd4GnkMmPKFVmOTupCElmzO71mj4EzvJ8hQ==
+	t=1794581749;
+	b=s+HcPS54pJ8Yh55vYBTpWc+FO5TxAh706vp7TAx3uiwhplZa0Qw6LdE9gv52GQav4dRk
+	 qX/srsVrCvia9Gy3hzeGbtlPm+mNMQpYE2Yelt9tf3hXtfPreH5+d7rP9t7KmgR6w+lJy
+	 iflgZPRQmjllJ2I6hfyzxjK0m3PQY80FrkJ0X4jSyapGin5D4TlQbKnmasFBV1N2vthGD
+	 3+x4if8S9PKWw0hQUsnxlouNUixP11o1UgDIaVSTb++QXqAA/0hGslLuUCETdywAP2OLl
+	 tqeTEAfMKkT/MDqu7RLzJSkfnDESl4sRQKUae2ZBca2pp/M6l2hYm3C+hHPwvAVer0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581660;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=sfMyyD6XfhgAeue3zFE3sM8+ryuauYFxxOAZ8sEwYNc=;
-	b=DBNIf0MtzrQD5BJaOT4IFb2Z0ljegEt6StUpSGedgbH17I2G7QN/UTl/S7p+NS60gCts
-	 C77woLtTR5zI3e89bYRZBIpFB4gSR/kgNrPtVMgYtBWLqB503gt+RSEH3b5Yy9z3O3Q8b
-	 5PZiAleNawCzxB/TFaxN1mDJM1uL4zUcOspV58SVVHlGaM85vLiYnQPG9FI14WNf/R3EU
-	 8CmPUAAiVNkM+dMFXBNdkXOq/uzxpKwaf4gdf000x1fW9THurj0w2fddRmAoCpN89Ip9P
-	 HYH7IdpZJ3GueXP4PMnzCTMkJqzjUeV3dsrte5LlyCO/GhOa5FQt5oTQh2Bk6wSLrgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581749;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=9SHVJ3ztCnSJ27zC/+zhu0OPeKjyVFzIDEXKL3ZFpaM=;
+	b=VH8B7JMuTx3kQ1CvPrAoM3474IBVsLOkkAhO4HJcO/gZVUpZVGeOGfiTZ6IpkZIaoxc8
+	 DJnZ24Wi/ajWze1XzOH5nxze7xvmia4/UZ4OuB3R7QBEKIisZQuHmRZYctwQ9e5jBKIOq
+	 Her+zE7YkBu0W5KNI5XXGiFyYyC+nE5bRcxVdnvRypr2RlDwYXEopgXzYzgiKnjKDfjd8
+	 kCA78/Na1XPuLu945Mgdp5tnDHbe0Lw83/D+i36LK2JLysJm2Cxv8Y4sF1QWF3WaWQ4QA
+	 en3GVFi/KXFC6vN05u8casgYT1aAa2ym0/u5B0lrtTzxQiGSc3yWar9oEStKmCJX+mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=DtUb2MSs;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=RR6557OX;
+	arc=none smtp.remote-ip=84.16.66.171
+Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E12606A336
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E12606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFC4606A327
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:55:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DFC4606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=DtUb2MSs
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c50aaad19fbso27696266b.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:54:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794581659; x=1795186459; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sfMyyD6XfhgAeue3zFE3sM8+ryuauYFxxOAZ8sEwYNc=;
-        b=DtUb2MSsTrLlshbb82Qrnc7nt2mk7Di/3LVlJvL+a+hyBCjKmoyE0a3v6Lz0I7liwB
-         R3K2EeLS5F7QYb0Nz5bXmUSDqnPOI1WSnzrKMViW88wuGkzfF+xl/UBdQXCablxE4Wan
-         Y3ZhfYDrLnPIDnTZ7hSk62AG5/+tmmjCTrQFKjC/EOCY09k/1bY0RZnFNcq+zsKk4XZi
-         eIs87xMiMyXOwCK1T7zuhkfN6s6nb5Gd7Y00aJuq+UExYKM3NuGb6dAtWan9VpQjLkPz
-         jwX9oVYTvUmuB9MY+5dXaTOTRWj676J+TyeoH7V3rmUu/c1SJkaK3aSRaOy6OP/HP4CT
-         HdHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581659; x=1795186459;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sfMyyD6XfhgAeue3zFE3sM8+ryuauYFxxOAZ8sEwYNc=;
-        b=IgX406S1RN6TZ9YE/L9sqnFIPk8YbVGM/IeLb2CmgEcMrrczIYiceCJbx/0H3SdGlD
-         aZAlXD25v24i1xbW2IcbCy1fITCYI5FtTr/Se12dH1deZWcPD5h1P74detA0iG+9qBuv
-         6nqjvLnwHB+q4xi1JGibww/UiverAGC94cEftBThCRQnUFVBjMaJIFNGlX2jyjpGWkPF
-         0ThfxFF7iGKAzIsdsZhEBopX3ZEhWZnkg2+B/cw5nosbmJh3jU1+yb/FsA7rsuT8nC+m
-         KRoSWk2UwaXaKbUjjfccqWOAx3vAW5L9EZP7GObmFI9OwuXol2NsBWDNQtmx7bsvZBtV
-         zxmw==
-X-Forwarded-Encrypted: i=1; AL+hErFu1K2CIhJpsul4601tNpMPMd+DGuwXNmd07raRNYxL9l6zDg0ApdTQ7UBBr/xtsPpBKRYJaCt/RhMG@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fnsTZ43mzVE315//EIVE88eBz22/NhFKdUBjpyJRhOuJKG4kz
-	RU97PXGfDTnL+1JG/kM/jamTasoJn3/joS+u51QCNYQQaQZ/R3bx35vPiqCqttUMFDM=
-X-Gm-Gg: AYBFou2nu5GyBp4Zk6nqWeFRmnNriY0KmOOk4360ir+PH48cBDEIpFhAs03l6+WkDtX
-	0U2VAAO/VdEnoFYGU006g4SlxjoRmEP+lqMZ5eUdZvhN7KE495sA2tsdmau42AV3JzbIXCzoN78
-	QqvEkN9KWnCQSf21xn2MHdyH1rMo6vRPw4E/ZD+mvscjAzpPo4QFhaHNsKO3rQ1ZK40hMfMsvr2
-	2ecJicw8NzacaBuQqpM8bNsAEGFlZGDtXcgkVlT5sHPttCmAqIk/T+FaI3ocrDUApEBTw7hyIHs
-	h13NQHe4e4mOb3tfzDSjze5TjfJC97+UqIDUH108ws7bP+8U7fQwTh5oaqJZNtdjwMDlcfdSCXj
-	Z70DeXUdCCCdH0WhnOjeMYNCNYxcd+feCxGRM6udaaSmCnZUUtNLfRd0UF5OmxeKt0N8CxeM4Bo
-	p6xqqF/oDlDxM3gicTq3nVjnOwJ+XPB3LL0DzGt6WaqKI83qx+ltxJzDzJ6m66GcwwKjmmoOn7S
-	tSVsy+L7ejH9agqOIJDUAFlNkjAv3QAZNSjDezCFDWfp+a5ltbT2Ye0avGe86dfVHPpE9ePubnj
-	UeniOm/qZp/PR0625LzIzBMVaCZcgHFYeAGvTK6exAX2182PiWrulpgRj1p5BWZZ7JKXOEu4qLo
-	=
-X-Received: by 2002:a17:907:a089:b0:c46:9876:e9b1 with SMTP id a640c23a62f3a-c509664a09fmr236807866b.43.1794581658937;
-        Fri, 13 Nov 2026 06:54:18 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c78asm112075866b.10.2026.11.13.06.54.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 06:54:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=RR6557OX
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jR0gK0t2CzHPN;
+	Fri, 13 Nov 2026 15:55:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1794581740;
+	bh=9SHVJ3ztCnSJ27zC/+zhu0OPeKjyVFzIDEXKL3ZFpaM=;
+	h=From:Date:Subject:To:Cc:From;
+	b=RR6557OX7nqTqnRLnpCH/gRxUYBPmETC/asPEUMkD7oDnhbpzqMxEMp3CinARlePr
+	 WSrNRWdDCc0dW23DOC1GPxutrNZVYBDwFGe+UETNdKfwXnjpdp/kL4ra+fjDrsZy5J
+	 r+LJvnGE7EJiiPPh+L5365SCQfahJjAfVai3T06f8pNW0pZ4qPEZJ881dPiU8akezD
+	 +wsFj8GCUYi3kS4O3t+xg8rN/qQQ8T9BT6bRbVgXGudSajukI1mRc/MRJzT2e8EE+Q
+	 +sNSsrx5trlCoXL606uzwnFh4E8PfyqFeq30Q4i7FMUnKuFyAoepm9s3DVTCHfzZvO
+	 H0xZ04yOeMxbg==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jR0gH4tFTzqcg;
+	Fri, 13 Nov 2026 15:55:39 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Fri, 13 Nov 2026 15:55:28 +0100
+Subject: [PATCH v2] arm64: dts: rockchip: support camera module on Haikou
+ Video Demo on RK3399 Puma
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,90 +60,149 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 15:54:18 +0100
-Message-Id: <DMU63SK443BB.1CQ2KXXP5PNW4@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Luca Weiss" <luca.weiss@fairphone.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
- <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
- <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
- <DLIISWYS60TX.BBXK30H05VRL@fairphone.com>
-In-Reply-To: <DLIISWYS60TX.BBXK30H05VRL@fairphone.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-rk3399-puma-haikou-video-demo-cam-v2-1-e71acf307f92@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOQQ6CMBBFr9LM2jGUKlJW3sOwKO0oI4GSFhoJ4
+ e4GPIHLn7z891aIFJgiVGKFQIkj+wEqkZ8E2NYML0J2UAnIs7yQMlMYOqW0xnHuDbaGOz9jYkc
+ eHfUerenRlUVDhdJGS4KTgDHQkz+H41H/dpybN9lpP96JluPkw3JEJLlz//iSRInaXLTTt1Lp5
+ nq3LYWwnB1BvW3bF0/XkrbkAAAA
+X-Change-ID: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-Hi all,
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-On Fri Sep 18, 2026 at 4:43 PM CEST, Luca Weiss wrote:
-> Hi Konrad,
->
-> On Mon Jun 22, 2026 at 10:23 AM CEST, Luca Weiss wrote:
->> On Wed Jun 17, 2026 at 12:05 PM CEST, Konrad Dybcio wrote:
->>> On 5/22/26 4:46 PM, Luca Weiss wrote:
->>>> Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
->>>> some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
->>>> and power-domains for the LPASS RX/TX/WSA/VA macros.
->>>>=20
->>>> Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
->>>> equivalents in its place. The qcs6490-audioreach.dtsi file can also dr=
-op
->>>> deletion of power-domains properties then.
->>>>=20
->>>> This follows previous commits moving Chrome-specific configuration to
->>>> the correct file, leaving kodiak.dtsi for Elite and
->>>> qcs6490-audioreach.dtsi for AudioReach.
->>>>=20
->>>> No functional change intended. The clock-output-names property will no=
-w
->>>> exist for both Chrome and AudioReach devices but this shouldn't have a=
-ny
->>>> relevant effect. And WSA macro clocks weren't added to Chrome because =
-I
->>>> don't believe this would've ever worked given it already referenced
->>>> q6afecc and the nodes were originally added during AudioReach bringup.
->>>
->>> I think it's better to keep them, if only to make sure that the result
->>> of dtx_diff isn't outside the expectation of a commit that claims to
->>> only reshuffle data for these platforms
->>
->> I documented this in the commit message for this purpose.
->>
->> But I'd argue not putting (likely incorrect) wsa_macro overrides there
->> is the better thing to do. Probably somebody should've taken care of the
->> Chrome platforms when adding the wsa nodes in the first place.
->
-> Is that okay, or do you want me to change this? I'm still of the opinion
-> that adding a very-likely-broken WSA macro to chrome is not great.
->
-> Anything else to note? R-b would be nice :)
+The Haikou Video Demo adapter has a proprietary connector for a camera
+module which has an OV5675 camera sensor and a companion DW9714 focus
+lens driver.
 
-Any further comment or review? I can also resend if that's helpful.
+This adds support for the camera module on RK3399 Puma module fitted on
+a Haikou devkit with the Haikou Video Demo adapter.
 
-Regards
-Luca
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+Camera only works once the ov5675 driver is adapted[1] to work with
+24MHz MCLK. With the similar work done for RK3588 Tiger[2], we now have
+all our modules supporting the same set of features when used in
+conjunction with Haikou Video Demo.
 
->
-> Regards
-> Luca
->
->>
->>>
->>> It looks OK as-is for Elite and Audioreach platforms (for the record, I
->>> checked rb3gen2 and FP5)
->>
->> Thanks!
->>
->> Regards
->> Luca
+Same request as made in [2], please only merge this once the OV5675
+series[1] is merged.
 
+[1] https://lore.kernel.org/linux-media/20261026101646.2450051-1-heiko@sntech.de/
+[2] https://lore.kernel.org/linux-rockchip/20261026102027.2451025-1-heiko@sntech.de/
+---
+Changes in v2:
+- added missing #address-cells and #size-cells to &isp1/ports,
+- Link to v1: https://patch.msgid.link/20261103-rk3399-puma-haikou-video-demo-cam-v1-1-9a49d97839b5@cherry.de
+---
+ .../rockchip/rk3399-puma-haikou-video-demo.dtso    | 58 ++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+index 141a921a06e47..013920d9a3392 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
++++ b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+@@ -16,6 +16,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
+ 
+ &{/} {
+@@ -100,6 +101,12 @@ &i2c1 {
+ 	/* OV5675, GT911, DW9714 are limited to 400KHz */
+ 	clock-frequency = <400000>;
+ 
++	focus: focus@c {
++		compatible = "dongwoon,dw9714";
++		reg = <0xc>;
++		vcc-supply = <&cam_afvdd_2v8>;
++	};
++
+ 	touchscreen@14 {
+ 		compatible = "goodix,gt911";
+ 		reg = <0x14>;
+@@ -122,6 +129,53 @@ pca9670: gpio@27 {
+ 		pinctrl-names = "default";
+ 		reset-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;
+ 	};
++
++	camera@36 {
++		compatible = "ovti,ov5675";
++		reg = <0x36>;
++		assigned-clocks = <&cru SCLK_CIF_OUT>;
++		assigned-clock-rates = <24000000>;
++		clocks = <&cru SCLK_CIF_OUT>;
++		avdd-supply = <&cam_avdd_2v8>;
++		dvdd-supply = <&cam_dvdd_1v2>;
++		dovdd-supply = <&cam_dovdd_1v8>;
++		lens-focus = <&focus>;
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cif_clkouta>;
++		reset-gpios = <&pca9670 6 GPIO_ACTIVE_LOW>;
++		rotation = <180>;
++
++		port {
++			cam_output: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&mipi_in_cam>;
++			};
++		};
++	};
++};
++
++&isp1 {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			mipi_in_cam: endpoint@0 {
++				reg = <0>;
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&cam_output>;
++			};
++		};
++	};
++};
++
++&isp1_mmu {
++	status = "okay";
+ };
+ 
+ &mipi_dsi {
+@@ -145,6 +199,10 @@ mipi_in_panel: endpoint {
+ 	};
+ };
+ 
++&mipi_dsi1 {
++	status = "okay";
++};
++
+ &mipi_out {
+ 	mipi_out_panel: endpoint {
+ 		remote-endpoint = <&mipi_in_panel>;
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
