@@ -1,73 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588750;
-	b=JQt9wFoAknbH/wweMtjc/EBtrzB2k5BVASDvutdp/JhCw2tTu4Ynrc5BMPiBMdng74Fb
-	 v72tfU0i/OX/geCHGL1nZ+iKhGMIgyxGvLx5o9reC2G7UVv6M7Bj+TvtRPrIxmmv7GfS/
-	 Uo2gEgI3UV4R7BOmjnqPbvUjZ7GP86ZEU3v0whMn8yn3VIVsOxjDwU/fFD25moOeNgmMJ
-	 Y7BXTLWelVSsQlofc1wYhybRMIPEcn7Pu+VgdN5aaBnIy5UBfTGPumcLPnwCLsIdassHf
-	 Mn9u5WuqU16sFC89RFx7d0cpzOMhbSuFQT52IsLmyTvTeF03mo1vVQKFkkC7z3GhPfg==
+	t=1794588843;
+	b=msq6CpPte8y7DEnNwyS+gGf5TnycqkBTtuE5sGXFawO1wKaioMYnMa9acRJPZb4Ch9Dq
+	 mXfFC5sF9ThjwkIYZAx33kWyiy4TsR3kYIq8urr2VN8i27w5qxfaSJeVVEyuCtnMExyXJ
+	 ldR7O634P8/OHDjahRwhUsLkb2oZcdER20vB6F82hpsPkdI+0VpxJt4y9zARby5xT68w0
+	 fT7CkdmxXCWhXgbPlc2VxZI3YJ+VQ0PW8fSM4w9XR69Nq4bLTO1VnWY3zXbnIpKvAXjor
+	 PwVfeImQW+G8BuRrhs/kzYktCJ3j/goHegty9N6kiUHWtWOiB5YQTX32qrOqH71+Mww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588750;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=svY1w6EwatVo838DMHluYYqTPuJ2NWAoxPsNbfKh4U0=;
-	b=toGCaGRRr3retEE9CuTDjmAP5pAyzeqPJbw8lKSTke9cYXgY7Om0/KwCjMGEuUEIKlum
-	 mGs9eT+SBAdiHzf++1O8n1t/t+ksdaj6S/TmtQJrRYBaM8R//jIqB6ErUhccY6SRl/uOI
-	 GLGJZ92zoR0MUyniasLP76C8X/oxdkNEszmFDmGfxX+x0m1T/rpl2wepsqHOcEAwqAfBB
-	 vVVSJa1PqzJOTcxxHxEhaLMTLcCUl1EB15KuOM6G+jAZ/Kvz5HJpqHLtvz4+pyUOalEmP
-	 KUKrp1XX0b8QOCgOOnMUb+uDyTaBWzIkTG03g25+bTtR548GLdDqEjkqI40Xd77tq3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588843;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BBxU1eOV9BEr66yuB0ebbyYvleBXLvIO6pcvkVDyONw=;
+	b=nsN0cKZhQzle5bBN+MSEx7a6+wGsxi+UiZJpkOhcqtx3+4NO47o25eTMcRzY+53I/A4Y
+	 gs8Pl/+nSftsi0CUejL8j1Dewb954vR0MYoDHWRld6CdP4bl9GFKNruzZYBXYX6h6Av+p
+	 nEfetDkXFfWGASbGB4V/KCdnJOLBG4ywnhkxvUPjpMrS/wTY/kAQ5csXV4pQr1xGzqwSv
+	 Od9BoYzkRAEYBlXS/qR1vCaot2SKuwm6vnuN8I7xk0UQXh8uiLKyNZk2leXzy8y0Nhgvp
+	 Ilsc7OiAbjvaUkh9QIa1iuPdx3e9j4F057g89SZATo9Ckn5tO94IypnstqQ9mgDaPCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amieiro.net;
-	spf=pass smtp.mailfrom=amieiro.net;
-	dkim=pass header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=o9oWjx64;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUTFsNZc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1EC606CDEE;
-	Fri, 13 Nov 2026 16:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1EC606CDEE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA56606D633;
+	Fri, 13 Nov 2026 16:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=o9oWjx64
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jR3Fw1DQhzMlXf;
-	Fri, 13 Nov 2026 17:52:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
-	t=1794588740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=svY1w6EwatVo838DMHluYYqTPuJ2NWAoxPsNbfKh4U0=;
-	b=o9oWjx64l3jVuPPckX8M5LXKLmN4T5cbxIUzULDFCxw96LnPMUI45yGurOV4eT7Mju+AJW
-	G7N1sRf2LZr9ab7yQSxrXYy4ReE5bQ8LIw8rZLn/7Nkf+qDDnyplRyTyq7TsO2+g7Jv71G
-	0ICl7qZ6ClpmqkEyqYp/HUL5GS1KwnxZPPnXaKniLfPUr0aIfEFCUl0tHdtrW/OEN0uAi5
-	iLpk+3FWxeykuyGp/pXmMn3eYioQgLwGE8xLRIi6twwygLnwq2U5G6tF2u4uznJvsK0i7D
-	iZ4TWkzi4Jal2fIC8QiOksSF1DJrokyoz7uWYvI3lpdR/wJiKesq2Evh1fDVoQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=flavio@amieiro.net
-From: =?utf-8?Q?Fl=C3=A1vio?= Amieiro <flavio@amieiro.net>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
- <griffin@kroah.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] leds: is31f132xx: Add support for is31fl3206
-In-Reply-To: <179370064610.793788.8239015594326628135@kernel.org>
-References: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
- <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
- <179370064610.793788.8239015594326628135@kernel.org>
-Date: Fri, 13 Nov 2026 13:51:54 -0300
-Message-ID: <87cxs87jyt.fsf@berlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUTFsNZc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265871F000C4;
+	Fri, 13 Nov 2026 16:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794588842;
+	bh=BBxU1eOV9BEr66yuB0ebbyYvleBXLvIO6pcvkVDyONw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KUTFsNZc22b8aHlWP+r3Odk/Gs/CKeg0AFX98nXe1f+J7TwRgUtiUkeXra02DE10H
+	 F6bY3+LjPAZ2ih3c4kmDNoSHReU80HXuq5JNHKDOhAEMXSoydZvFNGufhtvwJr3GpD
+	 bmyRyT9sP4KyeA2J3Il5+p4yjbXTpUPY/BNxonlZXN/n0Ezh8dzk4g8zXM5x+5FVeG
+	 8Jp6BuNY3LfJ0oYqIX7DcQBcGi0WLuXNrpWwwyiw0coBYWklNW5iGaOJhhSIMeE0bW
+	 F7jiWikpiQpNF7JTDBNOsjnTJHNV6Th5crMRA+xbbNHTKuALbh0EoIQ86VSru4es2n
+	 D910q/N6WG68Q==
+Date: Fri, 13 Nov 2026 16:53:58 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: riscv: spacemit: Add K3 BS01DCMA
+ RV2768
+Message-ID: <20261113-hull-unsafe-5d0e83589cc2@spud>
+References: <20261113-k3-bs01dcma-v2-0-3f0de4a3e1ca@linux.spacemit.com>
+ <20261113-k3-bs01dcma-v2-1-3f0de4a3e1ca@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,42 +63,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Queue-Id: 4jR3Fw1DQhzMlXf
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/jbMhdWX25YFWmZZ"
+Content-Disposition: inline
+In-Reply-To: <20261113-k3-bs01dcma-v2-1-3f0de4a3e1ca@linux.spacemit.com>
 
+--/jbMhdWX25YFWmZZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you very much for the review.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> Lee Jones <lee@kernel.org> writes:
-> --- checkpatch.pl (1 issue) ---
-> Line 83: WARNING: DT compatible string "issi,is31fl3206" appears un-docum=
-ented -- check ./Documentation/devicetree/bindings/
-> ----------------------------------
->
+--/jbMhdWX25YFWmZZ
+Content-Type: application/pgp-signature; name=signature.asc
 
-This is documented in the first patch of the series, as requested as
-part of the review for v1[1].
+-----BEGIN PGP SIGNATURE-----
 
-> On Wed, 28 Oct 2026, Flavio Amieiro wrote:
->
->> + * @enable_bit_offset_in_led_control_reg determines the offset of the
->> + * enable bits from the least significant bit of the LED control
->
-> Make sure you run W=3D1, particularly when changing Kerneldoc.
->
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavdApgAKCRB4tDGHoIJi
+0grhAQDrVeCC4bdhfiu51OMI62/BUDXDdIG2ekR6JH/BWepPHQD/X0IyOl/DQrDM
+PxeUOcyB3JK5V/9DTbqaCnx/ZMQaFwI=
+=4piD
+-----END PGP SIGNATURE-----
 
-I checked and get no warnings with `make W=3D1
-./drivers/leds/leds-is31fl32xx.o`, `./scripts/checkpatch.pl --strict`,
-and `./scripts/kernel-doc -N drivers/leds/leds-is31fl32xx.c`. Am I
-missing some other check here?
-
-Again, thank you very much for the review. I will address the other
-points and send a v5 as soon as possible.
-
-Best regards,
-Fl=C3=A1vio Amieiro
-
-
-[1]: https://lore.kernel.org/all/20261013-jolly-salamander-of-tact-7cf46e@q=
-uoll/
+--/jbMhdWX25YFWmZZ--
