@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.55
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794572491;
-	b=Of5FpMepP0pnq5qzAExZeJZDSRq11ZjiOIksdt5LixEqUv3tKx/cDvJAxwW/zmrozM5U
-	 dvhO4H3KmnH9R90xm3dmT9oL0JstznXOsaglGetWfiGxNahb3jajtuzuvUPDDTwmksB51
-	 537oJZC+jZgTiao6ozLn7/7sjz1aRePJsWQ2MN0Aku3JwGlMMong8BYJI/Oq75SoZ4c5q
-	 WElU49fSwMFlbG2JHmOzJ54WJOeXtF/PVZ5z5XJRkNOVZ/+DFcFxNy1NXMcRY4aTyieSf
-	 Vij8e4CRBrJ/w0eEUj85Ynnn7NYhS9nwVFZRcyuBFh1qxvRkjGzvzoP7EwhhtAIkDNA==
+	t=1794572505;
+	b=iYhOILoFod5wEc9tmqjPKBg+Ut8uTdif9jjd6SrQ6kb63T1tUmow7s6HkhaNzhZR3O46
+	 +h+PUQ53n4JmaPrIqjFFVvQz3inDMYfMG2J8IgJ3F7D/3s3fyByyzyeOtOKNwcfqkNRqA
+	 3deVsUQ3H4WHXamcwjsj4GOCHlQuH3/skIc0/TvG0nJOCVgTLVAp2p3ZQFAi7TX0BUZ5G
+	 QOj1hEhCZ5h8OLZqPe7tQOdLnSWOxstUdaefbkE5y8WBTzoKdogRR0ShNW3mugvFCwEu1
+	 aqDF/iS8rlgshfYt+Ccl1hg3DwAjbh0dq68dTfEJYFD9GysQV5kxKxd4pGs/TaKK3CQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572505;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -25,54 +25,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cWy1idYsbBEtAF3S3g6yQCWM9u5eMcKUV3zDK/gra9I=;
-	b=i/EUyixV0t6DQ/BcDarurB1YIMhRDxz5oeO7xrmjRIfaiuY7OLJq7h1uJBhnaeHCoqNn
-	 zygcza6SjltYvmfyQF9x/k1fa5IMQPyEHtIhoZMDpIXYQwaLys1l5vu2xkeFPDI58Bs3W
-	 UWyxq/dH3hwwQFJmKCwjydvkiX0zVMj7oSNhatemOfkdRV3AHp5udyMfKfq6XJI58rpCV
-	 LTekx49Iy9wruzgRtNrlArpzNkIbBq0z3lXV+O1QWJMNZ2QuoJ/7GpOM9kHBfcU+dwQQP
-	 FQ+7wAbVDhPp5qW4i4rTHJS66XaMIZCQYUYpnVjIStKtr+2d4/0VPo66JOdtKruWljg==
+	bh=jvBvmxdq9FyTgaj7WvpxL6gIH/x6fQci5FYEdlN20JQ=;
+	b=QTP5l0xNWsmb/5gEF1IPukgVfP6iXbusfki4NOld7pBhmj5wRrB9dZZSc7z8nPSEPARV
+	 LTGC0hPPwheg58LNrpW2ZwYWpnYO+/j4Tw/4m2XmNcbx3FMqKF+Rnyw0RKvKyoPRb2cit
+	 Gu/ghJ9BYy/clR85Wyj/XyOAocml/Moh3YRisnt5E3TBW8F0jojMsNZsmDfAt16Y0VJ9C
+	 TWklXC+OXVlieA+J8sp0XE4C3Hh/oA93vcB0tGCt8TgpQdAgPn64n3ZNyG6qzLiqNttgv
+	 Ko5jru4KSXDaElgMQxklUcDwrsDXeq/Rx+nlai52/bR5dLmtQC4x8VVtAY9NwNd2eBg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bp.renesas.com;
 	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=JDBYNMk6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.13
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010013.outbound.protection.outlook.com [52.101.228.13])
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fvVLRonE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.55
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011055.outbound.protection.outlook.com [40.107.74.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C396D606A8B2;
-	Fri, 13 Nov 2026 12:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C396D606A8B2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF9B60A3810;
+	Fri, 13 Nov 2026 12:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDF9B60A3810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=JDBYNMk6
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fvVLRonE
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dB1+F2D6g3QUAyTh3AoAZyjVxPnIHqMOAfQuQoQ7btrOuHvo+umAoQXHSpu3KLX7tgMR9QKDSfiOpOEvzzSg53vGO+4NrOOiM+at4rn5bvTO3+3c6jw2hQWGGnY1wSjFX/JDQaloA6p6x0TFJ0upZXsH/Qw3PH9J7dB0akGJMr+efq083EeeGZotAgfrVApTKgQa7hh9crqs77wCjKhvzkSLQ/IzRcvEF2W64by7uO2H8T1pu5ozfHIXc1POIcaFVY+0LwNRSuyqWE3Zh7RWI9ZuZ4Lj3IjnwmbpPdtGiiwhpAxGQvZ6nJaLjAoaTWdxgDSx0rfw5HcYcOf6Mp3wmg==
+ b=xfwQ6ZxE2sSz3Tdf8mfZQ57cFYHGZpsfEcFw4Qg3urhb3TEEGtGNgdkMRbxr5Jv1bkZQ7hWUwkmHu/WxzafmJ41d2Xeh4zY5U9vNAShYkiVLPwVjwN4T0atOQf6knR3uwWOhu2eot+SO35lhSGEqq/YtAq2yb69X5WsXWFel15Qod8eE52z18HIICF7bp5d8mntkVqlfieI5BPlte6GhLffvUsfOYR8FfWm0/DEIVHVhgOtEEQy+KKKV8XJBUQLh+cFANhMHLGy3hQh0aYiErNcU0FdAo9cLWeU5ntKWCGsJl9tVWIAFXLuXNSWZEg4HlwiLmMY40wVO2WYE+6bnLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cWy1idYsbBEtAF3S3g6yQCWM9u5eMcKUV3zDK/gra9I=;
- b=SHNRp+QceL8o0uEjV2aLdT2xxC0SN4OodNGbEgIKgkUXGY9qKILoe8sd8+m/uDR3lKmDca09AxzVyLkpmFofY6u28TppN02gTiWl+KcKwqNAQ4fNk2GDXiu/mtBUwvngQIojprg0GSkMOSIwVu845Wko9P0GfWCYTChYmsCWaVZkxxP3SkC1Klhli1OPXsNnK0fx1rUQgTkjs8ilDjZ2WQOBF2fzQo+ECg/N3tbT4eqlqjI8/uMURejZUjgYxPHemoHDXrXWpBvB7ba/D1tQ4/tbvlYhZ0iYJjUaPV/jWnrHAfEPvi7iiZCGzmQs3MLwoYstUFz1VRm6An9vmnP1/A==
+ bh=jvBvmxdq9FyTgaj7WvpxL6gIH/x6fQci5FYEdlN20JQ=;
+ b=JMseBBibqZIUt89iOwGyGeLobAKhrISi71wELuKlmuxoEr8a5RQ6G6kmA4lX6dZUk8yYCF+xDCsWG0gRFEkp5zY6ZeQQaE+EYKKGrqzqAVocL3UmzilN+6YEvmpWElwhIk0p3FzPxGXpTP3cpDAGMmaHItePnaLul6IrI/1l80dX85Y74iFTYd26alZOE1X6E2B/ZgoXXHeFB/7AiQCHovo3JmyVEpA79wLbqdsOw23oYdh2ViXxeS7mnHawrz9ADlUUmMonHJ1yP2PwUv2CTJJwXuJM5ZfCDeK2TLQ2C5SKiTI+WzuWZ5z3UOxalOL3OZKOqzcD1CFzL6RDMgAV/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
  header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cWy1idYsbBEtAF3S3g6yQCWM9u5eMcKUV3zDK/gra9I=;
- b=JDBYNMk6xsSlpsY9Y04IGizz/iTH112zvXk/jO2s2OQPNNaD5hEOgysP7W60m4puLgzYVp8svkRJy+zZQmitWCEYM2fxBCdUi14g8IT1nX3HD1/EnrNILFXWEolLOREeGFbFnq8cPpMOe0HG6pi5aiG9ckmOwMBvZm6qtm8MKk8=
+ bh=jvBvmxdq9FyTgaj7WvpxL6gIH/x6fQci5FYEdlN20JQ=;
+ b=fvVLRonEuBSFwwwfvrSyHYZUbmbeg4baLjxNEAwoEjhn0alBS/DC7XT1c+EmI9Ynq/SGx87ZVpll87i0g9WWMWbg5wPOs/esRPJZSFx3MTbzeYBgDS/sHYBWqqlYGMs4rEZq7eLMMKBdjB1RmwnEAIWh6iBIBIaTQsAsDl3+Ceo=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=bp.renesas.com;
 Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
  (2603:1096:604:521::15) by TY4PR01MB14799.jpnprd01.prod.outlook.com
  (2603:1096:405:25e::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 12:21:28 +0000
+ 2026 12:21:42 +0000
 Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
  ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
  ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 12:21:28 +0000
+ 12:21:42 +0000
 From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 To: tomm.merciai@gmail.com,
 	prabhakar.mahadev-lad.rj@bp.renesas.com
@@ -93,9 +93,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 07/12] drm: renesas: rz-du: Share the encoder of an output driven by several DUs
-Date: Fri, 13 Nov 2026 13:20:03 +0100
-Message-ID: <1d149f50391e48dd64355473309fb610ef1c17bf.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+Subject: [PATCH v10 09/12] drm: renesas: rz-du: Move the DRM device initialization to helpers
+Date: Fri, 13 Nov 2026 13:20:05 +0100
+Message-ID: <8faecfe7bf81d2c597e8962ece1d43fdcf6b14f7.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
 References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
@@ -115,122 +115,233 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TY4PR01MB14799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c626f29-9750-4224-2cf7-08df4180a472
+X-MS-Office365-Filtering-Correlation-Id: 20833ce8-bdb0-413f-c247-08df4180acbf
 X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|23010399003|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|5023799004|10067099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261022075727099003|261021121427099003|261021123027099003|38350700014;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|23010399003|18002099003|22082099003|6133799003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261022075727099003|261021121427099003|261026121527099003|261021123027099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	AUM3VTVJRzmqW0O+b0GhHh4kwRIr+dIguyckUZsnSRV/8dVu51ldAP5XnZdcW2cW2CFLWXv3F48D0ZHrIz0wCY4wCLeGBHrM6HvyWVjTvHawCn7BkaeAvpqftpoeqxXgemtW9AmtGmOtSxWzcMV3ClSIQ+sxjNjy8ohOVcv18MvuLyGe4mz4+CPQ7yTGLM/LLQWY7Yc8Pp762ZGdBFbGKRyDpPth6P+Rgf7dYm0wWfO7PpuCJcAXlj6DexCiiW5FHcj0VS5ksVnPJtAzwjOmreyaYC5pX+9+GntNoFeQ/ZHN37QQBAO1rlZROGcQt5yL6qEUkOqye1nnpDmCl4+uaIY4kVcj1HTVRT887cCbTRy+24NrXIadtvgeoo8kQjkxMdP1CUbWjAhJu5QtbdhuLWuWGbXrZHflwqKL90UeDF9sCS5OroHIykP/Tf1JJ900rO2JOx02AniYGza3A8M+oMY9yzldKf5MWHnZ113UH8DfpCUO0tLgOCqkzX+JOlPmr48iS0X7L38p7L1jafrs9RoX82kApViZ/ggbSIbOC5jpgwD/kQ0w3ZGrLCwRcIwMVg3uvFYLrgP+uxn5eF/bW9WFbfR0MpO0+80SnQtuzwB/pixVXmtCP+K7fjQD+/E0jCC4NmlvGcVd86s5tlUiFb75YFdKh8RY/J3oHM5ii+a/GeVw+qqcRAlalMugmSVGw+QM5qTiabQNa4CCr/ErEY6kg3izI2W64M3ky3U4jNw=
+	HJ1tYFGEhYc/BVkvZKexKrS4aK+g31fPI70IAU0uI2r8k+bwIqNjUUe99yM7v6zfuYbxRMG98A75V/+pssW89FzGTL+X7/wlj1B+P++EtcYpW2E7I3uSXIw6jR/1G0TBKmg9/nBT3F+Syy2pmI3jXf2E8M0mgp45J3GHd3h5TnQU8E7RmeENDKt6dHaiwML2YZfkHCYEv/6QSAr2MWoeb9cFYtG/CKHQH1PMzEQhqv3R4E32lFmZgRGyq121pv0H6oGcl74Pv1RkTN5w4EPxqPHxYXouDg+FO2OLfNzSdmWGRTrAyi7iASWAtvX0/uZXM1Z69VfrUehNrvZurIWy/gMr3aWrvDtXmXG4ejH7ONJyp/6j6shMWxeQdQiDiG9CbSWxzMdtHRh0SjhnRyj3EgGccunCvBOWL2vQiXHGpkdJzTWLGfxh4GLqfnQ7a6ZdRlsbBsLNwipB/Y+HurreqcjSpLRBT/3uQMJqWAZ9ZqafSC1AY27Ys1b4re9Zb8Suw6Oe0kVTSoHuP7kcvpK+VtxG1HBPpMNoHi2AoOGGSZB9zRPlRr20Nl72kKsAVDaqyWjO3Pxum5J+tKPi5pP/j5fC1lqI2imlHGzK8waJEfwWk+mrQ3Rmw4+z/JQoAqvVbCMao63osrLqkHrIsfRo574o72L/dVAaErqKoXI6jIAgeHdVf07H9PuVgtiNLt2WacLsD+vem6nDFoa1ddFdG7tlSMlANl29fFmfdXPHuFs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(5023799004)(10067099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261021123027099003)(38350700014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(23010399003)(18002099003)(22082099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026121527099003)(261021123027099003)(38350700014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?IJnH3sn2YrNa7VntJ90DdsENN771rgQVFbqpFolEh7SCSoR7o6cNjC/uXMel?=
- =?us-ascii?Q?4ih59oPv/XOF22uLbPLkkM4sNk/rY15YGtiV0ce53NbBMuYjwkzix4v1kZ8z?=
- =?us-ascii?Q?47wxi+XQ1fvM/dFo7i0n75L4+KQWMde0C1q+R2sUgjJZAnc33IzKChlOTLar?=
- =?us-ascii?Q?TwH1wbcKAdlai9qA9v+/c1BpsCQbh61HlXR0WJgt0ED33DHZ/oKvhueldjH6?=
- =?us-ascii?Q?259wd5elxo5k9zdWaCpyYu6ezaOXepEg4I5SAWF+RrwCBYrcANlN/Xk7hqVS?=
- =?us-ascii?Q?dU865apVBVr9+ts3Yqg1x009ic7qKh9abh5YXvDWi6AKXjcRrujBy0IUnnXO?=
- =?us-ascii?Q?cj96DjcFG8ZNJSEG76jWioJe/ozi3AMcPlcFA0j8UqlKS6a6QBFLVEjwxfPD?=
- =?us-ascii?Q?tQOdxXs658EdcatDBTdMaGXsAqN8mFV2v2/s9CZ/5ssMs3HU1VULoiQY555R?=
- =?us-ascii?Q?gUwE38AmDL8k8RPAbt7xc2l2UExwPM1BZAg4b1KJwrqIRk9RehJ2zKmpMVS7?=
- =?us-ascii?Q?U7TsfQj1O/vjdJrxvoiCTgihP0fnwc7DQJzBZ1CaPcPAtub0bxPJA5CFEy8W?=
- =?us-ascii?Q?v5FHmYMpAUIrns7SeR7O4GrSNZF0QFyBq54Z9fZ+lV/fzc76OzigFLnaCEcy?=
- =?us-ascii?Q?DJzcdEwq7lF3cFevqILcEBiGaTn5G5jnSzpzzX/eJDYiWW7vo9Lr9/IE67n9?=
- =?us-ascii?Q?HGxqhOvnZhW/ufPN73pf/xmrdgg3VrUbr6QZU6RaMFe5SZpBuJIGF8W9Ylud?=
- =?us-ascii?Q?h33/zPd7+VAek7OMMNttXa11iNPOtWYv9pM35T7FV35BfS6binM0Eh6UVux1?=
- =?us-ascii?Q?7uWTWZ7vT/WL5RlVwfws1g7cNmyb9rqWmQPpiF7zCF+X54L/kT62RoFPLxKK?=
- =?us-ascii?Q?xnLBrwfWHNjPGj+pW4uV05Sg81vbZ7/BRzpZa11KyxDsvwl8+jw55WqvmBJi?=
- =?us-ascii?Q?x7qR+u67kW70KV406dx8f2fO40lFA5oJOfJRTAjYQ1fOJtaJsVSsfVG9VmPa?=
- =?us-ascii?Q?efRaNFo6m3eMTMJXcwcStevOLzSF91l5GmGb6kHn9f35WIpx9S3kfRjKXxUs?=
- =?us-ascii?Q?BG2P6FR/Z1INcdYum4UZ/Xey1DQTDHfEpu2w1rcTd3rfgv2dtvtjxX8t9pMO?=
- =?us-ascii?Q?gj/+a4ZtiqQFZWqVRjzgkgACf0bBTqqRwxrD6APJVFkPB3EsyQ+zomlKUXLf?=
- =?us-ascii?Q?GJMPx9bpC/7vBFgZFTExAilSiRhd/QfBFFLw/w9nibrIvpsp4jZa3E0Z8SjI?=
- =?us-ascii?Q?Frg1VrLM8mFx+l1HkWtIYtNNMEIOEkxJ5H5NeU3Z5YjdzsXe+LHn/3zFM11P?=
- =?us-ascii?Q?qEj2B8a6fRnV+ZZ3Pvb5w+MEBF/KoeBHW+CYd37wq/wVWqs/7LU5Sv8yjCZT?=
- =?us-ascii?Q?SMSfqqJlnHje8XdYXRSmD8ysfvfyIg6Y55hyZWMGtD7YWtQRC/OE5vnlHvIH?=
- =?us-ascii?Q?fnkAAvjPypguvm1b42souFeUqcisfEa30JiJ4kD04APYUHBFJ2JjpsFgwtGm?=
- =?us-ascii?Q?wuoFgL41wmM1gGW1MGf8n6ZnLxVGqjnOFarmgQZIUJBUZ3CVfY5n6zB2VMVF?=
- =?us-ascii?Q?9PU2V+uMjyTUCVGUcGhnmRaFqzlJuovL7qWnQxYUTGR3dEBFReA46VVva9r7?=
- =?us-ascii?Q?BQbgo7DFHLAEi7C0GO4SHKSJbML8b+PviS4t+a6YK+emrHQ6PX4YblRN+bDR?=
- =?us-ascii?Q?2zzWTFOt/kWnYI+nONyEtETOwPSEH8pO3kvOrOqLDDyK8U5gPa3DRA2dj8TE?=
- =?us-ascii?Q?IvXaVPE3kxS9YrNSBTLlvo/RBaET+CM+n620vswrwWH2lHgb7YFx?=
+	=?us-ascii?Q?tSm1brj4eXeTtq0LblW7RqGZfaxNB+tTvBMk7bdIHtCJGI4i7rU3kcF2SXiO?=
+ =?us-ascii?Q?IMuWg4VpxTUVafT8G6Nzg95D6BT2SucQnyZGA5AjUo+bZip68vSQE7YTZ/dY?=
+ =?us-ascii?Q?Benw742gEPlTCJ3YnHZmSPvSW2n9aVbADKFTMjzw96Gv4AV5AqJD5xtJjEw1?=
+ =?us-ascii?Q?R6RDwrXS8fkw90Ui3CLZv1LO6j+bw5pq51kgwd8DBXW8+mqLwvxK1lgh1yOX?=
+ =?us-ascii?Q?02b4fVfyYc7apCnFqfqf9ol76Eb1RCFXM6dVYIPRtLaJ9ZJZ7uLAL5GkvI++?=
+ =?us-ascii?Q?aqNUUhiHPtFPw6fFCRn5Dfh6GcwbeaaVIAx0isRYapxOejtDtPTcXmsT11mr?=
+ =?us-ascii?Q?KPYkCEd+ysmEpFmKp35gdMQCUq8Ok7ZheJMgEPAcPnWW49UG5UauV9AXe+sm?=
+ =?us-ascii?Q?9fcJU22A/fKegBZ1p9umjjn9CpH1Q5Nynx9U2itw3uekDdB5aH6VIDdnMhuM?=
+ =?us-ascii?Q?sD86N/PfB7in5P8t6xlPTdE+NJQ/oNfcf6XAVi5sgTwHLK0ozgMsRPZkPNvJ?=
+ =?us-ascii?Q?PY5zHDU2a0kpRzL85lttI0w0X1y7CeLpPXAX3YsH9DLSToKhuOJEBJLT+J5n?=
+ =?us-ascii?Q?CxPz8KPC84SfYenaSbyWAZZFkKcG3kPqxQHi9YntB16iP6o33tVx25aNXD0z?=
+ =?us-ascii?Q?EIUhclJNqJ3TtbvFPN36EH9DHNK5bURgm5ZQtXkMI2n+C6lm53RYE+pHD/fW?=
+ =?us-ascii?Q?YOcWr38d5sQnNvm0aP8vW1xO9pAeaWQSSfDGDMQDs6zOtsazI1OMpNDzDnBb?=
+ =?us-ascii?Q?3YB5Zo64ZLsFZNx2cM20JehBgawhDBQbXDfcWcwJtIze+WEYw4yma4pOApZf?=
+ =?us-ascii?Q?jEOKEC4zewTbWizA2u/FhGIjwVka7A7REzA6SPJKdwtwQ8M+JIsy3RUgj0ra?=
+ =?us-ascii?Q?uCHzyjWPL2w4N5XHcoqyQ2MFg5HobIEXmIwuZpqOoAXFTMXCIeb1BCLU2Pua?=
+ =?us-ascii?Q?pz3wBrcWuuzWd3iTeeRHM+9ej/ZWIBS+t/mrkovW+5kmQTkyruQ31uiHPi61?=
+ =?us-ascii?Q?t1p0Sk3UXiyyNG81K8jh0Q92CeY6Lm0CklVawjxITejFac9sfuG30TAxkuM5?=
+ =?us-ascii?Q?WACbvCAlD/cSqt03JOaCTpBPAu6bUTm2wUR22RmA00FgL2STjKCijOzEbdk1?=
+ =?us-ascii?Q?nDBSYZpdejOVnJypPiMD+XA6gVC9qIS3dDmRIKQsDRX7dJ1uw7ikFxnlkqsZ?=
+ =?us-ascii?Q?8YBMKGPpUudpen65ROKv/BhSwvUOCjCIY4UWYrz6r/L6A18oJClswA/7iLYv?=
+ =?us-ascii?Q?H086MCk6cvltv7KyW98X0q/RFxxquG2al2oRnDa9f8L/zHS1D7NGsvA8JXjs?=
+ =?us-ascii?Q?DY+5Hply8mtoETdJ6jjGrZcSx5c308zSiOPAWUfyQ+MypA5XUe2o4zWGC6ks?=
+ =?us-ascii?Q?IwSOkOOeDah24xTJTDvErTonD+dVoUr+Y1w0VbFNm1BUzw76sqXoQsoqeLZ0?=
+ =?us-ascii?Q?2LJ3w6UQrbTTlVqu1QFfUDLDU2gg5q6fhAohQNtERNbxKQRofPSdliuPfAPO?=
+ =?us-ascii?Q?V6y1Yahndf20TX6Qn2NrZ6QIpcJuMD9ZwP6yh80ib8bGYwA3SM+CccVRWiDs?=
+ =?us-ascii?Q?FhgqS3LrKyWTsCwLZ6TpvHZ8AvQLuIhCwc47zm4an7/FuCUqBp8iOf/AcXZV?=
+ =?us-ascii?Q?o9tQcnEm2klqYEvR6CXe4z5zLj2EcnizlR1tRhlhKFXPLv9NNwvEydLFuilb?=
+ =?us-ascii?Q?hCiX4VFqhe5tSh1hlN1x9x838Wxm3CryTmYkyDQOZgr1Gqr3QBmzORePF9hS?=
+ =?us-ascii?Q?Y1kslmL+iq47oyf4+/GOJ18dZY1YnDWe0Y8VjZ8yttXVmBzSH33Y?=
 X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c626f29-9750-4224-2cf7-08df4180a472
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20833ce8-bdb0-413f-c247-08df4180acbf
 X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:21:28.3440
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:21:42.2724
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OrnBGEF/rgfGrmY63cfhP7Lqp7AG7gWZuctIs0AgfnJSunxBZpMORcuhW7uSFw0UmkiXWp0m8J7pCqunQWyb7+lZ7/OxdPS2OvhnHtiarfnLDGupiepPnS3el5hqa0EV
+X-MS-Exchange-CrossTenant-UserPrincipalName: hzrPza4euub/JUklpwaiEQCVLOolE10S/DhlkjyXc7dubu2Wh38WI3yNXwYbt5uYw0kmt5qn+zpfs1OLehrME/p0Eb/T1BMY5p+6Iqd6kMTSISaUHoDAsaISUrMQzbE8
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14799
 
-On a SoC with several DU instances an output can be reachable from more
-than one of them, but a drm_bridge can only be attached to one encoder.
+On RZ/G3E the DRM device can be created and destroyed by the component
+master bind/unbind. In preparation for it, move its initialization and
+teardown from rzg2l_du_probe()/rzg2l_du_remove() to
+rzg2l_du_drm_init()/rzg2l_du_drm_fini() helpers.
 
-In preparation for supporting RZ/G3E, where the DSI and the LVDS channel
-1 are reachable from both instances, let the first instance create the
-encoder and the others add their CRTC to its possible_crtcs mask, which
-rzg2l_du_modeset_init_finish() then extends rather than overwrites.
-
-Without this the second drm_bridge_attach() fails with -EBUSY, leaving
-behind the encoder allocated just before it.
-
-SoCs with a single instance are unaffected, as no encoder is ever
-already attached.
+No functional change intended.
 
 Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 ---
 v9->v10:
- - No changes.
+ - New patch.
 
-v8->v9:
- - New patch
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 120 +++++++++++--------
+ 1 file changed, 69 insertions(+), 51 deletions(-)
 
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 12 ++++++++++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c     |  2 +-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index 5c21c5f9fbaf..45f980ea3c20 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -129,6 +129,18 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
- 			return -EPROBE_DEFER;
- 	}
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+index d102876c07e1..93d59e2cf8a4 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+@@ -184,24 +184,87 @@ static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
+ }
  
+ /* -----------------------------------------------------------------------------
+- * Platform driver
++ * DRM device
+  */
+ 
+ struct rzg2l_du_drm {
+ 	struct drm_device ddev;
+ };
+ 
+-static void rzg2l_du_remove(struct platform_device *pdev)
++static int rzg2l_du_drm_init(struct device *dev)
+ {
+-	struct rzg2l_du_device *rcdu = platform_get_drvdata(pdev);
+-	struct drm_device *ddev = rcdu->ddev;
++	struct rzg2l_du_device *du = dev_get_drvdata(dev);
++	struct rzg2l_du_drm *rzgdrm;
++	struct drm_device *ddev;
++	int ret;
++
++	rzgdrm = devm_drm_dev_alloc(dev, &rzg2l_du_driver,
++				    struct rzg2l_du_drm, ddev);
++	if (IS_ERR(rzgdrm))
++		return PTR_ERR(rzgdrm);
++
++	ddev = &rzgdrm->ddev;
++
++	ret = rzg2l_du_modeset_init_drm(ddev);
++	if (ret < 0)
++		goto error;
++
++	ret = rzg2l_du_instance_init(du, ddev);
++	if (ret < 0)
++		goto error;
++
++	ret = rzg2l_du_modeset_init_finish(ddev);
++	if (ret < 0)
++		goto error_fini;
++
 +	/*
-+	 * A bridge can only be attached to one encoder. If another DU instance
-+	 * has already attached it, add this instance's CRTC to that encoder.
++	 * Register the DRM device with the core and the connectors with
++	 * sysfs.
 +	 */
-+	if (bridge->dev == rcdu->ddev && bridge->encoder) {
-+		const struct rzg2l_du_output_routing *route =
-+			&rcdu->info->routes[output];
++	ret = drm_dev_register(ddev, 0);
++	if (ret)
++		goto error_fini;
 +
-+		bridge->encoder->possible_crtcs |= route->possible_outputs << rcdu->index;
-+		return 0;
-+	}
++	du->ddev = ddev;
 +
- 	dev_dbg(rcdu->dev, "initializing encoder %pOF for output %s\n",
- 		enc_node, rzg2l_du_output_name(output));
++	drm_info(ddev, "Device %s probed\n", dev_name(dev));
++
++	drm_client_setup(ddev, NULL);
++
++	return 0;
++
++error_fini:
++	drm_kms_helper_poll_fini(ddev);
++error:
++	/*
++	 * Don't use dev_err_probe(), as it would overwrite the probe deferral
++	 * reason recorded while initializing the DRM/KMS objects.
++	 */
++	if (ret != -EPROBE_DEFER)
++		dev_err(dev, "failed to initialize DRM/KMS (%d)\n", ret);
++
++	return ret;
++}
++
++static void rzg2l_du_drm_fini(struct device *dev)
++{
++	struct rzg2l_du_device *du = dev_get_drvdata(dev);
++	struct drm_device *ddev = du->ddev;
  
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-index 456b29538db9..001c802539e7 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-@@ -480,7 +480,7 @@ int rzg2l_du_modeset_init_finish(struct drm_device *dev)
- 		const struct rzg2l_du_output_routing *route =
- 			&renc->dev->info->routes[renc->output];
+ 	drm_dev_unregister(ddev);
+ 	drm_atomic_helper_shutdown(ddev);
+-
+ 	drm_kms_helper_poll_fini(ddev);
+ }
  
--		encoder->possible_crtcs = route->possible_outputs << renc->dev->index;
-+		encoder->possible_crtcs |= route->possible_outputs << renc->dev->index;
- 		encoder->possible_clones = (1 << num_encoders) - 1;
- 	}
++/* -----------------------------------------------------------------------------
++ * Platform driver
++ */
++
++static void rzg2l_du_remove(struct platform_device *pdev)
++{
++	rzg2l_du_drm_fini(&pdev->dev);
++}
++
+ static void rzg2l_du_shutdown(struct platform_device *pdev)
+ {
+ 	struct rzg2l_du_device *rcdu = platform_get_drvdata(pdev);
+@@ -213,7 +276,6 @@ static int rzg2l_du_probe(struct platform_device *pdev)
+ {
+ 	const struct rzg2l_du_device_info *info;
+ 	struct rzg2l_du_device *rcdu;
+-	struct rzg2l_du_drm *rzgdrm;
+ 	void __iomem *mmio;
+ 	int ret;
  
+@@ -242,51 +304,7 @@ static int rzg2l_du_probe(struct platform_device *pdev)
+ 	rcdu->info = info;
+ 	rcdu->mmio = mmio;
+ 
+-	rzgdrm = devm_drm_dev_alloc(&pdev->dev, &rzg2l_du_driver,
+-				    struct rzg2l_du_drm, ddev);
+-	if (IS_ERR(rzgdrm))
+-		return PTR_ERR(rzgdrm);
+-
+-	/* DRM/KMS objects */
+-	ret = rzg2l_du_modeset_init_drm(&rzgdrm->ddev);
+-	if (ret < 0)
+-		goto error;
+-
+-	ret = rzg2l_du_instance_init(rcdu, &rzgdrm->ddev);
+-	if (ret < 0)
+-		goto error;
+-
+-	ret = rzg2l_du_modeset_init_finish(&rzgdrm->ddev);
+-	if (ret < 0)
+-		goto error_fini;
+-
+-	/*
+-	 * Register the DRM device with the core and the connectors with
+-	 * sysfs.
+-	 */
+-	ret = drm_dev_register(&rzgdrm->ddev, 0);
+-	if (ret)
+-		goto error_fini;
+-
+-	rcdu->ddev = &rzgdrm->ddev;
+-
+-	drm_info(&rzgdrm->ddev, "Device %s probed\n", dev_name(&pdev->dev));
+-
+-	drm_client_setup(&rzgdrm->ddev, NULL);
+-
+-	return 0;
+-
+-error_fini:
+-	drm_kms_helper_poll_fini(&rzgdrm->ddev);
+-error:
+-	/*
+-	 * Don't use dev_err_probe(), as it would overwrite the probe deferral
+-	 * reason recorded while initializing the DRM/KMS objects.
+-	 */
+-	if (ret != -EPROBE_DEFER)
+-		dev_err(&pdev->dev, "failed to initialize DRM/KMS (%d)\n", ret);
+-
+-	return ret;
++	return rzg2l_du_drm_init(&pdev->dev);
+ }
+ 
+ static struct platform_driver rzg2l_du_platform_driver = {
 -- 
 2.54.0
 
