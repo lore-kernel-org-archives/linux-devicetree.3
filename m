@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581543;
-	b=HYm5Q9eulOaBKTyNk/mKyk+i7d+WGohCKVwZ/4CGVIeuwEEQqOGBkgv3E0mkky0n5wNq
-	 QX6Q28FgqOz9LgcPy5dyVeHUytwCjtOJTXh0CWjAq8dVgJHmoST43ygy3MbbTJ7DzULD5
-	 Gu+Gc1zmA+Fp6Y09FUPFu2YfAscqUW5FFXYm5GNY3PZcXDjtm/hzoIdLG/9SvBW+Ibf5M
-	 +M4fm9l9RseJ2sFtUSt+TEAT8AU0XuLfw1amOVVpKAa0aydSEB4SWWkrmWXZaNpxHmtmy
-	 JzE8e0UQxfx3+PnVwJFoK2tcCayOHtbFHTJNsJeFRacJBEoLOvErrIy0Jk8efyRGAuw==
+	t=1794581550;
+	b=EzH1QZ7NXMGeVfXLTeWj9+p8rMk7Vw8IzSiKzpeWJMZdqck4VbMwuM/3vTS0YFPd1n4s
+	 prs7vY1FBnxcXCk/NsWSISUBIaHBJ8PgeU+hkXmgV5BjtrHsl5ErrcMszSkUuRNTDENtC
+	 XLA8XvKQ/kSsipi8xKr06TbYLCH/NInr26kB9IJBqFV/2wtitCUaTCcPPZQaGj5AjtXje
+	 gKpkGjq38w69Qn6HL6S+CBCtaGqUOkbz3d4y94A3QwtTV2raNxF/buwJCuXf62NYBcHt9
+	 CsNmGT2xJ75vD1v16aiZgyIMGaxIyeBOVDsRf/HJXHm/tOYpmjZQqPrbPdYGRGFwLTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581543;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Mloo9c65TPaT899neAwv4Dbl5pKL/M2HtN+Esc7k2yc=;
-	b=WY8LhrBVhkdcOmP8EZFBGEau780RgJ3oWRPaSmBKWhEU3CPJ539CGQjYgluf7rhJl7ls
-	 BkOVemvc+O3ZqEvCW+e5NQfc4SmUTTyi6pPR/lX5a1mvDpCBX0715d3VciiaHJ2wyzPIx
-	 BlFqjHmCDXmIJH5+HLDqytwEQJ/SFwpYKkC4GXvSVjplu73k0SASdSMsIzNAfAnzmYg7A
-	 qywgE0Tmn+Aq5ikh403yRm5lQ1ASrlEa/oEbutwteww7t2uZqRsuIT6XyNes2n4MF0wIR
-	 iRNCOLAHYCu8+vZBotMDKjBBLiHJFdj+qWJ5YdWOnf6A9oZ6MHBfj7U7UiUp1qcoF2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581550;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
+	b=RfVmmsrTQ44MLz4MvxebIUIcU8lbgZfwg56GRF7FSuYkBfEbS+XjcSQgRkZ45Rr0lhtd
+	 kk47DaUZomViI7yDqSFoSMME/ZzEa9hThekU87k/27tdXeGMGiRO0/GoJS8Q908MX3M30
+	 YK3f5OaHJGsqjK0P4WDBJkrKrCdB9UzNtU2KRdG5cFO+aVtmzongo172J4ERJ9PvhAWnz
+	 webfx2Ui8tCi6NTzcbz9Y0+/aC4NkKqxFAcp5DXdmbF+wzLUUEucYLb+f8SJilgckDisu
+	 UIi6keOKBVpIPkssDf9INXz+ynqiQWWWrRNR/O04mq9SSyAnf1I+9K2UusBvudWldug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqQQpJAK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=aFiWn8oQ;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09C1606A327
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:52:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE1C606A32E
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE1C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqQQpJAK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB041F000C4;
-	Fri, 13 Nov 2026 14:52:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581542;
-	bh=Mloo9c65TPaT899neAwv4Dbl5pKL/M2HtN+Esc7k2yc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fqQQpJAKVEbMR3ykoO+kJe2mfzpxPHLKXmVAhnNve+3Nv0TuevDb2sASJzS3/MfmR
-	 5YCndHPSZi6Z8XXbxybRh9rpfBBETSx/GPseUyPWt125/NK9zlTQ9nhJ5+nfswOrzd
-	 g4pBqLC0l804nni6KwpMGNgexqFuWAEFkv/f58kCyk2V+zRaMrFioCBMPoS1jt3icO
-	 9lpT95YuXPaSjN/Sh/gyzMvWFBp2F+V4yiQTucIx4n0HUDTQMOht5/z2jH/6/VQePi
-	 z7ulu2edg2O8D3kItKDQRX7IBD9YbqOHlMzdNnJZ5zO4WImt5WpYAg2i2x2mAXzGpI
-	 ogDVk7uf2jCCw==
-Message-ID: <sashiko-outbox-213017@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: remoteproc: Move iommus constraint
- to SoC-specific bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
-References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
- <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 14:52:21 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=aFiWn8oQ
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c5080ef9b31so227981166b.1
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:52:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794581548; x=1795186348; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
+        b=aFiWn8oQ/Gdg4T0XFGfb0riUMpESOKfoO+blWZhQoaQ3KXBLpAxYHhpASVfVWlv+eC
+         hd5Xkd7VZxaaS34+U6oPmvp7dqvXD7S9GrX8nSgOCXXex+j1laODKF5G2z2+tjJAWGOc
+         qAiaOWTXBxR+RiZ+STVemTty5R4xbYnIK613+GcMFWOTO3jj8zBx3R3FaIf529asBtYc
+         ImLVfQ5UaMskbedLnsU9Qu9C6whXAOZGo7ji3n8sI3PLB4jq5aXvMhBrJdfvh+uU3Y84
+         BPj6BYfSvF26pn2G5W0aZk51yHCVjqsU4upU/LCx7kRUaSn6MnJGVrBdWvyeCH03LQuL
+         D13g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794581548; x=1795186348;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=x6mtBBgalchnnplTaE4gth6kZXm1TRJPsm/TY03A6II=;
+        b=IwB4eUUN1stQZrZdug4tMa/4ua8uYR9eyScOuMvnThyMZ0GBL/+S7H+LAcM1RZtgKU
+         Ht5E67+hTAkz5GFL401gsjZgQl2gq3i4SekwgbBsYmO75IC5uvtEcV6H9Ee9RjRBzAe1
+         BHwNOUl76tmWaeFBZJWNr5758kuW/YqW3xsr6H7HOXCfHwkCLSj5TapzFRNJa9LW50OQ
+         79CI7NtoutOjaN8+puQYf+OmyP8Pe7F2A72/FFHD584TXcKvbp0/REuggzN5E4fZPMnu
+         9U/nvIIM8hInmg3ucvHSeOCmIOnRWWuR9gEUo2c1nM6XgaunRxMQGb66Jzv/rzU34w0y
+         5zpg==
+X-Forwarded-Encrypted: i=1; AL+hErFwC2PNCOhXgPeF8BJ81SK4Z6Bvdi387kR3CDHZdO3MVS5g/A1uwE9HPT/t5D9EMIbWYsr+wr2bwS2K@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vKqtK6W7ZSrWpZ9boJ0qXu/POYw4ImfS/L5jdUT4V3AYNLYyF
+	yE4QHPOtSjVfq308bfDickwA8FJKI2QxhA24mYcNKcEhbX5QBIpS3hpk83bpOVwXRVw=
+X-Gm-Gg: AYBFou2JXHAYh2+CjDf4b9dctsoJBtz/ne8c3e14LaytTpD0msQ+vvT8WJmXBkG6720
+	yXIl2Q7P+jFO+4qzxYJ2jzHtGTud69oKVrbFmbqBqAFKTzkyROOl6dVSQC8UlNBvyMPa12Wsx+C
+	uXMzvKk4A5yBibcN0zOcKgdqY7wiYfQjo5uUWB7paCVsnHomBHfw5PaOQ5Mbpjck7OFAPcpg31N
+	Mu+RsnhWJzaXu3Kw+BNb99O736s6qyVcH43tbSBHMCQWILzNJ0Bmlyyq7mQLG4vIkdt2P7ZDJ5Y
+	ldxPVTSFxFHFakxliGToxNxDVTj7VfRWeEJL4/R8xUMHMcJIHa+d/bfphWh89R8ty7+TmpBiVq5
+	fhTiKeU7eLlzocfmmFGhOVOszKkFNP9A+N2oN6NxjmahCyfDy+ze6LM7vHuB0NBmqNXaiZDjGpT
+	aY5XBjMnbYoIJkBgBQmgy92ZuJf9tRyUNELpVx03EsYeoYSbBS4/v1uUs6OSU7kUaBqDTjES7OT
+	3OdEfHmZjKo267LomymftBSpnfrgaMufkBfCnrSK7OfR5XqNFSF6LPJzru3qbQKfvnQY0VD6j0G
+	a0D8/FB0Z0WYK6ipsxLlhdKm5sTkQKVTTuuPOdzbC2dss54U7zUDG0ea61o03QBF9mrrbIEGzm7
+	BzM9w2tc=
+X-Received: by 2002:a17:906:f59f:b0:c3f:c856:fb7a with SMTP id a640c23a62f3a-c509610fe94mr243168766b.3.1794581547988;
+        Fri, 13 Nov 2026 06:52:27 -0800 (PST)
+Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b40831sm112988566b.42.2026.11.13.06.52.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 06:52:27 -0800 (PST)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 13 Nov 2026 15:52:23 +0100
+Subject: [PATCH] arm64: dts: qcom: milos-fairphone-fp6: Enable Iris
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,131 +91,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-fp6-iris-v1-1-5496b6d99911@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr9LM2kkYDBi5imHR1qmOCQU7xZAQ7
+ m4Vli95/78VlJOwQmdWSPwRlTEWoJMB/7TxwSj3wlBXdUtEZwxTi5JE0YXmcrWhIm4Iij4lDrL
+ 8r279zjq7F/v82x9G4vdcGnnXwFll9OMwSO5M5CXj0SHot+0LWuOClZ0AAAA=
+X-Change-ID: 20261113-fp6-iris-bf579af01e51
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794581547; l=900;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=eOYybVYmm/vaSHdcDuworLmH2a8ysNCRIzxyd+Wv6Bk=;
+ b=Oakb4yTV8EJe4CaVf0hGwMlwSdxXutNjtX2IXg+EVnvMzeZGSXydLJ2z4lMzaqf3VkYczrgNv
+ kEoaXwbIYsXB/26LegEkRQcsr03nJhNjnMVCkPp4psMIYflweIFUM0L
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: remoteproc: iommus defined only in allOf if/then
-  blocks
---
+Configure the firmware-name and enable Iris so that hardware-accelerated
+video decoding & encoding works.
 
-commit 1ded47577cc7fa6ba7648da8e6df9b5ccd0a3022
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-dt-bindings: remoteproc: Move iommus constraint to SoC-specific bindings
+diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+index 5c4581410a40..e46db1b794cc 100644
+--- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
++++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+@@ -768,6 +768,12 @@ &ipa {
+ 	status = "okay";
+ };
+ 
++&iris {
++	firmware-name = "qcom/milos/fairphone/fp6/vpu20_2v.mbn";
++
++	status = "okay";
++};
++
+ &pm8550vs_c {
+ 	status = "okay";
+ };
 
-This commit removes the iommus property from the common PAS remoteproc
-binding and adds it to the SoC-specific PAS bindings that use it.
+---
+base-commit: 6aa7dbf8ad5ebd3babf53a4d6209018f86939f17
+change-id: 20261113-fp6-iris-bf579af01e51
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> index f75cab6b4ed95..4662fe4cff62f 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-> @@ -32,9 +32,6 @@ properties:
->      minItems: 5
->      maxItems: 6
-> =20
-> -  iommus:
-> -    maxItems: 1
-> -
->    power-domains:
->      minItems: 1
->      maxItems: 3
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
-[ ... ]
-
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
-> index b20780e5e26bd..8aebc785f2126 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
-> @@ -169,6 +169,18 @@ allOf:
->              - const: cx
->              - const: mx
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - qcom,sc7280-adsp-pas
-> +            - qcom,sc7280-cdsp-pas
-> +    then:
-> +      properties:
-> +        iommus:
-> +          maxItems: 1
-> +          description: Firmware Stream
-> +
->  unevaluatedProperties: false
-> =20
->  examples:
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml
-> index 5a7c5f8c92d17..5c41c89369605 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml
-> @@ -178,6 +178,19 @@ allOf:
->              - const: lcx
->              - const: lmx
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,qcs615-adsp-pas
-> +              - qcom,qcs615-cdsp-pas
-> +    then:
-> +      properties:
-> +        iommus:
-> +          maxItems: 1
-> +          description: Firmware Stream
-> +
->  unevaluatedProperties: false
-> =20
->  examples:
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> index 99e9aeeb4f62c..f838b98c43f40 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> @@ -317,6 +317,21 @@ allOf:
->              - const: mx
->              - const: nsp
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,glymur-adsp-pas
-> +              - qcom,glymur-cdsp-pas
-> +              - qcom,x1e80100-adsp-pas
-> +              - qcom,x1e80100-cdsp-pas
-> +    then:
-> +      properties:
-> +        iommus:
-> +          maxItems: 1
-> +          description: Firmware Stream
-> +
->  unevaluatedProperties: false
-> =20
->  examples:
-
-[Severity: Low]
-As reported by Krzysztof Kozlowski on v4 [1], should iommus also be
-declared in the top-level properties section of qcom,sc7180-pas.yaml,
-qcom,sm8150-pas.yaml, and qcom,sm8550-pas.yaml (or kept with broad bounds
-in qcom,pas-common.yaml)?
-
-With iommus removed from qcom,pas-common.yaml, these three schemas define
-iommus and its description only inside allOf if/then blocks, whereas
-Documentation/devicetree/bindings/writing-schema.rst requires properties to
-be defined in top-level properties with the broadest constraints and then
-narrowed or disallowed in if/then/else blocks.
-
-[1] https://lore.kernel.org/r/20261105-cunning-whippet-of-success-e4fd3d@qu=
-oll
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-shikra-el2=
--v5-0-8aca743de97f@oss.qualcomm.com?part=3D1
