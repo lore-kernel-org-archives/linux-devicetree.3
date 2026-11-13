@@ -1,107 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575072;
-	b=tPAt/MZYKuCB6I8ftjlZXc6XxXlLDSZlPD6KQ1ceVreOb/ZXh4SYcZDAO0AqLF0rQYop
-	 uQ2HV9R0vtOnknvxIOU2pUvzFvVOgPQex2/SMIO66AFrxRUIT55b3lqHU25ImTjofGF66
-	 hm9AkFdS48dKTo+FzSmld1l1sXtrJl2kjIuRWhPyiH72BSCl934/Cq5PDvjH21eNToSb1
-	 ym/tc5pz5oYNBBy+DSsANVkxgDztgmWeqC5NEpxl6IMRYDIHw1zrWzOy7TS5D2alLqzfr
-	 Q97p0B5Ox+JVn2tJDQ+tVhwro1UwMHbStm6nIocQZzK6LYK8gMxXA/+3ZHTqPvzI5bQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Bko+HUcyhAHNudlJorQZD/sxxlgE8GJ6dUtZz3KykI8=;
-	b=Bc9kQDqkLrJHgEKZ9rujCOuEuTTsh6ejV+OAhgqF2zW3GKe4hyJmdmoRqm+oaB26TPkN
-	 D7WLLqQHNSomwCT7tl3++JJabssmdyyNJae2hyqKeNHf6ymT1aLCbQ4WP9UBl8wEktdxt
-	 R4jTpKvCmkrS1Y4j3b8B+cpfqn4aSbl0g3hXXXcHLsxNdAsNenIAcK8QT0A5J8jDWpIZt
-	 /QfBh/0hUUOWxPBA/wSpP5l/HAHmNmaMau/K4gNF7efzEwoAS0jimBrscFIuHhtBH1TaK
-	 xGL2+r2bV3pccBLLNcwq0JxUz8Lbtzi1gMuGm6SRP7eDTrqVJBtC6m8sIEJ0PnjT4ew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=monstr.eu;
-	spf=none smtp.mailfrom=monstr.eu;
-	dkim=pass header.d=monstr-eu.20260707.gappssmtp.com header.i=@monstr-eu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=riqlwF1K;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794575160;
+	b=mHOuYfAHzD6UXm9pM9EnARLTrWn2L8gOjvBVgRF5YIHl/Op3OdGFIqV/ZbtbGx7vysqj
+	 /owsMrUqrDcTK//1aJ92/OJM+hx84VmMdAljRPYzi6kCB+KnDHncLwuMDu2uNFaebRkBw
+	 uOVyl9TecmIftMy9Xc94IuCMoJC2fLJCxYLaiU9ray67fFONspt0aPc5949sb53CgdxE7
+	 pK2+qmr+2lUiKetqh2P7zTWwKZkmmqVWF1flokxd+eXD+66tODWL3WVuEQzXgpgvaJf97
+	 IF314n2NVtrK9z7s8iL/bkCfD6DMUm4jNRepM4yIfQFbDiqR6pJy414VDSiLOXdxGoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575160;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=l3vUTCiFrqYPsM7jXOQkc8hoThEnNUzOHIfBZ7FEwSQ=;
+	b=45WCCxQp+C3v5slxEdt5Yh+Z0TAJ9KfFGFvuDcJQKrkkuhxMI/d+5wl+g37Qb7nD0HFy
+	 iWTi2u5WOb2Qg31nW6op9aPd4c6XaF1455M9ZBxx6u6NJRFpuc03ZaErgdX4Y3dOcDB03
+	 GmPkAoQBemTkV40MmWOagV6hv9IhkjYkMJ2m1MdCmav65QhFmzpFFt+Ea7d4qz3bKJ0iF
+	 40U7iXMqVv2GjL9Q8y1MF1j9XJjXtgRwTzuSPW5B67UI2R01atvJAyk1kEfqDONqv5Pd6
+	 bFef6MHVlpY8ya/buZbaqQQKfh4Zkro5k+nHEPx+qvx0OpW//N4sQIomVSAKjg5XSEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4EObd+72;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.19
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010019.outbound.protection.outlook.com [52.101.46.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789B3606A332
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:04:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 789B3606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FB860A2630;
+	Fri, 13 Nov 2026 13:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62FB860A2630
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=monstr-eu.20260707.gappssmtp.com header.i=@monstr-eu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=riqlwF1K
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c468bd799ecso180713766b.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:04:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monstr-eu.20260707.gappssmtp.com; s=20260707; t=1794575069; x=1795179869; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bko+HUcyhAHNudlJorQZD/sxxlgE8GJ6dUtZz3KykI8=;
-        b=riqlwF1K2vXDVc85Cx4Vu+yVDBUrlGNjjhwTbOurWAExBVWrYUinisAsdtwKCPxpeg
-         YH7bT1VclS+1KvJmbM6/JQXvvWljNGC6Qm/XZGiTNoeZhMzU5XY+A+7NlXD7QTy5y+Zk
-         Hx8k238FPCaDbkCynQbyT9f3awDslu2qaUV/nojBNTzN54nAYXLqkn0i0+WC0V0f+fZy
-         F/1QWWDg4lZ0rUUfdOK+NogA+/s58jdxKywh5j4PtxtGQqfBBFTnUvxWC0pBvatJ+ZdS
-         mxHL8U6Tzd7istONQadvhbDv8VBqVdRFmk7bQRL9nwtZAre5tDabQN5eF4qxNEneXRuA
-         Is3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794575069; x=1795179869;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bko+HUcyhAHNudlJorQZD/sxxlgE8GJ6dUtZz3KykI8=;
-        b=t4qTAVwVnnyU1c38+VA0rguG6TUX04pKsKQYZ0sI/dyWWeYRWe19GxSTNwEkkKeFV1
-         b1rUeiWdDmm3gksaxG5j0igFoz+VgF5jJoQp5LF6hLFe6g0Z4hxntROcIyUdYq9vTXXy
-         7gv1rRC2B308PYtAVm9TR5Sy7WiIn5YZsxs00P0sJGDEkySgrad0r/enN833xJuEjcfg
-         lDuGJYcL6W6MsYPaAurzzBcKRA0x+dZdUGBI30/lLa6JbZVuVTWK3jSzz2Mn2uCL8VEZ
-         gUU0mQoejY7d/G2e2tti2jFMR1RMerMApcm3PSkl3LOxKuZhABZ6wKKKrgNya1Ov/XSZ
-         41vQ==
-X-Gm-Message-State: APuU4Z+KBUfDwdj7Wo1gYLIgFjcsjnRi3xwOYJiiZ6Sa6zn3ws9tJvfb
-	vQyAxwxHtmQu2CBwxVHWiMNKREHCiUW1NsvxV4ktG6zv84+FqcfzimRLP/V2Z9CulQ==
-X-Gm-Gg: AYBFou2XY50P4hJ5cd+99nQcTwihNQa+hYPBgTjFDMaX/F89Wv+FxYyoSAEM6h3aYvB
-	GBE41gBxApzO/LT8wvHBDfHrUYdTzjFaYwSbZIhF+6AYwtN0IMckLQF4c4MEvwl0kpVAwHlHYFN
-	XZ2WTT91Pj6oXI/ySb2gUAnAozmvzNeNP/nOqID9ra4B4I78k883bh2VmGSbgG2Ni0Gf9wc3d9C
-	M3ulje/tJR+0Hp0+lkspgkfTPauqTiSLTlYC9IxCqxPT/0i8r1Caas6Ud5T8OWgMZ9dLdFXhlRp
-	n2baLAOQyyYG74CvrN/15MyaYZl9RMm6qSBpMIAEhwEllmE1cSTJTPCQ3pOgRKEMjOc1lNk30+E
-	1w/RNOBJI3IF8ceZ83Gsx8XN1Je516PC+9dAHOJ3lncb+euJew0pG4mUT/ntBMPKHgi5cgQV2z5
-	UUOG+rfTqKzFP3X0KCY4rEXQwpoazYQbBFFATeYOfwD14FAYaX6YGuUKbDQq6LvVtmVGtFa9htI
-	57IkImtstmP3TPcDrNAvgeI1QVbEBI8z/9FdTwzBrHbaSndrtqvhAkIkmvjlEE1jXB60IOF+neQ
-	AKrHJZveeEQmPOtJsPg18vtmak/XdrwGrUKVSd96BJzSF9HtsVu4u62WBcj0u0pl/jK16W07pvw
-	T6N6Y3sjA/n/DH3yi2KI8w+WvUt9AnzTwSVdaBQ==
-X-Received: by 2002:a17:906:f5a8:b0:c50:5e90:5ea7 with SMTP id a640c23a62f3a-c5096853f0cmr210109966b.49.1794575069275;
-        Fri, 13 Nov 2026 05:04:29 -0800 (PST)
-Received: from [192.168.0.105] (nat-108f.starnet.cz. [109.164.53.108])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b7eb14sm91031666b.75.2026.11.13.05.04.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 05:04:28 -0800 (PST)
-Message-ID: <b40c2160-f5d4-43ab-88a1-14cb11bf92de@monstr.eu>
-Date: Fri, 13 Nov 2026 14:04:21 +0100
-X-Mailing-List: devicetree@vger.kernel.org
-List-Id: <devicetree.vger.kernel.org>
-List-Post: <mailto:devicetree@vger.kernel.org>
-List-Help: <mailto:devicetree+help@vger.kernel.org>
-List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
-List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-List-Owner: <mailto:devicetree+owner@vger.kernel.org>
-Precedence: list
-MIME-Version: 1.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4EObd+72
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xBwUV0o8ie67mKogpU82/Up/55BbXJZ3mAaHk5TohnvcSWLYDRffijXaCjjYYS3i4oKnXD9IyuciENx/86Crw2us3aM4kcgDKr9FLfJLSYbmcxNkf4e6VizQuV8eX2sZJE2pTJMZubQeP5W5JoEn834ocQOxbSeNCtNtWXC1BRZwV0+RBF6BcSJ3fKO4fwA/hKvkLfIrCZwkBXFenXaJ94H7gX3Bwjo++fYhXQRH/IGnHP78T289fp1H7EmX+af7RZCr6vaH5fNYJg4hz1jq3YtuF+iLd+xcmfR54P+BJUFktdAcxsdNgGmaxBLxBR+NDYVBs8QhzHuJhIxpc4lsnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l3vUTCiFrqYPsM7jXOQkc8hoThEnNUzOHIfBZ7FEwSQ=;
+ b=x7KZ1QG33a+KkGqe0XOh370PbTtIXZ9IdwxDp9YFgJvUZW3CYCyv8kD9Hq3/xN5PFKwEBBRouB/HVOsJSLtWCBWlrjPlSX7Ie5VlQJ5aHCtnWGJAVoJcERK4qRbuFenffHmbwEV7MD21hiSPLa1hzlrmsrswPUJJDDTDU0bbvgXc1IJ21ijbWbcAvt3b2NF4eo5T1/kNYGig1dQHcwhqAXaYEjGojdA4Np+Ct2Xej6RTn30/VIy+1gjcDKcCEqipQNb+XriDg6Z6nRV5ChthyGrNdzABFX6XVMrrONHdzjmhsA8Qosjanr6BW6f7pnayeUEtJ997D9Hjl9VBCOOr0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l3vUTCiFrqYPsM7jXOQkc8hoThEnNUzOHIfBZ7FEwSQ=;
+ b=4EObd+72I73pDkojXjqjnHE4EBxyo9VB+rOLvJ8ymOAT0lPeu2CNy6QeZDchYfa+v3k0L/lWuvb//Z2H0pzkOCZ50m1RFAlpkZQwhrt3pBbAPuZLYBDr2Rmi7YK7TpDwbwakZZ2noessPTzCpivUCNH7X9BBg6WSg5vR6o6yHss=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by DS0PR12MB8444.namprd12.prod.outlook.com (2603:10b6:8:128::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 13:05:57 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 13:05:56 +0000
+Message-ID: <45adea9b-be14-4954-8335-267dba33afbe@amd.com>
+Date: Fri, 13 Nov 2026 14:05:43 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: xilinx: drop unused #phy-cells from the
- DP83867 nodes
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v3 0/2] ARM: dts: zynq: Add ALINX AX7Z020B development
+ board
+To: Pufan Jin <cyan2254650260@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-v7-4-topic-zynqmp-dp83867-v1-1-04500475a560@pengutronix.de>
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
+References: <20261112193245.250149-1-cyan2254650260@gmail.com>
 Content-Language: en-US
-From: Michal Simek <monstr@monstr.eu>
+From: Michal Simek <michal.simek@amd.com>
 Autocrypt: addr=michal.simek@amd.com; keydata=
  xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
  howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
@@ -146,41 +127,122 @@ Autocrypt: addr=michal.simek@amd.com; keydata=
  otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
  ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
  mpwx1d8=
-In-Reply-To: <20261110-v7-4-topic-zynqmp-dp83867-v1-1-04500475a560@pengutronix.de>
+In-Reply-To: <20261112193245.250149-1-cyan2254650260@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR10CA0092.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:803:28::21) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
+X-Mailing-List: devicetree@vger.kernel.org
+List-Id: <devicetree.vger.kernel.org>
+List-Post: <mailto:devicetree@vger.kernel.org>
+List-Help: <mailto:devicetree+help@vger.kernel.org>
+List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+List-Owner: <mailto:devicetree+owner@vger.kernel.org>
+Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|DS0PR12MB8444:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0920e253-bde6-4be9-0cba-08df4186daf7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|10067099003|11063799006|56012099006|261026121527099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	9pCXQjBMwAR+39p5Wj/Y417s/G77NYVy8/CjWndJe6HAc6sXJjRFGTFBcwToW2FUIdbtZtAvL/olKEtBPEqMDeF9G4ZuyMnkLH/b+Gin+jenA4DORbqKasI5EtCh5C2kHuciQnHHactn2DMiy70lKw2HAlWHf89vmdEq8g7CMpmHM1UPErfhxvVTiZNwxFsdGzrPjRiDz7Jt0dQ2hurH9IefRBnmat44udQ1wKcrTYhm2vDr/0MvhQ6S3x5H9iFZ3Bfo+8nEKNbQ6+3QAZ4UvhAr39hieOAR52O7BOcp4EfV259Qz/DrFp1gcZOk/YIlvmZfyqdJTmQ/6S0jOpagBBaKm25xEhrCqlwTe/E9LTN9yCyNe1wqVIQP3SOHdXcyT3dZ+cQhJ1mCDm2O/5l0xNleGwa3HZzlOUNvdhbZ+esl3jAhgWSyW/4mJ28TA2Qllh8/SvrbdAswNsOBjRuvS0r23VwedeB0TcxYtTsn5dkDjpMxS7KGN+K3/MNwXVqKXRG7IdgFUnDAjbE5M5wHYDMp5v45JN1gojrtAGOvhkedimp1qgBrGy818gxtz+knlPZB+m+eSg0fjxQ0q0bt+97ha9kokDlkDypj4Y3WVHwkQvAVXddShwRIOPj1SYmxw/LNHu3bSLJRCzyvfA+nbR2y05Z9Z8C1KPjqBp3FRJs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(261026121527099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YThaMUpHS0NUcEJETkk3b1JSUjdPbG9zNUhJQ0lnTzhxajIvcHhHekwvbFFj?=
+ =?utf-8?B?L0p5cDBjWG5IUjhLSWZTRzlRVlB0QjBwTTRySXdpaDlYanlmUHpmYlNuNUxT?=
+ =?utf-8?B?T0VUMm9RVkhFWUdaUXFYbDVkVWtNamxxOHRjakwwUlh3SURNL2tBaVA2SzVE?=
+ =?utf-8?B?NVpKc084SlJQMlRzNXNlcCs3SUhKM0dLSWhTOWNld1NsZDBWM01mYUdsSVdG?=
+ =?utf-8?B?VURINzJwN0xVdGI3ZGlPSm8vbjMwMnlpNk5WWW9NUEFTajVhNmtDbkNTRStl?=
+ =?utf-8?B?aSt6WmY4SU5mWnJYTWZTTG9GU3NNY3VsYjdEU2Mvdjg5bzRUeWN4TFNDT09P?=
+ =?utf-8?B?SGh1bTVlUHcwdCtUcFVvOVVGdWExQVNwYlIzRTFCYlNDTC9qYXZTc0p3bm90?=
+ =?utf-8?B?QUhEOVkrcjd3OHRzaGNzMGkvMXE2Nzc4VkFqZis2cUlibEdkV2FYc1JIS3dx?=
+ =?utf-8?B?TnVRSzdXQk1Ubks0RFRUbFd0VmNvL1M1MnhQWFFxRGlXc2FPQ3ZJWjZHUUJC?=
+ =?utf-8?B?ZzFLbjVkbGRPdC94NWxyY0R2RkVaY3AwdUNTMFdYRmU1aCtvQnFVMEc5RmNP?=
+ =?utf-8?B?clo2bVBoSlIxaWN2WWs0d2plNUFEaHRpcEZ3NnlFM1ZjT1NiMFZMbEhOZTRr?=
+ =?utf-8?B?MWhCMFFSZitHNnVxNlVBMklzR2xvdFowUHZBMUNGOExhZ0d3S3QxeFowUkFi?=
+ =?utf-8?B?Q3ZKVlNzSFN6QlptVXpYdW9HQXNhMXdmOUxwbCtuR0s4eEtkRVZMY2Fpb01s?=
+ =?utf-8?B?K0xkT2M4eCt0dlA1dUFBMXVTM1VzZGpqNExRT2J1d0owQ3RLZTEwV0tyV3Yz?=
+ =?utf-8?B?aDFsRHFJQ3U1dUN0RExlT3Nrb2lyWXlITHFsNWx0VHZ4MTM3M2pYVDh0eXAz?=
+ =?utf-8?B?NWZIUVMxVkNndGJhRGo2NDhzY2tNT3V2Q0orSkc2enBCWHUrQ05XbzVOaFBp?=
+ =?utf-8?B?YnhzK01NTy9KZFphK0JJbzJ0SEM4cXhrb3M4bFE0YURyMWJEeGtPQ21PQ0lo?=
+ =?utf-8?B?aHRPSFpEMGthaGY5b2l4b1VxU095U3FrV25pekFlNVpObEwxYWQyWGQ1Qkdu?=
+ =?utf-8?B?em1FeGhzcnh3dGZyRllVRTFSYTdqQlFHbzdZKzc4a1hlQkduTVp5MHFlYlJH?=
+ =?utf-8?B?aXc4MVVyai9qV1Y3SFNYYUNNeWNFc3lGMlNBUUEwVWMrekY4THpKaVFmVC9Y?=
+ =?utf-8?B?K1VxRHJCMXN1WDRtRXlxRFBlTDV6NEdEcDZEdCtRUmhUSkU3SDFFS1hxY0VR?=
+ =?utf-8?B?QmRDTFZMTURCMUhYQVZBSkhZSmV5Yk5BTFBQTlBHbHdaNmg2YzNWRnhaVUNj?=
+ =?utf-8?B?YWxOUkV3MlFJMTdUaW15Q2pTRFVqRkZsb1hkdzdyWmFaWlJ4c2NyS2IrWDNq?=
+ =?utf-8?B?bGgzbzdMTzBVaUphL1BWbWJmSEhOMmJ5K2d6dUJJZmlkMlViSGRCajdhL3BO?=
+ =?utf-8?B?dmtUVGlYcHQ4WFVsRnlHeFVlTVBvbHYxODQxVmdmSDl6NUh4Q1hqQXB6UVpB?=
+ =?utf-8?B?OHBIQ2Y4dHY3NDZXRHJJc25mc3dVaU9helpzUm15am96L01pRVFIS1RWeFF1?=
+ =?utf-8?B?Y2F3MFZyNytHSzR6eGlDNS84WHV6d3RsM29hRGlkeUp5S0JBVSt0V2ZQN3VQ?=
+ =?utf-8?B?STF0KzFYeXFiYVZ4bDUwZnBsSWd4NktXOGFkSHl4eG55a29XcHYydTkxMks5?=
+ =?utf-8?B?Vm1WVGIydFhUc1RLQjlKSDk0dVFrK04xMjhXVmJqTGxzcUNnMll0VnlpWW1T?=
+ =?utf-8?B?K2xaUHdwY3RoU0xqUjZpa0RlUVBlQmlQMUpnT1p6Zm9wQkE4YjhUbndzeVMz?=
+ =?utf-8?B?dVNudWZSNEJxMmhJUFR2WjY2VkdQOUtTd283eW5zdXg0dS9vQ1c1bmxCRjF3?=
+ =?utf-8?B?cy9WNk1HMHEvMVpaRk5Na2k2ajl4NVQ0QTVFUmdydmtKYU5jUktuSzRqdTJx?=
+ =?utf-8?B?MCswL0sxZDZZN0hvZmw3eTdzLzMxZTRFZTBqTUkvK1lmVW1qODNhT3djNkdz?=
+ =?utf-8?B?dk5aSmx2VHhaTlY0UHl1TUk5WVN4WkxRdUxXb0dXT0JlaHZ2TEtsSU9YaVlz?=
+ =?utf-8?B?VkpFSjNHemw2WUZlM1JGUGNEWHdNTHg5T1FjQlRiZFZEamN4SjlJY2ZxSlpG?=
+ =?utf-8?B?eWQxMTkvT3d3L1JFLyt0N0NQQm96S0dwVHBMTGpBSXVOYzQ1NjRzZFhaVEdI?=
+ =?utf-8?B?N2pXOVpOakMydGVDNWQ0L3pFUkp0ZFBjMCtVdTh3Mno2MjB3QXE5S2xFODlZ?=
+ =?utf-8?B?aEt5bGZZQUxxcURZeUY5a1dDYnlCSjhIZzcxS2xMYkhuVjNlSk1lU2Fpdjlp?=
+ =?utf-8?B?VklFeklUZjZkOVQ1U0tCYSsyZXdMbFVsR3dJL3owTWlrUzFocXAwZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0920e253-bde6-4be9-0cba-08df4186daf7
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 13:05:56.7568
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gcrlk3+KH24c9ZZCykBt0nCYnayaAXeyWYxAY8bVLtW1Hv4ZSz58uiNX7PdTVz5D
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8444
 
 
 
-On 11/10/26 10:03, Steffen Trumtrar wrote:
-> The DP83867 ethernet PHY nodes have a #phy-cells property, but no node
-> refers to them with a phys property; the MACs use phy-handle, which
-> takes no arguments. #phy-cells belongs to generic PHY providers.
+On 11/12/26 20:32, Pufan Jin wrote:
+> Add devicetree support for the ALINX AX7Z020B board, built around the
+> ALINX AC7Z020 system on module with a Zynq-7000 (XC7Z020-2CLG400I) SoC.
 > 
-> Drop it, so the nodes validate against the ti,dp83867 binding once it
-> is applied to them.
+> Changes in v3:
+> - Drop the vendor website Link: tags (Krzysztof Kozlowski).
+> - Drop the empty bootargs property (Krzysztof Kozlowski).
+> - Rename the USB PHY node from phy0 to phy, as there is only one USB PHY
+>    on the board (Krzysztof Kozlowski).
+> - Keep the explicit mdio node under gem0, as requested during the v1
+>    review and reviewed by Andrew Lunn in v2.  dtc W=1 flags the parent
+>    node's inherited #address-cells/#size-cells.  DT schema validation
+>    reports the same Zynq-7000 diagnostics as zynq-zybo-z7.  The MDIO
+>    layout was also verified on hardware.
+> - Sort I2C child nodes by address and reorder status/reg properties.
+> - Add Krzysztof's Acked-by to patch 1.
 > 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> Reviewed-by: Michal Simek <michal.simek@amd.com>
-> ---
->   arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso | 2 --
->   arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso | 2 --
->   arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts    | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts    | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts    | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts    | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts    | 1 -
->   arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts    | 1 -
->   10 files changed, 12 deletions(-)
+> The "alinx" vendor prefix is already queued in linux-next as commit
+> 1f06cd374a60 ("dt-bindings: vendor-prefixes: Add ALINX vendor prefix"),
+> so it is not part of this series.
+> 
+> Tested on hardware before the DTS style reordering: SD boot, UART
+> console, SD card, GbE (900+ Mbps and LED hardware offload), dual CAN,
+> I2C, QSPI and XADC.
+> 
+> Pufan Jin (2):
+>    dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+>    ARM: dts: zynq: Add ALINX AX7Z020B development board
+> 
+>   .../bindings/soc/xilinx/xilinx.yaml           |   5 +
+>   arch/arm/boot/dts/xilinx/Makefile             |   1 +
+>   .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  71 +++++++++
+>   .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 146 ++++++++++++++++++
+>   4 files changed, 223 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+>   create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
 Applied.
 M
--- 
-Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-w: www.monstr.eu p: +42-0-721842854
-Maintainer of Linux kernel - Xilinx Microblaze
-Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
-U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
-TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
-
