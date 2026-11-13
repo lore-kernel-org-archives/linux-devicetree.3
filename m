@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794609214;
-	b=uqtVXyKs32IoWoFzCRCH8YTuFlyNlR1zCmxBhzG6khbQQB6fwhad2idMmlHevBn2J+/W
-	 KdKWO1MiErtgM8S+EgDHFhjUVs9cxUIWWXYoRyBdAjD4sVoO+ySMF2EnYHveRjMQeXiJz
-	 Gs/JgUwNTKD0gZ++TcxRJgpGXuul5hebqdXEyXEauBwbJm2fVHzOYBuotA6RmQ61QCyI1
-	 Qy0WvZJDd9i2eBleZBb7oPEXl+95j/Fm3LI/NosHHqLikJoQT1tnqxkcXjBVcmnUBMXoG
-	 Q7JlOtDGYtQRr35NnW7Wi5qXrCHabWgSIDZU7y2Zyc0hrsFOXsaj1CeuZSpY6aukXgw==
+	t=1794609217;
+	b=0kx6Ab854GLVxOEshPm/V1z5bLCLx0G2BkFdvzOeK3NIDxC7yB6+ZHMlDp/sLp/qG1Bu
+	 UNRyAroe5gUv4JA0BnaMDARCs1nh309geEpNEIbIU1wiZ9sTk1cJpXGzj78MEV2mAZVbo
+	 8V25IxytG/Ek8qWBtxpKwoKmsf5n3GrkU0cpQi+d8i8NmDxG4+w2WWhymnotRyNA6bEIs
+	 TvCVhAeynN0DtX4qUxd+yc6Dy0YlYFJq4rZuG2NzS0d+hi0A5WVOtn/fC4mSgxcaoYdYx
+	 Os+5kxEIz4Hi0GVrZoC5errjgqbzOaqAPz0GjelxPByKHM+WKZrQH0Xn+UbidT74JzA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794609214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794609217;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SVUoyJCmjOfWaoa4/ZIG/PW30Z2w09I5kCJhkQJiNH4=;
-	b=g2xqJ7pzSBtZbSy493g6ad9d5Uiobzs1oGf7YhBs9hLg7MysrzH/Zth/A7rOEEzO0bAT
-	 +TeaZCnaKjDLIlgN+UkU5ue7s16IfzD8nK6qo8bvfZauhcKdW37VtbAxRQgUb0bUX/Lbs
-	 7JGCaS8Ok/ZX7CgUKRCoSKwhp08nTx56WvSjUlo+P/gANC3B3DiVCW1kmKO7IC7QuCtyz
-	 ylDF/hM/w349S9pJRwv+uJZH9Mvonyj/ezis3xbHG4oNZlCupbs+rrYtTkQfI+E1s0odm
-	 Ryk9uqbX0HaOGzUpRU0+hMRAzF37zRk5DPslNKpAWD29QDe9N21uiaF1hdUrK89Fjnw==
+	bh=ayF6vBRvkksclTHjPSyWasOw4KoXplwINp671BmeISE=;
+	b=5J32xeo0VumzPTbNnTtpzxbsaWKab1oAtBLKgKFuBdSYOqNsjzkBD0jxSGQM+wePZKIf
+	 ouqnQT+MFA7LPQ7XMYNLAN9NaEg+dF9bBEuGR3p3JbhyArNwWgw0+NzpMUPNLA+XK6+WP
+	 uU1G0qqM6vWESwtnUoCg55eRrwGk5e2Ljth3v3SH7FSV8P321KmCBTDqaf+imNorcjaVZ
+	 w8iz+lT3Knpii1i67Afjka47WFqHeNGZsfNvjEjFyvFnizcT0e7Va5bUBI+4sBf4f0SC0
+	 xMzNHfrmcJ34ArOQTvkJMncJ7ujAznS8x7M+V8NfQOLlwqU3OR1usktXQH8KR4XjWnw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uz3Gf3IO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PCk/d6YQ";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CF4606A8B2;
-	Fri, 13 Nov 2026 22:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B762060A260B;
+	Fri, 13 Nov 2026 22:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uz3Gf3IO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PCk/d6YQ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794609214;
-	b=f1AsNJRCs4doNRyApKQvZhVKnCBInawI7GNr7S1NWhOtencxJrCq04OL6n58VXy/FHOa
-	 Hrs4VgZRrrNRLEWT3H3/+ivImqecNK/OtOHs4TxrxiCEtdYx+CbDJxV2KkLQkTxuOJgDb
-	 NnJtpZQB9ujbNnlL2X0IL7A1Xn88EdfpwUQ+88Gr69gZcS5JOM45iatW89nz/0g3yHxjr
-	 t52+5nd6zC2FoyvcCeUH+3iwaUpKNi/nfmK7QzCIti8qy3Q0/ofOC+u9Qq5B49sOjbfRv
-	 S8xcbPHrzOrL07er9+2Ez+MuZryJ6Vr27OjkZYogIyFLayhxAnECqIV7+3IYKhbp2XA==
+	t=1794609217;
+	b=Lw80/v2VkspQrval8nmgEQp22tTaecaFR5kKpDMuV0O59LxmBfOXTCmBbknzoocMcovy
+	 OkMv617+ZDJYtTgD9UbPG8X4f5DvbbfjHpmjkFLGmCW11yI3H+0UggCflDWQ7vNYsMaC2
+	 JAkDI4iSOg94iM1WaKvLZ8veIYClW5JpoVw4aCxDk2ogXDohRMZSWcaY9dALRgPPYlVXz
+	 KiLRu1Thvz0Y0aVL0NJ+BTmI/BqL088iRolvTrXEWPC0QGEfQRIdkvOFnt+ssLbncQfZ0
+	 agQ1goGuYzrhDSFXW/rf0Kmd4/rR7ZmrY/8/q9WClEYwfLqFM8pnZL8i4OV7nEWLwjA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794609214;
+	c=relaxed/relaxed; t=1794609217;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SVUoyJCmjOfWaoa4/ZIG/PW30Z2w09I5kCJhkQJiNH4=;
-	b=11C6K67yUaccJLUD9wIQ4lylCgGspnmCielY/w9ClpfhXtzdPxBKNXS9GiQUL18hoVR6
-	 C2z93CEyYaoTHf7bw/+PHhFg9yfvxa7SW+kbAVJZVVz1rx9vwfsJ4DY+PDY8hDUG6HLWZ
-	 Lx2b7lcN/ezgZrSgq0EOXUsHo1g0NKZ9EmokHSKfEnCt3D9GfAXcIj8mvht2Z+f3XA29P
-	 AjIdq+sei+yahJANaFkItj16ecooRMtVgJSs8+l39031SSwFVioqr0OALcX4e0TK83a0I
-	 JA+PpbLkgeA2FZJRjUgNbcaRQW40xPFTeCxxIPZ1Ni7599R0/wPgMP8NROQtGKBxHtQ==
+	bh=ayF6vBRvkksclTHjPSyWasOw4KoXplwINp671BmeISE=;
+	b=V4GUySn69WcZUh7ubDZKaYOhzfL2yQi6ocyS7OO2kNzg7fWEb4kVjH/Gtgg6RgnMG1j2
+	 JwCQz80fQb9lplCTnGFkzVA6D+do7ddI8hkazKFuB43EaV7JaEoSaW1o/S5zp9W3o7Lht
+	 hL2kf0UTUyURKlTj5eYZTQ1hChHJCkgG+TZZ8hCC98Fd2hPmtGtiAb7ThakbV5dqPz5VK
+	 0UktpfaTOWwiKVhWZklFNiWcCdfjsPC21tl5PsFH38i1zwre5c6I2o3/pgK/wOgRYDq5Z
+	 gSvCsmY7Bc1eWMxUI5A+x02/aLmtovF7EZv88DQPyKO6DfWeJzh0cCpfP79Q+dRoJRw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 457661F000C7;
-	Fri, 13 Nov 2026 22:33:33 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0614E1F000CD;
+	Fri, 13 Nov 2026 22:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794609214;
-	bh=SVUoyJCmjOfWaoa4/ZIG/PW30Z2w09I5kCJhkQJiNH4=;
+	s=k20260515; t=1794609217;
+	bh=ayF6vBRvkksclTHjPSyWasOw4KoXplwINp671BmeISE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Uz3Gf3IOKNKbUDyvkF5yaDg8wQsDqi0rMBuduIekeoCD/6A9UioyqL7rVKrZWmlU8
-	 FPl/GU+zv7gx4EJSnDFcwHjbqhaOClEIgUe2nWh4h2pM5ac6BUYUWEOwFaWQnzBs1p
-	 A/+U8KCS3QGNcuu3eBCtdPxGnKIvHYH0lXJyPEdqPGCefT4Vgx6gAZ2/kpl/yRUg8b
-	 FmdzAGoGQ2de11gM7oYElfJWc3dwWStWBbjj5PwezeDNoX1qx71pACm1jKbjLXNBcL
-	 aFWX3O2lNarTBWsEsFRxgKhMrXWyoqyp/MNRbpaZ8xOMohCJOC1TFF1CbUo8wNpLA0
-	 EL/bAMhFVWQFA==
+	b=PCk/d6YQSWF7We7dBRL29c+DHY1FupE7tjodyOmNBtMaXeqmb0k8QnARUpuTPDw2d
+	 ybjOiX2SX7n743zJaikT//Ojxp3GlQ1eH6jRIdYAYvMbHaODrsvQlnLn5tfECjjB+k
+	 ypnvCitXhCID3LYzsyDfHvCHnd0b1qfdKvOjW+BpbtgC4yJ6NaU03s1Gao1nd6PZAg
+	 3Ez7P9HyXAGTFO7hLTLSaUajMowr+xXZLzHDoSinpevqLttNWsmmbdmew1MIU3g/0A
+	 h76EowCWGQZTkURZU+vkEXrp8GfanBwt3aFDA6eVyAbStCiTMwX6TivGXe+I0ztd/c
+	 SKIN9bCMyoNsQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C646149B60;
-	Fri, 13 Nov 2026 22:33:32 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 689E449B7C;
+	Fri, 13 Nov 2026 22:33:33 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 14 Nov 2026 06:33:29 +0800
-Subject: [PATCH 03/19] dt-bindings: interrupt-controller: add the Allwinner
- V861 PLIC
+Date: Sat, 14 Nov 2026 06:33:36 +0800
+Subject: [PATCH 10/19] clk: sunxi-ng: sun6i-rtc: allow another 24 MHz to
+ 32k divider ratio
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-v861-v1-3-eb71ec3ee523@iscas.ac.cn>
+Message-Id: <20261114-v861-v1-10-eb71ec3ee523@iscas.ac.cn>
 References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 In-Reply-To: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -111,11 +111,11 @@ Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
  linux-gpio@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=1317;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=cSnoa1dpGjZSXjdnCsHi40WSrs62RIT7HSiX9HoaPgc=;
- b=iUCPT/4oCEjTnz7lZ0cOcZBIisCUgfbo9jK2u2Xc9FyQvXvPzQoULCXlDT0a+Q1dNOOOi9xgL
- MKKxhwkgxw9CXLKvgiG+vXeQx0tfqqYzy1tVyBu4gG6x4SKQKLVJ3ZW
+ bh=4J4UFeD/eghp455M83eHVDqg8JSEWGJn1Ho+53uK9kw=;
+ b=bxWPhg/JyaODgEHvYWbpaZH47om1EuJoYhcMyIKsswhKOxOfeMIeHT2Vc0XRwXRU3X7LU3/uc
+ m6Q1MIe7JxADYv5O0YTn0lRP85QuG5yZexTgEa7RBlOQGEcBUeb3z0M
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -126,26 +126,39 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-The V861 uses the XuanTie C900 PLIC implementation, like the D1. Add an
-SoC-specific compatible with "thead,c900-plic" as the fallback.
+The fixed 24 MHz to 32 kHz divider does not divide by 750 on all
+variants. Allow the match data to override its multiplier and divider.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- .../devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml      | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-index cde4bb691897..6178fea9bbdc 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-@@ -72,6 +72,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun20i-d1-plic
-+              - allwinner,sun252i-v861-plic
-               - canaan,k230-plic
-               - sophgo,cv1800b-plic
-               - sophgo,cv1812h-plic
+diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+index 0e40fd5fa624..b3619222fef0 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
++++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+@@ -54,6 +54,8 @@ struct sun6i_rtc_match_data {
+ 	bool				have_dcxo_status	: 1;
+ 	bool				have_phy_ref_gates	: 1;
+ 	bool				rtc_32k_single_parent	: 1;
++	unsigned int			osc24M_32k_mult;
++	unsigned int			osc24M_32k_div;
+ 	const struct clk_parent_data	*osc32k_fanout_parents;
+ 	u8				osc32k_fanout_nparents;
+ };
+@@ -436,6 +438,11 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
+ 	if (data->rtc_32k_single_parent)
+ 		rtc_32k_init_data.num_parents = 1;
+ 
++	if (data->osc24M_32k_div) {
++		osc24M_32k_div_clk.mult = data->osc24M_32k_mult;
++		osc24M_32k_div_clk.div = data->osc24M_32k_div;
++	}
++
+ 	if (data->osc32k_fanout_nparents) {
+ 		osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
+ 		osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
 
 -- 
 2.55.0
