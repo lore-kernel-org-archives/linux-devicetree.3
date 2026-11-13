@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584455;
-	b=vvmbx5FHLfbNbMF01PeDaOYfBPyx6+lqWooIKR1nImef0Jv+RziwRoasw3LqyOk3cOKM
-	 rl1Ldg2RrPq8mDCvfiQfAKYGjo9XlpRP05D8D6ps4mIfOUs/sy3gq/hBn1G00s7OO3HkA
-	 N4s60PFoVlwS/h3sUQlS1NPFW/StF2TmE4nSmI6VTYuajvOnQSWOy5bO2IDLSuHIKHE6g
-	 moaNltzxef5cxZSxqMIk/ENO+lxdyxr06yer0k2mgaK6TQtiLSNbjTPgZrOMNwb/m/Fbx
-	 /1oxCLjmWiMNGtEi2t21F8g5eeNVZQbDcOYxESf/bCdaPOmY3TbsODYbAiMvswBNU2A==
+	t=1794584678;
+	b=Hb3+zozKsrkgvEf9xr2TaxO7ZlAODnRsBSeO0ZnoOMShPMO2DLyEBCULilM/EYmLtbfr
+	 o4TQG6nMqU5u5xJ/NccfOqQC8j+UpQ6bSCaCf7/Vw+WYbYalOEivDuJcl8/E7bDmlGh8v
+	 hdP6U4zG8LHIc/mBW3d7tY4qHBicxR/Iojqep/r0O8eLKNwxMG8vbNArL6tweIWcnBesZ
+	 TiWovhxHVd19DMX3Ol483HIKlM7pOdXvRlBNWTsnKKhfVACRO2WxzkQs7eA7N8PltRbg7
+	 b+NKLruvwajg7WQcbff/V0/S0hp1W00W5j3Xd2iwUwIt/E2PTbMdj3tQ6bdR4gENNwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584455;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=M/5AfdX/Z0i/Rm+LooPoSTOr+dHyCrjT6srdLcYz5lY=;
-	b=isf9D3bKVG+0/slT1KvCQ7+vWmuEE91Z7REAz9k3WPLxmdi2goaOYE9lAvW9KOuHCxsO
-	 HjzVI0gByMGtDB81+/d8PYpznRXZNrepWtdgkawfyRhOo68yskpPWB6NUfFjAG+EuULaM
-	 1aOAHF4aYbmpDqdcM/YCBOW0dLY0Dc5oQgsckN3x5YQAfBEqK83c9nTSvqECsrcQuFhCH
-	 WcJQx9fVla+PnL7T73sSV4swwN1mYlRZGtQ7/RsamPlYUzaL3vga4t7MbmV1OzWZNfdRn
-	 CNx25lVJyav7LoZ3RNct6r8RdAWiLKdfiG/dD8eUgfgKnr/Qwbdg/Uaux61BlxTH16w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584678;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PbD4AtMB8bc+XYwJsGjxS6XrtV8DXvidAzLVTNW7qq0=;
+	b=GBr/gQYvlwSx54HZUFWSVCnCUkJOVWe9a09bit5qWUwnUClVdeAZlvGaVIN0owB3P0Qw
+	 w5nfq2xZjjF9O71g8RAFOISPjOx8XFFXJ6TEfwzyIFX69XwWyxItciOXouhenv/vTxC0A
+	 2DW/nv6oVyu2HA2kz3ev0G7CEl/XNcKnacw1XHX5U8475g6EqCCnmrw0dIAzGva/coGKf
+	 VZ0xHRGP+KD304CzeGnmfWP3ci1yR4WfClJWppBZtnHrO209s0vvl2bV/2n7Egscy4+cD
+	 DjMqI5ycCyZsC0Al6pNBYokLo6poZTnQW1dtOO63yWWW9U5eAzjaj4pSJM5f5xASIlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbTQAM7Z;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+6TskSy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D6606A327;
-	Fri, 13 Nov 2026 15:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7D6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A9D606A327;
+	Fri, 13 Nov 2026 15:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbTQAM7Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794584455; x=1826120455;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HYt69qA5pD83okxtiPgkSwKaBYtyhJX/GokhDg6mGag=;
-  b=AbTQAM7Z8D4B7nubOOKXPzBW8Ok6rioYbXWZZTchOJp6A8SFy2hYIm+L
-   VLxYD9pBf2mDyLn4ATRgFxUVYU1quBTnKg4xyA+cPmy/JqiCM+V1yqMfR
-   re9Z4Cotl/NI3E8ooq0ZT37xxK1sZyqWiG7QtdXyvkTm1I14TLOOdYSjr
-   fvYeObvcmepZtc6P+UgoBqDfA8e23amiYcpN/k8bQTEAT2Scwbe8TSxiQ
-   bid0Y+KOzQFPn6nU4sVqnlrQgxHmaT8olclbfV0LFHLh2Ux0WnF93adUZ
-   xF+hggt/9tz1hpEFyw9s/VbDFPFVUKZlTPd9EvMhY7ew/7dUYG7n8d4+w
-   w==;
-X-CSE-ConnectionGUID: cHGKfiPnQK6R1Bk+cHm0dw==
-X-CSE-MsgGUID: aCAS+WrvSK6kho9lj+YDXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3378286"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3378286"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:54 -0800
-X-CSE-ConnectionGUID: KWT4RppXRsG0aNLHEpi2SA==
-X-CSE-MsgGUID: HInV2e6jSwydOlqN47o/Sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9220464"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:40:48 -0800
-Date: Fri, 13 Nov 2026 17:40:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, Joshua Crofts <crofts@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <avcvfUcFwdJWjvs8@ashevche-desk.local>
-References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
- <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+6TskSy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446111F000C4;
+	Fri, 13 Nov 2026 15:44:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794584678;
+	bh=PbD4AtMB8bc+XYwJsGjxS6XrtV8DXvidAzLVTNW7qq0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D+6TskSyn0FKpFu5tg/C7jAmpR5r/CKULYkdn4H71AEu0ZAs9GFKfxg7OI7ZpOVRP
+	 PjKWss5sth0A9kyeIT+Xw650IetB4HFv44Fcbc83BAOBuG1CEUizlfVq7hXMptDdkB
+	 S6LonQFgC5YlwuVsEcMamNf0FmLS4x11t3ePv6T4BrvdqlMLSlSITqks+AX2DUR/tU
+	 Uaew2SvQbL8Ifz3lxo+XwVuecy1lCOsirWJbbk3MonDPJ7ApEh4AyKuSE/HLjy0dRx
+	 5C/kV1s5GzQMpBi4muWFF3VXOCHh7qpkf9DC1XD4lh8bHu2DNMIXtl3hSBBmOZDHoA
+	 HdVlrjdk+Kb5Q==
+Message-ID: <5a61c395-9eef-4c97-99a5-30f434ad2c7e@kernel.org>
+Date: Fri, 13 Nov 2026 16:44:29 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,80 +51,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: add device tree for Asus Vivobook
+ 16 X1607QA
+To: yass27106 <yass27106@gmail.com>, andersson@kernel.org,
+ broonie@kernel.org, srini@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ vkoul@kernel.org, tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.dev, yung-chuan.liao@linux.intel.com,
+ abelvesa@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <01b2c920412848ab85493acc2d4f5fc1@gmail.com>
+ <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 04:15:42PM +0100, Maxime Chevallier wrote:
-> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-> channels, that can also be configured as 16-bit averaging channels.
+On 13/11/2026 14:24, yass27106 wrote:
+> arch/arm64/boot/dts/qcom/Makefile             |   1 +
 
-I forgot to check if there is a justification of the brand new driver,
-I assume there is.
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-> This is a very simple driver, allowing reading raw values for each
-> channel. GPIO mode isn't supported for now, as well as buffered mode and
-> the 16-bit averaging mode.
+Please read submitting patches document to understand DCO.
 
-Some nit-picks below, but they do not prevent from this patch being accepted,
-so
+Looks like completely corrupted anonymous patch.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-...
-
-> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-> +{
-> +	__be16 data;
-> +	int ret;
+>  .../x1p42100-asus-vivobook-16-x1607qa.dts     | 239 ++++++++++++++++++
+>  2 files changed, 240 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 88230c4e00e..7332a73dbac 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -509,6 +509,7 @@ x1e80100-qcp-el2-dtbs	:= x1e80100-qcp.dtb x1-el2.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+= x1e80100-qcp.dtb x1e80100-qcp-el2.dtb
+>  x1p42100-asus-vivobook-s15-el2-dtbs	:= x1p42100-asus-vivobook-s15.dtb x1-el2.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-vivobook-s15.dtb x1p42100-asus-vivobook-s15-el2.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-vivobook-16-x1607qa.dtb
+>  x1p42100-asus-zenbook-a14-el2-dtbs	:= x1p42100-asus-zenbook-a14.dtb x1-el2.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-zenbook-a14.dtb x1p42100-asus-zenbook-a14-el2.dtb
+>  x1p42100-asus-zenbook-a14-lcd-el2-dtbs	:= x1p42100-asus-zenbook-a14-lcd.dtb x1-el2.dtbo
+> diff --git a/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
+> new file mode 100644
+> index 00000000000..fc572d779b3
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
+> @@ -0,0 +1,239 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/* Hybrid device tree for ASUS Vivobook 16 X1607QA (X1P-42-100).
+> + * Base: proven x1p42100-asus-vivobook-s15 (panel, USB, boot path).
+> + * Transplanted from x126100-asus-vivobook-16: audio stack
+> + * (WCD9385 codec, WSA8845 speakers, soundwire, sndcard) + firmware paths.
+> + */
 > +
-> +	guard(mutex)(&tla2528->lock);
+> +/dts-v1/;
 > +
-> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-> +	if (ret)
-> +		return ret;
-
-Ideally this needs a comment explaining in short why regmap IO accessors may
-not be used.
-
-> +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(data))
-> +		return -EIO;
+> +#include "purwa.dtsi"
+> +#include "x1-asus-vivobook-s15.dtsi"
 > +
-> +	*val = be16_to_cpu(data) >> 4;
-> +
-> +	return 0;
-> +}
+> +/ {
+> +	model = "ASUS Vivobook 16 (X1607QA)";
+> +	compatible = "asus,vivobook-16-x1607qa", "qcom,x1p42100";
 
-...
+Missing bindings.
 
-> +	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
-> +			   TLA2528_GENERAL_CFG_RST);
-
-With locally defined
-
-	struct regmap *map;
-	...
-	map = devm_regmap_*init*(...);
-	...
-	tla2528->regmap = map;
-	...
-	ret = regmap_write(map, TLA2528_GENERAL_CFG_ADR, TLA2528_GENERAL_CFG_RST);
-
-this can kill two birds with one stone:
-- make this one line (yes, 82 characters is okay)
-- keeping data structure free from error pointers
-
-> +	if (ret)
-> +		return ret;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
