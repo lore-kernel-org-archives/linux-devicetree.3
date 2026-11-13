@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532804;
-	b=JxrYKBGQ/dG/9B4vJ6XjvrUG7/UPhBhMOZwG19aV4xkCOVi+tvUZlL1SE01nC5gQZEa3
-	 FYg/rvpeKVrEXs7k0QJQEYoJcE9xNZwKLpnLnis8Tgj7AKJtnSL+tsa7/ufmsOQtExeoa
-	 sHVs8qsGJRSW/s1DmvpoJwJdGug6KDTFzV2aTDd+aW+nWwMX8ayA0VAvNFT/oiRRsyvHT
-	 eYuEprSi01H8lPHvFDL+EMdDBVu+qUxjz99Blse8NicvS6+nsaEq4Y2RD1RmEuFIaQl72
-	 vq6Fg1PgduzKuJ4bzA5DaRX4GndBkHHnlZ/4qhvo4zr0WsaM0P1N7fQVW8U+hkXnROw==
+	t=1794533006;
+	b=jkfAPIntErF8R3m+NVfdAWzEgh6BsMm7g++f3J6NOQ2yv0+yxgJO+fwEyDLuSsK0o++e
+	 DPoNhfP88qKEMO2a9O3/x6A9nyaLckLlsc0Wjy03xYpptUY6/arkaTE+XW2ZDfS7BG3+N
+	 AX4z6CZOCtv3HXFaMv7IsJvDuPIgqdQWcIbXnzZT0wM8qpB7aadhpbcCWbCkqOp01BJEH
+	 gTTb/F/iLU4FxHG7bEPG/i2KxJV69iFEvqZQQD41Ubo3sFPE+xPvaVjijdvnsSinUE46u
+	 pp1nbpxgQiDZmvJDuiAgrQMsldkWKu2RkpiBaaBFwxGjfk+4kipxt0GuxEBvh2nblJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532804;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
-	b=YOJjSfBAcAi8Do1iZZ592g7botkhepTrLxWnX4jEwYHiP+i2dGwv4xU8Hmdop4MQqruv
-	 PEJF7G1BrbMdrr7kotMQbnM9wLNzAZ0klaD6bjK+i35bAGLgkFl1uxLbzwcLYqR+V3s05
-	 tgNOnLmSksLvBvt7pK0ZeHebIjWrISZYLNUj8XjpcfuuyPWxxBV7twA/uH4G82YM5ge9L
-	 5+EHgbSUyiDOHOx1hVTyW5RWZO7uiACrmc1dSbnb/9+CGlrbfmdaZzhDNUoHVLthuSb1z
-	 x0Scp0JfSZaYfV0YQLs9iWzHA8X/c7W2IqFoJdFmUra/lEhDv+rqKA2fBPLir4oISbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+	b=GPElnBSfgzw0l2oWqzy9b4Oyym+XIZdOpkXTtyR3GjXvdsYw+dGXrao89h1kv+rBblD2
+	 gy8xXNGVojt3FWMJKWEkKkB8MtPzp3hwytUYvTmvhOd8dH4PBi3dmdq4zvX+9NeWeSP3A
+	 2b4H1S5suWGB8PjETEf19wU1QQEu5prQ2alPSCmH7t347vFwxMmI6+gkZm8FYFSse5A6+
+	 h4DWbag/PbQ8v9zuVL6piXHP4DAEQmDoH0GvTg1y626nPTAIW+1IZGiwwU2PAdywx+M0c
+	 Ls7iEmpZEVITYLCxRdsIDxKoplr4Riu3LRjY6D8VupFmDa6TxVrjNnjXa+84szvPlJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FF5606A323;
-	Fri, 13 Nov 2026 01:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E380A606A321
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E380A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8EB91F000C4;
-	Fri, 13 Nov 2026 01:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532803;
-	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hJVTzpjWkmPY0v3/KVrmMhVkRvcRtGSnUzNTZ/4hUNWmc4LjO4zfXjHbuQ8hV8/vZ
-	 fK613O872Bdx0JJDQbaC6RZByiVHo3JEmetLyjkqhMmed5YIm7QfOo9U2+8YQIyYIP
-	 McBQcK0R3OisJdmCy+DxZu10DZwPCmkpWrxgk+IIqTyPKtnbelc9NDsirKVYXqABxK
-	 6/yHEticQ5mzgqTM1XcQTP7mKSpQElkjVaaq5PyqWG+t07ZzTCg4b0nXRTvoZaFa0C
-	 BtQtOdduxum2riLmUmP0Q/PrY0L/0nQNZR+Pur30+AB3eBl6gb+rx3OaUS8VgvMHEE
-	 0q1cZyhyLzmZA==
-Date: Fri, 13 Nov 2026 01:19:57 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Akhilesh Patil <akhilesh.patil@linux.dev>
-Cc: andy@kernel.org, krzk+dt@kernel.org, dlechner@baylibre.com,
- robh@kernel.org, crofts@kernel.org, conor+dt@kernel.org,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
- akhilesh@ee.iitb.ac.in
-Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <20261113011957.5d8836ff@jic23-hlaptop>
-In-Reply-To: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
-References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GTiaISFX
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b3541bb1a2so2954517b3.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:23:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1794533005; x=1795137805; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+        b=GTiaISFXFMwlQRO0n2/KtqU9W7SvrXe5qiAcaTbvIMxPy6l6yIO+ycn/shtcvuSkpH
+         Ms+TdlOHLFbh5qGXdxR8C41LOY3K27cDOfz3HD7vFkkn3ERTuR819vXjeZcU6W49zy7J
+         S6J8ZrNCYAQ/2N/tXm8xoAjg9cfiSSsIMz7l9sv69JbG2fMC9Xjb0vVGtjvyGEmI7Uy2
+         2JDhC/MS6YObbZ+fM7zi36etDnJ6kW8iNj442l05eZR5whnbQog4IQXrec5XfsKjkiwL
+         s0+MM2plCc52hBujj/3836Huu5My2vuh7x3sriFXDV7GFGYpxjukNbeJsuqv7PUV376c
+         4wHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794533005; x=1795137805;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ThB1/zw69OWXTSMpOLXkS0laxUVjvIT+W3FMQmOb3Q=;
+        b=MceAbPwVjs+mQWjdV0wo0VezhND5A+nugg6QT3bNBXNpd6Z+JTuMn5tbIAYNQoa5v7
+         HZwc8j8L76FtXw3V6prL0DA9G3wne/TZAl+JQJDXUrJQ6QzJkiCOxfvfirfoblDmUcOx
+         DkKCryqUi2HAesixwsloemwGvlu2YaaoTY2XOpVQ6TMsfKGsihjn4kV5Do8jxlc2YJoK
+         L/4tIUEJjEZnGVudE9i0r/BmCEkp+C4wBEEX/dhDUSY9AebFlA4F5uGEfenGBufyUryK
+         3gfKxL57hSl/E6c5F6tzL6mpkiSiGvJdjQ6Dfdt/XRw4jJhUy90j7dAsjGJo4jaVAT1h
+         2cWQ==
+X-Forwarded-Encrypted: i=1; AL+hErGyDyaqBNMugA3v70t/48yrZJ230FikYfb0veG1+ChR3aKtGovdX9zTSTqkPPU658yWcTHrAILv0pQV@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gLiLZjST+jY6fk7Zw9jAl/97bDS8ts6/H3S6exVnHbfFkxkj3
+	0660l/yU4G19BYoQDHuRAf5CgL1uyXAftavTIyH9OwhL1alD52skg3aOUGqPUR5mhZE=
+X-Gm-Gg: AYBFou0WhK/mVpvLqfWd0TxSwx7Wi8W1rl3DFp/WoICZ88ruCxsp+yCeEwfb/nI8Jba
+	cfQClOZb9AC+iKNEnPwqTaXhgaSSSh0PWTjIhpc/58w0+N4IR2Rk0UWSgo3k+jn4DAabXbci4fl
+	ksS0tmGJN8mWuaSzBx6Syk7EKarUNftxdU1R9izAF+0sDFE+3zFftcmpRtWCvfMmnwZn8/76+1E
+	ryCoQ3lL/MKCPj897p/n0EFqphtjKSJYXmXLsfxWtD7WLEuXEaSdF/vJUX9bvrLJp/82CNk/Lu8
+	iwDJt6Wm2Jr58bv5VDZLmZVWTeFHcU8lPzNTBvh33x2PAmr8/dLMWc4Vsp/wPXHQ9Juhn0/24W3
+	pTMomiX5v2mdgkHSR0qvmMf7qIL5b2PWmxlNkO/1Y3+q2CdWvg2EVFQ2QN9u2tmWhIe+fgA+spp
+	A3HQ/GoVH/OGsfm9EAcN6scUXPekgn75dbJeEQmnQfGm8h9qHzdRYeTcX6htUS/Fn9F4xDyjSaR
+	dSGdDAwgzeENIyYywU/uMlCiRamjnyY31FxU6s9On83jL3wK7qjcUwMuWCJbYXGVlJ0fmdrmyp0
+	mZD451gy9noDVmGwd1ivI8ShfKBzG6uqiZGe6oZgkKgNhcQ=
+X-Received: by 2002:a05:690c:c1c1:b0:8b0:95a7:37e2 with SMTP id 00721157ae682-8b4aa33412cmr5356997b3.80.1794533004833;
+        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
+Received: from localhost ([23.145.140.5])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9e8d20sm9341667b3.38.2026.11.12.17.23.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 17:23:24 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 17:23:22 -0800
+Message-Id: <DMTOUWAKBIER.19DO7XAP7Z2R3@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
+ <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+In-Reply-To: <20261112221205.GA1425386-robh@kernel.org>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai> <20261105124030.GA1449284-robh@kernel.org> <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai> <20261106132432.GA2551143-robh@kernel.org> <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai> <20261112221205.GA1425386-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,121 +104,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 09:16:41 +0000
-Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
+On Thu, Nov 12, 2026 at 04:12:05PM -0600, Rob Herring wrote:
+> Stable bus numbers is a solution to your problem. What's the problem you
+> are trying to solve?
 
-> Move to my new linux.dev email address akhilesh.patil@linux.dev
-> I plan to use this email for kernel development going forward.
-> Also update email address in few yaml and driver source files.
-> 
-> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
+Labeling hwmon channels on an embedded Linux system.
 
-I can pick this one up with an rtc ack, or it can go through that
-tree. I don't mind which.
+The board has an x86 host with ACPI firmware and a PCIe FPGA that
+provides a dozen or so I2C masters, with muxes behind them leading to
+PSUs, fan controllers, voltage regulators and temperature sensors. The
+FPGA driver applies an overlay at probe time that describes all of this.
+Userspace labels the hwmon channels with libsensors, and sensors.conf
+picks a chip by its bus and address, e.g. "pmbus-i2c-12-40".
 
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+The same parts sit at the same address behind different mux channels
+(PSU1 and PSU2 are both at 0x58, for example). Their hwmon "name" and
+their address are identical, so the bus is the only thing that tells
+them apart.
+
+libsensors has a "bus" statement that maps a bus number in the config
+to an adapter name, which would avoid relying on numbers. It doesn't
+work here, because the adapter names aren't stable either. Mux channels
+are named "i2c-%d-mux (chan_id %d)" after the parent's dynamic number,
+and the xiic masters are named after their platform device, which comes
+from the MMIO address the PCI BAR ended up at. A udev by-path symlink
+for /dev/i2c-N wouldn't help, since libsensors doesn't use /dev/i2c-N
+at all. It reads /sys/class/hwmon, where the bus number is part of the
+parent device name ("12-0058").
+
+> How aliases interact with an ACPI system is another aspect I have yet to
+> consider...
+
+On these systems the base DT is drivers/of/empty_root.dts, which has no
+/aliases node. So no alias is honored from the base DT, every bus is
+numbered dynamically starting at 0, and the overlay is the only place
+an alias could come from.
+
+> Right, but there is no fallback for some cases. Having that is the only
+> way this could work.
+
+Can you spell out what that would take? Does every subsystem that
+hands out ids from aliases need its own fallback, i.e. the i2c, i3c,
+spi and mmc cores, plus mtd and the serial drivers, before overlay
+aliases could go in? And if so, would you want each of those as a
+separate series through its own tree, landing ahead of the OF patches,
+or all together in one series?
 
 Thanks,
-
-Jonathan
-
-> ---
-> 
-> Changes in v4: 
-> - No source change.
-> - Added entire change log for all versions.
-> - Link to v3: 
-> https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
-> 
-> Changes in v3: 
-> - Fixed order of entry in .mailmap
-> - Link to v2: 
-> https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
-> 
-> Changes in v2:
-> - Updated email ID in relevant device tree source files and driver source files.
-> - Link to v1: 
-> https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
-> 
->  .mailmap                                                      | 1 +
->  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
->  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
->  MAINTAINERS                                                   | 2 +-
->  drivers/iio/pressure/adp810.c                                 | 4 ++--
->  5 files changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/.mailmap b/.mailmap
-> index 7fb33babc931..d09fd3708023 100644
-> --- a/.mailmap
-> +++ b/.mailmap
-> @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
->  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
->  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
->  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
-> +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
->  Alan Cox <alan@lxorguk.ukuu.org.uk>
->  Alan Cox <root@hraefn.swansea.linux.org.uk>
->  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
-> diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> index ad5f26ce5043..ca4d4210f609 100644
-> --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: aosong adp810 differential pressure sensor
->  
->  maintainers:
-> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
->  
->  description:
->    ADP810 is differential pressure and temperature sensor. It has I2C bus
-> diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> index bdd995c5c1f4..837679dc01ac 100644
-> --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: ST M41T93 RTC and compatible
->  
->  maintainers:
-> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
->  
->  description:
->    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aa..3aa8fa3c068f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
->  F:	drivers/iio/chemical/ags02ma.c
->  
->  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
->  L:	linux-iio@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
-> index 82aa433548d2..832df6ba0ee3 100644
-> --- a/drivers/iio/pressure/adp810.c
-> +++ b/drivers/iio/pressure/adp810.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  /*
-> - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
->   *
->   * Driver for adp810 pressure and temperature sensor
->   * Datasheet:
-> @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
->  };
->  module_i2c_driver(adp810_driver);
->  
-> -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
-> +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
->  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
->  MODULE_LICENSE("GPL");
-
+Abdurrahman
