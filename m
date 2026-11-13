@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585786;
-	b=D2517XqExaWCQxyBecy9vrZ6n2VZXeo0zKhg+J45Jv6YevJc55i4ZAUFz9dfxBxCdOm+
-	 dgfm6S8JsMw12WOfVKRxYQMMynHFo/UYVjA0FWF1U+5eSxcBQCVd2hZ8W/gXx7nFaUsdR
-	 2Di41ZbvuYT9Uzod9EMkcHRSJlWb2kBkvNPdfxeXleNWcu8LSgFqKa1nFaBkmCJioNI+U
-	 VsDIjhLRb8JJjPgwqboVPjpOzKZknCxyvD0knGY1pHitHWYTaoAldHhQ5+BLYvoCeKQ2A
-	 hjQXVfU2W5VvIGNRt9DWkiqCLmJmWmV6pnhxnzSlhNRxd9gUMk9JDtL1O6Yl10M2WOA==
+	t=1794585816;
+	b=4ZZc/sNoTEfD8tuDUQ7f5L25HHLtPh4qCBRB3Iyfbz2SnlUUfyv1jWBHnE/KF28g3IhB
+	 gHPZTuK8lZnbOv960I3qrISX2cQRvzJpBxKsu+0EeNbnKkgDj6BcmWzVeZKp5M+F5GDze
+	 dlYzLzJGHbOkZEEPqyxR7Xwz/fX7fYl3yyDMudULkP1z6Vqspoba3XpO+uFUGSoVllMCL
+	 1nqOvS/3EJkPQOanaGdAZ3v4MdHxMMl4UlV4FyV2KcXlzA9TZHL4g4ouSinsFtFbUhfPs
+	 6jUNa99zwFGJ8czmDfK2DSOQcXQ7SrSAKOXjzHDiRKNlphglOS2icT2Z+Rn+jrKYNew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585786;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NbihbEQJPVQoQOFmz3p3syO0iZBpjiwZ0+6YQ9VA/GE=;
-	b=n+A6zK8F2GR+CgtFMM40quZmi/yIuAvbSM3RgMGmdruZcacNLpkQjfhmdt+X3rouNmyA
-	 vPQ0wDzXpsGLBOZ98McU1QsW7hIUgR9lCG/coW4QM1qUYdn0WhuwKMT4uI+dI+gx5RcnE
-	 /725dutxPQ5QgAH4eZY95uVPVwm3umO5Fxn0q0Lxx5MhoQ5AXbE53+6GTp2RMJccSpLW9
-	 QM7f038G5zPkqEHZ5yLHb3kbMcLyne7seDIK03J+uJlyoMpUWHtGEN/9TmTwSaBYjtSf4
-	 wVdqRV1awGgXzuDX+oxYIZto1nFRPNv0MT1K8KQyjaQYm7LU2wLHE0Q3XaERBifgY0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585816;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=RhI4nQ4XKSj9VLiETSpLtJTrfU+/DWOouSPKVL4WRBY=;
+	b=TF/vsZBqRrC6gs5nrhkXe9VRIIvCz8o49S5i8EMweJr544MeBt5BNHTm2otNSvh6/lRe
+	 r/fzQrT7GJkha13A9DJkzDugxrRsIDh6n9iEIP2Ksj/d/oGZCUH0orgk4k49KrsUaHzDv
+	 Zpxwh4kDTLAH8nudqQ1gUOT1yjE2qOrzHNyeHKTNPn5MiKxrFK/fYfHKZeMhCl8t7EZ+B
+	 eHRhVHRBd2AA4xaSXR2oTiWH8ji/qSkJGY89vEI6XzEeMuBj4gFthgxV/lHls5dW1psEX
+	 9TqjxtOahLVZvPutlzCs/RmPU9TujdtxuOj3FZoWGJ5Z5+DeH/tVFJDyVTP95uH0ZjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d4AH2Vh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDRqarTR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E35606D475
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8598C606BA98;
+	Fri, 13 Nov 2026 16:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4AH2Vh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB03C1F000C7;
-	Fri, 13 Nov 2026 16:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDRqarTR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB711F000CA;
+	Fri, 13 Nov 2026 16:03:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794585786;
-	bh=NbihbEQJPVQoQOFmz3p3syO0iZBpjiwZ0+6YQ9VA/GE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d4AH2Vh/N/1kVaG/dw24WvUr3s5DOrK8JTCWKGheE5sGE10Cni13+LCGzHWOvVjmI
-	 SPsYfLeIy6IUEdJshtZ3Rx7KOltNXUdF4i46GRpr5amISrcisgvRGOrktDwb6p7kE/
-	 smGumJudcAD3A/NZ1QYIfQ0Dl7gdcC88uSTVcQ0P1sjFoDwp7mrzi5n3cl/vHd+/Gi
-	 sdBDoxzn9eFirFlDQoYklxvkmMfYvylh+sim6/1OuZ0rQs5Y4novl1gAaKIBWRjjhy
-	 afHCiOlYXtRFUuO2g4KYPzGsQvtT01sF75A4EXDH7GVf23Wdz+AIUCuW69Hi4TG3Hj
-	 coyUpuOrGivqg==
-Message-ID: <sashiko-outbox-213145@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: describe the second MDSS
- block reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113155606.1677313-4-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155606.1677313-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261113155606.1677313-4-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 16:03:05 +0000
+	s=k20260515; t=1794585816;
+	bh=RhI4nQ4XKSj9VLiETSpLtJTrfU+/DWOouSPKVL4WRBY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=iDRqarTR8tS7X84ceTlEzYzy475kdu/SiDER8+osdboQ5UBiVytmybe/zFavofpsQ
+	 R6fpcf5/355+3FgOlLJouoK/HF+2VVp1Jv1jMSdjUIL8GzxXuGC731l9EyxCw4PaWN
+	 9TrCmhxV7PMd0i2OK52pNqVmMHa678Zw2uKra8Wz1C5w1RBG/ifb39bnybbPem/qw2
+	 2zL8ODaPvg+rq+vnf1VbO55lsJ5fCg0jxLzlhBn7mOzwlX3ONyKBfOCB6vpzNPHuOx
+	 wMMij6gVKX+aUrXlSS4B+DsyLT3mZnEB5mARNbgGLRkWLVxgzq5tgUPtPBvt5G5HXY
+	 NYu/sLFRXvdYQ==
+From: Lee Jones <lee@kernel.org>
+To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+ Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Eddie Huang <eddie.huang@mediatek.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-rtc@vger.kernel.org
+In-Reply-To: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
+References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397:
+ describe the RTC's 32 kHz output
+Message-Id: <179458581213.82278.2659730023660991839.b4-ty@b4>
+Date: Fri, 13 Nov 2026 16:03:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,52 +68,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: sm8750: unattached
-  DISP_CC_MDSS_CORE_INT2_BCR reset on mdss
+On Sun, 01 Nov 2026 23:33:46 -0600, Ryan Brue wrote:
+> The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
+> use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
+> is off unless something turns it on.
+> 
+> Let the RTC node provide it as a clock.
+> 
+> 
+> [...]
+
+Applied, thanks!
+
+[1/2] dt-bindings: mfd: mediatek: mt6397: describe the RTC's 32 kHz output
+      commit: c91c3c19d56b9f1c223963eeda275a28cdeb71f9
+
 --
+Lee Jones [李琼斯]
 
-commit 048c5dc3c561337c4cf2b84db1d42eb1d5cdd378
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-
-arm64: dts: qcom: sm8750: describe the second MDSS block reset
-
-This commit adds DISP_CC_MDSS_CORE_INT2_BCR as a second reset to the
-SM8750 MDSS device tree node.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index cf947acc57602..0f3e649787315 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -3359,7 +3359,8 @@ mdss: display-subsystem@ae00000 {
->  				 <&gcc GCC_DISP_HF_AXI_CLK>,
->  				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> =20
-> -			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>;
-> +			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>,
-> +				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>;
-
-[Severity: Medium]
-Should the mdss node assert and deassert DISP_CC_MDSS_CORE_INT2_BCR when its
-corresponding power domain and clocks are not attached to the device?
-
-In drivers/clk/qcom/dispcc-sm8750.c, DISP_CC_MDSS_CORE_INT2_BCR at 0xa000 is
-the block reset for a separate secondary domain with its own power domain
-(MDSS_INT2_GDSC at 0xb000) and clock branches (disp_cc_mdss_mdp1_clk,
-disp_cc_mdss_mdp_lut1_clk, disp_cc_mdss_vsync1_clk, and
-disp_cc_mdss_ahb1_clk).  The mdss and mdss_mdp nodes in sm8750.dtsi only
-attach MDSS_GDSC and the primary MDP0 clocks, so msm_mdss_reset() toggles a
-reset for a domain whose GDSC and clocks are neither attached nor enabled.
-
-In addition, while the commit message notes that DISP_CC_MDSS_CORE_INT2_BCR
-belongs to the mdss_int2_gdsc domain and that this two-reset configuration
-has not been tested on hardware, the companion binding in
-Documentation/devicetree/bindings/display/msm/mdss-common.yaml still
-describes the second reset as an MDSS core INT2 interrupt controller reset.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113155606.1677=
-313-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
