@@ -1,106 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581853;
-	b=wcOp/eaV7zutsZPyQZ2mtf6RhuEKnSpx4pUejDyFhq09b8ScV9AUq3XdQLVlfwR11QoP
-	 5EuH6A4Na/etirrorKYqKORTuqgfPF1NHfMAwvkQb8K7oys64U8VvZLBzhT3D60rujdmH
-	 IZrxfTyaKBAd00jQJFxoipeM3UhfxuesTe3Mb8KAAOUO7Fx7ZP1Yttlo9ezDF6Eh+o8SS
-	 XjKhlOzNuvtCTp09981XEU7Tql+MVhABLlRm7UfWTRFLbsxumVild/nCWgAQy5coRgu3P
-	 gBdq3YJdq1oKtNdIz76Q/rp+WG1M04r81H/r6qivbpOooraG33lNbDQe7agGjVa0I+A==
+	t=1794581875;
+	b=OFX7cRRMltAUsWz76A8M/EzH+1zSMwzDIpOVZdWJ1rv8S5L+nAqVZfiikmUmvc+ZMvDq
+	 SfKhmgxl1HKLq4RXkeEvzPBj44QsPql+xaLWocmQQ13fdfkhTsgvQeS+brXxqgyran8F8
+	 WTsxT4RzZUytPBZSsxhRZ1qgEeu3AmDpW/6Rgf1SiY0ye5LLF6HYqoNzJqvwkzA8P4SqM
+	 JUE1QOd/xS510ivqyesMD4cawwAHvuLVd14qz77Hubc8bjJofBCoiSwmEnOV3g4CIMaOi
+	 C7c3EgEd7IkPJ03Y1ekvq99uEqMY4jefPwl60akUQhcIgoYs+es9l9Q8aj4TEgx9OHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581853;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=scsWxuEwzNIQ5N/PGO6xJlWHR6rWMshg3tU60+o1X18=;
-	b=0umW4PrCDhIVXbdafofet2DSJZ1s2HN2E6GWIXautbj0Kq1iUEO7Cff6Uobwdb7GTB5a
-	 0VE7xfODLQoB/cgMyMw3m1BOxGD+y2+fYWrz+UbP5X+BvStXpheYsHjcTtsjlnrzDpfzY
-	 H8iM35/q9YO05E+ApaaXmPDOSaS00jInxFAuFxGwpbrtgx6AzoSD4wBQNZ5uY6Iv3+6BL
-	 jfPsSAbD03Lx+vrxH1TaUXpbCJoVv3FyJyDfSTX+b7kfdW4rI1EWahzew5hA6JktovHvX
-	 mEhsGjwXgVCO3e0dovRKWa09MGhN3edUIdvSl4xoX6PaP27cKSMbHePWT0kQzGb94ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581875;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MNEGNx8Nxxbr//T9ff/bwvhh07TTp18CTfVVXdbjar4=;
+	b=jX/m1lchOYhzVOEhZVehjMc24a5sGOoIWIDp/raNxba0f8MoTFZlkLY4Bfmvz4OjOxIC
+	 f4Kgg/xEGKg9m263lEd8PGC7LRa5RRmBwEGYl71X/C8kPln/+Vt5mqXghzi39uhIZ/lD1
+	 hy0yyAlOJZNpyOTMyg0kdktcbh1toVlqzYfC6YTLZ3+7/zrX7rkpLZgoGVvhr1eKCJ74d
+	 WX9YRibU4F8oxZ6/lQpEDhXR9UDLCZ7Om51EQSjHOtSA8dYNfuXQkQ6bsmhEYOP8XMSHq
+	 ekkt/W1H8JB/w2N1hacghMge254g4RemH1zXyqyDSViT7cu3SZve3PiZ/GbbxarLwGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=owO76DdV;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaNa+Mkn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296FB606A88E
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:57:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 296FB606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1F6606A330;
+	Fri, 13 Nov 2026 14:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=owO76DdV
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50a2efbe1dso180437966b.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:57:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794581851; x=1795186651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=scsWxuEwzNIQ5N/PGO6xJlWHR6rWMshg3tU60+o1X18=;
-        b=owO76DdV+intecB+gfvcaXp9qFLZHPv1oqwmheQeztT/p+qKx7StnlQPrf9T9xHAiO
-         2RUEOCFi01EIq5y6j/nq2SR27fG86EGMwVX1h+hljVpRA4Ijj5eR9Z0bgRIRnBd/LOUe
-         86eVB9DZnbqXjO7xcBGYT20LQmmYCZBNTieEV/sUaNTZ/SPKG5AoAppc3pfgQiYzgL9I
-         /YjJJ1gUA0RUmFDJ9xnWDxuRnpSeaQaavc0gCMehJtUUU68q1Jz56JAXgfc8FJ1TzUeg
-         aCkcOZGNWE9I4STm6ZaDOqZFmmsstugQ6ug7a+7umu9UU7RsN4kdEYAWOEY0zGEKhb8Z
-         1utA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581851; x=1795186651;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=scsWxuEwzNIQ5N/PGO6xJlWHR6rWMshg3tU60+o1X18=;
-        b=vK6puwpL6Y2adV4cdVjH+I15ZlBPRs2V7re8dw0LMAI+lduYJGXISmHizAJPsZXJTN
-         2HW2CFdj4gVHaUWFIszUroCvcYLe1YMfhCjJPJ6o4YFu57kdjWFWmOZzlE4kqkKL3v4r
-         XFFb1v2gjvDfAkCxqdlYsI8iVSTuEp3xfa9EIEgy2JKFhYq3cH2t/GytgmTwBR/hwk5w
-         hVjyAh9fVyei9IEIT39AggHu74837g9fgttWb/fJ3Q5KoJYH07S68vZqKcJMuONlVhH0
-         Iurcgz8u8f3GQK14JrRDetPGsLAvzjKKQjWyo0XOuwAvf/IOaTbej97BV4Meo1V9cna2
-         6oNQ==
-X-Forwarded-Encrypted: i=1; AL+hErGPCF4PxNaj2T1j0U1P57XS84alOhXXWWu8p6i+Fa29/X08jc3tc0waEvCg4zgFD5oAZeoWMCH3Shot@vger.kernel.org
-X-Gm-Message-State: APuU4Z8X7euSZ99b8Gu+yTqD4LHCeSMV53/qpLh8CCe62FjfID5e7h6Z
-	gAKUjjkmvqw3SxqHKxsWkTYHrBqnIFuW9dhJ7sfkn+VVbXfINEiMYxbr
-X-Gm-Gg: AYBFou0ELRkYA0Z3UD1QzpQkR++3ZPnwfWyT03/MtqnRbFS3RVCy8L8S+cAN7BKMWj2
-	pcVcyTqYljrhEt2W4TlnrvL1ZDyrvFcRwY8dreWC/WqSnmGh1yKxsqJPWEsZMDIgwTUS8PalUzV
-	WTP1vpDoWF5AI2behF6v+VTfvs2Tl9HvbLeJ8VbFHHCYKoYOqXGEQjaPvyolhTCMg1184abKo8Q
-	OLPB9s/IudSjq3pyulFTdGsxtvso7b4TwONvtmzMBgp4/R04IeyZGgK+q5JVxXFpp42sfhVBHG+
-	TUf+s+Y5a/vF0MlDsWA3dudBjG6VmJrA6/q0EXGvI7138AaP0Nmyro+gocACasQzhiCd3DDkzEm
-	35PvBSZ/UubClclm6mTsO1FAJhL1p1EP+W9Pf1izLoPVHRw09Yt3FnpW8owKYsz7RYrK7Re55s+
-	9sWNhKkpeIG9ul/1VcPAkynwfE6u6CVomD8Ic3U8EHKm35lWNcIoxJt3FFMC65rF5IVo9wyo/7V
-	5cKN780myAw4LcqpXjyvr8mASxI7lDS8qiYo90zlBox/0KJkREHBAJr0yoVlZcye3G1gnTnJUEl
-	oxYtQaT2kYtb1+pbof/fqm8dEZY73wkNP42k9h8/22WhepI86Q+xwUGSptT2lawWUv3gPhVh1+j
-	YQaFbCpcrvg==
-X-Received: by 2002:a17:907:a088:b0:c50:52b4:eb04 with SMTP id a640c23a62f3a-c50962ee311mr275471466b.16.1794581851329;
-        Fri, 13 Nov 2026 06:57:31 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b2369asm109937066b.25.2026.11.13.06.57.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:57:30 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v1 2/2] clk: tegra114: Add CSI pad clock gates
-Date: Fri, 13 Nov 2026 16:57:08 +0200
-Message-ID: <20261113145708.261530-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113145708.261530-1-clamor95@gmail.com>
-References: <20261113145708.261530-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaNa+Mkn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871CF1F000C4;
+	Fri, 13 Nov 2026 14:57:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794581875;
+	bh=MNEGNx8Nxxbr//T9ff/bwvhh07TTp18CTfVVXdbjar4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KaNa+MknasCg7079/xexkYZRSd4mlzXTBjFK5ZW8m6/qvxqs3I+Cefo+Hfbertz3p
+	 ilPgR7qZO30ErQCa2xGXhfk9Gh/awpXX8ViFvj+OAwgIHhW6euA+w9NSoHZJChp6Uc
+	 nW1l74Bm3mvv/Ro4uMaFlhTJWo3yZgWH25pqMpQxl4tz5QKEgLFIOrIi+fJ5DYGxcY
+	 TY/Ejv68yxscP09zCt1OIbg77V0OyoR5NrSXyXBrBSkdYjVoG8iU/Kvbqt+iuFquQG
+	 HNKrK451BuPm21Ns0xN3oM8L+zatjlxjMTlVnxLYQBA2D6fXGRfEi+I7E+q6sP2BMa
+	 nxMB1dByzDZYg==
+Message-ID: <cdde4ee5-930c-4982-ac79-ac52570c37e9@kernel.org>
+Date: Fri, 13 Nov 2026 15:57:49 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,38 +51,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv3 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: bp@alien8.de, tony.luck@intel.com, rounakdas2025@gmail.com,
+ niravkumar.l.rabara@altera.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261112215342.2476801-1-dinguyen@kernel.org>
+ <20261112215342.2476801-2-dinguyen@kernel.org>
+ <20261113-laughing-crouching-hawk-5bccca@quoll>
+ <2440a2e6-5d06-4642-b722-ac3baf5b8097@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2440a2e6-5d06-4642-b722-ac3baf5b8097@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Tegra114 has CSI pad bits in both PLLD and PLLD2 clocks that are required
-for the correct work of the CSI block. Add CSI pad A and pad B clock gates
-with PLLD/PLLD2 parents, respectively.
+On 13/11/2026 14:29, Dinh Nguyen wrote:
+> Hi Krzysztof,
+> 
+> On 11/13/26 02:18, Krzysztof Kozlowski wrote:
+>> On Thu, Nov 12, 2026 at 03:53:40PM -0600, Dinh Nguyen wrote:
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: altr,socfpga-agilex5-ecc-manager
+>>> +    then:
+>>> +      properties:
+>>> +        interrupts:
+>>> +          minItems: 1
+>>> +          maxItems: 7
+>>
+>> Why is this flexible? Wasn't before and changelog explains nothing.
+>>
+> Sorry, but I'm having difficulty understanding your comment here. 
+> Doesn't the minItems as 1 specify that the 
+> "altr,socfpga-agilex5-ecc-manager" must have at least 1 interrupts 
+> specified, and up to 7?
+> 
+> My changelog also specifies "up to 7 named interrupts".
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/clk/tegra/clk-tegra114.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+So is my question: why is this number flexible?
 
-diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-tegra114.c
-index 80b7f64125d92..e3d8ab76db649 100644
---- a/drivers/clk/tegra/clk-tegra114.c
-+++ b/drivers/clk/tegra/clk-tegra114.c
-@@ -1041,6 +1041,16 @@ static __init void tegra114_periph_clk_init(void __iomem *clk_base,
- 					     0, 82, periph_clk_enb_refcnt);
- 	clks[TEGRA114_CLK_DSIB] = clk;
- 
-+	/* csia_pad */
-+	clk = clk_register_gate(NULL, "csia_pad", "pll_d", CLK_SET_RATE_PARENT,
-+				clk_base + PLLD_BASE, 26, 0, &pll_d_lock);
-+	clks[TEGRA114_CLK_CSIA_PAD] = clk;
-+
-+	/* csib_pad */
-+	clk = clk_register_gate(NULL, "csib_pad", "pll_d2", CLK_SET_RATE_PARENT,
-+				clk_base + PLLD2_BASE, 26, 0, &pll_d2_lock);
-+	clks[TEGRA114_CLK_CSIB_PAD] = clk;
-+
- 	/* csus */
- 	clk = tegra_clk_register_periph_gate("csus", "vi_sensor", 0,
- 					     clk_base, 0, TEGRA114_CLK_CSUS,
--- 
-2.53.0
-
+Best regards,
+Krzysztof
