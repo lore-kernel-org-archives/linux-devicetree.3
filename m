@@ -1,103 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537134;
-	b=KmUKZvJ5dIvl3eShn3YJgtgAbUcaJ8y/039tejsaan6rD786/dqRC6G1RgpjOTd7hFxo
-	 UiZ3i6WK1xXn29+6NPbfylbSMQMOg6EtMk+5glr9jIMj2BholwtuWIomLSI7ngivYaQuZ
-	 3QQQpVWEYy7lNOCLtOL1WfWAsguRXTI55vCAvpLhPIoDG6s+M94PeWx3xS42Oa0Mc29MR
-	 2WxID6hDib3PETPRTQa30vvvwvOtuBb7iOFD9U+y56yKjHd4mKwYUC/GZPcRJ0HFHEDWQ
-	 u1u1HgXT/8470d3/SvsGZL4w2Smsw647Jj4ka93OovkbRCQtxitAK09YlNgs+BtkSjQ==
+	t=1794537307;
+	b=0f3ZNWzgBl5oaWBwgaIJT1lad0M+ShgfULzOOUoihhmCjiqRJOYockuhCHjQeoOny122
+	 2SaDbpzf9rKXHCgWOSHc+Q1GZZyaJ6G8+CJpU8pJXH5y0WYP3C18cxdx+ddlqrTf8XyQ1
+	 UScE6BDGN07bLuGkIHQR2QZipOgFwqOaRObGRzDUP+TBLfxIn81UQuRRe9Gi+aKmeXL83
+	 6a2TRm7tlYVm3K7I1+MBwbWWTWihWYja3tydE7ylVOulGsd/lSpvt2uRC1sYVBHSu8Epr
+	 m3OMPtPs1ppsN9XhDHCOW875Jp2rJImP5LjtEbuQ6AMGLZ9xGb/SLGoDaRNqyuKff1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537307;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nMxjreD4y0QHP2JtQOEuC4CITCprzlNYUq02BXC432Y=;
-	b=WPj7a0ToLB+9B6d1LAUUDcEcDZSNyEWm/e6NHIWVL2paMmFmimwdYHtGAhexZl7pfHk8
-	 VjzpiJSj2MZeSFGWAEoHSynZ2B8m43A2ikD2XJtbjTyQznX72L+6isvNFKwfu4huFsJfC
-	 YA904Tz3U1DzzDJbAMbOc4Fqpfnh4L2DuVlfm94NzwugoAwCKmkzbuNYmkAQ9yg3Z0iof
-	 NQp6rZikHSqsPGVm3D6v04ujkoVeCj8Jn5eltVJmMS4YvXytGSui5cHbx3dOAe8YjZJY+
-	 NY0t3gnXic78sLjcxQzUjAqdD9R2ouFZnxUUy7ieYgkdu72i4CC4jrS0VK964eu+dFw==
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=lzA48Kwy9wvcOuubnJ5E+vvF+x65vAVE+Em3lMyzHzg=;
+	b=JX2gqwEkKqK75XjXTg7ANWcc48+/cCEQ/ceMzemCVREbkoFB9wtmFqEUs2Cx9WCUBDsM
+	 949UiXZ1Vi+n52N30X6T8WW1YONey05bOKiK+6IgA4C6v/95Gm0Mcyt9XiLJuYEPbyD8B
+	 VJOzN+NlubRb5hp1cwTkPiuXI9QiK/lNXuLKGoM3ht/QXYfoGPDBxbMNg/qr014MoX49r
+	 ZK+vJwbLjlha3c2WuHs+F6Hxn0oInCrEMNRJvoUGaQv4TPpa91a5wM09as8QiVjxYRlig
+	 e0L6MPle9OLpBW9ueiY0zR7bX2L5CJkqp+jVR/0zrZ0NPBEVbhIuPcsJ3T2AsxXrHYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DQSmCCcc;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPZp2319;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C502606A327
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 02:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C502606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43035606A327
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 02:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43035606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DQSmCCcc
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53665358476so6983191cf.2
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 18:32:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPZp2319
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so307516a12.1
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 18:35:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794537133; x=1795141933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nMxjreD4y0QHP2JtQOEuC4CITCprzlNYUq02BXC432Y=;
-        b=DQSmCCccdQsvdy4LlhA006kwZsscR2/AayWLlrfMg7U9lze5G65+enI0z5OeSse0fg
-         RhZtSFqw5dFA2lehOde5nj8hoaNDggCRv6c5BlSnQaz9Mju4hKltu8x1bAibr/hnKisi
-         PqqiMKtNIi33p91oEFKipTEfBw6DLE7A0M7z9qI2vTMv+baBZbRmitvcSr6fqFddlkkY
-         NAc8FfyPv/RBgDGv+ekeUIS84XYo2RnSH8zACu14NYAx+369PZEjS3UryJ9tJJujsNzo
-         4H6COnJUaW5bn5x/zL9wPoWwA4Onvf61upAm6wfGHx1j820LHaQZz6Uzp0E2gOD8Cjsz
-         DqQw==
+        d=gmail.com; s=20260707; t=1794537306; x=1795142106; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lzA48Kwy9wvcOuubnJ5E+vvF+x65vAVE+Em3lMyzHzg=;
+        b=xPZp2319Rw9tXuOel/mdPqFfhqqqe4Hqr/yAe/YbfxHrZ9KudEjQQyKu5HML/gTT2J
+         N4EF7Gavxa11m4dCXGEqptXVCvQSWzZrHpG5B3hLKPidsJUXxuTlNetg/vmEorT6D7JW
+         JW2xrywse7Sn8h1Oxfl/7G0e4pMb4h4y4Vx2R0vrtUb238JW9BWHl/8VIWxlbNgZaRhM
+         zeMfAgn5wa1ozViF7wqg4hT9vm6lRMUUqV1Ft2sJcY2zR8KRy7LipW1lI+hqrFoPZDwq
+         rCsMIibF/q3tPzS9rm4XMWsnh+hjtMG81afWCp1bdwF+w0v+l3B9PAiFiYsOBIcv5b1f
+         h2vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794537133; x=1795141933;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nMxjreD4y0QHP2JtQOEuC4CITCprzlNYUq02BXC432Y=;
-        b=l7QgIzuwBNbSbsq9+qrQn+GmNXfI38IjAjHG/ICvSEDYqPxXAkwnUK6xW/ya0Df70I
-         JSSwOeIhRy0dPAmgXdLWaHfkWtpD/lAQ+0t5ULO3AuGW5lok6mWEQV5TfncPlfk1VcJi
-         6NUJunRqAfpoWjbAdj7H44PJ11fgnGPPQSAYmro7nqXAjX3tNTDGVn0W6BnsrF1wRZmM
-         9w+T3UtNIxAiITjkznfmv8H7hbKOpyljA+uxCB3n1qikvKs94fJhQnRLFXoQ+W11L8gy
-         EmOwCS1UUJgsbzi+Xyh24S36J6Q7CgeZtG/aV3mUJdSUXsvzZ4tifoZjIK7Sgo0bgpvR
-         c4Cg==
-X-Forwarded-Encrypted: i=1; AL+hErHHvkYrLg3Y9jl3RdNk9AelK4xFfGhepoK0rXoMm2bnQEzE+CfPyswlYx8vc5DskgSfAkeCBOy0Uzu1@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LUHSSm1b3f/HNphFIhnw0Uz1rI+zU9GmNdVMttK4I2FEM10F4
-	Fx97TNo3zJp2Pkk+o5hdob6Y/29Hj9eV/c2wI4T6jzUoGY/AOca4y3Y=
-X-Gm-Gg: AYBFou0nswBITuygmSFr3Ezu/rpgoHyAfL7jUAyJZckQGxzGql16eoiyrPfT4mDq4Ww
-	ykIaqGQQNME4jxU+ZOMuO3QeUFpSHdFNNbuP8jzVrQZW2+gfnaPEZjXGhbC4un5CDHP5rt7kpVQ
-	WBa7yD74YK2pzNNasTJK1DzuY64S7OYe6LeoL9RUpE4zr0dBOGJ4yKSr6XIFXyrkpMPngarJxSb
-	bOppcRZZHj/wK45FySFn3bCYXN21hAJUSmxhWFc412pWBuTCwSDvLFyQZ8kF3rKkGZlk+mADyQj
-	foR35P84usjjvMfFCJLVdGRN97CznjxtsTGS+qddzvcWj/mUhKISTkRebyWLIzgw5NhkIpFLcDL
-	6ObVOXbAanaHmEiKfXjnOlSCITEisJpyeSzjGyB2/qKlxnUTvI7PrSnNVMFIkthSYXenSvz6rOB
-	ZNg+VRZth6w2VNag/5PnZpNKkPsM7asW+pIX7gVCaxxmOu3C+se6av4VS2z4FoHVC/wjP99ZXWQ
-	G1UzwKv5finfbWFbW5Q5c+IN4lvnDP8ZJzdxMwlnBFid0j3bejBPTVSYHPE1KtIVJWIxOfyWfOM
-	fMBk8NeoY8rCx13enbJg8VZ9EV1L
-X-Received: by 2002:a05:622a:180b:b0:535:87c3:79e5 with SMTP id d75a77b69052e-55ac7568907mr20793741cf.39.1794537133164;
-        Thu, 12 Nov 2026 18:32:13 -0800 (PST)
-Received: from Ixchel.lan ([70.49.63.180])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23dbf30dsm9688926d6.44.2026.11.12.18.32.11
+        d=1e100.net; s=20260707; t=1794537306; x=1795142106;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lzA48Kwy9wvcOuubnJ5E+vvF+x65vAVE+Em3lMyzHzg=;
+        b=ZRHHUVdlFXvWJW1ji7x7ByP+N0u7WrmSDDBd8W930v/MKC50BFz83JNkjpgSbU5Utr
+         B1+8lXZxO7CLn8y2pUmbjUDO1QF0Noqxj4vJEQL03rn8pSu2nWZHFvuzIflTkrQUtXZf
+         YfV9T8ZpDydx3fagZgEbRqM5DaJxPJ5iF01tSMRa9Y14yKBYZG4cNTGExUBJjIzO54wB
+         lU15AuiG0dsulA24dLzhMJb7X1xzvqVVLVzzsTfBLUpEVWwMWSC1QNXdqU+cT6gA27Wy
+         EmoOzqkjFZcxPjSYZtHRkkgTxeLA8X0EJUYj/ceSq/C1wSt+0mo+8/sT++J/apkuv3hp
+         PByA==
+X-Forwarded-Encrypted: i=1; AL+hErGsoBw+mR9h3j6QV/24oxAt2zNCbhntF+vbMIoXlVQo7mGgVN5fU2gVQXMEMQmxz0ZeN18xFkBeGWU8@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mX8cF5CS52XoJmRdZWPs0Fclyg/QJFi2qa+OpoTVaoBHehp97
+	ALsug90myQvaYZcj2PNsr3kvP1O6ypqZUdD4X/tvFW8VcWn4os1gywJw
+X-Gm-Gg: AYBFou3e+5ScRUtaSuC8skUYxlyFgn99fSxBy3JL99lt05LkNxVdJCRft5GNUoByrGI
+	Zk0d3KKptqqVQAjRxqw29J74/yv3Pu8LorHYb1rIFPzktdb5vggDUo2dmeUMp10GhhsHn+32tpI
+	0md+y1uaEe3k5X2V7kp1FIHvPPTjuMiFcibZo/Yr2EftOXnZ+eFNws/1KQh0pMswjuGXVBYMy/y
+	bt4pT1x7jRwhFraAluYN/tkJkp+SLHLaP1cLmwQ2wmqagvzWda0Bp+F4quk2B72M+Gk7w7Z6bI+
+	DlGd75X/lc0ret8M+oTp2WQB8KiL9LrzeV4XEzPhULmthzwYcIlJUH5AM/3n5EX+mtupY6ojQ6l
+	4bmFDsEbse3vOI8ADH1h5WRUA/C3pP/2XKy/zG3oD0huFGFkEbYQFJEKQweUQ4ezIy2xUVe1BuB
+	C8p7UCHHlXi7lVYltZgqhu0A78clC1cf6acXnptL3h4WJSq+hximOxXVu/2sp2nMlude44pREcO
+	AfmeAm4BsoDj9P8tmMbO0IOGB7n4KPiFIbW3reMrOnFPxXd1w5entHVg5jl5tokH+LVTztI+Ftb
+	Zh5d+gZMTCRRSiNHZRS4IaSMSphxsYJufWNHZ9Q114t3zCw44L/I0Rn3lORxYvPA6ZvGng==
+X-Received: by 2002:a05:7300:828e:b0:356:7ddb:2e54 with SMTP id 5a478bee46e88-37966a5ce93mr904136eec.29.1794537306101;
+        Thu, 12 Nov 2026 18:35:06 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:48f1:7a0b:9bfb:4205])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379559189e8sm2553568eec.11.2026.11.12.18.35.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:32:12 -0800 (PST)
-From: Vlad Banea <montrealtango@gmail.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: troy.mitchell@linux.spacemit.com,
-	wangruikang@iscas.ac.cn,
-	guodong.xu@oss.qualcomm.com,
-	jyc0019@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
+        Thu, 12 Nov 2026 18:35:05 -0800 (PST)
+Date: Thu, 12 Nov 2026 18:35:04 -0800
+Message-ID: <ba73c504ce3b17e8b2197de7393484d9@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Aelin Reidel <aelin@mainlining.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] riscv: dts: spacemit: k1: give each PCIe port its own DMA window
-Date: Thu, 12 Nov 2026 21:31:58 -0500
-Message-ID: <20261113023158.2872492-1-montrealtango@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-kernel@vger.kernel.org,
+	linux@mainlining.org,
+	phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	Piyush Raj Chouhan <pc1598@mainlining.org>,
+	Alexander Koskovich <AKoskovich@pm.me>
+Subject: Re: [PATCH v2 2/3] Input: add support for Goodix GTX8 Touchscreen ICs
+In-Reply-To: <20260228-gtx8-v2-2-3a408c365f6c@mainlining.org>
+References: <20260228-gtx8-v2-0-3a408c365f6c@mainlining.org> <20260228-gtx8-v2-2-3a408c365f6c@mainlining.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,95 +110,445 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On K1 a PCIe master only sees DDR: bus addresses 0-2 GB map to CPU
-0-2 GB and bus 2-16 GB to CPU 4-18 GB. A root port does not forward
-upstream an inbound access that falls inside its own memory window, so
-dma-ranges must skip each port's own outbound window; the other ports'
-windows reach memory.
+Hi Aelin,
 
-The shared pcie-bus skips all three windows, bus 0x8000_0000-0xb7ff_ffff,
-which leaves CPU addresses 0x1_0000_0000-0x1_37ff_ffff unreachable from
-every port. Give each port its own bus that skips only its own window.
-On boards with more than 2 GB of RAM, each port can then reach another
-512-640 MB without SWIOTLB bouncing.
+On Sat, Feb 28, 2026 at 02:56:11AM +0100, Aelin Reidel wrote:
+> diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+> index 7d5b72ee07fa1313da39a625b5129a0459720865..099ccd3679383dcf037bc7c6e6a3dbf0741722b4 100644
+> --- a/drivers/input/touchscreen/Kconfig
+> +++ b/drivers/input/touchscreen/Kconfig
+> @@ -429,6 +429,21 @@ config TOUCHSCREEN_GOODIX_BERLIN_SPI
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called goodix_berlin_spi.
+>  
+> +config TOUCHSCREEN_GOODIX_GTX8
+> +	tristate "Goodix GTX8 touchscreen"
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y here if you have a Goodix GTX8 IC connected to
+> +	  your system via I2C. This driver supports Normandy and
+> +	  Yellowstone ICs like the GT9886 and GT9896.
+> +	  They are commonly found in mobile phones.
+> +
+> +	  if unsure, say N.
 
-Signed-off-by: Vlad Banea <montrealtango@gmail.com>
----
+s/if/If/
 
-Notes:
-    Changes in v2:
-    - describe the K1 PCIe address map instead of citing the vendor DT (Troy)
-    - "more than 2 GB" instead of 4 GB (Troy)
-    - drop the RFC tag
-    - RFC: https://lore.kernel.org/all/20261112015148.3911178-1-montrealtango@gmail.com/
-    
-    Tested on an OrangePi R2S (8 GB, RTL8125B on pcie1 and pcie2): SWIOTLB
-    use under load went from up to 87 slots to none.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called goodix_gtx8.
+> +
+...
+> diff --git a/drivers/input/touchscreen/goodix_gtx8.c b/drivers/input/touchscreen/goodix_gtx8.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..3fbebfa8b75672866788adf89d83be16e32abf81
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/goodix_gtx8.c
+> @@ -0,0 +1,563 @@
+...
+> +#include <linux/bitfield.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/input.h>
+> +#include <linux/input/mt.h>
+> +#include <linux/input/touchscreen.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include "goodix_gtx8.h"
 
- arch/riscv/boot/dts/spacemit/k1.dtsi | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+Please include headers directly for all primitives and types used by the
+driver (linux/bits.h, linux/delay.h, linux/device.h, linux/err.h,
+linux/interrupt.h, linux/pm.h, linux/regulator/consumer.h,
+linux/sizes.h, linux/types.h).
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 3fabfd34114b..949843bb7789 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -1152,13 +1152,14 @@ eth1: ethernet@cac81000 {
- 			};
- 		};
- 
--		pcie-bus {
-+		pcie0-bus {
- 			compatible = "simple-bus";
- 			ranges;
- 			#address-cells = <2>;
- 			#size-cells = <2>;
-+			/* skips pcie0's own window, bus 0x8000_0000-0x8fff_ffff */
- 			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
--				     <0x0 0xb8000000 0x1 0x38000000 0x3 0x48000000>;
-+				     <0x0 0x90000000 0x1 0x10000000 0x3 0x70000000>;
- 
- 			pcie0: pcie@ca000000 {
- 				device_type = "pci";
-@@ -1203,6 +1204,17 @@ pcie0_port: pcie@0 {
- 					ranges;
- 				};
- 			};
-+		};
-+
-+		pcie1-bus {
-+			compatible = "simple-bus";
-+			ranges;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			/* skips pcie1's own window, bus 0x9000_0000-0x9fff_ffff */
-+			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
-+				     <0x0 0x80000000 0x1 0x00000000 0x0 0x10000000>,
-+				     <0x0 0xa0000000 0x1 0x20000000 0x3 0x60000000>;
- 
- 			pcie1: pcie@ca400000 {
- 				device_type = "pci";
-@@ -1247,6 +1259,17 @@ pcie1_port: pcie@0 {
- 					ranges;
- 				};
- 			};
-+		};
-+
-+		pcie2-bus {
-+			compatible = "simple-bus";
-+			ranges;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			/* skips pcie2's own window, bus 0xa000_0000-0xb7ff_ffff */
-+			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
-+				     <0x0 0x80000000 0x1 0x00000000 0x0 0x20000000>,
-+				     <0x0 0xb8000000 0x1 0x38000000 0x3 0x48000000>;
- 
- 			pcie2: pcie@ca800000 {
- 				device_type = "pci";
+Also, since this is a single-module driver and SPI support does not
+exist yet, please fold goodix_gtx8.h into goodix_gtx8.c. We can split it
+out if and when a separate SPI transport module is added.
 
-base-commit: d05c6236496071916e19012cda7149465f15e66e
+> +
+> +static const struct regmap_config goodix_gtx8_regmap_conf = {
+> +	.reg_bits = 16,
+> +	.val_bits = 8,
+> +	.max_raw_read = I2C_MAX_TRANSFER_SIZE,
+> +	.max_raw_write = I2C_MAX_TRANSFER_SIZE,
+> +};
+> +
+> +/* vendor & product left unassigned here, should probably be updated from fw info */
+> +static const struct input_id goodix_gtx8_input_id = {
+> +	.bustype = BUS_I2C,
+> +};
+
+No need for a separate static struct for this, just assign
+input_dev->id.bustype = BUS_I2C in goodix_gtx8_input_dev_config().
+
+> +static int goodix_gtx8_get_remaining_contacts(struct goodix_gtx8_core *cd,
+> +					      int n)
+> +{
+> +	size_t offset = cd->ic_data->header_size + GOODIX_GTX8_TOUCH_SIZE +
+> +			GOODIX_GTX8_CHECKSUM_SIZE;
+> +	u32 addr = cd->ic_data->touch_data_addr + offset;
+> +	int error;
+> +
+> +	error = regmap_raw_read(cd->regmap, addr, &cd->event_buffer[offset],
+> +				(n - 1) * GOODIX_GTX8_TOUCH_SIZE);
+
+Please add a brief comment here (similar to goodix_berlin_core.c)
+explaining why offset includes GOODIX_GTX8_CHECKSUM_SIZE while reading
+(n - 1) * GOODIX_GTX8_TOUCH_SIZE bytes (i.e. that the initial read for
+the first contact plus checksum already fetched the first 2 bytes of the
+second contact).
+
+> +	if (error) {
+> +		dev_err_ratelimited(cd->dev, "failed to get touch data, %d\n",
+> +				    error);
+> +		return error;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void goodix_gtx8_report_state(struct goodix_gtx8_core *cd, u8 touch_num,
+> +				     union goodix_gtx8_touch *touch_data)
+> +{
+> +	union goodix_gtx8_touch *t;
+> +	int i;
+> +	u8 finger_id;
+> +
+> +	for (i = 0; i < touch_num; i++) {
+> +		t = &touch_data[i];
+> +
+> +		if (cd->ic_data->ic_type == IC_TYPE_NORMANDY) {
+> +			input_mt_slot(cd->input_dev, t->normandy.finger_id);
+> +			input_mt_report_slot_state(cd->input_dev,
+> +						   MT_TOOL_FINGER, true);
+> +
+> +			touchscreen_report_pos(cd->input_dev, &cd->props,
+> +					       __le16_to_cpu(t->normandy.x),
+> +					       __le16_to_cpu(t->normandy.y),
+> +					       true);
+> +			input_report_abs(cd->input_dev, ABS_MT_TOUCH_MAJOR,
+> +					 t->normandy.w);
+> +		} else {
+> +			finger_id = FIELD_GET(
+> +				GOODIX_GTX8_FINGER_ID_MASK_YELLOWSTONE,
+> +				t->yellowstone.finger_id);
+> +			input_mt_slot(cd->input_dev, finger_id);
+> +			input_mt_report_slot_state(cd->input_dev,
+> +						   MT_TOOL_FINGER, true);
+> +
+> +			touchscreen_report_pos(cd->input_dev, &cd->props,
+> +					       __be16_to_cpu(t->yellowstone.x),
+> +					       __be16_to_cpu(t->yellowstone.y),
+> +					       true);
+> +			input_report_abs(cd->input_dev, ABS_MT_TOUCH_MAJOR,
+> +					 t->yellowstone.w);
+> +		}
+> +	}
+
+Several issues here:
+
+1. finger_id is not checked against GOODIX_GTX8_MAX_TOUCH (10). On
+   Yellowstone it is a 4-bit field (0..15), and on Normandy
+   t->normandy.finger_id is an unmasked u8 (where only the lower 4 bits
+   are the slot ID and upper bits carry event/tool flags such as BIT(7)
+   for stylus). If finger_id >= GOODIX_GTX8_MAX_TOUCH, input_mt_slot()
+   ignores the slot change and leaves the previously selected slot
+   active, so the subsequent calls overwrite another contact's slot.
+   Also, on Yellowstone the lower 4 bits encode the contact/tool type
+   (like in goodix_berlin), so non-finger contacts should be skipped.
+
+2. Please use le16_to_cpu() and be16_to_cpu() instead of the underscored
+   __le16_to_cpu() and __be16_to_cpu() variants.
+
+3. Please extract finger_id, x, y, and w in the if/else block and call
+   input_mt_slot(), input_mt_report_slot_state(),
+   touchscreen_report_pos(), and input_report_abs() once below it.
+
+> +
+> +	input_mt_sync_frame(cd->input_dev);
+> +	input_sync(cd->input_dev);
+> +}
+> +
+> +static void goodix_gtx8_touch_handler(struct goodix_gtx8_core *cd, u8 touch_num,
+> +				      union goodix_gtx8_touch *touch_data)
+> +{
+> +	int error;
+> +
+> +	touch_num = FIELD_GET(GOODIX_GTX8_TOUCH_COUNT_MASK, touch_num);
+> +
+> +	if (touch_num > GOODIX_GTX8_MAX_TOUCH) {
+> +		dev_warn(cd->dev, "invalid touch num %d\n", touch_num);
+> +		return;
+> +	}
+> +
+> +	if (touch_num > 1) {
+> +		/* read additional contact data if more than 1 touch event */
+> +		error = goodix_gtx8_get_remaining_contacts(cd, touch_num);
+> +		if (error)
+> +			return;
+> +	}
+> +
+> +	if (touch_num) {
+> +		/*
+> +		 * Normandy checksum is for the entire read buffer,
+> +		 * Yellowstone is only for the touch data (since header
+> +		 * has a separate checksum)
+> +		 */
+> +		if (cd->ic_data->ic_type == IC_TYPE_NORMANDY) {
+> +			int len = GOODIX_GTX8_HEADER_SIZE_NORMANDY +
+> +				  touch_num * GOODIX_GTX8_TOUCH_SIZE +
+> +				  GOODIX_GTX8_CHECKSUM_SIZE;
+> +			if (!goodix_gtx8_checksum_valid_normandy(
+> +				    cd->event_buffer, len)) {
+> +				dev_err(cd->dev,
+> +					"touch data checksum error: %*ph\n",
+> +					len, cd->event_buffer);
+> +				return;
+> +			}
+> +		} else {
+> +			int len = touch_num * GOODIX_GTX8_TOUCH_SIZE +
+> +				  GOODIX_GTX8_CHECKSUM_SIZE;
+> +			if (!goodix_gtx8_checksum_valid_yellowstone(
+> +				    (u8 *)touch_data, len)) {
+> +				dev_err(cd->dev,
+> +					"touch data checksum error: %*ph\n",
+> +					len, (u8 *)touch_data);
+> +				return;
+> +			}
+> +		}
+> +	}
+
+Please use dev_warn_ratelimited() / dev_err_ratelimited() in the IRQ
+path so a noisy bus or misbehaving firmware does not flood the logs.
+
+> +static irqreturn_t goodix_gtx8_irq(int irq, void *data)
+> +{
+...
+> +	error = regmap_raw_read(
+> +		cd->regmap, cd->ic_data->touch_data_addr, cd->event_buffer,
+> +		cd->ic_data->header_size + GOODIX_GTX8_TOUCH_SIZE +
+> +			GOODIX_GTX8_CHECKSUM_SIZE);
+> +	if (error) {
+> +		dev_warn_ratelimited(
+> +			cd->dev, "failed to get event head data: %d\n", error);
+> +		goto out;
+> +	}
+...
+> +	if (status == 0)
+> +		goto out;
+...
+> +out_clear:
+> +	/* Clear up status field */
+> +	regmap_write(cd->regmap, cd->ic_data->touch_data_addr, 0);
+> +
+> +out:
+> +	return IRQ_HANDLED;
+> +}
+
+If the initial read fails or status == 0, returning IRQ_HANDLED on a
+level-low interrupt prevents the kernel from detecting a stuck interrupt
+line. Those paths should return IRQ_NONE.
+
+> +static int goodix_gtx8_dev_confirm(struct goodix_gtx8_core *cd)
+> +{
+> +	u8 rx_buf[1];
+> +	int retry = 3;
+> +	int error;
+> +
+> +	while (retry--) {
+> +		/*
+> +		 * test_addr appears to always be the touch_data_addr for
+> +		 * Normandy, but it doesn't really matter since all we
+> +		 * need is a valid address
+> +		 */
+> +		error = regmap_raw_read(cd->regmap,
+> +					cd->ic_data->touch_data_addr, rx_buf,
+> +					sizeof(rx_buf));
+> +
+> +		if (!error)
+> +			return 0;
+> +
+> +		usleep_range(5000, 5100);
+> +	}
+> +
+> +	dev_err(cd->dev, "device confirm failed\n");
+> +
+> +	return -EINVAL;
+> +}
+
+Please return 'error' (and log it) instead of replacing it with -EINVAL.
+
+> +static int goodix_gtx8_suspend(struct device *dev)
+> +{
+> +	struct goodix_gtx8_core *cd = dev_get_drvdata(dev);
+> +
+> +	disable_irq(cd->irq);
+> +	goodix_gtx8_power_off(cd);
+> +
+> +	return 0;
+> +}
+> +
+> +static int goodix_gtx8_resume(struct device *dev)
+> +{
+> +	struct goodix_gtx8_core *cd = dev_get_drvdata(dev);
+> +	int error;
+> +
+> +	error = goodix_gtx8_power_on(cd);
+> +	if (error)
+> +		return error;
+> +
+> +	enable_irq(cd->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +EXPORT_GPL_SIMPLE_DEV_PM_OPS(goodix_gtx8_pm_ops, goodix_gtx8_suspend,
+> +			     goodix_gtx8_resume);
+
+1. Use static DEFINE_SIMPLE_DEV_PM_OPS() instead of exporting
+   goodix_gtx8_pm_ops when there are no external callers.
+
+2. If goodix_gtx8_power_on() fails in goodix_gtx8_resume(), it leaves
+   both regulators disabled and cd->irq disabled. A subsequent driver
+   unbind (via goodix_gtx8_power_off_act) or the next suspend cycle will
+   call goodix_gtx8_power_off() again on already-disabled regulators
+   (triggering a regulator underflow WARN) and disable the IRQ a second
+   time.
+
+   Better yet, please wire up input_dev->open and input_dev->close:
+   power the chip on in probe() only long enough to read the version,
+   then power it off, request the IRQ with IRQF_ONESHOT | IRQF_NO_AUTOEN,
+   power on + enable_irq() in open(), and disable_irq() + power off in
+   close(). Then suspend() and resume() can take &cd->input_dev->mutex
+   and only power down/up when input_device_enabled(cd->input_dev) is
+   true, which also avoids keeping the controller powered when nothing
+   uses the input device.
+
+> +static int goodix_gtx8_probe(struct i2c_client *client)
+> +{
+...
+> +	cd->dev = &client->dev;
+> +	cd->irq = client->irq;
+> +	cd->regmap = regmap;
+> +	cd->ic_data = i2c_get_match_data(client);
+> +
+> +	cd->event_buffer =
+> +		devm_kzalloc(cd->dev, cd->ic_data->event_size, GFP_KERNEL);
+> +	if (!cd->event_buffer)
+> +		return -ENOMEM;
+
+Please check if (!cd->ic_data) before dereferencing it.
+
+Also, instead of a separate devm_kzalloc() for cd->event_buffer and
+casting it across the driver, you can embed a union of
+goodix_gtx8_event_normandy and goodix_gtx8_event_yellowstone directly in
+struct goodix_gtx8_core (like goodix_berlin_core.c does).
+
+> +	error = goodix_gtx8_power_on(cd);
+> +	if (error) {
+> +		dev_err(cd->dev, "failed power on");
+> +		return error;
+> +	}
+> +
+> +	error = devm_add_action_or_reset(cd->dev, goodix_gtx8_power_off_act,
+> +					 cd);
+> +	if (error)
+> +		return error;
+> +
+> +	error = goodix_gtx8_read_version(cd);
+> +	if (error) {
+> +		dev_err(cd->dev, "failed to get version info");
+> +		return error;
+> +	}
+> +
+> +	error = goodix_gtx8_input_dev_config(cd);
+> +	if (error) {
+> +		dev_err(cd->dev, "failed to set input device");
+> +		return error;
+> +	}
+> +
+> +	error = devm_request_threaded_irq(cd->dev, cd->irq, NULL,
+> +					  goodix_gtx8_irq, IRQF_ONESHOT,
+> +					  "goodix-gtx8", cd);
+> +	if (error) {
+> +		dev_err(cd->dev, "request threaded IRQ failed: %d\n", error);
+> +		return error;
+> +	}
+> +
+> +	dev_set_drvdata(cd->dev, cd);
+
+The three dev_err() messages above are missing trailing '\n' (and
+goodix_gtx8_power_on() / goodix_gtx8_read_version() already log their
+own errors).
+
+Also, please set drvdata and request the IRQ before registering the
+input device in goodix_gtx8_input_dev_config().
+
+> +static const struct i2c_device_id goodix_gtx8_i2c_id[] = {
+> +	{ .name = "gt9886", .driver_data = (long)&gt9886_data },
+> +	{ .name = "gt9896", .driver_data = (long)&gt9896_data },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(i2c, goodix_gtx8_i2c_id);
+> +
+> +static const struct of_device_id goodix_gtx8_of_match[] = {
+> +	{ .compatible = "goodix,gt9886", .data = &gt9886_data },
+> +	{ .compatible = "goodix,gt9896", .data = &gt9896_data },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, goodix_gtx8_of_match);
+> +
+> +static struct i2c_driver goodix_gtx8_driver = {
+> +	.probe = goodix_gtx8_probe,
+> +	.id_table = goodix_gtx8_i2c_id,
+> +	.driver = {
+> +		.name = "goodix-gtx8",
+> +		.of_match_table = of_match_ptr(goodix_gtx8_of_match),
+> +		.pm = pm_sleep_ptr(&goodix_gtx8_pm_ops),
+> +	},
+> +};
+
+Use (kernel_ulong_t) for .driver_data in goodix_gtx8_i2c_id, and drop
+of_match_ptr() so goodix_gtx8_of_match does not trigger an unused
+variable warning when CONFIG_OF is disabled.
+
+> diff --git a/drivers/input/touchscreen/goodix_gtx8.h b/drivers/input/touchscreen/goodix_gtx8.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..9b13cfce38720b35bb11f0d7f56d671b31664ade
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/goodix_gtx8.h
+...
+> +#define I2C_MAX_TRANSFER_SIZE			256
+
+Please prefix this with GOODIX_GTX8_ so it does not collide with the I2C
+subsystem namespace.
+
+> +struct goodix_gtx8_header_yellowstone {
+> +	u8 status;
+> +	/* Most likely unused */
+> +	u8 __unknown1;
+> +	/* Only the lower 4 bits are actually used */
+> +	u8 touch_num;
+> +	/* Most likely unused */
+> +	u8 __unknown2[3];
+> +	__le16 checksum;
+> +} __packed __aligned(1);
+
+Yellowstone checksum is big-endian (read via get_unaligned_be16() in
+goodix_gtx8_checksum_valid_yellowstone()), so this field should be
+__be16. Also, __aligned(1) is redundant alongside __packed (here and on
+the touch structs below), and the "The data below is u16 aligned"
+comments on the event structs are inaccurate for Normandy where x and y
+sit at odd byte offsets.
+
+Thanks.
+
 -- 
-2.53.0
-
+Dmitry
