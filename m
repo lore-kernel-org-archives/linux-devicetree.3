@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794547404;
-	b=eor6UZO0dgmB0DmkFCqL82EV7jmu4CwlS77dzM5guF3MmF7PZ3S/VfZfy2DpHVOnMSmk
-	 d32RV1RE3gHi0xudWKw+GZSvtdOI96E5EOMftgGd9eOANSoy/lc+dPEQQuHCNSrZB5HhG
-	 xH2VKEinKGU6hFx/4mFKnTLjmdh/HB/bm1sAOJ+rHFoluZ6e1a/2YVRoloNVr4V+HI+cN
-	 b0/4rzTOucTMFBFJDB201INd9bo2uUqpzo8WmG/SlyzXWfxhSW56jad8OGMAnN5993M5w
-	 PqmK+rnCWpC4/K7G9eVp0Ne1ndMaH2NBKPVriO3f5IMZYAYeFLf7zF+g1Mn+FiO9ipg==
+	t=1794547449;
+	b=4xJkqOYnGaIzNecAXwZ/HK+/cTxz7mNyynD4iDlj4+G2wHB08xxhRXMCQkixKCkW/hlb
+	 dAyf1RI6g6VGSw00ctIyhY1rkiHyVxOxWD96dFyGA03/sFULWfEgF6uI+wmCkJvpcbN81
+	 BZn+xWwtNWfH641dog5q6777gRLzoVQShk0GjJ9kod40YeXZYPXHQmjWHGEQ5LvA+6Jov
+	 PlDfzkjRlJkJ0llaz5xDnjmxQuRpwR4N33ZV35BUiV/4BOIJpzqEtHaPsHGGFhtM+Es75
+	 sUQCnVr/yyiHysPtV5J6b8uTmuxoz2AiSTH+WARw1/XxiAbgGLJf2luVNFIM4AbF3Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794547404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794547449;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
-	b=d98wWYLeDR4xPHl7PLCQaUNMTGD0MpoBS0Au1fnIAmFBZezLdO3o5D+2xBiAvtkkaVQX
-	 70WmSCnZue+Vdc9ZS3f6tJM3y0xTIrLDFCqHQkzhTqGbzjcAjOCfyeR4kUjCfH/sBWdWd
-	 eUafSNEgIfbTm5r0M2XPBombxZ/Gxb3PwSXP5xnQxqmE+IKnWZwNWzAqSh0biSuXF201y
-	 8O5J4eQenj+rESvBhTgZDqe+wjoXtVHBasx4HXlmoXf6vKq7X7WRxC/GW0aT3lIyL+68q
-	 rxGtdNGaaDv5dV+7eAWwsW5elqaLnAPtHF0Z/NiB3p3jFJsmti5iqF/ocgRMQtZ2cZw==
+	bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+	b=ATJbt2K8bIFowQwW3MziWbNJjAowgOm454Kz59PA6Fwt7otCP8n0ee2DBDitWFL9zfiD
+	 hj0go58lzXGzKBeRlKXibAYAmtkdf0bTSOw8WpccnnWGd7oteKi9I/hW4a5KljhObAFXG
+	 JtyX/kz0XqrAvbS4QaXTZoe+ku2gg7yQkIHSldPY3s2CBEVzaytWfM9U6kVP5yw4kKqVh
+	 Nf4hyqdkP8xhsggBvSCe0w+dxcRLnsN0W2iSpoqu4B5ML8yvycN4nWzZrGmyI8iiuNdBa
+	 b4KE+q93k5SHOE3cdtMBKdSTzJO2NaLpclYPRl1XC2kQ013WIJPpQgbr8fw6aqjShZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Y8FNga+v;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=mftG5p0c;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C891F606A321
-	for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C891F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529CB606A327
+	for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:24:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 529CB606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Y8FNga+v
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d28f75d62so121163366b.0
-        for <Devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:23:23 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=mftG5p0c
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b56bbf8330so748912a12.3
+        for <Devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:24:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794547402; x=1795152202; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794547448; x=1795152248; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
-        b=Y8FNga+vcCcCKHUEfRGOlaENwQ5mrXXErdwwwFMG+VWva4gByfMHjudzcJadU41ThR
-         PUxr27YQPHCoLPM/C0m7pEkPy5nnYjqH+Bf7vQmP61igxRcrQD4lKZnv0GJJBCduSzrD
-         HhzXL2DhgzXGEOFa8cItwaYASVjMsRno4ZMCc=
+        bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+        b=mftG5p0cnhUGqDR03qwKpcZQs3Imu6Mue0H6fhXbs9Cdz2fwi2hcYwRBf5sazRn6Vu
+         SMonV2emcTcFMd5BB9Fse2GNrp82z3ba57XdNO8FJQBBUHPrAAvHSTMRivVsaovhXjKp
+         T4iqyZtJeXWAI/na1h0n5MUmNNiSQtm5FO11o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794547402; x=1795152202;
+        d=1e100.net; s=20260707; t=1794547448; x=1795152248;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=hu9Bl2aKV+qWTG9SKgrVwWdxUFqgIaURnoD0XjS0m3E=;
-        b=gb+i6xQL95/PmCEExNG+Jd2+qbQh2Zo+hldsGZc8Kj/SXC5+Ajh7t4KQcBQnuzWDbu
-         5etTjmtAGSy8BBlJP3kTO7+g+4VfxJFeuDyVQlDo4KJj2oUUyeH8xRXZOs6/9VfEsYMj
-         WaBh7eQlKUKFkHzK9rC4Jh9cgQKTodD4SsE92IgJRtz4WeZkMx9X7l1905dqkPoe6yP9
-         YLsu33Fi+u8NN0ET05K95mHS5xEy2taqEOF83S1fXCInNuZMl+r1pMoLVkDgP33Gqie5
-         j5bR0bE7ST+Ji+ziu9SlTuUzhcva80MkwRzZDwMfQb1oAMOl9UHlApdzKvq/DFlTC86v
-         L0gA==
-X-Forwarded-Encrypted: i=1; AL+hErE5OyeRMod6SFfUB8jYFGyNvkLLwSQla7WLSORsaTIuvgb8QfhYZL2yWhmQWRcp/LhZXCJ+FhJIAALH@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2LDoNzz9v1zGsVUOGaAoZLghI2+I5/ha2XSBEpqtYfA+QGlWf
-	0gZ0EJZHWS8U+tz7cAozUlEEhv8gHfbW3vBj2DRY3/y3rq8U+KpkOd1xHyrtcTwod/MmTXTbLvC
-	F2lVFOErz
-X-Gm-Gg: AYBFou3JxTVhewr1vBzsc8FZ+ZVBD7vI1Bpumo5UEPRLUpioIVX+W82GxQ79MlYu7wx
-	1OTXeEF7rmbvOnh1u1bSR8lDQgpnndvR67LK8JU07FUx1viUkEj48vCxaxPTl19dLMTyn915h/v
-	5tYlYVW8wD/g+MbBSpwju07JY6XO6Pda/MD24wdXR/OcDC3HGAWs3yPqEjbgaLQQesLo1xuvTtW
-	sMg9wtgYfiwK9Bqw9PNFIPuWfydB/Wc4nER3eDsjwFoJOn3K23ZnTKazTMaiOcUKj67fxnq1FU4
-	3QyR38/VdViEpInl4O6Jjd6urQHaR9TxK9nhZNiVBQke9Jgu9s2IJbsok2fHX86w3O5F1+j0UkC
-	elqU8PIw3vujsLbKgN24Nf4mLPbNwgd4A5SrMDqnxCqnnR8Kt9rE3jlOi/+JVTFHftqJOfWBRpt
-	35cSMzrjesxnlggj+F/GPv6xu4icO8Y2KGYLYtMgCLyEjZR+lrZu6N2u3ERPp8fkdDCS03Z7wij
-	7uMOQVaDMRtSPpQ5QlRj9woz8Y66HY3zha9/KQr+FzPDZw4ScKdO3ohIeq/jfToHyYPzMEw1BmU
-	qId/PFG5XSto/MX3Lxku78xovcen+VFjXAN3Z8rwKZYt3C2XLs/kqWRz7OJtaGUf3rXecw==
-X-Received: by 2002:a17:906:8e17:b0:c3f:7ab8:bef1 with SMTP id a640c23a62f3a-c50963b0c26mr114633866b.34.1794547402243;
-        Thu, 12 Nov 2026 21:23:22 -0800 (PST)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b780d6sm50507966b.67.2026.11.12.21.23.19
+        bh=JmKJsnJY8MqWcs4Bpm4VF6uZO2VAnwIaLQAzmFCdCwU=;
+        b=Z1wB/5oc/5+s+MzuM9zVWtQwbNnQ5OWp4jlSPhlYiwx0yozGi3PYQG+B4W2Nzc9HXD
+         6YFV+DdZ3TKFKVtW7RvmUnP3e5qAz0zBnEwogqEephN94yjhIOl1tiPROZfiwDCS8Uzg
+         XVX1NPSSMj1uHyJKZkRqG7ouMmyUGFI9I4gR+bEiU6uziDkL5Pw7RM+qXdnerc4rQGgi
+         U0phPtKaiSI6x+6a/KCfxI5ZS0JmtVdSmbJpKXVbZVkjoo7FDDNJtE7vwMVKKrrmjezC
+         7JRSQ/+wQLmHwBN/cpH87BnfA0TILnadvKdAAynkQJWM7iDUSbbdhkqctYcsNqLQs5ol
+         1tFA==
+X-Forwarded-Encrypted: i=1; AL+hErEoP/UQQRfylD36j1BHXbBvMVOcUa//YNdB6mQlKJTt0NY5dojS+FMMOHHlGJ1BAzFZStngR3Qz1qVv@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cELPpoWXZO1NXRm0YMLX9LVNmwYhGhrDmz84JbkNEtQ/ufnpv
+	vYbkEJvIcanqxV70SQY9klfVs0qlfiwvbGVToYZtG8R3X20I9CuTivDMc27xOzAkvcVObrYh/OP
+	HDm0Iy00n
+X-Gm-Gg: AYBFou0HfuXpwIoqu35TIoWsxTPeDA0lJOWg1hUCI1xC07t3xnSoLVNR9KihGB4IeEE
+	sxTvbZd/0FgKINmsA2FONEP8RipHBLzPSWNEYAFpn1Hongfvb92xTsZatpLvfrh1Xx4cAsdHEqa
+	kk8/QtURwkmBAOhRp0D8eQwsl5GSKDFzqZcvl3grgLEcqj0hLlwGNW7HW5EGjYlLfcyxdlW9JjO
+	BunfGfCEZF4+NglARMUPH4mZgkERY+nIxl0EMsMOBaZCfNiLl/XmICN46a9FdS0eLdjOIFdANA3
+	FwgW8ezTrcxspp/8yCwMCaS7+Jd27djIgHMjzG45Aq0DQCpc0/tDt2NeGMLlC7Ozl1/mV1jSk5J
+	3t9XPd98wUqMJjh9gRzrLstTSxYrViqzD5Vz2uMzboSklkmp0zmFwaQF7nEJNqTPJT3HqrrQ/89
+	bSkkL7wWWu41fgPD/DTdIwY2x5jjtLaB4/KWC9xRfRXlJOaF41mkZugaKTOp1+Amglx60ly6GZ4
+	MJMgI+JIqdm5sy8ZJ8MHfSi/sk5caKlrteDT/yYXWf70gHbc7caxyOXNzQnurt1ZVnJ6RdLUJ0X
+	sobqIlJpOr9Xri8htp0JL9Ent1rugwlqrCoYSan9/GGCLu0lqPtp5PA22qHY3FxekAJA
+X-Received: by 2002:a17:907:3e8c:b0:c3e:ee86:d2c with SMTP id a640c23a62f3a-c5096343b6cmr106448566b.27.1794547447799;
+        Thu, 12 Nov 2026 21:24:07 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com. [209.85.128.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b57c5bsm51687466b.49.2026.11.12.21.24.07
         for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 21:23:21 -0800 (PST)
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-491971ac844so590285f8f.2
-        for <Devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:23:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFkYrBFmpiLvtwJFALRpWp58+s7BizRSqI07bR/KABTmdu+FYa53fHh7OLLRRB7cnd997sG2qmqjjXD@vger.kernel.org
-X-Received: by 2002:a05:6000:4688:b0:488:7d08:edbc with SMTP id
- ffacd0b85a97d-49c714a2a99mr2054397f8f.24.1794547398778; Thu, 12 Nov 2026
- 21:23:18 -0800 (PST)
+        Thu, 12 Nov 2026 21:24:07 -0800 (PST)
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso3059595e9.0
+        for <Devicetree@vger.kernel.org>; Thu, 12 Nov 2026 21:24:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEB3GG3sI9Eys7/SQuVUGKbfTAQhfHef48X3PvBIpDSapIDqit9Q4D9N8OXweNvxfFFMkYUZNvG3kNU@vger.kernel.org
+X-Received: by 2002:a05:600c:4e05:b0:4a1:6517:ccf1 with SMTP id
+ 5b1f17b1804b1-4bb55a44ff0mr28193205e9.9.1794547446523; Thu, 12 Nov 2026
+ 21:24:06 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,14 +94,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-15-dianders@chromium.org> <avUgDyB9p0_OSxal@gractus.seuss>
-In-Reply-To: <avUgDyB9p0_OSxal@gractus.seuss>
+ <20261101220224.1436242-16-dianders@chromium.org> <avUlA_KSHKmmSz5p@gractus.seuss>
+In-Reply-To: <avUlA_KSHKmmSz5p@gractus.seuss>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 12 Nov 2026 21:23:06 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XdPm0zQJe3rbeKMDnBia4qzuetxn4T2CMeh1+7tLOt+A@mail.gmail.com>
-X-Gm-Features: AclHuK9aXeqWfCXMZOPBMpM60f8-snYNUMCFOIZWOgLzWEySRUCP9VJFMXuuRXk
-Message-ID: <CAD=FV=XdPm0zQJe3rbeKMDnBia4qzuetxn4T2CMeh1+7tLOt+A@mail.gmail.com>
-Subject: Re: [PATCH v3 14/15] fdtfactor: Support compressed DTB inputs and outputs
+Date: Thu, 12 Nov 2026 21:23:54 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WGTD8FtjPFE5mFSJP343Z9-2HNXHH3g4usqpWPVuwPUg@mail.gmail.com>
+X-Gm-Features: AclHuK_4zB7NHPQo84upfuBk9JkbLknfTYjE74uvl8_8rHyRokZIvN2zJ3Vj3W8
+Message-ID: <CAD=FV=WGTD8FtjPFE5mFSJP343Z9-2HNXHH3g4usqpWPVuwPUg@mail.gmail.com>
+Subject: Re: [PATCH v3 15/15] fdtfactor: Add compiled FIT factoring support
 To: David Gibson <david@gibson.dropbear.id.au>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -115,70 +115,143 @@ Content-Type: text/plain; charset="UTF-8"
 
 Hi David,
 
-On Wed, Nov 11, 2026 at 6:10 PM David Gibson
+On Wed, Nov 11, 2026 at 6:31 PM David Gibson
 <david@gibson.dropbear.id.au> wrote:
 >
-> On Sun, Nov 01, 2026 at 02:01:21PM -0800, Douglas Anderson wrote:
-> > Extend `fdtfactor` to detect compressed input blobs by magic bytes or
-> > file extension, transparently decompress them before factoring, and
-> > compress the resulting `.dtbo` and `base.dtb` outputs when appropriate:
+> On Sun, Nov 01, 2026 at 02:01:22PM -0800, Douglas Anderson wrote:
+> >  * `-o`, `--outdir`: Output directory for generated `.dtbo` files and
+> >    `--output-base-dtb` (default: alongside each input `.dtb` for `.dtbo` files,
+> >    current directory for `--output-base-dtb`).
+>
+> Even though one's a directory and one's a file, using different output
+> options for the FIT/non-FIT cases seems kind of awkward to me.
+
+Makes sense. In my draft v4 I've unified both into `-o` / `--output`
+(output directory in standalone `.dtb` mode; output FIT file path in
+`-F` / `--fit` mode, defaulting to updating `--fit` in place) and
+dropped `--outfile`.
+
+
+> > +* `-F`, `--fit`: Factor `/images/fdt-*` blobs inside a compiled FIT
 > ...
-> Hmm.  Whenever I see a pretty complex chunk of code dedicated to
-> auto-detecting and guessing the right thing to do, I worry about it
-> doing something weird with an unexpected group of inputs.
+> > +* `--outfile`: Output FIT path when `--fit` is used (default:
+> > +  overwrite `--fit` in place).
 >
-> How much usability would you really lose, if you required that the
-> compression method be explicitly supplied (I'd envisage a single
-> option which controls both input and output sides)?
+> That's a lot of fiddly detail to fit in the description of a single
+> option.  Maybe move it out into its own doc section.
 
-Very little in practice -- build pipelines factoring standalone `.dtb`
-files already know which compression format they're using, and requiring
-an explicit option catches mixed or unexpected inputs instead of
-guessing.
-
-In my draft v4 I've replaced the magic-byte/extension auto-detection and
-`--base-compression` with a single `-C` / `--compression` option
-(`none`, `lz4`, `lz4_legacy`, `lzma`, `xz`, `gzip`; default `none`)
-controlling both input decompression and output compression for the base
-DTB and `.dtbo` files (with `--output-base-dtb` defaulting to
-`base.dtb.<ext>`). (In `-F` / `--fit` mode, each `/images/fdt-*` node
-already explicitly declares its compression via its FIT `compression`
-property.) That also lets us drop `detect_compression()`,
-`split_dtb_filename()`, and the mixed-compression stats logic.
+Done in my draft v4 -- split the `README.md` options (and `--help`
+groups) into common options, a `### Standalone DTB Factoring`
+subsection, and a `### FIT Factoring` subsection.
 
 
-> > -* `-s`, `--stats`: Print size savings summary.
-> > +* `-s`, `--stats`: Print uncompressed and compressed size savings.
+> >          if _is_dtbo_overlay(fdt):
+> > -            raise ValueError(
+> > +            raise OverlayBlobError(
 >
-> I don't think this hunk really adds anything useful.
+> This change seems unrelated to the rest.
 
-Dropped in my draft v4.
+In a FIT `/images` node, both full `.dtb`s and pre-existing `.dtbo`
+overlays use `type = "flat_dt"`, so `_extract_fit_fdt_entries()` had
+added `OverlayBlobError` to catch and skip `.dtbo` nodes while letting
+other `ValueError`s propagate. Using an exception for that control flow
+was clunky, though -- in my draft v4 I've dropped `OverlayBlobError` and
+check `_is_dtbo_overlay()` directly in `_extract_fit_fdt_entries()`
+before constructing `ParsedDtb`.
 
 
-> >      parser.add_argument(
-> >          '-s', '--stats',
-> >          action='store_true',
-> > -        help='Print size statistics summary',
-> > +        help='Print size statistics and compression summary',
+> > +        algo = sub_node.get_str('algo')
+> > +        sub_node.props['value'] = libfdt.Property(
+> > +            'value', _compute_fit_hash(algo, data_bytes)
 >
-> To, compression fits already in "size statistics".
+> This assumes the FIT naming of hash algorithms is identical to the
+> hashlib one, which seems a bit risky.
 
-Dropped in my draft v4.
+Agreed. In my draft v4 I've replaced `hashlib.new(algo_name)` with an
+explicit `FIT_HASH_ALGOS` dispatch table mapping the standard FIT `algo`
+names (`crc32`, `md5`, `sha1`, `sha256`, `sha384`, `sha512`) to their
+`zlib` / `hashlib` implementations and raising `ValueError` on unknown
+names.
 
 
-> > +    # Compressed (.dtb.gz / .dtb.xz / .dtb.lzma / .dtb.lz4) modes
-> > +    for comp_spec in "gz:gzip -9 -k -f:gzip -d -f" \
-> > +     "xz:xz -k -f:xz -d -f" \
-> > +     "lzma:xz --format=lzma -k -f:xz -d -f" \
-> > +     "lz4:lz4 -12 -q -f -m:lz4 -d -q -f --rm" \
-> > +     "lz4:lz4 -l -12 -q -f -m:lz4 -d -q -f --rm"; do
-> > + ext="${comp_spec%%:*}"
+> > +def group_fit_dtbs(fdt_entries):
+> > +    """Partition FIT `flat_dt` entries into compatible factor groups.
+> > +
+> > +    DTBs are grouped by `(compression, arch, load, entry, boot_cpuid_phys,
 >
-> Because we use 4-character indent depth, we should consistently use
-> spaces to indent in run_tests.sh, not mix tabs and spaces.  Mixing
-> them here has the side effect of making these lines not look indented
-> from the for statement in patch format.
+> Why should compression play a role in the grouping?  The internal dtb
+> data doesn't depend on that.
+>
+> I'm not sure what the 'load' and 'entry' fields do, so it's not
+> obvious to me whether they make sense here either.
 
-Fixed across all patches touching `tests/run_tests.sh` in my draft v4.
+* `compression`: Agreed -- in my draft v4 I've removed `compression`
+  from grouping (and from `--single-base-dtb`'s compatibility check),
+  recompressing each overlay `/images/fdt-*` node according to its own
+  `compression` property and `fdt-base-N` according to the group's first
+  entry's `compression` property.
+* `entry` and `load`: In the FIT spec, `entry` is the CPU entry-point
+  address for executable images (`kernel`, `standalone`, `firmware`) and
+  isn't meaningful on `flat_dt` nodes, so I've dropped `entry`
+  completely. `load` is an optional physical RAM address telling the
+  bootloader (e.g. U-Boot's `boot_get_fdt_fit()`) where to load the base
+  FDT before applying overlays: two `flat_dt` nodes with different
+  `load` addresses can't share a single `fdt-base-N` node (since
+  `fdt-base-N` can only carry one `load` address), and `load` is
+  stripped from the `.dtbo` overlay nodes so a bootloader doesn't copy
+  an overlay directly on top of the base FDT at `load`. I've added a
+  comment explaining `load`.
+
+
+> > +    mem_rsv)` and node-path overlap (>= 50%) against the group's common node
+>
+> Overlap >= 50% seems a very arbitrary condition here.
+>
+> > +            common_nodes = grp['common_nodes']
+> > +            union_len = len(entry_nodes | common_nodes)
+> > +            overlap = (
+> > +                len(entry_nodes & common_nodes) / union_len
+> > +                if union_len
+> > +                else 1.0
+> > +            )
+> > +            if overlap >= 0.5:
+> > +                grp['common_nodes'] &= entry_nodes
+> > +                grp['entries'].append(entry)
+> > +                placed = True
+> > +                break
+>
+> Reimplementing the common path analysis, rather than somehow utilizing
+> the calculations you already implemented in the factoring itself seems
+> unfortunate.
+
+The usage model for `group_fit_dtbs()` is a multi-SoC kernel FIT (for
+example, building `arch/arm64`'s `image.fit` across all enabled Qualcomm
+or ARM64 boards, which bundles hundreds of DTBs spanning many distinct
+SoC families).
+
+Looking at your two points here, I initially tried dropping the overlap
+percentage altogether by running `create_base_dtb_and_overlays()` on
+each candidate group and merging whenever factoring reduced total size.
+Testing that on a FIT containing all 438 upstream arm64 Qualcomm DTBs
+was much too slow, though: rebuilding `base.dtb` and every member's
+`.dtbo` on each candidate check (`O(N^2)` `.dtbo` builds) took nearly
+90 minutes.
+
+To address both of your points while only building `.dtbo`s once per
+final group, in my draft v4 I've:
+1. Replaced the unweighted node-path overlap check with byte-weighted
+   overlap over `ParsedDtb`'s already phandle-normalized `(path, name,
+   prop, fixups)` properties, reusing `select_best_candidate()`'s
+   `_prop_byte_cost()` calculation directly and picking whichever
+   compatible group has the highest overlap.
+2. Added `--min-overlap PERCENT` (default `50`) so the overlap threshold
+   is configurable rather than a hardcoded constant.
+
+Testing `fdtfactor -S -F` on the 438-DTB Qualcomm `image.fit` finishes
+in ~12 seconds, grouping 426 of the gzipped DTBs into 41 `fdt-base-*`
+groups (leaving 12 single-board SoCs unfactored). Compared to a
+standard `image.fit` built without `-@ -L`, that shrinks the embedded
+DTBs by 61% (9.27 MB -> 3.59 MB gzipped; overall FIT 22.48 MB ->
+16.81 MB including the 13.09 MB kernel).
 
 -Doug
