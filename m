@@ -1,57 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603111;
-	b=CV4S2+1wkTkfESGcVtoy2intd+mc6imF2EuUQVxbll6aHUk9lM7DU+bZIf9nw8q5bzHm
-	 NT+FqAfIPoBRWh4/K6qTtLAIJ16kan/r5bvj5hD0QUlx2AIAFkeBlV0GJkmAw1wjKPnWM
-	 2cmjTSPKYD1FJaBa4MRG3/gZH7LhniT8tNQoOrEmRn+vI+b7flvzpRlnt/Y6ag0d6H1t6
-	 QuP3YU78F3FLU5nZk+TmLCGvKrUUAZh9QUnFUw0RV8Urj+G0OgodUUdy3VrKazvocyZw7
-	 r6PObGavMP9BIbHpVtSs3pHe/aKcMbxitfMflVD2URDhoaLxb5eAv11+RZLk9PaPUHQ==
+	t=1794603444;
+	b=Jd9/XGcwO2iC4hlUU1BpR2zE/PqzGmS4g7UZgNtEvjo4XrS9udjopP5aFJah6Fe+ikPU
+	 VG9m75Y1Abc/Db0iBxGIIdNqrFEpsbgnc6K1Znvxo4u02VkuouFwR2+c6+IGlaVQ1JhoW
+	 JtNCbAdHTisvtq/DbsGY4587skF8k5nmXzzV7IQG0xC5mpEZo3T+YHdbKSDIRbqmjwMUv
+	 6yzhqHNeTe5ar/xk297GhlU6OuJh4JY3RQxOoFjxk0aKX+N6lFzDqt4My/WLsO3wF7sts
+	 niPbZdXtYkcr0Z0RdgX7aDOQTPDV00AVemZ9YWzCGWIvMmdjMPCv1gqsU0XexogF6SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603111;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TxDR5uoVi29IYdzO/SmccK9SUSlSLp5OZsh0EFtgquc=;
-	b=2eDddn4SvJtV0hGENE0imrMcCEI8TAPpB/f2mAVnHHDuhe2HOqL/uR5NuwZLvsTGDCBd
-	 lZ0PKojiD8d6nZNMnY4jQpaprQ6ikazDqMM/vFaHrvBVSX7t/VNdwBBTp3kfx3JN+WE+3
-	 5k3p7eyIQNSZNE3caI+iCgQD1QwEQdZCtRNZNwlFwM82FkD3N7kyF9nFV5QbM+DIp/CId
-	 /DNoPIGmqghtHfD4v8zuOHM6iYHuORRCFhNXedFc7ljaUnwe5PODEgNLLL8LRhvNnmPu7
-	 0KoPYkwb1opzLVLUAdbsoCYQb7HQmU0jwMEt0yNighl8xw/ybd7Zf64SI4/ZqrwhJQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603444;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BcEnhktCdND90RNu0qNfZdtATRB2rCMt5Xus7i9XGqk=;
+	b=5Qa/v6T7ZnO1Cc1FphdkVbzqJ9Kac98ReV87IZohMNJNsWPfW3lWUVnISLPTRxAY0M/K
+	 RZ8NHBiSW5hX2DoKifO29PEGSGEgLe97VoSJkSclR+u/TCVKzlsiR4SEZ1Pm1ewF3rexv
+	 2Tbw3EvCPmIHg48VEIYHAnKYkHb/1hiwFwvXWVHE1DRN/i6NwK3uUcG1I0bIFfWaBjjdt
+	 BKmUT38EF3rH+6Ytli5OlJUGBc9qvgZUy50YHNprx+K+7i4zw25UHaABknN7A5+3An7+z
+	 9OT4xXkEsMbKlc+SWCLhtk7ruJXvx3ri1kfjV3QcRpbcWorZaTXSplRuUY2o+jRwcew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxiVF640;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfD7jmHu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708F4606A331;
-	Fri, 13 Nov 2026 20:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A96606A32D;
+	Fri, 13 Nov 2026 20:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxiVF640
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26131F000C4;
-	Fri, 13 Nov 2026 20:51:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfD7jmHu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3201F000C5;
+	Fri, 13 Nov 2026 20:57:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603111;
-	bh=TxDR5uoVi29IYdzO/SmccK9SUSlSLp5OZsh0EFtgquc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SxiVF640ylULF2WKIumdrchh2J1L+dI9WDixWgGUorjS85Te3ckTcOynVKoDpVvdX
-	 EdwSS27P38NrkYcT4QNO4yBe19tgTO1ILU6xFHdQWurHWkhEJ0VJizi/HNCkjToJGV
-	 5pLEROzf7euUgmAL9kSTzCyZT6JdorI7SFtXYl/8t65yAjLHrD7xclb58EvalblTXQ
-	 Rb+bFzDanbD/4dOZ14tMJ+aFFduuKL4x4j8gcWzWOBsgC0y7vdSSCaAn8MIfN9ZtHL
-	 E3NRXxM5CZVmgXs0bowpJOVj4nFXPqwZt8VPtCKilNCG0tl5476iahvLKI58Y2Rw7E
-	 uxWlekBVlpOPw==
-Message-ID: <sashiko-outbox-213684@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: add device tree for Asus
- Vivobook 16 X1607QA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Carter" <yass27106@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <bee078b697b74da694b5f9e6f518c0fb@gmail.com>
-References: <2c4a807496c04047b6d5735e3946dd16@gmail.com>
- <bee078b697b74da694b5f9e6f518c0fb@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 20:51:50 +0000
+	s=k20260515; t=1794603444;
+	bh=BcEnhktCdND90RNu0qNfZdtATRB2rCMt5Xus7i9XGqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kfD7jmHuyGTUZJH48tL2WW7iDLcbobj01KHq7Im7rXdLDTlodGMOMakZllPB2Yr3e
+	 0l0pWHkWl1M6JN6nsWW/7sdR/4K65SNz9XjZGOTk9yPpEBhypEt24Qr7f0x4wX5K/D
+	 3GRiPlPe846YMxG4HqmHDPX2pb2Lhc6RNvyHkp5UUBdnfEnmvXaZbe+GbQRpGElsfU
+	 jhVQn6m+syAnTbpJ0YP8pbj/UVTWWMcQesqOpmvOqlqNI2GsxfNyzuSHXVPs4hHChD
+	 WUxe3YRlzZianxGOeHWAKi6VfyOjGEAO3wCZ2iI1Opk2a73fTVsFMQg2XZ29zLmcfR
+	 /jg6hsIWXTZFA==
+Date: Fri, 13 Nov 2026 21:57:15 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 7/7] string: Implement strstarts() with strprefix()
+Message-ID: <avd4XpBivw86pBYh@devuan>
+References: <cover.1794574496.git.alx@kernel.org>
+ <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
+ <avciONW-b_WXoetv@ashevche-desk.local>
+ <avcj0YbmHRyhFW-Y@devuan>
+ <avcntwOjI2i4seyB@ashevche-desk.local>
+ <avcrlaWDlBVAHpnj@devuan>
+ <avc1LK0_Deeh0zZo@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,179 +74,280 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="icarvji2c4hygarz"
+Content-Disposition: inline
+In-Reply-To: <avc1LK0_Deeh0zZo@ashevche-desk.local>
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] arm64: dts: qcom: missing Signed-off-by trailer and commit
-  message body
-- [Medium] arm64: dts: qcom: missing /delete-node/ for pmc8380_6 on
-  Purwa X1607QA
-- [Medium] arm64: dts: qcom: missing qcom,dmic-sample-rate and
-  vdd-micb-supply on vamacro
-- [Medium] arm64: dts: qcom: missing x1-el2.dtbo target and
-  &gpu_zap_shader reference
-- [Medium] arm64: dts: qcom: x1p42100-asus-vivobook-16-x1607qa: wrong
-  inherited eDP panel
-- [Low] arm64: dts: qcom: split root node, unsorted nodes, and style
-  violations in DTS
---
 
-commit 0106da8e8437e65f83503717cf06104fc06ff24c
-Author: Daniel Carter <yass27106@gmail.com>
+--icarvji2c4hygarz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 7/7] string: Implement strstarts() with strprefix()
+Message-ID: <avd4XpBivw86pBYh@devuan>
+References: <cover.1794574496.git.alx@kernel.org>
+ <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
+ <avciONW-b_WXoetv@ashevche-desk.local>
+ <avcj0YbmHRyhFW-Y@devuan>
+ <avcntwOjI2i4seyB@ashevche-desk.local>
+ <avcrlaWDlBVAHpnj@devuan>
+ <avc1LK0_Deeh0zZo@ashevche-desk.local>
+MIME-Version: 1.0
+In-Reply-To: <avc1LK0_Deeh0zZo@ashevche-desk.local>
 
-> arm64: dts: qcom: add device tree for Asus Vivobook 16 X1607QA
+Hi Andy,
+
+> Date: 2026-11-13 18:05:00+0200
+> From: Andy Shevchenko <andriy.shevchenko@intel.com>
+>
+> On Fri, Nov 13, 2026 at 04:39:34PM +0100, Alejandro Colomar wrote:
+> > > On Fri, Nov 13, 2026 at 03:59:46PM +0100, Alejandro Colomar wrote:
+> > > > > On Fri, Nov 13, 2026 at 02:11:17PM +0100, Alejandro Colomar wrote:
 >=20
-> arch/arm64/boot/dts/qcom/Makefile             |   1 +
->  .../x1p42100-asus-vivobook-16-x1607qa.dts     | 237 ++++++++++++++++++
->  2 files changed, 238 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1=
-607qa.dts
+> ...
+>=20
+> > > > > >  static inline bool strstarts(const char *str, const char *pref=
+ix)
+> > > > > >  {
+> > > > > > -	return strncmp(str, prefix, strlen(prefix)) =3D=3D 0;
+> > > > > > +	return strprefix(str, prefix);
+> > > > > >  }
+> > > > >=20
+> > > > > There is no sense to keep strstarts() at this point.
+> > > >=20
+> > > > I agree.  Actually, it seems my guess that strprefix() would be
+> > > > optimized out was wrong, because the kernel builds with
+> > > > -fno-delete-null-pointer-checks and other flags that prevent this
+> > > > optimization.
+> > > >=20
+> > > > > Can it be simply redefinition?
+> > > >=20
+> > > > I was thinking that we could just do a simple search and replace
+> > > > s/strstarts/strends/, prepending !! in some cases if needed.
+> > > >=20
+> > > > By 'redefinition', do you mean making strstarts() return a pointer
+> > > > instead of a bool?  A problem with strstarts() is again the function
+> > > > name: it doesn't seem to naturally fit with a function that returns=
+ a
+> > > > pointer to the position.  It also doesn't clarify whether it search=
+es
+> > > > for a string, or for a list of characters (like for example strspn(=
+3)).
+> > >=20
+> > > We have str_has_*() for that?
+> >=20
+> > I don't fully understand.  str_has_prefix() --which is the only
+> > str_has_*() function, BTW-- is meant to be the same as strprefix(),
+> > except for using an offset instead of a pointer.
+>=20
+> You argued that strstarts() versus strprefix() is a naming problem,
+> I answered that str_has_*() is for that kind of ops to solve naming issue.
+> So, semantically str_has_*() should be like a boolean checker (or behave =
+close
+> to it, which it does).
+>=20
+> > -  strstarts():
+> > 	It could be improved by returning a boolean-like pointer,
+> > 	instead of a bool, but:
+> >=20
+> > 	-  We may need to fix some callers, since some of them might
+> > 	   need an explicit conversion with !!.  It'd be risky to change
+> > 	   the implementation without first verifying that.
+>=20
+> How many cases do we have that needs special attention? Can you run spatc=
+h to
+> grep those?
 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index 88230c4e00ea9..7332a73dbac71 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -509,6 +509,7 @@ x1e80100-qcp-el2-dtbs	:=3D x1e80100-qcp.dtb x1-el2.dt=
-bo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1e80100-qcp.dtb x1e80100-qcp-el2.dtb
->  x1p42100-asus-vivobook-s15-el2-dtbs	:=3D x1p42100-asus-vivobook-s15.dtb =
-x1-el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-vivobook-s15.dtb x1p42100-asu=
-s-vivobook-s15-el2.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-vivobook-16-x1607qa.dtb
->  x1p42100-asus-zenbook-a14-el2-dtbs	:=3D x1p42100-asus-zenbook-a14.dtb x1=
--el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D x1p42100-asus-zenbook-a14.dtb x1p42100-asus=
--zenbook-a14-el2.dtb
+I *think* the only ones I expect this would be necessary are functions
+that return a boolean-like int.
 
-[Severity: Medium]
-Should this also define x1p42100-asus-vivobook-16-x1607qa-el2-dtbs with
-x1-el2.dtbo and build x1p42100-asus-vivobook-16-x1607qa-el2.dtb, sorted
-alphabetically before x1p42100-asus-vivobook-s15?
+	// returns 1:true 0:false -1:error=3D
+	int
+	foo(...)
+	{
+		...
+		return !!strprefix(...);
+	}
 
-scripts/Makefile.dtbs only passes -@ to DTC for base DTBs referenced by a
-composite *-dtbs rule.  Without the -el2-dtbs rule, neither the pre-merged
--el2.dtb is built nor are __symbols__ emitted into the base DTB, so
-x1-el2.dtbo cannot be applied for EL2/KVM boot.
+>=20
+> > 	   To avoid that risk, I prefer adding a new API, and
+> > 	   deprecating strstarts() for new code.  Over time, I could
+> > 	   slowly migrate users from strstarts() to strprefix().
+>=20
+> I believe this is unneeded step which may last for a few releases without=
+ even
+> guarantee that it will be finished. In such a case I would like to see a =
+branch
+> with full conversion done before you start sending per-subsystem pieces o=
+ut.
 
-In addition, at the bottom of x1p42100-asus-vivobook-16-x1607qa.dts, the
-GPU zap-shader firmware is specified via a nested zap-shader child under
-&gpu (along with a redundant status =3D "okay" already set in
-x1-asus-vivobook-s15.dtsi) instead of referencing &gpu_zap_shader directly
-as x1p42100-asus-vivobook-s15.dts and x1-el2.dtso do.
+Okay; I can do that.
 
-> diff --git a/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.d=
-ts b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
-> new file mode 100644
-> index 0000000000000..0092ae3db9cc8
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
-> @@ -0,0 +1,237 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026, yass27106-hue <yass27106@users.noreply.github.com>
-> + */
+> > 	-  The name isn't ideal, since "starts" doesn't specify whether
+> > 	   it looks for a string that starts with a given prefix, or if
+> > 	   it looks for a string that starts with any of the given
+> > 	   characters.
+> >=20
+> > 	   That is, by the name, I wouldn't be able to know whether
+> > 	   strstarts implements
+> >=20
+> > 		bool strstarts(const char *s, const char *xxx)
+> > 		{
+> > 			return strspn(s, xxx);
+> > 		}
+> > 	   or
+> > 		bool strstarts(const char *s, const char *xxx)
+> > 		{
+> > 			return strprefix(s, xxx);
+> > 		}
+>=20
+> I didn't get this. We should not really need an implementation details of
+> the API beneath. Documentation what should be read before use. Do we have
+> documentation for strstarts()? Is it clear? Maybe that what should be add=
+ressed
+> first?
+>=20
+> > -  strends():
+> > 	Same as with strstarts() but from the end.
+> >=20
+> > -  str_has_prefix():
+> > 	It was an attempt at strprefix(), but with a problematic
+> > 	approach.  It's frozen because of trace code.
+> >=20
+> > -  strprefix()/strsuffix():
+> > 	I'd add them to slowly replace strstarts()/strends().
+>=20
+> See above about "slowly"...
+>=20
+> > > > I prefer replacing strstarts()/strends() with strprefix()/strsuffix=
+().
+> > > >=20
+> > > > But if you prefer changing strstarts() to return a pointer, I'm also
+> > > > okay-ish with it.  It's not a perfect name, but I can live with it.
+> > > >=20
+> > > > > However, after looking at the uses in the kernel, I prefer
+> > > > > to see the strprefix() be not implemented at all, just optimizati=
+on against
+> > > > > strstarts()/strends() if required can be performed.
+> > > >=20
+> > > > I don't understand this last sentence.
+> > >=20
+> > > It's basically repeats the idea of having only one pair out of two.
+> >=20
+> > Ok.
+> >=20
+> > > With this series will be
+> > >=20
+> > > str_has_previx()
+> > > strstarts()
+> > > strends()
+> > > strprefix()
+> > > // potentially strsuffix()
+> >=20
+> > Yes.  I'd like to replace strstarts()/strends() with
+> > strprefix()/strsuffix(), but prefer to do that slowly, to avoid
+> > introducing bugs due to missing explicit conversions to bool.
+> >=20
+> > Should I add notes that the strstarts()/strends() APIs are deprecated?
+>=20
+> Isn't Steven against that? I already forgot his points.
 
-[Severity: High]
-The commit message is missing a Signed-off-by: trailer certifying the
-Developer's Certificate of Origin, and its body contains a pasted git
-diffstat instead of a description of the ASUS Vivobook 16 (X1607QA)
-hardware and why it shares x1-asus-vivobook-s15.dtsi.  The copyright
-header here also uses a GitHub handle and noreply address rather than the
-author's name and routable email address.
+As far as I understood, he was against deprecating str_has_prefix(), but
+we didn't yet talk about strstarts().
 
-> +
-> +/dts-v1/;
-> +
-> +#include "purwa.dtsi"
-> +#include "x1-asus-vivobook-s15.dtsi"
+> Keeping them
+> just as aliases to strprefix()/strsuffix() perhaps the good start
+> (see below).
 
-[Severity: Medium]
-Does this need to delete &pmc8380_6, &pmc8380_6_thermal, and
-&pmc8380_6_die_temp after including x1-asus-vivobook-s15.dtsi?
+Ok.
 
-x1-asus-vivobook-s15.dtsi transitively includes hamoa-pmics.dtsi, which
-defines pmc8380_6 (SPMI USID 6), pmc8380_6_thermal, and pmc8380_6_die_temp
-for the third CPU cluster on 12-core X1E80100 SoCs.  On 8-core X1P42100
-(Purwa) platforms that cluster and its companion PMIC are unpopulated, so
-leaving these nodes enabled causes the SPMI PMIC, temp-alarm, GPIO, VADC,
-and thermal drivers to probe and poll absent hardware, just as
-x1p42100-asus-vivobook-s15.dts avoids with /delete-node/.
+> > > To me seems too many for the similar task. I understand that trace us=
+er is
+> > > special one, but does it use strstarts()/strends()?
+> >=20
+> > I didn't find any uses:
+> >=20
+> > 	$ git ls-files | grep kernel/trace/ | xargs grep strstarts
+> > 	$ git ls-files | grep kernel/trace/ | xargs grep strends
+> >=20
+> > > Despite on naming I think we just good to have only str_has*() and on=
+e of
+> > > strprefix()/strsuffix(), strstarts()/strends().
+> >=20
+> > In the long term, I agree.  But I think the transition should be
+> > careful.  What do you think?
+>=20
+> Yes, it should take a few phases, first one perhaps to align strstarts() =
+to not
+> rely on the returned value to be boolean.
 
-> +#include "x1-asus-vivobook-s15.dtsi"
+Ok.
 
-[Severity: Medium]
-Does the 16-inch Vivobook 16 (X1607QA) really use the 15.6-inch Samsung
-ATNA56AC03 panel inherited from x1-asus-vivobook-s15.dtsi?
+> In parallel with that, your current series can also be considered. Then
+> similar, if even required, to be done against strends().
 
-x1-asus-vivobook-s15.dtsi configures the mdss_dp3 aux-bus panel node with:
+Agree.
 
-arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi:
-	aux-bus {
-		panel {
-			compatible =3D "samsung,atna56ac03", "samsung,atna33xc20";
-			enable-gpios =3D <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
-			power-supply =3D <&vreg_edp_3p3>;
+> And one more phase
+> is to replace strstarts()/strends() with strprefix()/strsuffix() all over
+> the kernel.
 
-Without overriding the panel node for this 16-inch (16:10) laptop, the
-board binds the panel-samsung-atna33xc20 driver for a 15.6-inch 2880x1620
-(16:9) AMOLED panel with Samsung EL_ON3 power sequencing and DP AUX-only
-backlight control instead of the actual panel and backlight configuration.
+Ok.
 
-[ ... ]
+Thanks!
 
-> +&lpass_vamacro {
-> +	pinctrl-0 =3D <&dmic01_default>;
-> +	pinctrl-names =3D "default";
-> +};
 
-[Severity: Medium]
-Are qcom,dmic-sample-rate and vdd-micb-supply missing on &lpass_vamacro
-(along with the vreg_l1b_1p8 LDO1 definition in &apps_rsc regulators-0)?
+Have a lovely night!
+Alex
 
-va_macro_probe() logs "qcom,dmic-sample-rate dt entry missing" when
-qcom,dmic-sample-rate is omitted, and its "vdd-micb" DAPM regulator widget
-falls back to a dummy regulator without enabling the 1.8V LDO1 DMIC micbias
-rail unless vdd-micb-supply =3D <&vreg_l1b_1p8> is provided as on other X1
-boards.
-
-> +
-> +/ {
-> +	wcd938x: audio-codec {
-
-[ ... ]
-
-> +	sound {
-> +		compatible =3D "qcom,x1e80100-sndcard";
-> +		model =3D "X1E80100-ASUS-Vivobook-16";
-> +		audio-routing =3D "SpkrLeft IN", "WSA WSA_SPK1 OUT",
-> +						"SpkrRight IN", "WSA WSA_SPK2 OUT",
-
-[ ... ]
-
-> +&swr0 {
-> +	status =3D "okay";
-> +
-> +	pinctrl-0 =3D <&wsa_swr_active>, <&spkr_01_sd_n_active>;
-> +	pinctrl-names =3D "default";
-
-[Severity: Low]
-This isn't a bug, but several parts of this file diverge from the
-devicetree coding style:
-
-- The root node / { ... }; is split into two blocks with phandle references
-  in between instead of a single root node block at the top of the file,
-  and chassis-type =3D "laptop" duplicates x1-asus-vivobook-s15.dtsi.
-- The top-level &label references, the DAI-link child nodes under sound,
-  and the cpu/codec subnodes in wcd-playback-dai-link and
-  wcd-capture-dai-link are not sorted alphabetically.
-- In &swr0, status =3D "okay" is placed before pinctrl-0 and pinctrl-names
-  instead of as the last property before child nodes.
-- Multi-line property continuations in audio-routing, wsa-dai-link
-  sound-dai, and the remoteproc firmware-name properties are aligned
-  assuming 4-space tabs rather than 8-column kernel tabs.
+>=20
+> --=20
+> With Best Regards,
+> Andy Shevchenko
+>=20
+>=20
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2c4a807496c04047b6d=
-5735e3946dd16@gmail.com?part=3D2
+<https://www.alejandro-colomar.es>
+
+--icarvji2c4hygarz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr3eaQACgkQ64mZXMKQ
+wqkNPw//XQhwJ8jwtB/Qtz8hKNEDKjhsYowvYKeAPNQr7hWf2yvnOHltNydwoLZr
+C66ScYc9yp2a7i7Uuk33HLJfAMhtdmJXrKTbP+ThLVPvUiUKZ6I43lGelYP2/qDZ
+OEDULxq1hfmKwSgq7Kto3+n6TA0umuzVexreCqbxCggcugebIaTcCKzOllQjJQfc
+INF34WQucI6mF91DbjFFzzGXX6bCMqZuZXotaypNXRmQNeTBsqASaDIUW0H+WLEC
+ZxRIr5geo3jY6GjFyBL7henaYh66gQjEaUOZvrmySFq1uTUJuHAC5xjhX74ryzDS
+6gnMFk7xGWRVYVrF4N9uAEXZESveUiYtT6pwR9kQLVhCKA9e4NYHLVf7pm8eFIag
+T+qFgiTdWC5lTh+cHoAT7WEHy4Z0oYr8V1Sp5ndyInxuOFI20vUORl2uoMvnt759
+M4dQmecWqIqF+qFUtYS4IjFeyq75/1Tl6ablDJMFJwkRN4QyQ4B/3iZcNoJPQOSl
+V2XyVmbz1HvPqvzkrvt5xy3x6ix64JzkvziAltaUHL4Q+LWOrx18PmUPyoYGhQID
+aY/W6GI4vTkmfR2cj/f1DurNQHDQSG+px5OssTAY6n8m7rN7Rjuk5JK25OpitnXY
+RLyrwYzJPd2RPUNzH5tg1wogxbVWmEHTo3E8++Hchci6Okbyd64=
+=t16e
+-----END PGP SIGNATURE-----
+
+--icarvji2c4hygarz--
