@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602435;
-	b=wP8ZbY3O0YlDvbaumR8NtLLN4kFUny1ina5w3XjFh1KMo9vdGNeSAX3RF6g6LhnkRfG+
-	 geAzjgT5CAghSaMW8NqIVWGP2FSsRjtWdSAyhi1NmWgFMPhxdfGc/8RVDBba2h9508vDt
-	 7tcoFBQRXdvRWTpWu0kqOVY3jBHNWBRN9rsfTyEhJ2rZH7Gq+FCd7WPLjr8VdRUmpNgnk
-	 W6kHlTW4Qbi+zo/VrytxMj1wHXwyRgXvGb97znN9CThAfY+Y0tkVl1fDrl7YycrAbAdSV
-	 wI7Bi2kbfuveB2qDCcOUkSrCKppsqA1EyAbMsfWr/hRxmRcyB0Wwtq9VEObOFb3hceA==
+	t=1794602531;
+	b=We+dAR8yqD5V2WoUXeIOCulbDPWJLAx8ufsi5zvjYKtUFGgh6zv+X6DkItqAN13xAqO1
+	 AdGgjrBhVluOKT+McgQGeX69RtVqv8F2fbfzrHWHIi/r/yePhk6z3LLVsiGwOZAXuiAGQ
+	 E6SuMW0z8CKmxUht0Si52WP94F1WwHtxoPH9SerGOuRZZS4Wt9NEIyY5WlD2UsnU21RZo
+	 vxA/dQgJ0QrBo8XlA5SQQmS9R+0IMy+GNshKx+K1fwRviu1pQCPrqgQO8UCB7H/O7Uz6h
+	 5jpWjOeoxxvyvpaJTs9wBWzbqzKmoDhaUlk2eicyPifVhqzsll1UM9hs1sZJ4Z1kDzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602435;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YqOyLeJF1LZn52GyfM0b3GDfTRLm5jSkYKCfEBCotc0=;
-	b=3qm0NFqSnZqgVh5pj5l0O/m+ay9AHXFsz7JFH2dbyfyWRcc44U576xyik0S5BBeW9Df0
-	 1ArctCwPde7oWr8vd9BDRFchR54MKmO/C4jszsqHcQGINf7m0s7vylnj1Szoca7R74flu
-	 U8Hbj+Wzox8fiImtwfBhNxBfVdpxilIboMBWhajixOsIXro9WEIyAZH85l7w0BfaPbBFs
-	 9AqnqmHwP3f4TlD/C6L9UwtVSpARgpuOm50cNa8VQFTv4x9sU4g5l/DcrhSwZqoNi9DUX
-	 odMrVt29HB5qqKCJF2WhPbsaEi6uLIcAGCBiR4Y/hAdScty+0m1FDU4Zy0FN+n5c3yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602531;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Yow3iB7Ugv0v+zbREP5WPcCfG/DNEomvgzAhpbkxIQE=;
+	b=yihRKHPp5neYnLfJ1FdB5S8Bw9Q5X8higtgrx2lfq957A+0XGmHLE6MhHR9oGsM8OxJW
+	 zKpKsVDfprT59L/hUOqIPQnwWFN5DdLymNjo+8DnPsKFgJmvc36RV+ph/nHAhIJkcQv20
+	 hQfcEblX6NlL4YdXc8wDJbrUc+TK/Uvd0Dft6m+H1uqV+klFvbo1w2F5m25AqGas4CjJI
+	 u6leMLkGdglmWizW8P78ED2oJ45h3yAs3IZQGxdA6GFw+emTsB0BYnz4lYwDj4km+Nx9A
+	 9JbVJN+wuOoORw7wKfVgbqYxoQaya+g+UUuACZBtEfjE+0f/0vJh3P3k4pWJb6CIPCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gompa.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJumToPi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84698606A331
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 20:40:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84698606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-716c0217635so2500839eaf.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 12:40:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602433; x=1795207233;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YqOyLeJF1LZn52GyfM0b3GDfTRLm5jSkYKCfEBCotc0=;
-        b=Mb1JpnEp3NnIqa/LLHgeAAjtW9yPzWAqnHPOmrjm1ROPZw3uopeNdWxKwXKvR4+ZAk
-         rw8gSry88re/t+gNa6n6UnHj5dYORaAL/Q8C/FPbQ8HVppeHfOBgfbbkTzRNCNT4P5L4
-         xG+vWF7xn25BEHo5b1G3RoFu2cDEEse/tsgvBzY+DfQz694szLGZVZW2uU4MKVZL0Upw
-         le18FOLPQ55WCa95zTQ5nH+kBAbzyPY7qu7Om75mgnZHkQoeYXgupSG144rnKagp0v4D
-         8MGRWut9+H/tm0uLrJSKFhZ9F4BKkfyGDblPRNU9TTiULlxbHWph2lPX6mP0H65iUzLJ
-         rhoA==
-X-Forwarded-Encrypted: i=1; AL+hErFeaEcZ3xeniRvS+HO3pEVnEQVeHrCtymMUDDDZdyx/aIYWQQ3JWAw0XUGtQMrjeBmgaC1gZrDx0hrd@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tPmudvlKztWihbWwubKNwPzFFMD2tHq+XMbaLp3ghpVT/iXYQ
-	id+7XU9+FoyUbLzm3BbqaiNxQSGLg/+m/mgoA8zPbNIUZM2Scb/HWOuxfs39Nmj9
-X-Gm-Gg: AYBFou0MHkVW1Cn+zwKkGc5fxPi1CxQjubyL92DgsY3pjQ2HkOHjbVkmCQ1tnNOHn/4
-	AvPq+oZoj0rusF+FICGBgOB/lhOXX317XwtVDM9uketVyOMXerfG5+dXVsSwDUdrANOYONXq4CF
-	WVGNZNBOzrSHyTebDUxq9EgQvz3Rnl7zJz/1SXhVfThvnLmA40YowWh7yHEHtoSrpTnBp5qWsmA
-	cuDEcKB1mJK+vB9iJdm5cNFrLKhuN1lbMLu2XeCdthM58I4483duaysMOveSihCv4wMJU8SYB5i
-	unmk8/PNAbqKbPEY4eK9S504jsMsUw/99sZ8ZLSJbtze4NjqBgSNTmlXAcMQlP/TkU/oSm81u9O
-	gQP1GQmJ9GCTWX5V19oTR+nXJaXnPvCuBx3hOU9ZHSxeMRY0x9fbshJQ0kPno9ywHUpDNC/VynG
-	lvUU/rKzgmd6MMNgWcLFQV5VPggYOimxiqsN5kLIdNqv8MaAHFl72M67BROzNMuiX/1+TD+ZT8G
-	VdFq2oaBFdGrXigO6VsojUhkL/jkyYZIdYX/6arrRzllknRnPncLd/ZfGRn4lC3An/KF4ZAX5pO
-	a0ac311+rGQtNcpyYbhUDDBZ2JCBDxk/o5pUHN/rb8f9hWpF5aWVBPKo5h3ijQXEk+uHd57dMem
-	yygEe/1PsDPexVmTgx6QjSdHxhBWVbeFb2cwdW5Wb00/e6wFMRaFYEQKpcsSry4TsOgPaXdpHNI
-	hT
-X-Received: by 2002:a05:6820:1528:b0:70d:7461:973c with SMTP id 006d021491bc7-71974236384mr4596840eaf.17.1794602433474;
-        Fri, 13 Nov 2026 12:40:33 -0800 (PST)
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com. [209.85.210.42])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e779dsm3248659a34.11.2026.11.13.12.40.32
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 12:40:32 -0800 (PST)
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-86156cf8a7eso2235049a34.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 12:40:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGYfSuuwSeg1z7FLQexHAM5+4QpVraUflCZGupgGfg/ueHoniT8x6eR0FatszxwchiERcuLSxL4AX/W@vger.kernel.org
-X-Received: by 2002:a05:6830:1cc2:b0:7f9:555:1df0 with SMTP id
- 46e09a7af769-86289878845mr2035460a34.12.1794602431926; Fri, 13 Nov 2026
- 12:40:31 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66A5606A88A
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 20:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJumToPi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0CB1F000CA;
+	Fri, 13 Nov 2026 20:42:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794602530;
+	bh=Yow3iB7Ugv0v+zbREP5WPcCfG/DNEomvgzAhpbkxIQE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YJumToPixlTkzeq5tMesldgxwGKX2Hv2U4PkV6JHwpu8KcgLDJFaxROn+OJq1Zqms
+	 94tGMj1rnL6m2zsFQqQz0hxtIpI7l99Om4TiSssFmXD0tOW66rWAlwjVFrzOzQK0jD
+	 OTqnuSBNskK9lILOBZSNvmfHcyJsdynty3tcAdhVRcnc1mFuj2jPMJEwQHWd5OfwLk
+	 VirgMON6kD5DL0QvOJCgSZ1eOq2DxRFE1btqbmD+bubuJT2QRRCpi6TiRdVmeZCNT2
+	 85scaTUuXr4LysnfYl0SeSF12WEfcOCPIHwHMZo57zR8YsLeaEloPDBNW2I6o3XqJj
+	 IC+QuHpebBDnw==
+Message-ID: <sashiko-outbox-213671@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-arduino-monza: Add Waveshare
+ 8" DSI touch overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Saini" <vishnu.saini@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261114-monza_waveshare_dtso-v1-1-4b7c80e90e08@oss.qualcomm.com>
+References: <20261114-monza_waveshare_dtso-v1-1-4b7c80e90e08@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 20:42:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,174 +59,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-In-Reply-To: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-From: Neal Gompa <neal@gompa.dev>
-Date: Fri, 13 Nov 2026 15:39:55 -0500
-X-Gmail-Original-Message-ID: <CAEg-Je9ffh8v9PKn-pRc7DLjD0h9oP64ZB_FR5B0K=YfctJx2w@mail.gmail.com>
-X-Gm-Features: AclHuK99xhj_lrjZso--3IknqiDF9swsBuRbZJPQdiHng0qFnjGS4Y8OcMsuew0
-Message-ID: <CAEg-Je9ffh8v9PKn-pRc7DLjD0h9oP64ZB_FR5B0K=YfctJx2w@mail.gmail.com>
-Subject: Re: [PATCH v5 0/8] Add support for Apple Silicon DockChannel internal keyboards
-To: michael.reeves077@gmail.com
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-input@vger.kernel.org, 
-	Yureka Lilian <yureka@cyberchaos.dev>, Hector Martin <marcan@marcan.st>, 
-	Sasha Finkelstein <k@chaosmail.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 8, 2026 at 2:25=E2=80=AFAM Michael Reeves via B4 Relay
-<devnull+michael.reeves077.gmail.com@kernel.org> wrote:
->
-> This series introduces support for the internal keyboards on Apple
-> Silicon M2 and M3 MacBook models.
->
-> On these platforms, built-in input devices are managed by a dedicated
-> coprocessor running an RTKit-based operating system. Communication
-> between this coprocessor and the main processor is carried out over a
-> low-latency hardware byte FIFO interface called DockChannel.
->
-> To support this input path, the series introduces a few new components:
-> - An apple-dockchannel mailbox driver to handle the low-level
->   byte-stream FIFO.
-> - A DockChannel HID transport driver (apple-hid) that boots the
->   coprocessor using the RTKit framework and encapsulates the HID
->   protocol over the mailbox.
-> - Minor additions to the apple-rtkit and hid-apple drivers to support
->   the TraceKit endpoint and integrate the keyboards into the existing
->   input-quirks framework.
-> - Devicetree bindings and DTS updates to describe the nodes on M2 and
->   M3 laptops.
->
-> The transport driver is based on an original out-of-tree implementation
-> by Hector Martin, but it has been significantly rewritten for upstream
-> inclusion to use the standard Linux mailbox framework and align better
-> with upstream HID design patterns and reduce reliance on hacks.
->
-> While the coprocessor manages both the keyboard and the trackpad, this
-> series only enables keyboard support. The keyboard can be initialised
-> without loading external firmware, whereas the trackpad requires
-> firmware. Trackpad support will be submitted in a subsequent series
-> once these base transport layers are established.
->
-> Tested on: MacBook Air M3 (J613).
->
-> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
->
-> Changes in v5:
-> - Link to v4: https://lore.kernel.org/all/20260925-apple-mtp-keyboard-fin=
-al-v4-0-304c267518f4@gmail.com/
-> - Drop ASC mailbox and DART binding patches which were picked up and are =
-in apple-soc/dt-7.5
-> - Simplify HID transport reg-names from coproc-asc/sram to asc/sram (sugg=
-ested by Rob Herring).
-> - Replace the empty STM child node with the 'apple,has-stm' boolean prope=
-rty (suggested by Rob Herring).
-> - Drop the keyboard child node and move 'hid-country-code' to the parent =
-node (suggested by Rob Herring).
-> - Simplify the transport driver to filter supported interfaces in C and d=
-rop fwnode handling.
-> - Collect Reviewed-by from Rob Herring on the DockChannel mailbox binding=
-.
-> - Rebase on v7.4-rc1
->
-> Changes in v4:
-> - Link to v3: https://lore.kernel.org/all/20260918-apple-mtp-keyboard-fin=
-al-v3-0-e356464e454b@gmail.com/
-> - Describe the DockChannel interrupt pair in DT (suggested by Yureka Lili=
-an).
-> - Serialize command transactions and finish STM setup before signalling r=
-eady.
-> - Keep IRQ flag reads and acknowledgements under the controller lock.
-> - Clarify teardown synchronization and use the explicit-bounds HID API.
-> - Preserve interface-start errors and allow waiting again for delayed rea=
-diness.
-> - Simplify FIFO writes, IRQ startup and compatible matching.
-> - The command and IRQ changes address Sashiko feedback.
->
-> Changes in v3:
-> - Link to v2: https://lore.kernel.org/all/20260918-apple-mtp-keyboard-fin=
-al-v2-0-a5c685e50b60@gmail.com/
-> - Fix failed-probe cleanup and interface publication ordering.
-> - Fix report lengths/types and reject replacement descriptors.
-> - Terminate serial replies and encode checksums as little endian.
-> - Honor HID_QUIRK_IGNORE_SPECIAL_DRIVER.
-> - Clarify the DockChannel TX byte register layout.
-> - All changes above address Sashiko feedback.
->
-> Changes in v2:
-> - Link to v1: https://lore.kernel.org/asahi/20260630-apple-mtp-keyboard-f=
-inal-v1-0-506d936a1707@gmail.com/
-> - Rebase onto latest upstream and add M3 Pro/Max device-tree support.
-> - Use an optional STM node to decide whether to wait for device IDs
->   (suggested by Yureka Lilian).
-> - Rename bindings to match the t8112 fallback (suggested by Conor Dooley)=
-.
-> - Fix FIFO MMIO write width (suggested by Yureka Lilian) and run mailbox
->   interrupt handling in the IRQ thread.
-> - Remove the duplicate report fixup (suggested by Sasha Finkelstein)
->   and redundant HID dependency (suggested by Julian Braha).
-> - Fix teardown and the missing HID stop callback; simplify interface look=
-up.
->
-> ---
-> Michael Reeves (7):
->       dt-bindings: mailbox: apple: Add DockChannel mailbox
->       dt-bindings: input: apple: Add DockChannel HID transport
->       mailbox: apple: Add DockChannel FIFO controller
->       HID: apple: Add support for DockChannel HID keyboards
->       HID: apple: Add DockChannel HID transport driver
->       arm64: dts: apple: Add MTP DockChannel HID nodes
->       arm64: dts: apple: Enable DockChannel HID on M2 and M3 laptops
->
-> Sasha Finkelstein (1):
->       soc: apple: rtkit: Add tracekit endpoint
->
->  .../input/apple,t8112-dockchannel-hid.yaml         |   92 ++
->  .../bindings/mailbox/apple,t8112-dockchannel.yaml  |   88 ++
->  MAINTAINERS                                        |    5 +
->  arch/arm64/boot/dts/apple/t602x-die0.dtsi          |   47 +
->  arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi     |   24 +
->  arch/arm64/boot/dts/apple/t6030.dtsi               |   47 +
->  arch/arm64/boot/dts/apple/t6031-die0.dtsi          |   47 +
->  arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   19 +
->  arch/arm64/boot/dts/apple/t8112-j413.dts           |   19 +
->  arch/arm64/boot/dts/apple/t8112-j415.dts           |   19 +
->  arch/arm64/boot/dts/apple/t8112-j493.dts           |   21 +-
->  arch/arm64/boot/dts/apple/t8112.dtsi               |   47 +
->  arch/arm64/boot/dts/apple/t8122-j504.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122-j613.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122-j615.dts           |   22 +
->  arch/arm64/boot/dts/apple/t8122.dtsi               |   48 +
->  drivers/hid/Kconfig                                |    2 +
->  drivers/hid/Makefile                               |    2 +
->  drivers/hid/dockchannel/Kconfig                    |   14 +
->  drivers/hid/dockchannel/Makefile                   |    3 +
->  drivers/hid/dockchannel/apple-hid.c                | 1167 ++++++++++++++=
-++++++
->  drivers/hid/hid-apple.c                            |  118 +-
->  drivers/mailbox/Kconfig                            |   12 +
->  drivers/mailbox/Makefile                           |    2 +
->  drivers/mailbox/apple-dockchannel.c                |  357 ++++++
->  drivers/soc/apple/rtkit.c                          |    2 +
->  include/linux/hid.h                                |    1 +
->  include/linux/mailbox/apple-dockchannel.h          |   29 +
->  28 files changed, 2251 insertions(+), 47 deletions(-)
-> ---
-> base-commit: 1d368e025d7c4fe63c8bf68ccb4bc3c9772ab75c
-> change-id: 20261108-b4-apple-mtp-keyboard-94f1cf08ef11
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] arm64: dts: qcom: monaco-arduino-monza-waveshare: wrong
+  mdss_dsi0 vdda-supply
+- [High] arm64: dts: qcom: Makefile: monaco-el2.dtbo applied to non-EL2
+  Waveshare DTB
+--
 
-Series LGTM.
+commit b8a3c8f8c7e536ea10afaadd72a3ac9f01d55e3c
+Author: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
-Reviewed-by: Neal Gompa <neal@gompa.dev>
+arm64: dts: qcom: monaco-arduino-monza: Add Waveshare 8" DSI touch overlay
 
+This commit adds a device tree overlay for the Waveshare 8" DSI TOUCH-A
+panel and touch controller on the Arduino Monza board, disabling the
+shared DSI0 HDMI bridge path when applied.
+
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 8329c06b60a3f..faa0e0f7b867f 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -83,6 +83,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza.dtb
+>  monaco-arduino-monza-el2-dtbs	:=3D monaco-arduino-monza.dtb monaco-el2.d=
+tbo
+> =20
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza-el2.dtb
+> +
+> +monaco-arduino-monza-waveshare-8-dsi-touch-a-dtbs	:=3D monaco-arduino-mo=
+nza.dtb monaco-el2.dtbo monaco-arduino-monza-waveshare-8-dsi-touch-a.dtbo
+
+[Severity: High]
+Should monaco-arduino-monza-waveshare-8-dsi-touch-a-dtbs omit
+monaco-el2.dtbo?  Including monaco-el2.dtbo in the non-EL2 target disables
+gpu_zap_shader and iris, and attaches EL2-only apps_smmu IOMMU mappings to
+remoteproc_adsp, remoteproc_cdsp, and remoteproc_gpdsp when booting in the
+default EL1 mode under Gunyah.
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-8-ds=
+i-touch-a.dtso b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-8-=
+dsi-touch-a.dtso
+> new file mode 100644
+> index 0000000000000..003c5bcea4973
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-8-dsi-touch=
+-a.dtso
+
+[ ... ]
+
+> +&mdss_dsi0 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	vdda-supply =3D <&vreg_l1c>;
+> +
+> +	panel@0 {
+> +		compatible =3D "waveshare,8.0-dsi-touch-a", "jadard,jd9365da-h3";
+> +		reg =3D <0>;
+> +		backlight =3D <&wsgpio>;
+> +		reset-gpios =3D <&wsgpio 1 GPIO_ACTIVE_LOW>;
+> +		vccio-supply =3D <&panel_iovcc>;
+> +		vdd-supply =3D <&panel_avdd>;
+> +
+> +		port {
+> +			panel_in: endpoint {
+> +				remote-endpoint =3D <&mdss_dsi0_out>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&mdss_dsi0_out {
+> +	data-lanes =3D <0 1 2 3>;
+> +	remote-endpoint =3D <&panel_in>;
+> +};
+> +
+> +&mdss_dsi0_phy {
+> +	vdds-supply =3D <&vreg_l4a>;
+> +};
+
+[Severity: High]
+Does setting vdda-supply =3D <&vreg_l1c> on mdss_dsi0 overwrite the SoM's
+1.2V DSI supply with the LPDDR VDDQ regulator?
+
+In arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi, mdss_dsi0 already uses
+vreg_l5a (1.2V), while vreg_l1c is the 0.3V-0.512V LPDDR VDDQ rail:
+
+arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi:
+		vreg_l1c: ldo1 { /* LPDDR VDDQ */
+			regulator-name =3D "vreg_l1c";
+			regulator-min-microvolt =3D <300000>;
+			regulator-max-microvolt =3D <512000>;
+    ...
+&mdss_dsi0 {
+	vdda-supply =3D <&vreg_l5a>;
+};
+
+&mdss_dsi0_phy {
+	vdds-supply =3D <&vreg_l4a>;
+};
+
+Overriding vdda-supply with vreg_l1c leaves vreg_l5a unvoted and causes
+the DSI driver to disable the LPDDR VDDQ regulator on display suspend or
+probe unwind.  Both vdda-supply on mdss_dsi0 and the redundant
+mdss_dsi0_phy node can be dropped from the overlay since
+monaco-monza-som.dtsi already configures them.
 
 --=20
-=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
-=BC=81/ Always, there's only one truth!
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-monza_wave=
+share_dtso-v1-1-4b7c80e90e08@oss.qualcomm.com?part=3D1
