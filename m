@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588152;
-	b=JbvS3NtGbUuwWaKLC4JxAPYUHvSEGTrDONWIJ7H7O1CXzo9gCDdBhdr+InFjZb7wC5P0
-	 Kq5UhTqSJryoIinEK/lh3nhfU0qKhiSwR1SVqUzuElMQg/1Z1IpG2vkK0J3UWYkyduVFh
-	 O2p4aoddUtLUHh1ZYFz8y7nFE5VD47zqK3/EOoACk6FWuQO5317EQKuu46BYh/FRos1VP
-	 ihI0tfhHAnO87lPX3RXLiQeG8nylhTMCp145YIv9YmQtDELwrfIk/Xh5VeIxUmShIAUXg
-	 h4hXiuygzOrohrJdUAoze9bxwYLlcIE3b/6FjOYjbjmiuTtYcfSOgje8ru+mZOlKFcA==
+	t=1794588190;
+	b=UXmqzd4M4CYKuBJ1N7+D+RqjqeL9j39xHFcWZ44tH+I2FFVwHQKUdJjXdBKaFF6XBRgq
+	 1rgXyDNq42WN+pTzk2SBnEeWKjgLanGSiorA4ASXmPt6aijuKnuavazowzIwcngv+lj93
+	 JduEWJGuFb7mxP6RCZmtYR4FL/v/LadS/+E+4Vx0nV/edCcw6D+qiD/Ml4GqdfFIHdQkD
+	 ZGwgJEKwCEmjMXGvkPYGm973UpSvD4vJVVYgYZC8lqs6DY6XjdA/zLBCwJxIEMjDE8gM1
+	 J66DQ8T2QHdHqBQjKfyY3gJSu4c/XeTp7XQdo1WNU4KrlqvciTscq1iPzIwKDbnZ46Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588152;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=m/PpC4O3NzjAavCAj87Bv2LPOvh9Te54rBz9fHCqCGE=;
-	b=CbpBe+e8nA69tQaO/bENtx/9fbIkd6XDGWnTnbqehQIVlsEVqxhUyccFDlxQu0WCskaD
-	 /sRXbo16632qTrORume+C1EVKHidgt3VmDwFoWv4mgzynuUsoDXwTmFaFrJtNDboPvsOr
-	 OkEkecAE9WjC+2nr/72YLDkIbJBLDXTfAh6D5OiJcrzn/WNty4mI5VVr/kTlruJ6G6sAl
-	 9Wni5sB4frN8qV/QA097cdqhksdU2jwfMcyv3wYsRtwYt/0LxSkur35qj8VlX49LrKgTM
-	 ZRcxR4iXFwTRhFb/o7RQMw8eGX5MHrZmTUnrHwSGECctNlZ954SqyealXRLnE0WMFNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588190;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
+	b=OMOxDH+DN2xRi8Zo61Ex/vy07XX3VbmBPE9Q6VjrUcGJaOX9IbEiRuoGPvAAAI9knQRL
+	 EO7yUAa+RQ00EuP1EV8K6F7CchDKgKUdiLd5RAkuxneBbJsaEy/1eM4rKP4P/fBf3aR/g
+	 C5PUHwZeCBDZwAcf0yO/FxrsvU/YsTTm45TbqVSPhKBW/Xw+WkQsUXmMDPzFjV5PvA94f
+	 z9hutK6tVsqgslSnlcpMOQXjUFLl5xuH9eQuXYwrgMETVha7S3Nxfkm4G0CMM2D0f5y5a
+	 omTwbIlEe7yyXpZ2g8I24N6I5EesJ+wEH1RjuY4v59GKlWYQIeQzh+GeZgplnsrhBnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cg7ZwTKz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Svm3xnWM;
+	arc=none smtp.remote-ip=74.125.231.137
+Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A999D6073F66;
-	Fri, 13 Nov 2026 16:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A908606CDE7
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:43:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A908606CDE7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cg7ZwTKz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B88A1F000C9;
-	Fri, 13 Nov 2026 16:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588152;
-	bh=m/PpC4O3NzjAavCAj87Bv2LPOvh9Te54rBz9fHCqCGE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cg7ZwTKzaL5cIghRSQIAmUB1l2GCAW2rXSTKzHi9SiGYeQuOlMGpXkT7uE5PT2/W3
-	 yzLLZnpw/b/Vu+YzxNu7PFMNJKGPAoexQG6oJiSJTECpFlukpwypsJnaGlm6SUgwqY
-	 EddF/XrR5eaeKYAgrd3mxk4rEN7hhquh+rwg+/+IYhQ23pC7yoqc3QO0iMyhl1cRHL
-	 v/7myZBX4tgFETu7qGM00lpohIPJgkbBZyvA+LQExLHSWLxyV9XFM2xYP4sRwIcVPv
-	 3zKF8HWpiV9ckP6W8Mu8/lcff4WoGjBz4ciMFZ5pYBrBx+IlUsnPhdSjtqBH2r89PF
-	 j7NCmg7tbJAGA==
-Message-ID: <sashiko-outbox-213219@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] arm64: dts: imx95-phyflex-libra-rdk: Add
- phyFLEX-i.MX 95 Libra RDK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Hahn" <B.Hahn@phytec.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261113-wip-bhahn-imx95_upstreaming-v2-2-3ef58af5e689@phytec.de>
-References: <20261113-wip-bhahn-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de>
- <20261113-wip-bhahn-imx95_upstreaming-v2-2-3ef58af5e689@phytec.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 16:42:31 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Svm3xnWM
+Received: by mail-oo2-f9.google.com with SMTP id 006d021491bc7-717028b412bso446490eaf.1
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794588189; x=1795192989; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
+        b=Svm3xnWM6oVg4F63ED7+W+VO20wpg+uXDuSLtf0+oUnidrGJW17Y8fBd8+EqFWCtnv
+         mZQXpp78Iah3LKq7Et0BhZ1prP/2jtLaZYafKtD4TJejsRdhcmGtGoyOCIDN6R1Yr6Jq
+         69a9ePhaP074EzjacAlSNTASJFcv6prbfxflZgtG+bAn/PTf4Umf/8xHdgd4FERLF/IK
+         Y9rLmLmYTG+5kj1nOpeOfKJtzfCb8moToc7Qp7bmBdMfxklBp0L3s2lta7Y6pWRB1tp+
+         LkjfOhWLqTxtspLb4d1EP8S9n0RoeetoLwHxCRSxQTyqzdQ2B8CBztVD/MnAYmaizl8V
+         t+Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794588189; x=1795192989;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
+        b=Cq7SHNK0tvtGOlfiMpGCum7LKgbTa0P1VO+RZQbpogAulSjHABkDw21ITw7MFJMTpL
+         60Q5xCz7M6D4PYPZV5J+3nr1AEI1Bggq8gooTp/GA9Km+7Pc+RkoTVlzig2YIASP6/Ph
+         gMyfCsDV3mGtVVNIuU4QDEFEXj/GAHaxkx4oPtvNX1gH63bJRTQT85aDSrABBvtU/ZRA
+         WfZl/g0qgCu83+3VqBbJzqdDeSRjlfg5EpGbBxh3XS6Gtfc8yw69JUOVl4oEyUgqhHO3
+         CNxIah7qPfIJhDD0vXHhlvT5vZXk0JwVE506pPoxZkagPu5aPEHYZoU7q8WO7JvA2Pbg
+         1zwQ==
+X-Gm-Message-State: APuU4Z8nbjzny3qG36co42sWgukPCdbp6rik9+U6ewoyHNQD/GMZbn2I
+	SXype16FtSLRfF86cTWOYKkrV0MJy8RO1Ju+HyTOfda6i6AI6iX1ACvI
+X-Gm-Gg: AYBFou0q5H+wrjEOLgvqQ1p/oNNK7IMygviNz9YFY37K8yY18tmrH5tPvfnqxcATLbM
+	I71dln25eat8ZrxPq/h/2OgLI50Gbs5TTWqvXE8unKX69DFG5MPgvp6MFSfLGSbVhXumHTi4Ktr
+	NGLkL0p80jeq0vklQKcW2ytk6ZZcNEs3NZfRk8xurWbAb5WhtUoNW7UDLr9XAP1peBPieAqWn14
+	Jq8Ihx/y33IeeYwcXkg5tePrZngmtUtB3N0z1JJpZJtjXINheY+N/LEKJazaf7xf03DDYH+R6iM
+	Gy3tsXFbCqcxGlQnm+ktervxYdpK38otgyaoTxBeYFAJQg2csgUgKfABz4SxQEd28LwBNhkBM8/
+	8aTNFO6lojSWyQNhwbK2OlTE9GbfbuISJlRMkjUwD3wBNPcL9rsoNFzmtWFWE+RKWg6rUMH59C6
+	SpkgGkkPbbVr9eulzVwgeaYiYdWI0q756uKjneVEVYgE0ONaMWdvwDe/UymZs4/b8/YG+6bLPi0
+	34CsrgZEwOPV7DnOVLHnYfzW3zuedNrQQUEKKlbyOKifpbDQbsh7xO7tOpJvDM1OllQv2rYhd3i
+	neOh4LvODGIiMGDQlfEjF2kEfDULKkiCzVuXkfeJ+oSsb/9GOcufU/zL3656Bz/rT3SLiMS9F3l
+	t4fo/fnZcLn5ZWIDd8Gc=
+X-Received: by 2002:a05:6820:3382:20b0:70d:a53e:845 with SMTP id 006d021491bc7-71ab4fbc207mr1421060eaf.17.1794588188901;
+        Fri, 13 Nov 2026 08:43:08 -0800 (PST)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:43:08 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH v2 0/3] arm64: dts: mediatek: Add the Amazon Fire HD 10
+ (2017)
+Date: Fri, 13 Nov 2026 10:42:43 -0600
+Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,153 +92,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43QPW7EIBAF4Ksg6iXixwabKveIthhg7EUK9gawt
+ dmV7x7ZLlJFSjmv+d6bFy2YIxZqyYtmXGOJ80QtkRdC/Q2mEVkM1BIqudSCy4ZllxdkZcEnW+6
+ lZoQUp5FBguc8nXmohQmvjTPCBGUUvRB6zzjExwF9XM8749cSS6xn+MtZsmO8F39iqWrVGwbLA
+ 4JnLQopOy5b33K7trvmoCDzc0qxWmIa0yJ0ru200E4pzxsYXG+0H/jgAEIfglaDo3uvWyx1zt/
+ HP1ZxFDumCyH+O30VjDNjXGN8QDBcvo8J4uebnxO9btv2AwmaHLp0AQAA
+X-Change-ID: 20261024-rbrue-suez-upstreaming-amazon-suez-dts-1c67b717d373
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sean Wang <sean.wang@mediatek.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=3912;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=WylSHm4dzrdtVgGa+mGeS6ky2xLAeM7GIvqZAq6Kk08=;
+ b=nBxkN4N0lqElqm29Lbz4sWMFh/t7ntJ5rI6el+UpB4ylFVvJTBrByCx3qtBoZMZGo8JOaIrDj
+ UD1c/lyd9LbC+XyDdVqVaPXff+mVVwFC1EAlVeQuqGMZynvBNWDKrMi
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] arm64: dts: freescale: missing OF graph ports on M.2 connectors
-  disable radios
-- [High] arm64: dts: freescale: usb2 missing dr_mode, vbus-supply, and
-  pinctrl_usb2
-- [Medium] arm64: dts: freescale: eeprom@58 uses 4 KiB 24c32 compatible
-  for 32B ID page
-- [Medium] arm64: dts: imx95-phyflex-libra-rdk: descending
-  cooling-levels breaks pwm-fan
---
+This adds the Amazon Fire HD 10 (2017), codename suez, an MT8173 tablet
+with an MT6397 PMIC.
 
-commit 831b01c8ff6e8f1f1ec13e354da0a278c7f495db
-Author: Benjamin Hahn <B.Hahn@phytec.de>
+Patch 1 adds the board's compatible, patch 2 the SoC's keypad controller
+to mt8173.dtsi, and patch 3 the board, with:
 
-arm64: dts: imx95-phyflex-libra-rdk: Add phyFLEX-i.MX 95 Libra RDK
+- The eMMC and microSD slot
+- The micro-B port as a USB peripheral
+- The panel, the backlight, and the touchscreen
+- The accelerometer
+- The light sensor
+- The charger
+- The lid switch
+- The power and volume keys
+- CPU frequency scaling and the skin thermistors
+- The battery thermistor, on the PMIC AUXADC
 
-This commit adds device tree support for the PHYTEC phyFLEX-i.MX 95 FPSC
-Gamma SoM and the phyFLEX Libra RDK baseboard.
+The keypad and MT6397 AUXADC bindings are applied for 7.5: the keypad
+binding [1] is in input (patches 2 and 3), and the AUXADC binding [2] is
+in IIO (patch 3).
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi =
-b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
-> new file mode 100644
-> index 0000000000000..7cc4fa0104c36
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+The board needs a PSCI 1.0 firmware. The stock BL31 implements PSCI 0.2,
+and its CPU_ON never powers on a secondary core, so with this device tree
+the stock firmware ends in a watchdog reset loop. On this board it runs
+TF-A's mt8173 port as BL31, started from the stock preloader by a small
+loader that hands it its parameters, with U-Boot as BL33.
 
-[ ... ]
+On an upstream kernel the panel also needs the DSI command mode fix [3],
+which is reviewed. If the bootloader leaves the display scanning out, as
+the stock one does, the board also needs the MediaTek power domain fix
+[4]. Without it a probe deferral of the power controller turns the
+display's domain off and on again under the live scanout, and the board
+hangs.
 
-> +	/* User EEPROM ID page */
-> +	eeprom@58 {
-> +		compatible =3D "atmel,24c32";
-> +		reg =3D <0x58>;
-> +		pagesize =3D <32>;
-> +		vcc-supply =3D <&reg_nvcc_aon>;
-> +	};
+Tested on the board, booting this device tree on a v7.4-rc2 based kernel
+with the pending drivers: everything listed above probes. The device tree
+validates against its bindings, checked on top of [1] and [2]; the one
+warning, on mmsys's assigned-clocks, comes from mt8173.dtsi, so every
+MT8173 board has it.
 
-[Severity: Medium]
-Should eeprom@58 use compatible =3D "atmel,24c32d-wl" (or specify size =3D =
-<32>)
-instead of "atmel,24c32"?
+The fuel gauge, the sound card, the MT6630 Wi-Fi and Bluetooth, and USB
+host mode will follow once those drivers and bindings are submitted and
+land.
 
-"atmel,24c32" registers a 4096-byte NVMEM device for the 32-byte
-identification page, so reads past 32 bytes wrap around and writes at
-offsets >=3D 0x400 set address bit A10, which permanently locks the
-identification page on M24C32-D devices.
+This series was developed with the help of an LLM.
 
-[ ... ]
+[1] https://lore.kernel.org/all/20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com/
+[2] https://lore.kernel.org/all/20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com/
+[3] https://lore.kernel.org/all/20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com/
+[4] https://lore.kernel.org/all/20261110-rbrue-suez-upstreaming-mtk-pmdomain-defer-v2-1-3ad9ad0cc67c@gmail.com/
+[5] https://lore.kernel.org/all/20261111-rfc-v2-generated-v3-1-e49697d20806@gmail.com/
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts b/=
-arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
-> new file mode 100644
-> index 0000000000000..ccd05932e9557
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Changes in v2:
+- Add the board in one patch. The volume keys and the PMIC AUXADC are no
+  longer separate patches, and the keypad node comes before the board
+  (Krzysztof)
+- Don't disable the VPU, the video codecs, and the MDP. They work on this
+  board with upstream TF-A and the MDP fix [5]
+- Collect Krzysztof's Acked-by on the binding
+- Link to v1: https://lore.kernel.org/r/20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com
 
-[ ... ]
+---
+Ryan Brue (3):
+      dt-bindings: arm: mediatek: Add MT8173 Amazon suez
+      arm64: dts: mediatek: mt8173: Add the keypad controller
+      arm64: dts: mediatek: Add MT8173 Amazon suez
 
-> +	m2-key-m-connector {
-> +		compatible =3D "pcie-m2-m-connector";
-> +		clocks =3D <&rv3028>;
-> +		i2c-parent =3D <&lpi2c5>;
-> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +	};
-> +
-> +	m2-key-e-connector {
-> +		compatible =3D "pcie-m2-e-connector";
-> +		clocks =3D <&rv3028>;
-> +		i2c-parent =3D <&lpi2c3>;
-> +		sdio-reset-gpios =3D <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
-> +		sdio-wake-gpios =3D <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
-> +		uart-wake-gpios =3D <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
-> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +		w-disable1-gpios =3D <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
-> +	};
+ .../devicetree/bindings/arm/mediatek.yaml          |   1 +
+ arch/arm64/boot/dts/mediatek/Makefile              |   1 +
+ .../arm64/boot/dts/mediatek/mt8173-amazon-suez.dts | 679 +++++++++++++++++++++
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi           |  10 +
+ 4 files changed, 691 insertions(+)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261024-rbrue-suez-upstreaming-amazon-suez-dts-1c67b717d373
+prerequisite-change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50:v5
+prerequisite-patch-id: d709637c35c840fbd22b30dd39452d3116a8e8e4
+prerequisite-patch-id: 04f2ca8ae588298f0ad75af44266cd028d00bbe4
 
-[Severity: High]
-Are m2-key-m-connector and m2-key-e-connector missing OF graph ports linking
-them to pcie1_port0 and pcie0_port0?
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-When pwrseq_pcie_m2_probe() binds to m2-key-e-connector, it requests
-w-disable1-gpios and w-disable2-gpios with GPIOD_OUT_HIGH, holding both
-active-low disable lines asserted.  Because neither the connector nodes nor
-pcie0_port0 and pcie1_port0 define OF graph endpoints, slot_pwrctrl_probe()
-and pwrseq_pcie_m2_match() never match the PCIe consumers to enable the
-sequencers and deassert W_DISABLE1#.
-
-[ ... ]
-
-> +	fan: pwm-fan {
-> +		compatible =3D "pwm-fan";
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <4 IRQ_TYPE_EDGE_RISING>;
-> +		#cooling-cells =3D <2>;
-> +		/* startup 35%, duty cycle 30%-100%;
-> +		 * polarity inversion does not appear to work
-> +		 */
-> +		cooling-levels =3D <255 166 96 0>;
-> +		/* fan-supply =3D <&reg_vdd_5v0>;  probe fails with this set */
-> +		pwms =3D <&tpm5 3 86958 0>;
-> +		pulses-per-revolution =3D <2>;
-> +	};
-
-[Severity: Medium]
-Does using descending cooling-levels =3D <255 166 96 0> with normal PWM
-polarity break pwm-fan suspend/shutdown and cooling state tracking?
-
-On suspend and shutdown, pwm_fan_power_off() disables TPM5_CH3, which lets
-the 0x51e pad pull-down on IMX95_PAD_GPIO_IO26__TPM5_CH3 pull the inverted
-fan control line low and spin the fan at 100%.  In addition,
-pwm_fan_update_state() assumes cooling-levels is sorted in ascending order
-(pwm < ctx->pwm_fan_cooling_levels[i + 1]), so writing pwm1 or pwm1_enable
-via sysfs records the wrong cooling state and causes pwm_fan_set_cur_state()
-to skip thermal transitions.
-
-Using PWM_POLARITY_INVERTED with ascending levels and a non-zero off state
-(such as cooling-levels =3D <1 96 166 255>) or a pull-up on
-IMX95_PAD_GPIO_IO26__TPM5_CH3 avoids disabling the output into a pull-down.
-
-[ ... ]
-
-> +&usb2 {
-> +	disable-over-current;
-> +	status =3D "okay";
-> +};
-
-[ ... ]
-
-> +&usbphynop {
-> +	vbus-supply =3D <&reg_vdd_5v0>;
-> +};
-
-[Severity: High]
-Is usb2 missing dr_mode =3D "host", pinctrl_usb2, and its VBUS supply?
-
-Without dr_mode, ci_get_platdata() defaults to USB_DR_MODE_OTG, and because
-no ID pin or role switch is wired to usb2, ci_hdrc_otg_fsm_init() leaves the
-controller in peripheral B-idle mode instead of host mode.  Furthermore,
-fsl,imx95-usb does not set CI_HDRC_PHY_VBUS_CONTROL, so ehci_ci_portpower()
-only controls vbus-supply on &usb2, while placing vbus-supply =3D <&reg_vdd=
-_5v0>
-on &usbphynop causes usb_phy_gen_create_phy() to claim reg_vdd_5v0 via
-devm_regulator_get_exclusive() and block other consumers such as pwm-fan.
-Finally, pinctrl_usb2 in imx95-phyflex-fpsc-g-som.dtsi is never referenced.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-wip-bhahn-=
-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de?part=3D2
