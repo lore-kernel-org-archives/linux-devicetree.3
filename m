@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575226;
-	b=CtqS4N2TY0rkgMnZzRNHEEiu0Gk7nX6QsaitlmLmzZD+akrEpBm/yWltXnXuD4afud7c
-	 SwmCSZIFTlVi7sEXG0ltPSBHmKF8sgMUWWlr/9T7jSjm5fy3KyCK9qRFse37l+kjMEeeY
-	 ReT2fYG1fLKzmwtEaQD16RaqHk7gj7vhxlV63imrgtsNmEjxaUCuupOu79J59wUmBt/94
-	 4+NM0U/2doZQ/Y5iX9n7WBG2d8crcTVghDthju5jOXW3R9v9bWXTqU+NKAT5p7JHfjQh6
-	 4U6LPkQKtUXg2+uxE9pJc3jNuQJehyI9VJ7pX17WLWeY2JhUDDEGggcwxmrouz5WkjQ==
+	t=1794575363;
+	b=T7It9xpGmtBhuFEH1Wly9AQohYvYXOOSM4geyhuG1bsPaIkKpFlQrsA/qIsdI/4iokaB
+	 fzSp/9VNE1ypVgZaAebWEH5mG9GIu/cJ7TLnTJlqCjW1Bj7h3mLWFRDJI1PQeIoOc23pa
+	 vSSc6liVsgiw6LS4vmo7IlamwPdYmlbrhe+x4dG8AhRvmX5G2WzfDGu0TbdEhTN8QW23P
+	 a4EDmxvN1RT/kU/X7tkYzF28290gFX7BFnuk6EkLB+Whw4m+W2sYO7FQ0sZN0VXvrzC4f
+	 HR2Xf8rIMsVQfzEBErgVxtlHLDb5GFOlQkpFRiccMLT/ESIZ3ReACyHiApj/W2GtCVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575226;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=A8r/k5hN0McTGZWPQFQOsVgQgAZ0THFJE35pQXKtnqg=;
-	b=jGVq2UJIgIN7dlD+sIiiweHl9xYc6+9Fp6+G8KrFP4ice11sDlJ1u9VELpp2hV7LjjcV
-	 ouSMqGtcdt43aL9km5eL0FLdX08Jp1S7n0gTx4Wa68MxZcZl3EjHYz7+YY2hpf8E1yylV
-	 ocW8gMJKOBYilGEvWxLhqkXZtJE/xVdO0EjX08ztSVYOB4Uru7Ch1l2vsYWjMRJzG+A9L
-	 iZr5XOBxrMYMImHjxkUH0RgmPVX+7YBVLlhOMoEEDATcTrpfMPfK1e8rmMNtyV/HGn5e1
-	 6uc2duVWfXy29KhTmp0wG9wa6R5araweosuWN008jxrFFAGtqqFosxTWUT4xJjq85eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575363;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TgkZPDfiJjMh2J8e/Fv34yjDTX8rPL0Qo9+0DabzE0k=;
+	b=q9z4ZPAHn0m6tzURjhKn86ZaHJYlJU0sOqCjMOftc1NutNuro9AmJsVeovdgVU1RvE7V
+	 d7bFrIzHfceDXVWkrxD4xnqeAYfgQ3Zzjdcp0aHQ3QGnqltKMaYKavS8ZD86CUV4scdlV
+	 e7kTNRgA1n6t5Lak3SbvIw1m/pkcW8XIps3jAB7VMGxfXaQ15dRgEt6J7l5LBV5UyQixy
+	 n95dpABxNXrcJXw8xEntkC4Ue4Sv7s8NXi2QtAP9Ku3dIWn3pygyVUnvgBr3Q17A+R6T5
+	 a+ATsRhEjcQmvPFNa1HH+BEd1CEEmt8a8FqMXkyc2d+FFgt17V/Ojg6ZTWOgvxiF+iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fenBOW0b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=HuNaqE54;
+	arc=none smtp.remote-ip=95.215.58.108
+Received: from mta1.migadu.com (out-108.mta1.migadu.com [95.215.58.108])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C08960A2616
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48A0606A323
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E48A0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fenBOW0b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99491F000C4;
-	Fri, 13 Nov 2026 13:07:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575226;
-	bh=A8r/k5hN0McTGZWPQFQOsVgQgAZ0THFJE35pQXKtnqg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fenBOW0bj5q+z2hgnRcaxzXpiUZ1cnS8srOZ/iMHuD8mc8W1F5LR1Hb5eJ+MKzVua
-	 mRYQ2onfhvKfi5KS6ntlq6dmC38bPwlAJ5ow+XkpvV/HQAFYbjPQ8tuaTpksvOnbEf
-	 IzKrNpVeOFHSCvodn9qtqZRm0g4C7aSEJltaihzEReqy9phlI/QaO+dlKXaKzzpgFx
-	 lSvVHXqejKmy+uMeo5sXI1pSY+cFnabX/cH6Du//jLe7iBy5njI8MATdpy4LDlXp5d
-	 AZiJZoh9qnuixzkqqo97jHndjKBktRCOGx0MLhZCyoASnw+JSy9Lzt2tybr40x/dDg
-	 NalCDMHp/Vc+Q==
-Message-ID: <sashiko-outbox-212822@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: nord: Add EL2 overlay for remoteproc
- SMMU mappings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anurag Pateriya" <anurag.pateriya@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-nord_soccp_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com>
-References: <20261113-nord_soccp_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 13:07:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=HuNaqE54
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n6h5sbKyK6McEKrI8Ar5CJ+toQhqjA8M6q8V8BhhvW4=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794575359; v=1; x=1795180159;
+ b=HuNaqE54ZRYhvPAYVpjYMnncTEQ2iTsM5i3g1H6NY+tyS2xsNvsUVthVPPm3forEtTrK6JtH
+ OFefn/bQ3R03qf6m7ObdS3QAVOeRQi/mGAPO86cCzy1y41nDTnE+uvfUGUiLFF2yZzwOkc8ZA5W
+ /9pWl6PxZYADHEY3MBVZwhho5yxhaEThT02U6jFbq5YWZfgkE9PEqV1009rzXwbIjsR8UDOzv5t
+ jJwcjst6SuTtSn7gllKPUE5sofSp8B3j8AI7h+H+1K+n4BS2DRu7/sLOD2rw3QBYyGK0kCT+Qp1
+ c0lisplD/4+zGu3wfkjCYJ4arCmPgbxTvPN8b9QPFVJvw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c0668823f57e9852;
+	Fri, 13 Nov 2026 13:09:19 +0000
+X-Mizu-Trace-ID: c0668823f57e9852
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
+Date: Fri, 13 Nov 2026 10:09:13 -0300
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,103 +59,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Wire up
+ PM6150L LCDB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261113-lcdb-enablement-v1-0-1dc40b49ed82@fairphone.com>
+ <20261113-lcdb-enablement-v1-4-1dc40b49ed82@fairphone.com>
+ <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] arm64: dts: qcom: unresolved remoteproc_soccp target in
-  nord-embedded-el2.dtso
-- [High] arm64: dts: qcom: remoteproc_adsp iommus conflicts with
-  early_boot attach
-- [Medium] arm64: dts: qcom: remoteproc_soccp iommus exceeds PAS binding
-  maxItems
---
 
-commit 7c3911549648c2c9a04bb237b67646f8107b1680
-Author: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+On 11/13/26 9:59 AM, Luca Weiss wrote:
+> On Fri Nov 13, 2026 at 9:16 AM CET, Luca Weiss wrote:
+>> Since Linux has gained LCDB support now, wire up the LCDB regulators so
+>> we can turn them off and on as desired.
+> Actually after some more testing with extra patches, it seems that on
+> FP4 the touchscreen stays dead after toggling the lcdb regulator, while
+> on FP3 it works perfectly fine.
+>
+> So please ignore this specific patch for now, I will figure out what the
+> problem is and re-submit. All the other patches in the series are still
+> good to go in!
 
-arm64: dts: qcom: nord: Add EL2 overlay for remoteproc SMMU mappings
+Your touchscreen needs to be a drm panel follower and/or reference the 
+same supplies as well :) Most modern touch controllers are part of the 
+same physical DDIC as the actual display side
 
-This commit adds the nord-embedded-el2.dtso overlay to define IOMMU
-streams for the ADSP, CDSP, and SoCCP remoteprocs when booting Nord
-boards at EL2, and builds -el2.dtb variants for nord-ride-embedded and
-nord-rrd.
-
-> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded-el2.dtso b/arch/arm64=
-/boot/dts/qcom/nord-embedded-el2.dtso
-> new file mode 100644
-> index 0000000000000..50c5057f6683a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/nord-embedded-el2.dtso
-> @@ -0,0 +1,32 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&remoteproc_adsp {
-> +	iommus =3D <&apps_smmu_0 0x09e0 0x0>;
-> +};
-
-[Severity: High]
-Does adding iommus to remoteproc_adsp break ADSP bringup when booting at
-EL2?
-
-In drivers/remoteproc/qcom_q6v5_pas.c, nord_adsp_resource sets
-.early_boot =3D true, so qcom_pas_probe() sets pas->rproc->state to
-RPROC_DETACHED and rproc_boot() calls rproc_attach() instead of
-rproc_fw_boot().  Because rproc->has_iommu is now true, rproc_attach() ->
-rproc_enable_iommu() attaches an empty IOMMU paging domain to stream
-0x09e0, while qcom_pas_attach() never calls qcom_pas_map_carveout(),
-causing immediate SMMU translation faults if the bootloader started ADSP.
-If ADSP was not pre-started, qcom_pas_attach() resets state to
-RPROC_OFFLINE and returns -EINVAL, and rproc_boot() exits without falling
-back to rproc_fw_boot().
-
-> +
-> +&remoteproc_cdsp0 {
-> +	iommus =3D <&apps_smmu_2 0x0360 0x0>;
-> +};
-> +
-> +&remoteproc_cdsp1 {
-> +	iommus =3D <&apps_smmu_2 0x0760 0x0>;
-> +};
-> +
-> +&remoteproc_cdsp2 {
-> +	iommus =3D <&apps_smmu_2 0x0b60 0x0>;
-> +};
-> +
-> +&remoteproc_cdsp3 {
-> +	iommus =3D <&apps_smmu_2 0x0f60 0x0>;
-> +};
-> +
-> +&remoteproc_soccp {
-> +	iommus =3D <&apps_smmu_0 0x1960 0x5>,
-> +		 <&apps_smmu_0 0x1966 0x0>;
-> +};
-
-[Severity: High]
-Does targeting &remoteproc_soccp break the dtbs build when
-CONFIG_ARCH_QCOM is enabled?
-
-Neither nord.dtsi, nord-embedded.dtsi, nord-ride-embedded.dts, nor
-nord-rrd.dts defines a remoteproc_soccp label yet.  When Makefile builds
-nord-ride-embedded-el2.dtb and nord-rrd-el2.dtb, fdtoverlay fails in
-overlay_fixup_phandle() with -FDT_ERR_NOTFOUND because remoteproc_soccp
-is missing from /__symbols__ in the base DTBs.
-
-[Severity: Medium]
-Does specifying two iommus entries on remoteproc_soccp violate the PAS
-Devicetree binding and driver expectations?
-
-Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
-restricts iommus to maxItems: 1, which causes dtbs_check to fail.  In
-addition, qcom_q6v5_pas has no Nord SoCCP match entry yet, and
-qcom_pas_map_carveout() maps carveouts with IOMMU_READ | IOMMU_WRITE
-without the IOMMU_PRIV flag needed for the privileged SoCCP stream.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-nord_soccp=
-_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com?part=3D1
