@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586918;
-	b=lw7+ZCy0MH2RN6gRa0GQDSWhfIcFjoVO+7Nz73SAdIGnIOZGELG2vYBMxfQtXR7BZZks
-	 bQGMRxUl3DCE+X9utkWRhKDOvqz51N7qgHVy6riThxAMK/VoU0dhHrVjexwOU0feiun4Z
-	 kr1e0YLwaVA9zmLZp4UkRgcz0UnR9k0JQA/4PfJCZRTRdIGHMwUxpkP7PFQIaesgwNV9d
-	 qeqZsVvPpSvHqwwtFAy1Z74gsxDs+r4Vlb5EXeguJoE5PCLArVIl/fi2+OA5+IGHF7vs+
-	 lhoVJe4Cm/G8jdFA7nIhMhoS3xWLrelf/R5t2f1fcUvUjl32tNvR3VtXoov+Oj8Rm7g==
+	t=1794587063;
+	b=oxzwo7WCn7RbBkRL8re6k1+Pvdl2YEiXtn6bbqLUUflJU1k7JatyRPMFVPK4LohpT/MT
+	 fC/c2hgmGRN5ttiN48tD55ZcgTJsYCD6AA89C3whki0gQCRPSPBMKuV21+FP8+MgQENwK
+	 Zp4+mCinxXaZsFXZ/cFwfXtWPCJXJFZeQLTQQcUhhdorUGOqAzQ3hJNdQXGMR7srzFxZ3
+	 iroomgv+/u1lWHPxFyubXN9uqtb8Z0SbSQ5KWJPNfJm477aF4h8IkJJlVZTYxfVOvBUt9
+	 Jrfh9NF363Hy4hA+8bN3cv8FbRtkH5rs2nGNLytx69VETYHc2EGxhZXYnuiIA/noDzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586918;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fIXPmzhR4Ap9kSK0s1ZKRTXuiT+xn9k/ZdxjDpdymhs=;
-	b=ywusnBDBM4u068r+V9KfQXGh8Rb3i3qLEwGhVR/anGTuXryS2rk0Rg0LHDd92nOYP1LJ
-	 G1mw/ac0ycPEe31+HYa3XSmmpAb61BPAWVlAOZvdrtlFjYFp0F2+jT75YdeG5TsbfR6TX
-	 ZKs3vQ9Z+nOzOiwnTDsGGlRoPQs4sRHYue4zAJzan43KEoISCWZWL8KQSdr46KoR3mD9i
-	 Dqyv8b8vmRMlReEwcNxt5/ETiOnhSyd11ccwzUtK6P8vbVaESD/ely2j3oJliyxr/1eHd
-	 y5ayckSTDrrZzhdNVPtzS6nP5GXvWJ0k/W4UDC2z6zjOawoKKql34s4/CYfX60AYA3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587063;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=1lnheyGukmqW0QueRw7bn0JUixIXN93gHyJq8/dxgYM=;
+	b=dvUSNlAspPmggSue6Tcwxxg6sMY17gql8OO0FyLmTjUt7nyqtItNv/rF5fOyZFbCQHMo
+	 4cJRVBUa/a5Ny1GXB2Ml2fhn1QrRAZZCK9GIgcJCQnvawFQ81iRfQskilcuRdyQqlKLVC
+	 RP8jlERRYq/BWDazVGCuJ0zRDRbfbijZxh60wCDnrfErSIP0IfI+L37ORPn4+1PbNqZXl
+	 +oiMtIombRxhiwkGmx0tEX8XIerr/PGUYkfoAIzrfRHFq+0sU5S/HzASPiqB5UbFPOoSq
+	 H9xryhIL87sEm7jW/RRepiS30/0TbsxDQuKUhg0OWeAcRbwo3kzXH05XxA/o68cm/3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5EelJRB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iCw42+xa;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C636D606A8B3;
-	Fri, 13 Nov 2026 16:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE7A606EB85;
+	Fri, 13 Nov 2026 16:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BE7A606EB85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5EelJRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E07C1F000C4;
-	Fri, 13 Nov 2026 16:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794586918;
-	bh=fIXPmzhR4Ap9kSK0s1ZKRTXuiT+xn9k/ZdxjDpdymhs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i5EelJRBHORAp13IHkBsq3E84S2AkEYzM9L5ugnwkXXka+PDWQ+ZldHoj5Y5UDlJg
-	 bubhAGlj7FnjrVRDytr8ShilLe/HCl8H7nYzpL29zcPNBH2WFKVbHswekM/W3Shlt+
-	 ivhTMgzcIxY/maB8AwarXYoQmvsIntqZ+iOlguNADPyR9npSBV3IIpuATleWJiztaS
-	 8uZn+a4uhvMAdh/PzvXMeL63oCgmeVq3PSqq+RPxIqEQalI0FVc/40Dp1Jn9MUmqSv
-	 Jdtcd4aXMeQzxdhVVY3dc8l5lxqakYyYPjweUonx4rqUEz4JQ9HyTUJK7SK5Pn94Vj
-	 MxKY60igbNkQQ==
-Date: Fri, 13 Nov 2026 16:21:53 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Mina Hui-Min Chou <minachou@andestech.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
-	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	randolph@andestech.com, cyyang772@andestech.com,
-	tim609@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH v2 00/19] riscv: andes: make the LLC driver and cache
- errata generic
-Message-ID: <20261113-overcoat-facedown-fcac3e162931@spud>
-References: <20261113071143.1446167-1-minachou@andestech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iCw42+xa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794587063; x=1826123063;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2l60HEJVY18DxVhS1G3+/e8gkR+sZ4DvH7z/CCA41FU=;
+  b=iCw42+xaCgLw4m5QEHhnE1whNX9j4WSao0Kez/tGWs9p3YmZmEFXYnGe
+   oAFDIytUtiOE9FxHohMRkGxJ4DlTNZFGSYhuObJ+3Q412vZkPiGII+MWr
+   CgZS4gBM/TYuT2jdcm6Y7No2T5969eOfbmPoGKz89USw7gSDxAn75J/h4
+   j/te8Y6Yrg0+6oym76PaoUGuAXH3UZ17B2XyjZcRts2MY5Nd4xSE0q13x
+   hQoB+V9adZn8b8F/YIAruIy4RHQF12Lf7CLGLLljh5pbHcnKxOPuAsa2N
+   Tg4GK6qyBYeAAF2ucxKIZWjSOv3db1FbI3bsYu/ga7fVee836jnNmlTGd
+   A==;
+X-CSE-ConnectionGUID: WUiNFYWzQ7it9Il9LK48PA==
+X-CSE-MsgGUID: EcsAJeO8RWuGcMePmO3bww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3496187"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3496187"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:24:22 -0800
+X-CSE-ConnectionGUID: mNeTNJo8Tz28PN9K8rTAJA==
+X-CSE-MsgGUID: oO/fIW3LQ9ikVA/GNiGl9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9043277"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:24:17 -0800
+Date: Fri, 13 Nov 2026 18:24:14 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jens Reidel <adrian@mainlining.org>,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Val Packett <val@packett.cool>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] iio: adc: qcom-spmi-adc5: Add battery thermal
+ channels
+Message-ID: <avc5rnvIAEmZbyE1@ashevche-desk.local>
+References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
+ <20261113-bat-temp-adc-v3-1-743979a8fd90@fairphone.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,66 +99,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lRtlk1dXxjMUQU+8"
-Content-Disposition: inline
-In-Reply-To: <20261113071143.1446167-1-minachou@andestech.com>
-
---lRtlk1dXxjMUQU+8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261113-bat-temp-adc-v3-1-743979a8fd90@fairphone.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Nov 13, 2026 at 03:11:24PM +0800, Mina Hui-Min Chou wrote:
-> The Andes last level cache (LLC) driver and the Andes cache errata were
-> written for the AX45MP core in the Renesas RZ/Five. Other Andes cores use
-> the same LLC controller and need the same CCTL-based cache maintenance,
-> but the driver, its binding and the errata only handle AX45MP.
->=20
-> This series makes them generic, in preparation for the Allwinner V821
-> SoC [1][2], which uses the Andes A27L2 core [3]. The A27L2 has neither
-> IOCP nor Zicbom, so it relies on the LLC driver for DMA cache
-> maintenance.
->=20
-> The series is organized as follows:
->=20
-> - Patches 2-6 rename the AX45MP and L2 identifiers to generic Andes and
->   LLC names, move the Andes CSR definitions to a shared header, and
->   rename ax45mp_cache.c to andes_llcache.c. No functional change.
->=20
-> - Patches 1, 7 and 8 are small cleanups. No functional change.
->=20
-> - Patches 9-11 fix issues that do not show up on RZ/Five but affect
->   other Andes platforms:
->   - write the full physical address to the 64-bit CCTL registers,
->   - register the CCTL cache ops only when the errata asks for them, so
->     that they do not override Zicbom CMO,
->   - index the per-core CCTL registers by hart ID, not logical CPU
->     number.
->=20
-> - Patches 12-15 add andestech,llcache as a generic compatible, keep
->   andestech,ax45mp-cache for existing devicetrees, and add a
->   MAINTAINERS entry for the driver.
->=20
-> - Patches 16-18 make the Andes cache errata usable on any Andes SoC:
->   ERRATA_ANDES_CMO no longer depends on ARCH_R9A07G043, Andes cores
->   other than AX45MP use the CCTL ops when they do not implement Zicbom,
->   and the SBI-based IOCP check is limited to RZ/Five.
+On Fri, Nov 13, 2026 at 04:56:42PM +0100, Luca Weiss wrote:
+> Add the BAT_THERM channels with millivolt as output, which can then be
+> used along with information regarding the NTC in the battery, to get the
+> actual battery temperature.
+> 
+> A static lookup table in the ADC driver won't work since different
+> devices have different Ohm and Beta values in their battery NTCs, for
+> example a NTC can be 10kOhm & B=3435K.
 
-> - Patch 19 adds the andestech,a27l2 CPU compatible. The V821 devicetree
->   will be submitted separately by Allwinner.
+...
 
-This patch is missing.
+> +static int qcom_vadc_scale_hw_calib_therm_volt(
 
---lRtlk1dXxjMUQU+8
-Content-Type: application/pgp-signature; name=signature.asc
+This is broken indentation. Was `clang-format` being used to achieve that?
 
------BEGIN PGP SIGNATURE-----
+> +				const struct u32_fract *prescale,
+> +				const struct adc5_data *data,
+> +				u16 adc_code, int *result_uv)
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavc5IAAKCRB4tDGHoIJi
-0moEAQDVBv655Pk8FJSiHbmcw6iWuP15bwLdSG7Or5clXJmJvgD+LbkpwW05yW5Z
-7PSdKmrUiXFApjw40K1A9GLE1AmDSgk=
-=fCFy
------END PGP SIGNATURE-----
+result_uV
 
---lRtlk1dXxjMUQU+8--
+> +{
+> +	*result_uv = qcom_vadc_scale_code_voltage_factor(adc_code,
+> +				prescale, data, 1000);
+
+1000 is odd, can you use something from units.h or combination of those
+to show what this multiplier is for?
+
+> +	return 0;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
