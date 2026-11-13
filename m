@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794557278;
-	b=vUTGJqexv9pGqq8Q4u3Hlv+wsgDhLvyYikDAFHJqyQ2Es9/wP4UQxhjEpVPo481hGr5D
-	 JjoVHc32zLzn/RiZAdWQbiqhpKxjGef6VMVLQ+goSVgd4WfHvi3x9Wb8Jp9xYFwya2Rq1
-	 esRNF0epQIsTOHvII2sxtz9amgi7/2Ke3y22AuVEZb4cPvtVcGqH7iwDh2wYfhRPqqz6T
-	 UeX1v2ya6QEU600oLAxnWWVqdnTX6QETZF/f/183nu9jEyPE6GNrdlacwMH/D7hYbU36D
-	 ho10raiIthPTAqOuNr+zzHoVcC7IPBRJh5T0rGRSFeoXIDM71MJHGkZOs4WU2KZwyOw==
+	t=1794557281;
+	b=sspubeP7Dr2jXTWak2xtpiyLZwCd5lwVZHLJXEj6HJ+GMLjZpf5ET5kBaHwh46fd2BoF
+	 LzhlWIPDCICw1Prwgf3hTL/Z+vtSJIOB+LJ+7wrTZskR9cU+7qN9uaJDbnbMdPTM/MyCX
+	 kXnnmIksFyYbTXklt8gL0+tnMQb8mmlhJVpHSPybJvycXCW3jL+0KKc7nlIy6yNtH03PS
+	 SATtdrn3+aUYzqFWTdZWWeyGKAN6FDnGM8kvHnSh16u7Be+GhFBt0jYdp3farqMaPJSkX
+	 5AQXZXTWmEZv8jcVQNskbEcJ2CdzurQbo1C/e+Utx1/9PMXfV3qQpMw9H2rzaLrO9cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557278;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ldebJULdahXawwaIjPPXo2Uevcyl3fmECri5N00Y0/A=;
-	b=txcySa72jj5NzL92cNrsI9AetFsW6qO1cGKGg9gw6Mn4zETLilcWEW9IzldUD51xGN2V
-	 qYOzmIP/F0IUgzvfuPLAvO2u927LlbYgNee56O0rUh90Mr1ybRpI8cgCrWNs/ju/hthM8
-	 fohNdRmbxukfmvvgNu7NV/Z8xj9seUOgqFO6tcfoYx6NeYx7YnQhqEZyeSoMnD7jN9adz
-	 ajTIVu5XtPutb36Xi9Kz1ztsyeCdOIYS8OPohPhz7S2GU9ulf1PaRvv2L7gLq+UsSoovH
-	 iD42XBgqpV1XkK/HXoBxkZuwxf0HBAeQnhc3Qva555odaLEL+Wjv4Dve1htghPJXQgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794557281;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 Content-Transfer-Encoding:In-Reply-To:References:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=4hU5uldfxHAYDoQxeLuo91xKme7lL3iEklihd2gkQEM=;
+	b=eQ3Y9CcTJDK7ztV6Nlte7SCKKRpdhGKyKcOklvBT0uTuh20wt6n5RELglp89GLTO3rih
+	 xZpOG/t/Wp+daxIyGAeX2QYF8daqITqVZ8vHua/0pJuoJ73NFtdmpAI2mjHeNFq5y927f
+	 n36TaFVKSQ1DLaacwvKvxPOB8LVdOnn1mQn7ObtCHpVyfxmvvdkT7ZW44I3rz7nYiBpuA
+	 MHuStVi0k3kphFrMloQDS2haV5VdZFtCXdr1DwFaYW+4nutlS8LNyB1vjhxSq2EWq12GN
+	 2+u4CocVRhDEVxAEjcJVNo904pDzB2NWR0pXh3nyKI3qXavh2KVWP4LgL6n/HXem2lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eGf9B0UY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="wxXP4u/S";
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC79606A337
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:07:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49F9606A88B;
+	Fri, 13 Nov 2026 08:07:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E49F9606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eGf9B0UY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2211F000C5;
-	Fri, 13 Nov 2026 08:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794557278;
-	bh=ldebJULdahXawwaIjPPXo2Uevcyl3fmECri5N00Y0/A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eGf9B0UYsYnQa1EIvRho1gl5CtZA8ZT7/7xQvZoA48yxBycx9kfdZTEqKEhOfOyWR
-	 Pwzv05OQw/zhnU6Xq66le+btVQF8oXEPizqozOi/fx7QmVWwiMDpkq/mcv7akBLVoO
-	 QMb8C+h7LFVxhJGNkPJFItG8O4HysYUFJ9c2R7bsH0UBd8lu0Sz3P//Igzd4Zmz72r
-	 QmuPiJKAloaiBlIXsOvWTVbFlAeeSB/EgHZUWi9/smOHNLq6drr7F+/6Hp5GQOCMQ0
-	 SWMiMHsL3ljR/Gek5pvXtf3FGPhNvrlS4phu3YqFYszTuuum4NJhxCCCYSiEQtyQ36
-	 hnNxKsyl9SVvg==
-Message-ID: <sashiko-outbox-212383@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] nvmem: core: add byte-mask support for
- non-contiguous cell bytes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongmei Xu" <hongmei.xu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-nvmem-byte-mask-for-split-macaddr-v1-2-138f715f18c1@oss.qualcomm.com>
-References: <20261113-nvmem-byte-mask-for-split-macaddr-v1-0-138f715f18c1@oss.qualcomm.com>
- <20261113-nvmem-byte-mask-for-split-macaddr-v1-2-138f715f18c1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 08:07:57 +0000
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=wxXP4u/S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794557255;
+	bh=4hU5uldfxHAYDoQxeLuo91xKme7lL3iEklihd2gkQEM=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=wxXP4u/SOHkkTVCbN0JxSi3W0+e6cE6K7IVz6X56g7rE/nObaFm/FQuOlC6jP8VBv
+	 Qxd/bovAsV05sMy4xJuX1jJx/laJ2sXm1wx5cJnmHNqyJa1Gyq0L9/8IneGjG8P5v5
+	 X/aOBSvwgil1Sa8CMsNiL/hQ4GHWsN9t73XK5HdI=
+X-QQ-mid: zesmtpgz5t1794557253tbc5d26c9
+X-QQ-Originating-IP: FjNqnou82m/a4LkyUcHcc9Tuhz5TiqOdNLxcrb8zkf0=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 16:07:31 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13851320892259870204
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,158 +58,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=55ddbb8033dcf0d44c3f2031ef165224813818d398fd0f2c0b9d3848268d;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 13 Nov 2026 08:07:29 +0000
+Message-Id: <DMTXGBJLGVER.1WG847Y2M9AJM@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Guodong
+ Xu" <docular.xu@gmail.com>, "Yangyu Chen" <cyy@cyyself.name>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 BS01DCMA support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Emil Renner Berthing" <emil.renner.berthing@canonical.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAJM55Z_HOuvxNmAi2m3kjtQ3tuYEDNtfyvrcb=F-Z1p6K1VSCQ@mail.gmail.com>
+References: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
+ <20261104-k3-bs01dcma-v1-2-794025247e4a@linux.spacemit.com>
+ <CAJM55Z9Yj87hqwMugqRsf_RL9np=KqzCj-J9RyutuWKd-w-n+g@mail.gmail.com>
+ <CAJM55Z9nuO3MneQqBm3K2V2SjOXqXsZcDx9pMzVhxMJJ73xc9Q@mail.gmail.com>
+ <DMNTD3S9CNW1.1H4CMNHDJM69D@linux.spacemit.com>
+ <CAJM55Z_HOuvxNmAi2m3kjtQ3tuYEDNtfyvrcb=F-Z1p6K1VSCQ@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NFQMG86uACrUzvxdUHdia0jpfQuv8DhlfyGHUK4MPHJi2fy17q/BQejn
+	EWOCs9NMotANKU2R0YSiV823QZbFi8NoGrQG298mAySMsdyP03gmwH+BlYJQvGtQgyzfBrc
+	9VXHBiiU6Oq+xJvussGMeymBhZj3lVvZWS1FQnmGipK6n40zh/kdfaMWJRhO92oAeJOLe6t
+	arZBIIOP34gsjOxZtjFDQ30QvRmeD3Ublwxm25f7dEpoUP+uB5Stask4T/ph51lU0NICchr
+	md20Qz33GOIB4lWHo8n7rjimUnwphH3cKMWUCca9k/KgJ+IDx/DO7sHR9opIkN9rjXgN6bz
+	x12AbgKpFugeb7vFzZzAaWY2MVEbo7SgezdIYbt2X0lKYRMdF6+XHf2I3E6BzMcU32VTZUh
+	00MB3JW+rvZw89XV1EJjTo50vgB4w9bJPY69HoOaPjBlI2BhJZwScgyVAZGY+ncPKnp+6wU
+	THOoWoZRywiOjzmP8Svu0+L4U4XgBF1XWQS4xvWXD2OvNBUmjDExb8uClTfSwjJ3OwILUle
+	B8BKVRUHqXXoambzfB4pTLg9GtsoZXytGlY/ZtwX0y7zSBCzL7uF3K2lTfMFdsd83qU6Hpn
+	HGY3ErRoHSrh/EIW7bka5cfIxOQj8zalUOOig5+RNS5exySwdLYPlEVf6d0VTIrzGZhArTE
+	DR8Qz5xqvOkx3tihRf7jOiQrm5qXfPD1+8N3Afargof2gop3HIwV8wmgPeDbR4Fzn6tSEVe
+	zh609XhqxUr8LtwSRv5wSQZ9aUhyJ3vR8vipCi48dXWzWYRO48/FrqJf5EEuMAeUHF1FMoV
+	nMg7dwyTcH9IhcfPQJtuxwL58QL/E3EZn/lrd/MaFsa8Vpr1KWXEyHTWA2pHBgvc1lGfZlq
+	teOCsPdRb5myym1W0KWBKzWzTg2FGdEcvTIlEmOyQN65RoFxCH+Xro7TiPswCaskouFSI1L
+	kGUk7p+ptustxSyZjf2vChf8TycNHz+fIGrOb9G1IgZFjnFOs5f0WlRj+u3CfmKSQD6A1qc
+	UQsEKVlLf++O92trg1lcAzxCryy3wbIlWF+CQdAxX1A4ElU0bdr4iTQvbLxHos3rqElc41A
+	w==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] nvmem: core: byte_mask raw_len reads full device and rounds
-  past size
-- [Medium] nvmem: core: byte_mask validation bypassed when nbits is
-  non-zero
-- [Medium] nvmem: core: missing zero-fill of trailing bytes in
-  __nvmem_cell_read()
---
+--55ddbb8033dcf0d44c3f2031ef165224813818d398fd0f2c0b9d3848268d
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-commit 2da8dac9e0c0313c6b2e42597b707a19ff863b3a
-Author: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+On Mon, 9 Nov 2026 12:10:10 +0100, Emil Renner Berthing wrote:
+> Honestly I'd still rather have the k3-bs01dcma-rv2768.dts. It's hard
+> to predict the future and I think having the extra file is a very
+> small price to pay compared to the confusion of having
+> 'spacemit,k3-bs01dcma' describe the RV2768 server and then something
+> else to describe the module, that's actually called just BS01DCMA if
+> someone ever makes a different carrier for the module. Also it makes
+> the physical reality of the RV2768 being a server of multiple BS01DCMA
+> modules more obvious from just reading the device trees.
 
-nvmem: core: add byte-mask support for non-contiguous cell bytes
-
-This commit adds support for a byte-mask cell property that selects and pac=
-ks
-non-contiguous bytes from an NVMEM region into the logical cell value.
-
-> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> index 7d4cce8e27424..6c9994abce39f 100644
-> --- a/drivers/nvmem/core.c
-> +++ b/drivers/nvmem/core.c
-
-[ ... ]
-
-> @@ -603,12 +645,19 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodu=
-p(struct nvmem_device *nvmem,
-> =20
->  	cell->bit_offset =3D info->bit_offset;
->  	cell->nbits =3D info->nbits;
-> +	cell->byte_mask =3D info->byte_mask;
->  	cell->np =3D info->np;
-> =20
->  	if (cell->nbits) {
->  		cell->bytes =3D DIV_ROUND_UP(cell->nbits + cell->bit_offset,
->  					   BITS_PER_BYTE);
->  		cell->raw_len =3D ALIGN(cell->bytes, nvmem->word_size);
-> +	} else if (cell->byte_mask) {
-> +		int rc =3D nvmem_validate_byte_mask(nvmem, info);
-> +
-> +		if (rc)
-> +			return rc;
-
-[Severity: Medium]
-Does placing nvmem_validate_byte_mask() in the else-if branch after
-if (cell->nbits) bypass validation when both nbits and byte_mask are set?
-
-cell->byte_mask is copied unconditionally above, so if info->nbits is
-non-zero, nvmem_cell_info_to_nvmem_cell_entry_nodup() takes the
-if (cell->nbits) branch and skips nvmem_validate_byte_mask(). In
-nvmem_add_cells_from_dt(), nvmem_validate_byte_mask() runs before
-nvmem->fixup_dt_cell_info(), which can set info.nbits and info.bit_offset a=
-nd
-adjust info.offset (as qfprom_fixup_dt_cell_info() does when a cell offset =
-is
-not 4-byte aligned) before nvmem_add_one_cell() runs.
-
-During __nvmem_cell_read(), nvmem_reg_read() then reads into rawbuf while
-nvmem_shift_read_buffer_in_place() shifts the unwritten buf, and the
-byte_mask loop writes hweight32(cell->byte_mask) bytes into buf without
-bounds validation, corrupting the cell data or overflowing buf.
-
-> +		cell->raw_len =3D nvmem->size - cell->offset;
->  	}
-
-[Severity: High]
-Can setting cell->raw_len to nvmem->size - cell->offset cause out-of-bounds
-reads past nvmem->size?
-
-Right below this block, nvmem_cell_info_to_nvmem_cell_entry_nodup() aligns
-cell->raw_len up to nvmem->word_size:
-
-drivers/nvmem/core.c:nvmem_cell_info_to_nvmem_cell_entry_nodup() {
-    ...
-	if (!IS_ALIGNED(cell->raw_len, nvmem->word_size)) {
-		dev_err(&nvmem->dev,
-			"cell %s raw len %zd unaligned to nvmem word size %d\n",
-			cell->name ?: "<unknown>", cell->raw_len,
-			nvmem->word_size);
-
-		if (info->raw_len)
-			return -EINVAL;
-
-		cell->raw_len =3D ALIGN(cell->raw_len, nvmem->word_size);
-	}
-    ...
-}
-
-When nvmem->size - cell->offset is not a multiple of nvmem->word_size,
-rounding cell->raw_len up makes cell->offset + cell->raw_len exceed
-nvmem->size, causing __nvmem_cell_read() to call nvmem_reg_read() past the
-end of the device.
-
-Even when aligned, setting cell->raw_len to the rest of the device rather
-than the masked span (at most 32 bytes) forces every read to allocate and
-read the entire trailing region, which fails on providers where reading
-protected or unmapped trailing fuse rows returns an error (such as
-sec-qfprom).
-
-[ ... ]
-
-> @@ -1648,28 +1708,51 @@ static int __nvmem_cell_read(struct nvmem_device =
-*nvmem,
->  			     struct nvmem_cell_entry *cell,
->  			     void *buf, size_t *len, const char *id, int index)
->  {
-> +	u8 *rawbuf =3D NULL;
-> +	void *readbuf =3D buf;
->  	int rc;
-> =20
-> -	rc =3D nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
-> +	if (cell->byte_mask) {
-> +		rawbuf =3D kzalloc(cell->raw_len, GFP_KERNEL);
-> +		if (!rawbuf)
-> +			return -ENOMEM;
-> +		readbuf =3D rawbuf;
-> +	}
-> +
-> +	rc =3D nvmem_reg_read(nvmem, cell->offset, readbuf, cell->raw_len);
-> =20
->  	if (rc)
-> -		return rc;
-> +		goto err_exit;
-> =20
->  	/* shift bits in-place */
->  	if (cell->bit_offset || cell->nbits)
->  		nvmem_shift_read_buffer_in_place(cell, buf);
-> =20
-> +	/* compact non-contiguous bytes selected by byte_mask */
-> +	if (cell->byte_mask) {
-> +		int out_idx =3D 0;
-> +		int i;
-> +
-> +		for (i =3D 0; i < cell->raw_len && i < 32; i++) {
-> +			if (cell->byte_mask & BIT(i))
-> +				((u8 *)buf)[out_idx++] =3D rawbuf[i];
-> +		}
-> +	}
-
-[Severity: Medium]
-When hweight32(cell->byte_mask) is smaller than cell->bytes, does this leave
-the trailing bytes in buf uninitialized instead of zero-filling them?
-
-Because nvmem_reg_read() reads into rawbuf, buf is only written up to
-out_idx. Callers such as nvmem_device_cell_read() pass a caller-supplied
-buffer directly into __nvmem_cell_read() without pre-zeroing it and return
-cell->bytes, leaving stale or uninitialized memory in
-buf[out_idx .. cell->bytes - 1] for both cell->read_post_process() and the
-caller.
+Fair enough, I'll split it in v2: k3-bs01dcma.dtsi for the module and
+k3-bs01dcma-rv2768.dts for the RV2768, with
+"spacemit,k3-bs01dcma-rv2768", "spacemit,k3-bs01dcma", "spacemit,k3"
+as the compatible.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-nvmem-byte=
--mask-for-split-macaddr-v1-0-138f715f18c1@oss.qualcomm.com?part=3D2
+Troy Mitchell
+
+--55ddbb8033dcf0d44c3f2031ef165224813818d398fd0f2c0b9d3848268d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavbFQSEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+bJwD/cTWK4yfvLKek
+iKSpvbRgeuw9ugOpMKbp6SIUnby8dr0A/35wZ+z92YfzDXXxb6U2HKJ4nANco/5l
+wL8UcakcR7wB
+=1j0q
+-----END PGP SIGNATURE-----
+
+--55ddbb8033dcf0d44c3f2031ef165224813818d398fd0f2c0b9d3848268d--
