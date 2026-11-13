@@ -1,67 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590101;
-	b=re+2zk9T5iiAAXrQ/mJBwJAvIDzuuBr+sToMOb8v761somU/muKu3Qdq+mhYBJYX2hMB
-	 6bqH2NqRcvaauWjV0aCNplh7Y7wq66f/YNWAtDrg191Pto1MsEi2d1tbDvc8ls7wsOjie
-	 rliZSnWqrJBRWG2V16gEPwy1Zjja8UD+aUFA3LM4ntA8sN2ePias8AcQMZDublWydlYYA
-	 a+idkI25R22ysLz8cXmk5wTI7xcOeEH788L4zC+jsld9FGYwi1k0OXvf7RNTXodcTevYq
-	 Bd8s6IG+5EPksWecuXE1C8a+nksDjD6gXpiKLnmDiMOjYR8gf1TabDnrhZswjnOoz8Q==
+	t=1794590176;
+	b=zTV/hkX8w6br9AUuS0v+7kKgsFlOp2xYWu8wNDG2dPZHlm0Cj5q2AuFI/RwayIVV8GrY
+	 JXDTqtYjvhnOw3ytOhzyrppdTHw0OzL8pITgE0Ikv8vEhV7kkEotNO6mskZQGb0quKa/i
+	 2xpnO/ffd5Wlc8qyTvGamWHMFIzIO0yBwTWPGDRyMgJXmWmy8NOXkVY9gFiPqM6yic912
+	 RxTyKuozG+GCDbRqSiNbkITehMKw20zLso55nNTwG13Dmu6pYz7sgb0cW0LiHy+tsH83n
+	 9QYAyZiuJGZiqxhpm2vT7t9A45lqsutNr8ssN4sZTmukQx9/bfb4YfgKZP85Caw2VTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590101;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1suJMfr4F2t+hvLEf/eqvweGBr12R4RYJ9ohUXZMmLQ=;
-	b=3w34QZIEpVMHaxD2aLScvSisLV0p36uwNs7SbY4b9HhOA7Kzy/l9OZLiU9v3KOX0rtLv
-	 4l4Uro+BL+uWm4IxCw2vanpuJNjO7+TxFzX+oaEdMCJcg06P5mvhsKx5ZvNLYfwxM4mWl
-	 xK2f4QVfnDi7rJUq1GeWrdrUrCSY9BFDhOTE8mV6pxHI328sCow2JmFLWr/HOopE12Stz
-	 T/0kAW6dM0+yodapiZr46bI6xf64IUPKNdcaY5pe1RTaF6Y3rfu3zD0NsuWEVMhOj7qr5
-	 uZukeice7vCFObVu5LWVYj42AIO1X7THspz2U4OyJhLcXFXe6V8btzWYzTPo/d+Z9Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590176;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=630ZcaqByTv+QEWkHoMi/EEkqaHMDXg9RV3gjffuefs=;
+	b=aiJaBJc8HzQOPPHdqVJdwePgLc/Xz5mA12gRB5AnxzspzR8uVfU3D6GanpZHTWYY/XLN
+	 jiNUHonZSg5RHF15LVMtHu2Q7PYGq8peulZ3IZwZ10Xxyx4zU8C1hesoLNASRENAz6DXR
+	 ocHn7GcfI8CYee0AuIv+vDJ6vlKocoNdEglcWlXKiojtpIQXdTp7luwdRgc1ga6WAU55j
+	 kCrStS4D7hW6vnOXIwh2v2+gH16BO5oTSUPaRtMWXU0d0N8orvTOwPZf6CTarFOZH51/p
+	 7B80xYN5+Hjlo7TyC9YVjotFtY7SgQKDVVJ/NofNkxTVY+2abQRwR2Ti9nj+LN062jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+G53xRS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLJYUZzG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B0460A2635;
-	Fri, 13 Nov 2026 17:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19E460703F8
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 17:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+G53xRS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE6D1F000C4;
-	Fri, 13 Nov 2026 17:14:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLJYUZzG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082EE1F000C8;
+	Fri, 13 Nov 2026 17:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794590101;
-	bh=1suJMfr4F2t+hvLEf/eqvweGBr12R4RYJ9ohUXZMmLQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K+G53xRSt8vDf6/x/l3LPjRGhF5omdp/pkv805gZbqnCe+Upy/fEqej9LIoLRdbPJ
-	 /nOLeWFABGHPoNdRgJwqooL/MmPecQBEz+bMZ7V++L2Tne5kYqrIxTANG0vKtVwv6P
-	 wNTGd7Rp4FC4jYxpC0Tgd/GwGTsHDEqnwV44JgLiu1zEz0QZZeHT1WcxRRavSYFxS3
-	 EdCKfUgokXaR0RjcDOSkrzUMRr39pcOoGI/UkkG+H1mNo8al9Fp7ahMRbfUSqaFW34
-	 YVYkUHXsjcbamC8vAlS84fx1DwCL0+U5WrxxPNeewpO79OQR1hFo8W4qV+XtJed9tY
-	 LOunxBwh6Py/A==
-Date: Fri, 13 Nov 2026 17:14:55 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/7] dt-bindings: net: add amlogic,t7-dwmac
-Message-ID: <20261113-headband-resistant-354bae47c2b2@spud>
-References: <20261113121852.334604-1-tanure@linux.com>
- <20261113121852.334604-3-tanure@linux.com>
+	s=k20260515; t=1794590176;
+	bh=630ZcaqByTv+QEWkHoMi/EEkqaHMDXg9RV3gjffuefs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jLJYUZzGnaW+togi/UqdCtgeTd42PJ94j4iTX0+jvtE3sFPRMTr5VujoyUUDaI82w
+	 lih5fjtelXQAX7laad05YpvLEHnCNKpwaTUO1uRwQ6MaRPEvY4H7LIhHeTqI6cTiKB
+	 AMuIfWOd9BIVQ/moT1/rEkVArwrRGsvB3JH3vl3LJkwyoglDE747N0ch7zqJcI2mjg
+	 6IGDRZHyWRDuWNJjVNSJGFZ30HxnEbZaqHuob1lFlqaRGUeLs97Y7cmKfYEZuJh1hP
+	 rjdy3YVnDNZlMFzBVGAUWfouvH5xHzoHe3DRUF4ZcnC41Rx+P69rkgjabtmFqbj75Z
+	 jbFLTxrgOwAlQ==
+Message-ID: <sashiko-outbox-213289@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: mediatek: Add MT8173 Amazon suez
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Brue" <ryanbrue.dev@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-3-d3b8865fa50f@gmail.com>
+References: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
+ <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-3-d3b8865fa50f@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 17:16:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,28 +59,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LpKzrxi3dFo/IMea"
-Content-Disposition: inline
-In-Reply-To: <20261113121852.334604-3-tanure@linux.com>
 
---LpKzrxi3dFo/IMea
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: mediatek: undocumented mediatek,mt8173-keypad
+  compatible enabled
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+commit 2503b241917cd19d3cef775979876bb2182fbb3e
+Author: Ryan Brue <ryanbrue.dev@gmail.com>
 
---LpKzrxi3dFo/IMea
-Content-Type: application/pgp-signature; name=signature.asc
+arm64: dts: mediatek: Add MT8173 Amazon suez
 
------BEGIN PGP SIGNATURE-----
+This commit adds a device tree for the MT8173-based Amazon Fire HD 10
+(2017) tablet (codename suez).
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavdFjwAKCRB4tDGHoIJi
-0iKAAQD8cRe2UwvrgIAurM7gqjc5GRJvmH08nxT23alr7Ij1fgD/XhJ/l3gmDO8e
-WxfYr9fWD1PaIuMhdEbBltsE/3a4gAo=
-=4R2d
------END PGP SIGNATURE-----
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts b/arch/a=
+rm64/boot/dts/mediatek/mt8173-amazon-suez.dts
+> new file mode 100644
+> index 0000000000000..042b41e7d5675
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts
 
---LpKzrxi3dFo/IMea--
+[ ... ]
+
+> +&keyboard {
+> +	/* Each key is reported in all eight rows of its column */
+> +	keypad,num-rows =3D <8>;
+> +	keypad,num-columns =3D <9>;
+> +	linux,keymap =3D <MATRIX_KEY(0, 0, KEY_VOLUMEUP)
+> +			MATRIX_KEY(0, 1, KEY_VOLUMEDOWN)>;
+> +	debounce-delay-ms =3D <32>;
+> +	wakeup-source;
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Does enabling &keyboard cause make dtbs_check to fail on
+mt8173-amazon-suez.dtb?
+
+The keyboard@10010000 node in arch/arm64/boot/dts/mediatek/mt8173.dtsi sets
+compatible =3D "mediatek,mt8173-keypad", "mediatek,mt6779-keypad", and
+"mediatek,mt8173-keypad" is not listed in
+Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-rbrue-suez=
+-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com?part=3D3
