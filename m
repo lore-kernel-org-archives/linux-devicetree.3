@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794566736;
-	b=y7XcO3nXE+BBFgDFKghfU91jVFwd4lc70H0+m2dyz+3Ng0eXhwTgrK6PDz7rhumbKkOn
-	 F7MPw1Hlf8X9GAiWCxlyL3QEeKNMLJSaIM4sVHJlgyb3Or5eZHORpDq6GOCbzSzrlqRVc
-	 vto4SmlAhMl3DVXxb9Rmr80ka+GIpNMk2KjQmBLcIgVAR/1sWzY8FMetTAmdM7k8hl9tR
-	 S4JluZ7fEKaCRHVIAKMxHDuVHOVIhg3g3jVnboKugYOfcFD8x9ZBLVhI9PpLeHOi96o1V
-	 0oarn7V0ylw+t8rhpD3wtPMRcp8inpR049sKuFdaCyZlys0QrQOLRrIt02SdrYFIlew==
+	t=1794566800;
+	b=m5eDrd/J9LDcEnKFtVnjHY1PhRbghMMjaJBeprBLyUUyVroMhx8dYdqzIyaHfBvamJ+r
+	 6fzqAlD+MaR1vUm69O7nNNqM4PatAdWdiE7tssv4eN7tu80C7KxC+ilslAD6yVZPhxp5l
+	 7tvOttbTF9Mdq7yFaPV/KMjn6wkLnIN/PT/tIIwmOEvwxh7RRVqD3Sh383k9f1Q9JDIh1
+	 gqfYFdAwAH596QCK3IlvTZKGhuQx5iDw5qktatqAQ9QC2v+zJH5QLuU7DgRgrWI4Dfg6I
+	 mPf8KQW/H3+i3+s0tr8N45gZH4uJTfYt9l8iQhOR0BGLSRSWkUZJqFt8liTKOwf3waA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794566736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566800;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/lmJpY+0emLtc/FMs83OpIAUz2pOnrJhQvermvaeEng=;
-	b=cItWoGr1fCvk1lfHM6pQCs4yh6JSBoNBrEGyDE5uLJ/C8Ht+XWnVCcqWSrTyiI+6cBP2
-	 JjGw+cVlRyWo3Gwen9XAmqZqlZN9zBsHxR5nmqqq3kiJ8Bk1ELtAvk26FS6iaVdFMikcd
-	 gIvhetYUKR48B7Tu8Ni8oeuAedTX1hPH+07MkhaW7zRXNbJnRfEpfnFBYJEODTJ+8c8G6
-	 okDoc6kTZfkDINzmP/q65Hdj9m0aSxOCLKkfk8LZit5camWCRdKTMFfxmkYQtA12lh59g
-	 6ASvW4gF5rts3umLHv6vUKlPnJepKSgw/u1lizNronpbFmsGUjyR/8Bz3dba/gYfS2w==
+	bh=XczvsKfXdTFmV2DxL3CKTLf3/akob6g9zYogIKwkEhs=;
+	b=Jsg/ba/nIhyaOT9+nMFVWnci2kIyGAzO90GtgQqeJVKuZEjKMevzHzzrZ3TPb3DCIRNr
+	 gDDVGQcDrxApNa9wHrejd0k6tqKn10He+lIHRbCixn7Jk3eo3qgk3IZyKZOCilmPLWwYX
+	 HCPqeHHmhMnrwWfe76vVV1uz2EY7CC7aIiAG1uZNuydtvEYxKMT3NQm31cGDKI6l0ILL1
+	 pFtiJfnZ8zwckcvOKcrlg6MGOu5dznVj47/kQ5k/rjwZKRoKIamcNqKbb9g0yPUX1ouhU
+	 RqPUPIrRTxNe94Fx1p3rzWo+3Px++Wj7sL7q4Aonm82K55tsRxQ0hyMz3B3KGtSh0JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inTfj1+G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7QF+2dy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A22F9606A31C;
-	Fri, 13 Nov 2026 10:45:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7346C606A31C;
+	Fri, 13 Nov 2026 10:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inTfj1+G
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 728041F000C4;
-	Fri, 13 Nov 2026 10:45:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7QF+2dy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052211F000C4;
+	Fri, 13 Nov 2026 10:46:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794566736;
-	bh=/lmJpY+0emLtc/FMs83OpIAUz2pOnrJhQvermvaeEng=;
+	s=k20260515; t=1794566800;
+	bh=XczvsKfXdTFmV2DxL3CKTLf3/akob6g9zYogIKwkEhs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=inTfj1+G4YceWRniGOmdTI+A4byhwQyzmkCyVqklp9H3HZL7udVWTB/0jl4shpfJm
-	 a7xoRddKBH9PN/7VEcE48mkGxZRqZeKlh1bFl9NKxp04ThHWdaJrs0vftnksSBTJwc
-	 0XDBVFrD2zE5ztHKIqBaAlZdXBbjAl0B70MeU9GAawdxi3vtoYEmpductuScmpX/ha
-	 E+RvTin9OLADrxrm3IRW85W003jKPfDiQlQSHsxAcqvMjI4sD6bwDckOtaUyg+u5J5
-	 MyVUFAGTwB0VlniMcMWQReUlXEdSkGN15dnGwcbVmxud1fTMnuzdcTt8VWAD5+zu1e
-	 YH6cD1BXseTUw==
-Date: Fri, 13 Nov 2026 11:45:32 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	b=d7QF+2dytAP776yfunWBlKYTgAtsWDIDtZXMZyS4/VuR+GhWurzUlZicXFhiGrS/x
+	 42pv++p06ej1a9Sf1mRh01LI26X9fYat/YsFnILpbndEgsxBSEgmssVbngbOZ0CI8L
+	 KsDNTtlEv0JZb2JMFyj4p9dF+ENib/nIAuKzbvcMlYYbALFvyD2nQHBUwhQbuwCT4L
+	 VJoFbz7r2pI7/pUHgFK8rCt92Qhu1xF8AcKKsIRJoBN3iUXTGhBzy5Sa33ZXOi5UBk
+	 D62L8nTjIgz5OElv+owJJgrSLsMTQKUD/DfWTYAytUSHELfW8VBb1LkL4eoZQjD9gt
+	 BCoq6svkonaFg==
+Date: Fri, 13 Nov 2026 11:46:36 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy:
- Add the cfg_ahb clock for Nord
-Message-ID: <zo5qopdc6gxeoonqxohmnrzwmmrwa3wnim72op5zq2cjtn4pjs@kdjl3hwgxph3>
-References: <20261112-qcom-nord-ahb2phy-clk-v2-0-30ad3d947217@oss.qualcomm.com>
- <20261112-qcom-nord-ahb2phy-clk-v2-1-30ad3d947217@oss.qualcomm.com>
- <20261113-influential-lumpy-goose-68ec0f@quoll>
+	Liam Beguin <liambeguin@gmail.com>, linux@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: iio: adc: lltc,ltc2497: Make vref-supply
+ optional for LTC2305/LTC2309
+Message-ID: <20261113-zircon-taipan-of-health-d4170d@quoll>
+References: <20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,50 +61,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113-influential-lumpy-goose-68ec0f@quoll>
+In-Reply-To: <20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com>
 
-On Fri, Nov 13, 2026 at 11:07:38AM +0100, Krzysztof Kozlowski wrote:
-> On Thu, Nov 12, 2026 at 04:36:38PM +0100, Bartosz Golaszewski wrote:
-> >  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> > index 13e64fe510b8f..8d09e6937fef0 100644
-> > --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> > +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-> > @@ -209,11 +209,13 @@ allOf:
-> >          compatible:
-> >            contains:
-> >              enum:
-> > +              - qcom,nord-qmp-usb3-dp-phy
-> >                - qcom,sc7180-qmp-usb3-dp-phy
-> >                - qcom,sdm845-qmp-usb3-dp-phy
-> >      then:
-> >        properties:
-> >          clocks:
-> > +          minItems: 5
-> >            maxItems: 5
-> >          clock-names:
-> >            items:
-> > @@ -229,6 +231,7 @@ allOf:
-> >            compatible:
-> >              contains:
-> >                enum:
-> > +                - qcom,nord-qmp-usb3-dp-phy
+On Tue, Nov 10, 2026 at 04:42:59PM +0800, Kyle Hsieh wrote:
+> The LTC2305 and LTC2309 have an internal 4.096V reference, so their REF
+> pin does not need to be driven by an external supply. The LTC2497 and
+> LTC2499 have no internal reference and require one.
 > 
-> I don't understand why it is added to two blocks constraining clocks.
-> Does it even pass checks?
->
+> Only require vref-supply for the LTC2497 and LTC2499, so boards using
+> the internal reference can be described without a dummy regulator.
+> 
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> ---
+> The ltc2309 driver already uses the internal reference when vref-supply
+> is absent. This is needed by the Meta Ventura2 BMC devicetree, which
+> describes LTC2305 ADCs that use their internal reference:
+> https://lore.kernel.org/all/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com/
+> ---
+>  .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml      | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> index 4df5aadd1e1d..22abc6885b5a 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> @@ -47,14 +47,28 @@ properties:
+>        - lltc,ltc2499
+>  
+>    reg: true
+> -  vref-supply: true
 
-Yes, it passes dtbs_check in my WiP branch for USB nodes that will be
-sent as v4 and takes the binding changes into account.
+Blank line
 
-First we add the "qcom,nord-qmp-usb3-dp-phy" to the if block that sets
-minItems to 5. Then we exclude that compatible in the block that does an
-if not and sets minItems: 4 for all non-matching compatibles. This is in
-line with what's being done for existing "qcom,sc7180-qmp-usb3-dp-phy"
-and "qcom,sdm845-qmp-usb3-dp-phy" compatibles.
+> +  vref-supply:
+> +    description:
+> +      Reference voltage supply. The LTC2305 and LTC2309 have an internal
+> +      4.096V reference which is used when this property is absent.
 
-Bart
+Blank line here as well.
+
+>    "#io-channel-cells":
+>      const: 1
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
