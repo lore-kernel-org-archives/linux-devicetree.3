@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534295;
-	b=ibVU1YWhkBS7c1+kZ4C81SSf2loXrQhvDIioBKS470UUmHkmeg87XoK9TxmRA89q/JAU
-	 z1ETB0C4YkltgI5m+xNi64QZxAQd7FeHbYs90Z5LDklhz912Bo6iIKUBDU1aNPozappis
-	 6uBR1kDB2vc3vBww8/vAAXEOFE57iRzRC4zi77Oo/Yg4svVdumb3PdyMeits9VsjltI6d
-	 8f3OJSiT60D1vb3yJhBnufWDGI+6C8jBYUjQKdkUpUC59MIBYnoLEwRyBG4D/8CLq0/ht
-	 NLNh6G4bdL/leNaA2DGjEMpPP2PO2jSnsBsQs8NcleMGTViK9/ynR5fRwNI165QVYZA==
+	t=1794534662;
+	b=Y+n6NHq1rQSw3Mbnihxp+tbsJGNMTMRjzYHnCswUSPqoDbPuXKclQRgOWnZf4XIlZy+E
+	 TNpIqNe8zUIe/wzhLmY84S6kFrMzIUm45v3vs8bbo9d3PL0u2adMOc4Jn6auX98+ZLwrf
+	 XvgKATZvnKLWioHvJ2M3VTPWs1ifHmHmUz+AML+HFrK4pxiEXITzaOEkDAzPf6Q0RaEqm
+	 LMg+PImdwvAN7ZPPULYUdaMlqnKdB85Ob0hj6JY55LwJNBi3wyAW24BMBmZxTKk8iKypp
+	 aMugIYBJsWiLLwqjOLZ8sEPRiW2eX2l35tta4Lig+rdqkNe8styw5fzoUTMAmxRJZbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534295;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=t3gq4poLwuJ3zhlC0nuDwOSXSXgKSUVubVtlVq0i2Os=;
-	b=eGgLZCiygVYUW7vI4R3Q9gzt2XaL9MqePmWiiBNkIOMXeyiTH9tPMyS7N04/xHj1+1e6
-	 rX03VLkSfeSTR4revC3l+P40Ckf9YViJxrs+3PGl3XbIJfetSBKmhB79x11TqUv9c1x4s
-	 RvpH0bkdtX9RmMvJexwMhRNzrd24bbMCpqumpwgk89Av6tK9UYpuBKNXe+2W66+ZgqyHD
-	 TbreP9lzzsA8ZUnGlKJ7A/83B2FTUs7cJ6gmDcsdTaJk732A/CozN/AsOm3UycufaECf2
-	 bKRnbwe+oFHvhyGMuudkqfv+9zy7Kcx1lYPkrq8M5YME15V8NcA+AHE0gaLh24EtoPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534662;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=novKq1OxOw0oIDwG/zfIOYXbREIwByAud43VwuRJoTs=;
+	b=vREy4jotdIIKk4nyMpzAxmwlOwJNFyIycVlKsPl35aCo2aqM5WtydkeFoL59l9lktEnM
+	 hpE3aLjBT4xGBfUKaZOYH4tadCdaN/5LATeahYhVNEvcvd1LIGos6kQRFdn7+4hhAwE4J
+	 V7jvOuuHJp2GuiQABH4aFD90XRueZxQJJyBh6UyvoKo7GXroI3KZbT4Z7Iw0/hyZQdBTE
+	 3H9XAYpDW2y74oqr4RFTCU0at//QWqh0jPXy9B/XNNmY8hl1OJ14s/LUZtDV19C7uSKxx
+	 O7UBvaXJMqznJ/uuntfwzFLrGAxkLHXm6GtUlpHFuVK/G4JhQUbsosvEhhJlfyFMrIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=ejnBxPGm;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OjBhsTiE;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbVLUNBM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46342606A321
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46342606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04BE606A323
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=ejnBxPGm;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OjBhsTiE
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1794534285; bh=t3gq4poLwuJ3zhlC0nuDwOS
-	XSXgKSUVubVtlVq0i2Os=; b=ejnBxPGmnSUB8WqUiwx0k47AXy2gLZHstSq5/T71r4BYCE1b8+
-	G3KR/ViMuXVGu5SXEGXBagb27ra8UOTtYVCA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1794534285; bh=t3gq4poLwuJ3zhlC0nuDwOS
-	XSXgKSUVubVtlVq0i2Os=; b=OjBhsTiEu3sYOvFeWmI4qXedoptUM9mDZJQ/LplLubjbxNQ1GO
-	0kjvkraXn2tj1ayBEVZIvu2D/UK5mJsv3ym2FR7UyY4va904chzUQIdkhSeZVUSqP55r+BhQ3IM
-	wGqoI+WpXv/GqVx13F33qRbOOPxXhBn+ObOlafy4En/6tazh+NpBWUCXxfR0GZfWHNsnqh4qDlk
-	6Gupql1hgEeUcuGeNjtrInEj2iz93+1dUYA+VjPHjbl0DQLP56rvdNGlYV6RXqrzF0Otx7tzrG/
-	XQSRjSpkahoArK4rgI5rm1Zip1koIjAFHgxPz1AO9EUskleLSggtmcqC6wgPRi2odbA==;
-Message-ID: <ce6117a5-273b-4369-b9a2-73304d80184a@erebion.eu>
-Date: Fri, 13 Nov 2026 02:44:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbVLUNBM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188C71F000C4;
+	Fri, 13 Nov 2026 01:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794534662;
+	bh=novKq1OxOw0oIDwG/zfIOYXbREIwByAud43VwuRJoTs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DbVLUNBMA2PqCqL5bplgH+6OJEno2/Aob5Qj4YHnypW+ZV6OJyzG6Vf1xj+vvv3dC
+	 JFTVw5UY/U23Yw51VUW2gebtZ4VDvPo8DAPn0VHX8566I4gb4vsRCE/bzmsP5KmfCZ
+	 ABjK6xS3LDH+9xQ5Pu9fDDn13/nbnTpdg/YrAI9THeJSk9b2HXpDyGXe2Dmn1F6Wnf
+	 d7xtocI6ovIxwBBYV64KWKsi0yKL7VU9MbXS3mho35zttMRj8bHKCKHiqARKsmF6MA
+	 ipvuBiHxA+Yg2l5E2X8Y/N7SwzSJMezik78TtiuyO1yQf5nYivnb1S8WIR5V2xMYX+
+	 LU9daxAVPPYyQ==
+Message-ID: <sashiko-outbox-212075@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/12] arm64: dts: qcom: sm6350-lena: Enable
+ Bluetooth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: erebion <erebion@erebion.eu>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-pdx213-upstream-3-v4-5-4b01c50a821c@erebion.eu>
+References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
+ <20261113-pdx213-upstream-3-v4-5-4b01c50a821c@erebion.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 01:51:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,102 +60,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] arm64: dts: qcom: sm6350-lena: rename
- touch-en-regulator
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
- <20261113-pdx213-upstream-3-v4-2-4b01c50a821c@erebion.eu>
- <sashiko-outbox-212055@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-212055@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------nkJfrryR2RXI2iPb4H3UV4Wy"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nkJfrryR2RXI2iPb4H3UV4Wy
-Content-Type: multipart/mixed; boundary="------------4LBeq51Ca0JG4Lh3xnVgRZwe";
- protected-headers="v1"; hp="clear"
-Message-ID: <ce6117a5-273b-4369-b9a2-73304d80184a@erebion.eu>
-Date: Fri, 13 Nov 2026 02:44:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] arm64: dts: qcom: sm6350-lena: rename
- touch-en-regulator
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
- <20261113-pdx213-upstream-3-v4-2-4b01c50a821c@erebion.eu>
- <sashiko-outbox-212055@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-212055@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: Signed-off-by and Author use handle instead
+  of real name
+--
 
---------------4LBeq51Ca0JG4Lh3xnVgRZwe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+commit a88dbe84a474608356cf7418da893f73d6055164
+Author: erebion <erebion@erebion.eu>
 
-DQoNCk9uIDExLzEzLzI2IDAyOjI4LCBzYXNoaWtvLWJvdEBrZXJuZWwub3JnIHdyb3RlOg0K
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCAxIHBvdGVudGlhbA0KPiBpc3N1ZSB0byBjb25zaWRlcjoNCj4gLSBbSGlnaF0gYXJt
-NjQ6IGR0czogcWNvbTogc2luZ2xlLXdvcmQgaGFuZGxlIHVzZWQgaW4gU2lnbmVkLW9mZi1i
-eQ0KPiAgICB0cmFpbGVyDQo+IC0tDQo+IA0KPiBjb21taXQgZDEyYmYxYjFkZWUzM2IyNmE1
-ODAwZmFhOTRmMmI2ZjYwZjk1OTlkZQ0KPiBBdXRob3I6IGVyZWJpb24gPGVyZWJpb25AZXJl
-Ymlvbi5ldT4NCj4gDQo+PiBhcm02NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTogcmVuYW1l
-IHRvdWNoLWVuLXJlZ3VsYXRvcg0KPj4NCj4+IHJlbmFtZSB0b3VjaC1lbi1yZWd1bGF0b3Ig
-LT4gcmVndWxhdG9yLXRvdWNoLWVuLCB0bw0KPj4ga2VlcCBhbnkgZnV0dXJlIGZpeGVkLXJl
-Z3VsYXRvciBzb3J0ZWQgdG9nZXRoZXINCj4+DQo+PiBSZXZpZXdlZC1ieTogTHVjYSBXZWlz
-cyA8bHVjYS53ZWlzc0BmYWlycGhvbmUuY29tPg0KPj4gU2lnbmVkLW9mZi1ieTogZXJlYmlv
-biA8ZXJlYmlvbkBlcmViaW9uLmV1Pg0KPiANCj4gW1NldmVyaXR5OiBIaWdoXQ0KPiBCb3Ro
-IHRoZSBBdXRob3IgaGVhZGVyIGFuZCB0aGUgU2lnbmVkLW9mZi1ieSB0cmFpbGVyIHVzZSB0
-aGUgc2luZ2xlLXdvcmQNCj4gaGFuZGxlICJlcmViaW9uIiBpbnN0ZWFkIG9mIGEgZnVsbCBy
-ZWFsIG5hbWUsIHdoaWNoIGRvZXMgbm90IHNhdGlzZnkgdGhlDQo+IERldmVsb3BlcidzIENl
-cnRpZmljYXRlIG9mIE9yaWdpbiByZXF1aXJlbWVudHMgaW4NCj4gRG9jdW1lbnRhdGlvbi9w
-cm9jZXNzL3N1Ym1pdHRpbmctcGF0Y2hlcy5yc3QuDQo+IA0KDQpUaGlzIHdhcyBhbHJlYWR5
-IGRpc2N1c3NlZCBpbiB2Mi4uLiBBbmQgd2h5IHRoZSBoZWxsIGRvZXMgdGhlIGJvdCBub3cg
-DQpzdWRkZW5seSBzZW5kIG1lIGFuIGVtYWlsIGZvciBldmVyeSBzaW5nbGUgcGF0Y2ggaW4g
-dGhpcyBwYXRjaCBzZXJpZXMgDQpzYXlpbmcgZXhhY3RseSB0aGUgc2FtZT8hDQoNClNvIGFu
-bm95aW5nLg0KDQoNCi0tIA0KZXJlYmlvbg0KDQpYTVBQOiBlcmViaW9uQGVyZWJpb24uZXUN
-Cg0KQWNjZXB0ZWQgbGFuZ3VhZ2VzOiBHZXJtYW4sIEVuZ2xpc2gsIFN3ZWRpc2gsIE5vcndl
-Z2lhbiwgRGFuaXNoDQoNCg==
+> arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+>
+> Configure the required regulators for Bluetooth and enable it on the
+> Xperia 10 III.
+>
+> Signed-off-by: erebion <erebion@erebion.eu>
 
---------------4LBeq51Ca0JG4Lh3xnVgRZwe--
+[Severity: High]
+Could the Author header and Signed-off-by trailer use a real full name
+instead of the handle "erebion"?  Documentation/process/submitting-patches.=
+rst
+requires a real human name to certify the Developer's Certificate of Origin.
 
---------------nkJfrryR2RXI2iPb4H3UV4Wy
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Also, this isn't a bug, but the commit message says it configures the
+regulators for Bluetooth, whereas the PM6350 and PM6150L regulators are
+already defined in the board DTS and this patch only references their
+phandles in the bluetooth node.
 
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavZrjAUDAAAAAAAKCRCOr0AybgKufYjp
-AP9jBtZGi7F7N/TI8ccaGOf1PCPqIYXDBEefbXjvFM4aeQD/TkTnIiWuRGqvfSIA+VvAp7RnXVEE
-XXfo9nJf47bljwg=
-=PwEV
------END PGP SIGNATURE-----
-
---------------nkJfrryR2RXI2iPb4H3UV4Wy--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-pdx213-ups=
+tream-3-v4-0-4b01c50a821c@erebion.eu?part=3D5
