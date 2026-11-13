@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794566330;
-	b=KntyjeoaPkN8yUCljISgiWPICQM3k2AuU2doVOhsAEFx0FG7DUAbyjv80JA0lRwv65Zz
-	 EaimbuGCiEHLABo8+OCdjKie9Ghi3/J6ctqcOex1ZusIAT2OsL49opwR011Q/qTjAl3n3
-	 M3GiNvGnG1HVfFC/K2DjMHYuaX0s8XFQ+AsPMAHclzk1aUZP6w8JF84QYhSjJa1SWk+9M
-	 fsGZigJ+H08TDQ1U8/Nb3z8rODA59Vhs1Vqvc7fIB/tQqPI65vxEKCnEg4w4DTrX12ux8
-	 GQbNEoR9H/NPCOaNYfgJoniNKum5GpBDbFQqjY0ufOMbrfhcB1QAjNguGLuElVdNGmg==
+	t=1794566503;
+	b=F6WjBBOOHl4vqw77IXkt45dX3TaJj53E0sc6/ZhpbVQx/V3EIQzWtIBdKz0SnR9r0fDX
+	 +VCSUck2cr7mjE9Ll0GcvHFztv0VbCgRQwApHwJ1KES15yF5cfAclb3EqULDf34ai6zg3
+	 38enYv4DK3ZrP7f5Ddd0NZjtToh1WnGRBpJBSSl7IKI5BZWasutWsyxFdbQllIEaCWwbC
+	 1f3Z0oVsA7IO9VXcOWnoRMu8K13g12ZtMWWO3c+GLz5lr/etxjO3EuvFDLTmh/bPVYSww
+	 V2mvqHo4b7VOIntu3wXsYef934i68hzaiD6wzvpMc3bJhEVmVz1wm7hvSigwgr7xMmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794566330;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566503;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LvhcGXbxt3F1tuseGuda4zgciKL+LC/dvbfpKQxs+pQ=;
-	b=wi2lV4xrF3QTHgOQBxu6WvbE1mKlspEvWahzua8bYHCi8ZtkAQqDP4uYhSe4QUi+MXwY
-	 y+XWrRU7M9Xspo0oqbs8Mm8ECEF3KLsbk86+eBkJCEPodb5W2ZhMbVhjttA5tCIAppnwT
-	 RgIwExyzXgWRuWqI2T3ILx/klIodA63XBN88Tv/jyjsKfvULf6L2jOx/nQ+Q38TMeZM2Y
-	 y/AJ6TtCmGG3xkg2sTrldnVcRS6rKfAuCdMCDyYJSArE5FGHGXO6kcyGC6TPY+P7ePqmy
-	 rLSZVuasBDL2f02huHn176YplPXKHh4hVv8Q6jHQxA6csGEB3z2eHYLyqX+2bX8IFrQ==
+	bh=UcfXrS0bmZcYIb/EzTJp2apjapiWA08HzvOHmmv056Q=;
+	b=vL5yW6dhOnNAK8QVYxG9Sp3lAFuHPx8u+5WXuV0MCXn/4rph6Mw9u5imljkFiwfCOced
+	 aGVWBfrq2vPSSmeepOoc7RWJ7gMsQWoWfvz3F28ar9zYTzCnSBZJBcONyUPpUG+MWtwI1
+	 NCJYE5j5JO/yfA2nM2rqBgsNrL5fVkLDeb1qFptBwVyl6v/pKbwNoC2c9xvYWMo1YHumF
+	 93uNl38xkIAw5ACVulxbTtL6kwUnD0CshZJaSPs94fOT2Q+9Z/kwsAP4cNM3haWWIdzY+
+	 LIeYzfhFeWKuQF/+a6A3SmfEFQ2/xKXv+ZoujwR9RWJ+/CIOZdBGW8Kknr9Qq4r34kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2tO10UI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZYmpMG+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93759606A32A
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E822606A31C;
+	Fri, 13 Nov 2026 10:41:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2tO10UI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34BA31F000C4;
-	Fri, 13 Nov 2026 10:38:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZYmpMG+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F501F000C4;
+	Fri, 13 Nov 2026 10:41:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794566330;
-	bh=LvhcGXbxt3F1tuseGuda4zgciKL+LC/dvbfpKQxs+pQ=;
+	s=k20260515; t=1794566502;
+	bh=UcfXrS0bmZcYIb/EzTJp2apjapiWA08HzvOHmmv056Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N2tO10UI3LrPYKyDPD8Ec2fdna+NCQ6McbCTAB+cA9rPRIYgzF2dAt0TvZt2T0/CU
-	 /Wt0cjn4e32dIYzHfZkrXxzOAtZ80rVXhi7WFtcNzBweeOGtzqJxKBv94KBrZKE9rg
-	 ZxdUhxupCsze+cSfNRdiLkWptPzFX/QfW+NV+Xh0ZpTtn6k5/FWSdFUchENNOkJ0lk
-	 quehOSDULb1r/2RVBJtFusoSG7piD0plqpKzUXhctxp6MbSmPJ5CQg1udZZGGGuSa7
-	 Ahkl6W7T7p5+6pxXXOfqc31r2q3kfXH8BNi7hfvZNjZql3JeCixbABnCFO8YegXhcq
-	 q47BFFrXY6TOQ==
-Date: Fri, 13 Nov 2026 11:38:46 +0100
+	b=VZYmpMG+ltxgghVvb2vloDRrpk9k+f8AqBkdOPJWCjVQq78f9WWcvEsLSg7+GHouB
+	 FdDqAY6p8DpZo8I3Jn1Afq2Xs7snDLmmgcSSC4grAD9K1pKWT7z9UwKvwNLXErjo/U
+	 b8sLM/tuRyDe55ZE0vNkhFM4RCjnex40ZJiitPJFv+Nb5BJAFP2X5tjFPWoF2/g6L5
+	 CvqEGpARIahTsHqiMu2PWxf3wYs9FHHTxHyHRc/5nWeTkryyAhhnwA+koBCNhQxDPI
+	 s4lrE1Qg8fPO4bs6qrXYq9WJ33mm1XSrgQsHA85UBHsOJlee7Un5y43f0DSF4m0jSD
+	 rQ2832J6YE8Vg==
+Date: Fri, 13 Nov 2026 11:41:39 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luo Liu <Luo.Liu@cixtech.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, wuyi.shen@cixtech.com, 
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
-Message-ID: <20261113-industrious-squid-of-tempering-e428b7@quoll>
-References: <20261109103010.110911-1-Luo.Liu@cixtech.com>
- <20261109103010.110911-3-Luo.Liu@cixtech.com>
+To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: cs35l45: Adds ABPE properties
+Message-ID: <20261113-handsome-original-shrimp-abfae3@quoll>
+References: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
+ <20261109-cs35l45-bpe-v1-1-9d7bc95a90a4@opensource.cirrus.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,57 +63,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109103010.110911-3-Luo.Liu@cixtech.com>
+In-Reply-To: <20261109-cs35l45-bpe-v1-1-9d7bc95a90a4@opensource.cirrus.com>
 
-On Mon, Nov 09, 2026 at 06:30:10PM +0800, Luo Liu wrote:
-> diff --git a/drivers/gpu/drm/cix/dptx/Kconfig b/drivers/gpu/drm/cix/dptx/Kconfig
-> new file mode 100644
-> index 000000000000..0b099f7d2ed5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/cix/dptx/Kconfig
-> @@ -0,0 +1,16 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config DRM_CIX_DP
-> +	tristate "Cix DisplayPort Controller Driver"
+On Mon, Nov 09, 2026 at 11:57:03AM -0600, Ricardo Rivera-Matos wrote:
+> Adds devicetree properties to configure the amplifier brownout
+> prevention engine (ABPE).
+> 
+> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+> ---
+>  .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 161 +++++++++++++++++++++
+>  1 file changed, 161 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+> index e674811b22b2..2c118fa57ad1 100644
+> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+> @@ -16,6 +16,62 @@ description: |
+>  
+>  allOf:
+>    - $ref: dai-common.yaml#
 
-Missing ARCH dependency, look at other examples.
+Entire allOf goes to the bottom, before additional/unevaluatedProps
 
-> +	depends on COMMON_CLK && DRM && OF
-> +	depends on GENERIC_PHY
-> +	select DRM_KMS_HELPER
-> +	select DRM_DISPLAY_HELPER
-> +	select DRM_DISPLAY_DP_HELPER
-> +	help
-> +	  DRM/KMS driver for the Cix DisplayPort controller. It implements
-> +	  the standard DRM bridge interface and drives an external
-> +	  DisplayPort PHY through the generic PHY framework.
-> +
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called cix-dptx.
+> +  - if:
+> +      required:
+> +        - cirrus,amplifier-bpe-enable
+> +    then:
+> +      required:
+> +        - cirrus,amplifier-bpe-response-mode
+> +        - cirrus,amplifier-bpe-thresholds-microvolt
+> +        - cirrus,amplifier-bpe-attack-rates
+> +        - cirrus,amplifier-bpe-hold-times-us
 
 ...
 
-> +static struct platform_driver cix_dp_driver = {
-> +	.probe  = cix_dptx_probe,
-> +	.remove = cix_dptx_remove,
-> +	.shutdown = cix_dptx_shutdown,
-> +	.driver = {
-> +		.name = "cix-dptx",
-> +		.of_match_table = cix_dptx_dt_ids,
-> +		.pm = pm_sleep_ptr(&cix_dptx_pm_ops),
-> +	},
-> +};
+> +  cirrus,amplifier-bpe-attenuation-levels-db:
+> +    description:
+> +      Amplifier BPE logarithmic audio output attenuation for levels L3, L2,
+> +      L1, L0, in whole dB steps. Half dB hardware settings are not
+> +      supported.
+> +    minItems: 4
+> +    maxItems: 4
+> +    items:
+> +      minimum: 0
+> +      maximum: 15
 > +
-> +module_platform_driver(cix_dp_driver);
-> +
-> +MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
-> +MODULE_AUTHOR("Wuyi Shen <wuyi.shen@cixtech.com>");
-> +MODULE_DESCRIPTION("Cix DisplayPort Controller Driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:cix-dptx");
+> +  cirrus,amplifier-bpe-attenuation-levels-microvolt:
+> +    description: |
 
-Drop alias, it's not a substitute for incomplete ID tables.
+Drop |, other places as well unless you need it.
+
+> +      Amplifier BPE linear voltage audio output attenuation for levels L3,
+> +      L2, L1, L0.
+> +    minItems: 4
+> +    maxItems: 4
+> +    items:
+> +      minimum: 187500
+> +      maximum: 1000000
+> +      multipleOf: 31250
+> +
 
 Best regards,
 Krzysztof
