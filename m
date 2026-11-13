@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538905;
-	b=MhvqZ9XFi3HjUMJnhEV2Dx9T7yZzfu0ioUVCvzXc3/9BMbJ2AjIcqvJnFhyQJhQ8qbs9
-	 dWqlWUAE4rVzSPfd69JJI+lQKfpPvzV79qnrRs+WUIFm4PgBcDaRvTwHOzbzxoi0gjzhv
-	 MKSHY5uEa2SkGYU7ujugpurnccp6bjWxe4GoQ5g4/nRYv4QcPIVmRukvcHOCqqB/rkGbB
-	 VcVDpuzFeIMJR55p933pkGgrZcdhAI10VeysLs2QbWVMzoYwlFapVqNc1xV/Dds9pHl1O
-	 xVM2Td1/ZbIuAF1b6WekyhUvxVlHg22TQzh522iufN0yFSo3C6xhjVkFYnH8GKmCxHg==
+	t=1794540406;
+	b=SVQWSudPMHKYBqmSlAT8eZepuNriYOfGqqH/kDIMURS1wHVcgXOifntgm2sgGUjzIDJN
+	 kHv8O9iGBWuryR51J6VB0/yPZTcbKtgaNIrUtIJ/1WTFum1FjP+cH4t3tmL9UIL8lKSUk
+	 EOtlYQnKgbbHB2aprntmDgA7UUXD1Vf6UdRqcwS/DRMoBo1vWQ0gNdZWbWg+l4ub50vLp
+	 n8gSHGBK4o17+FAtiw2q+sYHQq58n9vttYXBM0tr5s+XGSocKXIHz86SRMrM8N+7inJyO
+	 92/eMkj99kZWdh4oEmPyosoJQQbgqIkLb2Qvu8aUCdmr2K81qRQzkByO09Gi/H9pV6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538905;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/n02ibHdKwNkEIdwqkanqufcvUyspBItGxBhHyb2qw4=;
-	b=AIR8BpvnYyJF9FgrIGEUvQAUy4FKeJIF0a5KbBiAx/J+n3vVaWEY+U/eGeQtsVBmCXVI
-	 Elkgfv7gI3UexYrF8sSicDMc3nFniqjMybKFnYVDfEh9p/Pp8YI6IodDFEr+jNUlkb4QG
-	 PUPyIddHkneXNTnzjpJ2Yk4UJP9Q12PcjcfYmlW7o//xVUFJi4PsWt1oqavl+o5JvpcwW
-	 GsZllt6fDRgL8hEeiL3bgr43LeMgFMe6PjnjQlFN77WxWpn05mDzSCCEg9Mh+Llj3J7kq
-	 VOWdaHl4QnrwbxCWdv5Sxd+CbXRa8cge19RMOV1bY0qtsTJ0K2T5sA7betWf97saEPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540406;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=0rd52q5aA6YVY8BTP6pBl/2Q3VL5JP4UbnPWvO7dQN4=;
+	b=Dv24jrSdOBaLUqpZJRChB75Mw7bDqIuu5rSxOnPLAA5Kp62oxQFGiFrwtU9VPu1Mo91q
+	 Y9APndLT8kwz5Rh+wXXF6dBW/Uv0g2Spb+5Dhj6R0X5XTiF6wMQsZPkJ4mP38SXHZQWsv
+	 +ntHGwX9FIGCxx5Gcsh18T81iweu8r6yCHHS+vm49qpsgXvLpktzFMGP0emIaNfV7XPwu
+	 8DzZWdXui21zE2qOrFIhGLCXtmIShuR+24MNy8yUcG+gbQRTyvXbqcI/0sXgtvvC01fBp
+	 vrVInHrcsjcDsHe3eWIG81uCr5amB4FYng/k3o7iMhvc78wwdsRi3dd/UQlY8vcqafg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtVkKqmw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=IwD7dnnH;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F10606A31C
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:01:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A510606A32D;
+	Fri, 13 Nov 2026 03:26:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A510606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtVkKqmw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64DB81F000C4;
-	Fri, 13 Nov 2026 03:01:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794538904;
-	bh=/n02ibHdKwNkEIdwqkanqufcvUyspBItGxBhHyb2qw4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZtVkKqmw3VEoRGKGNoOeOmLrDTvNzx1EPHYQhyFp5BnMIIEa4hOvYHmOU0z09CAub
-	 /jgc8SMeU2JkEfbY/6RNyPocg11+0FDxKNlfoVQKHvjTAI1u/FwBa0WekRgPk2Vyzu
-	 rGcXCdyav+b9TbDXGl9R1z6+Rq6KCHwSKn++vpfwnxGxZ40HSSaGRRqzxGd9tXDtiL
-	 owas5eafLMkqMTQDzMJj1+y/9zar0JJynU8cyCvYT4sda8sDH5J/UJc1xL9kDP3Nta
-	 fkkKgfVgAuuebRCEI4Wd14ZXYGXna+2ZZ1ddE6QpACE9CfSMhT/Qsnvq/xV3VWr8b1
-	 iAk+Ih1DI96/g==
-Message-ID: <sashiko-outbox-212117@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 09/10] qcom-tgu: Add timer/counter functionality for
- TGU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Songwei Chai" <songwei.chai@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113024935.3173715-10-songwei.chai@oss.qualcomm.com>
-References: <20261113024935.3173715-1-songwei.chai@oss.qualcomm.com>
- <20261113024935.3173715-10-songwei.chai@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 03:01:43 +0000
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=IwD7dnnH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1794540403;
+	bh=0rd52q5aA6YVY8BTP6pBl/2Q3VL5JP4UbnPWvO7dQN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IwD7dnnHOF8RDnwpL7rhh7WF/he7Tr5PGDjl1k1iesa37VD9+lNDVnDI8S5Hk2APt
+	 DEPfg45N6qxHjZqx9mie1oCeha6UIR5EbU671B8bZnp7PlXO7L5tbP0GRaDR7k+90h
+	 0ZWHIGIs9zahN5ylfPwQQoyBVmU3Q14neY2QVmjswa+FT5I93zPx1IO+/YdBmfVvin
+	 aphdSOFYBTb401tet4LBEBTn1KvZmqlWFhKRZXmLRGfCXXugRUG+VQO3LwHSCOnka/
+	 mePCj/kWRXYDFtkWfYbKLIRW+8MG/ZHV08ctQAiJHxLIxcYMeKns2o7NVeurgb6FvS
+	 lCv+e9py/3CbQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jQjNM3BVNz4wSw; Fri, 13 Nov 2026 14:26:43 +1100 (AEDT)
+Date: Fri, 13 Nov 2026 14:26:38 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Simon Glass <sjg@chromium.org>, Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree
+ representation
+Message-ID: <avaDbTmhq1NuTKJr@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-8-dianders@chromium.org>
+ <CAFLszTgY5oOMYQjsk2sg-8w88uKq2hOqEiF4o5iAi5pMC8TZGw@mail.gmail.com>
+ <CAD=FV=V3CMALQsKUc-jDzvsH45y_h4hNxtjYXxaHOwyCsZ3s7Q@mail.gmail.com>
+ <avPZeSgU8ABix34f@gractus.seuss>
+ <CAFLszTiUYv2rx2OzvLR6UyO-uoya0WthPsr+oohQtCa+_itZsw@mail.gmail.com>
+ <avUZ-uqxLAu2ICyJ@gractus.seuss>
+ <CAD=FV=WAAk7ddDM3Uq8fRVYF4fCEDnufDbCiVgHfH2cwLqrT7g@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,89 +80,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GddDciS6Gew0rjnV"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=WAAk7ddDM3Uq8fRVYF4fCEDnufDbCiVgHfH2cwLqrT7g@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] qcom-tgu: swapped step_index and operation_index in
-  tgu_dataset_rw()
---
+--GddDciS6Gew0rjnV
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 55838204d9ea620c8df4d9d4233a3561aeb9ea39
-Author: Songwei Chai <songwei.chai@oss.qualcomm.com>
+On Thu, Nov 12, 2026 at 11:28:29AM -0800, Doug Anderson wrote:
+> Hi,
+>=20
+> On Wed, Nov 11, 2026 at 6:31=E2=80=AFPM David Gibson
+> <david@gibson.dropbear.id.au> wrote:
+> >
+> > > > > > > +++ b/devicetree.py
+> > > > > > > @@ -0,0 +1,226 @@
+> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
+> > > > > > > +"""devicetree - Non-flattened in-memory device tree represen=
+tation in Python."""
+> > > > > >
+> > > > > > I'd forgotten about this but PyPI has Zephyr's python-devicetree
+> > > > > > [1][2], which installs a top-level 'devicetree' package.
+> > > > > >
+> > > > > > I'm not sure what to suggest. Would libfdt_devicetree be too aw=
+ful?
+> > > > >
+> > > > > Right. I'm OK with libfdt_devicetree. David: do you have any
+> > > > > objections?
+> > > >
+> > > > Don't love it, but can't quickly think of a better option.
+> > >
+> > > Would libfdt_tree be better?
+> >
+> > Not really.  The problem with all of the above is that they're making
+> > this library which is about managing a non-flattened device tree a
+> > part of the library/project/namespace that's explicitly about
+> > flattened device trees.
+>=20
+> Personally, I kinda liked "libfdt.devicetree" that Simon suggested
+> (though my analysis says accomplishing that would be difficult).
+> ...but I can also see David's objections to namespacing this under
+> "libfdt". Does this mean "libfdt_devicetree" is out, too?
 
-qcom-tgu: Add timer/counter functionality for TGU
+I wouldn't say it's "out".  Both options are adequate if we can't come
+up with something better, I'm just not enthused.
 
-This commit adds per-step timer and counter sysfs attributes and hardware
-register programming for the Qualcomm Trigger Generation Unit (TGU).
+> One other option is "dt_livetree". That matches the "livetree.c" that
 
-> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-> index 6e66752a7b8dd..1cb131a3c5213 100644
-> --- a/drivers/hwtracing/qcom/tgu.c
-> +++ b/drivers/hwtracing/qcom/tgu.c
+Again, adequate but clunky.
 
-[ ... ]
+> already exists in the source base. What do folks think about that? If
+> we switch to this, should I move the ".py" file? In my draft v4 I
+> still have it under "pylibfdt/", but I could move it to a
+> "pylivetree/" directory...
 
-> @@ -496,6 +566,38 @@ static const struct attribute_group tgu_common_grp =
-=3D {
->  		.name =3D "step" #step "_condition_select" \
->  	})
-> =20
-> +#define STEP_TIMER(step_index, reg_num) \
-> +	tgu_dataset_rw(reg##reg_num, step_index, TGU_TIMER, reg_num)
-> +
-> +#define STEP_TIMER_LIST(step_index) \
-> +	{STEP_TIMER(step_index, 0), \
-> +	 STEP_TIMER(step_index, 1), \
-> +	 NULL                       \
-> +	}
-> +
-> +#define TIMER_ATTRIBUTE_GROUP_INIT(step)\
-> +	(&(const struct attribute_group){\
-> +		.attrs =3D (struct attribute*[])STEP_TIMER_LIST(step),\
-> +		.is_visible =3D tgu_node_visible,\
-> +		.name =3D "step" #step "_timer" \
-> +	})
-> +
-> +#define STEP_COUNTER(step_index, reg_num) \
-> +	tgu_dataset_rw(reg##reg_num, step_index, TGU_COUNTER, reg_num)
-
-[Severity: High]
-Do STEP_TIMER() and STEP_COUNTER() initialize operation_index and
-step_index in the wrong order via tgu_dataset_rw()?
-
-drivers/hwtracing/qcom/tgu.c:
-    struct tgu_attribute {
-    	struct device_attribute attr;
-    	enum operation_index operation_index;
-    	u8 step_index;
-    	u8 reg_num;
-    };
-    ...
-    #define tgu_dataset_rw(name, step_index, priority, reg_num)            =
-  \
-    	(&((struct tgu_attribute[]){ {                                   \
-    		__ATTR(name, 0644, tgu_dataset_show, tgu_dataset_store), \
-    		step_index,                                              \
-    		priority,                                                \
-    		reg_num,                                                 \
-    	} })[0].attr.attr)
-
-Because tgu_dataset_rw() initializes struct tgu_attribute positionally,
-every timer and counter attribute gets tgu_attr->operation_index set to
-step_index (0..7) and tgu_attr->step_index set to TGU_TIMER (6) or
-TGU_COUNTER (7).
-
-In tgu_node_visible(), tgu_attr->step_index >=3D drvdata->num_step hides all
-timer groups when num_step <=3D 6 and all counter groups when num_step <=3D=
- 7.
-When visible, tgu_dataset_show() and tgu_dataset_store() switch on
-operation_index and read or write priority, condition_decode, and
-condition_select for steps 6 and 7 instead of drvdata->timer and
-drvdata->counter.  Conversely, adding TGU_TIMER (6) and TGU_COUNTER (7) to
-enum operation_index causes the existing step 6 and step 7 priority,
-condition_decode, and condition_select attributes (which also use
-tgu_dataset_rw()) to be dispatched as TGU_TIMER and TGU_COUNTER.
+How about "libpydt"?  I'd prefer to reserve "libdt" for a hypothetical
+future cross-language live tree library.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113024935.3173=
-715-1-songwei.chai@oss.qualcomm.com?part=3D9
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--GddDciS6Gew0rjnV
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr2g20ACgkQzQJF27ox
+2GeN8xAAhZp2qvfN5rSASTpuguejNjFSVye4z6ehUTIP7dqPgJ3lc0J4EUS+wupM
+F+g6Gp4+NZEZJaTJvLrDCmI3EQk9CmlTd3UeZ1kgqEMo4OM5JuA+O1/Kely2ND/M
+Kmo62FLhmISAZM5gKYQgFkatEzxMcgXsoScJlYJX/X9aFfk2nCaDQwAOk3RA6Blv
+YXJ+a4nHzbBrq6uZypL+GH1UpxQmpy0Yfqdd+SiO/ne/PrJOC1MDPtuNrE/PN6Vr
+lLOVKldJumLpWWmBlFkhUvuC0HXIQg2mAZW7fM8wAUUWKmXOgOrOMINNBpwrQGEH
+h95PDFja5NokMMBZuaWbyIO/G/0dbzB2kMO0tXFOACB4q59mIXHS7b2tM1+Sm/M9
+paXY5xsyQ824jAFGRPTdgFMh5Fx1rH4MCKiA5ZeLKXlLOvlxbJJ41sH+hGXFVN4O
+TT4Oud8yO9tXxxBl7to5rmHjmG2ltoMM/U3buct4xMVCeptsxZ3haa5GwWijseab
+eHVWAuQiPz0GeHRp/eIbpcXEBS3iAd4b7KsgCBJ0yMMujaxy9uLwfJWMGJ9OSKbU
+iKhxC/OBHC+qR3xOzPiKW3fkmHZI37A1n9Ji4l3VreoCQJ3VWvjtmO5V3Z6QGU0f
+IrTZ4Xyb/+ZPf06tNuQyl4urOVHG2JZvE3f9vdwZI3wLvQThXn4=
+=xUIq
+-----END PGP SIGNATURE-----
+
+--GddDciS6Gew0rjnV--
