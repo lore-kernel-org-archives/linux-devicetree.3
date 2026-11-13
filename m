@@ -1,112 +1,153 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580562;
-	b=3R8VnQhMU719huXGhdE1RYFECKp+TLpP7Gqi+Ov2LgbsF1l/CMREf06/T50P9VhAH7FP
-	 4EEe57T4psGgwDAoPlSCXVwQ6Mb+U4fUxxt/FPy/fDfiKTB+bWgv5NY/1deNYYvDfjCLW
-	 YMeAjDBY0eCEc8CZLJqBK1LkNyFQgjQh+bKQ2kNXE2ld4vn7R0WntH6lARJoIBPMUBZkN
-	 Mk6Svb7JYGNU1GqSn0f1W0sbHc9YgDHx0E1R7TrYTiZgzjgMPMM/YooBm+JHyDhp/xNz8
-	 d+67uiXTT3p77NJluRoK+TFt4NQvMug6y8GOawEt8P/xq7XYjG2Y4/Ql5iKxjNXf4/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580562;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=9N3Xm60xAl6wR1Ink0ENH9O64HK75M5rWTZYwH8Na0o=;
-	b=s3FKHnAhTF1sQeV4JEoaNY+SKGGSxjfgTXb1VwKdbiiX0MXFa7tsWQVYSofB0T0KNv+9
-	 aM+LNWVfnw2jVNTf/sQabDeUQRVq/xVB8XAVo5IIR0ju3Qy7BDQ36BVqgyF6pd7sQpW/m
-	 lL/y64PWWIlA+/LZpVAEXZVU3TIDQpBWVt+zzReItqwywyGN4jRDit+d0A6SW2lzgRfu4
-	 0ocAKX/58DfEfaxa/8vFcdyNWJhj25EK8TmQZjipK3Y49n8+dEGUk1GlQDtH1QpQy8Igo
-	 /KncRcIs+VL1fBEUcQW+ZPSm2yJsXOnA4Nya3I1ixFJKXhCcCN8E0JLb5Eku97J0M3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kxls12BC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LxpF8k5M;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.54
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794580579;
+	b=ac9x5Iu+rG9zcGxFmq2Xi35YIgcuOI5fokxcI9On0ZNfcWOjS3jYpB5QBlFM3yDhHZDO
+	 SFms15m8mBRC10agv26KeQXDDDodUD/GNAQkr16FiAPkksXcwvbcvlAYdvEsfITgQVkR9
+	 WjnxvXjaB5LTqxndWYCGve7q/kNnyWlQRZol870CCvW2R2L8b3DmHXHJK/l/Nn+1asFHl
+	 UFDIrBKDA7C3NUoSJ8tOKCAfEmaYQWgty1Op2vAnBXEZFa9lyEnZcfKtlpfs0Qj4wiwHN
+	 VHvUdrtAIchgkhFwnEeMFM1iYamZPPgF9Y6sPZLSHehqLTBqjFRpN9lOLBswc3KeYJw==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580579;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 x-checkrecipientrouted:NoDisclaimer:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OxlLUFt7iFJyYyNJ5e3YJlpgSb/ljSVdpbnRyRp3DJ0=;
+	b=V9p9F4j11Sld4gEHTSi/fDVCwJ8yaX3EThgd0FSdQJdSuMEAm9sFnjmlKzP5iAK4nNZP
+	 AS6kHiG5lERQzbynXzUB4TuScv8EcbxCMPd/AMoVw6bLUSgfd9qHGW0blFQNkGYpgP3Fa
+	 KX8oY5zrde7Z0bVOq1OVyohPsSjkhAOTyX2m/9VmdPwAbp4GcIWASxhIVgKMT2yScPisW
+	 juAMct6FGsaQgVuvBjyb+m0A1rLUFVTRNvWs0+NTnVKc2LAdHpSmtJgTn5uZ7P+2mUooa
+	 RxpauUsd5nmcO0lMFQPcf/kVOq0+6zO4S44R/Oj7r3askOsRAbMoFaWbD9vy1y19Gxw==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=IxX0Ywve;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=IxX0Ywve;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.54
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011054.outbound.protection.outlook.com [52.101.65.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22E4606A330
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:36:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22E4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA4606A88A;
+	Fri, 13 Nov 2026 14:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44EA4606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kxls12BC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LxpF8k5M
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCJclw058819
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:36:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9N3Xm60xAl6wR1Ink0ENH9O64HK75M5rWTZYwH8Na0o=; b=kxls12BC/9ybMijj
-	R/yv3Lr8wUQxobhd0fgl5nEnfr6KyG9b6pff6WwhWO3ZCkGqig0W/RAf5o4P0871
-	tSdHCf48qtBSzX6S5kP16n/2pezZ1uMFy3RXq87xxnjpzxrGkXhDLy3MpFF4bnAE
-	7Osov5+6P5Hz64cwA6LeUrSWt6D7s1RQOj4fPfEF3/A54FfqJqvgdXbh19yZ8J9r
-	1fWKFerXbz+5q42S9NHu0HHk+N36ne7Hzys8XYUQThNbN2uk31Ykx5rQsrciG62b
-	45+KKsgIy+n5nh/SzlwHfyJaQ1zT+Tt5bhlA03KmH60W7Z5BS3YXfFa0VN/XjcxG
-	m5xuNA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkgwbds8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:36:00 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eac74b0596so1131618e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:36:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794580560; x=1795185360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9N3Xm60xAl6wR1Ink0ENH9O64HK75M5rWTZYwH8Na0o=;
-        b=LxpF8k5M3czBtCGqcdZliENr0XbS5UUzUSOujKzVAXK1v6oEczDMkyx85Lv/3LFzRs
-         lVdtqoy0NfMLc7jgumS8zfhHcWYz1rbb/9mwmMqSbwP6WIhd+o22TlMx5F2pZmOpeCRH
-         ju9ragy22PtS5wNCgZMHQjtf0z2QVRDRhQ3J1rRSKTF3VrZ80v08CKJ2CQ3s8niJbtSC
-         OomrB/TfegDV1NzBDMehmWVnRlp3CvomGOjuBCAUSeCWIY5mDSq2MP6NuVrvyMtUDNdD
-         ICY9ayKxjbWR6MRAc6WRjZPuN/qzAwQwMbeOX4OvYTSymGCKaQibCk0L/tNeJevAJ+YZ
-         73gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794580560; x=1795185360;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9N3Xm60xAl6wR1Ink0ENH9O64HK75M5rWTZYwH8Na0o=;
-        b=BB7yh/B+vFwWLb1gxdSzYwy0JHeGP6DTdw1PztYbyNmfeqakeSpEdgM552kMDs10Me
-         CBkyfzywOtbee6OwndMX9iOdweeqZ29Cc1Cdcg0hxpg2wjJme6iz580JoT5qVMJwDQqx
-         E/Nb1rocpwkIff+xKOlkdbP0Ud1EDEa3xGkeExVS1pQVjz+IF88xLchr+YUyU5ekqWif
-         RTVX4AryvoV5M2vjJeb2kK0aiXZtwslGnBBPkBjvmtNIfqKOzz1AXrblRhVNjtbu1AGq
-         62xy8Aol8OB9JcHBsFTVVvnuBJ63r5+p7MtuA0D7iKdMkqZXuMqSFZBAnit/LCaovQpg
-         gZxg==
-X-Forwarded-Encrypted: i=1; AL+hErFercC6IuBFJiJkKtSW/W42wvkkaAXlGgASvWPqTIp8Ng/tVeo++gXo2mVtR5mYY0EqXCIW8p772f8N@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QpxwQlmvdQ6U0JCec08i12pqFjd+ZlEoXSNZiVpqVPD/1Jwo2
-	2nYOzUk9hcelENx5P3a6H/OFgXvz+onS9g4sDKay7kffHiMGyjokwZpp1tlVoo7mqpjqPeVtuWU
-	mkSgLnNsVt+CYJC+VrwGhuWeErhXv+Jd9ixjuGw8ko4DqlyIaKJKG1r48yvJkBBpi
-X-Gm-Gg: AYBFou3pw4840D8XTGiWkpUNbkFU8v0RmwLJ2QMvqkcMuGxKkqVb/tusOPsy2HUnsy0
-	3ig4mDZ7TdWui22KRLRpVpXgA1ajc+0V7XyV7G4jbNSCLyKDFL4zXsSJldWaKHQUWnHB9grxfjs
-	zWxcxk+Gqp79lSpwgXZNAub/k/IQnXbulTGcNAhRm2iSN33bz+IIbnfmP6q+shMKE298H6kGW6M
-	MkLUSF+tvRpTRSTeph8LceOAkXT7f5EwPuojLQzF0v5gBekZ/bZEpfo0asgYJIDR62b2AW55+tX
-	mdOVMn7ip5xUZcWA762haVucjwiAIXP1U6Zdmbz48y44yb886VUlzoh14DcDRP2K5W8uhYSr6Ye
-	mm1p1IGBdOM7lzbaedysfM/EfbKMVaDB8giopplygWghazY1/AZL4Wm8hLIqdAKirHcfmxnW7n8
-	S1
-X-Received: by 2002:a05:6122:552:b0:5ea:e17d:fc73 with SMTP id 71dfb90a1353d-5ee3466f8e9mr884668e0c.3.1794580560106;
-        Fri, 13 Nov 2026 06:36:00 -0800 (PST)
-X-Received: by 2002:a05:6122:552:b0:5ea:e17d:fc73 with SMTP id 71dfb90a1353d-5ee3466f8e9mr884648e0c.3.1794580559595;
-        Fri, 13 Nov 2026 06:35:59 -0800 (PST)
-Received: from [10.218.30.203] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee34d4ed43sm1387544e0c.2.2026.11.13.06.35.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 06:35:59 -0800 (PST)
-Message-ID: <315d7bf0-352e-4dd5-9779-89e8ea75427d@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 20:05:51 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=IxX0Ywve;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=IxX0Ywve
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=cff/Xv+wJYn1HCvRr/zpRUE3C4FkmBJPeJd2+U5v3t+qZ400cfTBXMDPiBBygTMwRLvbWEVdHAUt5ug65HXvNPwP5TSKBgMmvwcAvRAVGkBs3oIbvrsBGH+7+xGHStga/ZcdB8cG8O99q3EtoGHT6Cjj9vPA5dv9eucQx+twqhbXIHPoOVKU3dWBrbbf3MmRJSiNwQEROcr8XkXmkleNs+038gShC2vgRQmM+Ye42J/HaqnFVGKovfgtp//n0cm6pZqP2N4WPRSt+VLq6ZBEOfmmebrHl0Wgb4c/3mNhCR049CRqNIfldNdW1hNNtfywlH0g2L/4Bpsx019BKCMwig==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OxlLUFt7iFJyYyNJ5e3YJlpgSb/ljSVdpbnRyRp3DJ0=;
+ b=sxhWo3/vaTOzADm7R9jttUKER6HPJDhjhHw9+MK1jdFJrs0dtnRGrQyIB5+OMXemtspxTBpfOt9uS/jMWRVlZ+1dAgtTljKPGLe3BQCrVGEMho0TgR/93rjJjhmXiMikIE82kygI14MhOCIpoe5NUK3rObBuyTkZxMnIxr5sbHhMujlQPi3jOfu5T91HLCvtke/4gujKne4O7ulMsdS/vZRxib8JPJRpbVQOhFWynKjk5PEooRb165rNvXX4KGCkZVtGhiyXwxCN9QY1GYAVnuki4bhklrKzlFIIFhYTlfM2erantlf+p47vOmPjszUPtVx5sN89F9v3T+NEU9SS4Q==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OxlLUFt7iFJyYyNJ5e3YJlpgSb/ljSVdpbnRyRp3DJ0=;
+ b=IxX0YwveLuAVcccQs+THa7zGzI9m56NbvyN3XK8rVC2SB7MuGJsfqMrleZvbyN81aug3+sotFLzchsUmDEGNGyoGB90piLLLFQiVRF47VBIPhGTdeyKiVI6e6S24elXQnVI67iP+K9T/s5iuZpA+dLSUbkd72GP4TmJDckaV0f4=
+Received: from DUZPR01CA0139.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bd::14) by AS8PR08MB6343.eurprd08.prod.outlook.com
+ (2603:10a6:20b:337::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 14:36:12 +0000
+Received: from DB1PEPF000509EC.eurprd03.prod.outlook.com
+ (2603:10a6:10:4bd:cafe::51) by DUZPR01CA0139.outlook.office365.com
+ (2603:10a6:10:4bd::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 14:36:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509EC.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Fri, 13 Nov 2026 14:36:09 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pv/5ASu1i8xsuYer2lIH2JKKXhevJMWr2H0IVs+GCejWvzyW8E1fVpHdNZvm1UlPPeBbI5hc8XZJ1TngSQDso25ElJtYfP588ivpGCd84ebOgaFSFVvfMU9A9LiQZE+A20SJUEvwMSBoK6MNqz8ilX1XfodMFVwKw/Tb21rHclS2K59LG+cYQvUgwMvv55G/mN7OM7oQf8LclqhJM1WT5h+5tSVymXZnFfqX3VccyqtgzqbzRFnKXUhcUjZSmUaP3ImQ//dimGoYaTWnheHkUdCihUqSOpthe417sCZYgyvy4JUHhz+jz4RfuZvMHk7pVSwJ+V7GOnNqiYGJkTcJ2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OxlLUFt7iFJyYyNJ5e3YJlpgSb/ljSVdpbnRyRp3DJ0=;
+ b=RBV9mm+OhpuJK2lUsom9PZuVDiEb+vHwHZhbXj/4MUE9wlw+yFz0wj7mDse4Kwh1tRyOaVpwq2bdeSImgJbFt3RQVnBIscB7xSBqx6aJ5TuDv5xwLJ0b99jXQJRl5YhxCVnCVxx2zpqQOHNKZpSYDlAFRwhT2bnG8fNYlCBaY2UCmaEnRc30wHrEIF4GB1qEXJ1wB4Lt6GAYoJTcM2XoURQ1OhQZ7+cwVp3yLsKOtj6HRputAv/ODq21A5V8guiMd5rYUaA1ET4fwQybxEB4eXw7DTSnNlfttY3ipP32nJe82FivwvmKQZ6/vz7SWqF4esI5LPYaXc5trgPLtfQUmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OxlLUFt7iFJyYyNJ5e3YJlpgSb/ljSVdpbnRyRp3DJ0=;
+ b=IxX0YwveLuAVcccQs+THa7zGzI9m56NbvyN3XK8rVC2SB7MuGJsfqMrleZvbyN81aug3+sotFLzchsUmDEGNGyoGB90piLLLFQiVRF47VBIPhGTdeyKiVI6e6S24elXQnVI67iP+K9T/s5iuZpA+dLSUbkd72GP4TmJDckaV0f4=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16) by DU0PR08MB8932.eurprd08.prod.outlook.com
+ (2603:10a6:10:467::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 14:35:34 +0000
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 14:35:34 +0000
+Message-ID: <ede42635-1164-4190-b0bb-954125686108@arm.com>
+Date: Fri, 13 Nov 2026 14:35:32 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/28] dt-bindings: gpu: panthor: Document AM system
+ bindings
+Content-Language: en-GB
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-12-karunika.choo@arm.com>
+ <20261111-grumpy-carp-of-superiority-eddeb9@quoll>
+ <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
+ <3c6fd46a-8666-408d-8866-f2bb1f293c05@kernel.org>
+From: Karunika Choo <karunika.choo@arm.com>
+In-Reply-To: <auIiOVi13v0U8fIp@e142607>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P191CA0024.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d9::18) To MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,118 +157,282 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] arm64: dts: qcom: shikra: Add EL2 overlay for EVK
- variants
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=DNgacCNb c=1 sm=1 tr=0 ts=6af72050 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yyvnBEBB80qBeyI6t6IA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: vphShZN19PZ3fA14kSrfyTHQcpqczA1z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfX9jbKR4ev6zqV
- 7Ugka5EPy7+2nqiw/WoINTeVroULXXWPvIoxyKKzCzEX9A+p4sXU2Ulh/45ZRmOlknS5uyDnXKt
- zpcxaqhfqwv8Y0kdpEpfZtMdrElBepmUDKso4EKXInUwi5C24gaGy7jYzw52/Caxrik1AY1Jxhf
- eqwuFemfSyP3COxQ3rW/77tHO8gVqJQdVvIWD1PFUB+MpRGTNGpCzgbp85ox5kXdQFBtqNrkwsP
- oJJJrDyQ3Py3MrgDIx7zvSLGBDzcj8aUBJj4MqIYkZgTde3tEby/JjeIRXs58ue/6CqZvU6/lBw
- mLr8T14KKBsXvVsq9vxHMH6zRQh9Jx4ZiZHNQRWdacg6mHx/94385u5RjbRHKPx9kJtGPL3Bjxw
- fPi/DuMkCeh5i/Zo4MvqLdrflZ76OArLO908JWTPXb9ej56JnOwBGb/akZzsRsUFDDIR5K/TCdm
- x6C3GKlXj36p8AFHf0A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfXzPak3so1lKKs
- ZGeGap6RVVfKpicQ+AXe2C5C6WMnarMUnle38iNLuxPxyYNqi6bb5M7Hk5HXGkThcTZRdrVEWiB
- pIk/fYU5taxMmknPeDOpvf8+Iby8K1s=
-X-Proofpoint-GUID: vphShZN19PZ3fA14kSrfyTHQcpqczA1z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130058
+X-MS-TrafficTypeDiagnostic:
+	MIWPR08MB568805:EE_|DU0PR08MB8932:EE_|DB1PEPF000509EC:EE_|AS8PR08MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f8b3c56-4c39-445a-0951-08df41937683
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|18002099003|22082099003|6133799003|261009223027099003|3023799007|5023799004|56012099006|10067099003|4143699003|261102123227099003|261022105027099003|261022113327099003|261026121527099003|261022075727099003|261021121427099003|261026140227099003|261028144727099003|11063799006;
+X-Microsoft-Antispam-Message-Info-Original:
+ Audgiev5RjRyBrukDx7ClCLRw/kdwyX8PSxmseedEzziQP7x0ClXOtQR3ZvDoI0/zYYcXrQvf9D5cKuLHcQkKbSaaX7tsj/GjYptYfg4q6gx550W/U3ZCCPNxiJvhIqjQhJGNuBxJTfdLPvH4XIw3riiy1x8AsRL9EuZfrSPZ5I+CsId+HSIJHpY5pGDXK95wfSIitcZJ3pBGhKNhJeR4wr7VZZ4WEBo51w3Cwh392vkcj6lGvwLC9DR6g58WijlWyJBVEbQkEaWdF8ptV02xIWCu3H4CKZCPz9CeGCrLwR8gOStsLygZgfav8d7AUAvbqt/3eDYoBm1Jt+7NdIXeoNSYM+13LuxfSVZtchHTdvCrQPOTBhIUOLSog43vPDJdNW4SF8UH7uMahX7cK9zjyMsztzA1czaE18SiA6T/t3k8q9p7QUboYUB0+EIucVRKGbLR29Nyh0feuvbAaKpCCWJT5xAehjEhqMIIpgeJ003xrPIaBMMu5ttSBwRN1p4EH1CxduNZ7klInkZ8pyaXYywF7asae+I6Gd1m1L7BoZKh19RRFQg9DZLbQDKq05XddRFlS/y3ym4ta9SdnVTdiBVKebNd73YsFWkhvDLmic=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIWPR08MB568805.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(5023799004)(56012099006)(10067099003)(4143699003)(261102123227099003)(261022105027099003)(261022113327099003)(261026121527099003)(261022075727099003)(261021121427099003)(261026140227099003)(261028144727099003)(11063799006);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ 1Ki0IlLPAqhW3ZBKCwp0LwKcp/Icq/8Op7o7vDUnQ8YFDjH5j36TqWfdEZaSzLDxy89tnX/icKmwFpvyC0oPpGQQKiTxGptTCV4riNJbY6GfppGHO1tm2dJGBmBzNmQaK68FuCExgo3FcQkrAJAX8hPfD52dXh1WS6PBq7IQ8t6WvXmO/6vFsmtvks0OJZyxiIo+T0S1IUw9/n1lMh3IsNxjb9NBPRcEztHj3KiEKZRnpMn3giK6C8RKGv02pmRD1XU9f0M0GbWadFlNCKfhuaDE6BhjrAJItqh7nwQqMOxtBLgFdTx8riNw8JIlCAoiILnHChoLs3ix3QbMv1YbqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8932
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509EC.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	fa9225d7-d755-46af-1638-08df4193604f
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|35042699022|36860700016|82310400026|1800799024|14060799003|376014|7416014|18002099003|22082099003|6133799003|261009223027099003|13003099007|3023799007|5023799004|56012099006|10067099003|4143699003|261102123227099003|261022105027099003|261022113327099003|261026121527099003|261022075727099003|261021121427099003|261026140227099003|261028144727099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	zPrjW6H49yJBpJbuTihR3jwgk2CZgcGdJz39/jtzOdHr3hgJYve0YHASJ7cnWmHLWr9/3a+q0P2210rxqHRDVnnpSNlIEZwILZRVRGor3LHsDU9/nrEJGSh2VK6auHE2e9D//Fwo2/5mEJ5LjWaXHQmU9Y+qm4GHqaHVwZ/EM+fBzklk/G2sTUciUdTkMPo/tWwv1Kc/LvC5jwHOAygh0F8OD1QbXXfkZi7UmIrECLzIztQp7c4/aXCEWzX0nr3iARsTnSpJSA7BEYhhf1yFEKKAhYnma2iXl2ZjweTb8TyWeIc6/CS05JRqqAZKrjRWX0u/2iOePN5msBi4og68BevWULB7hqEfw1jwUOmO3L5Y2EswSz4NaoUEe7G1d3VCOVOPexv6IOghO+2WHw0lA7YmuFwqD6l8PqeG/rbOoxlL4C8eCXD7pIAd8lHj8UCyjMuV2Xg9dqBPWLHtr0ggDjCZ55XFEPaWbeNjzJLPCiDtyljx7ei6pqKOYMnq+2l5gLquyw6oWlUBNicbjZiHZmHuG5ABP9IFgWimB2I0boH/Vij8HM5S2gNAyjHYVH7IaC0JmnPRmTWwAXGOavgvDFhfkBW6XRUy2NBlVYYYimqtaXjKjdAdSRYM2G7HmW1WMPzdiTS2Nzm13XhtRq/tOw==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(35042699022)(36860700016)(82310400026)(1800799024)(14060799003)(376014)(7416014)(18002099003)(22082099003)(6133799003)(261009223027099003)(13003099007)(3023799007)(5023799004)(56012099006)(10067099003)(4143699003)(261102123227099003)(261022105027099003)(261022113327099003)(261026121527099003)(261022075727099003)(261021121427099003)(261026140227099003)(261028144727099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ndHQQRMCeiUPksqdRK2AtOuqCX9M2Taz21cZfQN8blpFWbCSTQtuFfpyTZFCFu/VpDJngsod4vRRqe4caqHrnm93Cmtt7wpIFdg6ornD8443wP2rzy0K2H0VTQ9wQ4tz4/1evCGMZpd8qYlgCNtrec5cveE8ocrNTzVLowkd7CDIHkFF6OLBMo/2piCtQEBC+G0XTJfME/f3rF6K3pKv4O1ptjdylzptvC56JrU4u3I8Oed9mJVVvOVwx7FLEXZA9ikE/9YZA+ufCQmYwtDIsAUsum66T+yn6xx/2umnOIclLQZ9gCaw0WydoRETw9PSDwkld2J6TcXfuZRjOTVST5xXmC97Rp0mCfm1f0z7jzmrbp1wZq1KF0uJUs+HiBDRKKlmrZi/yAMnICRZsitGCxSgDKnkPKbAo3Hn1nt3k7OKco0gAF7okjvkwx0tDrsE
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:36:09.4542
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f8b3c56-4c39-445a-0951-08df41937683
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509EC.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6343
 
-On 11/4/2026 7:33 PM, Komal Bajaj wrote:
-> All existing Shikra EVK board variants boot Linux under a hypervisor,
-> which means Linux typically runs at EL1. For EL2 boot without the
-> hypervisor, remote processor firmware IOMMU streams must be described in
-> the DeviceTree consumed by Linux.
->
-> Add a Shikra EL2-specific DT overlay and wire it up in the Makefile to
-> produce -el2.dtb artifacts for the Shikra EVK variants alongside the
-> regular dtbs.
->
-> This series also relaxes the Qualcomm PAS remoteproc `iommus` item limit,
-> needed for Shikra EL2 remoteproc SMMU mappings.
->
-> Komal Bajaj (2):
->    dt-bindings: remoteproc: qcom,shikra-pas: Allow 3 IOMMUs for LPAICP
->    arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
->
->   .../bindings/remoteproc/qcom,pas-common.yaml       |  3 ++-
->   arch/arm64/boot/dts/qcom/Makefile                  | 12 ++++++++++++
->   arch/arm64/boot/dts/qcom/shikra-el2.dtso           | 23 +++++++++++++++++++++++
->   3 files changed, 37 insertions(+), 1 deletion(-)
->
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+On 12/11/2026 08:32, Krzysztof Kozlowski wrote:
+> On 11/11/2026 11:43, Karunika Choo wrote:
+>> On 11/11/2026 08:29, Krzysztof Kozlowski wrote:
+>>> On Tue, Nov 10, 2026 at 03:38:32PM +0000, Karunika Choo wrote:
+>>>> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control and
+>>>> the AM_ASSIGN block for HW resource assignment outside the GPU
+>>>> job submission register window.
+>>>>
+>>>> Document the system node compatible, register and interrupt resources,
+>>>> GPU clock, and assignment properties for HW resource assignment.
+>>>>
+>>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>>> ---
+>>>> v2:
+>>>> - Add an optional AM_ASSIGN register range. Require this range when the
+>>>>   assignments node is present.
+>>>> - Describe resource-group assignments for AXI buses, partitions, slices
+>>>>   and access windows on partition-capable GPUs.
+>>>> - Allow gpu-arbitration child nodes and the #address-cells, #size-cells
+>>>>   and ranges properties.
+>>>> - Remove the panthor-system node-name restriction.
+>>>> - Remove gpu-supply from the schema and example.
+>>>> - Add an example with assignments for partition-capable GPU with four
+>>>>   resource groups.
+>>>> - Move the MAINTAINERS update to the GPU schema patch.
+>>>>
+>>>>  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 196 ++++++++++++++++++
+>>>>  1 file changed, 196 insertions(+)
+>>>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>>> new file mode 100644
+>>>> index 0000000000000..9e0477b8b723a
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>>> @@ -0,0 +1,196 @@
+>>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>>> +# Copyright 2026 ARM Limited. All rights reserved.
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: ARM Mali 5th-Gen GPU System Device
+>>>> +
+>>>> +maintainers:
+>>>> +  - Liviu Dudau <liviu.dudau@arm.com>
+>>>> +  - Boris Brezillon <boris.brezillon@collabora.com>
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    items:
+>>>> +      - const: arm,mali-gen5-am-system
+>>>> +
+>>>> +  reg:
+>>>> +    minItems: 1
+>>>> +    maxItems: 2
+>>>
+>>> Why is this flexible? There is no description in the binding which would
+>>> explain oddities in choices of hardware representation.
+>>
+>> I will restore the description that was previously asked to be dropped.
+> 
+> Hm, let me open the cover letter to find lore link to previous
+> discussion and check... ah wait, no cover letter!
+> 
+>>
+>>>> +
+>>>> +  reg-names:
+>>>> +    minItems: 1
+>>>> +    items:
+>>>> +      - const: system
+>>>> +      - const: assign
+>>>> +
+>>>> +  interrupts:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  clocks:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  dma-coherent: true
+>>>> +
+>>>> +  "#address-cells": true
+>>>> +
+>>>> +  "#size-cells": true
+>>>
+>>> Both need to be const or enum.
+>>>
+>>>> +
+>>>> +  ranges: true
+>>>> +
+>>>> +  assignments:
+>>>
+>>> Do not mix nodes with and without bus addressing. That's mess.
+>>
+>> Hi, I was asked to use a more generic DT such that should the
+> 
+> By whom?
+> 
+>> hardware registers change in the future we can still retain
+>> some compatibility. Is it necessarily a problem?
+> 
+> Bindings are not generic, but specific.
 
-I  have addressed these comments in v5, which is available here: 
-https://lore.kernel.org/all/20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com/
+Apologies, this was discussed internally with a Panthor maintainer
+previously. Would the following example DT be more acceptable?
 
-Thanks
-Komal
+--8<-------------------------------------------
+panthor_system: gpu-system@68000000 {
+	compatible = "example-vendor,example-soc-mali-system", "arm,mali-gen5-am-system";
+	reg = <0x68000000 0x10000>,
+	      <0x68010000 0x10000>;
+	reg-names = "system", "assign";
+	interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+	clocks = <&mali_gpu_clk>;
+	dma-coherent;
+	arm,am-resource-group-bus = <0x1100>;
+	arm,am-partition-resource-group = <0x3210>;
+	arm,am-slice-resource-group = <0x33221100>;
+	arm,am-aw-resource-group = <0x33332222 0x11110000 0x0 0x0>;
 
-> ---
-> Changes in v4:
-> - Add a patch to move the iommus constraint from qcom,pas-common.yaml to SoC-specific PAS bindings (Mukesh)
-> - Add iommus constraints for all Shikra PAS compatibles instead of only relaxing the limit for LPAICP
-> - Add WiFi firmware iommus to Shikra EL2 overlay
-> - Link to v3: https://lore.kernel.org/r/20261005-shikra-el2-v3-0-618f7343695c@oss.qualcomm.com
->
-> Changes in v3:
-> - Drop qcom,pas-common reference and add per-compatible iommus limits for Shikra (Krzysztof)
-> - Link to v2: https://lore.kernel.org/r/20260930-shikra-el2-v2-0-f0822be5aaee@oss.qualcomm.com
->
-> Changes in v2:
-> - Relax the Qualcomm PAS remoteproc `iommus` item limit, needed for Shikra EL2 remoteproc SMMU mappings.
-> - Link to v1: https://lore.kernel.org/r/20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com
->
-> ---
-> Komal Bajaj (3):
->        dt-bindings: remoteproc: Move iommus constraint to SoC-specific bindings
->        dt-bindings: remoteproc: qcom,shikra-pas: Add iommus constraints
->        arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
->
->   .../bindings/remoteproc/qcom,pas-common.yaml       |  3 ---
->   .../bindings/remoteproc/qcom,sa8775p-pas.yaml      |  6 +++++
->   .../bindings/remoteproc/qcom,shikra-pas.yaml       |  5 ++++
->   .../bindings/remoteproc/qcom,sm8150-pas.yaml       | 12 +++++++++
->   .../bindings/remoteproc/qcom,sm8550-pas.yaml       | 12 +++++++++
->   arch/arm64/boot/dts/qcom/Makefile                  | 11 ++++++++
->   arch/arm64/boot/dts/qcom/shikra-el2.dtso           | 29 ++++++++++++++++++++++
->   7 files changed, 75 insertions(+), 3 deletions(-)
-> ---
-> base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
-> change-id: 20260918-shikra-el2-ea8969385c3c
->
+	panthor_arbitration: gpu-arbitration@68040000 {
+		...
+	};
+};
+-->8-------------------------------------------
+
+
+> ...
+> 
+>>>> +patternProperties:
+>>>> +  '^gpu-arbitration@[a-f0-9]+$':
+>>>> +    $ref: arm,mali-gen5-am-arbitration.yaml#
+>>>
+>>> There is no such file. You did not really test it.
+>>
+>> Sorry, this was included from a later patch that
+>> introduces this file. I will move it there in v3.
+>>
+>>>
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - reg-names
+>>>> +  - interrupts
+>>>> +  - clocks
+>>>> +
+>>>> +additionalProperties: false
+>>>
+>>> This goes after allOf: block.
+>>>
+>>>> +
+>>>> +allOf:
+>>>> +  - if:
+>>>> +      required:
+>>>> +        - assignments
+>>>> +    then:
+>>>> +      properties:
+>>>> +        reg:
+>>>> +          minItems: 2
+>>>> +        reg-names:
+>>>> +          minItems: 2
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>> +
+>>>> +    gpu-system@68000000 {
+>>>> +      compatible = "arm,mali-gen5-am-system";
+>>>> +      reg = <0x68000000 0x10000>;
+>>>> +      reg-names = "system";
+>>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>>> +      clocks = <&mali_gpu_clk>;
+>>>> +    };
+>>>> +  - |
+>>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>> +
+>>>> +    gpu-system@68000000 {
+>>>> +      compatible = "arm,mali-gen5-am-system";
+>>>> +      reg = <0x68000000 0x10000>, <0x68010000 0x10000>;
+>>>> +      reg-names = "system", "assign";
+>>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>>> +      clocks = <&mali_gpu_clk>;
+>>>> +
+>>>> +      assignments {
+>>>> +        #address-cells = <1>;
+>>>> +        #size-cells = <0>;
+>>>> +
+>>>> +        resource-group@0 {
+>>>> +          reg = <0>;
+>>>> +          arm,axi-bus = <0>;
+>>>> +          arm,partition-mask = <0x1>;
+>>>> +          arm,slice-mask = <0x3>;
+>>>> +          arm,access-window-mask = <0xf>;
+>>>> +        };
+>>>> +
+>>>> +        resource-group@1 {
+>>>> +          reg = <1>;
+>>>> +          arm,axi-bus = <0>;
+>>>> +          arm,partition-mask = <0x2>;
+>>>> +          arm,slice-mask = <0xc>;
+>>>> +          arm,access-window-mask = <0xf0>;
+>>>> +        };
+>>>> +
+>>>> +        resource-group@2 {
+>>>> +          reg = <2>;
+>>>> +          arm,axi-bus = <1>;
+>>>> +          arm,partition-mask = <0x4>;
+>>>> +          arm,slice-mask = <0x30>;
+>>>> +          arm,access-window-mask = <0xf00>;
+>>>> +        };
+>>>> +
+>>>> +        resource-group@3 {
+>>>> +          reg = <3>;
+>>>> +          arm,axi-bus = <1>;
+>>>> +          arm,partition-mask = <0x8>;
+>>>> +          arm,slice-mask = <0xc0>;
+>>>> +          arm,access-window-mask = <0xf000>;
+>>>> +        };
+>>>
+>>> Your example is incomplete.
+>>
+>> Could you clarify what specifically is missing?
+> 
+> ll the properties you added in the binding.
+> 
 > Best regards,
+> Krzysztof
+Thanks. I'll add that in v3.
 
+Kind regards,
+Karunika
