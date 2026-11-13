@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595124;
-	b=F2irTABfKZDMbud1j6qblyW3znkk+yxXWOL15Ozi3yLr2TAcriq+dixeY1UxmKZBD0to
-	 gonvvx4sQ9/MY8XgkYjOConF2sV3ITVp0ERJgpNEa3eaT+Fta4aGPTGvW37kegPxBnsqP
-	 qxiNkjN6WAOklJloLlIbc89Wft/qXyj+dzadikaz5ABJYHukII+7t2SbTBXF9giJ//+mY
-	 nK1ABzbGIev+sMYlUyJsBNRGuPhtg0t4fSb4tc1fXnHnp5nCZt8+7/IqLptBhgnJix6da
-	 XFrbT1LBRKDaczF6l9qDY0Zk4sPvOtDoCadd1N+rLQY65pcsSbBg6U6tFegnniAZBFw==
+	t=1794595125;
+	b=Z9CnETSnb1LrUZ6ER/q8PrNCL4h3hC/E1f12sUgrn1FrW0O3bV+7+gCjVIjmN2WlnhsL
+	 Y3yEiFlVnFEJlLNNTl0o6lydnzs7JAikNVbXop4kanEUMktcwhkEJq8SEdtHxPU/smetE
+	 QQenp+1E6L+rqIpIwkrpPS5X0cVbmVe9oxMj0dpvNri1JNqduScP9MgV5fc3U8AnmsVAU
+	 SZGewC0DlLX9Q9VMMx6UvWSV8U+6cF20lx4Owa3+FbGsjiW6F2hGhtes5WGl9cPHIiCO1
+	 JIrS2/ujhoLMXyidqOiwj5JuvB8GuPCfg/0RuP65wFJUJCBDJU3wrAa0D7i6Phc5Fjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595125;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=zf2ueSN0brUmLpX9oxEjZ4Lyidgx3hF8zuXYpXrD3fw=;
-	b=5QkpVFtfav+6MsJaBtjQsfdI3PUbFnwbWzJS6HQfUVELiEcDVGpRSmQvEXCkvJynOgRn
-	 p0lDWSA3QcFgYkQibfjc2aXWfVN8/TujQEep/kPkg+tQu2i43RcLkH247vQJ+J7cIFucP
-	 XFlnlQrIXF2nWmlxUA20WdYFY810KVWG+LxoPBsV6swWYV/f8YkN0OKr6w45YHucqRpY2
-	 pWDUqAIbBlrenY/b5VEIu9aGfY8JVOAZMttFXT2APll52TPSVUOKdjN1ZTpx3xck83yWJ
-	 5CdQbpbBrqIC+9KIYs1huUK0i/iaMziFSOS6D3jPh4Z7+vDULryHu5V/aW17wBb6o+Q==
+	bh=V7ZSOMsXYdAcwhycQflcDLMzQhl4tW5MNdpWt5mDy8M=;
+	b=tiSZGTh1TOE0TLnNanTqa5/0t6gHrfmjZ0LnrKRsU5LgFKnyuKskL8T1pxa6eECwDZJN
+	 RqKzo6DMzRpYQzt/4apHtfhqb7KSwu/cxJhcNKGYfkbzwTLfJv2ydbAhmcLvjtHsd+2bj
+	 fkHzmOPrRHUiLm1xSU/jdvIDbRSOVnf0iGjUnSwFMWISMfmnZvQJiNhmtX0WJlTnU0rMw
+	 5s0Eqb60EXEwl0ssEscfzEBvSC8zLe4EqEXraCs+LNRI5j8Qb5HkwHKnAe8dnOqCAGJry
+	 Y4CM1VZgKKUncpA9OVK7eGIXdzyCPu3c12ydtt1PCG0ku2AV+qNVMMqcaMAHds/ODpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Msh9aI4/";
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jXZFlbDo;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB85606CCA0
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBB85606CCA0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE37E606E544
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE37E606E544
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Msh9aI4/
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-497614c95f0so613692f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jXZFlbDo
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so18133695e9.2
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595122; x=1795199922; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595123; x=1795199923; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zf2ueSN0brUmLpX9oxEjZ4Lyidgx3hF8zuXYpXrD3fw=;
-        b=Msh9aI4/HOayHoSMiNbjIa8+/U22qq+eRXVL42dWMkCkpcOotQBzssFMMdtIrGJuGX
-         MrWd4Y/i8ebfuMGVe/ZDvUTsMyUasyUD7nogrpOTVNfLP5yon7t3kXDm05DcWBN7yZoh
-         MPC2lCo+yF8OxM9qFiEZvAsp/mm13XsXHb9QKogt3E8+stImcPqdNIsWTNKjg73gt9c/
-         ROOk2ONhGxjVkpTdfZSC3p3oJ5Rz6c+akL5RAIcxZVlDLSGwbaG42CK7qb2VjHKlVa2A
-         AJR8mWPx5p+05aIVDp2sel0UIZE2W5fUtKJ3J3xnfZkwSuLyhUNia3yB6i65kov2Kmgw
-         U82A==
+        bh=V7ZSOMsXYdAcwhycQflcDLMzQhl4tW5MNdpWt5mDy8M=;
+        b=jXZFlbDoJMYJWMbHq6wbVzUdIjWX5o3+JckCmdZOdESXI6MzN4EF1WhYlU8xQo5rsz
+         xxXPpht8MWtkX47J0tPsWoyhS0MfNRfcFq4bq3Z8lalav24yivnrWKPD8W5p51rpPf5d
+         Y2vSCWVe2D3xwWT1e4z7CF1o9Ucw2gXmxwB+f2/R5GAIRy0GQj2Luk2LtwEPJq/ctGaP
+         bYAbxw8yTTB6qKAMnCDSgnnE8ZnMHIF1n/Q7V41RPwUcNsI05wibAEoDWQ+pfOow4R9L
+         WnpxmbzWKlKUczC9GSzG6k74e+QaBiO9CH7Y0pzww/z5rCwzrEzMPzKx1zeiotEW0nOK
+         2Abg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595122; x=1795199922;
+        d=1e100.net; s=20260707; t=1794595123; x=1795199923;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zf2ueSN0brUmLpX9oxEjZ4Lyidgx3hF8zuXYpXrD3fw=;
-        b=me71cM67YjODpmlO4Q1xQwPo6F4bz1T6HG1O4+9Y99onIKwHa3XyMJ3f/sRz8WejR/
-         fB8PZHnE6cQ9P6pdxczt19JHc8fYqnSMVRIBqk6aCDgBl9NeeIy96QoVOkwxNzamiBr7
-         5Ct1FUlRAa5U+X/OswEa86ZmYsaPVfBW8qF9z9AZFAtWHzxEh29uQiGovAwRQwu1aSP8
-         Me4/dc3e4GaKRU495ZNbLiYw6taulvmZqQ3ag4G9OLkQs6SVvQYcJeFkJmhh1G1PJJzl
-         8pcgAWsPRLoQ3uqa9gb7oYHcJTN3tJ9Rx/dYuyYpc0PzC1cRvQeKACXR29T7cnMsd95b
-         YViQ==
-X-Forwarded-Encrypted: i=1; AL+hErHsl8y5RNZ7g9nuXndO7e5oM3eLme6BRgfKiuQ3vFtK6MrFnkTpKAMucZrSJKANf7037zTst0brxcOZ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nPWqG+UbFD2t5+61oP3w43CjgL5OjGGHlQ62L2Dukl2wDfgHl
-	AM436ZfkClxrcTIWH0dJr5t8vE04cRq5HT2S/ezw4VI7ZkOfQdd4bOuC8kXn+IKmg68=
-X-Gm-Gg: AYBFou2EcTiLZiYP/2wdCy738dzKF0M8ULOBqg8m7/cf5d1i5R5Q7MxXBGKgw1OXbfC
-	JIfBO3cvP9HPfGPAJpBMyobCl9VkpmPvez+jcX9Cs7vV0Em7E7f7RYpwytcFCMCOmaXYhOcVf7E
-	VgJhVZSyJm0uRMyVmzfvx3Uf98RWBv7ukz4FKs1Q8a+EvwJxBMh47jFOB8K1C99ob1iHaF++Avs
-	LaeLEcOAonu4rK0kaA0L9at1E7GTue+uVNnia9qZFvXUUFVfsXyVGBV1iDByv0E1sjsZRIzYmHd
-	ALRSnhpS4MuWYGtAmdiz/EphSBTl4GHUrq4n6caBQu2olk7jZQnTgepjz/qbft9FIRPXljdrqeg
-	i70rpCyKSGwB+cITDcvQcyf+iJKJ3K9pDZmXXuu3VShz6Dtk8Fv70Ivug5EeB81Vjn0qAhhyt1y
-	aLmqJWd4K8dP6IeBGlB2VrxDkkbr9Nukg/aA3O7CY8IRKnz0GjbLrSDmyWTIHr7PCgr1c7w19Mu
-	R6m9oHaJ1051OrhO1D4HJ9lVu7NCfJG3vZ8iA+XXEkfR+F8Mmm3ykoQqpHuTW8qW9IcVq/afoFu
-	iDFZr4Z6bzUOny3WzDBb1GOoeBBaAHU29paWmnjHNCm4
-X-Received: by 2002:a05:6000:65b:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-49c740bc18cmr6379979f8f.39.1794595122113;
-        Fri, 13 Nov 2026 10:38:42 -0800 (PST)
+        bh=V7ZSOMsXYdAcwhycQflcDLMzQhl4tW5MNdpWt5mDy8M=;
+        b=zQ+VC79DD8ohgJa9R+YTcp1e7EAbnkWLBguRfEBm3o5v7xszWWlWxzCw9wQthndgKy
+         ZIrqm9/HfFIQhYhOt9YHHEJYUJmJIbU8FKFGfPaQJZM/c730iHSTtloabI3jkBOWHQy5
+         6LRbwSS4rbBe4sk9a0JmYUC2h8ZHibQYcGoB+M8STiumRwkL42n6aa19RARu14x6IvnG
+         RvdFPlTZLUUhP5wvJpheBdJmTsaq/zR34UHEv6Vk4PgW8hq/tRRFx0gx+FxjnmpmSpji
+         HeHh0hterlIx1FQe4Gd6nWgTmHuQOrK6ARcq8hHAJCjGoYBdFzP9mKSY6crEIc/UM4+y
+         i95w==
+X-Forwarded-Encrypted: i=1; AL+hErG49b6sMy2BbTOzxjAi71XRdpER1xCMpwXxBC9Wo2jmIGWQ7GG5q1aWwkYdoQS+kR5GTse+Ubhz5oEe@vger.kernel.org
+X-Gm-Message-State: APuU4Z+M4N9U6jRmjWhcJr/cxxRunF93v9d4tnINVnL+9MH3GLWV8gTz
+	d8alk+4rtv7aw335SweZ8M81chLKc70MSoctOdGg4zzKwSbEPQuIEqkIejVhN31C2x4=
+X-Gm-Gg: AYBFou1vJ3/EDZvQFy3TnQzrOgSSytPlMvdEZiMub4s3lOjORW1wt+ammGOQm8KIeLj
+	onJl4QLaLPBvmTmCJAHjoE/iqwd/hmxLszfz9L7ZLOHKM0UCfyuCK8r1FpUDdISNPgv4Fiul5Ym
+	KR8gMBRnlLr7IyTo96aZSpW1ojpM/fT1T4vSE2vHjFNEq+0ql9YjPbNvQ7rlbbDVE68czzCwE0i
+	Wb3LWNc9JgbPjYhmDVn+7N8z4JOFlujfIWsI6kXmRFO8+FUt44z8D35Ay2QMfqgleEommBA0wVX
+	GGnfTk+OQ8/m6KaW3vaGfSDkIBM3pLZGGMapOG3d6gC9a7YkTZSGE9y+xjnrAHc5/f6O7+4pttz
+	OyTnUszNw04iNtehRfvGvRYnDF/2qER4QuYrJAxi8FodIdPGsfwDAxkVT5HAkZxQdX1UX0gXrFw
+	8HxtI4GeV+zaodBdOG3Fb+O0pKXKYjvnsqVaSU829DsqIo3ZWaBPI64jNkyS17NQibSEeW2XoBT
+	jFrlsAa6zAL/rwjirzuLF+1lNa+kDetDTahSLUznvcTq/UtffI7iAxXvQZe8pEduRlu5UMaZ81U
+	rN2V3h1Jb8aN6tPDgVPjSS5XgWjrO8IJUn5XL003E9PQ/kk3m/lEm3mzNVOVU5tS
+X-Received: by 2002:a05:600c:a012:b0:4b8:d17e:da27 with SMTP id 5b1f17b1804b1-4bb55a85101mr69951145e9.27.1794595123103;
+        Fri, 13 Nov 2026 10:38:43 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.41
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:41 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:42 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:20 +0100
-Subject: [PATCH RFC 06/23] ASoC: dt-bindings: qcom,lpass-*-macro: document
- less clock when ADSP is not used
+Date: Fri, 13 Nov 2026 19:38:21 +0100
+Subject: [PATCH RFC 07/23] ASoC: dt-bindings: qcom,lpass-cpu: document the
+ SM8650 LPASS
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-6-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-7-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,179 +113,152 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5113;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3635;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=anakJKqhStxTQEwPnhjGfobE0ulRfpcmSgr3Fb4aTUc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kgeOjyO3IS2De8UB9Wi45k0n8x116tg+Zpcatm
- hwhPBRmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIAAKCRB33NvayMhJ0dH/D/
- 9JjSfFNr6WKB/Er9I6I+r/z4sqML9qRHVR/OvjBf8w3RtGxVCKHsawU9zrtyyyUmjRfmIzflEfOOGR
- vdCspXhmOK+dU60mkMJWeVIwGqBLo/SLMa2DgOxSUt5NzWe9/uxcKDU0+l5F4JQ6oADhpuaKgcNmO1
- isSKVZabEpQ3NOwpAC/lSErMU6XMqJ3Yi1vCiUC2PNobOhurhDUpmer3S2P/GVTByixkk+/bko8unA
- Z8tDcTR577nnUHUmR32gWAYPatwTa7BpE0nELVoHXv61Qtx2FX2l+I8xPEywBDIkP1DK3zhTVxAf/5
- I24n8CkTS7lyryvYqgFQNCMQa14NQeskfvmMU2u5BLk0NAgqBDT4R5b4JosdBDFRivSZsj+jP/2kDA
- x8E9BR+YuWXcbInU7/FE2K2v9Daz2WzelOyDMf4d7OAYZxCp2WowsdzQF4kbANerAPrrGdBeZbLSHA
- uIzPUkCWa+kQOFZ99d68HMHN1FExdlSuB5DfZHUm4xF1luOZbEEflnmBIalrgjUw0K0BrhGNxL8NL4
- Gy1fmSnYM/p6kZ9gOtZ7QOKqTr8XfxsnSRmi/R3Nhj4paVlqvI/hUYOJ+NtDib6ZgzrunKrog2iWu6
- 7ejfFHTR9NPQE1APUrRVOBXQ8tMrCi78br7eohdiqikIemtp86xohwC/P43Q==
+ bh=U1eEhA1am3Rmu5NcORdiBRTvDJRsaqBll4kDIGaC0o8=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kgCaGbgm2cwsm12W4mm+WNrzJv2jSdyPgRPF7c
+ cZ0liSeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIAAKCRB33NvayMhJ0eFoEA
+ CJCUF7fAnHHUA71B5Wy+q5+60Tsk+JwWjhVh3Ytbs6nCPnLEzrRiqTji8sh+lcGz/Pav2HtjPBrBtr
+ 4ssHsaOhzglSthAd1eupG3surlwy6OLorHSWFrDIdK7ylfAqJnqJfB93FY3SeXvzVtmh0wf/qdGIiu
+ PaDTXTuxwuBwMev1/q51D5Wn5G3SN7/Q8NSShBW4DCCy0q4WZ8FNv/e0y4zw1/VR6CoCTov4LQezkO
+ M9XW4jWOIfBGFJlWc/QEY2qWJaG7i4Fqcq1AiPgIldxuMzLoDVHu0vjdiS3wy3TVw7+m4PpWvYcN+p
+ GR0tux/WP1ngUgeGRmm+28x4blk6LN8MAtPu0gYUR6k0rKAF5oEF6Tr152Paeza6NsDs6Sq0+gD1MI
+ 53ZZHGrNTtpFr/wCszO7UqlXlyE6wVWDOWlJdrc+YwKl3mUviOoPvt8yZMhGIopUSMgBw1aG1iNvF3
+ 1LZwiH4dEATf2eSwfQfujTq83XnKGESdMdvg1Gfe2FfXnlpl0Zz6N5RNX1x0DK/sn5uyuS6seBqSZp
+ Bf3uUqxpc3u2OUH6xBrVrQRXyoSjOtcmmEBNSk6cn5UuupZoIsoqNCGRkXKDMgrEop5tU/myvEU/AW
+ SHrcrA5rZK/v+IRS3dGQ0HPpuOPH6A9P1vijYsISqrsn4hamBkyKcZSIC3eg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On platforms where the ADSP is not used and the RX/TX/VA/WSA macros
-are entirely handled by the OS, the macros blocks requires a different
-set of clocks and power-domains to replace the clocks exposed by the
-ADSP firmware interface.
+The SM8650 LPASS can be driven by Linux through lpass-cpu, with extra LPAIF
+instances, LPMs and clocks compared to the other SoCs.
+
+Document the SM8650 LPASS CPU registers, clocks and interrupts.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- .../bindings/sound/qcom,lpass-rx-macro.yaml         | 17 +++++++++++------
- .../bindings/sound/qcom,lpass-tx-macro.yaml         | 20 ++++++++++++--------
- .../bindings/sound/qcom,lpass-va-macro.yaml         | 13 ++++++++-----
- .../bindings/sound/qcom,lpass-wsa-macro.yaml        | 21 +++++++++++++--------
- 4 files changed, 44 insertions(+), 27 deletions(-)
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 74 ++++++++++++++++++++--
+ 1 file changed, 68 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-index 4988e7ed6e34..b76c5dfc0462 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-@@ -129,14 +129,19 @@ allOf:
-     then:
-       properties:
-         clocks:
--          minItems: 4
-+          minItems: 3
-           maxItems: 4
-         clock-names:
--          items:
--            - const: mclk
--            - const: macro
--            - const: dcodec
--            - const: fsgen
-+          oneOf:
-+            - items:   # for ADSP based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: dcodec
-+                - const: fsgen
-+            - items:   # for ADSP bypass based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: fsgen
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+index 3a559bd07a79..f431173a0e88 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+@@ -23,32 +23,33 @@ properties:
+       - qcom,apq8016-lpass-cpu
+       - qcom,sc7180-lpass-cpu
+       - qcom,sc7280-lpass-cpu
++      - qcom,sm8650-lpass-cpu
  
- unevaluatedProperties: false
+   reg:
+     minItems: 1
+-    maxItems: 6
++    maxItems: 8
+     description: LPAIF core registers
  
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-index d8682ff2e82c..bb150baf3ec9 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-@@ -38,11 +38,11 @@ properties:
-     const: 0
+   reg-names:
+     minItems: 1
+-    maxItems: 6
++    maxItems: 8
  
    clocks:
--    minItems: 3
-+    minItems: 2
-     maxItems: 5
+     minItems: 3
+-    maxItems: 10
++    maxItems: 16
  
    clock-names:
--    minItems: 3
-+    minItems: 2
-     maxItems: 5
+     minItems: 1
+-    maxItems: 10
++    maxItems: 16
  
-   clock-output-names:
-@@ -133,14 +133,18 @@ allOf:
-     then:
-       properties:
-         clocks:
--          minItems: 4
-+          minItems: 2
-           maxItems: 4
-         clock-names:
--          items:
--            - const: mclk
--            - const: macro
--            - const: dcodec
--            - const: fsgen
-+          oneOf:
-+            - items:   # for ADSP based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: dcodec
-+                - const: fsgen
-+            - items:   # for ADSP bypass based platforms
-+                - const: mclk
-+                - const: fsgen
+   interrupts:
+     minItems: 1
+-    maxItems: 4
++    maxItems: 6
+     description: LPAIF DMA buffer interrupt
  
- unevaluatedProperties: false
+   interrupt-names:
+     minItems: 1
+-    maxItems: 4
++    maxItems: 6
  
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-index aea31fbdad37..bae257447e25 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-@@ -160,13 +160,16 @@ allOf:
-     then:
-       properties:
-         clocks:
--          minItems: 3
-+          minItems: 1
-           maxItems: 3
-         clock-names:
--          items:
--            - const: mclk
--            - const: macro
--            - const: dcodec
-+          oneOf:
-+            - items:   # for ADSP based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: dcodec
-+            - items:   # for ADSP bypass based platforms
-+                - const: mclk
+   qcom,adsp:
+     $ref: /schemas/types.yaml#/definitions/phandle
+@@ -59,6 +60,8 @@ properties:
+     maxItems: 3
+     description: Phandle to apps_smmu node with sid mask
  
- unevaluatedProperties: false
++  dma-coherent: true
++
+   power-domains:
+     maxItems: 1
  
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-index 9fedd80532e2..2ed35d812790 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-@@ -38,11 +38,11 @@ properties:
-     const: 0
+@@ -241,6 +244,65 @@ allOf:
+         - iommus
+         - power-domains
  
-   clocks:
--    minItems: 4
-+    minItems: 3
-     maxItems: 6
- 
-   clock-names:
--    minItems: 4
-+    minItems: 3
-     maxItems: 6
- 
-   clock-output-names:
-@@ -93,14 +93,19 @@ allOf:
-     then:
-       properties:
-         clocks:
--          minItems: 4
-+          minItems: 3
-           maxItems: 4
-         clock-names:
--          items:
--            - const: mclk
--            - const: macro
--            - const: dcodec
--            - const: fsgen
-+          oneOf:
-+            - items:   # for ADSP based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: dcodec
-+                - const: fsgen
-+            - items:   # for ADSP bypass based platforms
-+                - const: mclk
-+                - const: macro
-+                - const: fsgen
- 
- unevaluatedProperties: false
- 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,sm8650-lpass-cpu
++
++    then:
++      properties:
++        clocks:
++          minItems: 16
++          maxItems: 16
++        clock-names:
++          items:
++            - const: aon_cc_audio_hm_h
++            - const: core_cc_sysnoc_mport_core
++            - const: core_cc_ext_mclk0
++            - const: core_cc_ext_if0_ibit
++            - const: core_cc_ext_if1_ibit
++            - const: aon_cc_ext_if1_ibit
++            - const: audio_cc_ext_if1_ibit
++            - const: audio_cc_ext_if2_ibit
++            - const: audio_cc_ext_if4_ibit
++            - const: audio_cc_ext_if5_ibit
++            - const: audio_cc_codec_mem
++            - const: audio_cc_codec_mem0
++            - const: audio_cc_codec_mem1
++            - const: audio_cc_codec_mem2
++            - const: audio_cc_codec_mem3
++            - const: aon_cc_va_mem0
++        reg:
++          minItems: 8
++          maxItems: 8
++        reg-names:
++          items:
++            - const: lpass-hdmiif
++            - const: lpass-lpaif
++            - const: lpass-rxtx-cdc-dma-lpm
++            - const: lpass-rxtx-lpaif
++            - const: lpass-va-lpaif
++            - const: lpass-va-cdc-dma-lpm
++            - const: lpass-wsa-lpaif
++            - const: lpass-aud-lpaif
++        interrupts:
++          minItems: 6
++          maxItems: 6
++        interrupt-names:
++          items:
++            - const: lpass-irq-lpaif
++            - const: lpass-irq-hdmi
++            - const: lpass-irq-vaif
++            - const: lpass-irq-rxtxif
++            - const: lpass-irq-wsaif
++            - const: lpass-irq-audif
++        power-domain-names: false
++
++      required:
++        - iommus
++        - power-domains
++
+ examples:
+   - |
+     #include <dt-bindings/sound/sc7180-lpass.h>
 
 -- 
 2.34.1
