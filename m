@@ -1,89 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595145;
-	b=lfz+09vLB45wm2rCV7n6sQ4NIl0cZw5grx9NGxQ+VjNxEtIoH2WvSYO0x2HgysVfo28T
-	 fjwFCR9uUOvZILDC31VZ6YHimnOYCHVmQTChPSetu1qU4kmjEE7C3lKcO1jLJ5xXTfGKs
-	 5k6IIlI8lengsZ+v/9YrhRRRKBwBaGz8t1v+KRzoQs6+ZmP35heQSyDbtORyxEYOSVkg6
-	 RsXlow1cDsyjZL4x8QTIXu926zU5mViHCMzVwj23+Pa25bTi+8BBVASnTbT7xPTd/iOq5
-	 84MqDLdIroIChUu5QJnY0BYAyAddf0b4lctZSK9LXBx4hVTIl+ET59WXgS0G54HC5hg==
+	t=1794595614;
+	b=ZGkuAjKuhEST2w3jPb2SdkFU8mJXnkW3LGRrwBNMlzUg3x7NL6uFgllYqi48XJHMcM+E
+	 iXPp6r5kaCVkuG9jHG1ANnDp3iMRZ/fRNLFNygvqd9GY/+AXJqu+ymXA36zkF99Swjn95
+	 sjcF41KPpoi6JbxMTDT3WtEHfzM125bD7ejwAG4W42+t6PDrOJeDnwX/LZ1SFwNJ8Hl50
+	 WlBM1CwuLiAeAgMTP9BFASz5BUoG77CmTZTnD50y/YyEvJyNdPthb4dg+Ll0/jtcpyayL
+	 1z3MkAwXBaU/ZKx+A+JqCzqGEmChpiS/BXkhu7HCWIOwn3u0f4fEwrY3yN1aJbVxzsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595145;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=DAHAq1IsJ7ZslE3LGkImlwaGBe5PjhDrRKVBIfWw+vw=;
-	b=ChG4KJmqm/LAbA6CrRCjfsZtNLiyvAIrL6tjczdI+FxTKvbSiot1rs0/dOaesD2saKZM
-	 6SgmsyDiR6sW/jt2L13QBYaieLCsotBpFYBthFbKLnS8GMaT8M5yM8/y3gOopVu+w3ZDw
-	 A6e0qH6Li/bq2Qya8jhjIuDXKko1qnqp/hgq9JL/F91cqJ/+9rw4RUEm5JsSn7+1dPN9G
-	 3WJXMeP/LulJZldSfNKNMX12FHYYFd8QYajiBMErvvGOdt7ZSHSfFZToFxzrEAoUsFUrR
-	 FG3UDkKnHHsWOur8B18Umr8H880qtDXq6WMtGaVvflECLQf7wvygDehg6WZ01l4kmCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595614;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jnDAeo7CmnNaA/656fOLCkXGnntEEKJb98BwVbdJVSA=;
+	b=bPnc8CXOWKUh3EjEKsFYjCBVnWMkyYzPlAY4OEuiNnpJbhKzDWIjWaCj0ALbuxW/kleh
+	 UQg2Ky1RkuMQDBAG0IRw+nG82ag5FlHHhDg0Xz6b2otMs09fBL/zrydr3MIMe0ukBsoFb
+	 4MKF54KNoePpQDqOEdtZ/fDT2yd7KoKSUR5rhJLiXx0aPaWE1S0HjdzpTr+nqr7H6ZyzV
+	 nsv3oBM+w1S0A40dF0cvmE7iN5jrSzorQz09Q/EOL4Oj/sQGZFG4jDgy3dbwrQlzeMV5F
+	 ZLDwFgz3VhwYPXuq6b8+Jv1gqiTa8dLUOvB0Ww8XBbyi6npxhyGDWz6HrWs0WYgz+bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PHOkcPW+;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wKqlIfso;
+	arc=none smtp.remote-ip=95.215.58.62
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5A56077DA1
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D5A56077DA1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC09D606A332
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC09D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PHOkcPW+
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1260488f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:39:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595143; x=1795199943; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DAHAq1IsJ7ZslE3LGkImlwaGBe5PjhDrRKVBIfWw+vw=;
-        b=PHOkcPW+PAWPCSsGV8WrL7VmLRK1hUSLoOrv7sGnoY8W1UJWtOT8figiBTJFuJhkUq
-         RHI0iH3Q6i08V2EcS74axfEZ+Cq0j+8y9Fmy06OkeRqeCGLsv0eiIBsvhl2qufsdBREz
-         oq7j4p/lPogKbm5glbHznGcQX8rCIEQf+1yJ8PI2s/+D3TnQdvWN1ERB3mG3Wz1huvrq
-         y2tATk0IzBEEFTGIQKnssOD3yggXQ91RR1E1tzI0VgExCvUz4bEEgit8iQ3R4ChjGqJs
-         yr7g1nQdi+bJs+40929504rGGJ1RxNH72VkPxPXGxA+IwfoCGfBhgQNKiJvZ2eYm4zD3
-         lyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595143; x=1795199943;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DAHAq1IsJ7ZslE3LGkImlwaGBe5PjhDrRKVBIfWw+vw=;
-        b=goJRajdOVbKVUo/3WoFmiQqEUxwp0cYKSDV3RCSSODWRl9SBpECjbp7HVxFcKwMwrL
-         uZPwpgjS6LJPaf5Eg0x5dE6eYRP0FdtEGj8+YGKr573czQchy1URcDl3VTbM+daYfD0I
-         nc1B2dP87271Jjc/j16LgZL+NBhXDfwtMg7nHhp6b/HTJO6EEDHglAKSdVG8Vf8ruDNp
-         y6tKqLOjfgOcRL0EB/LojLY/8VHpeGwVNPB7RwDsv4qak3skSirfLZccoNFeU+lUTe2S
-         +UGETDRtx2vs10SnISMr8DrW04ezr1BdEMV4H+xQ+5Mr/ueuX27th9uk/+YECo99nuyK
-         pYxw==
-X-Forwarded-Encrypted: i=1; AL+hErFQ+I6GwA5QolXx6nHo22K4oM+HtLqZe0Cp8nhCNZ2RAAT5YMpjF5ddSsVlcV5gAsT2DCbN1Djp8Q4E@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y83/XEnynpA3qGbRSdxSUI0kLoR3OYixcDixmB0ieUOoNkh2F
-	7KgC7xqGweov5XDjR7WgwwbZc92SLrIB5YE8BPVU7lIcWyHf2yL0FlbUSlHfqRQXa4M=
-X-Gm-Gg: AYBFou2Hvk48ok4Qv89uk2ataTr/TkH79HfjUwmL/3zLUfWAx+oLwCtrBD/40vxyRbj
-	e9vdk7gUBDqjmY+Rqlv74yghej3foE5YVn3YEwpBoxa+03p9/v67C+G532A4ibI1ONK3ZaSF+sx
-	SWFPLjaDEDq//RdeyUM2oyENv7v/glCafmhGHn2MojoxIEYGciZPgaaZfhGYAHakcdNoXmnnUV4
-	qrNySERQaIIgyR073z5YGGcpIBqhGxelEqiWF3pVjtUwRlnM3w7fMfJzzzzHVOOoNH5v0pNj2+p
-	xMOecNi+haKSdtJ/ooI7OZoQo1lGxU1ZDFPWRJOwsAZ7L8Uy8fOT9Ny9A4Ti/2PTw9FucINBhZB
-	M3jwLQLhjXZGCo+f49DXJEsyQ2tJzQ7l+1pi4NX0dnTastk7SrOw1+homiamDLhOdCx/9K+qEdp
-	e1QFsyrUgQl6nxrR/Heo1XQetejaJgaxwN8TYQZjSEeX7ZIx8xF96+8CgeAuzGphqN/jm3Dnv35
-	IMkcYZIdLOgxfwazDOw/Qe9j1G76TNkntUtKp8tDLqxhgXFJn3A4nfqR/0ikVQ8HbWUdmkHt164
-	iZtdhwMzCgwbno+TF+SPBh6N5b4r2HuGhGj53sQVYqA=
-X-Received: by 2002:a05:6000:290c:b0:493:a59d:880e with SMTP id ffacd0b85a97d-49c713add85mr7018623f8f.30.1794595142585;
-        Fri, 13 Nov 2026 10:39:02 -0800 (PST)
-Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.39.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:39:02 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:37 +0100
-Subject: [PATCH RFC 23/23] arm64: defconfig: enable the SM8650 LPASS CPU
- driver
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wKqlIfso
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YRNPDyKnF5AAnH1Nkcj0IpcYyCLG3qMSgftkaQIlJjM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794595610; v=1; x=1795200410;
+ b=wKqlIfsoAs0iiPyqGpYb1eUg2O8du+8UjqsDMtpATzTB6foPKYrKEZW3X/GCT6x0Htk3RdMS
+ rYqKk+9j35v5d7UF3Lgka/03jO7vWIae3pT1pqTd3i4mQfDNs8KV5Ho9Rdi1FIH34bCAKLKvKOz
+ Xpm868QO4MtJl7TzQeub6Z4v2Sin4Ltb5EMgyE6mw2mhX8JMm5q7T7KHupDQ5lM0SIvgtD1QKEB
+ yDfLlLnJSWRsFseTjO/pr746/CI5K1dLg8uSdw1YRFRXnF8Iuxl+fqd+QTIRhwy73cr0NDLmqtG
+ kF8OuSRi46q4kYjbqTbjjdB5YLwzVG2yLa+YGTyNhu13g==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e856afca2a42441d;
+	Fri, 13 Nov 2026 18:46:50 +0000
+X-Mizu-Trace-ID: e856afca2a42441d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4ce436ed-63b7-4764-afc5-dc5ffa4f0ba1@packett.cool>
+Date: Fri, 13 Nov 2026 15:46:40 -0300
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,65 +60,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-23-5183f6aab9fc@linaro.org>
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
-In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Rohit kumar <quic_rohkumar@quicinc.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=736;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=TuP0ZUisg9EWjSIcUm86e7zEnoMVli/g8vNCUSlRTgs=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kpXiEkv6/Vb4mssFp0ghv3S+SXNBFifU6hH4nI
- NXpSg8KJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZKQAKCRB33NvayMhJ0RxrD/
- 9VWK4iP0Ou0qF42iPGPcogEvqT+dCtX04UEO3IIJMgaC6ibnCYdgfJ7lQuSGBEjK56j0ayXnneD9T8
- zDg3QYSTO/7vQ98uMZqODrksixRlNB0OCNM7IBHrHvU54JhJ+jueQ0APXrqTVSn6ide4liKpYgR73R
- R+zhLFhsNR5mJ7UrymGr1R8hxYkI5PKqIJAiOJxp7Wy/xkKlWiqvcx0pXQgh0WVxBpEjnzQMNSQUFb
- 7bzLIBpv4Z8RH6ORYZclZ6cI8vvpKa3nQEV/smFAoNF49vibmMduja8MxLLbFFY1kdYSnuoETR0GCC
- +2pPh3t3fJ4zFmos16MjmoHh9zlzxZ3pJiOx+VukD6/ZJFnUnqdvW+fyqLe/mWLv6RfsF8k9xun/aP
- q/LiU1yZbgPCYjLGh9n/ctTLsXctEWHj6tklTsnpa3YW4fGTyyDk02MDJSyDaMh7kzuDNY28Ds/Mju
- +4ZEm2EolI+WYfyeTRh0VGx2efXRDXIsvmANBlze28SouA7zCokJbpKHQWVhDYlzK8+xrSxHHvhuLT
- Do4zFI0TA5TFPNxTiYcfUh8WX6SmKFM7eMv4e59PcGkPqv617rst7kwLcPlANrMvJ7UeoxBSP03qFz
- GGSdZ8Wt0EEXHSLVZCeGpFTAR1t3ic4Ja9sSzzwZ6FpbmWMaim1lLb8l5IRw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: kodiak: Add GEM_NOC interconnect
+ for adreno SMMU
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
+ <20260706-smmu_interconnect_addition-v3-3-afdca0125a65@oss.qualcomm.com>
+ <h6opbtr2ced3sannj3ym573qc2sjk7ek3clpto5j5mtqfrfk6w@34sk2zraoqtj>
+ <807f145d-88d3-460a-9862-b63fe2a52cf7@oss.qualcomm.com>
+ <a4f5sod3aflubxkk4mm4k5ozddydqcnqeac4s6vnozkd2nvxbi@hmh6zclsw5z3>
+ <4e5a3d82-b946-4490-885a-ea7061939c32@oss.qualcomm.com>
+ <ak5qkRKk2eHHLYmo@baldur>
+ <2c21041d-f84c-4fa7-a977-555f9203d8b5@oss.qualcomm.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <2c21041d-f84c-4fa7-a977-555f9203d8b5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Boards like the Valve Deckard drive the SM8650 audio interfaces from Linux.
+Hi,
 
-Enable the SM8650 LPASS CPU driver as a module.
+On 7/17/26 8:40 AM, Bibek Kumar Patro wrote:
+>
+>
+> On 7/8/2026 8:56 PM, Bjorn Andersson wrote:
+>> On Wed, Jul 08, 2026 at 03:31:07PM +0530, Bibek Kumar Patro wrote:
+>>>
+>>>
+>>> On 7/7/2026 10:14 PM, Dmitry Baryshkov wrote:
+>>>> On Tue, Jul 07, 2026 at 06:37:24PM +0530, Bibek Kumar Patro wrote:
+>>>>>
+>>>>>
+>>>>> On 7/6/2026 11:12 PM, Dmitry Baryshkov wrote:
+>>>>>> On Mon, Jul 06, 2026 at 10:26:36PM +0530, Bibek Kumar Patro wrote:
+>>>>>>> On Kodiak platforms, the Adreno SMMU requires a bandwidth vote on
+>>>>>>> the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before its 
+>>>>>>> registers
+>>>>>>> are accessible. Without this vote, the SMMU may become unreachable,
+>>>>>>> leading to intermittent probe failures and runtime issues.
+>>>>>>>
+>>>>>>> Add the required interconnect to ensure reliable register access.
+>>>>>>>
+>>>>>>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>     arch/arm64/boot/dts/qcom/kodiak.dtsi | 2 ++
+>>>>>>>     1 file changed, 2 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi 
+>>>>>>> b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> index 90e50c245c0c..721526f023dd 100644
+>>>>>>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> @@ -3389,6 +3389,8 @@ adreno_smmu: iommu@3da0000 {
+>>>>>>>                 power-domains = <&gpucc GPU_CC_CX_GDSC>;
+>>>>>>>                 dma-coherent;
+>>>>>>> +            interconnects = <&gem_noc MASTER_GPU_TCU 
+>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>> +                     &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+>>>>>>
+>>>>>> Why is it ALWAYS? Would it be better to declare it as ACTIVE_ONLY 
+>>>>>> and
+>>>>>
+>>>>> Added QCOM_ICC_TAG_ALWAYS, to hold the vote in SLEEP bucket as well
+>>>>> preventing gem_noc going to sleep when icc_set_bw is being called.
+>>>>
+>>>> _why_?
+>>>>
+>>>
+>>> Now when i think of where we implemented the hooks, ALWAYS is not 
+>>> needed. We
+>>> should keep it ACTIVE_ONLY since we are already voting it
+>>> back in resume pah. I'll fix it in next revision.
+>>>
+>>
+>> The path is between the SMMU and DDR, so clearly it has to do with the
+>> TCU's ability to fetch things from DDR.
+>>
+>
+> Yes as you rightly mentioned, this series is helping to resolve the 
+> race in TCU DDR clink
+>
+>> ACTIVE_ONLY states that the vote should only be applied when the
+>> application subsystem (CPUSS) is not in low-power mode (CPU is active).
+>>
+>> So, are you saying that in all cases that cpuidle might select such
+>> low-power state the GPU TCU is "stopped", and does not need to perform
+>> any memory transactions?
+>>
+>
+> I rechecked the architectural block diagram, GPU TCU is
+> independent of the CPUSS, unlike system TCU.
+>
+> This means CPUSS can be powered down while the GPU TCU remains voted 
+> up. While this series was intended to avoid a DDR voting race between the
+> GPU TCU and its clients, using ACTIVE_ONLY could have possibly
+> introduced a race between CPUSS and the GPU TCU itself.
+>
+> Thanks for catching this in my reply Bjorn.
+>
+> ACTIVE_ONLY would have been suitable for system TCU (apps_smmu)
+> for which the interconnect field is anyways not needed, but
+> unsuitable for GPU TCU.
+>
+>>
+>> To me these two are orthogonal and TAG_ALWAYS is logically correct, but
+>> perhaps there's some practical dependency that I'm missing?
+>>
+>
+> We can ignore my acknowledgment [1] on previous response, Dmitry.
+> ALWAYS TAG is correct here instead of ACTIVE_ONLY in the interconnect 
+> field for adreno SMMU. 
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 7b4985b29b21..a2dc062f5b33 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1116,6 +1116,7 @@ CONFIG_SND_SOC_MT8365_MT6357=m
- CONFIG_SND_MESON_AXG_SOUND_CARD=m
- CONFIG_SND_MESON_GX_SOUND_CARD=m
- CONFIG_SND_SOC_QCOM=m
-+CONFIG_SND_SOC_LPASS_SM8650=m
- CONFIG_SND_SOC_APQ8016_SBC=m
- CONFIG_SND_SOC_QDSP6_USB=m
- CONFIG_SND_SOC_MSM8996=m
+This series seems to help with a really annoying bug on Kodiak phones 
+like sm7325-motorola-dubai where often boot would hang when initializing 
+the display panel (so it took a few reboots to successfully boot the 
+device).
 
--- 
-2.34.1
+And indeed it only helps with the ALWAYS tag..
+
+I've had this patch applied for a while (without even realizing that it 
+fixed that!! thought the issue was gone because of something else) and 
+today I went around kodiak.dtsi trying to remove unnecessary ALWAYS 
+votes… first boot after changing this tag to ACTIVE_ONLY and boom, hang.
+
+
+Tested-by: Val Packett <val@packett.cool> # sm7325-motorola-dubai
+
+(for patch 2 i.e. the driver code as well)
+
+
+Thanks,
+~val
 
