@@ -1,52 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552255;
-	b=MDbMSmenJa/Oz6uE6qcVPPFG1t50LGK0GII+NMOD/tmd8x72I8I3V38gLWJuNtZLz5F2
-	 48YuWb4bW5yHsmWdaYI9pAWAAhk0ZLCFpoIqM6ZIrHTaqmMuK+1iFAy0XCTRHbcuoKflS
-	 UDtCRpyAMoECjlLBpNijbuQRuw1LIUbVXQYjSz2hFD6wNmmEccj5onDsJZjoTrmsDj8TK
-	 0j5DAVo6muc9i5t0apbkGei6Meh/b2dlId4I9NBpXbh+ZrNfOe/IWrIQdPOGbydqQQMHv
-	 Whz6iuBV6uEqIUID9hqciSsRkRUW3+4c362iKAyI0uXF6xMvqzGSRrO/xGwLHbzsK6g==
+	t=1794553419;
+	b=e0CKiU4IQ6pz6HDDj3PhFw9xxti7LzSCZymvExsl1LJYh3sPs1xoMlwSO6ozHB3d/Z0Y
+	 oFKkeboAMhptiv66ZicHrIhYO0RUbP6oaHWHQxTaYAQMv5OvY1zRZdj+jJs/jufmTSlKI
+	 Ud6chMDyw02SyY4UDGaoMuj7ClUAICc0hlJGLnjoipjrU0Uel7y0QWCavcKL2+fxLKE4X
+	 TuJoW8MkgHv6Q0bsVYB51mltKi6Lv5ErwphP9jnvXVnQGMiCeZJ0PlBvJ0C5wKadNASde
+	 v01fGRXP5VixjAgB2SwElDi0n7WXjdScHUSvYLzhtWEUGyPEKrM9A6d8yFiY897PTYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552255;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=tVqWo4cVCxBufMJRq8N/ZAqWxdIZ0UAwob+ppyXcu3U=;
-	b=aIOBkSugR4ncQzlmxLnH+OKIake2pPJQL9wA/d7mkmb9DiGsOA24s7Wb9Vnn1o9cWREs
-	 pdlggOBMcpQogG0knHBGhBZ0X8eG/qUPqnHZU32w5y63v4KLrpv4VBTOWWoITpJLheIwY
-	 JKMggd0UocdSyS50YcnBACtrDOSY4ShCdOjy3fgDdrJ8VdS5PWE3uDslm4jd3UCf5ZTSS
-	 nY+WFR4DX7upE/ur/NR9x4EbRqJzBgH3e8OPN4HxTxta4nKLXRH9Vf5gfAKLVT5/d2Zrf
-	 fVlk/7/KbzGtKEPKW1upP0zbRm/YdT92AGHAwcSXU6mkd4NRj5PYzVz6ETvV+27fleA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553419;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VPOK7kX1ObHoz/VqLCSAnjInW4wUgoK0aAhR/RviB0k=;
+	b=043DbFw1Vi+izpFJ9QM+mXGAUxd0AcQFuSdE6vmuWEKKNbULM+rj+pKED5iJ9NYB+DYR
+	 qHczMhnIlGcfwNLm3htWmv8gUU3amch7OQHfE+6I0g5D3kVjW8Omhn3qJWnNIP7QUHcwo
+	 8nOpWLcg7XVjm0GGBYsgSf2ImlgGMHCwSlTjQ1JkK4jnw460bWOX7tufp6WpnPsHYZRkT
+	 Cunh/DpSEm6DdtwrU4Ob849lUMNwqVMjXmIMXlVmj5jvorGK7xttPSAFwYI3P8DKtpcmv
+	 mw+ERqpAbH4QnC0QaB2pwmGTJuZPzHLYvdZJHOIAG5Zs62FXVohBysWpoCUnCESPL1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=BJqKcKPQ;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtvJOwGA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D89606A8BB;
-	Fri, 13 Nov 2026 06:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D89606A8BB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55220606A31C;
+	Fri, 13 Nov 2026 07:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=BJqKcKPQ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF69C10E6A8;
-	Fri, 13 Nov 2026 07:44:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794552249;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=tVqWo4cVCxBufMJRq8N/ZAqWxdIZ0UAwob+ppyXcu3U=;
-	b=BJqKcKPQIyZTHht8rnp6/wF4liFZJl+SeRXYchiuCNM0JlAXNdmnQ8QQAwxj1Xl/fh+dfA
-	UVlBqScY20LOgjyzSZltMux4qMdC6oWcMAb48KMaLFR6jlc4nnt4SSuhLJHo75/qhYCiar
-	w24XUFfKEw7tRLbY/dapb6u4EY5yi3j1oGua08eHOAxheFtmAhzzxsCupzsS5jkDebEHup
-	a4oALLWDRN+pOvhgRr/4TUUeg2QcasWfbxXt5jz3K6gHOmz3ISlBS5uHQ5Bt+9PSt0krTi
-	97pE7tLSUHuRHslkfSHhRVgDWKPoUgCFmMkviVzb/JH1kxCejXx331gy8g5YPw==
-Message-ID: <d218212f-191c-47cc-843a-d4587e478fc0@nabladev.com>
-Date: Thu, 12 Nov 2026 18:13:53 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtvJOwGA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74081F000C4;
+	Fri, 13 Nov 2026 07:03:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794553418;
+	bh=VPOK7kX1ObHoz/VqLCSAnjInW4wUgoK0aAhR/RviB0k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WtvJOwGAtzAklSRELG54o32eP8je5vQlr46jXkX8K/GFaTXC+BanjPFO6yH7aKfGb
+	 zZJOLcwJkvF9uvW/AvvEO62MGVmYOwaIc+kcQB/MhislEmKV2NnvNb8qljwsem8YFl
+	 XnKxofXc5lOYIvuqCG6IYlSE410u3Vr7LdIPKuwIuIGQjVugh97xoruTIu8PPh0FWs
+	 yeiKMpUk4MGaA6V1mLBa/KI0ylWPbGzTWMGeLAFhZf6wZUO6D3YSDErkZGA2+rJCFP
+	 PrtWkq7gNwr74yDMl5EvI4fHioVl1+wW0M7qOa8QydwM60JrcBQLagn/SNAxyEuGM/
+	 FqBiIeemfLtww==
+Message-ID: <2cd4da54-1dd2-424d-a9ba-e3e4fdad502e@kernel.org>
+Date: Fri, 13 Nov 2026 08:03:30 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,38 +52,109 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip ATA6563
-To: Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930214729.809649-1-marex@nabladev.com>
- <d8c3ca76-3d93-4abc-8a78-d23e0f018975@nabladev.com>
- <auGdT2kdxwfbB_ol@parshuram>
- <0865fe86-3ea1-4ebd-8ded-642eff159b97@nabladev.com>
- <avXqWxBQBK2lKPMv@parshuram>
+Subject: Re: [PATCH v2 01/10] dt-bindings: ptp: Document the TSCSS on Qualcomm
+ SA8775P and QCS8300 SoCs
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
+ <20261108-tscss-v2-1-d5f575010427@oss.qualcomm.com>
+ <20261109-qualified-pristine-newt-ba1c0c@quoll>
+ <f2b119c7-ba01-46fd-96c4-10b918f98d53@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <avXqWxBQBK2lKPMv@parshuram>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <f2b119c7-ba01-46fd-96c4-10b918f98d53@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/12/26 5:33 PM, Vinod Koul wrote:
-> On 10-11-26, 14:59, Marek Vasut wrote:
->> On 10/28/26 7:59 AM, Vinod Koul wrote:
+On 12/11/2026 10:31, Imran Shaik wrote:
+>>> +allOf:
+>>> +  - if:
+>>> +      properties:
+>>> +        reg-names:
+>>> +          contains:
+>>> +            const: etu
+>>
+>> Reason for same devices with different address space details should be
+>> provided somewhere, preferrably in description. Assuming in the first
+>> place, that this stays because how two devices can be basically
+>> identical (same compatible) if they have different programming
+>> interface?
+>>
 > 
->>>> +CC Vinod, is this patch OK with you ?
->>>
->>> Looks good to me, I will pick this after rc1 (monday)
->> I would like to do a brief reminder here, so this won't get lost, since rc1
->> is now out and I don't see this in dmaengine.git.
+> TSCSS is a single hardware device, split into two sub-blocks - TSC and
+> ETU, each with its own register address. Every SoC with this compatible
+> has both blocks in hardware.
+
+This is not what the binding said.
+
 > 
-> I have picked it up in phy tree...
-Thank you !
+> What changes is whether the vendor/board actually wires up the ETU's
+> external event. The ETU block captures a timestamp from the TSC block
+> when an external event fires one of the ETU slices, which are driven
+> through board-level GPIO/IRQs. If a board doesn't wire any slice,
+> there's nothing in the ETU region for Linux to use.
+
+This is not what the binding said. The binding said there are different
+types of devices, one with etu and one without. Look, easy to spot:
+
++  reg:
++    minItems: 1
++    maxItems: 2
+
+
+Best regards,
+Krzysztof
