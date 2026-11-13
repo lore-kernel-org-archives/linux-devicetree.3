@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585410;
-	b=WNmvMbcWIa6XRm8BIJavRyZbaYJ1h1pAUyHPoVPCh7s6sdnDUwC568JF6L7T9mv4P2jr
-	 KWW5Cbjtc7OvJWYfm9WTxJcdbxodowkCXBV6ig/GK5vDTfwCGrOil9VKseADGwyKICuCM
-	 ldGx45XA3zWPWNfyqCVL5Mz6KZGRKRcuV1qGvB8BgFfbb74bOInESsfqWKsDuxe24o4Ef
-	 LHnw/Ck5kNYZ1a/NWGKSGF5QBsDbqEmsYm5U+ylYRq0afSXf82ja7UBvrm5yG0Ofzhpmt
-	 na9QrMjJfzXmAsyeyuGwlEAFWww+Xh70QK1lvUjFegScH1HJb0OOLzSTnwnITrYy+Rw==
+	t=1794585435;
+	b=V4DMTmHRVjMRPq08wo4hphkRWEIqhUb4hUpakKjxTn57e7MnDftaEYlBeurFarsZAXN0
+	 zzih0YMF9eF8cYMwExgi+h7TtABEfNDM0sJO1uq7UWfKMYPSJWMAaaP8ayQE/+LgyeT6l
+	 Gb0wJQt8AltLlJ5FDa+04eWxoHy7m0Tz4U5lTKRJFc/h3ejKC3q480eEQZscvLvs3fMR1
+	 iVpgyo38WnSes9wJ/2KqkiCTVjWilvzaqWXSOWs6QSdkcCEWQQpXq+M5/X1Ka4PxiKIBC
+	 WlZ9ESJZyeIo4PyhMFNNehJR3AsWlDheRnWw5yU5VQGEt/Pj8VZUEn9A4zXqDVowUHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585410;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=O/C1Sngj/PBuWLi5GwZyVNwyXbkT3sPLrX9t731M1Ys=;
-	b=wKiRTCrrKbRGRxBY90EQ+wJRzpGZI5swLK5Su7/LugY6KIB6E1Yj2SJicZGCdEL7WfYp
-	 zYE/zoZWKUXplnKaEWqjTi8QUZJUoTWdprISaSfQwfs+8dl1NuIfcnlE5y8eOtqgJkNYQ
-	 R1i7HhximyCHmA2a+ifHWh9o/xzlUexMurWVRGXYlnEolH2F/bHATfS0J590DDNB/JL92
-	 aSc7b8webO23aPATwLAfSjxZHQYNjCUw+4x3quO0kzw8P0F6+QhJBL6GCLAEITrrX3ORs
-	 SgknvoloSE3YUaWPkkV7ATxE/vF9PcYLws615cKDO4orrcBEwP5jasuMUrnM5KnFeMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585435;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Zi5M0mJRg4p1dAWm4YTJ7EMr2E+1iUxREBzU5bap0i0=;
+	b=G8qUQSvUhQ0sz2yXc5WtrwhtV1XPAi0/acN8vg67BEUwYfsZjuXoUJ4BgS9McIuqCnRZ
+	 hSkUVJbzRzv7UXtiMG97YSkwDEjq8L8hxTlAp8W5L7ECJZX0H1o+V7AtaCNr+xeRaAdZQ
+	 KBGP2daSS8lEyEvEUVI45h7aZPVWpLtmlFDl1fEvRy/pN0HKJ8fYlvugnk4Z0P0A6z4A7
+	 L2imB+tn15AvLhjHbfwA25ujdHLc+9zBIfG0rmEcs94mlBEXQSv6vNLUoulXDgFpsHLvb
+	 5d0lEe4FS+xkSKBS5U5yFjmf6+zdU1OXXxIwei4Ngl4y4GVR3PyYWMi9H0ILDVxUDzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=cNNssa8C;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F32FD60A3819;
-	Fri, 13 Nov 2026 15:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32FD60A3819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYzRKokd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C1260A5BC7;
+	Fri, 13 Nov 2026 15:57:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=cNNssa8C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=O/C1Sngj/PBuWLi5GwZyVNwyXbkT3sPLrX
-	9t731M1Ys=; b=cNNssa8CY39r2J3WKsey9u/C+wcIeWQjDCvtF5FtcubiJb1Rwf
-	eHVr8TKcMw0OstM8sex3WCB2dLa9Q1gQ9JgScnRRJHLzpdkDaxuJADHlPLuYSr5L
-	IFOwj2XxI6sfYiVksVCCvwMbXUgJCYJhZr5G5dPrKmrUn2t7Q8eXSn6c4=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3rDAzM_dqxQ66AA--.1851S5;
-	Fri, 13 Nov 2026 23:56:42 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH 3/3] arm64: dts: qcom: sm8750: describe the second MDSS block reset
-Date: Fri, 13 Nov 2026 23:56:35 +0800
-Message-ID: <20261113155635.1677541-4-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYzRKokd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E622E1F000C9;
+	Fri, 13 Nov 2026 15:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794585435;
+	bh=Zi5M0mJRg4p1dAWm4YTJ7EMr2E+1iUxREBzU5bap0i0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QYzRKokdAy0SKdI3tHkcUnLg2d5e0Dy3pz1ZIQVdt0oawFgHydT3qbQNSj+XnWsnz
+	 aGPsQLAdL7eJQxkgFJtYcKywI1njTS5Ub+JPXBmOyTFgPZvbEEBOiYvQzxQSGx1mBC
+	 zpKbCF6sopgEMIyIQREAjNMgwCiUtx8HXO9/8LRanb3m492b33ct9forUlp6L+QIx7
+	 f3ZNttCIdZ5hVvDXRV1W+s3cPifDMIhnM8tzcvlY8TlsqUweNi9q53VL+qdq+8WXyl
+	 yuslHhT2FR0cWenBZhnRd4aznkmfGbMtsPvLgQNfNKB8aGneqODkP/F41gkw23h/4x
+	 IkWgXu7b6fFnA==
+Message-ID: <sashiko-outbox-213132@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 10/10] gpio: shared: generalize most code to firmware
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
+References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
+ <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 15:57:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,70 +60,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3rDAzM_dqxQ66AA--.1851S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFy5Zw1DAw48XFyDZFW7CFg_yoW8uw18pa
-	17Ca17Wr1v93WFgw17KrWjg3yrCwn5KryUGFZxK3yUCwsxtFnxXF93KFnagFyUAFs5ua1r
-	WrWagr4IqF1kA3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07j1XdbUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/
 
-The SM8750 display clock controller provides two block resets for the
-MDSS core area: DISP_CC_MDSS_CORE_BCR and DISP_CC_MDSS_CORE_INT2_BCR,
-at 0x8000 and 0xa000.  The second one belongs to a domain that dispcc
-describes with its own GDSC (mdss_int2_gdsc) and its own clock family
-(disp_cc_mdss_mdp1_clk, disp_cc_mdss_ahb1_clk, ...).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] gpio: shared: define __free() fwnode in one statement in
+  scan_property()
+--
 
-Bootloaders hand over with the display hardware still running, so the
-MDSS reset should return the whole group to a known state before any
-display hardware is programmed.  Describe both resets so that the
-array-API change in the previous patch asserts and releases the group
-together.
+commit 78d07ba961e7635e708d83665d68a4604d21cd5c
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-On this board, resetting only DISP_CC_MDSS_CORE_BCR leaves the display
-intermittently broken at cold boot (command DMA timeouts followed by a
-panel init failure, 5 of 9 cold PORs), while asserting the group gave
-15 clean boots out of 15.  That measurement used the three-reset shape
-that also included RSCC; it has not been repeated for this two-reset
-shape, and the second reset has not been isolated as a single variable.
-What is observable is that resetting the group correlates with a working
-display at cold boot.
+gpio: shared: generalize most code to firmware nodes
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This commit converts the device-tree scanning code in gpiolib-shared.c to
+use generic fwnode APIs and guards the remaining OF-specific entry point
+with CONFIG_OF.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index dd738d13df..e8e2832f91 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3071,7 +3071,8 @@ mdss: display-subsystem@ae00000 {
- 				 <&gcc GCC_DISP_HF_AXI_CLK>,
- 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
- 
--			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-+			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>,
-+				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>;
- 
- 			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
--- 
-2.53.0
+> diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+> index 44af3bc1494e4..edd61d16f065f 100644
+> --- a/drivers/gpio/gpiolib-shared.c
+> +++ b/drivers/gpio/gpiolib-shared.c
 
+[ ... ]
+
+> @@ -131,157 +130,159 @@ static int gpio_shared_setup_reset_proxy(struct g=
+pio_shared_entry *entry,
+
+[ ... ]
+
+> +	for (i =3D 0; i < count; i++) {
+> +		struct fwnode_handle *fwnode __free(fwnode_handle) =3D NULL;
+> +		char *con_id __free(kfree) =3D NULL;
+> =20
+> -			ret =3D of_parse_phandle_with_args(curr, prop->name,
+> -							 "#gpio-cells", i,
+> +		ret =3D fwnode_property_get_reference_args(curr, propname,
+> +							 "#gpio-cells", 0, i,
+>  							 &args);
+> -			if (ret)
+> -				continue;
+> +		if (ret)
+> +			continue;
+> =20
+> -			np =3D args.np;
+> +		fwnode =3D args.fwnode;
+
+[Severity: Low]
+This isn't a bug, but fwnode is not used before
+fwnode_property_get_reference_args() succeeds, so it can be defined and
+initialized in a single statement as:
+
+	struct fwnode_handle *fwnode __free(fwnode_handle) =3D args.fwnode;
+
+rather than being initialized to NULL at the top of the loop body and
+assigned later.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-fwnode-for=
+-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com?part=3D10
