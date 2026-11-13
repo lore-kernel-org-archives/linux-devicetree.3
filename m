@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559001;
-	b=0xkJHaGrOilWxVaN+CfLZu+8ZlqEvTLBiVeWFZH5sJ9dR/eZpMyptf5bYVwrDc/fVLmS
-	 x0A4bRJfoUhOFEAsGOKtocWaeO+nR9flC9e9DwKy8LCMzbU516KhdZl2jfFf5Z6+DvNMB
-	 Zp7JNCPGHG7xxcEbNsxizgvwTKuzZwIrAr19WYXpEAjZcIeaYfpTv1j6AcCiKb7wuFnOX
-	 5QMOL00EySHJdQ2inIwOE7lGZ7Nfhl6scyvrVoruekU/1a/11Fgg6DO8vlpxGwu4AvJLZ
-	 ffHTjIRx7l/N1EytkG9PyJuWo9bZelrGzLpEhXWb3OcVMk9vPgohw7JG5tj4jBUY8CA==
+	t=1794559009;
+	b=kMUmbXG6inhejY9+LFkHiyBpMSzk397m9T4hwdiphmFuD388WpHlfAwbsLRfsdCi2Cqt
+	 H37ZBcK+praSC+32OZRsXjBNgad/efcc3jqU2NPsqXhjGIjEX9MWl77OIR+XWEbK262Us
+	 OYIAV/6kVxXlESWBv5104h1VaMx8Fv1FiwrRavusUDNkdiuyipdMGCSCeWa3yfc+a+nuI
+	 x2Hry1VfwwoawqSVAp8rJrO6IDwHdZ9bmW3fg0p0qGIfor25UHIfn/IfdMOboE+0/BNXf
+	 8TDhkYYn0K6EMiqo+1BvDlbjDDCcDiY2a9T6uY9aaAliEP89lIF/eQVoFvp2VR5Ygig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559001;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=E3lHodQg1lTjOF3LmJS9PRbvpb2azBjAi+ojVts58nc=;
-	b=leJAfMmBtZQuSncHH4WbyZIJadAORft9xvuaQNo0yg+trgVyZupm3LVJCWigRsyEy9yF
-	 axrBlulQp5v1aHGVETRSbYUx4X7NsoXrEYjY1Ra2KnGDnj1cqR2Qbt8Ocmf6z9werQRqZ
-	 fiSa8ckwLMGnaN9qHaerEpA3HW5of/hkasCv3VecWro768f8B/gHjZ/mk2Z54522HQGGS
-	 mxoiZiDeoT9b82KIi/3T7jWzngwg9cPhpQa2LlPZ5TKngwursUOwIwClWs8v8B8kbeyca
-	 QgQKPWnZTtJtBtfRXl+ghAYnt1DR64b+ww82upNeC/+SZAgPMR+GIH6SpooiOYElzMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559009;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KWgxyxXEvtqtjO6skRFEPsrCm3T7hnZDrU9HDFggS7E=;
+	b=mz9Q8uxnZ2RfbMBM8ACeIqSFedKFCS3CTB/qouaBNuuaAA4ukmkCzJw4iEbB8CFTkIVH
+	 zQ1nQaWrpSKsbLkBR/XqJASrJcQ1cNcgd9j5I61K6AMSMihIhM2bTfXuVBhrLrrQ+rGnm
+	 YNWp2EHWlT+N0rwWBjXUSsvFuBXYaDAAkOqYHFJTfTlRw4pp5mvmWjJCAOx1EZge65YX7
+	 myOHJfmVM1DRPS9Lr5vov61bgdeD2MHk/vu9d7lVqxlPp/jp+ihy6VJPjUhwBO3TqN1x6
+	 +vW/adRF4gY5L//Fr7wqFebIpGR3uxIK6NE5I8DwvhK0v8QG9Cjk0FP9n5nYobvmAEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=YgTLFPoz;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4208606A890;
-	Fri, 13 Nov 2026 08:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4208606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltM38Frp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1652606A89F
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:36:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=YgTLFPoz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=E3lHodQg1lTjOF3LmJS9PRbvpb2azBjAi+
-	ojVts58nc=; b=YgTLFPozytEYjXcVIhR3ENpkZFqkUJFBz/4TMIsPYTKWC0rIQI
-	gauGpMJCqHujBv+sLjU7K3XShhYKUmVkh1jFnwN+NUeVOs5OlGZSxVMD2vaP2LAH
-	NyhqlDXTvP8hZRYtrMjDFVwF8nLoLVH3qhG18Qcr+PwaUklNnGVoZUa2c=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3g0j_y_Zq+ze4AA--.520S5;
-	Fri, 13 Nov 2026 16:36:21 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	konrad.dybcio@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com,
-	taniya.das@oss.qualcomm.com,
-	andersson@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v4 3/3] arm64: dts: qcom: sm8750: describe all MDSS block resets
-Date: Fri, 13 Nov 2026 16:36:15 +0800
-Message-ID: <8a0c75949fcf428a2163a2e63b27fcf08d3b4f9c.1794558882.git.xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794558882.git.xiaqinghuan@mail.ustc.edu.cn>
-References: <cover.1794558882.git.xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltM38Frp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE421F000C4;
+	Fri, 13 Nov 2026 08:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794559008;
+	bh=KWgxyxXEvtqtjO6skRFEPsrCm3T7hnZDrU9HDFggS7E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ltM38FrpiLV6q1cwHcz8tEIGkTb6z4wqIYyZRcwhEUhskAHwK5HFZqPj/fbthAtXt
+	 zgZw4MwFau0LIgVp7+6VVXAJGX689bdfqq7/W49tpd7NwYcr3cgHPcUkAFB/2uL9bP
+	 2vNBDD1dS+HYs+8QL66D2+DC2wG+gwnpFjtUHORaqO5W/tOmIeoWmrZ7z2tW+A+ktE
+	 hJY7YRsuBrUwgBE0vcPDdDLML91XfdyXAEUiQ67S4nPUpQpE3/PWT54qAkM857/hw3
+	 G8+X4T/bPOpC0H3KSeb1jtgAEM8NDwAsrFARkV2yLr5W4wG62BiEcnI+Baglc1D7L6
+	 gL3tEPvTWZ0fw==
+Message-ID: <sashiko-outbox-212422@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] media: qcom: camss: Add Glymur-specific
+ resources
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261113-glymur_camss-v2-2-b1b76509c744@oss.qualcomm.com>
+References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
+ <20261113-glymur_camss-v2-2-b1b76509c744@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 08:36:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,58 +60,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgD3g0j_y_Zq+ze4AA--.520S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww18CrWUAF4xJryfKry8Krg_yoW8GF4xpF
-	1DCa17Ww1v9a4F9ryjqrWYgw4rG3Z5try5G39xG3yUK3ZxJwnagrn3tFsagFyDCFs7Wan5
-	WrW29FWIqF1kA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l
-	x2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14
-	v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IY
-	x2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z2
-	80aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI
-	43ZEXa7IU1CeHDUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREJB2r0wlk29gAosz
 
-The SM8750 display clock controller provides, beside the MDSS core
-reset, a block reset for the MDSS core INT2 interrupt controller.  The
-MDSS node is an interrupt controller in DT and the DPU takes its IRQ
-from it, so INT2 is part of the same block, not a separate device.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] media: qcom: camss: NULL deref in
+  msm_csiphy_subdev_init_legacy() on Glymur
+- [Low] media: qcom: camss: missing Fixes trailer for commit
+  09d6c30d3fae
+--
 
-Bootloaders hand over with the display block still running, so describe
-both block resets and let the MDSS reset return the whole group to a
-known state before any display hardware is programmed.
+commit 0569a71f44b398cac082b08f3b002bec082fcc8b
+Author: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> media: qcom: camss: Add Glymur-specific resources
+>
+> Glymur has three CSI2 PHYs, while X1E80100 has four. Reusing the X1E80100
+> CSIPHY resources also exposes CSIPHY2, which is not present on Glymur.
+>
+> Add Glymur-specific CSIPHY resources for the three available PHYs while
+> continuing to reuse the common X1E80100 CAMSS resources.
+>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index dd738d13df8..e8e2832f918 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3071,7 +3071,8 @@ mdss: display-subsystem@ae00000 {
- 				 <&gcc GCC_DISP_HF_AXI_CLK>,
- 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
- 
--			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-+			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>,
-+				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>;
- 
- 			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
--- 
-2.53.0
+[Severity: Low]
+This fixes the mapping of qcom,glymur-camss to x1e80100_resources.  Should
+this include:
 
+  Fixes: 09d6c30d3fae ("media: qcom: camss: Add Glymur compatible")
+
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index f8e5cf9f3ff09..f3cab9ecef042 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4103,6 +4103,30 @@ static const struct resources_icc icc_res_sa8775p[=
+] =3D {
+>  	},
+>  };
+> =20
+> +static const struct camss_subdev_resources csiphy_res_glymur[] =3D {
+> +	/* CSIPHY0 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 0,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY1 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 1,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY4 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 4,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +};
+
+[Severity: High]
+Can leaving .csiphy.hw_ops unset in csiphy_res_glymur cause a NULL pointer
+dereference during probe?
+
+camss_detect_legacy_phy() defaults camss->legacy_phy to true and only clears
+it when it finds an endpoint whose remote port parent node is named "phy":
+
+drivers/media/platform/qcom/camss/camss.c:camss_detect_legacy_phy() {
+	camss->legacy_phy =3D true;
+
+	/* Find first remote-endpoint and determine if its a PHY */
+	for_each_endpoint_of_node(camss->dev->of_node, ep) {
+		remote =3D of_graph_get_remote_port_parent(ep);
+		if (!remote)
+			continue;
+
+		camss->legacy_phy =3D !of_node_name_eq(remote, "phy");
+		of_node_put(remote);
+		of_node_put(ep);
+		break;
+	}
+}
+
+Because endpoint and remote-endpoint are optional in the binding (for
+example, when no camera is connected or only the internal test pattern
+generators are used), camss->legacy_phy stays true when no remote endpoint
+is present.  camss_init_subdevices() then calls
+msm_csiphy_subdev_init_legacy(), which unconditionally calls
+csiphy->res->hw_ops->init(csiphy).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-glymur_cam=
+ss-v2-0-b1b76509c744@oss.qualcomm.com?part=3D2
