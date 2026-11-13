@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576383;
-	b=J8uxC8Z48ZqDVcCKVIuKtB5SnHZwc93pGmcT70T49FZdZEjYLDVRyTa9Zml89zpN/nbK
-	 f9qPMvHCqj5TEEVaZdwHSa9/j1bXkBeSj0J3b/xKTUMNOdyQXZXRvZhT9wIM22NEVTTAy
-	 eROkViDOKWAGCH27CT6HDep1IF+jp+r+HCbvLRZ/Rc0mxoxHjBUcC+FAKdfYjoks1wAFr
-	 dT/Kv0gjUie/1/FB7Dlti+S3oVf6VsEY3Ll5xMLsHrLXQvoCSiT2oLGceKhFbULuzZNzc
-	 6cjVRbZotwN5sg5bqSKXram+/IPP+j/LU92Q9OKcmuLAr4OYnx1grhGiVzz0Te0Ygqg==
+	t=1794576429;
+	b=12HvBWnzuYkpyWfHngkMqBXHMMgtF7TaAqmUUKM/T1hcn6/Uwm/BSrq9sbUIXvZqGhZX
+	 8f3PECwPzVAPxl7a1CHyl/9kTVntAdTYfHXQQwU+6xWdWLpINzq/olDyZZ0eMca16S2W7
+	 77b4Kh/X5UyVQ2kswAgA+0W+DJM9FBWYh4QPG6bs8bMY/ymNwZvFVX6fDmSuTBfBJkciY
+	 Wcac47rKuB0g2GDy0uDBJUNSHFJD7L1b//mpIp5o9SEG9Jsf01TjBKOYyeu/GE6D4yPhb
+	 Q9U0oSMXVYnjG22O+w/lhRICwZ2Pq/ABSPqbODP0ZExHQRCvefe7YP4Rju6lTQut1WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576383;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5xeesjWW0xx1pfgpddwdJLj2UCXbZEi1XEEa2PcM+AQ=;
-	b=xV9fRFEdxHxbRBF/kVF1e9GiczLPEOpQ2ygglxqbrAgreuy2oeIElwu1bixr+RolEdVf
-	 lw5DQV08XDQ4RCm6XRZGp5JacY6eRLoz4gEZjByYfw8sZEDFfGipX7PB5FFWe7GttYFGP
-	 kiO6CEr3aXQWzdW1JfTicgnLYDND1Kv40F8Rdc0sZK9Oo4AjAjCMm5CV/ar0T7BDTNSuX
-	 lbAq8U60E3E2kHUaQ7Edlb0neSo2ViaFZyesnzkiVvO/rDioWgyS1l5CaRu9mY/1qkP2v
-	 C2xo6le9yIioVyritnzEMIo0nCFNGkb5X/DW5sH8kCDTzSrfwrjswdwzAHgrBUJDvKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+	b=bf06cwP1Eh67xnfN0F79ATXoI0ybnLRQDXLeGJqWR2qDtwFoNY09fWhVwCIk8xfFInx4
+	 dSRssWpseo0FnVSqppGko/fJr2gPoSya+RttykoTrkgICJS1cZchzBB28Hp3mQI/IFuwE
+	 kjPimRckvJd07flBU2OhBe9XX26/ta57HPjKyMNl5hiJugX0Z2RlOrNYM+bb1zU/uteYd
+	 PNmT0c0leaI1BPF3t0djxO5GD0bSJGTNeVCM6CQc9KpJvTGW08+umlXTcf6jOTdJldoQu
+	 W6DowzZIz9aDyDdn2lpmEq4PP9gZvofut5TYYgQiUT16xMS5pRow9Tl0i3SRsZmCWGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzZj1DYh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=F1yZ87jM;
+	arc=none smtp.remote-ip=74.125.228.69
+Received: from mail-ed2-f5.google.com (mail-ed2-f5.google.com [74.125.228.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31C1606BC1E;
-	Fri, 13 Nov 2026 13:26:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF120606ABA7
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:27:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF120606ABA7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzZj1DYh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33DAF1F000C4;
-	Fri, 13 Nov 2026 13:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794576382;
-	bh=5xeesjWW0xx1pfgpddwdJLj2UCXbZEi1XEEa2PcM+AQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FzZj1DYh71V6ezJfhwIpA3JH1GoqKL1jgyEz58/ttx5kJvxL7d4PrY7F6IIPy09e9
-	 Ml7ncnakOW9BpWZFRZHGpDnkmw0hI1iIqul4c0wS1B0Cz+b0tNtheJ/4CArP1358Be
-	 6zRuPDgF9HAGtYWYaRkVIlcjXTObbU2jPu59Hrjj6RukExZ76kBKHvQPxS9qYwe5Qv
-	 kmqN1B+3uafi8URrex8UMlHnpoLHNtGmyAMQA2CuH9gs7XsPTfuq6WahWLXWo+oqiv
-	 1c7yzAquUZs737LZ4o23gasm+sZbVolRFrNLBjGay0Z/PlJaT1IZIsEgWqIeB9JoFV
-	 /C9VFF00HYiLQ==
-Message-ID: <sashiko-outbox-212859@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/7] string: Warn if the prefix is the empty string
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alejandro Colomar" <alx@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
-References: <cover.1794574496.git.alx@kernel.org>
- <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 13:26:21 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=F1yZ87jM
+Received: by mail-ed2-f5.google.com with SMTP id 4fb4d7f45d1cf-6b76ad6eeebso627253a12.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:27:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794576427; x=1795181227; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+        b=F1yZ87jMnXnJnLHZNPOxMjDFrraMurLQnwrX1PMENdMZOVISppTaVGBEAtXvSg6sOz
+         i9eAuh6Cgy71jZrixdwAxgT137uU60LKBjJZoecYrDmBY17aqhX0CQK53z3/DFHzp3OS
+         HO8pY1ChVVmzaURKpqR/0uDaIqzBpuWsL7pNlWQv+WWGPTGnGiWVhc+sH9t3ocCdIsk/
+         1gaPJkUFZkhMnE29cSX/5rSBAPg25LLQMAhR455VagPty+KLpeKraqzH7YhZa0gufVVd
+         L0RdUdI/LMnKL55WBR+7ihZnx6jRxbWPHl6iZ6QPdbO9T4NB5waWuYKHll7qFbYZnn1L
+         5Tfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794576427; x=1795181227;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Atj6jnrbUqpZucEFnxb09HLiMALd8o8ADyX9dmDAwn8=;
+        b=ZLBAyQX55yCpTjaD+GBSF7VjLR46w2HY/TpedZ4RNJeLHZCdg7AiSxn4emZ+robt2m
+         CzchSiN1RikA/Ak/ZvePZdJ5YcCdoCPMXbrraSX+h9b3Lnt1xFaBth2HoIQXQeN6CCGS
+         feVqfcWqZGucy1PVG7E4xaQGH2UBkRfbRMqm4erNaChCGEBT5uQN6Nvgve3WmasZ9Eg9
+         mIQiYxA7IlyCL0gxrsB6WGNCVO+pxpMzOYDOyyoE54xtoKllc39QTltCKPA7MhnoZCi2
+         D+2tqDSjn8TIw1U1TiZv8doan1xb/tWWdpbJJkXxPRCwNW8IQJV8gAwzD3TffGKQpvCP
+         7R+g==
+X-Forwarded-Encrypted: i=1; AL+hErHKINqC5TX0zMLmgEx5u4wNNiXy7q5AR+c4afHtzuZhUYQnQvDZU53RyyKfwfi2Pv3hC1fMRJjVIaEN@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NabrTfx8tVHrQUWUx1B2VhOF0aG6H5xM1MRkEHGHfgzvlcNoM
+	E3Kp2meI75ZTAxEA9SNnCJTA8fXk7qAARzpUGiJWDzvluxJT9s1NcO7gGiG8CkrE2t0=
+X-Gm-Gg: AYBFou162f35ouxqct3YZVGz7Von4y2X0yE7P+W4usdGxPPfEOFtwJZ53Au0suWXwIi
+	0xFLNRis1ZoR0Sal5ZRJZ5IMqkdg04JI+IVJ5dQe4FhQd/yScJB9nBlHF7TiQ8JBcG+XErrt3M7
+	I05Zs9AombId4ElG3t7yTWIHxqYXOunA5hIZDJfLW/YaB6s3/8XQ0s/iXsXFmamkiXbUAAfvfvK
+	2Z70refBJDaDKcC2xefeABlVkerMiPX34IL7haDM83loIbwYbrjZV0RWTH9s10uCjI/J+x7XeZR
+	1K+zNeyEAsr9O0FYNRn77h4f53o/YoYAiDI5BSM7pRuW3vwZXwaRptvQj8FzZDvAdLPghVN2fWn
+	MfKEvLhfePX/9y0tHYxdeGESX7S7Pvh6GMxQfhyZoQN/tPUByVYigm5VbeeHpKSDMLYNMeYx8oH
+	uU1QogVvQcor12C+IzEvyDOiuZZDLRcw5t390X8V/CznNWB0wqDw8R/Hy687AEcfGMA9S8+uz/v
+	XIFFKV3CDtQFRTogeZ+Nfo9hsWwQR0VquX5l3E45/WGAL29AhVlNaeSi23ppfg31CiwWL2NRgCO
+	xsjnBw57hnwevXc7p9z7DQaMQqTyp8JHgp3Fm8VRwiKqJE+YxlExNYlceMZwQIkEZJPW8CJ9vw=
+	=
+X-Received: by 2002:a05:6402:280e:b0:6b6:f22a:8def with SMTP id 4fb4d7f45d1cf-6b7c0ccec63mr2358666a12.34.1794576426950;
+        Fri, 13 Nov 2026 05:27:06 -0800 (PST)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c1e49be0sm968246a12.0.2026.11.13.05.27.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 05:27:03 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,93 +88,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 14:27:01 +0100
+Message-Id: <DMU48Z0SWPHQ.1HRZYE04S91HX@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Val Packett" <val@packett.cool>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Abel Vesa"
+ <abelvesa@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Wire up
+ PM6150L LCDB
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261113-lcdb-enablement-v1-0-1dc40b49ed82@fairphone.com>
+ <20261113-lcdb-enablement-v1-4-1dc40b49ed82@fairphone.com>
+ <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
+ <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
+In-Reply-To: <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] string: moving str_has_prefix() to lib/string.c bypasses
-  FORTIFY_SOURCE
-- [Low] string: commit message cites non-existent lib/string.h and omits
-  function name
---
-
-commit 018109c1aa9a2d5e3def240ae4b9134b27f492d5
-Author: Alejandro Colomar <alx@kernel.org>
-
-> string: Warn if the prefix is the empty string
+On Fri Nov 13, 2026 at 2:09 PM CET, Val Packett wrote:
 >
-> This corner case is mishandled by this function.
-> Warn if it happens.  Also, document that if such corner case
-> is needed, strprefix() is preferable.
+> On 11/13/26 9:59 AM, Luca Weiss wrote:
+>> On Fri Nov 13, 2026 at 9:16 AM CET, Luca Weiss wrote:
+>>> Since Linux has gained LCDB support now, wire up the LCDB regulators so
+>>> we can turn them off and on as desired.
+>> Actually after some more testing with extra patches, it seems that on
+>> FP4 the touchscreen stays dead after toggling the lcdb regulator, while
+>> on FP3 it works perfectly fine.
+>>
+>> So please ignore this specific patch for now, I will figure out what the
+>> problem is and re-submit. All the other patches in the series are still
+>> good to go in!
 >
-> We need to move str_has_prefix() to "lib/string.h" to be able to use
-> WARN_ON_ONCE().
->
-> Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-pr=
-op-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> Your touchscreen needs to be a drm panel follower and/or reference the=20
+> same supplies as well :) Most modern touch controllers are part of the=20
+> same physical DDIC as the actual display side
 
-[Severity: Low]
-This isn't a bug, but the commit message says str_has_prefix() is moved to
-"lib/string.h", which does not exist; the patch moves it to lib/string.c.
-Also, neither the subject line nor the opening sentence names
-str_has_prefix().
+Yep, I assumed the same. Probably need to resend the init sequence [0]
+after power cycle, when the panel is back on again, to get everything
+running again.
 
-[ ... ]
+[0] https://lore.kernel.org/linux-arm-msm/20260821-fp4-hx83112a-v1-2-474941=
+bd8860@fairphone.com/ hx83112a_init()
 
-> diff --git a/lib/string.c b/lib/string.c
-> index a3778d5aab4af..61a1e79c1b875 100644
-> --- a/lib/string.c
-> +++ b/lib/string.c
-> @@ -774,6 +774,30 @@ char *strnstr(const char *s1, const char *s2, size_t=
- len)
->  EXPORT_SYMBOL(strnstr);
->  #endif
-> =20
-> +/**
-> + * str_has_prefix - Test if a string has a given prefix
-> + * @str: The string to test
-> + * @prefix: The string to see if @str starts with
-> + *
-> + * This is similar to strprefix(), but returns an offset instead of
-> + * a pointer.
-> + *
-> + * Unlike for strprefix(), if the prefix is an empty string, the
-> + * behavior is undefined.  If you need to support arbitrary prefixes,
-> + * use strprefix().
-> + *
-> + * Returns:
-> + * * strlen(@prefix) if @str starts with @prefix
-> + * * 0 if @str does not start with @prefix
-> + */
-> +size_t str_has_prefix(const char *str, const char *prefix)
-> +{
-> +	size_t len =3D strlen(prefix);
-> +	WARN_ON_ONCE(len =3D=3D 0);
-> +	return strncmp(str, prefix, len) =3D=3D 0 ? len : 0;
-> +}
-> +EXPORT_SYMBOL(str_has_prefix);
+Fairphone 3 should be a similar setup (FP3: hx83112b, FP4: hx83112a) but
+apparently the hx83112b doesn't need any sort of init to start sending
+touch inputs compared to hx83112a.
 
-[Severity: Low]
-Does moving str_has_prefix() out-of-line into lib/string.c bypass
-CONFIG_FORTIFY_SOURCE and prevent compile-time constant folding of
-strlen(prefix)?
-
-lib/string.c is built with __NO_FORTIFY and its top-of-file comment notes
-that it is reserved for routines that have architecture-specific
-alternatives in <asm/string.h> or get overloaded by FORTIFY_SOURCE, while
-other helpers belong in lib/string_helpers.c.
-
-When str_has_prefix() was a static __always_inline helper in
-include/linux/string.h (introduced in 72921427d46b ("string.h: Add
-str_has_prefix() helper function")), strlen(prefix) folded string-literal
-prefixes into constants at compile time and ran fortified bounds checks on
-non-constant arrays.  Moving it to lib/string.c forces an out-of-line call
-and an unfortified runtime strlen() scan on every invocation, and shares a
-single WARN_ON_ONCE() state across all callers in the kernel.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794574496.gi=
-t.alx@kernel.org?part=3D2
+Regards
+Luca
