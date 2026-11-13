@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554050;
-	b=k8jv5szc3U/Mk5fBOjTkYj/EGf2qHTJSZ2kBCgqKxJINuxo2nidC+5aiBrpc0SjIC8GR
-	 xILQJzWvlVEGYuGjPIa6K01acw3404aug5YcuQ02t1GYqSB+SN4JnQR0Ai8v5ng7h0hyN
-	 ftl3HBAAEG/jLBS897hg4wpdH6l4LILe/MTcTPZRePz82hjXI+G6PAwsQ/KM5bvVekT9X
-	 FmR1pmjiWMdCsRE+FuOTj77NrMXw5u5N46dry1FXR9Qg8OI/F3zOOLWVktabrOuI9NuyN
-	 D1CPyNC9umruW8uREIb1SK2VwSjG5KUCGX0dlFLeZ0gylR9e30uXPAE9aA9P3vJWDjQ==
+	t=1794554053;
+	b=Gb7vJkhYlj/aOQSJ4gh28YD34UvPfD60gGbpciQt9j7t2LoyJmsF9R/7z+lJqpCxpHIm
+	 VBmQZsMrXPCVNSclPYOHxSwlRmxaHLUFHjRt9DhmR3MAWoYthNvehIs1yDNijaJVlAkrK
+	 4R3U3Eipc9CF5mFJoWaXRNoSx0Ei0528KTilKsKR9aVHDLRdKCppRlEdNT7tZJEkEf8tp
+	 aBXoDOD0//UhE9Zwu+OQ3VK3MaiQytsy+S7hKw6ZfT1T8v+hdLs72umwMTF7w7mPmmVBv
+	 4TlqqL1NJwV7Nhk+LL19aWUVHu2W6L1H5lGjDGLlRWsTFQw2igFdJr7pkxKBQIVQ1Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554053;
 	h=DMARC-Filter:Received:Received:Received:From:To:CC:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy:X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=Rd674VG7vU4AymhieKIv4CiDG6Cia8Dd41xAqDE8Nyc=;
-	b=erqGSCCmyhn3Q2QA89IcexkHbDpBiQZkgluX86wECD7no7L3htjRcdVXqJbozBsB+uic
-	 db7N1RY6KtPRxFPnNM4GjPv32rHeDRSDUpwCMJRut8+qECUKj8ZJIsIp972w/JLRbT0fH
-	 eSsJEGHephSTSFzgeob61WsLFHZuHFIRsWJ5oW0NdjeZXojXo0VRDHZFw7kPMCquDfluX
-	 WJf7BLVLdZnEtzGikcC/uCXmW2GvuwxpwZAu3fB8TesA3xzccugFjgoulikqdG4EpeEwD
-	 OAhtEz9BbVIHkrXHbofhSBNzEx2U1psmneQZfveBNwmgKYKQNstpMUfkcSTJGsrSDug==
+	bh=ITK++NC16JX4olq7PrhKzbIXfbalItLkFwYZjbNjD5o=;
+	b=Vmt6134ZuemYHA61vR+y5jEM5WyOMEkSF93YDCgOsXcJbHfmD+0qqN4KOyHKd/SuHQMv
+	 s20TMBLbFcji/a/ivHwZu03k598iyPlcLWF/+Cf26Ocu3JBd6iklUuvTCR40P/D0UI8qw
+	 0nxjMpTMToPr+a+Ahc6NtACOWkcgfU30Oi8uxN8EVQlt3b8Im0wB7BsJcws2sISssVOKC
+	 hF43Arzk9h5s+gXk+NQLlXIWZUCVB89R8lf6w0mMImVbIJJjyP1luxVZY1tdquTmQ6uqf
+	 vquM4Y5kl1pqv5oEa6tcQh2whYx2FhUlnpFZ9SzBomHYSFWFYct5QdbAYYAeAu3Fdhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=andestech.com;
 	spf=pass smtp.mailfrom=andestech.com;
@@ -26,24 +26,24 @@ Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28DC606EE2D;
-	Fri, 13 Nov 2026 07:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E28DC606EE2D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953C260A2611;
+	Fri, 13 Nov 2026 07:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 953C260A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
 Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
-	by Atcsqr.andestech.com with ESMTPS id 6AD7CU7G059150
+	by Atcsqr.andestech.com with ESMTPS id 6AD7CTvT059148
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 13 Nov 2026 15:12:30 +0800 (+08)
+	Fri, 13 Nov 2026 15:12:29 +0800 (+08)
 	(envelope-from minachou@andestech.com)
 Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
  (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 13 Nov
- 2026 15:12:30 +0800
+ 2026 15:12:29 +0800
 Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
  (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Nov
- 2026 15:12:29 +0800
+ 2026 15:12:28 +0800
 From: Mina Hui-Min Chou <minachou@andestech.com>
 To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
         <alex@ghiti.fr>, <conor@kernel.org>, <jic23@kernel.org>,
@@ -54,9 +54,9 @@ To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
         <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <randolph@andestech.com>, <cyyang772@andestech.com>,
         <tim609@andestech.com>, <minachou@andestech.com>, <az70021@gmail.com>
-Subject: [PATCH v2 16/19] riscv: errata: andes: allow ERRATA_ANDES_CMO on all Andes SoCs
-Date: Fri, 13 Nov 2026 15:11:40 +0800
-Message-ID: <20261113071143.1446167-17-minachou@andestech.com>
+Subject: [PATCH v2 10/19] cache: andes_llcache: register cache ops only when the errata needs them
+Date: Fri, 13 Nov 2026 15:11:34 +0800
+Message-ID: <20261113071143.1446167-11-minachou@andestech.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261113071143.1446167-1-minachou@andestech.com>
 References: <20261113071143.1446167-1-minachou@andestech.com>
@@ -76,43 +76,67 @@ X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
 X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AD7CU7G059150
+X-MAIL:Atcsqr.andestech.com 6AD7CTvT059148
 
-ERRATA_ANDES_CMO depends on ARCH_R9A07G043, so it can only be enabled
-for the Renesas RZ/Five, although other Andes SoCs such as those built
-on the A27L2 need it too. Drop the dependency, and select
-ANDES_LLCACHE and CACHEMAINT_FOR_DMA so that the errata always comes
-with its cache driver, which ARCH_R9A07G043 used to guarantee.
+The driver registers its CCTL-based cache ops whenever
+riscv_cbom_block_size is non-zero. On Andes cores with Zicbom, it holds
+the Zicbom block size, so the CCTL ops would override the standard
+Zicbom CMO.
 
-As ERRATA_ANDES_CMO is default y, it is now also enabled in the generic
-riscv defconfig. The errata only acts on Andes cores at boot, so other
-platforms are not affected.
+Only register them when riscv_cbom_block_size is 1, the value the Andes
+errata sets when the core needs CCTL-based cache maintenance.
 
-RZ/Five still gets uncached memory for coherent DMA allocations from the
-DMA_GLOBAL_POOL that ARCH_R9A07G043 selects. This patch only covers
-cache maintenance for streaming DMA; how other platforms provide uncached
-memory stays platform specific.
+Do this check before looking up the LLC node, so the driver does
+nothing on platforms that do not need it. Once the errata has asked for
+the CCTL ops, the LLC node is required to provide them, so report a
+missing node with an error instead of failing silently.
 
 Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
 ---
- arch/riscv/Kconfig.errata | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/cache/andes_llcache.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
-index 4f77b3c6d7fd..3c43e065aa01 100644
---- a/arch/riscv/Kconfig.errata
-+++ b/arch/riscv/Kconfig.errata
-@@ -12,7 +12,9 @@ config ERRATA_ANDES
+diff --git a/drivers/cache/andes_llcache.c b/drivers/cache/andes_llcache.c
+index bf49dbcb080b..80c55616ab10 100644
+--- a/drivers/cache/andes_llcache.c
++++ b/drivers/cache/andes_llcache.c
+@@ -176,25 +176,25 @@ static int __init andes_cache_init(void)
+ 	struct resource res;
+ 	int ret;
  
- config ERRATA_ANDES_CMO
- 	bool "Apply Andes cache management errata"
--	depends on ERRATA_ANDES && ARCH_R9A07G043
-+	depends on ERRATA_ANDES
-+	select ANDES_LLCACHE
-+	select CACHEMAINT_FOR_DMA
- 	select RISCV_DMA_NONCOHERENT
- 	default y
- 	help
++	/*
++	 * The Andes errata sets riscv_cbom_block_size to 1 only when the
++	 * core needs CCTL-based cache maintenance. Otherwise this driver is
++	 * not needed, so return without probing it any further.
++	 */
++	if (riscv_cbom_block_size != 1)
++		return 0;
++
+ 	struct device_node *np __free(device_node) =
+ 		of_find_matching_node(NULL, andes_cache_ids);
+-	if (!of_device_is_available(np))
++	if (!of_device_is_available(np)) {
++		pr_err("No Andes LLC node found, cache ops not registered\n");
+ 		return -ENODEV;
++	}
+ 
+ 	ret = of_address_to_resource(np, 0, &res);
+ 	if (ret)
+ 		return ret;
+ 
+-	/*
+-	 * If IOCP is present on the Andes core riscv_cbom_block_size
+-	 * will be 0 for sure, so we can definitely rely on it. If
+-	 * riscv_cbom_block_size = 0 we don't need to handle CMO using SW any
+-	 * more so we just return success here and only if its being set we
+-	 * continue further in the probe path.
+-	 */
+-	if (!riscv_cbom_block_size)
+-		return 0;
+-
+ 	andes_priv.llc_base = ioremap(res.start, resource_size(&res));
+ 	if (!andes_priv.llc_base)
+ 		return -ENOMEM;
 -- 
 2.34.1
 
