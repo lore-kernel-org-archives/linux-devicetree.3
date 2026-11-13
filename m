@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794576308;
-	b=r08/eXsaH0ykRa28K9o4Wbrdp7yUcTtyfd7cduAXAEdb8o4QRu0ECmsomDo+mbU+en6R
-	 vU+F8b6aPpkir9X20koiv17mRwIJU93agQZJni4F+4IJhXzosMh9YKuVlR58wXSODY7WP
-	 UbUEgHOaz4By6Kqc24UylfSrTYTpqm76Urbsanv7oKxzfqmogqmzkGLfFYVjEWT8N0Cie
-	 LHZiiwMY+L27WYjPGWlS3vJ+2aN72gJSLdjlsjsQfo2DQD11E0PPZHK3db13U+tDvF482
-	 8QoOd3amy4IgJzHhMuJeWeiCcJRJi1Tp+GoR7WAroQMpY4TDOtN6EpYaq0qout3bI+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-	b=puAXWVoMDVBRTFZ2BAJhqEx76OYaeUULYLJ9548emSz96fEwjBf/CPJB2hphcol54mwP
-	 Bfi+HBNVAyEi6WrauijNC2fcBxJgaojRnNKz1gE4FnaksNSVKSCffRMdlizVcXIt6d/43
-	 iok1ZwG7ClyIlYr2llA3bD536Pki1tFFNBgVEbhPe6xZbLb2q4fJNIXbwPAQl0X+9IydN
-	 nuQSCmhwH202wIUvOXC5e6hVhiq3jzMO6RQnxugUZJcZuTntsWlwDcidEsMh+4f7IaL39
-	 JTdhvlNzJyXlK3jlYNHxnjm0sIbigmIZmQqLAAXwCg6bj8xOa9pZdnQ0HxJ+MA7Futw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zPfUO5Uv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794576383;
+	b=J8uxC8Z48ZqDVcCKVIuKtB5SnHZwc93pGmcT70T49FZdZEjYLDVRyTa9Zml89zpN/nbK
+	 f9qPMvHCqj5TEEVaZdwHSa9/j1bXkBeSj0J3b/xKTUMNOdyQXZXRvZhT9wIM22NEVTTAy
+	 eROkViDOKWAGCH27CT6HDep1IF+jp+r+HCbvLRZ/Rc0mxoxHjBUcC+FAKdfYjoks1wAFr
+	 dT/Kv0gjUie/1/FB7Dlti+S3oVf6VsEY3Ll5xMLsHrLXQvoCSiT2oLGceKhFbULuzZNzc
+	 6cjVRbZotwN5sg5bqSKXram+/IPP+j/LU92Q9OKcmuLAr4OYnx1grhGiVzz0Te0Ygqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576383;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5xeesjWW0xx1pfgpddwdJLj2UCXbZEi1XEEa2PcM+AQ=;
+	b=xV9fRFEdxHxbRBF/kVF1e9GiczLPEOpQ2ygglxqbrAgreuy2oeIElwu1bixr+RolEdVf
+	 lw5DQV08XDQ4RCm6XRZGp5JacY6eRLoz4gEZjByYfw8sZEDFfGipX7PB5FFWe7GttYFGP
+	 kiO6CEr3aXQWzdW1JfTicgnLYDND1Kv40F8Rdc0sZK9Oo4AjAjCMm5CV/ar0T7BDTNSuX
+	 lbAq8U60E3E2kHUaQ7Edlb0neSo2ViaFZyesnzkiVvO/rDioWgyS1l5CaRu9mY/1qkP2v
+	 C2xo6le9yIioVyritnzEMIo0nCFNGkb5X/DW5sH8kCDTzSrfwrjswdwzAHgrBUJDvKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzZj1DYh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76316606B57B
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76316606B57B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31C1606BC1E;
+	Fri, 13 Nov 2026 13:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zPfUO5Uv
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1189601a12.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 05:25:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794576308; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hVqF0BFQoVmpbQeLom9WfsXzDO98h/8ZmoV+pjls/l28P84UhXIVg6tccD3qSocAy4
-         oUHvrE3mdldRv+COkxCHy2/KQ+BjvvKAl4CUmCAH7shNEugM1+q6zGCHZfdQ1iPq3w0a
-         e//CvpVT5Yf6ywI9p1cMdptysm7hMyeHYo6QyfEhWOinPScYIyIjRncJXwu9rnU5fVHB
-         VFQHU9ZhYhyD1T59EsVCZ1/c2QGmmzcuVWPgek8JwBufO3ziZAXDCsqVoqXsVBqM7j98
-         EkCEclfQKuhaODGi7XiKEgEMstfdBzdNqstxREB5/xrL8FA+cHTAlU2aAKRO5JoOl3G7
-         Z31Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        fh=Du+zNQJRXxm+OQoksmbMj1a0h7H3X2aJTw4pEjBmOyw=;
-        b=lcHpONAN5TyVou8x79KR/bSZPAxk/Z8BBHVwMKDzpJbtXg658M9lkHJCnOB4C19Ab7
-         QWYOqJIbctZDaetImENh28JLSctYYhotGI4xJFkCEzWLbFwdKqtJgrvnEFcIH/Hxdc+3
-         Y7TM/TJV5y9WNlN0uQhFuMPoqXVuXv9HNDmQsnvktNkp6ayZB1XPb8ipDtdM2me7MeWu
-         8J5UatUJ4AqB2njy7sIgCMrrVCZHZGgkxjQGM7aoJXkpzwjJjiQE5qyGgNZV9/3Z+Q39
-         ghqfFcHwsWO6NrqOaqM6/Zc6pcj+7y+E/gL88Z3HVCrn5CODz2dc5lSIwyRlcqVFh4qu
-         wsDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794576308; x=1795181108; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        b=zPfUO5UvqcBR2FNacPMuUTq26YY2GRrlBt33eHQz1ImceJ4LHszUfOGyIjlhgGMDFt
-         61Dg6G//C3CGsNm8Jwa9C5sjLsY9gCBJi5jtHBTSMTuKLsRD7igxfV/F7lUJB5JLMbg+
-         RcFGqK2A685ZGpZtAjqSMiWTf3S9VTCBJ/b/Mek61mqMh7gz8piorIiTUC7EBdlDlTqk
-         gXt9p4RrIUpyleZxfwzjxNOL7B4jOj5ufcISHVmIifrTZ9SrSI+r8NoPs9re0uabg25m
-         7xpt8j3uzsTU7fNSm1OPj0u1UacP5ZxKXh00fPThuzwyvfsLCQcSKVJ8n7EO4HMM4yxi
-         QIYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794576308; x=1795181108;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        b=MspgHXlXr1C+jC/UVvR21/XimLJeREpVN6D1VNaEJTKg5GgZ3IGWtXNhAo01PUn7rF
-         Ax+J5rpo5NcieH9gramons3WS5wGIK3q7+oRZM+0qI51aLcIJoyTNq3ibCKgKswGgMBC
-         x99jyzl6Z2QDmjDXtjFyPxa5RNX9p3+bgEWCxZoN/64ant64XKJrgAfYgzYoV0XRpLJz
-         BqBjMGKmMQaf9jQqqzIMTWrMFtlYZy8VnkWfOZ3x8sANbb9tO5tKWhbAgBmWERZ4jdYG
-         8066vuGX3ZOURC+hErQBJGgsCjVOyMVOBoHQxwaRWZIy2YwYWO2YG86QAEldGFQzOhO3
-         pzXg==
-X-Forwarded-Encrypted: i=1; AL+hErFLyJYUggQ25Kxa4XWt5OYfl8GbEVwyYOh3n+MkFdmTk1XhwAnOB4flnKlghWAFmHLtlp7lv2df4taz@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FKvYfV2C1xuJlbOr7fDYXTFAa8VBpOPUq1uCt6wWug0Tq9jZw
-	i7PRWyyGhoZsMpAHc58kpg7gemEMYf1PQ75EfD+bIwPlF+YDAf+XZTf8yVXNlSL0syuiSmhek9a
-	1pwBoHOvfY3e3wG5cFN/EnSFjIsm57g==
-X-Gm-Gg: AYBFou3Y0K13HR+O2XfrjDIaICto8iw90rciJEiQiWINWsXThzcs20y3sCZ4zOmFqJi
-	SGwijhhEWrgB1W1niGSIai2wMc9PPPW11YotFrsKavOweiAHK/ZPWeqvF6yGcqAOHrIpuAuWX3d
-	Flk1JusOUs1YG3zBgDcCOo8Zd5a1IshRh/wlCoTEzEiDHPkrTXOrVBZ+WFQVmVlu/mReuETgWhb
-	L6T2SfmJ3fGvqc7Wd9qlwWnaKy03HWAnJ7xZaCqrfEyeFv3dZufciQvAtLqhcDHxTILfzqNI1ud
-	aim6OPhKpvYh+oAHyi5t4ZK/pQC3D8SYcrftyqjcF93OEF2LA/7p07fGMBxqKLS3OX4FGNa37EB
-	pAe50vckFZcrK6swQx1OSzzDQTePeR7xhXT7l
-X-Received: by 2002:a17:902:f60b:b0:2e9:5c29:995e with SMTP id
- d9443c01a7336-2ee0dc2bdb6mr25549575ad.41.1794576307662; Fri, 13 Nov 2026
- 05:25:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzZj1DYh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33DAF1F000C4;
+	Fri, 13 Nov 2026 13:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794576382;
+	bh=5xeesjWW0xx1pfgpddwdJLj2UCXbZEi1XEEa2PcM+AQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FzZj1DYh71V6ezJfhwIpA3JH1GoqKL1jgyEz58/ttx5kJvxL7d4PrY7F6IIPy09e9
+	 Ml7ncnakOW9BpWZFRZHGpDnkmw0hI1iIqul4c0wS1B0Cz+b0tNtheJ/4CArP1358Be
+	 6zRuPDgF9HAGtYWYaRkVIlcjXTObbU2jPu59Hrjj6RukExZ76kBKHvQPxS9qYwe5Qv
+	 kmqN1B+3uafi8URrex8UMlHnpoLHNtGmyAMQA2CuH9gs7XsPTfuq6WahWLXWo+oqiv
+	 1c7yzAquUZs737LZ4o23gasm+sZbVolRFrNLBjGay0Z/PlJaT1IZIsEgWqIeB9JoFV
+	 /C9VFF00HYiLQ==
+Message-ID: <sashiko-outbox-212859@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/7] string: Warn if the prefix is the empty string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alejandro Colomar" <alx@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
+References: <cover.1794574496.git.alx@kernel.org>
+ <df3a35c469c60c2c9658d66b30e67468ba053863.1794574496.git.alx@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 13:26:21 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,28 +59,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>
- <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com> <20261113-fuzzy-awesome-shellfish-2d93c0@quoll>
- <CAARotke5983-NFonNAnLbpzhEU2QZ=mt9CSNi=CdBxVshcpD_A@mail.gmail.com> <b72ccd2c-d26a-4559-b09f-1a0a2207add8@kernel.org>
-In-Reply-To: <b72ccd2c-d26a-4559-b09f-1a0a2207add8@kernel.org>
-From: Asdlerto Korry <korryasdlerto@gmail.com>
-Date: Fri, 13 Nov 2026 15:24:55 +0200
-X-Gm-Features: AclHuK-uu1jJJ5-OWPL6fdC7q-L5bATE3bIoG-NpwgnpCOGdUy-cDFX7oyzGFms
-Message-ID: <CAARotke3nDJfYEG0Qskrj0uXAXCGyTE7rq-y8mR7daPFdCZjDA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] string: moving str_has_prefix() to lib/string.c bypasses
+  FORTIFY_SOURCE
+- [Low] string: commit message cites non-existent lib/string.h and omits
+  function name
+--
 
-You are right, sorry. I missed the series from Nizat Mikayilli posted
-on Nov 8. Please disregard this one.
+commit 018109c1aa9a2d5e3def240ae4b9134b27f492d5
+Author: Alejandro Colomar <alx@kernel.org>
 
-I will review and test Nizat's patches on the Galaxy M52 instead.
+> string: Warn if the prefix is the empty string
+>
+> This corner case is mishandled by this function.
+> Warn if it happens.  Also, document that if such corner case
+> is needed, strprefix() is preferable.
+>
+> We need to move str_has_prefix() to "lib/string.h" to be able to use
+> WARN_ON_ONCE().
+>
+> Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-pr=
+op-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-Best regards,
-Asdlerto
+[Severity: Low]
+This isn't a bug, but the commit message says str_has_prefix() is moved to
+"lib/string.h", which does not exist; the patch moves it to lib/string.c.
+Also, neither the subject line nor the opening sentence names
+str_has_prefix().
+
+[ ... ]
+
+> diff --git a/lib/string.c b/lib/string.c
+> index a3778d5aab4af..61a1e79c1b875 100644
+> --- a/lib/string.c
+> +++ b/lib/string.c
+> @@ -774,6 +774,30 @@ char *strnstr(const char *s1, const char *s2, size_t=
+ len)
+>  EXPORT_SYMBOL(strnstr);
+>  #endif
+> =20
+> +/**
+> + * str_has_prefix - Test if a string has a given prefix
+> + * @str: The string to test
+> + * @prefix: The string to see if @str starts with
+> + *
+> + * This is similar to strprefix(), but returns an offset instead of
+> + * a pointer.
+> + *
+> + * Unlike for strprefix(), if the prefix is an empty string, the
+> + * behavior is undefined.  If you need to support arbitrary prefixes,
+> + * use strprefix().
+> + *
+> + * Returns:
+> + * * strlen(@prefix) if @str starts with @prefix
+> + * * 0 if @str does not start with @prefix
+> + */
+> +size_t str_has_prefix(const char *str, const char *prefix)
+> +{
+> +	size_t len =3D strlen(prefix);
+> +	WARN_ON_ONCE(len =3D=3D 0);
+> +	return strncmp(str, prefix, len) =3D=3D 0 ? len : 0;
+> +}
+> +EXPORT_SYMBOL(str_has_prefix);
+
+[Severity: Low]
+Does moving str_has_prefix() out-of-line into lib/string.c bypass
+CONFIG_FORTIFY_SOURCE and prevent compile-time constant folding of
+strlen(prefix)?
+
+lib/string.c is built with __NO_FORTIFY and its top-of-file comment notes
+that it is reserved for routines that have architecture-specific
+alternatives in <asm/string.h> or get overloaded by FORTIFY_SOURCE, while
+other helpers belong in lib/string_helpers.c.
+
+When str_has_prefix() was a static __always_inline helper in
+include/linux/string.h (introduced in 72921427d46b ("string.h: Add
+str_has_prefix() helper function")), strlen(prefix) folded string-literal
+prefixes into constants at compile time and ran fortified bounds checks on
+non-constant arrays.  Moving it to lib/string.c forces an out-of-line call
+and an unfortified runtime strlen() scan on every invocation, and shares a
+single WARN_ON_ONCE() state across all callers in the kernel.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794574496.gi=
+t.alx@kernel.org?part=3D2
