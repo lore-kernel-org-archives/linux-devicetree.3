@@ -1,85 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583380;
-	b=HtJYyDarYWHCy8pZ7l3xFL6xQM9zhqzsf5s8tHlxyux3NV7PYP1z7sc2lonFqNayK/WY
-	 MngkaNXVk2nTNvzbDWkqdo72twqKJX7w+/RIjGoFHT3IhG7E/HWn8ezH1USaCSV6aaBDv
-	 xHKUjpZeA7rQAhJ9+X9vPoyWzEMS2Lb8t4jkTnMeCmeEq50JdMFfeQRYiRM0cEBYknCGg
-	 n+cTdisw9HuoOaIhc8Rx13dNj1bhhiKUF6x0rimwsXSuIcOjM9GuRbuGWOvonYlRngKei
-	 TxbNpAo61foNVBNAYZ15s28p1tTuJ0PsCMHCTNOglXe/9mjollM7AUYeocyRBos+FZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-	b=MKSvh33Fp9WBXYGDmbnaMSwI4iCbX6sdJLhcXUfqUcAys2ChtR3cy0ANgen327lXqQjx
-	 YnJMIH0IR5t4VuWn4sn8iDgIaAuiwZ5O8XZNVRzoZYZoSSjkT/Ed3+fvLMQApRQoINpNb
-	 JIIryMkjMl7FuLAPE7mQoYtBaSV4cuS+Xs+0j83I8YmttS8oadr6a537Ni6jZVMtJGICo
-	 gq2phxFuiLx9TsgjXWVZqDNRuq3ujdN7urHjAMLL14wtQkW7bq7CBwoLBFcI2vSAON9Og
-	 +XcU2ARuAqKC9krETnLC5fAEjgIVcLnDd29suo3POv7wGjQ0eLb4Z8TKo/E9enWHpeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="Z4j/Mghi";
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794583603;
+	b=AoRkyNvzoLQ2MQAfEk/jWzfjnpObUqFqs9WmI3zDqmol6muazCkNGVFrzyHOXy2w28nv
+	 Ei7qHJSvKw/H9DGpYMRPDvMUSwh31ggQBe6DayHnpDh3nMnhKHMk9ZlCq5vCEU2FDcuGk
+	 IMCw7pZDzi9hLCR3nDNoZS+APQ/wzUUg3xegVVrj+RGUgw0YS/fSErB2vBhwHMRrcDM1O
+	 3I2mrqxm5MaaL4Y4qE1cO4lOYN1YOrFF4byIJcDZ/5H4/BaOGo6QSi/iJVQyRgND6lHMH
+	 mmJZX7uUaZPow1uKVb4//opdu27wQjqO9QedC5uxBEHALALLpvzVrzJAfcKoccp7zyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583603;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
+	b=dyPzOKkOFvg/K1kYNhnFS9PNV8w+OtRF6cygxqqSQ/YBxOsnWaPhr5/oSm7HE92O+Ust
+	 FRa0kd5HEAflF9TKx1nd6bL+6vpHUuDxw8ve0wzFz42/Tee8TubLnITkHmUg1t/P0LcMb
+	 ZuxVkBpQ+n0lXYs8e48L2nryPIh+zIBUK1mFvDDOzp8pW39WcEk2caM6Ed3Ysn0wxVIey
+	 YtUQGJUvPVapuyuEiqqbmGqEssRHO0VyZsd2CFrHBd3cJlLPk0XlbUlOH4NpIRHxJxNzm
+	 4WZHrPmmEjyZ6H5ut4ymtJAQOtPC1znNFREWGT6ydPKu+tdqKotu9Vu0KoUKp1btx8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5ohoGJE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5955606A327
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 15:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5955606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A2B606A32D;
+	Fri, 13 Nov 2026 15:26:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Z4j/Mghi
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so16850525e9.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 07:22:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794583378; x=1795188178; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-        b=Z4j/MghiCfLl4geHxV/1zp0iqZFNnntdJLs/GhAqDGduqb9DsAilkkq7STQnBeZ0um
-         RhRvKy/5eCZ7/YOf4I6ESuLz+SNm9tkajr2e8phIKwLpPUNrxEs8ow/NIQakyHXKpUNB
-         wPRM4oSCycrLGiF2jbCbowm/BJ1BtJIjJDTObxah1B0fXda8R77uAxdV6HE+5EK+QdF0
-         ZQ/ACHOwMrY+sj8numw/aMHMwEY/vMqvifjApBhJUHkH1EPJavyUdNHLq4MyAxwPC7SK
-         kmDg9bJ14RbAv6hk4/IhmI1flTTg7vsqzz+2ixhoxgveX2xQhoYUeoYm2BbSsiArcb0j
-         7a9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794583378; x=1795188178;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bIqcVrxwFlf/MOw6E2I1r/DVGSQU9l7E6EGdUXXdXtE=;
-        b=Q8XqxmBXsCtZCn4bIUPi0f+K7Z1m/Mt8v54hsTF7UzktL6soDg0VUSpb/YBd3Iti/G
-         r6BcwwVayjR573ZxWPho1Fbpar2j9wT2RizWlP/DdXnt5a2aQyf9TiHe0HeqzGaZftBk
-         iav1+CI4aMDiS4p+/UKqX59dXzMKXCQV9RgxmMuW8X2DqusnlH6qy0viy/zYy/jQNfj7
-         K8Q8nNlufgNw77dPDi4PrQRuAP050jU0bKyTe+3fThnTQmDK7RNg/Yl/8Z7IUkECQjYb
-         2nk1QHS5+RupX00aGmBYBHn6leKMlTGm/nw5jLkFHIy4IgEhJZ5qnuF6cdOM+p99mpeA
-         npdw==
-X-Forwarded-Encrypted: i=1; AL+hErGtXKz/U6MbHmZWGKCR6CAulAkzxM6kzu3n/V/naw8hBtup9Ym+KUvwfylpPgmcJ7bzS0DLIHv7MNgy@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Es4pWAodYzSX0BK8G2fI07SSM0yuvLQulwnxh3925w4C0KBDN
-	C6gD9xo8KGjTNFtqYPEX8Cd6hXpyrNikTdjTyHhFEVx++1n5AxrEAC+B2E2Ka5Cq9AE=
-X-Gm-Gg: AYBFou2fpRAC4V6zZPIKjSZq6LASHjEKwuLne8K6ErQNAa1o0Ypg40FQnepSxkmbVFF
-	9f9v8Bj3lz64x4sT9X3+whJLLqn+6jXgQ9Rhrn+1SZyaE/koHQjpY2s5ghbdkvO/Z7Pt2nibyfe
-	GGBtO2skozNh5Pa+DsYcLR9H/Wc/x/j8ZteJvTE/u8nwA6mlq5Fbm098C8wd1plx5QSXoH3O39K
-	GyYXAUTq7k0G7/dMYgQ58B7VztgjdyUQ0USDwxvtM47fNEoBUWwxaOCnstiU+aR5LvOQwUfPFnd
-	/UY03OJ4YCRhnwMNMz82o5BvhtLt5lno5bzMK+0NIXg1+4OR/8kmzjfFHMgx30epMK8bKJ3QB66
-	s0ohpPjD1OzVk+hZL/2kZuv2qIgfMy4jHIcUOE/E1/lc3l/mz4TKuQ+wqk5Nzds0CMpOZS8rP3N
-	9Kx0EgmTy3jlYEBIJrgCiKXr3om+ePuLnnYGPzTc/1VhxWLL7MILfTbzSctFtXfP344ZnO/NgGs
-	HWErC+ln14tOgnXVGeBpgGL38tp94SVr3iNm+czOrJQV+IJPoktZ/VBXytKRS0LGCBVM3zaeslr
-	912XnhQVDkuXwJj55aWgV0pxSQqzKCMdJTUqk4M9Qk7GBVoB
-X-Received: by 2002:a05:600c:470a:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4bb55a44996mr54909955e9.11.1794583378164;
-        Fri, 13 Nov 2026 07:22:58 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm169848395e9.2.2026.11.13.07.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:22:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5ohoGJE
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794583602;
+	b=vkzB0n09b2ObqOQnqsrTz9H+NFapxG0VqSUec16iR1A4Mwx8a7/lhL2wgvjZ7AdlAK6v
+	 cC72RXm0mzeSAK8Gq5zebIwvfK6DdbpL1rRcSoAMtHPQuIe/6bpUnB0TjiJWYBDAtMy2S
+	 ez0nbalFiqDjkdZxFvpPQFWTedPmquoV39FDWd3mWctkXtqJffgOCD3Za5Vvfooah7yrT
+	 2Y7QB7emD7GDFT7UCTPQ2O9RJp0U1siHW2dEKnDg5usPny2La2bINLClW1HtX6GE5vw80
+	 /igJTJuwLnCE5t+KZYhWLpM+ITSs91yEv2lmQ9h7MYNFergDXiQoBy4toEYPDRTub0g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794583602;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
+	b=cTZ9Jr/cVmW/qmZZ733IpidjMoxueI/NlOcMcny1g28G+d+jnbpf7HPlK7ljQzYbWd/8
+	 TpcmJwRaBChkcRmv1mQyA5YKMlsecGe+IhP+bYCNycWSlf3fOUEK1C2I9r+XwWdmtzpNh
+	 VEK3ozP/xSGRn7xAPOKzcyF6FqWh9Be6mSTQ2qdB8apfR+tjwndEI7gfJ9K9ADpHpvUvO
+	 UeRTgpazcyECTh3tD34TCtt9/fysBuhgMv+cHJEYpQ/bWbnKAQ7p7WrD79l+lDjbpRS9+
+	 qlT9tJfBs3sA1CjEUTiERg0sGzqg+QISabyofcSe2Ex+t45pTXQ5wyYh8FodsXgLWhg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 733131F000C4;
+	Fri, 13 Nov 2026 15:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794583602;
+	bh=Si5kjDQN8ERxEKMt3iF6CinVTQG2FudMBDMZ6idH8FY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=F5ohoGJEo9iVackwuzsHP0KDjBftCM5Fs3ItiejL5W/X+woEFZ2sFoqSEbhsu2tD8
+	 DfQUJepI2ZKEvzFK1P+7Jt+eYPtssXcjoFlA3pPTXDNKOPtMMO5qZlUUrzIixRjVyw
+	 4GSScUtDOawdpRJpTwXcEt4Zl1mHZOlbJ7onrmHxN9Yifvce/spsdI7Zrn7reHwTod
+	 +zFqcMoQogxWHsmLdUzvmIV8EvAwNwaeMbtEy39ez7rUkP5rtY9C0wByyUKRyMhlf+
+	 MhjShHalgLNB+kpsHXOfxYpi1ENe/jSxiysnQ0jUPtsEYaxlDiJRQGK/xamPoVUV0g
+	 b1atVsZP01gbw==
+Date: Fri, 13 Nov 2026 16:26:33 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti
+ <giometti@enneenne.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Angelo Dureghello
+ <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, Victor
+ Chernyakin <chernyakin.victor.j@outlook.com>, herve.codina@bootlin.com,
+ thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <20261113162633.0000670a@kernel.org>
+In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
+	<20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,110 +99,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RFC 02/16] clk: Acquire resources for clock transitions
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Mike Tipton <mike.tipton@oss.qualcomm.com>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <825fbfbe-a9a0-43e2-bb54-f9e38ce779f4@oss.qualcomm.com>
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-2-3041b788e9f7@oss.qualcomm.com>
- <179275170360.4070168.11650113664838519061.b4-review@b4>
- <f0ca2bd4-851e-473d-bf21-678cf964f854@oss.qualcomm.com>
- <825fbfbe-a9a0-43e2-bb54-f9e38ce779f4@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 16:22:56 +0100
-Message-Id: <179458337623.3308909.8679910347462508471.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3271; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=n9gjeLxQD41dq62t9Q1UDoH8EzTxjE0oy5fasIAenSY=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFnftQNYFjZnu9ws4l/TOn1RRddMPbttkjGdaTOj796rf
- TLVYhFvRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACZiVMDI0GWS98twnrmegNbD
- XZYWZY3fVXqXcW6esoxPSy1QcfHdMEaGC//MfS5kr/0fcIBJuSN16412sdN5/5b/Mpj7ZUnLzj5
- 3PgA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 2026-11-09 15:06 +0100, Konrad Dybcio wrote:
-> On 10/26/26 2:11 PM, Konrad Dybcio wrote:
-> > On 10/23/26 12:35 PM, Jerome Brunet wrote:
-> >>> Preparing a clock protects its current requirements, not the resources
-> >>> needed while changing its rate or parent. A transition can temporarily
-> >>> use both parents or access an unprepared clock, and a parent rate change
-> >>> can cause other clocks to be programmed too. Raising resources one clock
-> >>> at a time leaves those operations exposed to insufficient power.
-> >>>
-> >>> Failures make this worse: hardware may already have changed when the
-> >>> operation returns an error. A matching cached rate is then not proof
-> >>> that resource reconciliation finished. Retaining a temporary enable
-> >>> reference without a corresponding prepare reference also breaks a
-> >>> consumer's normal disable/unprepare sequence after a failed reparent.
-> >>>
-> >>> Make CCF acquire the affected tree's and parent paths' resources before
-> >>> notifiers or programming, and reconcile them only when the walk stops.
-> >>> Keep fault recovery independent of rate shortcuts and subsequent
-> >>> consumer reference-count changes. Require explicit recovery of an
-> >>> ancestor's uncertain parent selection rather than reporting success
-> >>> from a descendant request.
-> >>
-> >> I don't think all this is necessary to address the problem described
-> >> here and in the cover letter.
-> >>
-> >> IMO a new provider API is the wrong layer. The framework already has
-> >> the hook a provider needs: the rate change notifiers. What the core
-> >> should do instead is fix those notifiers, which do have a few issues.
-> >> You are fixing one in patch 1. Another fix, about setting the parent,
-> >> was sent recently:
-> >>
-> >> https://patchwork.kernel.org/project/linux-clk/patch/20261021-submit-clk-parent-abort-v1-v1-1-2936181822fc@gmail.com/
-> >>
-> >> You want to act on some changes before anything is programmed. PRE
-> >> notifiers are the right tool for this. The user of this change in
-> >> patch 7 could use them AFAICT: PRE sets a temporary vote, POST settles
-> >> it, ABORT drops it.
-> >>
-> >> Also, what is acquired here follows the requested clock. When an
-> >> ancestor switches parent, the chain of its new parent is not acquired,
-> >> although it feeds the whole subtree after the switch.
-> >>
-> >> With notifiers, the parent fault state is not needed either. As it is,
-> >> it blocks every request on or below the clock until the same switch is
-> >> retried.
-> >>
-> >> Could you tell me what you need from this approach that cannot be done
-> >> with (fixed) notifiers?
-> > 
-> > I'm a little worried about the ordering there, since some device
-> > drivers may also be registering listeners in parallel, so we don't
-> > get a clean split of what PRE means ("has power for sure " or "may
-> > not have power")
+On Fri, 13 Nov 2026 16:15:42 +0100
+Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+
+> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+> channels, that can also be configured as 16-bit averaging channels.
 > 
-> Do you have any thoughts on this? I'd like to proceed with this
-> series in one way or another.
+> This is a very simple driver, allowing reading raw values for each
+> channel. GPIO mode isn't supported for now, as well as buffered mode and
+> the 16-bit averaging mode.
+> 
+> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
 
-As I have replied before, if there are things to fix in notifiers, we surely
-can discuss it but, at the moment, I don't think the complexity of what you
-are proposing here is justified.
+This looks ready to be applied.
 
-Please allow some time for Brian to have a look.
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
 
 -- 
-Jerome
-
+Kind regards,
+Joshua Crofts
