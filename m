@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596271;
-	b=zoN9zmt7v+dBmnAocNSRSkjZyZ/OqWelDLoPajIBayWieFyhk5aI9oPhIXC8B9J/fzhL
-	 epAT+9GR1Eayv+xdhU5I0wHfJBs7h1PPRH1aN9W2wVAWzjAVQG8gdQa+u8zSwfYS+f6C7
-	 A3waLrIK4leeJuALxXXe6m7uoMM611UdWjC3XT/AE+pP0MpqOgEmauPCiTptUjF32DKUV
-	 JgtWKXhGtYg5EP0Pt02pT5ZdHcaPqg5YfOFv8y80r/bYdKmVyS14zJXkzwxoO17P8w/q3
-	 dAJZ1IHEsqlDhJF2IsbZLHuuZO68wzvPIM4SlD3kMO27J8q376YRH6lowMsCTxSS+4A==
+	t=1794596307;
+	b=W84tTn2GzDw842WBCb+8h+7EZA5uYZeBBafkNmWzJka+ohPkFJTpFfIYdFhf/9WgIbaS
+	 jxRpzY8qY7ueJ58KtKRXtl7gLq04N4LZDC7bsSrSQ5Irbd3nhG/DygYWrEZ7fYKbmRb+K
+	 jPgVyI0GaqaQmZoyYjGI+W/adZtjBrrgscBBCbe2sR3xBz34Z9FGpztXGJ+HAkwdBrbKR
+	 ggfeSEjTsxa4WExUg6KEeHQ9JrPPNKbAf/+SV7/G+TLTvWF9MmAuq1705QEgO3gOT67YV
+	 3O+P56sURtpeJvJGGPiewqnNRpiDF4GFYK/bfgWw58qEU0xI0HlmyHd+0+Gd+2/ndkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596271;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EOI7EcoMDFR1JLtT4B1tTONbkLbkYKJqeMvbtc3fv7U=;
-	b=LYO1pfQLyiQMwYJwSytbyv6qopIz9+QvbPk6e47zNHV8cEcvFRHyYG76pWlEaOKmvlPK
-	 V6/x4JP4pF3gWrKB1uHTc+HpA1K7X2tR54dkdFNEx7gXK8tuIkcPTt9phtjr/lslfknd8
-	 Yq+XSFcbk0zaMnFonNgXG3TOuTn2a3K/x+nYjo9ok+FCi9XKfDqVMAVzxVEc0NUXWXsm9
-	 pPlv9SQYLDM6l5yeCu5NgjsSqZJA1EYLMo42N6xp6UQdKsSNzN4MHgcG1BFFwmWmGDOJ9
-	 NC6gu1p8SyTrqBeT6ngVj2d0dllmBN7PW9gDq4Ph3eGSlXR9X5YUw9X5RJxgt1Y441w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596307;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
+	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=Ic/u5TAUfed0xmSi3K3Bzsi3IhsZ3Mc6JmzbexayKRXhI3AtLLGZ0dyFZW/6xzXLO0TN
+	 ZQnoM51mdBkNR6KRL41Kw9bRVTCmwtIXSs4zF4sb5NP4camMAEheqsbZR9vH3mLJoPus9
+	 Tfo0PntJmUp4OaN8BD3M8qU6mV/+L6/PyHNfDpRVuBbosY+HxIDkgdfJ8lYmpmPtWEEl9
+	 R0jZ4M1JqIRCzZX1/vLjZDaguFWRTvi1FiY/02rBjBk9yaDrymLF1sHZut2/Cqoo/csKU
+	 Mmb3BlVJHxkrXqmIlzMosWtuoiDKX/gTHC3daaBjQpfEJV/7tj17PQsxCqRxDoSt+9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J13jsIkw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="+/Q+661T";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CFE606A32E;
-	Fri, 13 Nov 2026 18:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D16071069;
+	Fri, 13 Nov 2026 18:58:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 379D16071069
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J13jsIkw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9391F000C8;
-	Fri, 13 Nov 2026 18:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794596270;
-	bh=EOI7EcoMDFR1JLtT4B1tTONbkLbkYKJqeMvbtc3fv7U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J13jsIkw35TrYx2bmhYVQv2e7pQtL0RhNMGegBAHA8cMnl8kw8F2dxkGj5oD1qJjZ
-	 Y4vVH37WgLbFsyCG8hinaAd54fjfNbHPAa6oothqaNtI9IVVmaKlv50fArKx/WmkVz
-	 +fNpn+mWrs+9ud2+Tda5uZDLwHDP5oNBffchaZfw7Pow5z0IwxtXKdd9TPR/ifvjHP
-	 I6u3gbmPMg3fdSwUJK3dydj30REPkM7kppsMKnvE3FTgThfPys66M+l1icvDndIdHY
-	 1YrdJZ+mlIixakZykidGiRKgHEH4Hd0cpQuvPDAdNhHNohyB337UFbTbkZl6YVZiol
-	 s3dHgj8WkhMXw==
-Message-ID: <sashiko-outbox-213487@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 01/23] dt-bindings: clock: qcom: add SM8650 LPASS
- core & audio clock controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-topic-sm8650-el2-v1-1-5183f6aab9fc@linaro.org>
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-1-5183f6aab9fc@linaro.org>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nsa5LHdz;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=+/Q+661T
+Message-ID: <5a6183e3480a0d910e275acf591e2db8700da827.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794596304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=Nsa5LHdz+ZYikhtmHbjxEddO/69fFul88+8iEoKxSL3lTvhRV1XLziHTU3MeQJ3m85tJeb
+	2Kd2ZM3rvEnfGugLwHF3OZt+vfXsl3gaBBE7aGESxEYk2fh/Xs6aWabHfnXb6qozVC3Ijc
+	btF/VsGDwPDS7lJzT0J1HHBG6C4hnnDf2PUHntndrG6ju0R13uLb6VnDbkxPpQoCOpILUq
+	uFekou8wbBekyhInQWdA9plgpMznKFC8iTfKdW8K1FaXLC6BZ0lKADdgf/QHcvjbhXAF/S
+	s89ezdujqXDPsv8Za0myV9KOVA+64E+v3yvyI2gKyWq6ddU7nkBrP3KWiT17UQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794596304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lEeskuJPkdiI8gE2TYZrxOjdiP0LZZey/2Bh096XvUk=;
+	b=+/Q+661TL+IzyNJ7cFVuJ+g+Wd94X6upSp9cBnHdlJnTfdeNxCSPFyYNSd6A5eAhlhLKSm
+	HqZhgCH0i26RAqBw==
+Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
+ <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee
+ Jones <lee@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  netdev@vger.kernel.org, mfd@lists.linux.dev,
+ Martin Kaistra <martin.kaistra@linutronix.de>, Benedikt Spranger
+ <b.spranger@linutronix.de>
+Date: Fri, 13 Nov 2026 19:58:21 +0100
+In-Reply-To: <20261110192118.GA1412882-robh@kernel.org>
+References: 
+	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
+	 <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
+	 <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
+	 <cc35b2127b04772f05948ac51c8faa5ef07da0b0.camel@linutronix.de>
+	 <20261110192118.GA1412882-robh@kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 18:57:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,173 +91,154 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: clock: qcom: broken examples in
-  qcom,sm8650-lpasscorecc.yaml
-- [Low] dt-bindings: clock: qcom: unwieldy per-compatible conditionals
-  in schema
---
+On Tue, 2026-11-10 at 13:21 -0600, Rob Herring wrote:
+> On Tue, Nov 10, 2026 at 05:10:15PM +0100, Vasilij Strassheim wrote:
+> > On Fri, 2026-11-06 at 22:51 +0100, Vasilij Strassheim wrote:
+> > > On Fri, 2026-11-06 at 12:13 +0100, Krzysztof Kozlowski wrote:
+> > > > On Thu, Nov 05, 2026 at 03:16:48PM +0100, Vasilij Strassheim wrote:
+> > > > > Add a binding for the SoC-e SWIP multifunction FPGA IP core.
+> > > > >=20
+> > > > > Describe the shared MMIO address space and address translation fo=
+r
+> > > > > the required Ethernet switch child and the optional integrated MD=
+IO
+> > > > > controller and MMIO-controlled MDIO multiplexer.
+> > > > >=20
+> > > > > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > > > ---
+> > > > >  .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++=
+++++++++++++++
+> > > > >  1 file changed, 137 insertions(+)
+> > > > >=20
+> > > > > diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml=
+ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..625be299e262
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
+> > > > > @@ -0,0 +1,137 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > > > > +
+> > > > > +description:
+> > > > > +  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logi=
+c, an
+> > > > > +  MDIO controller, and an MDIO bus multiplexer in one memory-map=
+ped device.
+> > > > > +  The MDIO bus multiplexer is wired to the integrated MDIO contr=
+oller.
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    const: soce,swip
+> > > > > +
+> > > > > +  reg:
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  '#address-cells':
+> > > > > +    const: 1
+> > > > > +
+> > > > > +  '#size-cells':
+> > > > > +    const: 1
+> > > > > +
+> > > > > +  ranges: true
+> > > > > +
+> > > > > +  mdio@204:
+> > > > > +    $ref: /schemas/net/soce,swip-mdio.yaml#
+> > > > > +    unevaluatedProperties: false
+> > > > > +
+> > > > > +  mdio-mux@202:
+> > > > > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
+> > > > > +    unevaluatedProperties: false
+>=20
+> Given the MDIO bus and mux registers are adjacent, I don't know that=20
+> putting the mux into its own node and driver really buys you anything.=
+=20
+> Can't your MDIO driver handle the muxing directly? mdio-mux-mmioreg was=
+=20
+> created for when you have mux registers in some completely unrelated=20
+> block.
+>=20
 
-commit 822c52dcc683f4949600245b7d9f62d13802e752
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+What it buys me is less custom code to maintain for bus selection and
+selector-value validation.
 
-dt-bindings: clock: qcom: add SM8650 LPASS core & audio clock controllers
+The MDIO controller and mux were combined in a previous version.
+Following Andrew's suggestion [1], I moved the controller into its own
+driver and stacked mdio-mux-mmioreg on top of it.
+Sure, the selector is part of the same MDIO control register. But the
+generic driver already provides the masked register update and
+selector-value checks. My preference is to keep the current approach
+to reuse existing code, even if it requires some integration and
+documentation efforts.
 
-This commit adds the Device Tree binding schema and header definitions for
-the SM8650 LPASS HM, core, audio, and AON clock controllers.
+I don't mind changing to a combined MDIO controller and mux, as done
+in mdio-mux-bcm6368.c, while still using the generic MDIO mux core.
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8650-lpasscor=
-ecc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8650-lpasscorecc.=
-yaml
-> new file mode 100644
-> index 0000000000000..9c5207ee02f15
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8650-lpasscorecc.yaml
+Could we agree on the preferred approach so that the binding and
+driver changes stay aligned?
 
-[ ... ]
+> > > > > +
+> > > > > +  ethernet-switch:
+> > > >=20
+> > > > Why are you mixing children with and without bus addresses? This is
+> > > > discouraged and shows that device is not correctly represented, e.g=
+. if
+> > > > the ethernet-switch does not have resources, then THIS device is th=
+e
+> > > > ethernet switch.
+> > > >=20
+> > >=20
+> > > There is no hardware reason for leaving the switch child unaddressed.
+> > > Just an error that occurred while converting the binding to the MFD
+> > > model.
+> > > I will describe the switch function as an ethernet-switch@0 child nod=
+e
+> > > with a reg property for it's register resources, like the ocelot MFD
+> > > binding.
+> >=20
+> > It looks like I need a different name for the MFD parent to avoid a
+> > naming collision with the ethernet-switch@0 child. I checked other
+> > bindings but could not find a suitable example.
+> >=20
+> > I would appreciate any suggestions for a suitable name for the parent
+> > node representing the FPGA IP core. It mainly acts as a container for
+> > its child devices. I am considering "bus", "ip-core" or "shell".
+>=20
+> Krzysztof's point was combine the child and parent nodes into the=20
+> parent. This is not really an MFD. Almost every ethernet MAC has an MDIO=
+=20
+> controller in it and none of those bindings are MFDs.
 
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sm8650-lpasshm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +        clock-names:
-> +          items:
-> +            - const: bi_tcxo
-> +      required:
-> +        - power-domains
-> +        - '#power-domain-cells'
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sm8650-lpasscorecc
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +        clock-names:
-> +          items:
-> +            - const: bi_tcxo
-> +        required-opps: false
-> +      required:
-> +        - power-domains
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sm8650-lpassaoncc
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +            - description: LPASS_CORE_CC_CORE_CLK
-> +        clock-names:
-> +          items:
-> +            - const: bi_tcxo
-> +            - const: iface
-> +        power-domains: false
-> +        required-opps: false
-> +      required:
-> +        - '#power-domain-cells'
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sm8650-lpassaudiocc
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +            - description: LPASS_AON_CC_MAIN_RCG_CLK_SRC
-> +        clock-names:
-> +          items:
-> +            - const: bi_tcxo
-> +            - const: iface
-> +        required-opps: false
-> +      required:
-> +        - power-domains
+The suggestion to consider an MFD also came from Andrew in an earlier
+discussion [2]. Since this FPGA design contains several functional
+blocks, I liked the approach of grouping them under a common parent.
 
-[Severity: Low]
-Each of the four compatibles requires its own if-then block to override
-clocks, clock-names, power-domains, required-opps, and
-#power-domain-cells (which also leaves #power-domain-cells unconstrained
-on qcom,sm8650-lpasscorecc and qcom,sm8650-lpassaudiocc).  Would it be
-cleaner to split these variants into separate binding schema files instead
-of using per-compatible conditionals for every entry?
+The IP core can also include an I2C master for accessing external
+devices as a synthesis option. It also supports synchronization with
+external PPS and 10 MHz reference signals. I had future Linux support
+for these functions in mind. Ocelot is another switch described as an
+MFD, with additional functions such as GPIO and pin control.
 
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,lpassaudiocc-sm8650.h>
-> +    #include <dt-bindings/clock/qcom,lpasscorecc-sm8650.h>
-> +    #include <dt-bindings/clock/qcom,sm8650-gcc.h>
-> +    #include <dt-bindings/power/qcom,rpmhpd.h>
-> +
-> +    clock-controller@6bc0000 {
-> +        compatible =3D "qcom,sm8650-lpassaudiocc";
-> +        reg =3D <0x06bc0000 0x38000>;
-> +        clocks =3D <&bi_tcxo_div2>;
-> +        clock-names =3D "bi_tcxo";
-> +        power-domains =3D <&lpass_aon LPASS_AON_CC_LPASS_AUDIO_HM_GDSC>;
-> +        #clock-cells =3D <1>;
-> +    };
-> +
-> +    lpass_aon: clock-controller@6e00000 {
-> +        compatible =3D "qcom,sm8650-lpassaoncc";
-> +        reg =3D <0x06e00000 0x30000>;
-> +        clocks =3D <&bi_tcxo_div2>, <&lpass_core LPASS_CORE_CC_CORE_CLK>;
-> +        clock-names =3D "bi_tcxo", "iface";
-> +        #clock-cells =3D <1>;
-> +        #power-domain-cells =3D <1>;
-> +    };
-> +
-> +    lpass_core: clock-controller@7b00000 {
-> +        compatible =3D "qcom,sm8650-lpasscorecc";
-> +        reg =3D <0x07b00000 0x58000>;
-> +        clocks =3D <&bi_tcxo_div2>;
-> +        clock-names =3D "bi_tcxo";
-> +        power-domains =3D <&lpass_hm LPASS_CORE_HM_GDSC>;
-> +        #clock-cells =3D <1>;
-> +    };
-> +
-> +    lpass_hm: clock-controller@7e00000 {
-> +        compatible =3D "qcom,sm8650-lpasshm";
-> +        reg =3D <0x07e00000 0xa000>;
-> +        clocks =3D <&bi_tcxo_div2>, <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>;
-> +        clock-names =3D "bi_tcxo", "iface";
-> +        power-domains =3D <&rpmhpd RPMHPD_LCX>;
-> +        required-opps =3D <&rpmhpd_opp_nom>;
-> +        #clock-cells =3D <1>;
-> +        #power-domain-cells =3D <1>;
-> +    };
+I am open to either approach. Could we agree on the preferred hardware
+model before I update the binding and driver?
 
-[Severity: Medium]
-Does this example pass make dt_binding_check?
+I can also provide more information if any hardware details are still
+unclear.
 
-In lpass_hm, GCC_LPASS_CFG_NOC_SWAY_CLK is not defined in
-include/dt-bindings/clock/qcom,sm8650-gcc.h, causing dtc to fail with a
-syntax error.  In addition, lpass_hm specifies two clocks ("bi_tcxo" and
-"iface") while the qcom,sm8650-lpasshm conditional schema only allows
-"bi_tcxo", and clock-controller@6bc0000 (qcom,sm8650-lpassaudiocc) only
-provides "bi_tcxo" while its conditional schema requires both "bi_tcxo"
-and "iface".
+>=20
+> Rob
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-topic-sm86=
-50-el2-v1-0-5183f6aab9fc@linaro.org?part=3D1
+Thanks,
+Vasilij
+
