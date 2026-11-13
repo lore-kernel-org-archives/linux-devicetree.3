@@ -1,73 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794569697;
-	b=asWXjld7rAps2B91rmoLNp5dOHusth54ngam/fpqaJF3OUdcH0zDDvrjTULJq2gLlEuE
-	 QbcLXneCfQfhYAxR9mT1uYRgDqtnrA4pjt/mJ1mfyOkHQtSUTrIrMz4vzdjZ3w4xMkV/3
-	 fSorVaZtVDII4G16Xr8oHRBrzmxXvRdxiFV7xLiKweRgbnIthJe+Ru58x08JJKhsPAc/V
-	 g4tsTlXtS9B29/eP6ph/26onYLMytAt3eNRirQGsgunp7Rkxa0xkikrkc7O1OLnyp3Io2
-	 9wgGV6Bu5TyQv2GJv8x0Z06tzEKzb8gmDQV/p9SDt9lpaC8u02VjDkMI9FzVc0N4bjw==
+	t=1794569894;
+	b=KEQ2KPrfHz9ZEcbKWT9U3vMc/9zf9cYBJs5DgGkI6hbCje1bcrjgX3BpnHSd3Q6uialX
+	 4dLzkiqcnDJAymiekY/P4ymINjnDGDxlIE6ivYprfTz3Hxle15k/YDBb8qKt0AOA20DRy
+	 rKpOJKkmcuDedmOjV1tlyMLDM1Gx5x6j55lFvOUYPUy/3NW3+KKkUwpy4epLBt+7NsceA
+	 PEI41RCShPiiAJgX4QrR5OvEuAimQNzFa66jDiFuB0buQLZMgr5z1SX7E24q4spASIIPL
+	 mYoQSwGUgJxDlYKwjOYnCeyv2Jl2653J8RjAtSC096KRUU8Ie4kaCA9jGT0R7fh7kXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794569697;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lXcHruhjRKAPEqFA6sg93KcL2jbWl+CKTptsYtYT2HQ=;
-	b=fgVpYir0ryLLTbtQDTq9VREkzKSdORgxo9nEnYv4WDmyps7LjrwvkGKb/LwbWE0NTEtm
-	 v4jZ37vBRcrOyREdf4VHixlaCiFOSfP51siCk80GaZmRXh9416OzpDGma4zhP1xcjJ2ku
-	 u3OCFM12FD/+un/bIvnj9U1IOAjc92uU2q7W0DVUnYC8a6JiDnBob3q6wCWSlmV0IJ4U/
-	 St5GIHfgj9lrXupCP+jaInQMSRrTFO2xCeKI7mMSwLYfANpvx5ACeG2PoXYN7qx4e71ky
-	 QTQH97KvqHJNkZmkyPLCsQf4fHfvVSyN1DyMUBPygoeh3nH2VyKFWbRAogUP1GMogFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794569894;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+	b=zvl0umoj/uMB656f2Lby8l748+JH+o4WuuR1z+ycIrYIw7JGtSs3PoN7EixEPc1H5GYx
+	 KDy8B2qKhxBj2A2ZuWcjcFer4s7EnmxUM5xM6CBSaepGRVhgSs59mKpPXj4RHEt0carSG
+	 tZmfmfzZjImFL16xSPV++WEgol2sn75sGfsr4FyvGRsXjF7wk+DcPqNlctFIB4FVlZiTK
+	 16mGDSHMYv7SmsuA8q5DTbFuvP8sQGOxCNTin2woDH2alQgIDCWVSEVLx5nsQtOPooJEl
+	 8c9tEyF+aoNZ+JlA7P67rgRolijUHZUwB0u9owCQEEjqYJo8qRed5vu0P3z6HlxZ33w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dnQEJhmH;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=VCZSs2+Z;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5898606A323;
-	Fri, 13 Nov 2026 11:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5898606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857BB606A31C
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 11:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 857BB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dnQEJhmH
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADA50XJ1161799;
-	Fri, 13 Nov 2026 11:34:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lXcHruhjRKAPEqFA6sg93KcL2jbWl+CKTptsYtYT2HQ=; b=dnQEJhmHSAB8sliL
-	QkUiozPI7g33yoRsSzyJugUSvLfApSE07Xi6nydwc0h+PTaV/AMw3r0DJ2cHEP5k
-	NXE4adVSCy90lclUjEqiyPg+ii3/cSWx0yDRE+8t7iNK+tbP+OWfLPJ4yJW89PlL
-	FYyM5zrBtDJiFJMHE6BRLLWmn96tzsBXjJhZv5WJHAvchUhsJ8r+o7HNIplgS/fx
-	x7bc3DewWThxyziePCDxVBP/KjLUNJOgofoFE+qmIcQPs1hUiOGgqWdzvCCYkWZO
-	sV91fHx7TZjCBktlvz5tzVJm78jXRulVA2tAhTdobT6Q7tfyiUuBoPK3yfK79dKQ
-	fOjYDA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx0g208d2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 11:34:50 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADAtNaY2811647;
-	Fri, 13 Nov 2026 10:55:24 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mdsor-hyd.qualcomm.com [10.147.243.209])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6ADAtNJm2811660
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 10:55:24 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4770534)
-	id D473EA75; Fri, 13 Nov 2026 16:25:21 +0530 (+0530)
-From: mohit.dsor@oss.qualcomm.com
-Date: Fri, 13 Nov 2026 16:25:19 +0530
-Subject: [PATCH 7/7] arm64: dts: qcom: lemans-draco-evk: Add Waveshare
- 8-inch DSI panel overlay
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=VCZSs2+Z
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-492f0a1b685so838755f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:38:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1794569892; x=1795174692; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+        b=VCZSs2+ZGVdHQ04oXSJdZjvF5y1D9vqsZ2iaiROWDPTfdhNFPI2Zj8BspmlOw6304u
+         J1hpe/W+BSrSem7rccM+ivbX3k0gkLPJAArQhKflWIq8wu7RKYfO9gUXDk40/i3lyCfo
+         hS32/TPYuB1usvRVxM6NFxLMccLHqfeJ0NRa4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794569892; x=1795174692;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DyYt9/DWMV0EyHpbAMNA++QZYC/8eNT5egYzuTC+VI8=;
+        b=uhiS5KIu9tylGB2Vv1MPN2EfMXMVpeP8OegTOUa44iyJwx5O/lURaiaEZLIKLjUyJY
+         QjjZ8Y8dzw+0KWRbY1EyGcB8nZnqfx5TQfjFD5XByZo7/KYocX9ndLJMMdhiN3/h4hWD
+         XdH2B0stkPtQCQ9OQGUgAZEHoh7duqO9fcNQxHCy89gYqwpko2vzwj5dEU8yGBIG3PVU
+         TxdVOdTF+bwj4peZW1lrMlvogClw7RT3+02f6T9RJIBWoH2RdRfnERM3aLYY5cACCIIb
+         /hg8E9rpL1xTey8vtpkKxhjXqJJGS7IqtwbgvFUzJE6rTZx/6xDDM9vL0nKfkF63Nanm
+         wZsQ==
+X-Gm-Message-State: APuU4Z8URqYQVymChOsGwqT+SZRhOFDtMLnG7V0k8tCFvuggvdzx9TJi
+	TlWHETrN2yUGJuSYkLfQcu85xkBHc5cBQdYrf7SaBrMTw84Fcebc+OnCBKEksyjI6OfEgtiiAnZ
+	0tO6g2kU=
+X-Gm-Gg: AYBFou1F+3eazXCmrak6+HF9iQvOv9957KeXtvsNPoCBbsyT/AYdfvbPGil4Y4Nh5io
+	A7XxDN2oozPAm5rdNWlGH0bEf+bZ6mNwYGV+vy5pMoq1jp/lZkPr2mwIhoVYA3f5lEZb3blnkl4
+	hmBetpmflv1dt0dXlPw+B5BHDiNrCYPiW8IQ22POPuEoq+tBQe+ToX+HMx66/NZZ3p7K/uYlsTr
+	DRFLWvYbn6MSPuC3s+9KApeG5hLhEvz35X437CQFVYZsXBJRl6J8GezmkDL26x64a/gVy2ti77E
+	qmk/TXIR8aVcud4Z2nj4eJ/GrR+PapC5A43JD3Ob9MyIHec48xgo2lDwvTsWn4BNO+JOUD0Mfjf
+	Z/zmScfPphuNSf90tMY3Te0b2VX8UkqV44sh2P+WmuN7pCyh4lev2NR7TeU10503wflzNNxMu47
+	jzGPFIYqGX1giDLMdH6z1+qf7BPTn5gtfq9cpzg+cz8tWhtRt6i4mFzd9euMWhzsPWrqTe8mXJ9
+	sDmb031XFLqwn5eJu3yPRUfL26O+shOnDGCkyZk9EUG49aTma/KA8iVBPgtCVvXAeRPG6oGE/4p
+	P6xNRo2EI9lG26y6cQw9puJc0o4h54y3GSfiEyjGPW7xCIitnU9Z0ebEhJxQnIZxp3I1gACmjRB
+	5
+X-Received: by 2002:a05:6000:26ce:b0:48c:571a:a1aa with SMTP id ffacd0b85a97d-49c70de38a0mr4829044f8f.19.1794569891720;
+        Fri, 13 Nov 2026 03:38:11 -0800 (PST)
+Received: from thinkpat.amarulasolutions.com ([2a07:7e81:b71d:0:3e39:d071:1d81:5914])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm5448492f8f.1.2026.11.13.03.38.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 03:38:11 -0800 (PST)
+From: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+To: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	dario.binacchi@amarulasolutions.com,
+	Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: [PATCH v3 0/3] arm64: dts: rockchip: Add support for Axelera Embedded 111c
+Date: Fri, 13 Nov 2026 12:38:05 +0100
+Message-ID: <20261113113808.1779860-1-patrick.barsanti@amarulasolutions.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,199 +99,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-draco-evk-display-v1-7-28a19c6aea87@oss.qualcomm.com>
-References: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
-In-Reply-To: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794567321; l=3981;
- i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
- bh=JaOcqqVyw72kcQqad1xHiT/Aa9JC9TQrhpCYKdkfS+E=;
- b=HUnYYnQyxPXq9AtrRzsHuZ65Ew7TwgqhpeZYvf35XEBMTuP7BqduYHOca++GKAYhbnWReWqFe
- x420VMZSLFVCwvvFOeKZRgKPQcxk1qs7RRMEgD3esCoSpFVSO+5PJuH
-X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
- pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0NiBTYWx0ZWRfX1KEVa1l+4JfQ
- 0wTcYVEdctG+3nx3qW35O/cGhtU/CwNOQq9ga0RKvYBFfqRZzNXYHeMK0yeIINri+G+tCxYYcUH
- 5QAXRPwgxsnOB/3/vbvMxe1Jh9P/byd+9zKcRIoWKQco5U4pg6EDjqlp4dDEIUFC02RxmwpSKP5
- N7sEKdo1V7LChmdf0s7VnP4m4YKapj+i4M2ibYv7gv/+xX0atwEYe/5zKKq4z6l1Hlitko2dm6o
- bKH+IjnRVQTnli3i+qNMtErhGneJ9SdUJCjt5BUrV5+n6mHF7AuAr7dasT0R5yc0bWTU0j3T94r
- Bpd7IIucDWAjZFrPoYwxcL2TLJUOZVMv47aMNoCCh044gfkvwpAxoj1nBrMslLNNQR7v44x9TQi
- ZgWSS7HaCRPeyk67VWUYJPwkqyT1BpXTb5Fj0BY+AOKn051W8xkPtyuPkWydh7vY0F8bAIBmW9N
- OKZaM0JBDiqwxk5vw3Q==
-X-Proofpoint-ORIG-GUID: 6YbI1vBd6xGV1H73Cd1eaobbSPfw8LVA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0NiBTYWx0ZWRfX/DSFV/GCEAGH
- 9Sp96ks01OWgARHqqRlQdDRPA9VkniJGcRRx6vgEQUtCDDw6v3JM/iUkilL+ampPngKFPBj76DJ
- rfLW07vS9y8JtAZfvp576p/0irJmdxs=
-X-Proofpoint-GUID: 6YbI1vBd6xGV1H73Cd1eaobbSPfw8LVA
-X-Authority-Analysis: v=2.4 cv=SpIFe/O0 c=1 sm=1 tr=0 ts=6af6f5db cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=LHCJLpAu2B1udcNI4aUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130046
+Content-Transfer-Encoding: 8bit
 
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+The Axelera Embedded 111c is an SBC based on the Rockchip RK3588
+SoC. It offers efficient AI compute for multi-stream computer vision and
+generative AI applications in a compact design.
 
-Add a DT overlay to enable Waveshare 8-inch DSI panel connected to
-JDISP1 22pin connector on the carrier card.
+Product page [1].
 
-DSI0 from SoC is routed through MUX which can be selected by DIP
-switch for enabling this 22pin connector. Add the JD9365DA-H3 panel,
-GPIO expander at I2C1 mux channel 0 address 0x45 for panel power,
-reset and backlight, and the Goodix GT9271 touch controller. DIP Switch
-SW2.4 need to be OFF for this to work.
+This series aims to introduce basic support for the board,
+which includes the console, the eMMC, the two Gigabit Ethernet ports,
+the four USB ports and the HDMI connector.
 
-Disable the default HDMI bridge and connector in favour of the
-Waveshare DSI panel.
+Changes in v3:
+- Address Heiko's comment about the incorrect Signed-off-by chain.
+- Address Heiko's comment about the dts name being too generic.
+- Address Heiko's comment about the deprecated
+  "regulator-suspend-microvolt" property.
+- Add Copyright header on dts.
+- Add Krzysztof's Acked-by.
 
-Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  4 +
- .../qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso | 94 ++++++++++++++++++++++
- 2 files changed, 98 insertions(+)
+Changes in v2:
+- The board was renamed by Axelera between v1 and v2, from "Metis
+  Compute Board" to "Embedded 111c". Address the name change. Drop
+  Conor's Acked-by on the bindings, since the compatible changed. Keep
+  it on the vendor-prefix.
+- Address Heiko's comment about regulator node names starting with
+  "regulator-".
+- Address Heiko's comment about non-existent "mem-supply" binding.
+- Address Heiko's comment about dropping the unneeded "Use rgmii-rxid
+  mode to disable rx delay inside Soc" comment; checkpatch complains
+  about uncommented rgmii-rxid, so take the one from
+  rk3588-youyeetoo-yy3588.
+- Address Heiko's comment about reset lines of the phy nodes being
+  incorrectly described in the gmac node; note that these are still not
+  described in the phy node because GPIO3_B7 defaults to pull-down,
+  which causes the rgmii_phy1 node to never come up; rgmii_phy0's
+  reset GPIO, GPIO4_B3, defaults to pull-up, so that node does not
+  encounter the same issue. Moving the reset to the parent mdio node
+  instead did the trick.
+- Address Sashiko's high severity comment about hdmi0 node mixing M0 and
+  M1 pinmux groups; use the existing hdmim1_tx0_hpd pinctrl group
+  instead of redefining it. HPD is wired to M1 while CEC and DDC use the
+  M0 pins. Verified hot-plug detection on external display.
+- Address Sashiko's medium comment about "full-pwr-cycle-in-suspend" and
+  missing "vmmc-supply" and "vqmmc-supply" on the eMMC node; drop the
+  former, add the latter two.
+- Address Sashiko's medium comment about the pmic node lacking a pinctrl
+  assignment for the interrupt pin; add it.
+- Address Sashiko's medium comment about the "vcc3v3_hubreset" regulator
+  hack; describe the two GL3523 hubs linked with peer-hub.
+- Address Sashiko's low comment about defined-but-never-referenced
+  regulators without regulator-always-on property; drop them, alongside
+  their pinctrls.
+- Mux PCIEX4_PERST_N as GPIO, to match it being used via reset-gpios.
+- Drop the unused input.h include.
+- Drop the unused rtc label.
+- Drop the local PCIe x1 pinctrl groups, which duplicated the
+  pcie30x1m1_1_* groups in rk3588-base-pinctrl.dtsi.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index b100340e61d1..063b2aa4bca2 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -73,6 +73,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-lvds-auo,g133han01.dtbo
- lemans-draco-evk-raspberrypi-dsi-7inch-dtbs := lemans-draco-evk.dtb lemans-draco-evk-raspberrypi-dsi-7inch.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-raspberrypi-dsi-7inch.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-raspberrypi-dsi-7inch.dtbo
-+
-+lemans-draco-evk-waveshare-dsi-8inch-dtbs := lemans-draco-evk.dtb lemans-draco-evk-waveshare-dsi-8inch.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-waveshare-dsi-8inch.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-waveshare-dsi-8inch.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
-diff --git a/arch/arm64/boot/dts/qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso b/arch/arm64/boot/dts/qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso
-new file mode 100644
-index 000000000000..31cd1a46c32b
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	panel_avdd: regulator-panel-avdd {
-+		compatible = "regulator-fixed";
-+		gpios = <&wsgpio 0 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "panel-avdd";
-+		enable-active-high;
-+	};
-+
-+	panel_iovcc: regulator-panel-iovcc {
-+		compatible = "regulator-fixed";
-+		gpios = <&wsgpio 4 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "panel-iovcc";
-+		enable-active-high;
-+	};
-+
-+	panel_vcc: regulator-panel-vcc {
-+		compatible = "regulator-fixed";
-+		gpios = <&wsgpio 8 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "panel-vcc";
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+};
-+
-+&hdmi_bridge {
-+	status = "disabled";
-+};
-+
-+&hdmi_connector {
-+	status = "disabled";
-+};
-+
-+&i2c1 {
-+	i2c-mux@70 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			wsgpio: gpio@45 {
-+				compatible = "waveshare,dsi-touch-gpio";
-+				reg = <0x45>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+			};
-+
-+			touch: goodix@5d {
-+				compatible = "goodix,gt9271";
-+				reg = <0x5d>;
-+				reset-gpios = <&wsgpio 9 GPIO_ACTIVE_HIGH>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dsi0 {
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	panel@0 {
-+		compatible = "waveshare,8.0-dsi-touch-a", "jadard,jd9365da-h3";
-+		reg = <0>;
-+
-+		backlight = <&wsgpio>;
-+		reset-gpios = <&wsgpio 1 GPIO_ACTIVE_LOW>;
-+		vccio-supply = <&panel_iovcc>;
-+		vdd-supply = <&panel_avdd>;
-+
-+		port {
-+			panel0_in: endpoint {
-+				remote-endpoint = <&mdss0_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dsi0_out {
-+	remote-endpoint = <&panel0_in>;
-+	data-lanes = <0 1 2 3>;
-+};
+Link to v1: [2].
+Link to v2: [3].
+
+[1]: https://axelera.ai/axelera-products/embedded/111c
+[2]: https://lore.kernel.org/all/20260522174918.61523-1-patrick.barsanti@amarulasolutions.com
+[3]: https://lore.kernel.org/all/20261020113717.189082-1-patrick.barsanti@amarulasolutions.com
+
+Patrick Barsanti (3):
+  dt-bindings: vendor-prefixes: Add Axelera AI
+  dt-bindings: arm: rockchip: Add Axelera Embedded 111c
+  arm64: dts: rockchip: Add Axelera Embedded 111c
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../rockchip/rk3588-axelera-embedded-111c.dts | 810 ++++++++++++++++++
+ 4 files changed, 818 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-axelera-embedded-111c.dts
 
 -- 
-2.34.1
+2.53.0
 
