@@ -1,106 +1,101 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530144;
-	b=YFWrQSKZ1z0jFGPGEtDbvTHxTAyKTKwoK0s40gXeVnvEfJ5qZuloFbyJInFNC/rnrVDy
-	 MrCeZbQ7+Vf3keJZIrx/aNrBdOjzr+eescGK5MxdA+uLZjwd+DpPM3gIsq1Fx73OPBMKn
-	 +qLU5fJN7OZrvxmTs7nhyBm5ImiBtZXoBPqNea3kWwoHsAEBQ/3zfKXFqv8y7WZ5j9d6B
-	 Y6jdq2HZg0/Gy/pDJo2OCK7olV/EBMlTSm4YsYpoyW6dnWQaPt4EaM/3hScmdSQJOGirD
-	 en7qK+Zn5IxBeOX0GnAsJZy4KyJaUA1j3Eyauuy7peXDCpa79YTi7K45IcJXYRlQnPQ==
+	t=1794530171;
+	b=yLA0AsJxKsAW1kFtnYH4aSo6WgvULeJ5LOMPC02aUJ7JjC2AaEl2CyoMJNRqGs4eipbL
+	 v3fIL2fRRFv8vTxCeMta8v3wq4akPl2JldwJPKWLeC6YPSDbHkMWOHmBhwmho2DrL6e92
+	 2j6Vy2l94r0NqJd/oZGiD7ptnjB2JmzRkEdOaaHnba3dbcDATXn7Rgz6BFwlDXm3xQ+YY
+	 cSsdtfDNeYagqYxAdt8dixcI4LBw0ctz52wlwpYL2oBo0bIkOTRMjL0ZBiyOAXDBcb6hH
+	 QRxua02xnVGgNy/9wsXaN+W2C4BoWFLBajP/wj395wl+tJPJwhg2N/Tyb2Fm0AiuhFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530171;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3/VnFgYINlRlhY1yu2VcR+eAdnoCreCST0T9Cq05K6U=;
-	b=byQ2k/Qja5PJ8qVQzf5whdJm0oJItqWZ9+uHM4dNDoVconZGBwkk0AJPrUt1dUMb1N3l
-	 qbwBG1g2ip/ZnIWuXZZGlcmBa99MGQL4WJbsqdrDMV8XBGaHxbQlb/RUSt2E/syvc3oRJ
-	 gOvO3WiCqj9XMLmexhx0qmlN8q+0qh5dd6JMM8FN3pq0qNIqYFBQ5bNVk0B/H+noUXm2a
-	 BBDX4oeKkKyIjDHnS2lmVsUtAcPjMQ2YWzTek3gCtgDr2KBuomn/fvtMMBcEIasOllnPh
-	 zn1TyLs1I0LlIpetF9nHF68j+hqteUaT6tLnzFQPXIYNC447EMRe8mVEncQHNr/IlBA==
+	bh=ArOGclM53rFb6FaD30XPdpkN0QKhCsTNqoQPSptCW1M=;
+	b=qTiFgk5eWemjF+YPRoVR0uc2GIdOTf0r/erVb3ASLmzkqpOZU5TD9COesXOYC2EWnbmt
+	 3esYQcHYAXdNQshpjMpnOO24DbZSKhgJ/bx4l5C2aCabjlmIodG8GRMkws7yFDH9tnxhc
+	 l6Ktjj2RDSbz3dlxt0AijJj221wZUhj8XtkcjVvHrH0fo2mLXHok5jjSyHUycXQjJPl1b
+	 m9TahvX0xiHQIQPV5AJ+xiHIwfhMtU/Fqv5iAESlG7xqjHRFSn+l/J1oBksNpZVgPNgUi
+	 p+yEKVUQsW5Mm3uInUsx5Wr5GbLfOmdrR9i7GZ2UdckTk2QOPkh8qmoarOxaooSMgng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b9kFqplF;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EAxmM9UV;
 	arc=none smtp.remote-ip=209.85.221.51
 Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CA5606B7C2
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7CA5606B7C2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F6D606D185
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 00:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67F6D606D185
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b9kFqplF
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49412eb1474so151632f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:35:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EAxmM9UV
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so137219f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 16:36:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794530142; x=1795134942; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794530170; x=1795134970; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3/VnFgYINlRlhY1yu2VcR+eAdnoCreCST0T9Cq05K6U=;
-        b=b9kFqplFB4ksjcPB11g7wrzFIgvzhQf4VQ4LwRLiHJrvjQT+Z84PDUc7IV2LD5JEPl
-         ZmMlqSn9Zfs6NtZ5wlylT9/0/DhKh8W90+YzWktylsMglqS0lxW/g71dgzPKRJ8jt9IY
-         JLK24g9M5vDKhDWDxa1bRSz4655xxriCK1KUYGW1mNMUcX6vzl47Gp8Mlw5DtFUJ/RsJ
-         wO5PfU4yhMpc3rzSJg2zZFSD5xQTCBEGbrzXzByK8OhXHaWtE/RXDBYwZNv77HkmOBcv
-         l+X3FQNWyF7m1Vg8n7ekhqOs8ngNSPfEAOWc8Dwzx2HOPa01dBCIlB9bWvkjlDMsCdRs
-         OrOA==
+        bh=ArOGclM53rFb6FaD30XPdpkN0QKhCsTNqoQPSptCW1M=;
+        b=EAxmM9UVr5xiS0EjOshRHqm2ayrWnv4PiCLsP67q5xGBXcB5fd+GXWiazf20EVgGYa
+         Ht0TaImHEWIWoStmYdtD4MeeTDwKEJpEMjeGAmVOahXi9jU1yEqmNz55AE6JyjwOXvSW
+         SYiE21tU0E+80N7/XK6oi0vN9HujuOLq4vhDcHmpup+n5kBwOFe65e+9AqW3cxdVXFW6
+         lBWJD5r3EqB8ZfaY+XGNolHNt/+PgFBcYppc5QB0fT3p/35lwdwhcH7qo3s2ZaPG6MII
+         CKXcBVBBRHAMHE70ZtyI84hUq4xyJ85OFpHYeydVEfaX8qJmQu0ZNV3WR9alL1z4JVcw
+         KSPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530142; x=1795134942;
+        d=1e100.net; s=20260707; t=1794530170; x=1795134970;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3/VnFgYINlRlhY1yu2VcR+eAdnoCreCST0T9Cq05K6U=;
-        b=ADGbTUqMn7WBShYFSwyJh2waBnzcOmQqwOs7vjznAQ1KLTWVj/+Fchzdkkd5DEpZ0b
-         fNni04Dqox0BThE5Yzc3ie5M7ceW6pLKGli1R1NrC2Q7Zevcu4SaTkjmSJI9IzomUML2
-         AaNRb7oYgQ6hwROng6qpUIbiOWUZ4DFBm3o77P32tnhkAprs/W0y/BENhF+Nx/hA6Biq
-         15CqAmnVoxUAkO6STBZGeAnSbxREK4Dk5Z5mlzfzdK4vZFuv/OMuJ+oS20vQJs8b5UO1
-         +jv2ly0TIUR9W5t5zoEzyNe3AkhZDmOA6duZbP7uNFN7mo0i099VbWNFTbkc2LHbOHGl
-         95kw==
-X-Forwarded-Encrypted: i=1; AL+hErE25n1F6m+V8Qg6PPGQDwS9tGga0+bJ0P+d+EyUlVNT910eagF2Q5LAS4CHCWotYk/QXKOSMimmBBVX@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OclmDXLjyapadHeonnZ5c32GA4RbQtxV14kO3m08j27OS1y1u
-	iICqAYJFaQwOxaM7U1nHPiNREfwVOKymqOOZ3OvJbrtjXHFLL6Kaf88y
-X-Gm-Gg: AYBFou0W0gOZpmt0CsrfxC/BHvQ3a5JmtxOw8/JEwQ827SILsVJg1Hqi8SWSjG3Dlvv
-	SKwh2O7L3f95JB75CP33r6BDZRIfXJrBlHTxDyrY2HLDS4edvL3YrUio3vQkND80cLqTQHsf4tY
-	6b+yoq8C2qft1Nq5JK1OmB3Uksr2/D19rnEe7Evvy7KHkBswbWMnh8knqhvkRdrZ19hhwP5hl7i
-	FX68buQ2XZtkBuXdv+BrdrQtvT2YzVWTkiSOfMkSGF5uu3itTPoSNGT3tUpL0uk6nh+Ew2d2lCW
-	IRmw5TUjAY0chWD1ugouX47wuyhPXeaEUdfrv1VKTjBUCxxLQ1kJ3gEH9AWA5Fulk798GRLkWCn
-	qZLfYp2brbUS1link+NfVFu8GQ3PF9VFtgt2tBIOsg9JkuJI3JZbQY6cqZSWB1qgpS/yQuL8RsM
-	c6tduefU/kwMD9COOPBpGoqGID7MaPls28EVGT2hq1KQ8UagyVd88HjrH6YpVWW2ijNYqqQOYie
-	0uuMzpiNGruKEuBubGVL+PEEx0L27Fljduul5Am4JW22LPZ5H5CSDtB0XWgD8OPRYiploeRuObB
-	0FxzblruUfiZ3PtEVp7ZudOYrfEZVLN4qnVrFXaobSYS9UiAvG18ZdSZf1wByB2MQaY5OWqcSs+
-	jmVl/1Q7/wHGaEza9Duldlmmaz+/99f04K7p5e0k+l5Wle/gJIvOlwSGDXnaemoldRwNDFh2o0W
-	+nafhQcADzFHDgmKKu
-X-Received: by 2002:a5d:6f05:0:b0:48e:d27:bef2 with SMTP id ffacd0b85a97d-49c723fc07dmr1853264f8f.21.1794530142217;
-        Thu, 12 Nov 2026 16:35:42 -0800 (PST)
+        bh=ArOGclM53rFb6FaD30XPdpkN0QKhCsTNqoQPSptCW1M=;
+        b=bGTL8BIjRz9MTalBQzaGge4dL23IM79bxn4a4uu/uLZnLW2cbqd8LGOUrXLNRvlJWd
+         xFaXtfWBo6mYpBgUyAY80FB/WE4kWFveHE5jJRdTCMxX7CbxgePdZh2Y6WfD+onPYaPs
+         iP46BkoTfBWhGQp4+Xn0hQldUCQBIUtKwOP8GjPou4nTRD3SmuOg4I8FEWnwKue39tZd
+         X96VAZOEAgLPXaTPcdAeYKtZTNOOFpmhpHqwxrkbzUPd5VbFmnwXO5yLV6VWschWCRon
+         mDB1e+7pp1VcsbOvLo7cwrn4G9KnPHE8SsQtAO/VSj8KuKaX0MYvYFJgw2gz6AMUoPok
+         IeYA==
+X-Forwarded-Encrypted: i=1; AL+hErGuMNbXDD7OuPLb7ka+QQ1jH+4er8Svpkm1mY/txHJMG1A2YsY9kp0SVmBrQ0GdleG4WVhkeR6N+I7k@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2ocl7ulln0wsLTsQjMtpLxfO0QXD7Ki0oFtqRM1ppXzYLuqqu
+	D7QjqYxdbNpioIp2y/te231h4ptRYVDHkl94iio+Cx1OcbRJHkSwySM1
+X-Gm-Gg: AYBFou32lkteKHt2fkszRQCbmCwFGMYCHtifcWOqytEngFT8qQ/r1yVAF1otNa5eGwp
+	L+LkIcuG4Z6Pem+7RXSaGMKI0L82+POfj7ZHVtR0FrpZHm7jcKrda0nLznzq9sPiiKf4KWhbUAw
+	fExd18zc0Aa5Nad2zhHfX79fph1HIQtkAg1oQHeSt1MGw1RbSX1i6SQAj1y7kHh8YR0NZbEIX+V
+	QpVhowp3XfsAww0gJhkPK1bNjwFbDTfQzQIyH7w0o6I/JuagOGwh2mF3G/TTJQDJ//RZJDBzPqr
+	qJzrVrq9JOpNdCDq8eBlt1+Aj1SCXq1myqr4rsGYiRCTm/+Rh97nRj+AZ8bVFjjAB0jjnj91Vm/
+	q7cyGYWNR1bTz+1ImSH0KHWfzYojwZ/0De2fa2DZFFxi1qcEXb1y9hgTIivqJov+dvG3g7fMndj
+	QZ3WAhAsRNET5PzKIorbY5brlDrt0Q2gsU5g+l6bRcc/RFGjIiP5yqdpEHJMnjRLMfxSxoWQTxK
+	86sGpT8nt0WV1QlOhYh8ogS011A6QIxam3eCUHFKTJoKb/2Bjd2wv3k55XfOEW2FPN6iL+v+6so
+	fvwEHQnQu716h/VKAD/ymh/dty3htLKKchW8y1EMej7p9RSIbKoscNQx1AZo3g5/TU6NENXeFzj
+	avZuMcJzN0XgNXJlFDR3HrfIw0FskRS+N2mtFuBBjr+gfmPDmWa/Pf8gAQuke+uEG1AHb0NxxR0
+	Tj2469TBpxWnoCm659
+X-Received: by 2002:a05:6000:4381:b0:48d:b650:69aa with SMTP id ffacd0b85a97d-49c72c9c75emr2405809f8f.50.1794530169802;
+        Thu, 12 Nov 2026 16:36:09 -0800 (PST)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm2251812f8f.45.2026.11.12.16.35.40
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm1918847f8f.46.2026.11.12.16.36.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:35:41 -0800 (PST)
+        Thu, 12 Nov 2026 16:36:08 -0800 (PST)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
 Cc: linux-arm-kernel@lists.infradead.org,
-	arnd@arndb.de,
-	krzk@kernel.org,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 04/24] dt-bindings: clock: Add ZTE ZX279128S CRM clock bindings
-Date: Fri, 13 Nov 2026 00:35:40 +0000
-Message-ID: <20261113003540.3660753-1-ghahramani.navid@gmail.com>
+	linux-kernel@vger.kernel.org,
+	arnd@arndb.de,
+	linux@armlinux.org.uk,
+	robh@kernel.org,
+	krzk@kernel.org
+Subject: Re: [PATCH 13/24] PCI: dwc: Add ZTE ZX279128S host controller driver
+Date: Fri, 13 Nov 2026 00:36:07 +0000
+Message-ID: <20261113003607.3662439-1-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-5-ghahramani.navid@gmail.com> <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
+In-Reply-To: <RqVLVgMZQZCOx29YUhhdJQ@gmail.com>
+References: <20261010130024.177503-1-ghahramani.navid@gmail.com> <20261010130024.177503-14-ghahramani.navid@gmail.com> <RqVLVgMZQZCOx29YUhhdJQ@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,48 +111,28 @@ Content-Transfer-Encoding: 8bit
 Hi Stefan,
 
 Stefan Dösinger wrote:
-> This would be easier to review if it were split in 3 patches, one yaml per
-> patch.
+> If this is a clock control it would be better to write a clock driver that
+> manages the crm2 region and exposes a proper clock handle.
 
-The next version will have one binding per patch.
+That is done since v2. crm2 has its own clock and reset provider and
+the PCIe driver uses the clock and reset handles.
 
-> Afaiu this makes "syscon" optional. Why do you need syscon? Why might you not
-> need syscon?
+> For the phy parts that are part of topcrm: drivers/phy has PCIe PHY drivers.
 
-It turned out I don't need it, so I dropped syscon from crm2 in my
-tree. All I have found in crm2 so far are the PCIe clock gates and
-resets.
+The PHY setup moved into a PHY driver with #phy-cells on topcrm, so the
+PCIe driver doesn't write topcrm registers anymore.
 
-> I think you should be the maintainer alone here, I don't have the hardware to
-> do proper testing of patches.
+> By and large the zx279128s_pcie_init_crm has a bad code smell: It looks like
+> an LLM translation of ZTE's code to me without understanding what the
+> registers actually do.
 
-OK, I will be the only maintainer there.
-
-> I think splitting those into different bindings is still a viable choice.
-
-The next version will have separate bindings for lsp0crpm and
-lsp1crpm.
-
-> You can drop the phy child node and just add "#phy-cells=1".
-
-Will do. topcrm gets #phy-cells = <1> and no PHY child nodes, and once
-topcrm is an MFD the PHY driver will use device_set_of_node_from_dev()
-like you described.
-
-> I'd suggest to rename clock/zte,zx279128s-crm.h to clock/zte,zx279128s-clk.h.
-
-Will do.
-
-> Do they all need to be exported? You only need those that will be used for a
-> clock = <&topcrm ZX279128S_TOP_SOMETHING> handle.
-
-No. The next version will only export the clocks that device tree nodes
-use, mostly gates, and the PLLs stay inside the driver.
-
-You also asked on the RFC whether lsp0crpm really has no resets. I have
-not tested that yet. I will try your method on the router, clearing the
-bits, seeing what breaks and then checking whether the device kept its
-state, and I will reply with what I find.
+That is fair. There is no public register documentation for this SoC,
+so that function followed ZTE's code, and I got part of it wrong.
+Agustin found that two of the writes went to the wrong block and had no
+effect, see the v2 11/24 thread. For several of the PHY writes I only
+have ZTE's values and no explanation yet. I will try to work them out
+before the PCIe series, and the patch will say which values are just
+copied from ZTE.
 
 Best regards,
 Navid
