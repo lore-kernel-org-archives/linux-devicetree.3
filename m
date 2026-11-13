@@ -1,120 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581125;
-	b=fWM5j0DJ7AjyF4EkZPt/MiL1bW+lBIPW2iMQrbdCB5V8v/95Zi7xeawtqJCTM0l/8aHP
-	 8yPthjokdAbKc1tDefc/DyehD7zzIkOtdNAH5dhw8mdLYI4pIMrjE00VICKcv4jdJeKRf
-	 /2/lOngir8zMT1AR5bgk7411CVl+HzJThFBnUYOJvo+JNs6LpvqoL3CnZ5eKg1uIoWCBa
-	 6QVJbq/IL0QUKo7RV+KThnmRpgYECD2Ba0Hvf/Cp9apJm6cDl7bGiu3qFYBYcwsXhj/DB
-	 awz7JYRXtr4lFDmnjSWyFIF2eUZvwP0Y8EX0q7Yzy0AlONgQ8iTEyYer03EEKm5kdBg==
+	t=1794581284;
+	b=YiYiEbfmQcRBvqDwBjtjI9Hi1VgHl/qUUihXDXuH0WfBvyagNKHFrk8TMSQYF157mZWH
+	 hInl9ESXXfJYHG/X9/0I9xwvPNi2Gqwz3TubJpfMXrUwepGDIEhw5c9m9+nGUJVzWudO9
+	 73AyemanZzzxjpGZGlyXgm4gLqKEixLxWNzV/8v+3txFl6AWEJUekEOa+wimBnpEmADqH
+	 jTtmTEJV3qacNPEfle72nlNiYy0k/E8uoibwW7Xt9MDvAj06yua4paJ8fXNJJyiDyEAbJ
+	 gqGqAAyIl5s3w87QU/55+1F91gdhxw/PelbyvdR6cbcKImkFqQkgv7EXBe+/hrTqtDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581125;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=BhqWxozsyiUTpFxjsjQmHcLwxXaflg+Gr3ztNQxC8dY=;
-	b=YlnOVp9kRUWPCC6a4X5KNLWemfR7H5WnvUATEl1XGL8c84iHv0uHf0WIlG+yZENM4933
-	 6rezQNzxIn71NWfWzsfn0i/b6E3fo+bUfHxz1KDzunNRrjO42lfCrl+875ojyTkJKTfgX
-	 gm/omcvjlxMkoZpItpw3ghrW0q+JvFQxtv5iYl+23vee7iAQ8oGjDs6EIswkIrHAtwTyA
-	 9mdNQ8WcZvLJk+PesgyVAOyqn3O2yv9BEugpbXNvJJ9YzGeAwMFVjWflwBBPW0/6hUMmV
-	 jCdAEnaiZQYSC8CXGYp6s4JvPGgFQfAwLgSmNDvesNiy3WjFQEXYIvihz1ghUTDEvzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581284;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=aIBk4rSjn8B0K4wUs8oS5U1trZ1HzjT4mfYr04c9C5A=;
+	b=Bm8ddhhG50DraP/P7XqG001u0hYjFUb9dYuQJ4AGddw13DYNP87tbCzVRkGzY6UCER6a
+	 z8smu4gpOBTE7h4PCTfpGRUcR8UDdCakGjmsz1bBZ0HdL04tZZhwAXPV9YWXdC/PABbQu
+	 46lUgyL4CzOS4KMy/Jh8FsRf+Nfwb7TGuab5DTYSGUQc/kbvzfcvzP5W+qosX8tNw1Yeu
+	 fQw37BoVEHOcq/tbCcOZ913qntpQrG7XXtWOqm3vUdq2zAQM0wS04tvQK0FuidrNkhC6C
+	 mF0M2kEvm9uTo4LX+PFZBEmVVeAhhNGKI33U3uJqd6G/OF2k+pZwuZUkoznB2IkyOXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SRznYfD5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kxaXkor1;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQo9Ob0R;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7160E606A334
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7160E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB003606A32D;
+	Fri, 13 Nov 2026 14:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB003606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SRznYfD5;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kxaXkor1
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCJSqF2796659
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:45:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=BhqWxozsyiUTpFxjsjQmHcLw
-	xXaflg+Gr3ztNQxC8dY=; b=SRznYfD51cmJOHkZCLUn3+fnt7PUT+oKhTQ6wA6F
-	YzS59A+bWg3kf2pZ4ZJVjj552V+d+T/6r5pA7LCT39x/ea5a/fTwzhdKrJ3NJ+lA
-	NgIsI4uLZ2AFiSTcYDBDXC0NdzI7e3yxr56q4EJJPy2+z0hSZrsanAJKJXUjoQga
-	qhrwstwWCHj68BWXP/iOad1jtBC6wVpijn8fc1Geag1aLJmzByWRUOW6kTriNHcb
-	u/AHn3uzTc8byCogE1JJLqeDOkeB7kAGfuPai5gy4X1/VLE+PaHS9BH17YDenS4r
-	B5YPrvn9JtcXohGThz8jd+qRYI3Rytg/KxN4L4KLCW6Sxw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwvu6ss6m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:45:24 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-948d83322f6so198224685a.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:45:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794581124; x=1795185924; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BhqWxozsyiUTpFxjsjQmHcLwxXaflg+Gr3ztNQxC8dY=;
-        b=kxaXkor11F1VQ0cRKfl7xmngcAakPVDLvIKACXGAiFhn6iajo880Op/u2YmGxj6OcU
-         N0R8ejyVSQAmvyMQb8EH3NxxXbV2HRGF2KoWgIbCuLI97YXsY2qlJdPJfFhq83LZQstj
-         LQudJqUaQfeaNqSWah/5/ZwTbragsJxRmkZVxx9WpHV2CZULphAa5ZmQrOMAoNcXrvIQ
-         aGKXabnPuGR2Kcx/0aH/mCTkUrhYo1JFEwh9AHF5kp+Y3Riv99fKqjpLfH/iSWsIKrx6
-         T7OG50VUTxR0SGCzDCfbnt8dwbD/36o5FsjySFHgcKeU6NEjTMjhsenZb+X8hZoIVoac
-         aJDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581124; x=1795185924;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BhqWxozsyiUTpFxjsjQmHcLwxXaflg+Gr3ztNQxC8dY=;
-        b=kFrDfz2e0jX27kZF4NkAs2i7nEJdVR2awJAEXnxSVfYm/1+GNfhtnzm0SprDsqWVck
-         fvFXdxyWZ6eiymn1YwJXyfOGe5oXpmr6xWNeUes4s7NSWuMaHJzcQcsxki/NSsN8moGr
-         9mZhMl592DBE95R8MCsQru5l5X00Q/QCfhXPKy1UqstdkeAYDItNayZ/Jsy+avzaNY4i
-         JrPld2hhfo+yZmcK7ADrSwlZ4KLn8VWXhpaDqKpm1iV6FWIw+DWoykKfE/KnVZhMTmIE
-         YSvrXT0ehzyklCN3TcMc/bMv/FC6eMduWqm4UK0Z9M+SWlg1Cusuie2qnPDLrJihK1sg
-         lAhw==
-X-Forwarded-Encrypted: i=1; AL+hErFpKXuL274kpHNjQuECljMiCusCb/LRchIUI/16VBiZgzkCy1KjLWl28TLq9BBRK0SmyQ0nOigq+qND@vger.kernel.org
-X-Gm-Message-State: APuU4Z+k58BrdyrnMfO+dWaXLjPNrHr2NrZacHIYPruJDNPFAk9Kudnz
-	58LgEY+iwNw0vSucGnKL92TTXDeTJ58D7LiPOohOrBOeG0KrGBeNIBUptaCpx4KtcFXyCTjfX7j
-	aSDnFqiVN85AibilKxhswpCsUysrAar0wm+5zLfG/b8XrUopyAmWV+d1PmXuiD9iZ
-X-Gm-Gg: AYBFou0eQcU4i1z1aBem5I75vrOi9xR5w25NyC8cFlkIYEhgrFdg6RMCXI63yts2Ygg
-	XuVr8UU9Qe7TT4KAsbc+SAH4v/AmUBGesYnW2LaiLJsquXmgyGF2UbGiPmGcZ7PBYd/OBX/2lXH
-	KVbIDsWdC2cP/gPkijRzsEQPOK3xYvo4YvBtD72ji8SUMM9YldQcyYdJs+CcPQd7muH5b/pCtCh
-	w4V5rtgeoxn2rmuNfUz30c3jtwCc7fH5VxIJbYLHIeo04rD2rGjdIuytZH3NLZwUD4UTuEcmDeP
-	tZynXlHaHf8eH3XOkFcWebAXiobLuZoi/yxtFGoM5K9t5qahiICC8MEKdoA4oCP9ayIGq2VP1cx
-	wY3Dg3Ezj22XEZq/jgGORbs5FZsz6loYIvAeppDZGs8rFMmm1Sq11aAkjYNhwUGegJKaV67uMIe
-	CnQLsMabNf8DWFtzINnaEaPMwBsg0NnkbzaAo3JO0iw1jeRfwf8OrzNgWlg2wTCw==
-X-Received: by 2002:a05:620a:6845:b0:93a:11a4:223c with SMTP id af79cd13be357-9494ba5f250mr441992485a.9.1794581123377;
-        Fri, 13 Nov 2026 06:45:23 -0800 (PST)
-X-Received: by 2002:a05:620a:6845:b0:93a:11a4:223c with SMTP id af79cd13be357-9494ba5f250mr441987885a.9.1794581122919;
-        Fri, 13 Nov 2026 06:45:22 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712d9f73sm851343e87.2.2026.11.13.06.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:45:21 -0800 (PST)
-Date: Fri, 13 Nov 2026 16:45:20 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: talos-lyra-evk: Add CYPD6129 Type-C
- support
-Message-ID: <5ykqzqoeywcr2cuvwe24ezl2nxrfrtokne4rxxnkht4yik5lmd@cmt26dcx62gs>
-References: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQo9Ob0R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794581284; x=1826117284;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yX9p1HtRUXhQngAEtVPacN6yL6qsAp558i61nVU+Yhw=;
+  b=HQo9Ob0R83whKVzEp52FwnqZNYVU3SkjDjyGA6ez8aPPB6NoassJN0Fr
+   jXyC8aM7J1ldMlNtEyVZjJowamu6snrKvZUtkX+PzKNehHhQvNlogW0/0
+   YR4Vn3YPjVBHhp9rrVhoTi4LcGq32kjGvxwJvQ7DVSUfmMI0fcxHcmc46
+   +iSFpGI5M5oD8mYrfzdvYTYW5AuxjQcHfrwNi1CzXrU33EItMRjIjATZT
+   win2FpBv69zO6bIri+yNUaxDl7ziteJkTccLKMQFzar5YmKcacmSc1xr9
+   3PNll4gQO5JvG1ppg40p+QEsm2oQ/emW6SpkWepAuO2vrYvcrzxUZTnJN
+   w==;
+X-CSE-ConnectionGUID: yezIwCG7SF6FpPI+JqdlcA==
+X-CSE-MsgGUID: 8iEyWDlvTrOfARdgtOK2LA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3463719"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3463719"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:48:03 -0800
+X-CSE-ConnectionGUID: X1D/LeLzQ+ui8rZwEbY5sw==
+X-CSE-MsgGUID: S5B+0Y9kTt+TeyN365jamA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9101431"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 06:47:56 -0800
+Date: Fri, 13 Nov 2026 16:47:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/7] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avcjGlgQBnXHaFFh@ashevche-desk.local>
+References: <cover.1794574496.git.alx@kernel.org>
+ <f25bf43d7f18c99019a52b9ba9a1e46fa68174c7.1794574496.git.alx@kernel.org>
+ <avcfuBAbNkBrk6uy@ashevche-desk.local>
+ <avcf5V0B52MV4_PZ@ashevche-desk.local>
+ <avcg2NEwaV-AuuCl@devuan>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,250 +110,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfXxEdDWJ5To7e+
- b6GJ7cgrAN+ZEVEtfE2wB+qTjg+mAIpKZLRKPsjlG5odWp1ZwwpX+uKQkIM5KU4JoOdX3HkBCzB
- rZMHRrHUt6VJN3JgWulu+Zz/Y1EJkDNHJQh1ypUM9uS6ulWk4CuQIeM39qyHQL9ZEq5YtnJTw3A
- vYyhiJxj8F3u5tCOeuCcI0j5xob0byaZNwFhodH2z6jyFQUFKpssvIwI5aGOUPzXZzeh/oFVp3K
- dWjqxlVS5Qn6RPrfOnHvD+/P7gNefVr4oBECVN/qwCCK795gWff6Q/yvT+tDiPZxYEYiyuWcVIa
- X+Wuu5d90G5AGCCxfMZUO5Jwt+7UFgjNJSVdWJoJ9qgDrpo12XrTvc8KyByQqV946h4UU9bZxsV
- yPpvOJoBK5q03lYBGeNGfjHKkQJ6rAiz/y/nKdH07ELmdWVqh31u/oQnLFC7LrtZn/IjetGxs9w
- ceb5EUNMDa0DGjlsxZw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfX1ZR4s/Wy5eNQ
- NEQjcyYhJ7OLot0iqC1of979d5ycZOJSf13uhbkskBKhNjzHHjn8lzroYzyhzICiVgqjpF1tZlY
- ALu8barcHhWHYbkUg9R/xbN97f7qS34=
-X-Proofpoint-GUID: ogPKpFPA14JKn5hxGk9XrSSbVFyapYO5
-X-Proofpoint-ORIG-GUID: ogPKpFPA14JKn5hxGk9XrSSbVFyapYO5
-X-Authority-Analysis: v=2.4 cv=JfcpPkKV c=1 sm=1 tr=0 ts=6af72284 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=GB_fNi9pDqyhg0ZszycA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 phishscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130058
+In-Reply-To: <avcg2NEwaV-AuuCl@devuan>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 06:41:13PM +0530, Akash Kumar wrote:
-> Add support for the Cypress CYPD6129 dual Type-C PD controller on the
-> Talos Lyra EVK.
+On Fri, Nov 13, 2026 at 03:40:31PM +0100, Alejandro Colomar wrote:
+> > On Fri, Nov 13, 2026 at 04:33:37PM +0200, Andy Shevchenko wrote:
+> > > On Fri, Nov 13, 2026 at 02:10:29PM +0100, Alejandro Colomar wrote:
+
+...
+
+> > > > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > > > Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+> > 
+> > > It's unreferred Link tag, spurious? Please, refer to it in the commit message
+> > > to understand why it's here. Use Link: $URL [1] and use [1] in the text.
+> > 
+> > Ah, perhaps you wanted Closes tag instead?
 > 
-> Enable the controller on I2C5 at address 0x40, configure its GPIO86
-> interrupt and wakeup support, and describe both USB Type-C connectors.
-> Connect the connectors to USB1 and USB2 through USB role-switch
-> remote-endpoint links.
-> 
-> Configure both USB controllers in OTG mode with usb-role-switch support
-> so that the CYPD6129 controller can manage their USB data roles.
-> 
-> USB1 is routed to the daughter-card board-to-board connector. Add a
-> fixed USB1 VBUS regulator controlled by PM8150 GPIO10 to provide and
-> control VBUS for the USB port on the daughter card. Configure the
-> corresponding PM8150 GPIO pinctrl state and keep the regulator enabled
-> for the board configuration.
-> 
-> Add the TLMM GPIO64 VBUS boost enable as a GPIO hog. This enables the
-> 5 V boost converter required to generate the VBUS supply for the USB
-> daughter-card connector. The boost converter output is set to 5 V by
-> the feedback network consisting of R2403 and R2401:
-> 
->     VOUT = 0.6 * (1 + R2403 / R2401)
->          = 0.6 * (1 + 75K / 10K)
->          = 5 V
+> Yeah, it was for linking to Bart's report.  BTW, is it okay to have two
+> consecutive patches with the same Closes tag?
 
-Too many details. Describe is as a regulator instead.
+I think so.
 
-> 
-> The changes also add the I2C5 alias, CYPD6129 pinctrl configuration,
-> wakeup-source properties, USB endpoint connections, and the required
-> VBUS power-control GPIO descriptions.
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 119 +++++++++++++++++++-
->  1 file changed, 117 insertions(+), 2 deletions(-)
-> ---
-> base-commit: b7e62b4d28bc0d2f16f03904616da78e4478aa88
-> change-id: 20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59
-> base commit link: https://lore.kernel.org/all/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com/
-> 
-> Link to Driver and DT-Binding change: https://lore.kernel.org/all/20261012091658.635441-1-akash.kumar@oss.qualcomm.com/
-> ---
-> 
-> @@ -59,6 +73,68 @@ expander3: gpio@3c {
->  		#gpio-cells = <2>;
->  		gpio-controller;
->  	};
-> +
-> +	typec@40 {
-> +		compatible = "cypress,cypd6129";
-> +		reg = <0x40>;
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = <86 IRQ_TYPE_LEVEL_LOW>;
-> +		pinctrl-0 = <&usb0_intr_state>;
-> +		pinctrl-names = "default";
-> +		wakeup-source;
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		status = "okay";
-
-Drop
-
-> +
-> +		/*
-> +		 * connector@0 is the USB0 Type-C port with SuperSpeed support,
-> +		 * routed to usb_1. connector@1 is the USB1 Type-C port with
-> +		 * USB 2.0 HS-only support, routed to usb_2.
-> +		 */
-
-Just add /* HS only */ to a corresponding controller.
-
-> +		ccg_typec_con0: connector@0 {
-
-Unused label, drop.
-
-> +			compatible = "usb-c-connector";
-> +			reg = <0>;
-> +			label = "USB-C";
-> +			data-role = "dual";
-> +			power-role = "dual";
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +
-> +					ucsi_ccg_port_0_hs: endpoint {
-> +						remote-endpoint = <&usb_1_dwc3_hs>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +
-> +		ccg_typec_con1: connector@1 {
-
-Unused label, drop.
-
-> +			compatible = "usb-c-connector";
-> +			reg = <1>;
-> +			label = "USB-C";
-> +			data-role = "dual";
-> +			power-role = "dual";
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +
-> +					ucsi_ccg_port_1_hs: endpoint {
-> +						remote-endpoint = <&usb_2_dwc3_hs>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
->  };
->  
->  &mdss {
-> @@ -74,6 +150,15 @@ &mdss_dp0_out {
->  	remote-endpoint = <&dp0_connector_in>;
->  };
->  
-> +&pm8150_gpios {
-> +	usb1_en: usb1-en-state {
-> +		pins = "gpio10";
-> +		function = "normal";
-> +		output-enable;
-> +		power-source = <0>;
-> +	};
-> +};
-> +
->  &pon_pwrkey {
->  	status = "okay";
->  };
-> @@ -94,10 +179,33 @@ tpm@0 {
->  	};
->  };
->  
-> +&tlmm {
-> +	usb0_intr_state: usb0-intr-state {
-> +		pins = "gpio86";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-up;
-> +	};
-> +
-> +	vbus_boost_5v: vbus-boost-5v-hog {
-
-Should become a regulator.
-
-> +		gpio-hog;
-> +		gpios = <64 GPIO_ACTIVE_HIGH>;
-> +		output-high;
-> +		line-name = "vbus-boost-5v";
-> +	};
-> +};
-> +
->  &usb_1 {
-> -	dr_mode = "peripheral";
-> +	dr_mode = "otg";
-
-Default, drop.
-
-> +	usb-role-switch;
-
-=> talos.dtsi, separate commit.
-
->  
->  	status = "okay";
-> +
-> +	port {
-> +		usb_1_dwc3_hs: endpoint {
-> +			remote-endpoint = <&ucsi_ccg_port_0_hs>;
-> +		};
-> +	};
->  };
->  
->  &usb_1_hsphy {
-> @@ -109,9 +217,16 @@ &usb_1_hsphy {
->  };
->  
->  &usb_2 {
-> -	dr_mode = "host";
-> +	dr_mode = "otg";
-
-Default, drop
-
-> +	usb-role-switch;
-
-=> talos.dtsi
-
->  
->  	status = "okay";
-> +
-> +	port {
-> +		usb_2_dwc3_hs: endpoint {
-> +			remote-endpoint = <&ucsi_ccg_port_1_hs>;
-> +		};
-> +	};
->  };
->  
->  &usb_2_hsphy {
-> -- 
-> 2.43.0
-> 
+> I guess it is, because they close different aspects of the same issue.  But
+> at the same time, the first one doesn't fully close the link.  I guess yeah,
+> I should just put it in both.  Thanks!
 
 -- 
-With best wishes
-Dmitry
+With Best Regards,
+Andy Shevchenko
+
+
