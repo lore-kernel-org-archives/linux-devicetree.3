@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602822;
-	b=ZXeCAvbNdZZTwt9CGB2ztTcpQITvCzy92aMEXN+kjyw4A0SV/m9gRpWnNK2BFFc3Mn1m
-	 gD9DK6DAqk5MLRwXzIyY2kjplbMCFLrnIvrfyxXfGnQbbt+gIRImBQiHFl1hGllaXbia5
-	 0uZ8avP9ZL75XnHs1kDS1UnHkG6N50nYYsC8CdpIUS4tn8NWqTFgZXoMb+shtsf6QDTO5
-	 R7Bi6/47TKbUXVVuqYDq3j/BhFVBGdnt3+m0MAKOkxNH+xv1exbbj7BsopoejAxNP0a2m
-	 +AfxL5OVqM0l6s3D0arqN0hpWGwN8DlrWISEyaE7PxJHqUhlRLIeRCLvA/AJQcjpL4w==
+	t=1794602914;
+	b=LYNQ/OiuX+UNP3VR+SazFlRzYnibuIQQX18mXAwTrQpD9iM/YBaYVdezWNdhUkdmP1KF
+	 B4TqwVblz2pPWwBhVA/LUaazIZgmcc2IosOb3oKzugFvOOqZbJIaYt9HskZpfvWrvYXve
+	 v0TGQtseuPQv5CphD2XRBf+UsLaFqbw00Pqdnt7c+fZIwFvrhkAeGZCYRoPxE2yDbFRQ7
+	 a25JGqSb9wvrVWEsnU+MSvjHifpY6aZnjRUhf75yKCF9tFe1TD0B/vEMA61hNPnwmPxkH
+	 aRfCg/u7FUqgqRHm4XO+v6HNs4xR6f+FOBSTWBvTr9X+ufmjPBSGXFtF6Wg1luJq8yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602822;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=AGaboZxTUqlJL9vb/7/EcydpQ6AnRo3iJ6Y2HP77rAE=;
-	b=RjD5ltrnfCVj+ZWTI8Vpfy6b+t0UJxuOZ/YdgbwOzDzwYyvnHztEelMYMS4X/9e7FsOv
-	 T3Fk94GnCvH0iYQ+5+ZLnTpUisq8/oZbp6SfsAFUSh1ASDQtTBJGrUq5XmSmbldph/IEZ
-	 qAAgX9E923frEWGFOK811wUqWfEpynoeouAzaq0hZYOVSvpVLpMqqO+MeQwF7JdM+K6Fq
-	 QWhWT9co4wzTMm6HXkSZqCirifx2uC9tD96Cshukujqzan6YFexnmtiEt7rZpAMFnN3fU
-	 L/OYDs4JCIz2/OfL/VVmF/YM+D7h+kZUzq/P6ayZz5Ylm43LjmPtetSBN6G+aDtqTmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602914;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=4yDZRfV74gzkAKxidzXBIKvKLnHRDrSBTaKHel/+/uo=;
+	b=dEbI+n2wp2eWAnFNRyM5H9bzKdMQHMM875bnWuwU3D4Hvslm2vHmvC0ZbUUkLJ++O4Dm
+	 Q2jufFkPHYufY8UyfxZcSBGqQhSpKC6UXGi59jCXhuVVanyJhdu7sJauvJqRvTykILW6g
+	 /CU0fnN4XAAeKThWh+Ee+UHdB793LeSIDHOeP+poouE8Te0mE2LIIyZE/X4KRGP6bTR8O
+	 POjfRHUZhrERnrXVFHp3dWXN9FlxyJyibsivPEsz53j0cVKf9J8Ca8BfeeKAQ55iqQkDU
+	 c5jsti3wimtl3R4R+loaoch2OY1JEMAjAb05GbWLDgkcrSiXtdpbIMvmHDXz8rNRt0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmNy2C5J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Z+kKRryW;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF0A606A334;
-	Fri, 13 Nov 2026 20:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A2B606A323;
+	Fri, 13 Nov 2026 20:48:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A2B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmNy2C5J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3EF1F000C4;
-	Fri, 13 Nov 2026 20:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794602822;
-	bh=AGaboZxTUqlJL9vb/7/EcydpQ6AnRo3iJ6Y2HP77rAE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EmNy2C5JBoMz83nrt/cUkyoVZJ3FsyVxtPByZYJhV8Kn4z8W7KNF4xZJMxBYonYIn
-	 BzCsYfMEIYMg4hm7qHgKKu28sFf76S8+T/UtwEsvNqHgcmhf5wOOXrf9eXkyZQQdwg
-	 KOTgyhBwq5U92XoWnqQ4SQPY8ZqqOgVFvSaTtmTmp4QiPlvzzr5mBKfh30bHJl0Tn2
-	 KjwgEGxqtY6OpoFVbB9TrQgedlKYdBxzo4JKE/tWW+P/rZW8SZvc/R8pC0gHYXgLPi
-	 pVlxwYpHeqC/BjASAAm16U37NGoqVlxezvBFpW/NdN/IBVLWDwCHwICjXHBvS0H1Fa
-	 T2jCHgQ1zpN/A==
-Message-ID: <sashiko-outbox-213678@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] ASoC: qcom: lpass macro / soundwire: retry
- deferred clock acquisition
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Carter" <yass27106@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <c0b2628bb8824cb0a61dacb714f94af2@gmail.com>
-References: <bee078b697b74da694b5f9e6f518c0fb@gmail.com>
- <c0b2628bb8824cb0a61dacb714f94af2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 20:47:01 +0000
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Z+kKRryW
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=4yDZRfV74gzkAKxidzXBIKvKLnHRDrSBTaKHel/+/uo=; b=Z+kKRryWqzzXo7N0Sw4YRsMx0U
+	ooA+n1KLL0vRvKl0ksWJUpF9NphOyllBA22gtQf7PrzXQILiV6FaI/cu2r8f1aCbIVIsV7UD+w8Hn
+	79hx9VjKATUDTwLleielum70OnlKZgJeLDSRKRw3bjQYxzj+OlNY7CXCLwmcqovn2xzjI4ZBdL/cn
+	d7NOhSl43eEOEjqhkumM60IyzCMvg7w1dtGaOAryVbXttvgmOdQOXWzZDf49l0XeZBEd0QoszaxVB
+	+9OG2VQbQYAzRRbxtt4GBeU7CD3941BdZ2eoLGLXpYhbl4B8bEHP5n+4yQ0vQQ9yVFegqy/jiP3t1
+	WY3BVGJQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: linux-rockchip@lists.infradead.org, Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, david@ixit.cz, detlev.casanova@collabora.com,
+ maz@kernel.org, michael.riesch@collabora.com, diederik@cknow-tech.com,
+ shawn.lin@rock-chips.com, conor+dt@kernel.org, krzk+dt@kernel.org,
+ robh@kernel.org, tglx@kernel.org, daniel.lezcano@kernel.org,
+ Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: timer: rockchip: Add rk3568 compatible
+Date: Fri, 13 Nov 2026 21:48:28 +0100
+Message-ID: <OwFpcaCvQyCpxGXRrBGjPA@sntech.de>
+In-Reply-To: <20261103192331.394489-2-macroalpha82@gmail.com>
+References:
+ <20261103192331.394489-1-macroalpha82@gmail.com>
+ <20261103192331.394489-2-macroalpha82@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,175 +65,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] ASoC: qcom: 30s msleep() retry in probe stalls
-  deferred_probe_work
-- [High] soundwire: qcom: unused static clk_get_retry_optional() breaks
-  Werror build
-- [High] ASoC: qcom: missing Signed-off-by trailer and commit message
-  body
-- [Low] ASoC: qcom: clk_get_retry() helpers duplicated across five
-  driver files
---
+Hi Chris,
 
-commit 9ed54c71b350e8398fe1839f5ec457bda202d8b0
-Author: Daniel Carter <yass27106@gmail.com>
-
-> ASoC: qcom: lpass macro / soundwire: retry deferred clock acquisition
+Am Dienstag, 3. November 2026, 20:23:30 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Chris Morgan:
+> From: Chris Morgan <macromorgan@hotmail.com>
 >=20
-> drivers/soundwire/qcom.c           | 37 +++++++++++++++++++++++-
->  sound/soc/codecs/lpass-rx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-tx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-va-macro.c  | 43 +++++++++++++++++++++++++---
->  sound/soc/codecs/lpass-wsa-macro.c | 45 ++++++++++++++++++++++++++----
->  5 files changed, 195 insertions(+), 20 deletions(-)
+> Add compatible string for Rockchip RK3568 timer.
+>=20
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 
-[Severity: High]
-This commit is missing a Signed-off-by: trailer, and the commit message
-body contains only a diffstat without explaining why this change is
-needed.
+can you ideally send this one separately to the clocksource people, so
+that is maybe is clearer that this patch should go through the clocksource
+driver tree?
 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index c31d921f679f9..afb71624dae2a 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -21,6 +21,41 @@
->  #include <sound/pcm_params.h>
->  #include <sound/soc.h>
->  #include "bus.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registrati=
-on
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 60; i++) {
-> +		c =3D devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) !=3D -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
 
-[Severity: High]
-Does sleeping for 30 seconds in clk_get_retry() and
-clk_get_retry_optional() block the very probe thread needed to register
-the supplier clocks?
+Heiko
 
-None of these drivers sets PROBE_PREFER_ASYNCHRONOUS, so both initcalls
-and deferred_probe_work_func() run .probe() callbacks sequentially on a
-single thread.  The modified drivers also supply clocks to one another:
-va_macro_probe() registers the fsgen clock consumed by rx_macro_probe(),
-tx_macro_probe(), and wsa_macro_probe(), while the macro drivers register
-the mclk clock consumed as iface by qcom_swrm_probe().
+> ---
+>  Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.ya=
+ml b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+> index 6d0eb0014eee..b245a3051d66 100644
+> --- a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+> +++ b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+> @@ -24,6 +24,7 @@ properties:
+>                - rockchip,rk3228-timer
+>                - rockchip,rk3229-timer
+>                - rockchip,rk3368-timer
+> +              - rockchip,rk3568-timer
+>                - rockchip,rk3576-timer
+>                - rockchip,rk3588-timer
+>                - rockchip,px30-timer
+>=20
 
-Because drivers/soundwire/ and wsa-macro are linked and ordered in device
-trees before va-macro, a consumer probing before va_macro_probe() (or
-q6prmcc) sleeps for the full 30 seconds on that single thread, preventing
-the supplier from probing and registering the clock until the loop gives
-up and returns -EPROBE_DEFER anyway.  This stalls boot or deferred probing
-for 30 seconds per device and can expire driver_deferred_probe_timeout,
-while in va_macro_probe() sleeping on va->npl also leaves the va->pds
-power domains powered on for 30 seconds.
 
-In addition, clock suppliers registered from a driver .probe() callback do
-trigger deferred probe retries via really_probe() -> driver_bound() ->
-driver_deferred_probe_trigger().
 
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char=
- *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 60; i++) {
-> +		c =3D devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) !=3D -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> =20
->  #define SWRM_COMP_SW_RESET					0x008
->  #define SWRM_COMP_STATUS					0x014
-> @@ -1669,7 +1704,7 @@ static int qcom_swrm_probe(struct platform_device *=
-pdev)
->  		goto err_init;
->  	}
-> =20
-> -	ctrl->hclk =3D devm_clk_get(dev, "iface");
-> +	ctrl->hclk =3D clk_get_retry(dev, "iface");
 
-[Severity: High]
-Does defining clk_get_retry_optional() in drivers/soundwire/qcom.c without
-any callers trigger a -Wunused-function warning and break builds with
-CONFIG_WERROR=3Dy?
-
-> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-r=
-x-macro.c
-> index ab8a1c2b0489b..c953054eb7a38 100644
-> --- a/sound/soc/codecs/lpass-rx-macro.c
-> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> @@ -18,6 +18,41 @@
->  #include <linux/clk-provider.h>
-> =20
->  #include "lpass-macro-common.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registrati=
-on
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 60; i++) {
-> +		c =3D devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) !=3D -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char=
- *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i =3D 0; i < 60; i++) {
-> +		c =3D devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) !=3D -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-
-[Severity: Low]
-This isn't a bug, but clk_get_retry() and clk_get_retry_optional() are
-duplicated verbatim across five source files, four of which already share
-sound/soc/codecs/lpass-macro-common.h.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2c4a807496c04047b6d=
-5735e3946dd16@gmail.com?part=3D3
