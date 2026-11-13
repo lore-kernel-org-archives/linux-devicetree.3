@@ -1,67 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605171;
-	b=u4RcayElfzz5TLiFqr5VgbNJYU9gSYZar7F+5mrLBOLnaVortZc9X//OWeR+88HlzEwp
-	 gktI1c53qwLzTfsmND8lASt2stjTU9aieTlJ3Pt1KgR7Uwwd7sAkkbDk7KanwBCHkLvWT
-	 b7D2rDRjZINmW+o837HWhJBcw7x9ueKU5nG0Gd87/X2zCUmkTDXhI78wjj4Jx/VmndqEe
-	 J0o4K2Vo9etWVKm5iQDX5+X72vZLlfMunG3zDfkRKW5jCVEiVBRmzLbr+y454ar/9PAAG
-	 F1t5dyL3/fikQgLbE/K5/EaLevfDu2411rvw8yxtTDKnW4jiOL8qnxxsTGiSVXNY1eg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605171;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=;
-	b=QmRYyoT+MV6l3t4uE9qR+y7p/ZpOFVQUghzUGCvm5c2yd9Ny3YJ9OIiGvShndZzJHsLf
-	 zV2oL3an01eqe/co+4DFQlQCSNEb2sseo/Xbg/o96oHywPqnZI3Oi0V5xlosw19KqPIYY
-	 zbbmrgzhNftQ/6QKvOY/PKom0ZgPx3Mm1ttezezD0mCjdbz5sh2tu9+ikh/6Tu7TEFKXq
-	 dq+Grj6DAos0Uy2wdcNoNojk/vkm4KZMSGB48cVb2r+c82hR17eOKgQOqIeNw6FE/Znt1
-	 csf31x2bWui4ZYGNehFcva4SlbpqBnPI2DvUvjAwCjtt096qIFyaN6j72ZlY0NmBmWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794605390;
+	b=T4RaQ6yLi88+bmYvmYn0ymwBJudhJsEZfX/MMlQnwJoSKTUXIxhJ75YX0M913sgpU9iV
+	 su52f25EyWNqLjgxbmgRdFlvkG+9QlyWMVMT3x+o221en7qeOKCYmy2BANX9JephK2Rx7
+	 hMSI30O+wXZ64QGGGXm/2Kk7lur77v1rPVnW7ECjWq6PUSeJ4zib0mvXIVwrJFf/4r2Ca
+	 PcbYBnPGYIU2IZD5HuGml6qQP8j+90dNGN91VGmqoIF7XLS1PycS634QVg31PqHnKZxfr
+	 5JkL19pedVgFTR7t7Bt52vjMd4Sj+FFUE9v11sAKiQ91EzxZFdWw3s7WGHmvU30LKkg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605390;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UPLlBhEFkzCKdx/9gg1lylf9okJBK3VnemYGQ3dag7k=;
+	b=i+K/rnREwVCo7Qhn9x27RJy6qsPq/fEq68W3eAuGztMcbqkQ6ilnhowuqjmMpUZKm5gr
+	 yKAfjJewxXMOuscPV01sE6d5hpMWs5idKx1KubYmCK0/w+DhUtbTQJ4kE3vQx6DKvBi+M
+	 co21xQskQe+0bsdIxSoVW4W+PNhCxY50DgT7vr6mU/+sCEhAnPhSKhIIihGILQZWqGxEJ
+	 jRAnYQk7xgUW3ls555gSZGZAT8RCVIza45XAhjkSLMD9JX30kSgf4rKjHvD67PGnTkpHm
+	 98OmlkDua8Bt+Bv7QptMFHiCGMi3spFmfkxKvqnOWgs4PUlh4EQ6OQk5UkWWJOaEDkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DSj2pJOz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.66
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012066.outbound.protection.outlook.com [52.101.66.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5A606A32D;
-	Fri, 13 Nov 2026 21:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C5A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556A9606A323;
+	Fri, 13 Nov 2026 21:29:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556A9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKqtjcn9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=14DbhITib14ppVX3i7Picll2u9OpRT8wBV6cw1FaJPg=; b=AKqtjcn9H5nJ/tb/KVjKAhGI/L
-	6FHDvu1Aj51VzpM+SCyLiV+/0BrV/gxyS4fhEbHJMP3ms9/TUQ4ZGw/uNwga4LPjxV8/p3vEn2YkL
-	TMkSrJEDq1rDTm4Z5oedrU7wQMQ+OLvF67lqIuaiiJkxAr4yNehWj191xEz0tdHRfad74DdfHm5u6
-	aY2fvq0o5kloTw6OExdw6AmUFgG4fBTLwPMeBKvYg8u0mf5sKJctUAMHv5xTS0TV2nhYhdryNvVsq
-	8/DEv4d4D+blQJR3R9kEA45UGOGXMWNXxYC4OXvcKNa8qAgQwUj1ZEj44d4nAk6zZFxMhVFD0QNOs
-	ESQ1gGXw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Cochran <richardcochran@gmail.com>, 1579567540@qq.com
-Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Subject:
- Re: [PATCH v5 2/4] clk: rockchip: Add internal support for 24-bit fractional
- dividers
-Date: Fri, 13 Nov 2026 22:25:55 +0100
-Message-ID: <Yf6NfRPFTxKjDagKAm6hpw@sntech.de>
-In-Reply-To: <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
-References:
- <20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com>
- <20261030-add-board-ok3572-c-clk-v5-2-9a43403cb149@qq.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DSj2pJOz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tV7JdjmPpe+GSvEDPw6GinjJIwBZh/L6VsMNATUdR0ZrP79JMwGtCTQ0aLACWdtKGzqTQeqoOjz0wFGkNbzPCKIy2REs/4tBmL69ueui56E4ukcZloZVrBQ67ImpQ6rL9VhOwklew9/eTk40AwIsq3GjRAGPhtPSyOEXvXje5gkZPEkMIaL3P26CKaazWkiZ5Ga4BmRFfKOsZNJFsfa1gnjZ9ADPdrU3n849bair9uVFPo0k3N0Ex5P6JiOjec7M/AucU+yPdm+ckkS78GZXRyZWob8ivJzyRzN9vWdP6p8g+eXYx8wCiKdXO1iu4NArS6GPB8zuCL3d8PRgTuup8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UPLlBhEFkzCKdx/9gg1lylf9okJBK3VnemYGQ3dag7k=;
+ b=Vkfn/ywlksmikcgVaERM2DJ50szSVysejiR6w/s6O/l+M8bqrGf3bL4N0w0T+Wt+dx7b4Ir9Z1xUbcJycS5a2T1zgAdMVWue/N3ujt0HKqepCEBC8N0xgLM0KFCGJbaNw2ED6SRyzttqM5hard4qge1MfFo5jrsisbj3UfIQWz8Xrd/EjEkO1D7gzjDn0BqkqKQ/BHYyR/VRzUU5j9CQr3zcGj6RBgrFWVb/epnMGuhzrQZQhYpDzqJgpkHWJSfKMCKcXuSmlrP57yCt24FhmalMl6Y8jLZ78BE6Ul+oSM7oaY1dQd52nEt5OyWGTQEAXktdc1dahGalrrFGDAcNKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UPLlBhEFkzCKdx/9gg1lylf9okJBK3VnemYGQ3dag7k=;
+ b=DSj2pJOz31PAWsWUbUYIsPBXghyZAZAvJpvktziniubiBQMEbVjR81SXyOobq+NpJLlzxBcFkAmH6L/dLGWRdH8slQgWzzMYYp5SQn9UeILF2CWjzhrLmrCHXB1Ch9D3ta+3ulQJk7lgE4XrRVBDOn/epNAkEjd74dxvHmXc37IE2mj0Iz9XWbIUCataAKSO5MO6VPuoTKFI45QXwtCndC4CQHCXWZzM0p066RHN8paVJnzla3CtU19H/CUWFSmuNUbqYZT8YpQGSV9kXFi2vulp9YYFGplhkYG4nXC7pERl8kpIHPiPJiYzckB9UKjMQ879A+1KLCBO2qrGNODhPw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8655.eurprd04.prod.outlook.com (2603:10a6:102:21e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 13 Nov
+ 2026 21:29:46 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 21:29:46 +0000
+Date: Fri, 13 Nov 2026 15:29:36 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
+Subject: Re: [PATCH v3 1/5] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
+ mux
+Message-ID: <aveBQPeyjvHV98ZH@SMW015318>
+References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
+ <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-1-5a0063f1da9e@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-1-5a0063f1da9e@free.fr>
+X-ClientProxiedBy: DM6PR06CA0085.namprd06.prod.outlook.com
+ (2603:10b6:5:336::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,132 +108,356 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8655:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3658702b-8c90-4f55-ba70-08df41cd3d3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|6133799003|22082099003|10067099003|18002099003|3023799007|11063799006|261028144727099003|56012099006|4143699003|261021121427099003|261026140227099003|261026121527099003|261009223027099003|261022105027099003|261102123227099003|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	EojC4cjPh2TLQyVfDDukZvEhpr4THOOTIK3KrNxCw2Fo5Hvgtsv/6H22DYsDCB/DyMESUS0HrquFXATh4Re+rB7BW8ExyuTsyQrIxcKp/Jwpa3DCyMfNpLvtiEwFTZqxp49y8wK0IdFMvgQyHU2NuVF8IS9Nt59Gcbt9LYYk2fclKMdcb0q3yCHlPHdy2I95Mg12aQxoxIN/Ehyed6m4iOx4FbdVTO22sbR/ZwfJWbyVKFx2lzvGNwNhQeQcMcPUYuO9v2lm2BGpHQKOAB4kgaBqnnD4zPxScOl683tPZHC5BKAyqpJCKGj9rpDExl5hAwLwKaKN1Q/kxQghkDM8u/kDKn8Fzw7z5oFjm2kFZcE7SQeshNLqNSGyQ8hz06U4kIMXMO6KymUYsuUgbDtcQxLAAj0Aa/ZqwIp55iAzZglF2//QlOxCNHL44jfQh6fplpAUSci+rFD23I0XHMhBotKmOKOg2IzWIjamqNeRmiFY5/OalhbScLyzqFoYrm/tcZkhveZQL27b/DHM5BKXNvlJjXvc0w6hGudOgRmDv7MPqHbnzXlatfQZv+7D3otU8AppvA1GSdBjtMkrdvj0wkjbYXsP9bxjxZYWbnxOP1vCKfuwwmxj2QEF3GHqMAv0Kzx1rqkNDItUTiIANqAUqZnU4xKvr3QhrWCU78m6ltKW6rYWV08o3616IhOz7PYAa1HoP3aK1MWQ0gLW5olw9Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(11063799006)(261028144727099003)(56012099006)(4143699003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223027099003)(261022105027099003)(261102123227099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sci7rZ5vLilHe1wVtn4M+a9gIIG8YA4jhlesdVzFfF/fJU+anEeijfiFX3gh?=
+ =?us-ascii?Q?K3K4hxY/l7W+7GQcHF1AWqzP0ohmVlUoZwUvGzLoevdOyG3MyqB5TIzRNKsH?=
+ =?us-ascii?Q?QK81RhxWusi+gPQ0fhY/5eXTaY/NLSu2GH0fUNYXrL4RdibJAHZ0Ok5v/d/B?=
+ =?us-ascii?Q?FN6AtN3DF5SVWMzazUQBAFIpludm6Y7nGEAmEgvr2jDQuaGWMoBsoITkZM8m?=
+ =?us-ascii?Q?aIxJjAjVtSmDRaJkVfkRtL8/lX0fRVYTSF0kid/fdvhWUPboshKhN9jvAFFV?=
+ =?us-ascii?Q?Od9xV84Tewti4KR0ZWrPX+hiEYq+AV5s7tUFVxZKOuLbVt06N7dra/uBfBSF?=
+ =?us-ascii?Q?8oKtysfP+Bf3HW9hHLGOT6hrwW2z6YSmWKnwUYJngp/lvj2lIDSGGZeLjRtk?=
+ =?us-ascii?Q?GP4NMfIA9J4m7UNdzBXvVNguPko7gJXj/Tl4o8Zk+/62b9nGcwwO22UEFx+/?=
+ =?us-ascii?Q?WD7ufGxxS1SL0ixntsbDXvsQbjV7nYUvVw2K2TrcV1DU95qcW7g/30ofC5VS?=
+ =?us-ascii?Q?03HnX6Uq5U0zTHbm0I6SfWYHMVPI/hlQxpTt3m5071lk0sZ/HsFoOzZW4q0U?=
+ =?us-ascii?Q?WpF7W7dO+lwYvHjeqtFZ2NvVlBgdwY/0sEx/EZI8XS3pClb/gsNKtuiULjEx?=
+ =?us-ascii?Q?y+em92u4aPRRT9ic0z6+D9AdrJmGnLDiw0qtuhoUuYg5y2Lxt8t1LNuCBrdN?=
+ =?us-ascii?Q?JXvGZkBw9JYc4C58dcZCS6y5YwVvvL64XXqHSgmhrnpwGsp34Xh58jo3Hepq?=
+ =?us-ascii?Q?vLWuCnkU6b5fGYNstpjKbCv6gVdGg71HEYP94R5CbWEZgm63ZA77YpS/kDQi?=
+ =?us-ascii?Q?gM7WI6JRJMidF+PLP2QFhbjccoeE7rF36J0oK223kw97EbwInpUfrxskmyj0?=
+ =?us-ascii?Q?UfcMJ70l0VWU3xzxeiFU5r7wT9iUrX+PiAsm/QeTyCQx85U4P7NQWZYPjbS7?=
+ =?us-ascii?Q?9477ZOPZqq8qSgn3+g8MhamU9OjP+uBPUXw7bsFHg5j5adVwReeK86PBtCsa?=
+ =?us-ascii?Q?J1cySmwIFvoCRVi3IBvS5cho6wm1n2UmMMqhoJtQOeA+Il4nfiQvSsKdlKpP?=
+ =?us-ascii?Q?/xAOss0M8wob8TgSdZuTE0wczzrXXJsJ1dJcGlZI/e2yduOfRUvih5Dbp3U/?=
+ =?us-ascii?Q?oEReZH+aJVs/2Px0SFhicyQ97yt7Hg8VvKoqVLRSlWdzbTU5cD4sIa49cOqn?=
+ =?us-ascii?Q?lkKS/ePMmRKEiYbwWPIj9DbBcruYvNghZKAnnLJ3+Dnxd1WG0P8mH1Wq2aZP?=
+ =?us-ascii?Q?WmRGrRJKnJETqGiWZ77cgTUSXflGQivbTbBOs9fRrtBsF/hZxQTWUsmM+N9l?=
+ =?us-ascii?Q?mnqRYTFpo7ABMIChdeXQrJTGOYLwjvs/+3lY6JvOiB4/MReOpUJrdk/8sDEE?=
+ =?us-ascii?Q?bwAKu+8eNFBr5pPT8cJNFbk3hyHrbT7sbdScKFZLNc83Wxe2UF0Xz/5NlWAJ?=
+ =?us-ascii?Q?itOrKMbI051SnV//HtngU8FOdC4HQbgK2nAyz7n0H7PqNO4JAc1IM9pPe7kG?=
+ =?us-ascii?Q?ui+OKxWXUz0ioKw/XmL/h8BwkKmXTOgdWYqLSbH06DtqJemSafrspH1Cwhkd?=
+ =?us-ascii?Q?Cg7eVeC3xSncGwLugsbDtm+PxD/y8L5YzlfdcUdueYdpTkfbUepZr57/qKgz?=
+ =?us-ascii?Q?w2Z5JHY1sqEWtyR9YA3J9cVdWo2y8Zi1fmTA6G6S+LpR8VOoP/N4vBpNVyOD?=
+ =?us-ascii?Q?q9ogXjGoXGkDkwAEx73YYLWB68tx5R108AypR/hjPogDXrWJawKU7hXh9ANQ?=
+ =?us-ascii?Q?1kgoqZMmG+hBn/VlskJaX+AoGTc/jnQ4HnNgNaTVCTkyq86OmSMh?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3658702b-8c90-4f55-ba70-08df41cd3d3a
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:29:46.2395
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zEK3vuuIBsqOHodsi/Rf2hkjTKVtACl70TjYJCd9oIbczDPaqtv49674tR37y+rxhQAL+zTRW/scBNE2FDt+AC6MqxgrCqh08fEnGf85QqrbTFmRHlJYtQx9l+mGHb/g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8655
 
-Hi,
+On Sun, Nov 08, 2026 at 11:06:49AM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+>
+> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+> fields of the RCW: read-only in RCWSR12..14 of DCFG, changed at runtime
+> through the override registers of its DCSR view.
+>
+> Describe the pad mux as a child of DCFG at its RCWSR12 to RCWSR14
+> window: the override registers are at the same offset of the DCSR view
+> of the parent. One group per RCW field, one function per encoding.
+>
+> Each function lists the groups that take it, so a pair the driver
+> would refuse, such as can on iic1, is refused by the schema.
+>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
 
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-sorry it took me a bit to get to clock driver patches :-)
-
-Am Freitag, 30. Oktober 2026, 10:43:58 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Cunhao Lu via B4 Relay:
-> From: Elaine Zhang <zhangqing@rock-chips.com>
->=20
-> Some Rockchip clocks split each 24-bit numerator and denominator between
-> a low register containing 16 bits of each value and a high register
-> containing the remaining 8 bits.
->=20
-> Add an internal Rockchip fractional-divider helper and clock branch type
-> for this register layout. This provides the support needed by the RK3572
-> audio fractional clocks.
-
-Please add a paragraph about the "v2" naming.
-I assume the v2 is a Rockchip naming, because v1 was the other one that
-could still fit the regular franctional divider.
-
-
-
-> +static inline u32 clk_fd_v2_readl(struct clk_fractional_divider_v2 *fd,
-> +				  void __iomem *reg)
-> +{
-> +	return readl(reg);
-> +}
+>  .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 264 +++++++++++++++++++++
+>  1 file changed, 264 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+> new file mode 100644
+> index 000000000000..6bd21c27a00c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+> @@ -0,0 +1,264 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +static inline void clk_fd_v2_writel(struct clk_fractional_divider_v2 *fd,
-> +				    void __iomem *reg, u32 val)
-> +{
-> +	writel(val, reg);
-> +}
-
-
-why do we have those? They do not serve any purpose I can see.
-So please just use readl and writel directly at the appropriate places.
-
-
-> +static int clk_fd_v2_get_divider(struct clk_hw *hw, unsigned long rate,
-> +				 unsigned long parent_rate,
-> +				 unsigned long *m, unsigned long *n)
-> +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	u32 factor;
+> +title: NXP LX2160A RCW pad muxes
 > +
-> +	if (!parent_rate)
-> +		return -EINVAL;
-> +	if (!rate || rate > parent_rate)
-> +		rate =3D parent_rate;
+> +maintainers:
+> +  - Vincent Jardin <vjardin@free.fr>
 > +
-> +	rational_best_approximation(rate, parent_rate,
-> +				    GENMASK(fd->mwidth - 1, 0),
-> +				    GENMASK(fd->nwidth - 1, 0),
-> +				    m, n);
+> +description:
+> +  The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads based on its
+> +  RCW. The related fields are from the read-only RCWSR12 to RCWSR14 registers
+> +  of DCFG, and can be changed at runtime by writing the RCW override registers
+> +  in the DCSR view of DCFG. The node is a child of the DCFG node, which owns
+> +  both views. Its reg is the RCWSR12 to RCWSR14 window of the CCSR view, and
+> +  the override registers are at the same offset of the DCSR view.
 > +
-> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-> +		(*m)--;
-> +		(*n)--;
-> +	}
-
-=2E.. blank line please ...
-
-> +	if (!*m && !(fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED))
-> +		return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
-
-=2E.. blank line please ...
-
-> +	/*
-> +	 * When compensation the fractional divider,
-> +	 * the [1:0] bits of the numerator register are omitted,
-> +	 * which will lead to a large deviation in the result.
-> +	 * Therefore, it is required that the numerator must
-> +	 * be at least 4.
-> +	 *
-> +	 * Note that there are some exceptions here:
-> +	 * If there is an even frac div, we need to keep the original
-> +	 * numerator(<4) and denominator. Otherwise, it may cause the
-> +	 * issue that the duty ratio is not 50%.
-> +	 */
-> +	if (*m < 4 && *m !=3D 0) {
-> +		if (*n % 2 =3D=3D 0)
-> +			factor =3D 1;
-> +		else
-> +			factor =3D DIV_ROUND_UP(4, *m);
+> +properties:
+> +  compatible:
+> +    const: fsl,lx2160a-rcw-pinmux
 > +
-> +		if (*m > GENMASK(fd->mwidth - 1, 0) / factor ||
-> +		    *n > GENMASK(fd->nwidth - 1, 0) / factor) {
-> +			if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED)
-> +				return -EINVAL;
-> +			return clk_fd_v2_get_low_rate_divider(fd, rate, parent_rate, m, n);
-> +		}
+> +  reg:
+> +    maxItems: 1
 > +
-> +		*n *=3D factor;
-> +		*m *=3D factor;
-> +	}
+> +patternProperties:
+> +  '-pins$':
+> +    type: object
+> +    $ref: pinmux-node.yaml#
+> +    additionalProperties: false
 > +
-> +	return 0;
-> +}
+> +    properties:
+> +      function:
+> +        enum: [ asleep, can, evt, flexspi, flextimer, gpio, i2c, irq,
+> +                reset-req, sdhc, sdhc-clk, sdhc-data, sdhc-data4, sdhc-spi,
+> +                spi, uart, uart3, uart4 ]
 > +
-
-[...]
-
+> +      groups:
+> +        items:
+> +          enum: [ iic1, iic2, iic3, iic4, iic5, iic6, xspi1-data74,
+> +                  xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
+> +                  sdhc2-data74, sdhc2-base, uart1-soutsin, uart1-rtscts,
+> +                  uart2-soutsin, uart2-rtscts, irq11-8, irq7-4, irq3-0,
+> +                  evt4-3, evt2-0, clk-out, asleep, reset-req ]
 > +
-> +static const struct clk_ops clk_fractional_divider_ops_v2 =3D {
-> +	.recalc_rate =3D clk_fd_v2_recalc_rate,
-> +	.determine_rate =3D clk_fd_v2_determine_rate,
-> +	.set_rate =3D clk_fd_v2_set_rate,
-> +};
+> +    required:
+> +      - function
+> +      - groups
 > +
-> +static struct clk_hw *clk_hw_register_fractional_divider_v2(struct devic=
-e *dev,
-
-maybe adapt the function name.
-=46unction above abbreviated things to
-
-clk_fd_v2_something, so naming this clk_hw_register_fd_v2()
-might make that line less unwieldy?
-
-
-
-Thanks
-Heiko
-
-
+> +    allOf:
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: asleep
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ asleep ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: can
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic3, iic4 ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: evt
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic3, iic4, evt4-3, evt2-0, asleep ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: flexspi
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ xspi1-data74, xspi1-data30, xspi1-base,
+> +                        sdhc2-data74, sdhc2-base ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: flextimer
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic2, irq7-4, irq3-0, evt4-3, evt2-0, clk-out ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: gpio
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic2, iic3, iic4, iic5, iic6, xspi1-data74,
+> +                        xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
+> +                        sdhc2-data74, sdhc2-base, uart1-soutsin,
+> +                        uart1-rtscts, uart2-soutsin, uart2-rtscts,
+> +                        irq11-8, irq7-4, irq3-0, evt4-3, evt2-0, clk-out,
+> +                        asleep, reset-req, iic1 ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: i2c
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic2, iic3, iic4, iic5, iic6, sdhc2-data74, iic1 ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: irq
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ irq11-8, irq7-4, irq3-0 ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: reset-req
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ reset-req ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: sdhc
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic2, sdhc1-base, sdhc1-dir, sdhc2-data74,
+> +                        sdhc2-base ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: sdhc-clk
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic5, iic6 ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: sdhc-data
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ sdhc1-dir ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: sdhc-data4
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ sdhc1-base ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: sdhc-spi
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ sdhc1-base ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: spi
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ iic5, sdhc1-base, sdhc1-dir, sdhc2-base ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: uart
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ uart1-soutsin, uart1-rtscts, uart2-soutsin,
+> +                        uart2-rtscts ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: uart3
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ uart1-rtscts ]
+> +
+> +      - if:
+> +          properties:
+> +            function:
+> +              const: uart4
+> +        then:
+> +          properties:
+> +            groups:
+> +              items:
+> +                enum: [ uart2-rtscts ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    pinctrl@12c {
+> +        compatible = "fsl,lx2160a-rcw-pinmux";
+> +        reg = <0x12c 0xc>;
+> +
+> +        iic3-i2c-pins {
+> +            function = "i2c";
+> +            groups = "iic3";
+> +        };
+> +
+> +        iic3-gpio-pins {
+> +            function = "gpio";
+> +            groups = "iic3";
+> +        };
+> +    };
+>
+> --
+> 2.43.0
+>
+>
+>
