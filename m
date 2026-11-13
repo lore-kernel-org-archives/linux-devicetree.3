@@ -1,99 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794571306;
-	b=an+b2rEsFYuY8K+Fl5ooXJN1njSxuILcoi3Ov9N0G4CYMyK1RMyKIEG7ncYSxGh17c5o
-	 qdqJFk3CUnaigaDEdwkWlDleZLxo/BYnAiPThA0P95dhdx5J0gH+GWsj23wJmTZDJcwFF
-	 Bno/V5gHm0nAItnTgsUBZ7xUYOa0zG507YwffdvEjYSkua8hQZEnO0GtGZ/FVh7R+qCFl
-	 upstxyHMa/GX1xycv515K930GR4GqlMyTAV0ypOmzl3alLZIQqE2rHDfq9dJtEbOcjk98
-	 ha7J/4Kx2qj6WZblVU6sox2QE5K9rOnJnaJOG8/9DJ5/NulFZ8I+CV5OG8ZzVW5XuOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571306;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cu0W+xYu8Ur8iREfOVKM1Sg6ts8WzrHN5Mt/1Du8ils=;
-	b=Kds19bPRxdNtYKEMq/OlMoWiZmyMyrGeegaiwegcn2srEWxQbjz3FIeZMQcJR2ekJnzK
-	 EJhBzuXNXOEdXJRl9R3xh/ZWPtnn5fEqjByVH+h1lP8WmbmAgS3oFpfxMSKJv5lZ55iET
-	 62Hwt1YnKz+oKdnqr67rI857O2AyxxDUUlHG1L1y3FDy94Z6N0pShdEg0ScMphc11b4xO
-	 9o7lUmkFkLQfmLd5SCt+uBQJs8QkGMladOSEkhR9JNjEUX9UV7EogTw52+pm018aE4DO7
-	 +OmUQtaZuIkCae4EMBOKfIoHvrrfP9gSmIzCdTiDVHuIyPRV9FqpyrFrxor+5JGsa9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cxxqjDJ7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.52
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010052.outbound.protection.outlook.com [40.93.198.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794571559;
+	b=2IcOGyX7scSefHPowG5fs6H3f8PfZgpy0vOLy7omThSLya2JJ29Cr9kVyI6uFlJRcP/Z
+	 oashYN6RPWOuuWYcTtcq39m6T6hcXlp+XB07ixNma4O/rs/LxhYum3y1rXkzU4Eo4kr+Y
+	 UqALI2QH/qm47WIKX6J/3KO7siABEv0/tOeVSBM/l0fyKlLiuqZf3m86scR1up6CRZpeR
+	 qtkMHxWBJ3/CjMVFpl6L0w+d6oI3vrftktqLVM5duKbRRf8EMLXlW1Q6947K5NCHOoUl6
+	 AQ/XQNzatYv6KiPuMWRQhmu+dQLb4Wp9faTI1cEAsVw6j9CMUGGJz/c+XmJuDCQzqcQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571559;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
+	b=G6S5OznqkerFBM+M0+nL/r3MF7nWDNSftmWsDDuRg4R7uInfQRsw1zZXM4Lw/GbX/iJL
+	 OhEHy0vsujJrmF6Wj5MjeG0sKrhCKKRTjZTP8utFgwXzefN9YxW2EshRDUMCw+MhHeMSW
+	 3/+OWlAEfCs9IJAUrwiWze2nawXF+hfTix0lDEIsQ9Evu3OU0oipnj4es1zvNXsZnqy2E
+	 AqjlZQaqncJFJnUenE0dweGVgjeDEKfI+9WxYb9SS0s9EhSeTPskG7j6cT9BmY5WuNF+G
+	 4tpHM0co6XAszwDTvJcMFK5Yzxja82vMTpiIy6gQ7Igkjty14DVlqWmg67JviiWNLTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF3760A2606;
-	Fri, 13 Nov 2026 12:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF3760A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE6F606A88F;
+	Fri, 13 Nov 2026 12:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cxxqjDJ7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rgQJZyeaINvO0RGWRtJ66ftqYt/TFcsvox4YCEIq+9sqeQYvBOJMx/TgIuSvTZNB9OHrWKSbwYdnGScZIGh4LB18DJi/ChmbSruR/8808VePEswNiGc4ALHG3w0C/gFYBs8XHPKRuBTuLqUHbJCb83SKZ/RHRtGJsk+1I6g1R4/VKLeqAJsvTdXwT+idmbZ6hTbmSlHD/QbD07Xwi/q49rlvY7W2/LWvYg1moDFFduSKbQPld1EXfEql2lrR24au3omhyexj9R2ND9wVDKNgNh5NZDPWzzMlv397xA8qQ7/E9vVkrclGVKEzczCdVwcuP5RTpnSZIWARMC6fCZBpeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cu0W+xYu8Ur8iREfOVKM1Sg6ts8WzrHN5Mt/1Du8ils=;
- b=MoCiBfDSPiJcImn1spSsun7VYiOgFOD3KXDF4HLpB9vFckAXjlGNfePDoM+Jg8gMrcEeiZM5WahCdB2mvOH5s7u2IIekrrcn4M2MJ+sFhbpcUGUGkPZEiaJJ4+Z+pRLa3YBwGC6ex4xbBP9Ed5oRh7pW3+7cLzXNiuMO48+GHAm6ZCNyERT4KizmVWq1uP+b0vt1+Hrnf2CP2loXuLOMn8lnxG1Iybd0IXK35IA3FOGvCyDKOK4E/XlILk4kFhZWLEYIlSCDHV+fqRBjJ56vbF8flMqqI6S/a/I4wu1m/wwRull/PAiAmAJ51aGG5fbTA0bU81NqunwJ1vttBNExHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cu0W+xYu8Ur8iREfOVKM1Sg6ts8WzrHN5Mt/1Du8ils=;
- b=cxxqjDJ7+glqvduoI8dToV8TGE9mZXhsQ/O0JfZDc90gnW5pXG8v3Az6fDbBPGS59glxnk/eUgZMeVe7VMeeET2Y+Bqi13H+ysGVKvia8tSCjqF9mUYutLXUd0jIzkQzfgR4xL7o2pEwWimK2AX3U7QEhT8Z26k39eE0hWeSGuY=
-Received: from CH2PR20CA0017.namprd20.prod.outlook.com (2603:10b6:610:58::27)
- by CH2PR12MB4248.namprd12.prod.outlook.com (2603:10b6:610:7a::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 12:01:42 +0000
-Received: from BL2PEPF000352CC.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::1f) by CH2PR20CA0017.outlook.office365.com
- (2603:10b6:610:58::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 12:01:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL2PEPF000352CC.mail.protection.outlook.com (10.167.249.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 12:01:40 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 12:47:27 -0600
-Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 12:47:22 -0600
-From: Srinivas Neeli <srinivas.neeli@amd.com>
-Date: Fri, 13 Nov 2026 00:16:47 +0530
-Subject: [PATCH net-next v4 3/8] net: xilinx: tsn: add endpoint MAC driver
- skeleton
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mu99j7RL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9A61F000C4;
+	Fri, 13 Nov 2026 12:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794571559;
+	bh=ew8hOC13o9wfy+m40ApTMAeA1rhG3tv6pgX/NAGeWFg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mu99j7RLydX3ZksQxHNiqiV8a9C3HGC7C1B9GQzP3i7C2+X8JW5Nsl3ld9KFTB67b
+	 rTQi6bipXdld3U/uSYywJut+ua83KWwKn6KOM6cBbQ9OazBf9YJBKXJOG9raq88INl
+	 6748FiobUagmQyYCWbJzCZjOYLV+iqHT4vmAdGQoY1QFh/4D3MvGnzABWwgyfZZ8nC
+	 qc/PYUysfEen/3hzq4svDwJ/RgFoGqU9AMuqKy2lrFD2S6tqSL9RYtMASWBjIQDY4d
+	 YydpyRu0sSvtrB/5rpTSYMdQ5Eh2XX5FTmVV3wKdx/zsKDlnmB+0OS7/K3AkwYAiXw
+	 nHkUQpXGCnGXw==
+Date: Fri, 13 Nov 2026 13:05:49 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avb862Pr0NKPVPQg@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <avTIWshl9klX0obF@devuan>
+ <avXYmk5sZKS0rm92@ashevche-desk.local>
+ <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,291 +72,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-patches_v2_external-v4-3-56bb26f042a4@amd.com>
-References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
- Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
-	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
-	<git@amd.com>, <neelisrinivas18@gmail.com>
-X-Mailer: b4 0.16.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL2PEPF000352CC:EE_|CH2PR12MB4248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08ffa4b1-593a-487a-2315-08df417de0a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|23010399003|22082099003|18002099003|921020|11063799006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|56012099006|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	QaDJiIejak70rMsheAbneAWD8NVfhCQHiwMCY466E/j8w/5i7UWSqkJV3UiWQEMR4ovx70wuSyguh9HwMAsmLWO4fhtoCuaErev1pV+7hDX1KfrtM4LTzB8zkplFKkNG9uq/O4OBP6t4Pn90gqLZPoXhOjzLjjraHJreaxZ9h6HRS2fJ7aBUnoqvEzatXvI1mYK23Y6XgUQ1GCfukxrSmwVswa0hVVaHwZNlwxHAdfBJCJF+f8De4tVYbSWrZYO9rIZu1FmXoVYO+kq5nMznz5Nbq7MVQWLAQxs0zf1bfKRGA/4OWMKyWVTNgl2Pf6TwDWGpaf0CBQKvhDlKWSY1EXX8f2EmcBkBr/J1jryy8CnkG2qpB+UKcQt4d1U5opAQpjHFmxAAC82dTutb3G9d3eU/ttXtTc4SRKq1vpZjKWYZrLjZdn9+s09hBEe37tswnCxib6TJ+t2lW+W0ZIXcznX/oeEPJdmuqIwugwX1bBehqZWRxByUSo7l0i0VAaQ0CwuqE5KeA3R9xWuGDhOIhRRaZtMbOel/Ky/cvlUGavMkDKG+OKxH/+dNsX+GeNEpI1bQSySLSe4QIQWhMLFCWpWlNi3Bz3uge9toCJwhXiFCk0sJ1RCa8Qg+dfk7vOYhCkufjt5yupdAYznEn2AXcq36vEbkNsMLRtRwWoCCNg3hNM9OdcQDRNoic2r5wK5aLlvaxYAn1lA3KMx6mM227OcyWO/NPoTg+/h/ghVqRKqn6b0JFK1iVw32T0ABYzTU
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(23010399003)(22082099003)(18002099003)(921020)(11063799006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(56012099006)(261021123027099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	haoWTkl4kgFjiLGwtz8U/4HD6MM9loVOLMQMNtvBQ0IiYZt+6jtgc+clBaMEV6lCC5da6cFnHsgPSSWhcpcuG+4AL2DWMxoltAI35+Z0hJmN7jLeduw3IlGR8tTAZKdcHo+JWkGkmwuGi1xxQvm8jtPQoJNmmNwjirrtREujKE2zQdNMIVwBNahDx1lan4o7gBxw29NXtfONksWrW/roDFOdBu6JBTc+lDY3+lw3xltc0czN2DBJ0kkYzAcIEn9M/WVep1Pr+b24z+6iYnk2Vky6Mt6wPM1EbNy9g8IZnbV1jZLHpLqVJrCep9i0HyVl9UxsyIgbapSNVfPIPPkEIeJwmJ0s5CZ6zlaemUV2UnaFdQyA//6yiy9wHL4k4Qc71+mfeOot/8fs60Lunm4SBHi/2n3wRS0zqw/DIWeRPyI5h6Pn3YnTRBbHHKfkW6S+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:01:40.4349
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08ffa4b1-593a-487a-2315-08df417de0a5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL2PEPF000352CC.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4248
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l2hgnnxajsc5hpxz"
+Content-Disposition: inline
+In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 
-The TSN Endpoint MAC owns the IP's host-side MCDMA data path and is the
-netdev physically wired to the CPU. The DSA switch needs this netdev to
-exist as its conduit.
 
-Add a platform driver (compatible "xlnx,tsn-ep-mac") for the endpoint.
-Register the netdev with the standard eth%d name, set its MAC address, and
-provide minimal netdev and ethtool ops. ndo_open starts the queues and
-ndo_start_xmit drops frames.
+--l2hgnnxajsc5hpxz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avb862Pr0NKPVPQg@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <avTIWshl9klX0obF@devuan>
+ <avXYmk5sZKS0rm92@ashevche-desk.local>
+ <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
+MIME-Version: 1.0
+In-Reply-To: <vjuf6ritphyrfi2befwf4pwrujrl3pmjjkutr2ccsvta3jjcep@5mpgr3dc7263>
 
-Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
+Hi Bart,
 
----
-Changes in v4:
-- Use alloc_etherdev() so the standard eth%d name is registered with
-  NET_NAME_ENUM.
+> Date: 2026-11-13 10:25:00+0100
+> From: Bartosz Golaszewski <brgl@kernel.org>
+>
+[...]
+> > Are you sure that it's okay to use asm/bug.h APIs in string.h?
+> > The include/linux/string.h along with the backed C implementations is r=
+eally
+> > special in the kernel. Hint: check which stages of kernel boot use it.
+> >
+>=20
+> Agreed. I'd just move the implementation into lib/string.c and not do a
+> static inline function here.
 
-Changes in v3:
-- Register the netdev with the standard eth%d name (NET_NAME_UNKNOWN) instead
-  of a custom "ep%d".
+Hmm, thanks!  I'll do that.
 
-Changes in v2:
-- Name the netdev ep%d with NET_NAME_ENUM instead of a fixed "ep", so a second
-  IP instance does not clash on register_netdev(). The %d enumeration is what
-  NET_NAME_ENUM describes, and it matches the eth%d naming in net/dsa/user.c.
-- Drop the mapped but unused register window (ep->regs and its ioremap).
-  It was intended for QBV support, which is not part of this series, so the
-  endpoint driver does not use it. The mapping will be re-added when QBV
-  support lands.
-- Use dev_kfree_skb_any() on the drop path, not dev_kfree_skb().
-- Drop the mod_devicetable.h include, platform_device.h already pulls it in.
----
- drivers/net/ethernet/xilinx/tsn/Makefile          |   2 +-
- drivers/net/ethernet/xilinx/tsn/xilinx_tsn.h      |  15 +++
- drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c   | 143 ++++++++++++++++++++++
- drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c |   3 +
- 4 files changed, 162 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/xilinx/tsn/Makefile b/drivers/net/ethernet/xilinx/tsn/Makefile
-index 6f99226f3dc8..5886828b386f 100644
---- a/drivers/net/ethernet/xilinx/tsn/Makefile
-+++ b/drivers/net/ethernet/xilinx/tsn/Makefile
-@@ -1,2 +1,2 @@
- obj-$(CONFIG_XILINX_TSN) += xilinx_tsn.o
--xilinx_tsn-y := xilinx_tsn_main.o
-+xilinx_tsn-y := xilinx_tsn_main.o xilinx_tsn_ep.o
-diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn.h b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn.h
-new file mode 100644
-index 000000000000..b0757e22d1fd
---- /dev/null
-+++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * AMD/Xilinx TSN Endpoint Ethernet MAC driver, shared definitions.
-+ *
-+ * Copyright (C) 2026 Advanced Micro Devices, Inc.
-+ */
-+
-+#ifndef _XILINX_TSN_H
-+#define _XILINX_TSN_H
-+
-+#include <linux/platform_device.h>
-+
-+extern struct platform_driver xlnx_tsn_ep_driver;
-+
-+#endif /* _XILINX_TSN_H */
-diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-new file mode 100644
-index 000000000000..b6458bb0ba0f
---- /dev/null
-+++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-@@ -0,0 +1,143 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * AMD/Xilinx TSN Endpoint MAC driver.
-+ *
-+ * Copyright (C) 2026 Advanced Micro Devices, Inc.
-+ */
-+
-+#include <linux/etherdevice.h>
-+#include <linux/ethtool.h>
-+#include <linux/if_ether.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/netdevice.h>
-+#include <linux/of.h>
-+#include <linux/of_net.h>
-+#include <linux/platform_device.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
-+
-+#include "xilinx_tsn.h"
-+
-+#define DRIVER_NAME			"xilinx_tsn_ep"
-+
-+/**
-+ * struct xlnx_tsn_ep - EP MAC private data, embedded in net_device priv area
-+ * @ndev: the conduit netdev
-+ * @dev: backing device
-+ */
-+struct xlnx_tsn_ep {
-+	struct net_device *ndev;
-+	struct device *dev;
-+};
-+
-+static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
-+{
-+	dev_kfree_skb_any(skb);
-+	DEV_STATS_INC(ndev, tx_dropped);
-+	return NETDEV_TX_OK;
-+}
-+
-+static int ep_open(struct net_device *ndev)
-+{
-+	netif_tx_start_all_queues(ndev);
-+
-+	return 0;
-+}
-+
-+static int ep_stop(struct net_device *ndev)
-+{
-+	netif_tx_disable(ndev);
-+
-+	return 0;
-+}
-+
-+static void ep_get_drvinfo(struct net_device *ndev, struct ethtool_drvinfo *ed)
-+{
-+	strscpy(ed->driver, DRIVER_NAME, sizeof(ed->driver));
-+}
-+
-+static const struct net_device_ops ep_netdev_ops = {
-+	.ndo_open		= ep_open,
-+	.ndo_stop		= ep_stop,
-+	.ndo_start_xmit		= ep_start_xmit,
-+	.ndo_validate_addr	= eth_validate_addr,
-+	.ndo_set_mac_address	= eth_mac_addr,
-+};
-+
-+static const struct ethtool_ops ep_ethtool_ops = {
-+	.get_drvinfo	= ep_get_drvinfo,
-+};
-+
-+static int xlnx_tsn_ep_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct net_device *ndev;
-+	struct xlnx_tsn_ep *ep;
-+	u8 mac_addr[ETH_ALEN];
-+	int ret;
-+
-+	ndev = alloc_etherdev(sizeof(*ep));
-+	if (!ndev)
-+		return -ENOMEM;
-+
-+	SET_NETDEV_DEV(ndev, dev);
-+	ndev->netdev_ops = &ep_netdev_ops;
-+	ndev->ethtool_ops = &ep_ethtool_ops;
-+	ndev->features = NETIF_F_SG;
-+
-+	ep = netdev_priv(ndev);
-+	ep->ndev = ndev;
-+	ep->dev = dev;
-+
-+	ret = of_get_mac_address(dev->of_node, mac_addr);
-+	if (ret == -EPROBE_DEFER) {
-+		goto err_free_ndev;
-+	} else if (!ret && is_valid_ether_addr(mac_addr)) {
-+		eth_hw_addr_set(ndev, mac_addr);
-+	} else {
-+		eth_hw_addr_random(ndev);
-+		dev_info(dev, "no valid MAC in DT, using random address %pM\n",
-+			 ndev->dev_addr);
-+	}
-+
-+	platform_set_drvdata(pdev, ep);
-+
-+	ret = register_netdev(ndev);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to register net device\n");
-+		goto err_free_ndev;
-+	}
-+
-+	return 0;
-+
-+err_free_ndev:
-+	free_netdev(ndev);
-+	return ret;
-+}
-+
-+static void xlnx_tsn_ep_remove(struct platform_device *pdev)
-+{
-+	struct xlnx_tsn_ep *ep = platform_get_drvdata(pdev);
-+
-+	if (!ep)
-+		return;
-+
-+	unregister_netdev(ep->ndev);
-+	free_netdev(ep->ndev);
-+}
-+
-+static const struct of_device_id xlnx_tsn_ep_of_match[] = {
-+	{ .compatible = "xlnx,tsn-ep-mac" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, xlnx_tsn_ep_of_match);
-+
-+struct platform_driver xlnx_tsn_ep_driver = {
-+	.probe	= xlnx_tsn_ep_probe,
-+	.remove	= xlnx_tsn_ep_remove,
-+	.driver	= {
-+		.name		= DRIVER_NAME,
-+		.of_match_table	= xlnx_tsn_ep_of_match,
-+	},
-+};
-diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c
-index afe7609c67fb..d33a00dd6d15 100644
---- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c
-+++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c
-@@ -15,6 +15,8 @@
- #include <linux/slab.h>
- #include <linux/types.h>
- 
-+#include "xilinx_tsn.h"
-+
- #define TSN_NUM_CLOCKS		6
- 
- /**
-@@ -85,6 +87,7 @@ static struct platform_driver tsn_driver = {
- 
- static struct platform_driver * const tsn_drivers[] = {
- 	&tsn_driver,
-+	&xlnx_tsn_ep_driver,
- };
- 
- static int __init xlnx_tsn_init(void)
+Have a lovely day!
+Alex
 
--- 
-2.43.0
+>=20
+> Bart
 
+--=20
+<https://www.alejandro-colomar.es>
+
+--l2hgnnxajsc5hpxz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2/RMACgkQ64mZXMKQ
+wqmNSw/+NhDKyBjn0lq0zuI2m5yLY3P6tSCdyIBSR8OKvV5HIUio9mh8ljNal/ym
+Sz0hjW4t9OVFiCg4UARs3vPAujQq7jO/vSAa3C2PWQT46VE9RK8aNskYMmFWXuWd
+/DcT6X54849AYkHr7FP5+q+l8Q2HFMnXGV+Delvdb/82rKB04/wRMBbFefcJMi92
+Z9Ks9wf1Y0JsCjcLHYZIgXD0w3RhzLM33+Cq5jdJtVeTOiBSPLZYywEDeFEBwrJ+
+dPkGu2/yKZbN3db4knaI8n8NYmcAYrVehn2XaD0PcYigSCt4IryJjkodh54Z7BOL
+fsod+nYMQt6xTt4nE6+g2UgHFhAjxnIjsgr8Rd3josxeqnQJCheCcMUgNIiZR1SA
+GFo/CmMtE9IMtffygFSkSt86VQRpSIH49pkeSNwdb40izuxkLmahKBTfUW4tRiYm
+NQcO7je5MPGGnM3qSOZSq2EebLlpck0CohvFJvzAKJ7od11NiOIISgnFQ6DuUSqX
+zUUTaJt+q2Mt+DcHQj0RFxgWs8xUuacQhaItoGcljBZSM1t5GoamUxGzQqpT6Jp5
+0/Im57WXfZxwYbLBbm71EGkOdaNOfb/Gf3g+N34lBjCn7/bxd642ooo4FD2Rq61Q
+Y8jtSDFA9KFhFTV/Q2NPiBI48xDhzabFoQguGK28sPybiAZK4Uk=
+=BE9Y
+-----END PGP SIGNATURE-----
+
+--l2hgnnxajsc5hpxz--
