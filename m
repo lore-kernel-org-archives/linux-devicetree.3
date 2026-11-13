@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567487;
-	b=sjoMAzStQmnlx+Oat9QfTHnossmLjYkaOfL2cmwgYkD/ws5oXAJMda45h3sJj5lS+/o+
-	 aahcpWT4jf/t6HKIABxAv6ZplvdnYGwJbnuss+a7adGO3qHX0An63NHzu8yAn1q9XB9rt
-	 1NDNAIgoZILRszhQRCzxjUAjrQjzeMKSg5eGsKXuWjf0f2W8XPhM+1GyxquvankvJ7WBv
-	 S8SU24kvGcpBV3XIs3lJ6WqEbndDsWVfSil5EOb1sUB+DTsGJdl67ErsySM8J3wAr8Oho
-	 KQ0zvlnJ9brcNOG1HCAIO3a0ZRvBrnAu/pQfFallomadgSIr4M2WjQfrt1KNXwz6OUg==
+	t=1794567486;
+	b=i/md0NTn114uHtDiGdm8RsNA9hhCoMF4uUXrMdLn09qSOa58e6VIrT74KEyOSkCwDZMj
+	 zgWDR4T0JH3/jZmBHWLhRKeNyqvkLvboO+NAy/fS7LwIzhHZGkjlUQPwhPwHM7vRvkmvA
+	 8H8ZKMBHEuOZ8ZoUviAez8OvABtHayODfKYVrI6PSDbmllZnur5P641ey2mMKlnt+kQud
+	 PAIuyT+RYfVuZ2jJSiVnx2jTZYrPG4qkLM8fxY/ISdBW9Ugx/OQZC0t+NF4AiDdBTJz9l
+	 wrSc1LKsAA2FD48MlxfmodNYBXqoI1cCLS+tk5oJtXBt6uTzO6+BLARyeimjWvwGHKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567486;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
 	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
 	 X-Hop-Count:X-CMS-RootMailID:References;
-	bh=/mF0XBJwiryCyMPrZszn5OendoJ/4n7hQYYsJtVWvy4=;
-	b=M9NcwO64yjic/lRXW90fPy9pc6N0thOuMC08o0hgSLYsOe+6UmJTIfsgBrN6Q9MFlkoY
-	 sGqpKm/TcaeW1WhZEiibgiCXvGJqerO2iXiA+lFOC6jJK3xXGQCpON+zUqn+73HEoP2ZQ
-	 i/S0r8wk1R29APeh5sN/Ooeibevv/UQdpeLqe7WUK/E98WwNBMw0rCgQNV3EZCXsAe5ug
-	 Y6FDJeeUYzM9bivm2+3EqNZ11QqMruOkBfUvqo9VwX6hXxsvouWKsNdCqHcrxipCAbH2+
-	 7C2dPu2KQ9+6cxsUm/H91OxnJ6MAzlqTRkr1z3V4uPdH3PrLWv70g2capo47n/ZdImg==
+	bh=qhFh7zT1+bzubZ3GCKmZli8T8ugrkRfM7QpmtOWqwF8=;
+	b=M/Sr4EkQ0DVdsaxvW+TLSzg4zMQBOnze/DuR/J8eMnlIKyhGs1UIoUxs1/nsThZJM2+X
+	 QKZ8Rmo832Dp92QE0eJO/9DKOBl0B1kHCWthEPHYG289etDKYRiPlupbg/vP5SjnW0YMg
+	 Tw6wYSW9gXvQmFxvtZfKEkOnMtcZqgUQCaV/LKiQogjOe9onr3h1x8p+BeAUG3xGOSMGP
+	 HuI2Nx4kunhOOlJajRCDDweSPMx9EoBWysxW2tEwIjUIEHK1XdAwVjLUrvpiFRGDNWtsj
+	 Un19am+avpp+84vR4/h4DP1jCp/0l6f386pDjQhll7aCrB5Kxpc09cDqSA9e5K7fC9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XaMT3d5r;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=u1s53RMK;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA22606B255
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A154606B241
 	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA22606B255
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A154606B241
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XaMT3d5r
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=u1s53RMK
 Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261113105803epoutp01212864419a286ca3a9af1c15f18fe6ff~nlZ5BZCoH1292612926epoutp011
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261113105803epoutp0276f4eb8008a8056f11882628d605b424~nlZ5I1N0D1352213522epoutp02q
 	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:58:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261113105803epoutp01212864419a286ca3a9af1c15f18fe6ff~nlZ5BZCoH1292612926epoutp011
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261113105803epoutp0276f4eb8008a8056f11882628d605b424~nlZ5I1N0D1352213522epoutp02q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
 	s=mail20170921; t=1794567483;
-	bh=/mF0XBJwiryCyMPrZszn5OendoJ/4n7hQYYsJtVWvy4=;
+	bh=qhFh7zT1+bzubZ3GCKmZli8T8ugrkRfM7QpmtOWqwF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XaMT3d5rT/kWAF4a26S9ITMs5FYv+iVPGY1Eq306xBr365C15nbK7SSP63IWzOQAK
-	 KRSG2PU0aGv7/qK7sIMKTAAyta2n/y26UW6zcR+PjXi3T7SrsMZut5BHMCqABG+FUS
-	 8vvCJpCcBPtp9P4n3i1T4GnBTKdgNCmyKvwIJiig=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261113105802epcas5p29801a07f86f08317b781f3af7d22ef5a~nlZ4gizkT1211212112epcas5p2Y;
-	Fri, 13 Nov 2026 10:58:02 +0000 (GMT)
+	b=u1s53RMKS4d41x3WlHcK5Cj0e8pIrS+08KlB9ZmNnowQmlvZofpgwRq9fStkqId1M
+	 g0Y+s9VZJGvPGfo7PhhzpAJIQwbQBaXN+P2F3Z9/Kt985/gR3ZOZO8BJt4AyvLwJtg
+	 DBcN9PWL1Fiq3Pn/r1t1yckpHj8xR4CW5pVKm7LQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261113105803epcas5p3885531154ec8e0cd5610ed634c9dfe12~nlZ4pxRFU2375523755epcas5p3G;
+	Fri, 13 Nov 2026 10:58:03 +0000 (GMT)
 Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jQvP66DwMz3hhT7; Fri, 13 Nov
-	2026 10:58:02 +0000 (GMT)
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jQvP70DP5z6B9m6; Fri, 13 Nov
+	2026 10:58:03 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104838epcas5p2623c7a05b6163954e13e98367063e7d4~nlRqiYXti0676206762epcas5p2P;
-	Fri, 13 Nov 2026 10:48:38 +0000 (GMT)
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104844epcas5p4c1cb0c31de8b5b445f7f0060f81cf753~nlRwAgOo21464514645epcas5p4O;
+	Fri, 13 Nov 2026 10:48:44 +0000 (GMT)
 Received: from bose.samsungds.net (unknown [107.108.83.9]) by
 	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104835epsmtip2cb97bab455f60cc347964defad1fe624~nlRoBRLAE2503825038epsmtip2G;
-	Fri, 13 Nov 2026 10:48:35 +0000 (GMT)
+	20261113104841epsmtip261c51c6b828a5949207dbae96280c353~nlRtf8azg2503825038epsmtip2I;
+	Fri, 13 Nov 2026 10:48:41 +0000 (GMT)
 From: Raghav Sharma <raghav.s@samsung.com>
 To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
 	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
@@ -70,10 +70,10 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
 	pokala.reddy@samsung.com, Krzysztof Kozlowski
 	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 03/14 RESEND] dt-bindings: clock: exynos8855: add peris
+Subject: [PATCH v3 05/14 RESEND] dt-bindings: clock: exynos8855: add usb
  clock definitions
-Date: Fri, 13 Nov 2026 16:36:01 +0530
-Message-Id: <937773018.41794567482875.JavaMail.epsvc@epcpadp2new>
+Date: Fri, 13 Nov 2026 16:36:03 +0530
+Message-Id: <927327686.61794567483016.JavaMail.epsvc@epcpadp2new>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -86,83 +86,80 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261113104838epcas5p2623c7a05b6163954e13e98367063e7d4
+X-CMS-MailID: 20261113104844epcas5p4c1cb0c31de8b5b445f7f0060f81cf753
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
 X-CPGSPASS: Y
 X-Hop-Count: 3
-X-CMS-RootMailID: 20261113104838epcas5p2623c7a05b6163954e13e98367063e7d4
+X-CMS-RootMailID: 20261113104844epcas5p4c1cb0c31de8b5b445f7f0060f81cf753
 References: <20261113110612.3265841-1-raghav.s@samsung.com>
-	<CGME20261113104838epcas5p2623c7a05b6163954e13e98367063e7d4@epcas5p2.samsung.com>
+	<CGME20261113104844epcas5p4c1cb0c31de8b5b445f7f0060f81cf753@epcas5p4.samsung.com>
 
-Add device tree clock binding definitions for CMU_PERIS
+Add device tree clock binding definitions for CMU_USB
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
 ---
  .../clock/samsung,exynos8855-clock.yaml       | 21 +++++++++++++++++++
- .../dt-bindings/clock/samsung,exynos8855.h    | 11 ++++++++++
- 2 files changed, 32 insertions(+)
+ .../dt-bindings/clock/samsung,exynos8855.h    |  8 +++++++
+ 2 files changed, 29 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-index 486b7347ad44..53fc8040e173 100644
+index 21928235d131..c68a64eb35c5 100644
 --- a/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
 +++ b/Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml
-@@ -29,6 +29,7 @@ properties:
-   compatible:
-     enum:
+@@ -32,6 +32,7 @@ properties:
        - samsung,exynos8855-cmu-peric
-+      - samsung,exynos8855-cmu-peris
+       - samsung,exynos8855-cmu-peris
        - samsung,exynos8855-cmu-top
++      - samsung,exynos8855-cmu-usb
  
    clocks:
-@@ -73,6 +74,26 @@ allOf:
-             - const: mmc_card
-             - const: ip
+     minItems: 1
+@@ -143,6 +144,26 @@ allOf:
+       required:
+         - samsung,sysreg
  
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
-+            const: samsung,exynos8855-cmu-peris
++            const: samsung,exynos8855-cmu-usb
 +
 +    then:
 +      properties:
 +        clocks:
 +          items:
 +            - description: External reference clock (76.8 MHz)
-+            - description: CMU_PERIS GIC clock (from CMU_TOP)
-+            - description: CMU_PERIS NOC clock (from CMU_TOP)
++            - description: CMU_USB NOC clock (from CMU_TOP)
++            - description: CMU_USB USB20DRD clock (from CMU_TOP)
 +
 +        clock-names:
 +          items:
 +            - const: oscclk
-+            - const: gic
 +            - const: bus
++            - const: usb20drd
 +
-   - if:
-       properties:
-         compatible:
+ required:
+   - compatible
+   - "#clock-cells"
 diff --git a/include/dt-bindings/clock/samsung,exynos8855.h b/include/dt-bindings/clock/samsung,exynos8855.h
-index cd445bb45070..5d8b38a744b5 100644
+index 67cd97d8fab8..f4261956ab4a 100644
 --- a/include/dt-bindings/clock/samsung,exynos8855.h
 +++ b/include/dt-bindings/clock/samsung,exynos8855.h
-@@ -203,4 +203,15 @@
- #define CLK_GOUT_UART_DBG_PERIC            25
- #define CLK_GOUT_USI_PERIC                 26
+@@ -222,4 +222,12 @@
+ #define CLK_GOUT_UFS_EMBD_ACLK_HSI         5
+ #define CLK_GOUT_UFS_EMBD_UNIPRO_HSI       6
  
-+/* CMU_PERIS */
-+#define CLK_MOUT_PERIS_NOC_USER            1
-+#define CLK_MOUT_PERIS_GIC                 2
-+#define CLK_MOUT_PERIS_GIC_USER            3
-+#define CLK_DOUT_PERIS_NOCP                4
-+#define CLK_DOUT_PERIS_OTP                 5
-+#define CLK_GOUT_CMU_PERIS                 6
-+#define CLK_GOUT_SYSREG_PERIS              7
-+#define CLK_GOUT_WDT0_PERIS                8
-+#define CLK_GOUT_WDT1_PERIS                9
++/* CMU_USB */
++#define CLK_MOUT_USB_NOC_USER              1
++#define CLK_MOUT_USB_USB20DRD              2
++#define CLK_MOUT_USB_USB20DRD_USER         3
++#define CLK_DOUT_USB_NOC_DIV3              4
++#define CLK_GOUT_CMU_USB                   5
++#define CLK_GOUT_SYSREG_USB                6
 +
  #endif /* _DT_BINDINGS_CLOCK_EXYNOS8855_H */
 -- 
