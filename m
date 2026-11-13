@@ -1,71 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589997;
-	b=Ka1FMNTYAGfJ3YZFNbhp5RvyLK1p7fY8dXgkFMsZUECxRZclyCJlyMW7Gl2fUbIZ4njM
-	 2qDrPuUygOSShFqs6sd4/W1sZGUrUnO6kYww0i2kRi2cdjwjtMFi5T9Ldes9kvVRLbPPG
-	 PH+3YOTdn5xBJ+MBcynkM4kKxZSR3AOuZcvgTn/dc0HU8z71XBiFubtUBNWzRLqARwV/G
-	 Fps9Eo55UQpNj7rmAW3xuWvYaQEBIfBF9C6gclANuzSv2NEBmStXBx27Jj6u9Bv39+ePL
-	 t2JSGyBxdk5SFno/wwLHSEfGo4MhGWT098cN98VXAgE8Sj2EFuosRWQMnVHQ+sr3cpw==
+	t=1794590101;
+	b=re+2zk9T5iiAAXrQ/mJBwJAvIDzuuBr+sToMOb8v761somU/muKu3Qdq+mhYBJYX2hMB
+	 6bqH2NqRcvaauWjV0aCNplh7Y7wq66f/YNWAtDrg191Pto1MsEi2d1tbDvc8ls7wsOjie
+	 rliZSnWqrJBRWG2V16gEPwy1Zjja8UD+aUFA3LM4ntA8sN2ePias8AcQMZDublWydlYYA
+	 a+idkI25R22ysLz8cXmk5wTI7xcOeEH788L4zC+jsld9FGYwi1k0OXvf7RNTXodcTevYq
+	 Bd8s6IG+5EPksWecuXE1C8a+nksDjD6gXpiKLnmDiMOjYR8gf1TabDnrhZswjnOoz8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589997;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bonakH17m6oL3I6u6f22hNg5N1ig4SK5E1SkaoENsVo=;
-	b=1NFabWF3NkNyOzrSquiD1RhJ7B3uajcu1JejhOgBL1hKPL9B4YmjIwAMnM3TlSk8ipWK
-	 +bH3Q471ZQoKjy51NXaIRGeXKpDRPHHWHNqIuQefbLgQsK2+6mXVd+mheb8BF4hm4eEtr
-	 OYRFvO+IIETUQOe0j5A8Rkjsn7shFKueVouNFlYNgcfpIEZtpQhfla77NjZWojfStHCAe
-	 lTqa5J4tTyCNgxAQbfxAne87OhJVaMb5/7Pkgrm3oDeG8vgeulMVeUCG6HkGj6t+5NnM9
-	 RQGRkDLIq2uQcJoILkXSS3OCJpRWkKayNoarTbcHYHVaSVCrhvaOe4GEL7ztV7GJgMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590101;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1suJMfr4F2t+hvLEf/eqvweGBr12R4RYJ9ohUXZMmLQ=;
+	b=3w34QZIEpVMHaxD2aLScvSisLV0p36uwNs7SbY4b9HhOA7Kzy/l9OZLiU9v3KOX0rtLv
+	 4l4Uro+BL+uWm4IxCw2vanpuJNjO7+TxFzX+oaEdMCJcg06P5mvhsKx5ZvNLYfwxM4mWl
+	 xK2f4QVfnDi7rJUq1GeWrdrUrCSY9BFDhOTE8mV6pxHI328sCow2JmFLWr/HOopE12Stz
+	 T/0kAW6dM0+yodapiZr46bI6xf64IUPKNdcaY5pe1RTaF6Y3rfu3zD0NsuWEVMhOj7qr5
+	 uZukeice7vCFObVu5LWVYj42AIO1X7THspz2U4OyJhLcXFXe6V8btzWYzTPo/d+Z9Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiOGWW5A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+G53xRS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD4F606A334;
-	Fri, 13 Nov 2026 17:13:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B0460A2635;
+	Fri, 13 Nov 2026 17:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiOGWW5A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD94B1F000D0;
-	Fri, 13 Nov 2026 17:13:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+G53xRS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE6D1F000C4;
+	Fri, 13 Nov 2026 17:14:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794589997;
-	bh=bonakH17m6oL3I6u6f22hNg5N1ig4SK5E1SkaoENsVo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DiOGWW5AblLFcTIFUrgE/alIXAiZXbzEhZbiIXhFXE8H/zK//AjmvQiVdRU2ZBZgw
-	 YuJtKCusYKUus+2whWriFHNVHslI4dDXzhW1FoNrjObxZxHsLlCS8N1f5Urk/+nfts
-	 I/1RB4QSNgC15X5zSln0RFNaKLZZPGo61aGvqrJIcDn2grBij96TZGAaEHDDVV5EcL
-	 59io1+xQ/4z75IqkElQ5J3bpoB5fdF0/+oKbAZ5ezCRVzInwE5hqaK8IddqaTjdh90
-	 3/Mz44iAuaK2JQreGJJI+Z9XcEA1a77Y7iTR+7v2NixTB1vJ/Lo7rt8nM7TeD0hY96
-	 Wn0fc2K8hSecA==
-From: Sven Peter <sven@kernel.org>
-To: Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
+	s=k20260515; t=1794590101;
+	bh=1suJMfr4F2t+hvLEf/eqvweGBr12R4RYJ9ohUXZMmLQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K+G53xRSt8vDf6/x/l3LPjRGhF5omdp/pkv805gZbqnCe+Upy/fEqej9LIoLRdbPJ
+	 /nOLeWFABGHPoNdRgJwqooL/MmPecQBEz+bMZ7V++L2Tne5kYqrIxTANG0vKtVwv6P
+	 wNTGd7Rp4FC4jYxpC0Tgd/GwGTsHDEqnwV44JgLiu1zEz0QZZeHT1WcxRRavSYFxS3
+	 EdCKfUgokXaR0RjcDOSkrzUMRr39pcOoGI/UkkG+H1mNo8al9Fp7ahMRbfUSqaFW34
+	 YVYkUHXsjcbamC8vAlS84fx1DwCL0+U5WrxxPNeewpO79OQR1hFo8W4qV+XtJed9tY
+	 LOunxBwh6Py/A==
+Date: Fri, 13 Nov 2026 17:14:55 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Michael Reeves <michael.reeves077@gmail.com>
-Cc: Sven Peter <sven@kernel.org>,
-	asahi@lists.linux.dev,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	Yureka Lilian <yureka@cyberchaos.dev>,
-	Hector Martin <marcan@marcan.st>,
-	Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: (subset) [PATCH v5 0/8] Add support for Apple Silicon DockChannel internal keyboards
-Date: Fri, 13 Nov 2026 18:13:00 +0100
-Message-ID: <179458995719.5774.15567568274381558619.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
-References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/7] dt-bindings: net: add amlogic,t7-dwmac
+Message-ID: <20261113-headband-resistant-354bae47c2b2@spud>
+References: <20261113121852.334604-1-tanure@linux.com>
+ <20261113121852.334604-3-tanure@linux.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,26 +71,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LpKzrxi3dFo/IMea"
+Content-Disposition: inline
+In-Reply-To: <20261113121852.334604-3-tanure@linux.com>
 
-On Sun, 08 Nov 2026 07:25:05 +0000, Michael Reeves wrote:
-> This series introduces support for the internal keyboards on Apple
-> Silicon M2 and M3 MacBook models.
-> 
-> On these platforms, built-in input devices are managed by a dedicated
-> coprocessor running an RTKit-based operating system. Communication
-> between this coprocessor and the main processor is carried out over a
-> low-latency hardware byte FIFO interface called DockChannel.
-> 
-> [...]
+--LpKzrxi3dFo/IMea
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Applied to git@github.com:AsahiLinux/linux.git (apple-soc/drivers-7.5), thanks!
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-[4/8] soc: apple: rtkit: Add tracekit endpoint
-      https://github.com/AsahiLinux/linux/commit/6a2cf965b53f
+--LpKzrxi3dFo/IMea
+Content-Type: application/pgp-signature; name=signature.asc
 
-Best regards,
--- 
-Sven Peter <sven@kernel.org>
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavdFjwAKCRB4tDGHoIJi
+0iKAAQD8cRe2UwvrgIAurM7gqjc5GRJvmH08nxT23alr7Ij1fgD/XhJ/l3gmDO8e
+WxfYr9fWD1PaIuMhdEbBltsE/3a4gAo=
+=4R2d
+-----END PGP SIGNATURE-----
+
+--LpKzrxi3dFo/IMea--
