@@ -1,65 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596154;
-	b=KAT9DyRWNDr92x7AppfnEwu/Td6s2g4k2zFac10cUX/LWHuF7rNyjrxFsDL64l4cmIdV
-	 pkL5iLF68LTIG5M2jTzEKeXsg9bZj6eb78kt+iw11ONghSsP7/OS0qHmoj9ppX6wLjdcd
-	 f2HsFAd5dq29gqRdQ693DwvgjZTR1LJ1Sd56xMbzO/cjBgduLdYQazGr/O+wXruic3kca
-	 JvTD/xQ2CqH7yQy/vTtE1hael/QXp/qC39g/eGFtbt1kJmUn5RVECORne/gb0ny7Ea6ps
-	 xf2YMwufxkfuzwKXobIRbJ7ugYjtKVhJ86WdRAirutLxBK9t1OEmpma05OjzqkFeoLQ==
+	t=1794596265;
+	b=HI1f8iXhmwTdBjs54A0KP1HqcihDNIXM81VUdd7FFRtvl0mgdkLqcmrGShGyRJUngQpt
+	 UtgOe8haR5n8ohe1LOLYgQ6nn/+WjZcl1UaRsRxz5gV+PDv0qGQQHTT2OE6bSetIU0ooF
+	 /GJHh3D98gyiDVJcHiVxt+cWa0/F3z4IO38AfHtbmTrfw+jKIU5GmEoQMXDsTpHWnTOQA
+	 feMdGI4CjB+KL+jKcGt/uxjuRMcZU6XQLpg24+FslI2YHRZfCJ+PNxRZQCCUF7r9qoLl1
+	 gNk2yFLXlpWdBWWfz+ghofPcLTPDdpieoQRUerwAH6Yr0sC8VGH13omlIv18U75JTHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596154;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=fxZivtYImLr6Xqc2JRNdVpuAoDBsPDg2LZ9fTboQfSk=;
-	b=hEA2farG8gI5cd0dvLcN4m6AihdpKvJarhCblQRq91MVtPF+bLuRCeo4CvTm49WlJBHx
-	 R8/Adi0rjKOyyyP5LAEb8bfEucsVrjFGotpEhAxpJgimCGM59Ea2Nh4gEqYiBp8Z9s8AG
-	 k/6w4KCPUZb+M4VP2MCdIkBpfZ1v4YjHRL16MOsqQ9Wi8QJu0NpBYksKuWkzPf1EcCBaP
-	 bgv/vV/0CtVLHYEwwL4+kmFvRdgxvKlUGB7NxKYKK494aSLGM8bDu2vZ1wRyOmP6AykhT
-	 MPHmE4WK9rq/ySPiWud0qBcGKxW6PuqWhNVfsI1DGqruiA5a24HPTaOam5jmgAvv6jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596265;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=P0vDlfUEgp19oAyPGa2aSEKT9gUbabutfM6+fvEzzt8=;
+	b=qHPa9WceZJKr6iPAfRluRWOh8nqZpuPAIsZGKUVSocpynMpXFYNAcDoOb4Fbw+lIRH6s
+	 wgoUiY5g4PZISXdZHNPwNhfMjSiLXrBbmmA9AXbwC7hT2/wut27fRLakCCs4nzHW+cKwp
+	 oaaSHBqPJ1S6BFuDsH3Lz1AON2owMTIi+TrhUJgSBomOusAViavH83+CFVJplicaTuVQ3
+	 BqDnDoAzbdNf2UOItAu2ZFm29J6YEBNt/u44cXqpvAHzvTkhLCaXEHnM/ZeMLozKt3U00
+	 dLUHLBmn6Ln9bo0nhbFSn7Kl4wOjhxTmH+cUfIn7qCo51cs0i6MuQaW5jiljJjHZb5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETnR0EYS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTvX3ayb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E3260A2604;
-	Fri, 13 Nov 2026 18:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C99606A338;
+	Fri, 13 Nov 2026 18:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETnR0EYS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975551F000C4;
-	Fri, 13 Nov 2026 18:55:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTvX3ayb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2B81F000C4;
+	Fri, 13 Nov 2026 18:57:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794596153;
-	bh=fxZivtYImLr6Xqc2JRNdVpuAoDBsPDg2LZ9fTboQfSk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ETnR0EYSHanmvts4Apaw29C4gph3To2NBD6sFEiBbcTsQWheycc+uYb/dY++sdp1A
-	 ECxfckanNuqbhpUb901h7finwdSVXqd2UuSwmCly7SYG8RD2h+Kil8aDDdTwBRO4bq
-	 AD6P4d0nncRlayyXXD8/5UjhW6k3l/xklDvPYdMPyexM9z4+cI705aFdfQil+eTSja
-	 TfG2dLTXshnpQFfPjcNCLvourYR4coCrwLa5zYQX+5PaFpcMKAYh+8dJX08boweJCA
-	 +y0KSX8VtyWPaWhEB/XouKFIVEe2jI60Q3U9VhHhYDh8sXtZIhtbiVJehwUz0QYuNV
-	 kM+WYAcMtqXYA==
-From: Lee Jones <lee@kernel.org>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Eddie Huang <eddie.huang@mediatek.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org
-In-Reply-To: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397:
- describe the RTC's 32 kHz output
-Message-Id: <179459615032.87488.12726056214378307165.b4-ty@b4>
-Date: Fri, 13 Nov 2026 18:55:50 +0000
+	s=k20260515; t=1794596264;
+	bh=P0vDlfUEgp19oAyPGa2aSEKT9gUbabutfM6+fvEzzt8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oTvX3ayb9btVItIyMMHbSVMcS84GLbnpAOVQPAM207Y5JBHAiA4S5ZYnh3NKX6nJG
+	 l/K5ErrrMVjuIoqJyKtPM7NilXuj1mIZcSblxyTOqA2R/iFHGoVAwp4MnkbdJniaVC
+	 ivQlRtu2TnBwGMlAhrQ9VbvFuOzTPy7FhpmP+QVOHHu19moWppu+4BZlYJAQz8oiub
+	 jnEa55NLEfQwZaCLg8WMSTA7ObsWdIubCwNU4zanb0qcmLWXReUW+haT5VBoRf+fSB
+	 iDRknZvkCJCY0SGxPXcB6gWRUAdIDgUUbHE888/1cnAYx1tp7RlzjMoJNCzWsRpOy8
+	 n0QTZNggzkIqw==
+Message-ID: <sashiko-outbox-213486@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 07/23] ASoC: dt-bindings: qcom,lpass-cpu: document
+ the SM8650 LPASS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-topic-sm8650-el2-v1-7-5183f6aab9fc@linaro.org>
+References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
+ <20261113-topic-sm8650-el2-v1-7-5183f6aab9fc@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 18:57:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,26 +60,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Sun, 01 Nov 2026 23:33:46 -0600, Ryan Brue wrote:
-> The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
-> use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
-> is off unless something turns it on.
-> 
-> Let the RTC node provide it as a clock.
-> 
-> 
-> [...]
-
-Applied, thanks!
-
-[1/2] dt-bindings: mfd: mediatek: mt6397: describe the RTC's 32 kHz output
-      commit: e38ddb5cfa9f9dfa7feac202414d7a4192cc24ed
-
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] ASoC: dt-bindings: qcom,lpass-cpu: split unwieldy per-compatible
+  schema
 --
-Lee Jones [李琼斯]
 
+commit f17c7c8f20845c2d15f821f60a13b5f93656ae8d
+Author: Neil Armstrong <neil.armstrong@linaro.org>
+
+ASoC: dt-bindings: qcom,lpass-cpu: document the SM8650 LPASS
+
+This commit adds the qcom,sm8650-lpass-cpu compatible string and its
+register, clock, and interrupt definitions to the qcom,lpass-cpu binding
+schema.
+
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml =
+b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> index 3a559bd07a79b..f431173a0e880 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> @@ -23,32 +23,33 @@ properties:
+>        - qcom,apq8016-lpass-cpu
+>        - qcom,sc7180-lpass-cpu
+>        - qcom,sc7280-lpass-cpu
+> +      - qcom,sm8650-lpass-cpu
+> =20
+>    reg:
+>      minItems: 1
+> -    maxItems: 6
+> +    maxItems: 8
+>      description: LPAIF core registers
+> =20
+>    reg-names:
+>      minItems: 1
+> -    maxItems: 6
+> +    maxItems: 8
+> =20
+>    clocks:
+>      minItems: 3
+> -    maxItems: 10
+> +    maxItems: 16
+> =20
+>    clock-names:
+>      minItems: 1
+> -    maxItems: 10
+> +    maxItems: 16
+> =20
+>    interrupts:
+>      minItems: 1
+> -    maxItems: 4
+> +    maxItems: 6
+>      description: LPAIF DMA buffer interrupt
+> =20
+>    interrupt-names:
+>      minItems: 1
+> -    maxItems: 4
+> +    maxItems: 6
+> =20
+>    qcom,adsp:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+> @@ -59,6 +60,8 @@ properties:
+>      maxItems: 3
+>      description: Phandle to apps_smmu node with sid mask
+> =20
+> +  dma-coherent: true
+> +
+>    power-domains:
+>      maxItems: 1
+> =20
+> @@ -241,6 +244,65 @@ allOf:
+>          - iommus
+>          - power-domains
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm8650-lpass-cpu
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 16
+> +          maxItems: 16
+
+[Severity: Low]
+Should this binding be split into separate schema files (sharing common DAI
+definitions via a common schema ref if needed) instead of adding another
+large per-compatible if-then block to qcom,lpass-cpu.yaml?
+
+Each SoC variant here has substantially different reg, clock, and interrupt
+counts and names.  Fitting qcom,sm8650-lpass-cpu into the same schema also
+widens the top-level maxItems limits and enables dma-coherent at the top
+level, which relaxes validation for older compatibles like qcom,lpass-cpu
+and qcom,apq8016-lpass-cpu whose if-then blocks only constrain clocks and
+clock-names.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-topic-sm86=
+50-el2-v1-0-5183f6aab9fc@linaro.org?part=3D7
