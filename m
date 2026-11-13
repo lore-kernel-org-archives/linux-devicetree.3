@@ -1,92 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586495;
-	b=vtDaTCsalOI+Az6Bc8hFJd7WCK/7KtzRfx4+EQuvnc72L3GRF2W89ESlmUM6KLBSCylB
-	 ZXJQWszbcSIuoQCxjPZsiLHwCdP/WHiFndKVZN1WVDJoPkSj4JVU2/dLC2I1Vwxacdm5r
-	 PiaKppwESVsJHHo42ivG2X6giT0k/AOvIlo7o9ruy5GEq2ZI6CXY80No4LX0srFDuRsGG
-	 cVq6mDdbcsxuvrsxppNw1EC3HVozdHNr7f8bgdL7voz5z4rD9DhawATTnB0ijsTpmH4Ij
-	 Du5iPtRr6pI5DgbbXqPuaR5ocHvYFVSx7JXZxn4zQy/YtxKQ167CI207wlanYPbO+9w==
+	t=1794586611;
+	b=JcltDyMauNpwupsbRuA4WuFqHXAJbEE+3QABOcrt2rA6xR5I5U26MCiN0CGz1Nj3v/nf
+	 e3QGe0Nzj20vNIvJPFVzjuwkL8egyvHj7BgShDTonD4jAKDBFMq8xfjy5FRUkHaOehWnk
+	 zF9e1Wl9CjC5x5KbeAd1Obxx+sMW9uFGiOzxnKmCU2Xu1neq/hqQ9QwwUT40WoT8zWqkP
+	 9ZKHD1JRn7yHpzaV1siAzkbu/nYFTBe0yfYwVXM/pLMAX9wr30fAbGjBOiLAk3jEEyvWf
+	 WsvTw3kKYPi9BpZOC7KrtOCCetHuXjT5pzXcttm34mENcNoQHL0S7muiDgrll549NHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586495;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=sf+6edYMzY6NnrlxJWJeYP4C5uZDtVBlONkpHHMFEZo=;
-	b=KKdTqycrtcnEqvTN1+GJgofUuXlk3yQEeBa71E2Kg2Fcffp6rWejAObIFbyrgXxfxS5Q
-	 PKl68qyobZHSY4abp5s/dy0qPdtQiu5+07QXUf7wqQrivF1ehk9m0K37pcD7YiXKLB076
-	 SjRvEgWWs6j6kmTjsoFsntfy7QbKXK80sxPzQ7/rPFAGWtNBMtt5qooskBfRmmb4turqV
-	 i4forwOc6hsTLPeKR26gasWH5EuXyYLLEguUUuq1nVpc+coIKa87GMaI80aCrKbYGRpP+
-	 cVCVzpCbqenJBdRK1pqKJDyEC/7cmzgpMPpp5wxsoxE27WTkLheVY32KE+HoZe0ylqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586611;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+kZRE2fV4+maK67LLBkbZIEaFidBfTZvwC4U00nmb6k=;
+	b=SuWOAw9GnR6gx0bptYCVWrPzuSLl94PTzxOws8YAPZZVgMd/suACHoMocJnzL+qQSPi1
+	 LQJ9P62grC7BUTFNukoefqvQbCkmQXBSGiFz4hwzXp6RcZGMu1irBpuH9O8gv9H0dnX4U
+	 MH2nqA57bJC7gw+EyFaBwFCgmXJ5uzaKwIuJQwwYvtdLvURjgDw+VCV6t2DWD+pQt6mC9
+	 bFO+v78/XhTUYZFcX7iiZzovkHkq23F0pOHH9oPAtxlo/bA4vnUa0MmPcHOO3O8XKMhgi
+	 Vqbk1kFNQAVYqRB0V/Z0+9vQm/AZcOS7crLm/C09gMEpdgWWQmtSyx+Z3DX9AdRyJbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iNSeqRDW;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXTl1Lw+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68502606B2C9;
-	Fri, 13 Nov 2026 16:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68502606B2C9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F2A606AE01;
+	Fri, 13 Nov 2026 16:16:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iNSeqRDW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794586496; x=1826122496;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+zDWrisG46NzjviE4PtgI5vDp4QnTOm36Mo4GT1CJrU=;
-  b=iNSeqRDWBxKWlicY8EekgRqulaV459H1NX8Oh9hKae79Ezht7bM9mRUt
-   9wKEjDkLWsOJomzna4zXTrwsX2YV8sAqUIbprqn0z0Ky08I9XE7iSmhuT
-   REKM2Tc6ArT1s16kI5Hf3ynb5FHKVMexmtundAfEcIuokj17MtOEcwPKW
-   R8TRdRGzXwjc5nJd/LN1iu94rPpP9sMPreuIokiVkBoBwt/OE5AjlyTmn
-   7Ykdja9fXw89saZVToIGsdVBF7qOA2yuGSXfadcZysYRouMeaAbBUw6O4
-   +UB1SO2myBKvg23HQA8EcmzBd4B6olHn67DMubFNlM/IdjQBdOEPp/sKl
-   w==;
-X-CSE-ConnectionGUID: wyKXKgFrT1WEFGqd4Vgxrg==
-X-CSE-MsgGUID: 84ViUfQbS8++cWcGphcTKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3470485"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3470485"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:14:55 -0800
-X-CSE-ConnectionGUID: KbbtHvXoSiei8QzDIkkMxQ==
-X-CSE-MsgGUID: n2uxiT2dQlq/0961XDln/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="8870703"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:14:49 -0800
-Date: Fri, 13 Nov 2026 18:14:47 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 09/10] gpio: shared: removed unused field from struct
- gpio_shared_entry
-Message-ID: <avc3d7a1rEfV_xtP@ashevche-desk.local>
-References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
- <20261113-fwnode-for-each-prop-v2-9-4edc23d5cf50@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXTl1Lw+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22BA1F000C4;
+	Fri, 13 Nov 2026 16:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794586611;
+	bh=+kZRE2fV4+maK67LLBkbZIEaFidBfTZvwC4U00nmb6k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZXTl1Lw+ZJn9KvKJCMoFTx9n2YfqByZ2mFd+JXwY9s+WPnarbh4uKrw1xtrF9krm1
+	 Ll+YSm1JtZ5mWFoYTYEmNI34db9cWQEwYwQj2KHMxkocEc955y8iOdKHvmBJ05rYmv
+	 Vcod+Orcc420voN4xB2abO03q2H9nPMiVuQfGRRkV6YpToxg3MQySDAJyKt03oV/zf
+	 70GInAuxV496wni64jWu7pQFEl4A6SQ80vnE4guKkiImssjBvW8fQNYLtgSqVr+mGq
+	 BmHlm+O0gX52BQQJtidxeDDr6kLoWyrIvnWQxtcCHkInVtnE8sie958WJ3J7N1IV1S
+	 V7n7hEnpmNS3w==
+Message-ID: <sashiko-outbox-213180@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] arm64: dts: imx95-phyflex-libra-rdk: Add
+ overlays
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Hahn" <B.Hahn@phytec.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261113-wip-bhahn-imx95_upstreaming-v2-3-3ef58af5e689@phytec.de>
+References: <20261113-wip-bhahn-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de>
+ <20261113-wip-bhahn-imx95_upstreaming-v2-3-3ef58af5e689@phytec.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 16:16:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,21 +60,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-fwnode-for-each-prop-v2-9-4edc23d5cf50@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Nov 13, 2026 at 04:47:09PM +0100, Bartosz Golaszewski wrote:
-> The index field in struct gpio_shared_entry is an unused leftover.
-> Remove it.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: imx95-phyflex-libra-rdk: missing OF graph link in
+  BT overlay
+--
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+commit 924f1473173fca2dbc62cd020eeba54504832201
+Author: Benjamin Hahn <B.Hahn@phytec.de>
 
--- 
-With Best Regards,
-Andy Shevchenko
+arm64: dts: imx95-phyflex-libra-rdk: Add overlays
 
+This commit adds devicetree overlays for the SoM temperature sensors and
+for M.2 Key-E Wi-Fi/Bluetooth cards using the nxp,88w8987-bt binding on
+the phyFLEX-i.MX 95 Libra RDK.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-blueto=
+oth-88w8987.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bl=
+uetooth-88w8987.dtso
+> new file mode 100644
+> index 0000000000000..1601e04b3940f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w=
+8987.dtso
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
+> +/*
+> + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
+> + */
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +&lpuart8 {
+> +	bluetooth {
+> +		compatible =3D "nxp,88w8987-bt";
+> +		fw-init-baudrate =3D <115200>;
+> +	};
+> +};
+
+[Severity: Medium]
+Does this overlay also need OF graph endpoints linking lpuart8 and
+port@3 of m2-key-e-connector?
+
+In imx95-phyflex-libra-rdk.dts, m2-key-e-connector uses
+compatible =3D "pcie-m2-e-connector" and claims w-disable2-gpios.  When
+CONFIG_POWER_SEQUENCING_PCIE_M2 is enabled, pwrseq_pcie_m2_probe()
+requests w-disable2-gpios with GPIOD_OUT_HIGH, holding the active-low
+W_nDISABLE2 line asserted until a consumer enables the "uart" power
+sequencer target.
+
+In drivers/bluetooth/btnxpuart.c, nxp_serdev_probe() checks
+nxp_m2_connector_is_available() and calls pwrseq_get(..., "uart"), both
+of which require an OF graph link between the UART controller and the
+M.2 connector; without it, W_nDISABLE2 remains asserted and the M.2
+Bluetooth radio stays disabled.  Adding the OF graph endpoints in this
+overlay rather than the base DTB also keeps lpuart8 exposed as a normal
+TTY device when the Bluetooth overlay is not applied.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-wip-bhahn-=
+imx95_upstreaming-v2-0-3ef58af5e689@phytec.de?part=3D3
