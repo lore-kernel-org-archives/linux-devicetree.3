@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604167;
-	b=W3pHwnlmLc7oUQ61/+iLja784+12q5PuBQv21EF9SwHgajWRZJfZ3EmSkJKyBtsnWH8O
-	 w3M6JIVO5gcKIWLoYm9qYBB+qx2qyhqGVOmY4tpuDEXEvbjjDuXlNtU5ZA8Mhl7Dlia2n
-	 +YBX0F6LysyFaE35HVhx9hxl9w++Sj/SsWxOR/eM/vN35CX4sUDw2i3cbGFHt5LySyuut
-	 WX1JFBM1SoquQXIc5262eQEZWuVqqpmjf4AeaGCx2h9iqChquDxoO6nGKi4EzF57bRNYl
-	 NCfUFHUT0vF2qQXKVnj49v1OmRofFQ6029afvQ+Wi77w4rRv3h+mnVvlN92Y4+THSpw==
+	t=1794604171;
+	b=eJWkWDbnf+Etlms+nr6cwXxqZV3RrElEctHzcNiqox42WW5eyPqocAzUZz7eQhqKjk6a
+	 IcPuXJFyt45Wwskcks435zb655S5Vpum9+Ha+YUplIC9PCexDgvPd/tYEO/WGH4jWL60F
+	 H4xjYJNNcafGICMq9f2hpbqSsKDnJtq4qAnFP80NKxxPSSthwmJvX2FnLibNZiAzUEITt
+	 8D2puNA9KkeR1VveN1kYJ2Ti32+NxG56g0mqBhqEwjRLIm0yFJVPeiChCy7Clv35eOVPL
+	 k4BznEZsvHNFVu0B3uGN7b2VJMMXvaaOGW/g/PMufzbQ847Cp5eqhS9pOLiJ69xSKqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604171;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
-	b=CmWZKLYj5WTf3nFZ45V/68q35gIUojT8/UomjFYCY3HdxC3DOmwGHORQTn3Wz2PILq7H
-	 forfgiE9rlB988H9ha31tQH/hBFG7qvRDW9Nre9enr6EfgXVlaKPGtLeoYXqTRF010QuK
-	 agREQWnLL2rPSiWypp4FHCKDfjUHLuXhJo7X6M2QVuylV/G5u2gVntgBT0Rdv6zWN4Xks
-	 FIw7tr473WWvBwNUCbY3SvPqs5Obe5JPjkUgTbmccFy50fvG/YVkJIJTqIX8EjpC+n1wx
-	 /eQBUGjzAFlEY2/uC4atzA93bhM8AF+pZ7C5eEHJv+kKlJ17Dp8doT4mhd/VHT3XEXA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TDfqGTP8ke2qJSswQYoFvsPR2S/uFXH/mhppiR2+WQQ=;
+	b=uOsEqAGczKFk/69bV4v+EjPzyyB0Vf+04Dq+J40y82yQA7So1OymZBx2wgCHFFoyo4gk
+	 H9TxSH//7SlNEKHuoTHRp1ZFKvz0iOaD+OWkjTKsXeSB7o7brpsQrYZm+xhM80lmrJVo7
+	 ND6hLr8RD8MjU6w6+fBsy+FDj+RSgliW0ANHkJ2cIW+MTGlGOuNzJ82S906QAHJ7xbpnQ
+	 wDv7Pyewputrt3mTgqlO4z2w02to9d4RKrRkxChsH5KnNSxnL8BJytnR21EGkXfhQiZf2
+	 WkfgD/RfCPcY6+hURYD3sONcjIkovIV4jlBwUfFg/f9m4xEevFiEjJGEgKenLrnjsuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLz0Y4MS;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="byh/3nmq";
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2AD606A327
-	for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 21:09:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC2AD606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A819260A260F
+	for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 21:09:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A819260A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLz0Y4MS
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a2761c69fbso584025c88.0
-        for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:09:26 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=byh/3nmq
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-170135e43c7so1745141c88.0
+        for <Devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:09:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794604166; x=1795208966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
-        b=aLz0Y4MS5HVFlOxmPqqFMPg0eifh1MyYKl/shV1TSg6AxCreEouIS+gfPiKcMe7L9e
-         OJULCa6qggA7ACGjZYTTTAD8i4wnoNX4gtt2F8uaWmZybukSpX1dnjUmD89JcyNbtIoz
-         4T+1uksvKL1Z2sg/crUlpSJThsjBU/GFWUcGI=
+        d=chromium.org; s=google; t=1794604170; x=1795208970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TDfqGTP8ke2qJSswQYoFvsPR2S/uFXH/mhppiR2+WQQ=;
+        b=byh/3nmqI7QpjTJjL85XL36XrLVmQJX7b416OaueMm9iHjof1uYq2ZFN7Pfll3IAvV
+         +X01S5m5HOaYZHlDiDaPuFiRmYKrPA+w+1JW7YhJqoVFFPJEGnEmqMTcrdwrPGVV8Zz4
+         i1lGy4B/V1v3WY/ao6ofASJ8TCWkgzDrO6u/w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604166; x=1795208966;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/XWpc39jBynwI4nBXv0NNeAvE7u5mNOBsmUvCwWc94s=;
-        b=YyUcg8sE7DXJltZwFIsnFGjcwqj7Amh83mOC6SOWlHrTeGHYoeRLiAvZ1PXpoRTwoc
-         kX0phuX4qsyehAW7fAdYYpdVuqmr7BF8XR5kYvhP2TdAgMVsMmFq065enI+yiXenybCk
-         iDm7+X5xEXONDgSKWm3d1U2Mj++5InHmzdbry7iP8ABRweHp5wr+P97Cx2n+fPDySj1J
-         XG94MZnGESjMVnoDynIc7aiU86571AJohVRSChpUEQgl+HXU8O7cYlNCmpFWcJPke54P
-         LIRQSBV/BR0GP4UpOHr5lJPqcIzKqcf7J+2e/ORU2HLVTjOukpqZHpTboC4Bo1sSToWo
-         Irrg==
-X-Forwarded-Encrypted: i=1; AL+hErEs6nCF5qlzaPsUAUFtFSCnSwphzFxxi/iqLFBj0qAReN9bA21iePjuChzVi+5v9dO1uYtdXbxatVm/@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DCSGlJq0ncHBrLeYpB31bYwS6O7QKX1dFWGqNDLhnrqFeQxc1
-	K7jqG29GrGJrIGJh2Rzh+nhNQ9wabEAinFf4Qoq1f7UHO8coglqeTPCm1rYFqnr42Q==
-X-Gm-Gg: AYBFou2Xg6YUqs9MYdlIrW+zIUz1Rkn5YnjD3m01TRGUuokKYfIJWljmwM7FFqI4FfO
-	SMSBV7LdUFr7dWJIyYtqOA4V1QGzRQ23QpgMvi4oEx6r3q59b/fbvC2t/Iy+/fu2odq7BRdOXTy
-	nBfEpLSHCUM7bnwYj+BM2tpzWEd+ITd7xioVK6JetWvyMOCwSdHJ4Fva2NFW6ZAjtZIV6FyA6H4
-	uHKov05ptENUiDGVyKmD/CXg+oeiqQZr6xPKSTs7TMaK1gBlWJ5bWo/B20R2l9/s983+mdozC9t
-	sh8/WIMrA3R6hGmmIezF+D961G68tlRPed5/awZLl45V1Y+Nx/ohd83sgJ480GLYRLt8hn4kpB1
-	fLLZBRemTKhKh0PDHtRe5/DDghKEADBEAz82vcFpgkjPMP+CXdRH9XqpT0Wf3tvMAUqHDZpBxBT
-	QaYcILkUZTH3/YQGTMCC82s9sRf5dpJO2gjCkl2cymAoshaAqK3/g07Atk0ilGX1dX9XgVsUEqK
-	nIrtd5dpMdAfVdwhCHXaCq83nhrtVPe4n1rfgofpz89DIAkkUfO7JuEGE3IPx9wUNbfurvYSWhl
-	Dv1jzjyZCr1O2rxxiZCJQrtYAhiKrFhY7GucNMhOO5WY6Vh215HzZ3PjWWGkYSltbfkjg4zG+sl
-	pJIhteDab8wvwPw==
-X-Received: by 2002:a05:701b:4182:10b0:1b2:5128:df1b with SMTP id a92af1059eb24-1b5031b7dd3mr3390648c88.45.1794604165722;
-        Fri, 13 Nov 2026 13:09:25 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794604170; x=1795208970;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TDfqGTP8ke2qJSswQYoFvsPR2S/uFXH/mhppiR2+WQQ=;
+        b=gTob5KXmjikvHaAAPaU7Lm3h6e9IkRLOiNIitHQbEpNx0uM0jjSiJDpVBWEwyHda01
+         En2CGjW4Fp42FHN3w6wdhqjzTz5mqbKvB0rysa7ndaBQaGALjQZsfDS/ClxLdMUYUOGF
+         S7RAwuYDd+pJmxCiR+sxN17Es/N0q+gTly2pwwZyZ7LP099wqB8xU6iENEl5mHMZVUI4
+         cy8V5ucMtVEe3/rcJjEQX0SgIM16kEzWFrercyrqtAy5sOOoYPR3rUDib2Tk6U/fCJZJ
+         nRMEaYvXos5kfwrEMz9yruWrvA9eiR5l5hx6vUHoG7kmbfpPdFDFpektrlLqHDRoONbR
+         x/LQ==
+X-Forwarded-Encrypted: i=1; AL+hErGPftMvYRJPQ4/jrhEFOPs5GSp8eK3zGEzIvLVqetX47rrQ1qDWNygOASp/oBiDCvJrsSDY8n8WVxyV@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AWKRC2d30+AgA2qswklSwF5Y9H/qFSGnvNFDXyyaRKOud49S2
+	QlKKd5FnVHeF+u690AxUD1S9Wk+Lq13fENgZFqcVDdGAn9DmdDr2n1oUDBdTOyu0lA==
+X-Gm-Gg: AYBFou1iv78gvfNcKJJKURQXUrHw+0u8py6KMHUjklkHfcuO/812cguD/AEE6vv2hp9
+	Ay7/WUhtUgiPZL0lI2n6Y7L4hZjoNI//Zp3vuT4bRF3Tvt+HHSHdsQX8t3TiOAT9CPifDtVv2UI
+	f7NDbVvDzq5uwCqILLEQsTtDOqGIdCzI0fVU7axJkOz8fNeR+iek/yuta1IPyisXtUaIxOZXenD
+	dmnn7UKGkTTT2DQsfupF7xN87wmdUHpdT8KHkJQr4rljrey/IV98IWgeE7n3Exr8oW9IadYoCcc
+	PH9AMsPWFCoWG8rm509s71O4JUTORDJp6Pmtl4mK5BfyxIiNkQUAuTfGpq9PSQSdm6NQNlscj9J
+	vekenH0H0/5xtsxXrcenShbMt3YrrjrsaSMVcOVpERQZ+AjBwi16g/SmHx/7vr9yjQDPj/Wey3l
+	JG+QRQiC3BARVbvjKUCkcmNIlIsDj60vhvnZ+EzzFaEsW3atRZjC9wwSYUBzfJTBlR6Ao5RrcTn
+	QVLDTf6xVxk31lEfH6mXpaKbgkZTZNydRGzWsMxj9Cv+og4Y/T2JQ9vZpmbxjZxXKPTnYRoA9rG
+	CjSliqKcohQV5BQlLJ6GPHbAwAVZtbKtDC6udOQtHrOtxMxZsTUVxpcJMsP54mlhoZ4vGJRzUgh
+	i9arLL/hvOiW0
+X-Received: by 2002:a05:701b:2402:b0:143:868a:20c1 with SMTP id a92af1059eb24-1b503193011mr3160476c88.46.1794604169766;
+        Fri, 13 Nov 2026 13:09:29 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:38c:b779:3be9:e682])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm8463040c88.0.2026.11.13.13.09.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:09:23 -0800 (PST)
+        Fri, 13 Nov 2026 13:09:27 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -101,31 +101,22 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Saravana Kannan <saravanak@kernel.org>,
 	Brian Norris <briannorris@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Bjorn Andersson <andersson@kernel.org>,
 	David Sterba <dsterba@suse.com>,
 	Jonathan Corbet <corbet@lwn.net>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Manuel Ebner <manuelebnerli@mailbox.org>,
-	Marco Elver <elver@google.com>,
 	Mark Rutland <mark.rutland@arm.com>,
 	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Nick Terrell <terrelln@fb.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
-	Rong Xu <xur@google.com>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	cros-qcom-dts-watchers@chromium.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	workflows@vger.kernel.org
-Subject: [RFC PATCH v2 0/5] arm64: Add FIT configurations for sc7180-trogdor and google,lga
-Date: Fri, 13 Nov 2026 13:09:09 -0800
-Message-ID: <20261113210918.356261-1-dianders@chromium.org>
+	linux-doc@vger.kernel.org
+Subject: [RFC PATCH v2 1/5] kbuild: fit: Document FIT_COMPRESSION and FIT_DECOMPOSE_DTBS
+Date: Fri, 13 Nov 2026 13:09:10 -0800
+Message-ID: <20261113130858.RFC.v2.1.Ic9a4337a7740a76d78fb68d3763d36a35a3231a0@changeid>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+In-Reply-To: <20261113210918.356261-1-dianders@chromium.org>
+References: <20261113210918.356261-1-dianders@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -135,104 +126,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+`FIT_COMPRESSION` and `FIT_DECOMPOSE_DTBS` can be passed on the `make`
+command line when building `image.fit` (see `cmd_fit` in
+`scripts/Makefile.lib`), but neither variable was documented in
+`Documentation/kbuild/kbuild.rst` or mentioned in
+`arch/arm64/Makefile`'s `make help` output.
 
-The end goal of this series is to move forward on producing a
-"universal" Pixel 10 boot image that can boot on a variety of Pixel
-10 devices (frankel, blazer, and mustang and eventually multiple
-revisions of each). At the moment, this is impossible since the Pixel
-10 bootloader:
-* Picks the base devicetree based on SoC ID information.
-* Picks an overlay devicetree based on Board ID information.
-* Needs metadata associated with each overlay to match it up.
+Document both variables before adding new FIT Kbuild variables.
 
-Since we don't have per-board overlays and don't have per-board
-metadata, that means that today you need to pick exactly one revision
-of one board and build a boot image just for that.
-
-How does this series help us?
-1. It uses a checked-in `.fitconfig` configuration file alongside the
-   `.dts` files to select which DTBs belong in the FIT image and to
-   associate metadata with each board's configuration in
-   `scripts/make_fit.py` [1]. Other tools can parse this metadata in
-   order to craft a package that the Pixel bootloader can understand.
-2. It integrates a call to the new `fdtfactor` tool [2], which results
-   in a "base dtb + board dtbo" that looks like what the bootloader
-   needs, at least as long as all the boards have the same SoC.
-
-What happens if everyone hates this series and it gets dropped on the
-floor? Honestly, everything here could just go out of tree and it
-would be "fine". IMO it's nice to have the Board ID / SoC ID
-information for each devicetree stored in the same repository as the
-devicetrees themselves are, but if this has to live somewhere else
-then so be it.
-
-NOTE: from reading the above, you might wonder why the sc7180-trogdor
-`.fitconfig` configuration file is part of this series. The answer: it's
-a board I was previously deeply involved in and it is a convenient way
-for me to prove out that the Chromebook use case works well. I did hack
-up some changes to the ChromeOS build system to use the provided FIT
-image and it worked great, but since I'm not on the ChromeOS team these
-days it's not something I personally plan to follow-up with. It sounds
-plausible that Chen-Yu may follow-up with it or post a similar change
-for some Mediatek Chromebooks.
-
-[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
-[2] https://lore.kernel.org/r/20261101220224.1436242-1-dianders@chromium.org
-v1: https://lore.kernel.org/r/20261020153652.2907186-1-dianders@chromium.org
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
 Changes in v2:
 - New preparatory patch documenting preexisting FIT_COMPRESSION and
   FIT_DECOMPOSE_DTBS variables (Simon Glass)
-- Replace FIT_ITS + mkimage + fdtget/fdtput approach with FIT_CONFIG
-  .fitconfig sidecar files handled directly by scripts/make_fit.py
-  (Simon Glass)
-- Support subnode properties (e.g. match-1/...) and u32 integer values
-  for the proposed FIT configuration match subnode spec (Simon Glass)
-- Document FIT_CONFIG in Documentation/kbuild/kbuild.rst and under
-  image.fit in arm64 'make help' (Simon Glass)
-- Update fdtfactor invocation for v2+ flags (-v -> -s, -f -> -F)
-- Expand commit message and notes to explain why FIT_FACTOR_DTBS is
-  needed, that fdtfactor is an external host dependency, and that
-  compressed DTBs in the FIT are supported (Simon Glass)
-- Document the optional fdtfactor dependency and FIT_FACTOR_DTBS /
-  FDTFACTOR / FDTFACTOR_ARGS in Documentation/process/changes.rst,
-  Documentation/kbuild/kbuild.rst, and arm64 'make help' (Simon Glass)
-- Drop fdtget/fdtput sync and hostprog patches (patches 1-3 in v1) now
-  that scripts/make_fit.py handles FIT configuration files directly
-  (Simon Glass)
-- Replace checked-in lga.its with a compact lga.fitconfig sidecar file
-  consumed by scripts/make_fit.py (Simon Glass)
-- Move board/SoC matching metadata from the configuration description
-  string to a typed match-1 subnode per the proposed FIT spec extension
-  (Simon Glass)
-- Replace 728-line sc7180-trogdor.its with a 49-line
-  sc7180-trogdor.fitconfig sidecar file consumed by scripts/make_fit.py
-  (Simon Glass)
-- Move motivation for sc7180-trogdor from commit notes into the commit
-  message body (Simon Glass)
 
-Douglas Anderson (5):
-  kbuild: fit: Document FIT_COMPRESSION and FIT_DECOMPOSE_DTBS
-  kbuild: fit: Support selecting DTBs and config properties from a file
-  kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
-  arm64: dts: google: lga: Add lga.fitconfig FIT configuration file
-  arm64: dts: qcom: sc7180: Add sc7180-trogdor.fitconfig FIT config file
+ Documentation/kbuild/kbuild.rst | 12 ++++++++++++
+ arch/arm64/Makefile             |  1 +
+ 2 files changed, 13 insertions(+)
 
- Documentation/kbuild/kbuild.rst               |  33 +++++
- Documentation/process/changes.rst             |  10 ++
- arch/arm64/Makefile                           |   2 +
- arch/arm64/boot/dts/google/lga.fitconfig      |  22 ++++
- .../boot/dts/qcom/sc7180-trogdor.fitconfig    |  49 ++++++++
- scripts/Makefile.dtbs                         |  17 +++
- scripts/Makefile.lib                          |  32 ++++-
- scripts/make_fit.py                           | 117 +++++++++++++++---
- 8 files changed, 267 insertions(+), 15 deletions(-)
- create mode 100644 arch/arm64/boot/dts/google/lga.fitconfig
- create mode 100644 arch/arm64/boot/dts/qcom/sc7180-trogdor.fitconfig
-
+diff --git a/Documentation/kbuild/kbuild.rst b/Documentation/kbuild/kbuild.rst
+index e71a692a559a..744a32ccbd1c 100644
+--- a/Documentation/kbuild/kbuild.rst
++++ b/Documentation/kbuild/kbuild.rst
+@@ -364,3 +364,15 @@ LLVM
+ ----
+ If this variable is set to 1, Kbuild will use Clang and LLVM utilities instead
+ of GCC and GNU binutils to build the kernel.
++
++FIT_COMPRESSION
++---------------
++Compression algorithm used when packaging the kernel and device tree blobs
++into ``image.fit`` (for example, ``gzip``, ``lz4``, ``xz``, ``zstd``, or
++``none``). Defaults to ``gzip``.
++
++FIT_DECOMPOSE_DTBS
++------------------
++If set to a non-empty value when building ``image.fit``, decompose composite
++DTBs (built from a base ``.dtb`` plus ``.dtbo`` overlays) into their component
++blobs and deduplicate them in the FIT.
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index ed28f94be428..8818d6a2015b 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -223,6 +223,7 @@ define archhelp
+   echo  '* Image.gz      - Compressed kernel image (arch/$(ARCH)/boot/Image.gz)'
+   echo  '  Image         - Uncompressed kernel image (arch/$(ARCH)/boot/Image)'
+   echo  '  image.fit     - Flat Image Tree (arch/$(ARCH)/boot/image.fit)'
++  echo  '                  Configured by FIT_COMPRESSION and FIT_DECOMPOSE_DTBS'
+   echo  '  install       - Install kernel (compressed if COMPRESSED_INSTALL set)'
+   echo  '  zinstall      - Install compressed kernel'
+   echo  '                  Install using (your) ~/bin/installkernel or'
 -- 
 2.56.0.611.g1030f0b940-goog
 
