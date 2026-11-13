@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794589170;
-	b=UYsyZ+CtKnhi9xbYcGeQ6P5OxO/KEkkNlNKMCGusvOVtNz72HlDeSwW9E0jM+qCi4kSI
-	 f8kzS/aatDBN/slp97T+v7ytG7sEPVsll8qAEg4iCDAWyOrZ6crgEoGlQ2mEMqIH7OPxt
-	 q9eiYZZLEx998SJLLY3XRQtTy8BpqPxN8p/1bYSNy1SkXJ3HtS+4NmYl5UcSQjfm6JY+r
-	 Yy318ZbyMSCgKowkug97xyddxsBWdfDnGC45WIibnXGbJqnGE603sM7qPpKAj7tKEH0zx
-	 gShodCBoerJDH4+vLpgxo8IHA1Wcr44OXrUc4VGZu26+vFW2cKhocKMo2FZ9BdUDmJg==
+	b=jfQ7U2rS5vXgxNX4cNMCBR2oDBVRbev73tlHn/IPvkihAY2Ee/GOTKBzYLVtpRajGD99
+	 exzbB3k4qhFo9EYFwOtgcagpB//80vaXc4BW+yb2f875mIPg8mpLoLafh0DfFLiDe/p1B
+	 xo0w/IsEmb5tdhPTBULkNpSF4Sj8iM0Rd34conKhBkIsz/zKUSX3Z7SzQFWlCb0A30SdO
+	 TQ5CeJrkAeug7iVuS6q6CT1qBPdwluyJAOMiWkiGH9cIK8ctA2/hzoHc9PjiFqoRjPtnQ
+	 8TFGKPZWgDtogD2PFGF+T6f3mksNFq0SGRhmtDfPkZuxIx3jiKsOeSLZzIAg8UDTryg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794589170;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KnWkvUMYFp0pJ5aAC9Vy89LT8XicYuU9hu1yqcU4TSM=;
-	b=JbePtu9KH2g16Jlr/aPP+BKOIxxneyOS7Lc9NHDOk2EzY/oZXjQpwS+yzDA9P6/EhWyF
-	 yj82UCAkItj7Qq8e6jutpsc9PzFOeQgkDe1iOrB5IWs11inmRqkPlIfDUiaBEldisNFyU
-	 BihbZd082Pr0ig/ktKlMTDh1/1LXcixvZWqV9bjDs5mSwVLfi6jeslaP6Zi6Q6b8J4Hqz
-	 u/SPQ1/gvkj5iXlViyLovMyjQypyA8LnvOwZJQkv0jxtw5Gi0bNuykDEGJuwqnykctTMv
-	 Or+5cFrCtc5BDettEG/MwIdh7rRmlODqp3FkVhBk//97VGobDzyJrO5de4TdsyHSPKQ==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=a5AEqQ0Q9CU6uILx3jmLLUXLvw6A66c2udjlKpLKQWk=;
+	b=jYmu4gWpF3Vt6Wa9wTDabfhuOghI5t3YFC+xZCd90vey5mcXsqvsFs7ODuwHFTXOipvU
+	 ULlyTzRa8821ooDXtbOodi6Lfv8H4EEigod02+/oPyt906196VlMbDMTAk/4fjQf94ELO
+	 vmJ7wmjL8eUI0f8PQJjVQZv03lELrmvX2NfhAVCrptm/n1NRgIU9xftwvZK708xOUA+3X
+	 KZizPwsc5vtO6pGbP9DuM/1gnQVYehnx26onHwby7mgKHGl8IsQZbIRAbakUbae9qhdxa
+	 Hs4AizIzTnM0wGSUkHYtDdmu/QjL2ICxzNsilFahrOli7BRSWocBPiTNqF2lKc+1thw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxDV2m0Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ytei4xbY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB468606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C070B606A32D;
 	Fri, 13 Nov 2026 16:59:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxDV2m0Z
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ytei4xbY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794589170;
-	b=MW9FxhfkZwlkVPHg90tipohUQuTYmDCZ/xbG4afdQ20T5yX5brl5PRlyl9GvmT3/Tg6i
-	 fierMNZMNwN9cRL28GSVRiYflQThyBAKhOWYZmaDuJ6srXYyTg3gFFT14auS3nXCbiawe
-	 7obXRyqYyzGpg6YfCb91X9Jtl00t5wZgOUvc4nPlWlS94z9BozFFPV3gBFm1Z4zMR4ZvL
-	 3JLwZrPnwISdkY4f50enNc+czczvrdihdoyYbTRRT2cS0q77MHsvlT2w5CI7NNYJjTQSr
-	 hl565x3WlkxeS86sN4gidlkTIIYHtKFutkJFK4fyp4hPJPpWuCRtwzjEARSkZN357xg==
+	b=2JN04TlFJNZnueaL5BC8NnXrMME7dPau/s1ccCRquguM4yHL54TLaTa8Pk/a3VRHvkEF
+	 sWM9niQAoKHJ1V1CNtu5Vdjx+mu/L13Szc26eMDJ5nG/sDLQzUdWlPokJW5UKB6dKSKvm
+	 E2Tbrr+xE4KLnBSc+a6lrxZ6YW+XcPfkakJPJN0V0RKqlUsFr2q81bmoi60dT0EV4hvtR
+	 lkdKXafsEs2S4mqXVlt1Ylxf+9aysVwJUQG27soweJHaTjEggXEqSoUdXY1IyaqkWEPvm
+	 N3SQddoKrNGPpkjPni0cBe6XJZubqTgIgWgFUq+VDMXLlsN/S1VbKA/idBXRPLm+vgQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794589170;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KnWkvUMYFp0pJ5aAC9Vy89LT8XicYuU9hu1yqcU4TSM=;
-	b=3ViBD9DjgMde3tNyvats/TA0OaSQ+ExMWa2hpEVNejjvtfcoX37dWQMF7FWbLz+RLx90
-	 e+3nC5UCdontrGz3987M3JJTb8Y4ebGmztUka5T5ret4SxRLlRoQOotS5Mc3qTGfgVj/t
-	 rHt3OQXRuh2DGYRYJa3ciJYtT4+ARpro13f0jFyxC+4n7JVEdU15LRvuIJSCOwCulCc2o
-	 C0XZLEcd6c+C9Y1KhGUrFfsOqcefGed0UTLb1dNfgo/Bt67lh76mM5dvVGcZsBqMmv3i2
-	 M9eC4dD2kiXeJRRxqKpiLJ/YBHl9lCCpfeH/rGTS7RVaXHtIJUSOa6UlF+yc0hlgftg==
+	 X-Original-From:Reply-To;
+	bh=a5AEqQ0Q9CU6uILx3jmLLUXLvw6A66c2udjlKpLKQWk=;
+	b=AWxcSWyFSMYYQZcXornwYcdQ+d+Pyu6vKuby1cc7TLyNf/w3EHfl1LnP2rcS5ONnK55X
+	 Nk+3cUDut2lFKhQkjeboS+t1OIDPoHpAhoHJQEceUjDOoVtAt+K8ETClek4c2UWChiug7
+	 4wL+uj9MpUt7D0AfszXfrnMZRFPKJqZWeto9JIbkEZFeRmljA6TxXwdChf57FpwSYn26F
+	 wXDOQAwHOEVqSv41K76IlXPwwA1YQWqNpsFDe8W89at8/stBvPqQmBfRPIFUo2ag8SyV+
+	 VGEsw7Vn7n6iu4D3qZJ/MeELgEa1fLl8MKVTZfAuvl5gjDcTK+/YgsxBmViww/eDo4w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 91B771F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 90C941F000C4;
 	Fri, 13 Nov 2026 16:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794589170;
-	bh=KnWkvUMYFp0pJ5aAC9Vy89LT8XicYuU9hu1yqcU4TSM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ZxDV2m0ZlCEp5n4MdUqpn4tHeA/vHv5uA9uCrdbv3F7BIbhyckh/HQ1xGeFp5WiMF
-	 bxswqNHeN7htGPRSC1gr8Ul7+3k4fCfEDQqeNWMLKMg5BbJBzAMco/+qHUlju9RVwk
-	 7STQ0D77E1OWQs+1MPy2Kt+U0YoPwKZwHEQ5oUrvbAn2x4/1LvNX7jspG9ZTf8Iwk3
-	 x8+PITSXfLT1IP4o8pmdOj6MMYhyEWDWOKzT1mZT5KOOeQUWSHocbmPKI34y/jVMQh
-	 KoQoXck0+zRjd14mrZtcC8GzeYb+qJNs2dWKXKempPKgikX/JHV4Cpw8iQE920wnON
-	 ZJdptFPxVbQ3g==
+	bh=a5AEqQ0Q9CU6uILx3jmLLUXLvw6A66c2udjlKpLKQWk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Ytei4xbY5m3847VfRBKXXB9Yv9PbkJ0+rwCIFv21tiB+46vAqeUv8JS4bNjRuyHPZ
+	 wNhHN70rYt/c00oAmwRKZbx55EXpb1r++vJH6LJGVob23Vub2AanhmJ8ScZjqhFt4c
+	 tLCk+V5YdCfEvpVIHEu8RDti+FJhl3M2GWQs9lpCN0jC3le75xXEtXiAf+kWSeXZBm
+	 +NmsH4NwYAOQa6sOg9g3/m3n6MgY8vwPrj2vKwXlsHAXbsMmFjbxkgtJEDF/bl892i
+	 RvPtk6ISABdTF1w6j+oc/Fy1MaKxv4gUm9QK0zLDWV34IG5YpY+bykdx/XYvSAbEAh
+	 p2PfCQ0rb19Yw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 05DB649A0E;
-	Fri, 13 Nov 2026 16:59:29 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id DECE549A0F;
+	Fri, 13 Nov 2026 16:59:28 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:59:20 -0800
-Subject: [PATCH net-next v11 01/14] dt-bindings: net: add onsemi's S2500
+Subject: [PATCH net-next v11 00/14] (no cover subject)
+Date: Fri, 13 Nov 2026 08:59:19 -0800
+Message-Id: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,9 +84,13 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-s2500-mac-phy-support-v11-1-7a186141952c@onsemi.com>
-References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
-In-Reply-To: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOlB92oC/3XQwW7DIAwG4FepOI/JJgFDT3uPaQcgzppJTaKQR
+ q2qvvtoNq2dIo5g+/vBV5F46jiJ/e4qJl661A19PiC+7EQ8+P6TZdfkC6FAGTCAMikNII8+yvF
+ wkek0jsM0y7qtPDsFbaBK5Nlx4rY7r/C76HmWPZ9n8fFTSafwxXG+s/feQ5fmYbqsb1jqdeI3T
+ RfSllqCbDinRayiaezb0Cc+dq9xOK4hi35isC4xOjPWWaoDqZaU3jDmiVGuxJjMoI1MLpcrwg1
+ DD4bAlhjKTE02WiLv0bsNYx+MU0XGZoYYEL2PsYIt4/4YBCh+yt1XHLllbCC00GwYhIeDYEoOQ
+ oYqDNobF6wO9A+63W7fy7HmvIQCAAA=
 To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
@@ -108,161 +113,210 @@ Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>,
  Ciprian Regus <ciprian.regus@analog.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=4324;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589162; l=9258;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=ydl5QiaaznD+gOcse6AuYZUijr3nYJb8olhfZemEaIw=;
- b=85QxYvRD1NilPv+Yuy8gY7rhiXRvHCPbUnzuUez98NgyJkHBE8JEiAct/AtmRWDDRo2/q1nlg
- n/Dv02mm+MCAd1JxpA7sZWr+D2FlAlxs18A4ObU2glymP6WqXS+74jS
+ bh=Q7u++2+ia99ofeeV7c7KuHVHI+2bSLsv96doH7MQEJ8=;
+ b=ZDdKCWf6WR7a5lEaDG7UN/wTsADOgN/tGaM8IpEe7hV2Px2DDndDYjtufIbjxB6Kxtvnv7rPr
+ DdQYbxDpemmChwC944uasCYH5O63MYxPsVPA/ZjRhwlHCJ/7OcjlLCY
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
  Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
 X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 Reply-To: Selvamani.Rajagopal@onsemi.com
-Content-Transfer-Encoding: 7bit
 
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Changes in v11:
+- Create new patches to move vendor changes to its own patch
+- Improve commit message to be more informative of the changes
+- Add clarity to kernel documentation in oa-tc6-framework.rst
+- Fix issues potential Oops issue in S2500 driver.
+- Add logic to take care of frame drop bit from MAC-PHY 
+- Link to v10: https://lore.kernel.org/r/20261106-s2500-mac-phy-support-v10-0-31b5a69b85b7@onsemi.com
 
-Add device tree binding for the onsemi S2500 IEEE 802.3cg
-compliant Ethernet transceiver device.
+Support for onsemi's S2500 10Base-T1S MAC-PHY
 
-S2500 has both Media Access Controller (MAC) and 10BASE-T1S
-Ethernet PHY. MAC implements 10 Mbps half duplex Ethernet
-MAC. Communication between the host and MAC-PHY is defined in
-OPEN Alliance 10BASE-T1x MACPHY Serial Interface document.
+This patch series brings support for onsemi's S2500 that iss
+IEEE 802.3cg compliant Ethernet transceiver with an integrated
+Media Access Controller (MAC-PHY)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Driver implementation is compatible and works with OA TC6
+framework that is already present. S2500 driver supports
+hardware timestamping. Along with this driver, OA TC6
+frame work is also changed to add hardware timestamping
+support.
+
+Driver has support for running selftest and loopback tests.
+Through ethtool, it can provide traffic stats, rmon stats,
+and timestamping related traffic stats.
+
+As S2500 has an internal PHY, changes have been added
+to onsemi's PHY driver to support this device.
+
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>
+To: Richard Cochran <richardcochran@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Piergiorgio Beruto <piergiorgio.beruto@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: Jerry Ray <jerry.ray@microchip.com>
+Cc: Ciprian Regus <ciprian.regus@analog.com>
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
----
-changes in v11
-  - No change
-changes in v10
-  - No change
-changes in v9
-  - No changes
-changes in v8
-  - Changed the interrupt type to level triggered
-  - Added reset-gpios entry that was recently supported.
-changes in v7
-  - Added the missing review tag
-  - Removed the word YAML from the commit message
-changes in v6
-  - Moved the signed off information to the right place.
-changes in v5
-  - no changes
-changes in v4:
-  - added spi-max-frequency as suggested by AI review
-  - changed interrupt to IRQ_TYPE_EDGE_FALLING as it is
-    being taken care in net (stable) branch
-changes in v3
-  - Removed URL link that failed verification
-changes in v2
-  - removed spi-max-frequency entry
-  - changed the compatible string to s2500
-changes in v1
-  - Added the first version of YAML file for onsemi MAC-PHY
----
- .../devicetree/bindings/net/onnn,s2500.yaml        | 71 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 ++
- 2 files changed, 77 insertions(+)
+Changes in v10:
+ - Removed config_intr callback in S2500 PHY driver
+ - Removed writing status0/config0 from s2500 driver
+ - Implemented API to set tx credit threshold and 
+   to enable RX cut-through mode
+ - Drop the frame when frame drop bit in footer is set
+ - Module name restored back to oa_tc6.ko from oa_tc6_mod.ko
+- Link to v9: https://lore.kernel.org/r/20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com
 
-diff --git a/Documentation/devicetree/bindings/net/onnn,s2500.yaml b/Documentation/devicetree/bindings/net/onnn,s2500.yaml
-new file mode 100644
-index 000000000000..e1df674c0f1e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/onnn,s2500.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/onnn,s2500.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: onsemi S2500 10BASE-T1S MACPHY Ethernet Controllers
-+
-+maintainers:
-+  - Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-+
-+description:
-+  The S2500 combines a Media Access Controller (MAC) and an
-+  Ethernet PHY to enable 10BASE-T1S networks. The Ethernet Media Access
-+  Controller (MAC) module implements a 10 Mbps half duplex Ethernet MAC,
-+  compatible with the IEEE 802.3 standard and a 10BASE-T1S physical layer
-+  transceiver integrated into the S2500. The communication between
-+  the host and the MAC-PHY is specified in the OPEN Alliance 10BASE-T1x
-+  MACPHY Serial Interface (TC6).
-+
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: onnn,s2500
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    description:
-+      Interrupt from MAC-PHY asserted in the event of Receive Chunks
-+      Available, Transmit Chunk Credits Available and Extended Status
-+      Event.
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      GPIO connected to the active-low RST_N pin of the MAC-PHY.
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 25000000
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - spi-max-frequency
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      ethernet@0 {
-+        compatible = "onnn,s2500";
-+        reg = <0>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&eth0_pins>;
-+        interrupt-parent = <&gpio>;
-+        interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-+        spi-max-frequency = <15000000>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c583367c88bc..4a4c26694ba7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21013,6 +21013,12 @@ S:	Supported
- W:	http://www.onsemi.com
- F:	drivers/net/phy/ncn*
- 
-+ONSEMI S2500 10BASE-T1S MACPHY ETHERNET DRIVER
-+M:	Selvamani Rajagopal <selvamani.rajagopal@onsemi.com>
-+L:	netdev@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/net/onnn,s2500.yaml
-+
- OP-TEE DRIVER
- M:	Jens Wiklander <jenswi@kernel.org>
- L:	op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
+Changes in v9:
+- Renamed the new phy API from having "fixed_speed" to "no_speed"
+- Fixed compilation issue due to having changes in the wrong patch
+- Added the MAINTAINERS changes to where files were introduced.
+- Fixed coding style issues reported.
+- Moved the order of patches so that selftest changes goes after
+  s2500 support.
+- Made Pier's email ID consistent across to be consistent across 
+  the codebase.
 
+- Link to v8: https://lore.kernel.org/r/20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com
+
+Changes in v8:
+- Modified to use newer MMD based read/write APIs
+- clean up by removing unused definitions/initializations
+- Better handling of timestamp capture events by using
+  bit fields so that we don't lose any event
+- timestamp skb queue is protected with spinlock
+- added reset-gpio in YAML file as support is recently added
+- removed ioctl from OA TC6 framework as it is not needed.
+
+- Link to v7: https://lore.kernel.org/all/20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com
+
+Changes in v7:
+- Fixed compiler warning due to prototype mismatch
+- Moved the order of patches to ensure dt-bindings comes first
+  before it is being used
+- Added missing review tag
+- Added missing MODULE_DEVICE_TABLE
+- OA_TC6 framework enables 64 bit timestamping mode by default.
+
+- Compiler related warnings fixed.
+- Link to v6: https://lore.kernel.org/r/20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com
+
+Changes in v6:
+- Changes to ensure onsemi code stay within 80 columns.
+- Fixed the error of "not described in comments section"
+  in comments section.
+
+- Fixed compiler warnings.
+- Link to v5: https://patch.msgid.link/20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com
+
+Changes in v5:
+ - kernel doc related changes in oa_tc.c, onsemi driver files and
+  oa tc6 rst file
+- Link to v4: https://lore.kernel.org/r/20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com
+
+Changes in v4:
+ - Added return value comment for genphy_read/write_phy_mmd functions
+ - Added genphy_loopback_fixed_speed helper function to be used in
+   set_loopback callbacks
+ - Updated networking documentation for OA TC6 framework to elaborate
+   on what is expected in the ptp_clock_info structure for registration.
+ - added spi-max-frequency in YAML file based on alert from sashiko-bot
+ - Removed model/version from the onsemi driver's private structure as
+   they were useful as "information-only" data.
+ - Replaced the non-standard selftest with Linux's standard selftest
+   and made it as a separate patch
+ - Changed bit manipulation, shift operations to use macros so that
+   it is clean and readable.
+ - added new read_register and write_register apis with _mms postfix
+   so that MMS (memory map selector) can be given as a parameter.
+ - Fixed the wrong condition check with NETIF_F_RXFCS to subtract
+   FCS size from the length of the frame.
+ - Link to v3: https://lore.kernel.org/r/CY8PR02MB92499C9080614FA3CEB8CD0483162@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v3:
+ - Moved OA TC6 framework to its own directory.
+ - Split changes to smaller patches based on feedback.
+ - Added PHY loopback support as a separate patch.
+ - New, read and write register APIs with extra parameter MMS
+ - Link to v2: https://lore.kernel.org/r/CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v2:
+ - API to add vendor specific MMS to mdio device map.
+ - Link to v1: https://lore.kernel.org/r/CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com
+
+---
+Selvamani Rajagopal (14):
+      dt-bindings: net: add onsemi's S2500
+      Documentation: networking: Add timestamp related APIs to OA TC6 framework
+      net: ethernet: oa_tc6: Move oa_tc6.c to its own directory
+      net: ethernet: oa_tc6: Move constant definitions to header file
+      net: ethernet: microchip: lan865x: Depends on PTP_1588_CLOCK_OPTIONAL
+      net: ethernet: adi: adin1140: Depends on PTP_1588_CLOCK_OPTIONAL
+      net: ethernet: oa_tc6: Support for hardware timestamp
+      net: ethernet: oa_tc6: Drop frames if footer has FD bit set
+      net: phy: ncn26000: Enable enhanced noise immunity
+      net: ethernet: onsemi: s2500: Add driver support for S2500
+      net: ethernet: onsemi: s2500: Add selftest support
+      net: phy: Add helper to modify only the PHY loopback bit
+      net: phy: ncn26000: Support for onsemi's S2500 internal phy
+      net: phy: dp83867: Use genphy_loopback_no_speed()
+
+ .../devicetree/bindings/net/onnn,s2500.yaml        |  71 +++
+ Documentation/networking/oa-tc6-framework.rst      |  81 +++-
+ MAINTAINERS                                        |  11 +-
+ drivers/net/ethernet/Kconfig                       |  13 +-
+ drivers/net/ethernet/Makefile                      |   3 +-
+ drivers/net/ethernet/adi/Kconfig                   |   1 +
+ drivers/net/ethernet/microchip/lan865x/Kconfig     |   1 +
+ drivers/net/ethernet/oa_tc6/Kconfig                |  16 +
+ drivers/net/ethernet/oa_tc6/Makefile               |   7 +
+ .../ethernet/{oa_tc6.c => oa_tc6/oa_tc6_main.c}    | 504 ++++++++++++++++-----
+ drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c           |  68 +++
+ drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h       | 173 +++++++
+ drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c        | 224 +++++++++
+ drivers/net/ethernet/onsemi/Kconfig                |  21 +
+ drivers/net/ethernet/onsemi/Makefile               |   6 +
+ drivers/net/ethernet/onsemi/s2500/Kconfig          |  20 +
+ drivers/net/ethernet/onsemi/s2500/Makefile         |   6 +
+ drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c  | 388 ++++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h   | 151 ++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_main.c     | 498 ++++++++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_ptp.c      | 156 +++++++
+ drivers/net/phy/Kconfig                            |   2 +-
+ drivers/net/phy/dp83867.c                          |  11 +-
+ drivers/net/phy/ncn26000.c                         |  67 ++-
+ drivers/net/phy/phy_device.c                       |  24 +
+ include/linux/oa_tc6.h                             |  32 ++
+ include/linux/phy.h                                |   2 +
+ 27 files changed, 2412 insertions(+), 145 deletions(-)
+---
+base-commit: d1f4b7c6b997c29de67ad7178ababac2328cb1b4
+change-id: 20260601-s2500-mac-phy-support-4f3ae920fb73
+
+Best regards,
 -- 
-2.43.0
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 
