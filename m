@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575178;
-	b=uxdBVHUn4AEMX0hHMyDkGrqi9jhOJqHFtRNK3I7X9KMh6kQdIkPDRwdVse5msEVhxG+B
-	 uUdSiae3O6XCtBzhMYYj7+FEWQe0Zvwi4N3E9YisOjA8gBoD5Kg7gJFazIDNHMZ5nFA5w
-	 HKb1uK9ljdvathH6lbh2K2MPzuClK/i5gcYxHGSAm8h2kL0+1h6XHkxN2JRwi8r4TLl1/
-	 AMUdHzkFpDF/9B/yGUuaukbzX6Z5udygwrWgqgT2BY7kkVJZVngVDPdVbsPgAf197Oxdp
-	 l5qpvFJxMeJgXipIzLRWneM2q1umG/ZHifG6tCNKzbyuJcuene6+z9rJTz6SXgledgg==
+	t=1794575226;
+	b=CtqS4N2TY0rkgMnZzRNHEEiu0Gk7nX6QsaitlmLmzZD+akrEpBm/yWltXnXuD4afud7c
+	 SwmCSZIFTlVi7sEXG0ltPSBHmKF8sgMUWWlr/9T7jSjm5fy3KyCK9qRFse37l+kjMEeeY
+	 ReT2fYG1fLKzmwtEaQD16RaqHk7gj7vhxlV63imrgtsNmEjxaUCuupOu79J59wUmBt/94
+	 4+NM0U/2doZQ/Y5iX9n7WBG2d8crcTVghDthju5jOXW3R9v9bWXTqU+NKAT5p7JHfjQh6
+	 4U6LPkQKtUXg2+uxE9pJc3jNuQJehyI9VJ7pX17WLWeY2JhUDDEGggcwxmrouz5WkjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575178;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=jwHoe529S1Onorcf95sntE8Ze/cWn9Pu+Cx6R/UvQ6Y=;
-	b=ZJ0ZEsD9DAMIvhHN7kJIvxxicUsaMXFCDQxyZgAPu6aUi1YEHAsaMbZOziTbf9N/wPT3
-	 UADomQ7GpdWY4koohP+epTDKhq8CTTlahIZX5f+zmnhIdCSpbKE53J1GwJubUmKyvMiR/
-	 JZLTsgHciPJIvrvt4R6N8mG9baGuiuk0F8XfotG/2RMcfbo9PHg3tNPkUE8qIChLwOwr8
-	 xjs6zu2FY8M+36iT2bgo8THpQQmDu6HAzbcPV2hsYfzwh2ElReRj+SS5Yey4tM3pF9hmj
-	 8JMlZvdySApVV6CInDCgNryZ3cEs9QwPWhJhMhf8N8bwEcZvj9tgICDeGTMiMYDJx/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575226;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=A8r/k5hN0McTGZWPQFQOsVgQgAZ0THFJE35pQXKtnqg=;
+	b=jGVq2UJIgIN7dlD+sIiiweHl9xYc6+9Fp6+G8KrFP4ice11sDlJ1u9VELpp2hV7LjjcV
+	 ouSMqGtcdt43aL9km5eL0FLdX08Jp1S7n0gTx4Wa68MxZcZl3EjHYz7+YY2hpf8E1yylV
+	 ocW8gMJKOBYilGEvWxLhqkXZtJE/xVdO0EjX08ztSVYOB4Uru7Ch1l2vsYWjMRJzG+A9L
+	 iZr5XOBxrMYMImHjxkUH0RgmPVX+7YBVLlhOMoEEDATcTrpfMPfK1e8rmMNtyV/HGn5e1
+	 6uc2duVWfXy29KhTmp0wG9wa6R5araweosuWN008jxrFFAGtqqFosxTWUT4xJjq85eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=TmBLJlTh;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fenBOW0b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A50606A333;
-	Fri, 13 Nov 2026 13:06:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A50606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C08960A2616
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 13:07:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=TmBLJlTh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=jwHoe529S1Onorcf95sntE8Ze/cWn9Pu+Cx6R/UvQ6Y=; 
-	b=TmBLJlTh1FeKjLkLPm+HHsGhV+fAsunf0ozVrHRPgqezsSYw0BattDdpIxDPoGTALZWrt2hQPBS
-	VVfddYRhSfSSUlyCieeKf3kpCoIhagd0AQHUJglogq8CJVA70n0yNcYSflX1znFRp9b8XbyhojSrj
-	OJGNTOeMrpjqod1nD6vCfWm5VzAwgunJAutqzQG5rlJcWnOTg6qd8eVQMirwMukLIdk6MBhq6vJtU
-	OSERd2nB5lVgOJ1SILHUazjGbYK1sj/H2F9HjvUz89atDkt9fmGr3sqnQFsAnoUMbap7i3NTvV2Q4
-	PfyXR/WfGd4/4PaqSqUqsr3t5+3B/u38OAiw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xRqyn-0000000EfIm-2qRf;
-	Fri, 13 Nov 2026 21:06:10 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:06:09 +0800
-Date: Fri, 13 Nov 2026 21:06:09 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 0/6] hwrng: starfive - fixes and JHB100 support
-Message-ID: <avcLQWhT7gpR-Tym@gondor.apana.org.au>
-References: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fenBOW0b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99491F000C4;
+	Fri, 13 Nov 2026 13:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794575226;
+	bh=A8r/k5hN0McTGZWPQFQOsVgQgAZ0THFJE35pQXKtnqg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fenBOW0bj5q+z2hgnRcaxzXpiUZ1cnS8srOZ/iMHuD8mc8W1F5LR1Hb5eJ+MKzVua
+	 mRYQ2onfhvKfi5KS6ntlq6dmC38bPwlAJ5ow+XkpvV/HQAFYbjPQ8tuaTpksvOnbEf
+	 IzKrNpVeOFHSCvodn9qtqZRm0g4C7aSEJltaihzEReqy9phlI/QaO+dlKXaKzzpgFx
+	 lSvVHXqejKmy+uMeo5sXI1pSY+cFnabX/cH6Du//jLe7iBy5njI8MATdpy4LDlXp5d
+	 AZiJZoh9qnuixzkqqo97jHndjKBktRCOGx0MLhZCyoASnw+JSy9Lzt2tybr40x/dDg
+	 NalCDMHp/Vc+Q==
+Message-ID: <sashiko-outbox-212822@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add EL2 overlay for remoteproc
+ SMMU mappings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anurag Pateriya" <anurag.pateriya@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-nord_soccp_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com>
+References: <20261113-nord_soccp_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 13:07:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,133 +59,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
 
-On Tue, Nov 03, 2026 at 03:32:46PM +0800, lianfeng.ouyang wrote:
-> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> 
-> This series adds support for the TRNG on the StarFive JHB100 SoC. The
-> JHB100 needs the clocks gated before the reset is asserted, so the
-> driver grows per-compatible match data describing the power-down
-> ordering.
-> 
-> Earlier versions of this series carried all of that in the JHB100
-> patch, which made it hard to review. Since v10 it is split up:
-> 
->   1: dt-bindings for the new compatible (unchanged)
->   2: runtime PM / power teardown fix
->   3: SEU reseed moved out of the interrupt handler, command
->      serialisation, IRQ lifecycle
->   4: include and cleanup tidy-up, no functional change
->   5: match data and the JHB100 compatible
->   6: MAINTAINERS
-> 
-> Changes in v1:
->  - Remove jh8100-trng and Fix the compatible description in .yaml
->  - add JHB100 and fix clk/reset teardown logic code
-> 
-> Changes in v2:
->  - Balance the PM via pm_runtime_set_active() in ->probe
->  - Add devm_add_action_or_reset() to register a resource rollback function
-> 
-> Changes in v3:
->  - Supplement .yaml commit message
->  - Add pm_runtime_get_if_active() to check PM in irq
->  - Balances pm_runtime_get/put calls in init, read, and cleanup paths
->  - Add per-compatible match data for the teardown order
-> 
-> Changes in v4:
->  - Modify .yaml commit information to non point description
->  - serialise the command sequences with a mutex.
-> 
-> Changes in v5:
->  - Run the reseed from a workqueue instead of hard IRQ context.
->  - Balance the probe reset_control_deassert() via a ->cleanup flag in the
->    PM suspend/resume callbacks (was skipped when already suspended).
->  - Use devm_pm_runtime_set_active_enabled() instead of manual PM enable.
->  - Register the IRQ after clk/reset/PM setup; reuse
->     starfive_trng_release() on request_irq() failure.
->  - Check reset_control_deassert();
->  - drop of_match_ptr() from the match table.
-> 
-> Changes in v6:
->  - check lock in starfive_trng_read() using mutex_trylock when wait is 0
-> 
-> Changes in v7:
->  - using mutex_trylock when wait is 0, otherwise use mutex_lock()
-> 
-> Changes in v8:
->  - rebase patches against the latest tree
-> 
-> Changes in v9:
->  - Fixed the PM runtime reference leak in starfive_trng_read()
->  - Drop redundant pm_runtime_get/put calls from the interrupt
->      handler (starfive_trng_irq).
->  - Use DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr() for power
->      management operations.
->  - Split clock/reset control into starfive_trng_power_on/off()
->  - Track power state with clk_on/rst_deassert/initialized/need_reseed
->       instead of open-coded clk control.
->  - IRQ now requested with IRQF_NO_AUTOEN and enabled only after init
->       succeeds.
->  - LFSR_LOCKUP no longer schedules work from hard IRQ: set need_reseed
->       flag and let starfive_trng_reseed_work() handle reseed on a
->       freezable workqueue.
->  - starfive_trng_cmd() takes timeout + wait args; read path checks idle,
->       reseeds on need_reseed, retries once on lockup, returns 0 for
->       non-blocking.
->  - Protect ctrl-cmd sequences with mutex + lockdep_assert_held.
->  - Cleanup/suspend disables IE, clears ISTAT, synchronize_irq() before
->       gating clocks/reset.
-> 
-> Changes in v10:
->  - Split the driver change into fixes, cleanup and the JHB100 addition.
->  - starfive_trng_init() only enables the interrupt line once and clears
->    trng->initialized on failure; starfive_trng_cleanup() only disables
->    the line if init left it enabled. Fixes the unbalanced enable_irq()
->    when the device is deselected and quickly reselected, and the double
->    disable_irq() after a failed init.
->  - Non-blocking reads re-queue the reseed work instead of assuming it
->    is pending, and starfive_trng_irq_clear() queues it when it clears a
->    lockup. Fixes the stall of non-blocking reads after a lockup seen
->    outside the interrupt handler or a failed reseed.
->  - Do not include <linux/mod_devicetable.h>, <linux/platform_device.h>
->    already provides struct of_device_id.
->  - Describe the header rearrangement in the commit log.
->  - Rebased on top of ace145efdd80.
-> 
-> Changes in v11:
->  - starfive_trng_cmd() acks RAND_RDY/SEED_DONE in ISTAT and calls
->    synchronize_irq() before re-arming its completion, so that the late
->    completion interrupt of a command that timed out cannot complete
->    the next command. The v10 commit log claimed this case was already
->    covered; it was not.
->  - starfive_trng_irq_clear() only queues the reseed work while the
->    device is initialised, so the suspend run from ->cleanup() and from
->    the runtime PM teardown on unbind can no longer queue the work after
->    it has been cancelled.
-> 
-> Lianfeng Ouyang (6):
->   dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
->   hwrng: starfive - fix runtime PM and power teardown handling
->   hwrng: starfive - move the SEU reseed out of the interrupt handler
->   hwrng: starfive - tidy up includes and drop unused code
->   hwrng: starfive - add JHB100 support
->   MAINTAINERS: update the StarFive TRNG driver maintainer
-> 
->  .../bindings/rng/starfive,jh7110-trng.yaml    |  10 +-
->  MAINTAINERS                                   |   2 +-
->  drivers/char/hw_random/jh7110-trng.c          | 587 +++++++++++++-----
->  3 files changed, 434 insertions(+), 165 deletions(-)
-> 
-> --
-> 2.43.0
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: qcom: unresolved remoteproc_soccp target in
+  nord-embedded-el2.dtso
+- [High] arm64: dts: qcom: remoteproc_adsp iommus conflicts with
+  early_boot attach
+- [Medium] arm64: dts: qcom: remoteproc_soccp iommus exceeds PAS binding
+  maxItems
+--
 
-All applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+commit 7c3911549648c2c9a04bb237b67646f8107b1680
+Author: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+
+arm64: dts: qcom: nord: Add EL2 overlay for remoteproc SMMU mappings
+
+This commit adds the nord-embedded-el2.dtso overlay to define IOMMU
+streams for the ADSP, CDSP, and SoCCP remoteprocs when booting Nord
+boards at EL2, and builds -el2.dtb variants for nord-ride-embedded and
+nord-rrd.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded-el2.dtso b/arch/arm64=
+/boot/dts/qcom/nord-embedded-el2.dtso
+> new file mode 100644
+> index 0000000000000..50c5057f6683a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/nord-embedded-el2.dtso
+> @@ -0,0 +1,32 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&remoteproc_adsp {
+> +	iommus =3D <&apps_smmu_0 0x09e0 0x0>;
+> +};
+
+[Severity: High]
+Does adding iommus to remoteproc_adsp break ADSP bringup when booting at
+EL2?
+
+In drivers/remoteproc/qcom_q6v5_pas.c, nord_adsp_resource sets
+.early_boot =3D true, so qcom_pas_probe() sets pas->rproc->state to
+RPROC_DETACHED and rproc_boot() calls rproc_attach() instead of
+rproc_fw_boot().  Because rproc->has_iommu is now true, rproc_attach() ->
+rproc_enable_iommu() attaches an empty IOMMU paging domain to stream
+0x09e0, while qcom_pas_attach() never calls qcom_pas_map_carveout(),
+causing immediate SMMU translation faults if the bootloader started ADSP.
+If ADSP was not pre-started, qcom_pas_attach() resets state to
+RPROC_OFFLINE and returns -EINVAL, and rproc_boot() exits without falling
+back to rproc_fw_boot().
+
+> +
+> +&remoteproc_cdsp0 {
+> +	iommus =3D <&apps_smmu_2 0x0360 0x0>;
+> +};
+> +
+> +&remoteproc_cdsp1 {
+> +	iommus =3D <&apps_smmu_2 0x0760 0x0>;
+> +};
+> +
+> +&remoteproc_cdsp2 {
+> +	iommus =3D <&apps_smmu_2 0x0b60 0x0>;
+> +};
+> +
+> +&remoteproc_cdsp3 {
+> +	iommus =3D <&apps_smmu_2 0x0f60 0x0>;
+> +};
+> +
+> +&remoteproc_soccp {
+> +	iommus =3D <&apps_smmu_0 0x1960 0x5>,
+> +		 <&apps_smmu_0 0x1966 0x0>;
+> +};
+
+[Severity: High]
+Does targeting &remoteproc_soccp break the dtbs build when
+CONFIG_ARCH_QCOM is enabled?
+
+Neither nord.dtsi, nord-embedded.dtsi, nord-ride-embedded.dts, nor
+nord-rrd.dts defines a remoteproc_soccp label yet.  When Makefile builds
+nord-ride-embedded-el2.dtb and nord-rrd-el2.dtb, fdtoverlay fails in
+overlay_fixup_phandle() with -FDT_ERR_NOTFOUND because remoteproc_soccp
+is missing from /__symbols__ in the base DTBs.
+
+[Severity: Medium]
+Does specifying two iommus entries on remoteproc_soccp violate the PAS
+Devicetree binding and driver expectations?
+
+Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+restricts iommus to maxItems: 1, which causes dtbs_check to fail.  In
+addition, qcom_q6v5_pas has no Nord SoCCP match entry yet, and
+qcom_pas_map_carveout() maps carveouts with IOMMU_READ | IOMMU_WRITE
+without the IOMMU_PRIV flag needed for the privileged SoCCP stream.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-nord_soccp=
+_el2_dt_change-v1-1-2a7aa55d97dd@oss.qualcomm.com?part=3D1
