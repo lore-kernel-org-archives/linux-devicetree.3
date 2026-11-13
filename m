@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588190;
-	b=UXmqzd4M4CYKuBJ1N7+D+RqjqeL9j39xHFcWZ44tH+I2FFVwHQKUdJjXdBKaFF6XBRgq
-	 1rgXyDNq42WN+pTzk2SBnEeWKjgLanGSiorA4ASXmPt6aijuKnuavazowzIwcngv+lj93
-	 JduEWJGuFb7mxP6RCZmtYR4FL/v/LadS/+E+4Vx0nV/edCcw6D+qiD/Ml4GqdfFIHdQkD
-	 ZGwgJEKwCEmjMXGvkPYGm973UpSvD4vJVVYgYZC8lqs6DY6XjdA/zLBCwJxIEMjDE8gM1
-	 J66DQ8T2QHdHqBQjKfyY3gJSu4c/XeTp7XQdo1WNU4KrlqvciTscq1iPzIwKDbnZ46Q==
+	t=1794588192;
+	b=TBEYc24wD2EHCilPghEsOXtYbfxPLjNCoFFcxKakyrcHD7/4kD88icKIBtNPOfKXIRbH
+	 tqwUsGCA01oTm/At4ySBG2+Bk0XD8H7EdBoWKhkXAzixmQhLlVkG0rpS4w1WHpvctiOPK
+	 uX88yVES7qGnrz5/KysTDERLjA0ZmGuFvFT9QKOTJkKrrSxDaJBkVZmGlLJqU8fyDQmDo
+	 9Ivqj4wa2rvuwtv2YXPS4x6GF9EYPYuwsT8CUMyQiXq4xB0NHr9JBzAydLdRBFa7wZtjs
+	 WDcID2BmVNTBeC7Au2p6T0+5M3fX2yyraP2Jif3puDeNqVh9Q4CYsVHKbJ8jU/Ji6Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588192;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
-	b=OMOxDH+DN2xRi8Zo61Ex/vy07XX3VbmBPE9Q6VjrUcGJaOX9IbEiRuoGPvAAAI9knQRL
-	 EO7yUAa+RQ00EuP1EV8K6F7CchDKgKUdiLd5RAkuxneBbJsaEy/1eM4rKP4P/fBf3aR/g
-	 C5PUHwZeCBDZwAcf0yO/FxrsvU/YsTTm45TbqVSPhKBW/Xw+WkQsUXmMDPzFjV5PvA94f
-	 z9hutK6tVsqgslSnlcpMOQXjUFLl5xuH9eQuXYwrgMETVha7S3Nxfkm4G0CMM2D0f5y5a
-	 omTwbIlEe7yyXpZ2g8I24N6I5EesJ+wEH1RjuY4v59GKlWYQIeQzh+GeZgplnsrhBnQ==
+	bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
+	b=ebe1kUvvxIRju6MUeOHZeEzDm0aE+eGKaadosmBcI3GUJUOkq90XliJcaS5DMMsBs7Bk
+	 Pi+vilenb88UdPeSdVzpNFWNEUiHAggytwIv4sQ0pJVhOEWbBe97H4nxpxF1Y5SxHlihN
+	 81bbJ7kqcOhwAKmJLc1Y0ki3At73rVD0DDioYSJDD18H2cf6DCYNJp1My5HZXXDwlN3xi
+	 T//NrnICXbNZov4Zu61wB4EbgvAjlLbiMk9o8CskUd6mtz6Jlj8jpNhw8p8tqZcTuri4Z
+	 3cVlMQVgqcIWcZ/w1a8KvN2X2XnYURDWKUtxdPmWpp3gPb9zV0neTs/8bP2E38+LeEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Svm3xnWM;
-	arc=none smtp.remote-ip=74.125.231.137
-Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jmHn1N29;
+	arc=none smtp.remote-ip=74.125.231.128
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A908606CDE7
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:43:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A908606CDE7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF7660A380F
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 16:43:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EF7660A380F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Svm3xnWM
-Received: by mail-oo2-f9.google.com with SMTP id 006d021491bc7-717028b412bso446490eaf.1
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:43:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jmHn1N29
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-84e8a9fae57so492706a34.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 08:43:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794588189; x=1795192989; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
-        b=Svm3xnWM6oVg4F63ED7+W+VO20wpg+uXDuSLtf0+oUnidrGJW17Y8fBd8+EqFWCtnv
-         mZQXpp78Iah3LKq7Et0BhZ1prP/2jtLaZYafKtD4TJejsRdhcmGtGoyOCIDN6R1Yr6Jq
-         69a9ePhaP074EzjacAlSNTASJFcv6prbfxflZgtG+bAn/PTf4Umf/8xHdgd4FERLF/IK
-         Y9rLmLmYTG+5kj1nOpeOfKJtzfCb8moToc7Qp7bmBdMfxklBp0L3s2lta7Y6pWRB1tp+
-         LkjfOhWLqTxtspLb4d1EP8S9n0RoeetoLwHxCRSxQTyqzdQ2B8CBztVD/MnAYmaizl8V
-         t+Nw==
+        d=gmail.com; s=20260707; t=1794588190; x=1795192990; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
+        b=jmHn1N29vwT89iRdWkH14RT1lU9HKGsWm5GLUbBebiA9zD6t9Vn8WmoyOa68IfmOkS
+         NEZLlOcbXrXWkyenJaQIjmv0ej2Gu+PhPewn9fIw0K0eJ2lVC1SzXrJsbcT5XojJD9zc
+         BneUYK5QQdu3iwcUHT8qc8wgOvD6Ej0XM/VdKUg4dFpvE4SEG76meQGrBFzBzx2ONiUQ
+         TcDBFAb/kNQNRRoL+y4JtCiWD1aUob/RLG1v1etLHYrQE+MO8tO8C5aXYAm3aR1V7aRo
+         vy9zQQacS76phtujz2M/CD0CFjgpw+sWmETnn0xgzVDPpuMu2tqqKD7i8zeDzz3VnXKz
+         b1zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588189; x=1795192989;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+YBuuAmTy41OiDGu1XUvHph2eW8UaCdom070kDsHJH4=;
-        b=Cq7SHNK0tvtGOlfiMpGCum7LKgbTa0P1VO+RZQbpogAulSjHABkDw21ITw7MFJMTpL
-         60Q5xCz7M6D4PYPZV5J+3nr1AEI1Bggq8gooTp/GA9Km+7Pc+RkoTVlzig2YIASP6/Ph
-         gMyfCsDV3mGtVVNIuU4QDEFEXj/GAHaxkx4oPtvNX1gH63bJRTQT85aDSrABBvtU/ZRA
-         WfZl/g0qgCu83+3VqBbJzqdDeSRjlfg5EpGbBxh3XS6Gtfc8yw69JUOVl4oEyUgqhHO3
-         CNxIah7qPfIJhDD0vXHhlvT5vZXk0JwVE506pPoxZkagPu5aPEHYZoU7q8WO7JvA2Pbg
-         1zwQ==
-X-Gm-Message-State: APuU4Z8nbjzny3qG36co42sWgukPCdbp6rik9+U6ewoyHNQD/GMZbn2I
-	SXype16FtSLRfF86cTWOYKkrV0MJy8RO1Ju+HyTOfda6i6AI6iX1ACvI
-X-Gm-Gg: AYBFou0q5H+wrjEOLgvqQ1p/oNNK7IMygviNz9YFY37K8yY18tmrH5tPvfnqxcATLbM
-	I71dln25eat8ZrxPq/h/2OgLI50Gbs5TTWqvXE8unKX69DFG5MPgvp6MFSfLGSbVhXumHTi4Ktr
-	NGLkL0p80jeq0vklQKcW2ytk6ZZcNEs3NZfRk8xurWbAb5WhtUoNW7UDLr9XAP1peBPieAqWn14
-	Jq8Ihx/y33IeeYwcXkg5tePrZngmtUtB3N0z1JJpZJtjXINheY+N/LEKJazaf7xf03DDYH+R6iM
-	Gy3tsXFbCqcxGlQnm+ktervxYdpK38otgyaoTxBeYFAJQg2csgUgKfABz4SxQEd28LwBNhkBM8/
-	8aTNFO6lojSWyQNhwbK2OlTE9GbfbuISJlRMkjUwD3wBNPcL9rsoNFzmtWFWE+RKWg6rUMH59C6
-	SpkgGkkPbbVr9eulzVwgeaYiYdWI0q756uKjneVEVYgE0ONaMWdvwDe/UymZs4/b8/YG+6bLPi0
-	34CsrgZEwOPV7DnOVLHnYfzW3zuedNrQQUEKKlbyOKifpbDQbsh7xO7tOpJvDM1OllQv2rYhd3i
-	neOh4LvODGIiMGDQlfEjF2kEfDULKkiCzVuXkfeJ+oSsb/9GOcufU/zL3656Bz/rT3SLiMS9F3l
-	t4fo/fnZcLn5ZWIDd8Gc=
-X-Received: by 2002:a05:6820:3382:20b0:70d:a53e:845 with SMTP id 006d021491bc7-71ab4fbc207mr1421060eaf.17.1794588188901;
-        Fri, 13 Nov 2026 08:43:08 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794588190; x=1795192990;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l7HUW+ncuH9lkksRwIY3oA2dBuKo042zJ9HBGsvTacY=;
+        b=v/eBTjCsN0bFQBXYCYH35NTtX7oaAHlO/+Hw7IZj6F8QpRaXCyhUST5tdXkh4X8vTb
+         TzGS+ZgciJJwUBr+iWmpI625B6gLD4TmQuj1fnw3V7LuNLsPM/SbQd0r+0bcpvrm/ZyW
+         CB5ZZMHPbJ4EmRdAHGsm6/kOxzLzHZ9YSxmsRz+b9WZBpzB4Xulp6pbGVl2YzmUzari+
+         ghLa9zNV91RA7gDz/wXY43BQPWv9mQTt0zrw2a0kJJVQ/N2WVrQxJR0OGtXKPz9KAtLg
+         gEvgFTQaQTGrlACkNE6BpGsUPM6WIz1HOxSRtv3H2uWxYy8fGf5/HcK8FIQFwVAnv5cY
+         57eA==
+X-Gm-Message-State: APuU4Z9pVIsBwl9kPtGCWt2a+ouW2UVBnvz74nGRbvAndL17pFYZtVDn
+	ro65yT8gJ8L+sVhT1rqN56b/gJ+s4xj8XmBen+dHW2mlJGfiXyT2zkrZ
+X-Gm-Gg: AYBFou1LxlPt2rfz9t11B21+dmU4PLvUWhFsfu2k9Sw7vmll40cBmF3i41/X6DXQ9zo
+	q8iIh0HveCApeM6B7aI5qh3o5rd9J80tUcSFrrW5J4j3zfXZzHShTmqgsE4VTtn7rVEb6+rOUZx
+	l+5+v5O7itMxW3bORKAkB93zpxcOXhWxEv8lqx32OTJNIHUGAM9RAuWD5GfyzQiOPSKbVa2NmPG
+	gKRG0RoWkOxGYvHZpdzF+GtQzi+uLXOrjI3sQKXaG3ZonX6s7RQvz1E8plrL0xXp8zlJAmCZsqO
+	Ns4NTVhUVO3AXrbl23vY8NdedMerxGMfONFxMpXsXN1kaWq77iz7jEUL+3zRMf3zD6SRUKV0a5j
+	y1VALSbAP5crK0aCnkC8ZlKHJULssUjm+Tm0kiSyBKpFPMTaL8+OuRHZW4MfR9Pkqsjvcl18O4+
+	JkF5LHRuXjfqC7Mp0ySwEfeaMia6eazPXMF5sMbUmkmLLE51ncf0YikcKPrwLl2BfpopuSRY4gL
+	W32MQoK1B7ezHvuaAij7pP91si18JJbg5uvZwuqWfADGGK2p3u6uhrLUvY+r4PJX2TcjdvzCzqx
+	bLvKaEI3zMRR68RcBdBGP850v/RvJvmoEdsGk2+Y45Xj53NHLneYrkkIgWwzroN4Kq1wShRZj+p
+	r87F+YxvTc1FE+SlQSUk=
+X-Received: by 2002:a05:6830:2709:b0:822:6f0d:d04d with SMTP id 46e09a7af769-86289866833mr2450881a34.16.1794588190361;
+        Fri, 13 Nov 2026 08:43:10 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.07
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm2712816a34.10.2026.11.13.08.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:43:08 -0800 (PST)
+        Fri, 13 Nov 2026 08:43:09 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH v2 0/3] arm64: dts: mediatek: Add the Amazon Fire HD 10
- (2017)
-Date: Fri, 13 Nov 2026 10:42:43 -0600
-Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
+Date: Fri, 13 Nov 2026 10:42:44 -0600
+Subject: [PATCH v2 1/3] dt-bindings: arm: mediatek: Add MT8173 Amazon suez
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,12 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43QPW7EIBAF4Ksg6iXixwabKveIthhg7EUK9gawt
- dmV7x7ZLlJFSjmv+d6bFy2YIxZqyYtmXGOJ80QtkRdC/Q2mEVkM1BIqudSCy4ZllxdkZcEnW+6
- lZoQUp5FBguc8nXmohQmvjTPCBGUUvRB6zzjExwF9XM8749cSS6xn+MtZsmO8F39iqWrVGwbLA
- 4JnLQopOy5b33K7trvmoCDzc0qxWmIa0yJ0ru200E4pzxsYXG+0H/jgAEIfglaDo3uvWyx1zt/
- HP1ZxFDumCyH+O30VjDNjXGN8QDBcvo8J4uebnxO9btv2AwmaHLp0AQAA
-X-Change-ID: 20261024-rbrue-suez-upstreaming-amazon-suez-dts-1c67b717d373
+Message-Id: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-1-d3b8865fa50f@gmail.com>
+References: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
+In-Reply-To: <20261113-rbrue-suez-upstreaming-amazon-suez-dts-v2-0-d3b8865fa50f@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -113,96 +109,36 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Ryan Brue <ryanbrue.dev@gmail.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=3912;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588187; l=882;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=WylSHm4dzrdtVgGa+mGeS6ky2xLAeM7GIvqZAq6Kk08=;
- b=nBxkN4N0lqElqm29Lbz4sWMFh/t7ntJ5rI6el+UpB4ylFVvJTBrByCx3qtBoZMZGo8JOaIrDj
- UD1c/lyd9LbC+XyDdVqVaPXff+mVVwFC1EAlVeQuqGMZynvBNWDKrMi
+ bh=I6NAM91xiG7y4IDUJHiYq0Fw7LL1iEfDMhzdluyzqJk=;
+ b=hFxh2nuoCt+M9OhbQICBEs+ke7rF5fRGCqw7H2cvfOLLCmLg/RuSD/8xWWVTL43MjLHeuoI+e
+ PTT1VNMJ1OyBTfk/s33BI0jXHT7JcrMz5LW4pwiYIr0wef1T5m2cxBx
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-This adds the Amazon Fire HD 10 (2017), codename suez, an MT8173 tablet
-with an MT6397 PMIC.
+Add an entry for the MT8173 based Amazon Fire HD 10 (2017) tablet,
+codename suez.
 
-Patch 1 adds the board's compatible, patch 2 the SoC's keypad controller
-to mt8173.dtsi, and patch 3 the board, with:
-
-- The eMMC and microSD slot
-- The micro-B port as a USB peripheral
-- The panel, the backlight, and the touchscreen
-- The accelerometer
-- The light sensor
-- The charger
-- The lid switch
-- The power and volume keys
-- CPU frequency scaling and the skin thermistors
-- The battery thermistor, on the PMIC AUXADC
-
-The keypad and MT6397 AUXADC bindings are applied for 7.5: the keypad
-binding [1] is in input (patches 2 and 3), and the AUXADC binding [2] is
-in IIO (patch 3).
-
-The board needs a PSCI 1.0 firmware. The stock BL31 implements PSCI 0.2,
-and its CPU_ON never powers on a secondary core, so with this device tree
-the stock firmware ends in a watchdog reset loop. On this board it runs
-TF-A's mt8173 port as BL31, started from the stock preloader by a small
-loader that hands it its parameters, with U-Boot as BL33.
-
-On an upstream kernel the panel also needs the DSI command mode fix [3],
-which is reviewed. If the bootloader leaves the display scanning out, as
-the stock one does, the board also needs the MediaTek power domain fix
-[4]. Without it a probe deferral of the power controller turns the
-display's domain off and on again under the live scanout, and the board
-hangs.
-
-Tested on the board, booting this device tree on a v7.4-rc2 based kernel
-with the pending drivers: everything listed above probes. The device tree
-validates against its bindings, checked on top of [1] and [2]; the one
-warning, on mmsys's assigned-clocks, comes from mt8173.dtsi, so every
-MT8173 board has it.
-
-The fuel gauge, the sound card, the MT6630 Wi-Fi and Bluetooth, and USB
-host mode will follow once those drivers and bindings are submitted and
-land.
-
-This series was developed with the help of an LLM.
-
-[1] https://lore.kernel.org/all/20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com/
-[2] https://lore.kernel.org/all/20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com/
-[3] https://lore.kernel.org/all/20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com/
-[4] https://lore.kernel.org/all/20261110-rbrue-suez-upstreaming-mtk-pmdomain-defer-v2-1-3ad9ad0cc67c@gmail.com/
-[5] https://lore.kernel.org/all/20261111-rfc-v2-generated-v3-1-e49697d20806@gmail.com/
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Changes in v2:
-- Add the board in one patch. The volume keys and the PMIC AUXADC are no
-  longer separate patches, and the keypad node comes before the board
-  (Krzysztof)
-- Don't disable the VPU, the video codecs, and the MDP. They work on this
-  board with upstream TF-A and the MDP fix [5]
-- Collect Krzysztof's Acked-by on the binding
-- Link to v1: https://lore.kernel.org/r/20261111-rbrue-suez-upstreaming-amazon-suez-dts-v1-0-77b47cdea702@gmail.com
+ Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-Ryan Brue (3):
-      dt-bindings: arm: mediatek: Add MT8173 Amazon suez
-      arm64: dts: mediatek: mt8173: Add the keypad controller
-      arm64: dts: mediatek: Add MT8173 Amazon suez
+diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+index 180e6e4948e7..26f096587631 100644
+--- a/Documentation/devicetree/bindings/arm/mediatek.yaml
++++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+@@ -157,6 +157,7 @@ properties:
+           - const: mediatek,mt8173
+       - items:
+           - enum:
++              - amazon,suez
+               - mediatek,mt8173-evb
+           - const: mediatek,mt8173
+       - description: Google Burnet (HP Chromebook x360 11MK G3 EE)
 
- .../devicetree/bindings/arm/mediatek.yaml          |   1 +
- arch/arm64/boot/dts/mediatek/Makefile              |   1 +
- .../arm64/boot/dts/mediatek/mt8173-amazon-suez.dts | 679 +++++++++++++++++++++
- arch/arm64/boot/dts/mediatek/mt8173.dtsi           |  10 +
- 4 files changed, 691 insertions(+)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261024-rbrue-suez-upstreaming-amazon-suez-dts-1c67b717d373
-prerequisite-change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50:v5
-prerequisite-patch-id: d709637c35c840fbd22b30dd39452d3116a8e8e4
-prerequisite-patch-id: 04f2ca8ae588298f0ad75af44266cd028d00bbe4
-
-Best regards,
 -- 
-Ryan Brue <ryanbrue.dev@gmail.com>
+2.56.0
 
