@@ -1,89 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584688;
-	b=pdfiLhYHyOWe229HJHG3R3ilFM0Wlz9V5dr1SOTK8NeBRnmIZgY58YPXzRvPe9GBrHb/
-	 tXJRxIi/jolXP+5gSlsWwn4GqdqhRpli71Qk0IQVUx0CUOjg7hsGrhXaoSNmyKo2muI05
-	 XZwB1i76TQmzkm4yX14cozm0oeOZLY3zAI7ICfoea6TiFHrgQzxRSWzjhr+pRqcXp1sBz
-	 0+0ZPtXv7RQEJVZDUKtQKklMyUEUWLcrSs2Z+lXnOMkrpmbDSwoG7aaXjYqV8e5F/Lhk5
-	 ylterBOgeFdqgBsAYQYnyQM4fVTSj5A99X3DWIH4McpkM/iBbvTDysDq8BNQ2g4G4sA==
+	t=1794584692;
+	b=cNEqkHXzuMD33Kv/lDoyW+BILdzyO9LdXNpT1RxIilDN5Kr9KJ8YelBXwvapv0t3Ms17
+	 O2jWo+ra5sSeQ0wQNbaTfVrftOayPEkuRGLhQQd06O966v8OjooZxy4BV0RjRxkiBKaE/
+	 hSNlCFsT5jb89cUzAGG1nH8xMYP3wfk+hOpIEvpxHsTiDyTCzgSgJ9EjoPI9PSoawTc2k
+	 yXP3Ha7NUcqIoaUPymfLym1Z8Ajkf3ro3dTPNCasoHbMOo8ifsXJz5w2d1WN4z5H+1GPC
+	 r+ckt2q1mgPfOhPn3aIcGtUrjLhJXQENP/5Oeerfp1fHXK0CXCCJIyPKwFKUDVK3bCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584688;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584692;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
-	b=2ez/7SUwL+9SR1S22GEj/vlJRQdDXC4bQg7rI21SzZDXTxZE580qg75Scm4ZdyTXNbpp
-	 iZZziAT/IF9DEgot7iYUlFThZuNlNK8SeMLxBiHpZwsnf7lj9lADx25ZAWSfM0ooLGV8i
-	 LWk/xs0PpNlBPJmK9fMGwYJU20f5tsmwVfKPgOS/LC6Q46X+JfTGns/ffpKPVQ/VQasBC
-	 D7gl72bE3p1OXP7JwUBNGmJeW3pAb1+8gbJ9p5d8vdPSZCETG0OXD7k2NmTbAfHnKi4KT
-	 41f+1/9+jMu/OPW3uE9O4AuKCyz3hNezxBRNjTgipaeu/kMpmIpg7pdhgU45sFi4/wQ==
+	bh=Q0mk9TaZ4jjNeW0s27BsKd5edLJnpGl4TDx2zVL7cGw=;
+	b=jwS1w/793bOj9NDDoswbJgXFBzDvJgznoaKSLceed70G9u90INmS9jmfySQzQ/P3gfHN
+	 Cp53D1l7ef2SFtWWz3r1VDXL7EjwmFB5oh5DU/VRgHyS+CsBnHGpi838M89v0dPfQRtCg
+	 1FKjHh9/6QVe3jI8FYDEMlXRbFtiD8VCZhl4K8JVcE8iym/6O4hmUk3YtgmhjGeCgRN8X
+	 8PR8tFsveUyilxQnvD2/D34bl91UBmPI3g0dJLuoymQj1r3vQgFgQJuygmX0vdeLgwSi4
+	 bRQJIvbiSalLN0OvKf5C0hkC0vfv3UIi4NWkw04yCKYuJru6pwjzsqL8Ia6SCm7iEeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=znB3ZRuP;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E79belzc;
 	arc=none smtp.remote-ip=209.85.128.171
 Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED25606A33D
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 15:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED25606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0F8606A886
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 15:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A0F8606A886
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=znB3ZRuP
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b308fca7c3so10255127b3.2
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 07:44:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E79belzc
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b32bbd39d5so8382047b3.3
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 07:44:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584686; x=1795189486; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
-        b=znB3ZRuPIx2tFbkT7O/WHNPN88Vd+sg3TNsc+4pfmFlIvztY892FPGMt4HZ9ScuB7y
-         PXhMTlVGprbzBtOqIfFv8bF09nn5nx8LBN6JFcHJhLwKuga1oiFYwEqIGNiHp3GKbjCf
-         2OfMJr20PZD5T+pciXGbBYw0CspnkWMGJGURb+V26cTFeuv3JsLzTJY1E0I+ODix29x4
-         aghGpKPSqk/X/0q52mIsTY/Jwt1O+VL6ck38s+b7pHMeFEo2WEhkNlVsL0kEvcDFdFST
-         P+Zxy0ZOj8kTf3t4LUoMkct+hxVpu9FYdWxQt0NNCdJ+kvR881scD7++pmRnXT5ygWBT
-         cIaQ==
+        d=gmail.com; s=20260707; t=1794584691; x=1795189491; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q0mk9TaZ4jjNeW0s27BsKd5edLJnpGl4TDx2zVL7cGw=;
+        b=E79belzckzcp6rG3EhOHGtCJlnyOpt49fhRV4rexcUXpMot5duoPGEvOK2cvadQt+e
+         Mckk7Eapwq19/VZCo5VHbr5To7PkRpwzESW+vKYXTFZcErIY86Q8Den00lraxwu1Idak
+         Oy8NOAG38MZJ/KpD43zQlFUScsqZrCg/Lfw5h1HtO9lsRA4O8qGnBX74hBdig6wImcy1
+         gzU/pBoMKUHvuCfOgEGM9lJBQu2wSVfE/OHpprt9N3rdMoHw2Cd1kSlb5pTxakIHBjfW
+         DxfuJs+DSlZBD/QpqcHACha0MmS6R1l1V88y4jesrNTcorByNRc7xm2NG0228jd0CBWS
+         4oXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584686; x=1795189486;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IlVBna1TtvWg7z53GTsHNVCmcCxandIEmUciwncBErA=;
-        b=PhCgmJcrecKPT766wnHON6iVgl9eykBGaiS9J2S8Fk5HqDN7H8MBZTTsqyRkq+D52f
-         9KUdicNHOkxhOAfBwHgTHKJ/MmOZ2ygIgOv72Fh7keiC0gKOgNF1cWdViK4K9lAfwIug
-         CCQrrv4lY6S8CrPMoC+at/0P/pjLTt7KoSGXvbiArrlV2nWYOSG/K+66lLVbHxyJeyKW
-         vNy8bwfIW2C6SKYQDOR89uSj/lTJLpk0jRItwzgHd15+CNFGdzeBg1TAy+ipkJM0o8VF
-         S18/g6BVaPJxDzPNcZF1meINRT9uX107SRmFi++HIV9oOop6GG8qRauuYQHUmSLRe/iY
-         sWCA==
-X-Forwarded-Encrypted: i=1; AL+hErEyT5QLjhmr4ZwM8/RITfxlC1iI/6vLHpiEwqKetHQoypI2yo8btUC1syUcLKctGUUGUZVLNXDcGs7v@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iJX5namzHLdxDr1ZIfNe+7cpN1nPA+LNtCpaPK9eAa13B22Zi
-	adE2k/q7DnA5xGzv2QWBOXjrUq6S1ljTEVp3li8leu1ClaylewYZ+eOtnpzo++Th
-X-Gm-Gg: AYBFou2FQmNHveQag6sUNPqBNrqM7wx2dqmAptAiWveeFMDV6a5/E3SUxKUIKSZ4Ndr
-	PuBpoH+w1xferaw/yb9wwg1/mKxAdMGAB4DwA2CDMXazY5I23Kg1UZHHHngm+utu7Em6kCdsP62
-	vWeVYDi4+ZNcovOJXKFyAqcl/rl4XJpocTcEN5BgL+qgvidd4BZzq2XqprnCWqUgi4tWP26b+o3
-	WC6T5WDDAxFMyfz8FJzXYibhr2X4x3bYFCsKyUAfEFL9Tkn2XoiiXRg33FBk/QECj71MYsxmHdA
-	kNAFJJPCHVyLNLPPVLVrhbooesRwrQb8eCcaqoB0Jg4tXOmrNa+s0XYBq4H6Em3PohFJGEi7mrz
-	rKnDOm6XPxHsnXRUziw7jRab3OPnyf4DlpW/2w/o1RHj+IbbOkz8B/nFWLemrCcPXGoBxSRZcut
-	03MG02/B3bBbIwxmmKdDAwvxiRweGdMxzLgQvfgumhBnuCkJp9u2vvKfSStVEUne45+tzCotF6T
-	nbLTEC3OrWC0s1bQXGI+xx6G/nCXOEKHCdTWSvwl7T/Irpq24DzE6Kfgs0fxy8T4IesWYaKbuSC
-	rjCjP/d4LgVOu7zZM+AWRLKyQj7KsWLH
-X-Received: by 2002:a05:690c:c:b0:8b0:acc6:8e5c with SMTP id 00721157ae682-8b4aa0d010bmr18869707b3.9.1794584686400;
-        Fri, 13 Nov 2026 07:44:46 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794584691; x=1795189491;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q0mk9TaZ4jjNeW0s27BsKd5edLJnpGl4TDx2zVL7cGw=;
+        b=26OwNIrRkcR2MecW+9aQpjE/nC+nuN2JrEJfaPCwNEF7VpmPud4obbNZrCicJ12Epn
+         WHatLHGOBvykdWxKFDnEFA6HvzgkuXpL8+RzlNZJ9N9pdveMP3U1bcpHvYwgiTDlZzHi
+         9ZIt0M1aQ8vlNVwxacHAdxmbeK44SZHZhA8G60StAUuB2yzGuONSeSy/hUb8h6MBMDpG
+         OHg0O5BzV9J5S04uQ8MSS6pblmUXx2tqq9pOjaVHN7J0J7DNvIPmNTh2E2pJvpVM4Yck
+         AA9/OgfyssEbocoZ+93b05hHn7XA9bcxnbn5B2YYpC1u7K5T4jYWIOiIkn4rdSGzF6Kr
+         HEbA==
+X-Forwarded-Encrypted: i=1; AL+hErH5z8EVxmPAcbmkBhlGRSXyh6fPRiwGtIVQWR80sv843XJV7hbqY1uzi2M6Lqf3DB1K7sEb9VN/OImg@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xzT8t8V0tomn7piO2+UOjWr7oW0D9P1FaWUqURHaD/AeSZQe0
+	tKg32RIGRCBlsZpcfPV4S1besFmZaRQp60BcL220QHYAAC6N28uCxVR/
+X-Gm-Gg: AYBFou2AUv6bo0ELWCb+sTnvQPUmxISQEjgxmvUhwcOKQhgqjQeiQlHAtJuwCjyE6oj
+	uohfZGHAuqTZHGSAJzWtkGZeiuFwrKWpX8D9ZHUo3s1wrxK8NlCBgdLe2Uql295UOS8ZowYNFYB
+	hYys7xz6XPBTjeEIiIW6IL2rooNXrXCGOdZc0AbYKVMI6Ab/RFy+VsAKZ0mSXYfUQIvNyMGXjgw
+	hI5YA141CwxBelxACMQZEertvHLnwIDOGNwyBnsH1zYfyHdnx/B2YOqyvMO2viD0a4pLpf0tJrs
+	fqjnNALMrDI8zuA42wmTXiqPwzQ3GOgtomPIhyPfQGW9gMJT4D40fovJJUV/H8EEUVUp9Cykq3R
+	DkZ9998arZ83x/HIqbIcP+t4m486CJXkh9jv9z435Sfq/Sr1aAKbTl5bXkeRt6Utf5TKr5NuEfV
+	r+nELoIO4/lEYp3qRSjU9TMKaNBKzZwaJGB2vpqr9xrody7s8CTHMD2KQAWgO8/Fcrvesft1/Bl
+	IaBsIVIBb6sZ2ozBO4WDhtSBGAwud7tPOWe7+rZOwhtxMhgIa++p7dAT3DqqLkWfB8+Om2zEXzd
+	mJfRVSVu6ftpVBP5bRbDGdzD6yYZhI4o
+X-Received: by 2002:a05:690c:e1c6:10b0:8b0:aba3:a3e2 with SMTP id 00721157ae682-8b4aa352b0bmr14048677b3.37.1794584690765;
+        Fri, 13 Nov 2026 07:44:50 -0800 (PST)
 Received: from [127.0.1.1] ([179.160.39.42])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa98caffsm22687767b3.27.2026.11.13.07.44.42
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa98caffsm22687767b3.27.2026.11.13.07.44.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:44:45 -0800 (PST)
+        Fri, 13 Nov 2026 07:44:50 -0800 (PST)
 From: Leonardo Costa <leoreis.costa@gmail.com>
-Subject: [PATCH v2 0/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex
- Capacitive Touch Display 10.1" LVDS V1 and V2
-Date: Fri, 13 Nov 2026 12:44:06 -0300
-Message-Id: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
+Date: Fri, 13 Nov 2026 12:44:07 -0300
+Subject: [PATCH v2 1/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex
+ Capacitive Touch Display 10.1" LVDS
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,9 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEYw92oC/x2N0QqDMAxFf0XyvECtTmS/MvZQmrgF2irJKA7x3
- 1d8u4d74BxgrMIGj+4A5Soma2ngbx3ETyhvRqHG4J2feufuWD0GzUhfw0WZLYbUnLzPecPKSlI
- wEGGqZEhiWwo/w7U913DDGAfH89hPBK2xKS+yX/3n6zz/kx2AHY8AAAA=
+Message-Id: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-1-59c45f0a0d8e@toradex.com>
+References: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
+In-Reply-To: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
@@ -107,52 +107,157 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Leonardo Costa <leonardo.costa@toradex.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794584681; l=2077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794584681; l=5076;
  i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
- bh=Q2mTJ7efr148vCErD5HWpVyB0Hsq6rr3sJWLD+6PnOo=;
- b=vwPliPd0FIeZAo0T7lJ0fzGLYLA2vrxZUR15hNJE5V8Dv3HtNT1J36I0IQnXVen2qdujDfggD
- A7g9G3o0h54BRVOY8/FFs151oqWBfQUf+LD4RD6K2r/B8BQ0hV/Z0AQ
+ bh=Tz5ERP1gVTN03h114IyqCZCKmbVPmIkPUTjRMol8SJQ=;
+ b=wR+GtWb98MCONzVOGNbUDPA93mS4bj4kcZJot5NE7c145bcOglNZ86saT0GQG4JZBxBfB/aPs
+ MpDCMjXDL1vDV2oWrh7/oK8mtUXQwPIjueZ32LyQJfdDqf2tNuswd+k
 X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
  pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-This series adds device tree overlays for the Toradex Capacitive Touch
-Display 10.1" LVDS V1 and V2 with the Verdin iMX8M Plus SoM.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-The display addition covers two interface types:
+Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+LVDS connected via Verdin iMX8M Plus LCDIF on carrier boards exposing LVDS
+interface (e.g., Mallow). The panel is a LogicTechno LT170410-2WHC 10.1"
+WXGA IPS LCD and the touch input is provided by an Atmel MaxTouch
+capacitive touch controller.
 
-- Native LCDIF (LVDS)
-- DSI-to-LVDS adapter based on the SN65DSI84
-
-Changes from v1:
-  - Include 'tdx' in the display panel overlay names, to make it clear
-    that these are Toradex products, and add 'v1' in the Toradex
-    Capacitive Touch Display 10.1" LVDS overlay, similarly to how it's
-    done with the V2 display.
-  - Link to v1: https://lore.kernel.org/linux-devicetree/20260813133335.1941580-1-leoreis.costa@gmail.com/T/#t
-
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
 Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
-Leonardo Costa (6):
-      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
-      arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with 10.1" display
-      arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS
-      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS V2
-      arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
-      arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS V2
+ arch/arm64/boot/dts/freescale/Makefile             |  5 ++
+ ...-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso | 95 ++++++++++++++++++++++
+ 2 files changed, 100 insertions(+)
 
- arch/arm64/boot/dts/freescale/Makefile             |  30 +++++
- ...zzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtso |  71 ++++++++++++
- ...zzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtso | 107 +++++++++++++++++
- ...-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso |  94 +++++++++++++++
- ...-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso | 129 +++++++++++++++++++++
- ...-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso |  95 +++++++++++++++
- ...-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso | 118 +++++++++++++++++++
- 7 files changed, 644 insertions(+)
----
-base-commit: 33adc96ac217d6e95b7c44ac383c19ca4ae2ff52
-change-id: 20261005-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-034c30e8416d
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index cfd5482843586..79ba27665f4d2 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -738,16 +738,21 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-ivy.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-nau8822-btl.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-ivy.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-zinnia.dtb
+ 
+ imx8mp-verdin-nonwifi-dev-uart4-mcu-dtbs := imx8mp-verdin-nonwifi-dev.dtb imx-tdx-uart-mcu.dtbo
+ imx8mp-verdin-wifi-dev-nau8822-btl-dtbs := imx8mp-verdin-wifi-dev.dtb imx-tdx-nau8822-btl.dtbo
++imx8mp-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1-dtbs := \
++	imx8mp-verdin-wifi-mallow.dtb \
++	imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
+ 
+ imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0.dtbo
+ imx8mp-evk-lvds0-imx-lvds-hdmi-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-lvds-hdmi.dtbo
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+new file mode 100644
+index 0000000000000..9079c6284dfae
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+@@ -0,0 +1,95 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex Capacitive Touch Display 10.1" connected via Verdin iMX8M Plus LCDIF
++ * on carrier boards with a Toradex standard LVDS display connector
++ * (e.g., Mallow).
++ *
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
++ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pwm/pwm.h>
++
++#include "imx8mp-pinfunc.h"
++
++&{/} {
++	panel-lvds-native {
++		compatible = "logictechno,lt170410-2whc";
++		backlight = <&backlight>;
++		power-supply = <&reg_3p3v>;
++
++		port {
++			panel_lvds_native_in: endpoint {
++				remote-endpoint = <&ldb_lvds_ch0>;
++			};
++		};
++	};
++};
++
++&backlight {
++	/* Verdin PWM_2 (SODIMM 16) */
++	pwms = <&pwm2 0 6666667 PWM_POLARITY_INVERTED>;
++
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_i2s_2_d_in_gpio: gpio4io30grp {
++		fsl,pins = <MX8MP_IOMUXC_SAI3_RXD__GPIO4_IO30 0x1c4>;	/* SODIMM 48 */
++	};
++
++	pinctrl_i2s_2_sync_gpio: gpio4io31grp {
++		fsl,pins = <MX8MP_IOMUXC_SAI3_TXFS__GPIO4_IO31 0x184>;	/* SODIMM 44 */
++	};
++};
++
++&atmel_mxt_ts_mezzanine {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2s_2_d_in_gpio>, <&pinctrl_i2s_2_sync_gpio>;
++	/* Verdin I2S_2_SYNC as GPIO (SODIMM 44) */
++	interrupt-parent = <&gpio4>;
++	interrupts = <31 IRQ_TYPE_EDGE_FALLING>;
++	/* Verdin I2S_2_D_IN as GPIO (SODIMM 48) */
++	reset-gpios = <&gpio4 30 GPIO_ACTIVE_LOW>;
++	vdd-supply = <&reg_3p3v>;
++
++	status = "okay";
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
++			  <&clk IMX8MP_VIDEO_PLL1>;
++	/*
++	 * This display uses 71.1 MHz pixel clock, so IMX8MP_VIDEO_PLL1 needs
++	 * to be 7 times 71.1MHz, or 497.7 MHz as the internal divider will
++	 * always divide the output LVDS clock by 7.
++	 */
++	assigned-clock-rates = <0>, <497700000>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			ldb_lvds_ch0: endpoint {
++				remote-endpoint = <&panel_lvds_native_in>;
++			};
++		};
++	};
++};
 
-Best regards,
 -- 
-Leonardo Costa <leonardo.costa@toradex.com>
+2.43.0
 
