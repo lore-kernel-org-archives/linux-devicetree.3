@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580380;
-	b=egAlf4xqEioJ4dAksCsc1l0jLJSKMEfq7h3oO64eKbEcvTMbm+Dbm9yibYHaenpXtgpp
-	 U05BaS3wVYOKSYvw97Wc5tn16zlWVAXYOFWcK+KUZx9aVKKJeVwhFZUZSWGVt05SyVVri
-	 5kBtVCYltgixrtk8jWPUGahc8t1edx7Ea4vktIMgLAiSQsLg7HniSVtA6I9wxhk391RZF
-	 vIVGqk8Ot+w66AMgfzsUzc6NdHjaN6UPgWtkzY7AIuaGrLASxxzARG50lzq6S0O+kSNNL
-	 Ic6r6PFtCatlnI6qDnLOdENiaVuaftYH6R+VJVrm7kJxms679vDlhR/lfKxq5OcSygg==
+	t=1794580382;
+	b=Ac7tYDJJQs3uTZcV79ZOWUMRbghSWDKEGsEbQMmU0hNgWE5eFOeO2C6UmqgUCF7dhW24
+	 CT2R3ZenSD0qa9iiXciUOLHjru56rraMVlTfPWbGfLybyGzMpdyxbeEMecqubx/NJzFxs
+	 SFP85WrO9TXEm6Nx2jiPFlzXDKWHIti7o6YOlrLp0e3zcaeQa4iWWvz7g1c6GIOWLbIAW
+	 8xhBdfr40IGfa2ZnIZ3gzC7wWAVxCi9QyEWXvx1Akp6SMV1fepgkbvEXI4IWa5XEbtCrf
+	 p5jvWiGv5twl13ekioh3qso5yX9/QS8Z0H0KnWu7ybdQ5HIG2NkbSztamlDOJmL2HZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
-	b=bgUFqlDMHZ4sRRvjv9V0pJhcEUwKYJiHEKa6vVu/SFeLo6rWY1cg99ubW6mkgROYY08a
-	 vtKDvbi+Ol9gbn/xaWqH05/YPd0nR/MWaEFO5pMybnuiGWcZxVPNEDc4H50k/YVeF5Lzv
-	 ydjEtrdAFbKqjzCgbSosb6I9+eqiVwZ/2DGRuyyenB91HP3ucijZCLbcvkSjULz6eNtHB
-	 9mBMoY8+JH6cnpsLbIfC1Ahyc8SRoN1kquTTTbc4ihs7scABMIuCxmfuz9jAfrVCwxvZi
-	 9Ekodfo+N0lKdX/mCJX0dQW8lqFWqKCao/LZuyuD00/j/+lNpPOUfCT/OYBGUPfH+VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580382;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
+	b=i8CjUpgFEVKQXsrI+TA/8OJcwqcWAkGyohgAOeTppKWNii9XMxzeqPW4EquzPJWvJjaT
+	 nSolk2sTkmqM8w/rfVPIXUwf21BYAiTkvxrVoLEltpAJ0ekNjtwGMJosTT6nw4MJ0ZMcC
+	 1O/nWQd2SDlcP4JnK6nXa8YO+oEGDHwq4t8qqnITTZGgx9sR0BXvwgCNxOhWHJn+5Q8mo
+	 oUfIbeYTiGI41sUmum3SJ00bHoMpM4nzhoKR6YGfBfFem74myk0PH+N4GDMIbBBjIdzVM
+	 HYIJjVlyGqN1dJqBSGcKCKUPtVigLLQkBfBhScuQKPzyMo+Z6wDCDrT+fuFHsO8jomQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QGuqjW64;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6LcTAxS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JCzP9o40;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54DC606A8AA
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54DC606A8AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91094606A332
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91094606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QGuqjW64
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so16948305e9.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:32:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6LcTAxS;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JCzP9o40
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCJb2B688796
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:33:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=; b=p6LcTAxSLBPS48Cd
+	MH3YQQ1EsSIZjcS2uPf7SdzFAu4A5RxpP2eMpW56ge6qo6vfDIhLmF03xEqv31x6
+	14lWdjH88HiDAd+UUR7HtMHeZrIr5xhHfLgjQxdGkgpeet7X3nEXLBGs/eEk6B2N
+	nHfIl7NAPKN5KaLX0hjwYCrk8GVDTRVm3kHR2uOSggAyeAfS7LTeOnpBU4IXdfwG
+	PHgL1oAU0eYSVC5QVyfNbPu5gHxZMn98EspesPMD8O9VhgWB+ZP8egsyOGZAsGHI
+	DYIfHf6xqfteN/8zXKBcO1y3p0vw2otSOKiYwwPSID0PzVzEwpRpBJjl171soltE
+	rGNbow==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwqufjrtb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 14:33:00 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844cb60so212620085a.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:33:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794580378; x=1795185178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1794580380; x=1795185180; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
-        b=QGuqjW64GyfUIS5n4gCyjfRTu2bVeR5MvKKfIT848V9jA9GemYj75fPEeT4vfpR3Rq
-         IOW2/yQ0P6HWNCQ1bN67glwDFfoKqW9EO1u6yLYnpy3IAyBVCN8eDu2tmEqCloDXRj3H
-         /Gyy1awDwzVcuav1IQSh1G38+47rgjfrF8m/RhhJplIGm5UuxqdxfC0tD3RUa61lLMGv
-         UIgdUG3HS/Q0Yarg9YbZ2zD777scTm/vlVJ1+7BJQm8oZbazD68WeQHIsCoKFIrh8aFE
-         /8ciZKih0ub9ohL7ocLeQsBQL8Iwbuw499v9e6k2B72B7Fzsyg5UVzj+rUfGtE41XtkK
-         bFBA==
+        bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
+        b=JCzP9o40ucS9Xd8yC6Pj0Sg4E6M9RNEza9icZkrlgBQbf5pETQvpsPhnqoSZNvdgOL
+         cC5PJAxpWKt/X4EJbNipl2YqsEGwEFqq8IjZEm31PHJTwD/kr5IdOxF4g5FZhYPhpan5
+         WP3dmJtGDk187w3/ITY3DcbJaicK5SJRFvseQ3oGq/Fllu4Yp1jGluXhYpI3YqtB7ud/
+         kSAPZCeGHuS5ivpVo7WEqnxwQC6TfdDFr6XoV/qeqjXufgx0duAfH/Md0+zSLlMVn4+c
+         PBOERuDvZwd7LgkV7BNUMaM5vyehSayp0UPk5cZkUn2X5u6J+GQbiNAOjC231XdTO9yV
+         rbng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794580378; x=1795185178;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794580380; x=1795185180;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
-        b=sskChF7yXWoSLPBdj4tGLJLM7xFbBtK/dD3+Q/w6GfabRXBmuXyHGDFfvxjQp4TSLw
-         TSTND4AZ9cjMk/4pOo2J4plrZfjYv1rXSj1uoV3BbvCLNnaKCv409dtnrqRFVWhjC9H0
-         KQ2h+ElejiXDfjJPajke16Y9BjloSrxDloEjZsp6ElLclFdF74/vWkW+KBuWr0kLDHws
-         1F9UBC3O+9aCNhuew59B2NqqHOGZ3xjDrXvAAwDYbT8rhuZZdZvJDEE1T/EJ6bk5b+7b
-         TtsuO9M4XeMYiExHE0+c1kN4+crObAYk7fJu1dIGp32fHuz2U8IkSL+MjdQr8unWMyKU
-         D8eQ==
-X-Forwarded-Encrypted: i=1; AL+hErF6flCHV6OKEMOV81x/WMj/UHDlG/N00yLlKOT32fmxhrzR+/5jApuxNwa9o7GDjDFCqPAIOwQO4dVm@vger.kernel.org
-X-Gm-Message-State: APuU4Z89yNo6IE4pAOJt3UpYKM0e6n7D99qd4dnrgPkdg4jHH7mg4/nX
-	Y493TW9RacRPzBK5/6VP3ZntRmkBfKCKfxHoutTonhJgoMBCH4Ia/YFuiw/8laTILgY=
-X-Gm-Gg: AYBFou3gf1ff7rdb0x8Koi8yCBawed6RpFP6NZhO+YmpkIO+Zb8e+BTNXkFs2CjX3F7
-	+EsDE/lRgjRDQ3lOM2+IuANBZc3rBZ0cbXJjGY+NRpits1ZyUR/ZV0XibVtY2KUgvbzKR4ACBQL
-	FJ+lbZ5Iiavs/aIkTAIOr5wUU3G8nR81PE7LILtqId8VionBr2dlA2LPntDT2LNqbvQiYLz61nH
-	WsWissMAI89HBuLqZ6iGI1nJtcW+XjEfpOFSjy5A5rj76ueODp7B539gqvp+st+FLWuh3iF8Zvc
-	dFYYTKGWqNHq+1uDdYkQgIXycRgxwJDYlcfRKJoawy/RguYOs452ZJoDwFRLUswX3zXKrhnUOvS
-	83/zmJOjbXXLseviZJJRmgxOfmIxDMS0v0yqI2rFsRTlUWqP7qylyE0YJkjSlkrL2ge/EbZF834
-	Eul2HFs9iUZkSsK688FtvOJy3w+wyHuJDrhBW7oBBzUlo2i62dCO2ignEOyjfGW2p7EVW/FfaQH
-	kN0GqbWG4igLvN/8HTHZrNsfxMwjPKMit2GTbc/Y6lgXrMG4f6EfBMyBOW6QQao8LVV1RmE8aOC
-	HijEIq8KJGX2CTBJAsTSDDMegfJPAPXD7sqRjFxi8i/aQ9W9
-X-Received: by 2002:a05:600c:3111:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4bb55a4490fmr56671835e9.10.1794580378184;
-        Fri, 13 Nov 2026 06:32:58 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm167089005e9.2.2026.11.13.06.32.56
+        bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
+        b=vF933Hd8dnqUpM2kBbrkNP91MzlCUKPfF2B96jaHlW4q9PDaWAYV6RsZ6mHuLrwEyN
+         LdXPram9Op72BW6IkEjR6OAaLI75dU92DK0YsiF6mCto6+pZc3EbGcfDGrwKB2/Yx/kl
+         o6o6oOc1K8BpYsUfGAigBgEopCHR4ErUBjLgm1T5b4y9S5UDhC5MMQlxfhmmYdFFQkNV
+         7N8BjrGr/9bHbpzTlzJExapeYVqxS+8vIj/AXVlW+p8p97o7tpb3LkWSKcPrDrEf51kC
+         XBCXwCJ73Hcy9ZSDNSAC+QaVfbP89w2fgeZlp1UvE/AIrlNh232HPN/kHXWukGKwoxkU
+         3tTA==
+X-Forwarded-Encrypted: i=1; AL+hErGQ9BlagkBzNglOODgGP46MU6ROyux07Wcfrs83SCEb7oKzSzIO2v3gyv1Ov69mUVNDjcsoTSSpVOKT@vger.kernel.org
+X-Gm-Message-State: APuU4Z8D6IEhZS47TRWXsO4quK8YE0ge9L5SKTXqenLXfmvkbX5FxMVT
+	LRWu7D55UdP4VFzIPE/5AMN0A1zfbHjll0s4iyG3v5OJfHjjUPb1+ySzy5V4G5TFJ5KJoV5jAj+
+	axn6fFdlFGgqUfxTqTZw2ufzikhobCYqVicbG1lxVyRCLLTtp/Hpt9Uk/7q4NYAAp
+X-Gm-Gg: AYBFou14dpbjziTJ7j1qgeWA1W1LF70UFd4BidoIkjxzsXrCKNWB+zdJLZYZIxhS0jd
+	M+rQdQaBfMkm2U5oWCRgJuisjnL/+d21lILR/uqhKnfbbkVbMcXrGxJWCUzhHizkZGxuUbguRbZ
+	rXdxtUZVw3LkkJgU/EOujNJiwVOe1gZa5rkC4GIxWwWxchzVKDb67ryI3DI6gRPDLrGD0BQG6I9
+	WGP2AtRjVO4CdC3JT3Cr7kCpt5P9wsThBe6mAoXw98pOt6DNlxgAAVCUeHqabHEfC5l9v1yW7kA
+	McxXDLCjN59UegR5BLdQzNZDGqrZTkukSg1EpF00tgD+KFu2arREnlApeS7O8diggDzLIz4xfbN
+	FWY8GMyyGNBQhUgRf9ul3W9Dnx9B9GDQQu6/Kb1x9jN/aVIptoVfhWGLn7V3id88=
+X-Received: by 2002:a05:620a:a719:b0:949:5cb8:6bd8 with SMTP id af79cd13be357-9495cb86f22mr83105385a.22.1794580379748;
+        Fri, 13 Nov 2026 06:32:59 -0800 (PST)
+X-Received: by 2002:a05:620a:a719:b0:949:5cb8:6bd8 with SMTP id af79cd13be357-9495cb86f22mr83099085a.22.1794580379090;
+        Fri, 13 Nov 2026 06:32:59 -0800 (PST)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9495a5ef5c4sm71948685a.6.2026.11.13.06.32.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:32:57 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Chuan Liu <chuan.liu@amlogic.com>
-Cc: robh@kernel.org, conor+dt@kernel.org,
- christian.koever-draxl@student.uibk.ac.at, rafael@kernel.org,
- sboyd@kernel.org, Viresh Kumar <viresh.kumar@linaro.org>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Christian Stefan
- =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>,
- devicetree@vger.kernel.org,
- khilman@baylibre.com, linux-amlogic@lists.infradead.org,
- krzk+dt@kernel.org, bmasney+clk@redhat.com, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-In-Reply-To: <317f2930-9f65-447e-aa46-223ba9e47033@linaro.org>
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
- <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
- <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
- <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
- <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
- <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
- <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
- <317f2930-9f65-447e-aa46-223ba9e47033@linaro.org>
-Date: Fri, 13 Nov 2026 15:32:56 +0100
-Message-ID: <1j7big244n.fsf@starbuckisacylon.baylibre.com>
+        Fri, 13 Nov 2026 06:32:58 -0800 (PST)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 20:02:21 +0530
+Subject: [PATCH v5 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
+ iommus constraints
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,138 +116,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-shikra-el2-v5-2-8aca743de97f@oss.qualcomm.com>
+References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
+In-Reply-To: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794580360; l=1410;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=AP6m7K9bcNvLKnjx7yin31NugzckAmQBmT7FmQR5FW8=;
+ b=3grAOrtRV282qWHFnvr0tb1SE6cYWndVBqaZAYbo7EGP8AmopSFDhWgbOvmACGOGHjHaUAlCp
+ RCF5uyMrJ05BQEUzi2/HAtn57bemSJCmsfbesJuzu59nAB5M2jy6YwJ
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Proofpoint-GUID: zobJ_QyRB_dmnqhruJ9kUq2F2ShbXK3S
+X-Proofpoint-ORIG-GUID: zobJ_QyRB_dmnqhruJ9kUq2F2ShbXK3S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1NyBTYWx0ZWRfXwsZhC4d/h1og
+ TH8ai006hQ7lt2HnzQ4vmhMPDSTfX2UjXrM6vRiUTjGtoKB1uGC5w526p4DUS8Bb5AXIQktUs9d
+ DfNFRt25sHTA2PcuV4IRD3zSoaV0Abj2iCGxzvJ7rcfp+qRUVg7Ic/kSVi3IDNFU1HgbTzXuv3b
+ xN4s107wLPZH8JZ2yek21+5TX5Lg5NPpaoWbwCw8aadp4uOw3ZBcIE1NYsFuboOjjvDQhUgxozj
+ lndeZcnFSSrtac8wpp25BSzfpDkihsRjdpNKsdhnxVAX4d+0Rq7sGvm27GRhgF0YVZg9gCAqX9s
+ OSuvozzkW5r8LTrcN4bIpDn6TzOx2moTMYdKL0PeZZnJehnzrJx+MAFlLgOGk9sZONacSAMweVq
+ JHOafChN9ocx1M9gccUWGwb/5+aO4OwhRUWcQdjHOZcfZV/GRcYBdveQGJlUg1XSuc6gCkAG26c
+ mH8S+IsjXTEXADw5VbQ==
+X-Authority-Analysis: v=2.4 cv=XZocX455 c=1 sm=1 tr=0 ts=6af71f9c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=Q89ptBQ9mced--_tLTIA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1NyBTYWx0ZWRfX5xbr4iFqRyjo
+ QDZ6DZnCb0Jg17tlgomiyzxfpWoTNvZbbdgKrLM6qfg43syVBu6mNehd0Ha6m9dEZoPjry3dj3s
+ cY8yO/M6JAwW2TrWHbLxPfJJ02EllBk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130057
 
-On lun. 09 nov. 2026 at 09:44, neil.armstrong@linaro.org wrote:
+Describe the iommus streams of the Shikra PAS remoteprocs, needed when
+Linux boots at EL2 without the hypervisor: CDSP uses a single stream,
+while LPAICP firmware uses three.
 
-> On 11/8/26 22:45, Martin Blumenstingl wrote:
->> On Tue, Nov 3, 2026 at 10:46=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com=
-> wrote:
->>>
->>> Hi Martin,
->>>       Thank you for joining this discussion. :)
->>>
->>> I have re-examined the capabilities provided by pm_opp and cpufreq-dt,
->>> and it seems that we may also be able to adapt A9 fairly well based on
->>> the amlogic-cpufreq.c here. So we have no objections to the driver
->>> implementation in amlogic-cpufreq.c here.
->>>
->>> I was most worried about before was that cpufreq-dt might not fully
->>> handle the complicated clock and supply adjustment logic between
->>> multiple clusters, which would have required adding a separate
->>> cpufreq_driver. But it now looks like this can be solved by adding the
->>> corresponding config_clks() and config_regulators() callbacks in
->>> dev_pm_opp_set_config().
->> That's great news, indeed!
->>=20
->> [...]
->>>> - Meson8/8b/8m2 (32-bit ARM Cortex-A5/A9) where we need to reparent
->>>> the CPU clock to XTAL for stable operating during clock changes (which
->>>> should go into a cpufreq driver that implements target_intermediate).
->>>> There's no secure monitor or firmware involved for CPU clocks.
->>>
->>> BTW, could we put the CPU clock handling logic in the clock driver like
->>> G12A does (though, of course, handling it in the cpufreq driver might
->>> minimize the coupling between the clock and cpufreq drivers)? That way
->>> we could fully reuse the existing cpufreq-dt?
->> Common clock framework maintainers don't want muxes to be programmed
->> magically in clock notifiers (which is what G12A and Meson8* do).
->> So there's a chance that for new drivers they would just NACK that appro=
-ach.
->> I don't recall the exact reason anymore - but from my perspective
->> using a cpufreq driver for this is the cleanest approach (although a
->> few lines of code extra).
->
-> It would move the soc-specific logic from a soc-specific clk driver
-> to soc specific cpufreq tree handling clock muxing. I kind of
-> disagree on this approach. If some logic is needed to handled clock
-> parking while switching clock sub-trees and notifiers is not
-> accepted them the CCF should evolve to handle that, not moving
-> this logic elsewhere and have a proliferation of clk mux related
-> code in cpufreq.
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+---
+ .../devicetree/bindings/remoteproc/qcom,shikra-pas.yaml  | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-I dont really agree with this. There are other cpufreq driver that do
-handle this intermediate clock. CCF is there to expose what a clock can
-do and how it behave, not to encode how one expect to use it ...
-even if it is the CPU.
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+index 34a2f15e9361..1688d198cc5a 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+@@ -119,6 +119,17 @@ allOf:
+           items:
+             - const: cx
+ 
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,shikra-cdsp-pas
++    then:
++      properties:
++        iommus:
++          maxItems: 1
++          description: Firmware Stream
++
+   - if:
+       properties:
+         compatible:
+@@ -134,6 +145,11 @@ allOf:
+           minItems: 2
+         firmware-name:
+           minItems: 2
++        iommus:
++          items:
++            - description: Firmware Stream
++            - description: Firmware MMIO Stream
++            - description: QUP Stream
+         power-domains: false
+         power-domain-names: false
+ 
 
-Which clock is the "parking" and how it is handled is really not
-something that should be handle in the clock controller. this is
-a usage policy and it belong the clock consumer IMO.
+-- 
+2.34.1
 
-Changing muxes in notifiers is also very fragile and will completly
-break in another clock was to refuse that change while in the notifier.
-It is kind of getting in the way on reworks we have to do in CCF
-Amlogic G12 is the only one doing that. I would prefer if this logic
-could go in a cpufreq driver, which is where it belong IMO.
-If think we can do so without any breakage in DT.
-
->
->>=20
->> Additionally: I believe the udelay(100) in the G12A and Meson8*
->> implementation is not even clock related but a delay to wait for the
->> regulator to become stable.
->
-> It's highly probable
->
->>=20
->>>> - GXBB/GXL/GXM use SCPI firmware CPU clock control so to my knowledge
->>>> we're good with what we have (meaning: no custom cpufreq driver
->>>> needed)
->>>> - G12A single cluster, no DSU: needs a cpufreq driver that implements
->>>> target_intermediate (currently it's managed on clock driver side in
->>>> kernel space, no firmware involved)
->>>> - G12B multi cluster, no DSU: needs a cpufreq driver that implements
->>>> target_intermediate (currently it's managed on clock driver side in
->>>> kernel space, no firmware involved)
->>>
->>> The cpufreq-related resources on the SoCs mentioned above are relatively
->>> clean: each cluster has only one independent clock and supply of its
->>> own, and these SoCs also do not support voltage selection based on chip
->>> binning.
->> That makes things simple, indeed: each cluster follows the same logic
->> using it's own resources.
->>=20
->>>> - SM1 single cluster and DSU: needs a cpufreq driver that implements
->>>> target_intermediate (currently it's managed on clock driver side in
->>>> kernel space, no firmware involved)
->>>
->>> Compared with the SoCs above, the difference for SM1 is that it needs to
->>> additionally manage a DSU clock. In this case, the clock-related
->>> handling can be added in dev_pm_opp_set_config() in amlogic-cpufreq.c
->>> (by implementing clk_names and config_clks in struct dev_pm_opp_config).
->> I think so far mainline is not touching the DSU clock at all.
->>=20
->> [...]
->>> All in all, it looks like we can currently support all Amlogic SoCs in a
->>> single amlogic-cpufreq.c? Then, for the specific characteristics of
->>> different SoCs, we can differentiate them through the "compatible"
->>> property and add the corresponding drvdata for each.
->>>
->>> I'll also try to support S7/A9 with representative differences based on
->>> this patch.
->> Great, let's look at some code rather than discussing theory on how to
->> write code :-)
->>=20
->> There's one last detail that we have to manage in case we also want to
->> include the Meson8* code into the same file:
->> config MESON_SM depends on ARM64_4K_PAGES
->> 32-bit kernel builds can't satisfy this (meaning: we end up with
->> linker errors). I think a simple way to get around this is to add stub
->> functions to include/linux/firmware/meson/meson_sm.h.
->> I'll take care of that once I can submit Meson8 support patches for
->> your upcoming amlogic-cpufreq.c!
->>=20
->>=20
->> Best regards,
->> Martin
->
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
-
---=20
-Jerome
