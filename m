@@ -1,112 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794562600;
-	b=3u5XRMbQ44w9kiiOAk7f/i08B2wTse5PQi2sYGXqyyD5EOWWozLQPaPlMUIShUfuK4c+
-	 smkBL+baHN1Z+isjyEu/NAPoT/eQaVPJ8s41jWYWmogseaKiZqn26I+NRrrq2wDuJRgfH
-	 Vk8sGOmSjWqjM9ZmlzLvYzQNwtuNAlxM5vYSkLCTUGgeG8nv9n0ZkKm3//hijMGVhFyT4
-	 lBlyZf1FJN8Dj2F+Q60I5EGM2XQdxPhoD3mLGi9aPsWMssjzrC3Lez619s6JLA3ihtRvs
-	 gy1TuB3Bvn//FUPCeV3R/TdiGM0nSFm7lDuLpwTl4MHodsTu/+vXcppbrsQbj+TzjQw==
+	t=1794562680;
+	b=WaUVyFMjO+YZ+sSd/qLPfoXPqsysHM06nuejrb+BDNt6ztK2cVOlrgZM/B7D5B5bkSx2
+	 2NI+3DVBlcU4Ic8fX2O6cjHVWv8xL/5Oux1vRN/B2+n//Qoc2sja/BVN7Za9QROEKFFZG
+	 mA4DYPopKzcgMCClbEGQtQBhFL6hNST0F78ekmDYuyqHAyiC3TzT1nksWFTZUKzeIjtj8
+	 2ajwGABmZDq3SQg8F+M2lSBafGqfvACjHv9tPrKXVnN2Qjjldpwb2t47kvWTQddtlnm2H
+	 mdKIaOVBZgBoxngeOfuxuJbLqWyvgS6HIMmM8OpOQk/ryQmRQTsgXkYhYJwIS88ZM8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794562600;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cLsQc2gUWWCsMRZXIeMbM6mV7EAFqw0z8J6u3kCxlKY=;
-	b=UwAwaHRAEuwY+ietSMj+SP9S/Lr4fDV03/Eoe+4cinYDOjRQBKBUPo2QYva3kysdODhI
-	 /6qHPwPqBCowhKh26whDDotVOT+fINMmM+LgR+4l9kLGHiCfh6kPH/lJQyomwZ7DBkV3z
-	 3x7Kq0QrMz8bM/Vqds6pOApEJQZ6BPuhYmPn2qawgXe4tBuvUjKsGPWo8PoI17Fh2EClX
-	 XgC/nbWsm/MK0YARKMBkATWLhpKpXA+KHnGau+ZbmSszltgPKUVgpNkdU/o6P9s4l8eS7
-	 NnpILQpn+8U+yIvFxHb7DP9axy0IN5mLgqSc3NXkAIKWp6yU25S/GOtkFrNUE533oPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794562680;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=B43MalWhg3h7upgl+gGJ5GYONh4y3XlBMTeB37zFhLU=;
+	b=KaJSB1ICKqnKxfdtU8bd6mTmOYtCPJHklECyRyk7hr9kcL5rh7/7yA74Ia9hJFudZT8v
+	 vBsI94U5pQqnWNxQGFKFARr5EEj4pHKCwhhvZn8If4eD6SEHdAl06wGlxBbKS/GRys+PA
+	 MuOtk1fe3uxmZ4/nA66NhA+zhIHo/ttFk2wdyrcxpvl2dtkbABeTTNFOe+zXdpz8u/KS/
+	 4Xwees4Xj1QwH8nyxgjqCGz11yHRXhwkaaTojRESs2y+QMt33FQqMkDV9ViC6Ekjbfb8P
+	 5h62oqsnv9rZwolxQVwLor2GCF/dLuhdXxKOpvInWjExLJDTTRvi/Pm/rticKjO1/Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GVKFGMs1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X7ZBaiAS;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5F6606A332
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5F6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GVKFGMs1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X7ZBaiAS
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8VSZt1527740
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:36:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cLsQc2gUWWCsMRZXIeMbM6mV7EAFqw0z8J6u3kCxlKY=; b=GVKFGMs1XMs9bbXp
-	Zhg5r5J6RwMc42vPpYNxUdrGnsI4Fhw2BdDU0rdu3o0sFmMKaQu1NrcR2rTbbR8R
-	GvHPsp+4adGh3QtD7FPMoBIFtRHYLVkbyZChjnR/NLvCdmjR/OrbJPj7fl4qeV8W
-	a1ieVPsDJG+7JDIGNw/V8eBuedTZbN9Wy0yyelW2uvkedT6T910Pio8zORxPVIZq
-	cgFh3n80GjMVVrvJDu3INzRywdH0D4acbetf4CAQIkFyDea6uPH4cEbOmx5UmaHp
-	nwj/BjflK9AxQPPF1ZvcJ3MYKU+dUoOYlXPQrcNKRYBmmtJfK/Ul3Q6ffcQMlx45
-	ZG45lA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hww5r8nvk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:36:38 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd66551e02cso1012129a12.2
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:36:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794562598; x=1795167398; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cLsQc2gUWWCsMRZXIeMbM6mV7EAFqw0z8J6u3kCxlKY=;
-        b=X7ZBaiAS8K2KXZeuQLkmbkTRe3zNfdIiMuGxv7jvMCDQD2+x8bpKi9JzV8lE/GYyRK
-         ddtiIzUQ5gaeoAVSsoiGas1KbmJh4hjRESbPD8F2lu5hWZvGJeXH9I92RxUfl6zmL00r
-         xfFKr/NZ+dce3umVRV3NGSZ3OkCqmM83ARyCJkKPN7smCww7rPjn8A+hq85ku60bRkk8
-         w9Q/2dUBWmhhYe/6G0enYKLeHHFwEygaQbp2vua+6T6MWCj2ZQr04K6HTMVd+CZL4BYU
-         /zEohRRzQFTMu2KZSVemz1huzurcujJXrfgK1h9wXZdMe7xOhmZ+5rQwVDu+3gZ1793D
-         zkRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794562598; x=1795167398;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cLsQc2gUWWCsMRZXIeMbM6mV7EAFqw0z8J6u3kCxlKY=;
-        b=BZK9b9eHeYirASFXshapXrxfVi3wNa/vReweUzc3k1KvyP8gtm/JdnjtE0jXtSLypQ
-         xqAXJtoL+R9fUXeHBSDgZxdiO2Kx2THptvfSpChUjb2s9dhE7mNi6jPh7y9YUHexZW6I
-         CarK89omGaSZ42MdBGt4H1GSWF5+5urxjBjn6gp3diIoigk9uYjBV4pv9L/IgbWcc+tN
-         V3bJ1l6C4MQQTo2iM3p1KdrLAwI1kwvzqotZO6/XLAt/jX8W8R930VhF7fydosbChCUp
-         RJ8MVFOuOnvcblRuz4T67d4TyJV2AkmYf/BDa8a7LFQ1eHhDOpmkeuC7qyc+qwlj+ZSV
-         HEXg==
-X-Forwarded-Encrypted: i=1; AL+hErHipbVOnv5ufFrsimaLVtx39p1lJqNAu14v11jlXlM7xEeIodt468N787X3q4m1as40fyErM/bVvFmh@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1YdHQoR2HV45QiqJrlBO7PZuFUJkkbZPA1MsKWj3p9/wbXG7f
-	FFhWUnJSiJA6nzbLFezAmTcb4qrvXGf0aYsmWoHPElbLH8ZH0whLUHK3ehkk0IVp08kN23A0wiM
-	4wAvK6r+yxr5va0u9xMuexwXY/FgPZRFUyOx03oowrTu+xgvtJqnrGE2lqWztTbPp
-X-Gm-Gg: AYBFou0Oy0OA5oLqwe24gOXgf3ezFbMtUCBZ089oyp0NWVfnszW62zB0xkewOehVLMB
-	QkSzhlfRlpviQA6ZVOcXWAtW88QWFKB75BThuDTC5omBv+R9uePFywiQRn2YQOjZA2M+DuC7pE/
-	+jxHFhYZEw8faiyg5zyOTIpkLxEl2hzMvDo2TtNPYstIKa6qomasQR8OIkDCL5N+Dj/cjSZ6LfK
-	S7EmqQdjb5QR7MIMwLdV05e0nYqEZzOTkaPcsIRDUxelMvi4ptG0KfLS+Vp+Z98P+52weLv30BQ
-	NS41IFzE4hTO/A702/jqS14mY1/GWbuLsfKfODFNo1H2Xn2I6+QJgsLq4Wtl3RLHPpLVoCF/q2V
-	SXutfqzTNI7dQ05+qRvsPUvM08MF9lya/1yMW2if1wUfDBNLxY2egpHjq4M0mi/cWE2z78IZUIS
-	vyLvtTcTY8jCHM0pdGODnnW/Z5LVNftsVOGUBMYaw=
-X-Received: by 2002:a17:90b:1652:b0:3b0:9317:5842 with SMTP id 98e67ed59e1d1-3b1b0a42b8cmr1747879a91.48.1794562597495;
-        Fri, 13 Nov 2026 01:36:37 -0800 (PST)
-X-Received: by 2002:a17:90b:1652:b0:3b0:9317:5842 with SMTP id 98e67ed59e1d1-3b1b0a42b8cmr1747854a91.48.1794562596993;
-        Fri, 13 Nov 2026 01:36:36 -0800 (PST)
-Received: from [10.133.33.5] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae981c55sm3828201a91.1.2026.11.13.01.36.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 01:36:36 -0800 (PST)
-Message-ID: <68bb5fe0-9005-4517-aec0-c39021a5b24f@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 17:36:28 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8FB606A31C;
+	Fri, 13 Nov 2026 09:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F8FB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
+Subject: Re: [PATCH 2/3] pinctrl: ingenic: Add X2600 register and GPIO IRQ
+ support
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+	letux-kernel@openphoenux.org
+Date: Fri, 13 Nov 2026 10:37:48 +0100
+In-Reply-To: <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
+References: <cover.1794557697.git.hns@goldelico.com>
+	 <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,227 +55,235 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] iommu/of: Add support for "iommu-ranges" on a
- device node
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel
- <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-        kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-5-5c0f72083e52@oss.qualcomm.com>
-Content-Language: en-US
-From: Yijie Yang <yijie.yang@oss.qualcomm.com>
-In-Reply-To: <20261106-add_iommu_ranges-v7-5-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzOCBTYWx0ZWRfX9hAvzp+DAhYy
- 5NQNLtjunBLl+e+4Jy9AY26hcp/cX/U0AJdD6lMjwyRA53fz2MlYX9FmrpQX5ox1XGfi1EqE3o8
- EFem4w1fs9rznkoEGH94PaZuHzsxmjvHuChI4h7P3+t0pJv/ey+84O3lbuf6a0mBGU6tJtsxeIX
- P4SndKB0VxDSYS8HmXyG0S31OKV71E1pAN+W+0OdIe6hpkyj7a7TuYxcNjRTQtJHYyq0SqctzzQ
- Pof3LDn9EdL9tX0d2RrXdHNXepxxHPwQe21qNIxqjKjSjr2Ne/77YtG0IwmvtYYG0X9jz2wypmG
- 7JfEvsiqxRtgNLZzAvqKkmWh6jhlVJdJ7WysRfx0xbEH5vU5I5DZfn7E6Vp6ISf3OkPUwXrVBXS
- rEBujLCg83KZFhFe6mJ5tOldj1ZmQFKs2B02jDzAocSFGCB+ZyagTGs60hHvKXtGRU0kvhcHaHW
- +VG8OE3IiSmPNR+CyjQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzOCBTYWx0ZWRfX4HJKgANY3pZX
- 8O3HUcD8lGMv5KMLKOCsSkOOnZuWX0cvqd4y7SJc9f4JRccqbKJAxTu5ew5TWowS/TqHHe9e4Mm
- ynBpTFvtKSCs8QrxX0siXAP1RrsTU8s=
-X-Proofpoint-ORIG-GUID: mX8KczkjZz2fGH8eo6sKZAL967qaRsRF
-X-Authority-Analysis: v=2.4 cv=Vqq2kO2n c=1 sm=1 tr=0 ts=6af6da26 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=BUd8g3l6cCjgLUHkIXsA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: mX8KczkjZz2fGH8eo6sKZAL967qaRsRF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- clxscore=1011 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130038
 
+Hi Nikolaus,
 
+Le vendredi 13 novembre 2026 =C3=A0 09:14 +0100, H. Nikolaus Schaller a =C3=
+=A9crit=C2=A0:
+> Add the X2600 SoC ID and adapt the GPIO register access functions
+> to its register layout.
+>=20
+> Unlike earlier Ingenic SoCs, the X2600 uses a register bank
+> spacing of 0x1000 and provides separate shadow registers and
+> load registers for each GPIO port. It also uses a dedicated
+> register for clearing GPIO interrupt flags.
+>=20
+> Update the GPIO interrupt configuration to account for hardware
+> dual-edge detection on X1600, X2000 and X2600. These SoCs require
+> PAT1 to be set when dual-edge detection is enabled, while X1000
+> and X1830 continue to use software emulation.
 
-On 11/7/2026 1:14 AM, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> "iommu-ranges" was introduced to specify the device specific IOVA ranges
-> when there is no backing "reg".
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+So at the same time you're fixing X1600/X2000 and adding support for X2600.
+Looks to me like it should be splitted into two patches.
+
+>=20
+> The corrected interrupt configuration has been tested on X1600,
+> X2000, and X2600, including GPIO dual-edge interrupts by a
+> gpio-button.
+>=20
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 > ---
->   drivers/iommu/of_iommu.c | 107 +++++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 107 insertions(+)
-> 
-> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> index 00b02c19f27e195fc36c4bc1d91253255147c9ab..e133d3b346feecac7e2bfaec44e4882060ee89ec 100644
-> --- a/drivers/iommu/of_iommu.c
-> +++ b/drivers/iommu/of_iommu.c
-> @@ -183,6 +183,111 @@ iommu_resv_region_get_type(struct device *dev,
->   	return IOMMU_RESV_RESERVED;
->   }
->   
-> +/**
-> + * of_iommu_derive_resv_regions - derive reserved regions which
-> + *                                are outside of iommu-ranges
-> + * @dev: device for which to get reserved regions
-> + * @list: reserved region list
-> + *
-> + * A device can describe its own usable IOVA ranges directly on its node
-> + * via "iommu-ranges". Everything not under those ranges is derived
-> + * as a reserved region so the IOMMU allocator won't use it. Entries may
-> + * appear in any order in the property.
-> + */
-> +static void of_iommu_derive_resv_regions(struct device *dev, struct list_head *list)
-> +{
-> +	struct of_iommu_range {
-> +		struct list_head node;
-> +		phys_addr_t start;
-> +		phys_addr_t end;
-> +	} *pos, *new, *next_range;
-> +	int size, prot = IOMMU_READ | IOMMU_WRITE;
-> +	struct iommu_resv_region *region;
-> +	const __be32 *maps, *end;
-> +	struct list_head *prev;
-> +	phys_addr_t next = 0;
-> +	LIST_HEAD(ranges);
+> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 71 +++++++++++++++++++++++++---=
+---
+> =C2=A01 file changed, 58 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
+> ingenic.c
+> index a62532c49fb60..90c734c74d267 100644
+> --- a/drivers/pinctrl/pinctrl-ingenic.c
+> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+> @@ -70,6 +70,10 @@
+> =C2=A0#define X2000_GPIO_SR				0xd0
+> =C2=A0#define X2000_GPIO_SMT				0xe0
+> =C2=A0
+> +#define X2600_GPIO_FLAG_CLR			0x58	/* write only */
+> +#define X2600_GPIO_SHADOW_OFFSET		0x800
+> +#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET +
+> 0xf0)
 > +
-> +	maps = of_get_property(dev->of_node, "iommu-ranges", &size);
-> +	if (!maps)
-> +		return;
+> =C2=A0#define REG_SET(x)					((x) + 0x4)
+> =C2=A0#define REG_CLEAR(x)				((x) + 0x8)
+> =C2=A0
+> @@ -114,6 +118,7 @@ enum jz_version {
+> =C2=A0	ID_X1830,
+> =C2=A0	ID_X2000,
+> =C2=A0	ID_X2100,
+> +	ID_X2600,
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct ingenic_chip_info {
+> @@ -164,7 +169,8 @@ static const unsigned long enabled_socs =3D
+> =C2=A0	IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
+> =C2=A0	IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
+> =C2=A0	IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+> -	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
+> +	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
+> +	IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
+> =C2=A0
+> =C2=A0static bool
+> =C2=A0is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version=
+ version)
+> @@ -3545,15 +3551,21 @@ static void ingenic_gpio_shadow_set_bit(struct
+> ingenic_gpio_chip *jzgc,
+> =C2=A0	else
+> =C2=A0		reg =3D REG_CLEAR(reg);
+> =C2=A0
+> -	regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
+> -			jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
+> +	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+> +		regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+> X2600_GPIO_SHADOW_OFFSET + reg,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 BIT(offset));
+> +	else
+> +		regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info-
+> >reg_offset) + reg,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 BIT(offset));
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void ingenic_gpio_shadow_set_bit_load(struct ingenic_gpio_ch=
+ip *jzgc)
+> =C2=A0{
+> -	regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
+> -			jzgc->jzpc->info->reg_offset),
+> -			jzgc->gc.base / PINS_PER_GPIO_CHIP);
+> +	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+> +		regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+> X2600_GPIO_PAGLD, 1);
+> +	else
+> +		regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info-
+> >reg_offset),
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 jzgc->gc.base / PINS_PER_GPIO_CHIP);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
+> @@ -3618,6 +3630,12 @@ static void irq_set_type(struct ingenic_gpio_chip
+> *jzgc,
+> =C2=A0		break;
+> =C2=A0	}
+> =C2=A0
+> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+> +	=C2=A0=C2=A0=C2=A0 (is_soc_or_above(jzgc->jzpc, ID_X2000) ||
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X1830)))=
+)
+
+I remember you saying (in another patchset) that the X1830 was older than t=
+he
+X1600, if that's the case the IDs for X1600 and X1830 should be swapped. I
+believe this patch would then become much simpler.
+
+Cheers,
+-Paul
+
+> +		val2 =3D true;
 > +
-> +	end = maps + size / sizeof(__be32);
+> =C2=A0	if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
+> =C2=A0		reg1 =3D JZ4770_GPIO_PAT1;
+> =C2=A0		reg2 =3D JZ4770_GPIO_PAT0;
+> @@ -3640,6 +3658,9 @@ static void irq_set_type(struct ingenic_gpio_chip *=
+jzgc,
+> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+> =C2=A0		ingenic_gpio_shadow_set_bit_load(jzgc);
 > +
-> +	while (maps < end) {
-> +		phys_addr_t iova, iova_end;
-> +		resource_size_t length;
+> +		if (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+> !is_soc_or_above(jzgc->jzpc, ID_X1830))
+> +			ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
+> val3);
+> =C2=A0	} else {
+> =C2=A0		ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+> =C2=A0		ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+> @@ -3714,7 +3735,8 @@ static void ingenic_gpio_irq_ack(struct irq_data *i=
+rqd)
+> =C2=A0	bool high;
+> =C2=A0
+> =C2=A0	if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
+> -	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+> +	=C2=A0=C2=A0=C2=A0 (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+> +	=C2=A0=C2=A0=C2=A0 (is_soc_or_above(jzgc->jzpc, ID_X1830) && !is_soc_or=
+_above(jzgc-
+> >jzpc, ID_X2000)))) {
+> =C2=A0		/*
+> =C2=A0		 * Switch to an interrupt for the opposite edge to the one
+> that
+> =C2=A0		 * triggered the interrupt being ACKed.
+> @@ -3726,7 +3748,9 @@ static void ingenic_gpio_irq_ack(struct irq_data *i=
+rqd)
+> =C2=A0			irq_set_type(jzgc, irq, IRQ_TYPE_LEVEL_HIGH);
+> =C2=A0	}
+> =C2=A0
+> -	if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+> +	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+> +		regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+> X2600_GPIO_FLAG_CLR, BIT(irq));
+> +	else if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+> =C2=A0		ingenic_gpio_set_bit(jzgc, JZ4770_GPIO_FLAG, irq, false);
+> =C2=A0	else if (is_soc_or_above(jzgc->jzpc, ID_JZ4740))
+> =C2=A0		ingenic_gpio_set_bit(jzgc, JZ4740_GPIO_DATA, irq, true);
+> @@ -3754,7 +3778,9 @@ static int ingenic_gpio_irq_set_type(struct irq_dat=
+a
+> *irqd, unsigned int type)
+> =C2=A0		irq_set_handler_locked(irqd, handle_bad_irq);
+> =C2=A0	}
+> =C2=A0
+> -	if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && !is_soc_or_above(jzgc->jzpc,
+> ID_X2000)) {
+> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+> +	=C2=A0=C2=A0=C2=A0 (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+> +	=C2=A0=C2=A0=C2=A0 (is_soc_or_above(jzgc->jzpc, ID_X1830) && !is_soc_or=
+_above(jzgc-
+> >jzpc, ID_X2000)))) {
+> =C2=A0		/*
+> =C2=A0		 * The hardware does not support interrupts on both edges.
+> The
+> =C2=A0		 * best we can do is to set up a single-edge interrupt and
+> then
+> @@ -3849,16 +3875,35 @@ static inline void ingenic_shadow_config_pin(stru=
+ct
+> ingenic_pinctrl *jzpc,
+> =C2=A0		unsigned int pin, u8 reg, bool set)
+> =C2=A0{
+> =C2=A0	unsigned int idx =3D pin % PINS_PER_GPIO_CHIP;
+> +	unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+> =C2=A0
+> -	regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+> -			(set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
+> +	if (set)
+> +		reg =3D REG_SET(reg);
+> +	else
+> +		reg =3D REG_CLEAR(reg);
 > +
-> +		maps = of_translate_dma_region(dev->of_node, maps, &iova, &length);
-> +		if (!maps) {
-> +			dev_err(dev, "%pOF: failed to parse iommu-ranges\n",
-> +				dev->of_node);
-> +			goto exit;
-> +		}
+> +	if (is_soc_or_above(jzpc, ID_X2600)) {
+> +		u32 target_reg =3D (offt * jzpc->info->reg_offset) +
+> X2600_GPIO_SHADOW_OFFSET + reg;
 > +
-> +		if (!length)
-> +			continue;
-> +
-> +		iova_end = iova + length - 1;
-> +
-> +		if (iova_end < iova) {
-> +			dev_err(dev, "%pOF: iommu-ranges overflows address space\n",
-> +				dev->of_node);
-> +			goto exit;
-> +		}
-> +
-> +		prev = &ranges;
-> +		list_for_each_entry(pos, &ranges, node) {
-> +			if (pos->start > iova)
-> +				break;
-> +			prev = &pos->node;
-> +		}
-> +
-> +		new = kmalloc_obj(*new);
-> +		if (!new)
-> +			goto exit;
-> +
-> +		new->start = iova;
-> +		new->end = iova_end;
-> +		list_add(&new->node, prev);
+> +		regmap_write(jzpc->map, target_reg, BIT(idx));
+> +	} else {
+> +		regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+> reg, BIT(idx));
 > +	}
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void ingenic_shadow_config_pin_load(struct ingenic_pi=
+nctrl
+> *jzpc,
+> =C2=A0		unsigned int pin)
+> =C2=A0{
+> -	regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
+> -			pin / PINS_PER_GPIO_CHIP);
+> +	unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
 > +
-> +	if (list_empty(&ranges))
-> +		return;
+> +	if (is_soc_or_above(jzpc, ID_X2600)) {
+> +		u32 target_load_reg =3D (offt * jzpc->info->reg_offset) +
+> X2600_GPIO_PAGLD;
 > +
-> +	if (of_dma_is_coherent(dev->of_node))
-> +		prot |= IOMMU_CACHE;
-> +
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		if (pos->start > next) {
-> +			region = iommu_alloc_resv_region(next, pos->start - next, prot,
-> +							 IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +			if (region)
-> +				list_add_tail(&region->list, list);
-
-Why keep looping here after allocation failure?
-
-> +		}
-> +
-> +		if (pos->end >= PHYS_ADDR_MAX - 1)
-> +			goto exit;
-> +
-> +		if (pos->end >= next)
-> +			next = pos->end + 1;
-> +
-> +		list_del(&pos->node);
-> +		kfree(pos);
+> +		regmap_write(jzpc->map, target_load_reg, 1);
+> +	} else {
+> +		regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info-
+> >reg_offset),
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 pin / PINS_PER_GPIO_CHIP);
 > +	}
-> +
-> +	region = iommu_alloc_resv_region(next, PHYS_ADDR_MAX - next,
-> +					 prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +	if (region)
-> +		list_add_tail(&region->list, list);
-> +
-> +exit:
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		list_del(&pos->node);
-> +		kfree(pos);
-> +	}
-> +}
-> +
->   /**
->    * of_iommu_get_resv_regions - reserved region driver helper for device tree
->    * @dev: device for which to get reserved regions
-> @@ -262,5 +367,7 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   			}
->   		}
->   	}
-> +
-> +	of_iommu_derive_resv_regions(dev, list);
->   }
->   EXPORT_SYMBOL(of_iommu_get_resv_regions);
-> 
-
--- 
-Best Regards,
-Yijie
-
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void jz4730_config_pin_function(struct ingenic_pinctr=
+l *jzpc,
