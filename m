@@ -1,109 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532484;
-	b=SQOOCxBQMIJmF09YKCJ57i3KcTk68rZi/W0MYGlc3Pjcyv8eU+0vm/6MC+ycLOHssfML
-	 I1l61YhZEKj9XXd1MebcRDVQgeftvBDOFHmhlYPhzXbUv+Em1x8lgmHM8wWf50l7atQli
-	 fVZ6rgvugZJwhtlpgFQankyE8OqWi/A9cJs8l3KBkSXaKFURxPWHL5LRTTrvF6aJgLDIR
-	 XMuQz6sz63lHZPhf7mtiRX5BVFBUATNQtFHNJzn0wgVk6qRX/n3/X5DCohL/FeKe3KAqk
-	 eha2JT0PHHIQ/fYkQ6xTF13BZOrqrQ1zN0xWnTl5eJ9klX6+RY6baPsho18Imknskfg==
+	t=1794532804;
+	b=JxrYKBGQ/dG/9B4vJ6XjvrUG7/UPhBhMOZwG19aV4xkCOVi+tvUZlL1SE01nC5gQZEa3
+	 FYg/rvpeKVrEXs7k0QJQEYoJcE9xNZwKLpnLnis8Tgj7AKJtnSL+tsa7/ufmsOQtExeoa
+	 sHVs8qsGJRSW/s1DmvpoJwJdGug6KDTFzV2aTDd+aW+nWwMX8ayA0VAvNFT/oiRRsyvHT
+	 eYuEprSi01H8lPHvFDL+EMdDBVu+qUxjz99Blse8NicvS6+nsaEq4Y2RD1RmEuFIaQl72
+	 vq6Fg1PgduzKuJ4bzA5DaRX4GndBkHHnlZ/4qhvo4zr0WsaM0P1N7fQVW8U+hkXnROw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532484;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
-	b=lO5/uD6lq0Azh8H+Xma2UiSHm5b5G3gGV/rx2nN/30mmFxgPQyMSRmWAUJCsG4GMECcq
-	 Dtwh1zNtYhG4hlvuaUy6dmeOEos3Z3nhbdPg0TJrUDJzGOJYKA25gOYNV/2kubvyQPrma
-	 XTecwOYHvd/THgybfr1r+X/slRfiN8cv5ThtqQSz3YqbQpeTglKUlDHyt8h05lIzHdn1G
-	 2NgGsJ/T6U6eNHUg2o839oQ/ZoTSoJjuh8eNDwfoBZzxa8WAFQQWak32+JjzcaLZlO5OJ
-	 lca6+zbPG3lyHhzDFxHBNFOXeCNpk/kQ+fsEEYPlpVU2YL/S0TP/LUkQDZ2NePwG5xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532804;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
+	b=YOJjSfBAcAi8Do1iZZ592g7botkhepTrLxWnX4jEwYHiP+i2dGwv4xU8Hmdop4MQqruv
+	 PEJF7G1BrbMdrr7kotMQbnM9wLNzAZ0klaD6bjK+i35bAGLgkFl1uxLbzwcLYqR+V3s05
+	 tgNOnLmSksLvBvt7pK0ZeHebIjWrISZYLNUj8XjpcfuuyPWxxBV7twA/uH4G82YM5ge9L
+	 5+EHgbSUyiDOHOx1hVTyW5RWZO7uiACrmc1dSbnb/9+CGlrbfmdaZzhDNUoHVLthuSb1z
+	 x0Scp0JfSZaYfV0YQLs9iWzHA8X/c7W2IqFoJdFmUra/lEhDv+rqKA2fBPLir4oISbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QRPrL000;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D06606A31C
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D06606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FF5606A323;
+	Fri, 13 Nov 2026 01:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QRPrL000
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15ea896ddc8so491061c88.0
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 17:14:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794532482; x=1795137282; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
-        b=QRPrL0000yqqXjBWHqNbRcWasjWbFOVo9y3hyLWAJfY5LWYvqk7Wu6LE0XENCCaS2a
-         2gDKt9Tmj+gDju+E4i8Ox0fY6gAs66i9q++F5eYp07XycK2OqpdK+ddESitSF1AQz2BC
-         1fy3zZ1rbxWPfFY32jKlkMebj26wY+vxNJZuc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794532482; x=1795137282;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
-        b=DGD+n7Pz+Rx8jzLXM/cD4WLaQOMQfsfTBTM+YtUDKz2zsfGI4PD3av1gudoJotzGnP
-         9JMzla8WlqeEbafIRIP5FBy9hWOaMNsJRAL2T3n9JlCeBM/baTRxDyJxPP3NF3MbJeaS
-         hphYu7S7FlPVrpJr1sAu+Eb/8kppfu4GEV+pwVA7InMR+H3yNgCV2p8zUZY4j3PxmFQS
-         c0FCxPFzCj49m52iQ7PLoOufmQ2Pf93Ks9xUlwjjGcTara5flog7UMhMmpiiss3AaM8a
-         JC1Xt6v+qlYZ77t13YLhmlDVUuO65V9q3dJdatha32kPmk9PNkrZyRFnFdpaqEJWyJQ+
-         f5BA==
-X-Forwarded-Encrypted: i=1; AL+hErE+3sVqbLqN7X76nB1ddHfH8R15lxT9+lqarEXhg6X5XQBEGroOiWmXsAh8PeH8wyDB+arXZNOKqDi7@vger.kernel.org
-X-Gm-Message-State: APuU4Z9encuvYqWfQ1W5FWZBTLhbrEITYQ1N1EtzNt1rKlSOeZfrWYO4
-	oe1Edhr/AYQJNxmkOHXnbUwjJ16wgSemLHt/fXGp5MttJQcCUa4fu050lsFlgWULyg==
-X-Gm-Gg: AYBFou3iyTvfMSx6abQhGmJr9bu8oX4Eo+IC+xO5r0ggqS4Ny6JJ4BIBMhsknr9Qss/
-	sRfA/U/RBBtx6jj1FpdxdRiwfyfEDNmce45rORi2I0iZlXABSysooIfFlXpHfnnqIzRauxNnWKX
-	ftcEb7diey2Glrnrsut4nvsnIVGMgsLMXnlK3oXuZfcEoGZa/RnaHOlZ/syO+ZhwHK1S6J6USeY
-	g+PxhGBlunZqThwSIlYTQjVw6UdIfWW6koZnJ57OyprdWsNn+N/4LMbVp+c5MrqiGioZqqHuT+g
-	61iKJDdc21QWy5mC/AW1egLVu0w1r93EpP/qR4vZks6dxLQl7BrPzCHbl5rKujcP6XFhWnE7AiT
-	D9WOYYv4K9INSNb4h2QkpdHs/qXx/2cgk27acZEosPzJ/X1cuzzjETjv4PzbYKTv+Y+u4IgJKdK
-	eGbjtDxo+CW3FeOlFLt4vbvbfreDJRceK1JlHFmqSsFexjgmv7HS7hPE7xObEPFc9PeOrzr/Ol3
-	ORr/aByQvAcHE+T4YakFOE94Qs0JhXj9nJucYd1e2+0pWIWKbY2PQJr+3D0bpI8PnIbcveC38Y9
-	Q8nsjj8U6QF3O3gDTGZteijsOxwxWVVGj2Xay7M3DQGDsie0EkNBM9M4tZEm9rI35NU9yjM4OU0
-	yBUqOZt1l+FHYPw==
-X-Received: by 2002:a05:7023:a41:b0:183:e993:7901 with SMTP id a92af1059eb24-1b5030abd48mr1019806c88.17.1794532482087;
-        Thu, 12 Nov 2026 17:14:42 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:616b:3e06:cec4:c2f9])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b50309b2b5sm2265698c88.1.2026.11.12.17.14.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 17:14:41 -0800 (PST)
-Date: Thu, 12 Nov 2026 17:14:38 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
-	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
-Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
- binding
-Message-ID: <avZkfg6WMlMzOxpn@google.com>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
- <20261028-rapid-daffodil-rat-0adc6a@quoll>
- <aulIoq2oVjJ3DVzL@google.com>
- <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8EB91F000C4;
+	Fri, 13 Nov 2026 01:20:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794532803;
+	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hJVTzpjWkmPY0v3/KVrmMhVkRvcRtGSnUzNTZ/4hUNWmc4LjO4zfXjHbuQ8hV8/vZ
+	 fK613O872Bdx0JJDQbaC6RZByiVHo3JEmetLyjkqhMmed5YIm7QfOo9U2+8YQIyYIP
+	 McBQcK0R3OisJdmCy+DxZu10DZwPCmkpWrxgk+IIqTyPKtnbelc9NDsirKVYXqABxK
+	 6/yHEticQ5mzgqTM1XcQTP7mKSpQElkjVaaq5PyqWG+t07ZzTCg4b0nXRTvoZaFa0C
+	 BtQtOdduxum2riLmUmP0Q/PrY0L/0nQNZR+Pur30+AB3eBl6gb+rx3OaUS8VgvMHEE
+	 0q1cZyhyLzmZA==
+Date: Fri, 13 Nov 2026 01:19:57 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Akhilesh Patil <akhilesh.patil@linux.dev>
+Cc: andy@kernel.org, krzk+dt@kernel.org, dlechner@baylibre.com,
+ robh@kernel.org, crofts@kernel.org, conor+dt@kernel.org,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
+ akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261113011957.5d8836ff@jic23-hlaptop>
+In-Reply-To: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,140 +63,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
+On Thu, 12 Nov 2026 09:16:41 +0000
+Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
 
-On Thu, Nov 05, 2026 at 07:54:22PM +0100, Krzysztof Kozlowski wrote:
-> On 03/11/2026 03:36, Brian Norris wrote:
-> > On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
-> >> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
-> > 
-> >>> --- /dev/null
-> >>> +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
-> >>> @@ -0,0 +1,16 @@
-> >>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> >>> +/*
-> >>> + * This header provides constants for CPM IRQ.
-> >>> + *
-> >>> + * Copyright 2025-2026 Google LLC
-> >>> + *
-> >>> + */
-> >>> +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-> >>> +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
-> >>> +
-> >>> +#define CPM_IRQ_RTC_ALARM_NO			0
-> >>
-> >> Keep naming consistent. Clocks has _CLK suffix, so this should not use
-> >> prefix.
-> >>
-> >>
-> >>> +#define CPM_IRQ_AOC_MIN				7
-> >>
-> >> Anyway, ABI constants should be indexed from 0 and incremented by 1.
-> > 
-> > What do you mean by this? Do I need to make up names for the
-> > unused IDs between 0 and 7? On an initial search, I don't believe they
-> > have any meaning at all. Does that mean I should make up some kind of
-> > "RESERVED_<N>" naming here?
+> Move to my new linux.dev email address akhilesh.patil@linux.dev
+> I plan to use this email for kernel development going forward.
+> Also update email address in few yaml and driver source files.
 > 
-> No, I meant CPM_IRQ_AOC_MIN is 1.
+> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
+
+I can pick this one up with an rtc ack, or it can go through that
+tree. I don't mind which.
+
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Thanks,
+
+Jonathan
+
+> ---
 > 
-> > 
-> > Between 7 and 156, these are just ... 150 different "service numbers"
-> > within the AOC (Always On Connectivity) subsystem. I can name them
-> > AOC_0, AOC_1, ... AOC_149 if that helps.
-> > 
-> > Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
-> > into 0-151? I thought it was valuable to directly use the firmware
-> > indexing where possible; if I change those, then the indexing loses its
-> > inherent meaning, and we also have to add another layer of translation.
+> Changes in v4: 
+> - No source change.
+> - Added entire change log for all versions.
+> - Link to v3: 
+> https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
 > 
-> We do not use hardware numbers as bindings and ABI, because that's
-> pointless - no benefits, only risks. Similarly you do not define GIC
-> interrupt numbers, pinctrl pin numbers, MMIO addresses as bindings. None
-> of these bind anything between DTS and software, so not a binding.
-
-OK, I see your point about the distinction between hardware numbers and
-bindings. So are firmware-protocol-defined numbers more like hardware
-numbers or bindings?
-
-> There are some exceptions like SCMI firmware, but that's not the case here.
-
-It's funny you mention that, because that's exactly what Jerome compared
-this to in the clk, reset, and pmdomain portions.
-
-These values are used literally in the firmware interface, so I'd
-consider them very similar to SCMI firmware protocol IDs (and, not that
-different to hardware IDs, if you consider the "firmware" as essentially
-unchangeable). And if I change this to *not* be literal firmware IDs,
-then Jerome's suggestions on patch 5 (to imitate SCMI, and to defer more
-control to the firmware) become more difficult.
-
-If I do keep these as literal firmware IDs: does that mean you'd prefer
-these not be in dt-bindings/? Many of them (especially the IRQ IDs
-you're pointing at) are not needed at all in the kernel side; they serve
-more as naming documentation than anything else. I can just inline them
-into the DTS. But I'd prefer having macro names for LPCM IDs and
-similar, as it vastly helps DTS readability.
-
-> > 
-> >>> +#define CPM_IRQ_AOC_MAX				156
-> >>> +#define CPM_IRQ_AP_GDMC_WAKE			157
-> >>> +
-> >>> +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
-> > 
-> > 
-> >>> --- /dev/null
-> >>> +++ b/include/dt-bindings/soc/google,lga-lpcm.h
-> >>> @@ -0,0 +1,54 @@
-> >>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> >>> +
-> >>> +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-> >>> +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
-> >>> +
-> >>> +/*
-> >>> + * LPCM IDs of each SSWRP.
-> >>> + */
-> >>> +#define LGA_LPCM_CPM			0
-> >>
-> >> What are all these?
-> > 
-> > The binding doc says:
-> > 
-> >       Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
-> >       See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-> >       <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
-> > 
-> > and
-> > 
-> >       Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
-> >       2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
-> >       <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
-> > 
-> > These are the IDs used in the firmware interface to talk about these
-> > things, as many of the SoC resources involved (clocks, resets, power
-> > domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
-> > with indexing within each subsystem).
-> > 
-> > In reading again, I see that the definitions and explanation of these
-> > terms and the SoC organization are split a bit between the pmdomain
-> > commit message and the binding doc. Where would you prefer I elaborate
-> > more? In the binding doc, the comments here, or both?
+> Changes in v3: 
+> - Fixed order of entry in .mailmap
+> - Link to v2: 
+> https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
 > 
-> I just try to understand their placement. Bindings should not be in the
-> soc directory, except a few things without clear subsystem owner. If
-> this applies for both clocks and resets, maybe this could be firmware,
+> Changes in v2:
+> - Updated email ID in relevant device tree source files and driver source files.
+> - Link to v1: 
+> https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
+> 
+>  .mailmap                                                      | 1 +
+>  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+>  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+>  MAINTAINERS                                                   | 2 +-
+>  drivers/iio/pressure/adp810.c                                 | 4 ++--
+>  5 files changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/.mailmap b/.mailmap
+> index 7fb33babc931..d09fd3708023 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
+>  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+>  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
+>  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
+> +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+>  Alan Cox <alan@lxorguk.ukuu.org.uk>
+>  Alan Cox <root@hraefn.swansea.linux.org.uk>
+>  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+> diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> index ad5f26ce5043..ca4d4210f609 100644
+> --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: aosong adp810 differential pressure sensor
+>  
+>  maintainers:
+> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+>  
+>  description:
+>    ADP810 is differential pressure and temperature sensor. It has I2C bus
+> diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> index bdd995c5c1f4..837679dc01ac 100644
+> --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: ST M41T93 RTC and compatible
+>  
+>  maintainers:
+> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+>  
+>  description:
+>    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..3aa8fa3c068f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+>  F:	drivers/iio/chemical/ags02ma.c
+>  
+>  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+> -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+>  L:	linux-iio@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
+> index 82aa433548d2..832df6ba0ee3 100644
+> --- a/drivers/iio/pressure/adp810.c
+> +++ b/drivers/iio/pressure/adp810.c
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>  /*
+> - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
+>   *
+>   * Driver for adp810 pressure and temperature sensor
+>   * Datasheet:
+> @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
+>  };
+>  module_i2c_driver(adp810_driver);
+>  
+> -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
+> +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
+>  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
+>  MODULE_LICENSE("GPL");
 
-Maybe firmware, maybe power? LPCM is "Local Power and Clock Manager",
-and I believe there's essentially 1 LPCM (microcontroller) within each
-top-level power domain.
-
-Brian
-
-> but another point is that you should not need these in DTS. Somehow you
-> split one clock/reset ID into two - LPCM ID and clock/reset ID. Just
-> don't, unless you want to say that for example LSION_CLI16_UART_CLK is
-> in multiple LPCM places?
