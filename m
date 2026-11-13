@@ -1,113 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551193;
-	b=2wKudySNj9xjHr69gPSa4F6pWoayobLIUJqKY0Z4sZ7j+pTN4CPxSpBpvGs8/cvxTP+m
-	 sjSIZIMAcNwzqTs3j8fOtupc2Ovj+thTN8Wsw4ZWaPwl0S1ytc0nlGLao962AV6GE8RNg
-	 eEXsxWKyJRieFsL+521tQaYqtE3WViIVB40Wl3DYQGNBN6DeeEbXdMwnz1uZAjXpRv9fe
-	 NDwQ9MpArUM4PAaePebcMV8q7RDiSrIilElmdH+qKILoqFBMheIpSFkpeJ0xifxBrlXWC
-	 JgN8gWoYrlTKgK0Mn2vBogci8Rm4wYZ2BBMdsDwPesJVVRThk0ODCB2YrOWEpdu5IVw==
+	t=1794551230;
+	b=PNVMzPpA5ZVCiSqR+nQXtOpDWgYUpZJ7fPWBHxFIkAy4p2LsaUOUXu5v2t0KUr0zHncI
+	 pvEGdQ2c8siEUp9SMOf7pJvxz24da72a0bjMh5zjrOmQKXYqoog89Uq0GM3PUNrQp67o4
+	 7yokhLTjChMAMoxELHXsm2vMF8cuyMpm+LzA4b6+7WQs5Hyn5TU1ehLlJZ9m+CCNb1Nir
+	 eNscYMpSlB3K+WMaSa+7v/aJYsWLQk7yr0cWkPkhrGPnBIrGKasHJOe5GPT8fWyr2xcil
+	 TxFt1qCxSG+bp80Xem7vRvIfaQEwLp7HDDKDIJXF+iptO1mI/GmRl/8jqSyF/QVSa+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551193;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-	b=X7gIZKhUtpgychVw4LlIYYCJvaZeXTvyJXev5s3LloqE4PO4PYfpjEzU5N+qbGOyWlck
-	 0aSiBUJHQpQT5PZRu1nrFgSUc0Sg5TxxDo3htpmZlI8E6OMrwOPecOxArZWYec8ozVpfj
-	 vchj7k3X/EKnmwQ3I+VBj/KoZG/c42Df+QFiBHA3QtANV+DGIMzXTe0rAMR/sook69ADo
-	 JISo/psG2xEymAapdC7lYFLOSuUmtCAn1K3NCJgwICtpaQUQVVOvbOsHDnAU+YUSecJDA
-	 gKZqToVFwM9r7EGswPpNa75gFyxG+rd3Vw9mY5kboIVF2pkQYgGw0K/HyIlRjVvK8Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
+	b=xctQL6gneqzv2RdCLvfqBfdYEb5q0iv7U0z9bt+94GmJqYMdVvNH/lSkWlnzsmaY7Ks8
+	 0jYnH9J1pCbmOabwzNv+g/ngEumAgjtCmOAhZAQIbm0l6Gjbqj8fBP7+BAwU/qw7wk/xr
+	 mPiwdI+lKpjUhsJ+BcaeGNPnxQEccUl1Eo8KDLejOwz0i8z5Cuxq/kTJ5qsfz+0EjEsDW
+	 4eSKYzZV+aVmFo+VGzXZMx6us9IQ1Hm6b2ok/MvX2XMNNEg+tBF9PIgy1f2xXyNz157YN
+	 4jY/nIERFqEK2v34oeXU2bnIzATxMRHE0Q8AvunhckMVhdg4FPq5avlXji6cv71lrMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S+mc+OJR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jAUyyfEF;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MUvxZhYm;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B473F606A327
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B473F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C180606A327
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:27:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C180606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S+mc+OJR;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jAUyyfEF
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD6IBk01164133
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:26:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=; b=S+mc+OJR8Tza8cqE
-	ttsLlcZhQsGIaUb+Vb53f0GPoESZhh6D1X2ihb9qGoxj7mZdJSejtEfiCYGx04Yy
-	03U3LRrJPi4wZ/D5HqaDWVYn4p89m7WQ/Ax0vzjhyxNuny2wBDnW+GQh1smHyrgE
-	j+lSOVX6VinapGZ7cvgyV90LePfTGE8/eqffQ9wThHuCHuhrVNW5kccRFDAnrS4M
-	hXucLCr4gGxP/eBpc0lqiEGumbhU4lOO0EnAUXXLDiHd/LPwMj5uPBG7TiIk+UIa
-	gMq7j1Nw9gzcunbqq8QlAoiuM8E/Il7cLCsrgevEO7ffxgqIbgW6Ckt9p68HvtoS
-	t0vIaQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hww5r80u3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 06:26:31 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b19aa066afso569038a91.1
-        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 22:26:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MUvxZhYm
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so2975395e9.3
+        for <devicetree@vger.kernel.org>; Thu, 12 Nov 2026 22:27:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794551190; x=1795155990; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-        b=jAUyyfEFe/Hu6xdj5D9L6vAvDzpPZYJfZsba1u4EYZ1ZNa0iVGlICFzJJDGNeGz216
-         VDS2TrQDdnib+8crRK7TsPuyPqZ6gM9O5JewtVipBYerRvQY6apj+9VvHmrYmDGw7Njh
-         +pF3ccrAz22naOd2KElVxF2hSz+W15oy8/N8eCJ9XZsniMuLvlSQM/G9Xd2vjk8DuqCy
-         DkXxASwrg8XA28X+CJJnwKQjHdRXd/dGjoJjIGdOJ/MZx4X5ak2LZqqt4brwQJwVDpML
-         ZX579KQqR8oLCgMuwnuXftDlcN/3Er2Q7hAelJbMc69z+yODHOGBtf0/0cBLiMzH+Qh4
-         hEDA==
+        d=baylibre.com; s=google; t=1794551229; x=1795156029; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
+        b=MUvxZhYm5+xi+SJfP8nHhsZ1GXHZRgKcmtYpFlDoXTjjRpAAhHrxK/sL0p5zR3UDxZ
+         zoFe6J+qpK86Rz4t3v2DUKvCLnSK0WziR5goLmM6ybJ96s52a7n4l6ssjhqsUYaR+Jm/
+         Xs9hOLXj9PE+uwryRlkvLuERCrqJTf3zLvvS2FCslyTZTd9wswIAMULtnwF8vJn7f2H0
+         3wTzjD8Hp6/wsmtQJ0eNgdgUe4JwuhUhUM8UnvqdKeyZwp2YYRSg+jZBqsj6tEhsE3zD
+         Pz/u5C9YRb5rfcke4Gy7OJXnRI/iCfjiVWknhEe2HE/M51peV4kwHUDOt1TkMoov2shs
+         xFfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551190; x=1795155990;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=itr4hIklB4kc7LTeKoS1h6ZFX1PCmH/V8dMF2IRMWzE=;
-        b=T+17kCaqobjiygtsEH6RohrpI9uU/O+lv5lQ7QnC9bINSqz0KbmZnDiYksOQ8Mtsus
-         +xpE1BAKaEw0kwOANXsN10q/UfMeWqT0kUdcZfhQtAllee3HGZ1qds6nYK59FfAWTNVv
-         9DnWinLKMfM/vYuRHuWjJTQl2UM0zbPmhLtTJ19euZgPfMwtVSvtiSlvpff8P2CazqtP
-         cn+JMiGYTtXoJcByZfA1vdRELs1DBKkBfc+Nils0qt3DbHfW4/ThvG3oJLEFP7HtOpAM
-         NwtdxdZdme6SWd+ov8VA2UotgM+7Ng8cCHqXRJkJhjqsmLdDxkImrYYD2V/Y/D1GXMpR
-         khkQ==
-X-Forwarded-Encrypted: i=1; AL+hErGl2m5dBfhkEeiZEawVAysSGRULs4CYr03hjjSdaKYud5RSsWk9SubHwOQjsGHoajfBlJSR3u89BX5p@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zNA3gPVq/piPHTNqadMPFbgx3+di/I/e+ChZxcmrG5kBjcUc4
-	c9R0RBJIHALtFKgr2DnJY1gFSUm1tzXKhcKbzGBkUS+UgZ0vH9Xsueyx222qAuC1qavictnjlTO
-	VJqRzuRLHGTGxpYlK+NCmS2XeiqJtwzNR3KDBNlb2SaGHuZHE9lZSse2vA+4PuY8k/m23VvrNSE
-	c=
-X-Gm-Gg: AYBFou3vm0FeyPnP4o6nXkJNAc2+atNFTKNJDPxrizWqyPXC+C6aUTkcJKe9jlOr5lH
-	+3/o9O8UjMpMBuO+UTyJcdFqbTY/gRZjw1E/bat8NgSUPxctzJ6E4jK/OaAbdCsZz/95R/hP4PZ
-	gKGV8H0kKHkyS6ljHMMI4LSVacFCe9D2hvSNf4ssxG2oyv2MDbnUDjez8Rpvg3gTRlNhbSHF9lb
-	6Qz7jr9B3MEWQmIXR7ajBTl5I43FD4rVPr5u56cdjh9eFK7iaOK8/fkriXiBakyCyHNqx9tUdBm
-	BpjkakrDIwPMWdB0qckO+bUTlQ71F+55t1VZXDa9Q+NXcMUG+FmppGzMkuor4WJcspNsQKHFzHc
-	cn6HlP+Xq6sppAByRKHoqoXAzA49vC6HcU538FWvQxLevLUjB81a2QCnGe2ZMV7u7Lh7jB+tML2
-	aB3CkFCwmVvF4dvUmAdRJHMXUZyq5ZG4RXCOam2j/RRzWKIA==
-X-Received: by 2002:a17:90b:54c5:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1b087b75emr858158a91.3.1794551190103;
-        Thu, 12 Nov 2026 22:26:30 -0800 (PST)
-X-Received: by 2002:a17:90b:54c5:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1b087b75emr858146a91.3.1794551189608;
-        Thu, 12 Nov 2026 22:26:29 -0800 (PST)
-Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae981c55sm2933013a91.1.2026.11.12.22.26.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 22:26:27 -0800 (PST)
-Message-ID: <904f7ac1-d488-4700-8839-ae981b04a71b@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 14:26:22 +0800
+        d=1e100.net; s=20260707; t=1794551229; x=1795156029;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XltNWiKtwG9iBw8+GH1SYk3VMgJFEJVDDOL9ejVnQFk=;
+        b=HX4O6yeNyepUyHtNqY2K/0uCqNpWgAgiqp//Lcq68As4yIOVIxdpDrfLHupj2vWYsn
+         xD8nWYiCGCzINHBHtBRTUmq39neZz+Vth0M+L8AfvVs3MxqYla+rZoYqr3SLvuNcAi15
+         jRRHJmcOClYjXNBkjAQ8PBQetq7BhwMt5awwAk0Hh5CAGqusW/GmNi+009ffztvbvcwV
+         WDxghHUe4wBf0vOYZYYFnMObc1VAqLbalm8HdscPQ5Vg+A2IMbs2S/od4mHk4MNjyQPG
+         w3a94N1YLsa8bNx5j3leIOw+0gMlIhyCSCSc3T/IifNxDnRrsV9IKNLwMK5osqC0mGeV
+         Rzqw==
+X-Forwarded-Encrypted: i=1; AL+hErGnVHutLUAh2cm7QBOkRj2FydSI1nxYnCsnTb/lUqYmWBCh9lxh4Zby877HZLnGJuMY27ZwchYaBW0j@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PMZVZ/P69hrPh8+cux4ksUGkGenOhhE//6Scrj1Lg3KwYslcT
+	fwfrRYNzCU1jSLR7W+9w0g1OtTBiLFcWJ9atctwBO1Rl+4EDNjcI87HiIlab9rrhm8Q=
+X-Gm-Gg: AYBFou28Nvn3ob5XAXtUVWYU1mxBr0cRuXof2X9N/OrEZnqAtXzP8KVBTORGjEclNU8
+	vqPY+PaF+aY7t/j6lok82pWMkp/ywUxOx76VEjpKS/8LdmUVo9tWZCeLzvTr7riFphv90DbcpBG
+	6euuClWbEPg/aobgIKu9x0MVLJk1AU7lKk3xBeUCoNlZJKDcwQ9U3cYhS3cUtdAcFnleLG+9y0b
+	OjagDfXkXOzYIb9auQw77p/kygkiX77yQKk2Y0h7MMHbOWIOuaPejz2Ieb0Ll4OqladShVxrh/x
+	eIQClljMcPockDUP0PgTnbnDkmTX3hOKZ4l+dHKIBTqrr40D42Aso8QCUxlaFR5pBmduAVHyLiv
+	YlOvFL1tQva79AA7OUhNYp+hTxFnNoAisn4ncn6uJrHDANSPBXpDpjWHXCXfc5Tay/IPw6pLX5R
+	6X3cVikUcQplWbu2d+z3UM1U4Hzk67k66G7QPls4n97+DwcPx4wZ93/strGmb7DZND0gIq6mTht
+	HRv+AB9RzE8xB4bCaR8bg4C+FunfbChsAuxsiGIx0KohppfBJMh628ZTppCCVAkuPNoDR/ZvacP
+	wMkdY4zaIPYLAo5Bgm0T4h/p7Gz5pFOlHMfOtK+cZCW6uhd7nPSDsQEPWT/3TxllkcYU/PNyLw=
+	=
+X-Received: by 2002:a05:600c:4ecd:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb5599a73fmr36037725e9.0.1794551228841;
+        Thu, 12 Nov 2026 22:27:08 -0800 (PST)
+Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb4e29daa5sm133039875e9.12.2026.11.12.22.27.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:27:07 -0800 (PST)
+Date: Fri, 13 Nov 2026 07:27:06 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Val Packett <val@packett.cool>
+Cc: Sebastian Reichel <sre@kernel.org>, 
+	Marc Lainez <marc.lainez@gmail.com>, Luca Weiss <luca.weiss@fairphone.com>, 
+	=?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>, Danila Tikhonov <danila@jiaxyga.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] power: supply: add Qualcomm QGauge (qcom_qg) fuel
+ gauge driver
+Message-ID: <avatRCrAgoPjV7rP@monoceros>
+References: <20261112170841.2189322-1-val@packett.cool>
+ <20261112170841.2189322-3-val@packett.cool>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,123 +107,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] cpufreq: tegra194: add Tegra264 support
-To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
-        viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
-        linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: bbasu@nvidia.com, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261104181521.3003578-1-sumitg@nvidia.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261104181521.3003578-1-sumitg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAyNCBTYWx0ZWRfX4f8voU3gBmP4
- FMTt5vXvc7ErlYsIAzLspWDvrdYlVeh03FUgppomZoyNFyaEt7AxiPWVO5g8Bx1kgE189pYxWBY
- cqOtt7MrBT1T/xJZ3GaiU1j6U2rctI6WwILmxQobG9ns3NKvKzaawLSqr9UoMppc9eDv1yNJOZZ
- rGtAkhI1LaJLThYgUcr02vrC/3Xq+hRDNsixOR7hoYww1w0hM2PKpchNnrX54cxk2Met5DavDMP
- k7wX1sW7KvUqz+5aZ+pS+apMvKnv3Ff3elGb8Zs9BTxzZfMBuGMmhLJMi+NtMDJrQ+MUnaWKKP7
- s/sEThZ9NunvJ7VZ8Ej3yoPyvN8IQ0jFN7Bmg6v1hMlEWdSwGimVJxpOL98fvvhy+nLmFAAT9D6
- moVQkRZZkZDVdMFe1HX3FeSCvsIAOwpMmSGBDq7fXkMA/OINutKEqGGugnVgdJeIK6W6ptXvZ+h
- 4bMWR6aYXCE4u3oVMHg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAyNCBTYWx0ZWRfXzU2T02yOnr0h
- 3MThKozhDBarU3dY06qlsG3eV/iVZh6AEO8BNQAeOnN47VINbCCwNsiW7Ymge+9AUjEPlf5doBf
- jDr9ipvJU948BQLyVLC94H05wU7+0Cg=
-X-Proofpoint-ORIG-GUID: eWvnjx9saWL5vfFgrhZ8C6CbIu0R5F_b
-X-Authority-Analysis: v=2.4 cv=Vqq2kO2n c=1 sm=1 tr=0 ts=6af6ad97 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=c92rfblmAAAA:8 a=Ikd4Dj_1AAAA:8 a=VwQbUJbxAAAA:8 a=I7BNmAFbTgjmseqQuzQA:9
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: eWvnjx9saWL5vfFgrhZ8C6CbIu0R5F_b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- clxscore=1011 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130024
-
-Hi Sumit,
-
-On 11/5/2026 2:15 AM, Sumit Gupta wrote:
-> This series adds cpufreq support for Tegra264, which joins the SoCs
-> already supported by the tegra194-cpufreq driver.
-> 
-> Tegra264 keeps the existing model, where BPMP provides the NDIV limits.
-> The driver derives the current frequency from the core clock and
-> reference counters.
-> 
-> The main differences are:
->   - Frequency read: through system registers, as on Tegra194, but from
->     the 64-bit architected AMU counters. The reference counter ticks at
->     the system counter rate (CNTFRQ).
-> 
->   - Frequency request: through MMIO, as on Tegra234. The driver writes
->     NDIV to a core_freq_req register in the CCPLEX register space. Each
->     register controls a cluster-clock unit shared by two single-CPU
->     clusters, so both CPUs form one cpufreq policy.
-> 
-> The patches fall into four groups:
->   - Fix (patch 1): read each CPU's MPIDR from a CPU-hotplug callback
->     instead of at probe. A CPU that is offline at probe then also gets
->     valid cluster and core IDs.
-> 
->   - Preparation (patches 2 to 5): cleanups, mostly of the counter code,
->     to make room for a 64-bit counter and for an MMIO mapping without
->     ACTMON counters.
-> 
->   - Improvement (patches 6 and 7): group CPUs by the generic
->     "performance-domains" property, which cluster-based grouping cannot
->     express on Tegra264. Device trees without it keep the existing
->     grouping.
-> 
->   - Tegra264 support (patches 8 and 9): the driver support, followed by
->     the device tree changes it relies on.
-> 
-> Patch 9 depends on "arm64: tegra: Fix address translation on Tegra264"
-> from Thierry's series [1]. Without it, the ccplex@30000000 node does not
-> translate to the CCPLEX registers.
-> 
-
-I have some inline comments. Please take a look.
-
-Sashiko also has some feedback that may be worth checking:
-
-https://sashiko.dev/#/patchset/20261104181521.3003578-1-sumitg%40nvidia.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mwyna4jkd5v6s5iv"
+Content-Disposition: inline
+In-Reply-To: <20261112170841.2189322-3-val@packett.cool>
 
 
-P1 and P8 don't apply on v7.4-rc2 / linux-next due to 4dd10fbbeb9c
-(devm_kmalloc_obj conversion). Could you rebase?
+--mwyna4jkd5v6s5iv
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/5] power: supply: add Qualcomm QGauge (qcom_qg) fuel
+ gauge driver
+MIME-Version: 1.0
 
+On Thu, Nov 12, 2026 at 02:07:28PM -0300, Val Packett wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
-> 
-> Sumit Gupta (9):
->    cpufreq: tegra194: move MPIDR read to CPU hotplug callback
->    cpufreq: tegra194: remove duplicate counter sampling loops
->    cpufreq: tegra194: add tegra_counter_delta helper
->    cpufreq: tegra194: add per-SoC counter mask
->    cpufreq: tegra194: split MMIO mapping from ACTMON offset
->    dt-bindings: arm: nvidia: Document the Tegra264 CCPLEX cluster
->    cpufreq: tegra194: derive frequency domain from device tree
->    cpufreq: tegra194: Add support for Tegra264
->    arm64: tegra: Add CCPLEX cluster node for Tegra264
-> 
->   .../tegra/nvidia,tegra-ccplex-cluster.yaml    |  27 +-
->   arch/arm64/boot/dts/nvidia/tegra264.dtsi      |  21 +
->   drivers/cpufreq/Kconfig.arm                   |   4 +-
->   drivers/cpufreq/tegra194-cpufreq.c            | 422 +++++++++++++-----
->   4 files changed, 357 insertions(+), 117 deletions(-)
-> 
-> [1] https://lore.kernel.org/linux-tegra/20261030141101.845044-1-thierry.reding@kernel.org/
-> 
+Please don't include <linux/mod_devicetable.h>. That introduces a bunch
+of unneeded build dependencies and of_device_id is already provided
+(without these dependencies) by <linux/platform_device.h>.
 
+> [...]
+> +static const struct of_device_id qcom_qg_of_match[] = {
+> +	{ .compatible = "qcom,pm6150-qg" },
+> +	{ .compatible = "qcom,pmi632-qg" },
+> +	{}
 
--- 
-Thx and BRs,
-Zhongqiu Han
+Please make this { } (i.e add a space) to match the most common style.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, qcom_qg_of_match);
+
+Best regards
+Uwe
+
+--mwyna4jkd5v6s5iv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2rbYACgkQj4D7WH0S
+/k7nbgf/b6/rA4kIW1NyMoOtnNVBeGIHHHNfMkct33HHb1h0CiT6Hd1RLEJ6HH+F
+sW4pjg7G0QStID55MbOeFsfsHKUaOEsaLwutZ3fATturnz7k7RZRvLfAjNtR3k18
+hiWFbFdsTjH6SuQ/g7OijXpDO+E2v/5FHg8g/V0U5xwL0w4sWAME2Gxrc9Aed+1Z
+yb1H38UcmdaYkNs0WgAyYt2rGVtGDyt5nQqLm9gBfrCvoxDzCIxgiXJ61C9JMF0t
+UIk/sLbujBcPF2qrtmodX0CUE07kBKD7PV1TOWjB7Gcz+f3E/X3eQGPNNOk8mEQn
+pqgA7hr5DNGO6zRenFbDHgtssAhenA==
+=HgBt
+-----END PGP SIGNATURE-----
+
+--mwyna4jkd5v6s5iv--
