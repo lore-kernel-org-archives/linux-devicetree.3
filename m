@@ -1,107 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567959;
-	b=3qHMt0qO2kq9pXch3SRm/fXMA79y6HMMnjAQ34KcfwkyQTaeLwXBxihraMnDGJ+SFUhW
-	 4pnUiCKbb/1ses/YZINFaDIN64lxpoZtblZiXDo8tdKjwIu2GCldMP6MdsMRGpGWDexWE
-	 GtaBuGnpuLFFKpDPwnLQGq8K5pTW2l0VcfwhldQlHvjPFWWAMVkcE6q5o4iol3ltqHYpj
-	 5hZxG0f6QLwKRb4Yt7sf6n8M8zRsC9wP9QCupnRnDXWkteaTI2Ps8OXe4w0M+cVGfOOvB
-	 nhBAHbmsvbXBammtEnWUbSDgV5S117Rc6rGUCwkqwzWQevXddwdRuf5FYaSxw9S8ORA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567959;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=fGy3fk2PNTyq1ZP7o+ORh4l1Cj7wsngy9KPccoulCEw=;
-	b=Wq8BBCtkHEMmX/ekIORkL3ovFbz+cDtugV9FePbIBj6DmHZvPLB6boE7FzX8jK1kW5aP
-	 trE+DLuv8xnFZPcVfDx2B9GlvvBbfQe5QoGe+uJbK+mYnZ6xaAR0Y2ta2ueDoInMT105c
-	 W2Wiy6F/o2bNWov1tOvUcZF+cWbtHMO/iYkNpjdBQm6ganFebsLJ3rGJpzyPbp/IELdE/
-	 O5r1xi3fn+VPU8PBMA5cpo9cXSdt3hjB9t7ZkxYEZjapRIPYQgqSJpwjDDE4MPVv7dyFF
-	 ZwPFmI9EyRuUPd4mTh5IalDZhdO1afO261AGbnYPCelwrdaluaLpW6K41r+IA7naryA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAtt9VMj;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794568186;
+	b=5JJktAxKXAkCgKdTJWLpfRr1AB88aHfNMTCUJkl+BAM0w+xNHP466lWCjsgkfVyUKJBd
+	 AZeLag5H53o/t3f1M5Bbo+1VdcjWlrRgXPwYFle43tXy1JuWF5zQelnruUcKRU/F1xt15
+	 8aUGeq84r74ezj73BzMZEj2MEg+JeA+NYBMAavzYzaf9pMzjQQhqLiPlRpvPrKjrUUR3A
+	 xs/yLlJ4+SLHbGCISoBjMYWgaff6SwylMHrnsmtqBsNu9S8FhP58DSL8N6MQ3oXWRW6Gx
+	 vBqPaxTcrm07U9bpqrIQBGKHHwRB21wSRDTriq1NTUZ+Q4vwe9bf+Yt2ftd/Sd4FNBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568186;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BBCsAMme/c5sAudlkImxgXr5AmyEqPD/7/B4A0I5vL8=;
+	b=Pj/T0P35nGvHl9y4mD6DC+7X/SzRsw+7Uq4UHrKCwW30qso6uEX8xak5PgPJT6S/vd5q
+	 sOk1iLU3OEApNd2aav0TvOZ9bKEijZSk62wIDpzsB5fjs6+5ihy6y3qZGY57ZJ/BoYF0/
+	 b/FZsQ6uvd4+DC9LlkuReSj7f4w7BO7oncQPoUFvuxHuyWbaUaYaoKh3aNfcmCBqANvmB
+	 nnbgUThGFa18unkrgOKCXlR8zfw+dQLoCKB2mjgxFkX+cL6BfylXBA+hsuEYCuOKNT3al
+	 WnJ58aw+JZ/zb1EFrrVzdAqmewxWXZv3PD78XnHqPKoek94IncCcrEWQmLg5WJcRMnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cherry.de;
+	spf=pass smtp.mailfrom=cherry.de;
+	dkim=pass header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=m62JWWAW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.15
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011015.outbound.protection.outlook.com [52.101.65.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB7060A2634
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 11:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB7060A2634
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E3F606A330;
+	Fri, 13 Nov 2026 11:09:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9E3F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAtt9VMj
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c151178f0cso1087362e87.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 03:05:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794567957; x=1795172757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fGy3fk2PNTyq1ZP7o+ORh4l1Cj7wsngy9KPccoulCEw=;
-        b=aAtt9VMjTwUE37fnnDAy+oP7nfOznnCxn2paqNjiXAzrSfUOZAw/P5GLaSy/cs+Kar
-         OOsr3r9/paH8Cmjwb7y8HlrHppbsHB4g0vGahN842F7Zi2qn0DP/XKkKb7ZFOFad4E9a
-         8eytMgUOVLDM6NfdVi7RBZrOVlLsbSFtF7gO70Ghm4DFMMK1UrLgDVLIRXdpwPVYqryz
-         ynWQkow9lX0SdxmiSOPc7Cv6AJYUHWrHyVvrn3wkw0O9+tbkGPMhSsPpdXtUuwHjVM38
-         s0wP/0dhJvu1TuuIEve78fHAoddCKxo5EIqJM805vB9hhc32aLrGCT30GeViQyY9Uuhw
-         A0SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794567957; x=1795172757;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fGy3fk2PNTyq1ZP7o+ORh4l1Cj7wsngy9KPccoulCEw=;
-        b=HpdQk8L45GZTEY3dBAgjzTqXyv45I6BovLoxRM1osWM4gh0hgANKLy/fszjJq6+H4u
-         M8nQ/lzDkAFWhN7ygcc7tZspeGhHQ/3CUGxpaf1QipdYncScF0+7AvFF647g4HlNJqp/
-         HYn5FI1G1KhFDf9Tba2CihdrGgsBlK+0wo9LA14t8f5E3wpgO3wjEpQYteEoLlm7yHz3
-         lXBR9/oB3ZOdX1iLnjhtYyhouuVZ1l0PK7UqC5VqlnssgjIEh6vvesTqdf3SU2tHc634
-         ZdUWOc3aPbAGYyeq8XIPbAYA6QbhliI2P0ikufktxsJsgDxKVy8ksBT2i+6VBWSft9cY
-         vMXQ==
-X-Forwarded-Encrypted: i=1; AL+hErFNBtqASj53R8/vfPDlZzFXSrNcLhCFgZ2o6UhvoKhjlisC8ARiyZGkHV+Zb4CSvTKlb78+NOGSPhR4@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JiIVOLIBuyrlpBADz781xPDfEL4At2FVneamiVy94rTJJncUB
-	qphVuv8QFDGKYzohSZMtCIAyj94l3tLqIcW4NgwiwjQtO1pAtVG6vJ4T
-X-Gm-Gg: AYBFou3i1X6ZRPzMk/mFDVY3B+XTWIlrukHfkZH9TdLa98E5k4zUcsJZ6PFPD4AAjhn
-	r6QL8w3NafXgv1IJq+Mp9BPKOnDr5ui1dmnIAqD2JeYw5XaLbAYHIinqvEINIl1l3AcIfv5cFbe
-	GQwi8zRMdNlKjCMs5vBys0iOpnjPVu5neHE8GjDDFMRNZxpTl9or438Zl4LB0a3QbWSWIG0NJ7o
-	M4VxxzbQ7XaN5PzFzYoRLvI9wFz9guhR6yn3MNLHUA3/zlJHS+QLajvp5/4g7CQffct/xCvXp5l
-	kKMRnqVsd6aVD19qCz5NiWslUe9OsWMe1/l/o9xh01+0V6dLnclzg9HQOzGWP9oyOyC2KaJ6iwl
-	18DtQStzMx7uSKKWR/PCzOZ1JO5WL5o3iGbHQ+LM8kcnWug9ojXcew+I4KENcdwfzzZIajF1YDF
-	8UIOnTJ8Slx5aEbldDBWEInA1la2aFBPmpu4Vf8+mWCTbU4R9kcWncJ8MjgzwdE+05MId6mZv5w
-	vvbgmNbVWtTvfoGKvHlQEQ/43thbO/7qWAEldWiE++OAkKNfOWuS1+b8L8a1ESlbpDFXzotDk7T
-	5NMGb9NPuYgdrOkg2X0mKgNdxkwfZFsBu35CJungV+diA/4=
-X-Received: by 2002:a05:6512:1091:b0:5c1:4bd2:df30 with SMTP id 2adb3069b0e04-5c170b86315mr879416e87.60.1794567956492;
-        Fri, 13 Nov 2026 03:05:56 -0800 (PST)
-Received: from NB-6746.corp.yadro.com ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133371asm610997e87.21.2026.11.13.03.05.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 03:05:56 -0800 (PST)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com,
-	pavel@ucw.cz,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next 3/3] net: phy: dap8211r: add led hardware control support
-Date: Fri, 13 Nov 2026 14:05:45 +0300
-Message-ID: <20261113110546.173624-4-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113110546.173624-1-a.shimko.dev@gmail.com>
-References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=m62JWWAW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ru1cplXhnMN8hfk43U8nHWqKDgpq4H72F7xRo3u85YiEowayytJ+Dbon8AiFNh7yFt2hAdgpm6ZwZZbjtqs3dPyFv5RI8gAVdScr2IXwC7TZdXiRHcU/dbnL/ttaIOt1nKS/ebiWmkl9YcUOuCPVUOZPHpwWzlE4vdd/4Ps3te5J92Y36FDwD32FN/VnQ2qZWxKmISTHSKBkXjapWTHZriOvtvHjX7AMnUb25Uy5RtHmYHqxav/XIKLVnNGjHGkR/xJ3nIwnLNIthMcP88K4zCkI03vSX0FpWw/swnLB27WAtO02bePeA5nCvXWiUPKzFnGl2KA5XvD8A+M2Of/zUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BBCsAMme/c5sAudlkImxgXr5AmyEqPD/7/B4A0I5vL8=;
+ b=PBk8hZv2ZGpMcqFmk3PphIkVHYrdAEGeqX1+wvgwNopi9tXfTX+G61rxGUmW6+1Ni+BwQqkfbcoeiKsGFr+QlyA0AeyHEAAxX+pUPgfwU7rWWZJVargLSJAHZm0zdqkersuKxO8qnKBWjwYKdd6Je+qyiRjfd9gPgsKPbsSwpM94yEzhoCWksGBlEd3QEJEOquwWNIsQjQ/SCwK7lgVfNZfsLQ4WnOUODG5e3bjrYMnraHnG12YDrXsMudDhLN9MNx5ry8YzTrycXn2WPYqfsNwx0e5Xkngr6nW5HjtCiO9+/asXKIPos6uFtsdsVz5vchZ4Vral52OkLbvHIeyb6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
+ dkim=pass header.d=cherry.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BBCsAMme/c5sAudlkImxgXr5AmyEqPD/7/B4A0I5vL8=;
+ b=m62JWWAWdzCKCBt9ioTsMu0Y+LYUQi1sOWMYW0fKGuaxtyExtQau9kdZM9irBDYGOmRDZ9LQFtSFJNJ7Buv/zJOs/se38BEDwxHWoyOnSotJGzncnD9fcnuZg1FZjBz4B6gQfTeGmx+ZXXKUGGHvOp4ZpnM5ssTDVPewLUW4/EA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cherry.de;
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
+ by DU4PR04MB12028.eurprd04.prod.outlook.com (2603:10a6:10:63d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 11:08:17 +0000
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 11:08:17 +0000
+Message-ID: <840285d6-a8a6-4777-8d38-6758ccbc7723@cherry.de>
+Date: Fri, 13 Nov 2026 12:08:01 +0100
+User-Agent: Mozilla Thunderbird
+From: Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v6 0/9] phy: rockchip-samsung-dcphy: Add the MIPI D-PHY
+ receiver
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VIVP296CA0111.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:355::15) To PA3PR04MB11153.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,233 +110,179 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|DU4PR04MB12028:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1294f6c8-0fe7-4da8-821f-08df41766b59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|7416014|22082099003|18002099003|921020|11063799006|261026140227099003|261021123027099003|261028144727099003|261026121527099003|261021121427099003|56012099006|261022105027099003|261102123227099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	OO0owUbTdmmnDESu2j1HxjEIyoMmmWXVa20a0QSZoNjOQbiyxporKhRi/M9JVCq9GhcDS1z32xxdRFLrZ48uR38S9O9uc1rr8xPlN7buMKWnyjZweEFHltWRsmKGqGVgJH+vTH3ZvydAQ0X9lZmOa39EbuBhBT8wq1P0WTWPBKWOi4Yoyy5TXBY2H1myOy/hY87aPPYzzSGn0f7OJzuVpkPBjU+5v85YGgv7fVKmIy8JYqx7aiZ6rvq1sRHhpiGBWlZ5+L7pZE8QF5d01pJakaQZVk9GKcYHeczOU5t8Icb3WS/CAERgWWSlU0CfxoDoezfBf/6LxH76GICABjuEQh0QjjGJM7ZTNgnaJdl5K4TLl0P4/762WFL3WqmePoRoEjkMqNfhdn5KVDJp5Q/Mi3XoJGwCiMm4VSvmS8Tz7pqno8BWU0bdHXMJAud0ZBbg97IbftbORbCJJB7382RAxtgN24ASoYKjRRtfhW1WR2Lk3nkKFdD+xJyvtqREGdL8KsiUyCZ99QIbW47vF4NM03xh43S/ulKBXfHlTEw/pzd8ng2ncYW9pFOni1pLGsDaYLkbQ0aLcrTftxjA5kmdL75wq7uC4IDO8OAyWLCoEELYmHbnjK+4irtVTgspFxRVzKYFuNACcY1UdNVwY/fsDhJwAtfPO/ueYEtSVExTgRzdMbNXY+dfPq0Jwx+yII88nZN34qoBcDehn7zIKgMPAQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(7416014)(22082099003)(18002099003)(921020)(11063799006)(261026140227099003)(261021123027099003)(261028144727099003)(261026121527099003)(261021121427099003)(56012099006)(261022105027099003)(261102123227099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWxZbEtNbGh2UGJlSTBvRXkrcGhrb3BseFVjVTQ4TE5nR2pJMm9pMUF5ZXpj?=
+ =?utf-8?B?WEpOSi9SRitSaExMMFl3ZThrM0svREorZHZMbWxCS3c5SjVTWXdCcFN4cTM2?=
+ =?utf-8?B?eXlNWnhheXFXMXJkb1RSNzhST0QvNWYwV3ZoMnVTbUozc0lBNkJMZkpjeGVI?=
+ =?utf-8?B?M0NjQTREMGpVS0luaEswVWkrU2dva2U0VDhJUllyU2c4TlUyZThEWG1tYmRi?=
+ =?utf-8?B?dlNDNFh2MFEvVWJsc2Z5ZVl1VmFxdFlaQzdrNDVJZUVaNFg1d01jYzVZYjN0?=
+ =?utf-8?B?OXNoR1BLVnEzbThwSUFzRzN6WGxZVlF0Q1NwM29KM3pKSFNoNlQzcTJjRUpt?=
+ =?utf-8?B?VXBvWXBTSnhwalZJOGE5ZTZsY0tiMkhTVXBXc2FSbnlEWjlBRU9Tc2lCLzda?=
+ =?utf-8?B?aUFmN1hsbHZkdTRtM1lTZ2ZmangxRm54V0xFOURJYmszOGlJeWFRcVBGMFU5?=
+ =?utf-8?B?UkEwcUwxQTlNVCtuZHZYSUhET3NHVWppOWlBa28yaTNqY0JQZjh1N3ZRd1FB?=
+ =?utf-8?B?dlBPb1dVTUZFRExSNm1qS29GaHVLZGxlcTNaTjNYdUhaWDNrc0NqdVpYb3d2?=
+ =?utf-8?B?ZzVXMjFKVFA1Nk5UUjA5WVg0dk9kNlJwT1NlcnVDVVNpdGpHRUR1MWNyYzI2?=
+ =?utf-8?B?aHFZcXRIUFhubGUyc3grWG1SR0lnQkFLTEtUdVU3dkdmM2t6R1pJRlJIY1d4?=
+ =?utf-8?B?bmVNWjhxMENWOG5LWDRjam5vZUdlWnZwM2lhS2lEOHZhWHY0RERsR3BpcWF2?=
+ =?utf-8?B?eEhZQjJFWUpjV2ovcStVbW5nVy9FMkRWUnN6bnY1eFVSd2pQK2pnNjFNMGpU?=
+ =?utf-8?B?ZkVnbnFtZTA0a0FkM2E5SWhVOGxUNGFmUmJTYnN6NmhRejZlWGJKakUxSHA3?=
+ =?utf-8?B?bFoybTQzT3VBSmpiL1c4dGxySTNKQVk0aFhDdFRySW8vQ050akZ4MHZKK0oy?=
+ =?utf-8?B?aTN2cWRYK2JlOTFsaFhVbUdKYkFQOHhHRndOemtiZFFLNkhIcWRSR2J6M1pF?=
+ =?utf-8?B?QS9abGFMTHovLzlJTlJEUVp4cEd2djRmODFrcjNkaU9KTUtwN0tsbU9rZUtC?=
+ =?utf-8?B?OXhRNVkwYndkQUxhdTMyOS9hZ2tOVWlYc2xWZXgxU0c3VDR4S3BJcnJFc3Zl?=
+ =?utf-8?B?cUpBL2Q5cElmdUhLWGRRNVdpUFNSRGhCS2piVENUL1gwMjMwZXJvc1p3b0NB?=
+ =?utf-8?B?Y0IyOE5CZEpXNG42UGk2dEVCd3FmN0xCZXd0Z3pYcm1yNVBnTWo3RU9qR2s1?=
+ =?utf-8?B?eXk0K3RhTmpwNWpHdDA5amE3Zk01OVBvay92NFYzcW43RjZsY3dJeXJzSys3?=
+ =?utf-8?B?ZHBlRGVjYkk4WmVYM3kyaUUyUitIU0V6NGJhTGVrYlZOQkRyTVNnVnVMcVFZ?=
+ =?utf-8?B?aDVrNll5ZlI0Njdpc0c3OGhQSDJVTnRNME53MGp5ZC9xaEdmWWZwNnkvcGRr?=
+ =?utf-8?B?T1FHQnI4NXRIQjFGdmlzREtKcnBwRWtCVXRrSW5tSDBaNEhBZ3BNRC90RjQ5?=
+ =?utf-8?B?Rm1ZMXpTRXkxTEhaTjUvbktBeHl5MnB5aU9aNDNNWmtKU29rMDlKTm5MUFZr?=
+ =?utf-8?B?K3VXWkpUenNzS0l6ZXMyYUE4cmJEN01MM21Bc3JlVXZtU0ZtUjhINkx1dWha?=
+ =?utf-8?B?QzFtdzNIK21CaUNCaHBRL1g3SWdFVHlJQ3g4N0JlUjFZR3RjUUk5YmU4cENO?=
+ =?utf-8?B?NDdKYkNvTkJFMGxiRFdBYXN3OVRiQWptQmxmUjVSS2xFWmo2Nm5lUGtpNzFj?=
+ =?utf-8?B?T256ZGF1T0w4bWljTlZublNNWlRJT2w1VmFINlp2Umw4dU9xT3pRc245NzEv?=
+ =?utf-8?B?R3BFL2ZzWGlrN29zSFNnQkRVNnJ0K0tqM2tBZ3JiblpCcmx2NmZlck42UjU1?=
+ =?utf-8?B?SUpWTWg4SGRjQTVNaWR3WFZpMGpVTXNLTG5VbzhuVldZYzByKzVuQm4wczFz?=
+ =?utf-8?B?ZkEwdjByb3ovdld0WS83aHMwZ0F3UHlZTHNBdXZkU29KWWlMQndwVWltS2I3?=
+ =?utf-8?B?bjJzQVJpNmoxeXJlUVlzd0JacjBVZDVsY2xsOGwzWmFaMmh6Tzd1ZnRQWVFr?=
+ =?utf-8?B?VTRMeXFzdWRhQVl3aWlBYkFubXV5LzZLeUQ4WG9mbXRnSEUzQTJrN2pOeTc2?=
+ =?utf-8?B?ZlpScUpjL1VTTFZpenl0Vm5kMy9lQ0hEWGFzMFFSQ1VkOGRrNE1MZHlZSHJx?=
+ =?utf-8?B?RDUzRWdOU0ZKMDJNb0huNTVVbzl0eFdMR09ROVdyOStLZGoxM3VQdE1FRWE3?=
+ =?utf-8?B?cVQxZWFxakZ3OFA2NGhPSm8vS0xhWlRPSFZ5LzlVWkovcWVnR0FhWHVTWFlS?=
+ =?utf-8?B?NnBRTWJLbkRVZ0JZN0NnRVZwZ045ZEM4dmY4c0Z3UWhWcDFkYUh2Zz09?=
+X-OriginatorOrg: cherry.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1294f6c8-0fe7-4da8-821f-08df41766b59
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 11:08:17.6074
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4tZOJeYgVsvAKLznyN8GBCIgUOc8GPca3e5zklrxnpUCAhCUDq5bruzGgKfBeAKrvneXqN/Y/1YpCgiN1qhjFOfIg+YYkgrJrx1FM7u3gCM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12028
 
-Add support for hardware-controlled leds on the dap8211r phy. The chip
-exposes three led that can be programmed to react to link, speed,
-duplex, and tx/rx activity.
+Hi Jason,
 
-Implement callbacks for led_hw_is_supported(), led_hw_control_set()
-led_hw_control_get().
+On 11/10/26 9:18 AM, Jason Yang wrote:
+> The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
+> for DSI and a receiver for CSI-2. Both can be used at the same time.
+> 
+> Mainline only supports the transmitter and models the block as a single
+> struct phy. The PHY core refcounts power_on() per struct phy, so the
+> receiver cannot be powered independently of it, and the single
+> devicetree cell selects the mode, so the provider cannot tell which of
+> the two a consumer refers to.
+> 
+> This series registers a struct phy for the PHY transmitter and one for
+> the PHY receiver, and implements the D-PHY receiver. As suggested in
+> the v5 review, the single cell of the binding now selects the PHY
+> transmitter or the PHY receiver. The cell values are the new generic
+> PHY_DIRECTION_TX and PHY_DIRECTION_RX constants. The PHY transmitter
+> and the PHY receiver cannot run in different modes. A phy-type property
+> of the PHY node therefore sets the mode of the whole block, D-PHY by
+> default.
+> 
+>    1/9  adds PHY_DIRECTION_TX and PHY_DIRECTION_RX to the generic header
+>    2/9  changes the single cell of the rockchip,rk3588-mipi-dcphy binding
+>         to select PHY_DIRECTION_TX or PHY_DIRECTION_RX, adds phy-type for
+>         the mode of the whole block, and keeps PHY_TYPE_DPHY and
+>         PHY_TYPE_CPHY as deprecated values
+>    3/9  unwinds the PHY transmitter power-on when the PLL fails to lock
+>    4/9  always writes the rate-dependent registers of the PHY transmitter
+>    5/9  moves the block-level setup (APB reset, BIAS) to runtime resume
+>    6/9  names the transmitter helpers and ops (no functional change)
+>    7/9  takes the PHY mode from phy-type and the PHY from the cell, and
+>         keeps the deprecated cell values on the PHY transmitter
+>    8/9  registers the receiver's struct phy, takes PHY_DIRECTION_RX in
+>         of_xlate() and implements the D-PHY receiver bring-up
+>    9/9  adds the MIPI CSI-2 receiver nodes on RK3588 and connects them
+>         to VICAP
+> 
+> 9/9 has to wait for 1/9 to 8/9. It uses PHY_DIRECTION_RX from 1/9,
+> and the csi nodes need a PHY driver with receiver support.
+> 
+> Compatibility
+> =============
+> 
+> In 2/9 and 7/9, the old cell values PHY_TYPE_DPHY and PHY_TYPE_CPHY
+> remain valid as deprecated values. They select the PHY transmitter, so
+> existing DTs keep working on a newer kernel.
+> 
+> New DTs following 1/9 and 2/9 are an ABI break on an older kernel. The
+> older kernel ignores phy-type and takes any cell value as the mode of
+> the block. A DSI node with PHY_DIRECTION_TX therefore gets no display,
+> and a CSI-2 node with PHY_DIRECTION_RX gets no camera.
+> 
+> In 9/9, the dsi nodes keep PHY_TYPE_DPHY, which older and newer kernels
+> both accept. With the csi nodes disabled, the display therefore keeps
+> working on either kernel.
+> 
+> The csi nodes in 9/9 have no older value to keep and have to use
+> PHY_DIRECTION_RX. Enabling csi0 or csi1 therefore needs a PHY driver
+> with receiver support. Since v7.0, a CSI-2 host driver probes the csi
+> nodes. An older PHY driver then gives the CSI-2 host the PHY transmitter
+> that drives the display. The camera gets no frames, and the display can
+> stop working as well.
+> 
+> Testing
+> =======
+> 
+> Tested on an RK3588 board, with a DSI panel and an IMX219 camera on
+> DCPHY0, and an LVDS panel behind a DSI-to-LVDS bridge on DCPHY1.
+> 
+>    - The PHY transmitter and the PHY receiver run at the same time: with
+>      8/9 and 9/9, both panels light from boot, and the camera stream is
+>      shown live on the DCPHY0 panel.
+>    - The two can be powered independently: the DCPHY0 panel is turned
+>      off and back on during a 1200-frame capture, and the capture
+>      completes.
+>    - The PHY receiver does not need the PHY transmitter: with dsi0
+>      disabled, the camera alone brings the block up and streams, which
+>      relies on 5/9 moving the block-level setup to runtime resume.
+>    - Existing device trees keep working: with a single PHY_TYPE_DPHY
+>      cell in dsi0 as before this series, the DCPHY0 panel lights.
+>    - The DT of 9/9 keeps the display working on an older kernel: with
+>      the csi nodes disabled and without this series, both panels light.
+>    - The new cell works for the PHY transmitter: with PHY_DIRECTION_TX
+>      in dsi0, with and without phy-type = <PHY_TYPE_DPHY>, the DCPHY0
+>      panel lights.
+> 
+> No WARNING, underflow, "Internal error" or Oops in dmesg in any of
+> these.
+> 
+> Not covered: the receiver of DCPHY1, the 3- and 4-lane receiver paths,
+> and RK3576. 3/9 and 4/9 fix states found by reading the code. Those
+> states were not reproduced on hardware.
+> 
 
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
----
- drivers/net/phy/dap8211r.c | 181 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 181 insertions(+)
+I can capture a frame on an RPi Camera module v2 with an IMX219 sensor 
+configured in 2-lane mode, routed to the CSI part of the DCPHY1 PHY. I 
+can capture a frame on an OV5675 camera sensor configured in 2-lane 
+mode, routed to the CSI part of the DCPHY0, while I endlessly run "cat 
+/dev/urandom > /dev/fb0" on the DSI part of DCPHY0. The noise on the 
+display still "moves" while I'm capturing, as expected. Thus:
 
-diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-index 4eb50c26397f..2e371c231d32 100644
---- a/drivers/net/phy/dap8211r.c
-+++ b/drivers/net/phy/dap8211r.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/errno.h>
- #include <linux/ethtool.h>
- #include <linux/kernel.h>
-@@ -57,6 +58,33 @@
-  */
- #define DAP8211R_DEFAULT_DEL_SEL	0xD
- 
-+#define DAP8211R_LED_ID_0		0
-+#define DAP8211R_LED_ID_1		1
-+#define DAP8211R_LED_ID_2		2
-+#define DAP8211R_LED_0			0xA00C
-+#define DAP8211R_LED_1			0xA00D
-+#define DAP8211R_LED_2			0xA00E
-+#define DAP8211R_LED_ACT_BLINK		BIT(13)
-+#define DAP8211R_LED_FULL_DUPLEX	BIT(12)
-+#define DAP8211R_LED_HALF_DUPLEX	BIT(11)
-+#define DAP8211R_LED_TX			BIT(10)
-+#define DAP8211R_LED_RX			BIT(9)
-+#define DAP8211R_LED_LINK_1000		BIT(6)
-+#define DAP8211R_LED_LINK_100		BIT(5)
-+#define DAP8211R_LED_LINK_10		BIT(4)
-+
-+#define DAP8211R_LED_LINK		(DAP8211R_LED_LINK_10	| \
-+					DAP8211R_LED_LINK_100	| \
-+					DAP8211R_LED_LINK_1000)
-+
-+#define DAP8211R_LED_SUPPORTED_TRG	(BIT(TRIGGER_NETDEV_LINK_10)	| \
-+					BIT(TRIGGER_NETDEV_LINK_100)	| \
-+					BIT(TRIGGER_NETDEV_LINK_1000)	| \
-+					BIT(TRIGGER_NETDEV_TX)		| \
-+					BIT(TRIGGER_NETDEV_RX)		| \
-+					BIT(TRIGGER_NETDEV_HALF_DUPLEX)	| \
-+					BIT(TRIGGER_NETDEV_FULL_DUPLEX))
-+
- static const int dap8211r_internal_delay[] = {0, 150, 300, 450, 600, 750, 900,
- 					      1050, 1200, 1350, 1500, 1650, 1800,
- 					      1950, 2100, 2250};
-@@ -142,6 +170,156 @@ static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_led_hw_is_supported() - Check if the requested LED rules are supported
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Validates the requested combination of rules which can be represented in the
-+ * hardware register.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index,
-+ *         or -EOPNOTSUPP if any requested rule is not supported by the PHY
-+ */
-+static int dap8211r_led_hw_is_supported(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	switch (index) {
-+	case DAP8211R_LED_ID_0:
-+		fallthrough;
-+	case DAP8211R_LED_ID_1:
-+		fallthrough;
-+	case DAP8211R_LED_ID_2:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return (rules & ~DAP8211R_LED_SUPPORTED_TRG) ? -EOPNOTSUPP : 0;
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_set() - Program the LED control register
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Translates the requested trigger rules into the corresponding bit
-+ * positions of the LED control register and writes the resulting value
-+ * to the PHY.
-+ *
-+ * Note that the ACT_BLINK bit (13) must be set together with TX/RX rules,
-+ * otherwise the LED will not blink on traffic if no other rule (such as
-+ * link or duplex) is active.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	u16 led_mode = 0, led_reg;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0:
-+		led_reg = DAP8211R_LED_0;
-+		break;
-+	case DAP8211R_LED_ID_1:
-+		led_reg = DAP8211R_LED_1;
-+		break;
-+	case DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_2;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules))
-+		led_mode |= DAP8211R_LED_LINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-+		led_mode |= DAP8211R_LED_LINK_10;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-+		led_mode |= DAP8211R_LED_LINK_100;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-+		led_mode |= DAP8211R_LED_LINK_1000;
-+
-+	if (test_bit(TRIGGER_NETDEV_RX, &rules))
-+		led_mode |= DAP8211R_LED_RX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_TX, &rules))
-+		led_mode |= DAP8211R_LED_TX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_HALF_DUPLEX;
-+
-+	if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_FULL_DUPLEX;
-+
-+	if (!led_mode)
-+		return -EOPNOTSUPP;
-+
-+	return dap8211r_write_ext(phydev, led_reg, led_mode);
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_get() - Read the current LED configuration
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Pointer to a bitmask where the current rules will be stored
-+ *
-+ * Reads the LED control register and translates the hardware bit
-+ * positions back into the corresponding netdev trigger rules bitmask.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_hw_control_get(struct phy_device *phydev, u8 index, unsigned long *rules)
-+{
-+	u16 led_reg;
-+	int led_mode = 0;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0:
-+		led_reg = DAP8211R_LED_0;
-+		break;
-+	case DAP8211R_LED_ID_1:
-+		led_reg = DAP8211R_LED_1;
-+		break;
-+	case DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_2;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	led_mode = dap8211r_read_ext(phydev, led_reg);
-+	if (led_mode < 0)
-+		return led_mode;
-+
-+	if (led_mode & DAP8211R_LED_LINK_10)
-+		__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+	if (led_mode & DAP8211R_LED_LINK_100)
-+		__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+	if (led_mode & DAP8211R_LED_LINK_1000)
-+		__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+
-+	if (led_mode & DAP8211R_LED_RX)
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+
-+	if (led_mode & DAP8211R_LED_TX)
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+
-+	if (led_mode & DAP8211R_LED_HALF_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_HALF_DUPLEX, rules);
-+
-+	if (led_mode & DAP8211R_LED_FULL_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_FULL_DUPLEX, rules);
-+
-+	return 0;
-+}
-+
- /**
-  * dap8211r_config_init() - Initialize PHY
-  * @phydev: PHY device structure
-@@ -230,6 +408,9 @@ static struct phy_driver dap8211r_driver[] = {
- 		.config_aneg	= genphy_config_aneg,
- 		.suspend	= genphy_suspend,
- 		.resume		= genphy_resume,
-+		.led_hw_is_supported	= dap8211r_led_hw_is_supported,
-+		.led_hw_control_set	= dap8211r_led_hw_control_set,
-+		.led_hw_control_get	= dap8211r_led_hw_control_get,
- 	},
- };
- module_phy_driver(dap8211r_driver);
--- 
-2.43.0
+Tested-by: Quentin Schulz <quentin.schulz@cherry.de> # RK3588 Tiger CSI1 
+2-lane IMX219, CSI0 2-lane OV5675+DSI
 
+> The DSI panels only light with the U-Boot SPLL fix [1] applied:
+
+As far as I remember, this is only applicable from 2026.01-rc2 
+(included) to 2027.01-rc2 (excluded). My 2025.07 downstream seems to be 
+working just fine wrt to that issue.
+
+Cheers,
+Quentin
