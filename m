@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595123;
-	b=IRET6IbNvAWxGeJk+qP62ZElLEOby/71JaBBV74xzuVpMQJ4cw5KnNY54uwV1DC8y9pY
-	 5VC8J/Viu9WnRfof24xss7YL7NDI6PpO+sP/pHtOaT8ciXZ5uvO6IiKRfqDqBBwk1BtUl
-	 sEG7UXy+dSaZajMNfEpC0VMmU8IIDiEedyVYPCzNzJboW6ZPkhDjG4wRyfT+h6mr8tUTO
-	 Pl5yqTfKKFMyjrQTixT46yfTH+jO/ND7jRuga9z2Y0gBFh0EQ/ie2Cg4JAE8XdyPQgwEs
-	 mJ/ubknfiYsfJKWB5/6Iy2rPJNb7Vi9MoycUFdppiKhJENUkFTSi48wnugrDHOJefgg==
+	t=1794595128;
+	b=UbPqD4FoZFnHvJf23QytnFhdvIERDfWBTCEo47c3Bh9OnNC5vfFObPLVwaGaMqC5XBiB
+	 sPe0OM6+S9ZyMYoo5gv6MYDRvuqwpFlbzFEpnhaE/tIymxiYQMlWFd0Ryn3CY4ELRXi3E
+	 3lWpQKHdIu15DJCoDniJgDjNuwaW+dCVcjKz3DRaTI94O/q8zi9Jg+sbb7l8iwqLPoMWt
+	 LXRj2bEf81jMn1V14MQ/TA3inWFsHxxiIHVxfJNxYUid7jaui9uDBWrcdHlavTY0oBLeu
+	 2eyDUnuj/T7n/ZYkiCe/Pe6yx0oPj/KnBwYJuQB2PYMJ8LHbGs8Izp+qVsyNgMQGGiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595123;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
-	b=Lecj95ZmiL87V7NN2XHe+DSy7scQfFclL16sopQKTMh1cvbAnKCBdgkc1Klbp5dx6X+8
-	 v/d3NTvulVvFDQCxpsZP0Lyx0pm+odvFkxQyzqA/1qmGGg46ThgOzdfNDeZjufeUJm5ro
-	 LUoA54Xvbq+ulqDQwR80+fUCKaoBd5hbWqcXR/Qqx2PkTf04YfobtE07P2VPear8pATRV
-	 4PAEX8xxRKpJrIs7v+thEiJuKyh3svsKfzPNFOs+qb0sRzYAIWoWglGlD4iifJJpiMrCw
-	 6N+C1zDpUZZmFB9GfdD7vca/VgtOeXEaP6NCSa9DoEGbK1tx7dB/3VRJr+69HOXVqvg==
+	bh=G73dHZS2pGnpXTpuxeHV3DYpzCnzuaaQaYHT0chm8vE=;
+	b=vm9+9s67eB1fgW2XlmoaR59mUQdq2wEGGKXnjFoPR7kqn97FFaWI/FVazb2zg8NL5lVx
+	 lSm4FgLnXktnUdufH+LC6Y4v/5VQ/CKHYtM7IFddnPq4zuzd/az1gHy+OYyp8AUjqL8wO
+	 57V41ByGGQ/w/rgGmb2+/FdawpsG1/5omgQo4M1QUQCmqqTIRdR2J2Sw103Bra5xkx5wJ
+	 +Zf2Vgbyo9QxfEpTlMzaD5ZFlASjgt13OcfzYVPGWcGBcQ7qcx+UFV1pmjEG5ClJtoCRn
+	 Qm9StF2EwYQvwXBGhpkjh7tdGlpIJARqfKZgZORWLZZQZ8CGrXTztTClo2M3fNE87gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kNvNHTUg;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jhJolbzX;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27887606CC83
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27887606CC83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0055606F2AD
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0055606F2AD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kNvNHTUg
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490a0e72588so573550f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jhJolbzX
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4919a880834so639252f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 10:38:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595121; x=1795199921; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794595126; x=1795199926; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
-        b=kNvNHTUgRjtH3mON9M91rXL1bm5mOnrWnMSeu1K73fYuLMy8EvA/ZS83+hjpvyJ4Yy
-         2aprL0xs0PB40OQ6Dhhpugd6YRCMj33GDsubh7LMFUt3yVSSZQDZV9l5LxVVcm7EHhY0
-         pjTO/mSguDcs4kyewWd9euNoJJdqA61YNmA1VwXvwD88303OTCnLnVca0Uf9X+LVbijM
-         kyjoLiViBevsmqMY1+WOYgCanH6OrT+rqXkDdJS7IOaOERJ0THv7oqUVQAQ6jLoLHu1s
-         EIa2/zQG+mdhkF1n+BHNbgY8K1grM+O1yTMHkZA0I5ebtHQBqxdMYuDHw3VcUUhJRxlj
-         wE/w==
+        bh=G73dHZS2pGnpXTpuxeHV3DYpzCnzuaaQaYHT0chm8vE=;
+        b=jhJolbzXWFFsiIEHx9l91sEYiwR2PiL+ur7AVRrzCKjMBEFaqjDWk0D4n9gkWK0crs
+         KyX1RZTn3uMkiu+whkl4croTqShYRBngiXSzL33XB8w0NIdSI4nddESvT40imo2CiEHn
+         FPjLZgE1WWc4BbDk+ryFzeLi8vjSD9/JXh0lRdtW+OgVqV6iDRWS8p//zi6OjusdRudw
+         bXr8KMDEnXoeYgnAHBdpEwuQ/yB+d/d39JZ7CRqjdIbxFSoTYUBmFiNpP0JcrLQTDu2Q
+         cIyFYwwi9qorQ7P3gQEMW9MxKSntGmUftqzbxf6RzjIWeABQQl/XxqCmpYSWaXkgLvmh
+         lpeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595121; x=1795199921;
+        d=1e100.net; s=20260707; t=1794595126; x=1795199926;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aQPrSDUxid3hTnblfq2igQmpuDYP0lgjM0zpbR4xQUg=;
-        b=R0xnaq6GOg/QImYCp6BtF2bBK0nZbnrpzPobmI4lK+4hR9tI11SQoUNNqH8b/YvMa1
-         dkLbxaVekD+mWWJsZLSCu0tPu9EvtjTtuh4Y0OkxIfXGYMfhDgmSou+T+ah0ZiEUo3lV
-         Thuc4ZV0puu0V7Wot1QrHQ6Eghxzd7NCseooTt+t1pceZvdTGHZ9J+/UeI//VDGRv2il
-         n/QoHeUnAANA6lwQrhmeqkpeVLjOsAujSZjvvgrWg4y3PaaJGTtdMJJsY2HllOqX8XES
-         W6oNEjvSID3ncrX/mIBig55w+uVvhkdchZKabfQ2mYqtj6+nZWio15WxQ3m37iTdP61J
-         Y9gw==
-X-Forwarded-Encrypted: i=1; AL+hErHpdTjSkZq3s/JtGyxj5sLU8doiqoIM3116pC2Pw41zfy2EFnYm9rofpBSHvo+6wmnWuzg3T3geeX/U@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ExNBz7rN939hGKnzzhbADMayfPQIJFYUl2XNNOz+8HUNni27N
-	huBGTxIHg3V0r+gdDoQqoRZCug0Cm1rmn8rWkWEcx0YedqgqBOxGXEmFRuWbZ3gx844=
-X-Gm-Gg: AYBFou2kDKfFsNaXg0sBs7CWA5lGKn4MZKydntAxxp9fb00/LE36TdmMlX4Xv+Jdg38
-	wVi6k/WnaZZ5T6HD2zsW8732I1xyq2xg3koBO3vWqR48UooUbRYVSIeJMZbbKaFqhT+DzuJGafZ
-	UvkDvObpDNvIPpNKwssR/7Txss9SQ/q4vCk2GkRpQL782H5J0bb2O3VqRFuVeyzk76bi+4a5nwx
-	+6YJJ4O8folfFr0ZadedREUCDSiCo0Wp4jXaPRmWdFXofKQAYwR9NhtB98WjvLIt8TXHb+lcntr
-	TSvaU+RVPNyPaYbcKgB3XIEXkoLJYWIsvKerJ+jfGE9LxvNchv1rir/7SrmOFyh368g2e7aBBTr
-	ExZKj3xR1lPX3eWmWfwpSASHr5gg3DBgEwiuXloIuSvG4JA4fyA1/lpeaVdbXR5oURqJmGNXc9L
-	4uOj5N0FnkJgiQzFZXO8kDmYB+6eLcz/y+BVaqaY2ddiKJtZdHkUyHbQ1/KceJ++PIyARbpFlss
-	pGaJbBip1bUSbOP96nTe1KFSPTsYjtPfnXkvnkJPzWT3jmMhTiPpT85U0Q7MexlRfBW5LVfxoo9
-	b/ZlyeFQTQ9GDNNGAu+YjukbrK+k27cRCE9axYZJGnc=
-X-Received: by 2002:a05:6000:29cf:b0:48d:f9dd:e3df with SMTP id ffacd0b85a97d-49c712ac8edmr4249814f8f.18.1794595121078;
-        Fri, 13 Nov 2026 10:38:41 -0800 (PST)
+        bh=G73dHZS2pGnpXTpuxeHV3DYpzCnzuaaQaYHT0chm8vE=;
+        b=KPJ823NDABCUj34JH8EVHskRY7pKlB5f+KVdhRS1XeEMr1QYYg16TAhoKNhBKZD637
+         sCmvzY2scOJz6AX3r9B2sDpM+yy+ep7nbCGNWX+UAMmSnOQub3bsNAfEpECqeP7Gm6To
+         KvjNP2l9W2Hh24lpVPbUsQI9fY00ce1e6jZvHD2sSphqW3VbXQ63nzCWXNdGvnhZduCx
+         jhA3hWOCohLk3oW2xopht9VEpXdeW2Ngi8aT6VCHZJwLCFLDfjKdUu0J95Ca06B78CQr
+         1YPaz/Pcj20hVWtp4DIy9nkSfqFLMd8usrbnc7IRAIlvDIdX+OYtcyb5Oogs+JRxUmjE
+         rrXw==
+X-Forwarded-Encrypted: i=1; AL+hErFjWq9paKj1UbE2pEDVK6aZcH4GGQySikiBvWbQubi2a3YENnkmWf1WgTh7ir8SO7uv6dxus12PhbER@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nCj3qfYxlQ9rhPa5RiiN6cdiZfbkVSRgOcqONdgszMGRJBm3L
+	4HOcY8TM+TofZy0RMEhzeTGNfYXBRHauf2NedOHefOnHa5F9xZWI9fxG87XRqhQ1LEg=
+X-Gm-Gg: AYBFou2jVtw6E1yXEoNiMedHGg46y1HvrYFweUaW9RosdBOsj2apQmwNkeOnyHhJVej
+	xS6xn+uJFv7S7ieJ1L4TF/lamBxzN1+ar/3LKAufTqN/SNx+Ie5kqyz3+I9eI0jVjnfmtwgKGb/
+	8iDAOUpmEHU8EF/Wdw2VNCdcYRvLYD86EnBh1/TR03V5uJagwTKMPE7vDLdg7/vknShIquhnLsm
+	FD2Pm8YbTv2fKsNG/pvFLZW6neGbGr3mqB68YALGgK7kMSqIGibXoLEPjHpBxd/umM3naZze6nZ
+	OS1pwf4D6pjP0ZEF9m1diRIUWMjgVVRFYuq2QDKSG/HQzuQKuWIAoRKil8aZYYAx0gNW4HKG0jL
+	d8mWalXQiZxMn6qBxaO4a6Kem3i3YPvzHqJUp7RxKLJh3XD4VMxm7tgV4Rs5NSZTghLKsQZD8EY
+	4JiUgdVP9M1V4xnZNciZpQRp+uGTp+mU5ApQI4VWd5ZF8cgbn86ZZ4Pxx9Wmz3AJcit/6DE8T1U
+	2sxj7zcL7TdM2zSoqSLf022RowTbBXhuNO6cQs5J1kJOTwylqj5w11wouY9YFeO/J8REOmosJxk
+	B0rFZnE/+qTex3Jb+faNucAJeVHTL+m001Lh80WGzGU=
+X-Received: by 2002:a05:6000:26c9:b0:493:32cf:ff9a with SMTP id ffacd0b85a97d-49c7325c195mr8314708f8f.56.1794595125795;
+        Fri, 13 Nov 2026 10:38:45 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.38.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:38:40 -0800 (PST)
+        Fri, 13 Nov 2026 10:38:45 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:19 +0100
-Subject: [PATCH RFC 05/23] ASoC: dt-bindings: qcom,lpass: add WSA RX and TX
- channels ids
+Date: Fri, 13 Nov 2026 19:38:23 +0100
+Subject: [PATCH RFC 09/23] ASoC: qcom: lpass: add support for optional WSA
+ interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-5-5183f6aab9fc@linaro.org>
+Message-Id: <20261113-topic-sm8650-el2-v1-9-5183f6aab9fc@linaro.org>
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -113,62 +113,632 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1281;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=22969;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=7B0HLPkz/JmSein0hlLzb+UyX+3YoDiyYBasK2j51sI=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91kfPhvTXeMs73QmE5NQsahYZG9H830cDEBY6m9o
- UEhCBleJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZHwAKCRB33NvayMhJ0VCjD/
- 9N0CE7ZXY2semuBrhYN0RyvNDEYoK7WutoyBIX5xdZDi43Z4J3tQePDZTIgp8ZFCYT9aiv6iW+vjmB
- Lf9Yo9oJ66bHsV1hoAeXLrXicmkYA2NGEckDOE6g2tdkKXaIAJ8lFri+9GnGPOmeu+V21fWgKg10MX
- TgUf4zSTk0mtjwhOgAX5H2EfWQmg0eubO5w4aEmLPfn4vJBx9y6eqbo3H5sFIvStYXxniE6jargFkS
- fImd31BCwFKxStoRZJrbfUZDK1DlqyaSJfOV719LYbkYewTqbE8yh1sJHOYS8KwxBiNqUXPOtl6UH5
- F2nPJNyuL7PGUKadHNl4hJ7v32XmAfQ43twMGR/vDOdmCy700unX5t9Y57nQL7tHjTCiesr7RPxzzE
- gaDLBZ0IHe50oUdmjMoWImbsr3iZjLkrXPUwtg45m0i3uAJsyLY3D8JzgbewybuCv9nVcld/PV73EF
- VfklXWvriz7PNi3AjEN+z9X7+3SjIOmCewotFOQQMgKDWiLx5cju3UfzuuGl6V15fVxORUnV+JdhCG
- AAiSPsKru+jO0WEzQ8x5Rb+2ywsk+vdXIqAP+tODE2TUNe5gklfawC/OPSzdvCDhrWPm5um/xMIpFf
- liQuTT+BHUy6GBVORrke3b9xJAz9GqO5UKYjwiCt4RKagd+C+Z5bzmIR5Bzw==
+ bh=CC2WJCdBlk50xwiNf2m2RCQi3pFpLpQLeH77sARfsP4=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91khKhabFdq3YXuu3FgBFCedenZdAn+eKeF6c4Wf
+ nri4cGGJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZIQAKCRB33NvayMhJ0Yn/D/
+ 9dV4aQtw9ZARI/MluXV2cnnB3OmQaeYeOFkVFgRgQXqE5+j76vaAuhlBy4uusvMqYrdphveGxD8FlY
+ IKh7qyPwH+78JW5Akjh+mHYt4Xo1zxVDsK8Y8Oe/xvLVoKqodgLXxJBZzWIY+MrsQMwYQYWa07GP8k
+ dxqmb1fQ8z4Ri9XMKrAW3txAQmHeMjnU7texyuzlhnBLFOmIVAqzN4avUc7NTpSJnn3BY1YmzlXqvB
+ 4AAKR3QZOKt1T9tyJLh1qewsPmnDdooS/tQv6CUk1PUbhLyBCLAtZNUqFVHZepJDha5obD42mCxaVp
+ ULsEzhVHrBFa2dqAWTD7j3IojxuT9/OeNmP3+JwnMSKfyD4AEd42oT6wUoXyvnEbhrxmdDUlFUr1pE
+ Z+CtWJbZVDwHWYRFRpx+2Ye3w0mbqEUXus6O3QUACQ+wbiqfi/e6fnRW2C30A5taywrkJBdxqJAnjL
+ Yvo7YwJ3GbLZYcfXMS8HS0SEpSVT5H7Fp7FXNVcOys6aWI0ZqQKQN0qQUc+R+p8jG0wyz9kB3Xqbpk
+ tcEkFiTRLZX/TQN1CAmvCInRwI2A3Dj7srmGAh8a174R1DwEvN/KVt92CAOBzsBzBlNXK6WKZb6ILG
+ 3pW4DOUKBjpbR42exmGqU4kI+scigAqOOfRka3p2x/BVdR/ccbjD3G/D/mvQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Add the bindings to connect to the Qualcomm WSA interfaces.
+Newer SoCs have an additional WSA LPAIF used to driver and
+additional soundwire bus dedicated to Speakers.
+
+Add the necessary plumbing which is very similar to the
+RXTX support used to driver the WCD soundwire bus.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- include/dt-bindings/sound/qcom,lpass.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ sound/soc/qcom/lpass-cpu.c       |  31 +++++++
+ sound/soc/qcom/lpass-lpaif-reg.h |  51 +++++++++--
+ sound/soc/qcom/lpass-platform.c  | 182 +++++++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/lpass.h           |  64 ++++++++++++++
+ 4 files changed, 323 insertions(+), 5 deletions(-)
 
-diff --git a/include/dt-bindings/sound/qcom,lpass.h b/include/dt-bindings/sound/qcom,lpass.h
-index 22f5e1fcc8a6..5d8db5195dad 100644
---- a/include/dt-bindings/sound/qcom,lpass.h
-+++ b/include/dt-bindings/sound/qcom,lpass.h
-@@ -44,6 +44,27 @@
- #define MI2S_SENARY	34
- #define MI2S_SEPTENARY	35
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index ea8b6083529c..d46b72c926b2 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -983,6 +983,16 @@ static struct regmap_config lpass_va_regmap_config = {
+ 	.cache_type = REGCACHE_FLAT,
+ };
  
-+#define LPASS_CDC_DMA_WSA_RX0 36
-+#define LPASS_CDC_DMA_WSA_RX1 37
-+#define LPASS_CDC_DMA_WSA_RX2 38
-+#define LPASS_CDC_DMA_WSA_RX3 39
-+#define LPASS_CDC_DMA_WSA_RX4 40
-+#define LPASS_CDC_DMA_WSA_RX5 41
-+#define LPASS_CDC_DMA_WSA_RX6 42
-+#define LPASS_CDC_DMA_WSA_RX7 43
-+#define LPASS_CDC_DMA_WSA_RX8 44
-+#define LPASS_CDC_DMA_WSA_RX9 45
++static struct regmap_config lpass_wsa_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.writeable_reg = lpass_rxtx_regmap_writeable,
++	.readable_reg = lpass_rxtx_regmap_readable,
++	.volatile_reg = lpass_rxtx_regmap_volatile,
++	.cache_type = REGCACHE_FLAT,
++};
 +
-+#define LPASS_CDC_DMA_WSA_TX0 46
-+#define LPASS_CDC_DMA_WSA_TX1 47
-+#define LPASS_CDC_DMA_WSA_TX2 48
-+#define LPASS_CDC_DMA_WSA_TX3 49
-+#define LPASS_CDC_DMA_WSA_TX4 50
-+#define LPASS_CDC_DMA_WSA_TX5 51
-+#define LPASS_CDC_DMA_WSA_TX6 52
-+#define LPASS_CDC_DMA_WSA_TX7 53
-+#define LPASS_CDC_DMA_WSA_TX8 54
-+
- #define LPASS_MCLK0	0
+ static unsigned int of_lpass_cpu_parse_sd_lines(struct device *dev,
+ 						struct device_node *node,
+ 						const char *name)
+@@ -1045,6 +1055,8 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+ 			data->hdmi_port_enable = 1;
+ 		} else if (is_cdc_dma_port(id)) {
+ 			data->codec_dma_enable = 1;
++			if (is_wsa_cdc_dma_port(id))
++				data->wsa_enable = 1;
+ 		} else {
+ 			data->mi2s_playback_sd_mode[id] =
+ 				of_lpass_cpu_parse_sd_lines(dev, node,
+@@ -1124,6 +1136,13 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 		if (IS_ERR(drvdata->va_lpaif))
+ 			return PTR_ERR(drvdata->va_lpaif);
  
- #endif /* __DT_QCOM_LPASS_H */
++		if (drvdata->wsa_enable) {
++			drvdata->wsa_lpaif =
++				devm_platform_ioremap_resource_byname(pdev, "lpass-wsa-lpaif");
++			if (IS_ERR(drvdata->wsa_lpaif))
++				return PTR_ERR(drvdata->wsa_lpaif);
++		}
++
+ 		lpass_rxtx_regmap_config.max_register = LPAIF_CDC_RXTX_WRDMAPER_REG(variant,
+ 					variant->rxtx_wrdma_channels +
+ 					variant->rxtx_wrdma_channel_start, LPASS_CDC_DMA_TX3);
+@@ -1142,6 +1161,18 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 		if (IS_ERR(drvdata->va_lpaif_map))
+ 			return PTR_ERR(drvdata->va_lpaif_map);
+ 
++		if (drvdata->wsa_enable) {
++			lpass_wsa_regmap_config.max_register = LPAIF_CDC_RXTX_WRDMAPER_REG(variant,
++						variant->wsa_wrdma_channels +
++						variant->wsa_wrdma_channel_start,
++						LPASS_CDC_DMA_WSA_TX0);
++
++			drvdata->wsa_lpaif_map = devm_regmap_init_mmio(dev, drvdata->wsa_lpaif,
++								       &lpass_wsa_regmap_config);
++			if (IS_ERR(drvdata->wsa_lpaif_map))
++				return PTR_ERR(drvdata->wsa_lpaif_map);
++		}
++
+ 		ret = of_lpass_cdc_dma_clks_parse(dev, drvdata);
+ 		if (ret) {
+ 			dev_err(dev, "failed to get cdc dma clocks %d\n", ret);
+diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
+index 6d9d9d1f6a4d..faea5a0ce5ea 100644
+--- a/sound/soc/qcom/lpass-lpaif-reg.h
++++ b/sound/soc/qcom/lpass-lpaif-reg.h
+@@ -82,6 +82,14 @@
+ #define LPAIF_RXTX_IRQSTAT_REG(v, port) LPAIF_RXTX_IRQ_REG_ADDR(v, 0x4, port)
+ #define LPAIF_RXTX_IRQCLEAR_REG(v, port) LPAIF_RXTX_IRQ_REG_ADDR(v, 0xC, port)
+ 
++/* LPAIF WSA IRQ */
++#define LPAIF_WSA_IRQ_REG_ADDR(v, addr, port) \
++		(v->wsa_irq_reg_base + (addr) + v->wsa_irq_reg_stride * (port))
++
++#define LPAIF_WSA_IRQEN_REG(v, port) LPAIF_WSA_IRQ_REG_ADDR(v, 0x0, port)
++#define LPAIF_WSA_IRQSTAT_REG(v, port) LPAIF_WSA_IRQ_REG_ADDR(v, 0x4, port)
++#define LPAIF_WSA_IRQCLEAR_REG(v, port) LPAIF_WSA_IRQ_REG_ADDR(v, 0xC, port)
++
+ /* LPAIF VA IRQ */
+ #define LPAIF_VA_IRQ_REG_ADDR(v, addr, port) \
+ 		(v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port))
+@@ -182,7 +190,9 @@
+ #define LPAIF_CDC_RDMA_REG_ADDR(v, addr, chan, dai_id) \
+ 	(is_rxtx_cdc_dma_port(dai_id) ? \
+ 	(v->rxtx_rdma_reg_base + (addr) + v->rxtx_rdma_reg_stride * (chan)) : \
+-	(v->va_rdma_reg_base + (addr) + v->va_rdma_reg_stride * (chan)))
++	(is_wsa_cdc_dma_port(dai_id) ? \
++	 (v->wsa_rdma_reg_base + (addr) + v->wsa_rdma_reg_stride * (chan)) : \
++	 (v->va_rdma_reg_base + (addr) + v->va_rdma_reg_stride * (chan))))
+ 
+ #define LPAIF_CDC_RXTX_RDMACTL_REG(v, chan, dai_id) \
+ 		LPAIF_CDC_RDMA_REG_ADDR(v, 0x00, (chan), dai_id)
+@@ -205,12 +215,28 @@
+ #define LPAIF_CDC_VA_RDMA_INTF_REG(v, chan, dai_id) \
+ 	LPAIF_CDC_RDMA_REG_ADDR(v, 0x50, (chan), dai_id)
+ 
++#define LPAIF_CDC_WSA_RDMACTL_REG(v, chan, dai_id) \
++		LPAIF_CDC_RDMA_REG_ADDR(v, 0x00, (chan), dai_id)
++#define LPAIF_CDC_WSA_RDMABASE_REG(v, chan, dai_id) \
++		LPAIF_CDC_RDMA_REG_ADDR(v, 0x04, (chan), dai_id)
++#define LPAIF_CDC_WSA_RDMABUFF_REG(v, chan, dai_id) \
++		LPAIF_CDC_RDMA_REG_ADDR(v, 0x08, (chan), dai_id)
++#define LPAIF_CDC_WSA_RDMACURR_REG(v, chan, dai_id) \
++		LPAIF_CDC_RDMA_REG_ADDR(v, 0x0C, (chan), dai_id)
++#define LPAIF_CDC_WSA_RDMAPER_REG(v, chan, dai_id) \
++		LPAIF_CDC_RDMA_REG_ADDR(v, 0x10, (chan), dai_id)
++#define LPAIF_CDC_WSA_RDMA_INTF_REG(v, chan, dai_id) \
++	LPAIF_CDC_RDMA_REG_ADDR(v, 0x50, (chan), dai_id)
++
+ #define LPAIF_CDC_WRDMA_REG_ADDR(v, addr, chan, dai_id) \
+ 	(is_rxtx_cdc_dma_port(dai_id) ? \
+ 	(v->rxtx_wrdma_reg_base + (addr) + \
+ 		v->rxtx_wrdma_reg_stride * (chan - v->rxtx_wrdma_channel_start)) : \
+-	(v->va_wrdma_reg_base + (addr) + \
+-		v->va_wrdma_reg_stride * (chan - v->va_wrdma_channel_start)))
++	(is_wsa_cdc_dma_port(dai_id) ? \
++	 (v->wsa_wrdma_reg_base + (addr) + \
++		v->wsa_wrdma_reg_stride * (chan - v->wsa_wrdma_channel_start)) : \
++	 (v->va_wrdma_reg_base + (addr) + \
++		v->va_wrdma_reg_stride * (chan - v->va_wrdma_channel_start))))
+ 
+ #define LPAIF_CDC_RXTX_WRDMACTL_REG(v, chan, dai_id) \
+ 	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x00, (chan), dai_id)
+@@ -238,13 +264,28 @@
+ #define LPAIF_CDC_VA_WRDMA_INTF_REG(v, chan, dai_id) \
+ 	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x50, (chan), dai_id)
+ 
++#define LPAIF_CDC_WSA_WRDMACTL_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x00, (chan), dai_id)
++#define LPAIF_CDC_WSA_WRDMABASE_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x04, (chan), dai_id)
++#define LPAIF_CDC_WSA_WRDMABUFF_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x08, (chan), dai_id)
++#define LPAIF_CDC_WSA_WRDMACURR_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x0C, (chan), dai_id)
++#define LPAIF_CDC_WSA_WRDMAPER_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x10, (chan), dai_id)
++#define LPAIF_CDC_WSA_WRDMA_INTF_REG(v, chan, dai_id) \
++	LPAIF_CDC_WRDMA_REG_ADDR(v, 0x50, (chan), dai_id)
++
+ #define __LPAIF_CDC_RDDMA_REG(v, chan, dir, reg, dai_id) \
+ 		(is_rxtx_cdc_dma_port(dai_id) ? LPAIF_CDC_RXTX_RDMA##reg##_REG(v, chan, dai_id) : \
+-			LPAIF_CDC_VA_RDMA##reg##_REG(v, chan, dai_id))
++		 (is_wsa_cdc_dma_port(dai_id) ? LPAIF_CDC_WSA_RDMA##reg##_REG(v, chan, dai_id) : \
++			LPAIF_CDC_VA_RDMA##reg##_REG(v, chan, dai_id)))
+ 
+ #define __LPAIF_CDC_WRDMA_REG(v, chan, dir, reg, dai_id) \
+ 		(is_rxtx_cdc_dma_port(dai_id) ? LPAIF_CDC_RXTX_WRDMA##reg##_REG(v, chan, dai_id) : \
+-			LPAIF_CDC_VA_WRDMA##reg##_REG(v, chan, dai_id))
++		 (is_wsa_cdc_dma_port(dai_id) ? LPAIF_CDC_WSA_WRDMA##reg##_REG(v, chan, dai_id) : \
++			LPAIF_CDC_VA_WRDMA##reg##_REG(v, chan, dai_id)))
+ 
+ #define __LPAIF_CDC_DMA_REG(v, chan, dir, reg, dai_id) \
+ 		((dir ==  SNDRV_PCM_STREAM_PLAYBACK) ? \
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index e162627d6f86..9c879a8090bb 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -97,6 +97,30 @@ static const struct snd_pcm_hardware lpass_platform_va_hardware = {
+ 	.fifo_size		=	0,
+ };
+ 
++static const struct snd_pcm_hardware lpass_platform_wsa_hardware = {
++	.info			=	SNDRV_PCM_INFO_MMAP |
++					SNDRV_PCM_INFO_MMAP_VALID |
++					SNDRV_PCM_INFO_INTERLEAVED |
++					SNDRV_PCM_INFO_PAUSE |
++					SNDRV_PCM_INFO_RESUME,
++	.formats		=	SNDRV_PCM_FMTBIT_S16 |
++					SNDRV_PCM_FMTBIT_S24 |
++					SNDRV_PCM_FMTBIT_S32,
++	.rates			=	SNDRV_PCM_RATE_8000_192000,
++	.rate_min		=	8000,
++	.rate_max		=	192000,
++	.channels_min		=	1,
++	.channels_max		=	8,
++	.buffer_bytes_max	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE,
++	.period_bytes_max	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE /
++						LPASS_PLATFORM_PERIODS,
++	.period_bytes_min	=	LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE /
++						LPASS_PLATFORM_PERIODS,
++	.periods_min		=	LPASS_PLATFORM_PERIODS,
++	.periods_max		=	LPASS_PLATFORM_PERIODS,
++	.fifo_size		=	0,
++};
++
+ static int lpass_platform_alloc_rxtx_dmactl_fields(struct device *dev,
+ 					 struct regmap *map)
+ {
+@@ -141,6 +165,33 @@ static int lpass_platform_alloc_va_dmactl_fields(struct device *dev,
+ 					    &v->va_wrdma_intf, LPASS_CDC_DMA_REGISTER_FIELDS_MAX);
+ }
+ 
++static int lpass_platform_alloc_wsa_dmactl_fields(struct device *dev,
++						  struct regmap *map)
++{
++	struct lpass_data *drvdata = dev_get_drvdata(dev);
++	const struct lpass_variant *v = drvdata->variant;
++	struct lpaif_dmactl *rd_dmactl, *wr_dmactl;
++	int rval;
++
++	rd_dmactl = devm_kzalloc(dev, sizeof(*rd_dmactl), GFP_KERNEL);
++	if (!rd_dmactl)
++		return -ENOMEM;
++
++	wr_dmactl = devm_kzalloc(dev, sizeof(*wr_dmactl), GFP_KERNEL);
++	if (!wr_dmactl)
++		return -ENOMEM;
++
++	drvdata->wsa_rd_dmactl = rd_dmactl;
++	drvdata->wsa_wr_dmactl = wr_dmactl;
++
++	rval = devm_regmap_field_bulk_alloc(dev, map, &rd_dmactl->intf,
++					    &v->wsa_rdma_intf, LPASS_CDC_DMA_REGISTER_FIELDS_MAX);
++	if (rval)
++		return rval;
++
++	return devm_regmap_field_bulk_alloc(dev, map, &wr_dmactl->intf,
++					    &v->wsa_wrdma_intf, LPASS_CDC_DMA_REGISTER_FIELDS_MAX);
++}
+ 
+ static int lpass_platform_alloc_dmactl_fields(struct device *dev,
+ 					 struct regmap *map)
+@@ -237,6 +288,11 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 		map = drvdata->va_lpaif_map;
+ 		drvdata->va_substream[dma_ch] = substream;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		map = drvdata->wsa_lpaif_map;
++		drvdata->wsa_substream[dma_ch] = substream;
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -265,6 +321,12 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 		runtime->dma_bytes = lpass_platform_va_hardware.buffer_bytes_max;
+ 		snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		snd_soc_set_runtime_hwparams(substream, &lpass_platform_wsa_hardware);
++		runtime->dma_bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
++		snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -307,6 +369,10 @@ static int lpass_platform_pcmops_close(struct snd_soc_component *component,
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
+ 		drvdata->va_substream[data->dma_ch] = NULL;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		drvdata->wsa_substream[data->dma_ch] = NULL;
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -345,6 +411,12 @@ static struct lpaif_dmactl *__lpass_get_dmactl_handle(const struct snd_pcm_subst
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
+ 		dmactl = drvdata->va_wr_dmactl;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++		dmactl = drvdata->wsa_rd_dmactl;
++		break;
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		dmactl = drvdata->wsa_wr_dmactl;
++		break;
+ 	}
+ 
+ 	return dmactl;
+@@ -380,6 +452,12 @@ static int __lpass_get_id(const struct snd_pcm_substream *substream,
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
+ 		id = pcm_data->dma_ch - v->va_wrdma_channel_start;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++		id = pcm_data->dma_ch;
++		break;
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		id = pcm_data->dma_ch - v->wsa_wrdma_channel_start;
++		break;
+ 	}
+ 
+ 	return id;
+@@ -407,6 +485,10 @@ static struct regmap *__lpass_get_regmap_handle(const struct snd_pcm_substream *
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
+ 		map = drvdata->va_lpaif_map;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		map = drvdata->wsa_lpaif_map;
++		break;
+ 	}
+ 
+ 	return map;
+@@ -491,6 +573,8 @@ static int lpass_platform_pcmops_hw_params(struct snd_soc_component *component,
+ 	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
+ 	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+ 		break;
+ 	default:
+ 		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai_id);
+@@ -756,6 +840,21 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 			val_mask = LPAIF_IRQ_ALL(ch);
+ 			val_irqen = LPAIF_IRQ_ALL(ch);
+ 			break;
++		case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++		case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++			ret = regmap_fields_write(dmactl->dyncclk, id, LPAIF_DMACTL_DYNCLK_ON);
++			if (ret) {
++				dev_err(soc_runtime->dev,
++					"error writing to rdmactl reg field: %d\n", ret);
++				return ret;
++			}
++			reg_irqclr = LPAIF_WSA_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
++			val_irqclr = LPAIF_IRQ_ALL(ch);
++
++			reg_irqen = LPAIF_WSA_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST);
++			val_mask = LPAIF_IRQ_ALL(ch);
++			val_irqen = LPAIF_IRQ_ALL(ch);
++			break;
+ 		default:
+ 			dev_err(soc_runtime->dev, "%s: invalid %d interface\n", __func__, dai_id);
+ 			return -EINVAL;
+@@ -838,6 +937,22 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 			val_mask = LPAIF_IRQ_ALL(ch);
+ 			val_irqen = LPAIF_IRQ_ALL(ch);
+ 			break;
++		case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++		case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++			ret = regmap_fields_write(dmactl->dyncclk, id, LPAIF_DMACTL_DYNCLK_OFF);
++			if (ret) {
++				dev_err(soc_runtime->dev,
++					"error writing to rdmactl reg field: %d\n", ret);
++				return ret;
++			}
++
++			reg_irqclr = LPAIF_WSA_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
++			val_irqclr = LPAIF_IRQ_ALL(ch);
++
++			reg_irqen = LPAIF_WSA_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST);
++			val_mask = LPAIF_IRQ_ALL(ch);
++			val_irqen = LPAIF_IRQ_ALL(ch);
++			break;
+ 		default:
+ 			dev_err(soc_runtime->dev, "%s: invalid %d interface\n", __func__, dai_id);
+ 			return -EINVAL;
+@@ -964,6 +1079,12 @@ static irqreturn_t lpass_dma_interrupt_handler(
+ 		reg = LPAIF_VA_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
+ 		val = 0;
+ 	break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		map = drvdata->wsa_lpaif_map;
++		reg = LPAIF_WSA_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST);
++		val = 0;
++	break;
+ 	default:
+ 	dev_err(soc_runtime->dev, "%s: invalid  %d interface\n", __func__, dai_id);
+ 	return -EINVAL;
+@@ -1124,6 +1245,31 @@ static irqreturn_t lpass_platform_vaif_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t lpass_platform_wsaif_irq(int irq, void *data)
++{
++	struct lpass_data *drvdata = data;
++	const struct lpass_variant *v = drvdata->variant;
++	unsigned int irqs;
++	irqreturn_t rv;
++	int chan;
++
++	rv = regmap_read(drvdata->wsa_lpaif_map,
++			 LPAIF_WSA_IRQSTAT_REG(v, LPAIF_IRQ_PORT_HOST), &irqs);
++
++	/* Handle per channel interrupts */
++	for (chan = 0; chan < LPASS_MAX_CDC_DMA_CHANNELS; chan++) {
++		if (irqs & LPAIF_IRQ_ALL(chan) && drvdata->wsa_substream[chan]) {
++			rv = lpass_dma_interrupt_handler(
++						drvdata->wsa_substream[chan],
++						drvdata, chan, irqs);
++			if (rv != IRQ_HANDLED)
++				return rv;
++		}
++	}
++
++	return IRQ_HANDLED;
++}
++
+ static int lpass_platform_prealloc_cdc_dma_buffer(struct snd_soc_component *component,
+ 						  struct snd_pcm *pcm, int dai_id)
+ {
+@@ -1156,6 +1302,14 @@ static int lpass_platform_prealloc_cdc_dma_buffer(struct snd_soc_component *comp
+ 		buf->bytes = lpass_platform_va_hardware.buffer_bytes_max;
+ 		buf->addr = drvdata->va_cdc_dma_lpm_buf;
+ 		break;
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
++		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
++		break;
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
++		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 3;
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -1359,6 +1513,34 @@ int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
+ 				"error initializing va dmactl fields: %d\n", ret);
+ 			return ret;
+ 		}
++
++		if (drvdata->wsa_enable) {
++			ret = regmap_write(drvdata->wsa_lpaif_map,
++				LPAIF_WSA_IRQEN_REG(v, LPAIF_IRQ_PORT_HOST), 0x0);
++			if (ret) {
++				dev_err(&pdev->dev, "error writing to wsa irqen reg: %d\n", ret);
++				return ret;
++			}
++			drvdata->wsaif_irq = platform_get_irq_byname(pdev, "lpass-irq-wsaif");
++			if (drvdata->wsaif_irq < 0)
++				return -ENODEV;
++
++			ret = devm_request_irq(&pdev->dev, drvdata->wsaif_irq,
++					       lpass_platform_wsaif_irq, 0,
++					       "lpass-irq-wsaif", drvdata);
++			if (ret) {
++				dev_err(&pdev->dev, "wsa irq request failed: %d\n", ret);
++				return ret;
++			}
++
++			ret = lpass_platform_alloc_wsa_dmactl_fields(&pdev->dev,
++								     drvdata->wsa_lpaif_map);
++			if (ret) {
++				dev_err(&pdev->dev,
++					"error initializing wsa dmactl fields: %d\n", ret);
++				return ret;
++			}
++		}
+ 	}
+ 
+ 	if (drvdata->hdmi_port_enable) {
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index 4231466928d4..46ae02e67403 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -46,6 +46,8 @@ static inline bool is_cdc_dma_port(int dai_id)
+ 	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
+ 	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
+ 	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+ 		return true;
+ 	}
+ 	return false;
+@@ -61,6 +63,16 @@ static inline bool is_rxtx_cdc_dma_port(int dai_id)
+ 	return false;
+ }
+ 
++static inline bool is_wsa_cdc_dma_port(int dai_id)
++{
++	switch (dai_id) {
++	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
++	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
++		return true;
++	}
++	return false;
++}
++
+ struct lpaif_i2sctl {
+ 	struct regmap_field *loopback;
+ 	struct regmap_field *spken;
+@@ -119,12 +131,14 @@ struct lpass_data {
+ 
+ 	int hdmi_port_enable;
+ 	int codec_dma_enable;
++	int wsa_enable;
+ 
+ 	/* low-power audio interface (LPAIF) registers */
+ 	void __iomem *lpaif;
+ 	void __iomem *hdmiif;
+ 	void __iomem *rxtx_lpaif;
+ 	void __iomem *va_lpaif;
++	void __iomem *wsa_lpaif;
+ 
+ 	u32 rxtx_cdc_dma_lpm_buf;
+ 	u32 va_cdc_dma_lpm_buf;
+@@ -134,12 +148,14 @@ struct lpass_data {
+ 	struct regmap *hdmiif_map;
+ 	struct regmap *rxtx_lpaif_map;
+ 	struct regmap *va_lpaif_map;
++	struct regmap *wsa_lpaif_map;
+ 
+ 	/* interrupts from the low-power audio interface (LPAIF) */
+ 	int lpaif_irq;
+ 	int hdmiif_irq;
+ 	int rxtxif_irq;
+ 	int vaif_irq;
++	int wsaif_irq;
+ 
+ 	/* SOC specific variations in the LPASS IP integration */
+ 	const struct lpass_variant *variant;
+@@ -149,12 +165,14 @@ struct lpass_data {
+ 	unsigned long hdmi_dma_ch_bit_map;
+ 	unsigned long rxtx_dma_ch_bit_map;
+ 	unsigned long va_dma_ch_bit_map;
++	unsigned long wsa_dma_ch_bit_map;
+ 
+ 	/* used it for handling interrupt per dma channel */
+ 	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
+ 	struct snd_pcm_substream *hdmi_substream[LPASS_MAX_HDMI_DMA_CHANNELS];
+ 	struct snd_pcm_substream *rxtx_substream[LPASS_MAX_CDC_DMA_CHANNELS];
+ 	struct snd_pcm_substream *va_substream[LPASS_MAX_CDC_DMA_CHANNELS];
++	struct snd_pcm_substream *wsa_substream[LPASS_MAX_CDC_DMA_CHANNELS];
+ 
+ 	/* SOC specific clock list */
+ 	struct clk_bulk_data *clks;
+@@ -170,6 +188,8 @@ struct lpass_data {
+ 	struct lpaif_dmactl *rxtx_rd_dmactl;
+ 	struct lpaif_dmactl *rxtx_wr_dmactl;
+ 	struct lpaif_dmactl *va_wr_dmactl;
++	struct lpaif_dmactl *wsa_rd_dmactl;
++	struct lpaif_dmactl *wsa_wr_dmactl;
+ 
+ 	/* Regmap fields of HDMI_CTRL registers*/
+ 	struct regmap_field *hdmitx_legacy_en;
+@@ -215,6 +235,15 @@ struct lpass_variant {
+ 	u32	va_wrdma_reg_base;
+ 	u32	va_wrdma_reg_stride;
+ 	u32	va_wrdma_channels;
++	u32	wsa_irq_reg_base;
++	u32	wsa_irq_reg_stride;
++	u32	wsa_irq_ports;
++	u32	wsa_rdma_reg_base;
++	u32	wsa_rdma_reg_stride;
++	u32	wsa_rdma_channels;
++	u32	wsa_wrdma_reg_base;
++	u32	wsa_wrdma_reg_stride;
++	u32	wsa_wrdma_channels;
+ 	u32	i2sctrl_reg_base;
+ 	u32	i2sctrl_reg_stride;
+ 	u32	i2s_ports;
+@@ -369,6 +398,40 @@ struct lpass_variant {
+ 	struct reg_field va_wrdma_codec_ch;
+ 	struct reg_field va_wrdma_codec_fs_delay;
+ 
++	/* CDC WSA RD_DMA */
++	struct reg_field wsa_rdma_intf;
++	struct reg_field wsa_rdma_bursten;
++	struct reg_field wsa_rdma_wpscnt;
++	struct reg_field wsa_rdma_fifowm;
++	struct reg_field wsa_rdma_enable;
++	struct reg_field wsa_rdma_dyncclk;
++	struct reg_field wsa_rdma_burst8;
++	struct reg_field wsa_rdma_burst16;
++	struct reg_field wsa_rdma_dynburst;
++	struct reg_field wsa_rdma_codec_enable;
++	struct reg_field wsa_rdma_codec_pack;
++	struct reg_field wsa_rdma_codec_intf;
++	struct reg_field wsa_rdma_codec_fs_sel;
++	struct reg_field wsa_rdma_codec_ch;
++	struct reg_field wsa_rdma_codec_fs_delay;
++
++	/* CDC WSA WR_DMA */
++	struct reg_field wsa_wrdma_intf;
++	struct reg_field wsa_wrdma_bursten;
++	struct reg_field wsa_wrdma_wpscnt;
++	struct reg_field wsa_wrdma_fifowm;
++	struct reg_field wsa_wrdma_enable;
++	struct reg_field wsa_wrdma_dyncclk;
++	struct reg_field wsa_wrdma_burst8;
++	struct reg_field wsa_wrdma_burst16;
++	struct reg_field wsa_wrdma_dynburst;
++	struct reg_field wsa_wrdma_codec_enable;
++	struct reg_field wsa_wrdma_codec_pack;
++	struct reg_field wsa_wrdma_codec_intf;
++	struct reg_field wsa_wrdma_codec_fs_sel;
++	struct reg_field wsa_wrdma_codec_ch;
++	struct reg_field wsa_wrdma_codec_fs_delay;
++
+ 	/**
+ 	 * on SOCs like APQ8016 the channel control bits start
+ 	 * at different offset to ipq806x
+@@ -377,6 +440,7 @@ struct lpass_variant {
+ 	u32	wrdma_channel_start;
+ 	u32	rxtx_wrdma_channel_start;
+ 	u32	va_wrdma_channel_start;
++	u32	wsa_wrdma_channel_start;
+ 
+ 	/* SOC specific initialization like clocks */
+ 	int (*init)(struct platform_device *pdev);
 
 -- 
 2.34.1
