@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794528110;
-	b=z/n3Sq4tlNcGVX9qsidkduLLPkPfoWKwCjeZcKDzB37hPJfdE7AWsF6JpUA4ekbDNNV1
-	 AmPIb83ax80+m67yFuQPfd6L+ZoMgWGrMZIQ4mXDpTDuwOhidK2gvhiooQSaLmeoyUGPk
-	 U2d3cwfm8QhCXeheWtQbJQ53uXOWllnvxOZQQWEbhfhrbY1DC46IWaO4tlrLv1KcPcojG
-	 t0iv40fvOY/qhDoohBXXms+k89josL6TakArklEz4QX7qbH4Brxmd7GsbxqizzVFk17lh
-	 qSAX84GwklxUFtlV1sKwoodMUiXhW0U/IAXy7wYvOD7XNUOy8R+LzHtfsVf5Io4oO4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794528110;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=F3tI5WW7X0e6X9kDP+nteSCgDx/2zInz7PcOy6HfnYU=;
-	b=tFUsfLILhNviYodRxcx4xF4tZse3llPxXsJ6XfX+QSDIkoRB4Pm0giVEBtQU7tcHsWIs
-	 HZeZ18XoFDyrSWyiMP6yr9r1Fc3t3KhYTXSCVRS9PtJ+l8qXIjXz1EYu4Or6lLP9eA+VV
-	 TYlUbBS2V48qL3g4yVoCB6SnISH/KyG/k8COcx0ZbTXM5/EdlHInjphAz52FYo6pWrx6n
-	 5eT6KcXsK+vf1YVBrwDmXN9dNsgMLK90h1MjAt/vCksY+CvIrlChYKj/BoI2ArrKTzE6f
-	 1aIdEh01tuYcUA48Ae8sSx/jLysgTRP7XbwYF1nIITLkjBe0uoxv9SJnuvBZzMpIKLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiNyb2qh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794528459;
+	b=vPwxEviQJaTDI/pGI3/N6+KWzh1oRoV/STwbT6coJ1C2sQNV3Dwze94cMfABsyX8NsMb
+	 EsgSyWE6e/LwPqbqCQH6Q8dIVC4zxpr67Sa/XuA+WxzAD7EmWQLTt0NOvnFKERJzWatRZ
+	 bH2pVHbvwAPReT+GidCg3673ZqtIXc++xyX4fwXphT2D+FtPDcS5a/+N+/hfVGHv4aG97
+	 t0C3Iu+uRrC7W51i76bNLMQOysDYh6MonuD6yufXUUSoRjiGH55A80iPRFp47Qe54vpeA
+	 RIZiSKdUQr/hfAaXapVeEqpfBPS7F1zU4bvDMswfXSElIZSvIOYznBTPMTVNvUt4Clw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794528459;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QpGkpJnoxk1/sBthaQlZAmsCfTX4oSPVFGJz6F2K++k=;
+	b=MSM7ZZFQlOstgtPgRNbszRo4mCHvXeaVVtABnU4/j7j/JWJIfY0ZGh0QssA3ZMplzn33
+	 +EdslGZhq463efZfgn6RWBHJOdX8vdMJxjBlVfjkPwsLaBwAK1lkBqHF1r5tR8hadBiHY
+	 wfemkVnnJddVe6Xo0lKREsKxQ3lCp36GDEoNClSN4bVvs9jZUGknx3hCe7RHD38trJytm
+	 5I1qTL7DwYE3OpBkIzyPY1+YOAzU2uCbjv5sB7D8IWcXMHpZawPzAG46CPBKypWAmzUMV
+	 9pWgAEwUo6zBkLRXVZdtb0t8o8fT0rSgXM627URFzvEEsGHNFaF3yjOoPHblgJrZcNA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUJ3raQP;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BED606A339;
-	Fri, 13 Nov 2026 00:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FC8606A31C;
+	Fri, 13 Nov 2026 00:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiNyb2qh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794528110;
-	b=Enrru3xU88+lJwvsb0NyLg2at21TEdOzY/4BrNf39PQ4YFKuX8anUvw5sPgXLuGNqs83
-	 bYrGUNbZu2kQUkzs5J6F279FSZY82LhImcwHywquRP78zytXcIGIzDd0eNmk7zxMfEjIm
-	 jjESMV1bRoAVCetniHYwntyEU9hEOY9pEVTpzdIQlBd5cpzSC0nfkjMfMtZFqmvsvs0SG
-	 pSh7y8gwqgjWwHAVLpt5ZcHyAdfR2OB4oC3w+0gscpTqRJulIvpsf21/fv7IxBouBGlvh
-	 QeLKSR1b1lDZcvTcNJ3EyDWQXAIPiMVwFELW9cpSjo9NYIASqinY4UCkGAJZ7s+8N/w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794528110;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=F3tI5WW7X0e6X9kDP+nteSCgDx/2zInz7PcOy6HfnYU=;
-	b=jo1wAFRq8RouTK71fzd11f9fXni8OgPtl1kS5zI2acgjHqUekx7b+R5MvGVFeLmNNDXz
-	 VXTf3neJ0WfRKReNQGXrRVmz/sCquecg8DsxcUXJTO/MLCeKZKDyoJ/ZEOlqXAeltIP+j
-	 boMfidahxtEypaDMhKb2E26wVSwsaOinpSTxSbO6rDMEehQ8Pv0zzQf4rogE23TKeGrbS
-	 HbOW86WoS4Bn/ZCyet1Im7BoBOAakDp1TdBs+nWHbBQpnUTISNypzWXNXBznuxJel4UGM
-	 xVjoWluBI2vadMmti2rD6Bz2eFWKw78fZGY0367CApBA6xDpT6f0VtSk74GGHjQY1VQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0D3FF1F000C6;
-	Fri, 13 Nov 2026 00:01:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUJ3raQP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438061F000C4;
+	Fri, 13 Nov 2026 00:07:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794528110;
-	bh=F3tI5WW7X0e6X9kDP+nteSCgDx/2zInz7PcOy6HfnYU=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=fiNyb2qhhtV9Mi+v5Y3yYlKHws6+3jLXeqAgP/SIaws3nAPS0iSnWCqZvWhDlB9bd
-	 POcJMrnzQU1sH+E72UBPIyOKBJ1Jz29wK2B6BsECvEI9d7Y2bdutzIw6LnLHBkZvpg
-	 Kv8aLENLuR0Mjo9Fl040cnL1xFg7B+HsOQxyQw23iEEy36kp9C1eBpfeQ16/qyVpX5
-	 mIPDysR2R8SPbB/eJqbYaWOSLhEvB0j1CvRNjtc66gPYECQ/uBnkoXi+3U/ReFcFqd
-	 XOdTOAoQ2Q95nUE63td/EW5jOuliYG9dR342km9NU4VeQPMFSTAO6gh0uOssjyPqrz
-	 Xnx0L1z6tkzbA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 64E1A47559;
-	Fri, 13 Nov 2026 00:01:48 +0000 (UTC)
-From: Paul Sajna via B4 Relay <devnull+sajattack.postmarketos.org@kernel.org>
-Subject: [PATCH v6 0/3] leds: aw2013: Add AW2027 support
-Date: Thu, 12 Nov 2026 17:01:39 -0700
-Message-Id: <20261112-aw2013-aw20xx-rename-v6-0-251eca340abc@postmarketos.org>
+	s=k20260515; t=1794528459;
+	bh=QpGkpJnoxk1/sBthaQlZAmsCfTX4oSPVFGJz6F2K++k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZUJ3raQPYmCEXvfMTFxjKVyTF50eCM+2igc65YwIF3cufIXILi05KUBdEsLdt7x99
+	 MoBihOU0MxomiKZg+Tk1XeDSeYf0jKegQDUBBBz+Y5mvw1ZbB+U5oo6aSiFWt/NbR2
+	 IhXZiF2yVhHMdJH9JVJs3r3rx3I2kvaLZeAqW77kJ7zMwmTK93nN3f3blYO2rPJvvb
+	 KUXcF79Oxd6iajzogteuT+asBzguQ50gutQYzjL/K9Z5Z8FWm5SK+GjKQkUhJSzdc/
+	 0k/gU81NF1TBhBA7rT/0h0OjxpJeII+W+FOmCNBNjUURNoenMAbNtKxGVl6YPICYKE
+	 r8/WOknoPhD8A==
+Date: Fri, 13 Nov 2026 00:07:36 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Artem Novak <artem122novak@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
+Message-ID: <20261113-pretense-immersion-3ecd22d4387b@spud>
+References: <20261111212921.290857-1-artem122novak@gmail.com>
+ <20261112-reprise-jukebox-41fb305e9044@spud>
+ <CAPufuhZPs66hiMzHZPMLBiOAOjJxaePo=9OEvcxmxyQdKFxBVA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,117 +58,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XRTU7DMBAF4KtUXmM0M67jhhX3QCz8M2kt1KTYI
- QRVuTtOQNAFFivrWZpvnjRXkTlFzuJhdxWJp5jj0JfQ3O2EP9n+yDKGkgUBNdCCkfadANX2zLN
- M3Nszy9CRUl63hL4RZfSSuIvzxj49l3yKeRzSx7ZlwvX3H3BCCdK31oQOyRrAx8uQx7NNLzwO+
- X5IR7G6E/1YCKArFhUL4cDelZ7G6IqlbiykiqXWXtZhFwJocE3F2v9aZXPF2kuUB2o0tY7Zaap
- Y+saq9tKllyOvWZGyLdg/rOXrMIlf38qZx+/rLMsnKmKLOwQCAAA=
-X-Change-ID: 20260907-aw2013-aw20xx-rename-df233c5921c6
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
- Griffin Kroah-Hartman <griffin@kroah.com>
-Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794528107; l=3313;
- i=sajattack@postmarketos.org; s=20250413; h=from:subject:message-id;
- bh=w8c/YpWO2vwNEW8lTX4fe+ur30ObhEM9MW5h1gJ1JSM=;
- b=ilLA1ISkHHZZMnGz0jkPOZ1n5UTIuMq4rPE3ejPegZWtWq/iMjbSWA0NQ7VuZDo6SiiBMw85c
- K3n+kmIMr0sDUnT2RSZad91jBzqcKQgaA1ccRoJUmGZtqe76gQIrctF
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=ZFE/UBqiz9Wr8b+zBL27opOjw5x5ket5JFqks/VQGeM=
-X-Endpoint-Received: by B4 Relay for sajattack@postmarketos.org/20250413
- with auth_id=1505
-X-Original-From: Paul Sajna <sajattack@postmarketos.org>
-Reply-To: sajattack@postmarketos.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="og18d2jLfBFalsqc"
+Content-Disposition: inline
+In-Reply-To: <CAPufuhZPs66hiMzHZPMLBiOAOjJxaePo=9OEvcxmxyQdKFxBVA@mail.gmail.com>
 
-Refer to PATCH 2 for a full description of the similarities and
-differences between AW2013 and AW2027.
+--og18d2jLfBFalsqc
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'm hoping the sashiko reviews about unbalanced regulators that I was
-struggling to fix are covered by
-https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
-and I can drop my failed attempts to fix them.
-Let me know if I misunderstood.
+On Thu, Nov 12, 2026 at 12:48:00PM -0600, Artem Novak wrote:
+> Hi Conor,
+>=20
+> I wasn't entirely sure whether this should be submitted as a
+> standalone patch or together with the board binding,
+> so I marked it as an RFC.
+>=20
+> I included the vendor prefix in my October 22 submission for the
+> fx-9750GIII binding.
+> I guess, regular patch would be nice, in this case.
+>=20
+> Submission from before:
+> https://lore.kernel.org/all/20261022063902.471383-1-artem122novak@gmail.c=
+om/
 
-I'll do my best to address all of Sashiko's comments, but it might take
-me some time to circle back, don't bother reviewing until I've done
-this.
+Send the board binding, this and the board dts as a series.
 
-This PATCH resulted out of discussions pertaining to
-sdm660-mainline/linux, a close-to-mainline fork for Qualcomm Snapdragon 660
-devices, specifically for the BlackBerry KEY2 Keyboard Backlight,
-in the following GitHub PR: https://github.com/sdm660-mainline/linux/pull/218
+>=20
+> Best regards,
+> Artem
+>=20
+>=20
+> On Thu, Nov 12, 2026 at 12:13=E2=80=AFPM Conor Dooley <conor@kernel.org> =
+wrote:
+> >
+> > On Wed, Nov 11, 2026 at 03:29:21PM -0600, Artem Novak wrote:
+> > > Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
+> > > registry.
+> > >
+> > > This prefix will be used by upcoming Devicetree bindings for
+> > > Casio calculator hardware.
+> >
+> > Why is this an RFC?
+> >
+> > >
+> > > Signed-off-by: Artem Novak <artem122novak@gmail.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b=
+/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > index 5471a06f93f1..f05475072eec 100644
+> > > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > @@ -303,6 +303,8 @@ patternProperties:
+> > >      description: Capella Microsystems, Inc
+> > >    "^cascoda,.*":
+> > >      description: Cascoda, Ltd.
+> > > +  "^casio,.*":
+> > > +    description: Casio Computer Co., Ltd.
+> > >    "^catalyst,.*":
+> > >      description: Catalyst Semiconductor, Inc.
+> > >    "^cavium,.*":
+> > > --
+> > > 2.56.0
+> > >
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
-Changes in v6:
-- Fix the compile error introduced by my unchecked hasty rebase
-- Some adjustments per David Heidelberg's comments
-- Link to v5: https://patch.msgid.link/20261112-aw2013-aw20xx-rename-v5-0-b2c5e323a90a@postmarketos.org
+--og18d2jLfBFalsqc
+Content-Type: application/pgp-signature; name=signature.asc
 
-Changes in v5:
-- Drop move of chip->num_leds
-- Make aw2013_microamp_to_imax more readable
-- rebase to next-20261112 for Lee's changes
-- Link to v4: https://lore.kernel.org/linux-leds/20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org/
+-----BEGIN PGP SIGNATURE-----
 
-Changes in v4:
-- Drop sashiko fixes covered by https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
-- Rename the chip id register value to reflect that it covers more chips
-  (https://www.awinic.com/en/driver/AW2027DNR/640)
-- Address preliminary review comments from Lee Jones
-- Link to v3: https://lore.kernel.org/r/20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavZUxwAKCRB4tDGHoIJi
+0ix7AQCKrOULNEMqCJXdz4ncDiKWoimyLarPrAjxM+ZMGvYL/wD/dltqwZc2NJyr
+7iKVD3Q3Sh/VS6+StcOqWEzac7gIqQg=
+=piVq
+-----END PGP SIGNATURE-----
 
-Changes in v3:
-- Drop rename
-- Capitalize commit subject
-- Extra tweaks to cleanup patches (preventing more unbalanced regulator
-  stuff)
-- Whitespace fiddling
-- Link to v2: https://lore.kernel.org/r/20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org
-
-Changes in v2:
-- Reduce renames to internal driver scope, to prevent breaking compat
-- Address Sashiko Review Comments
-- Split renames into a separate commit to make the actual changes easier
-to identify
-- Change from RFC to PATCH
-- Link to v1: https://lore.kernel.org/r/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org
-
-To: Lee Jones <lee@kernel.org>
-To: Pavel Machek <pavel@kernel.org>
-To: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Nikita Travkin <nikitos.tr@gmail.com>
-Cc: linux-leds@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Paul Sajna (3):
-      dt-bindings: leds: aw2013: Add awinic,aw2027 compatible
-      leds: aw2013: Add AW2027 support
-      leds: aw2013: Use dev_err_probe
-
- .../devicetree/bindings/leds/leds-aw2013.yaml      |   6 +-
- drivers/leds/leds-aw2013.c                         | 218 +++++++++++++++++----
- 2 files changed, 180 insertions(+), 44 deletions(-)
----
-base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
-change-id: 20260907-aw2013-aw20xx-rename-df233c5921c6
-
-Best regards,
---  
-Paul Sajna <sajattack@postmarketos.org>
-
-
+--og18d2jLfBFalsqc--
