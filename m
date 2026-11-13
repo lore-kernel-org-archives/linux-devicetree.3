@@ -1,110 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560546;
-	b=rEn0bs9upTzMuKrijMPVgFDGxEm432ECONDxtPgDi/ayArQRt0fGNLYAnf6vlljVxSBi
-	 XJfR9jk04HDIwpk1/7i/i/ZLv9PJqSWCEq/HlkZjki7x3Dlx1PRSTNHA95H9PmRCO383k
-	 eUvKld3eNjqQB68eLf7h5znmUbvDCQTEOUfhFcLSMjBH9g4jWTWhO4kOYTp6jCErgDVaN
-	 WLmyXgHzNK7QUPrUJCwEZ4/0nxzySNE4GEzBCntF4ltBhQbfcCZyGCHq3QwXYj5JjEZs4
-	 6afDKJXZ79aNhCSrljhHosMk49nfNZu0GAz/VJegN9pm9rh4GC7w/cVEqNIKjwAJG6w==
+	t=1794560564;
+	b=sZSNmvsTxrTEM7+fiO9Vu/6ettCK8Nei7iHYWbG/ByRFU1JRgzFWAg++vLAJ7v4tL2Mz
+	 Mfj97aimDjbqy+rpjqzq+NTNS4OIaVlUI3i0VjYXgxiNOllenv7re7NeIz8u04kW9VWqy
+	 /JMdxeD0zkbTume7oh1Mds1EtB5qlOpD8oO2KvcJtvrO2la8q+cwLrlTc5Cw1WFX1JDBy
+	 YxTnev0bIUjPdKTvi0N4aGHyW3a+awj2Sia5os5FG+cNPLG2kVAjmc3ICQLzh3+Bihlop
+	 kIB8rd0rAEuOpINKfUWt5o0J8CkFPX+nQ+9WfP27+u3oFCD/qtssd7BwCH1QZu/dyrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560546;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=spi0eC7tVCfNiex3d0zT8UXoDtEilCerp0eznL2nero=;
-	b=Pt+4F+KvznlInXwTM/i7Lay2qe0KFmgxW+uPCAfI2r0ZD+iA01XzvzKff4S1sz9O0uMR
-	 oBjq0gm9MDY1XgPmiyBM0Y7l4vEUHA9VzjCiskE4sjOm6QDAgSLMnmEWWUKWgQ2o2YfER
-	 flcs7yOrY/ywbga4OU48HQH2xQ01t2jIaNwZGVjHGkMdwURKMZ/Ksfg8hW9hcS5Q5PXhv
-	 hPQOqnEukkFk/9p38PANQAysBRuv6xIPCkAxlcCeR0V+wsBuXQ6ckQcp0s+Sdz0Us/Qi0
-	 MDLqECcQZ66lR3RVOVey3ydFJ3hW8sRUoCFwVmrbP+81CIOpP5GqeKIwAEMHKIc8f7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ahsgv2wAySqVQliAB8Kc3mUySg+XitoYtH+2V1k0eiU=;
+	b=o0MWaDC442+g9IgkfEji80EfLK6ojkPbSa/zCNpprTfw7Y5rb8EW+T4lozbot81S3BKP
+	 sloVDeF36F9FUyo7SDEAtpvud8hJB2vB2IMBwPKw0otU1GeQ3zJIiaqLOzA9TMXqZM8Ds
+	 W02QIPGVq8s4bNJJz+FNb6Y4UxE0skQwPBfhmIHbsUlMfG9Dpr+9zeOUAR6st7r9tnbSz
+	 5LXGAHg0Udv1tpwiuKNuCr5/wSztneGEscYL2RTijPdMN5zHWaBY6skBI1M9X2GuMrOfQ
+	 9jttz5AbJstjgaByVa+jGoltnh16MTR0TZh7fpPq4EoZ3D2Lm0YAXpHJ1SrEqg5b9OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ScWsajd8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fw9OfeJV;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PBFCvrt5;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF06606A332
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADF06606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B15F606A31C
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:02:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B15F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ScWsajd8;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fw9OfeJV
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8V6gp3652797
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:02:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=spi0eC7tVCfNiex3d0zT8U
-	XoDtEilCerp0eznL2nero=; b=ScWsajd8ps5+svUZeAiGK7dVHuHgAwv5SV8vaJ
-	3MidTiyhVw/joQhRi1bF9ST8RdXaTVBjiYRC+BqhKbyfLwFkEu/MJH/++9w5bC7Z
-	rvjEVyBY0HgvzvmiwDcX97dhOOCG/8NntDHnLNACMFN8lhpvDZOFkhZSe3qrIyMY
-	hr5EzTIH8SL69SKGsFuTSFpVNAYc+25+coL6+o+yiBGFRxSKIgplTdlQPsjut7UN
-	jbY4FAV52sjA4hUrZH85ZfuFV3jufqWdszbQ0XUV1EDKnXQyQ0vTWGcg9d8c9gNu
-	oD5Z5lpFytwnbbPwav0N08XOYBrdSYcYTucjHzmz7qTgzBkg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkgwaa8q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 09:02:24 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed077a15c3so6662725ad.0
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:02:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PBFCvrt5
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3791619605cso1591558eec.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 01:02:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794560544; x=1795165344; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=spi0eC7tVCfNiex3d0zT8UXoDtEilCerp0eznL2nero=;
-        b=Fw9OfeJV/QItiJyHJYOySX+9Jx59OkXPTOYWD8MvGJycayE9KdvEjoPtin8/JfeQbb
-         bSt0HJJM+vBPsmTNyfy4ug2Oh0js+gCi1gm45UVt96vLxDQ1jJizxhjQzD3shgbc+GtR
-         pN961OJL35D9+1CrNi6Bvox0tlrVxAPwSKtWHMo/LkdfAxtZX0KPsNSrhJH9GAiivs7M
-         +G12H4WsdsRXV6rV/44AM/Ina2x7L/GybjRDrK3ePVT/FXWFYn5SNcc1KIn3EDjQd0/q
-         gx0DQioMU1NfGdNOhsADX6xIM0Sxr2l3qR5WH84SUWBcPAAXxENT9eQdXWYmPI4j8Idu
-         +ZGg==
+        d=gmail.com; s=20260707; t=1794560562; x=1795165362; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ahsgv2wAySqVQliAB8Kc3mUySg+XitoYtH+2V1k0eiU=;
+        b=PBFCvrt5jDqH6kNo6nFcPYHgIrBbbVklswI+CnppOfcnR22W8TlYpgj/QA2VgL+twc
+         ik+XMt0OtCPmW2Q20xOPuckRnmcDwC0mvrm+UbuKHxfTGYnGagYkvNgav7afydDPLg7o
+         5H3ijTL/FLUEQ1nZ7eA9lpAnmfemTCbb2hPpGiqlhdKOaA5hP/Bt4xaU6K3cG7ohmyYW
+         Tp5K99zK57R+PFV7jjSgfpYZK3Elgqm4NJe6MEqhDQXZwg3FjUaRvjFx0Z9zll/O1EPw
+         t3GIVeuPCZ5lJtQ1gZ3JUgoj3KUAf2O8JfwOx+6FrZLqhBtzgwXuvcBslrWX2J6BGDw9
+         3hbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794560544; x=1795165344;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=spi0eC7tVCfNiex3d0zT8UXoDtEilCerp0eznL2nero=;
-        b=g/iXvAd26DkZQCHDnrfTt6Aubk43k1/Wjwz055wNOnWzmd8e8hHpZyOCEnDhwEXXVh
-         0JmdF2hCuo+FRKYpYBw5leVJdfvgUrLlZMaAA1UQslhDmY4xKFCoPlIVmbR6mj2FaeEf
-         sz9DbFhkrck8q6cjIMWMZJms9jyj4VgtdZl7a1yKpU3l6FWdgpkuEhMxccRf9bCVwDUU
-         8VtmWB/73u48M1wryCg068jkfLXOA6nK06zQcy1QFraeodVOlV0CWL15M0pVpbcVfeD/
-         kbB4oyqVFNNMjWaoOMM9Bs5Poq8niR/Bxq3p7Mj3hNjLuklJ4Gbu35o0O2H3QR6WL2Xy
-         TsQQ==
-X-Forwarded-Encrypted: i=1; AL+hErFSclkzUvzh7c7XoOxAnaMiFTG9HmeZbZE9t5wsSNsY79mIif/BDP7dEuqFdYFe9lPDGTGrkOWNhXkN@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P9MkoDRX8D1s0y8Cg0fSMkmlJLm1GY4/Yn9BeZfkznkDjsT4H
-	xcetSKiDldKEE+A+Plpqz/nA1+W5JCZ2Dl+6KkzXOFbaH/Dnoj2PbGEkQ0b2Jl3JL8CE/QIZMyn
-	5Urjyelwk0OgnqgtJmZzu7TNLKaHbLPoPPUWUEM7fVajkn9k3CJW70U5GHA5pc4Zu
-X-Gm-Gg: AYBFou32nUkYjDz8LFTXt4dbwSu5waH2v6VmubKvQ/eMDdn0Z3KFk44bxVo3hwOKIWM
-	+p9oY3mX20nMRJ9nkhTurWembCDUfX3HM3VxJteoPABiDtt7ec6cgJzNnrMVR9279CE47v1PtJO
-	wIF2oTxYrl0WefkdzYc+pOn8ZyPTLug9FBoB54H4vYSYEBiUk20SHgHw9MJck31hmE9tm3Np0IF
-	iW3vGUvfckdOTdVZGhD8Vu0QazWKvj2syaiAkEzpVINOKPxzkggg1OzrQ+Pa00nKnLsbfnt1o2m
-	amUDrqbymPP1NzjhwJ0sGv/lKYxaXqiLettE8WlPLEg7eOgbzioNohuoHdecOsjcgm9qRJidNUo
-	6apTKpPhwMouO10DyrfvG+ESKtijonk95dYHnfgsZkotiIsi0tj127/BQx5D0X8yIcfDNoEUc9J
-	SMUJoEmg==
-X-Received: by 2002:a17:902:e84a:b0:2e9:3ec9:5ad7 with SMTP id d9443c01a7336-2ee0dc052a4mr18944165ad.39.1794560543536;
-        Fri, 13 Nov 2026 01:02:23 -0800 (PST)
-X-Received: by 2002:a17:902:e84a:b0:2e9:3ec9:5ad7 with SMTP id d9443c01a7336-2ee0dc052a4mr18943895ad.39.1794560543014;
-        Fri, 13 Nov 2026 01:02:23 -0800 (PST)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f884be3sm7068695ad.55.2026.11.13.01.02.19
+        d=1e100.net; s=20260707; t=1794560562; x=1795165362;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ahsgv2wAySqVQliAB8Kc3mUySg+XitoYtH+2V1k0eiU=;
+        b=t+oNBk9zjU3WdLUcCbWiCk4P9er3Y2NgFlfS+671XVXnUKhRlR7MlSyUoTQeXubnqg
+         o7ILs8Jvs+3NJyHgMxchC2Dua++256Kph7ClcNDdJg8jZhUEANATo7/j88io8fAEDRYZ
+         6ueNwTESc0GxU2DvMzN5T05RySTZy8Uv7uHmb8x8N3gpMCP53IRBdcjeKUufa4x1kumE
+         NwNeU5i2Y1aPj8GG8Bc9kVB72+61lnPKgvlxithHOUZiPQioccHDUoh96gQFvESFzDH6
+         HYpprtjMIP0uInWx1/4fzndUv4jXzV1xodpt31B46aX0m90kU29CVP3N1oqTabqscUX0
+         2rvw==
+X-Forwarded-Encrypted: i=1; AL+hErFDW3REC9pAnygv2IUm63Ck0Yh9fIoHjBDOCuqMeLcr5P0Q1nxYqsG+WW5DIAssZAHcnSwNTbwsmHB2@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yAdt4NO4v3XEEdHkF4Kbwo5eHUkIzlZ6Qv6e2VpwNpQS7+yNV
+	TB5w9+cRQu0VKlbZ3W0HkurXYqhUvbmPALz8ZWixPc51v1tTLnWj403i
+X-Gm-Gg: AYBFou1tVL/6WdHA79ZHyTwzmv37rNIqlAIApRBv3fyThnlJQDUENhDGe1F1UeqlTuf
+	F/QN8z1/haY4bN2dJMH0Ls9srMfDXCF8Vod/xWGOPmxjZzlIcvwyoLB4pvloqXwdGKeluD/FsNW
+	BXxM1XKelwN1rRJOeCekTOw6ybM8sQ1CnR2tYiIxGMWZ4n6WFu2qjtb/fd6MN23tZyUvUtX1xCr
+	hIvEeCGdMjylJP2bpPib2hibtYdQvQzDr2W+4ZENvEs1Lk2w7oDaFifojF6mpCaWli2SK0RyhqC
+	bjMBh87OOw43zhSfxZY3fVlhQVZFlicuqvnPAW8Fh2xEiQ8SMg0IU8r9cQO2HgT8sXjQbC/YYen
+	nlEEhz1XZO+O3VjeFyPLAhdkxBB25e6eeTDPyBq8SAmDKmbJqnPHTANbVjGTsG9gHLtUjhjo42D
+	7P9oc+HeGmHjq8/DIVCBZTTe/evse4MHoWBVl9XhZgvx5eQjmuhT3sZKBx0FY279BSmGVwhigU8
+	FWw625kHW/SqhCjbchyMNLSJdpL/L6q41hzorYnxpwC8WjEKCgQ24VV6nSe/jBO3SJz3Enq/OjW
+	/Noutw1mE9OgBG9y3oj6FgCSSf9C25aRf4C/D8mXfie9CKE/NomGvQ/3hW6ZF4MiShAjRZgvHlY
+	aTevw
+X-Received: by 2002:a05:693c:20c4:10b0:375:f17a:d691 with SMTP id 5a478bee46e88-379678ea195mr1733532eec.38.1794560562265;
+        Fri, 13 Nov 2026 01:02:42 -0800 (PST)
+Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d73dsm6022191eec.2.2026.11.13.01.02.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:02:22 -0800 (PST)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 14:31:57 +0530
-Subject: [PATCH] arm64: dts: qcom: shikra: Add OPP-table for ICE SDHC node
+        Fri, 13 Nov 2026 01:02:41 -0800 (PST)
+From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+To: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	fyhsueh4linux@gmail.com,
+	u.kleine-koenig@baylibre.com
+Subject: [PATCH v2 2/2] Input: keyboard: Add Nuvoton MA35D1 keypad driver
+Date: Fri, 13 Nov 2026 17:02:29 +0800
+Message-ID: <20261113090229.32838-1-fyhsueh4linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
+References: <20261113084852.32727-1-fyhsueh4linux@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,108 +107,471 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-shikra_ice_opp-v1-1-14c222a83d6a@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAATS9moC/yXMQQqDMBBA0auEWRswCsH0KiIhTic6ChoybSlI7
- t60Xb7F/xcIZSaBm7og04uFz6PCNApwDcdCmu/V0LWdNcb0Wlbec/CM5M+U9BCtsxHRukBQo5Q
- p8vs3HKe/5TlvhI/vBUr5ACVna6FyAAAA
-X-Change-ID: 20261113-shikra_ice_opp-8f696fcc69ae
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=DNgacCNb c=1 sm=1 tr=0 ts=6af6d220 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_O5C9CTu6e29N6usQqQA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: xgdN9oZSQpgdetZdk0cIgIymqIr31dMC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzNSBTYWx0ZWRfX3NlhvY5lSGTw
- 5+1C+07D9Qc8MUs4O7EI/mzZ3B5HigM67x5EWocLELTAutKhV9QLkH9AopHcIeltw25tDwEAFdN
- We/zihJ3tPo3o9iv9mgZi+ah7yke29rtvMUqeUyeTV+NabgqdudpW0zTlZwyt/P+aKlhV98rdA0
- REacZCMWVzNgU9VgjG8YfsxyyueKFyC9ZAFLKQktfqmtqGgEiYuhfsgVGKSGxzg0FnBhUAPFUps
- 50ZevQkUCwdPMnixIPoPfwjWDKeXAhfko3AmlhiGG2xnQg9at/hXQrdWfymdrrxcJ4qgqaA/27s
- BGW32BwFqJOJubi5PGV0fzTTB625FYF2aZGwZ2maU/n/mCuDY1mg4vFNpQIB0voj2RZDma2ZsLl
- qrYQ2OmZkZdnuWPuIET6P3h8D5PBhi5UL7rjNcwUaHAIFyPit1wn0alkF2ItycjPaiAOC1G88I8
- Ihqu8GQJ6Qcwi7oQfNw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzNSBTYWx0ZWRfX3qoaEXySg1R0
- UDoapE+u8QsO+mATt6n6XWiE2ncLCVaqAJeJSiIBXMuLUhIuoDu5MtHfDBgDsLCZZL6F8iJqSIM
- pu10FsY6qsi1jElTSwUAsLRqWPphH2g=
-X-Proofpoint-GUID: xgdN9oZSQpgdetZdk0cIgIymqIr31dMC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130035
+Content-Transfer-Encoding: 8bit
 
-ICE run on default 19.2Mhz(minimum) on Shikra whereas MMC controller can
-run at higher frequency(example 384Mhz) too. With no clock scaling in
-ICE, it will continue to run at lower frequency and thus degrading
-overall MMC storage read/write performance.
+Add support for the Nuvoton MA35D1 hardware matrix keypad
+controller.
 
-Add opp-table for ice sdhc node to support higher frequencies and
-eventually enhancing the performance.
+The driver handles key press and release interrupts, reports
+key events through the Linux input subsystem, and manages
+the peripheral clock during device open, close, and system
+suspend and resume.
 
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Signed-off-by: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
 ---
-ICE node with no opp-table keeps ice running at lower frequency which
-degrades storage read/write performance when storage controller is
-running at higher frequency. Add opp-table for Shikra ICE to support
-higher frequencies.
+ drivers/input/keyboard/Kconfig         |  11 +
+ drivers/input/keyboard/Makefile        |   1 +
+ drivers/input/keyboard/ma35d1_keypad.c | 407 +++++++++++++++++++++++++
+ 3 files changed, 419 insertions(+)
+ create mode 100644 drivers/input/keyboard/ma35d1_keypad.c
 
-This patch has dependency on below series.
-https://lore.kernel.org/linux-arm-msm/20261113-enable-ice-clock-scaling-v13-0-258dc817bd63@oss.qualcomm.com/
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 0a95ad5a5582..50cda82b6e94 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -1406,6 +1406,26 @@ sdhc_ice: crypto@4748000 {
- 			clock-names = "core",
- 				      "iface";
- 			power-domains = <&rpmpd RPMHPD_CX>;
-+			operating-points-v2 = <&sdhc_ice_opp_table>;
-+
-+			sdhc_ice_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-100000000 {
-+					opp-hz = /bits/ 64 <100000000>;
-+					required-opps = <&rpmpd_opp_low_svs>;
-+				};
-+
-+				opp-150000000 {
-+					opp-hz = /bits/ 64 <150000000>;
-+					required-opps = <&rpmpd_opp_svs>;
-+				};
-+
-+				opp-300000000 {
-+					opp-hz = /bits/ 64 <300000000>;
-+					required-opps = <&rpmpd_opp_svs_plus>;
-+				};
-+			};
- 		};
+diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
+index d8c64f333462..9bbcbed3d494 100644
+--- a/drivers/input/keyboard/Kconfig
++++ b/drivers/input/keyboard/Kconfig
+@@ -358,6 +358,17 @@ config KEYBOARD_LPC32XX
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called lpc32xx-keys.
  
- 		sdhc_2: mmc@4784000 {
-
----
-base-commit: bf7672020e0346bfe95ef54570af10f0c4364756
-change-id: 20261113-shikra_ice_opp-8f696fcc69ae
-
-Best regards,
---  
-Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
++config KEYBOARD_MA35D1
++	tristate "Nuvoton MA35D1 keypad controller"
++	depends on ARCH_MA35 || COMPILE_TEST
++	select INPUT_MATRIXKMAP
++	help
++	  Say Y here to enable support for the Nuvoton MA35D1
++	  hardware matrix keypad controller.
++
++	  To compile this driver as a module, choose M here.
++	  The module will be called ma35d1_keypad.
++
+ config KEYBOARD_MAPLE
+ 	tristate "Maple bus keyboard"
+ 	depends on SH_DREAMCAST && MAPLE
+diff --git a/drivers/input/keyboard/Makefile b/drivers/input/keyboard/Makefile
+index 60bb7baf802f..fad34b7afff7 100644
+--- a/drivers/input/keyboard/Makefile
++++ b/drivers/input/keyboard/Makefile
+@@ -39,6 +39,7 @@ obj-$(CONFIG_KEYBOARD_LM8323)		+= lm8323.o
+ obj-$(CONFIG_KEYBOARD_LM8333)		+= lm8333.o
+ obj-$(CONFIG_KEYBOARD_LOCOMO)		+= locomokbd.o
+ obj-$(CONFIG_KEYBOARD_LPC32XX)		+= lpc32xx-keys.o
++obj-$(CONFIG_KEYBOARD_MA35D1) 		+= ma35d1_keypad.o
+ obj-$(CONFIG_KEYBOARD_MAPLE)		+= maple_keyb.o
+ obj-$(CONFIG_KEYBOARD_MATRIX)		+= matrix_keypad.o
+ obj-$(CONFIG_KEYBOARD_MAX7359)		+= max7359_keypad.o
+diff --git a/drivers/input/keyboard/ma35d1_keypad.c b/drivers/input/keyboard/ma35d1_keypad.c
+new file mode 100644
+index 000000000000..f2d19101c0bb
+--- /dev/null
++++ b/drivers/input/keyboard/ma35d1_keypad.c
+@@ -0,0 +1,407 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Nuvoton MA35D1 hardware matrix keypad controller
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/input.h>
++#include <linux/input/matrix_keypad.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/platform_device.h>
++#include <linux/pm.h>
++#include <linux/property.h>
++#include <linux/types.h>
++
++#define MA35D1_KPI_CONF			0x00
++#define MA35D1_KPI_3KCONF		0x04
++#define MA35D1_KPI_STATUS		0x08
++#define MA35D1_KPI_KEST0		0x10
++#define MA35D1_KPI_KPE0			0x18
++#define MA35D1_KPI_KRE0			0x20
++#define MA35D1_KPI_PRESCALDIV		0x28
++
++#define MA35D1_KPI_KROW			GENMASK(30, 28)
++#define MA35D1_KPI_KCOL			GENMASK(26, 24)
++#define MA35D1_KPI_DBCLKSEL		GENMASK(19, 16)
++#define MA35D1_KPI_PRESCALE		GENMASK(15, 8)
++#define MA35D1_KPI_INTEN		BIT(3)
++#define MA35D1_KPI_RKINTEN		BIT(2)
++#define MA35D1_KPI_PKINTEN		BIT(1)
++#define MA35D1_KPI_ENKP			BIT(0)
++
++#define MA35D1_KPI_RST3KEY		BIT(1)
++#define MA35D1_KPI_PDWAKE		BIT(0)
++#define MA35D1_KPI_IRQ_MASK		GENMASK(4, 0)
++
++#define MA35D1_KPI_MAX_ROWS		8
++#define MA35D1_KPI_MAX_COLS		8
++#define MA35D1_KPI_BANKS		2
++#define MA35D1_KPI_ROWS_PER_BANK	(MA35D1_KPI_MAX_ROWS / MA35D1_KPI_BANKS)
++
++/*
++ * Scan timing, in KPI engine clock cycles.  PRESCALE and PRESCALDIV are
++ * encoded as the count minus one:
++ *
++ *   row scan cycles = (PRESCALE + 1) * (PRESCALDIV + 1) = 2080
++ *   debounce sample cycles = 2^DBCLKSEL = 1024
++ *
++ * With SCANROWD at its reset value (4 cycles) the TRM requires
++ * row scan time > 4 + 2 * 1024 + 3 = 2055 cycles.  These limits are expressed
++ * in cycles and therefore hold at different input rates. The actual scan
++ * and debounce intervals depend on the engine clock rate; boards should
++ * select a rate suitable for their switches (1 MHz has been validated).
++ */
++#define MA35D1_KPI_PRESCALE_VAL		0x40
++#define MA35D1_KPI_DIV_VAL		0x1f
++#define MA35D1_KPI_DEBOUNCE_SEL		10
++
++struct ma35d1_keypad {
++	void __iomem *base;
++	struct clk *clk;
++	struct input_dev *input;
++	unsigned short *keycodes;
++	unsigned int rows;
++	unsigned int cols;
++	unsigned int row_shift;
++	u32 conf;
++	int irq;
++	bool running;	/* protected by input->mutex */
++};
++
++static void ma35d1_keypad_clear_events(struct ma35d1_keypad *keypad)
++{
++	unsigned int bank;
++	u32 press, release;
++
++	for (bank = 0; bank < MA35D1_KPI_BANKS; bank++) {
++		press = readl(keypad->base + MA35D1_KPI_KPE0 + bank * 4);
++		release = readl(keypad->base + MA35D1_KPI_KRE0 + bank * 4);
++		/* The event registers are write-one-to-clear. */
++		if (press)
++			writel(press, keypad->base + MA35D1_KPI_KPE0 + bank * 4);
++		if (release)
++			writel(release, keypad->base + MA35D1_KPI_KRE0 + bank * 4);
++	}
++
++	/* Only these two KPISTATUS flags have W1C semantics. */
++	writel(MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE,
++	       keypad->base + MA35D1_KPI_STATUS);
++}
++
++/* Release software key states when hardware scanning is stopped. */
++static void ma35d1_keypad_release_keys(struct ma35d1_keypad *keypad)
++{
++	struct input_dev *input = keypad->input;
++	unsigned int row, col, scan, code;
++	bool reported = false;
++
++	for (row = 0; row < keypad->rows; row++) {
++		for (col = 0; col < keypad->cols; col++) {
++			scan = MATRIX_SCAN_CODE(row, col, keypad->row_shift);
++			code = keypad->keycodes[scan];
++			if (code == KEY_RESERVED || !test_bit(code, input->key))
++				continue;
++
++			input_event(input, EV_MSC, MSC_SCAN, scan);
++			input_report_key(input, code, 0);
++			reported = true;
++		}
++	}
++
++	if (reported)
++		input_sync(input);
++}
++
++/* Called with input->mutex held (open, PM resume). */
++static int ma35d1_keypad_enable(struct ma35d1_keypad *keypad)
++{
++	int error;
++
++	if (keypad->running)
++		return 0;
++
++	error = clk_prepare_enable(keypad->clk);
++	if (error)
++		return error;
++
++	/* Keep hardware three-key reset disabled for a normal input device. */
++	writel(0, keypad->base + MA35D1_KPI_CONF);
++	writel(0, keypad->base + MA35D1_KPI_3KCONF);
++	writel(MA35D1_KPI_DIV_VAL, keypad->base + MA35D1_KPI_PRESCALDIV);
++	ma35d1_keypad_clear_events(keypad);
++	writel(keypad->conf, keypad->base + MA35D1_KPI_CONF);
++
++	keypad->running = true;
++	enable_irq(keypad->irq);
++
++	return 0;
++}
++
++/* Called with input->mutex held (close, PM suspend). */
++static void ma35d1_keypad_disable(struct ma35d1_keypad *keypad)
++{
++	if (!keypad->running)
++		return;
++
++	/* Wait for the IRQ handler while register access is still clocked. */
++	disable_irq(keypad->irq);
++	writel(0, keypad->base + MA35D1_KPI_CONF);
++	ma35d1_keypad_clear_events(keypad);
++	ma35d1_keypad_release_keys(keypad);
++	clk_disable_unprepare(keypad->clk);
++
++	keypad->running = false;
++}
++
++static int ma35d1_keypad_open(struct input_dev *input)
++{
++	struct ma35d1_keypad *keypad = input_get_drvdata(input);
++
++	return ma35d1_keypad_enable(keypad);
++}
++
++static void ma35d1_keypad_close(struct input_dev *input)
++{
++	struct ma35d1_keypad *keypad = input_get_drvdata(input);
++
++	ma35d1_keypad_disable(keypad);
++}
++
++static void ma35d1_keypad_report(struct ma35d1_keypad *keypad,
++				 unsigned int scan, unsigned short keycode,
++				 bool pressed)
++{
++	input_event(keypad->input, EV_MSC, MSC_SCAN, scan);
++	input_report_key(keypad->input, keycode, pressed);
++}
++
++static irqreturn_t ma35d1_keypad_irq(int irq, void *data)
++{
++	struct ma35d1_keypad *keypad = data;
++	struct input_dev *input = keypad->input;
++	bool reported = false;
++	u32 status, pressed, released, events, state;
++	unsigned int bank, bit, row, col, scan;
++	unsigned short keycode;
++	bool key_is_up;
++
++	status = readl(keypad->base + MA35D1_KPI_STATUS);
++	if (!(status & MA35D1_KPI_IRQ_MASK))
++		return IRQ_NONE;
++
++	for (bank = 0; bank < MA35D1_KPI_BANKS; bank++) {
++		pressed = readl(keypad->base + MA35D1_KPI_KPE0 + bank * 4);
++		released = readl(keypad->base + MA35D1_KPI_KRE0 + bank * 4);
++
++		/* Acknowledge the exact snapshots, not KPISTATUS[4:2]. */
++		if (pressed)
++			writel(pressed, keypad->base + MA35D1_KPI_KPE0 + bank * 4);
++		if (released)
++			writel(released, keypad->base + MA35D1_KPI_KRE0 + bank * 4);
++
++		events = pressed | released;
++		if (!events)
++			continue;
++
++		/* The live state is only needed to order a press/release pair. */
++		state = 0;
++		if (pressed & released)
++			state = readl(keypad->base + MA35D1_KPI_KEST0 + bank * 4);
++
++		while (events) {
++			bit = __ffs(events);
++			events &= ~BIT(bit);
++			row = bank * MA35D1_KPI_ROWS_PER_BANK +
++			      bit / MA35D1_KPI_MAX_COLS;
++			col = bit % MA35D1_KPI_MAX_COLS;
++
++			if (row >= keypad->rows || col >= keypad->cols)
++				continue;
++
++			scan = MATRIX_SCAN_CODE(row, col, keypad->row_shift);
++			keycode = keypad->keycodes[scan];
++			if (keycode == KEY_RESERVED)
++				continue;
++
++			if ((pressed & released) & BIT(bit)) {
++				/*
++				 * Both edges were latched before this interrupt
++				 * was serviced.  KEST is active-low (1 means
++				 * released), so use the final state to order
++				 * them: up -> press then release, down ->
++				 * release then press.  Sync in between so user
++				 * space sees two separate frames.
++				 */
++				key_is_up = !!(state & BIT(bit));
++
++				ma35d1_keypad_report(keypad, scan, keycode,
++						     key_is_up);
++				input_sync(input);
++				ma35d1_keypad_report(keypad, scan, keycode,
++						     !key_is_up);
++			} else {
++				ma35d1_keypad_report(keypad, scan, keycode,
++						     !!(pressed & BIT(bit)));
++			}
++			reported = true;
++		}
++	}
++
++	if (status & (MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE))
++		writel(status & (MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE),
++		       keypad->base + MA35D1_KPI_STATUS);
++
++	if (reported)
++		input_sync(input);
++
++	return IRQ_HANDLED;
++}
++
++static int ma35d1_keypad_suspend(struct device *dev)
++{
++	struct ma35d1_keypad *keypad = dev_get_drvdata(dev);
++	struct input_dev *input = keypad->input;
++
++	guard(mutex)(&input->mutex);
++
++	if (input_device_enabled(input))
++		ma35d1_keypad_disable(keypad);
++
++	return 0;
++}
++
++static int ma35d1_keypad_resume(struct device *dev)
++{
++	struct ma35d1_keypad *keypad = dev_get_drvdata(dev);
++	struct input_dev *input = keypad->input;
++	int error;
++
++	guard(mutex)(&input->mutex);
++
++	if (input_device_enabled(input)) {
++		error = ma35d1_keypad_enable(keypad);
++		if (error)
++			return error;
++	}
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_keypad_pm_ops,
++				ma35d1_keypad_suspend, ma35d1_keypad_resume);
++
++static int ma35d1_keypad_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct ma35d1_keypad *keypad;
++	struct input_dev *input;
++	int error;
++
++	keypad = devm_kzalloc(dev, sizeof(*keypad), GFP_KERNEL);
++	if (!keypad)
++		return -ENOMEM;
++
++	error = matrix_keypad_parse_properties(dev, &keypad->rows, &keypad->cols);
++	if (error)
++		return error;
++
++	/* The controller supports 2x1 up to 8x8 keys (KROW = 0 is reserved). */
++	if (keypad->rows < 2 || keypad->rows > MA35D1_KPI_MAX_ROWS ||
++	    !keypad->cols || keypad->cols > MA35D1_KPI_MAX_COLS)
++		return dev_err_probe(dev, -EINVAL, "invalid keypad geometry\n");
++
++	keypad->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(keypad->base))
++		return PTR_ERR(keypad->base);
++
++	keypad->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(keypad->clk))
++		return dev_err_probe(dev, PTR_ERR(keypad->clk),
++				     "failed to get KPI clock\n");
++
++	keypad->irq = platform_get_irq(pdev, 0);
++	if (keypad->irq < 0)
++		return keypad->irq;
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++
++	keypad->input = input;
++	keypad->row_shift = get_count_order(keypad->cols);
++	keypad->conf = FIELD_PREP(MA35D1_KPI_KROW, keypad->rows - 1) |
++		       FIELD_PREP(MA35D1_KPI_KCOL, keypad->cols - 1) |
++		       FIELD_PREP(MA35D1_KPI_DBCLKSEL, MA35D1_KPI_DEBOUNCE_SEL) |
++		       FIELD_PREP(MA35D1_KPI_PRESCALE, MA35D1_KPI_PRESCALE_VAL) |
++		       MA35D1_KPI_INTEN | MA35D1_KPI_RKINTEN |
++		       MA35D1_KPI_PKINTEN | MA35D1_KPI_ENKP;
++
++	input->name = "Nuvoton MA35D1 Keypad";
++	input->id.bustype = BUS_HOST;
++	input->open = ma35d1_keypad_open;
++	input->close = ma35d1_keypad_close;
++
++	error = matrix_keypad_build_keymap(NULL, NULL, keypad->rows,
++					   keypad->cols, NULL, input);
++	if (error)
++		return dev_err_probe(dev, error, "failed to build keymap\n");
++
++	keypad->keycodes = input->keycode;
++	input_set_capability(input, EV_MSC, MSC_SCAN);
++	if (device_property_read_bool(dev, "autorepeat"))
++		__set_bit(EV_REP, input->evbit);
++
++	input_set_drvdata(input, keypad);
++	platform_set_drvdata(pdev, keypad);
++
++	/*
++	 * Clear whatever the bootloader left behind before the IRQ can be
++	 * requested.  The clock must run for the registers to be accessible.
++	 */
++	error = clk_prepare_enable(keypad->clk);
++	if (error)
++		return dev_err_probe(dev, error, "failed to enable KPI clock\n");
++
++	writel(0, keypad->base + MA35D1_KPI_CONF);
++	ma35d1_keypad_clear_events(keypad);
++
++	clk_disable_unprepare(keypad->clk);
++
++	/* The IRQ stays disabled while the peripheral clock is gated. */
++	error = devm_request_irq(dev, keypad->irq, ma35d1_keypad_irq,
++				 IRQF_NO_AUTOEN, dev_name(dev), keypad);
++	if (error)
++		return dev_err_probe(dev, error, "failed to request IRQ\n");
++
++	error = input_register_device(input);
++	if (error)
++		return dev_err_probe(dev, error, "failed to register input device\n");
++
++	return 0;
++}
++
++static const struct of_device_id ma35d1_keypad_of_match[] = {
++	{ .compatible = "nuvoton,ma35d1-keypad" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ma35d1_keypad_of_match);
++
++static struct platform_driver ma35d1_keypad_driver = {
++	.probe = ma35d1_keypad_probe,
++	.driver = {
++		.name = "ma35d1-keypad",
++		.of_match_table = ma35d1_keypad_of_match,
++		.pm = pm_sleep_ptr(&ma35d1_keypad_pm_ops),
++	},
++};
++module_platform_driver(ma35d1_keypad_driver);
++
++MODULE_DESCRIPTION("Nuvoton MA35D1 hardware matrix keypad controller");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
 
