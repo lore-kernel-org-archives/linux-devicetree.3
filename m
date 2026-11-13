@@ -1,78 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572013;
-	b=Oc4HI3JCtjKe0sFCsHn9B0jp/xgi96J5ANMvEXWQQWoBV7ngyH+DQDiYsz0VfCDsVaee
-	 mje8wfoTJGMJBeONEOOFKmbV0d+Z04Mk10zmL5Om7YeJMvkxP9wkZl50f6s0Mt3xmOeuK
-	 EjeRjwZpuBchApqu+X78Jq45yaGLGiS4v1dzmrtoVm2dz+a7NVJAB+/bSZLSQDOLfQdMi
-	 2IZg0NWZXzWg0CznsZQua4gbciMcA9i9wjLRWnetXQW2Uy1uSLTn8DquDNEBmU/tvcxD9
-	 SOrYR640Rp/Z7BrGajVAtNU8OZ1MpvWlM9sBFkDQigLtyHujc8ghoCC5jXsyGwDrvjQ==
+	t=1794572335;
+	b=plqTzOw/BbCFISAcxKIWBDJOc6SJjgLZWAswalkG5/CeMJWZ3gT9KlRyHip1nrxtty1c
+	 gKSAkdJVJ2d0CVUqAMe8DblHS7YIV7Wdx/5qIS7C1u3g9fcmk7Z9+QdxRQeOBRhJYF6Tf
+	 Ne4XSaVK7/uYfP5w3VKzu4cY/QgfYYcMMriRJ/WGCQ9JN9Uu/LAvo0ukTj7HLJJ3aTTZH
+	 K723byez9o+e+YJ3iQyG69cCig/u6StpTVYO6ldIDOhaFnwiszz27o9ppkNjHv5AwGB1L
+	 vK4yoT0ISLB2ICwZnZnLgLcvTF5WsuZSncb4JZKxMQITC5J2+moCRXfgGi+iJlC6rsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572013;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=1iUZT/JRKjiRUq3S3wXoQz2Mr1XA+Ebv5deNzL+Hfx0=;
-	b=yCo2AbfbH8AWbbZit1IPUaz6n/hvQNowYtE+JISkoL/3f8k6B+owzv9+KiUg2LWGxzxZ
-	 WFMJxMYWQJuhmE0lwZb6Fy5BheQeASXyrzo5PsCYMWyAtTn0TcjS3zAQlojq2DVnV0+LU
-	 5UuF9iyiJtjW0045KIbccDDpdwUDHg+OptxMbxOL/lETx/xEK/FNMADmja0UC+lTRa8M1
-	 x8apZz7vAlbbQVm1+a7ZkuIQBh8rJu871dgsc9Xvc+rlB9EBXrq8RRnAmgWqmawi0qLiN
-	 idNGJWf7zfEMek74lZ0ZP0Mt0eMeVrx4aHoVZ6hAJ4nULyqDg5hOZoi0OqLtDzV3EIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572335;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Unn0F/ftD1finXNKWi/skeaXkk+/fQXZw2324bDO7PE=;
+	b=Y4FSPT5MB0JjP05uk8vbPyuVXxj44J3+uC5bzQRoaZL36y0bjY8vuegz/EZAx/8VWEJc
+	 zhdFv1YT/NQKGyPB9PR6o4PmRpZ6wjC5738KZ6OZCjUtlpCBV8gR9bz/uuG0ETWe48Dfw
+	 94LErn/BImzdKVNMuoVKO/FHkyf/4gi+4bvCnKAUN6u8HdaYCIpuxkAnGH0O+uEClru5e
+	 Cibj8seAvtjl/Sz6EQyShqS/9HWwataq0fns3unlykL/BOYby/6Gyl1tCLdzTfYQsgcI8
+	 12rEPZZz/ga3MhT7NL9C6JTD4uVibXD6bVC2xArxOkDqQzMdMied+5ZPR2YjD2A9S5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fuo0fjLv;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2F2606A323;
-	Fri, 13 Nov 2026 12:13:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A2F2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fuo0fjLv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794572012; x=1826108012;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rHH8i6Jaj4wG/QVHWjBNd4UsOpx6pzu7l9kaAO5hq6U=;
-  b=Fuo0fjLvrze0KqzVK+2WW5qq3YrJg3MdGtNA39cv01DroWDEJIVZUlKg
-   Mas+DEnMhGP+u4Ztz9wGv0+kdrq6Twrtf8QnLEaKpz8U9ZmU+Lrr7NPpn
-   iCR/36fV9rgnJ4qAeUT++pIX1YkkvYUtcMunBIf1FSxxgfjOv7iPikg8D
-   CmSLawqPsfg6JsrlPhwmSMfBwD4FTIba/TSb92BmwhuMh3HfuW5c9sdKi
-   Om9xhJYSrbe1qVU8mhiX+IWWRvT4H5GDHj8gTN3d6vVd4sS3mrJW8noL8
-   OHfNDRb1yO3GVh3HJ8sMu27T2EER0vlFi6xvzCnEftHFeItXH3wGQMXNv
-   A==;
-X-CSE-ConnectionGUID: p+P7pV79RzyZfgAi3G1pOQ==
-X-CSE-MsgGUID: Q6NfsCNGQEGZ/JXhSkYnMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3385781"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3385781"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:13:31 -0800
-X-CSE-ConnectionGUID: TtlvUlykT4SNAU2R1Isc5g==
-X-CSE-MsgGUID: iB+z62UDSbW0eDhITPJ7GA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="8834698"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:13:28 -0800
-Date: Fri, 13 Nov 2026 14:13:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org,
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
-	mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] mfd: mxs-lradc: Pass parent IRQs to child drivers
-Message-ID: <avb-5lw3JHpfmIlz@ashevche-desk.local>
-References: <20261113013212.470981-1-festevam@gmail.com>
- <20261113013212.470981-2-festevam@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698F5606A32E
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 12:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 698F5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4922523d1afso398383f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 04:18:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794572334; x=1795177134;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Unn0F/ftD1finXNKWi/skeaXkk+/fQXZw2324bDO7PE=;
+        b=Z7u4oXj1DwY/tTaS65aKhUZBX02Sf2jClbMFLZrXBc0UKX8tFyObgjHt9j5yvBISo8
+         IKRTGYq5JqBGJO/DBROjKlV2yC7lAOPy+cGZVHPszAYrwrqNOhmmzDFaKIXwwVmNYCya
+         nn+d5z0Dx/2vX/4ep2c6F9owsDcTCYer7HhCUUT3CvCLuiaDTd7Nc9HnmpngfNxHGhEF
+         6/S2U8Eh0zBUTHR8bT5y1bXZjBXg2iZ+GrOn1ReSqnlnuKYf9i+lj9YePpo+BPg6/1y9
+         6/nMkBgfHLFXzpkqFSo1bJWoZItgyDSWx89kBIGe9zm9DwovRd+R+HBv8HuPqOMtZh0w
+         fC1g==
+X-Forwarded-Encrypted: i=1; AL+hErEmY5cmkiWcOsUo3/VtwV72yw9zRhXxawW9hlXdHZ/9qrQRt5xCCDNyyUTxj6avZ3D6b9qovHoI+yfQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nG5H8CKXA7ul7kei7hNI2AeTDVdBmoOCIe1oFQstJl8Ib2F9H
+	gLWmfjwStqwOqKEhr6nnI+nnHsglNCCDJ9eygC5tFRCH53cfnUA4S2rq
+X-Gm-Gg: AYBFou1WSIA0EP/2wLVVPy7rRaH5T73jyze9URshd9Z7BWrQnt+pLKtEpPytEZkud99
+	I3qiQxznChDak9JLNMiGzydmymuNVzm+gRKDitZJW3EOV+R56FKPPI0EiRQd4tfTfC8wYM5ohnl
+	zZn34xwnlFzedaCmBykmsol88N6Gh0DuJDT0D6Y5bVJ465O7OJ7ZpKIYyztpUJNqvcB19jBR0kA
+	RfPfobgQgqubyvd2OYoW4pqwEdvjuEsf++DRAPB4iCKKJ+Rjs3tlpwgEjYsa3Qa4JRRMzJobQoQ
+	u1/bfxUU6NZmK7qO9bjbCEmQRzKtl6yDNfKAMJn8xKZhX43YCOKJnVp6TM5ZecSTEh7N1cIebMk
+	+etIRTcyoa29sCK8R5AMj21l0Pw7HObbNiBGQZEtVNhSGEZCNDPD7NHIAynemILY1Z740PYMcmA
+	6KwcN0fJ6yayvYNt+V+E3ZZBHUpO504Fxoky8Yv7F3w/3DdxOA+aUkCSymcySOlRtN4II1BId7m
+	LzzYYYylu+5ONHF5q1rv2KTdvjBFPrMn4uojsjMEY8t35BvEEamWkmuvQc7RIIo8t/Ch65NbapQ
+	crWDjVvpaUoSQ+JDzzmn32SrT3Wu5SZjYiqGCZfP9J8tgxpMqhAoLU5Eqs66vhTufO1UyNZynm0
+	tTnjB5YWg4zgXD9WZQ5PADfIJ
+X-Received: by 2002:adf:f14b:0:b0:492:dddc:64c3 with SMTP id ffacd0b85a97d-49c742a6580mr3860898f8f.41.1794572333528;
+        Fri, 13 Nov 2026 04:18:53 -0800 (PST)
+Received: from threads.localdomain ([84.70.166.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c605e5b2fsm5167103f8f.40.2026.11.13.04.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 04:18:53 -0800 (PST)
+From: Lucas Tanure <tanure@linux.com>
+To: xianwei.zhao@amlogic.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 0/7] Add ethernet support for the Amlogic T7
+Date: Fri, 13 Nov 2026 12:18:45 +0000
+Message-ID: <20261113121852.334604-1-tanure@linux.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,42 +98,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113013212.470981-2-festevam@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 10:32:12PM -0300, Fabio Estevam wrote:
-> The MFD driver stores raw DT interrupt indices in IRQ resources but
-> registers its child devices without an IRQ domain or IRQ base. The child
-> drivers consequently receive the indices as if they were mapped Linux
-> IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
-> 
->   0 is an invalid IRQ number
-> 
-> The children then try to recover the indices from their resources and
-> map them against the parent OF node. Besides duplicating IRQ names in
-> the parent and children, this relies on invalid platform IRQ resources
-> and fails when IRQ 0 is rejected.
-> 
-> Resolve the interrupts with platform_get_irq() in the MFD parent and
-> store the mapped IRQs in the shared LRADC data. Drop the child IRQ
-> resources and duplicated name arrays, and have both child drivers
-> request the mapped IRQs directly. Use the MFD memory base support to
-> translate a single relative memory resource shared by both cells.
-> 
-> Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
-> touch events are reported, and the touch-detect and LRADC channel 7
-> interrupt counters increase as expected.
+The T7 has the same ethernet glue as the G12A. This adds the binding,
+the driver support and the device tree nodes, and enables the port on
+the Khadas VIM4.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Two clocks are new. The pipeline stage between the controller and the
+DRAM has its own gate, which nothing else claims. The glue registers
+sit in a block gated by sys_ethphy, so far claimed only by the MDIO
+mux, which probes after the glue is programmed: every write to
+PRG_ETH0/1 was lost. The T7 node lists that clock as "pclk".
 
-Thanks for fixing this, I hope it will be applied sooner than later to reduce
-the number of weird cases in the kernel.
+The delays follow ethernet-controller.yaml: phy-mode is never changed,
+the PHY adds the 2ns, and the T7 accepts only rx-internal-delay-ps, as
+fine tuning. Its TX side is a quarter-period phase selector with no
+small step, so tx-internal-delay-ps is not valid for it. The VIM4 is
+plain rgmii-id.
 
+Tested on v7.4-rc2 on the Khadas VIM4: 942/940Mbit/s with iperf3, no
+error.
+
+Changes since v6:
+ - no Assisted-by trailer (Krzysztof)
+ - patch 2: the T7 gets a binding file of its own (Rob, Sashiko); the
+   pclk description names the glue registers (Krzysztof);
+   rx-internal-delay-ps as constraints, default 0, maximum 3000,
+   multipleOf 200 (Rob); tx-internal-delay-ps stays false, the
+   meta-schema refuses "not" on a top-level property, so the reason is
+   a comment above it (Rob); "snps,dwmac" dropped from the compatible
+   list (Rob)
+ - patch 6: "snps,dwmac" dropped from the node (Rob)
+ - patch 4: Andrew's Reviewed-by
+
+Changes since v5:
+ - patch 2: the T7 block follows the Meson8b..G12A block instead of
+   splitting it in two; default: 0 for rx-internal-delay-ps on the T7
+   (Sashiko). The explicit false lines stay, as asked in review.
+
+Changes since v4:
+ - patch 4: the old delay code is left untouched; the T7 only gets a
+   callback of its own, and the probe parsing it shares validates the
+   RX value (Andrew); no NULL check on the callback (Martin)
+ - 0 accepted for rx-internal-delay-ps, the T7 joins the G12A list
+   (Andrew)
+ - comment on the deprecated vendor delay properties (Andrew)
+ - the MDIO mux and the on-chip PHY bus start disabled in the dtsi; the
+   VIM4 enables the mux (Sashiko)
+
+Changes since v3:
+ - phy-mode untouched, the PHY adds the 2ns, rx-internal-delay-ps is
+   tuning only, tx-internal-delay-ps not valid for the T7 (Andrew)
+ - 0 dropped from rx-internal-delay-ps (Martin); vendor delay
+   properties explicitly false for the T7 (Andrew)
+ - init_delays callback; patch 4 renamed (Martin, Andrew)
+ - VIM4 without tx-internal-delay-ps, the PHY TX delay works (Martin)
+ - Meson8m2 moved to the dwmac-3.70a list; its boards warn in
+   dtbs_check until Martin's dtsi patch lands (Martin, Conor)
+ - the delay table in ethernet-controller.yaml dropped
+ - Martin's Reviewed-by on patch 3
+
+Changes since v2:
+ - T7-only delay path (Andrew), PHY mode from
+   phy_fix_phy_mode_for_mac_delays() (Maxime)
+ - tx-internal-delay-ps checked against the hardware values (Sashiko)
+ - vendor delay properties not valid for the T7 (Neil, Andrew)
+ - no max-speed on either PHY (Andrew); VIM4 PHY interrupt on GPIOH_6
+   (Sashiko)
+ - the T7 node owns sys_ethphy as "pclk"
+ - no longer RFC; Conor's Ack dropped from patch 2 and Neil's R-b from
+   patch 6
+
+Changes since v1:
+ - the driver honours the generic delay properties; VIM4 moved to
+   rgmii-id with tx-internal-delay-ps = <2000>, Neil's R-b dropped
+
+Lucas Tanure (7):
+  dt-bindings: net: amlogic,meson-dwmac: list the compatible
+    combinations
+  dt-bindings: net: add amlogic,t7-dwmac
+  net: stmmac: dwmac-meson8b: add support for the Amlogic T7
+  net: stmmac: dwmac-meson8b: follow the generic RGMII delay rules on
+    the T7
+  arm64: dts: amlogic: t7: add the ethernet pinctrl nodes
+  arm64: dts: amlogic: t7: add the ethernet controller
+  arm64: dts: amlogic: t7: khadas-vim4: enable the ethernet port
+
+ .../bindings/net/amlogic,meson-dwmac.yaml     |  29 +++--
+ .../bindings/net/amlogic,t7-dwmac.yaml        | 112 ++++++++++++++++++
+ .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts |  23 ++++
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi   |  88 ++++++++++++++
+ .../ethernet/stmicro/stmmac/dwmac-meson8b.c   |  61 +++++++++-
+ 5 files changed, 297 insertions(+), 16 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/amlogic,t7-dwmac.yaml
+
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1
 
