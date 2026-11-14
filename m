@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794621893;
-	b=WcVqFxVS+NceoFDK4Qdo04e5f9cZuGg17ewmLfdsK4apgMMOFKuYSW9k3GLr50pNvpdw
-	 PaQvZfCfl7dsNuplfwv6EDqR3hW8sCq6Cl6lbTkl2gMl61IXtC1ESww84An7XJ6KsiIsK
-	 BOvlXCDK30pxdo2VqbB9ZU209n6HmdhQuyjilezR+sTArxfGN/RY8hJSx8EPLMLUEBPM0
-	 zj1rPrJf6ARmvIntf2F3uuHbpE5HvmVxpomT7JZhFrp61V89q/GkD5sA+Rk0pY8UTS1RV
-	 +7kLRKZUwtXfo9yYDaoslYkqfkuQuLF1DEqWQbELcukaBL/84xIQPWrXAHdH0A2Z/DA==
+	t=1794621969;
+	b=Q4lq/48crw2HxJH3g50zTLjFNGEHAW0RCHa2nT1MWEEEM9ZPW7n7Vq8+urrMOqFr3Qhs
+	 8VmRq13Df1bklTH/SX+A+H8X3N+TVIKMh5IFvJy9ie7EzWo7sEirV0kdScDVA0qmcr3tf
+	 OPlnMWWd4PPN7G0UWWDEVZes6DFuPRtUviuqDZKCb5/Pvdxx+wSFXN18NsYXyAaDlQs6y
+	 MwQOaSdZgPcdnihdOsYZmdmPtXiX23mLWbGEKl5Je60+oDMxNyAukjhJiIYh30TUBlUnF
+	 6Pj21fIrwoh15fy7O5CpRZYvbWafVJ1KNTZsR855CoArGhsDE3z6ymCclq4OOOOR0xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794621893;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=c3TMKQvGudvZgsPILw4nmz5grw8WhZuLvbEH6M2mYGQ=;
-	b=GulsV7vxXVaq0uWVEGixWyYcQHuSgBXhOIIBLuINJacMhjcYMQJ0jFKP/FFJR74UEpHQ
-	 UMH3BAPXOfXbNvRG7zDqdYuhWzOTkdD27LhXbiQaoM0nzDA09kdXKift5Y7i37BYyja3c
-	 XxzLgiGy8c/FktCfqIFP2Q9/diKHs6peRrPdgp62RpS91973scKC29UKRStQvYoW0uiQH
-	 qC76dKISEcxc/XntPcaOm7mfly7E8TYrrUml2mLtopYAikmfG+awZwDGsPwZdlfxVK5h2
-	 HSSqV82YhZHf4NJKCjiYgpi2OvgsA2GKDJ6E2DixBS2hQukZLkMIhfBsXSbwTUGFZXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794621969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6vfZ2pfCdW0E1Bkxu7fl5iG/Vuzu2dNyvSDl3DRJkiE=;
+	b=AdXoNf7LzJ0XxzDHP8cXES7Wld9gOpQVwHwLwvtovwadKVypeD0XG83ZfxUEaXybrlEo
+	 1shtAD/p6VkfeCyUmaFjCdGgZs9KZNcjiWjyt2WKEVlSaFCe+YfpIW+8qP6steg46F46Q
+	 /rHUms1axkphZ3i1fxqN4/zA48Bcvq1RVGo9KBltpatIGbLTbwsLNXXq2SmkZn5rOq492
+	 EasFWPnEzWx0xJmTUXoJHE3oY8nkpUxJnEqocgUKUFFqa2f8MT3kFqqLzLQJJix18gLaQ
+	 4BivV7/zosE9j+gV/iPTqpEnsxPWBxnqbZ31U0pIwszbaPGRXIDIZoFGMqFoGBM867A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dunwn7t6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0TAyfUtT;
+	arc=none smtp.remote-ip=209.85.167.179
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1547B606A331;
-	Sat, 14 Nov 2026 02:04:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359B9606A330
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 02:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 359B9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dunwn7t6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00941F000C4;
-	Sat, 14 Nov 2026 02:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794621892;
-	bh=c3TMKQvGudvZgsPILw4nmz5grw8WhZuLvbEH6M2mYGQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dunwn7t6OF5BWqY7ESWPFycpyqyP3T4yNXkPQgI5zCq85NoZuGdkl8K+OQLpGxuhj
-	 aZfyQ79ujvGmg9XYCmqWqZaQGfYNLFp7ruAlDNqV5Cm84fRiv5Zj5BB6jzXZ7+d0uI
-	 E5CFDFO/nY3T2vMUt2LkZzsiR/qMv7L3XrbwhTppxrYcIOsJ51a42VEvNPt6M6b1iS
-	 zgHMQ8RmmYwmwXYf8pCs/68KriYAqBdX6VrBWHV53KWxWIBbyrJAKitQ2fHtAXhS2f
-	 Tjc5ss42PvCwwAS82P9ZNhUaTuE2XZ3zC6zjf+Z9hQ73oOOWa9PNQIMftV9LkSwYsm
-	 prwrUht0iB9gQ==
-Date: Sat, 14 Nov 2026 02:04:47 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org,
- dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
- mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] mfd: mxs-lradc: Pass parent IRQs to child
- drivers
-Message-ID: <20261114020447.7a0b71d5@jic23-hlaptop>
-In-Reply-To: <20261113013212.470981-2-festevam@gmail.com>
-References: <20261113013212.470981-1-festevam@gmail.com>
-	<20261113013212.470981-2-festevam@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0TAyfUtT
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4d198f1a591so2099503b6e.2
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:06:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794621968; x=1795226768; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6vfZ2pfCdW0E1Bkxu7fl5iG/Vuzu2dNyvSDl3DRJkiE=;
+        b=0TAyfUtThdvqH6Ea5+y8CqCzygO9MSky6knt5TN60Nbo10Q/ilCBpjX6dhsnBSgAkM
+         G/wWoT8aCcFk8drGhMjc4gRFT/UJocS659rVt/n08QdmZFGQW3EbfRdhf12BPTWT9tB1
+         2ebW7/Sq5JGQpR2+tiZYSLuwYdyz4JvNwg4X7e1pZI2OoexRM+CaGd1dBl69LZpkjA0z
+         tmmeu9wncADkaaW8Y/fQq6s/xoRTyEVF4ky6OO+X+HFQJX4HF6ZnQUsQSyMw4KxitfC9
+         0XSLU2hyQU145m1Mf7zTMIVYhYr38zLWxFymQMwUfu0HRmWQ4pcyEu0OTXPHkMVYkJuo
+         yApQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794621968; x=1795226768;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6vfZ2pfCdW0E1Bkxu7fl5iG/Vuzu2dNyvSDl3DRJkiE=;
+        b=wAr0duDjhyefSL6DIxu8VwCqJw+oxMyPBQt3A/jdCtpWAt/DnH2zmWe24xivBA1CIT
+         BZlHC1FKjpyDX90hJ5d3ned0RR4iNiL/u//XfXZqRm89njs/mAaE3HPNsS4w0jUaYWgr
+         c5AgE2qTBDjbu1FkM/+WDAkaCJkRpl4tikPOEnfTNH/WmA5I+IHH2bA9IIhvR540Yo6B
+         bZjzsWJ9CFH2DklH6uNDpTAg1Ed374VGiygdqRkxSogDeyomtBDyrUheG/JurcNlqvV3
+         ilnF2CPIUXzQUA74A7hYrgD54KohWSsF3F9k6rfNEkk1HtnajPWJr1PNtmFo8MUERyG4
+         DG+A==
+X-Forwarded-Encrypted: i=1; AL+hErGnIk3mfb/Wbz0qew+Jq7L1JMXtWHNb2YD/O3IaGASxSZxwU7ac40hjgFmjZYqczA6eNQfpiLV3aict@vger.kernel.org
+X-Gm-Message-State: APuU4Z/E12ZErN013xFS2zcnnC2T1JY27NkNZw6U0if2qMLoXGXkYaIQ
+	K1NpWxyIxFhWv8/dpdfdyGMWFnM6eiNiOSJxggNFdp6nCr/ls0WIuw2N
+X-Gm-Gg: AYBFou2C0WAHzTjabi2gKcYaNvNSnrn/XNjaRvuDReJBZnEpCvj3FSIedCOR+BBYw3O
+	ZyZ9O6ruu/GaCcOzl3gc0N+icffUwY2yoHfsbLdG6bvB5T0sN43I/V/S3JSpjQK5PL2svzoBdeG
+	7sXz9wyjeOz947eEC3lldWEwO2QFlcoxEiN+BnVpRBPJj7xJdD8W5Z3AZBJmjbc6XrSyKkfynCZ
+	8vf2f/RoiuwoXJtZEtGemI4FZVFD01VwtrDaMJvzU6qZrEJzfZ6xL21UdJgcqivHne/kPVvUrN+
+	onDxtjzMWCe5zTT3Mfr6WzD5IycmGQw7UOuNVibxX/dSJ8pabjXjqN9wqEKHYMrL5LXRZuEaFOT
+	yXRTP8mKRZj/t3O8OOEZjLhDgspoU0FUazqsyHTM9AoafKW13OAovRXmJS5FDgeeEPiGAC46KpC
+	1QmMHJ258R3rd2vElu2JgEd9LDZP2KtONFT2bMiKb5XhrcedsA8JQF18AnqtUP8ss2Ngw9WKiWA
+	QP5FrRyLl1pUr+RrUFHmFdpzUqcjuazc+wcJqTk2LtxQ/jGumpoLkeyxgWsDG6Xv7PB9J2LjcRW
+	Z1qbTW5V8pdnFFxzcU7NROm2cewe/uNVzaaXDqWeCrh4GtdOMLGG9Q==
+X-Received: by 2002:a05:6808:2220:b0:567:e9b5:37b6 with SMTP id 5614622812f47-56e64f005fcmr3240210b6e.41.1794621968203;
+        Fri, 13 Nov 2026 18:06:08 -0800 (PST)
+Received: from jeffmr (63-152-14-173.cdrr.qwest.net. [63.152.14.173])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e6fc3f179sm3385433b6e.6.2026.11.13.18.06.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 18:06:07 -0800 (PST)
+From: Jeff Roach <jeff.roach0@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/2] dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
+Date: Fri, 13 Nov 2026 20:05:07 -0600
+Message-ID: <20261114020509.632311-2-jeff.roach0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114020509.632311-1-jeff.roach0@gmail.com>
+References: <20261114020509.632311-1-jeff.roach0@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,101 +103,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 22:32:12 -0300
-Fabio Estevam <festevam@gmail.com> wrote:
+Document the HP OmniBook X 16-cp1 laptop, based on the Qualcomm Mahua
+(Snapdragon X2 Elite, 12 cores) SoC.
 
-> The MFD driver stores raw DT interrupt indices in IRQ resources but
-> registers its child devices without an IRQ domain or IRQ base. The child
-> drivers consequently receive the indices as if they were mapped Linux
-> IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
-> 
->   0 is an invalid IRQ number
-> 
-> The children then try to recover the indices from their resources and
-> map them against the parent OF node. Besides duplicating IRQ names in
-> the parent and children, this relies on invalid platform IRQ resources
-> and fails when IRQ 0 is rejected.
-> 
-> Resolve the interrupts with platform_get_irq() in the MFD parent and
-> store the mapped IRQs in the shared LRADC data. Drop the child IRQ
-> resources and duplicated name arrays, and have both child drivers
-> request the mapped IRQs directly. Use the MFD memory base support to
-> translate a single relative memory resource shared by both cells.
-> 
-> Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
-> touch events are reported, and the touch-detect and LRADC channel 7
-> interrupt counters increase as expected.
-> 
-> Cc: stable@vger.kernel.org
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-> Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-For this change
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-With assumption it'll go through mfd.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Jeff Roach <jeff.roach0@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-However, one of those, whilst you are here comments below....
-
-> diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
-> index 30a66e268169..d16dfea89207 100644
-> --- a/drivers/mfd/mxs-lradc.c
-> +++ b/drivers/mfd/mxs-lradc.c
-
->  static int mxs_lradc_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  	struct device_node *node = dev->of_node;
-> +	const struct mxs_lradc_soc_data *data;
->  	struct mxs_lradc *lradc;
-> -	struct mfd_cell *cells = NULL;
->  	struct resource *res;
-> +	unsigned int num_cells;
->  	int ret = 0;
->  	u32 ts_wires = 0;
->  
-> @@ -137,7 +161,11 @@ static int mxs_lradc_probe(struct platform_device *pdev)
->  	if (!lradc)
->  		return -ENOMEM;
->  
-> -	lradc->soc = (kernel_ulong_t)device_get_match_data(&pdev->dev);
-> +	data = device_get_match_data(dev);
-> +	if (!data)
-> +		return -ENODATA;
-> +
-> +	lradc->soc = data->soc;
->  
->  	lradc->clk = devm_clk_get(&pdev->dev, NULL);
-
-This is what would need changing to fix potential ordering issues with devm / non devm
-mixing.
-
->  	if (IS_ERR(lradc->clk)) {
-> @@ -187,38 +215,15 @@ static int mxs_lradc_probe(struct platform_device *pdev)
-
->  
-> -	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
-> -				   &cells[TSC_CELL], 1, NULL, 0, NULL);
-> +	num_cells = lradc->touchscreen_wire ? ARRAY_SIZE(mxs_lradc_cells) : 1;
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-> +				   mxs_lradc_cells, num_cells, res, 0, NULL);
->  	if (ret) {
-> -		dev_err(&pdev->dev,
-> -			"Failed to add the touchscreen subdevice\n");
-> +		dev_err(dev, "Failed to add subdevices\n");
-
-Not related to what you are changing here, but a devm call with a goto that
-follows it is usually an alarm bell...
-
-Can we fix that with a change to devm_clk_get_enabled()?
-
-Jonathan
-
-
->  		goto err_clk;
->  	}
-
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 7ffa4f6998..c3b6014ad6 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -212,6 +212,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - hp,omnibook-x16-cp1
+               - microsoft,surface-laptop-8-13p8
+               - qcom,mahua-crd
+               - qcom,mahua-qcb
+-- 
+2.55.0
 
