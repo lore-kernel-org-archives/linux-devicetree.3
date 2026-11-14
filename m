@@ -1,112 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670772;
-	b=dKTHFeCik2x/E5a3CFS+9Bq74rCCZurlz6v3mN6Fq1/ebgjJ/UjTvEe3mmj9/QGCZWn2
-	 grhl65gU7KKLLdG+mrC5t5tSgnbtDXcv13BngN3D9WwVx4SgQPirJxBE/sc1kT7rqpItU
-	 RDK75h9Ge3liwneYrLtBcm142POys1VYN/xZfhqhpZg8H3Xz/dwudvaFgx9VcVZ8COKYy
-	 MZ5gNLjTYr6hYZPj9bjtKTKtuOGq6xM2J65MWGfCy05kK7T4ImAaCBpo+DHHanx0rZGHZ
-	 87tiNMwEMB1+xGJ3Zx2KjPx0CczJs8gGlhtS+JHSKNb2pziSqRIVK5SPXQ0UP7cmU9Q==
+	t=1794671144;
+	b=M44vsbhcly8JQ2VsO39pHbLkd86CSpRqJUiCfC/zS8qQMA2n7eFUHcW4Gg+bcfXBpISE
+	 Zg4p2Qa51g3O3q6xXRPoH9HLh6SzUQNhsIdpSHqMfFlyb3PRz4G5oaCL+vKoEMfD6HI/B
+	 QWYMxwcrHJhPOcGGv3Z1ugEYNa5ubSCALMh4x9nPVBecVGtH6fDxkkbVoTLMQHbNHcFkJ
+	 c6YwGS2108u+ZZ1ljvuDGVAEF64IgMVE6kPSy7c7MuI3aQO++e+3NlG1oS1/C4IPvWl6J
+	 Q//RsruCM7wb1UA+kTnTvxDpnWPprKGjHBs6FqHdHKHAlfU0AM3r1hkqynMndrO92gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670772;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=K/0f/Fx9dcCRSnODkYtK3aiTY3t3xedC0JyO9Aj9vBY=;
-	b=WhkKyAAnBjnoEkMfA/FHGJmVlEfK5MX1qXsofacF3HzCOy4PJ6SGElLyijx/UQtLKNNv
-	 bui5gfl8UOinsQICt1QFst1mTztVISwyGrpTrRvSoJzMkht3By38XyMVnmjz52Gw4qZ7U
-	 o9mzQiTF5mj6SOMquhPLp6vEs73z/R//D4Q3qS/ipahrHh8s5hXrJiCyF9lsIVqYL+1i3
-	 FizImOep6xJywHa3DlaoPV5wz1pQHONUJW2Auc5NCdGjz4IMiO7SCIUBSt2ht0OtgFwYb
-	 TcvldC4joLVuapee7eFquedKGeuLGj+wsZYsE+XS7jDayJKj5GHrE4F/36Rbots+NHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671144;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Pos+4LZ+lPL+smIFd903waB4mVMfUVmT009+WWRP66M=;
+	b=eO1T1UC8n/8ibZqF7Fdnt5s1uBmB/BE4fN96hXfyX2rA/oSKAm5a4IgvyVzV98hFQNfa
+	 mNkQLt9hi/JJDXZCxPSwWinvlB7ANUaHV7rrhX2S5pvkLRpH/jLjBW2mtk1Blx9amjTu+
+	 ebP9rB9VBqXMOp+EzFuiE6tAWGaN5TtIURJT0AvT+LjLQeUNOxl4w8nKynm6UqJFuZ7sD
+	 0m10sA1ZBE6qWhIDnhVzA9locnjcZxUmo94ZtAux0HO1qnjUN9nC/9Cx5v4ItnNP1N7Sp
+	 dTTQCtGKeeRxVGI/F4abNps4siAfcARWb/WcG4ayr2uVbbWOAwONKW1JVlSSHKEuSmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CdQYFmAN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="ckjtQ2E/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVaXMFy0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E819460A261A
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 15:39:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E819460A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29372606A329;
+	Sat, 14 Nov 2026 15:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CdQYFmAN;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ckjtQ2E/
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEDkTFD640570
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 15:39:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K/0f/Fx9dcCRSnODkYtK3aiTY3t3xedC0JyO9Aj9vBY=; b=CdQYFmANNQYaiL39
-	Qs3rz5EFvtsph67c3HwOmOjOgk4E3mZ+5zvqvcHZq2FP4R4vdwxYkSDkWHNkAJ64
-	RbuPE/xRu30gyYNW74rOXAGinif/Z2JNDoAPQFnSx8TdL9ws3qB/wdb+HB6YcDZb
-	qNwXlCFfqjtbpUspOHmUvjZCLAwR58MeNrmx4WbYp6DQKrKLkNmgIP0ZQ+z5Cn5m
-	RNfdM9QLtj+gFohFJeiOMPiVkSXYmyw3VnLApTnxR3rsDGIg5MOxXVa+lAgnooGn
-	Wc+pd6o3d4q+/v3LoCyg2MK+IOcc9Y2EMpc3SQHQTPMIEn+YWdcPviTE161ccE7I
-	aoIaHw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmah2y1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 15:39:30 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94960131b4eso87776685a.3
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 07:39:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794670770; x=1795275570; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K/0f/Fx9dcCRSnODkYtK3aiTY3t3xedC0JyO9Aj9vBY=;
-        b=ckjtQ2E/L4Srvl+3Mz93nK7kXVRQ8DbtOnrkTf9RMtoeqPlj3k2KKb7/GQefHmAzMI
-         hdrp+ohUMyY6ci+CvJHsKoqt3fVjhwAJW75/PcToTUjdv85s711mG4gQHRocO8wPbSJp
-         RgvKX8BYJPV+PPv7laeydy8vTnIKlJkBL8ZB0D+2/WpcMKd0tnYaLjr8lcGK508ogJG+
-         +HjDcOpSXMVGl7/UZEUEkl5mCF4U3hRpukupHCmaSxFwhgfUvtQeG1nJ56JllZZh31Xi
-         GEqEV/va/Kc2xQLLUQZXAtyF2Qt1kdryq5YS1KCHDIPCaViRzcIkmrthzr9F+39rLc3d
-         kYlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794670770; x=1795275570;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K/0f/Fx9dcCRSnODkYtK3aiTY3t3xedC0JyO9Aj9vBY=;
-        b=FqqNPxG1IM9AcNudG8YZiNDdSF/AM0q7VsB3FWkd3bt6IeBmP/6G64ULppHaZQFM9G
-         BA5ksjHZss5FpRTrKhw4PczMNctjC5FoET5LY4VnC1Cs+3TolH2aPQ8ohFX3fod2vrlG
-         XYxP6HVjgog+NnfmEACLFNI45ptSjVqnztsoTylTgHY9x78LDktJn3wDcQ32va49shNU
-         iUqSzHLEalN21Xnfm6VxyEHNX7JndvjwelvT6MyhEG2bzQKdjReHWm6a80sC8zYvzwsz
-         bDL/2wfx+dtONRjNrVsdiCJ661WFOk4M1DFcQQledghmG21z8Vy/LNo3gpZ2ZaiQqRq1
-         46Qg==
-X-Forwarded-Encrypted: i=1; AL+hErF+Smdq9hAQvRzhB2/rxdeCHBkvluE9iXlUZjDvBDEPz3ZCMU5+kjtmJ8DhJaRI3W8Av1QdaL5UZvyf@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sxzkApAWY1tKwFudFNufEbMBGmDT6EKFm8RzxQYjMdFs3iM8P
-	Dpc0ze5NVlUwNWgiunXpmk1zpulP6eQI+fwrClV32JaRMbySujmAF2E9XpVOu9ohAU7EeJHo8sG
-	XhLMc8PNX3epYB4+zYEHQoGjvg8wwJ8epcIJjsXxFA02v5UJ0GVeeUzVOn4VM9pml
-X-Gm-Gg: AYBFou0KvDHYn0int1E5gdp0vsTe6cZ/3+zvO0XkGtD3LTZHb1h5gnCPAM1gzOossnN
-	R9d7wEdC/9v1bRNEvOxKSqqhZ9uJQbjw1hKkPPjOvMOEUBMUJUY55JV3blxpx+WQfY0wYR+1URz
-	Ev1Uaz/LfDvSI73a+5kvKTtuRgkoLtTuORa3MJ3J/CLmf1l0gOUnslABYSukqtYnNCAksUnG7SO
-	T7gHgYc2hFeGkliskvKnqbHFZFgqwaGSBdfmAd5911a6M69oE7CChkDMbtx9BHAqe5O/euDPIrO
-	PoLNuxt/BPgk9jGaaikSXdK4KBUXMv5muWxEaoK7fcg25WcVQ6zU1Jw38SDZrjzZXkgwr0HjzlL
-	ZImKOu5VX4l3mkSIcF3ObL8wKNc4GoG7CHNzEibzqov4ttJHLghCam9ljvL1V94jSzxe/bNtHRj
-	H9WVxBd4OkM9Iq
-X-Received: by 2002:a05:620a:444b:b0:93f:2ae1:ea06 with SMTP id af79cd13be357-9494bb59a45mr995698685a.44.1794670770392;
-        Sat, 14 Nov 2026 07:39:30 -0800 (PST)
-X-Received: by 2002:a05:620a:444b:b0:93f:2ae1:ea06 with SMTP id af79cd13be357-9494bb59a45mr995693785a.44.1794670769898;
-        Sat, 14 Nov 2026 07:39:29 -0800 (PST)
-Received: from [127.0.1.1] (93-159-22-70.cgnat.inetia.pl. [93.159.22.70])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50a6c826bcsm167268366b.11.2026.11.14.07.39.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 07:39:29 -0800 (PST)
-From: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 16:39:07 +0100
-Subject: [PATCH 4/4] arm64: dts: qcom: qrb2210-arduino-imola: enable the
- EUD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVaXMFy0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BE71F000C4;
+	Sat, 14 Nov 2026 15:45:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794671143;
+	bh=Pos+4LZ+lPL+smIFd903waB4mVMfUVmT009+WWRP66M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UVaXMFy0JMUDGn5Xzjrii4NssDNrPW+WP38K7xc8J2FGTMDhwsLgDsQfbuGgWd+aN
+	 b6fCYNE1JbuW6++Qwu2tiKBbGI0Vwtm2dGbmKPHnedjjM+yVQ2QBWk9SBOAf2oEHJ4
+	 9S5FgIobte6w3KN4DuHffELuM4/4p+5ea1BOjqayWk/yd3uX8MmZp8FunB6vL6GQQY
+	 4yvJ88UogHGXeM7kK7vasVAcgv8+RYcwpt/KveYLLOXULt7IwPHE6dHBEfx6PXjuG2
+	 Ehkd6ueWd5N2filPoVNH/G1aIFAEiW0YwRmUmpD2rChyKzy2gIP9Du3Gteb8vbELav
+	 /tsHJzInZglcg==
+Date: Sat, 14 Nov 2026 16:45:39 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v6 12/19] string: Remove strstarts()
+Message-ID: <aviBqFFmIsW_FQK5@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <cabc673b9ac73c137ad6f7dea52f8566c5821675.1794667407.git.alx@kernel.org>
+ <sashiko-outbox-214710@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,76 +58,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-qcm2290-eud-v1-4-b6157b817377@oss.qualcomm.com>
-References: <20261114-qcm2290-eud-v1-0-b6157b817377@oss.qualcomm.com>
-In-Reply-To: <20261114-qcm2290-eud-v1-0-b6157b817377@oss.qualcomm.com>
-To: Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-ORIG-GUID: HZ42LbJDU5wRk1i3Obbb8QnSmv4DtmfQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA2MiBTYWx0ZWRfX8DW2NLkQWGSJ
- 0XIflZLUfFGoW8vO+BtYbB0kvl6ta3/0rxF5ap16f2b9kxlhQB2FXRfYlBXMLipXE5rsFDXwy5A
- JAJE++b3ERkrIhD69XF2uwv8CQ+JvjvSoN7UxOQbsS+QziqCgrhTF5O6+F1KOf74COtobiVpVH9
- md0Lp7SrXe2awvOW1a86Ycuw94VkmFzK12NmZaSVDh786v0JtWtZD1nCjZK56h896kRjU35UPNC
- 0LSwwlK5phjsUoodtAHv6gbxSASH3qlPpuHlcG7wChd1SzeEludv+Wr/E9gxma2V72xhtao60u/
- toZMtHHuHcdgDrfjSp1gaDxL1uSKKVBHtQHyApcGpyB7YlP5ala5g6c9WhPzM3adwhIcI8zs5x0
- 6DAdk5KqrsPu2rPZu0jwxLngDaZzYeJHQGMnYCI+85tgvNeXmpo2dgu7dRi9+5QtPw8jZ207DPE
- eXKNFOtUrb9QFfjZg9w==
-X-Authority-Analysis: v=2.4 cv=NdhzRGD4 c=1 sm=1 tr=0 ts=6af880b3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ySe+0nHqNG5yihRO1pIWsw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=pvBjvzZ7d9aESBAnF-kA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: HZ42LbJDU5wRk1i3Obbb8QnSmv4DtmfQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA2MiBTYWx0ZWRfX8AZQ4yYyG7oB
- S/8fxdAzJ/0cZHu6ZlooiZXopHh0ObRXLlND7nAPhYfT/fzyYRlkICJy24GHLPxdyu1l4qK0TAD
- srbm7gqxYMarV1TzGOF4rbmlwjM2WYo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140062
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gexdib6emlqwhcjx"
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-214710@kernel.org>
 
-The UNO Q exposes the EUD on its USB-C port: with it enabled, a host
-sees the EUD hub and its SWD/trace functions, which OpenOCD's EUD
-adapter uses to debug the SoC.
 
-Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+--gexdib6emlqwhcjx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v6 12/19] string: Remove strstarts()
+Message-ID: <aviBqFFmIsW_FQK5@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <cabc673b9ac73c137ad6f7dea52f8566c5821675.1794667407.git.alx@kernel.org>
+ <sashiko-outbox-214710@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <sashiko-outbox-214710@kernel.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index e99d2a56dc28..a1af2caa5bfc 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -226,6 +226,10 @@ vph_pwr: regulator-vph-pwr {
- 	};
- };
- 
-+&eud {
-+	status = "okay";
-+};
-+
- &gpi_dma0 {
- 	status = "okay";
- };
+> Date: 2026-11-14 15:29:50+0000
+> From: sashiko-bot@kernel.org
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] string: removing strstarts() breaks build in
+>   xe_sysctrl_mailbox_write()
+> --
+>=20
+> commit e1746880c54dd32f27fc7343468741cdc4b05246
+> Author: Alejandro Colomar <alx@kernel.org>
+>=20
+> string: Remove strstarts()
+>=20
+> This commit removes the legacy strstarts() macro alias for strprefix() fr=
+om
+> include/linux/string.h.
+>=20
+> > diff --git a/include/linux/string.h b/include/linux/string.h
+> > index 0a466360dbb39..6b0de932e23a8 100644
+> > --- a/include/linux/string.h
+> > +++ b/include/linux/string.h
+> > @@ -609,7 +609,6 @@ static inline const char *strprefix(const char *s, =
+const char *prefix)
+> >  	return strncmp(s, prefix, len) =3D=3D 0 ? s + len : NULL;
+> >  }
+> >  #define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx=
+))
+> > -#define strstarts(s, pfx)  strprefix(s, pfx)  // legacy alias
+>=20
+> [Severity: High]
+> Does removing strstarts() break the build when CONFIG_DRM_XE is enabled?
+> drivers/gpu/drm/xe/xe_sysctrl_debugfs.c:xe_sysctrl_mailbox_write() still
 
--- 
-2.53.0
+What?!  I don't see this file or function.
 
+	$ ls drivers/gpu/drm/xe/xe_sysctrl_debugfs.c;
+	ls: cannot access 'drivers/gpu/drm/xe/xe_sysctrl_debugfs.c': No such file =
+or directory
+	$ git ls-files | grep '\.[ch]$' | xargs grep xe_sysctrl_mailbox_write;
+	$
+
+> calls strstarts(token, "timeout=3D") and strstarts(token, "resplen=3D"), =
+which
+> now fail with an implicit function declaration error.
+>=20
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794667407.=
+git.alx@kernel.org?part=3D12
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--gexdib6emlqwhcjx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4gh0ACgkQ64mZXMKQ
+wqmSSQ/9FcKywo1ETmsbzu8mqteQf/xrmUn1Z3Vw87On/4wsjhbNNzYdFf6bDJhj
+T8kND3E058Im9fd1y65ckJ6ZVUVlPXOBHvubYqUb+KOSYmM+FIMQ5zdX1sBclwUq
+KeCsJOjIXuviIAMns840P+7AKsRpEBbzfSo6ppjYFJvravPaCNylsiQmCg41DmLr
+qzMRP5O0G+7rnhHkbbvRHGsiuup0bWayBpVhBPDFL+7Y6RBxLzRBR3IGsRZ9NF16
+Br17CFm3I3N/AQ3BWOVl3VKxxN9JsuInXmFumrP0PJ+BlJZUuiYOh9zcDLWY9krG
+5uQF/9z8rPh9KT0FaddSVYuUsD3n/jc0SvL0VMoafUtPRr46FOcP9SwSGHNdg3/G
+gFTUVSgwqz1GaFdRESMBnQD+sF3vw4DuUNMZ/G0bUJU+TUnACMpLVyUMt/0blKtB
+/DEr44qVvmrlwU5IFlRYeZFygarbGLTkwUEoBHqk4RaJHzl9CaMM0ARcwUGcBU6N
+dcdSHoJyY25maSfwQGY8a60K2Thb6cUid9L1ff9VmRTUUtnMbUv3yccjzZMoHnSD
+FEGsp4U+cXe95xZYBaVGKMAyw+jTaHOQmQwOe8CSpujlGMtyr+K09c+uLtBNST3o
+DLRRowCRn+bZWk4Rka3PV/lQqM22BijKyScwKEaP7J7tYJFICxQ=
+=zh6u
+-----END PGP SIGNATURE-----
+
+--gexdib6emlqwhcjx--
