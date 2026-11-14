@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794657375;
-	b=emPtVTFYLF1BxpSskFJQKWZRVVk2YOcJG3TZb2XuyojMs8N5B1W25jNGGiwn9z/D94fP
-	 O2WqDeBaUn1oEJh2Xt6DgjvzM1dkMAtQpEsDoPNniaN0mOMPdeKyJbaaUa53sA6CE0Z+y
-	 ovn/QX9SDLYuZP1jM+ij1t+WSj23vG70DaN9j7UiMI54oWjcLRVB9CDS1jHWY5XP5ARcm
-	 UATFaNU/DkOyEx1T9q+qFVhkmibxYqtdZ9B9ezVFnc9sWlIPgIe6xLbXDgfKbrxJxLjjW
-	 nYif2pbqPFHZdi9Hb1KJYycRVBSAeq9yU8Fvrp9y2cGBdWezaDZHherSxsiSBS9CE8w==
+	b=tbKFmrRHrbV/Gt5W9TqmzhaSyd0EsKvUpOI57JnLpJ95lqj0RcrFLZAbM7KImTDcm96f
+	 j+IyIVVv/eME2jhg4aIVWC0t7kNYoyV3Yah2QXI36tOB0QEKl+PHaVBywH7lB6vP6eVn6
+	 f4UUtN6Rj0hfNB+5sAvpZAqEVu8WtP7agze68Qcj/zmU2oaRYQ0RfYs6mGbvomzf6G76J
+	 RtOMJLjj8LFQ2wcDL60kNtVoZetiDFsYl4xgKWI+VJgI7xlndNch9cSVhVb7LUMUl3OWB
+	 CnEAl8BFzAqPoC71AM5jGX0ic+6VjfCEQDLE/NosJ+RO89EgT6uBnYeP6VTxO4Nisew==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794657375;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NcP1PmV6mGhZtCh4rVFc9CwPV4PnTiLSoRbNIs253gA=;
-	b=D/NXOSqwK2/myEb9NTl6aD9OYAx7bPi5xAra+4AxL+2u5VQ5jg+RLsf9noaqG0lbdS1B
-	 PRElQQPlPNPORG2vnuZ3dEIivL4S//6JX1BOziK1u0rBFkOSB16iuJ2BlUmCl9pav2YAm
-	 jF05Y1RsF0WantZSi9/fdmoN9p8tPmNss/BvskVFOL78PEIsXby2nPsEGS7gC8hinZvf/
-	 panrR4hVF8TTIf0PHNcLfDVzwf70LcF210CebZH4ac+oT7OPj960Z5QHVYWmhww3yWr4T
-	 vSL2HVv3S6pnk44s1SwielXA3Tkhd0LgsWTMGqEDKcD8FJ/4gYM9F99lQG8Sh3s3KJQ==
+	bh=frD9zFD0YrZaHQ2y2MzapQKm0VHLLRGK0ggeD88Qrps=;
+	b=sAVWLgA5POtUw021XQvCwNRQ+UchG1J2KlbhGpMEKRy0smQhjS83OWIw2KzkA9xVkwx4
+	 HApX5V3WUObPsx9ey5M7joWd+x2096EKJQfm5/4zQDIhnfFiQFEEwcDSwGu7aha6JWMwE
+	 l2lvp7zp5+q4i/Fj6Iy4kxfw2y2HFFKu41UDIDTkmzzBBJdlnuZJGkPtEVstguJ6ih8n8
+	 vdfIg+bgWIO284kVNGKZEPklYgtJB06Z6jPCcxX3orbtHYdRg6RFHmuY5xIB+d/LjyFD1
+	 a9OJOvT5WQH+9O48VLlJV08H2l7RjfrxGKcaVlKlW2qJZSrZaFGkveRBxzNy4W6wuMw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEJrb44x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwMgUdc5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4747C606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA16A606A894;
 	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEJrb44x
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwMgUdc5
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794657374;
-	b=uQI/UmOnKx9tmR5iboF5dkOqDFal3OZ/7S2ysaLE1hi7bPYO2MjxGksAa3GeVvz2ZobA
-	 NpJiQBW3H89KxQE1NifgnD1vqMqGzcjTI2uaj99JHPWj7yqA4Dw0X8Cf6vVMhvSH91H08
-	 2P4gLlhkCJ48AgXKNFIU83LUdvV3LWhUyQa2Srskiim8FovueFLzXLjlF8eGsdOdreIDS
-	 8mHsf/GC+TYWcf0HRcb8eByk5z9EYoaAwHlnicukU+l5D00Evif8wUpns8TuTu9o9bViq
-	 fw7DCUojum4Nf5rGWV5Es346jit8952N7uIvpi5/TSd+6955bjIEl1A/816tu5wB0wg==
+	t=1794657375;
+	b=aWmpJAYQy4EMwoPUnuCS7neuKVQ/wDPvxbDOLQ7oMoQ7dPBrcW2+dKSBUoN3JdKnDtl9
+	 PasfcAUzJq2PXZ25IUkwIHGY0RYvANwMsWmTjUTpIYeLLrr0KVZ8LqNR2/5IPTn1so7El
+	 oyHUiGLYCEfymrGqnFZhQhDdlnSd9Z3mCWJqpODbbORoO/Bsctc3PIV6HBZfrY9wSb+mY
+	 LPFzCdxknyGDniiwtmvU+7njCD3DE2u7wcWe0tvL0hcAXJXgOza0FkKTLsRpdUI7YPGZ8
+	 W4SNrLHnnl/rQscuXyrrpwb5guslo3slC5QtoxaNmjT9Uzmd1ipgzTTMsDDh2qGb8tg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794657374;
+	c=relaxed/relaxed; t=1794657375;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NcP1PmV6mGhZtCh4rVFc9CwPV4PnTiLSoRbNIs253gA=;
-	b=SMJ5qZcfRGEU+uWoIzfLbhjUWB07Salo0EAsl+6dJwSBwR5frphDiU9TcBr2Kc0WQF22
-	 O8JovqVNKD0Uqul/uvKXo52lQFoQJi9exjTXj3FCS6P9yP5yGZkqZWFEHFbqmgAEYZNyf
-	 KAqUwRMWtmT7BPC2I74GkiXkDSm/bxKjrQNNbHk0j6rH/0XAqf3sFpDuxuy3Z+T+Td9ci
-	 8UZBEGDX57FZKxov5VHjoQkSTbn5qz14aVvRpSlj/ZxEQsD/G6kJhwgRy4YgLYXE5DBSp
-	 x6xFVsKH2nETZi94HoL2zx4ImCJMVgWrddEmk3vkP+uO14hRFqrmntmfuwbp0yKlA5g==
+	bh=frD9zFD0YrZaHQ2y2MzapQKm0VHLLRGK0ggeD88Qrps=;
+	b=lW9pcWne73+n/iu/PUrqYs+V7XBspu3rp4+Ch980xssSOn4CupMzMkBreb9DbxlQ+qIA
+	 CxzkVNoC5giup041ZuggAxrj42n2GMrbBu3/3JWvfvQTId1o/JbFtQJ8hJeMtrP7Hxvar
+	 0WHjZ53PFwmvS198L+6AJw6V14oCaQkSWXGxx54STOolZaxVBnXC5/+rmdvRHzSkS5PYi
+	 cHNqoYDIdLr2m4sWGRHC2e7qKvsKhKHHIim37BiFqJ7ENNLk+DGbdoiLXxIIkY6txhcXc
+	 cmkEdp80TGneAYisMy+jqM8jT7sHzSbvePQNiVVtVE0kBvLBUilLZapnnpAefZZdb5w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 961E31F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id C9BFF1F000C8;
 	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657374;
-	bh=NcP1PmV6mGhZtCh4rVFc9CwPV4PnTiLSoRbNIs253gA=;
+	s=k20260515; t=1794657375;
+	bh=frD9zFD0YrZaHQ2y2MzapQKm0VHLLRGK0ggeD88Qrps=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cEJrb44xhT8RjjpqTLUhTVVNhMboeIj8bsO32EwCJFvlHFGDp4wjt4wfcpOmoweVK
-	 VyZ7KO84apfOQRbl2p/TIZwsbExcKI92iP7ep0gTnFPjQdYkEjTL8xsSErXzNHlA0M
-	 jQFk56/cz95TLphy8Q6fIfj+hEfNb5/hSr7c0tCs0kv3FDpgxAHfB4wfBANDAqbHXv
-	 LJpDEv3W8NwQwdyCD2cUmW3bysiqmWxZFhOXmMZm9qPCEMBKYy7t2auI4p0UjZZAUk
-	 cbOttQ8mJKLc9TQNnPzlixSsa9tRydRdiqRAAa64vw9nLvJB6wXTsb+KxLxb6x+rjJ
-	 MWzJKQrtMFm5A==
+	b=QwMgUdc5S5139iHlgVJw8VL29e4ORRbDTM7xrPGzsC3oK8CbcJx+nTOBNcBuQAeYC
+	 aIddfN4M4m0OkD2SmCt1nfZQ6lIoksVmzgJ2KV6epmYMdr6DhUYsO7EpaiznfKxO+e
+	 kONCleFHloszngPNNzKYU+oCUTf+/voeQ+np/2uUODPEcaZea6b8TAB0tuEd0fwTuX
+	 jXMr9iuMtM5Q5XinFJ253iaMLyfTfEzEv7xaZVR3X88rD/NY8JUMpu0ZioEH+LFhoz
+	 pd5jfT4QB2mIWNEbWq0+FPGb9Gw5Pf3UVv5xW5db7cxAHRGnFiCsuBEF3MDeq7jG+9
+	 +xAa+zHOPpU5Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0A85049D63;
+	by lkml.kernel.org (Postfix) with ESMTP id 4F4B049D73;
 	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
 From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
-Date: Sat, 14 Nov 2026 12:55:33 +0100
-Subject: [PATCH v11 01/14] ufs: core: Return a negative errno from WLUN
- suspend/resume
+Date: Sat, 14 Nov 2026 12:55:36 +0100
+Subject: [PATCH v11 04/14] ufs: unipro: Add TX/RX FSM state attributes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-ufs-s32n7-v11-1-dc36e11919d5@oss.nxp.com>
+Message-Id: <20261114-b4-ufs-s32n7-v11-4-dc36e11919d5@oss.nxp.com>
 References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 To: "Martin K. Petersen" <mkp@kernel.org>, 
@@ -114,11 +113,11 @@ Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>,
  Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
  linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657368; l=1602;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657369; l=5904;
  i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
- bh=gmKvJS5ja+qFfQcSHziMGUUrnqG+N63YieA9XdI0orI=;
- b=HCs4+jy1XrgoQCh8b366WKkPe8gX3AlsAHzvlETcaOCoT8Jl17FwbFk48k/kzEr87OXgv1Tgt
- 9waeTQiK9kYDGfVKiKX7aDbfrHx3yHQrBatck2GBZU8MmBy9JHfKFbM
+ bh=1vf7QxwoWXCExG0CShyMP6jW61tVMWQQriyQ9apC0qY=;
+ b=HhE90F0fhuFKcHJehUXF7xV2w5De5XsSujeCeSifCGls9HkTqAPU7lI2arTxuZxU8Dt/hBArU
+ 5i+GaFuoQsmDVwDzaYF1DV69/0OtSDtFUiAQJ67DeN9Q41mj/6b8zlf
 X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
  pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
 X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
@@ -129,48 +128,166 @@ Content-Transfer-Encoding: 7bit
 
 From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-__ufshcd_wl_suspend() and __ufshcd_wl_resume() may return a positive result
-code, e.g. from ufshcd_link_startup() when DME link startup fails while
-restoring the link.
+Add TX_FSM_STATE and RX_FSM_STATE to include/ufs/unipro.h, as these are
+UniPro M-PHY attribute definitions rather than host controller specific
+ones.
 
-The runtime PM core treats any non-zero value as a failure of the WLUN,
-but rpm_get_suppliers() only checks for a negative value. The LUs
-consuming the WLUN are thus reported as resumed and receive I/O while
-the WLUN is still suspended.
+Remove the duplicated local definitions from the HiSilicon, Qualcomm and
+DesignWare UFS headers, and update the HiSilicon, Qualcomm and AMD Versal2
+users accordingly.
 
-Convert positive values to -EIO, as ufshcd_init() already does.
-Do the same in __ufshcd_wl_suspend() for consistency, so that callers
-always get a negative errno.
+This also prepares for using these definitions in a subsequent commit.
 
-Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
 Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/ufs/core/ufshcd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/ufs/host/ufs-amd-versal2.c | 4 ++--
+ drivers/ufs/host/ufs-hisi.c        | 8 ++++----
+ drivers/ufs/host/ufs-hisi.h        | 5 -----
+ drivers/ufs/host/ufs-qcom.c        | 4 ++--
+ drivers/ufs/host/ufs-qcom.h        | 1 -
+ drivers/ufs/host/ufshcd-dwc.h      | 4 ----
+ include/ufs/unipro.h               | 2 ++
+ 7 files changed, 10 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 3c28bc67c65f..a6817e4bd1f8 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -10553,7 +10553,7 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		ufshcd_release(hba);
+diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
+index 3469e49df133..45403c2a9b05 100644
+--- a/drivers/ufs/host/ufs-amd-versal2.c
++++ b/drivers/ufs/host/ufs-amd-versal2.c
+@@ -112,7 +112,7 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 		u32 time_left, mibsel;
+ 
+ 		time_left = TIMEOUT_MICROSEC;
+-		mibsel = UIC_ARG_MIB_SEL(MTX_FSM_STATE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(offset));
++		mibsel = UIC_ARG_MIB_SEL(TX_FSM_STATE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(offset));
+ 		do {
+ 			ret = ufshcd_dme_get(hba, mibsel, &reg);
+ 			if (ret)
+@@ -132,7 +132,7 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 		}
+ 
+ 		time_left = TIMEOUT_MICROSEC;
+-		mibsel = UIC_ARG_MIB_SEL(MRX_FSM_STATE, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(offset));
++		mibsel = UIC_ARG_MIB_SEL(RX_FSM_STATE, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(offset));
+ 		do {
+ 			ret = ufshcd_dme_get(hba, mibsel, &reg);
+ 			if (ret)
+diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+index d3fd340f2dd1..3e3d44ee0c14 100644
+--- a/drivers/ufs/host/ufs-hisi.c
++++ b/drivers/ufs/host/ufs-hisi.c
+@@ -30,10 +30,10 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+ 
+ 	do {
+-		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 0),
++		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+ 				      &tx_fsm_val_0);
+ 		err |= ufshcd_dme_get(hba,
+-		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
++		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+ 		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
+ 			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
+ 			break;
+@@ -47,10 +47,10 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 	 * check the state again.
+ 	 */
+ 	if (time_after(jiffies, timeout)) {
+-		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 0),
++		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+ 				     &tx_fsm_val_0);
+ 		err |= ufshcd_dme_get(hba,
+-		 UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
++		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
  	}
- 	hba->pm_op_in_progress = false;
--	return ret;
-+	return ret > 0 ? -EIO : ret;
- }
  
- #ifdef CONFIG_PM
-@@ -10654,7 +10654,7 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	hba->clk_gating.is_suspended = false;
- 	ufshcd_release(hba);
- 	hba->pm_op_in_progress = false;
--	return ret;
-+	return ret > 0 ? -EIO : ret;
- }
+ 	if (err) {
+diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
+index 6af6a268458d..08dccfbec404 100644
+--- a/drivers/ufs/host/ufs-hisi.h
++++ b/drivers/ufs/host/ufs-hisi.h
+@@ -39,11 +39,6 @@
+ #define MASK_UFS_DEVICE_RESET		(0x1 << 16)
+ #define BIT_UFS_DEVICE_RESET		(0x1)
  
- static int ufshcd_wl_runtime_suspend(struct device *dev)
+-/*
+- * M-TX Configuration Attributes for Hixxxx
+- */
+-#define MPHY_TX_FSM_STATE	0x41
+-
+ /*
+  * Hixxxx UFS HC specific Registers
+  */
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index 31ea7b294a42..a96ac35994de 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -421,7 +421,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 
+ 	do {
+ 		err = ufshcd_dme_get(hba,
+-				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
++				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+ 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+ 				&tx_fsm_val);
+ 		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
+@@ -437,7 +437,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 	 */
+ 	if (time_after(jiffies, timeout))
+ 		err = ufshcd_dme_get(hba,
+-				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
++				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+ 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+ 				&tx_fsm_val);
+ 
+diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+index 1bda960c1d87..0b062cf912c5 100644
+--- a/drivers/ufs/host/ufs-qcom.h
++++ b/drivers/ufs/host/ufs-qcom.h
+@@ -10,7 +10,6 @@
+ #include <soc/qcom/ice.h>
+ #include <ufs/ufshcd.h>
+ 
+-#define MPHY_TX_FSM_STATE       0x41
+ #define HBRN8_POLL_TOUT_MS      100
+ #define DEFAULT_CLK_RATE_HZ     1000000
+ #define MAX_SUPP_MAC		64
+diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+index a5e40e7604a1..0406f2bb576b 100644
+--- a/drivers/ufs/host/ufshcd-dwc.h
++++ b/drivers/ufs/host/ufshcd-dwc.h
+@@ -27,10 +27,6 @@
+ 
+ #define CBREFREFCLK_GATE_OVR_EN		BIT(7)
+ 
+-/* M-PHY Attributes */
+-#define MTX_FSM_STATE		0x41
+-#define MRX_FSM_STATE		0xC1
+-
+ /* M-PHY registers */
+ #define RX_OVRD_IN_1(n)		(0x3006 + ((n) * 0x100))
+ #define RX_PCS_OUT(n)		(0x300F + ((n) * 0x100))
+diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
+index 16b2051f7241..7adba11f4700 100644
+--- a/include/ufs/unipro.h
++++ b/include/ufs/unipro.h
+@@ -34,6 +34,7 @@
+ #define TX_PWM_G6_G7_SYNC_LENGTH		0x0034
+ #define TX_HS_DEEMPHASIS_SETTING		0x0037
+ #define TX_HS_PRESHOOT_SETTING			0x003B
++#define TX_FSM_STATE				0x0041
+ #define TX_REFCLKFREQ				0x00EB
+ #define TX_CFGCLKFREQVAL			0x00EC
+ #define	CFGEXTRATTR				0x00F0
+@@ -72,6 +73,7 @@
+ #define CFGRXCDR8				0x00BA
+ #define CFGRXOVR8				0x00BD
+ #define CFGRXOVR6				0x00BF
++#define RX_FSM_STATE				0x00C1
+ #define RX_FOM					0x00C2
+ #define RXDIRECTCTRL2				0x00C7
+ #define CFGRXOVR4				0x00E9
 
 -- 
 2.43.0
