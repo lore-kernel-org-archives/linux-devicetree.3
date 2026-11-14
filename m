@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645907;
-	b=saCvoUfXXgp0FIQPJ6pvaj5whuhCphz2SgsO2PqC8hGt1nK6Nxr50OHSOWyQHlfCwx0D
-	 Ydtp+fghx20c1SdC3Om9k4/4t67YurQuJISXUAIpA3jPsO0i9HuxIVAyRDhxpDUhzNH7i
-	 2Z1DeOd9P/j7Lc8eDAyd9FZQjFFA+CQ9A703gsTWiGyWk3mjwN9YgVkVr6RkJbLdui5CR
-	 suToSLWiKdY5XvaTmgcG9vN4qzs0qsrS4NKDWkIv0lE2yd7mjzv/FITPzaFsXvnOa7tiD
-	 ooPQ++sGXO8Cenla9BUa7VZuSmeDnVMNHdfzuKC8hkUvKUhjN8cNJDCrCM9HyvWJ8SQ==
+	t=1794646521;
+	b=Ebl3sB9kohxUo4AetQCzzAItHJPuQBpq0V2vszH8INbuV+yUGCLjSucK53Lgl88NATEM
+	 RSc5qDwAmfSiK+m1nV7vFm4M+mJsj4y2UwikGGzA9Oi0ko9SoVU/WbXQSO+LlSlS8mlty
+	 ThzGy0nyfSiEOg8eboneS2FfU+oqN9ZdPierYuWK2jhSEKFuMg1kityltkt7Zxp4d3px4
+	 xV+xF5aZKCOPaCpaMA8/BVHbd/Ex4D93DmmEGI2x16uH10q7yBKX4zTRw/gDJNt+zW746
+	 1uGfASH0EuKRtxCd6gVhO/mOKKMEE4TZRCzBImQYB1TQWFksI8/vY59iZ4qryIhIZsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794646521;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8B9my0OFzT6Ncn5bL3LLFhB3IzbJhUeIMAh6jWwaGL0=;
-	b=jEh15yHU7vgnDiXNR2xnQtuRXeFqRCiM0lL264gLWmJti8fxR9kQcBPWHQoReenee3ai
-	 nS6WHyIyg3sK1sAnH+mmA+/QnHNQK5YoG4dosxpVgJejyvARbEN98ixts/aRsDzIRUtHr
-	 IZjT0bPyztqcHwpWdLZXrlzfY/XisX9hAVJ3x4GMoiLw9GzNJN1Mgb1nEfEr3suJk3Ho/
-	 ef9hUTvBg342hR9jTL3+SKVCsY8S9WAPu9C6XoOvVmEAZNJYwlwOYAjNd40ypExysxsYg
-	 uftBF5svG/SVLpVeJPG5atJDyDAGLycvYEVOvBm6ynjgbN8yu1RVFRUtMQb2uSXpJEA==
+	bh=Q1/P+bPtgD2V3RPgoRQp6AqrV4+asKkLVxsg1b8gEOY=;
+	b=pnLswRrIOmcvVZJERADVpSJqNimB+QBrwsR+l6A0ZDW19CmSdlsx2xtqne4b+Ee2+Q50
+	 tWDzNC9te8q0yjY/l8DWwtGkB7xxftn5tTPROjtm05xPzuOZR/PTveCn4CwS1dHcrrp4E
+	 6oxSlyXd/H8RMmTDWhrsHnFz0rc4Oc+LgCL0Vd0QpCe0pTcyDOoAUjbvYivCLvk40EmdR
+	 /ArXHwrOSkZxofQRAJR+8XZ2FbDyvLO9y9PTpFADaAEdmtoF5vxPubiqTdkfpZTPQ7C20
+	 ULddobdt3rVC/RATPu0Mz4WbnWcxvgQrPaTw55mV3HCnQbu55tplnW9nOrvTBneooKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHonj8FT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDtdXLtw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B9D606A323
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:45:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41030606A327
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHonj8FT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CBD1F000C4;
-	Sat, 14 Nov 2026 08:45:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDtdXLtw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DDE41F000C4;
+	Sat, 14 Nov 2026 08:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794645906;
-	bh=8B9my0OFzT6Ncn5bL3LLFhB3IzbJhUeIMAh6jWwaGL0=;
+	s=k20260515; t=1794646520;
+	bh=Q1/P+bPtgD2V3RPgoRQp6AqrV4+asKkLVxsg1b8gEOY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IHonj8FTjOMiU8sDaXXktfmVdbh4bxibri9GucYCIleBS9hiPwCxJCpnmWPQak2Iv
-	 Qq49632v9SQVEr+wMO95ftoTXZvwuCtTgYC3auvC2CBGP9ClbJP5TIqxAbMbYMRtXH
-	 m3OAscOPpRhLAUwnxa5FSa6uol5R55B39eEotWJsEswKiKlnETVgaw+lqRuPDQ7ak8
-	 U46UBELUt/jcHOgXqVtbjHvrk5tszoqc4z6/7svm09K+Ej1RJ91E+1ElOtd6EatSWa
-	 +LMWGO4e7HGWwXPkDx+0262uCKtck6xgMXK4Sf9xKcZQ0D7RBDDGjBUk8W6FS0QGTq
-	 nTjQPSVOcJY0Q==
-Message-ID: <sashiko-outbox-214291@kernel.org>
+	b=UDtdXLtw0N+DDEVEP42NqeVEhmwfxEqfkHhnH8bweNBCQ2wb79zpVl06x4z3xXWYC
+	 eS22PMS755e6MHEtm4cgbOuQjZnF9FK3RPCxI6gD0hkrMdIKz/FhhTIGr/023LDqDq
+	 /z5Ej9tdSg6TVH1fX0HgvwFPQj65InHIBSLYqMYN6S/ChVoNfeSclCFRAPyHw/GEmz
+	 FP4MQuSxMO380MWLP8hBKugDul9ZtjpsLWd+lprKXYBy5SBQvRE7sKjXbuFeOzJ8zR
+	 GLmOFG+syX80jHvVzLQDvizdu9L6TzKuLwutPL/LPA2amQkm3XehVgWCWkoqPb8+Z4
+	 4d2W022E7kxRA==
+Message-ID: <sashiko-outbox-214312@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/4] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Subject: Re: [PATCH v6 3/4] arm64: dts: rockchip: rk356x: Add eDP controller
+ and phy nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Damon Ding" <damon.ding@rock-chips.com>
 Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261114083339.600986-2-damon.ding@rock-chips.com>
+In-Reply-To: <20261114083339.600986-4-damon.ding@rock-chips.com>
 References: <20261114083339.600986-1-damon.ding@rock-chips.com>
- <20261114083339.600986-2-damon.ding@rock-chips.com>
+ <20261114083339.600986-4-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 08:45:05 +0000
+Date: Sat, 14 Nov 2026 08:55:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,98 +61,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: soc: rockchip: leftover clocks in
-  rk3568-edp-phy-grf schema
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] arm64: dts: rockchip: rk3568-edp lacks binding/driver match
+  and rockchip,grf
+- [Low] arm64: dts: rockchip: rk356x: duplicate PCLK_EDPPHY_GRF clock in
+  edp_phy_grf
 --
 
-commit 1917cbd8f96871d64c923d3ef4f97c3ee79b14dc
+commit f7a9ae47dd93488d5a85b663ab5846186e851cbe
 Author: Damon Ding <damon.ding@rock-chips.com>
 
-dt-bindings: phy: Add rockchip,rk3568-edp-phy
+arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
 
-This commit adds Device Tree binding schemas for the RK3568 eDP
-transmitter PHY and its parent eDP PHY GRF syscon.
+This commit adds the eDP PHY GRF syscon, child eDP PHY, and eDP
+controller device tree nodes to rk356x-base.dtsi for RK3566 and RK3568.
 
-> diff --git a/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk35=
-68-edp-phy-grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/rockch=
-ip,rk3568-edp-phy-grf.yaml
-> new file mode 100644
-> index 0000000000000..852420798f06a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-=
-phy-grf.yaml
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index 1a4562df20ee5..e3f370cad5d51 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> @@ -402,6 +402,24 @@ usb2phy1_grf: syscon@fdca8000 {
+>  		reg =3D <0x0 0xfdca8000 0x0 0x8000>;
+>  	};
+> =20
+> +	edp_phy_grf: syscon@fdcb0000 {
+> +		compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+> +		reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
+> +		clocks =3D <&cru PCLK_EDPPHY_GRF>;
+> +		ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		edp_phy: phy@0 {
+> +			compatible =3D "rockchip,rk3568-edp-phy";
+> +			reg =3D <0x0 0x100>;
+> +			clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
+> +			clock-names =3D "ref", "apb";
+
+[Severity: Low]
+Should clocks =3D <&cru PCLK_EDPPHY_GRF> be removed from the parent
+edp_phy_grf node (and from rockchip,rk3568-edp-phy-grf.yaml)?
+
+The changelog states that PCLK_EDPPHY_GRF was moved from the parent
+syscon node to the child PHY node, and rockchip_edp_phy_probe() maps its
+own MMIO window and enables the "apb" clock directly on edp_phy without
+using the parent syscon.
 
 [ ... ]
 
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^phy@[0-9a-f]+$":
-> +    type: object
-> +    $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/rk3568-cru.h>
-> +
-> +    soc {
-> +      #address-cells =3D <2>;
-> +      #size-cells =3D <2>;
-> +
-> +      edp_phy_grf: syscon@fdcb0000 {
-> +        compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-=
-mfd";
-> +        reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
-> +        clocks =3D <&cru PCLK_EDPPHY_GRF>;
-> +        ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-> +
-> +        edp_phy: phy@0 {
-> +          compatible =3D "rockchip,rk3568-edp-phy";
-> +          reg =3D <0x0 0x100>;
-> +          clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
-> +          clock-names =3D "ref", "apb";
-> +          #phy-cells =3D <0>;
-> +        };
-> +      };
-> +    };
+> @@ -878,6 +896,33 @@ hdmi_out: port@1 {
+>  		};
+>  	};
+> =20
+> +	edp: edp@fe0c0000 {
+> +		compatible =3D "rockchip,rk3568-edp";
+> +		reg =3D <0x0 0xfe0c0000 0x0 0x10000>;
+> +		clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HC=
+LK_VO>;
+> +		clock-names =3D "dp", "pclk", "hclk";
+> +		interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+> +		phys =3D <&edp_phy>;
+> +		phy-names =3D "dp";
+> +		power-domains =3D <&power RK3568_PD_VO>;
+> +		resets =3D <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
+> +		reset-names =3D "dp", "apb";
+> +		status =3D "disabled";
 
 [Severity: Medium]
-Should clocks be dropped from the parent rockchip,rk3568-edp-phy-grf
-schema and example?
+Can the edp node pass dtbs_check or probe when enabled on a board?
 
-The PCLK_EDPPHY_GRF APB clock is now claimed by the child
-rockchip,rk3568-edp-phy node, so keeping clocks required on the parent
-syscon node either fails dtbs_check when PCLK_EDPPHY_GRF is placed only
-on the child PHY node or forces device trees to duplicate the clock on
-both nodes.
+"rockchip,rk3568-edp" is not documented in
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+or matched by rockchip_dp_dt_ids[] in
+drivers/gpu/drm/rockchip/analogix_dp-rockchip.c.  In addition, the node
+omits the required rockchip,grf property, which causes
+rockchip_dp_of_probe() -> syscon_regmap_lookup_by_phandle(np,
+"rockchip,grf") to fail with -ENODEV.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114083339.6009=
-86-1-damon.ding@rock-chips.com?part=3D1
+86-1-damon.ding@rock-chips.com?part=3D3
