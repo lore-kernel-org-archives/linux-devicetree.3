@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671282;
-	b=cY7FnbKkl1vubL6uUvmuSvNg/g+foFsMxAt5bdz0UtDE+4ybrPNXDMu61gmHeKLwFd/Q
-	 6GQzm0hkqE2FX1p43iDMEq1y+K4f8vz7Wop6HumSrCXx/N/PO6PGJxN6HaPx5+HQcIuct
-	 D+joiPS6mDfa+hBVQiLBdIiYveNIxrq4Sb95T6SfWxwy/17hBxNDaOz/umNYUgWjredry
-	 /j+keA6eO5aPty6O66/Tj6gXP3Ebr7+k/jDWqsQpvMejc2zzeJtTTaYYLWbx8RKCbb0Qo
-	 bOhD72w8gLLRc84DE2dXGMsY6s1nZO4nQOGDz3KJindIhUFx8tYfqqv4XrlCVKMr1Xg==
+	t=1794671382;
+	b=0cRASiCVOKpX/l27nlJ24oWkXdVcuylEoBh4ukBTyqik4G3j4Z3/UDZyBJYWx+/s/zU6
+	 oNbe8hsvO694y74XLyGSO05WIj3YodPcE5Ssjn94q2wf/iVP5Z6FeB8/jlZ0sKxwmyK5h
+	 URvW7xg74v6LDU27xFE4VVHlp9/dmQV95pgeTUP8JfL3mjgvGGcYr6BdDzCK3vV8708a1
+	 ThE60vYoBRZOLMk7s3zXoX4YkoChe6J+/U7Kata4spZg18SgKCN7ndgte/ar1EOpuCc8M
+	 nFZKfdEOrCz8IiOTHEQnb3Ypite8FOmUZ/kVqwZI/kG0mWwCQcUY7yp81rlKsWq5COQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671282;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=C+dqSjNjF9Sl+zA2nPwgsKw9ujFKlrdNxWlzU1i+sSA=;
-	b=1bAEkCVJqwYs+Rz9oONrucC3DRYpzVcakY4ePXzK8O7TtNYJMDKRrI14dLYAwt/E6vCW
-	 g05xl+oWTVZCX0MaIkH51EJRWYOXnFnXhhBrclCw8vjKmhxHRet6ORn8n2oR+6A9zudrk
-	 hyJDFlXJJaT/StRS4FcWbFFCLUn/SGGh76UGFfUF65l2LoPCpPDma0j5J9twCZCV1Iw0W
-	 UDZ3qtL/QtOob7aiT9+ouLMEnLkqwD2V8Rvu3m2PysCj8IVGod12b3k1hpb7JIRc8ULPD
-	 98AaUx9Ydqn+n9S4thozTEylrQTJeid1eahBBuQS7M7eP9LimUdAEM7PmhSRQYd4pmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671382;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=dCXc+2aX19vXK6MY4biwL0HIH+hZ0IyNs8Cz2CJQj7U=;
+	b=3WhEuRDxg2x1SkwnTTHeHuqc7Udk3TkZpUShKWBmfGitwoctSRErLN7Yx7Gav/PJtxAE
+	 bg7mQK7Qx1x3M994oOHOuzrWNc+zJMlhIEw0WVsJ2QHFdASgDyY9h/6TIRluhm0E6esH7
+	 wqHY22yGz0Cg3pV2vndtvEKzrk1eKuMxk1i8wNzY7NVe2FEntIQms0dqUuECPRYFu3aqM
+	 iuYLIMR0wohYBOs5WXJ8d4NJbC0+jhLh4rmGup+wU6H5uetnO9M2rp1P5EqZ/8qAUQNlr
+	 HtvFgMrfxp/dDQKooDY2ud64bahx2/RlfzhUwVp9MsCjiOttGnq1sgKnHz/AsjWtZeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COgOFwJH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K03h+xhY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8D6606A32D;
-	Sat, 14 Nov 2026 15:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB44606A327;
+	Sat, 14 Nov 2026 15:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COgOFwJH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BC11F000C4;
-	Sat, 14 Nov 2026 15:48:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K03h+xhY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4EC41F000C4;
+	Sat, 14 Nov 2026 15:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794671282;
-	bh=C+dqSjNjF9Sl+zA2nPwgsKw9ujFKlrdNxWlzU1i+sSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=COgOFwJHEJZaAAfWoFTfiD7K5r74SN6vU/uAs4rN1Pe/z0jTFPgjUsnHXKPE/HNt+
-	 I5aXMHKfHsNxp1S7RX62dz8EuEibpVCINUOIZMs9el1Y6KSFGIJDYxmszME1NKGcW+
-	 yrdN09ZTJ9d9KwycXpyATRJcGxSDSqsNZlEnJh8GVpWgK1vDeZvfTKelIXlVsEJxPZ
-	 ee166bzhsuJq7HHavfSbKivtabCu/PpGdj5MKWsqZh05tVP90AEkT6RIl/22rWR/AN
-	 SQSr9Idl0NVOE5XgAPoCJSrr7eMS6GWU/iKnQ1u+8+P3sYQ7MKjv+wgv0Z/rbnvG5L
-	 ur2XGD88JIzxw==
-Date: Sat, 14 Nov 2026 16:47:58 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v6 15/19] treewide: Replace some uses of str_has_prefix()
- by strprefix()
-Message-ID: <aviCffxC8LvSWW87@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <95bfed420dd9616707e640708245ce2aebbb6ff6.1794667407.git.alx@kernel.org>
- <sashiko-outbox-214722@kernel.org>
+	s=k20260515; t=1794671382;
+	bh=dCXc+2aX19vXK6MY4biwL0HIH+hZ0IyNs8Cz2CJQj7U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K03h+xhYMeGUUagIkMl0m2gz/AV8cOz0LOiQ5fpP5qwEl19tjbTUPCdP2yj6Khukt
+	 zIIsLYCXJtDwxIJIs7G4mywFqgM/nS7v6AY+BPIZMJ10fVa53UD2nn6K2/+WrncQI1
+	 Fkii8D+6c/h7E+Jpw1geU2OKUYSWIjh4KVzQ5rRLrqu1f7Epb4eahlnb3Jx4vOmkak
+	 Z1lwQPkmgSbR/lnctBPg9HHOVChkhkVuqlIn609akkT4YPOM+A957dYJJA6GkIAgqp
+	 HgI3BYwTtBHO0G9GbCh8Z1U6NrCtGPz8D6xy+g6mFnuz0aa9xtIEhdDX+V6R32p7IH
+	 SqkT7qMmubl1w==
+Message-ID: <sashiko-outbox-214730@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] usb: misc: qcom_eud: set the TCSR check register
+ before enabling on QCM2290
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Igor Opaniuk" <igor.opaniuk@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261114-qcm2290-eud-v1-2-b6157b817377@oss.qualcomm.com>
+References: <20261114-qcm2290-eud-v1-0-b6157b817377@oss.qualcomm.com>
+ <20261114-qcm2290-eud-v1-2-b6157b817377@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 15:49:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,109 +60,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ua7yryicvytvc3i3"
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-214722@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] usb: misc: qcom_eud: tcsr_check left set when EUD_EN2 write
+  fails
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [Medium] usb: misc: qcom_eud: missing state update in enable_store()
+  [1]
+--
 
---ua7yryicvytvc3i3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: sashiko-reviews@lists.linux.dev, linux-hardening@vger.kernel.org
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v6 15/19] treewide: Replace some uses of str_has_prefix()
- by strprefix()
-Message-ID: <aviCffxC8LvSWW87@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <95bfed420dd9616707e640708245ce2aebbb6ff6.1794667407.git.alx@kernel.org>
- <sashiko-outbox-214722@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <sashiko-outbox-214722@kernel.org>
+commit c35f742b781c2fbb7146624bfd77bf246348e228
+Author: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
 
-> Date: 2026-11-14 15:34:40+0000
-> From: sashiko-bot@kernel.org
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] tracing: NULL pointer dereference in trace_set_options()
-> --
->=20
-> commit c09c1b839b46a18b156e43281c4fb679a76cfe40
-> Author: Alejandro Colomar <alx@kernel.org>
->=20
-> treewide: Replace some uses of str_has_prefix() by strprefix()
->=20
-> This commit replaces several callers of str_has_prefix() across the tree
-> with strprefix() to avoid manual pointer arithmetic.
->=20
-> > diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> > index 4ccdefb5c3efe..f9f3faaede094 100644
-> > --- a/kernel/trace/trace.c
-> > +++ b/kernel/trace/trace.c
-> > @@ -4085,19 +4085,18 @@ int set_tracer_flag(struct trace_array *tr, u64=
- mask, int enabled)
-> > =20
-> >  int trace_set_options(struct trace_array *tr, char *option)
-> >  {
-> > -	char *cmp;
-> > +	char *cmp, *p;
-> >  	int neg =3D 0;
-> >  	int ret;
-> >  	size_t orig_len =3D strlen(option);
-> > -	int len;
-> > =20
-> >  	cmp =3D strstrip(option);
-> > =20
-> > -	len =3D str_has_prefix(cmp, "no");
-> > -	if (len)
-> > +	p =3D strprefix(cmp, "no");
-> > +	if (p)
-> >  		neg =3D 1;
-> > =20
-> > -	cmp +=3D len;
-> > +	cmp =3D p;
+usb: misc: qcom_eud: set the TCSR check register before enabling on QCM2290
 
-Ouch!  I meant to write 'cmp =3D p ?: cmp;'.
+This commit adds support for an optional third memory resource for the
+TCSR check register on QCM2290 and writes to it via qcom_scm_io_writel()
+when enabling and disabling the EUD.
 
-Will fix for v7.
+> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
+> index 73f9fac22e19a..217f6c1791f01 100644
+> --- a/drivers/usb/misc/qcom_eud.c
+> +++ b/drivers/usb/misc/qcom_eud.c
 
->=20
-> [Severity: High]
-> Does this set cmp to NULL when the option does not start with "no"?
-> strprefix() returns NULL on a non-match, and "cmp =3D p;" runs outside the
-> "if (p)" check, causing a NULL pointer dereference when cmp is passed to
-> match_string() right below.
->=20
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794667407.=
-git.alx@kernel.org?part=3D15
+[ ... ]
+
+> @@ -46,6 +47,16 @@ static int enable_eud(struct eud_chip *priv)
+>  {
+>  	int ret;
+> =20
+> +	/*
+> +	 * On QCM2290 the boot firmware sets the TCSR check register before
+> +	 * EUD_EN2; without it the mode manager ignores the enable.
+> +	 */
+> +	if (priv->tcsr_check) {
+> +		ret =3D qcom_scm_io_writel(priv->tcsr_check, 1);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	ret =3D qcom_scm_io_writel(priv->mode_mgr + EUD_REG_EUD_EN2, 1);
+>  	if (ret)
+>  		return ret;
+
+[Severity: Medium]
+Does this leave priv->tcsr_check set to 1 when the write to
+EUD_REG_EUD_EN2 fails?
+
+On non-debug TF-A builds, the write to priv->tcsr_check succeeds while the
+write to EUD_REG_EUD_EN2 is rejected.  When enable_store() calls
+disable_eud() to roll back after enable_eud() fails, disable_eud() also
+writes to EUD_REG_EUD_EN2 first and returns on error before clearing
+priv->tcsr_check:
+
+drivers/usb/misc/qcom_eud.c:disable_eud() {
+	ret =3D qcom_scm_io_writel(priv->mode_mgr + EUD_REG_EUD_EN2, 0);
+	if (ret)
+		return ret;
+
+	if (priv->tcsr_check)
+		qcom_scm_io_writel(priv->tcsr_check, 0);
+    ...
+}
+
+As a result, the TCSR check register remains set to 1 even though enabling
+the EUD failed.
+
+> @@ -65,6 +76,9 @@ static int disable_eud(struct eud_chip *priv)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (priv->tcsr_check)
+> +		qcom_scm_io_writel(priv->tcsr_check, 0);
+> +
+>  	writel(0, priv->base + EUD_REG_CSR_EUD_EN);
+>  	return 0;
+>  }
+
+[Severity: Medium]
+This problem wasn't introduced by this patch, but does enable_store()
+leave chip->enabled stuck as true [1] after disable_eud() succeeds?
+
+drivers/usb/misc/qcom_eud.c:enable_store() {
+    ...
+	if (enable) {
+		ret =3D enable_eud(chip);
+		if (!ret)
+			chip->enabled =3D enable;
+		else
+			disable_eud(chip);
+
+	} else {
+		ret =3D disable_eud(chip);
+	}
+    ...
+}
+
+Because the disable branch never clears chip->enabled, subsequent reads of
+the enable sysfs attribute still report 1 after the EUD has been disabled.
+
+[1] https://sashiko.dev/#/bug/linux-99d39974-0e5d-4e78-9df1-4c5cd22f0990
 
 --=20
-<https://www.alejandro-colomar.es>
-
---ua7yryicvytvc3i3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4gq4ACgkQ64mZXMKQ
-wqlnaw//SGanRpCyPt2bQsCGLXaJBvRcIr/FVgNv3q1+lxemh4dSvR+KIbSdKXK6
-CoV2TKWU4KAJpEfhmxWk+gfnfE+yHlh6+hNy8clN1BzhrKr2EMmHUa7ThCK0fOqQ
-6UBhW9PYk/F9t4Qwph6Evuv1X5DwMSVATrRGC8v8lsQTqbT47MAUkG24w+xSsgYj
-uw/fCmtvQ8aYCmi5dwmxejKDSqbWHIT2OjBEvytOgfQlOcoHKwQyNvBwaeIbR05r
-TtPCCC7N8lK/grWDHWNudPH46lelourIjUrQeN1JeUF8+xrzP/f0i39d2tbF4VwU
-L6Uwu17RRophjGmgT5tmf/zag0zXEXF9AhRntXQVEES86Lnlugrp7DRqGZDC0IvN
-7/rNixsRTJ5r0S82F1dVGdMUb9zot+AS1e4y0e7Xy0g1vg2CiNWjXxgIQCQkbX/4
-E9bvCYHMgChcn9HvdFu9HwXV0pqyJS6JsPUc/Cv4MIFwtYZ8K68PMzi3O6jDc8UF
-BQW/epzYJc7EZQahIpYEF5UtZruup3AFTKpR5WSB/8UCFCAe7+E3YE7QRMa5CVTf
-uc7yVudWhfiLFzJ9BhHy5RGaAcZGk0qICTaH1El1pehn1uEhG/PDIYR/iS8cMPAU
-EzURcit3olzuai9mRriVQP/xFZtkg0V+wH42G7kRJJ6Bbc2KfNQ=
-=rno2
------END PGP SIGNATURE-----
-
---ua7yryicvytvc3i3--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-qcm2290-eu=
+d-v1-0-b6157b817377@oss.qualcomm.com?part=3D2
