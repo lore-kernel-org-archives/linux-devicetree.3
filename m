@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794663671;
-	b=mZNwLyZeCo8ndUsHMoKk6xNt/XkuPT+cduBXbjhGwENC0Ab5BSPM1gz2HHEKMrze9Oox
-	 NbBad3LoCMuMjUZ1j4mrEVB7h6eFohQr2UXfvjSMU7kaFqzGP9t5Q4+49gcfStgX8oHN4
-	 dtdSk8RpoA+r9XWy+ZjJEvu2/0Uq+KE/cgCQXZzDNtzZwgLqozdpMlhiKUo7mO4oD6mmu
-	 VjE45FDGLf2teu+3Qu7ctHA/BijC+l21U/UsnECUZQCdD6TxPFlBJ4p+Ijl3z/5YRC/TZ
-	 am3ltdEFShyC9s5egWxQRPXwDDxmOU3yOtFu4mzrdsc7qVYQQly+LFBt2NesN1WTmGw==
+	t=1794663673;
+	b=K98XHG0B5FOhidfA9D2JVQJQGDznbOaBAjUpF3wf095t5RpJq+ZFFkmpUYgE4Cc2BjYQ
+	 CvjOP7jiyg6HYwlaG6PYqcl9FsrsBcHBDQ0YBQChoH5tafrF6MfN5jPII6ruVXvGyuZCR
+	 +3Ax+o+GGORQoJPdUdm1BdhnHMUQbMIE88IeGUxJwaZP33z5UT7LswzQ99vDxy6T20nK/
+	 HdUgLBdkDkUthQdVK5ttLs52ZfE8tD9ee37ecnbdO+6qb+DO4a27WD42VtorolDc5STbX
+	 kVVaYBLNslyCK67z/3hjBKw8asVTxRkJDigi5MPkpHp034osaqjUePRd+QVQ95C7lsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794663671;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794663673;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2CbMbhj1YJKeMqmSmi9IRjYMrfEw9kWn4Z0tl8AznQs=;
-	b=uWS2+mMOJj3lScpJ5B6abuurzh9dzbRqOkSKQp9iV9eTl1QUgxoXteuzX4SNI9PfPYar
-	 j3iFRYA3iedntlA1DxPodDWkVXWYm8/FMin0qRo36gKIXDM5N4EdKzq0jUtl/Lx5v8GKq
-	 7w65JhKZ8kDu7v41Y4fIp17NkpIq1+KpSOV2APLhYosGXqt5J+Wh5VczhKCDCKZGl/hPd
-	 8y8ukWaYAFCFZiEW5SmK7lYxW8bayVu/VegmQxDrddNfNAdDcZ+qB+ftW0WJsTjjNu00f
-	 plZQP9gW/OSTodIYgd9ppBd7lD6C7CARlRwnk5w0j/Hz7DK1Fv7pDJVpyYm2dJml87Q==
+	bh=La2K15nDGTc5QdvSUYADH/M3UC5c5ws+911+TdMxDuM=;
+	b=M1jvZLsOhFyryxuDs0kc/iE6Kf87d1UhDi7LIicPYYkqtCLb/0HDeyE+lrc8bFe9xVEo
+	 BknXI7b0IkVoTABSE78zl0NpvEw8pqxP/x3zVUjeHptv3ZvAfbQBDk3hVZ8g1T1WDV7ua
+	 ZtzrUYpM2ozcx1zPkV9cOmIiQvB4bqvsY1G8bDOOgnrkfX1Z6fHmvNeWMcY3pp2bqSyDb
+	 wFFGeLJNDJZeJDqKlzGcA16a5hYexDRembrfeu0Mrw4I9mU8Q5UxBDWHr/kaaQtoyD6q0
+	 z0v0RK75riFHpkDj0FhwamlngUq9STYewMiIem68daYXC72iqN/NQhOsWjv94Xtnr6g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpRRPaIM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inwP6GsY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E09606A883;
-	Sat, 14 Nov 2026 13:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80123606A8AE;
+	Sat, 14 Nov 2026 13:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpRRPaIM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inwP6GsY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794663670;
-	b=uNf/TFz34GW/bhhRa6xbSS7o04zJzLYrbCQQnYpu4HI128jOEnCNI9c3YkuPpLMiax0a
-	 qA6Bx7h24+MH+MVtqds1gC4TXEF6wsmaA4HXnGtp59IeqOOfGgdd/96jpPYo6WfpQ7Z0B
-	 ma7v+zFf4y7jWv/clL0R4E7zyv3kd6Q91Eq+pSsxvlHD/06XzDuew18LmeN63NS/Nv/85
-	 VEnejAIXdq9QS7Ccl1OAJ0eIk8ewQVjucjvVNw3rIO7PSH+1jNnxr6iHcgv1Pi2MidxuV
-	 WfHKN/QVVGaPIpesb1Fj4gvWmLspNvekakvTaJu0cBqx2R6osnkAKdFFSI07IRYkhsg==
+	t=1794663673;
+	b=Te7Wp/vfzYxzQnhXJtFrlHJTjhqjUT7yUMvHsYlth6C199qgx85s5jcS52/sSMMpKBtG
+	 IFCLn2haLRwOSa42uzsRTCystE4qYBVlKUaZXrgx9E7RFSMQ9+75vmvsx5o16mYqN4cGe
+	 i5cxxcPWEhzx7VhL08UcXYy7mPtGslqhRAODeAIKqNGVXqRf80VGyl1vEkW19UPjXNgmZ
+	 5ErRQqDq+2OVki3CGhb68TxX0ft961QTClCewoNsPcw+CQS2/qoFg8TfLbJqo7awRJj3I
+	 b3uBVKsb0CcL26XQKSq8WvitN+8Cox9JyaICCMoPvQetxt856Oz3sx4k1rHRPhFUYcw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794663670;
+	c=relaxed/relaxed; t=1794663673;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2CbMbhj1YJKeMqmSmi9IRjYMrfEw9kWn4Z0tl8AznQs=;
-	b=oOc1OJ5DXFUvU5gsO4Q83OXq0WFKh9LtW0qs30dSGDf50ovsd1VabeEJJCJ0sCukY0tf
-	 lYRQWug4H3otgWAzSp7Lsi+HMhrFiwn4LMJM6z2DOI9PLSxwAGwFheB1jI/Razu2hJvcB
-	 GnNwtBNy+qJCNR3vCE9Jn77pfXmKNg5beFY0cl1jSOhMnTOr4I+sHQck6amEthdSZJnTo
-	 t/GvVujXhs6GT3rhdwS/hSNTb/WHTtypH/ACTDz6u4HLD5VV6Qpuonj4PDigOx5u3iO5h
-	 90rS4w/Bh4yTiyy5rXKh4jrHHfyPa6a2KIaFoMAEtePu4SNkHYKuLmtb2vRhjYrn0FQ==
+	bh=La2K15nDGTc5QdvSUYADH/M3UC5c5ws+911+TdMxDuM=;
+	b=iyUAIz+WJyltdTydrGtQFb6oib6kbyChBdmxExzhw0rs/T0QifidwaVJX5n8i7iaV2jA
+	 6Xf7OUfxrLy6vreCACci/XnY7bJY3uhRcqpNkrfmKu9jrVSme4RibXhxI55WtBXTpLHG4
+	 GJCrAgzvoW4IVjJvPm0bRE1xSckjzXN8SZ1BTHO5uUKndmf/r5ssooNWgwlpYEost4PmD
+	 Ugg9tbMHTNFkM42D7AG7WeUGIBYYXiQ9gMfxx9LaqmL7CePXFFLQifaALeulINVtxfksx
+	 t2mHcpkrzQBALsGTc7RO+kdUnkA6tZJtcGXzToNhU5dj8uOHSjTChNUqEw77pIXIWgw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BED371F000CA;
-	Sat, 14 Nov 2026 13:41:09 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7BF871F000CD;
+	Sat, 14 Nov 2026 13:41:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794663670;
-	bh=2CbMbhj1YJKeMqmSmi9IRjYMrfEw9kWn4Z0tl8AznQs=;
+	s=k20260515; t=1794663673;
+	bh=La2K15nDGTc5QdvSUYADH/M3UC5c5ws+911+TdMxDuM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hpRRPaIMlk9r/CBia6M6RhtWZ4G7XKLzgVqfuoH6pp+6+ADzNypw9366X2ag36prj
-	 AhO/Drxy/X3VGW+/EhWC+PLb1ePS3f0ywX8E2bnVfBncqjBGAs5WOJdTvSoymYytoN
-	 HSCc7+4Mi/swuhdaRtnc/sgNKb/QPQ9bM7ajgl9laa9COoj3XYAxNlO2r/VDoTitEl
-	 oTap0IpbJuiYIFFWN45oM7RXdIhfxEcMe9c9xXhg8WOxqwFJgpwHacWwZ9rxIr0qmg
-	 UZDLPDsqpfUiXEUTv6Z48uaNnzU6FLm6y7tl7hDf5dYMoMwFI5S1jHInarbZH78B2+
-	 GCgX2H0iCOpaA==
+	b=inwP6GsY63kgRyoN2NK7vrDU5sKhI2v60hVzFNVPz4G20pRSSb3fFQpGuSpv6IAWh
+	 P4mt7biYeLJVWLOBo3u4nES1fdTDrw+RSiOOp/6oiytool9Womvd06+dQIV0u3/Dfn
+	 OZ/PoOfdcXTl/NP+n62m0s8O0/ynhYtIaQBbJxZhEMprfcjUCW4/yDpgtCM/zymxuT
+	 KyW5XxjaUMlO3EGWN654wXtE5feu16bo/EE8nYBq5ntSHc3sV3h3k2Lbm3VoITK8CH
+	 9QH7b3BxUXhMgVY6mDDu9OXsmrP1nQoTaCikZry+oGPaxpZBnwerS2zy/pWNQBubGJ
+	 3iIT+gguPZMXw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4904649DC6;
+	by lkml.kernel.org (Postfix) with ESMTP id DC2B449DE2;
 	Sat, 14 Nov 2026 13:41:09 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 16:41:08 +0300
-Subject: [PATCH v7 03/10] dt-bindings: arm: cpus: Add Cortina Systems
- CS7542 enable method
+Date: Sat, 14 Nov 2026 16:41:15 +0300
+Subject: [PATCH v7 10/10] MAINTAINERS: Add entry for Cortina Systems CS75xx
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-cs75xx-v7-3-8f17f38821b4@gmail.com>
+Message-Id: <20261114-b4-cs75xx-v7-10-8f17f38821b4@gmail.com>
 References: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com>
 In-Reply-To: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
@@ -101,11 +100,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Jason Li <jason.li@cortina-access.com>, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794663665; l=1316;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794663665; l=1124;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=2pJil7R2I4RJ4Qw+FGFzoukNOQ10CC3HjRA0bSlNdco=;
- b=LhjVsUSJfpA5SEdDtr/jVR3jXATHei5XGM/Yj2Z1OL8QzVf74eIl80tefXQ/3N7Zptld9HlSn
- KgYaJbpHi91DYEq7d0uf/dEMNYJYRusYFEdusX6vcMaRRWsZ0DW91pV
+ bh=Kv86vwete327NDTNam7eZzSsG2pJVcHBfV+Z7+P5PJ4=;
+ b=m2had9+YtFJAFxsUTBdOtFg+zAyQGUi9ToreJH5JmO741fEqcImTkHNVWv6nPWa1K5XeYAxCB
+ pXdOPXJ7JNUBFWgI+hCrYNJ9sUH5cvLHmV0g7+fHRBUHuFS9ZBYXU3f
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -116,39 +115,37 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-On the CS7542 the bootloader parks the secondary Cortex-A9 core in a WFI
-loop that polls a global software register and jumps to the address
-found there. Add the "cortina,cs7542-smp" enable method for it and,
-as with the other release-address based methods, require cpu-release-addr
-to point at that register.
+Add an entry covering the Cortina Systems CS75xx platform code, device
+trees, bindings and UART driver.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/cpus.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ MAINTAINERS | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-index 96136b70d..7a394c500 100644
---- a/Documentation/devicetree/bindings/arm/cpus.yaml
-+++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-@@ -269,6 +269,7 @@ properties:
-           - brcm,bcm63138
-           - brcm,bcm-nsp-smp
-           - brcm,brahma-b15
-+          - cortina,cs7542-smp
-           - marvell,armada-375-smp
-           - marvell,armada-380-smp
-           - marvell,armada-390-smp
-@@ -484,6 +485,7 @@ allOf:
-         enable-method:
-           enum:
-             - spin-table
-+            - cortina,cs7542-smp
-             - renesas,r9a06g032-smp
-       required:
-         - enable-method
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315..deb2ca570 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2950,6 +2950,17 @@ F:	tools/perf/tests/shell/coresight/*
+ F:	tools/perf/util/cs-etm-decoder/*
+ F:	tools/perf/util/cs-etm.*
+ 
++ARM/CORTINA SYSTEMS CS75XX ARM ARCHITECTURE
++M:	Fil Dunsky <filipp.dunsky@gmail.com>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/arm/cortina.yaml
++F:	Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
++F:	arch/arm/boot/dts/cortina/
++F:	arch/arm/include/debug/cs75xx.S
++F:	arch/arm/mach-goldengate/
++F:	drivers/tty/serial/cortina-uart.c
++
+ ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE
+ M:	Hans Ulli Kroll <ulli.kroll@googlemail.com>
+ M:	Linus Walleij <linusw@kernel.org>
 
 -- 
 2.53.0
