@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678990;
-	b=JhU8MgwcHncC1j1qOdTrqL2F7rd3A2xSsN9wsCFg0ZwDZr+1RJCLr22qJs3f77HOG6jR
-	 gc/Ka4BtsgEa8lxnHYGg014/aE8zvTuOcBiwdbqHQUm4NKDj+iYsH6ytiEfkiMOKg9w9r
-	 qDGDTkm3GFuVDlIhCdQHWwN8JYuRbxsceIjNXDZISj7bkYgJLwnBWLXyRwKhit4IG/Acz
-	 gwUpx0YPnFxL3hHVtiM3cYfGCO1tA4P3o+adKMX3aPSFDmCcgXnbD22pvv9+OJLD0j+j6
-	 GYKwmLNYlhX2LXy5hEMODbVLw/01m9TF1Tdw5QPw4PcbZbjFSZCORvxfXda/MaRSVQg==
+	t=1794679074;
+	b=JKpV6doA43/CWhvaF1cB/2OF9Dq1LhNxaahkQLhXA5GETQaezH2+uA7JEI3EBZXu+reW
+	 If7Tku2JunQJBX/7wnthi9wNmXTDsuKPKjUGHlYY7OaO6f8flQ9LWsbTXsP4GHuZsNoYR
+	 oTTz0M2sUVgND3UvMZ5N5coHOk0zXLqU0Zzpov6Unc6906kPKxBcL0/tRU5lLcQgNikg8
+	 JTz9mwAY/AwxmTmE/bpe4AXzm8icvLEH9K+nNbhA5yY2u0rblAnJKffWGkarzn3eP8dr9
+	 +COTf1jtwvGD5yV0oZYx2AZVLoQ3hkSLPJeu8Qj87cUSdFCeS/LYH1pE/I9+g816ceA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679074;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Subject:To:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=8nnbYITGa8aaldnPt7EKexDXGqEX6dsyutbdrhCQQ4w=;
-	b=dY6VxHyKD5TMNUlC0qVWTTj4GtPwlxdqYy8M47z8yQ6uuhdWTf54LJpOif4yBcmSRSSS
-	 mOpq7huWQLrcaFhRj1DKB6wegYux54lpzMGJJ7DswLER1RK6+Vm0Lup2Lq3uEBXzJZHR6
-	 9VeK521Ipg3WwOYemL0T6BM9nGqIVbqjr3bukgaKU6gNHnvKUU+AuRaC7NewoNoT8HQye
-	 zPev8Ti+ZFOycz0un+K8yZafGGJTWM7eG1MZScW1sBbPIWkbDkpHK7J7dy3yH1FhHb5eQ
-	 nUndSU2o0SBPJrhiCpF003zpqdoCs9uOlD2NjG0rdasf8SQyXs4rANTU45nZMHwUKew==
+	bh=qFHfirH5vChjL8wVOpZRT6SwMpXMf+RApUPlogONKaE=;
+	b=cLSCAYiv5sWnfQC+oUpfcK/hCl5fd7L2/XCvkEWaLQqmDF97nolnUw3PKJF5oLC3O7dY
+	 y+nVPLrUdtM5h91Jhj0GOLJ5AW3O8LxdJsprPgt35LbnqFKSWWiwPzQWmYSWxeS9UMPsW
+	 GZFEb+xO8C322l+fQqroy7OO34wHf06qw74s6gYsJBqdjZI+HYEvJ4r1Pz2/o4UIv1jAs
+	 jDB9N+gS/swp9OzYY1yxLV8si9nFPkC3SmOZPE+6MwViE8B08buGsC9QEDpqEnvC96OKt
+	 3mT+Qafc90lOCCj70UXg05x7N0g3B6ezw+VCSxZq0f1ECdR2ouOY9JfgcLHXuVixd9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFA9zAEJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMtLVM9h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBBF606A336;
-	Sat, 14 Nov 2026 17:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F98606A88F;
+	Sat, 14 Nov 2026 17:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFA9zAEJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF0C1F000C4;
-	Sat, 14 Nov 2026 17:56:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMtLVM9h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AC11F000C6;
+	Sat, 14 Nov 2026 17:57:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794678989;
-	bh=8nnbYITGa8aaldnPt7EKexDXGqEX6dsyutbdrhCQQ4w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gFA9zAEJgCZmf0CyRj7rPpRFSgas20aDgQhOLU9TSOT4/kE1DU9f9nccmgMxQOP17
-	 ZfhwcZvY7RKEsnvzqGfaHf4KvniaGCM6zP9f11XonxXjyYWUo/1Bjya3pqsAwCGxx8
-	 eETpoSakvkYu03xiANQnwkZpiezxwWel92eycLjWZpkrN5rjVbOCYdpDOX26WrOQ7r
-	 /173HFg48JUJtIxlMc0lg9wqayDwuDGhCq72oiBddAmxLTi4y8LarVezWXIA0qXs9b
-	 zLysu3QdlGVnwppFjMJBz/aD2HLqUSMQNNXxA4zq1mUo74KikcqZJOKsmCcOyCIDYJ
-	 KapyOuZ1LWCPA==
-Message-ID: <243ffea6-2d4e-40d0-b864-e1b8c0bc6440@kernel.org>
-Date: Sat, 14 Nov 2026 18:56:23 +0100
+	s=k20260515; t=1794679074;
+	bh=qFHfirH5vChjL8wVOpZRT6SwMpXMf+RApUPlogONKaE=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=jMtLVM9hF5qvIFJ1wFC288HB7lswk+NBuqc6nhfyd9qGG7Ke0jNb+zXx+PMopFDbr
+	 Zf9BXU6maqkNYL+JJe3Ujg2Tu4+Oh5x28k9LkVpfE7mR91MMsdvI6q+H/rJDgxhzTa
+	 2M0JjSlpRUMnm8eMnuYGB6NMHzgIwZrkQtrCE0e/z7nH4kbzlcRKXAaRQWFeAmWPhY
+	 229+2zd17p1Hv1hERAhHToWrMH+z8M9PozzfPUi1p78A8deOGrEsm0wC2AgJVRw7mW
+	 zuAUTVNjTCnA13kGWxhiIzS2hrQdZlZJwW6+2ygV1Db9Ij4vv6foLkScOsFAts+JA+
+	 HB7oAwyUbS8jQ==
+Message-ID: <b4d6cc36-e986-41ce-a887-d7d9076cabd4@kernel.org>
+Date: Sat, 14 Nov 2026 18:57:46 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,16 +52,23 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add ASUS Ascent QN10
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261113-qn10-v1-0-e09b2aa7ccbe@oss.qualcomm.com>
- <20261113-qn10-v1-1-e09b2aa7ccbe@oss.qualcomm.com>
+Subject: Re: [PATCH 1/7] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+To: Daniel Golle <daniel@makrotopia.org>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Shawn Lin <shawn.lin@rock-chips.com>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ David Heidelberg <david@ixit.cz>,
+ Christian Hewitt <christianshewitt@gmail.com>, Marc Zyngier
+ <maz@kernel.org>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1794654074.git.daniel@makrotopia.org>
+ <90878fc566a9752eb582a82d1324d811ebb324e7.1794654074.git.daniel@makrotopia.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,23 +114,25 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261113-qn10-v1-1-e09b2aa7ccbe@oss.qualcomm.com>
+In-Reply-To: <90878fc566a9752eb582a82d1324d811ebb324e7.1794654074.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/11/2026 05:28, Bjorn Andersson wrote:
-> The ASUS Ascent QN10 is a compact desktop computer based on the Qualcomm
-> Snapdragon X2 Elite (Glymur) platform, featuring an 18-core Oryon
-> CPU, Adreno X2-90 GPU, and Hexagon NPU. The system comes with 16 or 32GB
-> of LPDDR5x memory, two M.2 NVMe SSDs slots, Wi-Fi 7, Bluetooth 6.0, 2.5Gb
-> Ethernet, three USB Type-C ports, four USB Type-A port, and HDMI output.
+On 14/11/2026 12:09, Daniel Golle wrote:
+> From: Christian Hewitt <christianshewitt@gmail.com>
 > 
-> Add a compatible for the device.
+> The video decoder in RK356X (vdpu346) is described in the same way as
+> the one in RK3588 (vdpu381). A new compatible is added as the decoder
+> capabilities are a subset of the vdpu381 capabilities.
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
+> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+
+How v1 could get it?
+
+Anyway, drop, not applicable here. You cannot test a binding on PineTab2.
 
 Best regards,
 Krzysztof
