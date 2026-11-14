@@ -1,57 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794658033;
-	b=Znljuk65GyNJy6h+X1lI4mDasdAabE6zF2bLfG8zrAjbu7KxCXD8+AD6KFSwEaPpsYr1
-	 alyBugGKpEk5it265ValXxq4Q2AjAPXjZDIUvgtTWiiAfROixh3vfPSONrLK3UYHYtEVo
-	 /MXYY0DjTVWxNx01plTQ7R5ZmxbHGRRgLLEXUgtSjh6VNyQlMrWoDndwUp5+NvZpyXBKn
-	 xFJwK/E6NZOXe5Z4ovLc745mIiF6RdaOXzBGoNqOyCB+9ol24vOhp+VvaqN/1qwvF2Dm5
-	 2++QbDFDRaemea3hEHs8crFn3784Su9/C5ja0J8z6l0CVpa5cwFRUWwIVbyfoBW5ntg==
+	t=1794660732;
+	b=Lexj4vrst9KhdkD6JdwvSIoByCIslTr4Ukmje7stoBHTgTJAN2T+pFZ6wSBlhx7NObmu
+	 ZKqr+9TRYHufB+EUXMtN5SHJz+vQcmyijRL+vEv2J4Iue1cv+vxNRMLWTGarsO45me/oC
+	 IrA5ZI6gFqSLqdOieuxCUaRe6Gzmf3R4FQ27gDQBI/j+GjbyFRAyfNE75T2J/6Q+M/B5b
+	 QdfAjbDHrTY9LoMXqXp7HpOUGxV4ykE57YTbUNBGJwcg4aPxypvNrkZ/+fi+ZXQ1he8fK
+	 sZODPBzIiwYrSJc769zgdGYITWUnulwZtUSH16tnnK9ILQmrEIZX5y25Dn41npf8bLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794658033;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=weDOTmg75K/HqTA6ws/VutEVqs5lbo7Fs+CjNB1vU4U=;
-	b=FQJxF9p75PKc8sZWNf+BWBicB9J3swtFr+/SHVIlj0R/R0bnm/JdYktajxQmzD7GkAu5
-	 q3XvK1C8CigxA/3Z8y3vH8ocwakXrj4Df/S5U/IGhqmKliZlz49BYRqGPH/GXat2X9gd6
-	 ipNeHsJGi1jPw/LSlTig62Xk9IVH9cK9Kyu2twNslwgcey4aQm6dnVoKV0dgGCy2yIgFA
-	 UkY1KWXdD0L9hl15jdG9DBrDz1tI+sEKpP/8ZBsb3Vfb33oOwg3PY1KpJlwmhr/3cDa/p
-	 0fE1at3NZIIx4WRgBxB9rWFh9Acac3DrE8Wk+iujeQpH+06+zpRjF3/74aZOQ42RZcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794660732;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=WG9EHJftuEjBNzyO00nEEHkcy+mVuKMIDSHBr22EzOc=;
+	b=q4LnpUTIl1qi1/3aRGiDqeKoz1q2ga7EyzjuSiOVNhcmZg0fSit2V38sNmI4NeMMKW2+
+	 Y5DeJ4s5RH6Evx2aJZzGPM0G+ulDO8mTGd3v/eJlq5iepyBprPZkCbOZi9M7hT/Q0X+Fu
+	 WFJOGCuSo7PL8KcXktUYEE+e9s0YO6x/vrn0iujL8JGUA3YVW6Jany5peTFziORgu1zMp
+	 5vysDACfbSNWb6iJNXWU9nq5gt46mC6qWE6fcu1wIHSeeDPTZhKqxl0GWd5k4Sf8OiRLY
+	 JuhAqJWSxm2GfZlZd4cfUVIlbdhenRRBWjtzg3AEZ3ihJVQhKy2p/qeK57or7k0KK9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUQUMhpp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=hk3EWkh1;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=myKHBYpc;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C8F606A329
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 12:07:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DCF606A32E
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 12:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73DCF606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUQUMhpp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8DE1F000C4;
-	Sat, 14 Nov 2026 12:07:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794658032;
-	bh=weDOTmg75K/HqTA6ws/VutEVqs5lbo7Fs+CjNB1vU4U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UUQUMhppD6J6XtFmGdiEx+3N9Mx9WoBWc960Jv5QNqMvxt88wyYeSCaQdH6f0eTiW
-	 aukM/aEvrny5/z/d3L/2M3NZlG57K/Se5amQhJTPWUo6IDt2BXRF62lGSvPA7uVSdh
-	 BksT+r/zMywpD2C+Q4waqfmTScB7NvMx3LLdP5VspqpI3FHy4MMsjxdi0rbXuXuGP8
-	 da0E+aneyeDvTbcCS7++wLP2tDmt0bn6ag49hUMJ5x8rX7TQc5OVWpG+VHyN+oWsKx
-	 wzG9PU0SO1bCi9PeHtqbxpAedNzLIow2M0TDoFFWrhRhGq51qOZltLljYMyyPy4ZuW
-	 vTUluOOMe6N4A==
-Message-ID: <sashiko-outbox-214494@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/23] media: qcom: camss: csid: Scale the clocks
- with the CSI-2 link rate
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-9-8ff2a11835f6@oss.qualcomm.com>
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-9-8ff2a11835f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 12:07:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=hk3EWkh1;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=myKHBYpc
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id C87BF7A0133
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 07:52:10 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Sat, 14 Nov 2026 07:52:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794660728;
+	 x=1794747128; bh=WG9EHJftuEjBNzyO00nEEHkcy+mVuKMIDSHBr22EzOc=; b=
+	hk3EWkh1QBF+vz0DGiJsxlQP/zHQR7WaKlbqkUrW4MJ05on1LKt+BUwF39JNcZBp
+	aGcFCwfSgSnK25D6Gv2p4ZUBh2oPBMRMpR5SOl7zRCLBF4UuABJ2VEDxAP8bi7yr
+	d4PXcSka4AWscsTZEwAZXIndxp8+sTVuMlWeKV6K3RohqVwfy76eQoptaAK11T8U
+	Wdv0q4kvbe/DMmYaR3hHWadcu6j0+Bj8iSKvKG/Wkj1ButC9wlHilzb6fSzOlu56
+	0JsysLPmYPFKDQ5Gu4ImUWPqUCiue4lB0y3tBDgdOKcjgwaZIayK4XWMakQpU/TA
+	fkcYq4mozLZyZFxqLrcztA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794660728; x=
+	1794747128; bh=WG9EHJftuEjBNzyO00nEEHkcy+mVuKMIDSHBr22EzOc=; b=m
+	yKHBYpcw+Lqoktn28h4R5S60K+OCdRCyuWLtH+/xKyh4vVXpA9WVfqfMeeNBj2md
+	BPV9bpx8Rbz9u3qKsHhGBz2eNxDAMPIQ5XL9UK+2Kv+vfxbt5w08nWdpWvkHbb0+
+	/rYnLSdNMZkVbs+zIz0mYBEC1aYMq8wOwH8xGUJWpUvGqfJWXtbSeoiyVnPBKpkW
+	3VCdHQlO2Fc73sEZ6miYyAYAOeo1eCFeGb4rDyJs8g9+QfGHYxlX5SrDQgIounjQ
+	YutyBXllqH2tJP5SwBakbkrOD31AdLagOVgX0UU8Q6ca4kVQRXDvahUCDx7rYTLC
+	HxilUMWFBOkU3s3FjfwDg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794660728; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:q0+ohQe0q5dIsIdkbOnXPnlFeiBuZXWLdoLmcgtfMh1vG/K
+	CyorzOsWNeewCJNL3yI9/FFIHmO0iKoPSTN4WH7qCcLwVXaHSxBK9biBE/W1nGQq
+	TNrWwQUnNw1In0IQN8SRtLmZqGhuMZLUKwpEOhSs7yHc3Gn5erbcROWpd2aMXHgt
+	YQx70NTp294HxKexHlV/LSPmOfvn0k57CuZS8BJiaAzllomM0s/WIf/moFz5UUD0
+	HmQil1L/O8lbdWgljsBi8J3LH0COHe9425Ric9955tYefCVpvZ5hWrT76yD1nIKt
+	At3Ujhel2GK3msInVTqEIaqXarHIE6rw8V+BWQw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:fYOsLtrADVOJZJZrGIYoSBVs2pTcXwETYJV9JUYXOnw=:AnUOPMG/pAe5kbnfhObE1GaXNN84C/S8O1fTWm1AH9g=;
+X-ME-Sender: <xms:d1n4ahrMJTSd8FNUFafp3Qr776yC7nhOkDdnqzbYk_NQoVrLxHGa8A>
+    <xme:d1n4asbel3pOkHGkiX8tfX54sJtjt-sNgahbYZPQRbIQQDJeTBU97qKT-UchWtbM2
+    eV-r6AyX_ElaFIwYM5LX36tc-l6E1H4wKARuJ0WWuKzvR5ALSrALABy>
+X-ME-Received: <xmr:d1n4as7d9gFO1o-fszZGii2XDmRlNmzsZtxhiPllQhcvv_v5ogUIod4NM2FVBIOuorchAtLmBmnSmFklZb95oAlpkNUZVeQ>
+X-ME-Proxy-Cause: dmFkZTFe9uWx24Rrl+vmyKIeP1whEGPtyBnwdnbwjcvnX6l71xv4sEgdTYs3vyHSzNW85a
+    XKIXUWapZ8LvnopoLfuG2v2jaVlSaWdyMa/qp+YetmNifvEuQtE/5zDxUCi8J6/L7PpyZf
+    fPtSLmzCy3BJgXlfinpqP/eoW5iRqnRF2h9PW02D5ddMl3CgSYk7IuWJNHGGGKwdVU/eIJ
+    BlbHWKUacQSkfroT++gABi4YyNpn0a0ewwZ1HMJahwkrAJ5lFobwWXeLQoIY/b/5WI+IHI
+    eLnLAjW9UhgZRPFqWWSTzUuYuwr4dvrZfKCnXdbvcchceAakLF+kzyrM+tw6kMQW9ICblG
+    Nehy8a1pSZqZxrWmFUpxOcbLKMxaU88cwaXn6k/Zt5cJmKfIWpOf2RmUfTZXv3583kJcAh
+    mHYjPXjlZwjuS3Qo6C5xgZzsbNuohTaptHh87T/yE0DKoWjlthljMfGiVbriwIM6gh6HmZ
+    HGvgP5SuiE1N2xln3fKokueaDQEEmRnv1tDGmo5lEDD6erKKiMMmWVMQqpm4+h0VsMvoIs
+    6jBO/g23e6/187iDLBYPpSPDBWBiza69I6wuM3DYD4hweGaV610KueBytaU2Ky6QFuyeDD
+    W6PDawbKWS9MfIzUkB5Wg1MJpV5Al26zmSQADlaZILYhpUYie8B+Shz8k8+g
+X-ME-Proxy: <xmx:d1n4avQbZiErYmueZ2jYUHgCP3hnsmzm_YD2CKbACPWcWieAKHwSkQ>
+    <xmx:d1n4akvePe4wWogNs-fALlJhYjl4Hh1ASqhsox0MrlAWZy5TkoKjqA>
+    <xmx:d1n4apa-KQHDvi3dPQbDzSoBlveXp4CmHbxMObKhGthJYE37l2ZlCw>
+    <xmx:d1n4am_z7tvHQ2ir8-IbhboVUpMBgwKff5Bu1vmOokMCaQFtyVqG3A>
+    <xmx:eFn4aqt50Nzw35Ogsya0fOAcEGOo5U_LbwhQpfNup0jUeQ8EBJ_0UKGy>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 07:52:07 -0500 (EST)
+Date: Sat, 14 Nov 2026 13:52:04 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: netdev-bot+sashiko@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	geert+renesas@glider.be, magnus.damm@gmail.com,
+	richardcochran@gmail.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, vadim.fedorenko@linux.dev,
+	sergei.shtylyov@gmail.com, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v8 1/3] dt-bindings: ptp:
+ renesas,rcar-gen4-gptp: Add R-Car Gen4
+Message-ID: <20261114125204.GA938627@ragnatech.se>
+References: <20261110080727.2377040-2-niklas.soderlund+renesas@ragnatech.se>
+ <179465146821.2199510.735416369980468650@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,113 +132,230 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179465146821.2199510.735416369980468650@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] media: qcom: camss: csid: sibling phy_rx branch clocks drop
-  shared RCG rate
---
+On 2026-11-14 10:17:48 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 4
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The new renesas,rcar-gen4-gptp binding describes the gPTP
+>   timer as a standalone device.
 
-commit 08b369e2e076c38176db85510f92710a98c49c6c
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+That is correct, please read cover letter for reason.
 
-media: qcom: camss: csid: Scale the clocks with the CSI-2 link rate
+> - [Low] The binding sets additionalProperties: false and has no
+>   'interrupts' property, but the Gen4 gPTP IP appears to have status…
+> - [Low] The commit message and the binding description (renesas,rcar-
+>   gen4-gptp.yaml line 19) say that on R-Car S4 the timer is 'shared…
+> - [Low] Not confirmed (baseline decision: false).
+> - [Low] Not confirmed (baseline decision: false).
+> 
+> --
+> 
+> dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
+> 
+> This adds a DT binding for the R-Car Gen4 gPTP timer on S4, V4H and V4M.
+> The timer is described as a standalone node with reg, clocks,
+> power-domains and resets. The patch also adds a MAINTAINERS entry for the
+> binding.
+> 
+> > diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > new file mode 100644
+> > index 0000000000000..3edd64d400387
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > @@ -0,0 +1,64 @@
+> 
+> [ ... ]
+> 
+> > +description:
+> > +  The R-Car Gen4 gPTP timer enables accurate synchronization of the clock in
+> > +  the control system. The timer is system-wide and used by different Ethernet
+> > +  devices on each Gen4 platform.
+> > +
+> > +    - On R-Car S4 it is shared between RSWITCH and RAVB.
+> 
+> [Severity: Low]
+> Is the S4 part of this accurate? The tree doesn't seem to have an EtherAVB
+> on S4:
+> 
+> - renesas,etheravb.yaml lists only r8a779a0, r8a779g0 and r8a779h0 under
+>   renesas,etheravb-rcar-gen4. There is no renesas,etheravb-r8a779f0.
+> - ravb_main.c has no S4 match.
+> - r8a779f0.dtsi only has the renesas,r8a779f0-ether-switch node and no
+>   etheravb node.
+> 
+> Also, "ptp: Add driver for R-Car Gen4" later in the series only mentions
+> RSWITCH for S4.
+> 
+> The commit message makes the same claim:
+> 
+>   - On R-Car S4 it is shared between RSWITCH and RAVB.
+> 
+> > +    - On R-Car V4H it is shared between RTSN and RAVB.
+> > +    - On R-Car V4M it is only used by RAVB.
+> 
+> [ ... ]
+> 
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - power-domains
+> > +  - resets
+> 
+> [Severity: Low]
+> This is a minor point. On V4H, the reset (and clock) here is the RTSN
+> module reset 2723, which tsn0 also uses. On S4 it would be the RSWITCH
+> module.
+> 
+> In the final series state this does not cause a conflict:
+> 
+> - ptp_rcar_gen4.c never calls any reset_control API.
+> - rtsn and ptp_rcar_gen4 cannot be bound at the same time because of the
+>   exclusive MMIO claim described below.
+> 
+> Once that register overlap is resolved and both drivers can bind,
+> rtsn_reset() would pulse the shared line:
+> 
+> drivers/net/ethernet/renesas/rtsn.c:rtsn_reset() {
+>     ...
+> 	reset_control_reset(priv->reset);
+>     ...
+> }
+> 
+> Would that reset the timer that RAVB relies on?
+> 
+> "ptp: Add driver for R-Car Gen4" says the gPTP shares its clock and reset
+> with RSWITCH or RTSN. Could the binding description say so too?
+> 
+> > +
+> > +additionalProperties: false
+> 
+> [Severity: Low]
+> The binding has additionalProperties: false and no interrupts property.
+> How would the timer's interrupt outputs be described on this node?
+> 
+> On S4, r8a779f0.dtsi routes dedicated SPIs named "gptp0_status" and
+> "gptp1_status" in the rswitch node. They might come from the gPTP block,
+> though they could also be RSWITCH status aggregation. The tree alone
+> doesn't make that clear.
+> 
+> A binding should describe the hardware fully, even where the driver doesn't
+> use a resource. Should an optional interrupts property be added here?
+> 
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> > +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> > +
+> > +    ptp@e6449000 {
+> > +            compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
+> > +            reg = <0xe6449000 0x500>;
+> 
+> [Severity: Medium]
+> Isn't this the same register window that renesas,ethertsn.yaml already
+> requires as the second reg entry of the RTSN node?
+> 
+> Documentation/devicetree/bindings/net/renesas,ethertsn.yaml:
+>   reg-names:
+>     items:
+>       - const: tsnes
+>       - const: gptp
+> 
+> r8a779g0.dtsi uses this window in tsn0:
+> 
+> 		tsn0: ethernet@e6460000 {
+> 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
+> 			reg = <0 0xe6460000 0 0x7000>,
+> 			      <0 0xe6449000 0 0x500>;
+> 			reg-names = "tsnes", "gptp";
+> 
+> rtsn_probe() maps that region exclusively and registers its own PHC on it:
+> 
+> drivers/net/ethernet/renesas/rtsn.c:rtsn_probe() {
+>     ...
+> 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "gptp");
+>     ...
+> 	ptpaddr = devm_ioremap_resource(&pdev->dev, res);
+>     ...
+> 	priv->ptp_priv = rcar_gen4_ptp_alloc(pdev, ptpaddr);
+>     ...
+> }
+> 
+> Later in the series, "arm64: dts: renesas: r8a779g0: Add gPTP node" adds a
+> ptp@e6449000 node with the same reg, clock and reset. In "ptp: Add driver
+> for R-Car Gen4", ptp_rcar_gen4_probe() maps it with
+> devm_platform_ioremap_resource(), which is also an exclusive request.
+> 
+> Take a V4H board with &tsn0 enabled, such as White Hawk Single. If it also
+> enables &gptp so that RAVB can use ptp-timer = <&gptp>, won't whichever of
+> rtsn and ptp_rcar_gen4 probes second fail with -EBUSY? That would lose
+> either the TSN interface or the PTP clock that RAVB needs.
+> 
+> S4 has a similar overlap. The gPTP block sits at RSWITCH base +
+> RSWITCH_GPTP_OFFSET_S4, inside the base region that renesas_eth_sw_probe()
+> maps exclusively. A renesas,r8a779f0-gptp node written to this binding
+> would overlap that region.
+> 
+> dtc doesn't check for reg overlap between non-sibling nodes, so this would
+> only show up at runtime.
+> 
+> Is there a transition plan for the gptp reg entry in renesas,ethertsn.yaml
+> and for the rswitch mapping, such as deprecating the ethertsn gptp reg?
+> The commit message doesn't mention the overlap or the DT ABI impact.
+> 
+> > +            clocks = <&cpg CPG_MOD 2723>;
+> > +            power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+> > +            resets = <&cpg 2723>;
+> > +    };
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index fe23913b1e432..085fedac38ef5 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -23822,6 +23822,12 @@ S:	Maintained
+> >  F:	Documentation/devicetree/bindings/mtd/renesas-nandc.yaml
+> >  F:	drivers/mtd/nand/raw/renesas-nand-controller.c
+> >  
+> > +RENESAS R-CAR GEN4 GPTP DRIVER
+> > +M:	Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> > +L:	linux-renesas-soc@vger.kernel.org
+> > +S:	Supported
+> > +F:	Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> 
+> [Severity: Low]
+> This is a minor note. At this point the "GPTP DRIVER" section lists only
+> the binding, and nothing binds renesas,rcar-gen4-gptp yet.
+> 
+> Later in the series this is resolved. "ptp: Add driver for R-Car Gen4"
+> adds F: drivers/ptp/ptp_rcar_gen4.c to this section, along with a platform
+> driver that matches renesas,rcar-gen4-gptp. Putting the binding before the
+> driver looks fine.
+> 
+> > +
+> >  RENESAS R-CAR GYROADC DRIVER
+> >  M:	Marek Vasut <marek.vasut+renesas@mailbox.org>
+> >  L:	linux-iio@vger.kernel.org
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110080727.2377040-1-niklas.soderlund%2Brenesas%40ragnatech.se
 
-This commit scales the CSID core and CSIPHY receive clocks across all
-SoC generations based on the CSI-2 link frequency and votes for minimum
-clock rates using clk_set_rate_range() and clk_drop_range().
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/med=
-ia/platform/qcom/camss/camss-csid.c
-> index 51f20907ffde6..714cea6883a78 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
-
-[ ... ]
-
-> @@ -532,72 +533,197 @@ const struct csid_format_info *csid_get_fmt_entry(=
-const struct csid_format_info
->  	return &formats[0];
->  }
-> =20
-
-[ ... ]
-
-> +		/*
-> +		 * Vote for the rate as a minimum, as the clock may be shared
-> +		 * with another CSID which needs it to run faster.
-> +		 */
-> +		ret =3D clk_set_rate_range(clock->clk, clock->freq[j], ULONG_MAX);
-> +		if (ret < 0) {
-> +			dev_err(dev, "clk set rate range failed: %d\n", ret);
-> +			return ret;
-> +		}
->  	}
-> =20
->  	return 0;
->  }
-> =20
-> +/*
-> + * Drop the minimum rates the CSID votes for and take its clocks back to=
- their
-> + * lowest level, or to the lowest level the other users of a shared cloc=
-k need.
-> + */
-> +static void csid_release_clock_rates(struct csid_device *csid)
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < csid->nclocks; i++) {
-> +		struct camss_clock *clock =3D &csid->clock[i];
-> +		long rate;
-> +
-> +		if (!clock->nfreqs || !csid_match_scaled_clock_name(clock))
-> +			continue;
-> +
-> +		clk_drop_range(clock->clk);
-> +
-> +		/* Round first, so that the rate respects the other votes */
-> +		rate =3D clk_round_rate(clock->clk, clock->freq[0]);
-> +		if (rate > 0)
-> +			clk_set_rate(clock->clk, rate);
-> +	}
-> +}
-
-[Severity: High]
-Can voting on clock->clk with clk_set_rate_range() fail to protect the
-shared receive RCG when two CSIDs use different child branch clocks?
-
-On SoCs such as SM8550, SM8750, Kaanapali, SA8775P, and SM6150, full and
-lite CSIDs (or individual CSID instances) acquire separate phy_rx branch
-clocks (for example "csiphy_rx" / cam_cc_csid_csiphy_rx_clk and
-"vfe_lite_cphy_rx" / cam_cc_ife_lite_cphy_rx_clk) that set
-CLK_SET_RATE_PARENT and share the single parent RCG
-cam_cc_cphy_rx_clk_src:
-
-drivers/media/platform/qcom/camss/camss.c:csid_res_8550[] =3D {
-    ...
-	/* CSID0 (full) */
-	.clock =3D { "csid", "csiphy_rx" },
-	.clock_rate =3D { { 400000000, 480000000 },
-			{ 400000000, 480000000 } },
-    ...
-	/* CSID_LITE0 */
-	.clock =3D { "vfe_lite_csid", "vfe_lite_cphy_rx" },
-	.clock_rate =3D { { 400000000, 480000000 },
-			{ 400000000, 480000000 } },
-    ...
-};
-
-Because clk_set_rate_range() records the minimum rate on the child
-branch clock's clk_core rather than on the shared parent RCG's clk_core,
-rate calculations on one branch clock only inspect the rate boundaries of
-that branch and its parent RCG, ignoring minimum rate votes held on
-sibling branch clocks.  If CSID0 is streaming at 480 MHz and CSID_LITE0
-either starts a slower stream or stops and runs
-csid_release_clock_rates() to set clock->freq[0] (400 MHz), the clock
-framework lowers cam_cc_cphy_rx_clk_src to 400 MHz and underclocks CSID0
-mid-stream.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-add-suppor=
-t-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com?part=3D9
+-- 
+Kind Regards,
+Niklas Söderlund
