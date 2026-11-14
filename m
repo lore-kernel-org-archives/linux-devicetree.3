@@ -1,63 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794615928;
-	b=F3SiyczvqQ6yH9EYdyQh6aIdTJU25/jKqSuvG879/QRa0auT4X8e2JmEl7Ew1qUN7iyq
-	 6yrnonra4Q9vf0eDo9sn50MLD4B+0+uqdQU+n/A2dYYckbYXDb//B1XWpG11oNos7dYNe
-	 o3ZxFTmDRNBhLB8eFDK6dJpG5BwL5bmlxMPW11ifxGCwtOy7tSFY+QrG4l89ilmddPPwI
-	 rVoy+TBPD3AdeUXBkgONG5X9kNnFQ8DU+8bWJ+n+4qkoC7QEbbvxPHKlF/pQRPd/FHiTN
-	 U7/zJsRiR5E/tjZQl1cGvii5dMjWKOw3luXM/bbUKlmELWXdNJj8VZezcVTtnB5FH+Q==
+	t=1794616486;
+	b=bfsdRQTEtW+VZa15fDgwDiIBb0eyRk9yPTcySx76hengLvVawSAtU+9W7xc8kY6Qm1jZ
+	 VfPUWHBkEi7WpcixNuwxP2atH8z83MPoJGHSc0uz5ut7zCIWXkoIfUC+f2cHfWtEC1yZ7
+	 YH6PRe+tF4lT8LT+pwQI3rt2GjPNsYBpW1SgIo3jUV10/Ekx0jg0SMr8mSGFSbIu5b2bY
+	 ZuXmQHBAxsZUl9IP8jJwcuHimcAItY8ZhUPbvNp7Iuj3aC6Y8mVQ8P5mSErptU9JonEuu
+	 LGuiwC4EzFfyt1DW6R5NfUeNauflBRoyRmnOOJq/RQVKN34+GEKba7epa3ReWbwW9xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794615928;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R91S7PT8R6hGaHtM8iEhH+rkR3540lu/s98FHe+09U8=;
-	b=orrdA9K0E0aG29uaNb8D+PsZxfhwPE9i1Z/ebHMGoQaoXrRVNseAbue90NemeafKalZp
-	 fwBI7YkS8Gy65EzZTFysqRtFDrSZT7dyZOsGXQgsKmEpcbB+pXiIK3VIp5LMTIIlHxyfe
-	 +aJehc9RQAjwT1jxsX8KjeP69BIhEVH26azF0+DVMuAw+SBzslFROr9cIS6xZSFhuq/LJ
-	 QFe2JWm3kZI2vRF2005itzHPUzTlt/y9ufuMHNBWP4dmsgt2PfcOuUBbnvhjidA9iVyBH
-	 9MJOimBY/A2F+xglBBpHC0i9nOnV+eByU/dtVP94P/z4QST5KDLkJVPj7CwQ7CbP4gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616486;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=FpgEwmMzNnxajwtzHIwdlHqmmNh9zHN0T9NnKFNpv/Q=;
+	b=ri60KFYZmzFqx5mmCIK2BMRU6yHIouCz0j1D8vtZl5r8jTTmt4aBoCv+hnBb2BLhYb+S
+	 bVAZ75+oXU9EC2a3Q0wbjZIP9mD8/hdGmO/7l/SApbsdqkRCVjzxl/POyntMucI2kQme5
+	 oFi5SJC8M7JHrTTBNXU5t2stdb10ezmrLG/F2JRQVCa5L79QmREjqNfOxbOrrZ2e7WHob
+	 U2//9aFnMRsqM/m71adKBsFQ/YNuOM3ansMRSgwKOvGSqkRoPaL5OssVGhCcbhSDwVxU4
+	 hUb/PZlR9nBSadHqnSx9PChZJIHhe7JQu0aEwv8CmD8UURJuvykgAfeZOvhPfAYM6NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9cUOb1b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggWAxiWG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C47606A327;
-	Sat, 14 Nov 2026 00:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5E9606A330;
+	Sat, 14 Nov 2026 00:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9cUOb1b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D271F000C4;
-	Sat, 14 Nov 2026 00:25:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggWAxiWG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199901F000C4;
+	Sat, 14 Nov 2026 00:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794615927;
-	bh=R91S7PT8R6hGaHtM8iEhH+rkR3540lu/s98FHe+09U8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=U9cUOb1bGJNl1IZeha/bLxGDmXpQXtqWFoFOSpd9Vzld7ZCz9sEaZJyH0ILml1RiO
-	 0WhxhJpN6/zESuiQRrp1JBy4LtDdFjFWfI1Y0YMPXFwVkSpY5AYrLnQ64TQ6DihpNR
-	 b/A3TRic9EspamVGU+/FJXZmP0c2WUKaio1IMNUSgNXhKvyBU7vBGrmBl9FjStgasc
-	 oGibEhTh/ZxM9KIpBtIqFgvSYVnSAj895U4lOlrQDEev7CGZyIY4mEMh/3bOxkdG9t
-	 wdrn4WYtp20W9vAt4YZ5nY763gi6Qfg32D8Cn/I69MysYqnJvwHSZnpkmT52s52Ghr
-	 Bm7tbvxBdIo5A==
-Date: Sat, 14 Nov 2026 00:25:22 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Antoniu Miclaus <antoniu.miclaus@analog.com>, Robert
- Budai <robert.budai@analog.com>, Ramona Gradinariu
- <ramona.gradinariu@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com,
- Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v6 0/8] iio: imu: Add support for the ADI ADIS16607
-Message-ID: <20261114002522.34f8aeff@jic23-hlaptop>
-In-Reply-To: <20261113-adis16607-v6-0-3f678719942a@analog.com>
-References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794616485;
+	bh=FpgEwmMzNnxajwtzHIwdlHqmmNh9zHN0T9NnKFNpv/Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ggWAxiWGWlOaCva97NAGYzUMZSKbK6+NDcbMjTKuFAac2f79Aecm5HmsUmsZd8+zc
+	 LZFEtECVzH3nUzFdJgPDfFZojALGk/HL0BKVh43VOslux6oMZB3iofCSWA5u7ZIAy1
+	 jr2m85/QKEIxJOlFPfVJCaXOoeposHPnKOW3v9aQ7GmPnPk86MHZ/1LMCsRfgg8Sin
+	 np83a3ZT6/oCMowX9Y7TKA/ou1b45Tw4yb2qMDVK+Yyc/Njyp2L6YYmOeWtFLlHSPT
+	 3PnES/NJxSs8DDlXjHpS8lD4zdGfYJCXUon/uCFBOPayqQVzKLB09aACc+i+2XYO3b
+	 9PTHzuIBCVBjA==
+Message-ID: <sashiko-outbox-213933@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, "Marc
+ Kleine-Budde" <mkl@pengutronix.de>, "Oliver Hartkopp" <socketcan@hartkopp.net>, "Vincent
+ Mailhol" <mailhol@kernel.org>, "Oleksij Rempel" <o.rempel@pengutronix.de>
+In-Reply-To: <20261114001844.30606-2-marex@nabladev.com>
+References: <20261114001844.30606-1-marex@nabladev.com>
+ <20261114001844.30606-2-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 00:34:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,27 +62,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 13 Nov 2026 14:33:30 +0200
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] arm64: dts: imx95: missing pinmux for Ethernet PHY IRQ on
+  GPIO1_IO10
+- [Low] arm64: dts: imx95: unused backlight pinctrl node and header
+  includes
+--
 
-> This series adds support for the Analog Devices ADIS16607, a precision
-> MEMS IMU with triaxial gyroscope, triaxial accelerometer, and
-> temperature sensor, communicating over a non-standard SPI Half-Duplex
-> protocol.
+commit 08308b97a054b075daa4e1d5655d37470b104a88
+Author: Marek Vasut <marex@nabladev.com>
 
-Applied 1-5 to the testing branch of iio.git.
+arm64: dts: imx95: Add support for Data Modul i.MX95 eDM SBC
 
-I 'think' the proposed changes for the fifo handling shouldn't affect
-those and I don't fancy reviewing a mega series with library changes
-and the new device support.  So build on the base of these first 5 patches.
+This commit adds a device tree for the Data Modul i.MX95 eDM SBC board.
 
-You will need to provide a base commit for dependency list though
-or sashiko may get confused.
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b=
+/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+> new file mode 100644
+> index 0000000000000..5ca26c6ab665f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+> @@ -0,0 +1,1079 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (C) 2025-2026 Marek Vasut <marex@nabladev.com>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/i3c/i3c.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/pwm/pwm.h>
+> +#include <dt-bindings/usb/pd.h>
+> +#include "imx95.dtsi"
 
-Thanks,
+[ ... ]
 
-Jonathan
+> +&netc_emdio {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_emdio>;
+> +	status =3D "okay";
+> +
+> +	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
+> +		compatible =3D "ethernet-phy-id0022.1640";
+> +		reg =3D <1>;
+> +		interrupts-extended =3D <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-assert-us =3D <1000>;
+> +		/* RESET_N signal rise time ~100ms */
+> +		reset-deassert-us =3D <120000>;
+> +		reset-gpios =3D <&i2c2_gpio_expander_22 4 GPIO_ACTIVE_HIGH>;
+> +	};
+> +
+> +	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
+> +		compatible =3D "ethernet-phy-id0022.1640";
+> +		reg =3D <2>;
+> +		interrupts-extended =3D <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-assert-us =3D <1000>;
+> +		/* RESET_N signal rise time ~100ms */
+> +		reset-deassert-us =3D <120000>;
+> +		reset-gpios =3D <&i2c2_gpio_expander_22 5 GPIO_ACTIVE_HIGH>;
+> +	};
+> +};
+
+[ ... ]
+
+> +&scmi_iomuxc {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_hog>;
+> +
+> +	pinctrl_hog: hoggrp {
+> +		fsl,pins =3D <
+> +			/* PCIe 0 PEWAKE */
+> +			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x4000031e
+> +			/* PCIe 1 PEWAKE */
+> +			IMX95_PAD_GPIO_IO37__GPIO5_IO_BIT17			0x4000031e
+> +			/* BOOT_MODE2 */
+> +			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_GPIO1_IO_BIT11		0x4000031e
+> +			/* IO_XPNDR_RST_1V8 shared by multiple expanders */
+> +			IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10			0x40000b9e
+> +			/* IO_XPNDR_INT_1V8 shared by multiple expanders */
+> +			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x40000b9e
+> +		>;
+> +	};
+> +
+> +	pinctrl_emdio: emdiogrp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC		0x50e
+> +			IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO		0x90e
+> +		>;
+> +	};
+
+[Severity: Medium]
+Should pinctrl_hog or pinctrl_emdio mux
+IMX95_PAD_PDM_BIT_STREAM1__AONMIX_TOP_GPIO1_IO_BIT10 for the shared PHY
+interrupt line on <&gpio1 10>?
+
+Both ethphy0 and ethphy1 use <&gpio1 10> as their interrupt, and
+pinctrl-imx-scmi does not implement .gpio_request_enable, so requesting
+the line as an interrupt will not switch the pad from its default
+PDM_BIT_STREAM_BIT1 mux mode.  Unless firmware pre-configures this pad as
+a GPIO, PHY interrupts will not reach gpio1.
+
+[ ... ]
+
+> +	pinctrl_panel_backlight_lvds: backlightlvdsgrp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_GPIO_IO27__GPIO2_IO_BIT27			0x31e
+> +		>;
+> +	};
+
+[Severity: Low]
+This isn't a bug, but pinctrl_panel_backlight_lvds is unreferenced now
+that the backlight nodes have been removed.  Also, the dt-bindings/i3c/i3c.=
+h,
+dt-bindings/pwm/pwm.h, and dt-bindings/usb/pd.h includes at the top of the
+file are unused.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114001844.3060=
+6-1-marex@nabladev.com?part=3D2
