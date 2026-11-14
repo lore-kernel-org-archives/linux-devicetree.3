@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794655539;
-	b=Y95IwmWbZUMLev0C517UCBHs6FBH0qTupKKGpB5/dYa7r3NaSNZMlgl8OnhHIEzzm+0W
-	 tiPPAuNjulGl4MDL1qKQyNjy5l+9ziW7f3h6FQtarqUUYnNzCubtLJXvk07stO2iQHh/G
-	 yd9xh5b+tkS1Hd5YB4gTt8gz8IziARdvVqS25NiLN3a6eLEsNsQYNXKIgN1B+VPcd83lR
-	 ggH4F+hOLJTIruKKWuFjXe8/d0YRfGDXuVyJLb6ssWRhI7FnP7nq7GWljXBErDDryZpae
-	 cJov8XRrIroUWaqFcupq3F3zqovktylCzNhqTJrn2bWtbtqaNn9BoMVgoj8HcdYcVng==
+	t=1794655774;
+	b=5AZ72Zmt0aoq6LaBNn05OHqFyI8U5NdlZRTssHxdXgtZgW3FKEJlybUgApegwLgYB1zu
+	 AcARYVRriKtdqJWe3g6so+9r5DyGZbVuxZ2eTU77o5mZBrwdIvMTYcOvK19c7WCuSV3C6
+	 1dlc14AjOWclIg5fjihKT7SbU04OYUHlTgOzJaUZKnx2i49gG00ZSLdM3ywXTFWt4y9RZ
+	 G2fR6OzTxr/1tc5EZLPY29tCxZcNNeaj8kfo4sYVaI+7lV3t00XJLrltHvv77JLrv3nnc
+	 RdnXuReJszqFDlU7TThJQmLdyiUWmPR60VE3QmJvh23EokwmdvvaGA+dJ4e772sir0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794655539;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=4eKOGVbqcbO2J+lZ/HT16uw5nka7xe8u+7fHYo1uQRQ=;
-	b=c9dNphCbhCfdZhWVVNk7XcIp2sXYIYnc04lvSkytIHGiRPxWGKg3wRdxusdfR3UXNvIi
-	 jRGYJhmpXUMIc7pP9gJ1xF3aNA93XmkAhhuO/Htm+PiBPrv2BAnX1WezhT3J0MV3Q3shq
-	 S0i3T4jTAVUjdVy08mFMiIUrkT0id4vi/JsciWZGg81uFavT2cX3McBn9dk/c5OJC9e4i
-	 9jY94iMQy2MHMgRIjIMjDQVoWdWuBqUj6bmlUYg2QWyEoKYuJE8z9RfKx31wdJ6/Lc227
-	 sWc6J+LBdQh4pHToNlgYMUf+8bzUYEePw9VqezpvMGXqz7uwJcqvEnM2RW4DBJOcyuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794655774;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sIh5SKBXyU47sOimXoDS9MChllo/ahz8e4YQolU1+rA=;
+	b=HfsnE8IdR8RfC+AZLX+HoEPZoZwARAnSNfv0T5EbIpO6iZIHEnfd0+5wDzzBDxdUmIiz
+	 WdleZVoR2uAnxodAxhrItOhucfeg+55WrYeg7S4v1KVQILnLlZKMv7H8FLN+Dl3s8f7gw
+	 4EBqIL8K3ODdg5HGN1SpR08yutXECIDD4nxLEYLGcfJ/WKgu/1IeDxwZiriyED7M0p/P7
+	 RsBTuVkRKsOwyjWNSaVDosIdPlOeZ+BrK62i/IIclZzZO1BFTKwVJY0H9FIlXtkLhaq27
+	 Hv/Kziu7FvTqctIU414aMjLtI78pOzHRSyM7zz/eMj4o8cCvd7cCsMO7Qv2xVifamUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftop1jhn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1UCSpsr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7B8606A33B;
-	Sat, 14 Nov 2026 11:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17559606A333
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftop1jhn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D71A1F000C4;
-	Sat, 14 Nov 2026 11:25:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1UCSpsr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618F81F000C4;
+	Sat, 14 Nov 2026 11:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794655539;
-	bh=4eKOGVbqcbO2J+lZ/HT16uw5nka7xe8u+7fHYo1uQRQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ftop1jhnfpGxoXOk5SafmD7l5cno+NOfBuh2yQnjhuUFaLB7KH0iYmilpAkHVnRyj
-	 i5zW+d9+caDvJ7dRwAmcsbwX3ajSem669v/yJlIjieGxsiM16tSkCh8FSodQ5A6cki
-	 +VRVFP0jsLYyZK8kV81+PcHk5dd6a6PHNYlWXlFB5VMJom1fY0pNqaCzQtjmFN1tF3
-	 JP1/dzoeGDd3MnviR7hmeFiMAs/EauKrCw90xAWoz1WY74g6H6z8O0jOJ7QXbiR2Jh
-	 0CWfWovMbsmEsy86MKABMupkxti2yALrS49ZZ/l5ThcfYHi+Jl0JTN0dP7SooTTLdV
-	 KjiuJ8bS5A3eg==
-Subject: Re: [PATCH net-next v4 4/4] net: phy: dp83867: support setting
- output-impedance
-From: netdev-bot+sashiko@kernel.org
-To: s.trumtrar@pengutronix.de
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- michal.simek@amd.com, edumazet@kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Date: Sat, 14 Nov 2026 11:25:38 +0000
-Message-ID: <179465553811.2199510.12732274072788992215@kernel.org>
-In-Reply-To: <20261110-v7-2-topic-dp83867-v4-4-a268f83b1ec1@pengutronix.de>
-References: <20261110-v7-2-topic-dp83867-v4-4-a268f83b1ec1@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794655773;
+	bh=sIh5SKBXyU47sOimXoDS9MChllo/ahz8e4YQolU1+rA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n1UCSpsrurH/S318mEUc87IHfSyI2jTPRq2B5WpZYSFBv8U/5JjKGShMS/oWjnzvQ
+	 nPLkKSfcfwNao2Jle5lBPRrsnNIgGW0cp+bKJgaOHfTlvrbw2o6jlwftocBhEphO9o
+	 0Mu8NyVfBaDMMroglKktSC/KTqBEij7BGtgPQqhw7jL75dhRJHM4QIc2DX6Iy8ufWI
+	 zIwVioifPgzL4C/fuuV42NtEuf1mwEIO5A5EUbKHJqOa6WMD8+N5CZc+UzZUdN3syf
+	 rv7PCwjSqlwYW75Bm36jcM3nSlF7XqoY1EcjP5X/RmLzTZ4PTzzrH1mUgypkBAGkBN
+	 5l9+XHTS39grg==
+Message-ID: <sashiko-outbox-214404@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: lemans: Add LeMans Draco EVK
+ SoM platform
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gopikishan Thawre" <gopikishan.thawre@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-lemans-draco-final-changes-bringup-v2-2-3ae8cd1c9932@oss.qualcomm.com>
+References: <20261113-lemans-draco-final-changes-bringup-v2-0-3ae8cd1c9932@oss.qualcomm.com>
+ <20261113-lemans-draco-final-changes-bringup-v2-2-3ae8cd1c9932@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 11:29:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,137 +60,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new 'ti,output-impedance-ohms' property turns an absolute
-  ohm value into a fixed IO_IMPEDANCE_CTRL code with a straight line: 70…
-- [Low] After this patch dp83867.c holds two conflicting descriptions of
-  the same IO_IMPEDANCE_CTRL field.
-- [Low] In dp83867_of_init_io_impedance(), the comment '/* If no nvmem
-  cell, check for the boolean properties.
-
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: lemans-draco-som: swapped USB QMP PHY vdda
+  supplies
 --
 
-net: phy: dp83867: support setting output-impedance
+commit 7b19f1db69f746d48a10a9095746a5c2e0b70d80
+Author: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
 
-This commit adds support for a ti,output-impedance-ohms devicetree
-property to the dp83867 driver. A value in the range 35..70 ohms is mapped
-linearly onto the 32 IO_IMPEDANCE_CTRL codes, and values outside that
-range fail with -ERANGE.
+arm64: dts: qcom: lemans: Add LeMans Draco EVK SoM platform
 
-> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-> index a3cd5cb11ea0a..ca668e75f0c99 100644
-> --- a/drivers/net/phy/dp83867.c
-> +++ b/drivers/net/phy/dp83867.c
+This commit introduces the device tree for the SA8775P/QCS9100-based LeMans
+Draco EVK SoM, including RPMH regulators, QUP, remoteproc, UART, UFS, USB,
+GPU, and VPU nodes.
+
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-draco-som.dtsi b/arch/arm64/=
+boot/dts/qcom/lemans-draco-som.dtsi
+> new file mode 100644
+> index 0000000000000..6b7971bcdc934
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/lemans-draco-som.dtsi
 
 [ ... ]
 
-> @@ -553,12 +557,29 @@ static int dp83867_of_init_io_impedance(struct phy_device *phydev)
->  						"failed to get nvmem cell io_impedance_ctrl\n");
->  
->  		/* If no nvmem cell, check for the boolean properties. */
-> -		if (of_property_read_bool(of_node, "ti,max-output-impedance"))
-> +		if (of_property_read_bool(of_node, "ti,max-output-impedance")) {
->  			dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MAX;
-> -		else if (of_property_read_bool(of_node, "ti,min-output-impedance"))
-> +		} else if (of_property_read_bool(of_node, "ti,min-output-impedance")) {
->  			dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MIN;
-> -		else
-> +		} else if (of_property_read_u32(of_node, "ti,output-impedance-ohms", &val) == 0) {
-
-[Severity: Low]
-This isn't a bug, but the comment above still says "check for the boolean
-properties". The block now also reads the u32 ti,output-impedance-ohms
-property and can return -ERANGE. Could the comment be updated to match?
-
-> +			if (val < DP83867_IO_IMPEDANCE_MIN_OHMS ||
-> +			    val > DP83867_IO_IMPEDANCE_MAX_OHMS) {
-> +				phydev_err(phydev, "'ti,output-impedance-ohms' contents out of range\n");
-> +				return -ERANGE;
-> +			}
-> +			/*
-> +			 * 0x00 = 70 ohms ... 0x1f = 35 ohms. The datasheet
-> +			 * does not specify the settings in between, map the
-> +			 * range linearly to the nearest one.
-> +			 */
-
-[Severity: Low]
-With this mapping, 50 ohms becomes 0x12 and 0x0f is about 53 ohms. The
-non-OF dp83867_of_init() in the same file still says something different:
-
-	/* Per datasheet, IO impedance is default to 50-ohm, so we set the
-	 * same here or else the default '0' means highest IO impedance
-	 * which is wrong.
-	 */
-	dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MIN / 2;
-
-So after this patch the driver has two descriptions of the same field. A
-nominal 50 ohms programs a different code depending on whether
-CONFIG_OF_MDIO is enabled.
-
-The commit message mentions this mismatch, but both the comment and the
-two values are left as they are. Should the two paths agree, or should one
-of the comments say that its value is only approximate?
-
-> +			dp83867->io_impedance =
-> +				DIV_ROUND_CLOSEST((DP83867_IO_IMPEDANCE_MAX_OHMS - val) *
-> +						  DP83867_IO_MUX_CFG_IO_IMPEDANCE_MASK,
-> +						  DP83867_IO_IMPEDANCE_MAX_OHMS -
-> +						  DP83867_IO_IMPEDANCE_MIN_OHMS);
+> +&usb_0_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l1c>;
+> +	vdda-pll-supply =3D <&vreg_l7a>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_1 {
+> +	dr_mode =3D "host";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_1_hsphy {
+> +	vdda-pll-supply =3D <&vreg_l7a>;
+> +	vdda18-supply =3D <&vreg_l6c>;
+> +	vdda33-supply =3D <&vreg_l9a>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_1_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l1c>;
+> +	vdda-pll-supply =3D <&vreg_l7a>;
+> +
+> +	status =3D "okay";
+> +};
 
 [Severity: Medium]
-Can a fixed linear formula give the requested impedance on a given chip?
+Are vdda-phy-supply and vdda-pll-supply swapped on usb_0_qmpphy and
+usb_1_qmpphy?
 
-Commit ab1e9de84aff ("dt-bindings: dp83867: add binding for
-io_impedance_ctrl nvmem cell") says the IO_IMPEDANCE_CTRL reset value is
-"factory calibrated to a value corresponding to approximately 50 ohms".
-It also says:
+vreg_l7a is the ~0.8V rail and vreg_l1c is the ~1.2V rail.  On SA8775P QMP
+PHYs, vdda-phy-supply expects the ~0.8V rail and vdda-pll-supply expects the
+~1.2V rail, as fixed on the other LeMans boards in 932113c3c778 ("arm64: dt=
+s:
+qcom: lemans: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies").  Swappi=
+ng
+them programs the 21800 uA vdda-phy load on vreg_l1c and the 36000 uA
+vdda-pll load on vreg_l7a.
 
-  There is no fixed mapping from register values to values in the range
-  35-70 ohms; it varies from chip to chip, and even that target range is
-  approximate.
-
-That is why a per-board nvmem cell was added then, rather than an ohms
-property.
-
-With this patch, ti,output-impedance-ohms = <50> computes 0x12 on every
-part. dp83867_config_init() then writes that code over the factory-trimmed
-value on each probe, resume and soft reset:
-
-	/* If specified, set io impedance */
-	if (dp83867->io_impedance >= 0)
-		phy_modify_mmd(phydev, DP83867_DEVADDR, DP83867_IO_MUX_CFG,
-			       DP83867_IO_MUX_CFG_IO_IMPEDANCE_MASK,
-			       dp83867->io_impedance);
-
-As a result, the RGMII output impedance can differ from the requested ohms
-from one chip to the next, and no error is reported.
-
-If the binding description for ti,output-impedance-ohms also documents
-this linear mapping, the ohm semantics become DT ABI that the hardware
-cannot guarantee.
-
-Would a raw register code property work better here? Another option would
-be to document the ohm value as approximate and keep the reset value as
-the 50 ohm point.
-
-> +		} else {
->  			dp83867->io_impedance = -1; /* leave at default */
-> +		}
->  
->  		return 0;
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-v7-2-topic-dp83867-v4-0-a268f83b1ec1%40pengutronix.de
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-lemans-dra=
+co-final-changes-bringup-v2-0-3ae8cd1c9932@oss.qualcomm.com?part=3D2
