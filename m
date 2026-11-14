@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794646521;
-	b=Ebl3sB9kohxUo4AetQCzzAItHJPuQBpq0V2vszH8INbuV+yUGCLjSucK53Lgl88NATEM
-	 RSc5qDwAmfSiK+m1nV7vFm4M+mJsj4y2UwikGGzA9Oi0ko9SoVU/WbXQSO+LlSlS8mlty
-	 ThzGy0nyfSiEOg8eboneS2FfU+oqN9ZdPierYuWK2jhSEKFuMg1kityltkt7Zxp4d3px4
-	 xV+xF5aZKCOPaCpaMA8/BVHbd/Ex4D93DmmEGI2x16uH10q7yBKX4zTRw/gDJNt+zW746
-	 1uGfASH0EuKRtxCd6gVhO/mOKKMEE4TZRCzBImQYB1TQWFksI8/vY59iZ4qryIhIZsw==
+	t=1794646793;
+	b=knH7oZhKKjnjJQtJljQ1ry6D1piZf98V9C2ygN8NYhAubMUn/tgt+HxfggT82J+yxnhx
+	 VBOh5Xz/TMx5mQSqoiC0U4fMdxc0aDCZmMTVp9gczrpje7qdhd6OjctRflbzE/w9rDQ2c
+	 FmuB1zip1V4OdALL/3t+tb5PymSbnEiP/vT4k0Ye6ylv4nj07HWUfg+2JnDP5X6uQuQsO
+	 mKD2j7mjvRfL5rGU4TRAPhGLGJGzNtvUGC51JPAoLsyxF/GFnk7JxnWbVuYt9M53bqyb9
+	 rDBz2oy/F0Ff4U23oZUd2tLmLuOQlYf19/vxTT9toikxzq8gkK2mhyBw1SDLUd6l5hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794646521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794646793;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Q1/P+bPtgD2V3RPgoRQp6AqrV4+asKkLVxsg1b8gEOY=;
-	b=pnLswRrIOmcvVZJERADVpSJqNimB+QBrwsR+l6A0ZDW19CmSdlsx2xtqne4b+Ee2+Q50
-	 tWDzNC9te8q0yjY/l8DWwtGkB7xxftn5tTPROjtm05xPzuOZR/PTveCn4CwS1dHcrrp4E
-	 6oxSlyXd/H8RMmTDWhrsHnFz0rc4Oc+LgCL0Vd0QpCe0pTcyDOoAUjbvYivCLvk40EmdR
-	 /ArXHwrOSkZxofQRAJR+8XZ2FbDyvLO9y9PTpFADaAEdmtoF5vxPubiqTdkfpZTPQ7C20
-	 ULddobdt3rVC/RATPu0Mz4WbnWcxvgQrPaTw55mV3HCnQbu55tplnW9nOrvTBneooKQ==
+	bh=uaCZIhQXTyW3ymivGzavLCC6TcwqqQluwAxiF0aFALg=;
+	b=ZPuzOK6IJZjNH7ZEHGWPGaIj8RsgOgN5Z3QdeezY0/AViIO8YiRMJ0SR3J7BDm+LJAN0
+	 yYwQxhx9fqUMCJWY9iaZE0Al7FcpsSTdxWQDJkoceuwSTn0AaOBsIdblhHd1mLT9dejAY
+	 rVxu5ZOi5LkHe6Fexj/1lmOgOwEDy0rvbZO2xzrAk/bYJZGBZ9ODfszoySoILm9mHveDB
+	 /oz+ZF+jwSThNHHvWuNEnpuf1dvCzyw12n7IUl/FwEOiSSk0lAZNAP2QkE73LxTsSZo15
+	 /w+IGBWl7Pgu8ASFqzVcK/2vjtujUf5UOu6NT4B/Z0SgdIrPfRLudDi1x7nY1WyXDKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDtdXLtw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLi+xX4f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41030606A327
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:55:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0AB606A32E
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:59:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDtdXLtw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DDE41F000C4;
-	Sat, 14 Nov 2026 08:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLi+xX4f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BBC1F000C4;
+	Sat, 14 Nov 2026 08:59:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794646520;
-	bh=Q1/P+bPtgD2V3RPgoRQp6AqrV4+asKkLVxsg1b8gEOY=;
+	s=k20260515; t=1794646793;
+	bh=uaCZIhQXTyW3ymivGzavLCC6TcwqqQluwAxiF0aFALg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UDtdXLtw0N+DDEVEP42NqeVEhmwfxEqfkHhnH8bweNBCQ2wb79zpVl06x4z3xXWYC
-	 eS22PMS755e6MHEtm4cgbOuQjZnF9FK3RPCxI6gD0hkrMdIKz/FhhTIGr/023LDqDq
-	 /z5Ej9tdSg6TVH1fX0HgvwFPQj65InHIBSLYqMYN6S/ChVoNfeSclCFRAPyHw/GEmz
-	 FP4MQuSxMO380MWLP8hBKugDul9ZtjpsLWd+lprKXYBy5SBQvRE7sKjXbuFeOzJ8zR
-	 GLmOFG+syX80jHvVzLQDvizdu9L6TzKuLwutPL/LPA2amQkm3XehVgWCWkoqPb8+Z4
-	 4d2W022E7kxRA==
-Message-ID: <sashiko-outbox-214312@kernel.org>
+	b=RLi+xX4fb8w5pYV8jjzcVEei0hQfwiaw4bmF6WIa7AN58yPxPcck1YB5QMCEPwj1Q
+	 jnEVqLE7bhW3P+Cr48UVSddt2PAYotQb+vO7PoceeP58heKyiudTRXSIBPRHvtb4df
+	 IOqWfDZ3YMt6AcVDu7QvErAXfeBHNh6y+rNWMhn0hVmwxPeI5CrVxFvyPIFimJyGpg
+	 nE/x4baTUv3ZLhr8i7J5MSl14u5Qy1VMsdekPsPPaTn38RQle/mVkrpTbF+snqayKg
+	 14I/VxWN0iEXWVGvhnupBy1xMtrAUczXjoA95D9vBIdKQDrf52AVmsIHSxuj2QY77K
+	 USvTGVQ4GYNBw==
+Message-ID: <sashiko-outbox-214316@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/4] arm64: dts: rockchip: rk356x: Add eDP controller
- and phy nodes
+Subject: Re: [PATCH v2 2/2] iio: pressure: dps310: add a data-ready trigger
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261114083339.600986-4-damon.ding@rock-chips.com>
-References: <20261114083339.600986-1-damon.ding@rock-chips.com>
- <20261114083339.600986-4-damon.ding@rock-chips.com>
+To: "Rupesh Majhi" <zoone.rupert@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261114083828.18059-3-zoone.rupert@gmail.com>
+References: <20261114083828.18059-1-zoone.rupert@gmail.com>
+ <20261114083828.18059-3-zoone.rupert@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 08:55:19 +0000
+Date: Sat, 14 Nov 2026 08:59:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,85 +60,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: rockchip: rk3568-edp lacks binding/driver match
-  and rockchip,grf
-- [Low] arm64: dts: rockchip: rk356x: duplicate PCLK_EDPPHY_GRF clock in
-  edp_phy_grf
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] iio: pressure: dps310: blocking temp wait in
+  dps310_fill_channels() on IRQ
 --
 
-commit f7a9ae47dd93488d5a85b663ab5846186e851cbe
-Author: Damon Ding <damon.ding@rock-chips.com>
+commit fcac9adbf4cd29f69b8e01eb7d00e6810af90fad
+Author: Rupesh Majhi <zoone.rupert@gmail.com>
 
-arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
+iio: pressure: dps310: add a data-ready trigger
 
-This commit adds the eDP PHY GRF syscon, child eDP PHY, and eDP
-controller device tree nodes to rk356x-base.dtsi for RK3566 and RK3568.
+This commit adds an IIO data-ready trigger driven by the DPS310 interrupt
+to capture pressure or temperature results with interrupt timestamps.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index 1a4562df20ee5..e3f370cad5d51 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -402,6 +402,24 @@ usb2phy1_grf: syscon@fdca8000 {
->  		reg =3D <0x0 0xfdca8000 0x0 0x8000>;
->  	};
-> =20
-> +	edp_phy_grf: syscon@fdcb0000 {
-> +		compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-> +		reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
-> +		clocks =3D <&cru PCLK_EDPPHY_GRF>;
-> +		ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +
-> +		edp_phy: phy@0 {
-> +			compatible =3D "rockchip,rk3568-edp-phy";
-> +			reg =3D <0x0 0x100>;
-> +			clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
-> +			clock-names =3D "ref", "apb";
-
-[Severity: Low]
-Should clocks =3D <&cru PCLK_EDPPHY_GRF> be removed from the parent
-edp_phy_grf node (and from rockchip,rk3568-edp-phy-grf.yaml)?
-
-The changelog states that PCLK_EDPPHY_GRF was moved from the parent
-syscon node to the child PHY node, and rockchip_edp_phy_probe() maps its
-own MMIO window and enables the "apb" clock directly on edp_phy without
-using the parent syscon.
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index 5cee23986f307..4bff9e93ea92c 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
 
 [ ... ]
 
-> @@ -878,6 +896,33 @@ hdmi_out: port@1 {
->  		};
->  	};
+> @@ -1375,6 +1393,7 @@ static irqreturn_t dps310_trigger_handler(int irq, =
+void *p)
+>  		s32 channels[2];
+>  		aligned_s64 timestamp;
+>  	} scan =3D { };
+> +	s64 timestamp;
+>  	int rc;
 > =20
-> +	edp: edp@fe0c0000 {
-> +		compatible =3D "rockchip,rk3568-edp";
-> +		reg =3D <0x0 0xfe0c0000 0x0 0x10000>;
-> +		clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HC=
-LK_VO>;
-> +		clock-names =3D "dp", "pclk", "hclk";
-> +		interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-> +		phys =3D <&edp_phy>;
-> +		phy-names =3D "dp";
-> +		power-domains =3D <&power RK3568_PD_VO>;
-> +		resets =3D <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
-> +		reset-names =3D "dp", "apb";
-> +		status =3D "disabled";
+>  	mutex_lock(&data->lock);
+> @@ -1383,7 +1402,12 @@ static irqreturn_t dps310_trigger_handler(int irq,=
+ void *p)
+>  	if (rc)
+>  		goto err;
+> =20
+> -	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), iio_get_time_ns(i=
+io));
+> +	if (iio_trigger_using_own(iio))
+> +		timestamp =3D data->irq_timestamp;
+> +	else
+> +		timestamp =3D iio_get_time_ns(iio);
+> +
+> +	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), timestamp);
+> =20
+>  err:
+>  	iio_trigger_notify_done(iio->trig);
+> @@ -1391,6 +1415,105 @@ static irqreturn_t dps310_trigger_handler(int irq=
+, void *p)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +static irqreturn_t dps310_irq_handler(int irq, void *private)
+> +{
+> +	struct dps310_data *data =3D private;
+> +
+> +	data->irq_timestamp =3D iio_get_time_ns(data->iio);
+> +
+> +	return IRQ_WAKE_THREAD;
+> +}
+> +
+> +static irqreturn_t dps310_irq_thread(int irq, void *private)
+> +{
+> +	struct dps310_data *data =3D private;
+> +	unsigned int status;
+> +
+> +	if (regmap_read(data->regmap, DPS310_INT_STS, &status))
+> +		return IRQ_NONE;
+> +
+> +	if (!(status & (DPS310_INT_STS_TMP | DPS310_INT_STS_PRS)))
+> +		return IRQ_NONE;
+> +
+> +	iio_trigger_poll_nested(data->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int dps310_trigger_set_state(struct iio_trigger *trig, bool state)
+> +{
+> +	struct dps310_data *data =3D iio_trigger_get_drvdata(trig);
+> +	struct regmap *map =3D data->regmap;
+> +	unsigned int status, bits =3D 0;
+> +	int rc;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	if (state) {
+> +		/* Status latched while disabled would fire a stale interrupt */
+> +		rc =3D regmap_read(map, DPS310_INT_STS, &status);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Without pressure, scans follow the temperature results */
+> +		if (test_bit(DPS310_SCAN_PRESSURE, data->iio->active_scan_mask))
+> +			bits =3D DPS310_INT_PRS;
+> +		else
+> +			bits =3D DPS310_INT_TMP;
+> +	}
 
-[Severity: Medium]
-Can the edp node pass dtbs_check or probe when enabled on a board?
+[Severity: High]
+Does triggering on DPS310_INT_PRS block in dps310_fill_channels() waiting
+for DPS310_TMP_RDY whenever the pressure rate exceeds the temperature rate?
 
-"rockchip,rk3568-edp" is not documented in
-Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-or matched by rockchip_dp_dt_ids[] in
-drivers/gpu/drm/rockchip/analogix_dp-rockchip.c.  In addition, the node
-omits the required rockchip,grf property, which causes
-rockchip_dp_of_probe() -> syscon_regmap_lookup_by_phandle(np,
-"rockchip,grf") to fail with -ENODEV.
+drivers/iio/pressure/dps310.c:dps310_fill_channels() {
+	/* Compensation needs a temperature, so it is sampled either way */
+	rc =3D dps310_read_temp_raw_locked(data);
+	if (rc)
+		return rc;
+    ...
+	if (test_bit(DPS310_SCAN_PRESSURE, scan_mask)) {
+		rc =3D dps310_read_pres_raw_locked(data);
+}
+
+Each scan reads DPS310_TMP_BASE and clears DPS310_TMP_RDY. When the next
+DPS310_INT_PRS interrupt fires before a new temperature conversion has
+completed (for example at any pressure rate above the 1 Hz default
+temperature rate), dps310_read_temp_raw_locked() sleeps until the next
+temperature conversion finishes.
+
+While the IRQ thread sleeps with DPS310_INT_STS already cleared and the
+oneshot IRQ masked, new pressure conversions overwrite DPS310_PRS_B0..B2
+and re-latch DPS310_INT_STS_PRS. The scan then pairs the overwritten
+pressure sample with the earlier data->irq_timestamp, throttles capture to
+the temperature rate, and leaves DPS310_INT_STS_PRS latched on return,
+which causes a spurious level interrupt or stalls edge-triggered
+interrupts.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114083339.6009=
-86-1-damon.ding@rock-chips.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114083828.1805=
+9-1-zoone.rupert@gmail.com?part=3D2
