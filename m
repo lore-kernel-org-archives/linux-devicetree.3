@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794692843;
-	b=wqT1lDjgZ3wl854yJguZ/dJazonon0MR+EqwCx+4BRGhODToEfZIEQeBpfiDSbQrOPUA
-	 YZLwqIQm4UUlaogzDy+XjUHZ231oEuH7oAhucfuzTvMDOZW9jzCKrkneWk7ayUAGX9J3d
-	 o+lhS3ETsWIPmqpyuwLkUuOJAWSFZgmWKi0VPtnQR1TmTCJr1AKhct0a3rLZIzPMeZGds
-	 QjNlIc87IZ1kJPYBoqiY7BYKefIKfli6W0s24gQSDfopiY0AiqQn8VY35cLnFuq+hgNw9
-	 7rtlFLM4RDw7wIi9uYVeA6a2Mv65KXAhBsLMwkBwsFaWJDL+Hzg7v7m4LFPhn9vs3Tg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794692843;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=O9JHKYz3e1iiwcxO5S9MaYk/lsi3O665sENSzeAWiTo=;
-	b=x/p6RZnsFgxfuohHLpXKiJnKPSRX6IvcfLEafp4AdpNa6z+fdI/uv2+xZn0XbocLZT1g
-	 Vka1ZVqrWbgV5G322u23imq4rJxNsypLQ6MT6aFBY0iOYCu0VV7D3hzoMZPQDnCQZt865
-	 dC7rc0PwMXPf1XxjgfSgKRlmwz4p6P9+AVkgdJ1ARDJPRK4yTDmvIaok+owuzSIvzrb9Z
-	 VvMf/E9GqKr/DkxkHrKhauecC9YwNQXYtLUIYRsBEZ1xhWyqX1hopR9u05OwdHHzI7scA
-	 4OijIcMk3twwoFLz5OrQpzOgptpHSU7Si2uPNUBMGnW073E3U6yWabr8WuzZnvXHH/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=aYs2gOYv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.31
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013031.outbound.protection.outlook.com [52.101.83.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794693988;
+	b=UJU/Rs1LmSK+zO9CRUwPvJFwnKGATTKbxZmus95gG1WqRFXr0AXZroK/1FSF4HGNWuEd
+	 5OCVe3Kmcp+0svBRlkz8izG/siEg7LC0fVdD8eGRrFSVedq9gwhmVK53Q1Tpzr9/SuU4b
+	 C+uPrL8JwX34hJB3W+NEFxQtZ+uyh18edj6qkITl36VFQrU/LnkBdSNeqYdtVb8yPlwl7
+	 CAIlltCLiZlHiCkdP5NhHYE+8ca0XItERtbIp+lZgR/bRoVLux+QsKVbTTIK3HRa594bc
+	 4TbDP8d2OBBLFlLKJr7GCQ0rNa21JY0gCSHNQtypecZzI0/dZyEYnGbhibck2AQHXUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794693988;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cgHURcoMQyq+5IEvrj8IftShxjigVMbD/CQd/eeEdLw=;
+	b=Ske8ZEgR4lxVLJcDwLm+EOBZtiiNNm3BpcAsAvWtiLNDPH1bUpmUG0Vwr1lTZ+BTFCcT
+	 bLpNdzFOZhGHRuDAnUuwh2A4KpEbb36ICHzIwC8zlJmeDfjSY1OZZ0QA5UtlYdzxrg7hj
+	 NNgYEZQqFLdgD7ZZpWVYZAoen3QXgB+o4UCK9ihJ42OZhiiFpTLb419AiKC+2GaYbEkc+
+	 9yG7fHzfCorA6W/+b7qs8LgLjFmhbkPTk5N5a48n3EFaXxXVo4xao0AZnmgOWZPcDCGJm
+	 dsSUdVRXnUEnApfZyARfwqcfqyw64kzdAKMKoR86r5gVgxZE/UF67ouGmAzAjm5dVsQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI51ivBF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D751B606A32E;
-	Sat, 14 Nov 2026 21:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D751B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AEE606A323;
+	Sat, 14 Nov 2026 22:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=aYs2gOYv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JwD+2GRns2luPeI1LN+WBniEtLHq7d1/Xwk5mYfX5RLOdYoTcxZHX9gHPBJmhDoyEwWlia6hD1oDvL+9eh21J8XvY32davbMnqa+U8/JzzFexFJ9YhLijXD17/37dVkA0d+U5N2Ld2Dm2sGUbxUsXz5OVkzfRoPOUXTA1gUlNWFedtnPjSSRPvQIU92iWkix6JOF433qiGyaDjrodA6T3OfEPmRk2diXJQbJQPlxMql1aVV4+FR8Y7UA6QhlY10TxJa8bUiW0zLwH7Js5szR4D4KQzALgsLvd1X3pWnyKpXEu/QLLl80VFsW7204GWCSEFgBxLraRYC8vfWX9DAMRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O9JHKYz3e1iiwcxO5S9MaYk/lsi3O665sENSzeAWiTo=;
- b=JF5jHWLzxXGAKqSPXuNFuBT/CQ0cN1PDD/nchKr2Uy/TJnGwvW9+yE7zyihghvw1yttNGYIRf0Xg7nbsL26gUkk0ZVm4w3oFhJVPTV5eXmUqfKN0vCI4lvnbtnCMZxtvhNnhlqCV7kY4aTyPtbTOnSD1t3tIH2uJZ/Z4eiuEb7RGmU/SXGoRZwvW8L+OB3fEOLAYLlX9XhEehePBanP0dFfN/tsd5FFuKHf88gEEOTQj5UTIogOfeHVwLsP58HO6jjjW3ljdztriLYemBpJ22MfHg9yA1mtLhnRlZm0Xfyfh2WyPVywqW3OVziWnbw5LfS9uqDTfiPxGAqJLYxFErw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O9JHKYz3e1iiwcxO5S9MaYk/lsi3O665sENSzeAWiTo=;
- b=aYs2gOYvNxBuKpk5KACNiSCLdqGhCGNOWrZwQpAjaBkTFcXthGXLbjDclxIPd8MppMppWUMcpvl4lqQvLMrr7myS7N59jvRChfk+9ofJ3MIwEsxF01algRoxP+V5evXzCGGjtQfRwC3CB0o01y8pO/c5Equ+DhxQGLrf6ubqEyvUFz6iRaLSluEbMxOTdP3tBxrjJGajEnCjFdlZNNiBkBHiM0adJ4PnvueKj0mLlPeabTQ92jj8vWz9XgjPvRQpKT/dMjAtpn9HieXVfdsYpS0py4FtXOQCVZ6+BWF/Yg5tImN3HpK5TH3wKPL/q/WdD8rem8t6X9HUaoM2j4jmbw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by DU4PR04MB11029.eurprd04.prod.outlook.com (2603:10a6:10:590::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sat, 14 Nov
- 2026 21:47:18 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
- 21:47:18 +0000
-Date: Sat, 14 Nov 2026 23:47:13 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avi9N8P34X5uel7a@skbuf>
-References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
- <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
-X-ClientProxiedBy: WA1PEPF00005B90.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::627) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI51ivBF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D1D1F000C4;
+	Sat, 14 Nov 2026 22:06:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794693988;
+	bh=cgHURcoMQyq+5IEvrj8IftShxjigVMbD/CQd/eeEdLw=;
+	h=From:Subject:Date:To:Cc;
+	b=hI51ivBF5BkgxEOeQVO5kLYpPZLypuohV6nCVguMLuLAaAAiaPeXy0vE2PPzf8PRO
+	 M0wJKq+fjuQ/8gCi6ccrZPS/qre9QLN2zI3LIr+8+gvdtT/6q8IEFiTW7Ujyl6znIn
+	 jlZqj50eoWadjQRNobyX+DplJwbRCdoGLbrU4E6zoBzAXvQYgmGzmW5mJddy9DoEGq
+	 fjjCjmyfqs5cKQc+Fz/LUeqUk5qgG6J4FUl0lHskZiMeuY4klQOKlGw92FAZyRyJFy
+	 oOWxi9OX8xKqeCuQ+LoInheeKF9d/aTeHQq6cTfvtVYEY6eK9Fd/ivxMdZFA4xddnI
+	 EEm3hKqqT2m7g==
+From: Drew Fustini <fustini@kernel.org>
+Subject: [PATCH v12 0/5] riscv: Add initial CBQRI resctrl support
+Date: Sat, 14 Nov 2026 14:06:20 -0800
+Message-Id: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,107 +53,471 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DU4PR04MB11029:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1cf823a-a99e-45d0-24b2-08df4298daa5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102130727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007|41080700001|15866825006;
-X-Microsoft-Antispam-Message-Info:
-	wortIPmyB9rNEp3Iap+z8boinPUAey4azTgaiOf2n4elsuME0yzdbtFJuSSXNMDXr7zhviqzuTdoTxVk552HyFrgEL1oprU+arlSRfSF63HFs/VC6G7H140/oWlqu3rg44hCVrerD7En8WaQEmmYMIBERqH5sGnTQgnqdFXxuxsEeRquGZM2rRCsrHZ3NC9frNAivF2oqashul4H0EfgfKl74oIvTu5dGO61vigA+yxoXkuEvdrSORSlqo15/7ij90mW2R+OiwUg1kKiObUMby2EQur3xNm+XvhM68z1j1wjRRzOS1b+wRHFiX/QD7e/vi/G2o/ZF+JtNsNyrveituhN/ezH3zju4J0Ics+4CT+JGzwNoxKPzWJeezxi3otAggpBME4L+2HAk/GBWLZbY5qa0lg1CfGzH7bLRYP25yQLtCzPNXauR6z/08DPxeI1VQHzW4647qC6PLAROhZjzVDvDjl9/XO9lpMFdtXku82qC4K7oBApZJ1Ty3isgtj4lCxukW64GmQs+a2b5MKTQvPNvf/OaOgHvfO95CaXC+RNKBXPk9xsbsdgKvY32rkBeT0Sg1EndQUnYvrb/0js0xiL7PiBKF6glnE7N+YFWi4B/ASkTeietYC9VijTy8vKN+byNef75jzM5DI2BD2xKApfstNx7fL5gMiIrSlYfyekYhmXfTmirl3tkJG1vfjjBb5b86myeMuW6OWVi9Nh2Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102130727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007)(41080700001)(15866825006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?xiMhDwuOBfD3GohdMhbdLNFwNfFE3B9tgTsXgyAOznOILYDB/RNRdGT3os?=
- =?iso-8859-1?Q?OqGOpRTPM/7YuRgLF/ldzTTRUmwBGr4BVw6GVnNBcfXKztL4IgsDjc6WbX?=
- =?iso-8859-1?Q?mjwVxfyAN4kkCZ69iq99DC9Asj3WLG4E0uSSETndLWwz1QsZbd84iPyipD?=
- =?iso-8859-1?Q?Zbls16YOQGdI9fjND7ly/eCffA/2mHJ98XtTNnRA/B4yQE+dBxHHnkAc7y?=
- =?iso-8859-1?Q?kRL9f34SzJHG1A6U5qgZI899yBxTehaDcQQ41dqI2BwfCPHJzUpkNGAL1m?=
- =?iso-8859-1?Q?oBwYEdROT/iWqeG36n9YhENvyJiDbZAh3FCgNJbq/y14UMpdlbLqEZUsmB?=
- =?iso-8859-1?Q?J8N4s73LNRDXF8m62T1LOwB61q6dHDKhVi0SteZXZsGtQmvGfFIO60JniC?=
- =?iso-8859-1?Q?V0sipCpIEc/UgqZ5L5Cg+qnCgmCZOiEpJ0h2Fhq8hp4gZM7Trb3mVN8+7e?=
- =?iso-8859-1?Q?v3g3xok8c6w0KDZ7HUCCYkP8vePvl8hXphb6ZhN0er9ZKlgWD4BrtC+YIZ?=
- =?iso-8859-1?Q?AwlO31JnGGMlZ+TVjJ19cUkMBbS1z2NGD2N9CK4D9o4/ESW+Uyeui6M/m9?=
- =?iso-8859-1?Q?8wFys7mNXkk0vzeYKbN/89Z+KZvcAs7xU+iquOeiOAgUTs4cHTmEUsYRPD?=
- =?iso-8859-1?Q?Rp4H+LQ90Snql7bb3MtTqirhmtJPYdMy0A0ckIj80KYqH5fOryCr5RCRIs?=
- =?iso-8859-1?Q?z6QXOp282IEc0Z1pBvN4Vni/6dsy8LcF78pfP29OBQmFo03MgreZlVoMzZ?=
- =?iso-8859-1?Q?UAL3/Eh6kp6kF5gv01nZdBDZh2uJhhtfj2sZNBolLgRgN6xsW4p76f6X5u?=
- =?iso-8859-1?Q?0OOPfQ5RZRPtSoCLDhRQbYB9QS/kto/qytXrJqe00x2ccgeHB6iWR2ayWt?=
- =?iso-8859-1?Q?qczCd0dQAppxiKhgd1t4Fa71QVD8cBH238LZWSVeF1ai/3NkyKFvc+5gAa?=
- =?iso-8859-1?Q?XV1e0AMYfShQ2Rn+Mw7zgNW4x5SOjxBR/sWQZlbxxO5of67D6tZZsxjWoC?=
- =?iso-8859-1?Q?wIlkyCjxeW1yofgwKArjRqkYcZO05xpkVIOhXAuDHJsKOt5Jz2n8RGwYww?=
- =?iso-8859-1?Q?2SerHvl0R5XpMArhxzBzXdOPYXViaDPB0tq6UXXRBroY/C6dgZENZhsTr8?=
- =?iso-8859-1?Q?fYxLwXY7UT9X8DI+H4PsmQagVoa01fZ/Y01K5qDWFP+fnZXHzaOdw/5dZT?=
- =?iso-8859-1?Q?Ifr71s+v6lt1H/2N0JbeoOgrHl++JrtMYAMI157DGguSkPcEt2jaofQPhu?=
- =?iso-8859-1?Q?YUalmuovf3bSAjJx6C7gsrqokUYUW92gC5HKtFYRJ4hYdAjjcEle9qZAzw?=
- =?iso-8859-1?Q?FELheRE9L8d+Y4jdS5RIWFn7TMbO2Fy1kOLBq8JMVoYJah0/M1bI5JozaS?=
- =?iso-8859-1?Q?40XzlGIzXpMcYS2/24DwiCtJTxqZaPZL8fEnZZBcPGNzrGehxgsIP+ntRK?=
- =?iso-8859-1?Q?eWpUu/ARdTC1oKpW4aDjVRHvBPGWUmC5zFI1OgaC/DnGsDkAduh6rfhgjz?=
- =?iso-8859-1?Q?4TZYSvZ4qmKki/sO1CaSte7dYXZ4IfSZW/4c5rPhoVNy59PFehej1VktxB?=
- =?iso-8859-1?Q?TWoW2G5tY/zEKMOgPaAglmB/6w4hqY7A4qT6zw1KsjzwRaebvDrPKYp7QA?=
- =?iso-8859-1?Q?dzLxY7d2P2Ascjeirpo5fSHYdUZI7RSsHjGGmgdUxOK/5GX8o7RHx5By//?=
- =?iso-8859-1?Q?Fn+AMPu/oIAnoI2rVb7t7rYOSHBv17CIy7/CAgW7Lot27oRGUmpm3T+Uxe?=
- =?iso-8859-1?Q?wXHcRbDO7qonYwjmipynpPpvl75AN6PJbcJOo5DzoE28F/mi5caTTZq4Nt?=
- =?iso-8859-1?Q?rXrBTLIjdi/U/Mx8koZzkDRPHR6OyjgdqCToy5TN/6NzcQeSkVzO1L1m2s?=
- =?iso-8859-1?Q?JE?=
-X-MS-Exchange-AntiSpam-MessageData-1: BdzXFMhigOvNZHJpFzD+Nqqm2SgmXg40Wgo=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1cf823a-a99e-45d0-24b2-08df4298daa5
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 21:47:18.2676
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cylMh1hRMwyZeiFZxaIXP3UKJk2NW87UoNLzuKNp6xGtTyOjmaYrW9BhUe5pr+icRoPx71GVfrLRYSeoXmtP8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11029
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFzb+GoC/33TzU7DMAwH8FeZeibIdtJ8cOI9EIc0cbYA6qDtJ
+ tC0dycdghUVckzk/P6N456akYfMY3O3OTUDH/OY931ZIN1smrDz/ZZFjmWjISANGkHEdBin3Gf
+ hpxcxBhG6tyGLOAmFECyTQYyxKcdfB075/WI/PH6tx0P3xGGavblil8dpP3xcwo84133HuP9jj
+ ihAsHHeGJLJd3D/zEPPL7f7YdvMOUdaSKQqEhWJkgXlUnRA3UqSS8lWJFmk4AJKRYllSCtJXSU
+ DuiKpy+3aUEoBo1YrqV1IWLtdW6QOPBt2wUnilaQXEtU6rotkAlEHbVQa130yV8kBViQz98mTk
+ 220rSZaSXYhoalIdv4mpxXbaGRiu5Lcj4QAsiK5IrWUou3Y2fjH2yFcKYRay8vvAQK11L5Eehn
+ Ws4m4tGojhfOcS+mxSxASYPhlnc/nTxHBpiO8AwAA
+X-Change-ID: 20260610-dfustini-atl-sc-cbqri-dt-410c8e2711dd
+To: Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+ Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+ Chen Pei <cp0613@linux.alibaba.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+ guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+ Peter Newman <peternewman@google.com>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Sunil V L <sunilvl@oss.qualcomm.com>, Tony Luck <tony.luck@intel.com>, 
+ Weiwei Li <liwei1518@gmail.com>, yunhui cui <cuiyunhui@bytedance.com>, 
+ Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, 
+ Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, x86@kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17691; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=eokkFQncFQBMa7K+Ad0sH5ZKboqSlRdTrIJwkrGVP+E=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWT9uB2v16y1mmGu4nU3FXnLQzebO/e+W9GcIjfXsYBr/
+ kPO0zr1HaUsDGJcDLJiiiybPuRdWOIV+nXB/BfbYOawMoEMYeDiFICJ7FrPyNBU53SLoeziugze
+ dKkwHe01lfWbHvvq7nuXVHlNSqDh9mGG/54NLyZunf2gXnHT0qs2OmvlDsvHJnpwS8iqz9d0MVN
+ czw4A
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-Hi Vincent,
+This series adds initial RISC-V QoS support through the CBQRI
+controller interface [1] integrated with resctrl [2], plus a DT-based
+platform driver for cache controllers. It builds on the Ssqosid
+extension [3] (srmcfg CSR) support that landed in the v7.3 merge
+window. It has been tested on both the Tenstorrent Ascalon Shared Cache
+controller and a QEMU implementation [4].
 
-On Fri, Nov 13, 2026 at 05:39:05PM +0100, Vincent Jardin wrote:
-> Hi Christophe, or Vladimir,
-> 
-> Le 08/11/26 11:06, Vincent Jardin via B4 Relay a écrit :
-> > From: Vincent Jardin <vjardin@free.fr>
-> > 
-> > fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
-> > other fields of the RCW:
-> >  - fsl_guts_rcw_read() reads a status register
-> >  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
-> >    waits for the status register to follow
-> >  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
-> >    which holds the override registers, is mapped
-> 
-> May I ask for your advise on this topic ?
-> 
-> I am looking for the review of this serie, then I'll adapt it
-> for u-boot along with the integration of Linux.
-> 
-> thank you,
->   Vincent
+  qemu-system-riscv64 -M virt,aia=aplic-imsic -nographic -m 1G -smp 8 \
+      -kernel arch/riscv/boot/Image \
+      -append "root=/dev/vda ro console=ttyS0 rootwait" \
+      -drive if=none,file=rootfs.ext2,format=raw,id=hd0 \
+      -device virtio-blk-device,drive=hd0 \
+      -device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x04820000
 
-Sorry for the late review. Responding here to your question on v3:
-https://lore.kernel.org/lkml/avc9KbxQ4dxlibGQ@L30177.local/
+Cache allocation can be exercised on the booted system. Mount resctrl
+and read the default schemata. The L2 controller has 16 capacity
+blocks, so the default capacity bitmask (CBM) is 0xffff:
 
-I cannot agree with your API proposal. It exports to the rest of the
-kernel a blanket API for RCW override of any RCWSR1-RCWSR31 register,
-*including* the SerDes fields for which the fsl_guts module already
-exposes an API. So with your proposal, what can be done with
-fsl_guts_lane_set_mode() can also be (un)done with fsl_guts_rcw_override().
-The possibilities of abusing this API design are endless, and I don't
-want to have to deal with them when I can avoid them.
+  # mount -t resctrl resctrl /sys/fs/resctrl
+  # cat /sys/fs/resctrl/schemata
+  L2:0=ffff
 
-At a minimum, I would recommend renaming the API as fsl_guts_pmux_override(),
-and make guts enforce which register fields it permits overriding via
-this API. Example:
+Write a narrower CBM to a new control group and read it back to confirm
+the L2 controller applied it:
 
-static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
-	{ 12, GENMASK(29, 0) }, /* IIC2..SDHC1_DIR */
-	{ 13, GENMASK(29, 0) }, /* SDHC2_DAT74..EVT43 */
-	{ 14, GENMASK(10, 0) }, /* EVT20..IIC1 */
-	{ 27, GENMASK(7, 0) },  /* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS <- your series is missing these */
-	{}
-};
+  # mkdir /sys/fs/resctrl/group0
+  # echo "L2:0=ff" > /sys/fs/resctrl/group0/schemata
+  # cat /sys/fs/resctrl/group0/schemata
+  L2:0=ff
+
+Note that this series only implements support for resctrl L2 and L3
+cache resources using CBQRI capacity allocation control. cc_block_mask
+maps onto resctrl's existing cbm schema. However, cc_cunits is not
+supported as there is no existing equivalent for capacity units in the
+resctrl schemata.
+
+I previously iterated on an RFC series [5] that implemented all of
+CBQRI, including capacity monitoring, bandwidth allocation and
+monitoring. The bandwidth controls for CBQRI do not fit well into
+resctrl's existing throttle-based MB schemata. I believe that the path
+forward is Reinette's generic schema description proof of concept [6].
+My plan is to rebase the full support of CBQRI onto the generic schema
+once it is ready.
+
+Tony Luck's AET series [7] replaces resctrl_arch_alloc_capable() and
+resctrl_arch_mon_capable() with generic helpers that walk the resources.
+This series keeps the two hooks because resctrl on v7.4-rc1 still
+calls them, and answers the alloc hook from rdt_resource::alloc_capable
+so whichever series lands second only has to delete them. If the AET
+series lands first, the CBQRI glue will also need the three arch hooks
+it adds, resctrl_arch_system_max_rmid_idx(),
+resctrl_arch_get_num_rmid_idx() and resctrl_arch_unmount().
+
+[1] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
+[2] https://docs.kernel.org/filesystems/resctrl.html
+[3] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+[4] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
+[5] https://lore.kernel.org/linux-riscv/20260601-ssqosid-cbqri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org/
+[6] https://lore.kernel.org/all/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
+[7] https://lore.kernel.org/lkml/20261019205031.16977-1-tony.luck@intel.com/
+
+Changes in v12:
+---------------
+- Drop the write that restored cc_alloc_ctl at the end of the AT probe,
+  since it issued the reserved OP encoding 0. (Radim)
+
+- Report AT support only when the AT field reads back as code and the
+  operation status is success, since a controller may keep an
+  unsupported AT value and report an error. (Radim)
+
+- Accept a capacity controller that reports any 1.x version, since a
+  minor revision is expected to stay compatible with v1.0. (Radim)
+
+- Clear cc_cunits with lo_hi_writeq() and take the controller lock with
+  guard(mutex). (Radim)
+
+- Drop the unused first read of the control register in
+  cbqri_probe_feature(), since cbqri_wait_busy_flag() reads it again.
+  (local Sashiko)
+
+- Drop the unused pr_fmt definition and printk.h include from the
+  platform driver, since it only logs with dev_err() and dev_info().
+  (local Sashiko)
+
+- Sashiko review of v11:
+  https://sashiko.dev/#/patchset/20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org
+
+- Link to v11:
+  https://patch.msgid.link/20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org
+
+Changes in v11:
+---------------
+- Allow non-contiguous capacity bitmasks, since cc_block_mask is one bit
+  per capacity block with no contiguity requirement. (Zeng Heng)
+
+- Reject a capacity controller with fewer than two RCIDs, since one RCID
+  has nothing to allocate between and CDP would halve it to zero.
+  (Sashiko)
+
+- Reset a CPU's default RCID and MCID when it goes offline, since
+  resctrl drops the CPU from its group and puts it back in the default
+  group when it comes online. (Sashiko)
+
+- Reject a capacity controller whose cache-level is not 2 or 3, so a
+  malformed device tree is reported instead of registering a
+  controller that resctrl never uses. (local Sashiko)
+
+- Return the controller array from cbqri_get_controllers() so the
+  resctrl glue initializes its __free() pointer at the declaration.
+  (local Sashiko)
+
+- Initialize the domain list heads of every resource at setup,
+  picked or not. (local Sashiko)
+
+- Read the split 64-bit registers with lo_hi_readq(). (local Sashiko)
+
+- Fix the example cache geometry in the binding. (local Sashiko)
+
+- Drop the MAINTAINERS patch, which was applied to tip x86/urgent.
+
+- Sashiko review of v10:
+  https://sashiko.dev/#/patchset/20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org
+
+- Link to v10:
+  https://patch.msgid.link/20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org
+
+Changes in v10:
+---------------
+- Drop the claim that resctrl calls resctrl_arch_mon_ctx_alloc() without
+  checking for monitoring. (Reinette)
+
+- Have resctrl_arch_reset_all_ctrls() reuse cbqri_init_domain_ctrlval()
+  instead of open coding it. (Reinette)
+
+- Reword the comment in cbqri_init_domain_ctrlval() that spoke of
+  staged slots, which belong to resctrl. (Reinette)
+
+- Leave a CPU out of a cache level when its domain cannot be created
+  instead of failing the CPU online. (Reinette)
+
+- Add me as a reviewer for resctrl in MAINTAINERS. (Reinette)
+
+- Fix the binding to require a vendor-specific compatible for bandwidth
+  controllers. (Conor)
+
+- Reject a capacity controller that reports a cc_capabilities version
+  above 1.0. (Radim)
+
+- Change register mapping to devm_platform_get_and_ioremap_resource()
+  and add the base to cbqri_controller_info. (Sunil)
+
+- Rename riscv_cbqri_register_cc_dt() to riscv_cbqri_register_cc() and
+  add cache_level to cbqri_controller_info. (Sunil)
+
+- Use __free() for cbqri_controller and move the rcid_count check
+  before the allocation in riscv_cbqri_register_cc(). (Sunil)
+
+- Make the controller list and its lock static in cbqri_devices.c and
+  add cbqri_get_controllers() for cbqri_resctrl_pick_caches(). (Sunil)
+
+- Rebase onto v7.4-rc1, which resulted in:
+  - Add resctrl_arch_preconvert_bw(), which resctrl now requires.
+  - Remove Assisted-by: LLM. I used Claude to review and improve the
+    code in this series, but checkpatch no longer allows the tag.
+
+- Sashiko review of v9:
+  https://sashiko.dev/#/patchset/20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org
+
+- Link to v9:
+  https://patch.msgid.link/20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org
+
+Changes in v9:
+--------------
+- Key the binding's required-properties block on
+  riscv,cbqri-capacity-controller instead of the Tenstorrent compatible,
+  so a capacity controller from any vendor listed in the enum must carry
+  riscv,cbqri-rcid and riscv,cbqri-cache.
+
+- Drop exposed_alloc_capable. resctrl_arch_alloc_capable() walks
+  rdt_resource::alloc_capable and cbqri_resctrl_teardown() clears it,
+  the same answer as the generic resctrl_alloc_capable() in Tony Luck's
+  AET series, so removing the RISC-V hooks on top of it is a pure
+  delete. (Reinette)
+
+- Comment on resctrl_arch_get_num_closid() explaining why the CDP
+  halving in fs/resctrl is not needed for CBQRI but harmless. (yunhui)
+
+- Keep every capacity controller accepted for a cache level and have
+  the cpuhp online path look the CPU's cache id up in that set instead
+  of walking cbqri_controllers again. A controller registered after
+  resctrl is set up is ignored, and a CPU whose cache has no controller
+  in the set is left out of that level with a one-time warning. This
+  replaces the attach-time capability check mentioned in the v8 Sashiko
+  reply. (Reinette)
+
+- Read the RCID count from the resource in both the per-domain init
+  and the reset-all path. (Reinette)
+
+- Call resctrl_init() after cpuhp_setup_state(), as x86 does. A failure
+  there unwinds with cpuhp_remove_state(), so resctrl_exit() is no
+  longer called. (Reinette)
+
+- Pass the list position found by cbqri_find_ctrl_domain() to
+  cbqri_create_ctrl_domain() instead of searching the domain list a
+  second time. (Reinette)
+
+- Sort the riscv_cbqri.h include alphabetically. (Reinette)
+
+- Reject a second controller for the same cache level and cache id at
+  registration with -EEXIST, since the resctrl glue keys its domains on
+  the cache id.
+
+- Warn when cc_capabilities reads zero instead of skipping the
+  controller silently.
+
+- Sashiko review of v8:
+  https://sashiko.dev/#/patchset/20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org
+
+- Link to v8:
+  https://patch.msgid.link/20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org
+
+Changes in v8:
+--------------
+- Write cc_block_mask and cc_cunits only after the BUSY bit in
+  cc_alloc_ctl reads 0. A controller that timed out on a previous
+  operation and then recovered could otherwise apply the previous mask
+  to the new RCID.
+
+- Reword the cache allocation patch to say that controllers at one
+  cache level must report the same number of capacity blocks, since
+  resctrl exposes a single capacity mask per resource. No code change.
+
+- Sashiko review of v7:
+  https://sashiko.dev/#/patchset/20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org
+
+- Link to v7:
+  https://patch.msgid.link/20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org
+
+Changes in v7:
+--------------
+- Drop the three Ssqosid patches (dt-bindings description, extension
+  detection, and srmcfg CSR support). They are in mainline as of the
+  v7.3 merge window, so this revision is just the CBQRI driver, the
+  resctrl glue, and the CBQRI binding.
+
+- Rebase from next-20260713 onto v7.3-rc1. The five remaining patches
+  are otherwise unchanged from v6.
+
+- Sashiko review of v6:
+  https://sashiko.dev/#/patchset/20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org
+
+- Link to v6:
+  https://patch.msgid.link/20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org
+
+Changes in v6:
+--------------
+- Introduce the RISCV_CBQRI Kconfig if/endif block in the patch that
+  adds the RISCV_CBQRI_CAPACITY option it guards, rather than as an
+  empty block in an earlier patch.
+
+- Note in cbqri_probe_cc() that the 32 capacity block limit comes from
+  resctrl representing the CBM as a u32.
+
+- Sashiko review of v5:
+  https://sashiko.dev/#/message/20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org
+
+- Link to v5:
+  https://patch.msgid.link/20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org
+
+Changes in v5:
+--------------
+- Resolve control domain membership from each CPU's cache id in
+  cacheinfo at hotplug, instead of a CPU mask captured at probe.
+
+- Add and remove control domains on the ctrl_domains RCU list
+  following the documented traversal rules.
+
+- Restructure cbqri_resctrl_pick_caches() to select one controller per
+  cache level, which removes the separate dropped[] array and the
+  overloaded NULL controller pointer.
+
+- Initialize the control domain's resource id.
+
+- Drop the inaccurate comment above the stubbed resctrl_arch_*()
+  operations.
+
+- Sashiko review of v4:
+  https://sashiko.dev/#/patchset/20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org
+
+- Link to v4:
+  https://patch.msgid.link/20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org
+
+Changes in v4:
+--------------
+- Register the srmcfg PM notifier even if cpuhp_setup_state() fails in
+  riscv_srmcfg_init(). The early return on failure had skipped it,
+  dropping the srmcfg restore across suspend and resume.
+
+- Make RISCV_CBQRI a user-selectable option that depends on
+  RISCV_ISA_SSQOSID, instead of being selected unconditionally.
+
+- Bound the per-domain control value init by the domain's own
+  controller's RCID count rather than the resource wide count.
+
+- Drop only the affected cache level when capacity controllers at the
+  same level report mismatched capabilities, rather than aborting the
+  whole resctrl setup.
+
+- Use guard(mutex) instead of lock/unlock for cbqri_controllers_lock.
+
+- Read the CBQRI control registers into low and high halves so the
+  access order is explicit and comment on torn reads.
+
+- Clarify in cbqri_resctrl_pick_caches() that the first matching leaf is
+  correct for a unified shared cache.
+
+- Link to v3:
+  https://patch.msgid.link/20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org
+
+- Sashiko review of v3:
+  https://sashiko.dev/#/patchset/20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org
+
+Changes in v3:
+--------------
+- riscv,cbqri.yaml:
+  - Require a device-specific compatible so a bare generic compatible
+    is no longer valid on its own.
+  - Rename node name from cache-controller@ to qos-controller@
+  - Rename compatible from tenstorrent,ascalon-sc-cbqri to
+    tenstorrent,ascalon-shared-cache-controller
+
+- Take cbqri_controllers_lock in cbqri_attach_cpu_to_all_ctrls() so a
+  controller probed after boot can't corrupt the cbqri_controllers list.
+
+- Revise comment above riscv_srmcfg_reset_cache() to clarify that the
+  teardown callback is not relied on. The cpuhp startup callback re-arms
+  the per-cpu sentinel, which forces the csr write on a re-onlined CPU.
+
+- Drop the memory fences around the srmcfg CSR write on context switch.
+  Ssqosid does not require the ordering. The brief tagging inaccuracy at
+  the switch boundary is acceptable for QoS.
+
+- Access the CBQRI controller registers with 32-bit reads and writes.
+  The spec only guarantees single-copy atomicity for 4-byte accesses.
+  This also removes the dependency on native 64-bit MMIO.
+
+- Program cc_cunits to 0 before a config limit operation on controllers
+  that support capacity units, so a stale unit limit does not constrain
+  block-mask allocation.
+
+- Link to v2:
+  https://patch.msgid.link/20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org
+
+- Sashiko review of v2:
+  https://sashiko.dev/#/patchset/20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org
+
+Changes in v2:
+--------------
+The changes in this revision address the Sashiko review of v1.
+
+- Restore the srmcfg CSR for the current task on CPU_PM_EXIT and
+  CPU_PM_ENTER_FAILED, so it is not left configured incorrectly until
+  the next context switch.
+
+- Serialize the cbqri_controllers list insert and the boot time walk
+  with a mutex, so an asynchronous driver probe cannot corrupt the list.
+
+- Skip a controller at an unsupported cache level instead of aborting
+  resctrl setup, so valid L2 and L3 controllers still register.
+
+- RISCV_ISA_SSQOSID selects ARCH_HAS_CPU_RESCTRL and RISCV_CBQRI
+  together, so no intermediate commit enables RESCTRL_FS without the
+  CBQRI resctrl glue.
+
+- Rename the RISCV_CBQRI_DRIVER to RISCV_CBQRI, since it builds the
+  CBQRI core ops and resctrl integration rather than a driver.
+
+- Drop the RISCV_CBQRI_DRIVER_DEBUG Kconfig option and rely on dynamic
+  debug to control the pr_debug() output.
+
+- Note: Sashiko flagged the lack of suspend/resume state restore. I will
+  not fix that as register state is only lost when the power domain is
+  gated, which offlines the harts sharing the cache. resctrl reprograms
+  the default capacity mask through the normal control domain online
+  path on resume.
+
+- Link to v1:
+  https://lore.kernel.org/all/20260619-dfustini-atl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org/
+
+- Sashiko review of v1:
+  https://sashiko.dev/#/patchset/20260619-dfustini-atl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org
+
+---
+Drew Fustini (5):
+      riscv_cbqri: Add capacity controller core
+      riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+      riscv_cbqri: Make RESCTRL_FS available on RISC-V
+      dt-bindings: riscv: Add binding for CBQRI controllers
+      riscv_cbqri: Add CBQRI capacity allocation platform driver
+
+ .../devicetree/bindings/riscv/riscv,cbqri.yaml     |  98 +++
+ MAINTAINERS                                        |   7 +
+ arch/riscv/include/asm/resctrl.h                   | 149 ++++
+ drivers/resctrl/Kconfig                            |  30 +
+ drivers/resctrl/Makefile                           |   5 +
+ drivers/resctrl/cbqri_capacity.c                   | 139 ++++
+ drivers/resctrl/cbqri_devices.c                    | 548 ++++++++++++++
+ drivers/resctrl/cbqri_internal.h                   | 114 +++
+ drivers/resctrl/cbqri_resctrl.c                    | 838 +++++++++++++++++++++
+ include/linux/riscv_cbqri.h                        |  49 ++
+ 10 files changed, 1977 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260610-dfustini-atl-sc-cbqri-dt-410c8e2711dd
+
+Best regards,
+--  
+Drew Fustini (Tenstorrent) <fustini@kernel.org>
+
