@@ -1,56 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616537;
-	b=1ThuRaSBYuKBFM4uSKGoHPersmTHkhTymqfaR8qWo/HQMym2AThm1RzhL1zeWliRbd09
-	 D1Fz/x5Gdi4AfstEgeoBeSEQIu8aDX5JkiJLvGso4s0uLaDZK/e3B7mrSVEEnZmRGBxnm
-	 nnjz+bMV8vqkkB9McSz2mjfdzfl0Pxq/0cqdsSYFNpdTJFDhM42eWXwJEWllU8liUcQPe
-	 UsTjS6LEPmTS3HkHDhxjjRqhmMqhQxGO9EkB88loYXaVKWsIg1ZGnsAWFJ9eRQVPHl1Im
-	 Cqu/H8W7Y2MK6Nbrie7Qow0qNnyvnF/s+nmD00qq9Q5nFTAXqJlDKaUt2Xri8v2QBNQ==
+	t=1794616889;
+	b=4X1FVqTcspAetpGXm6oX3hoJiS5SbTzlzy+TNfcPMIi7eM1Ip1yPr2UvmuSTWvCpsgX/
+	 zaod7UF0wT+lgG1uKPqNGerVCTIQ4BPPHRrQKs/1sUc3LIzEXJwqGzDa50N+EQ2l5Cp94
+	 6chibwFF1SAB9Euy8X9cN4i1w1YjIQCR1PIvr4zTic94gOeJcxTZJIiAY06AUeCbJ1kIo
+	 6zkoR07SMFoGQIwpqNMk5zhtXtK+zmOLTStV8Xjwge2o/G+wv1auBIvW+pp059AWSXAlB
+	 Bz5yDfK1CZGVyET+cEw3lMtsdUSWj35mOZu8Pj15nArKI91LYIOmziOlDm+EYRgeJhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616537;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mvxsSOwYqHruIwMBBwX8IgLOf1/E3ff91X6NmfZjpbE=;
-	b=3z5Hb9h8YbPbraqARQlTw2R8EOlpPGYe2phH6d6T1OR4Tnorf4ZACX1MzOzf3RyeG4Su
-	 VUol3NzVCDO54AFClD3HcDyCs+MT3hMScdseo0EKPgz4N0r1trQfls+n3On1AK5Umwkv0
-	 DCnVPjFcJdoRC3PDQf4/BHSKkYpLgd5lhkp6u4vx+yoImKNTOQz8DixuFLgQiBuQ42cN7
-	 xnTY5+YOH0cFpUZKuT9aXncpwu7IRp9hGnkIAiiTL5Nr5zOUE5PkCySOtaabBuwHpP3ny
-	 vXrdT5M5Q8AML1OfF5PdPPSk9xuA5lgJMuyJ1nCHXEY07kO3znK0nsK19S8a0uE8C+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616889;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MAqczCNcy22o2fAo9tLhJs4HsvOqxtHZppQ1RGZ+biU=;
+	b=Aci+MaqymLZgjRIYTX0MopYNkxKtua/8vE8TFs7QPNRayRdXYyDVxT8sIHE2B7lGfFcY
+	 F5VPEP955CHtHTvUorQoy9PD5KZbrY4z29vfHFAg2QxQP0g3sOQKy0GopoTSqTViw5Koj
+	 1tXfojJx5JhdIkwlTwBnlFb+jce236QIBqk01oyTMeYWNfZqQGfcVT/qpK4KJEsMjfR1Q
+	 3JKRi/WiUO6r2NXDukYA5SFiW8vDgVvVhT4E927VInwFUDN3c740e1pyfq21zTucYL8Ke
+	 yrX8+hFB9rW3ldAWRan/V79yWtwKNkba4d4mpRKEilzgDnnDkBqRfLmtgD8si0u3uxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeKjTBFo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dsg.is;
+	spf=pass smtp.mailfrom=dsg.is;
+	dkim=pass header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=KqDT813h;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F80E606A331
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 00:35:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBBD606A339;
+	Sat, 14 Nov 2026 00:41:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FBBD606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dsg.is
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dsg.is
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeKjTBFo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5191F000C4;
-	Sat, 14 Nov 2026 00:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794616537;
-	bh=mvxsSOwYqHruIwMBBwX8IgLOf1/E3ff91X6NmfZjpbE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XeKjTBFo/fO9N6VS0/vaI4EG9dKoYZTWX+knVubaqwPWWcG47SFHTXJxQY9c2eMWf
-	 Y6RCliXTemRzH7fNyzYZhxgR17GMdxpBisffgSy4E6dJLpSCFfjSM1Nl3NQjSBIBES
-	 pqeOV4Iy72q9YTkPd824F1I9hE/YmIz8wK8TP2On+NbX5DWJYzvp31M4cytT2CRF5m
-	 HTl9OoKlskZOirBfNq7TZzNeiVq9/A7eUf1a/9C6hPXwgyLhgpvVrhBY0Fe+roiW6f
-	 Xs2BASSumx8MMOGGl83byf79plLdl/cAT6GFbnDLMn8rC9KnhdbGy7ADhgpbeiV4ir
-	 DMJySXGLK8KFg==
-Message-ID: <sashiko-outbox-213935@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] media: rockchip: Add IEP2 deinterlacer driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261114-iep2-v1-2-a8edde5a21e1@gmail.com>
-References: <20261114-iep2-v1-0-a8edde5a21e1@gmail.com>
- <20261114-iep2-v1-2-a8edde5a21e1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 00:35:36 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=KqDT813h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dsg.is;
+	s=protonmail2; t=1794616886; x=1794876086;
+	bh=MAqczCNcy22o2fAo9tLhJs4HsvOqxtHZppQ1RGZ+biU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=KqDT813hXsmmKzNsf273CDJGBWcCnWeeLBYbxRUUzz0r0QG/BwCExiMZaQ5hRtd/U
+	 4d8pMsD4J8/7c1rw2R8LFlYFbzon1wTIkrYLam1KVm5dApyPhoMHgKhiDg2ipaGkSw
+	 0GZob3UsokNRTqjLzZPZkrlRV+fcNolDFwK2K5ePqFasJkQ2q5E/faMgQcz4yPWqvZ
+	 it7LlLP75QW7EKiVUYPdemT8GUFP6G0du7CsVmu46zSMjsRaM9DZNLbUj7RmxLMS4x
+	 XXXWzh2no2LRxxe54w/k9kLIPp3P9As+5J6oiKUv/Qu5Uhx4j/aE4Mr8+qxq6MNNvP
+	 3zSZvUznunw8w==
+X-Pm-Submission-Id: 4jRFg74XvCz2ScQ9
+From: =?UTF-8?q?Dav=C3=AD=C3=B0=20Steinn=20Geirsson?= <david@dsg.is>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>,
+	linux-hwmon@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Dav=C3=AD=C3=B0=20Steinn=20Geirsson?= <david@dsg.is>
+Subject: [PATCH 1/4] dt-bindings: hwmon: adt7475: Add #thermal-sensor-cells
+Date: Sat, 14 Nov 2026 00:41:07 +0000
+Message-ID: <20261114004110.328050-2-david@dsg.is>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114004110.328050-1-david@dsg.is>
+References: <20261114004110.328050-1-david@dsg.is>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,192 +75,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] media: rockchip: iep2: lost frame-done IRQ in iep_irq() when
-  OSD_MAX fires
-- [Medium] media: rockchip: iep2: unreleased prev and second dst buf in
-  iep_fail_job()
-- [Medium] media: rockchip: iep2: race and use-after-free in
-  iep_remove() on unbind
---
+The ADT7473, ADT7475, ADT7476 and ADT7490 measure two remote
+temperatures and their own. Add the "#thermal-sensor-cells" property so
+that thermal zones can use these as sensors. Its single cell selects the
+temperature channel: 0 for Remote 1, 1 for Local and 2 for Remote 2.
 
-commit 33c094e881e4e76b67c9126fbcce91524e080828
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+Signed-off-by: Davíð Steinn Geirsson <david@dsg.is>
+---
+This patch was written with Claude Code, using the models Claude
+Opus 5.5 and Claude Fable 5.2. They wrote the code and the initial
+commit message draft, which I cleaned up. I directed the design,
+reviewed the result, compared against the datasheet as far as I
+could, and ran tests including on actual hardware.
 
-media: rockchip: Add IEP2 deinterlacer driver
+ .../devicetree/bindings/hwmon/adt7475.yaml       | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-This commit adds a V4L2 mem2mem driver for the Rockchip IEP2 deinterlacer on
-RK3568 and RK3588 SoCs, supporting bob and motion-adaptive deinterlacing at
-frame and field rates.
+diff --git a/Documentation/devicetree/bindings/hwmon/adt7475.yaml b/Documentation/devicetree/bindings/hwmon/adt7475.yaml
+index 43e9fe225870..cbd44bf6759a 100644
+--- a/Documentation/devicetree/bindings/hwmon/adt7475.yaml
++++ b/Documentation/devicetree/bindings/hwmon/adt7475.yaml
+@@ -73,6 +73,14 @@ properties:
+       - 2: PWM flags 0 or PWM_POLARITY_INVERTED
+       - 3: The default PWM duty cycle in nanoseconds, defaults to period.
+ 
++  "#thermal-sensor-cells":
++    const: 1
++    description: |
++      The cell is the temperature channel.
++      - 0: Remote 1
++      - 1: Local
++      - 2: Remote 2
++
+ patternProperties:
+   "^adi,bypass-attenuator-in[0-4]$":
+     description: |
+@@ -111,6 +119,13 @@ required:
+   - compatible
+   - reg
+ 
++allOf:
++  - if:
++      required:
++        - "#thermal-sensor-cells"
++    then:
++      $ref: /schemas/thermal/thermal-sensor.yaml#
++
+ additionalProperties: false
+ 
+ examples:
+@@ -128,6 +143,7 @@ examples:
+         adi,pin10-function = "smbalert#";
+         adi,pin14-function = "tach4";
+         #pwm-cells = <3>;
++        #thermal-sensor-cells = <1>;
+ 
+         /* PWMs at 22.5 kHz frequency */
+         fan-0 {
+-- 
+2.56.0
 
-> diff --git a/drivers/media/platform/rockchip/iep2/iep2.c b/drivers/media/=
-platform/rockchip/iep2/iep2.c
-> new file mode 100644
-> index 0000000000000..26f5fec02b679
-> --- /dev/null
-> +++ b/drivers/media/platform/rockchip/iep2/iep2.c
-[ ... ]
-> +static void iep_job_done(struct iep_ctx *ctx, enum vb2_buffer_state stat=
-e)
-> +{
-> +	struct iep_dev *iep =3D ctx->iep;
-> +	struct vb2_v4l2_buffer *src =3D ctx->job_src;
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < ctx->job_ndst; i++) {
-> +		v4l2_m2m_buf_done(ctx->job_dst[i], state);
-> +		ctx->job_dst[i] =3D NULL;
-> +	}
-> +	ctx->job_ndst =3D 0;
-> +	ctx->job_src =3D NULL;
-> +
-> +	if (ctx->prev) {
-> +		v4l2_m2m_buf_done(ctx->prev, VB2_BUF_STATE_DONE);
-> +		ctx->prev =3D NULL;
-> +	}
-> +
-> +	if (src) {
-> +		if (ctx->job_keep_src && state =3D=3D VB2_BUF_STATE_DONE)
-> +			ctx->prev =3D src;
-> +		else
-> +			v4l2_m2m_buf_done(src, state);
-> +	}
-> +	ctx->job_keep_src =3D false;
-> +
-> +	pm_runtime_put_autosuspend(iep->dev);
-> +	v4l2_m2m_job_finish(iep->m2m_dev, ctx->fh.m2m_ctx);
-> +}
-> +
-> +static void iep_fail_job(struct iep_ctx *ctx)
-> +{
-> +	struct vb2_v4l2_buffer *src, *dst;
-> +
-> +	src =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-> +	dst =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-> +	if (src)
-> +		v4l2_m2m_buf_done(src, VB2_BUF_STATE_ERROR);
-> +	if (dst)
-> +		v4l2_m2m_buf_done(dst, VB2_BUF_STATE_ERROR);
-> +	v4l2_m2m_job_finish(ctx->iep->m2m_dev, ctx->fh.m2m_ctx);
-> +}
-
-[Severity: Medium]
-When pm_runtime_resume_and_get() fails in iep_device_run(), does
-iep_fail_job() leave ctx->prev and the second field-rate CAPTURE buffer
-queued?
-
-In motion-adaptive mode, failing src without first completing and clearing
-ctx->prev returns the current OUTPUT buffer ahead of the reference buffer h=
-eld
-from the previous frame.  In field-rate mode, iep_job_ready() waits for two
-CAPTURE buffers, so leaving ctx->prev on src_vq->queued_list and the second
-CAPTURE buffer on dst_vq->queued_list keeps both queues non-empty while no =
-new
-job can run, causing poll() or blocking VIDIOC_DQBUF to hang even after
-iep_resume() calls v4l2_m2m_resume().
-
-[ ... ]
-> +static irqreturn_t iep_irq(int irq, void *data)
-> +{
-> +	struct iep_dev *iep =3D data;
-> +	irqreturn_t ret =3D IRQ_NONE;
-> +	u32 status;
-> +
-> +	/* Shared with the IOMMU: registers are only accessible during a job */
-> +	spin_lock(&iep->irq_lock);
-> +	if (!iep->busy)
-> +		goto out;
-> +
-> +	status =3D iep_read(iep, IEP2_INT_STS);
-> +	if (!status) {
-> +		/* IOMMU fault: the IEP would retry the read forever */
-> +		if (++iep->foreign_irqs < IEP_MAX_FOREIGN_IRQS)
-> +			goto out;
-> +
-> +		iep_write(iep, IEP2_INT_EN, 0);
-> +		iep_write(iep, IEP2_CONFIG0, IEP2_ACLK_SRESET_P);
-> +		iep->busy =3D false;
-> +		iep->irq_status =3D IEP_IRQ_IOMMU_FAULT;
-> +		ret =3D IRQ_WAKE_THREAD;
-> +		goto out;
-> +	}
-> +
-> +	iep_write(iep, IEP2_INT_CLR, 0xffffffff);
-> +	ret =3D IRQ_HANDLED;
-> +
-> +	if (status & IEP2_INT_VALID) {
-> +		iep->busy =3D false;
-> +		iep->irq_status =3D status;
-> +		ret =3D IRQ_WAKE_THREAD;
-> +	}
-> +out:
-> +	spin_unlock(&iep->irq_lock);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Can writing 0xffffffff to IEP2_INT_CLR drop a frame-done interrupt when
-IEP2_INT_OSD_MAX fires first?
-
-iep_hw_config() enables IEP2_INT_OSD_MAX in IEP2_INT_EN, but IEP2_INT_VALID
-only includes IEP2_INT_TIMEOUT, IEP2_INT_BUS_ERROR and IEP2_INT_FRM_DONE.  =
-If
-IEP2_INT_OSD_MAX triggers iep_irq() and IEP2_INT_FRM_DONE asserts between
-reading IEP2_INT_STS and writing 0xffffffff to IEP2_INT_CLR, the frame-done
-status is cleared in hardware without waking iep_irq_thread(), stalling the
-job until the 500 ms watchdog times out and resets the block.  Clearing only
-status (or not enabling IEP2_INT_OSD_MAX) would avoid losing the completion.
-
-[ ... ]
-> +static void iep_remove(struct platform_device *pdev)
-> +{
-> +	struct iep_dev *iep =3D platform_get_drvdata(pdev);
-> +
-> +	v4l2_m2m_suspend(iep->m2m_dev);
-> +	video_unregister_device(&iep->vfd);
-> +	cancel_delayed_work_sync(&iep->watchdog_work);
-> +
-> +	/* Disabling runtime PM drops a pending autosuspend */
-> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		iep_runtime_suspend(&pdev->dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
-> +
-> +	if (iep->empty_domain)
-> +		iommu_domain_free(iep->empty_domain);
-> +	iep->empty_domain =3D NULL;
-> +}
-
-[Severity: Medium]
-Can v4l2_m2m_suspend() race with iep_release() and read a freed m2m_ctx?
-
-v4l2_m2m_suspend() (also called from iep_suspend() without iep->mutex) reads
-m2m_dev->curr_ctx under job_spinlock, drops the spinlock, and waits on
-curr_ctx->finished:
-
-CPU0                              CPU1
-iep_remove()
-  v4l2_m2m_suspend(iep->m2m_dev)
-    curr_ctx =3D m2m_dev->curr_ctx
-                                  iep_release()
-                                    mutex_lock(&iep->mutex)
-                                    v4l2_m2m_ctx_release(ctx->fh.m2m_ctx)
-                                      wait_event(m2m_ctx->finished, ...)
-                                      /* job finishes */
-                                      kfree(m2m_ctx)
-    wait_event(curr_ctx->finished,
-      !(curr_ctx->job_flags & ...))  <-- use-after-free
-
-In addition, iep_remove() never acquires iep->mutex, so an ioctl that enter=
-ed
-__video_do_ioctl() before video_unregister_device() cleared
-V4L2_FL_REGISTERED can still be running under iep->mutex while iep_remove()
-disables runtime PM, unprepares clocks, and frees iep->empty_domain.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-iep2-v1-0-=
-a8edde5a21e1@gmail.com?part=3D2
