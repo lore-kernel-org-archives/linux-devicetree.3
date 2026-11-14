@@ -1,153 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613760;
-	b=wxutibMgVDbLrdV3N9eVRvzssZ7f9RmMof16VmaTmiKOC32vepNEZrmtEeEBub9gfKUT
-	 rF2Txz1xnLzaCOJBLi0I4wZmadovUkWnw6R1BtAULNKwrN3gJyEBSSFXvCxgGVHpUu0YL
-	 6+dCTVsZAjYQv5skTMk3qzSz3/PHJ5sI8eeR8OqHO0R8yA5fyWT9kkFopuf3aMfm/kBze
-	 6DugkvvdkoXF4uIwKqL0n8PRUt39puUuMtIoCI46KE1ZMkU+v1i9yAucbPKSQCEdZr3Ct
-	 rLaqr9F7dfmuVDDCjmMSnqyTlkGpWN4ujVeK/8QHl17PHYL7mxiDLixarE4p+eSYSeg==
+	t=1794614516;
+	b=i24EddeFI0509m55/ymif8RYgVKco+9cXSvJcXDzzaIN43aBzCR3/tVkVSqETqgkR4Iz
+	 YhGwgcc+ghCXHii+WtrI3H+R2ztrLTzx4AQxGpEphmyYGvM1O9si0Vv0u01BkmoDy/l8/
+	 rTRHwHxP9JJnwM/+NF/JlHiInLKnCXkddcDIMH+YvWIVbXSSOD8UTpDyN/cORzgE6xpQd
+	 FeKeFmR3EhrbZz9LfmVevV7cbmHGNhA7uE/nNSbM+H/QlclM3Cl6YW4mPlycDNBLouVUj
+	 up+ApJmT6PT0B+8Mwouv3hAvDhaLCmIpuIVgSfhNd9WzVu1C2NArB8eVkm0dsVj8qNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613760;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
-	b=Gp7puB7dO/vKKMdHQ/7b7Qr4zkyPFK1V22PrmSDILQF6DfzR5QgMt014nuGSxLkBDEyy
-	 oPcKvMFDguzu2NkH5iBrFfh20665Alz4CUiObEbkyqqGDIYJJiD0u++R+bV0tP9YE0m87
-	 9rEf2MzbCAqPG5902aFEy+PcnsFsQwBei8Tt3Srv0gY8wsOpSYwAU5YIlW6lqzO+8n/XA
-	 2M9AvYzVeYj6ePjA3AByV74cp4lsX6AadPNF9X6iRkcOdacDyoka+SAF05AeLmGXIXpda
-	 GQDnzywB9Sp7GWXbw0f6lRhgNMIWcjvks5SL8Li181eEQgi5ANejgjWfk9VenAmpcxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614516;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
+	b=ZRw0qJ6+FTpJ02HqmHOwXIbzJWCNhn+PtuRg/mX5WIHa4vuQyLBNcjSRnCpfdLNB2H4G
+	 dT+Bn4dAGbbLQnjgwJI6o+AlrXYx2yhN1gC+b8rwxqYLGaL29tFxHbcGtmvlVhnPfY60+
+	 fMppxObq3kaZTZJ6T31x31V6oPwWfEAskhsgNVCAD6qTEZGzg2wM4hPxopbXeFCupbJc6
+	 LcpZJ/lJ38OX8Vt7jEtT2k/9AM2eKm+e8l6bbVqgcy7uLBz0JRYlWB9MpqiM4sDtcxnyP
+	 Fy1LoKKRo3Bz1ZuqRVjxq4+8TgVys5d53tnUDO/jJTqT2fl2DnYBmuNsCgUGgOGLl+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b="UlYMm/Fs";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY;
-	arc=none smtp.remote-ip=202.12.124.136
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB63606A331
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 23:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CB63606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE48606A329;
+	Sat, 14 Nov 2026 00:01:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=UlYMm/Fs;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.stl.internal (Postfix) with ESMTP id 9FC2D1302B40
-	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:49:19 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Fri, 13 Nov 2026 18:49:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794613754; x=
-	1794620954; bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=U
-	lYMm/Fsoj+r8geFJv0LOqWv1MpvzDQTc1MqmCUAl2LOGZIHC+Fga3cCXVyeFtSdi
-	bYjE3RRDqE7efhzw+hiZSEilb81PpG7/2T9R3Zk37AGE4Hrls18xn/8YeiPNWu4U
-	9xPCHeGgFAo2VzfFgRTP9ceWNVQ2Oird/Uxb6lhpS1D3heWSqh2n8q2rRQW5Nxvf
-	xycvQaRXjpLgfTuDcpzOlJohY2tnltTfuACTl2+DYLbTLLZhlfNWwYKEky0LwqoU
-	meWzhpnk/bJtdWa5UahJFchqCoqMkVerMfrqjQkXXULGBwwIHEi9cT2ureGZT7nI
-	tNWu4xIgjs3qO7CKUGW2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794613754; x=1794620954; bh=/
-	o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=Kbv6hEsYJB/5FYcc7
-	o+36gAzaudVzx1OVRXQcOZFWXZBDdr+FPlNt6B0CDEA9xnCwFir29Kl1Ux08ZsSR
-	OJyOUuSwPuRI/9+aHkK5MSMww3iWR1ZbiucID2mbzK8Krs0bujCxmr0jTUFHTMyU
-	O8pb35YSxRMbHERZ9H6tlwl3uE77gYJ2uaTRT6Pelqmj9bHXhuu32FXG8pKlr6KD
-	hmXUquJRZ0ON4uHFQSEMHVM/Xxr/XR9Shvh2Adj1TkVg1zJ+RhEwBW5vs6tnRClP
-	TqwEXmBCC16/t+Te8cAx49AP7Kykb7kjG57CtFSbvbVUCHCT9pyqDi0WEg9Kpa9O
-	xldsQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794613754; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:ZNg3JDkqx0UiVF8fK7isELpe7AanY9SY5QmVaP2KeXqXFgn
-	d4WY1pYTEVPYJh82jbZAj/a/3nnZLskGR/vsIW6BqsHx+uU8rvvKrA499TOZ2LMF
-	o0fMHcpjgfn2+ew5g+bD6Tuq48Pfw/cZv+nIfeSDgXrgi+3C0Ofbtr20tfZMEx3e
-	Ryhbxdln5IZJ7HH1LvvXtGjsGmMHxo0xgagn3CBK05mt1MXh5yEeJNIsHWVOU2fY
-	1lGRPEPvP0E1T4yE67mrbv5j+Vklm2/2meVl4L/kuxIjEk6FH54VAAg5nW/khLuD
-	3VCxxjjE3/nqea/ltE9Js4i1WoRZNDSwDd8qVrQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:rp3Is3ckG8hz2zrJbdiFe7omtKF0PxAQ8ym9SeM2Qzk=:/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
-X-ME-Sender: <xms:-KH3aueYucPAN-8SqiNgFZCNiCj6jx5DIKLhFukwwra09vGDSsTtkA>
-    <xme:-KH3aujswu_X8kk2LnjSP1Rq4X9Bgm0wL3l-5Wb4hdXJQ_VYYgQBt5AgmSzOa26rZ
-    -gJccF6ImqI16DTFxBjYnyd1Y38UvBpjWdPmoqxocMekqfNYlUDwso>
-X-ME-Received: <xmr:-KH3aljEQ776igM0Rpj4R0m8h3YUEEhmdoGNKafcAUp2sXlDAVMT4iGZ7QoFCQPtkDrYFpxX>
-X-ME-Proxy-Cause: dmFkZTFS60ybEwlxxb4K3SeK8mTCMIe/J7SGIQZYhTY37qjBx5CZtBVvuXRCD//zEzv8CQ
-    +kZsvg7kGYLuSkWXyPscs4Ic9CYpH9tvjtBM/I3P0n0odWrIB0N3f9wNlXf7iY84Vr0wuN
-    /OkvJ5GwImBrRKfcXCNhp41KWqX6wlztjkqyXvwGNiLchaun23so7vCnQJb45q4NPV2bar
-    JSd3SPHKZp5+r50cI5C2Cnupo9v8z4qiDDMnjpwrZNthjLhcTTntOPyEaEv5uflorcthJq
-    hHEEH5C78LNxi1tFpExUwGX5Qn5V6TTB4Q0mhCZEyd9xxCMFb62EO4KC/k2ENcFelMvrN2
-    batNi9or+TWUf/rgJ2hnMVW64QlO8XsLqhEiN8OnVQWrZgRCQvaBXHppTLxuixNARxd8fH
-    QtsTWKUrgWPWy2/x8+UTito3XyVIfiE+4zESbSse8qb3T8LtWM9SvrQ7lG9l3N9ZNL0sSl
-    TgQ+AuWkeUyWGG/L40JLFb5Ptb0qcmvRfo75jmDFd3/l5Hh7gtSCRyY5v+5+Pcw0fAiQiG
-    l6dVQsY6ZST7H6Piukjbld0gDmFHnzTldJ2I2s9WAt8RLfj+fI4o4Cz2BG7GTW/LZ4DNrV
-    mGb6D7byXBAWuQggjbgK5xuPQq98govt++BwmseJ7y/H/df5/jYs4MsJ0xHA
-X-ME-Proxy: <xmx:-KH3apRKXpXdx17IJ6LDSkjaUAobNZ0-oiERE7FhaBarxZs6vSVRwA>
-    <xmx:-KH3ahRO96YCYAifWNHsqwZxtzY84BbMH0F9X3v1M4WVbJsL6cQVLA>
-    <xmx:-KH3alBv0zVEUAKvADA03bTmhMmVEXZGTond7zy3ueTflcI2-ytWcg>
-    <xmx:-KH3alzxDNwuPQJYtUbeM31NmEU7iFJzQ5-WRY6qlRJUfZfivAN2Mg>
-    <xmx:-qH3as7O6p0S5CopMVSKIooPCpr92uJ29WmqYO-U8LVMRBp7Jfejl2_i>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 18:49:02 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: vlwwwwww@gmail.com,
-	ulf.hansson@oss.qualcomm.com,
-	heiko@sntech.de,
-	finley.xiao@rock-chips.com,
-	tomeu@tomeuvizoso.net,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: shawn.lin@rock-chips.com,
-	royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v16 09/16] pmdomain: rockchip: add optional per-domain power-on settle delay
-Date: Sat, 14 Nov 2026 12:48:59 +1300
-Message-ID: <20261113234859.658218-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113132323.159015-1-vlwwwwww@gmail.com>
-References: <20261108065917.135194-1-gahing@gahingwoo.com> <20261108065917.135194-10-gahing@gahingwoo.com> <20261113132323.159015-1-vlwwwwww@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211711F000C4;
+	Sat, 14 Nov 2026 00:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794614516;
+	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mke91yiGfT3RLRiwlm56Xuq4Ya8wX+nP7tnk796KpJGSy+ncrTgGKr2udXQv4gJdv
+	 cXhvnbQD4eqPnYYh859sfCZ8+06F6TeAbpLK96f3lTcLO0TH4P9hdfmhgL6g4NrEWn
+	 cDymXnrhxtItOUQbDvTDfA2Opc7vj8C91Tq4OE3aoVNRI+4K6/QV2ZGTkXAGIiB62r
+	 dQp9030CQ/yxNzBhLRVJGpSrv1ebryvlyNyMZo8k4DqtitLg9DBAqQawZbGvAHQvif
+	 IpnE85lTm0d8TKjZ0fm6cxtT/k0pDfLYg8/1aPOX803hbLsy6yvE6kf8eNT0rdwlQf
+	 3FBZykMz/KdRw==
+Date: Sat, 14 Nov 2026 00:01:50 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Akhilesh Patil <akhilesh.patil@linux.dev>, andy@kernel.org,
+ krzk+dt@kernel.org, dlechner@baylibre.com, robh@kernel.org,
+ crofts@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
+ akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261114000150.10237279@jic23-hlaptop>
+In-Reply-To: <202611130735579e063959@mail.local>
+References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+	<20261113011957.5d8836ff@jic23-hlaptop>
+	<202611130735579e063959@mail.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -157,42 +65,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Vladimir,
+On Fri, 13 Nov 2026 08:35:57 +0100
+Alexandre Belloni <alexandre.belloni@bootlin.com> wrote:
 
-Thanks for pointing this out. Your analysis is right, and I have
-reproduced it on a ROCK 4D.
+> Hi,
+> 
+> 
+> On 13/11/2026 01:19:57+0000, Jonathan Cameron wrote:
+> > On Thu, 12 Nov 2026 09:16:41 +0000
+> > Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
+> >   
+> > > Move to my new linux.dev email address akhilesh.patil@linux.dev
+> > > I plan to use this email for kernel development going forward.
+> > > Also update email address in few yaml and driver source files.
+> > > 
+> > > Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>  
+> > 
+> > I can pick this one up with an rtc ack, or it can go through that
+> > tree. I don't mind which.
+> >   
+> 
+> It makes more sense that you take it.
+> 
+> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Applied to the testing branch of iio.git (not because this needs
+much testing obviously - but other stuff I've queued up does!)
 
-The problem is that a power domain marked need_regulator is switched off
-as soon as add_one_domain() adds it, and its subdomains are added only
-after that.
+Jonathan
 
-NPUTOP, NPU0 and NPU1, which U-Boot left on, are neither idled nor really
-powered off, but genpd treats them as off. So when the regulator core
-disables vdd_npu_s0 because it has no users, the system hangs.
+> 
+> > Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > 
+> > Thanks,
+> > 
+> > Jonathan
+> >   
+> > > ---
+> > > 
+> > > Changes in v4: 
+> > > - No source change.
+> > > - Added entire change log for all versions.
+> > > - Link to v3: 
+> > > https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
+> > > 
+> > > Changes in v3: 
+> > > - Fixed order of entry in .mailmap
+> > > - Link to v2: 
+> > > https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
+> > > 
+> > > Changes in v2:
+> > > - Updated email ID in relevant device tree source files and driver source files.
+> > > - Link to v1: 
+> > > https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
+> > > 
+> > >  .mailmap                                                      | 1 +
+> > >  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+> > >  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+> > >  MAINTAINERS                                                   | 2 +-
+> > >  drivers/iio/pressure/adp810.c                                 | 4 ++--
+> > >  5 files changed, 6 insertions(+), 5 deletions(-)
+> > > 
+> > > diff --git a/.mailmap b/.mailmap
+> > > index 7fb33babc931..d09fd3708023 100644
+> > > --- a/.mailmap
+> > > +++ b/.mailmap
+> > > @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
+> > >  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
+> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
+> > > +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+> > >  Alan Cox <alan@lxorguk.ukuu.org.uk>
+> > >  Alan Cox <root@hraefn.swansea.linux.org.uk>
+> > >  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+> > > diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> > > index ad5f26ce5043..ca4d4210f609 100644
+> > > --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> > > +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >  title: aosong adp810 differential pressure sensor
+> > >  
+> > >  maintainers:
+> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+> > >  
+> > >  description:
+> > >    ADP810 is differential pressure and temperature sensor. It has I2C bus
+> > > diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> > > index bdd995c5c1f4..837679dc01ac 100644
+> > > --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> > > +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >  title: ST M41T93 RTC and compatible
+> > >  
+> > >  maintainers:
+> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+> > >  
+> > >  description:
+> > >    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 222b7fc2c3aa..3aa8fa3c068f 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+> > >  F:	drivers/iio/chemical/ags02ma.c
+> > >  
+> > >  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+> > > -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> > > +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+> > >  L:	linux-iio@vger.kernel.org
+> > >  S:	Maintained
+> > >  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> > > diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
+> > > index 82aa433548d2..832df6ba0ee3 100644
+> > > --- a/drivers/iio/pressure/adp810.c
+> > > +++ b/drivers/iio/pressure/adp810.c
+> > > @@ -1,6 +1,6 @@
+> > >  // SPDX-License-Identifier: GPL-2.0-only
+> > >  /*
+> > > - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> > > + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
+> > >   *
+> > >   * Driver for adp810 pressure and temperature sensor
+> > >   * Datasheet:
+> > > @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
+> > >  };
+> > >  module_i2c_driver(adp810_driver);
+> > >  
+> > > -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
+> > > +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
+> > >  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
+> > >  MODULE_LICENSE("GPL");  
+> >   
+> 
 
-I reproduced it on the ROCK 4D with a DT that has the NPU disabled. All
-14 boots showed the same wrong state (0x214 = 0x23e, 0x110 = 0x13e1),
-and 1 of them hung. The ROCK 4D hangs less often than your R76S, but the
-underlying state is the same.
-
-The fix: when the power domains are added, a domain that needs a
-regulator and all of its subdomains are marked as off from the start.
-Once the whole subtree has been added, the domains are switched off in
-order, from the leaves up to the root.
-
-With the fix, all 10 boots showed the correct state (0x214 = 0x3fe) and
-none hung. I also tested it on the board with the NPU enabled, and all
-30 power-ups were fine.
-
-If you have time, could you test the patch on the R76S as well? 10 boots
-are enough, without any workaround. That would show whether the fix
-works on your board.
-
-Patch:
-https://github.com/gahingwoo/build/blob/rk3576-pmdomain-probe-off/patch/kernel/archive/rockchip64-7.3/rk3576-pmdomain-power-off-npu-subtree-at-probe.patch
-
-Thanks again, this really helped find the root cause.
-
-Jiaxing
