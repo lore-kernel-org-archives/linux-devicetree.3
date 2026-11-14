@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794683009;
-	b=Ft7J9/kZZCI8qxHcmisPFUSDXd+I4wtapnksWFq2nRvSdYoIPYMqaaP6PuOE7NYc1ouu
-	 4sOUxJWpQ0c+jMbmbGBgvTiB1esCU1HA6Am3SjFMYI9GxmNsAmh3uq00mN/hVhClknbzy
-	 MypXoXVe4ovWXuwB40xlRv2k0vZA+fU9Sa8EpRWDZPsXJfpBsnv8NuGuMxE3dpy3B8la4
-	 wYwhqImgXquRUGfKGvrv6Tu/KcuZOdtMrE0G7Vmy0B2mTsVLxazziIJR9bObIL3Xlf6Me
-	 chai6+BuaGZAzZx2D6sWDZodEpuuTyvco1q8qVfptcDRabM54BEWqWtMcer35QQyehQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683009;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794685701;
+	b=INKB3up/ZCN6AYQ6pdkkJaUHpGC/pi8ahklCfAOU3xpOzplgWxhKNERAbTTfPZEQrEkD
+	 dWFGvlIGlTF+l6PfaoNhbBdU0WQvR4zkgpgYN9fpO+OO959gZlThvGkUroCNcCZq/6zKJ
+	 mKI+xPJ1LO5KaBSctTvjdPrvTwqOqwe2gwRNRMTjUxhPKF/HpKu6p28dKUXzYVrtiC2mQ
+	 Mmo5tgPOMgbBefvhXQWuYjATbY71ZOf0zjac/hDJ5YSAL8CzHYE9vQ9QZIahs5eRdWdhU
+	 hBanls+O/irGOMXi4EQmN2hyb3GLDSrfE1p5vJwGyBRrpwld97H0cQJc02i8gSv+S+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794685701;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=uSLAZwuyq8QZnVN1hzVXlmJ3iH4sBJRLY1eaDnIkrUc=;
-	b=44cKk+MMzMq5ZSJ5+C1ebbIsHZsLYUmyausQ/3fZI2LD7Y85RlgosQ4yahumpoqJmc20
-	 hxIo70I1O7algvwvUemkiX3BG8PJx2FlB0eb9VedAgu34o44Gqawe958NBz76erWHwd5o
-	 TXlbx0gRBbv5UQh7dLXWkZqOm71kDt91/zCWmf57A53S2s3akwWZ54uopZFX7iQNwYiFd
-	 Kl2QDa3XKtrpmQ/JKRq3jYY839q1No9nipAnd3wCZj8lbVpqKS/7CfXdxIIVK6EZfzgd0
-	 vVfdC6FviTnLsZopSVnYiPO9MIyMfSIaUdLcxSLUvTFe6vIPl1/8TLMp+StsUw7r+4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=jbC3rUGQWeTwHayyjYJnJpd8X4fWTqcce/6NLkXV61U=;
+	b=iEJ09zCS8IqETxm7x9eUOPGVeoa3/MNgBoS0Z3RZwVLYCq5a/4GZwvbtuJw7L4F+17KO
+	 Gp1zre7yBujo9SYmYSY9eYTHm30oR4asHnHztomPBL+xvo4mvbpP9bPIxgKfNvAm47mFN
+	 n0s5tp+HebJdJ0rWTaCOVP7rEGCpgFvRax2v7nf7CmdPlJmrPtb9usiBMFGEiFl4raGu6
+	 7WdhnWHqKhEEh9mybC8voaXQw2f2DYF8ilZrdd96NbElcPWcvGhYJ67kP+/NpCdhDTNjq
+	 nUZngaaKmyna58reoSZrQdpp9+X5B9raOHPWnrUhH5U+0CHdPZEyKObYnTrSA/TrdVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ed5/AR8L";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qm4LG9my;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCE3606A331
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 19:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECCE3606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A47606A32D
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 19:48:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A47606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ed5/AR8L
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e977109392so12021075ad.0
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:03:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794683008; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E6goXuOO5lb+IIQXQmMidBQjVxW4KGHJrQ3REJKXLNS2JDFaOepnfK1WzjaFzCb0yq
-         55xtTffGRHV50DhWRoQbHxOArJgY1mXzCvxOWIAh1sbc7QJDbKciJUCbV0YCKVURpBdO
-         7frvmIf4aoVxbHz9G3UiNSszU8QxwMOL17y7T8Rbe8V9HQ4pFPxSQGabAKxgmdImvj1/
-         gUIiucbszefs0W3kL3xr7eUjHL6X5+w8lOtxw5/H0cjhdPvc6JBOyt2QQviKRKAHvNvX
-         q+fnjUFIXJ3rUj0NBjS53auwaPGGzwD5hyGEuIFiINL7L1ICNlnJyWlcOpSx4IWEuqyH
-         oK/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uSLAZwuyq8QZnVN1hzVXlmJ3iH4sBJRLY1eaDnIkrUc=;
-        fh=ZWgMJ3BiAfp5Dq9oLzswvMd1qF7swmV8tzg/QhW9C6E=;
-        b=jvCDMes53ffcpXEHSvsrHRWK3EW2mZbgVcjqnURrrGXbD1OJQ0JrpzQB/BfltYaWkw
-         Yn+IUOzPnsN0Xazdi1G0VujtsyuVM6MaS6YCJBKoukVcHELXTNEHgJiNy7vtk1fB/EDQ
-         euwpjGLxiSUU6haz/axuFflX25qKXfLrHiBjaySFZ/THWW9pqEFg8hVRNgGFd5BZ+Yvu
-         Mrf3vLo7PEaPxNqwXVjTWr3KhrnVhvIp4V3uTDi1mAlO7Q9whwi6ebkRc+GRiOpeUgRc
-         tAH+z12GpsbNLtYEOeLT5f4mIsCRdmxvcyDnrSFd51p3ZjxrkwpSUZcrTc/birrRY9uo
-         zpmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qm4LG9my
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ae25c9f857so26318921fa.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:48:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794683008; x=1795287808; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uSLAZwuyq8QZnVN1hzVXlmJ3iH4sBJRLY1eaDnIkrUc=;
-        b=ed5/AR8LX1QZTDhIbHcEBTJRhK/otuKy09bVoSRxvd8kBmgwUeOssZgQXYCkbNWurs
-         O3Xfr7yfulcOnUSCxgW1aQKeZ3OA31cq7m0BSRm3AMi0tHy4vJI2ecG1kFc7ff9UNmNu
-         CukSzu6El2BTqrtQfdgsP8pxSjp5kAFtpLD7JI6ZacmKnWHQ1dOJZ4Ywf6+JIScdzIXU
-         R97MZdgGTwYx+iMNuq+7Nk5SX9r86ioR3Yzh156PG7hkRdW9tW5VSIxSZri3ubgujlkj
-         XKh+XKpHmx4GZvYiOAHwI3YywCo0ljTrUzKUfKsp7NnI4/yoRGTV4EvNZyOkBQa6UE05
-         pOIw==
+        d=gmail.com; s=20260707; t=1794685699; x=1795290499; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jbC3rUGQWeTwHayyjYJnJpd8X4fWTqcce/6NLkXV61U=;
+        b=qm4LG9myJ4GdeE6hPirnsY83dnXwNP/Mfy/YXKt/8CVfD/ivz7SvQoEzH3HbAkWYR0
+         Y5cTfvVR7k8xE5T37tAlMk/2TFrOaTo8LbZwTQOhx3W7/2zvWIOgJMWMeg1eEy9kyFdv
+         sr5i0Rj4RdMA8+w+d3SIB4WgmgUYHlCCJl+PbrhUjbXZMp6NshVuXMCnjAUuhTnEJmjZ
+         DinWMJGcVzSFUoKJDANdahFPdOiLjujdo70V9B5RorIY4yotbfoF4YCp4l9AaMnW3s2X
+         iZKQiREYGcdB/gdGWTtHz0XpOFmFxpt9sNr+YyTf0vL82YbZeZrF+bAbuk/ek7MYio0O
+         NVDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794683008; x=1795287808;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uSLAZwuyq8QZnVN1hzVXlmJ3iH4sBJRLY1eaDnIkrUc=;
-        b=VtUoUd1CLCzAb2N5nuYN/6F/tMrVNh8Ujk2ZPkpYQok7zDYalheXwojjS6kVnEuS2Z
-         16WMqr//9kGEF+1KNT50DDMCxFIXZAaZsCkAfoi47h1dP5MK3g64FgDeVIoCD8+q2n3Y
-         0RlJrxJ83Fln/Tq0Ej2QeGOHvwrGulEHnZqMuQZJU/yLB0oKHkfnRYF2/sSh+vH6IWHR
-         AGQaJU+dxRPMgJQHFNqCP/MoPsjawIkTeP11wz51E3vdpMJdH4JYpYAc6V/VRrDFcyMQ
-         JTzst0v0riabXoY/EfR4xgK2uw11Uhm8v/1ehXR2yU4rJZzSc3N8GJp5Tn0O6A7aSTCw
-         pmWw==
-X-Forwarded-Encrypted: i=1; AL+hErG3YTA/mx5If1tHwEZ/ewBb659pByQl5vlP+IUG2cwKcymqjf8/MWFTeE2xX39cB60UwME8RcvYWbPW@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wtSrCe5oImC2KFk+HCH74cjWRm1GKzVEF0YxArnDLr+LMjryZ
-	uNpIiMODUzwzXMdUinf0EnpF6KhgRrj45p8Pug+tm+uYxSp1kDbgMCdmbgmVw/wzJLXJ90sq1Xb
-	6OeAZrsCuGycBqbmsDiRZdzNb1+NxYw==
-X-Gm-Gg: AYBFou2ehxIb2BrnAJa+finO/7yJyD3QNjdMLJzOSr2AG9nrEqJLrqWe649mnLXN/Fp
-	KxrFSdddYrm3UpJ5VtgFxwU9EkyuOzIU6WFlBfimszZECLZwufE7Ctpd3w225jEPguVe83axWQD
-	tkX+1ewn3tC5xf2IZ+dw0fNWYhRixY3YJU4UyyXUbvpEheRx38Ndq8WhysQDO6PQqMMX61Zw2ys
-	ur4nKb3FiPkcg4cgGkS3NBA0BcVy8xlD7GSM5vQe2ZUexbqKupe6UQGxGHfMstN71HaiWLxBTrn
-	F71vsCARnkF5X/0S5964Wq28JWU9g7dP6yeehc1FtJp/34Q1XJEREgvQiHuT210zJNUh5vqXzQX
-	z2fqm9M5jRU98JSrWy8Tgve0g6nvg6LDAa18S
-X-Received: by 2002:a17:902:fd85:b0:2e9:734c:5025 with SMTP id
- d9443c01a7336-2ee0da98dfdmr60035435ad.21.1794683008249; Sat, 14 Nov 2026
- 11:03:28 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794685699; x=1795290499;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jbC3rUGQWeTwHayyjYJnJpd8X4fWTqcce/6NLkXV61U=;
+        b=Rp6A/Am58b6tPlojxkhcINstgFjdBDmHRg9DOFMhGJjHXbE6SOIKcsjqBNyrpy7FpW
+         FwhPjB9WQZYO8MFoRaWf32YNfNYC/7voqOuk26vfwLlC+CF+z6NhcAH5XWsfZQP3VDOJ
+         VCXODATtoKjfppbQNrEG2fiwlKfdRpzAkRBrzjCEtrVAuzshrNys7RUReDMRLfPhL9Tc
+         pe5cJXlrNEpPfrs0MLKk/bLRWrK663D0P2YHuqACqeR5sJprUKlv9cGFJrL4Oo7E2DXh
+         4VJJmbAKjebhPl16Nc9z2HEwxRJZh56fk7OcbeJMiHMVPg3smtNQB6IsiGFaLBj0q56k
+         2b5A==
+X-Forwarded-Encrypted: i=1; AL+hErFUGWVLzHdFLUgw/ndOg2nC71x9xddlmxhHq2pb/KeX45ARbdsO+O52EKmS0KEpDL5BLOBDnatX9r6q@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SAkejkg9A2YFviZ7uPHZoTApzy5kkT6Wq29uw/XXOK6L+UJiG
+	n+016GTMm3Md4rALLzEy78IXC+/Vq64ZvalhKbUF70LMIwIbSKc/fG4=
+X-Gm-Gg: AYBFou2wAW/00IgRaASL5j7pFwf6ko/M5Hj38tAfwpMVB00lv/E3N34eHtEgOOcz0Yl
+	L1TQufhx8y2mV0VQ6Nhj0ygiBU237cdFXRAVizOQy/tOZywTuVtl/tvEFxTDsLmBmplFEjUxVut
+	MGHkrjGasGXru5N/rfYpWMoWagA/I3RPRTnBMjb5IKxKnIvH7v1XoDZenZQ8F0O0g28KojGCoKX
+	culdEClzVPxlQ2buO5Du0pmDXGpPBe7s+PFB+2O693k84RPxz53c5Q35vf9TkH1lQ7EYwLoYcsZ
+	DFVjiM4iKr66lsxIzcHKAvIBUGbte4bvRH+TWhP258a9UOtWMT5IUQWZrqffm0TOF0o+kd2gYC7
+	k+PdQx9+86MxXGeUKL2UhjjdlPP5A2zSEj8qU3B5jBp0KH28+TwbrVbIUHJWw/+mMV4UGSMjRdJ
+	oB5rgz+OSCE4cnkOfL8XG6KaqD9h0wtarMbimDdq6K2mAfx0obDHorkDWYY2R2VYEFSY6KKCiL/
+	D3IsxM4xjit0O0x+1tsNllfI/m+dSl8RheGeg3seT6OPqbgIsiB2ycrXESP4T6pJBruMwjX+jKl
+	CNFQV+CNjEDat0/TzbqUHLIaFyxFVuhIW6o=
+X-Received: by 2002:a05:651c:1589:b0:3ac:f258:6199 with SMTP id 38308e7fff4ca-3ae2b676808mr18455371fa.22.1794685699382;
+        Sat, 14 Nov 2026 11:48:19 -0800 (PST)
+Received: from sasha-User.lan ([185.159.163.49])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133c9ebsm1845666e87.31.2026.11.14.11.48.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 11:48:18 -0800 (PST)
+From: Asdlerto Korry <korryasdlerto@gmail.com>
+To: Nizat Mikayilli <nacht@dxdmail.cc>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
+Date: Sat, 14 Nov 2026 21:48:00 +0200
+Message-Id: <20261114194800.503418-1-korryasdlerto@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
+References: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,43 +103,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-m52xq-nfc-netdev-v3-0-725a61ce4148@gmail.com>
- <20261112-m52xq-nfc-netdev-v3-2-725a61ce4148@gmail.com> <5b31dcc8-8fc4-40ad-8c09-aad8d77965f0@ixit.cz>
-In-Reply-To: <5b31dcc8-8fc4-40ad-8c09-aad8d77965f0@ixit.cz>
-From: Asdlerto Korry <korryasdlerto@gmail.com>
-Date: Sat, 14 Nov 2026 21:03:16 +0200
-X-Gm-Features: AclHuK_Q0fCYoqErL7BMlQPVGQL9gfpYv5yw5VBHiZrfm9MfbMBI5fajd-Czxx4
-Message-ID: <CAARotke1QDxr1XAHZhDBtq8nSqXzrbZk8pmdyy7ceK9ObBHNWw@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 2/2] nfc: s3fwrn5: i2c: Enable the pvdd supply
-To: David Heidelberg <david@ixit.cz>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+Hi Nizat,
 
-thanks for looking into this and for the schematics pointer.
+I tested this series on a Samsung Galaxy M52 5G (SM-M526B, sm7325),
+where the SM5714 fuel gauge sits at 0x71 on a QUP I2C bus.
 
-I don't have schematics for the Galaxy M52 5G, so I can only go by the
-vendor kernel's device tree. Its NFC node describes a single switchable
-supply: PVDD, a GPIO-controlled fixed regulator that the vendor driver
-turns on before enabling the chip. None of VBAT, AVDD, DVDD, PLLVDD or
-TVDD are referenced or controlled there, so on this board they are
-presumably fed from always-on rails that the OS never touches.
+The driver binds and the readings match what I get with the vendor
+setup: on USB it reports Charging with a positive current, unplugged
+it reports Discharging (around -400 mA, 3.80 V), and upower picks up
+the battery and percentage correctly.
 
-With only pvdd-supply wired up, the chip probes and reads tags fine on
-the M52.
+Tested-by: Asdlerto Korry <korryasdlerto@gmail.com> # Samsung Galaxy M52 5G
 
-I'd rather not add bindings for supplies I can't verify on real
-hardware and that no board would use yet. If a board turns up where
-e.g. AVDD/DVDD are switchable, they could be added then as further
-optional supplies next to pvdd-supply.
+A few notes, none of them blocking:
 
-Does that sound OK to you?
+- The capacity truncates (SOC >> 8). With the raw SOC at about 44.6 %
+  it reports 44, while rounding would give 45. Rounding might match
+  the vendor UI better, but either is fine.
 
-Thanks,
+- The M52 has a battery NTC on an ADC channel. If you're interested,
+  I could send a follow-up on top of your series that adds TEMP through
+  io-channels, and VOLTAGE_OCV from the gauge, once this is merged.
+
+Thanks for working on this!
+
 Asdlerto
