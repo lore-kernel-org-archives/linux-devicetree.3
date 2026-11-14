@@ -1,57 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626668;
-	b=L1nHrixn3HFJtlL3xmxbfFBK5GewIXnEZTUiCSRxmvvn3troRY4Qa/FtOXsmCJRupcYJ
-	 kZlqOhlUkv+ApI+TlvzOw4YPuCPyaqMVohj4mu3cV0N+X9priz2TmHdJqsHA7WWP/Yf2O
-	 6xpr9wRLycMyZPEkpykEPzl2L92mwZwVBBfnMwJiwZ2/tDbarywNMl8x6qUd6uSNTkAXl
-	 YQdWpZOvLtT1T63rr/0qiY0d6AcaFccG/nAmIHszEsGmW1fSttjG2udVm7MNd86ZifcSF
-	 c1lHMXru3dbE/a0DUK7du2DUQOEHP711MXkpuGrTuUMhkwoK2PUR7HYXN9c8QBf82nA==
+	t=1794626738;
+	b=eKg+DIokaEqTn/PE3Lj6VtOeUMRe5xwyhTzUGjavVXzqR6LvIesH7/acvQ1WcbUqKq5m
+	 8LjhqdMlHakgKejwzEys9BzbpOv7TjfkXY2w4YlMmY3wvAQHJOtHFKtK1TD0Dwu80v7oE
+	 Am2fxMDk6tqujYBNZqQlRx3zbK5pwWSbNeGA4gKGF6OHhBOUuN+skPJH6/dLGWcUYewMq
+	 ztYiHm8jo5naT4mmRHrLo9vejPcWVGnbicHTBRxOzcMDsfDyrB7xs8ZaiXR7FiPKbCZbi
+	 hMvv27oI3OxORkvuUtlyX7+px1fSiHHnNtpmrnKKuzJSg7tocm7KohEaxL89HMeUVow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626668;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=R4z16kEfzHpn60KauXW19XfpX7fZvymv1L1wPk/86Nk=;
-	b=sUgY7P/d00fzqneqWPmVR9EkIH8/ukFOnWx80xzFQeujXOMjR9P+Frh/4DDPZq6Drd8D
-	 Gj3aeij4vl37HZgNwhq+KykT1GhX68yaJO+v29XgvHfL3sQOCidtrTnVJGEElGOfU1AZC
-	 U3UHNzTrGy+lqzq8M1WBoMXWaJ8SwlYO9jKQAQmgZqSv/2MZemaszgejSb8xJl1llG1/c
-	 IngA6MLv0Id+8aKcdB+oByrxFhT+q+UFsTXNiizg7XjOOkR9CI31M9+/driykrI/6G+To
-	 wzSsYBBYiIIoLo2G82r1OF7oWNQnadP0/B3LjtGWpp44XxnWhaSVZ42SyJE3p4zW4gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626738;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Envelope-From;
+	bh=oyAxY85GFEZYnIl3FuV7SY+GGs/c3oBnxtIqltqNgug=;
+	b=Pcm5Z+hsJ6uN8HR3vRWWtDFXbhKWi0qXjkotsPQPyHd0ZJj0BHS/tXSgK8C+M9p+d2Zf
+	 6B5tGdSBGBMARp+C7qdpnHxyMuu/ExCLdBxiMqrKGn5GUv6X/gFQHJdJHyvSoExWnWr+c
+	 G3+o+RhOtmC7Kh53HwTmYDSiC6+gv4BiOllWYIEQI/nBWTw6t2nMfGASDRBdSkWdP6e6K
+	 M44lfMXT78VRnLn3hsuISWZdP1oJwuYmO6mXAm1wVDamBP3qCoT7oTpi2CnMdQx4luPxR
+	 Y/snnXbBbWRfls9NsDQhy501QgMftZX60DI/hAKNLqgYeJSe2uD5U8aA41wcr46ZN3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7EulE3P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=chrispinetinega.com;
+	spf=pass smtp.mailfrom=chrispinetinega.com;
+	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=CAn1GsUi;
+	arc=none smtp.remote-ip=198.54.127.151
+Received: from out-2z4y-a151.jellyfish.systems (out-2z4y-a151.jellyfish.systems [198.54.127.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DD5606A32E
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA12606A327
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA12606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7EulE3P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110D31F000C4;
-	Sat, 14 Nov 2026 03:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794626668;
-	bh=R4z16kEfzHpn60KauXW19XfpX7fZvymv1L1wPk/86Nk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h7EulE3PKk1HYiqpkEo/dZqM3ByBmmHh4i2URrrYwyR8j1awsELRlkZpupJfRKqp6
-	 WuaSEZhyPk3476BddgKtZRLrqOhD06h8vLjHsfEzmOqIvwPvaOSupkZei3MB6GTBqm
-	 VznUV7Met1IpFbwHsOJgGcIyV9tcAxHXy7j1vPJyzsD1zsjGL6H1EixrroXsHCQ8+A
-	 6SCxLTrXyhhHdB1CF1eXnFYdYzmGMuV/7HisLWKZtb+porS3S+L5Vmt4rI9itAA5cp
-	 ENe04krNoeO227L9UZybPW0aJs1AHfa3nfc/j/ysptQ2/LUxs46/KbBLcIXcU1x2G1
-	 Vqj7EubsVW3Kg==
-Message-ID: <sashiko-outbox-214103@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 04/12] accel/rocket: let the core suspend after a
- reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <2afd051e37b8dd4f10e347a3537b0086973d554c.1794615323.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
- <2afd051e37b8dd4f10e347a3537b0086973d554c.1794615323.git.gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 03:24:27 +0000
+	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=CAn1GsUi
+Received: from mail.privateemail.com (unknown [62.8.90.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jRKJH5dDlzyNc;
+	Sat, 14 Nov 2026 03:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
+	s=default; t=1794626726;
+	bh=oyAxY85GFEZYnIl3FuV7SY+GGs/c3oBnxtIqltqNgug=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CAn1GsUirKL6+dqPmQs2DDDkuZtVTJlE95li865Nv4fHZ2ZNUMdEfAjT5W3XhBckg
+	 j0rF58kSQF6mUzGYdghtHabY4bsU4hWjtrlsaWic1GRJaVlc/Mp+tPhEwtEfRGXrqm
+	 BNPTQS+P03qmLohFi6ODkQ4Ag2IY9wTh0DYBhNpHmLnYZmMJXWhUbxgjwcPcoOf+vh
+	 6I6ybprVC7Zodz9M9oAZuBZ/sYFCJHuL/VVBlWDC8YZ3VHaLgfKkHaUkv0Z7VK4l1T
+	 N3mHu5C/L/BpmlB+m1ENc19futqHtdGRd2zP5nWIdZgrGePuIGEbvnMbWBMjyL+ViW
+	 iRJMDlxqNSkeA==
+From: Chrispine Tinega <dev@chrispinetinega.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Jerome Neanne <jerome.neanne@baylibre.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH 0/3] mfd: tps65219: Let a board run past the warm threshold
+Date: Sat, 14 Nov 2026 06:24:53 +0300
+Message-ID: <20261114032457.3434248-1-dev@chrispinetinega.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,118 +78,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: dev@chrispinetinega.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] accel/rocket: asynchronous autosuspend in rocket_reset() skips
-  domain reset
-- [Medium] accel/rocket: rocket_core_reset() runs without PM ref if job
-  IRQ races
---
+The TPS65219 has four die temperature sensors, each with a warm and a
+hot threshold. With a sensor's warm warning unmasked, the PMIC sequences
+all its outputs down at the warm threshold, 110 to 130 C. With all four
+masked, it only reports the warning and powers off at the hot threshold,
+130 to 150 C. The masks come from NVM, so a board that wants the second
+behaviour has to set them on every boot.
 
-commit 8873affc45494653d715f08563b9727e826503f5
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+The BLIIoT ARMxy BL350, an AM6254 industrial controller rated to 85 C
+ambient, ships a vendor kernel that does this from a devicetree flag.
+This series adds a binding for it and the driver code, and corrects the
+MASK_EFFECT macro on the way: it named bits 2:1 of MASK_CONFIG, which
+are warm masks, instead of bits 6:5. Nothing used it yet.
 
-accel/rocket: let the core suspend after a reset
+The property is limited to the TPS65219. I have not checked the
+MASK_CONFIG layout of the TPS65214 and TPS65215.
 
-This commit replaces pm_runtime_put_noidle() with
-pm_runtime_put_autosuspend() in rocket_reset() and moves the call after
-rocket_core_reset() so the NPU core stays powered during the reset and can
-suspend afterward.
+This series is build-tested for arm64 with W=1, and dt_binding_check
+passes. It has not run on a board in this form. On a BL350, the
+vendor's equivalent code sets the same four bits, and the PMIC reads
+MASK_CONFIG = 0xef.
 
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
-om/
+Chrispine Tinega (3):
+  mfd: tps65219: Correct the MASK_EFFECT field of MASK_CONFIG
+  regulator: dt-bindings: ti,tps65219: Add ti,no-warm-shutdown
+  mfd: tps65219: Keep running past the warm threshold when asked
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 8b4ad028bc9b2..41c723238b2b7 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -397,6 +397,8 @@ static void rocket_job_handle_irq(struct rocket_core =
-*core)
->  static void
->  rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
->  {
-> +	bool put_job_ref;
-> +
->  	if (!atomic_read(&core->reset.pending))
->  		return;
-> =20
-> @@ -415,11 +417,10 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
->  	/*
->  	 * Remaining interrupts have been handled, but we might still have
->  	 * stuck jobs. Let's make sure the PM counters stay balanced by
-> -	 * manually calling pm_runtime_put_noidle().
-> +	 * dropping the job's reference once the core has been reset.
->  	 */
->  	scoped_guard(mutex, &core->job_lock) {
-> -		if (core->in_flight_job)
-> -			pm_runtime_put_noidle(core->dev);
-> +		put_job_ref =3D core->in_flight_job;
-> =20
->  		iommu_detach_group(NULL, core->iommu_group);
-> =20
-> @@ -429,6 +430,9 @@ rocket_reset(struct rocket_core *core, struct drm_sch=
-ed_job *bad)
->  	/* Proceed with reset now. */
->  	rocket_core_reset(core);
+ .../bindings/regulator/ti,tps65219.yaml           | 11 +++++++++++
+ drivers/mfd/tps65219.c                            | 15 +++++++++++++++
+ include/linux/mfd/tps65219.h                      |  8 ++++++--
+ 3 files changed, 32 insertions(+), 2 deletions(-)
 
-[Severity: Medium]
-As reported by Igor Paunovic on v8 [1], can rocket_core_reset() still run
-without holding a runtime PM reference if the in-flight job completes
-concurrently with the timeout?
+-- 
+2.53.0
 
-CPU0 (reset work)                 CPU1 (threaded IRQ)
-rocket_reset()
-  drm_sched_stop()
-  pm_runtime_get_if_active()
-  ...
-  pm_runtime_put_autosuspend()
-                                  rocket_job_handle_irq()
-                                    pm_runtime_put_autosuspend(core->dev)
-                                    core->in_flight_job =3D NULL
-  synchronize_irq(core->irq)
-  put_job_ref =3D core->in_flight_job (NULL)
-  rocket_core_reset(core)         <-- no runtime PM ref held
-
-rocket_reset() relies on the in-flight job's runtime PM reference to keep
-core->dev powered across rocket_core_reset(), because the temporary
-reference from pm_runtime_get_if_active() is dropped before
-synchronize_irq().  If rocket_job_handle_irq() finishes the last task and
-clears core->in_flight_job before synchronize_irq() returns,
-rocket_core_reset() executes with zero runtime PM references held, which
-allows core->dev to suspend before or during the reset and hang the board.
-
-> =20
-> +	if (put_job_ref)
-> +		pm_runtime_put_autosuspend(core->dev);
-
-[Severity: High]
-Does pm_runtime_put_autosuspend() guarantee that the power domain is
-switched off and on again before the next job runs?
-
-rocket_core_init() configures a 50 ms autosuspend delay on core->dev:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_init() {
-	...
-	pm_runtime_use_autosuspend(dev);
-	...
-	pm_runtime_set_autosuspend_delay(dev, 50);
-}
-
-In rocket_reset(), pm_runtime_put_autosuspend(core->dev) only arms the
-50 ms timer and leaves core->dev active, and drm_sched_start(&core->sched,
-0) is called immediately afterward.  When another job is already queued in
-the scheduler (or submitted within 50 ms), rocket_job_run() calls
-pm_runtime_resume_and_get(core->dev) while core->dev is still active,
-canceling the autosuspend timer without ever suspending the device or
-cycling the power domain.  On RK3576, the NPU bus interface is then not
-reset and the job after the timeout still fails.
-
-[1] https://lore.kernel.org/r/CAEWPSH7tM9WQUJ0H13ghkiHGzDcdycC1syTuO5B8DpC6=
-cUSnfg@mail.gmail.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794615324.gi=
-t.gahing@gahingwoo.com?part=3D4
