@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669776;
-	b=RLsqSyFPbjmVhX0I8jB2efoBHz4XGpuF6xIM3y+xL5AMUEpIfc3g3VDtdEf0Qu9GXDKF
-	 T8EYxVGQpToLVR4TAEydJ31Luv5Q+OQUqFOllehG9fwsqo6Brrw0Q0Q6NzRWu4csYCKmt
-	 WWhN+T/6l0LOvTuxOcNT7NPwRvtfu7qySAdRw8rw/YQHAOl5agW8iVK3WhHyEyX8eY09x
-	 0bal5+Sc3/IMauQzPxBRxOR8PNxJ3/zhwVo5d3d8Qck5LQXbri1K5jr35Z1Ax9qNiWQVl
-	 Xv6313U3ZYpzU3OBC9l2r08DpJaCrWzzq2kyqya4vNG6UQRgFGm/k85QNmxT4Qu4HCw==
+	t=1794669793;
+	b=ayGFgCUZTIy74EX2fvqb7f09bp9Oq9FEayFY4APndAOW6I8WenPJDVWl7mFBDKheCZ8p
+	 rDiZruPH90es5glDyNH8ZdziW4l7X+B0gVxfnTgi6TTVx8K/9ewZrHuAhuxGy3toZ/09g
+	 1fE7xByTZm8lsnKYWhNk68BSXvXu19i4dgYPHzSy0YRJgCxGVMvbE5mWTku1AmpzCJQLc
+	 x8Is9dE6HtvqPY31w59rhSLSJdXLLfF7eo12Y9s1sqf8U9oJBIuB/Ep0wuwS/N8JyTOCr
+	 OOTpB7nST4m61dPHsGOY1bhJBSrOUH1bKqEx1ZGao1JVrM/6hXFOmOiFgLxyQAfiSlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669793;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hzdxJka0eQ/09r15UlCX3+QgNz+4joamuCtkkp+OfuQ=;
-	b=yXZVfPsh4CMf5881OdmUAs/4uFoI97eGlXjlUIYtMUglEYnlq7ZTRAC1NSi1PueFLrA6
-	 DTNPz9LBMHwpC4u4Sfnou5QRUtOr1vscreI48PjoKjORkXDpkZt2hE3Y80mC08i63B9y+
-	 Az35ozPV/KIRLaatp1bdiMH6zmS1Uejk9jFjEEfMRpba79l08qtBoo9PPcDhT8SyN/5bK
-	 VQRpq1DqUVrjOp9OoVNJfy/57FPWyzKE0CgwZa455qgb+oE9WkUgTtX3IfqrTcyBA3/ZT
-	 lNeRW7+eMre6KhZaaO73vLgQlWfdNvf/P0w7QEABEANgU67gTnQyb3z2FqxKwKdPN8Q==
+	bh=m2whvGHzoXghVkUuBgcPx7Vpcv0Zz5rDXyGbPh2kW6k=;
+	b=yCHzT2MgfsEc+XlIVY3cHxRV9x1z1AdQEsD9Gh8IejFaqNSH7JiVN4qMIo9aXyDGtXm8
+	 DRGJV4zO8G5WUqfd6r7+PMXyT0SdbMm2CK0sq1KZ2jUg4lXdp9rEV5bMB+uNeEQ9fho4P
+	 U4G3pJkNZBtl1b19glnRhNRq45FxmqyLndL2EESQ1GJUsCDJvcWLEbGW5f6EgQI1cPAzh
+	 2gInVShCDj/4YyFauvhEw8yI9zU/Of3C37JVMK9PLeJKjzosidB+BZUyRkPV2phT79WZp
+	 MDa37XaWLaDVTW16x/oDOepOp4k5v9HG0izGCkQUC7Xdq/DcZWhqOd4LAoTqafPN1IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7YKBvrx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqGSnji9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21B6606A332;
-	Sat, 14 Nov 2026 15:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87B9606A33B;
+	Sat, 14 Nov 2026 15:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7YKBvrx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE421F000CF;
-	Sat, 14 Nov 2026 15:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqGSnji9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CE51F000C4;
+	Sat, 14 Nov 2026 15:23:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794669776;
-	bh=hzdxJka0eQ/09r15UlCX3+QgNz+4joamuCtkkp+OfuQ=;
+	s=k20260515; t=1794669792;
+	bh=m2whvGHzoXghVkUuBgcPx7Vpcv0Zz5rDXyGbPh2kW6k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M7YKBvrxmtIhSkVzJIS5mCxgHF0rYo6OJIGUwFm3yT7lyRUe9LJZOfavh+6qs7fh3
-	 4frNOfHx/3yhJhgmxg80E5t6V35VHwzypwDgFHgseh3wzKtzuNSUnwaMLTEkxhVVW5
-	 Wnkbo35BRopYLupomoy4c3rqWZTLrpS5jTudg1V4lcYKlOLzUTCKhxmX+Pd8Ug4oEA
-	 G56D1ZdwQYA/cyGMCOafB4F8yxPxoF8Yz2dEcmt+nuoiejXW6Ke8IoBQ+/b+bBNqyY
-	 tVhedEDdIA99KOVlXeZ/9/TP9UjEKTnyXJiqSNxnkoiOvTkp8uZdM3UQa33hjF7HVK
-	 9keFIeEBSkyZA==
-Date: Sat, 14 Nov 2026 16:22:49 +0100
+	b=oqGSnji9q/gwmw+aNo0x90HtbxCO1JGmGcar0NZdEQ0b/H4hZ1GXwaDFJKZ8MoWiU
+	 DlZruS6ZSVIZN+bJRqQkGF96sdpB+NicbYdaJjg/KkeN+UHyIqclikkJ0FoVdFNNVl
+	 DKdVpF86qn9gFF0WxPSEIBt/Mue5v+ooxETopqss/qsGgl6xG2ZSV7j+lJdptAMfQb
+	 t3oi5jXVK61KW8GmdcWAZy6AhOTx/zk4yPPADrXKkZMFAAjIrwKt7qafGp0tTaX/fX
+	 ZwyGPJQJOSL35pXhHEJMp/t50rRPcIi44rocCZH9kB4s7j3SzF/g9Krw7dTK11iTuJ
+	 8Rw5xBsbTmy0w==
+Date: Sat, 14 Nov 2026 16:23:05 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-hardening@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, 
@@ -57,8 +57,8 @@ Cc: Alejandro Colomar <alx@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
 	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v6 08/19] perf map: Use bool for return type instead of int
-Message-ID: <8a3c50cfe298a82869619b2e676e4b9c5da589d5.1794667407.git.alx@kernel.org>
+Subject: [PATCH v6 10/19] platform/x86: hp-bioscfg: Rename local variable
+Message-ID: <ec94f69d2925d2362e8bde4ca1b1f7f3893c0315.1794667407.git.alx@kernel.org>
 X-Mailer: git-send-email 2.55.0
 References: <cover.1794667407.git.alx@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -71,12 +71,12 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3ccdlp5suel6rycl"
+	protocol="application/pgp-signature"; boundary="n4zfxb4iseidw3nu"
 Content-Disposition: inline
 In-Reply-To: <cover.1794667407.git.alx@kernel.org>
 
 
---3ccdlp5suel6rycl
+--n4zfxb4iseidw3nu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -97,55 +97,75 @@ Cc: Alejandro Colomar <alx@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
 	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v6 08/19] perf map: Use bool for return type instead of int
-Message-ID: <8a3c50cfe298a82869619b2e676e4b9c5da589d5.1794667407.git.alx@kernel.org>
+Subject: [PATCH v6 10/19] platform/x86: hp-bioscfg: Rename local variable
+Message-ID: <ec94f69d2925d2362e8bde4ca1b1f7f3893c0315.1794667407.git.alx@kernel.org>
 References: <cover.1794667407.git.alx@kernel.org>
 MIME-Version: 1.0
 In-Reply-To: <cover.1794667407.git.alx@kernel.org>
 
-This is not strictly necessary, but is more robust and readable.
-We already use bool in that file, so this improves consistency too.
+strprefix shadows a function of the same name.  Let's rename it.
 
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- tools/perf/util/map.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/tools/perf/util/map.c b/tools/perf/util/map.c
-index 41cdddc987ee..944f10d32796 100644
---- a/tools/perf/util/map.c
-+++ b/tools/perf/util/map.c
-@@ -16,7 +16,7 @@
- #include "thread.h"
- #include "vdso.h"
-=20
--static inline int is_android_lib(const char *filename)
-+static inline bool is_android_lib(const char *filename)
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drive=
+rs/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+index 343b2356943e..a38d200bd0d9 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+@@ -67,7 +67,7 @@ size_t hp_calculate_security_buffer(const char *authentic=
+ation)
+ int hp_populate_security_buffer(u16 *authbuf, const char *authentication)
  {
- 	return strstarts(filename, "/data/app-lib/") ||
- 	       strstarts(filename, "/system/lib/");
+ 	u16 *auth =3D authbuf;
+-	char *strprefix =3D NULL;
++	char *prefix =3D NULL;
+ 	int ret =3D 0;
+=20
+ 	if (strstarts(authentication, BEAM_PREFIX)) {
+@@ -87,13 +87,13 @@ int hp_populate_security_buffer(u16 *authbuf, const cha=
+r *authentication)
+ 		 */
+=20
+ 		/* append UTF_PREFIX to part and then convert it to unicode */
+-		strprefix =3D kasprintf(GFP_KERNEL, "%s%s", UTF_PREFIX,
++		prefix =3D kasprintf(GFP_KERNEL, "%s%s", UTF_PREFIX,
+ 				      authentication);
+-		if (!strprefix)
++		if (!prefix)
+ 			return -ENOMEM;
+=20
+-		auth =3D hp_ascii_to_utf16_unicode(auth, strprefix);
+-		kfree(strprefix);
++		auth =3D hp_ascii_to_utf16_unicode(auth, prefix);
++		kfree(prefix);
+=20
+ 		if (!auth) {
+ 			ret =3D -EINVAL;
 --=20
 2.55.0
 
 
---3ccdlp5suel6rycl
+--n4zfxb4iseidw3nu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4fMgACgkQ64mZXMKQ
-wqmjVxAAgmd8UT1wnpWzOpu4PcBc1BJdVclCM+ut0EFH5B1XWDlNoe4O4NoSWoUW
-krX6vT5QvYQuJagTx4qPAmWlfRlWdfA/krhgeiA+s32NsGHqFpyKf6v3wd+ZEeWq
-VkaVHafK3IDpXnmJEstRpwcIdMW28A2vxngQbgV0sEA06MuorE5ZENKWRBEop/fp
-pyDIBDmbDXXReOHpKmXfg43jV+MlKVbG0RDgH0cAm+mkqyR4nQXFmUqk7Geyc0F3
-/Ddj52TZdECI0g6PaCY9tb/pMeenrSXgovJ9JYzOQRWtVmQwT+99FINyQRMtPp25
-G2nZQejDlktEMrQvp0TBKbnI747WMpN4D4cbrC3SOKmuBvKZkXzaBV4MRRjOsVv4
-uZNYWkeNBw8T3oIwxy6MOSocAyu8MA9HQCBI/8MSuXlNuP6vvimOBPug4eqM9Add
-k1TOEtLGprGlMHM393A/XiYrsoT16AbLYB6zPMEn/xHb7wNg5EDqf6dOmUMyGX8x
-GqnexQxPTRwFhEoaTKmMGY2mms/zGXvmu7BjMCvxhALwA61bKOFqDEVbSthG4BH6
-7hPZ4WyDc8PNQvf3iqxGoxgMasrz4nleBgHlGWvRh+9dmTlXBvwzx+14XNAuSkac
-eADo94XAUVU5/cG2guXatGaolZf6sbbBAB/irHNb8xsKlt3IPBc=
-=fP12
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4fNgACgkQ64mZXMKQ
+wqmDMxAAgj4zHKcm3bLuyNe1pfRcxfybr8N97GG7fqyUwy+gQHbjaFgcl0ryzaBb
+bkp4Mg5FStfZMkD1K5932+7zQPYoN7XqRCPKNuHwxX8DPGWwYLhcxijb/Z1FImZF
+HkX6z59DSxGpBH2TLvEtWAVMiPGOIHpn6mDONJM/KnUCxmH7zHiyJ3EdwP3JgEl2
+1UBD082ppMqxW1WP5qZesyIQEcbdzc2hNXdysJ/70Wp2O+btJuiOet7GXin3CXGB
+4btGdL/VbhvtFOBILvCWzqbZlF++cVn+UoHvupOjXFh0tPMrOOigHpNqc2tKiJsb
+ROFM3ktzuOAU9PzZ1kBnAwk1+KCYH3enHKZ+gU8HL1XkNuH8lti7bmNlFLwWI82P
+Xk+QenYAtq7gzyv2WRCuHL/4XzvSamglhN0R4FP7Rj6/O8gXUyeMhYA7Myf0JXPq
+ZJ1jotKYd6eWS2WiiSK74EW/hcdn7aWaZ1prDLcOCM4yt5UcEZuieBrU65NXRRkM
+IYaTyIM5fxdIB+hU6/EWBgfmZrcSt2nmYIp1QRH+NB3e0bFyEzvMmL8phQRW8cLk
+7kcBKUfKCU4Pw//sjv3BdjFAHccROfTv7zHyOcR4PpN3EEl0xXTilAjURi3aP/CO
+kBBNMymk0znEJYLUiSlYa59soIjhs+bP7ajB5RdFF+yrNlqMZbg=
+=uINI
 -----END PGP SIGNATURE-----
 
---3ccdlp5suel6rycl--
+--n4zfxb4iseidw3nu--
