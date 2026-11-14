@@ -1,47 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648166;
-	b=YYbKXWWh3lXRGH2PWIenAQ0IOShb0KZJtEPLR189NVaWP/CsteUQxkOcy9Lz6aCQXRsy
-	 Q4+//zCu3PtM7kbtmtWzoAt+/iDGZa0MpWb+o4dHD3zlPyDuiu0We1qenrT09QStOpseL
-	 Ttezd0qZTtrEaa8h03pUW8FKR7erDOWp3+PhBFePynALHa+44u4AwbZRgpXHV12Xs4ZRQ
-	 6QJLBT/HuhP4H9/m5GTT0fp8OeOwM4p1UxalfauoQIjImq4H4d95JSo1MwpWbc2f6bel4
-	 zEOPN4FSOoK3a0dJUv4kf5gqng2xkuNlYrIEPS16oAy41YTt7ZD1a8cXJHqk3WyHs0w==
+	t=1794649409;
+	b=DFC/Yd7Jt9psIERcDRhKji3Y5Ui6/wZWvSJCneU1U24cA5KChrMcnQ3n6vFF1bv2O0Y5
+	 dpnHoKI4abLEZogIBbAYv3BLhnCxILcM5VWW1h3PZMNUibQoxn5QmKvPQRSiR7ymo9CNZ
+	 3MWZdtI5XL/03J+MoA7xjW7/DjPjw11MfiG1XpvnGchf/nrp0HUtrWtA3Oj7vIUvp9Shp
+	 7aQa/U5QmI58VVfRq8yOIbDPuDvY8cmpmW2fyXoii5cwfplzQzQlSOGKLYDRiEGOqe94Q
+	 +44Kx07XTGjAu+Id4+9uPfuOBeQB+tgUVaAONdz3BZMvQqPh1FD3/Ht34LSS2ylGflw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648166;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	b=QRVPTsuyXHCX1Gq8hcQCYjSjtTU+FAmtjWOtltoTYOjzihq01UEzyXen4ANjMIRXwytY
-	 7bcaVwj+4CxU8+VknJKmp4Wc72wh1mg4Znr6oRIUkSIVB4Z72bkcYgoS5HlOs/nN7BPl7
-	 Kg00iD8qiJhnJsKaoazy90SEMT8m0YUnoAeMws2GZytqPa+srVcMbvxOopmYKLil4M7hh
-	 c4VbBFV1CKvpHb8z/xudQoQLDQck4pSfx1VeaaRUHC3CDNhNTIKm9llm9RPeXCNsAiyFT
-	 zivDJROul7Fl+Fgsov+oKLit3f7YfM9/7PQJ21/EOxjw/Ye2el6JiUowr5Fujh1CdCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649409;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=QKoeYA8NjhRcil8/GX8qB5N91N+EQFpzcwu1b5Kz3uA=;
+	b=tX1HzhRhUIgruSeE0i+BAJ1ltXPR4xputD9LiikWOuUqMscgvc6GoBFXMMa2bMo/9UTp
+	 vIFYI6Ysl+EZvHSfElSwqofa9ONON5/dz2ZYSkD8tvFtj5g2pKfKIIP+n/WbSncx3rtQ6
+	 W4BG+zHNbTgMz6uMLda/+GDcfxRL8Gdd5mO44rXTArUmlbhqI+j3d7eHaR5N8kchu7XQd
+	 0Lu8izaF4arAcO9n4XSrXUCx9tyCGuFXpI2DNKq/+Pgs051Zi2tGwAcvuFgaJL2Cf8Tu5
+	 JX1qCIEPVULPYXdliRtYRkJZUurASgx99VhZsMF1zcz2Jud5+VuLJ1c2YGulGDfEC7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nrG/RqjO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuW42C5y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C144606A323;
-	Sat, 14 Nov 2026 09:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FEF606A330
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 09:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrG/RqjO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810A21F000C6;
-	Sat, 14 Nov 2026 09:22:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuW42C5y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160261F000C4;
+	Sat, 14 Nov 2026 09:43:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648166;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nrG/RqjOyQmTzJYpZalADLBfqXqb2WpNDIuol9x2PUbhMEEzW93rCWEWy9Tz18bMs
-	 dluvdPkteg6mM8d3Iu4xxC8E6Jjej3549TPwBgaiL7KsbJ0nfM1fIRYjVYJBT2xTFX
-	 x5CmB0ABhFoR6KOAYWW31YzGnbpthzcQTEysqwXqFo2NKllYQJGpi+LAEu1QzF3KKs
-	 eXv0KgnX/ruftIwLmpTdwDjCN7QfImzUmZ4QTHdhcrnliWHz7f3FY/BqlAJPV3ORUg
-	 fePOu2zvsOsg4DHYz9lSzMF6LTVna0ycXrcVSuD+uOX7MV2+UclKKVf3EiRbVclRzk
-	 PsKnQAreUSTaw==
-Message-ID: <ceb7b479-080f-4210-a1f2-be3e273779e5@kernel.org>
-Date: Sat, 14 Nov 2026 10:22:36 +0100
+	s=k20260515; t=1794649409;
+	bh=QKoeYA8NjhRcil8/GX8qB5N91N+EQFpzcwu1b5Kz3uA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UuW42C5ySnR+rKEUDxFC6Q3yBXoABTjZoJ6u4bWBCY/YzBZk0MM0Hu3mI7bPvRYmj
+	 FLT3rOqU+DWpc98x/XnNxmV9B9ekD727nwsIT3n0LaxK1L9RxUaKZM+r9C7K7sqit4
+	 w8dbjWZaqPL8qqi9UWhXh/egfTg/A6HdHHXGyOBYI6I1YB3wowr8ixlbpkGamxXWuV
+	 dX63Ej87974PQYC2OFZkjXKTg/J0ADJGNFD7PKL8SwbvYm7bO1PUJ7h5cbT7Mg/TT6
+	 BjgyEceIUcGJ3MAY2KQDijpWhLGckyMjcfUpuc3SCtg+uv3k8aGIXFgOKgdsbhPzcC
+	 muqN+NrpLvpfQ==
+Message-ID: <sashiko-outbox-214332@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] arm64: dts: qcom: monaco-arduino-monza: Add
+ Waveshare 8" DSI touch overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Saini" <vishnu.saini@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261114-monza_waveshare_dtso-v2-1-d35703f59832@oss.qualcomm.com>
+References: <20261114-monza_waveshare_dtso-v2-1-d35703f59832@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 09:43:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,92 +59,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from
- Tegra30 VI node
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Cong Nguyen <congnt264@gmail.com>, Faisal Mukhtar
- <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>,
- Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang
- <alvinhuang0603@gmail.com>, Yury Norov <ynorov@nvidia.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-10-clamor95@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113161819.36847-10-clamor95@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 13/11/2026 17:18, Svyatoslav Ryhel wrote:
-> Tegra30 now has its own specific compatible string for the VI. Remove the
-> Tegra20 fallback, as it may interfere with the correct configuration of
-> the device.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: Makefile: monaco-el2.dtbo applied to non-EL2
+  Waveshare DTB
+--
 
+commit fb42e57888d978dabeca7a2682d11658ae75d3e6
+Author: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem (staging, USB).
-See also: Documentation/devicetree/bindings/submitting-patches.rst
+arm64: dts: qcom: monaco-arduino-monza: Add Waveshare 8" DSI touch overlay
 
-Best regards,
-Krzysztof
+This commit adds a device tree overlay to support the Waveshare 8" DSI
+TOUCH-A display and touchscreen on the Qualcomm Monaco Arduino Monza
+platform via the JMEDIA carrier card.
+
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 8329c06b60a3f..331ae62494e57 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -83,6 +83,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza.dtb
+>  monaco-arduino-monza-el2-dtbs	:=3D monaco-arduino-monza.dtb monaco-el2.d=
+tbo
+> =20
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza-el2.dtb
+> +
+> +monaco-arduino-monza-waveshare-8-dsi-touch-a-dtbs	:=3D monaco-arduino-mo=
+nza.dtb monaco-el2.dtbo monaco-arduino-monza-waveshare-8-dsi-touch-a.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza-waveshare-8-dsi-touch-=
+a.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-arduino-monza-waveshare-8-dsi-touch-=
+a.dtbo
+
+[Severity: High]
+Should monaco-arduino-monza-waveshare-8-dsi-touch-a-dtbs omit
+monaco-el2.dtbo?
+
+monaco-arduino-monza.dtb boots at EL1 under the Gunyah hypervisor by
+default, whereas monaco-el2.dtbo is only for the explicit -el2 target.
+Merging monaco-el2.dtbo into the non-EL2 composite DTB disables
+gpu_zap_shader and iris and attaches EL2-only apps_smmu IOMMU stream
+mappings to remoteproc_adsp, remoteproc_cdsp, and remoteproc_gpdsp:
+
+arch/arm64/boot/dts/qcom/monaco-el2.dtso:
+&gpu_zap_shader {
+	status =3D "disabled";
+};
+
+&iris {
+	status =3D "disabled";
+};
+
+&remoteproc_adsp {
+	iommus =3D <&apps_smmu 0x2000 0x0>;
+};
+
+When booting monaco-arduino-monza-waveshare-8-dsi-touch-a.dtb in the
+default EL1 mode, GPU zap shader loading and Iris video acceleration are
+disabled and the direct IOMMU mappings on the remoteprocs conflict with
+Gunyah PAS management.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-monza_wave=
+share_dtso-v2-1-d35703f59832@oss.qualcomm.com?part=3D1
