@@ -1,67 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681994;
-	b=JXNkw4xBosAoo/x962wFpDpSPyh/3ZJBucx6THGQ3lXIdYz/rVCQ6YQIbfT6LK0siykz
-	 8rxCq5YZRQSxYIlIrYkFksLw2Po14r0S+RSSXs82RDKf8Ima/ep+1Jsq7Tu22YPIxr77+
-	 tpX/YJAyYVJTuDqNjtSjVzdlieVm6uSE6ifFtwEd43uhK4mU5kW4fQ+eybFTc30xjuUa0
-	 lvmDHNzqwc4+FtuusA9xA5FbAudAs12igfxWUFz9blNxTK6wr30igVwhH9yJMEFLK9ZUG
-	 Tk6A+Yd3NadG8xXYT4RBC6PqHSkDybNRSTqCXpQAMdextd/Ck9FAxtSVWcuqBN8VMbg==
+	t=1794682830;
+	b=WdQq+QN62ZQz50e0GLA7SprPEya4ShIY8tq/LFpPSO7qSf9zgKq988c3LZgT7jYRRLHP
+	 6jFWsy28Lej/JIwkWlJV/2KNsXi7ssD/zAyvDP6Iyu3KLOXUmRTaTeArlnWhuawkOndmb
+	 rrsl33Vp/5dOLon/GK673vWyli9hp5TZeAvRONZd/0U7l+l35y48yxmKuo6Yhm4fhkdxe
+	 JwL6NZ7WCUGSZKhEgkI1gOihdGsKxpQDItJOM7d13ORTorpGLCng691wswNi0d1dHh271
+	 ikImBOzqAsQdf4AF7VYN3gbpfFJ5aWV6FfXLSi4bWxi3cXRGI8aSN6q8PyiC6mEI6FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681994;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682830;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ATBXE6mL2rkywyDuVY/BzHx2Pz3wTKC3ekdScyG0NSg=;
-	b=dyYrBuHt2BmP5QCg8ClNqNcj7QF0w0v/sHnh0dkcqLNoNIjbNsV9MnUtrugn07BK/34E
-	 oAGoRE81oWsknj83Vfy9yCN588jQvMIoqXuNaPl2jmeNJLdahCuOgHuVnEYwvEZMTBEC5
-	 KghK5TaC/U5bkW+gmI2AUyviDdqdCsLErSdnI7RG9Y5nwOY6YUE6SbjgkJ/LQOB4apVQz
-	 +EwSF7q0n8a4fleHEZ/KMLW3c5lJcb7MJ1te9q9DzizMuwX8E+GyKnznT+C4FOfJF3KEm
-	 U0FdS4yKRNsetvIqDev5ACChxIMWqUk8GPPPaAw7Z1fYsP38ShTXdKyPj3Jt5YnipvA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ykOliHYisYLBLFi//mbVDidPMVZQXccME0RpNUmjbYw=;
+	b=4OIdeg1NFWgjD13W9996t1foyvMhdP+Eym5eeI3mcpD0AripfaAzoBCOuMR0hW6yIbi5
+	 IK0sfVCKA/ZJdE13eePO/H7rip2/YPJv0OFE0IRad3QwC/YCRHo3XJyGB8lVFNWPFarLK
+	 M/2AxT6/ILbDG4j/jkFexUv0bgJ+z0MiM1i23FtCSojyGLaaftCsy4XqosfkNkl6ImAPW
+	 9DEidL+vu/+iG/x0RSm5nQSDWektzPO6jp7sN2WTO9j3xauWpDFqrOJURl82b0w9d8VJJ
+	 zvcshHIC2A3nv8YYI26jnZm7LVWqOMnjSu2IXx5zUlZPHuTXiPJgleS9aZz+WvwOhIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icl4Hk4f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rfg0/1Pk";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF86606A327;
-	Sat, 14 Nov 2026 18:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30936606A334;
+	Sat, 14 Nov 2026 19:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icl4Hk4f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32B261F000C4;
-	Sat, 14 Nov 2026 18:46:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rfg0/1Pk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001B61F000C5;
+	Sat, 14 Nov 2026 19:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794681994;
-	bh=ATBXE6mL2rkywyDuVY/BzHx2Pz3wTKC3ekdScyG0NSg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=icl4Hk4fFpQ+ghPZ30yRMDdKzukd7AH0T121nHHmHmbIczLLoyLoTl9bbGQybuAx6
-	 AAp2a5gFrXFqvV2mo0vDmq8ql5PqWxCosQVT/Xw+DCoZKbptmhH04wmS2L2BwfoVo0
-	 eAIVqgQm40Saj9AUbXJIvHbEMVpbuG/ainHMWNp1k0ouD6Nf7H7bkOpRC6/8tB1Ixj
-	 mjIL6n329UmEeIOS7Eft1olzLZRAjXLSxTTIV4QoHvjVx6psZBVeP2zJaUcurHiagS
-	 oUtpBsZINXCBb8AiyelVg4B6US2MrebttfPR5yo8GbUV/+J0iITyX4lcHoW/cfr7l+
-	 U3OuvIgSjQNDw==
-Date: Sat, 14 Nov 2026 18:46:22 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux@analog.com, Conor Dooley <conor.dooley@microchip.com>, Marius Cristea
- <marius.cristea@microchip.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261114184622.5d47903f@jic23-hlaptop>
-In-Reply-To: <51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
-References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
-	<20261104021700.14e69abb@jic23-hlaptop>
-	<01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
-	<20261107230925.5e66b234@jic23-hlaptop>
-	<51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794682830;
+	bh=ykOliHYisYLBLFi//mbVDidPMVZQXccME0RpNUmjbYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rfg0/1Pk8suTUhXDA0y90Ui/FXQ4F06sERFWjW4pyC83dFj8izLJwUt7QzrrMFNSD
+	 ql02v31bmtjF8ZR2YRHnahby7K2E6o11BVCT3FxRQB5JRjSO9UPLAsrQmkyAXmxIxF
+	 3CBMYWmhQ8oNeyiaEoEaEgdsShOFnvbCBLpTckOIoErmebq8wvG4f6h5Ey11vHlWRc
+	 NRJD7ylckfHUYWfHmH9DdnC5aUgBSOrwgc1H1JYVNImibEi5ELw3xbDgj+d0BYBj5v
+	 cDIJNe0+wwVKhNrh8gT6BWrLRsSxMKT20yN5fX8fonNWqvshzQl/ifdqQ6nFhte+BJ
+	 OIY+K2eSyrv5Q==
+Date: Sat, 14 Nov 2026 20:00:22 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <avitCbGKfZgrfh3e@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+ <aviOPo6bZ-WGsndf@devuan>
+ <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,43 +73,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Mon, 9 Nov 2026 10:52:22 +0100
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
-
-> On 11/8/26 00:09, Jonathan Cameron wrote:
-> > On Wed, 4 Nov 2026 09:45:02 +0100
-> > Neil Armstrong <neil.armstrong@linaro.org> wrote:  
-> 
-> <snip>
-> 
-> >> But for the other reports:
-> >> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
-> >>
-> >> This is a tough one, today if either we read power or energy, we erase the accumulated
-> >> power+count in the context, the context accumulator is only here to make sure we don't
-> >> loose data from other channels, like if we had a single HW channel.
-> >> This simulates this, if we had a single HW channel, at each UPDATE we would get back
-> >> to 0 in hardware anyway if we did read the power or energy.  
-> > 
-> > 
-> > I'm only half understanding this.  Let me see...
-> > 
-> > I'd expect userspace to see accumulated values since we enabled the channel
-> > rather than since last read.  I think that's the final suggestion from
-> > sashiko.  
-> 
-> Oh this changes quite a lot of things.
-> How do we handle overflow in this case ? we disable the channel and enable again to reset the state ?
-
-Is it possible to accumulate into a sufficiently large type that overflow won't happen in a feasible
-timescale?  Anything else is going to be a but unpredictable for userspace if it
-is expecting an accumulated number.   The other things that accumulate in IIO tend to be
-moderately small so it's never been an issue (things like step counters).
-
-Jonathan
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="35i2uj2e65774ccj"
+Content-Disposition: inline
+In-Reply-To: <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
 
 
+--35i2uj2e65774ccj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <avitCbGKfZgrfh3e@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+ <aviOPo6bZ-WGsndf@devuan>
+ <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
 
+Hi Joe,
+
+> Date: 2026-11-14 10:24:26-0800
+> From: Joe Perches <joe@perches.com>
+>
+> On Sat, 2026-11-14 at 17:59 +0100, Alejandro Colomar wrote:
+> > > A negative of this is that it implies the return should
+> > > always be tested even though it can be known that the
+> > > return is effectively bool.
+> >=20
+> > I'm not sure I follow.  The attribute is about the arguments, not the
+> > return value.  Perhaps I don't understand what you mean by "this".
+>=20
+> 'this' is the return of the strprefix function itself.
+>=20
+> It returns either a const char * or a char * or NULL.
+>=20
+> Because it can return NULL, then the return value
+> could/should be tested.
+
+Yes, it must be tested, when not used as a boolean.
+The usual replacement of
+	s +=3D str_has_prefix(s, prefix);
+would be
+	s =3D strprefix(s, prefix) ?: s;
+
+The boolean use remains trivial:
+
+	-       return strstarts(name, ".init") ||
+	-               strstarts(name, ".ARM.extab.init") ||
+	-               strstarts(name, ".ARM.exidx.init");
+	+       return strprefix(name, ".init") ||
+	+               strprefix(name, ".ARM.extab.init") ||
+	+               strprefix(name, ".ARM.exidx.init");
+and
+	-       if (!str_has_prefix(p, "console=3D") && !strstr(p, " console=3D"))=
+ {
+	+       if (!strprefix(p, "console=3D") && !strstr(p, " console=3D")) {
+
+The non-boolean use would look like this (actual diffs from the patch
+set):
+
+	-       prefix_len =3D str_has_prefix(name, PDSC_FW_COMPONENT_PREFIX);
+	-       if (prefix_len)
+	-               name +=3D prefix_len;
+	+       name =3D strprefix(name, PDSC_FW_COMPONENT_PREFIX) ?: name;
+
+(the old code, actually, didn't need that test, and could have been
+ simply 'name +=3D str_has_prefix(name, PDSC_FW_COMPONENT_PREFIX);')
+
+and
+	-       len =3D str_has_prefix(*str, "brl,");
+	-       if (len) {
+	+       p =3D strprefix(*str, "brl,");
+	+       if (p) {
+			*brl_options =3D "";
+	-               *str +=3D len;
+	+               *str =3D p;
+			return 0;
+		}
+
+and
+		cmp =3D strstrip(option);
+	=20
+	-       len =3D str_has_prefix(cmp, "no");
+	-       if (len)
+	+       p =3D strprefix(cmp, "no");
+	+       if (p) {
+			neg =3D 1;
+	-
+	-       cmp +=3D len;
+	+               cmp =3D p;
+	+       }
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--35i2uj2e65774ccj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4r8UACgkQ64mZXMKQ
+wqlfkg//V7LVhwRC67R3K+HVDesilnNmhBhL9ma7hlpnjFIiV+UwBz+EYDH02pVT
+POFfgIzuRWM09i/+cn/scMVxlUr0slXUWWzJ4BTX2cpaMFVay+zefnbfRJ83+fcL
+0koUgrp24/dDHTF5u1XgaqrXpRmehSHWRCOPkVknoLKtpTh72YeAIFlJPRvgBtYi
++mt+rEsnbPZRarv1i/T/Gf+ymSLkNWFPEDVJ2/thk6aEFUewMMQFLOntut8+eBcl
+ENUHgp3KsnlSvYafsGKCVczTpxFhjWQJidlRGjTPWjdPeWVEbO1BsQvjLJmo+9Tn
+s2FbjVOo/gLX5RgE07ojZA3ZS4oQ2mXjHSW0GxSKdLLoyB0K4++ib3MqbekqcUA2
++ZZK84OudamjbhYAnJFhgeAJ9OIuoKP8bA0yG3977nGMQkaLv3+FEQKrXLVeI/K6
+ehRXT3Gs6s2RSbX7BFZWZpwQ/Fo8duTc4+fum4f0rQqjr59WU57RZlY4xtVg2elE
+8YobEAPhZDlh1Xkj4aL69SR20dx14MUPfMN5XTZki43dUZqup8LGTuPYO6wvnUdd
+X2271H5JQ4NmXvQfjfVWHFaWWG1fqJewD9fKXRjUSanHhUeTR/NLXPJiDN5SY7rK
+upWO1K7/qWdEWjkv3G7M/vKPBAI1VsDKUEj13IJzb9HUYJGtZxU=
+=rAzI
+-----END PGP SIGNATURE-----
+
+--35i2uj2e65774ccj--
