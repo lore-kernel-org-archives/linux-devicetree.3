@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794614516;
-	b=i24EddeFI0509m55/ymif8RYgVKco+9cXSvJcXDzzaIN43aBzCR3/tVkVSqETqgkR4Iz
-	 YhGwgcc+ghCXHii+WtrI3H+R2ztrLTzx4AQxGpEphmyYGvM1O9si0Vv0u01BkmoDy/l8/
-	 rTRHwHxP9JJnwM/+NF/JlHiInLKnCXkddcDIMH+YvWIVbXSSOD8UTpDyN/cORzgE6xpQd
-	 FeKeFmR3EhrbZz9LfmVevV7cbmHGNhA7uE/nNSbM+H/QlclM3Cl6YW4mPlycDNBLouVUj
-	 up+ApJmT6PT0B+8Mwouv3hAvDhaLCmIpuIVgSfhNd9WzVu1C2NArB8eVkm0dsVj8qNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614516;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
-	b=ZRw0qJ6+FTpJ02HqmHOwXIbzJWCNhn+PtuRg/mX5WIHa4vuQyLBNcjSRnCpfdLNB2H4G
-	 dT+Bn4dAGbbLQnjgwJI6o+AlrXYx2yhN1gC+b8rwxqYLGaL29tFxHbcGtmvlVhnPfY60+
-	 fMppxObq3kaZTZJ6T31x31V6oPwWfEAskhsgNVCAD6qTEZGzg2wM4hPxopbXeFCupbJc6
-	 LcpZJ/lJ38OX8Vt7jEtT2k/9AM2eKm+e8l6bbVqgcy7uLBz0JRYlWB9MpqiM4sDtcxnyP
-	 Fy1LoKKRo3Bz1ZuqRVjxq4+8TgVys5d53tnUDO/jJTqT2fl2DnYBmuNsCgUGgOGLl+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794615232;
+	b=U/LRNWZrylQ7SijjdliqhCoUp7qbU4Vfq/KCMoS0j6kV1dOXFBfVXiPpg+UBEbIDiwQT
+	 SLjegnThej4aGojtb6AXhuEvwR4k16OUbqkU8WxtMaJxzSSBV3eKEJh6sTjpWGWv2fIKX
+	 LZggk/ioXGId23e/UxfmpWfX6VTHVpMGuPAgA1Dj5QYS4WGcqbv9hE2VVaw/ftl2/ruJ8
+	 McbM0+kGDx8w1fRENgJBReCA4e9x2FjogcZD7Avx6K9uoGTOoZ6yiPEv1XgwDFlVjqYn/
+	 ogSCz3DBGCQpr2MUfukjk7yXiTZoKoh+FlOb+B/NEbHl2bhDeU7T5hJxrZBtsGaBdjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794615232;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
+	b=kVkuhJ9RP2RBQ8QVvdZbH2iv023SVJaSDBt70n53uIkuksuG1eNtEXHdCuSS/oWXL6l1
+	 bBSqN8bEj2RREM77gmYMgeoWTSbtaarbtrhUStbr6Ft0xERxk/TsXELmvUuUcTxBT9WDx
+	 NPXvVqoQZdZOTad8xrzTSQ/7vWbR+gNL+EdW3NATYbEbqbwI96t+iRPn4B4bGQ2SGIhii
+	 JkGlf/s7jy0dCq+DfSvWQVXIKUfAdN2sVZJ+02a4crApvTWpsKc7e6AbedmBQ6oH6hwXK
+	 HAEP9nX3yeqFsiNVO4V+LcdXyZCiLDGhGUAVfARRb9D34CszZNcnjQ6tmj6SUraaz3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GsNO6W9U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE48606A329;
-	Sat, 14 Nov 2026 00:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2281C606A334;
+	Sat, 14 Nov 2026 00:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211711F000C4;
-	Sat, 14 Nov 2026 00:01:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GsNO6W9U
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794615231;
+	b=byHabmVDx7rx3qAo2JtLnmQIB+E9RGx3avrlkHtT9Zs2JKhYS/BWttpuxD0ybeYCElyh
+	 R5Fqzt32ueZEE3to4KgPOi+BhS5rGDns/MuVCJrqWJ9zMoc365deQiYmUrnUf6/ZK2AYe
+	 RDcMkg74DcnUij4J+1if77qMVdueXkx5dxPmq4jW3w9oRRFlzb0weg2PKLAIQ1ZlGXPbh
+	 5Jg/crFgsU7H6j7dAG2xgOlPXn9jKkwIdkt66xSg28geyvuzYwmwMT+mDdOuYOeq0MFl6
+	 yEk31uIsSZr89JHuxG19betu0SDioUh35zZTNb2zBDZDiywIpGkraKl3qgiedrTxsrg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794615231;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
+	b=HU7ciRT5OtLPjuExmzHw9U0G1OXV9x1/pVarEbL3kUm+LysbfgW0u+HgOZdkCByPdiAU
+	 32tpsFSbgOonvOAN8wdxj7cC5QgI23beuTHdpke93Kz/joaRgPGlV6qDNe7HlbEJqjiTK
+	 cn8ufZurPTBtvJz9gLLk2cvGw7pPkXVjgBHRaHWUtGwu7HXtukc9HHlTtzanwWzIhZTN5
+	 gTMbHjcnk91m5FWbiJOKLIkIvFSGaaXNYZ/Fl0Y6HJywRGhucWB8MqNGRvJvpw3AJ1wCP
+	 d5BNjD3BoljbhX9Piecfn32BxXcnD+dBdKTgIMYP8GIEU22qXi0QPxSKhLaBsA4CS5A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 048DC1F000C5;
+	Sat, 14 Nov 2026 00:13:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794614516;
-	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mke91yiGfT3RLRiwlm56Xuq4Ya8wX+nP7tnk796KpJGSy+ncrTgGKr2udXQv4gJdv
-	 cXhvnbQD4eqPnYYh859sfCZ8+06F6TeAbpLK96f3lTcLO0TH4P9hdfmhgL6g4NrEWn
-	 cDymXnrhxtItOUQbDvTDfA2Opc7vj8C91Tq4OE3aoVNRI+4K6/QV2ZGTkXAGIiB62r
-	 dQp9030CQ/yxNzBhLRVJGpSrv1ebryvlyNyMZo8k4DqtitLg9DBAqQawZbGvAHQvif
-	 IpnE85lTm0d8TKjZ0fm6cxtT/k0pDfLYg8/1aPOX803hbLsy6yvE6kf8eNT0rdwlQf
-	 3FBZykMz/KdRw==
-Date: Sat, 14 Nov 2026 00:01:50 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Akhilesh Patil <akhilesh.patil@linux.dev>, andy@kernel.org,
- krzk+dt@kernel.org, dlechner@baylibre.com, robh@kernel.org,
- crofts@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
- akhilesh@ee.iitb.ac.in
-Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <20261114000150.10237279@jic23-hlaptop>
-In-Reply-To: <202611130735579e063959@mail.local>
-References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
-	<20261113011957.5d8836ff@jic23-hlaptop>
-	<202611130735579e063959@mail.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794615231;
+	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=GsNO6W9UCL0xMthTVg8wBbf9nSBusLt1+3sl78ODODtPxerzIcHaSTdHDQuWANzxF
+	 Y/N5K2GQnjp5NTg9DRG9fjI176zHmU9WcNvtwFFp9ZV5tzAd304tGKMVgSYESsaUyn
+	 EgeLUDYrvRCAxlHrIgDl/pBxbwbEXwaEeG+M9hTloVNB9AOB5Y2cGdp9eJgKz2HoSh
+	 onjvuCfZEMDdV+Vd0VhzGh+Ef2XnMNRKzF09dh28k7RcSktgpYQi1lF4wI1i8WdCn3
+	 x3kvbk+bjIpewqAw6x3GNk93jIurLc7bKsASLqjoOS3MIiEd6jAgyX3Z0VxDw417V8
+	 d14CepCWkM+sg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 72E7D49BA6;
+	Sat, 14 Nov 2026 00:13:50 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 00:13:50 +0000
+Subject: [PATCH 1/3] media: dt-bindings: Add Rockchip IEP2 deinterlacer
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,140 +82,171 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-iep2-v1-1-a8edde5a21e1@gmail.com>
+References: <20261114-iep2-v1-0-a8edde5a21e1@gmail.com>
+In-Reply-To: <20261114-iep2-v1-0-a8edde5a21e1@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Alex Bee <knaerzche@gmail.com>, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794615229; l=3973;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=ChHZwNhLk4WNiGW3BpdABPaZ57+oP++kU/hOOD04E7I=;
+ b=uS4zfwgTX+5ZBvlB6DoFO8TpVG+Ewot7VmL7qXlTShSwggTjUBmz6Sjdtx3T/b/g8AM/3fyXW
+ OodGGE+F1E2BjfrznJDqt+oCdEOPnuvAemYgFKzSd7cWsIejY9oKhrY
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On Fri, 13 Nov 2026 08:35:57 +0100
-Alexandre Belloni <alexandre.belloni@bootlin.com> wrote:
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-> Hi,
-> 
-> 
-> On 13/11/2026 01:19:57+0000, Jonathan Cameron wrote:
-> > On Thu, 12 Nov 2026 09:16:41 +0000
-> > Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
-> >   
-> > > Move to my new linux.dev email address akhilesh.patil@linux.dev
-> > > I plan to use this email for kernel development going forward.
-> > > Also update email address in few yaml and driver source files.
-> > > 
-> > > Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>  
-> > 
-> > I can pick this one up with an rtc ack, or it can go through that
-> > tree. I don't mind which.
-> >   
-> 
-> It makes more sense that you take it.
-> 
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Applied to the testing branch of iio.git (not because this needs
-much testing obviously - but other stuff I've queued up does!)
+Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
+It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
+hence "iep2". The RK3588 block falls back to the RK3568 compatible:
+the vendor kernel drives both with one compatible ("rockchip,iep-v2")
+and one driver.
 
-Jonathan
+Clock and reset names follow the RGA binding. The resets are optional:
+the block has its own soft reset.
 
-> 
-> > Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> > > ---
-> > > 
-> > > Changes in v4: 
-> > > - No source change.
-> > > - Added entire change log for all versions.
-> > > - Link to v3: 
-> > > https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
-> > > 
-> > > Changes in v3: 
-> > > - Fixed order of entry in .mailmap
-> > > - Link to v2: 
-> > > https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
-> > > 
-> > > Changes in v2:
-> > > - Updated email ID in relevant device tree source files and driver source files.
-> > > - Link to v1: 
-> > > https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
-> > > 
-> > >  .mailmap                                                      | 1 +
-> > >  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
-> > >  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
-> > >  MAINTAINERS                                                   | 2 +-
-> > >  drivers/iio/pressure/adp810.c                                 | 4 ++--
-> > >  5 files changed, 6 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/.mailmap b/.mailmap
-> > > index 7fb33babc931..d09fd3708023 100644
-> > > --- a/.mailmap
-> > > +++ b/.mailmap
-> > > @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
-> > >  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
-> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
-> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
-> > > +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
-> > >  Alan Cox <alan@lxorguk.ukuu.org.uk>
-> > >  Alan Cox <root@hraefn.swansea.linux.org.uk>
-> > >  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
-> > > diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > index ad5f26ce5043..ca4d4210f609 100644
-> > > --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >  title: aosong adp810 differential pressure sensor
-> > >  
-> > >  maintainers:
-> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  
-> > >  description:
-> > >    ADP810 is differential pressure and temperature sensor. It has I2C bus
-> > > diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > index bdd995c5c1f4..837679dc01ac 100644
-> > > --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >  title: ST M41T93 RTC and compatible
-> > >  
-> > >  maintainers:
-> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  
-> > >  description:
-> > >    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 222b7fc2c3aa..3aa8fa3c068f 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
-> > >  F:	drivers/iio/chemical/ags02ma.c
-> > >  
-> > >  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> > > -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  L:	linux-iio@vger.kernel.org
-> > >  S:	Maintained
-> > >  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
-> > > index 82aa433548d2..832df6ba0ee3 100644
-> > > --- a/drivers/iio/pressure/adp810.c
-> > > +++ b/drivers/iio/pressure/adp810.c
-> > > @@ -1,6 +1,6 @@
-> > >  // SPDX-License-Identifier: GPL-2.0-only
-> > >  /*
-> > > - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >   *
-> > >   * Driver for adp810 pressure and temperature sensor
-> > >   * Datasheet:
-> > > @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
-> > >  };
-> > >  module_i2c_driver(adp810_driver);
-> > >  
-> > > -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
-> > > +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
-> > >  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
-> > >  MODULE_LICENSE("GPL");  
-> >   
-> 
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++
+ 2 files changed, 102 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+new file mode 100644
+index 000000000000..0c7666de19f8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/rockchip,rk3568-iep2.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip IEP2 image enhancement processor
++
++maintainers:
++  - Arun Iyengar <aiyengar1990@gmail.com>
++
++description:
++  Memory to memory video deinterlacer of the Rockchip RK3568 and RK3588
++  SoCs. It has its own IOMMU, with which it shares its interrupt line.
++
++properties:
++  compatible:
++    oneOf:
++      - const: rockchip,rk3568-iep2
++      - items:
++          - const: rockchip,rk3588-iep2
++          - const: rockchip,rk3568-iep2
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AXI bus clock
++      - description: AHB bus clock
++      - description: Core clock
++
++  clock-names:
++    items:
++      - const: aclk
++      - const: hclk
++      - const: sclk
++
++  resets:
++    items:
++      - description: AXI reset
++      - description: AHB reset
++      - description: Core reset
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++      - const: core
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - power-domains
++  - iommus
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/rk3588-power.h>
++    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
++
++    bus {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      deinterlace@fdbb0000 {
++        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
++        reg = <0x0 0xfdbb0000 0x0 0x500>;
++        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
++                 <&cru CLK_IEP2P0_CORE>;
++        clock-names = "aclk", "hclk", "sclk";
++        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
++                 <&cru SRST_IEP2P0_CORE>;
++        reset-names = "axi", "ahb", "core";
++        power-domains = <&power RK3588_PD_VDPU>;
++        iommus = <&iep_mmu>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f4456f4589a1..b32b7eeb0a9e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24285,6 +24285,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ F:	sound/soc/rockchip/rockchip_i2s_tdm.*
+ 
++ROCKCHIP IEP2 DEINTERLACER DRIVER
++M:	Arun Iyengar <aiyengar1990@gmail.com>
++L:	linux-media@vger.kernel.org
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
++
+ ROCKCHIP ISP V1 DRIVER
+ M:	Dafna Hirschfeld <dafna@fastmail.com>
+ M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+-- 
+2.55.0
+
 
