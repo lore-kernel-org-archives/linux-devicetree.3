@@ -1,72 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616898;
-	b=ak/KWDtW16dC8gvuTpnTsm3Y1v9vMtooy/iinfZTy886YVrTAUdEz4GF85UN18jetG/a
-	 ocrb4O+BfDdT1F3MPjVXdXOhe+A8k+GkS34HrgNdRXdnDh4UtgqrpC3QqqWcrAyTnRtUV
-	 DH6w6dfUHcrCpfmWzSM3gEVZ4KoHuRv/bqyMXpsunes5DSO7xOkF5J24GUzKSwf8j4WAb
-	 ntwr4AqLNLlxAFUaZ0L0B3+M17cecsL8M0OByhopTAelA+YKT6JyCwUEw9lMEkUFvyThL
-	 Gm3ZkUo6h8SscIiZcCwaLd/xI6tIYYGYGLbOeV3oX5c3zlCYkNc9bGndXf72WJDVdug==
+	t=1794617406;
+	b=HJ/aj6+Rk6ZTjNXfvMkc6/7kZfnAVDcB0Ld6oYRsIWvQuJhs2ZlKskt9Dv64P/yIuKHl
+	 EtgjLPwAqkLmGNXmn8PHUMCS5UNHkTjN38Jt6PjZcJKiSFfyvZd7/cGf1JxxpX4Q17yZy
+	 0f/7nnvpljI3R9RaYReNpw/Dho+brd/5E8DNkipvsLD1Lr1fphynW1WsiWRM8Mw3W4ecC
+	 JhZwOj6HbTFu4km3cmSSjWVXGRYyuqfAAvmihS5/7U/VUcF+oVeqgzoIy2FZ8HHjTjO7z
+	 zlJ9l5iXA/t189FhVGzvZr/R5pI7qtA/WuhS4w3e9VUUfOh4jmBtqcMMsXBMWdqz11A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616898;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GdIXmv+X3wjcWU15UyUJ03l3PeprFXiEbY09WCu6xJM=;
-	b=ZBSmOxaj2KDtcfNoidZl5FeK9DKOPvMHjgxtEye3kLupBY1ELQG56CFYmp2jckPfLlEY
-	 E5o+GujWV+ulxqC8LN/deow4QbJtc52CCZ4SpPinCW/r2JPN6kVyTG+XeJ4Euh+Q1XgHS
-	 0yTt/75hTgrdg9LDDkeJMZItDTMqMQoPmoa3z9SgOXzKeIvVafuoYSJdY6Ej3ckAZqmRD
-	 nVRMoRfhFumvYEBdAYXXdvtMZi1k+3vRt0ouJiI3Hqx0XFiz5iDwJXEb2i1fAmhWkd9Np
-	 eoGhrVOJ6pWa+kDUN/j4KRq5IBk5Irp0WQZOTDW99PbntJYslIXPucQVj4TIfB6gFgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617406;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=886ZKv8oxKzplQMbNQYTLWafnECEfQfG2glOVPBt3mo=;
+	b=tMiDrSFoAi6b0vFdBzD8jwdBmSW+9BXewb9noq5MTx1cResKo+POL+o22GiIqgfmZtaD
+	 rnpuUMERYy1cS82X/KSSpmx8FTJ7WWvtf39e6iPX9NLHR+UiUOo6dONBqneOSEPxoM2Hf
+	 GiBG1gLW1DbYEojDkhJ3r6+EbTDapVSRPMHMlE+gTIBYuo8nMN/CI/ctnbaAs6sjHz9bI
+	 gmuM72a4uP4XTLcQnJAz7ZuM7gu4/ATGMCvUNUxUgxqfYGh9YjKiSggBmAphDK1dlu4py
+	 bCrUxZyhwPEh3BbmJkzBMQ8AhpeaLYYP+dVgqJSeRugsGSvoszQXrUbuig7R2nNPnlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dsg.is;
-	spf=pass smtp.mailfrom=dsg.is;
-	dkim=pass header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b="Rg/5cybm";
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQv9rpom;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDE8606A8A7;
-	Sat, 14 Nov 2026 00:41:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CDE8606A8A7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dsg.is
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dsg.is
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B72606A323;
+	Sat, 14 Nov 2026 00:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=Rg/5cybm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dsg.is;
-	s=protonmail2; t=1794616894; x=1794876094;
-	bh=GdIXmv+X3wjcWU15UyUJ03l3PeprFXiEbY09WCu6xJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Rg/5cybm7kZjoyO+4L4Of52FHggrHLXP8ae1GOOZtGsnbHphy21pTK1K5qdpZ7szA
-	 x5HAmt2UYVIGzb1pxNoSugxsP0wELKdF/AV6/qHPTE3s/2M/FGobS9QHqLbnJACYu5
-	 b1n89Y+BBHaD5tYEiKo4DLZcrL7DliEdpDdMhbuIxB5N7k3N6iml/vYd8YkkAsx1NB
-	 gWrF3vd6ReKJoMPV6+Jk0EvnKeIyN33QNbi+6seQXlUbrf1juPawBY4wgEgQkoecqq
-	 zrRLaZcLBbnRvgylMb9BrAXm2Ojd60gEntsoxSSRqP2mH4vKMDCy2eU2p5y6hxXauo
-	 kLr9on0lt4JLA==
-X-Pm-Submission-Id: 4jRFgH4nfsz2ScQ6
-From: =?UTF-8?q?Dav=C3=AD=C3=B0=20Steinn=20Geirsson?= <david@dsg.is>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	linux-hwmon@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Dav=C3=AD=C3=B0=20Steinn=20Geirsson?= <david@dsg.is>
-Subject: [PATCH 3/4] hwmon: (adt7475) Add thermal zone sensor support
-Date: Sat, 14 Nov 2026 00:41:09 +0000
-Message-ID: <20261114004110.328050-4-david@dsg.is>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114004110.328050-1-david@dsg.is>
-References: <20261114004110.328050-1-david@dsg.is>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQv9rpom
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794CD1F000C4;
+	Sat, 14 Nov 2026 00:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794617405;
+	bh=886ZKv8oxKzplQMbNQYTLWafnECEfQfG2glOVPBt3mo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bQv9rpomp1BivT4TZ2O1pHoxYrouaHT5Wi1Ve9W1DZAFH7KdSrfTvRREbxrXNIVTD
+	 pUusJJg3s0kjZqOvX4uqgaDCRgzIaeoxPTLxgHmsKrloHeaAkeCM1wdAMt94MdPTes
+	 0nl8uNxgZDkjRwmonHJETT2fltwZHxeMmtqIq4ofC9uZj4xX5ALTVT4G9+re0wbahc
+	 LQ9t9OcUa89cjrTHzHWglNiLPKtjTWRpFmxvnVyZlo4pf33YcEO78DnvfX8If7GMpU
+	 FXoEos3qHVx8aPhWM2/JlCf8hp29bZpzS7p5KlG/iiasK5enz4TqGpdSXBq3BvBK3v
+	 B1LohhB1dFWFg==
+Date: Sat, 14 Nov 2026 00:49:55 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Antoniu Miclaus <antoniu.miclaus@analog.com>, Robert
+ Budai <robert.budai@analog.com>, Ramona Gradinariu
+ <ramona.gradinariu@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v6 0/8] iio: imu: Add support for the ADI ADIS16607
+Message-ID: <20261114004955.71c7ed7f@jic23-hlaptop>
+In-Reply-To: <20261114002522.34f8aeff@jic23-hlaptop>
+References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
+	<20261114002522.34f8aeff@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,94 +68,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Register the temperature channels as thermal zone sensors. Sensor id N
-is temperature channel N, i.e. temp(N+1). Document this in adt7475.rst.
+On Sat, 14 Nov 2026 00:25:22 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-The hwmon core reads a sensor's temperature while registering the
-thermal zone, from within hwmon_device_register_with_info(). Read the
-chip limits before registering, so that the temperature encoding
-(CONFIG5 two's complement bit) is known for that first read.
+> On Fri, 13 Nov 2026 14:33:30 +0200
+> Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+> 
+> > This series adds support for the Analog Devices ADIS16607, a precision
+> > MEMS IMU with triaxial gyroscope, triaxial accelerometer, and
+> > temperature sensor, communicating over a non-standard SPI Half-Duplex
+> > protocol.  
+> 
+> Applied 1-5 to the testing branch of iio.git.
+> 
+> I 'think' the proposed changes for the fifo handling shouldn't affect
+> those and I don't fancy reviewing a mega series with library changes
+> and the new device support.  So build on the base of these first 5 patches.
+> 
+> You will need to provide a base commit for dependency list though
+> or sashiko may get confused.
+> 
+Change of plan. Dropped it over channel type issues in patch 5.
 
-With CONFIG_THERMAL_OF, devices that have a devicetree node, or sit
-below one (the hwmon core uses the nearest ancestor's node), see two
-changes:
-- Each temperature channel that no thermal zone uses logs
-  "tempN_input not attached to any thermal zone" once at probe.
-- When a thermal zone uses a channel, the hwmon core sets that
-  channel's min and max limit registers to the zone's current trip
-  window, as it does for other drivers registering thermal sensors.
-
-Signed-off-by: Davíð Steinn Geirsson <david@dsg.is>
----
-This patch was written with Claude Code, using the models Claude
-Opus 5.5 and Claude Fable 5.2. They wrote the code and the initial
-commit message draft, which I cleaned up. I directed the design,
-reviewed the result, compared against the datasheet as far as I
-could, and ran tests including on actual hardware.
-
- Documentation/hwmon/adt7475.rst |  3 +++
- drivers/hwmon/adt7475.c         | 17 ++++++++++++-----
- 2 files changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/hwmon/adt7475.rst b/Documentation/hwmon/adt7475.rst
-index f90f769d82d6..b5976e3ff3d4 100644
---- a/Documentation/hwmon/adt7475.rst
-+++ b/Documentation/hwmon/adt7475.rst
-@@ -118,6 +118,9 @@ with a resolution of 0.25 degree Celsius. Temperature readings can be
- configured either for two's complement format or "Offset 64" format,
- wherein 64 is subtracted from the raw value to get the temperature value.
- 
-+With ``#thermal-sensor-cells = <1>`` in the device node, thermal sensor id N
-+is temperature channel N, reported as temp(N+1).
-+
- The datasheet is very detailed and describes a procedure for determining
- an optimal configuration for the automatic PWM control.
- 
-diff --git a/drivers/hwmon/adt7475.c b/drivers/hwmon/adt7475.c
-index d5bdb8011e6d..73c19c10bb34 100644
---- a/drivers/hwmon/adt7475.c
-+++ b/drivers/hwmon/adt7475.c
-@@ -1243,6 +1243,9 @@ static const struct hwmon_ops adt7475_hwmon_ops = {
- 				 HWMON_PWM_FREQ | HWMON_PWM_AUTO_CHANNELS_TEMP)
- 
- static const struct hwmon_channel_info * const adt7475_info[] = {
-+	/* The hwmon core only looks for HWMON_C_REGISTER_TZ in info[0] */
-+	HWMON_CHANNEL_INFO(chip,
-+			   HWMON_C_REGISTER_TZ),
- 	HWMON_CHANNEL_INFO(in,
- 			   ADT7475_IN_CONFIG,	/* in0: +2.5V */
- 			   ADT7475_IN_CONFIG,	/* in1: Vccp */
-@@ -1928,6 +1931,15 @@ static int adt7475_probe(struct i2c_client *client)
- 		break;
- 	}
- 
-+	/*
-+	 * Read the limits and settings once, before registering: the hwmon
-+	 * core reads the thermal sensors while registering, and that needs
-+	 * the temperature encoding from CONFIG5.
-+	 */
-+	ret = adt7475_update_limits(client);
-+	if (ret)
-+		return ret;
-+
- 	data->groups[group_num++] = &adt7475_attr_group;
- 
- 	/* Features that can be disabled individually */
-@@ -1966,11 +1978,6 @@ static int adt7475_probe(struct i2c_client *client)
- 			 (data->bypass_attn & (1 << 3)) ? " in3" : "",
- 			 (data->bypass_attn & (1 << 4)) ? " in4" : "");
- 
--	/* Limits and settings, should never change update more than once */
--	ret = adt7475_update_limits(client);
--	if (ret)
--		return ret;
--
- 	return 0;
- }
- 
--- 
-2.56.0
+> Thanks,
+> 
+> Jonathan
+> 
 
