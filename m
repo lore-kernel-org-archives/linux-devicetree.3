@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.38
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794681011;
-	b=j07lePvxMKCPB3fhb0c5j6TsjTximEo07aPXEDbSzFV2XbxslO13unwoCdBipm0ffRH/
-	 O4/TMk/AkLTR5AYYsF4fESQnE9B1jNl/Ge/w2/vNOqRlUEHvTstiCiPwShqJIUMtJ0bXT
-	 qoVR8Qk4/gXgaY06ChNCs09r9PFb8nkzhcwpmAHhya4lR+UCsnjT/5aK8JbUr2muIZFBu
-	 BQA3HPDvYMuIVFn5kfuK5PJGo/kfUZ2dHaMff83rH8iOXR6F4bEkKvqyuJQC6MQRT/p2+
-	 jdN3SUZhw4lJ4KLveHBN8wSQB+egLRM0B7TQTEFK5IArj20Nu1d65pssN5FFxjqRaIg==
+	t=1794681019;
+	b=ELAU/9In+9DSjFkMsqEtxJPRQzc3lfXN2CarKYBHbb0gb8XSdqB8XUZ8CCsRPwvE2bsZ
+	 Ct/tjQymMpVAUi6TAu72x0rBIm4gFdgMAbw+5A8szd8AcdczwOd3/BT8GkEha2+1yALnN
+	 hYYv/7ypbi8UV5jFsYibZF1nowAVALO1CU9mVschig3lqs/Kg52iqh/l3Ac/1uagyYyuZ
+	 oDXS9M+l1/oSM9Y2zXlfNF6bxOkzTB5XwSRGC9Lyx7bjgWKt013usRTWiUzD23d0qmqvL
+	 B4El/0gd4HQ4jEY9Pers2TYGQ0kJKmzSGRE3CkjkOaFTPaghjJZpLoJHnP6UBqPqw8Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681019;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nYDYoF3gGW5p7HLPxBjiU8e9F6de3Kcrrviy0toSoXI=;
-	b=g2GxU2300eibOSBwFbM6w6amu7qUhUB7WIKkmLtyFHhG/xjbK2gfJMMJRJGV5W4+JBoI
-	 mFVQeM++uyEH+yEa9geB6JzIYXYiUOu/XPLrvPzzw6c6MeZGaD0fIUpxJP9zlJqxMYB0m
-	 JEaljx34GKsTDVb7CArxqMFnyPriEdgFSSaxNyMTMMMWsdqRKsDHyIEmG8omgNxFNfnGA
-	 zNy4ta5OXY8Vc+zA+pVTS011wOYRsiu5nSU90V8TI9lEkeqeg68XrQVo8V/ZB+6ihU8eZ
-	 EQas9bCE81wOj+OMCy5mswxdmOMtFvzOaNvQyLSfwkrWiLBiefGcaV7TwHvUHk2v3tQ==
+	bh=ilRL7cK2LBDopcFZAPiZRvg+gkOiER3QXsBGOMEZnl0=;
+	b=K/1eUw42IB74zQ7/dptbiscibkthfQFP3Y3nIXw7poIj86zXoRvOqq5eXVd74zax3Mf7
+	 vIPzoI3MEXet03sVwFjH+FevWB6dHluGYe83jNf+sMu36SmBjmaNhzzWjO2M9sfnMrYjV
+	 ovCYpV9xw9pWR8Lo7DDOeVY0Hh1N0wEwuwa9qBAzpSG2p1FNbFOCLWeoCLFItkp6qYFzQ
+	 ocAG8VrmL5PbSpRF/PDeWw2ajB47LrdEi8/7tgJfp3tPEh2PKZH6FpPYvwAoE75QFF15r
+	 pvwMmwGpiSdvMEcORBFw7bi+2zghuJexndu/HbWLO9//d2PXkV/vuPiBXwgO7wrq/Mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CRSxQBZc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.38
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010038.outbound.protection.outlook.com [52.101.56.38])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="V/rasCM1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.53
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010053.outbound.protection.outlook.com [52.101.85.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15894606A332;
-	Sat, 14 Nov 2026 18:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15894606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD616606A334;
+	Sat, 14 Nov 2026 18:30:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD616606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CRSxQBZc
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=V/rasCM1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZdxX6un/Di7Wakd4pmfwRB8Ums6V/GcieETjy9qrA9CrdUv2KXjI4Ciq7ozCgxpBqutdWFUnagYGUjhsm/1R+gtf/IjvX1oxHkhN1S1BvdcfE8KtWbKyt/dHhxHexlFV93FWxwQf9NTE0RerPkguOh0DUMMz+i4+kN0SLHs46eBtvxWxNGE4+bHFoIDgoqmEQwVC39VGph90sJQNwe+rXJd3qnnZvLMnmlMrGdluY8IGZp74fwSBXYS4A121/SyYIHr3IKFLttdysxe7daB1UCiMjZpqVPYGXu7eyPAZ/xuDBGiuZ8jvZGZLDz87+rKUHf5nCV1q3afoArU7ZYXm7A==
+ b=h9BX5Mm5ytge/pGsDBdLh9UKBaUixoa8GObiCUqswAnQvGN03VeQEkZKdrt30WSV4es0fq1pvh1P5QUJeigqs2IcAbWoHvQ/4qxQmpTtHRq1uHW2Fyykcii+/7nYy1B2jtcxmWqkp2fuooIN+9zsI0cdvjXUeORU24EFwaMkQxp6Byit6HDcjDdQUeqv1lYJVkAYMTyCmyhoGevLDlViYiDIdR4AxEYIiwycMAaiUuDvuU4QEq4aTaea00kB7tiSOAcw9X1UkCP49MFca0Z0VR3sApC8WHXE80xKAaDVFKwLU62m/WZH69S23z6a8QHOaAWi6hu3U+NyCaAxGB6alg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nYDYoF3gGW5p7HLPxBjiU8e9F6de3Kcrrviy0toSoXI=;
- b=J6iWmgxrMZLRZXLPBKHrlGmgjRuGuZwXx5VsREWpFuBem0VJq7+iDRgdIrhy3TyiWJb5N3UQSa2SDFyUT0BL/baLeQaJzFe75jySZ3DG7PueRbj1F4WHI09bWXcvQF1ITZ58KhsGXWUY3FvHAbZ4f7pSzy0lFS0HpLqLVdoIKYLck4sqJ7dsomOedHLy4W8oyfXcih8RAp5eUwtDdCSFg33vg8JQwmE8LGPpy543Qwid6KE2R8Bf7qlavz/U0AoIJ/NBor+ySZtr2c1NuaNfPjk5jRDW9NYc8wMR5ZcivZFX3JSc7aRo0P3fbXbDR1exm+//cUhslcvd9iDBZ1go2w==
+ bh=ilRL7cK2LBDopcFZAPiZRvg+gkOiER3QXsBGOMEZnl0=;
+ b=mIZhtzJqA4uGVSzYUvXa3M9Nq98KMa7RnCzOk0GjG7H9YHvFuphoiKsrq1BXkumbH0Q6+E+Qaaa1vo3zd63qNxDiblt6ahplKgU/abXbXiIm583ykCmM9WVYzdm5CD02DoLLgHQPzKTQAOSu677UsP5LYrMHJfBGkLv958q8gZNjqufRk0eERoHK13f8hRrBl7KxDl3cm7frpP7MVcI+OXj6bq2Py3o5MGYmIaHYrwIAH/0NeU9NQCRwTbi/ON7eK5ujJSioutdX/ZpAd4hvwYyPaJutcm6WOTDJ8vET+IIUwQd6TzE48qqFBGSbFHkCz2CCSVFxrgSAXZ6nXC4FZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nYDYoF3gGW5p7HLPxBjiU8e9F6de3Kcrrviy0toSoXI=;
- b=CRSxQBZchgh6pbCP5vU/qpcRa0Vyx+bS4W3ekzVKL8o3rrBsmAIsQGdg+GyYUjJYwapfZuYa43Ya0sVxZD25E+NzGnynG6WBDNBc2XaytMXuFe/bEowE0X5eI0vaPrSGEIbM61Haoftrij8nNAsgdC9HG8SSaz9nu4CwWLBSbn8=
-Received: from BN9PR03CA0214.namprd03.prod.outlook.com (2603:10b6:408:f8::9)
- by BL1PR12MB5875.namprd12.prod.outlook.com (2603:10b6:208:397::7) with
+ bh=ilRL7cK2LBDopcFZAPiZRvg+gkOiER3QXsBGOMEZnl0=;
+ b=V/rasCM1mUpii3EMtzm6J8R7F1iCU9lphT1CaQ9ZJrNUSEJ929FhMukwDFOeptyAUs0o1kVnYcqWcKJKg6SBn0jB4ucStldfTDC1/NgqTn4iZGOYC/9hkXn2tWUZBn4yiHkc610idKNf9rFDa9Fb6RSc8OvyVoJ8tAQ4nEtsE2E=
+Received: from BN9PR03CA0239.namprd03.prod.outlook.com (2603:10b6:408:f8::34)
+ by SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sat, 14 Nov
- 2026 18:30:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Sat, 14 Nov
+ 2026 18:30:14 +0000
 Received: from BN7PEPF00000092.namprd03.prod.outlook.com
- (2603:10b6:408:f8:cafe::59) by BN9PR03CA0214.outlook.office365.com
- (2603:10b6:408:f8::9) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:f8:cafe::6e) by BN9PR03CA0239.outlook.office365.com
+ (2603:10b6:408:f8::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Sat, 14
- Nov 2026 18:30:06 +0000
+ Nov 2026 18:30:14 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,14 +82,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF00000092.mail.protection.outlook.com (10.167.245.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sat, 14 Nov 2026 18:30:06 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.21.615.4 via Frontend Transport; Sat, 14 Nov 2026 18:30:13 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 14 Nov
- 2026 12:30:06 -0600
+ 2026 12:30:11 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 14 Nov
+ 2026 12:30:10 -0600
 Received: from xhdsuragupt40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sat, 14 Nov 2026 12:30:02 -0600
+ Transport; Sat, 14 Nov 2026 12:30:06 -0600
 From: Suraj Gupta <suraj.gupta2@amd.com>
 To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, Andrew Lunn
 	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, "Eric
@@ -99,9 +103,9 @@ To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, Andrew Lunn
 CC: Michal Simek <michal.simek@amd.com>, Russell King <linux@armlinux.org.uk>,
 	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH net-next v5 2/6] dt-bindings: net: xlnx,xxv-ethernet: Add Xilinx XXV 10G/25G Ethernet
-Date: Sat, 14 Nov 2026 23:59:43 +0530
-Message-ID: <20261114182947.2908628-3-suraj.gupta2@amd.com>
+Subject: [PATCH net-next v5 3/6] net: xilinx: axienet: Propagate device reset failure from ndo_open
+Date: Sat, 14 Nov 2026 23:59:44 +0530
+Message-ID: <20261114182947.2908628-4-suraj.gupta2@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261114182947.2908628-1-suraj.gupta2@amd.com>
 References: <20261114182947.2908628-1-suraj.gupta2@amd.com>
@@ -118,232 +122,177 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000092:EE_|BL1PR12MB5875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5321a706-db22-4217-2b89-08df427d4eb0
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000092:EE_|SA1PR12MB6798:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4512d1f-20d6-4286-f33b-08df427d52f9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|23010399003|82310400026|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261009223027099003|18002099003|22082099003|13003099007|3023799007;
+	BCL:0;ARA:13230040|7416014|82310400026|36860700016|1800799024|23010399003|376014|11063799006|56012099006|18002099003|22082099003|261009223027099003|10067099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261028144727099003|261026121527099003;
 X-Microsoft-Antispam-Message-Info:
-	C0ey7IC9S92pftQ69zdS8zuBxJiy2y9mB6I2NEmd/o2OZhDcpH3lCwJ/PXIGIMO/TZJgBa+PMEqb7dXnAx9WGUwOe/SIptw6WBYlwV/ynuG2Y35tI28ZXKtr78rg+h/T6SaqH+9fI7CiqSOIFj0b+nVh7XqE/Hay4cdYd7PKC+bOSFsAytRyICBWkAdlJk8+Ky/jpwmAU8nIB3aP9pUwHt+SIMKWFx/Rpn2UkQ4WC5lmKwF0PB6P6SWZrh4oBn5ujZY9CTA3Of3+FV5TCtfRf/0ek8zGslF09LF6meSO8k1/QTbevF2XyFdPiq3y+Ku4lbWk2yHnE0fYSE4SA/msBWToZWbOVFxg5vwbsCm0/PWubm2sEzxUm0R0OrD2D/S6p+Xdljb2tn0jUWS4JN6qFKeuZY45RCmJ2XGY7NSavusX17+dTTlF2i/IG9Q0IWRDv+/+3rZ2MsUuTTyjG9VpxLQi78jGP2yAWu2IjukuOP6sa61SUHKN6fbzJg5VuldZWlchSWphqCxbtSuWgZ2C6Qe2KlS+XkBdjpaUJIxCy/qUKEJMq80xCy6Kf3bsxnEnyKkdNv+I6j+M8+AhJhKlG+eJGA7YPo2MS11Ehbb8EsUciP4/qw4E/WP8kupyNTbDdAdpkrbYbqRa8mtXar1ovg==
+	UIpsePTO/ZhD1nV848s4o53I28pL8R6nQfn/d35e2oKAwcROKTueLFz3RMMFwGh83yRHkOP9dWg/Zw3vZZAMC00bwxERQV0JiA4svDl07IID58qUKNIysCsePw0se67kyvfHj/Ei+jtuy6iHq+5qitF2XMgrB1dDKC+WAv99aCXMjiEzB+iJqu+9GXBSYQeAYG7QiIohXYG4kD6j7RZdnPkMvJs81cCfYB6R6TR7YNy8HdKLDJOOu/LpMKiz8NhUwTS/0/ECNgY7LQ/KCuCLmp0VAiEQJ1wX4bStDMDwVfvsRC1p2/2ALXTfJs0H4m44CsMENErf/L5Nwlvek88pdYMmZSMumhytbvhDjsgnmufI3q/Kiy29rtA7+zcujF+6m8bcuYSwWBiSMAUUE2CjauInLyTEu2QtKBGFWg5TsT5t7FB4t+6mFGZvwvrLuQ4ZnfDdGtNfGcMthNFszw81AZhXstMBCrjjAaCoyrzt7fFEGPVVJHyqfZvPIFL7saRxyDT+CBNqax4CIvjXNBLPHZTNE72t1QiTxC8KbZ8+29n1y03JUyKUTqQZrB5CrdU4l6SvGeZdLXjw37u4iHIf+nW2+KWX/O3FvEUWc4aMHpVvv7NF+lhCRs63PAfoaoFUmk7qb7vC6sAllYQarLOZNJUom5exvpi/t9DtK7/POFLEBRt8aV/hgGYNvxya41h0+MSk+L7vnruzf2jdItWinA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261028144727099003)(261026121527099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	xsUpcrx723oIVl2KTNujGNerFECsMBoeTxo1y5WX4Va1dfNp8GjSUK0mwrOVDp7aeW2GXxIWD5zMBTEVXJaBCFKKb6S1d1z8lDcH985wV6tmfs0gpqYf/k1n9BeTtRP2EWrDI49iaIl9EmwJi0Cl+kHypwi59Vnb6YrxpPp/5ZPHILLOuQN+iS09qoV4GMBYKU/2S1hoiEbKh7bfO308k0n8YxbRazYiOhCeIck7cP4twCTd4zwC7NoXPdf+L+eWN/W8sGsQJC12TlnFaDlpJImMVsp+gVr7wmsg+jnaar7zrc+pxcejZH0T4jBfjUnrVWVDf63G66J4tGMPdcm+xxoDF1EIa3TFsgGtGcsSSirQv29gqi6rmyVQLtVyJHt8AyuKHCsAXIS7I5iuXE/Di/b9W3Y6J4KttyhmR8ktypngbEdh07x42gSe2gTE3wyK
+	YtCTNklKVxacNLAr2vPHxMPPMdDSIxxwhcTTdZ3XTo/X1DezcqU/dlPiTNTgEL2E6Kec0D5Ax4oelgDW/fzG9KOqU3IuDjWWcF2FkZ1p8yq8sqaHfmQP+Gs9xewVcF4yN57BQD8dnifzk+R+5jL2nei2LnWCH3p1aiMPMQx7UIcHeGJjf0I8fvlWrqXSHDnZZRtTrjBftEH+2l8oVzp0ki5UDq9QiOdF0tpq6TlvK/dqAveleUha3kKgE3g3VmrdSFTVb5LwDmHr2+F1csXe65K2X6PSS7wIv0hm+RZ9OzWZxt2Ddn3uEW+Jmh924A92eO/N197kU7WHnPcZvnzLAkPWIYqv2NkErrDljYfPPHEAgZEikprjKP7nKTIGGZ1RiFNVPeoZBfV9veIrW7TiM0N25+sbyuz1Lf3IMSVZKwsE8WFrhcLnvpHj1gR+UP7p
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 18:30:06.7951
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 18:30:13.9964
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5321a706-db22-4217-2b89-08df427d4eb0
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4512d1f-20d6-4286-f33b-08df427d52f9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN7PEPF00000092.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5875
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6798
 
-The XXV Ethernet IP integrates a 10G/25G Ethernet MAC with an in-core
-PCS/PMA driving a high-speed serial transceiver. Its payload is moved by
-an external AXI DMA (or multichannel DMA) controller referenced through
-the dmas/dma-names properties. Document the IP in a dedicated schema
-file.
+axienet_open() overwrites the axienet_device_reset() return value with the
+phylink_fwnode_phy_connect() one before it is ever checked, so a failed
+reset brings the device up anyway. Check and propagate it.
 
-Add the "xlnx,xxv-ethernet-1.0" compatible with the 10gbase-r and
-25gbase-r phy-modes, the rx_core/drp/s_axi clocks and the AXI DMA
-channel properties. The GT transceiver reference clock is described as
-an optional fourth "ref" clock, for boards where it is supplied by a
-Linux-managed clock provider rather than a fixed oscillator.
+That makes a failed ndo_open reachable, which matters for axienet_resume():
+it calls ndo_open directly, so unlike the netdev core it leaves the device
+running when open fails. A later ndo_stop then tears down resources that
+open had already unwound and never re-created. For the dmaengine flow that
+is a double free of the skb rings and a second dma_release_channel(); for
+the non-dmaengine flow it is napi_disable() on an already disabled NAPI,
+which never returns, and free_irq() on interrupts that were never
+requested.
 
-Add "xlnx,has-statistics-counters" as well. The statistics counters are
-an optional part of the IP, selected by the "Include Statistics Counters"
-build option (PG210), and unlike the 1G MAC the subsystem has no ability
-register that reports whether they were included, so the devicetree has
-to describe it.
+Track whether ndo_open completed and make axienet_stop() a no-op otherwise.
 
-Require "xlnx,rxmem". The driver reads it unconditionally at probe time
-and fails if it is absent, and the value is what bounds the largest frame
-the device accepts, both when validating a new MTU and when deciding
-whether jumbo frames can be enabled.
+axienet_resume() now propagates the error, but it still has to undo the
+netif_device_detach() that axienet_suspend() did. Leaving the device
+detached while it is still IFF_UP wedges the interface: ndo_stop is a
+no-op, so bringing it down appears to work, while bringing it up again
+fails with -ENODEV because the device is not present. Drop IFF_UP with
+netif_close() before reattaching, so the interface can be brought up again
+once the cause of the failure is resolved, and so the stack cannot
+transmit on the datapath open has already torn down.
 
-Disallow phy-handle, its deprecated phy and phy-device spellings, and
-pcs-handle. All are inherited from ethernet-controller.yaml, so
-unevaluatedProperties does not reject them, but the subsystem has no MDIO
-bus master and its PCS is in-core, so neither an external PHY nor an
-external PCS can be attached. Constrain managed to in-band-status for the
-same reason; it stays optional, as the link is always managed in-band.
+Clearing the error path of __axienet_device_reset() goes with this: it
+jumps over the block that clears lp->reset_in_progress, and the statistics
+work that used to clear it on the next run is no longer scheduled once the
+reset error is propagated. Without this, axienet_stat() would keep
+returning the frozen base after a reset timeout.
 
 Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
 ---
- .../bindings/net/xlnx,xxv-ethernet.yaml       | 146 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 2 files changed, 147 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |  2 +
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 44 +++++++++++++++++--
+ 2 files changed, 42 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
-new file mode 100644
-index 000000000000..caf582c72a8d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
-@@ -0,0 +1,146 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/xlnx,xxv-ethernet.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx XXV 10G/25G Ethernet Subsystem
-+
-+maintainers:
-+  - Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-+  - Suraj Gupta <suraj.gupta2@amd.com>
-+
-+description:
-+  The Xilinx XXV Ethernet Subsystem implements a 10G/25G Ethernet MAC with an
-+  in-core PCS/PMA driving a high-speed serial transceiver. It supports the
-+  10GBASE-R and 25GBASE-R line rates, with 25G operation following the 25G
-+  Ethernet Consortium specification. Because the PCS/PMA is integrated into
-+  the IP, the subsystem has no MDIO bus master and is not managed through an
-+  external MDIO PHY; link state is read from the MAC's own status registers.
-+  As there is no PHY to manage, the link is always managed in-band.
-+  Any SFP module management (e.g. I2C) is handled by separate IP outside this
-+  binding. Its payload is moved by an external AXI DMA (or multichannel DMA)
-+  controller referenced through the "dmas" property.
-+
-+properties:
-+  compatible:
-+    const: xlnx,xxv-ethernet-1.0
-+
-+  reg:
-+    maxItems: 1
-+    description: MAC control and status register space.
-+
-+  clocks:
-+    minItems: 3
-+    items:
-+      - description: RX AXI4-Stream clock.
-+      - description: GT helper (dclk) stable clock.
-+      - description: AXI4-Lite register clock.
-+      - description: GT transceiver reference clock (refclk).
-+
-+  clock-names:
-+    minItems: 3
-+    items:
-+      - const: rx_core
-+      - const: drp
-+      - const: s_axi
-+      - const: ref
-+
-+  phy-mode:
-+    enum:
-+      - 10gbase-r
-+      - 25gbase-r
-+
-+  # The subsystem has no MDIO bus master and its PCS is in-core, so neither
-+  # an external PHY nor an external PCS can be attached. phy and phy-device
-+  # are the deprecated spellings of phy-handle.
-+  phy-handle: false
-+  phy: false
-+  phy-device: false
-+  pcs-handle: false
-+
-+  managed:
-+    const: in-band-status
-+
-+  xlnx,rxmem:
-+    description:
-+      Size in bytes of the Rx/Tx packet buffer memory built into the IP. It is
-+      fixed by the hardware design and bounds the largest frame (jumbo MTU) the
-+      device can accept.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,has-statistics-counters:
-+    description:
-+      The statistics counters are an optional part of the IP, selected by the
-+      "Include Statistics Counters" build option, and the subsystem does not
-+      advertise whether they were included. Present when the design was built
-+      with them, in which case the driver reports the MAC counters through
-+      ethtool and ndo_get_stats64.
-+    type: boolean
-+
-+  dmas:
-+    minItems: 2
-+    maxItems: 32
-+    description:
-+      TX and RX DMA channel phandles, one per entry in "dma-names".
-+
-+  dma-names:
-+    minItems: 2
-+    maxItems: 32
-+    items:
-+      pattern: "^[tr]x_chan([0-9]|1[0-5])$"
-+    allOf:
-+      - contains:
-+          const: tx_chan0
-+      - contains:
-+          const: rx_chan0
-+    description:
-+      Should be "tx_chan0", "tx_chan1" ... "tx_chan15" for DMA Tx channel and
-+      "rx_chan0", "rx_chan1" ... "rx_chan15" for DMA Rx channel. The first
-+      Tx/Rx channel pair ("tx_chan0" and "rx_chan0") is always required. There
-+      is one name per entry in "dmas", in the same order.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - phy-mode
-+  - xlnx,rxmem
-+  - dmas
-+  - dma-names
-+
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  # Single AXI DMA channel pair
-+  - |
-+    ethernet@80000000 {
-+        compatible = "xlnx,xxv-ethernet-1.0";
-+        reg = <0x80000000 0x10000>;
-+        clock-names = "rx_core", "drp", "s_axi";
-+        clocks = <&rx_clk>, <&drp_clk>, <&axi_clk>;
-+        dma-names = "tx_chan0", "rx_chan0";
-+        dmas = <&axi_dma 0>, <&axi_dma 1>;
-+        phy-mode = "25gbase-r";
-+        managed = "in-band-status";
-+        xlnx,rxmem = <0x8000>;
-+        xlnx,has-statistics-counters;
-+    };
-+  # Multichannel DMA (MCDMA) with multiple Tx/Rx channels
-+  - |
-+    ethernet@80010000 {
-+        compatible = "xlnx,xxv-ethernet-1.0";
-+        reg = <0x80010000 0x10000>;
-+        clock-names = "rx_core", "drp", "s_axi";
-+        clocks = <&rx_clk>, <&drp_clk>, <&axi_clk>;
-+        dma-names = "tx_chan0", "tx_chan1", "rx_chan0", "rx_chan1";
-+        dmas = <&axi_mcdma 0>, <&axi_mcdma 1>,
-+               <&axi_mcdma 16>, <&axi_mcdma 17>;
-+        phy-mode = "10gbase-r";
-+        managed = "in-band-status";
-+        xlnx,rxmem = <0x8000>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 893b0670a7b6..b33fd70d242f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30683,6 +30683,7 @@ XILINX AXI ETHERNET DRIVER
- M:	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml
-+F:	Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
- F:	drivers/net/ethernet/xilinx/xilinx_axienet*
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+index a87cfa079502..140383749996 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+@@ -526,6 +526,7 @@ struct skbuf_dma_descriptor {
+  * @stopping:   Set when we are about to stop the device: makes @dma_err_task
+  *              a no-op (legacy DMA path) and fences RX descriptor
+  *              resubmission in axienet_dma_rx_cb() (dmaengine path).
++ * @datapath_up: Set while the resources allocated by ndo_open are live.
+  * @tx_irq:	Axidma TX IRQ number
+  * @rx_irq:	Axidma RX IRQ number
+  * @eth_irq:	Ethernet core IRQ number
+@@ -608,6 +609,7 @@ struct axienet_local {
  
- XILINX CAN DRIVER
+ 	struct work_struct dma_err_task;
+ 	bool stopping;
++	bool datapath_up;
+ 
+ 	int tx_irq;
+ 	int rx_irq;
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 83f35effbf37..f338029cf870 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -702,6 +702,17 @@ static int __axienet_device_reset(struct axienet_local *lp)
+ 	}
+ 
+ out:
++	/* On failure the block above is skipped, so clear the flag here.
++	 * axienet_open() now returns on a reset error without scheduling the
++	 * statistics work that used to clear it, which would otherwise leave
++	 * axienet_stat() returning the frozen base until a reset succeeds.
++	 */
++	if (ret && (lp->features & XAE_FEATURE_STATS)) {
++		write_seqcount_begin(&lp->hw_stats_seqcount);
++		lp->reset_in_progress = false;
++		write_seqcount_end(&lp->hw_stats_seqcount);
++	}
++
+ 	mutex_unlock(&lp->stats_lock);
+ 	return ret;
+ }
+@@ -1772,6 +1783,10 @@ static int axienet_open(struct net_device *ndev)
+ 	axienet_lock_mii(lp);
+ 	ret = axienet_device_reset(ndev);
+ 	axienet_unlock_mii(lp);
++	if (ret) {
++		dev_err(lp->dev, "axienet_device_reset() failed: %d\n", ret);
++		return ret;
++	}
+ 
+ 	ret = phylink_fwnode_phy_connect(lp->phylink, dev_fwnode(lp->dev), 0);
+ 	if (ret) {
+@@ -1802,6 +1817,8 @@ static int axienet_open(struct net_device *ndev)
+ 			goto err_phy;
+ 	}
+ 
++	lp->datapath_up = true;
++
+ 	return 0;
+ 
+ err_free_eth_irq:
+@@ -1830,6 +1847,16 @@ static int axienet_stop(struct net_device *ndev)
+ 	struct axienet_local *lp = netdev_priv(ndev);
+ 	int i;
+ 
++	/* axienet_resume() calls ndo_open directly, so unlike the netdev core
++	 * it can leave the device running after a failed open. Tearing down
++	 * below would then stop a phylink that open already stopped and
++	 * disconnected, and free interrupts it never requested.
++	 */
++	if (!lp->datapath_up)
++		return 0;
++
++	lp->datapath_up = false;
++
+ 	if (!lp->use_dmaengine) {
+ 		WRITE_ONCE(lp->stopping, true);
+ 		flush_work(&lp->dma_err_task);
+@@ -3415,17 +3442,26 @@ static int axienet_suspend(struct device *dev)
+ static int axienet_resume(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
++	int ret;
+ 
+ 	if (!netif_running(ndev))
+ 		return 0;
+ 
+ 	rtnl_lock();
+-	axienet_open(ndev);
+-	rtnl_unlock();
+-
++	ret = axienet_open(ndev);
++	if (ret) {
++		netdev_err(ndev, "failed to reopen device on resume: %d\n", ret);
++		/* Drop IFF_UP before reattaching, so that the interface can be
++		 * brought up again once whatever made open fail is resolved.
++		 * Reattaching while still up would also let the stack transmit
++		 * on the datapath open has already torn down.
++		 */
++		netif_close(ndev);
++	}
+ 	netif_device_attach(ndev);
++	rtnl_unlock();
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(axienet_pm_ops,
 -- 
 2.25.1
 
