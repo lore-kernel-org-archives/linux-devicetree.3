@@ -1,96 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675146;
-	b=LXBmruvjeBSB+isK7Vh1b0UxP28bW6DPY2vKiOWS6R9eeAfxgPQhmYMFMzysCZzDtP6x
-	 NjCiGnkrj1ZUxOtnr1bW7hBehIVheNRwAJ1u8ptB6FpLZ0xwQ64/j7OuUuMP9rrquA9d0
-	 VmdR9//9bUu3GcEsUqIy03/X8pgGHCtGHsiHhldXgsz4p+LjJzWCxMQFOgagS/pOFqrOg
-	 xw+9R2n2zyTHU18XvZK518ByAJemd7f4ppZGzFY/h3JWbZBQv3KZn98K9uG/Z88MgDK/D
-	 3rJGC5qQpsgl7TW18vr9yzq30HDr6OH6rxGTqsZ6TWTplkGFgQ4MJv5TiHpkuf+A3oA==
+	t=1794675209;
+	b=a4uVjHQKaITnss8q6l2icpBfKPNEhwukKMQlSmolkI5/d7dpnUJua2NBvtknOgokus1T
+	 ssESvUt7rKR/W9M09sdfhDvB04l+pWMBOONUDgUXlmCD3NJPz75Qgz+dZRvMXd3WYjZAN
+	 bSkom/Rc4l1AJti0PF1ozG+UmJnQUd/kFnb8nTHl3rbrHUrbT3nJpgiCV9WG+tzhXnMgJ
+	 NKrfvkZAS0t1zKNiZl6CQ9uBw2btsGdyowFGbI19AEu4MmtWdedXGg0nwK19MKS/DltTm
+	 4w4GzK6ZCwVevWPLbMlx6LW9uU5cUWqO0A4dZFrreh0ZCGYi9MT++kzBo5iyvNGpvtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675146;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xQ/h2xJmHfHF1kr2P2KfFjzjewHnVPr88Pq0nhSFTMg=;
-	b=v7VHORPY6jgEfGAgBk6sc4khlE5x0LFTfTh4qgEd9/V1RVlDXbo0VxAtBfPeDQ5aT1jP
-	 sto5XQtsSnI6WSyahs787t1F263S6heGiQuwny/hFh5Pc/3IGJn5SE7K5w71nZqKDbzNQ
-	 knYVsEbpZOBPG6GrDJrNxHlHgSVNoU+EkLKqHWOagE7tjsI10qlU3VHWtoqrZD+OXIItw
-	 BIBpB48neCxOwjPCXiZ5JAbOeRX4hOUFWKcs/+RpeNoPXf4FmSEFYHooB8TgFF1UKQ+ps
-	 lcmS62egsGaWUKoeOhXGphypjgW5wVfX71NL0AW8DpEwbhO0sHMyUxlXf8RvpHDuZ3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675209;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type:Content-ID:
+	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport:Content-Transfer-Encoding;
+	bh=d9yWPPWJVriCosgPtonj5lKMAc+ErOEFisVlBtFq8pc=;
+	b=cthuF+mlRbG2O075k7dCF6210hxFa102Mb6fSi41tl/BmBKoRHWKtOUCtBcKySBq0DMr
+	 Qvig1s1Iy/KL7j7iqFcFhzdy9CLGoXaS+VEWKcsbVJn9Ynr/fUqTfzqodxvyAEErNv8N6
+	 HQpuZPqFMK0Jg9KjgFsBaICNRAj+qOgJcC1BmNfhPmrsIRIgh7gJ6LZvNrVK1ACln+lLg
+	 0jjZMxDRc3cN5lHRBJIgMYBhbcJIl3nXIXM+RElFSBcvLw9Conth6UF4/V3ZQiioz/90V
+	 p2TBjWsxA9nF00YE6C43KeoJTOROojAAiGRg94XzY0KsQiVy7dMA0kIXiD7uLt5EkqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Tdr/SSph";
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=jnbLyF90;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C9E606A329
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 16:52:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C9E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432E9606A32D
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 16:53:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 432E9606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tdr/SSph
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53644ab1f7bso23814091cf.3
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:52:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794675144; x=1795279944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xQ/h2xJmHfHF1kr2P2KfFjzjewHnVPr88Pq0nhSFTMg=;
-        b=Tdr/SSph4bL3uPoPNTAiRt39kpSkq3axC8GHbRy/sVm6783VsM9QjvdkO9U9lx9p33
-         j7ABSqraFUxV01ofQfM/5QnuGJucaLcpnxSGJM9mNsjFXPtDL+nyIRhDKs2Y/+8K4wE7
-         n6lAuwc9tcMJZ3PUA/r0r/bq585EO1qnbROUv+BQI9QI8FvlAo1ouSD25tJCV3lQwqch
-         dHYnmv1luoRdERcx3e9zuaUv1p8yrluWRDZTYpLh6s3wDULEGPscFl7KdXMjQtN3eUsx
-         z36ceq5+TBEpDr6TTmVWs263cCOEOyiqw7tslymuppTTTe3uCb8vt7umurRZ5q6DnJB4
-         rVrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794675144; x=1795279944;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xQ/h2xJmHfHF1kr2P2KfFjzjewHnVPr88Pq0nhSFTMg=;
-        b=2QmBjMZcXSt/tVehrrWdA9Ozbob0968NBD4gWDXNY4wQk1vphyT1EWWjRwCCiCDXol
-         0llcBpp/e/o4iO9nd1OUztZloWBXtiiQn7XVcersrYyMT8UymjN+W6MtSNC3O48Tu3SB
-         UOHfzMfDQ35rtLax2xIFcl26UeBk9zCPgLidm3paTBlSvPGxt0DUlOFtkNxx5fltbuBk
-         p2CVsxr34T4CpbxNsCOhO7LWPXCWo/2isa8hmZFQdZM1lJWXLP/Nc4a0BaDEIDEOsWZq
-         PfEtCJrmb/l49IXZoLv7B78ceB4QlWam4gbXwt1FNQimL0q8+ZF97XJkAeusfwZLe2D0
-         ROuQ==
-X-Forwarded-Encrypted: i=1; AL+hErEOGp3++xEBRRWQ/pbUAERu8pVDI3tKkYe+V6iBqYJ7c49N5ABXXStHQiSft3oNlhzEaulNjJFodE1I@vger.kernel.org
-X-Gm-Message-State: APuU4Z+i8qZns3y30Yz1aCojvqqKg4Sc47y6LPW7xvWm5XDRedxKiE/7
-	6CIAfRwDlrF0vAy7V/qh+Pdt4+mtju+mtnyopQnfWgc8BjexYwpeid2P
-X-Gm-Gg: AYBFou2RSh/CUYwA5/K6rQq0cwdBaTisaq3hpaVYDZWzLOcIyMvjInEHXvgcBuGlsHL
-	wZJkAiIb+fzKqPMxFuOA+udbsxWx+y3OgVgoORXqCP7lmLnXcffU84luasOARfmv4FAHRoAX2YB
-	URY2qtRII4nUo5EuR0hdDXqmZ6GMnd8xZKCMm3mDbKloXQ8iAgs+wFydfZdmAnix/j8elbJyN66
-	uSY4qmKpqx9vYOPzAa652ePCuUMf5n2g/ujmdVbfMeP+i/7DmA4lTh6qlDWxveo0Kn2PlNSAGsc
-	4QHqhXzwoc0kFGXxG+tfAFTt6vqKO8wuuVPLhFxCK8M+o/ELiKWb6EOYmT0yvCaEjL01Anp/Ih+
-	KTQ20HyEEB6Ly1rHrjcHQcy6sWPjnvSOy6/e5OKIa4ftz4jRg9t5zyfYZDMIV+uOFGGRzqzNKMh
-	H+j6CA8Ndcj+LdSiBVH/AjrxYrldECjk9T4SJYBZJvY8E6kdHDTJcLyc8FJvQ/3WjbmeXIvkK2a
-	O6IrI1MbtrfShqQAeRBO6a+63QfsnH3gQ3Y9s1AIn8m0qoYiCow55TyFF0Y3CjkxI7M/VpyO2sP
-	cotSGBHvs4eLfqVfXXiPNG8QCWOYBHXtKQhX54/frcwput1bst2PUYDHphtpJKzT8rosNerDyWa
-	YWA/67kCF/Z1Ctyb8fWOi2TNpsuxo9kUUZG3jZXOUkCpbM+NNPpvw7+Vy0ns7ijTvel8ihCSTkV
-	aaswgpw2WO93sv4X2oA4o610wHHwVOe+wkEF96RtWOycs7oRcDi94JD56slfn1jIpW9y9Wpi/w9
-	de5oDjYhn6q63jVTHiiAPPKCiwn4/s2q7GbVMPlWGmZzw==
-X-Received: by 2002:a05:622a:1ba1:b0:533:3868:1f6d with SMTP id d75a77b69052e-55ac8b998b7mr99136571cf.59.1794675143733;
-        Sat, 14 Nov 2026 08:52:23 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:7961:9008:8b93:d491])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d2df66cb7sm2635421cf.21.2026.11.14.08.52.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 14 Nov 2026 08:52:22 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [RFC PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Describe BOB1 and the IR emitter
-Date: Sat, 14 Nov 2026 11:52:21 -0500
-Message-ID: <20261114165221.70310-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=jnbLyF90
+DKIM2-Signature:  i=1; m=1; t=1794675206;
+ mf=PG1hcnZpbjI0QGdteC5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=gmx.de;
+ s=s31663417:rsa-sha256:lp2Xv9iApLsIBQhXKBGT0yHpPzMp
+   Io9QjTnnMKenZLQcwakrHb31U2XH8SRDOjOUNifs/ShGU4RmcEaZkH6HuwA8Ux194UvCMW2XLbs
+   NJ8r6N9QpK+pB5+0b3EqoF71OAIFlYN+fNwEFDkY+3gjYTTzwdIn2QQx2B4yQEGqbgNJDtxmO1x
+   88G7I++djK2UzbmCVHutTALgNR09D4O5nMzl+OB25hRzGNmHh8z1tPWZ2i0Y4KvjDr80vRiMMD3
+   UO5dUQodPXfn4IV3z7NW7mUotWUuc2lXiOiPYNTWnTv0ip5e0k0mPX5mjNsvPkicqsx10jE5cl1
+   iMonfo+CtacJQQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   mquJPmg/lxKA9aqyEncNdwyJ3r/NWzWLxVf2DDz34/8=:
+   1llqOIqRDLQqFfFlNl2o3365UzIpc6/RukrG8OjqwSc=,
+  sha512:
+   M/p6in4LgDqO3LyCAjOy9tIvcLbGCcGc6IdnkxFGrvi1mF6l69X8u/v9p0Wk45U3MN3SMijJpfmRoWD3flENBg==:
+   wuLp051gkMF4iIn+POh3CfghwF1g5GL4s/AmN7+S3srAFyBdnWaYInB2kaGszw6B3IjmPe7Ndk0dx8Kl7ZKgCg==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1794675206; x=1795280006; i=marvin24@gmx.de;
+	bh=d9yWPPWJVriCosgPtonj5lKMAc+ErOEFisVlBtFq8pc=;
+	h=X-UI-Sender-Class:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=jnbLyF90C4Xp1KK89pMksn7LJAlTkdJooWnMTI3/8aJ06JamJ7Z3yEsXJa/A4hVT
+	 8OFxz8vZAwr7zJOJ+kyTXTlY78vEeE6eaI7gaGX0aFBa1sOVfbwxpvl0GjMRFZGnD
+	 W5jwVi5o5Yj0VkG+kz7JDlJJ1qNBQL7WALpm2Gq7g0znkOnIBs50cYHYYkt1My4EV
+	 zPAroLLOqyyOHCckzQkFcAXU8ekKaSvsDQ0zLRDOxrIAW6K7Chdk+5wPz4HV3pgSU
+	 Wjz8dTYmlEB/Fbo+Jp6lOAucH4sR7TxHQ7hU2N4Dbu9+ZW8QFISLU5cceYBVRI4Ea
+	 pxJ0WpQISl0hzhVpaA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MK3Rm-1xACim0ICU-00VdYq; Sat, 14
+ Nov 2026 17:53:26 +0100
+Date: Sat, 14 Nov 2026 17:53:25 +0100 (CET)
+From: Marc Dietrich <marvin24@gmx.de>
+To: sashiko-reviews@lists.linux.dev
+cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: Add Tegra20 I2C target
+ controller
+In-Reply-To: <sashiko-outbox-204082@kernel.org>
+Message-ID: <d86f9f68-d88f-e02b-8cf3-9311af8277b1@gmx.de>
+References: <20261108212458.275980-1-marvin24@gmx.de> <20261108212458.275980-2-marvin24@gmx.de> <sashiko-outbox-204082@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,92 +86,244 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-ID: <1be66b77-892d-8e51-adb4-1f9f55876b08@posteo.de>
+X-Provags-ID: V03:K1:CQ1rnJgu10hw86VCRPJ1rT3pSSNRw5PmSe9I+AmqrKXzR1tvN05
+ z0qIlT1CpK1qWsTVjuWIq+sJ5/C6Yjdgm1XsBmGVzupLkz4A+JYYXtebw9NCG/8vTFwFZnc
+ w6v2ZCUGS1dXTogu3VR++ohK5KlzjsembmiVc7/k80TUOBVMb7uQQRkfFwqE6jPUM2eF9+a
+ x1ls4PrsteKtxatVXYmqg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:eTLJ1swi/5s=;Rnz3Y6ZgLIW4nhj/f0cVWMA1tyi
+ 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
+ P8kzHyC4dxR7VD9iKBVcFcHLa8w==
+Content-Transfer-Encoding: quoted-printable
 
-PMH0101 BOB1 feeds the PM8010 camera LDOs and the PMH0101 flash module.
-Describe it, and wire the IR illuminator: flash channels 1 and 4 ganged,
-350 mA torch, 700 mA flash, attached to the HM1092 via flash-leds.
+Hi,
 
-Values:
-- channels 1+4, 350 mA torch, 700 mA flash, 1280 ms timeout: Windows
-  LEDFLASH configuration (FlashLED_1)
-- BOB1 3.384-3.512 V: within the AOP OTP limits for B1B_E0
-  (3.296-3.520 V); BOB2 is not populated
+On Sun, 8 Nov 2026, sashiko-bot@kernel.org wrote:
 
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
----
-Konrad, this goes on top of your A16 PM8010 and IR camera commits in
-qcom-laptops; feel free to fold it in. Tested on a 7.3 kernel with the
-same DT: ir:flash probes with no faults and lights the HM1092 scene.
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issues to consider:
+> - [Medium] dt-bindings: i2c: tegra20: driver-specific compatible for
+>  target mode
+> - [Low] dt-bindings: i2c: tegra20: missing clock constraints for target
+>  compatible
+> --
+>
+> commit 1d779eb91a256c3147a2ce9798c783f5f76b1f50
+> Author: Marc Dietrich <marvin24@gmx.de>
+>
+> dt-bindings: i2c: Add Tegra20 I2C target controller
+>
+> This commit adds the "nvidia,tegra20-i2c-target" compatible string and a=
+n
+> example for the Tegra20 I2C target controller to the Tegra20 I2C binding
+> schema.
+>
+>> diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.y=
+aml b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+>> index 51241c1293e3e..2d7ee8e8750d4 100644
+>> --- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+>> +++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
+>> @@ -13,11 +13,15 @@ title: NVIDIA Tegra I2C controller driver
+>>  properties:
+>>    compatible:
+>>      oneOf:
+>> -      - description: Tegra20 has 4 generic I2C controller. This can su=
+pport
+>> -          master and slave mode of I2C communication. The i2c-tegra dr=
+iver
+>> -          only support master mode of I2C communication. Driver of I2C
+>> -          controller is only compatible with "nvidia,tegra20-i2c".
+>> +      - description: Tegra20 has 3 instances of a generic I2C controll=
+er.
+>> +          It supports controller and target mode of I2C communication.
+>> +          The i2c-tegra driver only supports master mode of I2C commun=
+ication.
+>> +          Driver of I2C controller is only compatible with "nvidia,teg=
+ra20-i2c".
+>>          const: nvidia,tegra20-i2c
+>> +      - description: The i2c-tegra-target driver supports the target m=
+ode of
+>> +          the generic Tegra20 I2C controller. Driver of the I2C target
+>> +          controller is only compatible with "nvidia,tegra20-i2c-targe=
+t".
+>> +        const: nvidia,tegra20-i2c-target
+>
+> [Severity: Medium]
+> Should target mode be represented by a separate "nvidia,tegra20-i2c-targ=
+et"
+> compatible string?
+>
+> The three generic Tegra20 I2C controllers (such as i2c@7000c500 in
+> arch/arm/boot/dts/nvidia/tegra20.dtsi) are the same hardware blocks alre=
+ady
+> described by "nvidia,tegra20-i2c", with controller and target registers =
+in
+> the same register aperture.  Defining a second compatible string to bind=
+ a
+> separate i2c-tegra-target driver encodes Linux driver structure and runt=
+ime
+> mode into the Devicetree ABI.  In standard I2C bindings
+> (i2c-controller.yaml), dual-role controllers keep their hardware compati=
+ble
+> string and select target mode via child nodes marked with
+> I2C_OWN_SLAVE_ADDRESS in reg.
 
- .../qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 29 +++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+it is the intended behaviour to separate the two drivers in order to keep=
+=20
+the code mantainable. The controller driver is already very large in order=
+=20
+to support the various tegra models. If we also add the target driver to=
+=20
+the controller driver (potentially adding more variants in the future),=20
+the driver would grow even more.
+That said, the limitation is that we cannot support both controller and=20
+target on the same instance, but I guess there are only limited uses cases=
+=20
+for the scenario.
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-index c2ecabb3..75018ccc 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-@@ -379,6 +379,17 @@
- 		compatible = "qcom,pmh0101-rpmh-regulators";
- 		qcom,pmic-id = "B_E0";
- 
-+		vdd-l6-l7-supply = <&vreg_bob1_e0>;
-+		vdd-l8-l9-supply = <&vreg_bob1_e0>;
-+
-+		/* B2B_E0 (BOB2) is not populated on this board */
-+		vreg_bob1_e0: bob1 {
-+			regulator-name = "vreg_bob1_e0";
-+			regulator-min-microvolt = <3384000>;
-+			regulator-max-microvolt = <3512000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
- 		vreg_l1b_e0: ldo1 {
- 			regulator-name = "vreg_l1b_e0";
- 			regulator-min-microvolt = <1800000>;
-@@ -624,6 +635,7 @@
- 
- 		reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
- 
-+		flash-leds = <&ir_led>;
- 		leds = <&privacy_led>;
- 		led-names = "privacy";
- 
-@@ -751,10 +763,10 @@
- 
- 		reset-gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
- 
--		// vdd-l3-l4-supply = <&vreg_bob>;
-+		vdd-l3-l4-supply = <&vreg_bob1_e0>;
- 		// vdd-l5-supply = <&vreg_bob>;
- 		// vdd-l6-supply = <&vreg_bob>;
--		// vdd-l7-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_bob1_e0>;
- 
- 		gpio-controller;
- 		#gpio-cells = <2>;
-@@ -1037,6 +1049,19 @@
- 	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
- };
- 
-+&pmh0101_flash {
-+	status = "okay";
-+
-+	ir_led: led-0 {
-+		function = LED_FUNCTION_FLASH;
-+		color = <LED_COLOR_ID_IR>;
-+		led-sources = <1>, <4>;
-+		led-max-microamp = <350000>;
-+		flash-max-microamp = <700000>;
-+		flash-max-timeout-us = <1280000>;
-+	};
-+};
-+
- &pmh0101_gpios {
- 	nvme_reg_en: nvme-reg-en-state {
- 		pins = "gpio14";
+>> @@ -222,3 +226,18 @@ examples:
+>>          #address-cells =3D <1>;
+>>          #size-cells =3D <0>;
+>>      };
+>> +
+>> +  - |
+>> +    i2c@7000c500 {
+>> +        compatible =3D "nvidia,tegra20-i2c-target";
+>> +        reg =3D <0x7000c500 0x100>;
+>> +        interrupts =3D <0 92 0x04>;
+>> +        clocks =3D <&tegra_car 67>, <&tegra_car 124>;
+>> +        clock-names =3D "div-clk", "fast-clk";
+>
+> [Severity: Low]
+> If "nvidia,tegra20-i2c-target" is kept, should it also be added to the
+> allOf conditional that constrains clocks and clock-names for Tegra20 and
+> Tegra30?
 
-base-commit: 2010e0d9557fe1d37d04f13e539adf24cbb785f6
--- 
-2.56.0
+not sure if this is required. The machine binding typically includes the
+SoC binding, which already defines all the required properties.
+
+> Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml {
+>  ...
+>  - if:
+>      properties:
+>        compatible:
+>          contains:
+>            enum:
+>              - nvidia,tegra20-i2c
+>              - nvidia,tegra30-i2c
+>    then:
+>      properties:
+>        clocks:
+>          minItems: 2
+>        clock-names:
+>          items:
+>            - const: div-clk
+>            - const: fast-clk
+> }
+>
+> Without "nvidia,tegra20-i2c-target" in that enum, nodes using the new
+> compatible fall back to the top-level clocks definition (minItems: 1) an=
+d
+> do not validate the required "div-clk" and "fast-clk" entries.
+
+see above.
+
+Marc
 
