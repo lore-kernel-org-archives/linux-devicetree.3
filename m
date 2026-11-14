@@ -1,61 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794644886;
-	b=ubfaL/XNAwpc4NQdBmuBIElK/4B2hgRdHHRUCPWE4uEcF3svwmqszA1cTpZZ+PDlb/2b
-	 7lJ+N2VWfbYsXmQevMUw3a/tnU256+xe0um9/AsVaYRCRaRkjFpy1VVf2eBvLrN6e9HgL
-	 TOTkUgkNKhanJ+/5PPjQg5B936qba+OYCeIxdDxDHwc/5P6Jj9gMmFDh43GfvLYrrM7Jq
-	 kK+//OZWYZT4YvAoThktkbVUfLDGgUYDbeGnPGnCMIZXPdiE5B4oKPbrEoULwtwaWiAM/
-	 F9R9JjMh2+TaKo9oDAasiE0n0ScWS1L2IXLDS+jdoKjgCQQe6mzAtcwtqK3YSgZaPlw==
+	t=1794645015;
+	b=WoCckeyD1qvIdI8HkiEqzXywjkdcBQKfNH9iiL1o62V9rHA1G2y2022ksKplq3x/AHTS
+	 JHcZWJDGze3rCiqLanf89Ci6PaXXjZIe3Dqk3euMwpH+MkHwQ7Fc5VqCo7STYTrD4gY8z
+	 fj7Tq07qi5qmKnono7Di0lfLeRrzK2JiwnWXvSvs9LWAw+0jCCFLuwUGI9St0VwIMGZgl
+	 mzVzn2USxfWzg9xWUAoktH6v38BsceVT0sBi6FiM3wYIpzrJB3SM2A1iJfEf8hXCNP09M
+	 IZ0WZ0EIb9nIFVOORX6wNScAh3aVry1v0o34uCd17SzsNaLijUQC5fnpQDA0uC8MFhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794644886;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z8lG6RIILKdVtCLqTJnL4db2Nr11A+SPOEk6bNLst48=;
-	b=x7JT544qzrL9ZcYqs9Ueo+N/FF75puzO3Uz0jeSFGptDDnk2D37GkbaQfKoeVDiH0yF9
-	 A63vShVOuId+2NSBBn7d017bQnQKM328L7YtbuxRBwOz2TH0bW8l5s2Qd+fc4G2ABvo66
-	 KL6wEsrIh++pMaWZVrobmIjbhdyg/yDuqRFjKWMrj24vKlx7l2kpLM9BFD6Z0kA3Uaykf
-	 tfpxPosht/u7TK3P8KnepE8o+eNIrzSndzjKZmJOiuwMEaYqAF0KpXywWXdqcKR79ko2X
-	 rwlHG1DHoIU/fe2xHzeHAbPxEBVsXmO5oRjPX3XQlP8RB7Xw9yi6yHbZcDe/pefrXIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+	b=j+jzxWWHNVEgqQQ5Rjd5fLPS544ZMVMtKrbmOdchp0xH4OWSbcCX3fdssLraImbJDEI6
+	 e2fzl12EZn35HvtdUjf6dul/1XzKVrcRU0m6VSkVsSljdBRU98suF/a4XjezAOLUXyyAr
+	 aG33oXlmgo+6XpD5PzHM59QN3o1lFlKLVkx2vDJ9RVnAKSdanArP1nNHRTkAZvNEo9Sty
+	 hqgconTF1xOm/mFGVQ4XR+oPtopyWh98aFqYW8Q6VWkFnalOulC5UZ6Ow9t9spM4OGn4l
+	 6MBX0zr3jejsvtfTVcRyH09mymcYS97m3oxMNdygKZr7twg3YSazVgzw+cwqw18WGkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aONj7GCZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l1cNDI6m;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC07606A32D;
-	Sat, 14 Nov 2026 08:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99314606A880
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99314606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aONj7GCZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B121F000C4;
-	Sat, 14 Nov 2026 08:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794644886;
-	bh=Z8lG6RIILKdVtCLqTJnL4db2Nr11A+SPOEk6bNLst48=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aONj7GCZBFFfnZ8Ubfmqq1wA/ptT6y4aS02AvlojcCkonlAxX2BcAToLyO51K9O6D
-	 hYhVXTRLTiNcpr8p9Ud0Sz0nujRAbq1n9QL39vSKM24atcGMUZYWerjuQL3gzTCdko
-	 3kZWR3j7wm8FgnHshN9zRb4aMXLCyM+cgLCDrfFUsmumAfUph5qUF4ZZL+6Yw0jAoX
-	 YdihrZBWIiv8eWvIP0T2hF/EFCUZslaid3TO2SYhHGwniX9SdrblHXeUEklMG32gTB
-	 PzGs2GCsULKUfwGptcLGuNk8G/2YWwFgGDnJCokFSrZ//UB00S2roMKwvnziZc/9OZ
-	 Arhu/U28jG/Yg==
-Date: Sat, 14 Nov 2026 08:28:02 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Sarah Emery <sarah.emery@canonical.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
-Message-ID: <20261114082802-GKC100523@kernel.org>
-References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
- <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
- <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
- <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l1cNDI6m
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4922dbcee23so780735f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 00:30:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794645013; x=1795249813; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:content-transfer-encoding:mime-version:content-type:date
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+        b=l1cNDI6maJQghXoN5Bi3lRgzuojcOPv/fbKoo6wB7B4ANNCwdsmC1uDJGvRWeh+8Or
+         RczhXvtEz7U2aEfXDHYHHb100veeL5CTuQgmKX1Ahgpy7/Iy+myvw5N8OG46JM7KQZq/
+         6yOBt95prApmoYTfLzMf0TpHbSdwEXR1SSUnEvVJBEUHvkhiezddLe0hYD48Q4w7a+a2
+         QlLp35R69SBgrBQd/m7x+VYQdUd3iEwhsiSN/8nMNuxExrvVmAJLutWH8lzjW16BN1YT
+         brJ3a0A2uD2PK5qVBbtyqFMYT0yheWw30f2Q9bto0taHAZoJ2qihB1W2jC+IeF9Kd15X
+         MtFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794645013; x=1795249813;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:content-transfer-encoding:mime-version:content-type:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+        b=Qup6yoenGiuhuhaFgaqoafAeLtrYW8MogulqVMZqpfIYrpfG7H08dsuPYk2A497GSk
+         iHEAFZa6THg5NTnAdGGEDYFu3qyBPkLM44at6jtWpZ4praFq0I2isELfPdyfLT5kNJdu
+         Z517M0k7R437Xj0ovxg7ZyjiPUYPHBgD+JR8vVTuB1hExuvG02LeqyW69sHw6sz6MOW9
+         VOL9BzjJGKD5/yNf31B+tIdVMKPJc6phGsA6YQKWSO3gOZNJqQJjeUo9ATefZOfLz609
+         lhSlzALq1+aC/BCRvV7uVT3wp0fp9TWrlonIuIftMN1j/E99rd8v5qBjbOYwsA5cBs70
+         7/ZA==
+X-Forwarded-Encrypted: i=1; AL+hErG1T62JeFJm0F4INxOgnU4G6oKoX9Ty7C501iJ10eyBbY4IJ/plsuBZvcWQecGo6/bKcVkI9JAwjnQw@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sNQ+t04b1XPYQPp04B5d3/4zFK1bZ6R9Bl7YVe4DlC0LtMc0G
+	9CthRzreA2AdHds9wXr0gufnH7L4ozI5Gtac/iJ9T71FzNZX0v3uL/+X
+X-Gm-Gg: AYBFou15P/TwVTSKD6rIJLlnsV0J2x7IA77R7d/1m/ysUGAG11VT4w7wYNQVkH2F5Im
+	ipBqWa4Hg8rSQjHVVZ1a1FFoLQoAboj9A8cYZqiqJtNcbAdsxgEKISmy9LbyOgM5zElybUos+Ek
+	P5Txk0cvdqfNv6ZyftR52YFS4djvZx7ROObnNmA4TCxwdq9gkQqFvldGnqh+pmHxPlo38vYQEU3
+	R8j4hex5y4/cN5ldWl98NAN550Dr/686c+aXZW2ULWAWfpCck801IxYoUbplWiVjaCeFJxAx5O6
+	WW1itsxX3NvH4WTtOdNYVbMyqSbTbDm0LpmnyFSJVFTNzyCmbJDu/GN/BtxPELV1N1EBMutTFuS
+	oImsvsnUXFuZthgG+QYjUYPWbuWzLGjSXsA0e5Az88DKAtFF2HT3kl+EkjcWbRs/YNITa6NUJR1
+	eoAYV01JUF7sgG59H22WKSLvz7kFYKk1AoHefEYVVM6HbWKI+IOcqIdHAJnGAyX9aQw4XjyJTX+
+	oYO9wbPYpVik+9XaNEaJNz48f0rEF8R5Eo3LcO36eAw2txFluJg
+X-Received: by 2002:a5d:64c3:0:b0:490:1358:2265 with SMTP id ffacd0b85a97d-49c72ab09fdmr11144513f8f.34.1794645012869;
+        Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Received: from [127.0.1.1] ([165.50.16.69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c8a77sm9834201f8f.49.2026.11.14.00.30.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Date: Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,53 +89,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+From: Daniel Carter <yass27106@gmail.com>
+To: krzk@kernel.org, andersson@kernel.org, broonie@kernel.org,
+ srini@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, tiwai@suse.com,
+ perex@perex.cz, lgirdwood@gmail.com, pierre-louis.bossart@linux.dev,
+ yung-chuan.liao@linux.intel.com, abelvesa@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, yass27106@gmail.com
+Subject: [PATCH v4 0/3] arm64: dts: qcom: add device tree for Asus Vivobook 16
+ X1607QA
+Message-ID: <2dc9301fc1ec46cdb66dc49a85f721b1@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Disposition: inline
-In-Reply-To: <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
 
-Hi Troy,
-
-On 08:39 Fri 13 Nov     , Troy Mitchell wrote:
-> On Tue, Nov 10, 2026 at 01:46:28PM +0100, Sarah Emery wrote:
-> > My understanding is that the nodes from CSB1-N10SPK3, the "K3 CoM260 TQ"
-> > and the "K3 CoM260 IFX TQ" are all the same: a "K3 CoM260" module on a
-> > "TQ" or "IFX TQ" carrier board.
-> >
-> > Is there two different carrier boards name "TQ" and "IFX TQ"? Or is it
-> > just the same thing, called differently in this patch and in the EEPROM?
-> 
-> They are the same carrier board. The only difference is the power scheme
-> of the CPU clusters. The bootloader programs those regulators at boot,
-
-If they are physically same carrier board with same CoM260 module, but only
-the power setup configuration is different? then no reason to introduce two
-different compatible strings, if still need to differentiant, please find
-other way out?
-
-> and upstream Linux currently keeps the voltages it leaves. Support for
-> the regulators is not upstream yet, so the two boards cannot be told
-> apart in the device tree for now.
-> 
-> > I'm not sure how devices out there are referencing themselves. But if it
-> > is in fact one device and the EEPROM calls it "k3-com260-tq", this patch
-> > will not work for device-tree matching.
-> >
-> > What do you think? Can you clarify the situation?
-> 
-> You are right, thanks for pointing this out. I only had an IFX TQ board
-> when I sent the series, so I did not notice that the TQ nodes identify
-> themselves as k3_com260_tq in the EEPROM.
-> 
-> I will restructure the series as k3-com260-tq.dtsi holding the shared
-> carrier description, with k3-com260-tq.dts and k3-com260-ifx-tq.dts on
-> top of it that only set model and compatible. I will add
-> k3-com260-tq-power.dtsi and k3-com260-ifx-tq-power.dtsi for the two
-> power schemes later.
-> 
-> Yixun, what do you think?
-> 
-Please send out a version for review, I'd be generally fine within introducing
-two dts files, but be careful about new model and compatible string..
-
--- 
-Yixun Lan (dlan)
+SGkgS3J6eXN6dG9mLCBoaSBhbGwsCgp2NCBvZiB0aGUgc2VyaWVzLCBub3cgc2VudCBhcyBhIGZy
+ZXNoIHRocmVhZCAodjMgd2FzIHNlbnQgYXMgcmVwbGllcwppbnNpZGUgdGhlIHYyIHRocmVhZCwg
+d2hpY2ggbWFkZSBpdCBlYXN5IHRvIG1pc3MgLSBhcG9sb2dpZXMgZm9yIHRoYXQsCmFuZCBmb3Ig
+djIgcmVhY2hpbmcgeW91IHdpdGggdGhlIGNvbW1pdCBkZXNjcmlwdGlvbnMgc3RyaXBwZWQgYnkg
+bXkKbWFpbCBzZXR1cDsgdGhlIGNvbW1pdHMgdGhlbXNlbHZlcyB3ZXJlIGFsd2F5cyBjb21wbGV0
+ZSkuCgpDaGFuZ2VzIHNpbmNlIHYzOgoKLSBEcm9wcGVkIHRoZSBMUEFTUyBtYWNybyAvIFNvdW5k
+V2lyZSBjbG9jay1yZXRyeSBwYXRjaCBmb2xsb3dpbmcKICBNYXJrIEJyb3duJ3MgcmV2aWV3LiBU
+aGUgZHJpdmVyIGNvcmUgYWxyZWFkeSByZXRyaWdnZXJzIGRlZmVycmVkCiAgcHJvYmUgd2hlbiBz
+dXBwbGllcnMgcmVnaXN0ZXIsIGFuZCBhIGJvdW5kZWQgcmV0cnkgbG9vcCBvcGVuLWNvZGVkCiAg
+aW4gZml2ZSBkcml2ZXJzIGlzIG5vdCB0aGUgcmlnaHQgZml4LgotIHNvdW5kd2lyZTogdGhlIGNs
+a19wcmVwYXJlX2VuYWJsZSgpIGNoZWNrIG5vdyByZXR1cm5zIElSUV9OT05FIGZyb20KICB0aGUg
+aW50ZXJydXB0IGhhbmRsZXIgKHRoZSBzdGF0dXMgaXMgbmVpdGhlciByZWFkIG5vciBjbGVhcmVk
+IG9uCiAgdGhhdCBwYXRoKSwgY2FycmllcyBGaXhlczogdGFncywgYW5kIHRoZSBydW50aW1lIHJl
+c3VtZSBlcnJvciBwYXRoCiAgcmV0dXJucyB0aGUgZXJyb3Igd2l0aG91dCB1bm1hc2tpbmcgdGhl
+IGxldmVsLWhpZ2ggd2FrZSBJUlEuCi0gYXJtNjQvZHRzOiBzdHlsZSBjbGVhbnVwcyAtIHN0YXR1
+cyBwcm9wZXJ0aWVzIHBsYWNlZCBsYXN0LAogIGFscGhhYmV0aWNhbCBvcmRlcmluZyBvZiBEQUkt
+bGluayBzdWJub2RlcywgY29udGludWF0aW9uIGxpbmVzCiAgYWxpZ25lZCB0byA4LWNvbHVtbiB0
+YWJzLCBjaGFzc2lzLXR5cGUgbm8gbG9uZ2VyIGR1cGxpY2F0ZWQgZnJvbQogIHRoZSBzaGFyZWQg
+ZHRzaS4KLSBUaGUgYmluZGluZ3MgcGF0Y2ggbm93IHVzZXMgdGhlICJkdC1iaW5kaW5nczogYXJt
+OiBxY29tOiIgc3ViamVjdAogIHByZWZpeC4KClNlcmllczoKWzEvM10gZHQtYmluZGluZ3M6IGFy
+bTogcWNvbTogZG9jdW1lbnQgQXN1cyBWaXZvYm9vayAxNiBYMTYwN1FBClsyLzNdIGFybTY0OiBk
+dHM6IHFjb206IGFkZCBkZXZpY2UgdHJlZSBmb3IgQXN1cyBWaXZvYm9vayAxNiBYMTYwN1FBClsz
+LzNdIHNvdW5kd2lyZTogcWNvbTogY2hlY2sgY2xrX3ByZXBhcmVfZW5hYmxlKCkgcmV0dXJuIHZh
+bHVlcwoKQmVzdCByZWdhcmRzLApEYW5pZWwgQ2FydGVyCg==
