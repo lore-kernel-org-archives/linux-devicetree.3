@@ -1,82 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675209;
-	b=a4uVjHQKaITnss8q6l2icpBfKPNEhwukKMQlSmolkI5/d7dpnUJua2NBvtknOgokus1T
-	 ssESvUt7rKR/W9M09sdfhDvB04l+pWMBOONUDgUXlmCD3NJPz75Qgz+dZRvMXd3WYjZAN
-	 bSkom/Rc4l1AJti0PF1ozG+UmJnQUd/kFnb8nTHl3rbrHUrbT3nJpgiCV9WG+tzhXnMgJ
-	 NKrfvkZAS0t1zKNiZl6CQ9uBw2btsGdyowFGbI19AEu4MmtWdedXGg0nwK19MKS/DltTm
-	 4w4GzK6ZCwVevWPLbMlx6LW9uU5cUWqO0A4dZFrreh0ZCGYi9MT++kzBo5iyvNGpvtQ==
+	t=1794675566;
+	b=rx/gu1Eoc5P13ls1owndYiAxI+vMmZcaGb7glihRqiC0G5fuGCEABedbBOQIAgY4HNMN
+	 VUY62Gpiemu7tied9eDTrnJFpxMkz3lZX7LwQ8F+S8IpTg03bi7YPk2cd2+C+N31EyZUP
+	 DQF66itGTqGelrKHDCyobRM89OSaVouYH30pn4Y5iRyK7tqzxSU9c4MT+3pLNonOLwfUm
+	 v0xKQIJM6hGQX/Y4sRZ+QD3tPVtmYXDO673qtGdLiBIyd7gYPEAHjKR8PuQICnUtExy9l
+	 215yAI576GSuNwh8gTKUV38QQsv7t2C/I7Qxa/zvnMn5N5bYKUujPppf2YEzrNgyoOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675209;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type:Content-ID:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport:Content-Transfer-Encoding;
-	bh=d9yWPPWJVriCosgPtonj5lKMAc+ErOEFisVlBtFq8pc=;
-	b=cthuF+mlRbG2O075k7dCF6210hxFa102Mb6fSi41tl/BmBKoRHWKtOUCtBcKySBq0DMr
-	 Qvig1s1Iy/KL7j7iqFcFhzdy9CLGoXaS+VEWKcsbVJn9Ynr/fUqTfzqodxvyAEErNv8N6
-	 HQpuZPqFMK0Jg9KjgFsBaICNRAj+qOgJcC1BmNfhPmrsIRIgh7gJ6LZvNrVK1ACln+lLg
-	 0jjZMxDRc3cN5lHRBJIgMYBhbcJIl3nXIXM+RElFSBcvLw9Conth6UF4/V3ZQiioz/90V
-	 p2TBjWsxA9nF00YE6C43KeoJTOROojAAiGRg94XzY0KsQiVy7dMA0kIXiD7uLt5EkqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675566;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w3uijtsTKDIV8rvVbRYQEcqIU5c8ua+g/vs766KkkYk=;
+	b=ap+p/tbTTUJD6Y/1ZzZyiY3zmrgrA03pKbxdq7bmjHMHQOlBLzzQ4ZWOckqmWyCeiu3U
+	 Neic/bk04GstamPC6GMTX+InkN1rgt8HPgUoyfga3g1isUT9uawJ94A17vYA+mC5krBuG
+	 fcGPa1S9Lf+yq2go82sJoS2mQoBPrE8AMslDlCUhWvF9lLIvp2Vv5oWK5IOmYi9SfzbBD
+	 MvjBs0Ypb0+gxek0uxbwHKk+f2T/K3obleak+1FqixhNlaZUVmYVn4vSLexcXEc0SyaE6
+	 zAANNTfafaCOcRXNdIF/ujRIHvtM37MxEzDTuEga8Un3poOBFdpv3Y5J/UUNHDJCDFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=jnbLyF90;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6Q+9ulL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432E9606A32D
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 16:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 432E9606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9955C606A327;
+	Sat, 14 Nov 2026 16:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=jnbLyF90
-DKIM2-Signature:  i=1; m=1; t=1794675206;
- mf=PG1hcnZpbjI0QGdteC5kZT4=;
- rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
- d=gmx.de;
- s=s31663417:rsa-sha256:lp2Xv9iApLsIBQhXKBGT0yHpPzMp
-   Io9QjTnnMKenZLQcwakrHb31U2XH8SRDOjOUNifs/ShGU4RmcEaZkH6HuwA8Ux194UvCMW2XLbs
-   NJ8r6N9QpK+pB5+0b3EqoF71OAIFlYN+fNwEFDkY+3gjYTTzwdIn2QQx2B4yQEGqbgNJDtxmO1x
-   88G7I++djK2UzbmCVHutTALgNR09D4O5nMzl+OB25hRzGNmHh8z1tPWZ2i0Y4KvjDr80vRiMMD3
-   UO5dUQodPXfn4IV3z7NW7mUotWUuc2lXiOiPYNTWnTv0ip5e0k0mPX5mjNsvPkicqsx10jE5cl1
-   iMonfo+CtacJQQ==;
-Message-Instance:  m=1;
- h=sha256:
-   mquJPmg/lxKA9aqyEncNdwyJ3r/NWzWLxVf2DDz34/8=:
-   1llqOIqRDLQqFfFlNl2o3365UzIpc6/RukrG8OjqwSc=,
-  sha512:
-   M/p6in4LgDqO3LyCAjOy9tIvcLbGCcGc6IdnkxFGrvi1mF6l69X8u/v9p0Wk45U3MN3SMijJpfmRoWD3flENBg==:
-   wuLp051gkMF4iIn+POh3CfghwF1g5GL4s/AmN7+S3srAFyBdnWaYInB2kaGszw6B3IjmPe7Ndk0dx8Kl7ZKgCg==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794675206; x=1795280006; i=marvin24@gmx.de;
-	bh=d9yWPPWJVriCosgPtonj5lKMAc+ErOEFisVlBtFq8pc=;
-	h=X-UI-Sender-Class:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=jnbLyF90C4Xp1KK89pMksn7LJAlTkdJooWnMTI3/8aJ06JamJ7Z3yEsXJa/A4hVT
-	 8OFxz8vZAwr7zJOJ+kyTXTlY78vEeE6eaI7gaGX0aFBa1sOVfbwxpvl0GjMRFZGnD
-	 W5jwVi5o5Yj0VkG+kz7JDlJJ1qNBQL7WALpm2Gq7g0znkOnIBs50cYHYYkt1My4EV
-	 zPAroLLOqyyOHCckzQkFcAXU8ekKaSvsDQ0zLRDOxrIAW6K7Chdk+5wPz4HV3pgSU
-	 Wjz8dTYmlEB/Fbo+Jp6lOAucH4sR7TxHQ7hU2N4Dbu9+ZW8QFISLU5cceYBVRI4Ea
-	 pxJ0WpQISl0hzhVpaA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MK3Rm-1xACim0ICU-00VdYq; Sat, 14
- Nov 2026 17:53:26 +0100
-Date: Sat, 14 Nov 2026 17:53:25 +0100 (CET)
-From: Marc Dietrich <marvin24@gmx.de>
-To: sashiko-reviews@lists.linux.dev
-cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: i2c: Add Tegra20 I2C target
- controller
-In-Reply-To: <sashiko-outbox-204082@kernel.org>
-Message-ID: <d86f9f68-d88f-e02b-8cf3-9311af8277b1@gmx.de>
-References: <20261108212458.275980-1-marvin24@gmx.de> <20261108212458.275980-2-marvin24@gmx.de> <sashiko-outbox-204082@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6Q+9ulL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593651F000C4;
+	Sat, 14 Nov 2026 16:59:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794675566;
+	bh=w3uijtsTKDIV8rvVbRYQEcqIU5c8ua+g/vs766KkkYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k6Q+9ulLsLWdf75YymqnHPCwPj3SYib9hSbW0EVistwwBjEJvpfRKl11djbYQ+SD4
+	 u4roJ/p5McZqNWXhpnfDIgRRX30S7wILWe0RFoAsVSnF1IC/1SLsp9To9BT66efhjA
+	 fvoj+8aq+bFM5tiJ0mCEvbiSqGS9rgbk2u/IPJY8QTLX4XXb3LKy8AARL7PT5DT8yc
+	 jxmbIPQJRKSBTjkiK3kPBx9PmIkR0WSqpyu0aJ2ZAIcT6EJlDd0E9tXFwYo7/T6BDu
+	 BCoLGAftSOhbme7kwmXvvHxAuWIy0XmRWlMIcn3ipc+LP9BHUQULAkk6UY4L1UWP2A
+	 eSMbDGJUqOEXA==
+Date: Sat, 14 Nov 2026 17:59:18 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <aviOPo6bZ-WGsndf@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,244 +71,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-Content-ID: <1be66b77-892d-8e51-adb4-1f9f55876b08@posteo.de>
-X-Provags-ID: V03:K1:CQ1rnJgu10hw86VCRPJ1rT3pSSNRw5PmSe9I+AmqrKXzR1tvN05
- z0qIlT1CpK1qWsTVjuWIq+sJ5/C6Yjdgm1XsBmGVzupLkz4A+JYYXtebw9NCG/8vTFwFZnc
- w6v2ZCUGS1dXTogu3VR++ohK5KlzjsembmiVc7/k80TUOBVMb7uQQRkfFwqE6jPUM2eF9+a
- x1ls4PrsteKtxatVXYmqg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:eTLJ1swi/5s=;Rnz3Y6ZgLIW4nhj/f0cVWMA1tyi
- lZwdSHxNS/47g2P+r7H/IBly/YXBY2aDdvE8TaJTFwiQ9VkQOiC6h4BjmLqRjri5tAxGvgLmz
- lFbYCDiuBkXfsBpvXmvCZxDENfTNmHJf6y2xrm69wYrh0K2boEPYww4TLajQIUgUlCjGz9gMq
- TTMv588cCHZyn6LKxX90IcYl7/gz3HWfWdXIdkw+yyaMJWI1B5L32dPOqk8FHeA7eNH7MgQLt
- gTOWSfXDD0PCbQf1UBEUbFTtMPdUw0j+qm2S45zVfaTT4z1VTf25f6l6+rTye02Pk0zFIFDxN
- hlftJ/zpNjQ5Hsp0d1/SlrrSXN8jcmggjam3amD/Vs8JXGg/3nlNsE7w7DEPmKBDspeNq3x9L
- npqPFHybulIgkq8A6p01FXXAX5c24m3cY5RB97zCBjeW2Buz9EbY76Dt/ygGQeqyYkpjhAuqd
- Wj+GX/A5JZaNduqd+i+5zgw/o0x/lbcm0xiboHif3VMOcdC+oeFBj0xA81ZafJmD5pPYXryde
- mOdZticrbRnM3iWvNTmFnw3jjWwi7PKyEjFUP56AUC7vRbzf8fbjEVg1m5nUntTZkiFOK6qDT
- T2S8tzvGZR5plzum4pLTlpiYN+leQU+knW8oEreG87HLgHOnZ+Ubep42p9NcMtrp4GLFD0Iex
- pBo4Nf0Qx/gjzKYvLd4c4BK0MLIjuiEKiWEFzDayGgWBrC7o5JxRbhBsnXdh1JnudPt2tZWfH
- qGKRM6coYeAotXr79aCHb5XCE2PACI0wNcGvFFuOSeL/OXweGd4DNdE+Wqy3I6blr/8Ro96gC
- JVjNLto4AQUdLepxLmkEK+XtAsmLgXOG2o76ZwrdKKLMNHDBA29udz+UTxyItAZ/HzImoCQBB
- dCafJlaTRbnhGd+kjBPBKUaLs70DWaVW6D5JUHxF+pUoK83vhWTJdbY7q83xC1G2NKmiDnnSG
- wf4Nz4S01o5rcVybAKygV8lp8yepI4x6Z3jBcNKcp6tAx2Zr/8sMQGGMJ+iypimqEUlesxIwj
- 9LAz8pJxPbkYgBmlkHMzT1hg/NAMRzKoyR7DyVQBlmWQ5M3OS90jMIKSdap3XJYxdFGeQvUfa
- fnhD0I8IeSJnh2DbD3Locb/Puagl+eZakANZOZ8YJO6yYggIBoblGrvYWiQJ11mIGZ4E9YKUF
- oe3Z0reQNFcM8Xo2/VoIwpBEXKekVfMIN3VmwVtdvswN2L92NTcYzLwUiXUhi1gIymSe6row5
- 5Ddl64925Kve29t7NfK9y7k1nd0MnyTK0ho3JnafncuBQFQ2xkLorP/cOe2p53fD9Z13sOlpo
- icSZcgRSm68ZFtwpVTlgu0ZsQ1l+ZQBi+hf/AT/JxyfxNZ6c+sitcUUU0B1atc9s+nasRauB7
- S9Uw/pfC2YeQrBGdI2M16IkKUpjSoflYeB7RPJ7pSil+MdXz66qLY9oJtMLn6JypDyBBL6CRF
- zKA3BQBeF0ccqBz5hcdhJ1nhJw5ZVxoXe5FxJ8gkMvwvQATC2Z7D08le/KbIOUJ/DgowERAf8
- zSQ1ghKgIYP4gL/lC6xiv2QzQ9OckIl1RGm4EJqkF8M/vI8w7TOZl3PLzAWYxsqjsolg51Fnq
- 5tooR2uLkCPrEgFrw10zArcK9gf+HUGzJslK6BFA/RIAEZLlVB95puFwOeInvRsqfCQnxvbCC
- ulCVVIw9hDMDqfpbIZRcy750LPA8iRBsm+/P92QZ+z/6LD0GDU+XZF2tp8RZgEWxNvNUl9qPT
- 4yoZbMOuF4RrAB0cGCEDbV+889+M8mRot/n6mvvzd7v6D0dddIGp5ufujVCiJTvTyyd0cggjK
- bqvceeWtmG/yqpOz7pVO0xA1dpxH76CCJg67yVcptypMKesTfV2Bh99Rcu4B0ff94qFa5IZUV
- vSHv1sAsbSkOPbarw5lyjn2IdhB+TDWRUfnDyIbIVxu0yZiPMDwTYQBiUXbubW76Jim065KS0
- b7XMCBv/NVY69giCNlFrtUD7+hXTDk3+ZQq8N+6mN0XznpgMVtg1pD895NVjg2HLMKSyTqu1k
- XmAt0cQ3Y4U/jZkYiGJ5RW64yQolpu2d4MJ4Rpu8yL6Vj4+w1z6FXeXYnXLsohfWIol7ZeKnE
- CR/UgaD6WVS3I/Weka1/dFa+Qp8DhxnO5Hx4p/bc9dwQ3pFRemLEaU3BAVDBPFJ2rJkZHSRV0
- 7cYd26URcFShDVt2cBhVuOKQXRRR56cWb/1KvTnsV3hKRF2t4Up+x4XOFvui4kyoooftFxvn8
- 0/SWdcwrAXT8wl2gi+gmfOQAdZ+7WgQYLBIZvGeWNzN0F6dX9oysKhgmrCMe+bMSQaSJJJhEU
- H3h4WsGuBf17KRzzKxceXjfCSCGhp3HBN3rSZN3ghN6P4SiJcHf6lZyhoNq36JpVkpFIHTh4x
- SjowzDLgrWmL9FLxUnF3h3KCV/1r/KUaoCvFJ1cQqt/9gZUsxkETO/OZZG2ROYMPIvmh9e/Wy
- 6LiOLDKyyAyORIxKHXoxvIL0y8nDgLxU6eLvW0jNX6WOsQrQgiVCRUHpDiOob1Re1SYlVlqrw
- NdwhbqaqWTu5385MYyOrSvV0uMCnfCz36nRy/Gx+WptfJTxLO1ms5Hd9dYFxq+8TE8zw6hmAH
- kq8Va9Ho1LiyBdrfPQ0bQaXxvJcJYfvTIjcyxlTvV0IU0RNOP4NjUrCxLVfP6M8sIfDmJw9YY
- aDBjGeF40X/5WP3k8tISUwZW+9AydYjJRiDMYZsK/Q3dvsae1CzrgWmrbfn5aZL3dpQvyBbNS
- Fj4ZQhoL0Qf9uLuouAPOerJc5TGEz2CHVdAjz88TMU2FdZVDJ2A47jkP8mpfKEG1rgm2rvVdX
- F9vLzj4oACg3YBR+pO/ZeEYawDGxITPKY8vNNCj4IgJrTa5uxXz2O9FVc/oZeD8GJ9GE84qMy
- r49fuEODllu6lsQxVjQtx7c5HNArZ+7eIWZpg11wQ471C/w+CM+41iu8oEGrbvsL2GaV1UAiw
- zzt9pbPRhnowmHYfakDntmZn/ENW5joA+lfL09KJYc58ZOEoV8pwd+9ZZzriHEWDJWowu5Jqr
- w/SpdZbbxYEe6oR7AO4gU/IrTAmY3D/Gyn3F0eXtU6CVhluZ1EuVDy+M6sJcc0NMBlubKVfkP
- h1fnlAO6GqO9RieztMmtAVlaHgda42wc03LrFdfCXFxqPQ5MnKWzc132oPOQkU5999FRwQhUI
- qpsGK0vlVWlBJKpjSb7JVX42jXtEB8SwBqXk3RHAmX1bgk5SAcEIhh+TFmW0mgedosQz69P7P
- B4HkgVt6xk1DEg3gVVnj+DUu2RXgWgJ8YqGJyQ2Id2zyeoUSRv436qLTuTKGF4vhPKABoTQNh
- Q7nQlWfmGaelwB+WT+wf9qBK+cc5bX9wmHtTFssNtlrMhc4vpLd0my2mZ1ECfz1Q8FZnYyRgs
- BAkVjEin75kRR4Sp8fk0Nxxq2nocPTayZmhdePUacIpJUzJSbRpd3Ia0/tfAUO070/c7nXZRa
- W8PBwRK9WmalxYU+4QN0dmUw4XeIqM+W2trLCZMYx7Blw6klQfKrlg1PvL8FngeLal0NigsRB
- BCnvikmPzQlkXzWhGdqangTyD/IRcflgrMHIpde12uHjCYk0g6UlyXPqaGD8O1G1O2lw8rvki
- mQSGJDuyzkSnL7zTpGkAXNv5zl6y5fCLmHnq87wtl8BEzJ5SNvi+nS8lwE/WvLBF2s6IYUkL+
- QAhrN0oowECrDFJNc1CUjzVr7CQzDcDveSW+igqmb8mjIS0gy385VnE9Ldn6ZPNGb5wwomirF
- amFmVvJobLF2TvSmSrPKl6SNtFLSEdVJiZLjzXw9o97q4bbEHcSu+XkdLDVQHogCwaTnaImST
- Y91QirndxlndCSuFqvtA1/E6gwItgg7PvrPPXpJeSuqMaBE3XvlMIgPiPjQVi+HIXjpTQ7CHs
- QBA0EB5s1maTK/Jc5r00C0cvPq4J/qjG9VTqTVjvlXPX3lIx1Q3VaChTqZwWxZXyjRrAzAIAG
- EIQiaMyq1dVZn+uSKTx0H4Q1LYSXqG2miB53S2Fcx5jEF6IfxuqwABKRQVfqUqxLh2SnfTExb
- Trt//S1OKgRBIb0jvv5OY2NLvcvK58hw8F1Gt7N0hG+Id+P7BS9ncw9zvd+0t9t8RIIYCjn/W
- /p6glWnAPECY2HR/mgYjk/nlNI2n3f0KOgSqQBHGS4wBz60Ulp8Igg7E6NW22Ln9sTZPTSvMt
- RVzrkCbcMyv70FL44/gFk8HYBFEdaQdIfW83bxFj5707b5u1jsSgGI8oGOZU68TvU9vcRv58P
- q72kYyaueGlChMovgL6I8HWU2bDoFAUTJU0/tNIuJaf8oN6wUYLRyvjOtA1VWtnFnZC4bBqv1
- +exvDH4mbpJFRxdzeEXZoTB6amcs/+gGknlJ9E/OJrUwendCbyfUfWujXShNcpX91epM1fxxv
- KmN2UyLzaLE/q7OGek+XE6SI/rC6o++HORyVgL76lXSRQR3MjU2sgk1rspZAQOESvb0Ntvs6O
- lkHTGwnW0rdbAzJgCxkoCD/HqOy2NURDb5wAIOXXC/6EVWPwoXebQ1r3O7tnDPIQXc504pmrr
- e2eJ6jW7tnfAijcz0uz0vVsckbJ2rk0J9pPhANiXd7b/3szMk9KlHb20yE5TVqu12VJbdZPw8
- 16/aUblypFYgH0cew+OAnkq6G+uNzHkPKAv1z0HOrTh0tOV3QH972y6LpLng9OKDuth0viI9A
- 2Nz5vEnOPfd224eo0X+4dwEzwIzrQDKevuHYF+CizFBP6LsEVtlZV9P2msN4DmiRj+P+eSAZD
- U5WnlHigJ3F72Iu0mejSxE1LuRsi42W+QmjttoNmc3eXIesPWNR6u71YPD8o4ZSleEVFzL02u
- jWyiFe11YSM0kz7/+8wAObnOUGDHjRI+sANy3HROb2dZfOrtM0mgTmm1iiBYQpu3gDcAtmWHp
- tDUbQ2iddXUtjHQw5nMefbFZcBCvVjbG5KA8aew//J2rGnZmuRID5ExxkUqiaESSipOEHQYm0
- KxS9JpJoe6rZgq9bRSe3E1qjvwcVL/EoP/mFZkT9E4yuTfGrf19R2v6sus/AJiWB5FrTzb645
- DLXU9jkul/keFFF7vfW5HIszkYeCjTvkl7vpbYhmKvTbXYw64LGle5agOLVM4pypqKe5ovGCy
- MqZzxnqt+eCcXFtJHqlZyQw5gQ2jzc6JR7ZhgMhCnsSMBMOW+W8fVUdUNRfLLCMjd+NIS6BiK
- /hjRDLuvgi7Q4XXCczl85qRH8gOhIvTGqkMOViSIGtUS0yQq14yzZQL0msxQq4LAnJas29m9C
- 65IfoLVvU9996KEFZ9sSCDdW2YJN8Dm6m9lVwrAa0z12H7ZFRk2SG5yCFB9sEh3FYsoi4Qgrf
- Xm/7+GZKgXdGaubyWxoMrJW5SX84UohvjcCNLGYfneVLILY/vbjv2ujmC4j6zKk918ELCYt2p
- gnQVouXFVRmVxiQXVQXYwsRHH2UmDEG+sS0GIL2JqkKFOOgJ9uDgtOQ779nb8ajEwyttdXIaP
- Ddidnj935Xa6a5+E6WuJQw25tuYaTFQ/ta6kj9cWDroLiUrl6UeGluHaJXOeZ+LjnRJUbQbg2
- M8fZGQeTurmmMa7A/WMRoiat1668E6HMpOB25B/ug5bqn5Ar2DVsPDqJfGRyOghg0GKa8w5OG
- uacjtXGtXiCR2VcS0XoTbSX35XQUmnXklXg0tQmIMMNB/uGPZjWho2L0HGum+8Vg/UW6p8R8J
- 2WvyR/NMjjNJLUvsRNO+WvxLHlMcLY2xBdSwe92WwnpVNnQmpR0wcO15ixc8RG2zjU+N95L68
- dRu6Xbe4x/jfuvJuCP2KI73wZU7vVJ4Xavco65rdjWmxsHBTkJjhSHvYlnwp8xj4eDKY0Yzgo
- wlgULUF6H4MNiHZ0jalvuOmExlgc9HBJHpihBtPL++kVNIVUhyr2aFM6UYFVlEuX9Ejhra/+Z
- oA9xZswSD6PQh42v6BKh7baMxkeK9pEe0Y7O5QEApG4U8XP5Ej4GnT3h9W0zdDNikX3qF+SfW
- vSXeqGmncxH1wGf7L2OJdsUNXlK82iYp65z2Wot8/WrJJD/g9mrF3r/mo1lWaiVs+jSH7U3cf
- kg4YYFvr4tF9qyRyMqRFY2QjNvAIYQHFUoLfBj3tgf36Sol4gl7YkgVt8YGMYRDfZfuIKbSCB
- QYkL1B++zoTODAxA46d8VRTtN90oJePaRN9IQkGgCPqVedCGjGyXi4lFSV7sYi3JXR4PIWJ4A
- kxLZ2xSOjrMy21dsAr1YkAACRqzStOeMxzZzfyv6H5p93T6yfJ96GMmBD9WjLEplij5nWCGKT
- LjD8By2wTQCJgwaJNZSU6MjJvw42fkZ23PC4MXmdxxGsKFRVOddkiS/aZQF5g89bGKPstxvag
- qVBG9zkblTUDqIkMNeCRSnHJ9pqw1XWB1zkmlr8eX9iGtaHDA9woGyNbbC02mN6Mjvk9AgoB0
- tUJkGSlsFG1QxClXnDjfSG7MUSaG+dXKFm5uaCMry57d7YLGt9bEujknzV2JcHSS6mJy2cSr8
- Duagda0ilawxGdb7c7lVqPYzgnYttuqnk3SkzzYidty3ohX2Hxjm7ecGJrS5U8XXuldAI6BgP
- UFjlF1vBQEK/L8RwdymvFX+rpN0fI1cmnVnnmuobRaWe1vo7+qsjK41l5BV8V5lSIfbSaUroR
- SbLPpRKlYoSCpYfZ9KAiak1PBZ5YB7hB8GTqXpWvdg0cDFLyRXUv5GfdwsCAu5+D1lJ2fymB1
- MEQ2M0rXly96LJpAksN8RYr0G8/NxXM6c73ylkUyRdqVmbcwmIFiTBhXLG62zcS3ETchA0zY7
- S3EyBTmmyOiNCkcC5L7wrpAqK1PEFKJLTSE8OHX72QxI5leMQp3YcJPFlDJ47DAVbXrXdKD3m
- m2Ut843cNHYrhyiddlYi9Il1VrDH0oVV/sFu/gg08mor9EEJEeWYHrjDmLxfhDV2nCvbGDVn8
- P8kzHyC4dxR7VD9iKBVcFcHLa8w==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="esyunen5whdvkvls"
+Content-Disposition: inline
+In-Reply-To: <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+
+
+--esyunen5whdvkvls
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <aviOPo6bZ-WGsndf@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
 
-Hi,
+Hi Joe,
 
-On Sun, 8 Nov 2026, sashiko-bot@kernel.org wrote:
-
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [Medium] dt-bindings: i2c: tegra20: driver-specific compatible for
->  target mode
-> - [Low] dt-bindings: i2c: tegra20: missing clock constraints for target
->  compatible
-> --
+> Date: 2026-11-14 07:53:25-0800
+> From: Joe Perches <joe@perches.com>
 >
-> commit 1d779eb91a256c3147a2ce9798c783f5f76b1f50
-> Author: Marc Dietrich <marvin24@gmx.de>
->
-> dt-bindings: i2c: Add Tegra20 I2C target controller
->
-> This commit adds the "nvidia,tegra20-i2c-target" compatible string and a=
-n
-> example for the Tegra20 I2C target controller to the Tegra20 I2C binding
-> schema.
->
->> diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.y=
-aml b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
->> index 51241c1293e3e..2d7ee8e8750d4 100644
->> --- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
->> +++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
->> @@ -13,11 +13,15 @@ title: NVIDIA Tegra I2C controller driver
->>  properties:
->>    compatible:
->>      oneOf:
->> -      - description: Tegra20 has 4 generic I2C controller. This can su=
-pport
->> -          master and slave mode of I2C communication. The i2c-tegra dr=
-iver
->> -          only support master mode of I2C communication. Driver of I2C
->> -          controller is only compatible with "nvidia,tegra20-i2c".
->> +      - description: Tegra20 has 3 instances of a generic I2C controll=
-er.
->> +          It supports controller and target mode of I2C communication.
->> +          The i2c-tegra driver only supports master mode of I2C commun=
-ication.
->> +          Driver of I2C controller is only compatible with "nvidia,teg=
-ra20-i2c".
->>          const: nvidia,tegra20-i2c
->> +      - description: The i2c-tegra-target driver supports the target m=
-ode of
->> +          the generic Tegra20 I2C controller. Driver of the I2C target
->> +          controller is only compatible with "nvidia,tegra20-i2c-targe=
-t".
->> +        const: nvidia,tegra20-i2c-target
->
-> [Severity: Medium]
-> Should target mode be represented by a separate "nvidia,tegra20-i2c-targ=
-et"
-> compatible string?
->
-> The three generic Tegra20 I2C controllers (such as i2c@7000c500 in
-> arch/arm/boot/dts/nvidia/tegra20.dtsi) are the same hardware blocks alre=
-ady
-> described by "nvidia,tegra20-i2c", with controller and target registers =
-in
-> the same register aperture.  Defining a second compatible string to bind=
- a
-> separate i2c-tegra-target driver encodes Linux driver structure and runt=
-ime
-> mode into the Devicetree ABI.  In standard I2C bindings
-> (i2c-controller.yaml), dual-role controllers keep their hardware compati=
-ble
-> string and select target mode via child nodes marked with
-> I2C_OWN_SLAVE_ADDRESS in reg.
+[...]
+> > +/**
+> > + * strprefix - string prefix
+> > + * @s: The string to be tested
+> > + * @prefix: The string to see if @s starts with
+> > + *
+> > + * A common way to test a prefix of a string is to do:
+> > + *  strncmp(s, prefix, sizeof(prefix) - 1)
+> > + *
+> > + * But this can lead to bugs due to typos, or if prefix is a pointer
+> > + * and not a constant.  Instead use strprefix().
+> > + *
+> > + * Returns:
+> > + * *  @s + strlen(@prefix) if @s starts with @prefix
+> > + * *  NULL if @s does not start with @prefix
+> > + */
+> > +__attribute__((nonnull(1, 2)))
+>=20
+> __nonnull_args(1, 2)
 
-it is the intended behaviour to separate the two drivers in order to keep=
-=20
-the code mantainable. The controller driver is already very large in order=
-=20
-to support the various tegra models. If we also add the target driver to=
-=20
-the controller driver (potentially adding more variants in the future),=20
-the driver would grow even more.
-That said, the limitation is that we cannot support both controller and=20
-target on the same instance, but I guess there are only limited uses cases=
-=20
-for the scenario.
+Thanks!
 
->> @@ -222,3 +226,18 @@ examples:
->>          #address-cells =3D <1>;
->>          #size-cells =3D <0>;
->>      };
->> +
->> +  - |
->> +    i2c@7000c500 {
->> +        compatible =3D "nvidia,tegra20-i2c-target";
->> +        reg =3D <0x7000c500 0x100>;
->> +        interrupts =3D <0 92 0x04>;
->> +        clocks =3D <&tegra_car 67>, <&tegra_car 124>;
->> +        clock-names =3D "div-clk", "fast-clk";
->
-> [Severity: Low]
-> If "nvidia,tegra20-i2c-target" is kept, should it also be added to the
-> allOf conditional that constrains clocks and clock-names for Tegra20 and
-> Tegra30?
+> A negative of this is that it implies the return should
+> always be tested even though it can be known that the
+> return is effectively bool.
 
-not sure if this is required. The machine binding typically includes the
-SoC binding, which already defines all the required properties.
+I'm not sure I follow.  The attribute is about the arguments, not the
+return value.  Perhaps I don't understand what you mean by "this".
 
-> Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml {
->  ...
->  - if:
->      properties:
->        compatible:
->          contains:
->            enum:
->              - nvidia,tegra20-i2c
->              - nvidia,tegra30-i2c
->    then:
->      properties:
->        clocks:
->          minItems: 2
->        clock-names:
->          items:
->            - const: div-clk
->            - const: fast-clk
-> }
->
-> Without "nvidia,tegra20-i2c-target" in that enum, nodes using the new
-> compatible fall back to the top-level clocks definition (minItems: 1) an=
-d
-> do not validate the required "div-clk" and "fast-clk" entries.
+>=20
+> Also the block
+>=20
+> > + * A common way to test a prefix of a string is to do:
+> > + *  strncmp(s, prefix, sizeof(prefix) - 1)
+>=20
+> IMO isn't useful
 
-see above.
+I tend to agree.  I think that is just one example of code this API
+replaces, but there are many more.  I think I'd prefer a description of
+the API, without comparing it to existing patterns (because there might
+be too many).
 
-Marc
+> and the description doesn't say what happens
+> when prefix is an empty string (which IMO should match).
 
+It doesn't, because the general behavior naturally extends to that
+extreme.  That is, it's the non-surprising result.
+
+For any non-empty prefix, the function succeeds if all the non-null
+characters from the prefix are found sequentially at the begining of the
+string.  In other words, it matches if and only if strstr(s,prefix)=3D=3Ds.
+
+For the empty prefix, it still behaves like that.  If all the non-null
+characters from the prefix are found sequentially at the begining of the
+string, it succeeds.  This always happens, of course, so strprefix(s,"")
+always succeeds.  Similarly, strstr(s,"")=3D=3Ds.
+
+Since there's nothing different, I don't see a strong reason to document
+it at all.  And that's also the reason why I think the issue in
+str_has_prefix() is not just a different design decision, but rather
+a bug.  If the name of str_has_prefix() had been strprefix_len() --which
+BTW, I'm tempted to rename in this patch set--, then it would be just a
+design decision, as it would behave correctly for what the name implies,
+and it would be an incorrect use if one tries to use it for determining
+whether a strings starts with a possibly-empty prefix or not.  But the
+function is called str_has_prefix(), which implies a boolean behavior,
+and that boolean behavior is wrong for the case of the empty string.
+That is, while any string starts with an empty string, str_has_prefix()
+returns false, and that is wrong.
+
+> And the name strprefix could be confused with a function
+> that actually prefixes a string to another string.
+
+This would be a stretch.  <string.h> functions, with the exception of
+the *dup() functions, do not allocate memory.  They're a collection of
+functions that only perform byte operations on strings, or in general,
+on character arrays.
+
+Prefixing a string to another string would require either knowing the
+size of the buffer (and thus have a size_t parameter), or allocate new
+memory.  Since this function doesn't have a size_t, the former can be
+ruled out.  And allocating memory would be very weird, so we can also
+discard that.
+
+> maybe strprefixed or str_is_prefixed ?
+
+strprefixed() might be okay-ish.  I still prefer strprefix(), because
+common sense can rule those interpretations out, and also because it's
+widely implemented with that name.
+
+> And these are all candidates for converted uses to
+> whatever is the function name or steq:
+>=20
+> $ git grep -P '[^w]strncmp\s*\(\s*[\w\.\-\>\s]*,\s*\"\w*"\s*,\s*\d+\s*\)'=
+ -- '*.[ch]' | wc -l
+> 946
+
+Yup, there's a lot of code that could be converted.  For now, I find it
+more pressing to transform the existing calls to strstarts(), and as
+many of str_has_prefix() as reasonable, to minimize drift, but I can
+also work later on converting the strncmp(3) calls.
+
+> [^w] because of prom_strncmp
+
+Since there's no anchor before the 's', that doesn't change anything:
+
+$ git grep -P '[^w]strncmp\s*\(\s*[\w\.\-\>\s]*,\s*\"\w*"\s*,\s*\d+\s*\)' -=
+- '*.[ch]' | wc -l
+946
+$ git grep -P 'strncmp\s*\(\s*[\w\.\-\>\s]*,\s*\"\w*"\s*,\s*\d+\s*\)' -- '*=
+=2E[ch]' | wc -l
+946
+
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--esyunen5whdvkvls
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4k2AACgkQ64mZXMKQ
+wqkdxg//SdRA9p00Jkuq67BLQajOYOyjG5U493j/pF/mKIAsPOjbR1Sy+f+5sryL
+Be2REepkyc9Wv4+Mthma+gM3FcOAxeY4DS5IGrqDIGmX6mJ+hBCVz0qBSdQGV/H/
+ECwMzjP7ineQfECfCNJyRAvUCybVh0Ns9OXH/V1wKmaK+ki6zGZ8Y4opGz/gAk+q
+RnNelwK4LRPzwCkdK9aaiZX4iEqjuwzYoSlyVHaj86NRKoerYKYU/ClZrhFmjxT4
+/KUGXEF4jyjUhxUHeHaoagt3LK25WZulAKHIptPG4N5EAGWUsX1G2JMhnrH0goaq
+aIwc1z+yZHf/h0/KKX2CGNU6RPTM4W3bCWohqja1P3o9EuZ0wjgoKaettx61K2oV
+RR+6BIfqDktwiCj5uNR6sGTmkg/n06Ekqcsm/hTFNoDl3OsMgjfi52QIzrSApxNq
+fbIgG9LppQVrHwK5fwuqYHXrChwVX5hoYhS817eSLmDL7UCIEXwtPU3bXBFxt7L5
+TBHdDg2Ny09acWZhHiAv7IVgIXLRDKe1lcqgf2539goe9ieG43VUYTwPTpfcfX5f
+Gov2r394GXxaYFK2Q0lGFDjcoIjt2kOb17AShEEBEb5mzmEwJgsYLMHAYgoV2RbG
+aOepMOAr/zhuh9zbDltLQ/MhN5LNfF7VXOQBD9uW5+JL/FabycI=
+=LqWK
+-----END PGP SIGNATURE-----
+
+--esyunen5whdvkvls--
