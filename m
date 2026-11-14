@@ -1,120 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794660888;
-	b=guRScH3NVR3haTKC7iLFF52IMN65saz9XIy5XwZaPzuqemrH+ZGoj1cSuwYToNywm3fa
-	 WZ9e4hpOzsJnrpL5aiGUb6n735HWrj1MLFPOOQFEG5BJUrsbGk7QbDN6UaIUt09pk5EzW
-	 N7RV3T7fe31gS6gLlbOzNTb/R60WXcaSvsWxoDyeFJdyMXBWJOAg++UWNzKsbl7UeOqPH
-	 95FQt/rlIBjOV0woNbw8dCe3FSJ5FG9qTSEY2cjJk3A79ekjswJQRMahGxFon6/9C+z9f
-	 E69XMTD3BEBIfitRtMt079dwJsgNwVOiy4euPSQ+wmtcMB8ByKcSeOpf9Iv1JpnTAeQ==
+	t=1794660951;
+	b=oOCbsPexnaX4sBjRc+kcKhgpbnb6NDfZP2UH7TUoY8fBDCo9SYSO4oWUl8t1d7puTpM1
+	 W0HyjP2LIFKZhKkNgMS5tXOs7ADZY3R7bO6Cbp1vHqFlZWc8ojBhcCrdsqPZ278608txj
+	 kFGdAk5a0uKIvcizWhYrP6piGWAxUGwG5YnIvWRcZLSnsUmy5enOhtKVDgFvmh9fHBxOT
+	 +YTE/GWPc0k076ygWHOvhBOXXnCWIE55a3DCOb3RhFJr7AOcsPYnxkPvaTxRihxiBq6/J
+	 oSOYWBiGp43AdIokNQ5q9FmTSDn9HxPp/oXe2YaeQlHI9gRQae+8cX+IANziPNvMP1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794660888;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
-	b=00c7fvYT/imBy0Vp7CnvSk0oBnYw+rrqdhLhAQMjyY1nZenItVnrpd+D4w+xTDIgshiA
-	 pJ6GoLu8NCk9Jt/hrFGRcfnmsKR/qk/6GJWMhaUaTMUKWZ0z5QUWswTMPaFHUFnWis1T7
-	 1tbKy5Tiwc/QKm0fvVy9f2yF7Tsx8nrPv4MH3sEaO1G52CZkAeZUQOX5a5IzDHDUUWJP8
-	 vbRX1TkoWpMZZMWJTvOLF3tUkC3eCeM9HLSgf9T6VMr+sKzEKFaJ4gCZwDXbTrHvGe1mg
-	 ZcVGralqkkK/ljkJmJaNS2NVdVzsGxwuqPK26XYJ9nNnfm3kLUwAO8dFR85EwfFdtgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794660951;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=vIuZzjSinRxDY+zCm2U1qFSdh7xsPJf789P0S8sw/Dc=;
+	b=geTQt179rFndnFpt/OPkBIIfEMdTyf9qF785LaVbdjhDAeYWa2NW0mm0suVx3VjQgKKw
+	 5hx2LZUpz6JMx+dgJd1wiPY4EejNcc4MXmODMJEMoSfgT0lp04wQQy1XL0B+GESyQyGaS
+	 EUS6ujVvOs8AAbZJ6243rCWS/yqvvwI6qU9U181JPfiqkIPfRQ/JUKJal+LILIaHOhR2+
+	 5OLpt0XwNEGvRItCTKapKxjNuXNgiNXpn6gm3XhwnT5dBZ6EDSAZ8lysxg9pU2oZJV1ba
+	 KIDS7rzLSIk8oeUuIj/HtvwKwARcJruQy/0Us2YmXHsWzoy2oWmJLAsYB/4JfSZ32Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=furiosa.ai;
-	spf=none smtp.mailfrom=furiosa.ai;
-	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=dkAxV1i1;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=Feqs3f+C;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=57ED2Cub;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2F1606A331
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 12:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2F1606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A932C606A329
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 12:55:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A932C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=dkAxV1i1
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1756522c88.0
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 04:54:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1794660887; x=1795265687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
-        b=dkAxV1i1akrX9/iclASyqOcS7hHX+zkUiZgtkaofoh/kUhm/eu0SPxn5wiFBiGK7Xi
-         ZYBxOFfa42CM+EoxzQBF0yfyWPCPJbV40XW9Iohb5vEEav6UxAMpyR+0OW8rsB8qtGtx
-         ZepN02yz7bQqdeptFJ6J8U/THVphPzbhr48eg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794660887; x=1795265687;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
-        b=fRNCS+GyrOtOFO0nlj3B48ifBezaWLZmIlwYqiI7cRml/RU32xvZWVPms3cGgSijBk
-         wlt0NPCLLJoYCfn5p3sWZAvVUeTmrD46cpnotrTwS70nszyfnKaBqPUiVzd52iKhG2iq
-         Fv5jqx7qTLDri8sWcFRkIHhJ5kQt/QPNgohy+BQcCG4GgAvf0bJnSVo7GZARwRgtyq5A
-         CDJ6qsjl3pYHNRy9ve0AlL5moTwqzXXS88crOVFPr3woh0+PwSeiWcKQHMN+uxd3W4dz
-         fv6oK04VzRGFpY+M6voI/M1+HaWc5OHqlmidEwvYeitsoVGQsTF5S8Zq2+bwmy2AQsXs
-         YnzQ==
-X-Forwarded-Encrypted: i=1; AL+hErEPqFZfYBOttbYhDIGmDyHG1NlXeIL07n/dR5GsOjGSU8E04ITUR2hPm6VmF6s1O/ftZ66RdS4QnpIL@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PFACoKrXpJ5XY8sAo81BROVB9Y8kuIXEH8G3xurCug/VORyl7
-	v1w8PmQu5OGFRmJ/etKqNbeBZi3+rsMXq+XyTebADZE9t4GK2R6To5LjuHK9GL/dUXo=
-X-Gm-Gg: AYBFou05+RCGf7t0EG5hvX1CO0NZL0O/614/eMAEXu65N9G8MR8uxCpFIbuhvldcA7e
-	hTvadFuKc62hhHR/88VI2goMR+6cGjTYgayh7eq0mujkEiIO5umf+jxjkmMhKQnoXkxpWx1wcXJ
-	dDKWL3i3iGcOEx7V4gNLHJmdLBFFCIMU5R6M21+cRN/vAdeDdDpXxxwCk3o2TVinAQs7kM5aJDE
-	EYKtY2JRjMUdqKGBlvDR90YIyrvSpPvCBmY1eS6WAGolO7VN2B2AG+V+NDuyYAUxUzzTKBV+Zvk
-	fASH3pdDqJpCm38AUUti2ifjxKT9igb5sJNur1UTVXQD59bX9iuHlWcxXQTbNIK9GUp3xqfqbTR
-	IgpLTs9OXO5b7HcNXYPTpxnBthOlp4Zhc0olh8I7PJ7GPRuEe5HKN6YvRrH8mMnyNL3WJjvIrjR
-	tuIT2GaN5OsMLBG5IGug4FAI/v4GYB3BapyHulOLGfJsc3LZg9JS83CMHoTRN2B5RpPY2siBGFE
-	bGf5YuGOpSKXxFJIadyvd8iOqe+mI/FsmPivKIg+4LrK3kaTev0pvpLbawoIKvvhItLoxa3L1M4
-	l5VEv2O/RGD7NYmCkcJ8ysrYOpE6RsK0ytmzMMsqdYrr0WQ7sQx7mzsMf51Lh6gz9XDJxL4T08O
-	4o96rQ+dThSJY
-X-Received: by 2002:a05:701b:2706:b0:1b2:4c54:d976 with SMTP id a92af1059eb24-1b50311d3e0mr5111198c88.31.1794660886535;
-        Sat, 14 Nov 2026 04:54:46 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm15468097c88.12.2026.11.14.04.54.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 04:54:46 -0800 (PST)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com,
-	royalnet026@gmail.com,
-	ulf.hansson@oss.qualcomm.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	shawn.lin@rock-chips.com,
-	finley.xiao@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	vlwwwwww@gmail.com,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 00/12] accel/rocket: RK3576 NPU (RKNN) enablement
-Date: Sat, 14 Nov 2026 21:54:35 +0900
-Message-ID: <20261114125437.9986-1-sidong.yang@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=Feqs3f+C;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=57ED2Cub
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 2699D7A005F
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 07:55:50 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sat, 14 Nov 2026 07:55:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794660947;
+	 x=1794747347; bh=vIuZzjSinRxDY+zCm2U1qFSdh7xsPJf789P0S8sw/Dc=; b=
+	Feqs3f+C+Dt3q3nqYWakkuyPb5Qy1JAUzTCiYu9A9OLc8+IZ+Dfi7x+mO5nRlyET
+	cADh42s+kF7ffuWBMFoHcZnXPcH9lRvgMIgHBv0aC2QG452WrJkvkw2RQRAWDivq
+	WhxxluaytiUVAnw/Y6B/dPvrB1Zb8YG63Sb/joV5fTdCTx/VjqS0ukU92PQKoScr
+	OCkOqIRRH1u8hgxGUBgazNJQNV/Gr0lXevpnNBfpJIaXq5ExxUbCEony0+Zv5mPB
+	iLkK+fbri56uTpRWRrQLVsoY0o1cPCpW6/8mfosWM7uUQBMJ41LS2K1q9PeKQWzp
+	X6vbqoHIKhA+IlTnQsooVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794660947; x=
+	1794747347; bh=vIuZzjSinRxDY+zCm2U1qFSdh7xsPJf789P0S8sw/Dc=; b=5
+	7ED2CubAqBDxg9hCmwM89B2B1ahThDiZYyyx+6+RmeQpxj1a5B1ZX6ADy9SrvWox
+	StIQKc8Ab0G/lwyvwHHa6rHO7t9DXIIPNuQ4f7m7LGXm7Ci3q9QhvLLu7yv+iyIo
+	4jbbmrBmo1xN22DVTd3uTP+faBWFzm++69pH2+cHp3yyDfDULRT0jjTxpw9E9e23
+	9UEmcCDmj42vVP9cY8S0t9eoXZyYI3XCQEni5E65vnn49al87TDwR79lCSgE38ng
+	982hcv5sbdFbE0sbBNXoOv0idByfdRUETire1rnw5uwpAWE69vwmWeIwpKPdWFAQ
+	eGzB/0kyQXr7+GakyNWgg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794660947; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:f1Hd6F9Ubuqf6yn4r3WvVncRpE6y1PSG4Xsg+t470Tuosbl
+	1bmZ9E3Lht+5razqIi2TwGlexzPU6ceswTKg3Doz0kXqjv6VczC4KHvo+roSBfkA
+	U9Noc9BkWj+qis8OuxdWSGTrvv46NBkPUePEZcP+1M6ikyYm4J+2X965Hs0UFqMY
+	Gyoc7CK4MwnWjLrDZ4LeXw6lBL0CVB2F4Ix5ew9PW4WXTbxVJPRQtTuSdjfoMA4y
+	u6FzIs5FnAZZUljDXSu8IPQALvLdIN8boKdVQFM/ZMFCUB/iFm8sy/waNIITb0C7
+	gMSYtN0s7H4Oeoh7EZl0zW/T9Z2+h7sAI1Hb1BQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:JX5FzESmgpUsESvHuc2ohLHpTPvUvYazjnwvs00wNko=:ND/8t9BGEC7w5414Fo46okQsCh2BXHBaLKxcjtf7YXk=;
+X-ME-Sender: <xms:U1r4aogwuWRQFo3_KujnXDdOVeGd7Zr5SR0j3JpibiYKxNL64svLnw>
+    <xme:U1r4apx1_I6EXLoYU0OwU_9Ln2kSZHyRzPxK39A5sBgyvBpeMbXfpl7Q59fJIeVGQ
+    33S_7_IXTGEivUIprkNwFfWC61Y4u1QxymFvoJmRZ7MdKTmNb9NFgeo>
+X-ME-Received: <xmr:U1r4auxal7G4bvekc9bGHLMOHLwW4bGBNZ5rkr0LCKlyPwnkHjBZaZfydm7h3hMJPPUw8JWR_bSkVtbQx0ThZoKx3sG2e9s>
+X-ME-Proxy-Cause: dmFkZTEpt7PksyEXwjhHgpW1CBAo73QUZ4yNfyBBluBuK1XXwc+j76jocZP+MKKlueYKIf
+    WE6OnyIWQrowLVdVNPijF9apwvZ751hPGJzEZh/8AQTjRCDPTnFwRZUJ8xKDrLpWGm3JRF
+    40St8hs5B1BMkdR7DSYW2bu7eEJ+BHsHEJsTubk7eGYaCClnZwNkRi19POkodLHMqii07j
+    hLIBvKb+bUaJVaKT+KVSjmtVeR6UiWbQu1gh3KM8h9PjcizbTXyynn4Ztjamveezz2Flbj
+    mi2OSWIdYTYaeLILzSBHNfrTY7encU8uSOFxuOldtj+S0w+Qb0QctNauP2uRyfIloX5yp8
+    2nbNH+fufhZJpJTfvn/3nUqWG6uPHW8lts+RL/sHB33YGFEJHWsLsT2bf9Yk/1ORwIwEFo
+    Ice6rGUHI4deqNHmoxdUl1i6VLgcUsiA/uP9Amaq/diivAxtxQn2LT2098ZZLAUya1oOmY
+    f4pQlLZvEthEoxlZKdh/kHXLuaXG1vfGs7za1+lzWr2fYFpoDZNwYP0vc8ziVklc6Mk1SK
+    kiT5UdCv429viUW+Lc3v4oi4w+l21Y4sNiyJ7qLVK1gt+dQw0EDRAURLREnJY6CmCZjEEI
+    YdQN68no5vHl0r0XrM/23pwYgqClqsfz4SnH1Ttk5IMVDNFOefne9777lPiQ
+X-ME-Proxy: <xmx:U1r4arpVzHQlvAj3P4e_h_6W4hQuyW-PPb3YqPSdY0L4c98mYmHXxA>
+    <xmx:U1r4aplbND9c7GTUhzC9h_LgY6XtGc8n10qbqqXKjkURJ2g7eF5iDw>
+    <xmx:U1r4aswsmRYr4a4mi4BQe6REb-LMc8qCxwhf-EeR4K5RO9zoRRv3tw>
+    <xmx:U1r4am1kLYfKPVQC_kEOCvYgS41lm_gegIIgZmIDEzbI9dHv83rq2A>
+    <xmx:U1r4aqmdNXvfnaR7Mb257UcXqRq196Lx9-o-u4r_qccsEhLZan8c9pSA>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 07:55:46 -0500 (EST)
+Date: Sat, 14 Nov 2026 13:55:45 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: netdev-bot+sashiko@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	geert+renesas@glider.be, magnus.damm@gmail.com,
+	richardcochran@gmail.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, vadim.fedorenko@linux.dev,
+	sergei.shtylyov@gmail.com, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v8 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
+ node
+Message-ID: <20261114125545.GC938627@ragnatech.se>
+References: <20261110080727.2377040-4-niklas.soderlund+renesas@ragnatech.se>
+ <179465147165.2199510.7987717328787148087@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,20 +133,122 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <179465147165.2199510.7987717328787148087@kernel.org>
 
-On Sat, Nov 14, 2026 at 04:05:17PM +1300, Jiaxing Hu wrote:
-> This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
-> driver.
+On 2026-11-14 10:17:51 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The new `gptp: ptp@e6449000` node in
+>   arch/arm64/boot/dts/renesas/r8a779g0.dtsi uses `reg = <0 0xe6449000 0…
 
-I checked the accel/rocket patches for regressions on a ROCK 5B+
-(RK3588): MobileNet inference with up to 6 concurrent clients, runtime
-PM cycling, core unbind/rebind, GET_PARAM (returns 1) and recovery from
-93 forced job timeouts all pass, with no warnings.
+That is correct, please read cover letter.
 
-For patches 2-5 and 8-10:
+> 
+> --
+> 
+> arm64: dts: renesas: r8a779g0: Add gPTP node
+> 
+> This adds a gptp: ptp@e6449000 node to the R-Car V4H SoC dtsi. The commit
+> message says the gPTP module is shared between the RAVB and RTSN Ethernet
+> devices.
+> 
+> > diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> > index 5284923b6cef7..f2d6696680db8 100644
+> > --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> > @@ -606,6 +606,15 @@ mfis: system-controller@e6260000 {
+> >  			status = "disabled";
+> >  		};
+> >  
+> > +		gptp: ptp@e6449000 {
+> > +			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
+> > +			reg = <0 0xe6449000 0 0x500>;
+> > +			clocks = <&cpg CPG_MOD 2723>;
+> > +			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+> > +			resets = <&cpg 2723>;
+> > +			status = "disabled";
+> > +		};
+> > +
+> >  		tsn0: ethernet@e6460000 {
+> >  			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
+> >  			reg = <0 0xe6460000 0 0x7000>,
+> 
+> [Severity: Medium]
+> Can tsn0 and the new gptp node both be enabled on the same board?
+> 
+> The existing tsn0 node, which this patch does not change, already claims
+> the same window as its second reg entry:
+> 
+> 	tsn0: ethernet@e6460000 {
+> 		reg = <0 0xe6460000 0 0x7000>,
+> 		      <0 0xe6449000 0 0x500>;
+> 		reg-names = "tsnes", "gptp";
+> 		...
+> 		clocks = <&cpg CPG_MOD 2723>;
+> 		resets = <&cpg 2723>;
+> 
+> rtsn_probe() in drivers/net/ethernet/renesas/rtsn.c maps that region
+> exclusively and runs the timer itself:
+> 
+> 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "gptp");
+> 	...
+> 	ptpaddr = devm_ioremap_resource(&pdev->dev, res);
+> 	if (IS_ERR(ptpaddr)) {
+> 		ret = PTR_ERR(ptpaddr);
+> 		goto error_free;
+> 	}
+> 
+> 	priv->ptp_priv = rcar_gen4_ptp_alloc(pdev, ptpaddr);
+> 
+> ptp_rcar_gen4_probe() in drivers/ptp/ptp_rcar_gen4.c claims the same
+> range:
+> 
+> 	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> 	if (IS_ERR(priv->base))
+> 		return PTR_ERR(priv->base);
+> 
+> If a board sets both &tsn0 and &gptp to okay, the device that probes
+> second should get -EBUSY from its request on 0xe6449000-0xe64494ff. When
+> rtsn is the one that fails, the whole TSN Ethernet interface is lost,
+> because a failed gptp mapping takes the error_free path in rtsn_probe().
+> 
+> The commit message says:
+> 
+>     The gPTP module is shared between the RAVB and RTSN Ethernet devices on
+>     the SoC.
+> 
+> The new renesas,rcar-gen4-gptp.yaml binding also says "On R-Car V4H it is
+> shared between RTSN and RAVB". However, renesas,ethertsn.yaml still
+> requires the gptp reg entry on the TSN node. rtsn also has no ptp-timer
+> phandle path. No DTS under arch/arm64/boot/dts/renesas/ references &gptp
+> yet, so RAVB is not connected to this node either. RAVB uses the timer
+> only through of_parse_phandle(..., "ptp-timer", 0).
+> 
+> Would it make sense to either move RTSN over to the shared node or
+> document that the two nodes are mutually exclusive? Moving RTSN would mean
+> dropping the gptp reg from tsn0 and from the ethertsn binding, and
+> switching rtsn to a ptp-timer phandle.
+> 
+> A shared-node conversion would also need to handle reset 2723. rtsn takes
+> it with the exclusive devm_reset_control_get() and pulses it in
+> rtsn_reset(). That looks like it would wipe the timer setup, which
+> ptp_rcar_gen4_probe() writes only once.
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110080727.2377040-1-niklas.soderlund%2Brenesas%40ragnatech.se
 
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, ROCK 5B+
-
-Thanks,
-Sidong
+-- 
+Kind Regards,
+Niklas Söderlund
