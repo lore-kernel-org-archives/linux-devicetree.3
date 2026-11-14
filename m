@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794662234;
-	b=t2HyVspFC6EFAU44hr1VbAsWs9PlLIkYYE5Xc/wDgD1f3WcF0vvnlrNuIe2boNY+WjKw
-	 peijntyU0iI2ZPBk3jSoNoNVgSv2JMnQjdMMkUPJG50nMr7DR4xggxDPH6SS9SfRiOgRp
-	 URF76Mp2IKonWxso4yQ+gfCLTdPYG10EXkouczIwGO5Gn/mCOb3dVEBlrQBi725xaB14k
-	 Udi7RuYcdvutqPIW4D3rwc+qsEdPKEgfv/8h814VHx/BV/Fzz6TbPJSg0tQ80i9qnKHx+
-	 g0qq1ISB+B8HkpcFUZCvgE2wMtXhzaSdGpQXM4QE7K2gF37yr4O5Rc9DqkCso2gU43Q==
+	t=1794662324;
+	b=KGpf29uKvlHJkAXdkmGqRuAC9dFE9Kzc7y4ydno99wP+HoFZsbB2yoXxnKAYBvyeIm07
+	 1kCtU7bjmMRonEh6dpVoBZo7cUsD0iDA2wflrn/SZU2rIvlaFhwjSTYN4UkhsighbFDR9
+	 YhlDdhtk2aEPrx7H5pqtxoZuubKLiyq3213A4wrr9NBYVh388kREL9LbfIbho3UMvPi+y
+	 LgEf3kxfJ325FV2kgFZ1DGKbLyXEQVIDWEejUgIHGcMq43wa/6tE62+C+k/rFd2Mww4PH
+	 wQXv9NtIO0VgoakaP21O2O1KiG5+rR0wL6aZn2wNjdjHxoJtBTWlfINZ675JsJ5B3Vg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794662234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794662324;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
-	b=Yi3NnNWZd15OhUPsiQyNxVR5gZ1SFpHezPk5VRTHWxL/TAlRRjTCS5ORdCWTPTUj+phH
-	 tFLuSBjmGzzgSH0yfrmSkvhXtdR3ZZ9LuG2bGM78UK+t4TJTzTZ3i8RUdVwZ5Dbq/WCbl
-	 imcXW4NxuMmMYRITc2hnTpjLNahBEfjuYZb7ZXuhu7oGdPXRzWS0OcR0Sg4yu4K3z3urH
-	 yXess29jV14vYVRwN7fZzk3q3d/D0ho0wPPN5VP7WDUS4+/zVdnnu5Nfa9VsoLIYXz4Gn
-	 liGxZndYJf9/AN09cUAlpukxorkc+bI54U0QPUmh/3uL9BfFymPeoBpurFtX5Dgd9sg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=58b7G1H1JueuCMWy4Xbmh+zF/T7ZKS+k82iVJRVD894=;
+	b=ipCD08g9gfrgTp9kQCinOG1wBzZ9aNVYEZ4Mhw60fk3igSKLdc+xPPwyUwCItwwtLwUZ
+	 d6mQlP4OOGXLirPcNnSsDbjK3NXvgQ0TyyK874cnE4fZPG0PdhfaIey8Uz63MmZGp/1gE
+	 EqyBVK8Q/N8aLqZt3bwngqG2/1MMyakznFv9c5tuc5Rey70wRwKzpufzTaOPAl/cq39Uy
+	 Qse9NeighmE1+khaHFsuh1Cv6N0G5lJq284Qg6dBRG8xgtCdGwI3hCrEylhwU6f5qivvv
+	 39X8aLkTdlxIIVLqPrbDulO701YRgl4Dro5crjYWxXsvkG7sSXi1Aa++fReWyBw5DgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bkBiYsFf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxb2Q1PP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3B5606A8AC
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D3B5606A8AC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2601606A335
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2601606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bkBiYsFf
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so325077866b.2
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 05:17:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794662233; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxb2Q1PP
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c40f29667e6so385728566b.0
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 05:18:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794662322; cv=none;
         d=google.com; s=arc-20260327;
-        b=ClmGXzx9z+N1TNV5XzcUfhwKD7JF9PB1MwpRWkU8HIPvb+Zd1rO9JCd9Yu7dK6DwNg
-         +VIjx0U8H4a1i9kBTKWmmLwVLuydwkZrtgXLCjS49P/MZhQxQGRQdnFP9FBTt1w3+lEv
-         IncWl4qXhHL673Mv0wRHLsIfDKeiiNNtJJDLwlynvYKipIfCncIbGzueuyFidoUHQ98P
-         PJQQIYg+kkjtd5BmvjXGwgHRezs6tPP/bvcibemOtSk2qhWLtg6n+PHGY8dcwTQsfTfg
-         +NocCdwfnoQ6ny6Ide8nf1BkJit9fxzmi1xboNPLBoYd8phBYlJK/x+68zfGYzhvU/uK
-         98vA==
+        b=CHL4nmCptoLHB8D7COUPgQFeqBx0aNcrw6tVAcdJ3pkhYSwJwOKTv34gDw8GmyMTco
+         GjOzpf++fZ3SsI1bEvAIORYrF2+WhgPcjl0lJqmXGIDTx9XWofaKFgBM1sMfgu4Za2EM
+         +NIir9UeIBXIBRb/mfxvQOWKAA9STXOPq1EM2c2TY7gjBMUpbUTY10JLs34M49cOrw7H
+         YNRik0E+7uAfVK3c4Fu4F3pZYreSOmqPOX/jEfwyZGm2i2HXHnOw2dRsso49J4Lb1Ll/
+         dI+HfKcxoLBFTQsX/usird+GrXLyS2lPw2lGOswiG/fX6dTMPBPdz1NnnqdCzMDMX7L2
+         Ujiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
-        fh=6LXHFQY7EkZw2Q/PjZvouWZZZxw3IqRxf7i64CwaxwE=;
-        b=ClYzTBNHlmEtrZMi/KHXLya4V14N1UzGWSdEa1hI+eBjbTcS9rlHAEOvA//2u6YXVo
-         3vsplPdvGlsTx6e/J2p7RKWMEi6Du5dD/2O90Ch8Od6hdr18QHsSnpT3mn85wA06US61
-         q4gp6axfnI1/SAV1zl+8qOcf6+ODX+qalUciWN+mtFaLzhLlt/DGyobAH5RgpKQon3aw
-         qzwjCzUGFOxH3QTYGmbyO4ckHNQJJxAsli+JKdRrzec62pxdKGZjnvpYa1b5fhx24t9Q
-         gbPBXs1KOTYD2+pk+DtbewMUlIyvXet2nwpfPbpqcbEAInr2DRgRnfvvFmeegx8MrwbQ
-         84EA==;
+        bh=58b7G1H1JueuCMWy4Xbmh+zF/T7ZKS+k82iVJRVD894=;
+        fh=+1h7SXQ5DHmI21+Yvraf6m2PAXvkxbyN0ishmZ3r4eo=;
+        b=D1hMnJhkSOp0/fyfPpUHX8JADrPLzBwo272i+QhiDx4OsFhfSI+cunuI37P/cyHnG2
+         w/DWKs2hr2f+7iW6kRuJsrEoqxi+Mra/4v3c16qdlA9vEEB7UR+2ZtxkN8ssYp+Fl+PC
+         9OSJxWXV5VoQ2gw+6SYJEd4o/sAm1SoqBdodKn61zwDTdfS86J7dDQRoUtoD64KF3Udj
+         R9UiVaJ52p22GzFDVbENeulKeVWkLkkR9inHwhJaLn5qoa5CuAS+tDVDFx1oNEmdAfcC
+         lKdbCaN6KZY+cZ9jd/1ccU0+6OVNqU6TEz/YIVEypx1IPuQB9IGbUrjhq0oSPVQ2pwx0
+         7eOg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794662233; x=1795267033; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794662322; x=1795267122; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
-        b=bkBiYsFfmEtp7IJKvH7hEn7KTFWusZlaAuAdlpmYXF803sUqFCC1KYxa9tyrf34zN1
-         XEF5zkbgkyIS48qvP5a5GB3ex7t7UtUZYJboxL0XL4tLGHUYaONVZb6rUO8eATYZ1QXL
-         8+UQQA+DM8uDBp6Hk2hDrEFaQbRoNXoI4sdU/oLAIoBHSwdiO0Ay272h0WfUXQYhiEyJ
-         e2QaMbc1FuXjzS/yNEbZqG1YlIpj/OsymtVLBErLFBFscJ/L9ut44gQSUhbnqudxfjKt
-         sK7WJvoJ/AvY0cJmbn/C2ArMEwRPABus1HpWmclIlurEsjmpX9yiYldYqDoxhrn8mpyz
-         4Fxg==
+        bh=58b7G1H1JueuCMWy4Xbmh+zF/T7ZKS+k82iVJRVD894=;
+        b=hxb2Q1PPH8JwA5KxJAt4R/8e9pXZaorE4T4mDzztW2iHtFLSPq06sGBd49/7Diz2bR
+         7uMe8lGq51rNPP9uySOwpEcN4a2fAA9GIKwsmmoLlzkWnV3hDkxNzdSdFFpv75kVQpwa
+         SkUeZ0W0ll0907zajhC/gyKcMzztZI6AWRywpBVK+hJes2fu6TNkdwbN3yfbEUiYlhGi
+         QMs/FtRJ/RnY80cPlCHxYZ+xB7YcA2kqXUM+wpY6pEyaItbPt7RnusmjC225prR5lsUu
+         2MbIyRABq3fPaNEc7KNuD6nHnFHW4ci6poFVUEek9lbc75/gnF6cvrMeddgA/DZfO1vv
+         fDuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794662233; x=1795267033;
+        d=1e100.net; s=20260707; t=1794662322; x=1795267122;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
-        b=vPlJufJytoQrdVdloj97Qu0w9fHTQaMcr9+oo1ikhRFXTPZkAcX01YiEnF1MUPU/3X
-         qHDROINsxN9WuBRM/erycdRkWwZuX6vVqJ9EUBPnbcXbpLUzeEF5X8TmglVfl7lquNcF
-         10yu4bcHK/PlqIT7SN8TTL4gfu8bGljvaG6fXXiQs18BPg6grRS4oKjgA2Hz925SXTbs
-         RSUMIULFsjvq5hyqUEatNKy8M3+vbXGsrfVbFJtyuSHfSB2QpvnM4UsFiGrgqNcNk/7E
-         nDbGstSvSLWSVf5vKMQ3t/6RUFu3MXqktX0BerNeNusIPx+846naBtkIwY6deyO2RPZz
-         Jv9w==
-X-Forwarded-Encrypted: i=1; AL+hErHdDYDAL9j90qTV110FI/8L7Z0gq+R3e1jVwkrJdpNj7n5SpLzA8PnydIcGpzs0Iiulb7W2bTDVlxdd@vger.kernel.org
-X-Gm-Message-State: APuU4Z+n8QXW67qt+wkv2Anm0BPrGasIXWLAL/CwcKPSI5CGrlFGYKe5
-	VQJfyiCOwOWMLmsXCWFTNa8vAcTopdkB4veIK2+syJR0m/3TIJ0cSQvX+2bSb6Si4NSzTxwEmat
-	Jo8mmXogmP7982BKc5kVljaQQEgjlclU=
-X-Gm-Gg: AYBFou3R7PKTyP5wf4l/AGG8Ly8fJHdR2s7Y01FJ/0PlShHG3jRsIx2pjL4e/zJD2tn
-	Hi4U/2SeeUl+K05uvYNEjkE9Uv4SWQ9+4B3RUlY8cF/jINYHz+GaO0E1T4P78imJ/ts8XJQySTd
-	1mB3wwe7Kh9MeeWnQ/Ga6niXH+5/Sp/ogR2z0rnN7d6l9p+L97KAceSV5dqfopCTql4UgbcRI9N
-	jXSQC1Y5GtLKj+bwm5CXal0lteReKuHu3XDJ4ufsyZUfH5gIxcwkMUcory7V28hBf7uTCOo7s9L
-	zYgNq+U2N5ItPdGBe0XUj6N2oK+C2I4cjyofDv7Yfmbu0+S7e4dadMEe73cyHbLl3lKgt2drGzz
-	vk0w1WxvDKYMMjLGb8WJ9aYQhpJLMfO7v98Oovw==
-X-Received: by 2002:a17:906:dc91:b0:c50:5a93:3bd7 with SMTP id
- a640c23a62f3a-c509614d52cmr448037466b.3.1794662232406; Sat, 14 Nov 2026
- 05:17:12 -0800 (PST)
+        bh=58b7G1H1JueuCMWy4Xbmh+zF/T7ZKS+k82iVJRVD894=;
+        b=cWHTBY/qQsYvurF8E98Yi0xjTNeIQAMTqP9I6wDuFvIDC45jgLLap28ngAwmxGrjZ/
+         X6+nQGrFd2nIWW6D1HpkkUJxyFDpPAtyFtKgs7URR7irc+aRxb4wdKovRKeaUcr/Hgs3
+         IttuobBO8gL1L0C89M2mZReiE8LQmQgdslhUD/l3PioGZ1NGGInnX2wdTdTkHwVkD7uX
+         seal3QMyNDliywFGJ89sRQ3340oYpoaPRgYbitLXD6NBgLt1fjLhjNd8MJcVdnA4T65a
+         4MuKJpRh1RecX5VRrRYSEIbX+DrZJFuAHOosDTZkPjgrWB23jHOZbPiRZ1xu2hCe8swa
+         gzRg==
+X-Gm-Message-State: APuU4Z/cgOaslgY3NMa8DdMjr7G+sq3zHjSJFn84VyERrHI391GW6+aZ
+	FLpfi9dzPArN/rKA1Yj3/JXGopmRplN7SNdis6Rls0mDvmxdjRxz/sgBbdAI53vdaIRDegiy/9d
+	UX/5bmzV7ThDZpsM57DLizyzPQdOKan4ErA==
+X-Gm-Gg: AYBFou1yjgomC0zHCYfD2iD00PvYT+hOCOVFy22nCsTifz2fyxfqV1pJblMYGERDpM2
+	DNUo0yVDt9cdAvbTD7jNjUKG/rAS2oxpgaw3XyuhpU5g+J7CubMXLhFVsOjC5ohl/wr8oM3KC3N
+	9q/FG/I4eM30ouIM1pbDHlkhGBZf5eNQwPPx5sjTRGzT/GAbgLcT/Ej3bNG7Q6HAcZnZ9DzZsFS
+	Y9VM+LDV75aV69zwXzjXsN+mYZPAI8BEuXgw6LztpcZSSN27Glf8G3C+OHIz4pbZGmLqcAjtvQH
+	Rk1UOaX6F/eDcIY//frxwDGxZMoA3wGH7VVzNgNh10j+X4x+NGvQVVEo6enFoQ71OZcTAg4qZoF
+	P5m3FFtns5l2ZvMzoNqTiYTp3vc1X/1HRq0VBeg==
+X-Received: by 2002:a17:907:60d3:b0:c31:8441:35ff with SMTP id
+ a640c23a62f3a-c50968355eemr493838166b.48.1794662321796; Sat, 14 Nov 2026
+ 05:18:41 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,62 +104,41 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
- <20261113110546.173624-2-a.shimko.dev@gmail.com> <20261113-good-renovator-99924ca0d55b@spud>
-In-Reply-To: <20261113-good-renovator-99924ca0d55b@spud>
+ <20261113110546.173624-2-a.shimko.dev@gmail.com> <sashiko-outbox-214381@kernel.org>
+In-Reply-To: <sashiko-outbox-214381@kernel.org>
 From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Sat, 14 Nov 2026 16:17:01 +0300
-X-Gm-Features: AclHuK8rhFfFvkBwbKflVQt0QnoMak0rCeWcBpwf3o6KE4ySn9wUi4t5_Sc9CCY
-Message-ID: <CAOPX74613tpMONAYkvY+6=UqDtJ7h8r8FmHmnodmNZ3Zi3RBbw@mail.gmail.com>
+Date: Sat, 14 Nov 2026 16:18:30 +0300
+X-Gm-Features: AclHuK8H_C_3YSuNOFdtrgvuWk2DTznaljzjLDq-5of7gWhmdigWJCNEeRSV-sc
+Message-ID: <CAOPX746fNHakC7O-scwkWTTvgovmbqvMLxbBszQr3vQyqn-8jA@mail.gmail.com>
 Subject: Re: [PATCH net-next 1/3] dt-bindings: net: dptel,dap8211r: add led nodes
-To: Conor Dooley <conor@kernel.org>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
-	netdev@vger.kernel.org
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-leds@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, lee@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Conor,
+On Sat, Nov 14, 2026 at 2:06=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 
-On Fri, Nov 13, 2026 at 8:17=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
-te:
+> [Severity: Medium]
+> Does this leds schema pass dt_binding_check or enforce the 0..2 LED index
+> limit?
+>
+> The leds object omits additionalProperties: false (as well as
+> #address-cells and #size-cells), and ^led@[0-2]$ sets
+> additionalProperties: true without a compatible property, both of which
+> fail DT meta-schema validation.
+>
+> Because ethernet-phy.yaml# is included in allOf and already defines leds
+> with ^led@[a-f0-9]+$, leaving additionalProperties unset on leds allows
+> child nodes outside ^led@[0-2]$ (such as led@3) to pass validation via
+> ethernet-phy.yaml#, while reg under ^led@[0-2]$ only specifies maxItems: =
+1
+> without restricting the value to 0..2.
+>
+> Either drop the leds property block to inherit the definition from
+> ethernet-phy.yaml#, or define #address-cells, #size-cells, and
+> additionalProperties: false on leds and reference
+> /schemas/leds/common.yaml# with unevaluatedProperties: false and
+> maximum: 2 on reg under ^led@[0-2]$.
 
-> > +  leds:
-> > +    type: object
-> > +    description:
-> > +      Optional node describing the three configurable LEDs of the PHY.
-> > +      Each LED can be assigned a color, function and default trigger
-> > +      (e.g. "netdev" for link/activity indication).
->
-> Please add some blank lines here,
->
-> > +    patternProperties:
-> > +      '^led@[0-2]$':
-> > +        type: object
->
-> here,
->
-> > +        properties:
-> > +          reg:
-> > +            maxItems: 1
->
-> here,
->
-> > +        required:
-> > +          - reg
->
-> and here.
->
-> > +        additionalProperties: true
->
-> This whole leds node needs to go down below tx-internal-delay-ps, child
-> nodes are typically sorted after regular properties.
->
-> pw-bot: changes-requested
-
-Thank you for your review, i'll all of the above.
-
-Best regards,
-artem
+Will fix it.
