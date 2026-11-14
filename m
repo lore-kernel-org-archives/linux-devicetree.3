@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794694569;
-	b=FsMANxQflayQdBkfnJkotSYvPjNJsKv51M20akraYAwr1X9GFrZalaE8MLeA5Vzoogt1
-	 ec9mJ+ILfjzT08uVu/Yl0QwCruOqSoWzWUwdroaz+AxH3620TQmPk1CPrKbosRWjTYdgj
-	 0P+yQnXyiHKCmimvJYj5Q4LhgRiYueyyu0G2FJUVog3z+4upOu4t6JAz7EVuq1NTfKoqD
-	 rgJjpniqgT3FdixdCvtYJ4URzFrL/6JSwlTt7MNxJqAS4Z4vGAyyI05A8SffT82px0b6I
-	 fvvkFwevDW0CQK/REIyNxXQ8cl/KwB8IHR4pWtyU04P6J2ojy0iTpelbcPDNLCHekJg==
+	t=1794695784;
+	b=lGcSZ+V6a8nilcjts7CJ5ncO3GcJXoDdt7Y3w88NmwHKlR+j7Y7X4ILlRdcFXTUVkJUh
+	 GQv4nJi781E93GKnDPxLKREUICly9ZTdIO5kR0uqfMEjTJRuIOkXUUbT9L9DA4+I5D5NY
+	 hxzb2oY5X7SKy1Uq+7cH61/KcV6dva8Cu2Kxj2Ss0czC67qGumNcyio3IWC8emSSNtTbk
+	 6VbyW75zr+W+5k2Y/GhFjxeaQ1Vsvbi49q74eMBNgwoWa++Z12ODQtwHTyunMJ1QyLB4M
+	 zOTZc66bSo3aFoKZWnuU7TBfPFhqNMfuas50+pN4eTi5wa1E1X6zIXgr3G//C1U+Kaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694569;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794695784;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IDjZSVgHwAuIz39+r5A66Sm/O8aoe/1wLhdOdEPnhHY=;
-	b=snAmPwDabU05HreSLfhil1SYLW1Ltvp60W9GTQnvUwshrgKPxvEA7qwDviMgjo8KQEaz
-	 wZQGuDgHShJd3JCUeAnht10T3MrA/1VAc9WpqUMXxk59aLSKC1vdiQsQ+IIECrwfw0Khk
-	 ozCOY7QHpAeDdYvYeK90s0Ndb4vrke0ipm+c/2b8coUQ6XVNAS3t9pjp7HTg/v/OiuLX6
-	 8KHMfAbpfqhNNJsPXBUBKqufxJCo/vUubyfHjqqTZ3+OWRssyOu5Yqjfni+aszcD5tF2e
-	 mvxzo/odwg0MpJArFm6xkpyJtqPEiSSAPohdH4BqqSSNhyC31L58YozNK77iEdBRqAw==
+	bh=3GmTsvjjjRsfQjR1vcZ3unJ9njwZivv6RzYb6ZLaEf0=;
+	b=qMHrIuNYryk3MWhNaxfMIoBhoLm19qJCjgaxiG3LyGlP/UfQSEQ4ReiLdbix5fvQVo1N
+	 JTdzNKCpA4nVvG3I70ekvCfCQ6j2ELo5B07rahe9kSkezOT1I8r6jwiutyd7szavD+q2o
+	 3qRg0oogZmRw4VmstIlN00TL9Bp4ckKmlktlyr6a9oII2/H5upOM1HEtn62b7/Me2qcKe
+	 REhyCu16TvGjVbXGNrstIRPmjn0TGr0RvzVvQRJGk621Dg6ur/jBxNM5zMaBb9tcRvAYD
+	 2Z5OxtZiSGuXR8lA0qQgAI8/RHe4F26ZJ8LdikfMvoZiCH/GCGQm4HGz5bAeuqU6CPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdyS2TkR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etu7sIX7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCA6606A329;
-	Sat, 14 Nov 2026 22:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A874E606A32D;
+	Sat, 14 Nov 2026 22:36:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdyS2TkR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0161C1F000C6;
-	Sat, 14 Nov 2026 22:16:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=etu7sIX7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34E81F000C4;
+	Sat, 14 Nov 2026 22:36:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794694569;
-	bh=IDjZSVgHwAuIz39+r5A66Sm/O8aoe/1wLhdOdEPnhHY=;
+	s=k20260515; t=1794695784;
+	bh=3GmTsvjjjRsfQjR1vcZ3unJ9njwZivv6RzYb6ZLaEf0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PdyS2TkRxRUFB1AbigR8BuzeBsDPUfFp3gvfRlGbyK402/zw9q0NtFRTQwbVxWD15
-	 bOFBsnVLxvZGL+LxdA77H9w06jZqOsnIcqWXMa6a43ESfyLrGgXWDCDFbKPZih5Zrf
-	 RzN4rejU43FNyNcGfCBiWv/uAVNc2lrUULYEN0V8wgdkUngqHrx+ixzODj6gj3snJb
-	 1KXvIhGgB2VfbvfaabPSpuHbHF448CT9z3x+alnWitCNf3YLyNHZVBD4h8yNVL0Nys
-	 7u52Y6jAsHvlqSnOiMkm1t2p4OCqmbTLOoEc3MCyoPISIKY0xgmMjsLXkW1s9FN1/T
-	 WuohnOztKqFsg==
-Date: Sat, 14 Nov 2026 22:15:59 +0000
+	b=etu7sIX78tdNEHeI12jq7NSVQLwtjxc2JaUBQ4xEVov0jaTQEg7SfT0wrVXLqV3ri
+	 jCR84N3aORvehPgyEOgIgsmm85N4hNssjG6EO+c1QtS6bjQK45AcIiAm5ifVYzDFc9
+	 xPw3JYarNc8+Cw+8CqhL9kFLr3euhSaeGEdxoxUucIOTJdWOoVMRrcYRZGAUemhLvt
+	 9IHgYitQfBiASIYi5er76daXtf42hlUyrHiDG+xSYzbezO8byD0fm6fXDhLo8NZQOw
+	 RmcNKnaeSvxj23XvUKkMAwO6I3I7CI2tKvYwo0kc/gQ93g3IZt90eTgsIX3X3EhkWl
+	 33RZSB5lX8tbQ==
+Date: Sat, 14 Nov 2026 22:36:14 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Victor Chernyakin
- <chernyakin.victor.j@outlook.com>, andy@kernel.org, conor+dt@kernel.org,
- cwweng@nuvoton.com, devicetree@vger.kernel.org, dlechner@baylibre.com,
- krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- nuno.sa@analog.com, robh@kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <20261114221559.1867c183@jic23-hlaptop>
-In-Reply-To: <c52e7b57-9d40-456c-a2f6-545c0bca9b46@gmail.com>
-References: <20261104091136.151269-3-cwweng.linux@gmail.com>
-	<SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<avR2DaxSJJwpnWP9@ashevche-desk.local>
-	<c52e7b57-9d40-456c-a2f6-545c0bca9b46@gmail.com>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob
+ Herring <robh@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, "Trevor Gamblin"
+ <tgamblin@baylibre.com>, Joshua Crofts <crofts@kernel.org>, "Sergiu
+ Cuciurean" <sergiu.cuciurean@analog.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/7] pwm: axi-pwmgen: report the waveform step
+Message-ID: <20261114223614.59e796e6@jic23-hlaptop>
+In-Reply-To: <20261109140607.36418-1-Nicolae-daniel.Deaconescu@analog.com>
+References: <20261107014755.364d4729@jic23-hlaptop>
+	<20261109140607.36418-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,60 +67,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 12 Nov 2026 09:26:00 +0800
-Chi-Wen Weng <cwweng.linux@gmail.com> wrote:
+On Mon, 9 Nov 2026 16:06:07 +0200
+Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com> wrote:
 
-> Andy Shevchenko =E6=96=BC 2026/11/11 =E4=B8=8B=E5=8D=88 10:05 =E5=AF=AB=
-=E9=81=93:
-> > On Tue, Nov 10, 2026 at 08:08:03PM -0600, Victor Chernyakin wrote:
-> >=20
-> > ...
-> >  =20
-> >>> +	if (!num_channels)
-> >>> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> >>> +
-> >>> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> >>> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-> >>> +
-> >>> +	channels =3D devm_kcalloc(dev, size_add(num_channels, 1),
-> >>> +				sizeof(*channels), GFP_KERNEL); =20
-> >>
-> >> Couldn't size_add() just be regular +?
-> >> (Question to Andy who originally suggested it)
-> >> We've just checked that num_channels is small and won't overflow. =20
-> >=20
-> > While that's true, the other aspect(s) of this is in play. Namely we wa=
-nt to
-> > have the same pattern over the kernel that makes code robust (tomorrow =
-some
-> > cases can be modified unnoticed with opening such an issue again) along=
- with
-> > the potential of finding those patterns and update in case of mass-upda=
-tes
-> > of low-level API, and I have heard for the matter of fact that devm_*al=
-loc*()
-> > are in the plans to move to something like k*alloc_obj*() or k*alloc_fl=
-ex().
-> >  =20
-For what is is worth we now have devm_kzalloc_objs() in tree.=20
-I'd imagine a mass conversion is on the cards, similar to what
-was done for the other allocation functions.=20
-However, it's controversial so probably don't jump on that just yet!
+> Hi Jonathan,
+> 
+> On Sat, 7 Nov 2026 01:47:55 +0000, Jonathan Cameron wrote:
+> >  
+> > > index b40522f01002..6b15244efabf 100644
+> > > --- a/drivers/pwm/pwm-axi-pwmgen.c
+> > > +++ b/drivers/pwm/pwm-axi-pwmgen.c
+> > > @@ -136,6 +136,18 @@ static int axi_pwmgen_round_waveform_fromhw(struct pwm_chip *chip, struct pwm_de
+> > >  	return 0;
+> > >  }
+> > > +static int axi_pwmgen_get_waveform_step(struct pwm_chip *chip,
+> > > +					struct pwm_device *pwm,
+> > > +					struct pwm_waveform_step *step)
+> > > +{
+> > > +	struct axi_pwmgen_ddata *ddata = axi_pwmgen_ddata_from_chip(chip);
+> > > +
+> > > +	step->clk_rate_Hz = ddata->clk_rate_hz;
+> > > +	step->clk_cycles_per_step = 1;  
+> >
+> > Given the only known user sets cycles_per_step to 1, what evidence
+> > do we have that part of the interface is actually useful?
+> >
+> > I can theorise that some device might need a couple of clocks
+> > but can also theorise someone might use both edges of the clock as possible
+> > state transition points for a PWM.
+> >
+> > Note my PWM knowledge is minimal so this may be entirely garbage!  
+> 
+> None yet. axi-pwmgen is the only provider and reports 1. The field is there
+> because Conor's v1 review said the code would fail if someone used a PWM
+> provider with a mandatory divider. It keeps the consumer from assuming
+> one clock cycle per step.
+> 
+> If you prefer to add it when a provider needs it, I can drop it. struct
+> pwm_waveform_step then keeps only clk_rate_Hz.
 
-https://lore.kernel.org/all/CAHk-=3DwgYBrhvo2NAG_Ja-0ovPf=3DxO20Gcopv9Yrr1u=
-=3DQVxECZw@mail.gmail.com/
+I'm fine with sticking with this as you have it.  Thanks for the extra info.
 
+Jonathan
 
->=20
-> Thanks Victor and Andy for the discussion.
->=20
-> I'll keep size_add() for consistency and future-proofing, as Andy suggest=
-ed.
->=20
+> 
 > Thanks,
-> Chi-Wen
->=20
+> Daniel
 
