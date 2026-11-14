@@ -1,63 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794655268;
-	b=A742PFFQd7qG6KW1kftPfT0+8Et30NngzKxAliIflXxIPey8vmObDdv8IuczpHvfMZhO
-	 g9StuDEdlyhGPt+oPOmonzXdoJusOEfCegEtOgXGJs/msvwF4mCLY/QPxKXFH5//4Nry9
-	 YRlyCUktd7Fb5WJ/z23SZ6FqX1wZWn1FabGkv2GeEbwewblZgd4nm8LsYgkfMchFw56Eb
-	 nf13KrO1s+mtFEGS7T4Q1V8ogrkE3jA+jxHtWfTpnrA4Ve4inLXRhMJWmUa6kNTl7rDtr
-	 QzqjC7npA69KW69nZBUsuyEo975GTmxmJBjpRFKuFALlVa+iXL1y8bQCQftxhJ8TTbA==
+	t=1794655342;
+	b=0P0Q+TlfvyytdR3eHSxS/dBuTWntMSx/zxuVFJlfbhdPnI6VIJPOI+y+9C2bQFL7hA2F
+	 7zkJkHMUWmtyBvZl2WJx5YHJ6dLD73cydrpbpYqagV11YS9bLWEIbfJIRuH6d9j4KqwI3
+	 gcNuVBT94Dty3KPU6xQy6zBjy9DemRFewI/XWBkqI0nWvUeBpOXb2kr5yRRiuI2HpNggV
+	 5S0ED/Tem95aqGSIzJdKMQLhZQb1IVmtU4EvBM6plbmqZNoS2vCekIn3Vz08XaLdAqHh+
+	 PQS0clQAGn7Q/LVTQZk8MHS4VHJvArgE7ygdkZa8zOzJbxFICKblIO+XNBpVu8iJ0rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794655268;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=RwjrMW8ek34o06NZVM58HNS4wvj8ASlnDUnEfaDDKnA=;
-	b=M74mMVse7CIRGIlAhF05Tpn42RoDH0lnu8MXXudFi6pIPc/CtnsMiK/D1IaL3as0I0Vc
-	 gcH+kz6Y5YNzOEm9TXyuZbtzj5FdtMSXTUl5/RiiDFqKh/xFOmtuRccm03r8ZujaxIHjS
-	 2tgu0SBjjYgA31fDWx0cS8eO3t8mMurrjhp0kap69U4dGW1+jE9SfFO8jFoLchCcdyvNR
-	 fKrSJj6WdXLq2BIpMylLYrSBhrD4pkhhgWhk1SDLZ+WK2Oal2Kiz9P+INLrPwUuPraL5l
-	 O7fzGb5j7I65Jkgz9CGKk9/msM6/OIvuaTkVImUWCygIsy5pQIx5tkJeuMYwSVqAtcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794655342;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
+	b=NYJgMKfIOR2dT7pZSlKKfOzIlrleJK6kJsWoG25zUwFtrwRLkRMmGOhiOCV1fgloiilQ
+	 uj2PafjtHWO0EZXJfmSIvbMEcbytrm60t91cjZ68uKwIieLlVgPmVqjVD7/Jc3cfIeR6Q
+	 6Ql4JxmHTng8i2sKB4yVNHB+KTtx+dT5GC1j9zx+5G14RBMRtJ8a+p1ILm0pytOpntBtQ
+	 S6zuLOQ9qOkGXw64P30eKrdwm7UC+fZCqjeKlPBn9IskzAaVeQTt0/ocpFyO+3ueAEfqa
+	 qUwWsYCPRkz5rv8Uhu9QgW2J7WJmzoGfMW14rO9WIlE8L8HkI0mGsVYeu63yybZ1FDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h9tEFg52;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hHscUns5;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6515D606A331
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6515D606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E42B606A323
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E42B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h9tEFg52
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=RwjrMW8ek34o06NZVM58HNS4wvj8ASlnDUnEfaDDKnA=; b=h
-	9tEFg52YCgfd46Q0/1yDaKoqBEpHLWgKB068XUIJGEGRVSt5uttXNKIguHthpCpS
-	UtLvJPpE4O29nTelIhImr4yQhEnxUO6VjlWgZXWTF8/w2TSGCaNm8HbNbID4CMg/
-	CGdrqt1Y90WDOMfQTfiz36rmTYHOB+bFLubGA48hH0=
-Date: Sat, 14 Nov 2026 19:20:24 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Luo Liu" <Luo.Liu@cixtech.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, wuyi.shen@cixtech.com,
-	cix-kernel-upstream@cixtech.com
-Subject: Re:[PATCH 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261109103010.110911-3-Luo.Liu@cixtech.com>
-References: <20261109103010.110911-1-Luo.Liu@cixtech.com>
- <20261109103010.110911-3-Luo.Liu@cixtech.com>
-X-NTES-SC: AL_Qu2SBvqeukop4iKZbOkdk0gQhec/Xce4uvsi3YJQc+IEgwfIwTI7eUBbNlDn8seFKxuGjRWSfAJcyO9LXpBZptdQKmM9QyvtopiWrri51A==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hHscUns5
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1408583a12.0
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:22:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794655341; x=1795260141; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
+        b=hHscUns54ZoPTWjJLDTcIIdAlRhRig51j67kstsOM41HSpAVjhH25UPBT4Xs8Lfl8v
+         zF7T9BPu9XcRPlrR4333fUvGcBpBWwiNVgi2/hQRAe7YutjASqT0+RTt9cKqjnE7DbkC
+         SeqCCXVBIFMUyBNRlOIL6aMgr4y1qTQi3Gzk70PK9CZGkl1a5L/hkA/0wzYwOQSDj+pf
+         OOSeQx0SsyqN6MD6GbZMt6S5tM5GJMTITof+crWu+9OUn5IKU6Mqp3RsUPQKnpGFn8TR
+         YPR1YEPH2CwSfxzkG14BizzhPQCeJuOCj6xqQneND4IBCWR9Thx8ONumgxDEaZsG0zQj
+         HZ1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794655341; x=1795260141;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
+        b=XRfyz4UQzMB3/RWtymXuhh3qBd9uwpZL2dySBBZQTsj9Lbtaa9LluVkpYaxRPrX4Kw
+         X1PZtPR+1JY5SZWVD7Kqp5NoVwksjCT68OwGNK3w/X0y6mcleHDxBssgH8AwyE8+QNiq
+         EJcfY5hdav6IBarvciAIUC1UzCKsanMjSD5/KKWb34ugMs5cABfq3gPdPWEbJ2JQdIpN
+         Sy44ppelVZHTnPQ6Qvh2eY3Dqyr5ubaiJEL1PE9Xvg6FV4Nj+k/LP1q952gMGD087bTF
+         OxQARU5vsYJzZdQ4IljPJMQnyBeVD0VuTfKaXXR/OzCX0oGkQJjM0/NJHHEqjqm/l71x
+         zMZw==
+X-Forwarded-Encrypted: i=1; AL+hErHqRkZZVhiZ7HzW7WlMhUx1AWS4T+8fT0yKqmY8TyCUijdr5qFCJEpdYOvzQvLOwz0W9Z2OCJl1CMxU@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WsmW5M/QFrz1LzW9J5FMpZ9s2eeQt05Y3likyDCwQzJytsp1z
+	Y1RgJ6c6gWc+A7LJyePP7TVgB4k5PRM0Wy7cxeQK+NOrAVBzZZXbyKUd
+X-Gm-Gg: AYBFou3acxAtrgB6Di9X7Y4sWaZUWP3qrod/AANuEcUafrk6kFx5xaUSw2ADrbd/1hy
+	sUf5++kg7y3LK5GYiJNcFSDLP5Gjj8kWPgiaVsYEE2tztfS97uHy8pf7oZlV2XMAzRuEETggabk
+	BtWLg1vVfag1UD+JbQkUXkL/OTwc/GGxCW91zX/8b58EiPDzRMWnKEID180vVUylwzITagZH/IP
+	oOAq7BafeWP2x7GF8/50UJ3yGWqkEQx34OGD7yY0laeEDwR+siA5QEqqTFT99I595U6qKboKqcx
+	LBqtnicPJJ1YxnG9pDRRY38t+Rs6TJvoqRSBTyMeclA+js9DgsdATipa4dY0ZFPnWF2eScOaxi5
+	56MeTmDIOSGj0gWcLt7oIzVFNdTbDBnOggAO4YeooiK9ea8PXLP4A1sh+kEunF2VWwyG2Y/R/Uf
+	xMHlqYLyx9prs1eEw3t9BUdtov77qXOsOphCEPwniyfD6a0jOFn54pELqvh7/HhPO7mflXUFA7o
+	Qx7G120D8qbASbpGMUIBBBWPOVA/n/MpKEJUfNcu240vSiIcnESI2RDyTtMzGggLCTlxciQxMLW
+	scKW2j/h45nn2Mo3qxHsOtWELKjcOHCd9kVtMIzKx5JeC78WFrSHfZXMSGz0U89LfDgMOEHHvkW
+	d7ZM/CQO9BeR4oU4580daB6NWjg6TSUd7mScJWVShKteT9n9ciXMzmNd50MNGruHKAlXeBpLRZI
+	UTVqZ9rNvBp7vasi4=
+X-Received: by 2002:a17:90a:c88f:b0:3b0:e388:d9c9 with SMTP id 98e67ed59e1d1-3b1b0b5d690mr3501691a91.12.1794655341320;
+        Sat, 14 Nov 2026 03:22:21 -0800 (PST)
+Received: from localhost.localdomain ([118.68.25.198])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm3981142a91.3.2026.11.14.03.22.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 14 Nov 2026 03:22:19 -0800 (PST)
+From: Adrian Nguyen <thenguyen1024@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Adrian Nguyen <thenguyen1024@gmail.com>
+Subject: [PATCH v3 0/2] power: supply: Add Qualcomm SMB1351 charger driver
+Date: Sat, 14 Nov 2026 18:21:53 +0700
+Message-ID: <20261114112155.85068-1-thenguyen1024@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,181 +103,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <15d12979.26c5.1a1d9c981a5.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bSgvCgC3b1L4Q_hqgkVuAA--.2511W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7RjnRmr4Q-jWUQAA36
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhlbGxvIEx1bywKCkF0IDIwMjYtMTEtMDkgMTg6MzA6MTAsICJMdW8gTGl1IiA8THVvLkxpdUBj
-aXh0ZWNoLmNvbT4gd3JvdGU6Cj5BZGQgYSBEUk0gYnJpZGdlIGRyaXZlciBmb3IgdGhlIENJWCBT
-a3kxIERpc3BsYXlQb3J0IHRyYW5zbWl0dGVyLiBUaGUKPmNvbnRyb2xsZXIgaW1wbGVtZW50cyB0
-aGUgRFAgbGluayB0cmFpbmluZyBhbmQgdGhlIHNvdXJjZSBzaWRlIG9mIHRoZQo+RGlzcGxheVBv
-cnQgcHJvdG9jb2wsIGFuZCBpcyBmZWQgYnkgb25lIG9mIHRoZSBTb0MgZGlzcGxheSBwaXBlbGlu
-ZXMuCj4KPlRoZSB0cmFuc21pdHRlciBpcyBleHBvc2VkIGFzIGEgRFJNIGJyaWRnZS4gVGhlIENJ
-WCBkaXNwbGF5IHBpcGVsaW5lCj5hdHRhY2hlcyBicmlkZ2VzIHdpdGhvdXQgRFJNX0JSSURHRV9B
-VFRBQ0hfTk9fQ09OTkVDVE9SLCBzbyB0aGUgZHJpdmVyCj5jcmVhdGVzIHRoZSBjb25uZWN0b3Ig
-ZnJvbSAuYXR0YWNoLiBXaGVuIHRoYXQgZmxhZyBpcyBzZXQsIGNvbm5lY3Rvcgo+Y3JlYXRpb24g
-aXMgbGVmdCB0byB0aGUgZGlzcGxheSBjb250cm9sbGVyLiBUaGUgY29ubmVjdG9yIHJlYWRzIHRo
-ZQo+RURJRCwgdmFsaWRhdGVzIG1vZGVzIGFnYWluc3QgdGhlIGxpbmsgYmFuZHdpZHRoLCBzdXBw
-b3J0cyBZQ2JDciA0OjI6MAo+YW5kIHNpZ25hbHMgaG90cGx1ZyB0aHJvdWdoIGRybV9oZWxwZXJf
-aHBkX2lycV9ldmVudCgpLgo+Cj5UaGUgRGlzcGxheVBvcnQgUEhZIGlzIGRyaXZlbiB0aHJvdWdo
-IHRoZSBnZW5lcmljIFBIWSBBUEk6IGxpbmstcmF0ZSBhbmQKPnZvbHRhZ2Utc3dpbmcgdXBkYXRl
-cyBhcmUgZm9yd2FyZGVkIHRvIHRoZSBQSFkgYW5kIHRoZSBsaW5rIGlzIHJldHJhaW5lZAo+d2hl
-biB0aGUgc2luayByZXF1ZXN0cyBpdC4gQXVkaW8gYW5kIERTQyBhcmUgbm90IHN1cHBvcnRlZCB5
-ZXQuCj4KPlNpZ25lZC1vZmYtYnk6IEx1byBMaXUgPEx1by5MaXVAY2l4dGVjaC5jb20+Cj4tLS0K
-PiBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxICsKPiBkcml2
-ZXJzL2dwdS9kcm0vS2NvbmZpZyAgICAgICAgICAgICAgICAgfCAgICAxICsKPiBkcml2ZXJzL2dw
-dS9kcm0vTWFrZWZpbGUgICAgICAgICAgICAgICAgfCAgICAxICsKPiBkcml2ZXJzL2dwdS9kcm0v
-Y2l4L0tjb25maWcgICAgICAgICAgICAgfCAgICAzICsKPiBkcml2ZXJzL2dwdS9kcm0vY2l4L01h
-a2VmaWxlICAgICAgICAgICAgfCAgICAzICsKPiBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvS2Nv
-bmZpZyAgICAgICAgfCAgIDE2ICsKPiBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvTWFrZWZpbGUg
-ICAgICAgfCAgICA0ICsKPiBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHguYyAgICAg
-fCAyMDg2ICsrKysrKysrKysrKysrKysrKysrKysrCj4gZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4
-L2NpeF9kcHR4LmggICAgIHwgIDM3MCArKysrCj4gZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L2Np
-eF9kcHR4X2RybS5jIHwgIDY1MyArKysrKysrCj4gZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L2Np
-eF9kcHR4X2RybS5oIHwgICAxNiArCj4gMTEgZmlsZXMgY2hhbmdlZCwgMzE1NCBpbnNlcnRpb25z
-KCspCj4gY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9jaXgvS2NvbmZpZwo+IGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vY2l4L01ha2VmaWxlCj4gY3JlYXRlIG1v
-ZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9jaXgvZHB0eC9LY29uZmlnCj4gY3JlYXRlIG1vZGUg
-MTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9jaXgvZHB0eC9NYWtlZmlsZQo+IGNyZWF0ZSBtb2RlIDEw
-MDY0NCBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHguYwo+IGNyZWF0ZSBtb2RlIDEw
-MDY0NCBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHguaAo+IGNyZWF0ZSBtb2RlIDEw
-MDY0NCBkcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHhfZHJtLmMKPiBjcmVhdGUgbW9k
-ZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L2NpeF9kcHR4X2RybS5oCj4KPmRpZmYg
-LS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTCj5pbmRleCA3ZDUyODNkODMwMjIuLjE4
-ZWU4ODRhZTE1OCAxMDA2NDQKPi0tLSBhL01BSU5UQUlORVJTCj4rKysgYi9NQUlOVEFJTkVSUwo+
-QEAgLTY1MjksNiArNjUyOSw3IEBAIFI6CUNJWCBMaW51eCBLZXJuZWwgVXBzdHJlYW0gR3JvdXAg
-PGNpeC1rZXJuZWwtdXBzdHJlYW1AY2l4dGVjaC5jb20+Cj4gTDoJZHJpLWRldmVsQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IFM6CU1haW50YWluZWQKPiBGOglEb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvZGlzcGxheS9jaXgsc2t5MS1kcHR4LnlhbWwKPitGOglkcml2ZXJzL2dwdS9k
-cm0vY2l4L2RwdHgvCj4gCj4gQ0xBTkcgQ09OVEVYVCBBTkFMWVNJUwo+IE06CU1hcmNvIEVsdmVy
-IDxlbHZlckBnb29nbGUuY29tPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9LY29uZmln
-IGIvZHJpdmVycy9ncHUvZHJtL0tjb25maWcKPmluZGV4IDYxMTExZDUwYjFjNi4uYTE4MDhkYjhi
-OWM4IDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL0tjb25maWcKPisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9LY29uZmlnCj5AQCAtMzExLDYgKzMxMSw3IEBAIHNvdXJjZSAiZHJpdmVycy9ncHUv
-ZHJtL2FzcGVlZC9LY29uZmlnIgo+IHNvdXJjZSAiZHJpdmVycy9ncHUvZHJtL2FzdC9LY29uZmln
-Igo+IHNvdXJjZSAiZHJpdmVycy9ncHUvZHJtL2F0bWVsLWhsY2RjL0tjb25maWciCj4gc291cmNl
-ICJkcml2ZXJzL2dwdS9kcm0vYnJpZGdlL0tjb25maWciCj4rc291cmNlICJkcml2ZXJzL2dwdS9k
-cm0vY2l4L0tjb25maWciCj4gc291cmNlICJkcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9LY29uZmln
-Igo+IHNvdXJjZSAiZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9LY29uZmlnIgo+IHNvdXJjZSAiZHJp
-dmVycy9ncHUvZHJtL2ZzbC1kY3UvS2NvbmZpZyIKPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vTWFrZWZpbGUKPmluZGV4IDJjNmJjMDkzYTky
-My4uNmVkNzQ1NmJiOTkzIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlCj4r
-KysgYi9kcml2ZXJzL2dwdS9kcm0vTWFrZWZpbGUKPkBAIC0xNjksNiArMTY5LDcgQEAgb2JqLXkJ
-CQkrPSB0ZXN0cy8KPiBvYmotJChDT05GSUdfRFJNX01JUElfREJJKSArPSBkcm1fbWlwaV9kYmku
-bwo+IG9iai0kKENPTkZJR19EUk1fTUlQSV9EU0kpICs9IGRybV9taXBpX2RzaS5vCj4gb2JqLXkJ
-CQkrPSBhcm0vCj4rb2JqLXkJCQkrPSBjaXgvCj4gb2JqLXkJCQkrPSBjbGllbnRzLwo+IG9iai15
-CQkJKz0gZGlzcGxheS8KPiBvYmotJChDT05GSUdfRFJNX1RUTSkJKz0gdHRtLwo+ZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9jaXgvS2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9jaXgvS2Nv
-bmZpZwo+bmV3IGZpbGUgbW9kZSAxMDA2NDQKPmluZGV4IDAwMDAwMDAwMDAwMC4uNmNiYWE1YmY5
-ZmU5Cj4tLS0gL2Rldi9udWxsCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vY2l4L0tjb25maWcKPkBA
-IC0wLDAgKzEsMyBAQAo+KyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQo+
-Kwo+K3NvdXJjZSAiZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L0tjb25maWciCj5kaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2NpeC9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9jaXgvTWFr
-ZWZpbGUKPm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj5pbmRleCAwMDAwMDAwMDAwMDAuLmE5MzU5MWZj
-NDllOAo+LS0tIC9kZXYvbnVsbAo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2NpeC9NYWtlZmlsZQo+
-QEAgLTAsMCArMSwzIEBACj4rIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+Kwo+
-K29iai0kKENPTkZJR19EUk1fQ0lYX0RQKSArPSBkcHR4Lwo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9jaXgvZHB0eC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L0tjb25m
-aWcKPm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj5pbmRleCAwMDAwMDAwMDAwMDAuLjBiMDk5ZjdkMmVk
-NQo+LS0tIC9kZXYvbnVsbAo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L0tjb25maWcK
-PkBAIC0wLDAgKzEsMTYgQEAKPisjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9u
-bHkKPisKPitjb25maWcgRFJNX0NJWF9EUAo+Kwl0cmlzdGF0ZSAiQ2l4IERpc3BsYXlQb3J0IENv
-bnRyb2xsZXIgRHJpdmVyIgo+KwlkZXBlbmRzIG9uIENPTU1PTl9DTEsgJiYgRFJNICYmIE9GCj4r
-CWRlcGVuZHMgb24gR0VORVJJQ19QSFkKPisJc2VsZWN0IERSTV9LTVNfSEVMUEVSCj4rCXNlbGVj
-dCBEUk1fRElTUExBWV9IRUxQRVIKPisJc2VsZWN0IERSTV9ESVNQTEFZX0RQX0hFTFBFUgo+Kwlo
-ZWxwCj4rCSAgRFJNL0tNUyBkcml2ZXIgZm9yIHRoZSBDaXggRGlzcGxheVBvcnQgY29udHJvbGxl
-ci4gSXQgaW1wbGVtZW50cwo+KwkgIHRoZSBzdGFuZGFyZCBEUk0gYnJpZGdlIGludGVyZmFjZSBh
-bmQgZHJpdmVzIGFuIGV4dGVybmFsCj4rCSAgRGlzcGxheVBvcnQgUEhZIHRocm91Z2ggdGhlIGdl
-bmVyaWMgUEhZIGZyYW1ld29yay4KPisKPisJICBUbyBjb21waWxlIHRoaXMgZHJpdmVyIGFzIGEg
-bW9kdWxlLCBjaG9vc2UgTSBoZXJlOiB0aGUgbW9kdWxlIHdpbGwKPisJICBiZSBjYWxsZWQgY2l4
-LWRwdHguCj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L01ha2VmaWxlIGIv
-ZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L01ha2VmaWxlCj5uZXcgZmlsZSBtb2RlIDEwMDY0NAo+
-aW5kZXggMDAwMDAwMDAwMDAwLi5kMTU2MTc4ZDlhMzQKPi0tLSAvZGV2L251bGwKPisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9jaXgvZHB0eC9NYWtlZmlsZQo+QEAgLTAsMCArMSw0IEBACj4rIyBTUERY
-LUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5Cj4rCj4rY2l4LWRwdHgteSA6PSBjaXhf
-ZHB0eC5vIGNpeF9kcHR4X2RybS5vCj4rb2JqLSQoQ09ORklHX0RSTV9DSVhfRFApICs9IGNpeC1k
-cHR4Lm8KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHguYyBi
-L2RyaXZlcnMvZ3B1L2RybS9jaXgvZHB0eC9jaXhfZHB0eC5jCj5uZXcgZmlsZSBtb2RlIDEwMDY0
-NAo+aW5kZXggMDAwMDAwMDAwMDAwLi44OTE1YzUwYmM5ZGIKPi0tLSAvZGV2L251bGwKPisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9jaXgvZHB0eC9jaXhfZHB0eC5jCj5AQCAtMCwwICsxLDIwODYgQEAK
-PisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5Cj4rLyoKPisgKiBDSVgg
-U2t5MSBEaXNwbGF5UG9ydCB0cmFuc21pdHRlciBkcml2ZXIKPisgKgo+KyAqIENvcHlyaWdodCAo
-QykgMjAyNiBUcmlsaW5lYXIgVGVjaG5vbG9naWVzCgogVGhpcyBpbmRpY2F0ZXMgdGhhdCB0aGlz
-IGlzIGEgdGhpcmQtcGFydHkgSVAsIHdoaWNoIGlzIHR5cGljYWxseSBhbHNvIHVzZWQgYnkgb3Ro
-ZXIgU29DIHBsYXRmb3Jtcy4gClRvIG15IGtub3dsZWRnZSwgQWxsd2lubmVyJ3MgQTczMyBhbHNv
-IHVzZXMgdGhpcyBJUC4gVGhlcmVmb3JlLCBJIHN1Z2dlc3QgZm9sbG93aW5nIHRoZSBwcmFjdGlj
-ZQpvZiBEZXNpZ25XYXJlIEhETUkgYW5kIERQIGRyaXZlcnMsIGFuZCBpbXBsZW1lbnRpbmcgYSBj
-b21tb24gbGlicmFyeSBmb3IgdGhpcyBkcml2ZXIgdW5kZXIKZHJpdmVycy9ncHUvZHJtL2JyaWRn
-ZS90cmlsaW5lYXIsIHdoaWxlIGltcGxlbWVudGluZyB0aGUgQ2l4IHBsYXRmb3JtLXNwZWNpZmlj
-IGdsdWUgbGF5ZXIgdW5kZXIgdGhlIGNpeCBkaXJlY3RvcnkuIApUaGlzIHdvdWxkIG1ha2UgaXQg
-ZWFzaWVyIGZvciBvdGhlciBwbGF0Zm9ybXMgdG8gcmV1c2UgdGhpcyBkcml2ZXIgaW4gdGhlIGZ1
-dHVyZS4KCi4uLi4uLi4uLi4uLi4KCj4rICogQ29weXJpZ2h0IDIwMjYgQ2l4IFRlY2hub2xvZ3kg
-R3JvdXAgQ28uLCBMdGQuCj4rICovCj4rCj4rI2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+KyNpbmNs
-dWRlIDxsaW51eC9kZWxheS5oPgo+KyNpbmNsdWRlIDxsaW51eC9pcnEuaD4KPisjaW5jbHVkZSA8
-bGludXgvbW9kdWxlLmg+Cj4rI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4rI2luY2x1ZGUgPGxpbnV4
-L3BsYXRmb3JtX2RldmljZS5oPgo+KyNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgo+KyNpbmNsdWRl
-IDxsaW51eC9zdHJpbmcuaD4KPisKPisjaW5jbHVkZSA8ZHJtL2RybV9wcm9iZV9oZWxwZXIuaD4K
-PisKPisjaW5jbHVkZSAiY2l4X2RwdHguaCIKPisjaW5jbHVkZSAiY2l4X2RwdHhfZHJtLmgiCj4r
-CgoKLi4uLi4uLi4KCgo+Kwo+K3N0YXRpYyBpbnQgY2l4X2RwX2Nvbm5lY3Rvcl9jcmVhdGUoc3Ry
-dWN0IGNpeF9kcCAqZHAsCj4rCQkJCSAgIHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikKPit7
-Cj4rCXN0cnVjdCBjaXhfY29ubmVjdG9yICpjb25uID0gJmRwLT5jb25uZWN0b3I7Cj4rCXN0cnVj
-dCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IgPSAmY29ubi0+YmFzZTsKPisJaW50IHJldDsKPisK
-PisJY29ubi0+ZHAgPSBkcDsKPisKPisJY29ubmVjdG9yLT5wb2xsZWQgPSBEUk1fQ09OTkVDVE9S
-X1BPTExfSFBEOwo+Kwljb25uZWN0b3ItPnljYmNyXzQyMF9hbGxvd2VkID0gdHJ1ZTsKPisKPisJ
-cmV0ID0gZHJtX2Nvbm5lY3Rvcl9pbml0X3dpdGhfZGRjKGVuY29kZXItPmRldiwgY29ubmVjdG9y
-LAo+KwkJCQkJICAmY2l4X2RwX2Nvbm5lY3Rvcl9mdW5jcywKPisJCQkJCSAgRFJNX01PREVfQ09O
-TkVDVE9SX0Rpc3BsYXlQb3J0LAo+KwkJCQkJICAmZHAtPmF1eC5kZGMpOwo+KwlpZiAocmV0KQo+
-KwkJcmV0dXJuIHJldDsKPisKPisJZHJtX2Nvbm5lY3Rvcl9oZWxwZXJfYWRkKGNvbm5lY3Rvciwg
-JmNpeF9kcF9jb25uZWN0b3JfaGVscGVyX2Z1bmNzKTsKPisKPisJZHJtX2F0b21pY19oZWxwZXJf
-Y29ubmVjdG9yX3Jlc2V0KGNvbm5lY3Rvcik7Cj4rCj4rCXJldCA9IGRybV9jb25uZWN0b3JfYXR0
-YWNoX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKTsKPisJaWYgKHJldCkKPisJCWdvdG8gZXJy
-X2NsZWFudXA7Cj4rCj4rCWNpeF9kcF9hZGRfcHJvcGVydGllcyhjb25uZWN0b3IpOwo+Kwo+Kwlk
-cC0+ZHBfcGFuZWwuY29ubmVjdG9yID0gY29ubjsKPisKPisJcmV0dXJuIDA7Cj4rCj4rZXJyX2Ns
-ZWFudXA6Cj4rCWRybV9jb25uZWN0b3JfY2xlYW51cChjb25uZWN0b3IpOwo+KwlyZXR1cm4gcmV0
-Owo+K30KPisKPitzdGF0aWMgaW50IGNpeF9kcF9icmlkZ2VfYXR0YWNoKHN0cnVjdCBkcm1fYnJp
-ZGdlICpicmlkZ2UsCj4rCQkJCXN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPisJCQkJZW51
-bSBkcm1fYnJpZGdlX2F0dGFjaF9mbGFncyBmbGFncykKPit7Cj4rCXN0cnVjdCBjaXhfZHAgKmRw
-ID0gYnJpZGdlX3RvX2RwKGJyaWRnZSk7Cj4rCWludCByZXQ7Cj4rCj4rCWRwLT5kcm0gPSBicmlk
-Z2UtPmRldjsKPisKPisJcmV0ID0gZHAtPm9wcy0+YXV4X3JlZ2lzdGVyKGRwKTsKPisJaWYgKHJl
-dCkKPisJCWdvdG8gZXJyX2NsZWFyX2RybTsKPisKPisJaWYgKGZsYWdzICYgRFJNX0JSSURHRV9B
-VFRBQ0hfTk9fQ09OTkVDVE9SKQo+KwkJcmV0dXJuIDA7CgoKICBBcyBJIHVuZGVyc3RhbmQgaXQs
-IGFueSBuZXcgYnJpZGdlIGRyaXZlciBpcyByZXF1aXJlZCB0byBzdXBwb3J0IERSTV9CUklER0Vf
-QVRUQUNIX05PX0NPTk5FQ1RPUgoKCgo+Kwo+KwlyZXQgPSBjaXhfZHBfY29ubmVjdG9yX2NyZWF0
-ZShkcCwgZW5jb2Rlcik7Cj4rCWlmIChyZXQpCj4rCQlnb3RvIGVycl9hdXg7Cj4rCj4rCS8qIFRo
-ZSBicmlkZ2UgbWF5IGhhdmUgYmVlbiBhdHRhY2hlZCBsb25nIGFmdGVyIHRoZSBzaW5rIHdhcyBw
-bHVnZ2VkLiAqLwo+KwlkcC0+b3BzLT5yZXBsYXlfZGVmZXJyZWRfaG90cGx1ZyhkcCk7Cj4rCj4r
-CXJldHVybiAwOwo+Kwo+K2Vycl9hdXg6Cj4rCWRwLT5vcHMtPmF1eF9jbGVhbnVwKGRwKTsKPitl
-cnJfY2xlYXJfZHJtOgo+KwlkcC0+ZHJtID0gTlVMTDsKPisJcmV0dXJuIHJldDsKPit9Cj4rCj4r
-c3RhdGljIHZvaWQgY2l4X2RwX2JyaWRnZV9kZXRhY2goc3RydWN0IGRybV9icmlkZ2UgKmJyaWRn
-ZSkKPit7Cj4rCXN0cnVjdCBjaXhfZHAgKmRwID0gYnJpZGdlX3RvX2RwKGJyaWRnZSk7Cj4rCj4r
-CS8qIFRoZSBob3RwbHVnIHdvcmtlcnMgcmVhY2ggdGhlIGNvbm5lY3Rvciwgc3RvcCB0aGVtIGZp
-cnN0LiAqLwo+KwljYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJmRwLT5ocGRfZXZlbnRfd29yayk7
-Cj4rCWNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmZHAtPmhwZF9pcnFfd29yayk7Cj4rCWNhbmNl
-bF9kZWxheWVkX3dvcmtfc3luYygmZHAtPnN3X2hwZF9pcnFfd29yayk7Cj4rCj4rCWlmIChkcC0+
-Y29ubmVjdG9yLmJhc2UuZGV2KQo+KwkJZHJtX2Nvbm5lY3Rvcl9jbGVhbnVwKCZkcC0+Y29ubmVj
-dG9yLmJhc2UpOwo+Kwo+KwlkcC0+ZHBfcGFuZWwuY29ubmVjdG9yID0gTlVMTDsKPisKPisJZHAt
-Pm9wcy0+YXV4X2NsZWFudXAoZHApOwo+Kwo+KwlkcC0+ZHJtID0gTlVMTDsKPit9Cj4rCj4rc3Rh
-dGljIGNvbnN0IHN0cnVjdCBkcm1fYnJpZGdlX2Z1bmNzIGNpeF9kcF9icmlkZ2VfZnVuY3MgPSB7
-Cj4rCS5hdHRhY2ggPSBjaXhfZHBfYnJpZGdlX2F0dGFjaCwKPisJLmRldGFjaCA9IGNpeF9kcF9i
-cmlkZ2VfZGV0YWNoLAo+KwkuYXRvbWljX2NoZWNrID0gY2l4X2RwX2JyaWRnZV9hdG9taWNfY2hl
-Y2ssCj4rCS5hdG9taWNfZW5hYmxlID0gY2l4X2RwX2JyaWRnZV9hdG9taWNfZW5hYmxlLAo+Kwku
-YXRvbWljX2Rpc2FibGUgPSBjaXhfZHBfYnJpZGdlX2F0b21pY19kaXNhYmxlLAo+KwkuYXRvbWlj
-X2NyZWF0ZV9zdGF0ZSA9IGRybV9hdG9taWNfaGVscGVyX2JyaWRnZV9jcmVhdGVfc3RhdGUsCj4r
-CS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfYnJpZGdlX2R1cGxp
-Y2F0ZV9zdGF0ZSwKPisJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJf
-YnJpZGdlX2Rlc3Ryb3lfc3RhdGUsCj4rfTsKPisKPitzdHJ1Y3QgY2l4X2RwICpjaXhfZHBfYnJp
-ZGdlX2FsbG9jKHN0cnVjdCBkZXZpY2UgKmRldikKPit7Cj4rCXJldHVybiBkZXZtX2RybV9icmlk
-Z2VfYWxsb2MoZGV2LCBzdHJ1Y3QgY2l4X2RwLCBicmlkZ2UsCj4rCQkJCSAgICAgJmNpeF9kcF9i
-cmlkZ2VfZnVuY3MpOwo+K30KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgv
-Y2l4X2RwdHhfZHJtLmggYi9kcml2ZXJzL2dwdS9kcm0vY2l4L2RwdHgvY2l4X2RwdHhfZHJtLmgK
-Pm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj5pbmRleCAwMDAwMDAwMDAwMDAuLjNhYzU3ZmFhMzQ5ZQo+
-LS0tIC9kZXYvbnVsbAo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2NpeC9kcHR4L2NpeF9kcHR4X2Ry
-bS5oCj5AQCAtMCwwICsxLDE2IEBACj4rLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0y
-LjAtb25seSAqLwo+Ky8qCj4rICogQ0lYIFNreTEgRGlzcGxheVBvcnQgRFJNIGhlbHBlcnMKPisg
-Kgo+KyAqIENvcHlyaWdodCAyMDI2IENpeCBUZWNobm9sb2d5IEdyb3VwIENvLiwgTHRkLgo+KyAq
-Lwo+Kwo+KyNpZm5kZWYgQ0lYX0RQVFhfRFJNX0gKPisjZGVmaW5lIENJWF9EUFRYX0RSTV9ICj4r
-Cj4rc3RydWN0IGNpeF9kcDsKPitzdHJ1Y3QgZGV2aWNlOwo+Kwo+K3N0cnVjdCBjaXhfZHAgKmNp
-eF9kcF9icmlkZ2VfYWxsb2Moc3RydWN0IGRldmljZSAqZGV2KTsKPisKPisjZW5kaWYgLyogQ0lY
-X0RQVFhfRFJNX0ggKi8KPi0tIAo+Mi4yNS4xCg==
+The Vsmart Active 1 (SDM660, PM660) has a Qualcomm SMB1351 parallel
+charger at 0x1d on blsp_i2c2, next to the PM660 charger. Its version
+register reads 0xb2, which the downstream driver identifies as an
+SMB1350. Without a driver it runs on its OTP defaults: charging is
+enabled through an active-low pin that the PM660 holds low, with a
+4.5 V float voltage on a 4.4 V battery. It is powered from VBUS alone,
+so it does not answer on I2C without VBUS and starts over from those
+defaults whenever VBUS comes back. As a result, whenever the PM660
+suspends its USB input, the SMB1351 charges the battery on its own.
+Since commit 98d68b74ebb9 ("power: supply: qcom_smbx: allow disabling
+charging"), qcom_smbx does that when user space writes 0 to the status
+property of the PM660 charger to stop charging.
+
+Patch 1 documents the chip with the battery it charges, its STAT output
+as an optional interrupt and, on a parallel charger, the PMIC charger
+that shares its USB input. The SMB1350 gets its own compatible with
+qcom,smb1351 as the fallback. Patch 2 adds a driver that keeps the
+SMB1351 from charging: each time the PMIC charger reports a change, it
+hands the charge enable control to I2C with charging disabled and sets
+the float voltage from the battery. A status or charge_type read that
+finds the chip reset, or not answering, makes it configure the chip
+again. Its power supply reports whether the chip has VBUS, the charging
+status, the charge type and the float voltage set in the chip. Parallel
+charging is left for later, since it also needs the PMIC charger to
+split the current and to drive the enable pin. Patch 2 also explains
+why this is a new driver rather than part of smb347-charger.
+
+Making qcom_smbx drive the enable pin high would also keep the chip
+off, but only because of the pin polarity in its OTP, which the
+downstream driver does not rely on: it programs the polarity over I2C.
+A driver that programs the enable control over I2C works whatever the
+PMIC does with the pin, gets the chip described in DT, and gives
+parallel charging something to build on.
+
+Tested on the Vsmart Active 1 with a 7.2-based kernel from the
+sdm660-mainline tree [1] (its qcom-sdm660-7.2.y branch plus a few
+pending pull requests), with the same driver as this series,
+CONFIG_CHARGER_QCOM_SMB1351=m and a DT node [2] that also passes
+dtbs_check against this binding:
+
+- With the PM660 USB input suspended (on that kernel through
+  charge_behaviour=force-discharge, which the sdm660-mainline tree adds
+  to qcom_smbx and which sets the same USBIN_SUSPEND bit as writing 0
+  to status), the battery discharges at 250 to 470 mA and the SMB1351
+  reports "Not charging". Without the driver it charged the battery at
+  about 390 mA in that state.
+- After an unplug, smb1351-charger goes offline 2.35 s after the PM660
+  charger reports the change (2.37 s in a second run), when the
+  driver's retries run out.
+- After a replug, the chip is back on its OTP defaults (0x03 = 0xf2,
+  0x06 = 0x6b) and is configured again (0x03 = 0xed, 0x06 = 0x0b)
+  within about 0.4 s of VBUS settling. This also works while the PM660
+  has its USB input suspended, because the PM660 charger still reports
+  plug events then. In that run nothing read the status, so the PM660
+  events alone were enough.
+- Writing the OTP enable setting (0x06 = 0x6b) behind the driver's back
+  makes the next status read return "Unknown", and the chip is
+  configured again within a second.
+- Probing without VBUS, unbind/bind, and unloading the module inside
+  the retry windows work without warnings.
+
+While the PM660 has its USB input suspended, smb1351-charger still
+reports online = 1, because VBUS is present, so user space such as
+UPower sees external power in that state.
+
+On sre/for-next (7071d4750856), the driver builds without warnings
+with ARCH=arm64 LLVM=1 W=1 (clang 23.1.5), sparse (C=2) and the
+coccinelle report scripts find nothing in it, dt_binding_check and
+dt-check-style --mode=strict pass for the new schema, and
+checkpatch.pl --strict only asks whether MAINTAINERS needs updating
+for the new files.
+
+The Vsmart Active 1 DT is only in the sdm660-mainline tree so far, and
+the SMB1351 node for it is in [2]. sdm630-sony-xperia-nile.dtsi also
+mentions an SMB1351 on blsp_i2c2, and msm8996pro-xiaomi-scorpio.dts
+names a STAT_SMB1351 line, so the binding may find more users.
+
+How this series was made: with an LLM coding assistant over longer
+interactive sessions. I asked it to find out why the battery kept
+charging while the PM660 had its USB input suspended, and later to fix
+that in the kernel. It read the SMB1351 registers over i2c-dev and the
+PM660 registers through regmap debugfs on the phone, compared them with
+the stock DT and the downstream driver, and laid out the options. After
+I chose a separate I2C driver, it wrote the binding, the driver, the
+commit messages and this cover letter, and ran the build checks and the
+device test scripts above. It also ran sparse and the coccinelle report
+scripts on the driver; they found nothing. For v3 it wrote the locking
+fix below and re-ran the checks and the device tests. I did the cable
+tests on the phone and reviewed the result.
+
+[1] https://github.com/sdm660-mainline/linux
+[2] https://github.com/sdm660-mainline/linux/pull/241
+
+Changes in v3:
+- Patch 2: set retry_until and queue the work under a spinlock, so
+  that a status read cannot replace the longer deadline set by
+  external_power_changed() with its shorter one (found by the Sashiko
+  review bot).
+- Drop the Assisted-by tags: since commit 1e035297ffda ("docs: remove
+  Assisted-by references") the tool use is described in this cover
+  letter instead.
+- Rebase onto sre/for-next (7071d4750856, on v7.4-rc1).
+- Link to v2: https://lore.kernel.org/r/20261021082841.79147-1-thenguyen1024@gmail.com
+
+Changes in v2:
+- Patch 1: drop monitored-battery from properties, power-supply.yaml
+  brings it (Krzysztof). Add Krzysztof's Reviewed-by.
+- Patch 2: unchanged.
+- Link to v1: https://lore.kernel.org/r/20261011072135.12757-1-thenguyen1024@gmail.com
+
+Adrian Nguyen (2):
+  dt-bindings: power: supply: Add Qualcomm SMB1351 charger
+  power: supply: Add Qualcomm SMB1351 charger driver
+
+ .../bindings/power/supply/qcom,smb1351.yaml   |  69 +++
+ drivers/power/supply/Kconfig                  |  14 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/qcom_smb1351.c           | 439 ++++++++++++++++++
+ 4 files changed, 523 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+ create mode 100644 drivers/power/supply/qcom_smb1351.c
+
+
+base-commit: 7071d4750856abbc68dfe431acc58a1d45dd42e8
+-- 
+2.43.0
+
