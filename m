@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794699751;
-	b=VcGzsuIWQaTEFhEn0KEM5qKFatoaQzb7xzkXAxOLdr+eWS2EtYuTYlvae3i4hiAEhejW
-	 RQt003sG7Ol+xUaLZy0fqwgMS/PxGcAvQzxW8EuBz5P9bn8WVNi3xWNEfFLxsgmPnabKs
-	 LmNHXW6Te8d0JE9OgXgU6lrWjeGahYW0RGyboWi/q1tLgt33Dsq6vkNq+wuJINuxlxvtu
-	 w8S6b0Us5kJggZOwwx7oNYTn/ljMuvECZ5uUh8SEbZJrpemrAJ1QqzlOsQ9vqZwGEwAfz
-	 xGrtsVEZNDPNcmqx/BuB5XUT2Wfnl/ZfaweyXAxGZbnuyivaufI8unfYGe5M9m071gg==
+	t=1794699754;
+	b=lj10rdG5UQzc86XZgjJcy7istX0VpTWZtvfQFQ4PBYpZ7qa8/cf2jvMKRd1EK02/LYUg
+	 YR24hN/vQG1ICWVsYOj/shqQmIv755jr90NJChyglzokGYDu6ehNGlIQuUZa08h3ySlbP
+	 Kvi0s0qfpkvVo7D+N9jTiHxaoQ0POhGYiYH/e3mlzW0SjZgCvCHSOqkGm1Y5cpFIaWWR9
+	 iwS3CwfF/M2DQ6zAHG8VfBtbbm5VrwlyUTP4wmmzO8xyZfTCEfh6nHVW55+ySl661JlCr
+	 YEryQO6TwDRgXYR3di/ZF8PHgkl84YRAqAsQiDR3BmRfoOHob4gAL9qZILDuxNriBfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794699751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699754;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JIdwViW3MwPcND+fB4xrX/lkNYexl/I2+Vos84GFCrU=;
-	b=vh/SxQxugVnSjZSx6Feb/dyJ9sZeWuiKjEPYKgT6uQiKBKq8T9vmr91Toq+TSw8QGwgc
-	 OlyTmPzpgCsV7nHtb4K13zldDZ6w8l3evt2QbW65wWSr5vVfPV1/HSj0tuOs8EOv6w5mH
-	 FF0n/Eyw7addjPh+rrp16f/C1lgjq0LsTN6EK0GarfurCReH46T5Dld/DBsxLC/TV8klE
-	 zK3cce1eu++s/DdKvN+YEZTGfCZibvfgNGsB8hG+0MWg5BCNDxErulZDd3AH8ebN5QYw/
-	 lSsADPo2k8GbWdPw5ZHJbJWqwm05YN1KvUhB7rBELhGUCtMkEQgHH0BxNN29oKUrOlw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=h02M7ZRT82vo2QN0ZQk0R2AefSd/VQlgbNcmA/89Arw=;
+	b=OZ/CTkfxsdMF0DTMw6q8n29L4atYPuhatoUs1+sV+cCqVpADQ9HRYktEMFIJgHLYP0FJ
+	 ElbeZ1mDMVuzhLFRLUKyqTfNRbsqrVjmADYaA7pagDjnBVh/ig2wE8Mig0nNu3iU5AD15
+	 wlv316xSPhxDQCcdzVEkauxbVE+DKQae0FKvBOHiTe4g1Bkm5eL7SgeUC1cLkgbtGjv17
+	 kl29BFgQJix6tOz/jKZ7ps6GMEyDCFgNCXy5N/EqAIWPiFE6i+aVw5v1CvvLu/NEBM406
+	 OFSc3IomGAqVQpk7Mxld89CBN7AmBDJhFA76zCoxgEgcC9OpTMmhNTzV15FkFdhdE8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n478R7Ht;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PzmXYQR1;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E82F606A330
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 23:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E82F606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CAC606A32D
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 23:42:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83CAC606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n478R7Ht
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1456162a91.2
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 15:42:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PzmXYQR1
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b6b22be970so737460b3a.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 15:42:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794699750; x=1795304550; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JIdwViW3MwPcND+fB4xrX/lkNYexl/I2+Vos84GFCrU=;
-        b=n478R7HtBE31VtoF09RFDgvxLOdNJoP0n6hcHMrmUrktIseH+Qot5DT3T45JARLpxK
-         EYwmhr50HgrfShPJAUdrCoDd2KsN7eEeFQDpaLiUDvchx+qtvulWhlizHuXtyj7mMeYl
-         n6RvHqXXfrfvyoPYgV/VRU8cswKUutBBdt7rdDXUlZW4Nc2SCtzhBDzkNNCyr8XtvsKr
-         zTtrSucpEADd71MimhQc3qA/+Q6kz2rt8IHIKacsVFhb3ssD0B7vAHEoumEZof9coiFQ
-         yvPbgVJlMWFwMV85in1/o6mZr3cUBIdUkL4jiqIdmvvXc0siKwLF4D1ci3eSv1SbVp74
-         E2JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794699750; x=1795304550;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794699754; x=1795304554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JIdwViW3MwPcND+fB4xrX/lkNYexl/I2+Vos84GFCrU=;
-        b=JuXTN1+DZ15+jzm+DzZHTyXqHFYNHBukctbjeye+JdC11kyV+oQJX22LBy0l3agE/K
-         gRLbuIZWzGh42ikmKoLHqmilBOH6ESJVFpIWIiL0G2Ii9r83yBW5cELeQAYqsD5WsmV6
-         KYMSdRHW1iva4l3bXT2OKyXe5bmZGOeipINq7wv+tJ1XOBY3jSKiWv+o6wEFE+08SxGm
-         vrkW9ZS+C3f0FgRhuYS0viEV9dGu262DM0D2/lkAD7gPd+NEmYcLMh+f/m3s45axKWj/
-         gd/zsee3z17C/DZVQTAq809gQLFJD3SqvJEbu2lDTS6DW5lYDM1mjD5p769GDawZ0qh4
-         xggA==
-X-Forwarded-Encrypted: i=1; AL+hErHurVKwjXc5QCZJ+Lq4aXCWylJHY6huCnAx2OFK2Skt9j1RbWjb63K6KaS6JEzRRvV01QZMxna1ucvU@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6geKouyLdBee2l9qbJScMojfzFrZTIvqYkAp/AXrTXDO2CCfA
-	jgRtv/a8Ptj9425x8RfpE6Fy2I0YTTFAKJZe1RQeBVyryP2MZeSP/c7eC2qk4+Ht
-X-Gm-Gg: AYBFou00bsdIVYbtnKI06eqkRG0f0YdYpw5fAkglRqpsBSXc1OgkPrXjXfigaw8GFfJ
-	I5/Ce5rMyoWWj2QRF3KuWz5BaBCnhggc8klF3relYD6UTcgADemBl8vCYf9pWm6MZBjPQZy5RdD
-	fanqnRrH5mnXlGy6f4eTrKwPHIqNVV7+XtXsbX/UVNmjjUymn929E5d0xLyWSg7QGFlxwpRKeaF
-	LmQWP52DZBzJ/fFc5q9CzQfaWA5TuWwYWEoxcUAlFqYBCoi6rQZO+W4kVSjhph8KptMnMpgHcyb
-	XIxy9jN7h7JE4yr4Q0L2U/I8/s2BwjAGU7Ck2ktzOKN2KS98KrIzhluBLc2jRCvkJX4+R/Lxwe7
-	U5wykfmZkfuZvtVdQHz2328jiH/u1GDGA1heR1Fd4C1KLBBIWOI46sCezaeWvgT4VINVO1WzCh1
-	vx4a2cbiRrOFrWKb2wWh8EWyiVAs2BlLCIhoETVZTXHIpvx7w/7vlfvfEQqDEBWzjNQHXqB6D17
-	J0p7hx/Jqz1WMeRytwib9tXqT9T7RIiojrsHdw250ACbUgp/NYAETdIwJNr5Y2ZlQoaQIiYe7Zl
-	YCGdXXSe+UKCCJoV7JYHGR/+4XQmLJocL0t+bqlIH5rNh7Y4eBJHnNf6klBL6UbzRPezW112SYA
-	l02RvH4MnVuU8n+nQRuS248H8knEkW6NtUV6oBXQt5sM+r6mMhNk9GTBPFRvYqTXrE/fdryAIvc
-	r6hQ==
-X-Received: by 2002:a17:90b:3ec9:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3b1b0b8695cmr6283495a91.64.1794699750313;
-        Sat, 14 Nov 2026 15:42:30 -0800 (PST)
+        bh=h02M7ZRT82vo2QN0ZQk0R2AefSd/VQlgbNcmA/89Arw=;
+        b=PzmXYQR15cCChYYvbHvZmRtbxA+Vazpm1dPjD1puEWhx0NHS5zVYdgFvLCRrTrbMVu
+         AbiPDGFXmUGW4rbpcSXBWDfd8I651GINKhQKGtP3z2j/DEVxNHkttCAoOCRIznTya9Ta
+         tLj9nHU+bxyuLbuzU9kk8koKm7BgijjngQLYTr+A0yP2mGjXl8d3Cv9wFOWn9lUvS0PR
+         iy5QRJ+VhwVrcvMN8wOo6s4y30qiALwZesI2H2UmSDC8wdet4p2Vo3BNUFtXMzhRLocr
+         TkwxisJZcvi/ws25jc/IbIhPqlHaciw358MQKaPrD/0kWpl3RijFo0B0IMpRItR3rcSw
+         kazQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794699754; x=1795304554;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h02M7ZRT82vo2QN0ZQk0R2AefSd/VQlgbNcmA/89Arw=;
+        b=ooiN0sxXN9m72jwdiu3KXS83YaKhXHHkJxXT0n34ADuz4OWI7DHN6rFdfa+2MG73Av
+         HUuopRxikOVfjPTVc54NsQRDGk98jQa/dWJ70Frms7sT6WPMAqpy1q2Pwk96bcv8hquu
+         hJK0NqjjAmbaAa8KcPn2f1YUr3evaRAfoODWNl3emN8khH95PUQDh4RgxGu4DSHF3s+2
+         kNhXbI1txojAm/yYIUFlfYMtbU2rCCMhLxHGNFCOx/3HYnKBh9HVWrGgYku7dEulyxUE
+         kR/IipRkMfnY7asf0VKnWw25EzC0JY0B8MV9zfjbzYyH35zff1Scn+Nfp67KZQkVQbmG
+         Qo1Q==
+X-Forwarded-Encrypted: i=1; AL+hErHHW0dkRBigRevR8Ogu9R7a2K7yDDPR0u1JyNpcgHrDaDw9atBWaEo/ViEUqp0rhTOa4hT8A8X0ZQy5@vger.kernel.org
+X-Gm-Message-State: APuU4Z/J7H9QvGJKgSwhfzVZvWUebPDmxQVmMS3LBIskCoXo9sT/BkVt
+	F72cDzsu7B2OYKehs5YkRr8JEO6tKZiEzectVyXUre1QbE681pmWNEk4
+X-Gm-Gg: AYBFou1EEHYtSOEEbVkeEi5Rohv5ec/UCa8JHibav7k3ZOshis9n9FBJmGddGLl8cql
+	mrrUM0DQjnkfHJMpuTPAXWMlQxZc3+7TZTymGguEfSVQSM0ioGNVdCXPcF/9t6BXPyaVQ56yETZ
+	mhuKnhhJh5ng4B/iGClP3nerAe1pnlNCqwGz2kYOCEJQQjDAG5YvD0dz8BC+v3ySms6YDLDvFqz
+	1XRaF2aY14XeJwuK8uFEz+yT4g1q8ACi2lToatmG3RS3wWFxd1G4aUSdIL9XnuEdTzCJB0FS0Yb
+	1qWXhWWEcvJzAaNKuX5F5jh2/AXEnPu3/8wHqu2d6lfhlMr8xm0EB5RRtbBiLO3Xl5yZfI07TT5
+	XKxsLWI7WYLDhu2ORyddWDG7abLjnuVuy/sGPFCrzFs5gGtEeaBHOJa/M4U13ikAu6SmJNikX61
+	yQ5aRp7AoR5m9z++WEBO0Lj8f28kak+W5q2VU+slREXetE6RIiw0zR/m4QgvAb5bX+UDUlMKJX6
+	QzDmbxOU3B4uf136qwR516vYuBaMLT2XTiDY4s3mypJRZDamOx11/y/sr6IPECq4LSL9V54HbI0
+	u5Y2rOA5HtGWlitPVlTtnl6SIGNI4aFvnjjQkogPOBdsQSRuFxd2gxp7XfkeuIVFKLv8LI21bSZ
+	JNxzpV02j4uRoASo8vzUIp8LNKcF7V/stiqMC7zshaFbPN6VlCx0qqQiebovL7HKvbrHcQN1scn
+	i0kQ==
+X-Received: by 2002:a17:90b:3c4e:b0:3b1:8380:a9a0 with SMTP id 98e67ed59e1d1-3b1b0b67c8amr6550886a91.46.1794699753758;
+        Sat, 14 Nov 2026 15:42:33 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm15755574a91.7.2026.11.14.15.42.28
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm15755574a91.7.2026.11.14.15.42.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 15:42:29 -0800 (PST)
+        Sat, 14 Nov 2026 15:42:32 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	Stephen Boyd <sboyd@kernel.org>,
@@ -93,10 +94,12 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v4 0/7] clk: add a driver for the ath79 PLL controller
-Date: Sat, 14 Nov 2026 15:42:15 -0800
-Message-ID: <20261114234222.88337-1-rosenp@gmail.com>
+Subject: [PATCH v4 1/7] MIPS: ath79: apply the QCA956x timer workaround in setup
+Date: Sat, 14 Nov 2026 15:42:16 -0800
+Message-ID: <20261114234222.88337-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261114234222.88337-1-rosenp@gmail.com>
+References: <20261114234222.88337-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,105 +111,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
-arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers every
-clock before the driver core is up. This series replaces it with a new
-driver in drivers/clk.
+qca956x_clocks_init() enables the MIPS timer interrupt in the misc
+interrupt controller, which QCA956x needs before the clocks are set
+up, or there are no jiffies. That has nothing to do with the clocks,
+and it ties the clock code to ath79_reset_base.
 
-Only the reference and CPU clocks are registered early, with
-CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate from
-plat_time_init(). A platform driver bound to the same node registers the
-DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early provider
-returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
+Do it in plat_time_init() right before of_clk_init() instead, which
+runs the clock setup. The order is the same. TP9343 boards use the
+QCA956x PLL and took this path too, so check for both.
 
-Patches 1 and 2 move the two remaining non-clock duties out of the arch
-clock code, so that it only uses its own registers and the clk API: the
-QCA956x timer interrupt workaround, and the reference clock that is
-read from the bootstrap pins when the device tree has no rate. Patches 3
-and 4 drop ATH79_CLK_END, which is not ABI, from the binding header, and
-patch 5 adds the UART1 and PCIe PLL clock IDs. Patch 6 adds the new
-driver, and patch 7 removes the old code.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/mips/ath79/clock.c | 10 ----------
+ arch/mips/ath79/setup.c | 13 +++++++++++++
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The CPU,
-DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match those
-of the old code. The serial console, both GMACs, the PCIe PLL with a
-QCA9880 behind it, and the WMAC all work, and no devices are left
-deferred. The debugfs clk_summary, consumers included, is the same as
-with v2, and stays the same when the clock-frequency of the reference
-clock node is removed. These results are from v3; v4 only changes the
-QCA956x rate calculation, which the C7 doesn't use. The other SoCs are
-not tested on hardware. For each SoC the rate calculation was compiled
-in userspace together with the old code and fed 2 million random
-register sets. The results are identical, except where the old code
-overflowed 32 bits with register values that no real setup uses, and on
-QCA956x, where v4 fixes the upper fractional part of the PLLs.
-
-Changes in v4:
-- Fix the upper fractional part of the QCA956x PLLs, which the old
-  code computed as (hfrac >> 13), always 0, and follow the formula in
-  the QCA9563 datasheet. NFRAC[17:5] is not zero at reset, so rates now
-  differ from the old code on QCA956x (review feedback). This part tested on
-  Archer C7 v4.
-
-v3: https://lore.kernel.org/linux-clk/20261111215729.10683-1-rosenp@gmail.com/
-
-Changes in v3:
-- Register the reference clock read from the bootstrap pins as the
-  provider of the reference clock node instead of with clkdev, so that
-  its other consumers, such as the AR933x UART, find it and fw_devlink
-  doesn't hold the platform driver back when the device tree has no
-  rate. Drop the clk_get_sys() fallbacks (review feedback).
-- Wait for the PCIe PLL update to finish after each write in unprepare
-  too (review feedback).
-- Add the UART1 and PCIe PLL clock IDs in one patch (review feedback).
-- Drop ATH79_CLK_END from the binding header instead of growing it, as
-  the number of clocks is not ABI, after moving the old clock code off
-  it (review feedback).
-
-v2:https://lore.kernel.org/linux-clk/20261110013646.1582970-1-rosenp@gmail.com/
-
-Changes in v2:
-- Post the new driver as one patch, instead of moving
-  arch/mips/ath79/clock.c to drivers/clk and cleaning it up over six
-  patches (review feedback).
-- Register only the reference and CPU clocks with CLK_OF_DECLARE, and
-  the others from a platform driver (review feedback).
-- Describe the SoCs with match data, and read the CPU, DDR and AHB
-  selection of AR934x and later with one function.
-- Keep mapping the AR934x SRIF block from its fixed address. It lies
-  inside the wireless MAC registers, which ath9k claims, so it can't be
-  a reg entry of the PLL node.
-- Drop the clkdev registrations, which have no users.
-
-Claude Code (Claude Opus 5.5) was used while preparing this series. It
-wrote most of the new driver from the old one, together with the
-userspace test of the rate calculation. I reviewed and tested every
-change and take responsibility for it.
-
-
-Rosen Penev (7):
-  MIPS: ath79: apply the QCA956x timer workaround in setup
-  MIPS: ath79: move the bootstrap reference clock to setup
-  MIPS: ath79: stop using ATH79_CLK_END
-  dt-bindings: clock: ath79: drop ATH79_CLK_END
-  dt-bindings: clock: ath79: add the UART1 and PCIe PLL clocks
-  clk: add a driver for the Atheros/Qualcomm ath79 PLL controller
-  MIPS: ath79: remove the old clock code
-
- MAINTAINERS                           |   8 +
- arch/mips/ath79/Makefile              |   2 +-
- arch/mips/ath79/clock.c               | 673 ----------------------
- arch/mips/ath79/setup.c               | 107 ++++
- drivers/clk/Kconfig                   |  12 +
- drivers/clk/Makefile                  |   1 +
- drivers/clk/clk-ath79.c               | 782 ++++++++++++++++++++++++++
- include/dt-bindings/clock/ath79-clk.h |   4 +-
- 8 files changed, 913 insertions(+), 676 deletions(-)
- delete mode 100644 arch/mips/ath79/clock.c
- create mode 100644 drivers/clk/clk-ath79.c
-
-
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+diff --git a/arch/mips/ath79/clock.c b/arch/mips/ath79/clock.c
+index 050f6553f398..8c5eaa4ab6e0 100644
+--- a/arch/mips/ath79/clock.c
++++ b/arch/mips/ath79/clock.c
+@@ -523,16 +523,6 @@ static void __init qca956x_clocks_init(void __iomem *pll_base)
+ 	u32 cpu_pll, ddr_pll;
+ 	u32 bootstrap;
+ 
+-	/*
+-	 * QCA956x timer init workaround has to be applied right before setting
+-	 * up the clock. Else, there will be no jiffies
+-	 */
+-	u32 misc;
+-
+-	misc = ath79_reset_rr(AR71XX_RESET_REG_MISC_INT_ENABLE);
+-	misc |= MISC_INT_MIPS_SI_TIMERINT_MASK;
+-	ath79_reset_wr(AR71XX_RESET_REG_MISC_INT_ENABLE, misc);
+-
+ 	bootstrap = ath79_reset_rr(QCA956X_RESET_REG_BOOTSTRAP);
+ 	if (bootstrap &	QCA956X_BOOTSTRAP_REF_CLK_40)
+ 		ref_rate = 40 * 1000 * 1000;
+diff --git a/arch/mips/ath79/setup.c b/arch/mips/ath79/setup.c
+index 4e18cdcf65a0..d9e1cc77ad04 100644
+--- a/arch/mips/ath79/setup.c
++++ b/arch/mips/ath79/setup.c
+@@ -241,6 +241,19 @@ void __init plat_time_init(void)
+ 	struct clk *clk;
+ 	unsigned long cpu_clk_rate;
+ 
++	/*
++	 * QCA956x needs the MIPS timer interrupt enabled in the misc
++	 * interrupt controller before the clocks are set up, or there are
++	 * no jiffies.
++	 */
++	if (soc_is_qca956x() || soc_is_tp9343()) {
++		u32 misc;
++
++		misc = ath79_reset_rr(AR71XX_RESET_REG_MISC_INT_ENABLE);
++		misc |= MISC_INT_MIPS_SI_TIMERINT_MASK;
++		ath79_reset_wr(AR71XX_RESET_REG_MISC_INT_ENABLE, misc);
++	}
++
+ 	of_clk_init(NULL);
+ 
+ 	np = of_get_cpu_node(0, NULL);
 -- 
 2.56.1
 
