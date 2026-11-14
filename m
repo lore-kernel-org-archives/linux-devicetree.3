@@ -1,57 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675579;
-	b=kDAsixyoRE+6J6dqnbJnbt8pra1acYoEtuuawKHLzKvYJ0xaGfTZYdpxYZVEE16nZr99
-	 r3OJWyA6LRiHVaoYWxtBLJBE2IurJ4zAS+JCojfIGfi5mRgb51GPCwsSm/KwgnxFM06gl
-	 nJIkQIhkoeqsSc2bFtV8H0b76w4j1i4sQrbOlYNIjJzKv/N6cOOzB+iaeidWbtvh4t6GB
-	 TBJqNaPmayhf5rECblLY8nJ3INPy9SrJasHD5BmBtwn8AqGoRPR1C/25bEf19yk5yLcfV
-	 k7VckGWg0ezPwZ0ZasontLuWOKxWltjXIt/kGuBFZTc6PxquIVm5twiGbEWBtIAKLCg==
+	t=1794675824;
+	b=kS3CmahNVnkE0AMnebwRktE1Fsr8gRMi45j5DGQPlIgdHCLSIZ0L4DVqypkkJpyLg4EG
+	 o7lA0jX3TAmBPPFuP3T6+Yx3G5aYx1yJZHqLixsJ+xa/xapGaCRcwLKu+2XfZON4FuLhY
+	 h3tVAD+k6d8ddjNjp0qWqTf+l2CD+J73Z6yxOrgsN02V+vvMLsYv6fxGrnl6SAWocCM02
+	 LEP9cHfI8JY9JqfjGn6ApN/8rBIbPTKCNucLNi3kXYy4wmB+vkPEVH6TT50EvXPx6VWdo
+	 uatxcDWSs5CLVsiP7b6lglJe6PjWwVxt5+MxRb5Ij21QxpEqe5oo61TgtqGGJLebltA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675579;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Jxwxept0+MZgi2SYRj3inpd87pZij+PB0cR2XK0u/uo=;
-	b=zLF42YHm1Gqs7ravgcTV3rXS0rjQ/Ep2idv9A8HNsSHiTGKzXza1gfjw3MUk3bpEjiQD
-	 s0SGwLUBvIdIkE2JV4NXYIu8cnJCou3kLn20QmlwO96aGegcYVS0NEgKx1P2A/0d6q+6v
-	 ThoSYenKrfe4kpAJdyYP1/T7JUjiqL5MX26AOq3IKA7/tN1GmZyxk2e43+MeOCHv2K0Q1
-	 nF1YECiVPV90z2UdeFdjmKubSoXeL3588vCeQHThLlLqN4s+lag4BJiIgMFeijBgAL3h8
-	 G7vzZqWPzkZ0VgORAZndSBOce2Beouqpi+xVFJw/QXFiMp4XuJEukqosYTnCBkjdSkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675824;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LleCm0FKoePUE7q3MO/5peHKV2q7rvd2yTLayAa69tA=;
+	b=4KYfyoAlnaf3NWDAI7kTz78Ll19nazNlFWSncOa96gFNCM1m5a2d/4IM4UgXsy3qMSG0
+	 rIhb18eeLdKYdl8ljGekGDPaDW8cKXLI/C7+GsVPd9kcAMF/8O7CSQ2ZL/YWLA1TbAzOR
+	 7ixvC15PxGBQ4CEdh5ReI0p6me+jTnNunrz99zlfZrjHUIwaVTEGnH6GvMUiRK34yrIZg
+	 HPJlRpy0O56V3Pba6PyMLJqeGpm6FusBXrO0FhM6/fVU/abMToMF/PuzW5wSTlaAHXKSY
+	 Abung+aATjXa+r//gl+he680+x6egoo5YcnmmDMcFBM9R4Sdkwh7rjgAL+pTEId5p6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHHIihIA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdWgrot+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1A2606A336
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 16:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA7D606A327;
+	Sat, 14 Nov 2026 17:03:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHHIihIA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757971F000C5;
-	Sat, 14 Nov 2026 16:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdWgrot+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570BF1F000C4;
+	Sat, 14 Nov 2026 17:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794675579;
-	bh=Jxwxept0+MZgi2SYRj3inpd87pZij+PB0cR2XK0u/uo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oHHIihIA3MK6stkKt38mumBZEDT3A5CZ7Nq5grrGRM/xi9y7dwITvRcqSxmborjy3
-	 Y+hBY7qOF9TePGjfHVvFk2MJ1oZbuyWOyaNMWkT0xc+7SdoTri10w2g73ggFilOVSI
-	 XEyEwi+TLEdZXImjx/DrNgfJRHJ2hcmq3Mib3kok/+AW7AZq8r5k2C4X63EvmHJTvC
-	 aIDBqfpUmrV3WwWwbAc9GpKNyb3XlIjTqeTMHduEuFKzO5nWyf7eEZGf8j3yE/5Ppl
-	 YFUnl46u6WjzYr5tcXkxPPB6rJG1oaJmQdHozLx0lsnMkrroxu+8KH3Sup+HKUAdSV
-	 DJhTJkfVW71Tg==
-Message-ID: <sashiko-outbox-214803@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 10/14] net: ethernet: onsemi: s2500: Add
- driver support for S2500
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-s2500-mac-phy-support-v11-10-7a186141952c@onsemi.com>
-References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
- <20261113-s2500-mac-phy-support-v11-10-7a186141952c@onsemi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 16:59:39 +0000
+	s=k20260515; t=1794675824;
+	bh=LleCm0FKoePUE7q3MO/5peHKV2q7rvd2yTLayAa69tA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BdWgrot+GEUwBNsPzIICuki2vXgswrF5u4qhgMQm9EgbWR74ch47A5ubZz445ChdV
+	 PiBACIzGj0tbIkEEmsOE6TVvWr1+aSue7KsqjkI1bLqvJQPJ30yopKO6uJ1iAAr4l6
+	 HsjQhgUYTY5SkKPV3vyNSuVTuDjhX3ZvUo4y7CwThIYOXWnTKZ1pxOUAgSQP4fOBRb
+	 vaeYoWGPLpwqDOkNksDCVsbOyrq5hbFfLHyiUqJq2zzcuGzaEVSZxzKteR3vLRrn6V
+	 R51Zjo7moYhtV0/8L3Qjg21GOI/vAJAlOntigkirr0t8O84ra7Uu+OBgNJfsvhhNUd
+	 SDw8BHeuN4QGA==
+Date: Sat, 14 Nov 2026 18:03:36 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <aviTcYS995cB-lTY@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <6de04b9cf2dfe9ff1dacdddc0a76752a714a991c.camel@perches.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,157 +70,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dnrnpq4pdqknn6vy"
+Content-Disposition: inline
+In-Reply-To: <6de04b9cf2dfe9ff1dacdddc0a76752a714a991c.camel@perches.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] net: s2500: ethtool -S rx_mismatch_drops duplicates
-  rtnl_link_stats64
-- [Medium] net: s2500: S2500_PTP_MAX_ADJ_PPB overflows 32-bit long
-  scaled_ppm
-- [Medium] net: s2500: s2500_set_multicast_mode() enables MCSF filter
-  under IFF_PROMISC
---
 
-commit 98b1718831c733b46bf9d80e2766e580982ab454
-Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+--dnrnpq4pdqknn6vy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+Message-ID: <aviTcYS995cB-lTY@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+ <6de04b9cf2dfe9ff1dacdddc0a76752a714a991c.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <6de04b9cf2dfe9ff1dacdddc0a76752a714a991c.camel@perches.com>
 
-net: ethernet: onsemi: s2500: Add driver support for S2500
+Hi Joe,
 
-This commit adds driver support for the onsemi S2500 10BASE-T1S MAC-PHY,
-including ethtool statistics, multicast filtering, and PTP hardware clock
-operations, along with RX cut-through and TX credit threshold helpers in
-the OA TC6 framework.
+> Date: 2026-11-14 07:28:23-0800
+> From: Joe Perches <joe@perches.com>
+>
+> On Sat, 2026-11-14 at 16:22 +0100, Alejandro Colomar wrote:
+> > As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> > between an empty prefix matching an empty string from a non-matching
+> > prefix.  This is a fundamental design flaw in this API, and not
+> > something that can be fixed.
+>=20
+> I still think this description is poor.
+> It's neither a bug nor a flaw.
+> It's a design choice.
 
-> diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c b/drivers/=
-net/ethernet/onsemi/s2500/s2500_ethtool.c
-> new file mode 100644
-> index 0000000000000..2fc09107aed3e
-> --- /dev/null
-> +++ b/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
-[ ... ]
-> +static const char s2500_mac_stat_strings[][ETH_GSTRING_LEN] =3D {
-> +	"rx_mismatch_drops",
-> +};
-> +
-> +static const u8 s2500_mac_stat_map[S2500_NUM_MAC_STATS] =3D {
-> +	S2500_MSTRXDROPPED_IDX,
-> +};
-[ ... ]
-> +static void s2500_get_ethtool_stats(struct net_device *ndev,
-> +				    struct ethtool_stats *stats, u64 *data)
-> +{
-> +	struct s2500_info *priv =3D netdev_priv(ndev);
-> +	int i;
-> +
-> +	s2500_update_stats(priv);
-> +	for (i =3D 0; i < S2500_NUM_MAC_STATS; i++)
-> +		data[i] =3D priv->stats_data[s2500_mac_stat_map[i]];
-> +}
+As explained in more detail in the subthread, I think it is a bug.
 
-[Severity: Medium]
-Should S2500_MSTRXDROPPED_IDX be reported via rx_otherhost_dropped in
-struct rtnl_link_stats64 instead of a custom "rx_mismatch_drops" counter in
-ethtool -S?
+If the function name were strprefix_len(), it would be a legitimate
+design choice, since 0 would indeed be the length of such a prefix, and
+it would be arguably useful to return 0 on a non-matching prefix.
 
-Frames dropped due to destination MAC address filter mismatch match the
-standard rx_otherhost_dropped counter (see
-Documentation/networking/statistics.rst), and exposing them only as a
-driver-private ethtool -S string hides them from standard netlink tools
-like ip -s link.
+But the function is named str_has_prefix().  Since an empty string is by
+convention (strstr(3), etc.) the prefix of every string, returning false
+is a bug.  Since the function returns 0 for such a case, it misbehaves.
 
-> diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h b/drivers/n=
-et/ethernet/onsemi/s2500/s2500_hw_def.h
-> new file mode 100644
-> index 0000000000000..cb9c53b936b83
-> --- /dev/null
-> +++ b/drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h
-[ ... ]
-> +/* Frequency adjust magnitude, 1 LSB =3D 0.000125 ppm =3D 1/8 ppb */
-> +#define S2500_PTP_ADJ_MAX		GENMASK(27, 0)
-> +#define S2500_PTP_ADJ_BASE		8000000000ULL
-> +#define S2500_PTP_MAX_ADJ_PPB		(S2500_PTP_ADJ_MAX / 8)
+Perhaps we can reach an agreement if I prepend this commit with one that
+renames all uses of str_has_prefix() to strprefix_len().  Then, I would
+agree to consider this as a design choice, and remove the text above.
 
-[Severity: Medium]
-Can S2500_PTP_MAX_ADJ_PPB (33,554,431 ppb) overflow the 32-bit signed long
-scaled_ppm parameter on 32-bit architectures?
 
-ptp_clock_adjtime() passes tx->freq as a signed long to
-scaled_ppm_to_ppb() and info->adjfine().  On 32-bit kernels, LONG_MAX
-holds at most 32,767,999 ppb, so requesting an adjustment between
-+32,768,000 and +33,554,431 ppb wraps scaled_ppm to a negative value that
-passes the max_adj check and programs S2500_REG_VS_PTP_ADJ in the wrong
-direction.  When scaled_ppm is LONG_MIN (-32,768,000 ppb), negating it in
-diff_by_scaled_ppm() also overflows and fails with -ERANGE.
-
-> diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_main.c b/drivers/net=
-/ethernet/onsemi/s2500/s2500_main.c
-> new file mode 100644
-> index 0000000000000..f176475cfd7ed
-> --- /dev/null
-> +++ b/drivers/net/ethernet/onsemi/s2500/s2500_main.c
-[ ... ]
-> +static int s2500_set_promiscuous_mode(struct s2500_info *priv,
-> +				      unsigned int rx_flags)
-> +{
-> +	u32 val =3D S2500_MAC_CTRL_ADRF;
-> +	bool clr =3D false;
-> +
-> +	if (rx_flags & IFF_PROMISC)
-> +		clr =3D true;
-> +	return s2500_mac_ctrl_modify_bits(priv, val, clr);
-> +}
-> +
-> +static int s2500_set_multicast_mode(struct s2500_info *priv,
-> +				    unsigned int rx_flags,
-> +				    struct netdev_hw_addr_list *mc)
-> +{
-> +	struct netdev_hw_addr *ha;
-> +	u8 mms =3D OA_TC6_MAC_MMS1;
-> +	int i, ret =3D 0;
-> +	int mc_count;
-> +	u16 addr;
-> +	u32 val;
-> +
-> +	mc_count =3D netdev_hw_addr_list_count(mc);
-> +
-> +	if ((rx_flags & IFF_ALLMULTI) ||
-> +	    mc_count > S2500_N_MCAST_FILTERS) {
-> +		/* Disable multicast filter */
-> +		ret =3D s2500_mac_ctrl_modify_bits(priv,
-> +						 S2500_MAC_CTRL_MCSF,
-> +						 true);
-[ ... ]
-> +	} else if (mc_count =3D=3D 0) {
-> +		/* Enable multicast filter */
-> +		ret =3D s2500_mac_ctrl_modify_bits(priv,
-> +						 S2500_MAC_CTRL_MCSF,
-> +						 false);
-[ ... ]
-> +static int s2500_set_rx_mode(struct net_device *ndev,
-> +			     struct netdev_hw_addr_list *uc,
-> +			     struct netdev_hw_addr_list *mc)
-> +{
-> +	struct s2500_info *priv =3D netdev_priv(ndev);
-> +	int ret;
-> +
-> +	ret =3D s2500_set_promiscuous_mode(priv, ndev->flags);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return s2500_set_multicast_mode(priv, ndev->flags, mc);
-> +}
-
-[Severity: Medium]
-Does s2500_set_multicast_mode() leave S2500_MAC_CTRL_MCSF enabled when
-IFF_PROMISC is set?
-
-s2500_set_rx_mode() calls s2500_set_multicast_mode() after
-s2500_set_promiscuous_mode(), and s2500_set_multicast_mode() only checks
-IFF_ALLMULTI.  When IFF_PROMISC is set without IFF_ALLMULTI and mc_count
-is 0, the else-if branch sets S2500_MAC_CTRL_MCSF and disables the address
-filter slots, which can filter out multicast traffic while in promiscuous
-mode.
+Cheers,
+Alex
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-s2500-mac-=
-phy-support-v11-0-7a186141952c@onsemi.com?part=3D10
+<https://www.alejandro-colomar.es>
+
+--dnrnpq4pdqknn6vy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4lGgACgkQ64mZXMKQ
+wqncSRAAoVpZLVtleFTnY0aEZEyyD8Jem8uGtog2B9sGphpZJlQsd8AUAyg5/N//
+b2/gMy8/ta8bSyVUW13PUj9BzNQzok5II1QFD9rWc2Xig1SJwHiEIVUrsAFjoCLe
+DsD6WYdNpf3FC8olZyDshH9ygFzD4RCDq7SvPm/ENY7AxejQrGHeeyDI6oxh3ELj
+Ecb87Mv7dmwGc2jYrW0PQfn9L2GedPvvtaPmuFNUwbjzbhzaYJr+9demRmyNE3jn
+qIbhoWyO971352U8n4LBWxXBOiJMdl7dQR8AIZF8l9AhfsM90CDDbuoepoS48I7r
+FpzKIMKxYQNu79Uh5W6ePzIMERxckgQ5uOXXTYggy+8ImXHixLJeatAYPmI8p41l
+gMBhICxmsSsvtIaOKvwsr5GFStwutEAaxXDftjJShEG8Dsmouvc+odugJmOujEpJ
+wz9P2br1Nzppcu4gILaTq6tHcHXQs1BpU4z1G1eSdTJIWrCjZ1li6mlKeB4+kmqL
+i24XfGQXStDZtL+iVbEt+fYR4c2hRdwYU+pp5D+QGjmnvdPa2Yf6lyJiUH6Kb0K9
+0nRbH4LuzQGnEJk+NfyCLNqbYz1I2XzVq9qZA+rl/Qfe1iNIz27RpqvhRXAlmVSq
+NfGzRjZ7FiI97GL3+lOYGLp2KPW5GICIKxxuxWhUmZ7zBTeeRmw=
+=vRWi
+-----END PGP SIGNATURE-----
+
+--dnrnpq4pdqknn6vy--
