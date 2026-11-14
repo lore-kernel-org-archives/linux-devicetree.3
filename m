@@ -1,123 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.65
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794652120;
-	b=usERPyE9kTUMDSK9U+Gz+kzZR1XR/Uv4RfKpNIguByDIPhAgmVGYHbvfbuQfhDyvbJOZ
-	 Y3Lm+n+9OQHvnUqc2gMGVcLrmRwpLtmRBK8bc6pZQ7CW4+V7zKY9rMLwrc2Sh6EEq7T9q
-	 vVz0d1wrhlz9q+eXY+AsW7StoOq+Br2lHJyl8OaOdY6fR0wKBe/jRbbN2245fI7NinGFI
-	 S0NZ7nT7vq838kDpA0zHSCVxtq/7wUmLnBhNGCuPPCQwTOGNiIJQAsIHeOgrJMSvu5xoy
-	 nHx7FhnmgUD7h2AsJj3vmQ5GpAoGg6HE3KWtgp2XbOkhy8VS/ZCWWX11nNptuQeOaUA==
+	t=1794652208;
+	b=O9F0g3+X2aHwBiMO8BkOU8TaP1KRma/RmWQxA7maKuLVXo0JgS+XvDfW724o/54z60Y+
+	 Jr9yWHrJZpbnTcyY5uCOjsTJX7QoebIvGvKjnor/UeYaE9Zs6pk1hlRdr8Pqh5GHaGHka
+	 erQ8UcMj7FJ4nGGiW9yoXeJed++QlO+uW2Q1X/AW1WIy4h7TyfoNTV9l1UUZlNJen+/ls
+	 M29qKvRjYIH7uIVYSHAsBTyDhkbhGiZf/VTFiqOluu3BVJnMphsdUXlQuFpQn4DIQgvbq
+	 VWC2V5+L/DzfBSPX8c/2JLcc7eMx71rL6FM8Hze+t49n2n7LgNgZaFJ89wvUtJIdvPA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794652120;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DGFPoUFp3t53fChFBXjug+JBh7L+UZESY63HviqEWfU=;
-	b=uOI6p9+vtreu5sS05iCGzLgwK/JiIQwLPR0WsNk5uxKGJ4RlfdjgRM6Om5wMqk4ydXaj
-	 MEh0uT//RJVnNH4/oxl9fmlFEJr43tSIXaehoQeq7zG1ZdDilfPuK106t4fbqAOh+/spK
-	 jzB31QqVJxrDZKvZPIwP0pJMj1BuuK3GcCz1i5p9F7QhLBaPV3K4Hln0mQakRXcpHzARk
-	 cmnpJ6zHyYB+OoQENYRRTyPK11eR5FUdH6kFtHFUTfcquiSa4MLc9M4YvDyX5rJtaHG53
-	 f5UvNpGF2brfHbrxURkZT+WTUiaMr5K/J+be+hy2dQpy2NC1Y/qoBbiEqGj6L0HOoAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794652208;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ni5wUL/ouLvju/iZw2Qmz76p9RjiGbOTG6bIq6TmJNc=;
+	b=F9vo921sOTgrHCSJRPMLRhFPaXsULyGpwcvjuDWaVdE5Fvs+gcBLef3LuXIjLA8btnOm
+	 JD/H1iZb0vDAhfXySMvPmWO7mzq4puoahp/7fHKA3+MJDO8W1fl9U+9ICSPSYNv15Kk26
+	 ZfCneljs2XR1yoidEDfQ0pC5nbU/brmSaM0H09oic4Gywj1uAw8pj7opJSSKcVIDxbwBn
+	 QPBrD6UIA6sr95k2e7tiemPN2rtq2XViGnY4maCNRON2E2/Hx/5W1/XBZpqKUFE+HIoP+
+	 uQmF4OrDM69QFLSPAXRuxsyHGDBAT+WFl73qlk+8AByW7h5UfdmC4Eg/fBNH8FntIIQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a8T9NsW8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VP54mteQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LFIQCLGZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.65
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011065.outbound.protection.outlook.com [52.101.70.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBDA606A8A8
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 10:28:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CBDA606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0C9606A338;
+	Sat, 14 Nov 2026 10:30:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F0C9606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a8T9NsW8;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VP54mteQ
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AE9wkJA1089786
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 10:28:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DGFPoUFp3t53fChFBXjug+JBh7L+UZESY63HviqEWfU=; b=a8T9NsW8Qtkzm2OA
-	wTXhAP4j3z4dEq5b1dzSux/5NfpP+TGTmcynSUWUjORJfbmA81ixFnKR33dJrCQq
-	GP2kYsFuD9U2rAzmKLdGHPffE7bdPQZhJu0c8egNQzVvcOPsCAeZdMF8tJ2kmlNq
-	Xy43dqmNrH74x+n4gbouuLiYpb8UIAokQXXb0FYNaCJs8jFwx96+OhpiP0KbcXal
-	jtJiyAnCeecDKkv8puFaE76DN+n9V2PzeNEf+BzXGUD780m9Yr2cOho4BJzEtQIJ
-	Jm8PKACog5/Kg384ClwTlpG5qjdWDZNyzauDWd6Ieig+aY4dvQbhielPtmhERZcH
-	z95IFw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhm8rgg3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 10:28:28 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ea381ce04fso25011675ad.0
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 02:28:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794652107; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KIIcQkjO0xNauLsQYD7RBMa7qIC62g3x+DP01yGwF1nIfKE5r48YjrYr60xFdYGCU3
-         QcApKJ+HXwwthRLYXWpsLm72eQYwQH0AYfwcoKmMyfjbwyGyOABWdx213BJkfNzDqTqq
-         5PM5JKWM6pIMpEjhNNgsYD5jannPLAWBCia++NPLxEJj80JpINOaIGoTeX+nqqWlzd9u
-         rJJkRTVjSZLsnFOlE4RFYvnz5cRAMRmtkABAhGBj1FGKauI+OOAbdutxADik0grglN/F
-         Pp8wgKp7Qq6qM7QO9tejqJnvHs/SKpipdUACTOkAmXHPj7dqXX4tSZc0XvZAW4K0zRMq
-         kuqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DGFPoUFp3t53fChFBXjug+JBh7L+UZESY63HviqEWfU=;
-        fh=Dl2+pDdm4x9XBycNfBbhwhP1ZVz+/UwYjSo7mvf+684=;
-        b=SRoCPzsUDqgm53hxxLJyBQCx07CEb+jYmMRRYaOBxJ6h7caJwNlqsa8VkVhFnxCs7j
-         D7s4APgr8br6GBh+VxKFuI6QZA2G+5npPcCHv34sl10ApQGWpM83dL+or4AYzMM4BRWO
-         t7520K48gTtgHXdlwG5/E+Ly9Rj+oIr8zdj7MeDebI5/1v5Z/F0v37GlE3tEaqT4I/do
-         6bdyBqwNKX7HLMY3y8B8FnWHSkcp8iSf0tfHiDy8UHB5Bi3hPEq6Qi5M0fuv/CItoIlz
-         HZdZIeXD2oF9ux1cM1SsO83KoyKL2ZwuxNuMJwtAmTc+AzxsHy2No97+mb+OQT1bUC7z
-         8Zog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794652107; x=1795256907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DGFPoUFp3t53fChFBXjug+JBh7L+UZESY63HviqEWfU=;
-        b=VP54mteQIbj4PeVubyXaSRWDBg905JUoF6WChJV8CxdCYxMXVVh0b9LHLdSh2UgIbw
-         5WsHIWXClWxUNeefg/Eovhsrc/d7AXN6/Qf4kq+cCeY5+lvx6YWCb3Ucf+F3xIixIZjy
-         iv8RLUjibgHJhkXsV4QmEELkyy+M3Xm2m5giY+q2YpGTdgZLOxj5uBtuFRcXikELxfuh
-         AWKU6WsJNmI0A9DcDd7MdwjiFkmkGmuqEdFLdsk7PSBOZbsShqHkpt2n0E/qP+QgEsO0
-         68sMloJ1UK1hNOqVVgW9SKjJpJEjjb2KgC0I0kXvhyIerPIvL1IdrcqlqVsIBS2iVvme
-         PO7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794652107; x=1795256907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DGFPoUFp3t53fChFBXjug+JBh7L+UZESY63HviqEWfU=;
-        b=q9uN6GZ7sEuncHpe2zzgyyE8lR5CyFp9Pwv1PrDnTxdevvPWMmQRcrDtvOObfMHBkR
-         Bahwk5FjzvVputbJZh5aAZ7vGT9TPRIkm0ub1d8q4krjGfw48ZxKDoARMMyI7yAoHcqR
-         SgitQt3WLV1JWtduOfipzeK5hKI6/7L7MU/gjRwp/7IoqlL8DNja3WRusZAXb7q8OmHc
-         vD+bzDlQ6ziUrWpQ28inxv5mJLxo3NObcCrsgg/80qwmjeGfd0dfYrbpD307lP4OsONn
-         wYTlD6xV2p6Wb8efr1tIST3tN5GM0yIM0QCOl3O1k3ivneBN2Cw5hzUZWGAp4ZkKwA4n
-         EkXg==
-X-Forwarded-Encrypted: i=1; AL+hErFiRnNTJwlAP0T/Wrsn790MsQ/l1dw/s1Zq5eaMQf1Xuz1ryq/IPjg5Cc4NiFZm9hWU8fgOPlRCnDki@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g9qO/T+5kDKKdPkLBN8Ylk5s2etNc5oJa1nmP/0E16jNZI7qw
-	rRxIWqJZBhZ0YG99EVsITfOpyIUXXuTjebkMCDkY+UqluBdFi5Wz4Yos7JngqAXaJr6QXdV6wYs
-	b5AbO6FUO+xo6NIFhJyu95RuxQM2wNfQQoIyRzr9lIEeqpD1l81H4FBTr/04au93r5nj0sqdfxw
-	7flB+Ptq3hCWpeB7QbABS1HpplZ/x2Gc8OpUdKWrE=
-X-Gm-Gg: AYBFou2m6K0mH6EcrgsVjeLVF2yx4ZV9hPvHD5DnYILieUkJzVZTtRFjDAKpkSra4RN
-	ia9gsthknEsYXQ70eo53VGADeWaZRU9xxb7Ot+8CXf0Ucv3kNPtGj9NQV94yfoiHgX93p9adQ45
-	wgOwzNlJc5vPYNIjHL/5Rns+jRz78MFcKQRUQ0a6KNTL65g6oKg2pVUg1wqw==
-X-Received: by 2002:a17:903:3bc7:b0:2e4:ade3:7290 with SMTP id d9443c01a7336-2edf2161b1bmr54625015ad.30.1794652107182;
-        Sat, 14 Nov 2026 02:28:27 -0800 (PST)
-X-Received: by 2002:a17:903:3bc7:b0:2e4:ade3:7290 with SMTP id
- d9443c01a7336-2edf2161b1bmr54624825ad.30.1794652106635; Sat, 14 Nov 2026
- 02:28:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LFIQCLGZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E13eQLZVLFDOCidKQL1xk8pmslx9pT09cjkYVXWsX9cf21UdUv6E/2UBUdWA8TFVAhBz9KGYepWbPE792LRId1o1WEQScDHoYQpWnx1aejbjTBXDblhImCPec2ZnxCIUNVK0Z2HOwGSN/6OBPdbpeB4jEBvAE59tU7wORsmeSsa0nVYw7bIpRUQytPDoKFYDFJA8kI8e2nJxF1CnEgu5LK4feQZrHtuvohyTwSM9aFz2UPPJWmpqi3cDj9WLgv4fD+O9x16ibU5KU50DxYwxeqQ51GjPqcpySSWpIGFeB3Kj3a/7twn8fLcz741oDBz26MylC2ofGsKEPAFG8faTCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ni5wUL/ouLvju/iZw2Qmz76p9RjiGbOTG6bIq6TmJNc=;
+ b=lLumWkkxaGDLsFVQBYUmfxzW/1iLe8AlhtKW3AFD30ckhltR+IylKGwEcvVwHclCNCVpyj/f9QYCkVQkF/urkXfa7WhqGB8Q+IA4F9DQ26NpeCnoRCiSA5w2SRbIOvb6YttBOn+Wk6/2QdXzA0vk39MEo3WkLnGQsky0lZKzJUciWnI/RdtIADVK/XrhcE4lb3olUY5QiaqzdKJQA6qX4aEMBb+nnwH/eoFcd9cByok9o4cc0MmSk6C6/ip2ClPm+mSysH437NYxpfZLvOwelM1enZeQ5PlXVGTMd04cic6ErmfVMCOSnsyjDMe+xhKFYX4FwcKYZLie/fyaoc/ZXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ni5wUL/ouLvju/iZw2Qmz76p9RjiGbOTG6bIq6TmJNc=;
+ b=LFIQCLGZZJeMC9AHS2Ok3evfzL3qqdxD3R92lt5hYWslZY6yfwvC6/d5EridkQsWN+3NbtejmOA3QU2MdznToi4rcHJjzRHH6DmQWjoSmO0O5+VNBzJRhcD9k46W3qYbTJA54ct1WwFkU6CFryroy/uUpjR1YXsPGkCnrbdURO4K2IdSdgGXVtqY/bcWqeuj9LdaMwlDDzGEShfI1FiwwXFmj4VbMSKP/84t1HxHoD7zNh0L8+UB9HLcYnR55moSoZfMrplcow5kbzvfwCYsXSekL0J7aGuzxn6dAx2qDWengDPfHpgQJo+zPTt5iIevYT1VWG9k1Ki7Tbmv/GDTkw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by AS8PR04MB9206.eurprd04.prod.outlook.com
+ (2603:10a6:20b:44d::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
+ 2026 10:30:01 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%5]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
+ 10:30:01 +0000
+Message-ID: <141c8478-c927-4bde-beec-9f5f5663bd92@oss.nxp.com>
+Date: Sat, 14 Nov 2026 12:29:56 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 10/11] ufs: s32n7: Add NXP S32N79 UFS host controller
+ driver
+To: Bart Van Assche <bvanassche@acm.org>, NXP S32 Linux Team <s32@nxp.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
+ Asutosh Das <quic_asutoshd@quicinc.com>
+Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
+References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
+ <20261103133215.1385823-11-larisa.grigore@oss.nxp.com>
+ <444b8e4d-948a-48de-b40e-74246b849842@acm.org>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <444b8e4d-948a-48de-b40e-74246b849842@acm.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0012.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::22) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,221 +115,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-add-board-ok3572-c-pmdomain-v4-0-15cf8b5a6e59@qq.com>
-In-Reply-To: <20261104-add-board-ok3572-c-pmdomain-v4-0-15cf8b5a6e59@qq.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 11:28:15 +0100
-X-Gm-Features: AclHuK8CTcJQlL9BkywlS1ynPK24J1pLlK3GHhNiwRM1F-ARTEv9AUD_jeySnPU
-Message-ID: <CAPx+jO_88-xLLiPeE1QPjceCBpBuX0ZXsB=-vVVcGmx_6vnWCA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] pmdomain: rockchip: Add RK3572 power domains
-To: 1579567540@qq.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-        Elaine Zhang <zhangqing@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>,
-        devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, Finley Xiao <finley.xiao@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=ItKL47/g c=1 sm=1 tr=0 ts=6af837cc cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8 a=dZbOZ2KzAAAA:8 a=VwQbUJbxAAAA:8
- a=s8YR1HE3AAAA:8 a=JfrnYn6hAAAA:8 a=4uetKMasqe67zdwg2QcA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=FO4_E8m0qiDe52t0p3_H:22 a=jGH_LyMDp9YhSvY-UuyI:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA0MSBTYWx0ZWRfX4Lf4RVqs70pM
- +c8tPMKoovFgQaqd6Nan44cfegIhgxObphcenFxo7/tmlUrz5mIYAYXwlkhw91cMFPnF6HUkOiV
- 5kMub/u1JDrjMXVlD/f0vFGtQasC01s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA0MSBTYWx0ZWRfX0dP9G6M/v6QZ
- 5XhIwXP9juDLYVRyorPQzhrtBymPWyRvOjpWRw4nv+Dv1HUjnUzpN1BqoIJZdAPnAPE3dlvfn/P
- X/vLnvggIv7OdnM+Kn0mvvGttq8rJOFakBFV2rpfG+bwXjaC0eDHfRQf0Imq4ryJJQ/vj1vre0A
- xngBP94HuIujTa0HvIpVaTVvomzOjPjIcRzDQX+6qiH7fWWemz/k/mfL0KucBvfXPE3pYemq89I
- YCsY0QBIwN/6+v+3LqUyf8b1pRGlrycTCpHWE2N7IGyDefOQ9aY/QVn7F61ykRhJFve9c4ynVxk
- SXXnyV7co4mRfiYJBPXisUspX8HmE+mC46cyItsN25UytbkhPDmrmM16fz/kcNKtxKbnIE3tr3V
- rk++gmRZqtNHtFPVcQuzsTFx045PH1QWoMqG/ySrU0PKj1Ho/7sVSpK6Z8ZZihwNCiiQwCNxEwO
- M13NgHeU7/pzmuwXM0Q==
-X-Proofpoint-ORIG-GUID: oxsA6re8-1vNR8dsvWwQmMrFyGeSDcBE
-X-Proofpoint-GUID: oxsA6re8-1vNR8dsvWwQmMrFyGeSDcBE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611140041
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|AS8PR04MB9206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d259e9a-e48e-433b-b688-08df423a3d2f
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|19092799006|366016|921020|10067099003|56012099006|4143699003|11063799006|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261022075727099003|261022115727099003|261028144727099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ PHiG168Xqxw1i/XETy7GaTdqzP5GNbwETDe17ktM0O1Sq8qtVznlu/UcunkSigEmHrIjCBoPwq2GzA9zM2aWKTEYc6U7+HS+raBcC/SFc+cZF56a8KLRwZx4AVK8eQWgCTUosngJpxUixaP2hTplJwfXOVvTHsq1+3PxAt5fJTSgCZT420vvTgIBtgqBsCoce/lv66VrbRf81rWBnz0QQWsPkRllbkNPMtU7CByFvhIy25iJ9BRX17eh414G1on+oeoSXY9BiiRPf1+CnEAo+YaLmonqCds3zdBu7/recTgxBF72LmPJTiiuWrMR5LowvDiB+cbtoRzH+UNiGSWFThiOeNvv/FKwF6tDxmcmtRS7lpA58m6Gs+xWOjzXg7rRQIBlvt0/JrMOXsLdTQYynDdIFlF2Msjs3Rc3IqySNGJtw3p+/+GFSI4XQFQCHn7AYtIJob01lxD+mJBq/gyMuKPEqWHpFuiRZByzH2sAYAYlCCAUlgM6zGJuuP6Pqe5eX8iTQANFNdu4wGBC8LS8dhPIXA7JqF1p1WWqsYYmyOhs/8t3PPcbWC+JntfT3ZksbaT+VEaaK+oloQIgQUmHLFub+dVygBvAxF2FAZd6mBk9vH0nO6+aeN8iVaMqTq4lSGQ3qJvaOyaUGFZqR3/i92jqD4p4nXYwEJCabFi9Mp4khquvBMNViAnJFreb9d31DlRn0iuJfwVNj7xlobX6gg==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(19092799006)(366016)(921020)(10067099003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261022075727099003)(261022115727099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?YktIUnN3dy8xRFhPclZVYUlBdE9HSkl4TWxPcVpiOEhTZWtTL3NMZVR5MlpR?=
+ =?utf-8?B?UFVKeFN4MFVnRFdEU3VWaHNzc1dVQUpWSUVTa0ZhVHFuL3FhYWo5MFhsYXFx?=
+ =?utf-8?B?SURvN0IzWUswdDRWUXRuc3NOVHc5aFNPdDFCdUdoRzBUUDJnTDdjNU8zeGRi?=
+ =?utf-8?B?U0tsYkJxVVdUMVp6VUdyNTNtMHJUdWdwckhCbkxxR1hESG1HcVNWU01kWGtR?=
+ =?utf-8?B?ZlRSc3p2NTk3cVV2OW8vQ05uUllQajBCVm5rRmROQ3hnRmR6L1ZSeXdiWHYr?=
+ =?utf-8?B?UzVNY3R2VFN0b1I4WCt4NFNIYTIxQzNCMHF4SVVHT2JaMkZvUjRGZkVtRzJ5?=
+ =?utf-8?B?cWlHZDRpM0dISkNsT05pa3pIL3BoQTkvRnJEbmYrYzFQU1Nta3VyRWhXVnI4?=
+ =?utf-8?B?cElqODRKWk45YlREZlVsVWtCMlBTaDczSURNWDg1cWtNNXVYeFdIclhaYjdm?=
+ =?utf-8?B?SVh0eWExbkpHVGJpOE1yeHVTUm10M2lhVExBSk9SR25wRitlcWV2THpXOTRK?=
+ =?utf-8?B?cHNyYVFPbUhyTjVjRHJYT3BNczFYMWg2UFFyNHg3QzhyOEMzclBWT0xLSWp0?=
+ =?utf-8?B?eUVTZVBid1lUazRjenZhMnFqZnFmaWpFQ20zQ0hnMWhWSE4rdFpyaGxXNTht?=
+ =?utf-8?B?WjFQcW4vVVd6U3JFcTFpRTNzTDQ5UEluR3pPZHdqZUtHTUprUWQwZUFXYnNE?=
+ =?utf-8?B?YndQdDJ1QWYvVzM4T00rOENGYUJsaDFpYWV3azNpV3ZqN2F6Ri9GVGZyY01L?=
+ =?utf-8?B?cVVSUkE2YUl2MEhIbVpBeUZIaXhwTVVGZmdqc0h3eis3Q3labXYvWWc1WFVu?=
+ =?utf-8?B?NVA2MlNSRlVzOVp0V3ZhMGkyd0pIaVh6Wmh6VnJGV3o1NWEwell0ZEdHbElq?=
+ =?utf-8?B?K1E2QVRubGJVS283eGxnV1JhOXhCUmtZc2NVeFJ1L3Uxd3FSaHorT2RpMjR4?=
+ =?utf-8?B?RTJoZWcrYlIxdmZrMVlhYlFDeDk5QXdNNG41YlFZTXdlN1Uxd1FCWkFTNC82?=
+ =?utf-8?B?Rlgrck9jV21IcDU0dlBLVC8xK2loRVZjTG9YNGtpZmxSSFo5OTlNOE5aZ3Y2?=
+ =?utf-8?B?NGY4dUZlQkp6ZCtINDAzWVhYYUxCaEQ5MmM0NWVFdW5NVVRIa3NVSW1ZbXlo?=
+ =?utf-8?B?WW5FZ1hhZlB5QXlZcVowQUhFTjlMQ005N1pHZU9wTjlPNkZ5OCt0SlViQzhF?=
+ =?utf-8?B?OXhtVzV6T1lUNDBydDM0U2F5cjl1MXM5Q1U3WUVTU3c5UDlkT3pqTm5iODkx?=
+ =?utf-8?B?aGFadmZSdGEzVlp1V202ZlJTTDhzSlBPSCt6cDlEMmRUZVIxdWRGYXNwVXJw?=
+ =?utf-8?B?THZwVVVUUkdBcmRuTUpJZVlTTDZuWk5JbFJDb3ZLZ01qTmcrYjNxNHM4NEdp?=
+ =?utf-8?B?cTJnQ2RSYVI5NDRja1MxZEhtMkszbzVlYThJQjI4cjlEQzNSNjh4eThscmhD?=
+ =?utf-8?B?L2ZJczZsZGUwMGNETngwWk1NSGtWVWFmVlVmNEtiVEZTQTNNU0VkQWFnUUE0?=
+ =?utf-8?B?MGw1Y2g1MmNNdkYxdnlidkQwVlg0OWVzakdsdEpzRm1MTGJQWFo4bDZHVTd3?=
+ =?utf-8?B?Nm5lV0dEVWdlSVZkcm80SzlZZ2ZWUCtwT05nQVBuY05MNk5XcFNDZjJFNWh1?=
+ =?utf-8?B?T1NCT3kxdlNHSkpVVmF0VU1GaTRQWms1ZWJDeEZxL1FhY2hKT2N6UStEb0R3?=
+ =?utf-8?B?ZjB4WGF1K1FOSVpxZkdmSVVDaWFJNTZZZ2lWN2dnVjdpbGRyK1JJMEROc21F?=
+ =?utf-8?B?YlUwQmQxdnA1WVRxMkIyYnV2enlqMjRXQUNzQnBPb1JGbzVNdWs5UlpDS3FB?=
+ =?utf-8?B?Mk5lbmdPVFNKc3g1eUl4RWpmYThvQnhmN0IrclVKVTZyUG82RkNvSTBpUWph?=
+ =?utf-8?B?Kys5TXVwVTE5VFovYm5XOW1Ud2VDZVB1MjFJdTdNVTBTbURtUDI3b3dPUlp0?=
+ =?utf-8?B?cG9nVUJwOHJFWjZ0VkxZeFh2R0YrWXZ4RnVBb1dic2ZuL0VkQWxQb0FCdUpC?=
+ =?utf-8?B?Ykx0SDF3OVVPbmxYbjIrbWtSVUJGY2UwYUM3YkFqcnBTSGFRaEp2SHlWdGsr?=
+ =?utf-8?B?a20yQWhON1JGSGVEMmF4KzRDMkE4OHp2OG00V2xZOVBPMHNQeWFzUmREVnhO?=
+ =?utf-8?B?cFR5WEpGTzZWbFBFTGVPaEVPaE5rQUFpemN1cXJCMVlFZWo5N3dGcW5MTTVR?=
+ =?utf-8?B?UVlFSldMUUNiajQrYUdMS084TlVDZjBXYTUzcWJLcWlSd0xQSEo2ajRsZWth?=
+ =?utf-8?B?dDZWZW5ZWmxKUUM5bHBZdnc5QTltS3VYVG5QY2Jid2QvWUczaUhjcDdsZ0ZB?=
+ =?utf-8?B?RUtRKzg5Znl2MlRrb095N1F1eVFRTE5GWERZK1JhQWdwcU9vOE1tb3M3VHFL?=
+ =?utf-8?Q?5A44Bkr4YBPXoVeo=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d259e9a-e48e-433b-b688-08df423a3d2f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 10:30:01.4085
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: drhXwwrlU8ubWzcZnvlbysnYdXj+vYQDTolBCfXiH/wRb+iWwjiYlH+NmN5qRUc2PlAfvv51EVoJQ9GtCg6DPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9206
 
-On Wed, Nov 4, 2026 at 9:57=E2=80=AFAM Cunhao Lu via B4 Relay
-<devnull+1579567540.qq.com@kernel.org> wrote:
->
-> This is one of the subsystem submissions for RK3572 support.
->
-> This series adds the RK3572 power-controller binding and power IDs,
-> followed by support for all 14 power domains. It includes system GRF
-> firmware shift-ready checks, NPU voltage-domain control and genpd startup
-> protection for boot-enabled IMG, VOP, VOP_PRE and VO.
->
-> The RK3572 SoC has eight CPU cores: two Cortex-A73 cores and six
-> Cortex-A53 cores. It also integrates an Arm Mali-G310V2 MC1 GPU.
-> The OK3572-C board provides two Gigabit Ethernet ports, three USB3 Type-A
-> ports, a Type-C dual-role port, eMMC, microSD, and UART.
->
-> This series depends on the separately submitted power-on rollback fix [1]=
-.
-> Firmware readiness failures reuse it, preserving the original error and
-> saved QoS. If rollback fails, the domain may remain on while resources ar=
-e
-> released and genpd may power down its parent.
->
-> [1] https://patch.msgid.link/20261101-fix-rockchip-pmdomain-power-on-roll=
-back-v1-1-59a45783e33e@qq.com
->
-> Testing was performed with Debian 13 minimal and Linux 7.3 on the
-> OK3572-C with the FET3572-C module. Shared peripheral tests were run with
-> the system booted from SD, while eMMC validation covered the complete
-> boot chain.
->
-> Passed functionality:
->
-> - SD and eMMC complete the firmware, kernel, and root filesystem
->   boot chain.
-> - UART console works at 1500000 baud.
-> - SD read/write and data persistence checks pass.
-> - All eight CPUs start; CPU frequency scaling and hotplug checks pass.
-> - Both Ethernet ports obtain IPv4 addresses and pass bidirectional file
->   transfers.
-> - All three Type-A ports pass USB2 and USB3 enumeration, data transfers,
->   and reconnect persistence checks.
-> - Type-C host and device modes pass in both plug orientations. Physical
->   reconnects correctly select the expected device, host, and device roles
->   in sequence.
->
-> Stability:
->
-> - Repeated cold and software reboots complete on SD and eMMC without
->   data integrity failures or power-domain transition failures.
-> - A combined CPU, memory, network, SD, and USB3 stress test completes
->   without a crash, lockup, CPU offline event, or thermal shutdown.
-> - Ethernet error and drop counters do not increase during bidirectional
->   network tests.
->
-> Power-domain validation:
->
-> - All 14 domains register; 11 complete 1,140 runtime-PM cycles. NPU VD
->   sequencing and startup-protection release are checked.
-> - Physical cold boot with an eMMC root filesystem succeeds. Read/write
->   checks pass on eMMC, SD and two USB storage devices; both Ethernet
->   ports pass ping tests bound to their respective interfaces.
-> - Thirteen return-value injections after successful operations check
->   idle-exit and firmware-readiness rollback, NPU cleanup, original errors
->   and saved QoS. Retries succeed after removing injection.
-> - 124 host model cases using the driver and genpd pass ASan and UBSan.
->
-> Build and checks:
->
-> - The kernel, modules, and board DTB build successfully.
-> - Strict checkpatch reports no errors.
->
-> Untested hardware and paths:
->
-> - NPU
-> - PCIe
-> - GPU, video output, and audio
-> - CPU rates above 1.2 GHz and voltage scaling
-> - Other low-speed external interfaces
->
-> Some files in this series are derived from the Forlinx OK3572-C BSP
-> Alpha1. Thanks to Forlinx for their support.
-> Thanks also to Rockchip's David Wu, Elaine Zhang, Finley Xiao, Frank
-> Wang, William Wu, and Ye Zhang for providing the driver source files.
->
-> AI assistance:
->
-> - Codex / DeepSeek V4.1 Flash were used for:
->   - Reviewing and adjusting code style to follow community conventions
->   - Automating tests
->   - Collecting data
->
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
-> Changes in v4:
-> - Drop generic pending-state tracking and power-off recovery; reuse the
->   separate power-on rollback fix for firmware readiness errors.
-> - Support all 14 domains, including NPU voltage-domain control and
->   cleanup after failed transitions.
-> - Retain boot-enabled IMG, VOP, VOP_PRE and VO domains until sync_state.
-> - Use firmware shift-ready naming for the GRF status.
-> - Build ungate write masks with unsigned arithmetic.
-> - Link to v3:
->   https://patch.msgid.link/20261026-add-board-ok3572-c-pmdomain-v3-0-70d6=
-14d3d921@qq.com
->
-> Changes in v3:
-> - Track incomplete shutdowns to preserve QoS and complete firmware update=
-s.
-> - Preserve pending memory resets across shutdown and cancel unfinished
->   power-on requests.
-> - Attempt to restore the domain after power-off errors, while preserving
->   the original error returned to genpd.
-> - Link to v2:
->   https://patch.msgid.link/20261023-add-board-ok3572-c-pmdomain-v2-0-79dd=
-d42e92c1@qq.com
->
-> Changes in v2:
-> - Split the original RK3572 support series by subsystem.
-> - Track low-level power-on and restoration separately. Retain unfinished
->   memory resets across retries, avoid repeating completed resets, and
->   preserve QoS snapshots when shutting down after a failed power-on.
-> - Link to v1:
->   https://patch.msgid.link/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@=
-qq.com
->
-> ---
-> Raw dmesg: see v2 cover letter.
->
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Heiko Stuebner <heiko@sntech.de>
-> To: Elaine Zhang <zhangqing@rock-chips.com>
-> To: Ulf Hansson <ulfh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
->
-> ---
-> Cunhao Lu (1):
->       pmdomain: rockchip: Add RK3572 power domains
->
-> Finley Xiao (1):
->       dt-bindings: power: rockchip: Add RK3572 power domains
->
->  .../bindings/power/rockchip,power-controller.yaml  |  17 +++
->  drivers/pmdomain/rockchip/pm-domains.c             | 168 +++++++++++++++=
-++++--
->  .../power/rockchip,rk3572-power-controller.h       |  30 ++++
->  3 files changed, 204 insertions(+), 11 deletions(-)
-> ---
-> base-commit: 99e3bb2c6f246f38179cc569e38a45d9555206ed
-> change-id: 20261023-add-board-ok3572-c-pmdomain-2f02da11386e
->
-> Best regards,
-> --
-> Cunhao Lu <1579567540@qq.com>
->
->
+On 11/3/2026 7:57 PM, Bart Van Assche wrote:
 
-There are quite a lot of patches on the rockchip power domain driver
-in the pipe. On my end, I can only try to apply pieces by piece, but
-it would be nice if you could start reviewing each other's patches to
-help coordinate this bit.
+Hello Bart,
 
-Anyway, this series needs to be rebased on top of the latest changes
-that I have queued for next. I will have a look when that's done.
+> 
+> The following comments posted on v9 have not yet been addressed:
+> * device_g
+et_match_data() is still called in both ufs_s32n7_probe() and
+>    ufs_s32n7_init(). Since all S32N7 variants use the same vops callbacks
+>    (or vops can be embedded in struct s32n7_soc_data and recovered via
+>    container_of(hba->vops, ...)), one lookup suffices.
 
-Kind regards
-Uffe
+Will be fixed in v11.
+
+> * ufs_s32n7_link_startup_post_change() still open-codes a local-only
+>    subset of ufshcd_dwc_connection_setup() (setting N_DEVICEID = 0
+>    without N_DEVICEID_VALID, and skipping peer attributes). The v10
+>    commit message states this "follows the Synopsys recommended
+>    sequence", but still does not explain why
+>    ufshcd_dwc_connection_setup() (used by ufs-amd-versal2.c) cannot be
+>    used on S32N79.
+> 
+After re-checking the recommended S32N79 sequence, v11 moves the local 
+N_DeviceID write back before link startup, as it was in the initial 
+version of the driver. After link startup, only the local CPort 0 is 
+touched (T_CPortFlags and T_ConnectionState). So the S32N79 sequence is 
+not a subset of ufshcd_dwc_connection_setup(): the two sequences program 
+different settings. The S32N79 sequence does not write N_DeviceID_valid 
+or any peer attribute, so the values brought up by the controller are 
+kept (host N_DeviceID_valid = 1, device T_PeerDeviceID = 0). The generic 
+helper sets the host N_DeviceID_valid to 0 and the device T_PeerDeviceID 
+to 1.
+
+> Other issues:
+> * Back-to-back writes to SCM_STATUS: ufs_s32n7_link_startup_pre_change()
+> performs two consecutive posted writel() calls to ufs->reg_scm +
+> SCM_STATUS (SCM_STATUS_PHY_RESET(1) immediately followed by
+> SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1)) with no readback or
+> delay in between. Either the first write is redundant, or if the
+> hardware requires observing SRAM_BYPASS = 0 while PHY_RESET = 1, a
+> readback/delay is missing and should be documented.
+
+The first write is not redundant: PRE_CHANGE also runs on host reset and 
+error recovery, where the PHY may still be running, so it first puts the 
+PHY back into reset; the RM requires no delay or readback between the 
+two writes, the comment will be updated.
+
+> * Magic hex constants for shared DWC M-PHY bitfields:
+> s32n79_reset_config, s32n79_calib_mphy_disabled,
+> s32n79_calib_mphy_enabled, and pwr_change_phy_regs use raw hex values
+> (0x8A for CBREFCLKCTRL2 even though ufshcd-dwc.h already defines
+> CBREFREFCLK_GATE_OVR_EN, plus 0x4, 0x100, 0xc, 0x8). ufs-amd-versal2.c
+> already defines MPHY_FAST_RX_AFE_CAL, MPHY_FW_CALIB_CFG_VAL,
+> MPHY_RX_OVRD_EN, and MPHY_RX_OVRD_VAL for these same registers—moving
+> those bit macros to ufshcd-dwc.h would avoid magic numbers.
+
+Will be replaced in v11.
+
+
+Thanks,
+Larisa
