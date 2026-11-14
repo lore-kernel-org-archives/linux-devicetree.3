@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665200;
-	b=oRBJgwbOhzWvMsICk/HqfQuuEuiAaRla9GXQISizf61PyNY3Zf6UPV13IzPuS8yiqDMp
-	 67qIIy7Rel4gxKCUjAbB1EhT2ntI2TMdO7l4OBZMRHjjGVAWMhrFomFMfd70JU7QIz83v
-	 oC/dO0KMmpj8ETY/E6jWPDSxcC05cb0Hjf2LjeVrT7xE7m1nKlhisV6Kq27ps9D9iFR5q
-	 PpsYtFYcZW+qmuM4xLkUjDSCg3ffQ7VjXLYbTETbrI0XN5td1pOgj1LTBj6mBbOW7eUpa
-	 d9Jll1dS1ZrnOpW7Jr0WqezWI8Bpz0TdNgVC8anKUcJ0dh017ITqVuRPi/pmjExu2OQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665200;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=vYqGiorBdtvdecT5cD8AXmsUsDqiGCj6eamVLGXX6pM=;
-	b=uATKnLEIwo7l2vVrhIBW1vkjAm0mPGAEBXizun4yA1fqR8KgvIBcZpqyWPYfse1UFhPs
-	 8xtPaS+je6Vj7jRfh6gBj7Cp/QMWfVAU0YNili+PzyqUCvLcL9mj7RSL3K2/aaI90u169
-	 k8iysTqPict0gLHp9oRJWVo96ahOy23/JCUz25Fxif94eN06rK69Ppdzcis/oOn2XExv+
-	 YbhB+FBkXz2fH1/U9OoMiQc9wssDw1aXIVszKcsQX0P/uze7n9RAbIvqX3gEwMJgq2/LG
-	 ljDevgZQApyFlkNthd3Jx5imk8iUjuzYWA7FCKKvQCuReUj+nqr0zMmGJtHLJssCHEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2q8g9Cy;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794665584;
+	b=dLRQZkdf/7gfGKbAODbP47VQzt8WruSNV3a13cYMdPGMhqtAzqTULPKKYS3DPfoLIP7B
+	 tjaaYssHe4SFA+cY/7MhuafIbvDUNKMxhZSio8FYq0oG2Xgt3g/og2Mpw24Ey9524posk
+	 5vWWUBVHhGvCv+MbZtSQuN3pow3+BcBu3m25980G3G1VCAnJtLKhqFMUF9zZ3mGPiw8Xp
+	 Vknhqj2PNWWMkpfs5zL39NgBnAV3LRc6Fh3KU9qodo6aAwwEnI2XV1k1GkiZTXcoxnPzv
+	 eZMP8+BhPobjPb5r0gjEhjddGQCV/nOl7aZIDA9bQ2Rb79ccqkxlCrjl+ZmylYuo2nQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665584;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	b=3CH/qdrgSOW+2fRmmO0EgewU7gWvw30tiHbvCicAOuOvgDAhymA4egXbqUjezo4wLWbq
+	 DYmsZUoZlStXCRtnIeGVT4ZlMEQW5++co9o+Xire/S5nZhUGyOQ3kPnH8s0TV/LhDHwjQ
+	 yugeaARKBUkwQ2f+lxD5tAYza+GxF501Y1hOA4VWIVOuz7LXr02cMctKTTZ8JxqpLB1Ur
+	 3RDbHdzIb2DaW2Icn9JMCE8zj1GHllrM3SFNJ2aIBgYTUMW9PyZNH855wefz64w2M5cic
+	 d29k8cAQTCf/LDmmFtSGhm3L0ql+wF6S4IVdqdBGmlsJs4csCcBcyHXNmjJV62aJ5bQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7pm6wqL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CA9606A327;
-	Sat, 14 Nov 2026 14:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27002606A327;
+	Sat, 14 Nov 2026 14:13:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2q8g9Cy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BEE1F000C4;
-	Sat, 14 Nov 2026 14:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7pm6wqL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794665584;
+	b=ka+KsQwPaigpxqQxEO8YQeuhR/QtWX3iWuhx2SugI0bwFvjA/1SnbJz9fhZknbIYQTBA
+	 shB8g88/h5BXguBG80rWE9pyJZB1amkAMUAKJq2DcI6qVCwdXg00QL2di3LptBKcVthVR
+	 J4acPoIN1ufDVGGo+oLZC8qJ+CKe2pW5tpKBLIPelS5feGSL9pF5GcykMaz1kmmf0L2/H
+	 q0YPK10Arf/sNl6BLtxpLGui0ej9tRT1sZEQTkvCSv48gBQQKeJnT6Iwzexs/plfE6rDS
+	 Oni6TweZ7Dl1DsdRmjXoHGtfAwGZoVOhSHU8YMYUTKfKr58NQbZxbVVBrY+0wjgWn1w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794665584;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	b=orjw7CCO9vUJIaNBaCo9jVhWfger74Z7NKFTBX+3b9s+eDJ/6HF/1FgUuRkUNCWdsrJd
+	 XDDPSitPppT+RE4zvE15OaBHfunZ2HlMiaFz+VYQmY8db2H1sO/6IEYtLE23KEuMi9/NC
+	 dWeCSz4bZqbjAckTU5xDbpzYAtzB+98rbGOlhV3zOuXw4HUx1GQLYMtAqqXSJUmDnkBVM
+	 gJmlBfNtNW8/z+vvKxqmVlAgp0wFhvJ1H752fV/W7cvpfc/v1abhPAsQvC48AGTGgq1N6
+	 UhRL6v5FjCa7ShFTteUtcz892NlXLDt81Z9+ckEE5vxrLjB5k1q0rAf9WoLfiZcBZiw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F1091F000C5;
+	Sat, 14 Nov 2026 14:13:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794665200;
-	bh=vYqGiorBdtvdecT5cD8AXmsUsDqiGCj6eamVLGXX6pM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z2q8g9CyAplfSlCYcEujT/KQt7n8Cq0GOLLjwE3ezqOsU4xHhXKE/ZJjG6G2iLxPp
-	 Tbha4XRPljPPteWE7HCrGknpLeqdfYkZ/awujr9pBmKaTGnmzIYV2310GF+lpziGnG
-	 srB1wXiwlTGAPr4RDKRidRnlNvdc8h83/1+HsMotGQonEnDyG3IAgAodxQ8goEIIGN
-	 T5ahThrEj3xMNhbW4HThs9+ejmI04kDocziEZZ5vazQY2xLTzjyjF1KKRTO1RlauJz
-	 7sjlsN9uxuxVlseoN6V8l1JtwnZdKZzboFCmOseITFT7HD3uL1AEYnjnXpfxEGPi3T
-	 PASGtTY5UtE4A==
-Message-ID: <sashiko-outbox-214602@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 07/10] tty: serial: Add Cortina UART driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261114-b4-cs75xx-v7-7-8f17f38821b4@gmail.com>
-References: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com>
- <20261114-b4-cs75xx-v7-7-8f17f38821b4@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 14:06:39 +0000
+	s=k20260515; t=1794665584;
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=L7pm6wqLXJPMvFyNzKr+arToKN/2jtrqHliKuqzp5ts3WcPJpjAXXwCzpFUEV8Out
+	 fYY+1FDQQx1svbJbirzgJ8VbDA1REkwhEa7pifapd335eCxLpDerKxSpQ8DCsmW46+
+	 bnr5B3KJipEVip64ygNdJhKDn0EVYzYVGUW5yUxm3a+h0ePIrFK+/t7FOVHOTEoCWC
+	 MFn+b4U4Zk78h8R18alUav7q4WmPXV0TblCfVCP5RNxvmm9+Zybg6i18w0jBt8wRY8
+	 4iZQz+9YO/Sfu/ZGQjCxXrQCgWJyeI/y5rkOnt/OAFCGZ/5XBcPH7jwbXZINMS0cOJ
+	 zeJMrJ8W+Racg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EDC8649DDA;
+	Sat, 14 Nov 2026 14:13:02 +0000 (UTC)
+From: Volodymyr Chapman via B4 Relay <devnull+volodymyrchapman.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 14:12:49 +0000
+Subject: [PATCH] ARM: tegra: nyan: Enable the 32 kHz clock for the Wi-Fi
+ module
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,160 +82,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-nyan-wifi-32k-v1-1-311c6f2163d4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGBs+GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0MT3bzKxDzd8sy0TF1jo2xdS0szkxRjU0PjJPNUJaCegqLUtMwKsHn
+ RsbW1AMJLh35fAAAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Volodymyr Chapman <volodymyrchapman@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665582; l=1933;
+ i=volodymyrchapman@gmail.com; s=20261114; h=from:subject:message-id;
+ bh=ZYcx9OmFDEjiXweNhRDW+WsVewYRwZNRDfsX+1SjsDc=;
+ b=NMdixx4IBeNvJhZM1A6u2yGr3+ELQuQjkDfkP8V8Bcrh/XFhHeTIMPhoj9VEJ16PrrFP1lz20
+ sN18NkBfuSPAcuuarT8GdILuCfV9gx2CI+nazixyLImdiEMivERyqGw
+X-Developer-Key: i=volodymyrchapman@gmail.com; a=ed25519;
+ pk=MFRHEFOAD35s30Ob7oHqbHPECBoWpPLCMrM4ekqB900=
+X-Endpoint-Received: by B4 Relay for volodymyrchapman@gmail.com/20261114
+ with auth_id=1527
+X-Original-From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Reply-To: volodymyrchapman@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] tty: serial: cortina-uart: missing uart_handle_break() breaks
-  SysRq
-- [Medium] tty: serial: cortina-uart: unconditional RX/TX handling in
-  cortina_uart_isr()
---
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
 
-commit b5b5d422d0304117c1e8a78b6129aa1a61ffa2ba
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+The Marvell SD8897 Wi-Fi/Bluetooth module on the Nyan Chromebooks needs
+a 32.768 kHz sleep clock, which these boards take from the PMC blink
+output (CLK_32K_OUT_PA0). Nothing in the device tree requests that
+clock, so whether it is running when the SDIO card is brought up
+depends on the state the firmware left it in. On warm reboots it is
+usually off, and every attempt to bring up the card fails with:
 
-tty: serial: Add Cortina UART driver
+  mmc2: error -110 whilst initialising SDIO card
 
-This commit adds a serial driver for the UART found in Cortina Systems
-CS75xx (Goldengate G2) SoCs, with system console and earlycon support.
+leaving the system without Wi-Fi. Toggling the reset GPIO on each retry
+does not help.
 
-> diff --git a/drivers/tty/serial/cortina-uart.c b/drivers/tty/serial/corti=
-na-uart.c
-> new file mode 100644
-> index 0000000000000..72ac035eb8e91
-> --- /dev/null
-> +++ b/drivers/tty/serial/cortina-uart.c
+Describe the clock in the SDIO power sequence, as the Tegra30 Asus
+Transformer and Nexus 7 device trees already do for their Wi-Fi
+modules, so that mmc-pwrseq-simple enables it before releasing the
+module from reset.
 
-[ ... ]
+Tested on an HP Chromebook 14 G3 (nyan-blaze) running v6.6.144: with
+this change Wi-Fi came up on 8 out of 8 warm reboots, against 1 out of
+22 before, and on 5 out of 5 cold boots (4 of them on battery), and
+the clock summary shows pmc_blink enabled by pwrseq-sdhci0 (ext_clock).
+nyan-big shares this file but was not tested.
 
-> +static void cortina_uart_tx_chars(struct uart_port *port)
-> +{
-> +	u8 ch;
-> +
-> +	uart_port_tx(port, ch,
-> +		     !(readl(port->membase + CORTINA_UART_INFO) &
-> +		       CORTINA_UART_INFO_TX_FULL),
-> +		     writel(ch, port->membase + CORTINA_UART_TXDAT));
-> +}
-> +
-> +static void cortina_uart_start_tx(struct uart_port *port)
-> +{
-> +	cortina_uart_ie_update(port, 0, CORTINA_UART_IRQ_TX_EMPTY);
-> +
-> +	/*
-> +	 * The TX empty interrupt only fires when the FIFO drains, so prime
-> +	 * the FIFO here.
-> +	 */
-> +	cortina_uart_tx_chars(port);
-> +}
-> +
-> +static void cortina_uart_stop_rx(struct uart_port *port)
-> +{
-> +	cortina_uart_ie_update(port, CORTINA_UART_IRQ_RX_NONEMPTY, 0);
-> +}
-> +
-> +static void cortina_uart_rx_chars(struct uart_port *port, u32 status)
-> +{
-> +	struct tty_port *tport =3D &port->state->port;
-> +	unsigned int budget =3D CORTINA_UART_RX_BUDGET;
-> +	u32 data, err;
-> +
-> +	if (status & CORTINA_UART_IRQ_RX_OVERRUN)
-> +		port->icount.overrun++;
-> +	if (status & CORTINA_UART_IRQ_RX_PARITY)
-> +		port->icount.parity++;
-> +	if (status & CORTINA_UART_IRQ_RX_STOP)
-> +		port->icount.frame++;
-> +
-> +	/*
-> +	 * The parity and framing error status is only latched in the interrupt
-> +	 * register, not per character, so charge it to the first character
-> +	 * read in this pass.
-> +	 */
-> +	err =3D status & port->read_status_mask & CORTINA_UART_IRQ_RX_ERR;
-> +
-> +	while (budget-- && !(readl(port->membase + CORTINA_UART_INFO) &
-> +			     CORTINA_UART_INFO_RX_EMPTY)) {
-> +		u8 ch, flag =3D TTY_NORMAL;
-> +		u32 ch_err =3D err;
-> +
-> +		data =3D readl(port->membase + CORTINA_UART_RXDAT);
-> +		if (!(data & CORTINA_UART_RXDAT_VALID))
-> +			continue;
-> +
-> +		port->icount.rx++;
-> +		ch =3D FIELD_GET(CORTINA_UART_RXDAT_DATA, data);
-> +		err =3D 0;
-> +
-> +		if (port->ignore_status_mask & CORTINA_UART_RXDAT_VALID)
-> +			continue;
-> +		if (ch_err & port->ignore_status_mask)
-> +			continue;
-> +
-> +		if (ch_err & CORTINA_UART_IRQ_RX_PARITY)
-> +			flag =3D TTY_PARITY;
-> +		else if (ch_err & CORTINA_UART_IRQ_RX_STOP)
-> +			flag =3D TTY_FRAME;
-> +		else if (uart_prepare_sysrq_char(port, ch))
-> +			continue;
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+---
+ arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
-[Severity: Medium]
-Can uart_prepare_sysrq_char() ever succeed without a call to
-uart_handle_break()?
+diff --git a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi b/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+index 89a749c..c98de0d 100644
+--- a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
++++ b/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+@@ -645,6 +645,9 @@
+ 	sdhci0_pwrseq: pwrseq-sdhci0 {
+ 		compatible = "mmc-pwrseq-simple";
+ 
++		clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
++		clock-names = "ext_clock";
++
+ 		reset-gpios = <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
+ 	};
+ 
 
-uart_prepare_sysrq_char() checks port->sysrq, which is only armed by
-uart_handle_break().  Because nothing in the driver calls
-uart_handle_break() when a break is received (a NUL character with
-CORTINA_UART_IRQ_RX_STOP), port->sysrq stays 0 and serial SysRq and break
-handling never trigger.  In addition, cortina_uart_set_termios() only adds
-CORTINA_UART_IRQ_RX_STOP to port->read_status_mask when INPCK is set, which
-masks stop-bit errors and breaks when INPCK is clear.
+---
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+change-id: 20261114-nyan-wifi-32k-9964d3513b7e
 
-> +
-> +		tty_insert_flip_char(tport, ch, flag);
-> +	}
-> +
-> +	/* The characters left in the FIFO were received before the lost ones */
-> +	if (status & CORTINA_UART_IRQ_RX_OVERRUN &
-> +	    ~port->ignore_status_mask)
-> +		tty_insert_flip_char(tport, 0, TTY_OVERRUN);
-> +
-> +	tty_flip_buffer_push(tport);
-> +}
-> +
-> +static irqreturn_t cortina_uart_isr(int irq, void *dev_id)
-> +{
-> +	struct uart_port *port =3D dev_id;
-> +	u32 status;
-> +
-> +	guard(uart_port_lock_check_sysrq_irqsave)(port);
-> +
-> +	status =3D readl(port->membase + CORTINA_UART_INT);
-> +	writel(status, port->membase + CORTINA_UART_INT);
-> +
-> +	cortina_uart_rx_chars(port, status);
-> +	cortina_uart_tx_chars(port);
-> +
-> +	return IRQ_HANDLED;
-> +}
+Best regards,
+-- 
+Volodymyr Chapman <volodymyrchapman@gmail.com>
 
-[Severity: Medium]
-Should cortina_uart_isr() check which interrupt causes are active before
-running the RX and TX handlers?
 
-Calling cortina_uart_tx_chars() -> uart_port_tx() on every RX interrupt
-when TX is idle or stopped sees pending < WAKEUP_CHARS and triggers a
-spurious uart_write_wakeup() and ->stop_tx() MMIO write.  Likewise, calling
-cortina_uart_rx_chars() on a TX-only interrupt schedules flip-buffer work
-via tty_flip_buffer_push() even when the RX FIFO is empty, and
-unconditionally returning IRQ_HANDLED when status is 0 prevents the
-spurious IRQ detector from catching a stuck interrupt.
-
-Also, cortina_uart_start_tx() enables CORTINA_UART_IRQ_TX_EMPTY in
-CORTINA_UART_IE before priming the FIFO and without clearing any stale
-CORTINA_UART_IRQ_TX_EMPTY bit in CORTINA_UART_INT, which immediately fires
-a spurious TX interrupt while the newly filled FIFO is still full.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-b4-cs75xx-=
-v7-0-8f17f38821b4@gmail.com?part=3D7
