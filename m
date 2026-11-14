@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681807;
-	b=RT16Roc334Koe00jI86njzLR6vPpQFgUGlm8oAOK1U7R0Tcvau2cwd10Xkn47viPkoyN
-	 xL/Cpsoa3CiXLOcC61L2+aNsOONSCt3C+wltoLqqLHgh6EP5X84eFAs8pjnaWdHNX3Dgu
-	 07cU144CWkzO7IreP4sUpJqWLvzOCq7rZTLkzClTsq3McO96jXu0SewKSybowFo7ZqmSX
-	 kaekD04sspUh8qYzW3ikJFyQIyeHctDjqX1xWzhoe2NnjWcwWV0eXXWFbLVYy/iDVIDDw
-	 qkJPYapYgf8mbRJ9S5xWwI0llQazkrCfWw79Ksko1Y6wTyGPGKc43zSZqIX5T2XKrgA==
+	t=1794681994;
+	b=JXNkw4xBosAoo/x962wFpDpSPyh/3ZJBucx6THGQ3lXIdYz/rVCQ6YQIbfT6LK0siykz
+	 8rxCq5YZRQSxYIlIrYkFksLw2Po14r0S+RSSXs82RDKf8Ima/ep+1Jsq7Tu22YPIxr77+
+	 tpX/YJAyYVJTuDqNjtSjVzdlieVm6uSE6ifFtwEd43uhK4mU5kW4fQ+eybFTc30xjuUa0
+	 lvmDHNzqwc4+FtuusA9xA5FbAudAs12igfxWUFz9blNxTK6wr30igVwhH9yJMEFLK9ZUG
+	 Tk6A+Yd3NadG8xXYT4RBC6PqHSkDybNRSTqCXpQAMdextd/Ck9FAxtSVWcuqBN8VMbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681994;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5TfgGwSvpWd3UKEyFfVSx8qLB6KqQDyrVVkNkIiwI9k=;
-	b=1BNnBPm1tTEwCcjtyVzwX7tL5wMuwOXfK2gUvxc7lW4qmzVHcND7t2FrtfY06uTyx6O6
-	 AM6q+KZ/fUBQgBpBeug0zNkuBITb9SQ1r2snuslu3JNhH6mGjfn5Z+5EaSp4N7RRx9nN6
-	 d6ietfz7ATt2+i0tms6qm6bfvyWx9Cugatt+juDRYuYc5vtPfH+gtUKSsP9ioLHMfwesW
-	 /3GOXUjCGhuGzNvzLmZhhUWTZvwzXHVfZF4WtUsPGH4Az6soPCtorC3DCY/0DrhwiKiQp
-	 8TbKzu5oviTJEQFMwfYXdiL5sU6xy08vj7MWcyXhToo2uw8jlwX57I0v4792DtvgooQ==
+	bh=ATBXE6mL2rkywyDuVY/BzHx2Pz3wTKC3ekdScyG0NSg=;
+	b=dyYrBuHt2BmP5QCg8ClNqNcj7QF0w0v/sHnh0dkcqLNoNIjbNsV9MnUtrugn07BK/34E
+	 oAGoRE81oWsknj83Vfy9yCN588jQvMIoqXuNaPl2jmeNJLdahCuOgHuVnEYwvEZMTBEC5
+	 KghK5TaC/U5bkW+gmI2AUyviDdqdCsLErSdnI7RG9Y5nwOY6YUE6SbjgkJ/LQOB4apVQz
+	 +EwSF7q0n8a4fleHEZ/KMLW3c5lJcb7MJ1te9q9DzizMuwX8E+GyKnznT+C4FOfJF3KEm
+	 U0FdS4yKRNsetvIqDev5ACChxIMWqUk8GPPPaAw7Z1fYsP38ShTXdKyPj3Jt5YnipvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M2GHqvF7;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icl4Hk4f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE76606A32E
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 18:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE76606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF86606A327;
+	Sat, 14 Nov 2026 18:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M2GHqvF7
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso12307685ad.0
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 10:43:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794681806; x=1795286606; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5TfgGwSvpWd3UKEyFfVSx8qLB6KqQDyrVVkNkIiwI9k=;
-        b=M2GHqvF724wS0kGiBHtx8IMO9pTfsh87vMMtqrh0TRHh53vXAGtSa6FsoFW83dLeV2
-         un9/GzDNYTMNeNa9ffERXaSfmRfXOo/Un4ca0Rgqo4MQep/6R5F3PxNbkc/BfTXC1eJ1
-         72BJBfR8k51ReNpQmJ+Ht24l+iVo3gyF/YKDRl5C6vKWLKOiLfzOdCQa+5a9QOlFlSEB
-         rzSeQIUV/ZsOp7QU+s9e+fcHGxJmr5LjP8oW6/JimEV2zwWVHU2nV/sDyutx+szaqZyK
-         QVxygWK/FbebtiJYQYDwQuEpkXJT+Uf3tqGkTYhBN8Apz0GwgbFqdVZKVE6RAQttshvi
-         RWrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794681806; x=1795286606;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5TfgGwSvpWd3UKEyFfVSx8qLB6KqQDyrVVkNkIiwI9k=;
-        b=eqCQdsjPOW/7u+VCZdK8SOgBk3r6cqgGkfu3RoBL1cD4aOknIvYYC1vTQxEWDFOq+k
-         QEvq3JzIp00RY7SPbMx/d+kVbN1mkShgVd6d+62XOP07qJwvRfN/I3P3GgDwLCkcVLH6
-         h4cY0qbQqLQYlXZ6COx7jW9mV7mtLoqomfNA5C6Fr5UU9l5eLuyPhKT0TR9aWQucbfB+
-         gWWeDEch1bWappNgioSEolLrSYRDP+24OEaDbHWib0ACvKEH+mNKqXT2XlUJ+XUuBfsn
-         LMz1rW/Z/4A9G9DhCCRmElF8tBpKPYLW149Z2dw7gPnYJBPxTu/d5Myu/Fhx3KJcJ4vN
-         10cA==
-X-Forwarded-Encrypted: i=1; AL+hErEQd6ObxKCenbpYJyHNCS2+P9gLeXMK6hpgBskac8e9rv8IdqauZ/APHIyPFXCa0nkSwGC2IJN0+LUc@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bwG4hPdrg4xafga4+qWRhKx29I8/mz2BSRm8Xm9kaLa/BJVbZ
-	siQ77/lroNXav0D00G60Hv1ePNcTqh3ZMOs3Qkl6wLD4UdCLEW8m4OqJ
-X-Gm-Gg: AYBFou0svXwbtDGXw+TYucgkTxNiReLrBelx1P1z831TBAxXowV6sK+LYWTzHJt2sK4
-	4n89U3pqpEAarR58U6NXjZ7KBAIqDpO6dIlDq7BgpPF55vqirP23ODCN+zfNcLKgco4PBtErEoG
-	S0LOBO42jFtG+raU7RWUdiSWyTX3tYdU3hWh9Pg5Ye3KtwqZS3ReXrW4U4txvHl6n/XIXJxVI7J
-	3tKhZ0Z2z+x8wF5YsvlTtIXQGRckmdYiSOuTlykkkIpiPIg1u5iPb494A7eau+sSUQ3fzhEYxO5
-	klhctknMz1QWUJq1K5q/7/Rp/y9vi7crNbrgWyiIjQLgOZL1nP1yiL1bJcP7LgouMJnCWjbSCPm
-	pU3WD3Drof0yD2QvcQVwjTQxc2FDbQQ2Hyig/0RhGcY/KoTdYIfbPT8qR8Eskw1uEaK8I4UXUqF
-	jnpxzGNf725HM7pdq6DRJZU7Q9MQhIZmRe+i9K4j4hDPGYd+JPJAhmMg6ybtX/s1+HB469u/1xT
-	4lS8cc+92S+p8WalJxaba6ZzpwSBFXQta2pD3E+uxEUb9XqghWEVO0Z9f8ly76ap1ehk7bomRYu
-	rDymMzthxyWzhIBNokd+zysZvACShCHY/ja8vpQX88P+Q+B7eWdcAFty2x0j7mW/lyQ5jAhlAkQ
-	=
-X-Received: by 2002:a17:90b:4c10:b0:3ac:9e76:aa9b with SMTP id 98e67ed59e1d1-3b1b07fee23mr6296426a91.7.1794681806420;
-        Sat, 14 Nov 2026 10:43:26 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:6e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb17853sm9700940a91.5.2026.11.14.10.43.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 10:43:25 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: linux-watchdog@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: watchdog: arm,sp805: reference the PrimeCell binding
-Date: Sun, 15 Nov 2026 02:42:33 +0800
-Message-ID: <20261114184257.535546-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icl4Hk4f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32B261F000C4;
+	Sat, 14 Nov 2026 18:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794681994;
+	bh=ATBXE6mL2rkywyDuVY/BzHx2Pz3wTKC3ekdScyG0NSg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=icl4Hk4fFpQ+ghPZ30yRMDdKzukd7AH0T121nHHmHmbIczLLoyLoTl9bbGQybuAx6
+	 AAp2a5gFrXFqvV2mo0vDmq8ql5PqWxCosQVT/Xw+DCoZKbptmhH04wmS2L2BwfoVo0
+	 eAIVqgQm40Saj9AUbXJIvHbEMVpbuG/ainHMWNp1k0ouD6Nf7H7bkOpRC6/8tB1Ixj
+	 mjIL6n329UmEeIOS7Eft1olzLZRAjXLSxTTIV4QoHvjVx6psZBVeP2zJaUcurHiagS
+	 oUtpBsZINXCBb8AiyelVg4B6US2MrebttfPR5yo8GbUV/+J0iITyX4lcHoW/cfr7l+
+	 U3OuvIgSjQNDw==
+Date: Sat, 14 Nov 2026 18:46:22 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux@analog.com, Conor Dooley <conor.dooley@microchip.com>, Marius Cristea
+ <marius.cristea@microchip.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20261114184622.5d47903f@jic23-hlaptop>
+In-Reply-To: <51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
+References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+	<20261104021700.14e69abb@jic23-hlaptop>
+	<01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
+	<20261107230925.5e66b234@jic23-hlaptop>
+	<51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,41 +71,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Unlike the other PrimeCell bindings, the binding ends in
-unevaluatedProperties: false without referencing
-/schemas/arm/primecell.yaml#, so arm,primecell-periphid is not an
-evaluated property on an arm,sp805 node. Two nodes in the tree carry
-that property regardless -- watchdog@a2c000 in hisi-x5hd2.dtsi and
-watchdog@8000 in mps2.dtsi.
+On Mon, 9 Nov 2026 10:52:22 +0100
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-`make CHECK_DTBS=y`:
+> On 11/8/26 00:09, Jonathan Cameron wrote:
+> > On Wed, 4 Nov 2026 09:45:02 +0100
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:  
+> 
+> <snip>
+> 
+> >> But for the other reports:
+> >> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
+> >>
+> >> This is a tough one, today if either we read power or energy, we erase the accumulated
+> >> power+count in the context, the context accumulator is only here to make sure we don't
+> >> loose data from other channels, like if we had a single HW channel.
+> >> This simulates this, if we had a single HW channel, at each UPDATE we would get back
+> >> to 0 in hardware anyway if we did read the power or energy.  
+> > 
+> > 
+> > I'm only half understanding this.  Let me see...
+> > 
+> > I'd expect userspace to see accumulated values since we enabled the channel
+> > rather than since last read.  I think that's the final suggestion from
+> > sashiko.  
+> 
+> Oh this changes quite a lot of things.
+> How do we handle overflow in this case ? we disable the channel and enable again to reset the state ?
 
-  watchdog@a2c000 (arm,sp805): Unevaluated properties are not allowed
-  ('arm,primecell-periphid' was unexpected)
+Is it possible to accumulate into a sufficiently large type that overflow won't happen in a feasible
+timescale?  Anything else is going to be a but unpredictable for userspace if it
+is expecting an accumulated number.   The other things that accumulate in IIO tend to be
+moderately small so it's never been an issue (things like step counters).
 
-Add the reference so the property becomes evaluable; both nodes then
-validate.
+Jonathan
 
-Fixes: 73d3e43f9813 ("dt-bindings: watchdog: sp-805: Convert to Json-schema")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- Documentation/devicetree/bindings/watchdog/arm,sp805.yaml | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-index bd7c09ed1938..690456839fcc 100644
---- a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-@@ -16,6 +16,7 @@ description: |+
- 
- allOf:
-   - $ref: /schemas/watchdog/watchdog.yaml#
-+  - $ref: /schemas/arm/primecell.yaml#
- 
- # Need a custom select here or 'arm,primecell' will match on lots of nodes
- select:
--- 
-2.53.0
 
