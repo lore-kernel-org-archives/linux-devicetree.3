@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626999;
-	b=x7f7Jm7FnTBRfuSile1MC4lcy4SOm/EO7+the+dcclFbeur3uzk1F321K5E4hw5v3mxi
-	 AXwpd0pUo76VtWPyPo6JSRZg2gyb86cJfSpp5ashB8eHOkXtiMMLwkzj5TtgK93I/kwgi
-	 55KzFjAo8UndoDmf9qeUDlcXTCprnWbS7ClD+kepecxHtEnx3NSx8JuePIMSCjd4z9Gl7
-	 L7a0Jq2fRn6GJKd/3/wp6aoW09Gjv9lwmNNaxBSKjuagM+5ibiu/p6xOQXQGq1bEAazgy
-	 W6T0tLbbgCxQpLHI5wfiqjbPa+TJ5y6vws0eC4b89igoxgLe6AiZwfVPpwjaSf43XFQ==
+	t=1794627066;
+	b=roFBv8Io5cnM48RRNQSg57P8G3yWX9P8/AS6tB6g7bNpZNOhTb1Boqzd/mywMWMnhPLJ
+	 cHRbRLJIdp8+oBxTbak7UMKoCKo8ZzWBOz1RCs+yyTdJEPYxhVemZABi0CUHdvv2zar8M
+	 GqAHo+IpeKFdQICH5xjBuxCvAzPvgCErZpImqX7LI1QI5M1wRRZMwrX1MM7JdcTy6afVy
+	 VQQb/1ndpjUCJ7mbC4KFq/BcKtqEMeXs2RnTK22xLbFmaFY1eoPAoYZhVDbldkJIVH0Dw
+	 v31wMI3IBzuXmBI9ECODMqHmn9sh9aan+YwtLQkm0+UGKVhWV5DxrrvJn6Wv0cAy73g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627066;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7pPf1UUpBMP9OPZEvxjET4tLADV2rvFwOKmPxPl9oww=;
-	b=c4RiEIv4JqkEEjBDps8qJ/4oE8emLxx/ovpwSJXR24VtP+juFOHR7zf8gn6i3ZVkyTtW
-	 W2tfiZQ1GdnN23vP2uZ/Jyxzfjn7veUN5oCAvbLKWge/nS941PyIeUOxdCJQivLSASJyz
-	 CHXGvaL0IiPpgUV7uq2pVPKtIR2XaKIdqVHj8eagbzbK2d966ot6TU3GdqVgbrGjOxw9N
-	 fXnrmAPw2lYh+F+0mk79G0tk4ey5HXKrrw/cJAAUx0uetptkWecPZOlv6IbM/xiFqZed3
-	 5/Yq5MBNK1KmmkMWl6pSzUaOsJgZJowEo1RefnjsmRh0QOUClk3hvBbQ+SmtvHDvcdA==
+	bh=SeNA25RLTTM6AhK2d0DTC//UL0WeQKsx2DC3v0cqtM8=;
+	b=XM0nv+KwJ5WAcekJOqO/WYYjWeZV44WobnAueupKMUITWDP0VvPigdLOCCrpHbOOr1gz
+	 kXHGzHOiiQEKfSlCNOi5zDIrxCzQlGQmRWGFGTgpsg2LtDidB6qwVFMZKkCavxgcItPag
+	 6Io3xlp5czHajoyUjg6cVs8pue8NPagX0URRduiwG8A1pJaK589Rrq5yoGuv+YbZgnuRU
+	 8PLTqw+o6J6GylWXl3qge2WiORR8RMgFAfKkVD0elm10nZ62StKa01jiic1cxRDEKhiDw
+	 unVlg8tE5WUgYTMMHIUJvM/SuGJtrJ7TVy6Ta9vdGC6q9+a8zHiRo5kf2xCbTgOxxhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ws5qbdqi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opnvwktI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136A7606A890;
-	Sat, 14 Nov 2026 03:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A4C606A88E
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ws5qbdqi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7152E1F000C4;
-	Sat, 14 Nov 2026 03:29:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opnvwktI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A98E1F000C4;
+	Sat, 14 Nov 2026 03:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794626998;
-	bh=7pPf1UUpBMP9OPZEvxjET4tLADV2rvFwOKmPxPl9oww=;
+	s=k20260515; t=1794627065;
+	bh=SeNA25RLTTM6AhK2d0DTC//UL0WeQKsx2DC3v0cqtM8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ws5qbdqiES+DKjB1bIQJlZvdgdHeoCaHAwOHW3hPzg+VQZwThXjQj2SOakn6IeM6k
-	 cEND+V9uFC6bIIUVmhk711VPHdeo0viLXhThMMqaebM2zD2qok72MUIkvMNaAx8Y1J
-	 hxt5Wcx2TVrVROHx3ZpyTC6sMUgodxNM8pGLKhpHAURIIbKWFBUElB+lZDafSKstee
-	 IAWxRzLb6a1hGw/ndty8qI4/ywLSGKNVFYHYSKrh1LUniAv1hkMrWD0T84s8FalstO
-	 ZECj9kDIAnpOThP9+u17qZ4f1dhMNNaRBL9/bw5pLseSHaxcCJHIJsIesU/Z2aC104
-	 nLtEH6qF5FAoQ==
-Message-ID: <sashiko-outbox-214112@kernel.org>
+	b=opnvwktIFUvJMwHjj3jW2RmfUPb++7CxjuwOtaEWuIyYJbh9Dipo5uvZ9SY/74Osj
+	 4CUiN/3RvLHgUt5jjMBo+TRlQHbf6RDkw15pZtHVC5lnZvVEX+Qt4x+IYSZzHqOq//
+	 o8fMhpcc7e9vaR+7wB0SSXEMKyuUtg8ShmspmNdR9HNTtFrvmUL3meqgf2MVi96F9q
+	 /B2uvaDVY6Wqef+w72yHWS0Hs46uM7ke5/2iKJ40Ro2reFiQry+HiASQ5cixAzHOsr
+	 FVSFqb8+w7AumV9kcWB17qb/rRd4vz3zCSLghDI2t5hnpqyQrRa0VDm5dHz9QzJ7iI
+	 2rsg7XgIVD43w==
+Message-ID: <sashiko-outbox-214115@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] mfd: tps65219: Correct the MASK_EFFECT field of
- MASK_CONFIG
+Subject: Re: [PATCH v17 03/12] accel/rocket: wait for a running IRQ handler
+ before resetting a core
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chrispine Tinega" <dev@chrispinetinega.com>
-Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261114032457.3434248-2-dev@chrispinetinega.com>
-References: <20261114032457.3434248-1-dev@chrispinetinega.com>
- <20261114032457.3434248-2-dev@chrispinetinega.com>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
+References: <cover.1794615324.git.gahing@gahingwoo.com>
+ <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 03:29:58 +0000
+Date: Sat, 14 Nov 2026 03:31:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,29 +61,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] mfd: tps65219: missing Fixes trailer for
-  TPS65219_REG_MASK_EFFECT_MASK fix
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] accel/rocket: raw IRQ status can re-latch before reset in
+  rocket_reset()
+- [High] accel/rocket: race with pm_runtime_force_suspend() in
+  rocket_reset()
+- [Low] accel/rocket: missing Fixes trailer for IRQ race fix in
+  rocket_reset()
 --
 
-commit bc69d7bd96f2d6a411ff79d868b4352a275dddc8
-Author: Chrispine Tinega <dev@chrispinetinega.com>
+commit 9e5305abf9afea9e1a362f158ce4e7b07f213cce
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-> mfd: tps65219: Correct the MASK_EFFECT field of MASK_CONFIG
+> accel/rocket: wait for a running IRQ handler before resetting a core
 >
-> MASK_EFFECT is bits 6:5 of MASK_CONFIG (0x25), per table 7-46 of the
-> TPS65219 datasheet (SLVSGA0D). Bits 2:1 are the warm masks of sensors 1
-> and 2. Nothing uses the macro yet, so nothing has written the wrong bits.
+> drm_sched_stop() does not wait for a threaded IRQ handler that is already
+> running, so call synchronize_irq() after it to make sure the handler has
+> finished before the reset.
 >
-> Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
+> Before synchronize_irq(), mask the interrupt and clear the raw status, so
+> that the NPU core cannot report a completion afterwards.
+>
+> Do this under job_lock, because the submit path sets the interrupt mask
+> under the same lock.
+>
+> Only touch these registers when the device is powered: check with
+> pm_runtime_get_if_active(), so that a register access with the power
+> domain off cannot raise an SError.
+>
+> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
+nduced reset, JOB_TIMEOUT_MS=3D2
 
 [Severity: Low]
-This fixes the TPS65219_REG_MASK_EFFECT_MASK definition.  Should this
-include:
+This fixes the IRQ race in rocket_reset() introduced with job submission.
+Should this include:
 
-  Fixes: 74c17a0a49a6 ("mfd: tps65219: Add driver for TI TPS65219 PMIC")
+  Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index b61bb4d242ce3..8b4ad028bc9b2 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -402,6 +402,16 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
+hed_job *bad)
+> =20
+>  	drm_sched_stop(&core->sched, bad);
+> =20
+> +	scoped_guard(mutex, &core->job_lock) {
+> +		if (pm_runtime_get_if_active(core->dev) > 0) {
+> +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+> +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> +			pm_runtime_put_autosuspend(core->dev);
+> +		}
+> +	}
+
+[Severity: High]
+Can pm_runtime_force_suspend() disable the core clocks while rocket_reset()
+writes INTERRUPT_MASK and INTERRUPT_CLEAR?
+
+core->reset.wq is not WQ_FREEZABLE, and drm_sched_stop() drops
+sched.credit_count to 0, making rocket_job_is_idle() return true while
+rocket_reset() is still running.  Because pm_runtime_force_suspend() ignores
+dev->power.usage_count and rocket_device_runtime_suspend() does not take
+core->job_lock, system suspend can disable the clocks concurrently:
+
+kworker (core->reset.wq)          system suspend
+rocket_reset()
+  drm_sched_stop()
+    credit_count -> 0
+  mutex_lock(&core->job_lock)
+  pm_runtime_get_if_active() > 0
+                                  pm_runtime_force_suspend()
+                                    rocket_device_runtime_suspend()
+                                      rocket_job_is_idle() -> true
+                                      clk_bulk_disable_unprepare()
+  rocket_pc_writel(...)
+    <-- unclocked MMIO access (SError / bus hang)
+
+In addition, in rocket_core_fini(), an in-flight job holds a runtime PM
+reference that keeps the core active across pm_runtime_disable() before
+rocket_job_fini() cancels the reset worker.  pm_runtime_get_if_active() then
+returns -EINVAL and skips masking and clearing interrupts on the active core
+before synchronize_irq().
+
+> +
+> +	synchronize_irq(core->irq);
+
+[Severity: High]
+Can an active DPU task complete after INTERRUPT_CLEAR is written and re-lat=
+ch
+INTERRUPT_RAW_STATUS before rocket_core_reset() stops the hardware?
+
+Unlike rocket_job_handle_irq(), which writes 0x0 to OPERATION_ENABLE before
+writing INTERRUPT_CLEAR, rocket_reset() leaves the core running across
+synchronize_irq() and iommu_detach_group() until rocket_core_reset() asserts
+the reset lines.  And because rocket_job_irq_handler() checks the unmasked
+INTERRUPT_RAW_STATUS register on a shared IRQ line (shared with the IOMMU):
+
+drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+...
+	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
+		return IRQ_NONE;
+
+	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+
+	return IRQ_WAKE_THREAD;
+}
+
+a task finishing in that window sets PC_INTERRUPT_RAW_STATUS_DPU_0/1 again,
+and a shared IOMMU interrupt on core->irq can wake
+rocket_job_irq_handler_thread() after synchronize_irq() has already returne=
+d:
+
+kworker (core->reset.wq)          <hardirq> / irq thread
+rocket_reset()
+  rocket_pc_writel(INTERRUPT_MASK, 0x0)
+  rocket_pc_writel(INTERRUPT_CLEAR, 0x1ffff)
+  [DPU finishes, re-latches INTERRUPT_RAW_STATUS]
+  synchronize_irq(core->irq)
+                                  [shared IOMMU IRQ fires]
+                                  rocket_job_irq_handler()
+                                    reads INTERRUPT_RAW_STATUS
+                                    returns IRQ_WAKE_THREAD
+  iommu_detach_group()
+  rocket_core_reset()
+                                  rocket_job_irq_handler_thread()
+                                    rocket_job_handle_irq()  <-- races with=
+ reset
+
+This also detaches the IOMMU group in iommu_detach_group() while
+OPERATION_ENABLE is still set and the NPU has not yet been reset.  Clearing
+OPERATION_ENABLE before INTERRUPT_CLEAR (or reading the masked
+INTERRUPT_STATUS register in rocket_job_irq_handler()) would prevent the raw
+status from re-triggering the IRQ thread.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114032457.3434=
-248-1-dev@chrispinetinega.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794615324.gi=
+t.gahing@gahingwoo.com?part=3D3
