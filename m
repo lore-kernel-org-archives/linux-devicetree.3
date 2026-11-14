@@ -1,63 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794680108;
-	b=HqFT/N75cI2iktPmSPbbGhKe8HgDlp3aZwJgPtf38F5CUCwEGQYalbCLiuALyC+jLj4K
-	 8tb1z5yq3/mOWdUQt1rJbVylnFzrgoywGoKysU/kjRSBiMbbIeN59s/TMquW4kT4G3Ori
-	 HlXr/6+AK2EpUncrOgG8NhwyexRx8mduv9SARiQ0yeTz9ACh2Sn4abwuGiwRY712uBHZ0
-	 e5BXKgluVYTJgwcv15C02MxWyvzSgOtmoC0/+EZEOo7aWzDjOda2aJOi70wik//hM3dvw
-	 4lME++ZAu+aPtlm6EcHcMA9KrWkIR/ytwri5nu+YSbdeJqc5ZaRay9gZq99C43FVsEQ==
+	t=1794680683;
+	b=QNGCAzU3GNh6crZw6bS+jGZDK6GCJBko2RwZo/ljxhi/iziak34TviWaO2aUQV2D4c+5
+	 z6fiUQBcSj/LbtrX6UAPXEgQGEpxbG8TBNyccBv/Ee2lYv5A3Z0KB8U0RJor7mbaj10dL
+	 7xRDKbZlXgBbiU9X4aMzY7DZQv/eYio8BokJsvScEfa/ov7TVmAoc5SprsVtBjzwRifz4
+	 E5bcl54F+ZBoi5TzpsM0UdA8Ht5u74EvS57t6gYdSHD1MqsYdgpL3Ud6/Xr5Wcb746nYF
+	 qdNdDLgbfxioI1Bzjx/0Jle3VWIx/dzuZPluYqkPHq+sZBzgJs4nEGfVF+ZWgucxNbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794680108;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B5ji7cuO7EsHioP5va69m2jRcMzdD5Rhczoh46ifi18=;
-	b=pebFtHMitvF8fdP/68/gFzq1y9bJ9Z3EN9kCjHt3Ias6xO7p069fJgUBHG0UU0SR38r4
-	 fQ9zSNkxG3nLU0CI5Kl19lmDlE97FOeEmg3XS6O2wnZdYUXf2FVXfct42QtDhAIFuSwEp
-	 SUHwPG7MblfzUXRZGV4YqV9OH0rucDqk9thAssaY7ubQ1dUYUcl0YdOvwaB59yiiHaLU+
-	 Bs7q7ICi5/sFO13ZKvxhuz1etV7j941BcGrS04Er/BLP7MjJehfiF37JeVQFABspt4tDr
-	 R5m+LEzVAI47PW+eGc0vvHP1bmpawgCuuuX3EmAFQi02vHMZxDUTGr7q+S1ZxKiClSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794680683;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=7Gq0B0cMHNXa81F7NCHx8crSmgQ/6THqEAXao/juk5w=;
+	b=li/CByveF93NBTj8FmcM+dBLou9F10OeqoDixMfL1e6vVXk1qIPJUXp1kbrq2ki8SUaN
+	 Lt2ghx94fgjtvrT8CFHnsrG9oKLDdSOiTcykHL+pXTh9R9zMKqbvgAplN/aolUIFcbejJ
+	 9LQdvvKkfBI3YPn9Mllrc0rtIe4QymkxncCveCsNLOAKzCQ6ctSoMZB7YucXGlSvkxQ2j
+	 y7Tnvrv2vbH0Dj1P7fUVeSm0v8Zsx9pqS+IhhlUSw/ohIT+QaDqjm+7u6TOoJofwCBuqK
+	 E/xbdaIJgzaxW78kCu9qnbxD7IDpgUFCPooqnyPdg9CJaC1y3wZqbNUcfra2qO9zOQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMCLhQiE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB1C606A323;
-	Sat, 14 Nov 2026 18:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMCLhQiE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED221F000C4;
-	Sat, 14 Nov 2026 18:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794680108;
-	bh=B5ji7cuO7EsHioP5va69m2jRcMzdD5Rhczoh46ifi18=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DMCLhQiE89pXY2hCG3UHC1YAhqDuEitJqHFMi0ak0xAmtBbacYymck14A4v7WJNdF
-	 nGjG+bwH8LJS4tsqbaqBeF8tuSGBsWN4+JnbGfT925piJIKfFNIMHUaT8VcAd0RLXq
-	 fMIwPGBbivDAE1LyhCy+3DIeIScV4BawM1dx/iSoXCtBo/WAy9+zucZvEk4nTnjaU7
-	 BggpUPkRIBl6ZPL6sZf66ftFMiPq6XI8rCH1JhmAU0e8WIXop5vj0Ukz7mTiQ5Ezjq
-	 8Rs0RG5lTcx+UzJDKjbLm/lkjZ28HMnumeBupnqQcMqZvF2nN9FA5JtrJXZvzIsGAu
-	 4JkbBavuhuSkw==
-Date: Sat, 14 Nov 2026 19:15:05 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>, linux-phy@lists.infradead.org, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v7 05/23] dt-bindings: i2c: qcom-cci: Document Eliza
- compatible
-Message-ID: <20261114-versatile-woodlouse-of-attraction-6adeee@quoll>
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-5-8ff2a11835f6@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C364B606A323;
+	Sat, 14 Nov 2026 18:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C364B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id B12A180433;
+	Sat, 14 Nov 2026 18:24:37 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf08.hostedemail.com (Postfix) with ESMTPA id BD06320028;
+	Sat, 14 Nov 2026 18:24:27 +0000 (UTC)
+Message-ID: <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
+Subject: Re: [PATCH v6 02/19] string: Add strprefix()
+From: Joe Perches <joe@perches.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski	 <krzk@kernel.org>, "Maciej W. Rozycki"
+ <macro@orcam.me.uk>, Geert Uytterhoeven	 <geert@linux-m68k.org>, Andreas
+ Schwab <schwab@linux-m68k.org>, Andy Shevchenko	 <andy@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Daniel Scally	 <djrscally@gmail.com>, Danilo
+ Krummrich <dakr@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
+ <johan@kernel.org>, Kees Cook <kees@kernel.org>,  Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
+ Torvalds	 <torvalds@linux-foundation.org>, Linus Walleij
+ <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski	
+ <bartosz.golaszewski@oss.qualcomm.com>
+Date: Sat, 14 Nov 2026 10:24:26 -0800
+In-Reply-To: <aviOPo6bZ-WGsndf@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+	 <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
+	 <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
+	 <aviOPo6bZ-WGsndf@devuan>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,21 +78,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-5-8ff2a11835f6@oss.qualcomm.com>
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: BD06320028
+X-Stat-Signature: uj3e8mwsshemj8ge6ddf4mc91ri8dw4z
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+e5dSH8m66FQr+sABQJ+LjiDgM+6JENCM=
+X-HE-Tag: 1794680667-794125
+X-HE-Meta: U2FsdGVkX1/wA9X5ufzvQY1fzLCkRYRaqUgra+6tgFYA68i3lgt6uVjn8g7QfwHoBGUIot+9Ev2Xvr4AKKpjWIgjM6L0KUQIa5y3q8a0q9FfMbcbrbI7rgsHROnPQtix9KjPQvp/bb6JC0Bdaq0bxLevuGFacXxUtH7wLleE7lRzhzJoYKyyxPsjqgmQr+ayJvTlb7hkXBGqBfzwKj1DteUoGxcDbJcJeruRgVHzS5vcQdtL18diKvZaqTMJpj9F8o7L5oc90XlRmOHIyH51lymo9J9MIi8vtcoJIL1p2J3+6xoW8Ui+Dz6Q7+Ijsp9b
 
-On Sat, Nov 14, 2026 at 07:29:22PM +0800, Wenmeng Liu wrote:
-> Add Eliza compatible consistent with CAMSS CCI interfaces, falling back
-> to "qcom,msm8996-cci".
-> 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+On Sat, 2026-11-14 at 17:59 +0100, Alejandro Colomar wrote:
+> > A negative of this is that it implies the return should
+> > always be tested even though it can be known that the
+> > return is effectively bool.
+>=20
+> I'm not sure I follow.  The attribute is about the arguments, not the
+> return value.  Perhaps I don't understand what you mean by "this".
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+'this' is the return of the strprefix function itself.
 
-Best regards,
-Krzysztof
+It returns either a const char * or a char * or NULL.
 
+Because it can return NULL, then the return value
+could/should be tested.
