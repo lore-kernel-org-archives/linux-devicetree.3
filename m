@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794697338;
-	b=ZZkHoitr0FHlNvrmZyLfdJFZfnOF6yPmrcoQM72g3YoCKP524CnUGKoW4YXNpViCqdRz
-	 H2+ddo/BFOQpZfJiDjJjpf4djcs/8N8nrNSjuLrlIHGH7JkonIkJPJT2D23wq1yxRKvEc
-	 RDo+qxpQYUJW5GNwB6/XoZ1abWqqv6g/s6tRGtSnKrMZvFCiqiVi9HUsU9o+rKjKuqldl
-	 03CN/6qPhRuIdSnzp/qLZ2i5K0oNrzpEgxv8NTAGOPC052uxLrDU2SpStrnQJaTcizA63
-	 iNCV0k16wBeShEP5G7s1ToZCOh5mBY4RLFteFFCicgxB7JKce2aNCLk5X51tebwbCIg==
+	t=1794698049;
+	b=ed+YRY8y9XcQj0mA7D6KCPW7aeVqqFR3rNuacmcI5XheXd54MuUpI6GUIz+cOABlsdad
+	 a6pN+z5Y71X/k1/q25tImxBQpb1r8YeSqVEt10kZ/IUBShnnBk2DvipDG3vMGuzC6Fj75
+	 3n4klIRr4RJGBj0qJKTfBMiunNvzvB1+qQOyDtshF9NUc/uw2MEJgPc/XNnIeZSOWpB+W
+	 E0P6hxBLrP4Aam6/YCblcdJs/tDMsqoYKxYrE8YS5AK3Ynq3Vy1xQ5Qnr17JIZpJzNJlu
+	 afe6GE/Kj4bBVTJ7okZBYgnq+rY3gReN/TVQce7kqdLGcmT3i1aDDp9SpxiraHNDLGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794697338;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=E+c6urLa23eP640Q2vfarHT1qxBNlCLeaHxHasRT0Qs=;
-	b=VqIbDryPSFa4Os/1ekW08Vtj5kx3AAj4g4VIO+01aAnkkc+h0bKXGp57P/E+vU2gXQG6
-	 F5R9hU49+nIZ3g69sZcwiIuPII7zS2/Pe8kuQ6YgeqT2eIrs+Xppp1i9LiqgUoarDCZHK
-	 YJnlU34BkCnGRWdIhCpf+21uUV60hKMGMxfyI+l1h8HXc34iNSVd0z8TvPX/uKby4s7W9
-	 klIFoSErJm+DmIK3FdAxOPlv9YGuBeLXSZHfVnBrCcVme2PRzjEJnrg8aCqjrtRgnfJt6
-	 h3kRgmk2Mz08bkOKyq7Y9/4Z8yvvSgJMoxdEHaF5ZK1v1W87VmSQFJbCV1mXrTNXuHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794698049;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MF8lUYm3b4Q7LDh+eTQABq+39MWDYCMYzIn/uwCA2lc=;
+	b=LPpLjBZpFMYnsrTr+ahoQvqANVbd9DwxgZAiE0wPKvHF/XisHGWxojScM75KrzY8XDj/
+	 iSV3ZZEGPoCfmxniuaNqHpLN3cToUELEo/AeaavsqSjP9s3jFvPKKRSKOKpZS/a96v3u9
+	 XHyKffRusEvoITXfOlf6nl7vVOJPhBC2qdqPcpolOMhBI59EFMNmOijGFD+w8ROZZhHJl
+	 dBGRyT7Rv75D3XpV29J3gBvINpSytzmGmHTR3Zl4nIyXXmI+QhEqnJP29qNmE6A9fAzMj
+	 J/Zkjskc4QEJifRTEyugKrtoyA+PWa1qg7nWAkfijbw+ni97Oy6O54xif8gBxxI8CWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2628vlL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=CbHDKu1L;
+	arc=none smtp.remote-ip=95.215.58.38
+Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999E5606A33F;
-	Sat, 14 Nov 2026 23:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2B9606A329
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 23:14:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D2B9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2628vlL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF071F000C4;
-	Sat, 14 Nov 2026 23:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794697338;
-	bh=E+c6urLa23eP640Q2vfarHT1qxBNlCLeaHxHasRT0Qs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T2628vlLSIX57XLkLM9tFnjgFDv3qSjioBl2xHn5oX4Cisv/4yf9k09J19zvSuE9o
-	 pOYcA2UNFj/LaHThfqN34fbiCAmHjolzAZ2qoc1J82K7jHS81ulyRQ7Zd0wXFoUtdO
-	 lk3H+v4DwTD7/xKGglzy1JJPU2oMMH9gmXUCJX8bUGyK2vWulrw4U8BZjZLFlPRmk9
-	 ihPGOvTgATyu8yFYJUdyOpdAaCIv979hIWHzKEsHW0KjHYNf423t9HWCKHJKBnLMt8
-	 /hnxAiQNtRjk0bSBc3FzP94IG4HNACJKXUZsOYg/FlbsK5R0LHW4sfhmi/ciST2Qji
-	 YElkorXkGGgDw==
-Date: Sat, 14 Nov 2026 23:02:10 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
- Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
- Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-Message-ID: <20261114230210.4b2c4cb1@jic23-hlaptop>
-In-Reply-To: <20261108094253.83899-5-clamor95@gmail.com>
-References: <20261108094253.83899-1-clamor95@gmail.com>
-	<20261108094253.83899-5-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=CbHDKu1L
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=A05dQw/tOo/0VMOJJqmL5AQ8CgUPaaQgI50m9o9OW7E=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794698045; v=1; x=1795302845;
+ b=CbHDKu1L/KW3VroY3wveFLiEjAAbYKLRcc9bxUaSUmYOAV9/s7F9PEy0Qf0HME4gwZjyeLUp
+ 6ZUlz6HQI/3g7iqTmw+OqDGVYHO5oIdPNhdIXhtynauMg6N8N11fanEx96YZv7gm4i9mWlPSaMl
+ yICjm3hVwrIhGi9QKCe/ObFZ9pmoQkZrFOvlvEiKQQFkl5mmHS63hnka3RBJU9gzK24nFyIjHSd
+ q5rltCpseDAzCo/O+gXjSbDMcHEsgZ1UsSV2OPdxnYHjY7boR7XoVPgHem5s5Lq0qyY8FccKWiB
+ ARbMhAspQ8uIXJFcITgkKSfyQ+jWz0QrwJaX9S9CBqZXA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f9d31ba648e08677;
+	Sat, 14 Nov 2026 23:14:05 +0000
+X-Mizu-Trace-ID: f9d31ba648e08677
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2943a816-cc56-417c-b7fd-b45d0dd11ddf@postmarketos.org>
+Date: Sat, 14 Nov 2026 16:13:58 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,66 +60,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/4] drivers: leds: aw2013: Leverage C99 for-loops
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, lee@kernel.org
+References: <20261114-aw2013-aw20xx-rename-v7-0-ea5a3113a479@postmarketos.org>
+ <20261114-aw2013-aw20xx-rename-v7-3-ea5a3113a479@postmarketos.org>
+ <sashiko-outbox-215079@kernel.org>
+Content-Language: en-US
+From: Paul Sajna <sajattack@postmarketos.org>
+Autocrypt: addr=sajattack@postmarketos.org; keydata=
+ xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
+ J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
+ AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
+ HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
+ /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
+ QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
+ 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
+ H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
+In-Reply-To: <sashiko-outbox-215079@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun,  8 Nov 2026 11:42:53 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-
-> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
-> nearly identical to the LTR-559ALS-01, but omits all elements related to
-> ambient light sensing.
+On 2026-11-14 4:00 p.m., sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] leds: aw2013: commit subject uses drivers: leds: prefix instead
+>    of leds:
+> --
 > 
-> Add a no_als_support flag, similar to how no_irq_support is used, to
-> isolate ALS register access for the LTR-659PS-01, since ALS registers are
-> marked as reserved and interactions with them are discouraged.
+> commit dd420770c3e97b4e4988e32c3e735789959ed94e
+> Author: Paul Sajna <sajattack@postmarketos.org>
 > 
-> The ltr501_trigger_handler relied on the scan index to identify channels.
-> This approach is fragile regarding channel status flags and can break if
-> the index is not strictly set. Switch to checking the channel type
-> instead.
+> drivers: leds: aw2013: Leverage C99 for-loops
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Just trivial stuff inline.
+> This commit moves loop counter declarations into the for-loop headers in
+> aw2013_chip_init() and aw2013_chip_in_use().
+> 
+>> drivers: leds: aw2013: Leverage C99 for-loops
+> 
+> [Severity: Low]
+> This isn't a bug, but LED subsystem commit subjects use the "leds:
+> <driver>: <Capitalized description>" format, so this should use the
+> "leds: aw2013:" prefix instead of "drivers: leds: aw2013:".
+> 
 
-Thanks,
+Acknowledged, must've wrote this commit msg on autopilot. I'll fix in v8 
+but wait and see if there are any more pressing concerns before re-send.
 
-Jonathan
-
-> @@ -1260,16 +1295,21 @@ static irqreturn_t ltr501_trigger_handler(int irq, void *p)
->  		aligned_s64 ts;
->  	} scan = { };
->  	__le16 als_buf[2];
-> +	unsigned int i;
->  	u8 mask = 0;
->  	int j = 0;
->  	int ret, psdata;
->  
->  	/* figure out which data needs to be ready */
-> -	if (test_bit(0, indio_dev->active_scan_mask) ||
-> -	    test_bit(1, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_ALS_RDY;
-> -	if (test_bit(2, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_PS_RDY;
-> +	for_each_set_bit(i, indio_dev->active_scan_mask, indio_dev->num_channels) {
-
-iio_for_each_active_channel() should work here.  The longer term plan is
-to make some of this stuff opaque so I have a series that I haven't posted
-yet converting most users over to this macro.
-
-> +		const struct iio_chan_spec *chan = iio_find_channel_from_si(indio_dev, i);
-Fine exporting that helper.
-
-Thanks,
-
-Jonathan
-
-> +
-> +		if (chan->type == IIO_INTENSITY)
-> +			mask |= LTR501_STATUS_ALS_RDY;
-> +
-> +		if (chan->type == IIO_PROXIMITY)
-> +			mask |= LTR501_STATUS_PS_RDY;
-> +	}
-
-
+---
+Hal: They're going for the kernel!
+Margo: Colonel Who?
