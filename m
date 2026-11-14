@@ -1,66 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794676130;
-	b=jTnUvq0rZxU2iRQ2cs8l0CK4ZsSqd7FBcKelVDWvXFN0bJpliVc/WBdPWKzv21fUz1+6
-	 D82DfpFmJELalc9OF/GTsuXXiAwacss27c7Er/cfPrtumNZ+f7Tig+8sL1E4ZJVR0lOMk
-	 BKfFjd3V7fIilJY9rWcKtypCk9x6T3jgzzh8OM4yFlfVxP1Ll1w+YfceYiSs7Z6H/A6Go
-	 lin/0wAQimatVu90jHkqAIzdobludBItu8oI2MrpNUNv8xwM53r3oJiXM1R+WMt0pggYJ
-	 YQyKGB0vhYqQXjhKTrbYPzm4uQ1aM838lWYcbbcpj6WRGLr8475MOLs2za0bHpDRszg==
+	t=1794676562;
+	b=O8nsKrYaR3ayLFRSU36IU46ypCBLgb+5NMdzJEuNjHoVpjfJ/gs8Sx8HXtId4Jl8UQuC
+	 dDqNPucH0z6BOqwWgIErlxFzrShSSSI8HGlC7awSBjZQJ//YoPsdaqD00VJONEGUKRhmM
+	 T0NOKx3ZTNRaz9s2MKiyrLjsTUb9Gj/XlBne90Wo/tvuxdAcbrH+T1/R/D0aERrFfpMpb
+	 QhBtkLbilfWdBErVRJIr88nSazLzo2oW4UdcZKtnAl8Xl6HK/ipRMauLdnHWL1XACUyYt
+	 BYrG4v4pmmSNTps+TDjATYcfxUDZXEZNXThTuXZLHDWNT9cYHQsu9TUFV/SI4uL+W3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676130;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BfodKtywx0Z9yeYwpkod4XUy8CUJpBCkMdDTlgsEf/Y=;
-	b=ZQ3pBTHMO1TBtgN2h2Zb6mCgGaOHhnoZoYm8xZKzI8r3sHF97LLnY7R89lSmwL0+bURc
-	 Czdt22S0hSZapDcAe1ARK7qfOWvt9LHBWAfwpqxsR/HGT0eV1s1f3o6vvOhV7rdf9Vsj2
-	 Mvpr/D3lqTKRAw0jQHXBCzcQASHfs6yDgB+3M9hzReAs8l4QQQFsP5XnxVzmjizUvXXuN
-	 +M4qciVHL55V/f8yEq4+HXUG2DZsyRgI3N6JL+tUZXqcGqs2CQFDb7pzZsoor5/g9ObQF
-	 5wivQx0yH1e3xXcQ2LtXSQGYm2IwdO5i3xKYw/733/qGZJfYYnybZ44kgtx3p0xkJjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676562;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=Hs/PkOTJBUnLc2WxQnpdLATsC3XXPb/XE2GbbAtWhEw=;
+	b=P6iGDoUjvDMV9YQQCvDH21N0i+O/VZHX9a+5zcBrtVDXf1plstahlMuTHmAl8N0YEekU
+	 bNAExAehMU41gffJIzY6CwjllvmJgDiGFtnuWUgajVpFkwycZmhdqw4QgRxLeTKEat8Bl
+	 n2WyCN5wqq01Lugx8UktqpBdcozi7GMne5EoKeOUHXaBxo+kL083vZR7Foja17W1LqlkA
+	 awJ52awwLV+yidxMU7KKanp8eSvCrUy2M60Jy8JL2b76EVkRWqokGIVCZvR68PeEzheNB
+	 tMu5BJXaCWflIhzDiDRwDLPG9NZA8dimPFVWWpIqLGp+1Z2r77gtLrfR4rtwW3rFD5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CH/Jii6G";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IQXunpTp;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4482606A323;
-	Sat, 14 Nov 2026 17:08:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C68606A334
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 17:16:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9C68606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CH/Jii6G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F8A1F000C4;
-	Sat, 14 Nov 2026 17:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794676129;
-	bh=BfodKtywx0Z9yeYwpkod4XUy8CUJpBCkMdDTlgsEf/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CH/Jii6GOxKja93EiEqLupCUDr+JcZmm12fN0f6PRGR+n1EWlvK4pdoZ/yMT6Kksy
-	 nv/9wCo7HnuulWAn/hdyNaQPo7c1PvWyzQ9bRO0vAHyhQJ5xXtbauf+PwGyr6OT2ad
-	 07CV1JaljkS+4VN6PX1kw622V5PAx7ftVZTAkzSvPlQVQPgNicuIRNzIFiRRS6G/f8
-	 TApIYwLgHmJBi4IAPhGiwfaTsTaZerADz2a1ztYamOai0xg3bBO415Jvm73WqS9zmA
-	 OKtqiwwjr0wMLfnGv6yVK7zLGcaJIkYLO5gtrX1vdZ9VA7LNO/6lREbAEKWUgrlaQc
-	 j2oAxT5R7G8ZA==
-Date: Sat, 14 Nov 2026 18:08:41 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v6 10/19] platform/x86: hp-bioscfg: Rename local variable
-Message-ID: <aviVUS3cyyJNHrd6@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <ec94f69d2925d2362e8bde4ca1b1f7f3893c0315.1794667407.git.alx@kernel.org>
- <7d45a8e02dc9407e6b95893d6be1591aadc24cb9.camel@perches.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IQXunpTp
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id RybBxx12NJFmFSHM9xypVZ; Sat, 14 Nov 2026 17:16:01 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SHM8xZ1ajFhzrSHM8xMu1H; Sat, 14 Nov 2026 17:16:00 +0000
+X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af89750
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=rxihhvIKAAAA:8
+ a=XYAwZIGsAAAA:8 a=DtZlJFn97RoajThK6kYA:9 a=CjuIK1q_8ugA:10
+ a=vyXZNj8PikhivSrfMdal:22 a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Hs/PkOTJBUnLc2WxQnpdLATsC3XXPb/XE2GbbAtWhEw=; b=IQXunpTp3P2M6XyKFh39c7GJ7T
+	wZ61qrjKhD8BiNlKLaUwzvDV5mX/iRsySGUY+CsvsR8XtG3YuL9qpsKnTzYJh3j8UXodUzJ5MzAB+
+	3oDKtNuLlkKbeOcWDxTtwUX7rdd3X4YEX+CCrM7vzCTHOXiBe921ol/3c4cQwkg1hTjjVle5xORjO
+	DYc8x3rSYiR9CgM0FNAzVEwmsiVa0p6IAQOco0SjNCwMjREmz4vCdTT2YWQ1rwNqe/Ld8PQMcYqL2
+	CsA1JFP/TUmGl8RKYCMIa7Zr6lIM43mxrG3VKnt7gtZ6kwewzkpaqgGoHwdosHZn+uvWX5aQ0F4ys
+	bawXKeoQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:34542 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSHM6-00000000ZoN-11s0;
+	Sat, 14 Nov 2026 22:45:58 +0530
+Date: Sat, 14 Nov 2026 09:15:57 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Rong Zhang <rongrong@oss.cipunited.com>
+Cc: Keguang Zhang <keguang.zhang@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] dt-bindings: watchdog: loongson,ls1x-wdt: Add
+ compatible for Loongson-7A
+Message-ID: <6179a943-b12b-46dd-bb64-c187ff779bb1@roeck-us.net>
+References: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+ <20261113-mips-ls7a-wdt-v2-1-e8abd6b2f77c@oss.cipunited.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,101 +93,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="abnhfluguix7tdhv"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7d45a8e02dc9407e6b95893d6be1591aadc24cb9.camel@perches.com>
+In-Reply-To: <20261113-mips-ls7a-wdt-v2-1-e8abd6b2f77c@oss.cipunited.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSHM6-00000000ZoN-11s0
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:34542
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 12
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMQMY26yNcWVN/q9rROpkBTSJt7fRFXxIaNLIRsKU+nPY+a5Z3dSgPG0/qYzUxopncSpzyHZaEnYYSucBgzLz+os+DF7AliVYZCCGVr/ue83MCmE21+8
+ dijzzoW3pidDeiJXyjn3TfR6UEAkOYIL574aJFZJ+0ruO9aDV3jFSfVPwMSrge3ioR5W3PkUotqRfJkR5TPF42Ikd5T6MgVYrFQb5yi3Txk65eGaq7ktrwhv
 
+On Fri, Nov 13, 2026 at 06:51:08PM +0800, Rong Zhang wrote:
+> The Loongson-7A has a watchdog compatible with the one on Loongson
+> 2K0300.
+> 
+> Add "loongson,ls7a-wdt" compatible.
+> 
+> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
---abnhfluguix7tdhv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v6 10/19] platform/x86: hp-bioscfg: Rename local variable
-Message-ID: <aviVUS3cyyJNHrd6@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <ec94f69d2925d2362e8bde4ca1b1f7f3893c0315.1794667407.git.alx@kernel.org>
- <7d45a8e02dc9407e6b95893d6be1591aadc24cb9.camel@perches.com>
-MIME-Version: 1.0
-In-Reply-To: <7d45a8e02dc9407e6b95893d6be1591aadc24cb9.camel@perches.com>
+Applied.
 
-Hi Joe,
-
-> Date: 2026-11-14 08:04:56-0800
-> From: Joe Perches <joe@perches.com>
->
-> On Sat, 2026-11-14 at 16:23 +0100, Alejandro Colomar wrote:
-> > strprefix shadows a function of the same name.  Let's rename it.
-> []
-> > diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/d=
-rivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> []
-> > @@ -87,13 +87,13 @@ int hp_populate_security_buffer(u16 *authbuf, const=
- char *authentication)
-> >  		 */
-> > =20
-> >  		/* append UTF_PREFIX to part and then convert it to unicode */
-> > -		strprefix =3D kasprintf(GFP_KERNEL, "%s%s", UTF_PREFIX,
-> > +		prefix =3D kasprintf(GFP_KERNEL, "%s%s", UTF_PREFIX,
-> >  				      authentication);
-> > -		if (!strprefix)
-> > +		if (!prefix)
-> >  			return -ENOMEM;
-> > =20
-> > -		auth =3D hp_ascii_to_utf16_unicode(auth, strprefix);
-> > -		kfree(strprefix);
-> > +		auth =3D hp_ascii_to_utf16_unicode(auth, prefix);
->=20
-> unassociated defect but the auth buffer isn't apparently sized
-> so some write beyond buffer seems possible.
-
-Thanks!
-
-I don't fully understand that utf code, so I'll leave this to anyone
-else who knows about it.  But I'm interested in it, so if anyone writes
-a patch, please CC me.
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---abnhfluguix7tdhv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4lZkACgkQ64mZXMKQ
-wqll2xAAlo/8OIh/wStVWgvbD2tunr8yoPiMTT+S4gmCiYL+v2IvsZLZEOvt+Uba
-cDJVqfcsP5vx7xZ4Az9wI1NmA4nqoNmttyo7lwUQwE89TzoBBL2xofp9bOskC64T
-oDzrHJcxmz6PhoWJijs+oETz6hGNZcr9+/PkWL4AvcvDcFygbXqV5XQhNzS9RYaI
-XCCfpw7zs84g1BFblgIKFJ6QBV8loAXRMaAKn/MMsG6KbYUhexLpQGfHFMZCT6tn
-mthZrsUC8xJEtvf6smTcnB7KnKH0uvv5BZKYKMB8J0DXVvUVyNFj5M7gNNQ77bXF
-DpbDOdI2vml5foRhv77trTSd3zacxum/pNucr1ZOsr4XsROas4jdBTCtVu9qCEbE
-YWVsYrnk6T5ved1awB8mdBcbOBEK29BFuOE1U4NylRvR3rBxcYk6rizn0oj1LD1J
-Vyj8S5TkJd/ic7WndOD1k3GkGU9nMQiyTEBmfiWRDAqcZB6PDm40phjzYJdrSd9f
-mV09vjgFz6SEqX9uNM9VB/sho0g6Y781mImo9KQf45jrHY1D4hdSCh8XLevTWQVL
-KoatE4iiGiegXAwje4sBD6rCTV3hhpAeQpE429JvHx7em/kcBniAFq13AWr3Ubmg
-om1bIje2tDd/EKuS8qKcUkJEDxwsM+8/ocUyCztQaFqtOy42XUA=
-=pHXv
------END PGP SIGNATURE-----
-
---abnhfluguix7tdhv--
+Thanks,
+Guenter
