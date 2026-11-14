@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657350;
-	b=dEJjULmCbliLtlNFpTkGy3Jdp35YK1mcPr9QI9VTwDj+vCWQNvP9Avvt0O8tQkNS5UH4
-	 c+tDC9H2yhajGGmfwAvCKMyeVKv2JHqN06tZzvYI5JidJNEKPpzckBPpWlEORPcsprdOc
-	 +ybhaRFnG4LZs4NxgotuecAXMfS9P20x/8NAQCbv2nSvKQlbGBC+GMwLa781DqhDMz10D
-	 +f4z8qrXx24Pg8sjBbYwm01PbpBfINJWHNiD+hOAL9JvJ7wMB6K6X28n/y4pBd7Fe7Uml
-	 WxzP65rqm/k4Uipp+2Y8tlwiwQXMxqZBNxAth90mh/mpqyskJfIiSJ6Vimh2P9NmT0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657350;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4/Q1bfzHfAdx4wt2Qbi+egQJKxl84zjDLUbFA3DRoSQ=;
-	b=anKXFkmSwK2f8hd4QiRvUK6bhY6Bx+FcFMp6gtk7Xj+JGI6CDhT9LkkiwnW/TJu+64/s
-	 g2DFwQUMnOTXeIiykEZX6N+Y7Mpi1azKe/OqftozRXnsb5UMpGUXK53VlRM2F9csctbv0
-	 HjEE9q0M5wiJo8F1hhjsXctJVRKLGc9mWDk8pXDCr5NWmdTtN90/K/2cRNinLvORifiM9
-	 CzK5BankUhDJ5pzRyK2t13Cz+aQgVCZlW7ievOouX63MsobwFnoQN2fp4D9qr3YjYp8hJ
-	 dqEkX/0H1K/ray1iRqfLn2itScgeBe+j+0aoQabVusfJ8+/7XypPnSaT4GNppVtvFqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zahy/hNq";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794657375;
+	b=SAzXPnZIs+wcNO4F/1jTcn/8fqtGReKq2rZ1HZGbrvFSYjWVzFfPPzdQz37cNFy61Aau
+	 Kzlwd1rb+KPaAMvj/FDag628mox7sR0IMuiY+vSQgKfUJWbers0GEmtL4hBQJ2QC2yw8O
+	 nfz/FTpytWCbwVzl0M6/f2hfHKJLyaOaKu0ORrxRHWGYlOO1jLlr/sY6iuwijcj/cdJlz
+	 CeK3+Yf+gw0NCl+QSbNoRj43hRQ2uf5oO4onmaJ7Ub281UMbcIoaUX5WO6+ymH0gbiO6T
+	 nxs5qFAxHx8CLh9dceFfjJL0aHVV48pmhnNUdkwuhLlHPod31CTtc+8XpOaOXSx3wjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657375;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	b=IfhbsuHOKCkCVcADDggFce+cP+A8+e/EdaJBBSH42aoovZaRSWzka2gHRnN2Nrjc2pWo
+	 ZkMTeU8CJRxikYS2LWojZs0xkZohl8vBYHmu7UxOhx6vkG4X3TPyjyPLr9GTMrV5NQHIj
+	 utlqDsv9+Ng8pBkohXK8CKeILvCmkwqOirZof4jUPWzCeE5SYLGBFg6kSUnhdkssNCKdr
+	 wQ+rS+UENQHfRVFng0KkfrNKe18jrNVeByBB2IGQH2UxqcFC8TFx00Obwcf70GS/TS8PF
+	 DfNQa4tG+jsFlqhrgQoiIzFmbY8N987D8o18lcEwyzrxaXdol2SjzdedeyH4rlgyAmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED07E606A327
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:55:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7502E606A883;
+	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zahy/hNq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154761F000C5;
-	Sat, 14 Nov 2026 11:55:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794657375;
+	b=s7/1nKsjQFaZfxQnxas+0LDkE292A5MOP4IAYzta5Pa8xUsujvSScYoZBXYuUJBj1fzd
+	 Kyolg6V9mLWE4YZg8jWxaNTaWhSSX/9onsswu7enNjQqxbS/rHXH7U/TM6a7V/ET/vVOV
+	 rBKHM5P2R9KYsbmqBEu5VO4DF2bm9672Qkz+ePHbVWkZnuvarNUtD6a3pcnzHFVdT/oP/
+	 IBxUG4o7ITtC8t4sHmtUUd+/59K3Qy7RxdlMfgOQ2MCGluZHsDZ83DXSA/UHa6eWWC3Zs
+	 oqxoMc1qKOK1sCLL0V0EYekhSM34ksaJBOlfjr+gcFeUgAsDfmIAiC2cSvjsunx7fxA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794657375;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	b=m308EkOrJErWLZF4j17R0Nrv7FTIU1lDZ2CbrGonn88Nb0yLVyqyJIXyusaPLUujfhH0
+	 M/mJGphoPa0fSmPbGUtZTLqIYDGDrpiDxZUvTRQbWHASd9hZ2tn0bgLsMCw0ZVJejYN6B
+	 6nqi7medZwROOba2IgsY5WqrU71vD4VsRh5hYhua+ryvdGb/KJQ9uDdwe/jrXERPaHI3Y
+	 NR/KC95R2GmPOjt91n8rc8+FEqkrRrN7XqjjPC1G4VuO0kUHv+pBOWHcsVKbbldJojOtG
+	 QNQyCPoz8nfwAaZojC9kLzVDaQunWw2xNzGtuErwu6WR0yS1to+wjCeQvy2JwfKffyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id B41261F000C7;
+	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657349;
-	bh=4/Q1bfzHfAdx4wt2Qbi+egQJKxl84zjDLUbFA3DRoSQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zahy/hNqmGQJOjs0QgTtqR8oGTtXJ8fNe5guB89mnjz002biupVowEMq5Olf9oKih
-	 EcAZTHdMEh4ao5TZTLh6LffeRBb7mqdcbjqrJgW8itLPuipSP8DWSd3NAcu/pGg1wz
-	 sM23i6E3/aEJoLbxbMdLa3+U473hiGJ36YmDxzpeaAMh4wZ/p8AJjAklz/HwQuPKK4
-	 93LFjDFsj//Y5jevCVR5VujtQNbRkXuUVd3RD5cGvhxsXuwFX5TQ1i4qElFFiehuu8
-	 XrhGazTCUy89P/71Q3rWi8gM5T/q8F8LUmoh9J+mv3ZJg+VxBD/PTgGJQpwRX7OVZW
-	 BWudybVwsq0LQ==
-Message-ID: <sashiko-outbox-214437@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/23] media: qcom: camss: csid: Add support for CSID
- 980
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-10-8ff2a11835f6@oss.qualcomm.com>
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-10-8ff2a11835f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 11:55:48 +0000
+	s=k20260515; t=1794657375;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=aiSf3J1Ji+dYRGlzBmnX3u8wr4zpA20dGlqgq7VzJ+dIZoYG1QLBptK8x7Yvr+UUS
+	 OMBzukvLIVfB+8wmZChbeMdrGBeCdR+/K65L8PxX320HvicKlM40Wa9N7ryrVM/XRZ
+	 F+3aSI6C0TBgEG1i4XRZ6TobZpehrfCRYBHotCgJpp3DkZLrDte24otshmPJ9CCY5B
+	 QbeAO5X9u2hDLD/BcasFHspDApC8Rl9bIO05ZZ0+2E5ramoyLbxNoWcp5Wa6xHhnJ4
+	 XhGetlwdEK15iwRQfOCQ2IDNM9XryYr7saN2uchthNpAV5bF449NvbQ1gcAKyxlA0p
+	 dS4OBduN+peHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 39D1649D6F;
+	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
+From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
+Date: Sat, 14 Nov 2026 12:55:35 +0100
+Subject: [PATCH v11 03/14] ufs: unipro: Move Tx/Rx FSM state definitions to
+ unipro.h
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,200 +82,243 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-ufs-s32n7-v11-3-dc36e11919d5@oss.nxp.com>
+References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+To: "Martin K. Petersen" <mkp@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, linux-arm-msm@vger.kernel.org, 
+ Peter Wang <peter.wang@mediatek.com>, linux-kernel@vger.kernel.org, 
+ NXP S32 Linux Team <s32@nxp.com>, Asutosh Das <quic_asutoshd@quicinc.com>, 
+ linux-arm-kernel@lists.infradead.org, Stanley Jhu <stanleyjhu@google.com>, 
+ Frank Li <Frank.Li@nxp.com>, imx@lists.linux.dev, 
+ linux-scsi@vger.kernel.org, Bean Huo <beanhuo@micron.com>, 
+ linux-mediatek@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Pedro Sousa <pedrom.sousa@synopsys.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, eballetb@redhat.com, 
+ Peter Griffin <peter.griffin@linaro.org>, echanude@redhat.com, 
+ Chaotian Jing <chaotian.jing@mediatek.com>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-rockchip@lists.infradead.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, clizzi@redhat.com, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
+ linux-renesas-soc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657369; l=6648;
+ i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
+ bh=trkoKEdgDJvEOwdUNPcivOaHNBCVHWr9HRiB/HK5M28=;
+ b=7xexXiN/+K95N4rP6JaB2Vjpy/SOGGA3L9L2eLybPOHkrxWTLlw3BnEHhkxLByvRpXhe2rnF5
+ j4JlbwxZEaxDciA9YRwS80mh4JXoJUNIbBIMINQZP36DLEn4Lt6Dl4B
+X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
+ pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
+X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
+ with auth_id=1522
+X-Original-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Reply-To: larisa.grigore@oss.nxp.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] media: qcom: camss: wrong dt_id calculation in
-  __csid_configure_rdi_stream()
-- [Medium] media: qcom: camss: misplaced lane_cnt fallback in
-  camss-csid-980.c
-- [Medium] media: qcom: camss: race on csid->reg_update and addr_update
-  in csid-980
---
+From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-commit ad1ff7fa26120bcd2005c8cf69d816599d94898f
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Move the Tx/Rx FSM state definitions from ufshcd-dwc.h to
+include/ufs/unipro.h.
 
-media: qcom: camss: csid: Add support for CSID 980
+These state values are UniPro/M-PHY related and are not specific to
+the DesignWare UFS host controller implementation, so unipro.h is a
+more appropriate location for sharing them.
 
-This commit adds the CSID 980 hardware operations driver and populates
-the SM8750 CSID subdevice resource definitions.
+As part of this move, drop the driver-private TX_FSM_HIBERN8 define in
+ufs-hisi and ufs-qcom and repoint their Hibern8 checks at the shared
+UFS_TX_STATE_HIBERN8 enum constant. This is a no-op change.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-980.c b/drivers=
-/media/platform/qcom/camss/camss-csid-980.c
-> new file mode 100644
-> index 0000000000000..713db25cd8c65
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-980.c
-> @@ -0,0 +1,466 @@
+Since the definitions become visible to every user of the shared
+header, prefix the enum constants with UFS_ (e.g. RX_STATE_HIBERN8
+becomes UFS_RX_STATE_HIBERN8) to avoid polluting the global namespace,
+and update the existing AMD Versal2 users accordingly.
 
-[ ... ]
+This also prepares for using these definitions in a subsequent commit.
 
-> +static void __csid_configure_rx(struct csid_device *csid,
-> +				struct csid_phy_config *phy)
-> +{
-> +	int val;
-> +
-> +	val =3D (phy->lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
-> +	val |=3D phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
-> +	val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-> +	       << CSI2_RX_CFG0_PHY_NUM_SEL;
-> +	writel(val, csid->base + CSID_CSI2_RX_CFG0);
-> +
-> +	val =3D CSI2_RX_CFG1_ECC_CORRECTION_EN;
-> +	writel(val, csid->base + CSID_CSI2_RX_CFG1);
-> +}
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/ufs/host/ufs-amd-versal2.c |  8 ++++----
+ drivers/ufs/host/ufs-hisi.c        |  8 ++++----
+ drivers/ufs/host/ufs-hisi.h        |  1 -
+ drivers/ufs/host/ufs-qcom.c        |  4 ++--
+ drivers/ufs/host/ufs-qcom.h        |  1 -
+ drivers/ufs/host/ufshcd-dwc.h      | 19 -------------------
+ include/ufs/unipro.h               | 20 ++++++++++++++++++++
+ 7 files changed, 30 insertions(+), 31 deletions(-)
 
-[ ... ]
+diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
+index 65cb0b5028b9..3469e49df133 100644
+--- a/drivers/ufs/host/ufs-amd-versal2.c
++++ b/drivers/ufs/host/ufs-amd-versal2.c
+@@ -118,8 +118,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 			if (ret)
+ 				return ret;
+ 
+-			if (reg == TX_STATE_HIBERN8 || reg == TX_STATE_SLEEP ||
+-			    reg == TX_STATE_LSBURST)
++			if (reg == UFS_TX_STATE_HIBERN8 || reg == UFS_TX_STATE_SLEEP ||
++			    reg == UFS_TX_STATE_LSBURST)
+ 				break;
+ 
+ 			time_left--;
+@@ -138,8 +138,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 			if (ret)
+ 				return ret;
+ 
+-			if (reg == RX_STATE_HIBERN8 || reg == RX_STATE_SLEEP ||
+-			    reg == RX_STATE_LSBURST)
++			if (reg == UFS_RX_STATE_HIBERN8 || reg == UFS_RX_STATE_SLEEP ||
++			    reg == UFS_RX_STATE_LSBURST)
+ 				break;
+ 
+ 			time_left--;
+diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+index 73eef0e0d278..d3fd340f2dd1 100644
+--- a/drivers/ufs/host/ufs-hisi.c
++++ b/drivers/ufs/host/ufs-hisi.c
+@@ -34,8 +34,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 				      &tx_fsm_val_0);
+ 		err |= ufshcd_dme_get(hba,
+ 		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
+-		if (err || (tx_fsm_val_0 == TX_FSM_HIBERN8 &&
+-			tx_fsm_val_1 == TX_FSM_HIBERN8))
++		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
++			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
+ 			break;
+ 
+ 		/* sleep for max. 200us */
+@@ -56,8 +56,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+ 			__func__, err);
+-	} else if (tx_fsm_val_0 != TX_FSM_HIBERN8 ||
+-			 tx_fsm_val_1 != TX_FSM_HIBERN8) {
++	} else if (tx_fsm_val_0 != UFS_TX_STATE_HIBERN8 ||
++			 tx_fsm_val_1 != UFS_TX_STATE_HIBERN8) {
+ 		err = -1;
+ 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+ 			__func__, tx_fsm_val_0, tx_fsm_val_1);
+diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
+index 5a90c0f4e90c..6af6a268458d 100644
+--- a/drivers/ufs/host/ufs-hisi.h
++++ b/drivers/ufs/host/ufs-hisi.h
+@@ -43,7 +43,6 @@
+  * M-TX Configuration Attributes for Hixxxx
+  */
+ #define MPHY_TX_FSM_STATE	0x41
+-#define TX_FSM_HIBERN8	0x1
+ 
+ /*
+  * Hixxxx UFS HC specific Registers
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index 67c2a3b95e58..31ea7b294a42 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -424,7 +424,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
+ 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+ 				&tx_fsm_val);
+-		if (err || tx_fsm_val == TX_FSM_HIBERN8)
++		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
+ 			break;
+ 
+ 		/* sleep for max. 200us */
+@@ -444,7 +444,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+ 				__func__, err);
+-	} else if (tx_fsm_val != TX_FSM_HIBERN8) {
++	} else if (tx_fsm_val != UFS_TX_STATE_HIBERN8) {
+ 		err = tx_fsm_val;
+ 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+ 				__func__, err);
+diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+index 944b2e532a09..1bda960c1d87 100644
+--- a/drivers/ufs/host/ufs-qcom.h
++++ b/drivers/ufs/host/ufs-qcom.h
+@@ -11,7 +11,6 @@
+ #include <ufs/ufshcd.h>
+ 
+ #define MPHY_TX_FSM_STATE       0x41
+-#define TX_FSM_HIBERN8          0x1
+ #define HBRN8_POLL_TOUT_MS      100
+ #define DEFAULT_CLK_RATE_HZ     1000000
+ #define MAX_SUPP_MAC		64
+diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+index c618bb914904..a5e40e7604a1 100644
+--- a/drivers/ufs/host/ufshcd-dwc.h
++++ b/drivers/ufs/host/ufshcd-dwc.h
+@@ -39,25 +39,6 @@
+ #define RX_AFE_CTLE_IDAC(n)	(0x4001 + ((n) * 0x100))
+ #define FW_CALIB_CCFG(n)	(0x404D + ((n) * 0x100))
+ 
+-/* Tx/Rx FSM state */
+-enum rx_fsm_state {
+-	RX_STATE_DISABLED = 0,
+-	RX_STATE_HIBERN8 = 1,
+-	RX_STATE_SLEEP = 2,
+-	RX_STATE_STALL = 3,
+-	RX_STATE_LSBURST = 4,
+-	RX_STATE_HSBURST = 5,
+-};
+-
+-enum tx_fsm_state {
+-	TX_STATE_DISABLED = 0,
+-	TX_STATE_HIBERN8 = 1,
+-	TX_STATE_SLEEP = 2,
+-	TX_STATE_STALL = 3,
+-	TX_STATE_LSBURST = 4,
+-	TX_STATE_HSBURST = 5,
+-};
+-
+ struct ufshcd_dme_attr_val {
+ 	u32 attr_sel;
+ 	u32 mib_val;
+diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
+index 9c168703b104..16b2051f7241 100644
+--- a/include/ufs/unipro.h
++++ b/include/ufs/unipro.h
+@@ -466,4 +466,24 @@ enum {
+ 	CPORT_CONNECTED,
+ };
+ 
++/* RX_FSM_State encoding, MIPI M-PHY v6.0 Table 50 (M-RX Status Attributes) */
++enum ufs_rx_fsm_state {
++	UFS_RX_STATE_DISABLED = 0,
++	UFS_RX_STATE_HIBERN8 = 1,
++	UFS_RX_STATE_SLEEP = 2,
++	UFS_RX_STATE_STALL = 3,
++	UFS_RX_STATE_LSBURST = 4,
++	UFS_RX_STATE_HSBURST = 5,
++};
++
++/* TX_FSM_State encoding, MIPI M-PHY v6.0 Table 47 (M-TX Status Attributes) */
++enum ufs_tx_fsm_state {
++	UFS_TX_STATE_DISABLED = 0,
++	UFS_TX_STATE_HIBERN8 = 1,
++	UFS_TX_STATE_SLEEP = 2,
++	UFS_TX_STATE_STALL = 3,
++	UFS_TX_STATE_LSBURST = 4,
++	UFS_TX_STATE_HSBURST = 5,
++};
++
+ #endif /* _UNIPRO_H_ */
 
-> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
-ble, u8 port, u8 vc)
-> +{
-> +	u8 lane_cnt =3D csid->phy.lane_cnt;
-> +	u32 val;
-> +
-> +	/* Source pads matching RDI channels on hardware.
-> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
-> +	 */
-> +	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIR=
-ST_SRC + port];
-> +	const struct csid_format_info *format =3D csid_get_fmt_entry(csid->res-=
->formats->formats,
-> +								   csid->res->formats->nformats,
-> +								   input_format->code);
-> +
-> +	if (!lane_cnt)
-> +		lane_cnt =3D 4;
+-- 
+2.43.0
 
-[Severity: Medium]
-Was the lane_cnt fallback meant to be in __csid_configure_rx() instead of
-__csid_configure_rdi_stream()?
 
-In __csid_configure_rdi_stream(), lane_cnt is never read after being set,
-which triggers a -Wunused-but-set-variable warning under W=3D1 (and precedes
-the variable declarations below).  Meanwhile, __csid_configure_rx() uses
-phy->lane_cnt - 1 directly in signed int arithmetic, so if phy->lane_cnt
-is 0 (for instance, when csid_set_stream() disables a stream after
-csid_set_power() without an active sink link), val becomes -1 and corrupts
-all fields written to CSID_CSI2_RX_CFG0.
-
-> +
-> +	/*
-> +	 * DT_ID is a two bit bitfield that is concatenated with
-> +	 * the four least significant bits of the five bit VC
-> +	 * bitfield to generate an internal CID value.
-> +	 *
-> +	 * CSID_RDI_CFG0(vc)
-> +	 * DT_ID : 28:27
-> +	 * VC    : 26:22
-> +	 * DT    : 21:16
-> +	 *
-> +	 * CID   : VC 3:0 << 2 | DT_ID 1:0
-> +	 */
-> +	u8 dt_id =3D vc & 0x03;
-> +	u32 rdi_cfg0_offset =3D CSID_RDI_CFG0(port);
-> +	u32 rdi_cfg1_offset =3D CSID_RDI_CFG1(port);
-> +	u32 rdi_ctrl_offset =3D CSID_RDI_CTRL(port);
-> +
-> +	val =3D RDI_CFG0_TIMESTAMP_EN;
-> +	val |=3D RDI_CFG0_TIMESTAMP_STB_SEL;
-> +	val |=3D RDI_CFG0_RETIME_BS;
-> +
-> +	/* note: for non-RDI path, this should be format->decode_format */
-> +	val |=3D DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
-> +	val |=3D vc << RDI_CFG0_VC;
-> +	val |=3D format->data_type << RDI_CFG0_DT;
-> +	val |=3D dt_id << RDI_CFG0_DT_ID;
-> +	writel(val, csid->base + rdi_cfg0_offset);
-
-[ ... ]
-
-> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
-> +{
-> +	u8 i, k;
-> +
-> +	__csid_configure_rx(csid, &csid->phy);
-> +
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			__csid_configure_rdi_stream(csid, enable, i, 0);
-
-[Severity: High]
-Should dt_id in __csid_configure_rdi_stream() be derived from port & 0x03
-rather than vc & 0x03?
-
-csid_configure_stream() always passes vc =3D 0 while passing the RDI channel
-index i as port.  Calculating dt_id from vc sets RDI_CFG0_DT_ID to 0 for
-every RDI channel, so RDI1, RDI2, and RDI3 all receive internal CID 0 and
-cannot stream properly, matching the issue fixed for CSID GEN3 in commit
-ad136e52634d ("media: qcom: camss: Fix RDI streaming for CSID GEN3") and
-for CSID GEN2 in commit 618765634cef ("media: qcom: camss: Fix RDI
-streaming for CSID GEN2").
-
-[ ... ]
-
-> +static irqreturn_t csid_isr(int irq, void *dev)
-> +{
-> +	struct csid_device *csid =3D dev;
-> +	u32 val, buf_done_val;
-> +	u8 reset_done;
-> +	int i;
-> +
-> +	val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
-> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
-> +
-> +	reset_done =3D val & INFO_RST_DONE;
-> +
-> +	buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
-> +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
-> +
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
-> +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
-> +
-> +			if (val & INFO_RUP_DONE) {
-> +				__csid_addr_update_clear(csid, i);
-> +				__csid_reg_update_clear(csid, i);
-> +			}
-> +
-> +			if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i))
-> +				camss_buf_done(csid->camss, csid->id, i);
-> +		}
-> +	}
-
-[Severity: Medium]
-Can __csid_addr_update_clear() and __csid_reg_update_clear() in csid_isr()
-race with concurrent updates to csid->reg_update and csid->addr_update?
-
-In camss-vfe.c, vfe_queue_buffer_v2(), vfe_enable_output_v2(), and
-vfe_buf_done() hold vfe->output_lock while calling the CSID addr_update
-and reg_update callbacks, which perform non-atomic read-modify-write
-updates on csid->reg_update and csid->addr_update.  However, csid_isr()
-clears bits in csid->addr_update and csid->reg_update before
-camss_buf_done() is called and without holding vfe->output_lock:
-
-CPU0                              CPU1 (<hardirq>)
-vfe_queue_buffer_v2()
-  spin_lock_irqsave(&vfe->output_lock)
-  __csid_addr_update(csid, i)
-    csid->reg_update |=3D AUP_RDI(i)
-    writel(csid->reg_update,
-           CSID_LITE_RUP_AUP_CMD)
-                                  csid_isr()
-                                    if (val & INFO_RUP_DONE)
-                                      __csid_addr_update_clear(csid, i)
-                                        csid->reg_update &=3D ~AUP_RDI(i)
-  __csid_reg_update(csid, i)
-    csid->reg_update |=3D RUP_RDI(i)
-    writel(csid->reg_update, ...) <-- overwrites CMD with AUP_RDI(i) cleared
-
-On CSID Lite, where RUP and AUP share csid->reg_update and the
-CSID_LITE_RUP_AUP_CMD register, this race can clear a newly queued AUP bit
-in hardware before it is consumed, and across multiple active RDI ports it
-can lose or retain stale update bits in csid->reg_update and
-csid->addr_update.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-add-suppor=
-t-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com?part=3D10
