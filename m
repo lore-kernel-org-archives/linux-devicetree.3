@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794646793;
-	b=knH7oZhKKjnjJQtJljQ1ry6D1piZf98V9C2ygN8NYhAubMUn/tgt+HxfggT82J+yxnhx
-	 VBOh5Xz/TMx5mQSqoiC0U4fMdxc0aDCZmMTVp9gczrpje7qdhd6OjctRflbzE/w9rDQ2c
-	 FmuB1zip1V4OdALL/3t+tb5PymSbnEiP/vT4k0Ye6ylv4nj07HWUfg+2JnDP5X6uQuQsO
-	 mKD2j7mjvRfL5rGU4TRAPhGLGJGzNtvUGC51JPAoLsyxF/GFnk7JxnWbVuYt9M53bqyb9
-	 rDBz2oy/F0Ff4U23oZUd2tLmLuOQlYf19/vxTT9toikxzq8gkK2mhyBw1SDLUd6l5hg==
+	t=1794647448;
+	b=LcEhjhOEGR0EBjYnwXlQWN9GXiQcXAH0HyRcJIBBv2V1+WOk6F/7Fe+r5o2M1hXU4N93
+	 RjiI/KlUrRjDsQBfGhQzWEnjtd8yTbYm2m8YRVs1EDEKALjzLdjLWiCJldRGZPz/Edn8w
+	 E/lMH1ok5x5tHWSa1bI2Ll+00JDzIUHov7x92WdAz3hSW6A4Oqb2Thb2TsaaaAO6iSZ7y
+	 vc05w9le10iaz1HDluocxj6erOgLX9X/fNS4G2cbkerpGn9suq22LKuqXbOzzItT1xj4S
+	 O5LYm1hrmxFGidHAspLIzNPKYCba6l8hh2M3PmCmGTo/G7IOXiu92BMlpGgdxCVV0KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794646793;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=uaCZIhQXTyW3ymivGzavLCC6TcwqqQluwAxiF0aFALg=;
-	b=ZPuzOK6IJZjNH7ZEHGWPGaIj8RsgOgN5Z3QdeezY0/AViIO8YiRMJ0SR3J7BDm+LJAN0
-	 yYwQxhx9fqUMCJWY9iaZE0Al7FcpsSTdxWQDJkoceuwSTn0AaOBsIdblhHd1mLT9dejAY
-	 rVxu5ZOi5LkHe6Fexj/1lmOgOwEDy0rvbZO2xzrAk/bYJZGBZ9ODfszoySoILm9mHveDB
-	 /oz+ZF+jwSThNHHvWuNEnpuf1dvCzyw12n7IUl/FwEOiSSk0lAZNAP2QkE73LxTsSZo15
-	 /w+IGBWl7Pgu8ASFqzVcK/2vjtujUf5UOu6NT4B/Z0SgdIrPfRLudDi1x7nY1WyXDKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647448;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
+	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=f9t86iKgY/RA+c+/FaB5GFCHep1CCR2UihSVVBNfavM=;
+	b=VMajbktk+FjZDq8xLLNiy4qkR+KwA/1aYm6d/5uWq/93mX1qPpTsboncpATvNBkfpXu4
+	 plbTu0u7/9pHZt3j6TPe94mxnAKKlO3tTaNfi+4O5GDwFLzONJqS0nbVv0FD5i5SLKxji
+	 CQ1GF1bC3A+Y0U55LldIuDj6wh49Jk1j2kvNWXbSIK7XeL3tUjjk4YGwVMoYgV8v/Z6il
+	 lkKCq4zmlIjS4zwlpug/oCEi/O2X4c4uU8Uhmq1PwUlE2DAt5HgeFjgavnv4oxuRqQeJe
+	 wCmJCttrjTrJdpyXoB50a5iUpiB45W1QJrFvLv6xZuVJQhsM6b1OE1+LFKeJY4iGYBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLi+xX4f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=et4hn7GR;
+	arc=none smtp.remote-ip=212.227.15.3
+Received: from mout.web.de (mout.web.de [212.227.15.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0AB606A32E
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 08:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6147606A327
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 09:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6147606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLi+xX4f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BBC1F000C4;
-	Sat, 14 Nov 2026 08:59:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794646793;
-	bh=uaCZIhQXTyW3ymivGzavLCC6TcwqqQluwAxiF0aFALg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RLi+xX4fb8w5pYV8jjzcVEei0hQfwiaw4bmF6WIa7AN58yPxPcck1YB5QMCEPwj1Q
-	 jnEVqLE7bhW3P+Cr48UVSddt2PAYotQb+vO7PoceeP58heKyiudTRXSIBPRHvtb4df
-	 IOqWfDZ3YMt6AcVDu7QvErAXfeBHNh6y+rNWMhn0hVmwxPeI5CrVxFvyPIFimJyGpg
-	 nE/x4baTUv3ZLhr8i7J5MSl14u5Qy1VMsdekPsPPaTn38RQle/mVkrpTbF+snqayKg
-	 14I/VxWN0iEXWVGvhnupBy1xMtrAUczXjoA95D9vBIdKQDrf52AVmsIHSxuj2QY77K
-	 USvTGVQ4GYNBw==
-Message-ID: <sashiko-outbox-214316@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] iio: pressure: dps310: add a data-ready trigger
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rupesh Majhi" <zoone.rupert@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261114083828.18059-3-zoone.rupert@gmail.com>
-References: <20261114083828.18059-1-zoone.rupert@gmail.com>
- <20261114083828.18059-3-zoone.rupert@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 08:59:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=et4hn7GR
+DKIM2-Signature:  i=1; m=1; t=1794647438;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=web.de;
+ s=s29768273:rsa-sha256:bqh0TK9tA1NJy1nA0Zyngs7KP9sP
+   OsWwsUy0TPq0mIpYOCGMNML5mLc52hmCZV9Uy/UTs44JdcTpZ20WcEWY0PnlgJS91PLaxhM9aFX
+   Oo2CvWUOn0ae+gT7Vn7TCYWTWNhLz8Q3yJwJvDJepGTlLBBntxkWOzWmK0kIlFDwXo2YQmqyXKO
+   ysHtzKXf5laxDGQIbtUU3GBhAJzIhwgR5oXlW4NXCZzjG3HBUrP8e+yIpUTEvdFvbGpNotykVur
+   d1B62oeOksP1h5w8UEjTQLZhdQZ2SKAnMdI3D8Pd15RwpwvvL/inlanMlKNuuA6eQGbQXhUU8dq
+   hhTtSdlFXHDKUg==;
+Message-Instance:  m=1;
+ h=sha256:
+   zCgGOO46jbEx7tHixHD1B/wiAcFKW9YGy6fpLA4gVu0=:
+   srJchHbhFIM00WY0OUPcWUvdjsj8qJknYDvV+oECsnA=,
+  sha512:
+   AiYlbsKy9Rk2b47dc4pYMTtT8ftYllGiP6IcnRGdbWBv6zE7yymZNBQ9XTFiYyJwppRBtlpC17pdbwWa2sgdyA==:
+   yyCIOEFfPsjH7sBC8+dn7B7FhZAOmDKUgHvdI0FfDR6wO8Jfa13fujo9ATKRvMJfTQCBvGAK5r3+MTlbLpeoOw==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794647438; x=1795252238; i=markus.elfring@web.de;
+	bh=f9t86iKgY/RA+c+/FaB5GFCHep1CCR2UihSVVBNfavM=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=et4hn7GR62ZVZ8zIcPn5+JhifpooeSKXPB0txUdnIlRfkkS/ib+MPIgv5+6kebK4
+	 xww0lAbCY/l4TlE/APakl0GHjCtPYIbNipgcDP4lj6k9B8V7B11rWGD2Tr8/ITikh
+	 NRZJbucDb4XfxaGLRQ2Ae9eM+M0Hn4HmmoqyOZ7i8Yc1qHPQR4Mw4ITDtflHAZGDJ
+	 4QIZxzyU37kMcAOmCdBYmLT/b5dNTwovVmLTn3js7Jqm3fHCx8rOrwYZu0d8nPj9J
+	 LNH/+onDM2QPItk0wkB1ElnlC35OKVlVLbk2W074NtP0b4sab+cm3FLu+4emB9Qtu
+	 QLaPAl8R+2hMk6o4GA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N2SPD-1wSSkj2oDH-00vn5Q; Sat, 14
+ Nov 2026 10:10:38 +0100
+Message-ID: <c879e1a7-8e5e-4bde-9742-5384ffaa13fd@web.de>
+Date: Sat, 14 Nov 2026 10:10:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,133 +78,148 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Junyi Zhao <junyi.zhao@amlogic.com>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, linux-amlogic@lists.infradead.org,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261110-a9-i2c-v8-2-1e9d2682f86b@amlogic.com>
+Subject: Re: [PATCH v8 2/2] i2c: amlogic: Add Amlogic A9 I2C controller driver
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261110-a9-i2c-v8-2-1e9d2682f86b@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:PGlWamaXRSV9ETjRHbx4oaj+rDS9VzYqFmfDjgNQyipWoROWEyu
+ QOoVfGtR442ROSMPFBClWp2LzU41mdNsX0GGHb4vhM35dTm0v9f/yMv0/P6ZhhpNqM5dniS
+ GQKXs7N+IL0hQKTVXM8omZvQapa9605+2ptaSWISqnCEz75rvhdXWH5R4qPIR2VSolkCrMH
+ Ui/QUj3L607YQ3odsAhTA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:bZB6lC22pII=;Cg6wmmOPLGpADUZr4vaTWj0JUKe
+ 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
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] iio: pressure: dps310: blocking temp wait in
-  dps310_fill_channels() on IRQ
---
-
-commit fcac9adbf4cd29f69b8e01eb7d00e6810af90fad
-Author: Rupesh Majhi <zoone.rupert@gmail.com>
-
-iio: pressure: dps310: add a data-ready trigger
-
-This commit adds an IIO data-ready trigger driven by the DPS310 interrupt
-to capture pressure or temperature results with interrupt timestamps.
-
-> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-> index 5cee23986f307..4bff9e93ea92c 100644
-> --- a/drivers/iio/pressure/dps310.c
-> +++ b/drivers/iio/pressure/dps310.c
-
-[ ... ]
-
-> @@ -1375,6 +1393,7 @@ static irqreturn_t dps310_trigger_handler(int irq, =
-void *p)
->  		s32 channels[2];
->  		aligned_s64 timestamp;
->  	} scan =3D { };
-> +	s64 timestamp;
->  	int rc;
-> =20
->  	mutex_lock(&data->lock);
-> @@ -1383,7 +1402,12 @@ static irqreturn_t dps310_trigger_handler(int irq,=
- void *p)
->  	if (rc)
->  		goto err;
-> =20
-> -	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), iio_get_time_ns(i=
-io));
-> +	if (iio_trigger_using_own(iio))
-> +		timestamp =3D data->irq_timestamp;
-> +	else
-> +		timestamp =3D iio_get_time_ns(iio);
-> +
-> +	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), timestamp);
-> =20
->  err:
->  	iio_trigger_notify_done(iio->trig);
-> @@ -1391,6 +1415,105 @@ static irqreturn_t dps310_trigger_handler(int irq=
-, void *p)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static irqreturn_t dps310_irq_handler(int irq, void *private)
+=E2=80=A6
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+> @@ -0,0 +1,430 @@
+=E2=80=A6
+> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
 > +{
-> +	struct dps310_data *data =3D private;
-> +
-> +	data->irq_timestamp =3D iio_get_time_ns(data->iio);
-> +
-> +	return IRQ_WAKE_THREAD;
-> +}
-> +
-> +static irqreturn_t dps310_irq_thread(int irq, void *private)
-> +{
-> +	struct dps310_data *data =3D private;
-> +	unsigned int status;
-> +
-> +	if (regmap_read(data->regmap, DPS310_INT_STS, &status))
-> +		return IRQ_NONE;
-> +
-> +	if (!(status & (DPS310_INT_STS_TMP | DPS310_INT_STS_PRS)))
-> +		return IRQ_NONE;
-> +
-> +	iio_trigger_poll_nested(data->trig);
+=E2=80=A6
+> +	spin_lock(&i2c->lock);
+> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
+=E2=80=A6
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +	spin_unlock(&i2c->lock);
 > +
 > +	return IRQ_HANDLED;
 > +}
-> +
-> +static int dps310_trigger_set_state(struct iio_trigger *trig, bool state)
-> +{
-> +	struct dps310_data *data =3D iio_trigger_get_drvdata(trig);
-> +	struct regmap *map =3D data->regmap;
-> +	unsigned int status, bits =3D 0;
-> +	int rc;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	if (state) {
-> +		/* Status latched while disabled would fire a stale interrupt */
-> +		rc =3D regmap_read(map, DPS310_INT_STS, &status);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* Without pressure, scans follow the temperature results */
-> +		if (test_bit(DPS310_SCAN_PRESSURE, data->iio->active_scan_mask))
-> +			bits =3D DPS310_INT_PRS;
-> +		else
-> +			bits =3D DPS310_INT_TMP;
-> +	}
+=E2=80=A6
 
-[Severity: High]
-Does triggering on DPS310_INT_PRS block in dps310_fill_channels() waiting
-for DPS310_TMP_RDY whenever the pressure rate exceeds the temperature rate?
+What did hinder you to avoid duplicate source code a bit more for such a f=
+unction implementation?
+https://lore.kernel.org/linux-i2c/84565a50-0c52-45ff-b43a-3d30902690df@aml=
+ogic.com/
 
-drivers/iio/pressure/dps310.c:dps310_fill_channels() {
-	/* Compensation needs a temperature, so it is sampled either way */
-	rc =3D dps310_read_temp_raw_locked(data);
-	if (rc)
-		return rc;
-    ...
-	if (test_bit(DPS310_SCAN_PRESSURE, scan_mask)) {
-		rc =3D dps310_read_pres_raw_locked(data);
-}
+Can another lock guard become helpful here?
 
-Each scan reads DPS310_TMP_BASE and clears DPS310_TMP_RDY. When the next
-DPS310_INT_PRS interrupt fires before a new temperature conversion has
-completed (for example at any pressure rate above the 1 Hz default
-temperature rate), dps310_read_temp_raw_locked() sleeps until the next
-temperature conversion finishes.
-
-While the IRQ thread sleeps with DPS310_INT_STS already cleared and the
-oneshot IRQ masked, new pressure conversions overwrite DPS310_PRS_B0..B2
-and re-latch DPS310_INT_STS_PRS. The scan then pairs the overwritten
-pressure sample with the earlier data->irq_timestamp, throttles capture to
-the temperature rate, and leaves DPS310_INT_STS_PRS latched on return,
-which causes a spurious level interrupt or stalls edge-triggered
-interrupts.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114083828.1805=
-9-1-zoone.rupert@gmail.com?part=3D2
+Regards,
+Markus
