@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794619128;
-	b=nBaOkNQSAIPHrA73wscg1Qqx47M3jto1qGzm4X43Yl+gf9MfHKTSkj1xhWYa8b+eY00S
-	 85wwWc+Xa/xapkyEfgCshJ0q2knb2/St4jeyDRC5DaeRwSMMXIKiKRDt53F3gk/vUkWdY
-	 3VNddvlElgKUFmUcRww3Ulw4EFL9oDRpR9KIOgT7WnpRXJURwUuXJllAUqc5vSf2BAcAy
-	 FnGgisnhdz79lBPMnIhRjr7E94Q7nVn4By7M2gwdsa0ASArcsrOHXK5KcR4DarVQJqg78
-	 maXXw2IdG7xHZOlJvxxMqQh1x7Lqi70UtYw47nYCxuytyyP6jolSw82lFnkMyYSJVXQ==
+	t=1794619757;
+	b=pz9H2nY56Rq623S2ef4NCYWS3OEOEnlLL1TCxhGC/6E4vxU3SsMQNAK3q7JQU3z8UybH
+	 ob9sUGeTpZmH9kUmOL4mYhOP0yy4BaURFSsR64tml4XIhEybJlAePfrIQC/i+xga2qoNJ
+	 cEd9VArd7/6qSHAnXVicZK/5NTluJKQHYs1IbbsLZHhiPOhY/p4HtdHzKDUUMIV87xuWg
+	 mHR4aC76saqFPetlq3lZd9s+HEMAL9RHOIC/b+Fisj1RDtTA77sjHMcJQG67L0inLBjQ7
+	 FR6SWSebRPDQiWPJdYxFIVwoSnv/IIUHSfAxbSTE06svm2N5Ditd1YUdqElYc4fd00A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794619128;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wmVGPgSL0c8qID+VDI0TPgSKhatmVBsYpSBuw3LOSy8=;
-	b=kYsw7+2WcGC+I39rSoUqpHZtNurWfYrZg+OQc6N5rer0o/raPYIozNuAN1stKJQ1hod5
-	 RyHU5C1bJJNn8sEY7EdvDmxBq6hY4DsGDWM5GFavmrerfuZirWCvmDV18Dbi+3ROiPuHU
-	 PE2r9A1eid0WmrtIxPQUFAiwcz2hQ/DbMO08z3SrcMsYPBYTGu7VzIF91vt0E2BwWZ4rV
-	 4bHTRlGy2zRmezDTV6URJh/OgNmszY0ZRWX6W9KkaLAJCRHWl+pK624913Ch3Ad9+tzbQ
-	 NZqxL5gZaSh0RU+qR5/v1A3fyFH6m9H1xUezpULp14P7O15IDT3cy+i8os75GNy4AJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794619757;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=61mDStsFc8kSAWnJYD+aidfsOroTTCmzZpuk8Z8MBn0=;
+	b=ObVEyTPkX88ETqTuPO/vEjrBzeG3MyIuNpyVlm/tW8WMzwkm2vLC8vV5aF5eSX/se/9s
+	 O7TzdULFjbxWChWKlXZNhM6xt8OsIynztmg7+QGgrmkAqo64OVdWHA7Qaj8cQFHxT1bYE
+	 7wZRy4n1acWrwA61e1h2yuQb39P5lhJ72Bf0TZO0P60HrJHTxqSl4P3eDmzrI4f6hPoz3
+	 sIxq48PWFmor3ivmPbMI1NgXTrUHzhiJX7KwOEyisj/EGe5BC1xT5krdNBG7BTJb48fE2
+	 pS7YBORcuJ8quDKzXCcK523QqzkDewWIZmkq3lLwLSnj5uNJtlDMbrkDvJt567wPAYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cG9nu54o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Emk4Q9PJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CE5606A336;
-	Sat, 14 Nov 2026 01:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFE1606A323;
+	Sat, 14 Nov 2026 01:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cG9nu54o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070BD1F000C4;
-	Sat, 14 Nov 2026 01:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Emk4Q9PJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3B51F000C4;
+	Sat, 14 Nov 2026 01:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794619128;
-	bh=wmVGPgSL0c8qID+VDI0TPgSKhatmVBsYpSBuw3LOSy8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cG9nu54oWUwSepxqOgG86lSOoydJGG5oWOoJFj6KoBlOvC7wRpgSImvAcYdCbpzlC
-	 1mdJuZa6mQ5F2w1yQPW6V4Ut9sMcNjAqZSjlqhxglFOYAVz/Lq16bj7q6ESBKTAxM+
-	 +5sKFQv67utTG4rywYoTHpqaWpPnOB0LzE7ZLscmr2ZUE2TZfMfFtlse3X/NDPtDSD
-	 tgPu2hl58Sr5ZnjZGefpX5UwBRXtXY4TQDO9XPng0Jhb1OTGmML5E0vi5283GEeuzQ
-	 Xzhp+qA6Y6etAeOv2tMsYiUr095egyDcc6Eq3bHlkQVahSm2eiUvvnaD+2H6gMfcTb
-	 k0VlvYxyCYmqw==
-Message-ID: <sashiko-outbox-214001@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] PCI: qcom-ep: Set initial interconnect bandwidth
- before enabling clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261114-monaco_ep-v3-4-7fe227cdfac0@oss.qualcomm.com>
-References: <20261114-monaco_ep-v3-0-7fe227cdfac0@oss.qualcomm.com>
- <20261114-monaco_ep-v3-4-7fe227cdfac0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 01:18:47 +0000
+	s=k20260515; t=1794619756;
+	bh=61mDStsFc8kSAWnJYD+aidfsOroTTCmzZpuk8Z8MBn0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Emk4Q9PJhTQw1cheHmtHaaOVxNyXVrRsGDpCbt0SzzBSWJAFIPRnEieLY6Xxt+ulE
+	 EpNkksHVRRiPizOpXpSm2k0v68fACSB+30dQGn5zUosjSKePbR+AH//J5z7kUu+mDh
+	 JAlrKIlPQNZ6ImtqabIhwf9bNqy/pGhXzo7wTQtwSFWBPbliKnMOT3GP32Idl2ig9E
+	 YNQ7wJ1oDTeB94lqTg3hfglggHPcJsqBHc9uZyxNFz3B4vUN8KGacLxkXqmSwCntKv
+	 K+/yKRq+c1TKPJiue0mHdNKJE+t6lnNduy9p+wwd1YkoLIA/L3Os8qncjIa8+U4yhK
+	 GwxuxWvrilLcQ==
+Date: Sat, 14 Nov 2026 01:29:06 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Patrick Fischer via B4 Relay
+ <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Cc: admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Kevin Tsai
+ <ktsai@capellamicro.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <20261114012906.6f66edce@jic23-hlaptop>
+In-Reply-To: <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
+	<20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,34 +66,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] PCI: qcom-ep: missing Fixes trailer for commit 01794236666a
---
+On Fri, 13 Nov 2026 20:59:00 +0100
+Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
 
-commit 41911bfe7f3846f665ed95b61c308e2f3f2bb60e
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> 
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count. The driver
+> takes the second address from the second reg entry and falls back to
+> 0x11 when there is no firmware node, as with new_device.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers (drivers/staging/iio/light/cm3217.c in the 3.4 kernel
+> rel-tegranote-r8 and the 3.10 kernel
+> android-tegra-flounder-3.10-nougat-mr1.1). One value differs: the vendor
+> header defines 4 T as 4 << 2, which is outside the two-bit field. On a
+> Tegra Note 7 field value 3 gave four times the 1 T count, so the driver
+> uses that. For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
+> 
+> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # Tegratab P1988
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Hi Patrick
 
-> PCI: qcom-ep: Set initial interconnect bandwidth before enabling clocks
->
-> Some Qualcomm platforms require the interconnect bandwidth constraints
-> to be set before enabling the interconnect clocks, otherwise some
-> clocks get stuck in the off state.
->
-> Move the icc_set_bw() call before clk_bulk_prepare_enable() so the
-> bandwidth vote is in place first.
->
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.co=
-m>
+One small thing about how you are handling the firmware absent case.
 
-[Severity: Low]
-This fixes the ordering between icc_set_bw() and clock enablement so
-interconnect clocks do not get stuck in the off state.  Should the commit
-message include:
+Thanks,
 
-  Fixes: 01794236666a ("PCI: qcom-ep: Add ICC bandwidth voting support")
+Jonathan
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-monaco_ep-=
-v3-0-7fe227cdfac0@oss.qualcomm.com?part=3D4
+> diff --git a/drivers/iio/light/cm3217.c b/drivers/iio/light/cm3217.c
+> new file mode 100644
+> index 000000000000..0c2c7f9d7d69
+> --- /dev/null
+> +++ b/drivers/iio/light/cm3217.c
+> @@ -0,0 +1,419 @@
+
+> +
+> +static int cm3217_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct cm3217_data *data;
+> +	struct iio_dev *indio_dev;
+> +	u16 addr_lsb = CM3217_ADDR_CMD2_LSB;
+> +	u32 reg[2];
+> +	u8 cmd1, cmd2;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +	i2c_set_clientdata(client, indio_dev);
+> +
+> +	ret = devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
+> +
+> +	/* Without a firmware node (e.g. sysfs new_device) use the fixed one */
+
+I'd rather we handled that explicitly.
+
+	if (dev_fwmode(dev))
+
+That way we can return an error if there is firmware but it's broken.
+
+> +	if (!device_property_read_u32_array(dev, "reg", reg, ARRAY_SIZE(reg)))
+> +		addr_lsb = reg[1];
+
