@@ -1,98 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794622585;
-	b=AliGyWBO+bFXjGW53enWy5M0dWjHzIQpZS3HwA7SbClX+jjv9lME5pYUT8JEs8JSOdWJ
-	 bPlRf4Y0YT6MD/VPEL5oWD5TNX6bVoroOneMA/EHmcKoUQdE7fNjgn1p545q/pJyi8IzA
-	 Tvs3AkWdckahbwTkTO4NsterANTRiPqCZu8GlBk/yGkemrMPnYevotG5kgodUYCSzJex6
-	 xPfBf5Xx2FgaKbtj5EbtbmjFkkwvkESm0/2C4wfDIvORc6bA3K54KXnV9JvDFxmIiz77W
-	 cKOAkQjKM1bsM2haB4U65vmHFYemqbRrJtvnAmiqB59EmfEC3DAUI2B9Yor0Fw8IKeA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=7hluQx0je7AzLQg08yQ6Lfq0yJmLSYFDYkKpRHTVUGE=;
-	b=XpdLdEp1yO922h2Sj+7Lp09VXkvexNEKFQVCsb/OiZztOeXZHC2Jquh1GKRY+rYvQwXo
-	 MRXdgR+Apo0LixFxypF7vaHoigL0rSPkVDVOXZ9as5oZHNaFYKQMVIU1oTp511fTsndct
-	 HJyLXHzsCYwCUiAaifam7Gl1l478nnYHzPYBLSx+2KrdJZBH5U94odfv7pQcvT40CQHu1
-	 grYcUpvFlE4NYJQFBO+Td3AjxF41k8LI7xuUm554IDQDLGTbCoItm2wAJwQeTWFhH3wcP
-	 hcGKWBYGEMAn339Bj/DW1JZpfFJOJdHuzaRU8M6vQwvGG69IDP5/BF3qIHkGCO2oUkg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zq2uta53;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794625542;
+	b=mGXO/7o8nNgcaRvuamdkqSEtPDamUBq7iZMXd6MxY1jCuynuedGQtpGjKbyuHbSRQde2
+	 zyV8UcCWNAU+vdkzex91kMrqQ1Ob3wB8SmV91aAjFJE2/8t9A+963OsvsQuLe03faVHjJ
+	 g4wGhuD0wDW/CvJ+Xo7G1u4+uU92nHzsx79jeqDKByvnSIWb1nUiHCkVNQF72YX4N1Q/T
+	 aVVbgYm0Vr4zCkrnDWckTEKxQ+lCeRqQVbajFxd9/s613m+vxT+Vcds9Y4IhldPVnELp9
+	 kisYovDtEsxlNrsPkfjtKTM11g3PGPmtMLZH0YS2tsqBP6XEfS29oPy/14OBk/G3xxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625542;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UAxf1tA4Cr+7QlSDXCBd5HF4p7OMrXfL6oGEmLb4cQA=;
+	b=FA/rl77UT5OG9Y79wnI2tOzOXwMI118S0LTobvs0t0F2fr76oSa1+p5lrax2JJ+JSazd
+	 OV5lcLtNu8UzuuUPSQnav859HOHlCzZdO0jqmfdH+4SF+tDyD7ffaExanctF2JS2CbU8U
+	 YSpX9w6Gdeb11SNIkkebSHlM9RHfJOh4EP5cS73Jp3wL2wZCw647h6ht/3L433Bki0AL2
+	 4yU839uIRuTqLxYHTBqejQERXGbZvHH8qXRiYh+/WTSNK9GBrag0mjuP7j8omhi7qPIOT
+	 DWGtHnLvynqUrx6lXdryPZLIlVI6oDRlCn6Qxkl5F0uAPijFQqFCD8DL6EvgKGJO9+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=SLmf0B96;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=20ooXzuP;
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96046606A323
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 02:16:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96046606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A481F606A883
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A481F606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zq2uta53
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab30d04674so2362341fa.2
-        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 18:16:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794622583; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gWUTqv8tXy6p+J4pRrAH+l8k34hDAdN/khkSiu2VN5ay2jiuMlwMdE7RWJQQoEVyEc
-         cVJXiKSaFQJP4k/fWZLN3As0i0lHlMKi+2QYTkagGdsSK/sTkAYDuIQ2vwQdVUJjXuAn
-         iWXV+5rge9zc0F3mNBIjml/wzzSTxFcLNi4bwpqFoTYiYrgxwVwkCEeLP/4DgPfRNtuJ
-         b+eScQxMwPWexhxzYH0CQxABofMT41fdyyUOmWJgo4ED40xE+Y7NhKAhi2vAV57ZW5uT
-         ahsNxXwK7gJ3PhVD3e3Lt3AG+gnS1eyDIlawaXP4CUBNEq74PqdsNPUM0M6Az0H8v25J
-         ipIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7hluQx0je7AzLQg08yQ6Lfq0yJmLSYFDYkKpRHTVUGE=;
-        fh=jlBv9+Xw61RO82aOy5OrcNUo9lcT5OBvSOXEAG3WHp4=;
-        b=cRuuY/EM8k3PnzY9naJMbGw+76ooNAlteSQihb3O+KV6xF+ocCw8lud+HFXfdPowxh
-         WjXdsJEApygEwqcF2BJs4lWb7SZNTNibCXbPHJQ7Xnzw45AgYzuOFXq9o/3dNaSIDKE7
-         CQi/C8iDCXzfMfUH0rvzwwsEq7q0/CeSc07MCux48dQcB0li+3CkSKTt43P5qAh6y0xM
-         D733BDGuLq0FRgHb0cS8XqKvAnK2XAJEwMDcYgnGZXwHUhhruUYPgIS+cxSemp/TpSaO
-         HcxmSYu0o3kqj+3Q0p/yMs/6PxW5EMLtmGgy3rFsJghByBoIGkx/+cHf0M9TxBEPIuvR
-         tnaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794622583; x=1795227383; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7hluQx0je7AzLQg08yQ6Lfq0yJmLSYFDYkKpRHTVUGE=;
-        b=Zq2uta53oVjD0LIq0TrU1C++Y4NBDFWDpm96qj3FoZltP7bJ+o1WForiZwhumN22sp
-         GxrqQVpg1IWerdRFq6+qJ9R+XPHCyOR5iE2uJ1KuACxrtfq/ZPhzExhNdp2CS3cMO0xL
-         SDMEqz6ZAyrxdL3BmvzdMbEycQE3pCp7PAw1I36dICN4SkPI/uXE6JaHw/blbE4GwW2K
-         x44G+UeVpu+nZiBRwiNcIB8+ZkycsSqFeh6IIlxA1h/PFlaSQB6HgzIFy4U6IYdcjii9
-         4fAZEfQ948QwroZMSjjvjzLtbzMTn4QLjiFh70xlvuw+L3ADpK5yKqWJDQrYiAlBn4CG
-         Gftg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622583; x=1795227383;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7hluQx0je7AzLQg08yQ6Lfq0yJmLSYFDYkKpRHTVUGE=;
-        b=z2kfQbGTOqUAstcgS53WrIdhRfCOOG6l+5z0FjL4O3EPVO4X4K+JD8u061WIsxnNts
-         Vf37o3JBp0topFLRFVnf/F5O9sOr2j2Jz+aTNVIwRvnvjv0j++xBhOfNhAXboq2Q5Spn
-         XRk8PRTLPcahvqtDvzNJA1I0B5OAbdx021zFDwI84oJMEuPC+QauPdvD6S6V8+uJbOFI
-         O6ByuqlIQA8rAS+9zqTkl3kcV89j4PMuVartTRY6i0Y/jK87JstDcv6zdkeaAnnVmbYL
-         fGZYuvSgG/nroyoJh1q6gLwL48KIMvYlMzN3DNbUzPP5T8OF0tJa3lN9PXIkq7W+spYt
-         WXBw==
-X-Gm-Message-State: APuU4Z+Mr0yaXrDcPF3PSahQFtTzI1TdcBREVjDJQVVAFWvLVI7WsW9y
-	FJZeJdp6j68dvWlSejZPHIEqZo8WqulAuzsRi/Vyep+W98A6CZHtBkZ+R32SzrLScH0uvHKMYSd
-	ZpWfWsLdasiQ+hOKAR8WDmkU3KNcNCzObIk2wGFoVBA==
-X-Gm-Gg: AYBFou0Z3GPCQubs+bWVwmKMQ4pzryXXeEgerQnkN3RRRhWP8n+FbK0zF7ZcNd1ElsD
-	JmkHgMmaUJjhiUFgS1Ahqa8YC0dg6pjArVi5BMTWxi/oQMei8wF28Q6YEPWV3wloUeOCB4pn1yW
-	h0nKrzSiZVa3Vom4NOgYEqhz+fdQ8RMQ9fVh2MRMnGfE30btwKmzBz0MWOw84pU58vYf2q9hlub
-	XD4NEOpo8f8W19g2V5RmaaB5QX2VK4CV4UNjH+BM6nodHhZDR8QRcSUjYtTlpvVeMSuysgk8Qk3
-	SV9Go/8PeZ8fqRVs3l1MdzkXCvpdxABMx94Z5jPFXBSoW4NmaVhNNuZbJgGHILU/OllKhR1rsNv
-	mp/FTtD4HWiJBNu2ul1OHix4C2eeo32F8jM0mHm5pVfn/kv6wXyyoOXhFY/iK3blq2pOJ/es=
-X-Received: by 2002:a05:6512:3da4:b0:5bf:ce1f:cd22 with SMTP id
- 2adb3069b0e04-5c170434e66mr1957787e87.0.1794622582532; Fri, 13 Nov 2026
- 18:16:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=SLmf0B96;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=20ooXzuP
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id D9AB71381A48
+	for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 22:05:40 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Fri, 13 Nov 2026 22:05:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1794625540; x=1794632740; bh=UAxf1tA4Cr
+	+7QlSDXCBd5HF4p7OMrXfL6oGEmLb4cQA=; b=SLmf0B96lGh0WKTDAucPkMFgEN
+	Iq8h41jGljy4nBTL+FdQu0pDp/S9yXiE/lZVxmBMPPNrhZv8Cdxt7+nRwE+bg81R
+	Vvi/4wjUBn+0L9oiMi3ley0y94fswPkXteiR74fxutN3NQCE1ZODqZTKEn2YXJg4
+	a3IGa1zvp7qTXCbzXbd+AdZOqQgEsUCkKT6SbIMlXEF78wz8Q1aMHDQg7nbMOPhP
+	7KYBbmcSMaTMzQDJbg+prwXsifYaK5ibE5bGj1dl7bdSW/1e1cVrL2NK0ggi/E25
+	BpPHiN+NYZFKRB+A5BZ8pYCi2aDZYIuZn+CpQfKLSUux76gmTwE6UHdkfuew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794625540; x=1794632740; bh=UAxf1tA4Cr+7QlSDXCBd5HF4p7OMrXfL6oG
+	EmLb4cQA=; b=20ooXzuP5gZ71GZkBepmSqaoytsS2AYyGiBJQIcPHTKQDg28C/0
+	RLxMd7iVCoc6ucoidvzcn5gTwZoqgFwV36kpSVCYSsu/YCzQLqYCH5LEr/vBqab5
+	6Ny2hxzUhZ3nsksyftzSyqR79byQS7PI0YtVFnKQbAZPDuLa/ja9vt6W36w9+56s
+	qMbeOCL7IhWQDJ2TF2ZEqqS+7tfYKrx77eZCU3Sn2S74Iil4cQayrsWfwvC6SxIj
+	qhlyf5qbA0YfDBPGFo6Kms1g53kr9rNeWZ4yiIRPcwNuMlasALi5UFTFO5kUDRWD
+	6Vw1NJ/KcVQJtQ7jIRMzmqie4o539FrMuEQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794625540; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:gmlZoPocdAnKqgg0cch4bGSqIhxPVdpwWlHK0IkIfuuCRq/
+	JOxx+w1vVZiqJJdlolOwOeFPxSgJnXx6kkgdhg+35Po0hvNQoOv4DwCq+/voR2np
+	rLq8rQofYwacgayhuxAL/aC1j5fLV931nicAn+jLFMqIw5stkR3appDtq0iPky0r
+	FRKDKCTpr4bbYPH4/a3kazCiZYMyqDt0k5c2jyiDFuPi8ug4sYKMKPhUKyROJhqo
+	+7TLtKiyuRElnqjE5bzXuJmyl0DdSkiOsw9cpzubks0/FAQir+3b+MT4yoUay9O+
+	7bos0MpVKgTlCe9fygoA9XuRP0othJrSK3UCy6w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:SDtmj8snwKhq8a3m/AlQ2VN8lyhDTfavIW9m3/Hv9uQ=:Dxp8t0XS9CDQsuZULCGW4bCR/gfLgWevAxnrBCEXvoI=;
+X-ME-Sender: <xms:A9D3angTc-jJQKx0ThFjBcTKyPvThemEnut9P74Wtw8oPCEbnZ_i2w>
+    <xme:A9D3agebrEJfkntbm-8goOK0-XsiRYoNCujfEhjbpjdM46Ec1X4_VQp1nr5W5ThBb
+    iPSvQy0cmnjfyUrd_jl_x3WKuzkSpPYNUSOGoftZ4QuXVmlHYc4p0s>
+X-ME-Received: <xmr:A9D3auWWGH7B96NWRO8yJ7BP67qoYSODrwmYZ2-7EYDqW5XxwCwp2GvwUszfNxwfBL0UooGS>
+X-ME-Proxy-Cause: dmFkZTEGsJpuk8b1nRIC2ZrNHABVA/y8lolim0B8NUFBfTO9HHBwOHtfr1x7E/bYF5Rt+N
+    +fjHwgF+/FNTCnlkrazUp18/rPOl/rB3MJ9LPbCMpWMDKR7xfhSwxoxPOfrVjehsZ7rThv
+    ObWwQdnjukeezJvsx5kDz3ycsHw9/RLsGLfuLEJD3Ydv7ya52aK6hdyT4N02jwdG3OB97/
+    uAkfIG1lPXQjQwUOSldTArF9y9eMLQtbvdy8MTZ+DPxll8mMqe7lwyYcoBWgL6tVFYilbk
+    MAUBYBkVsYjIUgH+DbbB8DukvKdVszTQM/MLV5Ry5ydTWvI5NAVGO8aCgn9iOHfgKVaAAm
+    up1kE8+dA0pOwmdQtr63+CYXBeGBtrTBqHX9W6buBbK/luOWcT5tcmsOBVSzIHy7AT0XIS
+    i1sZds4JFUx3zpbTCo5EdT8xqZ2oHuOdkmU2i8Up3xBOSTY3/POVhaxUfrF4KoC6Bs1mQp
+    H+cq7dq/GHrUDAFxAhITR8mcFkDaXX1dftqHTA2oFN199H8xk5w/iR25U7SUnRT5oE7tUm
+    pcynaSRKV1eOXdanBhPZF2mxX5XOeRgarTBfiAVIcBBTx2tZ8mQiLj5rAXFTT1mmKvw5iq
+    8HNLrq5o4H7zFP6FqTUCvrgwTZ+dsaGxBqnTJxCa4NrbCTA9tfIZKfrzSvOg
+X-ME-Proxy: <xmx:A9D3aqwZezan7IGAqtDx_WjYTbAkStq5wbiY39PeB8RObbHTrXRiNg>
+    <xmx:A9D3alDb7fE8RwLpRRJtmCEAn5ewxmdvh-Xvu7VKAd_VIEumDIrAAg>
+    <xmx:A9D3ag44kJmGA00JLhsf7K57Pk5D8wOY7VSwTMxvP8pnZ2RWIuvZIg>
+    <xmx:A9D3aslmjpoQ6q5gljMj7oMNu3ZuU5jyze5kWObhF71nHilj1z5oBQ>
+    <xmx:BND3aknGvxDzWrnVpXrprETPSNYjPF7oTQIq3S91xg89qomcRWza7CD9>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 22:05:31 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	ulf.hansson@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	finley.xiao@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	vlwwwwww@gmail.com,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v17 00/12] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 14 Nov 2026 16:05:17 +1300
+Message-ID: <cover.1794615324.git.gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,34 +150,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114-iep2-v1-0-a8edde5a21e1@gmail.com> <20261114-iep2-v1-2-a8edde5a21e1@gmail.com>
- <sashiko-outbox-213935@kernel.org>
-In-Reply-To: <sashiko-outbox-213935@kernel.org>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Fri, 13 Nov 2026 18:16:11 -0800
-X-Gm-Features: AclHuK-eumJ5EkgAdvIOsdvyNYB05MQXF1E8x5skysCUrSKB4NwrQuQYc1Sc6RQ
-Message-ID: <CAEy9hNXWr-v2r0rX7QO+Cu7NdTFk4AydEcn4qL-YwyrVTMRLGw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: rockchip: Add IEP2 deinterlacer driver
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	media-ci@linuxtv.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> When pm_runtime_resume_and_get() fails in iep_device_run(), does
-> iep_fail_job() leave ctx->prev and the second field-rate CAPTURE buffer
-> queued?
+This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
+driver.
 
-Yes. v2 returns both.
+Based on: next-20261113
 
-> Can writing 0xffffffff to IEP2_INT_CLR drop a frame-done interrupt when
-> IEP2_INT_OSD_MAX fires first?
+The pmdomain part of v16 9/16 is now a separate series on Ulf's next
+(v16 10/16 is dropped). 12/12 needs its 2/3 to make the NPU domain take
+its supply:
+https://lore.kernel.org/all/cover.1794615323.git.gahing@gahingwoo.com/
 
-Yes. v2 clears only the bits it read.
+Changes in v17:
 
-> Can v4l2_m2m_suspend() race with iep_release() and read a freed m2m_ctx?
+- Dropped v16 7/16, 10/16 and 14/16 (the power-domain reset and the
+  extra domain clocks), following Finley Xiao's (Rockchip) review.
+- Following Heiko, the clock indices are now ROCKET_CLK_* constants
+  (1/12 and 9/12).
+- The pmdomain changes are now a separate series, linked above.
 
-From remove(), yes. v2 unregisters the node first, then calls
-v4l2_m2m_suspend() under the device mutex, which also waits for ioctls
-in flight. In system suspend, tasks are frozen, so no release can run.
+Testing:
 
-Arun
+Tested on a Radxa ROCK 4D running Armbian edge 7.3, with the v17
+changes backported (this series and the pmdomain series):
+
+- charsiu (https://github.com/gahingwoo/charsiu), an open source LLM
+  runtime that drives the NPU through the rocket UAPI (/dev/accel)
+  without Mesa or the vendor runtime, ran Qwen3-0.6B (Q4_0) 30 times
+  after a warm reboot and 30 times after a cold power-on. Each run starts
+  with the NPU power domain off. All 60 outputs are identical, with no
+  job timeout, IOMMU error or SError.
+- Job timeouts forced with a 1 ms timeout, three times in one boot:
+  after each, the next run gives the same output as before, with no
+  error.
+
+The v15/v16 comparison of the reset order is in 4/12.
+
+Logs: https://github.com/gahingwoo/linux-rk3576-npu/tree/main/board-logs
+
+Known issue: in v16 I saw the IOMMU not recover after repeated resets
+with a 2 ms job timeout ("MMU_DTE_ADDR is not functioning"). With v17,
+after three rounds of forced timeouts in one boot, it recovered each
+time; I have not looked into what changed.
+
+Tool use:
+
+An LLM helped me read code and technical material and write part of the
+implementation. Some of the code in the series was first drafted by an
+LLM, and the commit messages and cover letters of earlier versions were
+mostly written by an LLM.
+
+I reviewed the generated code and tested the changes on real hardware.
+I also used an LLM to write test scripts and to compare register write
+traces.
+
+For v17 I wrote the cover letter, commit messages and code comments
+myself in Chinese first and translated them into English with an LLM.
+
+Tag changes:
+
+- 1/12 changed in v17. Heiko, does your Reviewed-by still apply? If the
+  change goes beyond what you reviewed, please take another look.
+- 7/12 keeps Conor's Acked-by. The clock count changed from five to four
+  in v16; Conor, please confirm it still applies.
+- Tomeu, the GET_PARAM enum in 10/12 is unchanged (RK3588 = 1,
+  RK3576 = 2). Is that fine?
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (11):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  accel/rocket: add a GET_PARAM ioctl for the hardware version
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        | 26 ++++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 40 ++++++++-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 22 +++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 70 +++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 14 +++-
+ drivers/accel/rocket/rocket_core.h            | 20 ++++-
+ drivers/accel/rocket/rocket_device.c          |  3 +-
+ drivers/accel/rocket/rocket_drv.c             | 61 ++++++++++++--
+ drivers/accel/rocket/rocket_drv.h             |  2 +
+ drivers/accel/rocket/rocket_job.c             | 84 ++++++++++++++-----
+ include/uapi/drm/rocket_accel.h               | 40 +++++++++
+ 11 files changed, 345 insertions(+), 37 deletions(-)
+
+
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+-- 
+2.43.0
+
